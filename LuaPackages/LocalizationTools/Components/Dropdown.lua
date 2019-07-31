@@ -125,12 +125,16 @@ function Dropdown:render()
 						self:_setOpen(false)
 					end,
 					Render = function(position)
-						return Roact.createElement("Frame", {
+						return Roact.createElement("ScrollingFrame", {
 							Position = UDim2.new(0, position.X, 0, position.Y + self.props.ListItemHeight),
-							Size = UDim2.new(0, 170, 0, #(self.props.ListItems) * self.props.ListItemHeight),
+							Size = UDim2.new(0, 170, 0, 200),
 							BackgroundTransparency = 0,
 							BackgroundColor3 = theme.MainBackground,
 							BorderColor3 = theme.Border,
+							ScrollBarImageTransparency = 0,
+							ScrollBarImageColor3 = theme.ScrollBar,
+							ScrollingDirection = Enum.ScrollingDirection.Y,
+							CanvasSize = UDim2.new(0, 0, 0, #(self.props.ListItems) * self.props.ListItemHeight),
 						}, listChildren)
 					end,
 				}),

@@ -17,8 +17,7 @@ local Constants = require(Plugin.Src.Resources.Constants)
 local Theming = require(Plugin.Src.ContextServices.Theming)
 local UILibrary = require(Plugin.Packages.UILibrary)
 local Localizing = UILibrary.Localizing
-
-local RoundTextButton = require(Plugin.Packages.UILibrary.Components.RoundTextButton)
+local RoundTextButton = UILibrary.Component.RoundTextButton
 
 local function ButtonBar(props)
 	return Theming.withTheme(function(theme)
@@ -31,6 +30,8 @@ local function ButtonBar(props)
 			local LayoutOrder = props.LayoutOrder or 1
 			local AnchorPoint = props.AnchorPoint or Vector2.new(0, 0.5)
 			local Position = props.Position or UDim2.new(0, 0, 0.5, 0)
+
+			assert(type(buttons) == "table", "ButtonBar.Buttons must be a table")
 
 			local components = {
 				Layout = Roact.createElement("UIListLayout", {

@@ -7,8 +7,6 @@
 	If no warnings are necessary, this thunk dispatches SaveChanges immediately.
 ]]
 
-local FFlagStudioLuaGameSettingsSaveErrorsPopUp = settings():GetFFlag("StudioLuaGameSettingsSaveErrorsPopUp")
-
 local Plugin = script.Parent.Parent.Parent
 local SaveChanges = require(Plugin.Src.Thunks.SaveChanges)
 
@@ -17,10 +15,7 @@ local getLocalizedContent = require(Plugin.Src.Consumers.getLocalizedContent)
 local showDialog = require(Plugin.Src.Consumers.showDialog)
 local WarningDialog = require(Plugin.Src.Components.Dialog.WarningDialog)
 
-local SimpleDialog = nil
-if FFlagStudioLuaGameSettingsSaveErrorsPopUp then
-	SimpleDialog = require(Plugin.Src.Components.Dialog.SimpleDialog)
-end
+local SimpleDialog = require(Plugin.Src.Components.Dialog.SimpleDialog)
 
 local Promise = require(Plugin.Promise)
 
@@ -45,15 +40,12 @@ return function(provider)
 			}
 		}
 
-		local errorDialogProps = nil
-		if FFlagStudioLuaGameSettingsSaveErrorsPopUp then
-			errorDialogProps = {
-				Size = Vector2.new(343, 145),
-				Title = localized.ErrorsOnSaveDialog.Header,
-				Header = localized.ErrorsOnSaveDialog.Body,
-				Buttons = localized.ErrorsOnSaveDialog.Buttons,
-			}
-		end
+		local errorDialogProps = {
+			Size = Vector2.new(343, 145),
+			Title = localized.ErrorsOnSaveDialog.Header,
+			Header = localized.ErrorsOnSaveDialog.Body,
+			Buttons = localized.ErrorsOnSaveDialog.Buttons,
+		}
 
 		return Promise.new(function(resolve, reject)
 			spawn(function()
@@ -66,16 +58,12 @@ return function(provider)
 			end)
 		end)
 		:andThen(function()
-			if FFlagStudioLuaGameSettingsSaveErrorsPopUp then
-				return store:dispatch(SaveChanges(settingsImpl))
-				:catch(function(errors)
-					showDialog(provider, SimpleDialog, errorDialogProps):catch(function()
-						--do nothing
-					end)
+			return store:dispatch(SaveChanges(settingsImpl))
+			:catch(function(errors)
+				showDialog(provider, SimpleDialog, errorDialogProps):catch(function()
+					--do nothing
 				end)
-			else
-				return store:dispatch(SaveChanges(settingsImpl))
-			end
+			end)
 		end)
 	end
 end

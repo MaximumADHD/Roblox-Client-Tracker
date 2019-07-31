@@ -221,6 +221,7 @@ ShadowEvsmHBlurDFS_3,Fragment
 ShadowEvsmHBlurDFS_5,Fragment
 ShadowEvsmHBlurDFS_7,Fragment
 ShadowEvsmHBlurDFS_9,Fragment
+ShadowEvsmPassThroughFlippedVS,Vertex
 ShadowEvsmPassThroughVS,Vertex
 ShadowEvsmRemapFS,Fragment
 ShadowEvsmVBlurLFS_1,Fragment

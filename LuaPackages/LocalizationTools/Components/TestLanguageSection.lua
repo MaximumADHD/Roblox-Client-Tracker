@@ -32,6 +32,7 @@ function TestLanguageSection:render()
 			}),
 
 			RobloxLocaleSelector = Roact.createElement(RobloxLocaleSelector, {
+				AllLanguagesInfo = self.props.AllLanguagesInfo,
 				Window = self.props.Window,
 				LabelText = robloxLocaleLabelText,
 				LayoutOrder = 2,

@@ -4,12 +4,13 @@ local CoreGui = game:GetService("CoreGui")
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
 
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local GameTranslator = require(RobloxGui.Modules.GameTranslator)
+
 local Components = script.Parent.Parent
 local Connection = Components.Connection
 local LayoutValues = require(Connection.LayoutValues)
 local WithLayoutValues = LayoutValues.WithLayoutValues
-
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local function TopBarLeaderstats(props)
 	return WithLayoutValues(function(layoutValues)
@@ -34,6 +35,7 @@ local function TopBarLeaderstats(props)
 		local statCount = math.min(layoutValues.MaxLeaderstats, #props.gameStats)
 		for i = 1, statCount do
 			local gameStat = props.gameStats[i]
+			local statName = GameTranslator:TranslateGameText(leaderstatsContainer, gameStat.name)
 
 			statColumns["Column" ..i] = Roact.createElement("Frame", {
 				Size = UDim2.new(0, layoutValues.StatEntrySizeX , 1, 0),
@@ -42,7 +44,7 @@ local function TopBarLeaderstats(props)
 			}, {
 				ColumnName = Roact.createElement("TextLabel", {
 					Size = UDim2.new(1, 0, 0, 10),
-					Text = gameStat.name,
+					Text = statName,
 					Position = UDim2.new(0, 0, 0, 4),
 					Font = Enum.Font.SourceSans,
 					TextSize = 14,

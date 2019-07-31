@@ -1,11 +1,36 @@
 Key,Source,Context,en-us
 Studio.PublishPlaceAs.General.PublishPlace, , ,Publish Place
-Studio.PublishPlaceAs.General.ResetGames, , ,Reset Games
-Studio.PublishPlaceAs.General.LoadGames, , ,Load Games
-Studio.PublishPlaceAs.General.NoGamesAvailable, , ,No Games Available
-Studio.PublishPlaceAs.General.LoadingGames, , ,Loading Games...
 Studio.PublishPlaceAs.General.MenuItemBasicInfo, , ,Basic Info
 Studio.PublishPlaceAs.General.MenuItemPermissions, , ,Permissions
 Studio.PublishPlaceAs.General.ButtonUpdateExistingGame, , ,Update existing game...
+Studio.PublishPlaceAs.General.ButtonCreateNewGame, , ,Create new game...
 Studio.PublishPlaceAs.General.ButtonSave, , ,Save
 Studio.PublishPlaceAs.General.ButtonCancel, , ,Cancel
+Studio.PublishPlaceAs.Devices.Header, , ,Devices
+Studio.PublishPlaceAs.Devices.Computer, , ,Computer
+Studio.PublishPlaceAs.Devices.Phone, , ,Phone
+Studio.PublishPlaceAs.Devices.Tablet, , ,Tablet
+Studio.PublishPlaceAs.Devices.Console, , ,Console
+Studio.PublishPlaceAs.General.Name, , ,Name
+Studio.PublishPlaceAs.General.Genre, , ,Genre
+Studio.PublishPlaceAs.General.GenreAll, , ,All
+Studio.PublishPlaceAs.General.GenreAdventure, , ,Adventure
+Studio.PublishPlaceAs.General.GenreTutorial, , ,Building
+Studio.PublishPlaceAs.General.GenreFunny, , ,Comedy
+Studio.PublishPlaceAs.General.GenreNinja, , ,Fighting
+Studio.PublishPlaceAs.General.GenreFPS, , ,FPS
+Studio.PublishPlaceAs.General.GenreScary, , ,Horror
+Studio.PublishPlaceAs.General.GenreFantasy, , ,Medieval
+Studio.PublishPlaceAs.General.GenreWar, , ,Military
+Studio.PublishPlaceAs.General.GenrePirate, , ,Naval
+Studio.PublishPlaceAs.General.GenreRPG, , ,RPG
+Studio.PublishPlaceAs.General.GenreSciFi, , ,Sci-Fi
+Studio.PublishPlaceAs.General.GenreSports, , ,Sports
+Studio.PublishPlaceAs.General.GenreTownAndCity, , ,Town and City
+Studio.PublishPlaceAs.General.GenreWildWest, , ,Western
+Studio.PublishPlaceAs.General.ErrorNameEmpty, , ,Name cannot be empty.
+Studio.PublishPlaceAs.General.ErrorNameTooLong, , ,Name cannot be that long
+Studio.PublishPlaceAs.General.ErrorNameModerated, , ,The name didn't go through our moderation. Please revise it and try again.
+Studio.PublishPlaceAs.General.ErrorNoDevices, , ,You must select at least one playable device.
+Studio.PublishPlaceAs.General.ErrorDescModerated, , ,The description didn't go through our moderation. Please revise it and try again.
+Studio.PublishPlaceAs.General.ErrorDescTooLong, , ,Description cannot be that long.

@@ -33,14 +33,10 @@ local getTheme = require(Plugin.Src.Consumers.getTheme)
 
 local fastFlags = require(Plugin.Src.Util.FastFlags)
 
-local AssetOverrides = nil
-local AddErrors = nil
-local getMouse = nil
-if fastFlags.isMorphingPanelWidgetsStandardizationOn() then
-	AssetOverrides = require(Plugin.Src.Util.AssetOverrides)
-	AddErrors = require(Plugin.Src.Actions.AddErrors)
-	getMouse = require(Plugin.Src.Consumers.getMouse)
-end
+local AssetOverrides = require(Plugin.Src.Util.AssetOverrides)
+local AddErrors = require(Plugin.Src.Actions.AddErrors)
+local getMouse = require(Plugin.Src.Consumers.getMouse)
+
 
 local createSettingsPage = require(Plugin.Src.Components.SettingsPages.createSettingsPage)
 
@@ -64,11 +60,8 @@ local isPlaceDataAvailable = function(props)
 	end
 end
 
-local isShutdownRequired = nil
-if fastFlags.isMorphingPanelWidgetsStandardizationOn() then
-	isShutdownRequired = function(currentAvatarType, avatarTypeToChangeTo)
-		return currentAvatarType ~= "PlayerChoice" and avatarTypeToChangeTo ~= currentAvatarType
-	end
+local isShutdownRequired = function(currentAvatarType, avatarTypeToChangeTo)
+	return currentAvatarType ~= "PlayerChoice" and avatarTypeToChangeTo ~= currentAvatarType
 end
 
 --Loads settings values into props by key
@@ -82,8 +75,7 @@ local function loadValuesToProps(getValue, state)
 		AvatarScalingMax = getValue("universeAvatarMaxScales"),
 
 		CurrentAvatarType = state.Settings.Current.universeAvatarType,
-		AssetOverrideErrors = fastFlags.isMorphingPanelWidgetsStandardizationOn()
-			and state.Settings.Errors.universeAvatarAssetOverrides or nil,
+		AssetOverrideErrors = state.Settings.Errors.universeAvatarAssetOverrides,
 
 		CanManage = (not FFlagAccessPermissions) and (function()
 			if fastFlags.isPlaceFilesGameSettingsSerializationOn() then
@@ -113,11 +105,9 @@ local function dispatchChanges(setValue, dispatch)
 		end,
 		AvatarAssetOverridesChanged = function(value)
 			dispatch(AddChange("universeAvatarAssetOverrides", value))
-			if fastFlags.isMorphingPanelWidgetsStandardizationOn() then
-				local errors = AssetOverrides.getErrors(value)
-				if errors then
-					dispatch(AddErrors({universeAvatarAssetOverrides = errors}))
-				end
+			local errors = AssetOverrides.getErrors(value)
+			if errors then
+				dispatch(AddErrors({universeAvatarAssetOverrides = errors}))
 			end
 		end,
 	}
@@ -145,15 +135,9 @@ local function displayContents(page, localized)
 			LocalizedContent = localized.Morpher or nil,
 			IsEnabled = fastFlags.isPlaceFilesGameSettingsSerializationOn() and true or isPlaceDataAvailable(props),
 
-			IsGameShutdownRequired = (function()
-				if fastFlags.isMorphingPanelWidgetsStandardizationOn() then
-					return isShutdownRequired(props.CurrentAvatarType, props.AvatarType)
-				else
-					return nil
-				end
-			end)(),
-			AssetOverrideErrors = fastFlags.isMorphingPanelWidgetsStandardizationOn() and props.AssetOverrideErrors or nil,
-			Mouse = fastFlags.isMorphingPanelWidgetsStandardizationOn() and getMouse(page).getNativeMouse() or nil,
+			IsGameShutdownRequired = isShutdownRequired(props.CurrentAvatarType, props.AvatarType),
+			AssetOverrideErrors = props.AssetOverrideErrors,
+			Mouse = getMouse(page).getNativeMouse(),
 
 			IsPlacePublished = (function()
 				if fastFlags.isPlaceFilesGameSettingsSerializationOn() then
@@ -172,12 +156,7 @@ local function displayContents(page, localized)
 
 			OnAvatarTypeChanged = function(newVal)
 				if not fastFlags.isPlaceFilesGameSettingsSerializationOn() or isPlaceDataAvailable(props) then
-					local willShutdown
-					if fastFlags.isMorphingPanelWidgetsStandardizationOn() then
-						willShutdown = isShutdownRequired(props.CurrentAvatarType, newVal)
-					else
-						willShutdown = props.CurrentAvatarType ~= "PlayerChoice" and newVal ~= props.CurrentAvatarType
-					end
+					local willShutdown = isShutdownRequired(props.CurrentAvatarType, newVal)
 					props.AvatarTypeChanged(newVal, willShutdown)
 				else
 					props.AvatarTypeChanged(newVal)

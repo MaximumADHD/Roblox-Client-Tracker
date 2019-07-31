@@ -1,11 +1,10 @@
-local Modules = game:GetService("CoreGui").RobloxGui.Modules
 local CorePackages = game:GetService("CorePackages")
 local Cryo = require(CorePackages.Cryo)
-local ArgCheck = require(Modules.LuaApp.ArgCheck)
+local ArgCheck = require(CorePackages.ArgCheck)
 local PromiseUtilities = require(CorePackages.AppTempCommon.LuaApp.PromiseUtilities)
 local FetchSubdividedThumbnails = require(script.Parent.FetchSubdividedThumbnails)
 
-local PerformFetch = require(Modules.LuaApp.Thunks.Networking.Util.PerformFetch)
+local PerformFetch = require(CorePackages.AppTempCommon.LuaApp.Thunks.Networking.Util.PerformFetch)
 
 local ICON_PAGE_COUNT = 100
 local ICON_SIZE = "150x150"

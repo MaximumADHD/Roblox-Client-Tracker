@@ -2,7 +2,12 @@ local Plugin = script.Parent.Parent.Parent
 local Rodux = require(Plugin.Packages.Rodux)
 local Cryo = require(Plugin.Packages.Cryo)
 
-return Rodux.createReducer({}, {
+local initial = {
+	gamesLock = false,
+	games = {},
+}
+
+return Rodux.createReducer(initial, {
 	SetGamesLock = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			gamesLock = action.gamesLock

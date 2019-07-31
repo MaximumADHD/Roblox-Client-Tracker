@@ -4,12 +4,12 @@
 		"name": "Sanclops's Place",
 		"description": "This is your very first Roblox creation. Check it out, then make it your own with Roblox Studio!",
 		"creator": {
-				"id": 926562939,
-				"type": "User"
+			"id": 926562939,
+			"type": "User"
 		},
 		"rootPlace": {
-				"id": 2735370205,
-				"type": "Place"
+			"id": 2735370205,
+			"type": "Place"
 		},
 		"created": "2019-01-10T20:18:09.167Z",
 		"updated": "2019-04-24T01:39:07.977Z"
@@ -29,9 +29,10 @@ function Game.mock()
 end
 
 function Game.fromJsonData(gameJson)
-	if not gameJson.id or not gameJson.creator or not gameJson.creator.id or not gameJson.rootPlace
-		or not gameJson.rootPlace.id then
-			return false, "Game.fromJsonData received JSON without required fields"
+	local noCreator = not gameJson.creator or not gameJson.creator.id
+	local noRootPlace = not gameJson.rootPlace or not gameJson.rootPlace.id
+	if not gameJson.id or noCreator or noRootPlace then
+		return false, "Game.fromJsonData received JSON without required fields"
 	end
 	if type(gameJson.id) ~= "number" then
 		return false, "Game.fromJsonData expects id to be a number"

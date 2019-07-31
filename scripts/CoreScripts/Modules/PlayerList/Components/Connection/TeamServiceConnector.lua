@@ -34,7 +34,6 @@ function TeamServiceConnector:render()
 			event = team.Changed,
 			callback = function(property)
 				if property == "Name" then
-					-- TODO: Figure out how to do team name translations
 					self.props.setTeamName(team)
 				elseif property == "TeamColor" then
 					self.props.setTeamColor(team)

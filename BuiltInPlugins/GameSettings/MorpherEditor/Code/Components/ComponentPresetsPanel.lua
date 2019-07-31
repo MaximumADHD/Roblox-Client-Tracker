@@ -1,5 +1,4 @@
 local paths = require(script.Parent.Parent.Paths)
-local fastFlags = require(script.Parent.Parent.FastFlags)
 
 local PresetsPanel = paths.Roact.Component:extend("ComponentPresetsPanel")
 
@@ -11,42 +10,22 @@ local createPlayerChoiceModel = nil
 local addPresetButtons = nil
 
 function PresetsPanel:render()
-	if fastFlags.isMorphingPanelWidgetsStandardizationOn() then
-		return paths.Roact.createElement(paths.StudioWidgetButtonBar, {
-			Padding = 10,
-			Buttons = {
-				{ Name="Default", Enabled=self.props.IsEnabled, Value=self.createDefaultModel, ShowPressed=true, Mouse=self.props.Mouse },
-				{ Name="Classic Scale", Enabled=self.props.IsEnabled, Value=self.createClassicModel1, ShowPressed=true, Mouse=self.props.Mouse },
-				{ Name="Full Classic", Enabled=self.props.IsEnabled, Value=self.createClassicModel2, ShowPressed=true, Mouse=self.props.Mouse },
-				{ Name="Rthro", Enabled=self.props.IsEnabled, Value=self.createRthroModel, ShowPressed=true, Mouse=self.props.Mouse },
-				{ Name="Player Choice", Enabled=self.props.IsEnabled, Value=self.createPlayerChoiceModel, ShowPressed=true, Mouse=self.props.Mouse }
-			},
-			HorizontalAlignment = Enum.HorizontalAlignment.Left,
-			Title = "Presets",
-			ButtonClicked = function(functionToCall)
-				self.props.clobberTemplate(self.props.template, functionToCall(self.props.boundaries))
-			end,
-			ShowPressed = true
-		})
-	else
-		local layoutOrder = paths.UtilityClassLayoutOrder.new()
-		local boundaries = self.props.boundaries
-
-		local children = {
-			ComponentTitleBar = paths.Roact.createElement(paths.ComponentTitleBar, {
-					ThemeData = self.props.ThemeData,
-					LayoutOrder = layoutOrder:getNextOrder(),
-					IsEnabled = self.props.IsEnabled,
-					Text = "Presets"
-				}
-			)
-		}
-
-		addPresetButtons(self, children, layoutOrder, boundaries)
-		local numChildPanels = paths.UtilityFunctionsTable.countDictionaryKeys(children)
-		children.UIListLayoutVertical = paths.UtilityFunctionsCreate.verticalFillUIListLayout()
-		return paths.UtilityFunctionsCreate.virticalChildFittedFrame(self.props.LayoutOrder, children, numChildPanels)
-	end
+	return paths.Roact.createElement(paths.StudioWidgetButtonBar, {
+		Padding = 10,
+		Buttons = {
+			{ Name="Default", Enabled=self.props.IsEnabled, Value=self.createDefaultModel, ShowPressed=true, Mouse=self.props.Mouse },
+			{ Name="Classic Scale", Enabled=self.props.IsEnabled, Value=self.createClassicModel1, ShowPressed=true, Mouse=self.props.Mouse },
+			{ Name="Full Classic", Enabled=self.props.IsEnabled, Value=self.createClassicModel2, ShowPressed=true, Mouse=self.props.Mouse },
+			{ Name="Rthro", Enabled=self.props.IsEnabled, Value=self.createRthroModel, ShowPressed=true, Mouse=self.props.Mouse },
+			{ Name="Player Choice", Enabled=self.props.IsEnabled, Value=self.createPlayerChoiceModel, ShowPressed=true, Mouse=self.props.Mouse }
+		},
+		HorizontalAlignment = Enum.HorizontalAlignment.Left,
+		Title = "Presets",
+		ButtonClicked = function(functionToCall)
+			self.props.clobberTemplate(self.props.template, functionToCall(self.props.boundaries))
+		end,
+		ShowPressed = true
+	})
 end
 
 function PresetsPanel:init()

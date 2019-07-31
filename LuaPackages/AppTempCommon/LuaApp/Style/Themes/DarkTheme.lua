@@ -149,12 +149,12 @@ local theme = {
 		Transparency = 0,
 	},
 
-    Badge = {
-		Color = Colors.Flint,
+	Badge = {
+		Color = Colors.White,
 		Transparency = 0,
 	},
 	BadgeContent = {
-		Color = Colors.White,
+		Color = Colors.Flint,
 		Transparency = 0,
 	},
 }

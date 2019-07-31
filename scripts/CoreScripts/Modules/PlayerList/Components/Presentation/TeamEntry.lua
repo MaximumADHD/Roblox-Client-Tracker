@@ -1,6 +1,10 @@
 local CorePackages = game:GetService("CorePackages")
+local CoreGui = game:GetService("CoreGui")
 
 local Roact = require(CorePackages.Roact)
+
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local GameTranslator = require(RobloxGui.Modules.GameTranslator)
 
 local Components = script.Parent.Parent
 local Connection = Components.Connection
@@ -17,7 +21,7 @@ function TeamEntry:render()
 		local teamName = layoutValues.NeutralTeamName
 		local teamColor = layoutValues.NeutralTeamColor.Color
 		if self.props.teamName then
-			teamName = self.props.teamName
+			teamName = GameTranslator:TranslateGameText(CoreGui, self.props.teamName)
 			teamColor = self.props.teamColor.Color
 		end
 

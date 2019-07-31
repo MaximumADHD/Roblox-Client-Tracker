@@ -258,6 +258,9 @@ function GameTableSection:render()
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
 			}, {
+				Padding = Roact.createElement("UIPadding", {
+					PaddingTop = UDim.new(0, 15),
+				}),
 				Layout = Roact.createElement("UIListLayout", {
 					SortOrder = Enum.SortOrder.LayoutOrder,
 					FillDirection = Enum.FillDirection.Vertical,

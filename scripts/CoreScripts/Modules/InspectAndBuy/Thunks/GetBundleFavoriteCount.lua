@@ -1,5 +1,4 @@
 local CorePackages = game:GetService("CorePackages")
-local Promise = require(CorePackages.AppTempCommon.LuaApp.Promise)
 local PerformFetch = require(CorePackages.AppTempCommon.LuaApp.Thunks.Networking.Util.PerformFetch)
 local InspectAndBuyFolder = script.Parent.Parent
 local Thunk = require(InspectAndBuyFolder.Thunk)
@@ -25,16 +24,10 @@ local function GetAssetFavoriteCount(bundleId)
 		return PerformFetch.Single(keyMapper(bundleId), function(fetchSingleStore)
 			return network.getBundleFavoriteCount(bundleId):andThen(
 				function(numFavorites)
-
 					if numFavorites then
 						local bundle = BundleInfo.fromGetBundleFavoriteCount(bundleId, numFavorites)
 						store:dispatch(SetBundles({bundle}))
 					end
-
-					return Promise.resolve()
-				end,
-				function(err)
-					return Promise.reject(err)
 				end)
 		end)(store):catch(function(err)
 

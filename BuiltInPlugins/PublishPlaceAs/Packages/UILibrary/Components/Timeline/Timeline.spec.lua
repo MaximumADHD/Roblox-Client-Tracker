@@ -81,9 +81,9 @@ return function()
 	end)
 
 	it("displays frame number instead of time is showAsTime is false", function ()
-		local container = workspace
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestTimeline(35, 102, 30, 15, false), container)
-		local frame = container.Frame
+		local frame = container:FindFirstChildOfClass("Frame")
 
 		expect(frame:FindFirstChild("1").TimeLabel.Text).to.equal("45")
 

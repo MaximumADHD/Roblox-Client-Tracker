@@ -19,18 +19,20 @@ local UILibrary = require(Plugin.Packages.UILibrary)
 local Localizing = UILibrary.Localizing
 local Constants = require(Plugin.Src.Resources.Constants)
 
+local SetScreen = require(Plugin.Src.Actions.SetScreen)
+
 local ButtonBar = require(Plugin.Src.Components.ButtonBar)
 
-local Footer = Roact.PureComponent:extend("Footer")
-
-function Footer:render()
+local function Footer(props)
 	return Localizing.withLocalization(function(localized)
 		return Theming.withTheme(function(theme)
-			local saveActive = self.props.SaveActive
-			local cancelActive = self.props.CancelActive
-			local onClose = self.props.OnClose
+			local saveActive = props.SaveActive
+			local cancelActive = props.CancelActive
+			local onClose = props.OnClose
+			local nextScreen = props.NextScreen
+			local nextScreenText = props.NextScreenText
 
-			local updateText = localized:getText("General", "ButtonUpdateExistingGame")
+			local openNextScreen = props.OpenNextScreen
 
 			return Roact.createElement("Frame", {
 				BackgroundColor3 = theme.backgroundColor,
@@ -62,7 +64,7 @@ function Footer:render()
 					buttonClicked = onClose,
 				}),
 
-				OverwriteExisting = Roact.createElement("TextButton", {
+				GotoNextScreen = nextScreen ~= nil and Roact.createElement("TextButton", {
 					Size = UDim2.new(0.15,0,0.5,0),
 					Position = UDim2.new(0.13, 0, 0.5, 0),
 					AnchorPoint = Vector2.new(0.5, 0.5),
@@ -71,10 +73,10 @@ function Footer:render()
 					BackgroundTransparency = 1,
 					TextSize = 15,
 					Font = theme.footer.textbutton.font,
-					Text = updateText,
+					Text = localized:getText("General", nextScreenText),
 
 					[Roact.Event.Activated] = function()
-						-- TODO (kstephan) 2019/07/09 dispatch "select new screen" action
+						openNextScreen(nextScreen)
 					end,
 				}),
 			})
@@ -82,18 +84,32 @@ function Footer:render()
 	end)
 end
 
-Footer = RoactRodux.connect(
-	function(state, props)
-		if not state then return end
-		return {
-			-- TODO (kstephan) 2019/07/09 set CancelActive / SaveActive based on state
-		}
-	end,
-	function(dispatch)
-		return {
-			-- TODO (kstephan) 2019/07/09 provide functions to dispatch
-		}
+local function mapStateToProps(state, props)
+	local readyToSave = true
+	if not state.NewGameSettings.changed.name then
+		readyToSave = false
 	end
-)(Footer)
+	if not state.NewGameSettings.changed.genre then
+		readyToSave = false
+	end
+	if next(state.NewGameSettings.errors) then
+		readyToSave = false
+	end
+	if state.Screen.screen ~= Constants.SCREENS.CREATE_NEW_GAME then
+		readyToSave = false
+	end
+	return {
+		SaveActive = readyToSave
+		-- TODO (kstephan) 2019/07/09 set CancelActive / SaveActive based on state
+	}
+end
 
-return Footer
+local function useDispatchForProps(dispatch)
+	return {
+		OpenNextScreen = function(screen)
+			dispatch(SetScreen(screen))
+		end,
+	}
+end
+
+return RoactRodux.connect(mapStateToProps, useDispatchForProps)(Footer)

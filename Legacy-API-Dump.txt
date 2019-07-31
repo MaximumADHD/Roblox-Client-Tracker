@@ -1420,7 +1420,7 @@ Class Lighting : Instance [notCreatable]
 	Property float Lighting.GeographicLatitude
 	Property bool Lighting.GlobalShadows
 	Property Color3 Lighting.OutdoorAmbient
-	Property bool Lighting.Outlines
+	Property bool Lighting.Outlines [deprecated]
 	Property Color3 Lighting.ShadowColor [deprecated]
 	Property float Lighting.ShadowSoftness
 	Property string Lighting.TimeOfDay
@@ -3478,6 +3478,9 @@ Enum EasingStyle
 	EnumItem EasingStyle.Quint : 5
 	EnumItem EasingStyle.Bounce : 6
 	EnumItem EasingStyle.Elastic : 7
+	EnumItem EasingStyle.Exponential : 8
+	EnumItem EasingStyle.Circular : 9
+	EnumItem EasingStyle.Cubic : 10
 Enum ElasticBehavior
 	EnumItem ElasticBehavior.WhenScrollable : 0
 	EnumItem ElasticBehavior.Always : 1

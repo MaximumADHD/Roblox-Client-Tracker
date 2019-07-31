@@ -193,14 +193,13 @@ return function(style, overrides)
 	local button = {
 		Default = {
 			font = style.font,
+			isRound = true,
 
 			backgroundColor = style.itemColor,
 			textColor = style.textColor,
 			borderColor = style.borderColor,
 
 			hovered = {
-				font = style.font,
-
 				backgroundColor = style.hoveredItemColor,
 				textColor = style.hoveredTextColor,
 				borderColor = style.borderColor,
@@ -209,14 +208,13 @@ return function(style, overrides)
 
 		Primary = {
 			font = style.font,
+			isRound = true,
 
 			backgroundColor = style.primaryItemColor,
 			textColor = style.primaryTextColor,
 			borderColor = style.primaryBorderColor,
 
 			hovered = {
-				font = style.font,
-
 				backgroundColor = style.primaryHoveredItemColor,
 				textColor = style.primaryHoveredTextColor,
 				borderColor = style.primaryHoveredBorderColor,

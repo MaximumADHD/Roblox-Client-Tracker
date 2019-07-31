@@ -3,6 +3,8 @@ local Theming = require(script.Parent.Parent.Theming)
 
 local Dropdown = require(script.Parent.Dropdown)
 
+local UseAllSupportedLanguageList = settings():GetFFlag("UseAllSupportedLanguageList")
+
 local customMenuItemText = "(Custom)"
 
 local localeInfos = {
@@ -28,24 +30,48 @@ function LocaleSelector:init()
 	self.textBoxRef = Roact.createRef()
 end
 
-local function getMenuTextForLocale(localeId)
+local function getMenuTextForLocale_deprecated(localeId)
 	if localeId == "" then
 		return customMenuItemText
 	end
 	return localeNameMap[localeId] or customMenuItemText
 end
 
+function LocaleSelector:getMenuTextForLocale(localeId)
+	if UseAllSupportedLanguageList then
+		if not localeId or localeId == "" then
+			return customMenuItemText
+		end
+		-- need this because client uses hyphen, platform uses underscore...
+		localeId = string.gsub(localeId, '-', '_')
+		return self.props.AllLanguagesInfo.localeInfoTable[localeId].languageName or customMenuItemText
+	else
+		return getMenuTextForLocale_deprecated(localeId)
+	end
+end
+
 function LocaleSelector:render()
 	return Theming.withTheme(function(theme)
 		local ListItems = {}
 
-		for _, info in ipairs(localeInfos) do
-			table.insert(ListItems, {
-				Text = info.name,
-				OnActivated = function()
-					self.props.SetLocaleId(info.localeId)
-				end
-			})
+		if UseAllSupportedLanguageList then
+			for _, info in ipairs(self.props.AllLanguagesInfo.languageInfoTable) do
+				table.insert(ListItems, {
+					Text = info.languageName,
+					OnActivated = function()
+						self.props.SetLocaleId(info.localeCode)
+					end
+				})
+			end
+		else
+			for _, info in ipairs(localeInfos) do
+				table.insert(ListItems, {
+					Text = info.name,
+					OnActivated = function()
+						self.props.SetLocaleId(info.localeId)
+					end
+				})
+			end
 		end
 
 		table.insert(ListItems, {
@@ -73,7 +99,7 @@ function LocaleSelector:render()
 			}, {
 				Dropdown = Roact.createElement(Dropdown, {
 					Window = self.props.Window,
-					CurrentText = getMenuTextForLocale(self.props.LocaleId),
+					CurrentText = self:getMenuTextForLocale(self.props.LocaleId),
 					ListItemHeight = 25,
 					ListItems = ListItems,
 				}),

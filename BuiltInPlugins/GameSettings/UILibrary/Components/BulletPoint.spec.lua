@@ -26,7 +26,7 @@ return function()
 	it("should render correctly", function()
 		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestBulletPoint(container), container)
-		local bulletPoint = container.Frame
+		local bulletPoint = container:FindFirstChildOfClass("Frame")
 
 		expect(bulletPoint.Text).to.be.ok()
 		expect(bulletPoint.Dot).to.be.ok()

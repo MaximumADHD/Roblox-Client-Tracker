@@ -14,9 +14,9 @@ function MorpherTemplate:render()
 			StateTemplates = self.props.StateTemplates,
 			IsEnabled = self.props.IsEnabled,
 
-			IsGameShutdownRequired = (function() if fastFlags.isMorphingPanelWidgetsStandardizationOn() then return self.props.IsGameShutdownRequired else return nil end end)(),
-			AssetOverrideErrors = fastFlags.isMorphingPanelWidgetsStandardizationOn() and self.props.AssetOverrideErrors or nil,
-			Mouse = fastFlags.isMorphingPanelWidgetsStandardizationOn() and self.props.Mouse or nil,
+			IsGameShutdownRequired = self.props.IsGameShutdownRequired,
+			AssetOverrideErrors = self.props.AssetOverrideErrors,
+			Mouse = self.props.Mouse,
 
 			clobberTemplate = self.props.clobberTemplate
 		}
@@ -53,14 +53,11 @@ function MorpherTemplate:render()
 				end
 			}),
 
-			ComponentPublishHint = fastFlags.isMorphingPanelWidgetsStandardizationOn() and paths.Roact.createElement(paths.ComponentPublishingHint, getPropsForPublishingHint()) or nil,
-			ComponentDividerRowAbovePresets = not fastFlags.isMorphingPanelWidgetsStandardizationOn() and paths.Roact.createElement(paths.ComponentDividerRow, getPropsForDividers()) or nil,
+			ComponentPublishHint = paths.Roact.createElement(paths.ComponentPublishingHint, getPropsForPublishingHint()),
 			ComponentPresetsPanel = paths.Roact.createElement(paths.ComponentPresetsPanel, getPropsForSubComponents()),
-			ComponentDividerRowAboveRigType = not fastFlags.isMorphingPanelWidgetsStandardizationOn() and paths.Roact.createElement(paths.ComponentDividerRow, getPropsForDividers()) or nil,
 			ComponentAvatarTypePanel = paths.Roact.createElement(paths.ComponentAvatarTypePanel, getPropsForSubComponents()),
 			ComponentAnimationPanel = paths.Roact.createElement(paths.ComponentAnimationPanel, getPropsForSubComponents()),
 			ComponentCollisionPanel = paths.Roact.createElement(paths.ComponentCollisionPanel, getPropsForSubComponents()),
-			ComponentDividerRowAboveScale = not fastFlags.isMorphingPanelWidgetsStandardizationOn() and paths.Roact.createElement(paths.ComponentDividerRow, getPropsForDividers()) or nil,
 			ComponentScalePanel = paths.Roact.createElement(paths.ComponentScalePanel, getPropsForSubComponents()),
 			ComponentAssetsPanel = paths.Roact.createElement(paths.ComponentAssetsPanel, getPropsForSubComponents())
 		}

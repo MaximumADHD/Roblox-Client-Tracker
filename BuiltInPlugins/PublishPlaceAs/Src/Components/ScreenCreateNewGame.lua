@@ -13,32 +13,33 @@ local Roact = require(Plugin.Packages.Roact)
 
 local Theming = require(Plugin.Src.ContextServices.Theming)
 local Constants = require(Plugin.Src.Resources.Constants)
+local UILibrary = require(Plugin.Packages.UILibrary)
+local Separator = UILibrary.Component.Separator
 
 local MenuBar = require(Plugin.Src.Components.Menu.MenuBar)
-local Separator = require(Plugin.Src.Components.Separator)
 local Footer = require(Plugin.Src.Components.Footer)
+local BasicInfo = require(Plugin.Src.Components.BasicInfo)
 
-local CreateNewGame = Roact.PureComponent:extend("CreateNewGame")
+local ScreenCreateNewGame = Roact.PureComponent:extend("ScreenCreateNewGame")
 
-function CreateNewGame:init()
+function ScreenCreateNewGame:init()
 	self.state = {
 		selected = 1,
 	}
 end
 
-function CreateNewGame:pageSelected(index)
+function ScreenCreateNewGame:pageSelected(index)
 	self:setState({
 		selected = index,
 	})
 end
 
-function CreateNewGame:render(props)
+function ScreenCreateNewGame:render(props)
 	return Theming.withTheme(function(theme)
 
 		local onClose = self.props.OnClose
 		local menuEntries = {
 			{Name = "BasicInfo"},
-			{Name = "Permissions"},
 		}
 
 		local selected = self.state.selected
@@ -57,19 +58,24 @@ function CreateNewGame:render(props)
 			}),
 
 			Separator = Roact.createElement(Separator, {
-				Size = UDim2.new(0, 3, 1, 0),
-				Position = UDim2.new(0, Constants.MENU_BAR_WIDTH, 0, 0),
+				Weight = 3,
+				Position = UDim2.new(0, Constants.MENU_BAR_WIDTH, 0.5, 0),
+				DominantAxis = Enum.DominantAxis.Height,
+			}),
+
+			Page = Roact.createElement(BasicInfo, {
+				PageName = menuEntries[selected].Name,
 			}),
 
 			Footer = Roact.createElement(Footer, {
-				OnClose = function(didSave, savePromise)
-					onClose(didSave, savePromise)
-				end,
-				CancelActive = true
+				OnClose = onClose,
+				CancelActive = true,
+				NextScreen = Constants.SCREENS.CHOOSE_GAME,
+				NextScreenText = "ButtonUpdateExistingGame"
 			}),
 
 		})
 	end)
 end
 
-return CreateNewGame
+return ScreenCreateNewGame

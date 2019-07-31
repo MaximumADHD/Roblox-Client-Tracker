@@ -21,6 +21,7 @@ function Theme.createValues(getColor, StyleColor, StyleModifier)
 	local UILibraryStylePalette = StudioStyle.new(getColor, StyleColor, StyleModifier)
 	--UILibraryStylePalette.backgroundColor = Color3.new(1, 1, 1)
 
+	-- luacheck: ignore isDark
 	local isDark = Theme.isDarkerTheme()
 
 	-- define all the colors used in the plugin

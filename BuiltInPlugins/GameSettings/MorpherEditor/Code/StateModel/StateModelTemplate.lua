@@ -1,5 +1,4 @@
 local paths = require(script.Parent.Parent.Paths)
-local fastFlags = require(script.Parent.Parent.FastFlags)
 
 local Template = {}
 Template.__index = Template
@@ -89,37 +88,23 @@ function Template:apply(playerChoiceDescription)
 	playerChoiceDescription.BodyTypeScale = paths.UtilityFunctionsMath.clamp( playerChoiceDescription.BodyTypeScale, self.ScalesMin.bodyType, self.ScalesMax.bodyType)
 	playerChoiceDescription.ProportionScale = paths.UtilityFunctionsMath.clamp(playerChoiceDescription.ProportionScale, self.ScalesMin.proportion, self.ScalesMax.proportion)
 
-	if fastFlags.isMorphingPanelWidgetsStandardizationOn() then
-		local assetCategoriesToHumanoidDescriptionPropNames = {
-			[paths.ConstantAvatar.AssetTypes.Face] = "Face",
-			[paths.ConstantAvatar.AssetTypes.Head] = "Head",
-			[paths.ConstantAvatar.AssetTypes.Torso] = "Torso",
-			[paths.ConstantAvatar.AssetTypes.LeftArm] = "LeftArm",
-			[paths.ConstantAvatar.AssetTypes.RightArm] = "RightArm",
-			[paths.ConstantAvatar.AssetTypes.LeftLeg] = "LeftLeg",
-			[paths.ConstantAvatar.AssetTypes.RightLeg] = "RightLeg",
-			[paths.ConstantAvatar.AssetTypes.Shirt] = "Shirt",
-			[paths.ConstantAvatar.AssetTypes.Pants] = "Pants",
-			[paths.ConstantAvatar.AssetTypes.ShirtGraphic] = "GraphicTShirt"
-		}
+	local assetCategoriesToHumanoidDescriptionPropNames = {
+		[paths.ConstantAvatar.AssetTypes.Face] = "Face",
+		[paths.ConstantAvatar.AssetTypes.Head] = "Head",
+		[paths.ConstantAvatar.AssetTypes.Torso] = "Torso",
+		[paths.ConstantAvatar.AssetTypes.LeftArm] = "LeftArm",
+		[paths.ConstantAvatar.AssetTypes.RightArm] = "RightArm",
+		[paths.ConstantAvatar.AssetTypes.LeftLeg] = "LeftLeg",
+		[paths.ConstantAvatar.AssetTypes.RightLeg] = "RightLeg",
+		[paths.ConstantAvatar.AssetTypes.Shirt] = "Shirt",
+		[paths.ConstantAvatar.AssetTypes.Pants] = "Pants",
+		[paths.ConstantAvatar.AssetTypes.ShirtGraphic] = "GraphicTShirt"
+	}
 
-		for assetCategory, humanoidDescriptionPropName in pairs(assetCategoriesToHumanoidDescriptionPropNames) do
-			if not self.AssetsOverrides[assetCategory].isPlayerChoice and 0 ~= self.AssetsOverrides[assetCategory].assetID then
-				playerChoiceDescription[humanoidDescriptionPropName] = self.AssetsOverrides[assetCategory].assetID
-			end
+	for assetCategory, humanoidDescriptionPropName in pairs(assetCategoriesToHumanoidDescriptionPropNames) do
+		if not self.AssetsOverrides[assetCategory].isPlayerChoice and 0 ~= self.AssetsOverrides[assetCategory].assetID then
+			playerChoiceDescription[humanoidDescriptionPropName] = self.AssetsOverrides[assetCategory].assetID
 		end
-	else
-		playerChoiceDescription.Face = self.AssetsOverrides[paths.ConstantAvatar.AssetTypes.Face].isPlayerChoice and playerChoiceDescription.Face or self.AssetsOverrides[paths.ConstantAvatar.AssetTypes.Face].assetID
-		playerChoiceDescription.Head = self.AssetsOverrides[paths.ConstantAvatar.AssetTypes.Head].isPlayerChoice and playerChoiceDescription.Head or self.AssetsOverrides[paths.ConstantAvatar.AssetTypes.Head].assetID
-		playerChoiceDescription.Torso = self.AssetsOverrides[paths.ConstantAvatar.AssetTypes.Torso].isPlayerChoice and playerChoiceDescription.Torso or self.AssetsOverrides[paths.ConstantAvatar.AssetTypes.Torso].assetID
-		playerChoiceDescription.LeftArm = self.AssetsOverrides[paths.ConstantAvatar.AssetTypes.LeftArm].isPlayerChoice and playerChoiceDescription.LeftArm or self.AssetsOverrides[paths.ConstantAvatar.AssetTypes.LeftArm].assetID
-		playerChoiceDescription.RightArm = self.AssetsOverrides[paths.ConstantAvatar.AssetTypes.RightArm].isPlayerChoice and playerChoiceDescription.RightArm or self.AssetsOverrides[paths.ConstantAvatar.AssetTypes.RightArm].assetID
-		playerChoiceDescription.LeftLeg = self.AssetsOverrides[paths.ConstantAvatar.AssetTypes.LeftLeg].isPlayerChoice and playerChoiceDescription.LeftLeg or self.AssetsOverrides[paths.ConstantAvatar.AssetTypes.LeftLeg].assetID
-		playerChoiceDescription.RightLeg = self.AssetsOverrides[paths.ConstantAvatar.AssetTypes.RightLeg].isPlayerChoice and playerChoiceDescription.RightLeg or self.AssetsOverrides[paths.ConstantAvatar.AssetTypes.RightLeg].assetID
-
-		playerChoiceDescription.Shirt = self.AssetsOverrides[paths.ConstantAvatar.AssetTypes.Shirt].isPlayerChoice and playerChoiceDescription.Shirt or self.AssetsOverrides[paths.ConstantAvatar.AssetTypes.Shirt].assetID
-		playerChoiceDescription.GraphicTShirt = self.AssetsOverrides[paths.ConstantAvatar.AssetTypes.ShirtGraphic].isPlayerChoice and playerChoiceDescription.GraphicTShirt or self.AssetsOverrides[paths.ConstantAvatar.AssetTypes.ShirtGraphic].assetID
-		playerChoiceDescription.Pants = self.AssetsOverrides[paths.ConstantAvatar.AssetTypes.Pants].isPlayerChoice and playerChoiceDescription.Pants or self.AssetsOverrides[paths.ConstantAvatar.AssetTypes.Pants].assetID
 	end
 end
 

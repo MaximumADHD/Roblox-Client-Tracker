@@ -23,7 +23,7 @@ return function(userId, thumbnailType, thumbnailSize)
 			local result = {success = false}
 			local success, message = pcall(function()
 				local image, isFinal = Players:GetUserThumbnailAsync(
-					userId, THUMBNAIL_TYPE_BY_NAME[thumbnailType], THUMBNAIL_SIZE_BY_NAME[thumbnailSize]
+					tonumber(userId), THUMBNAIL_TYPE_BY_NAME[thumbnailType], THUMBNAIL_SIZE_BY_NAME[thumbnailSize]
 				)
 
 				result = {

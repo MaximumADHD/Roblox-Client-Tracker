@@ -1,11 +1,10 @@
-local Modules = game:GetService("CoreGui").RobloxGui.Modules
 local CorePackages = game:GetService("CorePackages")
 local LuaApp = CorePackages.AppTempCommon.LuaApp
-local ArgCheck = require(Modules.LuaApp.ArgCheck)
+local ArgCheck = require(CorePackages.ArgCheck)
 
 local Thumbnail = require(LuaApp.Models.Thumbnail)
 
-local PerformFetch = require(Modules.LuaApp.Thunks.Networking.Util.PerformFetch)
+local PerformFetch = require(LuaApp.Thunks.Networking.Util.PerformFetch)
 local Promise = require(LuaApp.Promise)
 local Result = require(LuaApp.Result)
 

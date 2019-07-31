@@ -19,6 +19,9 @@ local Constants = require(Plugin.Src.Resources.Constants)
 local function MenuBar(props)
 	local selected = props.Selected
 	local selectionChanged = props.SelectionChanged
+	local entries = props.Entries
+
+	assert(type(entries) == "table", "MenuBar.Entries must be a table")
 
 	return Theming.withTheme(function(theme)
 		return Localizing.withLocalization(function(localized)
@@ -28,7 +31,7 @@ local function MenuBar(props)
 				})
 			}
 
-			for i, entry in ipairs(props.Entries) do
+			for i, entry in ipairs(entries) do
 				table.insert(menuEntries, Roact.createElement(MenuEntry, {
 					Title = localized:getText("General", "MenuItem"..entry.Name),
 					Selected = (selected == i),

@@ -9,6 +9,7 @@ local RbxEntriesToWebEntries = require(script.Parent.GameTable.RbxEntriesToWebEn
 local Roact = require(game:GetService("CorePackages").Roact)
 
 local UnofficialLanguageSupportEnabled = settings():GetFFlag("UnofficialLanguageSupportEnabled")
+local UseAllSupportedLanguageList = settings():GetFFlag("UseAllSupportedLanguageList")
 
 local function getTextScraperButtonIconAsset()
 	return LocalizationService.IsTextScraperRunning
@@ -215,6 +216,30 @@ local function reportDownloadTable(plugin, table, btnName, getAllSuppLanguagesFu
 	)
 end
 
+local function processLanguageInfo(origData)
+	local languageInfoTable, localeInfoTable = {}, {}
+
+	for langCode, langInfo in pairs(origData) do
+		table.insert(languageInfoTable, {
+			languageName = langInfo.languageName,
+			localeCode = langInfo.localeCode,
+		})
+		localeInfoTable[langInfo.localeCode] = {
+			languageName = langInfo.languageName,
+			languageCode = langCode,
+		}
+	end
+
+	table.sort(languageInfoTable, function(a, b)
+		return a.languageName < b.languageName
+	end)
+
+	return {
+		languageInfoTable = languageInfoTable,
+		localeInfoTable = localeInfoTable,
+	}
+end
+
 local function createLocalizationToolsEnabled(toolbar, plugin, studioSettings)
 	local ShowDialog = MakeShowDialog(plugin, studioSettings)
 	local GameTableMain = MakeGameTableMain(plugin:GetStudioUserId())
@@ -223,60 +248,115 @@ local function createLocalizationToolsEnabled(toolbar, plugin, studioSettings)
 	Window.Title = "Localization Tools"
 	Window.Name = "Localization"
 
-	local localizationToolsHandle = Roact.mount(Roact.createElement(LocalizationTools, {
-		Window = Window,
-		ShowDialog = ShowDialog,
-		OpenCSV = GameTableMain.OpenCSV,
-		SaveCSV = GameTableMain.SaveCSV,
-		ComputeReplacePatch = GameTableMain.ComputeReplacePatch,
-		ComputeUpdatePatch = GameTableMain.ComputeUpdatePatch,
-		UploadPatch = GameTableMain.UploadPatch,
-		DownloadGameTable = GameTableMain.DownloadGameTable,
-		CheckTableAvailability = GameTableMain.CheckTableAvailability,
-		GameIdChangedSignal = GameTableMain.GameIdChangedSignal,
-		GetAllSupportedLanguages = GameTableMain.GetAllSupportedLanguages,
-		RequestAssetGeneration = GameTableMain.RequestAssetGeneration,
-		StudioSettings = studioSettings,
-		HandleUploadAnalytics = function(patchInfo, btnName)
-			reportUploadPatch(plugin, patchInfo, btnName)
-		end,
-		HandleDownloadAnalytics = function(table, btnName)
-			if UnofficialLanguageSupportEnabled then
-				reportDownloadTable(plugin, table, btnName, GameTableMain.GetAllSupportedLanguages)
-			else
-				reportDownloadTable_deprecated(plugin, table, btnName)
+	if UseAllSupportedLanguageList then
+		GameTableMain.GetAllSupportedLanguages():andThen(function(languageTable)
+			local allLanguageInfo = processLanguageInfo(languageTable)
+			local localizationToolsHandle = Roact.mount(Roact.createElement(LocalizationTools, {
+				Window = Window,
+				ShowDialog = ShowDialog,
+				OpenCSV = GameTableMain.OpenCSV,
+				SaveCSV = GameTableMain.SaveCSV,
+				ComputeReplacePatch = GameTableMain.ComputeReplacePatch,
+				ComputeUpdatePatch = GameTableMain.ComputeUpdatePatch,
+				UploadPatch = GameTableMain.UploadPatch,
+				DownloadGameTable = GameTableMain.DownloadGameTable,
+				CheckTableAvailability = GameTableMain.CheckTableAvailability,
+				GameIdChangedSignal = GameTableMain.GameIdChangedSignal,
+				AllLanguagesInfo = allLanguageInfo,
+				RequestAssetGeneration = GameTableMain.RequestAssetGeneration,
+				StudioSettings = studioSettings,
+				HandleUploadAnalytics = function(patchInfo, btnName)
+					reportUploadPatch(plugin, patchInfo, btnName)
+				end,
+				HandleDownloadAnalytics = function(table, btnName)
+					if UnofficialLanguageSupportEnabled then
+						reportDownloadTable(plugin, table, btnName, GameTableMain.GetAllSupportedLanguages)
+					else
+						reportDownloadTable_deprecated(plugin, table, btnName)
+					end
+				end,
+			}), Window)
+
+			local button = createLocalizationToolsPluginButton(toolbar)
+
+			Window.AncestryChanged:Connect(function(child, parent)
+				if child == Window and parent == nil then
+					Roact.unmount(localizationToolsHandle)
+				end
+			end)
+
+			Window:GetPropertyChangedSignal("Enabled"):connect(function()
+				button:SetActive(Window.Enabled)
+			end)
+
+			button.Enabled = true
+			button.Click:Connect(function()
+				Window.Enabled = not Window.Enabled
+				button:SetActive(Window.Enabled)
+
+				if (Window.Enabled) then
+					reportToolOpened(plugin, 1)
+				end
+
+				if Window.Enabled then
+					reportButtonPress(plugin, "tools", "open")
+				else
+					reportButtonPress(plugin, "tools", "closed")
+				end
+			end)
+		end)
+	else
+		local localizationToolsHandle = Roact.mount(Roact.createElement(LocalizationTools, {
+			Window = Window,
+			ShowDialog = ShowDialog,
+			OpenCSV = GameTableMain.OpenCSV,
+			SaveCSV = GameTableMain.SaveCSV,
+			ComputeReplacePatch = GameTableMain.ComputeReplacePatch,
+			ComputeUpdatePatch = GameTableMain.ComputeUpdatePatch,
+			UploadPatch = GameTableMain.UploadPatch,
+			DownloadGameTable = GameTableMain.DownloadGameTable,
+			CheckTableAvailability = GameTableMain.CheckTableAvailability,
+			GameIdChangedSignal = GameTableMain.GameIdChangedSignal,
+			GetAllSupportedLanguages = GameTableMain.GetAllSupportedLanguages,
+			RequestAssetGeneration = GameTableMain.RequestAssetGeneration,
+			StudioSettings = studioSettings,
+			HandleUploadAnalytics = function(patchInfo, btnName)
+				reportUploadPatch(plugin, patchInfo, btnName)
+			end,
+			HandleDownloadAnalytics = function(table, btnName)
+				if UnofficialLanguageSupportEnabled then
+					reportDownloadTable(plugin, table, btnName, GameTableMain.GetAllSupportedLanguages)
+				else
+					reportDownloadTable_deprecated(plugin, table, btnName)
+				end
+			end,
+		}), Window)
+
+		local button = createLocalizationToolsPluginButton(toolbar)
+
+		Window.AncestryChanged:Connect(function(child, parent)
+			if child == Window and parent == nil then
+				Roact.unmount(localizationToolsHandle)
 			end
-		end,
-	}), Window)
+		end)
 
-	local button = createLocalizationToolsPluginButton(toolbar)
+		Window:GetPropertyChangedSignal("Enabled"):connect(function()
+			button:SetActive(Window.Enabled)
+		end)
 
-	Window.AncestryChanged:Connect(function(child, parent)
-		if child == Window and parent == nil then
-			Roact.unmount(localizationToolsHandle)
-		end
-	end)
-
-	Window:GetPropertyChangedSignal("Enabled"):connect(function()
-		button:SetActive(Window.Enabled)
-	end)
-
-	button.Enabled = true
-	button.Click:Connect(
-		function()
+		button.Enabled = true
+		button.Click:Connect(function()
 			Window.Enabled = not Window.Enabled
 			button:SetActive(Window.Enabled)
 
-			if (Window.Enabled) then
-				reportToolOpened(plugin, 1)
-			end
-
 			if Window.Enabled then
+				reportToolOpened(plugin, 1)
 				reportButtonPress(plugin, "tools", "open")
 			else
 				reportButtonPress(plugin, "tools", "closed")
 			end
 		end)
+	end
 end
 
 

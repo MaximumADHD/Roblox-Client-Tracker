@@ -3,8 +3,6 @@
 	Returns a Promise that will resolve when saving is complete.
 ]]
 
-local FFlagStudioLuaGameSettingsSaveErrorsPopUp = settings():GetFFlag("StudioLuaGameSettingsSaveErrorsPopUp")
-
 local Plugin = script.Parent.Parent.Parent
 
 local Analytics = require(Plugin.Src.Util.Analytics)
@@ -12,10 +10,7 @@ local SetCurrentStatus = require(Plugin.Src.Actions.SetCurrentStatus)
 local AddErrors = require(Plugin.Src.Actions.AddErrors)
 
 local CurrentStatus = require(Plugin.Src.Util.CurrentStatus)
-local Promise = nil
-if FFlagStudioLuaGameSettingsSaveErrorsPopUp then
-	Promise = require(Plugin.Promise)
-end
+local Promise = require(Plugin.Promise)
 
 return function(settingsImpl)
 	return function(store)
@@ -31,9 +26,7 @@ return function(settingsImpl)
 			if errors then
 				store:dispatch(SetCurrentStatus(CurrentStatus.Error))
 				store:dispatch(AddErrors(errors))
-				if FFlagStudioLuaGameSettingsSaveErrorsPopUp then
-					return Promise.reject(errors)
-				end
+				return Promise.reject(errors)
 			end
 		end)
 	end

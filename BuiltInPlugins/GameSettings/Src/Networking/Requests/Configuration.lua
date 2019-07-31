@@ -24,8 +24,6 @@ local PLAYABLE_DEVICES = {
 	Console = false,
 }
 
-local FFlagStudioLuaGameSettingsSaveErrorsPopUp = settings():GetFFlag("StudioLuaGameSettingsSaveErrorsPopUp")
-
 local HttpService = game:GetService("HttpService")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -116,9 +114,7 @@ function Configuration.Set(universeId, body)
 			end
 			return Promise.reject(errors)
 		end
-		if FFlagStudioLuaGameSettingsSaveErrorsPopUp then
-			return Promise.reject({})
-		end
+		return Promise.reject({})
 	end)
 end
 

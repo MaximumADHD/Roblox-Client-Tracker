@@ -153,4 +153,56 @@ return function()
 		}
 		expect(TableUtilities.FieldCount(table)).to.equal(2)
 	end)
+
+	describe("TableUtilities.DeepEqual", function()
+		it("works for primitve data types", function()
+            expect(TableUtilities.DeepEqual(1, 1)).to.equal(true)
+            expect(TableUtilities.DeepEqual("str1", "str1")).to.equal(true)
+            expect(TableUtilities.DeepEqual(1, 2)).to.equal(false)
+            expect(TableUtilities.DeepEqual("str1", "str2")).to.equal(false)
+        end)
+        it("correctly identifies deeply-equal tables", function()
+            local table1 = {
+                num = 1,
+                innerTable = {
+                    innerString = "str"
+                }
+            }
+            local table2 = {
+                num = 1,
+                innerTable = {
+                    innerString = "str"
+                }
+            }
+            expect(TableUtilities.DeepEqual(table1, table2)).to.equal(true)
+        end)
+        it("correctly rejects non-deeply-equal tables", function()
+            local table1 = {
+                num = 1,
+                innerTable = {
+                    innerString = "str"
+                }
+            }
+            local table2 = {
+                num = 1,
+                innerTable = {
+                    innerString = "differentStr"
+                }
+            }
+            expect(TableUtilities.DeepEqual(table1, table2)).to.equal(false)
+            local table3 = {
+                num = 1,
+                innerTable = {
+                    innerString = "str"
+                }
+            }
+            local table4 = {
+                num = 1,
+                innerTableWithDifferentKey = {
+                    innerString = "str"
+                }
+            }
+            expect(TableUtilities.DeepEqual(table3, table4)).to.equal(false)
+        end)
+	end)
 end

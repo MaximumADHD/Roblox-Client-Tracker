@@ -21,9 +21,9 @@ function RootPanelExternal:render()
 			StateTemplates = templates,
 			IsEnabled = self.props.IsEnabled,
 
-			IsGameShutdownRequired = (function() if fastFlags.isMorphingPanelWidgetsStandardizationOn() then return self.props.IsGameShutdownRequired else return nil end end)(),
-			AssetOverrideErrors = fastFlags.isMorphingPanelWidgetsStandardizationOn() and self.props.AssetOverrideErrors or nil,
-			Mouse = fastFlags.isMorphingPanelWidgetsStandardizationOn() and self.props.Mouse or nil,
+			IsGameShutdownRequired = self.props.IsGameShutdownRequired,
+			AssetOverrideErrors = self.props.AssetOverrideErrors,
+			Mouse = self.props.Mouse,
 
 			IsPlacePublished = (function() if fastFlags.isPlaceFilesGameSettingsSerializationOn() then return self.props.IsPlacePublished else return nil end end)(),
 

@@ -14,20 +14,18 @@ elseif BASE_URL:find("http://www.") then
 end
 
 local function applyParamsToUrl(requestInfo)
-	if settings():GetFFlag("StudioGameSettingsSupportHttpParams") then
-		local params = requestInfo.Params
-		requestInfo.Params = nil -- HttpRbxApiService doesn't know what this is, so remove it before we give it requestInfo
+	local params = requestInfo.Params
+	requestInfo.Params = nil -- HttpRbxApiService doesn't know what this is, so remove it before we give it requestInfo
+	
+	if params then
+		local paramList = {}
 		
-		if params then
-			local paramList = {}
-			
-			for paramName,paramValue in pairs(params) do
-				local paramPair = HttpService:UrlEncode(paramName).."="..HttpService:UrlEncode(paramValue)
-				table.insert(paramList, paramPair)
-			end
-			
-			requestInfo.Url = requestInfo.Url .. "?" .. table.concat(paramList, "&")
+		for paramName,paramValue in pairs(params) do
+			local paramPair = HttpService:UrlEncode(paramName).."="..HttpService:UrlEncode(paramValue)
+			table.insert(paramList, paramPair)
 		end
+		
+		requestInfo.Url = requestInfo.Url .. "?" .. table.concat(paramList, "&")
 	end
 end
 

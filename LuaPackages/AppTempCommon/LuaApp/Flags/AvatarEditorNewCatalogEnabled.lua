@@ -11,6 +11,6 @@ return function(userId)
         local id = tonumber(userId)
         return ThrottleUserId(throttleNumber, id)
     else
-        return 0
+        return false
     end
 end

@@ -86,7 +86,7 @@ return function()
 			end
 		end)
 
-		it("should update the categories and group index+id if necessary", function()
+		itSKIP("should update the categories and group index+id if necessary", function()
 			local state = PageInfo(nil, {})
 
 			if FFlagStudioMarketplaceTabsEnabled then

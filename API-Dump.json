@@ -10907,6 +10907,262 @@
             "Members": [
                 {
                     "MemberType": "Function",
+                    "Name": "DiscardEdits",
+                    "Parameters": [
+                        {
+                            "Name": "scriptGuids",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Array"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetEditors",
+                    "Parameters": [
+                        {
+                            "Name": "scriptGuid",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "OpenDrafts",
+                    "Parameters": [
+                        {
+                            "Name": "scriptGuids",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Array"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "ShowDiffsAgainstBase",
+                    "Parameters": [
+                        {
+                            "Name": "scriptGuids",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Array"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "ShowDiffsAgainstServer",
+                    "Parameters": [
+                        {
+                            "Name": "scriptGuids",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Array"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "CommitEdits",
+                    "Parameters": [
+                        {
+                            "Name": "scriptGuids",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Array"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields"
+                    ]
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetDrafts",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Dictionary"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields"
+                    ]
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "UpdateToLatestVersion",
+                    "Parameters": [
+                        {
+                            "Name": "scriptGuids",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Array"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Dictionary"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields"
+                    ]
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "CommitStatusChanged",
+                    "Parameters": [
+                        {
+                            "Name": "scriptGuid",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "commitStatus",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "DraftAdded",
+                    "Parameters": [
+                        {
+                            "Name": "scriptGuid",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "script",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "DraftDeleted",
+                    "Parameters": [
+                        {
+                            "Name": "scriptGuid",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "EditorsListChanged",
+                    "Parameters": [
+                        {
+                            "Name": "scriptGuid",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "ScriptDeleted",
+                    "Parameters": [
+                        {
+                            "Name": "scriptGuid",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "ScriptServerVersionChanged",
+                    "Parameters": [
+                        {
+                            "Name": "scriptGuid",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "DraftsService",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "MemberType": "Function",
                     "Name": "AxisRotate",
                     "Parameters": [
                         {
@@ -24281,6 +24537,9 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "Deprecated"
+                    ],
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "bool"
@@ -57691,6 +57950,23 @@
         {
             "Items": [
                 {
+                    "Name": "OK",
+                    "Value": 0
+                },
+                {
+                    "Name": "DraftOutdated",
+                    "Value": 1
+                },
+                {
+                    "Name": "ScriptRemoved",
+                    "Value": 2
+                }
+            ],
+            "Name": "DraftStatusCode"
+        },
+        {
+            "Items": [
+                {
                     "Name": "In",
                     "Value": 0
                 },
@@ -57738,6 +58014,18 @@
                 {
                     "Name": "Elastic",
                     "Value": 7
+                },
+                {
+                    "Name": "Exponential",
+                    "Value": 8
+                },
+                {
+                    "Name": "Circular",
+                    "Value": 9
+                },
+                {
+                    "Name": "Cubic",
+                    "Value": 10
                 }
             ],
             "Name": "EasingStyle"

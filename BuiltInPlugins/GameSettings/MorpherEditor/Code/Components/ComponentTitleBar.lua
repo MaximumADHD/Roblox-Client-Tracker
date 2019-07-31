@@ -1,5 +1,4 @@
 local paths = require(script.Parent.Parent.Paths)
-local fastFlags = require(script.Parent.Parent.FastFlags)
 
 local TitleBar = paths.Roact.Component:extend("ComponentTitleBar")
 
@@ -56,41 +55,28 @@ local function getPlayerChoiceLabel(self)
 end
 
 function TitleBar:render()
-	if fastFlags.isMorphingPanelWidgetsStandardizationOn() then
-		local textSize = calculateTextSize(self.props.Text, paths.ConstantFonts.TitleText.Size, paths.ConstantFonts.TitleText.Type)
+	local textSize = calculateTextSize(self.props.Text, paths.ConstantFonts.TitleText.Size, paths.ConstantFonts.TitleText.Type)
 
-		local children = {}
-		if self.props.IsPlayerChoiceTitleStyle then
-			children.PlayerChoiceLabel = paths.Roact.createElement("TextLabel", {
-				BackgroundTransparency = 1,
-				BorderSizePixel = 0,
-				TextXAlignment = Enum.TextXAlignment.Left,
-				TextYAlignment = Enum.TextYAlignment.Top,
-				TextColor3 = paths.StateInterfaceTheme.getRadioButtonTextColor(self.props),
-				Font = Enum.Font.SourceSans,
-				TextSize = 22,
-				Text = "Override Player Choice?",
-			})
-		end
-
-		return paths.Roact.createElement(paths.StudioWidgetTitledFrame, {
-			Title = self.props.Text,
-			MaxHeight = textSize.Y,
-			LayoutOrder = self.props.LayoutOrder or 1,
-			Font = paths.ConstantFonts.TitleText.Type
-		}, children)
-	else
-		return paths.Roact.createElement("Frame", {
-				LayoutOrder = self.props.LayoutOrder or 0,
-				Size = UDim2.new(1, 0, 0, paths.ConstantLayout.RowHeight),
-				BackgroundTransparency = 1,
-			}, {
-				Heading = getHeadingLabel(self),
-				Custom = self.props.IsPlayerChoiceTitleStyle and getCustomLabel(self) or nil,
-				PlayerChoice = self.props.IsPlayerChoiceTitleStyle and getPlayerChoiceLabel(self) or nil
-			}
-		)
+	local children = {}
+	if self.props.IsPlayerChoiceTitleStyle then
+		children.PlayerChoiceLabel = paths.Roact.createElement("TextLabel", {
+			BackgroundTransparency = 1,
+			BorderSizePixel = 0,
+			TextXAlignment = Enum.TextXAlignment.Left,
+			TextYAlignment = Enum.TextYAlignment.Top,
+			TextColor3 = paths.StateInterfaceTheme.getRadioButtonTextColor(self.props),
+			Font = Enum.Font.SourceSans,
+			TextSize = 22,
+			Text = "Override Player Choice?",
+		})
 	end
+
+	return paths.Roact.createElement(paths.StudioWidgetTitledFrame, {
+		Title = self.props.Text,
+		MaxHeight = textSize.Y,
+		LayoutOrder = self.props.LayoutOrder or 1,
+		Font = paths.ConstantFonts.TitleText.Type
+	}, children)
 end
 
 calculateTextSize = function(text, textSize, font)

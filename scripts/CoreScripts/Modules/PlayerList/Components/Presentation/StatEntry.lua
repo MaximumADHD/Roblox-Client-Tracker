@@ -1,6 +1,10 @@
 local CorePackages = game:GetService("CorePackages")
+local CoreGui = game:GetService("CoreGui")
 
 local Roact = require(CorePackages.Roact)
+
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local GameTranslator = require(RobloxGui.Modules.GameTranslator)
 
 local Components = script.Parent.Parent
 local Connection = Components.Connection
@@ -17,6 +21,7 @@ function StatEntry:render()
 		local backgroundTransparency = layoutValues.BackgroundTransparency
 		local backgroundColor3 = layoutValues.BackgroundColor
 		local font = layoutValues.StatFont
+		local statName = GameTranslator:TranslateGameText(CoreGui, self.props.statName)
 		if self.props.isTitleFrame then
 			backgroundTransparency = layoutValues.TitleBackgroundTransparency
 			backgroundColor3 = layoutValues.TitleBackgroundColor
@@ -63,7 +68,7 @@ function StatEntry:render()
 				TextColor3 = layoutValues.TextColor,
 				TextStrokeColor3 = layoutValues.TextStrokeColor,
 				TextStrokeTransparency = layoutValues.TextStrokeTransparency,
-				Text = self.props.statName,
+				Text = statName,
 				Active = true,
 				ClipsDescendants = true,
 			})

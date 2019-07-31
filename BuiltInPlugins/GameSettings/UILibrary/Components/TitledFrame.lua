@@ -23,6 +23,7 @@ local function TitledFrame(props)
 		return Roact.createElement("Frame", {
 			BackgroundTransparency = 1,
 			BorderSizePixel = 0,
+			ZIndex = props.ZIndex or 1,
 			Size = UDim2.new(1, 0, 0, props.MaxHeight or 100),
 			LayoutOrder = props.LayoutOrder or 1,
 		}, {

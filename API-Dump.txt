@@ -642,6 +642,21 @@ Class DialogChoice : Instance
 	Property string DialogChoice.GoodbyeDialog
 	Property string DialogChoice.ResponseDialog
 	Property string DialogChoice.UserDialog
+Class DraftsService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function void DraftsService:CommitEdits(Array scriptGuids) {RobloxScriptSecurity} [Yields]
+	Function void DraftsService:DiscardEdits(Array scriptGuids) {RobloxScriptSecurity}
+	Function Dictionary DraftsService:GetDrafts() {RobloxScriptSecurity} [Yields]
+	Function Array DraftsService:GetEditors(string scriptGuid) {RobloxScriptSecurity}
+	Function void DraftsService:OpenDrafts(Array scriptGuids) {RobloxScriptSecurity}
+	Function void DraftsService:ShowDiffsAgainstBase(Array scriptGuids) {RobloxScriptSecurity}
+	Function void DraftsService:ShowDiffsAgainstServer(Array scriptGuids) {RobloxScriptSecurity}
+	Function Dictionary DraftsService:UpdateToLatestVersion(Array scriptGuids) {RobloxScriptSecurity} [Yields]
+	Event DraftsService.CommitStatusChanged(string scriptGuid, int commitStatus) {RobloxScriptSecurity}
+	Event DraftsService.DraftAdded(string scriptGuid, Instance script) {RobloxScriptSecurity}
+	Event DraftsService.DraftDeleted(string scriptGuid) {RobloxScriptSecurity}
+	Event DraftsService.EditorsListChanged(string scriptGuid) {RobloxScriptSecurity}
+	Event DraftsService.ScriptDeleted(string scriptGuid) {RobloxScriptSecurity}
+	Event DraftsService.ScriptServerVersionChanged(string scriptGuid) {RobloxScriptSecurity}
 Class Dragger : Instance
 	Function void Dragger:AxisRotate(Enum<Axis> axis = "X")
 	Function void Dragger:MouseDown(Instance mousePart, Vector3 pointOnMousePart, Objects parts)
@@ -1424,7 +1439,7 @@ Class Lighting : Instance [NotCreatable] [Service]
 	Property bool Lighting.GlobalShadows
 	Property bool Lighting.LegacyOutlines  [NotScriptable]
 	Property Color3 Lighting.OutdoorAmbient
-	Property bool Lighting.Outlines
+	Property bool Lighting.Outlines  [Deprecated]
 	Property Color3 Lighting.ShadowColor [<📁> Load-only] [NotReplicated] [Deprecated]
 	Property float Lighting.ShadowSoftness
 	Property Enum<Technology> Lighting.Technology  [NotScriptable]
@@ -3607,6 +3622,10 @@ Enum DialogTone
 Enum DominantAxis
 	EnumItem DominantAxis.Width : 0
 	EnumItem DominantAxis.Height : 1
+Enum DraftStatusCode
+	EnumItem DraftStatusCode.OK : 0
+	EnumItem DraftStatusCode.DraftOutdated : 1
+	EnumItem DraftStatusCode.ScriptRemoved : 2
 Enum EasingDirection
 	EnumItem EasingDirection.In : 0
 	EnumItem EasingDirection.Out : 1
@@ -3620,6 +3639,9 @@ Enum EasingStyle
 	EnumItem EasingStyle.Quint : 5
 	EnumItem EasingStyle.Bounce : 6
 	EnumItem EasingStyle.Elastic : 7
+	EnumItem EasingStyle.Exponential : 8
+	EnumItem EasingStyle.Circular : 9
+	EnumItem EasingStyle.Cubic : 10
 Enum ElasticBehavior
 	EnumItem ElasticBehavior.WhenScrollable : 0
 	EnumItem ElasticBehavior.Always : 1

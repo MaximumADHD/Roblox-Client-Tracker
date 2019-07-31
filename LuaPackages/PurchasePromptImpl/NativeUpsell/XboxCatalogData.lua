@@ -39,10 +39,7 @@ function XboxCatalogData.GetCatalogInfoAsync()
 				table.insert(availableProducts, product)
 			end
 
-			return Promise.resolve(availableProducts)
-		end)
-		:catch(function(errorReason)
-			return Promise.reject(errorReason)
+			return availableProducts
 		end)
 end
 

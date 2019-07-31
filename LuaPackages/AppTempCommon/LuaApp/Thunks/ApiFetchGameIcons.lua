@@ -5,6 +5,8 @@ local ApiFetchThumbnails = require(AppTempCommon.LuaApp.Utils.ApiFetchThumbnails
 local GamesGetIcons = require(AppTempCommon.LuaApp.Http.Requests.GamesGetIcons)
 local SetGameIcons = require(AppTempCommon.LuaApp.Actions.SetGameIcons)
 
+local DEFAULT_ICON_SIZE = "150x150"
+
 return function (networkImpl, universeIds, imageSize)
 	return function(store)
 		local state = store:getState()
@@ -21,7 +23,8 @@ return function (networkImpl, universeIds, imageSize)
 		if #idsToGet == 0 then
 			return Promise.resolve()
 		else
-			return ApiFetchThumbnails.Fetch(networkImpl, idsToGet, imageSize, "Game", GamesGetIcons, SetGameIcons, store)
+			return ApiFetchThumbnails.Fetch(networkImpl,
+				idsToGet, imageSize or DEFAULT_ICON_SIZE, "Game", GamesGetIcons, SetGameIcons, store)
 		end
 	end
 end

@@ -126,6 +126,7 @@ return function(isTenFoot, isSmallTouchScreen)
 		[Enum.MembershipType.BuildersClub] = "rbxasset://textures/ui/icon_BC-16.png",
 		[Enum.MembershipType.TurboBuildersClub] = "rbxasset://textures/ui/icon_TBC-16.png",
 		[Enum.MembershipType.OutrageousBuildersClub] = "rbxasset://textures/ui/icon_OBC-16.png",
+		[Enum.MembershipType.Premium] = "rbxasset://textures/ui/PlayerList/PremiumIcon.png",
 	}
 
 	LayoutValues.CustomPlayerIcons = {	-- Admins with special icons

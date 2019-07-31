@@ -12,11 +12,13 @@ function UILibraryProvider:render()
 	--	by wrapping UILibraryWrapper in a withTheme. This will ensure re-renders are passed down the chain.
 	return Theming.withTheme(function(_, uiLibraryPalette, uiLibraryOverrides)
 		local plugin = self.props.plugin
+		local focusGui = self.props.focusGui
 		local theme = UILibrary.createTheme(uiLibraryPalette, uiLibraryOverrides)
 
 		return Roact.createElement(UILibrary.Wrapper, {
 			plugin = plugin,
-			theme = theme
+			theme = theme,
+			focusGui = focusGui,
 		},{
 			Roact.oneChild(self.props[Roact.Children])
 		})

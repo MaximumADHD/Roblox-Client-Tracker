@@ -17,7 +17,7 @@ local UILibrary = require(Plugin.Packages.UILibrary)
 
 -- components
 local ServiceWrapper = require(Plugin.Src.Components.ServiceWrapper)
-local CreateNewGame = require(Plugin.Src.Components.CreateNewGame)
+local ScreenSelect = require(Plugin.Src.Components.ScreenSelect)
 
 -- data
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
@@ -86,9 +86,10 @@ local function openPluginWindow()
 		plugin = plugin,
 		localization = localization,
 		theme = theme,
+		focusGui = pluginGui,
 		store = dataStore,
 	}, {
-		Roact.createElement(CreateNewGame, {
+		Roact.createElement(ScreenSelect, {
 			OnClose = closePlugin,
 		})
 	})
@@ -98,7 +99,6 @@ local function openPluginWindow()
 	pluginGui.Enabled = true
 end
 
---Binds a toolbar button
 local function main()
 	plugin.Name = localization:getText("General", "PublishPlace")
 	makePluginGui()
@@ -106,7 +106,6 @@ local function main()
 	StudioService.OnPublishPlaceToRoblox:connect(function()
 		openPluginWindow()
 	end)
-
 end
 
 main()

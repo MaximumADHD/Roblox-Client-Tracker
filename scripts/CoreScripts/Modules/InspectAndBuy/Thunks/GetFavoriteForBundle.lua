@@ -1,5 +1,4 @@
 local CorePackages = game:GetService("CorePackages")
-local Promise = require(CorePackages.AppTempCommon.LuaApp.Promise)
 local PerformFetch = require(CorePackages.AppTempCommon.LuaApp.Thunks.Networking.Util.PerformFetch)
 local InspectAndBuyFolder = script.Parent.Parent
 local Thunk = require(InspectAndBuyFolder.Thunk)
@@ -30,11 +29,6 @@ local function GetFavoriteForBundle(bundleId)
 					else
 						store:dispatch(SetFavoriteBundle(tostring(bundleId), true))
 					end
-
-					return Promise.resolve()
-				end,
-				function(err)
-					return Promise.reject(err)
 				end)
 		end)(store):catch(function(err)
 

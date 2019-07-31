@@ -2,8 +2,6 @@
 
 local paths = require(script.Parent.Parent.Paths)
 
-local fastFlags = require(script.Parent.Parent.FastFlags)
-
 local Theme = {}
 
 local getThemeData = nil
@@ -14,11 +12,7 @@ function Theme.getBackgroundColor(props)
 end
 
 function Theme.getTitleTextColor(props)
-	if fastFlags.isMorphingPanelWidgetsStandardizationOn() then
-		return getThemeData(props) and getThemeData(props).titledFrame.text or paths.ConstantColors.TitleText
-	else
-		return getThemeData(props) and getThemeData(props).header.text or paths.ConstantColors.TitleText
-	end
+	return getThemeData(props) and getThemeData(props).titledFrame.text or paths.ConstantColors.TitleText
 end
 
 function Theme.getBodyTextColor(props)

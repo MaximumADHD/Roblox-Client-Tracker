@@ -1,5 +1,3 @@
-local FFlagStudioLuaGameSettingsSaveErrorsPopUp = settings():GetFFlag("StudioLuaGameSettingsSaveErrorsPopUp")
-
 local Plugin = script.Parent.Parent.Parent
 
 local FALLBACK_LOCALE = "en-us"
@@ -243,13 +241,13 @@ function Localization:recalculateContent()
 			},
 		},
 
-		ErrorsOnSaveDialog = FFlagStudioLuaGameSettingsSaveErrorsPopUp and {
+		ErrorsOnSaveDialog = {
 			Header = self:getText("Studio.GameSettings.General.ErrorsOnSaveHeader"),
 			Body = self:getText("Studio.GameSettings.General.ErrorsOnSaveBody"),
 			Buttons = {
 				self:getText("Studio.GameSettings.General.ReplyOK"),
 			},
-		} or nil,
+		},
 
 		PreviewDialog = {
 			Header = self:getText("Studio.GameSettings.General.PreviewDialogHeader"),
@@ -400,14 +398,14 @@ function Localization:recalculateContent()
 				Empty = self:getText("Studio.GameSettings.General.ErrorOverrideEmpty"),
 			},
 		},
-		
+
 		PublishingIsRequired = {
 			FormattableSentence = self:getFormatTextFunc("Studio.GameSettings.General.PublishIsRequiredSentence1"),
 			HyperlinkText = self:getText("Studio.GameSettings.General.PublishIsRequiredHyperlink"),
-			
+
 			AddingCollaborators = self:getText("Studio.GameSettings.AccessPermissions.PublishRequiredForCollaborators"),
 		},
-		
+
 		AccessPermissions = {
 			ActionDropdown = {
 				NoAccessLabel = self:getText("Studio.GameSettings.AccessPermissions.NoAccessLabel"),
@@ -416,20 +414,20 @@ function Localization:recalculateContent()
 				AdminLabel = self:getText("Studio.GameSettings.AccessPermissions.AdminLabel"),
 				OwnerLabel = self:getText("Studio.GameSettings.AccessPermissions.OwnerLabel"),
 				MultipleLabel = self:getText("Studio.GameSettings.AccessPermissions.MultipleLabel"),
-				
+
 				NoAccessDescription = self:getText("Studio.GameSettings.AccessPermissions.NoAccessDescription"),
 				PlayDescription = self:getText("Studio.GameSettings.AccessPermissions.PlayDescription"),
 				EditDescription = self:getText("Studio.GameSettings.AccessPermissions.EditDescription"),
 				AdminDescription = self:getText("Studio.GameSettings.AccessPermissions.AdminDescription"),
 			},
-			
+
 			Collaborators = {
 				FriendsCollaboratorType = self:getText("Studio.GameSettings.AccessPermissions.FriendsCollaboratorType"),
 				UsersCollaboratorType = self:getText("Studio.GameSettings.AccessPermissions.UsersCollaboratorType"),
 				GroupsCollaboratorType = self:getText("Studio.GameSettings.AccessPermissions.GroupsCollaboratorType"),
 				MyFriendsCollaborator = self:getText("Studio.GameSettings.AccessPermissions.MyFriendsCollaborator"),
 			},
-			
+
 			Searchbar = {
 				DefaultText = self:getText("Studio.GameSettings.AccessPermissions.CollaboratorSearchbarDefaultText"),
 				TooManyCollaboratorsText = self:getFormatTextFunc("Studio.GameSettings.AccessPermissions.CollaboratorSearchbarTooManyText1"),

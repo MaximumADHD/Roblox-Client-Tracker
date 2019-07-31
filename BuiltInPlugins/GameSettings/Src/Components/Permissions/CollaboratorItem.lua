@@ -38,7 +38,6 @@ local function DeleteButton(props)
 			AnchorPoint = Vector2.new(1, 0),
 
 			BorderSizePixel = 0,
-			IsRound = false,
 			Style = "LargeHitboxButton",
 
 			RenderContents = function(buttonTheme, hovered)

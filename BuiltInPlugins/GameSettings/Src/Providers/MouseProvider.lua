@@ -3,8 +3,6 @@ local Roact = require(Plugin.Roact)
 
 local mouseKey = require(Plugin.Src.Keys.mouseKey)
 
-local fastFlags = require(Plugin.Src.Util.FastFlags)
-
 local DEFAULT_CURSOR = "rbxasset://SystemCursors/Arrow"
 
 local MouseProvider = Roact.Component:extend("MouseProvider")
@@ -44,9 +42,9 @@ function MouseProvider:init(props)
 			icons = {}
 		end,
 
-		getNativeMouse = fastFlags.isMorphingPanelWidgetsStandardizationOn() and function()
+		getNativeMouse = function()
 			return mouse
-		end or nil,
+		end,
 	}
 
 	self.resetMouse = function()

@@ -5,6 +5,8 @@ local Constants = require(Plugin.Src.Util.Constants)
 local Cryo = require(Plugin.Cryo)
 local UILibraryCreateTheme = require(Plugin.UILibrary.createTheme)
 
+local fflagFontsInTheme = settings():GetFFlag("StudioGameSettingsFontsInTheme")
+
 local Theme = {}
 
 function Theme.new(override)
@@ -115,7 +117,7 @@ function Theme:recalculateTheme()
 	self:update({
 		isDarkerTheme = isDark,
 		
-		fontStyle = settings():GetFFlag("StudioGameSettingsAccessPermissions") and fontStyle or nil,
+		fontStyle = fflagFontsInTheme and fontStyle or nil,
 
 		backgroundColor = color(StyleColor.MainBackground),
 

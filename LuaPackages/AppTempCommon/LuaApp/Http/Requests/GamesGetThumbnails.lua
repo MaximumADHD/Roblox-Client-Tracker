@@ -1,3 +1,9 @@
+--[[
+	*** DEPRECATED ***
+	TODO: removed this file after new thumbnail API is being in use without any flags
+	RELATED: GAMEDISC-27 FIntLuaAppPercentRollOutNewThumbnailsAPI
+]]
+
 local CorePackages = game:GetService("CorePackages")
 
 local Url = require(CorePackages.AppTempCommon.LuaApp.Http.Url)

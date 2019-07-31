@@ -5,11 +5,10 @@ local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
-local UILibrary = require(Plugin.Packages.UILibrary)
+local Localizing = require(Plugin.Packages.UILibrary).Localizing
+
 local Theming = require(Plugin.Src.ContextServices.Theming)
-local StudioPlugin = require(Plugin.Src.ContextServices.StudioPlugin)
 local UILibraryProvider = require(Plugin.Src.ContextServices.UILibraryProvider)
-local Localizing = UILibrary.Localizing
 
 
 -- props.localization : (UILibary.Localization) an object for fetching translated strings
@@ -24,6 +23,7 @@ function ServiceWrapper:init()
 	assert(self.props.plugin ~= nil, "Expected a plugin object")
 	assert(self.props.store ~= nil, "Expected a Rodux Store object")
 	assert(self.props.theme ~= nil, "Expected a PluginTheme object")
+	assert(self.props.focusGui ~= nil, "Expected a FocusGui object")
 end
 
 local function addProvider(provider, props, rootElement)
@@ -34,6 +34,7 @@ function ServiceWrapper:render()
 	local children = self.props[Roact.Children]
 	local localization = self.props.localization
 	local plugin = self.props.plugin
+	local focusGui = self.props.focusGui
 	local store = self.props.store
 	local theme = self.props.theme
 
@@ -41,10 +42,9 @@ function ServiceWrapper:render()
 	-- things most likely to change or trigger updates should be near the top of the list
 	local root = Roact.oneChild(children)
 	root = addProvider(RoactRodux.StoreProvider, { store = store }, root)
-	root = addProvider(UILibraryProvider, { plugin = plugin }, root)
+	root = addProvider(UILibraryProvider, { plugin = plugin, focusGui = focusGui, }, root)
 	root = addProvider(Theming.Provider, { theme = theme, }, root)
 	root = addProvider(Localizing.Provider, { localization = localization }, root)
-	root = addProvider(StudioPlugin.Provider, { plugin = plugin }, root)
 
 	return root
 end

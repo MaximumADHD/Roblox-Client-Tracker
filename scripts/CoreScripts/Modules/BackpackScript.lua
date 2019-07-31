@@ -92,6 +92,8 @@ local FFlagBackpackScriptUseFormatByKey = settings():GetFFlag('BackpackScriptUse
 local FFlagCoreScriptTranslateGameText2 = settings():GetFFlag('CoreScriptTranslateGameText2')
 local FFlagRobloxGuiSiblingZindexs = settings():GetFFlag("RobloxGuiSiblingZindexs")
 
+local FFlagAllowBackpackBinding = game:DefineFastFlag("AllowBackpackBinding", false)
+
 if FFlagBackpackScriptUseFormatByKey then
 	SEARCH_TEXT_OFFSET_FROMLEFT = 3
 	local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
@@ -442,7 +444,11 @@ local function MakeSlot(parent, index)
 				if FullHotbarSlots >= 1 and not GamepadActionsBound then
 					-- Player added first item to a hotbar slot, enable BindCoreAction
 					GamepadActionsBound = true
-					ContextActionService:BindCoreAction("RBXHotbarEquip", changeToolFunc, false, Enum.KeyCode.ButtonL1, Enum.KeyCode.ButtonR1)
+					if FFlagAllowBackpackBinding then
+						ContextActionService:BindAction("RBXHotbarEquip", changeToolFunc, false, Enum.KeyCode.ButtonL1, Enum.KeyCode.ButtonR1)
+					else
+						ContextActionService:BindCoreAction("RBXHotbarEquip", changeToolFunc, false, Enum.KeyCode.ButtonL1, Enum.KeyCode.ButtonR1)
+					end
 				end
 			end
 		end
@@ -472,9 +478,13 @@ local function MakeSlot(parent, index)
 		if self.Index <= NumberOfHotbarSlots then
 			FullHotbarSlots = FullHotbarSlots - 1
 			if FullHotbarSlots < 1 then
-				-- Player removed last item from hotbar; UnbindCoreAction("RBXHotbarEquip"), allowing the developer to use LB and RB.
 				GamepadActionsBound = false
-				ContextActionService:UnbindCoreAction("RBXHotbarEquip")
+				if FFlagAllowBackpackBinding then
+					ContextActionService:UnbindAction("RBXHotbarEquip")
+				else
+					-- Player removed last item from hotbar; UnbindCoreAction("RBXHotbarEquip"), allowing the developer to use LB and RB.
+					ContextActionService:UnbindCoreAction("RBXHotbarEquip")
+				end
 			end
 		end
 
@@ -1072,8 +1082,13 @@ local selectDirection = Vector2.new(0,0)
 local hotbarVisible = false
 
 function unbindAllGamepadEquipActions()
-	ContextActionService:UnbindCoreAction("RBXBackpackHasGamepadFocus")
-	ContextActionService:UnbindCoreAction("RBXCloseInventory")
+	if FFlagAllowBackpackBinding then
+		ContextActionService:UnbindAction("RBXBackpackHasGamepadFocus")
+		ContextActionService:UnbindAction("RBXCloseInventory")
+	else
+		ContextActionService:UnbindCoreAction("RBXBackpackHasGamepadFocus")
+		ContextActionService:UnbindCoreAction("RBXCloseInventory")
+	end
 end
 
 local function setHotbarVisibility(visible, isInventoryScreen)
@@ -1306,8 +1321,13 @@ function enableGamepadInventoryControl()
 		end
 	end
 
-	ContextActionService:BindCoreAction("RBXBackpackHasGamepadFocus", noOpFunc, false, Enum.UserInputType.Gamepad1)
-	ContextActionService:BindCoreAction("RBXCloseInventory", goBackOneLevel, false, Enum.KeyCode.ButtonB, Enum.KeyCode.ButtonStart)
+	if FFlagAllowBackpackBinding then
+		ContextActionService:BindAction("RBXBackpackHasGamepadFocus", noOpFunc, false, Enum.UserInputType.Gamepad1)
+		ContextActionService:BindAction("RBXCloseInventory", goBackOneLevel, false, Enum.KeyCode.ButtonB, Enum.KeyCode.ButtonStart)
+	else
+		ContextActionService:BindCoreAction("RBXBackpackHasGamepadFocus", noOpFunc, false, Enum.UserInputType.Gamepad1)
+		ContextActionService:BindCoreAction("RBXCloseInventory", goBackOneLevel, false, Enum.KeyCode.ButtonB, Enum.KeyCode.ButtonStart)
+	end
 
 	-- Gaze select will automatically select the object for us!
 	if not UseGazeSelection() then
@@ -1335,14 +1355,22 @@ end
 local function bindBackpackHotbarAction()
 	if WholeThingEnabled and not GamepadActionsBound then
 		GamepadActionsBound = true
-		ContextActionService:BindCoreAction("RBXHotbarEquip", changeToolFunc, false, Enum.KeyCode.ButtonL1, Enum.KeyCode.ButtonR1)
+		if FFlagAllowBackpackBinding then
+			ContextActionService:BindAction("RBXHotbarEquip", changeToolFunc, false, Enum.KeyCode.ButtonL1, Enum.KeyCode.ButtonR1)
+		else
+			ContextActionService:BindCoreAction("RBXHotbarEquip", changeToolFunc, false, Enum.KeyCode.ButtonL1, Enum.KeyCode.ButtonR1)
+		end
 	end
 end
 
 local function unbindBackpackHotbarAction()
 	disableGamepadInventoryControl()
 	GamepadActionsBound = false
-	ContextActionService:UnbindCoreAction("RBXHotbarEquip")
+	if FFlagAllowBackpackBinding then
+		ContextActionService:UnbindAction("RBXHotbarEquip")
+	else
+		ContextActionService:UnbindCoreAction("RBXHotbarEquip")
+	end
 end
 
 function gamepadDisconnected()
@@ -1804,10 +1832,18 @@ do -- Make the Inventory expand/collapse arrow (unless TopBar)
 			disableGamepadInventoryControl()
 		end
 
-		if InventoryFrame.Visible then
-			ContextActionService:BindCoreAction("RBXRemoveSlot", removeHotBarSlot, false, Enum.KeyCode.ButtonX)
+		if FFlagAllowBackpackBinding then
+			if InventoryFrame.Visible then
+				ContextActionService:BindAction("RBXRemoveSlot", removeHotBarSlot, false, Enum.KeyCode.ButtonX)
+			else
+				ContextActionService:UnbindAction("RBXRemoveSlot")
+			end
 		else
-			ContextActionService:UnbindCoreAction("RBXRemoveSlot")
+			if InventoryFrame.Visible then
+				ContextActionService:BindCoreAction("RBXRemoveSlot", removeHotBarSlot, false, Enum.KeyCode.ButtonX)
+			else
+				ContextActionService:UnbindCoreAction("RBXRemoveSlot")
+			end
 		end
 
 		BackpackScript.IsOpen = InventoryFrame.Visible

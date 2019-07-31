@@ -82,6 +82,7 @@ function LocalizationTools:render()
 							}),
 
 							TestLanguageSection = Roact.createElement(TestLanguageSection, {
+								AllLanguagesInfo = self.props.AllLanguagesInfo,
 								Window = self.props.Window,
 								LayoutOrder = 1,
 							}),

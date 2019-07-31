@@ -1,5 +1,5 @@
-local Modules = game:getService("CoreGui").RobloxGui.Modules
-local Url = require(Modules.LuaApp.Http.Url)
+local CorePackages = game:GetService("CorePackages")
+local Url = require(CorePackages.AppTempCommon.LuaApp.Http.Url)
 
 --[[
 	Docs: https://thumbnails.roblox.com/docs#!/Games/get_v1_games_icons

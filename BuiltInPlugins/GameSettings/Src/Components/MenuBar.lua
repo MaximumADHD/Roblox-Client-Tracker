@@ -15,17 +15,15 @@ local withLocalization = require(Plugin.Src.Consumers.withLocalization)
 local Constants = require(Plugin.Src.Util.Constants)
 local MenuEntry = require(Plugin.Src.Components.MenuEntry)
 
-local fastFlags = require(Plugin.Src.Util.FastFlags)
-
 local errorsFromPage = {
 	["Basic Info"] = {
 		name = true,
 		description = true,
 		playableDevices = true,
 	},
-	["Avatar"] = fastFlags.isMorphingPanelWidgetsStandardizationOn() and {
+	["Avatar"] = {
 		universeAvatarAssetOverrides = true,
-	} or nil
+	}
 }
 
 local warningsFromPage = {

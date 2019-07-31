@@ -509,11 +509,16 @@ local function GetAllSupportedLanguages()
 
 						reject("Failed to request list of all supported languages (See Output)")
 					else
-						local languageSet = {}
+						local languageTable = {}
 						for _, localeInfo in ipairs(decodedResponseBody.data) do
-							languageSet[localeInfo.locale.language.languageCode] = true
+							-- since locale and language is 1-to-1 mapping from the reponse of this API
+							-- it's fine to build this table this way
+							languageTable[localeInfo.locale.language.languageCode] = {
+								languageName = localeInfo.locale.language.name,
+								localeCode = localeInfo.locale.locale,
+							}
 						end
-						resolve(languageSet)
+						resolve(languageTable)
 					end
 				else
 					reject("Failed to request list of all supported languages")
@@ -594,18 +599,8 @@ local function RequestAssetGeneration(gameId)
 		RequestType = Enum.HttpRequestType.Localization,
 		Headers = {
 			["Accept"] = "application/json",
-		},
-	}):Start(function(success, response)
-		spawn(function()
-			if success then
-				if response.StatusCode >= BAD_REQUEST then
-					warn("Failed to request asset generation. Try again or wait for about 10 mins to test the new content.")
-				end
-			else
-				warn("Failed to request asset generation. Try again or wait for about 10 mins to test the new content.")
-			end
-		end)
-	end)
+		}
+	}):Start(function() end)
 end
 
 return {

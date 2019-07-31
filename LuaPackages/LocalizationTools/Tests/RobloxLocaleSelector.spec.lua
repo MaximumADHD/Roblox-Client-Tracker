@@ -8,6 +8,19 @@ return function()
 			theme = Theming.createTheme({}),
 		}, {
 			Content = Roact.createElement(RobloxLocaleSelector, {
+				AllLanguagesInfo = {
+					localeInfoTable = {
+						["en_us"] = {
+							languageName = "English",
+							languageCode = "en",
+						},
+						["zh_hans"] = {
+							languageName = "Chinese (Simplified)",
+							languageCode = "zh_cn",
+						}
+					},
+					languageInfoTable = {},
+				},
 			}),
 		})
 

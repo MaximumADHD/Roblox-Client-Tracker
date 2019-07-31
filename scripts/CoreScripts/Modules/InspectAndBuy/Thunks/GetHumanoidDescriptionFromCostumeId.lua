@@ -1,5 +1,4 @@
 local CorePackages = game:GetService("CorePackages")
-local Promise = require(CorePackages.AppTempCommon.LuaApp.Promise)
 local PerformFetch = require(CorePackages.AppTempCommon.LuaApp.Thunks.Networking.Util.PerformFetch)
 local InspectAndBuyFolder = script.Parent.Parent
 local Thunk = require(InspectAndBuyFolder.Thunk)
@@ -22,9 +21,6 @@ local function GetHumanoidDescriptionFromCostumeId(costumeId, callback)
 		return PerformFetch.Single(keyMapper(costumeId), function()
 			return network.getHumanoidDescriptionFromCostumeId(costumeId):andThen(function(humanoidDescription)
 				callback(humanoidDescription)
-			end,
-			function(err)
-				return Promise.reject(err)
 			end)
 		end)(store):catch(function(err)
 

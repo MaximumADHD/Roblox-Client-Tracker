@@ -16,18 +16,6 @@ local function isFlagOn(theFlag)
 	return FastFlags.FlagExists[theFlag] and FastFlags.FlagValue[theFlag]
 end
 
-function FastFlags.isCheckboxDisabledStateFixFlagOn()
-	return isFlagOn("SharedWidgetCheckboxDisabledStateFix")
-end
-
-function FastFlags.isSliderLayoutFixFlagOn()
-	return isFlagOn("MorphingAvatarPanelSliderLayoutFix")
-end
-
-function FastFlags.isMorphingPanelWidgetsStandardizationOn()
-	return isFlagOn("MorphingPanelWidgetsStandardization")
-end
-
 function FastFlags.isPlaceFilesGameSettingsSerializationOn()
 	return isFlagOn("PlaceFilesGameSettingsSerialization4")
 end

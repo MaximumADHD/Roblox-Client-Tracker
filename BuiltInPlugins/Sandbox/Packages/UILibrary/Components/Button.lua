@@ -10,7 +10,8 @@
 	Props:
 		string Style = The theme to use for this button. Ex. "Default", "Primary".
 			Styles for buttons can be found in createTheme.lua.
-		bool IsRound = Whether the button will be round or not (default false)
+		string StyleState = Normally controlled by the button (e.g. hovered), but can
+			be overwritten with something like 'disabled' to pull from override themes
 
 		UDim2 Size = The size of the button.
 		UDim2 Position = The position of the button.
@@ -20,15 +21,13 @@
 		int BorderSizePixel = Border size of the button
 ]]
 
-local fflagAccessPermissions = settings():GetFFlag("StudioGameSettingsAccessPermissions")
-
 local Library = script.Parent.Parent
 
 local Roact = require(Library.Parent.Roact)
 
 local Theming = require(Library.Theming)
 local withTheme = Theming.withTheme
-local join = fflagAccessPermissions and require(Library.join) or nil
+local join = require(Library.join)
 
 local RoundFrame = require(Library.Components.RoundFrame)
 
@@ -65,68 +64,54 @@ function Button:render()
 		local hovered = state.hovered
 
 		local style = props.Style
+		local styleState = props.StyleState
 		local size = props.Size
 		local position = props.Position
 		local anchorPoint = props.AnchorPoint
 		local layoutOrder = props.LayoutOrder
 		local renderContents = props.RenderContents
 		local zIndex = props.ZIndex
-		local isRound = props.IsRound == nil and true or props.IsRound
 		local borderSize = props.BorderSizePixel
 
 		assert(renderContents ~= nil and type(renderContents) == "function",
 			"Button requires a RenderContents function.")
 
 		local buttonTheme = style and theme.button[style] or theme.button.Default
-		if hovered then
-			buttonTheme = buttonTheme.hovered
+		if styleState then
+			buttonTheme = join(buttonTheme, buttonTheme[styleState])
+		elseif hovered then
+			buttonTheme = join(buttonTheme, buttonTheme.hovered)
 		end
 
+		local isRound = buttonTheme.isRound
 		local content = renderContents(buttonTheme, hovered)
 
-		if fflagAccessPermissions then
-			local buttonProps = {
-				Size = size,
-				Position = position,
-				AnchorPoint = anchorPoint,
-				LayoutOrder = layoutOrder,
-				ZIndex = zIndex,
+		local buttonProps = {
+			Size = size,
+			Position = position,
+			AnchorPoint = anchorPoint,
+			LayoutOrder = layoutOrder,
+			ZIndex = zIndex,
 
-				BackgroundColor3 = buttonTheme.backgroundColor,
-				BorderColor3 = buttonTheme.borderColor,
-				BorderSizePixel = fflagAccessPermissions and borderSize or nil,
-			}
+			BackgroundColor3 = buttonTheme.backgroundColor,
+			BorderColor3 = buttonTheme.borderColor,
+			BorderSizePixel = borderSize,
+		}
 
-			if isRound then
-				return Roact.createElement(RoundFrame, join(buttonProps, {
-					OnActivated = self.onClick,
-					OnMouseEnter = self.mouseEnter,
-					OnMouseLeave = self.mouseLeave,
-				}), content)
-			else
-				return Roact.createElement("ImageButton", join(buttonProps, {
-					AutoButtonColor = false,
-
-					[Roact.Event.MouseEnter] = self.mouseEnter,
-					[Roact.Event.MouseLeave] = self.mouseLeave,
-					[Roact.Event.Activated] = self.onClick,
-				}), content)
-			end
-		else
-			return Roact.createElement(RoundFrame, {
-				Size = size,
-				Position = position,
-				AnchorPoint = anchorPoint,
-				LayoutOrder = layoutOrder,
-				ZIndex = zIndex,
-
-				BackgroundColor3 = buttonTheme.backgroundColor,
-				BorderColor3 = buttonTheme.borderColor,
-
+		if isRound then
+			return Roact.createElement(RoundFrame, join(buttonProps, {
 				OnActivated = self.onClick,
 				OnMouseEnter = self.mouseEnter,
 				OnMouseLeave = self.mouseLeave,
-			}, content)
+			}), content)
+		else
+			return Roact.createElement("ImageButton", join(buttonProps, {
+				AutoButtonColor = false,
+
+				[Roact.Event.MouseEnter] = self.mouseEnter,
+				[Roact.Event.MouseLeave] = self.mouseLeave,
+				[Roact.Event.Activated] = self.onClick,
+			}), content)
 		end
 	end)
 end
