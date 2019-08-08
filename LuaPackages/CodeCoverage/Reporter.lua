@@ -52,7 +52,7 @@ function Reporter.processCoverageStats()
             lineNumber = lineNumber + 1
         end
 
-        table.insert( files, {
+        table.insert(files, {
             script = aScript,
             path = CoreScriptSyncService:GetScriptFilePath(aScript),
             lines = lines,
@@ -72,11 +72,16 @@ function Reporter.generateReport(path)
             or file.script:IsDescendantOf(CorePackages.CodeCoverage)
         return not isTest and file.path and file.path:len() > 0
     end)
+    if report:len() == 0 then
+        warn("Generating code coverage report failed. Produced report has zero size.")
+        return
+    end
+
     local success, message = pcall(function()
         TestService:writeToFileIfContentIsDifferent(path, report)
     end)
     if not success then
-        warn("Failed to save report at path: " .. path .. "\nError: " .. message)
+        warn("Failed to save code coverage report at path: " .. path .. "\nError: " .. message)
     end
 end
 

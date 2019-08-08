@@ -55,7 +55,7 @@ local function handleUnvoting(state, assetId)
 		local newVoteUp = currentVoting.UpVotes
 		local newVoteDown = currentVoting.DownVotes
 		if currentVoting.HasVoted then
-			if currentVoting.UserVote  == 1 then
+			if currentVoting.UserVote == true then
 				newVoteUp = newVoteUp - 1
 			else
 				newVoteDown = newVoteDown - 1

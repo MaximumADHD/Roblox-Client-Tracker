@@ -23,7 +23,7 @@ local errorsFromPage = {
 	},
 	["Avatar"] = {
 		universeAvatarAssetOverrides = true,
-	}
+	},
 }
 
 local warningsFromPage = {
@@ -39,6 +39,13 @@ if settings():GetFFlag("StudioGameSettingsAccessPermissions") then
 	warningsFromPage["Basic Info"] = nil
 	warningsFromPage["Access Permissions"] = {
 		isActive = true,
+	}
+end
+
+
+if settings():GetFFlag("DeveloperSubscriptionsEnabled") then
+	errorsFromPage["Developer Subscriptions"] = {
+		DeveloperSubscriptions = true
 	}
 end
 

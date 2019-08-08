@@ -4,8 +4,7 @@ end
 
 local Plugin = script.Parent.Parent
 
-local FFlag = require(Plugin.Src.Util.FFlag)
-if not FFlag:isEnabled("StudioVersionControlAlpha") then return end
+if not settings():GetFFlag("StudioVersionControlAlpha") then return end
 
 local OverrideLocaleId = settings():GetFVariable("StudioForceLocale")
 

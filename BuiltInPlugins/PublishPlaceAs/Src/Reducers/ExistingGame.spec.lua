@@ -9,85 +9,146 @@ return function()
 		local state = Reducer(nil, {})
 
 		expect(type(state)).to.equal("table")
-		expect(state.games).to.ok()
-		expect(state.gamesLock).to.be.ok()
+		expect(state.gameInfo).to.ok()
+		expect(state.gameInfo.games).to.ok()
+		expect(state.placeInfo).to.ok()
+		expect(state.placeInfo.places).to.ok()
 	end)
 
-	describe("SetGames action", function()
-		local SetGames = require(Plugin.Src.Actions.SetGames)
+	describe("SetGameInfo action", function()
+		local SetGameInfo = require(Plugin.Src.Actions.SetGameInfo)
 
 		it("should validate its inputs", function()
 			expect(function()
-				SetGames("game1")
+				SetGameInfo("game1")
 			end).to.throw()
 
 			expect(function()
-				SetGames(Cryo.None)
+				SetGameInfo(Cryo.None)
+			end).to.throw()
+
+			expect(function()
+				SetGameInfo({ games = true, })
+			end).to.throw()
+
+			expect(function()
+				SetGameInfo({ previousPageCursor = {}, })
+			end).to.throw()
+
+			expect(function()
+				SetGameInfo({ nextPageCursor = {}, })
 			end).to.throw()
 		end)
 
 		it("should not mutate the state", function()
-			testImmutability(Reducer, SetGames(nil))
-			testImmutability(Reducer, SetGames({}))
-			testImmutability(Reducer, SetGames({ nil, }))
-			testImmutability(Reducer, SetGames({ g = 10, }))
-			testImmutability(Reducer, SetGames({ g = 10, }))
+			testImmutability(Reducer, SetGameInfo(nil))
+			testImmutability(Reducer, SetGameInfo({}))
+			testImmutability(Reducer, SetGameInfo({
+				games = { {name = "a"}, { name = "b", }},
+				nextPageCursor = "not actually a cursor?",
+				previousPageCursor = "goto magick",
+			}))
 		end)
 
-		it("should set loading", function()
+		it("should set games", function()
 			local state = Reducer(nil, {})
-			expect(Cryo.isEmpty(state.games)).to.equal(true)
+			expect(Cryo.isEmpty(state.gameInfo.games)).to.equal(true)
 
-			state = Reducer(state, SetGames(nil))
-			expect(Cryo.isEmpty(state.games)).to.equal(true)
+			state = Reducer(state, SetGameInfo({
+				games = { { name = "game 1", }},
+			}))
+			expect(#state.gameInfo.games).to.equal(1)
+			expect(state.gameInfo.games[1].name == "game 1").to.equal(true)
 
-			state = Reducer(state, SetGames({}))
-			expect(Cryo.isEmpty(state.games)).to.equal(true)
+			state = Reducer(state, SetGameInfo())
+			expect(Cryo.isEmpty(state.gameInfo.games)).to.equal(true)
+		end)
 
-			state = Reducer(state, SetGames({ g = 10, }))
-			expect(Cryo.isEmpty(state.games)).to.equal(false)
-			expect(state.games.g).to.equal(10)
+		it("should set the cursors", function()
+			local state = Reducer(nil, {})
+			expect(Cryo.isEmpty(state.gameInfo.games)).to.equal(true)
 
-			state = Reducer(state, SetGames({}))
-			expect(Cryo.isEmpty(state.games)).to.equal(true)
+			local a = tostring(math.random())
+			local b = tostring(math.random())
+			state = Reducer(state, SetGameInfo({
+				nextPageCursor = a,
+				previousPageCursor = b,
+			}))
+			expect(state.gameInfo.nextPageCursor).to.equal(a)
+			expect(state.gameInfo.previousPageCursor).to.equal(b)
+
+			state = Reducer(state, SetGameInfo({games = { "some random value", },}))
+			expect(state.gameInfo.nextPageCursor).to.equal(nil)
+			expect(state.gameInfo.previousPageCursor).to.equal(nil)
 		end)
 	end)
 
-	describe("SetGamesLock action", function()
-		local SetGamesLock = require(Plugin.Src.Actions.SetGamesLock)
+	describe("SetPlaceInfo action", function()
+		local SetPlaceInfo = require(Plugin.Src.Actions.SetPlaceInfo)
 
 		it("should validate its inputs", function()
 			expect(function()
-				SetGamesLock(nil)
+				SetPlaceInfo("place1")
 			end).to.throw()
 
 			expect(function()
-				SetGamesLock("false")
+				SetPlaceInfo(Cryo.None)
 			end).to.throw()
 
 			expect(function()
-				SetGamesLock({})
+				SetPlaceInfo({ places = true, })
 			end).to.throw()
 
 			expect(function()
-				SetGamesLock(Cryo.None)
+				SetPlaceInfo({ previousPageCursor = {}, })
+			end).to.throw()
+
+			expect(function()
+				SetPlaceInfo({ nextPageCursor = {}, })
 			end).to.throw()
 		end)
 
 		it("should not mutate the state", function()
-			testImmutability(Reducer, SetGamesLock(false))
-			testImmutability(Reducer, SetGamesLock(true))
+			testImmutability(Reducer, SetPlaceInfo(nil))
+			testImmutability(Reducer, SetPlaceInfo({}))
+			testImmutability(Reducer, SetPlaceInfo({
+				places = { {name = "a"}, { name = "b", }},
+				nextPageCursor = "not actually a cursor?",
+				previousPageCursor = "goto magick",
+			}))
 		end)
 
-		it("should set loading", function()
+		it("should set places", function()
 			local state = Reducer(nil, {})
-			expect(state.gamesLock).to.equal(false)
+			expect(Cryo.isEmpty(state.placeInfo.places)).to.equal(true)
 
-			state = Reducer(state, SetGamesLock(false))
-			expect(state.gamesLock).to.equal(false)
+			state = Reducer(state, SetPlaceInfo({
+				places = { { name = "place 1", }},
+			}))
+			expect(#state.placeInfo.places).to.equal(1)
+			expect(state.placeInfo.places[1].name == "place 1").to.equal(true)
 
-			state = Reducer(state, SetGamesLock(true))
-			expect(state.gamesLock).to.equal(true)
+			state = Reducer(state, SetPlaceInfo())
+			expect(Cryo.isEmpty(state.placeInfo.places)).to.equal(true)
+		end)
+
+		it("should set the cursors", function()
+			local state = Reducer(nil, {})
+			expect(Cryo.isEmpty(state.placeInfo.places)).to.equal(true)
+
+			local a = tostring(math.random())
+			local b = tostring(math.random())
+			state = Reducer(state, SetPlaceInfo({
+				nextPageCursor = a,
+				previousPageCursor = b,
+			}))
+			expect(state.placeInfo.nextPageCursor).to.equal(a)
+			expect(state.placeInfo.previousPageCursor).to.equal(b)
+
+			state = Reducer(state, SetPlaceInfo({places = { "some random value", },}))
+			expect(state.placeInfo.nextPageCursor).to.equal(nil)
+			expect(state.placeInfo.previousPageCursor).to.equal(nil)
 		end)
 	end)
+
 end

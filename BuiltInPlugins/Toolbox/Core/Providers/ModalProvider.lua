@@ -64,4 +64,10 @@ function ModalProvider:render()
 	return Roact.oneChild(self.props[Roact.Children])
 end
 
+function ModalProvider:didUpdate()
+	if self.props.didUpdateCallBack then
+		self.props.didUpdateCallBack()
+	end
+end
+
 return ModalProvider

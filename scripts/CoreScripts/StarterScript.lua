@@ -19,6 +19,8 @@ local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp")
 local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList")
 local FFlagEmotesMenuEnabled2 = settings():GetFFlag("CoreScriptEmotesMenuEnabled2")
 
+local FFlagEnableNetworkPauseGui = game:DefineFastFlag("EnableNetworkPauseGui", false)
+
 local soundFolder = Instance.new("Folder")
 soundFolder.Name = "Sounds"
 soundFolder.Parent = RobloxGui
@@ -110,3 +112,7 @@ coroutine.wrap(function()
 	safeRequire(RobloxGui.Modules.VR.VirtualKeyboard)
 	safeRequire(RobloxGui.Modules.VR.UserGui)
 end)()
+
+if FFlagEnableNetworkPauseGui then
+	ScriptContext:AddCoreScriptLocal("CoreScripts/NetworkPause", RobloxGui)
+end

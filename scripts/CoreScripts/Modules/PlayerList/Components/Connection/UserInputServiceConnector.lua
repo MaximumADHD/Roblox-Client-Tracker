@@ -8,6 +8,7 @@ local Components = script.Parent.Parent
 local PlayerList = Components.Parent
 
 local ClosePlayerDropDown = require(PlayerList.Actions.ClosePlayerDropDown)
+local SetIsUsingGamepad = require(PlayerList.Actions.SetIsUsingGamepad)
 
 local EventConnection = require(script.Parent.EventConnection)
 
@@ -26,6 +27,14 @@ local function UserInputServiceConnector(props)
 				end
 			end,
 		}),
+
+		LastInputTypeChangedConnection = Roact.createElement(EventConnection, {
+			event = UserInputService.LastInputTypeChanged,
+			callback = function(inputType)
+				local isGamepad = inputType.Name:find("Gamepad")
+				props.setIsUsingGamepad(isGamepad ~= nil)
+			end,
+		})
 	})
 end
 
@@ -33,6 +42,10 @@ local function mapDispatchToProps(dispatch)
 	return {
 		closePlayerDropDown = function()
 			return dispatch(ClosePlayerDropDown())
+		end,
+
+		setIsUsingGamepad = function(value)
+			return dispatch(SetIsUsingGamepad(value))
 		end,
 	}
 end

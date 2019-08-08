@@ -1,5 +1,3 @@
-local FFlagStudioMarketplaceTabsEnabled = settings():GetFFlag("StudioMarketplaceTabsEnabled")
-
 return function()
 	local Plugin = script.Parent.Parent.Parent
 
@@ -22,7 +20,7 @@ return function()
 		return i
 	end
 
-	itSKIP("should return a table with the correct members", function()
+	it("should return a table with the correct members", function()
 		local state = PageInfo(nil, {})
 
 		expect(type(state)).to.equal("table")
@@ -35,7 +33,6 @@ return function()
 		expect(state.groups).to.be.ok()
 		expect(state.groupIndex).to.be.ok()
 		expect(state.page).to.be.ok()
-		expect(state.pageSize).to.be.ok()
 	end)
 
 	describe("GetManageableGroups action", function()
@@ -86,16 +83,13 @@ return function()
 			end
 		end)
 
+		-- TODO: Fix me and make me a smaller unit test.
+		-- DEVTOOLS-2937
 		itSKIP("should update the categories and group index+id if necessary", function()
 			local state = PageInfo(nil, {})
 
-			if FFlagStudioMarketplaceTabsEnabled then
-				state = PageInfo(state, SetCategories(Category.INVENTORY_KEY, Category.INVENTORY))
-				expect(state.categories).to.equal(Category.INVENTORY)
-			else
-				expect(state.categories).to.equal(Category.CATEGORIES_WITHOUT_GROUPS)
-			end
-
+			state = PageInfo(state, SetCategories(Category.INVENTORY_KEY, Category.INVENTORY))
+			expect(state.categories).to.equal(Category.INVENTORY)
 			expect(state.groupIndex).to.equal(0)
 			expect(PageInfoHelper.getGroupIdForPageInfo(state)).to.equal(0)
 
@@ -105,11 +99,7 @@ return function()
 			}
 			state = PageInfo(state, GetManageableGroups(firstTestGroups))
 
-			if FFlagStudioMarketplaceTabsEnabled then
-				expect(state.categories).to.equal(Category.INVENTORY_WITH_GROUPS)
-			else
-				expect(state.categories).to.equal(Category.CATEGORIES)
-			end
+			expect(state.categories).to.equal(Category.INVENTORY_WITH_GROUPS)
 
 			-- First time we have groups so set groupIndex to 1
 			expect(state.groupIndex).to.equal(1)
@@ -125,21 +115,15 @@ return function()
 			}
 			state = PageInfo(state, GetManageableGroups(secondTestGroups))
 
-			if FFlagStudioMarketplaceTabsEnabled then
-				expect(state.categories).to.equal(Category.INVENTORY_WITH_GROUPS)
-			else
-				expect(state.categories).to.equal(Category.CATEGORIES)
-			end
-
+			expect(state.categories).to.equal(Category.INVENTORY_WITH_GROUPS)
 			expect(state.groupIndex).to.equal(2)
 			expect(PageInfoHelper.getGroupIdForPageInfo(state)).to.equal(secondTestGroups[state.groupIndex].Id)
 
-			local groupModelsCategoryIndex = FFlagStudioMarketplaceTabsEnabled and 6 or 14
+			local groupModelsCategoryIndex = 6
 
 			state = PageInfo(state, UpdatePageInfo({
 				categoryIndex = groupModelsCategoryIndex,
-				category = FFlagStudioMarketplaceTabsEnabled and Category.INVENTORY_WITH_GROUPS[groupModelsCategoryIndex].category
-					or Category.CATEGORIES[groupModelsCategoryIndex].category
+				category = Category.INVENTORY_WITH_GROUPS[groupModelsCategoryIndex].category
 			}))
 			expect(state.categoryIndex).to.equal(groupModelsCategoryIndex)
 
@@ -148,19 +132,11 @@ return function()
 			state = PageInfo(state, GetManageableGroups(thirdTestGroups))
 
 			-- Categories list should remove groups
-			if FFlagStudioMarketplaceTabsEnabled then
-				expect(state.categories).to.equal(Category.INVENTORY)
-			else
-				expect(state.categories).to.equal(Category.CATEGORIES_WITHOUT_GROUPS)
-			end
+			expect(state.categories).to.equal(Category.INVENTORY)
 
 			-- Category should be reset to 1 because the groups categories now don't exist
 			expect(state.categoryIndex).to.equal(1)
-			if FFlagStudioMarketplaceTabsEnabled then
-				expect(PageInfoHelper.getCategoryForPageInfo(state)).to.equal(Category.INVENTORY[1].category)
-			else
-				expect(PageInfoHelper.getCategoryForPageInfo(state)).to.equal(Category.CATEGORIES_WITHOUT_GROUPS[1].category)
-			end
+			expect(PageInfoHelper.getCategoryForPageInfo(state)).to.equal(Category.INVENTORY[1].category)
 
 			-- Group index and id should be reset to 0
 			expect(state.groupIndex).to.equal(0)

@@ -5,9 +5,12 @@ end
 -- Fast flags
 local FFlagDebugGameSettingsLocalizationKeysOnly = settings():GetFFlag("DebugGameSettingsLocalizationKeysOnly")
 local OverrideLocaleId = settings():GetFVariable("StudioForceLocale")
-local DFFlagGameSettingsWorldPanel = settings():GetFFlag("GameSettingsWorldPanel3")
 local DFFlagDeveloperSubscriptionsEnabled = settings():GetFFlag("DeveloperSubscriptionsEnabled")
 local FFlagStudioGameSettingsAccessPermissions = settings():GetFFlag("StudioGameSettingsAccessPermissions")
+
+local FFlagStudioGameSettingsBindToClose = game:DefineFastFlag("StudioGameSettingsBindToClose", false)
+
+game:DefineFastInt("DeveloperSubscriptionsMaxRobuxPrice", 2000)
 
 --Turn this on when debugging the store and actions
 local LOG_STORE_STATE_AND_EVENTS = false
@@ -73,9 +76,7 @@ if DFFlagDeveloperSubscriptionsEnabled then
 	table.insert(settingsPages, "Developer Subscriptions")
 end
 
-if DFFlagGameSettingsWorldPanel then
-	table.insert(settingsPages, "World")
-end
+table.insert(settingsPages, "World")
 
 local localization
 local localizationTable = Plugin.Src.Localization.GameSettingsTranslationReferenceTable
@@ -137,12 +138,21 @@ local function showDialog(type, props)
 						end
 					})),
 				})
-			dialog:GetPropertyChangedSignal("Enabled"):connect(function()
-				Roact.unmount(dialogHandle)
-				dialog:Destroy()
-				setMainWidgetInteractable(true)
-				reject()
-			end)
+			if FFlagStudioGameSettingsBindToClose then
+				dialog:BindToClose(function()
+					Roact.unmount(dialogHandle)
+					dialog:Destroy()
+					setMainWidgetInteractable(true)
+					reject()
+				end)
+			else
+				dialog:GetPropertyChangedSignal("Enabled"):connect(function()
+					Roact.unmount(dialogHandle)
+					dialog:Destroy()
+					setMainWidgetInteractable(true)
+					reject()
+				end)
+			end
 			dialogHandle = Roact.mount(dialogContents, dialog)
 		end)
 	end)
@@ -168,7 +178,9 @@ local function closeGameSettings(userPressedSave)
 			local hasUnsavedChanges = changed and not isEmpty(changed)
 			if hasUnsavedChanges and not userPressedSave then
 				--Prompt if the user actually wanted to save using a Modal
-				settingsStore:dispatch(SetCurrentStatus(CurrentStatus.Closed))
+				if not FFlagStudioGameSettingsBindToClose then
+					settingsStore:dispatch(SetCurrentStatus(CurrentStatus.Closed))
+				end
 
 				local dialogProps = {
 					Size = Vector2.new(343, 145),
@@ -181,6 +193,9 @@ local function closeGameSettings(userPressedSave)
 				if didDiscardAllChanges then
 					--Exit game settings and delete all changes without saving
 					settingsStore:dispatch(DiscardChanges())
+					if FFlagStudioGameSettingsBindToClose then
+						settingsStore:dispatch(SetCurrentStatus(CurrentStatus.Closed))
+					end
 					pluginGui.Enabled = false
 					Roact.unmount(gameSettingsHandle)
 
@@ -216,12 +231,18 @@ local function makePluginGui()
 	pluginGui.Title = plugin.Name
 	pluginGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
-	pluginGui:GetPropertyChangedSignal("Enabled"):connect(function()
-		-- Handle if user clicked the X button to close the window
-		if not pluginGui.Enabled then
+	if FFlagStudioGameSettingsBindToClose then
+		pluginGui:BindToClose(function()
 			closeGameSettings(false)
-		end
-	end)
+		end)
+	else
+		pluginGui:GetPropertyChangedSignal("Enabled"):connect(function()
+			-- Handle if user clicked the X button to close the window
+			if not pluginGui.Enabled then
+				closeGameSettings(false)
+			end
+		end)
+	end
 end
 
 --Initializes and populates the Game Settings popup window

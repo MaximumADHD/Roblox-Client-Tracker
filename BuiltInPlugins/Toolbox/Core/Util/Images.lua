@@ -1,6 +1,7 @@
 local Plugin = script.Parent.Parent.Parent
 
 local wrapStrictTable = require(Plugin.Core.Util.wrapStrictTable)
+local Constants = require(Plugin.Core.Util.Constants)
 
 local Images = {}
 
@@ -65,8 +66,36 @@ Images.HIERARCHY = "rbxasset://textures/StudioToolbox/AssetPreview/hierarchy.png
 Images.FULLSCREEN = "rbxasset://textures/StudioToolbox/AssetPreview/fullscreen.png"
 Images.FULLSCREEN_EXIT = "rbxasset://textures/StudioToolbox/AssetPreview/fullscreen_exit.png"
 
+Images.MAKE_CURRENT_VERSION = "rbxasset://textures/StudioToolbox/AssetConfig/selected@2x.png"
+
 Images.MARKETPLACE_TAB = "rbxasset://textures/StudioToolbox/Tabs/Shop.png"
 Images.INVENTORY_TAB = "rbxasset://textures/StudioToolbox/Tabs/Inventory.png"
 Images.RECENT_TAB = "rbxasset://textures/StudioToolbox/Tabs/Recent.png"
+Images.CREATIONS_TAB = "rbxasset://textures/StudioToolbox/Tabs/MyCreations.png"
+
+-- For asset config
+Images.GENERAL_TAB = "rbxasset://textures/StudioToolbox/AssetConfig/editlisting.png"
+Images.VERSIONS_TAB = "rbxasset://textures/StudioToolbox/AssetConfig/version.png"
+
+Images.TOGGLE_ON_DARK = "rbxasset://textures/RoactStudioWidgets/toggle_on_dark.png"
+Images.TOGGLE_ON_LIGHT = "rbxasset://textures/RoactStudioWidgets/toggle_on_light.png"
+Images.TOGGLE_OFF_DARK = "rbxasset://textures/RoactStudioWidgets/toggle_off_dark.png"
+Images.TOGGLE_OFF_LIGHT = "rbxasset://textures/RoactStudioWidgets/toggle_off_light.png"
+Images.TOGGLE_DISABLE_DARK = "rbxasset://textures/RoactStudioWidgets/toggle_disable_dark.png"
+Images.TOGGLE_DISABLE_LIGHT	= "rbxasset://textures/RoactStudioWidgets/toggle_disable_light.png"
+
+Images.GENERAL_SIDE_TAB = "rbxasset://textures/StudioToolbox/AssetConfig/editlisting.png"
+Images.VERSIONS_SIDE_TAB = "rbxasset://textures/StudioToolbox/AssetConfig/version.png"
+Images.SALES_SIDE_TAB = "rbxasset://textures/StudioToolbox/AssetConfig/creations.png"
+
+Images.SELECTED_CHECK = "rbxasset://textures/StudioToolbox/AssetConfig/readyforsale@2x.png"
+
+Images.AssetStatus = {
+	[Constants.AssetStatus.ReviewPending] = "rbxasset://textures/StudioToolbox/AssetPreview/Pending.png",
+	[Constants.AssetStatus.Moderated] = "rbxasset://textures/StudioToolbox/AssetPreview/Rejected.png",
+	[Constants.AssetStatus.ReviewApproved] = "rbxasset://textures/StudioToolbox/AssetPreview/ReadyforSale.png",
+	[Constants.AssetStatus.OnSale] = "rbxasset://textures/StudioToolbox/AssetPreview/OnSale.png",
+	[Constants.AssetStatus.OffSale] = "rbxasset://textures/StudioToolbox/AssetPreview/OffSale.png",
+}
 
 return wrapStrictTable(Images)

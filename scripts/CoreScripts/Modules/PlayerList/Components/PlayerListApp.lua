@@ -13,6 +13,8 @@ local Presentation = script.Parent.Presentation
 local PlayerScrollList = require(Presentation.PlayerScrollList)
 local TopBarLeaderstats = require(Presentation.TopBarLeaderstats)
 local PlayerEntry = require(Presentation.PlayerEntry)
+local VoiceChatShield = require(Presentation.VoiceChatShield)
+local TenFootSideBar = require(Presentation.TenFootSideBar)
 
 local Connection = script.Parent.Connection
 local EventConnections = require(Connection.EventConnections)
@@ -62,6 +64,12 @@ function PlayerListApp:render()
 		childElements["EventConnections"] = Roact.createElement(EventConnections)
 		childElements["ContextActionsBindings"] = Roact.createElement(ContextActionsBinder)
 		childElements["TopStatConnector"] = Roact.createElement(TopStatConnector)
+		if self.props.displayOptions.hasPermissionToVoiceChat then
+			childElements["VoiceChatShield"] = Roact.createElement(VoiceChatShield)
+		end
+		if self.props.displayOptions.isTenFootInterface then
+			childElements["TenFootSideBar"] = Roact.createElement(TenFootSideBar)
+		end
 
 		return Roact.createElement("Frame", {
 			Position = containerPosition,
@@ -69,6 +77,8 @@ function PlayerListApp:render()
 			Size = containerSize,
 			BackgroundTransparency = 1,
 			Visible = self.props.displayOptions.isVisible,
+			---Increase ZIndex on TenFootInferface to put this on front of the VoiceChatShield.
+			ZIndex = layoutValues.IsTenFoot and 2 or 1,
 		}, childElements)
 	end)
 end

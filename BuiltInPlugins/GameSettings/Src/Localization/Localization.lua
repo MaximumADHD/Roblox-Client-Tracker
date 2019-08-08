@@ -295,16 +295,22 @@ function Localization:recalculateContent()
 		},
 
 		Errors = {
+			ErrorDevSubFiltered = self:getFormatTextFunc("Studio.GameSettings.General.ErrorDevSubFiltered"),
+			ErrorDevSubMaxPrice = self:getFormatTextFunc("Studio.GameSettings.General.ErrorDevSubMaxPrice"),
+			ErrorDevSubInvalidPrice = self:getText("Studio.GameSettings.General.ErrorDevSubInvalidPrice"),
 			ErrorNameModerated = self:getText("Studio.GameSettings.General.ErrorNameModerated"),
 			ErrorNameEmpty = self:getText("Studio.GameSettings.General.ErrorNameEmpty"),
 			ErrorDescModerated = self:getText("Studio.GameSettings.General.ErrorDescModerated"),
 			ErrorImageLimit = self:getText("Studio.GameSettings.General.ErrorImageLimit"),
 			ErrorImageNotRecognized = self:getText("Studio.GameSettings.General.ErrorImageNotRecognized"),
+			ErrorImageRequired = self:getText("Studio.GameSettings.General.ErrorImageRequired"),
 			ErrorNoDevices = self:getText("Studio.GameSettings.General.ErrorNoDevices"),
 		},
 
 		DevSubs = {
 			EditHeader = self:getText("Studio.GameSettings.General.DevSubsEditHeader"),
+			NewHeader = self:getText("Studio.GameSettings.General.DevSubsNewHeader"),
+			DiscontinuedHeader = self:getText("Studio.GameSettings.General.DevSubsDiscontinuedHeader"),
 			ListHeader = self:getText("Studio.GameSettings.General.DevSubsListHeader"),
 
 			Name = self:getText("Studio.GameSettings.General.DevSubsName"),
@@ -317,6 +323,7 @@ function Localization:recalculateContent()
 			Active = self:getText("Studio.GameSettings.General.DevSubsActive"),
 
 			CreateAction = self:getText("Studio.GameSettings.General.DevSubsCreateAction"),
+			DeleteAction = self:getText("Studio.GameSettings.General.DevSubsDeleteAction"),
 			DiscontinueAction = self:getText("Studio.GameSettings.General.DevSubsDiscontinueAction"),
 
 			Unsaved = self:getText("Studio.GameSettings.General.DevSubsUnsaved"),

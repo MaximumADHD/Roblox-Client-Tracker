@@ -1,16 +1,26 @@
 --[[
-	A drop down menu
+	This is a DropDownMenu we use within Toolbox/Markeptlace.
+	It's will open a drop down to contain buttons if we click the controller button.
+	User can change the content of the DropDownMenu.
 
-	Props:
-		UDim2 Position
-		UDim2 Size
-		number LayoutOrder = 0
-		number selectedDropDownIndex
-		number visibleDropDownCount = 5
-		number rowHeight = 24
-		[string] items
+	Necessary Props:
+		Position UDim2, used to determin the position. Can be overrided using
+		layout order.
+		Size UDim2
+		selectedDropDownIndex number, will be used to determine current selection.
+		visibleDropDownCount number = 5,
+		rowHeight number = 24
+		fontSize number = Constants.FONT_SIZE_MEDIUM
+		items = table, {
+			name, optional, will be used to get the text for selectable items.
+			selectable=true, selectable will default to true if nil
+		}
 
 		callback onItemClicked(number index)
+
+	Optional Props:
+		LayoutOrder = LayoutOrder, this wwill be used to override the position of the
+		dropdown menu.
 ]]
 
 local Plugin = script.Parent.Parent.Parent
@@ -18,20 +28,22 @@ local Plugin = script.Parent.Parent.Parent
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 
-local Constants = require(Plugin.Core.Util.Constants)
-local getTextSize = require(Plugin.Core.Util.getTextSize)
-local ContextGetter = require(Plugin.Core.Util.ContextGetter)
-local ContextHelper = require(Plugin.Core.Util.ContextHelper)
-local DebugFlags = require(Plugin.Core.Util.DebugFlags)
-local Images = require(Plugin.Core.Util.Images)
+local Util = Plugin.Core.Util
+local Constants = require(Util.Constants)
+local getTextSize = require(Util.getTextSize)
+local ContextGetter = require(Util.ContextGetter)
+local ContextHelper = require(Util.ContextHelper)
+local DebugFlags = require(Util.DebugFlags)
+local Images = require(Util.Images)
 
 local getModal = ContextGetter.getModal
 local withModal = ContextHelper.withModal
 local withTheme = ContextHelper.withTheme
 
-local StyledScrollingFrame = require(Plugin.Core.Components.StyledScrollingFrame)
-local RoundButton = require(Plugin.Core.Components.RoundButton)
-local RoundFrame = require(Plugin.Core.Components.RoundFrame)
+local Components = Plugin.Core.Components
+local StyledScrollingFrame = require(Components.StyledScrollingFrame)
+local RoundButton = require(Components.RoundButton)
+local RoundFrame = require(Components.RoundFrame)
 
 local DropdownMenu = Roact.PureComponent:extend("DropdownMenu")
 
@@ -39,10 +51,12 @@ function DropdownMenu:init(props)
 	self.state = {
 		isShowingDropdown = false,
 		showDropDownButtonHovered = false,
-		dropdownHoveredItemIndex = 0
+		dropdownHoveredItemIndex = 0,
 	}
 
 	self.currentSelectionRef = Roact.createRef()
+
+	self.baseFrameRef = Roact.createRef()
 
 	self.openDropdown = function()
 		self:setState(function(prevState, props)
@@ -79,6 +93,119 @@ function DropdownMenu:init(props)
 			self.closeDropdown()
 		end
 	end
+
+	self.onDropdownItemMouseEntered = function(index)
+		self:setState({
+			dropdownHoveredItemIndex = index,
+		})
+	end
+
+	self.onDropdownItemMouseLeft = function(index)
+		if self.state.dropdownHoveredItemIndex == index then
+			self:setState({
+				dropdownHoveredItemIndex = 0,
+			})
+		end
+	end
+
+	self.onDropdownItemActivated = function(index, item, onItemClicked)
+		if onItemClicked then
+			onItemClicked(index, item)
+		end
+		self.closeDropdown()
+	end
+end
+
+local function isItemSelectable(data)
+	return nil == data.selectable or data.selectable
+end
+
+local function findFirstSelectableItemIndex(items)
+	for index, data in ipairs(items) do
+		if isItemSelectable(data) then
+			return index
+		end
+	end
+	warn("No selectable items found in DropdownMenu")
+	return 1
+end
+
+function DropdownMenu:getScrollButtons(items, dropdownHoveredItemIndex, key, maxWidth, textInset, rowHeight, fontSize, onItemClicked, selectedBarWidth, theme)
+	local isDarkerTheme = theme.isDarkerTheme
+	local dropdownTheme = theme.dropdownMenu
+	local itemTheme = dropdownTheme.item
+
+	local scrollButtons = {
+		UIListLayout = Roact.createElement("UIListLayout", {
+			FillDirection = Enum.FillDirection.Vertical,
+			SortOrder = Enum.SortOrder.LayoutOrder
+		})
+	}
+
+	for index, data in ipairs(items) do
+		if not data.name and DebugFlags.shouldDebugWarnings() then
+			warn(("Index %d in DropdownMenu doesn't have a 'name' member"):format(index))
+		end
+
+		local selectable = isItemSelectable(data)
+		local textColor = selectable and itemTheme.textColor or itemTheme.labelTextColor
+
+		-- let if error if we got incorrect data
+		local itemName = data.name
+		local isHovered = (dropdownHoveredItemIndex == index) and selectable
+
+		local itemKey = (key and data[key]) or itemName
+
+		maxWidth = math.max(maxWidth, getTextSize(itemName, fontSize).X
+			+ (textInset * 2) + Constants.SCROLLBAR_BACKGROUND_THICKNESS)
+
+		scrollButtons[itemKey or itemName] = Roact.createElement("ImageButton",{
+			Size = UDim2.new(1, -Constants.SCROLLBAR_BACKGROUND_THICKNESS + Constants.SCROLLBAR_PADDING, 0, rowHeight),
+			BackgroundColor3 = isHovered and itemTheme.backgroundSelectedColor or itemTheme.backgroundColor,
+			BorderSizePixel = 0,
+			LayoutOrder = index,
+			ZIndex = 2,
+
+			AutoButtonColor = false,
+
+			[Roact.Event.Activated] = function(rbx, x, y)
+				if selectable then
+					self.onDropdownItemActivated(index, data, onItemClicked)
+				end
+			end,
+			[Roact.Event.MouseEnter] = function(rbx, x, y)
+				self.onDropdownItemMouseEntered(index)
+			end,
+			[Roact.Event.MouseLeave] = function(rbx, x, y)
+				self.onDropdownItemMouseLeft(index)
+			end,
+			[Roact.Event.InputEnded] = self.focusLost,
+		}, {
+			SelectedBar = not isDarkerTheme and Roact.createElement("Frame", {
+				Size = UDim2.new(0, selectedBarWidth, 1, 0),
+				BorderSizePixel = 0,
+				BackgroundColor3 = dropdownTheme.item.selectedBarColor,
+				Visible = isHovered,
+				ZIndex = 2,
+			}),
+
+			TextLabel = Roact.createElement("TextLabel", {
+				Position = UDim2.new(0, textInset, 0, 0),
+				Size = UDim2.new(1, -textInset, 1, 0),
+				BackgroundTransparency = 1,
+				Text = itemName,
+				TextColor3 = textColor,
+				Font = Constants.FONT,
+				TextSize = fontSize,
+				TextXAlignment = Enum.TextXAlignment.Left,
+				TextYAlignment = Enum.TextYAlignment.Center,
+				ClipsDescendants = true,
+				ZIndex = 3,
+			})
+		})
+	end
+
+	return scrollButtons
 end
 
 function DropdownMenu:render()
@@ -98,14 +225,18 @@ function DropdownMenu:render()
 			local visibleCount = math.min(props.visibleDropDownCount or 5, length)
 			local rowHeight = props.rowHeight or 24
 			local selectedDropDownIndex = props.selectedDropDownIndex or 1
+			local fontSize = props.fontSize or Constants.FONT_SIZE_MEDIUM
 
 			if selectedDropDownIndex > #items then
 				selectedDropDownIndex = 0
 			end
 
+			local isNoneSelectableItem = selectedDropDownIndex > 0 and selectedDropDownIndex <= #items and items[selectedDropDownIndex] and not isItemSelectable(items[selectedDropDownIndex])
+			if isNoneSelectableItem then
+				selectedDropDownIndex = findFirstSelectableItemIndex(items)
+			end
+
 			local onItemClicked = props.onItemClicked
-			local dropdownHoveredItemIndex = state.dropdownHoveredItemIndex
-			local showDropDownButtonHovered = state.showDropDownButtonHovered
 
 			local currentSelection = self.currentSelectionRef and self.currentSelectionRef.current
 
@@ -118,25 +249,24 @@ function DropdownMenu:render()
 
 			local selectedBarWidth = Constants.DROPDOWN_SELECTED_BAR
 			local textInset = selectedBarWidth + Constants.DROPDOWN_TEXT_INSET
-			local dropdownIconSize = Constants.DROPDOWN_ICON_SIZE
+			-- scale icon size based on font size relative to FONT_SIZE_MEDIUM
+			local dropdownIconSize = Constants.DROPDOWN_ICON_SIZE * fontSize/Constants.FONT_SIZE_MEDIUM
 			local dropdownIconFromRight = Constants.DROPDOWN_ICON_FROM_RIGHT
-
-			local isShowingDropdown = state.isShowingDropdown
-			local hoverOrShow = isShowingDropdown or showDropDownButtonHovered
 
 			local isDarkerTheme = theme.isDarkerTheme
 			local dropdownTheme = theme.dropdownMenu
 			local currentSelectionTheme = dropdownTheme.currentSelection
-			local itemTheme = dropdownTheme.item
 
-			-- Show the current selection object as blue when hovered or clicked, but only in a lighter theme
-			local showCurrentSelectionActive = hoverOrShow
+			local dropdownHoveredItemIndex = state.dropdownHoveredItemIndex
+			local showDropDownButtonHovered = state.showDropDownButtonHovered
+			local isShowingDropdown = state.isShowingDropdown
+			local hoverOrShow = isShowingDropdown or showDropDownButtonHovered
 
-			local currentSelectionBorderColor = showCurrentSelectionActive and currentSelectionTheme.borderSelectedColor
+			local currentSelectionBorderColor = hoverOrShow and currentSelectionTheme.borderSelectedColor
 				or currentSelectionTheme.borderColor
-			local currentSelectionBackgroundColor = showCurrentSelectionActive and currentSelectionTheme.backgroundSelectedColor
+			local currentSelectionBackgroundColor = hoverOrShow and currentSelectionTheme.backgroundSelectedColor
 				or currentSelectionTheme.backgroundColor
-			local currentSelectionTextColor = showCurrentSelectionActive and currentSelectionTheme.textSelectedColor
+			local currentSelectionTextColor = hoverOrShow and currentSelectionTheme.textSelectedColor
 				or currentSelectionTheme.textColor
 			local dropdownIconColor = (isDarkerTheme or hoverOrShow) and currentSelectionTheme.iconSelectedColor
 				or currentSelectionTheme.iconColor
@@ -144,86 +274,14 @@ function DropdownMenu:render()
 			local dropdownFrame = {}
 			local maxWidth = Constants.DROPDOWN_WIDTH
 			if isShowingDropdown and currentSelection then
-				local scrollButtons = {
-					UIListLayout = Roact.createElement("UIListLayout", {
-						FillDirection = Enum.FillDirection.Vertical,
-						SortOrder = Enum.SortOrder.LayoutOrder
-					})
-				}
-
-				for index, data in ipairs(items) do
-					if not data.name and DebugFlags.shouldDebugWarnings() then
-						warn(("Index %d in DropdownMenu doesn't have a 'name' member"):format(index))
-					end
-					-- let if error if we got incorrect data
-					local itemName = data.name
-					local isHovered = dropdownHoveredItemIndex == index
-
-					local itemKey = (key and data[key]) or itemName
-					maxWidth = math.max(maxWidth, getTextSize(itemName).X
-						+ (textInset * 2) + Constants.SCROLLBAR_BACKGROUND_THICKNESS)
-
-					scrollButtons[itemKey or itemName] = Roact.createElement("ImageButton",{
-						Size = UDim2.new(1, -Constants.SCROLLBAR_BACKGROUND_THICKNESS + Constants.SCROLLBAR_PADDING, 0, rowHeight),
-						BackgroundColor3 = isHovered and itemTheme.backgroundSelectedColor or itemTheme.backgroundColor,
-						BorderSizePixel = 0,
-						LayoutOrder = index,
-						ZIndex = 2,
-
-						AutoButtonColor = false,
-
-						[Roact.Event.MouseButton1Down] = function(rbx, x, y)
-							if onItemClicked then
-								onItemClicked(index)
-							end
-							self.closeDropdown()
-						end,
-
-						[Roact.Event.InputEnded] = self.focusLost,
-
-						[Roact.Event.MouseEnter] = function(rbx, x, y)
-							self:setState({
-								dropdownHoveredItemIndex = index,
-							})
-						end,
-
-						[Roact.Event.MouseLeave] = function(rbx, x, y)
-							if self.state.dropdownHoveredItemIndex == index then
-								self:setState({
-									dropdownHoveredItemIndex = 0,
-								})
-							end
-						end,
-					}, {
-						SelectedBar = not isDarkerTheme and Roact.createElement("Frame", {
-							Size = UDim2.new(0, selectedBarWidth, 1, 0),
-							BorderSizePixel = 0,
-							BackgroundColor3 = dropdownTheme.item.selectedBarColor,
-							Visible = isHovered,
-							ZIndex = 2,
-						}),
-
-						TextLabel = Roact.createElement("TextLabel", {
-							Position = UDim2.new(0, textInset, 0, 0),
-							Size = UDim2.new(1, -textInset, 1, 0),
-							BackgroundTransparency = 1,
-							Text = itemName,
-							TextColor3 = itemTheme.textColor,
-							Font = Constants.FONT,
-							TextSize = Constants.FONT_SIZE_MEDIUM,
-							TextXAlignment = Enum.TextXAlignment.Left,
-							TextYAlignment = Enum.TextYAlignment.Center,
-							ClipsDescendants = true,
-							ZIndex = 3,
-						})
-					})
-				end
+				local scrollButtons = self:getScrollButtons(
+					items, dropdownHoveredItemIndex, key, maxWidth, textInset, rowHeight, fontSize, onItemClicked, selectedBarWidth, theme)
 
 				local currentSelectionSize = currentSelection.AbsoluteSize
 				local currentSelectionTopLeft = currentSelection.AbsolutePosition
 				local offsetFromButton = 2
 
-				local width = maxWidth
+				local dropDownWidth = currentSelectionSize.X or maxWidth
 				local height = visibleCount * rowHeight
 				local top = currentSelectionTopLeft.y + currentSelectionSize.y + offsetFromButton
 				local left = currentSelectionTopLeft.x
@@ -239,14 +297,14 @@ function DropdownMenu:render()
 
 				dropdownFrame.StyledScrollingFrame = Roact.createElement(StyledScrollingFrame, {
 					Position = UDim2.new(0, left, 0, top),
-					Size = UDim2.new(0, width, 0, height),
+					Size = UDim2.new(0, dropDownWidth, 0, height),
 					CanvasSize = UDim2.new(0, 0, 0, length * rowHeight),
 					ZIndex = 1,
 				}, scrollButtons)
 
 				dropdownFrame.DropDownContainer = Roact.createElement(RoundFrame, {
 					Position = UDim2.new(0, left, 0, top),
-					Size = UDim2.new(0, width, 0, height),
+					Size = UDim2.new(0, dropDownWidth, 0, height),
 					BackgroundTransparency = 1,
 					ZIndex = 2,
 					BorderColor3 = dropdownTheme.dropdownFrame.borderColor,
@@ -257,6 +315,9 @@ function DropdownMenu:render()
 				Position = position,
 				Size = size,
 				BackgroundTransparency = 1,
+
+				[Roact.Ref] = self.baseFrameRef,
+
 				LayoutOrder = layoutOrder
 			}, {
 				CurrentSelection = Roact.createElement(RoundButton, {
@@ -268,7 +329,7 @@ function DropdownMenu:render()
 
 					[Roact.Ref] = self.currentSelectionRef,
 
-					[Roact.Event.MouseButton1Down] = self.openDropdown,
+					[Roact.Event.Activated] = self.openDropdown,
 					[Roact.Event.MouseEnter] = self.showDropDownButtonEntered,
 					[Roact.Event.MouseLeave] = self.showDropDownButtonLeft,
 					[Roact.Event.InputEnded] = self.focusLost,
@@ -280,7 +341,7 @@ function DropdownMenu:render()
 						TextColor3 = currentSelectionTextColor,
 						Text = currentSelectionText,
 						Font = Constants.FONT,
-						TextSize = Constants.FONT_SIZE_MEDIUM,
+						TextSize = fontSize,
 						TextXAlignment = Enum.TextXAlignment.Left,
 						TextYAlignment = Enum.TextYAlignment.Center,
 						ClipsDescendants = true,
@@ -292,12 +353,13 @@ function DropdownMenu:render()
 						Size = UDim2.new(0, dropdownIconSize, 0, dropdownIconSize),
 						Position = UDim2.new(1, -dropdownIconFromRight, 0.5, 0),
 						Image = Images.ARROW_DOWN_ICON,
+						Rotation = state.isShowingDropdown and 180 or 0,
 						ImageColor3 = dropdownIconColor,
 						BackgroundTransparency = 1,
 					}),
 				}),
 
-				Portal = isShowingDropdown and Roact.createElement(Roact.Portal, {
+				Portal = modalTarget and isShowingDropdown and Roact.createElement(Roact.Portal, {
 					target = modalTarget,
 				}, {
 					-- Consume all clicks outside the dropdown to close it when it "loses focus"
@@ -308,7 +370,7 @@ function DropdownMenu:render()
 						BackgroundTransparency = 1,
 						AutoButtonColor = false,
 
-						[Roact.Event.MouseButton1Down] = self.closeDropdown,
+						[Roact.Event.Activated] = self.closeDropdown,
 					}, {
 						-- Also block all scrolling events going through
 						ScrollBlocker = Roact.createElement("ScrollingFrame", {
@@ -321,7 +383,7 @@ function DropdownMenu:render()
 							BorderSizePixel = 0,
 							ScrollBarThickness = 0,
 						}, dropdownFrame)
-					} or dropdownFrame)
+					})
 				})
 			})
 		end)

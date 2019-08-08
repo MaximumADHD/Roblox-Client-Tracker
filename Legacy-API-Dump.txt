@@ -299,6 +299,7 @@ Class Camera : Instance
 	Function void Camera:PanUnits(int units)
 	Function Ray Camera:ScreenPointToRay(float x, float y, float depth = 0)
 	Function void Camera:SetCameraPanMode(CameraPanMode mode = Classic)
+	Function void Camera:SetImageServerView(CoordinateFrame modelCoord) [RobloxScriptSecurity]
 	Function void Camera:SetRoll(float rollAngle)
 	Function bool Camera:TiltUnits(int units)
 	Function Ray Camera:ViewportPointToRay(float x, float y, float depth = 0)
@@ -500,6 +501,7 @@ Class ContentProvider : Instance
 	Property int ContentProvider.RequestQueueSize [readonly]
 	Function void ContentProvider:Preload(Content contentId) [deprecated]
 	Function void ContentProvider:SetBaseUrl(string url) [LocalUserSecurity]
+	YieldFunction int ContentProvider:CalculateNumTrianglesInMesh(string meshId) [RobloxScriptSecurity]
 	YieldFunction void ContentProvider:PreloadAsync(Array contentIdList, Function callbackFunction = nil)
 Class ContextActionService : Instance
 	Function void ContextActionService:BindAction(string actionName, Function functionToBind, bool createTouchButton, Tuple inputTypes)
@@ -1545,7 +1547,7 @@ Class MarketplaceService : Instance [notCreatable]
 	YieldFunction Instance MarketplaceService:GetDeveloperProductsAsync()
 	YieldFunction Dictionary MarketplaceService:GetProductInfo(int64 assetId, InfoType infoType = Asset)
 	YieldFunction int MarketplaceService:GetRobuxBalance() [RobloxScriptSecurity]
-	YieldFunction Dictionary MarketplaceService:GetSubscriptionStatus(Instance player, int64 subscriptionId)
+	YieldFunction bool MarketplaceService:IsPlayerSubscribed(Instance player, int64 subscriptionId)
 	YieldFunction Dictionary MarketplaceService:PerformPurchase(InfoType infoType, int64 productId, int expectedPrice, string requestId) [RobloxScriptSecurity]
 	YieldFunction bool MarketplaceService:PlayerOwnsAsset(Instance player, int64 assetId)
 	YieldFunction bool MarketplaceService:UserOwnsGamePassAsync(int64 userId, int64 gamePassId)
@@ -2799,6 +2801,8 @@ Class UIGridStyleLayout : UILayout [notbrowsable]
 	Function void UIGridStyleLayout:ApplyLayout() [deprecated]
 	Function void UIGridStyleLayout:SetCustomSortFunction(Function function = nil) [deprecated]
 Class UIGridLayout : UIGridStyleLayout
+	Property Vector2 UIGridLayout.AbsoluteCellCount [readonly]
+	Property Vector2 UIGridLayout.AbsoluteCellSize [readonly]
 	Property UDim2 UIGridLayout.CellPadding
 	Property UDim2 UIGridLayout.CellSize
 	Property int UIGridLayout.FillDirectionMaxCells
@@ -3160,10 +3164,6 @@ Enum AssetType
 	EnumItem AssetType.EarAccessory : 57
 	EnumItem AssetType.EyeAccessory : 58
 	EnumItem AssetType.EmoteAnimation : 61
-Enum AutoJointsMode
-	EnumItem AutoJointsMode.Default : 0
-	EnumItem AutoJointsMode.Explicit : 1
-	EnumItem AutoJointsMode.LegacyImplicit : 2
 Enum AvatarContextMenuOption
 	EnumItem AvatarContextMenuOption.Friend : 0
 	EnumItem AvatarContextMenuOption.Chat : 1

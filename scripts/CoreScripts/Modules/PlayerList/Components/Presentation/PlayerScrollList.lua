@@ -1,4 +1,6 @@
 local CorePackages = game:GetService("CorePackages")
+local GuiService = game:GetService("GuiService")
+local UserInputService = game:GetService("UserInputService")
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
@@ -123,6 +125,7 @@ end
 
 function PlayerScrollList:init()
 	self.scrollingFrameRef = Roact.createRef()
+	self.firstPlayerRef = Roact.createRef()
 end
 
 function PlayerScrollList:calculateDropDownAbsPosition(dropDownPosition, playerEntrySizeY)
@@ -149,7 +152,7 @@ function PlayerScrollList:render()
 		childElements["Layout"] = Roact.createElement("UIListLayout", {
 			SortOrder = Enum.SortOrder.LayoutOrder,
 			FillDirection = Enum.FillDirection.Vertical,
-			HorizontalAlignment = Enum.HorizontalAlignment.Center,
+			HorizontalAlignment = Enum.HorizontalAlignment.Left,
 			Padding = UDim.new(0, entryPadding)
 		})
 
@@ -158,7 +161,7 @@ function PlayerScrollList:render()
 
 		local primaryStat = self.props.gameStats[1] and self.props.gameStats[1].name or nil
 		local sortedPlayers = buildSortedPlayers(primaryStat, self.props.players, self.props.playerStats)
-		if not  Cryo.isEmpty(self.props.teams) then
+		if not Cryo.isEmpty(self.props.teams) then
 			local teamScores = buildTeamScores(
 				self.props.gameStats, self.props.teams, self.props.players, self.props.playerStats
 			)
@@ -166,6 +169,7 @@ function PlayerScrollList:render()
 			local sortedTeams = buildSortedTeams(teamScores, primaryStat, self.props.teams, showNeutralTeam)
 
 			local addedEntriesCount = 0
+			local firstPlayer = true
 			for i, sortedTeam in ipairs(sortedTeams) do
 				childElements[i] = Roact.createElement(TeamEntry, {
 					teamName = self.props.teamNames[sortedTeam.team],
@@ -192,7 +196,10 @@ function PlayerScrollList:render()
 							layoutOrder = addedEntriesCount + 1,
 							titlePlayerEntry = false,
 							gameStats = self.props.gameStats,
+
+							[Roact.Ref] = firstPlayer and self.firstPlayerRef or nil,
 						})
+						firstPlayer = false
 
 						if player == self.props.dropDownPlayer then
 							dropDownPosition = canvasSizeY
@@ -213,6 +220,8 @@ function PlayerScrollList:render()
 					layoutOrder = i,
 					titlePlayerEntry = false,
 					gameStats = self.props.gameStats,
+
+					[Roact.Ref] = i == 1 and self.firstPlayerRef or nil,
 				})
 
 				if player == self.props.dropDownPlayer then
@@ -258,6 +267,27 @@ function PlayerScrollList:render()
 			}, childElements),
 		})
 	end)
+end
+
+function PlayerScrollList:didUpdate(prevProps)
+	if self.props.displayOptions.isVisible ~= prevProps.displayOptions.isVisible then
+		if self.props.displayOptions.isVisible then
+			if self.props.displayOptions.isTenFootInterface and self.props.displayOptions.isUsingGamepad then
+				GuiService.SelectedCoreObject = self.firstPlayerRef.current
+				UserInputService.OverrideMouseIconBehavior = Enum.OverrideMouseIconBehavior.ForceHide
+			end
+			GuiService:AddSelectionParent("PlayerlistGuiSelection", self.scrollingFrameRef.current)
+		else
+			if self.props.displayOptions.isTenFootInterface and self.props.displayOptions.isUsingGamepad then
+				UserInputService.OverrideMouseIconBehavior = Enum.OverrideMouseIconBehavior.None
+			end
+			if GuiService.SelectedCoreObject and
+				GuiService.SelectedCoreObject:IsDescendantOf(self.scrollingFrameRef.current) then
+				GuiService.SelectedCoreObject = nil
+			end
+			GuiService:RemoveSelectionGroup("PlayerlistGuiSelection")
+		end
+	end
 end
 
 local function mapStateToProps(state)

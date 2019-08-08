@@ -227,6 +227,15 @@ return function(style, overrides)
 		endColor = style.dimmerTextColor,
 	}
 
+	local toggleButton = {
+		defaultWidth = 20,
+		defaultHeight = 20,
+
+		onImage = "rbxasset://textures/RoactStudioWidgets/toggle_on_light.png",
+		offImage = "rbxasset://textures/RoactStudioWidgets/toggle_off_light.png",
+		disabledImage = "rbxasset://textures/RoactStudioWidgets/toggle_disable_light.png",
+	}
+
 	return replaceDefaults({
 		checkBox = checkBox,
 		roundFrame = roundFrame,
@@ -248,5 +257,6 @@ return function(style, overrides)
 		scrubber = scrubber,
 		loadingIndicator = loadingIndicator,
 		bulletPoint = bulletPoint,
+		toggleButton = toggleButton
 	}, overrides)
 end

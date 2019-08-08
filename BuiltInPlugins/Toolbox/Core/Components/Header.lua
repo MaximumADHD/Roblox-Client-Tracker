@@ -101,6 +101,7 @@ function Header:render()
 
 			local categories = localization:getLocalizedCategores(props.categories)
 			local categoryIndex = props.categoryIndex or 0
+			local currentTab = props.currentTab
 			local onCategorySelected = self.onCategorySelected
 
 			local searchTerm = props.searchTerm
@@ -110,7 +111,7 @@ function Header:render()
 			local groupIndex = props.groupIndex
 			local onGroupSelected = self.onGroupSelected
 
-			local showSearchOptions = props.currentTab == Category.MARKETPLACE_KEY
+			local showSearchOptions = currentTab == Category.MARKETPLACE_KEY
 
 			local dropdownWidth = showSearchOptions and Constants.HEADER_DROPDOWN_MIN_WIDTH
 				or Constants.HEADER_DROPDOWN_MAX_WIDTH
@@ -126,9 +127,11 @@ function Header:render()
 					- optionsButtonWidth
 					- Constants.HEADER_INNER_PADDING)
 
-			local isGroupCategory = Category.categoryIsGroupAsset(props.categoryIndex)
+			local isGroupCategory = Category.categoryIsGroupAsset(currentTab, categoryIndex)
 
 			local headerTheme = theme.header
+
+			local isCreationsTab = currentTab == Category.CREATIONS_KEY
 
 			return Roact.createElement("ImageButton", {
 				Position = props.Position,
@@ -153,17 +156,17 @@ function Header:render()
 
 				CategoryMenu = Roact.createElement(DropdownMenu, {
 					Position = UDim2.new(0, 0, 0, 0),
-					Size = UDim2.new(0, dropdownWidth, 1, 0),
+					Size = isCreationsTab and UDim2.new(1, 0, 1, 0) or UDim2.new(0, dropdownWidth, 1, 0),
 					LayoutOrder = 0,
 					visibleDropDownCount = 8,
 					selectedDropDownIndex = categoryIndex,
 
 					items = categories,
-					key = "category",
+					key = (not isCreationsTab) and "category" or nil,
 					onItemClicked = onCategorySelected,
 				}),
 
-				SearchBar = not isGroupCategory and Roact.createElement(SearchBar, {
+				SearchBar = (not isGroupCategory and not isCreationsTab) and Roact.createElement(SearchBar, {
 					width = searchBarWidth,
 					LayoutOrder = 1,
 
@@ -191,6 +194,58 @@ function Header:render()
 			})
 		end)
 	end)
+end
+
+local EventName = "tabRefresh"
+local function getTabRefreshEvent(pluginGui)
+	if not pluginGui then
+		return nil
+	end
+
+	return pluginGui:FindFirstChild(EventName)
+end
+
+local function getOrCreateTabRefreshEvent(pluginGui)
+	local theEvent = getTabRefreshEvent(pluginGui)
+	if not theEvent then
+		theEvent = Instance.new("BindableEvent")
+		theEvent.Name = EventName
+		theEvent.Parent = pluginGui
+	end
+	return theEvent
+end
+
+local function destroyTabRefreshEvent(pluginGui)
+	local theEvent = getTabRefreshEvent(pluginGui)
+	if theEvent then
+		theEvent:Destroy()
+	end
+end
+
+function Header:addTabRefreshCallback()
+	if not self.tabRefreshConnection then
+		local theEvent = getOrCreateTabRefreshEvent(self.props.pluginGui)
+		self.tabRefreshConnection = theEvent.Event:connect(function()
+			self.props.selectCategory(getNetwork(self), getSettings(self), self.props.categoryIndex)
+		end)
+	end
+end
+
+function Header:removeTabRefreshCallback()
+	if self.tabRefreshConnection then
+		self.tabRefreshConnection:disconnect()
+		self.tabRefreshConnection = nil
+	end
+end
+
+function Header:didMount()
+	getOrCreateTabRefreshEvent(self.props.pluginGui)
+	self:addTabRefreshCallback()
+end
+
+function Header:willUnmount()
+	self:removeTabRefreshCallback()
+	destroyTabRefreshEvent(self.props.pluginGui)
 end
 
 local function mapStateToProps(state, props)

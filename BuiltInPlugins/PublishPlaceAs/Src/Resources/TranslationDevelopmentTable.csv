@@ -1,36 +1,41 @@
 Key,Source,Context,en-us
 Studio.PublishPlaceAs.General.PublishPlace, , ,Publish Place
-Studio.PublishPlaceAs.General.MenuItemBasicInfo, , ,Basic Info
-Studio.PublishPlaceAs.General.MenuItemPermissions, , ,Permissions
-Studio.PublishPlaceAs.General.ButtonUpdateExistingGame, , ,Update existing game...
-Studio.PublishPlaceAs.General.ButtonCreateNewGame, , ,Create new game...
-Studio.PublishPlaceAs.General.ButtonSave, , ,Save
-Studio.PublishPlaceAs.General.ButtonCancel, , ,Cancel
+Studio.PublishPlaceAs.Button.UpdateExistingGame, , ,Update existing game...
+Studio.PublishPlaceAs.Button.CreateNewGame, , ,Create new game...
+Studio.PublishPlaceAs.Button.AddNewPlace, , ,Add New
+Studio.PublishPlaceAs.Button.Save, , ,Save
+Studio.PublishPlaceAs.Button.Cancel, , ,Cancel
+Studio.PublishPlaceAs.Button.NextPage, , ,Next
+Studio.PublishPlaceAs.Button.PreviousPage, , ,Previous
+Studio.PublishPlaceAs.MenuItem.BasicInfo, , ,Basic Info
 Studio.PublishPlaceAs.Devices.Header, , ,Devices
 Studio.PublishPlaceAs.Devices.Computer, , ,Computer
 Studio.PublishPlaceAs.Devices.Phone, , ,Phone
 Studio.PublishPlaceAs.Devices.Tablet, , ,Tablet
 Studio.PublishPlaceAs.Devices.Console, , ,Console
-Studio.PublishPlaceAs.General.Name, , ,Name
-Studio.PublishPlaceAs.General.Genre, , ,Genre
-Studio.PublishPlaceAs.General.GenreAll, , ,All
-Studio.PublishPlaceAs.General.GenreAdventure, , ,Adventure
-Studio.PublishPlaceAs.General.GenreTutorial, , ,Building
-Studio.PublishPlaceAs.General.GenreFunny, , ,Comedy
-Studio.PublishPlaceAs.General.GenreNinja, , ,Fighting
-Studio.PublishPlaceAs.General.GenreFPS, , ,FPS
-Studio.PublishPlaceAs.General.GenreScary, , ,Horror
-Studio.PublishPlaceAs.General.GenreFantasy, , ,Medieval
-Studio.PublishPlaceAs.General.GenreWar, , ,Military
-Studio.PublishPlaceAs.General.GenrePirate, , ,Naval
-Studio.PublishPlaceAs.General.GenreRPG, , ,RPG
-Studio.PublishPlaceAs.General.GenreSciFi, , ,Sci-Fi
-Studio.PublishPlaceAs.General.GenreSports, , ,Sports
-Studio.PublishPlaceAs.General.GenreTownAndCity, , ,Town and City
-Studio.PublishPlaceAs.General.GenreWildWest, , ,Western
-Studio.PublishPlaceAs.General.ErrorNameEmpty, , ,Name cannot be empty.
-Studio.PublishPlaceAs.General.ErrorNameTooLong, , ,Name cannot be that long
-Studio.PublishPlaceAs.General.ErrorNameModerated, , ,The name didn't go through our moderation. Please revise it and try again.
-Studio.PublishPlaceAs.General.ErrorNoDevices, , ,You must select at least one playable device.
-Studio.PublishPlaceAs.General.ErrorDescModerated, , ,The description didn't go through our moderation. Please revise it and try again.
-Studio.PublishPlaceAs.General.ErrorDescTooLong, , ,Description cannot be that long.
+Studio.PublishPlaceAs.PageTitle.Name, , ,Name
+Studio.PublishPlaceAs.PageTitle.Description, , ,Description
+Studio.PublishPlaceAs.PageTitle.Genre, , ,Genre
+Studio.PublishPlaceAs.PageTitle.Devices, , ,Devices
+Studio.PublishPlaceAs.Genre.All, , ,All
+Studio.PublishPlaceAs.Genre.Adventure, , ,Adventure
+Studio.PublishPlaceAs.Genre.Tutorial, , ,Building
+Studio.PublishPlaceAs.Genre.Funny, , ,Comedy
+Studio.PublishPlaceAs.Genre.Ninja, , ,Fighting
+Studio.PublishPlaceAs.Genre.FPS, , ,FPS
+Studio.PublishPlaceAs.Genre.Scary, , ,Horror
+Studio.PublishPlaceAs.Genre.Fantasy, , ,Medieval
+Studio.PublishPlaceAs.Genre.War, , ,Military
+Studio.PublishPlaceAs.Genre.Pirate, , ,Naval
+Studio.PublishPlaceAs.Genre.RPG, , ,RPG
+Studio.PublishPlaceAs.Genre.SciFi, , ,Sci-Fi
+Studio.PublishPlaceAs.Genre.Sports, , ,Sports
+Studio.PublishPlaceAs.Genre.TownAndCity, , ,Town and City
+Studio.PublishPlaceAs.Genre.WildWest, , ,Western
+Studio.PublishPlaceAs.Error.NameEmpty, , ,Name cannot be empty.
+Studio.PublishPlaceAs.Error.NameTooLong, , ,Name cannot be that long
+Studio.PublishPlaceAs.Error.NameModerated, , ,The name didn't go through our moderation. Please revise it and try again.
+Studio.PublishPlaceAs.Error.DescriptionModerated, , ,The description didn't go through our moderation. Please revise it and try again.
+Studio.PublishPlaceAs.Error.DescriptionTooLong, , ,Description cannot be that long.
+Studio.PublishPlaceAs.Error.NoDevices, , ,You must select at least one playable device.
+Studio.PublishPlaceAs.ScreenHeader.ChooseGame, , ,Choose an existing game to add this place

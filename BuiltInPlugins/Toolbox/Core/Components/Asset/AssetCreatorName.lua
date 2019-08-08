@@ -4,6 +4,7 @@
 	Props:
 		string creatorName = ""
 		number LayoutOrder = 0
+		boolean clickable = true (if nil)
 
 		callback onMouseEnter()
 		callback onMouseLeave()
@@ -60,10 +61,12 @@ function AssetCreatorName:init(props)
 
 	self.onActivated = function()
 		local props = self.props
-		local options = {
-			Creator = props.creatorName,
-		}
-		props.searchWithOptions(networkInterface, settings,options)
+		if props.clickable then
+			local options = {
+				Creator = props.creatorName,
+			}
+			props.searchWithOptions(networkInterface, settings,options)
+		end
 	end
 end
 
@@ -117,7 +120,7 @@ function AssetCreatorName:render()
 						isHovered = isHovered,
 					}),
 
-					UnderLine = isHovered and Roact.createElement("Frame", {
+					UnderLine = isHovered and (nil == props.clickable or props.clickable) and Roact.createElement("Frame", {
 						AnchorPoint = Vector2.new(0.5, 0.5),
 						Position = UDim2.new(0.5, 0, 1, 1),
 						Size = UDim2.new(0, self.underLineWidth, 0, 1)

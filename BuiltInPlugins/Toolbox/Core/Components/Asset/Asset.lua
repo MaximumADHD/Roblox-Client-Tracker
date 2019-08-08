@@ -34,6 +34,7 @@ local ContextHelper = require(Util.ContextHelper)
 local DebugFlags = require(Util.DebugFlags)
 
 local withTheme = ContextHelper.withTheme
+local withLocalization = ContextHelper.withLocalization
 
 local Components = Plugin.Core.Components
 local Asset = Components.Asset
@@ -43,6 +44,8 @@ local AssetCreatorName = require(Asset.AssetCreatorName)
 local AssetIcon = require(Asset.AssetIcon)
 local AssetName = require(Asset.AssetName)
 local Voting = require(Asset.Voting.Voting)
+
+local Category = require(Plugin.Core.Types.Category)
 
 local Asset = Roact.PureComponent:extend("Asset")
 
@@ -83,7 +86,9 @@ function Asset:init(props)
 	end
 
 	self.onMouseButton2Click = function(rbx, x, y)
-		self.props.tryCreateContextMenu(assetData)
+		local showEditOption = Category.CREATIONS_KEY == props.currentTab
+
+		self.props.tryCreateContextMenu(assetData, showEditOption)
 	end
 
 	self.onDragStart = function(rbx, x, y)
@@ -109,131 +114,159 @@ end
 
 function Asset:render()
 	return withTheme(function(theme)
-		local props = self.props
+		return withLocalization(function(_, localizedContent)
+			local props = self.props
 
-		if not props.asset then
-			return
-		end
+			if not props.asset then
+				return
+			end
 
-		local assetData = props.asset
+			local assetData = props.asset
 
-		local asset = assetData.Asset
-		local assetId = asset.Id
-		local assetTypeId = asset.TypeId
-		local isEndorsed = asset.IsEndorsed
-		local assetName = asset.Name
+			local asset = assetData.Asset
+			local assetId = asset.Id
+			local assetTypeId = asset.TypeId
+			local isEndorsed = asset.IsEndorsed
+			local assetName = asset.Name
+			local status = asset.Status
 
-		local creator = assetData.Creator
-		local creatorName = creator.Name
+			local creator = assetData.Creator
+			local creatorName = creator.Name
 
-		local votingProps = props.voting or {}
-		local showVotes = votingProps.ShowVotes
+			local votingProps = props.voting or {}
+			local showVotes = votingProps.ShowVotes
+			local isCurrentlyCreationsTab = Category.CREATIONS_KEY == props.currentTab
+			if isCurrentlyCreationsTab then
+				showVotes = false
+			end
+			local showStatus = isCurrentlyCreationsTab
 
-		local layoutOrder = props.LayoutOrder
-		local isHovered = props.isHovered
+			local layoutOrder = props.LayoutOrder
+			local isHovered = props.isHovered
 
-		local assetOutlineHeight = showVotes and Constants.ASSET_OUTLINE_EXTRA_HEIGHT_WITH_VOTING
-			or Constants.ASSET_OUTLINE_EXTRA_HEIGHT
+			local assetOutlineHeight = showVotes and Constants.ASSET_OUTLINE_EXTRA_HEIGHT_WITH_VOTING or Constants.ASSET_OUTLINE_EXTRA_HEIGHT
+			if showStatus then
+				assetOutlineHeight = assetOutlineHeight + Constants.ASSET_CREATOR_NAME_HEIGHT
+			end
 
-		local isDarkerTheme = theme.isDarkerTheme
-		local outlineTheme = theme.asset.outline
-		local dropShadowSize = Constants.DROP_SHADOW_SIZE
-		local innerFrameHeight = isHovered and assetOutlineHeight - (2 * Constants.ASSET_OUTLINE_PADDING) or 0
+			local isDarkerTheme = theme.isDarkerTheme
+			local outlineTheme = theme.asset.outline
+			local dropShadowSize = Constants.DROP_SHADOW_SIZE
+			local innerFrameHeight = isHovered and assetOutlineHeight - (2 * Constants.ASSET_OUTLINE_PADDING) or 0
 
-		return Roact.createElement("Frame", {
-			Position = UDim2.new(0, 0, 0, 0),
-			Size = UDim2.new(1, 0, 1, 0),
-			LayoutOrder = layoutOrder,
-			BackgroundTransparency = 1,
-
-			-- Need to raise the container up over the other assets to show the outline correctly
-			ZIndex = isHovered and 2 or 1,
-		}, {
-			DropShadow = isHovered and isDarkerTheme and Roact.createElement(DropShadow, {
-				-- Copy the size and position of the outline but add a few pixels extra
-				AnchorPoint = Vector2.new(0.5, 0),
-				Position = UDim2.new(0.5, 0, 0, -(Constants.ASSET_OUTLINE_PADDING + dropShadowSize)),
-				Size = UDim2.new(1, 2 * (Constants.ASSET_OUTLINE_PADDING + dropShadowSize),
-					1, assetOutlineHeight + (2 * dropShadowSize)),
-				ZIndex = -2, -- Ensure it's below the outline
-			}),
-
-			Outline = Roact.createElement("Frame", {
-				AnchorPoint = Vector2.new(0.5, 0),
-				BackgroundTransparency = isHovered and (isDarkerTheme and 0 or Constants.ASSET_OUTLINE_HOVERED_TRANSPARENCY) or 1,
-
-				BackgroundColor3 = outlineTheme.backgroundColor,
-				BorderColor3 = outlineTheme.borderColor,
-
-				BorderSizePixel = 1,
-				Position = UDim2.new(0.5, 0, 0, -Constants.ASSET_OUTLINE_PADDING),
-				Size = UDim2.new(1, 2 * Constants.ASSET_OUTLINE_PADDING, 1, assetOutlineHeight),
-				ZIndex = -1,
-
-				[Roact.Event.MouseLeave] = self.onMouseLeave,
-				[Roact.Event.InputEnded] = self.onInputEnded,
-			}),
-
-			InnerFrame = Roact.createElement(DraggableButton, {
-				BackgroundTransparency = 1,
+			return Roact.createElement("Frame", {
 				Position = UDim2.new(0, 0, 0, 0),
-				Size = UDim2.new(1, 0, 1, innerFrameHeight),
+				Size = UDim2.new(1, 0, 1, 0),
+				LayoutOrder = layoutOrder,
+				BackgroundTransparency = 1,
 
-				[Roact.Event.MouseEnter] = self.onMouseEntered,
-				[Roact.Event.MouseButton2Click] = self.onMouseButton2Click,
-				onMouseMoved = self.onMouseMoved,
-
-				onDragStart = self.onDragStart,
-				onClick = self.onClick,
+				-- Need to raise the container up over the other assets to show the outline correctly
+				ZIndex = isHovered and 2 or 1,
 			}, {
-				UIListLayout = Roact.createElement("UIListLayout", {
-					Padding = UDim.new(0, Constants.ASSET_INNER_PADDING),
-					SortOrder = Enum.SortOrder.LayoutOrder,
-					HorizontalAlignment = Enum.HorizontalAlignment.Center,
-					VerticalAlignment = Enum.VerticalAlignment.Top,
+				DropShadow = isHovered and isDarkerTheme and Roact.createElement(DropShadow, {
+					-- Copy the size and position of the outline but add a few pixels extra
+					AnchorPoint = Vector2.new(0.5, 0),
+					Position = UDim2.new(0.5, 0, 0, -(Constants.ASSET_OUTLINE_PADDING + dropShadowSize)),
+					Size = UDim2.new(1, 2 * (Constants.ASSET_OUTLINE_PADDING + dropShadowSize),
+						1, assetOutlineHeight + (2 * dropShadowSize)),
+					ZIndex = -2, -- Ensure it's below the outline
 				}),
 
-				AssetIcon = Roact.createElement(AssetIcon, {
-					Size = UDim2.new(1, 0, 1, 0),
-					LayoutOrder = 0,
+				Outline = Roact.createElement("Frame", {
+					AnchorPoint = Vector2.new(0.5, 0),
+					BackgroundTransparency = isHovered and (isDarkerTheme and 0 or Constants.ASSET_OUTLINE_HOVERED_TRANSPARENCY) or 1,
 
-					assetId = assetId,
-					assetName = assetName,
-					isEndorsed = isEndorsed,
-					typeId = assetTypeId,
-					currentSoundId = props.currentSoundId,
-					isPlaying = props.isPlaying,
+					BackgroundColor3 = outlineTheme.backgroundColor,
+					BorderColor3 = outlineTheme.borderColor,
 
-					voting = votingProps,
-					isHovered = isHovered,
+					BorderSizePixel = 1,
+					Position = UDim2.new(0.5, 0, 0, -Constants.ASSET_OUTLINE_PADDING),
+					Size = UDim2.new(1, 2 * Constants.ASSET_OUTLINE_PADDING, 1, assetOutlineHeight),
+					ZIndex = -1,
 
-					onPreviewAudioButtonClicked = props.onPreviewAudioButtonClicked,
-					onAssetPreviewButtonClicked = self.onAssetPreviewButtonClicked,
+					[Roact.Event.MouseLeave] = self.onMouseLeave,
+					[Roact.Event.InputEnded] = self.onInputEnded,
 				}),
 
-				AssetName = Roact.createElement(AssetName, {
-					Size = UDim2.new(1, 0, 0.45, 0),
-					LayoutOrder = 1,
+				InnerFrame = Roact.createElement(DraggableButton, {
+					BackgroundTransparency = 1,
+					Position = UDim2.new(0, 0, 0, 0),
+					Size = UDim2.new(1, 0, 1, innerFrameHeight),
 
-					assetId = assetId,
-					assetName = assetName,
+					[Roact.Event.MouseEnter] = self.onMouseEntered,
+					[Roact.Event.MouseButton2Click] = self.onMouseButton2Click,
+					onMouseMoved = self.onMouseMoved,
+
+					onDragStart = self.onDragStart,
+					onClick = self.onClick,
+				}, {
+					UIListLayout = Roact.createElement("UIListLayout", {
+						Padding = UDim.new(0, Constants.ASSET_INNER_PADDING),
+						SortOrder = Enum.SortOrder.LayoutOrder,
+						HorizontalAlignment = Enum.HorizontalAlignment.Center,
+						VerticalAlignment = Enum.VerticalAlignment.Top,
+					}),
+
+					AssetIcon = Roact.createElement(AssetIcon, {
+						Size = UDim2.new(1, 0, 1, 0),
+						LayoutOrder = 0,
+
+						assetId = assetId,
+						assetName = assetName,
+						isEndorsed = isEndorsed,
+						typeId = assetTypeId,
+						currentSoundId = props.currentSoundId,
+						isPlaying = props.isPlaying,
+
+						voting = votingProps,
+						isHovered = isHovered,
+
+						status = showStatus and status or nil,
+
+						onPreviewAudioButtonClicked = props.onPreviewAudioButtonClicked,
+						onAssetPreviewButtonClicked = self.onAssetPreviewButtonClicked,
+					}),
+
+					AssetName = Roact.createElement(AssetName, {
+						Size = UDim2.new(1, 0, 0.45, 0),
+						LayoutOrder = 1,
+
+						assetId = assetId,
+						assetName = assetName,
+					}),
+
+					CreatorName = isHovered and Roact.createElement(AssetCreatorName,{
+						Size = UDim2.new(1, 0, 0.15, 0),
+						LayoutOrder = 2,
+
+						assetId = assetId,
+						creatorName = creatorName,
+
+						clickable = not isCurrentlyCreationsTab
+					}),
+
+					Voting = isHovered and showVotes and Roact.createElement(Voting, {
+						LayoutOrder = 3,
+						assetId = assetId,
+						voting = votingProps,
+					}),
+
+					Status = isHovered and showStatus and Roact.createElement("TextLabel", {
+						BackgroundTransparency = 1,
+						LayoutOrder = 4,
+						Size = UDim2.new(1, 0, 0, Constants.STATUS_NAME_HEIGHT),
+						Text = localizedContent.Status[status],
+						TextColor3 = theme.asset.status.textColor,
+						Font = Constants.FONT,
+						TextSize = Constants.STATUS_NAME_FONT_SIZE,
+						TextXAlignment = Enum.TextXAlignment.Center,
+						TextYAlignment = Enum.TextYAlignment.Top,
+						ClipsDescendants = false,
+						TextTruncate = Enum.TextTruncate.AtEnd
+					}),
 				}),
-
-				CreatorName = isHovered and Roact.createElement(AssetCreatorName,{
-					Size = UDim2.new(1, 0, 0.15, 0),
-					LayoutOrder = 2,
-
-					assetId = assetId,
-					creatorName = creatorName,
-				}),
-
-				Voting = isHovered and showVotes and Roact.createElement(Voting, {
-					LayoutOrder = 3,
-					assetId = assetId,
-					voting = votingProps,
-				}),
-			}),
-		})
+			})
+		end)
 	end)
 end
 
@@ -257,6 +290,7 @@ local function mapStateToProps(state, props)
 
 		categoryIndex = categoryIndex,
 		searchTerm = searchTerm,
+		currentTab = pageInfo.currentTab or Category.MARKETPLACE_KEY
 	}
 end
 

@@ -1,6 +1,7 @@
 local Plugin = script.Parent.Parent.Parent
 
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
+local Category = require(Plugin.Core.Types.Category)
 
 local PageInfoHelper = {}
 
@@ -55,6 +56,19 @@ end
 
 function PageInfoHelper.getGroupIdForPageInfo(pageInfo)
 	return PageInfoHelper.getGroupId(pageInfo.groups, pageInfo.groupIndex)
+end
+
+function PageInfoHelper.getEngineAssetTypeForPageInfoCategory(pageInfo)
+	local category = pageInfo.categories[pageInfo.categoryIndex]
+
+	if not category or not category.assetType then
+		if DebugFlags.shouldDebugWarnings() then
+			warn(("Lua toolbox: No assetType for category index %s"):format(tostring(pageInfo.categoryIndex)))
+		end
+		return nil
+	end
+
+	return Category.getEngineAssetType(category.assetType)
 end
 
 return PageInfoHelper

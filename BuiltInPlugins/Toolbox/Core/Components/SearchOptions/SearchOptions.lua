@@ -13,8 +13,6 @@
 			that were set by the user.
 ]]
 
-local FFlagStudioMarketplaceTabsEnabled = settings():GetFFlag("StudioMarketplaceTabsEnabled")
-
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
@@ -142,7 +140,7 @@ function SearchOptions:render()
 				local sortIndex = self.state.SortIndex or self.props.SortIndex
 				local selectedSort = sorts[sortIndex].Key
 
-				local tabHeight = FFlagStudioMarketplaceTabsEnabled and Constants.TAB_WIDGET_HEIGHT or 0
+				local tabHeight = Constants.TAB_WIDGET_HEIGHT
 
 				self:resetLayout()
 

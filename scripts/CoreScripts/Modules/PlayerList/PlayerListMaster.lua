@@ -4,6 +4,7 @@ local StarterGui = game:GetService("StarterGui")
 local Players = game:GetService("Players")
 local Teams = game:GetService("Teams")
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
+local UserInputService = game:GetService("UserInputService")
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
@@ -37,10 +38,14 @@ local AddPlayer = require(PlayerList.Actions.AddPlayer)
 local SetPlayerFollowRelationship = require(PlayerList.Actions.SetPlayerFollowRelationship)
 local AddTeam = require(PlayerList.Actions.AddTeam)
 local AddPlayerToTeam = require(PlayerList.Actions.AddPlayerToTeam)
+local SetIsUsingGamepad = require(PlayerList.Actions.SetIsUsingGamepad)
+local SetHasPermissionToVoiceChat = require(PlayerList.Actions.SetHasPermissionToVoiceChat)
 
 if not Players.LocalPlayer then
 	Players:GetPropertyChangedSignal("LocalPlayer"):Wait()
 end
+
+local XPRIVILEGE_COMMUNICATION_VOICE_INGAME = 205
 
 local PlayerListMaster = {}
 PlayerListMaster.__index = PlayerListMaster
@@ -58,6 +63,22 @@ function PlayerListMaster.new()
 
 	self.store:dispatch(SetSmallTouchDevice(SettingsUtil.IsSmallTouchScreen()))
 	self.store:dispatch(SetTenFootInterface(TenFootInterface:IsEnabled()))
+	if TenFootInterface:IsEnabled() then
+		coroutine.wrap(function()
+			pcall(function()
+				--This is pcalled because platformService won't exist in Roblox studio when emulating xbox.
+				local platformService = game:GetService("PlatformService")
+				if platformService:BeginCheckXboxPrivilege(
+					XPRIVILEGE_COMMUNICATION_VOICE_INGAME).PrivilegeCheckResult == "NoIssue" then
+					self.store:dispatch(SetHasPermissionToVoiceChat(true))
+				end
+			end)
+		end)()
+	end
+
+	local lastInputType = UserInputService:GetLastInputType()
+	local isGamepad = lastInputType.Name:find("Gamepad")
+	self.store:dispatch(SetIsUsingGamepad(isGamepad ~= nil))
 
 	self:_initalizePlayers()
 	self:_initalizeTeams()

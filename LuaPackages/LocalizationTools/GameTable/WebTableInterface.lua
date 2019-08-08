@@ -23,9 +23,6 @@ local LocalizationTableUploadRowMax =
 local LocalizationTableUploadTranslationMax =
 	tonumber(settings():GetFVariable("LocalizationTableUploadTranslationMax")) or 250
 
-local NewLocalizationAPIEndpointEnabled = settings():GetFFlag("NewLocalizationAPIEndpoint_Enabled")
-local NewLocalizationAPIEndpointPercentage = tonumber(settings():GetFVariable("NewLocalizationAPIEndpoint_Percentage")) or 0
-
 local UnofficialLanguageSupportEnabled = settings():GetFFlag("UnofficialLanguageSupportEnabled")
 
 return function(studioUserId)
@@ -151,24 +148,13 @@ end
 local function DownloadGameTableWithId(gameId, tableId)
 	return Promise.new(function(resolve, reject)
 		local function MakeDownloadRequest(cursor)
-			local Url
-			if NewLocalizationAPIEndpointEnabled and math.random(100) <= NewLocalizationAPIEndpointPercentage then
-				Url = LocalizationTablesFromBaseUrl
+			local Url = LocalizationTablesFromBaseUrl
 					.. "v1/localization-table/tables/"
 					.. urlEncode(tableId)
 					.. "/entries?cursor="
 					.. urlEncode(cursor)
 					.. "&gameId="
 					.. urlEncode(gameId)
-			else
-				Url = GameInternationalizationUrl
-					.. "v1/localizationtable/tables/"
-					.. urlEncode(tableId)
-					.. "/entries?cursor="
-					.. urlEncode(cursor)
-					.. "&gameId="
-					.. urlEncode(gameId)
-			end
 
 			return HttpService:RequestInternal({
 				Url = Url,
@@ -219,20 +205,11 @@ end
 ]]
 local function UploadPatchToTableId(gameId, patch, tableId)
 	return Promise.new(function(resolve, reject)
-		local Url
-		if NewLocalizationAPIEndpointEnabled and math.random(100) <= NewLocalizationAPIEndpointPercentage then
-			Url = LocalizationTablesFromBaseUrl
+		local Url = LocalizationTablesFromBaseUrl
 				.."v1/localization-table/tables/"
 				..tableId
 				.."?gameId="
 				..urlEncode(gameId)
-		else
-			Url = GameInternationalizationUrl
-				.."v1/localizationtable/tables/"
-				..tableId
-				.."?gameId="
-				..urlEncode(gameId)
-		end
 
 		HttpService:RequestInternal({
 			Url = Url,

@@ -2,6 +2,8 @@ local Plugin = script.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
+local Symbol = require(Libs.Roact.Symbol)
+local UILibraryThemeKey = Symbol.named("UILibraryraryTheme")
 
 local ContextGetter = require(Plugin.Core.Util.ContextGetter)
 

@@ -27,14 +27,11 @@ local Http = require(Plugin.Src.Networking.Http)
 local TUTORIAL_URL = Http.BuildRobloxUrl("developer", "articles/Game-Icons-Tips")
 
 local TitledFrame = require(Plugin.UILibrary.Components.TitledFrame)
-local BulletPoint 
-if settings():GetFFlag("StudioGameSettingsUseUILibraryComponents") then
-	BulletPoint = require(Plugin.UILibrary.Components.BulletPoint)
-else
-	BulletPoint = require(Plugin.Src.Components.BulletPoint)
-end
+local BulletPoint = require(Plugin.UILibrary.Components.BulletPoint)
 local GameIcon = require(Plugin.Src.Components.GameIcon.GameIcon)
 local NewGameIcon = require(Plugin.Src.Components.GameIcon.NewGameIcon)
+
+local FFlagWrapGameIconWidgetText = game:DefineFastFlag("WrapGameIconWidgetText", false)
 
 local GameIconWidget = Roact.PureComponent:extend("GameIconWidget")
 
@@ -102,6 +99,7 @@ function GameIconWidget:render()
 					}),
 					FileHint = Roact.createElement(BulletPoint, {
 						LayoutOrder = 1,
+						TextWrapped = FFlagWrapGameIconWidgetText,
 						Text = localized.GameIcon.Hint({
 							fileTypes = table.concat(Constants.IMAGE_TYPES, ", "),
 							newline = "\n",
@@ -109,6 +107,7 @@ function GameIconWidget:render()
 					}),
 					ModerationHint = Roact.createElement(BulletPoint, {
 						LayoutOrder = 2,
+						TextWrapped = FFlagWrapGameIconWidgetText,
 						Text = localized.GameIcon.Moderation,
 					}),
 				}),

@@ -20,7 +20,6 @@ while not LocalPlayer do
 	LocalPlayer = PlayersService.LocalPlayer
 end
 
-local FFlagPlayerDropDownLocalization = settings():GetFFlag("PlayerDropDownLocalization")
 local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp")
 local FFlagFixInspectMenuAnalytics = settings():GetFFlag("FixInspectMenuAnalytics")
 
@@ -166,13 +165,10 @@ local function canSendFriendRequestAsync(otherPlayer)
 		sendNotification("Cannot send friend request", "You are at the max friends limit.", "", 5, function() end)
 		return false
 	elseif theirFriendCount >= MAX_FRIEND_COUNT then
-		local text = otherPlayer.Name.." is at the max friends limit."
-		if FFlagPlayerDropDownLocalization then
-			text = RobloxTranslator:FormatByKey(
-				"PlayerDropDown.OtherPlayerFriendLimit",
-				{RBX_NAME = otherPlayer.Name}
-			)
-		end
+		local text = RobloxTranslator:FormatByKey(
+			"PlayerDropDown.OtherPlayerFriendLimit",
+			{RBX_NAME = otherPlayer.Name}
+		)
 		sendNotification("Cannot send friend request", text, "", 5, function() end)
 		return false
 	end
@@ -423,13 +419,10 @@ function createPlayerDropDown()
 		result = HttpService:JSONDecode(result)
 		if result["success"] then
 			recentApiRequests["Following"][followedUserId] = false
-			local text = "No longer following "..playerDropDown.Player.Name
-			if FFlagPlayerDropDownLocalization then
-				text = RobloxTranslator:FormatByKey(
-					"PlayerDropDown.onUnfollowButtonPress.success",
-					{RBX_NAME = playerDropDown.Player.Name}
-				)
-			end
+			local text = RobloxTranslator:FormatByKey(
+				"PlayerDropDown.onUnfollowButtonPress.success",
+				{RBX_NAME = playerDropDown.Player.Name}
+			)
 			sendNotification("You are", text, FRIEND_IMAGE..followedUserId.."&x=48&y=48", 5, function() end)
 			if RemoteEvent_NewFollower then
 				RemoteEvent_NewFollower:FireServer(playerDropDown.Player, false)
@@ -487,13 +480,10 @@ function createPlayerDropDown()
 		result = HttpService:JSONDecode(result)
 		if result["success"] then
 			recentApiRequests["Following"][followedUserId] = true
-			local text = "now following "..playerDropDown.Player.Name
-			if FFlagPlayerDropDownLocalization then
-				text = RobloxTranslator:FormatByKey(
-					"PlayerDropDown.onFollowButtonPress.success",
-					{RBX_NAME = playerDropDown.Player.Name}
-				)
-			end
+			local text = RobloxTranslator:FormatByKey(
+				"PlayerDropDown.onFollowButtonPress.success",
+				{RBX_NAME = playerDropDown.Player.Name}
+			)
 			sendNotification("You are", text, FRIEND_IMAGE..followedUserId.."&x=48&y=48", 5, function() end)
 			if RemoteEvent_NewFollower then
 				RemoteEvent_NewFollower:FireServer(playerDropDown.Player, true)

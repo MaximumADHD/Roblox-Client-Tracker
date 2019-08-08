@@ -1,11 +1,27 @@
 local Plugin = script.Parent.Parent.Parent
 
+local Cryo = require(Plugin.Libs.Cryo)
+
 local wrapStrictTable = require(Plugin.Core.Util.wrapStrictTable)
+local convertArrayToTable = require(Plugin.Core.Util.convertArrayToTable)
+local Category = require(Plugin.Core.Types.Category)
 
 local TextService = game:GetService("TextService")
 local StudioService  = game:GetService("StudioService")
 
 local Constants = {}
+
+Constants.DEFAULT_TAB = Category.MARKETPLACE_KEY
+
+Constants.AssetStatus = convertArrayToTable({
+	"Unknown",
+	"ReviewPending",
+	"Moderated",
+	"ReviewApproved",
+	"OnSale",
+	"OffSale",
+	"DelayedRelease"
+})
 
 Constants.TOOLTIP_LINE_HEIGHT = 1.3
 Constants.TOOLTIP_PADDING = 3
@@ -104,6 +120,7 @@ Constants.ASSET_INNER_PADDING = 4
 
 Constants.ASSET_THUMBNAIL_SIZE = Constants.ASSET_WIDTH_NO_PADDING
 Constants.ASSET_THUMBNAIL_REQUESTED_IMAGE_SIZE = 75 -- The endpoint only accepts certain sizes for thumbnails
+Constants.THUMBNAIL_SIZE_LARGE = 420 -- The is the known largest size we support for fetching thumbnail.
 Constants.ASSET_ENDORSED_BADGE_ICON_SIZE = 20
 
 Constants.ASSET_PLAY_AUDIO_ICON_SIZE = 28
@@ -113,6 +130,9 @@ Constants.ASSET_NAME_HEIGHT = Constants.ASSET_NAME_FONT_SIZE * 2 -- The asset na
 
 Constants.ASSET_CREATOR_NAME_FONT_SIZE = Constants.FONT_SIZE_SMALL
 Constants.ASSET_CREATOR_NAME_HEIGHT = Constants.ASSET_CREATOR_NAME_FONT_SIZE
+
+Constants.STATUS_NAME_FONT_SIZE = Constants.FONT_SIZE_SMALL
+Constants.STATUS_NAME_HEIGHT = Constants.STATUS_NAME_FONT_SIZE
 
 Constants.ASSET_VOTE_BAR_HEIGHT = 5
 Constants.ASSET_VOTE_BAR_OUTER_HEIGHT = 13
@@ -133,14 +153,25 @@ Constants.ASSET_OUTLINE_EXTRA_HEIGHT_WITH_VOTING = Constants.ASSET_OUTLINE_EXTRA
 Constants.BETWEEN_ASSETS_HORIZONTAL_PADDING = 8
 Constants.BETWEEN_ASSETS_VERTICAL_PADDING = 16
 
--- Calculate the exact width needed to display MIN_ASSETS_PER_ROW
-Constants.MIN_ASSETS_PER_ROW = 3
-Constants.MIN_WIDTH_EXTRA_PADDING = 4
-Constants.TOOLBOX_MIN_WIDTH = (Constants.MAIN_VIEW_PADDING * 2)
-	+ (Constants.MIN_ASSETS_PER_ROW * (Constants.ASSET_WIDTH_NO_PADDING + Constants.BETWEEN_ASSETS_HORIZONTAL_PADDING))
+Constants.MIN_ASSETS_PER_ROW = 4
+local MIN_WIDTH_EXTRA_PADDING = 8
+local staticPadding = (Constants.MAIN_VIEW_PADDING * 2)
 	- Constants.BETWEEN_ASSETS_HORIZONTAL_PADDING
 	+ Constants.SCROLLBAR_BACKGROUND_THICKNESS + Constants.SCROLLBAR_PADDING
-	+ (Constants.MIN_WIDTH_EXTRA_PADDING * 2)
+	+ MIN_WIDTH_EXTRA_PADDING
+local perAssetPadding = Constants.ASSET_WIDTH_NO_PADDING + Constants.BETWEEN_ASSETS_HORIZONTAL_PADDING
+Constants.TOOLBOX_MIN_WIDTH = staticPadding + (perAssetPadding * Constants.MIN_ASSETS_PER_ROW)
+Constants.SEARCH_BAR_WIDTH = Constants.TOOLBOX_MIN_WIDTH - Constants.MAIN_VIEW_PADDING * 2
+
+Constants.TAB_ICON_SIZE = 16
+Constants.TAB_INNER_PADDING = 3
+Constants.TAB_OUTER_PADDING = 8
+
+function Constants.CalculateTabHeaderWidth(text)
+	local textWidth = Constants.getTextSize(text, nil, Constants.FONT_BOLD).X
+	return textWidth + Constants.TAB_ICON_SIZE + Constants.TAB_INNER_PADDING + Constants.TAB_OUTER_PADDING * 2
+end
+
 Constants.TOOLBOX_MIN_HEIGHT = 200
 
 Constants.DIST_FROM_BOTTOM_BEFORE_NEXT_PAGE = Constants.ASSET_HEIGHT * 1.2
@@ -150,6 +181,9 @@ Constants.DEFAULT_TOOLTIP_WIDTH = 100
 Constants.SCROLLING_FRAME_VIEW_PADDING = 16
 
 Constants.GET_ITEMS_PAGE_SIZE = 30
+Constants.GET_ASSET_CREATIONS_PAGE_SIZE_LIMIT = 25 -- only specific asset creation page size limits are supported by the back-end, check the back-end accepts the amount before changing this
+Constants.GET_ASSET_CREATIONS_DETAILS_LIMIT = 50 -- back-end does not support returning more than this amount
+assert(Constants.GET_ASSET_CREATIONS_PAGE_SIZE_LIMIT <= Constants.GET_ASSET_CREATIONS_DETAILS_LIMIT, "Constants.GET_ASSET_CREATIONS_PAGE_SIZE_LIMIT cannot be more than Constants.GET_ASSET_CREATIONS_DETAILS_LIMIT")
 
 Constants.SEARCH_BAR_BUTTON_ICON_SIZE = 14
 Constants.SEARCH_BAR_BUTTON_WIDTH = 28
@@ -182,8 +216,6 @@ Constants.MODEL_PREVIEW_BG_COLOR = Color3.fromRGB(216, 216, 216)
 Constants.HEADER_OPTIONSBUTTON_WIDTH = 16
 Constants.HEADER_OPTIONSBUTTON_HEIGHT = 25
 
-Constants.SEARCH_BAR_WIDTH = Constants.TOOLBOX_MIN_WIDTH
-	- Constants.MAIN_VIEW_PADDING * 2
 Constants.SEARCH_ENTRY_HEIGHT = 35
 Constants.SEARCH_TAGS_HEIGHT = 50
 Constants.FOOTER_BUTTON_HEIGHT = 24

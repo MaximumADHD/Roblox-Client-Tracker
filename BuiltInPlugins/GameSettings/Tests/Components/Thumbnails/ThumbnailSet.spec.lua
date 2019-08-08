@@ -36,7 +36,7 @@ return function()
 	it("should render correctly", function()
 		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestThumbnailSet(), container)
-		local thumbnailSet = container.Frame
+		local thumbnailSet = container:FindFirstChildOfClass("Frame")
 
 		expect(thumbnailSet.Layout).to.be.ok()
 
@@ -49,7 +49,7 @@ return function()
 			First = {id = "First"},
 			Second = {id = "Second"},
 		}), container)
-		local thumbnailSet = container.Frame
+		local thumbnailSet = container:FindFirstChildOfClass("Frame")
 
 		expect(thumbnailSet.First).to.be.ok()
 		expect(thumbnailSet.Second).to.be.ok()
@@ -60,7 +60,7 @@ return function()
 	it("should create a NewThumbnail at the end of the set", function()
 		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestThumbnailSet(true), container)
-		local thumbnailSet = container.Frame
+		local thumbnailSet = container:FindFirstChildOfClass("Frame")
 
 		expect(thumbnailSet.NewThumbnail).to.be.ok()
 
@@ -73,7 +73,7 @@ return function()
 			First = {id = "First"},
 			Second = {id = "Second"},
 		}), container)
-		local thumbnailSet = container.Frame
+		local thumbnailSet = container:FindFirstChildOfClass("Frame")
 
 		expect(thumbnailSet:FindFirstChild("First")).never.to.be.ok()
 		expect(thumbnailSet:FindFirstChild("Second")).never.to.be.ok()

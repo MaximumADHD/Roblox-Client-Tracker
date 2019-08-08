@@ -415,6 +415,7 @@ function AssetPreview:render()
 				anchorPoint = Vector2.new(0, 1),
 				assetId = assetId,
 
+				asset = Asset,
 				canInsertAsset = canInsertAsset,
 				tryInsert = tryInsert,
 				tryCreateContextMenu = tryCreateContextMenu,

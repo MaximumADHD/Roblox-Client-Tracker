@@ -8,6 +8,7 @@
 		number LayoutOrder = 0
 		number curentSoundId
 		boolean isPlaying
+		Constants.AssetStatus status
 
 		callback onMouseEnter()
 		callback onMouseLeave()
@@ -21,6 +22,7 @@ local Roact = require(Libs.Roact)
 local RoactRodux = require(Libs.RoactRodux)
 
 local Constants = require(Plugin.Core.Util.Constants)
+local Images = require(Plugin.Core.Util.Images)
 local ContextGetter = require(Plugin.Core.Util.ContextGetter)
 local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 local Urls = require(Plugin.Core.Util.Urls)
@@ -39,6 +41,8 @@ local PopUpWrapperButton = require(Plugin.Core.Components.Asset.Preview.PopUpWra
 local AssetIcon = Roact.PureComponent:extend("AssetIcon")
 
 local PREVIEW_POSITION = UDim2.new(1, -14, 0, 14)
+local ASSET_STATUS_POSITION = UDim2.new(0, 14, 0, 14)
+local ASSET_STATUS_SIZE = UDim2.new(0, 16, 0, 16)
 
 function AssetIcon:init(props)
 	self.state = {
@@ -80,6 +84,7 @@ function AssetIcon:render()
 
 		local isHovered = self.state.isHovered
 		local isAssetHovered = props.isHovered
+		local status = props.status
 
 		local thumbnailUrl = Urls.constructAssetThumbnailUrl(assetId,
 			Constants.ASSET_THUMBNAIL_REQUESTED_IMAGE_SIZE,
@@ -88,6 +93,8 @@ function AssetIcon:render()
 		local canShowCurrentTooltip = modalStatus:canShowCurrentTooltip(assetId, Constants.TOOLTIP_TYPE.ASSET_ICON)
 
 		local isAudioAsset = typeId == Enum.AssetType.Audio.Value
+
+		local assetStatusImage = status and Images.AssetStatus[status]
 
 		local showAssetPreview = typeId == Enum.AssetType.Model.Value
 			or typeId == Enum.AssetType.MeshPart.Value
@@ -126,6 +133,14 @@ function AssetIcon:render()
 				position = PREVIEW_POSITION,
 				ShowIcon = isAssetHovered,
 				onClick = props.onAssetPreviewButtonClicked,
+			}),
+
+			AssetStatus = isAssetHovered and assetStatusImage and Roact.createElement("ImageLabel", {
+				Position = ASSET_STATUS_POSITION,
+				AnchorPoint = Vector2.new(0.5, 0.5),
+				Size = ASSET_STATUS_SIZE,
+				Image = assetStatusImage,
+				BackgroundTransparency = 1,
 			}),
 
 			TooltipWrapper = isHovered and Roact.createElement(TooltipWrapper, {

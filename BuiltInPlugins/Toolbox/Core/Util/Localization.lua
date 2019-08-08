@@ -20,7 +20,8 @@ local Cryo = require(Libs.Cryo)
 local createSignal = require(Plugin.Core.Util.createSignal)
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 local wrapStrictTable = require(Plugin.Core.Util.wrapStrictTable)
-
+local AssetConfigConstants = require(Plugin.Core.Util.AssetConfigConstants)
+local Constants = require(Plugin.Core.Util.Constants)
 local Localization = {}
 Localization.__index = Localization
 
@@ -124,6 +125,31 @@ function Localization:getLocalizedCreatorIntroText(userName)
 	})
 end
 
+function Localization:getLocalizedEarningText(earning)
+	return self:_safeLocalize("Studio.Toolbox.General.SalesEarning", {
+		earning = tostring(earning)
+	})
+end
+
+function Localization:getLocalizedPriceRangeText(minPrice, maxPrice)
+	return self:_safeLocalize("Studio.Toolbox.General.SalesPriceRange", {
+		minPrice = tostring(minPrice),
+		maxPrice = tostring(maxPrice)
+	})
+end
+
+function Localization:getLocalizedAssetIDText(assetId)
+	return self:_safeLocalize("Studio.Toolbox.General.PreviewAreaAssetID", {
+		assetId = tostring(assetId)
+	})
+end
+
+function Localization:getLocalizedStatusText(assetStatus)
+	return self:_safeLocalize("Studio.Toolbox.General.PreviewAreaStatus", {
+		assetStatus = tostring(assetStatus)
+	})
+end
+
 function Localization:getLocalizedVoteText(voteCounts)
 	local localizedContent = self.content
 	local voteText = voteCounts ~= 1 and localizedContent.Voting.VotesText
@@ -173,7 +199,7 @@ function Localization:_getLocaleId()
     if self._externalLocaleIdGetter then
         return self._externalLocaleIdGetter()
     end
-	
+
 	return self:_getDefaultLocaleId()
 end
 
@@ -274,7 +300,24 @@ function Localization:_recalculateContent()
 			GroupDecals = self:_safeLocalize("Studio.Toolbox.General.CategoryGroupDecals"),
 			GroupMeshes = self:_safeLocalize("Studio.Toolbox.General.CategoryGroupMeshes"),
 			GroupAudio = self:_safeLocalize("Studio.Toolbox.General.CategoryGroupAudio"),
-			GroupPackages = self:_safeLocalize("Studio.Toolbox.General.CategoryGroupPackages")
+			GroupPackages = self:_safeLocalize("Studio.Toolbox.General.CategoryGroupPackages"),
+			CreationsDevelopmentSectionDivider = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsDevelopmentSectionDivider"),
+			CreationsModels = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsModels"),
+			CreationsDecals = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsDecals"),
+			CreationsAudio = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsAudio"),
+			CreationsMeshes = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsMeshes"),
+			CreationsCatalogSectionDivider = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsCatalogSectionDivider"),
+			CreationsHats = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsHats"),
+			CreationsTeeShirts = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsTeeShirts"),
+			CreationsShirts = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsShirts"),
+			CreationsPants = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsPants"),
+			CreationsHair = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsHair"),
+			CreationsFaceAccessorys = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsFaceAccessory"),
+			CreationsNeckAccessorys = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsNeckAccessory"),
+			CreationsShoulderAccessorys = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsShoulderAccessory"),
+			CreationsFrontAccessorys = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsFrontAccessory"),
+			CreationsBackAccessorys = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsBackAccessory"),
+			CreationsWaistAccessorys = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsWaistAccessory"),
 		},
 
 		Suggestions = {
@@ -335,7 +378,91 @@ function Localization:_recalculateContent()
 			Marketplace = self:_safeLocalize("Studio.Toolbox.General.TabMarketplace"),
 			Inventory = self:_safeLocalize("Studio.Toolbox.General.TabInventory"),
 			Recent = self:_safeLocalize("Studio.Toolbox.General.TabRecent"),
+			Creations = self:_safeLocalize("Studio.Toolbox.General.TabCreations"),
 		},
+
+		RightClickMenu = {
+			CopyAssetID = self:_safeLocalize("Studio.Toolbox.General.RightClickMenuCopyAssetID"),
+			CopyAssetURI = self:_safeLocalize("Studio.Toolbox.General.RightClickMenuCopyAssetURI"),
+			ViewInBrowser = self:_safeLocalize("Studio.Toolbox.General.RightClickMenuViewInBrowser"),
+			ConfigureAsset = self:_safeLocalize("Studio.Toolbox.General.RightClickMenuConfigureAsset"),
+			EditAsset = self:_safeLocalize("Studio.Toolbox.General.RightClickMenuEditAsset")
+		},
+
+		Status = {
+			[Constants.AssetStatus.ReviewPending] = self:_safeLocalize("Studio.Toolbox.General.StatusReviewPending"),
+			[Constants.AssetStatus.Moderated] = self:_safeLocalize("Studio.Toolbox.General.StatusModerated"),
+			[Constants.AssetStatus.ReviewApproved] = self:_safeLocalize("Studio.Toolbox.General.StatusReviewApproved"),
+			[Constants.AssetStatus.OnSale] = self:_safeLocalize("Studio.Toolbox.General.StatusOnSale"),
+			[Constants.AssetStatus.OffSale] = self:_safeLocalize("Studio.Toolbox.General.StatusOffSale"),
+			[Constants.AssetStatus.DelayedRelease] = self:_safeLocalize("Studio.Toolbox.General.StatusDelayedRelease"),
+		},
+
+		Sales = {
+			Sale = self:_safeLocalize("Studio.Toolbox.General.SalesSale"),
+			Onsale = self:_safeLocalize("Studio.Toolbox.General.SalesOnsale"),
+			OnsaleApplyToSave = self:_safeLocalize("Studio.Toolbox.General.SalesOnsaleApplyToSave"),
+			Offsale = self:_safeLocalize("Studio.Toolbox.General.SalesOffsale"),
+			OffsaleApplyToSave = self:_safeLocalize("Studio.Toolbox.General.SalesOffsaleApplyToSave"),
+			ItemCannotBeSold = self:_safeLocalize("Studio.Toolbox.General.SalesItemCannotBeSold"),
+			Price = self:_safeLocalize("Studio.Toolbox.General.SalesPrice"),
+			ServiceFee = self:_safeLocalize("Studio.Toolbox.General.SalesServiceFee"),
+		},
+
+		AssetConfig = {
+			PublishAsset = {
+				Title = self:_safeLocalize("Studio.Toolbox.General.Title"),
+				Description = self:_safeLocalize("Studio.Toolbox.General.Description"),
+				Ownership = self:_safeLocalize("Studio.Toolbox.General.Ownership"),
+				Genre = self:_safeLocalize("Studio.Toolbox.General.Genre"),
+				Copy = self:_safeLocalize("Studio.Toolbox.General.Copy"),
+				Comments = self:_safeLocalize("Studio.Toolbox.General.Comments"),
+				LearnMore = self:_safeLocalize("Studio.Toolbox.General.LearnMore"),
+				Me = self:_safeLocalize("Studio.Toolbox.General.Me"),
+				AssetType = self:_safeLocalize("Studio.Toolbox.General.AssetType"),
+
+				AssetTextDislpay = {
+					[Enum.AssetType.Model] = self:_safeLocalize("Studio.Toolbox.General.AssetTypeModel"),
+					[Enum.AssetType.Decal] = self:_safeLocalize("Studio.Toolbox.General.AssetTypeDecal"),
+					[Enum.AssetType.Mesh] = self:_safeLocalize("Studio.Toolbox.General.AssetTypeMesh"),
+					[Enum.AssetType.Audio] = self:_safeLocalize("Studio.Toolbox.General.AssetTypeAudio"),
+					[Enum.AssetType.Hat] = self:_safeLocalize("Studio.Toolbox.General.AssetTypeHat"),
+					[Enum.AssetType.TeeShirt] = self:_safeLocalize("Studio.Toolbox.General.AssetTypeTeeShirt"),
+					[Enum.AssetType.Shirt] = self:_safeLocalize("Studio.Toolbox.General.AssetTypeShirt"),
+					[Enum.AssetType.Pants] = self:_safeLocalize("Studio.Toolbox.General.AssetTypePants"),
+				},
+			},
+
+			Footer = {
+				Override = self:_safeLocalize("Studio.Toolbox.AssetConfigFooter.Override"),
+				NewAsset = self:_safeLocalize("Studio.Toolbox.AssetConfigFooter.NewAsset")
+			},
+
+			Override = {
+				Title = self:_safeLocalize("Studio.Toolbox.AssetConfigFooter.OverrideTitle")
+			},
+
+			VersionsHistory = {
+				Current = self:_safeLocalize("Studio.Toolbox.AssetConfigVersions.Current"),
+				Restore = self:_safeLocalize("Studio.Toolbox.AssetConfigVersions.Restore")
+			},
+
+			SideTabs = {
+				[AssetConfigConstants.SIDE_TABS.Sales] = self:_safeLocalize("Studio.Toolbox.General.SideTabSales"),
+				[AssetConfigConstants.SIDE_TABS.Versions] = self:_safeLocalize("Studio.Toolbox.General.SideTabVersions"),
+				[AssetConfigConstants.SIDE_TABS.General] = self:_safeLocalize("Studio.Toolbox.General.SideTabGeneral"),
+			},
+
+			Terms = self:_safeLocalize("Studio.Toolbox.AssetConfigCopy.Terms"),
+			Accounts = self:_safeLocalize("Studio.Toolbox.AssetConfigCopy.AccountSetting"),
+
+			-- Confirm if I need to change apply to save, back to cancel.
+			Apply = self:_safeLocalize("Studio.Common.Action.Submit"),
+			Cancel = self:_safeLocalize("Studio.Toolbox.General.SearchOptionsCancel"),
+
+			Discard = self:_safeLocalize("Studio.Toolbox.General.Discard"),
+			DiscardMessage = self:_safeLocalize("Studio.Toolbox.General.DiscardMessage"),
+		}
 	})
 end
 

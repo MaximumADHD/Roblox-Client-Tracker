@@ -20,8 +20,6 @@
 		}
 ]]
 
-local DFFlagGameSettingsWorldPanel = settings():GetFFlag("GameSettingsWorldPanel3")
-
 local BUTTON_BAR_PADDING = 25
 local BUTTON_BAR_EDGE_PADDING = 35
 
@@ -46,7 +44,7 @@ local function ButtonBar(props)
 		local titleFrameZIndex = props.ZIndex or 1
 		local buttonZIndex = nil ~= props.Title and titleFrameZIndex+1 or titleFrameZIndex
 
-		local fillDirection = (not DFFlagGameSettingsWorldPanel or nil == props.FillDirection) and Enum.FillDirection.Horizontal or props.FillDirection
+		local fillDirection = nil == props.FillDirection and Enum.FillDirection.Horizontal or props.FillDirection
 
 		local components = {
 			Layout = Roact.createElement("UIListLayout", {
@@ -82,11 +80,11 @@ local function ButtonBar(props)
 					props.ButtonClicked(value)
 				end,
 
-				OnHoverChanged = DFFlagGameSettingsWorldPanel and function(value, hovering)
+				OnHoverChanged = function(value, hovering)
 					if nil ~= props.HoverChanged then
 						props.HoverChanged(value, hovering)
 					end
-				end or nil
+				end
 			}))
 		end
 
@@ -94,7 +92,7 @@ local function ButtonBar(props)
 			local totalWidth = nil
 			local totalHeight = nil
 
-			if DFFlagGameSettingsWorldPanel and Enum.FillDirection.Vertical == fillDirection then
+			if Enum.FillDirection.Vertical == fillDirection then
 				local combinedButtonHeights = #buttons * Constants.BUTTON_HEIGHT
 				local combinedPaddingHeights = math.max(#buttons-1, 0) * (props.Padding or BUTTON_BAR_PADDING)
 

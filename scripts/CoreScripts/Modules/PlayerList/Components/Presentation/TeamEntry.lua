@@ -55,8 +55,8 @@ function TeamEntry:render()
 				teamColor = teamColor,
 			}, {
 				TeamName = Roact.createElement("TextLabel", {
-					Position = UDim2.new(0, 0, 0, 0),
-					Size = UDim2.new(1, 0, 1, 0),
+					Position = UDim2.new(0, 5, 0, 0),
+					Size = UDim2.new(1, -5, 1, 0),
 					TextXAlignment = Enum.TextXAlignment.Left,
 					Font = layoutValues.TeamEntryFont,
 					TextSize = layoutValues.PlayerNameTextSize,
@@ -91,7 +91,6 @@ function TeamEntry:render()
 				layoutValues.TeamEntrySizeY
 			),
 			BackgroundTransparency = 1,
-			ZIndex = layoutValues.IsTenFoot and 2 or 1,
 		}, teamEntryChildren)
 	end)
 end

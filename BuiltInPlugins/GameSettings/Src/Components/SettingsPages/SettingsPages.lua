@@ -7,14 +7,10 @@ local Options = require(script.Parent.Options)
 local BasicInfo = require(script.Parent.BasicInfo)
 local DeveloperSubscriptions = require(script.Parent.DeveloperSubscriptions)
 
-local DFFlagGameSettingsWorldPanel = settings():GetFFlag("GameSettingsWorldPanel3")
 local FFlagStudioGameSettingsAccessPermissions = settings():GetFFlag("StudioGameSettingsAccessPermissions")
 local DFFlagDeveloperSubscriptionsEnabled = settings():GetFFlag("DeveloperSubscriptionsEnabled")
 
-local World = nil
-if DFFlagGameSettingsWorldPanel then
-	World = require(script.Parent.World)
-end
+local World = require(script.Parent.World)
 
 local AccessPermissions = nil
 if FFlagStudioGameSettingsAccessPermissions then
@@ -25,11 +21,8 @@ local SettingsPages = {
 	["Avatar"] = Avatar,
 	["Options"] = Options,
 	["Basic Info"] = BasicInfo,
+	["World"] = World
 }
-
-if DFFlagGameSettingsWorldPanel then
-	SettingsPages["World"] = World
-end
 
 if FFlagStudioGameSettingsAccessPermissions then
 	SettingsPages["Access Permissions"] = AccessPermissions

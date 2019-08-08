@@ -89,6 +89,12 @@ local function httpDelete(httpImpl, options)
 	end)
 end
 
+local function httpPatch(httpImpl, options)
+	return baseHttpHandler("PATCH", options, function()
+		return httpImpl:RequestAsync(options)
+	end)
+end
+
 -- httpFunc : (function) one of the http functions defined above, like httpGet, or httpPost
 -- ... : arguments to pass into the httpFunc
 local function createHttpPromise(httpFunc, ...)
@@ -190,6 +196,38 @@ function Networking:httpDelete(url)
 	}
 
 	return createHttpPromise(httpDelete, self._httpImpl, options)
+end
+
+function Networking:httpPatch(url, payload)
+	local options = {
+		Url = url,
+		Method = "PATCH",
+		Body = payload,
+		Headers = {
+			["Content-Type"] = "application/json",
+		},
+	}
+
+	return createHttpPromise(httpPatch, self._httpImpl, options)
+end
+
+function Networking:requestInternal(requestInfo)
+	return Promise.new(function(resolve, reject)
+		-- Prevent yielding
+		spawn(function()
+			HttpService:RequestInternal(requestInfo):Start(function(success, response)
+				if success then
+					if response.StatusCode >= StatusCodes.BAD_REQUEST then
+						reject("HTTP error: "..tostring(response.StatusCode))
+					else
+						resolve(response.Body)
+					end
+				else
+					reject("HTTP error: "..tostring(response.HttpError))
+				end
+			end)
+		end)
+	end)
 end
 
 return Networking

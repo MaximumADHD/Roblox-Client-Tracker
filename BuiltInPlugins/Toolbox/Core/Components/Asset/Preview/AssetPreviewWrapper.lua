@@ -21,6 +21,8 @@ local Util = Plugin.Core.Util
 local Constants = require(Util.Constants)
 local ContextHelper = require(Util.ContextHelper)
 
+local getUserId = require(Util.getUserId)
+
 local withModal = ContextHelper.withModal
 local withTheme = ContextHelper.withTheme
 
@@ -28,6 +30,9 @@ local AssetPreview = require(Plugin.Core.Components.Asset.Preview.AssetPreview)
 
 local GetPreviewInstanceRequest = require(Plugin.Core.Networking.Requests.GetPreviewInstanceRequest)
 local ClearPreview = require(Plugin.Core.Actions.ClearPreview)
+
+local Category = require(Plugin.Core.Types.Category)
+local ConfigTypes = require(Plugin.Core.Types.ConfigTypes)
 
 local AssetPreviewWrapper = Roact.PureComponent:extend("AssetPreviewWrapper")
 
@@ -85,8 +90,21 @@ function AssetPreviewWrapper:init(props)
 	end
 
 	self.tryCreateContextMenu = function()
-		local assetData = props.assetData
-		self.props.tryCreateContextMenu(assetData)
+		local assetData = self.props.assetData
+
+		-- Check if the user owns the asset.
+		local creatorData = assetData.Creator
+		local showEditOption = false
+		if creatorData.Type == ConfigTypes.OWNER_TYPES.User then
+			if creatorData.Id == getUserId() then
+				showEditOption = true
+			end
+		else
+			-- TODO: Check if the user belong to the group owns it.
+			-- DEVTOOLS-2872
+		end
+
+		self.props.tryCreateContextMenu(assetData, showEditOption)
 	end
 
 	self.tryInsert = function()
@@ -171,8 +189,11 @@ local function mapStateToProps(state, props)
 
 	local previewModel = assets.previewModel
 
+	local pageInfo = state.pageInfo or {}
+
 	return {
-		previewModel = previewModel or nil
+		previewModel = previewModel or nil,
+		currentTab = pageInfo.currentTab or Category.MARKETPLACE_KEY
 	}
 end
 

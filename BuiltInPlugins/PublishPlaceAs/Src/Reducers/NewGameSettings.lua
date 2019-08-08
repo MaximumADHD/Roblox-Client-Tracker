@@ -38,7 +38,7 @@ end
 
 local initial = {
 	current = {},
-	changed = {},
+	changed = { playableDevices = {Computer = true} },
 	errors = {},
 }
 

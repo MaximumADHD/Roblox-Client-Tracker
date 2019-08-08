@@ -1,0 +1,100 @@
+Key,Source,Context,en-us,zh-cn
+Studio.Common.Action.Apply,Apply, ,Apply,应用
+Studio.Common.Action.Back,Back, ,Back,返回
+Studio.Common.Action.Cancel,Cancel, ,Cancel,取消
+Studio.Common.Action.Clear,Clear, ,Clear,清除
+Studio.Common.Action.Close,Close, ,Close,关闭
+Studio.Common.Action.Copy,Copy, ,Copy,复制
+Studio.Common.Action.Create,Create, ,Create,创建
+Studio.Common.Action.Cut,Cut, ,Cut,剪切
+Studio.Common.Action.Delete,Delete, ,Delete,删除
+Studio.Common.Action.Edit,Edit, ,Edit,编辑
+Studio.Common.Action.Exit,Exit, ,Exit,退出
+Studio.Common.Action.File,File, ,File,文件
+Studio.Common.Action.Find,Find, ,Find,查找
+Studio.Common.Action.Help,Help, ,Help,帮助
+Studio.Common.Action.Home,Home, ,Home,首页
+Studio.Common.Action.Ignore,Ignore, ,Ignore,忽略
+Studio.Common.Action.Insert,Insert, ,Insert,插入
+Studio.Common.Action.New,New, ,New,新增
+Studio.Common.Action.Next,Next, ,Next,下一个
+Studio.Common.Action.No,No, ,No,否
+Studio.Common.Action.OK,OK, ,OK,确认
+Studio.Common.Action.Okay,Okay, ,Okay,好的
+Studio.Common.Action.Open,Open, ,Open,打开
+Studio.Common.Action.Paste,Paste, ,Paste,粘贴
+Studio.Common.Action.Pause,Pause, ,Pause,暂停
+Studio.Common.Action.Play,Play, ,Play,播放
+Studio.Common.Action.Previous,Previous, ,Previous,上一个
+Studio.Common.Action.Reload,Reload, ,Reload,重新加载
+Studio.Common.Action.Remove,Remove, ,Remove,删除
+Studio.Common.Action.Rename,Rename, ,Rename,重命名
+Studio.Common.Action.Replace,Replace, ,Replace,替换
+Studio.Common.Action.Resize,Resize, ,Resize,缩放
+Studio.Common.Action.Retry,Retry, ,Retry,重试
+Studio.Common.Action.Save,Save, ,Save,保存
+Studio.Common.Action.Select,Select, ,Select,选择
+Studio.Common.Action.Share,Share, ,Share,分享
+Studio.Common.Action.Stop,Stop, ,Stop,停止
+Studio.Common.Action.Yes,Yes, ,Yes,是
+Studio.Common.Action.Continue,Continue, ,Continue,继续
+Studio.Common.Action.Redo,Redo, ,Redo,恢复
+Studio.Common.Action.Undo,Undo, ,Undo,撤消
+Studio.Common.Action.Update,Update, ,Update,更新
+Studio.Common.Action.Reset,Reset, ,Reset, 
+Studio.Toolbox.General.ToolboxToolbarName,Toolbox, ,Toolbox,工具箱
+Studio.Toolbox.General.CategoryModels,Models, ,Models,模型
+Studio.Toolbox.General.CategoryDecals,Images, ,Images,图片
+Studio.Toolbox.General.CategoryMeshes,Meshes, ,Meshes,网格
+Studio.Toolbox.General.CategoryAudio,Audio, ,Audio,音频
+Studio.Toolbox.General.CategoryPlugins,Plugins, ,Plugins,插件
+Studio.Toolbox.General.CategoryMyModels,My Models, ,My Models,我的模型
+Studio.Toolbox.General.CategoryMyDecals,My Images, ,My Images,我的图片
+Studio.Toolbox.General.CategoryMyMeshes,My Meshes, ,My Meshes,我的网格
+Studio.Toolbox.General.CategoryMyAudio,My Audio, ,My Audio,我的音频
+Studio.Toolbox.General.CategoryMyPackages,My Packages, ,My Packages,我的套装
+Studio.Toolbox.General.CategoryMyPlugins,My Plugins, ,My Plugins,我的插件
+Studio.Toolbox.General.CategoryRecentModels,Recent Models, ,Recent Models,最近模型
+Studio.Toolbox.General.CategoryRecentDecals,Recent Images, ,Recent Images,最近图片
+Studio.Toolbox.General.CategoryRecentMeshes,Recent Meshes, ,Recent Meshes,最近网格
+Studio.Toolbox.General.CategoryRecentAudio,Recent Audio, ,Recent Audio,最近音频
+Studio.Toolbox.General.CategoryGroupModels,Group Models, ,Group Models,群组模型
+Studio.Toolbox.General.CategoryGroupDecals,Group Images, ,Group Images,群组图片
+Studio.Toolbox.General.CategoryGroupMeshes,Group Meshes, ,Group Meshes,群组网格
+Studio.Toolbox.General.CategoryGroupAudio,Group Audio, ,Group Audio,群组音频
+Studio.Toolbox.General.CategoryGroupPackages,Group Packages, ,Group Packages,群组套装
+Studio.Toolbox.General.SearchBarDefaultText,Search, ,Search,搜索
+Studio.Toolbox.General.SearchBarCreatorText,Search for users, ,Search for users,搜索用户
+Studio.Toolbox.General.SuggestionsIntroText,Try searching for:, ,Try searching for:,尝试搜索：
+Studio.Toolbox.General.SuggestionsNPC,NPC, ,NPC,NPC
+Studio.Toolbox.General.SuggestionsVehicle,Vehicle, ,Vehicle,车辆
+Studio.Toolbox.General.SuggestionsWeapon,Weapon, ,Weapon,武器
+Studio.Toolbox.General.SuggestionsBuilding,Building, ,Building,建筑
+Studio.Toolbox.General.SuggestionsLight,Light, ,Light,光
+Studio.Toolbox.General.SortByText,Sort by:, ,Sort by:,排序方式：
+Studio.Toolbox.General.SortByRelevance,Relevance, ,Relevance,关联
+Studio.Toolbox.General.SortByMostTaken,Most Taken, ,Most Taken,最多采用
+Studio.Toolbox.General.SortByFavorites,Favorites, ,Favorites,收藏
+Studio.Toolbox.General.SortByUpdated,Updated, ,Updated,已更新
+Studio.Toolbox.General.SortByRatings,Ratings, ,Ratings,评级
+Studio.Toolbox.General.AssetCreatorIntroText,by {name:username}, ,by {name:username},作者：{name:username}
+Studio.Toolbox.General.VotingVoteText,vote, ,vote,票
+Studio.Toolbox.General.VotingVotesText,votes, ,votes,票
+Studio.Toolbox.General.FooterBGText,Background:, ,Background:,背景：
+Studio.Toolbox.General.FooterButtonWhiteName,White, ,White,白色
+Studio.Toolbox.General.FooterButtonBlackName,Black, ,Black,黑色
+Studio.Toolbox.General.FooterButtonNoneName,None, ,None,无
+Studio.Toolbox.General.EndorseBadgeTooltipText,Marked as a high-quality item, ,Marked as a high-quality item,标记为高品质的项目
+Studio.Toolbox.General.InfoBannerText,No results found, ,No results found,未找到结果
+Studio.Toolbox.General.CategoryEndorsedPlugins,EndorsedPlugins, ,EndorsedPlugins,官方认可的插件
+Studio.Toolbox.General.SearchResults,Search Results, ,Search Results,搜索结果
+Studio.Toolbox.General.SearchResultsKeyword,Search Results for, ,Search Results for,搜索结果：
+Studio.Toolbox.General.SearchResultsClearAll,Clear, ,Clear,清除
+Studio.Toolbox.General.SearchOptionCreator,Creator, ,Creator,创建者
+Studio.Toolbox.General.SearchOptionSort,Sort By, ,Sort By,排序方式
+Studio.Toolbox.General.SearchOptionsApply,Apply, ,Apply,应用
+Studio.Toolbox.General.SearchOptionsCancel,Cancel, ,Cancel,取消
+Studio.Toolbox.General.SearchTagCreator,by:, ,by:,作者：
+Studio.Toolbox.General.TabMarketplace,Marketplace, ,Marketplace,市集
+Studio.Toolbox.General.TabInventory,Inventory, ,Inventory,道具
+Studio.Toolbox.General.TabRecent,Recent, ,Recent,最近

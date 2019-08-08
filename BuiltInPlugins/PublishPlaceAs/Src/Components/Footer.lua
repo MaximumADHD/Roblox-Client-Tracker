@@ -6,9 +6,10 @@
 		bool SaveActive = Whether or not saving is currently allowed.
 			This will enable the Save button if true.
 ]]
-
 local FOOTER_GRADIENT_SIZE = 3
 local FOOTER_GRADIENT_TRANSPARENCY = 0.9
+local FOOTER_GRADIENT_IMAGE = "rbxasset://textures/gradient.png"
+local FOOTER_GRADIENT_RECT_SIZE = Vector2.new(512, 256)
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -18,19 +19,21 @@ local Theming = require(Plugin.Src.ContextServices.Theming)
 local UILibrary = require(Plugin.Packages.UILibrary)
 local Localizing = UILibrary.Localizing
 local Constants = require(Plugin.Src.Resources.Constants)
+local SettingsImpl = require(Plugin.Src.Network.Requests.SettingsImpl)
 
 local SetScreen = require(Plugin.Src.Actions.SetScreen)
 
 local ButtonBar = require(Plugin.Src.Components.ButtonBar)
 
 local function Footer(props)
-	return Localizing.withLocalization(function(localized)
+	return Localizing.withLocalization(function(localization)
 		return Theming.withTheme(function(theme)
 			local saveActive = props.SaveActive
 			local cancelActive = props.CancelActive
 			local onClose = props.OnClose
 			local nextScreen = props.NextScreen
 			local nextScreenText = props.NextScreenText
+			local settings = props.Settings
 
 			local openNextScreen = props.OpenNextScreen
 
@@ -45,8 +48,8 @@ local function Footer(props)
 				Gradient = Roact.createElement("ImageLabel", {
 					Size = UDim2.new(1, 0, 0, FOOTER_GRADIENT_SIZE),
 					AnchorPoint = Vector2.new(0, 1),
-					Image = Constants.GRADIENT_IMAGE,
-					ImageRectSize = Constants.GRADIENT_RECT_SIZE,
+					Image = FOOTER_GRADIENT_IMAGE,
+					ImageRectSize = FOOTER_GRADIENT_RECT_SIZE,
 					BorderSizePixel = 0,
 					BackgroundTransparency = 1,
 					ImageColor3 = theme.footer.gradient,
@@ -61,7 +64,13 @@ local function Footer(props)
 						{Name = "Save", Default = true, Active = saveActive, Value = true},
 					},
 					HorizontalAlignment = Enum.HorizontalAlignment.Right,
-					buttonClicked = onClose,
+					buttonClicked = function(userPressedSave)
+						if userPressedSave then
+							SettingsImpl.saveAll(settings, onClose)
+						else
+							onClose()
+						end
+					end,
 				}),
 
 				GotoNextScreen = nextScreen ~= nil and Roact.createElement("TextButton", {
@@ -73,7 +82,7 @@ local function Footer(props)
 					BackgroundTransparency = 1,
 					TextSize = 15,
 					Font = theme.footer.textbutton.font,
-					Text = localized:getText("General", nextScreenText),
+					Text = localization:getText("Button", nextScreenText),
 
 					[Roact.Event.Activated] = function()
 						openNextScreen(nextScreen)
@@ -99,8 +108,8 @@ local function mapStateToProps(state, props)
 		readyToSave = false
 	end
 	return {
-		SaveActive = readyToSave
-		-- TODO (kstephan) 2019/07/09 set CancelActive / SaveActive based on state
+		SaveActive = readyToSave,
+		Settings = state.NewGameSettings.changed,
 	}
 end
 

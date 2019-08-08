@@ -28,6 +28,7 @@ local Timeline = require(Components.Timeline.Timeline)
 local TimelineTick = require(Components.Timeline.TimelineTick)
 local TitledFrame = require(Components.TitledFrame)
 local Tooltip = require(Components.Tooltip)
+local ToggleButton = require(Components.ToggleButton)
 
 local Spritesheet = require(Utils.Spritesheet)
 
@@ -57,9 +58,11 @@ local UILibrary = {
 		TimelineTick = TimelineTick,
 		TitledFrame = TitledFrame,
 		Tooltip = Tooltip,
+		ToggleButton = ToggleButton,
 	},
 
 	Studio = {
+		ContextMenus = require(Src.Studio.ContextMenus),
 		Localization = require(Src.Studio.Localization),
 		Style = require(Src.Studio.StudioStyle),
 		Theme = require(Src.Studio.StudioTheme),
@@ -70,7 +73,7 @@ local UILibrary = {
 		ShowOnTop = Focus.ShowOnTop,
 		KeyboardListener = Focus.KeyboardListener,
 	},
-	
+
 	Util = {
 		Spritesheet = Spritesheet,
 	},

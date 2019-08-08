@@ -166,6 +166,7 @@ function StyledDropdown:render()
 
 		local maxWidth = 0
 		local maxHeight = maxItems and (maxItems * itemHeight) or nil
+		local LayoutOrder = props.LayoutOrder or 0
 
 		for _, data in ipairs(items) do
 			local textBound = TextService:GetTextSize(data.Text,
@@ -190,6 +191,8 @@ function StyledDropdown:render()
 			[Roact.Event.Activated] = self.showDropdown,
 			[Roact.Event.MouseEnter] = self.onMouseEnter,
 			[Roact.Event.MouseLeave] = self.onMouseLeave,
+
+			LayoutOrder = LayoutOrder,
 		}, {
 			RoundFrame = Roact.createElement(RoundFrame, {
 				Size = UDim2.new(1, 0, 1, 0),

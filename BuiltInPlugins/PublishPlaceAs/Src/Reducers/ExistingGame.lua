@@ -3,20 +3,20 @@ local Rodux = require(Plugin.Packages.Rodux)
 local Cryo = require(Plugin.Packages.Cryo)
 
 local initial = {
-	gamesLock = false,
-	games = {},
+	placeInfo = { places = {}, },
+	gameInfo = { games = {}, },
 }
 
 return Rodux.createReducer(initial, {
-	SetGamesLock = function(state, action)
+	SetGameInfo = function(state, action)
 		return Cryo.Dictionary.join(state, {
-			gamesLock = action.gamesLock
+			gameInfo = Cryo.Dictionary.join(state.gameInfo, action.gameInfo)
 		})
 	end,
 
-	SetGames = function(state, action)
+	SetPlaceInfo = function(state, action)
 		return Cryo.Dictionary.join(state, {
-			games = action.games
+			placeInfo = Cryo.Dictionary.join(state.placeInfo, action.placeInfo)
 		})
 	end,
 })

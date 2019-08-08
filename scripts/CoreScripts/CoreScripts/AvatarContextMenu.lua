@@ -9,7 +9,6 @@ local DEBUG_MODE = game:GetService("RunService"):IsStudio() -- use this to run a
 local isAvatarContextMenuEnabled = false
 
 local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList")
-local FFlagAvatarContextMenuGamepad = settings():GetFFlag("AvatarContextMenuGamepad")
 
 -- CONSTANTS
 local MAX_CONTEXT_MENU_DISTANCE = 100
@@ -147,10 +146,8 @@ function BindMenuActions()
 			end
 		end
 	end
-	if FFlagAvatarContextMenuGamepad then
-		ContextActionService:BindCoreAction(SWITCH_PAGE_ACTION_NAME, gamepadSwitchPage, false, Enum.KeyCode.ButtonR1,
-			Enum.KeyCode.ButtonL1)
-	end
+	ContextActionService:BindCoreAction(SWITCH_PAGE_ACTION_NAME, gamepadSwitchPage, false, Enum.KeyCode.ButtonR1,
+		Enum.KeyCode.ButtonL1)
 
     local menuOpenedCon = nil
     menuOpenedCon = GuiService.MenuOpened:connect(function()
@@ -207,9 +204,7 @@ function CloseContextMenu()
 	GuiService.SelectedCoreObject = nil
 
 	ContextActionService:UnbindCoreAction(LEAVE_MENU_ACTION_NAME)
-	if FFlagAvatarContextMenuGamepad then
-		ContextActionService:UnbindCoreAction(SWITCH_PAGE_ACTION_NAME)
-	end
+	ContextActionService:UnbindCoreAction(SWITCH_PAGE_ACTION_NAME)
 
 	ContextMenuUtil:EnablePlayerMovement()
 	if contextMenuPlayerChangedConn then
@@ -463,6 +458,4 @@ local function gamepadOpenMenu(actionName, inputState, input)
 
 	return Enum.ContextActionResult.Sink
 end
-if FFlagAvatarContextMenuGamepad then
-	ContextActionService:BindCoreAction(GAMEPAD_OPEN_MENU_ACTION, gamepadOpenMenu, false, Enum.KeyCode.DPadUp)
-end
+ContextActionService:BindCoreAction(GAMEPAD_OPEN_MENU_ACTION, gamepadOpenMenu, false, Enum.KeyCode.DPadUp)

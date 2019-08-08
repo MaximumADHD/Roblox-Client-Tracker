@@ -5062,6 +5062,24 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "SetImageServerView",
+                    "Parameters": [
+                        {
+                            "Name": "modelCoord",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "CFrame"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "SetRoll",
                     "Parameters": [
                         {
@@ -8363,6 +8381,27 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "CalculateNumTrianglesInMesh",
+                    "Parameters": [
+                        {
+                            "Name": "meshId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "int"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields"
+                    ]
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "PreloadAsync",
                     "Parameters": [
                         {
@@ -10910,10 +10949,10 @@
                     "Name": "DiscardEdits",
                     "Parameters": [
                         {
-                            "Name": "scriptGuids",
+                            "Name": "scripts",
                             "Type": {
-                                "Category": "Group",
-                                "Name": "Array"
+                                "Category": "DataType",
+                                "Name": "Objects"
                             }
                         }
                     ],
@@ -10928,16 +10967,16 @@
                     "Name": "GetEditors",
                     "Parameters": [
                         {
-                            "Name": "scriptGuid",
+                            "Name": "script",
                             "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
+                                "Category": "Class",
+                                "Name": "Instance"
                             }
                         }
                     ],
                     "ReturnType": {
-                        "Category": "Group",
-                        "Name": "Array"
+                        "Category": "DataType",
+                        "Name": "Objects"
                     },
                     "Security": "RobloxScriptSecurity"
                 },
@@ -10946,10 +10985,10 @@
                     "Name": "OpenDrafts",
                     "Parameters": [
                         {
-                            "Name": "scriptGuids",
+                            "Name": "scripts",
                             "Type": {
-                                "Category": "Group",
-                                "Name": "Array"
+                                "Category": "DataType",
+                                "Name": "Objects"
                             }
                         }
                     ],
@@ -10964,10 +11003,10 @@
                     "Name": "ShowDiffsAgainstBase",
                     "Parameters": [
                         {
-                            "Name": "scriptGuids",
+                            "Name": "scripts",
                             "Type": {
-                                "Category": "Group",
-                                "Name": "Array"
+                                "Category": "DataType",
+                                "Name": "Objects"
                             }
                         }
                     ],
@@ -10982,10 +11021,10 @@
                     "Name": "ShowDiffsAgainstServer",
                     "Parameters": [
                         {
-                            "Name": "scriptGuids",
+                            "Name": "scripts",
                             "Type": {
-                                "Category": "Group",
-                                "Name": "Array"
+                                "Category": "DataType",
+                                "Name": "Objects"
                             }
                         }
                     ],
@@ -11000,10 +11039,10 @@
                     "Name": "CommitEdits",
                     "Parameters": [
                         {
-                            "Name": "scriptGuids",
+                            "Name": "scripts",
                             "Type": {
-                                "Category": "Group",
-                                "Name": "Array"
+                                "Category": "DataType",
+                                "Name": "Objects"
                             }
                         }
                     ],
@@ -11022,8 +11061,8 @@
                     "Parameters": [
                     ],
                     "ReturnType": {
-                        "Category": "Group",
-                        "Name": "Dictionary"
+                        "Category": "DataType",
+                        "Name": "Objects"
                     },
                     "Security": "RobloxScriptSecurity",
                     "Tags": [
@@ -11035,16 +11074,16 @@
                     "Name": "UpdateToLatestVersion",
                     "Parameters": [
                         {
-                            "Name": "scriptGuids",
+                            "Name": "scripts",
                             "Type": {
-                                "Category": "Group",
-                                "Name": "Array"
+                                "Category": "DataType",
+                                "Name": "Objects"
                             }
                         }
                     ],
                     "ReturnType": {
-                        "Category": "Group",
-                        "Name": "Dictionary"
+                        "Category": "Primitive",
+                        "Name": "void"
                     },
                     "Security": "RobloxScriptSecurity",
                     "Tags": [
@@ -11056,17 +11095,17 @@
                     "Name": "CommitStatusChanged",
                     "Parameters": [
                         {
-                            "Name": "scriptGuid",
+                            "Name": "script",
                             "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
+                                "Category": "Class",
+                                "Name": "Instance"
                             }
                         },
                         {
-                            "Name": "commitStatus",
+                            "Name": "status",
                             "Type": {
-                                "Category": "Primitive",
-                                "Name": "int"
+                                "Category": "Enum",
+                                "Name": "DraftStatusCode"
                             }
                         }
                     ],
@@ -11076,13 +11115,6 @@
                     "MemberType": "Event",
                     "Name": "DraftAdded",
                     "Parameters": [
-                        {
-                            "Name": "scriptGuid",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        },
                         {
                             "Name": "script",
                             "Type": {
@@ -11098,10 +11130,10 @@
                     "Name": "DraftDeleted",
                     "Parameters": [
                         {
-                            "Name": "scriptGuid",
+                            "Name": "script",
                             "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
+                                "Category": "Class",
+                                "Name": "Instance"
                             }
                         }
                     ],
@@ -11112,10 +11144,10 @@
                     "Name": "EditorsListChanged",
                     "Parameters": [
                         {
-                            "Name": "scriptGuid",
+                            "Name": "script",
                             "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
+                                "Category": "Class",
+                                "Name": "Instance"
                             }
                         }
                     ],
@@ -11126,10 +11158,10 @@
                     "Name": "ScriptDeleted",
                     "Parameters": [
                         {
-                            "Name": "scriptGuid",
+                            "Name": "script",
                             "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
+                                "Category": "Class",
+                                "Name": "Instance"
                             }
                         }
                     ],
@@ -11140,10 +11172,31 @@
                     "Name": "ScriptServerVersionChanged",
                     "Parameters": [
                         {
-                            "Name": "scriptGuid",
+                            "Name": "script",
                             "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "UpdateStatusChanged",
+                    "Parameters": [
+                        {
+                            "Name": "script",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        },
+                        {
+                            "Name": "status",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "DraftStatusCode"
                             }
                         }
                     ],
@@ -26932,7 +26985,7 @@
                 },
                 {
                     "MemberType": "Function",
-                    "Name": "GetSubscriptionStatus",
+                    "Name": "IsPlayerSubscribed",
                     "Parameters": [
                         {
                             "Name": "player",
@@ -26950,8 +27003,8 @@
                         }
                     ],
                     "ReturnType": {
-                        "Category": "Group",
-                        "Name": "Dictionary"
+                        "Category": "Primitive",
+                        "Name": "bool"
                     },
                     "Security": "None",
                     "Tags": [
@@ -32955,26 +33008,6 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "bool"
-                    }
-                },
-                {
-                    "Category": "Behavior",
-                    "MemberType": "Property",
-                    "Name": "AutoJointsMode",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "Tags": [
-                        "NotScriptable"
-                    ],
-                    "ValueType": {
-                        "Category": "Enum",
-                        "Name": "AutoJointsMode"
                     }
                 },
                 {
@@ -43802,6 +43835,27 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "InsertObjectsAndJoinIfLegacyAsync",
+                    "Parameters": [
+                        {
+                            "Name": "url",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Content"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "DataType",
+                        "Name": "Objects"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields"
+                    ]
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "SavePlace",
                     "Parameters": [
                         {
@@ -48568,6 +48622,24 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "GetResourceByCategory",
+                    "Parameters": [
+                        {
+                            "Name": "category",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Dictionary"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "GetUserId",
                     "Parameters": [
                     ],
@@ -48583,6 +48655,31 @@
                     "Parameters": [
                         {
                             "Name": "assetId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "PublishAs",
+                    "Parameters": [
+                        {
+                            "Name": "universeId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        },
+                        {
+                            "Name": "placeId",
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "int64"
@@ -48634,6 +48731,17 @@
                 {
                     "MemberType": "Function",
                     "Name": "ShowPublishToRoblox",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "emitPlacePublishedSignal",
                     "Parameters": [
                     ],
                     "ReturnType": {
@@ -48745,6 +48853,41 @@
                         "Yields",
                         "Deprecated"
                     ]
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "GamePublishedToRoblox",
+                    "Parameters": [
+                    ],
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "OnOpenConvertToPackagePlugin",
+                    "Parameters": [
+                    ],
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "OnOpenManagePackagePlugin",
+                    "Parameters": [
+                        {
+                            "Name": "userId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        },
+                        {
+                            "Name": "assetId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity"
                 },
                 {
                     "MemberType": "Event",
@@ -51407,6 +51550,48 @@
         },
         {
             "Members": [
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "AbsoluteCellCount",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Vector2"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "AbsoluteCellSize",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Vector2"
+                    }
+                },
                 {
                     "Category": "Appearance",
                     "MemberType": "Property",
@@ -56680,23 +56865,6 @@
                 }
             ],
             "Name": "AssetType"
-        },
-        {
-            "Items": [
-                {
-                    "Name": "Default",
-                    "Value": 0
-                },
-                {
-                    "Name": "Explicit",
-                    "Value": 1
-                },
-                {
-                    "Name": "LegacyImplicit",
-                    "Value": 2
-                }
-            ],
-            "Name": "AutoJointsMode"
         },
         {
             "Items": [

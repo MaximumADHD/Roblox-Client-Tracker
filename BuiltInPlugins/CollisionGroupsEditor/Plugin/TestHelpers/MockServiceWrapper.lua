@@ -9,7 +9,7 @@ local ServiceWrapper = require(Plugin.Plugin.Components.ServiceWrapper)
 local MockPlugin = require(Plugin.Plugin.TestHelpers.MockPlugin)
 local Localization = UILibrary.Studio.Localization
 
-local MockServiceWrapper = Roact.Component:extend("MockSkeletonEditorServiceWrapper")
+local MockServiceWrapper = Roact.Component:extend("MockServiceWrapper")
 
 -- props.localization : (optional, UILibrary.Localization)
 -- props.plugin : (optional, plugin)

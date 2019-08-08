@@ -3,6 +3,7 @@ local Plugin = script.Parent.Parent.Parent
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 
 local Category = require(Plugin.Core.Types.Category)
+local Constants = require(Plugin.Core.Util.Constants)
 local Sort = require(Plugin.Core.Types.Sort)
 
 local Settings = {}
@@ -114,7 +115,7 @@ function Settings:loadInitialSettings()
 	settings.searchTerm = self:getSelectedSearchTerm()
 	settings.sortIndex = self:getSelectedSortIndex()
 
-	if Category.categoryIsGroupAsset(settings.categoryIndex) then
+	if Category.categoryIsGroupAsset(Constants.DEFAULT_TAB, settings.categoryIndex) then
 		settings.categoryIndex = 1
 	end
 

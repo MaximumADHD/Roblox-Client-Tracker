@@ -133,9 +133,13 @@ Studio.GameSettings.General.ErrorsOnSaveHeader,Saving Errors, ,Saving Errors,保
 Studio.GameSettings.General.ErrorsOnSaveBody,Could not save game settings., ,Could not save game settings.,无法保存游戏设置。
 Studio.GameSettings.General.ErrorNameEmpty,Name cannot be empty., ,Name cannot be empty.,名称不能为空。
 Studio.GameSettings.General.ErrorNameModerated,The name didn't go through our moderation. Please revise it and try again., ,The name didn't go through our moderation. Please revise it and try again.,此名称没有通过审核。请修改后再试一次。
+Studio.GameSettings.General.ErrorDevSubFiltered,Filtered to {filteredText},Used to explain what the developer subscription title and description was filtered to after going through moderation.,Filtered to {filteredText},Filtered to {filteredText}
+Studio.GameSettings.General.ErrorDevSubMaxPrice,Must be less than {maxRobuxAmount:int},Explains that the developer subscription robux per month is higher than our limit,Must be less than {maxRobuxAmount:int},Must be less than {maxRobuxAmount:int}
+Studio.GameSettings.General.ErrorDevSubInvalidPrice,Must be a valid positive integer, ,Must be a valid positive integer,Must be a valid positive integer
 Studio.GameSettings.General.ErrorDescModerated,The description didn't go through our moderation. Please revise it and try again., ,The description didn't go through our moderation. Please revise it and try again.,此描述没有通过审核。请修改后再试一次。
 Studio.GameSettings.General.ErrorImageLimit,"You're uploading too much, please wait and try again later.", ,"You're uploading too much, please wait and try again later.",你已上传过多文件。请稍候重试。
 Studio.GameSettings.General.ErrorImageNotRecognized,File uploaded does not match known image format. Try converting to png., ,File uploaded does not match known image format. Try converting to png.,上传的文件与已知图片格式不匹配。请将它转成PNG文件。
+Studio.GameSettings.General.ErrorImageRequired,You must provide an image, ,You must provide an image,You must provide an image
 Studio.GameSettings.General.ErrorNoDevices,You must select at least one playable device., ,You must select at least one playable device.,你必须选择至少一种可游玩设备。
 Studio.GameSettings.General.GameIconPrompt,Add Game Icon, ,Add Game Icon,添加游戏图标
 Studio.GameSettings.General.ThumbnailPrompt,Add Thumbnails, ,Add Thumbnails,添加缩略图
@@ -187,6 +191,8 @@ Studio.GameSettings.General.SingleImageDialogBody,Select a compatible image., ,S
 Studio.GameSettings.General.MultiImageDialogHeader,Images Failed, ,Images Failed, 
 Studio.GameSettings.General.MultiImageDialogBody,The following file(s) exceed {maxThumbnailSize:int} MB:, ,The following file(s) exceed {maxThumbnailSize:int} MB:, 
 Studio.GameSettings.General.DevSubsEditHeader,Edit Developer Subscription, ,Edit Developer Subscription, 
+Studio.GameSettings.General.DevSubsNewHeader,New Developer Subscription, ,New Developer Subscription, 
+Studio.GameSettings.General.DevSubsDiscontinuedHeader,Discontinued Developer Subscription, ,Discontinued Developer Subscription, 
 Studio.GameSettings.General.DevSubsListHeader,Developer Subscriptions, ,Developer Subscriptions, 
 Studio.GameSettings.General.DevSubsName,Name, ,Name, 
 Studio.GameSettings.General.DevSubsDescription,Description, ,Description, 
@@ -198,6 +204,7 @@ Studio.GameSettings.General.DevSubsSubscribers,Subscribers, ,Subscribers,
 Studio.GameSettings.General.DevSubsActive,Active, ,Active, 
 Studio.GameSettings.General.DevSubsCreateAction,Create, ,Create, 
 Studio.GameSettings.General.DevSubsDiscontinueAction,Discontinue, ,Discontinue, 
+Studio.GameSettings.General.DevSubsDeleteAction,Delete, ,Delete, 
 Studio.GameSettings.General.DevSubsUnsaved,Unsaved, ,Unsaved, 
 Studio.GameSettings.General.DevSubsIsActive,Yes, ,Yes, 
 Studio.GameSettings.General.DevSubsIsNotActive,No, ,No, 

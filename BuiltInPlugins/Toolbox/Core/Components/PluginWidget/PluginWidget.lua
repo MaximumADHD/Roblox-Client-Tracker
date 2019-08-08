@@ -15,6 +15,10 @@ return function(componentName, createWidgetFunc)
 	local PluginWidget = Roact.PureComponent:extend(componentName)
 
 	function PluginWidget:init(props)
+		self.state = {
+			pluginGui = nil
+		}
+
 		local title, name, id = getTitleNameId(props)
 
 		self.widget = createWidgetFunc(self, id)
@@ -65,6 +69,12 @@ return function(componentName, createWidgetFunc)
 		return Roact.createElement(Roact.Portal, {
 			target = self.widget,
 		}, self.props[Roact.Children])
+	end
+
+	function PluginWidget:didMount()
+		self:setState({
+			pluginGui = self.widget
+		})
 	end
 
 	function PluginWidget:willUnmount()

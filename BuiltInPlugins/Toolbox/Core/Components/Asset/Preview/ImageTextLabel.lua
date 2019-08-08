@@ -31,26 +31,28 @@ end
 
 function ImageTextLabel:render()
 	local props = self.props
-	local imageContent = props.imageContent
-	local textContent = props.textContent or ""
-	local contentColor = props.contentColor or Color3.new(0, 0, 0)
-	local position = props.position or UDim2.new(1, 0, 1, 0)
-	local size = props.size or UDim2.new(0, 100, 0, 20) -- Description height
+	local ImageContent = props.ImageContent
+	local TextContent = props.TextContent or ""
+	local ContentColor = props.ContentColor or Color3.new(0, 0, 0)
+	local Position = props.Position or UDim2.new(1, 0, 1, 0)
+	local Size = props.Size or UDim2.new(0, 100, 0, 20) -- Description height
+	local AnchorPoint = props.AnchorPoint
 
-	local layoutOrder = props.layoutOrder
-	local verticalAlignment = props.verticalAlignment or Enum.VerticalAlignment.Center
+	local LayoutOrder = props.LayoutOrder
+	local VerticalAlignment = props.VerticalAlignment or Enum.VerticalAlignment.Center
 
 	return Roact.createElement("Frame", {
-		Position = position, -- We should avoid using relative position and size.
-		Size = size,
+		AnchorPoint = AnchorPoint,
+		Position = Position, -- We should avoid using relative position and size.
+		Size = Size,
 
 		BackgroundTransparency = 1,
-		LayoutOrder = layoutOrder,
+		LayoutOrder = LayoutOrder,
 	},{
 		UIListLayout = Roact.createElement("UIListLayout", {
 			FillDirection = Enum.FillDirection.Horizontal,
 			SortOrder = Enum.SortOrder.LayoutOrder,
-			VerticalAlignment = verticalAlignment,
+			VerticalAlignment = VerticalAlignment,
 			Padding = UDim.new(0, 4),
 		}),
 
@@ -59,7 +61,7 @@ function ImageTextLabel:render()
 
 			BackgroundTransparency = 1,
 
-			Image = imageContent,
+			Image = ImageContent,
 
 			LayoutOrder = 1,
 		}),
@@ -67,8 +69,8 @@ function ImageTextLabel:render()
 		TextContent = Roact.createElement("TextLabel", {
 			Size = UDim2.new(1, -20, 1, 0),
 
-			Text = tostring(textContent),
-			TextColor3 = contentColor,
+			Text = tostring(TextContent),
+			TextColor3 = ContentColor,
 			Font = Enum.Font.Arial, --TODO: Need to confirm
 			TextSize = 14, --TODO: Need to confirm
 			TextXAlignment = Enum.TextXAlignment.Left,

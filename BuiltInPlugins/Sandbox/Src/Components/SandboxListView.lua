@@ -1,65 +1,101 @@
 --[[
-    The sandbox list view that displays the list items.
+    Displays a list of scripts you have checked out
 
-    Used https://roblox.github.io/roact/performance/reduce-reconciliation/ as a
-    reference.
+    TODO (awarwick) 7/28/2019. Uncertain how Lua API will end up (e.g. guids with separate method
+    to get metadata or script instances). These props are not final
+    Props:
+    DraftList - An ordered list of ids for each draft
+    DraftMetadata - Dictionary of draft metadata in the form of [id] = { Text="", ClassName="" }
 --]]
 
 local Plugin = script.Parent.Parent.Parent
+local UILibrary = require(Plugin.Packages.UILibrary)
 local Roact = require(Plugin.Packages.Roact)
-local createFitToContent = require(Plugin.Packages.UILibrary.Components.createFitToContent)
-local withTheme = require(Plugin.Src.ContextServices.Theming).withTheme
-local withLocalization = require(Plugin.Packages.UILibrary).Localizing.withLocalization
+
+local ContextMenus = UILibrary.Studio.ContextMenus
 
 local SandboxListItem = require(Plugin.Src.Components.SandboxListItem)
+local ListItemView = require(Plugin.Src.Components.ListItemView)
+
+local ITEM_HEIGHT = 32
 
 local SandboxListView = Roact.Component:extend("SandboxListView")
 
-local FitToContent = createFitToContent("Frame", "UIListLayout", {
-    -- TODO: (mmcdonnell 6/21/2019) Style the list. See CLISTUDIO-19530
-    SortOrder = Enum.SortOrder.LayoutOrder,
-    FillDirection = Enum.FillDirection.Vertical,
-})
-
 function SandboxListView:init()
-    -- In init, we can use setState to set up our initial component state.
-    self:setState({
-        items = {}
-    })
-end
+    self.openScripts = function(selection)
+        -- TODO (awarwick) 7/26/2019 Hook up once we have mock SandboxService
+        print("Opening scripts", unpack(selection))
+    end
 
-function SandboxListView:didMount()
-    -- TODO: Connect to SandboxService and get values from it. See CLISTUDIO-19337
-    self:setState(function(state)
-        local items = state.items
-        state.items[1] = { text = "foo" }
-        state.items[2] = { text = "bar" }
-        return items
-    end)
+    self.diffChanges = function(selection)
+        -- TODO (awarwick) 7/26/2019 Hook up once we have mock SandboxService
+        print("Diffing changes", unpack(selection))
+    end
+
+    self.updateSource = function(selection)
+        -- TODO (awarwick) 7/26/2019 Hook up once we have mock SandboxService
+        print("Updating sources", unpack(selection))
+    end
+
+    self.discardEdits = function(selection)
+        -- TODO (awarwick) 7/26/2019 Hook up once we have mock SandboxService
+        print("Discarding edits", unpack(selection))
+    end
+
+    self.makeMenuActions = function(localization, selectedIds)
+		return {
+			{
+				Text = localization:getText("ContextMenu", "OpenScript"),
+				ItemSelected = function()
+					self.openScripts(selectedIds)
+				end,
+			},
+			{
+				Text = localization:getText("ContextMenu", "ShowDiff"),
+				ItemSelected = function()
+					self.diffChanges(selectedIds)
+				end,
+			},
+			{
+				Text = localization:getText("ContextMenu", "Commit"),
+				ItemSelected = function()
+					self.updateSource(selectedIds)
+				end,
+			},
+			{
+				Text = localization:getText("ContextMenu", "Revert"),
+				ItemSelected = function()
+					self.discardEdits(selectedIds)
+				end,
+			},
+		}
+	end
 end
 
 function SandboxListView:render()
-    -- The list view contains a list of items
-    local items = self.state.items
+    local draftList = self.props.DraftList
+    local draftMetadata = self.props.DraftMetadata
 
-    local itemList = {}
-    for i, item in ipairs(items) do
-        -- Add the element to our list
-        itemList[i] = Roact.createElement(SandboxListItem, {
-            layoutOrder = i,
-            text = item.text,
-        })
-    end
-    -- TODO: (mmcdonnell 6/21/2019) Show a label with "Empty" if there are no items. See CLISTUDIO-19329
+    return Roact.createElement(ListItemView, {
+        ButtonStyle = "tableItemButton",
+        Items = draftList,
+        ItemHeight = ITEM_HEIGHT,
 
-    -- The SandboxListView renders a frame containing the list of SandboxListItem as children
-    return withTheme(function(theme)
-        return withLocalization(function(localization)
-            return Roact.createElement(FitToContent, {
-                -- TODO: (mmcdonnell 6/21/2019) Style the list. See CLISTUDIO-19530
-            }, itemList)
-        end)
-    end)
+        MakeMenuActions = self.makeMenuActions,
+
+        RenderItem = function(id, buttonTheme, hovered)
+            local metadata = draftMetadata[id]
+
+            return Roact.createElement(SandboxListItem, {
+                Size = UDim2.new(1, 0, 1, 0),
+
+                Text = metadata.Text,
+                TextColor3 = buttonTheme.textColor,
+                Font = buttonTheme.font,
+                TextSize = buttonTheme.textSize,
+            })
+        end,
+    })
 end
 
 return SandboxListView

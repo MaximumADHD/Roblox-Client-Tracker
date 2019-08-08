@@ -32,6 +32,8 @@ end
 
 local InviteButton = Roact.PureComponent:extend("InviteButton")
 
+local FFlagLuaInviteGameFixMessageAlignment = game:DefineFastFlag("LuaInviteGameFixMessageAlignment", false)
+
 function InviteButton:render()
 	local anchorPoint = self.props.anchorPoint
 	local position = self.props.position
@@ -75,6 +77,7 @@ function InviteButton:render()
 			Text = RobloxTranslator:FormatByKey(inviteText),
 			TextSize = INVITE_TEXT_SIZE,
 			TextColor3 = Constants.Color.WHITE,
+			TextXAlignment = FFlagLuaInviteGameFixMessageAlignment and Enum.TextXAlignment.Right or nil,
 			LayoutOrder = layoutOrder,
 			ZIndex = zIndex,
 		})

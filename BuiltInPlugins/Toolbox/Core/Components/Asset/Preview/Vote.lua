@@ -32,8 +32,6 @@ local getNetwork = ContextGetter.getNetwork
 local PostUnvoteRequest = require(Plugin.Core.Networking.Requests.PostUnvoteRequest)
 local PostVoteRequest = require(Plugin.Core.Networking.Requests.PostVoteRequest)
 
-local ImageTextLabel = require(Plugin.Core.Components.Asset.Preview.ImageTextLabel)
-
 local EnableToolboxVoteFix = settings():GetFFlag("EnableToolboxVoteFix")
 
 local Vote = Roact.PureComponent:extend("Vote")

@@ -5,7 +5,7 @@ local ContentProvider = game:GetService("ContentProvider")
 local Plugin = script.Parent.Parent.Parent
 local Promise = require(Plugin.Packages.Promise)
 
-local Constants = require(Plugin.Src.Resources.Constants)
+local BAD_REQUEST = 400
 
 local BASE_URL = ContentProvider.BaseUrl
 if BASE_URL:find("https://www.") == 1 then
@@ -61,7 +61,7 @@ function Http.RequestInternal(requestInfo)
 		spawn(function()
 			HttpService:RequestInternal(requestInfo):Start(function(success, response)
 				if success then
-					if response.StatusCode >= Constants.BAD_REQUEST then
+					if response.StatusCode >= BAD_REQUEST then
 						reject("HTTP error: "..tostring(response.StatusCode))
 					else
 						resolve(response.Body)

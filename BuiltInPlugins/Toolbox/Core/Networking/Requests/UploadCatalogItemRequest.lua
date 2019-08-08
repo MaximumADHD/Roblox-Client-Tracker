@@ -1,0 +1,82 @@
+local HttpService = game:GetService("HttpService")
+
+local Plugin = script.Parent.Parent.Parent.Parent
+
+local SetAssetId = require(Plugin.Core.Actions.SetAssetId)
+local NetworkError = require(Plugin.Core.Actions.NetworkError)
+local SetCurrentScreen = require(Plugin.Core.Actions.SetCurrentScreen)
+local UploadResult = require(Plugin.Core.Actions.UploadResult)
+
+local DebugFlags = require(Plugin.Core.Util.DebugFlags)
+local AssetConfigConstants = require(Plugin.Core.Util.AssetConfigConstants)
+local SerializeInstances = require(Plugin.Core.Util.SerializeInstances)
+
+local function createConfigDataTable(nameWithoutExtension, assetTypeId, description)
+	return {
+		[nameWithoutExtension] = {
+			type = assetTypeId.Name,
+			name = nameWithoutExtension,
+			description = description
+		}
+	}
+end
+
+local function createFormDataBody(configDataJsonBlob, nameWithoutExtension, extension, fileDataBlob, boundary)
+	local result = "--" .. boundary .. "\r\n" ..
+		"Content-Type: application/json\r\n" ..
+		"Content-Disposition: form-data; name=\"config\"; filename=\"config.json\"\r\n" ..
+		"\r\n" .. configDataJsonBlob .. "\r\n" ..
+		"--" .. boundary .. "\r\n" ..
+		"Content-Disposition: form-data; name=\"" .. nameWithoutExtension .. "\"; filename=\"" .. nameWithoutExtension .. "." .. extension .. "\"\r\n" ..
+		"Content-Type: application/octet-stream\r\n" ..
+		"\r\n" .. fileDataBlob .. "\r\n" ..
+		"--" .. boundary .. "--\r\n"
+	return result
+end
+
+return function(networkInterface, nameWithoutExtension, extension, description, assetTypeId, instances)
+	return function(store)
+		-- this thunk should never be called if names and descriptions exceed their maximum lengths, so we don't need to trim the strings here (just precautionary)
+		nameWithoutExtension = string.sub(nameWithoutExtension or "", 1, AssetConfigConstants.NAME_CHARACTER_LIMIT)
+		description = string.sub(description or "", 1, AssetConfigConstants.DESCRIPTION_CHARACTER_LIMIT)
+
+		store:dispatch(SetCurrentScreen(AssetConfigConstants.SCREENS.UPLOADING_ASSET))
+
+		local handlerFunc = function(responseRaw)
+			local success, response = pcall(function()
+				return HttpService:JSONDecode(responseRaw)
+			end)
+
+			if success and response and response.AssetDetails and #response.AssetDetails > 0 then
+				local assetDetails = response.AssetDetails[1]
+				if assetDetails.uploadAssetError then
+					store:dispatch(NetworkError(assetDetails.uploadAssetError))
+					store:dispatch(UploadResult(false))
+					return
+				elseif assetDetails.assetId then
+					store:dispatch(SetAssetId(assetDetails.assetId))
+					store:dispatch(UploadResult(true))
+					return
+				end
+			end
+
+			store:dispatch(NetworkError("Unknown Error"))
+			store:dispatch(UploadResult(false))
+		end
+
+		local errorFunc = function(response)
+			if DebugFlags.shouldDebugWarnings() then
+				warn(("Lua toolbox: Could not upload catalog item"))
+			end
+			store:dispatch(NetworkError(response))
+			store:dispatch(UploadResult(false))
+		end
+
+		local fileDataString = SerializeInstances(instances)
+
+		local configDataBlob = networkInterface:jsonEncode(createConfigDataTable(nameWithoutExtension, assetTypeId, description))
+		local boundary = "EA0A21C3-8388-4038-9BD5-92C8B1B7BF8E"
+		local formBodyData = createFormDataBody(configDataBlob, nameWithoutExtension, extension, fileDataString, boundary)
+		networkInterface:uploadCatalogItem(formBodyData, boundary):andThen(handlerFunc, errorFunc)
+	end
+end

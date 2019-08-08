@@ -22,7 +22,7 @@ function StatEntry:render()
 		local backgroundColor3 = layoutValues.BackgroundColor
 		local font = layoutValues.StatFont
 		local statName = GameTranslator:TranslateGameText(CoreGui, self.props.statName)
-		if self.props.isTitleFrame then
+		if self.props.isTitleEntry then
 			backgroundTransparency = layoutValues.TitleBackgroundTransparency
 			backgroundColor3 = layoutValues.TitleBackgroundColor
 			font = layoutValues.TitleStatFont
@@ -45,8 +45,8 @@ function StatEntry:render()
 		end
 
 		statChildren["StatText"] = Roact.createElement("TextLabel", {
-			Size = self.props.isTitleFrame and UDim2.new(1, 0, 0.5, 0) or UDim2.new(1, 0, 1, 0),
-			Position = self.props.isTitleFrame and UDim2.new(0, 0, 0.5, 0) or UDim2.new(0, 0, 0, 0),
+			Size = self.props.isTitleEntry and UDim2.new(1, 0, 0.5, 0) or UDim2.new(1, 0, 1, 0),
+			Position = self.props.isTitleEntry and UDim2.new(0, 0, 0.5, 0) or UDim2.new(0, 0, 0, 0),
 			BackgroundTransparency = 1,
 			Font = font,
 			TextSize = layoutValues.StatTextSize,
@@ -58,7 +58,7 @@ function StatEntry:render()
 			Active = true,
 		})
 
-		if self.props.isTitleFrame then
+		if self.props.isTitleEntry then
 			statChildren["StatName"] = Roact.createElement("TextLabel", {
 				Size = UDim2.new(1, 0, 0.5, 0),
 				Position = UDim2.new(0, 0, 0, 0),
@@ -81,7 +81,6 @@ function StatEntry:render()
 			BackgroundColor3 = backgroundColor3,
 			BorderSizePixel = 0,
 			AutoLocalize = false,
-			ZIndex = layoutValues.IsTenFoot and 2 or 1,
 		}, statChildren)
 	end)
 end

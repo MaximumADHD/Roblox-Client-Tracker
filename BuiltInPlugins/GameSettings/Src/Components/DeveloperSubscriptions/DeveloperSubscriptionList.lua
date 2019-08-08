@@ -19,12 +19,7 @@ local DeveloperSubscriptionListHeaderText = require(script.Parent.DeveloperSubsc
 local RoundTextButton = require(Plugin.UILibrary.Components.RoundTextButton)
 local HeaderWithButton = require(Plugin.Src.Components.HeaderWithButton)
 
-local createFitToContent 
-if settings():GetFFlag("StudioGameSettingsUseUILibraryComponents") then
-	createFitToContent = require(Plugin.UILibrary.Components.createFitToContent)
-else
-	createFitToContent = require(Plugin.Src.Components.createFitToContent)
-end
+local createFitToContent = require(Plugin.UILibrary.Components.createFitToContent)
 local FitToContent = createFitToContent("Frame", "UIListLayout", {
 	SortOrder = Enum.SortOrder.LayoutOrder,
 	Padding = UDim.new(0, 10),
@@ -101,7 +96,7 @@ local function render(props, localized, theme)
 		end
 
 		elements[key] = Roact.createElement(DeveloperSubscriptionListItem, {
-			Name = developerSubscription.Name,
+			Name = developerSubscription.Name or "",
 			Id = developerSubscription.Id,
 			Subscribers = developerSubscription.Subscribers,
 			Active = developerSubscription.Active,

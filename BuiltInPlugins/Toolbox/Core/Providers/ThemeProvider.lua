@@ -9,6 +9,7 @@ local ThemeProvider = Roact.Component:extend("ThemeProvider")
 
 function ThemeProvider:init()
 	self._context[Keys.theme] = self.props.theme
+	self._context[Keys.UILibraryTheme] = self.props.theme:getUILibraryTheme()
 end
 
 function ThemeProvider:render()

@@ -82,6 +82,8 @@ local success, result =
 )
 local FFlagUseNotificationsLocalization = success and result
 local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp")
+game:DefineFastInt("RomarkStartWithGraphicQualityLevel", -1)
+local FIntRomarkStartWithGraphicQualityLevel = game:GetFastInt("RomarkStartWithGraphicQualityLevel")
 
 local isDesktopClient = (platform == Enum.Platform.Windows) or (platform == Enum.Platform.OSX) or (platform == Enum.Platform.UWP)
 local isMobileClient = (platform == Enum.Platform.IOS) or (platform == Enum.Platform.Android)
@@ -252,7 +254,15 @@ local function Initialize()
     )
 
     -- initialize the slider position
-    if GameSettings.SavedQualityLevel == Enum.SavedQualitySetting.Automatic then
+    if FIntRomarkStartWithGraphicQualityLevel >= 0 then
+      if FIntRomarkStartWithGraphicQualityLevel == 0 then
+        this.GraphicsQualityEnabler:SetSelectionIndex(1)
+        setGraphicsToAuto()
+      else
+        this.GraphicsQualityEnabler:SetSelectionIndex(2)
+        setGraphicsToManual(FIntRomarkStartWithGraphicQualityLevel)
+      end
+    elseif GameSettings.SavedQualityLevel == Enum.SavedQualitySetting.Automatic then
       this.GraphicsQualitySlider:SetValue(5)
       setGraphicsToAuto()
     else

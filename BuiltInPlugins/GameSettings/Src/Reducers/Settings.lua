@@ -17,29 +17,40 @@ local Plugin = script.Parent.Parent.Parent
 local Cryo = require(Plugin.Cryo)
 
 local AddChange = require(Plugin.Src.Actions.AddChange)
+local AddTableChange = require(Plugin.Src.Actions.AddTableChange)
 local AddErrors = require(Plugin.Src.Actions.AddErrors)
+local AddTableErrors = require(Plugin.Src.Actions.AddTableErrors)
 local SetCurrentSettings = require(Plugin.Src.Actions.SetCurrentSettings)
 local DiscardChanges = require(Plugin.Src.Actions.DiscardChanges)
 local DiscardErrors = require(Plugin.Src.Actions.DiscardErrors)
+local DiscardTableErrors = require(Plugin.Src.Actions.DiscardTableErrors)
+local DiscardTableChange = require(Plugin.Src.Actions.DiscardTableChange)
 
 local AddWarning = require(Plugin.Src.Actions.AddWarning)
 local DiscardWarning = require(Plugin.Src.Actions.DiscardWarning)
 local isEmpty = require(Plugin.Src.Util.isEmpty)
+local DeepMergeTables = require(Plugin.Src.Util.DeepMergeTables)
 
-local fastFlags = require(Plugin.Src.Util.FastFlags)
+local Scales = require(Plugin.Src.Util.Scales)
+local AssetOverrides = require(Plugin.Src.Util.AssetOverrides)
 
-local Scales
-local AssetOverrides
+local DFFlagDeveloperSubscriptionsEnabled = settings():GetFFlag("DeveloperSubscriptionsEnabled")
 
-local equalityCheckFunctions = nil
+local equalityCheckFunctions = {
+	universeAvatarAssetOverrides = AssetOverrides.isEqual,
+	universeAvatarMinScales = Scales.isEqual,
+	universeAvatarMaxScales = Scales.isEqual,
+}
 
-local isEqualCheck = nil
-
-isEqualCheck = function(current, changed)
-	local equal = true
+local function isEqualCheck(current, changed)
+	if current == nil or changed == nil then
+		return current == changed
+	end
 	if isEmpty(current) ~= isEmpty(changed) then
 		return false
 	end
+
+	local equal = true
 	for key, value in pairs(current) do
 		if changed[key] ~= value then
 			equal = false
@@ -55,14 +66,31 @@ isEqualCheck = function(current, changed)
 	return equal
 end
 
-Scales = require(Plugin.Src.Util.Scales)
-AssetOverrides = require(Plugin.Src.Util.AssetOverrides)
+local function createDeepTableAndSetValue(keys, value)
+	local table = {}
 
-equalityCheckFunctions = {
-	universeAvatarAssetOverrides = AssetOverrides.isEqual,
-	universeAvatarMinScales = Scales.isEqual,
-	universeAvatarMaxScales = Scales.isEqual,
-}
+	local currTable = table
+	for i = 1, #keys - 1 do
+		currTable[keys[i]] = {}
+		currTable = currTable[keys[i]]
+	end
+	currTable[keys[#keys]] = value
+
+	return table
+end
+
+local function getDeepValue(table, keys)
+	local currValue = table
+
+	for _,key in ipairs(keys) do
+		if currValue[key] == nil then
+			return nil
+		end
+		currValue = currValue[key]
+	end
+
+	return currValue
+end
 
 local function Settings(state, action)
 	state = state or {
@@ -90,12 +118,47 @@ local function Settings(state, action)
 			Errors = Cryo.Dictionary.join(state.Errors, {
 				[action.setting] = Cryo.None,
 			}),
-		})
+        })
+
+	elseif DFFlagDeveloperSubscriptionsEnabled and action.type == AddTableChange.name then
+		local newValue = action.value
+
+		local currValue = getDeepValue(state.Current, action.keys)
+        if currValue == newValue then
+			newValue = DeepMergeTables.None
+		elseif type(newValue) == "table" then
+			-- TODO: find a nice way of setting the equality function, didn't need it at the time
+			-- local isEqual = equalityCheckFunctions[action.setting] or isEqualCheck
+			
+			-- TODO: Deep equal?
+            if isEqualCheck(currValue, newValue) then
+				newValue = DeepMergeTables.None
+			end
+		end
+
+		local changed = createDeepTableAndSetValue(action.keys, newValue)
+
+		local errors = nil
+		if getDeepValue(state.Errors, action.keys) then
+			errors = createDeepTableAndSetValue(action.keys, DeepMergeTables.None)
+		end
+
+		return Cryo.Dictionary.join(state, {
+			Changed = DeepMergeTables.Merge(state.Changed, changed) or {},
+			Errors = DeepMergeTables.Merge(state.Errors, errors) or {},
+        })
 
 	elseif action.type == AddErrors.name then
 		return Cryo.Dictionary.join(state, {
 			Errors = Cryo.Dictionary.join(state.Errors, action.errors)
-		})
+        })
+        
+    elseif DFFlagDeveloperSubscriptionsEnabled and action.type == AddTableErrors.name then
+		local errors = createDeepTableAndSetValue(action.keys, action.errors)
+
+		return Cryo.Dictionary.join(state, {
+			Errors = DeepMergeTables.Merge(state.Errors, errors) or {},
+        })
 
 	elseif action.type == DiscardChanges.name then
 		return Cryo.Dictionary.join(state, {
@@ -107,6 +170,26 @@ local function Settings(state, action)
 			Errors = {},
 			Warnings = {},
 		})
+
+	elseif DFFlagDeveloperSubscriptionsEnabled and action.type == DiscardTableErrors.name then
+		local errors = createDeepTableAndSetValue(action.keys, DeepMergeTables.None)
+
+		return Cryo.Dictionary.join(state, {
+			Errors = DeepMergeTables.Merge(state.Errors, errors) or {},
+		})
+		
+	elseif DFFlagDeveloperSubscriptionsEnabled and action.type == DiscardTableChange.name then
+		local changed = createDeepTableAndSetValue(action.keys, DeepMergeTables.None)
+
+		local errors = nil
+		if getDeepValue(state.Errors, action.keys) then
+			errors = createDeepTableAndSetValue( action.keys, DeepMergeTables.None)
+		end
+
+		return Cryo.Dictionary.join(state, {
+			Changed = DeepMergeTables.Merge(state.Changed, changed) or {},
+			Errors = DeepMergeTables.Merge(state.Errors, errors) or {},
+        })
 
 	elseif action.type == SetCurrentSettings.name then
 		return Cryo.Dictionary.join(state, {

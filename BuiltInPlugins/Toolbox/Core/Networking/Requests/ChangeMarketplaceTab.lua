@@ -17,7 +17,7 @@ return function(networkInterface, tabName, newCategories,  settings)
 			creator = Cryo.None,
 		}, settings))
 
-		store:dispatch(SetCategories(tabName, newCategories))
+		store:dispatch(SetCategories(tabName, Category.getCategories(tabName, store:getState().roles)))
 
 		if tabName == Category.INVENTORY_KEY then
 			store:dispatch(GetManageableGroupsRequest(networkInterface))

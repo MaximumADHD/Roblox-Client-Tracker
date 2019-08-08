@@ -1,7 +1,7 @@
 local Players = game:GetService("Players")
 
 local FFlagWhitelistThumbnailsAPI = settings():GetFFlag("WhitelistThumbnailsAPI")
-local FIntLuaAppPercentRollOutNewThumbnailsAPI = settings():GetFVariable("LuaAppPercentRollOutNewThumbnailsAPI")
+local FIntLuaAppPercentRollOutNewThumbnailsAPI = settings():GetFVariable("LuaAppPercentRollOutNewThumbnailsApiV2")
 
 return function()
 	if not FFlagWhitelistThumbnailsAPI then

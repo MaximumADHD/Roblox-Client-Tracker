@@ -13,12 +13,14 @@
 		function OnClickedOff = The function that will be called when this button is clicked to turn off
 ]]
 
+local FFlagFixToggleOffDarkName = game:DefineFastFlag("FixToggleOffDarkName", false) -- when this flag is deleted, see if `toggle_off _dark.png` can be deleted
+
 local ON_LIGHT = "rbxasset://textures/RoactStudioWidgets/toggle_on_light.png"
 local OFF_LIGHT = "rbxasset://textures/RoactStudioWidgets/toggle_off_light.png"
 local DISABLED_LIGHT = "rbxasset://textures/RoactStudioWidgets/toggle_disable_light.png"
 
 local ON_DARK = "rbxasset://textures/RoactStudioWidgets/toggle_on_dark.png"
-local OFF_DARK = "rbxasset://textures/RoactStudioWidgets/toggle_off _dark.png"
+local OFF_DARK = "rbxasset://textures/RoactStudioWidgets/" .. (FFlagFixToggleOffDarkName and "toggle_off_dark.png" or "toggle_off _dark.png") -- old version of png file had space in filename
 local DISABLED_DARK = "rbxasset://textures/RoactStudioWidgets/toggle_disable_dark.png"
 
 local WIDTH = 40

@@ -99,23 +99,26 @@ function ToolboxPlugin:didUpdate()
 end
 
 function ToolboxPlugin:render()
-	local enabled = self.state.enabled
+	local props = self.props
+	local state = self.state
 
-	local store = self.props.store
-	local plugin = self.props.plugin
-	local pluginGui = self.state.pluginGui
-	local settings = self.props.settings
-	local theme = self.props.theme
-	local networkInterface = self.props.networkInterface
-	local localization = self.props.localization
+	local store = props.store
+	local plugin = props.plugin
+	local theme = props.theme
+	local networkInterface = props.networkInterface
+	local localization = props.localization
+	local backgrounds = props.backgrounds
+	local suggestions = props.suggestions
+	local settings = props.settings
 
+	local tryOpenAssetConfig = props.tryOpenAssetConfig
+
+	local enabled = state.enabled
+	local pluginGui = state.pluginGui
 	local initialWidth = pluginGui and pluginGui.AbsoluteSize.x or Constants.TOOLBOX_MIN_WIDTH
-	local backgrounds = self.props.backgrounds
-	local suggestions = self.props.suggestions
+	local toolboxTitle = state.toolboxTitle
 
 	local pluginGuiLoaded = pluginGui ~= nil
-
-	local toolboxTitle = self.state.toolboxTitle
 
 	return Roact.createElement(DockWidget, {
 		plugin = plugin,
@@ -151,6 +154,8 @@ function ToolboxPlugin:render()
 				initialWidth = initialWidth,
 				backgrounds = backgrounds,
 				suggestions = suggestions,
+				tryOpenAssetConfig = tryOpenAssetConfig,
+				pluginGui = pluginGui,
 			})
 		})
 	})

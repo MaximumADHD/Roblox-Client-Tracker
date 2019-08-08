@@ -23,7 +23,7 @@ function NetworkingMock:getAssets(pageInfo)
 		}
 	}
 	local Results = {}
-	for i = 1, pageInfo.pageSize or 100, 1 do
+	for i = 1, 100, 1 do
 		Results[i] = {
 			Asset = {
 				Id = i,

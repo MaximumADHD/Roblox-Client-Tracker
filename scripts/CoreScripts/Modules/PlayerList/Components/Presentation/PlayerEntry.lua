@@ -20,6 +20,12 @@ local OpenPlayerDropDown = require(PlayerList.Actions.OpenPlayerDropDown)
 
 local PlayerEntry = Roact.PureComponent:extend("PlayerEntry")
 
+function PlayerEntry:init()
+	self.state  = {
+		isGamepadSelected = false,
+	}
+end
+
 function PlayerEntry:render()
 	return WithLayoutValues(function(layoutValues)
 		local playerEntryChildren = {}
@@ -58,6 +64,20 @@ function PlayerEntry:render()
 						self.props.openDropDown(self.props.player)
 					end
 				end,
+
+				onSelectionGained = function()
+					self:setState({
+						isGamepadSelected = true,
+					})
+				end,
+
+				onSelectionLost = function()
+					self:setState({
+						isGamepadSelected = true,
+					})
+				end,
+
+				[Roact.Ref] = self.props[Roact.Ref]
 			}, {
 				Layout = Roact.createElement("UIListLayout", {
 					SortOrder = Enum.SortOrder.LayoutOrder,
@@ -84,7 +104,7 @@ function PlayerEntry:render()
 				PlayerName = Roact.createElement(PlayerNameTag, {
 					player = self.props.player,
 					isTitleEntry = self.props.titlePlayerEntry,
-					isSelected = false, --TODO, figure out a plan for gamepad selection
+					isSelected = self.state.isGamepadSelected,
 					layoutOrder = 3,
 				}),
 			})
@@ -111,7 +131,6 @@ function PlayerEntry:render()
 				layoutValues.PlayerEntrySizeY
 			),
 			BackgroundTransparency = 1,
-			ZIndex = layoutValues.IsTenFoot and 2 or 1,
 		}, playerEntryChildren)
 	end)
 end

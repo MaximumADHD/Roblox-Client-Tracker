@@ -898,6 +898,7 @@ RBX
 	ICharacterSubject
 	ICreator
 	IDataState
+	IDraftsServiceHost
 	IHasLocation
 	IHostNotifier
 	IIDREF

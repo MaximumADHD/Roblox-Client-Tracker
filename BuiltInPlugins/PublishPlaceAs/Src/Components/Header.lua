@@ -7,8 +7,9 @@
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
-local Constants = require(Plugin.Src.Resources.Constants)
 local Theming = require(Plugin.Src.ContextServices.Theming)
+
+local HEADER_HEIGHT = 45
 
 local function Header(props)
 	return Theming.withTheme(function(theme)
@@ -16,7 +17,7 @@ local function Header(props)
 		local layoutOrder = props.LayoutOrder or 1
 
 		return Roact.createElement("TextLabel", {
-			Size = UDim2.new(1, 0, 0, Constants.HEADER_HEIGHT),
+			Size = UDim2.new(1, 0, 0, HEADER_HEIGHT),
 			Text = title,
 			BackgroundTransparency = 1,
 			BorderSizePixel = 0,

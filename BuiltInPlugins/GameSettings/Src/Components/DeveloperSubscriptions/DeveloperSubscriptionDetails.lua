@@ -6,8 +6,8 @@
 
 	Props:
 		table DeveloperSubscription = the developer subscription to display and edit
-		func OnDeveloperSubscriptionChanged = function to call when this page changes
-			the developer subscription it's currently editing, passes the edited version
+		func OnDeveloperSubscriptionValueChanged = function to call when this page changes
+			a certain value of the developer subscription it's currently editing
 		func OnEditFinished = function to call when this page wants to return to the
 			list view, when the back button gets clicked
 ]]
@@ -18,7 +18,6 @@ local Constants = require(Plugin.Src.Util.Constants)
 local Cryo = require(Plugin.Cryo)
 local Roact = require(Plugin.Roact)
 
-local RoundNumberBox = require(Plugin.Src.Components.RoundNumberBox)
 local GameIconWidget = require(Plugin.Src.Components.GameIcon.GameIconWidget)
 
 local showDialog = require(Plugin.Src.Consumers.showDialog)
@@ -26,6 +25,7 @@ local WarningDialog = require(Plugin.Src.Components.Dialog.WarningDialog)
 
 local DeveloperSubscriptionsFolder = Plugin.Src.Components.DeveloperSubscriptions
 local DeveloperSubscriptionListItemText = require(DeveloperSubscriptionsFolder.DeveloperSubscriptionListItemText)
+local Header = require(Plugin.Src.Components.Header)
 local HeaderWithButton = require(Plugin.Src.Components.HeaderWithButton)
 local BackButton = require(Plugin.Src.Components.BackButton)
 
@@ -33,16 +33,12 @@ local withLocalization = require(Plugin.Src.Consumers.withLocalization)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
 local getLocalizedContent = require(Plugin.Src.Consumers.getLocalizedContent)
 
-local TitledFrame = require(Plugin.UILibrary.Components.TitledFrame)
-local RoundTextBox = require(Plugin.UILibrary.Components.RoundTextBox)
-local RoundTextButton = require(Plugin.UILibrary.Components.RoundTextButton)
+local RoundTextBox = require(Plugin.RoactStudioWidgets.RoundTextBox)
 
-local createFitToContent
-if settings():GetFFlag("StudioGameSettingsUseUILibraryComponents") then
-	createFitToContent = require(Plugin.UILibrary.Components.createFitToContent)
-else
-	createFitToContent = require(Plugin.Src.Components.createFitToContent)
-end
+local TitledFrame = require(Plugin.UILibrary.Components.TitledFrame)
+
+local createFitToContent = require(Plugin.UILibrary.Components.createFitToContent)
+
 local FitToContent = createFitToContent("Frame", "UIListLayout", {
 	SortOrder = Enum.SortOrder.LayoutOrder,
 	Padding = UDim.new(0, Constants.ELEMENT_PADDING),
@@ -54,22 +50,54 @@ local PRICE_ICON_PADDING = 8
 
 local DeveloperSubscriptionDetails = Roact.Component:extend("DeveloperSubscriptionDetails")
 
+local FVariableMaxRobuxPrice = game:GetFastInt("DeveloperSubscriptionsMaxRobuxPrice")
+
 function DeveloperSubscriptionDetails:init()
+	self.state = {
+		isNameDirty = false,
+		isDescDirty = false,
+	}
+
+	function self.CheckNameDesc()
+		if not self.state.isNameDirty and not self.state.isDescDirty then
+			return
+		end
+
+		self.props.ModerateDevSub(self.props.DeveloperSubscription)
+	end
+
 	function self.onKeyChanged(key, value)
-		local newDeveloperSubscription = Cryo.Dictionary.join(self.props.DeveloperSubscription, {
-			[key] = value,
-		})
-		self.props.OnDeveloperSubscriptionChanged(newDeveloperSubscription)
+		self.props.OnDeveloperSubscriptionValueChanged(self.props.DeveloperSubscription.Key, key, value)
 	end
 
 	function self.onNameChanged(name)
 		self.onKeyChanged("Name", name)
+
+		if not self.state.isNameDirty then
+			self:setState{isNameDirty = true}
+		end
+	end
+
+	function self.onNameFocusChanged(focused, pressedEnter)
+		if not focused then
+			self.CheckNameDesc()
+		end
 	end
 
 	function self.onDescriptionChanged(description)
 		self.onKeyChanged("Description", description)
+
+		if not self.state.isDescDirty then
+			self:setState{isDescDirty = true}
+		end
 	end
 
+	function self.onDescFocusChanged(focused, pressedEnter)
+		if not focused then
+			self.CheckNameDesc()
+		end
+	end
+	
 	function self.onPriceChanged(price)
 		self.onKeyChanged("Price", price)
 	end
@@ -91,31 +119,71 @@ function DeveloperSubscriptionDetails:init()
 	end
 
 	function self.onDiscontinueClicked()
-		local localized = getLocalizedContent(self)
-
-		local dialogProps = {
-			Title = localized.DevSubs.DiscontinueTitle,
-			Header = localized.DevSubs.DiscontinueHeader,
-			Description = localized.DevSubs.DiscontinueDescription,
-			Buttons = {
-				localized.DevSubs.DiscontinueCancel,
-				localized.DevSubs.DiscontinueConfirm,
-			}
-		}
-		local didDiscontinue = showDialog(self, WarningDialog, dialogProps):await()
-
-		if didDiscontinue then
-			-- TODO(dnurkkala): discontinue stuff
-		else
-			-- TODO(dnurkkala): don't... discontinue stuff... I guess?
-		end
+		if self.props.DeveloperSubscription.IsNew then
+			self.props.OnDevSubDiscontinued(self.props.DeveloperSubscription)
+            self.onBackButtonActivated()
+        else
+            local localized = getLocalizedContent(self)
+    
+            local dialogProps = {
+                Title = localized.DevSubs.DiscontinueTitle,
+                Header = localized.DevSubs.DiscontinueHeader,
+                Description = localized.DevSubs.DiscontinueDescription,
+                Buttons = {
+                    localized.DevSubs.DiscontinueCancel,
+                    localized.DevSubs.DiscontinueConfirm,
+                }
+            }
+            local didDiscontinue = showDialog(self, WarningDialog, dialogProps):await()
+    
+            if didDiscontinue then
+				self.props.OnDevSubDiscontinued(self.props.DeveloperSubscription)
+			end
+        end
 	end
 end
 
 function DeveloperSubscriptionDetails:renderConsolidated(theme, localized)
-	local props = self.props
+	local developerSubscription = self.props.DeveloperSubscription
+	local moderatedDevSub = self.props.ModeratedDevSub
+	local devSubErrors = self.props.DevSubErrors
 
-	local developerSubscription = props.DeveloperSubscription
+	local canEdit = developerSubscription.IsNew or developerSubscription.Active
+	
+	local nameError = nil
+	local descError = nil
+	local priceError = nil
+	local imageError = nil
+	if canEdit then
+		if devSubErrors.Name then
+			if devSubErrors.Name.Empty then
+				nameError = localized.Errors.ErrorNameEmpty
+			elseif devSubErrors.Name.Moderated and moderatedDevSub then
+				nameError = localized.Errors.ErrorDevSubFiltered({
+					filteredText = moderatedDevSub.filteredName,
+				})
+				if moderatedDevSub.filteredDescription then
+					descError = localized.Errors.ErrorDevSubFiltered({
+						filteredText = moderatedDevSub.filteredDescription,
+					})
+				end
+			end
+		end
+
+		if devSubErrors.Price then
+			if devSubErrors.Price.NotANumber then
+				priceError = localized.Errors.ErrorDevSubInvalidPrice
+			elseif FVariableMaxRobuxPrice and devSubErrors.Price.AboveMaxRobuxAmount then
+				priceError = localized.Errors.ErrorDevSubMaxPrice({
+					maxRobuxAmount = FVariableMaxRobuxPrice,
+				})
+			end
+		end
+
+		if devSubErrors.Image then
+			imageError = localized.Errors.ErrorImageRequired
+		end
+	end
 
 	return Roact.createElement(FitToContent, {
 		BackgroundTransparency = 1,
@@ -125,14 +193,17 @@ function DeveloperSubscriptionDetails:renderConsolidated(theme, localized)
 			LayoutOrder = -1,
 		}),
 
-		Header = Roact.createElement(HeaderWithButton, {
-			Title = localized.DevSubs.EditHeader,
+		Header = canEdit and Roact.createElement(HeaderWithButton, {
+			Title = developerSubscription.IsNew and localized.DevSubs.NewHeader or localized.DevSubs.EditHeader,
 			LayoutOrder = 0,
 
 			Active = true,
-			ButtonText = localized.DevSubs.DiscontinueAction,
+			ButtonText = developerSubscription.IsNew and localized.DevSubs.DeleteAction or localized.DevSubs.DiscontinueAction,
 			OnClicked = self.onDiscontinueClicked,
 			Style = theme.cancelButton,
+		}) or Roact.createElement(Header, {
+			Title = localized.DevSubs.DiscontinuedHeader,
+			LayoutOrder = 0,
 		}),
 
 		NameFrame = Roact.createElement(TitledFrame, Cryo.Dictionary.join(theme.fontStyle.Normal, {
@@ -142,11 +213,14 @@ function DeveloperSubscriptionDetails:renderConsolidated(theme, localized)
 		}), {
 			Roact.createElement(RoundTextBox, Cryo.Dictionary.join(theme.fontStyle.Normal, {
 				Active = true,
+				Enabled = canEdit,
+				ShowTextWhenDisabled = true,
 				MaxLength = 32,
 				Multiline = false,
-				Text = developerSubscription.Name,
-
+				Text = developerSubscription.Name or "",
+				ErrorMessage = nameError,
 				SetText = self.onNameChanged,
+				FocusChanged = self.onNameFocusChanged,
 			}))
 		}),
 
@@ -157,23 +231,37 @@ function DeveloperSubscriptionDetails:renderConsolidated(theme, localized)
 		}), {
 			Roact.createElement(RoundTextBox, Cryo.Dictionary.join(theme.fontStyle.Normal, {
 				Active = true,
+				Enabled = canEdit,
+				ShowTextWhenDisabled = true,
 				Height = 128,
 				MaxLength = 256,
 				Multiline = true,
 				Text = developerSubscription.Description or "",
-
+				ErrorMessage = descError,
 				SetText = self.onDescriptionChanged,
-			}))
+				FocusChanged = self.onDescFocusChanged,
+			})),
 		}),
 
-		ImageWidget = Roact.createElement(GameIconWidget, {
+		Image = canEdit and Roact.createElement(GameIconWidget, {
 			Title = localized.DevSubs.Image,
-			Enabled = developerSubscription.Image ~= nil,
+			Enabled = true,
 			Icon = developerSubscription.Image,
 			LayoutOrder = 3,
 			TutorialEnabled = false,
+			ErrorMessage = imageError,
 
 			AddIcon = self.setImage,
+		}) or Roact.createElement(TitledFrame, {
+			Title = localized.DevSubs.Image,
+			MaxHeight = 150,
+			TextSize = Constants.TEXT_SIZE,
+			LayoutOrder = 3,
+		}, {
+			Image = Roact.createElement("ImageLabel", {
+				Image = developerSubscription.Image,
+				Size = UDim2.new(0, 150, 0, 150),
+			}),
 		}),
 
 		PriceFrame = Roact.createElement(TitledFrame, Cryo.Dictionary.join(theme.fontStyle.Normal, {
@@ -198,11 +286,14 @@ function DeveloperSubscriptionDetails:renderConsolidated(theme, localized)
 				BackgroundTransparency = 1,
 				Size = UDim2.new(1, -(PRICE_ICON_SIZE + PRICE_ICON_PADDING), 0, Constants.ROUND_TEXT_BOX_DEFAULT_HEIGHT),
 			}, {
-				NumberBox = Roact.createElement(RoundNumberBox, {
-					Active = true,
-					Number = developerSubscription.Price,
-
-					SetNumber = self.onPriceChanged,
+				NumberBox = Roact.createElement(RoundTextBox, {
+					Enabled = canEdit,
+					ShowTextWhenDisabled = true,
+					ShowToolTip = false,
+					MaxLength = 50000,
+					Text = tostring(developerSubscription.Price),
+					ErrorMessage = priceError,
+					SetText = self.onPriceChanged,
 				})
 			}),
 		}),

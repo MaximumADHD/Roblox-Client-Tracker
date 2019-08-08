@@ -12,8 +12,6 @@
 		function HoverChanged(hovered) = Callback when the mouse enters or leaves this component.
 ]]
 
-local DFFlagGameSettingsWorldPanel = settings():GetFFlag("GameSettingsWorldPanel3")
-
 local TextService = game:GetService("TextService")
 
 local Roact = require(script.Parent.Internal.RequireRoact)
@@ -78,19 +76,16 @@ function MultilineTextEntry:render()
 	local text = self.props.Text
 	local textColor = self.props.TextColor3
 
-	local enabled = true
 	local children = nil
-	if DFFlagGameSettingsWorldPanel then
-		enabled = nil == self.props.Enabled and true or self.props.Enabled
-		if not enabled then
-			children = {
-				Roact.createElement("ImageButton", {
-					Size = UDim2.new(1, 0, 1, 0),
-					BackgroundTransparency = 1,
-					ImageTransparency = 1
-				})
-			}
-		end
+	local enabled = nil == self.props.Enabled and true or self.props.Enabled
+	if not enabled then
+		children = {
+			Roact.createElement("ImageButton", {
+				Size = UDim2.new(1, 0, 1, 0),
+				BackgroundTransparency = 1,
+				ImageTransparency = 1
+			})
+		}
 	end
 
 	return Roact.createElement(StyledScrollingFrame, {
@@ -122,7 +117,7 @@ function MultilineTextEntry:render()
 			TextColor3 = textColor,
 			Text = text,
 			PlaceholderText = self.props.PlaceholderText,
-			TextTransparency = (DFFlagGameSettingsWorldPanel and not enabled) and 0.5 or 0,
+			TextTransparency = not enabled and 0.5 or 0,
 
 			[Roact.Event.Focused] = function()
 				self.props.FocusChanged(true)

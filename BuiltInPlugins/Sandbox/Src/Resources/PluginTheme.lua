@@ -43,6 +43,30 @@ function Theme.createValues(getColor, StyleColor, StyleModifier)
 		treeView = {
 			elementPadding = 0,
 		},
+
+		button = {
+			tableItemButton = {
+				font = Enum.Font.SourceSans,
+				textSize = 18,
+				backgroundColor = getColor(StyleColor.TableItem, StyleModifier.Default),
+				textColor = getColor(StyleColor.MainText, StyleModifier.Default),
+
+				disabled = {
+					backgroundColor = getColor(StyleColor.TableItem, StyleModifier.Disabled),
+					textColor = getColor(StyleColor.MainText, StyleModifier.Disabled),
+				},
+
+				hovered = {
+					backgroundColor = getColor(StyleColor.TableItem, StyleModifier.Hover),
+					textColor = getColor(StyleColor.MainText, StyleModifier.Hover),
+				},
+
+				selected = {
+					backgroundColor = getColor(StyleColor.TableItem, StyleModifier.Selected),
+					textColor = getColor(StyleColor.MainText, StyleModifier.Selected),
+				},
+			}
+		},
 	}
 
 	return {

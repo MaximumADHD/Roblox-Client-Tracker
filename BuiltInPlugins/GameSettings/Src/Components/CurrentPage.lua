@@ -24,12 +24,7 @@ local Header = require(Plugin.Src.Components.Header)
 local SettingsPages = require(Plugin.Src.Components.SettingsPages.SettingsPages)
 local withLocalization = require(Plugin.Src.Consumers.withLocalization)
 
-local StyledScrollingFrame 
-if settings():GetFFlag("StudioGameSettingsUseUILibraryComponents") then
-	StyledScrollingFrame = require(Plugin.UILibrary.Components.StyledScrollingFrame)
-else
-	StyledScrollingFrame = require(Plugin.Src.Components.StyledScrollingFrame)
-end
+local StyledScrollingFrame = require(Plugin.UILibrary.Components.StyledScrollingFrame)
 
 local CurrentPage = Roact.PureComponent:extend("CurrentPage")
 

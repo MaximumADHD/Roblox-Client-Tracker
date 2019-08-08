@@ -19,7 +19,7 @@ return function()
 	it("should render correctly", function()
 		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestHoverBarButton(), container)
-		local button = container.ImageButton
+		local button = container:FindFirstChildOfClass("ImageButton")
 
 		expect(button.Icon).to.be.ok()
 

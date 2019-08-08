@@ -20,5 +20,6 @@ Keys.plugin = createKey("Plugin")
 Keys.settings = createKey("Settings")
 Keys.theme = createKey("Theme")
 Keys.camera = createKey("MarketplaceCamera")
+Keys.UILibraryTheme = createKey("UILibraryraryTheme")
 
 return wrapStrictTable(Keys, "Keys")

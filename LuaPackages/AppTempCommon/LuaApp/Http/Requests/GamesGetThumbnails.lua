@@ -1,7 +1,7 @@
 --[[
 	*** DEPRECATED ***
 	TODO: removed this file after new thumbnail API is being in use without any flags
-	RELATED: GAMEDISC-27 FIntLuaAppPercentRollOutNewThumbnailsAPI
+	RELATED: GAMEDISC-27 FIntLuaAppPercentRollOutNewThumbnailsApiV2
 ]]
 
 local CorePackages = game:GetService("CorePackages")

@@ -30,12 +30,7 @@ local getThumbnailLoader = require(Plugin.Src.Consumers.getThumbnailLoader)
 local CollaboratorItem = require(Plugin.Src.Components.Permissions.CollaboratorItem)
 local Separator = require(Plugin.Src.Components.Separator)
 
-local createFitToContent 
-if settings():GetFFlag("StudioGameSettingsUseUILibraryComponents") then
-	createFitToContent = require(Plugin.UILibrary.Components.createFitToContent)
-else
-	createFitToContent = require(Plugin.Src.Components.createFitToContent)
-end
+local createFitToContent = require(Plugin.UILibrary.Components.createFitToContent)
 
 local FitToContent = createFitToContent("Frame", "UIListLayout", {
 	SortOrder = Enum.SortOrder.LayoutOrder,

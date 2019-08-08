@@ -21,12 +21,7 @@ local Searchbar = require(Plugin.Src.Components.Permissions.SearchBar)
 local CollaboratorThumbnail = require(Plugin.Src.Components.Permissions.CollaboratorThumbnail)
 local Hyperlink = require(Plugin.RoactStudioWidgets.Hyperlink)
 
-local createFitToContent
-if settings():GetFFlag("StudioGameSettingsUseUILibraryComponents") then
-	createFitToContent = require(Plugin.UILibrary.Components.createFitToContent)
-else
-	createFitToContent = require(Plugin.Src.Components.createFitToContent)
-end
+local createFitToContent = require(Plugin.UILibrary.Components.createFitToContent)
 
 local FitToContent = createFitToContent("Frame", "UIListLayout", {
 	SortOrder = Enum.SortOrder.LayoutOrder,

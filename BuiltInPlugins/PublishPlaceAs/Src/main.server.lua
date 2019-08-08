@@ -70,8 +70,10 @@ local function makePluginGui()
 end
 
 local function closePlugin()
-	Roact.unmount(pluginHandle)
-	pluginHandle = nil
+	if pluginHandle then
+		Roact.unmount(pluginHandle)
+		pluginHandle = nil
+	end
 	pluginGui.Enabled = false
 end
 
@@ -103,7 +105,7 @@ local function main()
 	plugin.Name = localization:getText("General", "PublishPlace")
 	makePluginGui()
 
-	StudioService.OnPublishPlaceToRoblox:connect(function()
+	StudioService.OnPublishPlaceToRoblox:Connect(function()
 		openPluginWindow()
 	end)
 end

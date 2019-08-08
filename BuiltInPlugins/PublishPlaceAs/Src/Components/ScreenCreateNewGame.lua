@@ -71,7 +71,7 @@ function ScreenCreateNewGame:render(props)
 				OnClose = onClose,
 				CancelActive = true,
 				NextScreen = Constants.SCREENS.CHOOSE_GAME,
-				NextScreenText = "ButtonUpdateExistingGame"
+				NextScreenText = "UpdateExistingGame"
 			}),
 
 		})

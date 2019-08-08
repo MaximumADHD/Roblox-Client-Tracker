@@ -299,6 +299,7 @@ Class Camera : Instance [NotReplicated]
 	Function void Camera:PanUnits(int units)
 	Function Ray Camera:ScreenPointToRay(float x, float y, float depth = 0)
 	Function void Camera:SetCameraPanMode(Enum<CameraPanMode> mode = "Classic")
+	Function void Camera:SetImageServerView(CFrame modelCoord) {RobloxScriptSecurity}
 	Function void Camera:SetRoll(float rollAngle)
 	Function bool Camera:TiltUnits(int units)
 	Function Ray Camera:ViewportPointToRay(float x, float y, float depth = 0)
@@ -498,6 +499,7 @@ Class VectorForce : Constraint
 Class ContentProvider : Instance [NotCreatable] [Service] [NotReplicated]
 	Property string ContentProvider.BaseUrl [<💾> Save-only] [ReadOnly] [NotReplicated]
 	Property int ContentProvider.RequestQueueSize [<💾> Save-only] [ReadOnly] [NotReplicated]
+	Function int ContentProvider:CalculateNumTrianglesInMesh(string meshId) {RobloxScriptSecurity} [Yields]
 	Function void ContentProvider:Preload(Content contentId) [Deprecated]
 	Function void ContentProvider:PreloadAsync(Array contentIdList, Function callbackFunction = nil) [Yields]
 	Function void ContentProvider:SetBaseUrl(string url) {LocalUserSecurity}
@@ -643,20 +645,21 @@ Class DialogChoice : Instance
 	Property string DialogChoice.ResponseDialog
 	Property string DialogChoice.UserDialog
 Class DraftsService : Instance [NotCreatable] [Service] [NotReplicated]
-	Function void DraftsService:CommitEdits(Array scriptGuids) {RobloxScriptSecurity} [Yields]
-	Function void DraftsService:DiscardEdits(Array scriptGuids) {RobloxScriptSecurity}
-	Function Dictionary DraftsService:GetDrafts() {RobloxScriptSecurity} [Yields]
-	Function Array DraftsService:GetEditors(string scriptGuid) {RobloxScriptSecurity}
-	Function void DraftsService:OpenDrafts(Array scriptGuids) {RobloxScriptSecurity}
-	Function void DraftsService:ShowDiffsAgainstBase(Array scriptGuids) {RobloxScriptSecurity}
-	Function void DraftsService:ShowDiffsAgainstServer(Array scriptGuids) {RobloxScriptSecurity}
-	Function Dictionary DraftsService:UpdateToLatestVersion(Array scriptGuids) {RobloxScriptSecurity} [Yields]
-	Event DraftsService.CommitStatusChanged(string scriptGuid, int commitStatus) {RobloxScriptSecurity}
-	Event DraftsService.DraftAdded(string scriptGuid, Instance script) {RobloxScriptSecurity}
-	Event DraftsService.DraftDeleted(string scriptGuid) {RobloxScriptSecurity}
-	Event DraftsService.EditorsListChanged(string scriptGuid) {RobloxScriptSecurity}
-	Event DraftsService.ScriptDeleted(string scriptGuid) {RobloxScriptSecurity}
-	Event DraftsService.ScriptServerVersionChanged(string scriptGuid) {RobloxScriptSecurity}
+	Function void DraftsService:CommitEdits(Objects scripts) {RobloxScriptSecurity} [Yields]
+	Function void DraftsService:DiscardEdits(Objects scripts) {RobloxScriptSecurity}
+	Function Objects DraftsService:GetDrafts() {RobloxScriptSecurity} [Yields]
+	Function Objects DraftsService:GetEditors(Instance script) {RobloxScriptSecurity}
+	Function void DraftsService:OpenDrafts(Objects scripts) {RobloxScriptSecurity}
+	Function void DraftsService:ShowDiffsAgainstBase(Objects scripts) {RobloxScriptSecurity}
+	Function void DraftsService:ShowDiffsAgainstServer(Objects scripts) {RobloxScriptSecurity}
+	Function void DraftsService:UpdateToLatestVersion(Objects scripts) {RobloxScriptSecurity} [Yields]
+	Event DraftsService.CommitStatusChanged(Instance script, Enum<DraftStatusCode> status) {RobloxScriptSecurity}
+	Event DraftsService.DraftAdded(Instance script) {RobloxScriptSecurity}
+	Event DraftsService.DraftDeleted(Instance script) {RobloxScriptSecurity}
+	Event DraftsService.EditorsListChanged(Instance script) {RobloxScriptSecurity}
+	Event DraftsService.ScriptDeleted(Instance script) {RobloxScriptSecurity}
+	Event DraftsService.ScriptServerVersionChanged(Instance script) {RobloxScriptSecurity}
+	Event DraftsService.UpdateStatusChanged(Instance script, Enum<DraftStatusCode> status) {RobloxScriptSecurity}
 Class Dragger : Instance
 	Function void Dragger:AxisRotate(Enum<Axis> axis = "X")
 	Function void Dragger:MouseDown(Instance mousePart, Vector3 pointOnMousePart, Objects parts)
@@ -1552,7 +1555,7 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Function Instance MarketplaceService:GetDeveloperProductsAsync() [Yields]
 	Function Dictionary MarketplaceService:GetProductInfo(int64 assetId, Enum<InfoType> infoType = "Asset") [Yields]
 	Function int MarketplaceService:GetRobuxBalance() {RobloxScriptSecurity} [Yields]
-	Function Dictionary MarketplaceService:GetSubscriptionStatus(Instance player, int64 subscriptionId) [Yields]
+	Function bool MarketplaceService:IsPlayerSubscribed(Instance player, int64 subscriptionId) [Yields]
 	Function Dictionary MarketplaceService:PerformPurchase(Enum<InfoType> infoType, int64 productId, int expectedPrice, string requestId) {RobloxScriptSecurity} [Yields]
 	Function bool MarketplaceService:PlayerCanMakePurchases(Instance player) {RobloxScriptSecurity}
 	Function bool MarketplaceService:PlayerOwnsAsset(Instance player, int64 assetId) [Yields]
@@ -1904,7 +1907,6 @@ Class Model : PVInstance
 Class Status : Model [NotCreatable] [Deprecated]
 Class Workspace : Model [NotCreatable] [Service]
 	Property bool Workspace.AllowThirdPartySales  [NotReplicated]
-	Property Enum<AutoJointsMode> Workspace.AutoJointsMode  [NotScriptable]
 	Property float Workspace.FallenPartsDestroyHeight {✏️PluginSecurity}
 	Property bool Workspace.FilteringEnabled {✏️PluginSecurity}
 	Property float Workspace.Gravity
@@ -2500,6 +2502,7 @@ Class DataModel : ServiceProvider [NotCreatable]
 	Function bool DataModel:GetRemoteBuildMode() [Deprecated]
 	Function string DataModel:HttpGetAsync(string url, Enum<HttpRequestType> httpRequestType = "Default", bool doNotAllowDiabolicalMode = false) {RobloxScriptSecurity} [Yields]
 	Function string DataModel:HttpPostAsync(string url, string data, string contentType = "*/*", Enum<HttpRequestType> httpRequestType = "Default", bool doNotAllowDiabolicalMode = false) {RobloxScriptSecurity} [Yields]
+	Function Objects DataModel:InsertObjectsAndJoinIfLegacyAsync(Content url) {RobloxScriptSecurity} [Yields]
 	Function bool DataModel:IsGearTypeAllowed(Enum<GearType> gearType) [Deprecated]
 	Function bool DataModel:IsLoaded()
 	Function void DataModel:Load(Content url) {LocalUserSecurity}
@@ -2800,15 +2803,21 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property string StudioService.StudioLocaleId  [ReadOnly] [NotReplicated]
 	Function void StudioService:CopyToClipboard(string stringToCopy) {RobloxScriptSecurity}
 	Function Dictionary StudioService:GetClassIcon(string className) {PluginSecurity}
+	Function Dictionary StudioService:GetResourceByCategory(string category) {RobloxScriptSecurity}
 	Function int64 StudioService:GetUserId() {RobloxScriptSecurity}
 	Function void StudioService:OpenPluginInsertPage(int64 assetId) {RobloxScriptSecurity}
 	Function Instance StudioService:PromptImportFile(Array fileTypeFilter = {}) {PluginSecurity} [Yields]
 	Function Objects StudioService:PromptImportFiles(Array fileTypeFilter = {}) {PluginSecurity} [Yields]
 	Function Instance StudioService:PromptImportLocalAsset(string prompt, Array fileTypeFilter = {}) {PluginSecurity} [Yields] [Deprecated]
 	Function Objects StudioService:PromptImportLocalAssets(string prompt, Array fileTypeFilter = {}) {PluginSecurity} [Yields] [Deprecated]
+	Function void StudioService:PublishAs(int64 universeId, int64 placeId) {RobloxScriptSecurity}
 	Function string StudioService:SerializeInstances(Objects instances) {RobloxScriptSecurity}
 	Function void StudioService:SetUniverseDisplayName(string newName) {RobloxScriptSecurity}
 	Function void StudioService:ShowPublishToRoblox() {RobloxScriptSecurity}
+	Function void StudioService:emitPlacePublishedSignal() {RobloxScriptSecurity}
+	Event StudioService.GamePublishedToRoblox() {RobloxScriptSecurity}
+	Event StudioService.OnOpenConvertToPackagePlugin() {RobloxScriptSecurity}
+	Event StudioService.OnOpenManagePackagePlugin(int64 userId, int64 assetId) {RobloxScriptSecurity}
 	Event StudioService.OnPublishPlaceToRoblox() {RobloxScriptSecurity}
 	Event StudioService.OnSaveToRoblox(Objects instances) {RobloxScriptSecurity}
 Class StudioTheme : Instance [NotCreatable] [NotReplicated]
@@ -2957,6 +2966,8 @@ Class UIGridLayout : UIGridStyleLayout
 	Property UDim2 UIGridLayout.CellSize
 	Property int UIGridLayout.FillDirectionMaxCells
 	Property Enum<StartCorner> UIGridLayout.StartCorner
+	Property Vector2 UIGridLayout.AbsoluteCellCount [<💾> Save-only] [ReadOnly] [NotReplicated]
+	Property Vector2 UIGridLayout.AbsoluteCellSize [<💾> Save-only] [ReadOnly] [NotReplicated]
 Class UIInlineLayout : UIGridStyleLayout
 	Property UDim2 UIInlineLayout.InlinePadding
 	Property Enum<InlineAlignment> UIInlineLayout.InlineAlignment
@@ -3317,10 +3328,6 @@ Enum AssetType
 	EnumItem AssetType.EarAccessory : 57
 	EnumItem AssetType.EyeAccessory : 58
 	EnumItem AssetType.EmoteAnimation : 61
-Enum AutoJointsMode
-	EnumItem AutoJointsMode.Default : 0
-	EnumItem AutoJointsMode.Explicit : 1
-	EnumItem AutoJointsMode.LegacyImplicit : 2
 Enum AvatarContextMenuOption
 	EnumItem AvatarContextMenuOption.Friend : 0
 	EnumItem AvatarContextMenuOption.Chat : 1

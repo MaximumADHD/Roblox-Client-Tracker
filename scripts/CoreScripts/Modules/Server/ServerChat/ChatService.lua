@@ -40,6 +40,11 @@ if not ChatLocalization.FormatMessageToSend or not ChatLocalization.LocalizeForm
 	function ChatLocalization:FormatMessageToSend(key,default) return default end
 end
 
+local function allSpaces(inputString)
+	local testString = string.gsub(inputString, " ", "")
+	return string.len(testString) == 0
+end
+
 --////////////////////////////// Methods
 --//////////////////////////////////////
 local methods = {}
@@ -281,6 +286,10 @@ function methods:InternalApplyRobloxFilter(speakerName, message, toSpeakerName) 
 			return message
 		end
 
+		if allSpaces(message) then
+			return message
+		end
+
 		local filterStartTime = tick()
 		local filterRetries = 0
 		while true do
@@ -324,6 +333,7 @@ function methods:InternalApplyRobloxFilterNewAPI(speakerName, message, textFilte
 	local alwaysRunFilter = false
 	local runFilter = RunService:IsServer() and not RunService:IsStudio()
 	if (alwaysRunFilter or runFilter) then
+
 		local fromSpeaker = self:GetSpeaker(speakerName)
 		if fromSpeaker == nil then
 			return false, nil, nil
@@ -331,6 +341,10 @@ function methods:InternalApplyRobloxFilterNewAPI(speakerName, message, textFilte
 
 		local fromPlayerObj = fromSpeaker:GetPlayer()
 		if fromPlayerObj == nil then
+			return true, false, message
+		end
+
+		if allSpaces(message) then
 			return true, false, message
 		end
 

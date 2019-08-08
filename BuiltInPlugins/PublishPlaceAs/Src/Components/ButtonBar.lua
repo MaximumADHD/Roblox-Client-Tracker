@@ -19,9 +19,12 @@ local UILibrary = require(Plugin.Packages.UILibrary)
 local Localizing = UILibrary.Localizing
 local RoundTextButton = UILibrary.Component.RoundTextButton
 
+local BUTTON_WIDTH = 125
+local BUTTON_HEIGHT = 35
+
 local function ButtonBar(props)
 	return Theming.withTheme(function(theme)
-		return Localizing.withLocalization(function(localized)
+		return Localizing.withLocalization(function(localization)
 			local horizontalAlignment = props.HorizontalAlignment
 			local buttons = props.Buttons
 			local buttonClicked = props.buttonClicked
@@ -58,9 +61,9 @@ local function ButtonBar(props)
 					LayoutOrder = i,
 					Style = button.Default and theme.defaultButton or theme.cancelButton,
 					BorderMatchesBackground = button.Default,
-					Size = UDim2.new(0, Constants.BUTTON_WIDTH, 1, 0),
+					Size = UDim2.new(0, BUTTON_WIDTH, 1, 0),
 					Active = button.Active,
-					Name = localized:getText("General", "Button"..button.Name),
+					Name = localization:getText("Button", button.Name),
 					ZIndex = ZIndex or 1,
 					TextSize = Constants.TEXT_SIZE,
 
@@ -71,7 +74,7 @@ local function ButtonBar(props)
 			end
 
 			return Roact.createElement("Frame", {
-				Size = UDim2.new(1, 0, 0, Constants.BUTTON_HEIGHT),
+				Size = UDim2.new(1, 0, 0, BUTTON_HEIGHT),
 				LayoutOrder = LayoutOrder,
 				AnchorPoint = AnchorPoint,
 				Position = Position,

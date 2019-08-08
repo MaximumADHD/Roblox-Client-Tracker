@@ -7,50 +7,95 @@ local RoactRodux = require(CorePackages.RoactRodux)
 local Components = script.Parent.Parent
 local PlayerList = Components.Parent
 
-local CONTEXT_ACTION_NAME = "RbxPlayerListToggle"
+local TOGGLE_CONTEXT_ACTION_NAME = "RbxPlayerListToggle"
+local GAMEPAD_CLOSE_CONTEXT_ACTION_NAME = "RbxPlayerListGamepadClose"
+local GAMEPAD_STOP_MOVEMENT_ACTION_NAME = "RbxPlayerListStopMovement"
 
 local SetPlayerListVisibility = require(PlayerList.Actions.SetPlayerListVisibility)
 
 local ContextActionsBinder = Roact.PureComponent:extend("ContextActionsBinder")
 
+local GAMEPADS = {
+	Enum.UserInputType.Gamepad1,
+	Enum.UserInputType.Gamepad2,
+	Enum.UserInputType.Gamepad3,
+	Enum.UserInputType.Gamepad4,
+	Enum.UserInputType.Gamepad5,
+	Enum.UserInputType.Gamepad6,
+	Enum.UserInputType.Gamepad7,
+	Enum.UserInputType.Gamepad8,
+}
+
 function ContextActionsBinder:init()
-	self.boundOpenListAction = false
+	self.boundPlayerListActions = false
+end
+
+function ContextActionsBinder:bindActions()
+	ContextActionService:BindCoreAction(
+		TOGGLE_CONTEXT_ACTION_NAME,
+		function(actionName, inputState, inputObject)
+			if inputState ~= Enum.UserInputState.Begin then
+				return
+			end
+			self.props.setVisibility(not self.props.displayOptions.isVisible)
+		end,
+		false,
+		Enum.KeyCode.Tab
+	)
+	ContextActionService:BindCoreAction(
+		GAMEPAD_STOP_MOVEMENT_ACTION_NAME,
+		function(actionName, inputState, inputObject)
+			if self.props.displayOptions.isVisible and self.props.displayOptions.isTenFootInterface then
+				return Enum.ContextActionResult.Sink
+			end
+			return Enum.ContextActionResult.Pass
+		end,
+		false,
+		unpack(GAMEPADS)
+	)
+	ContextActionService:BindCoreAction(
+		GAMEPAD_CLOSE_CONTEXT_ACTION_NAME,
+		function(actionName, inputState, inputObject)
+			if inputState ~= Enum.UserInputState.Begin then
+				return Enum.ContextActionResult.Pass
+			end
+			if self.props.displayOptions.isVisible and self.props.displayOptions.isTenFootInterface then
+				self.props.setVisibility(false)
+				return Enum.ContextActionResult.Sink
+			end
+			return Enum.ContextActionResult.Pass
+		end,
+		false,
+		Enum.KeyCode.ButtonB,
+		Enum.KeyCode.ButtonStart
+	)
+	self.boundPlayerListActions = true
+end
+
+function ContextActionsBinder:unbindActions()
+	ContextActionService:UnbindCoreAction(TOGGLE_CONTEXT_ACTION_NAME)
+	ContextActionService:UnbindCoreAction(GAMEPAD_STOP_MOVEMENT_ACTION_NAME)
+	ContextActionService:UnbindCoreAction(GAMEPAD_CLOSE_CONTEXT_ACTION_NAME)
+	self.boundPlayerListActions = false
+end
+
+function ContextActionsBinder:canBindActions()
+	return self.props.displayOptions.playerlistCoreGuiEnabled or self.props.displayOptions.isTenFootInterface
 end
 
 function ContextActionsBinder:didMount()
-	if self.props.displayOptions.playerlistCoreGuiEnabled then
-		ContextActionService:BindCoreAction(
-			CONTEXT_ACTION_NAME,
-			function(actionName, inputState, inputObject)
-				if inputState ~= Enum.UserInputState.Begin then
-					return
-				end
-				self.props.setVisibility(not self.props.displayOptions.isVisible)
-			end,
-			false,
-			Enum.KeyCode.Tab
-		)
-		self.boundOpenListAction = true
+	if self:canBindActions() then
+		self:bindActions()
 	end
 end
 
 function ContextActionsBinder:didUpdate()
-	if self.props.displayOptions.playerlistCoreGuiEnabled and not self.boundOpenListAction then
-		ContextActionService:BindCoreAction(
-			CONTEXT_ACTION_NAME,
-			function(actionName, inputState, inputObject)
-				if inputState ~= Enum.UserInputState.Begin then
-					return
-				end
-				self.props.setVisibility(not self.props.displayOptions.isVisible)
-			end,
-			false,
-			Enum.KeyCode.Tab
-		)
-		self.boundOpenListAction = true
-	elseif not self.props.displayOptions.playerlistCoreGuiEnabled and self.boundOpenListAction then
-		ContextActionService:UnbindCoreAction(CONTEXT_ACTION_NAME)
-		self.boundOpenListAction = false
+	if self:canBindActions() then
+		if not self.boundPlayerListActions then
+			self:bindActions()
+		end
+	elseif self.boundPlayerListActions then
+		self:unbindActions()
 	end
 end
 
@@ -59,9 +104,8 @@ function ContextActionsBinder:render()
 end
 
 function ContextActionsBinder:willUnmount()
-	if self.boundOpenListAction then
-		ContextActionService:UnbindCoreAction(CONTEXT_ACTION_NAME)
-		self.boundOpenListAction = false
+	if self.boundPlayerListActions then
+		self:unbindActions()
 	end
 end
 

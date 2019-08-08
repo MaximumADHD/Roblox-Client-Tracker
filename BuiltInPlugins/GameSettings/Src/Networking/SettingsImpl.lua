@@ -13,7 +13,6 @@ local StudioService = game:GetService("StudioService")
 
 local FFlagGameSettingsUsesNewIconEndpoint = settings():GetFFlag("GameSettingsUsesNewIconEndpoint")
 local FFlagGameSettingsUpdatesUniverseDisplayName = settings():GetFFlag("GameSettingsUpdatesUniverseDisplayName")
-local DFFlagGameSettingsWorldPanel = settings():GetFFlag("GameSettingsWorldPanel3")
 local FFlagStudioGameSettingsAccessPermissions = settings():GetFFlag("StudioGameSettingsAccessPermissions")
 local DFFlagDeveloperSubscriptionsEnabled = settings():GetFFlag("DeveloperSubscriptionsEnabled")
 
@@ -22,10 +21,7 @@ local Promise = require(Plugin.Promise)
 local Cryo = require(Plugin.Cryo)
 local fastFlags = require(Plugin.Src.Util.FastFlags)
 
-local WorkspaceSettings = nil
-if DFFlagGameSettingsWorldPanel or fastFlags.isPlaceFilesGameSettingsSerializationOn() then
-	WorkspaceSettings = require(Plugin.Src.Util.WorkspaceSettings)
-end
+local WorkspaceSettings = require(Plugin.Src.Util.WorkspaceSettings)
 
 local AssetOverrides = require(Plugin.Src.Util.AssetOverrides)
 
@@ -38,7 +34,7 @@ local Requests = {
 	GameIcon = require(RequestsFolder.GameIcon),
 	Thumbnails = require(RequestsFolder.Thumbnails),
 	GamePermissions = FFlagStudioGameSettingsAccessPermissions and require(RequestsFolder.GamePermissions) or nil,
-	DeveloperSubscriptions = DFFlagDeveloperSubscriptionsEnabled and require(RequestsFolder.DeveloperSubscriptions) or nil,
+	DeveloperSubscriptions = DFFlagDeveloperSubscriptionsEnabled and require(RequestsFolder.DevSubs.DeveloperSubscriptions) or nil,
 }
 
 local SettingsImpl = {}
@@ -76,9 +72,7 @@ function SettingsImpl:GetSettings_Old()
 		HttpEnabled = HttpService:GetHttpEnabled(),
 		studioUserId = FFlagStudioGameSettingsAccessPermissions and self:GetUserId() or nil,
 	}
-	if DFFlagGameSettingsWorldPanel then
-		settings = Cryo.Dictionary.join(settings, WorkspaceSettings.getWorldSettings(settings))
-	end
+	settings = Cryo.Dictionary.join(settings, WorkspaceSettings.getWorldSettings(settings))
 
 	return self:CanManagePlace():andThen(function(canManage)
 		if fastFlags.isPlaceFilesGameSettingsSerializationOn() then
@@ -135,15 +129,13 @@ function SettingsImpl:GetSettings_New()
 		HttpEnabled = HttpService:GetHttpEnabled(),
 		studioUserId = self:GetUserId(),
 	}
-	if DFFlagGameSettingsWorldPanel then
-		settings = Cryo.Dictionary.join(settings, WorkspaceSettings.getWorldSettings(settings))
-	end
+	settings = Cryo.Dictionary.join(settings, WorkspaceSettings.getWorldSettings(settings))
 
 	return Promise.new(function(resolve, reject)
 		spawn(function()
 			local isPublished = self:IsPublished()
 			local gameId = game.GameId
-			
+
 			local success,loaded = Promise.all({
 				self:CanManagePlace(),
 				Requests.Universes.Get(gameId, self:GetUserId()),
@@ -154,7 +146,7 @@ function SettingsImpl:GetSettings_New()
 			local creatorId = loaded[2].creatorId
 			local creatorType = loaded[2].creatorType
 			local creatorName = loaded[2].creatorName
-			
+
 			settings = Cryo.Dictionary.join(settings, {["canManage"] = canManage })
 			settings = Cryo.Dictionary.join(settings, loaded[2])
 
@@ -219,9 +211,7 @@ function SettingsImpl:SaveAll(state)
 	if state.Changed.HttpEnabled ~= nil then
 		HttpService:SetHttpEnabled(state.Changed.HttpEnabled)
 	end
-	if DFFlagGameSettingsWorldPanel then
-		WorkspaceSettings.saveAllWorldSettings(state.Changed)
-	end
+	WorkspaceSettings.saveAllWorldSettings(state.Changed)
 
 	return self:CanManagePlace():andThen(function(canManage)
 		if not fastFlags.isPlaceFilesGameSettingsSerializationOn() then
@@ -291,11 +281,11 @@ function SettingsImpl:SaveAll(state)
 
 		table.insert(setRequests, Requests.Thumbnails.Set(universeId, saveInfo.thumbnails, saveInfo.thumbnailOrder))
 		table.insert(setRequests, Requests.GameIcon.Set(universeId, saveInfo.gameIcon))
-	
+
 		if DFFlagDeveloperSubscriptionsEnabled then
 			table.insert(setRequests, Requests.DeveloperSubscriptions.Set(universeId, saveInfo.DeveloperSubscriptions))
 		end
-		
+
 		if FFlagStudioGameSettingsAccessPermissions and saveInfo.permissions then
 			table.insert(setRequests, Requests.GamePermissions.Set(universeId, saveInfo.permissions))
 		end

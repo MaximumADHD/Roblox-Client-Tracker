@@ -22,6 +22,7 @@
 		callback selectSort()
 		callback requestSearch()
 		callback nextPage()
+		callback tryOpenAssetConfig, invoke assetConfig page with an assetId.
 ]]
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -241,6 +242,8 @@ function MainView:render()
 		local showSearchOptions = props.showSearchOptions
 		getModal(self).onSearchOptionsToggled(showSearchOptions)
 
+		local tryOpenAssetConfig = props.tryOpenAssetConfig
+
 		self.containerWidth = containerWidth
 		self.headerHeight = headerHeight
 
@@ -292,6 +295,7 @@ function MainView:render()
 						ZIndex = 1,
 
 						onAssetGridContainerChanged = self.onAssetGridContainerChanged,
+						tryOpenAssetConfig = tryOpenAssetConfig,
 					}),
 				}),
 			}),

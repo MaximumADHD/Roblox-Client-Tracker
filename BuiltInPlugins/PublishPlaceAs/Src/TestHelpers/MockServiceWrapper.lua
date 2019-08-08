@@ -12,7 +12,7 @@ local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 local MainMiddleware = require(Plugin.Src.Middleware.MainMiddleware)
 local Localization = UILibrary.Studio.Localization
 
-local MockServiceWrapper = Roact.Component:extend("MockSkeletonEditorServiceWrapper")
+local MockServiceWrapper = Roact.Component:extend("MockServiceWrapper")
 
 -- props.localization : (optional, UILibrary.Localization)
 -- props.plugin : (optional, plugin)

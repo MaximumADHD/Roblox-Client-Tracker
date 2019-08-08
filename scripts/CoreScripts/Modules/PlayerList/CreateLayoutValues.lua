@@ -8,7 +8,7 @@ return function(isTenFoot, isSmallTouchScreen)
 		local entryPadding = 5
 
 		LayoutValues.ContainerPosition = UDim2.new(0.5, 0, 0.5, 0)
-		LayoutValues.ContainerSize = UDim2.new(0, 1000, 0, 720)
+		LayoutValues.ContainerSize = UDim2.new(0, 350, 0, 720)
 		LayoutValues.AnchorPoint = Vector2.new(0.5, 0.5)
 
 		--No PlayerDropDown on tenfoot
@@ -141,6 +141,9 @@ return function(isTenFoot, isSmallTouchScreen)
 
 	LayoutValues.DropDownButtonSizeY = 24
 	LayoutValues.DropDownButtonPadding = 2
+
+	LayoutValues.VoiceChatShieldColor = Color3.fromRGB(41, 41, 41)
+	LayoutValues.VoiceChatShieldTransparency = 0.2
 
 	setmetatable(LayoutValues, {
 		__index = function(self, key)

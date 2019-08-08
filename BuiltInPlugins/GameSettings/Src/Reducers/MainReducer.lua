@@ -9,6 +9,7 @@ local Settings = require(Plugin.Src.Reducers.Settings)
 local Status = require(Plugin.Src.Reducers.Status)
 local Thumbnails = require(Plugin.Src.Reducers.Thumbnails)
 local CollaboratorSearch = require(Plugin.Src.Reducers.CollaboratorSearch)
+local DevSubModeration = require(Plugin.Src.Reducers.DevSubModeration)
 
 local fastFlags = require(Plugin.Src.Util.FastFlags)
 
@@ -20,4 +21,5 @@ return Rodux.combineReducers({
 	StateMorpher = ReducerMorpher,
 	Thumbnails = settings():GetFFlag("StudioGameSettingsAccessPermissions") and Thumbnails or nil,
 	CollaboratorSearch = settings():GetFFlag("StudioGameSettingsAccessPermissions") and CollaboratorSearch or nil,
+	DevSubModeration = settings():GetFFlag("DeveloperSubscriptionsEnabled") and DevSubModeration or nil,
 })

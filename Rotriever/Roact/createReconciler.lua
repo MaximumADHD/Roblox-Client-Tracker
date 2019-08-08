@@ -101,9 +101,11 @@ local function createReconciler(renderer)
 	end
 
 	local function updateVirtualNodeWithRenderResult(virtualNode, hostParent, renderResult)
-		if Type.of(renderResult) == Type.Element
-			or renderResult == nil
+		-- TODO: Consider reordering checks (https://github.com/Roblox/roact/issues/200)
+		if renderResult == nil
 			or typeof(renderResult) == "boolean"
+			or Type.of(renderResult) == Type.Element
+			or Type.of(renderResult) == Type.Fragment
 		then
 			updateChildren(virtualNode, hostParent, renderResult)
 		else
@@ -136,10 +138,6 @@ local function createReconciler(renderer)
 			for _, childNode in pairs(virtualNode.children) do
 				unmountVirtualNode(childNode)
 			end
-		elseif kind == ElementKind.Fragment then
-			for _, childNode in pairs(virtualNode.children) do
-				unmountVirtualNode(childNode)
-			end
 		else
 			error(("Unknown ElementKind %q"):format(tostring(kind), 2))
 		end
@@ -168,12 +166,6 @@ local function createReconciler(renderer)
 		local children = newElement.props[Children]
 
 		updateVirtualNodeWithChildren(virtualNode, targetHostParent, children)
-
-		return virtualNode
-	end
-
-	local function updateFragmentVirtualNode(virtualNode, newElement)
-		updateVirtualNodeWithChildren(virtualNode, virtualNode.hostParent, newElement.elements)
 
 		return virtualNode
 	end
@@ -227,8 +219,6 @@ local function createReconciler(renderer)
 			shouldContinueUpdate = virtualNode.instance:__update(newElement, newState)
 		elseif kind == ElementKind.Portal then
 			virtualNode = updatePortalVirtualNode(virtualNode, newElement)
-		elseif kind == ElementKind.Fragment then
-			virtualNode = updateFragmentVirtualNode(virtualNode, newElement)
 		else
 			error(("Unknown ElementKind %q"):format(tostring(kind), 2))
 		end
@@ -293,13 +283,6 @@ local function createReconciler(renderer)
 		updateVirtualNodeWithChildren(virtualNode, targetHostParent, children)
 	end
 
-	local function mountFragmentVirtualNode(virtualNode)
-		local element = virtualNode.currentElement
-		local children = element.elements
-
-		updateVirtualNodeWithChildren(virtualNode, virtualNode.hostParent, children)
-	end
-
 	--[[
 		Constructs a new virtual node and mounts it, but does not place it into
 		the tree.
@@ -334,10 +317,28 @@ local function createReconciler(renderer)
 			element.component:__mount(reconciler, virtualNode)
 		elseif kind == ElementKind.Portal then
 			mountPortalVirtualNode(virtualNode)
-		elseif kind == ElementKind.Fragment then
-			mountFragmentVirtualNode(virtualNode)
 		else
-			error(("Unknown ElementKind %q"):format(tostring(kind), 2))
+			-- debug data
+			local fields = "{\n"
+			for k, v in pairs(element) do
+				fields = string.format("%s\t%s = %s\n", fields, tostring(k), tostring(v))
+				if type(v) == "table" then
+					fields = string.format("%s\t%s = {\n", fields, tostring(k), tostring(v))
+					for k2, v2 in pairs(v) do
+						fields = string.format("%s\t\t%s = %s\n", fields, tostring(k2), tostring(v2))
+					end
+					fields = string.format("%s\t}\n", fields)
+				end
+			end
+			fields = fields .. "}"
+			-- end debug data
+
+			local errMsg = string.format("Attempted to render : %s\n" ..
+				"With Data : %s\n" ..
+				"Host Parent : %s\n" ..
+				"Host Key : %s\n" ..
+				"Unknown ElementKind %q", tostring(element), fields, tostring(hostParent), tostring(hostKey), tostring(kind))
+			error(errMsg, 2)
 		end
 
 		return virtualNode

@@ -46,7 +46,7 @@ return function()
 		expect(frame.Background.Selection.Visible).to.equal(true)
 
 		-- unselected
-		instance = Roact.reconcile(instance, createTestCheckBox(true, false))
+		instance = Roact.update(instance, createTestCheckBox(true, false))
 		expect(frame.Background.Selection.Visible).to.equal(false)
 		Roact.unmount(instance)
 	end)

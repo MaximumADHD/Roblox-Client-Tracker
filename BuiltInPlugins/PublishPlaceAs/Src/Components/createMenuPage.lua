@@ -35,11 +35,13 @@ local UILibrary = require(Plugin.Packages.UILibrary)
 local Localizing = UILibrary.Localizing
 local AddChange = require(Plugin.Src.Actions.AddChange)
 
+local ELEMENT_PADDING = 15
+
 return function(loadValuesToProps, dispatchForProps)
 
 	local function Page(props)
-		return Localizing.withLocalization(function(localized)
-			local children = props.Content and props.Content(props, localized) or {}
+		return Localizing.withLocalization(function(localization)
+			local children = props.Content and props.Content(props, localization) or {}
 			local layoutOrder = props.LayoutOrder
 			local addLayout = props.AddLayout
 			local contentHeightChanged = props.ContentHeightChanged
@@ -56,7 +58,7 @@ return function(loadValuesToProps, dispatchForProps)
 					PaddingRight = UDim.new(0, 20),
 				}),
 				Layout = addLayout and Roact.createElement("UIListLayout", {
-					Padding = UDim.new(0, Constants.ELEMENT_PADDING),
+					Padding = UDim.new(0, ELEMENT_PADDING),
 					SortOrder = Enum.SortOrder.LayoutOrder,
 					[Roact.Change.AbsoluteContentSize] = function(rbx)
 						if contentHeightChanged then

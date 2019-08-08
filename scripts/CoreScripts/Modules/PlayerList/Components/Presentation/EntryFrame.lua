@@ -9,6 +9,12 @@ local WithLayoutValues = LayoutValues.WithLayoutValues
 
 local EntryFrame = Roact.PureComponent:extend("EntryFrame")
 
+function EntryFrame:init()
+	self.state  = {
+		isGamepadSelected = false,
+	}
+end
+
 function EntryFrame:render()
 	return WithLayoutValues(function(layoutValues)
 		local backgroundTransparency = layoutValues.BackgroundTransparency
@@ -18,6 +24,8 @@ function EntryFrame:render()
 		elseif self.props.isTitleFrame then
 			backgroundTransparency = layoutValues.TitleBackgroundTransparency
 			backgroundColor3 = layoutValues.TitleBackgroundColor
+		elseif self.state.isGamepadSelected then
+			backgroundColor3 = layoutValues.ButtonSelectedColor
 		elseif self.props.teamColor ~= nil then
 			backgroundColor3 = self.props.teamColor
 		end
@@ -34,6 +42,22 @@ function EntryFrame:render()
 			Active = self.props.teamColor == nil,
 
 			[Roact.Event.Activated] = self.props.onActivated,
+
+			[Roact.Event.SelectionGained] = function()
+				self:setState({
+					isGamepadSelected = true,
+				})
+				self.props.onSelectionGained()
+			end,
+
+			[Roact.Event.SelectionLost] = function()
+				self:setState({
+					isGamepadSelected = false,
+				})
+				self.props.onSelectionLost()
+			end,
+
+			[Roact.Ref] = self.props[Roact.Ref],
 		}, self.props[Roact.Children])
 	end)
 end

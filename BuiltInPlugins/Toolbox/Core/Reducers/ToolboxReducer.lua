@@ -14,6 +14,7 @@ local Sound = require(Reducers.Sound)
 local VotingReducer = require(Reducers.VotingReducer)
 local LiveSearch = require(Reducers.LiveSearch)
 local Favorite = require(Reducers.Favorite)
+local RolesReducer = require(Reducers.RolesReducer)
 
 -- TODO CLIDEVSRVS-1595: Error handling/promise rejections
 
@@ -25,6 +26,7 @@ local ToolboxReducer = Rodux.combineReducers({
 		voting = VotingReducer,
 		liveSearch = LiveSearch,
 		favorite = Favorite,
+		roles = RolesReducer
 	})
 
 return function(state, action)

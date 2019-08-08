@@ -6,6 +6,7 @@ local Colors = {}
 -- These color definitions match what are used on the Studio start page
 -- Defined in qml/Colors.qml
 Colors.BLUE_PRIMARY = Color3.fromRGB(  0, 162, 255)	-- 0    , 0.635, 1
+Colors.BLUE_DISABLED = Color3.fromRGB(153, 218, 255)
 
 Colors.GRAY_1 = Color3.fromRGB( 25,  25,  25)		-- 0.098, 0.098, 0.098
 Colors.GRAY_2 = Color3.fromRGB(117, 117, 117)		-- 0.459, 0.459, 0.459

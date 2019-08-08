@@ -30,11 +30,6 @@ local ContextActionService = game:GetService("ContextActionService")
 local RunService = game:GetService("RunService")
 local TweenService = game:GetService("TweenService")
 
-local thumstickIsFrameSuccess, thumstickIsFrameValue = pcall(function()
-	return UserSettings():IsUserFeatureEnabled("UserThumbstickFrameIsActuallyFrame")
-end)
-local FFlagUserThumbstickFrameIsActuallyFrame = thumstickIsFrameSuccess and thumstickIsFrameValue
-
 --[[ The Module ]]--
 local BaseCharacterController = require(script.Parent:WaitForChild("BaseCharacterController"))
 local DynamicThumbstick = setmetatable({}, BaseCharacterController)
@@ -332,9 +327,7 @@ function DynamicThumbstick:BindContextActions()
 			):Play()
 		end
 
-		if FFlagUserThumbstickFrameIsActuallyFrame then
-			self.moveTouchLockedIn = false
-		end
+		self.moveTouchLockedIn = false
 		self.moveTouchObject = inputObject
 		self.moveTouchStartPosition = inputObject.Position
 		self.moveTouchFirstChanged = true
@@ -364,9 +357,7 @@ function DynamicThumbstick:BindContextActions()
 				self:MoveStick(inputObject.Position)
 			end
 
-			if FFlagUserThumbstickFrameIsActuallyFrame then
-				self.moveTouchLockedIn = true
-			end
+			self.moveTouchLockedIn = true
 
 			local direction = Vector2.new(
 				inputObject.Position.x - self.moveTouchStartPosition.x,
@@ -449,13 +440,8 @@ function DynamicThumbstick:Create(parentFrame)
 		end
 	end
 
-	if FFlagUserThumbstickFrameIsActuallyFrame then
-		self.thumbstickFrame = Instance.new("Frame")
-		self.thumbstickFrame.BorderSizePixel = 0
-	else
-		self.thumbstickFrame = Instance.new("TextButton")
-		self.thumbstickFrame.Text = ""
-	end
+	self.thumbstickFrame = Instance.new("Frame")
+	self.thumbstickFrame.BorderSizePixel = 0
 	self.thumbstickFrame.Name = "DynamicThumbstickFrame"
 	self.thumbstickFrame.Visible = false
 	self.thumbstickFrame.BackgroundTransparency = 1.0

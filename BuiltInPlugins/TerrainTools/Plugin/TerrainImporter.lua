@@ -268,7 +268,7 @@ function MakeMaterialSettingsFrame()
 		toggleButton.Image = useColorMap and toggleOnImage or toggleOffImage
 	end)
 
-	targetColorMap = AssetIdSelector.new()
+	targetColorMap = AssetIdSelector.new("")
 	targetColorMap:getFrame().Position = UDim2.new(0, SECOND_COLUMN_OFFSET, 0, 0)
 	targetColorMap:getFrame().LayoutOrder = 4
 	targetColorMap:getFrame().Parent = materialFrame
@@ -348,7 +348,7 @@ function importTerrain()
 			local status, err = pcall(function()
 				local heightUrl = targetHeightMap:getAssetUrl()
 				local colorUrl = nil
-				if targetColorMap:isValidated() then
+				if useColorMap and targetColorMap:isValidated() then
 					colorUrl = targetColorMap:getAssetUrl()
 				end
 				terrain:ImportHeightMap(heightUrl, colorUrl, region)

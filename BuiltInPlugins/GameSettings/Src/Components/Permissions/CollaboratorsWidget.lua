@@ -26,12 +26,7 @@ local CollaboratorItem = require(Plugin.Src.Components.Permissions.CollaboratorI
 local GroupCollaboratorItem = require(Plugin.Src.Components.Permissions.GroupCollaboratorItem)
 local Separator = require(Plugin.Src.Components.Separator)
 
-local createFitToContent 
-if settings():GetFFlag("StudioGameSettingsUseUILibraryComponents") then
-	createFitToContent = require(Plugin.UILibrary.Components.createFitToContent)
-else
-	createFitToContent = require(Plugin.Src.Components.createFitToContent)
-end
+local createFitToContent = require(Plugin.UILibrary.Components.createFitToContent)
 
 local FitToContentWidget = createFitToContent("Frame", "UIListLayout", {
 	SortOrder = Enum.SortOrder.LayoutOrder,

@@ -4,7 +4,11 @@ local Util = Plugin.Core.Util
 local Urls = require(Util.Urls)
 local DebugFlags = require(Util.DebugFlags)
 
+local AssetConfigConstants = require(Util.AssetConfigConstants)
+local EnumConvert = require(Util.EnumConvert)
+
 local FFlagEnableCopyToClipboard = settings():GetFFlag("EnableCopyToClipboard")
+local FFlagStudioEnableLuaAssetConfigurationPage = settings():GetFFlag("StudioEnableLuaAssetConfigurationPage")
 
 local StudioService = game:GetService("StudioService")
 local GuiService = game:GetService("GuiService")
@@ -31,8 +35,11 @@ local function getImageIdFromDecalId(decalId)
 	end
 end
 
-function ContextMenuHelper.tryCreateContextMenu(plugin, assetId, assetTypeId)
+-- typeof(assetTypeId) == number
+function ContextMenuHelper.tryCreateContextMenu(plugin, assetId, assetTypeId, showEditOption, localizedContent, editAssetFunc)
 	local menu = plugin:CreatePluginMenu("ToolboxAssetMenu")
+
+	local localize = localizedContent
 
 	-- only add this action if we have access to copying to clipboard
 	if FFlagEnableCopyToClipboard then
@@ -41,21 +48,27 @@ function ContextMenuHelper.tryCreateContextMenu(plugin, assetId, assetTypeId)
 			trueAssetId = getImageIdFromDecalId(assetId)
 		end
 
-		menu:AddNewAction("CopyIdToClipboard", "Copy Asset Id").Triggered:connect(function()
+		menu:AddNewAction("CopyIdToClipboard", localize.RightClickMenu.CopyAssetID).Triggered:connect(function()
 			StudioService:CopyToClipboard(trueAssetId)
 		end)
 
-		menu:AddNewAction("CopyURIToClipboard", "Copy Asset URI").Triggered:connect(function()
+		menu:AddNewAction("CopyURIToClipboard", localize.RightClickMenu.CopyAssetURI).Triggered:connect(function()
 			StudioService:CopyToClipboard("rbxassetid://"..trueAssetId)
 		end)
 	end
 
 	-- add an action to view an asset in browser
-	menu:AddNewAction("OpenInBrowser", "View In Browser").Triggered:connect(function()
+	menu:AddNewAction("OpenInBrowser", localize.RightClickMenu.ViewInBrowser).Triggered:connect(function()
 		local baseUrl = ContentProvider.BaseUrl
 		local targetUrl = string.format("%s/library/%s/asset", baseUrl, HttpService:urlEncode(assetId))
 		GuiService:OpenBrowserWindow(targetUrl)
 	end)
+
+	if FFlagStudioEnableLuaAssetConfigurationPage and showEditOption and editAssetFunc then
+		menu:AddNewAction("EditAsset", localize.RightClickMenu.EditAsset).Triggered:connect(function()
+			editAssetFunc(assetId, AssetConfigConstants.FLOW_TYPE.EDIT_FLOW, nil, EnumConvert.convertAssetTypeValueToEnum(assetTypeId))
+		end)
+	end
 
 	menu:ShowAsync()
 	menu:Destroy()

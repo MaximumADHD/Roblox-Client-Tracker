@@ -26,8 +26,6 @@
 		Mouse = plugin mouse for changing the mouse icon
 ]]
 
-local DFFlagGameSettingsWorldPanel = settings():GetFFlag("GameSettingsWorldPanel3")
-
 local Roact = require(script.Parent.Internal.RequireRoact)
 local Constants = require(script.Parent.Internal.Constants)
 local Mouse = require(script.Parent.Internal.Mouse)
@@ -67,7 +65,7 @@ function RoundTextButton:mouseHoverChanged(hovering)
 		Mouse.onLeave(self.props.Mouse)
 	end
 
-	if DFFlagGameSettingsWorldPanel and nil ~= self.props.OnHoverChanged then
+	if nil ~= self.props.OnHoverChanged then
 		self.props.OnHoverChanged(self.props.Value, hovering)
 	end
 

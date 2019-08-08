@@ -24,9 +24,14 @@ local PADDING = 4
 
 local TEXTBOX_WIDTH = 120 - PADDING
 local TEXTBOX_HEIGHT = 22 -- does not include padding
+local PREVIEW_HEIGHT = 60
 local TEXT_BUTTON_SIZE = UDim2.new(1, 0, 0,  22)
 local FRAME_SIZE = UDim2.new(0, TEXTBOX_WIDTH + PADDING, 0, TEXTBOX_HEIGHT)
-local PREVIEW_SIZE = UDim2.new(0, 60, 0, 60)
+local PREVIEW_SIZE = UDim2.new(0, PREVIEW_HEIGHT, 0, PREVIEW_HEIGHT)
+local DROPDOWN_OPEN_SIZE = UDim2.new(1, 0, 0, 200)
+local DROPDOWN_ELEMENT_SIZE = UDim2.new(1, 0, 0, PREVIEW_HEIGHT)
+local DROPDOWN_ELEMENT_LABEL_POS = UDim2.new(0, PREVIEW_HEIGHT+PADDING, 0, 0)
+local DROPDOWN_ELEMENT_LABEL_SIZE = UDim2.new(1, -PREVIEW_HEIGHT-PADDING, 0, PREVIEW_HEIGHT)
 local PADDING = 4
 local TEXT_LEFT_PADDING = 4
 
@@ -41,6 +46,7 @@ local PLACEHOLDER_TEXT = "Asset ID"
 
 local ASSET_ID_PATTERN = "rbxassetid://(%d+)"
 local ASSET_URL_PATTERN = "rbxassetid://%d+"
+local ASSET_URL_TEXT = "rbxassetid://%d"
 local BASE_CONFIG_URL = "https://itemconfiguration.%s"
 local GET_ASSETS_CREATION_DETAILS = "v1/creations/get-asset-details"
 local APPROVED_REVIEWED_STATUSES = {
@@ -55,6 +61,68 @@ local AWAITING_MODERATION = "Awaiting asset moderation."
 local MODERATED_ERROR_MESSAGE = "Asset has been moderated."
 
 local getAssetCreationDetailsEndpoint = nil
+
+-- there is only one selector that is open at any given time
+-- so if we have this script running well keep a copy here and
+-- set it's parent to whichever assetidselector is current focused
+local gameImages = {}
+local activeCallback = nil
+local globalAssetListSelector = Instance.new("ScrollingFrame")
+globalAssetListSelector.Position = UDim2.new(.2, 0, 0, TEXTBOX_HEIGHT)
+globalAssetListSelector.Size = UDim2.new(.7, 0, 0, 150)
+globalAssetListSelector.ZIndex = 5
+
+local assetSelectorUILayout = Instance.new("UIListLayout")
+assetSelectorUILayout.Parent = globalAssetListSelector
+
+assetSelectorUILayout:GetPropertyChangedSignal("AbsoluteContentSize"):connect(function()
+	globalAssetListSelector.CanvasSize = UDim2.new(0,assetSelectorUILayout.AbsoluteContentSize.X, 0, assetSelectorUILayout.AbsoluteContentSize.Y)
+end)
+
+local function updateAssetList(newParent, callback)
+	local gameAssetList = StudioService:GetResourceByCategory("Image")
+	for i,v in pairs(gameAssetList) do
+		if not gameImages[i] then
+			local newButton = Instance.new("TextButton")
+			newButton.Size = DROPDOWN_ELEMENT_SIZE
+			newButton.Name = i
+			newButton.Text = ""
+			newButton.ClipsDescendants = true
+			newButton.ZIndex = 5
+
+			newButton.Activated:Connect(function()
+				if activeCallback then
+					activeCallback(tonumber(newButton.Name))
+				end
+			end)
+
+			local buttonImage = Instance.new("ImageLabel")
+			buttonImage.Size = PREVIEW_SIZE
+			buttonImage.Image = string.format(ASSET_URL_TEXT, tonumber(i))
+			buttonImage.ZIndex = 5
+			buttonImage.BorderSizePixel = 0
+			buttonImage.Parent = newButton
+
+			local buttonLabel = Instance.new("TextLabel")
+			buttonLabel.Text = v
+			buttonLabel.TextXAlignment = Enum.TextXAlignment.Left
+			buttonLabel.Position = DROPDOWN_ELEMENT_LABEL_POS
+			buttonLabel.Size = DROPDOWN_ELEMENT_LABEL_SIZE
+			buttonLabel.ZIndex = 5
+			buttonLabel.BorderSizePixel = 0
+			buttonLabel.Parent = newButton
+
+			gameImages[i] = newButton
+			newButton.Parent = globalAssetListSelector
+		end
+	end
+
+	if #gameImages > 0 then
+		globalAssetListSelector.Parent = newParent
+		activeCallback = callback
+	end
+end
+
 local function isAssetModerated(assetId)
 	if not getAssetCreationDetailsEndpoint then
 		local ContentProvider = game:GetService("ContentProvider")
@@ -120,7 +188,7 @@ function AssetIdSelector.new(categoryLabel)
 	self._warning = nil
 
 	self._frame = Instance.new("Frame")
-	self._frame.Size = UDim2.new(1, 0, 0, 0)
+	self._frame.Size = UDim2.new(1, 0, 0, TEXTBOX_HEIGHT)
 	self._frame.BackgroundTransparency = 1
 
 
@@ -180,23 +248,7 @@ function AssetIdSelector.new(categoryLabel)
 		self._textBox.Size = UDim2.new(0,math.max(endTextPos, TEXTBOX_WIDTH), 0,  TEXTBOX_HEIGHT)
 	end
 
-	-- reset validation is text is every changed
-	self._textBox:GetPropertyChangedSignal("CursorPosition"):connect(updateTextBoxPos)
-
-	self._textBox:GetPropertyChangedSignal("Text"):connect(function ()
-		self._validated = false
-		updateTextBoxPos()
-	end)
-
-	self._textBox.Focused:connect(function ()
-		if not self._warning then
-			self._textFrame.BorderColor3 = SELECTED_BORDER_COLOR
-		end
-	end)
-
-	-- when we lose focus, we can then see if we need to validate the
-	-- the asset url that has been passed to us.
-	self._textBox.FocusLost:connect(function ()
+	local function validateAssetID()
 		local assetId = tonumber(string.match(self._textBox.Text, ASSET_ID_PATTERN))
 		local assetURL = string.match(self._textBox.Text, ASSET_URL_PATTERN)
 
@@ -267,6 +319,32 @@ function AssetIdSelector.new(categoryLabel)
 				self._warning.Text = warningMessage
 			end
 		end
+	end
+	-- reset validation is text is every changed
+	self._textBox:GetPropertyChangedSignal("CursorPosition"):connect(updateTextBoxPos)
+
+	self._textBox:GetPropertyChangedSignal("Text"):connect(function ()
+		self._validated = false
+		updateTextBoxPos()
+	end)
+
+	self._textBox.Focused:connect(function ()
+		if not self._warning then
+			self._textFrame.BorderColor3 = SELECTED_BORDER_COLOR
+		end
+
+		updateAssetList(self._frame, function(id)
+			self._textBox.Text = string.format(ASSET_URL_TEXT, tonumber(id))
+			validateAssetID()
+			-- removes the dropdown
+			updateAssetList(nil, nil)
+		end)
+	end)
+
+	-- when we lose focus, we can then see if we need to validate the
+	-- the asset url that has been passed to us.
+	self._textBox.FocusLost:connect(function ()
+		validateAssetID()
 	end)
 
 	GuiUtilities.syncGuiElementFontColor(self._textBox)

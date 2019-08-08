@@ -7,17 +7,22 @@
 		int MaxLength = The maximum number of characters allowed in the TextBox.
 		bool Multiline = Whether this TextBox allows a single line of text or multiple.
 		int Height = The vertical size of this TextBox, in pixels.
+		int WidthOffset = the horizontal offset size of this TextBox, in pixels.
 		int LayoutOrder = The sort order of this component in a UIListLayout.
 		int TextSize = The size of text
 
-		string ErrorMessage = A general override message used to display an error.
-			A non-nil ErrorMessage will border the TextBox in red.
+		boolean ErrorBorder = puts red border around text box
+		string ErrorMessage = A general override message used to display an error. A non-nil ErrorMessage will border the TextBox in red.
 
 		string Text = The text to display in the TextBox
+		boolean ShowToolTip = do we want to show anything beneath the rounded text box (defaults to true)
+		boolean ShowErrors = do we want to show any error text beneath the rounded text box, or change the border to indicate an error (defaults to true)
 		function SetText(text) = Callback to tell parent that text has changed
 		function FocusChanged(focused) = Callback when this TextBox is focused.
 		function HoverChanged(hovering) = Callback when the mouse enters or leaves this TextBox.
 ]]
+
+local StudioUILibraryRoundTextBoxNoTooltip = settings():GetFFlag("StudioUILibraryRoundTextBoxNoTooltip")
 
 local DEFAULT_HEIGHT = 42
 local PADDING = UDim.new(0, 10)
@@ -66,6 +71,10 @@ function RoundTextBox:render()
 		local errorState = self.props.ErrorMessage
 			or textLength > self.props.MaxLength
 
+		if StudioUILibraryRoundTextBoxNoTooltip then
+			errorState = errorState or self.props.ErrorBorder
+		end
+
 		local backgroundProps = {
 			-- Necessary to make the rounded background
 			BackgroundTransparency = 1,
@@ -76,17 +85,36 @@ function RoundTextBox:render()
 			SliceCenter = theme.roundFrame.slice,
 
 			Position = UDim2.new(0, 0, 0, 0),
-			Size = UDim2.new(1, 0, 0, self.props.Height or DEFAULT_HEIGHT),
+			Size = UDim2.new(1, self.props.WidthOffset or 0, 0, self.props.Height or DEFAULT_HEIGHT),
 
 			LayoutOrder = self.props.LayoutOrder or 1,
 		}
 
+		local showToolTip = true
+		if StudioUILibraryRoundTextBoxNoTooltip then
+			if nil ~= self.props.ShowToolTip then
+				showToolTip = self.props.ShowToolTip
+			end
+		end
+
 		local tooltipText
 		if active then
-			if errorState and self.props.ErrorMessage then
-				tooltipText = self.props.ErrorMessage
+			if StudioUILibraryRoundTextBoxNoTooltip then
+				if showToolTip then
+					if errorState and self.props.ErrorMessage then
+						tooltipText = self.props.ErrorMessage
+					else
+						tooltipText = textLength .. "/" .. self.props.MaxLength
+					end
+				else
+					tooltipText = ""
+				end
 			else
-				tooltipText = textLength .. "/" .. self.props.MaxLength
+				if errorState and self.props.ErrorMessage then
+					tooltipText = self.props.ErrorMessage
+				else
+					tooltipText = textLength .. "/" .. self.props.MaxLength
+				end
 			end
 		else
 			tooltipText = ""
@@ -135,6 +163,7 @@ function RoundTextBox:render()
 				TextYAlignment = Enum.TextYAlignment.Top,
 				TextColor3 = (active and errorState and theme.textBox.error) or theme.textBox.tooltip,
 				Text = tooltipText,
+				Visible =  (not StudioUILibraryRoundTextBoxNoTooltip) or showToolTip
 			}),
 
 			Border = Roact.createElement("ImageLabel", {

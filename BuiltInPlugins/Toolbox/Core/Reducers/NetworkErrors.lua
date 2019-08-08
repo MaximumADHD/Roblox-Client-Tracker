@@ -10,10 +10,10 @@ local NetworkError = require(Plugin.Core.Actions.NetworkError)
 
 local function logNetworkError(response)
 	warn(("Toolbox network error on %s %s:  (code %s)  %s"):format(
-		response.requestType,
-		response.url,
-		tostring(response.responseCode),
-		response.responseBody))
+		response.requestType or "",
+		response.url or "",
+		tostring(response.responseCode or ""),
+		response.responseBody or ""))
 end
 
 return Rodux.createReducer({

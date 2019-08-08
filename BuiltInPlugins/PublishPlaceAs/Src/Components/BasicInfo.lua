@@ -29,17 +29,6 @@
 local MAX_NAME_LENGTH = 50
 local MAX_DESCRIPTION_LENGTH = 1000
 
-local nameErrors = {
-	Moderated = "ErrorNameModerated",
-	Empty = "ErrorNameEmpty",
-	TooLong = "ErrorNameTooLong",
-}
-
-local descriptionErrors = {
-	Moderated = "ErrorDescModerated",
-	TooLong = "ErrorDescTooLong",
-}
-
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Cryo = require(Plugin.Packages.Cryo)
@@ -61,7 +50,7 @@ local Theming = require(Plugin.Src.ContextServices.Theming)
 local createMenuPage = require(Plugin.Src.Components.createMenuPage)
 
 --Uses props to display current settings values
-local function displayContents(props, localized)
+local function displayContents(props, localization)
 	local description = props.Description or ""
 	local descriptionChanged = props.DescriptionChanged
 	local descriptionError = props.DescriptionError
@@ -80,24 +69,24 @@ local function displayContents(props, localized)
 		"War", "Pirate", "RPG", "SciFi", "Sports", "TownAndCity", "WildWest",
 	}
 	local genres = Cryo.List.map(genreIds, function(name)
-		return {Key = name, Text = localized:getText("General", "Genre"..name)}
+		return {Key = name, Text = localization:getText("Genre", name)}
 	end)
 
 	return {
 		Header = Roact.createElement(Header, {
-			Title = localized:getText("General", "MenuItem"..pageName),
+			Title = localization:getText("MenuItem", pageName),
 			LayoutOrder = 0,
 		}),
 
 		Name = Roact.createElement(TitledFrame, {
-			Title = localized:getText("General", "Name"),
+			Title = localization:getText("PageTitle", "Name"),
 			MaxHeight = 60,
 			LayoutOrder = 1,
 			TextSize = Constants.TEXT_SIZE,
 		}, {
 			TextBox = Roact.createElement(RoundTextBox, {
 				Active = true,
-				ErrorMessage = nameError and localized:getText("General", nameErrors[nameError]),
+				ErrorMessage = nameError and localization:getText("Error", nameError),
 				MaxLength = MAX_NAME_LENGTH,
 				Text = name,
 				TextSize = Constants.TEXT_SIZE,
@@ -106,7 +95,7 @@ local function displayContents(props, localized)
 		}),
 
 		Description = Roact.createElement(TitledFrame, {
-			Title = "Description",
+			Title = localization:getText("PageTitle", "Description"),
 			MaxHeight = 150,
 			LayoutOrder = 2,
 			TextSize = Constants.TEXT_SIZE,
@@ -119,7 +108,7 @@ local function displayContents(props, localized)
 				Text = description,
 				TextSize = Constants.TEXT_SIZE,
 				SetText = descriptionChanged,
-				ErrorMessage = descriptionError and localized:getText("General", descriptionErrors[descriptionError]),
+				ErrorMessage = descriptionError and localization:getText("Error", descriptionError),
 			}),
 		}),
 
@@ -128,7 +117,7 @@ local function displayContents(props, localized)
 		}),
 
 		Genre = Roact.createElement(TitledFrame, {
-			Title = localized:getText("General", "Genre"),
+			Title = localization:getText("PageTitle", "Genre"),
 			MaxHeight = 38,
 			TextSize = Constants.TEXT_SIZE,
 			ZIndex = 2,
@@ -156,28 +145,28 @@ local function displayContents(props, localized)
 		}),
 
 		Devices = Roact.createElement(CheckBoxSet, {
-			Title = "Devices",
+			Title = localization:getText("PageTitle", "Devices"),
 			LayoutOrder = 6,
 			Boxes = {
 				{
 					Id = "Computer",
-					Title = localized:getText("Devices", "Computer"),
+					Title = localization:getText("Devices", "Computer"),
 					Selected = devices.Computer,
 				}, {
 					Id = "Phone",
-					Title = localized:getText("Devices", "Phone"),
+					Title = localization:getText("Devices", "Phone"),
 					Selected = devices.Phone,
 				}, {
 					Id = "Tablet",
-					Title = localized:getText("Devices", "Tablet"),
+					Title = localization:getText("Devices", "Tablet"),
 					Selected = devices.Tablet,
 				}, {
 					Id = "Console",
-					Title = localized:getText("Devices", "Console"),
+					Title = localization:getText("Devices", "Console"),
 					Selected = devices.Console,
 				},
 			},
-			ErrorMessage = (devicesError and localized:getText("General", "ErrorNoDevices")) or nil,
+			ErrorMessage = (devicesError and localization:getText("Error", "NoDevices")) or nil,
 			EntryClicked = function(box)
 				local newDevices = Cryo.Dictionary.join(devices, {
 					[box.Id] = not box.Selected,
@@ -217,16 +206,16 @@ local function dispatchForProps(setValue, dispatch)
 			dispatch(AddChange("name", text))
 			local nameLength = string.len(text)
 			if nameLength == 0 or string.len(string.gsub(text, " ", "")) == 0 then
-				dispatch(AddErrors({name = "Empty"}))
+				dispatch(AddErrors({name = "NameEmpty"}))
 			elseif nameLength > MAX_NAME_LENGTH then
-				dispatch(AddErrors({name = "TooLong"}))
+				dispatch(AddErrors({name = "NameTooLong"}))
 			end
 		end,
 
 		DescriptionChanged = function(text)
 			dispatch(AddChange("description", text))
 			if string.len(text) > MAX_DESCRIPTION_LENGTH then
-				dispatch(AddErrors({description = "TooLong"}))
+				dispatch(AddErrors({description = "DescriptionTooLong"}))
 			end
 		end,
 

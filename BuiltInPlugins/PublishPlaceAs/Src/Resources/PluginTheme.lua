@@ -11,16 +11,18 @@ local deepJoin = require(Plugin.Src.Util.deepJoin)
 local function createValues(getColor, c, m)
 	local isDark = settings().Studio["UI Theme"].Name == Enum.UITheme.Dark.Name
 
+	local newPlaceDark = "rbxasset://textures/PublishPlaceAs/new_dark.png"
+	local newPlaceLight = "rbxasset://textures/PublishPlaceAs/new_light.png"
+
 	local DefaultStudioStyle = StudioStyle.new(getColor, c, m)
 
 	-- define all the colors used in the plugin
 	local PluginTheme = deepJoin(DefaultStudioStyle, {
-		Icons = {
-			ToolbarIconInspect = "rbxasset://textures/GameSettings/ToolbarIcon.png",
-		},
-		Labels = {
-			TitleBarText = getColor(c.TitlebarText, m.Default),
-			TitleBarBackground = getColor(c.Titlebar, m.Default),
+		icons = {
+			newPlace = isDark and newPlaceDark or newPlaceLight,
+			backArrow = "rbxasset://textures/PublishPlaceAs/navigation_pushBack.png",
+			checkmark = "rbxasset://textures/PublishPlaceAs/common_checkmarkCircle.png",
+			cityBackground = "rbxasset://textures/ui/LuaApp/graphic/CityBackground.png",
 		},
 		defaultButton = {
 			ButtonColor = isDark and getColor(c.MainButton) or getColor(c.CurrentMarker),
@@ -66,25 +68,6 @@ local function createValues(getColor, c, m)
 			font = Enum.Font.SourceSans,
 			error = getColor(c.ErrorText),
 		},
-		dialog = {
-			background = getColor(c.MainBackground),
-			text = getColor(c.MainText),
-		},
-		textBox = {
-			background = getColor(c.InputFieldBackground),
-			disabled = getColor(c.Tab),
-			borderDefault = getColor(c.Border),
-			borderHover = isDark and getColor(c.MainButton) or getColor(c.CurrentMarker),
-			tooltip = getColor(c.DimmedText),
-			text = getColor(c.MainText),
-			error = getColor(c.ErrorText),
-		},
-		roundFrame = {
-			--TODO: Move texture to StudioSharedUI
-			backgroundImage = "rbxasset://textures/StudioToolbox/RoundedBackground.png",
-			borderImage = "rbxasset://textures/StudioToolbox/RoundedBorder.png",
-			slice = Rect.new(3, 3, 13, 13),
-		},
 		isDarkerTheme = isDark,
 	})
 
@@ -104,9 +87,6 @@ local function createValues(getColor, c, m)
 	}
 
 	local UILibraryOverrides = {
-		treeView = {
-			elementPadding = 0,
-		},
 		styledDropdown = {
 			backgroundColor = getColor(c.Button),
 			hovered = {

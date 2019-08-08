@@ -173,7 +173,7 @@ function PlayerDropDown:render()
 	return WithLayoutValues(function(layoutValues)
 		local selectedPlayer = self.props.selectedPlayer
 
-		if not selectedPlayer then
+		if not selectedPlayer or self.props.isTenFootInterface then
 			return nil
 		end
 
@@ -265,6 +265,7 @@ local function mapStateToProps(state)
 		isVisible = state.playerDropDown.isVisible,
 		playerRelationship = selectedPlayer and state.playerRelationship[selectedPlayer.UserId],
 		inspectMenuEnabled = state.displayOptions.inspectMenuEnabled,
+		isTenFootInterface = state.displayOptions.isTenFootInterface,
 	}
 end
 

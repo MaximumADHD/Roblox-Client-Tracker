@@ -19,7 +19,7 @@ return function()
 	it("should render correctly", function()
 		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestThumbnailHoverBar(), container)
-		local bar = container.Frame
+		local bar = container:FindFirstChildOfClass("Frame")
 
 		expect(bar.Padding).to.be.ok()
 		expect(bar.Zoom).to.be.ok()
@@ -31,12 +31,12 @@ return function()
 	it("should be visible only when Enabled", function()
 		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestThumbnailHoverBar(true), container)
-		local bar = container.Frame
+		local bar = container:FindFirstChildOfClass("Frame")
 
 		expect(bar.Visible).to.equal(true)
 
 		local newBar = createTestThumbnailHoverBar(false)
-		instance = Roact.reconcile(instance, newBar)
+		instance = Roact.update(instance, newBar)
 
 		expect(bar.Visible).to.equal(false)
 

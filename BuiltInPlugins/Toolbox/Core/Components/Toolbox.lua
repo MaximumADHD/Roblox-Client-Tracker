@@ -13,11 +13,9 @@
 		Suggestions suggestions
 		Sorts sorts
 
-		callback loadManageableGroups()
 		callback updatePageInfo()
+		callback tryOpenAssetConfig, invoke assetConfig page with an assetId.
 ]]
-
-local FFlagStudioMarketplaceTabsEnabled = settings():GetFFlag("StudioMarketplaceTabsEnabled")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -31,6 +29,7 @@ local Images = require(Util.Images)
 local ContextGetter = require(Util.ContextGetter)
 local ContextHelper = require(Util.ContextHelper)
 local PageInfoHelper = require(Util.PageInfoHelper)
+local getTabs = require(Util.getTabs)
 local Analytics = require(Util.Analytics.Analytics)
 
 local Types = Plugin.Core.Types
@@ -50,9 +49,9 @@ local MainView = require(Components.MainView.MainView)
 local SoundPreviewComponent = require(Components.SoundPreviewComponent)
 
 local Requests = Plugin.Core.Networking.Requests
-local GetManageableGroupsRequest = require(Requests.GetManageableGroupsRequest)
 local UpdatePageInfoAndSendRequest = require(Requests.UpdatePageInfoAndSendRequest)
 local ChangeMarketplaceTab = require(Requests.ChangeMarketplaceTab)
+local GetRolesRequest = require(Requests.GetRolesRequest)
 
 local Toolbox = Roact.PureComponent:extend("Toolbox")
 
@@ -86,7 +85,6 @@ function Toolbox:handleInitialSettings()
 		sortIndex = initialSelectedSortIndex,
 		groupIndex = 0,
 		page = 1,
-		pageSize = Constants.GET_ITEMS_PAGE_SIZE,
 		selectedBackgroundIndex = initialSelectedBackgroundIndex,
 	})
 end
@@ -127,14 +125,26 @@ function Toolbox:init(props)
 	local networkInterface = getNetwork(self)
 	local settings = getSettings(self)
 
+	local function determineCategoryIndexOnTabChange(tabName, newCategories)
+		if Category.CREATIONS_KEY == tabName then
+			for index, data in ipairs(newCategories) do
+				local isSelectable = data and (nil == data.selectable or data.selectable) -- nil for selectable defalts to selectable true
+				if isSelectable then
+					return index
+				end
+			end
+		end
+		return 1
+	end
+
 	self.changeMarketplaceTab = function(tabName)
-		local newCategories = Category.TABS[tabName]
+		local newCategories = Category.getCategories(tabName, self.props.roles)
 		self.props.changeMarketplaceTab(networkInterface, tabName, newCategories, settings)
 
 		local currentCategory = PageInfoHelper.getCategory(self.props.categories, self.props.categoryIndex)
 		-- Change tab will always reset categoryIndex to 1.
 		local newCategoryIndex = 1
-		local newCategory = PageInfoHelper.getCategory(newCategories, newCategoryIndex)
+		local newCategory = Category.CREATIONS_KEY == tabName and "" or PageInfoHelper.getCategory(newCategories, newCategoryIndex)
 
 		Analytics.onCategorySelected(
 			currentCategory,
@@ -142,12 +152,11 @@ function Toolbox:init(props)
 		)
 
 		self.props.updatePageInfo(networkInterface, settings, {
-			categoryIndex = newCategoryIndex,
+			categoryIndex = determineCategoryIndexOnTabChange(tabName, newCategories) or newCategoryIndex,
 			searchTerm = "",
 			sortIndex = 1,
 			groupIndex = 0,
 			page = 1,
-			pageSize = Constants.GET_ITEMS_PAGE_SIZE,
 			selectedBackgroundIndex = 0,
 		})
 	end
@@ -160,9 +169,7 @@ function Toolbox:didMount()
 
 	self:handleInitialSettings()
 
-	if not FFlagStudioMarketplaceTabsEnabled then
-		self.props.loadManageableGroups(getNetwork(self))
-	end
+	self.props.setRoles(getNetwork(self))
 end
 
 function Toolbox:render()
@@ -177,13 +184,15 @@ function Toolbox:render()
 			local backgrounds = props.backgrounds
 			local suggestions = props.suggestions or {}
 			local currentTab = props.currentTab
+			local tryOpenAssetConfig = props.tryOpenAssetConfig
+			local pluginGui = props.pluginGui
 
 			local toolboxTheme = theme.toolbox
 
 			local onAbsoluteSizeChange = self.onAbsoluteSizeChange
 
-			local tabHeight = FFlagStudioMarketplaceTabsEnabled and Constants.TAB_WIDGET_HEIGHT or 0
-			local headerOffset = FFlagStudioMarketplaceTabsEnabled and tabHeight or 0
+			local tabHeight = Constants.TAB_WIDGET_HEIGHT
+			local headerOffset = tabHeight
 
 			return Roact.createElement("Frame", {
 				Position = UDim2.new(0, 0, 0, 0),
@@ -195,13 +204,9 @@ function Toolbox:render()
 				[Roact.Ref] = self.toolboxRef,
 				[Roact.Change.AbsoluteSize] = onAbsoluteSizeChange,
 			}, {
-				Tabs = FFlagStudioMarketplaceTabsEnabled and Roact.createElement(TabSet, {
+				Tabs = Roact.createElement(TabSet, {
 					Size = UDim2.new(1, 0, 0, Constants.TAB_WIDGET_HEIGHT),
-					Tabs = {
-						{Key = Category.MARKETPLACE_KEY, Text = localizedContent.Tabs.Marketplace, Image = Images.MARKETPLACE_TAB},
-						{Key = Category.INVENTORY_KEY, Text = localizedContent.Tabs.Inventory, Image = Images.INVENTORY_TAB},
-						{Key = Category.RECENT_KEY, Text = localizedContent.Tabs.Recent, Image = Images.RECENT_TAB},
-					},
+					Tabs = getTabs(localizedContent),
 					CurrentTab = currentTab,
 					onTabSelected = self.changeMarketplaceTab,
 				}),
@@ -210,6 +215,7 @@ function Toolbox:render()
 					Position = UDim2.new(0, 0, 0, headerOffset),
 					maxWidth = toolboxWidth,
 					onSearchOptionsToggled = self.toggleSearchOptions,
+					pluginGui = pluginGui,
 				}),
 
 				MainView = Roact.createElement(MainView, {
@@ -220,13 +226,14 @@ function Toolbox:render()
 					suggestions = suggestions,
 					showSearchOptions = showSearchOptions,
 					onSearchOptionsToggled = self.toggleSearchOptions,
+					tryOpenAssetConfig = tryOpenAssetConfig,
 				}),
 
 				Footer = Roact.createElement(Footer, {
 					backgrounds = backgrounds,
 				}),
 
-				AudioPreview = Roact.createElement(SoundPreviewComponent)
+				AudioPreview = Roact.createElement(SoundPreviewComponent),
 			})
 		end)
 	end)
@@ -240,15 +247,15 @@ local function mapStateToProps(state, props)
 		categories = pageInfo.categories or {},
 		categoryIndex = pageInfo.categoryIndex or 1,
 		currentTab = pageInfo.currentTab or Category.MARKETPLACE_KEY,
-		sorts = pageInfo.sorts or {}
+		sorts = pageInfo.sorts or {},
+		roles = state.roles or {}
 	}
 end
 
 local function mapDispatchToProps(dispatch)
 	return {
-		-- FIXME (psewell) Remove when removing FFlagStudioMarketplaceTabsEnabled
-		loadManageableGroups = function(networkInterface)
-			dispatch(GetManageableGroupsRequest(networkInterface))
+		setRoles = function(networkInterface)
+			dispatch(GetRolesRequest(networkInterface))
 		end,
 
 		updatePageInfo = function(networkInterface, settings, newPageInfo)

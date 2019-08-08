@@ -12,7 +12,6 @@
 ]]
 
 local Plugin = script.Parent.Parent.Parent.Parent
-local Cryo = require(Plugin.Cryo)
 local Roact = require(Plugin.Roact)
 
 -- HttpService is only used here to generate GUIDs
@@ -33,10 +32,7 @@ function DeveloperSubscriptionWidget:init()
 	end
 
 	function self.onDeveloperSubscriptionChanged(developerSubscription)
-		local newDeveloperSubscriptions = Cryo.Dictionary.join(self.props.DeveloperSubscriptions, {
-			[developerSubscription.Key] = developerSubscription,
-		})
-		self.props.OnDeveloperSubscriptionsChanged(newDeveloperSubscriptions)
+		self.props.OnDeveloperSubscriptionChanged(developerSubscription)
 	end
 
 	function self.onDeveloperSubscriptionCreated()
@@ -47,11 +43,11 @@ function DeveloperSubscriptionWidget:init()
 		local key = "TEMPORARY_"..HttpService:GenerateGUID()
 
 		local newDeveloperSubscription = {
+			IsNew = true,
 			Key = key,
-			Name = "New Subscription",
-			Price = 10,
+			Price = 0,
 			Subscribers = 0,
-			Active = true,
+			Active = false,
 			Id = -1,
 			Image = "None",
 		}
@@ -85,21 +81,31 @@ end
 function DeveloperSubscriptionWidget:render()
 	local props = self.props
 
-	local developerSubscriptions = props.DeveloperSubscriptions
+    local developerSubscriptions = props.DeveloperSubscriptions
 
 	if not self.state.isEditingSubscription then
 		return Roact.createElement(DeveloperSubscriptionList, {
 			DeveloperSubscriptions = developerSubscriptions,
+			ModeratedDevSubs = props.ModeratedDevSubs,
 			OnDeveloperSubscriptionEdited = self.onDeveloperSubscriptionEdited,
 			OnDeveloperSubscriptionCreated = self.onDeveloperSubscriptionCreated,
 		})
 	else
 		local editedSubscription = developerSubscriptions[self.state.editedSubscriptionKey]
-		if editedSubscription then
+		local moderatedDevSub = props.ModeratedDevSubs[self.state.editedSubscriptionKey]
+		local devSubErrors = props.DevSubsErrors[self.state.editedSubscriptionKey] or {}
+
+        if editedSubscription then
 			return Roact.createElement(DeveloperSubscriptionDetails, {
 				DeveloperSubscription = editedSubscription,
+				ModeratedDevSub = moderatedDevSub,
+				DevSubErrors = devSubErrors,
+				
 				OnEditFinished = self.onEditFinished,
-				OnDeveloperSubscriptionChanged = self.onDeveloperSubscriptionChanged,
+
+				OnDeveloperSubscriptionValueChanged = self.props.OnDeveloperSubscriptionValueChanged,
+				OnDevSubDiscontinued = self.props.OnDevSubDiscontinued,
+				ModerateDevSub = self.props.ModerateDevSub
 			})
 		else
 			return nil

@@ -34,8 +34,6 @@ local CENTER_PADDING = 10
 local PADDING = Constants.ASSET_PREVIEW_PADDING
 
 function ActionBar:init(props)
-	--local canInsertAsset = props.canInsertAsset
-
 	self.onShowMoreActiveted = function()
 		self.props.tryCreateContextMenu()
 	end

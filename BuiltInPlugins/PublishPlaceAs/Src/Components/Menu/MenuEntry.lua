@@ -14,7 +14,9 @@ local Roact = require(Plugin.Packages.Roact)
 
 local Theming = require(Plugin.Src.ContextServices.Theming)
 
-local Constants = require(Plugin.Src.Resources.Constants)
+local ERROR_IMAGE = "rbxasset://textures/GameSettings/ErrorIcon.png"
+local WARNING_IMAGE = "rbxasset://textures/GameSettings/Warning.png"
+local MENU_ENTRY_HEIGHT = 42
 
 local MenuEntry = Roact.PureComponent:extend("MenuEntry")
 
@@ -38,7 +40,7 @@ function MenuEntry:render()
 		local highlight = hovering or selected
 
 		return Roact.createElement("Frame", {
-			Size = UDim2.new(1, 0, 0, Constants.MENU_ENTRY_HEIGHT),
+			Size = UDim2.new(1, 0, 0, MENU_ENTRY_HEIGHT),
 			BackgroundColor3 = highlight and theme.menuEntry.hover or theme.menuBar.backgroundColor,
 			BorderSizePixel = 0,
 
@@ -87,7 +89,7 @@ function MenuEntry:render()
 				Position = UDim2.new(1, -12, 0.5, 0),
 				AnchorPoint = Vector2.new(1, 0.5),
 				BackgroundTransparency = 1,
-				Image = showError and Constants.ERROR_IMAGE or Constants.WARNING_IMAGE,
+				Image = showError and ERROR_IMAGE or WARNING_IMAGE,
 			}),
 		})
 	end)

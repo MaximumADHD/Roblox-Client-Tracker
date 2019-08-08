@@ -24,7 +24,7 @@ local function MenuBar(props)
 	assert(type(entries) == "table", "MenuBar.Entries must be a table")
 
 	return Theming.withTheme(function(theme)
-		return Localizing.withLocalization(function(localized)
+		return Localizing.withLocalization(function(localization)
 			local menuEntries = {
 				Layout = Roact.createElement("UIListLayout", {
 					Padding = UDim.new(0, 1),
@@ -33,7 +33,7 @@ local function MenuBar(props)
 
 			for i, entry in ipairs(entries) do
 				table.insert(menuEntries, Roact.createElement(MenuEntry, {
-					Title = localized:getText("General", "MenuItem"..entry.Name),
+					Title = localization:getText("MenuItem", entry.Name),
 					Selected = (selected == i),
 					Index = i,
 					ShowError = false,

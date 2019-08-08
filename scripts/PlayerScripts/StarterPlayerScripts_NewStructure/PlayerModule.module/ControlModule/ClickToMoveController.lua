@@ -37,11 +37,6 @@ local FFlagUserNavigationClickToMoveSkipPassedWaypoints = FFlagUserNavigationCli
 local FFlagUserClickToMoveFollowPathRefactorSuccess, FFlagUserClickToMoveFollowPathRefactorResult = pcall(function() return UserSettings():IsUserFeatureEnabled("UserClickToMoveFollowPathRefactor") end)
 local FFlagUserClickToMoveFollowPathRefactor = FFlagUserClickToMoveFollowPathRefactorSuccess and FFlagUserClickToMoveFollowPathRefactorResult
 
-local FFlagUserClickToMoveCancelOnMenuOpenedSuccess, FFlagUserClickToMoveCancelOnMenuOpenedResult = pcall(function()
-	return UserSettings():IsUserFeatureEnabled("UserClickToMoveCancelOnMenuOpened")
-end)
-local FFlagUserClickToMoveCancelOnMenuOpened = FFlagUserClickToMoveCancelOnMenuOpenedSuccess and FFlagUserClickToMoveCancelOnMenuOpenedResult
-
 local Player = Players.LocalPlayer
 
 local ClickToMoveDisplay = require(script.Parent:WaitForChild("ClickToMoveDisplay"))
@@ -914,9 +909,7 @@ function ClickToMove:DisconnectEvents()
 	DisconnectEvent(self.onCharacterAddedConn)
 	DisconnectEvent(self.renderSteppedConn)
 	DisconnectEvent(self.characterChildRemovedConn)
-	if FFlagUserClickToMoveCancelOnMenuOpened then
-		DisconnectEvent(self.menuOpenedConnection)
-	end
+	DisconnectEvent(self.menuOpenedConnection)
 end
 
 function ClickToMove:OnTouchBegan(input, processed)
@@ -1003,11 +996,9 @@ function ClickToMove:OnCharacterAdded(character)
 		end
 	end)
 
-	if FFlagUserClickToMoveCancelOnMenuOpened then
-		self.menuOpenedConnection = GuiService.MenuOpened:Connect(function()
-			CleanupPath()
-		end)
-	end
+	self.menuOpenedConnection = GuiService.MenuOpened:Connect(function()
+		CleanupPath()
+	end)
 
 	local function OnCharacterChildAdded(child)
 		if UserInputService.TouchEnabled then

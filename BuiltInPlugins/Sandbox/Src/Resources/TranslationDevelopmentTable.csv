@@ -3,3 +3,7 @@ Studio.Sandbox.Meta.PluginButtonTooltip, , ,View Sandbox
 Studio.Sandbox.Meta.PluginDescription, , ,I'm a hover message
 Studio.Sandbox.Meta.PluginName, , ,Sandbox
 Studio.Sandbox.Example.ErrorAnUnexpectedThing, , ,"An unexpected thing happened, try again"
+Studio.Sandbox.ContextMenu.OpenScript, , ,Open
+Studio.Sandbox.ContextMenu.ShowDiff, , ,Compare with server
+Studio.Sandbox.ContextMenu.Commit, , ,Commit
+Studio.Sandbox.ContextMenu.Revert, , ,Discard Draft

@@ -36,8 +36,6 @@
 		function HoverChanged(hovering) = Callback when the mouse enters or leaves this TextBox.
 ]]
 
-local DFFlagGameSettingsWorldPanel = settings():GetFFlag("GameSettingsWorldPanel3")
-
 local DEFAULT_HEIGHT = 42
 local PADDING = UDim.new(0, 10)
 
@@ -107,7 +105,7 @@ function RoundTextBox:render()
 			SliceCenter = Constants.ROUNDED_FRAME_SLICE,
 
 			Position = self.props.Position or UDim2.new(0, 0, 0, 0),
-			AnchorPoint = DFFlagGameSettingsWorldPanel and self.props.AnchorPoint or nil,
+			AnchorPoint = self.props.AnchorPoint,
 			Size = self.props.Width and UDim2.new(0, self.props.Width, 0, self.props.Height or DEFAULT_HEIGHT) or UDim2.new(1, 0, 0, self.props.Height or DEFAULT_HEIGHT),
 
 			LayoutOrder = self.props.LayoutOrder or 1,
@@ -140,20 +138,8 @@ function RoundTextBox:render()
 		end
 
 		local textEntryProps = {
-			Visible = (function()
-				if DFFlagGameSettingsWorldPanel then
-					return self.props.Enabled or self.props.ShowTextWhenDisabled or false
-				else
-					return self.props.Enabled
-				end
-			end)(),
-			Enabled = (function()
-				if DFFlagGameSettingsWorldPanel then
-					return self.props.Enabled
-				else
-					return nil
-				end
-			end)(),
+			Visible = self.props.Enabled or self.props.ShowTextWhenDisabled or false,
+			Enabled = self.props.Enabled,
 			Text = self.props.Text,
 			FocusChanged = self.focusChanged,
 			HoverChanged = self.mouseHoverChanged,

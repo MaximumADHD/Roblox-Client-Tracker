@@ -43,6 +43,11 @@ local _baseNotificationUrl = string.format("https://notifications.%s", _baseDoma
 local _baseRealtimeUrl = string.format("https://realtime.%s", _baseDomain)
 local _baseWebUrl = string.format("https://web.%s", _baseDomain)
 local _baseCatalogUrl = string.format("https://catalog.%s", _baseDomain)
+local _baseDevelopUrl = string.format("https://develop.%s", _baseDomain)
+local _baseItemConfigurationUrl = string.format("https://itemconfiguration.%s", _baseDomain)
+local _basePublishUrl = string.format("https://publish.%s", _baseDomain)
+local _baseDataUrl = string.format("https://data.%s", _baseDomain)
+local _baseGroupUrl = string.format("https://groups.%s", _baseDomain)
 
 -- public api
 local Url = {
@@ -58,6 +63,11 @@ local Url = {
 	REALTIME_URL = _baseRealtimeUrl,
 	WEB_URL = _baseWebUrl,
 	CATALOG_URL = _baseCatalogUrl,
+	DEVELOP_URL = _baseDevelopUrl,
+	ITEM_CONFIGURATION_URL = _baseItemConfigurationUrl,
+	PUBLISH_URL = _basePublishUrl,
+	DATA_URL = _baseDataUrl,
+	GROUP_URL = _baseGroupUrl,
 }
 
 function Url:isVanitySite()

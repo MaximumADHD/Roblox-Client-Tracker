@@ -12,8 +12,6 @@
 		}
 ]]
 
-local DFFlagGameSettingsWorldPanel = settings():GetFFlag("GameSettingsWorldPanel3")
-
 local Roact = require(script.Parent.Internal.RequireRoact)
 local Constants = require(script.Parent.Internal.Constants)
 local ThemeChangeListener = require(script.Parent.Internal.ThemeChangeListener)
@@ -42,7 +40,7 @@ local function TitledFrame(props)
 				Font = nil ~= props.Font and props.Font or Enum.Font.SourceSans,
 				TextSize = 22,
 				TextXAlignment = Enum.TextXAlignment.Left,
-				TextYAlignment = (not DFFlagGameSettingsWorldPanel or nil == props.TitleTextYAlignment) and Enum.TextYAlignment.Top or props.TitleTextYAlignment,
+				TextYAlignment = nil == props.TitleTextYAlignment and Enum.TextYAlignment.Top or props.TitleTextYAlignment,
 				Text = props.Title,
 			}),
 

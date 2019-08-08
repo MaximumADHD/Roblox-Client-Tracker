@@ -216,11 +216,11 @@ return function()
 		expect(getMenuDirection(listLayout)).to.equal(-1)
 
 		-- There is not enough room below, so we flip to top
-		Roact.reconcile(instance, elementAtBottom)
+		Roact.update(instance, elementAtBottom)
 		expect(getMenuDirection(listLayout)).to.equal(1)
 
 		-- There is now enough room below, but we preserve direction, so we are still above SourceExtents
-		Roact.reconcile(instance, elementInMiddle)
+		Roact.update(instance, elementInMiddle)
 		expect(getMenuDirection(listLayout)).to.equal(1)
 
 		Roact.unmount(instance)

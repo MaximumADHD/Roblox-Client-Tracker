@@ -4,14 +4,8 @@
 
 local starterPlayerService = game:GetService("StarterPlayer")
 
-local DFFlagGameSettingsWorldPanel = settings():GetFFlag("GameSettingsWorldPanel3")
-
-local Plugin = nil
-local MathUtil = nil
-if DFFlagGameSettingsWorldPanel then
-	Plugin = script.Parent.Parent.Parent
-	MathUtil = require(Plugin.Src.Util.MathUtil)
-end
+local Plugin = script.Parent.Parent.Parent
+local MathUtil = require(Plugin.Src.Util.MathUtil)
 
 local WorkspaceSettings = {}
 

@@ -54,7 +54,7 @@ return function()
 		it("Voting.HasVoted should be true", function()
 			local defaultState = Assets(nil, {})
 			NetworkInterfaceMock:getAssets(nil, nil, nil, 2):andThen(function(results)
-			--[[ Defualt
+			--[[ Default
 				Voting = {
 					UserVote = true,
 					HasVoted = true,

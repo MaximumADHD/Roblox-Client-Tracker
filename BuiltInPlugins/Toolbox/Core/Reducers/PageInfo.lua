@@ -17,11 +17,10 @@ local NextPage = require(Plugin.Core.Actions.NextPage)
 local UpdatePageInfo = require(Plugin.Core.Actions.UpdatePageInfo)
 local SetCategories = require(Plugin.Core.Actions.SetCategories)
 
-local FFlagStudioMarketplaceTabsEnabled = settings():GetFFlag("StudioMarketplaceTabsEnabled")
-
-local defaultTab = Category.MARKETPLACE_KEY
 local defaultSorts = Sort.SORT_OPTIONS
-local defaultCategories = FFlagStudioMarketplaceTabsEnabled and Category.MARKETPLACE or Category.CATEGORIES_WITHOUT_GROUPS
+local defaultCategories = Category.MARKETPLACE
+
+local EnableDeveloperGetManageGroupUrl = game:GetFastFlag("EnableDeveloperGetManageGroupUrl")
 
 local function warnIfUpdatePageInfoChangesInvalid(state, changes)
 	if changes.categories then
@@ -82,10 +81,9 @@ return Rodux.createReducer({
 	groups = {},
 	groupIndex = 0,
 
-	currentTab = defaultTab,
+	currentTab = Constants.DEFAULT_TAB,
 
 	page = 1,
-	pageSize = Constants.GET_ITEMS_PAGE_SIZE,
 
 	selectedBackgroundIndex = 1,
 	hoveredBackgroundIndex = 0,
@@ -171,7 +169,11 @@ return Rodux.createReducer({
 
 		local newGroups = {}
 		for index, group in ipairs(action.groups) do
-			newGroups[index] = {id = group.Id, name = group.Name}
+			if EnableDeveloperGetManageGroupUrl then
+				newGroups[index] = {id = group.id, name = group.name}
+			else
+				newGroups[index] = {id = group.Id, name = group.Name}
+			end
 		end
 
 		local newState = Cryo.Dictionary.join(state, {
@@ -192,21 +194,10 @@ return Rodux.createReducer({
 			end
 
 			newState.groupIndex = newIndex
-
-			if FFlagStudioMarketplaceTabsEnabled then
-				newState.categories = Category.INVENTORY_WITH_GROUPS
-			else
-				newState.categories = Category.CATEGORIES
-			end
+			newState.categories = Category.INVENTORY_WITH_GROUPS
 		else
 			newState.groupIndex = 0
-
-			if FFlagStudioMarketplaceTabsEnabled then
-				newState.categories = Category.INVENTORY
-			else
-				newState.categories = Category.CATEGORIES_WITHOUT_GROUPS
-			end
-
+			newState.categories = Category.INVENTORY
 			if newState.categoryIndex > #newState.categories then
 				newState.categoryIndex = 1
 			end

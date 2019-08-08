@@ -14,6 +14,8 @@ local SetPerformanceStatsVisible = require(Actions.SetPerformanceStatsVisible)
 local SetSmallTouchDevice = require(Actions.SetSmallTouchDevice)
 local SetTenFootInterface = require(Actions.SetTenFootInterface)
 local SetInspectMenuEnabled = require(Actions.SetInspectMenuEnabled)
+local SetIsUsingGamepad = require(Actions.SetIsUsingGamepad)
+local SetHasPermissionToVoiceChat = require(Actions.SetHasPermissionToVoiceChat)
 
 local initialDisplayOptions = {
 	setVisible = true, --If the user wants the leaderboard visible or not
@@ -25,6 +27,8 @@ local initialDisplayOptions = {
 	playerlistCoreGuiEnabled = true,
 	topbarEnabled = true,
 	isTenFootInterface = false,
+	isUsingGamepad = false,
+	hasPermissionToVoiceChat = false,
 	tempHideKeys = {},
 }
 
@@ -86,12 +90,25 @@ local DisplayOptions = Rodux.createReducer(initialDisplayOptions, {
 	[SetTenFootInterface.name] = function(state, action)
 		return updateIsVisible(Cryo.Dictionary.join(state, {
 			isTenFootInterface = action.isTenFootInterface,
+			setVisible = false,
 		}))
 	end,
 
 	[SetInspectMenuEnabled.name] = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			inspectMenuEnabled = action.enabled,
+		})
+	end,
+
+	[SetIsUsingGamepad.name] = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			isUsingGamepad = action.isUsingGamepad,
+		})
+	end,
+
+	[SetHasPermissionToVoiceChat.name] = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			hasPermissionToVoiceChat = action.hasPermissionToVoiceChat,
 		})
 	end,
 })

@@ -3,10 +3,13 @@ local Plugin = script.Parent.Parent.Parent
 local Libs = Plugin.Libs
 local Cryo = require(Libs.Cryo)
 
-local Colors = require(Plugin.Core.Util.Colors)
-local createSignal = require(Plugin.Core.Util.createSignal)
-local Immutable = require(Plugin.Core.Util.Immutable)
-local wrapStrictTable = require(Plugin.Core.Util.wrapStrictTable)
+local createTheme = require(Libs.UILibrary).createTheme
+
+local Util = Plugin.Core.Util
+local Colors = require(Util.Colors)
+local createSignal = require(Util.createSignal)
+local wrapStrictTable = require(Util.wrapStrictTable)
+local Images = require(Util.Images)
 
 local ToolboxTheme = {}
 ToolboxTheme.__index = ToolboxTheme
@@ -37,6 +40,8 @@ function ToolboxTheme.new(options)
 		_externalThemeChangedConnection = nil,
 
 		_values = {},
+		-- So we don't mix up Toolbox theme and UILibrary theme
+		_UILibraryTheme = {},
 
 		_signal = createSignal(),
 	}
@@ -69,7 +74,12 @@ function ToolboxTheme:_update(changedValues)
 	self._values = (Cryo.Dictionary.join)(self._values,
 		changedValues)
 	self.values = wrapStrictTable(self._values, "theme")
-	self._signal:fire(self.values)
+	self._signal:fire(self.values, self._UILibraryTheme)
+end
+
+function ToolboxTheme:_updateUILibrary(style, overrides)
+	self._UILibraryTheme = createTheme(style, overrides)
+	self._signal:fire(self.values, self._UILibraryTheme)
 end
 
 function ToolboxTheme:_getExternalTheme()
@@ -182,6 +192,10 @@ function ToolboxTheme:_recalculateTheme()
 
 			assetName = {
 				textColor = color(c.LinkText),
+			},
+
+			status = {
+				textColor = color(c.MainText),
 			},
 
 			creatorName = {
@@ -393,6 +407,45 @@ function ToolboxTheme:_recalculateTheme()
 			selectedColor = isDark and Colors.WHITE or Colors.BLUE_PRIMARY,
 		},
 	})
+
+	-- Need more color for the style
+	local styleGuide = {
+		backgroundColor = color(c.InputFieldBackground),
+		textColor = color(c.MainText),
+		subTextColor = color(c.SubText),
+		dimmerTextColor = color(c.DimmedText),
+		disabledColor = color(c.Tab),
+		borderColor = color(c.Border),
+		hoverColor = isDark and color(c.MainButton) or color(c.CurrentMarker),
+
+		-- Dropdown item
+		hoveredItemColor = color(c.Button, m.Hover),
+		hoveredTextColor = color(c.ButtonText, m.Hover),
+
+		-- Dropdown button
+		selectionColor = color(c.Button, m.Selected),
+		selectedTextColor = color(c.ButtonText, m.Selected),
+		selectionBorderColor = color(c.ButtonBorder, m.Selected),
+
+		errorColor = color(c.ErrorText),
+	}
+
+	local overrides = {
+		toggleButton = {
+			defaultWidth = 40,
+			defaultHeight = 24,
+
+			onImage = isDark and Images.TOGGLE_ON_DARK or Images.TOGGLE_ON_LIGHT,
+			offImage = isDark and Images.TOGGLE_OFF_DARK or Images.TOGGLE_OFF_LIGHT,
+			disabledImage = isDark and Images.TOGGLE_DISABLE_DARK or Images.TOGGLE_DISABLE_LIGHT,
+		}
+	}
+
+	self:_updateUILibrary(styleGuide, overrides)
+end
+
+function ToolboxTheme:getUILibraryTheme()
+	return self._UILibraryTheme
 end
 
 return ToolboxTheme
