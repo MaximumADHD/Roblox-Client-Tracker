@@ -1,0 +1,51 @@
+#version 110
+
+struct Globals
+{
+    mat4 ViewProjection;
+    vec4 ViewRight;
+    vec4 ViewUp;
+    vec4 ViewDir;
+    vec3 CameraPosition;
+    vec3 AmbientColor;
+    vec3 SkyAmbient;
+    vec3 Lamp0Color;
+    vec3 Lamp0Dir;
+    vec3 Lamp1Color;
+    vec4 FogParams;
+    vec4 FogColor_GlobalForceFieldTime;
+    vec4 Technology_Exposure;
+    vec4 LightBorder;
+    vec4 LightConfig0;
+    vec4 LightConfig1;
+    vec4 LightConfig2;
+    vec4 LightConfig3;
+    vec4 ShadowMatrix0;
+    vec4 ShadowMatrix1;
+    vec4 ShadowMatrix2;
+    vec4 RefractionBias_FadeDistance_GlowFactor_SpecMul;
+    vec4 OutlineBrightness_ShadowInfo;
+    vec4 CascadeSphere0;
+    vec4 CascadeSphere1;
+    vec4 CascadeSphere2;
+    vec4 CascadeSphere3;
+    float hybridLerpDist;
+    float hybridLerpSlope;
+    float evsmPosExp;
+    float evsmNegExp;
+    float globalShadow;
+    float shadowBias;
+    float shadowAlphaRef;
+    float debugFlagsShadows;
+};
+
+uniform vec4 CB0[32];
+varying vec4 VARYING0;
+varying vec3 VARYING1;
+
+void main()
+{
+    vec3 _233 = mix(CB0[14].xyz, mix(VARYING0.xyz, sqrt(clamp((VARYING0.xyz * VARYING0.xyz) * CB0[15].z, vec3(0.0), vec3(1.0))), vec3(CB0[15].x)).xyz, vec3(clamp((CB0[13].x * length(VARYING1)) + CB0[13].y, 0.0, 1.0)));
+    gl_FragData[0] = vec4(_233.x, _233.y, _233.z, VARYING0.w);
+}
+

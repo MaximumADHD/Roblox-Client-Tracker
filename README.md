@@ -34,9 +34,6 @@ This is a sorted list of dumped strings from Roblox Studio's exe. There is *some
 ## FVariables.txt
 This is a sorted list of fast variables, which are used by Roblox to toggle changes to the engine remotely on multiple platforms without having to redeploy the client.
 
-## Legacy-API-Dump.txt
-This is the legacy version of Roblox's API Dump. It is a feature bundled with their game client that exports a readable version of Roblox's usable Lua API. The file is extracted using `RobloxPlayerBeta.exe --API Legacy-API-Dump.txt`
-
 ## RobloxShaderData.csv
 This CSV maps all of Roblox's known shaders, and which graphics APIs use them. Each mapped shader has a mapped name and shader-type.
 
