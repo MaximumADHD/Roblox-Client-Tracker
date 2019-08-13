@@ -20,13 +20,13 @@ varying vec2 VARYING0;
 
 void main()
 {
-    vec4 _294 = texture2D(Texture0Texture, VARYING0);
-    vec3 _295 = _294.xyz;
-    vec3 _333 = texture2D(Texture3Texture, VARYING0).xyz + ((_295 * ((vec3(max(max(max(_294.x, _294.y), _294.z) - CB1[7].y, 0.0)) * CB1[7].x) * 3.2999999523162841796875)) * 2.0);
-    vec3 _339 = ((_295 * _295) * 4.0) + ((_333 * _333) * 4.0);
-    vec3 _412 = _339 * CB1[5].x;
-    vec3 _430 = ((_339 * (_412 + vec3(CB1[5].y))) / ((_339 * (_412 + vec3(CB1[5].z))) + vec3(CB1[5].w))) * CB1[6].x;
-    gl_FragData[0] = vec4(dot(_430, CB1[1].xyz) + CB1[1].w, dot(_430, CB1[2].xyz) + CB1[2].w, dot(_430, CB1[3].xyz) + CB1[3].w, 1.0);
+    vec4 f0 = texture2D(Texture0Texture, VARYING0);
+    vec3 f1 = f0.xyz;
+    vec3 f2 = texture2D(Texture3Texture, VARYING0).xyz + ((f1 * ((vec3(max(max(max(f0.x, f0.y), f0.z) - CB1[7].y, 0.0)) * CB1[7].x) * 3.2999999523162841796875)) * 2.0);
+    vec3 f3 = ((f1 * f1) * 4.0) + ((f2 * f2) * 4.0);
+    vec3 f4 = f3 * CB1[5].x;
+    vec3 f5 = ((f3 * (f4 + vec3(CB1[5].y))) / ((f3 * (f4 + vec3(CB1[5].z))) + vec3(CB1[5].w))) * CB1[6].x;
+    gl_FragData[0] = vec4(dot(f5, CB1[1].xyz) + CB1[1].w, dot(f5, CB1[2].xyz) + CB1[2].w, dot(f5, CB1[3].xyz) + CB1[3].w, 1.0);
 }
 
 //$$Texture0Texture=s0

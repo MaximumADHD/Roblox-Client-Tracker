@@ -20,15 +20,15 @@ out vec4 VARYING2;
 
 void main()
 {
-    vec2 _226 = (POSITION.xy * 0.5) + vec2(0.5);
-    vec2 _191 = CB1[0].zw * 0.25;
-    vec2 _195 = _226 + (_191 * vec2(-1.0));
-    vec2 _202 = _226 + (_191 * vec2(1.0, -1.0));
-    vec2 _209 = _226 + (_191 * vec2(-1.0, 1.0));
-    vec2 _216 = _226 + _191;
+    vec2 v0 = (POSITION.xy * 0.5) + vec2(0.5);
+    vec2 v1 = CB1[0].zw * 0.25;
+    vec2 v2 = v0 + (v1 * vec2(-1.0));
+    vec2 v3 = v0 + (v1 * vec2(1.0, -1.0));
+    vec2 v4 = v0 + (v1 * vec2(-1.0, 1.0));
+    vec2 v5 = v0 + v1;
     gl_Position = POSITION;
-    VARYING0 = _226;
-    VARYING1 = vec4(_195.x, _195.y, _202.x, _202.y);
-    VARYING2 = vec4(_209.x, _209.y, _216.x, _216.y);
+    VARYING0 = v0;
+    VARYING1 = vec4(v2.x, v2.y, v3.x, v3.y);
+    VARYING2 = vec4(v4.x, v4.y, v5.x, v5.y);
 }
 

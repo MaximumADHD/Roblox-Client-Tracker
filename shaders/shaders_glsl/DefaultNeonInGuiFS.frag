@@ -45,12 +45,12 @@ varying vec4 VARYING4;
 
 void main()
 {
-    vec3 _686 = vec3(CB0[15].x);
-    float _629 = clamp((CB0[13].x * length(VARYING4.xyz)) + CB0[13].y, 0.0, 1.0);
-    vec3 _648 = mix(VARYING2.xyz, pow(VARYING2.xyz * 1.35000002384185791015625, vec3(4.0)) * 4.0, _686);
-    vec4 _948 = vec4(_648.x, _648.y, _648.z, vec4(0.0).w);
-    _948.w = _629 * VARYING2.w;
-    vec3 _858 = mix(CB0[14].xyz, mix(_948.xyz, sqrt(clamp(_948.xyz * CB0[15].z, vec3(0.0), vec3(1.0))), _686).xyz, vec3(_629));
-    gl_FragData[0] = vec4(_858.x, _858.y, _858.z, _948.w);
+    vec3 f0 = vec3(CB0[15].x);
+    float f1 = clamp((CB0[13].x * length(VARYING4.xyz)) + CB0[13].y, 0.0, 1.0);
+    vec3 f2 = mix(VARYING2.xyz, pow(VARYING2.xyz * 1.35000002384185791015625, vec3(4.0)) * 4.0, f0);
+    vec4 f3 = vec4(f2.x, f2.y, f2.z, vec4(0.0).w);
+    f3.w = f1 * VARYING2.w;
+    vec3 f4 = mix(CB0[14].xyz, mix(f3.xyz, sqrt(clamp(f3.xyz * CB0[15].z, vec3(0.0), vec3(1.0))), f0).xyz, vec3(f1));
+    gl_FragData[0] = vec4(f4.x, f4.y, f4.z, f3.w);
 }
 

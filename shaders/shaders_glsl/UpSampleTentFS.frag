@@ -19,11 +19,11 @@ varying vec2 VARYING0;
 
 void main()
 {
-    vec4 _164 = vec4(2.0, 2.0, -2.0, 0.0) * CB1[0].zwzw;
-    vec2 _168 = _164.xy;
-    vec2 _174 = _164.wy;
-    vec2 _183 = _164.zy;
-    gl_FragData[0] = ((((((((texture2D(Texture0Texture, VARYING0 - _168) + (texture2D(Texture0Texture, VARYING0 - _174) * 2.0)) + texture2D(Texture0Texture, VARYING0 - _183)) + (texture2D(Texture0Texture, VARYING0 + _164.zw) * 2.0)) + (texture2D(Texture0Texture, VARYING0) * 4.0)) + (texture2D(Texture0Texture, VARYING0 + _164.xw) * 2.0)) + texture2D(Texture0Texture, VARYING0 + _183)) + (texture2D(Texture0Texture, VARYING0 + _174) * 2.0)) + texture2D(Texture0Texture, VARYING0 + _168)) * (0.0625 * CB1[2].x);
+    vec4 f0 = vec4(2.0, 2.0, -2.0, 0.0) * CB1[0].zwzw;
+    vec2 f1 = f0.xy;
+    vec2 f2 = f0.wy;
+    vec2 f3 = f0.zy;
+    gl_FragData[0] = ((((((((texture2D(Texture0Texture, VARYING0 - f1) + (texture2D(Texture0Texture, VARYING0 - f2) * 2.0)) + texture2D(Texture0Texture, VARYING0 - f3)) + (texture2D(Texture0Texture, VARYING0 + f0.zw) * 2.0)) + (texture2D(Texture0Texture, VARYING0) * 4.0)) + (texture2D(Texture0Texture, VARYING0 + f0.xw) * 2.0)) + texture2D(Texture0Texture, VARYING0 + f3)) + (texture2D(Texture0Texture, VARYING0 + f2) * 2.0)) + texture2D(Texture0Texture, VARYING0 + f1)) * (0.0625 * CB1[2].x);
 }
 
 //$$Texture0Texture=s0

@@ -19,11 +19,11 @@ out vec2 VARYING0;
 
 void main()
 {
-    int _146 = int(POSITION.z);
-    vec2 _169 = (POSITION.xy * CB3[0].zw) + CB3[_146 * 1 + 0].zw;
-    vec2 _193 = _169;
-    _193.y = CB1[7].y - _169.y;
-    gl_Position = vec4((vec2(2.0) * ((POSITION.xy * CB3[0].xy) + CB3[_146 * 1 + 0].xy)) + vec2(-1.0), 0.0, 1.0);
-    VARYING0 = _193;
+    int v0 = int(POSITION.z);
+    vec2 v1 = (POSITION.xy * CB3[0].zw) + CB3[v0 * 1 + 0].zw;
+    vec2 v2 = v1;
+    v2.y = CB1[7].y - v1.y;
+    gl_Position = vec4((vec2(2.0) * ((POSITION.xy * CB3[0].xy) + CB3[v0 * 1 + 0].xy)) + vec2(-1.0), 0.0, 1.0);
+    VARYING0 = v2;
 }
 

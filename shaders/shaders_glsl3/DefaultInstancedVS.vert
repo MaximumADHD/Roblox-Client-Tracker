@@ -1,7 +1,7 @@
 #version 150
 
-const vec3 _260[16] = vec3[](vec3(0.0, 0.0, 1.0), vec3(1.0, 0.0, 0.0), vec3(1.0, 0.0, 0.0), vec3(0.0, 0.0, 1.0), vec3(1.0, 0.0, 0.0), vec3(1.0, 0.0, 0.0), vec3(1.0, 0.0, 0.0), vec3(1.0, 0.0, 0.0), vec3(0.0, 0.0, 1.0), vec3(0.0), vec3(1.0, 0.0, 0.0), vec3(0.0, 1.0, 0.0), vec3(0.0, 1.0, 0.0), vec3(1.0, 0.0, 0.0), vec3(0.0, 1.0, 0.0), vec3(0.0, 1.0, 0.0));
-const vec3 _272[16] = vec3[](vec3(0.0, 1.0, 0.0), vec3(0.0, 0.0, 1.0), vec3(0.0, 1.0, 0.0), vec3(0.0, 1.0, 0.0), vec3(0.0, 0.0, 1.0), vec3(0.0, 1.0, 0.0), vec3(0.0, 0.699999988079071044921875, 0.699999988079071044921875), vec3(0.0, 0.699999988079071044921875, 0.699999988079071044921875), vec3(0.699999988079071044921875, 0.699999988079071044921875, 0.0), vec3(0.0), vec3(0.0, 0.0, 1.0), vec3(0.0, 0.0, 1.0), vec3(1.0, 0.0, 0.0), vec3(0.0, 0.0, 1.0), vec3(0.0, 0.0, -1.0), vec3(0.0, 0.0, 1.0));
+const vec3 v0[16] = vec3[](vec3(0.0, 0.0, 1.0), vec3(1.0, 0.0, 0.0), vec3(1.0, 0.0, 0.0), vec3(0.0, 0.0, 1.0), vec3(1.0, 0.0, 0.0), vec3(1.0, 0.0, 0.0), vec3(1.0, 0.0, 0.0), vec3(1.0, 0.0, 0.0), vec3(0.0, 0.0, 1.0), vec3(0.0), vec3(1.0, 0.0, 0.0), vec3(0.0, 1.0, 0.0), vec3(0.0, 1.0, 0.0), vec3(1.0, 0.0, 0.0), vec3(0.0, 1.0, 0.0), vec3(0.0, 1.0, 0.0));
+const vec3 v1[16] = vec3[](vec3(0.0, 1.0, 0.0), vec3(0.0, 0.0, 1.0), vec3(0.0, 1.0, 0.0), vec3(0.0, 1.0, 0.0), vec3(0.0, 0.0, 1.0), vec3(0.0, 1.0, 0.0), vec3(0.0, 0.699999988079071044921875, 0.699999988079071044921875), vec3(0.0, 0.699999988079071044921875, 0.699999988079071044921875), vec3(0.699999988079071044921875, 0.699999988079071044921875, 0.0), vec3(0.0), vec3(0.0, 0.0, 1.0), vec3(0.0, 0.0, 1.0), vec3(1.0, 0.0, 0.0), vec3(0.0, 0.0, 1.0), vec3(0.0, 0.0, -1.0), vec3(0.0, 0.0, 1.0));
 
 struct Globals
 {
@@ -71,36 +71,36 @@ out float VARYING7;
 
 void main()
 {
-    int _623 = int(NORMAL.w);
-    vec3 _664 = normalize(((NORMAL.xyz * 0.0078740157186985015869140625) - vec3(1.0)) / (CB1[gl_InstanceID * 7 + 3].xyz + vec3(0.001000000047497451305389404296875)));
-    vec3 _670 = POSITION.xyz * CB1[gl_InstanceID * 7 + 3].xyz;
-    vec4 _672 = vec4(_670.x, _670.y, _670.z, POSITION.w);
-    float _675 = dot(CB1[gl_InstanceID * 7 + 0], _672);
-    float _678 = dot(CB1[gl_InstanceID * 7 + 1], _672);
-    float _681 = dot(CB1[gl_InstanceID * 7 + 2], _672);
-    vec3 _682 = vec3(_675, _678, _681);
-    vec3 _695 = vec3(dot(CB1[gl_InstanceID * 7 + 0].xyz, _664), dot(CB1[gl_InstanceID * 7 + 1].xyz, _664), dot(CB1[gl_InstanceID * 7 + 2].xyz, _664));
-    vec2 _976 = vec2(0.0);
-    _976.x = dot(CB1[gl_InstanceID * 7 + 5].xyz, _260[_623]);
-    vec2 _978 = _976;
-    _978.y = dot(CB1[gl_InstanceID * 7 + 5].xyz, _272[_623]);
-    vec2 _980 = vec2(0.0);
-    _980.x = dot(CB1[gl_InstanceID * 7 + 3].xyz, _260[_623]);
-    vec2 _982 = _980;
-    _982.y = dot(CB1[gl_InstanceID * 7 + 3].xyz, _272[_623]);
-    vec3 _767 = -CB0[11].xyz;
-    float _768 = dot(_695, _767);
-    vec3 _775 = CB0[7].xyz - _682;
-    vec4 _796 = vec4(_675, _678, _681, 1.0);
-    vec4 _799 = _796 * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
-    gl_Position = _799;
-    VARYING0 = vec4((TEXCOORD0.xy * _978) + CB1[gl_InstanceID * 7 + 6].xy, 0.0, 0.0);
-    VARYING1 = vec4(TEXCOORD0.zw * _982, 0.0, 0.0);
+    int v2 = int(NORMAL.w);
+    vec3 v3 = normalize(((NORMAL.xyz * 0.0078740157186985015869140625) - vec3(1.0)) / (CB1[gl_InstanceID * 7 + 3].xyz + vec3(0.001000000047497451305389404296875)));
+    vec3 v4 = POSITION.xyz * CB1[gl_InstanceID * 7 + 3].xyz;
+    vec4 v5 = vec4(v4.x, v4.y, v4.z, POSITION.w);
+    float v6 = dot(CB1[gl_InstanceID * 7 + 0], v5);
+    float v7 = dot(CB1[gl_InstanceID * 7 + 1], v5);
+    float v8 = dot(CB1[gl_InstanceID * 7 + 2], v5);
+    vec3 v9 = vec3(v6, v7, v8);
+    vec3 v10 = vec3(dot(CB1[gl_InstanceID * 7 + 0].xyz, v3), dot(CB1[gl_InstanceID * 7 + 1].xyz, v3), dot(CB1[gl_InstanceID * 7 + 2].xyz, v3));
+    vec2 v11 = vec2(0.0);
+    v11.x = dot(CB1[gl_InstanceID * 7 + 5].xyz, v0[v2]);
+    vec2 v12 = v11;
+    v12.y = dot(CB1[gl_InstanceID * 7 + 5].xyz, v1[v2]);
+    vec2 v13 = vec2(0.0);
+    v13.x = dot(CB1[gl_InstanceID * 7 + 3].xyz, v0[v2]);
+    vec2 v14 = v13;
+    v14.y = dot(CB1[gl_InstanceID * 7 + 3].xyz, v1[v2]);
+    vec3 v15 = -CB0[11].xyz;
+    float v16 = dot(v10, v15);
+    vec3 v17 = CB0[7].xyz - v9;
+    vec4 v18 = vec4(v6, v7, v8, 1.0);
+    vec4 v19 = v18 * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
+    gl_Position = v19;
+    VARYING0 = vec4((TEXCOORD0.xy * v12) + CB1[gl_InstanceID * 7 + 6].xy, 0.0, 0.0);
+    VARYING1 = vec4(TEXCOORD0.zw * v14, 0.0, 0.0);
     VARYING2 = CB1[gl_InstanceID * 7 + 4] * mix(COLOR0 * 0.0039215688593685626983642578125, vec4(1.0), vec4(float(CB1[gl_InstanceID * 7 + 3].w > 0.0)));
-    VARYING3 = vec4(((_682 + (_695 * 6.0)).yxz * CB0[17].xyz) + CB0[18].xyz, 0.0);
-    VARYING4 = vec4(_775, _799.w);
-    VARYING5 = vec4((CB0[10].xyz * max(_768, 0.0)) + (CB0[12].xyz * max(-_768, 0.0)), ((float(_768 > 0.0) * pow(clamp(dot(_695, normalize(_767 + normalize(_775))), 0.0, 1.0), CB1[gl_InstanceID * 7 + 6].w)) * (CB1[gl_InstanceID * 7 + 6].z * 0.0039215688593685626983642578125)) * CB0[24].w);
-    VARYING6 = vec4(dot(CB0[21], _796), dot(CB0[22], _796), dot(CB0[23], _796), 0.0);
+    VARYING3 = vec4(((v9 + (v10 * 6.0)).yxz * CB0[17].xyz) + CB0[18].xyz, 0.0);
+    VARYING4 = vec4(v17, v19.w);
+    VARYING5 = vec4((CB0[10].xyz * max(v16, 0.0)) + (CB0[12].xyz * max(-v16, 0.0)), ((float(v16 > 0.0) * pow(clamp(dot(v10, normalize(v15 + normalize(v17))), 0.0, 1.0), CB1[gl_InstanceID * 7 + 6].w)) * (CB1[gl_InstanceID * 7 + 6].z * 0.0039215688593685626983642578125)) * CB0[24].w);
+    VARYING6 = vec4(dot(CB0[21], v18), dot(CB0[22], v18), dot(CB0[23], v18), 0.0);
     VARYING7 = TEXCOORD2.w - 1.0;
 }
 

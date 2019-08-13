@@ -56,10 +56,10 @@ varying vec3 VARYING2;
 
 void main()
 {
-    vec4 _131 = POSITION * mat4(CB1[0], CB1[1], CB1[2], CB1[3]);
-    gl_Position = _131 * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
+    vec4 v0 = POSITION * mat4(CB1[0], CB1[1], CB1[2], CB1[3]);
+    gl_Position = v0 * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
     VARYING0 = TEXCOORD0;
     VARYING1 = vec4(CB1[4].xyz, CB1[4].w);
-    VARYING2 = CB0[7].xyz - _131.xyz;
+    VARYING2 = CB0[7].xyz - v0.xyz;
 }
 

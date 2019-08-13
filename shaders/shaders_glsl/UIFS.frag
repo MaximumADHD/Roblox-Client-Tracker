@@ -8,10 +8,10 @@ varying vec4 VARYING1;
 
 void main()
 {
-    vec4 _94 = texture2D(DiffuseMapTexture, VARYING0);
-    vec4 _100 = vec4(1.0, 1.0, 1.0, _94.x);
-    bvec4 _102 = bvec4(CB2[0].y > 0.5);
-    gl_FragData[0] = VARYING1 * vec4(_102.x ? _100.x : _94.x, _102.y ? _100.y : _94.y, _102.z ? _100.z : _94.z, _102.w ? _100.w : _94.w);
+    vec4 f0 = texture2D(DiffuseMapTexture, VARYING0);
+    vec4 f1 = vec4(1.0, 1.0, 1.0, f0.x);
+    bvec4 f2 = bvec4(CB2[0].y > 0.5);
+    gl_FragData[0] = VARYING1 * vec4(f2.x ? f1.x : f0.x, f2.y ? f1.y : f0.y, f2.z ? f1.z : f0.z, f2.w ? f1.w : f0.w);
 }
 
 //$$DiffuseMapTexture=s0

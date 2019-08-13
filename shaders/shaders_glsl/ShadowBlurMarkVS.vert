@@ -17,14 +17,14 @@ attribute vec4 POSITION;
 
 void main()
 {
-    vec4 _110 = vec4(0.0);
-    _110.x = dot(CB1[1], POSITION);
-    vec4 _112 = _110;
-    _112.y = dot(CB1[2], POSITION);
-    vec4 _114 = _112;
-    _114.z = 0.5;
-    vec4 _116 = _114;
-    _116.w = 1.0;
-    gl_Position = _116;
+    vec4 v0 = vec4(0.0);
+    v0.x = dot(CB1[1], POSITION);
+    vec4 v1 = v0;
+    v1.y = dot(CB1[2], POSITION);
+    vec4 v2 = v1;
+    v2.z = 0.5;
+    vec4 v3 = v2;
+    v3.w = 1.0;
+    gl_Position = v3;
 }
 

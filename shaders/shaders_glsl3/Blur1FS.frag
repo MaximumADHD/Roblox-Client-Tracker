@@ -20,12 +20,12 @@ out vec4 _entryPointOutput;
 
 void main()
 {
-    float _221 = 1.0 / ((2.0 * CB1[1].z) * CB1[1].z);
-    float _236 = float((2 * 0) + 1);
-    float _252 = exp((((-1.0) - _236) * (_236 + 1.0)) * _221);
-    float _255 = exp(((-_236) * _236) * _221) + _252;
-    vec2 _265 = CB1[1].xy * (_236 + (_252 / _255));
-    _entryPointOutput = (texture(Texture0Texture, VARYING0) + ((texture(Texture0Texture, VARYING0 + _265) + texture(Texture0Texture, VARYING0 - _265)) * _255)) / vec4(1.0 + (2.0 * _255));
+    float f0 = 1.0 / ((2.0 * CB1[1].z) * CB1[1].z);
+    float f1 = float((2 * 0) + 1);
+    float f2 = exp((((-1.0) - f1) * (f1 + 1.0)) * f0);
+    float f3 = exp(((-f1) * f1) * f0) + f2;
+    vec2 f4 = CB1[1].xy * (f1 + (f2 / f3));
+    _entryPointOutput = (texture(Texture0Texture, VARYING0) + ((texture(Texture0Texture, VARYING0 + f4) + texture(Texture0Texture, VARYING0 - f4)) * f3)) / vec4(1.0 + (2.0 * f3));
 }
 
 //$$Texture0Texture=s0

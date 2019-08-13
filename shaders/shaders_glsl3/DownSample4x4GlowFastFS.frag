@@ -21,11 +21,11 @@ out vec4 _entryPointOutput;
 
 void main()
 {
-    vec4 _173 = texture(Texture0Texture, VARYING1.xy);
-    float _195 = _173.x;
-    vec4 _179 = texture(Texture0Texture, VARYING2.zw);
-    float _230 = _179.x;
-    _entryPointOutput = ((vec4(_195, _173.yz, 1.0) * max(1.0 - _173.w, CB1[7].x * pow(clamp(max(max(_195, _173.y), _173.z), 0.0, 1.0), CB1[7].y))) + (vec4(_230, _179.yz, 1.0) * max(1.0 - _179.w, CB1[7].x * pow(clamp(max(max(_230, _179.y), _179.z), 0.0, 1.0), CB1[7].y)))) * 0.5;
+    vec4 f0 = texture(Texture0Texture, VARYING1.xy);
+    float f1 = f0.x;
+    vec4 f2 = texture(Texture0Texture, VARYING2.zw);
+    float f3 = f2.x;
+    _entryPointOutput = ((vec4(f1, f0.yz, 1.0) * max(1.0 - f0.w, CB1[7].x * pow(clamp(max(max(f1, f0.y), f0.z), 0.0, 1.0), CB1[7].y))) + (vec4(f3, f2.yz, 1.0) * max(1.0 - f2.w, CB1[7].x * pow(clamp(max(max(f3, f2.y), f2.z), 0.0, 1.0), CB1[7].y)))) * 0.5;
 }
 
 //$$Texture0Texture=s0

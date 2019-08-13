@@ -55,21 +55,21 @@ varying vec4 VARYING3;
 
 void main()
 {
-    vec2 _314 = (VARYING3 / vec4(VARYING3.w)).xy;
-    vec2 _317 = (VARYING2 / vec4(VARYING2.w)).xy;
-    vec2 _319 = normalize(_314 - _317);
-    vec2 _322 = (VARYING0 / vec4(VARYING0.w)).xy;
-    vec2 _326 = _322 - _317;
-    if ((dot(_319, _326) < 0.0) && (dot(_319, (-_322) + _314) < 0.0))
+    vec2 f0 = (VARYING3 / vec4(VARYING3.w)).xy;
+    vec2 f1 = (VARYING2 / vec4(VARYING2.w)).xy;
+    vec2 f2 = normalize(f0 - f1);
+    vec2 f3 = (VARYING0 / vec4(VARYING0.w)).xy;
+    vec2 f4 = f3 - f1;
+    if ((dot(f2, f4) < 0.0) && (dot(f2, (-f3) + f0) < 0.0))
     {
         discard;
     }
-    vec4 _477 = vec4(1.0);
-    _477.w = clamp(((CB1[5].w * 0.5) + 0.5) - ((abs(dot(vec2(_319.y, -_319.x), _326)) * 0.5) * CB1[5].y), 0.0, 1.0);
-    vec4 _374 = _477 * CB1[4];
-    vec4 _483 = _374;
-    _483.w = 1.0 - pow(clamp(1.0 - _374.w, 0.0, 1.0), 0.4545454680919647216796875);
-    vec3 _446 = mix(CB0[14].xyz, mix(_483.xyz, sqrt(clamp((_483.xyz * _483.xyz) * CB0[15].z, vec3(0.0), vec3(1.0))), vec3(CB0[15].x)).xyz, vec3(clamp((CB0[13].x * length(VARYING1)) + CB0[13].y, 0.0, 1.0)));
-    gl_FragData[0] = vec4(_446.x, _446.y, _446.z, _483.w);
+    vec4 f5 = vec4(1.0);
+    f5.w = clamp(((CB1[5].w * 0.5) + 0.5) - ((abs(dot(vec2(f2.y, -f2.x), f4)) * 0.5) * CB1[5].y), 0.0, 1.0);
+    vec4 f6 = f5 * CB1[4];
+    vec4 f7 = f6;
+    f7.w = 1.0 - pow(clamp(1.0 - f6.w, 0.0, 1.0), 0.4545454680919647216796875);
+    vec3 f8 = mix(CB0[14].xyz, mix(f7.xyz, sqrt(clamp((f7.xyz * f7.xyz) * CB0[15].z, vec3(0.0), vec3(1.0))), vec3(CB0[15].x)).xyz, vec3(clamp((CB0[13].x * length(VARYING1)) + CB0[13].y, 0.0, 1.0)));
+    gl_FragData[0] = vec4(f8.x, f8.y, f8.z, f7.w);
 }
 

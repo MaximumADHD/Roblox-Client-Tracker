@@ -20,19 +20,19 @@ varying vec2 VARYING0;
 
 void main()
 {
-    vec3 _252 = texture2D(Texture0Texture, VARYING0 + (vec2(0.25) * CB1[0].zw)).xyz;
-    vec3 _323 = (_252 * _252) * 4.0;
-    float _340 = max(max(_323.x, _323.y), _323.z);
-    vec3 _354 = _323 * ((vec3(max(_340 - CB1[7].y, 0.0)) / vec3(_340 + 0.001000000047497451305389404296875)) * CB1[7].x);
-    vec3 _266 = texture2D(Texture0Texture, VARYING0 + (vec2(-0.25) * CB1[0].zw)).xyz;
-    vec3 _371 = (_266 * _266) * 4.0;
-    float _388 = max(max(_371.x, _371.y), _371.z);
-    vec3 _402 = _371 * ((vec3(max(_388 - CB1[7].y, 0.0)) / vec3(_388 + 0.001000000047497451305389404296875)) * CB1[7].x);
-    vec3 _284 = texture2D(Texture0Texture, VARYING0 + CB1[1].xy).xyz;
-    vec3 _419 = (_284 * _284) * 4.0;
-    float _436 = max(max(_419.x, _419.y), _419.z);
-    vec3 _291 = texture2D(Texture1Texture, VARYING0).xyz;
-    gl_FragData[0] = vec4(mix(_419 * ((vec3(max(_436 - CB1[7].y, 0.0)) / vec3(_436 + 0.001000000047497451305389404296875)) * CB1[7].x), clamp((_291 * _291) * 4.0, min(_354, _402), max(_354, _402)), vec3(CB1[1].z)), 1.0);
+    vec3 f0 = texture2D(Texture0Texture, VARYING0 + (vec2(0.25) * CB1[0].zw)).xyz;
+    vec3 f1 = (f0 * f0) * 4.0;
+    float f2 = max(max(f1.x, f1.y), f1.z);
+    vec3 f3 = f1 * ((vec3(max(f2 - CB1[7].y, 0.0)) / vec3(f2 + 0.001000000047497451305389404296875)) * CB1[7].x);
+    vec3 f4 = texture2D(Texture0Texture, VARYING0 + (vec2(-0.25) * CB1[0].zw)).xyz;
+    vec3 f5 = (f4 * f4) * 4.0;
+    float f6 = max(max(f5.x, f5.y), f5.z);
+    vec3 f7 = f5 * ((vec3(max(f6 - CB1[7].y, 0.0)) / vec3(f6 + 0.001000000047497451305389404296875)) * CB1[7].x);
+    vec3 f8 = texture2D(Texture0Texture, VARYING0 + CB1[1].xy).xyz;
+    vec3 f9 = (f8 * f8) * 4.0;
+    float f10 = max(max(f9.x, f9.y), f9.z);
+    vec3 f11 = texture2D(Texture1Texture, VARYING0).xyz;
+    gl_FragData[0] = vec4(mix(f9 * ((vec3(max(f10 - CB1[7].y, 0.0)) / vec3(f10 + 0.001000000047497451305389404296875)) * CB1[7].x), clamp((f11 * f11) * 4.0, min(f3, f7), max(f3, f7)), vec3(CB1[1].z)), 1.0);
 }
 
 //$$Texture0Texture=s0

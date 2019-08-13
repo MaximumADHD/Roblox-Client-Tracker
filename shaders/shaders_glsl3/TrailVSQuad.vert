@@ -55,17 +55,17 @@ out vec3 VARYING2;
 
 void main()
 {
-    vec4 _212 = vec4(0.0);
-    _212.x = TEXCOORD0.x;
-    vec4 _215 = _212;
-    _215.y = TEXCOORD0.y;
-    vec4 _217 = _215;
-    _217.z = 0.0;
-    vec2 _160 = _217.xy * TEXCOORD0.z;
-    vec4 _221 = vec4(_160.x, _160.y, _217.z, _217.w);
-    _221.w = TEXCOORD0.z;
+    vec4 v0 = vec4(0.0);
+    v0.x = TEXCOORD0.x;
+    vec4 v1 = v0;
+    v1.y = TEXCOORD0.y;
+    vec4 v2 = v1;
+    v2.z = 0.0;
+    vec2 v3 = v2.xy * TEXCOORD0.z;
+    vec4 v4 = vec4(v3.x, v3.y, v2.z, v2.w);
+    v4.w = TEXCOORD0.z;
     gl_Position = (POSITION + (CB0[6] * CB1[0].x)) * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
-    VARYING0 = _221;
+    VARYING0 = v4;
     VARYING1 = TEXCOORD1 * 0.0039215688593685626983642578125;
     VARYING2 = CB0[7].xyz - POSITION.xyz;
 }

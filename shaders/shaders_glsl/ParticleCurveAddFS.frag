@@ -55,14 +55,14 @@ varying vec4 VARYING1;
 
 void main()
 {
-    vec4 _187 = texture2D(texTexture, VARYING0.xy);
-    vec3 _202 = ((_187.xyz + VARYING1.xyz) * CB1[0].xyz).xyz;
-    vec3 _241 = mix(_202, sqrt(clamp((_202 * _202) * CB0[15].z, vec3(0.0), vec3(1.0))), vec3(CB0[15].x));
-    float _216 = (_187.w * VARYING1.w) * clamp(VARYING0.z, 0.0, 1.0);
-    vec4 _280 = vec4(_241.x, _241.y, _241.z, vec4(0.0).w);
-    _280.w = _216;
-    vec3 _222 = _280.xyz * _216;
-    gl_FragData[0] = vec4(_222.x, _222.y, _222.z, _280.w);
+    vec4 f0 = texture2D(texTexture, VARYING0.xy);
+    vec3 f1 = ((f0.xyz + VARYING1.xyz) * CB1[0].xyz).xyz;
+    vec3 f2 = mix(f1, sqrt(clamp((f1 * f1) * CB0[15].z, vec3(0.0), vec3(1.0))), vec3(CB0[15].x));
+    float f3 = (f0.w * VARYING1.w) * clamp(VARYING0.z, 0.0, 1.0);
+    vec4 f4 = vec4(f2.x, f2.y, f2.z, vec4(0.0).w);
+    f4.w = f3;
+    vec3 f5 = f4.xyz * f3;
+    gl_FragData[0] = vec4(f5.x, f5.y, f5.z, f4.w);
 }
 
 //$$texTexture=s0

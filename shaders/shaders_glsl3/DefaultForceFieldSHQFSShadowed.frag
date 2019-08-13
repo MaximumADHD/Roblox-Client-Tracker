@@ -52,17 +52,17 @@ out vec4 _entryPointOutput;
 
 void main()
 {
-    vec3 _518 = vec3(CB0[15].x);
-    vec4 _430 = vec4(CB0[7].xyz - VARYING4.xyz, 1.0) * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
-    float _529 = _430.w;
-    vec4 _468 = texture(DiffuseMapTexture, VARYING0.xy);
-    float _544 = _468.x;
-    float _558 = (_544 > 0.0) ? ((1.0 - clamp(abs(_544 - CB0[14].w) * 13.0, 0.0, 1.0)) * _468.w) : 0.0;
-    float _476 = max(max(1.0 - clamp(abs(dot(normalize(VARYING5.xyz), normalize(VARYING4.xyz))) * 2.0, 0.0, 1.0), 1.0 - clamp(((texture(GBufferDepthTexture, ((_430.xy * 0.5) + vec2(0.5 * _529)).xy / vec2(_529)).x * 500.0) - _529) * 3.0, 0.0, 1.0)), _558);
-    vec4 _491 = vec4(mix(VARYING2.xyz, VARYING2.xyz * VARYING2.xyz, _518), VARYING2.w * max(mix(_558, 1.0, _476) * _476, VARYING1.x));
-    vec3 _503 = _491.xyz;
-    vec3 _572 = mix(_503, sqrt(clamp(_503 * CB0[15].z, vec3(0.0), vec3(1.0))), _518);
-    _entryPointOutput = mix(vec4(CB0[14].xyz, 1.0), vec4(_572.x, _572.y, _572.z, _491.w), vec4(clamp((CB0[13].x * length(VARYING4.xyz)) + CB0[13].y, 0.0, 1.0)));
+    vec3 f0 = vec3(CB0[15].x);
+    vec4 f1 = vec4(CB0[7].xyz - VARYING4.xyz, 1.0) * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
+    float f2 = f1.w;
+    vec4 f3 = texture(DiffuseMapTexture, VARYING0.xy);
+    float f4 = f3.x;
+    float f5 = (f4 > 0.0) ? ((1.0 - clamp(abs(f4 - CB0[14].w) * 13.0, 0.0, 1.0)) * f3.w) : 0.0;
+    float f6 = max(max(1.0 - clamp(abs(dot(normalize(VARYING5.xyz), normalize(VARYING4.xyz))) * 2.0, 0.0, 1.0), 1.0 - clamp(((texture(GBufferDepthTexture, ((f1.xy * 0.5) + vec2(0.5 * f2)).xy / vec2(f2)).x * 500.0) - f2) * 3.0, 0.0, 1.0)), f5);
+    vec4 f7 = vec4(mix(VARYING2.xyz, VARYING2.xyz * VARYING2.xyz, f0), VARYING2.w * max(mix(f5, 1.0, f6) * f6, VARYING1.x));
+    vec3 f8 = f7.xyz;
+    vec3 f9 = mix(f8, sqrt(clamp(f8 * CB0[15].z, vec3(0.0), vec3(1.0))), f0);
+    _entryPointOutput = mix(vec4(CB0[14].xyz, 1.0), vec4(f9.x, f9.y, f9.z, f7.w), vec4(clamp((CB0[13].x * length(VARYING4.xyz)) + CB0[13].y, 0.0, 1.0)));
 }
 
 //$$GBufferDepthTexture=s10

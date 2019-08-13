@@ -59,24 +59,24 @@ out float VARYING8;
 
 void main()
 {
-    vec3 _390 = (NORMAL.xyz * 0.0078740157186985015869140625) - vec3(1.0);
-    float _423 = dot(_390, -CB0[11].xyz);
-    vec4 _434 = vec4(POSITION.xyz, 1.0) * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
-    vec4 _439 = vec4(TEXCOORD0, 0.0, 0.0);
-    vec4 _444 = vec4(TEXCOORD1, 0.0, 0.0);
-    float _474 = _434.w;
-    vec4 _491 = ((exp2(TEXCOORD3 * 0.0625) - vec4(1.0)) * CB0[24].z) + vec4((0.5 * _474) * CB0[24].y);
-    vec4 _635 = vec4(POSITION.xyz, 0.0);
-    _635.w = COLOR1.w * 0.0039215688593685626983642578125;
-    gl_Position = _434;
-    VARYING0 = vec4(_439.x, _439.y, _491.x, _491.y);
-    VARYING1 = vec4(_444.x, _444.y, _491.z, _491.w);
+    vec3 v0 = (NORMAL.xyz * 0.0078740157186985015869140625) - vec3(1.0);
+    float v1 = dot(v0, -CB0[11].xyz);
+    vec4 v2 = vec4(POSITION.xyz, 1.0) * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
+    vec4 v3 = vec4(TEXCOORD0, 0.0, 0.0);
+    vec4 v4 = vec4(TEXCOORD1, 0.0, 0.0);
+    float v5 = v2.w;
+    vec4 v6 = ((exp2(TEXCOORD3 * 0.0625) - vec4(1.0)) * CB0[24].z) + vec4((0.5 * v5) * CB0[24].y);
+    vec4 v7 = vec4(POSITION.xyz, 0.0);
+    v7.w = COLOR1.w * 0.0039215688593685626983642578125;
+    gl_Position = v2;
+    VARYING0 = vec4(v3.x, v3.y, v6.x, v6.y);
+    VARYING1 = vec4(v4.x, v4.y, v6.z, v6.w);
     VARYING2 = COLOR0;
-    VARYING3 = vec4(((POSITION.xyz + (_390 * 6.0)).yxz * CB0[17].xyz) + CB0[18].xyz, 0.0);
-    VARYING4 = vec4(CB0[7].xyz - POSITION.xyz, _474);
-    VARYING5 = vec4(_390, COLOR1.z);
-    VARYING6 = vec4((CB0[10].xyz * max(_423, 0.0)) + (CB0[12].xyz * max(-_423, 0.0)), (float(_423 > 0.0) * (COLOR1.y * 0.0039215688593685626983642578125)) * CB0[24].w);
-    VARYING7 = _635;
+    VARYING3 = vec4(((POSITION.xyz + (v0 * 6.0)).yxz * CB0[17].xyz) + CB0[18].xyz, 0.0);
+    VARYING4 = vec4(CB0[7].xyz - POSITION.xyz, v5);
+    VARYING5 = vec4(v0, COLOR1.z);
+    VARYING6 = vec4((CB0[10].xyz * max(v1, 0.0)) + (CB0[12].xyz * max(-v1, 0.0)), (float(v1 > 0.0) * (COLOR1.y * 0.0039215688593685626983642578125)) * CB0[24].w);
+    VARYING7 = v7;
     VARYING8 = NORMAL.w;
 }
 

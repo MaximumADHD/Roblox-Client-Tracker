@@ -19,23 +19,23 @@ varying vec2 VARYING0;
 
 void main()
 {
-    vec4 _194 = texture2D(mapTexture, VARYING0);
-    float _195 = _194.y;
-    float _261;
-    float _262;
-    _262 = 0.0;
-    _261 = 0.0;
-    for (int _260 = -3; _260 <= 3; )
+    vec4 f0 = texture2D(mapTexture, VARYING0);
+    float f1 = f0.y;
+    float f2;
+    float f3;
+    f3 = 0.0;
+    f2 = 0.0;
+    for (int f4 = -3; f4 <= 3; )
     {
-        float _208 = float(_260);
-        vec4 _222 = texture2D(mapTexture, VARYING0 + (vec2(0.0, CB1[0].w) * _208));
-        float _232 = exp(((-_208) * _208) * 0.22222222387790679931640625) * float(abs(_222.y - _195) < clamp(_195 * 0.06399999558925628662109375, 7.999999797903001308441162109375e-05, 0.008000000379979610443115234375));
-        _262 += _232;
-        _261 += (_222.x * _232);
-        _260++;
+        float f5 = float(f4);
+        vec4 f6 = texture2D(mapTexture, VARYING0 + (vec2(0.0, CB1[0].w) * f5));
+        float f7 = exp(((-f5) * f5) * 0.22222222387790679931640625) * float(abs(f6.y - f1) < clamp(f1 * 0.06399999558925628662109375, 7.999999797903001308441162109375e-05, 0.008000000379979610443115234375));
+        f3 += f7;
+        f2 += (f6.x * f7);
+        f4++;
         continue;
     }
-    gl_FragData[0] = vec4(_261 / _262, _195, 0.0, 1.0);
+    gl_FragData[0] = vec4(f2 / f3, f1, 0.0, 1.0);
 }
 
 //$$mapTexture=s2

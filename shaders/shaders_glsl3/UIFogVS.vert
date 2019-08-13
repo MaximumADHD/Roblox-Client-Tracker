@@ -50,10 +50,10 @@ out vec3 VARYING2;
 
 void main()
 {
-    vec4 _119 = POSITION * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
-    vec4 _174 = _119;
-    _174.z = _119.z - CB2[0].x;
-    gl_Position = _174;
+    vec4 v0 = POSITION * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
+    vec4 v1 = v0;
+    v1.z = v0.z - CB2[0].x;
+    gl_Position = v1;
     VARYING0 = TEXCOORD0;
     VARYING1 = COLOR0;
     VARYING2 = CB0[7].xyz - POSITION.xyz;

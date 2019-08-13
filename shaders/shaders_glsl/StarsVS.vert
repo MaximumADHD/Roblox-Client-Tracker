@@ -57,12 +57,12 @@ varying vec4 VARYING1;
 
 void main()
 {
-    vec4 _118 = POSITION * mat4(CB1[0], CB1[1], CB1[2], CB1[3]);
-    vec4 _175 = _118 * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
-    _175.z = 0.0;
-    gl_Position = _175;
+    vec4 v0 = POSITION * mat4(CB1[0], CB1[1], CB1[2], CB1[3]);
+    vec4 v1 = v0 * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
+    v1.z = 0.0;
+    gl_Position = v1;
     VARYING0 = TEXCOORD0;
-    VARYING1 = COLOR0 * mix(CB1[9], CB1[8], vec4(_118.y * 0.0005882352706976234912872314453125));
+    VARYING1 = COLOR0 * mix(CB1[9], CB1[8], vec4(v0.y * 0.0005882352706976234912872314453125));
     gl_PointSize = 2.0;
 }
 

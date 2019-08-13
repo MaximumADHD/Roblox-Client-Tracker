@@ -21,15 +21,15 @@ out vec4 _entryPointOutput;
 
 void main()
 {
-    vec4 _197 = texture(Texture0Texture, VARYING1.xy);
-    float _235 = _197.x;
-    vec4 _203 = texture(Texture0Texture, VARYING1.zw);
-    float _270 = _203.x;
-    vec4 _209 = texture(Texture0Texture, VARYING2.xy);
-    float _305 = _209.x;
-    vec4 _215 = texture(Texture0Texture, VARYING2.zw);
-    float _340 = _215.x;
-    _entryPointOutput = ((((vec4(_235, _197.yz, 1.0) * max(1.0 - _197.w, CB1[7].x * pow(clamp(max(max(_235, _197.y), _197.z), 0.0, 1.0), CB1[7].y))) + (vec4(_270, _203.yz, 1.0) * max(1.0 - _203.w, CB1[7].x * pow(clamp(max(max(_270, _203.y), _203.z), 0.0, 1.0), CB1[7].y)))) + (vec4(_305, _209.yz, 1.0) * max(1.0 - _209.w, CB1[7].x * pow(clamp(max(max(_305, _209.y), _209.z), 0.0, 1.0), CB1[7].y)))) + (vec4(_340, _215.yz, 1.0) * max(1.0 - _215.w, CB1[7].x * pow(clamp(max(max(_340, _215.y), _215.z), 0.0, 1.0), CB1[7].y)))) * 0.25;
+    vec4 f0 = texture(Texture0Texture, VARYING1.xy);
+    float f1 = f0.x;
+    vec4 f2 = texture(Texture0Texture, VARYING1.zw);
+    float f3 = f2.x;
+    vec4 f4 = texture(Texture0Texture, VARYING2.xy);
+    float f5 = f4.x;
+    vec4 f6 = texture(Texture0Texture, VARYING2.zw);
+    float f7 = f6.x;
+    _entryPointOutput = ((((vec4(f1, f0.yz, 1.0) * max(1.0 - f0.w, CB1[7].x * pow(clamp(max(max(f1, f0.y), f0.z), 0.0, 1.0), CB1[7].y))) + (vec4(f3, f2.yz, 1.0) * max(1.0 - f2.w, CB1[7].x * pow(clamp(max(max(f3, f2.y), f2.z), 0.0, 1.0), CB1[7].y)))) + (vec4(f5, f4.yz, 1.0) * max(1.0 - f4.w, CB1[7].x * pow(clamp(max(max(f5, f4.y), f4.z), 0.0, 1.0), CB1[7].y)))) + (vec4(f7, f6.yz, 1.0) * max(1.0 - f6.w, CB1[7].x * pow(clamp(max(max(f7, f6.y), f6.z), 0.0, 1.0), CB1[7].y)))) * 0.25;
 }
 
 //$$Texture0Texture=s0

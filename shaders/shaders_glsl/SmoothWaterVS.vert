@@ -57,28 +57,28 @@ varying vec4 VARYING7;
 
 void main()
 {
-    vec3 _374 = (POSITION.xyz * CB1[0].w) + CB1[0].xyz;
-    vec3 _380 = (NORMAL.xyz * 0.0078740157186985015869140625) - vec3(1.0);
-    bvec3 _385 = equal(abs(POSITION.www), vec3(1.0, 2.0, 3.0));
-    vec3 _386 = vec3(_385.x ? vec3(1.0).x : vec3(0.0).x, _385.y ? vec3(1.0).y : vec3(0.0).y, _385.z ? vec3(1.0).z : vec3(0.0).z);
-    vec4 _400 = vec4(_374, 1.0) * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
-    vec4 _662 = _400;
-    _662.z = _400.z - (float(POSITION.w < 0.0) * 0.00200000009499490261077880859375);
-    vec3 _416 = CB0[7].xyz - _374;
-    int _500 = int(TEXCOORD1.x);
-    int _533 = int(TEXCOORD1.y);
-    int _566 = int(TEXCOORD1.z);
-    vec4 _670 = vec4(_386.x, _386.y, _386.z, vec4(0.0).w);
-    _670.w = dot(_386, TEXCOORD0.xyz) * 0.0039215688593685626983642578125;
-    bvec3 _475 = greaterThan(TEXCOORD1.xyz, vec3(7.5));
-    gl_Position = _662;
-    VARYING0 = _670;
-    VARYING1 = vec3(_475.x ? vec3(1.0).x : vec3(0.0).x, _475.y ? vec3(1.0).y : vec3(0.0).y, _475.z ? vec3(1.0).z : vec3(0.0).z);
-    VARYING2 = (vec2(dot(_374, CB2[_500 * 1 + 0].xyz), dot(_374, CB2[(18 + _500) * 1 + 0].xyz)) * 0.0500000007450580596923828125) + (vec2(NORMAL.w, floor(NORMAL.w * 2.6651442050933837890625)) * 0.100000001490116119384765625);
-    VARYING3 = (vec2(dot(_374, CB2[_533 * 1 + 0].xyz), dot(_374, CB2[(18 + _533) * 1 + 0].xyz)) * 0.0500000007450580596923828125) + (vec2(TEXCOORD0.w, floor(TEXCOORD0.w * 2.6651442050933837890625)) * 0.100000001490116119384765625);
-    VARYING4 = (vec2(dot(_374, CB2[_566 * 1 + 0].xyz), dot(_374, CB2[(18 + _566) * 1 + 0].xyz)) * 0.0500000007450580596923828125) + (vec2(TEXCOORD1.w, floor(TEXCOORD1.w * 2.6651442050933837890625)) * 0.100000001490116119384765625);
-    VARYING5 = vec4(((_374 + (_380 * 6.0)).yxz * CB0[17].xyz) + CB0[18].xyz, (CB0[13].x * length(_416)) + CB0[13].y);
-    VARYING6 = _380;
-    VARYING7 = vec4(_416, _400.w);
+    vec3 v0 = (POSITION.xyz * CB1[0].w) + CB1[0].xyz;
+    vec3 v1 = (NORMAL.xyz * 0.0078740157186985015869140625) - vec3(1.0);
+    bvec3 v2 = equal(abs(POSITION.www), vec3(1.0, 2.0, 3.0));
+    vec3 v3 = vec3(v2.x ? vec3(1.0).x : vec3(0.0).x, v2.y ? vec3(1.0).y : vec3(0.0).y, v2.z ? vec3(1.0).z : vec3(0.0).z);
+    vec4 v4 = vec4(v0, 1.0) * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
+    vec4 v5 = v4;
+    v5.z = v4.z - (float(POSITION.w < 0.0) * 0.00200000009499490261077880859375);
+    vec3 v6 = CB0[7].xyz - v0;
+    int v7 = int(TEXCOORD1.x);
+    int v8 = int(TEXCOORD1.y);
+    int v9 = int(TEXCOORD1.z);
+    vec4 v10 = vec4(v3.x, v3.y, v3.z, vec4(0.0).w);
+    v10.w = dot(v3, TEXCOORD0.xyz) * 0.0039215688593685626983642578125;
+    bvec3 v11 = greaterThan(TEXCOORD1.xyz, vec3(7.5));
+    gl_Position = v5;
+    VARYING0 = v10;
+    VARYING1 = vec3(v11.x ? vec3(1.0).x : vec3(0.0).x, v11.y ? vec3(1.0).y : vec3(0.0).y, v11.z ? vec3(1.0).z : vec3(0.0).z);
+    VARYING2 = (vec2(dot(v0, CB2[v7 * 1 + 0].xyz), dot(v0, CB2[(18 + v7) * 1 + 0].xyz)) * 0.0500000007450580596923828125) + (vec2(NORMAL.w, floor(NORMAL.w * 2.6651442050933837890625)) * 0.100000001490116119384765625);
+    VARYING3 = (vec2(dot(v0, CB2[v8 * 1 + 0].xyz), dot(v0, CB2[(18 + v8) * 1 + 0].xyz)) * 0.0500000007450580596923828125) + (vec2(TEXCOORD0.w, floor(TEXCOORD0.w * 2.6651442050933837890625)) * 0.100000001490116119384765625);
+    VARYING4 = (vec2(dot(v0, CB2[v9 * 1 + 0].xyz), dot(v0, CB2[(18 + v9) * 1 + 0].xyz)) * 0.0500000007450580596923828125) + (vec2(TEXCOORD1.w, floor(TEXCOORD1.w * 2.6651442050933837890625)) * 0.100000001490116119384765625);
+    VARYING5 = vec4(((v0 + (v1 * 6.0)).yxz * CB0[17].xyz) + CB0[18].xyz, (CB0[13].x * length(v6)) + CB0[13].y);
+    VARYING6 = v1;
+    VARYING7 = vec4(v6, v4.w);
 }
 

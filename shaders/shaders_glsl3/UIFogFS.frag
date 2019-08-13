@@ -50,13 +50,13 @@ out vec4 _entryPointOutput;
 
 void main()
 {
-    vec4 _199 = texture(DiffuseMapTexture, VARYING0);
-    vec4 _205 = vec4(1.0, 1.0, 1.0, _199.x);
-    bvec4 _207 = bvec4(CB2[0].y > 0.5);
-    vec4 _212 = VARYING1 * vec4(_207.x ? _205.x : _199.x, _207.y ? _205.y : _199.y, _207.z ? _205.z : _199.z, _207.w ? _205.w : _199.w);
-    vec3 _214 = _212.xyz;
-    vec3 _274 = mix(CB0[14].xyz, mix(_214, sqrt(clamp((_214 * _214) * CB0[15].z, vec3(0.0), vec3(1.0))), vec3(CB0[15].x)).xyz, vec3(clamp((CB0[13].x * length(VARYING2)) + CB0[13].y, 0.0, 1.0)));
-    _entryPointOutput = vec4(_274.x, _274.y, _274.z, _212.w);
+    vec4 f0 = texture(DiffuseMapTexture, VARYING0);
+    vec4 f1 = vec4(1.0, 1.0, 1.0, f0.x);
+    bvec4 f2 = bvec4(CB2[0].y > 0.5);
+    vec4 f3 = VARYING1 * vec4(f2.x ? f1.x : f0.x, f2.y ? f1.y : f0.y, f2.z ? f1.z : f0.z, f2.w ? f1.w : f0.w);
+    vec3 f4 = f3.xyz;
+    vec3 f5 = mix(CB0[14].xyz, mix(f4, sqrt(clamp((f4 * f4) * CB0[15].z, vec3(0.0), vec3(1.0))), vec3(CB0[15].x)).xyz, vec3(clamp((CB0[13].x * length(VARYING2)) + CB0[13].y, 0.0, 1.0)));
+    _entryPointOutput = vec4(f5.x, f5.y, f5.z, f3.w);
 }
 
 //$$DiffuseMapTexture=s0

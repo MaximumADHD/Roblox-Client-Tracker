@@ -49,10 +49,10 @@ out vec4 _entryPointOutput;
 
 void main()
 {
-    vec4 _188 = texture(DiffuseMapTexture, VARYING0) * VARYING1;
-    vec3 _190 = _188.xyz;
-    vec3 _250 = mix(CB0[14].xyz, mix(_190, sqrt(clamp((_190 * _190) * CB0[15].z, vec3(0.0), vec3(1.0))), vec3(CB0[15].x)).xyz, vec3(clamp((CB0[13].x * length(VARYING2)) + CB0[13].y, 0.0, 1.0)));
-    _entryPointOutput = vec4(_250.x, _250.y, _250.z, _188.w);
+    vec4 f0 = texture(DiffuseMapTexture, VARYING0) * VARYING1;
+    vec3 f1 = f0.xyz;
+    vec3 f2 = mix(CB0[14].xyz, mix(f1, sqrt(clamp((f1 * f1) * CB0[15].z, vec3(0.0), vec3(1.0))), vec3(CB0[15].x)).xyz, vec3(clamp((CB0[13].x * length(VARYING2)) + CB0[13].y, 0.0, 1.0)));
+    _entryPointOutput = vec4(f2.x, f2.y, f2.z, f0.w);
 }
 
 //$$DiffuseMapTexture=s0

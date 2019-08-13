@@ -48,10 +48,10 @@ out vec4 VARYING1;
 
 void main()
 {
-    vec4 _94 = POSITION * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
-    vec4 _138 = _94;
-    _138.y = -_94.y;
-    gl_Position = _138;
+    vec4 v0 = POSITION * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
+    vec4 v1 = v0;
+    v1.y = -v0.y;
+    gl_Position = v1;
     VARYING0 = TEXCOORD0 * vec2(0.0009765625, 0.0625);
     VARYING1 = COLOR0;
 }

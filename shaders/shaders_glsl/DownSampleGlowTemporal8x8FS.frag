@@ -20,19 +20,19 @@ varying vec2 VARYING0;
 
 void main()
 {
-    vec3 _279 = texture2D(Texture0Texture, VARYING0 + (vec2(0.25) * CB1[0].zw)).xyz;
-    vec3 _351 = (_279 * _279) * 4.0;
-    float _368 = max(max(_351.x, _351.y), _351.z);
-    vec3 _382 = _351 * ((vec3(max(_368 - CB1[7].y, 0.0)) / vec3(_368 + 0.001000000047497451305389404296875)) * CB1[7].x);
-    vec3 _293 = texture2D(Texture0Texture, VARYING0 + (vec2(-0.25) * CB1[0].zw)).xyz;
-    vec3 _399 = (_293 * _293) * 4.0;
-    float _416 = max(max(_399.x, _399.y), _399.z);
-    vec3 _430 = _399 * ((vec3(max(_416 - CB1[7].y, 0.0)) / vec3(_416 + 0.001000000047497451305389404296875)) * CB1[7].x);
-    vec3 _311 = texture2D(Texture0Texture, VARYING0 + CB1[1].xy).xyz;
-    vec3 _447 = (_311 * _311) * 4.0;
-    float _464 = max(max(_447.x, _447.y), _447.z);
-    vec3 _318 = texture2D(Texture1Texture, VARYING0).xyz;
-    gl_FragData[0] = vec4(sqrt(clamp(mix(_447 * ((vec3(max(_464 - CB1[7].y, 0.0)) / vec3(_464 + 0.001000000047497451305389404296875)) * CB1[7].x), clamp((_318 * _318) * 4.0, min(_382, _430), max(_382, _430)), vec3(CB1[1].z)) * 0.25, vec3(0.0), vec3(1.0))), 1.0);
+    vec3 f0 = texture2D(Texture0Texture, VARYING0 + (vec2(0.25) * CB1[0].zw)).xyz;
+    vec3 f1 = (f0 * f0) * 4.0;
+    float f2 = max(max(f1.x, f1.y), f1.z);
+    vec3 f3 = f1 * ((vec3(max(f2 - CB1[7].y, 0.0)) / vec3(f2 + 0.001000000047497451305389404296875)) * CB1[7].x);
+    vec3 f4 = texture2D(Texture0Texture, VARYING0 + (vec2(-0.25) * CB1[0].zw)).xyz;
+    vec3 f5 = (f4 * f4) * 4.0;
+    float f6 = max(max(f5.x, f5.y), f5.z);
+    vec3 f7 = f5 * ((vec3(max(f6 - CB1[7].y, 0.0)) / vec3(f6 + 0.001000000047497451305389404296875)) * CB1[7].x);
+    vec3 f8 = texture2D(Texture0Texture, VARYING0 + CB1[1].xy).xyz;
+    vec3 f9 = (f8 * f8) * 4.0;
+    float f10 = max(max(f9.x, f9.y), f9.z);
+    vec3 f11 = texture2D(Texture1Texture, VARYING0).xyz;
+    gl_FragData[0] = vec4(sqrt(clamp(mix(f9 * ((vec3(max(f10 - CB1[7].y, 0.0)) / vec3(f10 + 0.001000000047497451305389404296875)) * CB1[7].x), clamp((f11 * f11) * 4.0, min(f3, f7), max(f3, f7)), vec3(CB1[1].z)) * 0.25, vec3(0.0), vec3(1.0))), 1.0);
 }
 
 //$$Texture0Texture=s0

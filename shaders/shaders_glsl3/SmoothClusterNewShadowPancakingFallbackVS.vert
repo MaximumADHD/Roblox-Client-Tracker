@@ -46,10 +46,10 @@ out vec2 VARYING0;
 
 void main()
 {
-    vec4 _161 = vec4((POSITION.xyz * CB1[0].w) + CB1[0].xyz, 1.0) * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
-    vec4 _207 = _161;
-    _207.z = 0.5;
-    gl_Position = _207;
-    VARYING0 = vec2(_161.z + (float(POSITION.w < 0.0) * 0.004999999888241291046142578125), _161.w);
+    vec4 v0 = vec4((POSITION.xyz * CB1[0].w) + CB1[0].xyz, 1.0) * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
+    vec4 v1 = v0;
+    v1.z = 0.5;
+    gl_Position = v1;
+    VARYING0 = vec2(v0.z + (float(POSITION.w < 0.0) * 0.004999999888241291046142578125), v0.w);
 }
 

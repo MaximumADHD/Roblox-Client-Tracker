@@ -18,12 +18,12 @@ out vec2 VARYING0;
 
 void main()
 {
-    vec2 _142 = (POSITION.xy * vec2(0.5, -0.5)) + vec2(0.5);
-    vec2 _179 = _142;
-    _179.x = _142.x * CB1[1].x;
-    vec2 _182 = _179;
-    _182.y = _142.y * CB1[1].y;
+    vec2 v0 = (POSITION.xy * vec2(0.5, -0.5)) + vec2(0.5);
+    vec2 v1 = v0;
+    v1.x = v0.x * CB1[1].x;
+    vec2 v2 = v1;
+    v2.y = v0.y * CB1[1].y;
     gl_Position = POSITION;
-    VARYING0 = _182;
+    VARYING0 = v2;
 }
 

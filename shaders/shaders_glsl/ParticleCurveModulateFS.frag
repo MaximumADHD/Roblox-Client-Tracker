@@ -57,17 +57,17 @@ varying vec2 VARYING2;
 
 void main()
 {
-    vec4 _262 = texture2D(texTexture, VARYING0.xy);
-    vec4 _267 = VARYING1 * CB1[0];
-    vec3 _272 = _262.xyz * _267.xyz;
-    vec4 _398 = vec4(_272.x, _272.y, _272.z, vec4(0.0).w);
-    _398.w = _262.w * _267.w;
-    vec3 _323 = vec3(CB0[15].x);
-    vec4 _333 = texture2D(LightingAtlasTexture, VARYING2);
-    vec3 _292 = mix(_398.xyz, _398.xyz * _398.xyz, _323).xyz;
-    vec3 _304 = mix(_292, (_333.xyz * (_333.w * 120.0)) * _292, vec3(CB1[2].w)).xyz;
-    vec3 _376 = mix(CB0[14].xyz, mix(_304, sqrt(clamp(_304 * CB0[15].z, vec3(0.0), vec3(1.0))), _323).xyz, vec3(clamp(VARYING0.z, 0.0, 1.0)));
-    gl_FragData[0] = vec4(_376.x, _376.y, _376.z, _398.w);
+    vec4 f0 = texture2D(texTexture, VARYING0.xy);
+    vec4 f1 = VARYING1 * CB1[0];
+    vec3 f2 = f0.xyz * f1.xyz;
+    vec4 f3 = vec4(f2.x, f2.y, f2.z, vec4(0.0).w);
+    f3.w = f0.w * f1.w;
+    vec3 f4 = vec3(CB0[15].x);
+    vec4 f5 = texture2D(LightingAtlasTexture, VARYING2);
+    vec3 f6 = mix(f3.xyz, f3.xyz * f3.xyz, f4).xyz;
+    vec3 f7 = mix(f6, (f5.xyz * (f5.w * 120.0)) * f6, vec3(CB1[2].w)).xyz;
+    vec3 f8 = mix(CB0[14].xyz, mix(f7, sqrt(clamp(f7 * CB0[15].z, vec3(0.0), vec3(1.0))), f4).xyz, vec3(clamp(VARYING0.z, 0.0, 1.0)));
+    gl_FragData[0] = vec4(f8.x, f8.y, f8.z, f3.w);
 }
 
 //$$LightingAtlasTexture=s2

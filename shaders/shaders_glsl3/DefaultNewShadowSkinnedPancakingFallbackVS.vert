@@ -49,14 +49,14 @@ out vec2 VARYING1;
 
 void main()
 {
-    int _193 = int(COLOR0.x) * 3;
-    vec4 _232 = vec4(dot(CB1[_193 * 1 + 0], POSITION), dot(CB1[(_193 + 1) * 1 + 0], POSITION), dot(CB1[(_193 + 2) * 1 + 0], POSITION), 1.0) * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
-    vec4 _285 = _232;
-    _285.z = 0.5;
-    vec3 _287 = vec3(TEXCOORD0.x, TEXCOORD0.y, vec3(0.0).z);
-    _287.z = COLOR0.w * 0.0039215688593685626983642578125;
-    gl_Position = _285;
-    VARYING0 = _287;
-    VARYING1 = vec2(_232.zw);
+    int v0 = int(COLOR0.x) * 3;
+    vec4 v1 = vec4(dot(CB1[v0 * 1 + 0], POSITION), dot(CB1[(v0 + 1) * 1 + 0], POSITION), dot(CB1[(v0 + 2) * 1 + 0], POSITION), 1.0) * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
+    vec4 v2 = v1;
+    v2.z = 0.5;
+    vec3 v3 = vec3(TEXCOORD0.x, TEXCOORD0.y, vec3(0.0).z);
+    v3.z = COLOR0.w * 0.0039215688593685626983642578125;
+    gl_Position = v2;
+    VARYING0 = v3;
+    VARYING1 = vec2(v1.zw);
 }
 

@@ -57,13 +57,13 @@ varying vec4 VARYING3;
 
 void main()
 {
-    vec4 _235 = texture2D(texTexture, VARYING0.xy);
-    vec3 _257 = (_235.xyz * CB1[0].xyz).xyz;
-    float _271 = (_235.w * VARYING1.w) * (clamp(VARYING3.w * abs((texture2D(depthTexTexture, VARYING3.xy).x * 500.0) - VARYING3.z), 0.0, 1.0) * clamp(VARYING0.z, 0.0, 1.0));
-    vec3 _277 = mix(_257, sqrt(clamp((_257 * _257) * CB0[15].z, vec3(0.0), vec3(1.0))), vec3(CB0[15].x)).xyz * _271;
-    vec4 _371 = vec4(_277.x, _277.y, _277.z, vec4(0.0).w);
-    _371.w = _271 * CB1[1].y;
-    gl_FragData[0] = _371;
+    vec4 f0 = texture2D(texTexture, VARYING0.xy);
+    vec3 f1 = (f0.xyz * CB1[0].xyz).xyz;
+    float f2 = (f0.w * VARYING1.w) * (clamp(VARYING3.w * abs((texture2D(depthTexTexture, VARYING3.xy).x * 500.0) - VARYING3.z), 0.0, 1.0) * clamp(VARYING0.z, 0.0, 1.0));
+    vec3 f3 = mix(f1, sqrt(clamp((f1 * f1) * CB0[15].z, vec3(0.0), vec3(1.0))), vec3(CB0[15].x)).xyz * f2;
+    vec4 f4 = vec4(f3.x, f3.y, f3.z, vec4(0.0).w);
+    f4.w = f2 * CB1[1].y;
+    gl_FragData[0] = f4;
 }
 
 //$$depthTexTexture=s3

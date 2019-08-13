@@ -19,21 +19,21 @@ varying vec2 VARYING0;
 
 void main()
 {
-    float _198 = 1.0 / ((2.0 * CB1[1].z) * CB1[1].z);
-    float _213 = float((2 * 0) + 1);
-    float _229 = exp((((-1.0) - _213) * (_213 + 1.0)) * _198);
-    float _232 = exp(((-_213) * _213) * _198) + _229;
-    vec2 _242 = CB1[1].xy * (_213 + (_229 / _232));
-    int _262 = 0 + 1;
-    float _292 = float((2 * _262) + 1);
-    float _301 = exp((((-1.0) - _292) * (_292 + 1.0)) * _198);
-    float _302 = exp(((-_292) * _292) * _198) + _301;
-    vec2 _305 = CB1[1].xy * (_292 + (_301 / _302));
-    float _324 = float((2 * (_262 + 1)) + 1);
-    float _333 = exp((((-1.0) - _324) * (_324 + 1.0)) * _198);
-    float _334 = exp(((-_324) * _324) * _198) + _333;
-    vec2 _337 = CB1[1].xy * (_324 + (_333 / _334));
-    gl_FragData[0] = (((texture2D(Texture0Texture, VARYING0) + ((texture2D(Texture0Texture, VARYING0 + _242) + texture2D(Texture0Texture, VARYING0 - _242)) * _232)) + ((texture2D(Texture0Texture, VARYING0 + _305) + texture2D(Texture0Texture, VARYING0 - _305)) * _302)) + ((texture2D(Texture0Texture, VARYING0 + _337) + texture2D(Texture0Texture, VARYING0 - _337)) * _334)) / vec4(((1.0 + (2.0 * _232)) + (2.0 * _302)) + (2.0 * _334));
+    float f0 = 1.0 / ((2.0 * CB1[1].z) * CB1[1].z);
+    float f1 = float((2 * 0) + 1);
+    float f2 = exp((((-1.0) - f1) * (f1 + 1.0)) * f0);
+    float f3 = exp(((-f1) * f1) * f0) + f2;
+    vec2 f4 = CB1[1].xy * (f1 + (f2 / f3));
+    int f5 = 0 + 1;
+    float f6 = float((2 * f5) + 1);
+    float f7 = exp((((-1.0) - f6) * (f6 + 1.0)) * f0);
+    float f8 = exp(((-f6) * f6) * f0) + f7;
+    vec2 f9 = CB1[1].xy * (f6 + (f7 / f8));
+    float f10 = float((2 * (f5 + 1)) + 1);
+    float f11 = exp((((-1.0) - f10) * (f10 + 1.0)) * f0);
+    float f12 = exp(((-f10) * f10) * f0) + f11;
+    vec2 f13 = CB1[1].xy * (f10 + (f11 / f12));
+    gl_FragData[0] = (((texture2D(Texture0Texture, VARYING0) + ((texture2D(Texture0Texture, VARYING0 + f4) + texture2D(Texture0Texture, VARYING0 - f4)) * f3)) + ((texture2D(Texture0Texture, VARYING0 + f9) + texture2D(Texture0Texture, VARYING0 - f9)) * f8)) + ((texture2D(Texture0Texture, VARYING0 + f13) + texture2D(Texture0Texture, VARYING0 - f13)) * f12)) / vec4(((1.0 + (2.0 * f3)) + (2.0 * f8)) + (2.0 * f12));
 }
 
 //$$Texture0Texture=s0

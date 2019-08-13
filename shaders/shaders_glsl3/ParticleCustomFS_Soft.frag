@@ -60,17 +60,17 @@ out vec4 _entryPointOutput;
 
 void main()
 {
-    vec4 _293 = texture(texTexture, VARYING0.xy);
-    vec3 _313 = (_293.xyz * VARYING1.xyz).xyz;
-    vec3 _387 = vec3(CB0[15].x);
-    vec4 _397 = texture(LightingAtlasTexture, VARYING2);
-    vec3 _321 = mix(_313, _313 * _313, _387).xyz;
-    vec3 _333 = mix(_321, (_397.xyz * (_397.w * 120.0)) * _321, vec3(CB1[2].w)).xyz;
-    float _347 = (VARYING1.w * _293.w) * (clamp(VARYING3.w * abs((texture(depthTexTexture, VARYING3.xy).x * 500.0) - VARYING3.z), 0.0, 1.0) * clamp(VARYING0.z, 0.0, 1.0));
-    vec3 _353 = mix(_333, sqrt(clamp(_333 * CB0[15].z, vec3(0.0), vec3(1.0))), _387).xyz * _347;
-    vec4 _466 = vec4(_353.x, _353.y, _353.z, vec4(0.0).w);
-    _466.w = _347 * CB1[1].y;
-    _entryPointOutput = _466;
+    vec4 f0 = texture(texTexture, VARYING0.xy);
+    vec3 f1 = (f0.xyz * VARYING1.xyz).xyz;
+    vec3 f2 = vec3(CB0[15].x);
+    vec4 f3 = texture(LightingAtlasTexture, VARYING2);
+    vec3 f4 = mix(f1, f1 * f1, f2).xyz;
+    vec3 f5 = mix(f4, (f3.xyz * (f3.w * 120.0)) * f4, vec3(CB1[2].w)).xyz;
+    float f6 = (VARYING1.w * f0.w) * (clamp(VARYING3.w * abs((texture(depthTexTexture, VARYING3.xy).x * 500.0) - VARYING3.z), 0.0, 1.0) * clamp(VARYING0.z, 0.0, 1.0));
+    vec3 f7 = mix(f5, sqrt(clamp(f5 * CB0[15].z, vec3(0.0), vec3(1.0))), f2).xyz * f6;
+    vec4 f8 = vec4(f7.x, f7.y, f7.z, vec4(0.0).w);
+    f8.w = f6 * CB1[1].y;
+    _entryPointOutput = f8;
 }
 
 //$$LightingAtlasTexture=s2

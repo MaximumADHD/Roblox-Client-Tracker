@@ -58,28 +58,28 @@ out float VARYING7;
 
 void main()
 {
-    vec3 _495 = (NORMAL.xyz * 0.0078740157186985015869140625) - vec3(1.0);
-    int _506 = int(COLOR1.x) * 3;
-    int _512 = _506 + 1;
-    int _517 = _506 + 2;
-    float _522 = dot(CB1[_506 * 1 + 0], POSITION);
-    float _525 = dot(CB1[_512 * 1 + 0], POSITION);
-    float _528 = dot(CB1[_517 * 1 + 0], POSITION);
-    vec3 _529 = vec3(_522, _525, _528);
-    vec3 _542 = vec3(dot(CB1[_506 * 1 + 0].xyz, _495), dot(CB1[_512 * 1 + 0].xyz, _495), dot(CB1[_517 * 1 + 0].xyz, _495));
-    vec3 _577 = -CB0[11].xyz;
-    float _578 = dot(_542, _577);
-    vec3 _585 = CB0[7].xyz - _529;
-    vec4 _606 = vec4(_522, _525, _528, 1.0);
-    vec4 _609 = _606 * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
-    gl_Position = _609;
+    vec3 v0 = (NORMAL.xyz * 0.0078740157186985015869140625) - vec3(1.0);
+    int v1 = int(COLOR1.x) * 3;
+    int v2 = v1 + 1;
+    int v3 = v1 + 2;
+    float v4 = dot(CB1[v1 * 1 + 0], POSITION);
+    float v5 = dot(CB1[v2 * 1 + 0], POSITION);
+    float v6 = dot(CB1[v3 * 1 + 0], POSITION);
+    vec3 v7 = vec3(v4, v5, v6);
+    vec3 v8 = vec3(dot(CB1[v1 * 1 + 0].xyz, v0), dot(CB1[v2 * 1 + 0].xyz, v0), dot(CB1[v3 * 1 + 0].xyz, v0));
+    vec3 v9 = -CB0[11].xyz;
+    float v10 = dot(v8, v9);
+    vec3 v11 = CB0[7].xyz - v7;
+    vec4 v12 = vec4(v4, v5, v6, 1.0);
+    vec4 v13 = v12 * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
+    gl_Position = v13;
     VARYING0 = vec4(TEXCOORD0, 0.0, 0.0);
     VARYING1 = vec4(TEXCOORD1, 0.0, 0.0);
     VARYING2 = COLOR0;
-    VARYING3 = vec4(((_529 + (_542 * 6.0)).yxz * CB0[17].xyz) + CB0[18].xyz, 0.0);
-    VARYING4 = vec4(_585, _609.w);
-    VARYING5 = vec4((CB0[10].xyz * max(_578, 0.0)) + (CB0[12].xyz * max(-_578, 0.0)), ((float(_578 > 0.0) * pow(clamp(dot(_542, normalize(_577 + normalize(_585))), 0.0, 1.0), COLOR1.z)) * (COLOR1.y * 0.0039215688593685626983642578125)) * CB0[24].w);
-    VARYING6 = vec4(dot(CB0[21], _606), dot(CB0[22], _606), dot(CB0[23], _606), 0.0);
+    VARYING3 = vec4(((v7 + (v8 * 6.0)).yxz * CB0[17].xyz) + CB0[18].xyz, 0.0);
+    VARYING4 = vec4(v11, v13.w);
+    VARYING5 = vec4((CB0[10].xyz * max(v10, 0.0)) + (CB0[12].xyz * max(-v10, 0.0)), ((float(v10 > 0.0) * pow(clamp(dot(v8, normalize(v9 + normalize(v11))), 0.0, 1.0), COLOR1.z)) * (COLOR1.y * 0.0039215688593685626983642578125)) * CB0[24].w);
+    VARYING6 = vec4(dot(CB0[21], v12), dot(CB0[22], v12), dot(CB0[23], v12), 0.0);
     VARYING7 = NORMAL.w;
 }
 

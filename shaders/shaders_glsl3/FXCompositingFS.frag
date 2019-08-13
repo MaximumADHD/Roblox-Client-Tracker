@@ -22,13 +22,13 @@ out vec4 _entryPointOutput;
 
 void main()
 {
-    vec4 _197 = texture(Texture0Texture, VARYING0);
-    vec3 _201 = texture(Texture2Texture, VARYING0).xyz;
-    vec4 _204 = texture(Texture3Texture, VARYING0);
-    float _208 = 1.0 - _204.w;
-    vec3 _214 = _197.xyz;
-    vec3 _244 = (_201 + (min(vec3(1.0), (_204.xyz * CB1[4].y) + (_214 * _208)).xyz * (vec3(1.0) - _201))).xyz + (_214 * (clamp(_208 - _197.w, 0.0, 1.0) * _208));
-    _entryPointOutput = clamp(vec4(_244.x, _244.y, _244.z, _197.w), vec4(0.0), vec4(1.0));
+    vec4 f0 = texture(Texture0Texture, VARYING0);
+    vec3 f1 = texture(Texture2Texture, VARYING0).xyz;
+    vec4 f2 = texture(Texture3Texture, VARYING0);
+    float f3 = 1.0 - f2.w;
+    vec3 f4 = f0.xyz;
+    vec3 f5 = (f1 + (min(vec3(1.0), (f2.xyz * CB1[4].y) + (f4 * f3)).xyz * (vec3(1.0) - f1))).xyz + (f4 * (clamp(f3 - f0.w, 0.0, 1.0) * f3));
+    _entryPointOutput = clamp(vec4(f5.x, f5.y, f5.z, f0.w), vec4(0.0), vec4(1.0));
 }
 
 //$$Texture0Texture=s0

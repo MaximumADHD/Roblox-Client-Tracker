@@ -46,12 +46,12 @@ out vec4 _entryPointOutput;
 
 void main()
 {
-    vec3 _824 = vec3(CB0[15].x);
-    float _767 = clamp((CB0[13].x * length(VARYING4.xyz)) + CB0[13].y, 0.0, 1.0);
-    vec3 _786 = mix(VARYING2.xyz, pow(VARYING2.xyz * 1.35000002384185791015625, vec3(4.0)) * 4.0, _824);
-    vec4 _1127 = vec4(_786.x, _786.y, _786.z, vec4(0.0).w);
-    _1127.w = _767 * VARYING2.w;
-    vec3 _1031 = mix(CB0[14].xyz, mix(_1127.xyz, sqrt(clamp(_1127.xyz * CB0[15].z, vec3(0.0), vec3(1.0))) + vec3((-0.00048828125) + (0.0009765625 * fract(52.98291778564453125 * fract(dot(gl_FragCoord.xy, vec2(0.067110560834407806396484375, 0.005837149918079376220703125)))))), _824).xyz, vec3(_767));
-    _entryPointOutput = vec4(_1031.x, _1031.y, _1031.z, _1127.w);
+    vec3 f0 = vec3(CB0[15].x);
+    float f1 = clamp((CB0[13].x * length(VARYING4.xyz)) + CB0[13].y, 0.0, 1.0);
+    vec3 f2 = mix(VARYING2.xyz, pow(VARYING2.xyz * 1.35000002384185791015625, vec3(4.0)) * 4.0, f0);
+    vec4 f3 = vec4(f2.x, f2.y, f2.z, vec4(0.0).w);
+    f3.w = f1 * VARYING2.w;
+    vec3 f4 = mix(CB0[14].xyz, mix(f3.xyz, sqrt(clamp(f3.xyz * CB0[15].z, vec3(0.0), vec3(1.0))) + vec3((-0.00048828125) + (0.0009765625 * fract(52.98291778564453125 * fract(dot(gl_FragCoord.xy, vec2(0.067110560834407806396484375, 0.005837149918079376220703125)))))), f0).xyz, vec3(f1));
+    _entryPointOutput = vec4(f4.x, f4.y, f4.z, f3.w);
 }
 

@@ -45,9 +45,9 @@ in vec4 POSITION;
 
 void main()
 {
-    vec4 _144 = vec4((POSITION.xyz * CB1[0].w) + CB1[0].xyz, 1.0) * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
-    vec4 _170 = _144;
-    _170.z = _144.z + (float(POSITION.w < 0.0) * 0.004999999888241291046142578125);
-    gl_Position = _170;
+    vec4 v0 = vec4((POSITION.xyz * CB1[0].w) + CB1[0].xyz, 1.0) * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
+    vec4 v1 = v0;
+    v1.z = v0.z + (float(POSITION.w < 0.0) * 0.004999999888241291046142578125);
+    gl_Position = v1;
 }
 

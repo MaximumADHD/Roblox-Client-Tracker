@@ -22,12 +22,12 @@ out vec4 _entryPointOutput;
 
 void main()
 {
-    vec3 _319 = texture(Texture0Texture, VARYING0).xyz;
-    vec3 _332 = texture(Texture1Texture, VARYING0).xyz;
-    vec3 _339 = mix(((_319 * _319) * 4.0) + texture(Texture3Texture, VARYING0).xyz, (_332 * _332) * 4.0, vec3(CB1[4].x));
-    vec3 _436 = _339 * CB1[5].x;
-    vec3 _454 = ((_339 * (_436 + vec3(CB1[5].y))) / ((_339 * (_436 + vec3(CB1[5].z))) + vec3(CB1[5].w))) * CB1[6].x;
-    _entryPointOutput = vec4(dot(_454, CB1[1].xyz) + CB1[1].w, dot(_454, CB1[2].xyz) + CB1[2].w, dot(_454, CB1[3].xyz) + CB1[3].w, 1.0);
+    vec3 f0 = texture(Texture0Texture, VARYING0).xyz;
+    vec3 f1 = texture(Texture1Texture, VARYING0).xyz;
+    vec3 f2 = mix(((f0 * f0) * 4.0) + texture(Texture3Texture, VARYING0).xyz, (f1 * f1) * 4.0, vec3(CB1[4].x));
+    vec3 f3 = f2 * CB1[5].x;
+    vec3 f4 = ((f2 * (f3 + vec3(CB1[5].y))) / ((f2 * (f3 + vec3(CB1[5].z))) + vec3(CB1[5].w))) * CB1[6].x;
+    _entryPointOutput = vec4(dot(f4, CB1[1].xyz) + CB1[1].w, dot(f4, CB1[2].xyz) + CB1[2].w, dot(f4, CB1[3].xyz) + CB1[3].w, 1.0);
 }
 
 //$$Texture0Texture=s0

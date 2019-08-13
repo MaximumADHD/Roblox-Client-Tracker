@@ -57,8 +57,8 @@ out vec3 VARYING0;
 
 void main()
 {
-    vec4 _171 = vec4(dot(CB1[gl_InstanceID * 7 + 0], POSITION), dot(CB1[gl_InstanceID * 7 + 1], POSITION), dot(CB1[gl_InstanceID * 7 + 2], POSITION), 1.0);
-    gl_Position = _171 * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
-    VARYING0 = vec3(dot(CB0[21], _171), dot(CB0[22], _171), dot(CB0[23], _171));
+    vec4 v0 = vec4(dot(CB1[gl_InstanceID * 7 + 0], POSITION), dot(CB1[gl_InstanceID * 7 + 1], POSITION), dot(CB1[gl_InstanceID * 7 + 2], POSITION), 1.0);
+    gl_Position = v0 * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
+    VARYING0 = vec3(dot(CB0[21], v0), dot(CB0[22], v0), dot(CB0[23], v0));
 }
 

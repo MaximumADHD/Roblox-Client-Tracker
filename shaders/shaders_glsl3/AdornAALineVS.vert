@@ -57,37 +57,37 @@ out vec4 VARYING3;
 
 void main()
 {
-    mat4 _253 = mat4(CB1[0], CB1[1], CB1[2], CB1[3]);
-    vec4 _254 = POSITION * _253;
-    vec3 _267 = normalize(NORMAL * mat3(_253[0].xyz, _253[1].xyz, _253[2].xyz));
-    vec4 _270 = vec4(1.0, 0.0, 0.0, 1.0) * _253;
-    vec4 _273 = vec4(-1.0, 0.0, 0.0, 1.0) * _253;
-    float _276 = CB1[5].w + 2.0;
-    vec4 _429;
-    if (length(_254 - _270) < length(_254 - _273))
+    mat4 v0 = mat4(CB1[0], CB1[1], CB1[2], CB1[3]);
+    vec4 v1 = POSITION * v0;
+    vec3 v2 = normalize(NORMAL * mat3(v0[0].xyz, v0[1].xyz, v0[2].xyz));
+    vec4 v3 = vec4(1.0, 0.0, 0.0, 1.0) * v0;
+    vec4 v4 = vec4(-1.0, 0.0, 0.0, 1.0) * v0;
+    float v5 = CB1[5].w + 2.0;
+    vec4 v6;
+    if (length(v1 - v3) < length(v1 - v4))
     {
-        vec3 _310 = _270.xyz + (_267 * ((_276 * (vec4(_270.xyz, 1.0) * mat4(CB0[0], CB0[1], CB0[2], CB0[3])).w) * CB1[5].x));
-        _429 = vec4(_310.x, _310.y, _310.z, _254.w);
+        vec3 v7 = v3.xyz + (v2 * ((v5 * (vec4(v3.xyz, 1.0) * mat4(CB0[0], CB0[1], CB0[2], CB0[3])).w) * CB1[5].x));
+        v6 = vec4(v7.x, v7.y, v7.z, v1.w);
     }
     else
     {
-        vec3 _334 = _273.xyz + (_267 * ((_276 * (vec4(_273.xyz, 1.0) * mat4(CB0[0], CB0[1], CB0[2], CB0[3])).w) * CB1[5].x));
-        _429 = vec4(_334.x, _334.y, _334.z, _254.w);
+        vec3 v8 = v4.xyz + (v2 * ((v5 * (vec4(v4.xyz, 1.0) * mat4(CB0[0], CB0[1], CB0[2], CB0[3])).w) * CB1[5].x));
+        v6 = vec4(v8.x, v8.y, v8.z, v1.w);
     }
-    mat4 _339 = mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
-    vec4 _340 = _429 * _339;
-    vec4 _348 = _270 * _339;
-    vec4 _353 = _273 * _339;
-    vec4 _422 = _340;
-    _422.y = _340.y * CB1[5].z;
-    vec4 _425 = _348;
-    _425.y = _348.y * CB1[5].z;
-    vec4 _428 = _353;
-    _428.y = _353.y * CB1[5].z;
-    gl_Position = _340;
-    VARYING0 = _422;
-    VARYING1 = CB0[7].xyz - _429.xyz;
-    VARYING2 = _425;
-    VARYING3 = _428;
+    mat4 v9 = mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
+    vec4 v10 = v6 * v9;
+    vec4 v11 = v3 * v9;
+    vec4 v12 = v4 * v9;
+    vec4 v13 = v10;
+    v13.y = v10.y * CB1[5].z;
+    vec4 v14 = v11;
+    v14.y = v11.y * CB1[5].z;
+    vec4 v15 = v12;
+    v15.y = v12.y * CB1[5].z;
+    gl_Position = v10;
+    VARYING0 = v13;
+    VARYING1 = CB0[7].xyz - v6.xyz;
+    VARYING2 = v14;
+    VARYING3 = v15;
 }
 

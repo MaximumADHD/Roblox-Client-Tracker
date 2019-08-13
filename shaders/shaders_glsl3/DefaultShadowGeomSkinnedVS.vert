@@ -47,9 +47,9 @@ out vec3 VARYING0;
 
 void main()
 {
-    int _161 = int(COLOR0.x) * 3;
-    vec4 _189 = vec4(dot(CB1[_161 * 1 + 0], POSITION), dot(CB1[(_161 + 1) * 1 + 0], POSITION), dot(CB1[(_161 + 2) * 1 + 0], POSITION), 1.0);
-    gl_Position = _189 * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
-    VARYING0 = vec3(dot(CB0[21], _189), dot(CB0[22], _189), dot(CB0[23], _189));
+    int v0 = int(COLOR0.x) * 3;
+    vec4 v1 = vec4(dot(CB1[v0 * 1 + 0], POSITION), dot(CB1[(v0 + 1) * 1 + 0], POSITION), dot(CB1[(v0 + 2) * 1 + 0], POSITION), 1.0);
+    gl_Position = v1 * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
+    VARYING0 = vec3(dot(CB0[21], v1), dot(CB0[22], v1), dot(CB0[23], v1));
 }
 

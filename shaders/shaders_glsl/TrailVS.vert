@@ -55,14 +55,14 @@ varying vec3 VARYING2;
 
 void main()
 {
-    vec3 _183 = vec3(0.0);
-    _183.x = TEXCOORD0.x;
-    vec3 _186 = _183;
-    _186.y = TEXCOORD0.y;
-    vec3 _188 = _186;
-    _188.z = 0.0;
+    vec3 v0 = vec3(0.0);
+    v0.x = TEXCOORD0.x;
+    vec3 v1 = v0;
+    v1.y = TEXCOORD0.y;
+    vec3 v2 = v1;
+    v2.z = 0.0;
     gl_Position = (POSITION + (CB0[6] * CB1[0].x)) * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
-    VARYING0 = _188;
+    VARYING0 = v2;
     VARYING1 = TEXCOORD1 * 0.0039215688593685626983642578125;
     VARYING2 = CB0[7].xyz - POSITION.xyz;
 }

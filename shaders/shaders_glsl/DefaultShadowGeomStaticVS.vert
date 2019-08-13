@@ -45,8 +45,8 @@ varying vec3 VARYING0;
 
 void main()
 {
-    vec4 _118 = vec4(POSITION.xyz, 1.0);
-    gl_Position = _118 * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
-    VARYING0 = vec3(dot(CB0[21], _118), dot(CB0[22], _118), dot(CB0[23], _118));
+    vec4 v0 = vec4(POSITION.xyz, 1.0);
+    gl_Position = v0 * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
+    VARYING0 = vec3(dot(CB0[21], v0), dot(CB0[22], v0), dot(CB0[23], v0));
 }
 

@@ -19,9 +19,9 @@ varying vec2 VARYING0;
 
 void main()
 {
-    vec4 _125 = texture2D(Texture0Texture, VARYING0);
-    vec3 _127 = _125.xyz;
-    gl_FragData[0] = vec4(dot(_127, CB1[1].xyz) + CB1[1].w, dot(_127, CB1[2].xyz) + CB1[2].w, dot(_127, CB1[3].xyz) + CB1[3].w, _125.w);
+    vec4 f0 = texture2D(Texture0Texture, VARYING0);
+    vec3 f1 = f0.xyz;
+    gl_FragData[0] = vec4(dot(f1, CB1[1].xyz) + CB1[1].w, dot(f1, CB1[2].xyz) + CB1[2].w, dot(f1, CB1[3].xyz) + CB1[3].w, f0.w);
 }
 
 //$$Texture0Texture=s0

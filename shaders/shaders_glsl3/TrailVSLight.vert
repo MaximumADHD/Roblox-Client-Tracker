@@ -57,18 +57,18 @@ out vec3 VARYING4;
 
 void main()
 {
-    vec3 _317 = vec3(0.0);
-    _317.x = TEXCOORD0.x;
-    vec3 _320 = _317;
-    _320.y = TEXCOORD0.y;
-    vec3 _322 = _320;
-    _322.z = 0.0;
-    vec4 _258 = vec4(POSITION.xyz, 1.0);
+    vec3 v0 = vec3(0.0);
+    v0.x = TEXCOORD0.x;
+    vec3 v1 = v0;
+    v1.y = TEXCOORD0.y;
+    vec3 v2 = v1;
+    v2.z = 0.0;
+    vec4 v3 = vec4(POSITION.xyz, 1.0);
     gl_Position = (POSITION + (CB0[6] * CB1[0].x)) * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
-    VARYING0 = _322;
+    VARYING0 = v2;
     VARYING1 = TEXCOORD1 * 0.0039215688593685626983642578125;
     VARYING2 = (POSITION.yxz * CB0[17].xyz) + CB0[18].xyz;
-    VARYING3 = vec3(dot(CB0[21], _258), dot(CB0[22], _258), dot(CB0[23], _258));
+    VARYING3 = vec3(dot(CB0[21], v3), dot(CB0[22], v3), dot(CB0[23], v3));
     VARYING4 = CB0[7].xyz - POSITION.xyz;
 }
 

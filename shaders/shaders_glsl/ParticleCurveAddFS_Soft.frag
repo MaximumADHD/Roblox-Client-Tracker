@@ -57,14 +57,14 @@ varying vec4 VARYING3;
 
 void main()
 {
-    vec4 _227 = texture2D(texTexture, VARYING0.xy);
-    vec3 _249 = ((_227.xyz + VARYING1.xyz) * CB1[0].xyz).xyz;
-    vec3 _306 = mix(_249, sqrt(clamp((_249 * _249) * CB0[15].z, vec3(0.0), vec3(1.0))), vec3(CB0[15].x));
-    float _263 = (_227.w * VARYING1.w) * (clamp(VARYING3.w * abs((texture2D(depthTexTexture, VARYING3.xy).x * 500.0) - VARYING3.z), 0.0, 1.0) * clamp(VARYING0.z, 0.0, 1.0));
-    vec4 _352 = vec4(_306.x, _306.y, _306.z, vec4(0.0).w);
-    _352.w = _263;
-    vec3 _269 = _352.xyz * _263;
-    gl_FragData[0] = vec4(_269.x, _269.y, _269.z, _352.w);
+    vec4 f0 = texture2D(texTexture, VARYING0.xy);
+    vec3 f1 = ((f0.xyz + VARYING1.xyz) * CB1[0].xyz).xyz;
+    vec3 f2 = mix(f1, sqrt(clamp((f1 * f1) * CB0[15].z, vec3(0.0), vec3(1.0))), vec3(CB0[15].x));
+    float f3 = (f0.w * VARYING1.w) * (clamp(VARYING3.w * abs((texture2D(depthTexTexture, VARYING3.xy).x * 500.0) - VARYING3.z), 0.0, 1.0) * clamp(VARYING0.z, 0.0, 1.0));
+    vec4 f4 = vec4(f2.x, f2.y, f2.z, vec4(0.0).w);
+    f4.w = f3;
+    vec3 f5 = f4.xyz * f3;
+    gl_FragData[0] = vec4(f5.x, f5.y, f5.z, f4.w);
 }
 
 //$$depthTexTexture=s3

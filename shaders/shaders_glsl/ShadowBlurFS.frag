@@ -20,33 +20,33 @@ varying vec2 VARYING0;
 
 void main()
 {
-    float _153 = float(-3);
-    float _159 = exp(((-_153) * _153) * 0.22222222387790679931640625);
-    vec4 _167 = texture2D(Texture0Texture, VARYING0 + (CB1[1].xy * _153));
-    int _182 = (-3) + 1;
-    float _224 = float(_182);
-    float _228 = exp(((-_224) * _224) * 0.22222222387790679931640625);
-    vec4 _232 = texture2D(Texture0Texture, VARYING0 + (CB1[1].xy * _224));
-    int _239 = _182 + 1;
-    float _247 = float(_239);
-    float _251 = exp(((-_247) * _247) * 0.22222222387790679931640625);
-    vec4 _255 = texture2D(Texture0Texture, VARYING0 + (CB1[1].xy * _247));
-    int _262 = _239 + 1;
-    float _270 = float(_262);
-    float _274 = exp(((-_270) * _270) * 0.22222222387790679931640625);
-    vec4 _278 = texture2D(Texture0Texture, VARYING0 + (CB1[1].xy * _270));
-    int _285 = _262 + 1;
-    float _293 = float(_285);
-    float _297 = exp(((-_293) * _293) * 0.22222222387790679931640625);
-    vec4 _301 = texture2D(Texture0Texture, VARYING0 + (CB1[1].xy * _293));
-    int _308 = _285 + 1;
-    float _316 = float(_308);
-    float _320 = exp(((-_316) * _316) * 0.22222222387790679931640625);
-    vec4 _324 = texture2D(Texture0Texture, VARYING0 + (CB1[1].xy * _316));
-    float _339 = float(_308 + 1);
-    float _343 = exp(((-_339) * _339) * 0.22222222387790679931640625);
-    vec4 _347 = texture2D(Texture0Texture, VARYING0 + (CB1[1].xy * _339));
-    gl_FragData[0] = vec4(min(min(min(min(min(min(min(1.0, _167.x), _232.x), _255.x), _278.x), _301.x), _324.x), _347.x), ((((((((0.0 + (_167.y * _159)) + (_232.y * _228)) + (_255.y * _251)) + (_278.y * _274)) + (_301.y * _297)) + (_324.y * _320)) + (_347.y * _343)) * texture2D(Texture1Texture, VARYING0).x) * (1.0 / (((((((0.0 + _159) + _228) + _251) + _274) + _297) + _320) + _343)), 0.0, 0.0);
+    float f0 = float(-3);
+    float f1 = exp(((-f0) * f0) * 0.22222222387790679931640625);
+    vec4 f2 = texture2D(Texture0Texture, VARYING0 + (CB1[1].xy * f0));
+    int f3 = (-3) + 1;
+    float f4 = float(f3);
+    float f5 = exp(((-f4) * f4) * 0.22222222387790679931640625);
+    vec4 f6 = texture2D(Texture0Texture, VARYING0 + (CB1[1].xy * f4));
+    int f7 = f3 + 1;
+    float f8 = float(f7);
+    float f9 = exp(((-f8) * f8) * 0.22222222387790679931640625);
+    vec4 f10 = texture2D(Texture0Texture, VARYING0 + (CB1[1].xy * f8));
+    int f11 = f7 + 1;
+    float f12 = float(f11);
+    float f13 = exp(((-f12) * f12) * 0.22222222387790679931640625);
+    vec4 f14 = texture2D(Texture0Texture, VARYING0 + (CB1[1].xy * f12));
+    int f15 = f11 + 1;
+    float f16 = float(f15);
+    float f17 = exp(((-f16) * f16) * 0.22222222387790679931640625);
+    vec4 f18 = texture2D(Texture0Texture, VARYING0 + (CB1[1].xy * f16));
+    int f19 = f15 + 1;
+    float f20 = float(f19);
+    float f21 = exp(((-f20) * f20) * 0.22222222387790679931640625);
+    vec4 f22 = texture2D(Texture0Texture, VARYING0 + (CB1[1].xy * f20));
+    float f23 = float(f19 + 1);
+    float f24 = exp(((-f23) * f23) * 0.22222222387790679931640625);
+    vec4 f25 = texture2D(Texture0Texture, VARYING0 + (CB1[1].xy * f23));
+    gl_FragData[0] = vec4(min(min(min(min(min(min(min(1.0, f2.x), f6.x), f10.x), f14.x), f18.x), f22.x), f25.x), ((((((((0.0 + (f2.y * f1)) + (f6.y * f5)) + (f10.y * f9)) + (f14.y * f13)) + (f18.y * f17)) + (f22.y * f21)) + (f25.y * f24)) * texture2D(Texture1Texture, VARYING0).x) * (1.0 / (((((((0.0 + f1) + f5) + f9) + f13) + f17) + f21) + f24)), 0.0, 0.0);
 }
 
 //$$Texture0Texture=s0

@@ -51,15 +51,15 @@ out vec4 _entryPointOutput;
 
 void main()
 {
-    vec3 _415 = vec3(CB0[15].x);
-    vec4 _365 = texture(DiffuseMapTexture, VARYING0.xy);
-    float _423 = _365.x;
-    float _437 = (_423 > 0.0) ? ((1.0 - clamp(abs(_423 - CB0[14].w) * 13.0, 0.0, 1.0)) * _365.w) : 0.0;
-    float _373 = max(max(1.0 - clamp(abs(dot(normalize(VARYING5.xyz), normalize(VARYING4.xyz))) * 2.0, 0.0, 1.0), 0.0), _437);
-    vec4 _388 = vec4(mix(VARYING2.xyz, VARYING2.xyz * VARYING2.xyz, _415), VARYING2.w * max(mix(_437, 1.0, _373) * _373, VARYING1.x));
-    vec3 _400 = _388.xyz;
-    vec3 _451 = mix(_400, sqrt(clamp(_400 * CB0[15].z, vec3(0.0), vec3(1.0))), _415);
-    _entryPointOutput = mix(vec4(CB0[14].xyz, 1.0), vec4(_451.x, _451.y, _451.z, _388.w), vec4(clamp((CB0[13].x * length(VARYING4.xyz)) + CB0[13].y, 0.0, 1.0)));
+    vec3 f0 = vec3(CB0[15].x);
+    vec4 f1 = texture(DiffuseMapTexture, VARYING0.xy);
+    float f2 = f1.x;
+    float f3 = (f2 > 0.0) ? ((1.0 - clamp(abs(f2 - CB0[14].w) * 13.0, 0.0, 1.0)) * f1.w) : 0.0;
+    float f4 = max(max(1.0 - clamp(abs(dot(normalize(VARYING5.xyz), normalize(VARYING4.xyz))) * 2.0, 0.0, 1.0), 0.0), f3);
+    vec4 f5 = vec4(mix(VARYING2.xyz, VARYING2.xyz * VARYING2.xyz, f0), VARYING2.w * max(mix(f3, 1.0, f4) * f4, VARYING1.x));
+    vec3 f6 = f5.xyz;
+    vec3 f7 = mix(f6, sqrt(clamp(f6 * CB0[15].z, vec3(0.0), vec3(1.0))), f0);
+    _entryPointOutput = mix(vec4(CB0[14].xyz, 1.0), vec4(f7.x, f7.y, f7.z, f5.w), vec4(clamp((CB0[13].x * length(VARYING4.xyz)) + CB0[13].y, 0.0, 1.0)));
 }
 
 //$$DiffuseMapTexture=s3

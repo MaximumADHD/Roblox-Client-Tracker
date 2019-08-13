@@ -48,10 +48,10 @@ out vec3 VARYING0;
 
 void main()
 {
-    int _181 = int(COLOR0.x) * 3;
-    vec3 _257 = vec3(TEXCOORD0.x, TEXCOORD0.y, vec3(0.0).z);
-    _257.z = COLOR0.w * 0.0039215688593685626983642578125;
-    gl_Position = vec4(dot(CB1[_181 * 1 + 0], POSITION), dot(CB1[(_181 + 1) * 1 + 0], POSITION), dot(CB1[(_181 + 2) * 1 + 0], POSITION), 1.0) * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
-    VARYING0 = _257;
+    int v0 = int(COLOR0.x) * 3;
+    vec3 v1 = vec3(TEXCOORD0.x, TEXCOORD0.y, vec3(0.0).z);
+    v1.z = COLOR0.w * 0.0039215688593685626983642578125;
+    gl_Position = vec4(dot(CB1[v0 * 1 + 0], POSITION), dot(CB1[(v0 + 1) * 1 + 0], POSITION), dot(CB1[(v0 + 2) * 1 + 0], POSITION), 1.0) * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
+    VARYING0 = v1;
 }
 

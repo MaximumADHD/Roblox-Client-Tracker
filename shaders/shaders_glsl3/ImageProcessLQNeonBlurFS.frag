@@ -21,9 +21,9 @@ out vec4 _entryPointOutput;
 
 void main()
 {
-    vec4 _196 = mix(texture(Texture0Texture, VARYING0), texture(Texture1Texture, VARYING0), vec4(CB1[4].x));
-    vec3 _202 = (_196.xyz * (CB1[4].y + (_196.w * (1.0 - CB1[4].y)))).xyz;
-    _entryPointOutput = vec4(dot(_202, CB1[1].xyz) + CB1[1].w, dot(_202, CB1[2].xyz) + CB1[2].w, dot(_202, CB1[3].xyz) + CB1[3].w, 1.0);
+    vec4 f0 = mix(texture(Texture0Texture, VARYING0), texture(Texture1Texture, VARYING0), vec4(CB1[4].x));
+    vec3 f1 = (f0.xyz * (CB1[4].y + (f0.w * (1.0 - CB1[4].y)))).xyz;
+    _entryPointOutput = vec4(dot(f1, CB1[1].xyz) + CB1[1].w, dot(f1, CB1[2].xyz) + CB1[2].w, dot(f1, CB1[3].xyz) + CB1[3].w, 1.0);
 }
 
 //$$Texture1Texture=s1

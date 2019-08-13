@@ -22,13 +22,13 @@ out vec4 _entryPointOutput;
 
 void main()
 {
-    vec3 _293 = texture(Texture0Texture, VARYING0).xyz;
-    vec3 _298 = texture(Texture3Texture, VARYING0).xyz;
-    vec3 _306 = texture(Texture1Texture, VARYING0).xyz;
-    vec3 _313 = mix(((_293 * _293) * 4.0) + ((_298 * _298) * 4.0), (_306 * _306) * 4.0, vec3(CB1[4].x));
-    vec3 _393 = _313 * CB1[5].x;
-    vec3 _411 = ((_313 * (_393 + vec3(CB1[5].y))) / ((_313 * (_393 + vec3(CB1[5].z))) + vec3(CB1[5].w))) * CB1[6].x;
-    _entryPointOutput = vec4(dot(_411, CB1[1].xyz) + CB1[1].w, dot(_411, CB1[2].xyz) + CB1[2].w, dot(_411, CB1[3].xyz) + CB1[3].w, 1.0);
+    vec3 f0 = texture(Texture0Texture, VARYING0).xyz;
+    vec3 f1 = texture(Texture3Texture, VARYING0).xyz;
+    vec3 f2 = texture(Texture1Texture, VARYING0).xyz;
+    vec3 f3 = mix(((f0 * f0) * 4.0) + ((f1 * f1) * 4.0), (f2 * f2) * 4.0, vec3(CB1[4].x));
+    vec3 f4 = f3 * CB1[5].x;
+    vec3 f5 = ((f3 * (f4 + vec3(CB1[5].y))) / ((f3 * (f4 + vec3(CB1[5].z))) + vec3(CB1[5].w))) * CB1[6].x;
+    _entryPointOutput = vec4(dot(f5, CB1[1].xyz) + CB1[1].w, dot(f5, CB1[2].xyz) + CB1[2].w, dot(f5, CB1[3].xyz) + CB1[3].w, 1.0);
 }
 
 //$$Texture0Texture=s0

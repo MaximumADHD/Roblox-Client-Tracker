@@ -12,8 +12,8 @@ out vec4 VARYING0;
 
 void main()
 {
-    int _132 = int(POSITION.z);
-    gl_Position = vec4((POSITION.xy * CB2[_132 * 1 + 0].xy) + CB2[_132 * 1 + 0].zw, 0.0, 1.0);
+    int v0 = int(POSITION.z);
+    gl_Position = vec4((POSITION.xy * CB2[v0 * 1 + 0].xy) + CB2[v0 * 1 + 0].zw, 0.0, 1.0);
     VARYING0 = COLOR0;
     gl_PointSize = 1.0;
 }

@@ -20,17 +20,17 @@ out vec4 VARYING2;
 
 void main()
 {
-    vec2 _204 = (POSITION.xy * 0.5) + vec2(0.5);
-    vec2 _165 = CB1[0].zw * 2.0;
-    vec2 _169 = vec2(_165.x, 0.0);
-    vec2 _170 = _204 + _169;
-    vec2 _178 = _204 - _169;
-    vec2 _185 = vec2(0.0, _165.y);
-    vec2 _186 = _204 + _185;
-    vec2 _194 = _204 - _185;
+    vec2 v0 = (POSITION.xy * 0.5) + vec2(0.5);
+    vec2 v1 = CB1[0].zw * 2.0;
+    vec2 v2 = vec2(v1.x, 0.0);
+    vec2 v3 = v0 + v2;
+    vec2 v4 = v0 - v2;
+    vec2 v5 = vec2(0.0, v1.y);
+    vec2 v6 = v0 + v5;
+    vec2 v7 = v0 - v5;
     gl_Position = POSITION;
-    VARYING0 = _204;
-    VARYING1 = vec4(_170.x, _170.y, _178.x, _178.y);
-    VARYING2 = vec4(_186.x, _186.y, _194.x, _194.y);
+    VARYING0 = v0;
+    VARYING1 = vec4(v3.x, v3.y, v4.x, v4.y);
+    VARYING2 = vec4(v6.x, v6.y, v7.x, v7.y);
 }
 

@@ -60,26 +60,26 @@ out float VARYING8;
 
 void main()
 {
-    vec3 _381 = (NORMAL.xyz * 0.0078740157186985015869140625) - vec3(1.0);
-    vec3 _393 = (TEXCOORD2.xyz * 0.0078740157186985015869140625) - vec3(1.0);
-    vec4 _619 = vec4(0.0);
-    _619.w = (TEXCOORD2.w * 0.0078740157186985015869140625) - 1.0;
-    vec4 _436 = vec4(POSITION.xyz, 1.0) * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
-    vec4 _441 = vec4(TEXCOORD0, 0.0, 0.0);
-    vec4 _446 = vec4(TEXCOORD1, 0.0, 0.0);
-    float _476 = _436.w;
-    vec4 _493 = ((exp2(TEXCOORD3 * 0.0625) - vec4(1.0)) * CB0[24].z) + vec4((0.5 * _476) * CB0[24].y);
-    vec4 _625 = vec4(POSITION.xyz, 0.0);
-    _625.w = COLOR1.w * 0.0039215688593685626983642578125;
-    gl_Position = _436;
-    VARYING0 = vec4(_441.x, _441.y, _493.x, _493.y);
-    VARYING1 = vec4(_446.x, _446.y, _493.z, _493.w);
+    vec3 v0 = (NORMAL.xyz * 0.0078740157186985015869140625) - vec3(1.0);
+    vec3 v1 = (TEXCOORD2.xyz * 0.0078740157186985015869140625) - vec3(1.0);
+    vec4 v2 = vec4(0.0);
+    v2.w = (TEXCOORD2.w * 0.0078740157186985015869140625) - 1.0;
+    vec4 v3 = vec4(POSITION.xyz, 1.0) * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
+    vec4 v4 = vec4(TEXCOORD0, 0.0, 0.0);
+    vec4 v5 = vec4(TEXCOORD1, 0.0, 0.0);
+    float v6 = v3.w;
+    vec4 v7 = ((exp2(TEXCOORD3 * 0.0625) - vec4(1.0)) * CB0[24].z) + vec4((0.5 * v6) * CB0[24].y);
+    vec4 v8 = vec4(POSITION.xyz, 0.0);
+    v8.w = COLOR1.w * 0.0039215688593685626983642578125;
+    gl_Position = v3;
+    VARYING0 = vec4(v4.x, v4.y, v7.x, v7.y);
+    VARYING1 = vec4(v5.x, v5.y, v7.z, v7.w);
     VARYING2 = COLOR0;
-    VARYING3 = vec4(((POSITION.xyz + (_381 * 6.0)).yxz * CB0[17].xyz) + CB0[18].xyz, 0.0);
-    VARYING4 = vec4(CB0[7].xyz - POSITION.xyz, _476);
-    VARYING5 = vec4(_381, COLOR1.z);
-    VARYING6 = vec4(_393.x, _393.y, _393.z, _619.w);
-    VARYING7 = _625;
+    VARYING3 = vec4(((POSITION.xyz + (v0 * 6.0)).yxz * CB0[17].xyz) + CB0[18].xyz, 0.0);
+    VARYING4 = vec4(CB0[7].xyz - POSITION.xyz, v6);
+    VARYING5 = vec4(v0, COLOR1.z);
+    VARYING6 = vec4(v1.x, v1.y, v1.z, v2.w);
+    VARYING7 = v8;
     VARYING8 = NORMAL.w;
 }
 

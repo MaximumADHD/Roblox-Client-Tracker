@@ -60,18 +60,18 @@ out vec3 VARYING5;
 
 void main()
 {
-    vec4 _249 = POSITION * mat4(CB1[1], CB1[2], CB1[3], CB1[4]);
-    vec4 _253 = _249 * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
-    vec4 _378 = _253;
-    _378.z = _253.z - CB2[0].x;
-    float _274 = dot(CB1[0].xyz, -CB0[11].xyz);
-    vec3 _289 = _249.xyz;
-    gl_Position = _378;
+    vec4 v0 = POSITION * mat4(CB1[1], CB1[2], CB1[3], CB1[4]);
+    vec4 v1 = v0 * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
+    vec4 v2 = v1;
+    v2.z = v1.z - CB2[0].x;
+    float v3 = dot(CB1[0].xyz, -CB0[11].xyz);
+    vec3 v4 = v0.xyz;
+    gl_Position = v2;
     VARYING0 = TEXCOORD0;
     VARYING1 = COLOR0;
-    VARYING2 = (CB0[10].xyz * clamp(_274, 0.0, 1.0)) + (CB0[12].xyz * clamp(-_274, 0.0, 1.0));
-    VARYING3 = vec4(((_289 + (CB1[0].xyz * 6.0)).yxz * CB0[17].xyz) + CB0[18].xyz, _274);
-    VARYING4 = _289;
-    VARYING5 = CB0[7].xyz - _289;
+    VARYING2 = (CB0[10].xyz * clamp(v3, 0.0, 1.0)) + (CB0[12].xyz * clamp(-v3, 0.0, 1.0));
+    VARYING3 = vec4(((v4 + (CB1[0].xyz * 6.0)).yxz * CB0[17].xyz) + CB0[18].xyz, v3);
+    VARYING4 = v4;
+    VARYING5 = CB0[7].xyz - v4;
 }
 

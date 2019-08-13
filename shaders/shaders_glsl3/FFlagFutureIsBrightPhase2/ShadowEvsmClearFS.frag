@@ -17,8 +17,8 @@ out vec4 _entryPointOutput;
 
 void main()
 {
-    float _149 = exp(CB1[4].x);
-    float _156 = -exp(-CB1[4].y);
-    _entryPointOutput = vec4(_149, _149 * _149, _156, _156 * _156);
+    float f0 = exp(CB1[4].x);
+    float f1 = -exp(-CB1[4].y);
+    _entryPointOutput = vec4(f0, f0 * f0, f1, f1 * f1);
 }
 

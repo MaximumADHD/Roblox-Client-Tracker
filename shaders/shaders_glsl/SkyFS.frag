@@ -47,12 +47,12 @@ varying vec4 VARYING1;
 
 void main()
 {
-    vec4 _182 = texture2D(DiffuseMapTexture, VARYING0) * VARYING1;
-    vec3 _184 = _182.xyz;
-    vec3 _223 = vec3(CB0[15].x);
-    vec3 _189 = mix(_184, _184 * _184, _223).xyz;
-    float _208 = _182.w;
-    gl_FragData[0] = vec4(mix(_189, sqrt(clamp(_189 * CB0[15].z, vec3(0.0), vec3(1.0))), _223).xyz * _208, _208);
+    vec4 f0 = texture2D(DiffuseMapTexture, VARYING0) * VARYING1;
+    vec3 f1 = f0.xyz;
+    vec3 f2 = vec3(CB0[15].x);
+    vec3 f3 = mix(f1, f1 * f1, f2).xyz;
+    float f4 = f0.w;
+    gl_FragData[0] = vec4(mix(f3, sqrt(clamp(f3 * CB0[15].z, vec3(0.0), vec3(1.0))), f2).xyz * f4, f4);
 }
 
 //$$DiffuseMapTexture=s0

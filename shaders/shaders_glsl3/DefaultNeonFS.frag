@@ -46,12 +46,12 @@ out vec4 _entryPointOutput;
 
 void main()
 {
-    vec3 _690 = vec3(CB0[15].x);
-    float _637 = clamp((CB0[13].x * length(VARYING4.xyz)) + CB0[13].y, 0.0, 1.0);
-    vec4 _949 = vec4(VARYING2.x, VARYING2.y, VARYING2.z, vec4(0.0).w);
-    _949.w = 1.0 - (_637 * VARYING2.w);
-    vec3 _660 = mix(_949.xyz, pow(_949.xyz * 1.35000002384185791015625, vec3(4.0)) * 4.0, _690).xyz;
-    vec3 _862 = mix(CB0[14].xyz, mix(_660, sqrt(clamp(_660 * CB0[15].z, vec3(0.0), vec3(1.0))), _690).xyz, vec3(_637));
-    _entryPointOutput = vec4(_862.x, _862.y, _862.z, _949.w);
+    vec3 f0 = vec3(CB0[15].x);
+    float f1 = clamp((CB0[13].x * length(VARYING4.xyz)) + CB0[13].y, 0.0, 1.0);
+    vec4 f2 = vec4(VARYING2.x, VARYING2.y, VARYING2.z, vec4(0.0).w);
+    f2.w = 1.0 - (f1 * VARYING2.w);
+    vec3 f3 = mix(f2.xyz, pow(f2.xyz * 1.35000002384185791015625, vec3(4.0)) * 4.0, f0).xyz;
+    vec3 f4 = mix(CB0[14].xyz, mix(f3, sqrt(clamp(f3 * CB0[15].z, vec3(0.0), vec3(1.0))), f0).xyz, vec3(f1));
+    _entryPointOutput = vec4(f4.x, f4.y, f4.z, f2.w);
 }
 

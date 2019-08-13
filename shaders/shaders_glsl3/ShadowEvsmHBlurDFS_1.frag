@@ -20,11 +20,11 @@ out vec4 _entryPointOutput;
 
 void main()
 {
-    float _230 = (2.0 * texture(Texture0Texture, VARYING0).x) - 1.0;
-    float _274 = (2.0 * (((CB1[2].y / (_230 - CB1[2].x)) * CB1[2].z) + (_230 * CB1[2].w))) - 1.0;
-    float _279 = exp(CB1[1].z * _274);
-    float _286 = -exp((-CB1[1].w) * _274);
-    _entryPointOutput = vec4(_279, _279 * _279, _286, _286 * _286);
+    float f0 = (2.0 * texture(Texture0Texture, VARYING0).x) - 1.0;
+    float f1 = (2.0 * (((CB1[2].y / (f0 - CB1[2].x)) * CB1[2].z) + (f0 * CB1[2].w))) - 1.0;
+    float f2 = exp(CB1[1].z * f1);
+    float f3 = -exp((-CB1[1].w) * f1);
+    _entryPointOutput = vec4(f2, f2 * f2, f3, f3 * f3);
 }
 
 //$$Texture0Texture=s0

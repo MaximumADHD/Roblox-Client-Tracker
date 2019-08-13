@@ -7,8 +7,8 @@ out vec4 _entryPointOutput;
 
 void main()
 {
-    vec4 _123 = texture(Texture0Texture, VARYING0);
-    _entryPointOutput = vec4(clamp(_123.xyz * 2.0, vec3(0.0), vec3(1.0)), _123.w);
+    vec4 f0 = texture(Texture0Texture, VARYING0);
+    _entryPointOutput = vec4(clamp(f0.xyz * 2.0, vec3(0.0), vec3(1.0)), f0.w);
 }
 
 //$$Texture0Texture=s0

@@ -6,8 +6,8 @@ out vec2 VARYING0;
 
 void main()
 {
-    int _138 = int(POSITION.z);
-    gl_Position = vec4((vec2(2.0) * ((POSITION.xy * CB3[0].xy) + CB3[_138 * 1 + 0].xy)) + vec2(-1.0), 0.0, 1.0);
-    VARYING0 = (POSITION.xy * CB3[0].zw) + CB3[_138 * 1 + 0].zw;
+    int v0 = int(POSITION.z);
+    gl_Position = vec4((vec2(2.0) * ((POSITION.xy * CB3[0].xy) + CB3[v0 * 1 + 0].xy)) + vec2(-1.0), 0.0, 1.0);
+    VARYING0 = (POSITION.xy * CB3[0].zw) + CB3[v0 * 1 + 0].zw;
 }
 

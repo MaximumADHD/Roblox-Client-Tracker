@@ -49,10 +49,10 @@ varying vec4 VARYING1;
 
 void main()
 {
-    vec4 _105 = POSITION * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
-    vec4 _150 = _105;
-    _150.z = _105.z - CB2[0].x;
-    gl_Position = _150;
+    vec4 v0 = POSITION * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
+    vec4 v1 = v0;
+    v1.z = v0.z - CB2[0].x;
+    gl_Position = v1;
     VARYING0 = TEXCOORD0;
     VARYING1 = COLOR0;
 }

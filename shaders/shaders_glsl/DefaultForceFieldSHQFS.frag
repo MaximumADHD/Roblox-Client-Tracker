@@ -51,17 +51,17 @@ varying vec4 VARYING5;
 
 void main()
 {
-    vec3 _506 = vec3(CB0[15].x);
-    vec4 _418 = vec4(CB0[7].xyz - VARYING4.xyz, 1.0) * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
-    float _517 = _418.w;
-    vec4 _456 = texture2D(DiffuseMapTexture, VARYING0.xy);
-    float _532 = _456.x;
-    float _546 = (_532 > 0.0) ? ((1.0 - clamp(abs(_532 - CB0[14].w) * 13.0, 0.0, 1.0)) * _456.w) : 0.0;
-    float _464 = max(max(1.0 - clamp(abs(dot(normalize(VARYING5.xyz), normalize(VARYING4.xyz))) * 2.0, 0.0, 1.0), 1.0 - clamp(((texture2D(GBufferDepthTexture, ((_418.xy * 0.5) + vec2(0.5 * _517)).xy / vec2(_517)).x * 500.0) - _517) * 3.0, 0.0, 1.0)), _546);
-    vec4 _479 = vec4(mix(VARYING2.xyz, VARYING2.xyz * VARYING2.xyz, _506), VARYING2.w * max(mix(_546, 1.0, _464) * _464, VARYING1.x));
-    vec3 _491 = _479.xyz;
-    vec3 _560 = mix(_491, sqrt(clamp(_491 * CB0[15].z, vec3(0.0), vec3(1.0))), _506);
-    gl_FragData[0] = mix(vec4(CB0[14].xyz, 1.0), vec4(_560.x, _560.y, _560.z, _479.w), vec4(clamp((CB0[13].x * length(VARYING4.xyz)) + CB0[13].y, 0.0, 1.0)));
+    vec3 f0 = vec3(CB0[15].x);
+    vec4 f1 = vec4(CB0[7].xyz - VARYING4.xyz, 1.0) * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
+    float f2 = f1.w;
+    vec4 f3 = texture2D(DiffuseMapTexture, VARYING0.xy);
+    float f4 = f3.x;
+    float f5 = (f4 > 0.0) ? ((1.0 - clamp(abs(f4 - CB0[14].w) * 13.0, 0.0, 1.0)) * f3.w) : 0.0;
+    float f6 = max(max(1.0 - clamp(abs(dot(normalize(VARYING5.xyz), normalize(VARYING4.xyz))) * 2.0, 0.0, 1.0), 1.0 - clamp(((texture2D(GBufferDepthTexture, ((f1.xy * 0.5) + vec2(0.5 * f2)).xy / vec2(f2)).x * 500.0) - f2) * 3.0, 0.0, 1.0)), f5);
+    vec4 f7 = vec4(mix(VARYING2.xyz, VARYING2.xyz * VARYING2.xyz, f0), VARYING2.w * max(mix(f5, 1.0, f6) * f6, VARYING1.x));
+    vec3 f8 = f7.xyz;
+    vec3 f9 = mix(f8, sqrt(clamp(f8 * CB0[15].z, vec3(0.0), vec3(1.0))), f0);
+    gl_FragData[0] = mix(vec4(CB0[14].xyz, 1.0), vec4(f9.x, f9.y, f9.z, f7.w), vec4(clamp((CB0[13].x * length(VARYING4.xyz)) + CB0[13].y, 0.0, 1.0)));
 }
 
 //$$GBufferDepthTexture=s10

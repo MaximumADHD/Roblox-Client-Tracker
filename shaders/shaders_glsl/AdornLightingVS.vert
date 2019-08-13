@@ -57,12 +57,12 @@ varying vec3 VARYING2;
 
 void main()
 {
-    mat4 _173 = mat4(CB1[0], CB1[1], CB1[2], CB1[3]);
-    vec4 _174 = POSITION * _173;
-    float _192 = dot(normalize(NORMAL * mat3(_173[0].xyz, _173[1].xyz, _173[2].xyz)), -CB0[11].xyz);
-    gl_Position = _174 * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
+    mat4 v0 = mat4(CB1[0], CB1[1], CB1[2], CB1[3]);
+    vec4 v1 = POSITION * v0;
+    float v2 = dot(normalize(NORMAL * mat3(v0[0].xyz, v0[1].xyz, v0[2].xyz)), -CB0[11].xyz);
+    gl_Position = v1 * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
     VARYING0 = TEXCOORD0;
-    VARYING1 = vec4(CB1[4].xyz * ((CB0[8].xyz + (CB0[10].xyz * clamp(_192, 0.0, 1.0))) + (CB0[12].xyz * clamp(-_192, 0.0, 1.0))), CB1[4].w);
-    VARYING2 = CB0[7].xyz - _174.xyz;
+    VARYING1 = vec4(CB1[4].xyz * ((CB0[8].xyz + (CB0[10].xyz * clamp(v2, 0.0, 1.0))) + (CB0[12].xyz * clamp(-v2, 0.0, 1.0))), CB1[4].w);
+    VARYING2 = CB0[7].xyz - v1.xyz;
 }
 

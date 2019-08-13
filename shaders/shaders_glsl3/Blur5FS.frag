@@ -20,31 +20,31 @@ out vec4 _entryPointOutput;
 
 void main()
 {
-    float _222 = 1.0 / ((2.0 * CB1[1].z) * CB1[1].z);
-    float _237 = float((2 * 0) + 1);
-    float _253 = exp((((-1.0) - _237) * (_237 + 1.0)) * _222);
-    float _256 = exp(((-_237) * _237) * _222) + _253;
-    vec2 _266 = CB1[1].xy * (_237 + (_253 / _256));
-    int _286 = 0 + 1;
-    float _316 = float((2 * _286) + 1);
-    float _325 = exp((((-1.0) - _316) * (_316 + 1.0)) * _222);
-    float _326 = exp(((-_316) * _316) * _222) + _325;
-    vec2 _329 = CB1[1].xy * (_316 + (_325 / _326));
-    int _339 = _286 + 1;
-    float _348 = float((2 * _339) + 1);
-    float _357 = exp((((-1.0) - _348) * (_348 + 1.0)) * _222);
-    float _358 = exp(((-_348) * _348) * _222) + _357;
-    vec2 _361 = CB1[1].xy * (_348 + (_357 / _358));
-    int _371 = _339 + 1;
-    float _380 = float((2 * _371) + 1);
-    float _389 = exp((((-1.0) - _380) * (_380 + 1.0)) * _222);
-    float _390 = exp(((-_380) * _380) * _222) + _389;
-    vec2 _393 = CB1[1].xy * (_380 + (_389 / _390));
-    float _412 = float((2 * (_371 + 1)) + 1);
-    float _421 = exp((((-1.0) - _412) * (_412 + 1.0)) * _222);
-    float _422 = exp(((-_412) * _412) * _222) + _421;
-    vec2 _425 = CB1[1].xy * (_412 + (_421 / _422));
-    _entryPointOutput = (((((texture(Texture0Texture, VARYING0) + ((texture(Texture0Texture, VARYING0 + _266) + texture(Texture0Texture, VARYING0 - _266)) * _256)) + ((texture(Texture0Texture, VARYING0 + _329) + texture(Texture0Texture, VARYING0 - _329)) * _326)) + ((texture(Texture0Texture, VARYING0 + _361) + texture(Texture0Texture, VARYING0 - _361)) * _358)) + ((texture(Texture0Texture, VARYING0 + _393) + texture(Texture0Texture, VARYING0 - _393)) * _390)) + ((texture(Texture0Texture, VARYING0 + _425) + texture(Texture0Texture, VARYING0 - _425)) * _422)) / vec4(((((1.0 + (2.0 * _256)) + (2.0 * _326)) + (2.0 * _358)) + (2.0 * _390)) + (2.0 * _422));
+    float f0 = 1.0 / ((2.0 * CB1[1].z) * CB1[1].z);
+    float f1 = float((2 * 0) + 1);
+    float f2 = exp((((-1.0) - f1) * (f1 + 1.0)) * f0);
+    float f3 = exp(((-f1) * f1) * f0) + f2;
+    vec2 f4 = CB1[1].xy * (f1 + (f2 / f3));
+    int f5 = 0 + 1;
+    float f6 = float((2 * f5) + 1);
+    float f7 = exp((((-1.0) - f6) * (f6 + 1.0)) * f0);
+    float f8 = exp(((-f6) * f6) * f0) + f7;
+    vec2 f9 = CB1[1].xy * (f6 + (f7 / f8));
+    int f10 = f5 + 1;
+    float f11 = float((2 * f10) + 1);
+    float f12 = exp((((-1.0) - f11) * (f11 + 1.0)) * f0);
+    float f13 = exp(((-f11) * f11) * f0) + f12;
+    vec2 f14 = CB1[1].xy * (f11 + (f12 / f13));
+    int f15 = f10 + 1;
+    float f16 = float((2 * f15) + 1);
+    float f17 = exp((((-1.0) - f16) * (f16 + 1.0)) * f0);
+    float f18 = exp(((-f16) * f16) * f0) + f17;
+    vec2 f19 = CB1[1].xy * (f16 + (f17 / f18));
+    float f20 = float((2 * (f15 + 1)) + 1);
+    float f21 = exp((((-1.0) - f20) * (f20 + 1.0)) * f0);
+    float f22 = exp(((-f20) * f20) * f0) + f21;
+    vec2 f23 = CB1[1].xy * (f20 + (f21 / f22));
+    _entryPointOutput = (((((texture(Texture0Texture, VARYING0) + ((texture(Texture0Texture, VARYING0 + f4) + texture(Texture0Texture, VARYING0 - f4)) * f3)) + ((texture(Texture0Texture, VARYING0 + f9) + texture(Texture0Texture, VARYING0 - f9)) * f8)) + ((texture(Texture0Texture, VARYING0 + f14) + texture(Texture0Texture, VARYING0 - f14)) * f13)) + ((texture(Texture0Texture, VARYING0 + f19) + texture(Texture0Texture, VARYING0 - f19)) * f18)) + ((texture(Texture0Texture, VARYING0 + f23) + texture(Texture0Texture, VARYING0 - f23)) * f22)) / vec4(((((1.0 + (2.0 * f3)) + (2.0 * f8)) + (2.0 * f13)) + (2.0 * f18)) + (2.0 * f22));
 }
 
 //$$Texture0Texture=s0

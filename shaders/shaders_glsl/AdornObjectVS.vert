@@ -59,16 +59,16 @@ varying vec3 VARYING4;
 
 void main()
 {
-    mat4 _227 = mat4(CB1[0], CB1[1], CB1[2], CB1[3]);
-    vec4 _228 = POSITION * _227;
-    vec3 _229 = _228.xyz;
-    vec3 _242 = normalize(NORMAL * mat3(_227[0].xyz, _227[1].xyz, _227[2].xyz));
-    float _258 = dot(_242, -CB0[11].xyz);
-    gl_Position = vec4(_228.xyz, 1.0) * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
+    mat4 v0 = mat4(CB1[0], CB1[1], CB1[2], CB1[3]);
+    vec4 v1 = POSITION * v0;
+    vec3 v2 = v1.xyz;
+    vec3 v3 = normalize(NORMAL * mat3(v0[0].xyz, v0[1].xyz, v0[2].xyz));
+    float v4 = dot(v3, -CB0[11].xyz);
+    gl_Position = vec4(v1.xyz, 1.0) * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
     VARYING0 = TEXCOORD0;
     VARYING1 = CB1[4];
-    VARYING2 = (CB0[10].xyz * clamp(_258, 0.0, 1.0)) + (CB0[12].xyz * clamp(-_258, 0.0, 1.0));
-    VARYING3 = vec4(((_229 + (_242 * 6.0)).yxz * CB0[17].xyz) + CB0[18].xyz, 0.0);
-    VARYING4 = CB0[7].xyz - _229;
+    VARYING2 = (CB0[10].xyz * clamp(v4, 0.0, 1.0)) + (CB0[12].xyz * clamp(-v4, 0.0, 1.0));
+    VARYING3 = vec4(((v2 + (v3 * 6.0)).yxz * CB0[17].xyz) + CB0[18].xyz, 0.0);
+    VARYING4 = CB0[7].xyz - v2;
 }
 

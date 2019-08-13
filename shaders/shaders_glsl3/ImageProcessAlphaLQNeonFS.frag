@@ -20,10 +20,10 @@ out vec4 _entryPointOutput;
 
 void main()
 {
-    vec4 _176 = texture(Texture0Texture, VARYING0);
-    float _199 = _176.w;
-    vec3 _182 = (_176.xyz * (CB1[4].y + (_199 * (1.0 - CB1[4].y)))).xyz;
-    _entryPointOutput = vec4(dot(_182, CB1[1].xyz) + CB1[1].w, dot(_182, CB1[2].xyz) + CB1[2].w, dot(_182, CB1[3].xyz) + CB1[3].w, _199);
+    vec4 f0 = texture(Texture0Texture, VARYING0);
+    float f1 = f0.w;
+    vec3 f2 = (f0.xyz * (CB1[4].y + (f1 * (1.0 - CB1[4].y)))).xyz;
+    _entryPointOutput = vec4(dot(f2, CB1[1].xyz) + CB1[1].w, dot(f2, CB1[2].xyz) + CB1[2].w, dot(f2, CB1[3].xyz) + CB1[3].w, f1);
 }
 
 //$$Texture0Texture=s0
