@@ -8,6 +8,8 @@ local Images = require(Plugin.Core.Util.Images)
 
 local ConfigTypes = {}
 
+ConfigTypes.GET_ASSET_DETAIL_FAILURE_ACTION = "CloseAssetConfig"
+
 local GENERAL = {
 	name = AssetConfigConstants.SIDE_TABS.General,
 	image = Images.GENERAL_SIDE_TAB

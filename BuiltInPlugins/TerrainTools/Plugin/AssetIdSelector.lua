@@ -59,6 +59,7 @@ local MODERATED_STATUS = "Moderated"
 
 local AWAITING_MODERATION = "Awaiting asset moderation."
 local MODERATED_ERROR_MESSAGE = "Asset has been moderated."
+local WARN_PUBLISHED_ONLY = "Game must be published before importing terrain."
 
 local getAssetCreationDetailsEndpoint = nil
 
@@ -70,6 +71,11 @@ local activeCallback = nil
 local globalAssetListSelector = Instance.new("ScrollingFrame")
 globalAssetListSelector.Position = UDim2.new(.2, 0, 0, TEXTBOX_HEIGHT)
 globalAssetListSelector.Size = UDim2.new(.7, 0, 0, 150)
+globalAssetListSelector.TopImage = "rbxasset://textures/TerrainTools/UpArrowButtonOpen17.png"
+globalAssetListSelector.MidImage = "rbxasset://textures/TerrainTools/EdgesSquare17x1.png"
+globalAssetListSelector.BottomImage = "rbxasset://textures/TerrainTools/DownArrowButtonOpen17.png"
+GuiUtilities.syncGuiElementBackgroundColor(globalAssetListSelector)
+
 globalAssetListSelector.ZIndex = 5
 
 local assetSelectorUILayout = Instance.new("UIListLayout")
@@ -79,9 +85,17 @@ assetSelectorUILayout:GetPropertyChangedSignal("AbsoluteContentSize"):connect(fu
 	globalAssetListSelector.CanvasSize = UDim2.new(0,assetSelectorUILayout.AbsoluteContentSize.X, 0, assetSelectorUILayout.AbsoluteContentSize.Y)
 end)
 
+-- resource api only works on published games
 local function updateAssetList(newParent, callback)
+	if tonumber(game.GameId) == 0 then
+		warn(WARN_PUBLISHED_ONLY)
+		return
+	end
+
 	local gameAssetList = StudioService:GetResourceByCategory("Image")
+	local assetFound = false
 	for i,v in pairs(gameAssetList) do
+		assetFound = true
 		if not gameImages[i] then
 			local newButton = Instance.new("TextButton")
 			newButton.Size = DROPDOWN_ELEMENT_SIZE
@@ -106,18 +120,22 @@ local function updateAssetList(newParent, callback)
 			local buttonLabel = Instance.new("TextLabel")
 			buttonLabel.Text = v
 			buttonLabel.TextXAlignment = Enum.TextXAlignment.Left
+			buttonLabel.BackgroundTransparency = 1
 			buttonLabel.Position = DROPDOWN_ELEMENT_LABEL_POS
 			buttonLabel.Size = DROPDOWN_ELEMENT_LABEL_SIZE
 			buttonLabel.ZIndex = 5
 			buttonLabel.BorderSizePixel = 0
 			buttonLabel.Parent = newButton
 
+			GuiUtilities.syncGuiElementFontColor(buttonLabel)
+			GuiUtilities.syncGuiElementBackgroundColor(newButton)
+
 			gameImages[i] = newButton
 			newButton.Parent = globalAssetListSelector
 		end
 	end
 
-	if #gameImages > 0 then
+	if assetFound then
 		globalAssetListSelector.Parent = newParent
 		activeCallback = callback
 	end
@@ -223,6 +241,7 @@ function AssetIdSelector.new(categoryLabel)
 	self._textBox = Instance.new("TextBox")
 	self._textBox.Name = "SelectedImage"
 	self._textBox.Text = ""
+	self._textBox.ClearTextOnFocus = false
 	self._textBox.PlaceholderText = PLACEHOLDER_TEXT
 	self._textBox.TextXAlignment = Enum.TextXAlignment.Left
 	self._textBox.Size = UDim2.new(0, TEXTBOX_WIDTH, 0, TEXTBOX_HEIGHT)
@@ -232,19 +251,20 @@ function AssetIdSelector.new(categoryLabel)
 	self._textBox.Parent = self._textFrame
 
 	local function updateTextBoxPos()
-		local textbehindCursor = string.sub(self._textBox.Text, 1, self._textBox.CursorPosition)
+		local textbehindCursor = string.sub(self._textBox.Text, 1, self._textBox.CursorPosition - 1)
 		local cursorPos = TextService:GetTextSize(textbehindCursor, self._textBox.TextSize, self._textBox.Font, Vector2.new(0, 0)).x
 		local endTextPos = TextService:GetTextSize(self._textBox.Text, self._textBox.TextSize, self._textBox.Font, Vector2.new(0, 0)).x
 
-		-- position of the textbox is
+		-- position of the textbox so it's clipped correctly with padding
 		local offset = self._textBox.Position.X.Offset
-		if cursorPos + self._textBox.Position.X.Offset < 0 then
-			offset = -(cursorPos) + PADDING
-		elseif cursorPos > TEXTBOX_WIDTH - self._textBox.Position.X.Offset - PADDING then
-			offset = -(cursorPos - TEXTBOX_WIDTH) - PADDING
+
+		if cursorPos <= PADDING - offset then
+			offset = PADDING - cursorPos
+		elseif cursorPos + PADDING >= TEXTBOX_WIDTH - offset then
+			offset = -(cursorPos + PADDING - TEXTBOX_WIDTH)
 		end
 
-		self._textBox.Position = UDim2.new(0, math.min(offset, PADDING) , 0, 0)
+		self._textBox.Position = UDim2.new(0, offset, 0, 0)
 		self._textBox.Size = UDim2.new(0,math.max(endTextPos, TEXTBOX_WIDTH), 0,  TEXTBOX_HEIGHT)
 	end
 
@@ -343,9 +363,14 @@ function AssetIdSelector.new(categoryLabel)
 
 	-- when we lose focus, we can then see if we need to validate the
 	-- the asset url that has been passed to us.
-	self._textBox.FocusLost:connect(function ()
-		validateAssetID()
+	self._textBox.FocusLost:connect(function (enterPressed)
+		if enterPressed then
+			validateAssetID()
+			updateAssetList(nil, nil)
+		end
 	end)
+
+	GuiUtilities.syncGuiElementFontColor(self._label)
 
 	GuiUtilities.syncGuiElementFontColor(self._textBox)
 	GuiUtilities.syncGuiElementInputFieldColor(self._textBox)

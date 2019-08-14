@@ -30,6 +30,7 @@ local SCROLL_BOTTOM = "rbxasset://textures/GameSettings/ScrollBarBottom.png"
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
+local Cryo = require(Plugin.Cryo)
 local Constants = require(Plugin.Src.Util.Constants)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
 local getMouse = require(Plugin.Src.Consumers.getMouse)
@@ -175,17 +176,15 @@ function Dropdown:render()
 					PaddingBottom = PADDING,
 				}),
 
-				Current = Roact.createElement("TextLabel", {
+				Current = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Normal, {
 					Visible = active,
 					Size = UDim2.new(1, 0, 1, 0),
 					BackgroundTransparency = 1,
 					BorderSizePixel = 0,
-					Font = Enum.Font.SourceSans,
 					TextColor3 = theme.dropDown.text,
 					TextXAlignment = Enum.TextXAlignment.Left,
-					TextSize = 22,
 					Text = currentTitle or "",
-				}),
+				})),
 
 				Arrow = Roact.createElement("ImageLabel", {
 					Visible = active,

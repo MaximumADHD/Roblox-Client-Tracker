@@ -21,17 +21,17 @@ end
 
 LocalizationService.RobloxForcePlayModeRobloxLocaleId = LocalizationService.RobloxLocaleId
 
-function RobloxLocaleSelector:getTestLangInstructionText()
-	local localeId = string.gsub(GetLocaleId(), '-', '_')
+function RobloxLocaleSelector.getTestLangInstructionText(allLanguagesInfo, localeId)
+	localeId = string.gsub(localeId, '-', '_')
 
-	if Cryo.isEmpty(self.props.AllLanguagesInfo)
-		and Cryo.isEmpty(self.props.AllLanguagesInfo.localeInfoTable)
-		and self.props.AllLanguagesInfo.localeInfoTable[localeId] ~= nil then
+	if not Cryo.isEmpty(allLanguagesInfo)
+		and not Cryo.isEmpty(allLanguagesInfo.localeInfoTable)
+		and allLanguagesInfo.localeInfoTable[localeId] ~= nil then
 
 		return string.format(
 			"Cloud table will fetch translations for %s (%s)",
-			self.props.AllLanguagesInfo.localeInfoTable[localeId].languageName,
-			self.props.AllLanguagesInfo.localeInfoTable[localeId].languageCode
+			allLanguagesInfo.localeInfoTable[localeId].languageName,
+			allLanguagesInfo.localeInfoTable[localeId].languageCode
 		)
 	else
 		return ""
@@ -106,7 +106,7 @@ function RobloxLocaleSelector:render()
 					PaddingLeft = UDim.new(0, 15),
 				}),
 				TextLabel = Roact.createElement("TextLabel", {
-					Text = self:getTestLangInstructionText(),
+					Text = self.getTestLangInstructionText(self.props.AllLanguagesInfo, GetLocaleId()),
 					Size = UDim2.new(0, 300, 0, 25),
 					BackgroundTransparency = 1,
 					BorderSizePixel = 0,

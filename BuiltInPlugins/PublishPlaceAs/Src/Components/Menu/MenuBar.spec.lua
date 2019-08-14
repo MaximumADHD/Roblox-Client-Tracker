@@ -8,10 +8,7 @@ return function()
 	it("should create and destroy with entires without errors", function()
 		local mockServiceWrapper = Roact.createElement(MockServiceWrapper, {}, {
 			MenuBar = Roact.createElement(MenuBar, {
-				Entries = {
-					{ Name = "a name", },
-					{ Name = "not a name", },
-				},
+				Entries = { "a name", "not a name" },
 			}),
 		})
 		local instance = Roact.mount(mockServiceWrapper)

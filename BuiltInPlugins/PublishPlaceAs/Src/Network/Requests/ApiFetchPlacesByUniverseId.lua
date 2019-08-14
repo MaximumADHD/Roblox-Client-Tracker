@@ -38,8 +38,8 @@ return function(searchArguments, optionalSettings)
 		end
 
 		page.places = {}
-		for _, place in pairs(result.data) do
-			local ok, val = PlaceToPublish.fromJsonData(place)
+		for _, placeToPublish in pairs(result.data) do
+			local ok, val = PlaceToPublish.fromJsonData(placeToPublish)
 			if ok then
 				table.insert(page.places, val)
 			else

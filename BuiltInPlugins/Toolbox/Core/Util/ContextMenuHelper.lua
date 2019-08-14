@@ -8,7 +8,7 @@ local AssetConfigConstants = require(Util.AssetConfigConstants)
 local EnumConvert = require(Util.EnumConvert)
 
 local FFlagEnableCopyToClipboard = settings():GetFFlag("EnableCopyToClipboard")
-local FFlagStudioEnableLuaAssetConfigurationPage = settings():GetFFlag("StudioEnableLuaAssetConfigurationPage")
+local FFlagToolboxWithCMSV2 = settings():GetFFlag("ToolboxWithCMSV2")
 
 local StudioService = game:GetService("StudioService")
 local GuiService = game:GetService("GuiService")
@@ -64,7 +64,7 @@ function ContextMenuHelper.tryCreateContextMenu(plugin, assetId, assetTypeId, sh
 		GuiService:OpenBrowserWindow(targetUrl)
 	end)
 
-	if FFlagStudioEnableLuaAssetConfigurationPage and showEditOption and editAssetFunc then
+	if FFlagToolboxWithCMSV2 and showEditOption and editAssetFunc then
 		menu:AddNewAction("EditAsset", localize.RightClickMenu.EditAsset).Triggered:connect(function()
 			editAssetFunc(assetId, AssetConfigConstants.FLOW_TYPE.EDIT_FLOW, nil, EnumConvert.convertAssetTypeValueToEnum(assetTypeId))
 		end)

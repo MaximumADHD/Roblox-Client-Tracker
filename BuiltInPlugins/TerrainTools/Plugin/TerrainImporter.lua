@@ -55,6 +55,7 @@ local WARN_HEIGHTMAP_MISSING = "Valid HeightMap required to begin importing Terr
 local WARN_INVALID_POS_INPUT = "Position has invalid input"
 local WARN_INVALID_SIZE_INPUT = "Size has invalid input."
 local WARN_SIZE_REQUIRED = "Size of region must be defined."
+local WARN_PUBLISHED_ONLY = "Game must be published before importing terrain."
 
 -- these two targets are ImageSelectors that
 -- hold the target files
@@ -309,6 +310,11 @@ function MakeButtonsFrame()
 end
 
 function importTerrain()
+	if tonumber(game.GameId) == 0 then
+		warn(WARN_PUBLISHED_ONLY)
+		return
+	end
+
 	local heightValidated = targetHeightMap:isValidated()
 
 	if not heightValidated then

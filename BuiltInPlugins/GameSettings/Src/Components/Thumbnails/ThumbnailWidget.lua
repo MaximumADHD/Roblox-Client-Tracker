@@ -159,19 +159,16 @@ function ThumbnailWidget:render()
 					}),
 				}),
 
-				Title = Roact.createElement("TextLabel", {
+				Title = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Normal, {
 					LayoutOrder = 0,
 					BackgroundTransparency = 1,
 					BorderSizePixel = 0,
 					Size = UDim2.new(1, 0, 0, 16),
 
-					TextColor3 = theme.titledFrame.text,
-					Font = Enum.Font.SourceSans,
-					TextSize = 22,
 					TextXAlignment = Enum.TextXAlignment.Left,
 					TextYAlignment = Enum.TextYAlignment.Top,
 					Text = localized.Title.Thumbnails,
-				}),
+				})),
 
 				Notes = Roact.createElement("Frame", {
 					LayoutOrder = 1,
@@ -223,7 +220,7 @@ function ThumbnailWidget:render()
 				-- Placed in a folder to prevent this component from being part
 				-- of the LayoutOrder and receiving padding above and below
 				CountFolder = Roact.createElement("Folder", {}, {
-					Count = Roact.createElement("TextLabel", {
+					Count = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Smaller, {
 						Visible = active,
 						Size = UDim2.new(1, 0, 0, 20),
 						Position = UDim2.new(0, 0, 1, Constants.ELEMENT_PADDING),
@@ -233,11 +230,9 @@ function ThumbnailWidget:render()
 						Text = errorMessage
 							or numThumbnails > 0 and (numThumbnails .. "/" .. Constants.MAX_THUMBNAILS)
 							or localized.Thumbnails.Count({maxThumbnails = Constants.MAX_THUMBNAILS}),
-						Font = Enum.Font.SourceSans,
-						TextSize = 16,
 						TextXAlignment = Enum.TextXAlignment.Left,
 						TextYAlignment = Enum.TextYAlignment.Center,
-					}),
+					})),
 				}),
 			})
 		end)

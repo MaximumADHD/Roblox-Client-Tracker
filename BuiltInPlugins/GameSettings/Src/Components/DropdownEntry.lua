@@ -15,6 +15,7 @@ local DEFAULT_SIZE = UDim2.new(0, 220, 0, 38)
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
+local Cryo = require(Plugin.Cryo)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
 local getMouse = require(Plugin.Src.Consumers.getMouse)
 
@@ -81,18 +82,16 @@ function DropdownEntry:render()
 					BackgroundColor3 = theme.dropDownEntry.highlight,
 				}),
 
-				Title = Roact.createElement("TextLabel", {
+				Title = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Normal, {
 					Size = UDim2.new(1, -12, 1, 0),
 					Position = UDim2.new(0, 12, 0, 0),
 					BackgroundTransparency = 1,
 					BorderSizePixel = 0,
 					Font = currentFont,
-					TextColor3 = theme.dropDown.text,
 					TextXAlignment = Enum.TextXAlignment.Left,
-					TextSize = 22,
 					Text = title or "",
 					ZIndex = 5,
-				}),
+				})),
 			}),
 		})
 	end)

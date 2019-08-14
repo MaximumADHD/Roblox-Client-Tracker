@@ -17,6 +17,7 @@ local TextService = game:GetService("TextService")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
+local Cryo = require(Plugin.Cryo)
 local Constants = require(Plugin.Src.Util.Constants)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
 local getMouse = require(Plugin.Src.Consumers.getMouse)
@@ -86,16 +87,13 @@ function CheckBox:render()
 					Image = theme.isDarkerTheme and SELECTED_IMAGE_DARK or SELECTED_IMAGE_LIGHT,
 				}),
 
-				TitleLabel = Roact.createElement("TextButton", {
+				TitleLabel = Roact.createElement("TextButton", Cryo.Dictionary.join(theme.fontStyle.Normal, {
 					BackgroundTransparency = 1,
 					BorderSizePixel = 0,
 					Size = UDim2.new(0, titleWidth, 1, 0),
 					AnchorPoint = Vector2.new(0, 0.5),
 					Position = UDim2.new(1, 5, 0.5, 0),
 
-					TextColor3 = theme.checkBox.title,
-					Font = Enum.Font.SourceSans,
-					TextSize = TITLE_TEXT_SIZE,
 					TextXAlignment = Enum.TextXAlignment.Left,
 					TextYAlignment = Enum.TextYAlignment.Center,
 					TextTransparency = self.props.Enabled and 0 or 0.5,
@@ -109,7 +107,7 @@ function CheckBox:render()
 							self.props.OnClicked()
 						end
 					end,
-				}),
+				})),
 			}),
 		})
 	end)

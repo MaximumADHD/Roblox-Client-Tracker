@@ -1,13 +1,11 @@
-local FFlagToolboxWithCMS = settings():GetFFlag("ToolboxWithCMS")
-if not FFlagToolboxWithCMS then
+local FFlagToolboxWithCMSV2 = settings():GetFFlag("ToolboxWithCMSV2")
+if not FFlagToolboxWithCMSV2 then
 	return
 end
 
 if not plugin then
 	return
 end
-
-local FFlagStudioEnableLuaAssetConfigurationPage = settings():GetFFlag("StudioEnableLuaAssetConfigurationPage")
 
 local Plugin = script.Parent.Parent
 local Libs = Plugin.Libs
@@ -35,6 +33,8 @@ local AssetConfigReducer = require(Plugin.Core.Reducers.AssetConfigReducer)
 local NetworkInterface = require(Plugin.Core.Networking.NetworkInterface)
 
 local AssetConfigWrapper = require(Plugin.Core.Components.AssetConfiguration.AssetConfigWrapper)
+
+local GetRolesRequest = require(Plugin.Core.Networking.Requests.GetRolesRequest)
 
 local StudioService = game:GetService("StudioService")
 local RobloxPluginGuiService = game:GetService("RobloxPluginGuiService")
@@ -112,10 +112,6 @@ local toolboxStore = nil
 -- toolboxStore storeObejct, is used to fetch some catalog data from the Toolbox.
 local assetConfigHandle = nil
 local function createAssetConfig(assetId, flowType, instances, assetTypeEnum)
-	if not FFlagStudioEnableLuaAssetConfigurationPage then
-		return
-	end
-
 	if assetConfigHandle then
 		return
 	end
@@ -152,8 +148,6 @@ local function createAssetConfig(assetId, flowType, instances, assetTypeEnum)
 	local networkInterface = NetworkInterface.new()
 	-- We are using the same localization table for Toolbox and AssetConfig for now.
 	local localization = createLocalization()
-
-
 
 	local function onAssetConfigDestroy()
 		if assetConfigHandle then
@@ -223,27 +217,32 @@ local function main()
 		suggestions = suggestions,
 
 		onPluginWillDestroy = onPluginWillDestroy,
-		tryOpenAssetConfig = createAssetConfig,
+		tryOpenAssetConfig = function(assetId, flowType, instances, assetTypeEnum)
+			local function proceedToEdit()
+				createAssetConfig(assetId, flowType, instances, assetTypeEnum)
+			end
+			toolboxStore:dispatch(GetRolesRequest(networkInterface)):andThen(proceedToEdit, proceedToEdit)
+		end,
 	})
 
 	toolboxHandle = Roact.mount(toolboxComponent)
 
 	-- Create publish new asset page.
-	if FFlagStudioEnableLuaAssetConfigurationPage then
-		StudioService.OnSaveToRoblox:connect(function(instances)
+	StudioService.OnSaveToRoblox:connect(function(instances)
 
-			-- clone instances so that user cannot edit them while validating/uploading
-			local clonedInstances = {}
-			for i = 1, #instances do
-				pcall(function()
-					clonedInstances[i] = instances[i]:Clone()
-				end)
-			end
+		-- clone instances so that user cannot edit them while validating/uploading
+		local clonedInstances = {}
+		for i = 1, #instances do
+			pcall(function()
+				clonedInstances[i] = instances[i]:Clone()
+			end)
+		end
 
+		local function proceedToUpload()
 			createAssetConfig(nil, AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW, clonedInstances)
-		end)
-	end
-
+		end
+		toolboxStore:dispatch(GetRolesRequest(networkInterface)):andThen(proceedToUpload, proceedToUpload)
+	end)
 end
 
 main()

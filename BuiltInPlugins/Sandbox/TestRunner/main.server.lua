@@ -21,6 +21,9 @@ local MainView = require(Plugin.Src.Components.MainView)
 
 -- data
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
+local DraftsLoadedAction = require(Plugin.Src.Actions.DraftsLoadedAction)
+local DraftAddedAction = require(Plugin.Src.Actions.DraftAddedAction)
+local DraftRemovedAction = require(Plugin.Src.Actions.DraftRemovedAction)
 
 -- theme
 local PluginTheme = require(Plugin.Src.Resources.PluginTheme)
@@ -31,7 +34,7 @@ local TranslationReferenceTable = Plugin.Src.Resources.TranslationReferenceTable
 local Localization = UILibrary.Studio.Localization
 
 -- Plugin Specific Globals
-local dataStore = Rodux.Store.new(MainReducer)
+local roduxStore = Rodux.Store.new(MainReducer)
 local theme = PluginTheme.new()
 local localization = Localization.new({
 	stringResourceTable = TranslationDevelopmentTable,
@@ -46,6 +49,10 @@ local localization = Localization.new({
 	end,
 	pluginName = "Sandbox",
 })
+
+-- Services
+local DraftsService = game:GetService("DraftsService")
+local MockDraftsService = require(Plugin.Src.TestHelpers.MockDraftsService)
 
 -- Widget Gui Elements
 local pluginHandle
@@ -65,7 +72,7 @@ local function openPluginWindow()
 		plugin = plugin,
 		localization = localization,
 		theme = theme,
-		store = dataStore,
+		store = roduxStore,
 	}, {
 		mainView = Roact.createElement(MainView, {
 		}),
@@ -84,6 +91,39 @@ end
 
 local function toggleWidget()
 	pluginGui.Enabled = not pluginGui.Enabled
+end
+
+local function connectToDraftsService()
+	if MockDraftsService:IsEnabled() then
+		-- Use mock instead of real DraftsService
+		DraftsService = MockDraftsService
+	end
+
+	-- Connect to events
+	DraftsService.DraftAdded:connect(function(draft)
+		roduxStore:dispatch(DraftAddedAction(draft))
+	end)	
+	DraftsService.DraftRemoved:connect(function(draft)
+		roduxStore:dispatch(DraftRemovedAction(draft))
+	end)
+	DraftsService.ScriptRemoved:connect(function(draft)
+		-- TODO: (mmcdonnell 8/6/2019) Handle ScriptRemoved. See CLISTUDIO-20039.
+	end)
+	DraftsService.ScriptServerVersionChanged:connect(function(draft)
+		-- TODO: (mmcdonnell 8/6/2019) Handle ScriptServerVersionChanged. See CLISTUDIO-20043.
+	end)
+	DraftsService.UpdateStatusChanged:connect(function(draft, status)
+		-- TODO: (mmcdonnell 8/6/2019) Handle UpdateStatusChanged. See CLISTUDIO-20044.
+	end)
+	DraftsService.CommitStatusChanged:connect(function(draft, status)
+		-- TODO: (mmcdonnell 8/6/2019) Handle CommitStatusChanged. See CLISTUDIO-20045.
+	end)
+
+	-- Do initial population of widget
+	spawn(function()
+		local drafts = DraftsService:GetDrafts()
+		roduxStore:dispatch(DraftsLoadedAction(drafts))
+	end)
 end
 
 
@@ -131,6 +171,8 @@ local function main()
 
 	-- configure the widget and button if its visible
 	showIfEnabled()
+
+	connectToDraftsService()
 end
 
 main()

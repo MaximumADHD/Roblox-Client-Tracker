@@ -13,6 +13,7 @@ local BUTTON_BAR_EDGE_PADDING = 35
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
+local Cryo = require(Plugin.Cryo)
 local Constants = require(Plugin.Src.Util.Constants)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
 local getMouse = require(Plugin.Src.Consumers.getMouse)
@@ -40,7 +41,7 @@ local function ButtonBar(props)
 		end
 
 		for i, button in ipairs(buttons) do
-			table.insert(components, Roact.createElement(RoundTextButton, {
+			table.insert(components, Roact.createElement(RoundTextButton, Cryo.Dictionary.join(theme.fontStyle.Normal, {
 				LayoutOrder = i,
 				Style = button.Default and theme.defaultButton or theme.cancelButton,
 				BorderMatchesBackground = button.Default and not theme.isDarkerTheme,
@@ -49,12 +50,11 @@ local function ButtonBar(props)
 				Name = button.Name,
 				Value = button.Value,
 				ZIndex = props.ZIndex or 1,
-				TextSize = Constants.TEXT_SIZE,
 
 				OnClicked = function(value)
 					props.ButtonClicked(value)
 				end,
-			}))
+			})))
 		end
 
 		return Roact.createElement("Frame", {

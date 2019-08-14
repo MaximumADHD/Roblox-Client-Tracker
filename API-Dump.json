@@ -1020,8 +1020,7 @@
             "Superclass": "Instance",
             "Tags": [
                 "NotCreatable",
-                "Service",
-                "NotReplicated"
+                "Service"
             ]
         },
         {
@@ -11127,7 +11126,7 @@
                 },
                 {
                     "MemberType": "Event",
-                    "Name": "DraftDeleted",
+                    "Name": "DraftRemoved",
                     "Parameters": [
                         {
                             "Name": "script",
@@ -11155,7 +11154,7 @@
                 },
                 {
                     "MemberType": "Event",
-                    "Name": "ScriptDeleted",
+                    "Name": "ScriptRemoved",
                     "Parameters": [
                         {
                             "Name": "script",
@@ -12920,7 +12919,7 @@
                     },
                     "Serialization": {
                         "CanLoad": false,
-                        "CanSave": true
+                        "CanSave": false
                     },
                     "Tags": [
                         "ReadOnly",
@@ -13146,6 +13145,23 @@
                     "ValueType": {
                         "Category": "DataType",
                         "Name": "Color3"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "BorderMode",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "BorderMode"
                     }
                 },
                 {
@@ -27583,6 +27599,178 @@
         {
             "Members": [
                 {
+                    "MemberType": "Function",
+                    "Name": "Disconnect",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "MemStorageConnection",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "MemberType": "Function",
+                    "Name": "Bind",
+                    "Parameters": [
+                        {
+                            "Name": "key",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "callback",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Function"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "Instance"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "BindAndFire",
+                    "Parameters": [
+                        {
+                            "Name": "key",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "callback",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Function"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "Instance"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetItem",
+                    "Parameters": [
+                        {
+                            "Name": "key",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Default": "",
+                            "Name": "defaultValue",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "HasItem",
+                    "Parameters": [
+                        {
+                            "Name": "key",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "RemoveItem",
+                    "Parameters": [
+                        {
+                            "Name": "key",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SetItem",
+                    "Parameters": [
+                        {
+                            "Name": "key",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Default": "",
+                            "Name": "value",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "MemStorageService",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+                {
                     "Category": "Appearance",
                     "MemberType": "Property",
                     "Name": "Text",
@@ -29167,6 +29355,27 @@
                     "Category": "Behavior",
                     "MemberType": "Property",
                     "Name": "IsLuaGameDetailsEnabled",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "IsLuaHomeWithAvatarEnabled",
                     "Security": {
                         "Read": "RobloxScriptSecurity",
                         "Write": "RobloxScriptSecurity"
@@ -51424,7 +51633,7 @@
                     },
                     "Serialization": {
                         "CanLoad": false,
-                        "CanSave": true
+                        "CanSave": false
                     },
                     "Tags": [
                         "ReadOnly",
@@ -51560,7 +51769,7 @@
                     },
                     "Serialization": {
                         "CanLoad": false,
-                        "CanSave": true
+                        "CanSave": false
                     },
                     "Tags": [
                         "ReadOnly",
@@ -51581,7 +51790,7 @@
                     },
                     "Serialization": {
                         "CanLoad": false,
-                        "CanSave": true
+                        "CanSave": false
                     },
                     "Tags": [
                         "ReadOnly",
@@ -57047,6 +57256,23 @@
         {
             "Items": [
                 {
+                    "Name": "Outline",
+                    "Value": 0
+                },
+                {
+                    "Name": "Middle",
+                    "Value": 1
+                },
+                {
+                    "Name": "Inset",
+                    "Value": 2
+                }
+            ],
+            "Name": "BorderMode"
+        },
+        {
+            "Items": [
+                {
                     "Name": "Other",
                     "Value": 0
                 },
@@ -62508,9 +62734,6 @@
                 },
                 {
                     "Name": "ShadowMap",
-                    "Tags": [
-                        "Deprecated"
-                    ],
                     "Value": 3
                 }
             ],

@@ -3,6 +3,7 @@
 
 	Props:
 		table Entries: A table of entries to include in this MenuBar
+		number Selected: Index of Entries that is selected
 		function selectionChanged: Callback when the selected menu entry changes
 ]]
 
@@ -33,9 +34,10 @@ local function MenuBar(props)
 
 			for i, entry in ipairs(entries) do
 				table.insert(menuEntries, Roact.createElement(MenuEntry, {
-					Title = localization:getText("MenuItem", entry.Name),
+					Title = localization:getText("MenuItem", entry),
 					Selected = (selected == i),
-					Index = i,
+
+					-- TODO (kstephan) 2019/08/01 Change error/warning status depending on Rodux state
 					ShowError = false,
 					ShowWarning = false,
 

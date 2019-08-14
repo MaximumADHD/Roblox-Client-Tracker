@@ -11,6 +11,8 @@ local function TilePlace(props)
 		return Localizing.withLocalization(function(localizing)
 			local name = props.Name
 			local image = props.Image
+			local selected = props.Selected
+			local lastItem = props.LastItem
 			local onActivated = props.OnActivated
 
 			return Roact.createElement("ImageButton", {
@@ -34,6 +36,7 @@ local function TilePlace(props)
 				}, {
 					Pad = Roact.createElement("UIPadding", {
 						PaddingLeft =  UDim.new(0, 10),
+						PaddingRight =  UDim.new(0, 10),
 						PaddingBottom = UDim.new(0, 10),
 					}),
 
@@ -49,7 +52,16 @@ local function TilePlace(props)
 						TextColor3 = theme.textColor,
 					}),
 
-					Seperator = Roact.createElement(Separator, {
+					Selected = selected and Roact.createElement("ImageLabel", {
+						Image = theme.icons.checkmark,
+						Size = UDim2.new(0, 30, 0, 30),
+						AnchorPoint = Vector2.new(1, 0.5),
+						Position = UDim2.new(1, -30, 0.5, 0),
+						BackgroundTransparency = 1,
+						BorderSizePixel = 0,
+					}),
+
+					Seperator = not lastItem and Roact.createElement(Separator, {
 						Weight = 1,
 						Position = UDim2.new(0.5, 0, 1, 10),
 					}),

@@ -97,6 +97,11 @@ function Theme:recalculateTheme()
 			TextSize = 24,
 			TextColor3 = color(StyleColor.TitlebarText),
 		},
+		Header = {
+			Font = Enum.Font.SourceSans,
+			TextSize = 24,
+			TextColor3 = color(StyleColor.BrightText),
+		},
 		Subtitle = {
 			Font = Enum.Font.SourceSans,
 			TextSize = 22,
@@ -107,10 +112,35 @@ function Theme:recalculateTheme()
 			TextSize = 22,
 			TextColor3 = color(StyleColor.MainText),
 		},
+		SemiBold = {
+			Font = Enum.Font.SourceSansSemibold,
+			TextSize = 22,
+			TextColor3 = color(StyleColor.MainText),
+		},
+		Smaller = {
+			Font = Enum.Font.SourceSans,
+			TextSize = 20,
+			TextColor3 = color(StyleColor.MainText),
+		},
+		Warning = {
+			Font = Enum.Font.SourceSans,
+			TextSize = 20,
+			TextColor3 = color(StyleColor.WarningText),
+		},
+		Error = {
+			Font = Enum.Font.SourceSans,
+			TextSize = 20,
+			TextColor3 = color(StyleColor.ErrorText),
+		},
 		Subtext = {
 			Font = Enum.Font.SourceSans,
 			TextSize = 16,
 			TextColor3 = color(StyleColor.DimmedText),
+		},
+		SmallError = {
+			Font = Enum.Font.SourceSans,
+			TextSize = 16,
+			TextColor3 = color(StyleColor.ErrorText),
 		},
 	}
 
@@ -168,16 +198,8 @@ function Theme:recalculateTheme()
 			text = color(StyleColor.BrightText),
 		},
 
-		header = {
-			text = color(StyleColor.BrightText),
-		},
-
 		footer = {
 			gradient = color(StyleColor.MainText),
-		},
-
-		titledFrame = {
-			text = color(StyleColor.SubText),
 		},
 
 		textBox = {

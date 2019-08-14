@@ -3,15 +3,17 @@ local Plugin = script.Parent.Parent.Parent
 local SetPlaceInfo = require(Plugin.Src.Actions.SetPlaceInfo)
 local ApiFetchPlacesByUniverseId = require(Plugin.Src.Network.Requests.ApiFetchPlacesByUniverseId)
 
-return function(universeId, pageCursor)
+return function(parentGame, pageCursor)
 	return function(store)
-		assert(type(universeId) == "number", "LoadExistingPlaces must have a number universeId")
+		assert(type(parentGame.name) == "string", "LoadExistingPlaces.parentGame must have a string name")
+		assert(type(parentGame.universeId) == "number", "LoadExistingPlaces.parentGame must have a number universeId")
 
 		store:dispatch(SetPlaceInfo(nil))
 
-		local query = ApiFetchPlacesByUniverseId({universeId = universeId}, {cursor = pageCursor,})
+		local query = ApiFetchPlacesByUniverseId({universeId = parentGame.universeId}, {cursor = pageCursor,})
 
 		query:andThen(function(resp)
+			resp.parentGame = parentGame
 			store:dispatch(SetPlaceInfo(resp))
 		end)
 		:catch(function()

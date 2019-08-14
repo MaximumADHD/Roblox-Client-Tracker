@@ -10,6 +10,9 @@
 local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
+local RoactRodux = require(Plugin.Packages.RoactRodux)
+
+local SettingsImpl = require(Plugin.Src.Network.Requests.SettingsImpl)
 
 local Theming = require(Plugin.Src.ContextServices.Theming)
 local Constants = require(Plugin.Src.Resources.Constants)
@@ -20,27 +23,30 @@ local MenuBar = require(Plugin.Src.Components.Menu.MenuBar)
 local Footer = require(Plugin.Src.Components.Footer)
 local BasicInfo = require(Plugin.Src.Components.BasicInfo)
 
+local MENU_ENTRIES = {
+	"BasicInfo",
+}
+
 local ScreenCreateNewGame = Roact.PureComponent:extend("ScreenCreateNewGame")
 
 function ScreenCreateNewGame:init()
 	self.state = {
 		selected = 1,
 	}
-end
 
-function ScreenCreateNewGame:pageSelected(index)
-	self:setState({
-		selected = index,
-	})
+	self.changeSelection = function(index)
+		self:setState({
+			selected = index,
+		})
+	end
 end
 
 function ScreenCreateNewGame:render(props)
 	return Theming.withTheme(function(theme)
 
 		local onClose = self.props.OnClose
-		local menuEntries = {
-			{Name = "BasicInfo"},
-		}
+		local readyToSave = self.props.ReadyToSave
+		local changed = self.props.Changed
 
 		local selected = self.state.selected
 
@@ -48,13 +54,10 @@ function ScreenCreateNewGame:render(props)
 			Size = UDim2.new(1, 0, 1, 0),
 			BackgroundColor3 = theme.backgroundColor,
 		}, {
-
 			MenuBar = Roact.createElement(MenuBar, {
-				Entries = menuEntries,
+				Entries = MENU_ENTRIES,
 				Selected = selected,
-				SelectionChanged = function(index)
-					self:pageSelected(index)
-				end,
+				SelectionChanged = self.changeSelection,
 			}),
 
 			Separator = Roact.createElement(Separator, {
@@ -63,19 +66,36 @@ function ScreenCreateNewGame:render(props)
 				DominantAxis = Enum.DominantAxis.Height,
 			}),
 
-			Page = Roact.createElement(BasicInfo, {
-				PageName = menuEntries[selected].Name,
+			Page = Roact.createElement("Frame", {
+				BackgroundTransparency = 1,
+				Position = UDim2.new(0, Constants.MENU_BAR_WIDTH, 0, 0),
+				Size = UDim2.new(1, -Constants.MENU_BAR_WIDTH, 1, -Constants.FOOTER_HEIGHT)
+			}, {
+				Roact.createElement(BasicInfo),
 			}),
 
 			Footer = Roact.createElement(Footer, {
+				MainButton = {
+					Name = "Create",
+					Active = readyToSave,
+					OnActivated = function()
+						SettingsImpl.saveAll(changed, onClose)
+					end,
+				},
 				OnClose = onClose,
-				CancelActive = true,
 				NextScreen = Constants.SCREENS.CHOOSE_GAME,
 				NextScreenText = "UpdateExistingGame"
 			}),
-
 		})
 	end)
 end
 
-return ScreenCreateNewGame
+local function mapStateToProps(state, props)
+	local settings = state.NewGameSettings
+	return {
+		Changed = settings.changed,
+		ReadyToSave = next(settings.errors) == nil,
+	}
+end
+
+return RoactRodux.connect(mapStateToProps, nil)(ScreenCreateNewGame)

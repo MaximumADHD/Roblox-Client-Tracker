@@ -218,7 +218,16 @@ function AssetGridContainer:willUnmount()
 end
 
 function AssetGridContainer.getDerivedStateFromProps(nextProps, lastState)
-	if not nextProps.assetIds[lastState.hoveredAssetId] then
+	local lastHoveredAssetStillVisible = false
+	for _, assetTable in ipairs(nextProps.assetIds) do
+		local assetId = assetTable[1]
+		if lastState.hoveredAssetId == assetId then
+			lastHoveredAssetStillVisible = true
+			break
+		end
+	end
+
+	if not lastHoveredAssetStillVisible then
 		return {
 			hoveredAssetId = 0
 		}

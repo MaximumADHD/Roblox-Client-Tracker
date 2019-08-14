@@ -37,14 +37,15 @@ local function getMenuTextForLocale_deprecated(localeId)
 	return localeNameMap[localeId] or customMenuItemText
 end
 
-function LocaleSelector:getMenuTextForLocale(localeId)
+function LocaleSelector.getMenuTextForLocale(allLanguageInfo, localeId)
 	if UseAllSupportedLanguageList then
-		if not localeId or localeId == "" then
+		localeId = string.gsub(localeId, '-', '_')
+
+		if localeId == "" or not allLanguageInfo.localeInfoTable[localeId] then
 			return customMenuItemText
 		end
 		-- need this because client uses hyphen, platform uses underscore...
-		localeId = string.gsub(localeId, '-', '_')
-		return self.props.AllLanguagesInfo.localeInfoTable[localeId].languageName or customMenuItemText
+		return allLanguageInfo.localeInfoTable[localeId].languageName or customMenuItemText
 	else
 		return getMenuTextForLocale_deprecated(localeId)
 	end
@@ -99,7 +100,7 @@ function LocaleSelector:render()
 			}, {
 				Dropdown = Roact.createElement(Dropdown, {
 					Window = self.props.Window,
-					CurrentText = self:getMenuTextForLocale(self.props.LocaleId),
+					CurrentText = self.getMenuTextForLocale(self.props.AllLanguagesInfo ,self.props.LocaleId),
 					ListItemHeight = 25,
 					ListItems = ListItems,
 				}),

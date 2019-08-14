@@ -206,11 +206,12 @@ function DeveloperSubscriptionDetails:renderConsolidated(theme, localized)
 			LayoutOrder = 0,
 		}),
 
-		NameFrame = Roact.createElement(TitledFrame, Cryo.Dictionary.join(theme.fontStyle.Normal, {
+		NameFrame = Roact.createElement(TitledFrame, {
 			Title = localized.DevSubs.Name,
 			LayoutOrder = 1,
 			MaxHeight = 64,
-		}), {
+			TextSize = theme.fontStyle.Normal.TextSize,
+		}, {
 			Roact.createElement(RoundTextBox, Cryo.Dictionary.join(theme.fontStyle.Normal, {
 				Active = true,
 				Enabled = canEdit,
@@ -221,14 +222,15 @@ function DeveloperSubscriptionDetails:renderConsolidated(theme, localized)
 				ErrorMessage = nameError,
 				SetText = self.onNameChanged,
 				FocusChanged = self.onNameFocusChanged,
-			}))
+			})),
 		}),
 
-		DescriptionFrame = Roact.createElement(TitledFrame, Cryo.Dictionary.join(theme.fontStyle.Normal, {
+		DescriptionFrame = Roact.createElement(TitledFrame, {
 			Title = localized.DevSubs.Description,
 			LayoutOrder = 2,
 			MaxHeight = 160,
-		}), {
+			TextSize = theme.fontStyle.Normal.TextSize,
+		}, {
 			Roact.createElement(RoundTextBox, Cryo.Dictionary.join(theme.fontStyle.Normal, {
 				Active = true,
 				Enabled = canEdit,
@@ -255,8 +257,8 @@ function DeveloperSubscriptionDetails:renderConsolidated(theme, localized)
 		}) or Roact.createElement(TitledFrame, {
 			Title = localized.DevSubs.Image,
 			MaxHeight = 150,
-			TextSize = Constants.TEXT_SIZE,
 			LayoutOrder = 3,
+			TextSize = theme.fontStyle.Normal.TextSize,
 		}, {
 			Image = Roact.createElement("ImageLabel", {
 				Image = developerSubscription.Image,
@@ -264,11 +266,12 @@ function DeveloperSubscriptionDetails:renderConsolidated(theme, localized)
 			}),
 		}),
 
-		PriceFrame = Roact.createElement(TitledFrame, Cryo.Dictionary.join(theme.fontStyle.Normal, {
+		PriceFrame = Roact.createElement(TitledFrame, {
 			Title = localized.DevSubs.Price,
 			LayoutOrder = 4,
 			MaxHeight = Constants.ROUND_TEXT_BOX_DEFAULT_HEIGHT,
-		}), {
+			TextSize = theme.fontStyle.Normal.TextSize,
+		}, {
 			Layout = Roact.createElement("UIListLayout", {
 				SortOrder = Enum.SortOrder.LayoutOrder,
 				FillDirection = Enum.FillDirection.Horizontal,
@@ -298,11 +301,12 @@ function DeveloperSubscriptionDetails:renderConsolidated(theme, localized)
 			}),
 		}),
 
-		DurationFrame = Roact.createElement(TitledFrame, Cryo.Dictionary.join(theme.fontStyle.Normal, {
+		DurationFrame = Roact.createElement(TitledFrame, {
 			Title = localized.DevSubs.Duration,
 			LayoutOrder = 5,
 			MaxHeight = 42,
-		}), {
+			TextSize = theme.fontStyle.Normal.TextSize,
+		}, {
 			Text = Roact.createElement(DeveloperSubscriptionListItemText, {
 				Text = "1 Month",
 				Size = UDim2.new(1, 0, 1, 0),

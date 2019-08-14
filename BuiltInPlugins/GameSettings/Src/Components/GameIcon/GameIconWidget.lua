@@ -18,6 +18,7 @@ local NOTES_SIZE = UDim2.new(1, -180, 0, 100)
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
+local Cryo = require(Plugin.Cryo)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
 local withLocalization = require(Plugin.Src.Consumers.withLocalization)
 local getMouse = require(Plugin.Src.Consumers.getMouse)
@@ -74,7 +75,7 @@ function GameIconWidget:render()
 				Title = title,
 				MaxHeight = 150,
 				LayoutOrder = self.props.LayoutOrder or 1,
-				TextSize = Constants.TEXT_SIZE,
+				TextSize = theme.fontStyle.Title.TextSize,
 			}, {
 				Icon = Roact.createElement(GameIcon, {
 					Visible = active and icon ~= "None" or preview,
@@ -112,11 +113,9 @@ function GameIconWidget:render()
 					}),
 				}),
 
-				NewNote = tutorialEnabled and Roact.createElement("TextButton", {
+				NewNote = tutorialEnabled and Roact.createElement("TextButton", Cryo.Dictionary.join(theme.fontStyle.Smaller, {
 					BackgroundTransparency = 1,
 					Text = localized.GameIcon.Tutorial,
-					TextSize = 20,
-					Font = Enum.Font.SourceSans,
 					TextColor3 = theme.hyperlink,
 					Size = UDim2.new(1, 0, 0, 18),
 					Position = UDim2.new(0, 180, 0, 92),
@@ -128,20 +127,17 @@ function GameIconWidget:render()
 					[Roact.Event.Activated] = function()
 						GuiService:OpenBrowserWindow(TUTORIAL_URL)
 					end,
-				}),
+				})),
 
-				ErrorMessage = errorMessage and Roact.createElement("TextLabel", {
+				ErrorMessage = errorMessage and Roact.createElement("TextLabel",Cryo.Dictionary.join(theme.fontStyle.Error, {
 					Size = UDim2.new(1, -180, 0, 40),
 					Position = UDim2.new(0, 180, 0, 122),
 					BackgroundTransparency = 1,
-					TextColor3 = Constants.ERROR_COLOR,
 					Text = errorMessage,
-					Font = Enum.Font.SourceSans,
-					TextSize = 20,
 					TextWrapped = true,
 					TextXAlignment = Enum.TextXAlignment.Left,
 					TextYAlignment = Enum.TextYAlignment.Center,
-				}),
+				})),
 			})
 		end)
 	end)

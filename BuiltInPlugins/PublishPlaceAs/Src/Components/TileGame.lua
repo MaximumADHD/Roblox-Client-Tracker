@@ -13,7 +13,6 @@ local function TileGame(props)
 	return Theming.withTheme(function(theme)
 		return Localizing.withLocalization(function(localizing)
 			local name = props.Name
-			local id = props.Id
 			local image = props.Image
 
 			local onActivated = props.OnActivated
@@ -22,7 +21,7 @@ local function TileGame(props)
 				BackgroundTransparency = 1,
 				Size = UDim2.new(0, SQUARE_BUTTON_SIZE, 0, SQUARE_BUTTON_SIZE + TILE_FOOTER_SIZE),
 
-				[Roact.Event.Activated] = function() onActivated(id) end,
+				[Roact.Event.Activated] = onActivated
 			}, {
 				Icon = Roact.createElement("ImageLabel", {
 					Position = UDim2.new(0, 0, 0, 0),

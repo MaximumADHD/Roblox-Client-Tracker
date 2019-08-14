@@ -29,7 +29,7 @@ function StudioStyle.new(getColor, c, m)
 
 		primaryHoveredItemColor = getColor(c.DialogMainButton, m.Hover),
 		primaryHoveredBorderColor = getColor(c.DialogMainButton, m.Hover),
-		primaryHoveredTextColor = getColor(c.DialogMainButton, m.Hover),
+		primaryHoveredTextColor = getColor(c.DialogMainButtonText, m.Hover),
 
 		selectionColor = getColor(c.Item, m.Selected),
 		selectionBorderColor = getColor(c.Border, m.Selected),

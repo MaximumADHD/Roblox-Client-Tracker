@@ -1,10 +1,11 @@
 Key,Source,Context,en-us
 Studio.PublishPlaceAs.General.PublishPlace, , ,Publish Place
-Studio.PublishPlaceAs.Button.UpdateExistingGame, , ,Update existing game...
-Studio.PublishPlaceAs.Button.CreateNewGame, , ,Create new game...
+Studio.PublishPlaceAs.FooterButton.UpdateExistingGame, , ,Update existing game...
+Studio.PublishPlaceAs.FooterButton.CreateNewGame, , ,Create new game...
+Studio.PublishPlaceAs.FooterButton.Create, , ,Create
+Studio.PublishPlaceAs.FooterButton.Overwrite, , ,Overwrite
+Studio.PublishPlaceAs.FooterButton.Cancel, , ,Cancel
 Studio.PublishPlaceAs.Button.AddNewPlace, , ,Add New
-Studio.PublishPlaceAs.Button.Save, , ,Save
-Studio.PublishPlaceAs.Button.Cancel, , ,Cancel
 Studio.PublishPlaceAs.Button.NextPage, , ,Next
 Studio.PublishPlaceAs.Button.PreviousPage, , ,Previous
 Studio.PublishPlaceAs.MenuItem.BasicInfo, , ,Basic Info
@@ -39,3 +40,4 @@ Studio.PublishPlaceAs.Error.DescriptionModerated, , ,The description didn't go t
 Studio.PublishPlaceAs.Error.DescriptionTooLong, , ,Description cannot be that long.
 Studio.PublishPlaceAs.Error.NoDevices, , ,You must select at least one playable device.
 Studio.PublishPlaceAs.ScreenHeader.ChooseGame, , ,Choose an existing game to add this place
+Studio.PublishPlaceAs.ScreenHeader.ChoosePlace, , ,Overwrite or add a new place to

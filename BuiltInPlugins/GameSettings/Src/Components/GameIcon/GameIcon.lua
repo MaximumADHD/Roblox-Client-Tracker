@@ -14,6 +14,7 @@ local FALLBACK_IMAGE = "rbxasset://textures/GameSettings/ModeratedAsset.jpg"
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
+local Cryo = require(Plugin.Cryo)
 local Constants = require(Plugin.Src.Util.Constants)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
 local withLocalization = require(Plugin.Src.Consumers.withLocalization)
@@ -77,7 +78,7 @@ function GameIcon:render()
 					Size = UDim2.new(1, 0, 1, 0),
 				}),
 
-				InfoText = Roact.createElement("TextLabel", {
+				InfoText = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Normal, {
 					Visible = review or preview,
 					BackgroundTransparency = 0.3,
 					BorderSizePixel = 0,
@@ -88,10 +89,7 @@ function GameIcon:render()
 					ZIndex = 3,
 
 					Text = preview and localized.GameIcon.Preview or localized.GameIcon.Review,
-					TextColor3 = Constants.WHITE,
-					TextSize = 22,
-					Font = Enum.Font.SourceSans,
-				}),
+				})),
 
 				Change = Roact.createElement("ImageButton", {
 					Visible = hover and not review,
@@ -107,18 +105,15 @@ function GameIcon:render()
 
 					[Roact.Event.Activated] = self.props.OnClick,
 				}, {
-					Text = Roact.createElement("TextLabel", {
+					Text = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Normal, {
 						BackgroundTransparency = 1,
 						Size = UDim2.new(1, 0, 0, 30),
 						Position = UDim2.new(0, 0, 1, -15),
 						AnchorPoint = Vector2.new(0, 1),
 
 						Text = localized.GameIcon.Change,
-						TextColor3 = Constants.WHITE,
-						TextSize = 22,
-						Font = Enum.Font.SourceSans,
 						ZIndex = 5,
-					}),
+					})),
 				}),
 			})
 		end)

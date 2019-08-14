@@ -46,7 +46,7 @@ Class AdService : Instance [NotCreatable] [Service] [Deprecated]
 	Function void AdService:ShowVideoAd() [Deprecated]
 	Event AdService.VideoAdClosed(bool adShown) [Deprecated]
 Class AdvancedDragger : Instance
-Class AnalyticsService : Instance [NotCreatable] [Service] [NotReplicated]
+Class AnalyticsService : Instance [NotCreatable] [Service]
 	Property string AnalyticsService.ApiKey {LocalUserSecurity}
 	Function void AnalyticsService:FireEvent(string category, Variant value)
 Class Animation : Instance
@@ -630,9 +630,9 @@ Class DraftsService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void DraftsService:UpdateToLatestVersion(Objects scripts) {RobloxScriptSecurity} [Yields]
 	Event DraftsService.CommitStatusChanged(Instance script, Enum<DraftStatusCode> status) {RobloxScriptSecurity}
 	Event DraftsService.DraftAdded(Instance script) {RobloxScriptSecurity}
-	Event DraftsService.DraftDeleted(Instance script) {RobloxScriptSecurity}
+	Event DraftsService.DraftRemoved(Instance script) {RobloxScriptSecurity}
 	Event DraftsService.EditorsListChanged(Instance script) {RobloxScriptSecurity}
-	Event DraftsService.ScriptDeleted(Instance script) {RobloxScriptSecurity}
+	Event DraftsService.ScriptRemoved(Instance script) {RobloxScriptSecurity}
 	Event DraftsService.ScriptServerVersionChanged(Instance script) {RobloxScriptSecurity}
 	Event DraftsService.UpdateStatusChanged(Instance script, Enum<DraftStatusCode> status) {RobloxScriptSecurity}
 Class Dragger : Instance
@@ -737,7 +737,7 @@ Class GroupService : Instance [NotCreatable] [Service] [NotReplicated]
 Class GuiBase : Instance [NotCreatable]
 Class GuiBase2d : GuiBase [NotCreatable] [NotBrowsable]
 	Property Vector2 GuiBase2d.AbsolutePosition  [ReadOnly] [NotReplicated]
-	Property float GuiBase2d.AbsoluteRotation [<💾> Save-only] [ReadOnly] [NotReplicated]
+	Property float GuiBase2d.AbsoluteRotation  [ReadOnly] [NotReplicated]
 	Property Vector2 GuiBase2d.AbsoluteSize  [ReadOnly] [NotReplicated]
 	Property bool GuiBase2d.AutoLocalize
 	Property bool GuiBase2d.Localize [<📁> Load-only] [Hidden] [NotReplicated] [Deprecated]
@@ -757,6 +757,7 @@ Class GuiObject : GuiBase2d [NotCreatable] [NotBrowsable]
 	Property float GuiObject.BackgroundTransparency
 	Property BrickColor GuiObject.BorderColor [<📁> Load-only] [Hidden] [NotReplicated] [Deprecated]
 	Property Color3 GuiObject.BorderColor3
+	Property Enum<BorderMode> GuiObject.BorderMode
 	Property int GuiObject.BorderSizePixel
 	Property int GuiObject.LayoutOrder
 	Property UDim2 GuiObject.Position
@@ -1564,6 +1565,15 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Event MarketplaceService.ServerPurchaseVerification(Dictionary serverResponseTable) {RobloxScriptSecurity}
 	Event MarketplaceService.ThirdPartyPurchaseFinished(Instance player, string productId, string receipt, bool wasPurchased) {LocalUserSecurity}
 	Callback Enum<ProductPurchaseDecision> MarketplaceService.ProcessReceipt(Dictionary receiptInfo)
+Class MemStorageConnection : Instance [NotCreatable] [NotReplicated]
+	Function void MemStorageConnection:Disconnect() {RobloxScriptSecurity}
+Class MemStorageService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function Instance MemStorageService:Bind(string key, Function callback) {RobloxScriptSecurity}
+	Function Instance MemStorageService:BindAndFire(string key, Function callback) {RobloxScriptSecurity}
+	Function string MemStorageService:GetItem(string key, string defaultValue = "") {RobloxScriptSecurity}
+	Function bool MemStorageService:HasItem(string key) {RobloxScriptSecurity}
+	Function bool MemStorageService:RemoveItem(string key) {RobloxScriptSecurity}
+	Function void MemStorageService:SetItem(string key, string value = "") {RobloxScriptSecurity}
 Class Message : Instance [Deprecated]
 	Property string Message.Text  [Deprecated]
 Class Hint : Message [Deprecated]
@@ -1661,6 +1671,7 @@ Class NotificationService : Instance [NotCreatable] [Service]
 	Property bool NotificationService.IsLuaBottomBarWithText {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
 	Property bool NotificationService.IsLuaChatEnabled {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
 	Property bool NotificationService.IsLuaGameDetailsEnabled {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
+	Property bool NotificationService.IsLuaHomeWithAvatarEnabled {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
 	Property string NotificationService.SelectedTheme {RobloxScriptSecurity} [<📁> Load-only] [NotReplicated]
 	Function void NotificationService:ActionEnabled(Enum<AppShellActionType> actionType) {RobloxScriptSecurity}
 	Function void NotificationService:ActionTaken(Enum<AppShellActionType> actionType) {RobloxScriptSecurity}
@@ -2887,7 +2898,7 @@ Class UIGridStyleLayout : UILayout [NotCreatable] [NotBrowsable]
 	Property Enum<HorizontalAlignment> UIGridStyleLayout.HorizontalAlignment
 	Property Enum<SortOrder> UIGridStyleLayout.SortOrder
 	Property Enum<VerticalAlignment> UIGridStyleLayout.VerticalAlignment
-	Property Vector2 UIGridStyleLayout.AbsoluteContentSize [<💾> Save-only] [ReadOnly] [NotReplicated]
+	Property Vector2 UIGridStyleLayout.AbsoluteContentSize  [ReadOnly] [NotReplicated]
 	Function void UIGridStyleLayout:ApplyLayout() [Deprecated]
 	Function void UIGridStyleLayout:SetCustomSortFunction(Function function = nil) [Deprecated]
 Class UIGridLayout : UIGridStyleLayout
@@ -2895,8 +2906,8 @@ Class UIGridLayout : UIGridStyleLayout
 	Property UDim2 UIGridLayout.CellSize
 	Property int UIGridLayout.FillDirectionMaxCells
 	Property Enum<StartCorner> UIGridLayout.StartCorner
-	Property Vector2 UIGridLayout.AbsoluteCellCount [<💾> Save-only] [ReadOnly] [NotReplicated]
-	Property Vector2 UIGridLayout.AbsoluteCellSize [<💾> Save-only] [ReadOnly] [NotReplicated]
+	Property Vector2 UIGridLayout.AbsoluteCellCount  [ReadOnly] [NotReplicated]
+	Property Vector2 UIGridLayout.AbsoluteCellSize  [ReadOnly] [NotReplicated]
 Class UIInlineLayout : UIGridStyleLayout
 	Property UDim2 UIInlineLayout.InlinePadding
 	Property Enum<InlineAlignment> UIInlineLayout.InlineAlignment
@@ -3288,6 +3299,10 @@ Enum BodyPartR15
 	EnumItem BodyPartR15.RightUpperArm : 14
 	EnumItem BodyPartR15.RootPart : 15
 	EnumItem BodyPartR15.Unknown : 17
+Enum BorderMode
+	EnumItem BorderMode.Outline : 0
+	EnumItem BorderMode.Middle : 1
+	EnumItem BorderMode.Inset : 2
 Enum BreakReason
 	EnumItem BreakReason.Other : 0
 	EnumItem BreakReason.Error : 1
@@ -4584,7 +4599,7 @@ Enum Technology
 	EnumItem Technology.Legacy : 0
 	EnumItem Technology.Voxel : 1
 	EnumItem Technology.Compatibility : 2 [Deprecated]
-	EnumItem Technology.ShadowMap : 3 [Deprecated]
+	EnumItem Technology.ShadowMap : 3
 Enum TeleportResult
 	EnumItem TeleportResult.Success : 0
 	EnumItem TeleportResult.Failure : 1

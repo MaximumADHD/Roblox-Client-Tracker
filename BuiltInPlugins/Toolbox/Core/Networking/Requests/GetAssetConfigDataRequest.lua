@@ -5,6 +5,8 @@ local HttpService = game:GetService("HttpService")
 local Actions = Plugin.Core.Actions
 local SetAssetConfigData = require(Actions.SetAssetConfigData)
 local firstToUpper = require(Plugin.Core.Util.firstToUpper)
+local NetworkError = require(Actions.NetworkError)
+local ConfigTypes = require(Plugin.Core.Types.ConfigTypes)
 
 return function(networkInterface, assetId)
 	return function(store)
@@ -23,9 +25,8 @@ return function(networkInterface, assetId)
 
 				store:dispatch(SetAssetConfigData(newAssetConfigData))
 			end,
-			function(result)
-				-- TODO DEVTOOLS-2831
-				-- Implement the error function.
+			function(err)
+				store:dispatch(NetworkError(err, ConfigTypes.GET_ASSET_DETAIL_FAILURE_ACTION ))
 			end)
 	end
 end

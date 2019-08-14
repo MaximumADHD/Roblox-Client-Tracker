@@ -149,19 +149,16 @@ function ThumbnailPreviewDialog:render()
 						BackgroundColor3 = BLACK,
 						Size = UDim2.new(1, 0, 0, 30),
 					}, {
-						TitleText = Roact.createElement("TextLabel", {
+						TitleText = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Normal, {
 							BackgroundTransparency = 1,
 							Size = UDim2.new(1, -20, 1, 0),
 							Position = UDim2.new(0.5, 0, 0, 0),
 							AnchorPoint = Vector2.new(0.5, 0),
 
 							Text = videoTitle,
-							TextColor3 = WHITE,
-							TextSize = 22,
-							Font = Enum.Font.SourceSans,
 							TextTruncate = Enum.TextTruncate.AtEnd,
 							TextXAlignment = Enum.TextXAlignment.Left,
-						}),
+						})),
 					}),
 
 					VideoWarning = Roact.createElement("Frame", {
@@ -173,23 +170,18 @@ function ThumbnailPreviewDialog:render()
 						AnchorPoint = Vector2.new(0.5, 0.5),
 						BackgroundColor3 = BLACK,
 					}, {
-						Message = Roact.createElement("TextLabel", {
+						Message = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Normal, {
 							Size = UDim2.new(1, 0, 0.5, 0),
 							BackgroundTransparency = 1,
 							Text = localized.PreviewDialog.Body,
-							TextColor3 = WHITE,
-							TextSize = 22,
-							Font = Enum.Font.SourceSans,
-						}),
+						})),
 
-						Link = Roact.createElement("TextButton", {
+						Link = Roact.createElement("TextButton", Cryo.Dictionary.join(theme.fontStyle.Normal, {
 							Size = UDim2.new(1, 0, 0.5, 0),
 							Position = UDim2.new(0, 0, 0.5, 0),
 							BackgroundTransparency = 1,
 							Text = localized.PreviewDialog.Link,
 							TextColor3 = theme.hyperlink,
-							TextSize = 22,
-							Font = Enum.Font.SourceSans,
 
 							[Roact.Event.MouseEnter] = self.mouseEnterLink,
 							[Roact.Event.MouseLeave] = self.mouseLeaveLink,
@@ -197,7 +189,7 @@ function ThumbnailPreviewDialog:render()
 							[Roact.Event.Activated] = function()
 								BrowserUtils.OpenVideo(videoHash)
 							end,
-						}),
+						})),
 					}),
 				}),
 			})

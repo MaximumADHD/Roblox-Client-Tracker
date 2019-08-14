@@ -51,30 +51,25 @@ local createMenuPage = require(Plugin.Src.Components.createMenuPage)
 
 --Uses props to display current settings values
 local function displayContents(props, localization)
-	local description = props.Description or ""
+	local description = props.Description
 	local descriptionChanged = props.DescriptionChanged
 	local descriptionError = props.DescriptionError
 	local devices = props.Devices
 	local devicesChanged = props.DevicesChanged
 	local devicesError = props.DevicesError
-	local genreText = props.Genre and props.Genre.Text or "Choose a Genre"
+	local genre = props.Genre
 	local genreChanged = props.GenreChanged
-	local name = props.Name or ""
+	local name = props.Name
 	local nameChanged = props.NameChanged
 	local nameError = props.NameError
-	local pageName = props.PageName
 
-	local genreIds = {
-		"All", "Adventure", "Tutorial", "Funny", "Ninja", "FPS", "Scary", "Fantasy",
-		"War", "Pirate", "RPG", "SciFi", "Sports", "TownAndCity", "WildWest",
-	}
-	local genres = Cryo.List.map(genreIds, function(name)
+	local genres = Cryo.List.map(Constants.GENRE_IDS, function(name)
 		return {Key = name, Text = localization:getText("Genre", name)}
 	end)
 
 	return {
 		Header = Roact.createElement(Header, {
-			Title = localization:getText("MenuItem", pageName),
+			Title = localization:getText("MenuItem", "BasicInfo"),
 			LayoutOrder = 0,
 		}),
 
@@ -128,14 +123,14 @@ local function displayContents(props, localization)
 					Size = UDim2.new(0, 220, 0, 38),
 					Position = UDim2.new(0, 0, 0, 0),
 					ItemHeight = 38,
-					ButtonText = genreText,
+					ButtonText = localization:getText("Genre", genre),
 					Items = genres,
 					MaxItems = 4,
 					TextSize = Constants.TEXT_SIZE,
-
-					OnItemClicked = genreChanged,
+					SelectedItem = genre,
+					OnItemClicked = function(item) genreChanged(item.Key) end,
 					DescriptionTextSize = Constants.TEXT_SIZE - 2,
-
+					ListWidth = 210,
 				})
 			end),
 		}),
@@ -231,13 +226,10 @@ local function dispatchForProps(setValue, dispatch)
 	}
 end
 
-local function BasicInfo(props)
-	local page = createMenuPage(loadValuesToProps, dispatchForProps)
+local basePage = createMenuPage(loadValuesToProps, dispatchForProps)
 
-	return Roact.createElement(page, {
-		PageName = props.PageName,
-		ContentHeightChanged = props.ContentHeightChanged,
-		LayoutOrder = props.LayoutOrder,
+local function BasicInfo(props)
+	return Roact.createElement(basePage, {
 		Content = displayContents,
 		AddLayout = true,
 	})

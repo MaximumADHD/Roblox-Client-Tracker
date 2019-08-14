@@ -242,7 +242,7 @@ function CollaboratorSearchWidget:render()
 	end
 
 	local maxCollaborators = game:GetFastInt("MaxAccessPermissionsCollaborators")
-	local tooManyCollaborators = numCollaborators > maxCollaborators
+	local tooManyCollaborators = numCollaborators >= maxCollaborators
 
 	local function collaboratorAdded(collaboratorType, collaboratorId, collaboratorName, action)
 		local newPermissions

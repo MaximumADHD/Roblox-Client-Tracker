@@ -10,6 +10,11 @@ SCREENS = {
 	CHOOSE_PLACE = "CHOOSE_PLACE",
 },
 
+GENRE_IDS = {
+	"All", "Adventure", "Tutorial", "Funny", "Ninja", "FPS", "Scary", "Fantasy",
+	"War", "Pirate", "RPG", "SciFi", "Sports", "TownAndCity", "WildWest",
+},
+
 MENU_BAR_WIDTH = 192,
 
 FOOTER_HEIGHT = 65,

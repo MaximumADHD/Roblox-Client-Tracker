@@ -1,3 +1,13 @@
+--[[
+	A utility for elements that require text to be localized and display translated
+	strings.
+
+	When initializing LocalizationProvider, it expects a Localization object, an example being
+	src/Studio/Localization.lua where there is two tables for development strings and translated
+	strings. withLocalization is mainly used to render elements with the localized strings using 
+	the localization object passed into LocalizationProvider
+]]
+
 local Library = script.Parent
 
 local Roact = require(Library.Parent.Roact)

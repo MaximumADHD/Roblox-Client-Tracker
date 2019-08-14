@@ -7,3 +7,7 @@ Studio.Sandbox.ContextMenu.OpenScript, , ,Open
 Studio.Sandbox.ContextMenu.ShowDiff, , ,Compare with server
 Studio.Sandbox.ContextMenu.Commit, , ,Commit
 Studio.Sandbox.ContextMenu.Revert, , ,Discard Draft
+Studio.Sandbox.Dialog.Yes, , ,Yes
+Studio.Sandbox.Dialog.No, , ,No
+Studio.Sandbox.DiscardDialog.ConfirmQuestion, , ,Are you sure you want to discard your uncommited edits to the following scripts?
+Studio.Sandbox.DiscardDialog.Title, , ,Discard Edits to Scripts

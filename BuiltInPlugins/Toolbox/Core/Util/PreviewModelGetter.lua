@@ -9,6 +9,7 @@ local Promise = require(Plugin.Libs.Http.Promise)
 local Urls = require(Plugin.Core.Util.Urls)
 
 local FFlagEnableDataModelFetchAssetAsync = settings():GetFFlag("EnableDataModelFetchAssetAsync")
+local FFlagEnableToolboxInsertWithJoin = settings():GetFFlag("EnableToolboxInsertWithJoin")
 
 local function disableScripts(previewModel)
 	for _, item in pairs(previewModel:GetDescendants()) do
@@ -23,9 +24,17 @@ local function getPreviewModel(assetId)
 	local success, errorMessage = pcall(function()
 		local url = Urls.constructAssetIdString(assetId)
 		if FFlagEnableDataModelFetchAssetAsync then
-			assetInstances = game:GetObjectsAsync(url)
+			if FFlagEnableToolboxInsertWithJoin then
+				assetInstances = game:InsertObjectsAndJoinIfLegacy(url)
+			else
+				assetInstances = game:GetObjectsAsync(url)
+			end
 		else
-			assetInstances = game:GetObjects(url)
+			if FFlagEnableToolboxInsertWithJoin then
+				assetInstances = game:InsertObjectsAndJoinIfLegacy(url)
+			else
+				assetInstances = game:GetObjects(url)
+			end
 		end
 	end)
 

@@ -17,6 +17,7 @@
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
+local Cryo = require(Plugin.Cryo)
 local Constants = require(Plugin.Src.Util.Constants)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
 local withLocalization = require(Plugin.Src.Consumers.withLocalization)
@@ -89,7 +90,7 @@ function Thumbnail:render()
 					})
 				end,
 			}, {
-				InfoText = Roact.createElement("TextLabel", {
+				InfoText = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Normal, {
 					Visible = (review or preview) and not (hoverBarEnabled and hover),
 					BackgroundTransparency = 0.3,
 					BorderSizePixel = 0,
@@ -99,10 +100,7 @@ function Thumbnail:render()
 					AnchorPoint = Vector2.new(0, 1),
 
 					Text = preview and localized.Thumbnail.Preview or localized.Thumbnail.Review,
-					TextColor3 = Constants.WHITE,
-					TextSize = 22,
-					Font = Enum.Font.SourceSans,
-				}),
+				})),
 
 				TitleFrame = Roact.createElement("Frame", {
 					Visible = videoTitle ~= nil,
@@ -111,19 +109,16 @@ function Thumbnail:render()
 					BackgroundColor3 = Constants.BLACK,
 					Size = UDim2.new(1, 0, 0, 30),
 				}, {
-					TitleText = Roact.createElement("TextLabel", {
+					TitleText = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Normal, {
 						BackgroundTransparency = 1,
 						Size = UDim2.new(1, -20, 1, 0),
 						Position = UDim2.new(0.5, 0, 0, 0),
 						AnchorPoint = Vector2.new(0.5, 0),
 
 						Text = videoTitle,
-						TextColor3 = Constants.WHITE,
-						TextSize = 22,
-						Font = Enum.Font.SourceSans,
 						TextTruncate = Enum.TextTruncate.AtEnd,
 						TextXAlignment = Enum.TextXAlignment.Left,
-					}),
+					})),
 				}),
 
 				HoverBar = Roact.createElement(ThumbnailHoverBar, {

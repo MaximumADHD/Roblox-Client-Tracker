@@ -9,7 +9,7 @@ local font = {
 		RelativeSize = 32 / baseSize,
 	},
 	Header1 = {
-		Font = Enum.Font.GothamBold,
+		Font = Enum.Font.GothamSemibold,
 		RelativeSize = 20 / baseSize,
 	},
 	Header2 = {

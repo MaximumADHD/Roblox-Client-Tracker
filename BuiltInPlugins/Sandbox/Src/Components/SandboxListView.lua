@@ -1,19 +1,13 @@
 --[[
-    Displays a list of scripts you have checked out
-
-    TODO (awarwick) 7/28/2019. Uncertain how Lua API will end up (e.g. guids with separate method
-    to get metadata or script instances). These props are not final
-    Props:
-    DraftList - An ordered list of ids for each draft
-    DraftMetadata - Dictionary of draft metadata in the form of [id] = { Text="", ClassName="" }
+    Displays a list of scripts you have checked out. Drafts are loaded from the
+    Rodux store
 --]]
 
 local Plugin = script.Parent.Parent.Parent
-local UILibrary = require(Plugin.Packages.UILibrary)
 local Roact = require(Plugin.Packages.Roact)
+local RoactRodux = require(Plugin.Packages.RoactRodux)
 
-local ContextMenus = UILibrary.Studio.ContextMenus
-
+local DraftDiscardDialog = require(Plugin.Src.Components.DraftDiscardDialog)
 local SandboxListItem = require(Plugin.Src.Components.SandboxListItem)
 local ListItemView = require(Plugin.Src.Components.ListItemView)
 
@@ -22,6 +16,10 @@ local ITEM_HEIGHT = 32
 local SandboxListView = Roact.Component:extend("SandboxListView")
 
 function SandboxListView:init()
+    self:setState({
+        draftsPendingDiscard = nil,
+    })
+
     self.openScripts = function(selection)
         -- TODO (awarwick) 7/26/2019 Hook up once we have mock SandboxService
         print("Opening scripts", unpack(selection))
@@ -37,9 +35,21 @@ function SandboxListView:init()
         print("Updating sources", unpack(selection))
     end
 
-    self.discardEdits = function(selection)
-        -- TODO (awarwick) 7/26/2019 Hook up once we have mock SandboxService
-        print("Discarding edits", unpack(selection))
+    self.promptDiscardEdits = function(selection)
+        self:setState({
+            draftsPendingDiscard = selection,
+        })
+    end
+
+    self.discardPromptClosed = function(confirmed)
+        if confirmed then
+            -- TODO (awarwick) 7/26/2019 Hook up once we have mock SandboxService
+            print("Discarding edits", unpack(self.state.draftsPendingDiscard))
+        end
+
+        self:setState({
+            draftsPendingDiscard = Roact.None,
+        })
     end
 
     self.makeMenuActions = function(localization, selectedIds)
@@ -65,7 +75,7 @@ function SandboxListView:init()
 			{
 				Text = localization:getText("ContextMenu", "Revert"),
 				ItemSelected = function()
-					self.discardEdits(selectedIds)
+					self.promptDiscardEdits(selectedIds)
 				end,
 			},
 		}
@@ -73,29 +83,56 @@ function SandboxListView:init()
 end
 
 function SandboxListView:render()
-    local draftList = self.props.DraftList
-    local draftMetadata = self.props.DraftMetadata
+    local drafts = self.props.Drafts
+    local pendingDiscards = self.state.draftsPendingDiscard
 
-    return Roact.createElement(ListItemView, {
-        ButtonStyle = "tableItemButton",
-        Items = draftList,
-        ItemHeight = ITEM_HEIGHT,
+    local showDiscardDialog = pendingDiscards ~= nil
 
-        MakeMenuActions = self.makeMenuActions,
+    local sortedDraftList = {}
+    for draft,_ in pairs(drafts) do
+        table.insert(sortedDraftList, draft)
+    end
+    table.sort(sortedDraftList, function(a, b)
+        return a.Name:lower() < b.Name:lower()
+    end)
 
-        RenderItem = function(id, buttonTheme, hovered)
-            local metadata = draftMetadata[id]
+    return Roact.createElement("Frame", {
+        BackgroundTransparency = 1,
+        Size = UDim2.new(1, 0, 1, 0),
+    }, {
+        ListItemView = Roact.createElement(ListItemView, {
+            ButtonStyle = "tableItemButton",
+            Items = sortedDraftList,
+            ItemHeight = ITEM_HEIGHT,
 
-            return Roact.createElement(SandboxListItem, {
-                Size = UDim2.new(1, 0, 1, 0),
+            MakeMenuActions = self.makeMenuActions,
 
-                Text = metadata.Text,
-                TextColor3 = buttonTheme.textColor,
-                Font = buttonTheme.font,
-                TextSize = buttonTheme.textSize,
-            })
-        end,
+            RenderItem = function(script, buttonTheme, hovered)
+                return Roact.createElement(SandboxListItem, {
+                    Size = UDim2.new(1, 0, 1, 0),
+
+                    Text = script.Name,
+                    TextColor3 = buttonTheme.textColor,
+                    Font = buttonTheme.font,
+                    TextSize = buttonTheme.textSize,
+                })
+            end,
+        }),
+
+        DiscardDialog = showDiscardDialog and Roact.createElement(DraftDiscardDialog, {
+            Drafts = pendingDiscards,
+
+            ChoiceSelected = self.discardPromptClosed,
+        }),
     })
 end
 
-return SandboxListView
+local function mapStateToProps(state, props)
+    local sandboxDrafts = state.SandboxDrafts
+
+	return {
+		Drafts = sandboxDrafts,
+	}
+end
+
+return RoactRodux.connect(mapStateToProps)(SandboxListView)

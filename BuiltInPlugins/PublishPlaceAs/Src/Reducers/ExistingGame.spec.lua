@@ -106,6 +106,18 @@ return function()
 			expect(function()
 				SetPlaceInfo({ nextPageCursor = {}, })
 			end).to.throw()
+
+			expect(function()
+				SetPlaceInfo({ parentGame = {}, })
+			end).to.throw()
+
+			expect(function()
+				SetPlaceInfo({ parentGame = { universeId = 10 }, })
+			end).to.throw()
+
+			expect(function()
+				SetPlaceInfo({ parentGame = 3, })
+			end).to.throw()
 		end)
 
 		it("should not mutate the state", function()
@@ -113,9 +125,27 @@ return function()
 			testImmutability(Reducer, SetPlaceInfo({}))
 			testImmutability(Reducer, SetPlaceInfo({
 				places = { {name = "a"}, { name = "b", }},
+				parentGame = { name = "asdf", universeId = 24, },
+			}))
+			testImmutability(Reducer, SetPlaceInfo({
+				places = { {name = "a"}, { name = "b", }},
 				nextPageCursor = "not actually a cursor?",
 				previousPageCursor = "goto magick",
 			}))
+		end)
+
+		it("should set the parentGame source", function()
+			local state = Reducer(nil, {})
+			expect(Cryo.isEmpty(state.placeInfo.places)).to.equal(true)
+
+			state = Reducer(state, SetPlaceInfo({
+				parentGame = { name = "asd", universeId = 13, }
+			}))
+			expect(state.placeInfo.parentGame.name).to.equal("asd")
+			expect(state.placeInfo.parentGame.universeId).to.equal(13)
+
+			state = Reducer(state, SetPlaceInfo())
+			expect(state.placeInfo.parentGame).to.equal(nil)
 		end)
 
 		it("should set places", function()

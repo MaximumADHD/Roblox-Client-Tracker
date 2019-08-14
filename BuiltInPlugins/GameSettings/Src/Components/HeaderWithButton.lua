@@ -34,18 +34,15 @@ local function HeaderWithButton(props)
 	local style = props.Style
 
 	return withTheme(function(theme)
-		return Roact.createElement("TextLabel", {
+		return Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Title, {
 			Size = UDim2.new(1, 0, 0, Constants.HEADER_HEIGHT),
 			Text = title,
 			BackgroundTransparency = 1,
 			BorderSizePixel = 0,
-			Font = Enum.Font.SourceSans,
-			TextSize = 24,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			TextYAlignment = Enum.TextYAlignment.Bottom,
-			TextColor3 = theme.header.text,
 			LayoutOrder = props.LayoutOrder or 1,
-		}, {
+		}), {
 			Padding = Roact.createElement("UIPadding", {
 				PaddingRight = UDim.new(0, 12)
 			}),

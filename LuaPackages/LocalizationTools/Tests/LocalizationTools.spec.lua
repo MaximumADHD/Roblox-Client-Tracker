@@ -28,12 +28,21 @@ return function()
 						languageName = "English",
 						languageCode = "en",
 					},
-					["zh_hans"] = {
+					["zh_cn"] = {
 						languageName = "Chinese (Simplified)",
-						languageCode = "zh_cn",
+						languageCode = "zh_hans",
 					}
 				},
-				languageInfoTable = {},
+				languageInfoTable = {
+					["en"] = {
+						languageName = "English",
+						localeCode = "en_us",
+					},
+					["zh_hans"] = {
+						languageName = "Chinese (Simplified)",
+						localeCode = "zh_cn",
+					}
+				},
 			},
 		})
 

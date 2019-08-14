@@ -8,6 +8,7 @@ return function()
 	it("should create and destroy without errors", function()
 		local mockServiceWrapper = Roact.createElement(MockServiceWrapper, {}, {
 			Footer = Roact.createElement(Footer, {
+				MainButton = { Name = "", }
 			}),
 		})
 		local instance = Roact.mount(mockServiceWrapper)

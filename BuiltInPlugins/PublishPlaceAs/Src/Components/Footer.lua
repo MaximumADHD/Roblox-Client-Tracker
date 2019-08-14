@@ -3,8 +3,13 @@
 	Contains the Save and Cancel buttons.
 
 	Props:
-		bool SaveActive = Whether or not saving is currently allowed.
-			This will enable the Save button if true.
+	OnClose - run when "Cancel" is hit
+	NextScreenText - text for screen. nil for no switch button
+	NextScreen - Constants.SCREEN to switch to
+	MainButton - table
+	  Name - FooterButton text localization name
+	  Active - is clickable
+	  OnActivated - function to run on click
 ]]
 local FOOTER_GRADIENT_SIZE = 3
 local FOOTER_GRADIENT_TRANSPARENCY = 0.9
@@ -19,7 +24,6 @@ local Theming = require(Plugin.Src.ContextServices.Theming)
 local UILibrary = require(Plugin.Packages.UILibrary)
 local Localizing = UILibrary.Localizing
 local Constants = require(Plugin.Src.Resources.Constants)
-local SettingsImpl = require(Plugin.Src.Network.Requests.SettingsImpl)
 
 local SetScreen = require(Plugin.Src.Actions.SetScreen)
 
@@ -28,13 +32,11 @@ local ButtonBar = require(Plugin.Src.Components.ButtonBar)
 local function Footer(props)
 	return Localizing.withLocalization(function(localization)
 		return Theming.withTheme(function(theme)
-			local saveActive = props.SaveActive
-			local cancelActive = props.CancelActive
 			local onClose = props.OnClose
+			local mainButton = props.MainButton
+
 			local nextScreen = props.NextScreen
 			local nextScreenText = props.NextScreenText
-			local settings = props.Settings
-
 			local openNextScreen = props.OpenNextScreen
 
 			return Roact.createElement("Frame", {
@@ -60,13 +62,13 @@ local function Footer(props)
 				SaveSettings = Roact.createElement(ButtonBar, {
 					ZIndex = 2,
 					Buttons = {
-						{Name = "Cancel", Active = cancelActive, Value = false},
-						{Name = "Save", Default = true, Active = saveActive, Value = true},
+						{Name = "Cancel", Active = true, Value = false},
+						{Name = mainButton.Name, Default = true, Active = mainButton.Active, Value = true},
 					},
 					HorizontalAlignment = Enum.HorizontalAlignment.Right,
-					buttonClicked = function(userPressedSave)
-						if userPressedSave then
-							SettingsImpl.saveAll(settings, onClose)
+					buttonActivated = function(isMain)
+						if isMain then
+							mainButton.OnActivated()
 						else
 							onClose()
 						end
@@ -80,9 +82,10 @@ local function Footer(props)
 					BorderSizePixel = 3,
 					TextColor3 = theme.defaultButton.ButtonColor,
 					BackgroundTransparency = 1,
+					TextXAlignment = Enum.TextXAlignment.Left,
 					TextSize = 15,
 					Font = theme.footer.textbutton.font,
-					Text = localization:getText("Button", nextScreenText),
+					Text = localization:getText("FooterButton", nextScreenText),
 
 					[Roact.Event.Activated] = function()
 						openNextScreen(nextScreen)
@@ -93,26 +96,6 @@ local function Footer(props)
 	end)
 end
 
-local function mapStateToProps(state, props)
-	local readyToSave = true
-	if not state.NewGameSettings.changed.name then
-		readyToSave = false
-	end
-	if not state.NewGameSettings.changed.genre then
-		readyToSave = false
-	end
-	if next(state.NewGameSettings.errors) then
-		readyToSave = false
-	end
-	if state.Screen.screen ~= Constants.SCREENS.CREATE_NEW_GAME then
-		readyToSave = false
-	end
-	return {
-		SaveActive = readyToSave,
-		Settings = state.NewGameSettings.changed,
-	}
-end
-
 local function useDispatchForProps(dispatch)
 	return {
 		OpenNextScreen = function(screen)
@@ -121,4 +104,4 @@ local function useDispatchForProps(dispatch)
 	}
 end
 
-return RoactRodux.connect(mapStateToProps, useDispatchForProps)(Footer)
+return RoactRodux.connect(nil, useDispatchForProps)(Footer)

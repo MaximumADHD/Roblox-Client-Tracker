@@ -19,6 +19,9 @@ local Plugin = require(Library.Plugin)
 local getPlugin = Plugin.getPlugin
 local Roact = require(Library.Parent.Roact)
 
+local Focus = require(Library.Focus)
+local FocusProvider = Focus.Provider
+
 local Dialog = Roact.PureComponent:extend("Dialog")
 
 function Dialog:init(props)
@@ -43,24 +46,39 @@ function Dialog:init(props)
 	end
 end
 
-function Dialog:willUpdate()
+function Dialog:updateWidget()
 	local props = self.props
 	local enabled = props.Enabled
 	local title = props.Title
 
-	if enabled ~= nil then
-		self.widget.Enabled = enabled
-	end
+	local widget = self.widget
+	if widget then
+		if enabled ~= nil then
+			widget.Enabled = enabled
+		end
 
-	if title ~= nil then
-		self.widget.Title = title
+		if title ~= nil and widget:IsA("PluginGui") then
+			widget.Title = title
+		end
 	end
+end
+
+function Dialog:didMount()
+	self:updateWidget()
+end
+
+function Dialog:didUpdate()
+	self:updateWidget()
 end
 
 function Dialog:render()
 	return self.widget.Enabled and Roact.createElement(Roact.Portal, {
 		target = self.widget,
-	}, self.props[Roact.Children])
+	}, {
+		FocusProvider = Roact.createElement(FocusProvider, {
+			pluginGui = self.widget,
+		}, self.props[Roact.Children]),
+	})
 end
 
 function Dialog:willUnmount()

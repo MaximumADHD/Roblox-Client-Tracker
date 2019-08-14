@@ -3,7 +3,7 @@ local Rodux = require(Plugin.Packages.Rodux)
 local Cryo = require(Plugin.Packages.Cryo)
 
 local initial = {
-	placeInfo = { places = {}, },
+	placeInfo = { places = {}, parentGame = {}, },
 	gameInfo = { games = {}, },
 }
 

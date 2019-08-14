@@ -460,7 +460,11 @@ function Localization:_recalculateContent()
 			Apply = self:_safeLocalize("Studio.Common.Action.Submit"),
 			Cancel = self:_safeLocalize("Studio.Toolbox.General.SearchOptionsCancel"),
 
+			Error = self:_safeLocalize("Studio.Toolbox.AssetConfig.Error"),
+			GetAssetFailed = self:_safeLocalize("Studio.Toolbox.AssetConfig.GetAssetFailed"),
+
 			Discard = self:_safeLocalize("Studio.Toolbox.General.Discard"),
+			Close = self:_safeLocalize("Studio.Common.Action.Close"),
 			DiscardMessage = self:_safeLocalize("Studio.Toolbox.General.DiscardMessage"),
 		}
 	})

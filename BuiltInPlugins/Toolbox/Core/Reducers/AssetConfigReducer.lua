@@ -58,6 +58,9 @@ return Rodux.createReducer({
 	groupsArray = {},
 
 	isVerifiedCreator = true,
+
+	networkError = nil,
+	networkErrorAction = nil,
 }, {
 
 	[SetAssetId.name] = function(state, action)
@@ -134,7 +137,8 @@ return Rodux.createReducer({
 
 	[NetworkError.name] = function(state, action)
 		return Cryo.Dictionary.join(state, {
-			networkError = action.response
+			networkError = action.response,
+			networkErrorAction = action.networkErrorAction
 		})
 	end,
 

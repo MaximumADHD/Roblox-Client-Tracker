@@ -27,7 +27,7 @@ local function ButtonBar(props)
 		return Localizing.withLocalization(function(localization)
 			local horizontalAlignment = props.HorizontalAlignment
 			local buttons = props.Buttons
-			local buttonClicked = props.buttonClicked
+			local buttonActivated = props.buttonActivated
 			local ZIndex = props.ZIndex
 
 			local LayoutOrder = props.LayoutOrder or 1
@@ -63,12 +63,12 @@ local function ButtonBar(props)
 					BorderMatchesBackground = button.Default,
 					Size = UDim2.new(0, BUTTON_WIDTH, 1, 0),
 					Active = button.Active,
-					Name = localization:getText("Button", button.Name),
+					Name = localization:getText("FooterButton", button.Name),
 					ZIndex = ZIndex or 1,
 					TextSize = Constants.TEXT_SIZE,
 
 					OnClicked = function()
-						buttonClicked(button.Value)
+						buttonActivated(button.Value)
 					end,
 				}))
 			end

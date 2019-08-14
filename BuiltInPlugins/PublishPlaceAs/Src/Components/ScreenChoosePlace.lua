@@ -16,6 +16,7 @@ local Theming = require(Plugin.Src.ContextServices.Theming)
 local UILibrary = require(Plugin.Packages.UILibrary)
 local Localizing = UILibrary.Localizing
 local Separator = UILibrary.Component.Separator
+local RoundTextButton = UILibrary.Component.RoundTextButton
 
 local SetScreen = require(Plugin.Src.Actions.SetScreen)
 local SetPlaceInfo = require(Plugin.Src.Actions.SetPlaceInfo)
@@ -26,6 +27,7 @@ local TilePlace = require(Plugin.Src.Components.TilePlace)
 
 local PAGING_BUTTON_SIZE = UDim2.new(0, 80, 0, 30)
 local HALF_SCREEN = 5
+local BUTTON_WIDTH = 90
 
 local ScreenChoosePlace = Roact.PureComponent:extend("ScreenChoosePlace")
 
@@ -33,9 +35,10 @@ function ScreenChoosePlace:init()
 	-- TODO (kstephan) 2019/07/31 Rplace onSecondHalf/hasSecondHalf pagination with infinite scroller
 	--        This system is in place because the network always returns 10 places and we can only
 	--        fit 5 on a page.
-	self:setState({
+	self.state = {
 		onSecondHalf = false,
-	})
+		selected = false,
+	}
 end
 
 function ScreenChoosePlace:render()
@@ -48,10 +51,7 @@ function ScreenChoosePlace:render()
 			local nextPageCursor = props.NextPageCursor
 			local previousPageCursor = props.PreviousPageCursor
 			local places = props.Places
-			local universeId = nil
-			if #places > 0 then
-				universeId = places[1].universeId
-			end
+			local parentGame = props.ParentGame
 
 			local dispatchLoadExistingPlaces = props.DispatchLoadExistingPlaces
 			local openChooseGamePage = props.OpenChooseGamePage
@@ -70,13 +70,13 @@ function ScreenChoosePlace:render()
 			for i,v in pairs(places) do
 				if (i <= HALF_SCREEN and not onSecondHalf) or (i > HALF_SCREEN and onSecondHalf) then
 					table.insert(components, Roact.createElement(TilePlace, {
-							Name = v.name,
-							Image = theme.icons.cityBackground,
-							OnActivated = function()
-								StudioService:publishAs(v.universeId, v.placeId)
-								StudioService.GamePublishedToRoblox:wait()
-								onClose()
-							end,
+						Name = v.name,
+						Image = theme.icons.cityBackground,
+						Selected = self.state.selected == v.placeId,
+						LastItem = false,
+						OnActivated = function()
+							self:setState({ selected = v.placeId })
+						end,
 					}))
 				end
 			end
@@ -85,10 +85,10 @@ function ScreenChoosePlace:render()
 				table.insert(components, Roact.createElement(TilePlace, {
 					Name = localization:getText("Button", "AddNewPlace"),
 					Image = theme.icons.newPlace,
+					Selected = self.state.selected == 0,
+					LastItem = true,
 					OnActivated = function()
-						StudioService:publishAs(universeId, 0)
-						StudioService.GamePublishedToRoblox:wait()
-						onClose()
+						self:setState({ selected = 0 })
 					end,
 				}))
 			end
@@ -98,7 +98,7 @@ function ScreenChoosePlace:render()
 				BackgroundColor3 = theme.backgroundColor,
 				BorderSizePixel = 0,
 			}, {
-				Roact.createElement("ImageButton", {
+				Back = Roact.createElement("ImageButton", {
 					Image = theme.icons.backArrow,
 					Size = UDim2.new(0, 20, 0, 20),
 					Position = UDim2.new(0, 30, 0, 13),
@@ -112,22 +112,32 @@ function ScreenChoosePlace:render()
 					end,
 				}),
 
-				Roact.createElement(Separator, {
+				Sep1 = Roact.createElement(Separator, {
 					Weight = 2,
 					Padding = 20,
 					Position = UDim2.new(0.5, 0, 0, 50),
 				}),
 
-				Button = Roact.createElement("TextLabel", {
-					Text = "Overwrite or add a new place to",
+				-- TODO (kstephan) 2019/07/31 Add these 2 labels into a layout
+				Header = Roact.createElement("TextLabel", {
+					Text = localization:getText("ScreenHeader", "ChoosePlace"),
 					Position = UDim2.new(0, 180, 0, 70),
 					TextSize = 20,
 					BorderSizePixel = 0,
 					Font = theme.header.font,
 					TextColor3 = theme.textColor,
 				}),
+				GameName = Roact.createElement("TextLabel", {
+					Text = parentGame and parentGame.name or "",
+					Position = UDim2.new(0, 380, 0, 70),
+					AnchorPoint = Vector2.new(0, 0),
+					TextSize = 20,
+					BorderSizePixel = 0,
+					Font = theme.header.font,
+					TextColor3 = theme.textColor,
+				}),
 
-				Roact.createElement("Frame", {
+				Main = Roact.createElement("Frame", {
 					Size = UDim2.new(1, 0, 1, -100 + -Constants.FOOTER_HEIGHT),
 					Position = UDim2.new(0, 0, 0, 100),
 					BackgroundColor3 = theme.backgroundColor,
@@ -136,41 +146,70 @@ function ScreenChoosePlace:render()
 					components
 				),
 
-				-- TODO (kstephan) 2019/07/19 Replace buttons with infinite scroll mechanism
-				Roact.createElement("TextButton", {
-					Size = PAGING_BUTTON_SIZE,
-					Text = localization:getText("Button", "PreviousPage"),
-					Style = not (not onSecondHalf and previousPageCursor == nil) and 4 or 3,
-					Active = not (not onSecondHalf and previousPageCursor == nil),
-					Position = UDim2.new(1, -120, 0, 10),
-					[Roact.Event.Activated] = function()
-						if not onSecondHalf and universeId and previousPageCursor then
-							dispatchLoadExistingPlaces(universeId, previousPageCursor)
-						end
-						self:setState({
-							onSecondHalf = not onSecondHalf,
-						})
-					end,
+				-- TODO: Change pagination to use infinite scroll instead of next/previous page buttons
+				Roact.createElement("Frame", {
+					Size = UDim2.new(0, 100, 0, 30),
+					Position = UDim2.new(1, -40, 0, 10),
+					AnchorPoint = Vector2.new(1,0),
+					BackgroundColor3 = theme.backgroundColor,
+					BorderSizePixel = 0,
+				},{
+					Roact.createElement(RoundTextButton, {
+						Style = theme.cancelButton,
+						BorderMatchesBackground = false,
+						Size = UDim2.new(0, BUTTON_WIDTH, 1, 0),
+						Active = not (not onSecondHalf and previousPageCursor == nil),
+						Name = localization:getText("Button", "PreviousPage"),
+						TextSize = Constants.TEXT_SIZE,
+						OnClicked = function()
+							if not onSecondHalf and parentGame and previousPageCursor then
+								dispatchLoadExistingPlaces(parentGame, previousPageCursor)
+							end
+							self:setState({
+								onSecondHalf = not onSecondHalf,
+								selected = false,
+							})
+						end,
+					}),
 				}),
-				Roact.createElement("TextButton", {
-					Size = PAGING_BUTTON_SIZE,
-					Text = localization:getText("Button", "NextPage"),
-					Style = ((not onSecondHalf and hasSecondHalf) or (onSecondHalf and nextPageCursor ~= nil)) and 4 or 3,
-					Active = (not onSecondHalf and hasSecondHalf) or (onSecondHalf and nextPageCursor ~= nil),
-					Position = UDim2.new(1, -120, 0, 60),
-					[Roact.Event.Activated] = function()
-						if onSecondHalf and universeId and nextPageCursor then
-							dispatchLoadExistingPlaces(universeId, nextPageCursor)
-						end
-						self:setState({
-							onSecondHalf = not onSecondHalf,
-						})
-					end,
+
+				Roact.createElement("Frame", {
+					Size = UDim2.new(0, 100, 0, 30),
+					Position = UDim2.new(1, -40, 0, 60),
+					AnchorPoint = Vector2.new(1,0),
+					BackgroundColor3 = theme.backgroundColor,
+					BorderSizePixel = 0,
+				},{
+					Roact.createElement(RoundTextButton, {
+						Style = theme.cancelButton,
+						BorderMatchesBackground = false,
+						Size = UDim2.new(0, BUTTON_WIDTH, 1, 0),
+						Active = (not onSecondHalf and hasSecondHalf) or (onSecondHalf and nextPageCursor ~= nil),
+						Name = localization:getText("Button", "NextPage"),
+						TextSize = Constants.TEXT_SIZE,
+						OnClicked = function()
+							if onSecondHalf and nextPageCursor and parentGame then
+								dispatchLoadExistingPlaces(parentGame, nextPageCursor)
+							end
+							self:setState({
+								onSecondHalf = not onSecondHalf,
+								selected = false,
+							})
+						end,
+					}),
 				}),
 
 				Footer = Roact.createElement(Footer, {
+					MainButton = {
+						Name = "Overwrite",
+						Active = parentGame and self.state.selected,
+						OnActivated = function()
+							StudioService:publishAs(parentGame.universeId, self.state.selected)
+							StudioService.GamePublishedToRoblox:wait()
+							onClose()
+						end,
+					},
 					OnClose = onClose,
-					CancelActive = true,
 					NextScreen = nil,
 				}),
 			})
@@ -184,13 +223,14 @@ local function mapStateToProps(state, props)
 		NextPageCursor = placeInfo.nextPageCursor,
 		PreviousPageCursor = placeInfo.previousPageCursor,
 		Places = placeInfo.places,
+		ParentGame = placeInfo.parentGame,
 	}
 end
 
 local function useDispatchForProps(dispatch)
 	return {
-		DispatchLoadExistingPlaces = function(universeId, cursor)
-			dispatch(LoadExistingPlaces(universeId, cursor))
+		DispatchLoadExistingPlaces = function(parentGame, cursor)
+			dispatch(LoadExistingPlaces(parentGame, cursor))
 		end,
 		OpenChooseGamePage = function()
 			dispatch(SetPlaceInfo({ places = {} }))

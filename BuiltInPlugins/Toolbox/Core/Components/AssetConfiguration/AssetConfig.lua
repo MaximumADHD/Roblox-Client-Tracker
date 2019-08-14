@@ -130,6 +130,7 @@ function AssetConfig:init(props)
 							state.description,
 							props.assetConfigData.Status,
 							state.status,
+							props.assetConfigData.Price,
 							state.price
 						)
 					else
@@ -241,7 +242,7 @@ function AssetConfig:init(props)
 		})
 	end
 
-	self.onMessageBoxButtonClicked = function(index, action)
+	self.tryCloseAssetConfig = function(index, action)
 		if action == "yes" then
 			-- Close the assetConfig
 			local _, pluginGui = getPlugin(self)
@@ -401,7 +402,6 @@ function AssetConfig:didMount()
 	else -- If not edit, then we are in publish flow
 		self.props.getIsVerifiedCreator(getNetwork(self))
 	end
-
 end
 
 function AssetConfig:willUnmount()
@@ -437,6 +437,53 @@ local function canSave(changeTable, name, description, price, minPrice, maxPrice
 	end
 end
 
+-- Check if the networkError contains Error for GetAssetConfigDataRequest
+-- And replace the MessageBox's props based on the networkError.
+local function getMessageBoxProps(getAssetFailed, localizedContent, cancelFunc, closeFunc)
+	local messageProps = {
+		Name = "AssetConfigMessageBox",
+		TextSize = Constants.FONT_SIZE_MEDIUM,
+		Font = Constants.FONT,
+		Icon = Images.INFO_ICON,
+		onButtonClicked = closeFunc,
+		onClose = cancelFunc
+	}
+
+	-- Check error
+	if getAssetFailed then
+		messageProps.Title = localizedContent.AssetConfig.Error
+		messageProps.Text = localizedContent.AssetConfig.GetAssetFailed
+
+		messageProps.buttons = {
+			{
+				Text = localizedContent.AssetConfig.Close,
+				Font = Constants.FONT,
+				TextSize = Constants.FONT_SIZE_MEDIUM,
+				action = "yes",
+			}
+		}
+	else
+		messageProps.Title = localizedContent.AssetConfig.Discard
+		messageProps.Text = localizedContent.AssetConfig.DiscardMessage
+
+		messageProps.buttons = {
+			{
+				Text = localizedContent.AssetConfig.Cancel,
+				Font = Constants.FONT,
+				TextSize = Constants.FONT_SIZE_MEDIUM,
+				action = "no",
+			}, {
+				Text = localizedContent.AssetConfig.Discard,
+				Font = Constants.FONT,
+				TextSize = Constants.FONT_SIZE_MEDIUM,
+				action = "yes",
+			}
+		}
+	end
+
+	return messageProps
+end
+
 function AssetConfig:render()
 	return withTheme(function(theme)
 		return withModal(function(modalTarget)
@@ -457,7 +504,8 @@ function AssetConfig:render()
 				local allowComment = state.allowComment
 				local commentOn = state.commentOn
 				local status = state.status
-				local isShowChangeDiscardMessageBox = state.isShowChangeDiscardMessageBox
+				local showGetAssetFailed = props.networkErrorAction == ConfigTypes.GET_ASSET_DETAIL_FAILURE_ACTION
+				local isShowChangeDiscardMessageBox = state.isShowChangeDiscardMessageBox or showGetAssetFailed
 
 				local assetConfigData = props.assetConfigData or {}
 				local assetTypeEnum = props.assetTypeEnum
@@ -490,32 +538,8 @@ function AssetConfig:render()
 						Padding = UDim.new(0, 0),
 					}),
 
-					AssetConfigMessageBox = isShowChangeDiscardMessageBox and Roact.createElement(MessageBox, {
-						Name = "AssetConfigMessageBox",
-
-						Title = localizedContent.AssetConfig.Discard,
-						Text = localizedContent.AssetConfig.DiscardMessage,
-						TextSize = Constants.FONT_SIZE_MEDIUM,
-						Font = Constants.FONT,
-						Icon = Images.INFO_ICON,
-
-						onClose = self.onMessageBoxClosed,
-						onButtonClicked = self.onMessageBoxButtonClicked,
-
-						buttons = {
-							{
-								Text = localizedContent.AssetConfig.Cancel,
-								Font = Constants.FONT,
-								TextSize = Constants.FONT_SIZE_MEDIUM,
-								action = "no",
-							}, {
-								Text = localizedContent.AssetConfig.Discard,
-								Font = Constants.FONT,
-								TextSize = Constants.FONT_SIZE_MEDIUM,
-								action = "yes",
-							}
-						}
-					}),
+					AssetConfigMessageBox = isShowChangeDiscardMessageBox and Roact.createElement(MessageBox,
+						getMessageBoxProps(showGetAssetFailed, localizedContent, self.onMessageBoxClosed, self.tryCloseAssetConfig)),
 
 					MainPage = Roact.createElement("Frame", {
 						Size = UDim2.new(1, 0, 1, -FOOTER_HEIGHT),
@@ -660,7 +684,9 @@ local function mapStateToProps(state, props)
 		allowedAssetTypesForRelease = state.allowedAssetTypesForRelease,
 		allowedAssetTypesForUpload = state.allowedAssetTypesForUpload,
 		currentTab = state.currentTab,
-		isVerifiedCreator = state.isVerifiedCreator
+		isVerifiedCreator = state.isVerifiedCreator,
+		networkError = state.networkError,
+		networkErrorAction = state.networkErrorAction
 	}
 end
 
@@ -682,8 +708,8 @@ local function mapDispatchToProps(dispatch)
 			dispatch(UploadCatalogItemRequest(networkInterface, nameWithoutExtension, extension, description, assetTypeEnum, instances))
 		end,
 
-		configureCatalogItem = function(networkInterface, assetId, nameWithoutExtension, description, fromStatus, toStatus, price)
-			dispatch(ConfigureCatalogItemRequest(networkInterface, assetId, nameWithoutExtension, description, fromStatus, toStatus, price))
+		configureCatalogItem = function(networkInterface, assetId, nameWithoutExtension, description, fromStatus, toStatus, fromPrice, toPrice)
+			dispatch(ConfigureCatalogItemRequest(networkInterface, assetId, nameWithoutExtension, description, fromStatus, toStatus, fromPrice, toPrice))
 		end,
 
 		-- For locale changes, we have no UI for them now, but we can add that in the future.

@@ -18,6 +18,7 @@ local Lighting = game:GetService("Lighting")
 
 local FFlagEnableToolboxPluginInsertion = settings():GetFFlag("EnableToolboxPluginInsertion")
 local FFlagEnableDataModelFetchAssetAsync = settings():GetFFlag("EnableDataModelFetchAssetAsync")
+local FFlagEnableToolboxInsertWithJoin = settings():GetFFlag("EnableToolboxInsertWithJoin")
 
 local INSERT_MAX_SEARCH_DEPTH = 2048
 local INSERT_MAX_DISTANCE_AWAY = 64
@@ -64,9 +65,17 @@ local function insertAsset(assetId, assetName, insertToolPromise)
 		end
 
 		if FFlagEnableDataModelFetchAssetAsync then
-			assetInstance = game:GetObjectsAsync(url)
+			if FFlagEnableToolboxInsertWithJoin then
+				assetInstance = game:InsertObjectsAndJoinIfLegacy(url)
+			else
+				assetInstance = game:GetObjectsAsync(url)
+			end
 		else
-			assetInstance = game:GetObjects(url)
+			if FFlagEnableToolboxInsertWithJoin then
+				assetInstance = game:InsertObjectsAndJoinIfLegacy(url)
+			else
+				assetInstance = game:GetObjects(url)
+			end
 		end
 	end)
 

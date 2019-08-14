@@ -19,7 +19,6 @@ end
 function Theme.createValues(getColor, StyleColor, StyleModifier)
 	-- define the color palette for the UILibrary, override where necessary
 	local UILibraryStylePalette = StudioStyle.new(getColor, StyleColor, StyleModifier)
-	--UILibraryStylePalette.backgroundColor = Color3.new(1, 1, 1)
 
 	-- luacheck: ignore isDark
 	local isDark = Theme.isDarkerTheme()
@@ -35,6 +34,11 @@ function Theme.createValues(getColor, StyleColor, StyleModifier)
 			TitleBarText = getColor(StyleColor.TitlebarText, StyleModifier.Default),
 			TitleBarBackground = getColor(StyleColor.Titlebar, StyleModifier.Default),
 		},
+
+		Dialog = {
+			HeaderFont = Enum.Font.SourceSans,
+			HeaderTextColor = getColor(StyleColor.MainText, StyleModifier.Default),
+		}
 	})
 
 

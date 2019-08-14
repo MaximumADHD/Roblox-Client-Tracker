@@ -11,6 +11,7 @@
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
+local Cryo = require(Plugin.Cryo)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
 local Constants = require(Plugin.Src.Util.Constants)
 local getMouse = require(Plugin.Src.Consumers.getMouse)
@@ -53,7 +54,7 @@ function MenuEntry:render()
 				BackgroundTransparency = selected and 0 or 1,
 			}),
 
-			Title = Roact.createElement("TextButton", {
+			Title = Roact.createElement("TextButton", Cryo.Dictionary.join(theme.fontStyle.Title, {
 				ZIndex = 2,
 				Size = UDim2.new(1, -15, 1, 0),
 				Position = UDim2.new(0, 15, 0, 0),
@@ -65,13 +66,11 @@ function MenuEntry:render()
 
 				Text = self.props.Title,
 				Font = selected and Enum.Font.SourceSansSemibold or Enum.Font.SourceSans,
-				TextSize = 24,
-				TextColor3 = theme.menuEntry.text,
 
 				[Roact.Event.Activated] = function()
 					self.props.OnClicked(self.props.Index)
 				end,
-			}),
+			})),
 
 			Error = Roact.createElement("ImageLabel", {
 				ZIndex = 3,

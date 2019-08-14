@@ -21,9 +21,11 @@ local LoadExistingPlaces = require(Plugin.Src.Thunks.LoadExistingPlaces)
 local SetScreen = require(Plugin.Src.Actions.SetScreen)
 
 local Footer = require(Plugin.Src.Components.Footer)
+local RoundTextButton = UILibrary.Component.RoundTextButton
 local TileGame = require(Plugin.Src.Components.TileGame)
 
 local PAGING_BUTTON_SIZE = UDim2.new(0, 80, 0, 30)
+local BUTTON_WIDTH = 90
 local GAME_PLACE_HOLDER = "rbxasset://textures/ui/GuiImagePlaceholder.png"
 
 local ScreenChooseGame = Roact.PureComponent:extend("ScreenChooseGame")
@@ -70,7 +72,7 @@ function ScreenChooseGame:render()
 				local tile = Roact.createElement(TileGame, {
 					Name = v.name,
 					Id = v.universeId,
-					OnActivated = openChoosePlacePage,
+					OnActivated = function() openChoosePlacePage(v) end,
 					Image = GAME_PLACE_HOLDER,
 				})
 
@@ -119,34 +121,58 @@ function ScreenChooseGame:render()
 					}, componentsBottom),
 				}),
 
-				-- TODO (kstephan) 2019/07/19 Replace buttons with infinite scroll mechanism
-				Roact.createElement("TextButton", {
-					Size = PAGING_BUTTON_SIZE,
-					Text = localization:getText("Button", "PreviousPage"),
-					Style = previousPageCursor == nil and 3 or 4,
-					Position = UDim2.new(1, -120, 0, 10),
-					[Roact.Event.Activated] = function()
-						if previousPageCursor then
-							dispatchLoadExistingGames(previousPageCursor)
-						end
-					end,
-				}),
-				Roact.createElement("TextButton", {
-					Size = PAGING_BUTTON_SIZE,
-					Text = localization:getText("Button", "NextPage"),
-					Style = nextPageCursor == nil and 3 or 4,
-					Position = UDim2.new(1, -120, 0, 60),
-					[Roact.Event.Activated] = function()
-						if nextPageCursor then
-							dispatchLoadExistingGames(nextPageCursor)
-						end
-					end,
+				-- TODO: Change pagination to use infinite scroll instead of next/previous page buttons
+				Roact.createElement("Frame", {
+					Size = UDim2.new(0, 100, 0, 30),
+					Position = UDim2.new(1, -80, 0, 30),
+					AnchorPoint = Vector2.new(1,0),
+					BackgroundColor3 = theme.backgroundColor,
+					BorderSizePixel = 0,
+				},{
+					Roact.createElement(RoundTextButton, {
+						Style = theme.cancelButton,
+						BorderMatchesBackground = false,
+						Size = UDim2.new(0, BUTTON_WIDTH, 1, 0),
+						Active = previousPageCursor ~= nil,
+						Name = localization:getText("Button", "PreviousPage"),
+						TextSize = Constants.TEXT_SIZE,
+
+						OnClicked = function()
+							if previousPageCursor then
+								dispatchLoadExistingGames(previousPageCursor)
+							end
+						end,
+					}),
 				}),
 
+				Roact.createElement("Frame", {
+					Size = UDim2.new(0, 100, 0, 30),
+					Position = UDim2.new(1, -80, 0, 70),
+					AnchorPoint = Vector2.new(1,0),
+					BackgroundColor3 = theme.backgroundColor,
+					BorderSizePixel = 0,
+				},{
+					Roact.createElement(RoundTextButton, {
+						Style = theme.cancelButton,
+						BorderMatchesBackground = false,
+						Size = UDim2.new(0, BUTTON_WIDTH, 1, 0),
+						Active = nextPageCursor ~= nil,
+						Name = localization:getText("Button", "NextPage"),
+						TextSize = Constants.TEXT_SIZE,
+						OnClicked = function()
+							if nextPageCursor then
+								dispatchLoadExistingGames(nextPageCursor)
+							end
+						end,
+					}),
+				}),
 
 				Footer = Roact.createElement(Footer, {
+					MainButton = {
+						Name = "Create",
+						Active = false,
+					},
 					OnClose = onClose,
-					CancelActive = true,
 					NextScreen = Constants.SCREENS.CREATE_NEW_GAME,
 					NextScreenText  = "CreateNewGame"
 				}),
@@ -170,8 +196,8 @@ local function useDispatchForProps(dispatch)
 		DispatchLoadExistingGames = function(cursor)
 			dispatch(LoadExistingGames(cursor))
 		end,
-		OpenChoosePlacePage = function(universeId)
-			dispatch(LoadExistingPlaces(universeId))
+		OpenChoosePlacePage = function(parentGame)
+			dispatch(LoadExistingPlaces(parentGame))
 			dispatch(SetScreen(Constants.SCREENS.CHOOSE_PLACE))
 		end,
 	}

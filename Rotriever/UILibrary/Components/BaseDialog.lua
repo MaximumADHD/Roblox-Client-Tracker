@@ -96,7 +96,7 @@ function BaseDialog:render()
 			Background = Roact.createElement("Frame", {
 				Size = UDim2.new(1, 0, 1, 0),
 				BorderSizePixel = 0,
-				BackgroundColor3 = theme.dialog.backgroundColor,
+				BackgroundColor3 = theme.dialog.background,
 			}, {
 				Padding = Roact.createElement("UIPadding", {
 					PaddingTop = UDim.new(0, borderPadding),

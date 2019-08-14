@@ -37,10 +37,10 @@ return function()
 
 		local gui = container:FindFirstChildOfClass("BillboardGui")
 		expect(gui).to.be.ok()
-		expect(gui.Background).to.be.ok()
-		expect(gui.Background.Padding).to.be.ok()
-		expect(gui.Background.Content).to.be.ok()
-		expect(gui.Background.Buttons).to.be.ok()
+		expect(gui.FocusProvider).to.be.ok()
+		expect(gui.FocusProvider.Padding).to.be.ok()
+		expect(gui.FocusProvider.Content).to.be.ok()
+		expect(gui.FocusProvider.Buttons).to.be.ok()
 
 		Roact.unmount(instance)
 	end)
@@ -94,7 +94,7 @@ return function()
 		local instance = Roact.mount(element, container)
 
 		local gui = container:FindFirstChildOfClass("BillboardGui")
-		local buttonContainer = gui.Background.Buttons
+		local buttonContainer = gui.FocusProvider.Buttons
 		expect(buttonContainer["1"]).to.be.ok()
 
 		Roact.unmount(instance)
@@ -114,7 +114,7 @@ return function()
 		local instance = Roact.mount(element, container)
 
 		local gui = container:FindFirstChildOfClass("BillboardGui")
-		expect(gui.Background.Content.Frame).to.be.ok()
+		expect(gui.FocusProvider.Content.Frame).to.be.ok()
 
 		Roact.unmount(instance)
 	end)

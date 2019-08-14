@@ -39,22 +39,16 @@ function RoundTextButton:init()
 	}
 
 	self.mouseEnter = function()
-		if self.props.Active then
-			self:mouseHoverChanged(true)
-		end
+		self:setState({
+			Hovering = true,
+		})
 	end
 
 	self.mouseLeave = function()
-		if self.props.Active then
-			self:mouseHoverChanged(false)
-		end
+		self:setState({
+			Hovering = false,
+		})
 	end
-end
-
-function RoundTextButton:mouseHoverChanged(hovering)
-	self:setState({
-		Hovering = hovering,
-	})
 end
 
 function RoundTextButton:render()

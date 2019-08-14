@@ -30,7 +30,6 @@ local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Cryo = require(Plugin.Packages.Cryo)
-local Constants = require(Plugin.Src.Resources.Constants)
 local UILibrary = require(Plugin.Packages.UILibrary)
 local Localizing = UILibrary.Localizing
 local AddChange = require(Plugin.Src.Actions.AddChange)
@@ -48,9 +47,7 @@ return function(loadValuesToProps, dispatchForProps)
 
 			return Roact.createElement("Frame", {
 				BackgroundTransparency = 1,
-				BorderSizePixel = 0,
-				Position = UDim2.new(0, Constants.MENU_BAR_WIDTH, 0, 0),
-				Size = UDim2.new(1, -Constants.MENU_BAR_WIDTH, 1, -Constants.FOOTER_HEIGHT),
+				Size = UDim2.new(1, 0, 1, 0),
 				LayoutOrder = layoutOrder,
 			}, Cryo.Dictionary.join(children, {
 				Padding = Roact.createElement("UIPadding", {
@@ -71,7 +68,7 @@ return function(loadValuesToProps, dispatchForProps)
 	end
 
 	local function mapStateToProps(state, props)
-		if not state or not loadValuesToProps then
+		if not loadValuesToProps then
 			return
 		end
 		local getValue = function(propName)

@@ -21,11 +21,14 @@ local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 local RoactRodux = require(Libs.RoactRodux)
 
-local Constants = require(Plugin.Core.Util.Constants)
-local Images = require(Plugin.Core.Util.Images)
-local ContextGetter = require(Plugin.Core.Util.ContextGetter)
-local ContextHelper = require(Plugin.Core.Util.ContextHelper)
-local Urls = require(Plugin.Core.Util.Urls)
+local Util = Plugin.Core.Util
+local Constants = require(Util.Constants)
+local Images = require(Util.Images)
+local ContextGetter = require(Util.ContextGetter)
+local ContextHelper = require(Util.ContextHelper)
+local Urls = require(Util.Urls)
+
+local Category = require(Plugin.Core.Types.Category)
 
 local getModal = ContextGetter.getModal
 local withModal = ContextHelper.withModal
@@ -35,7 +38,6 @@ local AssetBackground = require(Plugin.Core.Components.Asset.AssetBackground)
 local AudioPreviewButton = require(Plugin.Core.Components.AudioPreviewButton)
 local ImageWithDefault = require(Plugin.Core.Components.ImageWithDefault)
 local TooltipWrapper = require(Plugin.Core.Components.TooltipWrapper)
-
 local PopUpWrapperButton = require(Plugin.Core.Components.Asset.Preview.PopUpWrapperButton)
 
 local AssetIcon = Roact.PureComponent:extend("AssetIcon")
@@ -99,6 +101,9 @@ function AssetIcon:render()
 		local showAssetPreview = typeId == Enum.AssetType.Model.Value
 			or typeId == Enum.AssetType.MeshPart.Value
 			or typeId == Enum.AssetType.Decal.Value
+
+		-- Asset Data is missing for AssetPreview in the creation tab.
+		showAssetPreview = showAssetPreview and props.currentTab ~= Category.CREATIONS_KEY
 
 		local children = {
 			AssetImage = Roact.createElement(ImageWithDefault, {
@@ -172,7 +177,8 @@ local function mapStateToProps(state, props)
 	local hoveredBackgroundIndex = pageInfo.hoveredBackgroundIndex or 0
 
 	return {
-		backgroundIndex = hoveredBackgroundIndex ~= 0 and hoveredBackgroundIndex or selectedBackgroundIndex
+		backgroundIndex = hoveredBackgroundIndex ~= 0 and hoveredBackgroundIndex or selectedBackgroundIndex,
+		currentTab = pageInfo.currentTab or Category.MARKETPLACE_KEY
 	}
 end
 

@@ -170,3 +170,5 @@ Studio.Toolbox.AssetConfigCopy.Terms,"By switching on, you are granting every ot
 Studio.Toolbox.AssetConfigCopy.AccountSetting,"In order to share content in Marketplace, you must add & verify an email address to your account. This can be done in Account Settings.", ,"In order to share content in Marketplace, you must add & verify an email address to your account. This can be done in Account Settings.","In order to share content in Marketplace, you must add & verify an email address to your account. This can be done in Account Settings."
 Studio.Toolbox.AssetConfigVersions.Current,Current published version, ,Current published version,Current published version
 Studio.Toolbox.AssetConfigVersions.Restore,Restore previous version, ,Restore previous version,Restore previous version
+Studio.Toolbox.AssetConfig.GetAssetFailed,There was an problem fetching asset data. We will be closing AssetConfig page., ,There was an problem fetching asset data. We will be closing AssetConfig page.,There was an problem fetching asset data. We will be closing AssetConfig page.
+Studio.Toolbox.AssetConfig.Error,Error, ,Error,Error

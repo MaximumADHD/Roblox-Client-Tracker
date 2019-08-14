@@ -14,6 +14,7 @@
 ]]
 
 local Plugin = script.Parent.Parent.Parent
+local Constants = require(Plugin.Src.Resources.Constants)
 local Rodux = require(Plugin.Packages.Rodux)
 local Cryo = require(Plugin.Packages.Cryo)
 
@@ -38,7 +39,12 @@ end
 
 local initial = {
 	current = {},
-	changed = { playableDevices = {Computer = true} },
+	changed = {
+		name = "Untitled Place",
+		description = "",
+		genre = Constants.GENRE_IDS[1],
+		playableDevices = {Computer = true},
+	},
 	errors = {},
 }
 

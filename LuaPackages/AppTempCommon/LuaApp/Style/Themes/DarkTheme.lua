@@ -111,8 +111,8 @@ local theme = {
 	},
 
 	Divider = {
-		Color = Colors.Graphite,
-		Transparency = 0,
+		Color = Colors.White,
+		Transparency = 0.8, -- 0.2 Alpha
 	},
 	Overlay = {
 		Color = Colors.Black,

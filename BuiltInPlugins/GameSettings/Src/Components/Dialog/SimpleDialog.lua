@@ -9,6 +9,7 @@
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
+local Cryo = require(Plugin.Cryo)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
 
 local BaseDialog = require(Plugin.Src.Components.Dialog.BaseDialog)
@@ -22,17 +23,14 @@ local function SimpleDialog(props)
 			Buttons = buttons,
 			OnResult = props.OnResult,
 		}, {
-			Header = Roact.createElement("TextLabel", {
+			Header = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Title, {
 				Position = UDim2.new(0.5, 0, 0, 45),
 				AnchorPoint = Vector2.new(0.5, 0.5),
 				Size = UDim2.new(1, 0, 0, 60),
 				BackgroundTransparency = 1,
 				Text = header,
-				Font = Enum.Font.SourceSans,
-				TextColor3 = theme.dialog.text,
-				TextSize = 24,
 				TextWrapped = true,
-			}),
+			})),
 		})
 	end)
 end

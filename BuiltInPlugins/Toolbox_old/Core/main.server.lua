@@ -1,5 +1,5 @@
-local FFlagToolboxWithCMS = settings():GetFFlag("ToolboxWithCMS")
-if FFlagToolboxWithCMS then
+local FFlagToolboxWithCMSV2 = settings():GetFFlag("ToolboxWithCMSV2")
+if FFlagToolboxWithCMSV2 then
 	return
 end
 

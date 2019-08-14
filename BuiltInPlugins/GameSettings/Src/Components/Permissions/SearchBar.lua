@@ -412,7 +412,7 @@ function SearchBar:render()
 
 					ClearTextOnFocus = false,
 					TextXAlignment = Enum.TextXAlignment.Left,
-					Text = text,
+					Text = props.Enabled and text or "",
 					TextEditable = props.Enabled,
 
 					PlaceholderText = errorText or defaultText,

@@ -39,8 +39,8 @@ return function(searchArguments, optionalSettings)
 		end
 
 		page.games = {}
-		for _, game in pairs(result.data) do
-			local ok, val = GameToPublish.fromJsonData(game)
+		for _, gameToPublish in pairs(result.data) do
+			local ok, val = GameToPublish.fromJsonData(gameToPublish)
 			if ok then
 				table.insert(page.games, val)
 			else

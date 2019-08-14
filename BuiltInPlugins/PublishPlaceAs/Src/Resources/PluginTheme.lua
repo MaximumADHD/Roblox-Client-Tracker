@@ -57,7 +57,7 @@ local function createValues(getColor, c, m)
 		footer = {
 			gradient = getColor(c.MainText),
 			textbutton = {
-				font = Enum.Font.ArialBold,
+				font = Enum.Font.Arial,
 			},
 		},
 		header = {
@@ -89,15 +89,34 @@ local function createValues(getColor, c, m)
 	local UILibraryOverrides = {
 		styledDropdown = {
 			backgroundColor = getColor(c.Button),
+			itemText = getColor(c.MainText),
+			headerText = getColor(c.SubText),
 			hovered = {
 				backgroundColor = getColor(c.Button, m.Hover),
+				textColor = getColor(c.MainText, m.Hover),
 			},
 			selected = {
-				backgroundColor = getColor(c.Button),
+				backgroundColor = isDark and getColor(c.CurrentMarker) or getColor(c.MainButton),
+				textColor = getColor(c.MainText, m.Hover),
+				borderColor = getColor(c.Border),
 			},
+			listTheme = {
+				backgroundColor = getColor(c.InputFieldBackground),
+				hovered = {
+					backgroundColor = getColor(c.Button),
+				},
+				selected = {
+					backgroundColor = isDark and getColor(c.MainButton) or getColor(c.CurrentMarker),
+					borderColor = getColor(c.Border),
+				},
+			}
 		},
 		separator = {
 			lineColor = isDark and getColor(c.Border) or getColor(c.Titlebar),
+		},
+		checkBox = {
+			selectedImage = isDark and "rbxasset://textures/GameSettings/CheckedBoxDark.png"
+				or "rbxasset://textures/GameSettings/CheckedBoxLight.png"
 		},
 	}
 

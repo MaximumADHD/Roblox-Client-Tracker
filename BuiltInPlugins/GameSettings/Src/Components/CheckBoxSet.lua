@@ -13,6 +13,7 @@ local FFlagGameSettingsUseUILibraryCheckBox = settings():GetFFlag("GameSettingsU
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
+local Cryo = require(Plugin.Cryo)
 local Constants = require(Plugin.Src.Util.Constants)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
 
@@ -43,7 +44,7 @@ local function CheckBoxSet(props)
 				Title = box.Title,
 				Id = box.Id,
 				Height = Constants.CHECKBOX_SIZE,
-				TextSize = Constants.CHECKBOX_SIZE,
+				TextSize = theme.fontStyle.Smaller.TextSize,
 				Description = box.Description,
 				Selected = box.Selected,
 				Enabled = props.Enabled,
@@ -61,17 +62,14 @@ local function CheckBoxSet(props)
 		end
 
 		if errorState then
-			children.Error = Roact.createElement("TextLabel", {
+			children.Error = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.SmallError, {
 				LayoutOrder = numBoxes + 1,
 				Size = UDim2.new(1, 0, 0, Constants.CHECKBOX_SIZE),
 				BackgroundTransparency = 1,
-				TextColor3 = Constants.ERROR_COLOR,
 				Text = props.ErrorMessage,
-				Font = Enum.Font.SourceSans,
-				TextSize = 16,
 				TextXAlignment = Enum.TextXAlignment.Left,
 				TextYAlignment = Enum.TextYAlignment.Center,
-			})
+			}))
 		end
 
 		local maxHeight = numBoxes * Constants.CHECKBOX_SIZE
@@ -81,7 +79,7 @@ local function CheckBoxSet(props)
 			Title = props.Title,
 			MaxHeight = maxHeight,
 			LayoutOrder = props.LayoutOrder or 1,
-			TextSize = Constants.TEXT_SIZE,
+			TextSize = theme.fontStyle.Title.TextSize,
 		}, children)
 	end)
 end

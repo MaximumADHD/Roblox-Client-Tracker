@@ -54,12 +54,12 @@ local function allFieldsAreUnchanged(tableA, tableB)
 end
 
 
-return function(reducer, action)
+return function(reducer, action, defaultState)
 	assert(type(reducer) == "function", "Expected a reducer to test")
 	assert(type(action) == "table", "Expected an action to test")
 
 	-- copy the originalState
-	local originalState = reducer(nil, { type = "__nil__" })
+	local originalState = reducer(defaultState, { type = "__nil__" })
 	local originalStateCopy = deepJoin(originalState, {})
 	assert(allFieldsAreUnchanged(originalState, originalStateCopy), "deepJoin mutates fields")
 

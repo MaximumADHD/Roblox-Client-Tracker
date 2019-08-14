@@ -1,5 +1,7 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 
+local Promise = require(Plugin.Libs.Http.Promise)
+
 local NetworkError = require(Plugin.Core.Actions.NetworkError)
 local SetCatalogItemCreator = require(Plugin.Core.Actions.SetCatalogItemCreator)
 local SetAllowedAssetTypes =  require(Plugin.Core.Actions.SetAllowedAssetTypes)
@@ -25,10 +27,11 @@ return function(networkInterface)
 				store:dispatch(SetCatalogItemCreator(false))
 				store:dispatch(NetworkError(result))
 			end
-
-			networkInterface:getMetaData():andThen(handlerFunc, errorFunc)
+			return networkInterface:getMetaData():andThen(handlerFunc, errorFunc)
 		else
 			store:dispatch(SetCatalogItemCreator(false))
 		end
+
+		return Promise.reject()
 	end
 end

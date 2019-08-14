@@ -2,9 +2,9 @@
 	Hoverable and clickable menu entry in the left-side menu.
 
 	Props:
-		int Index = The index of this menu entry as it appears in the menu, top to bottom
 		bool Selected = Whether this entry is the currently opened page
-		bool Error = Whether to display an error icon in this MenuEntry tab
+		bool ShowError = Whether to display an error icon in this MenuEntry tab
+		bool ShowWarning = Whether to display an warning icon in this MenuEntry tab
 		string Title = The text to display on this menu entry
 		function onClicked = Callback invoked when this MenuEntry is clicked
 ]]
@@ -31,7 +31,6 @@ function MenuEntry:render()
 	return Theming.withTheme(function(theme)
 		local hovering = self.state.hovering
 
-		local index = self.props.Index
 		local onClicked = self.props.OnClicked
 		local title = self.props.Title
 		local showError = self.props.ShowError
@@ -77,9 +76,7 @@ function MenuEntry:render()
 				TextSize = 24,
 				TextColor3 = theme.menuEntry.text,
 
-				[Roact.Event.Activated] = function()
-					onClicked(index)
-				end,
+				[Roact.Event.Activated] = onClicked,
 			}),
 
 			Error = Roact.createElement("ImageLabel", {

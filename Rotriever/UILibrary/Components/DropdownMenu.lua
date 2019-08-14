@@ -132,7 +132,7 @@ function DropdownMenu:render()
 
 			local canRender = state.menuSize ~= nil
 			local menuSize = state.menuSize or Vector2.new()
-			local width = menuSize.X
+			local width = props.ListWidth or menuSize.X
 			local height = menuSize.Y
 
 			local offset = props.Offset or Vector2.new()

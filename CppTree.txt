@@ -595,6 +595,8 @@ RBX
 	AdvTransformToolBase
 	AdvTranslateTool
 	AllCanSelectCommand
+	AnalyticsProviderBase
+	AnalyticsProviderPlayFab
 	AnalyticsService
 	AnalyzerPassWarnGlobalLocal
 	AnalyzerPassWarnMultiLineStatement
@@ -700,6 +702,7 @@ RBX
 	ChunkMeshShape
 	CircleRadialNormal
 	CleanStage
+	ClearUnusedLuaRefsJob
 	ClickDetector
 	ClientAppSettings
 	CloneTool
@@ -988,6 +991,8 @@ RBX
 	Mechanism
 	MechToAssemblyStage
 	MegaClusterInstance
+	MemStorageConnection
+	MemStorageService
 	MergeBinder
 	MergedFilter
 	MeshContentProvider

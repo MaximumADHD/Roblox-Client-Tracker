@@ -12,6 +12,7 @@
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
+local Cryo = require(Plugin.Cryo)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
 
 return function(props)
@@ -21,18 +22,15 @@ return function(props)
 	local alignment = props.Alignment
 
 	return withTheme(function(theme)
-		return Roact.createElement("TextLabel", {
+		return Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Normal, {
 			Size = size,
 			Text = text,
 			LayoutOrder = layoutOrder,
 
-			TextColor3 = theme.titledFrame.text,
-			Font = Enum.Font.SourceSans,
-			TextSize = 22,
 			TextXAlignment = alignment,
 
 			BackgroundTransparency = 1,
 			BorderSizePixel = 0,
-		})
+		}))
 	end)
 end

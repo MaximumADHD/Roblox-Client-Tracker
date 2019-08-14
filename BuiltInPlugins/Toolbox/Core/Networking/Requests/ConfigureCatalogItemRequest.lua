@@ -19,7 +19,7 @@ local function createConfigDataTable(nameWithoutExtension, description)
 	}
 end
 
-return function(networkInterface, assetId, nameWithoutExtension, description, fromStatus, toStatus, price)
+return function(networkInterface, assetId, nameWithoutExtension, description, fromStatus, toStatus, fromPrice, toPrice)
 	return function(store)
 		-- this thunk should never be called if names and descriptions exceed their maximum lengths, so we don't need to trim the strings here (just precautionary)
 		nameWithoutExtension = string.sub(nameWithoutExtension, 1, AssetConfigConstants.NAME_CHARACTER_LIMIT)
@@ -28,7 +28,7 @@ return function(networkInterface, assetId, nameWithoutExtension, description, fr
 		store:dispatch(SetCurrentScreen(AssetConfigConstants.SCREENS.UPLOADING_ASSET))
 
 		local handlerFunc = function(response)
-			store:dispatch(ConfigureSalesRequest(networkInterface, assetId, fromStatus, toStatus, price))
+			store:dispatch(ConfigureSalesRequest(networkInterface, assetId, fromStatus, toStatus, fromPrice, toPrice))
 		end
 
 		local errorFunc = function(response)

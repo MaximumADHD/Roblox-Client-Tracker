@@ -12,6 +12,7 @@
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
+local Cryo = require(Plugin.Cryo)
 local Constants = require(Plugin.Src.Util.Constants)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
 
@@ -38,18 +39,15 @@ local function RadioButtonSet(props)
 		}
 
 		if (props.Description) then
-			table.insert(children, Roact.createElement("TextLabel", {
+			table.insert(children, Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Normal, {
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
 				Size = UDim2.new(1, 0, 0, Constants.RADIO_BUTTON_SIZE + 5),
-				TextColor3 = theme.radioButton.title,
 				TextTransparency = props.Enabled and 0 or 0.5,
-				Font = Enum.Font.SourceSans,
-				TextSize = 22,
 				TextXAlignment = Enum.TextXAlignment.Left,
 				TextYAlignment = Enum.TextYAlignment.Top,
 				Text = props.Description,
-			}))
+			})))
 		end
 
 		for i, button in ipairs(buttons) do
@@ -75,7 +73,7 @@ local function RadioButtonSet(props)
 			Title = props.Title,
 			MaxHeight = maxHeight,
 			LayoutOrder = props.LayoutOrder or 1,
-			TextSize = Constants.TEXT_SIZE
+			TextSize = theme.fontStyle.Title.TextSize,
 		}, children)
 	end)
 end
