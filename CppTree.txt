@@ -481,13 +481,6 @@ RBX
 		AstVisitor
 		Error
 	}
-	SimpleTimer
-	{
-		TimerManager
-		{
-			TickerJob
-		}
-	}
 	Solver
 	{
 		Constraint
@@ -1224,6 +1217,7 @@ RBX
 	TiltSelectionVerb
 	TimeHandler
 	TimerService
+	TimerTickerJob
 	ToggleViewMode
 	Tool
 	ToolMouseCommand

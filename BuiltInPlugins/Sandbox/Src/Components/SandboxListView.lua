@@ -4,35 +4,53 @@
 --]]
 
 local Plugin = script.Parent.Parent.Parent
+
+local getDraftsService = require(Plugin.Src.ContextServices.DraftsService).getDraftService
+
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
+local UILibrary = require(Plugin.Packages.UILibrary)
+
+local getPlugin = require(Plugin.Src.ContextServices.StudioPlugin).getPlugin
+local withTheme = require(Plugin.Src.ContextServices.Theming).withTheme
+local withLocalization = UILibrary.Localizing.withLocalization
 
 local DraftDiscardDialog = require(Plugin.Src.Components.DraftDiscardDialog)
 local SandboxListItem = require(Plugin.Src.Components.SandboxListItem)
 local ListItemView = require(Plugin.Src.Components.ListItemView)
+
+local DraftStateChangedAction = require(Plugin.Src.Actions.DraftStateChangedAction)
+local DraftState = require(Plugin.Src.Symbols.DraftState)
+local CommitState = require(Plugin.Src.Symbols.CommitState)
 
 local ITEM_HEIGHT = 32
 
 local SandboxListView = Roact.Component:extend("SandboxListView")
 
 function SandboxListView:init()
+    local draftsService = getDraftsService(self)
     self:setState({
         draftsPendingDiscard = nil,
     })
 
     self.openScripts = function(selection)
-        -- TODO (awarwick) 7/26/2019 Hook up once we have mock SandboxService
-        print("Opening scripts", unpack(selection))
+        local plugin = getPlugin(self)
+        for _,draft in pairs(selection) do
+            plugin:OpenScript(draft)
+        end
     end
 
     self.diffChanges = function(selection)
-        -- TODO (awarwick) 7/26/2019 Hook up once we have mock SandboxService
-        print("Diffing changes", unpack(selection))
+        draftsService:ShowDiffsAgainstServer(selection)
+    end
+
+    self.commitChanges = function(selection)
+        self.props.DraftsCommitted(selection)
+        draftsService:CommitEdits(selection)
     end
 
     self.updateSource = function(selection)
-        -- TODO (awarwick) 7/26/2019 Hook up once we have mock SandboxService
-        print("Updating sources", unpack(selection))
+         draftsService:UpdateToLatestVersion(selection)
     end
 
     self.promptDiscardEdits = function(selection)
@@ -43,8 +61,7 @@ function SandboxListView:init()
 
     self.discardPromptClosed = function(confirmed)
         if confirmed then
-            -- TODO (awarwick) 7/26/2019 Hook up once we have mock SandboxService
-            print("Discarding edits", unpack(self.state.draftsPendingDiscard))
+            draftsService:DiscardEdits(self.state.draftsPendingDiscard)
         end
 
         self:setState({
@@ -52,33 +69,63 @@ function SandboxListView:init()
         })
     end
 
-    self.makeMenuActions = function(localization, selectedIds)
-		return {
-			{
+    self.getIndicatorEnabled = function(draft)
+        local draftState = self.props.Drafts[draft]
+
+        return draftState[DraftState.Committed] == CommitState.Committed
+            or draftState[DraftState.Deleted]
+            or draftState[DraftState.Outdated]
+    end
+
+    self.makeMenuActions = function(localization, selectedDrafts)
+        local canUpdateSelection = false
+        for _,draft in ipairs(selectedDrafts) do
+            local draftState = self.props.Drafts[draft]
+            if not draftState[DraftState.Outdated] then
+                canUpdateSelection = false
+                break
+            end
+        end
+
+        local contextMenuItems = {
+            {
 				Text = localization:getText("ContextMenu", "OpenScript"),
 				ItemSelected = function()
-					self.openScripts(selectedIds)
+					self.openScripts(selectedDrafts)
 				end,
 			},
 			{
 				Text = localization:getText("ContextMenu", "ShowDiff"),
 				ItemSelected = function()
-					self.diffChanges(selectedIds)
+					self.diffChanges(selectedDrafts)
 				end,
 			},
-			{
+        }
+
+        if canUpdateSelection then
+            table.insert(contextMenuItems, {
+                Text = localization:getText("ContextMenu", "Update"),
+                ItemSelected = function()
+                    self.updateSource(selectedDrafts)
+                end,
+            })
+        else
+            table.insert(contextMenuItems, {
 				Text = localization:getText("ContextMenu", "Commit"),
 				ItemSelected = function()
-					self.updateSource(selectedIds)
+					self.commitChanges(selectedDrafts)
 				end,
-			},
-			{
-				Text = localization:getText("ContextMenu", "Revert"),
-				ItemSelected = function()
-					self.promptDiscardEdits(selectedIds)
-				end,
-			},
-		}
+            })
+        end
+
+        table.insert(contextMenuItems, {
+            Text = localization:getText("ContextMenu", "Revert"),
+            ItemSelected = function()
+                self.promptDiscardEdits(selectedDrafts)
+            end,
+        })
+
+		return contextMenuItems
 	end
 end
 
@@ -87,44 +134,70 @@ function SandboxListView:render()
     local pendingDiscards = self.state.draftsPendingDiscard
 
     local showDiscardDialog = pendingDiscards ~= nil
+    local noDrafts = next(drafts) == nil
 
+    local draftStatusSidebarEnabled = false
     local sortedDraftList = {}
     for draft,_ in pairs(drafts) do
         table.insert(sortedDraftList, draft)
+
+        if not draftStatusSidebarEnabled then
+            draftStatusSidebarEnabled = self.getIndicatorEnabled(draft)
+        end
     end
     table.sort(sortedDraftList, function(a, b)
         return a.Name:lower() < b.Name:lower()
     end)
 
-    return Roact.createElement("Frame", {
-        BackgroundTransparency = 1,
-        Size = UDim2.new(1, 0, 1, 0),
-    }, {
-        ListItemView = Roact.createElement(ListItemView, {
-            ButtonStyle = "tableItemButton",
-            Items = sortedDraftList,
-            ItemHeight = ITEM_HEIGHT,
+    return withTheme(function(theme)
+        return withLocalization(function(localization)
+            return Roact.createElement("Frame", {
+                BackgroundTransparency = 1,
+                Size = UDim2.new(1, 0, 1, 0),
+            }, {
+                ListItemView = (not noDrafts) and Roact.createElement(ListItemView, {
+                    ButtonStyle = "tableItemButton",
+                    Items = sortedDraftList,
+                    ItemHeight = ITEM_HEIGHT,
 
-            MakeMenuActions = self.makeMenuActions,
+                    MakeMenuActions = self.makeMenuActions,
 
-            RenderItem = function(script, buttonTheme, hovered)
-                return Roact.createElement(SandboxListItem, {
-                    Size = UDim2.new(1, 0, 1, 0),
+                    RenderItem = function(draft, buttonTheme, hovered)
+                        return Roact.createElement(SandboxListItem, {
+                            Draft = draft,
+                            PrimaryTextColor = buttonTheme.textColor,
+                            StatusTextColor = buttonTheme.dimmedTextColor,
+                            Font = buttonTheme.font,
+                            TextSize = buttonTheme.textSize,
 
-                    Text = script.Name,
-                    TextColor3 = buttonTheme.textColor,
-                    Font = buttonTheme.font,
-                    TextSize = buttonTheme.textSize,
-                })
-            end,
-        }),
+                            IndicatorMargin = draftStatusSidebarEnabled and ITEM_HEIGHT or 0,
+                        })
+                    end,
+                }),
 
-        DiscardDialog = showDiscardDialog and Roact.createElement(DraftDiscardDialog, {
-            Drafts = pendingDiscards,
+                EmptyLabel = noDrafts and Roact.createElement("TextLabel", {
+                    BackgroundTransparency = 1,
+                    Size = UDim2.new(1, -16, 1, -16),
+                    Position = UDim2.new(0.5, 0, 0.5, 0),
+                    AnchorPoint = Vector2.new(0.5, 0.5),
 
-            ChoiceSelected = self.discardPromptClosed,
-        }),
-    })
+                    Text = localization:getText("Main", "NoDrafts"),
+                    TextColor3 = theme.Labels.MainText,
+                    TextSize = 22,
+                    Font = theme.Labels.MainFont,
+
+                    TextXAlignment = Enum.TextXAlignment.Left,
+                    TextYAlignment = Enum.TextYAlignment.Top,
+                }),
+
+                DiscardDialog = showDiscardDialog and Roact.createElement(DraftDiscardDialog, {
+                    Drafts = pendingDiscards,
+
+                    ChoiceSelected = self.discardPromptClosed,
+                }),
+            })
+        end)
+    end)
 end
 
 local function mapStateToProps(state, props)
@@ -135,4 +208,14 @@ local function mapStateToProps(state, props)
 	}
 end
 
-return RoactRodux.connect(mapStateToProps)(SandboxListView)
+local function dispatchChanges(dispatch)
+    return {
+        DraftsCommitted = function(drafts)
+            for _,draft in ipairs(drafts) do
+                dispatch(DraftStateChangedAction(draft, DraftState.Committed, CommitState.Committing))
+            end
+        end,
+    }
+end
+
+return RoactRodux.connect(mapStateToProps, dispatchChanges)(SandboxListView)

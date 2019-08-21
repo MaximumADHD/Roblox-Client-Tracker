@@ -6,10 +6,12 @@ local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local UILibrary = require(Plugin.Packages.UILibrary)
-local Theming = require(Plugin.Src.ContextServices.Theming)
-local StudioPlugin = require(Plugin.Src.ContextServices.StudioPlugin)
-local UILibraryProvider = require(Plugin.Src.ContextServices.UILibraryProvider)
+
+local DraftsService = require(Plugin.Src.ContextServices.DraftsService)
 local Localizing = UILibrary.Localizing
+local StudioPlugin = require(Plugin.Src.ContextServices.StudioPlugin)
+local Theming = require(Plugin.Src.ContextServices.Theming)
+local UILibraryProvider = require(Plugin.Src.ContextServices.UILibraryProvider)
 
 
 -- props.localization : (UILibary.Localization) an object for fetching translated strings
@@ -20,6 +22,7 @@ local ServiceWrapper = Roact.PureComponent:extend("ServiceWrapper")
 
 function ServiceWrapper:init()
 	assert(self.props[Roact.Children] ~= nil, "Expected child elements to wrap")
+	assert(self.props.draftsService ~= nil, "Expected a DraftsService object")
 	assert(self.props.localization ~= nil, "Expected a Localization object")
 	assert(self.props.plugin ~= nil, "Expected a plugin object")
 	assert(self.props.store ~= nil, "Expected a Rodux Store object")
@@ -32,6 +35,7 @@ end
 
 function ServiceWrapper:render()
 	local children = self.props[Roact.Children]
+	local draftsService = self.props.draftsService
 	local localization = self.props.localization
 	local plugin = self.props.plugin
 	local store = self.props.store
@@ -45,6 +49,7 @@ function ServiceWrapper:render()
 	root = addProvider(Theming.Provider, { theme = theme, }, root)
 	root = addProvider(Localizing.Provider, { localization = localization }, root)
 	root = addProvider(StudioPlugin.Provider, { plugin = plugin }, root)
+	root = addProvider(DraftsService.Provider, { draftsService = draftsService}, root)
 
 	return root
 end

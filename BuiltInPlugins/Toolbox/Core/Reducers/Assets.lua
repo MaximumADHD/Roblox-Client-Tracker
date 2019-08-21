@@ -17,6 +17,7 @@ local SetPreviewModel = require(Actions.SetPreviewModel)
 local SetVersionHistoryData = require(Actions.SetVersionHistoryData)
 local SetAssetConfigData = require(Actions.SetAssetConfigData)
 local ClearPreview = require(Actions.ClearPreview)
+local SetAssetVersionId = require(Actions.SetAssetVersionId)
 
 local function handleAssetsAddedToState(state, assets, totalAssets, newCursor)
 	if not assets then
@@ -114,7 +115,14 @@ return Rodux.createReducer({
 
 	[ClearPreview.name] = function(state, action)
 		return Cryo.Dictionary.join(state, {
-			previewModel = Cryo.None
+			previewModel = Cryo.None,
+			assetVersionId = Cryo.None
 		})
 	end,
+
+	[SetAssetVersionId.name] = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			assetVersionId = action.assetVersionId
+		})
+	end
 })

@@ -5,6 +5,7 @@ local runService = game:GetService("RunService")
 local PageName = "Access Permissions"
 
 local FFlagGameSettingsReorganizeHeaders = settings():GetFFlag("GameSettingsReorganizeHeaders")
+local FFlagStudioGameSettingsDisablePlayabilityForDrafts = game:GetFastFlag("StudioGameSettingsDisablePlayabilityForDrafts")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -38,7 +39,7 @@ local function loadValuesToProps(getValue, state)
 		OwnerType = getValue("creatorType"),
 		Thumbnails = state.Thumbnails,
 		SearchData = state.CollaboratorSearch,
-		
+		PrivacyType = getValue("privacyType"),
 		StudioUserId = getValue("studioUserId"),
 		GroupOwnerUserId = getValue("groupOwnerUserId"),
 		IsCurrentlyActive = state.Settings.Current.isActive,
@@ -90,11 +91,20 @@ local function displayContents(page, localized, theme)
 			Title = localized.Category[PageName],
 			LayoutOrder = 0,
 		}),
-		
+
+		PlayabilityWarning = FFlagStudioGameSettingsDisablePlayabilityForDrafts and (props.PrivacyType == "Draft") and Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Subtitle, {
+			Text = localized.Playability.PlayabilityWarning,
+			TextXAlignment = Enum.TextXAlignment.Left,
+			TextColor3 = theme.warningColor,
+			BackgroundTransparency = 1,
+			Size = UDim2.new(1, 0, 0, 30),
+			LayoutOrder = 9,
+		})),
+
 		Playability = Roact.createElement(RadioButtonSet, {
 			Title = localized.Title.Playability,
 			Description = localized.Playability.Header,
-			LayoutOrder = 1,
+			LayoutOrder = 10,
 			Buttons = {{
 					Id = true,
 					Title = localized.Playability.Public.Title,
@@ -110,7 +120,7 @@ local function displayContents(page, localized, theme)
 					Description = localized.Playability.Private.Description,
 				},
 			},
-			Enabled = props.IsActive ~= nil and props.CanManage,
+			Enabled = ((FFlagStudioGameSettingsDisablePlayabilityForDrafts and (props.PrivacyType ~= "Draft")) or (props.IsActive ~= nil)) and props.CanManage,
 			--Functionality
 			Selected = props.IsFriendsOnly and "Friends" or props.IsActive,
 			SelectionChanged = function(button)
@@ -128,12 +138,12 @@ local function displayContents(page, localized, theme)
 		}),
 
 		Separator1 = Roact.createElement(Separator, {
-			LayoutOrder = 2,
+			LayoutOrder = 20,
 			Size = UDim2.new(1, 0, 0, 1),
 		}),
 		
 		OwnerWidget = Roact.createElement(GameOwnerWidget, {
-			LayoutOrder = 3,
+			LayoutOrder = 30,
 			
 			Enabled = props.IsActive ~= nil and accessPermissionsEnabled,
 			OwnerName = props.OwnerName,
@@ -151,21 +161,21 @@ local function displayContents(page, localized, theme)
 		}),
 
 		Separator2 = Roact.createElement(Separator, {
-			LayoutOrder = 4,
+			LayoutOrder = 40,
 			Size = UDim2.new(1, 0, 0, 1),
 		}),
 
 		TeamCreateWarning = (not accessPermissionsEnabled) and Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Subtitle, {
 			Text = localized.AccessPermissions.TeamCreateWarning,
 			TextXAlignment = Enum.TextXAlignment.Left,
-			TextColor3 = Color3.fromRGB(255, 115, 21),
+			TextColor3 = theme.warningColor,
 			BackgroundTransparency = 1,
 			Size = UDim2.new(1, 0, 0, 30),
-			LayoutOrder = 5,
+			LayoutOrder = 50,
 		})),
 		
 		SearchbarWidget = accessPermissionsEnabled and props.CanManage and Roact.createElement(SearchbarWidget, {
-			LayoutOrder = 5,
+			LayoutOrder = 50,
 			Enabled = props.IsActive ~= nil,
 
 			SearchRequested = props.SearchRequested,
@@ -178,7 +188,7 @@ local function displayContents(page, localized, theme)
 		}),
 		
 		CollaboratorListWidget = accessPermissionsEnabled and props.CanManage and Roact.createElement(CollaboratorsWidget, {
-			LayoutOrder = 6,
+			LayoutOrder = 60,
 			Enabled = props.IsActive ~= nil,
 
 			StudioUserId = props.StudioUserId,

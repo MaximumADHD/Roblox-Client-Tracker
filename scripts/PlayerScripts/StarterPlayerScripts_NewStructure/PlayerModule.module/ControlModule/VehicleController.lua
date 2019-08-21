@@ -3,13 +3,11 @@
 	// Version 1.0
 	// Written by: jmargh
 	// Description: Implements in-game vehicle controls for all input devices
-	
+
 	// NOTE: This works for basic vehicles (single vehicle seat). If you use custom VehicleSeat code,
 	// multiple VehicleSeats or your own implementation of a VehicleSeat this will not work.
 --]]
 local ContextActionService = game:GetService("ContextActionService")
-local Players = game:GetService("Players")
-local RunService = game:GetService("RunService")
 
 --[[ Constants ]]--
 -- Set this to true if you want to instead use the triggers for the throttle
@@ -23,6 +21,11 @@ local bindAtPriorityFlagExists, bindAtPriorityFlagEnabled = pcall(function()
 end)
 local FFlagPlayerScriptsBindAtPriority2 = bindAtPriorityFlagExists and bindAtPriorityFlagEnabled
 
+local betterHandlingInputStatesFlagExists, betterHandlingInputStatesFlagEnabled = pcall(function()
+	return UserSettings():IsUserFeatureEnabled("UserBetterHandlingVehicleInputStates")
+end)
+local FFlagBetterHandlingVehicleInputStates = betterHandlingInputStatesFlagExists and betterHandlingInputStatesFlagEnabled
+
 local FFlagUserClickToMoveFollowPathRefactorSuccess, FFlagUserClickToMoveFollowPathRefactorResult = pcall(function() return UserSettings():IsUserFeatureEnabled("UserClickToMoveFollowPathRefactor") end)
 local FFlagUserClickToMoveFollowPathRefactor = FFlagUserClickToMoveFollowPathRefactorSuccess and FFlagUserClickToMoveFollowPathRefactorResult
 
@@ -35,19 +38,19 @@ VehicleController.__index = VehicleController
 
 function VehicleController.new(CONTROL_ACTION_PRIORITY)
 	local self = setmetatable({}, VehicleController)
-	
+
 	self.CONTROL_ACTION_PRIORITY = CONTROL_ACTION_PRIORITY
-	
+
 	self.enabled = false
 	self.vehicleSeat = nil
 	self.throttle = 0
 	self.steer = 0
-	
+
 	self.acceleration = 0
 	self.decceleration = 0
 	self.turningRight = 0
 	self.turningLeft = 0
-	
+
 	self.vehicleMoveVector = ZERO_VECTOR3
 
 	self.autoPilot = {}
@@ -85,7 +88,7 @@ function VehicleController:Enable(enable, vehicleSeat)
 
 	self.enabled = enable
 	self.vehicleMoveVector = ZERO_VECTOR3
-	
+
 	if enable then
 		if vehicleSeat then
 			self.vehicleSeat = vehicleSeat
@@ -128,23 +131,55 @@ function VehicleController:Enable(enable, vehicleSeat)
 	end
 end
 
-function VehicleController:OnThrottleAccel(actionName, inputState, inputObject)	
-	self.acceleration = (inputState ~= Enum.UserInputState.End) and -1 or 0
+function VehicleController:OnThrottleAccel(actionName, inputState, inputObject)
+	if FFlagBetterHandlingVehicleInputStates then
+		if inputState == Enum.UserInputState.End or inputState == Enum.UserInputState.Cancel then
+			self.acceleration = 0
+		else
+			self.acceleration = -1
+		end
+	else
+		self.acceleration = (inputState ~= Enum.UserInputState.End) and 1 or 0
+	end
 	self.throttle = self.acceleration + self.decceleration
 end
 
 function VehicleController:OnThrottleDeccel(actionName, inputState, inputObject)
-	self.decceleration = (inputState ~= Enum.UserInputState.End) and 1 or 0
+	if FFlagBetterHandlingVehicleInputStates then
+		if inputState == Enum.UserInputState.End or inputState == Enum.UserInputState.Cancel then
+			self.decceleration = 0
+		else
+			self.decceleration = 1
+		end
+	else
+		self.decceleration = (inputState ~= Enum.UserInputState.End) and 1 or 0
+	end
 	self.throttle = self.acceleration + self.decceleration
 end
 
 function VehicleController:OnSteerRight(actionName, inputState, inputObject)
-	self.turningRight = (inputState ~= Enum.UserInputState.End) and 1 or 0
+	if FFlagBetterHandlingVehicleInputStates then
+		if inputState == Enum.UserInputState.End or inputState == Enum.UserInputState.Cancel then
+			self.turningRight = 0
+		else
+			self.turningRight = 1
+		end
+	else
+		self.turningRight = (inputState ~= Enum.UserInputState.End) and 1 or 0
+	end
 	self.steer = self.turningRight + self.turningLeft
 end
 
 function VehicleController:OnSteerLeft(actionName, inputState, inputObject)
-	self.turningLeft = (inputState ~= Enum.UserInputState.End) and -1 or 0
+	if FFlagBetterHandlingVehicleInputStates then
+		if inputState == Enum.UserInputState.End or inputState == Enum.UserInputState.Cancel then
+			self.turningLeft = 0
+		else
+			self.turningLeft = -1
+		end
+	else
+		self.turningLeft = (inputState ~= Enum.UserInputState.End) and -1 or 0
+	end
 	self.steer = self.turningRight + self.turningLeft
 end
 
@@ -154,13 +189,13 @@ function VehicleController:Update(moveVector, cameraRelative, usingGamepad)
 		if cameraRelative then
 			-- This is the default steering mode
 			moveVector = moveVector + Vector3.new(self.steer, 0, self.throttle)
-			if usingGamepad and onlyTriggersForThrottle and useTriggersForThrottle then 
+			if usingGamepad and onlyTriggersForThrottle and useTriggersForThrottle then
 				self.vehicleSeat.ThrottleFloat = -self.throttle
 			else
 				self.vehicleSeat.ThrottleFloat = -moveVector.Z
 			end
 			self.vehicleSeat.SteerFloat = moveVector.X
-		
+
 			return moveVector, true
 		else
 			-- This is the path following mode

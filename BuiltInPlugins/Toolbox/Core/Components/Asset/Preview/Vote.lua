@@ -101,13 +101,13 @@ function Vote:init(props)
 		})
 	end
 
-	self.onVoteDonwEnter = function()
+	self.onVoteDownEnter = function()
 		self:setState({
 			voteDownStatus = BUTTON_STATUS.hovered
 		})
 	end
 
-	self.onVoteDonwLeave = function()
+	self.onVoteDownLeave = function()
 		self:setState({
 			voteDownStatus = BUTTON_STATUS.default
 		})
@@ -212,8 +212,8 @@ function Vote:render()
 					AutoButtonColor = false,
 
 					[Roact.Event.Activated] = self.onVoteDownButtonActivated,
-					[Roact.Event.MouseEnter] = self.onVoteDonwEnter,
-					[Roact.Event.MouseLeave] = self.onVoteDonwLeave,
+					[Roact.Event.MouseEnter] = self.onVoteDownEnter,
+					[Roact.Event.MouseLeave] = self.onVoteDownLeave,
 				}, {
 					VoteDownImageLabel = Roact.createElement("ImageLabel", {
 						Size = UDim2.new(1, 0, 1, 0),

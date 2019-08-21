@@ -9,8 +9,9 @@ AssetType.TYPES = {
 	ImageType = 2,
 	SoundType = 3,
 	ScriptType = 4, -- Server, local, module
-	OtherType = 5,
-	LoadingType = 6,
+	PluginType = 5,
+	OtherType = 6,
+	LoadingType = 7,
 }
 
 -- For AssetPreview, we devide assets into four categories.
@@ -56,6 +57,16 @@ end
 
 function AssetType:isScript(currentType)
 	return currentType == self.TYPES.ScriptType
+end
+
+function AssetType:isPlugin(currentType)
+	return currentType == self.TYPES.PluginType
+end
+
+-- Since you can't tell if an asset is a plugin based purely on its derived class,
+-- plugin assets need to be directly given the plugin type
+function AssetType:markAsPlugin()
+	return self.TYPES.PluginType
 end
 
 function AssetType:isOtherType(currentType)

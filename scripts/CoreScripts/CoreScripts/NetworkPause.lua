@@ -9,6 +9,7 @@ local PlayerService = game:GetService("Players")
 local CoreGuiService = game:GetService("CoreGui")
 local StarterGuiService = game:GetService("StarterGui")
 local RunService = game:GetService("RunService")
+local GuiService = game:GetService("GuiService")
 
 local RobloxGui = CoreGuiService:WaitForChild("RobloxGui")
 local CoreGuiModules = RobloxGui:WaitForChild("Modules")
@@ -25,7 +26,8 @@ local NetworkPauseNotification = require(CoreGuiModules.NetworkPauseNotification
 local create = require(CoreGuiModules.Common.Create)
 
 -- VARIABLES
-local isEnabled = true
+-- Skip showing UI on first pause to avoid displaying during loading process.
+local isFirstPauseChange = settings():GetFFlag("StreamingUISkipFirstPause")
 
 local Notification = NetworkPauseNotification.new()
 
@@ -40,7 +42,8 @@ local NetworkPauseGui = create "ScreenGui" {
 }
 
 local function togglePauseState()
-	local paused = Player.GameplayPaused and isEnabled
+	local paused = Player.GameplayPaused and NetworkPauseGui.Enabled and not isFirstPauseChange
+    isFirstPauseChange = false
 	if paused then
 		Notification:Show()
 	else
@@ -51,13 +54,12 @@ end
 
 Player:GetPropertyChangedSignal("GameplayPaused"):Connect(togglePauseState)
 
--- this method exists for the purpose of a future API proposal, allowing developers to disable the GUI.
 local function enableNotification(enabled)
 	assert(type(enabled) == "boolean", "Specified argument 'enabled' must be of type boolean")
-	if enabled == isEnabled then return end
+	if enabled == NetworkPauseGui.Enabled then return end
 	NetworkPauseGui.Enabled = enabled
-	isEnabled = enabled
 	togglePauseState()
 end
 
 Notification:SetParent(NetworkPauseGui)
+GuiService.NetworkPausedEnabledChanged:Connect(enableNotification)

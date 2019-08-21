@@ -4,6 +4,9 @@
 	Props:
 		table assetData = A table of asset data, passed from Rodux
 
+		number assetVersionId = if our asset is a plugin,
+		this will be the most updated asset version ID for that plugin
+
 		table previewFuncs = A table of functions that can be called from
 			the AssetPreview component, provided from Rodux
 
@@ -20,8 +23,10 @@ local RoactRodux = require(Libs.RoactRodux)
 local Util = Plugin.Core.Util
 local Constants = require(Util.Constants)
 local ContextHelper = require(Util.ContextHelper)
+local ContextGetter = require(Util.ContextGetter)
 
 local getUserId = require(Util.getUserId)
+local getNetwork = ContextGetter.getNetwork
 
 local withModal = ContextHelper.withModal
 local withTheme = ContextHelper.withTheme
@@ -30,6 +35,7 @@ local AssetPreview = require(Plugin.Core.Components.Asset.Preview.AssetPreview)
 
 local GetPreviewInstanceRequest = require(Plugin.Core.Networking.Requests.GetPreviewInstanceRequest)
 local ClearPreview = require(Plugin.Core.Actions.ClearPreview)
+local GetAssetVersionIdRequest = require(Plugin.Core.Networking.Requests.GetAssetVersionIdRequest)
 
 local Category = require(Plugin.Core.Types.Category)
 local ConfigTypes = require(Plugin.Core.Types.ConfigTypes)
@@ -109,12 +115,20 @@ function AssetPreviewWrapper:init(props)
 
 	self.tryInsert = function()
 		local assetData = props.assetData
-		self.props.tryInsert(assetData, false) --Asset was not dragged
+		return self.props.tryInsert(assetData, false) --Asset was not dragged
+	end
+
+	self.takePlugin = function(assetId)
+		local networkInterface = getNetwork(self)
+		networkInterface:postTakePlugin()
 	end
 end
 
 function AssetPreviewWrapper:didMount()
 	self.props.getPreviewInstance(self.props.assetData.Asset.Id)
+	if self.props.assetData.Asset.TypeId == Enum.AssetType.Plugin.Value then
+		self.props.getAssetVersionId(getNetwork(self), self.props.assetData.Asset.Id)
+	end
 end
 
 function AssetPreviewWrapper:render()
@@ -124,6 +138,7 @@ function AssetPreviewWrapper:render()
 			local state = self.state
 
 			local assetData = props.assetData
+			local assetVersionId = props.assetVersionId
 
 			local maxPreviewWidth = math.min(state.maxPreviewWidth, Constants.ASSET_PREVIEW_MAX_WIDTH)
 			local maxPreviewHeight = state.maxPreviewHeight
@@ -173,6 +188,7 @@ function AssetPreviewWrapper:render()
 					zIndex = 2,
 
 					assetData = assetData,
+					assetVersionId = assetVersionId,
 					canInsertAsset = canInsertAsset,
 					tryInsert = self.tryInsert,
 					tryCreateContextMenu = self.tryCreateContextMenu,
@@ -190,10 +206,12 @@ local function mapStateToProps(state, props)
 	local previewModel = assets.previewModel
 
 	local pageInfo = state.pageInfo or {}
+	local assetVersionId = assets.assetVersionId
 
 	return {
 		previewModel = previewModel or nil,
-		currentTab = pageInfo.currentTab or Category.MARKETPLACE_KEY
+		currentTab = pageInfo.currentTab or Category.MARKETPLACE_KEY,
+		assetVersionId = assetVersionId,
 	}
 end
 
@@ -205,6 +223,10 @@ local function mapDispatchToProps(dispatch)
 
 		clearPreview = function()
 			dispatch(ClearPreview())
+		end,
+
+		getAssetVersionId = function(networkInterface, assetId)
+			dispatch(GetAssetVersionIdRequest(networkInterface, assetId))
 		end
 	}
 end

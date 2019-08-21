@@ -87,6 +87,8 @@ local function MakePatchEntryToChangeRow(originalEntry, newEntry, patchInfo, inc
 end
 
 local function MakePatchEntryToAddRow(entry, patchInfo)
+	patchInfo.numAddedEntries = patchInfo.numAddedEntries + 1
+
 	local patchTranslations = {}
 	for _, translation in ipairs(entry.translations) do
 		table.insert(patchTranslations, {
@@ -111,6 +113,8 @@ local function MakePatchEntryToAddRow(entry, patchInfo)
 end
 
 local function MakePatchEntryToDeleteRow(entry, patchInfo)
+	patchInfo.numRemovedEntries = patchInfo.numRemovedEntries + 1
+
 	local patchTranslations = {}
 
 	for _, translation in ipairs(entry.translations) do
@@ -158,6 +162,8 @@ local function DiffTables(tableName, originalTableData, newTableData, includeDel
 		numAddedTranslations = 0,
 		numChangedTranslations = 0,
 		numRemovedTranslations = 0,
+		numAddedEntries = 0,
+		numRemovedEntries = 0,
 
 		makePatch = function()
 			return {

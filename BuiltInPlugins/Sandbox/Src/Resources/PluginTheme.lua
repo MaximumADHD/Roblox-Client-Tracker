@@ -29,10 +29,17 @@ function Theme.createValues(getColor, StyleColor, StyleModifier)
 
 		Icons = {
 			ToolbarIconInspect = "rbxasset://textures/GameSettings/ToolbarIcon.png",
+			DraftState = {
+				Committed = "rbxasset://textures/StudioSharedUI/statusSuccess.png",
+				Outdated = "rbxasset://textures/StudioSharedUI/statusWarning.png",
+				Deleted = "rbxasset://textures/StudioSharedUI/statusWarning.png",
+			},
 		},
 		Labels = {
 			TitleBarText = getColor(StyleColor.TitlebarText, StyleModifier.Default),
 			TitleBarBackground = getColor(StyleColor.Titlebar, StyleModifier.Default),
+			MainText = getColor(StyleColor.MainText, StyleModifier.Default),
+			MainFont = Enum.Font.SourceSans,
 		},
 
 		Dialog = {
@@ -54,20 +61,24 @@ function Theme.createValues(getColor, StyleColor, StyleModifier)
 				textSize = 18,
 				backgroundColor = getColor(StyleColor.TableItem, StyleModifier.Default),
 				textColor = getColor(StyleColor.MainText, StyleModifier.Default),
+				dimmedTextColor = getColor(StyleColor.DimmedText, StyleModifier.Default),
 
 				disabled = {
 					backgroundColor = getColor(StyleColor.TableItem, StyleModifier.Disabled),
 					textColor = getColor(StyleColor.MainText, StyleModifier.Disabled),
+					dimmedTextColor = getColor(StyleColor.DimmedText, StyleModifier.Disabled),
 				},
 
 				hovered = {
 					backgroundColor = getColor(StyleColor.TableItem, StyleModifier.Hover),
 					textColor = getColor(StyleColor.MainText, StyleModifier.Hover),
+					dimmedTextColor = getColor(StyleColor.DimmedText, StyleModifier.Hover),
 				},
 
 				selected = {
 					backgroundColor = getColor(StyleColor.TableItem, StyleModifier.Selected),
 					textColor = getColor(StyleColor.MainText, StyleModifier.Selected),
+					dimmedTextColor = getColor(StyleColor.DimmedText, StyleModifier.Selected),
 				},
 			}
 		},

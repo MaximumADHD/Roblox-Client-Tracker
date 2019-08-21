@@ -9,6 +9,11 @@ local Rodux = require(Packages.Rodux)
 local DraftAddedAction = require(Plugin.Src.Actions.DraftAddedAction)
 local DraftRemovedAction = require(Plugin.Src.Actions.DraftRemovedAction)
 local DraftsLoadedAction = require(Plugin.Src.Actions.DraftsLoadedAction)
+local DraftStateChangedAction = require(Plugin.Src.Actions.DraftStateChangedAction)
+
+local AutosaveState = require(Plugin.Src.Symbols.AutosaveState)
+local CommitState = require(Plugin.Src.Symbols.CommitState)
+local DraftState = require(Plugin.Src.Symbols.DraftState)
 
 local function createDummyScript()
 	return Instance.new("Script")
@@ -21,6 +26,16 @@ local function getDictionaryLength(dict)
 	end
 
 	return length
+end
+
+local function createPrepopulatedStore()
+	local drafts = {}
+	for _ = 1,10 do
+		table.insert(drafts, createDummyScript())
+	end
+
+	-- Populate the store so we have something to remove
+	return drafts, SandboxDrafts(nil, DraftsLoadedAction(drafts))
 end
 
 return function()
@@ -41,7 +56,7 @@ return function()
 			expect(state).to.be.ok()
 
 			for _,draft in pairs(drafts) do
-				expect(state[draft]).to.equal(true)
+				expect(state[draft]).never.to.equal(nil)
 			end
 
 			expect(getDictionaryLength(state)).to.equal(#drafts)
@@ -67,7 +82,7 @@ return function()
 			end
 
 			for _,draft in pairs(drafts) do
-				expect(state[draft]).to.equal(true)
+				expect(state[draft]).never.to.equal(nil)
 			end
 
 			expect(getDictionaryLength(state)).to.equal(#drafts)
@@ -81,16 +96,6 @@ return function()
 	end)
 
 	describe("DraftRemovedAction", function()
-		local function createPrepopulatedStore()
-			local drafts = {}
-			for _ = 1,10 do
-				table.insert(drafts, createDummyScript())
-			end
-
-			-- Populate the store so we have something to remove
-			return drafts, SandboxDrafts(nil, DraftsLoadedAction(drafts))
-		end
-
 		it("should remove drafts", function()
 			local drafts, state = createPrepopulatedStore()
 			for _ = 1,5 do
@@ -101,7 +106,7 @@ return function()
 			end
 
 			for _,draft in ipairs(drafts) do
-				expect(state[draft]).to.equal(true)
+				expect(state[draft]).never.to.equal(nil)
 			end
 
 			expect(getDictionaryLength(state)).to.equal(#drafts)
@@ -111,6 +116,46 @@ return function()
 			local drafts, state = createPrepopulatedStore()
 
 			local immutabilityPreserved = testImmutability(SandboxDrafts, DraftRemovedAction(drafts[1]), state)
+			expect(immutabilityPreserved).to.equal(true)
+		end)
+	end)
+
+	describe("DraftStateChangedAction", function()
+		it("should successfully update own stateType", function()
+			local drafts, state = createPrepopulatedStore()
+			local draft = drafts[1]
+
+			-- Verifies the action sets the stateType to the given stateValue, and does not modify other stateTypes
+			-- I.e. if Outdated is set to true, only Outdated should be set, and not Autosaved
+			local function testAction(stateType, stateValue)
+				-- Cache the current state of the store
+				local expectedValues = {}
+				for _, draftState in pairs(DraftState) do
+					expectedValues[draftState] = state[draft][draftState]
+				end
+
+				-- Update the expected entry for our stateType since the cache is no longer accurate
+				expectedValues[stateType] = stateValue
+				state = SandboxDrafts(state, DraftStateChangedAction(draft, stateType, stateValue))
+
+				-- Verify the old, cached values of other stateTypes are still what we expect, and that
+				-- the store contains the change we made to the specified stateType
+				for stateType, stateValue in pairs(expectedValues) do
+					expect(state[draft][stateType]).to.equal(stateValue)
+				end
+			end
+
+			testAction(DraftState.Outdated, true)
+			testAction(DraftState.Deleted, true)
+			testAction(DraftState.Committed, CommitState.Committed)
+			testAction(DraftState.Autosaved, AutosaveState.Saved)
+		end)
+
+		it("should preserve immutability", function()
+			local drafts, state = createPrepopulatedStore()
+
+			local immutabilityPreserved = testImmutability(SandboxDrafts,
+				DraftStateChangedAction(drafts[1], DraftState.Outdated, true), state)
 			expect(immutabilityPreserved).to.equal(true)
 		end)
 	end)

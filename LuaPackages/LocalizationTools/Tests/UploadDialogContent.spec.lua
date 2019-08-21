@@ -12,6 +12,8 @@ return function()
 					numAddedTranslations = 30,
 					numChangedTranslations = 40,
 					numRemovedTranslations = 50,
+					numAddedEntries = 20,
+					numRemovedEntries = 30,
 				}
 			}),
 		})

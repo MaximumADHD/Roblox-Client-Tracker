@@ -47,4 +47,7 @@ Colors.DARK_GREY_BUTTON_DEFAULT_COLOR = Color3.fromRGB(58, 58, 58)
 Colors.VOTING_GREEN = Color3.fromRGB(82, 168, 70)
 Colors.VOTING_RED = Color3.fromRGB(206, 100, 91)
 
+Colors.INSTALL_GREEN = Color3.new(0,.7,0)
+Colors.INSTALL_RED = Color3.new(.9,0,0)
+
 return wrapStrictTable(Colors, "Colors")

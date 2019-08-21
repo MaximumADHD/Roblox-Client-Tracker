@@ -1,7 +1,6 @@
 local RunService = game:GetService("RunService")
 local GuiService = game:GetService("GuiService")
 local CoreGui = game:GetService("CoreGui")
-local TweenService = game:GetService("TweenService")
 local ContentProvider = game:GetService("ContentProvider")
 local UserInputService = game:GetService("UserInputService")
 local InsertService = game:GetService("InsertService")
@@ -60,7 +59,7 @@ local function init()
 	panel = viewSelectorScreenGui:WaitForChild("Panel")
 	viewport = panel:WaitForChild("Viewport")
 	viewportSize = viewport.AbsoluteSize.x -- Viewport width and height should be same
-	eventReceiver = viewport:WaitForChild("EventReceiver") 
+	eventReceiver = viewport:WaitForChild("EventReceiver")
 	model = viewport:WaitForChild("Model")
 	textLabelX = panel:WaitForChild("X")
 	textLabelY = panel:WaitForChild("Y")
@@ -68,13 +67,13 @@ local function init()
 	arrowButtons = panel:WaitForChild("ArrowButtons")
 	arrowButtons.Visible = false
 	hover = false
-	
+
 	viewportCamera = Instance.new("Camera")
 	viewportCamera.Parent = viewport
 	viewportCamera.CFrame = CFrame.new(Vector3.new(0, 0, 0), Vector3.new(0, 0, -1))
 	viewportCamera.FieldOfView = 70
 	viewport.CurrentCamera = viewportCamera
-	
+
 	local localizationTable = script.Parent.ViewSelectorLocalizationTable
 	local translator = localizationTable:GetTranslator(StudioService.StudioLocaleId)
 	local fallbackTranslator = localizationTable:GetTranslator("en-us")
@@ -149,7 +148,7 @@ local function getIntersectionPoint(origin, direction)
 	if axis(p.X, direction.X) == 0 then return end
 	if axis(p.Y, direction.Y) == 0 then return end
 	if axis(p.Z, direction.Z) == 0 then return end
-	if tmin > 0 then 
+	if tmin > 0 then
 		return origin + direction * tmin
 	else
 		return origin + direction * tmax
@@ -207,8 +206,8 @@ local function screenPointToViewport(x, y)
 end
 
 local function onMouseMove(x, y)
-	if isInvalidCameraType() then 
-		return 
+	if isInvalidCameraType() then
+		return
 	end
 	local guix, guiy = screenPointToViewport(x, y)
 	local ray = viewportCamera:ViewportPointToRay(guix / viewportSize, guiy / viewportSize, 0)
@@ -222,7 +221,7 @@ local function onMouseMove(x, y)
 		if lastHighLight ~= highlight then
 			cancelHighlight(lastHighLight)
 			enableHighlight(highlight)
-			lastHighLight = highlight   
+			lastHighLight = highlight
 		end
 	else
 		cancelHighlight(lastHighLight)
@@ -239,8 +238,8 @@ local function updateArrowButtons()
 	local function parallel(axis)
 		return math.abs(math.abs(look:Dot(axis)) - 1) < ep
 	end
-	arrowButtons.Visible = parallel(Vector3.new(1, 0, 0)) 
-		or parallel(Vector3.new(0, 1, 0)) 
+	arrowButtons.Visible = parallel(Vector3.new(1, 0, 0))
+		or parallel(Vector3.new(0, 1, 0))
 		or parallel(Vector3.new(0, 0, 1))
 end
 
@@ -260,14 +259,14 @@ local function onInputChanged(input)
 	if not mouseDownPosition then
 		return
 	end
-	if input.UserInputType == Enum.UserInputType.MouseMovement then 
+	if input.UserInputType == Enum.UserInputType.MouseMovement then
 		local x = input.Position.x
 		local y = input.Position.y
 		local moveDelta = math.abs(mouseDownPosition.x - x) + math.abs(mouseDownPosition.y - y)
 		if moveDelta > DRAG_DELTA then
 			local newx = guiPosition.X.Offset + x - mouseDownPosition.x
 			local newy = guiPosition.Y.Offset + y - mouseDownPosition.y
-			panel.Position = UDim2.new(guiPosition.X.Scale, newx, guiPosition.Y.Scale, newy) 
+			panel.Position = UDim2.new(guiPosition.X.Scale, newx, guiPosition.Y.Scale, newy)
 		end
 	end
 end
@@ -360,12 +359,12 @@ local function updateXYZLabelPosition()
 			label.Position = UDim2.new(0, pViewport.x * viewportSize, 0, pViewport.y * viewportSize)
 		else
 			label.Visible = false
-		end 
+		end
 	end
-	
+
 	updatePosition(textLabelX, textLabelXPosition)
 	updatePosition(textLabelY, textLabelYPosition)
-	updatePosition(textLabelZ, textLabelZPosition)  
+	updatePosition(textLabelZ, textLabelZPosition)
 end
 
 local function afterCamera(delta)
@@ -388,8 +387,8 @@ local function afterCamera(delta)
 		to light different faces while rotating.
 		It shoule be changed when ViewportFrame custom lighting is live
 	]]
-	local frame = currentCamera.CFrame
-	local current = CFrame.fromMatrix(-frame.LookVector * CAMERA_DISTANCE, frame.RightVector, frame.UpVector, -frame.LookVector)
+	local cf = currentCamera.CFrame
+	local current = CFrame.fromMatrix(-cf.LookVector * CAMERA_DISTANCE, cf.RightVector, cf.UpVector, -cf.LookVector)
 	if current == cameraCFrame then
 		return
 	end
@@ -398,7 +397,7 @@ local function afterCamera(delta)
 	model.CFrame = inverseCameraCFrame
 	updateXYZLabelPosition()
 	updateArrowButtons()
-	
+
 	model.x.CFrame = model.CFrame:ToWorldSpace(initialCFrames["x"])
 	model.y.CFrame = model.CFrame:ToWorldSpace(initialCFrames["y"])
 	model.z.CFrame = model.CFrame:ToWorldSpace(initialCFrames["z"])
@@ -420,7 +419,7 @@ local function showViewSelector(enable)
 	else
 		RunService:UnbindFromRenderStep("ViewSelectorAfterCamera")
 	end
-	
+
 	toolbarbutton:SetActive(enable)
 	viewSelectorScreenGui.Enabled = enable
 end
@@ -431,14 +430,14 @@ local function onToolBarButtonClicked()
 end
 
 local function bindArrowButtonEvents(button, direction)
-	button.MouseButton1Click:connect(function() 
+	button.MouseButton1Click:connect(function()
 		local right = cameraCFrame.RightVector
 		local up = cameraCFrame.UpVector
 		local axis = - right * direction.y + up * direction.x
 		local rotation = CFrame.fromAxisAngle(axis, math.pi / 2)
 		local look = rotation * cameraCFrame.LookVector
 		local rayStart = -look * 2;
-		local point = getIntersectionPoint(rayStart, look)  
+		local point = getIntersectionPoint(rayStart, look)
 		if point then
 			local name = getNameFromIntersectionPoint(point)
 			tweenCameraToDirection(nameToRotation[name])

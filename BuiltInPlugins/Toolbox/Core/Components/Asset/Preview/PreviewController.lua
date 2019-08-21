@@ -23,11 +23,15 @@ local AssetType = require(Plugin.Core.Types.AssetType)
 
 local TreeView = require(Plugin.Core.Components.TreeView.TreeView)
 
+local Urls = require(Plugin.Core.Util.Urls)
+
 local TREEVIEW_WIDTH = 242
 local PREVIEW_HEIGHT = 242
 local TREEVIEW_BOTTOM_HEIGHT = 120
 local MAINVIEW_BUTTONS_X_OFFSET = -7
 local MAINVIEW_BUTTONS_Y_OFFSET = -7
+
+local MODAL_MIN_WIDTH = 235
 
 local PreviewController = Roact.PureComponent:extend("PreviewController")
 
@@ -161,6 +165,8 @@ function PreviewController:render()
 		treeViewSize = UDim2.new()
 	end
 
+	local THUMBNAIL_HEIGHT = PREVIEW_HEIGHT < MODAL_MIN_WIDTH and PREVIEW_HEIGHT or MODAL_MIN_WIDTH
+
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(1, width, 0, height),
 
@@ -198,6 +204,13 @@ function PreviewController:render()
 				scaleType = getImageScaleType(currentPreview)
 			}),
 
+			PluginPreview = AssetType:isPlugin(assetPreviewType) and Roact.createElement("ImageLabel", {
+				Image = Urls.constructAssetThumbnailUrl(assetId, 420, 420),
+				Size = UDim2.new(0,THUMBNAIL_HEIGHT,0,THUMBNAIL_HEIGHT),
+				Position = UDim2.new(0.5,0,0,0),
+				AnchorPoint = Vector2.new(0.5,0),
+			}),
+
 			-- Let the script and other share the same component for now
 			OtherPreview = (AssetType:isScript(assetPreviewType) or AssetType:isOtherType(assetPreviewType)
 				or AssetType:isAudio(assetPreviewType)) and Roact.createElement(OtherPreview, {
@@ -207,7 +220,7 @@ function PreviewController:render()
 				textContent = currentPreview.Name,
 			}),
 
-			MainViewButtons = Roact.createElement(MainViewButtons, {
+			MainViewButtons = not AssetType:isPlugin(assetPreviewType) and Roact.createElement(MainViewButtons, {
 				position = UDim2.new(1, MAINVIEW_BUTTONS_X_OFFSET, 1, MAINVIEW_BUTTONS_Y_OFFSET),
 				ZIndex = 2,
 

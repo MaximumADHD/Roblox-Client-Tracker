@@ -1,5 +1,7 @@
 local EnableGroupPackagesForToolbox =  settings():GetFFlag("EnableGroupPackagesForToolbox")
-local EnableToolboxPluginInsertion = settings():GetFFlag("EnableToolboxPluginInsertion")
+local FFlagPluginAccessAndInstallationInStudio = settings():GetFFlag("PluginAccessAndInstallationInStudio")
+local FFlagStudioMarketplaceTabsEnabled = settings():GetFFlag("StudioMarketplaceTabsEnabled")
+local FFlagOnlyWhitelistedPluginsInStudio = settings():GetFFlag("OnlyWhitelistedPluginsInStudio");
 
 local Plugin = script.Parent.Parent.Parent
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
@@ -62,6 +64,8 @@ Category.FREE_MESHES = {name = "FreeMeshes", category = "FreeMeshes",
 Category.FREE_AUDIO = {name = "FreeAudio", category = "FreeAudio",
 	ownershipType = Category.OwnershipType.FREE, assetType = Category.AssetType.AUDIO}
 Category.FREE_PLUGINS = {name = "FreePlugins", category = "FreePlugins",
+	ownershipType = Category.OwnershipType.FREE, Category.AssetType.PLUGIN}
+Category.WHITELISTED_PLUGINS = {name = "PaidPlugins", category = "WhitelistedPlugins",
 	ownershipType = Category.OwnershipType.FREE, Category.AssetType.PLUGIN}
 
 Category.MY_MODELS = {name = "MyModels", category = "MyModelsExceptPackage",
@@ -191,10 +195,13 @@ if EnableGroupPackagesForToolbox then
 	table.insert(Category.INVENTORY_WITH_GROUPS, Category.GROUP_PACKAGES)
 end
 
-if EnableToolboxPluginInsertion then
+if FFlagPluginAccessAndInstallationInStudio then
 	table.insert(Category.INVENTORY, Category.MY_PLUGINS)
-	table.insert(Category.MARKETPLACE, Category.FREE_PLUGINS)
-	table.insert(Category.INVENTORY, Category.MY_PLUGINS)
+	if FFlagOnlyWhitelistedPluginsInStudio then
+		table.insert(Category.MARKETPLACE, Category.WHITELISTED_PLUGINS)
+	else
+		table.insert(Category.MARKETPLACE, Category.FREE_PLUGINS)
+	end
 	table.insert(Category.INVENTORY_WITH_GROUPS, 5, Category.MY_PLUGINS)
 end
 

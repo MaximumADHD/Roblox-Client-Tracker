@@ -6,6 +6,7 @@ local Rodux = require(Packages.Rodux)
 
 local EXPECTED_KEYS = {
 	Example = true,
+	DraftsServiceStatus = true,
 	SandboxDrafts = true,
 }
 

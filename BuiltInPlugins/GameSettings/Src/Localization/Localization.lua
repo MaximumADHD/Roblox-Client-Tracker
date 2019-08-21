@@ -145,6 +145,7 @@ function Localization:recalculateContent()
 				Title = self:getText("Studio.GameSettings.General.PlayabilityPrivate"),
 				Description = self:getText("Studio.GameSettings.General.PlayabilityPrivateDesc"),
 			},
+			PlayabilityWarning = self:getText("Studio.GameSettings.DraftGames.PlayabilityWarning")
 		},
 
 		GameIcon = {

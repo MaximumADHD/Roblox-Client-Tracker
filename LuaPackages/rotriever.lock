@@ -24,16 +24,74 @@ commit = "00b6e84543f249a32f089d31a450a124af33e980"
 rev = "roblox"
 
 [[package]]
+name = "Roact"
+type = "git"
+source = "https://github.com/roblox/roact"
+commit = "986c1d583bf378cf9cd9bd20f3fedc74f20ec3a4"
+rev = "master"
+
+[[package]]
+name = "Roact1xMigration"
+type = "git"
+source = "https://github.rbx.com/pdoyle/roact-1x-migration"
+commit = "b815aedfc5827216283350eebc722bd4687762e2"
+rev = "master"
+
+[package.dependencies]
+Roact0_2 = "Roact-e3b370a8-00b6e845"
+Roact1_x = "Roact-e3b370a8-986c1d58"
+
+[[package]]
+name = "RoactRodux"
+type = "git"
+source = "https://github.com/roblox/roact-rodux"
+commit = "d4255300944937cb9e42d43adcf121cf768f1002"
+rev = "transitioning-roblox"
+
+[package.dependencies]
+Roact = "Roact-e3b370a8-00b6e845"
+Rodux = "Rodux-0c3f252d-cdea578f"
+
+[[package]]
+name = "RoactRodux"
+type = "git"
+source = "https://github.com/roblox/roact-rodux"
+commit = "f92dedb2ad0dbb33929008cdd3e53fdfe8b795b3"
+rev = "transitioning-roblox-roact-1x"
+
+[package.dependencies]
+Roact = "Roact-e3b370a8-986c1d58"
+Rodux = "Rodux-0c3f252d-cdea578f"
+
+[[package]]
+name = "RoactRodux1xMigration"
+type = "git"
+source = "https://github.rbx.com/pdoyle/roact-rodux-1x-migration"
+commit = "b8fe2fb869fc1aad94485d2358bd3b4ffe1eaa1a"
+rev = "master"
+
+[package.dependencies]
+RoactRoduxNew = "RoactRodux-9dcb3c30-f92dedb2"
+RoactRoduxOld = "RoactRodux-9dcb3c30-d4255300"
+
+[[package]]
+name = "Rodux"
+type = "git"
+source = "https://github.com/roblox/rodux"
+commit = "cdea578ff648116d63fe077b0b4b2fe64bdd8ee5"
+rev = "master"
+
+[[package]]
 name = "UIBlox"
 type = "git"
 source = "https://github.rbx.com/roblox/uiblox"
-commit = "80705be77ae0d108da45c224a7540f1a23313c5b"
-rev = "master"
+commit = "fca7ffc80e47db4d730ea391a34b0320d75ffd24"
+rev = "roact-1x-migration"
 
 [package.dependencies]
 Cryo = "Cryo-e5025947-ce743f67"
 Otter = "Otter-7466d762-fff3ac76"
-Roact = "Roact-e3b370a8-00b6e845"
+Roact = "Roact1xMigration-39f5cc74-b815aedf"
 t = "t-558c5873-74411073"
 
 [[package]]

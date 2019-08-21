@@ -6,11 +6,14 @@ local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Rodux = require(Plugin.Packages.Rodux)
 local UILibrary = require(Plugin.Packages.UILibrary)
-local ServiceWrapper = require(Plugin.Src.Components.ServiceWrapper)
-local PluginTheme = require(Plugin.Src.Resources.PluginTheme)
-local MainReducer = require(Plugin.Src.Reducers.MainReducer)
-local MockPlugin = require(Plugin.Src.TestHelpers.MockPlugin)
+
 local Localization = UILibrary.Studio.Localization
+local MainReducer = require(Plugin.Src.Reducers.MainReducer)
+local MockDraftsService = require(Plugin.Src.TestHelpers.MockDraftsService)
+local MockPlugin = require(Plugin.Src.TestHelpers.MockPlugin)
+local PluginTheme = require(Plugin.Src.Resources.PluginTheme)
+local ServiceWrapper = require(Plugin.Src.Components.ServiceWrapper)
+
 
 local MockServiceWrapper = Roact.Component:extend("MockServiceWrapper")
 
@@ -19,6 +22,11 @@ local MockServiceWrapper = Roact.Component:extend("MockServiceWrapper")
 -- props.storeState : (optional, table) a default state for the MainReducer
 -- props.theme : (optional, Resources.PluginTheme)
 function MockServiceWrapper:render()
+	local draftsService = self.props.draftsService
+	if not draftsService then
+		draftsService = MockDraftsService.new(MockDraftsService.TestCases.DEFAULT)
+	end
+
 	local localization = self.props.localization
 	if not localization then
 		localization = Localization.mock()
@@ -38,6 +46,7 @@ function MockServiceWrapper:render()
 	end
 
 	return Roact.createElement(ServiceWrapper, {
+		draftsService = draftsService,
 		localization = localization,
 		plugin = pluginInstance,
 		store = store,

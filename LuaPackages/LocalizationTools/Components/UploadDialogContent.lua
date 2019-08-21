@@ -6,6 +6,7 @@ local NumTranslationsLine = require(script.Parent.NumTranslationsLine)
 local UploadDialogContent = Roact.PureComponent:extend("UploadDialogContent")
 
 local UnofficialLanguageSupportEnabled = settings():GetFFlag("UnofficialLanguageSupportEnabled")
+local RecordAddOrRemoveEntries = settings():GetFFlag("RecordAddOrRemoveEntries")
 
 local function Line(props)
 	return Roact.createElement("TextLabel", {
@@ -43,6 +44,8 @@ function UploadDialogContent:init()
 		AddLineEnabled = true,
 		ChangeLineEnabled = true,
 		RemoveLineEnabled = true,
+		AddEntriesLineEnabled = true,
+		RemoveEntriesLineEnabled = true,
 	}
 end
 
@@ -52,11 +55,30 @@ function UploadDialogContent:render()
 
 		if self.props.PatchInfo.numAddedTranslations +
 			self.props.PatchInfo.numChangedTranslations +
-			self.props.PatchInfo.numRemovedTranslations == 0
+			self.props.PatchInfo.numRemovedTranslations +
+			self.props.PatchInfo.numAddedEntries +
+			self.props.PatchInfo.numRemovedEntries == 0
 		then
 			PromptText = "Patch empty. Upload anyway?"
 		else
 			PromptText = "Upload patch?"
+		end
+
+		local AddEntriesLine
+		if RecordAddOrRemoveEntries then
+			AddEntriesLine = Roact.createElement(NumTranslationsLine, {
+				PreText = "Add entries: ",
+				NumTranslations = self.props.PatchInfo.numAddedEntries,
+				EnabledColor = theme.BrightText,
+				DisabledColor = theme.DimmedText,
+				LayoutOrder = 1,
+				Checked = self.state.AddEntriesLineEnabled,
+				OnClicked = function()
+					self:setState({
+						AddLineEnabled = not self.state.AddEntriesLineEnabled,
+					})
+				end
+			})
 		end
 
 		local AddLine = Roact.createElement(NumTranslationsLine, {
@@ -64,7 +86,7 @@ function UploadDialogContent:render()
 			NumTranslations = self.props.PatchInfo.numAddedTranslations,
 			EnabledColor = theme.BrightText,
 			DisabledColor = theme.DimmedText,
-			LayoutOrder = 1,
+			LayoutOrder = 2,
 			Checked = self.state.AddLineEnabled,
 			OnClicked = function()
 				self:setState({
@@ -78,7 +100,7 @@ function UploadDialogContent:render()
 			NumTranslations = self.props.PatchInfo.numChangedTranslations,
 			EnabledColor = theme.WarningText,
 			DisabledColor = theme.DimmedText,
-			LayoutOrder = 2,
+			LayoutOrder = 3,
 			Checked = self.state.ChangeLineEnabled,
 			OnClicked = function()
 				self:setState({
@@ -87,15 +109,31 @@ function UploadDialogContent:render()
 			end
 		})
 
-		local DeleteLine
+		local DeleteEntriesLine
+		if RecordAddOrRemoveEntries and self.props.PatchInfo.includeDeletes then
+			DeleteEntriesLine = Roact.createElement(NumTranslationsLine, {
+				PreText = "Delete entries: ",
+				NumTranslations = self.props.PatchInfo.numRemovedEntries,
+				EnabledColor = theme.ErrorText,
+				DisabledColor = theme.DimmedText,
+				LayoutOrder = 4,
+				Checked = self.state.RemoveEntriesLineEnabled,
+				OnClicked = function()
+					self:setState({
+						RemoveEntriesLineEnabled = not self.state.RemoveEntriesLineEnabled,
+					})
+				end
+			})
+		end
 
+		local DeleteLine
 		if self.props.PatchInfo.includeDeletes then
 			DeleteLine = Roact.createElement(NumTranslationsLine, {
 				PreText = "Delete translations: ",
 				NumTranslations = self.props.PatchInfo.numRemovedTranslations,
 				EnabledColor = theme.ErrorText,
 				DisabledColor = theme.DimmedText,
-				LayoutOrder = 3,
+				LayoutOrder = 5,
 				Checked = self.state.RemoveLineEnabled,
 				OnClicked = function()
 					self:setState({
@@ -112,8 +150,10 @@ function UploadDialogContent:render()
 			AddLanguagesLine = Roact.createElement(Line, {
 				Text = "Add languages: " .. self.props.PatchInfo.newLanguages,
 				Color = theme.BrightText,
-				LayoutOrder = 4})
+				LayoutOrder = 6
+			})
 		end
+
 
 		return Roact.createElement("Frame", {
 			Size = UDim2.new(1, 0, 1, 0),
@@ -134,7 +174,7 @@ function UploadDialogContent:render()
 			}),
 
 			StatsFrame = Roact.createElement("Frame", {
-				Size = UDim2.new(1, 0, 0, 250),
+				Size = UDim2.new(1, 0, 0, 290),
 				BorderSizePixel = 0,
 				BackgroundTransparency = 1,
 				LayoutOrder = 1
@@ -151,7 +191,7 @@ function UploadDialogContent:render()
 					LayoutOrder = 1}),
 
 				TableContentsFrame = Roact.createElement("Frame", {
-					Size = UDim2.new(1, 0, 0, 105),
+					Size = UDim2.new(1, 0, 0, 90),
 					BorderSizePixel = 0,
 					BackgroundTransparency = 1,
 					LayoutOrder = 2,
@@ -201,7 +241,7 @@ function UploadDialogContent:render()
 					LayoutOrder = 3}),
 
 				LineFrame = Roact.createElement("Frame", {
-					Size = UDim2.new(1, 0, 0, 80),
+					Size = UDim2.new(1, 0, 0, 130),
 					BorderSizePixel = 0,
 					BackgroundTransparency = 1,
 					LayoutOrder = 4,
@@ -217,8 +257,10 @@ function UploadDialogContent:render()
 						PaddingTop = UDim.new(0, 5),
 					}),
 
+					AddEntriesLine = AddEntriesLine,
 					AddLine = AddLine,
 					ChangeLine = ChangeLine,
+					DeleteEntriesLine = DeleteEntriesLine,
 					DeleteLine = DeleteLine,
 					AddLanguagesLine = AddLanguagesLine,
 				}),

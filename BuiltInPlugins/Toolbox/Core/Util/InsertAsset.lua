@@ -16,7 +16,7 @@ local Workspace = game:GetService("Workspace")
 local StudioService = game:GetService("StudioService")
 local Lighting = game:GetService("Lighting")
 
-local FFlagEnableToolboxPluginInsertion = settings():GetFFlag("EnableToolboxPluginInsertion")
+local FFlagPluginAccessAndInstallationInStudio = settings():GetFFlag("PluginAccessAndInstallationInStudio")
 local FFlagEnableDataModelFetchAssetAsync = settings():GetFFlag("EnableDataModelFetchAssetAsync")
 local FFlagEnableToolboxInsertWithJoin = settings():GetFFlag("EnableToolboxInsertWithJoin")
 
@@ -179,7 +179,7 @@ local function insertDecal(plugin, assetId, assetName)
 	end
 end
 
--- For now, inserting pacakages is very different from inserting other assets
+-- For now, inserting packages is very different from inserting other assets
 local function insertPackage(assetId)
 	local instanceTable = nil
 	local success, errorMessage = pcall(function()
@@ -199,18 +199,20 @@ local function insertPackage(assetId)
 	end
 end
 
-local function installPlugin(assetId, assetName)
+local function installPlugin(assetId, assetVersionId, assetName)
 	local success, errorMessage = pcall(function()
 		if DebugFlags.shouldDebugUrls() then
 			print(("Installing plugin %s"):format(tostring(assetId)))
 		end
 		if StudioService then
-			StudioService:OpenPluginInsertPage(assetId)
+			--TODO: see what happens when resumeFunc vs errorFunc are called
+			--make sure errorFunc is captured and returned from here as an error
+			StudioService:TryInstallPlugin(assetId, assetVersionId)
 		else
 			warn("StudioService not found!")
 		end
 	end)
-	return nil, errorMessage
+	return success, errorMessage
 end
 
 local function assetTypeIdToString(assetTypeId)
@@ -237,8 +239,8 @@ local function dispatchInsertAsset(options, insertToolPromise)
 		return insertAudio(options.assetId, options.assetName)
 	elseif options.assetTypeId == Enum.AssetType.Decal.Value then
 		return insertDecal(options.plugin, options.assetId, options.assetName)
-	elseif options.assetTypeId == Enum.AssetType.Plugin.Value and FFlagEnableToolboxPluginInsertion then
-		return installPlugin(options.assetId, options.assetName)
+	elseif options.assetTypeId == Enum.AssetType.Plugin.Value and FFlagPluginAccessAndInstallationInStudio then
+		return installPlugin(options.assetId, options.assetVersionId, options.assetName)
 	else
 		return insertAsset(options.assetId, options.assetName, insertToolPromise)
 	end
@@ -286,7 +288,8 @@ function InsertAsset.tryInsert(options, insertToolPromise, assetWasDragged)
 	if assetWasDragged then
 		InsertAsset.doDragInsertAsset(options)
 	else
-		InsertAsset.doInsertAsset(options, insertToolPromise)
+		local value = InsertAsset.doInsertAsset(options, insertToolPromise)
+		return value
 	end
 end
 
@@ -294,6 +297,7 @@ end
 function InsertAsset.doInsertAsset(options, insertToolPromise)
 	local assetId = options.assetId
 	local assetName = options.assetName
+	local assetTypeId = options.assetTypeId
 
 	if DebugFlags.shouldDebugWarnings() then
 		print(("Inserting asset %s %s"):format(tostring(assetId), tostring(assetName)))
@@ -303,7 +307,10 @@ function InsertAsset.doInsertAsset(options, insertToolPromise)
 
 	local asset, errorMessage = dispatchInsertAsset(options, insertToolPromise)
 
-	if asset then
+	if assetTypeId == Enum.AssetType.Plugin.Value then
+		ChangeHistoryService:SetWaypoint(("After attempt to install plugin %d"):format(assetId))
+		sendInsertionAnalytics(options, false)
+	elseif asset then
 		ChangeHistoryService:SetWaypoint(("After insert asset %d"):format(assetId))
 		sendInsertionAnalytics(options, false)
 
@@ -313,13 +320,17 @@ function InsertAsset.doInsertAsset(options, insertToolPromise)
 	else
 		warn(("Toolbox failed to insert asset %d %s: %s"):format(assetId, assetName, errorMessage or ""))
 	end
-
 	return asset
 end
 
 function InsertAsset.doDragInsertAsset(options)
 	local assetId = options.assetId
 	local assetName = options.assetName
+	local assetTypeId = options.assetTypeId
+	if assetTypeId == Enum.AssetType.Plugin.Value then
+		-- We should absolutely never allow plugins to be installed via dragging!
+		return
+	end
 
 	if DebugFlags.shouldDebugWarnings() then
 		print(("Inserting asset %s %s"):format(tostring(assetId), tostring(assetName)))

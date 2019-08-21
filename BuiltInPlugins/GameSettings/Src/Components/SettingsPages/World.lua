@@ -19,7 +19,6 @@ local PageName = "World"
 
 local DFIntJumpPowerInstantControllerMultiplierPercent =  tonumber(settings():GetFVariable("JumpPowerInstantControllerMultiplierPercent"))
 local FFlagGameSettingsReorganizeHeaders = settings():GetFFlag("GameSettingsReorganizeHeaders")
-local DFFlagGameSettingsFixMetricConversionLabels = settings():GetFFlag("GameSettingsFixMetricConversionLabels")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -286,8 +285,7 @@ local function createJumpSelectWidgets(incrementNextLayoutOrderFunc, props, mous
 				SortOrder = Enum.SortOrder.LayoutOrder,
 			}),
 
-			JumpHeightMetricLabel = createMetricLabel(not props.WorkspaceUseJumpPower, "(" .. studToMetric(props.WorkspaceJumpHeight) .. " meters)"),
-			JumpPowerMetricLabel = (not DFFlagGameSettingsFixMetricConversionLabels) and createMetricLabel(props.WorkspaceUseJumpPower, "(" .. studToMetric(props.WorkspaceJumpPower) .. " meters/second)") or nil
+			JumpHeightMetricLabel = createMetricLabel(not props.WorkspaceUseJumpPower, "(" .. studToMetric(props.WorkspaceJumpHeight) .. " meters)")
 		}),
 	})
 end
@@ -352,7 +350,7 @@ local function displayContents(page, localized)
 		Separator1 = Roact.createElement(StudioWidgetSeparator, {
 			LayoutOrder = incrementNextLayoutOrder(),
 		}),
-		Gravity = createInputRow("Gravity", "Workspace Gravity:", props.WorkspaceGravity, 0.1, 1000, changeGravity, incrementNextLayoutOrder(), mouse, DFFlagGameSettingsFixMetricConversionLabels and "meters/second^2" or "meters/second2"),
+		Gravity = createInputRow("Gravity", "Workspace Gravity:", props.WorkspaceGravity, 0.1, 1000, changeGravity, incrementNextLayoutOrder(), mouse, "meters/second^2"),
 		Separator2 = Roact.createElement(StudioWidgetSeparator, {
 			LayoutOrder = incrementNextLayoutOrder(),
 		}),

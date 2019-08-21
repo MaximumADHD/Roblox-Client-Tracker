@@ -21,6 +21,7 @@
 ]]
 
 local FFlagStudioToolboxFixMouseHover = settings():GetFFlag("StudioToolboxFixMouseHover")
+local FFlagPluginAccessAndInstallationInStudio = settings():GetFFlag("PluginAccessAndInstallationInStudio")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -101,6 +102,11 @@ function Asset:init(props)
 
 	self.onClick = function(rbx, x, y)
 		if not self.props.canInsertAsset() then
+			return
+		end
+
+		if FFlagPluginAccessAndInstallationInStudio and asset.TypeId == Enum.AssetType.Plugin.Value then
+			self.props.onAssetPreviewButtonClicked(assetData)
 			return
 		end
 
@@ -294,4 +300,12 @@ local function mapStateToProps(state, props)
 	}
 end
 
-return RoactRodux.connect(mapStateToProps)(Asset)
+local function mapDispatchToProps(dispatch)
+	return {
+		getAssetVersionId = function(networkInterface, assetId)
+			dispatch(GetAssetVersionIdRequest(networkInterface, assetId))
+		end
+	}
+end
+
+return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(Asset)

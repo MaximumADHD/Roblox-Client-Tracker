@@ -17,7 +17,9 @@ local WideView = require(InspectAndBuyFolder.WideView)
 local TestContainer = Roact.Component:extend("TestContainer")
 
 function TestContainer:init()
-	self.store = self.props.overrideStore or Rodux.Store.new(Reducer, {})
+	self.store = self.props.overrideStore or Rodux.Store.new(Reducer, {}, {
+		Rodux.thunkMiddleware,
+	})
 	self._context[Constants.View.Compact] = CompactView
 	self._context[Constants.View.Wide] = WideView
 end

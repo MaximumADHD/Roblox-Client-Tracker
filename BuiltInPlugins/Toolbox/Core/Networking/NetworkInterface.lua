@@ -384,4 +384,11 @@ function NetworkInterface:getIsVerifiedCreator()
 	return self._networkImp:httpGetJson(targetUrl)
 end
 
+function NetworkInterface:getAssetVersionId(assetId)
+	local targetUrl = Urls.constructGetAssetVersionUrl(assetId)
+
+	printUrl("getAssetVersionId", "GET", targetUrl)
+	return self._networkImp:httpGet(targetUrl)
+end
+
 return NetworkInterface

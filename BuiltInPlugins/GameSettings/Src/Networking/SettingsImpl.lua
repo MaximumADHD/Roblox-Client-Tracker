@@ -14,6 +14,8 @@ local StudioService = game:GetService("StudioService")
 local FFlagGameSettingsUsesNewIconEndpoint = settings():GetFFlag("GameSettingsUsesNewIconEndpoint")
 local FFlagGameSettingsUpdatesUniverseDisplayName = settings():GetFFlag("GameSettingsUpdatesUniverseDisplayName")
 local FFlagStudioGameSettingsAccessPermissions = settings():GetFFlag("StudioGameSettingsAccessPermissions")
+local FFlagStudioGameSettingsDisablePlayabilityForDrafts = game:GetFastFlag("StudioGameSettingsDisablePlayabilityForDrafts")
+
 local DFFlagDeveloperSubscriptionsEnabled = settings():GetFFlag("DeveloperSubscriptionsEnabled")
 
 local Plugin = script.Parent.Parent.Parent
@@ -82,6 +84,11 @@ function SettingsImpl:GetSettings_Old()
 			if fastFlags.isPlaceFilesGameSettingsSerializationOn() then
 				settings = Cryo.Dictionary.join(settings, WorkspaceSettings.getAvatarSettings(settings))
 			end
+			
+			if FFlagStudioGameSettingsDisablePlayabilityForDrafts then
+				settings = Cryo.Dictionary.join(settings, {["privacyType"] = "Draft"})
+			end
+			
 			return settings
 		end
 

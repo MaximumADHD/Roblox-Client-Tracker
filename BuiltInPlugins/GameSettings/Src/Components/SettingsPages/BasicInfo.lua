@@ -32,6 +32,7 @@ local MAX_DESCRIPTION_LENGTH = 1000
 
 local FFlagGameSettingsReorganizeHeaders = settings():GetFFlag("GameSettingsReorganizeHeaders")
 local FFlagStudioGameSettingsAccessPermissions = settings():GetFFlag("StudioGameSettingsAccessPermissions")
+local FFlagStudioGameSettingsDisablePlayabilityForDrafts = game:DefineFastFlag("StudioGameSettingsDisablePlayabilityForDrafts", false)
 
 local nameErrors = {
 	Moderated = "ErrorNameModerated",
@@ -91,6 +92,7 @@ local function loadValuesToProps(getValue, state)
 		ThumbnailOrder = getValue("thumbnailOrder"),
 		GameIcon = getValue("gameIcon"),
 		RootPlaceId = getValue("rootPlaceId"),
+		PrivacyType = getValue("privacyType"),
 
 		NameError = errors.name,
 		DescriptionError = errors.description,
@@ -98,7 +100,7 @@ local function loadValuesToProps(getValue, state)
 
 		IsCurrentlyActive =  state.Settings.Current.isActive,
 	}
-	
+
 	if not FFlagStudioGameSettingsAccessPermissions then
 		loadedProps.IsActive = getValue("isActive")
 		loadedProps.IsFriendsOnly = getValue("isFriendsOnly")
@@ -200,7 +202,7 @@ local function displayContents(page, localized)
 		Name = Roact.createElement(TitledFrame, {
 			Title = localized.Title.Name,
 			MaxHeight = 60,
-			LayoutOrder = 1,
+			LayoutOrder = 10,
 			TextSize = Constants.TEXT_SIZE,
 		}, {
 			TextBox = Roact.createElement(RoundTextBox, {
@@ -217,7 +219,7 @@ local function displayContents(page, localized)
 		Description = Roact.createElement(TitledFrame, {
 			Title = localized.Title.Description,
 			MaxHeight = 150,
-			LayoutOrder = 2,
+			LayoutOrder = 20,
 			TextSize = Constants.TEXT_SIZE,
 		}, {
 			TextBox = Roact.createElement(RoundTextBox, {
@@ -238,13 +240,25 @@ local function displayContents(page, localized)
 		}),
 
 		Separator = Roact.createElement(Separator, {
-			LayoutOrder = 3,
+			LayoutOrder = 30,
+		}),
+
+		PlayabilityWarning = (not FFlagStudioGameSettingsAccessPermissions) and FFlagStudioGameSettingsDisablePlayabilityForDrafts and (props.PrivacyType == "Draft") and Roact.createElement("TextLabel", {
+			Font = Enum.Font.SourceSans,
+			TextSize = 22,
+			TextColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.SubText),
+			Text = localized.Playability.PlayabilityWarning,
+			TextXAlignment = Enum.TextXAlignment.Left,
+			TextColor3 = Color3.fromRGB(255, 115, 21),
+			BackgroundTransparency = 1,
+			Size = UDim2.new(1, 0, 0, 30),
+			LayoutOrder = 39,
 		}),
 
 		Playability = (not FFlagStudioGameSettingsAccessPermissions) and Roact.createElement(RadioButtonSet, {
 			Title = localized.Title.Playability,
 			Description = localized.Playability.Header,
-			LayoutOrder = 4,
+			LayoutOrder = 40,
 			Buttons = {{
 					Id = true,
 					Title = localized.Playability.Public.Title,
@@ -260,7 +274,7 @@ local function displayContents(page, localized)
 					Description = localized.Playability.Private.Description,
 				},
 			},
-			Enabled = props.IsActive ~= nil,
+			Enabled = ((FFlagStudioGameSettingsDisablePlayabilityForDrafts and (props.PrivacyType ~= "Draft")) or (props.IsActive ~= nil)),
 			--Functionality
 			Selected = props.IsFriendsOnly and "Friends" or props.IsActive,
 			SelectionChanged = function(button)
@@ -278,12 +292,12 @@ local function displayContents(page, localized)
 		}),
 
 		Separator2 = (not FFlagStudioGameSettingsAccessPermissions) and Roact.createElement(Separator, {
-			LayoutOrder = 5,
+			LayoutOrder = 50,
 		}),
 
 		Icon = Roact.createElement(GameIconWidget, {
 			Title = localized.Title.GameIcon,
-			LayoutOrder = 6,
+			LayoutOrder = 60,
 			Enabled = props.GameIcon ~= nil,
 			Icon = props.GameIcon,
 			TutorialEnabled = true,
@@ -299,11 +313,11 @@ local function displayContents(page, localized)
 		}),
 
 		Separator3 = Roact.createElement(Separator, {
-			LayoutOrder = 7,
+			LayoutOrder = 70,
 		}),
 
 		Thumbnails = Roact.createElement(ThumbnailController, {
-			LayoutOrder = 8,
+			LayoutOrder = 80,
 			Enabled = props.Thumbnails ~= nil,
 			Thumbnails = props.Thumbnails,
 			Order = props.ThumbnailOrder,
@@ -321,13 +335,13 @@ local function displayContents(page, localized)
 		}),
 
 		Separator4 = Roact.createElement(Separator, {
-			LayoutOrder = 9,
+			LayoutOrder = 90,
 		}),
 
 		Genre = Roact.createElement(TitledFrame, {
 			Title = localized.Title.Genre,
 			MaxHeight = 38,
-			LayoutOrder = 10,
+			LayoutOrder = 100,
 			TextSize = Constants.TEXT_SIZE,
 		}, {
 			Selector = Roact.createElement(Dropdown, {
@@ -342,12 +356,12 @@ local function displayContents(page, localized)
 		}),
 
 		Separator5 = Roact.createElement(Separator, {
-			LayoutOrder = 11,
+			LayoutOrder = 110,
 		}),
 
 		Devices = Roact.createElement(CheckBoxSet, {
 			Title = localized.Title.Devices,
-			LayoutOrder = 12,
+			LayoutOrder = 120,
 			Boxes = {{
 					Id = "Computer",
 					Title = localized.Devices.Computer,

@@ -19,6 +19,12 @@ local CAMERA_ACTION_PRIORITY = Enum.ContextActionPriority.Default.Value
 local MIN_Y = math.rad(-80)
 local MAX_Y = math.rad(80)
 
+local TOUCH_ADJUST_AREA_UP = math.rad(30)
+local TOUCH_ADJUST_AREA_DOWN = math.rad(-15)
+
+local TOUCH_SENSITIVTY_ADJUST_MAX_Y = 2.1
+local TOUCH_SENSITIVTY_ADJUST_MIN_Y = 0.5
+
 local VR_ANGLE = math.rad(15)
 local VR_LOW_INTENSITY_ROTATION = Vector2.new(math.rad(15), 0)
 local VR_HIGH_INTENSITY_ROTATION = Vector2.new(math.rad(45), 0)
@@ -28,7 +34,15 @@ local VR_HIGH_INTENSITY_REPEAT = 0.4
 local ZERO_VECTOR2 = Vector2.new(0,0)
 local ZERO_VECTOR3 = Vector3.new(0,0,0)
 
+local touchSensitivityFlagExists, touchSensitivityFlagEnabled = pcall(function()
+	return UserSettings():IsUserFeatureEnabled("UserTouchSensitivityAdjust")
+end)
+local FFlagUserTouchSensitivityAdjust = touchSensitivityFlagExists and touchSensitivityFlagEnabled
+
 local TOUCH_SENSITIVTY = Vector2.new(0.0045 * math.pi, 0.003375 * math.pi)
+if FFlagUserTouchSensitivityAdjust then
+	TOUCH_SENSITIVTY = Vector2.new(0.00945 * math.pi, 0.003375 * math.pi)
+end
 local MOUSE_SENSITIVITY = Vector2.new( 0.002 * math.pi, 0.0015 * math.pi )
 
 local SEAT_OFFSET = Vector3.new(0,5,0)
@@ -915,6 +929,33 @@ local function isInDynamicThumbstickArea(input)
 	return false
 end
 
+---Adjusts the camera Y touch Sensitivity when moving away from the center and in the TOUCH_SENSITIVTY_ADJUST_AREA
+function BaseCamera:AdjustTouchSensitivity(delta, sensitivity)
+	local cameraCFrame = game.Workspace.CurrentCamera and game.Workspace.CurrentCamera.CFrame
+	if not cameraCFrame then
+		return sensitivity
+	end
+	local currPitchAngle = cameraCFrame:ToEulerAnglesYXZ()
+
+	local multiplierY = TOUCH_SENSITIVTY_ADJUST_MAX_Y
+	if currPitchAngle > TOUCH_ADJUST_AREA_UP and delta.Y < 0 then
+		local fractionAdjust = (currPitchAngle - TOUCH_ADJUST_AREA_UP)/(MAX_Y - TOUCH_ADJUST_AREA_UP)
+		fractionAdjust = 1 - (1 - fractionAdjust)^3
+		multiplierY = TOUCH_SENSITIVTY_ADJUST_MAX_Y - fractionAdjust * (
+			TOUCH_SENSITIVTY_ADJUST_MAX_Y - TOUCH_SENSITIVTY_ADJUST_MIN_Y)
+	elseif currPitchAngle < TOUCH_ADJUST_AREA_DOWN and delta.Y > 0 then
+		local fractionAdjust = (currPitchAngle - TOUCH_ADJUST_AREA_DOWN)/(MIN_Y - TOUCH_ADJUST_AREA_DOWN)
+		fractionAdjust = 1 - (1 - fractionAdjust)^3
+		multiplierY = TOUCH_SENSITIVTY_ADJUST_MAX_Y - fractionAdjust * (
+			TOUCH_SENSITIVTY_ADJUST_MAX_Y - TOUCH_SENSITIVTY_ADJUST_MIN_Y)
+	end
+
+	return Vector2.new(
+		sensitivity.X,
+		sensitivity.Y * multiplierY
+	)
+end
+
 function BaseCamera:OnTouchBegan(input, processed)
 	local canUseDynamicTouch = self.isDynamicThumbstickEnabled and not processed
 	if canUseDynamicTouch then
@@ -964,7 +1005,12 @@ function BaseCamera:OnTouchChanged(input, processed)
 			local delta = input.Position - self.lastPos
 			delta = Vector2.new(delta.X, delta.Y * UserGameSettings:GetCameraYInvertValue())
 			if self.panEnabled then
-				local desiredXYVector = self:InputTranslationToCameraAngleChange(delta, TOUCH_SENSITIVTY)
+				local adjustedTouchSensitivity = TOUCH_SENSITIVTY
+				if FFlagUserTouchSensitivityAdjust then
+					self:AdjustTouchSensitivity(delta, TOUCH_SENSITIVTY)
+				end
+
+				local desiredXYVector = self:InputTranslationToCameraAngleChange(delta, adjustedTouchSensitivity)
 				self.rotateInput = self.rotateInput + desiredXYVector
 			end
 			self.lastPos = input.Position

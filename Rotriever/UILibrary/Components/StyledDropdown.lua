@@ -229,7 +229,7 @@ function StyledDropdown:render()
 				SourceExtents = buttonExtents,
 				Offset = Vector2.new(0, VERTICAL_OFFSET),
 				MaxHeight = maxHeight,
-				ShowBorder = false,
+				ShowBorder = true,
 				ScrollBarPadding = scrollBarPadding,
 				ScrollBarThickness = scrollBarThickness,
 				ListWidth = listWidth,
@@ -239,13 +239,18 @@ function StyledDropdown:render()
 					local selected = key == selectedItem
 					local displayText = item.Text
 					local isHovered = hoveredKey == key
-					local textColor = isHovered and dropdownTheme.hovered.textColor
+					local textColor = (selected or isHovered) and dropdownTheme.hovered.textColor
 						or dropdownTheme.textColor
+					local itemColor = listTheme.backgroundColor
+					if selected then
+						itemColor = listTheme.selected.backgroundColor
+					elseif isHovered then
+						itemColor = listTheme.hovered.backgroundColor
+					end
 
 					return Roact.createElement("ImageButton", {
 						Size = UDim2.new(0, math.max(listWidth, maxWidth), 0, itemHeight),
-						BackgroundColor3 = (selected and listTheme.selected.backgroundColor) or (isHovered and listTheme.hovered.backgroundColor
-							or listTheme.backgroundColor),
+						BackgroundColor3 = itemColor,
 						BorderSizePixel = 0,
 						LayoutOrder = index,
 						AutoButtonColor = false,

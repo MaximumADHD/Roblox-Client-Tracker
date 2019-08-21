@@ -8341,6 +8341,17 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "GetFailedRequests",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "Preload",
                     "Parameters": [
                         {
@@ -10981,24 +10992,6 @@
                 },
                 {
                     "MemberType": "Function",
-                    "Name": "OpenDrafts",
-                    "Parameters": [
-                        {
-                            "Name": "scripts",
-                            "Type": {
-                                "Category": "DataType",
-                                "Name": "Objects"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "void"
-                    },
-                    "Security": "RobloxScriptSecurity"
-                },
-                {
-                    "MemberType": "Function",
                     "Name": "ShowDiffsAgainstBase",
                     "Parameters": [
                         {
@@ -11126,6 +11119,27 @@
                 },
                 {
                     "MemberType": "Event",
+                    "Name": "DraftOutdatedStateChanged",
+                    "Parameters": [
+                        {
+                            "Name": "script",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        },
+                        {
+                            "Name": "outdated",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Event",
                     "Name": "DraftRemoved",
                     "Parameters": [
                         {
@@ -11141,34 +11155,6 @@
                 {
                     "MemberType": "Event",
                     "Name": "EditorsListChanged",
-                    "Parameters": [
-                        {
-                            "Name": "script",
-                            "Type": {
-                                "Category": "Class",
-                                "Name": "Instance"
-                            }
-                        }
-                    ],
-                    "Security": "RobloxScriptSecurity"
-                },
-                {
-                    "MemberType": "Event",
-                    "Name": "ScriptRemoved",
-                    "Parameters": [
-                        {
-                            "Name": "script",
-                            "Type": {
-                                "Category": "Class",
-                                "Name": "Instance"
-                            }
-                        }
-                    ],
-                    "Security": "RobloxScriptSecurity"
-                },
-                {
-                    "MemberType": "Event",
-                    "Name": "ScriptServerVersionChanged",
                     "Parameters": [
                         {
                             "Name": "script",
@@ -16051,6 +16037,26 @@
                     }
                 },
                 {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "TextInputType",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "TextInputType"
+                    }
+                },
+                {
                     "Category": "Text",
                     "MemberType": "Property",
                     "Name": "TextScaled",
@@ -18897,6 +18903,17 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "GetGameplayPausedNotificationEnabled",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "None"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "GetGuiInset",
                     "Parameters": [
                     ],
@@ -19178,6 +19195,24 @@
                     "Parameters": [
                         {
                             "Name": "isOpen",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "None"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SetGameplayPausedNotificationEnabled",
+                    "Parameters": [
+                        {
+                            "Name": "enabled",
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "bool"
@@ -19533,6 +19568,20 @@
                     "Parameters": [
                     ],
                     "Security": "None"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "NetworkPausedEnabledChanged",
+                    "Parameters": [
+                        {
+                            "Name": "enabled",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity"
                 },
                 {
                     "MemberType": "Event",
@@ -27607,7 +27656,7 @@
                         "Category": "Primitive",
                         "Name": "void"
                     },
-                    "Security": "RobloxScriptSecurity"
+                    "Security": "PluginSecurity"
                 }
             ],
             "MemoryCategory": "Instances",
@@ -27667,6 +27716,32 @@
                     "ReturnType": {
                         "Category": "Class",
                         "Name": "Instance"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "Fire",
+                    "Parameters": [
+                        {
+                            "Name": "key",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Default": "",
+                            "Name": "value",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
                     },
                     "Security": "RobloxScriptSecurity"
                 },
@@ -28968,6 +29043,23 @@
                     "Category": "Diagnostics",
                     "MemberType": "Property",
                     "Name": "PrintInstances",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Diagnostics",
+                    "MemberType": "Property",
+                    "Name": "PrintJoinSizeBreakdown",
                     "Security": {
                         "Read": "None",
                         "Write": "None"
@@ -32502,15 +32594,14 @@
                     "Name": "CollisionFidelity",
                     "Security": {
                         "Read": "None",
-                        "Write": "None"
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
-                        "CanLoad": false,
+                        "CanLoad": true,
                         "CanSave": false
                     },
                     "Tags": [
-                        "NotReplicated",
-                        "NotScriptable"
+                        "NotReplicated"
                     ],
                     "ValueType": {
                         "Category": "Enum",
@@ -38621,6 +38712,27 @@
                     }
                 },
                 {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "HostDataModelType",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "StudioDataModelType"
+                    }
+                },
+                {
                     "Category": "Behavior",
                     "MemberType": "Property",
                     "Name": "UsesAssetInsertionDrag",
@@ -38657,6 +38769,56 @@
                         "Name": "void"
                     },
                     "Security": "PluginSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "Bind",
+                    "Parameters": [
+                        {
+                            "Name": "key",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "callback",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Function"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "Instance"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "BindAndFire",
+                    "Parameters": [
+                        {
+                            "Name": "key",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "callback",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Function"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "Instance"
+                    },
+                    "Security": "RobloxScriptSecurity"
                 },
                 {
                     "MemberType": "Function",
@@ -38771,6 +38933,58 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "Fire",
+                    "Parameters": [
+                        {
+                            "Name": "key",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Default": "",
+                            "Name": "value",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetItem",
+                    "Parameters": [
+                        {
+                            "Name": "key",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Default": "",
+                            "Name": "defaultValue",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "GetJoinMode",
                     "Parameters": [
                     ],
@@ -38830,6 +39044,24 @@
                         "Name": "int64"
                     },
                     "Security": "PluginSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "HasItem",
+                    "Parameters": [
+                        {
+                            "Name": "key",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "RobloxScriptSecurity"
                 },
                 {
                     "MemberType": "Function",
@@ -38953,6 +39185,24 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "RemoveItem",
+                    "Parameters": [
+                        {
+                            "Name": "key",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "ResumeSound",
                     "Parameters": [
                         {
@@ -39022,6 +39272,32 @@
                         "Name": "Objects"
                     },
                     "Security": "PluginSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SetItem",
+                    "Parameters": [
+                        {
+                            "Name": "key",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Default": "",
+                            "Name": "value",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
                 },
                 {
                     "MemberType": "Function",
@@ -48860,6 +49136,49 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "IsPluginInstalled",
+                    "Parameters": [
+                        {
+                            "Name": "assetId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "IsPluginUpToDate",
+                    "Parameters": [
+                        {
+                            "Name": "assetId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        },
+                        {
+                            "Name": "currentAssetVersion",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "OpenPluginInsertPage",
                     "Parameters": [
                         {
@@ -49061,6 +49380,34 @@
                     "Tags": [
                         "Yields",
                         "Deprecated"
+                    ]
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "TryInstallPlugin",
+                    "Parameters": [
+                        {
+                            "Name": "assetId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        },
+                        {
+                            "Name": "assetVersionId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields"
                     ]
                 },
                 {
@@ -54296,6 +54643,41 @@
                             "Type": {
                                 "Category": "Enum",
                                 "Name": "UserInputType"
+                            }
+                        }
+                    ],
+                    "Security": "None"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "PointerAction",
+                    "Parameters": [
+                        {
+                            "Name": "wheel",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "float"
+                            }
+                        },
+                        {
+                            "Name": "pan",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Vector2"
+                            }
+                        },
+                        {
+                            "Name": "pinch",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "float"
+                            }
+                        },
+                        {
+                            "Name": "gameProcessedEvent",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
                             }
                         }
                     ],
@@ -62186,6 +62568,35 @@
         {
             "Items": [
                 {
+                    "Name": "Edit",
+                    "Value": 0
+                },
+                {
+                    "Name": "PlayClient",
+                    "Value": 2
+                },
+                {
+                    "Name": "PlayServer",
+                    "Value": 3
+                },
+                {
+                    "Name": "RobloxPlugin",
+                    "Value": 4
+                },
+                {
+                    "Name": "UserPlugin",
+                    "Value": 5
+                },
+                {
+                    "Name": "Null",
+                    "Value": 6
+                }
+            ],
+            "Name": "StudioDataModelType"
+        },
+        {
+            "Items": [
+                {
                     "Name": "MainBackground",
                     "Value": 0
                 },
@@ -62830,6 +63241,31 @@
                 }
             ],
             "Name": "TextFilterContext"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Default",
+                    "Value": 0
+                },
+                {
+                    "Name": "NoSuggestions",
+                    "Value": 1
+                },
+                {
+                    "Name": "Number",
+                    "Value": 2
+                },
+                {
+                    "Name": "Email",
+                    "Value": 3
+                },
+                {
+                    "Name": "Phone",
+                    "Value": 4
+                }
+            ],
+            "Name": "TextInputType"
         },
         {
             "Items": [

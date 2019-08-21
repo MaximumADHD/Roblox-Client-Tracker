@@ -7,7 +7,10 @@ local Plugin = script.Parent.Parent
 if not settings():GetFFlag("StudioVersionControlAlpha") then return end
 
 local OverrideLocaleId = settings():GetFVariable("StudioForceLocale")
+game:DefineFastInt("DebugStudioDraftsWidgetTestCase", 1)
 
+local MockDraftsService = require(Plugin.Src.TestHelpers.MockDraftsService)
+local DraftsService = game:GetService("DraftsService")
 local StudioService = game:GetService("StudioService")
 
 -- libraries
@@ -21,9 +24,13 @@ local MainView = require(Plugin.Src.Components.MainView)
 
 -- data
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
+local DraftsServiceLoaded = require(Plugin.Src.Actions.DraftsServiceLoaded)
 local DraftsLoadedAction = require(Plugin.Src.Actions.DraftsLoadedAction)
 local DraftAddedAction = require(Plugin.Src.Actions.DraftAddedAction)
 local DraftRemovedAction = require(Plugin.Src.Actions.DraftRemovedAction)
+local DraftStateChangedAction = require(Plugin.Src.Actions.DraftStateChangedAction)
+local CommitState = require(Plugin.Src.Symbols.CommitState)
+local DraftState = require(Plugin.Src.Symbols.DraftState)
 
 -- theme
 local PluginTheme = require(Plugin.Src.Resources.PluginTheme)
@@ -50,9 +57,8 @@ local localization = Localization.new({
 	pluginName = "Sandbox",
 })
 
--- Services
-local DraftsService = game:GetService("DraftsService")
-local MockDraftsService = require(Plugin.Src.TestHelpers.MockDraftsService)
+local draftsTestCase = game:GetFastInt("DebugStudioDraftsWidgetTestCase")
+local draftsService = draftsTestCase == 0 and DraftsService or MockDraftsService.new(draftsTestCase)
 
 -- Widget Gui Elements
 local pluginHandle
@@ -69,6 +75,7 @@ local function openPluginWindow()
 
 	-- create the roact tree
 	local servicesProvider = Roact.createElement(ServiceWrapper, {
+		draftsService = draftsService,
 		plugin = plugin,
 		localization = localization,
 		theme = theme,
@@ -94,38 +101,73 @@ local function toggleWidget()
 end
 
 local function connectToDraftsService()
-	if MockDraftsService:IsEnabled() then
-		-- Use mock instead of real DraftsService
-		DraftsService = MockDraftsService
+	local eventConnections = {}
+
+	local function draftInit(draft)
+		assert(eventConnections[draft] == nil)
+		eventConnections[draft] = draft.AncestryChanged:Connect(function()
+			roduxStore:dispatch(DraftStateChangedAction(draft, DraftState.Deleted, draft.Parent == nil))
+		end)
 	end
 
-	-- Connect to events
-	DraftsService.DraftAdded:connect(function(draft)
-		roduxStore:dispatch(DraftAddedAction(draft))
-	end)	
-	DraftsService.DraftRemoved:connect(function(draft)
-		roduxStore:dispatch(DraftRemovedAction(draft))
-	end)
-	DraftsService.ScriptRemoved:connect(function(draft)
-		-- TODO: (mmcdonnell 8/6/2019) Handle ScriptRemoved. See CLISTUDIO-20039.
-	end)
-	DraftsService.ScriptServerVersionChanged:connect(function(draft)
-		-- TODO: (mmcdonnell 8/6/2019) Handle ScriptServerVersionChanged. See CLISTUDIO-20043.
-	end)
-	DraftsService.UpdateStatusChanged:connect(function(draft, status)
-		-- TODO: (mmcdonnell 8/6/2019) Handle UpdateStatusChanged. See CLISTUDIO-20044.
-	end)
-	DraftsService.CommitStatusChanged:connect(function(draft, status)
-		-- TODO: (mmcdonnell 8/6/2019) Handle CommitStatusChanged. See CLISTUDIO-20045.
-	end)
+	local function draftCleanup(draft)
+		assert(eventConnections[draft] ~= nil)
+		eventConnections[draft]:Disconnect()
+		eventConnections[draft] = nil
+	end
 
-	-- Do initial population of widget
+	local function handleStatus(draft, status)
+		if status == Enum.DraftStatusCode.DraftOutdated then
+			roduxStore:dispatch(DraftStateChangedAction(draft, DraftState.Outdated, true))
+		elseif status == Enum.DraftStatusCode.ScriptRemoved then
+			-- Do nothing. AncestryChanged event will handle this
+		end
+
+		return status == Enum.DraftStatusCode.OK
+	end
+
 	spawn(function()
-		local drafts = DraftsService:GetDrafts()
+		local success, drafts = pcall(function() return draftsService:GetDrafts() end)
+		roduxStore:dispatch(DraftsServiceLoaded(success))
+
+		if not success then return end
+
+		for _,draft in pairs(drafts) do
+			draftInit(draft)
+		end
+
 		roduxStore:dispatch(DraftsLoadedAction(drafts))
+
+		draftsService.DraftAdded:connect(function(draft)
+			draftInit(draft)
+			roduxStore:dispatch(DraftAddedAction(draft))
+		end)
+
+		draftsService.DraftRemoved:connect(function(draft)
+			roduxStore:dispatch(DraftRemovedAction(draft))
+			draftCleanup(draft)
+		end)
+
+		draftsService.DraftOutdatedStateChanged:connect(function(draft, isOutdated)
+			roduxStore:dispatch(DraftStateChangedAction(draft, DraftState.Outdated, isOutdated))
+		end)
+
+		draftsService.UpdateStatusChanged:connect(function(draft, status)
+			local success = handleStatus(draft, status)
+			if success then
+				roduxStore:dispatch(DraftStateChangedAction(draft, DraftState.Outdated, false))
+			end
+		end)
+		draftsService.CommitStatusChanged:connect(function(draft, status)
+			local success = handleStatus(draft, status)
+			if success then
+				roduxStore:dispatch(DraftStateChangedAction(draft, DraftState.Committed, CommitState.Committed))
+			else
+				roduxStore:dispatch(DraftStateChangedAction(draft, DraftState.Uncommitted, CommitState.Uncommitted))
+			end
+		end)
 	end)
 end
-
 
 --Binds a toolbar button
 local function main()

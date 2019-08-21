@@ -444,6 +444,8 @@ return function()
 		assert(patchInfo.numAddedTranslations == 1)
 		assert(patchInfo.numChangedTranslations == 0)
 		assert(patchInfo.numRemovedTranslations == 0)
+		assert(patchInfo.numAddedEntries == 1)
+		assert(patchInfo.numRemovedEntries == 0)
 
 		local fullPatch = patchInfo.makePatch()
 
@@ -478,6 +480,8 @@ return function()
 		assert(patchInfo.numAddedTranslations == 1)
 		assert(patchInfo.numChangedTranslations == 0)
 		assert(patchInfo.numRemovedTranslations == 1)
+		assert(patchInfo.numAddedEntries == 1)
+		assert(patchInfo.numRemovedEntries == 1)
 
 		local fullPatch = patchInfo.makePatch()
 
@@ -530,6 +534,8 @@ return function()
 		assert(patchInfo.numAddedTranslations == 1)
 		assert(patchInfo.numChangedTranslations == 0)
 		assert(patchInfo.numRemovedTranslations == 0)
+		assert(patchInfo.numAddedEntries == 1)
+		assert(patchInfo.numRemovedEntries == 0)
 
 		local fullPatch = patchInfo.makePatch()
 
@@ -564,6 +570,8 @@ return function()
 		assert(patchInfo.numAddedTranslations == 1)
 		assert(patchInfo.numChangedTranslations == 0)
 		assert(patchInfo.numRemovedTranslations == 0)
+		assert(patchInfo.numAddedEntries == 0)
+		assert(patchInfo.numRemovedEntries == 0)
 
 		local fullPatch = patchInfo.makePatch()
 
@@ -598,6 +606,8 @@ return function()
 		assert(patchInfo.numAddedTranslations == 1)
 		assert(patchInfo.numChangedTranslations == 0)
 		assert(patchInfo.numRemovedTranslations == 0)
+		assert(patchInfo.numAddedEntries == 0)
+		assert(patchInfo.numRemovedEntries == 0)
 
 		local fullPatch = patchInfo.makePatch()
 
@@ -632,6 +642,8 @@ return function()
 		assert(patchInfo.numAddedTranslations == 1)
 		assert(patchInfo.numChangedTranslations == 0)
 		assert(patchInfo.numRemovedTranslations == 0)
+		assert(patchInfo.numAddedEntries == 0)
+		assert(patchInfo.numRemovedEntries == 0)
 
 		local fullPatch = patchInfo.makePatch()
 
@@ -671,6 +683,8 @@ return function()
 		assert(patchInfo.numAddedTranslations == 1)
 		assert(patchInfo.numChangedTranslations == 0)
 		assert(patchInfo.numRemovedTranslations == 1)
+		assert(patchInfo.numAddedEntries == 0)
+		assert(patchInfo.numRemovedEntries == 0)
 
 		local fullPatch = patchInfo.makePatch()
 
@@ -715,6 +729,8 @@ return function()
 		assert(patchInfo.numAddedTranslations == 1)
 		assert(patchInfo.numChangedTranslations == 0)
 		assert(patchInfo.numRemovedTranslations == 0)
+		assert(patchInfo.numAddedEntries == 0)
+		assert(patchInfo.numRemovedEntries == 0)
 
 		local fullPatch = patchInfo.makePatch()
 
@@ -754,6 +770,8 @@ return function()
 		assert(patchInfo.numAddedTranslations == 0)
 		assert(patchInfo.numChangedTranslations == 0)
 		assert(patchInfo.numRemovedTranslations == 0)
+		assert(patchInfo.numAddedEntries == 0)
+		assert(patchInfo.numRemovedEntries == 0)
 
 		local fullPatch = patchInfo.makePatch()
 
@@ -788,6 +806,8 @@ return function()
 		assert(patchInfo.numAddedTranslations == 0)
 		assert(patchInfo.numChangedTranslations == 0)
 		assert(patchInfo.numRemovedTranslations == 0)
+		assert(patchInfo.numAddedEntries == 0)
+		assert(patchInfo.numRemovedEntries == 1)
 
 		local fullPatch = patchInfo.makePatch()
 
@@ -816,9 +836,41 @@ return function()
 		assert(patchInfo.numAddedTranslations == 0)
 		assert(patchInfo.numChangedTranslations == 0)
 		assert(patchInfo.numRemovedTranslations == 0)
+		assert(patchInfo.numAddedEntries == 0)
+		assert(patchInfo.numRemovedEntries == 0)
 
 		local fullPatch = patchInfo.makePatch()
 
 		assert(fullPatch.name == "MyFruitTable")
+	end)
+
+	it("add a row with no translations in it", function()
+		local patchInfo = PatchInfo.DiffTables("MyBananaTable", BananaTableData, AppleTableDataWithEmptyAppleRow, false)
+
+		assert(patchInfo.numAddedTranslations == 0)
+		assert(patchInfo.numChangedTranslations == 0)
+		assert(patchInfo.numRemovedTranslations == 0)
+		assert(patchInfo.numAddedEntries == 1)
+		assert(patchInfo.numRemovedEntries == 0)
+
+		local fullPatch = patchInfo.makePatch()
+
+		assert(RecursiveEquals(fullPatch.entries,
+			{
+				{
+					identifier = {
+						context = "some/context",
+						source = "apple",
+						key = "APPLEWORD",
+					},
+					metadata = {
+						example = "Jimmy ate an apple.",
+					},
+					translations = {
+					},
+					delete = false,
+				},
+			}
+		))
 	end)
 end

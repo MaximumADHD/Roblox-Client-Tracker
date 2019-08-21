@@ -20,6 +20,15 @@ local FFlagFixChatWindowHoverOver = false do
 	end
 end
 
+local FFlagFixMouseCapture = false do
+	local ok, value = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserFixMouseCapture")
+	end)
+	if ok then
+		FFlagFixMouseCapture = value
+	end
+end
+
 local FILTER_MESSAGE_TIMEOUT = 60
 
 local RunService = game:GetService("RunService")
@@ -364,20 +373,22 @@ UserInputService.TouchMoved:connect(function(inputObject, gameProcessedEvent)
 	UpdateMousePosition(tapPos, --[[ ignoreForFadeIn = ]] false)
 end)
 
-UserInputService.Changed:connect(function(prop)
-	if prop == "MouseBehavior" then
-		if UserInputService.MouseBehavior == Enum.MouseBehavior.LockCenter then
-			local windowPos = ChatWindow.GuiObject.AbsolutePosition
-			local windowSize = ChatWindow.GuiObject.AbsoluteSize
-			local screenSize = GuiParent.AbsoluteSize
-
-			local centerScreenIsInWindow = CheckIfPointIsInSquare(screenSize/2, windowPos, windowPos + windowSize)
-			if centerScreenIsInWindow then
-				UserInputService.MouseBehavior = Enum.MouseBehavior.Default
+if not FFlagFixMouseCapture then
+	UserInputService.Changed:connect(function(prop)
+		if prop == "MouseBehavior" then
+			if UserInputService.MouseBehavior == Enum.MouseBehavior.LockCenter then
+				local windowPos = ChatWindow.GuiObject.AbsolutePosition
+				local windowSize = ChatWindow.GuiObject.AbsoluteSize
+				local screenSize = GuiParent.AbsoluteSize
+	
+				local centerScreenIsInWindow = CheckIfPointIsInSquare(screenSize/2, windowPos, windowPos + windowSize)
+				if centerScreenIsInWindow then
+					UserInputService.MouseBehavior = Enum.MouseBehavior.Default
+				end
 			end
 		end
-	end
-end)
+	end)
+end
 
 --// Start and stop fading sequences / timers
 UpdateFadingForMouseState(true)

@@ -99,6 +99,19 @@ return function(style, overrides)
 		scrollbarColor = style.borderColor,
 	}
 
+	local radioButton = {
+		radioButtonBackground = "rbxasset://textures/AnimationEditor/button_radio_default.png",
+		radioButtonColor = style.separationLineColor,
+		radioButtonSelected = "rbxasset://textures/AnimationEditor/button_radio_innercircle.png",
+		radioButtonSelectedColor = style.selectionColor,
+		textSize = 18,
+		buttonHeight = 18,
+		font = style.font,
+		textColor = style.textColor,
+		contentPadding = 16,
+		buttonPadding = 6,
+	}
+
 	local dropdownMenu = {
 		borderColor = style.borderColor,
 		--TODO: Move texture to StudioSharedUI
@@ -257,6 +270,7 @@ return function(style, overrides)
 		scrubber = scrubber,
 		loadingIndicator = loadingIndicator,
 		bulletPoint = bulletPoint,
-		toggleButton = toggleButton
+		toggleButton = toggleButton,
+		radioButton = radioButton,
 	}, overrides)
 end

@@ -5,19 +5,23 @@ local Roact = require(Plugin.Packages.Roact)
 local Rodux = require(Plugin.Packages.Rodux)
 local UILibrary = require(Plugin.Packages.UILibrary)
 
-local PluginTheme = require(Plugin.Src.Resources.PluginTheme)
+local MockDraftsService = require(Plugin.Src.TestHelpers.MockDraftsService)
+local Localization = UILibrary.Studio.Localization
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 local MockPlugin = require(Plugin.Src.TestHelpers.MockPlugin)
-local Localization = UILibrary.Studio.Localization
+local PluginTheme = require(Plugin.Src.Resources.PluginTheme)
+
 
 return function()
 	it("should construct and destroy without errors", function()
+		local draftsService = MockDraftsService.new(MockDraftsService.TestCases.DEFAULT)
 		local localization = Localization.mock()
 		local pluginInstance = MockPlugin.new()
 		local store = Rodux.Store.new(MainReducer, {}, { Rodux.thunkMiddleware })
 		local theme = PluginTheme.mock()
 
 		local element = Roact.createElement(ServiceWrapper, {
+			draftsService = draftsService,
 			localization = localization,
 			plugin = pluginInstance,
 			store = store,

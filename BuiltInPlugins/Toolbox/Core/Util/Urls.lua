@@ -26,6 +26,9 @@ if EnableDeveloperGetManageGroupUrl then
 else
 	GET_MANAGEABLE_GROUPS = Url.BASE_URL .. "groups/can-manage-games"
 end
+
+local GET_ASSET_VERSION = Url.BASE_URL .. "studio/plugins/info?"
+
 local ASSET_ID_STRING = "rbxassetid://%d"
 local ASSET_ID_PATH = "asset/?"
 local ASSET_ID = Url.BASE_URL .. ASSET_ID_PATH
@@ -111,6 +114,12 @@ end
 
 function Urls.constructInsertAssetUrl(assetId)
 	return INSERT_ASSET .. Url.makeQueryString({
+		assetId = assetId
+	})
+end
+
+function Urls.constructGetAssetVersionUrl(assetId)
+	return GET_ASSET_VERSION .. Url.makeQueryString({
 		assetId = assetId
 	})
 end

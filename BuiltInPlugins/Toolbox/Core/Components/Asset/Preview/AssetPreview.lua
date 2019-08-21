@@ -28,8 +28,10 @@
 local FFlagStudioRemoveToolboxScrollingFrameHack = settings():GetFFlag("StudioRemoveToolboxScrollingFrameHack")
 local FFlagEnableMarketplaceFavorite = settings():GetFFlag("EnableMarketplaceFavorite")
 local FFlagEnableCatelogForAPIService = settings():GetFFlag("EnableCatelogForAPIService")
+local FFlagPluginAccessAndInstallationInStudio = settings():GetFFlag("PluginAccessAndInstallationInStudio")
 
 local RunService = game:GetService("RunService")
+local StudioService = game:GetService("StudioService")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
@@ -50,6 +52,7 @@ local Images = require(Util.Images)
 local ContextHelper = require(Util.ContextHelper)
 local getTextSize = require(Util.getTextSize)
 local Analytics = require(Util.Analytics.Analytics)
+local InsertAsset = require(Util.InsertAsset)
 
 local withTheme = ContextHelper.withTheme
 
@@ -69,6 +72,9 @@ local BOTTOM_PADDING = 20
 local VOTE_HEIGHT = 36
 
 local ACTION_BAR_HEIGHT = 52
+
+local LOADING_COLOR = Color3.fromRGB(158,158,158)
+local BUTTON_COLOR = Color3.fromRGB(0,162,255)
 
 -- Multiply minimum treeview width by 2 to get minimum threshold
 -- When the asset preview is twice the minimum width, then we
@@ -131,6 +137,24 @@ function AssetPreview:init(props)
 		end
 	end
 
+	self.tryInstall = function()
+		local assetData = props.assetData
+		local assetVersionId = self.props.assetVersionId
+		local asset = assetData.Asset
+		local assetId = asset.Id
+		local assetName = asset.Name
+		local assetTypeId = asset.TypeId
+
+		return InsertAsset.tryInsert({
+			plugin = plugin,
+			assetId = assetId,
+			assetVersionId = assetVersionId,
+			assetName = assetName,
+			assetTypeId = assetTypeId,
+			--onSuccess = self.onAssetInsertionSuccesful,
+		})
+	end
+
 	Analytics.onAssetPreviewSelected(props.assetData.Asset.Id)
 end
 
@@ -177,6 +201,7 @@ function AssetPreview:render()
 		local anchorPoint = props.anchorPoint
 
 		local assetData = props.assetData
+		local assetVersionId = props.assetVersionId
 
 		-- Data structure from the server
 		local Asset = assetData.Asset
@@ -191,7 +216,36 @@ function AssetPreview:render()
 		local creatorName = creator.Name
 
 		local typeId = assetData.Asset.TypeId or Enum.AssetType.Model.Value
-		local hasRating = typeId == Enum.AssetType.Model.Value
+
+		local previewModel = props.previewModel
+		local currentPreview = props.currentPreview
+
+		local assetPreviewType = AssetType:getAssetType(currentPreview)
+		if FFlagPluginAccessAndInstallationInStudio and (typeId == Enum.AssetType.Plugin.Value) then
+			assetPreviewType = AssetType:markAsPlugin()
+		end
+
+		local isPluginAsset = AssetType:isPlugin(assetPreviewType)
+		local isPluginInstalled = isPluginAsset and StudioService:IsPluginInstalled(assetId)
+		local isPluginLoading = isPluginAsset and assetVersionId == nil
+		local isPluginUpToDate = isPluginAsset and not isPluginLoading
+			and StudioService:IsPluginUpToDate(assetId, assetVersionId)
+
+		local pluginButtonText
+		-- TODO: localize this
+		if isPluginLoading then
+			pluginButtonText = "Loading..."
+		elseif not isPluginInstalled then
+			pluginButtonText = "Install"
+		elseif not isPluginUpToDate then
+			pluginButtonText = "Update"
+		else
+			pluginButtonText = "Reinstall"
+		end
+
+		local buttonColor = isPluginLoading and LOADING_COLOR or BUTTON_COLOR
+
+		local hasRating = typeId == Enum.AssetType.Model.Value or (isPluginAsset and isPluginInstalled)
 
 		local voting = props.voting or {}
 		local upVoteRate = 0
@@ -211,14 +265,9 @@ function AssetPreview:render()
 
 		local onTreeItemClicked = props.onTreeItemClicked
 
-		local previewModel = props.previewModel
-		local currentPreview = props.currentPreview
-
 		local canInsertAsset = props.canInsertAsset
-		local tryInsert = props.tryInsert
+		local tryInsert = isPluginAsset and self.tryInstall or props.tryInsert
 		local tryCreateContextMenu = props.tryCreateContextMenu
-
-		local assetPreviewType = AssetType:getAssetType(currentPreview)
 
 		local enableScroller = self.state.enableScroller
 
@@ -410,15 +459,20 @@ function AssetPreview:render()
 			}),
 
 			ActionBar = Roact.createElement(ActionBar, {
+				text = isPluginAsset and pluginButtonText or "Insert", -- TODO: localize this
+				color = buttonColor,
 				size = UDim2.new(1, 0, 0, ACTION_BAR_HEIGHT),
 				position = UDim2.new(0, 0, 1, 0),
 				anchorPoint = Vector2.new(0, 1),
 				assetId = assetId,
+				assetVersionId = assetVersionId,
 
 				asset = Asset,
 				canInsertAsset = canInsertAsset,
 				tryInsert = tryInsert,
 				tryCreateContextMenu = tryCreateContextMenu,
+				installDisabled = isPluginLoading,
+				displayResultOfInsertAttempt = isPluginAsset,
 			})
 		})
 	end)

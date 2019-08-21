@@ -68,13 +68,14 @@
         <addseparator visible="false"/>
         <addaction name="toggleCollisionCheckAction" style="textbesideicon" text="Studio.App.RobloxRibbonMainWindow.Collisions" tooltip="Studio.App.RobloxRibbonMainWindow.CheckCollisionsDragging" icon=":/RibbonBar/images/RibbonIcons/Home/Collisions-Enabled-16x16.png" width="16" height="16"/>
         <addaction name="toggleConstraintCheckAction" style="textbesideicon" text="Studio.App.RobloxRibbonMainWindow.Constraints" tooltip="Studio.App.RobloxRibbonMainWindow.SolveConstraintsWhileDragging" icon=":/RibbonBar/images/RibbonIcons/Physics/constraint-32x32.png" width="16" height="16"/>
-        <MenuButton handleMenuTrigger="false" name="jointCreationMode" style="textbesideicon" text="Studio.App.RobloxRibbonMainWindow.Join" icon=":/RibbonBar/images/RibbonIcons/Home/Join.png" tooltip="Studio.App.RobloxRibbonMainWindow.ChooseHowPartsJoin" width="16" height="16">
+        <addaction name="toggleJointCreationAction" fflag="KillSurfaceJointsPart1" style="textbesideicon" text="Join Surfaces" tooltip="Join Surfaces"  icon=":/RibbonBar/images/RibbonIcons/Home/Join.png"  width="16" height="16" />
+        <MenuButton handleMenuTrigger="false" fflag="!KillSurfaceJointsPart1" name="jointCreationMode" style="textbesideicon" text="Studio.App.RobloxRibbonMainWindow.Join" icon=":/RibbonBar/images/RibbonIcons/Home/Join.png" tooltip="Studio.App.RobloxRibbonMainWindow.ChooseHowPartsJoin" width="16" height="16">
           <ActionGroup name="jointCreationMode" style="textundericon" ischeckable="true">
             <addaction name="Always" text="Studio.App.RobloxRibbonMainWindow.Always" value="Always" icon=":/RibbonBar/images/RibbonIcons/Home/Join.png" tooltip="Studio.App.RobloxRibbonMainWindow.AlwaysJoinAdjacentParts" width="32" height="32"/>
             <addaction name="SurfaceOnly" text="Studio.App.RobloxRibbonMainWindow.SurfaceOnly" value="SurfaceOnly" icon=":/images/t_surfaceSmooth_old.png" tooltip="Studio.App.RobloxRibbonMainWindow.JoinBasedOnSurfaceType"   width="32" height="32"/>
             <addaction name="Never" text="Studio.App.RBXMainWindow.Never" value="Never" icon=":/images/t_surfaceWeld_old.png" tooltip="Studio.App.RBXMainWindow.NeverJoinPartsAutomatically"  width="32" height="32"/>
           </ActionGroup>
-        </MenuButton>
+        </MenuButton>-
       </Group>
       <Group name="Terrain" text="Studio.App.RobloxRibbonMainWindow.Terrain">
           <addaction name="toggleTerrainToolsDockAction"
@@ -172,7 +173,8 @@
         <addseparator visible="false"/>
         <addaction name="toggleCollisionCheckAction" style="textbesideicon" text="Studio.App.RobloxRibbonMainWindow.Collisions" tooltip="Studio.App.RobloxRibbonMainWindow.CheckCollisionsDragging" icon=":/RibbonBar/images/RibbonIcons/Home/Collisions-Enabled-16x16.png" width="16" height="16"/>
         <addaction name="toggleConstraintCheckAction" style="textbesideicon" text="Studio.App.RobloxRibbonMainWindow.Constraints" tooltip="Studio.App.RobloxRibbonMainWindow.SolveConstraintsWhileDragging" icon=":/RibbonBar/images/RibbonIcons/Physics/constraint-32x32.png" width="16" height="16"/>
-        <MenuButton handleMenuTrigger="false" name="jointCreationMode" style="textbesideicon" text="Studio.App.RobloxRibbonMainWindow.Join" icon=":/RibbonBar/images/RibbonIcons/Home/Join.png" tooltip="Studio.App.RobloxRibbonMainWindow.ChooseHowPartsJoin" width="16" height="16">
+        <addaction name="toggleJointCreationAction" fflag="KillSurfaceJointsPart1" style="textbesideicon" text="Join Surfaces" tooltip="Join Surfaces"  icon=":/RibbonBar/images/RibbonIcons/Home/Join.png"  width="16" height="16" />
+        <MenuButton handleMenuTrigger="false" fflag="!KillSurfaceJointsPart1" name="jointCreationMode" style="textbesideicon" text="Studio.App.RobloxRibbonMainWindow.Join" icon=":/RibbonBar/images/RibbonIcons/Home/Join.png" tooltip="Studio.App.RobloxRibbonMainWindow.ChooseHowPartsJoin" width="16" height="16">
           <ActionGroup name="jointCreationMode" style="textundericon" ischeckable="true">
             <addaction name="Always" text="Studio.App.RobloxRibbonMainWindow.Always" value="Always" icon=":/RibbonBar/images/RibbonIcons/Home/Join.png" tooltip="Studio.App.RobloxRibbonMainWindow.AlwaysJoinAdjacentParts" width="32" height="32"/>
             <addaction name="SurfaceOnly" text="Studio.App.RobloxRibbonMainWindow.SurfaceOnly" value="SurfaceOnly" icon=":/images/t_surfaceSmooth_old.png" tooltip="Studio.App.RobloxRibbonMainWindow.JoinBasedOnSurfaceType"   width="32" height="32"/>
@@ -238,7 +240,6 @@
           <addaction name="weldSurfaceAction" text="Studio.App.RobloxRibbonMainWindow.AddWeld"/>
           <addaction name="hingeAction" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.Hinge" icon=":/RibbonBar/images/RibbonIcons/Home/Joint.png" tooltip="Studio.App.RobloxRibbonMainWindow.AttachAHingeToAPart" width="32" height="32"/>
           <addaction name="motorRightAction" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.Motor" tooltip="Studio.App.RobloxRibbonMainWindow.AttachAMotorToAPart" icon=":/RibbonBar/images/RibbonIcons/Home/Motor.png" width="32" height="32"/>
-          <!--   <addaction name="hingeAction" text="Add Hinge"/> -->
         </MenuButton>
         <addseparator visible="false"/>
         <MenuPopupButton name="groupSelectionAction" style="textbesideicon" text="Studio.App.RBXMainWindow.Group" popupStyle="menubutton" icon=":/RibbonBar/images/RibbonIcons/Home/Group.png" tooltip="Studio.App.RobloxRibbonMainWindow.GroupsPartsIntoModel" width="16" height="16">
@@ -409,8 +410,8 @@
             icon=":/images/RibbonIcons/Terrain/icon_terrain_big.png"
             height="32"
             width="32"/>
-        <!-- TODO(mmcdonnell 6/12/2019): Remove Sandbox C++ widget. See CLISTUDIO-19342 -->
-        <addaction name="toggleSandboxCppDockAction" style="textbesideicon" tooltip="Studio.App.RBXMainWindow.ViewSandboxCpp" height="32" width="32" fflag="StudioVersionControlAlpha"/>
+        <!-- TODO(mmcdonnell 8/114/2019): Remove toggleSandboxCppDockAction with SandboxWidgetMockup (C++ widget). See CLISTUDIO-19603 -->
+        <addaction name="toggleSandboxCppDockAction" style="textbesideicon" tooltip="Studio.App.RBXMainWindow.ViewSandboxCpp" height="32" width="32" fflag="DebugStudioSandboxControllerMockup"/>
         <addaction name="toggleSandboxDockAction" style="textbesideicon" tooltip="Studio.App.RBXMainWindow.ViewSandbox" height="32" width="32" fflag="StudioVersionControlAlpha"/>
       </Group>
       <Group name="Actions" text="Studio.App.RobloxRibbonMainWindow.Actions">
@@ -534,7 +535,7 @@
         <addaction fflag="!StudioCommentSelection" name="commentSelectionAction" tooltip="Studio.App.RobloxRibbonMainWindow.CommentOutTheSelectedText" style="textbesideicon"/>
         <addaction fflag="!StudioCommentSelection" name="uncommentSelectionAction" tooltip="Studio.App.RobloxRibbonMainWindow.UncommentOutTheSelectedText" style="textbesideicon"/>
         <addaction name="toggleCommentAction" tooltip="Studio.App.RobloxRibbonMainWindow.ToggleCommentSelectedLines" style="textbesideicon"/>
-        <addseparator />
+        <addseparator fflag="!StudioCommentSelection" />
         <addaction name="expandAllFoldsAction" tooltip="Studio.App.RobloxRibbonMainWindow.ExpandAllCollapsedFolds" style="textbesideicon"/>
         <addaction name="collapseAllFoldsAction" tooltip="Studio.App.RobloxRibbonMainWindow.CollapseAllCollapsableSections" style="textbesideicon"/>
       </Group>

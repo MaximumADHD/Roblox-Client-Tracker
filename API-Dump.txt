@@ -478,6 +478,7 @@ Class ContentProvider : Instance [NotCreatable] [Service] [NotReplicated]
 	Property string ContentProvider.BaseUrl [<💾> Save-only] [ReadOnly] [NotReplicated]
 	Property int ContentProvider.RequestQueueSize [<💾> Save-only] [ReadOnly] [NotReplicated]
 	Function int ContentProvider:CalculateNumTrianglesInMesh(string meshId) {RobloxScriptSecurity} [Yields]
+	Function Array ContentProvider:GetFailedRequests() {RobloxScriptSecurity}
 	Function void ContentProvider:Preload(Content contentId) [Deprecated]
 	Function void ContentProvider:PreloadAsync(Array contentIdList, Function callbackFunction = nil) [Yields]
 	Function void ContentProvider:SetBaseUrl(string url) {LocalUserSecurity}
@@ -624,16 +625,14 @@ Class DraftsService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void DraftsService:DiscardEdits(Objects scripts) {RobloxScriptSecurity}
 	Function Objects DraftsService:GetDrafts() {RobloxScriptSecurity} [Yields]
 	Function Objects DraftsService:GetEditors(Instance script) {RobloxScriptSecurity}
-	Function void DraftsService:OpenDrafts(Objects scripts) {RobloxScriptSecurity}
 	Function void DraftsService:ShowDiffsAgainstBase(Objects scripts) {RobloxScriptSecurity}
 	Function void DraftsService:ShowDiffsAgainstServer(Objects scripts) {RobloxScriptSecurity}
 	Function void DraftsService:UpdateToLatestVersion(Objects scripts) {RobloxScriptSecurity} [Yields]
 	Event DraftsService.CommitStatusChanged(Instance script, Enum<DraftStatusCode> status) {RobloxScriptSecurity}
 	Event DraftsService.DraftAdded(Instance script) {RobloxScriptSecurity}
+	Event DraftsService.DraftOutdatedStateChanged(Instance script, bool outdated) {RobloxScriptSecurity}
 	Event DraftsService.DraftRemoved(Instance script) {RobloxScriptSecurity}
 	Event DraftsService.EditorsListChanged(Instance script) {RobloxScriptSecurity}
-	Event DraftsService.ScriptRemoved(Instance script) {RobloxScriptSecurity}
-	Event DraftsService.ScriptServerVersionChanged(Instance script) {RobloxScriptSecurity}
 	Event DraftsService.UpdateStatusChanged(Instance script, Enum<DraftStatusCode> status) {RobloxScriptSecurity}
 Class Dragger : Instance
 	Function void Dragger:AxisRotate(Enum<Axis> axis = "X")
@@ -900,6 +899,7 @@ Class TextBox : GuiObject
 	Property int TextBox.SelectionStart
 	Property bool TextBox.ShowNativeInput
 	Property bool TextBox.TextEditable
+	Property Enum<TextInputType> TextBox.TextInputType {RobloxScriptSecurity} [<📁> Load-only] [NotReplicated]
 	Property Enum<Font> TextBox.Font
 	Property Enum<FontSize> TextBox.FontSize [<📁> Load-only] [NotReplicated] [Deprecated]
 	Property float TextBox.LineHeight
@@ -1095,6 +1095,7 @@ Class GuiService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Enum<ConnectionError> GuiService:GetErrorCode() {RobloxScriptSecurity}
 	Function string GuiService:GetErrorMessage() {RobloxScriptSecurity} [Deprecated]
 	Function Enum<ConnectionError> GuiService:GetErrorType() {RobloxScriptSecurity}
+	Function bool GuiService:GetGameplayPausedNotificationEnabled()
 	Function Tuple GuiService:GetGuiInset()
 	Function bool GuiService:GetInspectMenuEnabled()
 	Function Dictionary GuiService:GetNotificationTypeList() {RobloxScriptSecurity}
@@ -1114,6 +1115,7 @@ Class GuiService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void GuiService:RemoveSelectionGroup(string selectionName)
 	Function void GuiService:RemoveSpecialKey(Enum<SpecialKey> key) {RobloxScriptSecurity}
 	Function void GuiService:SetEmotesMenuOpen(bool isOpen)
+	Function void GuiService:SetGameplayPausedNotificationEnabled(bool enabled)
 	Function void GuiService:SetGlobalGuiInset(int x1, int y1, int x2, int y2) {RobloxScriptSecurity}
 	Function void GuiService:SetInspectMenuEnabled(bool enabled)
 	Function void GuiService:SetMenuIsOpen(bool open, string menuName = "default") {RobloxScriptSecurity}
@@ -1132,6 +1134,7 @@ Class GuiService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event GuiService.KeyPressed(string key, string modifiers) {RobloxScriptSecurity}
 	Event GuiService.MenuClosed()
 	Event GuiService.MenuOpened()
+	Event GuiService.NetworkPausedEnabledChanged(bool enabled) {RobloxScriptSecurity}
 	Event GuiService.SafeZoneOffsetsChanged() {RobloxScriptSecurity}
 	Event GuiService.ShowLeaveConfirmation() {RobloxScriptSecurity}
 	Event GuiService.SpecialKeyPressed(Enum<SpecialKey> key, string modifiers) {RobloxScriptSecurity}
@@ -1566,10 +1569,11 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Event MarketplaceService.ThirdPartyPurchaseFinished(Instance player, string productId, string receipt, bool wasPurchased) {LocalUserSecurity}
 	Callback Enum<ProductPurchaseDecision> MarketplaceService.ProcessReceipt(Dictionary receiptInfo)
 Class MemStorageConnection : Instance [NotCreatable] [NotReplicated]
-	Function void MemStorageConnection:Disconnect() {RobloxScriptSecurity}
+	Function void MemStorageConnection:Disconnect() {PluginSecurity}
 Class MemStorageService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Instance MemStorageService:Bind(string key, Function callback) {RobloxScriptSecurity}
 	Function Instance MemStorageService:BindAndFire(string key, Function callback) {RobloxScriptSecurity}
+	Function void MemStorageService:Fire(string key, string value = "") {RobloxScriptSecurity}
 	Function string MemStorageService:GetItem(string key, string defaultValue = "") {RobloxScriptSecurity}
 	Function bool MemStorageService:HasItem(string key) {RobloxScriptSecurity}
 	Function bool MemStorageService:RemoveItem(string key) {RobloxScriptSecurity}
@@ -1641,6 +1645,7 @@ Class NetworkSettings : Instance [Service] [NotBrowsable]
 	Property bool NetworkSettings.PrintEvents
 	Property bool NetworkSettings.PrintFilters
 	Property bool NetworkSettings.PrintInstances
+	Property bool NetworkSettings.PrintJoinSizeBreakdown
 	Property bool NetworkSettings.PrintPhysicsErrors
 	Property bool NetworkSettings.PrintProperties
 	Property bool NetworkSettings.PrintSplitMessage
@@ -1825,7 +1830,7 @@ Class Terrain : BasePart [NotCreatable]
 	Function void Terrain:WriteVoxels(Region3 region, float resolution, Array materials, Array occupancy) [CustomLuaState]
 	Event Terrain.TerrainProgressUpdate(float progressRatio) {RobloxScriptSecurity}
 Class TriangleMeshPart : BasePart [NotCreatable]
-	Property Enum<CollisionFidelity> TriangleMeshPart.CollisionFidelity  [NotReplicated] [NotScriptable]
+	Property Enum<CollisionFidelity> TriangleMeshPart.CollisionFidelity {✏️PluginSecurity} [<📁> Load-only] [NotReplicated]
 Class MeshPart : TriangleMeshPart
 	Property Content MeshPart.MeshID  [NotScriptable] [Deprecated]
 	Property Content MeshPart.MeshId {✏️NotAccessibleSecurity}
@@ -2143,18 +2148,24 @@ Class Plugin : Instance [NotCreatable]
 	Property bool Plugin.UsesAssetInsertionDrag {RobloxScriptSecurity} [<📁> Load-only] [NotReplicated]
 	Property bool Plugin.CollisionEnabled  [ReadOnly] [NotReplicated]
 	Property float Plugin.GridSize  [ReadOnly] [NotReplicated]
+	Property Enum<StudioDataModelType> Plugin.HostDataModelType {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
 	Function void Plugin:Activate(bool exclusiveMouse) {PluginSecurity}
+	Function Instance Plugin:Bind(string key, Function callback) {RobloxScriptSecurity}
+	Function Instance Plugin:BindAndFire(string key, Function callback) {RobloxScriptSecurity}
 	Function Instance Plugin:CreateDockWidgetPluginGui(string pluginGuiId, DockWidgetPluginGuiInfo dockWidgetPluginGuiInfo) {PluginSecurity} [Yields]
 	Function Instance Plugin:CreatePluginAction(string actionId, string text, string statusTip, string iconName = "", bool allowBinding = true) {PluginSecurity}
 	Function Instance Plugin:CreatePluginMenu(string id, string title = "", string icon = "") {PluginSecurity}
 	Function Instance Plugin:CreateQWidgetPluginGui(string pluginGuiId, Dictionary pluginGuiOptions) {RobloxScriptSecurity} [Yields]
 	Function Instance Plugin:CreateToolbar(string name) {PluginSecurity}
 	Function void Plugin:Deactivate() {PluginSecurity}
+	Function void Plugin:Fire(string key, string value = "") {RobloxScriptSecurity}
+	Function string Plugin:GetItem(string key, string defaultValue = "") {RobloxScriptSecurity}
 	Function Enum<JointCreationMode> Plugin:GetJoinMode() {PluginSecurity}
 	Function Instance Plugin:GetMouse() {PluginSecurity}
 	Function Enum<RibbonTool> Plugin:GetSelectedRibbonTool() {PluginSecurity}
 	Function Variant Plugin:GetSetting(string key) {PluginSecurity}
 	Function int64 Plugin:GetStudioUserId() {PluginSecurity}
+	Function bool Plugin:HasItem(string key) {RobloxScriptSecurity}
 	Function Instance Plugin:ImportFbxAnimation(Instance rigModel, bool isR15 = true) {PluginSecurity} [Yields]
 	Function Instance Plugin:ImportFbxRig(bool isR15 = true) {PluginSecurity} [Yields]
 	Function bool Plugin:IsActivated() {PluginSecurity}
@@ -2166,10 +2177,12 @@ Class Plugin : Instance [NotCreatable]
 	Function void Plugin:PlaySound(Instance soundChannel) {RobloxScriptSecurity}
 	Function int64 Plugin:PromptForExistingAssetId(string assetType) {PluginSecurity} [Yields]
 	Function bool Plugin:PromptSaveSelection(string suggestedFileName = "") {PluginSecurity} [Yields]
+	Function bool Plugin:RemoveItem(string key) {RobloxScriptSecurity}
 	Function void Plugin:ResumeSound(Instance soundChannel) {RobloxScriptSecurity}
 	Function void Plugin:SaveSelectedToRoblox() {PluginSecurity}
 	Function void Plugin:SelectRibbonTool(Enum<RibbonTool> tool, UDim2 position) {PluginSecurity}
 	Function Objects Plugin:Separate(Objects objects) {PluginSecurity}
+	Function void Plugin:SetItem(string key, string value = "") {RobloxScriptSecurity}
 	Function void Plugin:SetSetting(string key, Variant value) {PluginSecurity}
 	Function void Plugin:StartDecalDrag(Instance decal) {RobloxScriptSecurity}
 	Function void Plugin:StartDrag(Dictionary dragData) {PluginSecurity}
@@ -2745,6 +2758,8 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Dictionary StudioService:GetClassIcon(string className) {PluginSecurity}
 	Function Dictionary StudioService:GetResourceByCategory(string category) {RobloxScriptSecurity}
 	Function int64 StudioService:GetUserId() {RobloxScriptSecurity}
+	Function bool StudioService:IsPluginInstalled(int64 assetId) {RobloxScriptSecurity}
+	Function bool StudioService:IsPluginUpToDate(int64 assetId, int64 currentAssetVersion) {RobloxScriptSecurity}
 	Function void StudioService:OpenPluginInsertPage(int64 assetId) {RobloxScriptSecurity}
 	Function Instance StudioService:PromptImportFile(Array fileTypeFilter = {}) {PluginSecurity} [Yields]
 	Function Objects StudioService:PromptImportFiles(Array fileTypeFilter = {}) {PluginSecurity} [Yields]
@@ -2754,6 +2769,7 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function string StudioService:SerializeInstances(Objects instances) {RobloxScriptSecurity}
 	Function void StudioService:SetUniverseDisplayName(string newName) {RobloxScriptSecurity}
 	Function void StudioService:ShowPublishToRoblox() {RobloxScriptSecurity}
+	Function void StudioService:TryInstallPlugin(int64 assetId, int64 assetVersionId) {RobloxScriptSecurity} [Yields]
 	Function void StudioService:emitPlacePublishedSignal() {RobloxScriptSecurity}
 	Event StudioService.GamePublishedToRoblox() {RobloxScriptSecurity}
 	Event StudioService.OnOpenConvertToPackagePlugin() {RobloxScriptSecurity}
@@ -3053,6 +3069,7 @@ Class UserInputService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event UserInputService.InputEnded(Instance input, bool gameProcessedEvent)
 	Event UserInputService.JumpRequest()
 	Event UserInputService.LastInputTypeChanged(Enum<UserInputType> lastInputType)
+	Event UserInputService.PointerAction(float wheel, Vector2 pan, float pinch, bool gameProcessedEvent)
 	Event UserInputService.StatusBarTapped(Vector2 position) {RobloxScriptSecurity}
 	Event UserInputService.TextBoxFocusReleased(Instance textboxReleased)
 	Event UserInputService.TextBoxFocused(Instance textboxFocused)
@@ -4464,6 +4481,13 @@ Enum StreamingPauseMode
 	EnumItem StreamingPauseMode.Default : 0
 	EnumItem StreamingPauseMode.Disabled : 1
 	EnumItem StreamingPauseMode.ClientPhysicsPause : 2
+Enum StudioDataModelType
+	EnumItem StudioDataModelType.Edit : 0
+	EnumItem StudioDataModelType.PlayClient : 2
+	EnumItem StudioDataModelType.PlayServer : 3
+	EnumItem StudioDataModelType.RobloxPlugin : 4
+	EnumItem StudioDataModelType.UserPlugin : 5
+	EnumItem StudioDataModelType.Null : 6
 Enum StudioStyleGuideColor
 	EnumItem StudioStyleGuideColor.MainBackground : 0
 	EnumItem StudioStyleGuideColor.Titlebar : 1
@@ -4622,6 +4646,12 @@ Enum TeleportType
 Enum TextFilterContext
 	EnumItem TextFilterContext.PublicChat : 1
 	EnumItem TextFilterContext.PrivateChat : 2
+Enum TextInputType
+	EnumItem TextInputType.Default : 0
+	EnumItem TextInputType.NoSuggestions : 1
+	EnumItem TextInputType.Number : 2
+	EnumItem TextInputType.Email : 3
+	EnumItem TextInputType.Phone : 4
 Enum TextTruncate
 	EnumItem TextTruncate.None : 0
 	EnumItem TextTruncate.AtEnd : 1

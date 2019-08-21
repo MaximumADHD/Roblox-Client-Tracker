@@ -5,6 +5,7 @@
 -- TODO (awarwick) 4/29/2019 Remove with FFlagStudioGameSettingsAccessPermissions
 local DEPRECATED_RELEVANT_ENTRIES = {
 	isActive = true,
+	privacyType = true,
 	creatorType = true,
 	creatorName = true,
 }
@@ -54,6 +55,7 @@ function Universes.Get(universeId, studioUserId)
 
 			return {
 				isActive = nil,
+				privacyType = "Draft",
 				creatorType = Enum.CreatorType.User,
 				creatorId = studioUserId,
 				creatorName = result.Username,
@@ -67,6 +69,7 @@ function Universes.Get(universeId, studioUserId)
 		if settings():GetFFlag("StudioGameSettingsAccessPermissions") then
 			return {
 				isActive = result.isActive,
+				privacyType = result.privacyType,
 				creatorType = Enum.CreatorType[result.creatorType],
 				creatorName = result.creatorName,
 				creatorId = result.creatorTargetId,

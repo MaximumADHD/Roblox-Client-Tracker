@@ -13,6 +13,7 @@ local Toolbox = require(Plugin.Core.Components.Toolbox)
 local ToolboxPlugin = Roact.PureComponent:extend("ToolboxPlugin")
 
 game:DefineFastFlag("ToolboxButtonEnabledWhenScriptOpen", false)
+local FFlagUpdateToolboxButtonFix = game:DefineFastFlag("UpdateToolboxButtonFix", false)
 
 function ToolboxPlugin:init(props)
 	self.localization = props.localization
@@ -40,24 +41,38 @@ function ToolboxPlugin:init(props)
 	if game:GetFastFlag("ToolboxButtonEnabledWhenScriptOpen") then
 		self.toolboxButton.ClickableWhenViewportHidden = true
 	end
-	self.toolboxButton:SetActive(self.state.enabled)
+
+	if not FFlagUpdateToolboxButtonFix then
+		-- This has no effect on button initialization and will be removed.
+		self.toolboxButton:SetActive(self.state.enabled)
+	end
 
 	self.toolboxButton.Click:connect(function()
-		self:setState(function(state)
-			return {
-				enabled = not state.enabled,
-			}
-		end)
+		if FFlagUpdateToolboxButtonFix then
+			-- Toggle dock window, update button
+			self.dockWidget.Enabled = not self.dockWidget.Enabled
+		else
+			self:setState(function(state)
+				return {
+					enabled = not state.enabled,
+				}
+			end)
+		end
 	end)
 
 	self.onDockWidgetEnabledChanged = function(rbx)
-		if self.state.enabled == rbx.Enabled then
-			return
+		if FFlagUpdateToolboxButtonFix then
+			-- Update Button to match DockWidget
+			self.toolboxButton:SetActive(self.dockWidget.Enabled)
+		else
+			if self.state.enabled == rbx.Enabled then
+				return
+			end
+	
+			self:setState({
+				enabled = rbx.Enabled,
+			})
 		end
-
-		self:setState({
-			enabled = rbx.Enabled,
-		})
 	end
 
 	self.onAncestryChanged = function(rbx, child, parent)
@@ -68,6 +83,10 @@ function ToolboxPlugin:init(props)
 
 	self.dockWidgetRefFunc = function(ref)
 		self.dockWidget = ref
+		if FFlagUpdateToolboxButtonFix then
+			-- Update Button on initial Load
+			self.toolboxButton:SetActive(self.dockWidget.Enabled)
+		end
 	end
 end
 
@@ -95,7 +114,9 @@ function ToolboxPlugin:willUnmount()
 end
 
 function ToolboxPlugin:didUpdate()
-	self.toolboxButton:SetActive(self.state.enabled)
+	if not FFlagUpdateToolboxButtonFix then
+		self.toolboxButton:SetActive(self.state.enabled)
+	end
 end
 
 function ToolboxPlugin:render()
@@ -120,6 +141,13 @@ function ToolboxPlugin:render()
 
 	local pluginGuiLoaded = pluginGui ~= nil
 
+	local InitialEnabled = true
+	if FFlagUpdateToolboxButtonFix then
+		-- Setting this value to false lets the DockWidget properly reflect
+		-- the state when it comes up.
+		InitialEnabled = false
+	end
+
 	return Roact.createElement(DockWidget, {
 		plugin = plugin,
 
@@ -128,7 +156,7 @@ function ToolboxPlugin:render()
 		ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 
 		InitialDockState = Enum.InitialDockState.Left,
-		InitialEnabled = true,
+		InitialEnabled = InitialEnabled,
 		InitialEnabledShouldOverrideRestore = false,
 		FloatingXSize = 0,
 		FloatingYSize = 0,

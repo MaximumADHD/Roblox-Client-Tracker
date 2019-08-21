@@ -6,8 +6,8 @@ Studio.PublishPlaceAs.FooterButton.Create, , ,Create
 Studio.PublishPlaceAs.FooterButton.Overwrite, , ,Overwrite
 Studio.PublishPlaceAs.FooterButton.Cancel, , ,Cancel
 Studio.PublishPlaceAs.Button.AddNewPlace, , ,Add New
-Studio.PublishPlaceAs.Button.NextPage, , ,Next
-Studio.PublishPlaceAs.Button.PreviousPage, , ,Previous
+Studio.PublishPlaceAs.Button.NextPage, , ,>
+Studio.PublishPlaceAs.Button.PreviousPage, , ,<
 Studio.PublishPlaceAs.MenuItem.BasicInfo, , ,Basic Info
 Studio.PublishPlaceAs.Devices.Header, , ,Devices
 Studio.PublishPlaceAs.Devices.Computer, , ,Computer

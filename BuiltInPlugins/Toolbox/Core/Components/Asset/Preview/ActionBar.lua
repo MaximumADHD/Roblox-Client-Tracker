@@ -7,10 +7,15 @@
 	size = UDim2
 	canInsertAsset = call back
 	tryInsert = call back
+	text = button text
+	color = button color
 
 	Optionlal properties:
 	layoutOrder = num
-	assedId = id, for analytics
+	assetId = id, for analytics
+	assetVersionId = version ID, for plugin installs
+	installDisabled = true if we're a plugin and we are loading, disables install attempts while loading
+	displayResultOfInsertAttempt = if true, overwrites button color/text once you click it based on result of insert
 ]]
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
@@ -23,6 +28,7 @@ local Constants = require(Util.Constants)
 local Images = require(Util.Images)
 local ContextHelper = require(Util.ContextHelper)
 local Analytics = require(Util.Analytics.Analytics)
+local Colors = require(Util.Colors)
 
 local RoundButton = require(Plugin.Core.Components.RoundButton)
 
@@ -34,13 +40,41 @@ local CENTER_PADDING = 10
 local PADDING = Constants.ASSET_PREVIEW_PADDING
 
 function ActionBar:init(props)
+	self.state = {
+		installStatus = nil,
+		overrideButtonColor = nil,
+	}
+
 	self.onShowMoreActiveted = function()
 		self.props.tryCreateContextMenu()
 	end
 
 	self.onInsertActivated = function()
-		self.props.tryInsert(false)
+		-- If we're working with a plugin, it might still be loading/already clicked and completed
+		-- In these cases, we do not want to allow an insert attempt
+		if self.props.installDisabled or self.state.installStatus ~= nil then
+			return
+		end
 
+		-- TODO: somehow stop the user from spam clicking on a valid button
+
+		local installSuccess = self.props.tryInsert(false)
+
+		if self.props.displayResultOfInsertAttempt then
+			-- We want to display some indication of success/failure, but only until the user leaves the modal
+			-- Therefore, we temporarily override the color and text of the button, without altering parent props
+			if installSuccess then
+				self:setState({
+					installStatus = "Success!", -- TODO: localize this
+					overrideButtonColor = Colors.INSTALL_GREEN,
+				})
+			else
+				self:setState({
+					installStatus = "Failed",
+					overrideButtonColor = Colors.INSTALL_RED,
+				})
+			end
+		end
 		Analytics.onAssetInsertedFromAssetPreview(props.assetId)
 	end
 end
@@ -48,10 +82,15 @@ end
 function ActionBar:render()
 	return withTheme(function(theme)
 		local props = self.props
+		local state = self.state
 
 		local size = props.size
 		local position = props.position
 		local anchorPoint = props.anchorPoint
+
+		local color = state.overrideButtonColor or props.color
+
+		local text = state.installStatus or props.text
 
 		local actionBarTheme = theme.assetPreview.actionBar
 
@@ -105,12 +144,11 @@ function ActionBar:render()
 				})
 			}),
 
-			-- TODO: It would be bette to grey out the button if
+			-- TODO: It would be better to grey out the button if
 			-- we can't insert the asset now.
 			InsertButton = Roact.createElement(RoundButton, {
 				Size = UDim2.new(1, -(PADDING * 2 + CENTER_PADDING), 1, 0),
-
-				BackgroundColor3 = Color3.fromRGB(0,162,255),
+				BackgroundColor3 = color,
 				BackgroundTransparency = 0,
 				BorderSizePixel = 0,
 
@@ -121,7 +159,7 @@ function ActionBar:render()
 				InsertTextLabel = Roact.createElement("TextLabel", {
 					Size = UDim2.new(1, 0, 1, 0),
 
-					Text = "Insert",
+					Text = text,
 					Font = Constants.FONT_BOLD,
 					TextSize = Constants.FONT_SIZE_LARGE,
 					TextColor3 = Color3.fromRGB(255, 255, 255),

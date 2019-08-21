@@ -149,7 +149,7 @@ function UploadDownloadFlow:OnUpload(ComputePatchFunc, gameId)
 						self.props.SetMessage("Confirm upload...")
 						self:_setMode(GETTING_USER_INPUT)
 
-						self.props.ShowDialog("Confirm Upload", 300, 320,
+						self.props.ShowDialog("Confirm Upload", 300, 370,
 							self.props.MakeRenderDialogContent(patchInfo)):andThen(
 							function()
 								self.props.SetMessage("Uploading patch...")
