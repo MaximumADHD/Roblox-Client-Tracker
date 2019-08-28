@@ -103,7 +103,7 @@ function MainView:init(props)
 	end
 
 	self.requestNextPage = function()
-		self.props.nextPage(networkInterface)
+		self.props.nextPage(networkInterface, settings)
 	end
 
 	self.updateSearch = function(searchTerm)
@@ -360,8 +360,8 @@ end
 
 local function mapDispatchToProps(dispatch)
 	return {
-		nextPage = function(networkInterface)
-			dispatch(NextPageRequest(networkInterface))
+		nextPage = function(networkInterface, settings)
+			dispatch(NextPageRequest(networkInterface, settings))
 		end,
 
 		-- User search (searching as the user types in the search bar)

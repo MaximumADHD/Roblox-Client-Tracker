@@ -32,6 +32,20 @@ local VRService = game:GetService('VRService')
 
 --[[ END OF SERVICES ]]
 
+local topbarEnabled = true
+local topbarEnabledChangedEvent = Instance.new('BindableEvent')
+
+local function isTopbarEnabled()
+	return topbarEnabled and not VRService.VREnabled
+end
+
+-- Registers a placeholder setcore function that keeps track of players enabling/disabling the topbar before it's ready.
+StarterGui:RegisterSetCore("TopbarEnabled", function(enabled)
+	if type(enabled) == "boolean" then
+		topbarEnabled = enabled
+	end
+end)
+
 --[[ MODULES ]]--
 local GuiRoot = CoreGuiService:WaitForChild('RobloxGui')
 local TopbarConstants = require(GuiRoot.Modules.TopbarConstants)
@@ -46,19 +60,6 @@ if FFlagEmotesMenuEnabled2 then
 end
 
 --[[ END OF MODULES ]]
-
-local topbarEnabled = true
-local topbarEnabledChangedEvent = Instance.new('BindableEvent')
-
-local function isTopbarEnabled()
-	return topbarEnabled and not VRService.VREnabled
-end
-
-StarterGui:RegisterSetCore("TopbarEnabled", function(enabled) -- registers a placeholder setcore function that keeps track of players enabling/disabling the topbar before it's ready.
-	if type(enabled) == "boolean" then
-		topbarEnabled = enabled
-	end
-end)
 
 local settingsActive = false
 

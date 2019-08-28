@@ -343,6 +343,7 @@ local function displayContents(page, localized)
 			MaxHeight = 38,
 			LayoutOrder = 100,
 			TextSize = Constants.TEXT_SIZE,
+			ZIndex = 3,
 		}, {
 			Selector = Roact.createElement(Dropdown, {
 				Entries = localized.Genres,

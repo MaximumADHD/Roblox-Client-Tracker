@@ -48,8 +48,8 @@ local pluginGui
 
 local function makePluginGui()
 	pluginGui = plugin:CreateQWidgetPluginGui(plugin.Name, {
-		Size = Vector2.new(960, 600),
-		MinSize = Vector2.new(960, 600),
+		Size = Vector2.new(960, 650),
+		MinSize = Vector2.new(960, 650),
 		Resizable = false,
 		Modal = true,
 		InitialEnabled = false,

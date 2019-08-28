@@ -19,6 +19,8 @@ AssetConfigConstants.GetOverrideAssetNumbersPerPage = 100
 
 AssetConfigConstants.TITLE_GUTTER_WIDTH = 180
 
+AssetConfigConstants.OverrideAssetItemSize = UDim2.new(0, 150, 0, 200)
+
 AssetConfigConstants.SIDE_TABS = convertArrayToTable({
 	"Sales",
 	"General",

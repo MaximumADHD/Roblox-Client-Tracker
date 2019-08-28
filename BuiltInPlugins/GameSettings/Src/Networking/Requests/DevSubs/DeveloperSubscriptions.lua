@@ -33,9 +33,6 @@ local function uploadImage(image)
 	:andThen(function(imageId)
 		return imageId
 	end)
-	:catch(function()
-		return 0
-	end)
 end
 
 local function discontinueDeveloperSubscription(devSub)
@@ -53,22 +50,33 @@ local function discontinueDeveloperSubscription(devSub)
 		},
 	}
 
-	Http.RequestInternal(requestInfo)
-	:andThen(function(response)
-		-- TODO(esauer): do stuff with this
+	return Http.RequestInternal(requestInfo)
+	:catch(function(err)
+		-- TODO: Once api setups error codes, return specific errors for the fields
+		return Promise.reject({
+			TableErrors = {
+				TableName = "DeveloperSubscriptions",
+				TableKey = devSub.Key,
+				ValueKey = "Name",
+				Error = {Moderated = "Name has been moderated"}
+			}
+		})
 	end)
 end
 
-local function changedDeveloperSubscription(devSub)
-	-- handle the image of this developer subscription
-	uploadImage(devSub.Image):andThen(function(imageId)
-		local url = Http.BuildRobloxUrl(PLAN_REQUEST_TYPE, PLAN_URL, devSub.Id)
+local function changedDeveloperSubscription(currDevSub, changedDevSubData)
+	local function changeDevSubRequest(newImageId)
+		if newImageId == nil then
+			newImageId = string.match(currDevSub.Image, "%d+")
+		end
+
+		local url = Http.BuildRobloxUrl(PLAN_REQUEST_TYPE, PLAN_URL, currDevSub.Id)
 		local body = HttpService:JSONEncode({
-			imageAssetId = imageId,
-			name = devSub.Name,
-			description = devSub.Description,
-			priceInRobux = tonumber(devSub.Price),
+			imageAssetId = newImageId,
+			name = changedDevSubData.Name or currDevSub.Name,
+			description = changedDevSubData.Description or (currDevSub.Description or ""),
 		})
+
 		local requestInfo = {
 			Url = url,
 			Method = "PATCH",
@@ -79,15 +87,33 @@ local function changedDeveloperSubscription(devSub)
 			},
 		}
 
-		Http.RequestInternal(requestInfo)
-		:andThen(function(response)
-			-- TODO(esauer): do stuff with this
-		end)
-	end)
+		return Http.RequestInternal(requestInfo)
+	end
+
+	local function returnError(err)
+		-- TODO: Once api setups error codes, return specific errors for the fields
+		return Promise.reject({
+			TableErrors = {
+				TableName = "DeveloperSubscriptions",
+				TableKey = currDevSub.Key,
+				ValueKey = "Name",
+				Error = {Moderated = "Name has been moderated"}
+			}
+		})
+	end
+
+	if changedDevSubData.Image then
+		return uploadImage(changedDevSubData.Image)
+		:andThen(changeDevSubRequest)
+		:catch(returnError)
+	else
+		return changeDevSubRequest()
+		:catch(returnError)
+	end
 end
 
 local function newDeveloperSubscription(new)
-	uploadImage(new.Image):andThen(function(imageId)
+	return uploadImage(new.Image):andThen(function(imageId)
 		local url = Http.BuildRobloxUrl(PLANS_REQUEST_TYPE, PLANS_URL, game.GameId)
 		local body = HttpService:JSONEncode({
 			imageAssetId = imageId,
@@ -105,10 +131,18 @@ local function newDeveloperSubscription(new)
 			},
 		}
 
-		Http.RequestInternal(requestInfo)
-		:andThen(function(response)
-			-- TODO(esauer): do stuff with this
-		end)
+		return Http.RequestInternal(requestInfo)
+	end)
+	:catch(function(err)
+		-- TODO: Add rest of api errors when they are setup
+		return Promise.reject({
+			TableErrors = {
+				TableName = "DeveloperSubscriptions",
+				TableKey = new.Key,
+				ValueKey = "Name",
+				Error = {Moderated = "Name has been moderated"}
+			}
+		})
 	end)
 end
 
@@ -147,10 +181,11 @@ local function GetOpenOrClosedSubscriptions(getOpenDevSubs)
 			for _, data in pairs(response.data) do
 				local subscription = {
 					IsNew = false,
-					Key = data.id,
+					Key = tostring(data.id),
 					Id = data.id,
 					Image = "rbxassetid://"..data.imageAssetId,
 					Name = data.name,
+					Description = data.description,
 					Price = data.priceInRobux,
 					Active = (data.status == "Open"),
 					Subscribers = 0,
@@ -200,24 +235,26 @@ function DeveloperSubscriptions.Set(gameId, developerSubscriptions)
 		return Promise.resolve({})
 	end
 
+	local requests = {}
+
 	local current = developerSubscriptions.Current
 	local changed = developerSubscriptions.Changed
-	local devSubs = DeepMergeTables.Merge(current, changed)
+
 
 	for key, _ in pairs(changed) do
-		local devSub = devSubs[key]
-		if devSub.IsNew then
-			newDeveloperSubscription(devSub)
+		local changedDevSubData = changed[key]
+		if changedDevSubData.IsNew == true then
+			table.insert(requests, newDeveloperSubscription(changedDevSubData))
 		else
-			if not devSub.Active then
-				discontinueDeveloperSubscription(devSub)
+			if changedDevSubData.Active == false then
+				table.insert(requests, discontinueDeveloperSubscription(current[key], changedDevSubData))
 			else
-				changedDeveloperSubscription(devSub)
+				table.insert(requests, changedDeveloperSubscription(current[key], changedDevSubData))
 			end
 		end
 	end
 
-	return Promise.resolve({})
+	return Promise.all(requests)
 end
 
 return DeveloperSubscriptions

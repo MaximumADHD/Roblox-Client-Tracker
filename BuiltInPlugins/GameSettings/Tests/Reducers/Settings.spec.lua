@@ -6,13 +6,19 @@ return function()
 	local SettingsReducer = require(Plugin.Src.Reducers.Settings)
 
 	local AddChange = require(Plugin.Src.Actions.AddChange)
-	local AddTableChange = require(Plugin.Src.Actions.AddTableChange)
 	local AddErrors = require(Plugin.Src.Actions.AddErrors)
-	local AddTableErrors = require(Plugin.Src.Actions.AddTableErrors)
 	local DiscardChanges = require(Plugin.Src.Actions.DiscardChanges)
-	local DiscardTableChange = require(Plugin.Src.Actions.DiscardTableChange)
 	local DiscardErrors = require(Plugin.Src.Actions.DiscardErrors)
+
+	local AddTableChange = require(Plugin.Src.Actions.AddTableChange)
+	local DiscardTableChanges = require(Plugin.Src.Actions.DiscardTableChanges)
 	local DiscardTableErrors = require(Plugin.Src.Actions.DiscardTableErrors)
+
+	local AddTableKeyChange = require(Plugin.Src.Actions.AddTableKeyChange)
+	local AddTableKeyErrors = require(Plugin.Src.Actions.AddTableKeyErrors)
+	local DiscardTableKeyChanges = require(Plugin.Src.Actions.DiscardTableKeyChanges)
+	local DiscardTableKeyErrors = require(Plugin.Src.Actions.DiscardTableKeyErrors)
+
 	local SetCurrentSettings = require(Plugin.Src.Actions.SetCurrentSettings)
 	local AddWarning = require(Plugin.Src.Actions.AddWarning)
 	local DiscardWarning = require(Plugin.Src.Actions.DiscardWarning)
@@ -95,13 +101,17 @@ return function()
 			it("should add a key to Changed if different from its current value", function()
 				local startState = {
 					Current = {
-						key1 = {
-							key2 = "CurrValue",
+						tableName = {
+							tableKey = {
+								valueKey = "CurrValue",
+							},
 						},
 					},
 					Changed = {
-						key1 = {
-							key2 = "OtherValue",
+						tableName = {
+							tableKey = {
+								valueKey = "OtherValue",
+							},
 						},
 					},
 					Errors = {},
@@ -112,22 +122,29 @@ return function()
 					{Rodux.thunkMiddleware}
 				)
 
-				store:dispatch(AddTableChange({"key1", "key2"}, "SomeValue"))
+				store:dispatch(AddTableChange("tableName", "tableKey", {valueKey = "SomeValue"}))
 
-				expect(store:getState().Changed.key1.key2).to.equal("SomeValue")
+				expect(store:getState().Changed.tableName.tableKey.valueKey).to.equal("SomeValue")
 			end)
 
 			it("should remove a key within Changed if set back to its actual value", function()
 				local startState = {
 					Current = {
-						key1 = {
-							key2 = "CurrValue",
+						tableName = {
+							tableKey = {
+								valueKey = "CurrValue",
+							},
 						},
 					},
 					Changed = {
-						key1 = {
-							key2 = "OtherValue",
-							key3 = "SomeOtherValue",
+						tableName = {
+							tableKey = {
+								valueKey = "OtherValue",
+								valueKey3 = "SomeOtherValue",
+							},
+							tableKey2 = {
+								valueKey2 = "SomeOtherValue",
+							},
 						},
 					},
 					Errors = {},
@@ -138,22 +155,26 @@ return function()
 					{Rodux.thunkMiddleware}
 				)
 
-				store:dispatch(AddTableChange({"key1", "key2"}, "CurrValue"))
+				store:dispatch(AddTableChange("tableName", "tableKey", {valueKey = "CurrValue"}))
 
-				expect(store:getState().Changed.key1.key2).never.to.be.ok()
-				expect(store:getState().Changed.key1.key3).to.equal("SomeOtherValue")
+				expect(store:getState().Changed.tableName.tableKey).never.to.be.ok()
+				expect(store:getState().Changed.tableName.tableKey2.valueKey2).to.equal("SomeOtherValue")
 			end)
 
-			it("should remove a key within Changed if set back to its actual value along with collapsing empty tables besides Changed", function()
+			it("should remove a key within Changed if set back to its actual value along with collapsing empty Changed tables", function()
 				local startState = {
 					Current = {
-						key1 = {
-							key2 = "CurrValue",
+						tableName = {
+							tableKey = {
+								valueKey = "CurrValue",
+							},
 						},
 					},
 					Changed = {
-						key1 = {
-							key2 = "OtherValue",
+						tableName = {
+							tableKey = {
+								valueKey = "OtherValue",
+							},
 						},
 					},
 					Errors = {},
@@ -164,23 +185,36 @@ return function()
 					{Rodux.thunkMiddleware}
 				)
 
-				store:dispatch(AddTableChange({"key1", "key2"}, "CurrValue"))
+				store:dispatch(AddTableChange("tableName", "tableKey", {valueKey = "CurrValue"}))
 
-				expect(store:getState().Changed.key1).never.to.be.ok()
+				expect(store:getState().Changed.tableName).never.to.be.ok()
 			end)
 
 			it("should remove any errors related to the changed setting", function()
 				local startState = {
 					Current = {
-						key1 = {key2 = "SomeCurrValue" },
+						tableName = {
+							tableKey = {
+								valueKey = "SomeCurrValue"
+							},
+						},
 					},
 					Changed = {
-						key1 = {key2 = "SomeOtherValue" },
+						tableName = {
+							tableKey = {
+								valueKey = "SomeOtherValue"
+							},
+						},
 					},
 					Errors = {
-						key1 = {
-							key2 = "SomeError",
-							key3 = "SomeOtherError",
+						tableName = {
+							tableKey = {
+								valueKey = "SomeError",
+								valueKey3 = "SomeError2",
+							},
+							tableKey2 = {
+								valueKey2 = "SomeOtherError",
+							},
 						},
 					},
 				}
@@ -190,23 +224,33 @@ return function()
 					{Rodux.thunkMiddleware}
 				)
 
-				store:dispatch(AddTableChange({"key1", "key2"}, "OtherValue"))
+				store:dispatch(AddTableChange("tableName", "tableKey", {valueKey = "OtherValue"}))
 
-				expect(store:getState().Errors.key1.key2).never.to.be.ok()
-				expect(store:getState().Errors.key1.key3).to.equal("SomeOtherError")
+				expect(store:getState().Errors.tableName.tableKey).never.to.be.ok()
+				expect(store:getState().Errors.tableName.tableKey2.valueKey2).to.equal("SomeOtherError")
 			end)
 
-			it("should remove any errors related to the changed setting along with collapsing empty tables besides Errors", function()
+			it("should remove any errors related to the changed setting along with collapsing empty Error tables", function()
 				local startState = {
 					Current = {
-						key1 = {key2 = "SomeCurrValue" },
+						tableName = {
+							tableKey = {
+								valueKey = "SomeCurrValue"
+							},
+						},
 					},
 					Changed = {
-						key1 = {key2 = "SomeOtherValue" },
+						tableName = {
+							tableKey = {
+								valueKey = "SomeOtherValue"
+							},
+						},
 					},
 					Errors = {
-						key1 = {
-							key2 = "SomeError",
+						tableName = {
+							tableKey = {
+								valueKey = "SomeError",
+							},
 						},
 					},
 				}
@@ -216,9 +260,274 @@ return function()
 					{Rodux.thunkMiddleware}
 				)
 
-				store:dispatch(AddTableChange({"key1", "key2"}, "OtherValue"))
+				store:dispatch(AddTableChange("tableName", "tableKey", {valueKey = "OtherValue"}))
 
-				expect(store:getState().Errors.key1).never.to.be.ok()
+				expect(store:getState().Errors.tableName).never.to.be.ok()
+			end)
+
+			it("should shallow copy other tables that are unchanged", function()
+				local startState = {
+					Current = {
+						tableName = {
+							tableKey = {
+								valueKey = "SomeCurrValue"
+							},
+						},
+						tableName2 = {
+							tableKey2 = {
+								valueKey2 = "SomeCurrValue2"
+							},
+						},
+					},
+					Changed = {
+						tableName = {
+							tableKey = {
+								valueKey = "SomeOtherValue"
+							},
+						},
+						tableName2 = {
+							tableKey2 = {
+								valueKey2 = "SomeOtherValue2"
+							},
+						},
+					},
+					Errors = {
+						tableName = {
+							tableKey = {
+								valueKey = "SomeError",
+							},
+						},
+						tableName2 = {
+							tableKey2 = {
+								valueKey2 = "SomeError2",
+							},
+						},
+					},
+				}
+				local store = Rodux.Store.new(
+					SettingsReducer,
+					startState,
+					{Rodux.thunkMiddleware}
+				)
+
+				store:dispatch(AddTableChange("tableName", "tableKey", {valueKey = "OtherValue"}))
+
+				expect(store:getState().Changed.tableName2).to.equal(startState.Changed.tableName2)
+				expect(store:getState().Errors.tableName2).to.equal(startState.Errors.tableName2)
+			end)
+		end)
+
+		describe("AddTableKeyChange", function()
+			it("should add a key to Changed if different from its current value", function()
+				local startState = {
+					Current = {
+						tableName = {
+							tableKey = {
+								valueKey = "CurrValue",
+							},
+						},
+					},
+					Changed = {
+						tableName = {
+							tableKey = {
+								valueKey = "OtherValue",
+							},
+						},
+					},
+					Errors = {},
+				}
+				local store = Rodux.Store.new(
+					SettingsReducer,
+					startState,
+					{Rodux.thunkMiddleware}
+				)
+
+				store:dispatch(AddTableKeyChange("tableName", "tableKey", "valueKey", "SomeValue"))
+
+				expect(store:getState().Changed.tableName.tableKey.valueKey).to.equal("SomeValue")
+			end)
+
+			it("should remove a key within Changed if set back to its actual value", function()
+				local startState = {
+					Current = {
+						tableName = {
+							tableKey = {
+								valueKey = "CurrValue",
+							},
+						},
+					},
+					Changed = {
+						tableName = {
+							tableKey = {
+								valueKey = "OtherValue",
+								valueKey2 = "SomeOtherValue",
+							},
+						},
+					},
+					Errors = {},
+				}
+				local store = Rodux.Store.new(
+					SettingsReducer,
+					startState,
+					{Rodux.thunkMiddleware}
+				)
+
+				store:dispatch(AddTableKeyChange("tableName", "tableKey", "valueKey", "CurrValue"))
+
+				expect(store:getState().Changed.tableName.tableKey.valueKey).never.to.be.ok()
+				expect(store:getState().Changed.tableName.tableKey.valueKey2).to.equal("SomeOtherValue")
+			end)
+
+			it("should remove a key within Changed if set back to its actual value along with collapsing empty Changed tables", function()
+				local startState = {
+					Current = {
+						tableName = {
+							tableKey = {
+								valueKey = "CurrValue",
+							},
+						},
+					},
+					Changed = {
+						tableName = {
+							tableKey = {
+								valueKey = "OtherValue",
+							},
+						},
+					},
+					Errors = {},
+				}
+				local store = Rodux.Store.new(
+					SettingsReducer,
+					startState,
+					{Rodux.thunkMiddleware}
+				)
+
+				store:dispatch(AddTableKeyChange("tableName", "tableKey", "valueKey", "CurrValue"))
+
+				expect(store:getState().Changed.tableName).never.to.be.ok()
+			end)
+
+			it("should remove any errors related to the changed setting", function()
+				local startState = {
+					Current = {
+						tableName = {
+							tableKey = {
+								valueKey = "SomeCurrValue"
+							},
+						},
+					},
+					Changed = {
+						tableName = {
+							tableKey = {
+								valueKey = "SomeOtherValue"
+							},
+						},
+					},
+					Errors = {
+						tableName = {
+							tableKey = {
+								valueKey = "SomeError",
+								valueKey2 = "SomeOtherError",
+							},
+						},
+					},
+				}
+				local store = Rodux.Store.new(
+					SettingsReducer,
+					startState,
+					{Rodux.thunkMiddleware}
+				)
+
+				store:dispatch(AddTableKeyChange("tableName", "tableKey", "valueKey", "OtherValue"))
+
+				expect(store:getState().Errors.tableName.tableKey.valueKey).never.to.be.ok()
+				expect(store:getState().Errors.tableName.tableKey.valueKey2).to.equal("SomeOtherError")
+			end)
+
+			it("should remove any errors related to the changed setting along with collapsing empty Error tables", function()
+				local startState = {
+					Current = {
+						tableName = {
+							tableKey = {
+								valueKey = "SomeCurrValue"
+							},
+						},
+					},
+					Changed = {
+						tableName = {
+							tableKey = {
+								valueKey = "SomeOtherValue"
+							},
+						},
+					},
+					Errors = {
+						tableName = {
+							tableKey = {
+								valueKey = "SomeError",
+							},
+						},
+					},
+				}
+				local store = Rodux.Store.new(
+					SettingsReducer,
+					startState,
+					{Rodux.thunkMiddleware}
+				)
+
+				store:dispatch(AddTableKeyChange("tableName", "tableKey", "valueKey", "OtherValue"))
+
+				expect(store:getState().Errors.tableName).never.to.be.ok()
+			end)
+
+			it("should shallow copy other tables that are unchanged", function()
+				local startState = {
+					Current = {
+						tableName = {
+							tableKey = {
+								valueKey = "SomeCurrValue"
+							},
+						},
+						tableName2 = {
+							tableKey2 = {
+								valueKey2 = "SomeCurrValue2"
+							},
+						},
+					},
+					Changed = {
+						tableName = {
+							tableKey = {
+								valueKey = "SomeOtherValue"
+							},
+						},
+						tableName2 = {
+							tableKey2 = {
+								valueKey2 = "SomeOtherValue2"
+							},
+						},
+					},
+					Errors = {
+						tableName = {
+							tableKey = {
+								valueKey = "SomeError",
+							},
+						},
+						tableName2 = {
+							tableKey2 = {
+								valueKey2 = "SomeError2",
+							},
+						},
+					},
+				}
+				local store = Rodux.Store.new(
+					SettingsReducer,
+					startState,
+					{Rodux.thunkMiddleware}
+				)
+
+				store:dispatch(AddTableKeyChange("tableName", "tableKey", "valueKey", "OtherValue"))
+
+				expect(store:getState().Changed.tableName2).to.equal(startState.Changed.tableName2)
+				expect(store:getState().Errors.tableName2).to.equal(startState.Errors.tableName2)
 			end)
 		end)
 	end
@@ -266,13 +575,19 @@ return function()
 	end)
 
 	if DFFlagDeveloperSubscriptionsEnabled then
-		describe("AddTableErrors", function()
+		describe("AddTableKeyErrors", function()
 			it("should join Errors and the new values", function()
 				local startState = {
 					Current = {},
 					Changed = {},
 					Errors = {
-						key1 = {key2 = {ExistingKey = "ExistingError"}},
+						tableName = {
+							tableKey = {
+								valueKey = {
+									ExistingKey = "ExistingError"
+								},
+							},
+						},
 					},
 				}
 				local store = Rodux.Store.new(
@@ -280,11 +595,10 @@ return function()
 					startState,
 					{Rodux.thunkMiddleware}
 				)
-
-				store:dispatch(AddTableErrors({"key1", "key2"}, {NewKey = "NewError"}))
-
-				expect(store:getState().Errors.key1.key2.ExistingKey).to.equal("ExistingError")
-				expect(store:getState().Errors.key1.key2.NewKey).to.equal("NewError")
+				store:dispatch(AddTableKeyErrors("tableName", "tableKey", "valueKey", {NewKey = "NewError"}))
+ 
+				expect(store:getState().Errors.tableName.tableKey.valueKey.ExistingKey).to.equal("ExistingError")
+				expect(store:getState().Errors.tableName.tableKey.valueKey.NewKey).to.equal("NewError")
 			end)
 
 			it("should replace an old error with a new one", function()
@@ -292,18 +606,56 @@ return function()
 					Current = {},
 					Changed = {},
 					Errors = {
-						key1 = {key2 = {ExistingKey = "ExistingError"}},
+						tableName = {
+							tableKey = {
+								valueKey = {
+									ExistingKey = "ExistingError"
+								},
+							},
+						},
 					},
 				}
+
 				local store = Rodux.Store.new(
 					SettingsReducer,
 					startState,
 					{Rodux.thunkMiddleware}
 				)
+				store:dispatch(AddTableKeyErrors("tableName", "tableKey", "valueKey", {ExistingKey = "NewError"}))
+ 
+				expect(store:getState().Errors.tableName.tableKey.valueKey.ExistingKey).to.equal("NewError")
+			end)
 
-				store:dispatch(AddTableErrors({"key1", "key2"}, {ExistingKey = "NewError"}))
+			it("should shallow copy unchanged error tables", function()
+				local startState = {
+					Current = {},
+					Changed = {},
+					Errors = {
+						tableName = {
+							tableKey = {
+								valueKey = {
+									ExistingKey = "ExistingError"
+								},
+							},
+						},
+						tableName2 = {
+							tableKey2 = {
+								valueKey2 = {
+									ExistingKey2 = "ExistingError2"
+								},
+							},
+						},
+					},
+				}
 
-				expect(store:getState().Errors.key1.key2.ExistingKey).to.equal("NewError")
+				local store = Rodux.Store.new(
+					SettingsReducer,
+					startState,
+					{Rodux.thunkMiddleware}
+				)
+				store:dispatch(AddTableKeyErrors("tableName", "tableKey", "valueKey", {NewKey = "NewError"}))
+ 
+				expect(store:getState().Errors.tableName2).to.equal(startState.Errors.tableName2)
 			end)
 		end)
 	end
@@ -331,13 +683,17 @@ return function()
 	end)
 
 	if DFFlagDeveloperSubscriptionsEnabled then
-		describe("DiscardTableChange", function()
-			it("should remove the Changed values by keys", function()
+		describe("DiscardTableChanges", function()
+			it("should correctly remove a change", function()
 				local startState = {
 					Changed = {
-						key1 = {
-							key2 = "SomeValue",
-							key3 = "SomeOtherValue",
+						tableName = {
+							tableKey = {
+								valueKey = "SomeValue",
+							},
+							tableKey2 = {
+								valueKey2 = "SomeValue",
+							},
 						},
 					},
 					Errors = {},
@@ -348,17 +704,18 @@ return function()
 					{Rodux.thunkMiddleware}
 				)
 
-				store:dispatch(DiscardTableChange({"key1", "key2"}))
+				store:dispatch(DiscardTableChanges("tableName", "tableKey"))
 
-				expect(store:getState().Changed.key1.key2).never.to.be.ok()
-				expect(store:getState().Changed.key1.key3).to.equal("SomeOtherValue")
+				expect(store:getState().Changed.tableName.tableKey).never.to.be.ok()
 			end)
 
-			it("should remove the Changed values by keys and collapse empty tables besides Changed", function()
+			it("should collapse empty tables in Changed after discarding a change", function()
 				local startState = {
 					Changed = {
-						key1 = {
-							key2 = "SomeValue",
+						tableName = {
+							tableKey = {
+								valueKey = "SomeValue",
+							},
 						},
 					},
 					Errors = {},
@@ -369,23 +726,31 @@ return function()
 					{Rodux.thunkMiddleware}
 				)
 
-				store:dispatch(DiscardTableChange({"key1", "key2"}))
+				store:dispatch(DiscardTableChanges("tableName", "tableKey", "valueKey"))
 
-				expect(store:getState().Changed.key1).never.to.be.ok()
+				expect(store:getState().Changed.tableName).never.to.be.ok()
 			end)
 
 			it("should remove errors associated with discarded keys", function()
 				local startState = {
 					Changed = {
-						key1 = {
-							key2 = "SomeValue",
-							key3 = "SomeOtherValue",
+						tableName = {
+							tableKey = {
+								valueKey = "SomeValue",
+							},
+							tableKey2 = {
+								valueKey2 = "SomeValueError",
+							},
 						},
 					},
 					Errors = {
-						key1 = {
-							key2 = "SomeError",
-							key3 = "SomeOtherError"
+						tableName = {
+							tableKey = {
+								valueKey = "SomeError",
+							},
+							tableKey2 = {
+								valueKey2 = "SomeError2",
+							},
 						},
 					},
 				}
@@ -395,24 +760,26 @@ return function()
 					{Rodux.thunkMiddleware}
 				)
 
-				store:dispatch(DiscardTableChange({"key1", "key2"}))
+				store:dispatch(DiscardTableChanges("tableName", "tableKey", "valueKey"))
 
-				expect(store:getState().Changed.key1.key2).never.to.be.ok()
-				expect(store:getState().Errors.key1.key2).never.to.be.ok()
-				expect(store:getState().Errors.key1.key3).to.equal("SomeOtherError")
+				expect(store:getState().Errors.tableName.tableKey).never.to.be.ok()
+				expect(store:getState().Errors.tableName.tableKey2.valueKey2).to.equal("SomeError2")
 			end)
 
-			it("should remove errors associated with discarded keys and collapse empty tables besides Errors", function()
+			it("should collapse empty tables in Errors after discarding a change", function()
 				local startState = {
 					Changed = {
-						key1 = {
-							key2 = "SomeValue",
-							key3 = "SomeOtherValue",
+						tableName = {
+							tableKey = {
+								valueKey = "SomeValue",
+							},
 						},
 					},
 					Errors = {
-						key1 = {
-							key2 = "SomeError",
+						tableName = {
+							tableKey = {
+								valueKey = "SomeError",
+							},
 						},
 					},
 				}
@@ -422,11 +789,194 @@ return function()
 					{Rodux.thunkMiddleware}
 				)
 
-				store:dispatch(DiscardTableChange({"key1", "key2"}))
+				store:dispatch(DiscardTableChanges("tableName", "tableKey", "valueKey"))
 
-				expect(store:getState().Changed.key1.key2).never.to.be.ok()
-				expect(store:getState().Changed.key1.key3).to.equal("SomeOtherValue")
-				expect(store:getState().Errors.key1).never.to.be.ok()
+				expect(store:getState().Errors.tableName).never.to.be.ok()
+			end)
+
+			it("should shallow copy other tables after discarding a change", function()
+				local startState = {
+					Changed = {
+						tableName = {
+							tableKey = {
+								valueKey = "SomeValue",
+							},
+						},
+						tableName2 = {
+							tableKey2 = {
+								valueKey2 = "SomeValue2",
+							},
+						},
+					},
+					Errors = {
+						tableName = {
+							tableKey = {
+								valueKey = "SomeError",
+							},
+						},
+						tableName2 = {
+							tableKey2 = {
+								valueKey2 = "SomeError2",
+							},
+						},
+					},
+				}
+				local store = Rodux.Store.new(
+					SettingsReducer,
+					startState,
+					{Rodux.thunkMiddleware}
+				)
+
+				store:dispatch(DiscardTableKeyChanges("tableName", "tableKey", "valueKey"))
+
+				expect(store:getState().Changed.tableName2).to.equal(startState.Changed.tableName2)
+				expect(store:getState().Errors.tableName2).to.equal(startState.Errors.tableName2)
+			end)
+		end)
+
+		describe("DiscardTableKeyChanges", function()
+			it("should correctly remove a change", function()
+				local startState = {
+					Changed = {
+						tableName = {
+							tableKey = {
+								valueKey = "SomeValue",
+								valueKey2 = "SomeValue2",
+							},
+						},
+					},
+					Errors = {},
+				}
+				local store = Rodux.Store.new(
+					SettingsReducer,
+					startState,
+					{Rodux.thunkMiddleware}
+				)
+
+				store:dispatch(DiscardTableKeyChanges("tableName", "tableKey", "valueKey"))
+
+				expect(store:getState().Changed.tableName.tableKey.valueKey).never.to.be.ok()
+				expect(store:getState().Changed.tableName.tableKey.valueKey2).to.equal("SomeValue2")
+			end)
+
+			it("should collapse empty tables in Changed after discarding a change", function()
+				local startState = {
+					Changed = {
+						tableName = {
+							tableKey = {
+								valueKey = "SomeValue",
+							},
+						},
+					},
+					Errors = {},
+				}
+				local store = Rodux.Store.new(
+					SettingsReducer,
+					startState,
+					{Rodux.thunkMiddleware}
+				)
+
+				store:dispatch(DiscardTableKeyChanges("tableName", "tableKey", "valueKey"))
+
+				expect(store:getState().Changed.tableName).never.to.be.ok()
+			end)
+
+			it("should remove errors associated with discarded keys", function()
+				local startState = {
+					Changed = {
+						tableName = {
+							tableKey = {
+								valueKey = "SomeValue",
+								valueKey2 = "SomeValue2",
+							},
+						},
+					},
+					Errors = {
+						tableName = {
+							tableKey = {
+								valueKey = "SomeError",
+								valueKey2 = "SomeError2"
+							},
+						},
+					},
+				}
+				local store = Rodux.Store.new(
+					SettingsReducer,
+					startState,
+					{Rodux.thunkMiddleware}
+				)
+
+				store:dispatch(DiscardTableKeyChanges("tableName", "tableKey", "valueKey"))
+
+				expect(store:getState().Errors.tableName.tableKey.valueKey).never.to.be.ok()
+				expect(store:getState().Errors.tableName.tableKey.valueKey2).to.equal("SomeError2")
+			end)
+
+			it("should collapse empty tables in Errors after discarding a change", function()
+				local startState = {
+					Changed = {
+						tableName = {
+							tableKey = {
+								valueKey = "SomeValue",
+							},
+						},
+					},
+					Errors = {
+						tableName = {
+							tableKey = {
+								valueKey = "SomeError",
+							},
+						},
+					},
+				}
+				local store = Rodux.Store.new(
+					SettingsReducer,
+					startState,
+					{Rodux.thunkMiddleware}
+				)
+
+				store:dispatch(DiscardTableKeyChanges("tableName", "tableKey", "valueKey"))
+
+				expect(store:getState().Errors.tableName).never.to.be.ok()
+			end)
+
+			it("should shallow copy other tables after discarding a change", function()
+				local startState = {
+					Changed = {
+						tableName = {
+							tableKey = {
+								valueKey = "SomeValue",
+							},
+						},
+						tableName2 = {
+							tableKey2 = {
+								valueKey2 = "SomeValue2",
+							},
+						},
+					},
+					Errors = {
+						tableName = {
+							tableKey = {
+								valueKey = "SomeError",
+							},
+						},
+						tableName2 = {
+							tableKey2 = {
+								valueKey2 = "SomeError2",
+							},
+						},
+					},
+				}
+				local store = Rodux.Store.new(
+					SettingsReducer,
+					startState,
+					{Rodux.thunkMiddleware}
+				)
+
+				store:dispatch(DiscardTableKeyChanges("tableName", "tableKey", "valueKey"))
+
+				expect(store:getState().Changed.tableName2).to.equal(startState.Changed.tableName2)
+				expect(store:getState().Errors.tableName2).to.equal(startState.Errors.tableName2)
 			end)
 		end)
 	end
@@ -459,9 +1009,13 @@ return function()
 				local startState = {
 					Changed = {},
 					Errors = {
-						key1 = {
-							key2 = {SomeError = "SomeErrorValue"},
-							key3 = {SomeOtherError = "SomeOtherErrorValue"},
+						tableName = {
+							tableKey = {
+								valueKey = {SomeError = "SomeErrorValue"},
+							},
+							tableKey2 = {
+								valueKey2 = {SomeError2 = "SomeErrorValue2"},
+							}
 						},
 					},
 				}
@@ -471,18 +1025,20 @@ return function()
 					{Rodux.thunkMiddleware}
 				)
 
-				store:dispatch(DiscardTableErrors({"key1", "key2"}))
+				store:dispatch(DiscardTableErrors("tableName", "tableKey"))
 
-				expect(store:getState().Errors.key1.key2).never.to.be.ok()
-				expect(store:getState().Errors.key1.key3.SomeOtherError).to.equal("SomeOtherErrorValue")
+				expect(store:getState().Errors.tableName.tableKey).never.to.be.ok()
+				expect(store:getState().Errors.tableName.tableKey2.valueKey2.SomeError2).to.equal("SomeErrorValue2")
 			end)
 
 			it("should empty the Errors of a certian key and collapse empty tables besides Errors", function()
 				local startState = {
 					Changed = {},
 					Errors = {
-						key1 = {
-							key2 = {SomeError = "SomeErrorValue"},
+						tableName = {
+							tableKey = {
+								valueKey = {SomeError = "SomeErrorValue"},
+							},
 						},
 					},
 				}
@@ -492,9 +1048,111 @@ return function()
 					{Rodux.thunkMiddleware}
 				)
 
-				store:dispatch(DiscardTableErrors({"key1", "key2"}))
+				store:dispatch(DiscardTableErrors("tableName", "tableKey"))
 
-				expect(store:getState().Errors.key1).never.to.be.ok()
+				expect(store:getState().Errors.tableName).never.to.be.ok()
+			end)
+
+			it("should shallow copy untouched tables", function()
+				local startState = {
+					Changed = {},
+					Errors = {
+						tableName = {
+							tableKey = {
+								valueKey = {SomeError = "SomeErrorValue"},
+							}
+						},
+						tableName2 = {
+							tableKey2 = {
+								valueKey2 = {SomeError = "SomeErrorValue"},
+							}
+						},
+					},
+				}
+				local store = Rodux.Store.new(
+					SettingsReducer,
+					startState,
+					{Rodux.thunkMiddleware}
+				)
+
+				store:dispatch(DiscardTableErrors("tableName", "tableKey"))
+
+				expect(store:getState().Errors.tableName2).to.equal(startState.Errors.tableName2)
+			end)
+		end)
+
+		describe("DiscardTableKeyErrors", function()
+			it("should empty the Errors of a certian key", function()
+				local startState = {
+					Changed = {},
+					Errors = {
+						tableName = {
+							tableKey = {
+								valueKey = {SomeError = "SomeErrorValue"},
+								valueKey2 = {SomeError2 = "SomeErrorValue2"},
+							}
+						},
+					},
+				}
+				local store = Rodux.Store.new(
+					SettingsReducer,
+					startState,
+					{Rodux.thunkMiddleware}
+				)
+
+				store:dispatch(DiscardTableKeyErrors("tableName", "tableKey", "valueKey"))
+
+				expect(store:getState().Errors.tableName.tableKey.valueKey).never.to.be.ok()
+				expect(store:getState().Errors.tableName.tableKey.valueKey2.SomeError2).to.equal("SomeErrorValue2")
+			end)
+
+			it("should empty the Errors of a certian key and collapse empty tables besides Errors", function()
+				local startState = {
+					Changed = {},
+					Errors = {
+						tableName = {
+							tableKey = {
+								valueKey = {SomeError = "SomeErrorValue"},
+							},
+						},
+					},
+				}
+				local store = Rodux.Store.new(
+					SettingsReducer,
+					startState,
+					{Rodux.thunkMiddleware}
+				)
+
+				store:dispatch(DiscardTableKeyErrors("tableName", "tableKey", "valueKey"))
+
+				expect(store:getState().Errors.tableName).never.to.be.ok()
+			end)
+
+			it("should shallow copy untouched tables", function()
+				local startState = {
+					Changed = {},
+					Errors = {
+						tableName = {
+							tableKey = {
+								valueKey = {SomeError = "SomeErrorValue"},
+							}
+						},
+						tableName2 = {
+							tableKey2 = {
+								valueKey2 = {SomeError = "SomeErrorValue"},
+							}
+						},
+					},
+				}
+				local store = Rodux.Store.new(
+					SettingsReducer,
+					startState,
+					{Rodux.thunkMiddleware}
+				)
+
+				store:dispatch(DiscardTableKeyErrors("tableName", "tableKey", "valueKey"))
+
+				expect(store:getState().Errors.tableName2).to.equal(startState.Errors.tableName2)
 			end)
 		end)
 	end

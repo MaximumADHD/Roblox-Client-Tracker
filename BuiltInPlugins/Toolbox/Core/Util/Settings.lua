@@ -12,6 +12,7 @@ Settings.__index = Settings
 -- Built in plugins share the same namespace for settings, so mark this as from the toolbox
 local SETTING_PREFIX = "Toolbox_"
 local SELECTED_BACKGROUND_INDEX_KEY = SETTING_PREFIX .. "SelectedBackgroundIndex"
+local SELECTED_TAB_KEY = SETTING_PREFIX .. "SelectTab"
 local SELECTED_CATEGORY_INDEX_KEY = SETTING_PREFIX .. "SelectedCategoryIndex"
 local SELECTED_SEARCH_TERM_KEY = SETTING_PREFIX .. "SelectedSearchTerm"
 local SELECTED_SORT_INDEX_KEY = SETTING_PREFIX .. "SelectedSortIndex"
@@ -68,6 +69,14 @@ function Settings:setSelectedBackgroundIndex(index)
 	return self:_setSetting(SELECTED_BACKGROUND_INDEX_KEY, index)
 end
 
+function Settings:getSelectTab()
+	return self:_setSetting(SELECTED_TAB_KEY, Category.MARKETPLACE_KEY)
+end
+
+function Settings:setSelectTab(currentTab)
+	return self:_setSetting(SELECTED_TAB_KEY, currentTab)
+end
+
 function Settings:getSelectedCategoryIndex()
 	return self:_getSetting(SELECTED_CATEGORY_INDEX_KEY, 1)
 end
@@ -97,6 +106,7 @@ function Settings:updateFromPageInfo(pageInfo)
 		print("Settings:updateFromPageInfo()")
 	end
 
+	self:setSelectTab(pageInfo.currentTab)
 	self:setSelectedCategoryIndex(pageInfo.categoryIndex)
 	self:setSelectedSearchTerm(pageInfo.searchTerm)
 	self:setSelectedSortIndex(pageInfo.sortIndex)
@@ -108,29 +118,30 @@ function Settings:loadInitialSettings()
 		print("Settings:loadInitialSettings()")
 	end
 
-	local settings = {}
+	local initSettings = {}
 
-	settings.backgroundIndex = self:getSelectedBackgroundIndex()
-	settings.categoryIndex = self:getSelectedCategoryIndex()
-	settings.searchTerm = self:getSelectedSearchTerm()
-	settings.sortIndex = self:getSelectedSortIndex()
+	initSettings.backgroundIndex = self:getSelectedBackgroundIndex()
+	initSettings.tab = self:getSelectTab()
+	initSettings.categoryIndex = self:getSelectedCategoryIndex()
+	initSettings.searchTerm = self:getSelectedSearchTerm()
+	initSettings.sortIndex = self:getSelectedSortIndex()
 
-	if Category.categoryIsGroupAsset(Constants.DEFAULT_TAB, settings.categoryIndex) then
-		settings.categoryIndex = 1
+	if Category.categoryIsGroupAsset(Constants.DEFAULT_TAB, initSettings.categoryIndex) then
+		initSettings.categoryIndex = 1
 	end
 
 	if game:FindFirstChild("DefaultToolboxSearch") then
-		settings.searchTerm = game.DefaultToolboxSearch.Value
+		initSettings.searchTerm = game.DefaultToolboxSearch.Value
 		-- Also set the initial category to free models and relevant sort
-		settings.categoryIndex = 1
-		settings.sortIndex = Sort.getDefaultSortForCategory(settings.categoryIndex)
+		initSettings.categoryIndex = 1
+		initSettings.sortIndex = Sort.getDefaultSortForCategory(initSettings.categoryIndex)
 	end
 
-	if not Sort.canSort(settings.searchTerm, settings.categoryIndex) then
-		settings.sortIndex = Sort.getDefaultSortForCategory(settings.categoryIndex)
+	if not Sort.canSort(initSettings.searchTerm, initSettings.categoryIndex) then
+		initSettings.sortIndex = Sort.getDefaultSortForCategory(initSettings.categoryIndex)
 	end
 
-	return settings
+	return initSettings
 end
 
 return Settings

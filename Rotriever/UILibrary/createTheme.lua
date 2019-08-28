@@ -55,6 +55,7 @@ return function(style, overrides)
 
 	local tooltip = {
 		font = style.font,
+		textSize = 12,
 
 		backgroundColor = style.itemColor,
 		borderColor = style.borderColor,

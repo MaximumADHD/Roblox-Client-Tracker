@@ -1,5 +1,3 @@
-if not settings():GetFFlag("DeveloperSubscriptionsEnabled") then return nil end
-
 local Plugin = script.Parent.Parent.Parent
 local Cryo = require(Plugin.Cryo)
 

@@ -65,7 +65,7 @@ function AssetCreatorName:init(props)
 			local options = {
 				Creator = props.creatorName,
 			}
-			props.searchWithOptions(networkInterface, settings,options)
+			props.searchWithOptions(networkInterface, settings, options)
 		end
 	end
 end

@@ -23,6 +23,7 @@ function PageInfoHelper.getCategoryForPageInfo(pageInfo)
 end
 
 function PageInfoHelper.getSortType(sorts, index)
+	if not (sorts and index) then return nil end
 	local sort = sorts[index]
 
 	if not sort or not sort.sort then

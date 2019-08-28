@@ -20,7 +20,6 @@ return function(props)
 	local text = props.Text
 	local layoutOrder = props.LayoutOrder
 	local alignment = props.Alignment
-	local textColor3 = props.TextColor3
 
 	return withTheme(function(theme)
 		return Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Normal, {
@@ -28,7 +27,6 @@ return function(props)
 			Text = text,
 			LayoutOrder = layoutOrder,
 
-			TextColor3 = textColor3 or theme.titledFrame.text,
 			TextXAlignment = alignment,
 
 			BackgroundTransparency = 1,

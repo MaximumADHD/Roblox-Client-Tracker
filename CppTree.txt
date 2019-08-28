@@ -416,6 +416,7 @@ RBX
 		Humanoid
 		Instance
 		LocalizationTable
+		MDIInstance
 		MemberDescriptor
 		ModelInstance
 		PartInstance
@@ -742,6 +743,7 @@ RBX
 	D6Link
 	DataModelJob
 	DataModelMesh
+	DataModelSession
 	DataStore
 	DataStoreJob
 	DataStorePages
@@ -902,6 +904,7 @@ RBX
 	ImageHandleAdornment
 	ImageLabel
 	IMarketplaceApiClient
+	IMDIManagerHost
 	IMetric
 	IModelModifier
 	IMoving
@@ -980,8 +983,11 @@ RBX
 	MarketplaceService
 	MaterialTool
 	MaterialVerb
+	MDIInstance
 	MechanicalJoint
 	Mechanism
+	MechanismInterpolationParallelManager
+	MechanismInterpolationParallelTask
 	MechToAssemblyStage
 	MegaClusterInstance
 	MemStorageConnection
@@ -1083,7 +1089,6 @@ RBX
 	Pose
 	PostEffect
 	Primitive
-	PriorityThreadPool
 	PVAdornment
 	PVInstance
 	QWidgetPluginGui
@@ -1282,5 +1287,6 @@ RBX
 	WeldJoint
 	WeldTool
 	Workspace
+	WorkspaceInterpolatorInterface
 	WorkspaceStatsItem
 }

@@ -1,17 +1,15 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 
-local Util = Plugin.Core.Util
-local ContextGetter = require(Util.ContextGetter)
-
-local getSettings = ContextGetter.getSettings
-
-local GetAssets = require(Plugin.Core.Actions.GetAssets)
-local NetworkError = require(Plugin.Core.Actions.NetworkError)
-local SetLoading = require(Plugin.Core.Actions.SetLoading)
-local SetCachedCreatorInfo = require(Plugin.Core.Actions.SetCachedCreatorInfo)
+local Actions = Plugin.Core.Actions
+local GetAssets = require(Actions.GetAssets)
+local NetworkError = require(Actions.NetworkError)
+local SetLoading = require(Actions.SetLoading)
+local SetCachedCreatorInfo = require(Actions.SetCachedCreatorInfo)
+local SetCurrentPage = require(Actions.SetCurrentPage)
 
 local Category = require(Plugin.Core.Types.Category)
 
+local Util = Plugin.Core.Util
 local PageInfoHelper = require(Util.PageInfoHelper)
 local PagedRequestCursor = require(Util.PagedRequestCursor)
 local DebugFlags = require(Util.DebugFlags)
@@ -63,6 +61,7 @@ end
 local function dispatchGetAssets(store, pageInfo, creationDetailsTable, creatorName, nextCursor)
 	local assetType = PageInfoHelper.getEngineAssetTypeForPageInfoCategory(pageInfo)
 	store:dispatch(GetAssets(convertCreationsDetailsToResultsFormat(creationDetailsTable, assetType, creatorName), nil, nextCursor))
+	store:dispatch(SetCurrentPage(0))
 	store:dispatch(SetLoading(false))
 end
 
@@ -74,75 +73,81 @@ local function dispatchGetAssetsWarning(store, errorText, nextCursor)
 	store:dispatch(SetLoading(false))
 end
 
-return function(networkInterface, pageInfo)
+return function(networkInterface, pageInfoOnStart)
 	return function(store)
-		if store:getState().assets.isLoading or store:getState().assets.hasReachedBottom then
-			return
+		store:dispatch(SetLoading(true))
+		local isCreatorSearchEmpty = pageInfoOnStart.creator and pageInfoOnStart.creator.Id == -1
+		local isCreationSearch = Category.CREATIONS_KEY == pageInfoOnStart.currentTab
+
+		local errorFunc = function(result)
+			store:dispatch(NetworkError(result))
+			store:dispatch(SetLoading(false))
 		end
 
-		store:dispatch(SetLoading(true))
+		local generalGetAssetHandleFunc = function(result)
+			-- Base on pageInfoOnStart and current pageInfo, we can decide what to do after the asset is loaded
+			local data = result.responseBody
+			local pageInfo = store:getState().pageInfo
+			local categoryOnStart = pageInfoOnStart.categories[pageInfoOnStart.categoryIndex]
+			local categoryOnRequestFinish = pageInfo.categories[pageInfo.categoryIndex]
+			if categoryOnStart == categoryOnRequestFinish and pageInfoOnStart.targetPage - pageInfo.currentPage == 1 then
+				if data then
+					dispatchCreatorInfo(store, extractCreatorInfo(data.Results))
+					store:dispatch(GetAssets(data.Results or {}, data.TotalResults))
+					-- If success get asset, update currentPage.
+					store:dispatch(SetCurrentPage(pageInfoOnStart.targetPage))
+				end
+				store:dispatch(SetLoading(false))
+			end
+		end
 
-		if pageInfo.creator and pageInfo.creator.Id == -1 then
+		-- Search Creator
+		if isCreatorSearchEmpty then
 			local data = {
 				Results = {},
 				TotalResults = 0,
 			}
 			store:dispatch(GetAssets(data.Results, data.TotalResults))
+			store:dispatch(SetCurrentPage(0))
 			store:dispatch(SetLoading(false))
-		else
-			local errorFunc = function(result)
-				store:dispatch(NetworkError(result))
-				store:dispatch(SetLoading(false))
-			end
-
-			if Category.CREATIONS_KEY == pageInfo.currentTab then
-				local currentCursor = store:getState().assets.currentCursor
-				if PagedRequestCursor.isNextPageAvailable(currentCursor) then
-					return networkInterface:getAssetCreations(pageInfo, PagedRequestCursor.getNextPageCursor(currentCursor)):andThen(function(creationsResult)
-						local nextCursor = PagedRequestCursor.createCursor(creationsResult.responseBody)
-						local assetIds = extractAssetIdsFromGetAssetsResponse(creationsResult.responseBody and creationsResult.responseBody.data)
-						if assetIds and #assetIds > 0 then
-							networkInterface:getAssetCreationDetails(assetIds):andThen(function(creationDetailsResult)
-								local creationDetailsTable = creationDetailsResult.responseBody
-								if creationDetailsTable and #creationDetailsTable > 0 then
-									local isNameEndPointCallRequired = false
-									local cachedCreatorId = store:getState().assets.cachedCreatorInfo and store:getState().assets.cachedCreatorInfo.Id
-									local newCreatorId = creationDetailsTable[1].creatorTargetId
-									if (not cachedCreatorId) or cachedCreatorId ~= newCreatorId then
-										isNameEndPointCallRequired = true
-										networkInterface:getCreatorName(creationDetailsTable[1].creatorTargetId):andThen(function(creatorNameResult)
-											local creatorName = creatorNameResult.responseBody and creatorNameResult.responseBody.Username
-											dispatchCreatorInfo(store, newCreatorId, creatorName)
-											dispatchGetAssets(store, pageInfo, creationDetailsTable, creatorName, nextCursor)
-										end, errorFunc)
-									end
-
-									if not isNameEndPointCallRequired then
-										local creatorName = store:getState().assets.cachedCreatorInfo.Name
-										dispatchGetAssets(store, pageInfo, creationDetailsTable, creatorName, nextCursor)
-									end
-								else
-									dispatchGetAssetsWarning(store, "getAssetCreationDetails() did not return any asset details", nextCursor)
+		elseif isCreationSearch then -- General Category Search
+			-- Creations search
+			local currentCursor = store:getState().assets.currentCursor
+			if PagedRequestCursor.isNextPageAvailable(currentCursor) then
+				return networkInterface:getAssetCreations(pageInfoOnStart, PagedRequestCursor.getNextPageCursor(currentCursor)):andThen(function(creationsResult)
+					local nextCursor = PagedRequestCursor.createCursor(creationsResult.responseBody)
+					local assetIds = extractAssetIdsFromGetAssetsResponse(creationsResult.responseBody and creationsResult.responseBody.data)
+					if assetIds and #assetIds > 0 then
+						networkInterface:getAssetCreationDetails(assetIds):andThen(function(creationDetailsResult)
+							local creationDetailsTable = creationDetailsResult.responseBody
+							if creationDetailsTable and #creationDetailsTable > 0 then
+								local isNameEndPointCallRequired = false
+								local cachedCreatorId = store:getState().assets.cachedCreatorInfo and store:getState().assets.cachedCreatorInfo.Id
+								local newCreatorId = creationDetailsTable[1].creatorTargetId
+								if (not cachedCreatorId) or cachedCreatorId ~= newCreatorId then
+									isNameEndPointCallRequired = true
+									networkInterface:getCreatorName(creationDetailsTable[1].creatorTargetId):andThen(function(creatorNameResult)
+										local creatorName = creatorNameResult.responseBody and creatorNameResult.responseBody.Username
+										dispatchCreatorInfo(store, newCreatorId, creatorName)
+										dispatchGetAssets(store, pageInfoOnStart, creationDetailsTable, creatorName, nextCursor)
+									end, errorFunc)
 								end
-							end, errorFunc)
-						else
-							dispatchGetAssetsWarning(store, "getAssetCreations() did not return any assets for cursor", nextCursor)
-						end
-					end, errorFunc)
-				else
-					store:dispatch(SetLoading(false))
-				end
-			else
-				local handlerFunc = function(result)
-					local data = result.responseBody
-					if data then
-						dispatchCreatorInfo(store, extractCreatorInfo(data.Results))
-						store:dispatch(GetAssets(data.Results or {}, data.TotalResults))
+
+								if not isNameEndPointCallRequired then
+									local creatorName = store:getState().assets.cachedCreatorInfo.Name
+									dispatchGetAssets(store, pageInfoOnStart, creationDetailsTable, creatorName, nextCursor)
+								end
+							else
+								dispatchGetAssetsWarning(store, "getAssetCreationDetails() did not return any asset details", nextCursor)
+							end
+						end, errorFunc)
+					else
+						dispatchGetAssetsWarning(store, "getAssetCreations() did not return any assets for cursor", nextCursor)
 					end
-					store:dispatch(SetLoading(false))
-				end
-				return networkInterface:getAssets(pageInfo):andThen(handlerFunc, errorFunc)
+				end, errorFunc)
 			end
+		else -- Everything elase, change category, tabs, and getAsset
+			return networkInterface:getAssets(pageInfoOnStart):andThen(generalGetAssetHandleFunc, errorFunc)
 		end
 	end
 end

@@ -1,10 +1,11 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 local Cryo = require(Plugin.Libs.Cryo)
 
-local GetAssetsRequest = require(Plugin.Core.Networking.Requests.GetAssetsRequest)
+local RequestReason = require(Plugin.Core.Types.RequestReason)
+
+local UpdatePageInfoAndSendRequest = require(Plugin.Core.Networking.Requests.UpdatePageInfoAndSendRequest)
 
 local ClearAssets = require(Plugin.Core.Actions.ClearAssets)
-local UpdatePageInfo = require(Plugin.Core.Actions.UpdatePageInfo)
 
 local SetLiveSearch = require(Plugin.Core.Actions.SetLiveSearch)
 local SetLoading = require(Plugin.Core.Actions.SetLoading)
@@ -32,45 +33,37 @@ local function searchUsers(networkInterface, searchTerm, store)
 	end)
 end
 
-local function setAndDispatchSearch(networkInterface, settings, options, store)
-	if options.SortIndex then
-		store:dispatch(UpdatePageInfo({
-			sortIndex = options.SortIndex,
-		}, settings))
-	end
-
-	store:dispatch(UpdatePageInfo({
-		page = 1,
-	}, settings))
-
-	store:dispatch(SetLoading(false))
-	store:dispatch(GetAssetsRequest(networkInterface, store:getState().pageInfo))
-end
-
 return function(networkInterface, settings, options)
 	return function(store)
-		if store:getState().assets.isLoading then
-			return
-		end
-
 		store:dispatch(SetLoading(true))
 		store:dispatch(ClearAssets())
 
 		if options.Creator and options.Creator ~= "" then
 			searchUsers(networkInterface, options.Creator, store):andThen(function(results)
-				store:dispatch(UpdatePageInfo({
+				store:dispatch(SetLoading(false))
+				store:dispatch(UpdatePageInfoAndSendRequest(networkInterface, settings, {
+					targetPage = 1,
+					currentPage = 0,
 					creator = results,
-				}, settings))
-				setAndDispatchSearch(networkInterface, settings, options, store)
+					sortIndex = options.SortIndex or 1, -- defualt to 1
+					requestReason = RequestReason.StartSearch,
+				}))
 
 				Analytics.onCreatorSearched(options.Creator, results.Id)
+			end,
+			function(err)
+				-- We should still handle the error if searchUser fails.
 			end)
 		else
+			store:dispatch(SetLoading(false))
 			store:dispatch(SetLiveSearch("", {}))
-			store:dispatch(UpdatePageInfo({
+			store:dispatch(UpdatePageInfoAndSendRequest(networkInterface, settings, {
+				targetPage = 1,
+				currentPage = 0,
+				sortIndex = options.SortIndex or 1, -- defualt to 1
 				creator = Cryo.None,
-			}, settings))
-			setAndDispatchSearch(networkInterface, settings, options, store)
+				requestReason = RequestReason.StartSearch,
+			}))
 		end
 	end
 end

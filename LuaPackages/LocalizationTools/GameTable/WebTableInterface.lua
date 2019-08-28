@@ -24,6 +24,7 @@ local LocalizationTableUploadTranslationMax =
 	tonumber(settings():GetFVariable("LocalizationTableUploadTranslationMax")) or 250
 
 local UnofficialLanguageSupportEnabled = settings():GetFFlag("UnofficialLanguageSupportEnabled")
+local ThrowDetailedMessageForBadEntries = settings():GetFFlag("ThrowDetailedMessageForBadEntries")
 
 return function(studioUserId)
 --[[When a tableid is obtained, remember the gameId associated with it, then check
@@ -189,8 +190,19 @@ local function DownloadGameTableWithId(gameId, tableId)
 		pageDownloader:download():andThen(
 			function(receivedEntries)
 				local localizationTable = Instance.new("LocalizationTable")
-				localizationTable:SetEntries(receivedEntries)
-				resolve(localizationTable)
+				if ThrowDetailedMessageForBadEntries then
+					local success, result = pcall(function()
+						localizationTable:SetEntries(receivedEntries)
+						resolve(localizationTable)
+					end)
+					if not success then
+						warn(result)
+						reject("Game table download failed (See Output)")
+					end
+				else
+					localizationTable:SetEntries(receivedEntries)
+					resolve(localizationTable)
+				end
 			end,
 			function(errorMessage)
 				reject(errorMessage)

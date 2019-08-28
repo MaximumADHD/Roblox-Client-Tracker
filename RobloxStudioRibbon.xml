@@ -40,7 +40,6 @@
         <addaction fflag ="DebugFastFlagEditor" name="flagEditorAction"/>
       </submenu>
       <addseparator />
-      <addaction fflag ="DebugStudioExperimentalMerge3" name="experimentalMerge3Action"/>
       <addaction fflag ="DebugStudioDumpUntranslatedStrings" name="dumpUntranslatedStringsCsvAction"/>
       <addaction fflag ="DebugStudioDumpUntranslatedStrings" name="dumpUntranslatedStringsHeaderAction"/>
       <addaction name="aboutRobloxAction"/>
@@ -68,7 +67,7 @@
         <addseparator visible="false"/>
         <addaction name="toggleCollisionCheckAction" style="textbesideicon" text="Studio.App.RobloxRibbonMainWindow.Collisions" tooltip="Studio.App.RobloxRibbonMainWindow.CheckCollisionsDragging" icon=":/RibbonBar/images/RibbonIcons/Home/Collisions-Enabled-16x16.png" width="16" height="16"/>
         <addaction name="toggleConstraintCheckAction" style="textbesideicon" text="Studio.App.RobloxRibbonMainWindow.Constraints" tooltip="Studio.App.RobloxRibbonMainWindow.SolveConstraintsWhileDragging" icon=":/RibbonBar/images/RibbonIcons/Physics/constraint-32x32.png" width="16" height="16"/>
-        <addaction name="toggleJointCreationAction" fflag="KillSurfaceJointsPart1" style="textbesideicon" text="Join Surfaces" tooltip="Join Surfaces"  icon=":/RibbonBar/images/RibbonIcons/Home/Join.png"  width="16" height="16" />
+        <addaction name="toggleJointCreationAction" fflag="KillSurfaceJointsPart1" style="textbesideicon" text="Studio.App.RobloxRibbonMainWindow.JoinSurfaces" tooltip="Studio.App.RobloxRibbonMainWindow.JoinSurfacesTooltip"  icon=":/RibbonBar/images/RibbonIcons/Home/Join.png"  width="16" height="16" />
         <MenuButton handleMenuTrigger="false" fflag="!KillSurfaceJointsPart1" name="jointCreationMode" style="textbesideicon" text="Studio.App.RobloxRibbonMainWindow.Join" icon=":/RibbonBar/images/RibbonIcons/Home/Join.png" tooltip="Studio.App.RobloxRibbonMainWindow.ChooseHowPartsJoin" width="16" height="16">
           <ActionGroup name="jointCreationMode" style="textundericon" ischeckable="true">
             <addaction name="Always" text="Studio.App.RobloxRibbonMainWindow.Always" value="Always" icon=":/RibbonBar/images/RibbonIcons/Home/Join.png" tooltip="Studio.App.RobloxRibbonMainWindow.AlwaysJoinAdjacentParts" width="32" height="32"/>
@@ -173,7 +172,7 @@
         <addseparator visible="false"/>
         <addaction name="toggleCollisionCheckAction" style="textbesideicon" text="Studio.App.RobloxRibbonMainWindow.Collisions" tooltip="Studio.App.RobloxRibbonMainWindow.CheckCollisionsDragging" icon=":/RibbonBar/images/RibbonIcons/Home/Collisions-Enabled-16x16.png" width="16" height="16"/>
         <addaction name="toggleConstraintCheckAction" style="textbesideicon" text="Studio.App.RobloxRibbonMainWindow.Constraints" tooltip="Studio.App.RobloxRibbonMainWindow.SolveConstraintsWhileDragging" icon=":/RibbonBar/images/RibbonIcons/Physics/constraint-32x32.png" width="16" height="16"/>
-        <addaction name="toggleJointCreationAction" fflag="KillSurfaceJointsPart1" style="textbesideicon" text="Join Surfaces" tooltip="Join Surfaces"  icon=":/RibbonBar/images/RibbonIcons/Home/Join.png"  width="16" height="16" />
+        <addaction name="toggleJointCreationAction" fflag="KillSurfaceJointsPart1" style="textbesideicon" text="Studio.App.RobloxRibbonMainWindow.JoinSurfaces" tooltip="Studio.App.RobloxRibbonMainWindow.JoinSurfacesTooltip" icon=":/RibbonBar/images/RibbonIcons/Home/Join.png"  width="16" height="16" />
         <MenuButton handleMenuTrigger="false" fflag="!KillSurfaceJointsPart1" name="jointCreationMode" style="textbesideicon" text="Studio.App.RobloxRibbonMainWindow.Join" icon=":/RibbonBar/images/RibbonIcons/Home/Join.png" tooltip="Studio.App.RobloxRibbonMainWindow.ChooseHowPartsJoin" width="16" height="16">
           <ActionGroup name="jointCreationMode" style="textundericon" ischeckable="true">
             <addaction name="Always" text="Studio.App.RobloxRibbonMainWindow.Always" value="Always" icon=":/RibbonBar/images/RibbonIcons/Home/Join.png" tooltip="Studio.App.RobloxRibbonMainWindow.AlwaysJoinAdjacentParts" width="32" height="32"/>
@@ -368,6 +367,9 @@
       <Group name="Audio" text="Studio.App.RobloxRibbonMainWindow.Audio">
         <addaction name="audioToggleAction" iscommonslot="true" style="textundericon" ischeckable="true" icon=":/RibbonBar/images/RibbonIcons/Test/Audio-Disabled.png" width="32" height="32" text="Studio.App.RobloxRibbonMainWindow.Mute" tooltip="Studio.App.RobloxRibbonMainWindow.ToggleGameAudioSounds"/>
       </Group>
+      <Group name="Collaboration" text="Studio.App.RobloxRibbonMainWindow.Collaboration" fflag="StudioVersionControlAlpha">
+        <addaction name="toggleDraftsDockAction" style="textundericon" text="Studio.App.RBXMainWindow.Drafts" tooltip="Studio.App.RBXMainWindow.ViewDrafts" icon=":/RibbonBar/images/RibbonIcons/View/Drafts.png" width="32" height="32" ischeckable="true" fflag="StudioVersionControlAlpha"/>
+      </Group>
     </TabPage>
     <!--
       RIBBON BAR VIEW TAB
@@ -412,7 +414,7 @@
             width="32"/>
         <!-- TODO(mmcdonnell 8/114/2019): Remove toggleSandboxCppDockAction with SandboxWidgetMockup (C++ widget). See CLISTUDIO-19603 -->
         <addaction name="toggleSandboxCppDockAction" style="textbesideicon" tooltip="Studio.App.RBXMainWindow.ViewSandboxCpp" height="32" width="32" fflag="DebugStudioSandboxControllerMockup"/>
-        <addaction name="toggleSandboxDockAction" style="textbesideicon" tooltip="Studio.App.RBXMainWindow.ViewSandbox" height="32" width="32" fflag="StudioVersionControlAlpha"/>
+        <addaction name="toggleDraftsDockAction" style="textbesideicon" text="Studio.App.RBXMainWindow.Drafts" tooltip="Studio.App.RBXMainWindow.ViewDrafts" icon=":/RibbonBar/images/RibbonIcons/View/Drafts.png" width="32" height="32" ischeckable="true" fflag="StudioVersionControlAlpha"/>
       </Group>
       <Group name="Actions" text="Studio.App.RobloxRibbonMainWindow.Actions">
         <addaction name="viewSelectorAction" style="textundericon" text="Studio.App.RBXMainWindow.ViewSelector" tooltip="Studio.App.RBXMainWindow.ViewSelectorTooltip" type="plugin" icon=":/RibbonBar/images/RibbonIcons/View/View-Selector.png" width="32" height="32"/>

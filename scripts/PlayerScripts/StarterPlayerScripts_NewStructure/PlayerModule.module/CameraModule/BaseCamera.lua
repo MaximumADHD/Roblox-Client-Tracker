@@ -56,6 +56,13 @@ local GAMEPAD_ZOOM_STEP_1 = 0
 local GAMEPAD_ZOOM_STEP_2 = 10
 local GAMEPAD_ZOOM_STEP_3 = 20
 
+local PAN_SENSITIVITY = 20
+local ZOOM_CURVE_MODIFIER = 0.156
+local ZOOM_CURVE_DIRECTION_MODIFIER = 1.7
+
+local abs = math.abs
+local sign = math.sign
+
 local bindAtPriorityFlagExists, bindAtPriorityFlagEnabled = pcall(function()
 	return UserSettings():IsUserFeatureEnabled("UserPlayerScriptsBindAtPriority2")
 end)
@@ -70,6 +77,13 @@ local betterDynamicTouchstickCameraFlagExists, betterDynamicTouchstickCameraFlag
 	return UserSettings():IsUserFeatureEnabled("UserBetterDynamicTouchstickCamera")
 end)
 local FFlagUserBetterDynamicTouchstickCamera = betterDynamicTouchstickCameraFlagExists and betterDynamicTouchstickCameraFlagEnabled
+
+local FFlagUserPointerActionsInPlayerScripts do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("FFlagUserPointerActionsInPlayerScripts")
+	end)
+	FFlagUserPointerActionsInPlayerScripts = success and result
+end
 
 local Util = require(script.Parent:WaitForChild("CameraUtils"))
 local ZoomController = require(script.Parent:WaitForChild("ZoomController"))
@@ -532,7 +546,7 @@ function BaseCamera:OnInputChanged(input, processed)
 		self:OnTouchChanged(input, processed)
 	elseif input.UserInputType == Enum.UserInputType.MouseMovement then
 		self:OnMouseMoved(input, processed)
-	elseif input.UserInputType == Enum.UserInputType.MouseWheel then
+	elseif input.UserInputType == Enum.UserInputType.MouseWheel and not FFlagUserPointerActionsInPlayerScripts then -- remove with FFlagUserPointerActionsInPlayerScripts
 		self:OnMouseWheel(input, processed)
 	end
 end
@@ -553,7 +567,31 @@ function BaseCamera:OnInputEnded(input, processed)
 	end
 end
 
+function BaseCamera:OnPointerAction(wheel, pan, pinch, processed)
+	if pan.Magnitude > 0 then
+		self.rotateInput = self.rotateInput + self:InputTranslationToCameraAngleChange(PAN_SENSITIVITY*pan, MOUSE_SENSITIVITY)
+	end
+
+	local zoom = wheel + pinch
+	if abs(zoom) > 0 then
+		local newDistance
+		if self.inFirstPerson and zoom > 0 then
+			newDistance = FIRST_PERSON_DISTANCE_THRESHOLD
+		else
+			newDistance = self.currentSubjectDistance + ZOOM_CURVE_MODIFIER*self.currentSubjectDistance*zoom + ZOOM_CURVE_DIRECTION_MODIFIER*sign(zoom)
+		end
+
+		self:SetCameraToSubjectDistance(newDistance)
+	end
+end
+
 function BaseCamera:ConnectInputEvents()
+	if FFlagUserPointerActionsInPlayerScripts then
+		self.pointerActionConn = UserInputService.PointerAction:Connect(function(wheel, pan, pinch, processed)
+			self:OnPointerAction(wheel, pan, pinch, processed)
+		end)
+	end
+
 	self.inputBeganConn = UserInputService.InputBegan:Connect(function(input, processed)
 		self:OnInputBegan(input, processed)
 	end)
@@ -634,6 +672,10 @@ function BaseCamera:UnbindContextActions()
 end
 
 function BaseCamera:Cleanup()
+	if FFlagUserPointerActionsInPlayerScripts and self.pointerActionConn then
+		self.pointerActionConn:Disconnect()
+		self.pointerActionConn = nil
+	end
 	if self.menuOpenedConn then
 		self.menuOpenedConn:Disconnect()
 		self.menuOpenedConn = nil
@@ -1134,7 +1176,7 @@ function BaseCamera:OnMousePanButtonReleased(input, processed)
 	end
 end
 
-function BaseCamera:OnMouseWheel(input, processed)
+function BaseCamera:OnMouseWheel(input, processed)  -- remove with FFlagUserPointerActionsInPlayerScripts
 	if not self.hasGameLoaded and VRService.VREnabled then
 		return
 	end

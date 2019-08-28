@@ -46,7 +46,7 @@ function FetchSubdividedThumbnails._fetchIcons(store, networkImpl, targetIds, ic
 					if Thumbnail.isCompleteThumbnailData(iconInfo) then
 						local targetId = tostring(iconInfo.targetId)
 						local success = false
-						if iconInfo.state == "Completed" then
+						if Thumbnail.checkStateIsFinal(iconInfo.state) then
 							validIcons[targetId] = Thumbnail.fromThumbnailData(iconInfo, iconSize)
 							success = true
 						end
@@ -81,7 +81,7 @@ function FetchSubdividedThumbnails._fetch(store, networkImpl, targetIds, size, k
 			for k, result in pairs(iconResults) do
 				local isSuccessful, iconInfo = result:unwrap()
 				-- Retry icon request for targetId that failed.
-				if isSuccessful and iconInfo.state == "Completed" then
+				if isSuccessful and Thumbnail.checkStateIsFinal(iconInfo.state) then
 					completedIcons[k] = result
 				else
 					table.insert(remainingUnfinalizedIcons, iconInfo)

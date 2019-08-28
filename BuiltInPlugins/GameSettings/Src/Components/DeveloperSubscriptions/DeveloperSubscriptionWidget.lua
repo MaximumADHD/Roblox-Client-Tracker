@@ -49,7 +49,6 @@ function DeveloperSubscriptionWidget:init()
 			Subscribers = 0,
 			Active = false,
 			Id = -1,
-			Image = "None",
 		}
 
 		-- in this case, we can borrow the functionality of this
@@ -87,6 +86,7 @@ function DeveloperSubscriptionWidget:render()
 		return Roact.createElement(DeveloperSubscriptionList, {
 			DeveloperSubscriptions = developerSubscriptions,
 			ModeratedDevSubs = props.ModeratedDevSubs,
+			DevSubsErrors = props.DevSubsErrors,
 			OnDeveloperSubscriptionEdited = self.onDeveloperSubscriptionEdited,
 			OnDeveloperSubscriptionCreated = self.onDeveloperSubscriptionCreated,
 		})

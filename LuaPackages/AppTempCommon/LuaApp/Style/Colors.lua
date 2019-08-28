@@ -17,7 +17,7 @@ local Colors = {
 	Alabaster = Color3.fromRGB(242, 244, 245),
 	Ash = Color3.fromRGB(234, 237, 239),
 	Chalk = Color3.fromRGB(216, 219, 222),
-	Smoke = Color3.fromRGB(118, 120, 121),
+	Smoke = Color3.fromRGB(96, 97, 98),
 }
 
 return Colors

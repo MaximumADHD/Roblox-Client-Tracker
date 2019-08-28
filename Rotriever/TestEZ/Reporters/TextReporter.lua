@@ -17,6 +17,10 @@ local UNKNOWN_STATUS_SYMBOL = "?"
 
 local TextReporter = {}
 
+local function compareNodes(a, b)
+	return a.planNode.phrase:lower() < b.planNode.phrase:lower()
+end
+
 local function reportNode(node, buffer, level)
 	buffer = buffer or {}
 	level = level or 0
@@ -43,6 +47,7 @@ local function reportNode(node, buffer, level)
 	end
 
 	table.insert(buffer, line)
+	table.sort(node.children, compareNodes)
 
 	for _, child in ipairs(node.children) do
 		reportNode(child, buffer, level + 1)
@@ -53,6 +58,7 @@ end
 
 local function reportRoot(node)
 	local buffer = {}
+	table.sort(node.children, compareNodes)
 
 	for _, child in ipairs(node.children) do
 		reportNode(child, buffer, 0)

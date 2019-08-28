@@ -1,3 +1,5 @@
+local FFlagPlayerListPremiumPadding = settings():GetFFlag("PlayerListPremiumPadding")
+
 return function(isTenFoot, isSmallTouchScreen)
 	local LayoutValues = {}
 
@@ -32,8 +34,8 @@ return function(isTenFoot, isSmallTouchScreen)
 		LayoutValues.TitleBackgroundTransparency = 0
 
 		LayoutValues.PlayerIconSize = UDim2.new(0, 64, 0, 64)
-		LayoutValues.InitalPlayerEntryPadding = 14
-		LayoutValues.PlayerEntryPadding = 4
+		LayoutValues.InitalPlayerEntryPadding = FFlagPlayerListPremiumPadding and 18 or 14
+		LayoutValues.PlayerEntryPadding = FFlagPlayerListPremiumPadding and 8 or 4
 
 		LayoutValues.PlayerNameSize = UDim2.new(1, -88, 1, 0)
 		LayoutValues.PlayerNameTextSize = 32
@@ -61,8 +63,8 @@ return function(isTenFoot, isSmallTouchScreen)
 		LayoutValues.TitleBackgroundTransparency = 0
 
 		LayoutValues.PlayerIconSize = UDim2.new(0, 16, 0, 16)
-		LayoutValues.InitalPlayerEntryPadding = 0
-		LayoutValues.PlayerEntryPadding = 2
+		LayoutValues.InitalPlayerEntryPadding = FFlagPlayerListPremiumPadding and 4 or 0
+		LayoutValues.PlayerEntryPadding = FFlagPlayerListPremiumPadding and 4 or 2
 
 		LayoutValues.PlayerNameSize = UDim2.new(1, -36, 1, 0)
 		LayoutValues.PlayerNameTextSize = 14

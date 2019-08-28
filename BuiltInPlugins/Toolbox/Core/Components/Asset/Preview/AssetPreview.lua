@@ -138,7 +138,7 @@ function AssetPreview:init(props)
 	end
 
 	self.tryInstall = function()
-		local assetData = props.assetData
+		local assetData = self.props.assetData
 		local assetVersionId = self.props.assetVersionId
 		local asset = assetData.Asset
 		local assetId = asset.Id
@@ -151,7 +151,7 @@ function AssetPreview:init(props)
 			assetVersionId = assetVersionId,
 			assetName = assetName,
 			assetTypeId = assetTypeId,
-			--onSuccess = self.onAssetInsertionSuccesful,
+			currentTab = self.props.currentTab,
 		})
 	end
 
@@ -483,14 +483,14 @@ local function mapStateToProps(state, props)
 
 	local assets = state.assets or {}
 	local voting = state.voting or {}
-
 	local idToAssetMap = assets.idToAssetMap or {}
-
 	local assetId = props.assetData.Asset.Id
+	local pageInfo = state.pageInfo or {}
 
 	return {
 		asset = idToAssetMap[assetId],
 		voting = voting[assetId] or {},
+		currentTab = pageInfo.currentTab,
 	}
 end
 

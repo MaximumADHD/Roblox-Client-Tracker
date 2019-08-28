@@ -6,27 +6,67 @@ local UILibrary = require(Plugin.Packages.UILibrary)
 local Localizing = UILibrary.Localizing
 local Separator = UILibrary.Component.Separator
 
-local SQUARE_BUTTON_SIZE = 140
+local DFFlagPreloadAsyncCallbackFunction = settings():getFFlag("PreloadAsyncCallbackFunction")
+local FFlagEnableRbxThumbAPI = settings():GetFFlag("EnableRbxThumbAPI")
+
+local ContentProvider = game:GetService("ContentProvider")
+
+local ICON_SIZE = 150
 local TILE_FOOTER_SIZE = 40
 
-local function TileGame(props)
+local TileGame = Roact.PureComponent:extend("TileGame")
+
+function TileGame:init()
+	self.state = {
+		assetFetchStatus = nil,		
+	}
+
+	self.isMounted = false
+
+	self.thumbnailUrl = string.format("rbxthumb://type=GameIcon&id=%i&w=%i&h=%i", self.props.Id, ICON_SIZE, ICON_SIZE)
+end
+
+function TileGame:didMount()
+	self.isMounted = true
+	if DFFlagPreloadAsyncCallbackFunction and FFlagEnableRbxThumbAPI then
+		spawn(function()
+			local asset = { self.thumbnailUrl }
+			local function setStatus(contentId, status)
+				if self.isMounted then
+					self:setState({
+						assetFetchStatus = status
+					})
+				end
+			end
+			ContentProvider:PreloadAsync(asset, setStatus)
+		end)
+	end
+end
+
+function TileGame:willUnmount()
+	self.isMounted = false
+end
+
+function TileGame:render()
 	return Theming.withTheme(function(theme)
 		return Localizing.withLocalization(function(localizing)
+			local props = self.props
+			
 			local name = props.Name
-			local image = props.Image
-
+			local layoutOrder = props.LayoutOrder or 0
 			local onActivated = props.OnActivated
 
 			return Roact.createElement("ImageButton", {
 				BackgroundTransparency = 1,
-				Size = UDim2.new(0, SQUARE_BUTTON_SIZE, 0, SQUARE_BUTTON_SIZE + TILE_FOOTER_SIZE),
+				Size = UDim2.new(0, ICON_SIZE, 0, ICON_SIZE + TILE_FOOTER_SIZE),
+				LayoutOrder = layoutOrder,
 
 				[Roact.Event.Activated] = onActivated
 			}, {
 				Icon = Roact.createElement("ImageLabel", {
 					Position = UDim2.new(0, 0, 0, 0),
 					Size = UDim2.new(1, 0, 1, -TILE_FOOTER_SIZE),
-					Image = image,
+					Image = self.state.assetFetchStatus == Enum.AssetFetchStatus.Success and self.thumbnailUrl or theme.icons.thumbnailPlaceHolder,
 					BorderSizePixel = 0,
 				}),
 

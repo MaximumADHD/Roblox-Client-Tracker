@@ -10,8 +10,6 @@ local FFlagStudioGameSettingsAccessPermissions = settings():GetFFlag("StudioGame
 
 local FFlagStudioGameSettingsBindToClose = game:DefineFastFlag("StudioGameSettingsBindToClose", false)
 
-game:DefineFastInt("DeveloperSubscriptionsMaxRobuxPrice", 2000)
-
 --Turn this on when debugging the store and actions
 local LOG_STORE_STATE_AND_EVENTS = false
 

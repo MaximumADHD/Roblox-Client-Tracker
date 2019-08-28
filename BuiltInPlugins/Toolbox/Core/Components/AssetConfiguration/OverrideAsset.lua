@@ -53,22 +53,29 @@ function OverrideAsset:init(props)
 	self.groupAdded = false
 
 	self.state = {
-		selectIndex = 1
+		selectIndex = 1,
+		selectItem = self.dropdownContent,
 	}
 
 	self.onDropDownSelect = function(index)
 		local item = self.dropdownContent[index]
-		self.props.getOverrideAssets(getNetwork(self), item.creatorType, item.creatorId)
+		self.props.getOverrideAssets(getNetwork(self), item.creatorType, item.creatorId, 1)
 		self:setState({
-			selectIndex = index
+			selectIndex = index,
+			selectItem = item,
 		})
+	end
+
+	self.getOverrideAssetsFunc = function(targetPage)
+		local selectItem = self.state.selectItem
+		self.props.getOverrideAssets(getNetwork(self), selectItem.creatorType, selectItem.creatorId, targetPage)
 	end
 end
 
 function OverrideAsset:didMount()
 	local userId = getUserId()
 	-- Initial request
-	self.props.getOverrideAssets(getNetwork(self), "User", userId)
+	self.props.getOverrideAssets(getNetwork(self), "User", userId, 1)
 	self.props.getMyGroups(getNetwork(self), userId)
 end
 
@@ -88,6 +95,7 @@ function OverrideAsset:render()
 			local onOverrideAssetSelected = props.onOverrideAssetSelected
 
 			local filteredResultsArray = props.filteredResultsArray
+			local getOverrideAssets = props.getOverrideAssets
 
 			local selectIndex = state.selectIndex
 
@@ -151,6 +159,7 @@ function OverrideAsset:render()
 					instances = instances,
 					resultsArray = filteredResultsArray,
 					onOverrideAssetSelected = onOverrideAssetSelected,
+					getOverrideAssets = self.getOverrideAssetsFunc,
 
 					LayoutOrder = 3,
 				})
@@ -172,8 +181,8 @@ end
 
 local function mapDispatchToProps(dispatch)
 	return {
-		getOverrideAssets = function(networkInterface, creatorType, creatorId)
-			dispatch(GetOverrideAssetRequest(networkInterface, creatorType, creatorId))
+		getOverrideAssets = function(networkInterface, creatorType, creatorId, targetPage)
+			dispatch(GetOverrideAssetRequest(networkInterface, creatorType, creatorId, targetPage))
 		end,
 
 		getMyGroups = function(networkInterface, userId)

@@ -7,9 +7,11 @@ local NetworkError = require(Plugin.Core.Actions.NetworkError)
 local SetCurrentScreen = require(Plugin.Core.Actions.SetCurrentScreen)
 local UploadResult = require(Plugin.Core.Actions.UploadResult)
 
-local DebugFlags = require(Plugin.Core.Util.DebugFlags)
-local AssetConfigConstants = require(Plugin.Core.Util.AssetConfigConstants)
-local SerializeInstances = require(Plugin.Core.Util.SerializeInstances)
+local Util = Plugin.Core.Util
+local DebugFlags = require(Util.DebugFlags)
+local AssetConfigConstants = require(Util.AssetConfigConstants)
+local SerializeInstances = require(Util.SerializeInstances)
+local Analytics = require(Util.Analytics.Analytics)
 
 local function createConfigDataTable(nameWithoutExtension, assetTypeId, description)
 	return {
@@ -52,10 +54,14 @@ return function(networkInterface, nameWithoutExtension, extension, description, 
 				if assetDetails.uploadAssetError then
 					store:dispatch(NetworkError(assetDetails.uploadAssetError))
 					store:dispatch(UploadResult(false))
+
+					Analytics.incrementUploadeAssetFailure(assetTypeId)
 					return
 				elseif assetDetails.assetId then
 					store:dispatch(SetAssetId(assetDetails.assetId))
 					store:dispatch(UploadResult(true))
+
+					Analytics.incrementUploadAssetSuccess(assetTypeId)
 					return
 				end
 			end
@@ -70,6 +76,8 @@ return function(networkInterface, nameWithoutExtension, extension, description, 
 			end
 			store:dispatch(NetworkError(response))
 			store:dispatch(UploadResult(false))
+
+			Analytics.incrementUploadeAssetFailure(assetTypeId)
 		end
 
 		local fileDataString = SerializeInstances(instances)

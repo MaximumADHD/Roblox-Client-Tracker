@@ -6,8 +6,6 @@ return function()
 	local Category = require(Plugin.Core.Types.Category)
 
 	local GetManageableGroups = require(Plugin.Core.Actions.GetManageableGroups)
-	local SetCategories = require(Plugin.Core.Actions.SetCategories)
-	local NextPage = require(Plugin.Core.Actions.NextPage)
 	local UpdatePageInfo = require(Plugin.Core.Actions.UpdatePageInfo)
 
 	local PageInfo = require(Plugin.Core.Reducers.PageInfo)
@@ -88,6 +86,7 @@ return function()
 		itSKIP("should update the categories and group index+id if necessary", function()
 			local state = PageInfo(nil, {})
 
+			-- SetCategories is removed, but this test is skipped anyway.
 			state = PageInfo(state, SetCategories(Category.INVENTORY_KEY, Category.INVENTORY))
 			expect(state.categories).to.equal(Category.INVENTORY)
 			expect(state.groupIndex).to.equal(0)
@@ -141,18 +140,6 @@ return function()
 			-- Group index and id should be reset to 0
 			expect(state.groupIndex).to.equal(0)
 			expect(PageInfoHelper.getGroupIdForPageInfo(state)).to.equal(0)
-		end)
-	end)
-
-	describe("NextPage action", function()
-		it("should increment the page", function()
-			local state = PageInfo(nil, {})
-			expect(state.page).to.equal(1)
-
-			for i = 1, 10, 1 do
-				state = PageInfo(state, NextPage())
-				expect(state.page).to.equal(i + 1)
-			end
 		end)
 	end)
 

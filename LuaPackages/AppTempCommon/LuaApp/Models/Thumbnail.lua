@@ -5,6 +5,9 @@
 		url : string,
 	}
 ]]
+local CorePackages = game:GetService("CorePackages")
+local UseNewThumbnailsAPI = require(CorePackages.AppTempCommon.LuaApp.Flags.UseNewThumbnailsAPI)
+
 local Thumbnail = {}
 
 function Thumbnail.new()
@@ -25,10 +28,25 @@ function Thumbnail.fromThumbnailData(thumbnailData, size)
 end
 
 function Thumbnail.isCompleteThumbnailData(thumbnailData)
+	if UseNewThumbnailsAPI() then
+		return type(thumbnailData) == "table"
+			and type(thumbnailData.targetId) == "number"
+			and type(thumbnailData.state) == "string"
+			and (type(thumbnailData.imageUrl) == "string" or thumbnailData.imageUrl == nil)
+	end
+
 	return type(thumbnailData) == "table"
 		and type(thumbnailData.targetId) == "number"
 		and type(thumbnailData.state) == "string"
 		and type(thumbnailData.imageUrl) == "string"
+end
+
+function Thumbnail.checkStateIsFinal(thumbnailState)
+	if UseNewThumbnailsAPI() then
+		return thumbnailState == "Completed" or thumbnailState == "Blocked"
+	end
+
+	return thumbnailState == "Completed"
 end
 
 return Thumbnail

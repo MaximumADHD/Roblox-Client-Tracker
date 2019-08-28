@@ -38,13 +38,13 @@ local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
 
 local Components = Plugin.Core.Components
-local Asset = Components.Asset
+local AssetFolder = Components.Asset
 local DraggableButton = require(Components.DraggableButton)
 local DropShadow = require(Components.DropShadow)
-local AssetCreatorName = require(Asset.AssetCreatorName)
-local AssetIcon = require(Asset.AssetIcon)
-local AssetName = require(Asset.AssetName)
-local Voting = require(Asset.Voting.Voting)
+local AssetCreatorName = require(AssetFolder.AssetCreatorName)
+local AssetIcon = require(AssetFolder.AssetIcon)
+local AssetName = require(AssetFolder.AssetName)
+local Voting = require(AssetFolder.Voting.Voting)
 
 local Category = require(Plugin.Core.Types.Category)
 

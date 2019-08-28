@@ -3,9 +3,10 @@ local Roact = require(Plugin.Roact)
 local DeepMergeTables = require(Plugin.Src.Util.DeepMergeTables)
 
 local AddTableChange = require(Plugin.Src.Actions.AddTableChange)
-local AddTableErrors = require(Plugin.Src.Actions.AddTableErrors)
-local DiscardTableErrors = require(Plugin.Src.Actions.DiscardTableErrors)
-local DiscardTableChange = require(Plugin.Src.Actions.DiscardTableChange)
+local AddTableKeyChange = require(Plugin.Src.Actions.AddTableKeyChange)
+local AddTableKeyErrors = require(Plugin.Src.Actions.AddTableKeyErrors)
+local DiscardTableChanges = require(Plugin.Src.Actions.DiscardTableChanges)
+local DiscardTableKeyErrors = require(Plugin.Src.Actions.DiscardTableKeyErrors)
 
 local createSettingsPage = require(Plugin.Src.Components.SettingsPages.createSettingsPage)
 
@@ -31,23 +32,23 @@ local function loadValuesToProps(getValue, state)
 		DevSubsErrors = errors.DeveloperSubscriptions or {},
 	}
 end
-
+ 
 local function checkChangedDevSubKey(dispatch, devSubKey, valueKey, value)
 	if valueKey == "Name" and (value == "" or value == nil) then
-		dispatch(AddTableErrors({"DeveloperSubscriptions", devSubKey, valueKey}, {Empty = "Name can't be empty"}))
+		dispatch(AddTableKeyErrors("DeveloperSubscriptions", devSubKey, valueKey, {Empty = "Name can't be empty"}))
 	elseif valueKey == "Description" then
 		-- If they modify the description, remove any moderation errors because name and description are moderated
 		-- If you use this in checkChangedDevSub, the order matters which feels weird...
-		dispatch(DiscardTableErrors({"DeveloperSubscriptions", devSubKey, "Name", "Moderated"}))
+		dispatch(DiscardTableKeyErrors("DeveloperSubscriptions", devSubKey, "Name", "Moderated"))
 	elseif valueKey == "Price" then
 		local price = tonumber(value)
 		if not price or price <= 0  then
-			dispatch(AddTableErrors({"DeveloperSubscriptions", devSubKey, valueKey}, {NotANumber = "Price needs to be a valid number"}))
+			dispatch(AddTableKeyErrors("DeveloperSubscriptions", devSubKey, valueKey, {NotANumber = "Price needs to be a valid number"}))
 		elseif FVariableMaxRobuxPrice and price > FVariableMaxRobuxPrice then
-			dispatch(AddTableErrors({"DeveloperSubscriptions", devSubKey, valueKey}, {AboveMaxRobuxAmount = "Price must be less than a certain amount"}))
+			dispatch(AddTableKeyErrors("DeveloperSubscriptions", devSubKey, valueKey, {AboveMaxRobuxAmount = "Price must be less than a certain amount"}))
 		end
 	elseif valueKey == "Image" and (value == nil or value == "None") then
-		dispatch(AddTableErrors({"DeveloperSubscriptions", devSubKey, valueKey}, {Empty = "Image can't be empty"}))
+		dispatch(AddTableKeyErrors("DeveloperSubscriptions", devSubKey, valueKey, {Empty = "Image can't be empty"}))
 	end
 end
 
@@ -61,18 +62,18 @@ end
 local function dispatchChanges(setValue, dispatch)
 	return {
 		OnDeveloperSubscriptionValueChanged = function(devSubKey, valueKey, value)
-			dispatch(AddTableChange({"DeveloperSubscriptions", devSubKey, valueKey}, value))
+			dispatch(AddTableKeyChange("DeveloperSubscriptions", devSubKey, valueKey, value))
 			checkChangedDevSubKey(dispatch, devSubKey, valueKey, value)
 		end,
 		OnDeveloperSubscriptionChanged = function(devSub)
-			dispatch(AddTableChange({"DeveloperSubscriptions", devSub.Key}, devSub))
+			dispatch(AddTableChange("DeveloperSubscriptions", devSub.Key, devSub))
 			checkChangedDevSub(dispatch, devSub)
 		end,
 		OnDevSubDiscontinued = function(devSub)
 			-- You can not change a developer subsciption that is discontinued
-			dispatch(DiscardTableChange({"DeveloperSubscriptions", devSub.Key}))
+			dispatch(DiscardTableChanges("DeveloperSubscriptions", devSub.Key))
             if not devSub.IsNew then
-                dispatch(AddTableChange({"DeveloperSubscriptions", devSub.Key, "Active"}, false))
+                dispatch(AddTableKeyChange("DeveloperSubscriptions", devSub.Key, "Active", false))
             end
         end,
 		ModerateDevSub = function(devSub)

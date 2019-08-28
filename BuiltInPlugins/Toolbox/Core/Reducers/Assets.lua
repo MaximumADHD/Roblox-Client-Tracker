@@ -14,8 +14,6 @@ local SetLoading = require(Actions.SetLoading)
 local SetCachedCreatorInfo = require(Actions.SetCachedCreatorInfo)
 local SetAssetPreview = require(Actions.SetAssetPreview)
 local SetPreviewModel = require(Actions.SetPreviewModel)
-local SetVersionHistoryData = require(Actions.SetVersionHistoryData)
-local SetAssetConfigData = require(Actions.SetAssetConfigData)
 local ClearPreview = require(Actions.ClearPreview)
 local SetAssetVersionId = require(Actions.SetAssetVersionId)
 

@@ -40,4 +40,4 @@ Studio.PublishPlaceAs.Error.DescriptionModerated, , ,The description didn't go t
 Studio.PublishPlaceAs.Error.DescriptionTooLong, , ,Description cannot be that long.
 Studio.PublishPlaceAs.Error.NoDevices, , ,You must select at least one playable device.
 Studio.PublishPlaceAs.ScreenHeader.ChooseGame, , ,Choose an existing game to add this place
-Studio.PublishPlaceAs.ScreenHeader.ChoosePlace, , ,Overwrite or add a new place to
+Studio.PublishPlaceAs.ScreenHeader.ChoosePlace, , ,Overwrite or add a new place to {1}

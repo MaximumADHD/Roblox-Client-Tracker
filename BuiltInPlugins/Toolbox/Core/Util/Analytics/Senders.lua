@@ -2,7 +2,7 @@ local Plugin = script.Parent.Parent.Parent.Parent
 
 local AnalyticsLogs = require(Plugin.Core.Util.Analytics.Logs)
 
-local AnalyticsService = game:GetService("RbxAnalyticsService")
+local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
 
 local function makeSettingName(counter)
 	return "ToolboxAnalytics_" .. counter
@@ -14,23 +14,23 @@ local Senders = {}
 
 function Senders.sendEventImmediately(target, context, name, args)
 	AnalyticsLogs.logAnalytics("sendEventImmediately", target, context, name, args)
-	AnalyticsService:SendEventImmediately(target, context, name, args)
+	RbxAnalyticsService:SendEventImmediately(target, context, name, args)
 end
 
 function Senders.sendEventDeferred(target, context, name, args)
 	AnalyticsLogs.logAnalytics("sendEventDeferred", target, context, name, args)
-	AnalyticsService:SendEventDeferred(target, context, name, args)
+	RbxAnalyticsService:SendEventDeferred(target, context, name, args)
 end
 
 function Senders.trackEvent(category, action, label, value)
 	AnalyticsLogs.logEvent("trackEvent", category, action, label, value)
-	AnalyticsService:TrackEvent(category, action, label, value)
+	RbxAnalyticsService:TrackEvent(category, action, label, value)
 end
 
 function Senders.reportCounter(counter, amount)
 	amount = amount or 1
 	AnalyticsLogs.logCounterEvent("reportCounter", counter, amount)
-	AnalyticsService:ReportCounter(counter, amount)
+	RbxAnalyticsService:ReportCounter(counter, amount)
 end
 
 function Senders.incrementCounter(counter, amount)

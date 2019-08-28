@@ -9,6 +9,8 @@ local WithLayoutValues = LayoutValues.WithLayoutValues
 
 local PlayerNameTag = Roact.PureComponent:extend("PlayerNameTag")
 
+local FFlagPlayerListPremiumPadding = settings():GetFFlag("PlayerListPremiumPadding")
+
 function PlayerNameTag:render()
 	return WithLayoutValues(function(layoutValues)
 		local textColor = layoutValues.TextColor
@@ -94,6 +96,7 @@ function PlayerNameTag:render()
 				TextStrokeColor3 = layoutValues.TextStrokeColor,
 				BackgroundTransparency = 1,
 				Text = self.props.player.Name,
+				TextTruncate = FFlagPlayerListPremiumPadding and Enum.TextTruncate.AtEnd or nil,
 			})
 		end
 

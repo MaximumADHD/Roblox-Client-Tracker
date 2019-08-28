@@ -206,6 +206,7 @@ function AssetGridContainer:init(props)
 				currentCategoryName = PageInfoHelper.getCategory(categories, categoryIndex),
 				searchTerm = searchTerm,
 				assetIndex = assetIndex,
+				currentTab = props.currentTab,
 			},
 			self.insertToolPromise,
 			assetWasDragged
@@ -356,6 +357,7 @@ local function mapStateToProps(state, props)
 		isPlaying = sound.isPlaying or false,
 		categoryIndex = categoryIndex or 1,
 		categories = pageInfo.categories or {},
+		currentTab = pageInfo.currentTab,
 	}
 end
 

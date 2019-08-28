@@ -5,7 +5,6 @@
 
 	Props:
 		string Text = The text to display in the tooltip.
-		int TextSize = The size of the text to display in the tooltip.
 		float ShowDelay = The time in seconds before the tooltip appears
 			after the user stops moving the mouse over the element. Defaults to 0.5.
 		bool Enabled = Whether the tooltip will display on hover.
@@ -46,7 +45,7 @@ function Tooltip:init(props)
 
 	self.connectHover = function()
 		self.hoverConnection = RunService.Heartbeat:Connect(function()
-			if self and self._handle and self.isHovered then
+			if self.isHovered then
 				if tick() >= self.targetTime then
 					self.disconnectHover()
 					self:setState({
@@ -97,9 +96,9 @@ function Tooltip:render()
 			local state = self.state
 
 			local tooltipTheme = theme.tooltip
+			local textSize = tooltipTheme.textSize
 
 			local text = props.Text
-			local textSize = props.TextSize
 			local enabled = props.Enabled
 			local priority = props.Priority or 0
 

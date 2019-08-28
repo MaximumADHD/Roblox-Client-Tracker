@@ -22,7 +22,7 @@ local function createValues(getColor, c, m)
 			newPlace = isDark and newPlaceDark or newPlaceLight,
 			backArrow = "rbxasset://textures/PublishPlaceAs/navigation_pushBack.png",
 			checkmark = "rbxasset://textures/PublishPlaceAs/common_checkmarkCircle.png",
-			cityBackground = "rbxasset://textures/ui/LuaApp/graphic/CityBackground.png",
+			thumbnailPlaceHolder = "rbxasset://textures/ui/GuiImagePlaceholder.png"
 		},
 		defaultButton = {
 			ButtonColor = isDark and getColor(c.MainButton) or getColor(c.CurrentMarker),
@@ -39,6 +39,20 @@ local function createValues(getColor, c, m)
 			TextColor = getColor(c.MainText),
 			TextColor_Disabled = getColor(c.DimmedText),
 			BorderColor = getColor(c.Border),
+		},
+
+		pageButton = {
+			ButtonColor = getColor(c.Button),
+			ImageColor = getColor(c.MainText),
+			BorderColor = getColor(c.Border),
+
+			hovered = {
+				ButtonColor = getColor(c.Button, m.Hover),
+			},
+			disabled = {
+				ButtonColor = getColor(c.Button, m.Disabled),
+				ImageColor = getColor(c.DimmedText),
+			},
 		},
 
 		menuBar = {
@@ -103,7 +117,8 @@ local function createValues(getColor, c, m)
 			listTheme = {
 				backgroundColor = getColor(c.InputFieldBackground),
 				hovered = {
-					backgroundColor = getColor(c.Button),
+					backgroundColor = getColor(c.Button, m.Hover),
+					textColor = getColor(c.MainText, m.Hover),
 				},
 				selected = {
 					backgroundColor = isDark and getColor(c.MainButton) or getColor(c.CurrentMarker),

@@ -20,7 +20,7 @@ local theme = {
 		Transparency = 0,
 	},
 	BackgroundUIContrast = {
-		Color = Colors.Chalk,
+		Color = Colors.White,
 		Transparency = 0.1, -- Alpha 0.9
 	},
 	BackgroundOnHover = {
@@ -86,7 +86,7 @@ local theme = {
 
 	IconDefault = {
 		Color = Colors.Black,
-		Transparency = 0.5, -- 0.5 alpha
+		Transparency = 0.4, -- 0.6 alpha
 	},
 	IconEmphasis = {
 		Color = Colors.Flint,
@@ -107,7 +107,7 @@ local theme = {
 	},
 	TextMuted = {
 		Color = Colors.Black,
-		Transparency = 0.5, -- 0.5 Alpha
+		Transparency = 0.4, -- 0.6 Alpha
 	},
 
 	Divider = {

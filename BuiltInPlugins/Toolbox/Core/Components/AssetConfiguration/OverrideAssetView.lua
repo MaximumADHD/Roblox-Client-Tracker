@@ -7,6 +7,7 @@
 		assetTypeEnum, Enum, a enum type that contians the name and value of the assetType.
 		resultsArray, an array of tables, contains the data for overriding assets.
 		onOverrideAssetSelected, function, will be called when a asset is selected.
+		getOverrideAssets, function, funtion used to reuqest more asset data for overRide asset.
 
 	Optional Props:
 		LayoutOrder, number, will be used by the layout to change the component's position.
@@ -28,6 +29,9 @@ local Constants = require(Util.Constants)
 local Urls = require(Util.Urls)
 local Images = require(Util.Images)
 local Colors = require(Util.Colors)
+local AssetConfigConstants = require(Util.AssetConfigConstants)
+
+local InfiniteScrollingFrame = require(Plugin.Core.Components.InfiniteScrollingFrame)
 
 local UILibrary = Libs.UILibrary
 local StyledScrollingFrame = require(UILibrary.Components.StyledScrollingFrame)
@@ -48,13 +52,15 @@ local CHECK_ICON_SIZE = 28
 
 function OverrideAssetView:init(props)
 	self.state = {
-		selectedAssetId = 0
+		selectedAssetId = 0,
 	}
 
 	self.newAssetInfo = {
 		assetTypeEnum = props.assetTypeEnum,
 		instances = props.instances
 	}
+
+	self.layouterRef = Roact.createRef()
 
 	self.onAssetActivated = function(asset)
 		local assetId = asset.Asset.Id
@@ -68,6 +74,10 @@ function OverrideAssetView:init(props)
 		self:setState({
 			selectedAssetId = assetId
 		})
+	end
+
+	self.requestOverrideAsset = function(targetPage)
+		props.getOverrideAssets(targetPage)
 	end
 end
 
@@ -91,6 +101,8 @@ function OverrideAssetView:createAssets(resultsArray, theme)
 			CellSize = UDim2.new(0, CELL_SIZE_WIDTH, 0, CELL_SIZE_HEIGHT),
 			FillDirectionMaxCells = MAX_CELL,
 			StartCorner = Enum.StartCorner.TopLeft,
+
+			[Roact.Ref] = self.layouterRef,
 		}),
 	}
 
@@ -105,7 +117,7 @@ function OverrideAssetView:createAssets(resultsArray, theme)
 		local selected = selectedAssetId == assetId
 
 		itemList[assetId] = Roact.createElement("TextButton", {
-			Size = UDim2.new(0, 150, 0, 200),
+			Size = AssetConfigConstants.OverrideAssetItemSize,
 
 			BorderSizePixel = 0,
 			BackgroundTransparency = 1,
@@ -174,18 +186,22 @@ end
 function OverrideAssetView:render()
 	return withTheme(function(theme)
 		local props = self.props
+		local state = self.state
 
 		local Size = props.Size
 
 		local itemList = self:createAssets(props.resultsArray or {}, theme)
 		local publishAssetTheme = theme.publishAsset
 
-		return Roact.createElement(StyledScrollingFrame, {
+		local layouterRef = self.layouterRef
+
+		return Roact.createElement(InfiniteScrollingFrame, {
 			Size = Size,
 
-			BackgroundTransparency = 1,
 			BackgroundColor3 = publishAssetTheme.backgroundColor,
-			BorderSizePixel = 0,
+			layouterRef = layouterRef,
+
+			nextPageFunc = self.requestOverrideAsset,
 
 			LayoutOrder = props.LayoutOrder,
 		}, itemList)

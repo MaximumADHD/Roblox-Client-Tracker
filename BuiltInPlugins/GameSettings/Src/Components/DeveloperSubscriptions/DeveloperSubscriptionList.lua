@@ -88,21 +88,40 @@ local function render(props, localized, theme)
 		})
 	}
 
-	-- create all the list items
-	local index = 1
-	for key, developerSubscription in pairs(developerSubscriptions) do
-		local function onEditButtonActivated()
-			onDeveloperSubscriptionEdited(developerSubscription)
+	local devSubsList = {}
+	for _,v in pairs(developerSubscriptions) do
+		table.insert(devSubsList, v)
+	end
+
+	table.sort(devSubsList, function(a, b)
+		if a.Active ~= b.Active then
+			if a.Active then
+				return true
+			end
+			if b.Active then
+				return false
+			end
 		end
 
-		elements[key] = Roact.createElement(DeveloperSubscriptionListItem, {
-			Name = developerSubscription.Name or "",
-			Id = developerSubscription.Id,
-			Subscribers = developerSubscription.Subscribers,
-			Active = developerSubscription.Active,
+		return a.Key:upper() < b.Key:upper()
+	end)
+
+	-- create all the list items
+	local index = 1
+	for _, devSub in ipairs(devSubsList) do
+		local function onEditButtonActivated()
+			onDeveloperSubscriptionEdited(devSub)
+		end
+
+		elements[devSub.Key] = Roact.createElement(DeveloperSubscriptionListItem, {
+			Name = devSub.Name or "",
+			Id = devSub.Id,
+			Subscribers = devSub.Subscribers,
+			Active = devSub.Active,
 			LayoutOrder = index + 1,
 			OnEditButtonActivated = onEditButtonActivated,
 			Height = listItemHeight,
+			HasError = props.DevSubsErrors[devSub.Key] ~= nil
 		})
 
 		index = index + 1

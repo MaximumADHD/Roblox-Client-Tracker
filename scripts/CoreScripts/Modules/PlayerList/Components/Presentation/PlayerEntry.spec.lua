@@ -30,8 +30,8 @@ return function()
 	local function getFakeIconInfo()
 		return {
 			isPlaceOwner = true,
-			avatarIcon = "",
-			specialGroupIcon = "",
+			avatarIcon = nil,
+			specialGroupIcon = nil,
 		}
 	end
 

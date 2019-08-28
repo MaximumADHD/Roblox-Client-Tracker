@@ -15,9 +15,10 @@ local SetAssetId = require(Actions.SetAssetId)
 
 local Util = Plugin.Core.Util
 local SerializeInstances = require(Util.SerializeInstances)
+local Analytics = require(Util.Analytics.Analytics)
 
 -- assetId, number, defualt to 0 for new asset.
--- type, string, the asset type of the asset.
+-- assetType, string, the asset type of the asset.
 -- name, string, need to be url encoded.
 -- description, string, need to be url encoded.
 -- genreTypeId, Id, for genre.
@@ -25,7 +26,7 @@ local SerializeInstances = require(Util.SerializeInstances)
 -- allowComments, bool
 -- groupId, number, default to nil
 -- instance, instance, used in post body
-return function(networkInterface, assetid, type, name, description, genreTypeID, ispublic, allowComments, groupId, instances)
+return function(networkInterface, assetid, assetType, name, description, genreTypeID, ispublic, allowComments, groupId, instances)
 	return function(store)
 		local function onSuccess(result)
 			local newAssetId = result.responseBody
@@ -35,11 +36,15 @@ return function(networkInterface, assetid, type, name, description, genreTypeID,
 				store:dispatch(SetCurrentScreen(AssetConfigConstants.SCREENS.UPLOAD_ASSET_RESULT))
 				store:dispatch(UploadResult(false))
 				store:dispatch(NetworkError(result.responseBody))
+
+				Analytics.incrementUploadeAssetFailure(assetType)
 			else
 				-- Change the screen into succuss.
 				store:dispatch(SetCurrentScreen(AssetConfigConstants.SCREENS.UPLOADING_ASSET))
 				store:dispatch(UploadResult(true))
 				store:dispatch(SetAssetId(newAssetId))
+
+				Analytics.incrementUploadAssetSuccess(assetType)
 			end
 		end
 
@@ -51,13 +56,15 @@ return function(networkInterface, assetid, type, name, description, genreTypeID,
 			store:dispatch(SetCurrentScreen(AssetConfigConstants.SCREENS.UPLOAD_ASSET_RESULT))
 			store:dispatch(UploadResult(false))
 			store:dispatch(NetworkError(result.responseBody))
+
+			Analytics.incrementUploadeAssetFailure(assetType)
 		end
 
 		local fileDataString = SerializeInstances(instances)
 
 		return networkInterface:postUploadAsset(
 			assetid,
-			type,
+			assetType,
 			name or "",
 			description or "",
 			genreTypeID,

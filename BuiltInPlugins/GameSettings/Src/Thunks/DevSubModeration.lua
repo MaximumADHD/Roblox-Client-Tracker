@@ -2,7 +2,7 @@ local Plugin = script.Parent.Parent.Parent
 
 local ModerateDevSub = require(Plugin.Src.Networking.Requests.DevSubs.Moderation).Get
 local ModerationAction = require(Plugin.Src.Actions.DevSubModeration)
-local AddTableErrors = require(Plugin.Src.Actions.AddTableErrors)
+local AddTableKeyErrors = require(Plugin.Src.Actions.AddTableKeyErrors)
 
 return function(devSub)
 	return function(store)
@@ -12,7 +12,7 @@ return function(devSub)
 		ModerateDevSub(devSub):andThen(function(data)
 			store:dispatch(ModerationAction(devSubKey, data.isAcceptable, data.filteredName, data.filteredDescription))
 			if not data.isAcceptable then
-				store:dispatch(AddTableErrors({"DeveloperSubscriptions", devSubKey, "Name"}, {Moderated = "Name has been moderated"}))
+				store:dispatch(AddTableKeyErrors("DeveloperSubscriptions", devSubKey, "Name", {Moderated = "Name has been moderated"}))
 			end
 		end)
 		:catch(function(err)

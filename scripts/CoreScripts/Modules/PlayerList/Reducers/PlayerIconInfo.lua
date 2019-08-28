@@ -16,8 +16,8 @@ local PlayerIconInfo = Rodux.createReducer({}, {
 			[action.userId] = {
 				isPlaceOwner = game.CreatorType == Enum.CreatorType.User
 					and action.userId == game.CreatorId,
-				avatarIcon = "",
-				specialGroupIcon = "",
+				avatarIcon = nil,
+				specialGroupIcon = nil,
 			},
 		})
 	end,

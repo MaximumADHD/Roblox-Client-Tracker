@@ -25,7 +25,8 @@ return function(state, action)
 
 		currentTab = defaultTab,
 
-		page = 1,
+		targetPage = 1,
+		curentPage = 0,
 
 		selectedBackgroundIndex = 1,
 		hoveredBackgroundIndex = 0,

@@ -1,7 +1,8 @@
 local EnableGroupPackagesForToolbox =  settings():GetFFlag("EnableGroupPackagesForToolbox")
 local FFlagPluginAccessAndInstallationInStudio = settings():GetFFlag("PluginAccessAndInstallationInStudio")
 local FFlagStudioMarketplaceTabsEnabled = settings():GetFFlag("StudioMarketplaceTabsEnabled")
-local FFlagOnlyWhitelistedPluginsInStudio = settings():GetFFlag("OnlyWhitelistedPluginsInStudio");
+local FFlagOnlyWhitelistedPluginsInStudio = settings():GetFFlag("OnlyWhitelistedPluginsInStudio")
+local FFlagFixToolboxInitLoad = settings():GetFFlag("FixToolboxInitLoad")
 
 local Plugin = script.Parent.Parent.Parent
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
@@ -19,26 +20,28 @@ Category.AssetType = {
 	MODEL = 0,
 	DECAL = 1,
 	MESH = 2,
-	AUDIO = 3,
-	PACKAGE = 4,
-	PLUGIN = 5,
-	HAT = 6,
-	TEE_SHIRT = 7,
-	SHIRT = 8,
-	PANTS = 9,
-	HAIR_ACCESSORY = 10,
-	FACE_ACCESSORY = 11,
-	NECK_ACCESSORY = 12,
-	SHOULDER_ACCESSORY = 13,
-	FRONT_ACCESSORY = 14,
-	BACK_ACCESSORY = 15,
-	WAIST_ACCESSORY = 16
+	MESHPART = 3,
+	AUDIO = 4,
+	PACKAGE = 5,
+	PLUGIN = 6,
+	HAT = 7,
+	TEE_SHIRT = 8,
+	SHIRT = 9,
+	PANTS = 10,
+	HAIR_ACCESSORY = 11,
+	FACE_ACCESSORY = 12,
+	NECK_ACCESSORY = 13,
+	SHOULDER_ACCESSORY = 14,
+	FRONT_ACCESSORY = 15,
+	BACK_ACCESSORY = 16,
+	WAIST_ACCESSORY = 17,
 }
 
 Category.ToolboxAssetTypeToEngine = {
 	[Category.AssetType.MODEL] = Enum.AssetType.Model,
 	[Category.AssetType.DECAL] = Enum.AssetType.Decal,
 	[Category.AssetType.MESH] = Enum.AssetType.Mesh,
+	[Category.AssetType.MESHPART] = Enum.AssetType.MeshPart,
 	[Category.AssetType.AUDIO] = Enum.AssetType.Audio,
 	[Category.AssetType.PACKAGE] = Enum.AssetType.Package,
 	[Category.AssetType.PLUGIN] = Enum.AssetType.Plugin,
@@ -106,7 +109,7 @@ Category.CREATIONS_DEVELOPMENT_SECTION_DIVIDER = {name = "CreationsDevelopmentSe
 Category.CREATIONS_MODELS = {name = "CreationsModels", assetType = Category.AssetType.MODEL}
 Category.CREATIONS_DECALS = {name = "CreationsDecals", assetType = Category.AssetType.DECAL}
 Category.CREATIONS_AUDIO = {name = "CreationsAudio", assetType = Category.AssetType.AUDIO}
-Category.CREATIONS_MESHES = {name = "CreationsMeshes", assetType = Category.AssetType.MESH}
+Category.CREATIONS_MESHES = {name = "CreationsMeshes", assetType = Category.AssetType.MESHPART}
 Category.CREATIONS_CATALOG_SECTION_DIVIDER = {name = "CreationsCatalogSectionDivider", selectable=false}
 Category.CREATIONS_HATS = {name = "CreationsHats", assetType = Category.AssetType.HAT}
 Category.CREATIONS_TEE_SHIRT = {name = "CreationsTeeShirts", assetType = Category.AssetType.TEE_SHIRT}
@@ -209,8 +212,12 @@ local function checkBounds(index)
 	return index and index >= 1 and index <= #Category.INVENTORY_WITH_GROUPS
 end
 
-function Category.categoryIsPackage(index)
-	return checkBounds(index) and Category.INVENTORY_WITH_GROUPS[index].assetType == Category.AssetType.PACKAGE
+function Category.categoryIsPackage(index, currentTab)
+	if FFlagFixToolboxInitLoad then
+		return checkBounds(index) and currentTab == Category.MARKETPLACE_KEY and Category.INVENTORY_WITH_GROUPS[index].assetType == Category.AssetType.PACKAGE
+	else
+		return checkBounds(index) and Category.INVENTORY_WITH_GROUPS[index].assetType == Category.AssetType.PACKAGE
+	end
 end
 
 function Category.categoryIsFreeAsset(index)

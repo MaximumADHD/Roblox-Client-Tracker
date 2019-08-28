@@ -10,6 +10,7 @@ local platformId = 0
 
 local FFlagStudioToolboxSearchOptionsAnalytics = settings():GetFFlag("StudioToolboxSearchOptionsAnalytics")
 local FFlagEnableInsertAssetCategoryAnalytics = settings():GetFFlag("EnableInsertAssetCategoryAnalytics")
+local FFlagEnableToolboxUploadReport = settings():GetFFlag("EnableToolboxUploadReport")
 
 -- TODO CLIDEVSRVS-1689: StudioSession + StudioID
 local function getStudioSessionId()
@@ -154,6 +155,18 @@ end
 
 function Analytics.incrementWorkspaceInsertCounter()
 	AnalyticsSenders.reportCounter("StudioWorkspaceInsertCounter")
+end
+
+function Analytics.incrementUploadAssetSuccess(assetTypeId)
+	if FFlagEnableToolboxUploadReport then
+		AnalyticsSenders.reportCounter(("Studio.Upload.%s.Success"):format(tostring(assetTypeId)))
+	end
+end
+
+function Analytics.incrementUploadeAssetFailure(assetTypeId)
+	if FFlagEnableToolboxUploadReport then
+		AnalyticsSenders.reportCounter(("Studio.Upload.%s.Failure"):format(tostring(assetTypeId)))
+	end
 end
 
 function Analytics.onSoundInserted()

@@ -67,14 +67,14 @@ end
 function NetworkInterface:getAssets(pageInfo)
 	local category = PageInfoHelper.getCategoryForPageInfo(pageInfo) or ""
 	local searchTerm = pageInfo.searchTerm or ""
-	local page = pageInfo.page or 1
+	local targetPage = pageInfo.targetPage or 1
 	local sortType = PageInfoHelper.getSortTypeForPageInfo(pageInfo) or ""
 	local groupId = Category.categoryIsGroupAsset(pageInfo.currentTab, pageInfo.categoryIndex)
 		and PageInfoHelper.getGroupIdForPageInfo(pageInfo)
 		or 0
 	local creatorId = pageInfo.creator and pageInfo.creator.Id or ""
 
-	local targetUrl = Urls.constructGetAssetsUrl(category, searchTerm, Constants.GET_ITEMS_PAGE_SIZE, page, sortType, groupId, creatorId)
+	local targetUrl = Urls.constructGetAssetsUrl(category, searchTerm, Constants.GET_ITEMS_PAGE_SIZE, targetPage, sortType, groupId, creatorId)
 
 	return sendRequestAndRetry(function()
 		printUrl("getAssets", "GET", targetUrl)

@@ -550,6 +550,13 @@ Class FileMesh : DataModelMesh
 	Property Content FileMesh.TextureId
 Class SpecialMesh : FileMesh
 	Property Enum<MeshType> SpecialMesh.MeshType
+Class DataModelSession : Instance [NotCreatable]
+	Property Enum<StudioDataModelType> DataModelSession.CurrentGameStateType {PluginSecurity} [ReadOnly] [NotReplicated]
+	Property string DataModelSession.SessionId {PluginSecurity} [ReadOnly] [NotReplicated]
+	Event DataModelSession.CurrentGameStateTypeAboutToChange(int gameStateType) {PluginSecurity}
+	Event DataModelSession.CurrentGameStateTypeChanged() {PluginSecurity}
+	Event DataModelSession.DataModelCreated(int gameStateType) {PluginSecurity}
+	Event DataModelSession.DataModelWillBeDestroyed(int gameStateType) {PluginSecurity}
 Class DataStoreService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool DataStoreService.AutomaticRetry {LocalUserSecurity} [NotReplicated]
 	Property bool DataStoreService.LegacyNamingScheme {LocalUserSecurity} [Deprecated]
@@ -623,6 +630,7 @@ Class DialogChoice : Instance
 Class DraftsService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void DraftsService:CommitEdits(Objects scripts) {RobloxScriptSecurity} [Yields]
 	Function void DraftsService:DiscardEdits(Objects scripts) {RobloxScriptSecurity}
+	Function Enum<DraftStatusCode> DraftsService:GetDraftStatus(Instance script) {RobloxScriptSecurity}
 	Function Objects DraftsService:GetDrafts() {RobloxScriptSecurity} [Yields]
 	Function Objects DraftsService:GetEditors(Instance script) {RobloxScriptSecurity}
 	Function void DraftsService:ShowDiffsAgainstBase(Objects scripts) {RobloxScriptSecurity}
@@ -630,8 +638,8 @@ Class DraftsService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void DraftsService:UpdateToLatestVersion(Objects scripts) {RobloxScriptSecurity} [Yields]
 	Event DraftsService.CommitStatusChanged(Instance script, Enum<DraftStatusCode> status) {RobloxScriptSecurity}
 	Event DraftsService.DraftAdded(Instance script) {RobloxScriptSecurity}
-	Event DraftsService.DraftOutdatedStateChanged(Instance script, bool outdated) {RobloxScriptSecurity}
 	Event DraftsService.DraftRemoved(Instance script) {RobloxScriptSecurity}
+	Event DraftsService.DraftStatusChanged(Instance script) {RobloxScriptSecurity}
 	Event DraftsService.EditorsListChanged(Instance script) {RobloxScriptSecurity}
 	Event DraftsService.UpdateStatusChanged(Instance script, Enum<DraftStatusCode> status) {RobloxScriptSecurity}
 Class Dragger : Instance
@@ -1522,6 +1530,11 @@ Class ModuleScript : LuaSourceContainer
 	Property Content ModuleScript.LinkedSource
 	Property ProtectedString ModuleScript.Source {PluginSecurity}
 Class LuaWebService : Instance [NotCreatable] [Service]
+Class MDIInstance : Instance [NotCreatable]
+	Property Instance MDIInstance.FocusedDataModelSession {PluginSecurity} [ReadOnly] [NotReplicated]
+	Property string MDIInstance.FocusedDataModelSessionId {PluginSecurity} [ReadOnly] [NotReplicated]
+	Event MDIInstance.DataModelSessionEnded(string sessionId) {PluginSecurity}
+	Event MDIInstance.DataModelSessionStarted(string sessionId) {PluginSecurity}
 Class MarketplaceService : Instance [NotCreatable] [Service]
 	Function Instance MarketplaceService:GetDeveloperProductsAsync() [Yields]
 	Function Dictionary MarketplaceService:GetProductInfo(int64 assetId, Enum<InfoType> infoType = "Asset") [Yields]
@@ -2149,6 +2162,7 @@ Class Plugin : Instance [NotCreatable]
 	Property bool Plugin.CollisionEnabled  [ReadOnly] [NotReplicated]
 	Property float Plugin.GridSize  [ReadOnly] [NotReplicated]
 	Property Enum<StudioDataModelType> Plugin.HostDataModelType {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
+	Property Class<MDIInstance> Plugin.MDIInstance {PluginSecurity} [ReadOnly] [NotReplicated]
 	Function void Plugin:Activate(bool exclusiveMouse) {PluginSecurity}
 	Function Instance Plugin:Bind(string key, Function callback) {RobloxScriptSecurity}
 	Function Instance Plugin:BindAndFire(string key, Function callback) {RobloxScriptSecurity}
@@ -2756,6 +2770,7 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property string StudioService.StudioLocaleId  [ReadOnly] [NotReplicated]
 	Function void StudioService:CopyToClipboard(string stringToCopy) {RobloxScriptSecurity}
 	Function Dictionary StudioService:GetClassIcon(string className) {PluginSecurity}
+	Function string StudioService:GetInstalledPluginData() {RobloxScriptSecurity} [Yields]
 	Function Dictionary StudioService:GetResourceByCategory(string category) {RobloxScriptSecurity}
 	Function int64 StudioService:GetUserId() {RobloxScriptSecurity}
 	Function bool StudioService:IsPluginInstalled(int64 assetId) {RobloxScriptSecurity}
@@ -2767,13 +2782,17 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Objects StudioService:PromptImportLocalAssets(string prompt, Array fileTypeFilter = {}) {PluginSecurity} [Yields] [Deprecated]
 	Function void StudioService:PublishAs(int64 universeId, int64 placeId) {RobloxScriptSecurity}
 	Function string StudioService:SerializeInstances(Objects instances) {RobloxScriptSecurity}
+	Function void StudioService:SetPluginEnabled(int64 assetId, bool state) {RobloxScriptSecurity}
 	Function void StudioService:SetUniverseDisplayName(string newName) {RobloxScriptSecurity}
 	Function void StudioService:ShowPublishToRoblox() {RobloxScriptSecurity}
 	Function void StudioService:TryInstallPlugin(int64 assetId, int64 assetVersionId) {RobloxScriptSecurity} [Yields]
+	Function void StudioService:UninstallPlugin(int64 assetId) {RobloxScriptSecurity}
+	Function void StudioService:UpdatePluginManagement() {RobloxScriptSecurity}
 	Function void StudioService:emitPlacePublishedSignal() {RobloxScriptSecurity}
 	Event StudioService.GamePublishedToRoblox() {RobloxScriptSecurity}
 	Event StudioService.OnOpenConvertToPackagePlugin() {RobloxScriptSecurity}
 	Event StudioService.OnOpenManagePackagePlugin(int64 userId, int64 assetId) {RobloxScriptSecurity}
+	Event StudioService.OnPluginInstalledFromToolbox() {RobloxScriptSecurity}
 	Event StudioService.OnPublishPlaceToRoblox() {RobloxScriptSecurity}
 	Event StudioService.OnSaveToRoblox(Objects instances) {RobloxScriptSecurity}
 Class StudioTheme : Instance [NotCreatable] [NotReplicated]

@@ -6,6 +6,8 @@
 	assetId, numeber, will be used to request assetData on didMount.
 ]]
 
+local FFlagCMSPrepopulateTitle = game:DefineFastFlag("CMSPrepopulateTitle", false)
+
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
@@ -400,6 +402,16 @@ function AssetConfig:didMount()
 			end
 		end
 	else -- If not edit, then we are in publish flow
+
+		if FFlagCMSPrepopulateTitle then
+			local instances = self.props.instances
+			if instances and #instances > 0 then
+				self:setState({
+					name = instances[1].Name
+				})
+			end
+		end
+
 		self.props.getIsVerifiedCreator(getNetwork(self))
 	end
 end
@@ -614,7 +626,7 @@ function AssetConfig:render()
 						}),
 
 						Versions = ConfigTypes:isVersions(currentTab) and Roact.createElement(Versions, {
-							Size = UDim2.new(1, -150, 1, 0),
+							Size = UDim2.new(1, -PREVIEW_WIDTH, 1, 0),
 
 							assetId = assetId,
 
@@ -622,7 +634,7 @@ function AssetConfig:render()
 						}),
 
 						Sales = ConfigTypes:isSales(currentTab) and Roact.createElement(Sales, {
-							Size = UDim2.new(1, -150, 1, 0),
+							Size = UDim2.new(1, -PREVIEW_WIDTH, 1, 0),
 
 							AssetTypeEnum = props.assetTypeEnum,
 
@@ -643,7 +655,7 @@ function AssetConfig:render()
 						}),
 
 						OverrideAsset = ConfigTypes:isOverride(currentTab) and Roact.createElement(OverrideAsset, {
-							Size = UDim2.new(1, -150, 1, 0),
+							Size = UDim2.new(1, -PREVIEW_WIDTH, 1, 0),
 
 							assetTypeEnum = assetTypeEnum,
 							instances = props.instances,

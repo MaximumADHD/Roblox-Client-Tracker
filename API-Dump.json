@@ -9733,6 +9733,107 @@
         {
             "Members": [
                 {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "CurrentGameStateType",
+                    "Security": {
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "StudioDataModelType"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "SessionId",
+                    "Security": {
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "CurrentGameStateTypeAboutToChange",
+                    "Parameters": [
+                        {
+                            "Name": "gameStateType",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        }
+                    ],
+                    "Security": "PluginSecurity"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "CurrentGameStateTypeChanged",
+                    "Parameters": [
+                    ],
+                    "Security": "PluginSecurity"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "DataModelCreated",
+                    "Parameters": [
+                        {
+                            "Name": "gameStateType",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        }
+                    ],
+                    "Security": "PluginSecurity"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "DataModelWillBeDestroyed",
+                    "Parameters": [
+                        {
+                            "Name": "gameStateType",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        }
+                    ],
+                    "Security": "PluginSecurity"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "DataModelSession",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable"
+            ]
+        },
+        {
+            "Members": [
+                {
                     "Category": "Behavior",
                     "MemberType": "Property",
                     "Name": "AutomaticRetry",
@@ -10974,6 +11075,24 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "GetDraftStatus",
+                    "Parameters": [
+                        {
+                            "Name": "script",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Enum",
+                        "Name": "DraftStatusCode"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "GetEditors",
                     "Parameters": [
                         {
@@ -11119,7 +11238,7 @@
                 },
                 {
                     "MemberType": "Event",
-                    "Name": "DraftOutdatedStateChanged",
+                    "Name": "DraftRemoved",
                     "Parameters": [
                         {
                             "Name": "script",
@@ -11127,20 +11246,13 @@
                                 "Category": "Class",
                                 "Name": "Instance"
                             }
-                        },
-                        {
-                            "Name": "outdated",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "bool"
-                            }
                         }
                     ],
                     "Security": "RobloxScriptSecurity"
                 },
                 {
                     "MemberType": "Event",
-                    "Name": "DraftRemoved",
+                    "Name": "DraftStatusChanged",
                     "Parameters": [
                         {
                             "Name": "script",
@@ -26439,6 +26551,86 @@
         {
             "Members": [
                 {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "FocusedDataModelSession",
+                    "Security": {
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "Instance"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "FocusedDataModelSessionId",
+                    "Security": {
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "DataModelSessionEnded",
+                    "Parameters": [
+                        {
+                            "Name": "sessionId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "Security": "PluginSecurity"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "DataModelSessionStarted",
+                    "Parameters": [
+                        {
+                            "Name": "sessionId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "Security": "PluginSecurity"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "MDIInstance",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable"
+            ]
+        },
+        {
+            "Members": [
+                {
                     "MemberType": "Function",
                     "Name": "PlayerCanMakePurchases",
                     "Parameters": [
@@ -38733,6 +38925,27 @@
                     }
                 },
                 {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "MDIInstance",
+                    "Security": {
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "MDIInstance"
+                    }
+                },
+                {
                     "Category": "Behavior",
                     "MemberType": "Property",
                     "Name": "UsesAssetInsertionDrag",
@@ -49240,6 +49453,31 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "SetPluginEnabled",
+                    "Parameters": [
+                        {
+                            "Name": "assetId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        },
+                        {
+                            "Name": "state",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "SetUniverseDisplayName",
                     "Parameters": [
                         {
@@ -49269,6 +49507,35 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "UninstallPlugin",
+                    "Parameters": [
+                        {
+                            "Name": "assetId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "UpdatePluginManagement",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "emitPlacePublishedSignal",
                     "Parameters": [
                     ],
@@ -49277,6 +49544,20 @@
                         "Name": "void"
                     },
                     "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetInstalledPluginData",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields"
+                    ]
                 },
                 {
                     "MemberType": "Function",
@@ -49442,6 +49723,13 @@
                                 "Name": "int64"
                             }
                         }
+                    ],
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "OnPluginInstalledFromToolbox",
+                    "Parameters": [
                     ],
                     "Security": "RobloxScriptSecurity"
                 },

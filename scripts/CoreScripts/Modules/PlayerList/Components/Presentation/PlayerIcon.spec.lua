@@ -20,8 +20,8 @@ return function()
 			PlayerIcon = Roact.createElement(PlayerIcon, {
 				playerIconInfo = {
 					isPlaceOwner = false,
-					avatarIcon = "",
-					specialGroupIcon = "",
+					avatarIcon = nil,
+					specialGroupIcon = nil,
 				},
 				player = Players.LocalPlayer,
 			})
@@ -37,8 +37,8 @@ return function()
 			PlayerIcon = Roact.createElement(PlayerIcon, {
 				playerIconInfo = {
 					isPlaceOwner = false,
-					avatarIcon = "",
-					specialGroupIcon = "",
+					avatarIcon = nil,
+					specialGroupIcon = nil,
 				},
 				player = Players.LocalPlayer,
 			})

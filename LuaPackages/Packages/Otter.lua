@@ -3,7 +3,7 @@
 ]]
 local PackageIndex = script.Parent._Index
 
-local package = PackageIndex["Otter-7466d762-fff3ac76"].Packages["Otter"]
+local package = PackageIndex["Otter"]["Otter"]
 
 if package.ClassName == "ModuleScript" then
 	return require(package)

@@ -19,8 +19,8 @@ function Sort.canSort(searchTerm, categoryIndex)
 	return searchTerm ~= "" and Category.categoryIsFreeAsset(categoryIndex)
 end
 
-function Sort.getDefaultSortForCategory(categoryIndex)
-	if Category.categoryIsPackage(categoryIndex) then
+function Sort.getDefaultSortForCategory(categoryIndex, currentTab)
+	if Category.categoryIsPackage(categoryIndex, currentTab) then
 		return UPDATED_INDEX
 	end
 	return RELEVANCE_INDEX

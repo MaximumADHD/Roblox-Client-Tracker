@@ -50,7 +50,7 @@ local PRICE_ICON_PADDING = 8
 
 local DeveloperSubscriptionDetails = Roact.Component:extend("DeveloperSubscriptionDetails")
 
-local FVariableMaxRobuxPrice = game:GetFastInt("DeveloperSubscriptionsMaxRobuxPrice")
+local FVariableMaxRobuxPrice = game:DefineFastInt("DeveloperSubscriptionsMaxRobuxPrice", 2000)
 
 function DeveloperSubscriptionDetails:init()
 	self.state = {
@@ -170,7 +170,7 @@ function DeveloperSubscriptionDetails:renderConsolidated(theme, localized)
 			end
 		end
 
-		if devSubErrors.Price then
+		if developerSubscription.IsNew and devSubErrors.Price then
 			if devSubErrors.Price.NotANumber then
 				priceError = localized.Errors.ErrorDevSubInvalidPrice
 			elseif FVariableMaxRobuxPrice and devSubErrors.Price.AboveMaxRobuxAmount then
@@ -290,7 +290,7 @@ function DeveloperSubscriptionDetails:renderConsolidated(theme, localized)
 				Size = UDim2.new(1, -(PRICE_ICON_SIZE + PRICE_ICON_PADDING), 0, Constants.ROUND_TEXT_BOX_DEFAULT_HEIGHT),
 			}, {
 				NumberBox = Roact.createElement(RoundTextBox, {
-					Enabled = canEdit,
+					Enabled = developerSubscription.IsNew,
 					ShowTextWhenDisabled = true,
 					ShowToolTip = false,
 					MaxLength = 50000,

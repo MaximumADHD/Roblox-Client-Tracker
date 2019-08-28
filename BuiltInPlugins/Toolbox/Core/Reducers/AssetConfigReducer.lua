@@ -20,6 +20,9 @@ local SetAssetConfigTab = require(Actions.SetAssetConfigTab)
 local SetOverrideAssets = require(Actions.SetOverrideAssets)
 local SetMyGroups = require(Actions.SetMyGroups)
 local SetIsVerifiedCreator = require(Actions.SetIsVerifiedCreator)
+local SetLoadingPage = require(Actions.SetLoadingPage)
+local UpdateOverrideAssetData = require(Actions.UpdateOverrideAssetData)
+local SetCurrentPage = require(Actions.SetCurrentPage)
 
 return Rodux.createReducer({
 	-- Empty table means publish new asset
@@ -61,6 +64,11 @@ return Rodux.createReducer({
 
 	networkError = nil,
 	networkErrorAction = nil,
+
+	-- For overrideAsset
+	fetchedAll = false,
+	loadingPage = 0,
+	currentPage = 1,
 }, {
 
 	[SetAssetId.name] = function(state, action)
@@ -162,6 +170,15 @@ return Rodux.createReducer({
 		})
 	end,
 
+	[UpdateOverrideAssetData.name] = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			totalResults = action.totalResults,
+			resultsArray = Cryo.List.join(state.resultsArray, action.resultsArray),
+			filteredResultsArray = Cryo.List.join(state.filteredResultsArray, action.filteredResultsArray),
+			fetchedAll = action.fetchedAll,
+		})
+	end,
+
 	[SetMyGroups.name] = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			groupsArray = action.groupsArray
@@ -171,6 +188,18 @@ return Rodux.createReducer({
 	[SetIsVerifiedCreator.name] = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			isVerifiedCreator = action.isVerifiedCreator
+		})
+	end,
+
+	[SetLoadingPage.name] = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			loadingPage = action.loadingPage,
+		})
+	end,
+
+	[SetCurrentPage.name] = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			currentPage = action.currentPage,
 		})
 	end,
 })

@@ -10,12 +10,13 @@ local PageInfoHelper = require(Plugin.Core.Util.PageInfoHelper)
 
 local Category = require(Plugin.Core.Types.Category)
 local Sort = require(Plugin.Core.Types.Sort)
+local RequestReason = require(Plugin.Core.Types.RequestReason)
 
-local ChangeBackground = require(Plugin.Core.Actions.ChangeBackground)
-local GetManageableGroups = require(Plugin.Core.Actions.GetManageableGroups)
-local NextPage = require(Plugin.Core.Actions.NextPage)
-local UpdatePageInfo = require(Plugin.Core.Actions.UpdatePageInfo)
-local SetCategories = require(Plugin.Core.Actions.SetCategories)
+local Actions = Plugin.Core.Actions
+local ChangeBackground = require(Actions.ChangeBackground)
+local GetManageableGroups = require(Actions.GetManageableGroups)
+local UpdatePageInfo = require(Actions.UpdatePageInfo)
+local SetCurrentPage = require(Actions.SetCurrentPage)
 
 local defaultSorts = Sort.SORT_OPTIONS
 local defaultCategories = Category.MARKETPLACE
@@ -83,10 +84,15 @@ return Rodux.createReducer({
 
 	currentTab = Constants.DEFAULT_TAB,
 
-	page = 1,
+	-- The page I want to load
+	targetPage = 1,
+	-- The page I have loaded
+	currentPage = 0,
 
 	selectedBackgroundIndex = 1,
 	hoveredBackgroundIndex = 0,
+
+	requestReason = RequestReason.InitLoad,
 }, {
 	[UpdatePageInfo.name] = function(state, action)
 		if not action.changes then
@@ -112,9 +118,14 @@ return Rodux.createReducer({
 		return newState
 	end,
 
-	[NextPage.name] = function(state, action)
+	[SetCurrentPage.name] = function(state, action)
+		if not action.currentPage then
+			if DebugFlags.shouldDebugWarnings() then
+				warn("Toolbox SetCurrentPage action.currentPage = nil")
+			end
+		end
 		return Cryo.Dictionary.join(state, {
-			page = state.page + 1,
+			currentPage = action.currentPage,
 		})
 	end,
 
@@ -137,26 +148,6 @@ return Rodux.createReducer({
 		end
 
 		return newState
-	end,
-
-	[SetCategories.name] = function(state, action)
-		if not action.categories then
-			if DebugFlags.shouldDebugWarnings() then
-				warn("Toolbox SetCategories action.categories = nil")
-			end
-			return state
-		end
-		if not action.tabName then
-			if DebugFlags.shouldDebugWarnings() then
-				warn("Toolbox SetCategories action.tabName = nil")
-			end
-			return state
-		end
-
-		return Cryo.Dictionary.join(state, {
-			categories = action.categories,
-			currentTab = action.tabName,
-		})
 	end,
 
 	[GetManageableGroups.name] = function(state, action)
