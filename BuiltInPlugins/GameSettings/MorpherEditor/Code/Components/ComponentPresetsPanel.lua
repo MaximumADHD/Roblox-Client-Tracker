@@ -1,4 +1,5 @@
 local paths = require(script.Parent.Parent.Paths)
+local FFlagWorldAvatarLocalization = game:GetFastFlag("WorldAvatarLocalization")
 
 local PresetsPanel = paths.Roact.Component:extend("ComponentPresetsPanel")
 
@@ -7,20 +8,20 @@ local createClassicModel1 = nil
 local createClassicModel2 = nil
 local createRthroModel = nil
 local createPlayerChoiceModel = nil
-local addPresetButtons = nil
 
 function PresetsPanel:render()
+	local localizedContent = FFlagWorldAvatarLocalization and self.props.LocalizedContent or nil
 	return paths.Roact.createElement(paths.StudioWidgetButtonBar, {
 		Padding = 10,
 		Buttons = {
-			{ Name="Default", Enabled=self.props.IsEnabled, Value=self.createDefaultModel, ShowPressed=true, Mouse=self.props.Mouse },
-			{ Name="Classic Scale", Enabled=self.props.IsEnabled, Value=self.createClassicModel1, ShowPressed=true, Mouse=self.props.Mouse },
-			{ Name="Full Classic", Enabled=self.props.IsEnabled, Value=self.createClassicModel2, ShowPressed=true, Mouse=self.props.Mouse },
-			{ Name="Rthro", Enabled=self.props.IsEnabled, Value=self.createRthroModel, ShowPressed=true, Mouse=self.props.Mouse },
-			{ Name="Player Choice", Enabled=self.props.IsEnabled, Value=self.createPlayerChoiceModel, ShowPressed=true, Mouse=self.props.Mouse }
+			{ Name=FFlagWorldAvatarLocalization and localizedContent.Presets.Default or "Default", Enabled=self.props.IsEnabled, Value=self.createDefaultModel, ShowPressed=true, Mouse=self.props.Mouse },
+			{ Name=FFlagWorldAvatarLocalization and localizedContent.Presets.ClassicScale or "Classic Scale", Enabled=self.props.IsEnabled, Value=self.createClassicModel1, ShowPressed=true, Mouse=self.props.Mouse },
+			{ Name=FFlagWorldAvatarLocalization and localizedContent.Presets.FullClassic or "Full Classic", Enabled=self.props.IsEnabled, Value=self.createClassicModel2, ShowPressed=true, Mouse=self.props.Mouse },
+			{ Name=FFlagWorldAvatarLocalization and localizedContent.Presets.Rthro or "Rthro", Enabled=self.props.IsEnabled, Value=self.createRthroModel, ShowPressed=true, Mouse=self.props.Mouse },
+			{ Name=FFlagWorldAvatarLocalization and localizedContent.Presets.PlayerChoice or "Player Choice", Enabled=self.props.IsEnabled, Value=self.createPlayerChoiceModel, ShowPressed=true, Mouse=self.props.Mouse }
 		},
 		HorizontalAlignment = Enum.HorizontalAlignment.Left,
-		Title = "Presets",
+		Title = FFlagWorldAvatarLocalization and localizedContent.Title.Presets or "Presets",
 		ButtonClicked = function(functionToCall)
 			self.props.clobberTemplate(self.props.template, functionToCall(self.props.boundaries))
 		end,
@@ -123,30 +124,6 @@ function PresetsPanel:init()
 	self.createPlayerChoiceModel = function(boundaries)
 		return paths.StateModelTemplate.new(boundaries)
 	end
-
-	addPresetButtons = function(self, tableToPopulate, layoutOrder, boundaries)
-		local presetTypes = {
-			{ Text="Default", Func=self.createDefaultModel },
-			{ Text="Classic (proportions and scale only)", Func=self.createClassicModel1 },
-			{ Text="Classic (with classic head override)", Func=self.createClassicModel2 },
-			{ Text="Rthro", Func=self.createRthroModel },
-			{ Text="Player Choice", Func=self.createPlayerChoiceModel }
-		}
-
-		for _, preset in ipairs(presetTypes) do
-			tableToPopulate[preset.Text] = paths.Roact.createElement(paths.ComponentButtonRow, {
-					ThemeData = self.props.ThemeData,
-					LayoutOrder = layoutOrder:getNextOrder(),
-					Text = preset.Text,
-					IsEnabled = self.props.IsEnabled,
-
-					onClick = function()
-						self.props.clobberTemplate(self.props.template, preset.Func(boundaries))
-					end
-				}
-			)
-		end
-    end
 end
 
 PresetsPanel = paths.RoactRodux.UNSTABLE_connect2(

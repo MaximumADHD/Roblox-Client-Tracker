@@ -82,6 +82,10 @@ local function createValues(getColor, c, m)
 			font = Enum.Font.SourceSans,
 			error = getColor(c.ErrorText),
 		},
+		listDialog = {
+			font = Enum.Font.SourceSansSemibold,
+			textColor = getColor(c.MainText),
+		},
 		isDarkerTheme = isDark,
 	})
 
@@ -125,6 +129,29 @@ local function createValues(getColor, c, m)
 					borderColor = getColor(c.Border),
 				},
 			}
+		},
+		button = {
+			Default = {
+				backgroundColor = getColor(c.Button),
+
+				hovered = {
+					backgroundColor = getColor(c.Button, m.Hover),
+					textColor = getColor(c.MainText),
+					borderColor = getColor(c.Border),
+				},
+			},
+
+			Primary = {
+				backgroundColor = isDark and getColor(c.MainButton) or getColor(c.CurrentMarker),
+				textColor = Color3.new(1, 1, 1),
+				borderColor = getColor(c.Light),
+
+				hovered = {
+					backgroundColor = getColor(c.LinkText),
+					textColor = Color3.new(1, 1, 1),
+					borderColor = getColor(c.Light),
+				},
+			},
 		},
 		separator = {
 			lineColor = isDark and getColor(c.Border) or getColor(c.Titlebar),

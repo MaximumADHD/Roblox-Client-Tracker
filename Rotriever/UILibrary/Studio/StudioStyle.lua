@@ -5,12 +5,15 @@
 local StudioStyle = {}
 StudioStyle.__index = StudioStyle
 
+game:DefineFastString("StudioBuiltinPluginDefaultFont", "Gotham")
 
 -- c : StudioStyleGuideColor
 -- m : StudioStyleGuideModifier
 function StudioStyle.new(getColor, c, m)
+	local FStringMainFont = game:GetFastString("StudioBuiltinPluginDefaultFont")
+
 	return {
-		font = Enum.Font.Gotham,
+		font = Enum.Font[FStringMainFont],
 
 		backgroundColor = getColor(c.MainBackground),
 		textColor = getColor(c.MainText),
@@ -44,6 +47,8 @@ function StudioStyle.new(getColor, c, m)
 		errorColor = getColor(c.ErrorText),
 
 		hoverColor = getColor(c.MainBackground, m.Hover),
+
+		hyperlinkTextColor = getColor(c.LinkText),
 	}
 end
 

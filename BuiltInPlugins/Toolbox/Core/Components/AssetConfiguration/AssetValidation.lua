@@ -10,6 +10,8 @@
 		onClose callback, called when the user presses the "cancel" button
 ]]
 
+game:DefineFastFlag("CMSBetterModerationErrors", false)
+
 local ContentProvider = game:GetService("ContentProvider")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -284,18 +286,15 @@ function AssetValidation:validateMeshTriangles(instance)
 end
 
 function AssetValidation:validateModeration(instance)
+	local contentIdMap = {}
 	local contentIds = {}
-	for _, descendant in pairs(instance:GetDescendants()) do
-		if descendant:IsA("SpecialMesh") then
-			table.insert(contentIds, descendant.MeshId)
-			table.insert(contentIds, descendant.TextureId)
-		end
-	end
 
-	-- map to ending digits
-	-- rbxassetid://1234 -> 1234
-	-- http://www.roblox.com/asset/?id=1234 -> 1234
-	for key, contentId in pairs(contentIds) do
+	local function parseContentId(instance, fieldName)
+		local contentId = instance[fieldName]
+
+		-- map to ending digits
+		-- rbxassetid://1234 -> 1234
+		-- http://www.roblox.com/asset/?id=1234 -> 1234
 		local id = tonumber(string.match(contentId, "%d+$"))
 		if id == nil then
 			self:fail({
@@ -303,7 +302,43 @@ function AssetValidation:validateModeration(instance)
 				contentId,
 			})
 		end
-		contentIds[key] = id
+		contentIdMap[id] = {
+			fieldName = fieldName,
+			instance = instance,
+		}
+		table.insert(contentIds, id)
+	end
+
+	local function parseDescendantContentIds(instance)
+		for _, descendant in pairs(instance:GetDescendants()) do
+			if descendant:IsA("SpecialMesh") then
+				if game:GetFastFlag("CMSBetterModerationErrors") then
+					parseContentId(descendant, "MeshId")
+					parseContentId(descendant, "TextureId")
+				else
+					table.insert(contentIds, descendant.MeshId)
+					table.insert(contentIds, descendant.TextureId)
+				end
+			end
+		end
+	end
+
+	parseDescendantContentIds(instance)
+
+	if not game:GetFastFlag("CMSBetterModerationErrors") then
+		-- map to ending digits
+		-- rbxassetid://1234 -> 1234
+		-- http://www.roblox.com/asset/?id=1234 -> 1234
+		for key, contentId in pairs(contentIds) do
+			local id = tonumber(string.match(contentId, "%d+$"))
+			if id == nil then
+				self:fail({
+					"Could not parse ContentId",
+					contentId,
+				})
+			end
+			contentIds[key] = id
+		end
 	end
 
 	local moderatedIds = {}
@@ -324,10 +359,31 @@ function AssetValidation:validateModeration(instance)
 	end
 
 	if #moderatedIds > 0 then
-		self:fail({
-			"The following asset IDs have not passed moderation:",
-			unpack(moderatedIds),
-		})
+		if game:GetFastFlag("CMSBetterModerationErrors") then
+			local moderationMessages = {}
+			for idx, id in pairs(moderatedIds) do
+				local mapped = contentIdMap[id]
+				if mapped then
+					moderationMessages[idx] = string.format(
+						"%s.%s ( %s )",
+						mapped.instance:GetFullName(),
+						mapped.fieldName,
+						id
+					)
+				else
+					moderationMessages[idx] = id
+				end
+			end
+			self:fail({
+				"The following asset IDs have not passed moderation:",
+				unpack(moderationMessages),
+			})
+		else
+			self:fail({
+				"The following asset IDs have not passed moderation:",
+				unpack(moderatedIds),
+			})
+		end
 	end
 end
 

@@ -8,7 +8,7 @@ return function()
 
 	it("should create and destroy without errors", function()
 		local someTestElement = Roact.Component:extend("someTestElement")
-
+		-- luacheck: ignore unused argument self
 		function someTestElement:render()
 			return withStyle(function(style)
 				expect(style).to.be.a("table")

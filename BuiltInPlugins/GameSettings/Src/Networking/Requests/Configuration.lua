@@ -31,7 +31,6 @@ local Promise = require(Plugin.Promise)
 local Cryo = require(Plugin.Cryo)
 local Http = require(Plugin.Src.Networking.Http)
 local Analytics = require(Plugin.Src.Util.Analytics)
-local fastFlags = require(Plugin.Src.Util.FastFlags)
 local extractRelevantEntries = require(Plugin.Src.Util.extractRelevantEntries)
 local isEmpty = require(Plugin.Src.Util.isEmpty)
 

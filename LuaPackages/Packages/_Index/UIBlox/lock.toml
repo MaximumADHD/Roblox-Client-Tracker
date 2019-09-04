@@ -2,10 +2,10 @@
 name = "UIBlox"
 version = "0.1.0"
 source = "git+https://github.rbx.com/roblox/uiblox#master"
-commit = "8e094a5f5d9eafa62a2be17049ad796fb9094119"
+commit = "90e7d65a0ad0de7035c73106d6b6b09918f1f173"
 dependencies = [
-    "Cryo Cryo 0.1.0 git+https://github.com/roblox/cryo#roblox",
-    "Otter Otter 0.1.0 git+https://github.com/roblox/otter#roblox",
-    "Roact Roact1xMigration 0.6.5 git+https://github.rbx.com/pdoyle/roact-1x-migration#master",
-    "t t 1.0.0 git+https://github.com/roblox/t#master",
+    "Cryo Cryo ce743f67 git+https://github.com/roblox/cryo#roblox",
+    "Otter Otter fff3ac76 git+https://github.com/roblox/otter#roblox",
+    "Roact Roact1xMigration b815aedf git+https://github.rbx.com/pdoyle/roact-1x-migration#master",
+    "t t 74411073 git+https://github.com/roblox/t#master",
 ]

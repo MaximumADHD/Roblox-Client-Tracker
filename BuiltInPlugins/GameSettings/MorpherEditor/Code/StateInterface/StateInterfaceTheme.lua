@@ -68,7 +68,11 @@ function Theme.getRadioButtonTextColor(props)
 end
 
 getThemeData = function(props)
-	return props.ThemeData and props.ThemeData.theme
+	if game:GetFastFlag("StudioGameSettingsUseNewProviderAndThemeStuff") then
+		return props.ThemeData and props.ThemeData.theme and props.ThemeData.theme.PluginTheme
+	else
+		return props.ThemeData and props.ThemeData.theme
+	end
 end
 
 isDarkTheme = function(props)

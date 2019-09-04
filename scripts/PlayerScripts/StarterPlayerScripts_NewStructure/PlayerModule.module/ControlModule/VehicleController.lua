@@ -139,7 +139,7 @@ function VehicleController:OnThrottleAccel(actionName, inputState, inputObject)
 			self.acceleration = -1
 		end
 	else
-		self.acceleration = (inputState ~= Enum.UserInputState.End) and 1 or 0
+		self.acceleration = (inputState ~= Enum.UserInputState.End) and -1 or 0
 	end
 	self.throttle = self.acceleration + self.decceleration
 end

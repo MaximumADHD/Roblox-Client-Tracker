@@ -2,10 +2,10 @@ local LoadingRoot = script.Parent.Parent
 local UIBloxRoot = LoadingRoot.Parent
 local Roact = require(UIBloxRoot.Parent.Roact)
 
-local StyleProvider = require(UIBloxRoot.Style.StyleProvider)
-local StyleRoot = UIBloxRoot.Style
-local testStyle = require(StyleRoot.Validator.TestStyle)
 local LoadableImage = require(LoadingRoot.LoadableImage)
+local StyleProvider = require(UIBloxRoot.Style.StyleProvider)
+local UIBloxStyle = require(UIBloxRoot.Parent.UIBloxResources.UIBloxStyle)
+local withStyle = require(UIBloxRoot.Style.withStyle)
 
 local LoadableImageComponent = Roact.PureComponent:extend("LoadableImageComponent")
 
@@ -34,41 +34,77 @@ end
 
 function LoadableImageComponent:render()
 	local image
+	local imageTransparentBackground
+	local invalidContentId
 	if not self.state.isSimulatingLoading then
 		image = "rbxassetid://924320031"
+		imageTransparentBackground = "rbxassetid://1028594"
+		invalidContentId = "invalid-content-id"
 	end
 
-	return Roact.createElement("Frame", {
-		Size = UDim2.new(1, 0, 1, 0),
-		BackgroundTransparency = 1,
-	},
-	{
-		UIListLayout = Roact.createElement("UIListLayout", {
-			FillDirection = Enum.FillDirection.Vertical,
-			Padding = UDim.new(0, 20),
-			SortOrder = Enum.SortOrder.LayoutOrder,
-		}),
-		LoadableImage = Roact.createElement(LoadableImage, {
-			BackgroundColor3 = Color3.fromRGB(0, 0, 0),
-			BackgroundTransparency = 1,
-			Image = image,
-			LayoutOrder = 0,
-			Size = UDim2.new(0, 100, 0, 100),
-			useShimmerAnimationWhileLoading = true,
-		}),
-		ReloadButton = Roact.createElement("TextButton", {
-			BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-			LayoutOrder = 1,
-			Size = UDim2.new(0, 100, 0, 30),
-			Text = "Simulate Reload",
-			[Roact.Event.Activated] = function() self.simulateLoad() end,
-		}),
-	})
+	return withStyle(function(stylePalette)
+		local theme = stylePalette.Theme
+
+		return Roact.createElement("Frame", {
+			BackgroundColor3 = theme.BackgroundDefault.Color,
+			BackgroundTransparency = theme.BackgroundDefault.Transparency,
+			BorderSizePixel = 0,
+			Size = UDim2.new(1, 0, 1, 0),
+		}, {
+			UIListLayout = Roact.createElement("UIListLayout", {
+				FillDirection = Enum.FillDirection.Vertical,
+				Padding = UDim.new(0, 20),
+				SortOrder = Enum.SortOrder.LayoutOrder,
+			}),
+			LoadableImages = Roact.createElement("Frame", {
+				BackgroundTransparency = 1,
+				Size = UDim2.new(1, 0, 0, 100),
+				LayoutOrder = 0,
+			}, {
+				UIListLayout = Roact.createElement("UIListLayout", {
+					FillDirection = Enum.FillDirection.Horizontal,
+					Padding = UDim.new(0, 20),
+					SortOrder = Enum.SortOrder.LayoutOrder,
+				}),
+
+				LoadableImage = Roact.createElement(LoadableImage, {
+					BackgroundColor3 = Color3.fromRGB(0, 0, 0),
+					BackgroundTransparency = 1,
+					Image = image,
+					LayoutOrder = 0,
+					Size = UDim2.new(0, 100, 0, 100),
+					useShimmerAnimationWhileLoading = true,
+				}),
+
+				LoadableImageTransparentBackground = Roact.createElement(LoadableImage, {
+					Image = imageTransparentBackground,
+					LayoutOrder = 1,
+					Size = UDim2.new(0, 100, 0, 100),
+					useShimmerAnimationWhileLoading = true,
+				}),
+
+				LoadableImageFailedState = Roact.createElement(LoadableImage, {
+					Image = invalidContentId,
+					LayoutOrder = 2,
+					Size = UDim2.new(0, 100, 0, 100),
+					useShimmerAnimationWhileLoading = true,
+					showFailedStateWhenLoadingFailed = true,
+				}),
+			}),
+			ReloadButton = Roact.createElement("TextButton", {
+				BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+				LayoutOrder = 1,
+				Size = UDim2.new(0, 100, 0, 30),
+				Text = "Simulate Reload",
+				[Roact.Event.Activated] = self.simulateLoad,
+			}),
+		})
+	end)
 end
 
 return function(target)
 	local styleProvider = Roact.createElement(StyleProvider, {
-		style = testStyle,
+		style = UIBloxStyle,
 	}, {
 		Roact.createElement(LoadableImageComponent)
 	})

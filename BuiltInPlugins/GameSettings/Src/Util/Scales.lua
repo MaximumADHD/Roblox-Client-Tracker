@@ -3,17 +3,14 @@
 ]]
 
 local Plugin = script.Parent.Parent.Parent
-local fastFlags = require(Plugin.Src.Util.FastFlags)
 
 local Scales = {}
 
 local countDictionaryKeys = nil
 
 function Scales.isEqual(current, changed)
-	if fastFlags.isPlaceFilesGameSettingsSerializationOn() then
-		if nil == current or nil == changed then
-			return nil == current and nil == changed
-		end
+	if nil == current or nil == changed then
+		return nil == current and nil == changed
 	end
 
 	for key, val in pairs(current) do

@@ -42,6 +42,8 @@ Style.Defaults = {
 	errorColor = Color3.new(),
 
 	hoverColor = Color3.new(),
+
+	hyperlinkTextColor = Color3.new(),
 }
 
 -- A function that checks to see if there are any missing or

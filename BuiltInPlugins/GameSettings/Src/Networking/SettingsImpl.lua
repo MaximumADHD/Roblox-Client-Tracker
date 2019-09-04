@@ -21,7 +21,6 @@ local DFFlagDeveloperSubscriptionsEnabled = settings():GetFFlag("DeveloperSubscr
 local Plugin = script.Parent.Parent.Parent
 local Promise = require(Plugin.Promise)
 local Cryo = require(Plugin.Cryo)
-local fastFlags = require(Plugin.Src.Util.FastFlags)
 
 local WorkspaceSettings = require(Plugin.Src.Util.WorkspaceSettings)
 
@@ -77,18 +76,14 @@ function SettingsImpl:GetSettings_Old()
 	settings = Cryo.Dictionary.join(settings, WorkspaceSettings.getWorldSettings(settings))
 
 	return self:CanManagePlace():andThen(function(canManage)
-		if fastFlags.isPlaceFilesGameSettingsSerializationOn() then
-			settings = Cryo.Dictionary.join(settings, {["canManage"] = canManage })
-		end
+		settings = Cryo.Dictionary.join(settings, {["canManage"] = canManage })
 		if not canManage then
-			if fastFlags.isPlaceFilesGameSettingsSerializationOn() then
-				settings = Cryo.Dictionary.join(settings, WorkspaceSettings.getAvatarSettings(settings))
-			end
-			
+			settings = Cryo.Dictionary.join(settings, WorkspaceSettings.getAvatarSettings(settings))
+
 			if FFlagStudioGameSettingsDisablePlayabilityForDrafts then
-				settings = Cryo.Dictionary.join(settings, {["privacyType"] = "Draft"})
+				settings = Cryo.Dictionary.join(settings, {["privacyType"] = nil})
 			end
-			
+
 			return settings
 		end
 
@@ -129,9 +124,6 @@ function SettingsImpl:GetSettings_Old()
 end
 
 function SettingsImpl:GetSettings_New()
-	assert(fastFlags.isPlaceFilesGameSettingsSerializationOn(),
-		"Required flags are not enabled")
-
 	local settings = {
 		HttpEnabled = HttpService:GetHttpEnabled(),
 		studioUserId = self:GetUserId(),
@@ -221,12 +213,6 @@ function SettingsImpl:SaveAll(state)
 	WorkspaceSettings.saveAllWorldSettings(state.Changed)
 
 	return self:CanManagePlace():andThen(function(canManage)
-		if not fastFlags.isPlaceFilesGameSettingsSerializationOn() then
-			if not canManage then
-				return
-			end
-		end
-
 		local saveInfo = {}
 
 		for setting, value in pairs(state.Changed) do
@@ -271,11 +257,9 @@ function SettingsImpl:SaveAll(state)
 			end
 		end
 
-		if fastFlags.isPlaceFilesGameSettingsSerializationOn() then
-			WorkspaceSettings.saveAllAvatarSettings(saveInfo)
-			if not canManage then
-				return
-			end
+		WorkspaceSettings.saveAllAvatarSettings(saveInfo)
+		if not canManage then
+			return
 		end
 
 		local universeId = game.GameId

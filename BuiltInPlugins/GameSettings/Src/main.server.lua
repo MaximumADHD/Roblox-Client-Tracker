@@ -10,6 +10,8 @@ local FFlagStudioGameSettingsAccessPermissions = settings():GetFFlag("StudioGame
 
 local FFlagStudioGameSettingsBindToClose = game:DefineFastFlag("StudioGameSettingsBindToClose", false)
 
+game:DefineFastFlag("WorldAvatarLocalization", false)
+
 --Turn this on when debugging the store and actions
 local LOG_STORE_STATE_AND_EVENTS = false
 
@@ -121,7 +123,8 @@ local function showDialog(type, props)
 					theme = Theme.new(),
 					mouse = plugin:GetMouse(),
 					localization = localization,
-					pluginGui = pluginGui
+					pluginGui = pluginGui,
+					plugin = plugin,
 				}, {
 					Content = Roact.createElement(type, Cryo.Dictionary.join(props, {
 						OnResult = function(result)
@@ -261,13 +264,14 @@ local function openGameSettings()
 	end
 
 	local servicesProvider = Roact.createElement(ExternalServicesWrapper, {
-		impl = settingsImpl,
+		settingsSaverLoader = settingsImpl,
 		store = settingsStore,
 		showDialog = showDialog,
 		theme = Theme.new(),
 		mouse = plugin:GetMouse(),
 		localization = localization,
 		pluginGui = pluginGui,
+		plugin = plugin,
 	}, {
 		mainView = Roact.createElement(MainView, {
 			MenuEntries = menuEntries,

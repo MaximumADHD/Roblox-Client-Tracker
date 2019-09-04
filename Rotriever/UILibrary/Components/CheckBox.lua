@@ -53,6 +53,7 @@ function CheckBox:render()
 			Size = UDim2.new(1, 0, 0, height),
 			BackgroundTransparency = 1,
 			BorderSizePixel = 0,
+			LayoutOrder = layoutOrder or 1,
 		}, {
 			Background = Roact.createElement("ImageButton", {
 				Size = UDim2.new(0, height, 0, height),
@@ -60,7 +61,6 @@ function CheckBox:render()
 				ImageTransparency = enabled and 0 or 0.4,
 				Image = theme.checkBox.backgroundImage,
 				ImageColor3 = theme.checkBox.backgroundColor,
-				LayoutOrder = layoutOrder or 1,
 
 				[Roact.Event.Activated] = self.onActivated,
 			}, {

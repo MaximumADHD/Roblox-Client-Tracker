@@ -38,10 +38,8 @@ function Dialog:init(props)
 	self.widget = widget
 
 	if props.OnClose then
-		self.changedConnection = self.widget:GetPropertyChangedSignal("Enabled"):Connect(function()
-			if not self.widget.Enabled then
-				props.OnClose()
-			end
+		widget:BindToClose(function()
+			props.OnClose()
 		end)
 	end
 end

@@ -1,5 +1,5 @@
 local paths = require(script.Parent.Parent.Paths)
-local fastFlags = require(script.Parent.Parent.FastFlags)
+local FFlagWorldAvatarLocalization = game:GetFastFlag("WorldAvatarLocalization")
 
 local MorpherTemplate = paths.Roact.Component:extend("ComponentMorpherTemplate")
 
@@ -18,15 +18,14 @@ function MorpherTemplate:render()
 			AssetOverrideErrors = self.props.AssetOverrideErrors,
 			Mouse = self.props.Mouse,
 
-			clobberTemplate = self.props.clobberTemplate
+			clobberTemplate = self.props.clobberTemplate,
+			LocalizedContent = FFlagWorldAvatarLocalization and self.props.LocalizedContent or nil
 		}
 	end
 
 	local function getPropsForPublishingHint()
 		local subProps = getPropsForSubComponents()
-		if fastFlags.isPlaceFilesGameSettingsSerializationOn() then
-			subProps.IsEnabled = self.props.IsPlacePublished
-		end
+		subProps.IsEnabled = self.props.IsPlacePublished
 		return subProps
 	end
 

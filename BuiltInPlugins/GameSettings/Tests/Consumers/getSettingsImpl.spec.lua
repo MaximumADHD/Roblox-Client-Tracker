@@ -35,7 +35,7 @@ return function()
 			store = settingsStore
 		}, {
 			settingsImplProvider = Roact.createElement(SettingsImplProvider, {
-				impl = settingsImpl,
+				settingsImpl = settingsImpl,
 			}, {
 				consumer = element,
 			}),

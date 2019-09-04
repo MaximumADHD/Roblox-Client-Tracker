@@ -9781,8 +9781,8 @@
                         {
                             "Name": "gameStateType",
                             "Type": {
-                                "Category": "Primitive",
-                                "Name": "int"
+                                "Category": "Enum",
+                                "Name": "StudioDataModelType"
                             }
                         }
                     ],
@@ -9802,8 +9802,8 @@
                         {
                             "Name": "gameStateType",
                             "Type": {
-                                "Category": "Primitive",
-                                "Name": "int"
+                                "Category": "Enum",
+                                "Name": "StudioDataModelType"
                             }
                         }
                     ],
@@ -9816,8 +9816,8 @@
                         {
                             "Name": "gameStateType",
                             "Type": {
-                                "Category": "Primitive",
-                                "Name": "int"
+                                "Category": "Enum",
+                                "Name": "StudioDataModelType"
                             }
                         }
                     ],
@@ -32490,6 +32490,45 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "ReplaceMaterial",
+                    "Parameters": [
+                        {
+                            "Name": "region",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Region3"
+                            }
+                        },
+                        {
+                            "Name": "resolution",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "float"
+                            }
+                        },
+                        {
+                            "Name": "sourceMaterial",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "Material"
+                            }
+                        },
+                        {
+                            "Name": "targetMaterial",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "Material"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "None"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "SetCell",
                     "Parameters": [
                         {
@@ -38908,8 +38947,8 @@
                     "MemberType": "Property",
                     "Name": "HostDataModelType",
                     "Security": {
-                        "Read": "RobloxScriptSecurity",
-                        "Write": "RobloxScriptSecurity"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
@@ -39006,7 +39045,7 @@
                         "Category": "Class",
                         "Name": "Instance"
                     },
-                    "Security": "RobloxScriptSecurity"
+                    "Security": "PluginSecurity"
                 },
                 {
                     "MemberType": "Function",
@@ -39031,7 +39070,7 @@
                         "Category": "Class",
                         "Name": "Instance"
                     },
-                    "Security": "RobloxScriptSecurity"
+                    "Security": "PluginSecurity"
                 },
                 {
                     "MemberType": "Function",
@@ -39168,7 +39207,7 @@
                         "Category": "Primitive",
                         "Name": "void"
                     },
-                    "Security": "RobloxScriptSecurity"
+                    "Security": "PluginSecurity"
                 },
                 {
                     "MemberType": "Function",
@@ -39194,7 +39233,7 @@
                         "Category": "Primitive",
                         "Name": "string"
                     },
-                    "Security": "RobloxScriptSecurity"
+                    "Security": "PluginSecurity"
                 },
                 {
                     "MemberType": "Function",
@@ -39274,7 +39313,7 @@
                         "Category": "Primitive",
                         "Name": "bool"
                     },
-                    "Security": "RobloxScriptSecurity"
+                    "Security": "PluginSecurity"
                 },
                 {
                     "MemberType": "Function",
@@ -39412,7 +39451,7 @@
                         "Category": "Primitive",
                         "Name": "bool"
                     },
-                    "Security": "RobloxScriptSecurity"
+                    "Security": "PluginSecurity"
                 },
                 {
                     "MemberType": "Function",
@@ -39510,7 +39549,7 @@
                         "Category": "Primitive",
                         "Name": "void"
                     },
-                    "Security": "RobloxScriptSecurity"
+                    "Security": "PluginSecurity"
                 },
                 {
                     "MemberType": "Function",
@@ -42834,24 +42873,6 @@
                     "MemberType": "Function",
                     "Name": "ResetCoverageCollection",
                     "Parameters": [
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "void"
-                    },
-                    "Security": "RobloxScriptSecurity"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "SetCoverageFilter",
-                    "Parameters": [
-                        {
-                            "Name": "callback",
-                            "Type": {
-                                "Category": "DataType",
-                                "Name": "Function"
-                            }
-                        }
                     ],
                     "ReturnType": {
                         "Category": "Primitive",
@@ -46687,6 +46708,13 @@
             "Members": [
             ],
             "MemoryCategory": "Instances",
+            "Name": "StandalonePluginScripts",
+            "Superclass": "Instance"
+        },
+        {
+            "Members": [
+            ],
+            "MemoryCategory": "Instances",
             "Name": "StarterGear",
             "Superclass": "Instance"
         },
@@ -49262,6 +49290,48 @@
                     }
                 },
                 {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "GridSize",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "RotateIncrement",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
                     "Category": "State",
                     "MemberType": "Property",
                     "Name": "StudioLocaleId",
@@ -49280,6 +49350,26 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "string"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "UseLocalSpace",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
                     }
                 },
                 {
@@ -49751,6 +49841,13 @@
                                 "Name": "Objects"
                             }
                         }
+                    ],
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "PlacePublishedToRoblox",
+                    "Parameters": [
                     ],
                     "Security": "RobloxScriptSecurity"
                 }

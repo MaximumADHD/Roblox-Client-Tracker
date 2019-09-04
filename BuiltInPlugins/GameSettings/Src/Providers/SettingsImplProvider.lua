@@ -6,13 +6,13 @@ local settingsImplKey = require(Plugin.Src.Keys.settingsImplKey)
 local SettingsImplProvider = Roact.Component:extend("SettingsImplProvider")
 
 function SettingsImplProvider:init(props)
-	local impl = props.impl
+	local settingsImpl = props.settingsImpl
 
-	if impl == nil then
-		error("Error initializing SettingsImplProvider. Expected an `impl` prop.")
+	if settingsImpl == nil then
+		error("Error initializing SettingsImplProvider. Expected an `settingsImpl` prop.")
 	end
 
-	self._context[settingsImplKey] = impl
+	self._context[settingsImplKey] = settingsImpl
 end
 
 function SettingsImplProvider:render()

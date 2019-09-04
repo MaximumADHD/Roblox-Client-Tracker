@@ -7,14 +7,13 @@ local t = require(Packages.t)
 local withStyle = require(Packages.UIBlox.Style.withStyle)
 local ModalBottomSheetButton = require(script.Parent.ModalBottomSheetButton)
 
+-- https://share.goabstract.com/cfe90baa-ab79-4f34-ad1b-3ef389d39da4
 local ModalBottomSheet = Roact.PureComponent:extend("ModalBottomSheet")
 
--- https://share.goabstract.com/cfe90baa-ab79-4f34-ad1b-3ef389d39da4?mode=design&sha=a851936a1fe5f2f017aae74abe55715832c6c362
 local WIDTH_THRESHOLD = 600
 local ELEMENT_HEIGHT = 56
 local MAXIMUM_SHEET_ELEMENTS = 7
 local MAXIMUM_SHEET_HEIGHT = ELEMENT_HEIGHT * (MAXIMUM_SHEET_ELEMENTS + 0.5)
-
 
 local MOTOR_OPTIONS = {
 	frequency = 4,

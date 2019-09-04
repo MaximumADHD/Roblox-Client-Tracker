@@ -101,6 +101,26 @@ local function toggleWidget()
 	pluginGui.Enabled = not pluginGui.Enabled
 end
 
+-- The widget should open automatically if there are checked out drafts, or whenever
+-- the first draft is checked out. We only do this once so the widget doesn't keep
+-- opening if the user explicitly closes it
+local function setWidgetInitialState(drafts)
+	local initiallyHasDrafts = #drafts > 0
+	if initiallyHasDrafts then
+		pluginGui.Enabled = true
+	else
+		-- Wait for the first draft to be checked out. Our fake signal implementation doesn't have :wait(),
+		-- so we need to connect and then immediately disconnect the first time it fires. The definition
+		-- and assignment of connection is separated because otherwise we couldn't access it from within
+		-- the event callback
+		local connection
+		connection = draftsService.DraftAdded:connect(function()
+			connection:disconnect()
+			pluginGui.Enabled = true
+		end)
+	end
+end
+
 local function connectToDraftsService()
 	local eventConnections = {}
 
@@ -122,8 +142,8 @@ local function connectToDraftsService()
 		local draftStatus = draftsService:GetDraftStatus(draft)
 		handleStatus(draft, draftStatus)
 
-		eventConnections[draft] = draft.AncestryChanged:Connect(function()
-			roduxStore:dispatch(DraftStateChangedAction(draft, DraftState.Deleted, draft.Parent == nil))
+		eventConnections[draft] = draft.AncestryChanged:Connect(function(_, ancestorNewParent)
+			roduxStore:dispatch(DraftStateChangedAction(draft, DraftState.Deleted, ancestorNewParent == nil))
 		end)
 	end
 
@@ -172,9 +192,11 @@ local function connectToDraftsService()
 			if success then
 				roduxStore:dispatch(DraftStateChangedAction(draft, DraftState.Committed, CommitState.Committed))
 			else
-				roduxStore:dispatch(DraftStateChangedAction(draft, DraftState.Uncommitted, CommitState.Uncommitted))
+				roduxStore:dispatch(DraftStateChangedAction(draft, DraftState.Committed, CommitState.Uncommitted))
 			end
 		end)
+
+		setWidgetInitialState(drafts)
 	end)
 end
 
@@ -207,8 +229,9 @@ local function main()
 	-- create the plugin
 	local widgetInfo = DockWidgetPluginGuiInfo.new(
 		Enum.InitialDockState.Right,  -- Widget will be initialized docked to the right
-		true,   -- Widget will be initially enabled
-		false,  -- Don't override the previous enabled state
+		false,   -- Widget will be initially disabled
+		true,  -- Override the previous enabled state since the plugin enabling itself
+			   -- will be saved and open next time a place with no drafts is loaded
 		300,    -- Default width of the floating window
 		600,    -- Default height of the floating window
 		150,    -- Minimum width of the floating window (optional)

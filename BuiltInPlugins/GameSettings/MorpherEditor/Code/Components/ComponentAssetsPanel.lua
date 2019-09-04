@@ -1,4 +1,5 @@
 local paths = require(script.Parent.Parent.Paths)
+local FFlagWorldAvatarLocalization = game:GetFastFlag("WorldAvatarLocalization")
 
 local AssetsPanel = paths.Roact.Component:extend("ComponentAssetsPanel")
 
@@ -50,8 +51,15 @@ local createInputRow = function(self, label, assetTypeId, layoutOrder)
 		LayoutOrder = layoutOrder:getNextOrder(),
 		PlayerChoice = playerChoice,
 		IsEnabled = self.props.IsEnabled,
-		ErrorMessage = self.props.AssetOverrideErrors and self.props.AssetOverrideErrors[assetTypeId] or nil,
+		ErrorMessage = (function()
+			if FFlagWorldAvatarLocalization then
+				local errorLocalizationKey = self.props.AssetOverrideErrors and self.props.AssetOverrideErrors[assetTypeId] or nil
+				return errorLocalizationKey and self.props.LocalizedContent.Error[errorLocalizationKey]
+			end
+			return self.props.AssetOverrideErrors and self.props.AssetOverrideErrors[assetTypeId] or nil
+		end)(),
 		Mouse = self.props.Mouse,
+		LocalizedContent = FFlagWorldAvatarLocalization and self.props.LocalizedContent or nil,
 
 		SetValue = function(text)
 			local id = string.len(string.gsub(text, " ", "")) > 0 and tonumber(text) or 0
@@ -83,9 +91,9 @@ local function createRowsForAssets(self, tableToPopulate, layoutOrder, sectionTi
 		LayoutOrder = layoutOrder:getNextOrder(),
 		IsEnabled = self.props.IsEnabled,
 		Text = sectionTitle,
-		IsPlayerChoiceTitleStyle = true
-		}
-	)
+		IsPlayerChoiceTitleStyle = true,
+		LocalizedContent = FFlagWorldAvatarLocalization and self.props.LocalizedContent or nil,
+	})
 
 	for _, row in pairs(inputRowsData) do
 		local label, assetTypeId = row[1], row[2]
@@ -94,25 +102,27 @@ local function createRowsForAssets(self, tableToPopulate, layoutOrder, sectionTi
 end
 
 createRowsForBodyParts = function(self, tableToPopulate, layoutOrder)
+	local localizedContent = FFlagWorldAvatarLocalization and self.props.LocalizedContent or nil
 	local inputRowsData = {
-		{ "Face", paths.ConstantAvatar.AssetTypes.Face },
-		{ "Head", paths.ConstantAvatar.AssetTypes.Head },
-		{ "Torso", paths.ConstantAvatar.AssetTypes.Torso },
-		{ "Left Arm", paths.ConstantAvatar.AssetTypes.LeftArm },
-		{ "Right Arm", paths.ConstantAvatar.AssetTypes.RightArm },
-		{ "Left Leg", paths.ConstantAvatar.AssetTypes.LeftLeg },
-		{ "Right Leg", paths.ConstantAvatar.AssetTypes.RightLeg }
+		{ FFlagWorldAvatarLocalization and localizedContent.Part.Face or "Face", paths.ConstantAvatar.AssetTypes.Face },
+		{ FFlagWorldAvatarLocalization and localizedContent.Part.Head or "Head", paths.ConstantAvatar.AssetTypes.Head },
+		{ FFlagWorldAvatarLocalization and localizedContent.Part.Torso or "Torso", paths.ConstantAvatar.AssetTypes.Torso },
+		{ FFlagWorldAvatarLocalization and localizedContent.Part.LeftArm or "Left Arm", paths.ConstantAvatar.AssetTypes.LeftArm },
+		{ FFlagWorldAvatarLocalization and localizedContent.Part.RightArm or "Right Arm", paths.ConstantAvatar.AssetTypes.RightArm },
+		{ FFlagWorldAvatarLocalization and localizedContent.Part.LeftLeg or "Left Leg", paths.ConstantAvatar.AssetTypes.LeftLeg },
+		{ FFlagWorldAvatarLocalization and localizedContent.Part.RightLeg or "Right Leg", paths.ConstantAvatar.AssetTypes.RightLeg }
 	}
-	createRowsForAssets(self, tableToPopulate, layoutOrder, "Body Parts", inputRowsData)
+	createRowsForAssets(self, tableToPopulate, layoutOrder, FFlagWorldAvatarLocalization and localizedContent.Title.TitleBodyParts or "Body Parts", inputRowsData)
 end
 
 createRowsForClothes = function(self, tableToPopulate, layoutOrder)
+	local localizedContent = FFlagWorldAvatarLocalization and self.props.LocalizedContent or nil
 	local inputRowsData = {
-		{ "T-Shirt ID", paths.ConstantAvatar.AssetTypes.ShirtGraphic },
-		{ "Shirt ID", paths.ConstantAvatar.AssetTypes.Shirt },
-		{ "Pants ID", paths.ConstantAvatar.AssetTypes.Pants }
+		{ FFlagWorldAvatarLocalization and localizedContent.Clothing.TShirt or "T-Shirt ID", paths.ConstantAvatar.AssetTypes.ShirtGraphic },
+		{ FFlagWorldAvatarLocalization and localizedContent.Clothing.Shirt or "Shirt ID", paths.ConstantAvatar.AssetTypes.Shirt },
+		{ FFlagWorldAvatarLocalization and localizedContent.Clothing.Pants or "Pants ID", paths.ConstantAvatar.AssetTypes.Pants }
 	}
-	createRowsForAssets(self, tableToPopulate, layoutOrder, "Clothing", inputRowsData)
+	createRowsForAssets(self, tableToPopulate, layoutOrder, FFlagWorldAvatarLocalization and localizedContent.Title.TitleClothing or "Clothing", inputRowsData)
 end
 
 return AssetsPanel

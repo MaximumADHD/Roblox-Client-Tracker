@@ -7,6 +7,8 @@ if not plugin then
 	return
 end
 
+game:DefineFastFlag("RemoveNilInstances", false)
+
 local Plugin = script.Parent.Parent
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
@@ -233,9 +235,16 @@ local function main()
 		-- clone instances so that user cannot edit them while validating/uploading
 		local clonedInstances = {}
 		for i = 1, #instances do
-			pcall(function()
-				clonedInstances[i] = instances[i]:Clone()
-			end)
+			if game:GetFastFlag("RemoveNilInstances") then
+				local success, theClone = pcall(function()
+					return instances[i]:Clone()
+				end)
+				clonedInstances[#clonedInstances + 1] = success and theClone or nil
+			else
+				pcall(function()
+					clonedInstances[i] = instances[i]:Clone()
+				end)
+			end
 		end
 
 		local function proceedToUpload()

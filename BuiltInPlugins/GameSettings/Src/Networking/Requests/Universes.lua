@@ -55,7 +55,7 @@ function Universes.Get(universeId, studioUserId)
 
 			return {
 				isActive = nil,
-				privacyType = "Draft",
+				privacyType = nil,
 				creatorType = Enum.CreatorType.User,
 				creatorId = studioUserId,
 				creatorName = result.Username,

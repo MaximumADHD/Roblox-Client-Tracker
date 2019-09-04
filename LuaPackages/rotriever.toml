@@ -9,6 +9,7 @@ Roact = { git = "https://github.rbx.com/pdoyle/roact-1x-migration" }
 Rodux = { git = "https://github.com/Roblox/rodux", rev = "master" }
 RoactRodux = { git = "https://github.rbx.com/pdoyle/roact-rodux-1x-migration" }
 Cryo = { git = "https://github.com/Roblox/cryo", rev = "roblox" }
+LuaDiscussionsDeps = { git = "https://github.rbx.com/Roblox/lua-discussions-deps", rev = "no-infinite-scroller"}
 UIBlox = { git = "https://github.rbx.com/Roblox/uiblox", rev = "master" }
 Otter = { git = "https://github.com/Roblox/Otter", rev = "roblox" }
 t = { git = "https://github.com/Roblox/t", rev = "master" }

@@ -31,8 +31,6 @@ local Header = require(Plugin.Src.Components.Header)
 
 local getTheme = require(Plugin.Src.Consumers.getTheme)
 
-local fastFlags = require(Plugin.Src.Util.FastFlags)
-
 local AssetOverrides = require(Plugin.Src.Util.AssetOverrides)
 local AddErrors = require(Plugin.Src.Actions.AddErrors)
 local getMouse = require(Plugin.Src.Consumers.getMouse)
@@ -43,20 +41,10 @@ local createSettingsPage = require(Plugin.Src.Components.SettingsPages.createSet
 local MorpherRootPanel = require(Plugin.MorpherEditor.Code.Components.ComponentRootPanelExternal)
 
 local isPlaceDataAvailable = function(props)
-	if fastFlags.isPlaceFilesGameSettingsSerializationOn() then
-		if FFlagAccessPermissions then
-			return game.GameId ~= 0
-		else
-			return props.CanManage
-		end
+	if FFlagAccessPermissions then
+		return game.GameId ~= 0
 	else
-		local result = props.AvatarType and
-			props.AvatarAnimation and
-			props.AvatarCollision and
-			props.AvatarAssetOverrides and
-			props.AvatarScalingMin and
-			props.AvatarScalingMax
-		return result and true or false
+		return props.CanManage
 	end
 end
 
@@ -77,13 +65,7 @@ local function loadValuesToProps(getValue, state)
 		CurrentAvatarType = state.Settings.Current.universeAvatarType,
 		AssetOverrideErrors = state.Settings.Errors.universeAvatarAssetOverrides,
 
-		CanManage = (not FFlagAccessPermissions) and (function()
-			if fastFlags.isPlaceFilesGameSettingsSerializationOn() then
-				return getValue("canManage")
-			else
-				return nil
-			end
-		end)(),
+		CanManage = (not FFlagAccessPermissions) and getValue("canManage"),
 	}
 end
 
@@ -133,19 +115,13 @@ local function displayContents(page, localized)
 		Morpher = Roact.createElement(MorpherRootPanel, {
 			ThemeData = getTheme(page),
 			LocalizedContent = localized.Morpher or nil,
-			IsEnabled = fastFlags.isPlaceFilesGameSettingsSerializationOn() and true or isPlaceDataAvailable(props),
+			IsEnabled = true,
 
 			IsGameShutdownRequired = isShutdownRequired(props.CurrentAvatarType, props.AvatarType),
 			AssetOverrideErrors = props.AssetOverrideErrors,
 			Mouse = getMouse(page).getNativeMouse(),
 
-			IsPlacePublished = (function()
-				if fastFlags.isPlaceFilesGameSettingsSerializationOn() then
-					return isPlaceDataAvailable(props)
-				else
-					return nil
-				end
-			end)(),
+			IsPlacePublished = isPlaceDataAvailable(props),
 
 			AvatarType = props.AvatarType,
 			AvatarAnimation = props.AvatarAnimation,
@@ -155,7 +131,7 @@ local function displayContents(page, localized)
 			AvatarScalingMax = props.AvatarScalingMax,
 
 			OnAvatarTypeChanged = function(newVal)
-				if not fastFlags.isPlaceFilesGameSettingsSerializationOn() or isPlaceDataAvailable(props) then
+				if isPlaceDataAvailable(props) then
 					local willShutdown = isShutdownRequired(props.CurrentAvatarType, newVal)
 					props.AvatarTypeChanged(newVal, willShutdown)
 				else

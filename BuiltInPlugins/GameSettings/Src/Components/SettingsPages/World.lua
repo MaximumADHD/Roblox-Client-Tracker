@@ -19,6 +19,7 @@ local PageName = "World"
 
 local DFIntJumpPowerInstantControllerMultiplierPercent =  tonumber(settings():GetFVariable("JumpPowerInstantControllerMultiplierPercent"))
 local FFlagGameSettingsReorganizeHeaders = settings():GetFFlag("GameSettingsReorganizeHeaders")
+local FFlagWorldAvatarLocalization = game:GetFastFlag("WorldAvatarLocalization")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -119,7 +120,12 @@ local function createInputRow(title, label, value, minValue, maxValue, updateFun
 			Size = UDim2.new(1, 0, 0, ROW_HEIGHT),
 			Position = UDim2.new(0, INPUT_BOX_OFFSET+METRIC_LABEL_OFFSET, 0.5, 0),
 			AnchorPoint = Vector2.new(0, 0.5),
-			Text = metricsUnitText and "(" .. studToMetric(value) .. " " .. metricsUnitText .. ")" or "",
+			Text = (function()
+				if FFlagWorldAvatarLocalization then
+					return metricsUnitText and metricsUnitText({number = studToMetric(value)}) or ""
+				end
+				return metricsUnitText and "(" .. studToMetric(value) .. " " .. metricsUnitText .. ")" or ""
+			end)(),
 		}),
 	})
 end
@@ -160,25 +166,25 @@ local function applyPreset(props, gravity, shouldJumpPowerBeUsed, jumpPower, jum
 	end
 end
 
-local function createPresetsWidgets(order, worldPanelProps, mouse)
+local function createPresetsWidgets(order, worldPanelProps, mouse, localized)
 	return Roact.createElement(StudioWidgetButtonBarWithToolTip, {
 		ButtonBarButtons = {
 			{
-				Name="Classic", Enabled=true, ShowPressed=true, Mouse=mouse,
+				Name= FFlagWorldAvatarLocalization and localized.WorldPresets.Classic or "Classic", Enabled=true, ShowPressed=true, Mouse=mouse,
 				Value={
-					ToolTip = "Classic Roblox, heavier gravity, higher jump",
+					ToolTip = FFlagWorldAvatarLocalization and localized.WorldPresets.ClassicToolTip or "Classic Roblox, heavier gravity, higher jump",
 					ApplyPreset = function() applyPreset(worldPanelProps, 196.2, true, 50, nil, 16, 89) end
 				}
 			}, {
-				Name="Realistic", Enabled=true, ShowPressed=true, Mouse=mouse,
+				Name= FFlagWorldAvatarLocalization and localized.WorldPresets.Realistic or "Realistic", Enabled=true, ShowPressed=true, Mouse=mouse,
 				Value={
-					ToolTip = "Real world gravity, athletic human",
+					ToolTip = FFlagWorldAvatarLocalization and localized.WorldPresets.RealisticToolTip or "Real world gravity, athletic human",
 					ApplyPreset = function() applyPreset(worldPanelProps, 35, true, 13, nil, 16) end
 				}
 			}, {
-				Name="Action", Enabled=true, ShowPressed=true, Mouse=mouse,
+				Name= FFlagWorldAvatarLocalization and localized.WorldPresets.Action or "Action", Enabled=true, ShowPressed=true, Mouse=mouse,
 				Value={
-					ToolTip = "Slightly heavier gravity, jump higher, walk faster",
+					ToolTip = FFlagWorldAvatarLocalization and localized.WorldPresets.ActionToolTip or "Slightly heavier gravity, jump higher, walk faster",
 					ApplyPreset = function() applyPreset(worldPanelProps, 75, true, 31, nil, 18) end
 				}
 			}
@@ -187,11 +193,11 @@ local function createPresetsWidgets(order, worldPanelProps, mouse)
 			value.ApplyPreset()
 		end,
 		LayoutOrder = order,
-		Title = "Presets"
+		Title = FFlagWorldAvatarLocalization and localized.Title.Presets or "Presets"
 	})
 end
 
-local function createJumpSelectWidgets(incrementNextLayoutOrderFunc, props, mouse)
+local function createJumpSelectWidgets(incrementNextLayoutOrderFunc, props, mouse, localized)
 	local JumpSelectPadding  = UDim.new(0, 10)
 	local JumpSelectRowHeight = 20
 
@@ -246,13 +252,13 @@ local function createJumpSelectWidgets(incrementNextLayoutOrderFunc, props, mous
 		BackgroundTransparency = 1,
 	}, {
 		JumpSelect = Roact.createElement(StudioWidgetRadioButtonSet, {
-			Title = "Jump",
+			Title = FFlagWorldAvatarLocalization and localized.Title.Jump or "Jump",
 			Buttons = {{
 					Id = false,
-					Title = "Jump Height:",
+					Title = FFlagWorldAvatarLocalization and localized.Jump.Height or "Jump Height:",
 				}, {
 					Id = true,
-					Title = "Jump Power:",
+					Title = FFlagWorldAvatarLocalization and localized.Jump.Power or "Jump Power:",
 				},
 			},
 			LayoutOrder = incrementNextLayoutOrderFunc(),
@@ -285,12 +291,19 @@ local function createJumpSelectWidgets(incrementNextLayoutOrderFunc, props, mous
 				SortOrder = Enum.SortOrder.LayoutOrder,
 			}),
 
-			JumpHeightMetricLabel = createMetricLabel(not props.WorkspaceUseJumpPower, "(" .. studToMetric(props.WorkspaceJumpHeight) .. " meters)")
+			JumpHeightMetricLabel = createMetricLabel(not props.WorkspaceUseJumpPower,
+				(function()
+					if FFlagWorldAvatarLocalization then
+						return localized.Units.Meters({number = studToMetric(props.WorkspaceJumpHeight)})
+					end
+					return "(" .. studToMetric(props.WorkspaceJumpHeight) .. " meters)"
+				end)()
+			)
 		}),
 	})
 end
 
-local function createJumpDistanceWidgets(incrementNextLayoutOrderFunc, props)
+local function createJumpDistanceWidgets(incrementNextLayoutOrderFunc, props, localized)
 	local function calculateJumpDistance()
 		local gravity = tonumber(props.WorkspaceGravity) or 0
 		if gravity <= 0 then
@@ -318,9 +331,16 @@ local function createJumpDistanceWidgets(incrementNextLayoutOrderFunc, props)
 		LayoutOrder = incrementNextLayoutOrderFunc(),
 		TitleTextYAlignment = Enum.TextYAlignment.Center
 	}, {
-		JumpDistanceLabel = createLabel(0, "Max Jump Distance:"),
+		JumpDistanceLabel = createLabel(0, FFlagWorldAvatarLocalization and localized.Jump.Distance or "Max Jump Distance:"),
 		JumpDistanceValue = createLabel(INPUT_BOX_OFFSET, tostring(MathUtil.round(calculateJumpDistance()))),
-		JumpDistanceMetricValue = createLabel(INPUT_BOX_OFFSET+METRIC_LABEL_OFFSET, "(" .. studToMetric(calculateJumpDistance()) .. " meters)"),
+		JumpDistanceMetricValue = createLabel(INPUT_BOX_OFFSET+METRIC_LABEL_OFFSET,
+			(function()
+				if FFlagWorldAvatarLocalization then
+					return localized.Units.Meters({number = studToMetric(calculateJumpDistance())})
+				end
+				return "(" .. studToMetric(calculateJumpDistance()) .. " meters)"
+			end)()
+		),
 	})
 end
 
@@ -346,18 +366,41 @@ local function displayContents(page, localized)
 			LayoutOrder = -1,
 		}),
 
-		Presets = createPresetsWidgets(incrementNextLayoutOrder(), props, mouse),
+		Presets = createPresetsWidgets(incrementNextLayoutOrder(), props, mouse, localized),
 		Separator1 = Roact.createElement(StudioWidgetSeparator, {
 			LayoutOrder = incrementNextLayoutOrder(),
 		}),
-		Gravity = createInputRow("Gravity", "Workspace Gravity:", props.WorkspaceGravity, 0.1, 1000, changeGravity, incrementNextLayoutOrder(), mouse, "meters/second^2"),
+		Gravity = createInputRow(FFlagWorldAvatarLocalization and localized.Title.Gravity or "Gravity",
+			FFlagWorldAvatarLocalization and localized.Gravity.WorkspaceGravity or "Workspace Gravity:",
+			props.WorkspaceGravity,
+			0.1,
+			1000,
+			changeGravity,
+			incrementNextLayoutOrder(),
+			mouse,
+			FFlagWorldAvatarLocalization and localized.Units.MetersPerSecondSquared or "meters/second^2"),
 		Separator2 = Roact.createElement(StudioWidgetSeparator, {
 			LayoutOrder = incrementNextLayoutOrder(),
 		}),
-		JumpSelect = createJumpSelectWidgets(incrementNextLayoutOrder, props, mouse),
-		WalkSpeed = createInputRow("Walk", "Walk Speed:", props.WorkspaceWalkSpeed, 0, nil, props.WorkspaceWalkSpeedChanged, incrementNextLayoutOrder(), mouse, "meters/second"),
-		JumpDistance = createJumpDistanceWidgets(incrementNextLayoutOrder, props),
-		MaxSlopeAngle = createInputRow("Slope", "Max Slope Angle:", props.WorkspaceMaxSlopeAngle, 0, 89, props.WorkspaceMaxSlopeAngleChanged, incrementNextLayoutOrder(), mouse)
+		JumpSelect = createJumpSelectWidgets(incrementNextLayoutOrder, props, mouse, localized),
+		WalkSpeed = createInputRow(FFlagWorldAvatarLocalization and localized.Title.Walk or "Walk",
+			FFlagWorldAvatarLocalization and localized.Walk.Speed or "Walk Speed:",
+			props.WorkspaceWalkSpeed,
+			0,
+			nil,
+			props.WorkspaceWalkSpeedChanged,
+			incrementNextLayoutOrder(),
+			mouse,
+			FFlagWorldAvatarLocalization and localized.Units.MetersPerSecond or "meters/second"),
+		JumpDistance = createJumpDistanceWidgets(incrementNextLayoutOrder, props, localized),
+		MaxSlopeAngle = createInputRow(FFlagWorldAvatarLocalization and localized.Title.Slope or "Slope",
+			FFlagWorldAvatarLocalization and localized.Slope.Angle or "Max Slope Angle:",
+			props.WorkspaceMaxSlopeAngle,
+			0,
+			89,
+			props.WorkspaceMaxSlopeAngleChanged,
+			incrementNextLayoutOrder(),
+			mouse)
 	}
 end
 

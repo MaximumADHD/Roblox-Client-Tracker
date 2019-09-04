@@ -42,7 +42,7 @@ local function render(props, theme, localized)
 		BackgroundTransparency = 1,
 		Image = Constants.ROUNDED_BACKGROUND_IMAGE,
 		ImageTransparency = 0,
-		ImageColor3 = theme.textBox.background,
+		ImageColor3 = theme.table.item.background,
 		ScaleType = Enum.ScaleType.Slice,
 		SliceCenter = Constants.ROUNDED_FRAME_SLICE,
 	},
@@ -106,7 +106,8 @@ local function render(props, theme, localized)
 
 				Button = Roact.createElement("ImageButton", {
 					BackgroundTransparency = 1,
-					Image = "rbxasset://textures/GameSettings/edit.png",
+					Image = theme.editButton.image,
+					ImageColor3 = theme.editButton.imageColor,
 					Size = UDim2.new(0, 16, 0, 16),
 					SizeConstraint = Enum.SizeConstraint.RelativeYY,
 

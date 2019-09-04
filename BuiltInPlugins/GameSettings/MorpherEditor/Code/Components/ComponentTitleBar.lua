@@ -1,24 +1,10 @@
 local paths = require(script.Parent.Parent.Paths)
 
+local FFlagWorldAvatarLocalization = game:GetFastFlag("WorldAvatarLocalization")
+
 local TitleBar = paths.Roact.Component:extend("ComponentTitleBar")
 
 local calculateTextSize = nil
-
-local function getHeadingLabel(self)
-	return paths.Roact.createElement("TextLabel", {
-			Text = self.props.Text .. (self.props.IsEnabled and "" or " (Unavailable)"),
-			TextColor3 = paths.StateInterfaceTheme.getTitleTextColor(self.props),
-			BackgroundTransparency = 1,
-			AnchorPoint = Vector2.new(0, 0.5),
-			Position = UDim2.new(0, paths.UtilityFunctionsCreate.getIndentFrameWidth(), 0.5, 0),
-			Size = UDim2.new(0, 200, 1, 0),
-			Font = paths.ConstantFonts.TitleText.Type,
-			TextSize = paths.ConstantFonts.TitleText.Size,
-			BorderSizePixel = 0,
-			TextXAlignment = Enum.TextXAlignment.Left,
-		}
-	)
-end
 
 local function getCustomLabel(self)
 	local unavailableXPos = self.props.IsEnabled and 170 or 200
@@ -67,7 +53,7 @@ function TitleBar:render()
 			TextColor3 = paths.StateInterfaceTheme.getRadioButtonTextColor(self.props),
 			Font = Enum.Font.SourceSans,
 			TextSize = 22,
-			Text = "Override Player Choice?",
+			Text = FFlagWorldAvatarLocalization and self.props.LocalizedContent.AvatarOverrides.Prompt or "Override Player Choice?",
 		})
 	end
 

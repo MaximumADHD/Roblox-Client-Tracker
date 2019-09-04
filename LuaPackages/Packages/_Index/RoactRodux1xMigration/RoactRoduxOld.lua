@@ -3,7 +3,7 @@
 ]]
 local PackageIndex = script.Parent.Parent
 
-local package = PackageIndex["RoactRodux-456316a1-d4255300"]["RoactRodux"]
+local package = PackageIndex["RoactRodux"]["RoactRodux"]
 
 if package.ClassName == "ModuleScript" then
 	return require(package)

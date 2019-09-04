@@ -64,6 +64,7 @@ local Separator = require(Plugin.Src.Components.Separator)
 local ThumbnailController = require(Plugin.Src.Components.Thumbnails.ThumbnailController)
 local GameIconWidget = require(Plugin.Src.Components.GameIcon.GameIconWidget)
 local Header = require(Plugin.Src.Components.Header)
+local PlayabilityWidget = require(Plugin.Src.Components.PlayabilityWidget)
 
 local WarningDialog = require(Plugin.Src.Components.Dialog.WarningDialog)
 local ListDialog = require(Plugin.Src.Components.Dialog.ListDialog)
@@ -243,19 +244,26 @@ local function displayContents(page, localized)
 			LayoutOrder = 30,
 		}),
 
-		PlayabilityWarning = (not FFlagStudioGameSettingsAccessPermissions) and FFlagStudioGameSettingsDisablePlayabilityForDrafts and (props.PrivacyType == "Draft") and Roact.createElement("TextLabel", {
-			Font = Enum.Font.SourceSans,
-			TextSize = 22,
-			TextColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.SubText),
-			Text = localized.Playability.PlayabilityWarning,
-			TextXAlignment = Enum.TextXAlignment.Left,
-			TextColor3 = Color3.fromRGB(255, 115, 21),
-			BackgroundTransparency = 1,
-			Size = UDim2.new(1, 0, 0, 30),
-			LayoutOrder = 39,
+		Playability = (not FFlagStudioGameSettingsAccessPermissions and FFlagStudioGameSettingsDisablePlayabilityForDrafts) and Roact.createElement(PlayabilityWidget, {
+			LayoutOrder = 40,
+			Group = props.Group,
+			Enabled = (props.PrivacyType ~= nil and props.PrivacyType ~= "Draft"),
+			Selected = props.IsFriendsOnly and "Friends" or props.IsActive,
+			SelectionChanged = function(button)
+				if button.Id == "Friends" then
+					props.IsFriendsOnlyChanged(true)
+					props.IsActiveChanged({Id = true})
+				else
+					props.IsFriendsOnlyChanged(false)
+					local willShutdown = (function()
+						return props.IsCurrentlyActive and not button.Id
+					end)()
+					props.IsActiveChanged(button, willShutdown)
+				end
+			end,
 		}),
 
-		Playability = (not FFlagStudioGameSettingsAccessPermissions) and Roact.createElement(RadioButtonSet, {
+		DEPRECATED_Playability = (not FFlagStudioGameSettingsAccessPermissions and not FFlagStudioGameSettingsDisablePlayabilityForDrafts) and Roact.createElement(RadioButtonSet, {
 			Title = localized.Title.Playability,
 			Description = localized.Playability.Header,
 			LayoutOrder = 40,
@@ -274,7 +282,7 @@ local function displayContents(page, localized)
 					Description = localized.Playability.Private.Description,
 				},
 			},
-			Enabled = ((FFlagStudioGameSettingsDisablePlayabilityForDrafts and (props.PrivacyType ~= "Draft")) or (props.IsActive ~= nil)),
+			Enabled = props.IsActive ~= nil,
 			--Functionality
 			Selected = props.IsFriendsOnly and "Friends" or props.IsActive,
 			SelectionChanged = function(button)

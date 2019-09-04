@@ -11,8 +11,6 @@ local Thumbnails = require(Plugin.Src.Reducers.Thumbnails)
 local CollaboratorSearch = require(Plugin.Src.Reducers.CollaboratorSearch)
 local DevSubModeration = require(Plugin.Src.Reducers.DevSubModeration)
 
-local fastFlags = require(Plugin.Src.Util.FastFlags)
-
 local ReducerMorpher = require(Plugin.MorpherEditor.Code.Reducers.ReducerRootExternal)
 
 return Rodux.combineReducers({

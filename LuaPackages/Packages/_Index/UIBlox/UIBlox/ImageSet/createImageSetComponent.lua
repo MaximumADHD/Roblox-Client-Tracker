@@ -20,7 +20,9 @@ return function(innerComponent, resolutionScale)
 		end
 
 		if usesImageSet and fullProps.SliceCenter then
-			fullProps.SliceCenter = Rect.new(fullProps.SliceCenter.Min * resolutionScale, fullProps.SliceCenter.Max * resolutionScale)
+			local min = fullProps.SliceCenter.Min * resolutionScale
+			local max = fullProps.SliceCenter.Max * resolutionScale
+			fullProps.SliceCenter = Rect.new(min, max)
 			fullProps.SliceScale = (fullProps.SliceScale or 1) / resolutionScale
 		end
 

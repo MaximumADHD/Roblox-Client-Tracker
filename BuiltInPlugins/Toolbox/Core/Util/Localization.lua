@@ -286,6 +286,7 @@ function Localization:_recalculateContent()
 			FreeMeshes = self:_safeLocalize("Studio.Toolbox.General.CategoryMeshes"),
 			FreeAudio = self:_safeLocalize("Studio.Toolbox.General.CategoryAudio"),
 			FreePlugins = self:_safeLocalize("Studio.Toolbox.General.CategoryPlugins"),
+			PaidPlugins = self:_safeLocalize("Studio.Toolbox.General.CategoryPaidPlugins"),
 			MyModels = self:_safeLocalize("Studio.Toolbox.General.CategoryMyModels"),
 			MyDecals = self:_safeLocalize("Studio.Toolbox.General.CategoryMyDecals"),
 			MyMeshes = self:_safeLocalize("Studio.Toolbox.General.CategoryMyMeshes"),
@@ -386,7 +387,8 @@ function Localization:_recalculateContent()
 			CopyAssetURI = self:_safeLocalize("Studio.Toolbox.General.RightClickMenuCopyAssetURI"),
 			ViewInBrowser = self:_safeLocalize("Studio.Toolbox.General.RightClickMenuViewInBrowser"),
 			ConfigureAsset = self:_safeLocalize("Studio.Toolbox.General.RightClickMenuConfigureAsset"),
-			EditAsset = self:_safeLocalize("Studio.Toolbox.General.RightClickMenuEditAsset")
+			EditAsset = self:_safeLocalize("Studio.Toolbox.General.RightClickMenuEditAsset"),
+			Report = self:_safeLocalize("Studio.Toolbox.General.RightClickMenuReport")
 		},
 
 		Status = {
@@ -466,6 +468,15 @@ function Localization:_recalculateContent()
 			Discard = self:_safeLocalize("Studio.Toolbox.General.Discard"),
 			Close = self:_safeLocalize("Studio.Common.Action.Close"),
 			DiscardMessage = self:_safeLocalize("Studio.Toolbox.General.DiscardMessage"),
+
+			Insert = self:_safeLocalize("Studio.Common.Action.Insert"),
+			Install = self:_safeLocalize("Studio.Common.Action.Install"),
+			Loading = self:_safeLocalize("Studio.Common.Action.Loading"),
+			Update = self:_safeLocalize("Studio.Common.Action.Update"),
+			Installed = self:_safeLocalize("Studio.Common.Action.Installed"),
+
+			InstallSuccess = self:_safeLocalize("Studio.Toolbox.General.InstallSuccess"),
+			InstallFailure = self:_safeLocalize("Studio.Toolbox.General.InstallFailure"),
 		}
 	})
 end

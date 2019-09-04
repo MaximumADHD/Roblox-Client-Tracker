@@ -1180,6 +1180,7 @@ RBX
 	SpecialShape
 	SphereHandleAdornment
 	SpotLight
+	StandalonePluginScripts
 	StandardPages
 	StarterCharacterScripts
 	StarterGear

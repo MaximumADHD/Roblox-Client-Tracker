@@ -50,6 +50,8 @@ local RESULT_Y_POS = 279
 local SUCCESS_PADDING = 12
 local SUCCESS_HEIGHT = 24
 
+local FFlagFixAssetUploadSuccssMessage = game:DefineFastFlag("FixAssetUploadSuccssMessage", false)
+
 local AssetUploadResult = Roact.PureComponent:extend("AssetUploadResult")
 
 function AssetUploadResult:init(props)
@@ -88,6 +90,12 @@ function AssetUploadResult:render()
 		local props = self.props
 
 		local isUploadFlow = props.screenFlowType == AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW
+		local showModeration
+		if FFlagFixAssetUploadSuccssMessage then
+			showModeration = isUploadFlow and props.assetTypeEnum ~= Enum.AssetType.Model
+		else
+			showModeration = isUploadFlow
+		end
 
 		local url
 		if props.uploadSucceeded then
@@ -143,7 +151,7 @@ function AssetUploadResult:render()
 					Size = UDim2.new(0, TITLE_WIDTH, 0, TITLE_HEIGHT),
 					Text = "Successfully submitted!",
 					Font = Constants.FONT,
-					TextColor3 = theme.uploadResult.text,
+					TextColor3 = FFlagFixAssetUploadSuccssMessage and theme.uploadResult.greenText or theme.uploadResult.text,
 					TextSize = Constants.FONT_SIZE_TITLE,
 					TextXAlignment = Enum.TextXAlignment.Center,
 					TextYAlignment = Enum.TextYAlignment.Center,
@@ -158,7 +166,7 @@ function AssetUploadResult:render()
 						Padding = UDim.new(0, SUCCESS_PADDING),
 						SortOrder = Enum.SortOrder.LayoutOrder,
 					}),
-					ModerationMessage = isUploadFlow and Roact.createElement("TextLabel", {
+					ModerationMessage = showModeration and Roact.createElement("TextLabel", {
 						BackgroundTransparency = 1,
 						Font = Constants.FONT,
 						Text = "Asset has been added to moderation queue. Learn more",

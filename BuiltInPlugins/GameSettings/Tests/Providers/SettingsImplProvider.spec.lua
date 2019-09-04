@@ -10,7 +10,7 @@ return function()
 		local settingsImpl = SettingsImpl_mock.new()
 
 		local element = Roact.createElement(SettingsImplProvider, {
-			impl = settingsImpl
+			settingsImpl = settingsImpl
 		})
 
 		expect(element).to.be.ok()

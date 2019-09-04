@@ -11,17 +11,25 @@
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
-local Constants = require(Plugin.Src.Resources.Constants)
-local Theming = require(Plugin.Src.ContextServices.Theming)
+local Cryo = require(Plugin.Packages.Cryo)
 local UILibrary = require(Plugin.Packages.UILibrary)
+
+local Constants = require(Plugin.Src.Resources.Constants)
+
+local Theming = require(Plugin.Src.ContextServices.Theming)
+
 local CheckBox = UILibrary.Component.CheckBox
 local TitledFrame = UILibrary.Component.TitledFrame
 
 local CHECKBOX_SIZE = 20
 local CHECKBOX_PADDING = 8
 
-local function CheckBoxSet(props)
+local CheckBoxSet = Roact.PureComponent:extend("CheckBoxSet")
+
+function CheckBoxSet:render()
 	return Theming.withTheme(function(theme)
+		local props = self.props
+
 		local title = props.Title
 		local layoutOrder = props.LayoutOrder or 1
 		local boxes = props.Boxes
@@ -52,6 +60,8 @@ local function CheckBoxSet(props)
 				end,
 			}))
 		end
+
+		children = Cryo.Dictionary.join(props[Roact.Children], children)
 
 		if errorMessage then
 			children.Error = Roact.createElement("TextLabel", {

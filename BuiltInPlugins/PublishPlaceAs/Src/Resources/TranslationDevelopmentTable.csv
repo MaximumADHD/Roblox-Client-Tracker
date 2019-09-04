@@ -1,13 +1,20 @@
 Key,Source,Context,en-us
 Studio.PublishPlaceAs.General.PublishPlace, , ,Publish Place
+Studio.PublishPlaceAs.General.ContentDialogTitle, , ,Content Agreement
+Studio.PublishPlaceAs.General.ContentDialogHeader, , ,Do you agree that your game is controller compatible and contains NONE of the following?
+Studio.PublishPlaceAs.General.ContentDialogItem1, , ,Blood or Gore
+Studio.PublishPlaceAs.General.ContentDialogItem2, , ,Intense Violence
+Studio.PublishPlaceAs.General.ContentDialogItem3, , ,Strong Language (Swearing)
+Studio.PublishPlaceAs.General.ContentDialogItem4, , ,Robux Gambling
+Studio.PublishPlaceAs.General.ContentDialogItem5, , ,Drug Reference or Use
+Studio.PublishPlaceAs.Button.AddNewPlace, , ,Add New
+Studio.PublishPlaceAs.Button.ReplyAgree, , ,Agree
+Studio.PublishPlaceAs.Button.ReplyDisagree, , ,Disagree
 Studio.PublishPlaceAs.FooterButton.UpdateExistingGame, , ,Update existing game...
 Studio.PublishPlaceAs.FooterButton.CreateNewGame, , ,Create new game...
 Studio.PublishPlaceAs.FooterButton.Create, , ,Create
 Studio.PublishPlaceAs.FooterButton.Overwrite, , ,Overwrite
 Studio.PublishPlaceAs.FooterButton.Cancel, , ,Cancel
-Studio.PublishPlaceAs.Button.AddNewPlace, , ,Add New
-Studio.PublishPlaceAs.Button.NextPage, , ,>
-Studio.PublishPlaceAs.Button.PreviousPage, , ,<
 Studio.PublishPlaceAs.MenuItem.BasicInfo, , ,Basic Info
 Studio.PublishPlaceAs.Devices.Header, , ,Devices
 Studio.PublishPlaceAs.Devices.Computer, , ,Computer

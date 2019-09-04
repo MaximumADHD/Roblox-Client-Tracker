@@ -67,6 +67,11 @@ Studio.GameSettings.General.TitleGenre,Genre, ,Genre,类别
 Studio.GameSettings.General.TitleDevices,Playable Devices, ,Playable Devices,可玩设备
 Studio.GameSettings.General.TitleHttp,Allow HTTP Requests, ,Allow HTTP Requests,允许HTTP请求
 Studio.GameSettings.General.TitleStudioApiServices,Enable Studio Access to API Services, ,Enable Studio Access to API Services,启用API服务的Studio访问功能
+Studio.GameSettings.General.TitleWorldPresets,Presets, ,Presets,预设
+Studio.GameSettings.General.TitleGravity,Gravity, ,Gravity,Gravity
+Studio.GameSettings.General.TitleJump,Jump, ,Jump,Jump
+Studio.GameSettings.General.TitleWalk,Walk, ,Walk,Walk
+Studio.GameSettings.General.TitleSlope,Slope, ,Slope,Slope
 Studio.GameSettings.General.PlayabilityHeader,Who can play this game?, ,Who can play this game?,谁可以玩这个游戏？
 Studio.GameSettings.General.PlayabilityPublic,Public, ,Public,公开
 Studio.GameSettings.General.PlayabilityGroup,Group Members, ,Group Members,群组成员
@@ -155,6 +160,8 @@ Studio.GameSettings.General.ScaleWidth,Width, ,Width,宽度
 Studio.GameSettings.General.ScaleHead,Head, ,Head,头部
 Studio.GameSettings.General.ScaleBodyType,Body Type, ,Body Type,身体类型
 Studio.GameSettings.General.ScaleProportions,Proportions, ,Proportions,比例
+Studio.GameSettings.General.ScaleSliderLabel,{number}%, ,{number}%,{number}%
+Studio.GameSettings.General.ScaleSliderUnits,%, ,%,%
 Studio.GameSettings.General.PartFace,Face, ,Face,脸部
 Studio.GameSettings.General.PartHead,Head, ,Head,头部
 Studio.GameSettings.General.PartTorso,Torso, ,Torso,躯干
@@ -182,6 +189,8 @@ Studio.GameSettings.General.AvatarOverridePrompt,Override Player Choice?, ,Overr
 Studio.GameSettings.General.AvatarOverrideItem,Custom Item, ,Custom Item,自定义项目
 Studio.GameSettings.General.AvatarOverrideId,ID Number, ,ID Number,ID码
 Studio.GameSettings.General.ErrorOverrideEmpty,ID Number cannot be empty, ,ID Number cannot be empty,ID码不能为空
+Studio.GameSettings.General.PublishingHintLink,Publishing the game to Roblox, ,Publishing the game to Roblox,Publishing the game to Roblox
+Studio.GameSettings.General.PublishingHintLinkExplanation, is required for changing Avatar game settings, , is required for changing Avatar game settings, is required for changing Avatar game settings
 Studio.GameSettings.General.CategoryDeveloperSubscriptions,Subscriptions, ,Subscriptions, 
 Studio.GameSettings.General.CategoryAccessPermissions,Permissions, ,Permissions, 
 Studio.GameSettings.General.TitleGameOwner,Game Owner, ,Game Owner, 
@@ -214,6 +223,22 @@ Studio.GameSettings.General.DevSubsDiscontinueDescription,This will cancel all r
 Studio.GameSettings.General.DevSubsDiscontinueConfirm,Discontinue, ,Discontinue, 
 Studio.GameSettings.General.PublishIsRequiredHyperlink,Publishing the game to Roblox,Inserted into PublishIsRequiredSentence2 as {hyperlink},Publishing the game to Roblox, 
 Studio.GameSettings.General.PublishIsRequiredSentence1, is required for {requiredForWhat},Constructed as hyperlinkText+' is required for {requiredForWhat=adding collaborators}', is required for {requiredForWhat}, 
+Studio.GameSettings.General.WorldPresetsClassic,Classic, ,Classic,Classic
+Studio.GameSettings.General.WorldPresetsRealistic,Realistic, ,Realistic,Realistic
+Studio.GameSettings.General.WorldPresetsAction,Action, ,Action,Action
+Studio.GameSettings.General.WorldPresetsClassicToolTip,"Classic Roblox, heavier gravity, higher jump", ,"Classic Roblox, heavier gravity, higher jump","Classic Roblox, heavier gravity, higher jump"
+Studio.GameSettings.General.WorldPresetsRealisticToolTip,"Real world gravity, athletic human", ,"Real world gravity, athletic human","Real world gravity, athletic human"
+Studio.GameSettings.General.WorldPresetsActionToolTip,"Slightly heavier gravity, jump higher, walk faster", ,"Slightly heavier gravity, jump higher, walk faster","Slightly heavier gravity, jump higher, walk faster"
+Studio.GameSettings.General.GravityWorkspaceGravity,Workspace Gravity:, ,Workspace Gravity:,Workspace Gravity:
+Studio.GameSettings.General.JumpHeight,Jump Height:, ,Jump Height:,Jump Height:
+Studio.GameSettings.General.JumpPower,Jump Power:, ,Jump Power:,Jump Power:
+Studio.GameSettings.General.JumpDistance,Max Jump Distance:, ,Max Jump Distance:,Max Jump Distance:
+Studio.GameSettings.General.WalkSpeed,Walk Speed:, ,Walk Speed:,Walk Speed:
+Studio.GameSettings.General.SlopeAngle,Max Slope Angle:, ,Max Slope Angle:,Max Slope Angle:
+Studio.GameSettings.General.UnitsMetersPerSecondSquared,({number} meters/second^2), ,({number} meters/second^2),({number} meters/second^2)
+Studio.GameSettings.General.UnitsMeters,({number} meters), ,({number} meters),({number} meters)
+Studio.GameSettings.General.UnitsMetersPerSecond,({number} meters/second), ,({number} meters/second),({number} meters/second)
+Studio.GameSettings.General.PublishTheGameToRoblox,Publish the game to Roblox,Same as PublishIsRequiredHyperlink without -ing,Publish the game to Roblox, 
 Studio.GameSettings.AccessPermissions.NoAccessLabel,No Access, ,No Access, 
 Studio.GameSettings.AccessPermissions.PlayLabel,Play, ,Play, 
 Studio.GameSettings.AccessPermissions.EditLabel,Edit, ,Edit, 
@@ -233,4 +258,4 @@ Studio.GameSettings.AccessPermissions.CollaboratorSearchbarTooManyText1,You cann
 Studio.GameSettings.AccessPermissions.CollaboratorSearchbarNoResultsText,There were no results, ,There were no results, 
 Studio.GameSettings.AccessPermissions.PublishRequiredForCollaborators,adding collaborators,Appended as argument to end of 'Publishing a game is required for ',adding collaborators, 
 Studio.GameSettings.AccessPermissions.TeamCreateWarning,"To add collaborators, turn on Team Create", ,"To add collaborators, turn on Team Create", 
-Studio.GameSettings.DraftGames.PlayabilityWarning,"To edit Playability, publish the game to Roblox", ,"To edit Playability, publish the game to Roblox", 
+Studio.GameSettings.DraftGames.PublishRequiredToActivatePlayability, to activate Playability options,Appended as argument to end of 'Publishing a game is required', to activate Playability options, 

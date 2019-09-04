@@ -1,6 +1,6 @@
 
 local CorePackages = game:GetService("CorePackages")
-local CoreGui = game:GetService("CoreGui").RobloxGui
+local RobloxGui = game:GetService("CoreGui").RobloxGui
 local Roact = require(CorePackages.Roact)
 
 local Constants = require(script.Parent.Parent.Constants)
@@ -13,6 +13,7 @@ local FULL_SCREEN_WIDTH = 375
 local INNER_Y_OFFSET = 8
 local INNER_X_OFFSET = 15
 
+local FFlagDevConsoleUpdateLayering = settings():GetFFlag("DevConsoleUpdateLayering")
 local FFlagRespectDisplayOrderForOnTopOfCoreBlur = settings():GetFFlag("RespectDisplayOrderForOnTopOfCoreBlur")
 
 local FullScreenDropDownButton = Roact.Component:extend("FullScreenDropDownButton")
@@ -47,6 +48,7 @@ function FullScreenDropDownButton:render()
 	local layoutOrder = self.props.layoutOrder
 
 	local isSelecting = self.state.selectionScreenExpanded
+	local portalTarget = self.props.portalTarget
 
 	local dropDownItemList = {}
 	local scrollingFrameHeight = 2 * INNER_Y_OFFSET
@@ -88,40 +90,36 @@ function FullScreenDropDownButton:render()
 		end
 	end
 
-	return Roact.createElement("TextButton", {
-		Size = buttonSize,
-		BackgroundColor3 = Constants.Color.UnselectedGray,
-		Text = "",
-		AutoButtonColor = false,
-		LayoutOrder = layoutOrder,
+	if FFlagDevConsoleUpdateLayering then
+		return Roact.createElement("TextButton", {
+			Size = buttonSize,
+			BackgroundColor3 = Constants.Color.UnselectedGray,
+			Text = "",
+			AutoButtonColor = false,
+			LayoutOrder = layoutOrder,
 
-		[Roact.Event.Activated] = self.startDropDownView,
-	}, {
-		text = Roact.createElement("TextLabel", {
-			Size = UDim2.new(1, -ARROW_SIZE - ARROW_OFFSET, 1, 0),
-			Text = dropDownList[selectedIndex],
-			Font = Constants.Font.TabBar,
-			TextSize = Constants.DefaultFontSize.DropDownTabBar,
-			TextXAlignment = Enum.TextXAlignment.Center,
-			TextColor3 = Constants.Color.Text,
-
-			BackgroundTransparency = 1,
-		}),
-
-		arrow = Roact.createElement("ImageLabel", {
-			Image = OPEN_ARROW,
-			BackgroundTransparency = 1,
-			Size = UDim2.new(0, ARROW_SIZE, 0, ARROW_SIZE),
-			Position = UDim2.new(1, -ARROW_SIZE - ARROW_OFFSET, .5, -ARROW_OFFSET),
-		}),
-
-		selectionView = isSelecting and Roact.createElement(Roact.Portal, {
-			target = CoreGui,
+			[Roact.Event.Activated] = self.startDropDownView,
 		}, {
-			TempScreen = Roact.createElement("ScreenGui", {
-				OnTopOfCoreBlur = FFlagRespectDisplayOrderForOnTopOfCoreBlur and true or nil,
-				-- 20 so that it will render on top of the main window, which is set to 10.
-				DisplayOrder = FFlagRespectDisplayOrderForOnTopOfCoreBlur and 20 or nil,
+			text = Roact.createElement("TextLabel", {
+				Size = UDim2.new(1, -ARROW_SIZE - ARROW_OFFSET, 1, 0),
+				Text = dropDownList[selectedIndex],
+				Font = Constants.Font.TabBar,
+				TextSize = Constants.DefaultFontSize.DropDownTabBar,
+				TextXAlignment = Enum.TextXAlignment.Center,
+				TextColor3 = Constants.Color.Text,
+
+				BackgroundTransparency = 1,
+			}),
+
+			arrow = Roact.createElement("ImageLabel", {
+				Image = OPEN_ARROW,
+				BackgroundTransparency = 1,
+				Size = UDim2.new(0, ARROW_SIZE, 0, ARROW_SIZE),
+				Position = UDim2.new(1, -ARROW_SIZE - ARROW_OFFSET, .5, -ARROW_OFFSET),
+			}),
+
+			selectionView = isSelecting and Roact.createElement(Roact.Portal, {
+				target = portalTarget ~= nil and portalTarget or game:GetService("CoreGui").DevConsoleMaster,
 			}, {
 				GreyOutFrame = Roact.createElement("Frame", {
 					Size = UDim2.new(1, 0, 1, 0),
@@ -153,7 +151,75 @@ function FullScreenDropDownButton:render()
 				})
 			})
 		})
-	})
+
+	else
+		return Roact.createElement("TextButton", {
+			Size = buttonSize,
+			BackgroundColor3 = Constants.Color.UnselectedGray,
+			Text = "",
+			AutoButtonColor = false,
+			LayoutOrder = layoutOrder,
+
+			[Roact.Event.Activated] = self.startDropDownView,
+		}, {
+			text = Roact.createElement("TextLabel", {
+				Size = UDim2.new(1, -ARROW_SIZE - ARROW_OFFSET, 1, 0),
+				Text = dropDownList[selectedIndex],
+				Font = Constants.Font.TabBar,
+				TextSize = Constants.DefaultFontSize.DropDownTabBar,
+				TextXAlignment = Enum.TextXAlignment.Center,
+				TextColor3 = Constants.Color.Text,
+
+				BackgroundTransparency = 1,
+			}),
+
+			arrow = Roact.createElement("ImageLabel", {
+				Image = OPEN_ARROW,
+				BackgroundTransparency = 1,
+				Size = UDim2.new(0, ARROW_SIZE, 0, ARROW_SIZE),
+				Position = UDim2.new(1, -ARROW_SIZE - ARROW_OFFSET, .5, -ARROW_OFFSET),
+			}),
+
+			selectionView = isSelecting and Roact.createElement(Roact.Portal, {
+				target = RobloxGui,
+			}, {
+				TempScreen = Roact.createElement("ScreenGui", {
+					OnTopOfCoreBlur = FFlagRespectDisplayOrderForOnTopOfCoreBlur and true or nil,
+					-- 20 so that it will render on top of the main window, which is set to 10.
+					DisplayOrder = FFlagRespectDisplayOrderForOnTopOfCoreBlur and 20 or nil,
+				}, {
+					GreyOutFrame = Roact.createElement("Frame", {
+						Size = UDim2.new(1, 0, 1, 0),
+						BackgroundColor3 = Constants.Color.Black,
+						BackgroundTransparency = .36,
+						Active = true,
+
+						[Roact.Event.InputEnded] = self.noSelection,
+					}, {
+						BorderFrame = Roact.createElement("Frame", {
+							Size = UDim2.new(0, FULL_SCREEN_WIDTH, 0, scrollingFrameHeight),
+							Position = UDim2.new(.5, -FULL_SCREEN_WIDTH / 2, 0, 0),
+							BackgroundColor3 = Constants.Color.UnselectedGray,
+							BorderSizePixel = 0,
+						}, {
+							SelectionFrame = Roact.createElement("ScrollingFrame", {
+								Size = UDim2.new(1, -2 * INNER_X_OFFSET, 1, -2 * INNER_Y_OFFSET),
+								Position = UDim2.new(0, INNER_X_OFFSET, 0, INNER_Y_OFFSET),
+								BackgroundTransparency = 1,
+
+								-- adding an extra entry's worth of height for easier access to last
+								-- child when trying to select last child
+								CanvasSize = UDim2.new(1, -2 * INNER_X_OFFSET, 1, ENTRY_HEIGHT),
+								BorderSizePixel = 0,
+
+								ScrollBarThickness = 0,
+							}, dropDownItemList)
+						})
+					})
+				})
+			})
+		})
+	end
 end
 
 return FullScreenDropDownButton

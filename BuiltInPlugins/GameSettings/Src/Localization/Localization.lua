@@ -5,6 +5,8 @@ local FALLBACK_LOCALE = "en-us"
 local createSignal = require(Plugin.Src.Util.createSignal)
 local Cryo = require(Plugin.Cryo)
 
+local FFlagWorldAvatarLocalization = game:GetFastFlag("WorldAvatarLocalization")
+
 local Localization = {}
 
 function Localization.new(props)
@@ -125,6 +127,11 @@ function Localization:recalculateContent()
 			StudioApiServices = self:getText("Studio.GameSettings.General.TitleStudioApiServices"),
 			GameOwner = self:getText("Studio.GameSettings.General.TitleGameOwner"),
 			Collaborators = self:getText("Studio.GameSettings.General.TitleCollaborators"),
+			Presets = FFlagWorldAvatarLocalization and self:getText("Studio.GameSettings.General.TitleWorldPresets") or nil,
+			Gravity = FFlagWorldAvatarLocalization and self:getText("Studio.GameSettings.General.TitleGravity") or nil,
+			Jump = FFlagWorldAvatarLocalization and self:getText("Studio.GameSettings.General.TitleJump") or nil,
+			Walk = FFlagWorldAvatarLocalization and self:getText("Studio.GameSettings.General.TitleWalk") or nil,
+			Slope = FFlagWorldAvatarLocalization and self:getText("Studio.GameSettings.General.TitleSlope") or nil,
 		},
 
 		Playability = {
@@ -145,7 +152,6 @@ function Localization:recalculateContent()
 				Title = self:getText("Studio.GameSettings.General.PlayabilityPrivate"),
 				Description = self:getText("Studio.GameSettings.General.PlayabilityPrivateDesc"),
 			},
-			PlayabilityWarning = self:getText("Studio.GameSettings.DraftGames.PlayabilityWarning")
 		},
 
 		GameIcon = {
@@ -356,6 +362,8 @@ function Localization:recalculateContent()
 				Head = self:getText("Studio.GameSettings.General.ScaleHead"),
 				BodyType = self:getText("Studio.GameSettings.General.ScaleBodyType"),
 				Proportions = self:getText("Studio.GameSettings.General.ScaleProportions"),
+				SliderLabel = FFlagWorldAvatarLocalization and self:getFormatTextFunc("Studio.GameSettings.General.ScaleSliderLabel") or nil,
+				SliderUnits = FFlagWorldAvatarLocalization and self:getText("Studio.GameSettings.General.ScaleSliderUnits") or nil,
 			},
 
 			Part = {
@@ -403,15 +411,26 @@ function Localization:recalculateContent()
 				Prompt = self:getText("Studio.GameSettings.General.AvatarOverridePrompt"),
 				Item = self:getText("Studio.GameSettings.General.AvatarOverrideItem"),
 				Id = self:getText("Studio.GameSettings.General.AvatarOverrideId"),
-				Empty = self:getText("Studio.GameSettings.General.ErrorOverrideEmpty"),
+				Empty = (not FFlagWorldAvatarLocalization) and self:getText("Studio.GameSettings.General.ErrorOverrideEmpty") or nil,
 			},
+
+			Error = FFlagWorldAvatarLocalization and {
+				OverrideEmpty = self:getText("Studio.GameSettings.General.ErrorOverrideEmpty"),
+			} or nil,
+
+			PublishingHint = FFlagWorldAvatarLocalization and {
+				Link = self:getText("Studio.GameSettings.General.PublishingHintLink"),
+				LinkExplanation = self:getText("Studio.GameSettings.General.PublishingHintLinkExplanation"),
+			} or nil,
 		},
 
 		PublishingIsRequired = {
 			FormattableSentence = self:getFormatTextFunc("Studio.GameSettings.General.PublishIsRequiredSentence1"),
 			HyperlinkText = self:getText("Studio.GameSettings.General.PublishIsRequiredHyperlink"),
+			PublishTheGameToRoblox = self:getText("Studio.GameSettings.General.PublishTheGameToRoblox"),
 
 			AddingCollaborators = self:getText("Studio.GameSettings.AccessPermissions.PublishRequiredForCollaborators"),
+			ActivatePlayability = self:getText("Studio.GameSettings.DraftGames.PublishRequiredToActivatePlayability")
 		},
 
 		AccessPermissions = {
@@ -443,7 +462,40 @@ function Localization:recalculateContent()
 			},
 
 			TeamCreateWarning = self:getText("Studio.GameSettings.AccessPermissions.TeamCreateWarning"),
-		}
+		},
+
+		WorldPresets = FFlagWorldAvatarLocalization and {
+			Classic = self:getText("Studio.GameSettings.General.WorldPresetsClassic"),
+			Realistic = self:getText("Studio.GameSettings.General.WorldPresetsRealistic"),
+			Action = self:getText("Studio.GameSettings.General.WorldPresetsAction"),
+			ClassicToolTip = self:getText("Studio.GameSettings.General.WorldPresetsClassicToolTip"),
+			RealisticToolTip = self:getText("Studio.GameSettings.General.WorldPresetsRealisticToolTip"),
+			ActionToolTip = self:getText("Studio.GameSettings.General.WorldPresetsActionToolTip"),
+		} or nil,
+
+		Gravity = FFlagWorldAvatarLocalization and {
+			WorkspaceGravity = self:getText("Studio.GameSettings.General.GravityWorkspaceGravity"),
+		} or nil,
+
+		Jump = FFlagWorldAvatarLocalization and {
+			Height = self:getText("Studio.GameSettings.General.JumpHeight"),
+			Power = self:getText("Studio.GameSettings.General.JumpPower"),
+			Distance = self:getText("Studio.GameSettings.General.JumpDistance"),
+		} or nil,
+
+		Walk = FFlagWorldAvatarLocalization and {
+			Speed = self:getText("Studio.GameSettings.General.WalkSpeed"),
+		} or nil,
+
+		Slope = FFlagWorldAvatarLocalization and {
+			Angle = self:getText("Studio.GameSettings.General.SlopeAngle"),
+		} or nil,
+
+		Units = FFlagWorldAvatarLocalization and {
+			MetersPerSecondSquared = self:getFormatTextFunc("Studio.GameSettings.General.UnitsMetersPerSecondSquared"),
+			Meters = self:getFormatTextFunc("Studio.GameSettings.General.UnitsMeters"),
+			MetersPerSecond = self:getFormatTextFunc("Studio.GameSettings.General.UnitsMetersPerSecond"),
+		} or nil
 	})
 end
 

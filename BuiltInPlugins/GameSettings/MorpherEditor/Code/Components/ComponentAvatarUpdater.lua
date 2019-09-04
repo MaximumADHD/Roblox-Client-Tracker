@@ -1,5 +1,4 @@
 local paths = require(script.Parent.Parent.Paths)
-local fastFlags = require(script.Parent.Parent.FastFlags)
 
 local AvatarUpdater = paths.Roact.Component:extend("ComponentAvatarUpdater")
 

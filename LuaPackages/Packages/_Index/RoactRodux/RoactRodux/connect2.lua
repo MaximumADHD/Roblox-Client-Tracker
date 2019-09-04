@@ -80,9 +80,7 @@ local function connect(mapStateToPropsOrThunk, mapDispatchToProps)
 		local Connection = Roact.Component:extend(componentName)
 
 		function Connection.getDerivedStateFromProps(nextProps, prevState)
-			if prevState.stateUpdater ~= nil then
-				return prevState.stateUpdater(nextProps, prevState)
-			end
+			return prevState.stateUpdater(nextProps, prevState)
 		end
 
 		function Connection:init()
@@ -150,11 +148,7 @@ local function connect(mapStateToPropsOrThunk, mapDispatchToProps)
 				propsForChild = nil,
 			}
 
-			local extraState = stateUpdater(self.props, self.state, mappedStoreState)
-
-			for key, value in pairs(extraState) do
-				self.state[key] = value
-			end
+			self.state.propsForChild = stateUpdater(self.props, self.state, mappedStoreState)
 		end
 
 		function Connection:didMount()

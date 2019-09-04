@@ -9,6 +9,7 @@ Studio.Drafts.ContextMenu.OpenScript, , ,Open Draft
 Studio.Drafts.ContextMenu.ShowDiff, , ,Compare with server
 Studio.Drafts.ContextMenu.Commit, , ,Commit
 Studio.Drafts.ContextMenu.Update, , ,Merge from server
+Studio.Drafts.ContextMenu.Restore, , ,Restore Script
 Studio.Drafts.ContextMenu.Revert, , ,Discard Draft
 Studio.Drafts.Dialog.Yes, , ,Yes
 Studio.Drafts.Dialog.No, , ,No

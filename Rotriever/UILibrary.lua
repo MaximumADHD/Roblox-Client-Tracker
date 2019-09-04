@@ -66,6 +66,8 @@ local UILibrary = {
 		Localization = require(Src.Studio.Localization),
 		Style = require(Src.Studio.StudioStyle),
 		Theme = require(Src.Studio.StudioTheme),
+		PartialHyperlink = require(Src.Studio.PartialHyperLink),
+		Hyperlink = require(Src.Studio.Hyperlink),
 	},
 
 	Focus = {

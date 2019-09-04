@@ -48,6 +48,7 @@ local Favorites = require(Preview.Favorites)
 
 local Util = Plugin.Core.Util
 local Constants = require(Util.Constants)
+local Colors = require(Util.Colors)
 local Images = require(Util.Images)
 local ContextHelper = require(Util.ContextHelper)
 local getTextSize = require(Util.getTextSize)
@@ -55,6 +56,7 @@ local Analytics = require(Util.Analytics.Analytics)
 local InsertAsset = require(Util.InsertAsset)
 
 local withTheme = ContextHelper.withTheme
+local withLocalization = ContextHelper.withLocalization
 
 local AssetType = require(Plugin.Core.Types.AssetType)
 
@@ -73,9 +75,6 @@ local VOTE_HEIGHT = 36
 
 local ACTION_BAR_HEIGHT = 52
 
-local LOADING_COLOR = Color3.fromRGB(158,158,158)
-local BUTTON_COLOR = Color3.fromRGB(0,162,255)
-
 -- Multiply minimum treeview width by 2 to get minimum threshold
 -- When the asset preview is twice the minimum width, then we
 -- can split the view in half to show the treeview on the right.
@@ -93,6 +92,7 @@ end
 function AssetPreview:init(props)
 	self.state = {
 		enableScroller = true,
+		overrideEnableVoting = false,
 	}
 
 	self.assetSizeInited = false
@@ -145,7 +145,7 @@ function AssetPreview:init(props)
 		local assetName = asset.Name
 		local assetTypeId = asset.TypeId
 
-		return InsertAsset.tryInsert({
+		local success = InsertAsset.tryInsert({
 			plugin = plugin,
 			assetId = assetId,
 			assetVersionId = assetVersionId,
@@ -153,6 +153,14 @@ function AssetPreview:init(props)
 			assetTypeId = assetTypeId,
 			currentTab = self.props.currentTab,
 		})
+		if success then
+			self:setState({
+				overrideEnableVoting = true,
+			})
+
+			StudioService:UpdatePluginManagement()
+		end
+		return success
 	end
 
 	Analytics.onAssetPreviewSelected(props.assetData.Asset.Id)
@@ -189,292 +197,304 @@ end
 
 function AssetPreview:render()
 	return withTheme(function(theme)
-		-- TODO: Time to tide up the properties passed from the asset.
-		local props = self.props
+		return withLocalization(function(localization, localizedContent)
+			-- TODO: Time to tide up the properties passed from the asset.
+			local props = self.props
 
-		local assetPreviewTheme = theme.assetPreview
+			local assetPreviewTheme = theme.assetPreview
 
-		local maxPreviewWidth = props.maxPreviewWidth
-		local maxPreviewHeight = props.maxPreviewHeight
+			local maxPreviewWidth = props.maxPreviewWidth
+			local maxPreviewHeight = props.maxPreviewHeight
 
-		local position = props.position
-		local anchorPoint = props.anchorPoint
+			local position = props.position
+			local anchorPoint = props.anchorPoint
 
-		local assetData = props.assetData
-		local assetVersionId = props.assetVersionId
+			local assetData = props.assetData
+			local assetVersionId = props.assetVersionId
 
-		-- Data structure from the server
-		local Asset = assetData.Asset
-		local assetId = Asset.Id
-		local assetName = Asset.Name or "Test Name"
-		local detailDescription = Asset.Description
-		local created = Asset.Created
-		local updated = Asset.Updated
-		local assetGenres = Asset.AssetGenres
+			-- Data structure from the server
+			local Asset = assetData.Asset
+			local assetId = Asset.Id
+			local assetName = Asset.Name or "Test Name"
+			local detailDescription = Asset.Description
+			local created = Asset.Created
+			local updated = Asset.Updated
+			local assetGenres = Asset.AssetGenres
 
-		local creator = assetData.Creator
-		local creatorName = creator.Name
+			local creator = assetData.Creator
+			local creatorName = creator.Name
 
-		local typeId = assetData.Asset.TypeId or Enum.AssetType.Model.Value
+			local typeId = assetData.Asset.TypeId or Enum.AssetType.Model.Value
 
-		local previewModel = props.previewModel
-		local currentPreview = props.currentPreview
+			local previewModel = props.previewModel
+			local currentPreview = props.currentPreview
 
-		local assetPreviewType = AssetType:getAssetType(currentPreview)
-		if FFlagPluginAccessAndInstallationInStudio and (typeId == Enum.AssetType.Plugin.Value) then
-			assetPreviewType = AssetType:markAsPlugin()
-		end
-
-		local isPluginAsset = AssetType:isPlugin(assetPreviewType)
-		local isPluginInstalled = isPluginAsset and StudioService:IsPluginInstalled(assetId)
-		local isPluginLoading = isPluginAsset and assetVersionId == nil
-		local isPluginUpToDate = isPluginAsset and not isPluginLoading
-			and StudioService:IsPluginUpToDate(assetId, assetVersionId)
-
-		local pluginButtonText
-		-- TODO: localize this
-		if isPluginLoading then
-			pluginButtonText = "Loading..."
-		elseif not isPluginInstalled then
-			pluginButtonText = "Install"
-		elseif not isPluginUpToDate then
-			pluginButtonText = "Update"
-		else
-			pluginButtonText = "Reinstall"
-		end
-
-		local buttonColor = isPluginLoading and LOADING_COLOR or BUTTON_COLOR
-
-		local hasRating = typeId == Enum.AssetType.Model.Value or (isPluginAsset and isPluginInstalled)
-
-		local voting = props.voting or {}
-		local upVoteRate = 0
-		if voting.UpVotes and voting.DownVotes then
-			local totalVotes = voting.UpVotes + voting.DownVotes
-			if totalVotes > 0 then
-				upVoteRate = voting.UpVotes / totalVotes
+			local assetPreviewType = AssetType:getAssetType(currentPreview)
+			if FFlagPluginAccessAndInstallationInStudio and (typeId == Enum.AssetType.Plugin.Value) then
+				assetPreviewType = AssetType:markAsPlugin()
 			end
-		end
-		local rating = upVoteRate * 100
 
-		local putTreeviewOnBottom = maxPreviewWidth <= TREEVIEW_ON_BOTTOM_WIDTH_THRESHOLD
+			local isPluginAsset = AssetType:isPlugin(assetPreviewType)
+			local isPluginInstalled = isPluginAsset and StudioService:IsPluginInstalled(assetId)
+			local isPluginLoading = isPluginAsset and assetVersionId == nil
+			local isPluginUpToDate = isPluginAsset and not isPluginLoading
+				and StudioService:IsPluginUpToDate(assetId, assetVersionId)
 
-		local assetSize = UDim2.new(0, maxPreviewWidth, 0, maxPreviewHeight)
+			local pluginButtonText = localizedContent.AssetConfig.Insert
+			if isPluginAsset then
+				if isPluginLoading then
+					pluginButtonText = localizedContent.AssetConfig.Loading
+				elseif not isPluginInstalled then
+					pluginButtonText = localizedContent.AssetConfig.Install
+				elseif not isPluginUpToDate then
+					pluginButtonText = localizedContent.AssetConfig.Update
+				else
+					pluginButtonText = localizedContent.AssetConfig.Installed
+				end
+			end
 
-		local zIndex = props.zIndex or 0
+			local buttonColor
 
-		local onTreeItemClicked = props.onTreeItemClicked
+			if isPluginLoading then
+				buttonColor = Colors.BLUE_DISABLED
+			elseif isPluginInstalled and isPluginUpToDate then
+				buttonColor = Colors.INSTALL_GREEN
+			else
+				buttonColor = Colors.BLUE_PRIMARY
+			end
 
-		local canInsertAsset = props.canInsertAsset
-		local tryInsert = isPluginAsset and self.tryInstall or props.tryInsert
-		local tryCreateContextMenu = props.tryCreateContextMenu
+			local hasRating = typeId == Enum.AssetType.Model.Value
+				or (isPluginAsset and isPluginInstalled) or self.state.overrideEnableVoting
 
-		local enableScroller = self.state.enableScroller
+			local voting = props.voting or {}
+			local upVoteRate = 0
+			if voting.UpVotes and voting.DownVotes then
+				local totalVotes = voting.UpVotes + voting.DownVotes
+				if totalVotes > 0 then
+					upVoteRate = voting.UpVotes / totalVotes
+				end
+			end
+			local rating = upVoteRate * 100
 
-		local detailDescriptionWidth = props.maxPreviewWidth - 4 * PADDING - 2
-		local textSize = getTextSize(detailDescription,
-			Constants.FONT_SIZE_LARGE,
-			Constants.FONT,
-			Vector2.new(detailDescriptionWidth, 9000))
-		local detailDescriptionHeight = textSize.y + VERTICAL_PADDING
+			local putTreeviewOnBottom = maxPreviewWidth <= TREEVIEW_ON_BOTTOM_WIDTH_THRESHOLD
 
-		local enableFavorite = FFlagEnableMarketplaceFavorite and FFlagEnableCatelogForAPIService
+			local assetSize = UDim2.new(0, maxPreviewWidth, 0, maxPreviewHeight)
 
-		return Roact.createElement("ImageButton", {
-			Position = position,
-			Size = assetSize,
-			AnchorPoint = anchorPoint,
+			local zIndex = props.zIndex or 0
 
-			ZIndex = zIndex,
+			local onTreeItemClicked = props.onTreeItemClicked
 
-			BackgroundTransparency = 0,
-			BackgroundColor3 = assetPreviewTheme.background,
-			AutoButtonColor = false,
-			BorderSizePixel = 0,
+			local canInsertAsset = props.canInsertAsset
+			local tryInsert = isPluginAsset and self.tryInstall or props.tryInsert
+			local tryCreateContextMenu = props.tryCreateContextMenu
 
-			[Roact.Ref] = self.assetBaseButtonRef,
-		},{
-			CloseImage = Roact.createElement("ImageLabel", {
-				Position = UDim2.new(1, 0, 0, 0),
-				Size = UDim2.new(0, 20, 0, 20),
-				AnchorPoint = Vector2.new(0, 1),
+			local enableScroller = self.state.enableScroller
 
-				Image = Images.DELETE_BUTTON,
-				BackgroundTransparency = 1,
-			}),
+			local detailDescriptionWidth = props.maxPreviewWidth - 4 * PADDING - 2
+			local textSize = getTextSize(detailDescription,
+				Constants.FONT_SIZE_LARGE,
+				Constants.FONT,
+				Vector2.new(detailDescriptionWidth, 9000))
+			local detailDescriptionHeight = textSize.y + VERTICAL_PADDING
 
-			BaseScrollFrame = Roact.createElement("ScrollingFrame", {
-				Size = UDim2.new(1, PADDING, 1, -ACTION_BAR_HEIGHT),
-				Visible = FFlagStudioRemoveToolboxScrollingFrameHack, --See comment in didMount
+			local enableFavorite = FFlagEnableMarketplaceFavorite and FFlagEnableCatelogForAPIService
 
-				ScrollBarThickness = 8,
-				ScrollBarImageColor3 = theme.scrollingFrame.scrollbarImageColor,
+			return Roact.createElement("ImageButton", {
+				Position = position,
+				Size = assetSize,
+				AnchorPoint = anchorPoint,
+
+				ZIndex = zIndex,
+
+				BackgroundTransparency = 0,
+				BackgroundColor3 = assetPreviewTheme.background,
+				AutoButtonColor = false,
 				BorderSizePixel = 0,
-				BackgroundTransparency = 1,
-				TopImage = Images.SCROLLBAR_TOP_IMAGE,
-				MidImage = Images.SCROLLBAR_MIDDLE_IMAGE,
-				BottomImage = Images.SCROLLBAR_BOTTOM_IMAGE,
-				ScrollingEnabled = enableScroller,
 
-				[Roact.Ref] = self.baseScrollRef,
+				[Roact.Ref] = self.assetBaseButtonRef,
 			},{
-				UIPadding = Roact.createElement("UIPadding", {
-					PaddingBottom = UDim.new(0, BOTTOM_PADDING),
-					PaddingLeft = UDim.new(0, PADDING),
-					PaddingRight = UDim.new(0, PADDING * 2),
-					PaddingTop = UDim.new(0, TOP_PADDING),
-				}),
+				CloseImage = Roact.createElement("ImageLabel", {
+					Position = UDim2.new(1, 0, 0, 0),
+					Size = UDim2.new(0, 20, 0, 20),
+					AnchorPoint = Vector2.new(0, 1),
 
-				UIListLayout = Roact.createElement("UIListLayout", {
-					FillDirection = Enum.FillDirection.Vertical,
-					HorizontalAlignment = Enum.HorizontalAlignment.Center,
-					VerticalAlignment = Enum.VerticalAlignment.Top,
-					SortOrder = Enum.SortOrder.LayoutOrder,
-					Padding = UDim.new(0, VERTICAL_PADDING),
-
-					[Roact.Change.AbsoluteContentSize] = self.onScrollContentSizeChange,
-					[Roact.Ref] = self.baseLayouterRef,
-				}),
-
-				AssetName = Roact.createElement("TextLabel", {
-					Size = UDim2.new(1, 0, 0, TITLE_HEIGHT),
-
-					Text = assetName,
-					Font = Constants.FONT_BOLD,
-					TextSize = Constants.FONT_SIZE_TITLE,
-					TextXAlignment = Enum.TextXAlignment.Left,
-					TextColor3 = assetPreviewTheme.assetName.textColor,
+					Image = Images.DELETE_BUTTON,
 					BackgroundTransparency = 1,
-					TextTruncate = Enum.TextTruncate.AtEnd,
-
-					AutoLocalize = false,
-
-					LayoutOrder = 1,
 				}),
 
-				Rating = hasRating and Roact.createElement("Frame", {
-					BackgroundTransparency = 1,
-					Size = UDim2.new(1, 0, 0, 12),
+				BaseScrollFrame = Roact.createElement("ScrollingFrame", {
+					Size = UDim2.new(1, PADDING, 1, -ACTION_BAR_HEIGHT),
+					Visible = FFlagStudioRemoveToolboxScrollingFrameHack, --See comment in didMount
 
-					LayoutOrder = 2,
-				}, {
-					VoteIcon = Roact.createElement("ImageLabel", {
-						Size = UDim2.new(0, 16, 0, 16),
-						BackgroundTransparency = 1,
-						Image = Images.THUMB_UP_SMALL,
+					ScrollBarThickness = 8,
+					ScrollBarImageColor3 = theme.scrollingFrame.scrollbarImageColor,
+					BorderSizePixel = 0,
+					BackgroundTransparency = 1,
+					TopImage = Images.SCROLLBAR_TOP_IMAGE,
+					MidImage = Images.SCROLLBAR_MIDDLE_IMAGE,
+					BottomImage = Images.SCROLLBAR_BOTTOM_IMAGE,
+					ScrollingEnabled = enableScroller,
+
+					[Roact.Ref] = self.baseScrollRef,
+				},{
+					UIPadding = Roact.createElement("UIPadding", {
+						PaddingBottom = UDim.new(0, BOTTOM_PADDING),
+						PaddingLeft = UDim.new(0, PADDING),
+						PaddingRight = UDim.new(0, PADDING * 2),
+						PaddingTop = UDim.new(0, TOP_PADDING),
 					}),
 
-					VoteText = Roact.createElement("TextLabel", {
-						Size = UDim2.new(1, 0, 1, 0),
-						Position = UDim2.new(0, 22, 0, 3),
-						BackgroundTransparency = 1,
+					UIListLayout = Roact.createElement("UIListLayout", {
+						FillDirection = Enum.FillDirection.Vertical,
+						HorizontalAlignment = Enum.HorizontalAlignment.Center,
+						VerticalAlignment = Enum.VerticalAlignment.Top,
+						SortOrder = Enum.SortOrder.LayoutOrder,
+						Padding = UDim.new(0, VERTICAL_PADDING),
 
-						Text = ("%d%%"):format(rating),
+						[Roact.Change.AbsoluteContentSize] = self.onScrollContentSizeChange,
+						[Roact.Ref] = self.baseLayouterRef,
+					}),
+
+					AssetName = Roact.createElement("TextLabel", {
+						Size = UDim2.new(1, 0, 0, TITLE_HEIGHT),
+
+						Text = assetName,
+						Font = Constants.FONT_BOLD,
+						TextSize = Constants.FONT_SIZE_TITLE,
 						TextXAlignment = Enum.TextXAlignment.Left,
-						TextSize = Constants.FONT_SIZE_MEDIUM,
-						Font = Constants.FONT,
-						TextColor3 = theme.assetPreview.vote.textColor,
+						TextColor3 = assetPreviewTheme.assetName.textColor,
+						BackgroundTransparency = 1,
+						TextTruncate = Enum.TextTruncate.AtEnd,
+
+						AutoLocalize = false,
 
 						LayoutOrder = 1,
 					}),
+
+					Rating = hasRating and Roact.createElement("Frame", {
+						BackgroundTransparency = 1,
+						Size = UDim2.new(1, 0, 0, 12),
+
+						LayoutOrder = 2,
+					}, {
+						VoteIcon = Roact.createElement("ImageLabel", {
+							Size = UDim2.new(0, 16, 0, 16),
+							BackgroundTransparency = 1,
+							Image = Images.THUMB_UP_SMALL,
+						}),
+
+						VoteText = Roact.createElement("TextLabel", {
+							Size = UDim2.new(1, 0, 1, 0),
+							Position = UDim2.new(0, 22, 0, 3),
+							BackgroundTransparency = 1,
+
+							Text = ("%d%%"):format(rating),
+							TextXAlignment = Enum.TextXAlignment.Left,
+							TextSize = Constants.FONT_SIZE_MEDIUM,
+							Font = Constants.FONT,
+							TextColor3 = theme.assetPreview.vote.textColor,
+
+							LayoutOrder = 1,
+						}),
+					}),
+
+					PreviewController = Roact.createElement(PreviewController, {
+						width = PADDING * 2,
+
+						currentPreview = currentPreview,
+						previewModel = previewModel,
+						assetPreviewType = assetPreviewType,
+						assetId = assetId,
+						putTreeviewOnBottom = putTreeviewOnBottom,
+
+						onTreeItemClicked = onTreeItemClicked,
+						onModelPreviewFrameEntered = self.onModelPreviewFrameEntered,
+						onModelPreviewFrameLeft = self.onModelPreviewFrameLeft,
+
+						layoutOrder = 3,
+					}),
+
+					Favorites = enableFavorite and Roact.createElement(Favorites, {
+						size = UDim2.new(1, 0, 0, 20),
+						assetId = assetId,
+
+						layoutOrder = 4,
+					}),
+
+					DetailDescription = Roact.createElement("TextLabel", {
+						Size = UDim2.new(1, 0, 0, detailDescriptionHeight),
+
+						BackgroundTransparency = 1,
+						TextWrapped = true,
+
+						Text = detailDescription,
+						TextSize = Constants.FONT_SIZE_LARGE,
+						Font = Constants.FONT,
+						TextColor3 = assetPreviewTheme.detailedDescription.textColor,
+						TextXAlignment = Enum.TextXAlignment.Left,
+
+						LayoutOrder = 5,
+					}),
+
+					Vote = hasRating and Roact.createElement(Vote, {
+						size = UDim2.new(1, 0, 0, VOTE_HEIGHT),
+
+						voting = voting,
+						assetId = assetId,
+
+						layoutOrder = 6,
+					}),
+
+					Developer = Roact.createElement(AssetDescription, {
+						leftContent = "Creator",
+						rightContent = creatorName,
+
+						layoutOrder = 7,
+					}),
+
+					Category = Roact.createElement(AssetDescription, {
+						leftContent = "Type",
+						rightContent = getGenreString(assetGenres),
+
+						layoutOrder = 8,
+					}),
+
+					-- For the format of the time, we need only a generic function to handle that.
+					-- A separate component is not needed.
+					Created = Roact.createElement(AssetDescription, {
+						leftContent = "Created",
+						rightContent = created,
+
+						layoutOrder = 9,
+					}),
+
+					Updated = Roact.createElement(AssetDescription, {
+						leftContent = "Last Updated",
+						rightContent = updated,
+						hideSeparator = true,
+
+						layoutOrder = 10,
+					})
 				}),
 
-				PreviewController = Roact.createElement(PreviewController, {
-					width = PADDING * 2,
+				ActionBar = Roact.createElement(ActionBar, {
+					Text = pluginButtonText,
+					Color = isPluginAsset and buttonColor or Colors.BLUE_PRIMARY,
+					Size = UDim2.new(1, 0, 0, ACTION_BAR_HEIGHT),
+					Position = UDim2.new(0, 0, 1, 0),
+					AnchorPoint = Vector2.new(0, 1),
+					AssetId = assetId,
+					AssetVersionId = assetVersionId,
 
-					currentPreview = currentPreview,
-					previewModel = previewModel,
-					assetPreviewType = assetPreviewType,
-					assetId = assetId,
-					putTreeviewOnBottom = putTreeviewOnBottom,
-
-					onTreeItemClicked = onTreeItemClicked,
-					onModelPreviewFrameEntered = self.onModelPreviewFrameEntered,
-					onModelPreviewFrameLeft = self.onModelPreviewFrameLeft,
-
-					layoutOrder = 3,
-				}),
-
-				Favorites = enableFavorite and Roact.createElement(Favorites, {
-					size = UDim2.new(1, 0, 0, 20),
-					assetId = assetId,
-
-					layoutOrder = 4,
-				}),
-
-				DetailDescription = Roact.createElement("TextLabel", {
-					Size = UDim2.new(1, 0, 0, detailDescriptionHeight),
-
-					BackgroundTransparency = 1,
-					TextWrapped = true,
-
-					Text = detailDescription,
-					TextSize = Constants.FONT_SIZE_LARGE,
-					Font = Constants.FONT,
-					TextColor3 = assetPreviewTheme.detailedDescription.textColor,
-					TextXAlignment = Enum.TextXAlignment.Left,
-
-					LayoutOrder = 5,
-				}),
-
-				Vote = hasRating and Roact.createElement(Vote, {
-					size = UDim2.new(1, 0, 0, VOTE_HEIGHT),
-
-					voting = voting,
-					assetId = assetId,
-
-					layoutOrder = 6,
-				}),
-
-				Developer = Roact.createElement(AssetDescription, {
-					leftContent = "Creator",
-					rightContent = creatorName,
-
-					layoutOrder = 7,
-				}),
-
-				Category = Roact.createElement(AssetDescription, {
-					leftContent = "Type",
-					rightContent = getGenreString(assetGenres),
-
-					layoutOrder = 8,
-				}),
-
-				-- For the format of the time, we need only a generic function to handle that.
-				-- A separate component is not needed.
-				Created = Roact.createElement(AssetDescription, {
-					leftContent = "Created",
-					rightContent = created,
-
-					layoutOrder = 9,
-				}),
-
-				Updated = Roact.createElement(AssetDescription, {
-					leftContent = "Last Updated",
-					rightContent = updated,
-					hideSeparator = true,
-
-					layoutOrder = 10,
+					Asset = Asset,
+					CanInsertAsset = canInsertAsset,
+					TryInsert = tryInsert,
+					TryCreateContextMenu = tryCreateContextMenu,
+					InstallDisabled = isPluginAsset and (isPluginLoading or isPluginUpToDate),
+					DisplayResultOfInsertAttempt = isPluginAsset,
 				})
-			}),
-
-			ActionBar = Roact.createElement(ActionBar, {
-				text = isPluginAsset and pluginButtonText or "Insert", -- TODO: localize this
-				color = buttonColor,
-				size = UDim2.new(1, 0, 0, ACTION_BAR_HEIGHT),
-				position = UDim2.new(0, 0, 1, 0),
-				anchorPoint = Vector2.new(0, 1),
-				assetId = assetId,
-				assetVersionId = assetVersionId,
-
-				asset = Asset,
-				canInsertAsset = canInsertAsset,
-				tryInsert = tryInsert,
-				tryCreateContextMenu = tryCreateContextMenu,
-				installDisabled = isPluginLoading,
-				displayResultOfInsertAttempt = isPluginAsset,
 			})
-		})
+		end)
 	end)
 end
 

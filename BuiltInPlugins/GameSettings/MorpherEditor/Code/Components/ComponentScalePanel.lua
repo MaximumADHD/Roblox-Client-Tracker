@@ -1,5 +1,7 @@
 local paths = require(script.Parent.Parent.Paths)
 
+local FFlagWorldAvatarLocalization = game:GetFastFlag("WorldAvatarLocalization")
+
 local ScalePanel = paths.Roact.Component:extend("ComponentScalePanel")
 
 local createAllScaleSliderRows = nil
@@ -17,6 +19,7 @@ function ScalePanel:render()
 		return nil
 	end
 
+	local localizedContent = FFlagWorldAvatarLocalization and self.props.LocalizedContent or nil
 	local layoutOrder = paths.UtilityClassLayoutOrder.new()
 
 	local children = {
@@ -38,7 +41,8 @@ function ScalePanel:render()
 			ThemeData = self.props.ThemeData,
 			LayoutOrder = layoutOrder:getNextOrder(),
 			IsEnabled = self.props.IsEnabled,
-			Text = "Scale",
+			Text = FFlagWorldAvatarLocalization and localizedContent.Title.Scale or "Scale",
+			LocalizedContent = FFlagWorldAvatarLocalization and localizedContent or nil,
 			IsPlayerChoiceTitleStyle = false
 		}),
 	}
@@ -58,12 +62,7 @@ function ScalePanel:render()
 end
 
 createSliderRow = function(self, order, text, boundary, getMin, getMax, setMin, setMax)
-	local function toIntegerPercentageString(val)
-		local percentage = val * 100
-		local shouldRoundUp = (percentage - math.floor(percentage)) >= 0.5
-		return tostring(shouldRoundUp and math.ceil(percentage) or math.floor(percentage)) .."%"
-	end
-
+	local localizedContent = FFlagWorldAvatarLocalization and self.props.LocalizedContent or nil
 	local currentStateTemplate =  paths.StateInterfaceTemplates.getStateModelTemplate(self.props)
 	local boundaries = self.props.StateSettings.scaleBoundaries.boundaries
 
@@ -83,17 +82,25 @@ createSliderRow = function(self, order, text, boundary, getMin, getMax, setMin, 
 		return math.min(boundary.max, math.max(boundary.min, value))
 	end
 
+	local minIntegerPercent = FFlagWorldAvatarLocalization and toIntegerPercentage(boundary.min) or nil
+	local maxIntegerPercent = FFlagWorldAvatarLocalization and toIntegerPercentage(boundary.max) or nil
+
 	return paths.Roact.createElement(paths.StudioWidgetRangeSlider, {
 		LayoutOrder = order,
 		Title = text,
 		Enabled = self.props.IsEnabled,
 
-		Min = toIntegerPercentage(boundary.min),
-		Max = toIntegerPercentage(boundary.max),
+		Min = FFlagWorldAvatarLocalization and minIntegerPercent or toIntegerPercentage(boundary.min),
+		Max = FFlagWorldAvatarLocalization and maxIntegerPercent or toIntegerPercentage(boundary.max),
 		SnapIncrement = toIntegerPercentage(boundary.increment),
 		LowerRangeValue = toIntegerPercentage(getMin(currentStateTemplate)),
 		UpperRangeValue = toIntegerPercentage(getMax(currentStateTemplate)),
 		Mouse = self.props.Mouse,
+
+		MinLabelText = FFlagWorldAvatarLocalization and localizedContent.Scale.SliderLabel({number = tostring(minIntegerPercent)}) or nil,
+		MaxLabelText = FFlagWorldAvatarLocalization and localizedContent.Scale.SliderLabel({number = tostring(maxIntegerPercent)}) or nil,
+		UnitsLabelText = FFlagWorldAvatarLocalization and localizedContent.Scale.SliderUnits or nil,
+
 		SetValues = function(newMin, newMax)
 			local newTemplateModel = paths.StateModelTemplate.makeCopy(currentStateTemplate)
 
@@ -114,18 +121,19 @@ createSliderRow = function(self, order, text, boundary, getMin, getMax, setMin, 
 end
 
 createAllScaleSliderRows = function(self, tableToPopulate, layoutOrder)
+	local localizedContent = FFlagWorldAvatarLocalization and self.props.LocalizedContent or nil
 	local template = paths.StateModelTemplate
 	local sliderRowsData = {
-		{ "Height", paths.StateInterfaceSettings.getHeightBoundaries(self.props), template.getScaleHeightMin,
-			template.getScaleHeightMax, template.setScaleHeightMin, template.setScaleHeightMax },
-		{ "Width", paths.StateInterfaceSettings.getWidthBoundaries(self.props), template.getScaleWidthMin,
-			template.getScaleWidthMax, template.setScaleWidthMin, template.setScaleWidthMax },
-		{ "Head", paths.StateInterfaceSettings.getHeadBoundaries(self.props), template.getScaleHeadMin,
-			template.getScaleHeadMax, template.setScaleHeadMin, template.setScaleHeadMax },
-		{ "Body Type", paths.StateInterfaceSettings.getBodyTypeBoundaries(self.props), template.getScaleBodyTypeMin,
-			template.getScaleBodyTypeMax, template.setScaleBodyTypeMin, template.setScaleBodyTypeMax },
-		{ "Proportions", paths.StateInterfaceSettings.getProportionBoundaries(self.props), template.getScaleProportionMin,
-			template.getScaleProportionMax, template.setScaleProportionMin, template.setScaleProportionMax },
+		{ FFlagWorldAvatarLocalization and localizedContent.Scale.Height or "Height", paths.StateInterfaceSettings.getHeightBoundaries(self.props),
+			template.getScaleHeightMin, template.getScaleHeightMax, template.setScaleHeightMin, template.setScaleHeightMax },
+		{ FFlagWorldAvatarLocalization and localizedContent.Scale.Width or "Width", paths.StateInterfaceSettings.getWidthBoundaries(self.props),
+			template.getScaleWidthMin, template.getScaleWidthMax, template.setScaleWidthMin, template.setScaleWidthMax },
+		{ FFlagWorldAvatarLocalization and localizedContent.Scale.Head or "Head", paths.StateInterfaceSettings.getHeadBoundaries(self.props),
+			template.getScaleHeadMin, template.getScaleHeadMax, template.setScaleHeadMin, template.setScaleHeadMax },
+		{ FFlagWorldAvatarLocalization and localizedContent.Scale.BodyType or "Body Type", paths.StateInterfaceSettings.getBodyTypeBoundaries(self.props),
+			template.getScaleBodyTypeMin, template.getScaleBodyTypeMax, template.setScaleBodyTypeMin, template.setScaleBodyTypeMax },
+		{ FFlagWorldAvatarLocalization and localizedContent.Scale.Proportions or "Proportions", paths.StateInterfaceSettings.getProportionBoundaries(self.props),
+			template.getScaleProportionMin, template.getScaleProportionMax, template.setScaleProportionMin, template.setScaleProportionMax },
 	}
 
 	for _, preset in ipairs(sliderRowsData) do

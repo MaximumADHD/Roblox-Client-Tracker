@@ -250,6 +250,12 @@ return function(style, overrides)
 		disabledImage = "rbxasset://textures/RoactStudioWidgets/toggle_disable_light.png",
 	}
 
+	local hyperlink = {
+		textSize = 22,
+		textColor = style.hyperlinkTextColor,
+		font = style.font,
+	}
+
 	return replaceDefaults({
 		checkBox = checkBox,
 		roundFrame = roundFrame,
@@ -273,5 +279,6 @@ return function(style, overrides)
 		bulletPoint = bulletPoint,
 		toggleButton = toggleButton,
 		radioButton = radioButton,
+		hyperlink = hyperlink,
 	}, overrides)
 end

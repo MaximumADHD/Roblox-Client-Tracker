@@ -88,6 +88,7 @@ function DefaultMetricsGridView:render()
 
 	return Roact.createElement(GridView, {
 		renderItem = self.props.renderItem,
+		windowHeight = self.props.windowHeight,
 		maxHeight = self.props.maxHeight,
 		itemSize = size,
 		itemPadding = self.props.itemPadding,

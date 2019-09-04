@@ -1,7 +1,7 @@
 local paths = require(script.Parent.Parent.Paths)
 paths.requireAll(script.Parent.Parent.Parent.Parent, script.Parent.Parent.Parent.Parent)
 
-local fastFlags = require(script.Parent.Parent.FastFlags)
+local FFlagWorldAvatarLocalization = game:GetFastFlag("WorldAvatarLocalization")
 
 local RootPanelExternal = paths.Roact.Component:extend("ComponentRootPanelExternal")
 
@@ -25,7 +25,8 @@ function RootPanelExternal:render()
 			AssetOverrideErrors = self.props.AssetOverrideErrors,
 			Mouse = self.props.Mouse,
 
-			IsPlacePublished = (function() if fastFlags.isPlaceFilesGameSettingsSerializationOn() then return self.props.IsPlacePublished else return nil end end)(),
+			IsPlacePublished = self.props.IsPlacePublished,
+			LocalizedContent = FFlagWorldAvatarLocalization and self.props.LocalizedContent or nil,
 
 			clobberTemplate = function(templateId, newTemplateModel)
 				sendUpdates(self, newTemplateModel)

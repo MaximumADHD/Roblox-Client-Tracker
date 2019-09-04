@@ -14,7 +14,7 @@ local xOffset = 8
 local yOffset = 8
 local imageCenter = Rect.new(xOffset, yOffset, imageSize.x - xOffset, imageSize.y - yOffset)
 
--- https://share.goabstract.com/cfe90baa-ab79-4f34-ad1b-3ef389d39da4?mode=design&sha=a851936a1fe5f2f017aae74abe55715832c6c362
+-- https://share.goabstract.com/cfe90baa-ab79-4f34-ad1b-3ef389d39da4
 local WIDTH_FIXED = 300
 local WIDTH_MARGIN = 16
 local WIDTH_INNER_MARGIN = 24

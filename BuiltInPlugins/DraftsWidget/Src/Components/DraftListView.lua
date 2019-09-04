@@ -3,6 +3,8 @@
     Rodux store
 --]]
 
+local Selection = game:GetService("Selection")
+
 local Plugin = script.Parent.Parent.Parent
 
 local getDraftsService = require(Plugin.Src.ContextServices.DraftsService).getDraftService
@@ -53,6 +55,17 @@ function DraftListView:init()
          draftsService:UpdateToLatestVersion(selection)
     end
 
+    self.restoreScripts = function(selection)
+        -- TODO (awarwick) 8/23/2019 Product needs to decide what we're going to do for restoring drafts
+        -- since we can't reliable restore to the original parent (also may be deleted)
+
+        for _,draft in pairs(selection) do
+            draft.Parent = workspace
+        end
+
+        Selection:Set(selection)
+    end
+
     self.promptDiscardEdits = function(selection)
         self:setState({
             draftsPendingDiscard = selection,
@@ -82,14 +95,25 @@ function DraftListView:init()
     end
 
     self.makeMenuActions = function(localization, selectedDrafts)
+        local canRestoreSelection = true
         local canUpdateSelection = true
         local canCommitSelection = true
+        local canDiffSelection = true
         for _,draft in ipairs(selectedDrafts) do
             local draftState = self.props.Drafts[draft]
-            if draftState[DraftState.Outdated] then
+
+            if draftState[DraftState.Deleted] then
+                canDiffSelection = false
+                canCommitSelection = false
+                canUpdateSelection = false
+            elseif draftState[DraftState.Outdated] then
                 canCommitSelection = false
             else
                 canUpdateSelection = false
+            end
+
+            if not draftState[DraftState.Deleted] then
+                canRestoreSelection = false
             end
         end
 
@@ -100,14 +124,16 @@ function DraftListView:init()
 					self.openScripts(selectedDrafts)
 				end,
 			},
-			{
+        }
+
+        if canDiffSelection then
+            table.insert(contextMenuItems, {
 				Text = localization:getText("ContextMenu", "ShowDiff"),
 				ItemSelected = function()
 					self.diffChanges(selectedDrafts)
 				end,
-			},
-        }
-
+			})
+        end
         if canUpdateSelection then
             table.insert(contextMenuItems, {
                 Text = localization:getText("ContextMenu", "Update"),
@@ -122,6 +148,14 @@ function DraftListView:init()
 				ItemSelected = function()
 					self.commitChanges(selectedDrafts)
 				end,
+            })
+        end
+        if canRestoreSelection then
+            table.insert(contextMenuItems, {
+                Text = localization:getText("ContextMenu", "Restore"),
+                ItemSelected = function()
+                    self.restoreScripts(selectedDrafts)
+                end,
             })
         end
 

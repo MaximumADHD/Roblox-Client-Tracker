@@ -39,8 +39,8 @@ local RoundTextBox = UILibrary.Component.RoundTextBox
 local StyledDropDown = UILibrary.Component.StyledDropdown
 local Separator = UILibrary.Component.Separator
 
-local CheckBoxSet = require(Plugin.Src.Components.CheckBoxSet)
 local Header = require(Plugin.Src.Components.Header)
+local PlatformSelect = require(Plugin.Src.Components.PlatformSelect)
 
 local AddChange = require(Plugin.Src.Actions.AddChange)
 local AddErrors = require(Plugin.Src.Actions.AddErrors)
@@ -139,32 +139,13 @@ local function displayContents(props, localization)
 			LayoutOrder = 5,
 		}),
 
-		Devices = Roact.createElement(CheckBoxSet, {
-			Title = localization:getText("PageTitle", "Devices"),
+		Devices = Roact.createElement(PlatformSelect, {
 			LayoutOrder = 6,
-			Boxes = {
-				{
-					Id = "Computer",
-					Title = localization:getText("Devices", "Computer"),
-					Selected = devices.Computer,
-				}, {
-					Id = "Phone",
-					Title = localization:getText("Devices", "Phone"),
-					Selected = devices.Phone,
-				}, {
-					Id = "Tablet",
-					Title = localization:getText("Devices", "Tablet"),
-					Selected = devices.Tablet,
-				}, {
-					Id = "Console",
-					Title = localization:getText("Devices", "Console"),
-					Selected = devices.Console,
-				},
-			},
-			ErrorMessage = (devicesError and localization:getText("Error", "NoDevices")) or nil,
-			EntryClicked = function(box)
+			Devices = devices,
+			DevicesError = devicesError,
+			DeviceSelected = function(id, selected)
 				local newDevices = Cryo.Dictionary.join(devices, {
-					[box.Id] = not box.Selected,
+					[id] = selected,
 				})
 				devicesChanged(newDevices)
 			end,

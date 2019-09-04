@@ -1,5 +1,7 @@
 local paths = require(script.Parent.Parent.Paths)
 
+local FFlagWorldAvatarLocalization = game:GetFastFlag("WorldAvatarLocalization")
+
 local CollisionPanel = paths.Roact.Component:extend("ComponentCollisionPanel")
 
 function CollisionPanel:render()
@@ -9,13 +11,13 @@ function CollisionPanel:render()
 	}
 
 	return paths.Roact.createElement(paths.ComponentRadioButtonSetPanel, {
-		Title = "Collision",
+		Title = FFlagWorldAvatarLocalization and self.props.LocalizedContent.Title.Collision or "Collision",
 		Buttons = {{
 				Id = paths.ConstantTemplate.OuterCollision,
-				Title = "Outer Box",
+				Title = FFlagWorldAvatarLocalization and self.props.LocalizedContent.Collision.OuterBox or "Outer Box",
 			}, {
 				Id = paths.ConstantTemplate.InnerCollision,
-				Title = "Inner Box",
+				Title = FFlagWorldAvatarLocalization and self.props.LocalizedContent.Collision.InnerBox or "Inner Box",
 			},
 		},
 		Enabled = self.props.IsEnabled,

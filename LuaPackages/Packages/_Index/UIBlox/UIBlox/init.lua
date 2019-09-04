@@ -20,7 +20,10 @@ return {
 		Button = require(script.ImageSet.ImageSetComponent).Button,
 		Label = require(script.ImageSet.ImageSetComponent).Label,
 	},
-	ItemTile = require(script.ItemTile.ItemTile),
+	Tile = {
+		ItemTile = require(script.Tile.ItemTile.ItemTile),
+		ItemTileEnums = require(script.Tile.ItemTile.ItemTileEnums),
+	},
 	Grid = {
 		Metrics = require(script.Grid.GridMetrics),
 		DefaultMetricsView = require(script.Grid.DefaultMetricsGridView),

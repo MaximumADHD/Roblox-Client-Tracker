@@ -101,6 +101,7 @@ function AssetIcon:render()
 		local showAssetPreview = typeId == Enum.AssetType.Model.Value
 			or typeId == Enum.AssetType.MeshPart.Value
 			or typeId == Enum.AssetType.Decal.Value
+			or typeId == Enum.AssetType.Plugin.Value
 
 		-- Asset Data is missing for AssetPreview in the creation tab.
 		showAssetPreview = showAssetPreview and props.currentTab ~= Category.CREATIONS_KEY

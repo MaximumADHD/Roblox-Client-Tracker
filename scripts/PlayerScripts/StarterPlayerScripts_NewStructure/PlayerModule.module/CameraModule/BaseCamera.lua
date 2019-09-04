@@ -80,7 +80,7 @@ local FFlagUserBetterDynamicTouchstickCamera = betterDynamicTouchstickCameraFlag
 
 local FFlagUserPointerActionsInPlayerScripts do
 	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("FFlagUserPointerActionsInPlayerScripts")
+		return UserSettings():IsUserFeatureEnabled("UserPointerActionsInPlayerScripts")
 	end)
 	FFlagUserPointerActionsInPlayerScripts = success and result
 end
@@ -569,7 +569,9 @@ end
 
 function BaseCamera:OnPointerAction(wheel, pan, pinch, processed)
 	if pan.Magnitude > 0 then
-		self.rotateInput = self.rotateInput + self:InputTranslationToCameraAngleChange(PAN_SENSITIVITY*pan, MOUSE_SENSITIVITY)
+		local inversionVector = Vector2.new(1, UserGameSettings:GetCameraYInvertValue())
+		local rotateDelta = self:InputTranslationToCameraAngleChange(PAN_SENSITIVITY*pan, MOUSE_SENSITIVITY)*inversionVector
+		self.rotateInput = self.rotateInput + rotateDelta
 	end
 
 	local zoom = wheel + pinch

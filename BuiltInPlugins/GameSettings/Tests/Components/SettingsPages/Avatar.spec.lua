@@ -1,6 +1,6 @@
 return function()
 	SKIP()
-	
+
 	local Plugin = script.Parent.Parent.Parent.Parent
 	local Roact = require(Plugin.Roact)
 	local Rodux = require(Plugin.Rodux)
@@ -12,8 +12,6 @@ return function()
 	local Localization = require(Plugin.Src.Localization.Localization)
 
 	local Avatar = require(Plugin.Src.Components.SettingsPages.Avatar)
-
-	local fastFlags = require(Plugin.Src.Util.FastFlags)
 
 	local settingsImpl = SettingsImpl_mock.new()
 	local theme = Theme.newDummyTheme()

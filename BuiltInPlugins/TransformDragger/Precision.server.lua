@@ -1,3 +1,7 @@
+if settings():GetFFlag("StudioUseStandaloneTransformTool") then
+	return
+end
+
 local plugin, settings = plugin, settings
 
 -----------------------------------
@@ -26,7 +30,6 @@ local on = false
 
 local toolbar = plugin:CreateToolbar("Transform")
 local toolbarbutton = toolbar:CreateButton("Transform", "Precision Dragger", "")
-
 local mouse = plugin:GetMouse(true)
 Input.setMouse(mouse)
 
@@ -293,14 +296,15 @@ local function onReleaseMouse()
 end
 
 -------------------------------------------------
-
-toolbarbutton.Click:connect(function()
-	if on and Off then
-		Off()
-	elseif loaded and On then
-		On()
-	end
-end)
+if toolbarbutton then
+	toolbarbutton.Click:connect(function()
+		if on and Off then
+			Off()
+		elseif loaded and On then
+			On()
+		end
+	end)
+end
 
 plugin.Deactivation:connect(function()
 	if on and Off then Off() end

@@ -9,6 +9,7 @@ local testStyle = require(StyleRoot.Validator.TestStyle)
 
 local ShimmerPanelStory = Roact.PureComponent:extend("ShimmerPanelStory")
 
+-- luacheck: ignore unused argument self
 function ShimmerPanelStory:render()
 	return Roact.createElement(ShimmerPanel, {
 		AnchorPoint = Vector2.new(0, 0),

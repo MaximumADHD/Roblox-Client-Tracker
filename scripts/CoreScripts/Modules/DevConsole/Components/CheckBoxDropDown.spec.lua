@@ -8,6 +8,7 @@ return function()
 		local element = Roact.createElement(CheckBoxDropDown, {
 			elementHeight = 0,
 			numElements = 0,
+			dropdownTargetGui = Instance.new("ScreenGui"),
 		})
 		local instance = Roact.mount(element)
 		Roact.unmount(instance)

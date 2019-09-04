@@ -17,6 +17,7 @@ local RadioButtonSet = require(Plugin.Src.Components.RadioButtonSet)
 local GameOwnerWidget = require(Plugin.Src.Components.Permissions.GameOwnerWidget)
 local CollaboratorsWidget = require(Plugin.Src.Components.Permissions.CollaboratorsWidget)
 local SearchbarWidget = require(Plugin.Src.Components.Permissions.CollaboratorSearchWidget)
+local PlayabilityWidget = require(Plugin.Src.Components.PlayabilityWidget)
 
 local AddChange = require(Plugin.Src.Actions.AddChange)
 local AddWarning = require(Plugin.Src.Actions.AddWarning)
@@ -92,16 +93,26 @@ local function displayContents(page, localized, theme)
 			LayoutOrder = 0,
 		}),
 
-		PlayabilityWarning = FFlagStudioGameSettingsDisablePlayabilityForDrafts and (props.PrivacyType == "Draft") and Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Subtitle, {
-			Text = localized.Playability.PlayabilityWarning,
-			TextXAlignment = Enum.TextXAlignment.Left,
-			TextColor3 = theme.warningColor,
-			BackgroundTransparency = 1,
-			Size = UDim2.new(1, 0, 0, 30),
-			LayoutOrder = 9,
-		})),
+		Playability = FFlagStudioGameSettingsDisablePlayabilityForDrafts and Roact.createElement(PlayabilityWidget, {
+			LayoutOrder = 10,
+			Group = props.Group,
+			Enabled = (props.PrivacyType ~= nil and props.PrivacyType ~= "Draft"),
+			Selected = props.IsFriendsOnly and "Friends" or props.IsActive,
+			SelectionChanged = function(button)
+				if button.Id == "Friends" then
+					props.IsFriendsOnlyChanged(true)
+					props.IsActiveChanged({Id = true})
+				else
+					props.IsFriendsOnlyChanged(false)
+					local willShutdown = (function()
+						return props.IsCurrentlyActive and not button.Id
+					end)()
+					props.IsActiveChanged(button, willShutdown)
+				end
+			end,
+		}),
 
-		Playability = Roact.createElement(RadioButtonSet, {
+		DEPRECATED_Playability = not FFlagStudioGameSettingsDisablePlayabilityForDrafts and Roact.createElement(RadioButtonSet, {
 			Title = localized.Title.Playability,
 			Description = localized.Playability.Header,
 			LayoutOrder = 10,
@@ -120,7 +131,7 @@ local function displayContents(page, localized, theme)
 					Description = localized.Playability.Private.Description,
 				},
 			},
-			Enabled = ((FFlagStudioGameSettingsDisablePlayabilityForDrafts and (props.PrivacyType ~= "Draft")) or (props.IsActive ~= nil)) and props.CanManage,
+			Enabled = props.IsActive ~= nil and props.CanManage,
 			--Functionality
 			Selected = props.IsFriendsOnly and "Friends" or props.IsActive,
 			SelectionChanged = function(button)

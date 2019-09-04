@@ -5,6 +5,7 @@ local Roact = require(UIBloxRoot.Parent.Roact)
 local GridView = require(script.Parent.GridView)
 
 -- Used to snapshot grid items for updating unit tests.
+-- luacheck: ignore unused function snapshotGridItems
 local function snapshotGridItems(grid)
 	local records = {}
 	for _, child in ipairs(grid:GetChildren()) do

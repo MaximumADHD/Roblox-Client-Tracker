@@ -1,5 +1,3 @@
-local UIBloxRoot = script.Parent.Parent
-local Roact = require(UIBloxRoot.Parent.Roact)
 local createImageSetComponent = require(script.Parent.createImageSetComponent)
 
 local GuiService = game:GetService("GuiService")

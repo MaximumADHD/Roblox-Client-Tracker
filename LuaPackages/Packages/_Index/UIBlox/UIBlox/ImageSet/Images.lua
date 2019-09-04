@@ -4,7 +4,7 @@ local GetImageSetData = require(script.Parent.GetImageSetData)
 local GuiService = game:GetService("GuiService")
 
 -- fallback spritesheet image to use if CorePackages is unavailable
-local FALLBACK_IMAGE = "http://www.roblox.com/asset/?id=3523723055"
+local FALLBACK_IMAGE = "http://www.roblox.com/asset/?id=3687974005"
 
 local success, scale = pcall(GuiService.GetResolutionScale, GuiService)
 if not success then

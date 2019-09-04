@@ -19,7 +19,7 @@ return function()
 
 	it("should create and destroy without errors", function()
 		local element = Roact.createElement(ExternalServicesWrapper, {
-			impl = settingsImpl,
+			settingsSaverLoader = settingsImpl,
 			theme = theme,
 			store = store,
 			localization = localization,
@@ -34,7 +34,7 @@ return function()
 
 	it("should expect a 'store' prop", function()
 		local element = Roact.createElement(ExternalServicesWrapper, {
-			impl = settingsImpl,
+			settingsSaverLoader = settingsImpl,
 			theme = theme,
 			localization = localization,
 		})
@@ -44,7 +44,7 @@ return function()
 		end).to.throw()
 	end)
 
-	it("should expect an 'impl' prop", function()
+	it("should expect an 'settingsSaverLoader' prop", function()
 		local element = Roact.createElement(ExternalServicesWrapper, {
 			theme = theme,
 			store = store,
@@ -58,7 +58,7 @@ return function()
 
 	it("should expect a 'theme' prop", function()
 		local element = Roact.createElement(ExternalServicesWrapper, {
-			impl = settingsImpl,
+			settingsSaverLoader = settingsImpl,
 			store = store,
 			localization = localization,
 		})
@@ -70,7 +70,7 @@ return function()
 
 	it("should expect a 'localization' prop", function()
 		local element = Roact.createElement(ExternalServicesWrapper, {
-			impl = settingsImpl,
+			settingsSaverLoader = settingsImpl,
 			store = store,
 			theme = theme,
 		})

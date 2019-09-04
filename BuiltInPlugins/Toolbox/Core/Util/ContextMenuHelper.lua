@@ -9,6 +9,7 @@ local EnumConvert = require(Util.EnumConvert)
 
 local FFlagEnableCopyToClipboard = settings():GetFFlag("EnableCopyToClipboard")
 local FFlagToolboxWithCMSV2 = settings():GetFFlag("ToolboxWithCMSV2")
+local FFlagPluginAccessAndInstallationInStudio = settings():GetFFlag("PluginAccessAndInstallationInStudio")
 
 local StudioService = game:GetService("StudioService")
 local GuiService = game:GetService("GuiService")
@@ -41,8 +42,24 @@ function ContextMenuHelper.tryCreateContextMenu(plugin, assetId, assetTypeId, sh
 
 	local localize = localizedContent
 
-	-- only add this action if we have access to copying to clipboard
-	if FFlagEnableCopyToClipboard then
+-- add an action to view an asset in browser
+	menu:AddNewAction("OpenInBrowser", localize.RightClickMenu.ViewInBrowser).Triggered:connect(function()
+		local baseUrl = ContentProvider.BaseUrl
+		local targetUrl = string.format("%s/library/%s/asset", baseUrl, HttpService:urlEncode(assetId))
+		GuiService:OpenBrowserWindow(targetUrl)
+	end)
+
+	if assetTypeId == Enum.AssetType.Plugin.Value then
+		if FFlagPluginAccessAndInstallationInStudio then
+			menu:AddNewAction("Report", localize.RightClickMenu.Report).Triggered:connect(function()
+				local baseUrl = ContentProvider.BaseUrl
+				local targetUrl = string.format("%s/abusereport/asset?id=%s", baseUrl, HttpService:urlEncode(assetId))
+				GuiService:OpenBrowserWindow(targetUrl)
+			end)
+		end
+
+	-- only add this action if we have access to copying to clipboard and we aren't looking at a plugin asset
+	elseif FFlagEnableCopyToClipboard then
 		local trueAssetId = assetId
 		if assetTypeId == Enum.AssetType.Decal.Value then
 			trueAssetId = getImageIdFromDecalId(assetId)
@@ -56,13 +73,6 @@ function ContextMenuHelper.tryCreateContextMenu(plugin, assetId, assetTypeId, sh
 			StudioService:CopyToClipboard("rbxassetid://"..trueAssetId)
 		end)
 	end
-
-	-- add an action to view an asset in browser
-	menu:AddNewAction("OpenInBrowser", localize.RightClickMenu.ViewInBrowser).Triggered:connect(function()
-		local baseUrl = ContentProvider.BaseUrl
-		local targetUrl = string.format("%s/library/%s/asset", baseUrl, HttpService:urlEncode(assetId))
-		GuiService:OpenBrowserWindow(targetUrl)
-	end)
 
 	if FFlagToolboxWithCMSV2 and showEditOption and editAssetFunc then
 		menu:AddNewAction("EditAsset", localize.RightClickMenu.EditAsset).Triggered:connect(function()

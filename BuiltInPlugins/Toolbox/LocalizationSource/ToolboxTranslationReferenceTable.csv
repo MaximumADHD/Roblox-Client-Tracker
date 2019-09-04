@@ -17,6 +17,9 @@ Studio.Common.Action.Help,Help, ,Help,帮助
 Studio.Common.Action.Home,Home, ,Home,首页
 Studio.Common.Action.Ignore,Ignore, ,Ignore,忽略
 Studio.Common.Action.Insert,Insert, ,Insert,插入
+Studio.Common.Action.Install,Install, ,Install, 
+Studio.Common.Action.Installed,Installed, ,Installed, 
+Studio.Common.Action.Loading,Loading..., ,Loading..., 
 Studio.Common.Action.New,New, ,New,新增
 Studio.Common.Action.Next,Next, ,Next,下一个
 Studio.Common.Action.No,No, ,No,否
@@ -49,6 +52,7 @@ Studio.Toolbox.General.CategoryDecals,Images, ,Images,图片
 Studio.Toolbox.General.CategoryMeshes,Meshes, ,Meshes,网格
 Studio.Toolbox.General.CategoryAudio,Audio, ,Audio,音频
 Studio.Toolbox.General.CategoryPlugins,Plugins, ,Plugins,插件
+Studio.Toolbox.General.CategoryPaidPlugins,Plugins, ,Plugins, 
 Studio.Toolbox.General.CategoryMyModels,My Models, ,My Models,我的模型
 Studio.Toolbox.General.CategoryMyDecals,My Images, ,My Images,我的图片
 Studio.Toolbox.General.CategoryMyMeshes,My Meshes, ,My Meshes,我的网格
@@ -122,6 +126,7 @@ Studio.Toolbox.General.RightClickMenuCopyAssetURI,Copy Asset URI, ,Copy Asset UR
 Studio.Toolbox.General.RightClickMenuViewInBrowser,View In Browser, ,View In Browser,View In Browser
 Studio.Toolbox.General.RightClickMenuConfigureAsset,Configure asset, ,Configure asset,Configure asset
 Studio.Toolbox.General.RightClickMenuEditAsset,Edit Asset, ,Edit Asset,Edit Asset
+Studio.Toolbox.General.RightClickMenuReport,Report, ,Report,Report
 Studio.Toolbox.General.StatusReviewPending,In Review, ,In Review,In Review
 Studio.Toolbox.General.StatusModerated,Rejected, ,Rejected,Rejected
 Studio.Toolbox.General.StatusReviewApproved,Ready For Sale, ,Ready For Sale,Ready For Sale
@@ -163,6 +168,8 @@ Studio.Toolbox.General.SideTabVersions,Versions, ,Versions,Versions
 Studio.Toolbox.General.SideTabGeneral,General, ,General,General
 Studio.Toolbox.General.PreviewAreaAssetID,Asset ID: {assetId}, ,Asset ID: {assetId},Asset ID: {assetId}
 Studio.Toolbox.General.PreviewAreaStatus,Status: {assetStatus}, ,Status: {assetStatus},Status: {assetStatus}
+Studio.Toolbox.General.InstallSuccess,Success!, ,Success!, 
+Studio.Toolbox.General.InstallFailure,Failure, ,Failure, 
 Studio.Toolbox.AssetConfigFooter.NewAsset,Save as a new asset..., ,Save as a new asset...,Save as a new asset...
 Studio.Toolbox.AssetConfigFooter.Override,Overwrite an existing asset..., ,Overwrite an existing asset...,Overwrite an existing asset...
 Studio.Toolbox.AssetConfigFooter.OverrideTitle,Choose an existing model to overwrite., ,Choose an existing model to overwrite.,Choose an existing model to overwrite.

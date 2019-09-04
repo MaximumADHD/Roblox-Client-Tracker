@@ -7,6 +7,8 @@ local INPUT_BOX_HORIZONTAL_OFFSET = 8
 local INPUT_BOX_WIDTH = 175 --145
 local INPUT_BOX_HEIGHT = 25
 
+local FFlagWorldAvatarLocalization = game:GetFastFlag("WorldAvatarLocalization")
+
 local paths = require(script.Parent.Parent.Paths)
 
 local calculateTextSize = nil
@@ -16,8 +18,9 @@ local AssetInput = paths.Roact.PureComponent:extend("AssetInput")
 
 function AssetInput:render()
 	self.currentTextInputBoxText = getText(self)
-	
-	local customItemTextSize = calculateTextSize("Custom Item", 22, Enum.Font.SourceSans)
+
+	local customItemText = FFlagWorldAvatarLocalization and self.props.LocalizedContent.AvatarOverrides.Item or nil
+	local customItemTextSize = calculateTextSize(FFlagWorldAvatarLocalization and customItemText or "Custom Item", 22, Enum.Font.SourceSans)
 
 	local INPUT_BOX_HORIZONTAL_POSITION = CUSTOM_ITEM_LABEL_HORIZONTAL_POSITION + customItemTextSize.X + INPUT_BOX_HORIZONTAL_OFFSET
 
@@ -44,13 +47,13 @@ function AssetInput:render()
 			TextTransparency = (self.props.IsEnabled and not self.props.PlayerChoice) and 0 or 0.5,
 			Font = Enum.Font.SourceSans,
 			TextSize = 22,
-			Text = "Custom Item",
+			Text = FFlagWorldAvatarLocalization and customItemText or "Custom Item",
 			TextXAlignment = Enum.TextXAlignment.Left,
 			TextYAlignment = Enum.TextYAlignment.Center,
 		}),
 		InputBox = paths.Roact.createElement(paths.StudioWidgetRoundTextBox, {
 			Enabled = self.props.IsEnabled,
-			PlaceholderText = "ID Number",
+			PlaceholderText = FFlagWorldAvatarLocalization and self.props.LocalizedContent.AvatarOverrides.Id or "ID Number",
 			MaxLength = 100,
 			Text = self.currentTextInputBoxText,
 			ErrorMessage = self.props.ErrorMessage,

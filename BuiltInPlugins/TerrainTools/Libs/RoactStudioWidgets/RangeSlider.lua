@@ -2,11 +2,9 @@
 	Displays a slider with two carets to allow selection of a range of values.
 
 	Props:
-		string Title = The title to place to the left of this RadioButtonSet.
-		function LowerRangeChanged(newValue) = A callback for when the lower range value changes
-		function UpperRangeChanged(newValue) = A callback for when the upper range value changes
+		string Title = The title to place to the left of this RangeSlider.
 		int LayoutOrder = The order this widget will sort to when placed in a UIListLayout.
-		bool Enabled whether to render in the enabled/disabled state
+		bool Enabled = whether to render in the enabled/disabled state
 		float Min = min value of the slider
 		float Max = max value of the slider
 		float SnapIncrement = slider handle snap points
@@ -18,6 +16,9 @@
 		}
 		Mouse = plugin mouse for changing the mouse icon
 		function SetValues = a callback for when the lower/upper range value is changed
+		string MinLabelText = the text for the left hand side min label
+		string MaxLabelText = the text for the right hand side max label
+		string UnitsLabelText = the text for the units label placed to the right of the max input box
 ]]
 
 local BACKGROUND_BAR_WIDTH = 262
@@ -44,6 +45,8 @@ local SLIDER_HANDLE_IMAGE_LIGHT = "rbxasset://textures/RoactStudioWidgets/slider
 local BACKGROUND_BAR_IMAGE_DARK = "rbxasset://textures/RoactStudioWidgets/slider_bar_background_dark.png"
 local FOREGROUND_BAR_IMAGE_DARK = "rbxasset://textures/RoactStudioWidgets/slider_bar_dark.png"
 local SLIDER_HANDLE_IMAGE_DARK = "rbxasset://textures/RoactStudioWidgets/slider_handle_dark.png"
+
+local FFlagWorldAvatarLocalization = game:GetFastFlag("WorldAvatarLocalization")
 
 local Roact = require(script.Parent.Internal.RequireRoact)
 local ThemeChangeListener = require(script.Parent.Internal.ThemeChangeListener)
@@ -202,7 +205,7 @@ function RangeSlider:render()
 					AnchorPoint = Vector2.new(0, 1),
 					Position = UDim2.new(0, 0, 1, 0),
 					Visible = self.props.Enabled,
-					Text = tostring(self.props.Min) .. "%",
+					Text = (FFlagWorldAvatarLocalization and self.props.MinLabelText) and self.props.MinLabelText or tostring(self.props.Min) .. "%",
 				}),
 				UpperLabel = Roact.createElement("TextLabel", {
 					BackgroundTransparency = 1,
@@ -217,7 +220,7 @@ function RangeSlider:render()
 					AnchorPoint = Vector2.new(1, 1),
 					Position = UDim2.new(0, BACKGROUND_BAR_WIDTH, 1, 0),
 					Visible = self.props.Enabled,
-					Text = tostring(self.props.Max) .. "%",
+					Text = (FFlagWorldAvatarLocalization and self.props.MaxLabelText) and self.props.MaxLabelText or tostring(self.props.Max) .. "%",
 				}),
 				LowerInputBox = Roact.createElement(RoundTextBox, {
 					Enabled = self.props.Enabled,
@@ -304,7 +307,7 @@ function RangeSlider:render()
 					TextSize = 22,
 					TextXAlignment = Enum.TextXAlignment.Center,
 					TextYAlignment = Enum.TextYAlignment.Center,
-					Text = "%",
+					Text = (FFlagWorldAvatarLocalization and self.props.UnitsLabelText) and self.props.UnitsLabelText or "%",
 				})
 			})
 		}

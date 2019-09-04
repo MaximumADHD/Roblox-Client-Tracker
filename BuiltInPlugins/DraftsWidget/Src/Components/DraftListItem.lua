@@ -30,6 +30,17 @@ local DraftListItem = Roact.PureComponent:extend("DraftListItem")
 local HORIZONTAL_PADDING = 8
 
 function DraftListItem:init()
+    self:setState({
+        draftName = nil,
+    })
+
+    self.nameUpdated = function()
+        local draft = self.props.Draft
+        self:setState({
+            draftName = draft.Name
+        })
+    end
+
     self.getDraftIndicator = function(theme, localization)
         local draftState = self.props.Drafts[self.props.Draft]
         local indicatorText
@@ -72,14 +83,27 @@ function DraftListItem:init()
 
     self.getLabelText = function(localization)
         local draft = self.props.Draft
+        local draftName = self.state.draftName
         local draftState = self.props.Drafts[draft]
 
         if draftState[DraftState.Committed] == CommitState.Committed then
-            return localization:getText("DraftItem", "CommittedLabel", draft.Name)
+            return localization:getText("DraftItem", "CommittedLabel", draftName)
         else
-            return ".../"..draft.Name
+            return ".../"..draftName
         end
     end
+
+    self.nameChangedConnection = self.props.Draft:GetPropertyChangedSignal("Name"):Connect(self.nameUpdated)
+    self.nameUpdated()
+end
+
+function DraftListItem:didUpdate(previousProps)
+    assert(previousProps.Draft == self.props.Draft,
+        "The Draft property of DraftListItem should never be changed. These should be keyed by the draft")
+end
+
+function DraftListItem:willUnmount()
+    self.nameChangedConnection:Disconnect()
 end
 
 function DraftListItem:render()

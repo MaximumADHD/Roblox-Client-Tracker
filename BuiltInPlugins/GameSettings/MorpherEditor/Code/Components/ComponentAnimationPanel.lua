@@ -1,5 +1,7 @@
 local paths = require(script.Parent.Parent.Paths)
 
+local FFlagWorldAvatarLocalization = game:GetFastFlag("WorldAvatarLocalization")
+
 local AnimationPanel = paths.Roact.Component:extend("ComponentAnimationPanel")
 
 function AnimationPanel:render()
@@ -9,13 +11,13 @@ function AnimationPanel:render()
 	}
 
 	return paths.Roact.createElement(paths.ComponentRadioButtonSetPanel, {
-		Title = "Animation",
+		Title = FFlagWorldAvatarLocalization and self.props.LocalizedContent.Title.Animation or "Animation",
 		Buttons = {{
 				Id = paths.ConstantTemplate.AnimationStandard,
-				Title = "Standard",
+				Title = FFlagWorldAvatarLocalization and self.props.LocalizedContent.Animation.Standard or "Standard",
 			}, {
 				Id = paths.ConstantTemplate.PlayerChoice,
-				Title = "Player Choice",
+				Title = FFlagWorldAvatarLocalization and self.props.LocalizedContent.Animation.PlayerChoice or "Player Choice",
 			},
 		},
 		Enabled = self.props.IsEnabled,

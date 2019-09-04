@@ -6,11 +6,23 @@ local Roact = require(UIBloxRoot.Parent.Roact)
 local ShimmerPanel = require(script.Parent.ShimmerPanel)
 local withStyle = require(UIBloxRoot.Style.withStyle)
 local t = require(UIBloxRoot.Parent.t)
+
+local Images = require(UIBloxRoot.ImageSet.Images)
 local ImageSetComponent = require(UIBloxRoot.ImageSet.ImageSetComponent)
 
 local decal = Instance.new("Decal")
 local inf = math.huge
 local loadedImagesByUri = {}
+
+local LoadingState = {
+	InProgress = "InProgress",
+	Failed = "Failed",
+	Loaded = "Loaded",
+}
+
+local function shouldLoadImage(image)
+	return image ~= nil and not loadedImagesByUri[image]
+end
 
 local validateProps = t.strictInterface({
 	-- The anchor point of the final and loading image
@@ -41,6 +53,8 @@ local validateProps = t.strictInterface({
 	Size = t.UDim2,
 	-- Whether or not to show a static image or the shimmer animation while loading
 	useShimmerAnimationWhileLoading = t.optional(t.boolean),
+	-- Whether to show failed state when failed
+	showFailedStateWhenLoadingFailed = t.optional(t.boolean),
 	-- The ZIndex of the loading and final images
 	ZIndex = t.optional(t.integer),
 })
@@ -52,20 +66,21 @@ LoadableImage.defaultProps = {
 	MaxSize = Vector2.new(inf, inf),
 	MinSize = Vector2.new(0, 0),
 	useShimmerAnimationWhileLoading = false,
+	showFailedStateWhenLoadingFailed = false,
 }
 
 function LoadableImage:init()
 	self.state = {
-		loaded = loadedImagesByUri[self.props.Image],
+		loadingState = loadedImagesByUri[self.props.Image] and LoadingState.Loaded or LoadingState.InProgress,
 	}
 	self._isMounted = false
 
 
-	self.isLoaded = function(image)
+	self.isLoadingComplete = function(image)
 		if image == Roact.None or image == nil then
 			return false
 		else
-			return self.state.loaded
+			return self.state.loadingState ~= LoadingState.InProgress
 		end
 	end
 end
@@ -87,17 +102,49 @@ function LoadableImage:render()
 	local minSize = self.props.MinSize
 	local loadingImage = self.props.loadingImage
 	local useShimmerAnimationWhileLoading = self.props.useShimmerAnimationWhileLoading
-	local loaded = self.isLoaded(image)
+	local showFailedStateWhenLoadingFailed = self.props.showFailedStateWhenLoadingFailed
+	local loadingComplete = self.isLoadingComplete(image)
+	local loadingFailed = self.state.loadingState == LoadingState.Failed
 	local hasUISizeConstraint = false
 
 	if maxSize.X ~= inf or maxSize.Y ~= inf or minSize.X ~= 0 or minSize.Y ~= 0 then
 		hasUISizeConstraint = true
 	end
 
+	local sizeConstraint = hasUISizeConstraint and Roact.createElement("UISizeConstraint", {
+		MaxSize = maxSize,
+		MinSize = minSize,
+	})
+
 	return withStyle(function(stylePalette)
 		local theme = stylePalette.Theme
 
-		if not loaded and useShimmerAnimationWhileLoading then
+		if loadingFailed and showFailedStateWhenLoadingFailed then
+			local failedImage = Images["icons/image-unavailable"]
+			local failedImageSize = failedImage.ImageRectSize
+
+			return Roact.createElement("Frame", {
+				AnchorPoint = anchorPoint,
+				BorderSizePixel = 0,
+				BackgroundColor3 = theme.PlaceHolder.Color,
+				BackgroundTransparency = theme.PlaceHolder.Transparency,
+				LayoutOrder = layoutOrder,
+				Position = position,
+				Size = size,
+				ZIndex = zIndex,
+			}, {
+				EmptyIcon = Roact.createElement(ImageSetComponent.Label, {
+					BackgroundTransparency = 1,
+					AnchorPoint = Vector2.new(0.5, 0.5),
+					Image = failedImage,
+					ImageColor3 = theme.UIDefault.Color,
+					ImageTransparency = theme.UIDefault.Transparency,
+					Position = UDim2.new(0.5, 0, 0.5, 0),
+					Size = UDim2.new(0, failedImageSize.X, 0, failedImageSize.Y),
+				}),
+				UISizeConstraint = sizeConstraint,
+			})
+		elseif not loadingComplete and useShimmerAnimationWhileLoading then
 			return Roact.createElement("Frame", {
 				AnchorPoint = anchorPoint,
 				BorderSizePixel = 0,
@@ -111,17 +158,15 @@ function LoadableImage:render()
 				Shimmer = Roact.createElement(ShimmerPanel, {
 					Size = UDim2.new(1, 0, 1, 0),
 				}),
-				UISizeConstraint = hasUISizeConstraint and Roact.createElement("UISizeConstraint", {
-					MaxSize = maxSize,
-					MinSize = minSize,
-				}),
+				UISizeConstraint = sizeConstraint,
 			})
 		else
 			return Roact.createElement(ImageSetComponent.Label, {
 				AnchorPoint = anchorPoint,
 				BackgroundColor3 = backgroundColor3 or theme.PlaceHolder.Color,
 				BackgroundTransparency = backgroundTransparency or theme.PlaceHolder.Transparency,
-				Image = loaded and image or loadingImage,
+				BorderSizePixel = 0,
+				Image = loadingComplete and image or loadingImage,
 				ImageTransparency = imageTransparency,
 				LayoutOrder = layoutOrder,
 				Position = position,
@@ -129,17 +174,10 @@ function LoadableImage:render()
 				Size = size,
 				ZIndex = zIndex,
 			}, {
-				UISizeConstraint = hasUISizeConstraint and Roact.createElement("UISizeConstraint", {
-					MaxSize = maxSize,
-					MinSize = minSize,
-				})
+				UISizeConstraint = sizeConstraint,
 			})
 		end
 	end)
-end
-
-function LoadableImage:shouldLoadImage(image)
-	return image ~= nil and not loadedImagesByUri[image]
 end
 
 function LoadableImage:didUpdate(oldProps)
@@ -161,16 +199,14 @@ end
 function LoadableImage:_loadImage()
 	local image = self.props.Image
 
-	if self:shouldLoadImage(image) then
-		if self.state.loaded then
-			self:setState({
-				loaded = false
-			})
-		end
+	if shouldLoadImage(image) then
+		self:setState({
+			loadingState = LoadingState.InProgress
+		})
 	else
-		if loadedImagesByUri[image] and not self.state.loaded then
+		if loadedImagesByUri[image] then
 			self:setState({
-				loaded = true
+				loadingState = LoadingState.Loaded
 			})
 		end
 		return
@@ -179,14 +215,21 @@ function LoadableImage:_loadImage()
 	-- Synchronization/Batching work should be done in engine for performance improvements
 	-- related ticket: CLIPLAYEREX-1764
 	spawn(function()
+		local loadingFailed = false
 		decal.Texture = image
-		ContentProvider:PreloadAsync({decal})
+		ContentProvider:PreloadAsync({decal}, function(contentId, assetFetchStatus)
+			if contentId == image and assetFetchStatus == Enum.AssetFetchStatus.Failure then
+				loadingFailed = true
+			end
+		end)
 
-		loadedImagesByUri[image] = true
+		if not loadingFailed then
+			loadedImagesByUri[image] = true
+		end
 
 		if self._isMounted then
 			self:setState({
-				loaded = true
+				loadingState = loadingFailed and LoadingState.Failed or LoadingState.Loaded,
 			})
 
 			if self.props.onLoaded then

@@ -553,10 +553,10 @@ Class SpecialMesh : FileMesh
 Class DataModelSession : Instance [NotCreatable]
 	Property Enum<StudioDataModelType> DataModelSession.CurrentGameStateType {PluginSecurity} [ReadOnly] [NotReplicated]
 	Property string DataModelSession.SessionId {PluginSecurity} [ReadOnly] [NotReplicated]
-	Event DataModelSession.CurrentGameStateTypeAboutToChange(int gameStateType) {PluginSecurity}
+	Event DataModelSession.CurrentGameStateTypeAboutToChange(Enum<StudioDataModelType> gameStateType) {PluginSecurity}
 	Event DataModelSession.CurrentGameStateTypeChanged() {PluginSecurity}
-	Event DataModelSession.DataModelCreated(int gameStateType) {PluginSecurity}
-	Event DataModelSession.DataModelWillBeDestroyed(int gameStateType) {PluginSecurity}
+	Event DataModelSession.DataModelCreated(Enum<StudioDataModelType> gameStateType) {PluginSecurity}
+	Event DataModelSession.DataModelWillBeDestroyed(Enum<StudioDataModelType> gameStateType) {PluginSecurity}
 Class DataStoreService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool DataStoreService.AutomaticRetry {LocalUserSecurity} [NotReplicated]
 	Property bool DataStoreService.LegacyNamingScheme {LocalUserSecurity} [Deprecated]
@@ -1833,6 +1833,7 @@ Class Terrain : BasePart [NotCreatable]
 	Function void Terrain:ImportHeightMap(string heightMapBinary, string colorMapBinary, Region3 region) {RobloxScriptSecurity} [CustomLuaState]
 	Function void Terrain:PasteRegion(Instance region, Vector3int16 corner, bool pasteEmptyCells)
 	Function Tuple Terrain:ReadVoxels(Region3 region, float resolution) [CustomLuaState]
+	Function void Terrain:ReplaceMaterial(Region3 region, float resolution, Enum<Material> sourceMaterial, Enum<Material> targetMaterial)
 	Function void Terrain:SetCell(int x, int y, int z, Enum<CellMaterial> material, Enum<CellBlock> block, Enum<CellOrientation> orientation) [Deprecated]
 	Function void Terrain:SetCells(Region3int16 region, Enum<CellMaterial> material, Enum<CellBlock> block, Enum<CellOrientation> orientation) [Deprecated]
 	Function void Terrain:SetMaterialColor(Enum<Material> material, Color3 value)
@@ -2161,25 +2162,25 @@ Class Plugin : Instance [NotCreatable]
 	Property bool Plugin.UsesAssetInsertionDrag {RobloxScriptSecurity} [<📁> Load-only] [NotReplicated]
 	Property bool Plugin.CollisionEnabled  [ReadOnly] [NotReplicated]
 	Property float Plugin.GridSize  [ReadOnly] [NotReplicated]
-	Property Enum<StudioDataModelType> Plugin.HostDataModelType {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
+	Property Enum<StudioDataModelType> Plugin.HostDataModelType {PluginSecurity} [ReadOnly] [NotReplicated]
 	Property Class<MDIInstance> Plugin.MDIInstance {PluginSecurity} [ReadOnly] [NotReplicated]
 	Function void Plugin:Activate(bool exclusiveMouse) {PluginSecurity}
-	Function Instance Plugin:Bind(string key, Function callback) {RobloxScriptSecurity}
-	Function Instance Plugin:BindAndFire(string key, Function callback) {RobloxScriptSecurity}
+	Function Instance Plugin:Bind(string key, Function callback) {PluginSecurity}
+	Function Instance Plugin:BindAndFire(string key, Function callback) {PluginSecurity}
 	Function Instance Plugin:CreateDockWidgetPluginGui(string pluginGuiId, DockWidgetPluginGuiInfo dockWidgetPluginGuiInfo) {PluginSecurity} [Yields]
 	Function Instance Plugin:CreatePluginAction(string actionId, string text, string statusTip, string iconName = "", bool allowBinding = true) {PluginSecurity}
 	Function Instance Plugin:CreatePluginMenu(string id, string title = "", string icon = "") {PluginSecurity}
 	Function Instance Plugin:CreateQWidgetPluginGui(string pluginGuiId, Dictionary pluginGuiOptions) {RobloxScriptSecurity} [Yields]
 	Function Instance Plugin:CreateToolbar(string name) {PluginSecurity}
 	Function void Plugin:Deactivate() {PluginSecurity}
-	Function void Plugin:Fire(string key, string value = "") {RobloxScriptSecurity}
-	Function string Plugin:GetItem(string key, string defaultValue = "") {RobloxScriptSecurity}
+	Function void Plugin:Fire(string key, string value = "") {PluginSecurity}
+	Function string Plugin:GetItem(string key, string defaultValue = "") {PluginSecurity}
 	Function Enum<JointCreationMode> Plugin:GetJoinMode() {PluginSecurity}
 	Function Instance Plugin:GetMouse() {PluginSecurity}
 	Function Enum<RibbonTool> Plugin:GetSelectedRibbonTool() {PluginSecurity}
 	Function Variant Plugin:GetSetting(string key) {PluginSecurity}
 	Function int64 Plugin:GetStudioUserId() {PluginSecurity}
-	Function bool Plugin:HasItem(string key) {RobloxScriptSecurity}
+	Function bool Plugin:HasItem(string key) {PluginSecurity}
 	Function Instance Plugin:ImportFbxAnimation(Instance rigModel, bool isR15 = true) {PluginSecurity} [Yields]
 	Function Instance Plugin:ImportFbxRig(bool isR15 = true) {PluginSecurity} [Yields]
 	Function bool Plugin:IsActivated() {PluginSecurity}
@@ -2191,12 +2192,12 @@ Class Plugin : Instance [NotCreatable]
 	Function void Plugin:PlaySound(Instance soundChannel) {RobloxScriptSecurity}
 	Function int64 Plugin:PromptForExistingAssetId(string assetType) {PluginSecurity} [Yields]
 	Function bool Plugin:PromptSaveSelection(string suggestedFileName = "") {PluginSecurity} [Yields]
-	Function bool Plugin:RemoveItem(string key) {RobloxScriptSecurity}
+	Function bool Plugin:RemoveItem(string key) {PluginSecurity}
 	Function void Plugin:ResumeSound(Instance soundChannel) {RobloxScriptSecurity}
 	Function void Plugin:SaveSelectedToRoblox() {PluginSecurity}
 	Function void Plugin:SelectRibbonTool(Enum<RibbonTool> tool, UDim2 position) {PluginSecurity}
 	Function Objects Plugin:Separate(Objects objects) {PluginSecurity}
-	Function void Plugin:SetItem(string key, string value = "") {RobloxScriptSecurity}
+	Function void Plugin:SetItem(string key, string value = "") {PluginSecurity}
 	Function void Plugin:SetSetting(string key, Variant value) {PluginSecurity}
 	Function void Plugin:StartDecalDrag(Instance decal) {RobloxScriptSecurity}
 	Function void Plugin:StartDrag(Dictionary dragData) {PluginSecurity}
@@ -2391,7 +2392,6 @@ Class ScriptContext : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void ScriptContext:AddCoreScriptLocal(string name, Instance parent) {RobloxScriptSecurity}
 	Function Array ScriptContext:GetCoverageStats() {RobloxScriptSecurity}
 	Function void ScriptContext:ResetCoverageCollection() {RobloxScriptSecurity}
-	Function void ScriptContext:SetCoverageFilter(Function callback) {RobloxScriptSecurity}
 	Function void ScriptContext:SetTimeout(double seconds) {PluginSecurity}
 	Function void ScriptContext:StartCoverageCollection() {RobloxScriptSecurity}
 	Function void ScriptContext:StopCoverageCollection() {RobloxScriptSecurity}
@@ -2616,6 +2616,7 @@ Class Sparkles : Instance
 	Property bool Sparkles.Enabled
 	Property Color3 Sparkles.SparkleColor
 Class SpawnerService : Instance [NotCreatable] [Service]
+Class StandalonePluginScripts : Instance
 Class StarterGear : Instance
 Class StarterPack : Instance [NotCreatable] [Service]
 Class StarterPlayer : Instance [NotCreatable] [Service]
@@ -2766,6 +2767,9 @@ Class StudioData : Instance [NotCreatable] [Service] [NotReplicated]
 	Property int64 StudioData.SrcPlaceId {RobloxSecurity} [Hidden] [NotReplicated]
 	Property int64 StudioData.SrcUniverseId {RobloxSecurity} [Hidden] [NotReplicated]
 Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
+	Property float StudioService.GridSize  [ReadOnly] [NotReplicated]
+	Property float StudioService.RotateIncrement  [ReadOnly] [NotReplicated]
+	Property bool StudioService.UseLocalSpace [<📁> Load-only] [NotReplicated]
 	Property Instance StudioService.ActiveScript  [ReadOnly] [NotReplicated]
 	Property string StudioService.StudioLocaleId  [ReadOnly] [NotReplicated]
 	Function void StudioService:CopyToClipboard(string stringToCopy) {RobloxScriptSecurity}
@@ -2795,6 +2799,7 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event StudioService.OnPluginInstalledFromToolbox() {RobloxScriptSecurity}
 	Event StudioService.OnPublishPlaceToRoblox() {RobloxScriptSecurity}
 	Event StudioService.OnSaveToRoblox(Objects instances) {RobloxScriptSecurity}
+	Event StudioService.PlacePublishedToRoblox() {RobloxScriptSecurity}
 Class StudioTheme : Instance [NotCreatable] [NotReplicated]
 	Function Color3 StudioTheme:GetColor(Enum<StudioStyleGuideColor> styleguideitem, Enum<StudioStyleGuideModifier> modifier = "Default") {PluginSecurity}
 	Function string StudioTheme:GetPath(string assetid, Enum<StudioStyleGuideModifier> modifier = "Default") {PluginSecurity}
