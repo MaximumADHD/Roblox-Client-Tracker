@@ -36,6 +36,7 @@ local Button = Roact.PureComponent:extend("Button")
 function Button:init(initialProps)
 	self.state = {
 		hovered = false,
+		pressed = false
 	}
 
 	self.onClick = function()
@@ -53,6 +54,20 @@ function Button:init(initialProps)
 	self.mouseLeave = function()
 		self:setState({
 			hovered = false,
+			pressed = false
+		})
+	end
+	
+	self.onMouseDown = function()
+		self:setState({
+			hovered = true,
+			pressed = true,
+		})
+	end
+
+	self.onMouseUp = function()
+		self:setState({
+			pressed = false,
 		})
 	end
 end
@@ -62,7 +77,6 @@ function Button:render()
 		local props = self.props
 		local state = self.state
 		local hovered = state.hovered
-
 		local style = props.Style
 		local styleState = props.StyleState
 		local size = props.Size
@@ -79,12 +93,14 @@ function Button:render()
 		local buttonTheme = style and theme.button[style] or theme.button.Default
 		if styleState then
 			buttonTheme = join(buttonTheme, buttonTheme[styleState])
+		elseif pressed then
+			buttonTheme = join(buttonTheme, buttonTheme.pressed)
 		elseif hovered then
 			buttonTheme = join(buttonTheme, buttonTheme.hovered)
 		end
 
 		local isRound = buttonTheme.isRound
-		local content = renderContents(buttonTheme, hovered)
+		local content = renderContents(buttonTheme, hovered, pressed)
 
 		local buttonProps = {
 			Size = size,
@@ -103,6 +119,8 @@ function Button:render()
 				OnActivated = self.onClick,
 				OnMouseEnter = self.mouseEnter,
 				OnMouseLeave = self.mouseLeave,
+				[Roact.Event.MouseButton1Down] = self.onMouseDown,
+				[Roact.Event.MouseButton1Up] = self.onMouseUp,
 			}), content)
 		else
 			return Roact.createElement("ImageButton", join(buttonProps, {
@@ -111,6 +129,8 @@ function Button:render()
 				[Roact.Event.MouseEnter] = self.mouseEnter,
 				[Roact.Event.MouseLeave] = self.mouseLeave,
 				[Roact.Event.Activated] = self.onClick,
+				[Roact.Event.MouseButton1Down] = self.onMouseDown,
+				[Roact.Event.MouseButton1Up] = self.onMouseUp,
 			}), content)
 		end
 	end)

@@ -67,8 +67,9 @@ function RoundTextButton:render()
 			ScaleType = Enum.ScaleType.Slice,
 			SliceCenter = theme.roundFrame.slice,
 
-			Position = UDim2.new(0, 0, 0, 0),
+			Position = self.props.Position or UDim2.new(0, 0, 0, 0),
 			Size = self.props.Size or UDim2.new(0, BUTTON_WIDTH, 0, BUTTON_HEIGHT),
+			AnchorPoint = self.props.AnchorPoint or Vector2.new(0, 0),
 
 			LayoutOrder = self.props.LayoutOrder or 1,
 			ZIndex = self.props.ZIndex or 1,

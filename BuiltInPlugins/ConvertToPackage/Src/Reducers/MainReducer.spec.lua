@@ -13,7 +13,9 @@ return function()
 		expect(state).to.be.ok()
 
 		local expectedKeys = {
-			"Example",
+			"AssetConfigReducer",
+			"GroupReducer",
+			"NetworkReducer",
 		}
 		for _, childReducerName in ipairs(expectedKeys) do
 			expect(state[childReducerName]).to.be.ok()

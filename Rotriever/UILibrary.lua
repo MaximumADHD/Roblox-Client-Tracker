@@ -24,11 +24,10 @@ local Separator = require(Components.Separator)
 local StyledDialog = require(Components.StyledDialog)
 local StyledDropdown = require(Components.StyledDropdown)
 local StyledScrollingFrame = require(Components.StyledScrollingFrame)
-local Timeline = require(Components.Timeline.Timeline)
-local TimelineTick = require(Components.Timeline.TimelineTick)
 local TitledFrame = require(Components.TitledFrame)
 local Tooltip = require(Components.Tooltip)
 local ToggleButton = require(Components.ToggleButton)
+local TreeView = require(Components.TreeView)
 
 local Spritesheet = require(Utils.Spritesheet)
 
@@ -54,16 +53,16 @@ local UILibrary = {
 		StyledDialog = StyledDialog,
 		StyledDropdown = StyledDropdown,
 		StyledScrollingFrame = StyledScrollingFrame,
-		Timeline = Timeline,
-		TimelineTick = TimelineTick,
 		TitledFrame = TitledFrame,
 		Tooltip = Tooltip,
 		ToggleButton = ToggleButton,
+		TreeView = TreeView,
 	},
 
 	Studio = {
 		ContextMenus = require(Src.Studio.ContextMenus),
 		Localization = require(Src.Studio.Localization),
+		Analytics = require(Src.Studio.Analytics),
 		Style = require(Src.Studio.StudioStyle),
 		Theme = require(Src.Studio.StudioTheme),
 		PartialHyperlink = require(Src.Studio.PartialHyperLink),

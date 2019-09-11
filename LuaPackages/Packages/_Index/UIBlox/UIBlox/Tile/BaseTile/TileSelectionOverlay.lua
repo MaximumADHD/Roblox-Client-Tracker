@@ -23,7 +23,7 @@ function SelectionOverlay:render()
 	local zIndex = self.props.ZIndex
 
 	local selectionIcon = Images["icons/selected"]
-	local imageSize = selectionIcon.ImageRectSize
+	local imageSize = selectionIcon.ImageRectSize / Images.ImagesResolutionScale
 
 	return withStyle(function(stylePalette)
 		local theme = stylePalette.Theme

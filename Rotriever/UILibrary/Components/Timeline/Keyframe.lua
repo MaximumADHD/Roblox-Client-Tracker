@@ -6,6 +6,7 @@
 		UDim2 Position = The position of the keyframe.
 		int ZIndex = The display order of the keyframe.
 		int BorderSizePixel = The size of the keyframe's border highlight.
+		string Style = A style key for coloring this keyframe. Indexed into the keyframe theme.
 
 		bool Selected = Whether this keyframe is currently selected. Changes the appearance.
 
@@ -29,8 +30,11 @@ function Keyframe:render()
 	return withTheme(function(theme)
 		local props = self.props
 
+		local style = props.Style
 		local selected = props.Selected
-		local keyframeTheme = selected and theme.keyframe.selected or theme.keyframe
+
+		local themeBase = style and theme.keyframe[style] or theme.keyframe.Default
+		local keyframeTheme = selected and themeBase.selected or themeBase
 
 		local position = props.Position
 		local borderSize = props.BorderSizePixel or DEFAULT_BORDER_SIZE
@@ -62,7 +66,7 @@ function Keyframe:render()
 
 			[Roact.Event.InputBegan] = onInputBegan,
 			[Roact.Event.InputEnded] = onInputEnded,
-		})
+		}, props[Roact.Children])
 	end)
 end
 

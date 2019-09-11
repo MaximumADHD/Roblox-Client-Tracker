@@ -66,6 +66,8 @@ return function()
 		motor:step(1)
 
 		expect(spy.callCount).to.equal(1)
+
+		motor:destroy()
 	end)
 
 	describe("onComplete should be called when", function()

@@ -12,12 +12,13 @@ function ThemeProvider:init()
 	self.themeChanged = Signal.new()
 
 	self._context[themeKey] = {
-		initialValues = theme,
+		values = theme,
 		themeChanged = self.themeChanged,
 	}
 end
 function ThemeProvider:render()
-	self.themeChanged:fire(self.props.theme)
+	self._context[themeKey].values = self.props.theme
+	self.themeChanged:fire()
 	return Roact.oneChild(self.props[Roact.Children])
 end
 
@@ -28,12 +29,12 @@ function ThemeConsumer:init()
 	local theme = self._context[themeKey]
 
 	self.state = {
-		themeValues = theme.initialValues,
+		themeValues = theme.values,
 	}
 
-	self.themeConnection = theme.themeChanged:connect(function(newValues)
+	self.themeConnection = theme.themeChanged:connect(function()
 		self:setState({
-			themeValues = newValues,
+			themeValues = theme.values,
 		})
 	end)
 end

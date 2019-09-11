@@ -1,4 +1,4 @@
-if settings():GetFFlag("StudioUseStandaloneTransformTool") then
+if settings():GetFFlag("StudioUseStandaloneTransformTool2") then
 	return
 end
 

@@ -1,3 +1,8 @@
+local FFlagEnableRoactAnimationEditor = settings():GetFFlag("EnableRoactAnimationEditor")
+if FFlagEnableRoactAnimationEditor then
+	return
+end
+
 --Startup
 local InsertService = game:GetService("InsertService")
 

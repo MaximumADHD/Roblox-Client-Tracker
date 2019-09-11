@@ -25,6 +25,7 @@ local function createGroupMotor(initialValues)
 		__allComplete = true,
 		__onComplete = createSignal(),
 		__onStep = createSignal(),
+		__running = false,
 	}
 
 	setmetatable(self, GroupMotor)
@@ -33,14 +34,21 @@ local function createGroupMotor(initialValues)
 end
 
 function GroupMotor.prototype:start()
-	self.__connection = RunService.RenderStepped:Connect(function(dt)
+	if self.__running then
+		return
+	end
+
+	self.__connection = RunService.Heartbeat:Connect(function(dt)
 		self:step(dt)
 	end)
+
+	self.__running = true
 end
 
 function GroupMotor.prototype:stop()
 	if self.__connection ~= nil then
 		self.__connection:Disconnect()
+		self.__running = false
 	end
 end
 
@@ -84,6 +92,7 @@ function GroupMotor.prototype:step(dt)
 
 	if allComplete and not wasAllComplete then
 		self.__onComplete:fire(values)
+		self:stop()
 	end
 end
 
@@ -103,6 +112,7 @@ function GroupMotor.prototype:setGoal(goals)
 	end
 
 	self.__allComplete = false
+	self:start()
 end
 
 function GroupMotor.prototype:onStep(callback)

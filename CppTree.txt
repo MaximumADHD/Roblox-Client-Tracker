@@ -926,6 +926,7 @@ RBX
 	IStepped
 	IStudioPluginHost
 	IStudioServiceHost
+	IUIServiceHost
 	IValue
 	IVersionControlService
 	IVideoCapture

@@ -7,107 +7,129 @@ local FFlagStudioConvertToPackageLua = settings():GetFFlag("StudioConvertToPacka
 if not FFlagStudioConvertToPackageLua then
 	return
 end
--- libraries
+
 local Plugin = script.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Rodux = require(Plugin.Packages.Rodux)
 local UILibrary = require(Plugin.Packages.UILibrary)
 
-local StudioService = game:GetService("StudioService")
+local Util = Plugin.Src.Util
+local PluginTheme = require(Plugin.Src.Resources.PluginTheme)
+local Constants = require(Util.Constants)
 
--- components
-local ServiceWrapper = require(Plugin.Src.Components.ServiceWrapper)
-
--- data
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 
--- theme
-local PluginTheme = require(Plugin.Src.Resources.PluginTheme)
+local NetworkInterface = require(Plugin.Src.Networking.NetworkInterface)
 
 -- localization
 local TranslationDevelopmentTable = Plugin.Src.Resources.TranslationDevelopmentTable
 local TranslationReferenceTable = Plugin.Src.Resources.TranslationReferenceTable
 local Localization = UILibrary.Studio.Localization
 
--- Plugin Specific Globals
-local dataStore = Rodux.Store.new(MainReducer)
-local theme = PluginTheme.new()
+local ServiceWrapper = require(Plugin.Src.Components.ServiceWrapper)
+
+local StudioService = game:GetService("StudioService")
+local ScreenSelect = require(Plugin.Src.Components.ConvertToPackageWindow.ScreenSelect)
+
 local localization = Localization.new({
 	stringResourceTable = TranslationDevelopmentTable,
 	translationResourceTable = TranslationReferenceTable,
 	pluginName = "ConvertToPackage",
 })
 
--- Widget Gui Elements
-local pluginHandle
-local pluginGui
-
-local function setMainWidgetInteractable(interactable)
-	if pluginGui then
-		for _, instance in pairs(pluginGui:GetDescendants()) do
-			if instance:IsA("GuiObject") then
-				instance.Active = interactable
-			end
-		end
-	end
-end
-
-local function createServiceWrapper()
- return Roact.createElement(ServiceWrapper, {
-		plugin = plugin,
-		localization = localization,
-		theme = theme,
-		store = dataStore,
-	}, {
-		MainView = Roact.createElement("Frame", {
-			Size = UDim2.new(1, 0, 1, 0),
-			BackgroundColor3 = Color3.new(1, 1, 1),
-		}),
-	})
-end
-
---Closes and unmounts the plugin window
-local function closePluginWindow()
-	if pluginHandle then
-		Roact.unmount(pluginHandle)
-		pluginHandle = nil
-	end
-end
-
---Initializes and populates the plugin window
-local function openPluginWindow()
-	if not pluginHandle then
-		-- create the roact tree
-		local servicesProvider = createServiceWrapper()
-		pluginHandle = Roact.mount(servicesProvider, pluginGui)
-	end
-end
-
---Binds a toolbar button
-local function main()
-	local pluginTitle = localization:getText("Meta", "PluginName")
-	plugin.Name = pluginTitle
-	-- create the plugin
-	pluginGui = plugin:CreateQWidgetPluginGui(plugin.Name, {
-		Size = Vector2.new(960, 600),
-		MinSize = Vector2.new(960, 600),
-		Resizable = true,
+local assetConfigHandle = nil
+local assetConfigGui  = nil
+local function makePluginGui()
+	assetConfigGui = plugin:CreateQWidgetPluginGui(plugin.Name, {
+		Size = Vector2.new(960, 700),
+		MinSize = Vector2.new(960, 700),
+		Resizable = false,
 		Modal = true,
 		InitialEnabled = false,
 	})
-	pluginGui.Name = plugin.Name
-	pluginGui.Title = plugin.Name
-	pluginGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-	pluginGui:GetPropertyChangedSignal("Enabled"):connect(function()
-		if pluginGui.Enabled then
-			openPluginWindow()
-		else
-			closePluginWindow()
+	assetConfigGui.Name = plugin.Name
+	assetConfigGui.Title = plugin.Name
+	assetConfigGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+	assetConfigGui:GetPropertyChangedSignal("Enabled"):connect(function()
+		-- Handle if user clicked the X button to close the window
+		if not assetConfigGui.Enabled then
+			if assetConfigHandle then
+				Roact.unmount(assetConfigHandle)
+				assetConfigHandle = nil
+			end
 		end
 	end)
-	
-	StudioService.OnOpenConvertToPackagePlugin:connect(function()
-		pluginGui.Enabled = true
+end
+
+local function onAssetConfigDestroy()
+	if assetConfigHandle then
+		Roact.unmount(assetConfigHandle)
+		assetConfigHandle = nil
+	end
+	assetConfigGui.Enabled = false
+end
+
+-- assetTypeEnum Enum.AssetType, some asset like places, need to use the parameter to
+--				set the assetType of the Asset, and skip the assetTypeSelection.
+--				default to nil
+-- instances instances, Will be used in publishing new assets. Instances are userdata,
+--				we can't check the assetType using that, using AssetType instead.
+-- string assetName, the initial name of the asset (used for default config).
+local function openAssetConfigWindow(instances, assetName)
+	if assetConfigHandle then
+		return
+	end
+
+	local mainStore = Rodux.Store.new(MainReducer,
+	{
+		AssetConfigReducer = { instances = instances}
+	},{
+			Rodux.thunkMiddleware
+	})
+
+	local theme = PluginTheme.new()
+	local networkInterface = NetworkInterface.new()
+	local assetConfigComponent = Roact.createElement(ServiceWrapper, {
+		plugin = plugin,
+		store = mainStore,
+		theme = theme,
+		focusGui = assetConfigGui,
+		networkInterface = networkInterface,
+		localization = localization,
+	},
+	{
+		Roact.createElement(ScreenSelect, {
+			onClose = onAssetConfigDestroy,
+			assetName = assetName,
+			pluginGui = assetConfigGui,
+			currentScreen = Constants.SCREENS.CONFIGURE_ASSET,
+			instances = instances
+		})
+	})
+
+	assetConfigHandle = Roact.mount(assetConfigComponent, assetConfigGui)
+	assetConfigGui.Enabled = true
+	return assetConfigHandle
+end
+
+local function main()
+	plugin.Name = localization:getText("Meta", "PluginName")
+	makePluginGui()
+	StudioService.OnOpenConvertToPackagePlugin:connect(function(instances, name)
+		-- clone instances so that user cannot edit them while validating/uploading
+		local clonedInstances = {}
+		for i = 1, #instances do
+			pcall(function()
+				clonedInstances[i] = instances[i]:Clone()
+			end)
+		end
+		if clonedInstances == {} then
+			print(localization:getText("General", "InstanceFail"))
+			return
+		end
+
+		openAssetConfigWindow(clonedInstances, name)
 	end)
 end
 

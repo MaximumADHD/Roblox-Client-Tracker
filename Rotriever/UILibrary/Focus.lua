@@ -64,7 +64,6 @@ function FocusConsumer:init()
 	assert(self.props.focusedRender ~= nil, "Use withFocus, not FocusConsumer.")
 	self.pluginGui = self._context[focusKey]
 end
-
 function FocusConsumer:render()
 	return self.props.focusedRender(self.pluginGui)
 end
@@ -125,6 +124,9 @@ end
 local KeyboardListener = Roact.PureComponent:extend("KeyboardListener")
 function KeyboardListener:init()
 	self.keysHeld = {}
+	assert(self._context[focusKey] ~= nil, "No FocusProvider found.")
+	self.pluginGui = self._context[focusKey]
+
 	self.onInputBegan = function(input)
 		if input.UserInputType == Enum.UserInputType.Keyboard then
 			self.keysHeld[input.KeyCode] = true
@@ -136,6 +138,17 @@ function KeyboardListener:init()
 			self.keysHeld[input.KeyCode] = nil
 			self.props.OnKeyReleased(input)
 		end
+	end
+	if self.pluginGui:IsA("DockWidgetPluginGui") then
+		self.focusConnection = self.pluginGui.WindowFocusReleased:Connect(function()
+			for key, _ in pairs(self.keysHeld) do
+				self.props.OnKeyReleased({
+					KeyCode = key,
+					UserInputType = Enum.UserInputType.Keyboard,
+				})
+			end
+			self.keysHeld = {}
+		end)
 	end
 end
 function KeyboardListener:render()
@@ -151,6 +164,11 @@ function KeyboardListener:render()
 			end,
 		}),
 	})
+end
+function KeyboardListener:willUnmount()
+	if self.focusConnection then
+		self.focusConnection:Disconnect()
+	end
 end
 
 return {

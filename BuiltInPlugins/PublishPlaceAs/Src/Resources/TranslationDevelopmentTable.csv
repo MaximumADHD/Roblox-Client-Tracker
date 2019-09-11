@@ -8,8 +8,10 @@ Studio.PublishPlaceAs.General.ContentDialogItem3, , ,Strong Language (Swearing)
 Studio.PublishPlaceAs.General.ContentDialogItem4, , ,Robux Gambling
 Studio.PublishPlaceAs.General.ContentDialogItem5, , ,Drug Reference or Use
 Studio.PublishPlaceAs.Button.AddNewPlace, , ,Add New
+Studio.PublishPlaceAs.Button.Close, , ,Close
 Studio.PublishPlaceAs.Button.ReplyAgree, , ,Agree
 Studio.PublishPlaceAs.Button.ReplyDisagree, , ,Disagree
+Studio.PublishPlaceAs.Button.Retry, , ,Retry
 Studio.PublishPlaceAs.FooterButton.UpdateExistingGame, , ,Update existing game...
 Studio.PublishPlaceAs.FooterButton.CreateNewGame, , ,Create new game...
 Studio.PublishPlaceAs.FooterButton.Create, , ,Create
@@ -47,4 +49,6 @@ Studio.PublishPlaceAs.Error.DescriptionModerated, , ,The description didn't go t
 Studio.PublishPlaceAs.Error.DescriptionTooLong, , ,Description cannot be that long.
 Studio.PublishPlaceAs.Error.NoDevices, , ,You must select at least one playable device.
 Studio.PublishPlaceAs.ScreenHeader.ChooseGame, , ,Choose an existing game to add this place
-Studio.PublishPlaceAs.ScreenHeader.ChoosePlace, , ,Overwrite or add a new place to {1}
+Studio.PublishPlaceAs.ScreenHeader.ChoosePlace, ,Substituted with game name to tell user where their place will be added,Overwrite or add a new place to {1}
+Studio.PublishPlaceAs.PublishSuccess.Success, , ,Successfully published!
+Studio.PublishPlaceAs.PublishSuccess.FindInGame, ,Substituted with game name to tell user where their place has been published to,You may find this place in {1}

@@ -13,6 +13,7 @@
 ]]
 
 local NO_WRAP = Vector2.new(1000000, 50)
+local BUTTON_HEIGHT_SCALE = 0.4
 
 local TextService = game:GetService("TextService")
 
@@ -72,12 +73,11 @@ function RadioButtons:createButton(key, text, index, selected, theme)
 			end,
 		}, {
 			Highlight = selected and Roact.createElement("ImageLabel", {
-				Size = UDim2.new(0, buttonHeight, 0, buttonHeight),
+				Size = UDim2.new(BUTTON_HEIGHT_SCALE, 0, BUTTON_HEIGHT_SCALE, 0),
 				AnchorPoint = Vector2.new(0.5, 0.5),
 				Position = UDim2.new(0.5, 0, 0.5, 0),
 				BackgroundTransparency = 1,
 				Image = theme.radioButton.radioButtonSelected,
-				ImageColor3 = theme.radioButton.radioButtonSelectedColor,
 			}),
 		}),
 

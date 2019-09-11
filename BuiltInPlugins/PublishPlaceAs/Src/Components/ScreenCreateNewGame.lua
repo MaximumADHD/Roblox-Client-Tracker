@@ -7,6 +7,8 @@
 		function OnClose - closure to run to close the QWidget dialog
 ]]
 
+local StudioService = game:GetService("StudioService")
+
 local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
@@ -22,6 +24,9 @@ local Separator = UILibrary.Component.Separator
 local MenuBar = require(Plugin.Src.Components.Menu.MenuBar)
 local Footer = require(Plugin.Src.Components.Footer)
 local BasicInfo = require(Plugin.Src.Components.BasicInfo)
+
+local SetScreen = require(Plugin.Src.Actions.SetScreen)
+local SetPublishInfo = require(Plugin.Src.Actions.SetPublishInfo)
 
 local MENU_ENTRIES = {
 	"BasicInfo",
@@ -43,12 +48,15 @@ end
 
 function ScreenCreateNewGame:render(props)
 	return Theming.withTheme(function(theme)
+		local props = self.props
 
-		local onClose = self.props.OnClose
-		local readyToSave = self.props.ReadyToSave
-		local changed = self.props.Changed
+		local onClose = props.OnClose
+		local readyToSave = props.ReadyToSave
+		local changed = props.Changed
 
 		local selected = self.state.selected
+
+		local openPublishSuccessfulPage = props.OpenPublishSuccessfulPage
 
 		return Roact.createElement("Frame", {
 			Size = UDim2.new(1, 0, 1, 0),
@@ -79,7 +87,9 @@ function ScreenCreateNewGame:render(props)
 					Name = "Create",
 					Active = readyToSave,
 					OnActivated = function()
-						SettingsImpl.saveAll(changed, onClose)
+						SettingsImpl.saveAll(changed)
+						StudioService.PlacePublishedToRoblox:wait()
+						openPublishSuccessfulPage(game, changed)
 					end,
 				},
 				OnClose = onClose,
@@ -98,4 +108,14 @@ local function mapStateToProps(state, props)
 	}
 end
 
-return RoactRodux.connect(mapStateToProps, nil)(ScreenCreateNewGame)
+
+local function useDispatchForProps(dispatch)
+	return {
+		OpenPublishSuccessfulPage = function(place, game)
+			dispatch(SetPublishInfo({ id = place.GameId, name = place.Name, parentGameName = game.name, }))
+			dispatch(SetScreen(Constants.SCREENS.PUBLISH_SUCCESSFUL))
+		end,
+	}
+end
+
+return RoactRodux.connect(mapStateToProps, useDispatchForProps)(ScreenCreateNewGame)

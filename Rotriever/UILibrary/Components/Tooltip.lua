@@ -14,6 +14,7 @@
 
 local PADDING = 3
 local SHADOW_OFFSET = Vector2.new(3, 3)
+local OFFSET = Vector2.new(10, 5)
 local SHOW_DELAY_DEFAULT = 0.5
 
 local RunService = game:GetService("RunService")
@@ -107,8 +108,8 @@ function Tooltip:render()
 			local content = {}
 
 			if state.showToolTip and mousePos and enabled and pluginGui then
-				local targetX = mousePos.X
-				local targetY = mousePos.Y
+				local targetX = mousePos.X + OFFSET.X
+				local targetY = mousePos.Y + OFFSET.Y
 
 				local targetWidth = pluginGui.AbsoluteSize.X
 				local targetHeight = pluginGui.AbsoluteSize.Y

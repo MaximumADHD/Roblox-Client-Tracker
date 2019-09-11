@@ -1,6 +1,10 @@
 local FastFlags = require(script.Parent.FastFlags)
 local Paths = require(script.Parent.Paths)
 
+if FastFlags:isEnableRoactAnimationEditorOn() then
+	return
+end
+
 local mainPluginName = "AnimationEditor"
 local displayName = "Animation Editor"
 

@@ -61,5 +61,20 @@ return function()
 			local instance = Roact.mount(element, nil, "LoadableImageSample")
 			Roact.unmount(instance)
 		end)
+		it("should set failed image without errors", function()
+			local element = mockStyleComponent({
+				Image = Roact.createElement(LoadableImage, {
+					Image = "invalid-image-url",
+					Size = UDim2.new(0, 80, 0, 80),
+					Position = UDim2.new(0, 50, 0, 50),
+					BackgroundColor3 = Color3.new(0,0,0),
+					BackgroundTransparency = 0,
+					loadingImage = defaultLoadImage,
+					showFailedStateWhenLoadingFailed = true,
+				})
+			})
+			local instance = Roact.mount(element, nil, "LoadableImageSample")
+			Roact.unmount(instance)
+		end)
 	end)
 end

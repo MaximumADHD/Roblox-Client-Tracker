@@ -87,6 +87,7 @@ return{
 	["CoreScripts.PurchasePrompt.ConfirmPurchase.UpgradeBuildersClub"] = [[Upgrade]],
 	["CoreScripts.PurchasePrompt.ConfirmPurchase.BuyNow"] = [[Buy Now]],
 	["CoreScripts.PurchasePrompt.ConfirmPurchase.BuyRobux"] = [[Buy R$]],
+	["CoreScripts.PurchasePrompt.ConfirmPurchase.BuyRobuxV2"] = [[Buy Robux]],
 	["CoreScripts.PurchasePrompt.CancelPurchase.Cancel"] = [[Cancel]],
 	["CoreScripts.PurchasePrompt.Button.OK"] = [[OK]],
 	["CoreScripts.PurchasePrompt.Purchasing"] = [[Purchasing]],

@@ -45,12 +45,6 @@ return function()
 		end)
 	end)
 
-	--[[describe("Plugin", function()
-		it("should supply a functional plugin object to its children", function()
-			expect(true).to.equal(true)
-		end)
-	end)]]
-
 	describe("Store", function()
 		itSKIP("should supply a functional Rodux Store object to its children", function()
 			local TestElement = Roact.Component:extend("Test")

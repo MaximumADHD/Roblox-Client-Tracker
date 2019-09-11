@@ -20,7 +20,7 @@ local RootPlaceInfo = require(Plugin.Src.Network.Requests.RootPlaceInfo)
 	Used to save the chosen state of all game settings by saving to web
 	endpoints or setting properties in the datamodel.
 ]]
-local function saveAll(state, onClose)
+local function saveAll(state)
 	local configuration = {}
 	local rootPlaceInfo = {}
 
@@ -44,11 +44,11 @@ local function saveAll(state, onClose)
 		}
 		Promise.all(setRequests):andThen(function()
 			StudioService:SetUniverseDisplayName(configuration.name)
-			StudioService:emitPlacePublishedSignal()
-			onClose()
+			StudioService:EmitPlacePublishedSignal()
 		end):catch(function(err)
 			warn("PublishPlaceAs: Could not publish configuration settings.")
 			warn(tostring(err))
+			StudioService:EmitPlacePublishedSignal()
 		end)
 	end)
 
@@ -56,4 +56,5 @@ end
 
 return {
 	saveAll = saveAll,
+	getCreatedGame = getCreatedGame,
 }

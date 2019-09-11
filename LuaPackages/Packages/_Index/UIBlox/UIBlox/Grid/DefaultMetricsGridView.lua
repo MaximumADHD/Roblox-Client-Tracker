@@ -58,6 +58,14 @@ function DefaultMetricsGridView:init()
 	self.state = {
 		containerWidth = 0,
 	}
+
+	self.checkSetInitialContainerWidth = function(rbx)
+		if self.isMounted and rbx:IsDescendantOf(game) then
+			self:setState({
+				containerWidth = rbx.AbsoluteSize.X,
+			})
+		end
+	end
 end
 
 function DefaultMetricsGridView:render()
@@ -76,13 +84,8 @@ function DefaultMetricsGridView:render()
 			Transparency = 1,
 			Size = UDim2.new(1, 0, 0, 0),
 
-			[Roact.Change.AbsoluteSize] = function(rbx)
-				if self.isMounted and rbx:IsDescendantOf(game) then
-					self:setState({
-						containerWidth = rbx.AbsoluteSize.X,
-					})
-				end
-			end
+			[Roact.Change.AbsoluteSize] = self.checkSetInitialContainerWidth,
+			[Roact.Event.AncestryChanged] = self.checkSetInitialContainerWidth,
 		})
 	end
 

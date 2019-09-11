@@ -45,7 +45,7 @@ function ModalBottomSheetButton:init()
 		if not self.ref.current then return end
 		self.ref.current.ImageColor3 = styledColor
 	end
-	-- TODO(UIBLOX-30): Update with ControlStateManager.lua
+	-- TODO(UIBLOX-30): Update with Controllable.lua
 	self.onInputBegan = function(inputObject)
 		return inputObject.UserInputType == Enum.UserInputType.MouseButton1 or
 			inputObject.UserInputType == Enum.UserInputType.Touch

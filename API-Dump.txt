@@ -574,7 +574,6 @@ Class DebugSettings : Instance [Settings] [NotBrowsable]
 	Property Enum<ErrorReporting> DebugSettings.ErrorReporting
 	Property bool DebugSettings.IsScriptStackTracingEnabled
 	Property bool DebugSettings.ReportSoundWarnings
-	Property int DebugSettings.LuaRamLimit
 	Property int DebugSettings.DataModel [<💾> Save-only] [ReadOnly] [NotReplicated]
 	Property int DebugSettings.InstanceCount [<💾> Save-only] [ReadOnly] [NotReplicated]
 	Property int DebugSettings.JobCount [<💾> Save-only] [ReadOnly] [NotReplicated]
@@ -2391,10 +2390,7 @@ Class ScriptContext : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool ScriptContext.ScriptsDisabled {LocalUserSecurity} [<📁> Load-only] [NotReplicated]
 	Function void ScriptContext:AddCoreScriptLocal(string name, Instance parent) {RobloxScriptSecurity}
 	Function Array ScriptContext:GetCoverageStats() {RobloxScriptSecurity}
-	Function void ScriptContext:ResetCoverageCollection() {RobloxScriptSecurity}
 	Function void ScriptContext:SetTimeout(double seconds) {PluginSecurity}
-	Function void ScriptContext:StartCoverageCollection() {RobloxScriptSecurity}
-	Function void ScriptContext:StopCoverageCollection() {RobloxScriptSecurity}
 	Event ScriptContext.Error(string message, string stackTrace, Instance script)
 Class ScriptDebugger : Instance [NotCreatable]
 	Property int ScriptDebugger.CurrentLine  [ReadOnly] [NotReplicated]
@@ -2772,6 +2768,7 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool StudioService.UseLocalSpace [<📁> Load-only] [NotReplicated]
 	Property Instance StudioService.ActiveScript  [ReadOnly] [NotReplicated]
 	Property string StudioService.StudioLocaleId  [ReadOnly] [NotReplicated]
+	Function void StudioService:ConvertToPackageUpload(string uploadUrl) {PluginSecurity}
 	Function void StudioService:CopyToClipboard(string stringToCopy) {RobloxScriptSecurity}
 	Function Dictionary StudioService:GetClassIcon(string className) {PluginSecurity}
 	Function string StudioService:GetInstalledPluginData() {RobloxScriptSecurity} [Yields]
@@ -2794,7 +2791,8 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void StudioService:UpdatePluginManagement() {RobloxScriptSecurity}
 	Function void StudioService:emitPlacePublishedSignal() {RobloxScriptSecurity}
 	Event StudioService.GamePublishedToRoblox() {RobloxScriptSecurity}
-	Event StudioService.OnOpenConvertToPackagePlugin() {RobloxScriptSecurity}
+	Event StudioService.OnConvertToPackageResult(bool result) {RobloxScriptSecurity}
+	Event StudioService.OnOpenConvertToPackagePlugin(Objects instances, string name) {RobloxScriptSecurity}
 	Event StudioService.OnOpenManagePackagePlugin(int64 userId, int64 assetId) {RobloxScriptSecurity}
 	Event StudioService.OnPluginInstalledFromToolbox() {RobloxScriptSecurity}
 	Event StudioService.OnPublishPlaceToRoblox() {RobloxScriptSecurity}

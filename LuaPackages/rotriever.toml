@@ -12,6 +12,7 @@ Cryo = { git = "https://github.com/Roblox/cryo", rev = "roblox" }
 LuaDiscussionsDeps = { git = "https://github.rbx.com/Roblox/lua-discussions-deps", rev = "no-infinite-scroller"}
 UIBlox = { git = "https://github.rbx.com/Roblox/uiblox", rev = "master" }
 Otter = { git = "https://github.com/Roblox/Otter", rev = "roblox" }
+OtterApp = { git = "https://github.com/Roblox/Otter", rev = "master" }
 t = { git = "https://github.com/Roblox/t", rev = "master" }
 
 # TODO: CLILUACORE-480

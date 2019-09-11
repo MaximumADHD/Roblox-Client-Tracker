@@ -7,19 +7,21 @@ local UILibrary = require(Plugin.Packages.UILibrary)
 
 local PluginTheme = require(Plugin.Src.Resources.PluginTheme)
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
-local MockPlugin = require(Plugin.Src.TestHelpers.MockPlugin)
 local Localization = UILibrary.Studio.Localization
+local NetworkInterfaceMock = require(Plugin.Src.Networking.NetworkInterfaceMock)
 
 return function()
 	it("should construct and destroy without errors", function()
 		local localization = Localization.mock()
-		local pluginInstance = MockPlugin.new()
 		local store = Rodux.Store.new(MainReducer, {}, { Rodux.thunkMiddleware })
+		local networkInterface = NetworkInterfaceMock.new()
 		local theme = PluginTheme.mock()
 
 		local element = Roact.createElement(ServiceWrapper, {
 			localization = localization,
-			plugin = pluginInstance,
+			plugin = {},
+			focusGui = {},
+			networkInterface = networkInterface,
 			store = store,
 			theme = theme,
 		}, {

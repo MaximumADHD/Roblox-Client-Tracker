@@ -2,7 +2,7 @@
 name = "UIBlox"
 version = "0.1.0"
 source = "git+https://github.rbx.com/roblox/uiblox#master"
-commit = "90e7d65a0ad0de7035c73106d6b6b09918f1f173"
+commit = "8efdde94f5cdb9666b633cc5866ac83de0256271"
 dependencies = [
     "Cryo Cryo ce743f67 git+https://github.com/roblox/cryo#roblox",
     "Otter Otter fff3ac76 git+https://github.com/roblox/otter#roblox",

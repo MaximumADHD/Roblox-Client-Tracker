@@ -53,6 +53,8 @@ return function()
 			})
 
 			expect(spy.callCount).to.equal(0)
+
+			motor:destroy()
 		end)
 	end)
 

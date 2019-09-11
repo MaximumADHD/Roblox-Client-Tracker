@@ -6,6 +6,7 @@ local Roact = require(UIBloxRoot.Parent.Roact)
 local t = require(UIBloxRoot.Parent.t)
 local withStyle = require(UIBloxRoot.Style.withStyle)
 
+local Images = require(UIBloxRoot.ImageSet.Images)
 local ImageSetComponent = require(UIBloxRoot.ImageSet.ImageSetComponent)
 local ShimmerPanel = require(UIBloxRoot.Loading.ShimmerPanel)
 
@@ -43,7 +44,7 @@ function ItemTileName:render()
 		local textSize = font.BaseSize * font.Header2.RelativeSize
 
 		if name ~= nil then
-			local titleIconSize = titleIcon and titleIcon.ImageRectSize or Vector2.new(0, 0)
+			local titleIconSize = titleIcon and titleIcon.ImageRectSize / Images.ImagesResolutionScale or Vector2.new(0, 0)
 
 			local labelWidth = titleIcon and (maxWidth - titleIconSize.X - ICON_PADDING) or maxWidth
 			local labelTextSize = TextService:GetTextSize(name, textSize, font.Header2.Font, Vector2.new(labelWidth, maxHeight))

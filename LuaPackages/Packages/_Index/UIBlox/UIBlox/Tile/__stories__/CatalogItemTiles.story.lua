@@ -49,7 +49,7 @@ function CatalogItemTiles:createFooter(stylePalette, overridePriceText, isOwned)
 		icon = Images["icons/itemOwned"]
 	end
 
-	local iconSize = icon.ImageRectSize
+	local iconSize = icon.ImageRectSize / Images.ImagesResolutionScale
 
 	local finalPrice = overridePriceText or priceText
 	local priceIsNumber = priceText and tonumber(finalPrice:sub(1, 1))

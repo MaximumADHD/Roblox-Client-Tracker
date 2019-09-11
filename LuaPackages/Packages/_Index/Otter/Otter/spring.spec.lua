@@ -120,6 +120,64 @@ return function()
 		end)
 	end)
 
+	describe("should handle infinite time deltas when", function()
+		-- TODO: This test is broken.
+		itSKIP("is critically damped", function()
+			local s = spring(20, {
+				dampingRatio = 1,
+				frequency = 1,
+			})
+
+			local state = {
+				value = -10,
+				velocity = 0,
+				complete = false,
+			}
+			state = s:step(state, math.huge)
+
+			expect(state.complete).to.equal(true)
+			expect(state.value).to.equal(20)
+			expect(state.velocity).to.equal(0)
+		end)
+
+		-- TODO: This test is broken.
+		itSKIP("is underdamped", function()
+			local s = spring(20, {
+				dampingRatio = 0.5,
+				frequency = 1,
+			})
+
+			local state = {
+				value = -10,
+				velocity = 0,
+				complete = false,
+			}
+			state = s:step(state, math.huge)
+
+			expect(state.complete).to.equal(true)
+			expect(state.value).to.equal(20)
+			expect(state.velocity).to.equal(0)
+		end)
+
+		it("is overdamped", function()
+			local s = spring(20, {
+				dampingRatio = 2,
+				frequency = 1,
+			})
+
+			local state = {
+				value = -10,
+				velocity = 0,
+				complete = false,
+			}
+			state = s:step(state, math.huge)
+
+			expect(state.complete).to.equal(true)
+			expect(state.value).to.equal(20)
+			expect(state.velocity).to.equal(0)
+		end)
+	end)
+
 	it("should remain complete when completed", function()
 		local s = spring(3, {
 			dampingRatio = 1,

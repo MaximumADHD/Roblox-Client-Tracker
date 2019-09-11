@@ -15,6 +15,7 @@ local screenMap = {
 	[Constants.SCREENS.CREATE_NEW_GAME] = require(Plugin.Src.Components.ScreenCreateNewGame),
 	[Constants.SCREENS.CHOOSE_GAME]	= require(Plugin.Src.Components.ScreenChooseGame),
 	[Constants.SCREENS.CHOOSE_PLACE] = require(Plugin.Src.Components.ScreenChoosePlace),
+	[Constants.SCREENS.PUBLISH_SUCCESSFUL] = require(Plugin.Src.Components.ScreenPublishSuccessful)
 }
 
 for screen,_ in pairs(Constants.SCREENS) do

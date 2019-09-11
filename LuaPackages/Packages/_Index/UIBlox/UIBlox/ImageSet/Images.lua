@@ -42,7 +42,10 @@ local function getImagePath(packagePath, imageName)
 end
 
 local packagePath = getPackagePath()
-local Images = {}
+local Images = {
+	ImagesResolutionScale = scale,
+}
+
 for key, value in pairs(sourceData) do
 	assert(typeof(value) == "table")
 	local imageProps = {}

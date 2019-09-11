@@ -16,6 +16,8 @@ local withLayoutValues = require(script.Parent.Parent.Connection.withLayoutValue
 
 local connectToStore = require(script.Parent.Parent.Parent.connectToStore)
 
+local FFlagEnableHexRobuxIcon = game:GetFastFlag("EnableRobuxHexIcon")
+
 local CONFIRM_PURCHASE_KEY = "CoreScripts.PurchasePrompt.ConfirmPurchase.%s"
 
 local PromptButtons = Roact.PureComponent:extend("PromptButtons")
@@ -50,7 +52,9 @@ function PromptButtons:render()
 			if price == 0 then
 				confirmButtonStringKey = CONFIRM_PURCHASE_KEY:format("TakeFree")
 			elseif promptState == PromptState.RobuxUpsell then
-				confirmButtonStringKey = CONFIRM_PURCHASE_KEY:format("BuyRobux")
+				confirmButtonStringKey = FFlagEnableHexRobuxIcon
+					and CONFIRM_PURCHASE_KEY:format("BuyRobuxV2")
+					or CONFIRM_PURCHASE_KEY:format("BuyRobux")
 				leftButtonCallback = onRobuxUpsell
 			elseif promptState == PromptState.BuildersClubUpsell then
 				confirmButtonStringKey = CONFIRM_PURCHASE_KEY:format("UpgradeBuildersClub")

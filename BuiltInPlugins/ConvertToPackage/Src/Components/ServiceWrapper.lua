@@ -1,51 +1,63 @@
 --[[
-	A centralized place for providers, and an entry point for the Roact trees of plugins
+	This component is responsible for managing the ConvertToPackageWindow page.
+	This component will listen to StudioService's signal to bring up the ConvertToPackageWindow
+	page.
+
+	Necessary Props:
+	assetId, number, will be used to request assetConfig data on didMount.
+	If nil we will be considering publshing an new asset.
+
+	store = A store object to be used by Rodux.StoreProvider.
+	theme = A theme object to be used by a ThemeProvider.
+	networkInterface = A networkInterface object to be used by a NetworkContext.
+	plugin = A plugin object to be used by a PluginContext.
 ]]
+
 local Plugin = script.Parent.Parent.Parent
 
-local Roact = require(Plugin.Packages.Roact)
-local RoactRodux = require(Plugin.Packages.RoactRodux)
-local UILibrary = require(Plugin.Packages.UILibrary)
-local Theming = require(Plugin.Src.ContextServices.Theming)
-local StudioPlugin = require(Plugin.Src.ContextServices.StudioPlugin)
-local UILibraryProvider = require(Plugin.Src.ContextServices.UILibraryProvider)
-local Localizing = UILibrary.Localizing
+local Packages = Plugin.Packages
+local Roact = require(Packages.Roact)
+local RoactRodux = require(Packages.RoactRodux)
 
-
--- props.localization : (UILibary.Localization) an object for fetching translated strings
--- props.plugin : (plugin instance) the instance of plugin defined in main.server.lua
--- props.store : (Rodux Store) the data store for the plugin
--- props.theme : (Resources.PluginTheme) a table for styling elements in the plugin and UILibrary
+local ContextServices = Plugin.Src.ContextServices
+local NetworkContext = require(Plugin.Src.ContextServices.NetworkContext).Context
+local Localizing = require(Plugin.Packages.UILibrary).Localizing
+local PluginContext = require(Plugin.Src.ContextServices.PluginContext).Provider
+local ThemingProvider = require(ContextServices.Theming).Provider
+local UILibraryProvider = require(ContextServices.UILibraryProvider)
 local ServiceWrapper = Roact.PureComponent:extend("ServiceWrapper")
-
-function ServiceWrapper:init()
-	assert(self.props[Roact.Children] ~= nil, "Expected child elements to wrap")
-	assert(self.props.localization ~= nil, "Expected a Localization object")
-	assert(self.props.plugin ~= nil, "Expected a plugin object")
-	assert(self.props.store ~= nil, "Expected a Rodux Store object")
-	assert(self.props.theme ~= nil, "Expected a PluginTheme object")
-end
 
 local function addProvider(provider, props, rootElement)
 	return Roact.createElement(provider, props, { rootElement })
 end
 
+function ServiceWrapper:init(props)
+	assert(self.props[Roact.Children] ~= nil, "Expected child elements to wrap")
+	assert(self.props.networkInterface ~= nil, "Expected a NetworkInterface object")
+	assert(self.props.localization ~= nil, "Expected a Localization object")
+	assert(self.props.plugin ~= nil, "Expected a plugin object")
+	assert(self.props.store ~= nil, "Expected a Rodux Store object")
+	assert(self.props.theme ~= nil, "Expected a PluginTheme object")
+	assert(self.props.focusGui ~= nil, "Expected a FocusGui object")
+end
+
 function ServiceWrapper:render()
+	local props = self.props
+	local store = props.store
+	local plugin = props.plugin
+	local theme = props.theme
+	local focusGui = props.focusGui
+	local localization = props.localization
+	local networkInterface = props.networkInterface
 	local children = self.props[Roact.Children]
-	local localization = self.props.localization
-	local plugin = self.props.plugin
-	local store = self.props.store
-	local theme = self.props.theme
-
-	-- the order of these providers should be read as bottom up,
-	-- things most likely to change or trigger updates should be near the top of the list
 	local root = Roact.oneChild(children)
-	root = addProvider(RoactRodux.StoreProvider, { store = store }, root)
-	root = addProvider(UILibraryProvider, { plugin = plugin }, root)
-	root = addProvider(Theming.Provider, { theme = theme, }, root)
-	root = addProvider(Localizing.Provider, { localization = localization }, root)
-	root = addProvider(StudioPlugin.Provider, { plugin = plugin }, root)
 
+	root = addProvider(NetworkContext, {networkInterface = networkInterface}, root)
+	root = addProvider(Localizing.Provider, {localization = localization}, root)
+	root = addProvider(UILibraryProvider, {plugin = plugin, focusGui = focusGui}, root)
+	root = addProvider(ThemingProvider, {theme = theme}, root)
+	root = addProvider(PluginContext, {plugin = plugin, pluginGui = focusGui}, root)
+	root = addProvider(RoactRodux.StoreProvider, {store = store}, root)
 	return root
 end
 

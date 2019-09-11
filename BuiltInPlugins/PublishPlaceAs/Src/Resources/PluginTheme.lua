@@ -86,6 +86,10 @@ local function createValues(getColor, c, m)
 			font = Enum.Font.SourceSansSemibold,
 			textColor = getColor(c.MainText),
 		},
+		successText = {
+			font = Enum.Font.SourceSans,
+			text = Color3.fromRGB(2, 183, 87),
+		},
 		isDarkerTheme = isDark,
 	})
 

@@ -8,6 +8,7 @@ if not plugin then
 end
 
 game:DefineFastFlag("RemoveNilInstances", false)
+game:DefineFastFlag("UseRBXThumbInToolbox", false)
 
 local Plugin = script.Parent.Parent
 local Libs = Plugin.Libs

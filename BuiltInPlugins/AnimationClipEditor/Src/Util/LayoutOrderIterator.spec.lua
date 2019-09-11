@@ -1,0 +1,27 @@
+return function()
+	local LayoutOrderIterator = require(script.Parent.LayoutOrderIterator)
+
+	describe("new", function()
+		it("should create a new LayoutOrderIterator", function()
+			local layout = LayoutOrderIterator.new()
+			expect(layout).to.be.ok()
+			expect(type(layout)).to.equal("table")
+			expect(layout.order).to.be.ok()
+			expect(type(layout.order)).to.equal("number")
+			expect(layout.order).to.equal(0)
+		end)
+	end)
+
+	describe("getNextOrder", function()
+		it("should increment the layout order", function()
+			local layout = LayoutOrderIterator.new()
+			layout:getNextOrder()
+			expect(layout.order).to.equal(1)
+		end)
+
+		it("should return the incremented layout order", function()
+			local layout = LayoutOrderIterator.new()
+			expect(layout:getNextOrder()).to.equal(1)
+		end)
+	end)
+end

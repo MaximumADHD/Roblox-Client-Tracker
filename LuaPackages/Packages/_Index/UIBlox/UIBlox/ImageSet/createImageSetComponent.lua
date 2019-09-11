@@ -6,16 +6,23 @@ return function(innerComponent, resolutionScale)
 
 	return function(props)
 		local fullProps = {}
+		local imageSetProps
 		local usesImageSet = false
 
 		for key, value in pairs(props) do
 			if key == "Image" and typeof(value) == "table" then
 				usesImageSet = true
-				for imageKey, imageValue in pairs(value) do
-					fullProps[imageKey] = imageValue
-				end
+				imageSetProps = value
 			else
 				fullProps[key] = value
+			end
+		end
+
+		if usesImageSet then
+			for imageKey, imageValue in pairs(imageSetProps) do
+				if not fullProps[imageKey] then
+					fullProps[imageKey] = imageValue
+				end
 			end
 		end
 

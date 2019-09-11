@@ -38,7 +38,7 @@ function ItemIcon:render()
 	local itemIconType = self.props.itemIconType
 
 	local icon = ItemIconTypesMap[itemIconType]
-	local imageSize = icon.ImageRectSize
+	local imageSize = icon.ImageRectSize / Images.ImagesResolutionScale
 
 	return withStyle(function(stylePalette)
 		local theme = stylePalette.Theme

@@ -5,6 +5,7 @@ local Url = require(Plugin.Libs.Http.Url)
 local wrapStrictTable = require(Plugin.Core.Util.wrapStrictTable)
 
 local EnableDeveloperGetManageGroupUrl = game:DefineFastFlag("EnableDeveloperGetManageGroupUrl", false)
+local FFlagUseRBXThumbInToolbox = game:GetFastFlag("UseRBXThumbInToolbox") and settings():GetFFlag("EnableRbxThumbAPI")
 
 local Urls = {}
 
@@ -35,6 +36,8 @@ local ASSET_ID = Url.BASE_URL .. ASSET_ID_PATH
 local ASSET_GAME_ASSET_ID = Url.GAME_ASSET_URL .. ASSET_ID_PATH
 
 local ASSET_THUMBNAIL = Url.GAME_ASSET_URL .. "asset-thumbnail/image?"
+
+local RBXTHUMB_URL = FFlagUseRBXThumbInToolbox and "rbxthumb://type=Asset&id=%d&w=%d&h=%d" or nil
 
 local USER_SEARCH = Url.BASE_URL .. "search/users/results?"
 local USER_THUMBNAIL = Url.BASE_URL .. "headshot-thumbnail/image?"
@@ -173,15 +176,20 @@ function Urls.constructAssetGameAssetIdUrl(assetId, assetTypeId, isPackage)
 end
 
 function Urls.constructAssetThumbnailUrl(assetId, width, height)
-	-- The URL only accepts certain sizes for thumbnails. This includes 50, 75, 100, 150, 250, 420 etc.
-	width = width or DEFAULT_ASSET_SIZE
-	height = height or DEFAULT_ASSET_SIZE
+	if FFlagUseRBXThumbInToolbox then
+		-- The URL only accepts certain sizes for thumbnails. This includes only 150 and 420
+		return RBXTHUMB_URL:format(tonumber(assetId) or 0, width, height)
+	else
+		-- The URL only accepts certain sizes for thumbnails. This includes 50, 75, 100, 150, 250, 420 etc.
+		width = width or DEFAULT_ASSET_SIZE
+		height = height or DEFAULT_ASSET_SIZE
 
-	return ASSET_THUMBNAIL .. Url.makeQueryString({
-		assetId = assetId,
-		width = width,
-		height = height,
-	})
+		return ASSET_THUMBNAIL .. Url.makeQueryString({
+			assetId = assetId,
+			width = width,
+			height = height,
+		})
+	end
 end
 
 function Urls.constructUserSearchUrl(searchTerm, numResults)

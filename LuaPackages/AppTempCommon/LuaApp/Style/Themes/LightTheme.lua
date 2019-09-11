@@ -54,7 +54,7 @@ local theme = {
 		Transparency = 0,
 	},
 	ContextualPrimaryContent = {
-		Color = Colors.Flint,
+		Color = Colors.White,
 		Transparency = 0,
 	},
 

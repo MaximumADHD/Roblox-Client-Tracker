@@ -10206,23 +10206,6 @@
                     }
                 },
                 {
-                    "Category": "Limits",
-                    "MemberType": "Property",
-                    "Name": "LuaRamLimit",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "int"
-                    }
-                },
-                {
                     "Category": "Profile",
                     "MemberType": "Property",
                     "Name": "OsIs64Bit",
@@ -42871,17 +42854,6 @@
                 },
                 {
                     "MemberType": "Function",
-                    "Name": "ResetCoverageCollection",
-                    "Parameters": [
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "void"
-                    },
-                    "Security": "RobloxScriptSecurity"
-                },
-                {
-                    "MemberType": "Function",
                     "Name": "SetTimeout",
                     "Parameters": [
                         {
@@ -42897,28 +42869,6 @@
                         "Name": "void"
                     },
                     "Security": "PluginSecurity"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "StartCoverageCollection",
-                    "Parameters": [
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "void"
-                    },
-                    "Security": "RobloxScriptSecurity"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "StopCoverageCollection",
-                    "Parameters": [
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "void"
-                    },
-                    "Security": "RobloxScriptSecurity"
                 },
                 {
                     "MemberType": "Event",
@@ -49374,6 +49324,24 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "ConvertToPackageUpload",
+                    "Parameters": [
+                        {
+                            "Name": "uploadUrl",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "PluginSecurity"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "CopyToClipboard",
                     "Parameters": [
                         {
@@ -49790,8 +49758,36 @@
                 },
                 {
                     "MemberType": "Event",
+                    "Name": "OnConvertToPackageResult",
+                    "Parameters": [
+                        {
+                            "Name": "result",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Event",
                     "Name": "OnOpenConvertToPackagePlugin",
                     "Parameters": [
+                        {
+                            "Name": "instances",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Objects"
+                            }
+                        },
+                        {
+                            "Name": "name",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
                     ],
                     "Security": "RobloxScriptSecurity"
                 },

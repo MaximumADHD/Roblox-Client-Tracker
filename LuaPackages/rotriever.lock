@@ -9,10 +9,11 @@ dependencies = [
     "Cryo Cryo ce743f67 git+https://github.com/roblox/cryo#roblox",
     "LuaDiscussionsDeps LuaDiscussionsDeps 27a0f381 git+https://github.rbx.com/roblox/lua-discussions-deps#no-infinite-scroller",
     "Otter Otter fff3ac76 git+https://github.com/roblox/otter#roblox",
+    "OtterApp Otter 36b45b97 git+https://github.com/roblox/otter#master",
     "Roact Roact1xMigration b815aedf git+https://github.rbx.com/pdoyle/roact-1x-migration#master",
     "RoactRodux RoactRodux1xMigration b8fe2fb8 git+https://github.rbx.com/pdoyle/roact-rodux-1x-migration#master",
     "Rodux Rodux cdea578f git+https://github.com/roblox/rodux#master",
-    "UIBlox UIBlox 90e7d65a git+https://github.rbx.com/roblox/uiblox#master",
+    "UIBlox UIBlox 8efdde94 git+https://github.rbx.com/roblox/uiblox#master",
     "t t 74411073 git+https://github.com/roblox/t#master",
 ]
 
@@ -103,7 +104,7 @@ commit = "cdea578ff648116d63fe077b0b4b2fe64bdd8ee5"
 name = "UIBlox"
 version = "0.1.0"
 source = "git+https://github.rbx.com/roblox/uiblox#master"
-commit = "90e7d65a0ad0de7035c73106d6b6b09918f1f173"
+commit = "8efdde94f5cdb9666b633cc5866ac83de0256271"
 dependencies = [
     "Cryo Cryo ce743f67 git+https://github.com/roblox/cryo#roblox",
     "Otter Otter fff3ac76 git+https://github.com/roblox/otter#roblox",

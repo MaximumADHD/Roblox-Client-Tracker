@@ -19,37 +19,58 @@ function Reporter.processCoverageStats()
 
         local source = aScript.Source
 
-        local scanner = LineScanner:new()
-
         local hits = scriptStats.Hits
         local lineHit = 0
         local lineMissed = 0
         local lines = {}
-        local lineNumber = 1
-        for line in source:gmatch('(.-)\n') do
-            local excluded, excludedIfNotHit = scanner:consume(line)
 
-            local ignored = excluded
+        if scriptStats.HitsPrecise then
+            local sources = source:split('\n')
 
-            if not excluded then
-                if hits[lineNumber] and hits[lineNumber] > 0 then
+            for n,h in ipairs(hits) do
+                local ignored = h < 0
+
+                if h > 0 then
                     lineHit = lineHit + 1
-                else
-                    if excludedIfNotHit then
-                        ignored = true
+                elseif h == 0 then
+                    lineMissed = lineMissed + 1
+                end
+
+                lines[n] = {
+                    source = sources[n],
+                    ignored = ignored,
+                    hits = math.max(h, 0)
+                }
+            end
+        else
+            local scanner = LineScanner:new()
+            local lineNumber = 1
+
+            for line in source:gmatch('(.-)\n') do
+                local excluded, excludedIfNotHit = scanner:consume(line)
+
+                local ignored = excluded
+
+                if not excluded then
+                    if hits[lineNumber] and hits[lineNumber] > 0 then
+                        lineHit = lineHit + 1
                     else
-                        lineMissed = lineMissed + 1
+                        if excludedIfNotHit then
+                            ignored = true
+                        else
+                            lineMissed = lineMissed + 1
+                        end
                     end
                 end
+
+                lines[lineNumber] = {
+                    source = line,
+                    ignored = ignored,
+                    hits = hits[lineNumber] or 0
+                }
+
+                lineNumber = lineNumber + 1
             end
-
-            lines[lineNumber] = {
-                source = line,
-                ignored = ignored,
-                hits = hits[lineNumber] or 0
-            }
-
-            lineNumber = lineNumber + 1
         end
 
         table.insert(files, {

@@ -120,8 +120,8 @@ function LoadableImage:render()
 		local theme = stylePalette.Theme
 
 		if loadingFailed and showFailedStateWhenLoadingFailed then
-			local failedImage = Images["icons/image-unavailable"]
-			local failedImageSize = failedImage.ImageRectSize
+			local failedImage = Images["icons/imageUnavailable"]
+			local failedImageSize = failedImage.ImageRectSize / Images.ImagesResolutionScale
 
 			return Roact.createElement("Frame", {
 				AnchorPoint = anchorPoint,

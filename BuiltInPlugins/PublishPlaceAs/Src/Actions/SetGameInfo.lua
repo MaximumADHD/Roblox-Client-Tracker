@@ -1,36 +1,27 @@
 local Plugin = script.Parent.Parent.Parent
 local Cryo = require(Plugin.Packages.Cryo)
 
+local AssertType = require(Plugin.Src.Util.AssertType)
+
 local Action = require(script.Parent.Action)
 
 return Action(script.Name, function(gameInfoArg)
+	AssertType.assertNullableType(gameInfoArg, "table", "SetGameInfo arg")
 	local gameInfo = gameInfoArg or {}
 
-	local errmsg = "SetGameInfo arg must be nil or a table, received %s"
-	assert(type(gameInfo) == "table", string.format(errmsg, tostring(gameInfo)))
-
 	local games = gameInfo.games or {}
-	local nextPageCursor = gameInfo.nextPageCursor or Cryo.None
-	local previousPageCursor = gameInfo.previousPageCursor or Cryo.None
+	local nextPageCursor = gameInfo.nextPageCursor
+	local previousPageCursor = gameInfo.previousPageCursor
 
-	errmsg = "SetGameInfo.games to be a nil or table, received %s"
-	assert(type(games) == "table", string.format(errmsg, tostring(games)))
-
-	errmsg = "SetGameInfo.nextPageCursor must be a string, nil, or Cryo.None, received %s"
-	if nextPageCursor ~= Cryo.None then
-		assert(type(nextPageCursor) == "string", string.format(errmsg, type(nextPageCursor)))
-	end
-
-	errmsg = "SetGameInfo.previousPageCursor must be string, nil, or Cryo.None, received %s"
-	if previousPageCursor ~= Cryo.None then
-		assert(type(previousPageCursor) == "string", string.format(errmsg, type(previousPageCursor)))
-	end
+	AssertType.assertType(games, "table", "SetGameInfo.places")
+	AssertType.assertNullableType(nextPageCursor, "string", "SetGameInfo.nextPageCursor")
+	AssertType.assertNullableType(previousPageCursor, "string", "SetGameInfo.previousPageCursor")
 
 	return {
 		gameInfo = {
 			games = games,
-			nextPageCursor = nextPageCursor,
-			previousPageCursor = previousPageCursor,
+			nextPageCursor = nextPageCursor or Cryo.None,
+			previousPageCursor = previousPageCursor or Cryo.None,
 		}
 	}
 end)

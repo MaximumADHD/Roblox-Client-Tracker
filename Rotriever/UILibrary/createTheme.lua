@@ -65,29 +65,30 @@ return function(style, overrides)
 	}
 
 	local keyframe = {
-		backgroundColor = style.itemColor,
-		borderColor = style.borderColor,
+		Default = {
+			backgroundColor = style.itemColor,
+			borderColor = style.borderColor,
 
-		selected = {
-			backgroundColor = style.selectionColor,
-			borderColor = style.selectionBorderColor,
+			selected = {
+				backgroundColor = style.selectionColor,
+				borderColor = style.selectionBorderColor,
+			},
+		},
+
+		Primary = {
+			backgroundColor = style.primaryItemColor,
+			borderColor = style.primaryBorderColor,
+
+			selected = {
+				backgroundColor = style.primaryHoveredItemColor,
+				borderColor = style.selectionBorderColor,
+			},
 		},
 	}
 
 	local scrubber = {
 		backgroundColor = style.selectionColor,
 		image = "",
-	}
-
-	local timelineTick = {
-		font = style.font,
-
-		lineColor = style.separationLineColor,
-		textColor = style.dimmerTextColor,
-	}
-
-	local timeline = {
-		barColor = style.borderColor,
 	}
 
 	local scrollingFrame = {
@@ -101,12 +102,11 @@ return function(style, overrides)
 	}
 
 	local radioButton = {
-		radioButtonBackground = "rbxasset://textures/AnimationEditor/button_radio_default.png",
+		radioButtonBackground = "rbxasset://textures/GameSettings/RadioButton.png",
 		radioButtonColor = style.separationLineColor,
-		radioButtonSelected = "rbxasset://textures/AnimationEditor/button_radio_innercircle.png",
-		radioButtonSelectedColor = style.selectionColor,
+		radioButtonSelected = "rbxasset://textures/ui/LuaApp/icons/ic-blue-dot.png",
 		textSize = 18,
-		buttonHeight = 18,
+		buttonHeight = 20,
 		font = style.font,
 		textColor = style.textColor,
 		contentPadding = 16,
@@ -191,6 +191,23 @@ return function(style, overrides)
 		lineColor = style.borderColor,
 	}
 
+	local treeView = {
+		elementPadding = 4,
+		margins = {
+			left = 2,
+			top = 2,
+			right = 2,
+			bottom = 2,
+		},
+		indentOffset = 8,
+		scrollbar = replaceDefaults(scrollingFrame, {
+			scrollbarThickness = 16,
+			scrollbarPadding = 2,
+			scrollbarImageColor = style.borderColor,
+		}),
+		defaultElementWidth = 140,
+	}
+
 	local dialog = {
 		font = style.font,
 
@@ -262,8 +279,6 @@ return function(style, overrides)
 		dropShadow = dropShadow,
 		tooltip = tooltip,
 		keyframe = keyframe,
-		timelineTick = timelineTick,
-		timeline = timeline,
 		scrollingFrame = scrollingFrame,
 		dropdownMenu = dropdownMenu,
 		styledDropdown = styledDropdown,
@@ -279,6 +294,7 @@ return function(style, overrides)
 		bulletPoint = bulletPoint,
 		toggleButton = toggleButton,
 		radioButton = radioButton,
+		treeView = treeView,
 		hyperlink = hyperlink,
 	}, overrides)
 end

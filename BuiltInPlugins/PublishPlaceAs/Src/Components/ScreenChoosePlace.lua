@@ -25,6 +25,7 @@ local RoundTextButton = UILibrary.Component.RoundTextButton
 
 local SetScreen = require(Plugin.Src.Actions.SetScreen)
 local SetPlaceInfo = require(Plugin.Src.Actions.SetPlaceInfo)
+local SetPublishInfo = require(Plugin.Src.Actions.SetPublishInfo)
 local LoadExistingPlaces = require(Plugin.Src.Thunks.LoadExistingPlaces)
 
 local Footer = require(Plugin.Src.Components.Footer)
@@ -58,7 +59,7 @@ function ScreenChoosePlace:init()
 	--        fit 5 on a page.
 	self.state = {
 		onSecondHalf = false,
-		selected = false,
+		selectedPlace = nil,
 		pageNumber = 1,
 		isPreviousButtonHovered = false,
 		isNextButtonHovered = false,
@@ -115,9 +116,13 @@ function ScreenChoosePlace:render()
 
 			local dispatchLoadExistingPlaces = props.DispatchLoadExistingPlaces
 			local openChooseGamePage = props.OpenChooseGamePage
+			local openPublishSuccessfulPage = props.OpenPublishSuccessfulPage
 
 			local hasSecondHalf = #places > HALF_SCREEN
-			local newPlaceSelected = self.state.selected == 0
+			local newPlaceSelected = false
+			if self.state.selectedPlace ~= nil then
+				newPlaceSelected = self.state.selectedPlace.placeId == 0
+			end
 
 			local gameText = parentGame and parentGame.name or ""
 			local headerText = localization:getText("ScreenHeader", "ChoosePlace", gameText)
@@ -158,10 +163,12 @@ function ScreenChoosePlace:render()
 						Name = v.name,
 						Id = v.placeId,
 						LayoutOrder = i,
-						Selected = self.state.selected == v.placeId,
+						Selected = self.state.selectedPlace and self.state.selectedPlace.placeId == v.placeId,
 						LastItem = false,
 						OnActivated = function()
-							self:setState({ selected = v.placeId })
+							self:setState({ 
+								selectedPlace = v
+							})
 						end,
 					})
 				end
@@ -171,10 +178,12 @@ function ScreenChoosePlace:render()
 				components[0] = Roact.createElement(TilePlace, {
 					Name = localization:getText("Button", "AddNewPlace"),
 					LayoutOrder = #places + 1,
-					Selected = self.state.selected == 0,
+					Selected = newPlaceSelected,
 					LastItem = true,
 					OnActivated = function()
-						self:setState({ selected = 0 })
+						self:setState({ 
+							selectedPlace = { placeId = 0 , name = "Untitled Place"}
+						})
 					end,
 				})
 			end
@@ -250,7 +259,7 @@ function ScreenChoosePlace:render()
 								end
 								self:setState({
 									onSecondHalf = not onSecondHalf,
-									selected = false,
+									selectedPlace = nil,
 								})
 							end,
 						})),
@@ -290,7 +299,7 @@ function ScreenChoosePlace:render()
 								end
 								self:setState({
 									onSecondHalf = not onSecondHalf,
-									selected = false,
+									selectedPlace = nil,
 								})
 							end,
 						})),
@@ -300,11 +309,11 @@ function ScreenChoosePlace:render()
 				Footer = Roact.createElement(Footer, {
 					MainButton = {
 						Name = newPlaceSelected and localization:getText("FooterButton", "Create") or localization:getText("FooterButton", "Overwrite"),
-						Active = parentGame and self.state.selected,
+						Active = parentGame and self.state.selectedPlace ~= nil,
 						OnActivated = function()
-							StudioService:publishAs(parentGame.universeId, self.state.selected)
+							StudioService:publishAs(parentGame.universeId, self.state.selectedPlace.placeId)
 							StudioService.GamePublishedToRoblox:wait()
-							onClose()
+							openPublishSuccessfulPage(self.state.selectedPlace, parentGame)
 						end,
 					},
 					OnClose = onClose,
@@ -333,6 +342,10 @@ local function useDispatchForProps(dispatch)
 		OpenChooseGamePage = function()
 			dispatch(SetPlaceInfo({ places = {} }))
 			dispatch(SetScreen(Constants.SCREENS.CHOOSE_GAME))
+		end,
+		OpenPublishSuccessfulPage = function(place, game)
+			dispatch(SetPublishInfo({ id = place.placeId, name = place.name, parentGameName = game.name, }))
+			dispatch(SetScreen(Constants.SCREENS.PUBLISH_SUCCESSFUL))
 		end,
 	}
 end

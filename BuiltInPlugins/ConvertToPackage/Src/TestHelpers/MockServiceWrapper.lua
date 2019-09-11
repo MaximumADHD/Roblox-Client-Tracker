@@ -9,24 +9,14 @@ local UILibrary = require(Plugin.Packages.UILibrary)
 local ServiceWrapper = require(Plugin.Src.Components.ServiceWrapper)
 local PluginTheme = require(Plugin.Src.Resources.PluginTheme)
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
-local MockPlugin = require(Plugin.Src.TestHelpers.MockPlugin)
+local NetworkInterfaceMock = require(Plugin.Src.Networking.NetworkInterfaceMock)
 local Localization = UILibrary.Studio.Localization
-
 local MockServiceWrapper = Roact.Component:extend("MockServiceWrapper")
 
--- props.localization : (optional, UILibrary.Localization)
--- props.plugin : (optional, plugin)
--- props.storeState : (optional, table) a default state for the MainReducer
--- props.theme : (optional, Resources.PluginTheme)
 function MockServiceWrapper:render()
 	local localization = self.props.localization
 	if not localization then
 		localization = Localization.mock()
-	end
-
-	local pluginInstance = self.props.plugin
-	if not pluginInstance then
-		pluginInstance = MockPlugin.new()
 	end
 
 	local storeState = self.props.storeState
@@ -34,15 +24,20 @@ function MockServiceWrapper:render()
 
 	local theme = self.props.theme
 	if not theme then
-		theme = PluginTheme.mock()
+		theme = PluginTheme.new()
 	end
-
+	local networkInterface = self.props.networkInterface or NetworkInterfaceMock.new()
+	local plugin = self.props.plugin or {}
+	local focusGui = self.props.focusGui or {}
+	local children = self.props[Roact.Children]
 	return Roact.createElement(ServiceWrapper, {
 		localization = localization,
-		plugin = pluginInstance,
+		plugin = plugin,
+		focusGui = focusGui,
+		networkInterface = networkInterface,
 		store = store,
 		theme = theme,
-	}, self.props[Roact.Children])
+	}, children)
 end
 
 return MockServiceWrapper

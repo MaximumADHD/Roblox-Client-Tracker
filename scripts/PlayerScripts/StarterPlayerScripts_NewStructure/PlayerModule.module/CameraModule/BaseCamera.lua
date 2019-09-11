@@ -57,8 +57,7 @@ local GAMEPAD_ZOOM_STEP_2 = 10
 local GAMEPAD_ZOOM_STEP_3 = 20
 
 local PAN_SENSITIVITY = 20
-local ZOOM_CURVE_MODIFIER = 0.156
-local ZOOM_CURVE_DIRECTION_MODIFIER = 1.7
+local ZOOM_SENSITIVITY_CURVATURE = 0.5
 
 local abs = math.abs
 local sign = math.sign
@@ -574,16 +573,18 @@ function BaseCamera:OnPointerAction(wheel, pan, pinch, processed)
 		self.rotateInput = self.rotateInput + rotateDelta
 	end
 
-	local zoom = wheel + pinch
-	if abs(zoom) > 0 then
-		local newDistance
-		if self.inFirstPerson and zoom > 0 then
-			newDistance = FIRST_PERSON_DISTANCE_THRESHOLD
+	local zoom = self.currentSubjectDistance
+	local zoomDelta = wheel + pinch
+
+	if abs(zoomDelta) > 0 then
+		local newZoom
+		if self.inFirstPerson and zoomDelta > 0 then
+			newZoom = FIRST_PERSON_DISTANCE_THRESHOLD
 		else
-			newDistance = self.currentSubjectDistance + ZOOM_CURVE_MODIFIER*self.currentSubjectDistance*zoom + ZOOM_CURVE_DIRECTION_MODIFIER*sign(zoom)
+			newZoom = zoom + zoomDelta*(1 + zoom*ZOOM_SENSITIVITY_CURVATURE)
 		end
 
-		self:SetCameraToSubjectDistance(newDistance)
+		self:SetCameraToSubjectDistance(newZoom)
 	end
 end
 

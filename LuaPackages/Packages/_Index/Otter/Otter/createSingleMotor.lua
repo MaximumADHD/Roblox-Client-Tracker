@@ -17,6 +17,7 @@ local function createSingleMotor(initialValue)
 		},
 		__onComplete = createSignal(),
 		__onStep = createSignal(),
+		__running = false,
 	}
 
 	setmetatable(self, SingleMotor)
@@ -25,15 +26,23 @@ local function createSingleMotor(initialValue)
 end
 
 function SingleMotor.prototype:start()
-	self.__connection = RunService.RenderStepped:Connect(function(dt)
+	if self.__running then
+		return
+	end
+
+	self.__connection = RunService.Heartbeat:Connect(function(dt)
 		self:step(dt)
 	end)
+
+	self.__running = true
 end
 
 function SingleMotor.prototype:stop()
 	if self.__connection ~= nil then
 		self.__connection:Disconnect()
 	end
+
+	self.__running = false
 end
 
 function SingleMotor.prototype:step(dt)
@@ -57,12 +66,14 @@ function SingleMotor.prototype:step(dt)
 
 	if self.__state.complete then
 		self.__onComplete:fire(self.__state.value)
+		self:stop()
 	end
 end
 
 function SingleMotor.prototype:setGoal(goal)
 	self.__goal = goal
 	self.__state.complete = false
+	self:start()
 end
 
 function SingleMotor.prototype:onStep(callback)

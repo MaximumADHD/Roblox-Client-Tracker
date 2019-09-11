@@ -109,8 +109,6 @@ function OverrideAssetView:createAssets(resultsArray, theme)
 	local selectedAssetId = self.state.selectedAssetId
 	for index, asset in pairs(resultsArray) do
 		local assetId = asset.Asset.Id
-		-- The thumbnial is scalled, the design request size of 150 x 150.
-		-- But the endpoint for fetching thumbnial only works with 75 x 75
 		local thumbnailUrl = Urls.constructAssetThumbnailUrl(assetId,
 			Constants.THUMBNAIL_SIZE_LARGE,
 			Constants.THUMBNAIL_SIZE_LARGE)

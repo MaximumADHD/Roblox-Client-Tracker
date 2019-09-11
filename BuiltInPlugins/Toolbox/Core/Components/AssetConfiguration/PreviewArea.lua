@@ -35,9 +35,11 @@ local withLocalization = ContextHelper.withLocalization
 
 local AssetConfig = require(Plugin.Core.Types.ConfigTypes)
 
+local FFlagUseRBXThumbInToolbox = game:GetFastFlag("UseRBXThumbInToolbox") and settings():GetFFlag("EnableRbxThumbAPI")
+
 local PreviewArea = Roact.PureComponent:extend("PreviewArea")
 
-local THUMBNAIL_SIZE = 110
+local THUMBNAIL_SIZE = FFlagUseRBXThumbInToolbox and Constants.ASSET_THUMBNAIL_REQUESTED_IMAGE_SIZE or 110
 local TITLE_HEIGHT = 25
 
 local Tab_Item_Height = 48

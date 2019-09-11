@@ -1,3 +1,8 @@
+local FFlagEnableRoactAnimationEditor = settings():GetFFlag("EnableRoactAnimationEditor")
+if FFlagEnableRoactAnimationEditor then
+	return
+end
+
 local ContentProvider = game:GetService("ContentProvider")
 local BaseUrl = ContentProvider.BaseUrl
 local AssetUrl = BaseUrl .."asset/?id="

@@ -68,7 +68,7 @@ function ItemRestrictionStatus:render()
 		local textSize = TextService:GetTextSize(additionalText, fontSize, font, MAX_TEXT_SIZE)
 
 		local icon = getRestrictionIcon(restrictionTypes)
-		local imageSize = icon and icon.ImageRectSize or Vector2.new(0, 0)
+		local imageSize = icon and icon.ImageRectSize / Images.ImagesResolutionScale or Vector2.new(0, 0)
 
 		local xSize = imageSize.X + textSize.X + CONTENT_PADDING.X
 		local ySize = math.max(imageSize.Y, textSize.Y) + CONTENT_PADDING.Y
