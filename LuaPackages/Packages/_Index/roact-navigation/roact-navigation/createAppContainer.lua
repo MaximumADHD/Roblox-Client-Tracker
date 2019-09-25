@@ -138,13 +138,13 @@ return function(AppComponent)
 		end
 
 		local action = self._initialAction
-		local startupState =  self.state.nav
+		local startupState = self.state.nav
 
 		if not startupState then
 			startupState = AppComponent.router.getStateForAction(action)
 		end
 
-		local function dispatchActions()
+		local function dispatchActionEvents()
 			-- _actionEventSubscribers is a table(handler, true), e.g. a Set container
 			for subscriber in pairs(self._actionEventSubscribers) do
 				subscriber({
@@ -162,7 +162,7 @@ return function(AppComponent)
 			})
 		end
 
-		dispatchActions()
+		dispatchActionEvents()
 	end
 
 	function NavigationContainer:willUnmount()

@@ -141,7 +141,7 @@ function AssetConfigTheme:_recalculateTheme()
 			backgroundColor = isDark and color(c.MainBackground) or Color3.fromRGB(46, 46, 46),
 			titleTextColor = color(c.SubText),
 			textColor = color(c.MainText),
-			tipsTextColor = isDark and Color3.fromRGB(102, 102, 102) or Color3.fromRGB(0, 162, 255),
+			tipsTextColor = isDark and Color3.fromRGB(102, 102, 102) or Colors.GRAY_3,
 		},
 
 		divider = {
@@ -214,7 +214,13 @@ function AssetConfigTheme:_recalculateTheme()
 			leftBorderColor = isDark and Colors.BLUE_PRIMARY or color(c.Border),
 			tabBackground = color(c.Titlebar),
 			contentColor = color(c.TitlebarText),
+			-- Remove me when remvoing: FFlagEnablePreviewTabSelection
 			selectedColor = isDark and Colors.WHITE or Colors.BLUE_PRIMARY,
+			selecteBarColor = isDark and Color3.fromRGB(11, 90, 175) or Colors.GRAY_1,
+			selecteBarTrans = isDark and 0 or 0.9,
+			selecteBarZindex = isDark and -1 or 0,
+			selecteIndicatorColor = Colors.BLUE_PRIMARY,
+			selecteIndicatorTrans = isDark and 1 or 0,
 			textColor = color(c.MainText),
 		},
 
@@ -276,12 +282,14 @@ function AssetConfigTheme:_recalculateTheme()
 				background = color(c.DialogMainButton),
 				hoverBackground = color(c.DialogMainButton, m.Hover),
 				pressBackground = color(c.DialogMainButton, m.Pressed),
+				borderColor = color(c.Border),
 				textColor = color(c.DialogMainButtonText),
 			},
 			button = {
 				background = color(c.DialogButton),
 				hoverBackground = color(c.DialogButton, m.Hover),
 				pressBackground = color(c.DialogButton, m.Pressed),
+				borderColor = color(c.Border),
 				textColor = color(c.DialogButtonText),
 			},
 		},

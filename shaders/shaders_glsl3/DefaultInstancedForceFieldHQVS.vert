@@ -17,7 +17,7 @@ struct Globals
     vec3 Lamp1Color;
     vec4 FogParams;
     vec4 FogColor_GlobalForceFieldTime;
-    vec4 Technology_Exposure;
+    vec3 Exposure;
     vec4 LightBorder;
     vec4 LightConfig0;
     vec4 LightConfig1;

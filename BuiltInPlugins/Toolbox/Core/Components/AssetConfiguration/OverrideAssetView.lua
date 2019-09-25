@@ -106,6 +106,7 @@ function OverrideAssetView:createAssets(resultsArray, theme)
 		}),
 	}
 
+	-- Basically, we need only Id and name
 	local selectedAssetId = self.state.selectedAssetId
 	for index, asset in pairs(resultsArray) do
 		local assetId = asset.Asset.Id

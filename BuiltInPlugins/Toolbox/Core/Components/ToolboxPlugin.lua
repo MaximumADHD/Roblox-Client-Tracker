@@ -12,7 +12,6 @@ local Toolbox = require(Plugin.Core.Components.Toolbox)
 
 local ToolboxPlugin = Roact.PureComponent:extend("ToolboxPlugin")
 
-game:DefineFastFlag("ToolboxButtonEnabledWhenScriptOpen", false)
 local FFlagUpdateToolboxButtonFix = game:DefineFastFlag("UpdateToolboxButtonFix", false)
 
 function ToolboxPlugin:init(props)
@@ -38,9 +37,7 @@ function ToolboxPlugin:init(props)
 	self.toolboxButton = self.toolbar:CreateButton("luaToolboxButton",
 		"Insert items from the toolbox", Images.TOOLBOX_ICON)
 
-	if game:GetFastFlag("ToolboxButtonEnabledWhenScriptOpen") then
-		self.toolboxButton.ClickableWhenViewportHidden = true
-	end
+	self.toolboxButton.ClickableWhenViewportHidden = true
 
 	if not FFlagUpdateToolboxButtonFix then
 		-- This has no effect on button initialization and will be removed.

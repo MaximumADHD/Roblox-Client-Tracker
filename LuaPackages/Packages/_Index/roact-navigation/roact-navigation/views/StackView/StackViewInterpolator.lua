@@ -170,7 +170,51 @@ local function forVertical(props)
 	}
 end
 
+-- Fade in place animation (e.g. popovers and toasts). Note that since we don't currently have
+-- group transparency, this 'animation' just pops the views in for now.
+local function forFade(props)
+	local initialPositionValue = props.initialPositionValue
+	local layout = props.layout
+	local scene = props.scene
+
+	if not layout.isMeasured then
+		return forInitial(props)
+	end
+
+	local interpolate = getSceneIndicesForInterpolationInputRange(props)
+
+	if not interpolate then
+		return {
+			forceHidden = true,
+			initialPosition = UDim2.new(0, 100000, 0, 100000),
+			positionStep = nil,
+		}
+	end
+
+	local index = scene.index
+
+	local function calculate(positionValue)
+		return positionValue >= index - 0.5
+	end
+
+	local function stepper(cardRef, positionValue)
+		local cardInstance = cardRef.current
+		if not cardInstance then
+			return
+		end
+
+		cardInstance.Visible = calculate(positionValue)
+	end
+
+	return {
+		forceHidden = not calculate(initialPositionValue),
+		initialPosition = UDim2.new(0, 0, 0, 0),
+		positionStep = stepper,
+	}
+end
+
 return {
 	forHorizontal = forHorizontal,
 	forVertical = forVertical,
+	forFade = forFade,
 }

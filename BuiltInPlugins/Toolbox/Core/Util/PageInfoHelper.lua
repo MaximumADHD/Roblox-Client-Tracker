@@ -72,4 +72,17 @@ function PageInfoHelper.getEngineAssetTypeForPageInfoCategory(pageInfo)
 	return Category.getEngineAssetType(category.assetType)
 end
 
+function PageInfoHelper.getBackendNameForPageInfoCategory(pageInfo)
+	local category = pageInfo.categories[pageInfo.categoryIndex]
+
+	if not category or not category.assetType then
+		if DebugFlags.shouldDebugWarnings() then
+			warn(("Lua toolbox: No assetType for category index %s"):format(tostring(pageInfo.categoryIndex)))
+		end
+		return nil
+	end
+
+	return Category.getBackendNameForAssetTypeEnd(Category.getEngineAssetType(category.assetType))
+end
+
 return PageInfoHelper

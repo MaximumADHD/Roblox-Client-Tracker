@@ -33,7 +33,7 @@ local TilePlace = require(Plugin.Src.Components.TilePlace)
 
 local HALF_SCREEN = 5
 local BUTTON_WIDTH = 90
-local FRAME_BUTTON_SIZE = 24
+local FRAME_BUTTON_SIZE = 32
 local ARROW_SIZE = 12
 
 local arrowSpritesheet = Spritesheet("rbxasset://textures/StudioSharedUI/arrowSpritesheet.png", {
@@ -64,6 +64,8 @@ function ScreenChoosePlace:init()
 		isPreviousButtonHovered = false,
 		isNextButtonHovered = false,
 	}
+
+	self.finishedConnection = nil
 
 	self.onPreviousPageButtonPress = function()
 		self:setState({
@@ -102,6 +104,22 @@ function ScreenChoosePlace:init()
 	end
 end
 
+function ScreenChoosePlace:didMount()
+	self.finishedConnection = StudioService.GamePublishFinished:connect(function(success)
+		if success then
+			self.props.OpenPublishSuccessfulPage(self.state.selectedPlace, self.props.ParentGame)
+		else
+			self.props.OpenPublishFailPage(self.state.selectedPlace, self.props.ParentGame)
+		end
+	end)
+end
+
+function ScreenChoosePlace:willUnmount()
+	if self.finishedConnection then
+		self.finishedConnection:disconnect()
+	end
+end
+
 function ScreenChoosePlace:render()
 	return Theming.withTheme(function(theme)
 		return Localizing.withLocalization(function(localization)
@@ -116,7 +134,7 @@ function ScreenChoosePlace:render()
 
 			local dispatchLoadExistingPlaces = props.DispatchLoadExistingPlaces
 			local openChooseGamePage = props.OpenChooseGamePage
-			local openPublishSuccessfulPage = props.OpenPublishSuccessfulPage
+
 
 			local hasSecondHalf = #places > HALF_SCREEN
 			local newPlaceSelected = false
@@ -196,7 +214,7 @@ function ScreenChoosePlace:render()
 				Back = Roact.createElement("ImageButton", {
 					Image = theme.icons.backArrow,
 					Size = UDim2.new(0, 20, 0, 20),
-					Position = UDim2.new(0, 30, 0, 13),
+					Position = UDim2.new(0, 30, 0, 10),
 
 					Style = 0,
 					BorderSizePixel = 0,
@@ -215,53 +233,54 @@ function ScreenChoosePlace:render()
 
 				Header = Roact.createElement("TextLabel", {
 					Text = headerText,
-					Position = UDim2.new(0.27, 0, 0, 70),
+					Position = UDim2.new(0, 30, 0, 80),
+					TextXAlignment = Enum.TextXAlignment.Left,
 					TextSize = 20,
-					BorderSizePixel = 0,
+					BackgroundTransparency = 1,
 					Font = theme.header.font,
 					TextColor3 = theme.textColor,
 				}),
 
 				Main = Roact.createElement("Frame", {
-					Size = UDim2.new(1, 0, 0.7, -Constants.FOOTER_HEIGHT),
+					Size = UDim2.new(1, 0, 0.5, Constants.FOOTER_HEIGHT * 2),
 					Position = UDim2.new(0, 0, 0, 100),
-					BackgroundColor3 = theme.backgroundColor,
-					BorderSizePixel = 0,
+					BackgroundTransparency = 1,
 				},
 					components
 				),
 
 				PageButtons = Roact.createElement(HorizontalContentFit, {
 					BackgroundTransparency = 1,
-					Position = UDim2.new(0.5, 0, 0.8, 0)
+					Position = UDim2.new(0.5, 0, 1, -Constants.FOOTER_HEIGHT * 2)
 				}, {
 					-- TODO: Change pagination to use infinite scroll instead of next/previous page buttons
-					PreviousButtonFrame = Roact.createElement("Frame", {
+					PreviousButton = Roact.createElement("TextButton", {
 						Size = UDim2.new(0, FRAME_BUTTON_SIZE, 0, FRAME_BUTTON_SIZE),
 						BackgroundColor3 = previousButtonColor,
 						BorderColor3 = theme.pageButton.BorderColor,
+						Active = previousButtonActive,
+						TextTransparency = 1,
 						LayoutOrder = 1,
+
+						[Roact.Event.MouseEnter] = self.onPreviousButtonHovered,
+						[Roact.Event.MouseLeave] = self.onPreviousButtonHoverEnded,
+						[Roact.Event.Activated] =  function()
+							if not onSecondHalf and parentGame and previousPageCursor then
+								dispatchLoadExistingPlaces(parentGame, previousPageCursor)
+								self.onPreviousPageButtonPress()
+							end
+							self:setState({
+								onSecondHalf = not onSecondHalf,
+								selectedPlace = nil,
+							})
+						end,
 					},{
-						PreviousButton = Roact.createElement("ImageButton", Cryo.Dictionary.join(leftArrowProps, {
+						PreviousButtonImage = Roact.createElement("ImageButton", Cryo.Dictionary.join(leftArrowProps, {
 							AnchorPoint = Vector2.new(0.5, 0.5),
 							Position = UDim2.new(0.5, 0, 0.5, 0),
 							Size = UDim2.new(0, ARROW_SIZE, 0, ARROW_SIZE),
 							BackgroundTransparency = 1,
-							Active = previousButtonActive,
-							ImageColor3 = previousButtonActive and theme.pageButton.ImageColor or theme.pageButton.disabled.ImageColor,
-							
-							[Roact.Event.MouseEnter] = self.onPreviousButtonHovered,
-							[Roact.Event.MouseLeave] = self.onPreviousButtonHoverEnded,
-							[Roact.Event.Activated] =  function()
-								if not onSecondHalf and parentGame and previousPageCursor then
-									dispatchLoadExistingPlaces(parentGame, previousPageCursor)
-									self.onPreviousPageButtonPress()
-								end
-								self:setState({
-									onSecondHalf = not onSecondHalf,
-									selectedPlace = nil,
-								})
-							end,
+							ImageColor3 = previousButtonActive and theme.pageButton.ImageColor or theme.pageButton.disabled.ImageColor,														
 						})),
 					}),
 
@@ -272,36 +291,38 @@ function ScreenChoosePlace:render()
 						BackgroundTransparency = 1,
 						TextColor3 = theme.header.text,
 						TextXAlignment = Enum.TextXAlignment.Center,
-						TextSize = 13,
+						TextSize = 18,
 						LayoutOrder = 2,
+						Font = theme.pageText.font,
 					}),
 
-					NextButtonFrame = Roact.createElement("Frame", {
+					NextButton = Roact.createElement("TextButton", {
 						Size = UDim2.new(0, FRAME_BUTTON_SIZE, 0, FRAME_BUTTON_SIZE),
 						BackgroundColor3 = nextButtonColor,
 						BorderColor3 = theme.pageButton.BorderColor,
+						Active = nextButtonActive,	
+						TextTransparency = 1,
 						LayoutOrder = 3,
+
+						[Roact.Event.MouseEnter] = self.onNextButtonHovered,
+						[Roact.Event.MouseLeave] = self.onNextButtonHoverEnded,
+						[Roact.Event.Activated] = function()
+							if onSecondHalf and nextPageCursor and parentGame then
+								dispatchLoadExistingPlaces(parentGame, nextPageCursor)
+								self.onNextPageButtonPress()
+							end
+							self:setState({
+								onSecondHalf = not onSecondHalf,
+								selectedPlace = nil,
+							})
+						end,
 					},{
-						NextButton = Roact.createElement("ImageButton", Cryo.Dictionary.join(rightArrowProps, {
+						NextButtonImage = Roact.createElement("ImageButton", Cryo.Dictionary.join(rightArrowProps, {
 							AnchorPoint = Vector2.new(0.5, 0.5),
 							Position = UDim2.new(0.5, 0, 0.5, 0),
 							Size = UDim2.new(0, ARROW_SIZE, 0, ARROW_SIZE),
 							BackgroundTransparency = 1,
-							Active = nextButtonActive,	
 							ImageColor3 = nextButtonActive and theme.pageButton.ImageColor or theme.pageButton.disabled.ImageColor,	
-							
-							[Roact.Event.MouseEnter] = self.onNextButtonHovered,
-							[Roact.Event.MouseLeave] = self.onNextButtonHoverEnded,
-							[Roact.Event.Activated] = function()
-								if onSecondHalf and nextPageCursor and parentGame then
-									dispatchLoadExistingPlaces(parentGame, nextPageCursor)
-									self.onNextPageButtonPress()
-								end
-								self:setState({
-									onSecondHalf = not onSecondHalf,
-									selectedPlace = nil,
-								})
-							end,
 						})),
 					}),
 				}),
@@ -312,8 +333,6 @@ function ScreenChoosePlace:render()
 						Active = parentGame and self.state.selectedPlace ~= nil,
 						OnActivated = function()
 							StudioService:publishAs(parentGame.universeId, self.state.selectedPlace.placeId)
-							StudioService.GamePublishedToRoblox:wait()
-							openPublishSuccessfulPage(self.state.selectedPlace, parentGame)
 						end,
 					},
 					OnClose = onClose,
@@ -346,6 +365,10 @@ local function useDispatchForProps(dispatch)
 		OpenPublishSuccessfulPage = function(place, game)
 			dispatch(SetPublishInfo({ id = place.placeId, name = place.name, parentGameName = game.name, }))
 			dispatch(SetScreen(Constants.SCREENS.PUBLISH_SUCCESSFUL))
+		end,
+		OpenPublishFailPage = function(place, game)
+			dispatch(SetPublishInfo({ id = place.placeId, name = place.name, parentGameName = game.name, parentGameId = game.universeId }))
+			dispatch(SetScreen(Constants.SCREENS.PUBLISH_FAIL))
 		end,
 	}
 end

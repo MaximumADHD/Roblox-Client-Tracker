@@ -29,9 +29,7 @@ return function(requestImpl)
 	)
 
 	if isNewFriendsEndpointsEnabled() then
-		url = string.format("%s/user/get-friendship-count?%s",
-			Url.FRIEND_URL, tostring(Players.LocalPlayer.UserId), args
-		)
+		url = string.format("%s/my/friends/count", Url.FRIEND_URL)
 	end
 
 	return requestImpl(url, "GET")

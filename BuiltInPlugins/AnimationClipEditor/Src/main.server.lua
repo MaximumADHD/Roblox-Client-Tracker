@@ -4,7 +4,7 @@ local AnimationClipEditorPlugin = require(Plugin.Src.Components.AnimationClipEdi
 local DebugFlags = require(Plugin.Src.Util.DebugFlags)
 local TestHelpers = require(Plugin.RhodiumTests.TestHelpers)
 
-local isEnableRoactAnimationEditorOn = settings():GetFFlag("EnableRoactAnimationEditor")
+local isEnableRoactAnimationEditorOn = settings():GetFFlag("EnableRoactAnimationEditor2")
 
 if not isEnableRoactAnimationEditorOn then
 	return

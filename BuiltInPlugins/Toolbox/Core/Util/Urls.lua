@@ -74,12 +74,13 @@ function Urls.constructGetAssetsUrl(category, searchTerm, pageSize, page, sortTy
 	})
 end
 
-function Urls.constructGetAssetCreationsUrl(assetType, limit, cursor)
+function Urls.constructGetAssetCreationsUrl(assetType, limit, cursor, isPackageExcluded)
 	return GET_ASSETS_CREATIONS .. Url.makeQueryString({
 		assetType = assetType,
 		isArchived=false,
 		limit = limit,
 		cursor = cursor,
+		isPackageExcluded = isPackageExcluded,
 	})
 end
 

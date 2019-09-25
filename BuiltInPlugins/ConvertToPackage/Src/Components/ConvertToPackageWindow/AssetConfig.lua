@@ -18,6 +18,7 @@ local PreviewArea = require(ConvertToPackageWindow.PreviewArea)
 local PublishAsset = require(ConvertToPackageWindow.PublishAsset)
 local AssetConfigFooter = require(ConvertToPackageWindow.AssetConfigFooter)
 local MessageBox = require(Components.MessageBox.MessageBox)
+local SetAssetName = require(Plugin.Src.Actions.SetAssetName)
 
 local Util = Plugin.Src.Util
 local Constants = require(Util.Constants)
@@ -56,8 +57,6 @@ function AssetConfig:init(props)
 		groupId = nil,
 	}
 		-- Used to fetching name before publish
-	self.nameString = nil
-	self.descriptionString = nil
 	self.tryPublish = function()
 		local props = self.props
 		local state = self.state
@@ -65,7 +64,7 @@ function AssetConfig:init(props)
 		local genreTypeId = Enum.Genre[genre].Value + 1 -- All is 1 based
 		props.sendConvertToPackageItem(
 			0, 								-- empty or 0 for new asset
-			props.assetName,
+			state.name or props.assetName,
 			state.description,
 			genreTypeId, 					-- Convert into a ID
 			state.copyOn,
@@ -182,7 +181,7 @@ function AssetConfig:willUnmount()
 	self:detachXButtonCallback()
 end
 
-local function canSave(changeTable, name, description)
+local function canSave(name,description)
 	local nameDataIsOk = (#name <= Constants.NAME_CHARACTER_LIMIT) and (tostring(name) ~= "")
 	local descriptionDataIsOk = #description <= Constants.DESCRIPTION_CHARACTER_LIMIT
 	return nameDataIsOk and descriptionDataIsOk
@@ -194,7 +193,6 @@ local function getMessageBoxProps(localization, cancelFunc, closeFunc)
 		Name = "AssetConfigMessageBox",
 		TextSize = Constants.FONT_SIZE_MEDIUM,
 		Font = Constants.FONT,
-		Icon = Constants.Images.INFO_ICON,
 		onClose = cancelFunc
 	}
 
@@ -225,13 +223,12 @@ function AssetConfig:render()
 		local state = self.state
 		local Size = props.Size
 		local assetId = props.assetId
-		local name = props.assetName or ""
-		local description = ""
+		local name = state.name or props.assetName or ""
+		local description = state.description or ""
 		local owner = state.owner
 		local allowComment = state.allowComment
 		local commentOn = state.commentOn
 		local isShowChangeDiscardMessageBox = state.isShowChangeDiscardMessageBox
-		local changeTable = props.changeTable or {}
 
 		return Roact.createElement("Frame", {
 			Size = Size,
@@ -267,13 +264,7 @@ function AssetConfig:render()
 
 				Preview = Roact.createElement(PreviewArea, {
 					TotalWidth = PREVIEW_WIDTH,
-					ShowThumbnailImage = not props.instances and true or false,
-					ShowViewport = props.instances and true or false,
-					AssetId = nil,
-
-					OnTabSelect = self.onTabSelect,
-
-					LayoutOrder = 1,
+					LayoutOrder = 1
 				}),
 
 				VerticalLine = Roact.createElement("Frame", {
@@ -305,7 +296,7 @@ function AssetConfig:render()
 
 			Footer = Roact.createElement(AssetConfigFooter, {
 				Size = UDim2.new(1, 0, 0, FOOTER_HEIGHT),
-				CanSave = canSave(changeTable, name, description),
+				CanSave = canSave(name, description),
 
 				tryCancel = self.tryCancelWithYield,
 				tryPublish = self.tryPublish,
@@ -336,9 +327,9 @@ local function mapDispatchToProps(dispatch)
 		makeChangeRequest = function(setting, currentValue, newValue)
 			dispatch(MakeChangeRequest(setting, currentValue, newValue))
 		end,
-
-		sendConvertToPackageItem = function(assetid, type, name, description, genreTypeId, ispublic, allowComments, groupId)
-			dispatch(UploadConvertToPackageRequest(assetid, type, name, description, genreTypeId, ispublic, allowComments, groupId))
+		sendConvertToPackageItem = function(assetid, name, description, genreTypeId, ispublic, allowComments, groupId)
+			dispatch(SetAssetName(name))
+			dispatch(UploadConvertToPackageRequest(assetid, name, description, genreTypeId, ispublic, allowComments, groupId))
 		end
 	}
 end

@@ -8,7 +8,7 @@ return function(parentGame, pageCursor)
 		assert(type(parentGame.name) == "string", "LoadExistingPlaces.parentGame must have a string name")
 		assert(type(parentGame.universeId) == "number", "LoadExistingPlaces.parentGame must have a number universeId")
 
-		store:dispatch(SetPlaceInfo(nil))
+		store:dispatch(SetPlaceInfo({ places = {} }))
 
 		local query = ApiFetchPlacesByUniverseId({universeId = parentGame.universeId}, {cursor = pageCursor,})
 
@@ -17,7 +17,7 @@ return function(parentGame, pageCursor)
 			store:dispatch(SetPlaceInfo(resp))
 		end)
 		:catch(function()
-			-- TODO (kstephan) 2019/07/11 User facing error message
+			error("Failed to fetch places under parent game" .. parentGame.name)
 		end)
 
 	end

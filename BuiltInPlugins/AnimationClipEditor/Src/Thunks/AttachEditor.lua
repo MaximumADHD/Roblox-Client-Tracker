@@ -3,9 +3,10 @@
 	by the AnimationClip editor to its pose.
 ]]
 
+local FFlagStudioAnimEditorFocusRig = game:GetFastFlag("StudioAnimEditorFocusRig")
+
 local ChangeHistoryService = game:GetService("ChangeHistoryService")
 local StudioService = game:GetService("StudioService")
-local Workspace = game:GetService("Workspace")
 
 local Plugin = script.Parent.Parent.Parent
 local Cryo = require(Plugin.Cryo)
@@ -31,12 +32,16 @@ return function()
 
 		-- If the old animation target is gone, reset to the start screen.
 		-- User deleted it or moved it into storage when the plugin was closed.
-		if (rootInstance == nil or rootInstance.Parent ~= Workspace)
+		if (rootInstance == nil or rootInstance:FindFirstAncestorOfClass("Workspace") == nil)
 			or (rootInstance and RigUtils.rigHasErrors(rootInstance)) then
 			store:dispatch(SortAndSetTracks({}))
 			store:dispatch(SetRootInstance(Cryo.None))
 			store:dispatch(SetAnimationData(nil))
 			return
+		end
+
+		if FFlagStudioAnimEditorFocusRig then
+			RigUtils.focusCamera(rootInstance)
 		end
 
 		-- Make sure the tracks are synchronized in case the user renamed a part.

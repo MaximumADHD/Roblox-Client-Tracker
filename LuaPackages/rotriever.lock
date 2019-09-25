@@ -7,15 +7,21 @@ name = "CorePackages"
 version = "0.1.0"
 dependencies = [
     "Cryo Cryo ce743f67 git+https://github.com/roblox/cryo#roblox",
-    "LuaDiscussionsDeps LuaDiscussionsDeps 27a0f381 git+https://github.rbx.com/roblox/lua-discussions-deps#no-infinite-scroller",
+    "LuaDiscussionsDeps LuaDiscussionsDeps 2afb9fc5 git+https://github.rbx.com/roblox/lua-discussions-deps#master",
     "Otter Otter fff3ac76 git+https://github.com/roblox/otter#roblox",
     "OtterApp Otter 36b45b97 git+https://github.com/roblox/otter#master",
     "Roact Roact1xMigration b815aedf git+https://github.rbx.com/pdoyle/roact-1x-migration#master",
     "RoactRodux RoactRodux1xMigration b8fe2fb8 git+https://github.rbx.com/pdoyle/roact-rodux-1x-migration#master",
     "Rodux Rodux cdea578f git+https://github.com/roblox/rodux#master",
-    "UIBlox UIBlox 8efdde94 git+https://github.rbx.com/roblox/uiblox#master",
-    "t t 74411073 git+https://github.com/roblox/t#master",
+    "UIBlox UIBlox ccd5e991 git+https://github.rbx.com/roblox/uiblox#master",
+    "t t 00b91a76 git+https://github.com/roblox/t#master",
 ]
+
+[[package]]
+name = "Cryo"
+version = "0.1.0"
+source = "git+https://github.com/roblox/cryo#master"
+commit = "f7c724762f1d84c458599c0a20f30cb2bfd7ceda"
 
 [[package]]
 name = "Cryo"
@@ -24,11 +30,28 @@ source = "git+https://github.com/roblox/cryo#roblox"
 commit = "ce743f67b2030b6e83c4083b4247d8b4e08379f1"
 
 [[package]]
+name = "InfiniteScroller"
+version = "0.2.0"
+source = "git+https://github.rbx.com/roblox/infinite-scroll#master"
+commit = "537dfd9d94ce0573564fc2e223c9e104976e1737"
+dependencies = [
+    "Cryo Cryo f7c72476 git+https://github.com/roblox/cryo#master",
+    "FitFrame roact-fit-components 995f4340 git+https://github.rbx.com/bbrimeyer/roact-fit-components#master",
+    "Otter Otter 36b45b97 git+https://github.com/roblox/otter#master",
+    "Roact roblox/roact 3de41375 git+https://github.com/roblox/roact#master",
+    "TestEZ TestEZ 17e1408b git+https://github.com/roblox/testez#master",
+    "t t 00b91a76 git+https://github.com/roblox/t#master",
+]
+
+[[package]]
 name = "LuaDiscussionsDeps"
 version = "0.1.0"
-source = "git+https://github.rbx.com/roblox/lua-discussions-deps#no-infinite-scroller"
-commit = "27a0f381b85acddf0bf4a7e6fdca114a830d301a"
-dependencies = ["RoactNavigation roact-navigation 58d1df79 git+https://github.rbx.com/roblox/roact-navigation#master"]
+source = "git+https://github.rbx.com/roblox/lua-discussions-deps#master"
+commit = "2afb9fc546865f6f07414e1bfce22f08fb5295db"
+dependencies = [
+    "InfiniteScroll InfiniteScroller 537dfd9d git+https://github.rbx.com/roblox/infinite-scroll#master",
+    "RoactNavigation roact-navigation b628e61e git+https://github.rbx.com/roblox/roact-navigation#master",
+]
 
 [[package]]
 name = "Otter"
@@ -49,19 +72,13 @@ source = "git+https://github.com/roblox/roact#roblox"
 commit = "00b6e84543f249a32f089d31a450a124af33e980"
 
 [[package]]
-name = "Roact"
-version = "1.1.0"
-source = "git+https://github.com/roblox/roact#master"
-commit = "986c1d583bf378cf9cd9bd20f3fedc74f20ec3a4"
-
-[[package]]
 name = "Roact1xMigration"
 version = "0.6.5"
 source = "git+https://github.rbx.com/pdoyle/roact-1x-migration#master"
 commit = "b815aedfc5827216283350eebc722bd4687762e2"
 dependencies = [
     "Roact0_2 Roact 00b6e845 git+https://github.com/roblox/roact#roblox",
-    "Roact1_x Roact 986c1d58 git+https://github.com/roblox/roact#master",
+    "Roact1_x roblox/roact 3de41375 git+https://github.com/roblox/roact#master",
 ]
 
 [[package]]
@@ -80,7 +97,7 @@ version = "0.1.0"
 source = "git+https://github.com/roblox/roact-rodux#transitioning-roblox-roact-1x"
 commit = "f92dedb2ad0dbb33929008cdd3e53fdfe8b795b3"
 dependencies = [
-    "Roact Roact 986c1d58 git+https://github.com/roblox/roact#master",
+    "Roact roblox/roact 3de41375 git+https://github.com/roblox/roact#master",
     "Rodux Rodux cdea578f git+https://github.com/roblox/rodux#master",
 ]
 
@@ -101,22 +118,38 @@ source = "git+https://github.com/roblox/rodux#master"
 commit = "cdea578ff648116d63fe077b0b4b2fe64bdd8ee5"
 
 [[package]]
+name = "TestEZ"
+version = "0.1.0"
+source = "git+https://github.com/roblox/testez#master"
+commit = "17e1408bd6643ab1b45ddcdad4340e88730a1627"
+
+[[package]]
 name = "UIBlox"
 version = "0.1.0"
 source = "git+https://github.rbx.com/roblox/uiblox#master"
-commit = "8efdde94f5cdb9666b633cc5866ac83de0256271"
+commit = "ccd5e991a597851e885361bff8a7f6709308f11f"
 dependencies = [
     "Cryo Cryo ce743f67 git+https://github.com/roblox/cryo#roblox",
     "Otter Otter fff3ac76 git+https://github.com/roblox/otter#roblox",
     "Roact Roact1xMigration b815aedf git+https://github.rbx.com/pdoyle/roact-1x-migration#master",
-    "t t 74411073 git+https://github.com/roblox/t#master",
+    "t t 00b91a76 git+https://github.com/roblox/t#master",
+]
+
+[[package]]
+name = "roact-fit-components"
+version = "1.0.0"
+source = "git+https://github.rbx.com/bbrimeyer/roact-fit-components#master"
+commit = "995f434033c2024b32bdc02e65470db8ed153ee4"
+dependencies = [
+    "Cryo Cryo f7c72476 git+https://github.com/roblox/cryo#master",
+    "Roact roblox/roact 3de41375 git+https://github.com/roblox/roact#master",
 ]
 
 [[package]]
 name = "roact-navigation"
 version = "0.1.0"
 source = "git+https://github.rbx.com/roblox/roact-navigation#master"
-commit = "58d1df792d6acdd5e46ed54c89131b9618e7d461"
+commit = "b628e61eb5fa79494c1f0af3daf70368557b4fec"
 dependencies = [
     "Cryo Cryo ce743f67 git+https://github.com/roblox/cryo#roblox",
     "Otter Otter 36b45b97 git+https://github.com/roblox/otter#master",
@@ -124,7 +157,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "roblox/roact"
+version = "1.2.0"
+source = "git+https://github.com/roblox/roact#master"
+commit = "3de41375019750847c986183dc10e6d6dd033300"
+
+[[package]]
 name = "t"
 version = "1.0.0"
 source = "git+https://github.com/roblox/t#master"
-commit = "7441107353e8f6f13f8c4befb7f8895f91518a1d"
+commit = "00b91a76847572e32a365dff71ac606798f86609"

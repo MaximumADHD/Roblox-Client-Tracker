@@ -1,8 +1,6 @@
-
-local CorePackages = game:GetService("CorePackages")
-local LineScanner = require(CorePackages.CodeCoverage.LineScanner)
-local LcovReporter = require(CorePackages.CodeCoverage.LcovReporter)
-local TestService = game:GetService("TestService")
+local CodeCoverage = script.Parent
+local LineScanner = require(CodeCoverage.LineScanner)
+local LcovReporter = require(CodeCoverage.LcovReporter)
 
 local ScriptContext = game:GetService("ScriptContext")
 local CoreScriptSyncService = game:GetService("CoreScriptSyncService")
@@ -89,8 +87,8 @@ end
 function Reporter.generateReport(path)
     local report = LcovReporter.generate(Reporter.processCoverageStats(), function(file)
         local isTest = file.script.Name:match(".spec$")
-            or file.script:IsDescendantOf(CorePackages.TestEZ)
-            or file.script:IsDescendantOf(CorePackages.CodeCoverage)
+            or file.script:FindFirstAncestor("TestEZ")
+            or file.script:IsDescendantOf(CodeCoverage)
         return not isTest and file.path and file.path:len() > 0
     end)
     if report:len() == 0 then
@@ -99,8 +97,16 @@ function Reporter.generateReport(path)
     end
 
     local success, message = pcall(function()
-        TestService:writeToFileIfContentIsDifferent(path, report)
+        game:GetService("TestService"):writeToFileIfContentIsDifferent(path, report)
     end)
+
+    if not success then
+        success, message = pcall(function()
+            local fs = game:GetService("FileSystemService")
+            fs:MakeParentPath(path)
+            fs:writeToFileIfContentIsDifferent(path, report)
+        end)
+    end
     if not success then
         warn("Failed to save code coverage report at path: " .. path .. "\nError: " .. message)
     end

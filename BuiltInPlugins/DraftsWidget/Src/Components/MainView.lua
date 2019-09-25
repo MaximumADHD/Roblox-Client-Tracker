@@ -21,6 +21,7 @@ local MainView = Roact.Component:extend("MainView")
 
 function MainView:render()
     local draftsServiceEnabled = self.props.DraftsServiceEnabled
+    local draftsServiceError = self.props.DraftsServiceError
 
     return withTheme(function(theme)
         return withLocalization(function(localization)
@@ -36,9 +37,11 @@ function MainView:render()
                 }
             elseif not draftsServiceEnabled then
                 children = {
-                    FeatureDisabledPage = Roact.createElement(FeatureDisabledPage),
+                    FeatureDisabledPage = Roact.createElement(FeatureDisabledPage, {
+                        Text = draftsServiceError,
+                    }),
                 }
-            elseif draftsServiceEnabled then
+            else
                 children = {
                     ScriptList = Roact.createElement(DraftListView),
                 }
@@ -57,6 +60,7 @@ local function mapStateToProps(state, props)
 
 	return {
         DraftsServiceEnabled = draftsServiceStatus.Enabled,
+        DraftsServiceError = draftsServiceStatus.Error,
 	}
 end
 

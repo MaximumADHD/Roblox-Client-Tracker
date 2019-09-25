@@ -19,8 +19,8 @@ return function(target)
 		GenericTextLabel = Roact.createElement(GenericTextLabel, {
 			Text = "Phantom Forces [Sniper Update!]",
 			Size = UDim2.new(0, 150, 0, 45),
-			color = DarkTheme.SystemPrimaryDefault,
-			font = GothamFont.Header1,
+			colorStyle = DarkTheme.SystemPrimaryDefault,
+			fontStyle = GothamFont.Header1,
 			fluidSizing = true,
 		}),
 	})

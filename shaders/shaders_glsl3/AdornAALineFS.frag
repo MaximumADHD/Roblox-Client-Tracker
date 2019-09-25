@@ -14,7 +14,7 @@ struct Globals
     vec3 Lamp1Color;
     vec4 FogParams;
     vec4 FogColor_GlobalForceFieldTime;
-    vec4 Technology_Exposure;
+    vec3 Exposure;
     vec4 LightBorder;
     vec4 LightConfig0;
     vec4 LightConfig1;
@@ -70,7 +70,7 @@ void main()
     vec4 f6 = f5 * CB1[4];
     vec4 f7 = f6;
     f7.w = 1.0 - pow(clamp(1.0 - f6.w, 0.0, 1.0), 0.4545454680919647216796875);
-    vec3 f8 = mix(CB0[14].xyz, mix(f7.xyz, sqrt(clamp((f7.xyz * f7.xyz) * CB0[15].z, vec3(0.0), vec3(1.0))), vec3(CB0[15].x)).xyz, vec3(clamp((CB0[13].x * length(VARYING1)) + CB0[13].y, 0.0, 1.0)));
+    vec3 f8 = mix(CB0[14].xyz, sqrt(clamp((f7.xyz * f7.xyz) * CB0[15].y, vec3(0.0), vec3(1.0))).xyz, vec3(clamp((CB0[13].x * length(VARYING1)) + CB0[13].y, 0.0, 1.0)));
     _entryPointOutput = vec4(f8.x, f8.y, f8.z, f7.w);
 }
 

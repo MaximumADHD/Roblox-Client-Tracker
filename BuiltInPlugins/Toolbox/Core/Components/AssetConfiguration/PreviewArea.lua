@@ -33,16 +33,26 @@ local ImageWithDefault = require(Plugin.Core.Components.ImageWithDefault)
 local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
 
-local AssetConfig = require(Plugin.Core.Types.ConfigTypes)
+local PreviewArea = Roact.PureComponent:extend("PreviewArea")
 
 local FFlagUseRBXThumbInToolbox = game:GetFastFlag("UseRBXThumbInToolbox") and settings():GetFFlag("EnableRbxThumbAPI")
+local FFlagEnablePreviewTabSelection = settings():GetFFlag("EnablePreviewTabSelection")
 
-local PreviewArea = Roact.PureComponent:extend("PreviewArea")
 
 local THUMBNAIL_SIZE = FFlagUseRBXThumbInToolbox and Constants.ASSET_THUMBNAIL_REQUESTED_IMAGE_SIZE or 110
 local TITLE_HEIGHT = 25
+local THUMBNAIL_WIDTH = 150
 
-local Tab_Item_Height = 48
+local HORIZONTAL_PADDING = 5
+local VERTICAL_PADDING = 24
+
+local TAB_ITEM_HEIGHT = 48
+local DEFAULT_PRE_TAB_HEIGHT = 400
+
+function PreviewArea:init(props)
+	self.baseFrameRef = Roact.createRef()
+	self.layouterRef = Roact.createRef()
+end
 
 function PreviewArea:render()
 	return withTheme(function(theme)
@@ -62,14 +72,19 @@ function PreviewArea:render()
 
 			local showSideTabs = (OnTabSelect and tabItems and #tabItems > 1) or false
 
-			local thunmbnailWidth = 150
-			local thunmbnailHeight = thunmbnailWidth
+			local thunmbnailHeight = THUMBNAIL_WIDTH
 
 			local previewAreaTheme = theme.previewArea
 
 			local thumbnailUrl = nil
 			if assetId and showThumbnailImage then
 				thumbnailUrl = Urls.constructAssetThumbnailUrl(assetId, THUMBNAIL_SIZE, THUMBNAIL_SIZE)
+			end
+
+			local preTabHeight = DEFAULT_PRE_TAB_HEIGHT
+			local currentLayouter = self.layouterRef.current
+			if currentLayouter then
+				preTabHeight = currentLayouter.AbsoluteContentSize.Y
 			end
 
 			local orderIterator = LayoutOrderIterator.new()
@@ -81,13 +96,15 @@ function PreviewArea:render()
 				BackgroundColor3 = previewAreaTheme.backgroundColor,
 				BorderSizePixel = 0,
 
+				[Roact.Ref] = self.baseFrameRef,
+
 				LayoutOrder = LayoutOrder,
 			}, {
 				Padding = Roact.createElement("UIPadding", {
-					PaddingTop = UDim.new(0, 24),
-					PaddingBottom = UDim.new(0, 5),
-					PaddingLeft = UDim.new(0, 5),
-					PaddingRight = UDim.new(0, 5),
+					PaddingTop = UDim.new(0, VERTICAL_PADDING),
+					PaddingBottom = UDim.new(0, VERTICAL_PADDING),
+					PaddingLeft = UDim.new(0, HORIZONTAL_PADDING),
+					PaddingRight = UDim.new(0, HORIZONTAL_PADDING),
 				}),
 
 				UIListLayout = Roact.createElement("UIListLayout", {
@@ -96,10 +113,12 @@ function PreviewArea:render()
 					VerticalAlignment = Enum.VerticalAlignment.Top,
 					SortOrder = Enum.SortOrder.LayoutOrder,
 					Padding = UDim.new(0, 20),
+
+					[Roact.Ref] = self.layouterRef,
 				}),
 
 				Thumbnail = showThumbnailImage and Roact.createElement(ImageWithDefault, {
-					Size = UDim2.new(0, thunmbnailWidth, 0, thunmbnailHeight),
+					Size = UDim2.new(0, THUMBNAIL_WIDTH, 0, thunmbnailHeight),
 					BackgroundTransparency = 1,
 					LayoutOrder = orderIterator:getNextOrder(),
 
@@ -108,7 +127,7 @@ function PreviewArea:render()
 				}),
 
 				AssetThumbnailPreview = showViewport and Roact.createElement(AssetThumbnailPreview, {
-					Size = UDim2.new(0, thunmbnailWidth, 0, thunmbnailHeight),
+					Size = UDim2.new(0, THUMBNAIL_WIDTH, 0, thunmbnailHeight),
 					ShowTitle = false,
 
 					LayoutOrder = orderIterator:getNextOrder()
@@ -151,14 +170,33 @@ function PreviewArea:render()
 					}),
 				}),
 
-				SideTabs = showSideTabs and Roact.createElement(SideTabs, {
-					Size = UDim2.new(0, thunmbnailWidth, 1, -thunmbnailHeight - TITLE_HEIGHT),
-					ItemHeight = Tab_Item_Height,
+				SideTabs = (not FFlagEnablePreviewTabSelection) and showSideTabs and Roact.createElement(SideTabs, {
+					Size = UDim2.new(0, THUMBNAIL_WIDTH, 1, -preTabHeight),
+					ItemHeight = TAB_ITEM_HEIGHT,
 					Items = tabItems,
 					CurrentTab = currentTab,
 					ItemClickCallBack = OnTabSelect,
+					SelectParentRef = self.baseFrameRef,
 					LayoutOrder = orderIterator:getNextOrder()
-				})
+				}),
+
+				-- We need to the base frame here for selction bar so we can ignore the padding
+				TabArea = FFlagEnablePreviewTabSelection and showSideTabs and Roact.createElement("Frame", {
+					Size = UDim2.new(1, 10, 1, -thunmbnailHeight -TITLE_HEIGHT*2),
+
+					BackgroundTransparency = 1,
+
+					LayoutOrder = orderIterator:getNextOrder(),
+				}, {
+					SideTabs = showSideTabs and Roact.createElement(SideTabs, {
+						Size = UDim2.new(1, 0, 1, 0),
+						ItemHeight = TAB_ITEM_HEIGHT,
+						Items = tabItems,
+						CurrentTab = currentTab,
+						ItemClickCallBack = OnTabSelect,
+						SelectParentRef = self.baseFrameRef,
+					})
+				}),
 			})
 		end)
 	end)

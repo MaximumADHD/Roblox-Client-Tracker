@@ -4,6 +4,6 @@ version = "0.1.0"
 source = "git+https://github.com/roblox/roact-rodux#transitioning-roblox-roact-1x"
 commit = "f92dedb2ad0dbb33929008cdd3e53fdfe8b795b3"
 dependencies = [
-    "Roact Roact 986c1d58 git+https://github.com/roblox/roact#master",
+    "Roact roblox/roact 3de41375 git+https://github.com/roblox/roact#master",
     "Rodux Rodux cdea578f git+https://github.com/roblox/rodux#master",
 ]

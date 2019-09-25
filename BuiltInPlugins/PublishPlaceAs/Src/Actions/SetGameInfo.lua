@@ -9,11 +9,11 @@ return Action(script.Name, function(gameInfoArg)
 	AssertType.assertNullableType(gameInfoArg, "table", "SetGameInfo arg")
 	local gameInfo = gameInfoArg or {}
 
-	local games = gameInfo.games or {}
+	local games = gameInfo.games
 	local nextPageCursor = gameInfo.nextPageCursor
 	local previousPageCursor = gameInfo.previousPageCursor
 
-	AssertType.assertType(games, "table", "SetGameInfo.places")
+	AssertType.assertType(games, "table", "SetGameInfo.games")
 	AssertType.assertNullableType(nextPageCursor, "string", "SetGameInfo.nextPageCursor")
 	AssertType.assertNullableType(previousPageCursor, "string", "SetGameInfo.previousPageCursor")
 

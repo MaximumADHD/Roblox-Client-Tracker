@@ -27,7 +27,7 @@ end
 --Lua primitives
 
 t.boolean = primitive("boolean")
-t.coroutine = primitive("thread")
+t.thread = primitive("thread")
 t.callback = primitive("function")
 t.none = primitive("nil")
 t.string = primitive("string")
@@ -85,16 +85,43 @@ t.Vector3int16 = primitive("Vector3int16")
 t.Enum = primitive("Enum")
 t.EnumItem = primitive("EnumItem")
 
-function t.literal(literal)
-	return function(value)
-		if value ~= literal then
-			return false
+function t.literal(...)
+	local size = select("#", ...)
+	if size == 1 then
+		local literal = ...
+		return function(value)
+			if value ~= literal then
+				return false
+			end
+			return true
 		end
-		return true
+	else
+		local literals = {}
+		for i = 1, size do
+			local value = select(i, ...)
+			literals[i] = t.literal(value)
+		end
+		return t.union(unpack(literals))
 	end
 end
 
 t.exactly = t.literal
+
+function t.keyOf(keyTable)
+	local keys = {}
+	for key in pairs(keyTable) do
+		keys[#keys + 1] = key
+	end
+	return t.literal(unpack(keys))
+end
+
+function t.valueOf(valueTable)
+	local values = {}
+	for _, value in pairs(valueTable) do
+		values[#values + 1] = value
+	end
+	return t.literal(unpack(values))
+end
 
 function t.integer(value)
 	local success = t.number(value)
@@ -198,6 +225,22 @@ function t.numberConstrainedExclusive(min, max)
 
 		local maxSuccess = maxCheck(value)
 		if not maxSuccess then
+			return false
+		end
+
+		return true
+	end
+end
+
+function t.match(pattern)
+	assert(t.string(pattern))
+	return function(value)
+		local stringSuccess = t.string(value)
+		if not stringSuccess then
+			return false
+		end
+
+		if string.match(value, pattern) == nil then
 			return false
 		end
 
@@ -405,7 +448,7 @@ do
 	end
 end
 
-function t.instance(className)
+function t.instanceOf(className)
 	assert(t.string(className))
 	return function(value)
 		local instanceSuccess = t.Instance(value)
@@ -420,6 +463,7 @@ function t.instance(className)
 		return true
 	end
 end
+t.instance = t.instanceOf
 
 function t.instanceIsA(className)
 	assert(t.string(className))
@@ -468,6 +512,40 @@ end
 function t.strict(check)
 	return function(...)
 		assert(check(...))
+	end
+end
+
+do
+	local checkChildren = t.map(t.string, t.callback)
+	function t.children(checkTable)
+		assert(checkChildren(checkTable))
+
+		return function(value)
+			local instanceSuccess = t.Instance(value)
+			if not instanceSuccess then
+				return false
+			end
+
+			local childrenByName = {}
+			for _, child in pairs(value:GetChildren()) do
+				local name = child.Name
+				if checkTable[name] then
+					if childrenByName[name] then
+						return false
+					end
+					childrenByName[name] = child
+				end
+			end
+
+			for name, check in pairs(checkTable) do
+				local success = check(childrenByName[name])
+				if not success then
+					return false
+				end
+			end
+
+			return true
+		end
 	end
 end
 

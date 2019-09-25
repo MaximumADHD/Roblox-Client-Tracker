@@ -19,9 +19,6 @@ end
 
 local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
 
-local okShouldClipInGameChat, valueShouldClipInGameChat = pcall(function() return UserSettings():IsUserFeatureEnabled("UserShouldClipInGameChat") end)
-local shouldClipInGameChat = okShouldClipInGameChat and valueShouldClipInGameChat
-
 local success, UserShouldLocalizeGameChatBubble = pcall(function()
 	return UserSettings():IsUserFeatureEnabled("UserShouldLocalizeGameChatBubble")
 end)
@@ -418,9 +415,7 @@ function this:CreateBubbleText(message, shouldAutoLocalize)
 	bubbleText.Position = UDim2.new(0,CHAT_BUBBLE_WIDTH_PADDING/2,0,0)
 	bubbleText.Size = UDim2.new(1,-CHAT_BUBBLE_WIDTH_PADDING,1,0)
 	bubbleText.Font = CHAT_BUBBLE_FONT
-	if shouldClipInGameChat then
-		bubbleText.ClipsDescendants = true
-	end
+	bubbleText.ClipsDescendants = true
 	bubbleText.TextWrapped = true
 	bubbleText.FontSize = CHAT_BUBBLE_FONT_SIZE
 	bubbleText.Text = message

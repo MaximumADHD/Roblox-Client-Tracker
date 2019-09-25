@@ -80,7 +80,10 @@ function ContextActionsBinder:unbindActions()
 end
 
 function ContextActionsBinder:canBindActions()
-	return self.props.displayOptions.playerlistCoreGuiEnabled or self.props.displayOptions.isTenFootInterface
+	if self.props.displayOptions.isTenFootInterface then
+		return true
+	end
+	return self.props.displayOptions.playerlistCoreGuiEnabled and self.props.displayOptions.topbarEnabled
 end
 
 function ContextActionsBinder:didMount()

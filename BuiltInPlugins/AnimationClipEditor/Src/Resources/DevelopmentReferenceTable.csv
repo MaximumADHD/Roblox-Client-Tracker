@@ -93,6 +93,7 @@ Studio.AnimationClipEditor.RigErrors.MissingPart0,{1}, ,The following Motor6Ds d
 Studio.AnimationClipEditor.RigErrors.MissingPart1,{1}, ,The following Motor6Ds do not have a Part1 set: {1}
 Studio.AnimationClipEditor.RigErrors.MultipleParents,{1}, ,The following parts are affected by multiple Motor6Ds: {1}
 Studio.AnimationClipEditor.RigErrors.CircularRig, , ,This rig contains a cycle between the connections of certain parts.
+Studio.AnimationClipEditor.Toast.ClippedWarning, , ,Warning: An animation cannot exceed 30 seconds in length. Excess keyframes have been removed.
 Studio.AnimationClipEditor.Toast.QuantizeWarning, , ,"Warning: Editor currently supports 30fps frame rate. Some keys of your animation are not aligned to frames, they will snap to frames when you edit them."
 Studio.AnimationClipEditor.Toast.AlignNow, , ,Align all keys now
 Studio.AnimationClipEditor.Toast.IgnoreWarning, , ,Ignore warning

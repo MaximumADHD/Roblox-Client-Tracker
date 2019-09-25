@@ -4,6 +4,9 @@ local Libs = Plugin.Libs
 local Cryo = require(Libs.Cryo)
 local Rodux = require(Libs.Rodux)
 
+local Util = Plugin.Core.Util
+local PagedRequestCursor = require(Util.PagedRequestCursor)
+
 local Actions = Plugin.Core.Actions
 local SetAssetId = require(Actions.SetAssetId)
 local SetUploadAssetType = require(Actions.SetUploadAssetType)
@@ -23,6 +26,7 @@ local SetIsVerifiedCreator = require(Actions.SetIsVerifiedCreator)
 local SetLoadingPage = require(Actions.SetLoadingPage)
 local UpdateOverrideAssetData = require(Actions.UpdateOverrideAssetData)
 local SetCurrentPage = require(Actions.SetCurrentPage)
+local SetOverrideCursor = require(Actions.SetOverrideCursor)
 
 return Rodux.createReducer({
 	-- Empty table means publish new asset
@@ -69,6 +73,9 @@ return Rodux.createReducer({
 	fetchedAll = false,
 	loadingPage = 0,
 	currentPage = 1,
+
+	-- For fetching Models to override only
+	overrideCursor = PagedRequestCursor.createDefaultCursor(),
 }, {
 
 	[SetAssetId.name] = function(state, action)
@@ -200,6 +207,12 @@ return Rodux.createReducer({
 	[SetCurrentPage.name] = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			currentPage = action.currentPage,
+		})
+	end,
+
+	[SetOverrideCursor.name] = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			overrideCursor = action.overrideCursor,
 		})
 	end,
 })

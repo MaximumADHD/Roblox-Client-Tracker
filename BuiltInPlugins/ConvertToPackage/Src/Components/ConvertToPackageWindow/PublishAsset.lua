@@ -96,6 +96,10 @@ function PublishAsset:render()
 				Padding = UDim.new(0, 5),
 
 				[Roact.Change.AbsoluteContentSize] = function(rbx)
+					-- workaround because we do not disconnect events before we start unmounting host components.
+					-- see https://github.com/Roblox/roact/issues/235 for more info
+					if not self.baseFrameRef.current then return end
+
 					self.baseFrameRef.current.CanvasSize = UDim2.new(Size.X.Scale, Size.X.Offset, 0, rbx.AbsoluteContentSize.y + PADDING*2)
 				end,
 			}),

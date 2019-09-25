@@ -41,8 +41,7 @@ return function()
 		end)
 
 		it("should not mutate the state", function()
-			testImmutability(Reducer, SetGameInfo(nil))
-			testImmutability(Reducer, SetGameInfo({}))
+			testImmutability(Reducer, SetGameInfo({ games = {} }))
 			testImmutability(Reducer, SetGameInfo({
 				games = { {name = "a"}, { name = "b", }},
 				nextPageCursor = "not actually a cursor?",
@@ -121,8 +120,7 @@ return function()
 		end)
 
 		it("should not mutate the state", function()
-			testImmutability(Reducer, SetPlaceInfo(nil))
-			testImmutability(Reducer, SetPlaceInfo({}))
+			testImmutability(Reducer, SetPlaceInfo({ places = {} }))
 			testImmutability(Reducer, SetPlaceInfo({
 				places = { {name = "a"}, { name = "b", }},
 				parentGame = { name = "asdf", universeId = 24, },

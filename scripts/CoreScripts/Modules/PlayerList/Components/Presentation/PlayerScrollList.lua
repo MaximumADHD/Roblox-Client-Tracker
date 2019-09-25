@@ -19,11 +19,18 @@ local FAKE_NEUTRAL_TEAM = Instance.new("Team")
 
 local PlayerScrollList = Roact.Component:extend("PlayerScrollList")
 
+local function playerInTeam(player, team)
+	if team == nil then
+		return player.Team == nil
+	end
+	return player.TeamColor == team.TeamColor
+end
+
 local function getTeamScores(gameStats, players, playerStats, team)
 	local teamScores = {}
 	for _, gameStat in ipairs(gameStats) do
 		for _, player in ipairs(players) do
-			if player.Team == team then
+			if playerInTeam(player, team) then
 				local statValue = playerStats[player.UserId][gameStat.name]
 				if type(statValue) == "number" then
 					teamScores[gameStat.name] = teamScores[gameStat.name] or 0
@@ -55,11 +62,16 @@ end
 
 local function buildSortedTeams(teamScores, primaryStat, teams, showNeutralTeam)
 	local sortedTeams = {}
+	-- Only one team of each team color should be displayed
+	local usedTeamColors = {}
 	for i, team in ipairs(teams) do
-		sortedTeams[i] = {
-			team = team,
-			originalPos = i,
-		}
+		if usedTeamColors[team.TeamColor.Number] == nil then
+			usedTeamColors[team.TeamColor.Number] = true
+			sortedTeams[#sortedTeams + 1] = {
+				team = team,
+				originalPos = i,
+			}
+		end
 	end
 	if showNeutralTeam then
 		sortedTeams[#sortedTeams + 1] = {
@@ -183,7 +195,7 @@ function PlayerScrollList:render()
 
 				for _, player in ipairs(sortedPlayers) do
 					local userId = player.UserId
-					local inTeam = self.props.playerTeam[userId] == sortedTeam.team
+					local inTeam = player.TeamColor == sortedTeam.team.TeamColor
 					if sortedTeam.team == FAKE_NEUTRAL_TEAM then
 						inTeam = self.props.playerTeam[userId] == nil
 					end

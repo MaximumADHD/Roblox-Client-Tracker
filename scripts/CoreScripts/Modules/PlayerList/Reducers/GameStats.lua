@@ -7,6 +7,9 @@ local AddGameStat = require(Actions.AddGameStat)
 local RemoveGameStat = require(Actions.RemoveGameStat)
 local SetGameStatText = require(Actions.SetGameStatText)
 
+local PlayerList = Actions.Parent
+local FormatStatString = require(PlayerList.FormatStatString)
+
 local function gameStatsComp(a, b)
 	if a.isPrimary ~= b.isPrimary then
 		return a.isPrimary
@@ -24,10 +27,12 @@ local function GameStats(state, action)
 
 	if action.type == AddGameStat.name then
 		local oldAddId = nil
+		local oldText = FormatStatString(nil)
 		local newState = {}
 		for _, stat in ipairs(state) do
 			if stat.name == action.statName then
 				oldAddId = stat.addId
+				oldText = stat.text
 			else
 				table.insert(newState, stat)
 			end
@@ -36,7 +41,7 @@ local function GameStats(state, action)
 		newState = Cryo.List.join(newState, {
 			{
 				name = action.statName,
-				text = state.text,
+				text = oldText,
 				addId = oldAddId or gameStatAddIdCounter,
 				isPrimary = action.isPrimary,
 				priority = action.priority,

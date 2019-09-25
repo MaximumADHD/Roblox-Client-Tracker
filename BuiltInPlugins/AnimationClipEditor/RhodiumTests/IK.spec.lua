@@ -1,5 +1,7 @@
 return function()
 	local Plugin = script.Parent.Parent
+	local UILibrary = Plugin.UILibrary
+
 	local Workspace = game:GetService("Workspace")
 	local PhysicsService = game:GetService("PhysicsService")
 
@@ -18,6 +20,8 @@ return function()
 	local SetMotorData = require(Plugin.Src.Actions.SetMotorData)
 	local SetAnimationData = require(Plugin.Src.Actions.SetAnimationData)
 	local SetIKMode = require(Plugin.Src.Actions.SetIKMode)
+
+	local MathUtil = require(UILibrary.Utils.MathUtils)
 
 	local function setupInstance(store, instance)
 		expect(instance).to.be.ok()
@@ -266,6 +270,60 @@ return function()
 		end)
 	end)
 
+	it("StartingPose should be saved for an R15", function()
+		runTest(function(test)
+			local store = test:getStore()
+
+			local dummy = Workspace.Dummy
+			TestHelpers.loadAnimation(store, AnimationData.newRigAnimation("Test"))
+			TestHelpers:delay()
+
+			local state = store:getState()
+			local startingPose = state.Status.StartingPose
+			for _, part in ipairs(dummy:GetChildren()) do
+				if part:IsA("BasePart") and part.Name ~= "HumanoidRootPart" then
+					expect(startingPose[part.Name]).to.equal(part.CFrame)
+				end
+			end
+		end)
+	end)
+
+	it("Rig Attachment Axes should be adjusted for R15", function()
+		runTest(function(test)
+			local store = test:getStore()
+
+			local dummy = Workspace.Dummy
+			TestHelpers.loadAnimation(store, AnimationData.newRigAnimation("Test"))
+
+			store:dispatch(ToggleIKEnabled())
+			TestHelpers:delay()
+
+			store:dispatch(SetIKMode(Constants.IK_MODE.BodyPart))
+			TestHelpers:delay()
+
+			local startingPose = store:getState().Status.StartingPose
+
+			local oldAxis = dummy.LeftHand.LeftWristRigAttachment.Axis
+			store:dispatch(SetMotorData(RigUtils.ikDragStart(dummy, dummy.LeftHand, true, startingPose, {})))
+			TestHelpers:delay()
+
+			local newAxis = dummy.LeftHand.LeftWristRigAttachment.Axis
+			expect(MathUtil:fuzzyEq(oldAxis.X, newAxis.X)).to.equal(false)
+			expect(MathUtil:fuzzyEq(oldAxis.Y, newAxis.Y)).to.equal(false)
+
+			local status = store:getState().Status
+			local motorData = status.MotorData
+
+			RigUtils.ikDragEnd(dummy, motorData)
+			TestHelpers:delay()
+
+			local originalAxis = dummy.LeftHand.LeftWristRigAttachment.Axis
+			expect(MathUtil:fuzzyEq(oldAxis.X, originalAxis.X)).to.equal(true)
+			expect(MathUtil:fuzzyEq(oldAxis.Y, originalAxis.Y)).to.equal(true)
+			expect(MathUtil:fuzzyEq(oldAxis.Z, originalAxis.Z)).to.equal(true)
+		end)
+	end)
+
 	it("motors and constraints should be properly swapped during manipulation", function()
 		runTest(function(test)
 			local store = test:getStore()
@@ -286,7 +344,7 @@ return function()
 				}
 			end
 
-			store:dispatch(SetMotorData(RigUtils.ikDragStart(spider, spider.Tip3, false, {
+			store:dispatch(SetMotorData(RigUtils.ikDragStart(spider, spider.Tip3, false, nil, {
 				[spider.Tip1] = true,
 				[spider.Tip2] = true,
 			})))

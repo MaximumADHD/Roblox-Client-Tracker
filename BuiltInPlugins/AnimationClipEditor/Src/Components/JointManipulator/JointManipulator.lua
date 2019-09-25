@@ -61,9 +61,12 @@ end
 function JointManipulator:init()
 	self.adornee = Roact.createRef()
 	self.arcHandles = Roact.createRef()
-	self.xHandles = Roact.createRef()
-	self.yHandles = Roact.createRef()
-	self.zHandles = Roact.createRef()
+	self.leftHandle = Roact.createRef()
+	self.rightHandle = Roact.createRef()
+	self.topHandle = Roact.createRef()
+	self.bottomHandle = Roact.createRef()
+	self.frontHandle = Roact.createRef()
+	self.backHandle = Roact.createRef()
 
 	self.baseAngle = nil
 	self.baseDistance = nil
@@ -72,6 +75,7 @@ function JointManipulator:init()
 
 	self.state = {
 		rotationAxis = nil,
+		currentFace = nil,
 	}
 	self.manipulateJoint = function(transform)
 		local values = {}
@@ -96,8 +100,11 @@ function JointManipulator:init()
 				self.props.RootInstance,
 				joint.Part1,
 				self.props.IKMode == Constants.IK_MODE.BodyPart,
+				self.props.StartingPose,
 				self.props.PinnedParts)
 			self.props.SetMotorData(motorData)
+
+			self.effectorCFrame = joint.Part1.CFrame
 		end
 	end
 
@@ -132,18 +139,20 @@ function JointManipulator:init()
 		end
 	end
 
-	self.ikRotate = function(partCFrame, axis, angle)
+	self.ikRotate = function(axis, angle)
+		if self.effectorCFrame then
 		local rotation = CFrame.fromAxisAngle(axis, angle)
-		if not self.props.WorldSpace then
-			rotation = partCFrame - partCFrame.p
-			local rotatedAxis = rotation * axis
-			rotation = CFrame.fromAxisAngle(rotatedAxis, angle)
-		end
-		local translation = CFrame.new(partCFrame.p)
-		local result = translation * rotation * translation:inverse() * partCFrame
+			if not self.props.WorldSpace then
+				rotation = self.effectorCFrame - self.effectorCFrame.p
+				local rotatedAxis = rotation * axis
+				rotation = CFrame.fromAxisAngle(rotatedAxis, angle)
+			end
+			local translation = CFrame.new(self.effectorCFrame.p)
+			self.effectorCFrame = translation * rotation * translation:inverse() * self.effectorCFrame
 
-		local joint = self.getLastJoint()
-		PhysicsService:ikSolve(joint.Part1, result, Constants.TRANSLATION_STIFFNESS, Constants.ROTATION_STIFFNESS)
+			local joint = self.getLastJoint()
+			PhysicsService:ikSolve(joint.Part1, self.effectorCFrame, Constants.TRANSLATION_STIFFNESS, Constants.ROTATION_STIFFNESS)
+		end
 	end
 
 	self.onArcMouseDrag = function(_, axis, relativeAngle)
@@ -167,23 +176,29 @@ function JointManipulator:init()
 			self.draggingAngle = interval
 
 			if self.props.IKEnabled then
-				self.ikRotate(joint.Part1.CFrame, Vector3.FromAxis(axis), newAngle)
+				self.ikRotate(Vector3.FromAxis(axis), newAngle)
 			else
 				self.manipulateJoint(CFrame.fromAxisAngle(Vector3.FromAxis(axis), newAngle))
 			end
 		end
 	end
 
-	self.ikTranslate = function(partCFrame, transform)
-		local result
-		if self.props.WorldSpace then
-			result = transform * partCFrame
-		else
-			local rotation = partCFrame - partCFrame.p
-			result = partCFrame + (rotation * transform.p)
+	self.ikTranslate = function(transform)
+		if self.effectorCFrame then
+			if self.props.WorldSpace then
+				self.effectorCFrame = transform * self.effectorCFrame
+			else
+				local rotation = self.effectorCFrame - self.effectorCFrame.p
+				self.effectorCFrame = self.effectorCFrame + (rotation * transform.p)
+			end
+			local joint = self.getLastJoint()
+
+			local rootPart = RigUtils.findRootPart(self.props.RootInstance)
+			local effectorInRange = (rootPart.CFrame.p - self.effectorCFrame.p).Magnitude <= Constants.MIN_EFFECTOR_DISTANCE
+			local translationStiffness = effectorInRange and Constants.TRANSLATION_STIFFNESS or Constants.MIN_TRANSLATION_STIFFNESS
+			local rotationStiffness = effectorInRange and Constants.ROTATION_STIFFNESS or Constants.MIN_ROTATION_STIFFNESS
+			PhysicsService:ikSolve(joint.Part1, self.effectorCFrame, translationStiffness, rotationStiffness)
 		end
-		local joint = self.getLastJoint()
-		PhysicsService:ikSolve(joint.Part1, result, Constants.TRANSLATION_STIFFNESS, Constants.ROTATION_STIFFNESS)
 	end
 
 	self.onLineMouseDrag = function(_, face, distance)
@@ -196,12 +211,17 @@ function JointManipulator:init()
 			else
 				interval = distance
 			end
+			if self.baseDistance == 0 then
+				self:setState({
+					currentFace = face,
+				})
+			end
 			local newDistance = interval - self.baseDistance
 			self.baseDistance = interval
 
 			local transform = CFrame.new(Vector3.FromNormalId(face) * newDistance)
 			if self.props.IKEnabled then
-				self.ikTranslate(joint.Part1.CFrame, transform)
+				self.ikTranslate(transform)
 			else
 				self.manipulateJoint(transform)
 			end
@@ -214,12 +234,18 @@ function JointManipulator:init()
 		self.draggingAngle = 0
 		self:setState({
 			rotationAxis = Roact.None,
+			currentFace = Roact.None,
 		})
 
-		if self.props.IKEnabled then
+		if self.props.IKEnabled and self.props.MotorData then
 			local values = RigUtils.ikDragEnd(self.props.RootInstance, self.props.MotorData)
 			self.props.OnManipulateJoints(values)
 			self.props.SetMotorData(Cryo.None)
+
+			local joint = self.getLastJoint()
+			if joint then
+				self.effectorCFrame = joint.Part1.CFrame
+			end
 		end
 	end
 
@@ -236,7 +262,7 @@ function JointManipulator:init()
 		local part = props.CurrentPart
 		local tool = props.Tool
 		local worldSpace = props.WorldSpace
-		local ikEnabled = props.ikEnabled
+		local ikEnabled = props.IKEnabled
 		local rotationAxis = self.state.rotationAxis
 		local joint = self.getLastJoint()
 
@@ -259,11 +285,11 @@ function JointManipulator:init()
 				self.startingPosition = pivot.Position
 			end
 
-			if tool == Enum.RibbonTool.Move and self.dragging and ikEnabled then
-				-- retain current rotation, only change position
-				local currentRotation = adornee.CFrame - adornee.CFrame.p
-				adornee.CFrame = currentRotation + pivot.Position
-			elseif tool == Enum.RibbonTool.Rotate and self.dragging and not ikEnabled then
+			if ikEnabled and self.effectorCFrame then
+				pivot = self.effectorCFrame
+			end
+
+			if tool == Enum.RibbonTool.Rotate and self.dragging and not ikEnabled then
 				-- retain current position, only change rotation
 				if not self.props.WorldSpace then
 					adornee.CFrame = (pivot - pivot.p) + self.startingPosition
@@ -289,14 +315,23 @@ function JointManipulator:adornHandles()
 	if self.arcHandles.current then
 		self.arcHandles.current.Adornee = self.adornee.current
 	end
-	if self.xHandles.current then
-		self.xHandles.current.Adornee = self.adornee.current
+	if self.leftHandle.current then
+		self.leftHandle.current.Adornee = self.adornee.current
 	end
-	if self.yHandles.current then
-		self.yHandles.current.Adornee = self.adornee.current
+	if self.rightHandle.current then
+		self.rightHandle.current.Adornee = self.adornee.current
 	end
-	if self.zHandles.current then
-		self.zHandles.current.Adornee = self.adornee.current
+	if self.topHandle.current then
+		self.topHandle.current.Adornee = self.adornee.current
+	end
+	if self.bottomHandle.current then
+		self.bottomHandle.current.Adornee = self.adornee.current
+	end
+	if self.frontHandle.current then
+		self.frontHandle.current.Adornee = self.adornee.current
+	end
+	if self.backHandle.current then
+		self.backHandle.current.Adornee = self.adornee.current
 	end
 end
 
@@ -308,8 +343,28 @@ function JointManipulator:didMount()
 	end
 end
 
-function JointManipulator:didUpdate()
+function JointManipulator:didUpdate(prevProps, prevState)
 	self:adornHandles()
+	if prevProps.Joints then
+		local joint = self.getLastJoint()
+		if prevProps.Joints[#prevProps.Joints] ~= joint then
+			self.effectorCFrame = nil
+		end
+	end
+
+end
+
+function JointManipulator:createHandle(face, brickColor, ref)
+	local currentFace = self.state.currentFace
+	return (not currentFace or currentFace == face) and Roact.createElement("Handles", {
+		Faces = Faces.new(face),
+		Color = brickColor,
+		Style = 'Movement',
+		Archivable = false,
+		[Roact.Event.MouseButton1Down] = self.onLineMouseDown,
+		[Roact.Event.MouseDrag] = self.onLineMouseDrag,
+		[Roact.Ref] = ref,
+	})
 end
 
 function JointManipulator:render()
@@ -343,35 +398,12 @@ function JointManipulator:render()
 		}),
 
 		LineHandles = tool == Enum.RibbonTool.Move and Roact.createElement("Folder", {}, {
-			HandleX = Roact.createElement("Handles", {
-				Faces = Faces.new(Enum.NormalId.Left, Enum.NormalId.Right),
-				Color = BrickColor.new(1004),
-				Style = 'Movement',
-				Archivable = false,
-				[Roact.Event.MouseButton1Down] = self.onLineMouseDown,
-				[Roact.Event.MouseDrag] = self.onLineMouseDrag,
-				[Roact.Ref] = self.xHandles,
-			}),
-
-			HandleY = Roact.createElement("Handles", {
-				Faces = Faces.new(Enum.NormalId.Top, Enum.NormalId.Bottom),
-				Color = BrickColor.new(1020),
-				Style = 'Movement',
-				Archivable = false,
-				[Roact.Event.MouseButton1Down] = self.onLineMouseDown,
-				[Roact.Event.MouseDrag] = self.onLineMouseDrag,
-				[Roact.Ref] = self.yHandles,
-			}),
-
-			HandleZ = Roact.createElement("Handles", {
-				Faces = Faces.new(Enum.NormalId.Front, Enum.NormalId.Back),
-				Color = BrickColor.new(1010),
-				Style = 'Movement',
-				Archivable = false,
-				[Roact.Event.MouseButton1Down] = self.onLineMouseDown,
-				[Roact.Event.MouseDrag] = self.onLineMouseDrag,
-				[Roact.Ref] = self.zHandles,
-			}),
+			LeftHandle = self:createHandle(Enum.NormalId.Left, BrickColor.new(1004), self.leftHandle),
+			RightHandle = self:createHandle(Enum.NormalId.Right, BrickColor.new(1004), self.rightHandle),
+			TopHandle = self:createHandle(Enum.NormalId.Top, BrickColor.new(1020), self.topHandle),
+			BottomHandle = self:createHandle(Enum.NormalId.Bottom, BrickColor.new(1020), self.bottomHandle),
+			FrontHandle = self:createHandle(Enum.NormalId.Front, BrickColor.new(1010), self.frontHandle),
+			BackHandle = self:createHandle(Enum.NormalId.Back, BrickColor.new(1010), self.backHandle),
 		}),
 	})
 end

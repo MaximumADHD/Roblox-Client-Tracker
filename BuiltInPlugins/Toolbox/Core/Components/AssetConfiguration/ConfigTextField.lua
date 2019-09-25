@@ -100,7 +100,7 @@ function ConfigTextField:render()
 					MaxLength = MaxCount,
 					Text = currentContent,
 					Font = Constants.FONT,
-					TextSize = Constants.FONT_SIZE_MEDIUM,
+					TextSize = Constants.FONT_SIZE_LARGE,
 					Height = TotalHeight - TITLE_HEIGHT - TOOL_TIP_HEIGHT,
 					WidthOffset = -AssetConfigConstants.TITLE_GUTTER_WIDTH,
 					Multiline = MaxCount > 50,

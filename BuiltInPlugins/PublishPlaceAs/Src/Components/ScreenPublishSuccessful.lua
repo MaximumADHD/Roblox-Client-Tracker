@@ -13,10 +13,7 @@ local Constants = require(Plugin.Src.Resources.Constants)
 local Theming = require(Plugin.Src.ContextServices.Theming)
 
 local Localizing = UILibrary.Localizing
-local createFitToContent = UILibrary.Component.createFitToContent
 local RoundTextButton = UILibrary.Component.RoundTextButton
-
-local ScreenPublishSuccessful = Roact.PureComponent:extend("ScreenPublishSuccessful")
 
 local StudioService = game:GetService("StudioService")
 local ContentProvider = game:GetService("ContentProvider")
@@ -27,6 +24,8 @@ local FFlagEnableRbxThumbAPI = settings():GetFFlag("EnableRbxThumbAPI")
 local ICON_SIZE = 150
 local BUTTON_WIDTH = 150
 local BUTTON_HEIGHT = 30
+
+local ScreenPublishSuccessful = Roact.PureComponent:extend("ScreenPublishSuccessful")
 
 function ScreenPublishSuccessful:init()
 	self.state = {
@@ -86,9 +85,8 @@ function ScreenPublishSuccessful:render()
 
 				Name = Roact.createElement("TextLabel", {
 					Text = name,
-					Position = UDim2.new(0.5, 0, 0.35, 0),
-					
-					TextSize = 18,
+					Position = UDim2.new(0.5, 0, 0.35, 0),					
+					TextSize = 20,
 					BackgroundTransparency = 1,
 					TextColor3 = theme.header.text,
 					TextXAlignment = Enum.TextXAlignment.Center,
@@ -98,7 +96,6 @@ function ScreenPublishSuccessful:render()
 				Success = Roact.createElement("TextLabel", {
 					Text = localization:getText("PublishSuccess", "Success"),
 					Position = UDim2.new(0.5, 0, 0.4, 0),
-
 					TextSize = 24,
 					BackgroundTransparency = 1,
 					TextColor3 = theme.header.text,

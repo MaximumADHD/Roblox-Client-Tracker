@@ -8,6 +8,8 @@ local Images = require(Plugin.Core.Util.Images)
 
 local ConfigTypes = {}
 
+local FFlagEnableAssetConfigVersionCheckForModels = game:GetFastFlag("EnableAssetConfigVersionCheckForModels")
+
 ConfigTypes.GET_ASSET_DETAIL_FAILURE_ACTION = "CloseAssetConfig"
 
 local GENERAL = {
@@ -34,16 +36,25 @@ ConfigTypes.OWNER_TYPES = {
 	Group = 2
 }
 
-function ConfigTypes:getAssetconfigContent(screenFlowType, assetTypeId)
+function ConfigTypes:getAssetconfigContent(screenFlowType, assetTypeEnum)
 	local result = {
 		GENERAL,
 	}
 
-	if ScreenSetup.queryParam(screenFlowType, assetTypeId, ScreenSetup.keys.SHOW_VERSIONS_TAB) then
-		result[#result + 1] = VERSIONS
+	-- Versions History is only accessible to models, so we only try to show the Versions if it's a model.
+	if FFlagEnableAssetConfigVersionCheckForModels then
+		if assetTypeEnum == Enum.AssetType.Model then
+			if ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_VERSIONS_TAB) then
+				result[#result + 1] = VERSIONS
+			end
+		end
+	else
+		if ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_VERSIONS_TAB) then
+			result[#result + 1] = VERSIONS
+		end
 	end
 
-	if ScreenSetup.queryParam(screenFlowType, assetTypeId, ScreenSetup.keys.SHOW_SALES_TAB) then
+	if ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_SALES_TAB) then
 		result[#result + 1] = SALES
 	end
 

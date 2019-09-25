@@ -21,6 +21,8 @@ local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local InspectMenuAnalytics = require(RobloxGui.Modules.InspectAndBuy.Services.Analytics).new()
 
+local FFlagFixInspectMenuAnalytics = settings():GetFFlag("FixInspectMenuAnalytics")
+
 local PlayerList = Components.Parent
 
 local ClosePlayerDropDown = require(PlayerList.Actions.ClosePlayerDropDown)
@@ -162,8 +164,12 @@ function PlayerDropDown:createInspectButton()
 		layoutOrder = 6,
 		text = "View",
 		onActivated = function()
-			InspectMenuAnalytics.reportOpenInspectMenu("leaderBoard")
-			GuiService:InspectPlayerFromUserId(selectedPlayer.UserId)
+			if FFlagFixInspectMenuAnalytics then
+				GuiService:InspectPlayerFromUserIdWithCtx(selectedPlayer.UserId, "leaderBoard")
+			else
+				InspectMenuAnalytics.reportOpenInspectMenu("leaderBoard")
+				GuiService:InspectPlayerFromUserId(selectedPlayer.UserId)
+			end
 			self.props.closeDropDown()
 		end,
 	})

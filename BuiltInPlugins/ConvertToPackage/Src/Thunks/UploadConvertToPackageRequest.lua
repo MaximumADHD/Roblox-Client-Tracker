@@ -19,11 +19,11 @@ local StudioService = game:GetService("StudioService")
 local function createConvertToPackageUploadPromise(urlToUse)
 	local uploadPromise = Promise.new(function(resolve, reject)
 		spawn(function()
-			local result= StudioService.OnConvertToPackageResult:wait()
+			local result, errorMessage = StudioService.OnConvertToPackageResult:wait()
 			if result then
 				resolve()
 			else
-				reject()
+				reject(errorMessage)
 			end
 		end)
 	end)
@@ -32,7 +32,6 @@ local function createConvertToPackageUploadPromise(urlToUse)
 end
 
 -- assetId, number, default to 0 for new asset.
--- type, string, the asset type of the asset.
 -- name, string, need to be url encoded.
 -- description, string, need to be url encoded.
 -- genreTypeId, Id, for genre.
@@ -42,16 +41,15 @@ end
 return function(assetid, name, description, genreTypeID, ispublic, allowComments, groupId)
 	return function(store)
 		local function onSuccess()
-			store:dispatch(SetCurrentScreen(Constants.SCREENS.UPLOADING_ASSET))
 			store:dispatch(UploadResult(true))
 		end
 
-		local function onFailure()
-			store:dispatch(SetCurrentScreen(Constants.SCREENS.UPLOAD_ASSET_RESULT))
+		local function onFailure(errorMessage)
 			store:dispatch(UploadResult(false))
-			store:dispatch(NetworkError("Convert to package failed", "uploadRequest"))
+			store:dispatch(NetworkError(errorMessage, "uploadRequest"))
 		end
 
+		store:dispatch(SetCurrentScreen(Constants.SCREENS.UPLOADING_ASSET))
 		local urlToUse = Urls.constructPostUploadAssetUrl(assetid, "Model", name or "", description or "", genreTypeID, ispublic, allowComments, groupId)
 		return createConvertToPackageUploadPromise(urlToUse):andThen(onSuccess, onFailure)
 	end

@@ -38,6 +38,20 @@ local function removeAllScripts(object)
 	end
 end
 
+local function hasShowableObject(object)
+	if object:IsA("PVInstance") then
+		return true
+	end
+	for _, descendant in pairs(object:GetDescendants()) do
+		if descendant:IsA("PVInstance") then
+			if not descendant:FindFirstAncestorWhichIsA("LuaSourceContainer") then
+				return true
+			end
+		end
+	end
+	return false
+end
+
 local AssetThumbnailPreview = Roact.PureComponent:extend("AssetThumbnailPreview")
 
 function AssetThumbnailPreview:init(props)
@@ -45,7 +59,7 @@ function AssetThumbnailPreview:init(props)
 end
 
 function AssetThumbnailPreview:didMount()
-	if self.props.instances then
+	if self.props.instances and hasShowableObject(self.props.instances[1]) then
 		local viewportFrame = self.viewportRef.current
 		viewportFrame:ClearAllChildren()
 
@@ -103,7 +117,7 @@ function AssetThumbnailPreview:render()
 		local titleHeight = props.titleHeight or PREVIEW_TITLE_HEIGHT
 		local titlePadding = props.titlePadding or PREVIEW_TITLE_PADDING
 		local layoutOrder = props.LayoutOrder or 1
-
+		local showPlaceholder = self.props.instances and not hasShowableObject(self.props.instances[1])
 		return Roact.createElement("Frame", {
 			Name = "AssetThumbnailPreview",
 			BackgroundTransparency = 1,
@@ -117,11 +131,18 @@ function AssetThumbnailPreview:render()
 				BorderColor3 = theme.thumbnailPreview.border,
 				Size = showTitle and UDim2.new(1, 0, 1, -(titleHeight + titlePadding)) or UDim2.new(1, 0, 1, 0),
 			}, {
-				Viewport = Roact.createElement("ViewportFrame", {
+				Viewport = not showPlaceholder and Roact.createElement("ViewportFrame", {
 					[Roact.Ref] = self.viewportRef,
 					Size = UDim2.new(1, 0, 1, 0),
 					BackgroundColor3 = theme.thumbnailPreview.background,
 					BackgroundTransparency = 1,
+				}),
+				PreviewPlaceholder = showPlaceholder and Roact.createElement("ImageLabel", {
+					Size = UDim2.new(1, 0, 1, 0),
+					BackgroundTransparency = 0,
+					Image = Constants.Images.IMAGE_PLACEHOLDER,
+					BackgroundColor3 = theme.thumbnailPreview.background,
+					ImageColor3 = theme.thumbnailPreview.placeholderColor
 				}),
 			}),
 			Title = showTitle and Roact.createElement("TextLabel", {

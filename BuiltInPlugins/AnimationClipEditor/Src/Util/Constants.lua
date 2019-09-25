@@ -59,8 +59,12 @@ local Constants = {
 	PROMPT_VERTICAL_PADDING = 15,
 	PROMPT_HORIZONTAL_PADDING = 20,
 
-	TRANSLATION_STIFFNESS = 0.1,
-	ROTATION_STIFFNESS = 0.1,
+	TRANSLATION_STIFFNESS = 0.7,
+	ROTATION_STIFFNESS = 0.7,
+	MIN_TRANSLATION_STIFFNESS = 0.01,
+	MIN_ROTATION_STIFFNESS = 0.01,
+	MIN_EFFECTOR_DISTANCE = 10,
+
 
 	SNAP_TO_KEYFRAME_THRESHOLD = 30, --in pixels
 
@@ -171,11 +175,11 @@ local Constants = {
 	CONSTRAINTS_CONFIG = {
 		Ankle = {
 			Type = "BallSocketConstraint",
-			LimitsEnabled = true,
+			LimitsEnabled = false,
 			Restitution = 0,
-			TwistLimitsEnabled = true,
+			TwistLimitsEnabled = false,
 			UpperAngle = 20,
-			TwistLowerAngle = -45,
+			TwistLowerAngle = -20,
 			TwistUpperAngle = 20,
 		},
 
@@ -192,7 +196,7 @@ local Constants = {
 			LimitsEnabled = true,
 			Restitution = 0,
 			TwistLimitsEnabled = true,
-			UpperAngle = 135,
+			UpperAngle = 80,
 			TwistLowerAngle = -3,
 			TwistUpperAngle = 3,
 			Axis = Vector3.new(0, -1, 0),

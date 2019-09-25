@@ -2,15 +2,9 @@
 --	// Written by: Xsitsu
 --	// Description: A representation of one channel that speakers can chat in.
 
-local forceNewFilterAPI = false
-local IN_GAME_CHAT_USE_NEW_FILTER_API
 local userShouldMuteUnfilteredMessage = false
 do
-	local textServiceExists = (game:GetService("TextService") ~= nil)
-	local success, enabled = pcall(function() return UserSettings():IsUserFeatureEnabled("UserInGameChatUseNewFilterAPIV2") end)
-	local flagEnabled = (success and enabled)
-	IN_GAME_CHAT_USE_NEW_FILTER_API = (forceNewFilterAPI or flagEnabled) and textServiceExists
-	success, enabled = pcall(function() return UserSettings():IsUserFeatureEnabled("UserShouldMuteUnfilteredMessage") end)
+	local success, enabled = pcall(function() return UserSettings():IsUserFeatureEnabled("UserShouldMuteUnfilteredMessage") end)
 	userShouldMuteUnfilteredMessage = success and enabled
 end
 
@@ -119,33 +113,18 @@ function methods:SendMessageToSpeaker(message, speakerName, fromSpeakerName, ext
 		message = self:SendMessageObjToFilters(message, messageObj, fromSpeakerName)
 		speakerTo:InternalSendMessage(messageObj, self.Name)
 
-		--// START FFLAG
-		if (not IN_GAME_CHAT_USE_NEW_FILTER_API) then --// USES FFLAG
-		--// OLD BEHAVIOR
-		local filteredMessage = self.ChatService:InternalApplyRobloxFilter(messageObj.FromSpeaker, message, speakerName)
-		if filteredMessage then
-			messageObj.Message = filteredMessage
+		local textContext = self.Private and Enum.TextFilterContext.PrivateChat or Enum.TextFilterContext.PublicChat
+		local filterSuccess, isFilterResult, filteredMessage = self.ChatService:InternalApplyRobloxFilterNewAPI(
+			messageObj.FromSpeaker,
+			message,
+			textContext
+		)
+		if (filterSuccess) then
+			messageObj.FilterResult = filteredMessage
+			messageObj.IsFilterResult = isFilterResult
 			messageObj.IsFiltered = true
-			speakerTo:InternalSendFilteredMessage(messageObj, self.Name)
+			speakerTo:InternalSendFilteredMessageWithFilterResult(messageObj, self.Name)
 		end
-		--// OLD BEHAVIOR
-		else
-		--// NEW BEHAVIOR
-			local textContext = self.Private and Enum.TextFilterContext.PrivateChat or Enum.TextFilterContext.PublicChat
-			local filterSuccess, isFilterResult, filteredMessage = self.ChatService:InternalApplyRobloxFilterNewAPI(
-				messageObj.FromSpeaker,
-				message,
-				textContext
-			)
-			if (filterSuccess) then
-				messageObj.FilterResult = filteredMessage
-				messageObj.IsFilterResult = isFilterResult
-				messageObj.IsFiltered = true
-				speakerTo:InternalSendFilteredMessageWithFilterResult(messageObj, self.Name)
-			end
-		--// NEW BEHAVIOR
-		end
-		--// END FFLAG
 	else
 		warn(string.format("Speaker '%s' is not in channel '%s' and cannot be sent a message", speakerName, self.Name))
 	end
@@ -289,46 +268,32 @@ function methods:GetHistoryLogForSpeaker(speaker)
 		userId = player.UserId
 	end
 	local chatlog = {}
-	--// START FFLAG
-	if (not IN_GAME_CHAT_USE_NEW_FILTER_API) then --// USES FFLAG
-	--// OLD BEHAVIOR
+
 	for i = 1, #self.ChatHistory do
 		local logUserId = self.ChatHistory[i].SpeakerUserId
 		if self:CanCommunicateByUserId(userId, logUserId) then
-			table.insert(chatlog, ShallowCopy(self.ChatHistory[i]))
-		end
-	end
-	--// OLD BEHAVIOR
-	else
-	--// NEW BEHAVIOR
-		for i = 1, #self.ChatHistory do
-			local logUserId = self.ChatHistory[i].SpeakerUserId
-			if self:CanCommunicateByUserId(userId, logUserId) then
-				local messageObj = ShallowCopy(self.ChatHistory[i])
+			local messageObj = ShallowCopy(self.ChatHistory[i])
 
-				--// Since we're using the new filter API, we need to convert the stored filter result
-				--// into an actual string message to send to players for their chat history.
-				--// System messages aren't filtered the same way, so they just have a regular 
-				--// text value in the Message field.
-				if (messageObj.MessageType == ChatConstants.MessageTypeDefault or messageObj.MessageType == ChatConstants.MessageTypeMeCommand) then
-					local filterResult = messageObj.FilterResult
-					if (messageObj.IsFilterResult) then
-						if (player) then
-							messageObj.Message = filterResult:GetChatForUserAsync(player.UserId)
-						else
-							messageObj.Message = filterResult:GetNonChatStringForBroadcastAsync()
-						end
+			--// Since we're using the new filter API, we need to convert the stored filter result
+			--// into an actual string message to send to players for their chat history.
+			--// System messages aren't filtered the same way, so they just have a regular 
+			--// text value in the Message field.
+			if (messageObj.MessageType == ChatConstants.MessageTypeDefault or messageObj.MessageType == ChatConstants.MessageTypeMeCommand) then
+				local filterResult = messageObj.FilterResult
+				if (messageObj.IsFilterResult) then
+					if (player) then
+						messageObj.Message = filterResult:GetChatForUserAsync(player.UserId)
 					else
-						messageObj.Message = filterResult
+						messageObj.Message = filterResult:GetNonChatStringForBroadcastAsync()
 					end
+				else
+					messageObj.Message = filterResult
 				end
-
-				table.insert(chatlog, messageObj)
 			end
+
+			table.insert(chatlog, messageObj)
 		end
-	--// NEW BEHAVIOR
 	end
-	--// END FFLAG
 	return chatlog
 end
 
@@ -444,64 +409,27 @@ function methods:InternalPostMessage(fromSpeaker, message, extraData)
 		print("Error posting message: " ..err)
 	end
 
-	--// START FFLAG
-	if (not IN_GAME_CHAT_USE_NEW_FILTER_API) then --// USES FFLAG
-	--// OLD BEHAVIOR
-	local filteredMessages = {}
-	for i, speakerName in pairs(sentToList) do
-		local filteredMessage = self.ChatService:InternalApplyRobloxFilter(messageObj.FromSpeaker, message, speakerName)
-		if filteredMessage then
-			filteredMessages[speakerName] = filteredMessage
-		else
-			return false
-		end
-	end
-
-	for i, speakerName in pairs(sentToList) do
-		local speaker = self.Speakers[speakerName]
-		if (speaker) then
-			local cMessageObj = ShallowCopy(messageObj)
-			cMessageObj.Message = filteredMessages[speakerName]
-			cMessageObj.IsFiltered = true
-			speaker:InternalSendFilteredMessage(cMessageObj, self.Name)
-		end
-	end
-
-	local filteredMessage = self.ChatService:InternalApplyRobloxFilter(messageObj.FromSpeaker, message)
-	if filteredMessage then
-		messageObj.Message = filteredMessage
+	local textFilterContext = self.Private and Enum.TextFilterContext.PrivateChat or Enum.TextFilterContext.PublicChat
+	local filterSuccess, isFilterResult, filteredMessage = self.ChatService:InternalApplyRobloxFilterNewAPI(
+		messageObj.FromSpeaker,
+		message,
+		textFilterContext
+	)
+	if (filterSuccess) then
+		messageObj.FilterResult = filteredMessage
+		messageObj.IsFilterResult = isFilterResult
 	else
 		return false
 	end
 	messageObj.IsFiltered = true
 	self:InternalAddMessageToHistoryLog(messageObj)
-	--// OLD BEHAVIOR
-	else
-	--// NEW BEHAVIOR
-		local textFilterContext = self.Private and Enum.TextFilterContext.PrivateChat or Enum.TextFilterContext.PublicChat
-		local filterSuccess, isFilterResult, filteredMessage = self.ChatService:InternalApplyRobloxFilterNewAPI(
-			messageObj.FromSpeaker,
-			message,
-			textFilterContext
-		)
-		if (filterSuccess) then
-			messageObj.FilterResult = filteredMessage
-			messageObj.IsFilterResult = isFilterResult
-		else
-			return false
-		end
-		messageObj.IsFiltered = true
-		self:InternalAddMessageToHistoryLog(messageObj)
 
-		for _, speakerName in pairs(sentToList) do
-			local speaker = self.Speakers[speakerName]
-			if (speaker) then
-				speaker:InternalSendFilteredMessageWithFilterResult(messageObj, self.Name)
-			end
+	for _, speakerName in pairs(sentToList) do
+		local speaker = self.Speakers[speakerName]
+		if (speaker) then
+			speaker:InternalSendFilteredMessageWithFilterResult(messageObj, self.Name)
 		end
-	--// NEW BEHAVIOR
 	end
-	--// END FFLAG
 
 	-- One more pass is needed to ensure that no speakers do not recieve the message.
 	-- Otherwise a user could join while the message is being filtered who had not originally been sent the message.
@@ -522,34 +450,12 @@ function methods:InternalPostMessage(fromSpeaker, message, extraData)
 		end
 	end
 
-	--// START FFLAG
-	if (not IN_GAME_CHAT_USE_NEW_FILTER_API) then --// USES FFLAG
-	--// OLD BEHAVIOR
 	for _, speakerName in pairs(speakersMissingMessage) do
 		local speaker = self.Speakers[speakerName]
 		if speaker then
-			local filteredMessage = self.ChatService:InternalApplyRobloxFilter(messageObj.FromSpeaker, message, speakerName)
-			if filteredMessage == nil then
-				return false
-			end
-			local cMessageObj = ShallowCopy(messageObj)
-			cMessageObj.Message = filteredMessage
-			cMessageObj.IsFiltered = true
-			speaker:InternalSendFilteredMessage(cMessageObj, self.Name)
+			speaker:InternalSendFilteredMessageWithFilterResult(messageObj, self.Name)
 		end
 	end
-	--// OLD BEHAVIOR
-	else
-	--// NEW BEHAVIOR
-		for _, speakerName in pairs(speakersMissingMessage) do
-			local speaker = self.Speakers[speakerName]
-			if speaker then
-				speaker:InternalSendFilteredMessageWithFilterResult(messageObj, self.Name)
-			end
-		end
-	--// NEW BEHAVIOR
-	end
-	--// END FFLAG
 
 	return messageObj
 end

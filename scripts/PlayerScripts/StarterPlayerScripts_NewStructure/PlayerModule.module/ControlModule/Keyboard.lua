@@ -16,11 +16,6 @@ local BaseCharacterController = require(script.Parent:WaitForChild("BaseCharacte
 local Keyboard = setmetatable({}, BaseCharacterController)
 Keyboard.__index = Keyboard
 
-local bindAtPriorityFlagExists, bindAtPriorityFlagEnabled = pcall(function()
-	return UserSettings():IsUserFeatureEnabled("UserPlayerScriptsBindAtPriority2")
-end)
-local FFlagPlayerScriptsBindAtPriority2 = bindAtPriorityFlagExists and bindAtPriorityFlagEnabled
-
 function Keyboard.new(CONTROL_ACTION_PRIORITY)
 	local self = setmetatable(BaseCharacterController.new(), Keyboard)
 
@@ -93,63 +88,45 @@ function Keyboard:BindContextActions()
 	local handleMoveForward = function(actionName, inputState, inputObject)
 		self.forwardValue = (inputState == Enum.UserInputState.Begin) and -1 or 0
 		self:UpdateMovement(inputState)
-		if FFlagPlayerScriptsBindAtPriority2 then
-			return Enum.ContextActionResult.Pass
-		end
+		return Enum.ContextActionResult.Pass
 	end
 
 	local handleMoveBackward = function(actionName, inputState, inputObject)
 		self.backwardValue = (inputState == Enum.UserInputState.Begin) and 1 or 0
 		self:UpdateMovement(inputState)
-		if FFlagPlayerScriptsBindAtPriority2 then
-			return Enum.ContextActionResult.Pass
-		end
+		return Enum.ContextActionResult.Pass
 	end
 
 	local handleMoveLeft = function(actionName, inputState, inputObject)
 		self.leftValue = (inputState == Enum.UserInputState.Begin) and -1 or 0
 		self:UpdateMovement(inputState)
-		if FFlagPlayerScriptsBindAtPriority2 then
-			return Enum.ContextActionResult.Pass
-		end
+		return Enum.ContextActionResult.Pass
 	end
 
 	local handleMoveRight = function(actionName, inputState, inputObject)
 		self.rightValue = (inputState == Enum.UserInputState.Begin) and 1 or 0
 		self:UpdateMovement(inputState)
-		if FFlagPlayerScriptsBindAtPriority2 then
-			return Enum.ContextActionResult.Pass
-		end
+		return Enum.ContextActionResult.Pass
 	end
 
 	local handleJumpAction = function(actionName, inputState, inputObject)
 		self.jumpRequested = self.jumpEnabled and (inputState == Enum.UserInputState.Begin)
 		self:UpdateJump()
-		if FFlagPlayerScriptsBindAtPriority2 then
-			return Enum.ContextActionResult.Pass
-		end
+		return Enum.ContextActionResult.Pass
 	end
 
 	-- TODO: Revert to KeyCode bindings so that in the future the abstraction layer from actual keys to
 	-- movement direction is done in Lua
-	if FFlagPlayerScriptsBindAtPriority2 then
-		ContextActionService:BindActionAtPriority("moveForwardAction", handleMoveForward, false,
-			self.CONTROL_ACTION_PRIORITY, Enum.PlayerActions.CharacterForward)
-		ContextActionService:BindActionAtPriority("moveBackwardAction", handleMoveBackward, false,
-			self.CONTROL_ACTION_PRIORITY, Enum.PlayerActions.CharacterBackward)
-		ContextActionService:BindActionAtPriority("moveLeftAction", handleMoveLeft, false,
-			self.CONTROL_ACTION_PRIORITY, Enum.PlayerActions.CharacterLeft)
-		ContextActionService:BindActionAtPriority("moveRightAction", handleMoveRight, false,
-			self.CONTROL_ACTION_PRIORITY, Enum.PlayerActions.CharacterRight)
-		ContextActionService:BindActionAtPriority("jumpAction", handleJumpAction, false,
-			self.CONTROL_ACTION_PRIORITY, Enum.PlayerActions.CharacterJump)
-	else
-		ContextActionService:BindAction("moveForwardAction", handleMoveForward, false, Enum.PlayerActions.CharacterForward)
-		ContextActionService:BindAction("moveBackwardAction", handleMoveBackward, false, Enum.PlayerActions.CharacterBackward)
-		ContextActionService:BindAction("moveLeftAction", handleMoveLeft, false, Enum.PlayerActions.CharacterLeft)
-		ContextActionService:BindAction("moveRightAction", handleMoveRight, false, Enum.PlayerActions.CharacterRight)
-		ContextActionService:BindAction("jumpAction",handleJumpAction,false,Enum.PlayerActions.CharacterJump)
-	end
+	ContextActionService:BindActionAtPriority("moveForwardAction", handleMoveForward, false,
+		self.CONTROL_ACTION_PRIORITY, Enum.PlayerActions.CharacterForward)
+	ContextActionService:BindActionAtPriority("moveBackwardAction", handleMoveBackward, false,
+		self.CONTROL_ACTION_PRIORITY, Enum.PlayerActions.CharacterBackward)
+	ContextActionService:BindActionAtPriority("moveLeftAction", handleMoveLeft, false,
+		self.CONTROL_ACTION_PRIORITY, Enum.PlayerActions.CharacterLeft)
+	ContextActionService:BindActionAtPriority("moveRightAction", handleMoveRight, false,
+		self.CONTROL_ACTION_PRIORITY, Enum.PlayerActions.CharacterRight)
+	ContextActionService:BindActionAtPriority("jumpAction", handleJumpAction, false,
+		self.CONTROL_ACTION_PRIORITY, Enum.PlayerActions.CharacterJump)
 end
 
 function Keyboard:UnbindContextActions()

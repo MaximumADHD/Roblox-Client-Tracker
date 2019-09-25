@@ -17,7 +17,7 @@ struct Globals
     vec3 Lamp1Color;
     vec4 FogParams;
     vec4 FogColor_GlobalForceFieldTime;
-    vec4 Technology_Exposure;
+    vec3 Exposure;
     vec4 LightBorder;
     vec4 LightConfig0;
     vec4 LightConfig1;
@@ -98,24 +98,23 @@ void main()
     vec4 v21 = vec4(v20.x, v20.y, v20.z, v3.w);
     v21.w = CB1[gl_InstanceID * 7 + 4].w;
     float v22 = dot(v15, -CB0[11].xyz);
-    vec4 v23 = vec4(v8, v9, v10, 1.0);
-    vec4 v24 = v23 * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
-    vec4 v25 = vec4((TEXCOORD0.xy * v17) + CB1[gl_InstanceID * 7 + 6].xy, 0.0, 0.0);
-    vec4 v26 = vec4(0.0, (TEXCOORD0.zw * v19).y, 0.0, 0.0);
-    v26.x = max(0.0500000007450580596923828125, mix(1.0 - v3.w, 0.0, v4));
-    float v27 = v24.w;
-    vec4 v28 = (vec4(10.0) * CB0[24].z) + vec4((0.5 * v27) * CB0[24].y);
-    vec4 v29 = vec4(dot(CB0[21], v23), dot(CB0[22], v23), dot(CB0[23], v23), 0.0);
-    v29.w = CB1[gl_InstanceID * 7 + 5].w * 0.0039215688593685626983642578125;
-    gl_Position = v24;
-    VARYING0 = vec4(v25.x, v25.y, v28.x, v28.y);
-    VARYING1 = vec4(v26.x, v26.y, v28.z, v28.w);
+    vec4 v23 = vec4(v8, v9, v10, 1.0) * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
+    vec4 v24 = vec4((TEXCOORD0.xy * v17) + CB1[gl_InstanceID * 7 + 6].xy, 0.0, 0.0);
+    vec4 v25 = vec4(0.0, (TEXCOORD0.zw * v19).y, 0.0, 0.0);
+    v25.x = max(0.0500000007450580596923828125, mix(1.0 - v3.w, 0.0, v4));
+    float v26 = v23.w;
+    vec4 v27 = (vec4(10.0) * CB0[24].z) + vec4((0.5 * v26) * CB0[24].y);
+    vec4 v28 = vec4(v11 - (CB0[11].xyz * abs(CB1[gl_InstanceID * 7 + 3].w)), 0.0);
+    v28.w = CB1[gl_InstanceID * 7 + 5].w * 0.0039215688593685626983642578125;
+    gl_Position = v23;
+    VARYING0 = vec4(v24.x, v24.y, v27.x, v27.y);
+    VARYING1 = vec4(v25.x, v25.y, v27.z, v27.w);
     VARYING2 = v21;
     VARYING3 = vec4(((v11 + (v15 * 6.0)).yxz * CB0[17].xyz) + CB0[18].xyz, 0.0);
-    VARYING4 = vec4(CB0[7].xyz - v11, v27);
+    VARYING4 = vec4(CB0[7].xyz - v11, v26);
     VARYING5 = vec4(v12, v13, v14, CB1[gl_InstanceID * 7 + 6].w);
     VARYING6 = vec4((CB0[10].xyz * max(v22, 0.0)) + (CB0[12].xyz * max(-v22, 0.0)), (float(v22 > 0.0) * (CB1[gl_InstanceID * 7 + 6].z * 0.0039215688593685626983642578125)) * CB0[24].w);
-    VARYING7 = v29;
+    VARYING7 = v28;
     VARYING8 = TEXCOORD2.w - 1.0;
 }
 

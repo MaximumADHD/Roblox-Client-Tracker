@@ -6,7 +6,6 @@
 
 --[[ FFLAG VALUES ]]
 local FFlagCoreScriptTranslateGameText2 = settings():GetFFlag("CoreScriptTranslateGameText2")
-local FFlagKillGuiButtonSetVerb = settings():GetFFlag("KillGuiButtonSetVerb")
 local FFlagCoreScriptNoPosthumousHurtOverlay = settings():GetFFlag("CoreScriptNoPosthumousHurtOverlay")
 
 local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList")
@@ -1342,13 +1341,9 @@ local function CreateStopRecordIcon()
 		Visible = true;
 		BackgroundTransparency = 1;
 	};
-	if FFlagKillGuiButtonSetVerb then
-		stopRecordIconButton.Activated:Connect(function()
-			CoreGuiService:ToggleRecording()
-		end)
-	else
-		stopRecordIconButton:SetVerb("RecordToggle")
-	end
+	stopRecordIconButton.Activated:Connect(function()
+		CoreGuiService:ToggleRecording()
+	end)
 
 	local stopRecordIconLabel = Util.Create'ImageLabel'
 	{

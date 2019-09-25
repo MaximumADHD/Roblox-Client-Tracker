@@ -104,7 +104,7 @@ local function createPluginMenu(plugin, entries, subMenus, connections)
 
 				connectAction(connections, action, entry, entry.Key)
 			end
-		else
+		elseif entry then -- Ignore false/nil for when plugins do {xyz, fflag and abc, ...}
 			error("Unsupported action "..tostring(entry))
 		end
 	end

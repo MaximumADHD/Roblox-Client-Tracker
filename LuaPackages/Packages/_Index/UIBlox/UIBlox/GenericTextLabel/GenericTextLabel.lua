@@ -1,3 +1,5 @@
+local TextService = game:GetService("TextService")
+
 local LoadingRoot = script.Parent
 local UIBloxRoot = LoadingRoot.Parent
 
@@ -10,15 +12,17 @@ local withStyle = require(UIBloxRoot.Style.withStyle)
 
 local GenericTextLabel = Roact.PureComponent:extend("GenericTextLabel")
 
+local MAX_BOUND = 10000
+
 local validateProps = t.interface({
-	-- The text of the TextLabel
-	Text = t.string,
+	-- The max size avaliable for the textbox
+	maxSize = t.optional(t.Vector2),
 
 	-- The Font table from the style palette
-	font = validateFontInfo,
+	fontStyle = validateFontInfo,
 
-	-- The Color table from the style palette
-	color = validateColor,
+	-- The color table from the style palette
+	colorStyle = validateColor,
 
 	-- Whether the TextLabel is Fluid Sizing between the font's min and default sizes (optional)
 	fluidSizing = t.optional(t.boolean),
@@ -27,6 +31,7 @@ local validateProps = t.interface({
 })
 
 GenericTextLabel.defaultProps = {
+	maxSize = Vector2.new(MAX_BOUND, MAX_BOUND),
 	fluidSizing = false,
 }
 
@@ -34,40 +39,51 @@ function GenericTextLabel:render()
 	assert(validateProps(self.props))
 
 	local text = self.props.Text
-	local font = self.props.font
-	local color = self.props.color
 	local isFluidSizing = self.props.fluidSizing
 
-	local textColor = color.Color
-	local textTransparency = color.Transparency
-
 	return withStyle(function(stylePalette)
+		local font = self.props.fontStyle
+		local color = self.props.colorStyle
+		local textColor = color.Color
+		local textTransparency = color.Transparency
+
 		local baseSize = stylePalette.Font.BaseSize
 		local fontSizeMin = font.RelativeMinSize * baseSize
 		local fontSizeMax = font.RelativeSize * baseSize
 		local textFont = font.Font
 
+		local textboxSize = self.props.Size
+		if textboxSize == nil then
+			local sampleText = text
+			if self.props.TextTruncate == Enum.TextTruncate.AtEnd then
+				sampleText = sampleText.."..."
+			end
+			local textBounds = self.props.maxSize
+			local textboxBounds = TextService:GetTextSize(sampleText, fontSizeMax, textFont, textBounds)
+			textboxSize = UDim2.new(0, textboxBounds.X, 0, textboxBounds.Y)
+		end
+
 		local newProps = Cryo.Dictionary.join(self.props, {
-			text = Cryo.None,
 			fluidSizing = Cryo.None,
-			color = Cryo.None,
-			font = Cryo.None,
+			fontStyle = Cryo.None,
+			colorStyle = Cryo.None,
+			maxSize = Cryo.None,
+			Size = textboxSize,
 			Text = text,
 			Font = textFont,
 			TextSize = fontSizeMax,
-			TextTruncate = Enum.TextTruncate.AtEnd,
-			TextWrapped = true,
 			TextColor3 = textColor,
 			TextTransparency = textTransparency,
-			BackgroundTransparency = 1,
+			TextWrapped = true,
 			TextScaled = isFluidSizing,
+			BackgroundTransparency = 1,
 		})
 
 		return Roact.createElement("TextLabel", newProps, {
 			UITextSizeConstraint = isFluidSizing and Roact.createElement("UITextSizeConstraint", {
 				MaxTextSize = fontSizeMax,
 				MinTextSize = fontSizeMin,
-			})
+			} or nil)
 		})
 	end)
 end

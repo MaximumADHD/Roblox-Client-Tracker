@@ -14,7 +14,7 @@ struct Globals
     vec3 Lamp1Color;
     vec4 FogParams;
     vec4 FogColor_GlobalForceFieldTime;
-    vec4 Technology_Exposure;
+    vec3 Exposure;
     vec4 LightBorder;
     vec4 LightConfig0;
     vec4 LightConfig1;
@@ -55,12 +55,11 @@ void main()
     vec3 f1 = VARYING3.yzx - (VARYING3.yzx * f0);
     vec4 f2 = vec4(clamp(f0, 0.0, 1.0));
     vec4 f3 = mix(texture(LightMapTexture, f1), vec4(0.0), f2);
-    vec3 f4 = vec3(CB0[15].x);
-    vec3 f5 = (min(((f3.xyz * (f3.w * 120.0)).xyz + CB0[8].xyz) + (CB0[9].xyz * mix(texture(LightGridSkylightTexture, f1), vec4(1.0), f2).x), vec3(CB0[17].w)) + VARYING2) * mix(VARYING1.xyz, VARYING1.xyz * VARYING1.xyz, f4);
-    vec4 f6 = vec4(f5.x, f5.y, f5.z, vec4(0.0).w);
-    f6.w = VARYING1.w;
-    vec3 f7 = mix(CB0[14].xyz, mix(f6.xyz, sqrt(clamp(f6.xyz * CB0[15].z, vec3(0.0), vec3(1.0))), f4).xyz, vec3(clamp((CB0[13].x * length(VARYING4)) + CB0[13].y, 0.0, 1.0)));
-    _entryPointOutput = vec4(f7.x, f7.y, f7.z, f6.w);
+    vec3 f4 = (min(((f3.xyz * (f3.w * 120.0)).xyz + CB0[8].xyz) + (CB0[9].xyz * mix(texture(LightGridSkylightTexture, f1), vec4(1.0), f2).x), vec3(CB0[17].w)) + VARYING2) * (VARYING1.xyz * VARYING1.xyz);
+    vec4 f5 = vec4(f4.x, f4.y, f4.z, vec4(0.0).w);
+    f5.w = VARYING1.w;
+    vec3 f6 = mix(CB0[14].xyz, sqrt(clamp(f5.xyz * CB0[15].y, vec3(0.0), vec3(1.0))).xyz, vec3(clamp((CB0[13].x * length(VARYING4)) + CB0[13].y, 0.0, 1.0)));
+    _entryPointOutput = vec4(f6.x, f6.y, f6.z, f5.w);
 }
 
 //$$LightMapTexture=s6

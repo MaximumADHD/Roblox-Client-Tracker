@@ -10,6 +10,9 @@ local t = require(UIBloxRoot.Parent.t)
 local Images = require(UIBloxRoot.ImageSet.Images)
 local ImageSetComponent = require(UIBloxRoot.ImageSet.ImageSetComponent)
 
+local LOAD_FAILED_RETRY_COUNT = 3
+local RETRY_TIME_MULTIPLIER = 1.5
+
 local decal = Instance.new("Decal")
 local inf = math.huge
 local loadedImagesByUri = {}
@@ -21,7 +24,7 @@ local LoadingState = {
 }
 
 local function shouldLoadImage(image)
-	return image ~= nil and not loadedImagesByUri[image]
+	return image ~= nil and loadedImagesByUri[image] == nil
 end
 
 local validateProps = t.strictInterface({
@@ -208,26 +211,49 @@ function LoadableImage:_loadImage()
 			self:setState({
 				loadingState = LoadingState.Loaded
 			})
+		elseif loadedImagesByUri[image] == false then
+			self:setState({
+				loadingState = LoadingState.Failed
+			})
 		end
 		return
 	end
 
 	-- Synchronization/Batching work should be done in engine for performance improvements
 	-- related ticket: CLIPLAYEREX-1764
-	spawn(function()
-		local loadingFailed = false
-		decal.Texture = image
-		ContentProvider:PreloadAsync({decal}, function(contentId, assetFetchStatus)
-			if contentId == image and assetFetchStatus == Enum.AssetFetchStatus.Failure then
-				loadingFailed = true
-			end
-		end)
+	coroutine.wrap(function()
+		local retryCount = 0
+		local loadingFailed
 
-		if not loadingFailed then
-			loadedImagesByUri[image] = true
+		while loadedImagesByUri[image] == nil and retryCount <= LOAD_FAILED_RETRY_COUNT do
+			if retryCount > 0 then
+				wait(RETRY_TIME_MULTIPLIER * math.pow(2, retryCount - 1))
+			end
+
+			loadingFailed = false
+			decal.Texture = image
+
+			ContentProvider:PreloadAsync({decal}, function(contentId, assetFetchStatus)
+				if contentId == image and assetFetchStatus == Enum.AssetFetchStatus.Failure then
+					loadingFailed = true
+				end
+			end)
+
+			-- Image load succeeded, no retry required
+			if not loadingFailed then
+				break
+			end
+
+			retryCount = retryCount + 1
 		end
 
-		if self._isMounted then
+		if loadingFailed == nil then
+			loadingFailed = not loadedImagesByUri[image]
+		else
+			loadedImagesByUri[image] = not loadingFailed
+		end
+
+		if self._isMounted and self.props.Image == image then
 			self:setState({
 				loadingState = loadingFailed and LoadingState.Failed or LoadingState.Loaded,
 			})
@@ -236,7 +262,7 @@ function LoadableImage:_loadImage()
 				self.props.onLoaded()
 			end
 		end
-	end)
+	end)()
 end
 
 function LoadableImage._mockPreloadDone(image)
@@ -247,7 +273,7 @@ function LoadableImage.isLoaded(image)
 	if image == Roact.None or image == nil then
 		return false
 	else
-		return loadedImagesByUri[image] ~= nil
+		return loadedImagesByUri[image] == true
 	end
 end
 

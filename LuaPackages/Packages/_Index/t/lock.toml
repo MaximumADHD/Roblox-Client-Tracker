@@ -2,4 +2,4 @@
 name = "t"
 version = "1.0.0"
 source = "git+https://github.com/roblox/t#master"
-commit = "7441107353e8f6f13f8c4befb7f8895f91518a1d"
+commit = "00b91a76847572e32a365dff71ac606798f86609"

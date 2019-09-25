@@ -1,4 +1,4 @@
-local FFlagEnableRoactAnimationEditor = settings():GetFFlag("EnableRoactAnimationEditor")
+local FFlagEnableRoactAnimationEditor = settings():GetFFlag("EnableRoactAnimationEditor2")
 if FFlagEnableRoactAnimationEditor then
 	return
 end
@@ -18,7 +18,6 @@ local newR15IntermediateStateExists, newR15IntermediateStateValue = pcall(functi
 local anthroProportionsFlagExists, anthroProportionsFlagValue = pcall(function() return settings():GetFFlag("ImporterUseAnthroProportions") end)
 local useBaseUrlFlagExists, useBaseUrlFlagValue = pcall(function() return settings():GetFFlag("UseBaseUrlInPlugins") end)
 local useBaseUrl = useBaseUrlFlagExists and useBaseUrlFlagValue
-local StudioMoveWebAssetsToContent = settings():GetFFlag("StudioMoveWebAssetsToContent")
 
 local ANTHRO_PROPORTIONS_CLASSIC = "Classic"
 local ANTHRO_PROPORTIONS_SLENDER = "ProportionsSlender"
@@ -1188,7 +1187,7 @@ if fbxFlagExists and fbxFlagValue == true then
 	local button = toolbar:CreateButton(
 		"", -- The text next to the icon. Leave this blank if the icon is sufficient.
 		"Import FBX Rig", -- hover text
-		StudioMoveWebAssetsToContent and "rbxasset://textures/AnimationEditor/fbximportlogo.png" or "http://roblox.com/asset/?id=467691760" -- The icon file's name.
+		"rbxasset://textures/AnimationEditor/fbximportlogo.png" -- The icon file's name.
 	)
 
 	button.Click:connect(function()
@@ -1213,7 +1212,7 @@ if fbxFlagExists and fbxFlagValue == true then
 		local batchReprocessButton = toolbar:CreateButton(
 			"",
 			"Reprocess Selected Rigs",
-			StudioMoveWebAssetsToContent and "rbxasset://textures/AnimationEditor/fbximportlogo.png" or "http://roblox.com/asset/?id=467691760"
+			"rbxasset://textures/AnimationEditor/fbximportlogo.png"
 		)
 
 		batchReprocessButton.Click:connect(function()
@@ -1224,7 +1223,7 @@ if fbxFlagExists and fbxFlagValue == true then
 	local configureButton = toolbar:CreateButton(
 		"",
 		"Configure FBX rig",
-		StudioMoveWebAssetsToContent and "rbxasset://textures/AnimationEditor/fbximportlogo.png" or "http://roblox.com/asset/?id=467691760"
+		"rbxasset://textures/AnimationEditor/fbximportlogo.png"
 	)
 
 	configureButton.Click:connect(function()
@@ -1247,7 +1246,7 @@ if fbxFlagExists and fbxFlagValue == true then
 	local saveButton = toolbar:CreateButton(
 		"",
 		"Export Package",
-		StudioMoveWebAssetsToContent and "rbxasset://textures/AnimationEditor/fbximportlogo.png" or "http://roblox.com/asset/?id=467691760"
+		"rbxasset://textures/AnimationEditor/fbximportlogo.png"
 	)
 
 	saveButton.Click:connect(function()

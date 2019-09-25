@@ -3,13 +3,9 @@
 
 	Necessary Props:
 	TotalWidth number, will be used to decide how width component is.
-	OnTabSelect function, call back when a sideTab is clicked, the key will be returned.
-	ShowThumbnailImage, try to show a thumbnail image
-	ShowViewport, try to show the viewport
 
 	Optional Props:
 	LayoutOrder number, will be used by the layouter to change the position of the components.
-	AssetId int, will not show asset id label if nil passed in
 ]]
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -17,7 +13,6 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
 local AssetThumbnailPreview = require(Plugin.Src.Components.ConvertToPackageWindow.AssetThumbnailPreview)
-
 local Util = Plugin.Src.Util
 local LayoutOrderIterator = require(Util.LayoutOrderIterator)
 local withTheme = require(Plugin.Src.ContextServices.Theming).withTheme
@@ -30,12 +25,8 @@ function PreviewArea:render()
 
 		local TotalWidth = props.TotalWidth
 		local LayoutOrder = props.LayoutOrder
-		local showViewport = props.ShowViewport
-		local thunmbnailWidth = 150
-		local thunmbnailHeight = thunmbnailWidth
-
+		local thumbnailSize = 150
 		local previewAreaTheme = theme.previewArea
-
 		local orderIterator = LayoutOrderIterator.new()
 
 		return Roact.createElement("Frame", {
@@ -61,8 +52,8 @@ function PreviewArea:render()
 				SortOrder = Enum.SortOrder.LayoutOrder,
 				Padding = UDim.new(0, 20),
 			}),
-			AssetThumbnailPreview = showViewport and Roact.createElement(AssetThumbnailPreview, {
-				Size = UDim2.new(0, thunmbnailWidth, 0, thunmbnailHeight),
+			AssetThumbnailPreview = Roact.createElement(AssetThumbnailPreview, {
+				Size = UDim2.new(0, thumbnailSize, 0, thumbnailSize),
 				ShowTitle = false,
 
 				LayoutOrder = orderIterator:getNextOrder()

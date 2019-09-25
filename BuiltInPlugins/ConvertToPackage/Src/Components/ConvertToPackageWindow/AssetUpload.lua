@@ -41,13 +41,14 @@ local AssetUpload = Roact.PureComponent:extend("AssetUpload")
 
 function AssetUpload:init(props)
 	self.state = {
-		isLoading = true,
+		isLoading = true
 	}
 end
 
 function AssetUpload:render()
 	return withTheme(function(theme)
 		local props = self.props
+		local assetName = props.assetName
 		return Roact.createElement("Frame", {
 			BackgroundColor3 = theme.typeValidation.background,
 			BackgroundTransparency = 0,
@@ -57,6 +58,7 @@ function AssetUpload:render()
 			ModelPreview = Roact.createElement(AssetThumbnailPreview, {
 				titleHeight = PREVIEW_TITLE_HEIGHT,
 				titlePadding = PREVIEW_TITLE_PADDING,
+				title = assetName,
 				Position = UDim2.new(0.5, -PREVIEW_SIZE/2, 0, PREVIEW_PADDING),
 				Size = UDim2.new(
 					0, PREVIEW_SIZE,
@@ -82,6 +84,7 @@ local function mapStateToProps(state, props)
 	return {
 		uploadSucceeded = state.AssetConfigReducer.uploadSucceeded,
 		assetId = state.AssetConfigReducer.assetId,
+		assetName = state.AssetConfigReducer.assetName
 	}
 end
 

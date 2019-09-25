@@ -1,8 +1,9 @@
 local Cryo = require(script.Parent.Parent.Parent.Parent.Cryo)
 local StackViewInterpolator = require(script.Parent.StackViewInterpolator)
+local StackPresentationStyle = require(script.Parent.StackPresentationStyle)
 
 local DefaultTransitionSpec = {
-	frequency = 2, -- Hz
+	frequency = 3, -- Hz
 	dampingRatio = 1,
 }
 
@@ -16,20 +17,27 @@ local ModalSlideFromBottom = {
 	screenInterpolator = StackViewInterpolator.forVertical,
 }
 
-local function getDefaultTransitionConfig(transitionProps, prevTransitionProps, isModal)
-	if isModal then
+local FadeInPlace = {
+	transitionSpec = DefaultTransitionSpec,
+	screenInterpolator = StackViewInterpolator.forFade,
+}
+
+local function getDefaultTransitionConfig(transitionProps, prevTransitionProps, presentationStyle)
+	if presentationStyle == StackPresentationStyle.Modal then
 		return ModalSlideFromBottom
+	elseif presentationStyle == StackPresentationStyle.Overlay then
+		return FadeInPlace
 	else
 		return SlideFromRight
 	end
 end
 
-local function getTransitionConfig(transitionConfigurer, transitionProps, prevTransitionProps, isModal)
-	local defaultConfig = getDefaultTransitionConfig(transitionProps, prevTransitionProps, isModal)
+local function getTransitionConfig(transitionConfigurer, transitionProps, prevTransitionProps, presentationStyle)
+	local defaultConfig = getDefaultTransitionConfig(transitionProps, prevTransitionProps, presentationStyle)
 	if transitionConfigurer then
 		return Cryo.Dictionary.join(
 			defaultConfig,
-			transitionConfigurer(transitionProps, prevTransitionProps, isModal)
+			transitionConfigurer(transitionProps, prevTransitionProps, presentationStyle)
 		)
 	end
 
@@ -41,4 +49,5 @@ return {
 	getTransitionConfig = getTransitionConfig,
 	SlideFromRight = SlideFromRight,
 	ModalSlideFromBottom = ModalSlideFromBottom,
+	FadeInPlace = FadeInPlace,
 }

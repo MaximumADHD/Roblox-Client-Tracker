@@ -147,7 +147,7 @@ function ConfigCopy:render()
 						TextColor3 = publishAssetTheme.tipsTextColor,
 						TextXAlignment = Enum.TextXAlignment.Left,
 						TextYAlignment = Enum.TextYAlignment.Center,
-						TextSize = Constants.FONT_SIZE_MEDIUM,
+						TextSize = Constants.FONT_SIZE_LARGE,
 						Font = Constants.FONT,
 
 						LayoutOrder = 2,

@@ -11,6 +11,7 @@ local PluginTheme = require(Plugin.Src.Resources.PluginTheme)
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 local MockPlugin = require(Plugin.Src.TestHelpers.MockPlugin)
 local Localization = UILibrary.Studio.Localization
+local Mouse = require(Plugin.Src.ContextServices.Mouse)
 
 local MockServiceWrapper = Roact.Component:extend("MockServiceWrapper")
 
@@ -37,11 +38,17 @@ function MockServiceWrapper:render()
 		theme = PluginTheme.mock()
 	end
 
+	local mouse = self.props.mouse
+	if not mouse then
+		mouse = Roact.createElement(Mouse.provider, {mouse = mouse}, self.props[Roact.Children])
+	end
+
 	return Roact.createElement(ServiceWrapper, {
 		localization = localization,
 		plugin = pluginInstance,
 		store = store,
 		theme = theme,
+		mouse = mouse,
 	}, self.props[Roact.Children])
 end
 

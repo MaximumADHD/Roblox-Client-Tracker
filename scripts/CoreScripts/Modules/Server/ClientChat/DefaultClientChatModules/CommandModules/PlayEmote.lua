@@ -8,15 +8,6 @@ local Players = game:GetService("Players")
 local CommandModules = script.Parent
 local Util = require(CommandModules:WaitForChild("Util"))
 
-local FFlagPlayEmoteChatCommandEnabled = false do
-	local ok, value = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserPlayEmoteChatCommand")
-	end)
-	if ok then
-		FFlagPlayEmoteChatCommandEnabled = value
-	end
-end
-
 local FFlagPlayEmoteBySlotEnabled = false do
 	local ok, value = pcall(function()
 		return UserSettings():IsUserFeatureEnabled("UserPlayEmoteBySlotEnabled")
@@ -24,13 +15,6 @@ local FFlagPlayEmoteBySlotEnabled = false do
 	if ok then
 		FFlagPlayEmoteBySlotEnabled = value
 	end
-end
-
-if not FFlagPlayEmoteChatCommandEnabled then
-    return {
-        [Util.KEY_COMMAND_PROCESSOR_TYPE] = Util.COMPLETED_MESSAGE_PROCESSOR,
-        [Util.KEY_PROCESSOR_FUNCTION] = function() return false end,
-    }
 end
 
 local ChatLocalization = nil

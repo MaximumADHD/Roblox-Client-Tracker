@@ -16,8 +16,8 @@ return Action(script.Name, function(publishInfoArg)
 	
 	AssertType.assertType(id, "number", "SetPublishInfo.id")
 	AssertType.assertType(name, "string", "SetPublishInfo.name")
+	AssertType.assertType(parentGameName, "string", "SetPublishInfo.parentGameName")
 	AssertType.assertNullableType(parentGameId, "number", "SetPublishInfo.parentGameId")
-	AssertType.assertNullableType(parentGameName, "string", "SetPublishInfo.parentGameName")
 	AssertType.assertNullableType(settings, "table", "SetPublishInfo.settings { name : String, description : String, genre : String, playableDevices : table }")
 
 	if settings ~= nil then

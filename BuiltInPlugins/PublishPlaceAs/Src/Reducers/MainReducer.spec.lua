@@ -7,7 +7,8 @@ local EXPECTED_KEYS = {
     Screen = true,
     ExistingGame = true,
     NewGameSettings = true,
-    PublishedPlace = true,
+	PublishedPlace = true,
+	GroupsHavePermission = true,
 }
 ​
 local function createMainReducer()

@@ -28,6 +28,21 @@ return function()
 		end)
 	end)
 
+	describe("SetAssetName action", function()
+		local SetAssetName = require(Plugin.Src.Actions.SetAssetName)
+		local sampleName = "testName"
+		it("should set the current asset name", function()
+			local state = AssetConfigReducer(nil, {})
+			state = AssetConfigReducer(state, SetAssetName(sampleName))
+			expect(state.assetName).to.equal(sampleName)
+		end)
+
+		it("should preserve immutability", function()
+			local immutabilityPreserved = testImmutability(AssetConfigReducer, SetAssetName(sampleName))
+			expect(immutabilityPreserved).to.equal(true)
+		end)
+	end)
+
 	describe("SetAssetConfigData action", function()
 		local SetAssetConfigData = require(Plugin.Src.Actions.SetAssetConfigData)
 		local sampleData = {testData = "testData"}

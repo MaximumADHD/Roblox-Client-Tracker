@@ -48,6 +48,10 @@ local PageInstance = nil
 local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
 local FFlagUseNotificationsLocalization = success and result
 
+local FFlagDontSubmitBlankGameReports = game:DefineFastFlag("DontSubmitBlankGameReports", false)
+
+local MIN_GAME_REPORT_TEXT_LENGTH = 5
+
 ----------- CLASS DECLARATION --------------
 local function Initialize()
 	local settingsPageFactory = require(RobloxGui.Modules.Settings.SettingsPageFactory)
@@ -207,6 +211,25 @@ local function Initialize()
 			submitText.ZIndex = 1
 		end
 
+		local function updateSubmitButton()
+			if this.GameOrPlayerMode.CurrentIndex == 1 then -- 1 is Report Game
+				if this.AbuseDescription.Selection.Text ~= DEFAULT_ABUSE_DESC_TEXT then
+					if utf8.len(utf8.nfcnormalize(this.AbuseDescription.Selection.Text)) > MIN_GAME_REPORT_TEXT_LENGTH then
+						makeSubmitButtonActive()
+						return
+					end
+				end
+			else
+				if this.WhichPlayerMode:GetSelectedIndex() then
+					if this.TypeOfAbuseMode:GetSelectedIndex() then
+						makeSubmitButtonActive()
+						return
+					end
+				end
+			end
+			makeSubmitButtonInactive()
+		end
+
 		local function updateAbuseDropDown()
 			this.WhichPlayerMode:ResetSelectionIndex()
 			this.TypeOfAbuseMode:ResetSelectionIndex()
@@ -219,7 +242,12 @@ local function Initialize()
 
 				this.WhichPlayerMode:SetInteractable(false)
 				this.WhichPlayerLabel.ZIndex = 1
-				makeSubmitButtonActive()
+
+				if FFlagDontSubmitBlankGameReports then
+					updateSubmitButton()
+				else
+					makeSubmitButtonActive()
+				end
 			else
 				this.TypeOfAbuseMode:UpdateDropDownList(ABUSE_TYPES_PLAYER)
 				this.TypeOfAbuseMode:SetInteractable(#ABUSE_TYPES_PLAYER > 1)
@@ -232,7 +260,12 @@ local function Initialize()
 					this.WhichPlayerMode:SetInteractable(false)
 					this.WhichPlayerLabel.ZIndex = 1
 				end
-				makeSubmitButtonInactive()
+
+				if FFlagDontSubmitBlankGameReports then
+					updateSubmitButton()
+				else
+					makeSubmitButtonInactive()
+				end
 			end
 		end
 
@@ -296,14 +329,23 @@ local function Initialize()
 		submitButton.AnchorPoint = Vector2.new(0.5,0)
 		submitButton.Position = UDim2.new(0.5,0,1,5)
 
-		if this.GameOrPlayerMode.CurrentIndex == 1 then
-			makeSubmitButtonActive()
+		if FFlagDontSubmitBlankGameReports then
+			updateSubmitButton()
 		else
-			makeSubmitButtonInactive()
+			if this.GameOrPlayerMode.CurrentIndex == 1 then
+				makeSubmitButtonActive()
+			else
+				makeSubmitButtonInactive()
+			end
 		end
 		submitButton.Parent = this.AbuseDescription.Selection
 
 		local function playerSelectionChanged(newIndex)
+			if FFlagDontSubmitBlankGameReports then
+				updateSubmitButton()
+				return
+			end
+
 			if newIndex ~= nil and this.TypeOfAbuseMode:GetSelectedIndex() ~= nil then
 				makeSubmitButtonActive()
 			else
@@ -313,6 +355,11 @@ local function Initialize()
 		this.WhichPlayerMode.IndexChanged:connect(playerSelectionChanged)
 
 		local function typeOfAbuseChanged(newIndex)
+			if FFlagDontSubmitBlankGameReports then
+				updateSubmitButton()
+				return
+			end
+
 			if newIndex ~= nil then
 				if this.GameOrPlayerMode.CurrentIndex == 1 then -- 1 is Report Game
 					makeSubmitButtonActive()
@@ -330,6 +377,13 @@ local function Initialize()
 		this.TypeOfAbuseMode.IndexChanged:connect(typeOfAbuseChanged)
 
 		this.GameOrPlayerMode.IndexChanged:connect(updateAbuseDropDown)
+
+		local function abuseDescriptionChanged()
+			updateSubmitButton()
+		end
+		if FFlagDontSubmitBlankGameReports then
+			this.AbuseDescription.Selection:GetPropertyChangedSignal("Text"):connect(abuseDescriptionChanged)
+		end
 
 		this:AddRow(nil, nil, this.AbuseDescription)
 

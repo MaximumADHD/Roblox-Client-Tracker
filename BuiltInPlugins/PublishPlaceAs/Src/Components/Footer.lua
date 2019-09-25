@@ -83,7 +83,7 @@ local function Footer(props)
 					TextColor3 = theme.defaultButton.ButtonColor,
 					BackgroundTransparency = 1,
 					TextXAlignment = Enum.TextXAlignment.Left,
-					TextSize = 15,
+					TextSize = 20,
 					Font = theme.footer.textbutton.font,
 					Text = localization:getText("FooterButton", nextScreenText),
 

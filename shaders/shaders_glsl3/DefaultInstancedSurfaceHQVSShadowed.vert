@@ -17,7 +17,7 @@ struct Globals
     vec3 Lamp1Color;
     vec4 FogParams;
     vec4 FogColor_GlobalForceFieldTime;
-    vec4 Technology_Exposure;
+    vec3 Exposure;
     vec4 LightBorder;
     vec4 LightConfig0;
     vec4 LightConfig1;
@@ -95,23 +95,22 @@ void main()
     v18.y = dot(CB1[gl_InstanceID * 7 + 3].xyz, v1[v3]);
     vec4 v19 = vec4(0.0);
     v19.w = sign(TEXCOORD2.w - 0.5);
-    vec4 v20 = vec4(v7, v8, v9, 1.0);
-    vec4 v21 = v20 * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
-    vec4 v22 = vec4((TEXCOORD0.xy * v16) + CB1[gl_InstanceID * 7 + 6].xy, 0.0, 0.0);
-    vec4 v23 = vec4(TEXCOORD0.zw * v18, 0.0, 0.0);
-    float v24 = v21.w;
-    vec4 v25 = (vec4(10.0) * CB0[24].z) + vec4((0.5 * v24) * CB0[24].y);
-    vec4 v26 = vec4(dot(CB0[21], v20), dot(CB0[22], v20), dot(CB0[23], v20), 0.0);
-    v26.w = CB1[gl_InstanceID * 7 + 5].w * 0.0039215688593685626983642578125;
-    gl_Position = v21;
-    VARYING0 = vec4(v22.x, v22.y, v25.x, v25.y);
-    VARYING1 = vec4(v23.x, v23.y, v25.z, v25.w);
+    vec4 v20 = vec4(v7, v8, v9, 1.0) * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
+    vec4 v21 = vec4((TEXCOORD0.xy * v16) + CB1[gl_InstanceID * 7 + 6].xy, 0.0, 0.0);
+    vec4 v22 = vec4(TEXCOORD0.zw * v18, 0.0, 0.0);
+    float v23 = v20.w;
+    vec4 v24 = (vec4(10.0) * CB0[24].z) + vec4((0.5 * v23) * CB0[24].y);
+    vec4 v25 = vec4(v10 - (CB0[11].xyz * abs(CB1[gl_InstanceID * 7 + 3].w)), 0.0);
+    v25.w = CB1[gl_InstanceID * 7 + 5].w * 0.0039215688593685626983642578125;
+    gl_Position = v20;
+    VARYING0 = vec4(v21.x, v21.y, v24.x, v24.y);
+    VARYING1 = vec4(v22.x, v22.y, v24.z, v24.w);
     VARYING2 = CB1[gl_InstanceID * 7 + 4] * mix(COLOR0 * 0.0039215688593685626983642578125, vec4(1.0), vec4(float(CB1[gl_InstanceID * 7 + 3].w > 0.0)));
     VARYING3 = vec4(((v10 + (vec3(v11, v12, v13) * 6.0)).yxz * CB0[17].xyz) + CB0[18].xyz, 0.0);
-    VARYING4 = vec4(CB0[7].xyz - v10, v24);
+    VARYING4 = vec4(CB0[7].xyz - v10, v23);
     VARYING5 = vec4(v11, v12, v13, CB1[gl_InstanceID * 7 + 6].w);
     VARYING6 = vec4(v14.x, v14.y, v14.z, v19.w);
-    VARYING7 = v26;
+    VARYING7 = v25;
     VARYING8 = TEXCOORD2.w - 1.0;
 }
 

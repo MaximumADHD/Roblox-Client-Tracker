@@ -24,7 +24,6 @@ local TopbarConstants = require(CoreGuiService.RobloxGui.Modules.TopbarConstants
 local masterFrame = Instance.new("Frame")
 masterFrame.Name = "PerformanceStats"
 
-local FFlagStatUtilsUseFormatByKey = settings():GetFFlag('StatUtilsUseFormatByKey')
 local FFlagPerformanceProfilerAnalytics = settings():GetFFlag("PerformanceProfilerAnalytics")
 
 local statsAggregatorManager = StatsAggregatorManagerClass.getSingleton()
@@ -62,9 +61,7 @@ function ConfigureMasterFrame()
   masterFrame.Active = false
   masterFrame.ZIndex = 0
 
-  if FFlagStatUtilsUseFormatByKey then
-    HideMasterFrame()
-  end
+  HideMasterFrame()
 
   -- FIXME(dbanks)
   -- Debug, can see the whole frame.
@@ -167,20 +164,10 @@ function UpdatePerformanceStatsVisibility()
     return
   end
 
-  if FFlagStatUtilsUseFormatByKey then
-    if shouldBeVisible then
-      ShowMasterFrame()
-    else
-      HideMasterFrame()
-    end
+  if shouldBeVisible then
+    ShowMasterFrame()
   else
-    if shouldBeVisible then
-      masterFrame.Visible = true
-      masterFrame.Parent = CoreGuiService.RobloxGui
-    else
-      masterFrame.Visible = false
-      masterFrame.Parent = nil
-    end
+    HideMasterFrame()
   end
 
   -- Let the children respond to the transition that they are/are not visible.

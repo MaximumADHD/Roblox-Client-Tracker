@@ -7,9 +7,11 @@ local Colors = require(InspectAndBuyFolder.Colors)
 local PromptPurchase = require(InspectAndBuyFolder.Thunks.PromptPurchase)
 local getSelectionImageObjectRounded = require(InspectAndBuyFolder.getSelectionImageObjectRounded)
 
+local FFlagEnableRobuxHexIcon = settings():GetFFlag("EnableRobuxHexIconV2")
+
 local TEXT_SIZE = 16
 local MIN_SIZE = 32
-local ROBUX_ICON_SIZE = 18
+local ROBUX_ICON_SIZE = FFlagEnableRobuxHexIcon and 16 or 18
 local BUTTON_PADDING = 10
 local ROBLOX_CREATOR_ID = "1"
 
@@ -64,7 +66,9 @@ function BuyButton:render()
 		RobuxIcon = Roact.createElement("ImageLabel", {
 			BackgroundTransparency = 1,
 			Size = UDim2.new(0, ROBUX_ICON_SIZE, 0, ROBUX_ICON_SIZE),
-			Image = "rbxasset://textures/ui/InspectMenu/ico_robux.png",
+			Image = FFlagEnableRobuxHexIcon
+				and "rbxasset://textures/ui/common/robux_small.png"
+				or "rbxasset://textures/ui/InspectMenu/ico_robux.png",
 			ImageTransparency = transparencyOverride,
 			ImageColor3 = Colors.White,
 			LayoutOrder = 1,

@@ -27,7 +27,10 @@ local tileInterface = t.strictInterface({
 	onActivated = t.optional(t.callback),
 
 	-- The item's thumbnail that will show a loading state if nil
-	thumbnail = t.optional(t.string),
+	thumbnail = t.optional(t.union(t.string, t.table)),
+
+	-- The item thumbnail's size if not UDm2.new(1, 0, 1, 0)
+	thumbnailSize = t.optional(t.UDim2),
 
 	-- Optional text to display in the Item Tile banner in place of the footer
 	bannerText = t.optional(t.string),
@@ -95,6 +98,7 @@ function Tile:render()
 	local innerPadding = self.props.innerPadding
 	local onActivated = self.props.onActivated
 	local thumbnail = self.props.thumbnail
+	local thumbnailSize = self.props.thumbnailSize
 	local bannerText = self.props.bannerText
 	local hasRoundedCorners = self.props.hasRoundedCorners
 	local isSelected = self.props.isSelected
@@ -131,6 +135,7 @@ function Tile:render()
 					hasRoundedCorners = hasRoundedCorners,
 					isSelected = isSelected,
 					overlayComponents = thumbnailOverlayComponents,
+					imageSize = thumbnailSize,
 				}),
 			}),
 			Name = Roact.createElement(TileName, {

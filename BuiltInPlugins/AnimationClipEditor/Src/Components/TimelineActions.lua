@@ -125,8 +125,8 @@ function TimelineActions:makeMenuActions()
 		table.insert(actions, pluginActions.ChangeDuration)
 		-- EasingStyle and EasingDirection customization
 		table.insert(actions, Constants.MENU_SEPARATOR)
-		table.insert(actions, self:makeSelectionSubMenu("PoseEasingStyle", "EasingStyle"))
-		table.insert(actions, self:makeSelectionSubMenu("PoseEasingDirection", "EasingDirection"))
+		table.insert(actions, self:makeSelectionSubMenu("PoseEasingStyle", "Easing Style"))
+		table.insert(actions, self:makeSelectionSubMenu("PoseEasingDirection", "Easing Direction"))
 	else
 		table.insert(actions, pluginActions.AddResetKeyframe)
 	end

@@ -1,6 +1,6 @@
 
-local CorePackages = game:GetService("CorePackages")
-local LineScanner = require(CorePackages.CodeCoverage.LineScanner)
+local CodeCoverage = script.Parent
+local LineScanner = require(CodeCoverage.LineScanner)
 
 return function(fileLinesArray)
     local scanner = LineScanner:new()

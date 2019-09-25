@@ -3,7 +3,7 @@ return function()
 	local Roact = require(Plugin.Packages.Roact)
 	local MockServiceWrapper = require(Plugin.Src.TestHelpers.MockServiceWrapper)
 
-	local ScreenCreateNewGame = require(Plugin.Src.Components.ScreenPublishSuccessful)
+	local ScreenPublishSuccessful = require(Plugin.Src.Components.ScreenPublishSuccessful)
 
 	it("should create and destroy without errors", function()
 		local mockServiceWrapper = Roact.createElement(MockServiceWrapper, {}, {

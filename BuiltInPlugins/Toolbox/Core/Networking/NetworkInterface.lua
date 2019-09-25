@@ -19,6 +19,8 @@ local Category = require(Plugin.Core.Types.Category)
 local NetworkInterface = {}
 NetworkInterface.__index = NetworkInterface
 
+local FFlagUseCreationToFetchMyOverrideData2 = game:GetFastFlag("UseCreationToFetchMyOverrideData2")
+
 function NetworkInterface:new()
 	local networkImp = {
 		_networkImp = Networking.new()
@@ -91,11 +93,26 @@ function NetworkInterface:getOverrideModels(category, numPerPage, page, sort, gr
 	end)
 end
 
-function NetworkInterface:getAssetCreations(pageInfo, cursor)
-	local assetType = PageInfoHelper.getEngineAssetTypeForPageInfoCategory(pageInfo)
-	local assetTypeName = assetType and assetType.Name or ""
+-- assetTypeOverride, used to override the assetType for requesting data. So, we don't need to deal with
+-- categories and index.
+-- excludePackags, bool, defualt to false, use to filter out packages from the data(Models).
+function NetworkInterface:getAssetCreations(pageInfo, cursor, assetTypeOverride, excludePackags)
+	local assetTypeName = assetTypeOverride
+	if pageInfo then
+		if game:GetFastFlag("CMSAdditionalAccessoryTypesV2") then
+			assetTypeName = PageInfoHelper.getBackendNameForPageInfoCategory(pageInfo)
+		else
+			local assetType = PageInfoHelper.getEngineAssetTypeForPageInfoCategory(pageInfo)
+			assetTypeName = assetType and assetType.Name or ""
+		end
+	end
 
-	local targetUrl = Urls.constructGetAssetCreationsUrl(assetTypeName, Constants.GET_ASSET_CREATIONS_PAGE_SIZE_LIMIT, cursor)
+	local isPackageExcluded = false
+	if FFlagUseCreationToFetchMyOverrideData2 then
+		isPackageExcluded = excludePackags
+	end
+
+	local targetUrl = Urls.constructGetAssetCreationsUrl(assetTypeName, Constants.GET_ASSET_CREATIONS_PAGE_SIZE_LIMIT, cursor, isPackageExcluded)
 
 	return sendRequestAndRetry(function()
 		printUrl("getAssetCreations", "GET", targetUrl)

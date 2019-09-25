@@ -40,7 +40,7 @@ end
 local initial = {
 	current = {},
 	changed = {
-		name = "Untitled Place",
+		name = "Untitled Game",
 		description = "",
 		genre = Constants.GENRE_IDS[1],
 		playableDevices = {Computer = true},

@@ -11,6 +11,7 @@ game:DefineFastInt("DebugStudioDraftsWidgetTestCase", 0)
 
 local MockDraftsService = require(Plugin.Src.TestHelpers.MockDraftsService)
 local DraftsService = game:GetService("DraftsService")
+local RunService = game:GetService("RunService")
 local StudioService = game:GetService("StudioService")
 
 -- libraries
@@ -105,6 +106,9 @@ end
 -- the first draft is checked out. We only do this once so the widget doesn't keep
 -- opening if the user explicitly closes it
 local function setWidgetInitialState(drafts)
+	-- Widget isn't enabled outside of Edit, so don't automatically open it
+	if not RunService:IsEdit() then return end
+
 	local initiallyHasDrafts = #drafts > 0
 	if initiallyHasDrafts then
 		pluginGui.Enabled = true
@@ -155,7 +159,7 @@ local function connectToDraftsService()
 
 	spawn(function()
 		local success, drafts = pcall(function() return draftsService:GetDrafts() end)
-		roduxStore:dispatch(DraftsServiceLoaded(success))
+		roduxStore:dispatch(DraftsServiceLoaded(success, drafts))
 
 		if not success then return end
 

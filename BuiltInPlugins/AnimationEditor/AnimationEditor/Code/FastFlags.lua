@@ -137,7 +137,7 @@ function FastFlags:isPlayPauseSpaceHotkeyEnabled()
 end
 
 function FastFlags:isEnableRoactAnimationEditorOn()
-	return isFlagOn("EnableRoactAnimationEditor")
+	return isFlagOn("EnableRoactAnimationEditor2")
 end
 
 return FastFlags

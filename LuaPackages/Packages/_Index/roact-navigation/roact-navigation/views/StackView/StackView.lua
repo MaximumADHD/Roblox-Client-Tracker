@@ -74,7 +74,7 @@ function StackView:_configureTransition(transitionProps, prevTransitionProps)
 		self.props.navigationConfig.transitionConfig,
 		transitionProps,
 		prevTransitionProps,
-		self.props.navigationConfig.mode == StackPresentationStyle.Modal
+		self.props.navigationConfig.mode
 	).transitionSpec
 end
 

@@ -14,7 +14,7 @@ struct Globals
     vec3 Lamp1Color;
     vec4 FogParams;
     vec4 FogColor_GlobalForceFieldTime;
-    vec4 Technology_Exposure;
+    vec3 Exposure;
     vec4 LightBorder;
     vec4 LightConfig0;
     vec4 LightConfig1;
@@ -50,10 +50,8 @@ void main()
 {
     vec4 f0 = texture(DiffuseMapTexture, VARYING0) * VARYING1;
     vec3 f1 = f0.xyz;
-    vec3 f2 = vec3(CB0[15].x);
-    vec3 f3 = mix(f1, f1 * f1, f2).xyz;
-    float f4 = f0.w;
-    _entryPointOutput = vec4(mix(f3, sqrt(clamp(f3 * CB0[15].z, vec3(0.0), vec3(1.0))), f2).xyz * f4, f4);
+    float f2 = f0.w;
+    _entryPointOutput = vec4(sqrt(clamp((f1 * f1).xyz * CB0[15].y, vec3(0.0), vec3(1.0))).xyz * f2, f2);
 }
 
 //$$DiffuseMapTexture=s0

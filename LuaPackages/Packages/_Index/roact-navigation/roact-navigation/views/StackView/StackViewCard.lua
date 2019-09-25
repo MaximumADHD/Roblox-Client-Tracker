@@ -11,6 +11,7 @@ local validate = require(script.Parent.Parent.Parent.utils.validate)
 
 	Props:
 		renderScene(scene)	-- Render prop to draw the scene inside the card.
+		initialPosition		-- Starting position for the card. (Animated by Otter from there).
 		positionStep 		-- Stepper function from StackViewInterpolator.
 		position			-- Otter motor for the position of the card.
 		scene				-- Scene that the card is to render.

@@ -23,15 +23,6 @@ if not ChatLocalization.FormatMessageToSend or not ChatLocalization.LocalizeForm
 	function ChatLocalization:FormatMessageToSend(key,default) return default end
 end
 
-local FFlagPlayEmoteChatCommandEnabled = false do
-	local ok, value = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserPlayEmoteChatCommand")
-	end)
-	if ok then
-		FFlagPlayEmoteChatCommandEnabled = value
-	end
-end
-
 local useEvents = {}
 
 local EventFolder = EventFolderParent:FindFirstChild(EventFolderName)
@@ -334,20 +325,12 @@ ChatService:RegisterProcessCommandsFunction("default_commands", function(fromSpe
 	elseif (string.sub(message, 1, 3):lower() == "/j ") then
 		DoJoinCommand(fromSpeaker, string.sub(message, 4), channel)
 		return true
-
 	elseif (string.sub(message, 1, 7):lower() == "/leave ") then
 		DoLeaveCommand(fromSpeaker, string.sub(message, 8), channel)
 		return true
 	elseif (string.sub(message, 1, 3):lower() == "/l ") then
 		DoLeaveCommand(fromSpeaker, string.sub(message, 4), channel)
 		return true
-
-	elseif (string.sub(message, 1, 3) == "/e " or string.sub(message, 1, 7) == "/emote ") then
-		if not FFlagPlayEmoteChatCommandEnabled then
-			-- Just don't show these in the chatlog. The animation script listens on these.
-			return true
-		end
-
 	end
 
 	return false

@@ -5,6 +5,7 @@ return function()
 	local Notifications = require(script.Parent.Notifications)
 
 	local SetNotification = require(Plugin.Src.Actions.SetNotification)
+	local GetFFlagEnforceMaxAnimLength = require(Plugin.LuaFlags.GetFFlagEnforceMaxAnimLength)
 
 	local function createTestStore()
 		local middlewares = {Rodux.thunkMiddleware}
@@ -19,6 +20,9 @@ return function()
 		expect(state.QuantizeWarning).to.be.ok()
 		expect(state.Saved).to.be.ok()
 		expect(state.Loaded).to.be.ok()
+		if GetFFlagEnforceMaxAnimLength() then
+			expect(state.ClippedWarning).to.be.ok()
+		end
 	end)
 
 	describe("SetNotification", function()

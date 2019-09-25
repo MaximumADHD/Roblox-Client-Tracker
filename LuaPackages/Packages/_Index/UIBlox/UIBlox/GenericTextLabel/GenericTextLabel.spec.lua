@@ -14,8 +14,37 @@ return function()
 			provider = Roact.createElement(GenericTextLabel, {
 				Text = "Test text",
 				Size = UDim2.new(0, 100, 0, 50),
-				color = TestStyle.Theme.SystemPrimaryDefault,
-				font = TestStyle.Font.Title,
+				colorStyle = TestStyle.Theme.SystemPrimaryDefault,
+				fontStyle = TestStyle.Font.Title,
+				fluidSizing = true,
+			})
+		})
+
+		local instance = Roact.mount(element)
+		Roact.unmount(instance)
+	end)
+
+	it("should create and be able to auto size itself if not size is given", function()
+		local element = mockStyleComponent({
+			provider = Roact.createElement(GenericTextLabel, {
+				Text = "Test text",
+				colorStyle = TestStyle.Theme.SystemPrimaryDefault,
+				fontStyle = TestStyle.Font.Title,
+				fluidSizing = true,
+			})
+		})
+
+		local instance = Roact.mount(element)
+		Roact.unmount(instance)
+	end)
+
+	it("should create and be able to respect the max size", function()
+		local element = mockStyleComponent({
+			provider = Roact.createElement(GenericTextLabel, {
+				Text = "Test text",
+				maxSize = Vector2.new(200, 40),
+				colorStyle = TestStyle.Theme.SystemPrimaryDefault,
+				fontStyle = TestStyle.Font.Title,
 				fluidSizing = true,
 			})
 		})
@@ -27,11 +56,11 @@ return function()
 	it("should accept all properties of the TextLabel instance", function()
 		local element = mockStyleComponent({
 			provider = Roact.createElement(GenericTextLabel, {
-				Text = "Test text2",
+				Text = "Test text",
 				Size = UDim2.new(0, 100, 0, 50),
 				Position = UDim2.new(.5, 0, .5, 0),
-				color = TestStyle.Theme.SystemPrimaryDefault,
-				font = TestStyle.Font.Header1,
+				colorStyle = TestStyle.Theme.SystemPrimaryDefault,
+				fontStyle = TestStyle.Font.Header1,
 				TextYAlignment = Enum.TextYAlignment.Bottom,
 			})
 		})

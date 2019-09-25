@@ -59,7 +59,7 @@ local withLocalization = ContextHelper.withLocalization
 
 local AssetConfig = Roact.PureComponent:extend("AssetConfig")
 
-local FOOTER_HEIGHT = 80
+local FOOTER_HEIGHT = 62
 local PREVIEW_WIDTH = 240
 local DEFAULT_GENRE = "All"
 

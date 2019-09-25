@@ -16,8 +16,6 @@ local Symbol = require(Library.Utils.Symbol)
 
 local localizationKey = Symbol.named("Localization")
 
-local FixLocalizationOnlyUpdatingOnInit = game:DefineFastFlag("FixLocalizationOnlyUpdatingOnInit", false)
-
 --[[
 	Inserted near the top of the Roact tree, this stores the localization object into _context
 
@@ -52,9 +50,6 @@ function LocalizationConsumer:init()
 	assert(type(self.props.localizedRender) == "function", "LocalizationConsumer expected to be created with withLocale()")
 	assert(self._context[localizationKey] ~= nil, "LocalizationConsumer expects a LocalizationProvider in the Roact tree")
 
-	if not FixLocalizationOnlyUpdatingOnInit then
-		self.localizedRender = self.props.localizedRender
-	end
 	self.localization = self._context[localizationKey]
 	self.state = {
 		-- keep a simple string of the table reference so we have something to call setstate on later
@@ -70,12 +65,7 @@ function LocalizationConsumer:init()
 end
 
 function LocalizationConsumer:render()
-	if FixLocalizationOnlyUpdatingOnInit then
-		return self.props.localizedRender(self.localization)
-	else
-		return self.localizedRender(self.localization)
-	end
-	
+	return self.props.localizedRender(self.localization)
 end
 
 function LocalizationConsumer:willUnmount()

@@ -26,7 +26,7 @@ local withTheme = ContextHelper.withTheme
 
 local Components = Plugin.Core.Components
 local AssetThumbnailPreview = require(Components.AssetConfiguration.AssetThumbnailPreview)
-local NavButton = require(Components.AssetConfiguration.NavButton)
+local NavButton = require(Components.NavButton)
 
 local TITLE_WIDTH = 400
 local TITLE_HEIGHT = 36
@@ -40,7 +40,7 @@ local PREVIEW_SIZE = 150
 local PREVIEW_TITLE_PADDING = 12
 local PREVIEW_TITLE_HEIGHT = 24
 
-local FOOTER_HEIGHT = 80
+local FOOTER_HEIGHT = 62
 
 local BUTTON_WIDTH = 120
 local BUTTON_HEIGHT = 32

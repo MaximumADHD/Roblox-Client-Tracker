@@ -123,17 +123,10 @@ function configureAnimationSet(name, fileList)
 	animTable[name].connections = {}
 
 	local allowCustomAnimations = true
-	local AllowDisableCustomAnimsUserFlag = false
 
-	local success, msg = pcall(function()
-		AllowDisableCustomAnimsUserFlag = UserSettings():IsUserFeatureEnabled("UserAllowDisableCustomAnims2")
-	end)
-
-	if (AllowDisableCustomAnimsUserFlag) then
-		local success, msg = pcall(function() allowCustomAnimations = game:GetService("StarterPlayer").AllowCustomAnimations end)
-		if not success then
-			allowCustomAnimations = true
-		end
+	local success, msg = pcall(function() allowCustomAnimations = game:GetService("StarterPlayer").AllowCustomAnimations end)
+	if not success then
+		allowCustomAnimations = true
 	end
 
 	-- check for config values
@@ -210,17 +203,10 @@ function configureAnimationSetOld(name, fileList)
 	animTable[name].connections = {}
 
 	local allowCustomAnimations = true
-	local AllowDisableCustomAnimsUserFlag = false
 
-	local success, msg = pcall(function()
-		AllowDisableCustomAnimsUserFlag = UserSettings():IsUserFeatureEnabled("UserAllowDisableCustomAnims2")
-	end)
-
-	if (AllowDisableCustomAnimsUserFlag) then
-		local success, msg = pcall(function() allowCustomAnimations = game:GetService("StarterPlayer").AllowCustomAnimations end)
-		if not success then
-			allowCustomAnimations = true
-		end
+	local success, msg = pcall(function() allowCustomAnimations = game:GetService("StarterPlayer").AllowCustomAnimations end)
+	if not success then
+		allowCustomAnimations = true
 	end
 
 	-- check for config values

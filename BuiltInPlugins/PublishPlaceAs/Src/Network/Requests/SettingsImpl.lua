@@ -20,7 +20,7 @@ local RootPlaceInfo = require(Plugin.Src.Network.Requests.RootPlaceInfo)
 	Used to save the chosen state of all game settings by saving to web
 	endpoints or setting properties in the datamodel.
 ]]
-local function saveAll(state)
+local function saveAll(state, localization)
 	local configuration = {}
 	local rootPlaceInfo = {}
 
@@ -37,24 +37,25 @@ local function saveAll(state)
 	StudioService:publishAs(0, 0)
 
 	spawn(function()
-		StudioService.GamePublishedToRoblox:wait()
-		local setRequests = {
-			Configuration.Set(game.GameId, configuration),
-			RootPlaceInfo.Set(game.GameId, rootPlaceInfo),
-		}
-		Promise.all(setRequests):andThen(function()
-			StudioService:SetUniverseDisplayName(configuration.name)
-			StudioService:EmitPlacePublishedSignal()
-		end):catch(function(err)
-			warn("PublishPlaceAs: Could not publish configuration settings.")
-			warn(tostring(err))
-			StudioService:EmitPlacePublishedSignal()
-		end)
+		-- Failure handled in ScreenCreateNewGame
+		local success = StudioService.GamePublishFinished:wait()
+		if success then
+			local setRequests = {
+				Configuration.Set(game.GameId, configuration),
+				RootPlaceInfo.Set(game.GameId, rootPlaceInfo),
+			}
+			Promise.all(setRequests):andThen(function()
+				StudioService:SetUniverseDisplayName(configuration.name)
+				StudioService:EmitPlacePublishedSignal()
+			end):catch(function(err)
+				warn(localization:getText("PublishFail", "FailConfiguration"))
+				warn(tostring(err))
+			end)
+		end
 	end)
 
 end
 
 return {
 	saveAll = saveAll,
-	getCreatedGame = getCreatedGame,
 }

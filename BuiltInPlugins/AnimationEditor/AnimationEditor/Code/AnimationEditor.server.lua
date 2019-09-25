@@ -30,7 +30,7 @@ if not FastFlags:isEnableRigSwitchingOn() then
 	button = toolbar:CreateButton(
 		displayName,
 		"Create, preview and publish animations for character rigs", -- The text next to the icon. Leave Othis blank if the icon is sufficient.
-		settings():GetFFlag("StudioMoveWebAssetsToContent") and "rbxasset://textures/AnimationEditor/animation_editor_32x32.png" or "http://www.roblox.com/asset/?id=620849296" -- The icon file's name
+		"rbxasset://textures/AnimationEditor/animation_editor_32x32.png" -- The icon file's name
 	)
 end
 

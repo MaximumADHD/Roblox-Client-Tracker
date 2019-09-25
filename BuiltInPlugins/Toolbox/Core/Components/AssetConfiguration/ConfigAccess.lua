@@ -123,7 +123,7 @@ function ConfigAccess:render()
 					visibleDropDownCount = 5,
 					selectedDropDownIndex = ownerIndex,
 
-					fontSize = Constants.FONT_SIZE_MEDIUM,
+					fontSize = Constants.FONT_SIZE_LARGE,
 					items = self.dropdownContent,
 					onItemClicked = onDropDownSelect,
 
@@ -140,7 +140,7 @@ function ConfigAccess:render()
 					Font = Constants.FONT,
 					TextXAlignment = Enum.TextXAlignment.Left,
 					TextYAlignment = Enum.TextYAlignment.Center,
-					TextSize = Constants.FONT_SIZE_SMALL,
+					TextSize = Constants.FONT_SIZE_LARGE,
 					TextColor3 = publishAssetTheme.titleTextColor,
 
 					LayoutOrder = 2,

@@ -91,7 +91,7 @@ function GridView:render()
 				Position = UDim2.new(0, x, 0, y),
 				Size = UDim2.new(0, itemSize.X, 0, itemSize.Y),
 			}, {
-				Content = self.props.renderItem(items[itemIndex])
+				Content = self.props.renderItem(items[itemIndex], itemIndex)
 			})
 
 			x = math.floor(x + itemSize.X + itemPadding.X)

@@ -21,6 +21,7 @@ return {
 		Label = require(script.ImageSet.ImageSetComponent).Label,
 	},
 	Tile = {
+		SaveTile = require(script.Tile.SaveTile.SaveTile),
 		ItemTile = require(script.Tile.ItemTile.ItemTile),
 		ItemTileEnums = require(script.Tile.ItemTile.ItemTileEnums),
 	},
@@ -33,6 +34,9 @@ return {
 		ShimmerPanel = require(script.Loading.ShimmerPanel),
 	},
 	ModalBottomSheet = require(script.ModalBottomSheet.ModalBottomSheet),
+	Toast = {
+		SlideFromTopToast = require(script.Toast.SlideFromTopToast),
+	},
 	Utility = {
 		ExternalEventConnection = require(script.Utility.ExternalEventConnection),
 		SpringAnimatedItem = require(script.Utility.SpringAnimatedItem),

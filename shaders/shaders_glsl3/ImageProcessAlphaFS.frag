@@ -22,7 +22,8 @@ void main()
 {
     vec4 f0 = texture(Texture0Texture, VARYING0);
     vec3 f1 = f0.xyz;
-    _entryPointOutput = vec4(dot(f1, CB1[1].xyz) + CB1[1].w, dot(f1, CB1[2].xyz) + CB1[2].w, dot(f1, CB1[3].xyz) + CB1[3].w, f0.w);
+    vec3 f2 = ((f1 * f1) * 4.0).xyz;
+    _entryPointOutput = vec4(dot(f2, CB1[1].xyz) + CB1[1].w, dot(f2, CB1[2].xyz) + CB1[2].w, dot(f2, CB1[3].xyz) + CB1[3].w, f0.w);
 }
 
 //$$Texture0Texture=s0

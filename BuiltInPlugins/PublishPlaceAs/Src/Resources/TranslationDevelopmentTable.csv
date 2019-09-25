@@ -17,6 +17,7 @@ Studio.PublishPlaceAs.FooterButton.CreateNewGame, , ,Create new game...
 Studio.PublishPlaceAs.FooterButton.Create, , ,Create
 Studio.PublishPlaceAs.FooterButton.Overwrite, , ,Overwrite
 Studio.PublishPlaceAs.FooterButton.Cancel, , ,Cancel
+Studio.PublishPlaceAs.GroupDropdown.MyGames, , ,My Games
 Studio.PublishPlaceAs.MenuItem.BasicInfo, , ,Basic Info
 Studio.PublishPlaceAs.Devices.Header, , ,Devices
 Studio.PublishPlaceAs.Devices.Computer, , ,Computer
@@ -43,12 +44,14 @@ Studio.PublishPlaceAs.Genre.Sports, , ,Sports
 Studio.PublishPlaceAs.Genre.TownAndCity, , ,Town and City
 Studio.PublishPlaceAs.Genre.WildWest, , ,Western
 Studio.PublishPlaceAs.Error.NameEmpty, , ,Name cannot be empty.
-Studio.PublishPlaceAs.Error.NameTooLong, , ,Name cannot be that long
+Studio.PublishPlaceAs.Error.NameTooLong, ,Substituted with current name length and max name length,{1}/{2}
 Studio.PublishPlaceAs.Error.NameModerated, , ,The name didn't go through our moderation. Please revise it and try again.
 Studio.PublishPlaceAs.Error.DescriptionModerated, , ,The description didn't go through our moderation. Please revise it and try again.
-Studio.PublishPlaceAs.Error.DescriptionTooLong, , ,Description cannot be that long.
+Studio.PublishPlaceAs.Error.DescriptionTooLong, ,Substituted with current description length and max description length,{1}/{2}
 Studio.PublishPlaceAs.Error.NoDevices, , ,You must select at least one playable device.
 Studio.PublishPlaceAs.ScreenHeader.ChooseGame, , ,Choose an existing game to add this place
 Studio.PublishPlaceAs.ScreenHeader.ChoosePlace, ,Substituted with game name to tell user where their place will be added,Overwrite or add a new place to {1}
 Studio.PublishPlaceAs.PublishSuccess.Success, , ,Successfully published!
 Studio.PublishPlaceAs.PublishSuccess.FindInGame, ,Substituted with game name to tell user where their place has been published to,You may find this place in {1}
+Studio.PublishPlaceAs.PublishFail.Fail, , ,Publish failed
+Studio.PubilshPlaceAs.PublishFail.FailConfiguration, , ,Could not publish configuration settings.

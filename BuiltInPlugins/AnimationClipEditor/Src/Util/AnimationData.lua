@@ -313,4 +313,62 @@ function AnimationData.isQuantized(data)
 	end
 end
 
+-- removes all keyframes that exist past the maximum animation
+-- time allowed, returns true if keyframes were removed.
+function AnimationData.removeExtraKeyframes(data)
+	local removed = false
+
+	if data and data.Instances and data.Metadata then
+		local maxLength = AnimationData.getMaximumLength(data.Metadata.FrameRate)
+
+		-- first pass: remove keyframes
+		local keysToRemove = {}
+
+		-- get range of keyframe indices past max frame limit
+		for instanceName, instance in pairs(data.Instances) do
+			keysToRemove[instanceName] = {}
+			for trackName, track in pairs(instance.Tracks) do
+				local minIndex = KeyframeUtils.findNearestKeyframes(track.Keyframes, maxLength)
+				keysToRemove[instanceName][trackName] = {
+					Start = minIndex,
+					End = #track.Keyframes,
+				}
+			end
+		end
+
+		-- remove each keyframe in range
+		for instance, tracks in pairs(keysToRemove) do
+			for track, range in pairs(tracks) do
+				for i = range.End, range.Start, -1 do
+					local keyframes = data.Instances[instance].Tracks[track].Keyframes
+					local kfData = data.Instances[instance].Tracks[track].Data
+					local frame = keyframes[i]
+					if frame > maxLength then
+						removed = true
+						kfData[frame] = nil
+						table.remove(keyframes, i)
+					end
+				end
+			end
+		end
+
+		-- second pass: remove events
+		if data.Events and data.Events.Keyframes then
+			local eventsToRemove = {}
+			for _, frame in ipairs(data.Events.Keyframes) do
+				if frame > maxLength then
+					removed = true
+					table.insert(eventsToRemove, frame)
+				end
+			end
+
+			for _, frame in ipairs(eventsToRemove) do
+				AnimationData.deleteEvents(data.Events, frame)
+			end
+		end
+	end
+
+	return removed
+end
+
 return AnimationData

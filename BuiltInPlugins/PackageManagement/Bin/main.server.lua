@@ -2,11 +2,12 @@ if not plugin then
 	return
 end
 
-local FFlagStudioAddPackagePermissions = settings():GetFFlag("StudioAddPackagePermissions")
+local FFlagStudioPackageMangementLuaPlugin = game:DefineFastFlag("StudioPackageMangementLuaPlugin", false)
 
-if not FFlagStudioAddPackagePermissions then
+if not FFlagStudioPackageMangementLuaPlugin then
 	return
 end
+
 -- libraries
 local Plugin = script.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -17,6 +18,7 @@ local StudioService = game:GetService("StudioService")
 
 -- components
 local ServiceWrapper = require(Plugin.Src.Components.ServiceWrapper)
+local MainView = require(Plugin.Src.Components.MainView)
 
 -- data
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
@@ -38,6 +40,15 @@ local localization = Localization.new({
 	pluginName = "PackageManagement",
 })
 
+-- In case more menu items are going to be added to the
+--[[ 
+	FIXME(mwang) Move MenuTitles and MenuEntries into MainView
+	because MainView and it's sub-components are the only ones that need to know about it.
+]]
+local menuTitles = {
+	localization:getText("MenuEntry", "Permissions"),
+}
+
 -- Widget Gui Elements
 local pluginHandle
 local pluginGui
@@ -53,15 +64,24 @@ local function setMainWidgetInteractable(interactable)
 end
 
 local function createServiceWrapper()
- return Roact.createElement(ServiceWrapper, {
+	-- Populate the side menu
+	local menuEntries = {}
+	for i, title in ipairs(menuTitles) do
+		menuEntries[i] = { 
+			Name = title,
+		}
+	end
+
+ 	return Roact.createElement(ServiceWrapper, {
 		plugin = plugin,
+		pluginGui = pluginGUi,
 		localization = localization,
 		theme = theme,
 		store = dataStore,
+		mouse = plugin:GetMouse(),
 	}, {
-		MainView = Roact.createElement("Frame", {
-			Size = UDim2.new(1, 0, 1, 0),
-			BackgroundColor3 = Color3.new(1, 1, 1),
+		MainView = Roact.createElement(MainView, {
+			MenuEntries = menuEntries,
 		}),
 	})
 end
@@ -87,6 +107,7 @@ end
 local function main()
 	local pluginTitle = localization:getText("Meta", "PluginName")
 	plugin.Name = pluginTitle
+
 	-- create the plugin
 	pluginGui = plugin:CreateQWidgetPluginGui(plugin.Name, {
 		Size = Vector2.new(960, 600),

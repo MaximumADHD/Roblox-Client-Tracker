@@ -3,7 +3,10 @@
     Rodux store
 --]]
 
+local RunService = game:GetService("RunService")
 local Selection = game:GetService("Selection")
+
+local FFlagActionEnabledState = settings():GetFFlag("PluginActionSetEnabled")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -56,14 +59,7 @@ function DraftListView:init()
     end
 
     self.restoreScripts = function(selection)
-        -- TODO (awarwick) 8/23/2019 Product needs to decide what we're going to do for restoring drafts
-        -- since we can't reliable restore to the original parent (also may be deleted)
-
-        for _,draft in pairs(selection) do
-            draft.Parent = workspace
-        end
-
-        Selection:Set(selection)
+		draftsService:RestoreScripts(selection)
     end
 
     self.promptDiscardEdits = function(selection)
@@ -99,6 +95,7 @@ function DraftListView:init()
         local canUpdateSelection = true
         local canCommitSelection = true
         local canDiffSelection = true
+        local canDiscardSelection = true
         for _,draft in ipairs(selectedDrafts) do
             local draftState = self.props.Drafts[draft]
 
@@ -117,54 +114,66 @@ function DraftListView:init()
             end
         end
 
+        if not RunService:IsEdit() then
+            canRestoreSelection = false
+            canUpdateSelection = false
+            canCommitSelection = false
+            canDiffSelection = false
+            canDiscardSelection = false
+        end
+
+        local revertActionEnabled, commitActionEnabled, diffActionEnabled
+        if FFlagActionEnabledState then
+            revertActionEnabled = true
+            commitActionEnabled = not canUpdateSelection
+            diffActionEnabled = true
+        else
+            revertActionEnabled = canDiscardSelection
+            commitActionEnabled = canCommitSelection
+            diffActionEnabled = canDiffSelection
+        end
+
         local contextMenuItems = {
             {
 				Text = localization:getText("ContextMenu", "OpenScript"),
 				ItemSelected = function()
 					self.openScripts(selectedDrafts)
 				end,
-			},
-        }
-
-        if canDiffSelection then
-            table.insert(contextMenuItems, {
-				Text = localization:getText("ContextMenu", "ShowDiff"),
+            },
+            diffActionEnabled and {
+                Text = localization:getText("ContextMenu", "ShowDiff"),
+                Enabled = canDiffSelection,
 				ItemSelected = function()
 					self.diffChanges(selectedDrafts)
 				end,
-			})
-        end
-        if canUpdateSelection then
-            table.insert(contextMenuItems, {
+            },
+            canUpdateSelection and {
                 Text = localization:getText("ContextMenu", "Update"),
                 ItemSelected = function()
                     self.updateSource(selectedDrafts)
                 end,
-            })
-        end
-        if canCommitSelection then
-            table.insert(contextMenuItems, {
-				Text = localization:getText("ContextMenu", "Commit"),
+            },
+            commitActionEnabled and {
+                Text = localization:getText("ContextMenu", "Commit"),
+                Enabled = canCommitSelection,
 				ItemSelected = function()
 					self.commitChanges(selectedDrafts)
 				end,
-            })
-        end
-        if canRestoreSelection then
-            table.insert(contextMenuItems, {
+            },
+            canRestoreSelection and {
                 Text = localization:getText("ContextMenu", "Restore"),
                 ItemSelected = function()
                     self.restoreScripts(selectedDrafts)
                 end,
-            })
-        end
-
-        table.insert(contextMenuItems, {
-            Text = localization:getText("ContextMenu", "Revert"),
-            ItemSelected = function()
-                self.promptDiscardEdits(selectedDrafts)
-            end,
-        })
+            },
+            revertActionEnabled and {
+                Text = localization:getText("ContextMenu", "Revert"),
+                Enabled = canDiscardSelection,
+                ItemSelected = function()
+                    self.promptDiscardEdits(selectedDrafts)
+                end,
+            }
+        }
 
 		return contextMenuItems
 	end

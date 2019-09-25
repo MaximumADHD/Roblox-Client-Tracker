@@ -202,4 +202,10 @@ return Rodux.createReducer({
 			PinnedParts = action.pinnedParts,
 		})
 	end,
+
+	SetStartingPose = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			StartingPose = action.startingPose,
+		})
+	end,
 })

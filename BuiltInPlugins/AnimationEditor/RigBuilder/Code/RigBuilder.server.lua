@@ -1,4 +1,4 @@
-local FFlagEnableRoactAnimationEditor = settings():GetFFlag("EnableRoactAnimationEditor")
+local FFlagEnableRoactAnimationEditor = settings():GetFFlag("EnableRoactAnimationEditor2")
 if FFlagEnableRoactAnimationEditor then
 	return
 end
@@ -10,7 +10,7 @@ local toolbar = plugin:CreateToolbar("Animations")
 local button = toolbar:CreateButton(
 	"Rig Builder", -- The text next to the icon. Leave this blank if the icon is sufficient.
 	"Insert rigs to animate", -- hover text
-	settings():GetFFlag("StudioMoveWebAssetsToContent") and "rbxasset://textures/AnimationEditor/rig_builder_32x32.png" or "http://www.roblox.com/asset/?id=620849303" -- The icon file's name
+	"rbxasset://textures/AnimationEditor/rig_builder_32x32.png" -- The icon file's name
 )
 
 --Environment

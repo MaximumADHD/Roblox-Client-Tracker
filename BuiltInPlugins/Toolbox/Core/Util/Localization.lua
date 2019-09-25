@@ -159,7 +159,7 @@ function Localization:getLocalizedVoteText(voteCounts)
 	return string.format("%d %s", voteCounts, voteText)
 end
 
-function Localization:getLocalizedCategores(categories)
+function Localization:getLocalizedCategories(categories)
 	return self:_localizeTable(categories, "Category", "name", "name")
 end
 
@@ -302,6 +302,7 @@ function Localization:_recalculateContent()
 			GroupMeshes = self:_safeLocalize("Studio.Toolbox.General.CategoryGroupMeshes"),
 			GroupAudio = self:_safeLocalize("Studio.Toolbox.General.CategoryGroupAudio"),
 			GroupPackages = self:_safeLocalize("Studio.Toolbox.General.CategoryGroupPackages"),
+			SharedPackages = self:_safeLocalize("Studio.Toolbox.General.CategorySharedPackages"),
 			CreationsDevelopmentSectionDivider = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsDevelopmentSectionDivider"),
 			CreationsModels = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsModels"),
 			CreationsDecals = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsDecals"),
@@ -313,12 +314,12 @@ function Localization:_recalculateContent()
 			CreationsShirts = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsShirts"),
 			CreationsPants = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsPants"),
 			CreationsHair = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsHair"),
-			CreationsFaceAccessorys = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsFaceAccessory"),
-			CreationsNeckAccessorys = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsNeckAccessory"),
-			CreationsShoulderAccessorys = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsShoulderAccessory"),
-			CreationsFrontAccessorys = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsFrontAccessory"),
-			CreationsBackAccessorys = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsBackAccessory"),
-			CreationsWaistAccessorys = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsWaistAccessory"),
+			CreationsFaceAccessories = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsFaceAccessory"),
+			CreationsNeckAccessories = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsNeckAccessory"),
+			CreationsShoulderAccessories = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsShoulderAccessory"),
+			CreationsFrontAccessories = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsFrontAccessory"),
+			CreationsBackAccessories = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsBackAccessory"),
+			CreationsWaistAccessories = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsWaistAccessory"),
 		},
 
 		Suggestions = {
@@ -423,7 +424,7 @@ function Localization:_recalculateContent()
 				Me = self:_safeLocalize("Studio.Toolbox.General.Me"),
 				AssetType = self:_safeLocalize("Studio.Toolbox.General.AssetType"),
 
-				AssetTextDislpay = {
+				AssetTextDisplay = {
 					[Enum.AssetType.Model] = self:_safeLocalize("Studio.Toolbox.General.AssetTypeModel"),
 					[Enum.AssetType.Decal] = self:_safeLocalize("Studio.Toolbox.General.AssetTypeDecal"),
 					[Enum.AssetType.Mesh] = self:_safeLocalize("Studio.Toolbox.General.AssetTypeMesh"),
@@ -432,6 +433,13 @@ function Localization:_recalculateContent()
 					[Enum.AssetType.TeeShirt] = self:_safeLocalize("Studio.Toolbox.General.AssetTypeTeeShirt"),
 					[Enum.AssetType.Shirt] = self:_safeLocalize("Studio.Toolbox.General.AssetTypeShirt"),
 					[Enum.AssetType.Pants] = self:_safeLocalize("Studio.Toolbox.General.AssetTypePants"),
+					[Enum.AssetType.HairAccessory] = self:_safeLocalize("Studio.Toolbox.General.AssetTypeHairAccessory"),
+					[Enum.AssetType.FaceAccessory] = self:_safeLocalize("Studio.Toolbox.General.AssetTypeFaceAccessory"),
+					[Enum.AssetType.NeckAccessory] = self:_safeLocalize("Studio.Toolbox.General.AssetTypeNeckAccessory"),
+					[Enum.AssetType.ShoulderAccessory] = self:_safeLocalize("Studio.Toolbox.General.AssetTypeShoulderAccessory"),
+					[Enum.AssetType.FrontAccessory] = self:_safeLocalize("Studio.Toolbox.General.AssetTypeFrontAccessory"),
+					[Enum.AssetType.BackAccessory] = self:_safeLocalize("Studio.Toolbox.General.AssetTypeBackAccessory"),
+					[Enum.AssetType.WaistAccessory] = self:_safeLocalize("Studio.Toolbox.General.AssetTypeWaistAccessory"),
 				},
 			},
 

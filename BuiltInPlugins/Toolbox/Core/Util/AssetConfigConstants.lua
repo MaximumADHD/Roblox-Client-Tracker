@@ -6,6 +6,9 @@ local DebugFlags = require(Util.DebugFlags)
 local wrapStrictTable = require(Util.wrapStrictTable)
 local convertArrayToTable = require(Util.convertArrayToTable)
 
+local Libs = Plugin.Libs
+local Cryo = require(Libs.Cryo)
+
 local AssetConfigConstants = {}
 
 AssetConfigConstants.TERM_OF_USE_URL = "https://en.help.roblox.com/hc/en-us/articles/115004647846-Roblox-Terms-of-Use"
@@ -47,12 +50,6 @@ AssetConfigConstants.GENRE_TYPE = {
 	{name = Enum.Genre.Tutorial.Name},
 }
 
--- All the current AssetType supports editing should be defined in here first.
-AssetConfigConstants.AssetTypeIdToNameMap = {
-	[Enum.AssetType.Model.Value] = Enum.AssetType.Model.Name,
-	[Enum.AssetType.Hat.Value] = Enum.AssetType.Hat.Name,
-}
-
 AssetConfigConstants.FLOW_TYPE = convertArrayToTable({
 	"EDIT_FLOW",
 	"UPLOAD_FLOW"
@@ -73,10 +70,46 @@ local catalogAssetTypes = convertArrayToTable({
 	Enum.AssetType.Pants,
 })
 
+if game:GetFastFlag("CMSAdditionalAccessoryTypesV2") then
+	catalogAssetTypes = Cryo.Dictionary.join(catalogAssetTypes, convertArrayToTable({
+		Enum.AssetType.HairAccessory,
+		Enum.AssetType.FaceAccessory,
+		Enum.AssetType.NeckAccessory,
+		Enum.AssetType.ShoulderAccessory,
+		Enum.AssetType.FrontAccessory,
+		Enum.AssetType.BackAccessory,
+		Enum.AssetType.WaistAccessory,
+	}))
+end
+
+if game:GetFastFlag("CMSAdditionalAccessoryTypesV2") then
+	local ASSET_TYPE_LIST = {
+		Enum.AssetType.Hat,
+		Enum.AssetType.HairAccessory,
+		Enum.AssetType.FaceAccessory,
+		Enum.AssetType.NeckAccessory,
+		Enum.AssetType.ShoulderAccessory,
+		Enum.AssetType.FrontAccessory,
+		Enum.AssetType.BackAccessory,
+		Enum.AssetType.WaistAccessory,
+	}
+
+	function AssetConfigConstants.getAllowedAssetTypeEnums(allowedAssetTypesForRelease)
+		local result = {}
+		for _, assetTypeEnum in pairs(ASSET_TYPE_LIST) do
+			if allowedAssetTypesForRelease[assetTypeEnum.Name] ~= nil then
+				result[#result + 1] = assetTypeEnum
+			end
+		end
+		return result
+	end
+end
+
 local marketplaceAssetTypes = convertArrayToTable({
 	Enum.AssetType.Model,
 	Enum.AssetType.Decal,
 	Enum.AssetType.Mesh,
+	Enum.AssetType.MeshPart,
 	Enum.AssetType.Audio,
 })
 
@@ -127,10 +160,6 @@ function AssetConfigConstants.getGenreName(genreIndex)
 		genreIndex = 1
 	end
 	return AssetConfigConstants.GENRE_TYPE[genreIndex].name
-end
-
-function AssetConfigConstants.getAssetTypeNameFromId(assetTypeId)
-	return AssetConfigConstants.AssetTypeIdToNameMap[assetTypeId] or "Unknown"
 end
 
 function AssetConfigConstants.isEditAssetScreen(currentScreen)

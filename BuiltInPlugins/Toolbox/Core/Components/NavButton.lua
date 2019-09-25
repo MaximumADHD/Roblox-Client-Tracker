@@ -72,6 +72,7 @@ function NavButton:render()
 			Position = props.Position,
 			LayoutOrder = props.LayoutOrder,
 			BackgroundColor3 = backgroundColor,
+			BorderColor3 = colors.borderColor,
 			BorderSizePixel = props.isPrimary and 0 or 1,
 			[Roact.Event.MouseEnter] = self.onMouseEnter,
 			[Roact.Event.MouseLeave] = self.onMouseLeave,

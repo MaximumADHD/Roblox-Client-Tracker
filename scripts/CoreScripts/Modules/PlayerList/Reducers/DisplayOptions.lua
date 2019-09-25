@@ -33,11 +33,11 @@ local initialDisplayOptions = {
 }
 
 local function updateIsVisible(state)
-	state.playerlistCoreGuiEnabled = state.playerlistCoreGuiEnabled and state.topbarEnabled
 	state.isVisible = state.setVisible
 	-- Leaderboard visiblity is independent of coreGui options on console.
 	if not state.isTenFootInterface then
-		state.isVisible = state.isVisible and state.playerlistCoreGuiEnabled
+		local playerlistEnabled = state.playerlistCoreGuiEnabled and state.topbarEnabled
+		state.isVisible = state.isVisible and playerlistEnabled
 			and (not state.isSmallTouchDevice) and (not state.vrEnabled)
 	end
 	state.isVisible = state.isVisible and Cryo.isEmpty(state.tempHideKeys)
@@ -88,9 +88,13 @@ local DisplayOptions = Rodux.createReducer(initialDisplayOptions, {
 	end,
 
 	[SetTenFootInterface.name] = function(state, action)
+		local newSetVisible = state.setVisible
+		if action.isTenFootInterface then
+			newSetVisible = false
+		end
 		return updateIsVisible(Cryo.Dictionary.join(state, {
 			isTenFootInterface = action.isTenFootInterface,
-			setVisible = false,
+			setVisible = newSetVisible,
 		}))
 	end,
 

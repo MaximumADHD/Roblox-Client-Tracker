@@ -51,10 +51,14 @@ function Theme.createValues(getColor, c, m)
 			titleTextColor = getColor(c.SubText),
 			textColor = getColor(c.MainText),
 			tipsTextColor = getColor(c.DialogMainButton),
+			showDropdownRibbon = true,
+			highlightDropdownSelectedItem = false
 		},
 		{
 			Dark = {
 				tipsTextColor = getColor(c.DialogButtonText,m.Disabled),
+				showDropdownRibbon = false,
+				highlightDropdownSelectedItem = true
 			}
 		}),
 
@@ -145,6 +149,7 @@ function Theme.createValues(getColor, c, m)
 			background = getColor(c.Item),
 			border = getColor(c.Border),
 			text = getColor(c.MainText),
+			placeholderColor = getColor(c.MainText)
 		},
 
 		typeSelection = {
@@ -171,6 +176,7 @@ function Theme.createValues(getColor, c, m)
 
 		uploadResult = {
 			text = getColor(c.MainText),
+			successText = Color3.fromRGB(2, 183, 87),
 			background = getColor(c.TableItem),
 			link = getColor(c.LinkText),
 		},
@@ -211,7 +217,7 @@ function Theme.createValues(getColor, c, m)
 			disabledImage = Images.TOGGLE_DISABLE_DARK
 		}),
 		textBox = {
-			borderHover = getColor(c.CurrentMarker),
+			borderHover = getColor(c.DialogMainButton),
 		},
 		button = {
 			Default = defineTheme({
@@ -231,12 +237,20 @@ function Theme.createValues(getColor, c, m)
 			backgroundColor = getColor(c.Button),
 			itemText = getColor(c.MainText),
 			headerText = getColor(c.SubText),
+			showSelectedDropdownItem = defineTheme({
+				value = false,
+			},
+			{
+				Dark = {
+					value = true,
+				}
+			}),
 			hovered = {
 				backgroundColor = getColor(c.Button, m.Hover),
 				textColor = getColor(c.MainText, m.Hover),
 			},
 			selected = defineTheme({
-				backgroundColor = getColor(c.CurrentMarker),
+				backgroundColor = getColor(c.Button, m.Hover),
 				textColor = getColor(c.MainText, m.Hover),
 				borderColor = getColor(c.Border),
 			},
@@ -247,18 +261,22 @@ function Theme.createValues(getColor, c, m)
 			}),
 			listTheme = {
 				backgroundColor = getColor(c.MainBackground),
-				hovered =  defineTheme({
-					backgroundColor = getColor(c.Button, m.Hover),
+				hovered = {
+					backgroundColor = getColor(c.Tab),
 					textColor = getColor(c.MainText, m.Hover),
-				},{
-					Dark = {
-						backgroundColor = getColor(c.DialogMainButton),
-					}
-				}),
-				selected = {
+				},
+				selected = defineTheme({
 					backgroundColor = getColor(c.CurrentMarker),
 					borderColor = getColor(c.Border),
-				}
+				},
+				{
+					Dark = {
+						backgroundColor = getColor(c.ScriptSelectionBackground),
+						hovered = {
+							backgroundColor = getColor(c.Button, m.Hover),
+						}
+					}
+				})
 			}
 		},
 	}

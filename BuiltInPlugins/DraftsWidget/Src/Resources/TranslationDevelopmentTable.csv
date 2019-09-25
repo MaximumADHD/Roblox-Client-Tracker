@@ -3,7 +3,6 @@ Studio.Drafts.Meta.PluginButtonTooltip, , ,View Drafts
 Studio.Drafts.Meta.PluginDescription, , ,I'm a hover message
 Studio.Drafts.Meta.PluginName, , ,Drafts
 Studio.Drafts.Example.ErrorAnUnexpectedThing, , ,"An unexpected thing happened, try again"
-Studio.Drafts.Main.FeatureDisabled, , ,Enable Team Create to use drafts
 Studio.Drafts.Main.NoDrafts, , ,(Empty)
 Studio.Drafts.ContextMenu.OpenScript, , ,Open Draft
 Studio.Drafts.ContextMenu.ShowDiff, , ,Compare with server

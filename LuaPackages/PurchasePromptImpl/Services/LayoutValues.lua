@@ -1,7 +1,7 @@
 local strict = require(script.Parent.Parent.strict)
 
 local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp")
-local FFlagEnableHexRobuxIcon = game:GetFastFlag("EnableRobuxHexIcon")
+local FFlagEnableHexRobuxIcon = game:GetFastFlag("EnableRobuxHexIconV2")
 
 local function makeImageData(path, sliceCenter)
 	return {
@@ -23,8 +23,8 @@ function LayoutValues.generate(isTenFoot)
 
 	local RobuxIconPadding = 6 * scaleFactor
 
-	local RobuxIconWidth = 20 * scaleFactor
-	local RobuxIconHeight = 20 * scaleFactor
+	local RobuxIconWidth = FFlagEnableHexRobuxIcon and 16 * scaleFactor or 20 * scaleFactor
+	local RobuxIconHeight = RobuxIconWidth
 
 	local ProductDescriptionPaddingTop = 18 * scaleFactor
 	local ProductDescriptionWidth = 210 * scaleFactor
@@ -143,7 +143,9 @@ function LayoutValues.generate(isTenFoot)
 			CLILUACORE-315: Make 2x versions for robux icon and error icon
 		]]
 		if FFlagEnableHexRobuxIcon then
-			Image.RobuxIcon = makeImageData("ui/common_robux.png")
+			Image.RobuxIcon = isTenFoot
+			and makeImageData("ui/common/robux_small@2x.png")
+			or makeImageData("ui/common/robux_small.png")
 		else
 			Image.RobuxIcon = isTenFoot
 				and makeImageData("ui/RobuxIcon.png")

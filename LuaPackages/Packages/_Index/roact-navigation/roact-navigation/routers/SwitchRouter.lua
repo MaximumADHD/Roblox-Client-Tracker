@@ -8,15 +8,6 @@ local validate = require(script.Parent.Parent.utils.validate)
 
 local defaultActionCreators = function() return {} end
 
-local function shallowCopyDictionary(data)
-	local result = {}
-	for i, ival in pairs(data) do
-		result[i] = ival
-	end
-
-	return result
-end
-
 -- Until Cryo has a List function to do this, provide shallow copy+replace index
 local function immutableReplaceListIndex(list, index, value)
 	local result = {}
@@ -153,7 +144,7 @@ return function(config)
 	end
 
 	function SwitchRouter.getStateForAction(action, inputState)
-		local prevState = inputState and shallowCopyDictionary(inputState) or nil
+		local prevState = inputState and Cryo.Dictionary.join(inputState) or nil
 		local state = inputState or getInitialState()
 		local activeChildIndex = state.index
 
@@ -270,7 +261,7 @@ return function(config)
 		elseif didNavigate and not inputState then
 			return state
 		elseif didNavigate then
-			return shallowCopyDictionary(state)
+			return Cryo.Dictionary.join(state)
 		end
 
 		-- Let other children handle it and switch to first child that returns a new state

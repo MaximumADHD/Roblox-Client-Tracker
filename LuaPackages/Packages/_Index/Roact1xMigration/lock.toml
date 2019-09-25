@@ -5,5 +5,5 @@ source = "git+https://github.rbx.com/pdoyle/roact-1x-migration#master"
 commit = "b815aedfc5827216283350eebc722bd4687762e2"
 dependencies = [
     "Roact0_2 Roact 00b6e845 git+https://github.com/roblox/roact#roblox",
-    "Roact1_x Roact 986c1d58 git+https://github.com/roblox/roact#master",
+    "Roact1_x roblox/roact 3de41375 git+https://github.com/roblox/roact#master",
 ]

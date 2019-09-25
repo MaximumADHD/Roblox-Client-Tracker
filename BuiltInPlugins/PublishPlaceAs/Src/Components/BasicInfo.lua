@@ -81,7 +81,7 @@ local function displayContents(props, localization)
 		}, {
 			TextBox = Roact.createElement(RoundTextBox, {
 				Active = true,
-				ErrorMessage = nameError and localization:getText("Error", nameError),
+				ErrorMessage = nameError and localization:getText("Error", nameError, tostring(string.len(name)), tostring(MAX_NAME_LENGTH)),
 				MaxLength = MAX_NAME_LENGTH,
 				Text = name,
 				TextSize = Constants.TEXT_SIZE,
@@ -103,7 +103,7 @@ local function displayContents(props, localization)
 				Text = description,
 				TextSize = Constants.TEXT_SIZE,
 				SetText = descriptionChanged,
-				ErrorMessage = descriptionError and localization:getText("Error", descriptionError),
+				ErrorMessage = descriptionError and localization:getText("Error", descriptionError, tostring(string.len(description)), tostring(MAX_DESCRIPTION_LENGTH)),
 			}),
 		}),
 
@@ -129,7 +129,6 @@ local function displayContents(props, localization)
 					TextSize = Constants.TEXT_SIZE,
 					SelectedItem = genre,
 					OnItemClicked = function(item) genreChanged(item.Key) end,
-					DescriptionTextSize = Constants.TEXT_SIZE - 2,
 					ListWidth = 210,
 				})
 			end),

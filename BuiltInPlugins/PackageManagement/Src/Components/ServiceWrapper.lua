@@ -8,6 +8,7 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 local UILibrary = require(Plugin.Packages.UILibrary)
 local Theming = require(Plugin.Src.ContextServices.Theming)
 local StudioPlugin = require(Plugin.Src.ContextServices.StudioPlugin)
+local Mouse = require(Plugin.Src.ContextServices.Mouse)
 local UILibraryProvider = require(Plugin.Src.ContextServices.UILibraryProvider)
 local Localizing = UILibrary.Localizing
 
@@ -24,6 +25,7 @@ function ServiceWrapper:init()
 	assert(self.props.plugin ~= nil, "Expected a plugin object")
 	assert(self.props.store ~= nil, "Expected a Rodux Store object")
 	assert(self.props.theme ~= nil, "Expected a PluginTheme object")
+	assert(self.props.mouse ~= nil, "Expected a Mouse object")
 end
 
 local function addProvider(provider, props, rootElement)
@@ -36,12 +38,15 @@ function ServiceWrapper:render()
 	local plugin = self.props.plugin
 	local store = self.props.store
 	local theme = self.props.theme
+	local mouse = self.props.mouse
+	local pluginGui = self.props.pluginGui
 
 	-- the order of these providers should be read as bottom up,
 	-- things most likely to change or trigger updates should be near the top of the list
 	local root = Roact.oneChild(children)
 	root = addProvider(RoactRodux.StoreProvider, { store = store }, root)
-	root = addProvider(UILibraryProvider, { plugin = plugin }, root)
+	root = addProvider(Mouse.Provider, { mouse = mouse }, root)
+	root = addProvider(UILibraryProvider, { plugin = plugin, pluginGui = pluginGui }, root)
 	root = addProvider(Theming.Provider, { theme = theme, }, root)
 	root = addProvider(Localizing.Provider, { localization = localization }, root)
 	root = addProvider(StudioPlugin.Provider, { plugin = plugin }, root)

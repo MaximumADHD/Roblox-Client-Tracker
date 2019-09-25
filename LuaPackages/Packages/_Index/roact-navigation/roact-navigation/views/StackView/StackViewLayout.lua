@@ -25,13 +25,31 @@ local function lerp(a, b, t)
 	return a * (1 - t) + b * t
 end
 
+local function calculateFadeTransparency(scene, index, positionValue)
+	local navigationOptions = Cryo.Dictionary.join(defaultScreenOptions, scene.descriptor.options or {})
+	local overlayEnabled = navigationOptions.overlayEnabled
+	local overlayTransparency = navigationOptions.overlayTransparency
+
+	if overlayEnabled then
+		local pRange = math.max(math.min(1 + positionValue - index, 1), 0)
+		return lerp(1, overlayTransparency, pRange)
+	else
+		return 1
+	end
+end
+
+
 local StackViewLayout = Roact.Component:extend("StackViewLayout")
 
 function StackViewLayout:init()
+	local startingIndex = self.props.transitionProps.navigation.state.index
+
 	self._isMounted = false
 	self._scenesContainerRef = Roact.createRef()
 
 	self._overlayFrameRefs = {} -- map of scene indexes to refs
+
+	self._positionLastValue = startingIndex
 
 	self._renderScene = function(scene)
 		return self:_renderInnerScene(scene)
@@ -280,7 +298,7 @@ function StackViewLayout:render()
 		return Roact.createElement("TextButton", {
 			Size = UDim2.new(1, 0, 1, 0),
 			BackgroundColor3 = overlayColor3,
-			BackgroundTransparency = 1, -- Modals start transparent, opaque cards stay transparent
+			BackgroundTransparency = calculateFadeTransparency(scene, idx, self._positionLastValue),
 			AutoButtonColor = false,
 			BorderSizePixel = 0,
 			Text = " ",
@@ -347,7 +365,7 @@ function StackViewLayout.getDerivedStateFromProps(nextProps, lastState)
 			nextProps.transitionConfig,
 			nextProps.transitionProps,
 			nextProps.lastTransitionProps,
-			nextProps.mode == StackPresentationStyle.Modal),
+			nextProps.mode),
 	}
 end
 
@@ -385,19 +403,15 @@ function StackViewLayout:_onPositionStep(value)
 		local scenes = transitionProps.scenes
 
 		for idx, scene in ipairs(scenes) do
-			local navigationOptions = Cryo.Dictionary.join(defaultScreenOptions, scene.descriptor.options or {})
-			local overlayEnabled = navigationOptions.overlayEnabled
-
 			local frameRef = self._overlayFrameRefs[idx]
 			local frameInstance = frameRef and frameRef.current
-			if overlayEnabled and frameInstance then
-				local overlayTransparency = navigationOptions.overlayTransparency
-				local pRange = math.max(math.min(1 + value - idx, 1), 0)
-				frameInstance.BackgroundTransparency = lerp(1, overlayTransparency, pRange)
-			else
-				frameInstance.BackgroundTransparency = 1
+
+			if frameInstance then
+				frameInstance.BackgroundTransparency = calculateFadeTransparency(scene, idx, value)
 			end
 		end
+
+		self._positionLastValue = value
 	end
 end
 

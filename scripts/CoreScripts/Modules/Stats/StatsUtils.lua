@@ -12,11 +12,7 @@ local GameSettings = Settings.GameSettings
 local TopbarConstants = require(CoreGuiService.RobloxGui.Modules.TopbarConstants)
 local StyleWidgets = require(CoreGuiService.RobloxGui.Modules.StyleWidgets)
 
-local FFlagStatUtilsUseFormatByKey = settings():GetFFlag('StatUtilsUseFormatByKey')
-local RobloxTranslator
-if FFlagStatUtilsUseFormatByKey then
-  RobloxTranslator = require(CoreGuiService.RobloxGui.Modules.RobloxTranslator)
-end
+local RobloxTranslator = require(CoreGuiService.RobloxGui.Modules.RobloxTranslator)
 
 function LocalizedGetKey(key)
   local rtv = key
@@ -24,15 +20,7 @@ function LocalizedGetKey(key)
     local LocalizationService = game:GetService("LocalizationService")
     local CorescriptLocalization = LocalizationService:GetCorescriptLocalizations()[1]
 
-    if FFlagStatUtilsUseFormatByKey then
-        rtv = RobloxTranslator:FormatByKey(key)
-    else
-       pcall(function()
-         local LocalizationService = game:GetService("LocalizationService")
-         local CorescriptLocalization = LocalizationService:GetCorescriptLocalizations()[1]
-         rtv = CorescriptLocalization:GetString(LocalizationService.RobloxLocaleId, key)
-       end)
-    end
+    rtv = RobloxTranslator:FormatByKey(key)
   end)
   return rtv
 end
@@ -132,15 +120,8 @@ StatsUtils.StatMaxNames = {
 
 StatsUtils.NumButtonTypes = table.getn(StatsUtils.AllStatTypes)
 
-local strSentNetwork = ""
-local strReceivedNetwork = ""
-if FFlagUseNotificationsLocalization or FFlagStatUtilsUseFormatByKey then
-  strSentNetwork = LocalizedGetKey("Sent") .. "\n" .. LocalizedGetKey("Network")
-  strReceivedNetwork = LocalizedGetKey("Received") .. "\n" .. LocalizedGetKey("Network")
-else
-  strSentNetwork = "Sent\n(Network)"
-  strReceivedNetwork = "Received\n(Network)"
-end
+local strSentNetwork = LocalizedGetKey("Sent") .. "\n" .. LocalizedGetKey("Network")
+local strReceivedNetwork = LocalizedGetKey("Received") .. "\n" .. LocalizedGetKey("Network")
 
 StatsUtils.TypeToName = {
   [StatsUtils.StatType_Memory] = "Memory",

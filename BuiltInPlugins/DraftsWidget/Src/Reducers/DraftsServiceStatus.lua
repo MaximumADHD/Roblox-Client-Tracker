@@ -9,13 +9,16 @@ local Cryo = require(Plugin.Packages.Cryo)
 
 local DraftsServiceStatusReducer = Rodux.createReducer({
 	Enabled = nil,
+	Error = nil,
 },
 {
 	DraftsServiceLoaded = function(state, action)
 		local isEnabled = action.isEnabled
+		local errorMessage = action.errorMessage
 
 		return Cryo.Dictionary.join(state, {
-			Enabled = isEnabled
+			Enabled = isEnabled,
+			Error = errorMessage,
 		})
 	end,
 })

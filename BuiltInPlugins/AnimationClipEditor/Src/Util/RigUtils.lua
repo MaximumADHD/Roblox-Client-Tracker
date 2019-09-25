@@ -2,6 +2,8 @@
 	A set of utilities for interfacing between Motor6D Rigs and the AnimationClip editor.
 ]]
 
+local FFlagStudioAnimEditorFocusRig = game:DefineFastFlag("StudioAnimEditorFocusRig", false)
+
 local DEFAULT_TOLERANCE = 0.0001
 
 local Plugin = script.Parent.Parent.Parent
@@ -324,6 +326,22 @@ local function restoreMotors(rig, ikPose, motorData, changedValues)
 			part.Anchored = false
 		end
 
+		if data.Attachment0 then
+			local attachment0 = part:FindFirstChild(data.Attachment0.Name)
+			if attachment0 then
+				attachment0.Axis = data.Attachment0.Axis
+				attachment0.SecondaryAxis = data.Attachment0.SecondaryAxis
+			end
+		end
+
+		if data.Attachment1 then
+			local attachment1 = part:FindFirstChild(data.Attachment1.Name)
+			if attachment1 then
+				attachment1.Axis = data.Attachment1.Axis
+				attachment1.SecondaryAxis = data.Attachment1.SecondaryAxis
+			end
+		end
+
 		restoreMotor(data)
 
 		changedValues[part.Name] = calculateTransform(data, ikPose)
@@ -394,7 +412,62 @@ function RigUtils.pinForLimbMode(part, motorMap)
 	return pinnedParts
 end
 
-function RigUtils.ikDragStart(rig, part, limbMode, pinnedParts)
+function RigUtils.getPoseCFrames(rig)
+	local cframes = {}
+	local _, motorMap = RigUtils.getRigInfo(rig)
+	for _, motor in pairs(motorMap) do
+		cframes[motor.Part0.Name] = motor.Part0.CFrame
+		cframes[motor.Part1.Name] = motor.Part1.CFrame
+	end
+	return cframes
+end
+
+function RigUtils.fixRigAttachments(constraintMap, startingPose, motorData)
+	if not startingPose then
+		return
+	end
+
+	for _, constraint in pairs(constraintMap) do
+		local part0 = constraint.Attachment0.Parent
+		local part1 = constraint.Attachment1.Parent
+		if constraint:IsA("BallSocketConstraint") and motorData[part0] and motorData[part1] then
+			local nextConstraint
+			for _, value in pairs(constraintMap) do
+				if value.Attachment0.Parent == part1 then
+					nextConstraint = value
+				end
+			end
+
+			local direction
+			if nextConstraint then
+				local p0 = startingPose[nextConstraint.Attachment1.Parent.Name]
+				local p1 = startingPose[part1.Name]
+				direction = (p0.p - p1.p).Unit
+			else
+				local p0 = startingPose[part1.Name]
+				local p1 = startingPose[part0.Name]
+				direction = (p0.p - p1.p).Unit
+			end
+
+			motorData[part0]["Attachment0"] = {
+				Axis = constraint.Attachment0.Axis,
+				SecondaryAxis = constraint.Attachment0.SecondaryAxis,
+				Name = constraint.Attachment0.Name,
+			}
+
+			motorData[part1]["Attachment1"] = {
+				Axis = constraint.Attachment1.Axis,
+				SecondaryAxis = constraint.Attachment1.SecondaryAxis,
+				Name = constraint.Attachment1.Name,
+			}
+
+			constraint.Attachment0.Axis = direction
+			constraint.Attachment1.Axis = direction
+		end
+	end
+end
+
+function RigUtils.ikDragStart(rig, part, limbMode, startingPose, pinnedParts)
 	local visited = {}
 	local priorityTable = {}
 	local motorData = {}
@@ -438,6 +511,8 @@ function RigUtils.ikDragStart(rig, part, limbMode, pinnedParts)
 			currentItem.Anchored = true
 		end
 	end
+
+	RigUtils.fixRigAttachments(constraintMap, startingPose, motorData)
 
 	for part in pairs(motorData) do
 		local constraint = constraintMap[part.Name]
@@ -776,6 +851,21 @@ function RigUtils.getAnimSaves(rig)
 		return animations
 	else
 		return {}
+	end
+end
+
+function RigUtils.focusCamera(rig)
+	assert(FFlagStudioAnimEditorFocusRig)
+	local camera = Workspace:FindFirstChildOfClass("Camera")
+	if camera then
+		local extents = rig:GetExtentsSize()
+		local width = math.max(extents.X, extents.Z)
+		local rootPart = RigUtils.findRootPart(rig)
+		local rootFrame = rootPart.CFrame
+
+		local center = rootFrame.Position + rootFrame.LookVector * (width * 2)
+		camera.CFrame = CFrame.new(center, rootFrame.Position)
+		camera.Focus = rootFrame
 	end
 end
 

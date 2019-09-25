@@ -7,8 +7,13 @@ if not plugin then
 	return
 end
 
+-- TODO: DEVTOOLS-3023
+-- We should move those into their own file.
 game:DefineFastFlag("RemoveNilInstances", false)
 game:DefineFastFlag("UseRBXThumbInToolbox", false)
+game:DefineFastFlag("UseCreationToFetchMyOverrideData2", false)
+game:DefineFastFlag("EnableAssetConfigVersionCheckForModels", false)
+game:DefineFastFlag("CMSAdditionalAccessoryTypesV2", false)
 
 local Plugin = script.Parent.Parent
 local Libs = Plugin.Libs

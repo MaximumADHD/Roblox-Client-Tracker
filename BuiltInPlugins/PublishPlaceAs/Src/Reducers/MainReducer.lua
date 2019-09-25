@@ -5,12 +5,14 @@ local ExistingGame = require(Plugin.Src.Reducers.ExistingGame)
 local NewGameSettings = require(Plugin.Src.Reducers.NewGameSettings)
 local PublishedPlace = require(Plugin.Src.Reducers.PublishedPlace)
 local Screen = require(Plugin.Src.Reducers.Screen)
+local GroupsHavePermission = require(Plugin.Src.Reducers.GroupsHavePermission)
 
 local MainReducer = Rodux.combineReducers({
 	Screen = Screen,
 	ExistingGame = ExistingGame,
 	NewGameSettings = NewGameSettings,
 	PublishedPlace = PublishedPlace,
+	GroupsHavePermission = GroupsHavePermission,
 })
 
 return MainReducer

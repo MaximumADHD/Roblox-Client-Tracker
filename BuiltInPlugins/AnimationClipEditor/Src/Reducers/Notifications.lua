@@ -6,12 +6,19 @@
 local Plugin = script.Parent.Parent.Parent
 local Rodux = require(Plugin.Rodux)
 local Cryo = require(Plugin.Cryo)
+local GetFFlagEnforceMaxAnimLength = require(Plugin.LuaFlags.GetFFlagEnforceMaxAnimLength)
 
-return Rodux.createReducer({
+local initialState = {
 	QuantizeWarning = false,
 	Saved = false,
 	Loaded = false,
-}, {
+}
+
+if GetFFlagEnforceMaxAnimLength() then
+	initialState["ClippedWarning"] = false
+end
+
+return Rodux.createReducer(initialState, {
 	SetNotification = function(state, action)
 		assert(state[action.notification] ~= nil,
 			"Notification " .. action.notification .. " does not exist in Notifications.")

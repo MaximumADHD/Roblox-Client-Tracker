@@ -162,6 +162,7 @@ function JointSelector:render()
 		Tool = props.Tool,
 		WorldSpace = props.WorldSpace,
 		IKMode = props.IKMode,
+		StartingPose = props.StartingPose,
 		MotorData = props.MotorData,
 		SetMotorData = props.SetMotorData,
 		PinnedParts = props.PinnedParts,
@@ -211,6 +212,7 @@ local function mapStateToProps(state, props)
 	return {
 		Tool = state.Status.Tool,
 		WorldSpace = state.Status.WorldSpace,
+		StartingPose = state.Status.StartingPose,
 		Analytics = state.Analytics,
 	}
 end

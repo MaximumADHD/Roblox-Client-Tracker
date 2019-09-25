@@ -144,9 +144,7 @@ return function()
 		expect(capturedState).never.to.equal(firstState)
 	end)
 
-	-- **** SKELETON EDITOR CHANGES **** --
-	--itSKIP("Test defaultProps on initial render", function() end)
-	--itSKIP("Test defaultProps on prop update", function() end)
-	--itSKIP("Test defaultProps on state update", function() end)
-	-- ********************************* --
+	itSKIP("Test defaultProps on initial render", function() end)
+	itSKIP("Test defaultProps on prop update", function() end)
+	itSKIP("Test defaultProps on state update", function() end)
 end

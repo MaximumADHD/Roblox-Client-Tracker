@@ -1082,6 +1082,7 @@ RBX
 	PointLight
 	PointsService
 	PointToPointBreakConnector
+	PolicyService
 	Poly
 	PolyConnector
 	PolyContact

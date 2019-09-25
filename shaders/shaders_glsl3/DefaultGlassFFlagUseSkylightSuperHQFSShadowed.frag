@@ -14,7 +14,7 @@ struct Globals
     vec3 Lamp1Color;
     vec4 FogParams;
     vec4 FogColor_GlobalForceFieldTime;
-    vec4 Technology_Exposure;
+    vec3 Exposure;
     vec4 LightBorder;
     vec4 LightConfig0;
     vec4 LightConfig1;
@@ -37,6 +37,11 @@ struct Globals
     float shadowBias;
     float shadowAlphaRef;
     float debugFlagsShadows;
+};
+
+struct LightShadowGPUTransform
+{
+    mat4 transform;
 };
 
 struct MaterialParams
@@ -64,10 +69,11 @@ struct MaterialParams
 };
 
 uniform vec4 CB0[32];
+uniform vec4 CB8[24];
 uniform vec4 CB2[5];
-uniform sampler2D ShadowMapTexture;
 uniform sampler3D LightMapTexture;
 uniform sampler3D LightGridSkylightTexture;
+uniform sampler2D ShadowAtlasTexture;
 uniform sampler2D DiffuseMapTexture;
 uniform sampler2D NormalMapTexture;
 uniform sampler2D NormalDetailMapTexture;
@@ -116,41 +122,59 @@ void main()
     vec4 f22 = mix(texture(LightGridSkylightTexture, f19), vec4(1.0), f20);
     vec3 f23 = (f21.xyz * (f21.w * 120.0)).xyz;
     float f24 = f22.x;
-    vec4 f25 = texture(ShadowMapTexture, VARYING7.xy);
-    float f26 = (1.0 - ((step(f25.x, VARYING7.z) * clamp(CB0[25].z + (CB0[25].w * abs(VARYING7.z - 0.5)), 0.0, 1.0)) * f25.y)) * f22.y;
-    vec3 f27 = vec3(CB0[15].x);
-    vec3 f28 = mix(f10, f10 * f10, f27);
-    vec3 f29 = normalize(VARYING4.xyz);
-    vec3 f30 = texture(EnvironmentMapTexture, reflect(-VARYING4.xyz, f15)).xyz;
-    vec3 f31 = mix(f23, mix(f30, (f30 * f30) * CB0[15].w, f27), vec3(f24)) * mix(vec3(1.0), f28, vec3(0.5));
-    float f32 = 1.0 - dot(f15, f29);
-    float f33 = 1.0 - VARYING2.w;
-    float f34 = mix(0.660000026226043701171875, 1.0, f33 * f33);
-    mat4 f35 = mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
-    vec4 f36 = vec4(CB0[7].xyz - VARYING4.xyz, 1.0) * f35;
-    vec4 f37 = vec4(CB0[7].xyz - ((VARYING4.xyz * (1.0 + ((3.0 * f34) / max(dot(VARYING4.xyz, f15), 0.00999999977648258209228515625)))) + (f15 * (3.0 * (1.0 - f34)))), 1.0) * f35;
-    float f38 = f36.w;
-    vec2 f39 = ((f36.xy * 0.5) + vec2(0.5 * f38)).xy / vec2(f38);
-    float f40 = f37.w;
-    vec2 f41 = ((f37.xy * 0.5) + vec2(0.5 * f40)).xy / vec2(f40);
-    vec2 f42 = f41 - vec2(0.5);
-    vec2 f43 = (f41 - f39) * clamp(vec2(1.0) - ((f42 * f42) * 4.0), vec2(0.0), vec2(1.0));
-    vec2 f44 = normalize(f43) * CB0[24].x;
-    vec4 f45 = texture(GBufferColorTexture, f39 + (f43 * clamp(min(texture(GBufferDepthTexture, f41 + f44).x * 500.0, texture(GBufferDepthTexture, f41 - f44).x * 500.0) - f38, 0.0, 1.0)));
-    vec3 f46 = f45.xyz;
-    vec3 f47 = mix(f46, (f46 * f46) * CB0[15].y, f27).xyz;
-    vec3 f48 = f47 * mix(vec3(1.0), VARYING2.xyz, vec3(f14));
-    vec4 f49 = vec4(f48.x, f48.y, f48.z, vec4(0.0).w);
-    f49.w = mix(1.0, f45.w, dot(f48.xyz, vec3(1.0)) / (dot(f47, vec3(1.0)) + 0.00999999977648258209228515625));
-    vec4 f50 = mix(mix(f49, vec4(mix((min((f23 + CB0[8].xyz) + (CB0[9].xyz * f24), vec3(CB0[17].w)) + (((CB0[10].xyz * clamp(f17, 0.0, 1.0)) + (CB0[12].xyz * max(-f17, 0.0))) * f26)) * f28, f31, vec3(mix((f11.y * f1) * CB2[0].w, 1.0, VARYING7.w))), 1.0), vec4(clamp((f13 - 1.0) + f9, 0.0, 1.0))), vec4(f31, 1.0), vec4(((f32 * f32) * 0.800000011920928955078125) * f14)) + vec4(CB0[10].xyz * ((((step(0.0, f17) * mix(f12.x, CB2[0].y, VARYING7.w)) * f26) * pow(clamp(dot(f15, normalize(f16 + f29)), 0.0, 1.0), mix(f12.y, CB2[0].z, VARYING7.w))) * f14), 0.0);
-    vec3 f51 = f50.xyz;
-    vec3 f52 = mix(f51, sqrt(clamp(f51 * CB0[15].z, vec3(0.0), vec3(1.0))), f27);
-    _entryPointOutput = mix(vec4(CB0[14].xyz, 1.0), vec4(f52.x, f52.y, f52.z, f50.w), vec4(clamp((CB0[13].x * length(VARYING4.xyz)) + CB0[13].y, 0.0, 1.0)));
+    float f25 = f22.y;
+    vec3 f26 = VARYING7.xyz - CB0[26].xyz;
+    vec3 f27 = VARYING7.xyz - CB0[27].xyz;
+    vec3 f28 = VARYING7.xyz - CB0[28].xyz;
+    vec4 f29 = vec4(VARYING7.xyz, 1.0) * mat4(CB8[((dot(f26, f26) < CB0[26].w) ? 0 : ((dot(f27, f27) < CB0[27].w) ? 1 : ((dot(f28, f28) < CB0[28].w) ? 2 : 3))) * 4 + 0], CB8[((dot(f26, f26) < CB0[26].w) ? 0 : ((dot(f27, f27) < CB0[27].w) ? 1 : ((dot(f28, f28) < CB0[28].w) ? 2 : 3))) * 4 + 1], CB8[((dot(f26, f26) < CB0[26].w) ? 0 : ((dot(f27, f27) < CB0[27].w) ? 1 : ((dot(f28, f28) < CB0[28].w) ? 2 : 3))) * 4 + 2], CB8[((dot(f26, f26) < CB0[26].w) ? 0 : ((dot(f27, f27) < CB0[27].w) ? 1 : ((dot(f28, f28) < CB0[28].w) ? 2 : 3))) * 4 + 3]);
+    vec4 f30 = textureLod(ShadowAtlasTexture, f29.xy, 0.0);
+    vec2 f31 = vec2(0.0);
+    f31.x = CB0[30].z;
+    vec2 f32 = f31;
+    f32.y = CB0[30].w;
+    float f33 = (2.0 * f29.z) - 1.0;
+    float f34 = exp(CB0[30].z * f33);
+    float f35 = -exp((-CB0[30].w) * f33);
+    vec2 f36 = (f32 * CB0[31].y) * vec2(f34, f35);
+    vec2 f37 = f36 * f36;
+    float f38 = f30.x;
+    float f39 = max(f30.y - (f38 * f38), f37.x);
+    float f40 = f34 - f38;
+    float f41 = f30.z;
+    float f42 = max(f30.w - (f41 * f41), f37.y);
+    float f43 = f35 - f41;
+    float f44 = (f17 > 0.0) ? mix(f25, mix(min((f34 <= f38) ? 1.0 : clamp(((f39 / (f39 + (f40 * f40))) - 0.20000000298023223876953125) * 1.25, 0.0, 1.0), (f35 <= f41) ? 1.0 : clamp(((f42 / (f42 + (f43 * f43))) - 0.20000000298023223876953125) * 1.25, 0.0, 1.0)), f25, clamp((length(VARYING7.xyz - CB0[7].xyz) * CB0[30].y) - (CB0[30].x * CB0[30].y), 0.0, 1.0)), CB0[31].x) : 0.0;
+    vec3 f45 = f10 * f10;
+    vec3 f46 = normalize(VARYING4.xyz);
+    vec3 f47 = texture(EnvironmentMapTexture, reflect(-VARYING4.xyz, f15)).xyz;
+    vec3 f48 = mix(f23, (f47 * f47) * CB0[15].x, vec3(f24)) * mix(vec3(1.0), f45, vec3(0.5));
+    float f49 = 1.0 - dot(f15, f46);
+    float f50 = 1.0 - VARYING2.w;
+    float f51 = mix(0.660000026226043701171875, 1.0, f50 * f50);
+    mat4 f52 = mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
+    vec4 f53 = vec4(CB0[7].xyz - VARYING4.xyz, 1.0) * f52;
+    vec4 f54 = vec4(CB0[7].xyz - ((VARYING4.xyz * (1.0 + ((3.0 * f51) / max(dot(VARYING4.xyz, f15), 0.00999999977648258209228515625)))) + (f15 * (3.0 * (1.0 - f51)))), 1.0) * f52;
+    float f55 = f53.w;
+    vec2 f56 = ((f53.xy * 0.5) + vec2(0.5 * f55)).xy / vec2(f55);
+    float f57 = f54.w;
+    vec2 f58 = ((f54.xy * 0.5) + vec2(0.5 * f57)).xy / vec2(f57);
+    vec2 f59 = f58 - vec2(0.5);
+    vec2 f60 = (f58 - f56) * clamp(vec2(1.0) - ((f59 * f59) * 4.0), vec2(0.0), vec2(1.0));
+    vec2 f61 = normalize(f60) * CB0[24].x;
+    vec4 f62 = texture(GBufferColorTexture, f56 + (f60 * clamp(min(texture(GBufferDepthTexture, f58 + f61).x * 500.0, texture(GBufferDepthTexture, f58 - f61).x * 500.0) - f55, 0.0, 1.0)));
+    vec3 f63 = f62.xyz;
+    vec3 f64 = ((f63 * f63) * CB0[15].x).xyz;
+    vec3 f65 = f64 * mix(vec3(1.0), VARYING2.xyz, vec3(f14));
+    vec4 f66 = vec4(f65.x, f65.y, f65.z, vec4(0.0).w);
+    f66.w = mix(1.0, f62.w, dot(f65.xyz, vec3(1.0)) / (dot(f64, vec3(1.0)) + 0.00999999977648258209228515625));
+    vec4 f67 = mix(mix(f66, vec4(mix((min((f23 + CB0[8].xyz) + (CB0[9].xyz * f24), vec3(CB0[17].w)) + (((CB0[10].xyz * clamp(f17, 0.0, 1.0)) + (CB0[12].xyz * max(-f17, 0.0))) * f44)) * f45, f48, vec3(mix((f11.y * f1) * CB2[0].w, 1.0, VARYING7.w))), 1.0), vec4(clamp((f13 - 1.0) + f9, 0.0, 1.0))), vec4(f48, 1.0), vec4(((f49 * f49) * 0.800000011920928955078125) * f14)) + vec4(CB0[10].xyz * ((((step(0.0, f17) * mix(f12.x, CB2[0].y, VARYING7.w)) * f44) * pow(clamp(dot(f15, normalize(f16 + f46)), 0.0, 1.0), mix(f12.y, CB2[0].z, VARYING7.w))) * f14), 0.0);
+    vec3 f68 = sqrt(clamp(f67.xyz * CB0[15].y, vec3(0.0), vec3(1.0)));
+    _entryPointOutput = mix(vec4(CB0[14].xyz, 1.0), vec4(f68.x, f68.y, f68.z, f67.w), vec4(clamp((CB0[13].x * length(VARYING4.xyz)) + CB0[13].y, 0.0, 1.0)));
 }
 
-//$$ShadowMapTexture=s1
 //$$LightMapTexture=s6
 //$$LightGridSkylightTexture=s7
+//$$ShadowAtlasTexture=s1
 //$$DiffuseMapTexture=s3
 //$$NormalMapTexture=s4
 //$$NormalDetailMapTexture=s8

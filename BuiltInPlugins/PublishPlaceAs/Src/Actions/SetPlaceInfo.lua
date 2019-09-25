@@ -9,7 +9,7 @@ return Action(script.Name, function(placeInfoArg)
 	AssertType.assertNullableType(placeInfoArg, "table", "SetPlaceInfo arg")
 	local placeInfo = placeInfoArg or {}
 
-	local places = placeInfo.places or {}
+	local places = placeInfo.places
 	local nextPageCursor = placeInfo.nextPageCursor
 	local previousPageCursor = placeInfo.previousPageCursor
 	local parentGame = placeInfo.parentGame

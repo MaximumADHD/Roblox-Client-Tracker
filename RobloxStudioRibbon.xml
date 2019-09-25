@@ -237,8 +237,8 @@
           <addaction name="inletAction" text="Studio.App.RobloxRibbonMainWindow.Inlets"/>
           <addaction name="universalsAction" text="Studio.App.RobloxRibbonMainWindow.Universal"/>
           <addaction name="weldSurfaceAction" text="Studio.App.RobloxRibbonMainWindow.AddWeld"/>
-          <addaction name="hingeAction" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.Hinge" icon=":/RibbonBar/images/RibbonIcons/Home/Joint.png" tooltip="Studio.App.RobloxRibbonMainWindow.AttachAHingeToAPart" width="32" height="32"/>
-          <addaction name="motorRightAction" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.Motor" tooltip="Studio.App.RobloxRibbonMainWindow.AttachAMotorToAPart" icon=":/RibbonBar/images/RibbonIcons/Home/Motor.png" width="32" height="32"/>
+          <addaction name="hingeAction" fflag="!DisableReJoinForSurfaceTool" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.Hinge" icon=":/RibbonBar/images/RibbonIcons/Home/Joint.png" tooltip="Studio.App.RobloxRibbonMainWindow.AttachAHingeToAPart" width="32" height="32"/>
+          <addaction name="motorRightAction" fflag="!DisableReJoinForSurfaceTool" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.Motor" tooltip="Studio.App.RobloxRibbonMainWindow.AttachAMotorToAPart" icon=":/RibbonBar/images/RibbonIcons/Home/Motor.png" width="32" height="32"/>
         </MenuButton>
         <addseparator visible="false"/>
         <MenuPopupButton name="groupSelectionAction" style="textbesideicon" text="Studio.App.RBXMainWindow.Group" popupStyle="menubutton" icon=":/RibbonBar/images/RibbonIcons/Home/Group.png" tooltip="Studio.App.RobloxRibbonMainWindow.GroupsPartsIntoModel" width="16" height="16">
@@ -533,11 +533,7 @@
         <addaction name="reloadScriptAction" tooltip="Studio.App.RobloxRibbonMainWindow.ReloadScriptAfterMod" style="textbesideicon"/>
         <addAction name="applyScriptEditsAction" tooltip="Studio.App.RobloxRibbonMainWindow.PushScriptTCServer" style="textbesideicon"/>
         <addseparator />
-        <!--TODO: (btang 6/26/2019) Remove commentSelectionAction and uncommentSelectionAction when removing FFlagStudioCommentSelection-->
-        <addaction fflag="!StudioCommentSelection" name="commentSelectionAction" tooltip="Studio.App.RobloxRibbonMainWindow.CommentOutTheSelectedText" style="textbesideicon"/>
-        <addaction fflag="!StudioCommentSelection" name="uncommentSelectionAction" tooltip="Studio.App.RobloxRibbonMainWindow.UncommentOutTheSelectedText" style="textbesideicon"/>
         <addaction name="toggleCommentAction" tooltip="Studio.App.RobloxRibbonMainWindow.ToggleCommentSelectedLines" style="textbesideicon"/>
-        <addseparator fflag="!StudioCommentSelection" />
         <addaction name="expandAllFoldsAction" tooltip="Studio.App.RobloxRibbonMainWindow.ExpandAllCollapsedFolds" style="textbesideicon"/>
         <addaction name="collapseAllFoldsAction" tooltip="Studio.App.RobloxRibbonMainWindow.CollapseAllCollapsableSections" style="textbesideicon"/>
       </Group>

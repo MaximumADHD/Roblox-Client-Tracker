@@ -14,7 +14,7 @@ struct Globals
     vec3 Lamp1Color;
     vec4 FogParams;
     vec4 FogColor_GlobalForceFieldTime;
-    vec4 Technology_Exposure;
+    vec3 Exposure;
     vec4 LightBorder;
     vec4 LightConfig0;
     vec4 LightConfig1;
@@ -51,8 +51,8 @@ out vec3 VARYING0;
 out vec4 VARYING1;
 out vec4 VARYING2;
 out vec4 VARYING3;
-out vec4 VARYING4;
-out vec3 VARYING5;
+out vec3 VARYING4;
+out vec4 VARYING5;
 out vec3 VARYING6;
 out vec4 VARYING7;
 out vec3 VARYING8;
@@ -62,8 +62,8 @@ void main()
 {
     vec3 v0 = (POSITION.xyz * CB1[0].w) + CB1[0].xyz;
     vec3 v1 = (NORMAL.xyz * 0.0078740157186985015869140625) - vec3(1.0);
-    vec4 v2 = vec4(v0, 1.0);
-    vec4 v3 = v2 * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
+    float v2 = v0.x;
+    vec4 v3 = vec4(v2, v0.yz, 1.0) * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
     vec4 v4 = v3;
     v4.z = v3.z - (float(POSITION.w < 0.0) * 0.00200000009499490261077880859375);
     vec3 v5 = CB0[7].xyz - v0;
@@ -87,8 +87,8 @@ void main()
     VARYING1 = vec4(((v8 * sqrt(1.0 - (v9 * v9))) + (v8.yx * vec2(v9, -v9))) + (vec2(NORMAL.w, floor(NORMAL.w * 2.6651442050933837890625)) * CB2[v7 * 1 + 0].y), ((v12 * sqrt(1.0 - (v13 * v13))) + (v12.yx * vec2(v13, -v13))) + (vec2(TEXCOORD0.w, floor(TEXCOORD0.w * 2.6651442050933837890625)) * CB2[v11 * 1 + 0].y));
     VARYING2 = vec4(TEXCOORD0.x, 0.0, TEXCOORD0.y, 0.0);
     VARYING3 = vec4(((v16 * sqrt(1.0 - (v17 * v17))) + (v16.yx * vec2(v17, -v17))) + (vec2(TEXCOORD1.w, floor(TEXCOORD1.w * 2.6651442050933837890625)) * CB2[v15 * 1 + 0].y), TEXCOORD0.z, 0.0);
-    VARYING4 = vec4(((v0 + (v1 * 6.0)).yxz * CB0[17].xyz) + CB0[18].xyz, (CB0[13].x * length(v5)) + CB0[13].y);
-    VARYING5 = vec3(dot(CB0[21], v2), dot(CB0[22], v2), dot(CB0[23], v2));
+    VARYING4 = ((v0 + (v1 * 6.0)).yxz * CB0[17].xyz) + CB0[18].xyz;
+    VARYING5 = vec4(v2, v0.yz, (CB0[13].x * length(v5)) + CB0[13].y);
     VARYING6 = v1;
     VARYING7 = vec4(v5, v3.w);
     VARYING8 = vec3(v20.x ? vec3(1.0).x : vec3(0.0).x, v20.y ? vec3(1.0).y : vec3(0.0).y, v20.z ? vec3(1.0).z : vec3(0.0).z);

@@ -150,6 +150,7 @@ function SpringAnimatedItem.wrap(component)
 end
 
 SpringAnimatedItem.AnimatedFrame = SpringAnimatedItem.wrap("Frame")
+SpringAnimatedItem.AnimatedScrollingFrame = SpringAnimatedItem.wrap("ScrollingFrame")
 SpringAnimatedItem.AnimatedImageLabel = SpringAnimatedItem.wrap("ImageLabel")
 SpringAnimatedItem.AnimatedTextButton = SpringAnimatedItem.wrap("TextButton")
 SpringAnimatedItem.AnimatedUIScale = SpringAnimatedItem.wrap("UIScale")

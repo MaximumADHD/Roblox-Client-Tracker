@@ -99,7 +99,7 @@ function Header:render()
 		return withLocalization(function(localization, localizedContent)
 			local props = self.props
 
-			local categories = localization:getLocalizedCategores(props.categories)
+			local categories = localization:getLocalizedCategories(props.categories)
 			local categoryIndex = props.categoryIndex or 0
 			local currentTab = props.currentTab
 			local onCategorySelected = self.onCategorySelected

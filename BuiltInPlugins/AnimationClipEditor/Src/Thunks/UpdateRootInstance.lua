@@ -1,6 +1,7 @@
 local CollectionService = game:GetService("CollectionService")
 
 local Plugin = script.Parent.Parent.Parent
+local Roact = require(Plugin.Roact)
 local RigUtils = require(Plugin.Src.Util.RigUtils)
 local Constants = require(Plugin.Src.Util.Constants)
 
@@ -13,6 +14,7 @@ local ReleaseEditor = require(Plugin.Src.Thunks.ReleaseEditor)
 local AttachEditor = require(Plugin.Src.Thunks.AttachEditor)
 local SetRootInstance = require(Plugin.Src.Actions.SetRootInstance)
 local SetAnimationData = require(Plugin.Src.Actions.SetAnimationData)
+local SetStartingPose = require(Plugin.Src.Actions.SetStartingPose)
 local LoadKeyframeSequence = require(Plugin.Src.Thunks.Exporting.LoadKeyframeSequence)
 
 return function(rootInstance)
@@ -24,10 +26,17 @@ return function(rootInstance)
 		store:dispatch(SetShowTree(false))
 		store:dispatch(SetIKEnabled(false))
 
-		local _, emptyR15 = RigUtils.canUseIK(rootInstance)
+		local canUseIK, emptyR15 = RigUtils.canUseIK(rootInstance)
 		store:dispatch(SetIKMode(emptyR15 and Constants.IK_MODE.BodyPart or Constants.IK_MODE.FullBody))
 
 		store:dispatch(SetRootInstance(rootInstance))
+
+		if canUseIK and emptyR15 then
+			local pose = RigUtils.getPoseCFrames(rootInstance)
+			store:dispatch(SetStartingPose(pose))
+		else
+			store:dispatch(SetStartingPose(Roact.None))
+		end
 
 		-- If there is an animation we can load, load it
 		local animSaves = RigUtils.getAnimSaves(rootInstance)

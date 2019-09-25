@@ -4481,6 +4481,24 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "ExecuteJavaScript",
+                    "Parameters": [
+                        {
+                            "Name": "javascript",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "OpenBrowserWindow",
                     "Parameters": [
                         {
@@ -4553,6 +4571,24 @@
                         },
                         {
                             "Name": "params",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SendCommand",
+                    "Parameters": [
+                        {
+                            "Name": "command",
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "string"
@@ -8341,6 +8377,24 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "CalculateNumTrianglesInMeshSync",
+                    "Parameters": [
+                        {
+                            "Name": "meshId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "int"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "GetFailedRequests",
                     "Parameters": [
                     ],
@@ -9735,7 +9789,7 @@
                 {
                     "Category": "Data",
                     "MemberType": "Property",
-                    "Name": "CurrentGameStateType",
+                    "Name": "CurrentDataModelType",
                     "Security": {
                         "Read": "PluginSecurity",
                         "Write": "PluginSecurity"
@@ -9776,10 +9830,10 @@
                 },
                 {
                     "MemberType": "Event",
-                    "Name": "CurrentGameStateTypeAboutToChange",
+                    "Name": "CurrentDataModelTypeAboutToChange",
                     "Parameters": [
                         {
-                            "Name": "gameStateType",
+                            "Name": "dataModelType",
                             "Type": {
                                 "Category": "Enum",
                                 "Name": "StudioDataModelType"
@@ -9790,7 +9844,7 @@
                 },
                 {
                     "MemberType": "Event",
-                    "Name": "CurrentGameStateTypeChanged",
+                    "Name": "CurrentDataModelTypeChanged",
                     "Parameters": [
                     ],
                     "Security": "PluginSecurity"
@@ -11089,6 +11143,24 @@
                     "ReturnType": {
                         "Category": "DataType",
                         "Name": "Objects"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "RestoreScripts",
+                    "Parameters": [
+                        {
+                            "Name": "scripts",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Objects"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
                     },
                     "Security": "RobloxScriptSecurity"
                 },
@@ -14189,24 +14261,6 @@
                     }
                 },
                 {
-                    "MemberType": "Function",
-                    "Name": "SetVerb",
-                    "Parameters": [
-                        {
-                            "Name": "verb",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "void"
-                    },
-                    "Security": "RobloxScriptSecurity"
-                },
-                {
                     "MemberType": "Event",
                     "Name": "Activated",
                     "Parameters": [
@@ -15819,6 +15873,23 @@
                 {
                     "Category": "Text",
                     "MemberType": "Property",
+                    "Name": "EnableRealtimeFilteringHints",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Text",
+                    "MemberType": "Property",
                     "Name": "Font",
                     "Security": {
                         "Read": "None",
@@ -15852,26 +15923,6 @@
                     "ValueType": {
                         "Category": "Enum",
                         "Name": "FontSize"
-                    }
-                },
-                {
-                    "Category": "Data",
-                    "MemberType": "Property",
-                    "Name": "IsPassword",
-                    "Security": {
-                        "Read": "RobloxScriptSecurity",
-                        "Write": "RobloxScriptSecurity"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": false
-                    },
-                    "Tags": [
-                        "NotReplicated"
-                    ],
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
                     }
                 },
                 {
@@ -25320,6 +25371,27 @@
                         "Name": "void"
                     },
                     "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetCountryRegionForPlayerAsync",
+                    "Parameters": [
+                        {
+                            "Name": "player",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields"
+                    ]
                 },
                 {
                     "MemberType": "Function",
@@ -38949,6 +39021,27 @@
                 {
                     "Category": "Data",
                     "MemberType": "Property",
+                    "Name": "HostDataModelTypeIsCurrent",
+                    "Security": {
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
                     "Name": "MDIInstance",
                     "Security": {
                         "Read": "PluginSecurity",
@@ -40559,6 +40652,39 @@
                 "NotCreatable",
                 "Service",
                 "Deprecated"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "MemberType": "Function",
+                    "Name": "GetPolicyInfoForPlayerAsync",
+                    "Parameters": [
+                        {
+                            "Name": "player",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Dictionary"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields"
+                    ]
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "PolicyService",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service",
+                "NotReplicated"
             ]
         },
         {
@@ -47370,7 +47496,7 @@
                     "Name": "UserEmotesEnabled",
                     "Security": {
                         "Read": "None",
-                        "Write": "RobloxScriptSecurity"
+                        "Write": "None"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -49360,6 +49486,17 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "EmitPlacePublishedSignal",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "GetClassIcon",
                     "Parameters": [
                         {
@@ -49594,17 +49731,6 @@
                 },
                 {
                     "MemberType": "Function",
-                    "Name": "emitPlacePublishedSignal",
-                    "Parameters": [
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "void"
-                    },
-                    "Security": "RobloxScriptSecurity"
-                },
-                {
-                    "MemberType": "Function",
                     "Name": "GetInstalledPluginData",
                     "Parameters": [
                     ],
@@ -49751,8 +49877,15 @@
                 },
                 {
                     "MemberType": "Event",
-                    "Name": "GamePublishedToRoblox",
+                    "Name": "GamePublishFinished",
                     "Parameters": [
+                        {
+                            "Name": "success",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        }
                     ],
                     "Security": "RobloxScriptSecurity"
                 },
@@ -49761,10 +49894,17 @@
                     "Name": "OnConvertToPackageResult",
                     "Parameters": [
                         {
-                            "Name": "result",
+                            "Name": "isSuccessful",
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "bool"
+                            }
+                        },
+                        {
+                            "Name": "errorMessage",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
                             }
                         }
                     ],
@@ -49837,13 +49977,6 @@
                                 "Name": "Objects"
                             }
                         }
-                    ],
-                    "Security": "RobloxScriptSecurity"
-                },
-                {
-                    "MemberType": "Event",
-                    "Name": "PlacePublishedToRoblox",
-                    "Parameters": [
                     ],
                     "Security": "RobloxScriptSecurity"
                 }
@@ -59263,10 +59396,6 @@
                 {
                     "Name": "Craters",
                     "Value": 1
-                },
-                {
-                    "Name": "CratersAndDebris",
-                    "Value": 2
                 }
             ],
             "Name": "ExplosionType"
@@ -63510,23 +63639,23 @@
         {
             "Items": [
                 {
-                    "Name": "Legacy",
-                    "Value": 0
+                    "Name": "Compatibility",
+                    "Value": 2
                 },
                 {
                     "Name": "Voxel",
                     "Value": 1
                 },
                 {
-                    "Name": "Compatibility",
+                    "Name": "ShadowMap",
+                    "Value": 3
+                },
+                {
+                    "Name": "Legacy",
                     "Tags": [
                         "Deprecated"
                     ],
-                    "Value": 2
-                },
-                {
-                    "Name": "ShadowMap",
-                    "Value": 3
+                    "Value": 0
                 }
             ],
             "Name": "Technology"
@@ -63644,6 +63773,10 @@
                 {
                     "Name": "Phone",
                     "Value": 4
+                },
+                {
+                    "Name": "Password",
+                    "Value": 5
                 }
             ],
             "Name": "TextInputType"

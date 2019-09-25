@@ -1,10 +1,15 @@
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+local Roact = require(ReplicatedStorage.Packages.Roact)
+local UIBlox = require(ReplicatedStorage.Packages.UIBlox)
+
+local DarkTheme = require(ReplicatedStorage.Packages.UIBloxResources.UIBloxStyle.Themes.DarkTheme)
+local Gotham = require(ReplicatedStorage.Packages.UIBloxResources.UIBloxStyle.Fonts.Gotham)
+
+local StyleProvider = UIBlox.Style.Provider
+
 local ExpandableTextAreaRoot = script.Parent.Parent
-local UIBloxRoot = ExpandableTextAreaRoot.Parent
-local StyleRoot = UIBloxRoot.Style
-local StyleProvider = require(StyleRoot.StyleProvider)
-local testStyle = require(StyleRoot.Validator.TestStyle)
 local ExpandableTextArea = require(ExpandableTextAreaRoot.ExpandableTextArea)
-local Roact = require(UIBloxRoot.Parent.Roact)
 
 local DUMMY_TEXT_LONG = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, " ..
 	"sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nunc sed augue lacus viverra vitae congue. " ..
@@ -17,37 +22,55 @@ local DUMMY_TEXT_LONG = "Lorem ipsum dolor sit amet, consectetur adipiscing elit
 
 local DUMMY_TEXT_SHORT = "This Text Is Too Short For A Dropdown Arrow"
 
-return function(target)
-	local width = UDim.new(0.30, 250)
-	local widthSmall = UDim.new(0, 200)
-	local padding = 25
+local Width = UDim.new(0.50, 250)
+local WidthSmall = UDim.new(0, 200)
+local Padding = 25
 
-	local frame = Roact.createElement("Frame", {
+local ExpandableTextAreaStoryComponent = Roact.PureComponent:extend("ExpandableTextAreaStoryComponent")
+
+function ExpandableTextAreaStoryComponent:render()
+	return Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 1, 0),
 		BackgroundTransparency = 1,
 	}, {
-		styleProviderLong = Roact.createElement(StyleProvider, {
-			style = testStyle,
-		}, {
-			textBoxLong = Roact.createElement(ExpandableTextArea, {
+		UIGridLayout = Roact.createElement("UIGridLayout",{
+			CellSize = UDim2.new(1, 0, 0, 100),
+			SortOrder = Enum.SortOrder.LayoutOrder,
+		}),
+		TextBoxShort = Roact.createElement(ExpandableTextArea, {
+			Text = DUMMY_TEXT_SHORT,
+			Position = UDim2.new(Width.Scale, Width.Offset + Padding, 0, 0),
+			compactNumberOfLines = 4,
+			width = WidthSmall,
+			LayoutOrder = 1,
+		}),
+		Roact.createElement("Frame", {
+			Size = UDim2.new(0.75, 0, 1, 0),
+			BackgroundTransparency = 1,
+			LayoutOrder = 2,
+		},{
+			TextBoxLong = Roact.createElement(ExpandableTextArea, {
 				Text = DUMMY_TEXT_LONG,
 				compactNumberOfLines = 4,
-				width = width,
-			})
+				width = Width,
+			}),
 		}),
-		styleProviderShort = Roact.createElement(StyleProvider, {
-			style = testStyle,
-		}, {
-			textBoxShort = Roact.createElement(ExpandableTextArea, {
-				Text = DUMMY_TEXT_SHORT,
-				Position = UDim2.new(width.Scale, width.Offset + padding, 0, 0),
-				compactNumberOfLines = 4,
-				width = widthSmall,
-			})
-		})
-	})
 
-	local handle = Roact.mount(frame, target, "ExpandableTextAreaComponent")
+	})
+end
+
+
+return function(target)
+	local handle = Roact.mount(Roact.createElement(StyleProvider,
+	{
+		style = {
+			Theme = DarkTheme,
+			Font = Gotham,
+		},
+	},{
+		Story = Roact.createElement(ExpandableTextAreaStoryComponent),
+	}),target, "ExpandableTextArea")
+
 	return function()
 		Roact.unmount(handle)
 	end

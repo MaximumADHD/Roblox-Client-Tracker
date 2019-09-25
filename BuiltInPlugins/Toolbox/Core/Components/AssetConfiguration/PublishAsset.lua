@@ -179,7 +179,7 @@ function PublishAsset:render()
 						Font = Constants.FONT,
 						TextSize = Constants.FONT_SIZE_TITLE,
 
-						Text = publishAssetLocalized.AssetTextDislpay[assetTypeEnum],
+						Text = publishAssetLocalized.AssetTextDisplay[assetTypeEnum],
 						TextXAlignment = Enum.TextXAlignment.Left,
 						TextYAlignment = Enum.TextYAlignment.Top,
 					})

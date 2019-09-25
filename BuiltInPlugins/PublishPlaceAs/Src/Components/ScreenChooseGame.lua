@@ -19,6 +19,8 @@ local Theming = require(Plugin.Src.ContextServices.Theming)
 
 local LoadExistingGames = require(Plugin.Src.Thunks.LoadExistingGames)
 local LoadExistingPlaces = require(Plugin.Src.Thunks.LoadExistingPlaces)
+local LoadGroups = require(Plugin.Src.Thunks.LoadGroups)
+
 local SetScreen = require(Plugin.Src.Actions.SetScreen)
 
 local Footer = require(Plugin.Src.Components.Footer)
@@ -28,8 +30,9 @@ local Localizing = UILibrary.Localizing
 local Spritesheet = UILibrary.Util.Spritesheet
 local RoundTextButton = UILibrary.Component.RoundTextButton
 local createFitToContent = UILibrary.Component.createFitToContent
+local StyledDropDown = UILibrary.Component.StyledDropdown
 
-local FRAME_BUTTON_SIZE = 24
+local FRAME_BUTTON_SIZE = 32
 local ARROW_SIZE = 12
 
 local arrowSpritesheet = Spritesheet("rbxasset://textures/StudioSharedUI/arrowSpritesheet.png", {
@@ -47,15 +50,17 @@ local HorizontalContentFit = createFitToContent("Frame", "UIListLayout", {
 	SortOrder = Enum.SortOrder.LayoutOrder,
 })
 
+local StudioService = game:GetService("StudioService")
+
 local ScreenChooseGame = Roact.PureComponent:extend("ScreenChooseGame")
 
 function ScreenChooseGame:init()
-	self.props.DispatchLoadExistingGames()
-
 	self.state = {
 		pageNumber = 1,
 		isPreviousButtonHovered = false,
 		isNextButtonHovered = false,
+		--TODO: switch to index when table.indexOf(value) is added
+		selectedItem = nil,
 	}
 
 	self.onPreviousPageButtonPress = function()
@@ -93,6 +98,9 @@ function ScreenChooseGame:init()
 			isNextButtonHovered = false,
 		})
 	end
+
+	self.props.DispatchLoadExistingGames(true, StudioService:GetUserId())
+	self.props.DispatchLoadGroups()
 end
 
 function ScreenChooseGame:render()
@@ -104,6 +112,7 @@ function ScreenChooseGame:render()
 			local games = props.Games
 			local nextPageCursor = props.NextPageCursor
 			local previousPageCursor = props.PreviousPageCursor
+			local groups = props.Groups
 
 			local dispatchLoadExistingGames = props.DispatchLoadExistingGames
 			local openChoosePlacePage = props.OpenChoosePlacePage
@@ -123,24 +132,40 @@ function ScreenChooseGame:render()
 				nextButtonColor = theme.pageButton.hovered.ButtonColor
 			end
 
+			local myGamesText = localization:getText("GroupDropdown", "MyGames")
+
+			local dropdownItems = { { Key = StudioService:GetUserId(), Text = myGamesText, IsUser = true, }, }
+
+			if groups and next(groups) ~= nil then
+				for _, group in pairs(groups) do
+					table.insert(dropdownItems, { Key = group.groupId, Text = group.name, IsUser = false, })
+				end
+			end
+
+			if not self.state.selectedItem then
+				self:setState({
+					selectedItem = dropdownItems[1],
+				})
+			end
+			 
+			local dropdownDisplayText = (self.state.selectedItem and self.state.selectedItem or dropdownItems[1]).Text
+
 			-- TODO (kstephan) 2019/07/29 Use infinite scroller. componentsTop and Bottom
 			--                             is a clunky, temporary solution
 			local componentsTop = {
 				Roact.createElement("UIListLayout", {
 					FillDirection = Enum.FillDirection.Horizontal,
 					HorizontalAlignment = Enum.HorizontalAlignment.Left,
-					VerticalAlignment = Enum.VerticalAlignment.Top,
 					SortOrder = Enum.SortOrder.LayoutOrder,
-					Padding = UDim.new(0, 20),
+					Padding = UDim.new(0, 30),
 				}),
 			}
 			local componentsBottom = {
 				Roact.createElement("UIListLayout", {
 					FillDirection = Enum.FillDirection.Horizontal,
 					HorizontalAlignment = Enum.HorizontalAlignment.Left,
-					VerticalAlignment = Enum.VerticalAlignment.Bottom,
 					SortOrder = Enum.SortOrder.LayoutOrder,
-					Padding = UDim.new(0, 20),
+					Padding = UDim.new(0, 30),
 				}),
 			}
 
@@ -172,62 +197,82 @@ function ScreenChooseGame:render()
 			}, {
 				ChooseGameText = Roact.createElement("TextLabel", {
 					Text = localization:getText("ScreenHeader", "ChooseGame"),
-					Position = UDim2.new(0, 60, 0.05, 0),
+					Position = UDim2.new(0, 30, 0, 20),
 					BackgroundTransparency = 1,
 					TextColor3 = theme.header.text,
 					TextXAlignment = Enum.TextXAlignment.Left,
 					Font = theme.header.font,
 					TextSize = 18,
 				}),
+
+				GroupDropdown = Roact.createElement(StyledDropDown, {
+					Size = UDim2.new(0, 330, 0, 38),
+					Position = UDim2.new(0, 30, 0, 40),
+					ItemHeight = 38,
+					ButtonText = dropdownDisplayText,
+					Items = dropdownItems,
+					MaxItems = 4,
+					TextSize = 18,
+					SelectedItem = (self.state.selectedItem and self.state.selectedItem or dropdownItems[1]).Key,
+					OnItemClicked = function(item) 
+						self:setState({
+							pageNumber = 1,
+							selectedItem = item,
+						})
+						dispatchLoadExistingGames(self.state.selectedItem.IsUser, self.state.selectedItem.Key)
+					end,
+					ListWidth = 330,
+				}),
 				
 				GamesList = Roact.createElement("Frame", {
-					Size = UDim2.new(1, 0, 0.7, -Constants.FOOTER_HEIGHT),
-					Position = UDim2.new(0, 0, 0.17, 0),
+					Size = UDim2.new(1, 0, 0.5, Constants.FOOTER_HEIGHT * 2),
+					Position = UDim2.new(0, 0, 0.5, -Constants.FOOTER_HEIGHT * 2),
 					BackgroundTransparency = 1,
 				},{
 					-- TODO (kstephan) 2019/07/29 Use infinite scroller instead of componentsTop and Bottom
 					TopRow = Roact.createElement("Frame", {
-						Size = UDim2.new(0, 780, 0.4, 0),
-						Position = UDim2.new(0.5, 0, 0, 0),
-						AnchorPoint = Vector2.new(0.5, 0),
+						Size = UDim2.new(1, 0, 0.5, 0),
+						Position = UDim2.new(0, 30, 0, 0),
+						AnchorPoint = Vector2.new(0, 0.5),
 						BackgroundTransparency = 1,
 					}, componentsTop),
 					
 					BottomRow = Roact.createElement("Frame", {
-						Size = UDim2.new(0, 780, 0.4, 0),
-						AnchorPoint = Vector2.new(0.5, 0),
-						Position = UDim2.new(0.5, 0, 0.6, 0),
+						Size = UDim2.new(1, 0, 0.5, 0),
+						Position = UDim2.new(0, 30, 0.5, 0),
+						AnchorPoint = Vector2.new(0, 0.5),
 						BackgroundTransparency = 1,
 					}, componentsBottom),
 				}),
 
 				PageButtons = Roact.createElement(HorizontalContentFit, {
 					BackgroundTransparency = 1,
-					Position = UDim2.new(0.5, 0, 0.8, 0)
+					Position = UDim2.new(0.5, 0, 1, -Constants.FOOTER_HEIGHT * 2)
 				}, {
 					-- TODO: Change pagination to use infinite scroll instead of next/previous page buttons
-					PreviousButtonFrame = Roact.createElement("Frame", {
+					PreviousButton = Roact.createElement("TextButton", {
 						Size = UDim2.new(0, FRAME_BUTTON_SIZE, 0, FRAME_BUTTON_SIZE),
 						BackgroundColor3 = previousButtonColor,
 						BorderColor3 = theme.pageButton.BorderColor,
+						Active = previousButtonActive,
+						TextTransparency = 1,
 						LayoutOrder = 1,
+
+						[Roact.Event.MouseEnter] = self.onPreviousButtonHovered,
+						[Roact.Event.MouseLeave] = self.onPreviousButtonHoverEnded,
+						[Roact.Event.Activated] = function()
+							if previousPageCursor then
+								dispatchLoadExistingGames(self.state.selectedItem.IsUser, self.state.selectedItem.Key, previousPageCursor)
+								self.onPreviousPageButtonPress()
+							end
+						end,
 					},{
-						PreviousButton = Roact.createElement("ImageButton", Cryo.Dictionary.join(leftArrowProps, {
+						PreviousButtonImage = Roact.createElement("ImageLabel", Cryo.Dictionary.join(leftArrowProps, {
 							AnchorPoint = Vector2.new(0.5, 0.5),
 							Position = UDim2.new(0.5, 0, 0.5, 0),
 							Size = UDim2.new(0, ARROW_SIZE, 0, ARROW_SIZE),
 							BackgroundTransparency = 1,
-							Active = previousButtonActive,
-							ImageColor3 = previousButtonActive and theme.pageButton.ImageColor or theme.pageButton.disabled.ImageColor,
-							
-							[Roact.Event.MouseEnter] = self.onPreviousButtonHovered,
-							[Roact.Event.MouseLeave] = self.onPreviousButtonHoverEnded,
-							[Roact.Event.Activated] = function()
-								if previousPageCursor then
-									dispatchLoadExistingGames(previousPageCursor)
-									self.onPreviousPageButtonPress()
-								end
-							end,
+							ImageColor3 = previousButtonActive and theme.pageButton.ImageColor or theme.pageButton.disabled.ImageColor,							
 						})),
 					}),
 
@@ -238,32 +283,34 @@ function ScreenChooseGame:render()
 						BackgroundTransparency = 1,
 						TextColor3 = theme.header.text,
 						TextXAlignment = Enum.TextXAlignment.Center,
-						TextSize = 13,
-						LayoutOrder  = 2,
+						TextSize = 18,
+						LayoutOrder = 2,
+						Font = theme.pageText.font,
 					}),
 
-					NextButtonFrame = Roact.createElement("Frame", {
+					NextButton = Roact.createElement("TextButton", {
 						Size = UDim2.new(0, FRAME_BUTTON_SIZE, 0, FRAME_BUTTON_SIZE),
 						BackgroundColor3 = nextButtonColor,
 						BorderColor3 = theme.pageButton.BorderColor,
+						Active = nextPageCursor ~= nil,	
+						TextTransparency = 1,
 						LayoutOrder = 3,
+
+						[Roact.Event.MouseEnter] = self.onNextButtonHovered,
+						[Roact.Event.MouseLeave] = self.onNextButtonHoverEnded,
+						[Roact.Event.Activated] = function()
+							if nextPageCursor then
+								dispatchLoadExistingGames(self.state.selectedItem.IsUser, self.state.selectedItem.Key, nextPageCursor)
+								self.onNextPageButtonPress()
+							end
+						end,
 					},{
-						NextButton = Roact.createElement("ImageButton", Cryo.Dictionary.join(rightArrowProps, {
+						NextButton = Roact.createElement("ImageLabel", Cryo.Dictionary.join(rightArrowProps, {
 							AnchorPoint = Vector2.new(0.5, 0.5),
 							Position = UDim2.new(0.5, 0, 0.5, 0),
 							Size = UDim2.new(0, ARROW_SIZE, 0, ARROW_SIZE),
 							BackgroundTransparency = 1,
-							Active = nextPageCursor ~= nil,	
-							ImageColor3 = theme.pageButton.ImageColor,	
-							
-							[Roact.Event.MouseEnter] = self.onNextButtonHovered,
-							[Roact.Event.MouseLeave] = self.onNextButtonHoverEnded,
-							[Roact.Event.Activated] = function()
-								if nextPageCursor then
-									dispatchLoadExistingGames(nextPageCursor)
-									self.onNextPageButtonPress()
-								end
-							end,
+							ImageColor3 = theme.pageButton.ImageColor,								
 						})),
 					}),
 				}),
@@ -285,18 +332,23 @@ end
 
 local function mapStateToProps(state, props)
 	local gameInfo = state.ExistingGame.gameInfo
+	local groupInfo = state.GroupsHavePermission.groupInfo
 
 	return {
 		NextPageCursor = gameInfo.nextPageCursor,
 		PreviousPageCursor = gameInfo.previousPageCursor,
 		Games = gameInfo.games,
+		Groups = groupInfo.groups,
 	}
 end
 
 local function useDispatchForProps(dispatch)
 	return {
-		DispatchLoadExistingGames = function(cursor)
-			dispatch(LoadExistingGames(cursor))
+		DispatchLoadGroups = function()
+			dispatch(LoadGroups())
+		end,
+		DispatchLoadExistingGames = function(isUserId, id, cursor)
+			dispatch(LoadExistingGames(isUserId, id, cursor))
 		end,
 		OpenChoosePlacePage = function(parentGame)
 			dispatch(LoadExistingPlaces(parentGame))

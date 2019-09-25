@@ -35,9 +35,7 @@ return function()
 		expect(stackTrace).to.be.a("string")
 	end)
 
-	-- **** SKELETON EDITOR CHANGES **** --
-	--itSKIP("it should return an updated stack trace after an update", function() end)
-	-- ********************************* --
+	itSKIP("it should return an updated stack trace after an update", function() end)
 
 	it("should return nil when elementTracing is off", function()
 		local stackTrace = nil

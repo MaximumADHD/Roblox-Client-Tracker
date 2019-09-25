@@ -7,6 +7,7 @@ local Rodux = require(Packages.Rodux)
 local Actions = Plugin.Src.Actions
 local SetAssetConfigData = require(Actions.SetAssetConfigData)
 local SetCurrentScreen = require(Actions.SetCurrentScreen)
+local SetAssetName = require(Actions.SetAssetName)
 local AddChange = require(Actions.AddChange)
 local ClearChange = require(Actions.ClearChange)
 local UploadResult = require(Actions.UploadResult)
@@ -25,6 +26,7 @@ local initial = {
 	changed = {},
 
 	assetId = nil,
+	assetName = nil,
 	instances = nil,
 	assetTypeEnum = nil, -- Enum.AssetType.*
 	screenConfigs = {},
@@ -47,6 +49,12 @@ return Rodux.createReducer(initial, {
 	[SetAssetConfigData.name] = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			assetConfigData = action.assetConfigData
+		})
+	end,
+
+	[SetAssetName.name] = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			assetName = action.assetName
 		})
 	end,
 

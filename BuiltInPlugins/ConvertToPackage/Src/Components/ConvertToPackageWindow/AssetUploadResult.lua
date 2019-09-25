@@ -50,30 +50,14 @@ local AssetUploadResult = Roact.PureComponent:extend("AssetUploadResult")
 
 function AssetUploadResult:init(props)
 	self.state = {
-		isLoading = true,
+		isLoading = true
 	}
-end
-
-local function getResultUrl(assetId, assetName)
-	local url
-	-- When we upload asset, depending on the assetType, it could go
-	-- to catalog or marketplace.
-		local baseUrl = ContentProvider.BaseUrl
-		-- TODO: Replace "NewAsset" once we moved assetName into the store.
-	url = string.format("%slibrary/%s/%s", baseUrl, HttpService:urlEncode(assetId), "NewAsset")
-	return url
 end
 
 function AssetUploadResult:render()
 	return withContext(function(localization, theme)
 		local props = self.props
-		local url
-		if props.uploadSucceeded then
-			url = getResultUrl(
-				props.assetId or 0,
-				props.assetConfigData and props.assetConfigData.Name or "Asset"
-			)
-		end
+		local assetName = props.assetName
 
 		return Roact.createElement("Frame", {
 			BackgroundColor3 = theme.uploadResult.background,
@@ -82,6 +66,7 @@ function AssetUploadResult:render()
 			Size = props.Size,
 		}, {
 			ModelPreview = Roact.createElement(AssetThumbnailPreview, {
+				title = assetName,
 				titleHeight = PREVIEW_TITLE_HEIGHT,
 				titlePadding = PREVIEW_TITLE_PADDING,
 				Position = UDim2.new(0.5, -PREVIEW_SIZE/2, 0, PREVIEW_PADDING),
@@ -102,7 +87,7 @@ function AssetUploadResult:render()
 					Size = UDim2.new(0, TITLE_WIDTH, 0, TITLE_HEIGHT),
 					Text = localization:getText("General", "SuccessfullyConverted"),
 					Font = Constants.FONT,
-					TextColor3 = theme.uploadResult.text,
+					TextColor3 = theme.uploadResult.successText,
 					TextSize = Constants.FONT_SIZE_TITLE,
 					TextXAlignment = Enum.TextXAlignment.Center,
 					TextYAlignment = Enum.TextYAlignment.Center,
@@ -183,6 +168,7 @@ local function mapStateToProps(state, props)
 
 	return {
 		assetId = state.AssetConfigReducer.assetId,
+		assetName = state.AssetConfigReducer.assetName,
 		uploadSucceeded = state.AssetConfigReducer.uploadSucceeded,
 		networkError = state.NetworkReducer.networkError,
 		assetConfigData = state.AssetConfigReducer.assetConfigData,

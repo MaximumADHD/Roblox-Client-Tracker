@@ -14,7 +14,7 @@ struct Globals
     vec3 Lamp1Color;
     vec4 FogParams;
     vec4 FogColor_GlobalForceFieldTime;
-    vec4 Technology_Exposure;
+    vec3 Exposure;
     vec4 LightBorder;
     vec4 LightConfig0;
     vec4 LightConfig1;
@@ -45,7 +45,7 @@ varying vec3 VARYING1;
 
 void main()
 {
-    vec3 f0 = mix(CB0[14].xyz, mix(VARYING0.xyz, sqrt(clamp((VARYING0.xyz * VARYING0.xyz) * CB0[15].z, vec3(0.0), vec3(1.0))), vec3(CB0[15].x)).xyz, vec3(clamp((CB0[13].x * length(VARYING1)) + CB0[13].y, 0.0, 1.0)));
+    vec3 f0 = mix(CB0[14].xyz, sqrt(clamp((VARYING0.xyz * VARYING0.xyz) * CB0[15].y, vec3(0.0), vec3(1.0))).xyz, vec3(clamp((CB0[13].x * length(VARYING1)) + CB0[13].y, 0.0, 1.0)));
     gl_FragData[0] = vec4(f0.x, f0.y, f0.z, VARYING0.w);
 }
 

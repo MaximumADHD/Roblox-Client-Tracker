@@ -55,6 +55,8 @@ local SetSelectedEvents = require(Plugin.Src.Actions.SetSelectedEvents)
 local SetNotification = require(Plugin.Src.Actions.SetNotification)
 local SetIsPlaying = require(Plugin.Src.Actions.SetIsPlaying)
 
+local GetFFlagEnforceMaxAnimLength = require(Plugin.LuaFlags.GetFFlagEnforceMaxAnimLength)
+
 local DopeSheetController = Roact.Component:extend("DopeSheetController")
 
 function DopeSheetController:init()
@@ -469,6 +471,7 @@ function DopeSheetController:render()
 			and not AnimationData.isQuantized(animationData)
 		local loadedAnimName = props.Loaded
 		local savedAnimName = props.Saved
+		local showClippedWarning = GetFFlagEnforceMaxAnimLength() and props.ClippedWarning
 
 		local size = props.Size
 		local position = props.Position
@@ -662,6 +665,11 @@ function DopeSheetController:render()
 						end,
 					}),
 
+					ClippedToast = GetFFlagEnforceMaxAnimLength() and showClippedWarning and Roact.createElement(NoticeToast, {
+						Text = localization:getText("Toast", "ClippedWarning"),
+						OnClose = props.CloseClippedToast,
+					}),
+
 					SavedToast = savedAnimName and Roact.createElement(NoticeToast, {
 						Text = localization:getText("Toast", "Saved", savedAnimName),
 						OnClose = props.CloseSavedToast,
@@ -687,7 +695,7 @@ end
 local function mapStateToProps(state, props)
 	local status = state.Status
 
-	return {
+	local stateToProps = {
 		Active = status.Active,
 		SelectedKeyframes = status.SelectedKeyframes,
 		Clipboard = status.Clipboard,
@@ -697,10 +705,16 @@ local function mapStateToProps(state, props)
 		Loaded = state.Notifications.Loaded,
 		Analytics = state.Analytics,
 	}
+
+	if GetFFlagEnforceMaxAnimLength() then
+		stateToProps["ClippedWarning"] = state.Notifications.ClippedWarning
+	end
+
+	return stateToProps
 end
 
 local function mapDispatchToProps(dispatch)
-	return {
+	local dispatchToProps = {
 		MoveSelectedKeyframes = function(pivotFrame, newFrame)
 			dispatch(AddWaypoint())
 			dispatch(MoveSelectedKeyframes(pivotFrame, newFrame))
@@ -775,6 +789,14 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetIsPlaying(isPlaying))
 		end,
 	}
+
+	if GetFFlagEnforceMaxAnimLength() then
+		dispatchToProps["CloseClippedToast"] = function()
+			dispatch(SetNotification("ClippedWarning", false))
+		end
+	end
+
+	return dispatchToProps
 end
 
 DopeSheetController = RoactRodux.connect(mapStateToProps,

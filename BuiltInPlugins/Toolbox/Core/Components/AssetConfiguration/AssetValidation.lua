@@ -39,7 +39,7 @@ local SetCurrentScreen = require(Actions.SetCurrentScreen)
 local Components = Plugin.Core.Components
 local LoadingBar = require(Components.AssetConfiguration.LoadingBar)
 local AssetThumbnailPreview = require(Components.AssetConfiguration.AssetThumbnailPreview)
-local NavButton = require(Components.AssetConfiguration.NavButton)
+local NavButton = require(Components.NavButton)
 
 local TITLE_WIDTH = 400
 local TITLE_HEIGHT = 36
@@ -59,7 +59,7 @@ local LOADING_BAR_Y_POS = 314
 
 local LOADING_RESULT_Y_POS = 279
 
-local FOOTER_HEIGHT = 80
+local FOOTER_HEIGHT = 62
 
 local BUTTON_WIDTH = 120
 local BUTTON_HEIGHT = 32
@@ -121,7 +121,7 @@ local EXTRA_BANNED_NAMES = {
 
 local BANNED_NAMES = convertArrayToTable(Cryo.List.join(R6_BODY_PARTS, R15_BODY_PARTS, EXTRA_BANNED_NAMES))
 
-local function createAccessorySchema(attachmentName)
+local function createAccessorySchema(attachmentNames)
 	return {
 		ClassName = "Accessory",
 		_children = {
@@ -130,7 +130,7 @@ local function createAccessorySchema(attachmentName)
 				ClassName = "Part",
 				_children = {
 					{
-						Name = attachmentName,
+						Name = attachmentNames,
 						ClassName = "Attachment",
 					},
 					{
@@ -156,9 +156,24 @@ local function createAccessorySchema(attachmentName)
 	}
 end
 
-local SCHEMA_MAP = {
-	[Enum.AssetType.Hat] = createAccessorySchema("HatAttachment")
-}
+local SCHEMA_MAP = {}
+
+if game:GetFastFlag("CMSAdditionalAccessoryTypesV2") then
+	SCHEMA_MAP[Enum.AssetType.Hat] = createAccessorySchema({ "HatAttachment" })
+	SCHEMA_MAP[Enum.AssetType.HairAccessory] = createAccessorySchema({ "HairAttachment" })
+	SCHEMA_MAP[Enum.AssetType.FaceAccessory] = createAccessorySchema({ "FaceFrontAttachment" })
+	SCHEMA_MAP[Enum.AssetType.NeckAccessory] = createAccessorySchema({ "NeckAttachment" })
+	SCHEMA_MAP[Enum.AssetType.ShoulderAccessory] = createAccessorySchema({
+		"NeckAttachment",
+		"LeftCollarAttachment",
+		"RightCollarAttachment",
+	})
+	SCHEMA_MAP[Enum.AssetType.FrontAccessory] = createAccessorySchema({ "BodyFrontAttachment" })
+	SCHEMA_MAP[Enum.AssetType.BackAccessory] = createAccessorySchema({ "BodyBackAttachment" })
+	SCHEMA_MAP[Enum.AssetType.WaistAccessory] = createAccessorySchema({ "WaistBackAttachment" })
+else
+	SCHEMA_MAP[Enum.AssetType.Hat] = createAccessorySchema("HatAttachment")
+end
 
 local AssetValidation = Roact.PureComponent:extend("AssetValidation")
 
@@ -406,7 +421,7 @@ function AssetValidation:validateAsync()
 			self:validateInstanceTree(instance)
 
 			-- extra validation for hats
-			if self.props.assetTypeEnum == Enum.AssetType.Hat then
+			if game:GetFastFlag("CMSAdditionalAccessoryTypesV2") or self.props.assetTypeEnum == Enum.AssetType.Hat then
 				self:validateMaterials(instance)
 				self:validateMeshTriangles(instance)
 				self:validateModeration(instance)

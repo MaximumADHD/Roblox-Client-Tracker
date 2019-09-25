@@ -139,11 +139,6 @@ end
 
 Adorn.setWorkplaneAccessor(getWorkplane)
 
-if not settings():GetFFlag("StudioMoveWebAssetsToContent") then
-	game:GetService("ContentProvider"):Preload("rbxassetid://232196030")
-	game:GetService("ContentProvider"):Preload("rbxassetid://233257118")
-end
-
 --handleDeclaration
 local H_NONE = 0
 local T_Y_POS = 1

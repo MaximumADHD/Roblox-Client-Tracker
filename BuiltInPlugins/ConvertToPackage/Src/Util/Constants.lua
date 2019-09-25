@@ -38,7 +38,7 @@ Constants.DROPDOWN_ICON_FROM_RIGHT = 4
 
 Constants.FOOTER_HEIGHT = 35
 
-Constants.MESSAGE_BOX_BUTTON_WIDTH = 72
+Constants.MESSAGE_BOX_BUTTON_WIDTH = 100
 
 Constants.NAME_CHARACTER_LIMIT = 50
 Constants.DESCRIPTION_CHARACTER_LIMIT = 1000
@@ -47,18 +47,13 @@ Constants.TITLE_GUTTER_WIDTH = 180
 
 Constants.Images = {
 	ARROW_DOWN_ICON = "rbxasset://textures/StudioToolbox/ArrowDownIconWhite.png",
-	INFO_ICON = "rbxasset://textures/DevConsole/Info.png",
+	IMAGE_PLACEHOLDER = "rbxasset://textures/StudioConvertToPackagePlugin/placeholder.png",
 	TOGGLE_ON_DARK = "rbxasset://textures/RoactStudioWidgets/toggle_on_dark.png",
 	TOGGLE_ON_LIGHT = "rbxasset://textures/RoactStudioWidgets/toggle_on_light.png",
 	TOGGLE_OFF_DARK = "rbxasset://textures/RoactStudioWidgets/toggle_off_dark.png",
 	TOGGLE_OFF_LIGHT = "rbxasset://textures/RoactStudioWidgets/toggle_off_light.png",
 	TOGGLE_DISABLE_DARK = "rbxasset://textures/RoactStudioWidgets/toggle_disable_dark.png",
 	TOGGLE_DISABLE_LIGHT	= "rbxasset://textures/RoactStudioWidgets/toggle_disable_light.png",
-	GENERAL_SIDE_TAB = "rbxasset://textures/StudioToolbox/AssetConfig/editlisting.png",
-	VERSIONS_SIDE_TAB = "rbxasset://textures/StudioToolbox/AssetConfig/version.png",
-	SALES_SIDE_TAB = "rbxasset://textures/StudioToolbox/AssetConfig/creations.png",
-	ROUNDED_BACKGROUND_IMAGE = "rbxasset://textures/StudioToolbox/RoundedBackground.png",
-	ROUNDED_BORDER_IMAGE = "rbxasset://textures/StudioToolbox/RoundedBorder.png"
 }
 
 Constants.OWNER_TYPES = {

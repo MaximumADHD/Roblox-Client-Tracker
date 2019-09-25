@@ -43,13 +43,13 @@ end
 t.boolean = primitive("boolean")
 
 --[[**
-	ensures Lua primitive coroutine type
+	ensures Lua primitive thread type
 
 	@param value The value to check against
 
 	@returns True iff the condition is satisfied, false otherwise
 **--]]
-t.coroutine = primitive("thread")
+t.thread = primitive("thread")
 
 --[[**
 	ensures Lua primitive callback type
@@ -385,12 +385,23 @@ t.EnumItem = primitive("EnumItem")
 
 	@returns A function that will return true iff the condition is passed
 **--]]
-function t.literal(literal)
-	return function(value)
-		if value ~= literal then
-			return false, string.format("expected %s, got %s", tostring(literal), tostring(value))
+function t.literal(...)
+	local size = select("#", ...)
+	if size == 1 then
+		local literal = ...
+		return function(value)
+			if value ~= literal then
+				return false, string.format("expected %s, got %s", tostring(literal), tostring(value))
+			end
+			return true
 		end
-		return true
+	else
+		local literals = {}
+		for i = 1, size do
+			local value = select(i, ...)
+			literals[i] = t.literal(value)
+		end
+		return t.union(unpack(literals))
 	end
 end
 
@@ -399,6 +410,36 @@ end
 	Please use t.literal
 **--]]
 t.exactly = t.literal
+
+--[[**
+	Returns a t.union of each key in the table as a t.literal
+
+	@param keyTable The table to get keys from
+
+	@returns True iff the condition is satisfied, false otherwise
+**--]]
+function t.keyOf(keyTable)
+	local keys = {}
+	for key in pairs(keyTable) do
+		keys[#keys + 1] = key
+	end
+	return t.literal(unpack(keys))
+end
+
+--[[**
+	Returns a t.union of each value in the table as a t.literal
+
+	@param valueTable The table to get values from
+
+	@returns True iff the condition is satisfied, false otherwise
+**--]]
+function t.valueOf(valueTable)
+	local values = {}
+	for _, value in pairs(valueTable) do
+		values[#values + 1] = value
+	end
+	return t.literal(unpack(values))
+end
 
 --[[**
 	ensures value is an integer
@@ -565,6 +606,29 @@ function t.numberConstrainedExclusive(min, max)
 		local maxSuccess, maxErrMsg = maxCheck(value)
 		if not maxSuccess then
 			return false, maxErrMsg or ""
+		end
+
+		return true
+	end
+end
+
+--[[**
+	ensures value matches string pattern
+
+	@param string pattern to check against
+
+	@returns A function that will return true iff the condition is passed
+**--]]
+function t.match(pattern)
+	assert(t.string(pattern))
+	return function(value)
+		local stringSuccess, stringErrMsg = t.string(value)
+		if not stringSuccess then
+			return false, stringErrMsg
+		end
+
+		if string.match(value, pattern) == nil then
+			return false, string.format("\"%s\" failed to match pattern \"%s\"", value, pattern)
 		end
 
 		return true
@@ -758,6 +822,11 @@ do
 	end
 
 	--[[**
+		Alias for t.union
+	**--]]
+	t.some = t.union
+
+	--[[**
 		creates an intersection type
 
 		@param ... The checks to intersect
@@ -777,6 +846,11 @@ do
 			return true
 		end
 	end
+
+	--[[**
+		Alias for t.intersection
+	**--]]
+	t.every = t.intersection
 end
 
 do
@@ -846,8 +920,14 @@ end
 
 	@returns A function that will return true iff the condition is passed
 **--]]
-function t.instance(className)
+function t.instanceOf(className, childTable)
 	assert(t.string(className))
+
+	local childrenCheck
+	if childTable ~= nil then
+		childrenCheck = t.children(childTable)
+	end
+
 	return function(value)
 		local instanceSuccess, instanceErrMsg = t.Instance(value)
 		if not instanceSuccess then
@@ -858,9 +938,17 @@ function t.instance(className)
 			return false, string.format("%s expected, got %s", className, value.ClassName)
 		end
 
+		if childrenCheck then
+			local childrenSuccess, childrenErrMsg = childrenCheck(value)
+			if not childrenSuccess then
+				return false, childrenErrMsg
+			end
+		end
+
 		return true
 	end
 end
+t.instance = t.instanceOf
 
 --[[**
 	ensure value is an Instance and it's ClassName matches the given ClassName by an IsA comparison
@@ -869,8 +957,14 @@ end
 
 	@returns A function that will return true iff the condition is passed
 **--]]
-function t.instanceIsA(className)
+function t.instanceIsA(className, childTable)
 	assert(t.string(className))
+
+	local childrenCheck
+	if childTable ~= nil then
+		childrenCheck = t.children(childTable)
+	end
+
 	return function(value)
 		local instanceSuccess, instanceErrMsg = t.Instance(value)
 		if not instanceSuccess then
@@ -879,6 +973,13 @@ function t.instanceIsA(className)
 
 		if not value:IsA(className) then
 			return false, string.format("%s expected, got %s", className, value.ClassName)
+		end
+
+		if childrenCheck then
+			local childrenSuccess, childrenErrMsg = childrenCheck(value)
+			if not childrenSuccess then
+				return false, childrenErrMsg
+			end
 		end
 
 		return true
@@ -938,6 +1039,52 @@ end
 function t.strict(check)
 	return function(...)
 		assert(check(...))
+	end
+end
+
+do
+	local checkChildren = t.map(t.string, t.callback)
+
+	--[[**
+		Takes a table where keys are child names and values are functions to check the children against.
+		Pass an instance tree into the function.
+		If at least one child passes each check, the overall check passes.
+
+		Warning! If you pass in a tree with more than one child of the same name, this function will always return false
+
+		@param checkTable The table to check against
+
+		@returns A function that checks an instance tree
+	**--]]
+	function t.children(checkTable)
+		assert(checkChildren(checkTable))
+
+		return function(value)
+			local instanceSuccess, instanceErrMsg = t.Instance(value)
+			if not instanceSuccess then
+				return false, instanceErrMsg or ""
+			end
+
+			local childrenByName = {}
+			for _, child in pairs(value:GetChildren()) do
+				local name = child.Name
+				if checkTable[name] then
+					if childrenByName[name] then
+						return false, string.format("Cannot process multiple children with the same name \"%s\"", name)
+					end
+					childrenByName[name] = child
+				end
+			end
+
+			for name, check in pairs(checkTable) do
+				local success, errMsg = check(childrenByName[name])
+				if not success then
+					return false, string.format("[%s.%s] %s", value:GetFullName(), name, errMsg or "")
+				end
+			end
+
+			return true
+		end
 	end
 end
 

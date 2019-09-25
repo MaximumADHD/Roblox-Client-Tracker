@@ -13,13 +13,16 @@ local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
+local UILibrary = require(Plugin.Packages.UILibrary)
 
 local SettingsImpl = require(Plugin.Src.Network.Requests.SettingsImpl)
 
 local Theming = require(Plugin.Src.ContextServices.Theming)
+
 local Constants = require(Plugin.Src.Resources.Constants)
-local UILibrary = require(Plugin.Packages.UILibrary)
+
 local Separator = UILibrary.Component.Separator
+local Localizing = UILibrary.Localizing
 
 local MenuBar = require(Plugin.Src.Components.Menu.MenuBar)
 local Footer = require(Plugin.Src.Components.Footer)
@@ -39,6 +42,8 @@ function ScreenCreateNewGame:init()
 		selected = 1,
 	}
 
+	self.finishedConnection = nil
+
 	self.changeSelection = function(index)
 		self:setState({
 			selected = index,
@@ -46,57 +51,73 @@ function ScreenCreateNewGame:init()
 	end
 end
 
+function ScreenCreateNewGame:didMount()
+	self.finishedConnection = StudioService.GamePublishFinished:connect(function(success)
+		if success then
+			self.props.OpenPublishSuccessfulPage(game, self.props.Changed)
+		else
+			self.props.OpenPublishFailPage(game, self.props.Changed)
+		end
+	end)
+end
+
+function ScreenCreateNewGame:willUnmount()
+	if self.finishedConnection then
+		self.finishedConnection:disconnect()
+	end
+end
+
 function ScreenCreateNewGame:render(props)
 	return Theming.withTheme(function(theme)
-		local props = self.props
+		return Localizing.withLocalization(function(localization)
+			local props = self.props
 
-		local onClose = props.OnClose
-		local readyToSave = props.ReadyToSave
-		local changed = props.Changed
+			local onClose = props.OnClose
+			local readyToSave = props.ReadyToSave
+			local changed = props.Changed
 
-		local selected = self.state.selected
+			local selected = self.state.selected
 
-		local openPublishSuccessfulPage = props.OpenPublishSuccessfulPage
+			local openPublishSuccessfulPage = props.OpenPublishSuccessfulPage
 
-		return Roact.createElement("Frame", {
-			Size = UDim2.new(1, 0, 1, 0),
-			BackgroundColor3 = theme.backgroundColor,
-		}, {
-			MenuBar = Roact.createElement(MenuBar, {
-				Entries = MENU_ENTRIES,
-				Selected = selected,
-				SelectionChanged = self.changeSelection,
-			}),
-
-			Separator = Roact.createElement(Separator, {
-				Weight = 3,
-				Position = UDim2.new(0, Constants.MENU_BAR_WIDTH, 0.5, 0),
-				DominantAxis = Enum.DominantAxis.Height,
-			}),
-
-			Page = Roact.createElement("Frame", {
-				BackgroundTransparency = 1,
-				Position = UDim2.new(0, Constants.MENU_BAR_WIDTH, 0, 0),
-				Size = UDim2.new(1, -Constants.MENU_BAR_WIDTH, 1, -Constants.FOOTER_HEIGHT)
+			return Roact.createElement("Frame", {
+				Size = UDim2.new(1, 0, 1, 0),
+				BackgroundColor3 = theme.backgroundColor,
 			}, {
-				Roact.createElement(BasicInfo),
-			}),
+				MenuBar = Roact.createElement(MenuBar, {
+					Entries = MENU_ENTRIES,
+					Selected = selected,
+					SelectionChanged = self.changeSelection,
+				}),
 
-			Footer = Roact.createElement(Footer, {
-				MainButton = {
-					Name = "Create",
-					Active = readyToSave,
-					OnActivated = function()
-						SettingsImpl.saveAll(changed)
-						StudioService.PlacePublishedToRoblox:wait()
-						openPublishSuccessfulPage(game, changed)
-					end,
-				},
-				OnClose = onClose,
-				NextScreen = Constants.SCREENS.CHOOSE_GAME,
-				NextScreenText = "UpdateExistingGame"
-			}),
-		})
+				Separator = Roact.createElement(Separator, {
+					Weight = 3,
+					Position = UDim2.new(0, Constants.MENU_BAR_WIDTH, 0.5, 0),
+					DominantAxis = Enum.DominantAxis.Height,
+				}),
+
+				Page = Roact.createElement("Frame", {
+					BackgroundTransparency = 1,
+					Position = UDim2.new(0, Constants.MENU_BAR_WIDTH, 0, 0),
+					Size = UDim2.new(1, -Constants.MENU_BAR_WIDTH, 1, -Constants.FOOTER_HEIGHT)
+				}, {
+					Roact.createElement(BasicInfo),
+				}),
+
+				Footer = Roact.createElement(Footer, {
+					MainButton = {
+						Name = "Create",
+						Active = readyToSave,
+						OnActivated = function()
+							SettingsImpl.saveAll(changed, localization)
+						end,
+					},
+					OnClose = onClose,
+					NextScreen = Constants.SCREENS.CHOOSE_GAME,
+					NextScreenText = "UpdateExistingGame"
+				}),
+			})
+		end)
 	end)
 end
 
@@ -114,6 +135,10 @@ local function useDispatchForProps(dispatch)
 		OpenPublishSuccessfulPage = function(place, game)
 			dispatch(SetPublishInfo({ id = place.GameId, name = place.Name, parentGameName = game.name, }))
 			dispatch(SetScreen(Constants.SCREENS.PUBLISH_SUCCESSFUL))
+		end,
+		OpenPublishFailPage = function(place, game)
+			dispatch(SetPublishInfo({ id = place.GameId, name = place.name, parentGameName = game.name, parentGameId = 0, settings = game, }))
+			dispatch(SetScreen(Constants.SCREENS.PUBLISH_FAIL))
 		end,
 	}
 end

@@ -9,6 +9,7 @@ local PluginTheme = require(Plugin.Src.Resources.PluginTheme)
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 local MockPlugin = require(Plugin.Src.TestHelpers.MockPlugin)
 local Localization = UILibrary.Studio.Localization
+local Mouse = require(Plugin.Src.ContextServices.Mouse)
 
 return function()
 	it("should construct and destroy without errors", function()
@@ -16,12 +17,14 @@ return function()
 		local pluginInstance = MockPlugin.new()
 		local store = Rodux.Store.new(MainReducer, {}, { Rodux.thunkMiddleware })
 		local theme = PluginTheme.mock()
+		local mouse = Roact.createElement(Mouse.provider, {}, {})
 
 		local element = Roact.createElement(ServiceWrapper, {
 			localization = localization,
 			plugin = pluginInstance,
 			store = store,
 			theme = theme,
+			mouse = mouse,
 		}, {
 			testFrame = Roact.createElement("Frame")
 		})

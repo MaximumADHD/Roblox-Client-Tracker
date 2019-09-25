@@ -71,7 +71,7 @@ local function createValues(getColor, c, m)
 		footer = {
 			gradient = getColor(c.MainText),
 			textbutton = {
-				font = Enum.Font.Arial,
+				font = Enum.Font.SourceSans,
 			},
 		},
 		header = {
@@ -89,6 +89,13 @@ local function createValues(getColor, c, m)
 		successText = {
 			font = Enum.Font.SourceSans,
 			text = Color3.fromRGB(2, 183, 87),
+		},
+		failText = {
+			font = Enum.Font.SourceSans,
+			text = getColor(c.ErrorText),
+		},
+		pageText = {
+			font = Enum.Font.SourceSansLight
 		},
 		isDarkerTheme = isDark,
 	})

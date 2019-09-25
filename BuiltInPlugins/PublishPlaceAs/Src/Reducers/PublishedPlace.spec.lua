@@ -9,11 +9,11 @@ return function()
 		local state = Reducer(nil, {})
 
 		expect(type(state)).to.equal("table")
-		expect(state.placeInfo).to.ok()
+		expect(state.publishInfo).to.ok()
 	end)
 
 	describe("SetPublishInfo action", function()
-		local SetPlaceInfo = require(Plugin.Src.Actions.SetPublishInfo)
+		local SetPublishInfo = require(Plugin.Src.Actions.SetPublishInfo)
 
 		it("should validate its inputs", function()
 			expect(function()
@@ -58,21 +58,22 @@ return function()
 		end)
 
 		it("should not mutate the state", function()
-			testImmutability(Reducer, SetPublishInfo(nil))
-			testImmutability(Reducer, SetPublishInfo({}))
+			testImmutability(Reducer, SetPublishInfo({ id = 0, name = ""}))
 			testImmutability(Reducer, SetPublishInfo({
 				id = 12,
-				name = "asdf",
-				parentGameName = "asdf",
+				name = "yeet",
+				parentGameName = "yote",
 			}))
 			testImmutability(Reducer, SetPublishInfo({
 				id = 35,
-				name = "asdf",
+				name = "yeet",
+				parentGameName = "yote",
 				parentGameId = 12,
 			}))
 			testImmutability(Reducer, SetPublishInfo({
 				id = 0,
-				name = "asdf",
+				name = "yeet",
+				parentGameName = "yote",
 				parentGameId = 0,
 				settings = {name = "yeet", description = "yeet", genre = "yeet", playableDevices = { Computer = true, } },
 			}))

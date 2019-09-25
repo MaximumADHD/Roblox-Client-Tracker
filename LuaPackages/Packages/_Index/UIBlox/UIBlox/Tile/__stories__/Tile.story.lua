@@ -5,9 +5,9 @@ local Packages = UIBloxRoot.Parent
 local Roact = require(Packages.Roact)
 
 local StyleProvider = require(UIBloxRoot.Style.StyleProvider)
-local StyleRoot = UIBloxRoot.Style
-local testStyle = require(StyleRoot.Validator.TestStyle)
+local UIBloxStyle = require(Packages.UIBloxResources.UIBloxStyle)
 local Tile = require(TileRoot.BaseTile.Tile)
+local Images = require(UIBloxRoot.ImageSet.Images)
 
 local TileStoryContainer = Roact.PureComponent:extend("TileStoryContainer")
 
@@ -105,12 +105,39 @@ function TileStoryContainer:render()
 				thumbnail = self.state.image,
 			}),
 		}),
+
+		OverriddenSizedImageTileContainer = Roact.createElement("Frame", {
+			BackgroundTransparency = 1,
+			Size = UDim2.new(0, 200, 0, 200 + NAME_HEIGHT),
+			LayoutOrder = 3,
+		}, {
+			OverriddenSizedImagesetTile = Roact.createElement(Tile, {
+				name = self.state.name,
+				onActivated = function() end,
+				hasRoundedCorners = false,
+				thumbnail = self.state.image,
+				thumbnailSize = UDim2.new(0, 100, 0, 100),
+			}),
+		}),
+
+		ImagesetTileContainer = Roact.createElement("Frame", {
+			BackgroundTransparency = 1,
+			Size = UDim2.new(0, 200, 0, 200 + NAME_HEIGHT),
+			LayoutOrder = 4,
+		}, {
+			ImagesetTile = Roact.createElement(Tile, {
+				name = "",
+				onActivated = function() end,
+				thumbnail = Images["icons/itemOwned"],
+				thumbnailSize = UDim2.new(0, 25, 0, 25),
+			}),
+		}),
 	})
 end
 
 return function(target)
 	local styleProvider = Roact.createElement(StyleProvider, {
-		style = testStyle,
+		style = UIBloxStyle,
 	}, {
 		Roact.createElement(TileStoryContainer)
 	})

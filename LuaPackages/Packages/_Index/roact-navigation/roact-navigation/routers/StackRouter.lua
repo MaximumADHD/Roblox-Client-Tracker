@@ -24,15 +24,6 @@ local function isResetToRootStack(action)
 	return action.type == StackActions.Reset and action.key == NoneSymbol
 end
 
-local function shallowCopyDictionary(data)
-	local result = {}
-	for i, ival in pairs(data) do
-		result[i] = ival
-	end
-
-	return result
-end
-
 return function(config)
 	validate(type(config) == "table", "config must be a table")
 
@@ -412,7 +403,8 @@ return function(config)
 					childState = childRouter.getStateForAction(childAction)
 				end
 
-				local routes = shallowCopyDictionary(state.routes)
+				-- shallow copy and update routes
+				local routes = Cryo.List.join(state.routes)
 				routes[routeIndex] = Cryo.Dictionary.join({
 					params = getParamsForRouteAndAction(action.routeName, action),
 				}, childState, {
@@ -450,7 +442,8 @@ return function(config)
 
 			if lastRoute then
 				local params = Cryo.Dictionary.join(lastRoute.params or {}, action.params or {})
-				local routes = shallowCopyDictionary(state.routes)
+				-- shallow copy and update routes
+				local routes = Cryo.List.join(state.routes)
 				routes[lastRouteIndex] = Cryo.Dictionary.join(lastRoute, {
 					params = params,
 				})

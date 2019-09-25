@@ -22,8 +22,6 @@ local getMouse = require(Plugin.Src.Consumers.getMouse)
 
 local GameIcon = Roact.PureComponent:extend("GameIcon")
 
-local FFlagStudioFixGameSettingsIconLayering = game:DefineFastFlag("StudioFixGameSettingsIconLayering", false)
-
 function GameIcon:init()
 	self.state = {
 		Hovering = false,
@@ -56,9 +54,7 @@ function GameIcon:render()
 				-- was moderated), the fallback moderation icon appears. If the real icon succeeds in loading,
 				-- it will cover the fallback icon. You can see the fallback icon through any transparent
 				-- areas on the real icon, but we don't have a better alternative right now.
-				Image = FFlagStudioFixGameSettingsIconLayering and FALLBACK_IMAGE or image,
-				ScaleType = (not FFlagStudioFixGameSettingsIconLayering) and Enum.ScaleType.Crop or nil,
-				ZIndex = (not FFlagStudioFixGameSettingsIconLayering) and 2 or nil,
+				Image = FALLBACK_IMAGE,
 
 				[Roact.Ref] = self.buttonRef,
 
@@ -70,11 +66,11 @@ function GameIcon:render()
 					self:mouseHoverChanged(false)
 				end,
 			}, {
-				[FFlagStudioFixGameSettingsIconLayering and "Icon" or "Fallback"] = Roact.createElement("ImageLabel", {
+				Icon = Roact.createElement("ImageLabel", {
 					Visible = self.props.Visible,
 					BackgroundTransparency = 1,
-					Image = FFlagStudioFixGameSettingsIconLayering and image or FALLBACK_IMAGE,
-					ScaleType = FFlagStudioFixGameSettingsIconLayering and Enum.ScaleType.Crop or Enum.ScaleType.Stretch,
+					Image = image,
+					ScaleType = Enum.ScaleType.Crop,
 					Size = UDim2.new(1, 0, 1, 0),
 				}),
 

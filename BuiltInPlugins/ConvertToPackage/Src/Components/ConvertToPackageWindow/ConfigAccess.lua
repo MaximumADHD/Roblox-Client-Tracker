@@ -14,7 +14,6 @@ local RoactRodux = require(Packages.RoactRodux)
 
 local Util = Plugin.Src.Util
 local Constants = require(Util.Constants)
-local getUserId = require(Util.getUserId)
 
 local StyledDropdownMenu = require(UILibrary.Components.StyledDropdown)
 
@@ -98,7 +97,9 @@ function ConfigAccess:render()
 				ItemHeight = DROP_DOWN_HEIGHT,
 				ButtonText = ownerName,
 				TextSize = Constants.FONT_SIZE_MEDIUM,
+				SelectedItem =  publishAssetTheme.highlightDropdownSelectedItem and self.dropdownContent[ownerIndex].Key,
 				ScrollBarThickness = Constants.SCROLLBAR_BACKGROUND_THICKNESS,
+				ShowRibbon = publishAssetTheme.showDropdownRibbon,
 				ScrollBarPadding = Constants.SCROLLBAR_PADDING,
 				Items = self.dropdownContent,
 				ListWidth = DROP_DOWN_WIDTH,

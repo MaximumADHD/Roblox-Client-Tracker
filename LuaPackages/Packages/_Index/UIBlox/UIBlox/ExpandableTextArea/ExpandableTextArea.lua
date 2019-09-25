@@ -174,8 +174,8 @@ function ExpandableTextArea:render()
 				springOptions = ANIMATION_SPRING_SETTINGS,
 			}, {
 				DescriptionText = Roact.createElement(GenericTextLabel, {
-					color = theme.TextDefault,
-					font = font.Body,
+					colorStyle = theme.TextDefault,
+					fontStyle = font.Body,
 					Size = fullSize,
 					Text = descriptionText,
 					TextSize = textSize,

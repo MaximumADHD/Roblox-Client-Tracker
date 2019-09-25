@@ -20,7 +20,6 @@ local create = require(RobloxGui:WaitForChild("Modules"):WaitForChild("Common"):
 local FFlagLoadTheLoadingScreenFasterSuccess, FFlagLoadTheLoadingScreenFasterValue = pcall(function() return settings():GetFFlag("LoadTheLoadingScreenFaster") end)
 local FFlagLoadTheLoadingScreenFaster = FFlagLoadTheLoadingScreenFasterSuccess and FFlagLoadTheLoadingScreenFasterValue
 
-local FFlagLoadingScreenUseLocalizationTable = settings():GetFFlag("LoadingScreenUseLocalizationTable")
 local FFlagShowConnectionErrorCode = settings():GetFFlag("ShowConnectionErrorCode")
 local FFlagConnectionScriptEnabled = settings():GetFFlag("ConnectionScriptEnabled")
 
@@ -531,9 +530,7 @@ local function GenerateGui()
 
 	screenGui.Parent = CoreGui
 
-	if FFlagLoadingScreenUseLocalizationTable then
-		infoFrame.RootLocalizationTable = CoreGui:FindFirstChild("CoreScriptLocalization")
-	end
+	infoFrame.RootLocalizationTable = CoreGui:FindFirstChild("CoreScriptLocalization")
 
 	currScreenGui = screenGui
 

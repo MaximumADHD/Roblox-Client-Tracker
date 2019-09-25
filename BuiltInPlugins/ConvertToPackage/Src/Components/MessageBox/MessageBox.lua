@@ -62,7 +62,7 @@ function MessageBox:render()
 		local showIcon = icon ~= ""
 
 		local textFont = Constants.FONT
-		local textFontSize = Constants.FONT_SIZE_SMALL
+		local textFontSize = Constants.FONT_SIZE_MEDIUM
 
 		local informativeTextFont = Constants.FONT
 		local informativeTextFontSize = Constants.FONT_SIZE_SMALL
@@ -80,12 +80,12 @@ function MessageBox:render()
 		end
 
 		local buttonWidth = Constants.MESSAGE_BOX_BUTTON_WIDTH
-		local buttonPadding = 8
+		local buttonPadding = 15
 
 		local buttons = { }
 		buttons.UIListLayout = Roact.createElement("UIListLayout", {
 			SortOrder = Enum.SortOrder.LayoutOrder,
-			HorizontalAlignment = Enum.HorizontalAlignment.Right,
+			HorizontalAlignment = Enum.HorizontalAlignment.Center,
 			VerticalAlignment = Enum.VerticalAlignment.Top,
 			FillDirection = Enum.FillDirection.Horizontal,
 			Padding = UDim.new(0, buttonPadding),
@@ -104,7 +104,7 @@ function MessageBox:render()
 							Text = button.Text,
 							Font = Constants.FONT,
 							TextColor3 = messageBoxTheme.textColor,
-							TextSize = Constants.FONT_SIZE_SMALL,
+							TextSize = Constants.FONT_SIZE_MEDIUM,
 							TextXAlignment = Enum.TextXAlignment.Center})
 					}
 				end
@@ -127,7 +127,7 @@ function MessageBox:render()
 		-- Need to still have the icon instance for list layout padding to work
 		-- But set the width to 0 so it's not visible
 		local iconSize = showIcon and 32 or 0
-		local iconToTextPadding = 20
+		local iconToTextPadding = showIcon and 20 or 0
 		local fullIconWidth = iconSize + iconToTextPadding
 		local topWidth = fullIconWidth + textWidth
 
@@ -152,11 +152,11 @@ function MessageBox:render()
 		local topHeight = math.max(iconSize,
 			textHeight + (showInformativeText and textToInformativeTextPadding + informativeTextHeight or 0))
 
-		local topPadding = 8
+		local topPadding = 20
 		local outerPadding = 12
 
-		local textToButtonsPadding = outerPadding
-		local buttonsHeight = 23
+		local textToButtonsPadding = 20
+		local buttonsHeight = 30
 
 		local boxWidth = outerPadding + innerMaxWidth + outerPadding
 		local boxHeight = topPadding + topHeight + textToButtonsPadding + buttonsHeight + outerPadding
@@ -209,7 +209,7 @@ function MessageBox:render()
 				}, {
 					UIListLayout = Roact.createElement("UIListLayout", {
 						SortOrder = Enum.SortOrder.LayoutOrder,
-						HorizontalAlignment = Enum.HorizontalAlignment.Left,
+						HorizontalAlignment = Enum.HorizontalAlignment.Center,
 						VerticalAlignment = Enum.VerticalAlignment.Top,
 						Padding = UDim.new(0, iconToTextPadding),
 						FillDirection = Enum.FillDirection.Horizontal,
@@ -229,7 +229,7 @@ function MessageBox:render()
 					}, {
 						UIListLayout = Roact.createElement("UIListLayout", {
 							SortOrder = Enum.SortOrder.LayoutOrder,
-							HorizontalAlignment = Enum.HorizontalAlignment.Left,
+							HorizontalAlignment = Enum.HorizontalAlignment.Center,
 							VerticalAlignment = Enum.VerticalAlignment.Top,
 							Padding = UDim.new(0, textToInformativeTextPadding),
 							FillDirection = Enum.FillDirection.Vertical,
@@ -244,7 +244,7 @@ function MessageBox:render()
 							Font = textFont,
 							TextSize = textFontSize,
 							TextColor3 = messageBoxTheme.textColor,
-							TextXAlignment = Enum.TextXAlignment.Left,
+							TextXAlignment = Enum.TextXAlignment.Center,
 							TextYAlignment = Enum.TextYAlignment.Top,
 							TextWrapped = true,
 						}),
@@ -258,7 +258,7 @@ function MessageBox:render()
 							Font = informativeTextFont,
 							TextSize = informativeTextFontSize,
 							TextColor3 = messageBoxTheme.informativeTextColor,
-							TextXAlignment = Enum.TextXAlignment.Left,
+							TextXAlignment = Enum.TextXAlignment.Center,
 							TextYAlignment = Enum.TextYAlignment.Top,
 							TextWrapped = true,
 						})

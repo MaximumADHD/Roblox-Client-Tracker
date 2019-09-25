@@ -245,10 +245,12 @@ Class BrowserService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void BrowserService:CloseBrowserWindow() {RobloxScriptSecurity}
 	Function void BrowserService:CopyAuthCookieFromBrowserToEngine() {RobloxScriptSecurity}
 	Function void BrowserService:EmitHybridEvent(string moduleName, string eventName, string params) {RobloxScriptSecurity}
+	Function void BrowserService:ExecuteJavaScript(string javascript) {RobloxScriptSecurity}
 	Function void BrowserService:OpenBrowserWindow(string url) {RobloxScriptSecurity}
 	Function void BrowserService:OpenNativeOverlay(string title, string url) {RobloxScriptSecurity}
 	Function void BrowserService:OpenWeChatAuthWindow() {RobloxScriptSecurity}
 	Function void BrowserService:ReturnToJavaScript(string callbackId, bool success, string params) {RobloxScriptSecurity}
+	Function void BrowserService:SendCommand(string command) {RobloxScriptSecurity}
 	Event BrowserService.AuthCookieCopiedToEngine() {RobloxScriptSecurity}
 	Event BrowserService.BrowserWindowClosed() {RobloxScriptSecurity}
 	Event BrowserService.BrowserWindowWillNavigate(string url) {RobloxScriptSecurity}
@@ -478,6 +480,7 @@ Class ContentProvider : Instance [NotCreatable] [Service] [NotReplicated]
 	Property string ContentProvider.BaseUrl [<💾> Save-only] [ReadOnly] [NotReplicated]
 	Property int ContentProvider.RequestQueueSize [<💾> Save-only] [ReadOnly] [NotReplicated]
 	Function int ContentProvider:CalculateNumTrianglesInMesh(string meshId) {RobloxScriptSecurity} [Yields]
+	Function int ContentProvider:CalculateNumTrianglesInMeshSync(string meshId) {RobloxScriptSecurity}
 	Function Array ContentProvider:GetFailedRequests() {RobloxScriptSecurity}
 	Function void ContentProvider:Preload(Content contentId) [Deprecated]
 	Function void ContentProvider:PreloadAsync(Array contentIdList, Function callbackFunction = nil) [Yields]
@@ -551,10 +554,10 @@ Class FileMesh : DataModelMesh
 Class SpecialMesh : FileMesh
 	Property Enum<MeshType> SpecialMesh.MeshType
 Class DataModelSession : Instance [NotCreatable]
-	Property Enum<StudioDataModelType> DataModelSession.CurrentGameStateType {PluginSecurity} [ReadOnly] [NotReplicated]
+	Property Enum<StudioDataModelType> DataModelSession.CurrentDataModelType {PluginSecurity} [ReadOnly] [NotReplicated]
 	Property string DataModelSession.SessionId {PluginSecurity} [ReadOnly] [NotReplicated]
-	Event DataModelSession.CurrentGameStateTypeAboutToChange(Enum<StudioDataModelType> gameStateType) {PluginSecurity}
-	Event DataModelSession.CurrentGameStateTypeChanged() {PluginSecurity}
+	Event DataModelSession.CurrentDataModelTypeAboutToChange(Enum<StudioDataModelType> dataModelType) {PluginSecurity}
+	Event DataModelSession.CurrentDataModelTypeChanged() {PluginSecurity}
 	Event DataModelSession.DataModelCreated(Enum<StudioDataModelType> gameStateType) {PluginSecurity}
 	Event DataModelSession.DataModelWillBeDestroyed(Enum<StudioDataModelType> gameStateType) {PluginSecurity}
 Class DataStoreService : Instance [NotCreatable] [Service] [NotReplicated]
@@ -632,6 +635,7 @@ Class DraftsService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Enum<DraftStatusCode> DraftsService:GetDraftStatus(Instance script) {RobloxScriptSecurity}
 	Function Objects DraftsService:GetDrafts() {RobloxScriptSecurity} [Yields]
 	Function Objects DraftsService:GetEditors(Instance script) {RobloxScriptSecurity}
+	Function void DraftsService:RestoreScripts(Objects scripts) {RobloxScriptSecurity}
 	Function void DraftsService:ShowDiffsAgainstBase(Objects scripts) {RobloxScriptSecurity}
 	Function void DraftsService:ShowDiffsAgainstServer(Objects scripts) {RobloxScriptSecurity}
 	Function void DraftsService:UpdateToLatestVersion(Objects scripts) {RobloxScriptSecurity} [Yields]
@@ -802,7 +806,6 @@ Class GuiButton : GuiObject [NotCreatable] [NotBrowsable]
 	Property bool GuiButton.Modal
 	Property bool GuiButton.Selected
 	Property Enum<ButtonStyle> GuiButton.Style
-	Function void GuiButton:SetVerb(string verb) {RobloxScriptSecurity}
 	Event GuiButton.Activated(Instance inputObject)
 	Event GuiButton.MouseButton1Click()
 	Event GuiButton.MouseButton1Down(int x, int y)
@@ -899,7 +902,6 @@ Class ScrollingFrame : GuiObject
 Class TextBox : GuiObject
 	Property bool TextBox.ClearTextOnFocus
 	Property int TextBox.CursorPosition
-	Property bool TextBox.IsPassword {RobloxScriptSecurity} [<📁> Load-only] [NotReplicated]
 	Property bool TextBox.ManualFocusRelease {RobloxScriptSecurity} [<📁> Load-only] [NotReplicated]
 	Property bool TextBox.MultiLine
 	Property bool TextBox.OverlayNativeInput {RobloxScriptSecurity} [<📁> Load-only] [NotReplicated]
@@ -907,6 +909,7 @@ Class TextBox : GuiObject
 	Property bool TextBox.ShowNativeInput
 	Property bool TextBox.TextEditable
 	Property Enum<TextInputType> TextBox.TextInputType {RobloxScriptSecurity} [<📁> Load-only] [NotReplicated]
+	Property bool TextBox.EnableRealtimeFilteringHints {RobloxScriptSecurity}
 	Property Enum<Font> TextBox.Font
 	Property Enum<FontSize> TextBox.FontSize [<📁> Load-only] [NotReplicated] [Deprecated]
 	Property float TextBox.LineHeight
@@ -1457,6 +1460,7 @@ Class LocalizationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property string LocalizationService.RobloxLocaleId  [ReadOnly] [NotReplicated]
 	Property string LocalizationService.SystemLocaleId  [ReadOnly] [NotReplicated]
 	Function Objects LocalizationService:GetCorescriptLocalizations()
+	Function string LocalizationService:GetCountryRegionForPlayerAsync(Instance player) [Yields]
 	Function Array LocalizationService:GetTableEntries(Instance instance = nil)
 	Function Instance LocalizationService:GetTranslatorForLocaleAsync(string locale) [Yields]
 	Function Instance LocalizationService:GetTranslatorForPlayer(Instance player)
@@ -2162,6 +2166,7 @@ Class Plugin : Instance [NotCreatable]
 	Property bool Plugin.CollisionEnabled  [ReadOnly] [NotReplicated]
 	Property float Plugin.GridSize  [ReadOnly] [NotReplicated]
 	Property Enum<StudioDataModelType> Plugin.HostDataModelType {PluginSecurity} [ReadOnly] [NotReplicated]
+	Property bool Plugin.HostDataModelTypeIsCurrent {PluginSecurity} [ReadOnly] [NotReplicated]
 	Property Class<MDIInstance> Plugin.MDIInstance {PluginSecurity} [ReadOnly] [NotReplicated]
 	Function void Plugin:Activate(bool exclusiveMouse) {PluginSecurity}
 	Function Instance Plugin:Bind(string key, Function callback) {PluginSecurity}
@@ -2246,6 +2251,8 @@ Class PointsService : Instance [NotCreatable] [Service] [Deprecated]
 	Function int PointsService:GetGamePointBalance(int64 userId) [Yields] [Deprecated]
 	Function int PointsService:GetPointBalance(int64 userId) [Yields] [Deprecated]
 	Event PointsService.PointsAwarded(int64 userId, int pointsAwarded, int userBalanceInGame, int userTotalBalance) [Deprecated]
+Class PolicyService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function Dictionary PolicyService:GetPolicyInfoForPlayerAsync(Instance player) [Yields]
 Class Pose : Instance
 	Property CFrame Pose.CFrame
 	Property Enum<PoseEasingDirection> Pose.EasingDirection
@@ -2643,7 +2650,7 @@ Class StarterPlayer : Instance [NotCreatable] [Service]
 	Property NumberRange StarterPlayer.GameSettingsScaleRangeProportion {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property NumberRange StarterPlayer.GameSettingsScaleRangeWidth {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property bool StarterPlayer.LoadCharacterAppearance
-	Property bool StarterPlayer.UserEmotesEnabled {✏️RobloxScriptSecurity}
+	Property bool StarterPlayer.UserEmotesEnabled
 	Property float StarterPlayer.CharacterJumpHeight
 	Property float StarterPlayer.CharacterJumpPower
 	Property bool StarterPlayer.CharacterUseJumpPower
@@ -2770,6 +2777,7 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property string StudioService.StudioLocaleId  [ReadOnly] [NotReplicated]
 	Function void StudioService:ConvertToPackageUpload(string uploadUrl) {PluginSecurity}
 	Function void StudioService:CopyToClipboard(string stringToCopy) {RobloxScriptSecurity}
+	Function void StudioService:EmitPlacePublishedSignal() {RobloxScriptSecurity}
 	Function Dictionary StudioService:GetClassIcon(string className) {PluginSecurity}
 	Function string StudioService:GetInstalledPluginData() {RobloxScriptSecurity} [Yields]
 	Function Dictionary StudioService:GetResourceByCategory(string category) {RobloxScriptSecurity}
@@ -2789,15 +2797,13 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void StudioService:TryInstallPlugin(int64 assetId, int64 assetVersionId) {RobloxScriptSecurity} [Yields]
 	Function void StudioService:UninstallPlugin(int64 assetId) {RobloxScriptSecurity}
 	Function void StudioService:UpdatePluginManagement() {RobloxScriptSecurity}
-	Function void StudioService:emitPlacePublishedSignal() {RobloxScriptSecurity}
-	Event StudioService.GamePublishedToRoblox() {RobloxScriptSecurity}
-	Event StudioService.OnConvertToPackageResult(bool result) {RobloxScriptSecurity}
+	Event StudioService.GamePublishFinished(bool success) {RobloxScriptSecurity}
+	Event StudioService.OnConvertToPackageResult(bool isSuccessful, string errorMessage) {RobloxScriptSecurity}
 	Event StudioService.OnOpenConvertToPackagePlugin(Objects instances, string name) {RobloxScriptSecurity}
 	Event StudioService.OnOpenManagePackagePlugin(int64 userId, int64 assetId) {RobloxScriptSecurity}
 	Event StudioService.OnPluginInstalledFromToolbox() {RobloxScriptSecurity}
 	Event StudioService.OnPublishPlaceToRoblox() {RobloxScriptSecurity}
 	Event StudioService.OnSaveToRoblox(Objects instances) {RobloxScriptSecurity}
-	Event StudioService.PlacePublishedToRoblox() {RobloxScriptSecurity}
 Class StudioTheme : Instance [NotCreatable] [NotReplicated]
 	Function Color3 StudioTheme:GetColor(Enum<StudioStyleGuideColor> styleguideitem, Enum<StudioStyleGuideModifier> modifier = "Default") {PluginSecurity}
 	Function string StudioTheme:GetPath(string assetid, Enum<StudioStyleGuideModifier> modifier = "Default") {PluginSecurity}
@@ -3639,7 +3645,6 @@ Enum ErrorReporting
 Enum ExplosionType
 	EnumItem ExplosionType.NoCraters : 0
 	EnumItem ExplosionType.Craters : 1
-	EnumItem ExplosionType.CratersAndDebris : 2
 Enum FillDirection
 	EnumItem FillDirection.Horizontal : 0
 	EnumItem FillDirection.Vertical : 1
@@ -4642,9 +4647,9 @@ Enum TableMajorAxis
 	EnumItem TableMajorAxis.RowMajor : 0
 	EnumItem TableMajorAxis.ColumnMajor : 1
 Enum Technology
-	EnumItem Technology.Legacy : 0
+	EnumItem Technology.Legacy : 0 [Deprecated]
 	EnumItem Technology.Voxel : 1
-	EnumItem Technology.Compatibility : 2 [Deprecated]
+	EnumItem Technology.Compatibility : 2
 	EnumItem Technology.ShadowMap : 3
 Enum TeleportResult
 	EnumItem TeleportResult.Success : 0
@@ -4674,6 +4679,7 @@ Enum TextInputType
 	EnumItem TextInputType.Number : 2
 	EnumItem TextInputType.Email : 3
 	EnumItem TextInputType.Phone : 4
+	EnumItem TextInputType.Password : 5
 Enum TextTruncate
 	EnumItem TextTruncate.None : 0
 	EnumItem TextTruncate.AtEnd : 1

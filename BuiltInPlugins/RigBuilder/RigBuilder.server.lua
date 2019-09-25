@@ -1,4 +1,4 @@
-local FFlagEnableRoactAnimationEditor = settings():GetFFlag("EnableRoactAnimationEditor")
+local FFlagEnableRoactAnimationEditor = settings():GetFFlag("EnableRoactAnimationEditor2")
 if not FFlagEnableRoactAnimationEditor then
 	return
 end

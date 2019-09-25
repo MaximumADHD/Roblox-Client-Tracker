@@ -1,7 +1,37 @@
+local ANY_NAME = "*"
+
+local function checkName(nameList, instanceName)
+	if type(nameList) == "table" then
+		for _, name in pairs(nameList) do
+			if name == instanceName then
+				return true
+			end
+		end
+	elseif type(nameList) == "string" then
+		return nameList == instanceName
+	end
+	return false
+end
+
+local function getReadableName(nameList)
+	if type(nameList) == "table" then
+		return table.concat(nameList, " or ")
+	elseif type(nameList) == "string" then
+		return nameList
+	end
+	return ANY_NAME
+end
+
 local function validateWithSchemaHelper(schema, instance, authorizedSet)
 	-- validate
-	if instance.ClassName ~= schema.ClassName or (schema.Name ~= nil and schema.Name ~= instance.Name) then
-		return { success = false }
+	if game:GetFastFlag("CMSAdditionalAccessoryTypesV2") then
+		if instance.ClassName ~= schema.ClassName or (schema.Name ~= nil and not checkName(schema.Name, instance.Name)) then
+			return { success = false }
+		end
+	else
+		if instance.ClassName ~= schema.ClassName or (schema.Name ~= nil and schema.Name ~= instance.Name) then
+			return { success = false }
+		end
 	end
 
 	-- validate children
@@ -22,12 +52,19 @@ local function validateWithSchemaHelper(schema, instance, authorizedSet)
 				if mostRecentFailure then
 					return mostRecentFailure
 				else
+					local childSchemaName
+					if game:GetFastFlag("CMSAdditionalAccessoryTypesV2") then
+						childSchemaName = getReadableName(childSchema.Name)
+					else
+						childSchemaName = childSchema.Name or ANY_NAME
+					end
+
 					return {
 						success = false,
 						message = "Could not find a "
 							.. childSchema.ClassName
 							.. " called "
-							.. (childSchema.Name or "*")
+							.. childSchemaName
 							.. " inside "
 							.. instance.Name
 					}

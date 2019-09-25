@@ -2,6 +2,7 @@ local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 local Players = game:GetService("Players")
 local GuiService = game:GetService("GuiService")
+local RunService = game:GetService("RunService")
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
@@ -33,6 +34,11 @@ function TenFootSideBar:render()
 end
 
 function TenFootSideBar:shouldShowSidebar(player, platformId)
+	if RunService:IsStudio() then
+		--Don't show sidebar in xbox emulator in studio.
+		return false, false
+	end
+
 	local addReportItem = false
 	if player ~= Players.LocalPlayer then
 		addReportItem = true
@@ -103,9 +109,11 @@ function TenFootSideBar:openSidebar(player)
 end
 
 function TenFootSideBar:didMount()
-	local sideBarModule = RobloxGui.Modules:FindFirstChild("SideBar") or RobloxGui.Modules.Shell.SideBar
-	local createSideBarFunc = require(sideBarModule)
-	self.sideBar = createSideBarFunc()
+	if not RunService:IsStudio() then
+		local sideBarModule = RobloxGui.Modules:FindFirstChild("SideBar") or RobloxGui.Modules.Shell.SideBar
+		local createSideBarFunc = require(sideBarModule)
+		self.sideBar = createSideBarFunc()
+	end
 
 	if self.props.sideBarVisible then
 		self:openSidebar(self.props.selectedPlayer)

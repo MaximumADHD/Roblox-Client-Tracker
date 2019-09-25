@@ -14,7 +14,7 @@ struct Globals
     vec3 Lamp1Color;
     vec4 FogParams;
     vec4 FogColor_GlobalForceFieldTime;
-    vec4 Technology_Exposure;
+    vec3 Exposure;
     vec4 LightBorder;
     vec4 LightConfig0;
     vec4 LightConfig1;
@@ -55,7 +55,7 @@ out vec2 VARYING0;
 out vec4 VARYING1;
 out vec3 VARYING2;
 out vec3 VARYING3;
-out vec3 VARYING4;
+out vec4 VARYING4;
 out vec3 VARYING5;
 
 void main()
@@ -66,13 +66,12 @@ void main()
     v2.z = v1.z - CB2[0].x;
     float v3 = dot(CB1[0].xyz, -CB0[11].xyz);
     vec3 v4 = v0.xyz;
-    vec4 v5 = vec4(v0.xyz, 1.0);
     gl_Position = v2;
     VARYING0 = TEXCOORD0;
     VARYING1 = COLOR0;
     VARYING2 = (CB0[10].xyz * clamp(v3, 0.0, 1.0)) + (CB0[12].xyz * clamp(-v3, 0.0, 1.0));
     VARYING3 = ((v4 + (CB1[0].xyz * 6.0)).yxz * CB0[17].xyz) + CB0[18].xyz;
-    VARYING4 = vec3(dot(CB0[21], v5), dot(CB0[22], v5), dot(CB0[23], v5));
+    VARYING4 = vec4(v0.xyz, v3);
     VARYING5 = CB0[7].xyz - v4;
 }
 

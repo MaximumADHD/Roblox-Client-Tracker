@@ -86,7 +86,7 @@ function ConfigGenre:render()
 				selectedDropDownIndex = genreIndex,
 
 				items = genreTypes,
-				fontSize = Constants.FONT_SIZE_MEDIUM,
+				fontSize = Constants.FONT_SIZE_LARGE,
 				onItemClicked = onDropDownSelect,
 
 				LayoutOrder = 2,

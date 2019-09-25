@@ -20,7 +20,7 @@ local ContextHelper = require(Util.ContextHelper)
 local AssetConfigConstants = require(Util.AssetConfigConstants)
 
 local Components = Plugin.Core.Components
-local NavButton = require(Components.AssetConfiguration.NavButton)
+local NavButton = require(Components.NavButton)
 local AssetThumbnailPreview = require(Components.AssetConfiguration.AssetThumbnailPreview)
 local AssetTypeSelector = require(Components.AssetConfiguration.AssetTypeSelector)
 
@@ -35,12 +35,13 @@ local PREVIEW_TITLE_HEIGHT = 24
 local SELECTOR_Y_POS = 310
 local SELECTOR_WIDTH = 400
 local SELECTOR_HEIGHT = 40
-local FOOTER_HEIGHT = 80
+local FOOTER_HEIGHT = 62
 local FOOTER_PADDING = 24
 local BUTTON_WIDTH = 120
 local BUTTON_HEIGHT = 32
 
 local withTheme = ContextHelper.withTheme
+local withLocalization = ContextHelper.withLocalization
 
 local AssetTypeSelection = Roact.PureComponent:extend("AssetTypeSelection")
 
@@ -50,7 +51,7 @@ function AssetTypeSelection:didMount()
 	end
 end
 
-function AssetTypeSelection:getSelectorItems()
+function AssetTypeSelection:getSelectorItems(localizedContent)
 	local items = {
 		{ name = "Game development assets", selectable = false },
 		{ name = "Model", selectable = true, type = Enum.AssetType.Model },
@@ -58,8 +59,30 @@ function AssetTypeSelection:getSelectorItems()
 
 	-- only catalog item creators can upload hats
 	if FFlagAllowCatalogItemCreatorAssetConfig and self.props.isCatalogItemCreator then
-		items[#items + 1] = { name = "Avatar assets", selectable = false }
-		items[#items + 1] = { name = "Hat", selectable = true, type = Enum.AssetType.Hat }
+		if game:GetFastFlag("CMSAdditionalAccessoryTypesV2") then
+			local allowedAssetTypes = AssetConfigConstants.getAllowedAssetTypeEnums(self.props.allowedAssetTypesForRelease)
+			if #allowedAssetTypes > 0 then
+				local dividerName = ""
+				if localizedContent then
+					dividerName = localizedContent.Category.CreationsCatalogSectionDivider
+				end
+				items[#items + 1] = { name = dividerName, selectable = false }
+				for _, assetTypeEnum in pairs(allowedAssetTypes) do
+					local assetTypeName = ""
+					if localizedContent then
+						assetTypeName = localizedContent.AssetConfig.PublishAsset.AssetTextDisplay[assetTypeEnum]
+					end
+					items[#items + 1] = {
+						name = assetTypeName,
+						selectable = true,
+						type = assetTypeEnum,
+					}
+				end
+			end
+		else
+			items[#items + 1] = { name = "Avatar assets", selectable = false }
+			items[#items + 1] = { name = "Hat", selectable = true, type = Enum.AssetType.Hat }
+		end
 	end
 
 	return items
@@ -77,68 +100,69 @@ end
 
 function AssetTypeSelection:render()
 	return withTheme(function(theme)
+		return withLocalization(function(_, localizedContent)
+			local props = self.props
 
-		local props = self.props
-
-		return Roact.createElement("Frame", {
-			BackgroundColor3 = theme.typeSelection.background,
-			BackgroundTransparency = 0,
-			BorderSizePixel = 0,
-			Size = props.Size,
-		}, {
-			AssetThumbnailPreview = Roact.createElement(AssetThumbnailPreview, {
-				Size = UDim2.new(
-					0, PREVIEW_SIZE,
-					0, PREVIEW_SIZE + PREVIEW_TITLE_PADDING + PREVIEW_TITLE_HEIGHT
-				),
-				Position = UDim2.new(0.5, -PREVIEW_SIZE/2, 0, PREVIEW_PADDING),
-				titleHeight = PREVIEW_TITLE_HEIGHT,
-				titlePadding = PREVIEW_TITLE_PADDING,
-			}),
-
-			AssetTypeSelector = Roact.createElement(AssetTypeSelector, {
-				Position = UDim2.new(0.5, -SELECTOR_WIDTH/2, 0, SELECTOR_Y_POS),
-				height = SELECTOR_HEIGHT,
-				width = SELECTOR_WIDTH,
-				onAssetTypeSelected = self.props.onAssetTypeSelected,
-				items = self:getSelectorItems(),
-			}),
-
-			Footer = Roact.createElement("Frame", {
-				Size = UDim2.new(1, 0, 0, FOOTER_HEIGHT),
-				Position = UDim2.new(0, 0, 1, -FOOTER_HEIGHT),
-				BackgroundColor3 = theme.typeSelection.footer.background,
-				BorderColor3 = theme.typeSelection.footer.border,
+			return Roact.createElement("Frame", {
+				BackgroundColor3 = theme.typeSelection.background,
+				BackgroundTransparency = 0,
+				BorderSizePixel = 0,
+				Size = props.Size,
 			}, {
-				UIListLayout = Roact.createElement("UIListLayout", {
-					Padding = UDim.new(0, FOOTER_PADDING),
-					FillDirection = Enum.FillDirection.Horizontal,
-					HorizontalAlignment = Enum.HorizontalAlignment.Right,
-					VerticalAlignment = Enum.VerticalAlignment.Center,
+				AssetThumbnailPreview = Roact.createElement(AssetThumbnailPreview, {
+					Size = UDim2.new(
+						0, PREVIEW_SIZE,
+						0, PREVIEW_SIZE + PREVIEW_TITLE_PADDING + PREVIEW_TITLE_HEIGHT
+					),
+					Position = UDim2.new(0.5, -PREVIEW_SIZE/2, 0, PREVIEW_PADDING),
+					titleHeight = PREVIEW_TITLE_HEIGHT,
+					titlePadding = PREVIEW_TITLE_PADDING,
 				}),
 
-				UIPadding = Roact.createElement("UIPadding", {
-					PaddingRight = UDim.new(0, FOOTER_PADDING),
+				AssetTypeSelector = Roact.createElement(AssetTypeSelector, {
+					Position = UDim2.new(0.5, -SELECTOR_WIDTH/2, 0, SELECTOR_Y_POS),
+					height = SELECTOR_HEIGHT,
+					width = SELECTOR_WIDTH,
+					onAssetTypeSelected = self.props.onAssetTypeSelected,
+					items = self:getSelectorItems(localizedContent),
 				}),
 
-				CancelButton = Roact.createElement(NavButton, {
-					Size = UDim2.new(0, BUTTON_WIDTH, 0, BUTTON_HEIGHT),
-					LayoutOrder = 0,
-					titleText = "Cancel",
-					onClick = props.onClose,
-				}),
+				Footer = Roact.createElement("Frame", {
+					Size = UDim2.new(1, 0, 0, FOOTER_HEIGHT),
+					Position = UDim2.new(0, 0, 1, -FOOTER_HEIGHT),
+					BackgroundColor3 = theme.typeSelection.footer.background,
+					BorderColor3 = theme.typeSelection.footer.border,
+				}, {
+					UIListLayout = Roact.createElement("UIListLayout", {
+						Padding = UDim.new(0, FOOTER_PADDING),
+						FillDirection = Enum.FillDirection.Horizontal,
+						HorizontalAlignment = Enum.HorizontalAlignment.Right,
+						VerticalAlignment = Enum.VerticalAlignment.Center,
+					}),
 
-				NextButton = Roact.createElement(NavButton, {
-					Size = UDim2.new(0, BUTTON_WIDTH, 0, BUTTON_HEIGHT),
-					LayoutOrder = 1,
-					titleText = "Next",
-					isPrimary = true,
-					onClick = function()
-						self.props.onNext(self.props.screenFlowType)
-					end,
+					UIPadding = Roact.createElement("UIPadding", {
+						PaddingRight = UDim.new(0, FOOTER_PADDING),
+					}),
+
+					CancelButton = Roact.createElement(NavButton, {
+						Size = UDim2.new(0, BUTTON_WIDTH, 0, BUTTON_HEIGHT),
+						LayoutOrder = 0,
+						titleText = "Cancel",
+						onClick = props.onClose,
+					}),
+
+					NextButton = Roact.createElement(NavButton, {
+						Size = UDim2.new(0, BUTTON_WIDTH, 0, BUTTON_HEIGHT),
+						LayoutOrder = 1,
+						titleText = "Next",
+						isPrimary = true,
+						onClick = function()
+							self.props.onNext(self.props.screenFlowType)
+						end,
+					}),
 				}),
-			}),
-		})
+			})
+		end)
 	end)
 end
 
@@ -150,6 +174,7 @@ local function mapStateToProps(state, props)
 		currentScreen = state.currentScreen,
 		screenFlowType = state.screenFlowType,
 		isCatalogItemCreator = state.isCatalogItemCreator,
+		allowedAssetTypesForRelease = state.allowedAssetTypesForRelease,
 	}
 end
 

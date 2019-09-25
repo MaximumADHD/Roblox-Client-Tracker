@@ -1,11 +1,12 @@
 local EnableGroupPackagesForToolbox =  settings():GetFFlag("EnableGroupPackagesForToolbox")
 local FFlagPluginAccessAndInstallationInStudio = settings():GetFFlag("PluginAccessAndInstallationInStudio")
-local FFlagStudioMarketplaceTabsEnabled = settings():GetFFlag("StudioMarketplaceTabsEnabled")
 local FFlagOnlyWhitelistedPluginsInStudio = settings():GetFFlag("OnlyWhitelistedPluginsInStudio")
+local FFlagStudioAddPackagePermissions = settings():GetFFlag("StudioAddPackagePermissions")
 local FFlagFixToolboxInitLoad = settings():GetFFlag("FixToolboxInitLoad")
 
 local Plugin = script.Parent.Parent.Parent
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
+local AssetConfigConstants = require(Plugin.Core.Util.AssetConfigConstants)
 
 local Category = {}
 
@@ -104,6 +105,8 @@ Category.MY_PACKAGES = {name = "MyPackages", category = "MyPackages",
 	ownershipType = Category.OwnershipType.MY, assetType = Category.AssetType.PACKAGE}
 Category.GROUP_PACKAGES = {name = "GroupPackages", category = "GroupPackages",
 	ownershipType = Category.OwnershipType.GROUP, assetType = Category.AssetType.PACKAGE}
+Category.SHARED_PACKAGES = {name = "SharedPackages", category = "SharedPackages",
+	ownershipType = Category.OwnershipType.My, assetType = Category.AssetType.PACKAGE}
 
 Category.CREATIONS_DEVELOPMENT_SECTION_DIVIDER = {name = "CreationsDevelopmentSectionDivider", selectable=false}
 Category.CREATIONS_MODELS = {name = "CreationsModels", assetType = Category.AssetType.MODEL}
@@ -115,13 +118,13 @@ Category.CREATIONS_HATS = {name = "CreationsHats", assetType = Category.AssetTyp
 Category.CREATIONS_TEE_SHIRT = {name = "CreationsTeeShirts", assetType = Category.AssetType.TEE_SHIRT}
 Category.CREATIONS_SHIRT = {name = "CreationsShirts", assetType = Category.AssetType.SHIRT}
 Category.CREATIONS_PANTS = {name = "CreationsPants", assetType = Category.AssetType.PANTS}
-Category.CREATIONS_HAIR = {name = "CreationsHair", assetType = Category.AssetType.HairAccessory}
-Category.CREATIONS_FACE_ACCESSORYS = {name = "CreationsFaceAccessorys", assetType = Category.AssetType.FaceAccessory}
-Category.CREATIONS_NECK_ACCESSORYS = {name = "CreationsNeckAccessorys", assetType = Category.AssetType.NeckAccessory}
-Category.CREATIONS_SHOULDER_ACCESSORYS = {name = "CreationsShoulderAccessorys", assetType = Category.AssetType.ShoulderAccessory}
-Category.CREATIONS_FRONT_ACCESSORYS = {name = "CreationsFrontAccessorys", assetType = Category.AssetType.FrontAccessory}
-Category.CREATIONS_BACK_ACCESSORYS = {name = "CreationsBackAccessorys", assetType = Category.AssetType.BackAccessory}
-Category.CREATIONS_WAIST_ACCESSORYS = {name = "CreationsWaistAccessorys", assetType = Category.AssetType.WaistAccessory}
+Category.CREATIONS_HAIR = {name = "CreationsHair", assetType = Category.AssetType.HAIR_ACCESSORY}
+Category.CREATIONS_FACE_ACCESSORIES = {name = "CreationsFaceAccessories", assetType = Category.AssetType.FACE_ACCESSORY}
+Category.CREATIONS_NECK_ACCESSORIES = {name = "CreationsNeckAccessories", assetType = Category.AssetType.NECK_ACCESSORY}
+Category.CREATIONS_SHOULDER_ACCESSORIES = {name = "CreationsShoulderAccessories", assetType = Category.AssetType.SHOULDER_ACCESSORY}
+Category.CREATIONS_FRONT_ACCESSORIES = {name = "CreationsFrontAccessories", assetType = Category.AssetType.FRONT_ACCESSORY}
+Category.CREATIONS_BACK_ACCESSORIES = {name = "CreationsBackAccessories", assetType = Category.AssetType.BACK_ACCESSORY}
+Category.CREATIONS_WAIST_ACCESSORIES = {name = "CreationsWaistAccessories", assetType = Category.AssetType.WAIST_ACCESSORY}
 
 -- Category sets used for splitting inventory/shop
 Category.MARKETPLACE = {
@@ -157,6 +160,16 @@ Category.RECENT = {
 	Category.RECENT_MESHES,
 	Category.RECENT_AUDIO,
 }
+
+local function getCreationCategories()
+	return {
+		Category.CREATIONS_DEVELOPMENT_SECTION_DIVIDER,
+		Category.CREATIONS_MODELS,
+		Category.CREATIONS_DECALS,
+		Category.CREATIONS_AUDIO,
+		Category.CREATIONS_MESHES,
+	}
+end
 
 local CREATIONS = {
 	Category.CREATIONS_DEVELOPMENT_SECTION_DIVIDER,
@@ -198,6 +211,10 @@ if EnableGroupPackagesForToolbox then
 	table.insert(Category.INVENTORY_WITH_GROUPS, Category.GROUP_PACKAGES)
 end
 
+if FFlagStudioAddPackagePermissions then
+	table.insert(Category.INVENTORY_WITH_GROUPS, Category.SHARED_PACKAGES)
+end
+
 if FFlagPluginAccessAndInstallationInStudio then
 	table.insert(Category.INVENTORY, Category.MY_PLUGINS)
 	if FFlagOnlyWhitelistedPluginsInStudio then
@@ -235,14 +252,47 @@ function Category.categoryIsPlugin(index)
 	return checkBounds(index) and Category.INVENTORY_WITH_GROUPS[index].assetType == Category.AssetType.PLUGIN
 end
 
+local ASSET_ENUM_CATEGORY_MAP = {
+	[Enum.AssetType.Hat] = Category.CREATIONS_HATS,
+	[Enum.AssetType.HairAccessory] = Category.CREATIONS_HAIR,
+	[Enum.AssetType.FaceAccessory] = Category.CREATIONS_FACE_ACCESSORIES,
+	[Enum.AssetType.NeckAccessory] = Category.CREATIONS_NECK_ACCESSORIES,
+	[Enum.AssetType.ShoulderAccessory] = Category.CREATIONS_SHOULDER_ACCESSORIES,
+	[Enum.AssetType.FrontAccessory] = Category.CREATIONS_FRONT_ACCESSORIES,
+	[Enum.AssetType.BackAccessory] = Category.CREATIONS_BACK_ACCESSORIES,
+	[Enum.AssetType.WaistAccessory] = Category.CREATIONS_WAIST_ACCESSORIES,
+}
+
 function Category.getCategories(tabName, roles)
-	if Category.CREATIONS_KEY == tabName then
-		if roles and roles.isCatalogItemCreator then
-			return TABS[tabName][CreationsCatalogItemCreatorCategoriesKey]
+	if game:GetFastFlag("CMSAdditionalAccessoryTypesV2") then
+		if Category.CREATIONS_KEY == tabName then
+			local categories = getCreationCategories()
+			if roles and roles.isCatalogItemCreator then
+				local allowedAssetTypeEnums = AssetConfigConstants.getAllowedAssetTypeEnums(roles.allowedAssetTypesForRelease)
+				if #allowedAssetTypeEnums > 0 then
+					table.insert(categories, Category.CREATIONS_CATALOG_SECTION_DIVIDER)
+					for _, assetTypeEnum in pairs(allowedAssetTypeEnums) do
+						table.insert(categories, ASSET_ENUM_CATEGORY_MAP[assetTypeEnum])
+					end
+				end
+			end
+			return categories
+		elseif Category.MARKETPLACE_KEY == tabName then
+			return Category.MARKETPLACE
+		elseif Category.INVENTORY_KEY == tabName then
+			return Category.INVENTORY
+		elseif Category.RECENT_KEY == tabName then
+			return Category.RECENT
 		end
-		return TABS[tabName][CreationsCatagoriesKey]
+	else
+		if Category.CREATIONS_KEY == tabName then
+			if roles and roles.isCatalogItemCreator then
+				return TABS[tabName][CreationsCatalogItemCreatorCategoriesKey]
+			end
+			return TABS[tabName][CreationsCatagoriesKey]
+		end
+		return TABS[tabName];
 	end
-	return TABS[tabName];
 end
 
 function Category.getEngineAssetType(assetType)
@@ -253,6 +303,26 @@ function Category.getEngineAssetType(assetType)
 		end
 	end
 	return result
+end
+
+function Category.getBackendNameForAssetTypeEnd(assetTypeEnum)
+	local BACKEND_ASSET_TYPE_MAP = {
+		[Enum.AssetType.Hat] = "Hat",
+		[Enum.AssetType.HairAccessory] = "Hair Accessory",
+		[Enum.AssetType.FaceAccessory] = "Face Accessory",
+		[Enum.AssetType.NeckAccessory] = "Neck Accessory",
+		[Enum.AssetType.ShoulderAccessory] = "Shoulder Accessory",
+		[Enum.AssetType.FrontAccessory] = "Front Accessory",
+		[Enum.AssetType.BackAccessory] = "Back Accessory",
+		[Enum.AssetType.WaistAccessory] = "Waist Accessory",
+	}
+
+	local result = BACKEND_ASSET_TYPE_MAP[assetTypeEnum]
+	if result then
+		return result
+	else
+		return assetTypeEnum.Name
+	end
 end
 
 local function ownershipTypeToString(ownershipType)

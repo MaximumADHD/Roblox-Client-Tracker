@@ -2,19 +2,19 @@ return function()
 	local t = require(script.Parent)
 
 	it("should support basic types", function()
-		expect(t.any("")).to.equal(true)
-		expect(t.boolean(true)).to.equal(true)
-		expect(t.none(nil)).to.equal(true)
-		expect(t.number(1)).to.equal(true)
-		expect(t.string("foo")).to.equal(true)
-		expect(t.table({})).to.equal(true)
+		assert(t.any(""))
+		assert(t.boolean(true))
+		assert(t.none(nil))
+		assert(t.number(1))
+		assert(t.string("foo"))
+		assert(t.table({}))
 
-		expect(t.any(nil)).to.equal(false)
-		expect(t.boolean("true")).to.equal(false)
-		expect(t.none(1)).to.equal(false)
-		expect(t.number(true)).to.equal(false)
-		expect(t.string(true)).to.equal(false)
-		expect(t.table(82)).to.equal(false)
+		assert(not (t.any(nil)))
+		assert(not (t.boolean("true")))
+		assert(not (t.none(1)))
+		assert(not (t.number(true)))
+		assert(not (t.string(true)))
+		assert(not (t.table(82)))
 	end)
 
 	it("should support special number types", function()
@@ -25,123 +25,138 @@ return function()
 		local constrainedEightToEleven = t.numberConstrained(8, 11)
 		local constrainedEightToElevenEx = t.numberConstrainedExclusive(8, 11)
 
-		expect(maxTen(5)).to.equal(true)
-		expect(maxTen(10)).to.equal(true)
-		expect(maxTen(11)).to.equal(false)
-		expect(maxTen()).to.equal(false)
+		assert(maxTen(5))
+		assert(maxTen(10))
+		assert(not (maxTen(11)))
+		assert(not (maxTen()))
 
-		expect(minTwo(5)).to.equal(true)
-		expect(minTwo(2)).to.equal(true)
-		expect(minTwo(1)).to.equal(false)
-		expect(minTwo()).to.equal(false)
+		assert(minTwo(5))
+		assert(minTwo(2))
+		assert(not (minTwo(1)))
+		assert(not (minTwo()))
 
-		expect(maxTenEx(5)).to.equal(true)
-		expect(maxTenEx(9)).to.equal(true)
-		expect(maxTenEx(10)).to.equal(false)
-		expect(maxTenEx()).to.equal(false)
+		assert(maxTenEx(5))
+		assert(maxTenEx(9))
+		assert(not (maxTenEx(10)))
+		assert(not (maxTenEx()))
 
-		expect(minTwoEx(5)).to.equal(true)
-		expect(minTwoEx(3)).to.equal(true)
-		expect(minTwoEx(2)).to.equal(false)
-		expect(minTwoEx()).to.equal(false)
+		assert(minTwoEx(5))
+		assert(minTwoEx(3))
+		assert(not (minTwoEx(2)))
+		assert(not (minTwoEx()))
 
-		expect(constrainedEightToEleven(7)).to.equal(false)
-		expect(constrainedEightToEleven(8)).to.equal(true)
-		expect(constrainedEightToEleven(9)).to.equal(true)
-		expect(constrainedEightToEleven(11)).to.equal(true)
-		expect(constrainedEightToEleven(12)).to.equal(false)
-		expect(constrainedEightToEleven()).to.equal(false)
+		assert(not (constrainedEightToEleven(7)))
+		assert(constrainedEightToEleven(8))
+		assert(constrainedEightToEleven(9))
+		assert(constrainedEightToEleven(11))
+		assert(not (constrainedEightToEleven(12)))
+		assert(not (constrainedEightToEleven()))
 
-		expect(constrainedEightToElevenEx(7)).to.equal(false)
-		expect(constrainedEightToElevenEx(8)).to.equal(false)
-		expect(constrainedEightToElevenEx(9)).to.equal(true)
-		expect(constrainedEightToElevenEx(11)).to.equal(false)
-		expect(constrainedEightToElevenEx(12)).to.equal(false)
-		expect(constrainedEightToElevenEx()).to.equal(false)
+		assert(not (constrainedEightToElevenEx(7)))
+		assert(not (constrainedEightToElevenEx(8)))
+		assert(constrainedEightToElevenEx(9))
+		assert(not (constrainedEightToElevenEx(11)))
+		assert(not (constrainedEightToElevenEx(12)))
+		assert(not (constrainedEightToElevenEx()))
 	end)
 
 	it("should support optional types", function()
 		local check = t.optional(t.string)
-		expect(check("")).to.equal(true)
-		expect(check()).to.equal(true)
-		expect(check(1)).to.equal(false)
+		assert(check(""))
+		assert(check())
+		assert(not (check(1)))
 	end)
 
-	it("should support tuple  types", function()
+	it("should support tuple types", function()
 		local myTupleCheck = t.tuple(t.number, t.string, t.optional(t.number))
-		expect(myTupleCheck(1, "2", 3)).to.equal(true)
-		expect(myTupleCheck(1, "2")).to.equal(true)
-		expect(myTupleCheck(1, "2", "3")).to.equal(false)
+		assert(myTupleCheck(1, "2", 3))
+		assert(myTupleCheck(1, "2"))
+		assert(not (myTupleCheck(1, "2", "3")))
 	end)
 
-	it("should support union  types", function()
+	it("should support union types", function()
 		local numberOrString = t.union(t.number, t.string)
-		expect(numberOrString(1)).to.equal(true)
-		expect(numberOrString("1")).to.equal(true)
-		expect(numberOrString(nil)).to.equal(false)
+		assert(numberOrString(1))
+		assert(numberOrString("1"))
+		assert(not (numberOrString(nil)))
 	end)
 
-	it("should support exact types", function()
-		local checkSingle = t.exactly("foo")
-		local checkUnion = t.union(t.exactly("foo"), t.exactly("bar"), t.exactly("oof"))
+	it("should support literal types", function()
+		local checkSingle = t.literal("foo")
+		local checkUnion = t.union(t.literal("foo"), t.literal("bar"), t.literal("oof"))
 
-		expect(checkSingle("foo")).to.equal(true)
-		expect(checkUnion("foo")).to.equal(true)
-		expect(checkUnion("bar")).to.equal(true)
-		expect(checkUnion("oof")).to.equal(true)
+		assert(checkSingle("foo"))
+		assert(checkUnion("foo"))
+		assert(checkUnion("bar"))
+		assert(checkUnion("oof"))
 
-		expect(checkSingle("FOO")).to.equal(false)
-		expect(checkUnion("FOO")).to.equal(false)
-		expect(checkUnion("BAR")).to.equal(false)
-		expect(checkUnion("OOF")).to.equal(false)
+		assert(not (checkSingle("FOO")))
+		assert(not (checkUnion("FOO")))
+		assert(not (checkUnion("BAR")))
+		assert(not (checkUnion("OOF")))
 	end)
 
-	it("should support intersection  types", function()
+	it("should support multiple literal types", function()
+		local checkSingle = t.literal("foo")
+		local checkUnion = t.literal("foo", "bar", "oof")
+
+		assert(checkSingle("foo"))
+		assert(checkUnion("foo"))
+		assert(checkUnion("bar"))
+		assert(checkUnion("oof"))
+
+		assert(not (checkSingle("FOO")))
+		assert(not (checkUnion("FOO")))
+		assert(not (checkUnion("BAR")))
+		assert(not (checkUnion("OOF")))
+	end)
+
+	it("should support intersection types", function()
 		local integerMax5000 = t.intersection(t.integer, t.numberMax(5000))
-		expect(integerMax5000(1)).to.equal(true)
-		expect(integerMax5000(5001)).to.equal(false)
-		expect(integerMax5000(1.1)).to.equal(false)
-		expect(integerMax5000("1")).to.equal(false)
+		assert(integerMax5000(1))
+		assert(not (integerMax5000(5001)))
+		assert(not (integerMax5000(1.1)))
+		assert(not (integerMax5000("1")))
 	end)
 
 	describe("array", function()
-		it("should support array  types", function()
+		it("should support array types", function()
 			local stringArray = t.array(t.string)
 			local anyArray = t.array(t.any)
 			local stringValues = t.values(t.string)
-			expect(anyArray("foo")).to.equal(false)
-			expect(anyArray({1, "2", 3})).to.equal(true)
-			expect(stringArray({1, "2", 3})).to.equal(false)
-			expect(stringArray()).to.equal(false)
-			expect(stringValues()).to.equal(false)
-			expect(anyArray({"1", "2", "3"}, t.string)).to.equal(true)
-			expect(anyArray({
+			assert(not (anyArray("foo")))
+			assert(anyArray({1, "2", 3}))
+			assert(not (stringArray({1, "2", 3})))
+			assert(not (stringArray()))
+			assert(not (stringValues()))
+			assert(anyArray({"1", "2", "3"}, t.string))
+			assert(not (anyArray({
 				foo = "bar"
-			})).to.equal(false)
-			expect(anyArray({
+			})))
+			assert(not (anyArray({
 				[1] = "non",
 				[5] = "sequential"
-			})).to.equal(false)
+			})))
 		end)
 
 		it("should not be fooled by sparse arrays", function()
 			local anyArray = t.array(t.any)
 
-			expect(anyArray({
+			assert(not (anyArray({
 				[1] = 1,
 				[2] = 2,
 				[4] = 4,
-			})).to.equal(false)
+			})))
 		end)
 	end)
 
 	it("should support map types", function()
 		local stringNumberMap = t.map(t.string, t.number)
-		expect(stringNumberMap({})).to.equal(true)
-		expect(stringNumberMap({a = 1})).to.equal(true)
-		expect(stringNumberMap({[1] = "a"})).to.equal(false)
-		expect(stringNumberMap({a = "a"})).to.equal(false)
-		expect(stringNumberMap()).to.equal(false)
+		assert(stringNumberMap({}))
+		assert(stringNumberMap({a = 1}))
+		assert(not (stringNumberMap({[1] = "a"})))
+		assert(not (stringNumberMap({a = "a"})))
+		assert(not (stringNumberMap()))
 	end)
 
 	it("should support interface types", function()
@@ -151,18 +166,18 @@ return function()
 			z = t.number,
 		})
 
-		expect(IVector3({
+		assert(IVector3({
 			w = 0,
 			x = 1,
 			y = 2,
 			z = 3,
-		})).to.equal(true)
+		}))
 
-		expect(IVector3({
+		assert(not (IVector3({
 			w = 0,
 			x = 1,
 			y = 2,
-		})).to.equal(false)
+		})))
 	end)
 
 	it("should support strict interface types", function()
@@ -172,24 +187,26 @@ return function()
 			z = t.number,
 		})
 
-		expect(IVector3({
+		assert(not (IVector3(0)))
+
+		assert(not (IVector3({
 			w = 0,
 			x = 1,
 			y = 2,
 			z = 3,
-		})).to.equal(false)
+		})))
 
-		expect(IVector3({
+		assert(not (IVector3({
 			w = 0,
 			x = 1,
 			y = 2,
-		})).to.equal(false)
+		})))
 
-		expect(IVector3({
+		assert(IVector3({
 			x = 1,
 			y = 2,
 			z = 3,
-		})).to.equal(true)
+		}))
 	end)
 
 	it("should support deep interface types", function()
@@ -200,28 +217,28 @@ return function()
 			})
 		})
 
-		expect(IPlayer({
+		assert(IPlayer({
 			name = "TestPlayer",
 			inventory = {
 				size = 1
 			}
-		})).to.equal(true)
+		}))
 
-		expect(IPlayer({
+		assert(not (IPlayer({
 			inventory = {
 				size = 1
 			}
-		})).to.equal(false)
+		})))
 
-		expect(IPlayer({
+		assert(not (IPlayer({
 			name = "TestPlayer",
 			inventory = {
 			}
-		})).to.equal(false)
+		})))
 
-		expect(IPlayer({
+		assert(not (IPlayer({
 			name = "TestPlayer",
-		})).to.equal(false)
+		})))
 	end)
 
 	it("should support deep optional interface types", function()
@@ -232,32 +249,32 @@ return function()
 			}))
 		})
 
-		expect(IPlayer({
+		assert(IPlayer({
 			name = "TestPlayer"
-		})).to.equal(true)
+		}))
 
-		expect(IPlayer({
+		assert(not (IPlayer({
 			name = "TestPlayer",
 			inventory = {
 			}
-		})).to.equal(false)
+		})))
 
-		expect(IPlayer({
+		assert(IPlayer({
 			name = "TestPlayer",
 			inventory = {
 				size = 1
 			}
-		})).to.equal(true)
+		}))
 	end)
 
 	it("should support Roblox Instance types", function()
-		local stringValueCheck = t.instance("StringValue")
+		local stringValueCheck = t.instanceOf("StringValue")
 		local stringValue = Instance.new("StringValue")
 		local boolValue = Instance.new("BoolValue")
 
-		expect(stringValueCheck(stringValue)).to.equal(true)
-		expect(stringValueCheck(boolValue)).to.equal(false)
-		expect(stringValueCheck()).to.equal(false)
+		assert(stringValueCheck(stringValue))
+		assert(not (stringValueCheck(boolValue)))
+		assert(not (stringValueCheck()))
 	end)
 
 	it("should support Roblox Instance types inheritance", function()
@@ -266,24 +283,24 @@ return function()
 		local textLabel = Instance.new("TextLabel")
 		local stringValue = Instance.new("StringValue")
 
-		expect(guiObjectCheck(frame)).to.equal(true)
-		expect(guiObjectCheck(textLabel)).to.equal(true)
-		expect(guiObjectCheck(stringValue)).to.equal(false)
-		expect(guiObjectCheck()).to.equal(false)
+		assert(guiObjectCheck(frame))
+		assert(guiObjectCheck(textLabel))
+		assert(not (guiObjectCheck(stringValue)))
+		assert(not (guiObjectCheck()))
 	end)
 
 	it("should support Roblox Enum types", function()
 		local sortOrderEnumCheck = t.enum(Enum.SortOrder)
-		expect(t.Enum(Enum.SortOrder)).to.equal(true)
-		expect(t.Enum("Enum.SortOrder")).to.equal(false)
+		assert(t.Enum(Enum.SortOrder))
+		assert(not (t.Enum("Enum.SortOrder")))
 
-		expect(t.EnumItem(Enum.SortOrder.Name)).to.equal(true)
-		expect(t.EnumItem("Enum.SortOrder.Name")).to.equal(false)
+		assert(t.EnumItem(Enum.SortOrder.Name))
+		assert(not (t.EnumItem("Enum.SortOrder.Name")))
 
-		expect(sortOrderEnumCheck(Enum.SortOrder.Name)).to.equal(true)
-		expect(sortOrderEnumCheck(Enum.SortOrder.Custom)).to.equal(true)
-		expect(sortOrderEnumCheck(Enum.EasingStyle.Linear)).to.equal(false)
-		expect(sortOrderEnumCheck()).to.equal(false)
+		assert(sortOrderEnumCheck(Enum.SortOrder.Name))
+		assert(sortOrderEnumCheck(Enum.SortOrder.Custom))
+		assert(not (sortOrderEnumCheck(Enum.EasingStyle.Linear)))
+		assert(not (sortOrderEnumCheck()))
 	end)
 
 	it("should support wrapping function types", function()
@@ -296,21 +313,21 @@ return function()
 			return result
 		end, checkFoo)
 
-		expect(pcall(foo)).to.equal(false)
-		expect(pcall(foo, "a")).to.equal(false)
-		expect(pcall(foo, 2)).to.equal(false)
-		expect(pcall(foo, "a", 1)).to.equal(true)
-		expect(pcall(foo, "a", 1, "b")).to.equal(true)
+		assert(not (pcall(foo)))
+		assert(not (pcall(foo, "a")))
+		assert(not (pcall(foo, 2)))
+		assert(pcall(foo, "a", 1))
+		assert(pcall(foo, "a", 1, "b"))
 	end)
 
 	it("should support strict types", function()
 		local myType = t.strict(t.tuple(t.string, t.number))
-		expect(pcall(function()
+		assert(not (pcall(function()
 			myType("a", "b")
-		end)).to.equal(false)
-		expect(pcall(function()
+		end)))
+		assert(pcall(function()
 			myType("a", 1)
-		end)).to.equal(true)
+		end))
 	end)
 
 	it("should support common OOP types", function()
@@ -341,39 +358,189 @@ return function()
 		local instanceOfMyClass = instanceOfClass(MyClass)
 
 		local myObject = MyClass.new()
-		expect(instanceOfMyClass(myObject)).to.equal(true)
-		expect(instanceOfMyClass({})).to.equal(false)
-		expect(instanceOfMyClass()).to.equal(false)
+		assert(instanceOfMyClass(myObject))
+		assert(not (instanceOfMyClass({})))
+		assert(not (instanceOfMyClass()))
 	end)
 
 	it("should not treat NaN as numbers", function()
-		expect(t.number(1)).to.equal(true)
-		expect(t.number(0/0)).to.equal(false)
-		expect(t.number("1")).to.equal(false)
+		assert(t.number(1))
+		assert(not (t.number(0/0)))
+		assert(not (t.number("1")))
 	end)
 
 	it("should not treat numbers as NaN", function()
-		expect(t.nan(1)).to.equal(false)
-		expect(t.nan(0/0)).to.equal(true)
-		expect(t.nan("1")).to.equal(false)
+		assert(not (t.nan(1)))
+		assert(t.nan(0/0))
+		assert(not (t.nan("1")))
 	end)
 
 	it("should allow union of number and NaN", function()
 		local numberOrNaN = t.union(t.number, t.nan)
-		expect(numberOrNaN(1)).to.equal(true)
-		expect(numberOrNaN(0/0)).to.equal(true)
-		expect(numberOrNaN("1")).to.equal(false)
+		assert(numberOrNaN(1))
+		assert(numberOrNaN(0/0))
+		assert(not (numberOrNaN("1")))
 	end)
 
 	it("should support non-string keys for interfaces", function()
 		local key = {}
 		local myInterface = t.interface({ [key] = t.number })
-		expect(myInterface({ [key] = 1 })).to.equal(true)
-		expect(myInterface({ [key] = "1" })).to.equal(false)
+		assert(myInterface({ [key] = 1 }))
+		assert(not (myInterface({ [key] = "1" })))
 	end)
 
 	it("should support failing on non-string keys for strict interfaces", function()
 		local myInterface = t.strictInterface({ a = t.number })
-		expect(myInterface({ a = 1, [{}] = 2 })).to.equal(false)
+		assert(not (myInterface({ a = 1, [{}] = 2 })))
+	end)
+
+	it("should support children", function()
+		local myInterface = t.interface({
+			buttonInFrame = t.intersection(t.instanceOf("Frame"), t.children({
+				MyButton = t.instanceOf("ImageButton")
+			}))
+		})
+
+		assert(not (t.children({})(5)))
+		assert(not (myInterface({ buttonInFrame = Instance.new("Frame") })))
+
+		do
+			local frame = Instance.new("Frame")
+			local button = Instance.new("ImageButton", frame)
+			button.Name = "MyButton"
+			assert(myInterface({ buttonInFrame = frame }))
+		end
+
+		do
+			local frame = Instance.new("Frame")
+			local button = Instance.new("ImageButton", frame)
+			button.Name = "NotMyButton"
+			assert(not (myInterface({ buttonInFrame = frame })))
+		end
+
+		do
+			local frame = Instance.new("Frame")
+			local button = Instance.new("TextButton", frame)
+			button.Name = "MyButton"
+			assert(not (myInterface({ buttonInFrame = frame })))
+		end
+
+		do
+			local frame = Instance.new("Frame")
+			local button1 = Instance.new("ImageButton", frame)
+			button1.Name = "MyButton"
+			local button2 = Instance.new("ImageButton", frame)
+			button2.Name = "MyButton"
+			assert(not (myInterface({ buttonInFrame = frame })))
+		end
+	end)
+
+	it("should support t.instanceOf shorthand", function()
+		local myInterface = t.interface({
+			buttonInFrame = t.instanceOf("Frame", {
+				MyButton = t.instanceOf("ImageButton")
+			})
+		})
+
+		assert(not (t.children({})(5)))
+		assert(not (myInterface({ buttonInFrame = Instance.new("Frame") })))
+
+		do
+			local frame = Instance.new("Frame")
+			local button = Instance.new("ImageButton", frame)
+			button.Name = "MyButton"
+			assert(myInterface({ buttonInFrame = frame }))
+		end
+
+		do
+			local frame = Instance.new("Frame")
+			local button = Instance.new("ImageButton", frame)
+			button.Name = "NotMyButton"
+			assert(not (myInterface({ buttonInFrame = frame })))
+		end
+
+		do
+			local frame = Instance.new("Frame")
+			local button = Instance.new("TextButton", frame)
+			button.Name = "MyButton"
+			assert(not (myInterface({ buttonInFrame = frame })))
+		end
+
+		do
+			local frame = Instance.new("Frame")
+			local button1 = Instance.new("ImageButton", frame)
+			button1.Name = "MyButton"
+			local button2 = Instance.new("ImageButton", frame)
+			button2.Name = "MyButton"
+			assert(not (myInterface({ buttonInFrame = frame })))
+		end
+	end)
+
+	it("should support t.instanceIsA shorthand", function()
+		local myInterface = t.interface({
+			buttonInFrame = t.instanceIsA("Frame", {
+				MyButton = t.instanceIsA("ImageButton")
+			})
+		})
+
+		assert(not (t.children({})(5)))
+		assert(not (myInterface({ buttonInFrame = Instance.new("Frame") })))
+
+		do
+			local frame = Instance.new("Frame")
+			local button = Instance.new("ImageButton", frame)
+			button.Name = "MyButton"
+			assert(myInterface({ buttonInFrame = frame }))
+		end
+
+		do
+			local frame = Instance.new("Frame")
+			local button = Instance.new("ImageButton", frame)
+			button.Name = "NotMyButton"
+			assert(not (myInterface({ buttonInFrame = frame })))
+		end
+
+		do
+			local frame = Instance.new("Frame")
+			local button = Instance.new("TextButton", frame)
+			button.Name = "MyButton"
+			assert(not (myInterface({ buttonInFrame = frame })))
+		end
+
+		do
+			local frame = Instance.new("Frame")
+			local button1 = Instance.new("ImageButton", frame)
+			button1.Name = "MyButton"
+			local button2 = Instance.new("ImageButton", frame)
+			button2.Name = "MyButton"
+			assert(not (myInterface({ buttonInFrame = frame })))
+		end
+	end)
+
+	it("should support t.match", function()
+		local check = t.match("%d+")
+		assert(check("123"))
+		assert(not (check("abc")))
+		assert(not (check()))
+	end)
+
+	it("should support t.keyOf", function()
+		local myNewEnum = {
+			OptionA = {},
+			OptionB = {},
+		}
+		local check = t.keyOf(myNewEnum)
+		assert(check("OptionA"))
+		assert(not (check("OptionC")))
+	end)
+
+	it("should support t.valueOf", function()
+		local myNewEnum = {
+			OptionA = {},
+			OptionB = {},
+		}
+		local check = t.valueOf(myNewEnum)
+		assert(check(myNewEnum.OptionA))
+		assert(not (check(1010)))
 	end)
 end

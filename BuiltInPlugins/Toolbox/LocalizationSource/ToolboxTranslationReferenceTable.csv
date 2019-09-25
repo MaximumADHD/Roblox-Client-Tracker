@@ -68,9 +68,10 @@ Studio.Toolbox.General.CategoryGroupDecals,Group Images, ,Group Images,群组图
 Studio.Toolbox.General.CategoryGroupMeshes,Group Meshes, ,Group Meshes,群组网格
 Studio.Toolbox.General.CategoryGroupAudio,Group Audio, ,Group Audio,群组音频
 Studio.Toolbox.General.CategoryGroupPackages,Group Packages, ,Group Packages,群组套装
+Studio.Toolbox.General.CategorySharedPackages,Shared Packages, ,Shared Packages,Shared Packages
 Studio.Toolbox.General.CategoryCreationsDevelopmentSectionDivider,Game development assets, ,Game development assets,Game development assets
 Studio.Toolbox.General.CategoryCreationsModels,Models, ,Models,Models
-Studio.Toolbox.General.CategoryCreationsDecals,Decals, ,Decals,Decals
+Studio.Toolbox.General.CategoryCreationsDecals,Images, ,Images,图片
 Studio.Toolbox.General.CategoryCreationsAudio,Audio, ,Audio,Audio
 Studio.Toolbox.General.CategoryCreationsMeshes,Meshes, ,Meshes,Meshes
 Studio.Toolbox.General.CategoryCreationsCatalogSectionDivider,Avatar assets, ,Avatar assets,Avatar assets
@@ -79,12 +80,12 @@ Studio.Toolbox.General.CategoryCreationsTeeShirts,T-Shirts, ,T-Shirts,T-Shirts
 Studio.Toolbox.General.CategoryCreationsShirts,Shirts, ,Shirts,Shirts
 Studio.Toolbox.General.CategoryCreationsPants,Pants, ,Pants,Pants
 Studio.Toolbox.General.CategoryCreationsHair,Hair, ,Hair,Hair
-Studio.Toolbox.General.CategoryCreationsFaceAccessory,Face Accessorys, ,Face Accessorys,Face Accessorys
-Studio.Toolbox.General.CategoryCreationsNeckAccessory,Neck Accessorys, ,Neck Accessorys,Neck Accessorys
-Studio.Toolbox.General.CategoryCreationsShoulderAccessory,Shoulder Accessorys, ,Shoulder Accessorys,Shoulder Accessorys
-Studio.Toolbox.General.CategoryCreationsFrontAccessory,Front Accessorys, ,Front Accessorys,Front Accessorys
-Studio.Toolbox.General.CategoryCreationsBackAccessory,Back Accessorys, ,Back Accessorys,Back Accessorys
-Studio.Toolbox.General.CategoryCreationsWaistAccessory,Waist Accessorys, ,Waist Accessorys,Waist Accessorys
+Studio.Toolbox.General.CategoryCreationsFaceAccessory,Face Accessories, ,Face Accessories,Face Accessories
+Studio.Toolbox.General.CategoryCreationsNeckAccessory,Neck Accessories, ,Neck Accessories,Neck Accessories
+Studio.Toolbox.General.CategoryCreationsShoulderAccessory,Shoulder Accessories, ,Shoulder Accessories,Shoulder Accessories
+Studio.Toolbox.General.CategoryCreationsFrontAccessory,Front Accessories, ,Front Accessories,Front Accessories
+Studio.Toolbox.General.CategoryCreationsBackAccessory,Back Accessories, ,Back Accessories,Back Accessories
+Studio.Toolbox.General.CategoryCreationsWaistAccessory,Waist Accessories, ,Waist Accessories,Waist Accessories
 Studio.Toolbox.General.SearchBarDefaultText,Search, ,Search,搜索
 Studio.Toolbox.General.SearchBarCreatorText,Search for users, ,Search for users,搜索用户
 Studio.Toolbox.General.SuggestionsIntroText,Try searching for:, ,Try searching for:,尝试搜索：
@@ -142,13 +143,20 @@ Studio.Toolbox.General.AssetTypeHat,Hat, ,Hat,Hat
 Studio.Toolbox.General.AssetTypeTeeShirt,T-Shirt, ,T-Shirt,T-Shirt
 Studio.Toolbox.General.AssetTypeShirt,Shirt, ,Shirt,Shirt
 Studio.Toolbox.General.AssetTypePants,Pants, ,Pants,Pants
+Studio.Toolbox.General.AssetTypeHairAccessory,Hair, ,Hair,Hair
+Studio.Toolbox.General.AssetTypeFaceAccessory,Face Accessory, ,Face Accessory,Face Accessory
+Studio.Toolbox.General.AssetTypeNeckAccessory,Neck Accessory, ,Neck Accessory,Neck Accessory
+Studio.Toolbox.General.AssetTypeShoulderAccessory,Shoulder Accessory, ,Shoulder Accessory,Shoulder Accessory
+Studio.Toolbox.General.AssetTypeFrontAccessory,Front Accessory, ,Front Accessory,Front Accessory
+Studio.Toolbox.General.AssetTypeBackAccessory,Back Accessory, ,Back Accessory,Back Accessory
+Studio.Toolbox.General.AssetTypeWaistAccessory,Waist Accessory, ,Waist Accessory,Waist Accessory
 Studio.Toolbox.General.DiscardMessage,Would you like to discard all changes?, ,Would you like to discard all changes?,Would you like to discard all changes?
 Studio.Toolbox.General.Discard,Discard, ,Discard,丢弃
 Studio.Toolbox.General.Title,Title, ,Title,Title
 Studio.Toolbox.General.Description,Description, ,Description,Description
-Studio.Toolbox.General.Ownership,Ownership, ,Ownership,Ownership
+Studio.Toolbox.General.Ownership,Creator, ,Creator,Creator
 Studio.Toolbox.General.Genre,Genre, ,Genre,Genre
-Studio.Toolbox.General.Copy,Allow Copy, ,Allow Copy,Allow Copy
+Studio.Toolbox.General.Copy,Allow Copying, ,Allow Copying,Allow Copying
 Studio.Toolbox.General.Comments,Allow Comments, ,Allow Comments,Allow Comments
 Studio.Toolbox.General.LearnMore,Learn more, ,Learn more,Learn more
 Studio.Toolbox.General.Me,Me, ,Me,Me

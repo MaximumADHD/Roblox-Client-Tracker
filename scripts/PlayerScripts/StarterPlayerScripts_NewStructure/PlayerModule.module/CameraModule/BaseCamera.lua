@@ -62,26 +62,23 @@ local ZOOM_SENSITIVITY_CURVATURE = 0.5
 local abs = math.abs
 local sign = math.sign
 
-local bindAtPriorityFlagExists, bindAtPriorityFlagEnabled = pcall(function()
-	return UserSettings():IsUserFeatureEnabled("UserPlayerScriptsBindAtPriority2")
-end)
-local FFlagPlayerScriptsBindAtPriority2 = bindAtPriorityFlagExists and bindAtPriorityFlagEnabled
-
 local thirdGamepadZoomStepFlagExists, thirdGamepadZoomStepFlagEnabled = pcall(function()
 	return UserSettings():IsUserFeatureEnabled("UserThirdGamepadZoomStep")
 end)
 local FFlagUserThirdGamepadZoomStep = thirdGamepadZoomStepFlagExists and thirdGamepadZoomStepFlagEnabled
-
-local betterDynamicTouchstickCameraFlagExists, betterDynamicTouchstickCameraFlagEnabled = pcall(function()
-	return UserSettings():IsUserFeatureEnabled("UserBetterDynamicTouchstickCamera")
-end)
-local FFlagUserBetterDynamicTouchstickCamera = betterDynamicTouchstickCameraFlagExists and betterDynamicTouchstickCameraFlagEnabled
 
 local FFlagUserPointerActionsInPlayerScripts do
 	local success, result = pcall(function()
 		return UserSettings():IsUserFeatureEnabled("UserPointerActionsInPlayerScripts")
 	end)
 	FFlagUserPointerActionsInPlayerScripts = success and result
+end
+
+local FFlagUserNoMoreKeyboardPan do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserNoMoreKeyboardPan")
+	end)
+	FFlagUserNoMoreKeyboardPan = success and result
 end
 
 local Util = require(script.Parent:WaitForChild("CameraUtils"))
@@ -499,9 +496,7 @@ function BaseCamera:Enable(enable)
 		self.enabled = enable
 		if self.enabled then
 			self:ConnectInputEvents()
-			if FFlagPlayerScriptsBindAtPriority2 then
-				self:BindContextActions()
-			end
+			self:BindContextActions()
 
 			if Players.LocalPlayer.CameraMode == Enum.CameraMode.LockFirstPerson then
 				self.currentSubjectDistance = 0.5
@@ -511,9 +506,7 @@ function BaseCamera:Enable(enable)
 			end
 		else
 			self:DisconnectInputEvents()
-			if FFlagPlayerScriptsBindAtPriority2 then
-				self:UnbindContextActions()
-			end
+			self:UnbindContextActions()
 			-- Clean up additional event listeners and reset a bunch of properties
 			self:Cleanup()
 		end
@@ -531,12 +524,6 @@ function BaseCamera:OnInputBegan(input, processed)
 		self:OnMouse2Down(input, processed)
 	elseif input.UserInputType == Enum.UserInputType.MouseButton3 then
 		self:OnMouse3Down(input, processed)
-	end
-	-- Keyboard
-	if not FFlagPlayerScriptsBindAtPriority2 then
-		if input.UserInputType == Enum.UserInputType.Keyboard then
-			self:OnKeyDown(input, processed)
-		end
 	end
 end
 
@@ -558,15 +545,13 @@ function BaseCamera:OnInputEnded(input, processed)
 	elseif input.UserInputType == Enum.UserInputType.MouseButton3 then
 		self:OnMouse3Up(input, processed)
 	end
-	-- Keyboard
-	if not FFlagPlayerScriptsBindAtPriority2 then
-		if input.UserInputType == Enum.UserInputType.Keyboard then
-			self:OnKeyUp(input, processed)
-		end
-	end
 end
 
 function BaseCamera:OnPointerAction(wheel, pan, pinch, processed)
+	if processed then
+		return
+	end
+
 	if pan.Magnitude > 0 then
 		local inversionVector = Vector2.new(1, UserGameSettings:GetCameraYInvertValue())
 		local rotateDelta = self:InputTranslationToCameraAngleChange(PAN_SENSITIVITY*pan, MOUSE_SENSITIVITY)*inversionVector
@@ -574,7 +559,7 @@ function BaseCamera:OnPointerAction(wheel, pan, pinch, processed)
 	end
 
 	local zoom = self.currentSubjectDistance
-	local zoomDelta = wheel + pinch
+	local zoomDelta = -(wheel + pinch)
 
 	if abs(zoomDelta) > 0 then
 		local newZoom
@@ -623,9 +608,6 @@ function BaseCamera:ConnectInputEvents()
 		end
 	end)
 
-	if not FFlagPlayerScriptsBindAtPriority2 then
-		self:BindGamepadInputActions()
-	end
 	self:AssignActivateGamepad()
 	self:UpdateMouseBehavior()
 end
@@ -784,13 +766,9 @@ function BaseCamera:GetGamepadPan(name, state, input)
 				self.gamepadPanningCamera = ZERO_VECTOR2
 			end
 		--end
-		if FFlagPlayerScriptsBindAtPriority2 then
-			return Enum.ContextActionResult.Sink
-		end
+		return Enum.ContextActionResult.Sink
 	end
-	if FFlagPlayerScriptsBindAtPriority2 then
-		return Enum.ContextActionResult.Pass
-	end
+	return Enum.ContextActionResult.Pass
 end
 
 function BaseCamera:DoKeyboardPanTurn(name, state, input)
@@ -825,7 +803,7 @@ function BaseCamera:DoPanRotateCamera(rotateAngle)
 end
 
 function BaseCamera:DoKeyboardPan(name, state, input)
-	if not self.hasGameLoaded and VRService.VREnabled then
+	if FFlagUserNoMoreKeyboardPan or not self.hasGameLoaded and VRService.VREnabled then
 		return Enum.ContextActionResult.Pass
 	end
 
@@ -886,13 +864,9 @@ function BaseCamera:DoGamepadZoom(name, state, input)
 		else
 			self.currentZoomSpeed = 1.00
 		end
-		if FFlagPlayerScriptsBindAtPriority2 then
-			return Enum.ContextActionResult.Sink
-		end
+		return Enum.ContextActionResult.Sink
 	end
-	if FFlagPlayerScriptsBindAtPriority2 then
-		return Enum.ContextActionResult.Pass
-	end
+	return Enum.ContextActionResult.Pass
 --	elseif input.UserInputType == self.activeGamepad and input.KeyCode == Enum.KeyCode.ButtonL3 then
 --		if (state == Enum.UserInputState.Begin) then
 --			self.L3ButtonDown = true
@@ -930,18 +904,10 @@ function BaseCamera:BindAction(actionName, actionFunc, createTouchButton, ...)
 end
 
 function BaseCamera:BindGamepadInputActions()
-	if FFlagPlayerScriptsBindAtPriority2 then
-		self:BindAction("BaseCameraGamepadPan", function(name, state, input) return self:GetGamepadPan(name, state, input) end,
-			false, Enum.KeyCode.Thumbstick2)
-		self:BindAction("BaseCameraGamepadZoom", function(name, state, input) return self:DoGamepadZoom(name, state, input) end,
-			false, Enum.KeyCode.DPadLeft, Enum.KeyCode.DPadRight, Enum.KeyCode.ButtonR3)
-	else
-		ContextActionService:BindAction("RootCamGamepadPan", function(name, state, input) self:GetGamepadPan(name, state, input) end, false, Enum.KeyCode.Thumbstick2)
-		ContextActionService:BindAction("RootCamGamepadZoom", function(name, state, input) self:DoGamepadZoom(name, state, input) end, false, Enum.KeyCode.ButtonR3)
-		--ContextActionService:BindAction("RootGamepadZoomAlt", function(name, state, input) self:DoGamepadZoom(name, state, input) end, false, Enum.KeyCode.ButtonL3)
-		ContextActionService:BindAction("RootGamepadZoomOut", function(name, state, input) self:DoGamepadZoom(name, state, input) end, false, Enum.KeyCode.DPadLeft)
-		ContextActionService:BindAction("RootGamepadZoomIn", function(name, state, input) self:DoGamepadZoom(name, state, input) end, false, Enum.KeyCode.DPadRight)
-	end
+	self:BindAction("BaseCameraGamepadPan", function(name, state, input) return self:GetGamepadPan(name, state, input) end,
+		false, Enum.KeyCode.Thumbstick2)
+	self:BindAction("BaseCameraGamepadZoom", function(name, state, input) return self:DoGamepadZoom(name, state, input) end,
+		false, Enum.KeyCode.DPadLeft, Enum.KeyCode.DPadRight, Enum.KeyCode.ButtonR3)
 end
 
 function BaseCamera:BindKeyboardInputActions()
@@ -1004,18 +970,16 @@ end
 function BaseCamera:OnTouchBegan(input, processed)
 	local canUseDynamicTouch = self.isDynamicThumbstickEnabled and not processed
 	if canUseDynamicTouch then
-		if FFlagUserBetterDynamicTouchstickCamera and self.dynamicTouchInput == nil and isInDynamicThumbstickArea(input) then
+		if self.dynamicTouchInput == nil and isInDynamicThumbstickArea(input) then
 			-- First input in the dynamic thumbstick area should always be ignored for camera purposes
 			-- Even if the dynamic thumbstick does not process it immediately
 			self.dynamicTouchInput = input
 			return
 		end
 		self.fingerTouches[input] = processed
-		if not processed or FFlagUserBetterDynamicTouchstickCamera then
-			self.inputStartPositions[input] = input.Position
-			self.inputStartTimes[input] = tick()
-			self.numUnsunkTouches = self.numUnsunkTouches + 1
-		end
+		self.inputStartPositions[input] = input.Position
+		self.inputStartTimes[input] = tick()
+		self.numUnsunkTouches = self.numUnsunkTouches + 1
 	end
 end
 
@@ -1027,16 +991,6 @@ function BaseCamera:OnTouchChanged(input, processed)
 		self.fingerTouches[input] = processed
 		if not processed then
 			self.numUnsunkTouches = self.numUnsunkTouches + 1
-		end
-	elseif self.isDynamicThumbstickEnabled and self.fingerTouches[input] ~= processed then
-		if not FFlagUserBetterDynamicTouchstickCamera then
-			--This is necessary to allow the dynamic thumbstick to steal touches after passing the InputBegan state.
-			self.fingerTouches[input] = processed
-			if processed then
-				self.numUnsunkTouches = self.numUnsunkTouches - 1
-			else
-				self.numUnsunkTouches = self.numUnsunkTouches + 1
-			end
 		end
 	end
 
@@ -1199,62 +1153,6 @@ function BaseCamera:OnMouseWheel(input, processed)  -- remove with FFlagUserPoin
 
 			self:SetCameraToSubjectDistance(newDistance)
 		end
-	end
-end
-
---Remove with FFlagPlayerScriptsBindAtPriority2
-function BaseCamera:OnKeyDown(input, processed)
-	if not self.hasGameLoaded and VRService.VREnabled then
-		return
-	end
-
-	if processed then
-		return
-	end
-
-	if self.distanceChangeEnabled then
-		if input.KeyCode == Enum.KeyCode.I then
-			self:SetCameraToSubjectDistance( self.currentSubjectDistance - 5 )
-		elseif input.KeyCode == Enum.KeyCode.O then
-			self:SetCameraToSubjectDistance( self.currentSubjectDistance + 5 )
-		end
-	end
-
-	if self.panBeginLook == nil and self.keyPanEnabled then
-		if input.KeyCode == Enum.KeyCode.Left then
-			self.turningLeft = true
-		elseif input.KeyCode == Enum.KeyCode.Right then
-			self.turningRight = true
-		elseif input.KeyCode == Enum.KeyCode.Comma then
-			local angle = Util.RotateVectorByAngleAndRound(self:GetCameraLookVector() * Vector3.new(1,0,1), -math.pi*0.1875, math.pi*0.25)
-			if angle ~= 0 then
-				self.rotateInput = self.rotateInput + Vector2.new(angle, 0)
-				self.lastUserPanCamera = tick()
-				self.lastCameraTransform = nil
-			end
-		elseif input.KeyCode == Enum.KeyCode.Period then
-			local angle = Util.RotateVectorByAngleAndRound(self:GetCameraLookVector() * Vector3.new(1,0,1), math.pi*0.1875, math.pi*0.25)
-			if angle ~= 0 then
-				self.rotateInput = self.rotateInput + Vector2.new(angle, 0)
-				self.lastUserPanCamera = tick()
-				self.lastCameraTransform = nil
-			end
-		elseif input.KeyCode == Enum.KeyCode.PageUp then
-			self.rotateInput = self.rotateInput + Vector2.new(0,math.rad(15))
-			self.lastCameraTransform = nil
-		elseif input.KeyCode == Enum.KeyCode.PageDown then
-			self.rotateInput = self.rotateInput + Vector2.new(0,math.rad(-15))
-			self.lastCameraTransform = nil
-		end
-	end
-end
-
---Remove with FFlagPlayerScriptsBindAtPriority2
-function BaseCamera:OnKeyUp(input, processed)
-	if input.KeyCode == Enum.KeyCode.Left then
-		self.turningLeft = false
-	elseif input.KeyCode == Enum.KeyCode.Right then
-		self.turningRight = false
 	end
 end
 
