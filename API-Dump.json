@@ -15880,8 +15880,11 @@
                     },
                     "Serialization": {
                         "CanLoad": true,
-                        "CanSave": true
+                        "CanSave": false
                     },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "bool"

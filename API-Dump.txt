@@ -909,7 +909,7 @@ Class TextBox : GuiObject
 	Property bool TextBox.ShowNativeInput
 	Property bool TextBox.TextEditable
 	Property Enum<TextInputType> TextBox.TextInputType {RobloxScriptSecurity} [<📁> Load-only] [NotReplicated]
-	Property bool TextBox.EnableRealtimeFilteringHints {RobloxScriptSecurity}
+	Property bool TextBox.EnableRealtimeFilteringHints {RobloxScriptSecurity} [<📁> Load-only] [NotReplicated]
 	Property Enum<Font> TextBox.Font
 	Property Enum<FontSize> TextBox.FontSize [<📁> Load-only] [NotReplicated] [Deprecated]
 	Property float TextBox.LineHeight
