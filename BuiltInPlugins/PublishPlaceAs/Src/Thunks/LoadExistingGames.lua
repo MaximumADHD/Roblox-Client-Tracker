@@ -1,18 +1,12 @@
 local Plugin = script.Parent.Parent.Parent
 
 local SetGameInfo = require(Plugin.Src.Actions.SetGameInfo)
-local ApiFetchGamesByUserId = require(Plugin.Src.Network.Requests.ApiFetchGamesByUserId)
-local ApiFetchGamesByGroupId = require(Plugin.Src.Network.Requests.ApiFetchGamesByGroupId)
+local ApiFetchGames = require(Plugin.Src.Network.Requests.ApiFetchGames)
 
-return function(isUserId, id, pageCursor)
+return function(type, id, pageCursor)
 	return function(store)
 		store:dispatch(SetGameInfo({ games = {} }))
-		local query
-		if isUserId then
-			query = ApiFetchGamesByUserId({userId = id}, {cursor = pageCursor,})
-		else
-			query = ApiFetchGamesByGroupId({groupId = id}, {cursor = pageCursor,})
-		end
+		local query = ApiFetchGames({ type = type, id = id, cursor = pageCursor })
 
 		query:andThen(function(resp)
 			store:dispatch(SetGameInfo(resp))

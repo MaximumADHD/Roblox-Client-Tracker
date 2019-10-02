@@ -23,14 +23,29 @@ local UserGameSettings = UserSettings():GetService("UserGameSettings")
 -- Roblox User Input Control Modules - each returns a new() constructor function used to create controllers as needed
 local Keyboard = require(script:WaitForChild("Keyboard"))
 local Gamepad = require(script:WaitForChild("Gamepad"))
-local TouchDPad = require(script:WaitForChild("TouchDPad"))
 local DynamicThumbstick = require(script:WaitForChild("DynamicThumbstick"))
+
+local FFlagUserTheMovementModeInquisition do
+	local success, value = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserTheMovementModeInquisition")
+	end)
+	FFlagUserTheMovementModeInquisition = success and value
+end
+
+local FFlagUserMakeThumbstickDynamic do
+	local success, value = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserMakeThumbstickDynamic")
+	end)
+	FFlagUserMakeThumbstickDynamic = success and value
+end
+
+local TouchDPad = FFlagUserTheMovementModeInquisition and DynamicThumbstick or require(script:WaitForChild("TouchDPad"))
+local TouchThumbpad = FFlagUserTheMovementModeInquisition and DynamicThumbstick or require(script:WaitForChild("TouchThumbpad"))
+local TouchThumbstick = FFlagUserMakeThumbstickDynamic and DynamicThumbstick or require(script:WaitForChild("TouchThumbstick"))
 
 -- These controllers handle only walk/run movement, jumping is handled by the
 -- TouchJump controller if any of these are active
 local ClickToMove = require(script:WaitForChild("ClickToMoveController"))
-local TouchThumbstick = require(script:WaitForChild("TouchThumbstick"))
-local TouchThumbpad = require(script:WaitForChild("TouchThumbpad"))
 local TouchJump = require(script:WaitForChild("TouchJump"))
 
 local VehicleController = require(script:WaitForChild("VehicleController"))
@@ -44,12 +59,12 @@ local FFlagUserFixMovementCameraStraightDown = FFlagUserFixMovementCameraStraigh
 
 -- Mapping from movement mode and lastInputType enum values to control modules to avoid huge if elseif switching
 local movementEnumToModuleMap = {
-	[Enum.TouchMovementMode.DPad] = TouchDPad,
-	[Enum.DevTouchMovementMode.DPad] = TouchDPad,
-	[Enum.TouchMovementMode.Thumbpad] = TouchThumbpad,
-	[Enum.DevTouchMovementMode.Thumbpad] = TouchThumbpad,
-	[Enum.TouchMovementMode.Thumbstick] = TouchThumbstick,
-	[Enum.DevTouchMovementMode.Thumbstick] = TouchThumbstick,
+	[Enum.TouchMovementMode.DPad] = TouchDPad, -- Map to DT
+	[Enum.DevTouchMovementMode.DPad] = TouchDPad, -- Map to DT
+	[Enum.TouchMovementMode.Thumbpad] = TouchThumbpad, -- Map to DT
+	[Enum.DevTouchMovementMode.Thumbpad] = TouchThumbpad, -- Map to DT
+	[Enum.TouchMovementMode.Thumbstick] = TouchThumbstick, -- Map to DT
+	[Enum.DevTouchMovementMode.Thumbstick] = TouchThumbstick, -- Map to DT
 	[Enum.TouchMovementMode.DynamicThumbstick] = DynamicThumbstick,
 	[Enum.DevTouchMovementMode.DynamicThumbstick] = DynamicThumbstick,
 	[Enum.TouchMovementMode.ClickToMove] = ClickToMove,

@@ -132,7 +132,7 @@ return function(networkInterface, creatorType, creatorId, targetPage)
 			if category == "Model" then
 				local currentCursor = store:getState().overrideCursor or PagedRequestCursor.createDefaultCursor()
 				if PagedRequestCursor.isNextPageAvailable(currentCursor) then
-					return networkInterface:getAssetCreations(nil, PagedRequestCursor.getNextPageCursor(currentCursor), "Model", true):andThen(
+					return networkInterface:getAssetCreations(nil, PagedRequestCursor.getNextPageCursor(currentCursor), "Model"):andThen(
 						handleGetCreationOverrideSuccss,
 						handleOverrideFailed)
 				end

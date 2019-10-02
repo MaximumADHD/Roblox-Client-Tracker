@@ -2,8 +2,10 @@
 name = "LuaDiscussionsDeps"
 version = "0.1.0"
 source = "git+https://github.rbx.com/roblox/lua-discussions-deps#master"
-commit = "2afb9fc546865f6f07414e1bfce22f08fb5295db"
+commit = "81c64a2372f1b6b0dfff56c2566d74aa90310f65"
 dependencies = [
-    "InfiniteScroll InfiniteScroller 537dfd9d git+https://github.rbx.com/roblox/infinite-scroll#master",
-    "RoactNavigation roact-navigation b628e61e git+https://github.rbx.com/roblox/roact-navigation#master",
+    "InfiniteScroll InfiniteScroller 1ee01f9d git+https://github.rbx.com/roblox/infinite-scroll#master",
+    "RoactFitComponents roact-fit-components 995f4340 git+https://github.rbx.com/bbrimeyer/roact-fit-components#master",
+    "RoactNavigation roact-navigation 534a60f1 git+https://github.rbx.com/roblox/roact-navigation#v0.1.1",
+    "RoduxNetworking rodux-networking f01b90f0 git+https://github.rbx.com/roblox/rodux-networking#master",
 ]

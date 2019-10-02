@@ -8,8 +8,6 @@ local UILibraryCreateTheme = require(Plugin.UILibrary.createTheme)
 local StudioTheme = UILibrary.Studio.Theme
 local StudioStyle = UILibrary.Studio.Style
 
-local fflagFontsInTheme = settings():GetFFlag("StudioGameSettingsFontsInTheme")
-
 local DEPRECATED_Theme = {}
 
 function DEPRECATED_Theme.new(override)
@@ -150,7 +148,7 @@ function DEPRECATED_Theme:recalculateTheme()
 	self:update({
 		isDarkerTheme = isDark,
 		
-		fontStyle = fflagFontsInTheme and fontStyle or nil,
+		fontStyle = fontStyle,
 
 		backgroundColor = color(StyleColor.MainBackground),
 
@@ -422,7 +420,7 @@ function Theme.createValues(getColor, StyleColor, StyleModifier)
 	local PluginTheme = {
 		isDarkerTheme = isDark,
 		
-		fontStyle = fflagFontsInTheme and fontStyle or nil,
+		fontStyle = fontStyle,
 
 		backgroundColor = getColor(StyleColor.MainBackground),
 

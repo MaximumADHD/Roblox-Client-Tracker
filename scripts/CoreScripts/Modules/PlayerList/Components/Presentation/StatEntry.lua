@@ -2,6 +2,7 @@ local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 
 local Roact = require(CorePackages.Roact)
+local t = require(CorePackages.Packages.t)
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local GameTranslator = require(RobloxGui.Modules.GameTranslator)
@@ -16,18 +17,31 @@ local FormatStatString = require(PlayerList.FormatStatString)
 
 local StatEntry = Roact.PureComponent:extend("StatEntry")
 
+StatEntry.validateProps = t.strictInterface({
+	statName = t.string,
+	statValue = t.optional(t.any),
+	isTitleEntry = t.boolean,
+	isTeamEntry = t.boolean,
+	layoutOrder = t.integer,
+
+	backgroundStyle = t.strictInterface({
+		Color = t.Color3,
+		Transparency = t.number,
+	}),
+	textStyle = t.strictInterface({
+		Color = t.Color3,
+		StrokeTransparency = t.number,
+		StrokeColor = t.Color3,
+	})
+})
+
 function StatEntry:render()
 	return WithLayoutValues(function(layoutValues)
-		local backgroundTransparency = layoutValues.BackgroundTransparency
-		local backgroundColor3 = layoutValues.BackgroundColor
 		local font = layoutValues.StatFont
 		local statName = GameTranslator:TranslateGameText(CoreGui, self.props.statName)
 		if self.props.isTitleEntry then
-			backgroundTransparency = layoutValues.TitleBackgroundTransparency
-			backgroundColor3 = layoutValues.TitleBackgroundColor
 			font = layoutValues.TitleStatFont
-		elseif self.props.teamColor ~= nil then
-			backgroundColor3 = self.props.teamColor
+		elseif self.props.isTeamEntry then
 			font = layoutValues.TeamStatFont
 		end
 
@@ -50,9 +64,9 @@ function StatEntry:render()
 			BackgroundTransparency = 1,
 			Font = font,
 			TextSize = layoutValues.StatTextSize,
-			TextColor3 = layoutValues.TextColor,
-			TextStrokeColor3 = layoutValues.TextStrokeColor,
-			TextStrokeTransparency = layoutValues.TextStrokeTransparency,
+			TextColor3 = self.props.textStyle.Color,
+			TextStrokeColor3 = self.props.textStyle.StrokeColor,
+			TextStrokeTransparency = self.props.textStyle.StrokeTransparency,
 			Text = FormatStatString(self.props.statValue),
 			TextTruncate = Enum.TextTruncate.AtEnd,
 			Active = true,
@@ -65,9 +79,9 @@ function StatEntry:render()
 				BackgroundTransparency = 1,
 				Font = layoutValues.StatNameFont,
 				TextSize = layoutValues.StatTextSize,
-				TextColor3 = layoutValues.TextColor,
-				TextStrokeColor3 = layoutValues.TextStrokeColor,
-				TextStrokeTransparency = layoutValues.TextStrokeTransparency,
+				TextColor3 = self.props.textStyle.Color,
+				TextStrokeColor3 = self.props.textStyle.StrokeColor,
+				TextStrokeTransparency = self.props.textStyle.StrokeTransparency,
 				Text = statName,
 				Active = true,
 				ClipsDescendants = true,
@@ -77,8 +91,8 @@ function StatEntry:render()
 		return Roact.createElement("Frame", {
 			LayoutOrder = self.props.layoutOrder,
 			Size = UDim2.new(0, layoutValues.StatEntrySizeX, 1, 0),
-			BackgroundTransparency = backgroundTransparency,
-			BackgroundColor3 = backgroundColor3,
+			BackgroundTransparency = self.props.backgroundStyle.Transparency,
+			BackgroundColor3 = self.props.backgroundStyle.Color,
 			BorderSizePixel = 0,
 			AutoLocalize = false,
 		}, statChildren)

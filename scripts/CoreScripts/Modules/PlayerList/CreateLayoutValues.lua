@@ -28,10 +28,43 @@ return function(isTenFoot, isSmallTouchScreen)
 		LayoutValues.StatEntrySizeX = 250
 		LayoutValues.EntryXOffset = -20
 
-		LayoutValues.BackgroundTransparency = 0.25
-		LayoutValues.BackgroundColor = Color3.fromRGB(60, 60, 60)
-		LayoutValues.TitleBackgroundColor = Color3.fromRGB(25, 25, 25)
-		LayoutValues.TitleBackgroundTransparency = 0
+		--Styles that don't apply in TenFootInterface are set as nil here, we fallback to default.
+		--Hovered is used for the gamepad selected state aswell.
+		LayoutValues.BackgroundStyle = {
+			Default = {
+				Color = Color3.fromRGB(60, 60, 60),
+				Transparency = 0.25,
+			},
+			Hovered = {
+				Color = Color3.fromRGB(50, 181, 255),
+				Transparency = 0.25,
+			},
+			HoveredTitle = {
+				Color = Color3.fromRGB(50, 181, 255),
+				Transparency = 0,
+			},
+			Title = {
+				Color = Color3.fromRGB(25, 25, 25),
+				Transparency = 0,
+			},
+			Selected = nil,
+		}
+
+		LayoutValues.TextStyle = {
+			Default = {
+				Color = Color3.fromRGB(255, 255, 243),
+				StrokeTransparency = 0.75,
+				StrokeColor = Color3.fromRGB(34, 34, 34),
+			},
+			Selected = nil,
+			Hovered = {
+				Color = Color3.fromRGB(19, 19, 19),
+				StrokeTransparency = 0.75,
+				StrokeColor = Color3.fromRGB(34, 34, 34),
+			},
+			LocalPlayer = nil,
+			LocalPlayerSelected = nil
+		}
 
 		LayoutValues.PlayerIconSize = UDim2.new(0, 64, 0, 64)
 		LayoutValues.InitalPlayerEntryPadding = FFlagPlayerListPremiumPadding and 18 or 14
@@ -57,10 +90,49 @@ return function(isTenFoot, isSmallTouchScreen)
 		LayoutValues.StatEntrySizeX = 75
 		LayoutValues.EntryXOffset = 0
 
-		LayoutValues.BackgroundTransparency = 0.5
-		LayoutValues.BackgroundColor = Color3.fromRGB(31, 31, 31)
-		LayoutValues.TitleBackgroundColor = Color3.fromRGB(106, 106, 106)
-		LayoutValues.TitleBackgroundTransparency = 0
+		LayoutValues.BackgroundStyle = {
+			Default = {
+				Color = Color3.fromRGB(31, 31, 31),
+				Transparency = 0.5,
+			},
+			Hovered = {
+				Color = Color3.fromRGB(49, 49, 49),
+				Transparency = 0.25,
+			},
+			HoveredTitle = nil,
+			Title = {
+				Color = Color3.fromRGB(106, 106, 106),
+				Transparency = 0,
+			},
+			Selected = {
+				Color = Color3.fromRGB(255, 255, 255),
+				Transparency = 0.25,
+			},
+		}
+
+		LayoutValues.TextStyle = {
+			Default = {
+				Color = Color3.fromRGB(255, 255, 243),
+				StrokeTransparency = 0.75,
+				StrokeColor = Color3.fromRGB(34, 34, 34),
+			},
+			Selected = {
+				Color = Color3.fromRGB(0, 0, 0),
+				StrokeTransparency = 1,
+				StrokeColor = Color3.fromRGB(255, 255, 243),
+			},
+			Hovered = nil,
+			LocalPlayer = {
+				Color = Color3.fromRGB(255, 213, 0),
+				StrokeTransparency = 1,
+				StrokeColor = Color3.fromRGB(0, 0, 0),
+			},
+			LocalPlayerSelected = {
+				Color = Color3.fromRGB(164, 137, 0),
+				StrokeTransparency = 1,
+				StrokeColor = Color3.fromRGB(0, 0, 0),
+			}
+		}
 
 		LayoutValues.PlayerIconSize = UDim2.new(0, 16, 0, 16)
 		LayoutValues.InitalPlayerEntryPadding = FFlagPlayerListPremiumPadding and 4 or 0
@@ -76,10 +148,6 @@ return function(isTenFoot, isSmallTouchScreen)
 	else
 		LayoutValues.MaxLeaderstats = 4
 	end
-
-	LayoutValues.TextColor = Color3.fromRGB(255, 255, 243)
-	LayoutValues.TextStrokeTransparency = 0.75
-	LayoutValues.TextStrokeColor = Color3.fromRGB(34, 34, 34)
 
 	LayoutValues.ScrollImageColor = Color3.fromRGB(31, 31, 31)
 	LayoutValues.ScrollImageTransparency = 0.5
@@ -98,8 +166,6 @@ return function(isTenFoot, isSmallTouchScreen)
 
 	LayoutValues.RobloxIconImage = "rbxasset://textures/ui/Shell/Icons/RobloxIcon24.png"
 	LayoutValues.IconSelectedColor = Color3.fromRGB(19, 19, 19)
-	LayoutValues.ButtonSelectedColor = Color3.fromRGB(50, 181, 255)
-	LayoutValues.TextSelectedColor = Color3.fromRGB(19, 19, 19)
 	LayoutValues.IconUnSelectedColor = Color3.fromRGB(255, 255, 255)
 
 	LayoutValues.SelectedEntryColor = Color3.fromRGB(0, 255, 255)
@@ -114,14 +180,10 @@ return function(isTenFoot, isSmallTouchScreen)
 
 	LayoutValues.FriendIcons = {
 		[Enum.FriendStatus.Friend] = "rbxasset://textures/ui/icon_friends_16.png",
-		[Enum.FriendStatus.FriendRequestSent] ="rbxasset://textures/ui/icon_friendrequestsent_16.png",
 		[Enum.FriendStatus.FriendRequestReceived] = "rbxasset://textures/ui/icon_friendrequestrecieved-16.png",
 	}
 
-	LayoutValues.FollowerIcon = "rbxasset://textures/ui/icon_follower-16.png"
 	LayoutValues.FollowingIcon = "rbxasset://textures/ui/icon_following-16.png"
-	LayoutValues.MutualFollowingIcon = "rbxasset://textures/ui/icon_mutualfollowing-16.png"
-
 	LayoutValues.PlaceOwnerIcon = "rbxasset://textures/ui/icon_placeowner.png"
 
 	LayoutValues.MembershipIcons = {
@@ -135,7 +197,6 @@ return function(isTenFoot, isSmallTouchScreen)
 		[7210880] = "rbxassetid://134032333", -- Jeditkacheff
 		[13268404] = "rbxassetid://113059239", -- Sorcus
 		[261] = "rbxassetid://105897927", -- shedlestky
-		[20396599] = "rbxassetid://161078086", -- Robloxsai
 	}
 
 	LayoutValues.NeutralTeamColor = BrickColor.new("White")
@@ -143,6 +204,7 @@ return function(isTenFoot, isSmallTouchScreen)
 
 	LayoutValues.DropDownButtonSizeY = 24
 	LayoutValues.DropDownButtonPadding = 2
+	LayoutValues.DropDownTextPadding = 12
 
 	LayoutValues.VoiceChatShieldColor = Color3.fromRGB(41, 41, 41)
 	LayoutValues.VoiceChatShieldTransparency = 0.2

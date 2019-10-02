@@ -14,12 +14,14 @@ local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local UILibrary = require(Plugin.Packages.UILibrary)
 local Localization = UILibrary.Studio.Localization
-local Constants = require(Plugin.Src.Util.Constants)
 local getMouse = require(Plugin.Src.ContextServices.Mouse).getMouse
 
 local withTheme = require(Plugin.Src.ContextServices.Theming).withTheme
 
 local MenuEntry = Roact.PureComponent:extend("MenuEntry")
+
+local ErrorImage = "rbxasset://textures/GameSettings/ErrorIcon.png"
+local WarningImage = "rbxasset://textures/GameSettings/Warning.png"
 
 function MenuEntry:mouseHoverChanged(hovering)
 	getMouse(self).setHoverIcon("PointingHand", hovering)
@@ -35,7 +37,7 @@ function MenuEntry:render()
 		local highlight = hovering or selected
 
 		return Roact.createElement("Frame", {
-			Size = UDim2.new(1, 0, 0, Constants.MENU_ENTRY_HEIGHT),
+			Size = UDim2.new(1, 0, 0, theme.MenuEntry.Height),
 			BackgroundColor3 = highlight and theme.MenuEntry.Hover or theme.MenuBar.BackgroundColor,
 			BorderSizePixel = 0,
 
@@ -85,7 +87,7 @@ function MenuEntry:render()
 				Position = UDim2.new(1, -12, 0.5, 0),
 				AnchorPoint = Vector2.new(1, 0.5),
 				BackgroundTransparency = 1,
-				Image = self.props.Error and Constants.ERROR_IMAGE or Constants.WARNING_IMAGE,
+				Image = self.props.Error and ErrorImage or WarningImage,
 			}),
 		})
 	end)

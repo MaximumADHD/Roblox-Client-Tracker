@@ -25,6 +25,11 @@ function TeamEntry:render()
 			teamColor = self.props.teamColor.Color
 		end
 
+		local backgroundStyle = {
+			Color = teamColor,
+			Transparency = layoutValues.BackgroundStyle.Default.Transparency,
+		}
+
 		local teamEntryChildren = {}
 		teamEntryChildren["Layout"] = Roact.createElement("UIListLayout", {
 			SortOrder = Enum.SortOrder.LayoutOrder,
@@ -49,10 +54,11 @@ function TeamEntry:render()
 			}),
 
 			BGFrame = Roact.createElement(EntryFrame, {
-				isTitleFrame = false,
 				sizeX = layoutValues.EntrySizeX,
 				sizeY = layoutValues.TeamEntrySizeY,
-				teamColor = teamColor,
+				isTeamFrame = true,
+
+				backgroundStyle = backgroundStyle
 			}, {
 				TeamName = Roact.createElement("TextLabel", {
 					Position = UDim2.new(0, 5, 0, 0),
@@ -60,9 +66,9 @@ function TeamEntry:render()
 					TextXAlignment = Enum.TextXAlignment.Left,
 					Font = layoutValues.TeamEntryFont,
 					TextSize = layoutValues.PlayerNameTextSize,
-					TextColor3 = layoutValues.TextColor,
-					TextStrokeTransparency = layoutValues.TextStrokeTransparency,
-					TextStrokeColor3 = layoutValues.TextStrokeColor,
+					TextColor3 = layoutValues.TextStyle.Default.Color,
+					TextStrokeTransparency = layoutValues.TextStyle.Default.StrokeTransparency,
+					TextStrokeColor3 = layoutValues.TextStyle.Default.StrokeColor,
 					BackgroundTransparency = 1,
 					Text = teamName,
 				})
@@ -74,11 +80,14 @@ function TeamEntry:render()
 				break
 			end
 			teamEntryChildren[gameStat.name] = Roact.createElement(StatEntry, {
-				layoutOrder = i,
-				isTitleEntry = self.props.titlePlayerEntry,
 				statName = gameStat.name,
 				statValue = self.props.leaderstats[gameStat.name],
-				teamColor = teamColor,
+				isTitleEntry = false,
+				isTeamEntry = true,
+				layoutOrder = i,
+
+				backgroundStyle = backgroundStyle,
+				textStyle = layoutValues.TextStyle.Default
 			})
 		end
 

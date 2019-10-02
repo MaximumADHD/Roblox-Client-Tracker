@@ -18,12 +18,21 @@ return function()
 			layoutValues = CreateLayoutValues(false, false)
 		}, {
 			PlayerIcon = Roact.createElement(PlayerIcon, {
+				player = Players.LocalPlayer,
+				layoutOrder = 1,
+
 				playerIconInfo = {
 					isPlaceOwner = false,
 					avatarIcon = nil,
 					specialGroupIcon = nil,
 				},
-				player = Players.LocalPlayer,
+
+				playerRelationship = {
+					isBlocked = false,
+					friendStatus = Enum.FriendStatus.FriendRequestReceived,
+					isFollowing = false,
+					isFollower = false,
+				},
 			})
 		})
 		local instance = Roact.mount(element)
@@ -35,12 +44,21 @@ return function()
 			layoutValues = CreateLayoutValues(true, false)
 		}, {
 			PlayerIcon = Roact.createElement(PlayerIcon, {
+				player = Players.LocalPlayer,
+				layoutOrder = 1,
+
 				playerIconInfo = {
 					isPlaceOwner = false,
 					avatarIcon = nil,
 					specialGroupIcon = nil,
 				},
-				player = Players.LocalPlayer,
+
+				playerRelationship = {
+					isBlocked = false,
+					friendStatus = Enum.FriendStatus.Unknown,
+					isFollowing = false,
+					isFollower = false,
+				},
 			})
 		})
 		local instance = Roact.mount(element)

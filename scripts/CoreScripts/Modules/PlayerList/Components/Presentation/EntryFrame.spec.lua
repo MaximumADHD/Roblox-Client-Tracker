@@ -13,13 +13,17 @@ return function()
 	local EntryFrame = require(script.Parent.EntryFrame)
 
 	it("should create and destroy without errors", function()
+		local layoutValues = CreateLayoutValues(false, false)
+
 		local element = Roact.createElement(LayoutValuesProvider, {
-			layoutValues = CreateLayoutValues(false, false)
+			layoutValues = layoutValues
 		}, {
 			EntryFrame = Roact.createElement(EntryFrame, {
-				isTitleFrame = false,
 				sizeX = 50,
 				sizeY = 50,
+				isTeamFrame = false,
+
+				backgroundStyle = layoutValues.BackgroundStyle.Default,
 			})
 		})
 		local instance = Roact.mount(element)
@@ -31,10 +35,14 @@ return function()
 			layoutValues = CreateLayoutValues(true, false)
 		}, {
 			EntryFrame = Roact.createElement(EntryFrame, {
-				teamColor = Color3.fromRGB(255, 0, 0),
-				isTitleFrame = true,
 				sizeX = 50,
 				sizeY = 50,
+				isTeamFrame = true,
+
+				backgroundStyle = {
+					Color = Color3.fromRGB(255, 0, 0),
+					Transparency = 0.5,
+				},
 			})
 		})
 		local instance = Roact.mount(element)

@@ -7,6 +7,7 @@ local FFlagStudioAnimEditorFocusRig = game:DefineFastFlag("StudioAnimEditorFocus
 local DEFAULT_TOLERANCE = 0.0001
 
 local Plugin = script.Parent.Parent.Parent
+local Roact = require(Plugin.Roact)
 local buildHierarchy = require(Plugin.Src.Util.buildHierarchy)
 local AnimationData = require(Plugin.Src.Util.AnimationData)
 local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
@@ -423,7 +424,7 @@ function RigUtils.getPoseCFrames(rig)
 end
 
 function RigUtils.fixRigAttachments(constraintMap, startingPose, motorData)
-	if not startingPose then
+	if not startingPose or startingPose == Roact.None then
 		return
 	end
 

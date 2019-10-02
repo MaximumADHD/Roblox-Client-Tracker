@@ -3,7 +3,7 @@ if not settings():GetFFlag("StudioPluginInstallationInLua") then
 end
 
 -- services
-
+local StudioService = game:GetService("StudioService")
 
 -- libraries
 local Plugin = script.Parent.Parent
@@ -22,6 +22,8 @@ local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 local PluginTheme = require(Plugin.Src.Resources.PluginTheme)
 
 -- actions
+local SetPluginId = require(Plugin.Src.Actions.SetPluginId)
+local ClearPluginData = require(Plugin.Src.Actions.ClearPluginData)
 
 -- localization
 local TranslationDevelopmentTable = Plugin.Src.Resources.TranslationDevelopmentTable
@@ -38,11 +40,10 @@ local localization = Localization.new({
 })
 
 
-
-
 -- Widget Gui Elements
 local pluginHandle
 local pluginGui
+
 
 --Initializes and populates the plugin popup window
 local function openPluginWindow()
@@ -98,7 +99,20 @@ local function main()
 	pluginGui.ZIndexBehavior = Enum.ZIndexBehavior.Global
 	pluginGui:GetPropertyChangedSignal("Enabled"):connect(showIfEnabled)
 
-	showIfEnabled()
+
+	local startupPluginId = StudioService:GetStartupPluginId();
+	if startupPluginId and #startupPluginId > 0 then
+		dataStore:dispatch(SetPluginId(startupPluginId))
+		dataStore:flush()
+		pluginGui.Enabled = true;
+	end
+
+	StudioService.OnPluginInstalledFromWeb:connect(function(pluginId)
+		dataStore:dispatch(ClearPluginData());
+		dataStore:dispatch(SetPluginId(pluginId))
+		dataStore:flush()
+		pluginGui.Enabled = true;
+	end)
 end
 
 main()

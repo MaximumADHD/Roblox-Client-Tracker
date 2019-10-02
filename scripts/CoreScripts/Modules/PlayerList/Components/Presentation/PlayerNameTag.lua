@@ -1,6 +1,7 @@
 local CorePackages = game:GetService("CorePackages")
 
 local Roact = require(CorePackages.Roact)
+local t = require(CorePackages.Packages.t)
 
 local Components = script.Parent.Parent
 local Connection = Components.Connection
@@ -11,12 +12,23 @@ local PlayerNameTag = Roact.PureComponent:extend("PlayerNameTag")
 
 local FFlagPlayerListPremiumPadding = settings():GetFFlag("PlayerListPremiumPadding")
 
+PlayerNameTag.validateProps = t.strictInterface({
+	player = t.instanceIsA("Player"),
+	isTitleEntry = t.boolean,
+	isHovered = t.boolean,
+	layoutOrder = t.integer,
+
+	textStyle = t.strictInterface({
+		Color = t.Color3,
+		StrokeTransparency = t.number,
+		StrokeColor = t.Color3,
+	})
+})
+
 function PlayerNameTag:render()
 	return WithLayoutValues(function(layoutValues)
-		local textColor = layoutValues.TextColor
 		local iconColor = layoutValues.IconUnSelectedColor
-		if self.props.isSelected then
-			textColor = layoutValues.TextSelectedColor
+		if self.props.isHovered then
 			iconColor = layoutValues.IconSelectedColor
 		end
 
@@ -41,9 +53,9 @@ function PlayerNameTag:render()
 				TextXAlignment = Enum.TextXAlignment.Left,
 				Font = Enum.Font.SourceSans,
 				TextSize = layoutValues.PlayerNameTextSize,
-				TextColor3 = textColor,
-				TextStrokeTransparency = layoutValues.TextStrokeTransparency,
-				TextStrokeColor3 = layoutValues.TextStrokeColor,
+				TextColor3 = self.props.textStyle.Color,
+				TextStrokeColor3 = self.props.textStyle.StrokeColor,
+				TextStrokeTransparency = self.props.textStyle.StrokeTransparency,
 				BackgroundTransparency = 1,
 				Text = self.props.player.DisplayName,
 				LayoutOrder = 2,
@@ -75,9 +87,9 @@ function PlayerNameTag:render()
 					TextXAlignment = Enum.TextXAlignment.Left,
 					Font = playerNameFont,
 					TextSize = layoutValues.PlayerNameTextSize,
-					TextColor3 = textColor,
-					TextStrokeTransparency = layoutValues.TextStrokeTransparency,
-					TextStrokeColor3 = layoutValues.TextStrokeColor,
+					TextColor3 = self.props.textStyle.Color,
+					TextStrokeColor3 = self.props.textStyle.StrokeColor,
+					TextStrokeTransparency = self.props.textStyle.StrokeTransparency,
 					BackgroundTransparency = 1,
 					Text = self.props.player.Name,
 					ClipsDescendants = false,
@@ -91,9 +103,9 @@ function PlayerNameTag:render()
 				TextXAlignment = Enum.TextXAlignment.Left,
 				Font = playerNameFont,
 				TextSize = layoutValues.PlayerNameTextSize,
-				TextColor3 = textColor,
-				TextStrokeTransparency = layoutValues.TextStrokeTransparency,
-				TextStrokeColor3 = layoutValues.TextStrokeColor,
+				TextColor3 = self.props.textStyle.Color,
+				TextStrokeColor3 = self.props.textStyle.StrokeColor,
+				TextStrokeTransparency = self.props.textStyle.StrokeTransparency,
 				BackgroundTransparency = 1,
 				Text = self.props.player.Name,
 				TextTruncate = FFlagPlayerListPremiumPadding and Enum.TextTruncate.AtEnd or nil,

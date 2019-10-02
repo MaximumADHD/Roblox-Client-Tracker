@@ -13,8 +13,6 @@ local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local UILibrary = require(Plugin.Packages.UILibrary)
 
-local Constants = require(Plugin.Src.Util.Constants)
-
 local withTheme = require(Plugin.Src.ContextServices.Theming).withTheme
 
 local MenuBar = require(Plugin.Src.Components.MenuBar)

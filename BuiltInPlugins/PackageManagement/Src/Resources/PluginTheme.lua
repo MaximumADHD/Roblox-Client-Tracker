@@ -1,5 +1,7 @@
 local Plugin = script.parent.parent.parent
 
+local Cryo = require(Plugin.Packages.Cryo)
+
 local UILibrary = require(Plugin.Packages.UILibrary)
 local StudioTheme = UILibrary.Studio.Theme
 local StudioStyle = UILibrary.Studio.Style
@@ -7,10 +9,14 @@ local deepJoin = require(Plugin.Src.Util.deepJoin)
 
 local Theme = {}
 
-function Theme.isDarkerTheme()
-	-- Assume "darker" theme if the average main background color is darker
-	local mainColor = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.MainBackground)
-	return (mainColor.r + mainColor.g + mainColor.b) / 3 < 0.5
+local function defineTheme(defaults, overrides)
+    local themeName = settings().Studio["UI Theme"].Name
+    local override = overrides and overrides[themeName]
+    if override then
+        return Cryo.Dictionary.join(defaults, override)
+    else
+        return defaults
+    end
 end
 
 -- getColor : function<Color3>(color enum)
@@ -19,8 +25,6 @@ end
 function Theme.createValues(getColor, c, m)
 	-- define the color palette for the UILibrary, override where necessary
 	local UILibraryStylePalette = StudioStyle.new(getColor, c, m)
-
-	local isDark = Theme.isDarkerTheme()
 
 	-- define all the colors used in the plugin
 	local PluginTheme = deepJoin(UILibraryStylePalette, {
@@ -36,26 +40,37 @@ function Theme.createValues(getColor, c, m)
 			HeaderTextColor = getColor(c.BrightText),
 		},
 
-		MenuBar = {
-			BackgroundColor = isDark and getColor(c.ScrollBarBackground) or getColor(c.MainBackground),
-		},
+		MenuBar = defineTheme({
+			BackgroundColor = getColor(c.ScrollBarBackground),
+			Width = 288,
+	   	}, {
+		   Dark = {
+			   BackgroundColor = getColor(c.MainBackground)
+		   }
+	   	}),
 
-		MenuEntry = {
-			Hover = isDark and getColor(c.CurrentMarker) or getColor(c.RibbonTab),
-			Highlight = isDark and getColor(c.TableItem, m.Selected) or getColor(c.CurrentMarker),
+		MenuEntry = defineTheme({
+			Hover = getColor(c.RibbonTab),
+			Highlight = getColor(c.CurrentMarker),
 			Text = getColor(c.BrightText),
-			Size = isDark and UDim2.new(1, 0, 1, 0) or UDim2.new(0, 4, 1, 0),
-		},
+			Size = UDim2.new(0, 4, 1, 0),
+			Height = 42,
+		}, {
+			Dark = {
+				Hover = getColor(c.CurrentMarker),
+				Highlight = getColor(c.TableItem, m.Selected),
+				Size = UDim2.new(1, 0, 1, 0),
+			}
+		}),
 
-		previewArea = {
+		previewArea = defineTheme({
             backgroundColor = getColor(c.MainBackground),
             textColor = getColor(c.MainText),
-        },
-        {
+        }, {
             Dark = {
                 backgroundColor = getColor(c.MainBackground),
             }
-		},
+		}),
 		
 		thumbnailPreview = {
             background = getColor(c.Item),

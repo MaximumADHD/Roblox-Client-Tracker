@@ -38,14 +38,14 @@ local validate = require(script.Parent.Parent.utils.validate)
 ]]
 local NavigationEventsAdapter = Roact.Component:extend("NavigationEventsAdapter")
 
-function NavigationEventsAdapter:didMount()
+function NavigationEventsAdapter:init()
+	self.subscriptions = {}
+end
+
+function NavigationEventsAdapter:_subscribeAll()
 	local navigation = self.props.navigation
 	assert(navigation ~= nil, "NavigationEventsAdapter can only be used within the view hierarchy of a navigator.")
 
-	self.subscriptions = {}
-
-	-- Register all navigation listeners on mount to ensure listener stability across re-render.
-	-- Tip taken from React's NavigationEvents.js.
 	for _, symbol in pairs(NavigationEvents) do
 		self.subscriptions[symbol] = navigation.addListener(symbol, function(...)
 			-- Retrieve callback from props each time, in case props change.
@@ -58,13 +58,29 @@ function NavigationEventsAdapter:didMount()
 	end
 end
 
-function NavigationEventsAdapter:willUnmount()
+function NavigationEventsAdapter:_disconnectAll()
 	for _, symbol in pairs(NavigationEvents) do
 		local sub = self.subscriptions[symbol]
 		if sub then
 			sub.disconnect()
 			self.subscriptions[symbol] = nil
 		end
+	end
+end
+
+function NavigationEventsAdapter:didMount()
+	self:_subscribeAll()
+end
+
+function NavigationEventsAdapter:willUnmount()
+	self:_disconnectAll()
+end
+
+function NavigationEventsAdapter:didUpdate(prevProps)
+	if self.props.navigation ~= prevProps.navigation then
+		-- This component might get reused for different state, so we need to hook back up to events
+		self:_disconnectAll()
+		self:_subscribeAll()
 	end
 end
 

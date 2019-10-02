@@ -74,7 +74,7 @@ local function createServiceWrapper()
 
  	return Roact.createElement(ServiceWrapper, {
 		plugin = plugin,
-		pluginGui = pluginGUi,
+		pluginGui = pluginGui,
 		localization = localization,
 		theme = theme,
 		store = dataStore,

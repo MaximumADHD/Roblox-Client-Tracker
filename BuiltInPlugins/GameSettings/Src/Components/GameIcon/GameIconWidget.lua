@@ -32,8 +32,6 @@ local BulletPoint = require(Plugin.UILibrary.Components.BulletPoint)
 local GameIcon = require(Plugin.Src.Components.GameIcon.GameIcon)
 local NewGameIcon = require(Plugin.Src.Components.GameIcon.NewGameIcon)
 
-local FFlagWrapGameIconWidgetText = game:DefineFastFlag("WrapGameIconWidgetText", false)
-
 local GameIconWidget = Roact.PureComponent:extend("GameIconWidget")
 
 function GameIconWidget:init()
@@ -100,7 +98,7 @@ function GameIconWidget:render()
 					}),
 					FileHint = Roact.createElement(BulletPoint, {
 						LayoutOrder = 1,
-						TextWrapped = FFlagWrapGameIconWidgetText,
+						TextWrapped = true,
 						Text = localized.GameIcon.Hint({
 							fileTypes = table.concat(Constants.IMAGE_TYPES, ", "),
 							newline = "\n",
@@ -108,7 +106,7 @@ function GameIconWidget:render()
 					}),
 					ModerationHint = Roact.createElement(BulletPoint, {
 						LayoutOrder = 2,
-						TextWrapped = FFlagWrapGameIconWidgetText,
+						TextWrapped = true,
 						Text = localized.GameIcon.Moderation,
 					}),
 				}),

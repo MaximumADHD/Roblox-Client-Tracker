@@ -10739,17 +10739,6 @@
                         "Category": "Primitive",
                         "Name": "string"
                     }
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "CheckSyntax",
-                    "Parameters": [
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "void"
-                    },
-                    "Security": "None"
                 }
             ],
             "MemoryCategory": "Instances",
@@ -12732,7 +12721,10 @@
                         "Category": "DataType",
                         "Name": "RBXScriptConnection"
                     },
-                    "Security": "None"
+                    "Security": "None",
+                    "Tags": [
+                        "Deprecated"
+                    ]
                 },
                 {
                     "MemberType": "Function",
@@ -49392,6 +49384,27 @@
                 {
                     "Category": "Data",
                     "MemberType": "Property",
+                    "Name": "InstalledPluginData",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
                     "Name": "RotateIncrement",
                     "Security": {
                         "Read": "None",
@@ -49531,6 +49544,17 @@
                     "ReturnType": {
                         "Category": "Group",
                         "Name": "Dictionary"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetStartupPluginId",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "string"
                     },
                     "Security": "RobloxScriptSecurity"
                 },
@@ -49731,20 +49755,6 @@
                         "Name": "void"
                     },
                     "Security": "RobloxScriptSecurity"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "GetInstalledPluginData",
-                    "Parameters": [
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "string"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "Tags": [
-                        "Yields"
-                    ]
                 },
                 {
                     "MemberType": "Function",
@@ -49959,6 +49969,20 @@
                     "MemberType": "Event",
                     "Name": "OnPluginInstalledFromToolbox",
                     "Parameters": [
+                    ],
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "OnPluginInstalledFromWeb",
+                    "Parameters": [
+                        {
+                            "Name": "pluginId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
                     ],
                     "Security": "RobloxScriptSecurity"
                 },

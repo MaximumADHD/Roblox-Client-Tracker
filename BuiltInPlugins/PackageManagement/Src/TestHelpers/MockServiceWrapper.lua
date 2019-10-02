@@ -40,12 +40,18 @@ function MockServiceWrapper:render()
 
 	local mouse = self.props.mouse
 	if not mouse then
-		mouse = Roact.createElement(Mouse.provider, {mouse = mouse}, self.props[Roact.Children])
+		mouse = pluginInstance:GetMouse()
+	end
+
+	local pluginGui = self.props.pluginGui
+	if not pluginGui then
+		pluginGui = {}
 	end
 
 	return Roact.createElement(ServiceWrapper, {
 		localization = localization,
 		plugin = pluginInstance,
+		pluginGui = pluginGui,
 		store = store,
 		theme = theme,
 		mouse = mouse,

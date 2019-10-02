@@ -17,11 +17,12 @@ return function()
 		local pluginInstance = MockPlugin.new()
 		local store = Rodux.Store.new(MainReducer, {}, { Rodux.thunkMiddleware })
 		local theme = PluginTheme.mock()
-		local mouse = Roact.createElement(Mouse.provider, {}, {})
+		local mouse = pluginInstance:GetMouse()
 
 		local element = Roact.createElement(ServiceWrapper, {
 			localization = localization,
 			plugin = pluginInstance,
+			pluginGui = {},
 			store = store,
 			theme = theme,
 			mouse = mouse,

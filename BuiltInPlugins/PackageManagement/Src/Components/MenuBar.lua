@@ -13,8 +13,6 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 local UILibrary = require(Plugin.Packages.UILibrary)
 local withLocalization = UILibrary.Localizing.withLocalization
 
-local Constants = require(Plugin.Src.Util.Constants)
-
 local withTheme = require(Plugin.Src.ContextServices.Theming).withTheme
 
 local MenuEntry = require(Plugin.Src.Components.MenuEntry)
@@ -41,7 +39,7 @@ local function MenuBar(props)
 			end
 	
 			return Roact.createElement("Frame", {
-				Size = UDim2.new(0, Constants.MENU_BAR_WIDTH, 1, 0),
+				Size = UDim2.new(0, theme.MenuBar.Width, 1, 0),
 				BackgroundColor3 = theme.MenuBar.BackgroundColor,
 				BorderSizePixel = 1,
 				BorderColor3 = Color3.new(),

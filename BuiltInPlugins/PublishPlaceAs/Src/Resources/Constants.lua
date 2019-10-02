@@ -17,6 +17,11 @@ GENRE_IDS = {
 	"War", "Pirate", "RPG", "SciFi", "Sports", "TownAndCity", "WildWest",
 },
 
+SUBJECT_TYPE = {
+	USER = "USER",
+	GROUP = "GROUP",
+},
+
 MENU_BAR_WIDTH = 192,
 
 FOOTER_HEIGHT = 65,

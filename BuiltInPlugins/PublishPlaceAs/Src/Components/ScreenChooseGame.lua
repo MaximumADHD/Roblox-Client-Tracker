@@ -99,7 +99,7 @@ function ScreenChooseGame:init()
 		})
 	end
 
-	self.props.DispatchLoadExistingGames(true, StudioService:GetUserId())
+	self.props.DispatchLoadExistingGames(Constants.SUBJECT_TYPE.USER, 0)
 	self.props.DispatchLoadGroups()
 end
 
@@ -134,11 +134,11 @@ function ScreenChooseGame:render()
 
 			local myGamesText = localization:getText("GroupDropdown", "MyGames")
 
-			local dropdownItems = { { Key = StudioService:GetUserId(), Text = myGamesText, IsUser = true, }, }
+			local dropdownItems = { { Type = Constants.SUBJECT_TYPE.USER, Key = 0, Text = myGamesText, }, }
 
 			if groups and next(groups) ~= nil then
 				for _, group in pairs(groups) do
-					table.insert(dropdownItems, { Key = group.groupId, Text = group.name, IsUser = false, })
+					table.insert(dropdownItems, { Type = Constants.SUBJECT_TYPE.GROUP, Key = group.groupId, Text = group.name, })
 				end
 			end
 
@@ -219,7 +219,7 @@ function ScreenChooseGame:render()
 							pageNumber = 1,
 							selectedItem = item,
 						})
-						dispatchLoadExistingGames(self.state.selectedItem.IsUser, self.state.selectedItem.Key)
+						dispatchLoadExistingGames(self.state.selectedItem.Type, self.state.selectedItem.Key)
 					end,
 					ListWidth = 330,
 				}),
@@ -262,7 +262,7 @@ function ScreenChooseGame:render()
 						[Roact.Event.MouseLeave] = self.onPreviousButtonHoverEnded,
 						[Roact.Event.Activated] = function()
 							if previousPageCursor then
-								dispatchLoadExistingGames(self.state.selectedItem.IsUser, self.state.selectedItem.Key, previousPageCursor)
+								dispatchLoadExistingGames(self.state.selectedItem.Type, self.state.selectedItem.Key, previousPageCursor)
 								self.onPreviousPageButtonPress()
 							end
 						end,
@@ -300,7 +300,7 @@ function ScreenChooseGame:render()
 						[Roact.Event.MouseLeave] = self.onNextButtonHoverEnded,
 						[Roact.Event.Activated] = function()
 							if nextPageCursor then
-								dispatchLoadExistingGames(self.state.selectedItem.IsUser, self.state.selectedItem.Key, nextPageCursor)
+								dispatchLoadExistingGames(self.state.selectedItem.Type, self.state.selectedItem.Key, nextPageCursor)
 								self.onNextPageButtonPress()
 							end
 						end,
@@ -347,8 +347,8 @@ local function useDispatchForProps(dispatch)
 		DispatchLoadGroups = function()
 			dispatch(LoadGroups())
 		end,
-		DispatchLoadExistingGames = function(isUserId, id, cursor)
-			dispatch(LoadExistingGames(isUserId, id, cursor))
+		DispatchLoadExistingGames = function(type, id, cursor)
+			dispatch(LoadExistingGames(type, id, cursor))
 		end,
 		OpenChoosePlacePage = function(parentGame)
 			dispatch(LoadExistingPlaces(parentGame))

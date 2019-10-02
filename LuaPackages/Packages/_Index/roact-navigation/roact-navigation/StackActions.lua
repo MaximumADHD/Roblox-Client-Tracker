@@ -32,9 +32,11 @@ function StackActions.pop(payload)
 end
 
 -- Pop all the items except the last one off the route stack.
-function StackActions.popToTop()
+function StackActions.popToTop(payload)
+	local data = payload or {}
 	return {
 		type = POP_TO_TOP_TOKEN,
+		key = data.key,
 	}
 end
 

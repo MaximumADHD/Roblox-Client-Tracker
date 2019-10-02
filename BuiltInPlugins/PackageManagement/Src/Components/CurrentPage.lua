@@ -8,16 +8,14 @@
 	Elements can disable this page's scrolling (such as when a TextBox is focused and the mouse is inside)
 	by using this component's SetScrollbarEnabled function.
 ]]
-
-local ShouldUseFocusScrolling = DFFlagTextBoxesNeverSinkMouseEvents
+local ShouldUseFocusScrolling = settings():GetFFlag("TextBoxesNeverSinkMouseEvents")
 
 local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
 local UILibrary = require(Plugin.Packages.UILibrary)
 local withLocalization = UILibrary.Localizing.withLocalization
-
-local Constants = require(Plugin.Src.Util.Constants)
+local withTheme = require(Plugin.Src.ContextServices.Theming).withTheme
 
 local StyledScrollingFrame = UILibrary.Component.StyledScrollingFrame
 
@@ -28,7 +26,7 @@ function CurrentPage:init()
 	self.contentHeightChanged = function(newheight)
 		local canvas = self.canvasRef.current
 		if canvas then
-			local contentSize = UDim2.new(1, 0, 0, newheight + Constants.ELEMENT_PADDING)
+			local contentSize = UDim2.new(1, 0, 0, newheight + 32)
 			canvas.CanvasSize = contentSize
 			canvas.ScrollingEnabled = false
 
@@ -65,23 +63,25 @@ function CurrentPage:didUpdate(previousProps)
 end
 
 function CurrentPage:render()
-	return withLocalization(function(localized)
-		return Roact.createElement(StyledScrollingFrame, {
-			Position = UDim2.new(0, Constants.MENU_BAR_WIDTH, 0, 0),
-			Size = UDim2.new(1, -Constants.MENU_BAR_WIDTH, 1, -45),
-
-			[Roact.Ref] = self.canvasRef,
-		}, {
-			Padding = Roact.createElement("UIPadding", {
-				PaddingLeft = UDim.new(0, 25),
-				PaddingRight = UDim.new(0, 25),
-			}),
-
-			Layout = Roact.createElement("UIListLayout", {
-				Padding = UDim.new(0, 25),
-				SortOrder = Enum.SortOrder.LayoutOrder,
-			}),
-		})
+	return withTheme(function(theme)
+		return withLocalization(function(localized)
+			return Roact.createElement(StyledScrollingFrame, {
+				Position = UDim2.new(0, theme.MenuBar.Width, 0, 0),
+				Size = UDim2.new(1, -theme.MenuBar.Width, 1, -45),
+	
+				[Roact.Ref] = self.canvasRef,
+			}, {
+				Padding = Roact.createElement("UIPadding", {
+					PaddingLeft = UDim.new(0, 25),
+					PaddingRight = UDim.new(0, 25),
+				}),
+	
+				Layout = Roact.createElement("UIListLayout", {
+					Padding = UDim.new(0, 25),
+					SortOrder = Enum.SortOrder.LayoutOrder,
+				}),
+			})
+		end)
 	end)
 end
 

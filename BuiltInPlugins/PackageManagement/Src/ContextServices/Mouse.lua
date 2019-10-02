@@ -1,15 +1,12 @@
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
+local Symbol = require(Plugin.Src.Util.Symbol)
 
 local DEFAULT_CURSOR = "rbxasset://SystemCursors/Arrow"
 
 local MouseProvider = Roact.Component:extend("MouseProvider")
 
-local mouseKey = newproxy(true)
-getmetatable(mouseKey).__tostring = function()
-	return "Symbol(Mouse)"
-end
-
+local mouseKey = Symbol.named("Mouse")
 local function getMouse(component)
 	return component._context[mouseKey]
 end
@@ -19,15 +16,13 @@ local function getSystemCursor(icon)
 end
 
 function MouseProvider:init(props)
-	local mouse = props.mouse
-
 	local icons = {}
 
 	self._context[mouseKey] = {
-		current = mouse,
+		current = self.props.mouse,
 
 		setHoverIcon = function(icon, hovering)
-			local canSetIcon = mouse
+			local canSetIcon = self.props.mouse
 				and icon ~= nil and hovering ~= nil
 
 			if canSetIcon then
@@ -37,26 +32,26 @@ function MouseProvider:init(props)
 					table.remove(icons, #icons)
 				end
 				if #icons > 0 then
-					mouse.Icon = icons[#icons]
+					self.props.mouse.Icon = icons[#icons]
 				else
-					mouse.Icon = DEFAULT_CURSOR
+					self.props.mouse.Icon = DEFAULT_CURSOR
 				end
 			end
 		end,
 
 		resetMouse = function()
-			mouse.Icon = DEFAULT_CURSOR
+			self.props.mouse.Icon = DEFAULT_CURSOR
 			icons = {}
 		end,
 
 		getNativeMouse = function()
-			return mouse
+			return self.props.mouse
 		end,
 	}
 
 	self.resetMouse = function()
-		if mouse then
-			mouse.Icon = DEFAULT_CURSOR
+		if self.props.mouse then
+			self.props.mouse.Icon = DEFAULT_CURSOR
 		end
 	end
 

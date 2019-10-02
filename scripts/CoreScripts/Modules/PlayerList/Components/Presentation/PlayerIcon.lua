@@ -1,6 +1,7 @@
 local CorePackages = game:GetService("CorePackages")
 
 local Roact = require(CorePackages.Roact)
+local t = require(CorePackages.Packages.t)
 
 local Components = script.Parent.Parent
 local Connection = Components.Connection
@@ -9,14 +10,49 @@ local WithLayoutValues = LayoutValues.WithLayoutValues
 
 local PlayerIcon = Roact.Component:extend("PlayerIcon")
 
-local function getIconImage(layoutValues, player, iconInfo)
+PlayerIcon.validateProps = t.strictInterface({
+	player = t.instanceIsA("Player"),
+	layoutOrder = t.integer,
+
+	playerIconInfo = t.strictInterface({
+		isPlaceOwner = t.boolean,
+		avatarIcon = t.optional(t.string),
+		specialGroupIcon = t.optional(t.string),
+	}),
+
+	playerRelationship = t.strictInterface({
+		isBlocked = t.boolean,
+		friendStatus = t.enum(Enum.FriendStatus),
+		isFollowing = t.boolean,
+		isFollower = t.boolean,
+	})
+})
+
+local function getSocialIconImage(layoutValues, relationship)
+	local friendIcon = layoutValues.FriendIcons[relationship.friendStatus]
+
+	if relationship.isBlocked then
+		return layoutValues.BlockedIcon
+	elseif friendIcon then
+		return friendIcon
+	elseif relationship.isFollowing then
+		return layoutValues.FollowingIcon
+	end
+
+	return nil
+end
+
+local function getIconImage(layoutValues, player, iconInfo, relationship)
 	local membershipIcon = layoutValues.MembershipIcons[player.MembershipType]
+	local socialIcon = getSocialIconImage(layoutValues, relationship)
 	if layoutValues.CustomPlayerIcons[player.UserId] then
 		return layoutValues.CustomPlayerIcons[player.UserId]
 	elseif iconInfo.isPlaceOwner then
 		return layoutValues.PlaceOwnerIcon
 	elseif iconInfo.specialGroupIcon then
 		return iconInfo.specialGroupIcon
+	elseif socialIcon then
+		return socialIcon
 	elseif membershipIcon then
 		-- TODO: Replace this with single premium icon check if that is the future.
 		return membershipIcon
@@ -51,7 +87,12 @@ function PlayerIcon:render()
 				LayoutOrder = self.props.layoutOrder,
 				Size = layoutValues.PlayerIconSize,
 				BackgroundTransparency = 1,
-				Image = getIconImage(layoutValues, self.props.player, self.props.playerIconInfo),
+				Image = getIconImage(
+					layoutValues,
+					self.props.player,
+					self.props.playerIconInfo,
+					self.props.playerRelationship
+				),
 				BorderSizePixel = 0,
 			})
 		end

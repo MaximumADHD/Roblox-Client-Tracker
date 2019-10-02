@@ -50,7 +50,7 @@ local function TopBarLeaderstats(props)
 					TextSize = 14,
 					BorderSizePixel = 0,
 					BackgroundTransparency = 1,
-					TextColor3 = layoutValues.TextColor,
+					TextColor3 = layoutValues.TextStyle.Default.Color,
 					TextYAlignment = Enum.TextYAlignment.Center,
 					TextXAlignment = Enum.TextXAlignment.Center,
 				}),
@@ -64,7 +64,7 @@ local function TopBarLeaderstats(props)
 					TextSize = 14,
 					BorderSizePixel = 0,
 					BackgroundTransparency = 1,
-					TextColor3 = layoutValues.TextColor,
+					TextColor3 = layoutValues.TextStyle.Default.Color,
 					TextYAlignment = Enum.TextYAlignment.Center,
 					TextXAlignment = Enum.TextXAlignment.Center,
 				})

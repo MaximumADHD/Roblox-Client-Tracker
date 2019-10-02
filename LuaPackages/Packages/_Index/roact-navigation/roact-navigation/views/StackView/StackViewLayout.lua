@@ -306,7 +306,9 @@ function StackViewLayout:render()
 			Visible = not cardObscured,
 			[Roact.Ref] = overlayFrameRef,
 		}, {
-			card = self:_renderCard(scene, idx),
+			-- Cards need to have unique keys so that instances of the same components are not
+			-- reused for different scenes. (Could lead to unanticipated lifecycle problems).
+			["card_" .. scene.key] = self:_renderCard(scene, idx),
 		})
 	end)
 

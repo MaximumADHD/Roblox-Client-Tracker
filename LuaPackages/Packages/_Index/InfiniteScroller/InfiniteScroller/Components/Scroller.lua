@@ -188,6 +188,8 @@ function Scroller:willUpdate(nextProps, nextState)
 		return
 	end
 
+	self.sizeDebounce = true
+
 	local diffs = {}
 
 	if not Cryo.isEmpty(self.props.itemList) and self.state.lead then
@@ -225,7 +227,7 @@ function Scroller:willUpdate(nextProps, nextState)
 
 	-- The focus lock changed, clear the non-state anchor variables.
 	if self.state.lastFocusLock ~= nextState.lastFocusLock then
-		self.anchorFramePosition = self.relativeAnchorLocation
+		self.anchorFramePosition = 0
 		self.anchorCanvasPosition = self.relativeAnchorLocation
 	end
 end
@@ -245,6 +247,7 @@ function Scroller:didUpdate(previousProps, previousState)
 	if not self:adjustCanvas(self.scrollingForward, self.scrollingBackward) then
 		self:moveToAnchor()
 		self:loadMore()
+		self.sizeDebounce = false
 	end
 end
 
@@ -337,6 +340,7 @@ function Scroller:init()
 	self._ref = Roact.createRef()
 
 	self.scrollDebounce = false
+	self.sizeDebounce = true
 
 	self.onScroll = function(rbx)
 		debugPrint("onScroll")
@@ -370,7 +374,8 @@ function Scroller:init()
 		if isReverse[self.props.orientation] then
 			self.relativeAnchorLocation = self.props.anchorLocation.Scale * size + self.props.anchorLocation.Offset
 		else
-			self.relativeAnchorLocation = (1 - self.props.anchorLocation.Scale) * size - self.props.anchorLocation.Offset
+			self.relativeAnchorLocation = (1 - self.props.anchorLocation.Scale) * size
+				- self.props.anchorLocation.Offset
 		end
 		self.absoluteAnchorLocation = self.relativeAnchorLocation + pos
 		self.mountAboveAnchor = self.relativeAnchorLocation + self.props.mountingBuffer
@@ -383,24 +388,36 @@ function Scroller:init()
 
 		if not self.state.ready then
 			debugPrint("  Setting initial anchor position to", self.relativeAnchorLocation)
-			self.anchorFramePosition = self.relativeAnchorLocation
+			self.anchorFramePosition = 0
 			self.anchorCanvasPosition = self.relativeAnchorLocation
 
-			self:setState({
-				ready = true
-			})
+			coroutine.wrap(function()
+				RunService.Heartbeat:Wait()
+				self:setState({
+					ready = true
+				})
 
-			-- This should only be set by tests.
-			if self.props[NotifyReady] then
-				self.props[NotifyReady]:Fire()
-			end
+				-- This should only be set by tests.
+				if self.props[NotifyReady] then
+					self.props[NotifyReady]:Fire()
+				end
+			end)()
+		else
+			self:moveToAnchor()
+			self:setState({})  -- Force a rerender.
 		end
 	end
 
 	self.onContentResize = function()
-		if not self.state.ready then
+		debugPrint("onContentResize")
+
+		if self.sizeDebounce or not self.state.ready then
+			debugPrint("  Skipping onContentResize")
 			return
 		end
+
+		self:moveToAnchor()
+		self:setState({})  -- Force a rerender.
 	end
 
 	self.anchorCanvasPosition = 0
@@ -645,6 +662,7 @@ end
 -- Try and get the canvas as close to correct as possible this rendering pass.
 function Scroller:adjustCanvas(trimTrailing, trimLeading)
 	debugPrint("adjustCanvas")
+
 	local newState = Cryo.Dictionary.join(
 		self:resetAnchorPosition(),
 		self:recalculateBounds(trimTrailing, trimLeading)
@@ -741,6 +759,7 @@ function Scroller:getAnchorFrameFromIndex(index)
 	end
 
 	return Round.nearest(self:getChildFramePosition(index) + scale * self:getChildSize(index))
+		- self.relativeAnchorLocation
 end
 
 -- Convert an AbsolutePosition to a position relative to the top-left corner of the canvas.

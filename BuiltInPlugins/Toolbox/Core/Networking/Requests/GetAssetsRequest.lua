@@ -114,7 +114,7 @@ return function(networkInterface, pageInfoOnStart)
 			-- Creations search
 			local currentCursor = store:getState().assets.currentCursor
 			if PagedRequestCursor.isNextPageAvailable(currentCursor) then
-				return networkInterface:getAssetCreations(pageInfoOnStart, PagedRequestCursor.getNextPageCursor(currentCursor), nil, true):andThen(function(creationsResult)
+				return networkInterface:getAssetCreations(pageInfoOnStart, PagedRequestCursor.getNextPageCursor(currentCursor)):andThen(function(creationsResult)
 					local nextCursor = PagedRequestCursor.createCursor(creationsResult.responseBody)
 					local assetIds = extractAssetIdsFromGetAssetsResponse(creationsResult.responseBody and creationsResult.responseBody.data)
 					if assetIds and #assetIds > 0 then

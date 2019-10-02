@@ -19,7 +19,6 @@ return {
 
 	-- Navigators
 	createTopBarStackNavigator = require(script.navigators.createTopBarStackNavigator),
-	createBottomTabNavigator = require(script.navigators.createBottomTabNavigator),
 	createSwitchNavigator = require(script.navigators.createSwitchNavigator),
 	createNavigator = require(script.navigators.createNavigator),
 
@@ -43,9 +42,12 @@ return {
 	StackHeaderMode = require(script.views.StackView.StackHeaderMode),
 	None = require(script.NoneSymbol),
 
-	-- Views
+	-- Screen Views
 	SceneView = require(script.views.SceneView),
 	SwitchView = require(script.views.SwitchView),
+	StackView = require(script.views.StackView.StackView),
+
+	-- Top Bar Components
 	TopBar = require(script.views.TopBar.TopBar),
 	TopBarBackButton = require(script.views.TopBar.TopBarBackButton),
 	TopBarTitleContainer = require(script.views.TopBar.TopBarTitleContainer),

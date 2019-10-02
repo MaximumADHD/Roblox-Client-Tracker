@@ -95,8 +95,7 @@ end
 
 -- assetTypeOverride, used to override the assetType for requesting data. So, we don't need to deal with
 -- categories and index.
--- excludePackags, bool, defualt to false, use to filter out packages from the data(Models).
-function NetworkInterface:getAssetCreations(pageInfo, cursor, assetTypeOverride, excludePackags)
+function NetworkInterface:getAssetCreations(pageInfo, cursor, assetTypeOverride)
 	local assetTypeName = assetTypeOverride
 	if pageInfo then
 		if game:GetFastFlag("CMSAdditionalAccessoryTypesV2") then
@@ -107,12 +106,7 @@ function NetworkInterface:getAssetCreations(pageInfo, cursor, assetTypeOverride,
 		end
 	end
 
-	local isPackageExcluded = false
-	if FFlagUseCreationToFetchMyOverrideData2 then
-		isPackageExcluded = excludePackags
-	end
-
-	local targetUrl = Urls.constructGetAssetCreationsUrl(assetTypeName, Constants.GET_ASSET_CREATIONS_PAGE_SIZE_LIMIT, cursor, isPackageExcluded)
+	local targetUrl = Urls.constructGetAssetCreationsUrl(assetTypeName, Constants.GET_ASSET_CREATIONS_PAGE_SIZE_LIMIT, cursor)
 
 	return sendRequestAndRetry(function()
 		printUrl("getAssetCreations", "GET", targetUrl)

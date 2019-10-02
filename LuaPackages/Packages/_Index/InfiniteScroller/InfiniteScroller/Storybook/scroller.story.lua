@@ -11,7 +11,7 @@ function Story:render()
 	return Roact.createFragment({
 		scroller = Roact.createElement(Scroller, {
 			BackgroundColor3 = Color3.fromRGB(56, 19, 18),
-			Size = UDim2.new(0, 200, 1, -100),
+			Size = UDim2.new(0, self.state.size.X, 1, self.state.size.Y),
 			Position = UDim2.new(0, 50, 0, 50),
 			ScrollBarThickness = 8,
 			padding = UDim.new(0, 5),
@@ -29,12 +29,44 @@ function Story:render()
 			end,
 		}),
 		refresh = Roact.createElement("TextButton", {
-			Size = UDim2.new(0, 100, 0, 50),
+			Size = UDim2.new(0, 110, 0, 30),
 			Position = UDim2.new(1, -50, 0, 50),
 			AnchorPoint = Vector2.new(1, 0),
 			Text = "Refresh",
 			BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-			[Roact.Event.Activated] = self.click,
+			[Roact.Event.Activated] = self.clickRefresh,
+		}),
+		up = Roact.createElement("TextButton", {
+			Size = UDim2.new(0, 30, 0, 30),
+			Position = UDim2.new(1, -90, 0, 90),
+			AnchorPoint = Vector2.new(1, 0),
+			Text = "^",
+			BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+			[Roact.Event.Activated] = self.clickUp,
+		}),
+		down = Roact.createElement("TextButton", {
+			Size = UDim2.new(0, 30, 0, 30),
+			Position = UDim2.new(1, -90, 0, 170),
+			AnchorPoint = Vector2.new(1, 0),
+			Text = "v",
+			BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+			[Roact.Event.Activated] = self.clickDown,
+		}),
+		left = Roact.createElement("TextButton", {
+			Size = UDim2.new(0, 30, 0, 30),
+			Position = UDim2.new(1, -130, 0, 130),
+			AnchorPoint = Vector2.new(1, 0),
+			Text = "<",
+			BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+			[Roact.Event.Activated] = self.clickLeft,
+		}),
+		right = Roact.createElement("TextButton", {
+			Size = UDim2.new(0, 30, 0, 30),
+			Position = UDim2.new(1, -50, 0, 130),
+			AnchorPoint = Vector2.new(1, 0),
+			Text = ">",
+			BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+			[Roact.Event.Activated] = self.clickRight,
 		}),
 	})
 end
@@ -51,6 +83,7 @@ function Story:init()
 	for i = -100,100 do table.insert(items, generate(i)) end
 	self.state = {
 		lock = 1,
+		size = Vector2.new(200, -100),
 		items = items,
 	}
 
@@ -66,10 +99,38 @@ function Story:init()
 		})
 	end
 
-	self.click = function()
+	self.clickRefresh = function()
 		print("Recentering")
 		self:setState({
 			lock = self.state.lock + 1
+		})
+	end
+
+	self.clickUp = function()
+		print("Moving up")
+		self:setState({
+			size = self.state.size + Vector2.new(0, -20),
+		})
+	end
+
+	self.clickDown = function()
+		print("Moving down")
+		self:setState({
+			size = self.state.size + Vector2.new(0, 20),
+		})
+	end
+
+	self.clickLeft = function()
+		print("Moving left")
+		self:setState({
+			size = self.state.size + Vector2.new(-20, 0),
+		})
+	end
+
+	self.clickRight = function()
+		print("Moving right")
+		self:setState({
+			size = self.state.size + Vector2.new(20, 0),
 		})
 	end
 end

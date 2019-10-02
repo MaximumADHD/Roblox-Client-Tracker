@@ -8,15 +8,6 @@ local Players = game:GetService("Players")
 local CommandModules = script.Parent
 local Util = require(CommandModules:WaitForChild("Util"))
 
-local FFlagPlayEmoteBySlotEnabled = false do
-	local ok, value = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserPlayEmoteBySlotEnabled")
-	end)
-	if ok then
-		FFlagPlayEmoteBySlotEnabled = value
-	end
-end
-
 local ChatLocalization = nil
 pcall(function() ChatLocalization = require(Chat.ClientChatModules.ChatLocalization) end)
 if ChatLocalization == nil then ChatLocalization = { Get = function(self, key, fallback) return fallback end } end
@@ -126,14 +117,12 @@ local function ProcessMessage(message, ChatWindow, ChatSettings)
 		lowerCaseEmoteNamesMap[string.lower(name)] = name
 	end
 
-	if FFlagPlayEmoteBySlotEnabled then
-		local slot = tonumber(emoteName)
-		if slot then
-			local equippedEmotes = humanoidDescription:GetEquippedEmotes()
-			for _, emoteInfo in pairs(equippedEmotes) do
-				if emoteInfo.Slot == slot then
-					emoteName = emoteInfo.Name
-				end
+	local slot = tonumber(emoteName)
+	if slot then
+		local equippedEmotes = humanoidDescription:GetEquippedEmotes()
+		for _, emoteInfo in pairs(equippedEmotes) do
+			if emoteInfo.Slot == slot then
+				emoteName = emoteInfo.Name
 			end
 		end
 	end

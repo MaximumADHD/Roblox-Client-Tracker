@@ -1,6 +1,8 @@
 local LuaDiscussionsDeps = script.Parent
 
 return {
-    RoactNavigation = require(LuaDiscussionsDeps.RoactNavigation),
-    InfiniteScroll = require(LuaDiscussionsDeps.InfiniteScroll),
+	InfiniteScroll = require(LuaDiscussionsDeps.InfiniteScroll),
+	RoactFitComponents = require(LuaDiscussionsDeps.RoactFitComponents),
+	RoactNavigation = require(LuaDiscussionsDeps.RoactNavigation),
+	RoduxNetworking = require(LuaDiscussionsDeps.RoduxNetworking),
 }

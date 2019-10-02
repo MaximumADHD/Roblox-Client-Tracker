@@ -3,7 +3,6 @@ local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local MockServiceWrapper = require(Plugin.Src.TestHelpers.MockServiceWrapper)
 
-local Constants = require(Plugin.Src.Util.Constants)
 local MenuEntry = require(script.Parent.MenuEntry)
 
 return function()

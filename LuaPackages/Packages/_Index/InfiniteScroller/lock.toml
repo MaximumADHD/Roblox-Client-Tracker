@@ -2,9 +2,9 @@
 name = "InfiniteScroller"
 version = "0.2.0"
 source = "git+https://github.rbx.com/roblox/infinite-scroll#master"
-commit = "537dfd9d94ce0573564fc2e223c9e104976e1737"
+commit = "1ee01f9d3f477c139f334446cb229bc4098e0f7e"
 dependencies = [
-    "Cryo Cryo f7c72476 git+https://github.com/roblox/cryo#master",
+    "Cryo roblox/cryo 272caa8f git+https://github.com/roblox/cryo#master",
     "FitFrame roact-fit-components 995f4340 git+https://github.rbx.com/bbrimeyer/roact-fit-components#master",
     "Otter Otter 36b45b97 git+https://github.com/roblox/otter#master",
     "Roact roblox/roact 3de41375 git+https://github.com/roblox/roact#master",

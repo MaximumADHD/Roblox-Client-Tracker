@@ -25,7 +25,8 @@ function ServiceWrapper:init()
 	assert(self.props.plugin ~= nil, "Expected a plugin object")
 	assert(self.props.store ~= nil, "Expected a Rodux Store object")
 	assert(self.props.theme ~= nil, "Expected a PluginTheme object")
-	assert(self.props.mouse ~= nil, "Expected a Mouse object")
+	assert(self.props.mouse ~= nil, "Expected a PluginMouse object")
+	assert(self.props.pluginGui ~= nil, "Expected a PluginGui object")
 end
 
 local function addProvider(provider, props, rootElement)

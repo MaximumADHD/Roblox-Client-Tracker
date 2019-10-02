@@ -13,13 +13,20 @@ return function()
 	local StatEntry = require(script.Parent.StatEntry)
 
 	it("should create and destroy without errors", function()
+		local layoutValues = CreateLayoutValues(false, false)
+
 		local element = Roact.createElement(LayoutValuesProvider, {
-			layoutValues = CreateLayoutValues(false, false)
+			layoutValues = layoutValues
 		}, {
 			StatEntry = Roact.createElement(StatEntry, {
-				isTitleFrame = false,
 				statName = "Test Stat",
 				statValue = 50,
+				isTitleEntry = false,
+				isTeamEntry = false,
+				layoutOrder = 2,
+
+				backgroundStyle = layoutValues.BackgroundStyle.Default,
+				textStyle = layoutValues.TextStyle.Default,
 			})
 		})
 		local instance = Roact.mount(element)
@@ -27,14 +34,20 @@ return function()
 	end)
 
 	it("should create and destroy without errors tenfoot", function()
+		local layoutValues = CreateLayoutValues(true, false)
+
 		local element = Roact.createElement(LayoutValuesProvider, {
-			layoutValues = CreateLayoutValues(true, false)
+			layoutValues = layoutValues
 		}, {
 			StatEntry = Roact.createElement(StatEntry, {
-				isTitleFrame = false,
-				teamColor = Color3.fromRGB(255, 0, 0),
 				statName = "Test Stat",
-				statValue = true,
+				statValue = 50,
+				isTitleEntry = true,
+				isTeamEntry = true,
+				layoutOrder = 2,
+
+				backgroundStyle = layoutValues.BackgroundStyle.Default,
+				textStyle = layoutValues.TextStyle.Default,
 			})
 		})
 		local instance = Roact.mount(element)

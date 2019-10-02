@@ -4,6 +4,6 @@ version = "1.0.0"
 source = "git+https://github.rbx.com/bbrimeyer/roact-fit-components#master"
 commit = "995f434033c2024b32bdc02e65470db8ed153ee4"
 dependencies = [
-    "Cryo Cryo f7c72476 git+https://github.com/roblox/cryo#master",
+    "Cryo roblox/cryo 272caa8f git+https://github.com/roblox/cryo#master",
     "Roact roblox/roact 3de41375 git+https://github.com/roblox/roact#master",
 ]

@@ -5,8 +5,6 @@ local Resources = script.Parent.Parent.Parent.Resources
 local PhysicsService = game:GetService("PhysicsService")
 local ChangeHistoryService = game:GetService("ChangeHistoryService")
 
-local FFlagStudioYoWhatTheHeckWhyNoUndoInTheCollisionGroupsEditorBro = settings():GetFFlag("StudioYoWhatTheHeckWhyNoUndoInTheCollisionGroupsEditorBro")
-
 local getGroups = require(script.Parent.Parent.getGroups)
 local getSelectedParts = require(script.Parent.Parent.getSelectedParts)
 local getPartsInGroup = require(script.Parent.Parent.getPartsInGroup)
@@ -95,13 +93,9 @@ function Gui:GetGroups()
 			local messageArgs = {group.Name}
 
 			self:Modal(messageKey, messageArgs, function()
-				if FFlagStudioYoWhatTheHeckWhyNoUndoInTheCollisionGroupsEditorBro then
-					ChangeHistoryService:SetWaypoint("Deleting collision group")
-					PhysicsService:RemoveCollisionGroup(group.Name)
-					ChangeHistoryService:SetWaypoint("Deleted collision group")
-				else
-					PhysicsService:RemoveCollisionGroup(group.Name)
-				end
+                ChangeHistoryService:SetWaypoint("Deleting collision group")
+                PhysicsService:RemoveCollisionGroup(group.Name)
+                ChangeHistoryService:SetWaypoint("Deleted collision group")
 
 				self:SetStateAndRefresh{}
 			end)
@@ -111,13 +105,9 @@ function Gui:GetGroups()
 			if group.Name == "Default" then return end
 
 			if newName then
-				if FFlagStudioYoWhatTheHeckWhyNoUndoInTheCollisionGroupsEditorBro then
-					ChangeHistoryService:SetWaypoint("Renaming collision group")
-					PhysicsService:RenameCollisionGroup(group.Name, newName)
-					ChangeHistoryService:SetWaypoint("Renamed collision group")
-				else
-					PhysicsService:RenameCollisionGroup(group.Name, newName)
-				end
+                ChangeHistoryService:SetWaypoint("Renaming collision group")
+                PhysicsService:RenameCollisionGroup(group.Name, newName)
+                ChangeHistoryService:SetWaypoint("Renamed collision group")
 				self:SetStateAndRefresh{GroupRenaming = ""}
 			else
 				if self.state.GroupRenaming == "" then
@@ -129,17 +119,11 @@ function Gui:GetGroups()
 		end
 
 		group.OnMembershipSet = function()
-			if FFlagStudioYoWhatTheHeckWhyNoUndoInTheCollisionGroupsEditorBro then
-				ChangeHistoryService:SetWaypoint("Setting part membership to collision group")
-				for _, part in pairs(getSelectedParts()) do
-					PhysicsService:SetPartCollisionGroup(part, group.Name)
-				end
-				ChangeHistoryService:SetWaypoint("Set part membership to collision group")
-			else
-				for _, part in pairs(getSelectedParts()) do
-					PhysicsService:SetPartCollisionGroup(part, group.Name)
-				end
-			end
+            ChangeHistoryService:SetWaypoint("Setting part membership to collision group")
+            for _, part in pairs(getSelectedParts()) do
+                PhysicsService:SetPartCollisionGroup(part, group.Name)
+            end
+            ChangeHistoryService:SetWaypoint("Set part membership to collision group")
 			self:SetStateAndRefresh{}
 		end
 
@@ -158,13 +142,9 @@ function Gui:GetGroups()
 		group.ToggleCollidesWith = function(otherGroup)
 			local collides = not PhysicsService:CollisionGroupsAreCollidable(group.Name, otherGroup.Name)
 
-			if FFlagStudioYoWhatTheHeckWhyNoUndoInTheCollisionGroupsEditorBro then
-				ChangeHistoryService:SetWaypoint("Setting group collision state")
-				PhysicsService:CollisionGroupSetCollidable(group.Name, otherGroup.Name, collides)
-				ChangeHistoryService:SetWaypoint("Set group collision state")
-			else
-				PhysicsService:CollisionGroupSetCollidable(group.Name, otherGroup.Name, collides)
-			end
+            ChangeHistoryService:SetWaypoint("Setting group collision state")
+            PhysicsService:CollisionGroupSetCollidable(group.Name, otherGroup.Name, collides)
+            ChangeHistoryService:SetWaypoint("Set group collision state")
 			self:SetStateAndRefresh{}
 		end
 	end
@@ -202,13 +182,9 @@ function Gui:render()
 				Window = self.props.Window,
 
 				OnGroupAdded = function(groupName)
-					if FFlagStudioYoWhatTheHeckWhyNoUndoInTheCollisionGroupsEditorBro then
-						ChangeHistoryService:SetWaypoint("Creating collision group")
-						PhysicsService:CreateCollisionGroup(groupName)
-						ChangeHistoryService:SetWaypoint("Created collision group")
-					else
-						PhysicsService:CreateCollisionGroup(groupName)
-					end
+                    ChangeHistoryService:SetWaypoint("Creating collision group")
+                    PhysicsService:CreateCollisionGroup(groupName)
+                    ChangeHistoryService:SetWaypoint("Created collision group")
 					self:SetStateAndRefresh{}
 				end,
 			}),
@@ -244,15 +220,13 @@ function Gui:didMount()
 		self:SetStateAndRefresh{Theme = theme}
 	end)
 
-	if FFlagStudioYoWhatTheHeckWhyNoUndoInTheCollisionGroupsEditorBro then
-		self.UndoConn = ChangeHistoryService.OnUndo:Connect(function()
-			self:SetStateAndRefresh{}
-		end)
+    self.UndoConn = ChangeHistoryService.OnUndo:Connect(function()
+        self:SetStateAndRefresh{}
+    end)
 
-		self.RedoConn = ChangeHistoryService.OnRedo:Connect(function()
-			self:SetStateAndRefresh{}
-		end)
-	end
+    self.RedoConn = ChangeHistoryService.OnRedo:Connect(function()
+        self:SetStateAndRefresh{}
+    end)
 
 	self.PollingGroupChanges = true
 	spawn(function()
@@ -270,10 +244,8 @@ function Gui:willUnmount()
 	self.ThemeChangedConn:Disconnect()
 	self.PollingGroupChanges = false
 
-	if FFlagStudioYoWhatTheHeckWhyNoUndoInTheCollisionGroupsEditorBro then
-		self.UndoConn:Disconnect()
-		self.RedoConn:Disconnect()
-	end
+    self.UndoConn:Disconnect()
+    self.RedoConn:Disconnect()
 end
 
 return Gui

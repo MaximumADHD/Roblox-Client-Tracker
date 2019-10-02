@@ -12,7 +12,9 @@ return function()
 		local state = r:getState()
 		expect(state).to.be.ok()
 
-		local expectedKeys = {}
+		local expectedKeys = {
+			"PluginInfo",
+		}
 		for _, childReducerName in ipairs(expectedKeys) do
 			expect(state[childReducerName]).to.be.ok()
 		end

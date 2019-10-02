@@ -608,7 +608,6 @@ Class DebuggerManager : Instance [NotCreatable] [NotReplicated]
 	Event DebuggerManager.DebuggerRemoved(Instance debugger)
 Class DebuggerWatch : Instance
 	Property string DebuggerWatch.Expression
-	Function void DebuggerWatch:CheckSyntax()
 Class Dialog : Instance
 	Property Enum<DialogBehaviorType> Dialog.BehaviorType
 	Property float Dialog.ConversationDistance
@@ -732,7 +731,7 @@ Class Geometry : Instance [NotCreatable] [Service]
 Class GlobalDataStore : Instance [NotCreatable] [NotReplicated]
 	Function Variant GlobalDataStore:GetAsync(string key) [Yields]
 	Function Variant GlobalDataStore:IncrementAsync(string key, int delta = 1) [Yields]
-	Function RBXScriptConnection GlobalDataStore:OnUpdate(string key, Function callback)
+	Function RBXScriptConnection GlobalDataStore:OnUpdate(string key, Function callback) [Deprecated]
 	Function Variant GlobalDataStore:RemoveAsync(string key) [Yields]
 	Function void GlobalDataStore:SetAsync(string key, Variant value) [Yields]
 	Function Tuple GlobalDataStore:UpdateAsync(string key, Function transformFunction) [Yields]
@@ -2771,6 +2770,7 @@ Class StudioData : Instance [NotCreatable] [Service] [NotReplicated]
 	Property int64 StudioData.SrcUniverseId {RobloxSecurity} [Hidden] [NotReplicated]
 Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property float StudioService.GridSize  [ReadOnly] [NotReplicated]
+	Property string StudioService.InstalledPluginData {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
 	Property float StudioService.RotateIncrement  [ReadOnly] [NotReplicated]
 	Property bool StudioService.UseLocalSpace [<📁> Load-only] [NotReplicated]
 	Property Instance StudioService.ActiveScript  [ReadOnly] [NotReplicated]
@@ -2779,8 +2779,8 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void StudioService:CopyToClipboard(string stringToCopy) {RobloxScriptSecurity}
 	Function void StudioService:EmitPlacePublishedSignal() {RobloxScriptSecurity}
 	Function Dictionary StudioService:GetClassIcon(string className) {PluginSecurity}
-	Function string StudioService:GetInstalledPluginData() {RobloxScriptSecurity} [Yields]
 	Function Dictionary StudioService:GetResourceByCategory(string category) {RobloxScriptSecurity}
+	Function string StudioService:GetStartupPluginId() {RobloxScriptSecurity}
 	Function int64 StudioService:GetUserId() {RobloxScriptSecurity}
 	Function bool StudioService:IsPluginInstalled(int64 assetId) {RobloxScriptSecurity}
 	Function bool StudioService:IsPluginUpToDate(int64 assetId, int64 currentAssetVersion) {RobloxScriptSecurity}
@@ -2802,6 +2802,7 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event StudioService.OnOpenConvertToPackagePlugin(Objects instances, string name) {RobloxScriptSecurity}
 	Event StudioService.OnOpenManagePackagePlugin(int64 userId, int64 assetId) {RobloxScriptSecurity}
 	Event StudioService.OnPluginInstalledFromToolbox() {RobloxScriptSecurity}
+	Event StudioService.OnPluginInstalledFromWeb(string pluginId) {RobloxScriptSecurity}
 	Event StudioService.OnPublishPlaceToRoblox() {RobloxScriptSecurity}
 	Event StudioService.OnSaveToRoblox(Objects instances) {RobloxScriptSecurity}
 Class StudioTheme : Instance [NotCreatable] [NotReplicated]

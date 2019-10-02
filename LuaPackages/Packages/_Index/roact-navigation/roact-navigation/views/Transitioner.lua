@@ -80,10 +80,14 @@ function Transitioner:init()
 
 	self._isMounted = false
 	self._isTransitionRunning = false
-	self._queuedTransition = nil
+	self._transitionQueue = {}
 
 	self._completeSignalDisconnector = self.state.position:onComplete(function()
-		self:_onTransitionEnd()
+		spawn(function()
+			if self._isMounted then
+				self:_onTransitionEnd()
+			end
+		end)
 	end)
 
 	self._stepSignalDisconnector = self.state.position:onStep(function(value)
@@ -109,20 +113,22 @@ function Transitioner:willUnmount()
 	end
 end
 
-function Transitioner:willUpdate(newProps)
+function Transitioner:didUpdate(prevProps)
 	-- React-navigation uses componentWillReceiveProps that is only called when Parent
 	-- re-renders or when this component is actually being given new props, so we need to
 	-- filter here. If not, this would trigger on setState and enter an infinite loop.
-	if newProps ~= self.props then
+	if self.props ~= prevProps then
 		if self._isTransitionRunning then
-			if not self._queuedTransition then
-				self._queuedTransition = { prevProps = self.props }
+			local mostRecentTransition = self._transitionQueue[#self._transitionQueue] or {}
+			-- don't enqueue spurious extra copies of same transition props
+			if mostRecentTransition.prevProps ~= prevProps then
+				table.insert(self._transitionQueue, { prevProps = prevProps })
 			end
 
 			return
 		end
 
-		self:_startTransition(self.props, newProps)
+		self:_startTransition(prevProps, self.props)
 	end
 end
 
@@ -182,20 +188,6 @@ function Transitioner:_computeScenes(props, nextProps)
 		nextScenes = filterStale(nextScenes)
 	end
 
-	-- Update nextScenes whenever screenProps changes
-	-- See react-nav bug here:
-	-- https://github.com/react-navigation/react-navigation/issues/4271
-	-- TODO: Do we have the same problem that requires this?
-	if nextProps.screenProps ~= self.props.screenProps then
-		spawn(function()
-			if self._isMounted then
-				self:setState({
-					nextScenes = nextScenes
-				})
-			end
-		end)
-	end
-
 	if nextScenes == self.state.scenes then
 		return nil
 	end
@@ -230,40 +222,30 @@ function Transitioner:_startTransition(props, nextProps)
 	self._transitionProps = buildTransitionProps(nextProps, nextState)
 	local isTransitioning = self._transitionProps.navigation.state.isTransitioning
 
-	-- If state is not transitioning, then we go immediately to new index.
-	-- TODO: There is some weirdity here. It does not make sense to transition if
-	-- indexHasChanged is false, yet react-nav does it anyway. They have a comment
-	-- asking why, but have not looked into it yet.
-	-- (It seems that this sets the initial card positions via componentWillReceiveProps!)
 	if not isTransitioning or not indexHasChanged then
-		spawn(function()
-			if self._isMounted then
-				self:setState(nextState)
+		-- If state is not transitioning, then we go immediately to new index.
+		-- Likewise, if the index has not changed then we still need to set up initial
+		-- positions via setState.
+		self:setState(nextState)
 
-				if nextProps.onTransitionStart then
-					nextProps.onTransitionStart(self._transitionProps, self._prevTransitionProps)
-				end
+		if nextProps.onTransitionStart then
+			nextProps.onTransitionStart(self._transitionProps, self._prevTransitionProps)
+		end
 
-				if indexHasChanged then
-					position:setGoal(Otter.instant(toValue))
-					-- motor will call end for us
-				else
-					-- motor not running, need to end manually
-					self:_onTransitionEnd()
-				end
-			end
-		end)
+		if indexHasChanged then
+			position:setGoal(Otter.instant(toValue))
+			-- motor will call end for us
+		else
+			-- motor not running, need to end manually
+			self:_onTransitionEnd()
+		end
 	elseif isTransitioning then
 		self._isTransitionRunning = true
-		spawn(function()
-			if self._isMounted then
-				self:setState(nextState)
+		self:setState(nextState)
 
-				if nextProps.onTransitionStart then
-					nextProps.onTransitionStart(self._transitionProps, self._prevTransitionProps)
-				end
-			end
-		end)
+		if nextProps.onTransitionStart then
+			nextProps.onTransitionStart(self._transitionProps, self._prevTransitionProps)
+		end
 
 		-- get transition spec
 		local transitionUserSpec = {}
@@ -286,10 +268,6 @@ function Transitioner:_startTransition(props, nextProps)
 end
 
 function Transitioner:_onTransitionEnd()
-	if not self._isMounted then
-		return
-	end
-
 	local prevTransitionProps = self._prevTransitionProps
 	self._prevTransitionProps = nil
 
@@ -301,23 +279,20 @@ function Transitioner:_onTransitionEnd()
 
 	self._transitionProps = buildTransitionProps(self.props, nextState)
 
-	spawn(function()
-		if self._isMounted then
-			self:setState(nextState)
+	self:setState(nextState)
 
-			if self.props.onTransitionEnd then
-				self.props.onTransitionEnd(self._transitionProps, prevTransitionProps)
-			end
+	if self.props.onTransitionEnd then
+		self.props.onTransitionEnd(self._transitionProps, prevTransitionProps)
+	end
 
-			if self._queuedTransition then
-				local prevProps = self._queuedTransition.prevProps
-				self._queuedTransition = nil
-				self:_startTransition(prevProps, self.props)
-			else
-				self._isTransitionRunning = false
-			end
-		end
-	end)
+	local firstQueuedTransition = self._transitionQueue[1]
+	if firstQueuedTransition then
+		local prevProps = firstQueuedTransition.prevProps
+		self._transitionQueue = Cryo.List.removeIndex(self._transitionQueue, 1)
+		self:_startTransition(prevProps, self.props)
+	else
+		self._isTransitionRunning = false
+	end
 end
 
 return Transitioner

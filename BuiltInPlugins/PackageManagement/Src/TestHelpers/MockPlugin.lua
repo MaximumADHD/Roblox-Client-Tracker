@@ -134,4 +134,10 @@ function MockPlugin:CreateDockWidgetPluginGui(title, widgetInfo)
 	return MockDockWidgetPluginGui.new(title, widgetInfo)
 end
 
+function MockPlugin:GetMouse()
+	return {
+		Icon = "PointingHand"
+	}
+end
+
 return MockPlugin
