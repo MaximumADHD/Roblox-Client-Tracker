@@ -3,7 +3,7 @@ local StyleRoot = ValidatorRoot.Parent
 local UIBloxRoot = StyleRoot.Parent
 local t = require(UIBloxRoot.Parent.t)
 
-local Color = require(ValidatorRoot.validateColor)
+local Color = require(ValidatorRoot.validateColorInfo)
 
 local ThemePalette = t.strictInterface({
 	BackgroundDefault = Color,

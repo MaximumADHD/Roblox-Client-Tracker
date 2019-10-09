@@ -10,8 +10,8 @@ local ModalBottomSheetButton = Roact.PureComponent:extend("ModalBottomSheetButto
 local imageSize = Images["buttons/buttonFill"].ImageRectSize
 local imageOffset = Images["buttons/buttonFill"].ImageRectOffset
 
-local xOffset = 8
-local yOffset = 8
+local xOffset = 8 * Images.ImagesResolutionScale
+local yOffset = 8 * Images.ImagesResolutionScale
 local imageCenter = Rect.new(xOffset, yOffset, imageSize.x - xOffset, imageSize.y - yOffset)
 
 -- https://share.goabstract.com/cfe90baa-ab79-4f34-ad1b-3ef389d39da4
@@ -66,23 +66,24 @@ function ModalBottomSheetButton:render()
 	local SliceCenter
 
 	local s100 = imageSize.X
-	local s50 = s100 * 0.5
-	local s33 = s100 * 0.33
+	local s50 = s100 / 2
 
+	-- we are slicing around a 1x1 pixel in the center
 	if hasRoundTop and hasRoundBottom then
 		ImageRectSize = imageSize
 		ImageRectOffset = imageOffset
 		SliceCenter = imageCenter
 	elseif hasRoundTop then
 		ImageRectSize = Vector2.new(s100, s50)
-		SliceCenter = Rect.new(s33, s33, s100-s33, s50)
+		ImageRectOffset = imageOffset
+		SliceCenter = Rect.new(s50-1, s50-1, s50+1, s50)
 	elseif hasRoundBottom then
 		ImageRectSize = Vector2.new(s100, s50)
 		ImageRectOffset = imageOffset + Vector2.new(0, s50)
-		SliceCenter = Rect.new(s33, 0, s100-s33, 0)
+		SliceCenter = Rect.new(s50-1, 0, s50+1, 1)
 	else
-		ImageRectSize = Vector2.new(s33, s33)
-		ImageRectOffset = imageOffset + Vector2.new(s33, s33)
+		ImageRectSize = Vector2.new(1, 1)
+		ImageRectOffset = imageOffset + Vector2.new(s50, s50)
 	end
 
 	local elementHeight = self.props.elementHeight
@@ -100,13 +101,13 @@ function ModalBottomSheetButton:render()
 		local transparency = theme.BackgroundUIDefault.Transparency
 		local textColor = theme.TextEmphasis.Color
 
-		return Roact.createElement(ImageSetComponent.Button, {
+		return Roact.createElement("ImageButton", {
 			AutoButtonColor = false,
 			BackgroundTransparency = 1,
 			BorderSizePixel = 0,
 			ScaleType = Enum.ScaleType.Slice,
 			SliceCenter = SliceCenter,
-			Image = Images["buttons/buttonFill"],
+			Image = Images["buttons/buttonFill"].Image,
 			ImageColor3 = theme.BackgroundUIDefault.Color,
 			ImageRectSize = ImageRectSize,
 			ImageRectOffset = ImageRectOffset,

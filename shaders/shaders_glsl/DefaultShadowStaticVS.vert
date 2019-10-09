@@ -15,7 +15,6 @@ struct Globals
     vec4 FogParams;
     vec4 FogColor_GlobalForceFieldTime;
     vec3 Exposure;
-    vec4 LightBorder;
     vec4 LightConfig0;
     vec4 LightConfig1;
     vec4 LightConfig2;
@@ -39,7 +38,7 @@ struct Globals
     float debugFlagsShadows;
 };
 
-uniform vec4 CB0[32];
+uniform vec4 CB0[31];
 attribute vec4 POSITION;
 varying vec3 VARYING0;
 
@@ -47,6 +46,6 @@ void main()
 {
     vec4 v0 = vec4(POSITION.xyz, 1.0);
     gl_Position = v0 * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
-    VARYING0 = vec3(dot(CB0[21], v0), dot(CB0[22], v0), dot(CB0[23], v0));
+    VARYING0 = vec3(dot(CB0[20], v0), dot(CB0[21], v0), dot(CB0[22], v0));
 }
 

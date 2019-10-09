@@ -5,6 +5,6 @@ source = "git+https://github.rbx.com/roblox/roact-navigation#v0.1.1"
 commit = "534a60f1cab401d6fb184d05f5ea27445c2e1e92"
 dependencies = [
     "Cryo Cryo ce743f67 git+https://github.com/roblox/cryo#roblox",
-    "Otter Otter 36b45b97 git+https://github.com/roblox/otter#master",
-    "Roact Roact1xMigration b815aedf git+https://github.rbx.com/pdoyle/roact-1x-migration#master",
+    "Otter roblox/otter acc8b912 git+https://github.com/roblox/otter#master",
+    "Roact Roact1xMigration 9f19eb8d git+https://github.rbx.com/pdoyle/roact-1x-migration#master",
 ]

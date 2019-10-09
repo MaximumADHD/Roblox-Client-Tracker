@@ -18,7 +18,7 @@ return function()
 
 			local instance = Roact.mount(element)
 
-			Roact.reconcile(instance, Roact.createElement(component, {
+			Roact.update(instance, Roact.createElement(component, {
 				animatedValues = {
 					positionY = 200,
 				},
@@ -46,7 +46,7 @@ return function()
 
 			local instance = Roact.mount(element)
 
-			Roact.reconcile(instance, Roact.createElement(SpringAnimatedItem.AnimatedUIScale, {
+			Roact.update(instance, Roact.createElement(SpringAnimatedItem.AnimatedUIScale, {
 				animatedValues = {
 					Scale = 1,
 				},

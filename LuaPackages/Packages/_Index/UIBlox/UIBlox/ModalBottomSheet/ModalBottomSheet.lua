@@ -30,11 +30,15 @@ local validateProps = t.strictInterface({
 
 	showImages = t.optional(t.boolean),
 	bottomGap = t.optional(t.number),
+	sheetContentXSize = t.optional(t.UDim),
+	sheetContentXPosition = t.optional(t.UDim),
 })
 
 ModalBottomSheet.defaultProps = {
 	bottomGap = 0,
 	showImages = true,
+	sheetContentXSize = UDim.new(1, 0),
+	sheetContentXPosition = UDim.new(0, 0),
 }
 
 function ModalBottomSheet:init()
@@ -45,6 +49,9 @@ end
 
 function ModalBottomSheet:render()
 	assert(validateProps(self.props))
+	local sheetContentXPosition = self.props.sheetContentXPosition
+	local sheetContentXSize = self.props.sheetContentXSize
+
 	self.sheetHeight = #self.props.buttonModels * ELEMENT_HEIGHT
 	if #self.props.buttonModels >= MAXIMUM_SHEET_ELEMENTS then
 		self.sheetHeight = MAXIMUM_SHEET_HEIGHT
@@ -96,10 +103,14 @@ function ModalBottomSheet:render()
 			}),
 			SheetContent = Roact.createElement("ScrollingFrame", {
 				BackgroundTransparency = 1,
-				Size = UDim2.new(1, 0, 0, self.sheetHeight),
-				Position = UDim2.new(0, 0, 1, 0),
+				Size = UDim2.new(sheetContentXSize.Scale, sheetContentXSize.Offset, 0, self.sheetHeight),
+				Position = UDim2.new(sheetContentXPosition.Scale, sheetContentXPosition.Offset, 1, 0),
 				ScrollBarThickness = 0,
-				CanvasSize = UDim2.new(1, 0, 0, #self.props.buttonModels * ELEMENT_HEIGHT),
+				CanvasSize = UDim2.new(
+					sheetContentXSize.Scale,
+					sheetContentXSize.Offset,
+					0,
+					#self.props.buttonModels * ELEMENT_HEIGHT),
 				ClipsDescendants = true,
 				[Roact.Ref] = self.ref,
 			}, children),
@@ -108,9 +119,14 @@ function ModalBottomSheet:render()
 end
 
 function ModalBottomSheet:didMount()
+	local sheetContentXPosition = self.props.sheetContentXPosition
 	self.motor:onStep(function(value)
 		if self.ref.current then
-			self.ref.current.Position = UDim2.new(0, 0, 1, -(self.sheetHeight + self.props.bottomGap) * value)
+			self.ref.current.Position = UDim2.new(
+				sheetContentXPosition.Scale,
+				sheetContentXPosition.Offset,
+				1,
+				-(self.sheetHeight + self.props.bottomGap) * value)
 		end
 	end)
 	self.motor:setGoal(Otter.spring(1, MOTOR_OPTIONS))

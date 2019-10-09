@@ -128,6 +128,7 @@ local function displayContents(props, localization)
 					MaxItems = 4,
 					TextSize = Constants.TEXT_SIZE,
 					SelectedItem = genre,
+					ShowRibbon = not theme.isDarkerTheme,
 					OnItemClicked = function(item) genreChanged(item.Key) end,
 					ListWidth = 210,
 				})

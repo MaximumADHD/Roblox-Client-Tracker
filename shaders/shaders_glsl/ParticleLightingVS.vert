@@ -15,7 +15,6 @@ struct Globals
     vec4 FogParams;
     vec4 FogColor_GlobalForceFieldTime;
     vec3 Exposure;
-    vec4 LightBorder;
     vec4 LightConfig0;
     vec4 LightConfig1;
     vec4 LightConfig2;
@@ -46,7 +45,7 @@ struct EmitterParams
     vec4 AtlasParams;
 };
 
-uniform vec4 CB0[32];
+uniform vec4 CB0[31];
 uniform vec4 CB1[3];
 attribute vec4 POSITION;
 attribute vec4 TEXCOORD0;
@@ -75,6 +74,6 @@ void main()
     v12.w = v5 * v10;
     vec3 v13 = (POSITION.xyz + (CB0[4].xyz * dot(v1, v12.xy))) + (CB0[5].xyz * dot(v1, v12.zw));
     gl_Position = vec4((v0.x * 2.0) - 1.0, 1.0 - (v0.y * 2.0), 0.0, 1.0);
-    VARYING0 = ((v13 + (normalize(CB0[7].xyz - v13) * 6.0)).yxz * CB0[17].xyz) + CB0[18].xyz;
+    VARYING0 = ((v13 + (normalize(CB0[7].xyz - v13) * 6.0)).yxz * CB0[16].xyz) + CB0[17].xyz;
 }
 

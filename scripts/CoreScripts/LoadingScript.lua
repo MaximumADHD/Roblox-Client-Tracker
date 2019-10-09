@@ -15,6 +15,7 @@ local ReplicatedFirst = game:GetService("ReplicatedFirst")
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local create = require(RobloxGui:WaitForChild("Modules"):WaitForChild("Common"):WaitForChild("Create"))
+local PolicyService = require(RobloxGui.Modules.Common:WaitForChild("PolicyService"))
 
 --FFlags
 local FFlagLoadTheLoadingScreenFasterSuccess, FFlagLoadTheLoadingScreenFasterValue = pcall(function() return settings():GetFFlag("LoadTheLoadingScreenFaster") end)
@@ -23,8 +24,14 @@ local FFlagLoadTheLoadingScreenFaster = FFlagLoadTheLoadingScreenFasterSuccess a
 local FFlagShowConnectionErrorCode = settings():GetFFlag("ShowConnectionErrorCode")
 local FFlagConnectionScriptEnabled = settings():GetFFlag("ConnectionScriptEnabled")
 
-local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp")
+local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp") --todo: remove with FFlagUsePolicyServiceForCoreScripts
 local antiAddictionNoticeStringEn = "Boycott bad games, refuse pirated games. Be aware of self-defense and being deceived. Playing games is good for your brain, but too much game play can harm your health. Manage your time well and enjoy a healthy lifestyle."
+
+if PolicyService:IsEnabled() then
+	coroutine.wrap(function() -- this is the first place we call, which can yield so wrap in coroutine
+		PolicyService:InitAsync()
+	end)()
+end
 
 local debugMode = false
 
@@ -237,9 +244,14 @@ local function GenerateGui()
 
     local numberOfTaps = 0
     local lastTapTime = math.huge
-    local doubleTapTimeThreshold = 0.5
+	local doubleTapTimeThreshold = 0.5
+	
+	local showConnectionHealth = not FFlagChinaLicensingApp
+	if PolicyService:IsEnabled() then
+		showConnectionHealth = not PolicyService:IsSubjectToChinaPolicies()
+	end
 
-    loadingImageInputBeganConn = not FFlagChinaLicensingApp and loadingImage.InputBegan:connect(function()
+    loadingImageInputBeganConn = showConnectionHealth and loadingImage.InputBegan:connect(function()
         if numberOfTaps == 0 then
             numberOfTaps = 1
             lastTapTime = tick()
@@ -596,9 +608,14 @@ renderSteppedConnection = RunService.RenderStepped:connect(function(dt)
 			placeLabel.Text = InfoProvider:GetGameName()
 		end
 
+		local showAntiAddictionNoticeStringEn = FFlagChinaLicensingApp
+		if PolicyService:IsEnabled() then
+			showAntiAddictionNoticeStringEn = PolicyService:IsSubjectToChinaPolicies()
+		end
+
 		-- set creator name
 		if creatorLabel and creatorLabel.Text == "" then
-			if FFlagChinaLicensingApp then
+			if showAntiAddictionNoticeStringEn then
 				creatorLabel.Text = antiAddictionNoticeStringEn
 			else
 				local creatorName = InfoProvider:GetCreatorName()

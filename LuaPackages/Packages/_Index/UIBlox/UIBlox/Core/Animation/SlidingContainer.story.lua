@@ -9,7 +9,7 @@ local SlidingContainerComponent = Roact.PureComponent:extend("SlidingContainerCo
 
 function SlidingContainerComponent:init()
 	self.state = {
-		active = false,
+		show = false,
 	}
 
 	self.buttonRef = Roact.createRef()
@@ -21,7 +21,7 @@ function SlidingContainerComponent:render()
 		BackgroundTransparency = 1,
 	}, {
 		SlidingContainer = Roact.createElement(SlidingContainer, {
-			active = self.state.active,
+			show = self.state.show,
 			slidingDirection = SlidingDirection.Down,
 		}, {
 			Roact.createElement("Frame", {
@@ -35,9 +35,9 @@ function SlidingContainerComponent:render()
 			ZIndex = 2,
 			[Roact.Event.Activated] = function()
 				self:setState({
-					active = not self.state.active,
+					show = not self.state.show,
 				})
-				self.buttonRef.current.Text = self.state.active
+				self.buttonRef.current.Text = self.state.show
 					and "Page slide up" or "Page slide down"
 			end,
 			[Roact.Ref] = self.buttonRef,

@@ -1,4 +1,4 @@
-local ContentProvider = game:GetService("ContentProvider")
+local UGCValidationService = game:GetService("UGCValidationService")
 
 local root = script.Parent.Parent
 
@@ -9,23 +9,16 @@ local function validateMeshTriangles(isAsync, instance)
 	-- check mesh triangles
 	-- this is guaranteed to exist thanks to validateInstanceTree being called beforehand
 	local mesh = instance.Handle:FindFirstChildOfClass("SpecialMesh")
-	if not mesh then
-		return false, { "Could not find mesh" }
-	end
 
 	if mesh.MeshId == "" then
 		return false, { "Mesh must contain valid MeshId" }
 	end
 
-	if mesh.TextureId == "" then
-		return false, { "Mesh must contain valid TextureId" }
-	end
-
 	local success, triangles = pcall(function()
 		if isAsync then
-			return ContentProvider:CalculateNumTrianglesInMesh(mesh.MeshId)
+			return UGCValidationService:GetMeshTriCount(mesh.MeshId)
 		else
-			return ContentProvider:CalculateNumTrianglesInMeshSync(mesh.MeshId)
+			return UGCValidationService:GetMeshTriCountSync(mesh.MeshId)
 		end
 	end)
 

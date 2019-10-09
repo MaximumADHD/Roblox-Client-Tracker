@@ -15,6 +15,7 @@ local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled
 --[[ UTILITIES ]]
 local utility = require(RobloxGui.Modules.Settings.Utility)
 local VRHub = require(RobloxGui.Modules.VR.VRHub)
+local PolicyService = require(RobloxGui.Modules.Common.PolicyService)
 
 --[[ CONSTANTS ]]
 local SETTINGS_SHIELD_COLOR = Color3.new(41/255,41/255,41/255)
@@ -39,12 +40,13 @@ local FFlagLuaInviteNewAnalytics = settings():GetFFlag("LuaInviteNewAnalytics")
 local FFlagXboxEnableABTests = settings():GetFFlag("XboxEnableABTests")
 local FFlagXboxPlayNextGame = settings():GetFFlag("XboxPlayNextGame")
 local FFlagXboxOverrideEnablePlayNextGame = settings():GetFFlag("XboxOverrideEnablePlayNextGame")
-local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp")
+local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp") --todo: remove with FFlagUsePolicyServiceForCoreScripts
 local FStringPlayNextGameTestName = settings():GetFVariable("PlayNextGameTestName")
 
 local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList")
 
 local FFlagLocalizeVersionLabels = settings():GetFFlag("LocalizeVersionLabels")
+
 
 --[[ SERVICES ]]
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
@@ -86,8 +88,13 @@ local connectedServerVersion = nil
 local ShareGameDirectory = CoreGui.RobloxGui.Modules.Settings.Pages.ShareGame
 local InviteToGameAnalytics = require(ShareGameDirectory.Analytics.InviteToGameAnalytics)
 
+local shouldLocalize = FFlagChinaLicensingApp
+if PolicyService:IsEnabled() then
+	shouldLocalize = PolicyService:IsSubjectToChinaPolicies()
+end
+
 --[[ Localization Fixes for Version Labels]]
-local shouldTryLocalizeVersionLabels = FFlagLocalizeVersionLabels or FFlagChinaLicensingApp
+local shouldTryLocalizeVersionLabels = FFlagLocalizeVersionLabels or shouldLocalize
 local RobloxTranslator = nil
 if shouldTryLocalizeVersionLabels then
 	RobloxTranslator = require(RobloxGui.Modules:WaitForChild("RobloxTranslator"))
@@ -512,9 +519,14 @@ local function CreateSettingsHub()
             end
             game:GetPropertyChangedSignal("PlaceVersion"):Connect(setPlaceVersionText)
             spawn(setPlaceVersionText)
-        end
+		end
+		
+		local shouldShowEnvLabel = not FFlagChinaLicensingApp
+		if PolicyService:IsEnabled() then
+			shouldShowEnvLabel = not PolicyService:IsSubjectToChinaPolicies()
+		end
 
-        if not FFlagChinaLicensingApp then
+        if shouldShowEnvLabel then
 	        this.EnvironmentLabel = utility:Create("TextLabel") {
 	            Name = "EnvironmentLabel",
 	            Parent = this.VersionContainer,
@@ -1577,7 +1589,12 @@ local function CreateSettingsHub()
 	this.GameSettingsPage = require(RobloxGui.Modules.Settings.Pages.GameSettings)
 	this.GameSettingsPage:SetHub(this)
 
-	if not FFlagChinaLicensingApp then
+	local shouldShowReport = not FFlagChinaLicensingApp
+	if PolicyService:IsEnabled() then
+		shouldShowReport = not PolicyService:IsSubjectToChinaPolicies()
+	end
+
+	if shouldShowReport then
 		this.ReportAbusePage = require(RobloxGui.Modules.Settings.Pages.ReportAbuseMenu)
 		this.ReportAbusePage:SetHub(this)
 	end
@@ -1585,7 +1602,12 @@ local function CreateSettingsHub()
 	this.HelpPage = require(RobloxGui.Modules.Settings.Pages.Help)
 	this.HelpPage:SetHub(this)
 
-	if platform == Enum.Platform.Windows and not FFlagChinaLicensingApp then
+	local shouldShowRecord = not FFlagChinaLicensingApp
+	if PolicyService:IsEnabled() then
+		shouldShowRecord = not PolicyService:IsSubjectToChinaPolicies()
+	end
+
+	if platform == Enum.Platform.Windows and shouldShowRecord then
 		this.RecordPage = require(RobloxGui.Modules.Settings.Pages.Record)
 		this.RecordPage:SetHub(this)
 	end
@@ -1653,7 +1675,12 @@ local function CreateSettingsHub()
 		end
 	end)
 
-	if not FFlagChinaLicensingApp then
+	local shouldShowDevConsole = not FFlagChinaLicensingApp
+	if PolicyService:IsEnabled() then
+		shouldShowDevConsole = not PolicyService:IsSubjectToChinaPolicies()
+	end
+
+	if shouldShowDevConsole then
 		-- Dev Console Connections
 		ContextActionService:BindCoreAction(DEV_CONSOLE_ACTION_NAME,
 			toggleDevConsole,

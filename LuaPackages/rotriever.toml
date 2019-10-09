@@ -5,9 +5,9 @@ license = ""
 version = "0.1.0"
 
 [dependencies]
-Roact = { git = "https://github.rbx.com/pdoyle/roact-1x-migration" }
+Roact = { git = "https://github.com/roblox/roact", rev = "master" }
 Rodux = { git = "https://github.com/Roblox/rodux", rev = "master" }
-RoactRodux = { git = "https://github.rbx.com/pdoyle/roact-rodux-1x-migration" }
+RoactRodux = { git = "https://github.com/roblox/roact-rodux", rev = "transitioning-roblox-roact-1x" }
 Cryo = { git = "https://github.com/Roblox/cryo", rev = "roblox" }
 LuaChatDeps = { git = "https://github.rbx.com/Roblox/lua-chat-deps" }
 LuaDiscussionsDeps = { git = "https://github.rbx.com/Roblox/lua-discussions-deps" }

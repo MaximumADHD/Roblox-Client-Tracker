@@ -13,4 +13,10 @@ return Rodux.createReducer(initial, {
 			screen = action.screen
 		})
 	end,
+
+	ResetInfo = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			screen = action.screen
+		})
+	end,
 })

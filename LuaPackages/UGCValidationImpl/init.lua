@@ -1,11 +1,18 @@
-local root = script
+game:DefineFastFlag("UGCValidateTags", false)
+game:DefineFastFlag("UGCValidateMeshBounds", false)
+game:DefineFastFlag("UGCValidateTextureSize", false)
+game:DefineFastFlag("UGCValidateHandleSize", false)
 
-local Constants = require(root.Constants)
+local root = script
 
 local validateInstanceTree = require(root.validation.validateInstanceTree)
 local validateMeshTriangles = require(root.validation.validateMeshTriangles)
 local validateModeration = require(root.validation.validateModeration)
 local validateMaterials = require(root.validation.validateMaterials)
+local validateTags = require(root.validation.validateTags)
+local validateMeshBounds = require(root.validation.validateMeshBounds)
+local validateTextureSize = require(root.validation.validateTextureSize)
+local validateHandleSize = require(root.validation.validateHandleSize)
 
 local function validateInternal(isAsync, instances, assetTypeEnum, noModeration)
 	-- validate that only one instance was selected
@@ -19,7 +26,7 @@ local function validateInternal(isAsync, instances, assetTypeEnum, noModeration)
 
 	local success, reasons
 
-	success, reasons = validateInstanceTree(instance, Constants.SCHEMA_MAP[assetTypeEnum])
+	success, reasons = validateInstanceTree(instance, assetTypeEnum)
 	if not success then
 		return false, reasons
 	end
@@ -27,6 +34,34 @@ local function validateInternal(isAsync, instances, assetTypeEnum, noModeration)
 	success, reasons = validateMaterials(instance)
 	if not success then
 		return false, reasons
+	end
+
+	if game:GetFastFlag("UGCValidateTags") then
+		success, reasons = validateTags(instance)
+		if not success then
+			return false, reasons
+		end
+	end
+
+	if game:GetFastFlag("UGCValidateMeshBounds") then
+		success, reasons = validateMeshBounds(isAsync, instance, assetTypeEnum)
+		if not success then
+			return false, reasons
+		end
+	end
+
+	if game:GetFastFlag("UGCValidateTextureSize") then
+		success, reasons = validateTextureSize(isAsync, instance)
+		if not success then
+			return false, reasons
+		end
+	end
+
+	if game:GetFastFlag("UGCValidateHandleSize") then
+		success, reasons = validateHandleSize(isAsync, instance)
+		if not success then
+			return false, reasons
+		end
 	end
 
 	success, reasons = validateMeshTriangles(isAsync, instance)

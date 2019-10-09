@@ -22,7 +22,7 @@ local ScreenSelect = require(Plugin.Src.Components.ScreenSelect)
 -- data
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 local MainMiddleware = require(Plugin.Src.Middleware.MainMiddleware)
-local ResetStore = require(Plugin.Src.Thunks.ResetStore)
+local ResetInfo = require(Plugin.Src.Actions.ResetInfo)
 
 -- theme
 local PluginTheme = require(Plugin.Src.Resources.PluginTheme)
@@ -46,10 +46,18 @@ local localization = Localization.new({
 local pluginHandle
 local pluginGui
 
+local function closePlugin()
+	if pluginHandle then
+		Roact.unmount(pluginHandle)
+		pluginHandle = nil
+	end
+	pluginGui.Enabled = false
+end
+
 local function makePluginGui()
 	pluginGui = plugin:CreateQWidgetPluginGui(plugin.Name, {
-		Size = Vector2.new(960, 700),
-		MinSize = Vector2.new(960, 700),
+		Size = Vector2.new(960, 650),
+		MinSize = Vector2.new(960, 650),
 		Resizable = false,
 		Modal = true,
 		InitialEnabled = false,
@@ -58,23 +66,9 @@ local function makePluginGui()
 	pluginGui.Title = plugin.Name
 	pluginGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
-	pluginGui:GetPropertyChangedSignal("Enabled"):connect(function()
-		-- Handle if user clicked the X button to close the window
-		if not pluginGui.Enabled then
-			if pluginHandle then
-				Roact.unmount(pluginHandle)
-				pluginHandle = nil
-			end
-		end
+	pluginGui:BindToClose(function()
+		closePlugin()
 	end)
-end
-
-local function closePlugin()
-	if pluginHandle then
-		Roact.unmount(pluginHandle)
-		pluginHandle = nil
-	end
-	pluginGui.Enabled = false
 end
 
 --Initializes and populates the plugin popup window
@@ -96,7 +90,7 @@ local function openPluginWindow()
 		})
 	})
 
-	dataStore:dispatch(ResetStore())
+	dataStore:dispatch(ResetInfo())
 	pluginHandle = Roact.mount(servicesProvider, pluginGui)
 	pluginGui.Enabled = true
 end

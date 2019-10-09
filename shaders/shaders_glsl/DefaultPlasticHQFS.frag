@@ -15,7 +15,6 @@ struct Globals
     vec4 FogParams;
     vec4 FogColor_GlobalForceFieldTime;
     vec3 Exposure;
-    vec4 LightBorder;
     vec4 LightConfig0;
     vec4 LightConfig1;
     vec4 LightConfig2;
@@ -63,7 +62,7 @@ struct MaterialParams
     float isNonSmoothPlastic;
 };
 
-uniform vec4 CB0[32];
+uniform vec4 CB0[31];
 uniform vec4 CB2[5];
 uniform sampler2D ShadowMapTexture;
 uniform sampler3D LightMapTexture;
@@ -87,7 +86,7 @@ void main()
 {
     vec2 f0 = VARYING1.xy;
     f0.y = (fract(VARYING1.y) + VARYING8) * 0.25;
-    float f1 = VARYING4.w * CB0[24].y;
+    float f1 = VARYING4.w * CB0[23].y;
     vec2 f2 = texture2D(NormalMapTexture, f0).wy * 2.0;
     vec2 f3 = f2 - vec2(1.0);
     float f4 = sqrt(clamp(1.0 + dot(vec2(1.0) - f2, f3), 0.0, 1.0));
@@ -96,20 +95,20 @@ void main()
     vec3 f7 = -CB0[11].xyz;
     float f8 = dot(f6, f7);
     vec3 f9 = vec4(VARYING2.xyz * (texture2D(DiffuseMapTexture, f0).x * 2.0), VARYING2.w).xyz;
-    float f10 = clamp(dot(step(CB0[20].xyz, abs(VARYING3.xyz - CB0[19].xyz)), vec3(1.0)), 0.0, 1.0);
+    float f10 = clamp(dot(step(CB0[19].xyz, abs(VARYING3.xyz - CB0[18].xyz)), vec3(1.0)), 0.0, 1.0);
     vec3 f11 = VARYING3.yzx - (VARYING3.yzx * f10);
     vec4 f12 = vec4(clamp(f10, 0.0, 1.0));
     vec4 f13 = mix(texture3D(LightMapTexture, f11), vec4(0.0), f12);
     vec4 f14 = mix(texture3D(LightGridSkylightTexture, f11), vec4(1.0), f12);
     vec4 f15 = texture2D(ShadowMapTexture, VARYING7.xy);
-    float f16 = (1.0 - ((step(f15.x, VARYING7.z) * clamp(CB0[25].z + (CB0[25].w * abs(VARYING7.z - 0.5)), 0.0, 1.0)) * f15.y)) * f14.y;
+    float f16 = (1.0 - ((step(f15.x, VARYING7.z) * clamp(CB0[24].z + (CB0[24].w * abs(VARYING7.z - 0.5)), 0.0, 1.0)) * f15.y)) * f14.y;
     vec3 f17 = textureCube(EnvironmentMapTexture, reflect(-VARYING4.xyz, f6)).xyz;
-    vec3 f18 = ((min(((f13.xyz * (f13.w * 120.0)).xyz + CB0[8].xyz) + (CB0[9].xyz * f14.x), vec3(CB0[17].w)) + (((CB0[10].xyz * clamp(f8, 0.0, 1.0)) + (CB0[12].xyz * max(-f8, 0.0))) * f16)) * mix((f9 * f9).xyz, (f17 * f17) * CB0[15].x, vec3(VARYING7.w)).xyz) + (CB0[10].xyz * (((step(0.0, f8) * CB2[0].y) * f16) * pow(clamp(dot(f6, normalize(f7 + normalize(VARYING4.xyz))), 0.0, 1.0), CB2[0].z)));
+    vec3 f18 = ((min(((f13.xyz * (f13.w * 120.0)).xyz + CB0[8].xyz) + (CB0[9].xyz * f14.x), vec3(CB0[16].w)) + (((CB0[10].xyz * clamp(f8, 0.0, 1.0)) + (CB0[12].xyz * max(-f8, 0.0))) * f16)) * mix((f9 * f9).xyz, (f17 * f17) * CB0[15].x, vec3(VARYING7.w)).xyz) + (CB0[10].xyz * (((step(0.0, f8) * CB2[0].y) * f16) * pow(clamp(dot(f6, normalize(f7 + normalize(VARYING4.xyz))), 0.0, 1.0), CB2[0].z)));
     vec4 f19 = vec4(f18.x, f18.y, f18.z, vec4(0.0).w);
     f19.w = VARYING2.w;
     vec2 f20 = min(VARYING0.wz, VARYING1.wz);
     float f21 = min(f20.x, f20.y) / f1;
-    vec3 f22 = mix(CB0[14].xyz, (sqrt(clamp((f19.xyz * clamp((clamp((f1 * CB0[25].x) + CB0[25].y, 0.0, 1.0) * (1.5 - f21)) + f21, 0.0, 1.0)).xyz * CB0[15].y, vec3(0.0), vec3(1.0))) + vec3((-0.00048828125) + (0.0009765625 * fract(52.98291778564453125 * fract(dot(gl_FragCoord.xy, vec2(0.067110560834407806396484375, 0.005837149918079376220703125))))))).xyz, vec3(clamp((CB0[13].x * length(VARYING4.xyz)) + CB0[13].y, 0.0, 1.0)));
+    vec3 f22 = mix(CB0[14].xyz, (sqrt(clamp((f19.xyz * clamp((clamp((f1 * CB0[24].x) + CB0[24].y, 0.0, 1.0) * (1.5 - f21)) + f21, 0.0, 1.0)).xyz * CB0[15].y, vec3(0.0), vec3(1.0))) + vec3((-0.00048828125) + (0.0009765625 * fract(52.98291778564453125 * fract(dot(gl_FragCoord.xy, vec2(0.067110560834407806396484375, 0.005837149918079376220703125))))))).xyz, vec3(clamp((CB0[13].x * length(VARYING4.xyz)) + CB0[13].y, 0.0, 1.0)));
     gl_FragData[0] = vec4(f22.x, f22.y, f22.z, f19.w);
 }
 

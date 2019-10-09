@@ -15,7 +15,6 @@ struct Globals
     vec4 FogParams;
     vec4 FogColor_GlobalForceFieldTime;
     vec3 Exposure;
-    vec4 LightBorder;
     vec4 LightConfig0;
     vec4 LightConfig1;
     vec4 LightConfig2;
@@ -63,7 +62,7 @@ struct MaterialParams
     float isNonSmoothPlastic;
 };
 
-uniform vec4 CB0[32];
+uniform vec4 CB0[31];
 uniform vec4 CB2[5];
 uniform sampler2D ShadowMapTexture;
 uniform sampler3D LightMapTexture;
@@ -92,7 +91,7 @@ void main()
 {
     vec2 f0 = VARYING1.xy;
     f0.y = (fract(VARYING1.y) + VARYING8) * 0.25;
-    float f1 = clamp(1.0 - (VARYING4.w * CB0[24].y), 0.0, 1.0);
+    float f1 = clamp(1.0 - (VARYING4.w * CB0[23].y), 0.0, 1.0);
     vec2 f2 = VARYING0.xy * CB2[0].x;
     vec4 f3 = texture(DiffuseMapTexture, f2);
     vec2 f4 = texture(NormalMapTexture, f2).wy * 2.0;
@@ -109,7 +108,7 @@ void main()
     vec3 f15 = normalize(((VARYING6.xyz * f8) + (cross(VARYING5.xyz, VARYING6.xyz) * f7.y)) + (VARYING5.xyz * (f6 * 10.0)));
     vec3 f16 = -CB0[11].xyz;
     float f17 = dot(f15, f16);
-    float f18 = clamp(dot(step(CB0[20].xyz, abs(VARYING3.xyz - CB0[19].xyz)), vec3(1.0)), 0.0, 1.0);
+    float f18 = clamp(dot(step(CB0[19].xyz, abs(VARYING3.xyz - CB0[18].xyz)), vec3(1.0)), 0.0, 1.0);
     vec3 f19 = VARYING3.yzx - (VARYING3.yzx * f18);
     vec4 f20 = vec4(clamp(f18, 0.0, 1.0));
     vec4 f21 = mix(texture(LightMapTexture, f19), vec4(0.0), f20);
@@ -117,7 +116,7 @@ void main()
     vec3 f23 = (f21.xyz * (f21.w * 120.0)).xyz;
     float f24 = f22.x;
     vec4 f25 = texture(ShadowMapTexture, VARYING7.xy);
-    float f26 = (1.0 - ((step(f25.x, VARYING7.z) * clamp(CB0[25].z + (CB0[25].w * abs(VARYING7.z - 0.5)), 0.0, 1.0)) * f25.y)) * f22.y;
+    float f26 = (1.0 - ((step(f25.x, VARYING7.z) * clamp(CB0[24].z + (CB0[24].w * abs(VARYING7.z - 0.5)), 0.0, 1.0)) * f25.y)) * f22.y;
     vec3 f27 = f10 * f10;
     vec3 f28 = normalize(VARYING4.xyz);
     vec3 f29 = texture(EnvironmentMapTexture, reflect(-VARYING4.xyz, f15)).xyz;
@@ -134,14 +133,14 @@ void main()
     vec2 f40 = ((f36.xy * 0.5) + vec2(0.5 * f39)).xy / vec2(f39);
     vec2 f41 = f40 - vec2(0.5);
     vec2 f42 = (f40 - f38) * clamp(vec2(1.0) - ((f41 * f41) * 4.0), vec2(0.0), vec2(1.0));
-    vec2 f43 = normalize(f42) * CB0[24].x;
+    vec2 f43 = normalize(f42) * CB0[23].x;
     vec4 f44 = texture(GBufferColorTexture, f38 + (f42 * clamp(min(texture(GBufferDepthTexture, f40 + f43).x * 500.0, texture(GBufferDepthTexture, f40 - f43).x * 500.0) - f37, 0.0, 1.0)));
     vec3 f45 = f44.xyz;
     vec3 f46 = ((f45 * f45) * CB0[15].x).xyz;
     vec3 f47 = f46 * mix(vec3(1.0), VARYING2.xyz, vec3(f14));
     vec4 f48 = vec4(f47.x, f47.y, f47.z, vec4(0.0).w);
     f48.w = mix(1.0, f44.w, dot(f47.xyz, vec3(1.0)) / (dot(f46, vec3(1.0)) + 0.00999999977648258209228515625));
-    vec4 f49 = mix(mix(f48, vec4(mix((min((f23 + CB0[8].xyz) + (CB0[9].xyz * f24), vec3(CB0[17].w)) + (((CB0[10].xyz * clamp(f17, 0.0, 1.0)) + (CB0[12].xyz * max(-f17, 0.0))) * f26)) * f27, f30, vec3(mix((f11.y * f1) * CB2[0].w, 1.0, VARYING7.w))), 1.0), vec4(clamp((f13 - 1.0) + f9, 0.0, 1.0))), vec4(f30, 1.0), vec4(((f31 * f31) * 0.800000011920928955078125) * f14)) + vec4(CB0[10].xyz * ((((step(0.0, f17) * mix(f12.x, CB2[0].y, VARYING7.w)) * f26) * pow(clamp(dot(f15, normalize(f16 + f28)), 0.0, 1.0), mix(f12.y, CB2[0].z, VARYING7.w))) * f14), 0.0);
+    vec4 f49 = mix(mix(f48, vec4(mix((min((f23 + CB0[8].xyz) + (CB0[9].xyz * f24), vec3(CB0[16].w)) + (((CB0[10].xyz * clamp(f17, 0.0, 1.0)) + (CB0[12].xyz * max(-f17, 0.0))) * f26)) * f27, f30, vec3(mix((f11.y * f1) * CB2[0].w, 1.0, VARYING7.w))), 1.0), vec4(clamp((f13 - 1.0) + f9, 0.0, 1.0))), vec4(f30, 1.0), vec4(((f31 * f31) * 0.800000011920928955078125) * f14)) + vec4(CB0[10].xyz * ((((step(0.0, f17) * mix(f12.x, CB2[0].y, VARYING7.w)) * f26) * pow(clamp(dot(f15, normalize(f16 + f28)), 0.0, 1.0), mix(f12.y, CB2[0].z, VARYING7.w))) * f14), 0.0);
     vec3 f50 = sqrt(clamp(f49.xyz * CB0[15].y, vec3(0.0), vec3(1.0)));
     _entryPointOutput = mix(vec4(CB0[14].xyz, 1.0), vec4(f50.x, f50.y, f50.z, f49.w), vec4(clamp((CB0[13].x * length(VARYING4.xyz)) + CB0[13].y, 0.0, 1.0)));
 }

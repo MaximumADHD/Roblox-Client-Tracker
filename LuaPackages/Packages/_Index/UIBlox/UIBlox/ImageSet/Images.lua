@@ -4,9 +4,11 @@ local GetImageSetData = require(script.Parent.GetImageSetData)
 local GuiService = game:GetService("GuiService")
 
 -- fallback spritesheet image to use if CorePackages is unavailable
-local FALLBACK_IMAGE = "http://www.roblox.com/asset/?id=3851213015"
+local FALLBACK_IMAGE = "http://www.roblox.com/asset/?id=3932748076"
 
+local corePackages = script:FindFirstAncestor("CorePackages")
 local success, scale = pcall(GuiService.GetResolutionScale, GuiService)
+
 if not success then
 	scale = 1
 end
@@ -16,7 +18,6 @@ local sourceData = GetImageSetData(scale)
 local function getPackagePath()
 	local packageRoot = script.Parent
 
-	local corePackages = packageRoot:FindFirstAncestor("CorePackages")
 	if corePackages == nil then
 		-- We're not running in CI as a core script, no internal path
 		return nil

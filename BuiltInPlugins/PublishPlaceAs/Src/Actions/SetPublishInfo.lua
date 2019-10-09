@@ -26,7 +26,7 @@ return Action(script.Name, function(publishInfoArg)
 		AssertType.assertType(settings.genre, "string", "settings.genre")
 		AssertType.assertType(settings.playableDevices, "table", "settings.playableDevices")
 		
-		assert(next(settings.playableDevices) ~= nil, string.format(errmsg, "empty platform table"))
+		assert(next(settings.playableDevices) ~= nil, "Empty platform table")
 	end
 
 	return {

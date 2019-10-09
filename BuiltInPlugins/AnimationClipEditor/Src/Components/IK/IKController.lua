@@ -7,6 +7,8 @@
 		UDim2 Position = position of the IK Button frame.
 ]]
 
+local FFlagStudioFixAnimEditorDescendants = game:GetFastFlag("StudioFixAnimEditorDescendants")
+
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Roact = require(Plugin.Roact)
@@ -42,7 +44,7 @@ local IK_BUTTON_HEIGHT = 18
 function IKController:init()
 	self.state = {
 		showMenu = false,
-		showTree = nil,
+		showTree = false,
 	}
 
 	self.showMenu = function()
@@ -58,9 +60,15 @@ function IKController:init()
 	end
 
 	self.setShowTree = function(showTree)
-		self:setState({
-			showTree = showTree or Roact.None,
-		})
+		if FFlagStudioFixAnimEditorDescendants then
+			self:setState({
+				showTree = showTree,
+			})
+		else
+			self:setState({
+				showTree = showTree or Roact.None,
+			})
+		end
 	end
 
 	self.makeChainHelper = function(chain, motorMap, part)

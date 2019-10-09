@@ -72,6 +72,8 @@ end
 
 --- VARIABLES
 
+local FFlagFixGamepadNavigationWithACM = game:DefineFastFlag("FixGamepadNavigationWithACM", false)
+
 local LocalPlayer = PlayersService.LocalPlayer
 while not LocalPlayer do
 	PlayersService.PlayerAdded:wait()
@@ -441,6 +443,12 @@ end
 local function gamepadOpenMenu(actionName, inputState, input)
 	if not isAvatarContextMenuEnabled then
 		return Enum.ContextActionResult.Pass
+	end
+
+	if FFlagFixGamepadNavigationWithACM then
+		if GuiService.SelectedCoreObject or GuiService.SelectedObject then
+			return Enum.ContextActionResult.Pass
+		end
 	end
 
 	if inputState ~= Enum.UserInputState.Begin then

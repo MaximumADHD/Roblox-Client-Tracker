@@ -96,7 +96,7 @@ return function(target)
 			width = target.AbsoluteSize.X,
 		}))
 
-		Roact.reconcile(handle, tree)
+		Roact.update(handle, tree)
 	end)
 
 	return function()

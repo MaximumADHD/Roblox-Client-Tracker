@@ -15,7 +15,6 @@ struct Globals
     vec4 FogParams;
     vec4 FogColor_GlobalForceFieldTime;
     vec3 Exposure;
-    vec4 LightBorder;
     vec4 LightConfig0;
     vec4 LightConfig1;
     vec4 LightConfig2;
@@ -51,7 +50,7 @@ struct Params
     vec4 Bloom;
 };
 
-uniform vec4 CB0[32];
+uniform vec4 CB0[31];
 uniform vec4 CB1[8];
 uniform sampler2D GBufferDepthTexture;
 uniform sampler3D OccupancyTexture;
@@ -68,7 +67,7 @@ void main()
         discard;
     }
     vec3 f2 = vec3((vec2((VARYING0.x * 2.0) - 1.0, 1.0 - (VARYING0.y * 2.0)) * CB1[4].xy) + CB1[4].zw, -1.0) * f1;
-    _entryPointOutput = vec4(texture(OccupancyTexture, (((((CB0[7].xyz + (CB0[4].xyz * f2.x)) + (CB0[5].xyz * f2.y)) + (CB0[6].xyz * f2.z)).yxz * CB0[17].xyz) + CB0[18].xyz).yzx).xyz, 1.0);
+    _entryPointOutput = vec4(texture(OccupancyTexture, (((((CB0[7].xyz + (CB0[4].xyz * f2.x)) + (CB0[5].xyz * f2.y)) + (CB0[6].xyz * f2.z)).yxz * CB0[16].xyz) + CB0[17].xyz).yzx).xyz, 1.0);
 }
 
 //$$GBufferDepthTexture=s0

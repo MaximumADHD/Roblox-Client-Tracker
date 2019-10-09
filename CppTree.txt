@@ -661,7 +661,6 @@ RBX
 	BulletCellContact
 	BulletConnector
 	BulletContact
-	BulletConvexDecomposition
 	BulletConvexDecompositionResult
 	BulletShapeCellConnector
 	BulletShapeCellContact
@@ -1106,6 +1105,7 @@ RBX
 	RevoluteLink
 	RightMotorTool
 	RigidJoint
+	RobloxLogWriter
 	RobloxPluginGuiService
 	RobloxReplicatedStorage
 	Rocket
@@ -1244,6 +1244,7 @@ RBX
 	Tween
 	TweenBase
 	TweenService
+	UGCValidationService
 	UIAspectRatioConstraint
 	UIBase
 	UIComponent

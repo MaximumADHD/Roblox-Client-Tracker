@@ -1,3 +1,9 @@
+local FFlagTerrainToolsUIUpdate = settings():GetFFlag("TerrainToolsUIUpdate")
+
+if FFlagTerrainToolsUIUpdate then
+	return
+end
+
 local mainPanelModule = require(script.Parent.MainPanel)
 local terrainBrushScriptModule = require(script.Parent.TerrainBrush)
 local i18nModule = require(script.Parent.Parent.Libs.Localization)

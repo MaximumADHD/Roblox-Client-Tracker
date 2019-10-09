@@ -54,6 +54,9 @@ local SetShowEvents = require(Plugin.Src.Actions.SetShowEvents)
 local SetEventEditingFrame = require(Plugin.Src.Actions.SetEventEditingFrame)
 local SetTool = require	(Plugin.Src.Actions.SetTool)
 
+local UILibrary = require(Plugin.UILibrary)
+local withLocalization = UILibrary.Localizing.withLocalization
+
 local Undo = require(Plugin.Src.Thunks.History.Undo)
 local Redo = require(Plugin.Src.Thunks.History.Redo)
 
@@ -90,11 +93,11 @@ function TimelineActions:getSharedEasingValue(key)
 end
 
 -- Creates a submenu for selecting an enum item.
-function TimelineActions:makeSelectionSubMenu(enumKey, dataKey)
+function TimelineActions:makeSelectionSubMenu(enumKey, dataKey, displayText)
 	local props = self.props
 
 	return {
-		Name = dataKey,
+		Name = displayText,
 		Items = enumKey == "PoseEasingStyle" and EASING_STYLE_ORDER or Enum[enumKey]:GetEnumItems(),
 		CurrentItem = self:getSharedEasingValue(dataKey),
 		ItemSelected = function(item)
@@ -103,7 +106,7 @@ function TimelineActions:makeSelectionSubMenu(enumKey, dataKey)
 	}
 end
 
-function TimelineActions:makeMenuActions()
+function TimelineActions:makeMenuActions(localization)
 	local props = self.props
 	local selectedKeyframes = props.SelectedKeyframes
 	local summaryKeyframe = props.SummaryKeyframe
@@ -125,8 +128,10 @@ function TimelineActions:makeMenuActions()
 		table.insert(actions, pluginActions.ChangeDuration)
 		-- EasingStyle and EasingDirection customization
 		table.insert(actions, Constants.MENU_SEPARATOR)
-		table.insert(actions, self:makeSelectionSubMenu("PoseEasingStyle", "Easing Style"))
-		table.insert(actions, self:makeSelectionSubMenu("PoseEasingDirection", "Easing Direction"))
+		table.insert(actions, self:makeSelectionSubMenu("PoseEasingStyle", "EasingStyle",
+			localization:getText("ContextMenu", "EasingStyle")))
+		table.insert(actions, self:makeSelectionSubMenu("PoseEasingDirection", "EasingDirection",
+			localization:getText("ContextMenu", "EasingDirection")))
 	else
 		table.insert(actions, pluginActions.AddResetKeyframe)
 	end
@@ -317,10 +322,12 @@ function TimelineActions:render()
 		pluginActions.AddEvent.Enabled = true
 	end
 
-	return showMenu and Roact.createElement(ContextMenu, {
-		Actions = self:makeMenuActions(),
-		OnMenuOpened = props.OnMenuOpened,
-	}) or nil
+	return withLocalization(function(localization)
+		return showMenu and Roact.createElement(ContextMenu, {
+			Actions = self:makeMenuActions(localization),
+			OnMenuOpened = props.OnMenuOpened,
+		}) or nil
+	end)
 end
 
 function TimelineActions:willUnmount()

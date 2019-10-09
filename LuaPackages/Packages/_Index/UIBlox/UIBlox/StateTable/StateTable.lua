@@ -5,6 +5,12 @@ local StateTable = {}
 
 StateTable.__index = StateTable
 
+local function validateStateTableItem(item, qualifier)
+	local type = typeof(item)
+	local isValid = type == "string" or type == "userdata"
+	assert(isValid, string.format("%s '%s' must be a string or userdata but is a %s", qualifier, tostring(item), type))
+end
+
 --[[
 	This class method creates a new StateTable instance that you can use to control complicated
 	logic that is based upon your state machine design. Ex:
@@ -32,7 +38,8 @@ StateTable.__index = StateTable
 	contains a description of the events that can be called while in that state. Calling an event
 	triggers a transition to a new state while also (optionally) running an action functor.
 
-	(All state and event names must be simple strings for ease of debugging.)
+	(All states and events must be simple strings or userdata.)
+	(If using userdata for states and events, implement a tostring metamethod for ease of debugging.)
 
 	Named events in your state table will be converted into functions that you can call directly.
 	Calling these event functions will transition the StateTable to the appropriate nextState and
@@ -65,9 +72,7 @@ function StateTable.new(name, initialState, initialContext, transitionTable)
 	assert(typeof(name) == "string", "name must be a string")
 	assert(#name > 0, "name must not be an empty string")
 
-	assert(typeof(initialState) == "string", "initialState must be a string")
-	assert(#initialState > 0, "initialState must not be an empty string")
-
+	validateStateTableItem(initialState, "initialState")
 	assert(initialContext == nil or typeof(initialContext) == "table", "initialContext must be a table or nil")
 
 	assert(typeof(transitionTable) == "table", "transitionTable must be a table")
@@ -82,46 +87,46 @@ function StateTable.new(name, initialState, initialContext, transitionTable)
 	self.transitionTable = {}
 	self.events = {}
 
-	for stateName, eventTable in pairs(transitionTable) do
-		assert(typeof(stateName) == "string", string.format("state name '%s' must be a string", tostring(stateName)))
-		assert(typeof(eventTable) == "table", string.format("state name '%s' must map to a table", stateName))
+	for state, eventTable in pairs(transitionTable) do
+		validateStateTableItem(state, "state")
+		assert(typeof(eventTable) == "table", string.format("state '%s' must map to a table", tostring(state)))
 
 		local parsedEventTable = {}
-		for eventName, eventData in pairs(eventTable) do
-			assert(typeof(eventName) == "string", string.format("event name '%s' must be a string", tostring(eventName)))
-			assert(typeof(eventData) == "table", string.format("event name '%s' must map to a table", eventName))
+		for event, eventData in pairs(eventTable) do
+			validateStateTableItem(event, "event")
+			assert(typeof(eventData) == "table", string.format("event '%s' must map to a table", tostring(event)))
 
 			local nextState = eventData.nextState
 			local action = eventData.action
 
 			if nextState ~= nil then
-				assert(typeof(nextState) == "string", string.format("nextState '%s' must be a string or nil", tostring(nextState)))
+				validateStateTableItem(nextState, "nextState")
 
 				-- Check that the transition lands on a known state
 				assert(transitionTable[nextState] ~= nil,
-					string.format("nextState '%s' does not exist in transitionTable", nextState))
+					string.format("nextState '%s' does not exist in transitionTable", tostring(nextState)))
 			end
 
 			assert(action == nil or typeof(action) == "function", "action must be a function")
 
-			parsedEventTable[eventName] = eventData
+			parsedEventTable[event] = eventData
 
 			-- Create a function to make it easy to call this event
-			if self.events[eventName] == nil then
-				self.events[eventName] = function(args)
-					return self:handleEvent(eventName, args)
+			if self.events[event] == nil then
+				self.events[event] = function(args)
+					return self:handleEvent(event, args)
 				end
 			end
 		end
 
-		self.transitionTable[stateName] = parsedEventTable
+		self.transitionTable[state] = parsedEventTable
 	end
 
 	-- catch calls to invalid events earlier
 	setmetatable(self.events, {
-		__index = function(_, key)
+		__index = function(_, event)
 			error(string.format("'%s' is not a valid event in StateTable '%s'",
-				tostring(key), self.name), 2)
+				tostring(event), self.name), 2)
 		end
 	})
 
@@ -140,9 +145,8 @@ end
 	StateTable:onStateChange if you need to store the current state or use the
 	results of an action.
 ]]
-function StateTable:handleEvent(eventKey, args)
-	assert(typeof(eventKey) == "string", "eventKey must be a string")
-	assert(#eventKey > 0, "eventKey must not be an empty string")
+function StateTable:handleEvent(event, args)
+	validateStateTableItem(event, "event")
 	assert(args == nil or typeof(args) == "table", "args must be nil or valid table")
 
 	local currentState = self.currentState
@@ -150,8 +154,8 @@ function StateTable:handleEvent(eventKey, args)
 
 	assert(eventMap ~= nil, "no transition events for current state")
 
-	if eventMap[eventKey] ~= nil then
-		local eventData = eventMap[eventKey]
+	if eventMap[event] ~= nil then
+		local eventData = eventMap[event]
 		local nextState = eventData.nextState or currentState
 		local action = eventData.action
 

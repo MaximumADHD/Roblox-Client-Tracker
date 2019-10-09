@@ -1,8 +1,10 @@
-local AnimationiRoot = script.Parent
-local UIBloxRoot = AnimationiRoot.Parent.Parent
-local Roact = require(UIBloxRoot.Parent.Roact)
+local AnimationRoot = script.Parent
+local CoreRoot = AnimationRoot.Parent
+local UIBloxRoot = CoreRoot.Parent
+local Packages = UIBloxRoot.Parent
+local Roact = require(Packages.Roact)
 local t = require(UIBloxRoot.Parent.t)
-local SlidingDirection = require(AnimationiRoot.Enum.SlidingDirection)
+local SlidingDirection = require(AnimationRoot.Enum.SlidingDirection)
 local SpringAnimatedItem = require(UIBloxRoot.Utility.SpringAnimatedItem)
 
 local ANIMATION_SPRING_SETTINGS = {
@@ -31,7 +33,7 @@ local validateProps = t.strictInterface({
 	layoutOrder = t.optional(t.integer),
 	onComplete = t.optional(t.callback),
 	show = t.optional(t.boolean),
-	slidingDirection = t.string,
+	slidingDirection = t.userdata,
 	springOptions = t.optional(t.table),
 	[Roact.Children] = t.optional(t.table),
 })

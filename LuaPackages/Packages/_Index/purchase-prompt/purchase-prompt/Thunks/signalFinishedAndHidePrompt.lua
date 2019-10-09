@@ -6,7 +6,6 @@ local PromptState = require(script.Parent.Parent.PromptState)
 
 local HidePrompt = require(script.Parent.Parent.Actions.HidePrompt)
 
-local FFlagEmoteLoadingEnabled = settings():GetFFlag("EmoteLoadingEnabled")
 local FFlagPerformPurchaseNewBundleInfoTypeEnabled = settings():GetFFlag("PerformPurchaseNewBundleInfoTypeEnabled")
 
 local function signalFinishedAndHidePrompt()
@@ -28,7 +27,7 @@ local function signalFinishedAndHidePrompt()
 				MarketplaceService:SignalPromptBundlePurchaseFinished(Players.LocalPlayer, id, didPurchase)
 			elseif productType == Enum.InfoType.Asset then
 				MarketplaceService:SignalPromptPurchaseFinished(Players.LocalPlayer, id, didPurchase)
-				if FFlagEmoteLoadingEnabled and didPurchase and assetTypeId then
+				if didPurchase and assetTypeId then
 					-- AssetTypeId returned by the platform endpoint might not exist in the AssetType Enum
 					pcall(function() MarketplaceService:SignalAssetTypePurchased(Players.LocalPlayer, assetTypeId) end)
 				end

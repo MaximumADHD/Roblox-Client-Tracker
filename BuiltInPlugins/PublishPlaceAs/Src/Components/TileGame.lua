@@ -12,7 +12,9 @@ local FFlagEnableRbxThumbAPI = settings():GetFFlag("EnableRbxThumbAPI")
 local ContentProvider = game:GetService("ContentProvider")
 
 local ICON_SIZE = 150
-local TILE_FOOTER_SIZE = 40
+local TILE_FOOTER_SIZE = 35
+local NAME_SIZE = 70
+local PADDING = 5
 
 local TileGame = Roact.PureComponent:extend("TileGame")
 
@@ -54,7 +56,10 @@ function TileGame:render()
 			
 			local name = props.Name
 			local layoutOrder = props.LayoutOrder or 0
+			local state = props.State
 			local onActivated = props.OnActivated
+
+			local isThumbnail = self.state.assetFetchStatus == Enum.AssetFetchStatus.Success
 
 			return Roact.createElement("ImageButton", {
 				BackgroundTransparency = 1,
@@ -65,27 +70,44 @@ function TileGame:render()
 			}, {
 				Icon = Roact.createElement("ImageLabel", {
 					Position = UDim2.new(0, 0, 0, 0),
-					Size = UDim2.new(1, 0, 1, -TILE_FOOTER_SIZE),
-					Image = self.state.assetFetchStatus == Enum.AssetFetchStatus.Success and self.thumbnailUrl or theme.icons.thumbnailPlaceHolder,
+					Size = UDim2.new(0, ICON_SIZE, 0, ICON_SIZE),
+					Image = isThumbnail and self.thumbnailUrl or theme.icons.thumbnailPlaceHolder,
+					ImageColor3 = isThumbnail and Color3.new(1, 1, 1) or theme.icons.imageColor,
+					BackgroundColor3 = theme.icons.backgroundColor,
 					BorderSizePixel = 0,
 				}),
 
 				Name = Roact.createElement("TextLabel", {
 					Text = name,
-					Position = UDim2.new(0, 0, 1, -TILE_FOOTER_SIZE),
-					Size = UDim2.new(1, 0, 0, TILE_FOOTER_SIZE),
+					Position = UDim2.new(0, 0, 1, -1.5 * TILE_FOOTER_SIZE + PADDING),
+					Size = UDim2.new(1, 0, 0, NAME_SIZE),
 
 					TextWrapped = true,
-					TextSize = 11,
-					BorderSizePixel = 0,
-					BackgroundColor3 = theme.backgroundColor,
+					TextTruncate = Enum.TextTruncate.AtEnd,
+					TextXAlignment = Enum.TextXAlignment.Left,
+					TextSize = 14,
+					Font = theme.font,
 					TextColor3 = theme.textColor,
+					BackgroundTransparency = 1,
 				}),
 
 				Separator = Roact.createElement(Separator, {
 					Weight = 1,
 					Padding = 10,
-					Position = UDim2.new(0.5, 0, 1, 0),
+					Position = UDim2.new(0.5, 0, 1, PADDING),
+				}),
+
+				State = Roact.createElement("TextLabel", {
+					Text = state,
+					Position = UDim2.new(0, 0, 1, 0),
+					Size = UDim2.new(1, 0, 0, TILE_FOOTER_SIZE),
+
+					TextWrapped = true,
+					TextXAlignment = Enum.TextXAlignment.Right,
+					TextSize = 12,
+					Font = theme.font,
+					TextColor3 = state == "Public" and theme.successText.text or theme.dimmerTextColor,
+					BackgroundTransparency = 1,
 				}),
 			})
 		end)

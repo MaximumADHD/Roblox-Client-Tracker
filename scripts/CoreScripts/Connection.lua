@@ -11,6 +11,7 @@ local HttpService = game:GetService("HttpService")
 local create = require(RobloxGui.Modules.Common.Create)
 local ErrorPrompt = require(RobloxGui.Modules.ErrorPrompt)
 local Url = require(RobloxGui.Modules.Common.Url)
+local PolicyService = require(RobloxGui.Modules.Common.PolicyService)
 
 local LEAVE_GAME_FRAME_WAITS = 2
 
@@ -33,7 +34,8 @@ local reconnectDisabledReason = safeGetFString("ReconnectDisabledReason", "We're
 
 local fflagUseNewErrorStrings = settings():GetFFlag("UseNewErrorStrings")
 local fflagReconnectToStarterPlace = settings():GetFFlag("ReconnectToStarterPlace")
-local fflagChinaLicensingBuild = settings():GetFFlag("ChinaLicensingApp")
+
+local fflagChinaLicensingBuild = settings():GetFFlag("ChinaLicensingApp") --todo: remove with UsePolicyServiceForCoreScripts
 
 local fflagPhoneHomeSooner = game:DefineFastFlag("PhoneHomeSooner", false)
 
@@ -402,12 +404,22 @@ local function getErrorString(errorMsg, errorCode, reconnectError)
 			return coreScriptTableTranslator:FormatByKey(key)
 		end)
 
-		-- Mute errors for clb if they are not successfully translated
-		if not success and fflagChinaLicensingBuild then
-			local successUnknownError, localizedUnknownError = pcall(function()
-				return coreScriptTableTranslator:FormatByKey("InGame.ConnectionError.UnknownError")
-			end)
-			return successUnknownError and localizedUnknownError or ""
+		if PolicyService:IsEnabled() then
+			-- Mute errors for jv app if they are not successfully translated
+			if not success and PolicyService:IsSubjectToChinaPolicies() then
+				local successUnknownError, localizedUnknownError = pcall(function()
+					return coreScriptTableTranslator:FormatByKey("InGame.ConnectionError.UnknownError")
+				end)
+				return successUnknownError and localizedUnknownError or ""
+			end
+		else
+			-- Mute errors for clb if they are not successfully translated
+			if not success and fflagChinaLicensingBuild then
+				local successUnknownError, localizedUnknownError = pcall(function()
+					return coreScriptTableTranslator:FormatByKey("InGame.ConnectionError.UnknownError")
+				end)
+				return successUnknownError and localizedUnknownError or ""
+			end
 		end
 
 		if success then return attemptTranslation end

@@ -16,10 +16,12 @@ local WithLayoutValues = LayoutValues.WithLayoutValues
 local DropDownButton = require(script.Parent.DropDownButton)
 
 local LocalPlayer = Players.LocalPlayer
-local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp")
+local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp") --todo: remove with FFlagUsePolicyServiceForCoreScripts
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local InspectMenuAnalytics = require(RobloxGui.Modules.InspectAndBuy.Services.Analytics).new()
+
+local PolicyService = require(RobloxGui.Modules.Common.PolicyService)
 
 local FFlagFixInspectMenuAnalytics = settings():GetFFlag("FixInspectMenuAnalytics")
 
@@ -206,7 +208,12 @@ function PlayerDropDown:render()
 				dropDownHeight = dropDownHeight + layoutValues.DropDownButtonPadding + layoutValues.DropDownButtonSizeY
 			end
 
-			if not FFlagChinaLicensingApp then
+			local showPlayerBlocking = not FFlagChinaLicensingApp
+			if PolicyService:IsEnabled() then
+				showPlayerBlocking = not PolicyService:IsSubjectToChinaPolicies()
+			end
+
+			if showPlayerBlocking then
 				dropDownButtons["BlockButton"] = self:createBlockButton(playerRelationship)
 				dropDownHeight = dropDownHeight + layoutValues.DropDownButtonPadding + layoutValues.DropDownButtonSizeY
 

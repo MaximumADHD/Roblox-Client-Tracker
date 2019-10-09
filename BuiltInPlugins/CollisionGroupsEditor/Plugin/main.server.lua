@@ -1,3 +1,7 @@
+if settings():GetFFlag("StudioUseStandaloneCollisionEditor") then
+	return
+end
+
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 local Opened = false
 

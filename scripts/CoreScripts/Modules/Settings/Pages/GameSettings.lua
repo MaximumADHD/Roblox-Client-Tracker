@@ -73,6 +73,7 @@ local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled
 local PageInstance = nil
 local LocalPlayer = Players.LocalPlayer
 local platform = UserInputService:GetPlatform()
+local PolicyService = require(RobloxGui.Modules.Common.PolicyService)
 
 local success, result =
   pcall(
@@ -81,13 +82,18 @@ local success, result =
   end
 )
 local FFlagUseNotificationsLocalization = success and result
-local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp")
+local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp") --todo: remove with FFlagUsePolicyServiceForCoreScripts
 game:DefineFastInt("RomarkStartWithGraphicQualityLevel", -1)
 local FIntRomarkStartWithGraphicQualityLevel = game:GetFastInt("RomarkStartWithGraphicQualityLevel")
 
+local canUseMicroProfiler = not FFlagChinaLicensingApp
+if PolicyService:IsEnabled() then
+  canUseMicroProfiler = not PolicyService:IsSubjectToChinaPolicies()
+end
+
 local isDesktopClient = (platform == Enum.Platform.Windows) or (platform == Enum.Platform.OSX) or (platform == Enum.Platform.UWP)
 local isMobileClient = (platform == Enum.Platform.IOS) or (platform == Enum.Platform.Android)
-local UseMicroProfiler = (isMobileClient or isDesktopClient) and (not FFlagChinaLicensingApp)
+local UseMicroProfiler = (isMobileClient or isDesktopClient) and canUseMicroProfiler
 
 --------------- FLAGS ----------------
 
@@ -1416,7 +1422,12 @@ local function Initialize()
     createGraphicsOptions()
   end
 
-  if not FFlagChinaLicensingApp then
+  local canShowPerfStats = not FFlagChinaLicensingApp
+  if PolicyService:IsEnabled() then
+    canShowPerfStats = not PolicyService:IsSubjectToChinaPolicies()
+  end
+
+  if canShowPerfStats then
     createPerformanceStatsOptions()
   end
 
@@ -1429,7 +1440,12 @@ local function Initialize()
     createOverscanOption()
   end
 
-  if not FFlagChinaLicensingApp then
+  local canShowDevConsole = not FFlagChinaLicensingApp
+  if PolicyService:IsEnabled() then
+    canShowDevConsole = not PolicyService:IsSubjectToChinaPolicies()
+  end
+
+  if canShowDevConsole then
     -- dev console option only shows for place/group place owners
     createDeveloperConsoleOption()
   end

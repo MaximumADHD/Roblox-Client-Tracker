@@ -1,13 +1,17 @@
 local root = script.Parent.Parent
 
 local Constants = require(root.Constants)
+local createAccessorySchema = require(root.util.createAccessorySchema)
 local validateWithSchema = require(root.util.validateWithSchema)
 
 -- validates a given instance based on a schema
-local function validateInstanceTree(instance, schema)
-	if not schema then
+local function validateInstanceTree(instance, assetTypeEnum)
+	local assetInfo = Constants.ASSET_TYPE_INFO[assetTypeEnum]
+	if not assetInfo then
 		return false, { "Could not validate" }
 	end
+
+	local schema = createAccessorySchema(assetInfo.attachmentNames)
 
 	-- validate using hat schema
 	local validationResult = validateWithSchema(schema, instance)

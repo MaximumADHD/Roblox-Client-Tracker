@@ -76,6 +76,7 @@ local badgesNotificationsActive = true
 
 local SocialUtil = require(RobloxGui.Modules:WaitForChild("SocialUtil"))
 local GameTranslator = require(RobloxGui.Modules.GameTranslator)
+local PolicyService = require(RobloxGui.Modules.Common.PolicyService)
 
 local BG_TRANSPARENCY = 0.7
 local MAX_NOTIFICATIONS = 3
@@ -104,7 +105,8 @@ if friendRequestNotificationFIntSuccess and friendRequestNotificationFIntValue ~
 end
 
 local FFlagCoreScriptTranslateGameText2 = settings():GetFFlag("CoreScriptTranslateGameText2")
-local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp")
+local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp") -- todo: remove with UsePolicyServiceForCoreScripts
+
 
 local PLAYER_POINTS_IMG = 'https://www.roblox.com/asset?id=206410433'
 local BADGE_IMG = 'https://www.roblox.com/asset?id=206410289'
@@ -789,8 +791,14 @@ function onGameSettingsChanged(property, amount)
 	end
 end
 
-if not FFlagChinaLicensingApp then
-	BadgeService.BadgeAwarded:connect(onBadgeAwarded)
+if PolicyService:IsEnabled() then
+	if not PolicyService:IsSubjectToChinaPolicies() then
+		BadgeService.BadgeAwarded:connect(onBadgeAwarded)
+	end
+else
+	if not FFlagChinaLicensingApp then
+		BadgeService.BadgeAwarded:connect(onBadgeAwarded)
+	end
 end
 
 if not isTenFootInterface then
@@ -802,7 +810,12 @@ if not isTenFootInterface then
 	end)
 end
 
-if not FFlagChinaLicensingApp then
+local allowScreenshots = not FFlagChinaLicensingApp
+if PolicyService:IsEnabled() then
+	allowScreenshots = not PolicyService:IsSubjectToChinaPolicies()
+end
+
+if allowScreenshots then
 	game.ScreenshotReady:Connect(function(path)
 		sendNotificationInfo {
 			Title = "Screenshot Taken",

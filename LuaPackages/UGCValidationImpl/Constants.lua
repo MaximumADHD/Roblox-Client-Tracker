@@ -1,7 +1,3 @@
-local root = script.Parent
-
-local createAccessorySchema = require(root.util.createAccessorySchema)
-
 local CorePackages = game:GetService("CorePackages")
 
 local Cryo = require(CorePackages.Cryo)
@@ -18,6 +14,8 @@ end
 local Constants = {}
 
 Constants.MAX_HAT_TRIANGLES = 4000
+
+Constants.MAX_TEXTURE_SIZE = 256
 
 Constants.MATERIAL_WHITELIST = convertArrayToTable({
 	Enum.Material.Plastic,
@@ -74,36 +72,50 @@ Constants.BANNED_NAMES = convertArrayToTable(Cryo.Dictionary.join(
 	Constants.EXTRA_BANNED_NAMES
 ))
 
-Constants.SCHEMA_MAP = {
-	[Enum.AssetType.Hat] = true,
-	[Enum.AssetType.HairAccessory] = true,
-	[Enum.AssetType.FaceAccessory] = true,
-	[Enum.AssetType.NeckAccessory] = true,
-	[Enum.AssetType.ShoulderAccessory] = true,
-	[Enum.AssetType.FrontAccessory] = true,
-	[Enum.AssetType.BackAccessory] = true,
-	[Enum.AssetType.WaistAccessory] = true,
-}
-
 Constants.AssetStatus = {
 	UNKNOWN = "Unknown",
 	REVIEW_PENDING = "ReviewPending",
 	MODERATED = "Moderated",
 }
 
-Constants.SCHEMA_MAP = {
-	[Enum.AssetType.Hat] = createAccessorySchema({ "HatAttachment" }),
-	[Enum.AssetType.HairAccessory] = createAccessorySchema({ "HairAttachment" }),
-	[Enum.AssetType.FaceAccessory] = createAccessorySchema({ "FaceFrontAttachment" }),
-	[Enum.AssetType.NeckAccessory] = createAccessorySchema({ "NeckAttachment" }),
-	[Enum.AssetType.ShoulderAccessory] = createAccessorySchema({
-		"NeckAttachment",
-		"LeftCollarAttachment",
-		"RightCollarAttachment",
-	}),
-	[Enum.AssetType.FrontAccessory] = createAccessorySchema({ "BodyFrontAttachment" }),
-	[Enum.AssetType.BackAccessory] = createAccessorySchema({ "BodyBackAttachment" }),
-	[Enum.AssetType.WaistAccessory] = createAccessorySchema({ "WaistBackAttachment" }),
+-- https://confluence.rbx.com/display/AVATAR/UGC+Accessory+Max+Sizes
+-- Measurements are doubled to account full size
+-- boundsOffset is used when measurements are non-symmetrical
+-- i.e. WaistAccessory is 3 behind, 2.5 front
+Constants.ASSET_TYPE_INFO = {
+	[Enum.AssetType.Hat] = {
+		attachmentNames = { "HatAttachment" },
+		boundsSize = Vector3.new(3, 4, 3),
+	},
+	[Enum.AssetType.HairAccessory] = {
+		attachmentNames = { "HairAttachment" },
+		boundsSize = Vector3.new(3, 4, 3),
+	},
+	[Enum.AssetType.FaceAccessory] = {
+		attachmentNames = { "FaceFrontAttachment" },
+		boundsSize = Vector3.new(3, 2, 2),
+	},
+	[Enum.AssetType.NeckAccessory] = {
+		attachmentNames = { "NeckAttachment" },
+		boundsSize = Vector3.new(3, 3, 2),
+	},
+	[Enum.AssetType.ShoulderAccessory] = {
+		attachmentNames = { "NeckAttachment", "LeftCollarAttachment", "RightCollarAttachment" },
+		boundsSize = Vector3.new(7, 3, 3),
+	},
+	[Enum.AssetType.FrontAccessory] = {
+		attachmentNames = { "BodyFrontAttachment" },
+		boundsSize = Vector3.new(3, 3, 3),
+	},
+	[Enum.AssetType.BackAccessory] = {
+		attachmentNames = { "BodyBackAttachment" },
+		boundsSize = Vector3.new(10, 7, 4),
+	},
+	[Enum.AssetType.WaistAccessory] = {
+		attachmentNames = { "WaistBackAttachment" },
+		boundsSize = Vector3.new(4, 2, 5.5),
+		boundsOffset = Vector3.new(0, 0, 0.25),
+	},
 }
 
 return Constants

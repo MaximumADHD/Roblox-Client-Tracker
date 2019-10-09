@@ -12,4 +12,10 @@ return Rodux.createReducer(initial, {
 			groupInfo = Cryo.Dictionary.join(state.groupInfo, action.groupInfo)
 		})
 	end,
+
+	ResetInfo = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			groupInfo = Cryo.Dictionary.join(state.groupInfo, action.groupInfo)
+		})
+	end,
 })

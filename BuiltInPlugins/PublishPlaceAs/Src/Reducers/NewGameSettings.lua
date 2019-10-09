@@ -74,4 +74,12 @@ return Rodux.createReducer(initial, {
 		})
 	end,
 
+	ResetInfo = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			current = Cryo.Dictionary.join(state.current, action.current),
+			changed = Cryo.Dictionary.join(state.changed, action.changed),
+			errors = Cryo.Dictionary.join(state.errors, action.errors)
+		})
+	end,
+
 })

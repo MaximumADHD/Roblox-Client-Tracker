@@ -35,6 +35,7 @@ local HALF_SCREEN = 5
 local BUTTON_WIDTH = 90
 local FRAME_BUTTON_SIZE = 32
 local ARROW_SIZE = 12
+local PAGE_PADDING = 115
 
 local arrowSpritesheet = Spritesheet("rbxasset://textures/StudioSharedUI/arrowSpritesheet.png", {
 	SpriteSize = ARROW_SIZE,
@@ -51,6 +52,8 @@ local HorizontalContentFit = createFitToContent("Frame", "UIListLayout", {
 	SortOrder = Enum.SortOrder.LayoutOrder,
 })
 
+local FFlagMakePublishAsync = settings():GetFFlag("StudioMakePublishingAsync")
+
 local ScreenChoosePlace = Roact.PureComponent:extend("ScreenChoosePlace")
 
 function ScreenChoosePlace:init()
@@ -64,7 +67,7 @@ function ScreenChoosePlace:init()
 		isPreviousButtonHovered = false,
 		isNextButtonHovered = false,
 	}
-
+	
 	self.finishedConnection = nil
 
 	self.onPreviousPageButtonPress = function()
@@ -105,13 +108,15 @@ function ScreenChoosePlace:init()
 end
 
 function ScreenChoosePlace:didMount()
-	self.finishedConnection = StudioService.GamePublishFinished:connect(function(success)
-		if success then
-			self.props.OpenPublishSuccessfulPage(self.state.selectedPlace, self.props.ParentGame)
-		else
-			self.props.OpenPublishFailPage(self.state.selectedPlace, self.props.ParentGame)
-		end
-	end)
+		self.finishedConnection = StudioService.GamePublishFinished:connect(function(success)
+			if self.state.selectedPlace.placeId == 0 then
+				if success then
+					self.props.OpenPublishSuccessfulPage(self.state.selectedPlace, self.props.ParentGame)
+				else
+					self.props.OpenPublishFailPage(self.state.selectedPlace, self.props.ParentGame)
+				end
+			end
+		end)
 end
 
 function ScreenChoosePlace:willUnmount()
@@ -251,7 +256,7 @@ function ScreenChoosePlace:render()
 
 				PageButtons = Roact.createElement(HorizontalContentFit, {
 					BackgroundTransparency = 1,
-					Position = UDim2.new(0.5, 0, 1, -Constants.FOOTER_HEIGHT * 2)
+					Position = UDim2.new(0.5, 0, 1, -PAGE_PADDING)
 				}, {
 					-- TODO: Change pagination to use infinite scroll instead of next/previous page buttons
 					PreviousButton = Roact.createElement("TextButton", {
@@ -333,6 +338,9 @@ function ScreenChoosePlace:render()
 						Active = parentGame and self.state.selectedPlace ~= nil,
 						OnActivated = function()
 							StudioService:publishAs(parentGame.universeId, self.state.selectedPlace.placeId)
+							if FFlagMakePublishAsync and self.state.selectedPlace.placeId ~= 0 then
+								onClose()
+							end
 						end,
 					},
 					OnClose = onClose,

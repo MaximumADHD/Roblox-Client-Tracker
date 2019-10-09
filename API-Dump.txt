@@ -904,6 +904,7 @@ Class TextBox : GuiObject
 	Property bool TextBox.ManualFocusRelease {RobloxScriptSecurity} [<📁> Load-only] [NotReplicated]
 	Property bool TextBox.MultiLine
 	Property bool TextBox.OverlayNativeInput {RobloxScriptSecurity} [<📁> Load-only] [NotReplicated]
+	Property Enum<ReturnKeyType> TextBox.ReturnKeyType {RobloxScriptSecurity} [<📁> Load-only] [NotReplicated]
 	Property int TextBox.SelectionStart
 	Property bool TextBox.ShowNativeInput
 	Property bool TextBox.TextEditable
@@ -936,6 +937,7 @@ Class TextBox : GuiObject
 	Function void TextBox:SetTextFromInput(string text) {RobloxScriptSecurity}
 	Event TextBox.FocusLost(bool enterPressed, Instance inputThatCausedFocusLoss)
 	Event TextBox.Focused()
+	Event TextBox.ReturnPressedFromOnScreenKeyboard()
 Class ViewportFrame : GuiObject
 	Property Color3 ViewportFrame.Ambient
 	Property Color3 ViewportFrame.LightColor
@@ -2924,6 +2926,13 @@ Class Tween : TweenBase
 Class TweenService : Instance [NotCreatable] [Service]
 	Function Instance TweenService:Create(Instance instance, TweenInfo tweenInfo, Dictionary propertyTable)
 	Function float TweenService:GetValue(float alpha, Enum<EasingStyle> easingStyle, Enum<EasingDirection> easingDirection)
+Class UGCValidationService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function int UGCValidationService:GetMeshTriCount(string meshId) {RobloxScriptSecurity} [Yields]
+	Function int UGCValidationService:GetMeshTriCountSync(string meshId) {RobloxScriptSecurity}
+	Function Array UGCValidationService:GetMeshVerts(string meshId) {RobloxScriptSecurity} [Yields]
+	Function Array UGCValidationService:GetMeshVertsSync(string meshId) {RobloxScriptSecurity}
+	Function Vector2 UGCValidationService:GetTextureSize(string textureId) {RobloxScriptSecurity} [Yields]
+	Function Vector2 UGCValidationService:GetTextureSizeSync(string textureId) {RobloxScriptSecurity}
 Class UIBase : Instance [NotCreatable]
 Class UIComponent : UIBase [NotCreatable]
 Class UIConstraint : UIComponent [NotCreatable]
@@ -4378,6 +4387,13 @@ Enum RenderPriority
 Enum RenderingTestComparisonMethod
 	EnumItem RenderingTestComparisonMethod.psnr : 0
 	EnumItem RenderingTestComparisonMethod.diff : 1
+Enum ReturnKeyType
+	EnumItem ReturnKeyType.Default : 0
+	EnumItem ReturnKeyType.Done : 1
+	EnumItem ReturnKeyType.Go : 2
+	EnumItem ReturnKeyType.Next : 3
+	EnumItem ReturnKeyType.Search : 4
+	EnumItem ReturnKeyType.Send : 5
 Enum ReverbType
 	EnumItem ReverbType.NoReverb : 0
 	EnumItem ReverbType.GenericReverb : 1

@@ -48,7 +48,7 @@ local function saveAll(state, localization)
 				StudioService:SetUniverseDisplayName(configuration.name)
 				StudioService:EmitPlacePublishedSignal()
 			end):catch(function(err)
-				warn(localization:getText("PublishFail", "FailConfiguration"))
+				warn(tostring(localization:getText("PublishFail", "FailConfiguration")))
 				warn(tostring(err))
 			end)
 		end

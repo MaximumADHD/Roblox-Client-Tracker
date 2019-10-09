@@ -29,6 +29,7 @@ local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 local InviteToGameAnalytics = require(ShareGameDirectory.Analytics.InviteToGameAnalytics)
 local FlagSettings = require(RobloxGui.Modules.FlagSettings)
 local InspectMenuAnalytics = require(RobloxGui.Modules.InspectAndBuy.Services.Analytics)
+local PolicyService = require(RobloxGui.Modules.Common.PolicyService)
 
 ------------ Constants -------------------
 local FRAME_DEFAULT_TRANSPARENCY = .85
@@ -60,7 +61,7 @@ local FFlagEnableInviteGameInStudio = settings():GetFFlag("EnableInviteGameInStu
 local FFlagLuaInviteNewAnalytics = settings():GetFFlag("LuaInviteNewAnalytics")
 local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
 local FFlagUseNotificationsLocalization = success and result
-local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp")
+local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp") --todo: remove with FFlagUsePolicyServiceForCoreScripts
 local FFlagFixInspectMenuAnalytics = settings():GetFFlag("FixInspectMenuAnalytics")
 
 ----------- CLASS DECLARATION --------------
@@ -700,7 +701,12 @@ local function Initialize()
 					end)
 				end
 
-				if not FFlagChinaLicensingApp then
+				local showReportAbuse = not FFlagChinaLicensingApp
+				if PolicyService:IsEnabled() then
+					showReportAbuse = not PolicyService:IsSubjectToChinaPolicies()
+				end
+
+				if showReportAbuse then
 					reportAbuseButtonCreate(frame, player)
 				end
 			end

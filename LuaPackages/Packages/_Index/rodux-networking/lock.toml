@@ -2,7 +2,7 @@
 name = "rodux-networking"
 version = "0.1.0"
 source = "git+https://github.rbx.com/roblox/rodux-networking#master"
-commit = "f01b90f0a9cef9e3eb3a2f9a9adefb2bbfe8222b"
+commit = "cd528e2538135532cd55cab852538f25fb9543ec"
 dependencies = [
     "Cryo roblox/cryo 272caa8f git+https://github.com/roblox/cryo#master",
     "Freeze freeze f18cf7e5 git+https://github.rbx.com/roblox/freeze#master",

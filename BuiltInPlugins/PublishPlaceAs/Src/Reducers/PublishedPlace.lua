@@ -13,4 +13,10 @@ return Rodux.createReducer(initial, {
 			publishInfo = Cryo.Dictionary.join(state.publishInfo, action.publishInfo)
 		})
 	end,
+
+	ResetInfo = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			publishInfo = Cryo.Dictionary.join(state.publishInfo, action.publishInfo)
+		})
+	end,
 })

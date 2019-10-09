@@ -12,9 +12,11 @@ local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
 local CoreGuiModules = RobloxGui:WaitForChild("Modules")
 local FlagSettings = require(CoreGuiModules.FlagSettings)
 
+local PolicyService = require(CoreGuiModules:WaitForChild("Common"):WaitForChild("PolicyService"))
+
 local FFlagConnectionScriptEnabled = settings():GetFFlag("ConnectionScriptEnabled")
 local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabledV384")
-local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp")
+local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp") --todo: remove with FFlagUsePolicyServiceForCoreScripts
 
 local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList")
 local FFlagEmotesMenuEnabled2 = settings():GetFFlag("CoreScriptEmotesMenuEnabled2")
@@ -28,10 +30,11 @@ soundFolder.Parent = RobloxGui
 -- This can be useful in cases where a flag configuration issue causes requiring a CoreScript to fail
 local function safeRequire(moduleScript)
 	local success, ret = pcall(require, moduleScript)
-	if not success then
+	if success then
+		return ret
+	else
 		warn("Failure to Start CoreScript module " .. moduleScript.Name .. ".\n" .. ret)
 	end
-	return ret
 end
 
 if FFlagConnectionScriptEnabled and not GuiService:IsTenFootInterface() then
@@ -44,9 +47,17 @@ ScriptContext:AddCoreScriptLocal("CoreScripts/Topbar", RobloxGui)
 -- MainBotChatScript (the Lua part of Dialogs)
 ScriptContext:AddCoreScriptLocal("CoreScripts/MainBotChatScript2", RobloxGui)
 
---Anti Addiction
-if FFlagChinaLicensingApp then
-	ScriptContext:AddCoreScriptLocal("CoreScripts/AntiAddictionPrompt", RobloxGui)
+if PolicyService:IsEnabled() then
+	coroutine.wrap(function() -- this is the first place we call, which can yield so wrap in coroutine
+		if PolicyService:IsSubjectToChinaPolicies() then
+			ScriptContext:AddCoreScriptLocal("CoreScripts/AntiAddictionPrompt", RobloxGui)
+		end
+	end)()
+else
+	--Anti Addiction
+	if FFlagChinaLicensingApp then
+		ScriptContext:AddCoreScriptLocal("CoreScripts/AntiAddictionPrompt", RobloxGui)
+	end
 end
 
 -- In-game notifications script
@@ -66,8 +77,9 @@ end
 -- Purchase Prompt Script
 coroutine.wrap(function()
 	local PurchasePrompt = safeRequire(CorePackages.PurchasePrompt)
-	
-	PurchasePrompt.mountPurchasePrompt()
+	if PurchasePrompt then
+		PurchasePrompt.mountPurchasePrompt()
+	end
 end)()
 
 -- Prompt Block Player Script

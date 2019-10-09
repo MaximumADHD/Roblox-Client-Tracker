@@ -39,9 +39,12 @@ local SetTabList = require(Actions.SetTabList)
 local MiddleWare = DevConsole.MiddleWare
 local DevConsoleAnalytics = require(MiddleWare.DevConsoleAnalytics)
 
+local PolicyService = require(CoreGui.RobloxGui.Modules.Common.PolicyService)
+
 local DFFlagEnableRemoteProfilingForDevConsole = settings():GetFFlag("EnableRemoteProfilingForDevConsole")
-local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp")
+local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp") --todo: remove with FFlagUsePolicyServiceForCoreScripts
 local FFlagRespectDisplayOrderForOnTopOfCoreBlur = settings():GetFFlag("RespectDisplayOrderForOnTopOfCoreBlur")
+
 
 local DEV_TAB_LIST = {
 	Log = {
@@ -234,6 +237,7 @@ function DevConsoleMaster:Start()
 end
 
 function DevConsoleMaster:ToggleVisibility()
+	if PolicyService:IsEnabled() and PolicyService:IsSubjectToChinaPolicies() then return end
 	if FFlagChinaLicensingApp then return end
 
 	if not self.init then
@@ -264,7 +268,9 @@ function DevConsoleMaster:SetVisibility(value)
 end
 
 StarterGui:RegisterGetCore("DevConsoleVisible", function()
+	if PolicyService:IsEnabled() and PolicyService:IsSubjectToChinaPolicies() then return end
 	if FFlagChinaLicensingApp then return false end
+
 	return master:GetVisibility()
 end)
 
@@ -272,7 +278,9 @@ StarterGui:RegisterSetCore("DevConsoleVisible", function(visible)
 	if (type(visible) ~= "boolean") then
 		error("DevConsoleVisible must be given a boolean value.")
 	end
+	if PolicyService:IsEnabled() and PolicyService:IsSubjectToChinaPolicies() then return end
 	if FFlagChinaLicensingApp then return end
+	
 	master:SetVisibility(visible)
 end)
 

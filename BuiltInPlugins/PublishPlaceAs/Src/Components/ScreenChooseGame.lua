@@ -34,6 +34,7 @@ local StyledDropDown = UILibrary.Component.StyledDropdown
 
 local FRAME_BUTTON_SIZE = 32
 local ARROW_SIZE = 12
+local PAGE_PADDING = 115
 
 local arrowSpritesheet = Spritesheet("rbxasset://textures/StudioSharedUI/arrowSpritesheet.png", {
 	SpriteSize = ARROW_SIZE,
@@ -174,6 +175,7 @@ function ScreenChooseGame:render()
 					componentsTop[v.universeId] = Roact.createElement(TileGame, {
 						Name = v.name,
 						Id = v.universeId,
+						State = v.privacyType,
 						LayoutOrder = i,
 						OnActivated = function() 
 							openChoosePlacePage(v) 
@@ -183,6 +185,7 @@ function ScreenChooseGame:render()
 					componentsBottom[v.universeId] = Roact.createElement(TileGame, {
 						Name = v.name,
 						Id = v.universeId,
+						State = v.privacyType,
 						LayoutOrder = i - 5,
 						OnActivated = function() 
 							openChoosePlacePage(v) 
@@ -214,6 +217,7 @@ function ScreenChooseGame:render()
 					MaxItems = 4,
 					TextSize = 18,
 					SelectedItem = (self.state.selectedItem and self.state.selectedItem or dropdownItems[1]).Key,
+					ShowRibbon = not theme.isDarkerTheme,
 					OnItemClicked = function(item) 
 						self:setState({
 							pageNumber = 1,
@@ -225,7 +229,7 @@ function ScreenChooseGame:render()
 				}),
 				
 				GamesList = Roact.createElement("Frame", {
-					Size = UDim2.new(1, 0, 0.5, Constants.FOOTER_HEIGHT * 2),
+					Size = UDim2.new(1, 0, 0.5, Constants.FOOTER_HEIGHT),
 					Position = UDim2.new(0, 0, 0.5, -Constants.FOOTER_HEIGHT * 2),
 					BackgroundTransparency = 1,
 				},{
@@ -239,7 +243,7 @@ function ScreenChooseGame:render()
 					
 					BottomRow = Roact.createElement("Frame", {
 						Size = UDim2.new(1, 0, 0.5, 0),
-						Position = UDim2.new(0, 30, 0.5, 0),
+						Position = UDim2.new(0, 30, 0.5, 20),
 						AnchorPoint = Vector2.new(0, 0.5),
 						BackgroundTransparency = 1,
 					}, componentsBottom),
@@ -247,7 +251,7 @@ function ScreenChooseGame:render()
 
 				PageButtons = Roact.createElement(HorizontalContentFit, {
 					BackgroundTransparency = 1,
-					Position = UDim2.new(0.5, 0, 1, -Constants.FOOTER_HEIGHT * 2)
+					Position = UDim2.new(0.5, 0, 1, -PAGE_PADDING)
 				}, {
 					-- TODO: Change pagination to use infinite scroll instead of next/previous page buttons
 					PreviousButton = Roact.createElement("TextButton", {

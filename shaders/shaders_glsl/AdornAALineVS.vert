@@ -22,7 +22,6 @@ struct Globals
     vec4 FogParams;
     vec4 FogColor_GlobalForceFieldTime;
     vec3 Exposure;
-    vec4 LightBorder;
     vec4 LightConfig0;
     vec4 LightConfig1;
     vec4 LightConfig2;
@@ -47,7 +46,7 @@ struct Globals
 };
 
 uniform vec4 CB1[6];
-uniform vec4 CB0[32];
+uniform vec4 CB0[31];
 attribute vec4 POSITION;
 attribute vec3 NORMAL;
 varying vec4 VARYING0;

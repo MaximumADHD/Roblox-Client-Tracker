@@ -19,4 +19,11 @@ return Rodux.createReducer(initial, {
 			placeInfo = Cryo.Dictionary.join(state.placeInfo, action.placeInfo)
 		})
 	end,
+
+	ResetInfo = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			gameInfo = Cryo.Dictionary.join(state.gameInfo, action.gameInfo),
+			placeInfo = Cryo.Dictionary.join(state.placeInfo, action.placeInfo),
+		})
+	end,
 })

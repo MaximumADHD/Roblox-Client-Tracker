@@ -15,7 +15,6 @@ struct Globals
     vec4 FogParams;
     vec4 FogColor_GlobalForceFieldTime;
     vec3 Exposure;
-    vec4 LightBorder;
     vec4 LightConfig0;
     vec4 LightConfig1;
     vec4 LightConfig2;
@@ -44,7 +43,7 @@ struct GridParam
     vec4 GridScale;
 };
 
-uniform vec4 CB0[32];
+uniform vec4 CB0[31];
 uniform vec4 CB3[1];
 uniform sampler2D ShadowMapTexture;
 uniform sampler3D LightMapTexture;
@@ -85,14 +84,14 @@ void main()
     }
     vec4 f7 = texture2D(DiffuseMapTexture, f5) * VARYING2;
     vec3 f8 = f7.xyz;
-    float f9 = clamp(dot(step(CB0[20].xyz, abs(VARYING3.xyz - CB0[19].xyz)), vec3(1.0)), 0.0, 1.0);
+    float f9 = clamp(dot(step(CB0[19].xyz, abs(VARYING3.xyz - CB0[18].xyz)), vec3(1.0)), 0.0, 1.0);
     vec3 f10 = VARYING3.yzx - (VARYING3.yzx * f9);
     vec4 f11 = vec4(clamp(f9, 0.0, 1.0));
     vec4 f12 = mix(texture3D(LightMapTexture, f10), vec4(0.0), f11);
     vec4 f13 = mix(texture3D(LightGridSkylightTexture, f10), vec4(1.0), f11);
     vec4 f14 = texture2D(ShadowMapTexture, VARYING7.xy);
-    float f15 = (1.0 - ((step(f14.x, VARYING7.z) * clamp(CB0[25].z + (CB0[25].w * abs(VARYING7.z - 0.5)), 0.0, 1.0)) * f14.y)) * f13.y;
-    vec3 f16 = ((min(((f12.xyz * (f12.w * 120.0)).xyz + CB0[8].xyz) + (CB0[9].xyz * f13.x), vec3(CB0[17].w)) + (VARYING6.xyz * f15)) * (f8 * f8).xyz) + (CB0[10].xyz * (VARYING6.w * f15));
+    float f15 = (1.0 - ((step(f14.x, VARYING7.z) * clamp(CB0[24].z + (CB0[24].w * abs(VARYING7.z - 0.5)), 0.0, 1.0)) * f14.y)) * f13.y;
+    vec3 f16 = ((min(((f12.xyz * (f12.w * 120.0)).xyz + CB0[8].xyz) + (CB0[9].xyz * f13.x), vec3(CB0[16].w)) + (VARYING6.xyz * f15)) * (f8 * f8).xyz) + (CB0[10].xyz * (VARYING6.w * f15));
     vec4 f17 = vec4(f16.x, f16.y, f16.z, vec4(0.0).w);
     f17.w = f7.w;
     vec3 f18 = mix(CB0[14].xyz, sqrt(clamp(f17.xyz * CB0[15].y, vec3(0.0), vec3(1.0))).xyz, vec3(clamp((CB0[13].x * length(VARYING4.xyz)) + CB0[13].y, 0.0, 1.0)));

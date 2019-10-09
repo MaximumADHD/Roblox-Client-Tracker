@@ -11,18 +11,17 @@ local deepJoin = require(Plugin.Src.Util.deepJoin)
 local function createValues(getColor, c, m)
 	local isDark = settings().Studio["UI Theme"].Name == Enum.UITheme.Dark.Name
 
-	local newPlaceDark = "rbxasset://textures/PublishPlaceAs/new_dark.png"
-	local newPlaceLight = "rbxasset://textures/PublishPlaceAs/new_light.png"
-
 	local DefaultStudioStyle = StudioStyle.new(getColor, c, m)
 
 	-- define all the colors used in the plugin
 	local PluginTheme = deepJoin(DefaultStudioStyle, {
 		icons = {
-			newPlace = isDark and newPlaceDark or newPlaceLight,
+			newPlace = "rbxasset://textures/PublishPlaceAs/WhiteNew.png",
 			backArrow = "rbxasset://textures/PublishPlaceAs/navigation_pushBack.png",
 			checkmark = "rbxasset://textures/PublishPlaceAs/common_checkmarkCircle.png",
-			thumbnailPlaceHolder = "rbxasset://textures/ui/GuiImagePlaceholder.png"
+			thumbnailPlaceHolder = "rbxasset://textures/PublishPlaceAs/TransparentWhiteImagePlaceholder.png",
+			backgroundColor = isDark and Color3.fromRGB(37, 37, 37) or Color3.fromRGB(245, 245, 245),
+			imageColor = isDark and Color3.fromRGB(102, 102, 102) or Color3.fromRGB(151, 151, 151),
 		},
 		defaultButton = {
 			ButtonColor = isDark and getColor(c.MainButton) or getColor(c.CurrentMarker),

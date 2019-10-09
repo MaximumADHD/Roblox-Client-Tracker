@@ -1,4 +1,5 @@
 local function createAccessorySchema(attachmentName)
+	assert(attachmentName, "attachmentName cannot be nil")
 	return {
 		ClassName = "Accessory",
 		_children = {
@@ -12,11 +13,6 @@ local function createAccessorySchema(attachmentName)
 					},
 					{
 						ClassName = "SpecialMesh",
-					},
-					{
-						ClassName = "Vector3Value",
-						Name = "OriginalSize",
-						_optional = true,
 					},
 					{
 						ClassName = "StringValue",

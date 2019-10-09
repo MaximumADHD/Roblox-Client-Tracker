@@ -18,7 +18,6 @@ struct Globals
     vec4 FogParams;
     vec4 FogColor_GlobalForceFieldTime;
     vec3 Exposure;
-    vec4 LightBorder;
     vec4 LightConfig0;
     vec4 LightConfig1;
     vec4 LightConfig2;
@@ -53,7 +52,7 @@ struct Instance
     vec4 uvOffset;
 };
 
-uniform vec4 CB0[32];
+uniform vec4 CB0[31];
 uniform vec4 CB1[511];
 in vec4 POSITION;
 in vec4 NORMAL;
@@ -102,23 +101,23 @@ void main()
     vec4 v25 = vec4(TEXCOORD0.zw * v17, 0.0, 0.0);
     float v26 = v23.w;
     vec4 v27 = vec4(v21, v26);
-    vec4 v28 = (vec4(10.0) * CB0[24].z) + vec4((0.5 * v26) * CB0[24].y);
+    vec4 v28 = (vec4(10.0) * CB0[23].z) + vec4((0.5 * v26) * CB0[23].y);
     float v29 = v18.w * 2.0;
     float v30 = clamp(v29 - 1.0, 0.0, 1.0);
     float v31 = clamp(v29, 0.0, 1.0);
     float v32 = (clamp(2.0 - (dot(v13, normalize(v27.xyz)) * 3.0), 0.0, 1.0) * 0.300000011920928955078125) * v31;
     vec4 v33 = v18;
     v33.w = mix(v30, 1.0, v32);
-    vec4 v34 = vec4(dot(CB0[21], v22), dot(CB0[22], v22), dot(CB0[23], v22), 0.0);
+    vec4 v34 = vec4(dot(CB0[20], v22), dot(CB0[21], v22), dot(CB0[22], v22), 0.0);
     v34.w = mix((CB1[gl_InstanceID * 7 + 5].w * 0.0039215688593685626983642578125) * v30, 1.0, v32);
     gl_Position = v23;
     VARYING0 = vec4(v24.x, v24.y, v28.x, v28.y);
     VARYING1 = vec4(v25.x, v25.y, v28.z, v28.w);
     VARYING2 = v33;
-    VARYING3 = vec4(((v9 + (v13 * 6.0)).yxz * CB0[17].xyz) + CB0[18].xyz, 0.0);
+    VARYING3 = vec4(((v9 + (v13 * 6.0)).yxz * CB0[16].xyz) + CB0[17].xyz, 0.0);
     VARYING4 = v27;
     VARYING5 = vec4(v10, v11, v12, CB1[gl_InstanceID * 7 + 6].w);
-    VARYING6 = vec4((CB0[10].xyz * max(v20, 0.0)) + (CB0[12].xyz * max(-v20, 0.0)), (((float(v20 > 0.0) * pow(clamp(dot(v13, normalize(v19 + normalize(v21))), 0.0, 1.0), CB1[gl_InstanceID * 7 + 6].w)) * v31) * (CB1[gl_InstanceID * 7 + 6].z * 0.0039215688593685626983642578125)) * CB0[24].w);
+    VARYING6 = vec4((CB0[10].xyz * max(v20, 0.0)) + (CB0[12].xyz * max(-v20, 0.0)), (((float(v20 > 0.0) * pow(clamp(dot(v13, normalize(v19 + normalize(v21))), 0.0, 1.0), CB1[gl_InstanceID * 7 + 6].w)) * v31) * (CB1[gl_InstanceID * 7 + 6].z * 0.0039215688593685626983642578125)) * CB0[23].w);
     VARYING7 = v34;
     VARYING8 = TEXCOORD2.w - 1.0;
 }

@@ -60,7 +60,9 @@ function TilePlace:render()
 			local layoutOrder = props.LayoutOrder or 0
 
 			local image = theme.icons.thumbnailPlaceHolder
+			local isThumbnail = false
 			if props.Id and self.state.assetFetchStatus == Enum.AssetFetchStatus.Success then
+				isThumbnail = true
 				image = self.thumbnailUrl
 			elseif props.Id == nil then
 				image = theme.icons.newPlace
@@ -74,9 +76,11 @@ function TilePlace:render()
 			}, {
 
 				Icon = Roact.createElement("ImageLabel", {
-					Image = image,
-					Size = UDim2.new(0, 60, 0, 60),
 					Position = UDim2.new(0, 10, 0, 10),
+					Size = UDim2.new(0, 60, 0, 60),
+					Image = image,
+					ImageColor3 = isThumbnail and Color3.new(1, 1, 1) or theme.icons.imageColor,
+					BackgroundColor3 = theme.icons.backgroundColor,
 					BorderSizePixel = 0,
 				}),
 

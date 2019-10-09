@@ -2,10 +2,10 @@
 name = "roblox/purchase-prompt"
 version = "0.1.0"
 source = "git+https://github.com/roblox/purchasepromptscript-roact#master"
-commit = "93ed0e37ef7ded1776b78a11e7afadb3a3bd5397"
+commit = "79a33e41c9f8ead87679815d00c0676d8af0238e"
 dependencies = [
-    "Otter Otter 36b45b97 git+https://github.com/roblox/otter#master",
-    "Roact roblox/roact 3de41375 git+https://github.com/roblox/roact#master",
+    "Otter roblox/otter acc8b912 git+https://github.com/roblox/otter#master",
+    "Roact roblox/roact deaa8000 git+https://github.com/roblox/roact#master",
     "RoactRodux RoactRodux f92dedb2 git+https://github.com/roblox/roact-rodux#transitioning-roblox-roact-1x",
     "Rodux Rodux cdea578f git+https://github.com/roblox/rodux#master",
 ]

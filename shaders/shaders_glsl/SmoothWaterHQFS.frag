@@ -15,7 +15,6 @@ struct Globals
     vec4 FogParams;
     vec4 FogColor_GlobalForceFieldTime;
     vec3 Exposure;
-    vec4 LightBorder;
     vec4 LightConfig0;
     vec4 LightConfig1;
     vec4 LightConfig2;
@@ -46,7 +45,7 @@ struct Params
     vec4 WaterParams;
 };
 
-uniform vec4 CB0[32];
+uniform vec4 CB0[31];
 uniform vec4 CB3[3];
 uniform sampler3D LightMapTexture;
 uniform sampler3D LightGridSkylightTexture;
@@ -65,7 +64,7 @@ varying vec4 VARYING7;
 
 void main()
 {
-    float f0 = clamp(dot(step(CB0[20].xyz, abs(VARYING5 - CB0[19].xyz)), vec3(1.0)), 0.0, 1.0);
+    float f0 = clamp(dot(step(CB0[19].xyz, abs(VARYING5 - CB0[18].xyz)), vec3(1.0)), 0.0, 1.0);
     vec3 f1 = VARYING5.yzx - (VARYING5.yzx * f0);
     vec4 f2 = vec4(clamp(f0, 0.0, 1.0));
     vec4 f3 = mix(texture3D(LightMapTexture, f1), vec4(0.0), f2);
@@ -82,7 +81,7 @@ void main()
     vec3 f14 = mix(VARYING6.xyz, f13, vec3(0.25));
     vec3 f15 = normalize(VARYING7.xyz);
     vec3 f16 = textureCube(EnvMapTexture, reflect(-f15, f14)).xyz;
-    vec3 f17 = mix(CB3[1].xyz * (min((f5 + CB0[8].xyz) + (CB0[9].xyz * f6), vec3(CB0[17].w)) + (CB0[10].xyz * f7)), (((f16 * f16) * CB0[15].x) * f6) + (f5 * 0.100000001490116119384765625), vec3(((clamp(0.7799999713897705078125 - (2.5 * abs(dot(f14, f15))), 0.0, 1.0) + 0.300000011920928955078125) * VARYING0.w) * CB3[2].z)) + (CB0[10].xyz * ((((2.0 * clamp(1.0 - (VARYING7.w * CB0[24].y), 0.0, 1.0)) * CB3[2].z) * f7) * pow(clamp(dot(f13, normalize((-CB0[11].xyz) + f15)), 0.0, 1.0), 900.0)));
+    vec3 f17 = mix(CB3[1].xyz * (min((f5 + CB0[8].xyz) + (CB0[9].xyz * f6), vec3(CB0[16].w)) + (CB0[10].xyz * f7)), (((f16 * f16) * CB0[15].x) * f6) + (f5 * 0.100000001490116119384765625), vec3(((clamp(0.7799999713897705078125 - (2.5 * abs(dot(f14, f15))), 0.0, 1.0) + 0.300000011920928955078125) * VARYING0.w) * CB3[2].z)) + (CB0[10].xyz * ((((2.0 * clamp(1.0 - (VARYING7.w * CB0[23].y), 0.0, 1.0)) * CB3[2].z) * f7) * pow(clamp(dot(f13, normalize((-CB0[11].xyz) + f15)), 0.0, 1.0), 900.0)));
     vec4 f18 = vec4(f17.x, f17.y, f17.z, vec4(0.0).w);
     f18.w = 1.0;
     vec3 f19 = mix(CB0[14].xyz, sqrt(clamp(f18.xyz * CB0[15].y, vec3(0.0), vec3(1.0))).xyz, vec3(clamp(VARYING6.w, 0.0, 1.0)));

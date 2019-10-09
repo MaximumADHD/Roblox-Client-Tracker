@@ -15,7 +15,6 @@ struct Globals
     vec4 FogParams;
     vec4 FogColor_GlobalForceFieldTime;
     vec3 Exposure;
-    vec4 LightBorder;
     vec4 LightConfig0;
     vec4 LightConfig1;
     vec4 LightConfig2;
@@ -39,7 +38,7 @@ struct Globals
     float debugFlagsShadows;
 };
 
-uniform vec4 CB0[32];
+uniform vec4 CB0[31];
 uniform vec4 CB1[216];
 in vec4 POSITION;
 in vec4 NORMAL;
@@ -81,14 +80,14 @@ void main()
     vec4 v16 = vec4(TEXCOORD0, 0.0, 0.0);
     vec4 v17 = vec4(TEXCOORD1, 0.0, 0.0);
     float v18 = v15.w;
-    vec4 v19 = ((exp2(TEXCOORD3 * 0.0625) - vec4(1.0)) * CB0[24].z) + vec4((0.5 * v18) * CB0[24].y);
-    vec4 v20 = vec4(dot(CB0[21], v14), dot(CB0[22], v14), dot(CB0[23], v14), 0.0);
+    vec4 v19 = ((exp2(TEXCOORD3 * 0.0625) - vec4(1.0)) * CB0[23].z) + vec4((0.5 * v18) * CB0[23].y);
+    vec4 v20 = vec4(dot(CB0[20], v14), dot(CB0[21], v14), dot(CB0[22], v14), 0.0);
     v20.w = COLOR1.w * 0.0039215688593685626983642578125;
     gl_Position = v15;
     VARYING0 = vec4(v16.x, v16.y, v19.x, v19.y);
     VARYING1 = vec4(v17.x, v17.y, v19.z, v19.w);
     VARYING2 = COLOR0;
-    VARYING3 = vec4(((v8 + (vec3(v9, v10, v11) * 6.0)).yxz * CB0[17].xyz) + CB0[18].xyz, 0.0);
+    VARYING3 = vec4(((v8 + (vec3(v9, v10, v11) * 6.0)).yxz * CB0[16].xyz) + CB0[17].xyz, 0.0);
     VARYING4 = vec4(CB0[7].xyz - v8, v18);
     VARYING5 = vec4(v9, v10, v11, COLOR1.z);
     VARYING6 = vec4(v12.x, v12.y, v12.z, v13.w);

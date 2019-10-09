@@ -44,6 +44,7 @@ local ActionContext = require(Plugin.Src.Context.ActionContext)
 local getActions = ActionContext.getActions
 
 local RigUtils = require(Plugin.Src.Util.RigUtils)
+local FixManipulators = require(Plugin.LuaFlags.GetFFlagFixAnimEditorManipulators)
 
 local JointManipulator = Roact.PureComponent:extend("JointManipulator")
 
@@ -85,7 +86,12 @@ function JointManipulator:init()
 			if self.props.WorldSpace then
 				newValue = applyWorldTransform(transform, joint)
 			else
-				newValue = applyLocalTransform(joint.Transform, transform)
+				if FixManipulators() then
+					local jointTransform = RigUtils.getJointTransform(joint)
+					newValue = applyLocalTransform(jointTransform, transform)
+				else
+					newValue = applyLocalTransform(joint.Transform, transform)
+				end
 			end
 			values[joint.Part1.Name] = newValue
 		end
@@ -141,7 +147,7 @@ function JointManipulator:init()
 
 	self.ikRotate = function(axis, angle)
 		if self.effectorCFrame then
-		local rotation = CFrame.fromAxisAngle(axis, angle)
+			local rotation = CFrame.fromAxisAngle(axis, angle)
 			if not self.props.WorldSpace then
 				rotation = self.effectorCFrame - self.effectorCFrame.p
 				local rotatedAxis = rotation * axis
@@ -244,7 +250,7 @@ function JointManipulator:init()
 
 			local joint = self.getLastJoint()
 			if joint then
-				self.effectorCFrame = joint.Part1.CFrame
+				self.effectorCFrame = not FixManipulators() and joint.Part1.CFrame or nil
 			end
 		end
 	end
@@ -275,24 +281,46 @@ function JointManipulator:init()
 				self.C0 = joint.C0
 			end
 
-			if tool == Enum.RibbonTool.Rotate then
-				pivot = self.dragging and (self.P0 * self.C0 * joint.Transform) or (joint.Part0.CFrame * joint.C0 * joint.Transform)
+			if FixManipulators() then
+				local jointTransform = RigUtils.getJointTransform(joint)
+				pivot = self.dragging and (self.P0 * self.C0 * jointTransform) or (joint.Part0.CFrame * joint.C0 * jointTransform)
 			else
-				pivot = part.CFrame
+				if tool == Enum.RibbonTool.Rotate then
+					pivot = self.dragging and (self.P0 * self.C0 * joint.Transform) or (joint.Part0.CFrame * joint.C0 * joint.Transform)
+				else
+					pivot = part.CFrame
+				end
 			end
 
 			if not self.dragging then
 				self.startingPosition = pivot.Position
 			end
 
-			if ikEnabled and self.effectorCFrame then
-				pivot = self.effectorCFrame
+			if FixManipulators() then
+				if ikEnabled then
+					if self.effectorCFrame then
+						pivot = self.effectorCFrame
+					else
+						pivot = part.CFrame
+					end
+				end
+			else
+				if ikEnabled and self.effectorCFrame then
+					pivot = self.effectorCFrame
+				end
 			end
 
 			if tool == Enum.RibbonTool.Rotate and self.dragging and not ikEnabled then
 				-- retain current position, only change rotation
 				if not self.props.WorldSpace then
 					adornee.CFrame = (pivot - pivot.p) + self.startingPosition
+				elseif FixManipulators() then
+					if rotationAxis then
+						local rotation = CFrame.fromAxisAngle(Vector3.FromAxis(rotationAxis), self.draggingAngle)
+						adornee.CFrame = CFrame.new(self.startingPosition) * rotation
+					else
+						adornee.CFrame = CFrame.new(self.startingPosition)
+					end
 				end
 			else
 				if worldSpace then
@@ -345,7 +373,7 @@ end
 
 function JointManipulator:didUpdate(prevProps, prevState)
 	self:adornHandles()
-	if prevProps.Joints then
+	if not FixManipulators() and prevProps.Joints then
 		local joint = self.getLastJoint()
 		if prevProps.Joints[#prevProps.Joints] ~= joint then
 			self.effectorCFrame = nil

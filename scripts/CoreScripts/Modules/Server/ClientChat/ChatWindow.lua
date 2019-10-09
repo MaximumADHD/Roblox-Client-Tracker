@@ -296,8 +296,8 @@ function methods:CreateGuiObjects(targetParent)
 			useXOffset = ChatSettings.DefaultWindowSizeTablet.X.Offset
 
 		else
-			useXScale = ChatSettings.DefaultWindowSizeTablet.X.Scale
-			useXOffset = ChatSettings.DefaultWindowSizeTablet.X.Offset
+			useXScale = ChatSettings.DefaultWindowSizeDesktop.X.Scale
+			useXOffset = ChatSettings.DefaultWindowSizeDesktop.X.Offset
 
 		end
 

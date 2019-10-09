@@ -34,8 +34,8 @@ return function()
 		-- User deleted it or moved it into storage when the plugin was closed.
 		if (rootInstance == nil or rootInstance:FindFirstAncestorOfClass("Workspace") == nil)
 			or (rootInstance and RigUtils.rigHasErrors(rootInstance)) then
-			store:dispatch(SortAndSetTracks({}))
 			store:dispatch(SetRootInstance(Cryo.None))
+			store:dispatch(SortAndSetTracks({}))
 			store:dispatch(SetAnimationData(nil))
 			return
 		end

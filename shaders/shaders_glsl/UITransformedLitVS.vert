@@ -15,7 +15,6 @@ struct Globals
     vec4 FogParams;
     vec4 FogColor_GlobalForceFieldTime;
     vec3 Exposure;
-    vec4 LightBorder;
     vec4 LightConfig0;
     vec4 LightConfig1;
     vec4 LightConfig2;
@@ -45,7 +44,7 @@ struct UIParams
     mat4 Transform;
 };
 
-uniform vec4 CB0[32];
+uniform vec4 CB0[31];
 uniform vec4 CB1[5];
 uniform vec4 CB2[1];
 attribute vec4 POSITION;
@@ -69,7 +68,7 @@ void main()
     VARYING0 = TEXCOORD0;
     VARYING1 = COLOR0;
     VARYING2 = (CB0[10].xyz * clamp(v3, 0.0, 1.0)) + (CB0[12].xyz * clamp(-v3, 0.0, 1.0));
-    VARYING3 = ((v0.xyz + (CB1[0].xyz * 6.0)).yxz * CB0[17].xyz) + CB0[18].xyz;
-    VARYING4 = vec3(dot(CB0[21], v4), dot(CB0[22], v4), dot(CB0[23], v4));
+    VARYING3 = ((v0.xyz + (CB1[0].xyz * 6.0)).yxz * CB0[16].xyz) + CB0[17].xyz;
+    VARYING4 = vec3(dot(CB0[20], v4), dot(CB0[21], v4), dot(CB0[22], v4));
 }
 

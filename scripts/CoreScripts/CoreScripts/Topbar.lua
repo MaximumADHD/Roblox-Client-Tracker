@@ -9,9 +9,10 @@ local FFlagCoreScriptTranslateGameText2 = settings():GetFFlag("CoreScriptTransla
 local FFlagCoreScriptNoPosthumousHurtOverlay = settings():GetFFlag("CoreScriptNoPosthumousHurtOverlay")
 
 local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList")
-local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp")
+local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp") --todo: remove with FFlagUsePolicyServiceForCoreScripts
 local FFlagEmotesMenuEnabled2 = settings():GetFFlag("CoreScriptEmotesMenuEnabled2")
 local FFlagMobileChatOneIcon = settings():GetFFlag("MobileChatOneIcon")
+
 
 --[[ END OF FFLAG VALUES ]]
 
@@ -30,6 +31,7 @@ local ChatService = game:GetService('Chat')
 local VRService = game:GetService('VRService')
 
 --[[ END OF SERVICES ]]
+
 
 local topbarEnabled = true
 local topbarEnabledChangedEvent = Instance.new('BindableEvent')
@@ -50,6 +52,7 @@ local GuiRoot = CoreGuiService:WaitForChild('RobloxGui')
 local TopbarConstants = require(GuiRoot.Modules.TopbarConstants)
 local Utility = require(GuiRoot.Modules.Settings.Utility)
 local GameTranslator = require(GuiRoot.Modules.GameTranslator)
+local PolicyService = require(GuiRoot.Modules.Common.PolicyService)
 local EmotesModule
 
 local FFlagEmotesMenuShowUiOnlyWhenAvailable
@@ -57,6 +60,7 @@ if FFlagEmotesMenuEnabled2 then
 	EmotesModule = require(GuiRoot.Modules.EmotesMenu.EmotesMenuMaster)
 	FFlagEmotesMenuShowUiOnlyWhenAvailable = game:GetFastFlag("EmotesMenuShowUiOnlyWhenAvailable", false)
 end
+
 
 --[[ END OF MODULES ]]
 
@@ -511,7 +515,7 @@ local function CreateUsernameHealthMenuItem()
 	end
 
 	local hurtOverlayImage = TopbarConstants.HURT_OVERLAY_IMAGE
-	if FFlagChinaLicensingApp then
+	if (PolicyService:IsEnabled() and PolicyService:IsSubjectToChinaPolicies()) or FFlagChinaLicensingApp then
 		hurtOverlayImage = TopbarConstants.HURT_OVERLAY_IMAGE_WHITE
 	end
 	local hurtOverlay = Util.Create'ImageLabel'

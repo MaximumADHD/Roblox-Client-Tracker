@@ -15,7 +15,6 @@ struct Globals
     vec4 FogParams;
     vec4 FogColor_GlobalForceFieldTime;
     vec3 Exposure;
-    vec4 LightBorder;
     vec4 LightConfig0;
     vec4 LightConfig1;
     vec4 LightConfig2;
@@ -39,7 +38,7 @@ struct Globals
     float debugFlagsShadows;
 };
 
-uniform vec4 CB0[32];
+uniform vec4 CB0[31];
 in vec4 POSITION;
 in vec4 NORMAL;
 in vec2 TEXCOORD0;
@@ -69,23 +68,23 @@ void main()
     vec4 v7 = vec4(TEXCOORD1, 0.0, 0.0);
     float v8 = v5.w;
     vec4 v9 = vec4(v3, v8);
-    vec4 v10 = ((exp2(TEXCOORD3 * 0.0625) - vec4(1.0)) * CB0[24].z) + vec4((0.5 * v8) * CB0[24].y);
+    vec4 v10 = ((exp2(TEXCOORD3 * 0.0625) - vec4(1.0)) * CB0[23].z) + vec4((0.5 * v8) * CB0[23].y);
     float v11 = COLOR0.w * 2.0;
     float v12 = clamp(v11 - 1.0, 0.0, 1.0);
     float v13 = clamp(v11, 0.0, 1.0);
     float v14 = (clamp(2.0 - (dot(v0, normalize(v9.xyz)) * 3.0), 0.0, 1.0) * 0.300000011920928955078125) * v13;
     vec4 v15 = COLOR0;
     v15.w = mix(v12, 1.0, v14);
-    vec4 v16 = vec4(dot(CB0[21], v4), dot(CB0[22], v4), dot(CB0[23], v4), 0.0);
+    vec4 v16 = vec4(dot(CB0[20], v4), dot(CB0[21], v4), dot(CB0[22], v4), 0.0);
     v16.w = mix((COLOR1.w * 0.0039215688593685626983642578125) * v12, 1.0, v14);
     gl_Position = v5;
     VARYING0 = vec4(v6.x, v6.y, v10.x, v10.y);
     VARYING1 = vec4(v7.x, v7.y, v10.z, v10.w);
     VARYING2 = v15;
-    VARYING3 = vec4(((POSITION.xyz + (v0 * 6.0)).yxz * CB0[17].xyz) + CB0[18].xyz, 0.0);
+    VARYING3 = vec4(((POSITION.xyz + (v0 * 6.0)).yxz * CB0[16].xyz) + CB0[17].xyz, 0.0);
     VARYING4 = v9;
     VARYING5 = vec4(v0, COLOR1.z);
-    VARYING6 = vec4((CB0[10].xyz * max(v2, 0.0)) + (CB0[12].xyz * max(-v2, 0.0)), (((float(v2 > 0.0) * pow(clamp(dot(v0, normalize(v1 + normalize(v3))), 0.0, 1.0), COLOR1.z)) * v13) * (COLOR1.y * 0.0039215688593685626983642578125)) * CB0[24].w);
+    VARYING6 = vec4((CB0[10].xyz * max(v2, 0.0)) + (CB0[12].xyz * max(-v2, 0.0)), (((float(v2 > 0.0) * pow(clamp(dot(v0, normalize(v1 + normalize(v3))), 0.0, 1.0), COLOR1.z)) * v13) * (COLOR1.y * 0.0039215688593685626983642578125)) * CB0[23].w);
     VARYING7 = v16;
     VARYING8 = NORMAL.w;
 }

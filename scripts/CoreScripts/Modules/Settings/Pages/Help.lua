@@ -10,7 +10,7 @@ local success, result = pcall(function() return settings():GetFFlag('UseNotifica
 local FFlagUseNotificationsLocalization = success and result
 
 local FFlagRobloxGuiSiblingZindexs = settings():GetFFlag("RobloxGuiSiblingZindexs")
-local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp")
+local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp") --todo: remove with FFlagUsePolicyServiceForCoreScripts
 local FFlagCoreScriptSettingsHelpRightKeys = settings():GetFFlag("CoreScriptSettingsHelpRightKeys")
 
 -------------- CONSTANTS --------------
@@ -33,6 +33,7 @@ local GameSettings = Settings.GameSettings
 ----------- UTILITIES --------------
 local utility = require(RobloxGui.Modules.Settings.Utility)
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
+local PolicyService = require(RobloxGui.Modules.Common.PolicyService)
 
 ------------ Variables -------------------
 local PageInstance = nil
@@ -219,23 +220,29 @@ local function Initialize()
 		accessoriesFrame.Parent = parentFrame
 
 		local miscActions = {}
-		if not FFlagChinaLicensingApp then
+
+		local canShowRecordAndStats = not FFlagChinaLicensingApp
+		if PolicyService:IsEnabled() then
+			canShowRecordAndStats = not PolicyService:IsSubjectToChinaPolicies()
+		end
+
+		if canShowRecordAndStats then
 			table.insert(miscActions, {["Screenshot"] = isOSX and "Cmd + Shift + 3" or "Print Screen"})
 			if not isOSX then
 				table.insert(miscActions, {["Record Video"] = "F12"})
 			end
 		end
 
-		if not FFlagChinaLicensingApp then
+		if canShowRecordAndStats then
 			table.insert(miscActions, {["Dev Console"] = isOSX and "F9/fn + F9" or "F9"})
 		end
 		table.insert(miscActions, {["Mouselock"] = "Shift"})
-		if not FFlagChinaLicensingApp then
+		if canShowRecordAndStats then
 			table.insert(miscActions, {["Graphics Level"] = isOSX and "F10/fn + F10" or "F10"})
 			table.insert(miscActions, {["Fullscreen"] = isOSX and "F11/fn + F11" or "F11"})
 		end
 
-		if not FFlagChinaLicensingApp then
+		if canShowRecordAndStats then
 			table.insert(miscActions, {["Perf. Stats"] = isOSX and "Fn+Opt+Cmd+F7" or "Ctrl + Shift + F7"})
 		end
 		local miscFrame = createPCGroup("Misc", miscActions)

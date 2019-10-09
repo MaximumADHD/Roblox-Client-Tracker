@@ -27,6 +27,8 @@ Studio.AnimationClipEditor.ContextMenu.EditEventName, , ,Edit Event Name
 Studio.AnimationClipEditor.ContextMenu.DeleteAllSameEvents, , ,Delete All Same Events
 Studio.AnimationClipEditor.ContextMenu.RenameKeyframe, , ,Rename Key Keyframe
 Studio.AnimationClipEditor.ContextMenu.ChangeDuration, , ,Change Duration
+Studio.AnimationClipEditor.ContextMenu.EasingStyle, , ,Easing Style
+Studio.AnimationClipEditor.ContextMenu.EasingDirection, , ,Easing Direction
 Studio.AnimationClipEditor.IKMenu.DisableIK, , ,Disable IK
 Studio.AnimationClipEditor.IKMenu.EnableIK, , ,Enable IK
 Studio.AnimationClipEditor.IKMenu.IKMode, , ,IK Mode

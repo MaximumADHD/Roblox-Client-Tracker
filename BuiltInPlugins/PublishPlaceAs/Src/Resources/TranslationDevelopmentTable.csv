@@ -54,4 +54,4 @@ Studio.PublishPlaceAs.ScreenHeader.ChoosePlace, ,Substituted with game name to t
 Studio.PublishPlaceAs.PublishSuccess.Success, , ,Successfully published!
 Studio.PublishPlaceAs.PublishSuccess.FindInGame, ,Substituted with game name to tell user where their place has been published to,You may find this place in {1}
 Studio.PublishPlaceAs.PublishFail.Fail, , ,Publish failed
-Studio.PubilshPlaceAs.PublishFail.FailConfiguration, , ,Could not publish configuration settings.
+Studio.PublishPlaceAs.PublishFail.FailConfiguration, , ,Could not publish configuration settings.

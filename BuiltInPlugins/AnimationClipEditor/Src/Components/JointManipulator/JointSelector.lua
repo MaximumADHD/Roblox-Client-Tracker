@@ -44,6 +44,7 @@ local RigUtils = require(Plugin.Src.Util.RigUtils)
 local JointManipulator = require(Plugin.Src.Components.JointManipulator.JointManipulator)
 
 local ToggleWorldSpace = require(Plugin.Src.Actions.ToggleWorldSpace)
+local FixManipulators = require(Plugin.LuaFlags.GetFFlagFixAnimEditorManipulators)
 
 local JointSelector = Roact.PureComponent:extend("JointSelector")
 
@@ -57,8 +58,10 @@ function JointSelector:init()
 	self.CurrentRoot = rootInstance
 	self.KinematicParts, self.PartsToMotors = RigUtils.getRigInfo(rootInstance)
 
-	local motorData = self.props.MotorData
-	self.CurrentMotorData = motorData
+	if not FixManipulators() then
+		local motorData = self.props.MotorData
+		self.CurrentMotorData = motorData
+	end
 
 	local mouse = getPlugin(self):GetMouse()
 	mouse.TargetFilter = RigUtils.findRootPart(rootInstance)
@@ -108,14 +111,24 @@ end
 
 function JointSelector:willUpdate()
 	local rootInstance = self.props.RootInstance
-	local motorData = self.props.MotorData
-	if rootInstance ~= self.CurrentRoot or (self.CurrentMotorData ~= nil and motorData == nil) then
-		self.CurrentRoot = rootInstance
-		self.KinematicParts, self.PartsToMotors = RigUtils.getRigInfo(rootInstance)
-		local mouse = getPlugin(self):GetMouse()
-		mouse.TargetFilter = RigUtils.findRootPart(rootInstance)
+
+	if FixManipulators() then
+		if rootInstance ~= self.CurrentRoot then
+			self.CurrentRoot = rootInstance
+			self.KinematicParts, self.PartsToMotors = RigUtils.getRigInfo(rootInstance)
+			local mouse = getPlugin(self):GetMouse()
+			mouse.TargetFilter = RigUtils.findRootPart(rootInstance)
+		end
+	else
+		local motorData = self.props.MotorData
+		if rootInstance ~= self.CurrentRoot or (self.CurrentMotorData ~= nil and motorData == nil) then
+			self.CurrentRoot = rootInstance
+			self.KinematicParts, self.PartsToMotors = RigUtils.getRigInfo(rootInstance)
+			local mouse = getPlugin(self):GetMouse()
+			mouse.TargetFilter = RigUtils.findRootPart(rootInstance)
+		end
+		self.CurrentMotorData = motorData
 	end
-	self.CurrentMotorData = motorData
 end
 
 function JointSelector.getDerivedStateFromProps(nextProps, lastState)
@@ -141,7 +154,20 @@ function JointSelector:getJoints()
 	local joints = {}
 	local selectedTracks = self.props.SelectedTracks
 	for _, track in ipairs(selectedTracks) do
-		table.insert(joints, self.PartsToMotors[track])
+		if FixManipulators() then
+			-- because of IK deleting motors during manipulation, it is no longer
+			-- safe to pass motors directly.
+			if self.PartsToMotors[track] then
+				table.insert(joints, {
+					Part0 = self.PartsToMotors[track].Part0,
+					Part1 = self.PartsToMotors[track].Part1,
+					C0 = self.PartsToMotors[track].C0,
+					C1 = self.PartsToMotors[track].C1
+				})
+			end
+		else
+			table.insert(joints, self.PartsToMotors[track])
+		end
 	end
 	return joints
 end

@@ -3,6 +3,7 @@
 ]]
 
 local FFlagStudioAnimEditorFocusRig = game:DefineFastFlag("StudioAnimEditorFocusRig", false)
+local FFlagStudioFixAnimEditorDescendants = game:DefineFastFlag("StudioFixAnimEditorDescendants", false)
 
 local DEFAULT_TOLERANCE = 0.0001
 
@@ -18,10 +19,31 @@ local Constants = require(Plugin.Src.Util.Constants)
 
 local RigUtils = {}
 
+-- Get the rig descendants, ignoring the AnimSaves folder.
+-- If we go into AnimSaves, we go through all animations, which
+-- would take forever if the animations are big!
+local function getDescendants(descendants, model)
+	if not (model:IsA("Model") and model.Name == "AnimSaves") then
+		for _, ch in ipairs(model:GetChildren()) do
+			table.insert(descendants, ch)
+			getDescendants(descendants, ch)
+		end
+	end
+	return descendants
+end
+
 -- Returns a list of every Motor6D in the rig.
 function RigUtils.getMotors(rig)
 	local motors = {}
-	for _, child in ipairs(rig:GetDescendants()) do
+
+	local descendants
+	if FFlagStudioFixAnimEditorDescendants then
+		descendants = getDescendants({}, rig)
+	else
+		descendants = rig:GetDescendants()
+	end
+
+	for _, child in ipairs(descendants) do
 		if child:IsA("Motor6D") then
 			table.insert(motors, child)
 		end
@@ -41,7 +63,14 @@ local function getConstraints(rig)
 	local constraints = {}
 
 	local target = getTemporaryConstraints() or rig
-	for _, child in ipairs(target:GetDescendants()) do
+	local descendants
+	if FFlagStudioFixAnimEditorDescendants then
+		descendants = getDescendants({}, target)
+	else
+		descendants = target:GetDescendants()
+	end
+
+	for _, child in ipairs(descendants) do
 		if child:IsA("BallSocketConstraint") or child:IsA("HingeConstraint") then
 			table.insert(constraints, child)
 		end
@@ -311,8 +340,16 @@ local function restoreMotor(data)
 	motor.Parent = data.Parent
 end
 
+local function calculateTransformHelper(p0, p1, c0, c1)
+	return c0:inverse() * p0:inverse() * p1 * c1
+end
+
 local function calculateTransform(data, ikPose)
-	return data.C0:inverse() * ikPose[data.Part0]:inverse() * ikPose[data.Part1] * data.C1
+	return calculateTransformHelper(ikPose[data.Part0], ikPose[data.Part1], data.C0, data.C1)
+end
+
+function RigUtils.getJointTransform(joint)
+	return calculateTransformHelper(joint.Part0.CFrame, joint.Part1.CFrame, joint.C0, joint.C1)
 end
 
 local function restoreMotors(rig, ikPose, motorData, changedValues)
