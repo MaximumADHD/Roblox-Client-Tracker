@@ -25,6 +25,7 @@ local function deserializeResult(friendSearchResults)
 		table.insert(friends, {
 			[PermissionsConstants.SubjectNameKey] = webItem[WEB_KEYS.Name],
 			[PermissionsConstants.SubjectIdKey] = webItem[WEB_KEYS.Id],
+			[PermissionsConstants.IsFriendKey] = true,
 		})
 	end
 

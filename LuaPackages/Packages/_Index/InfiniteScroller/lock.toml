@@ -5,7 +5,7 @@ source = "git+https://github.rbx.com/roblox/infinite-scroll#master"
 commit = "25d09f0fd1626630f31d4c43cfe9702d302c8e24"
 dependencies = [
     "Cryo roblox/cryo 272caa8f git+https://github.com/roblox/cryo#master",
-    "FitFrame roact-fit-components 995f4340 git+https://github.rbx.com/roblox/roact-box-components#master",
+    "FitFrame roact-fit-components ab1a2160 git+https://github.rbx.com/roblox/roact-box-components#master",
     "Otter roblox/otter acc8b912 git+https://github.com/roblox/otter#master",
     "Roact roblox/roact deaa8000 git+https://github.com/roblox/roact#master",
     "TestEZ TestEZ 17e1408b git+https://github.com/roblox/testez#master",

@@ -1,4 +1,4 @@
-local FFlagStudioUseAnimationEditorAnalytics = game:DefineFastFlag("StudioUseAnimationEditorAnalytics", false)
+local FFlagStudioUseAnimationEditorAnalytics2 = game:DefineFastFlag("StudioUseAnimationEditorAnalytics2", false)
 
 local Constants = {
 	PLUGIN_NAME = "AnimationClipEditor",
@@ -6,7 +6,7 @@ local Constants = {
 	PLUGIN_BUTTON_IMAGE = "rbxasset://textures/AnimationEditor/animation_editor_blue.png",
 	CHECK_IMAGE = "rbxasset://textures/ui/LuaChat/icons/ic-check@2x.png",
 
-	USE_MOCK_ANALYTICS = not FFlagStudioUseAnimationEditorAnalytics,
+	USE_MOCK_ANALYTICS = not FFlagStudioUseAnimationEditorAnalytics2,
 
 	ZOOM_INCREMENT = 0.04,
 
@@ -116,6 +116,7 @@ local Constants = {
 		MissingPart1 = "MissingPart1",
 		MultipleParents = "MultipleParents",
 		CircularRig = "CircularRig",
+		NoAnimationController = "NoAnimationController",
 	},
 
 	TIMELINE_UNITS = {

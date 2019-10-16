@@ -30,7 +30,8 @@ AssetConfigConstants.SIDE_TABS = convertArrayToTable({
 	"Versions",
 	-- Override is weird case. it acts like a tab, but don't show up in the tabs.
 	-- We should ask the design for a more consistent pattern to replace this one.
-	"Override"
+	"Override",
+	"Permissions",
 })
 
 AssetConfigConstants.GENRE_TYPE = {
@@ -111,13 +112,18 @@ local marketplaceAssetTypes = convertArrayToTable({
 	Enum.AssetType.Mesh,
 	Enum.AssetType.MeshPart,
 	Enum.AssetType.Audio,
+	Enum.AssetType.Plugin,
 })
 
-local function checkData(assetTypeId)
+local marketplaceBuyableAsset = convertArrayToTable({
+	Enum.AssetType.Plugin,
+})
+
+local function checkData(assetTypeEnum)
 	if DebugFlags.shouldDebugWarnings() then
-		local isAssetTypeBothCatalogAndMarketplace = catalogAssetTypes[assetTypeId] and marketplaceAssetTypes[assetTypeId]
+		local isAssetTypeBothCatalogAndMarketplace = catalogAssetTypes[assetTypeEnum] and marketplaceAssetTypes[assetTypeEnum]
 		if isAssetTypeBothCatalogAndMarketplace then
-			warn("Lua CMS: " .. tostring(assetTypeId) .. " cannot be both a catalog and marketplace asset")
+			warn("Lua CMS: " .. tostring(assetTypeEnum) .. " cannot be both a catalog and marketplace asset")
 		end
 	end
 end
@@ -130,6 +136,11 @@ end
 function AssetConfigConstants.isMarketplaceAsset(assetTypeEnum)
 	checkData(assetTypeEnum)
 	return marketplaceAssetTypes[assetTypeEnum] and true or false
+end
+
+function AssetConfigConstants.isBuyableMarketplaceAsset(assetTypeEnum)
+	checkData(assetTypeEnum)
+	return marketplaceBuyableAsset[assetTypeEnum] and true or false
 end
 
 function AssetConfigConstants.getFlowStartScreen(flowType)

@@ -2,28 +2,42 @@
 	This component holds all the detail page we want to show to the user. The content being displayed here should be
 	determined by the parent. And each time the componnet changes, it needs to noticfy the parent about the change.
 
-	Props:
-	contentTable = {
-		index = {RoactElement = RoactElement, Name = String}
+	Necessary Props:
+		Size, UDim2, used to set the size for the whole page.
+		name, string, used to represent the asset's name. Nil for new asset. Can't be nil.
+		description, string, used to represent the asset's description.
+		owner, table, contain data structure describe the owner.
+		genres, arrar of string, it's an array, even you can only select one genre.
+		allowCopy, bool, decide if user can change the copyOn toggle button or not.
+		copyOn, bool, decide if the user has set the copyOn to true or false.
+		allowComment, bool, decide if other users can change comment on this asset or not.
+		commentOn, bool, decide if the comment on is true or false.
+		price, number, the price for the asset, if applicable.
+		minPrice, number, the minimal price you can set.
+		maxPrice, number, the maximal price you can set.
 
-		enum assetTypeId, the type of the asset being configured
+		assetTypeEnum, enum, asset type.
 
-		boolean displayOwnership, display the ownership widget (default to true if nil)
-		boolean displayGenre, display the genre widget (default to true if nil)
-		boolean displayCopy, display the copy widget (default to true if nil)
-		boolean displayComment, display the comment widget (default to true if nil)
-		boolean displayDisclosure, display the disclosure widget (default to true if nil)
-		boolean displayAssetType, display the text indicating the asset type
-	}
-	Will be supporting NameField, DescriptionField, AccessField, GenreField, CopyField and CommentField. Index is used to
-	determine their order on the page.
+		onNameChange, functoin, callback when name changes.
+		onDescChange, functoin, callback when description changes.
+		onOwnerSelected, functoin, callback when owner changes.
+		onGenreSelected, functoin, callback when genre changes.
+		toggleCopy, functoin, callback when copy changes.
+		toggleComment, functoin, callback when comment changes.
+		onStatusChange, functon, callback when sales status changes.
+		onPriceChange, function, callback when price changes.
 
-	onNameChange, functoin, callback when name changes.
-	onDescChange, functoin, callback when description changes.
-	onOwnerSelected, functoin, callback when owner changes.
-	onGenreSelected, functoin, callback when genre changes.
-	toggleCopy, functoin, callback when copy changes.
-	toggleComment, functoin, callback when comment changes.
+		displayOwnership, bool, if we want to show ownership.
+		displayGenre, bool, genre.
+		displayCopy, bool, copy.
+		displayComment, bool, comment.
+		displayAssetType, bool, assetType.
+		displaySale, bool, sale.
+		displayPrice, bool, price.
+		isPriceValid, bool, used to tell user if the price is legit or not.
+
+	Optional Props:
+		LayoutOrder, number, used by the layouter to set the position of the component.
 ]]
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -40,6 +54,7 @@ local ContextHelper = require(Util.ContextHelper)
 local LayoutOrderIterator = require(Util.LayoutOrderIterator)
 local AssetConfigConstants = require(Util.AssetConfigConstants)
 local Constants = require(Util.Constants)
+local AssetConfigUtil = require(Util.AssetConfigUtil)
 
 local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
@@ -50,6 +65,8 @@ local ConfigAccess = require(AssetConfiguration.ConfigAccess)
 local ConfigGenre = require(AssetConfiguration.ConfigGenre)
 local ConfigCopy = require(AssetConfiguration.ConfigCopy)
 local ConfigComment = require(AssetConfiguration.ConfigComment)
+local SalesComponent = require(AssetConfiguration.SalesComponent)
+local PriceComponent = require(AssetConfiguration.PriceComponent)
 
 local PublishAsset = Roact.PureComponent:extend("PublishAsset")
 
@@ -65,6 +82,31 @@ local HEIGHT_FOR_ACCTOUN_SETTING_TEXT = 60
 local DIVIDER_BASE_HEIGHT = 20
 local DIVIDER_WIDTH = 672
 
+local function createDivider(props)
+	local size = props.size
+	local order = props.order
+	local theme = props.theme
+
+	return Roact.createElement("Frame", {
+		Size = size,
+
+		BackgroundTransparency = 1,
+		BorderSizePixel = 0,
+
+		LayoutOrder = order,
+	}, {
+		Divider = Roact.createElement("Frame", {
+			-- The postion includes current padding.
+			Position = UDim2.new(0, 4, 0, 0),
+			Size = UDim2.new(0, DIVIDER_WIDTH, 0, 2),
+
+			BorderSizePixel = 0,
+			BackgroundTransparency = 0,
+			BackgroundColor3 = theme.divider.horizontalLineColor,
+		})
+	})
+end
+
 function PublishAsset:init(props)
 	self.state = {
 	}
@@ -76,12 +118,10 @@ function PublishAsset:render()
 	return withTheme(function(theme)
 		return withLocalization(function(_, localizedContent)
 			local props = self.props
-			local state = self.state
 
 			local Size = props.Size
 			local LayoutOrder = props.LayoutOrder
 
-			local assetId = props.assetId
 			local name = props.name
 			local description = props.description
 			local owner = props.owner
@@ -90,6 +130,9 @@ function PublishAsset:render()
 			local copyOn = props.copyOn
 			local allowComment = props.allowComment
 			local commentOn = props.commentOn
+			local price = props.price
+			local minPrice = props.minPrice
+			local maxPrice = props.maxPrice
 
 			local assetTypeEnum = props.assetTypeEnum
 
@@ -100,11 +143,29 @@ function PublishAsset:render()
 			local toggleCopy = props.toggleCopy
 			local toggleComment = props.toggleComment
 
-			local displayOwnership = nil == props.displayOwnership or props.displayOwnership
-			local displayGenre = nil == props.displayGenre or props.displayGenre
-			local displayCopy = nil == props.displayCopy or props.displayCopy
-			local displayComment = nil == props.displayComment or props.displayComment
-			local displayAssetType = nil == props.displayAssetType or props.displayAssetType
+			local displayOwnership = props.displayOwnership
+			local displayGenre = props.displayGenre
+			local displayCopy = props.displayCopy
+			local displayComment = props.displayComment
+			local displayAssetType = props.displayAssetType
+			local displaySale = props.displaySale
+			local displayPrice = props.displayPrice
+
+			local isPriceValid = props.isPriceValid
+			local onStatusChange = props.onStatusChange
+			local onPriceChange = props.onPriceChange
+
+			-- If this is a catalog asset, we check this.
+			local canChangeSalesStatus
+			local allowedAssetTypesForRelease = props.allowedAssetTypesForRelease
+			local newAssetStatus = props.newAssetStatus
+			local currentAssetStatus = props.currentAssetStatus
+			if AssetConfigConstants.isCatalogAsset(assetTypeEnum) then
+				canChangeSalesStatus = AssetConfigUtil.isReadyForSale(newAssetStatus)
+			else -- For everything else, we check the allowed list to toggle the sales status
+				-- For first release, we support only plugin. So, we check only plugin.
+				canChangeSalesStatus = allowedAssetTypesForRelease.Plugin and true or false
+			end
 
 			local orderIterator = LayoutOrderIterator.new()
 
@@ -153,7 +214,7 @@ function PublishAsset:render()
 					TextChangeCallBack = onNameChange,
 					TextContent = name,
 
-					LayoutOrder = orderIterator:getNextOrder()
+					LayoutOrder = orderIterator:getNextOrder(),
 				}),
 
 				Description = Roact.createElement(ConfigTextField, {
@@ -163,14 +224,14 @@ function PublishAsset:render()
 					TextChangeCallBack = onDescChange,
 					TextContent = description,
 
-					LayoutOrder = orderIterator:getNextOrder()
+					LayoutOrder = orderIterator:getNextOrder(),
 				}),
 
 				AssetType = displayAssetType and Roact.createElement(TitledFrame, {
 					Title = publishAssetLocalized.AssetType,
 					MaxHeight = ASSET_TYPE_HEIGHT,
 					TextSize = Constants.FONT_SIZE_TITLE,
-					LayoutOrder = orderIterator:getNextOrder()
+					LayoutOrder = orderIterator:getNextOrder(),
 				}, {
 					Label = Roact.createElement("TextLabel", {
 						BackgroundTransparency = 1,
@@ -193,7 +254,7 @@ function PublishAsset:render()
 
 					onDropDownSelect = onOwnerSelected,
 
-					LayoutOrder = orderIterator:getNextOrder()
+					LayoutOrder = orderIterator:getNextOrder(),
 				}),
 
 				Genre = displayGenre and Roact.createElement(ConfigGenre, {
@@ -204,27 +265,13 @@ function PublishAsset:render()
 
 					onDropDownSelect = onGenreSelected,
 
-					LayoutOrder = orderIterator:getNextOrder()
+					LayoutOrder = orderIterator:getNextOrder(),
 				}),
 
-				DividerBase = displayGenre and Roact.createElement("Frame", {
-					-- Confirm a better number
-					Size = UDim2.new(1, 0, 0, DIVIDER_BASE_HEIGHT),
-
-					BackgroundTransparency = 1,
-					BorderSizePixel = 0,
-
-					LayoutOrder = orderIterator:getNextOrder()
-				}, {
-					Divider = Roact.createElement("Frame", {
-						-- The postion includes current padding.
-						Position = UDim2.new(0, 4, 0, 0),
-						Size = UDim2.new(0, DIVIDER_WIDTH, 0, 2),
-
-						BorderSizePixel = 0,
-						BackgroundTransparency = 0,
-						BackgroundColor3 = theme.divider.horizontalLineColor
-					})
+				DividerBase = displayGenre and Roact.createElement(createDivider, {
+					size = UDim2.new(1, 0, 0, DIVIDER_BASE_HEIGHT),
+					order = orderIterator:getNextOrder(),
+					theme = theme,
 				}),
 
 				Copy = displayCopy and Roact.createElement(ConfigCopy, {
@@ -236,7 +283,7 @@ function PublishAsset:render()
 
 					ToggleCallback = toggleCopy,
 
-					LayoutOrder = orderIterator:getNextOrder()
+					LayoutOrder = orderIterator:getNextOrder(),
 				}),
 
 				Comment = displayComment and Roact.createElement(ConfigComment, {
@@ -248,8 +295,39 @@ function PublishAsset:render()
 
 					ToggleCallback = toggleComment,
 
-					LayoutOrder = orderIterator:getNextOrder()
+					LayoutOrder = orderIterator:getNextOrder(),
 				}),
+
+				DividerBase2 = displaySale and Roact.createElement(createDivider, {
+					size = UDim2.new(1, 0, 0, DIVIDER_BASE_HEIGHT),
+					order = orderIterator:getNextOrder(),
+					theme = theme,
+				}),
+
+				Sale = displaySale and Roact.createElement(SalesComponent, {
+					title = localizedContent.Sales.Sale,
+
+					newAssetStatus = newAssetStatus,
+					currentAssetStatus = currentAssetStatus,
+					onStatusChange = onStatusChange,
+					canChangeSalesStatus = canChangeSalesStatus,
+
+					layoutOrder = orderIterator:getNextOrder(),
+				}),
+
+				Price = displayPrice and Roact.createElement(PriceComponent, {
+					assetTypeEnum = assetTypeEnum,
+					allowedAssetTypesForRelease = allowedAssetTypesForRelease,
+					newAssetStatus = newAssetStatus,
+					onPriceChange = onPriceChange,
+					isPriceValid = isPriceValid,
+
+					price = price,
+					minPrice = minPrice,
+					maxPrice = maxPrice,
+
+					layoutOrder = orderIterator:getNextOrder(),
+				})
 			})
 		end)
 	end)

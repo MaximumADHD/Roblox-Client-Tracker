@@ -34,6 +34,9 @@ Class Instance : <<<ROOT>>> [NotCreatable] [NotBrowsable]
 Class ABTestService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function string ABTestService:GetVariant(string name) {LocalUserSecurity}
 	Function void ABTestService:InitializeForUserId(int64 userId) {LocalUserSecurity}
+	Function void ABTestService:WaitUntilBrowserTrackerABTestsInitialized() {LocalUserSecurity} [Yields]
+	Function void ABTestService:WaitUntilUserABTestsInitialized() {LocalUserSecurity} [Yields]
+	Function void ABTestService:clearUserVariations() {LocalUserSecurity}
 Class Accoutrement : Instance
 	Property Vector3 Accoutrement.AttachmentForward [<📁> Load-only] [NotReplicated]
 	Property CFrame Accoutrement.AttachmentPoint
@@ -2805,6 +2808,7 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event StudioService.OnOpenManagePackagePlugin(int64 userId, int64 assetId) {RobloxScriptSecurity}
 	Event StudioService.OnPluginInstalledFromToolbox() {RobloxScriptSecurity}
 	Event StudioService.OnPluginInstalledFromWeb(string pluginId) {RobloxScriptSecurity}
+	Event StudioService.OnPublishAsPlugin(Objects instances) {RobloxScriptSecurity}
 	Event StudioService.OnPublishPlaceToRoblox() {RobloxScriptSecurity}
 	Event StudioService.OnSaveToRoblox(Objects instances) {RobloxScriptSecurity}
 Class StudioTheme : Instance [NotCreatable] [NotReplicated]

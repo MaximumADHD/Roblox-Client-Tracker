@@ -8,11 +8,11 @@ version = "0.1.0"
 dependencies = [
     "Cryo Cryo ce743f67 git+https://github.com/roblox/cryo#roblox",
     "LuaChatDeps LuaChatDeps d9941346 git+https://github.rbx.com/roblox/lua-chat-deps#master",
-    "LuaDiscussionsDeps LuaDiscussionsDeps f4900e00 git+https://github.rbx.com/roblox/lua-discussions-deps#master",
+    "LuaDiscussionsDeps LuaDiscussionsDeps 6ecae597 git+https://github.rbx.com/roblox/lua-discussions-deps#master",
     "Otter Otter fff3ac76 git+https://github.com/roblox/otter#roblox",
     "OtterApp roblox/otter acc8b912 git+https://github.com/roblox/otter#master",
     "Promise lua-promise bbb9e162 git+https://github.rbx.com/roblox/lua-promise#master",
-    "PurchasePrompt roblox/purchase-prompt 79a33e41 git+https://github.com/roblox/purchasepromptscript-roact#master",
+    "PurchasePrompt roblox/purchase-prompt 2993594d git+https://github.com/roblox/purchasepromptscript-roact#master",
     "Result lua-Result 4c69dedd git+https://github.rbx.com/roblox/lua-result#master",
     "Roact roblox/roact deaa8000 git+https://github.com/roblox/roact#master",
     "RoactRodux RoactRodux f92dedb2 git+https://github.com/roblox/roact-rodux#transitioning-roblox-roact-1x",
@@ -35,7 +35,7 @@ source = "git+https://github.rbx.com/roblox/infinite-scroll#master"
 commit = "25d09f0fd1626630f31d4c43cfe9702d302c8e24"
 dependencies = [
     "Cryo roblox/cryo 272caa8f git+https://github.com/roblox/cryo#master",
-    "FitFrame roact-fit-components 995f4340 git+https://github.rbx.com/roblox/roact-box-components#master",
+    "FitFrame roact-fit-components ab1a2160 git+https://github.rbx.com/roblox/roact-box-components#master",
     "Otter roblox/otter acc8b912 git+https://github.com/roblox/otter#master",
     "Roact roblox/roact deaa8000 git+https://github.com/roblox/roact#master",
     "TestEZ TestEZ 17e1408b git+https://github.com/roblox/testez#master",
@@ -56,10 +56,10 @@ dependencies = [
 name = "LuaDiscussionsDeps"
 version = "0.1.0"
 source = "git+https://github.rbx.com/roblox/lua-discussions-deps#master"
-commit = "f4900e00658bd3f2fcf1af5ac61075f90035f65a"
+commit = "6ecae597b544f219403355a04c4c4ef74101df46"
 dependencies = [
     "InfiniteScroll InfiniteScroller 25d09f0f git+https://github.rbx.com/roblox/infinite-scroll#master",
-    "RoactFitComponents roact-fit-components 995f4340 git+https://github.rbx.com/roblox/roact-box-components#master",
+    "RoactFitComponents roact-fit-components ab1a2160 git+https://github.rbx.com/roblox/roact-box-components#master",
     "RoactNavigation roact-navigation 534a60f1 git+https://github.rbx.com/roblox/roact-navigation#v0.1.1",
     "RoduxNetworking rodux-networking cd528e25 git+https://github.rbx.com/roblox/rodux-networking#master",
 ]
@@ -136,7 +136,7 @@ dependencies = ["tutils tutils 74574fde git+https://github.rbx.com/roblox/tutils
 name = "roact-fit-components"
 version = "1.0.0"
 source = "git+https://github.rbx.com/roblox/roact-box-components#master"
-commit = "995f434033c2024b32bdc02e65470db8ed153ee4"
+commit = "ab1a21607a71dd1d5841cc824152ba7ea03b60f5"
 dependencies = [
     "Cryo roblox/cryo 272caa8f git+https://github.com/roblox/cryo#master",
     "Roact roblox/roact deaa8000 git+https://github.com/roblox/roact#master",
@@ -173,9 +173,9 @@ commit = "acc8b912c1fe84be1c43ac6123bea5cb96ee98c4"
 
 [[package]]
 name = "roblox/purchase-prompt"
-version = "0.1.0"
+version = "0.1.1"
 source = "git+https://github.com/roblox/purchasepromptscript-roact#master"
-commit = "79a33e41c9f8ead87679815d00c0676d8af0238e"
+commit = "2993594dae734a148f7446e292c5a331cc0c834f"
 dependencies = [
     "Otter roblox/otter acc8b912 git+https://github.com/roblox/otter#master",
     "Roact roblox/roact deaa8000 git+https://github.com/roblox/roact#master",

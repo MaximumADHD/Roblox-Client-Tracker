@@ -116,16 +116,18 @@ function Generate:init(initialProps)
 	end
 
 	self.updateGenerateProps = function()
-		TerrainGeneration.ChangeProperties({
-			position = self.props.position,
-			size = self.props.size,
+		if not self.state.isGenerationActive then
+			TerrainGeneration.ChangeProperties({
+				position = self.props.position,
+				size = self.props.size,
 
-			biomeSelection = self.props.biomeSelection,
-			biomeSize = self.props.biomeSize,
-			haveCaves = self.props.haveCaves,
+				biomeSelection = self.props.biomeSelection,
+				biomeSize = self.props.biomeSize,
+				haveCaves = self.props.haveCaves,
 
-			seed = self.props.seed,
-		})
+				seed = self.props.seed,
+			})
+		end
 	end
 
 	self.setGenButtonState = function(state)
@@ -225,7 +227,7 @@ function Generate:render()
 						LayoutOrder = 2,
 					},{
 						Border = Roact.createElement("Frame", {
-							Size = UDim2.new(0, 212, 0, 128),
+							Size = UDim2.new(0, 229, 0, 128),
 							Position = UDim2.new(0, 20, 0, 0),
 							BackgroundColor3 = theme.backgroundColor,
 							BorderColor3 = theme.borderColor,
@@ -239,7 +241,7 @@ function Generate:render()
 
 							GridLayout = Roact.createElement("UIGridLayout", {
 								CellSize = UDim2.new(0, 86, 0, 16),
-								CellPadding = UDim2.new(0, 8, 0, 8),
+								CellPadding = UDim2.new(0, 20, 0, 8),
 								SortOrder = Enum.SortOrder.LayoutOrder,
 							}),
 
@@ -306,20 +308,14 @@ function Generate:render()
 						Text = localization:getText("Generate", "BiomeSize"),
 						SizeToContent = true,
 					}, {
-						BiomeSizeInput = Roact.createElement(LabeledTextInput, {
-							Width = UDim.new(0, 136),
-							Text = biomeSizeString,
-							OnFocusLost = function(enterPressed, text)
-								self.onBiomeSizeChanged(text)
-							end,
-
-							ValidateText = function(text)
-								local number = tonumber(text)
-								if number then
-									return text
-								else
-									return text, localization:getText("Warning", "InvalidNumber")
-								end
+						BiomeSizeSlider = Roact.createElement(Slider, {
+							Min = 16,
+							Max = 4096,
+							SnapIncrement = 4,
+							ShowInput = true,
+							Value = tonumber(biomeSizeString),
+							SetValues = function(val)
+								self.onBiomeSizeChanged(tostring(val))
 							end,
 						}),
 					}),

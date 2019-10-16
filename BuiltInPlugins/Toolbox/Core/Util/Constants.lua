@@ -22,7 +22,7 @@ Constants.AssetStatus = convertArrayToTable({
 	"ReviewApproved",
 	"OnSale",
 	"OffSale",
-	"DelayedRelease"
+	"DelayedRelease",
 })
 
 Constants.TOOLTIP_LINE_HEIGHT = 1.3

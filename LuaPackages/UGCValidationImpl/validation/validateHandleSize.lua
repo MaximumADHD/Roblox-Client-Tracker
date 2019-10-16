@@ -1,5 +1,8 @@
 local UGCValidationService = game:GetService("UGCValidationService")
 
+local root = script.Parent.Parent
+local valueToString = require(root.util.valueToString)
+
 local MARGIN_OF_ERROR = 0.1
 
 local function validateHandleSize(isAsync, instance)
@@ -46,7 +49,7 @@ local function validateHandleSize(isAsync, instance)
 	or handle.Size.Y + MARGIN_OF_ERROR < meshSize.Y
 	or handle.Size.Z + MARGIN_OF_ERROR < meshSize.Z then
 		return false, {
-			string.format("Accessory Handle size should be at least the size of the mesh ( %s )", tostring(meshSize))
+			string.format("Accessory Handle size should be at least the size of the mesh ( %s )", valueToString(meshSize))
 		}
 	end
 

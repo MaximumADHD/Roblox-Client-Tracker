@@ -56,7 +56,7 @@ function methods:SendSystemMessageToSpeaker(message, speakerName, extraData)
 	if (speaker) then
 		local messageObj = self:InternalCreateMessageObject(message, nil, true, extraData)
 		speaker:InternalSendSystemMessage(messageObj, self.Name)
-	else
+	elseif RunService:IsStudio() then
 		warn(string.format("Speaker '%s' is not in channel '%s' and cannot be sent a system message", speakerName, self.Name))
 	end
 end
@@ -125,7 +125,7 @@ function methods:SendMessageToSpeaker(message, speakerName, fromSpeakerName, ext
 			messageObj.IsFiltered = true
 			speakerTo:InternalSendFilteredMessageWithFilterResult(messageObj, self.Name)
 		end
-	else
+	elseif RunService:IsStudio() then
 		warn(string.format("Speaker '%s' is not in channel '%s' and cannot be sent a message", speakerName, self.Name))
 	end
 end

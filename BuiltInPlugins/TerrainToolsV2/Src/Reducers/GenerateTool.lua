@@ -14,9 +14,9 @@ local GenerateTool = Rodux.createReducer({
 	},
 
 	size = {
-		X = 258,
-		Y = 128,
-		Z = 258,
+		X = 1024,
+		Y = 512,
+		Z = 1024,
 	},
 
 	biomeSelection = {

@@ -33,23 +33,52 @@ local Info = DockWidgetPluginGuiInfo.new(
 	MinX, MinY,
 	MinX, MinY
 )
-local Window = plugin:CreateDockWidgetPluginGui("CollisionGroupsEditorWindow", Info)
-Window.Title = "Collision Groups Editor"
 
-Roact.mount(
-	Roact.createElement(Gui, {
-		Window = Window,
-		plugin = plugin
-	}),
-	Window,
-	"CollisionGroupEditorGui"
-)
+local Window = nil
+-- Wait until we've created a place session before we create the GUI.
+plugin.MDIInstance.DataModelSessionStarted:connect(function(sessionId)
+	if (Window == nil) then 
+		Window = plugin:CreateDockWidgetPluginGui("CollisionGroupsEditorWindow", Info)
+		Window.Title = "Collision Groups Editor"
+		
+		Roact.mount(
+			Roact.createElement(Gui, {
+				Window = Window,
+				plugin = plugin
+			}),
+			Window,
+			"CollisionGroupEditorGui"
+		)	
+	end
+
+	-- in case the window was open when the place started, we
+	-- can report that the user started the place with it open
+	-- note: I don't know if this works, but it should
+	if Window.Enabled then
+		reportOpening()
+	end
+end)
+
+-- If place session ends and we have a gui, destroy it.
+plugin.MDIInstance.DataModelSessionEnded:connect(function(sessionId)
+	if (Window ~= nil) then 
+		Window:Destroy()
+		Window = nil
+	end
+end)
 
 function onClicked()
+	-- Theoretically not possible, the button isn't available to users unless 
+	-- place session has started, at which point we have a Window.
+	-- Still, just to be safe, check for Window == nil.
+	if (Window == nil) then 
+		return
+	end
+
 	Window.Enabled = not Window.Enabled
 	if (Window.Enabled) then 
 		-- Reasonable time to update view.
-		self.props.plugin:Fire("WindowEnabled", "true")
+		plugin:Fire("WindowEnabled", "true")
 	end
 
 	-- report an opening if we were just opened
@@ -59,9 +88,3 @@ function onClicked()
 end
 Button.Click:Connect(onClicked)
 
--- in case the window was open when the place started, we
--- can report that the user started the place with it open
--- note: I don't know if this works, but it should
-if Window.Enabled then
-	reportOpening()
-end

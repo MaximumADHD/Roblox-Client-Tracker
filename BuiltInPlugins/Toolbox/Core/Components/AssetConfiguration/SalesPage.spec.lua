@@ -8,7 +8,7 @@ return function()
 	local MockWrapper = require(Plugin.Core.Util.MockWrapper)
 
 	local Constants = require(Plugin.Core.Util.Constants)
-	local Sales = require(Plugin.Core.Components.AssetConfiguration.Sales)
+	local SalesPage = require(Plugin.Core.Components.AssetConfiguration.SalesPage)
 
 	local function createSales(status, price)
 		status = status or Constants.AssetStatus.Unknown
@@ -17,7 +17,7 @@ return function()
 		return Roact.createElement(MockWrapper, {
 			theme = AssetConfigTheme.createDummyThemeManager(),
 		}, {
-			Sales = Roact.createElement(Sales, {
+			SalesPage = Roact.createElement(SalesPage, {
 				Size = UDim2.new(1, -150, 1, 0),
 
 				AssetTypeId = Enum.AssetType.Hat,

@@ -22,6 +22,7 @@ end
 
 local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp") --todo: remove with FFlagUsePolicyServiceForCoreScripts
 local FFlagFixInspectMenuAnalytics = settings():GetFFlag("FixInspectMenuAnalytics")
+local FFlagUseNewFriendsDomainCoreScripts = settings():GetFFlag("UseNewFriendsDomainCoreScripts")
 
 local recentApiRequests = -- stores requests for target players by userId
 {
@@ -40,6 +41,10 @@ local FRIEND_IMAGE = 'https://www.roblox.com/thumbs/avatar.ashx?userId='
 local INSPECT_KEY = "InGame.InspectMenu.Action.View"
 
 local GET_BLOCKED_USERIDS_TIMEOUT = 5
+
+local BaseUrl = game:GetService("ContentProvider").BaseUrl:lower()
+BaseUrl = string.gsub(BaseUrl, "http:", "https:")
+local FriendCountUrl = string.gsub(BaseUrl, "www", "friends") .. "v1/users/{userId}/friends/count"
 
 local RobloxGui = CoreGui:WaitForChild('RobloxGui')
 local reportAbuseMenu = require(RobloxGui.Modules.Settings.Pages.ReportAbuseMenu)
@@ -130,22 +135,45 @@ end
 -- if userId = nil, then it will get count for local player
 local function getFriendCountAsync(userId)
 	local friendCount = nil
-	local wasSuccess, result = pcall(function()
-		local str = 'user/get-friendship-count'
-		if userId then
-			str = str..'?userId='..tostring(userId)
+
+	local wasSuccess, result 
+	if FFlagUseNewFriendsDomainCoreScripts then
+		wasSuccess, result = pcall(function()
+			if userId == nil then
+				userId = LocalPlayer.UserId
+			end
+			local url = string.gsub(FriendCountUrl,"{userId}",tostring(userId))
+			return HttpRbxApiService:GetAsyncFullUrl(url)
+		end)
+		if not wasSuccess then
+			print(FriendCountUrl,"failed because", result)
+			return nil
 		end
-		return HttpRbxApiService:GetAsync(str, Enum.ThrottlingPriority.Default,
-            Enum.HttpRequestType.Players)
-	end)
-	if not wasSuccess then
-		print("getFriendCountAsync() failed because", result)
-		return nil
+	else
+		wasSuccess, result = pcall(function()
+			local str = 'user/get-friendship-count'
+			if userId then
+				str = str..'?userId='..tostring(userId)
+			end
+			return HttpRbxApiService:GetAsync(str, Enum.ThrottlingPriority.Default,
+				Enum.HttpRequestType.Players)
+		end)
+		if not wasSuccess then
+			print("getFriendCountAsync() failed because", result)
+			return nil
+		end
 	end
+	
 	result = HttpService:JSONDecode(result)
 
-	if result["success"] and result["count"] then
-		friendCount = result["count"]
+	if FFlagUseNewFriendsDomainCoreScripts then
+		if result["count"] then
+			friendCount = result["count"]
+		end
+	else
+		if result["success"] and result["count"] then
+			friendCount = result["count"]
+		end
 	end
 
 	return friendCount

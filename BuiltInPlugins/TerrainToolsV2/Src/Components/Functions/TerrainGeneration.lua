@@ -527,6 +527,11 @@ function generate ()
 			floor(position.Y / resolution),
 			floor(position.Z / resolution)
 		)
+		local voxelSize = Vector3.new(
+			floor(size.X / resolution),
+			floor(size.Y / resolution),
+			floor(size.Z / resolution)
+		)
 		local scaledOffset = offset * resolution
 
 		local startTime = tick()
@@ -541,13 +546,13 @@ function generate ()
 		end
 		--local oMap = {}
 		--local mMap = {}
-		for x = 1, size.X do  -- REMAP
+		for x = 1, voxelSize.X do  -- REMAP
 			local offsetX = offset.x + x
 			local oMapX = {}
 			--oMap[x] = oMapX
 			local mMapX = {}
 			--mMap[x] = mMapX
-			for z = 1, size.Z do
+			for z = 1, voxelSize.Z do
 				local offsetZ = offset.z + z
 				local biomeNoCave = false
 				local cellToBiomeX = offsetX/biomeSize + getPerlin(offsetX,0,offsetZ,233,biomeSize*.3)*.25 + getPerlin(offsetX,0,offsetZ,235,biomeSize*.05)*.075
@@ -597,7 +602,7 @@ function generate ()
 					end
 				end
 
-				for y = 1, size.Y do
+				for y = 1, voxelSize.Y do
 					local oMapY = oMapX[y] or {}
 					oMapX[y] = oMapY
 					local mMapY = mMapX[y] or {}
@@ -608,7 +613,7 @@ function generate ()
 					local mMapY = {}
 					mMapX[z] = mMapY]]
 
-					local verticalGradient = 1-((y-1)/(size.Y-1))
+					local verticalGradient = 1-((y-1)/(voxelSize.Y-1))
 					local caves = 0
 					local verticalGradientTurbulence = verticalGradient*.9 + .1*getPerlin(offsetX,y,offsetZ,107,15)
 					local choiceValue = 0
@@ -681,12 +686,12 @@ function generate ()
 				end
 			end
 
-			local regionStart = Vector3.new(size.X*-2+(x-1)*4, size.Y*-2, size.Z*-2) + scaledOffset
-			local regionEnd = Vector3.new(size.X*-2+x*4, size.Y*2, size.Z*2) + scaledOffset
+			local regionStart = Vector3.new(voxelSize.X*-2+(x-1)*4, voxelSize.Y*-2, voxelSize.Z*-2) + scaledOffset
+			local regionEnd = Vector3.new(voxelSize.X*-2+x*4, voxelSize.Y*2, voxelSize.Z*2) + scaledOffset
 			local mapRegion = Region3.new(regionStart, regionEnd)
 			terrain:WriteVoxels(mapRegion, 4, {mMapX}, {oMapX})
 
-			local completionPercent = x/size.X
+			local completionPercent = x/voxelSize.X
 			barFill.Size = UDim2.new(completionPercent,0,1,0)
 
 			wait()

@@ -153,7 +153,7 @@ function IKController:render()
 
 			local selectedTrack = self.getLastSelectedTrack()
 
-			return Roact.createElement("Frame", {
+			return self.props.RootInstance and Roact.createElement("Frame", {
 				Position = props.Position,
 				Size = UDim2.new(0, IK_BUTTON_WIDTH, 0, IK_BUTTON_HEIGHT),
 				BackgroundTransparency = 1,

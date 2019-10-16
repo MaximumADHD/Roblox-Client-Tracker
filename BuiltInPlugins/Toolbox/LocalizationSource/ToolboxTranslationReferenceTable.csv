@@ -68,7 +68,6 @@ Studio.Toolbox.General.CategoryGroupDecals,Group Images, ,Group Images,群组图
 Studio.Toolbox.General.CategoryGroupMeshes,Group Meshes, ,Group Meshes,群组网格
 Studio.Toolbox.General.CategoryGroupAudio,Group Audio, ,Group Audio,群组音频
 Studio.Toolbox.General.CategoryGroupPackages,Group Packages, ,Group Packages,群组套装
-Studio.Toolbox.General.CategorySharedPackages,Shared Packages, ,Shared Packages,Shared Packages
 Studio.Toolbox.General.CategoryCreationsDevelopmentSectionDivider,Game development assets, ,Game development assets,Game development assets
 Studio.Toolbox.General.CategoryCreationsModels,Models, ,Models,Models
 Studio.Toolbox.General.CategoryCreationsDecals,Images, ,Images,图片
@@ -143,6 +142,7 @@ Studio.Toolbox.General.AssetTypeHat,Hat, ,Hat,Hat
 Studio.Toolbox.General.AssetTypeTeeShirt,T-Shirt, ,T-Shirt,T-Shirt
 Studio.Toolbox.General.AssetTypeShirt,Shirt, ,Shirt,Shirt
 Studio.Toolbox.General.AssetTypePants,Pants, ,Pants,Pants
+Studio.Toolbox.General.AssetTypePlugin,Plugin, ,Plugin,Plugin
 Studio.Toolbox.General.AssetTypeHairAccessory,Hair, ,Hair,Hair
 Studio.Toolbox.General.AssetTypeFaceAccessory,Face Accessory, ,Face Accessory,Face Accessory
 Studio.Toolbox.General.AssetTypeNeckAccessory,Neck Accessory, ,Neck Accessory,Neck Accessory
@@ -174,6 +174,7 @@ Studio.Toolbox.General.SalesServiceFee,Service fee will be collected upon sale, 
 Studio.Toolbox.General.SideTabSales,Sales, ,Sales,Sales
 Studio.Toolbox.General.SideTabVersions,Versions, ,Versions,Versions
 Studio.Toolbox.General.SideTabGeneral,General, ,General,General
+Studio.Toolbox.General.SideTabPermissions,Permissions, ,Permissions,Permissions
 Studio.Toolbox.General.PreviewAreaAssetID,Asset ID: {assetId}, ,Asset ID: {assetId},Asset ID: {assetId}
 Studio.Toolbox.General.PreviewAreaStatus,Status: {assetStatus}, ,Status: {assetStatus},Status: {assetStatus}
 Studio.Toolbox.General.InstallSuccess,Success!, ,Success!, 

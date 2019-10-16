@@ -84,6 +84,25 @@ function NetworkInterface:getAssets(pageInfo)
 	end)
 end
 
+-- For now, only whitelistplugin uses this endpoint to fetch data.
+function NetworkInterface:getWhiteListPlugin(pageInfo)
+	local category = PageInfoHelper.getCategoryForPageInfo(pageInfo) or ""
+	local searchTerm = pageInfo.searchTerm or ""
+	local targetPage = pageInfo.targetPage or 1
+	local sortType = PageInfoHelper.getSortTypeForPageInfo(pageInfo) or ""
+	local groupId = Category.categoryIsGroupAsset(pageInfo.currentTab, pageInfo.categoryIndex)
+		and PageInfoHelper.getGroupIdForPageInfo(pageInfo)
+		or 0
+	local creatorId = pageInfo.creator and pageInfo.creator.Id or ""
+
+	local targetUrl = Urls.constructGetAssetsUrl(category, searchTerm, sortType, creatorId,Constants.GET_ITEMS_PAGE_SIZE, targetPage, groupId, creatorId)
+
+	return sendRequestAndRetry(function()
+		printUrl("getWhiteListPlugin", "GET", targetUrl)
+		return self._networkImp:httpGetJson(targetUrl)
+	end)
+end
+
 function NetworkInterface:getOverrideModels(category, numPerPage, page, sort, groupId)
 	local targetUrl = Urls.constructGetAssetsUrl(category, nil, numPerPage, page, sort, groupId)
 

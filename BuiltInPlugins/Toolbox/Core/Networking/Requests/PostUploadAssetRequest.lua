@@ -16,6 +16,9 @@ local SetAssetId = require(Actions.SetAssetId)
 local Util = Plugin.Core.Util
 local SerializeInstances = require(Util.SerializeInstances)
 local Analytics = require(Util.Analytics.Analytics)
+local Constants = require(Util.Constants)
+
+local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 
 -- assetId, number, defualt to 0 for new asset.
 -- assetType, string, the asset type of the asset.
@@ -26,8 +29,22 @@ local Analytics = require(Util.Analytics.Analytics)
 -- allowComments, bool
 -- groupId, number, default to nil
 -- instance, instance, used in post body
-return function(networkInterface, assetid, assetType, name, description, genreTypeID, ispublic, allowComments, groupId, instances)
+-- saleStatus, defined in Constants, use to set the sales status for the newly published asset.
+-- price, number, only useful when the sales status is set to OnSale.
+return function(networkInterface, assetid, assetType, name, description, genreTypeID, ispublic, allowComments, groupId, instances, saleStatus, price)
 	return function(store)
+		local function onPriceSetSuccess(result)
+			-- Update the sale status and price
+			store:dispatch(SetCurrentScreen(AssetConfigConstants.SCREENS.UPLOADING_ASSET))
+			store:dispatch(UploadResult(true))
+		end
+
+		local function onPriceSetFail(result)
+			-- DEVTOOLS-3120
+			-- This this case, we still consider the upload succuss.
+			-- We will need to tell user failed to set the price.
+		end
+
 		local function onSuccess(result)
 			local newAssetId = result.responseBody
 
@@ -39,12 +56,26 @@ return function(networkInterface, assetid, assetType, name, description, genreTy
 
 				Analytics.incrementUploadeAssetFailure(assetType)
 			else
-				-- Change the screen into succuss.
-				store:dispatch(SetCurrentScreen(AssetConfigConstants.SCREENS.UPLOADING_ASSET))
-				store:dispatch(UploadResult(true))
-				store:dispatch(SetAssetId(newAssetId))
+				-- Then we will try to set the price once' the asset is uploaded.
+				if FFlagEnablePurchasePluginFromLua2 and assetType == Enum.AssetType.Plugin.Name then
+					-- Default sales status is unknown. But for plugin, if it's unknown, we will be putting it offsale.
+					local salesStatusOverride = saleStatus
+					if (not saleStatus) or saleStatus == Constants.AssetStatus.Unknown then
+						salesStatusOverride = Constants.AssetStatus.OffSale
+					end
 
-				Analytics.incrementUploadAssetSuccess(assetType)
+					store:dispatch(SetAssetId(newAssetId))
+					Analytics.incrementUploadAssetSuccess(assetType)
+
+					networkInterface:configureSales(newAssetId, salesStatusOverride, price):andThen(onPriceSetSuccess, onPriceSetFail)
+				else
+					-- Change the screen into succuss.
+					store:dispatch(SetCurrentScreen(AssetConfigConstants.SCREENS.UPLOADING_ASSET))
+					store:dispatch(UploadResult(true))
+					store:dispatch(SetAssetId(newAssetId))
+
+					Analytics.incrementUploadAssetSuccess(assetType)
+				end
 			end
 		end
 
@@ -62,13 +93,20 @@ return function(networkInterface, assetid, assetType, name, description, genreTy
 
 		local fileDataString = SerializeInstances(instances)
 
+		-- We will override ispublic if it's a purchasable asset.
+		local ispublicOverride = ispublic
+		-- Only Plugin can be purchased now.
+		if FFlagEnablePurchasePluginFromLua2 and assetType == Enum.AssetType.Plugin.Name then
+			ispublicOverride = false
+		end
+
 		return networkInterface:postUploadAsset(
 			assetid,
 			assetType,
 			name or "",
 			description or "",
 			genreTypeID,
-			ispublic,
+			ispublicOverride,
 			allowComments,
 			groupId,
 			fileDataString

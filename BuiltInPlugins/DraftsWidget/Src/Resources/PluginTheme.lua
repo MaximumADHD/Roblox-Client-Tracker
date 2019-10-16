@@ -30,8 +30,8 @@ function Theme.createValues(getColor, StyleColor, StyleModifier)
 		Icons = {
 			DraftState = {
 				Committed = "rbxasset://textures/StudioSharedUI/statusSuccess.png",
-				Outdated = "rbxasset://textures/StudioSharedUI/statusWarning.png",
-				Deleted = "rbxasset://textures/StudioSharedUI/statusWarning.png",
+				Outdated = "rbxasset://textures/DraftsWidget/newSource.png",
+				Deleted = "rbxasset://textures/DraftsWidget/deletedSource.png",
 			},
 		},
 		Labels = {

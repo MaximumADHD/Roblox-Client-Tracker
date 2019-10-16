@@ -13,6 +13,8 @@
 		int [LayoutOrder = 0]
 ]]
 
+local FFlagStudioGameSettingsRestrictPermissions = game:GetFastFlag("StudioGameSettingsRestrictPermissions")
+
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
@@ -188,7 +190,7 @@ function CollaboratorsWidget:render()
 			local users = {}
 			for userId,permission in pairs(props.Permissions[PermissionsConstants.UserSubjectKey]) do
 				if props.OwnerType ~= Enum.CreatorType.User or props.OwnerId ~= userId then
-					table.insert(users, {Name=permission[PermissionsConstants.SubjectNameKey], Id=permission[PermissionsConstants.SubjectIdKey], Action=permission[PermissionsConstants.ActionKey]})
+					table.insert(users, {Name=permission[PermissionsConstants.SubjectNameKey], Id=permission[PermissionsConstants.SubjectIdKey], Action=permission[PermissionsConstants.ActionKey], IsFriend = permission[PermissionsConstants.IsFriendKey]})
 				end
 			end
 			table.sort(users, function(a,b)
@@ -197,11 +199,7 @@ function CollaboratorsWidget:render()
 			
 			-- Roact elements built from users and groups tables
 			local userCollaborators = {}
-			local groupCollaborators = {}
-
-			local userAssignablePermissions = getUserCollaboratorPermissions(props, localized)
-			local groupAssignablePermissions = getGroupCollaboratorPermissions(props, localized)
-			
+			local userAssignablePermissions = getUserCollaboratorPermissions(props, localized)			
 			for i,user in pairs(users) do
 				local separatorProvidedByNextElement = i ~= #users
 				local lockedPermission = permissionLocked(user.Action, userAssignablePermissions)
@@ -219,6 +217,7 @@ function CollaboratorsWidget:render()
 					}),
 					CollaboratorItem = Roact.createElement(CollaboratorItem, {
 						Enabled = props.Enabled,
+						IsPlayOnly = props.OwnerType == Enum.CreatorType.Group or (props.OwnerType == Enum.CreatorType.User and not user.IsFriend),
 						
 						CollaboratorName = user.Name,
 						CollaboratorId = user.Id,
@@ -239,6 +238,9 @@ function CollaboratorsWidget:render()
 					}),
 				})
 			end
+			
+			local groupCollaborators = {}
+			local groupAssignablePermissions = getGroupCollaboratorPermissions(props, localized)
 			for i,group in pairs(groups) do
 				if props.OwnerType ~= Enum.CreatorType.Group or props.OwnerId ~= group.Id then
 					groupCollaborators["Groups"..i] = Roact.createElement(GroupCollaboratorItem, {
@@ -281,7 +283,7 @@ function CollaboratorsWidget:render()
 					BackgroundTransparency = 1,
 				}, userCollaborators),
 				
-				GroupsTitle = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Subtitle, {
+				GroupsTitle = not FFlagStudioGameSettingsRestrictPermissions and Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Subtitle, {
 					LayoutOrder = 2,
 					
 					Text = "Groups",
@@ -291,7 +293,7 @@ function CollaboratorsWidget:render()
 					BackgroundTransparency = 1,
 				})),
 				
-				Groups = Roact.createElement(FitToContentList, {
+				Groups = not FFlagStudioGameSettingsRestrictPermissions and Roact.createElement(FitToContentList, {
 					LayoutOrder = 3,
 					BackgroundTransparency = 1,
 				}, groupCollaborators),

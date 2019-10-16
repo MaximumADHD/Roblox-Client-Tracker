@@ -2,6 +2,8 @@
 	Get a list of a user's groups
 ]]
 
+local FFlagStudioGameSettingsRestrictPermissions = game:GetFastFlag("StudioGameSettingsRestrictPermissions")
+
 local HttpService = game:GetService("HttpService")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
@@ -35,6 +37,9 @@ end
 local UserGroups = {}
 
 function UserGroups.Get(userId)
+	if FFlagStudioGameSettingsRestrictPermissions then
+		return Promise.resolve({[PermissionsConstants.GroupSubjectKey] = {}})
+	end
 	local requestInfo = {
 		Url = Http.BuildRobloxUrl(GROUPS_REQUEST_TYPE, GROUPS_REQUEST_URL, userId),
 		Method = "GET",

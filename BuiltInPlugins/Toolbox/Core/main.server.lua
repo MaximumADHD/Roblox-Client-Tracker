@@ -14,6 +14,9 @@ game:DefineFastFlag("UseRBXThumbInToolbox", false)
 game:DefineFastFlag("UseCreationToFetchMyOverrideData2", false)
 game:DefineFastFlag("EnableAssetConfigVersionCheckForModels", false)
 game:DefineFastFlag("CMSAdditionalAccessoryTypesV2", false)
+game:DefineFastFlag("StudioMovePkgPermsToAssetConfig", false)
+
+local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 
 local Plugin = script.Parent.Parent
 local Libs = Plugin.Libs
@@ -237,7 +240,6 @@ local function main()
 
 	-- Create publish new asset page.
 	StudioService.OnSaveToRoblox:connect(function(instances)
-
 		-- clone instances so that user cannot edit them while validating/uploading
 		local clonedInstances = {}
 		for i = 1, #instances do
@@ -257,6 +259,19 @@ local function main()
 			createAssetConfig(nil, AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW, clonedInstances)
 		end
 		toolboxStore:dispatch(GetRolesRequest(networkInterface)):andThen(proceedToUpload, proceedToUpload)
+	end)
+
+	if game:GetFastFlag("StudioMovePkgPermsToAssetConfig") then
+		StudioService.OnOpenManagePackagePlugin:connect(function(userId, assetId)
+			createAssetConfig(assetId, AssetConfigConstants.FLOW_TYPE.EDIT_FLOW, nil, Enum.AssetType.Model)
+		end)
+	end
+
+	-- Create publish new plugin page.
+	StudioService.OnPublishAsPlugin:connect(function(instances)
+		if FFlagEnablePurchasePluginFromLua2 then
+			createAssetConfig(nil, AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW, instances, Enum.AssetType.Plugin)
+		end
 	end)
 end
 

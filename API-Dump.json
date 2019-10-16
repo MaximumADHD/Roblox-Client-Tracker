@@ -789,6 +789,45 @@
                         "Name": "void"
                     },
                     "Security": "LocalUserSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "clearUserVariations",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "LocalUserSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "WaitUntilBrowserTrackerABTestsInitialized",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "LocalUserSecurity",
+                    "Tags": [
+                        "Yields"
+                    ]
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "WaitUntilUserABTestsInitialized",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "LocalUserSecurity",
+                    "Tags": [
+                        "Yields"
+                    ]
                 }
             ],
             "MemoryCategory": "Instances",
@@ -50008,6 +50047,20 @@
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "string"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "OnPublishAsPlugin",
+                    "Parameters": [
+                        {
+                            "Name": "instances",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Objects"
                             }
                         }
                     ],

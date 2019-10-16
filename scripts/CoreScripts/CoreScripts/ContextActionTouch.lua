@@ -13,13 +13,15 @@ local buttonVector = {}
 local buttonScreenGui = nil
 local buttonFrame = nil
 
+local FFlagFixBindActionTouchButtonError = game:DefineFastFlag("FixBindActionTouchButtonError", false)
+
 local ContextDownImage = "https://www.roblox.com/asset/?id=97166756"
 local ContextUpImage = "https://www.roblox.com/asset/?id=97166444"
 
 local oldTouches = {}
 
-local buttonPositionTable = {	
-								[1] = UDim2.new(0,123,0,70), 
+local buttonPositionTable = {
+								[1] = UDim2.new(0,123,0,70),
 								[2] = UDim2.new(0,30,0,60),
 								[3] = UDim2.new(0,180,0,160),
 								[4] = UDim2.new(0,85,0,-25),
@@ -39,15 +41,24 @@ while not localPlayer do
 	localPlayer = playersService.LocalPlayer
 end
 
+local playerGui
+if FFlagFixBindActionTouchButtonError then
+	playerGui = localPlayer:WaitForChild("PlayerGui")
+end
+
 function createContextActionGui()
 	if not buttonScreenGui and isTouchDevice then
 		buttonScreenGui = Instance.new("ScreenGui")
 		buttonScreenGui.Name = "ContextActionGui"
-		buttonScreenGui.AncestryChanged:connect(function(child, newParent)
-			if newParent == nil then
-				buttonScreenGui = nil
-			end
-		end)
+		if FFlagFixBindActionTouchButtonError then
+			buttonScreenGui.ResetOnSpawn = false
+		else
+			buttonScreenGui.AncestryChanged:connect(function(child, newParent)
+				if newParent == nil then
+					buttonScreenGui = nil
+				end
+			end)
+		end
 
 		buttonFrame = Instance.new("Frame")
 		buttonFrame.BackgroundTransparency = 1
@@ -113,7 +124,7 @@ function createNewButton(actionName, functionInfoTable)
 	contextButton.BackgroundTransparency = 1
 	contextButton.Size = UDim2.new(0,45,0,45)
 	contextButton.Active = true
-	if isSmallScreenDevice() then 
+	if isSmallScreenDevice() then
 		contextButton.Size = UDim2.new(0,35,0,35)
 	end
 	contextButton.Image = ContextUpImage
@@ -201,7 +212,11 @@ function createButton( actionName, functionInfoTable )
 	button.Parent = buttonFrame
 
 	if buttonScreenGui and buttonScreenGui.Parent == nil then
-		buttonScreenGui.Parent = localPlayer.PlayerGui
+		if FFlagFixBindActionTouchButtonError then
+			buttonScreenGui.Parent = playerGui
+		else
+			buttonScreenGui.Parent = localPlayer.PlayerGui
+		end
 		if not buttonFrame.Parent then
 			buttonFrame.Parent = buttonScreenGui
 		end
@@ -212,7 +227,7 @@ function removeAction(actionName)
 	if not functionTable[actionName] then return end
 
 	local actionButton = functionTable[actionName]["button"]
-	
+
 	if actionButton then
 		actionButton.Parent = nil
 

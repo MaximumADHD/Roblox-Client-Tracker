@@ -72,7 +72,7 @@ Constants.BANNED_NAMES = convertArrayToTable(Cryo.Dictionary.join(
 	Constants.EXTRA_BANNED_NAMES
 ))
 
-Constants.AssetStatus = {
+Constants.ASSET_STATUS = {
 	UNKNOWN = "Unknown",
 	REVIEW_PENDING = "ReviewPending",
 	MODERATED = "Moderated",
@@ -115,6 +115,65 @@ Constants.ASSET_TYPE_INFO = {
 		attachmentNames = { "WaistBackAttachment" },
 		boundsSize = Vector3.new(4, 2, 5.5),
 		boundsOffset = Vector3.new(0, 0, 0.25),
+	},
+}
+
+Constants.PROPERTIES = {
+	Instance = {
+		Archivable = true,
+	},
+	Attachment = {
+		Visible = false,
+	},
+	SpecialMesh = {
+		MeshType = Enum.MeshType.FileMesh,
+		Offset = Vector3.new(0, 0, 0),
+		VertexColor = Vector3.new(1, 1, 1),
+	},
+	BasePart = {
+		Anchored = false,
+		Color = BrickColor.new("Medium stone grey").Color, -- luacheck: ignore BrickColor
+		CollisionGroupId = 0, -- collision groups can change by place
+		CustomPhysicalProperties = Cryo.None, -- ensure CustomPhysicalProperties is _not_ defined
+		Elasticity = 0.5,
+		Friction = 0.3,
+		LocalTransparencyModifier = 0,
+		Massless = false, -- this is already done by accessories internally
+		Reflectance = 0,
+		RootPriority = 0,
+		RotVelocity = Vector3.new(0, 0, 0),
+		Transparency = 0,
+		Velocity = Vector3.new(0, 0, 0),
+
+		-- surface properties
+		BackParamA = -0.5,
+		BackParamB = 0.5,
+		BackSurfaceInput = Enum.InputType.NoInput,
+		BottomParamA = -0.5,
+		BottomParamB = 0.5,
+		BottomSurfaceInput = Enum.InputType.NoInput,
+		FrontParamA = -0.5,
+		FrontParamB = 0.5,
+		FrontSurfaceInput = Enum.InputType.NoInput,
+		LeftParamA = -0.5,
+		LeftParamB = 0.5,
+		LeftSurfaceInput = Enum.InputType.NoInput,
+		RightParamA = -0.5,
+		RightParamB = 0.5,
+		RightSurfaceInput = Enum.InputType.NoInput,
+		TopParamA = -0.5,
+		TopParamB = 0.5,
+		TopSurfaceInput = Enum.InputType.NoInput,
+
+		BackSurface = Enum.SurfaceType.Smooth,
+		BottomSurface = Enum.SurfaceType.Smooth,
+		FrontSurface = Enum.SurfaceType.Smooth,
+		LeftSurface = Enum.SurfaceType.Smooth,
+		RightSurface = Enum.SurfaceType.Smooth,
+		TopSurface = Enum.SurfaceType.Smooth,
+	},
+	Part = {
+		Shape = Enum.PartType.Block,
 	},
 }
 

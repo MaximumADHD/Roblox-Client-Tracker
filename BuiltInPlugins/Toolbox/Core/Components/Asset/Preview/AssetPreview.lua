@@ -229,9 +229,11 @@ function AssetPreview:render()
 			local previewModel = props.previewModel
 			local currentPreview = props.currentPreview
 
-			local assetPreviewType = AssetType:getAssetType(currentPreview)
+			local assetPreviewType
 			if FFlagPluginAccessAndInstallationInStudio and (typeId == Enum.AssetType.Plugin.Value) then
 				assetPreviewType = AssetType:markAsPlugin()
+			else
+				assetPreviewType = AssetType:getAssetType(currentPreview)
 			end
 
 			local isPluginAsset = AssetType:isPlugin(assetPreviewType)

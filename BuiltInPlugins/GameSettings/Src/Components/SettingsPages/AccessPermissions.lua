@@ -7,6 +7,8 @@ local PageName = "Access Permissions"
 local FFlagGameSettingsReorganizeHeaders = settings():GetFFlag("GameSettingsReorganizeHeaders")
 local FFlagStudioGameSettingsDisablePlayabilityForDrafts = game:GetFastFlag("StudioGameSettingsDisablePlayabilityForDrafts")
 
+local FFlagStudioGameSettingsRestrictPermissions = game:DefineFastFlag("StudioGameSettingsRestrictPermissions", false)
+
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)

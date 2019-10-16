@@ -41,6 +41,8 @@ local LoadingBar = require(Components.AssetConfiguration.LoadingBar)
 local AssetThumbnailPreview = require(Components.AssetConfiguration.AssetThumbnailPreview)
 local NavButton = require(Components.NavButton)
 
+local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
+
 local TITLE_WIDTH = 400
 local TITLE_HEIGHT = 36
 
@@ -183,7 +185,9 @@ function AssetValidation:init(props)
 		isLoading = true,
 	}
 
-	if self.props.assetTypeEnum == Enum.AssetType.Model then
+	if FFlagEnablePurchasePluginFromLua2 and
+		AssetConfigConstants.isMarketplaceAsset(self.props.assetTypeEnum) or
+		self.props.assetTypeEnum == Enum.AssetType.Model then
 		self.props.nextScreen()
 	else
 		self:validateAsync()

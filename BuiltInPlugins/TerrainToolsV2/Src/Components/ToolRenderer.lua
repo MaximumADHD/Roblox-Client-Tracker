@@ -19,6 +19,7 @@ local ToolLookup = require(Plugin.Src.Components.ToolLookup)
 
 local Actions = Plugin.Src.Actions
 local InitializeActivator = require(Actions.InitializeActivator)
+local ChangeTool = require(Actions.ChangeTool)
 
 local ToolRenderer = Roact.Component:extend(script.Name)
 
@@ -121,6 +122,16 @@ function ToolRenderer:willUpdate(nextProps, nextState)
 	ToggleTool(nextProps.currentTool, self.state.mouse, plugin)
 end
 
+function ToolRenderer:didUpdate(previousProps, previousState)
+	-- we use this to enable the use of these buttons as
+	-- buttons and not as tools for the regions tools
+	if self.props.currentTool == "Delete" or
+		self.props.currentTool == "Paste" or
+		self.props.currentTool == "Copy" then
+		self.props.dispatchChangeTool(previousProps.currentTool)
+	end
+end
+
 function ToolRenderer:render()
 	local currentTool = self.props.currentTool
 	local layoutOrder = self.props.LayoutOrder
@@ -161,5 +172,12 @@ local function MapStateToProps (state, props)
 		currentTool = state.Tools.currentTool,
 	}
 end
+local function MapDispatchToProps(dispatch)
+	return {
+		dispatchChangeTool = function(tool)
+			dispatch(ChangeTool(tool))
+		end
+	}
+end
 
-return RoactRodux.connect(MapStateToProps, nil)(ToolRenderer)
+return RoactRodux.connect(MapStateToProps, MapDispatchToProps)(ToolRenderer)

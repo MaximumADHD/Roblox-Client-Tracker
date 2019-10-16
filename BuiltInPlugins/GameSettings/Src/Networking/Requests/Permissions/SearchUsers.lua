@@ -42,6 +42,7 @@ local function deserializeResult(userSearchResults)
 		table.insert(users, {
 			[PermissionsConstants.SubjectNameKey] = webItem[WEB_KEYS.Name],
 			[PermissionsConstants.SubjectIdKey] = webItem[WEB_KEYS.Id],
+			[PermissionsConstants.IsFriendKey] = false,
 		})
 	end
 
@@ -89,6 +90,7 @@ function SearchUsers.Get(searchTerm)
 							{
 								[PermissionsConstants.SubjectNameKey] = result[FALLBACK_WEB_KEYS.Name],
 								[PermissionsConstants.SubjectIdKey] = result[FALLBACK_WEB_KEYS.Id],
+								[PermissionsConstants.IsFriendKey] = false,
 							}
 						}
 					}

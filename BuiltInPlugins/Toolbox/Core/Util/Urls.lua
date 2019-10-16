@@ -30,6 +30,8 @@ end
 
 local GET_ASSET_VERSION = Url.BASE_URL .. "studio/plugins/info?"
 
+local GET_WHITE_LIST_PLUGIN = Url.BASE_URL .. "v1/toolbox/items?"
+
 local ASSET_ID_STRING = "rbxassetid://%d"
 local ASSET_ID_PATH = "asset/?"
 local ASSET_ID = Url.BASE_URL .. ASSET_ID_PATH
@@ -74,7 +76,27 @@ function Urls.constructGetAssetsUrl(category, searchTerm, pageSize, page, sortTy
 	})
 end
 
-function Urls.constructGetAssetCreationsUrl(assetType, limit, cursor)
+-- category, string, neccesary parameter.
+-- keyword, string, used for searching.
+-- sort, string, default to relevence.
+-- creatorId, number, user id or group id.
+-- num, number, how many asset per page.
+-- page, number, which page are we requesting.
+-- groupId, number, used to fetch group asset.
+-- creatorType, number, unused, maybe will be put in use one day.
+function Urls.getWhiteListPluginUrl(category, keyword, sort, creatorId, num, page, groupId, creatorType)
+	return GET_ASSETS .. Url.makeQueryString({
+		category = category,
+		keyword = keyword,
+		num = num,
+		page = page,
+		sort = sort,
+		groupId = groupId,
+		creatorType = creatorType,
+	})
+end
+
+function Urls.constructGetAssetCreationsUrl(assetType, limit, cursor, isPackageExcluded)
 	return GET_ASSETS_CREATIONS .. Url.makeQueryString({
 		assetType = assetType,
 		isArchived=false,

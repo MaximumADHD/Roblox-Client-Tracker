@@ -21,8 +21,8 @@ local PreviewArea = require(AssetConfiguration.PreviewArea)
 local PublishAsset = require(AssetConfiguration.PublishAsset)
 local AssetConfigFooter = require(AssetConfiguration.AssetConfigFooter)
 local Versions = require(AssetConfiguration.Versions)
-local Sales = require(AssetConfiguration.Sales)
-local ScreenSetup = require(AssetConfiguration.ScreenSetup)
+local Sales = require(AssetConfiguration.SalesPage)
+
 local OverrideAsset = require(AssetConfiguration.OverrideAsset)
 local MessageBox = require(Components.MessageBox.MessageBox)
 
@@ -32,6 +32,8 @@ local ContextGetter = require(Util.ContextGetter)
 local Images = require(Util.Images)
 local AssetConfigConstants =require(Util.AssetConfigConstants)
 local Constants = require(Util.Constants)
+local ScreenSetup = require(Util.ScreenSetup)
+local AssetConfigUtil = require(Util.AssetConfigUtil)
 
 local getNetwork = ContextGetter.getNetwork
 local getPlugin = ContextGetter.getPlugin
@@ -57,28 +59,22 @@ local withTheme = ContextHelper.withTheme
 local withModal = ContextHelper.withModal
 local withLocalization = ContextHelper.withLocalization
 
+local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
+
 local AssetConfig = Roact.PureComponent:extend("AssetConfig")
 
 local FOOTER_HEIGHT = 62
 local PREVIEW_WIDTH = 240
 local DEFAULT_GENRE = "All"
 
-local function getPriceRange(allowedAssetTypesForRelease, assetTypeEnum)
-	local releaseDataForAssetType = allowedAssetTypesForRelease and assetTypeEnum and allowedAssetTypesForRelease[assetTypeEnum.Name]
-	return releaseDataForAssetType and releaseDataForAssetType.allowedPriceRange or {}
-end
-
-local function getMinPrice(allowedAssetTypesForRelease, assetTypeEnum)
-	local priceRange = getPriceRange(allowedAssetTypesForRelease, assetTypeEnum)
-	return priceRange.minRobux and tonumber(priceRange.minRobux) or 0
-end
-
-local function getMaxPrice(allowedAssetTypesForRelease, assetTypeEnum)
-	local priceRange = getPriceRange(allowedAssetTypesForRelease, assetTypeEnum)
-	return priceRange.maxRobux and tonumber(priceRange.maxRobux) or 0
-end
-
 function AssetConfig:init(props)
+	local initSalesStatus = nil
+	if FFlagEnablePurchasePluginFromLua2 then
+		if props.assetTypeEnum and AssetConfigConstants.isBuyableMarketplaceAsset(props.assetTypeEnum) then
+			initSalesStatus = Constants.AssetStatus.OffSale
+		end
+	end
+
 	self.state = {
 		assetId = nil,
 
@@ -96,8 +92,8 @@ function AssetConfig:init(props)
 		copyOn = false,
 		allowComment = true,  -- Default to allow comment, but off.
 		commentOn = nil,
-		price = getMinPrice(props.allowedAssetTypesForRelease, props.assetTypeEnum),
-		status = nil,
+		price = AssetConfigUtil.getMinPrice(props.allowedAssetTypesForRelease, props.assetTypeEnum),
+		status = initSalesStatus,
 
 		isShowChangeDiscardMessageBox = false,
 
@@ -182,7 +178,9 @@ function AssetConfig:init(props)
 						state.copyOn,
 						state.commentOn,
 						state.groupId,					-- Used only for upload group asset.
-						props.instances
+						props.instances,
+						state.status,
+						state.price
 					)
 				end
 			end
@@ -376,7 +374,7 @@ function AssetConfig:didUpdate(previousProps, previousState)
 				allowCopy = assetConfigData.IsPublicDomainEnabled,
 				copyOn = assetConfigData.IsCopyingAllowed,
 				commentOn = assetConfigData.EnableComments,
-				price = assetConfigData.Price or getMinPrice(self.props.allowedAssetTypesForRelease, self.props.assetTypeEnum),
+				price = assetConfigData.Price or AssetConfigUtil.getMinPrice(self.props.allowedAssetTypesForRelease, self.props.assetTypeEnum),
 				status = assetConfigData.Status,
 			})
 		end
@@ -436,7 +434,7 @@ local function validatePrice(text, minPrice, maxPrice, assetStatus)
 	return result
 end
 
-local function canSave(changeTable, name, description, price, minPrice, maxPrice, assetStatus, currentTab)
+local function checkCanSave(changeTable, name, description, price, minPrice, maxPrice, assetStatus, currentTab)
 	-- For now, override asset is nique, we only care if we change anything from the override.
 	if ConfigTypes:isOverride(currentTab) then
 		return changeTable.OverrideAssetId
@@ -515,25 +513,44 @@ function AssetConfig:render()
 				local copyOn = state.copyOn
 				local allowComment = state.allowComment
 				local commentOn = state.commentOn
-				local status = state.status
+				local newAssetStatus = state.status
 				local showGetAssetFailed = props.networkErrorAction == ConfigTypes.GET_ASSET_DETAIL_FAILURE_ACTION
 				local isShowChangeDiscardMessageBox = state.isShowChangeDiscardMessageBox or showGetAssetFailed
 
-				local assetConfigData = props.assetConfigData or {}
 				local assetTypeEnum = props.assetTypeEnum
 				local screenFlowType = props.screenFlowType
 				local changeTable = props.changeTable or {}
 				local allowedAssetTypesForRelease = props.allowedAssetTypesForRelease
+				local showThumbnailImage = not props.instances and true or false
+				local showViewport = props.instances and true or false
+				local assetId = AssetConfigConstants.FLOW_TYPE.EDIT_FLOW == props.screenFlowType and assetId or nil
 
-				local minPrice = getMinPrice(allowedAssetTypesForRelease, assetTypeEnum)
-				local maxPrice = getMaxPrice(allowedAssetTypesForRelease, assetTypeEnum)
+				local currentAssetStatus
+				if FFlagEnablePurchasePluginFromLua2 and AssetConfigConstants.isMarketplaceAsset(assetTypeEnum) then
+					currentAssetStatus = newAssetStatus or Constants.AssetStatus.OffSale
+				else
+					currentAssetStatus = newAssetStatus or Constants.AssetStatus.Unknown
+				end
+
+				local minPrice = AssetConfigUtil.getMinPrice(allowedAssetTypesForRelease, assetTypeEnum)
+				local maxPrice = AssetConfigUtil.getMaxPrice(allowedAssetTypesForRelease, assetTypeEnum)
 				local price = state.price
-				local showSalesTab = ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_SALES_TAB)
 				local showOwnership = ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_OWNERSHIP)
 				local showGenre = ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_GENRE)
 				local showCopy = ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_COPY)
 				local showComment = ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_COMMENT)
 				local showAssetType = ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_ASSET_TYPE)
+				local showSale = false
+				local showPrice = false
+				if FFlagEnablePurchasePluginFromLua2 and copyOn then
+					if allowedAssetTypesForRelease and assetTypeEnum and allowedAssetTypesForRelease[assetTypeEnum.Name] then
+						showSale = ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_SALE)
+						showPrice = ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_PRICE)
+					end
+				end
+
+				local isPriceValid = validatePrice(price, minPrice, maxPrice, newAssetStatus)
+				local canSave = checkCanSave(changeTable, name, description, price, minPrice, maxPrice, newAssetStatus, currentTab)
 
 				return Roact.createElement("Frame", {
 					Size = Size,
@@ -575,10 +592,10 @@ function AssetConfig:render()
 
 							CurrentTab = currentTab,
 
-							ShowThumbnailImage = not props.instances and true or false,
-							ShowViewport = props.instances and true or false,
-							AssetStatus = (AssetConfigConstants.FLOW_TYPE.EDIT_FLOW == props.screenFlowType and assetConfigData) and assetConfigData.Status or nil,
-							AssetId = AssetConfigConstants.FLOW_TYPE.EDIT_FLOW == props.screenFlowType and assetId or nil,
+							ShowThumbnailImage = showThumbnailImage,
+							ShowViewport = showViewport,
+							AssetStatus = newAssetStatus,
+							AssetId = assetId,
 
 							OnTabSelect = self.onTabSelect,
 
@@ -607,6 +624,9 @@ function AssetConfig:render()
 							copyOn = copyOn,
 							allowComment = allowComment,
 							commentOn = commentOn,
+							price = price,
+							minPrice = minPrice,
+							maxPrice = maxPrice,
 
 							assetTypeEnum = assetTypeEnum,
 							onNameChange = self.onNameChange,
@@ -615,12 +635,21 @@ function AssetConfig:render()
 							onGenreSelected = self.onGenreChange,
 							toggleCopy = self.toggleCopy,
 							toggleComment = self.toggleComment,
+							onStatusChange = self.onStatusChange,
+							onPriceChange = self.onPriceChange,
+
+							allowedAssetTypesForRelease = allowedAssetTypesForRelease,
+							newAssetStatus = newAssetStatus,
+							currentAssetStatus = currentAssetStatus,
+							isPriceValid = isPriceValid,
 
 							displayOwnership = showOwnership,
 							displayGenre = showGenre,
 							displayCopy = showCopy,
 							displayComment = showComment,
 							displayAssetType = showAssetType,
+							displaySale = showSale,
+							displayPrice = showPrice,
 
 							LayoutOrder = 3,
 						}),
@@ -634,24 +663,22 @@ function AssetConfig:render()
 						}),
 
 						Sales = ConfigTypes:isSales(currentTab) and Roact.createElement(Sales, {
-							Size = UDim2.new(1, -PREVIEW_WIDTH, 1, 0),
+							size = UDim2.new(1, -PREVIEW_WIDTH, 1, 0),
 
-							AssetTypeEnum = props.assetTypeEnum,
+							assetTypeEnum = props.assetTypeEnum,
 
-							AllowedAssetTypesForRelease = allowedAssetTypesForRelease,
-							AssetStatusChanged = status or Constants.AssetStatus.Unknown,
-							AssetStatusInBackend = assetConfigData and assetConfigData.Status or Constants.AssetStatus.Unknown,
-							Price = price,
-							MinPrice = minPrice,
-							MaxPrice = maxPrice,
+							allowedAssetTypesForRelease = allowedAssetTypesForRelease,
+							newAssetStatus = newAssetStatus,
+							currentAssetStatus = currentAssetStatus,
+							price = price,
+							minPrice = minPrice,
+							maxPrice = maxPrice,
+							isPriceValid = isPriceValid,
 
 							onStatusChange = self.onStatusChange,
 							onPriceChange = self.onPriceChange,
-							validatePrice = function(text)
-								return validatePrice(text, minPrice, maxPrice, status or Constants.AssetStatus.Unknown)
-							end,
 
-							LayoutOrder = 3,
+							layoutOrder = 3,
 						}),
 
 						OverrideAsset = ConfigTypes:isOverride(currentTab) and Roact.createElement(OverrideAsset, {
@@ -667,7 +694,7 @@ function AssetConfig:render()
 
 					Footer = Roact.createElement(AssetConfigFooter, {
 						Size = UDim2.new(1, 0, 0, FOOTER_HEIGHT),
-						CanSave = canSave(changeTable, name, description, price, minPrice, maxPrice, status or Constants.AssetStatus.Unknown, currentTab),
+						CanSave = canSave,
 
 						tryCancel = self.tryCancelWithYield,
 						tryPublish = self.tryPublish,
@@ -729,8 +756,8 @@ local function mapDispatchToProps(dispatch)
 			dispatch(PatchAssetRequest(networkInterface, assetid, name, description, genres, enableComments, isCopyingAllowed, locale, localName, localDescription))
 		end,
 
-		uploadMarketplaceItem = function(networkInterface, assetid, type, name, description, genreTypeId, ispublic, allowComments, groupId, instances)
-			dispatch(PostUploadAssetRequest(networkInterface, assetid, type, name, description, genreTypeId, ispublic, allowComments, groupId, instances))
+		uploadMarketplaceItem = function(networkInterface, assetid, type, name, description, genreTypeId, ispublic, allowComments, groupId, instances, saleStatus, price)
+			dispatch(PostUploadAssetRequest(networkInterface, assetid, type, name, description, genreTypeId, ispublic, allowComments, groupId, instances, saleStatus, price))
 		end,
 
 		postRevertVersion = function(networkInterface, assetId, assetVersionNumber)

@@ -14,6 +14,7 @@ local PlayerList = script.Parent.Parent
 
 local SPECIAL_PLAYER_ICONS = {
 	Admin = "rbxasset://textures/ui/icon_admin-16.png",
+	Intern = "rbxasset://textures/ui/icon_intern-16.png",
 	Star = "rbxasset://textures/ui/icon_star-16.png",
 }
 
@@ -27,6 +28,8 @@ local SetPlayerFriendStatus = require(PlayerList.Actions.SetPlayerFriendStatus)
 local function getGroupsPermissionsInfo(store, player)
 	if PlayerPermissionsModule.IsPlayerAdminAsync(player) then
 		store:dispatch(SetPlayerSpecialGroupIcon(player, SPECIAL_PLAYER_ICONS.Admin))
+	elseif PlayerPermissionsModule.IsPlayerInternAsync(player) then
+		store:dispatch(SetPlayerSpecialGroupIcon(player, SPECIAL_PLAYER_ICONS.Intern))
 	elseif PlayerPermissionsModule.IsPlayerStarAsync(player) then
 		store:dispatch(SetPlayerSpecialGroupIcon(player, SPECIAL_PLAYER_ICONS.Star))
 	end

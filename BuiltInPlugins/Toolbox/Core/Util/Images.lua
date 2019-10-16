@@ -87,6 +87,8 @@ Images.TOGGLE_DISABLE_LIGHT	= "rbxasset://textures/RoactStudioWidgets/toggle_dis
 Images.GENERAL_SIDE_TAB = "rbxasset://textures/StudioToolbox/AssetConfig/editlisting.png"
 Images.VERSIONS_SIDE_TAB = "rbxasset://textures/StudioToolbox/AssetConfig/version.png"
 Images.SALES_SIDE_TAB = "rbxasset://textures/StudioToolbox/AssetConfig/creations.png"
+-- FIXME(mwang) 10/7/2019 This currently points to a placeholder image, while waiting for an image from design.
+Images.PERMISSIONS_SIDE_TAB = "rbxasset://textures/StudioToolbox/NoBackgroundIcon.png"
 
 Images.SELECTED_CHECK = "rbxasset://textures/StudioToolbox/AssetConfig/readyforsale@2x.png"
 

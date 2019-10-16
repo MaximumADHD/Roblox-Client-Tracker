@@ -5,6 +5,7 @@ local createEnum = require(script.Parent.createEnum)
 
 local PromptState = createEnum("PromptState", {
 	"Hidden",
+	"Hiding",
 
 	"RobuxUpsell",
 	"BuildersClubUpsell",

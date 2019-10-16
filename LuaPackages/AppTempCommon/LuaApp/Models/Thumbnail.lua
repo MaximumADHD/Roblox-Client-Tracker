@@ -7,6 +7,7 @@
 ]]
 local CorePackages = game:GetService("CorePackages")
 local UseNewThumbnailsAPI = require(CorePackages.AppTempCommon.LuaApp.Flags.UseNewThumbnailsAPI)
+local FFlagLuaAppNewThumbnailFinalState = settings():GetFFlag("LuaAppNewThumbnailFinalState")
 
 local Thumbnail = {}
 
@@ -43,7 +44,11 @@ end
 
 function Thumbnail.checkStateIsFinal(thumbnailState)
 	if UseNewThumbnailsAPI() then
-		return thumbnailState == "Completed" or thumbnailState == "Blocked"
+		if FFlagLuaAppNewThumbnailFinalState then
+			return thumbnailState ~= "Pending"
+		else
+			return thumbnailState == "Completed" or thumbnailState == "Blocked"
+		end
 	end
 
 	return thumbnailState == "Completed"

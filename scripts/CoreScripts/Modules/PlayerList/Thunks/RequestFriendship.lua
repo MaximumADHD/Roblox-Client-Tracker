@@ -10,33 +10,65 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 local SendNotification = RobloxGui:WaitForChild("SendNotificationInfo")
 
+local BaseUrl = game:GetService("ContentProvider").BaseUrl:lower()
+BaseUrl = string.gsub(BaseUrl, "http:", "https:")
+local FriendCountUrl = string.gsub(BaseUrl, "www", "friends") .. "v1/users/{userId}/friends/count"
+
 local MAX_FRIEND_COUNT = 200
+
+local FFlagUseNewFriendsDomainCoreScripts = settings():GetFFlag("UseNewFriendsDomainCoreScripts")
 
 local function getFriendCountAsync(userId)
 	local friendCount = nil
-	local wasSuccess, result = pcall(function()
-		local str = 'user/get-friendship-count'
-		if userId then
-			str = str..'?userId='..tostring(userId)
-		end
-		return HttpRbxApiService:GetAsync(str, Enum.ThrottlingPriority.Default,
-            Enum.HttpRequestType.Players)
-	end)
-	if not wasSuccess then
-		warn("getFriendCountAsync() failed because", result)
-		return nil
-	end
 
+	local wasSuccess, result
+	if FFlagUseNewFriendsDomainCoreScripts then
+		wasSuccess, result = pcall(function()
+			if userId == nil then
+				userId = LocalPlayer.UserId
+			end
+			local url = string.gsub(FriendCountUrl,"{userId}",userId)
+			return HttpRbxApiService:GetAsyncFullUrl(url)
+		end)
+		if not wasSuccess then
+			warn(FriendCountUrl,"failed because", result)
+			return nil
+		end
+	else
+		wasSuccess, result = pcall(function()
+			local str = 'user/get-friendship-count'
+			if userId then
+				str = str..'?userId='..tostring(userId)
+			end
+			return HttpRbxApiService:GetAsync(str, Enum.ThrottlingPriority.Default,
+				Enum.HttpRequestType.Players)
+		end)
+		if not wasSuccess then
+			warn("getFriendCountAsync() failed because", result)
+			return nil
+		end
+	end
+	
 	wasSuccess, result = pcall(function()
 		return HttpService:JSONDecode(result)
 	end)
 	if not wasSuccess then
-		warn("getFriendCountAsync() JSONDecode failed because", result)
+		if FFlagUseNewFriendsDomainCoreScripts then
+			warn(FriendCountUrl,"JSONDecode failed because", result)
+		else
+			warn("getFriendCountAsync() JSONDecode failed because", result)
+		end
 		return nil
 	end
 
-	if result["success"] and result["count"] then
-		friendCount = result["count"]
+	if FFlagUseNewFriendsDomainCoreScripts then
+		if result["count"] then
+			friendCount = result["count"]
+		end
+	else
+		if result["success"] and result["count"] then
+			friendCount = result["count"]
+		end
 	end
 
 	return friendCount

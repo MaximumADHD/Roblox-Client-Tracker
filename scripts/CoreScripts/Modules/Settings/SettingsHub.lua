@@ -36,8 +36,6 @@ local FFlagUseNotificationsLocalization = settings():GetFFlag('UseNotificationsL
 local FFlagHelpMenuShowPlaceVersion = settings():GetFFlag("HelpMenuShowPlaceVersion")
 local FFlagLuaInviteNewAnalytics = settings():GetFFlag("LuaInviteNewAnalytics")
 
-
-local FFlagXboxEnableABTests = settings():GetFFlag("XboxEnableABTests")
 local FFlagXboxPlayNextGame = settings():GetFFlag("XboxPlayNextGame")
 local FFlagXboxOverrideEnablePlayNextGame = settings():GetFFlag("XboxOverrideEnablePlayNextGame")
 local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp") --todo: remove with FFlagUsePolicyServiceForCoreScripts
@@ -167,22 +165,6 @@ local function CreateSettingsHub()
 		local enablePlayNextGame = false
 		if FFlagXboxOverrideEnablePlayNextGame then
 			enablePlayNextGame = true
-		else
-			---- Get AB test enrollment
-			if UserInputService:GetPlatform() == Enum.Platform.XBoxOne then
-				if FFlagXboxEnableABTests then
-					if PlatformService then
-						local abTestEnrollments = PlatformService:GetABTestEnrollments()
-						if abTestEnrollments then
-							-- Enable AB test for variation 2
-							if abTestEnrollments[FStringPlayNextGameTestName] == 2 then
-								enablePlayNextGame = true
-							end
-						end
-					end
-				end
-			end
-			----
 		end
 
 		--NOTE: After flag clean up and if we want this just for Xbox then use:

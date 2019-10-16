@@ -45,6 +45,7 @@ local getActions = ActionContext.getActions
 
 local RigUtils = require(Plugin.Src.Util.RigUtils)
 local FixManipulators = require(Plugin.LuaFlags.GetFFlagFixAnimEditorManipulators)
+local FixRigUtils = require(Plugin.LuaFlags.GetFFlagFixRigUtils)
 
 local JointManipulator = Roact.PureComponent:extend("JointManipulator")
 
@@ -102,6 +103,9 @@ function JointManipulator:init()
 	self.setMotorData = function()
 		local joint = self.getLastJoint()
 		if self.props.SetMotorData and joint then
+			if FixRigUtils() then
+				self.RootPart = RigUtils.findRootPart(self.props.RootInstance)
+			end
 			local motorData = RigUtils.ikDragStart(
 				self.props.RootInstance,
 				joint.Part1,
@@ -199,7 +203,12 @@ function JointManipulator:init()
 			end
 			local joint = self.getLastJoint()
 
-			local rootPart = RigUtils.findRootPart(self.props.RootInstance)
+			local rootPart
+			if FixRigUtils() then
+				rootPart = self.RootPart
+			else
+				rootPart = RigUtils.findRootPart(self.props.RootInstance)
+			end
 			local effectorInRange = (rootPart.CFrame.p - self.effectorCFrame.p).Magnitude <= Constants.MIN_EFFECTOR_DISTANCE
 			local translationStiffness = effectorInRange and Constants.TRANSLATION_STIFFNESS or Constants.MIN_TRANSLATION_STIFFNESS
 			local rotationStiffness = effectorInRange and Constants.ROTATION_STIFFNESS or Constants.MIN_ROTATION_STIFFNESS
@@ -251,6 +260,10 @@ function JointManipulator:init()
 			local joint = self.getLastJoint()
 			if joint then
 				self.effectorCFrame = not FixManipulators() and joint.Part1.CFrame or nil
+			end
+
+			if FixRigUtils() then
+				self.RootPart = nil
 			end
 		end
 	end

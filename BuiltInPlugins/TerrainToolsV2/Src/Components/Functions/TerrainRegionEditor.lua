@@ -733,7 +733,6 @@ toolSelect = {
 			--[[lockedRegion = region
 			lockedMaterials, lockedOccupancies = emptyMaterialMap, emptyOccupancyMap]]
 			local oldStart, oldEnd = selectionStart, selectionEnd
-			selectionStart, selectionEnd = nil, nil
 			setButton('Select')
 
 			changeHistory:SetWaypoint('Terrain Delete')

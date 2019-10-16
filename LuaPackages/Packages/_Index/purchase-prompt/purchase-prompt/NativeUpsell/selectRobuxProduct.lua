@@ -1,6 +1,8 @@
 local XboxCatalogData = require(script.Parent.XboxCatalogData)
 local NativeProducts = require(script.Parent.NativeProducts)
 
+game:DefineFastFlag("EnableLargeRobuxAndroidUpsell", false)
+
 local Promise = require(script.Parent.Parent.Promise)
 
 local function sortAscending(a, b)
@@ -34,11 +36,18 @@ local function selectRobuxProduct(platform, neededRobux, userIsSubscribed)
 			and NativeProducts.IOS.PremiumSubscribed
 			or NativeProducts.IOS.PremiumNotSubscribed
 	else
-		-- This product format is standard for other supported platforms (Android, Amazon, and UWP)
-		productOptions = userIsSubscribed
-			and NativeProducts.Standard.PremiumSubscribed
-			or NativeProducts.Standard.PremiumNotSubscribed
+		if game:GetFastFlag("EnableLargeRobuxAndroidUpsell") then
+			productOptions = userIsSubscribed
+				and NativeProducts.Standard.PremiumSubscribedLarger
+				or NativeProducts.Standard.PremiumNotSubscribedLarger
+		else
+			-- This product format is standard for other supported platforms (Android, Amazon, and UWP)
+			productOptions = userIsSubscribed
+				and NativeProducts.Standard.PremiumSubscribed
+				or NativeProducts.Standard.PremiumNotSubscribed
+		end
 	end
+	
 
 	return selectProduct(neededRobux, productOptions)
 end

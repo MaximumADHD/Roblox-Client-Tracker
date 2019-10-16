@@ -101,7 +101,7 @@ function Flatten:init(initialProps)
 		TerrainBrush.ChangeProperties({
 			brushShape = self.props.brushShape or "Sphere",
 			baseSize = self.props.baseSize or 10,
-			height = self.props.height or 10,
+			height = self.props.baseSize or 10, -- change back to height when we make height an option
 			pivot = self.props.pivot or PivotType.Center,
 			strength = self.props.strength or 1,
 			flattenMode = self.props.flattenMode,

@@ -1,3 +1,24 @@
+local FFlagUserDTDoesNotForceAutoJump do
+	local success, result = pcall(function()
+		return UserSettings:GetUserFeatureEnabled("UserDTDoesNotForceAutoJump")
+	end)
+	FFlagUserDTDoesNotForceAutoJump = success and result
+end
+
+local FFlagUserDTDoesNotTrackTools do
+	local success, result = pcall(function()
+		return UserSettings:GetUserFeatureEnabled("UserDTDoesNotTrackTools")
+	end)
+	FFlagUserDTDoesNotTrackTools = success and result
+end
+
+local FFlagUserDTFastInit do
+	local success, result = pcall(function()
+		return UserSettings:GetUserFeatureEnabled("UserDTFastInit")
+	end)
+	FFlagUserDTFastInit = success and result
+end
+
 --[[ Constants ]]--
 local ZERO_VECTOR3 = Vector3.new(0,0,0)
 local TOUCH_CONTROLS_SHEET = "rbxasset://textures/ui/Input/TouchControlsSheetV2.png"
@@ -30,6 +51,12 @@ local ContextActionService = game:GetService("ContextActionService")
 local RunService = game:GetService("RunService")
 local TweenService = game:GetService("TweenService")
 
+local LocalPlayer = Players.LocalPlayer
+if not LocalPlayer then
+	Players:GetPropertyChangedSignal("LocalPlayer"):Wait()
+	LocalPlayer = Players.LocalPlayer
+end
+
 --[[ The Module ]]--
 local BaseCharacterController = require(script.Parent:WaitForChild("BaseCharacterController"))
 local DynamicThumbstick = setmetatable({}, BaseCharacterController)
@@ -38,12 +65,10 @@ DynamicThumbstick.__index = DynamicThumbstick
 function DynamicThumbstick.new()
 	local self = setmetatable(BaseCharacterController.new(), DynamicThumbstick)
 
-	self.humanoid = nil
+	self.humanoid = nil -- Remove on FFlagUserDTDoesNotTrackTools
 
-	self.tools = {}
-	self.toolEquipped = nil
-
-	self.revertAutoJumpEnabledToFalse = false
+	self.tools = {} -- Remove on FFlagUserDTDoesNotTrackTools
+	self.toolEquipped = nil -- Remove on FFlagUserDTDoesNotTrackTools
 
 	self.moveTouchObject = nil
 	self.moveTouchLockedIn = false
@@ -60,7 +85,6 @@ function DynamicThumbstick.new()
 
 	self.isFirstTouch = true
 
-	self.isFollowStick = false
 	self.thumbstickFrame = nil
 
 	self.onRenderSteppedConn = nil
@@ -75,7 +99,7 @@ function DynamicThumbstick.new()
 
 	-- If this module changes a player's humanoid's AutoJumpEnabled, it saves
 	-- the previous state in this variable to revert to
-	self.shouldRevertAutoJumpOnDisable = false
+	self.shouldRevertAutoJumpOnDisable = false -- Remove on FFlagUserDTDoesNotForceAutoJump
 
 	return self
 end
@@ -88,11 +112,14 @@ function DynamicThumbstick:GetIsJumping()
 	return wasJumping
 end
 
-function DynamicThumbstick:EnableAutoJump(enable)
-	local humanoid = Players.LocalPlayer.Character and Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+function DynamicThumbstick:EnableAutoJump(enable) -- Remove on FFlagUserDTDoesNotForceAutoJump
+	if FFlagUserDTDoesNotForceAutoJump then
+		return
+	end
+	local humanoid = LocalPlayer.Character and LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
 	if humanoid then
 		if enable then
-			self.shouldRevertAutoJumpOnDisable = (humanoid.AutoJumpEnabled == false) and (Players.LocalPlayer.DevTouchMovementMode == Enum.DevTouchMovementMode.UserChoice)
+			self.shouldRevertAutoJumpOnDisable = (humanoid.AutoJumpEnabled == false) and (LocalPlayer.DevTouchMovementMode == Enum.DevTouchMovementMode.UserChoice)
 			humanoid.AutoJumpEnabled = true
 		elseif self.shouldRevertAutoJumpOnDisable then
 			humanoid.AutoJumpEnabled = false
@@ -113,12 +140,14 @@ function DynamicThumbstick:Enable(enable, uiParentFrame)
 
 		self:BindContextActions()
 
-		if Players.LocalPlayer.Character then
-			self:OnCharacterAdded(Players.LocalPlayer.Character)
-		else
-			Players.LocalPlayer.CharacterAdded:Connect(function(char)
-				self:OnCharacterAdded(char)
-			end)
+		if not FFlagUserDTDoesNotTrackTools then
+			if LocalPlayer.Character then
+				self:OnCharacterAdded(LocalPlayer.Character)
+			else
+				LocalPlayer.CharacterAdded:Connect(function(char)
+					self:OnCharacterAdded(char)
+				end)
+			end
 		end
 	else
 		ContextActionService:UnbindAction(DYNAMIC_THUMBSTICK_ACTION_NAME)
@@ -130,7 +159,8 @@ function DynamicThumbstick:Enable(enable, uiParentFrame)
 	self.thumbstickFrame.Visible = enable
 end
 
-function DynamicThumbstick:OnCharacterAdded(char)
+function DynamicThumbstick:OnCharacterAdded(char) -- Remove on FFlagUserDTDoesNotTrackTools
+	assert(not FFlagUserDTDoesNotTrackTools)
 
 	for _, child in ipairs(char:GetChildren()) do
 		if child:IsA("Tool") then
@@ -142,9 +172,8 @@ function DynamicThumbstick:OnCharacterAdded(char)
 		if child:IsA("Tool") then
 			self.toolEquipped = child
 		elseif child:IsA("Humanoid") then
-			self:EnableAutoJump(true)
+			self:EnableAutoJump(true) -- Remove on FFlagUserDTDoesNotForceAutoJump
 		end
-
 	end)
 	char.ChildRemoved:Connect(function(child)
 		if child == self.toolEquipped then
@@ -154,7 +183,7 @@ function DynamicThumbstick:OnCharacterAdded(char)
 
 	self.humanoid = char:FindFirstChildOfClass("Humanoid")
 	if self.humanoid then
-		self:EnableAutoJump(true)
+		self:EnableAutoJump(true) -- Remove on FFlagUserDTDoesNotForceAutoJump
 	end
 end
 
@@ -178,7 +207,7 @@ function DynamicThumbstick:FadeThumbstick(visible)
 		self.endImageFadeTween:Cancel()
 	end
 	for i = 1, #self.middleImages do
-		if self. middleImageFadeTweens[i] then
+		if self.middleImageFadeTweens[i] then
 			self.middleImageFadeTweens[i]:Cancel()
 		end
 	end
@@ -227,7 +256,7 @@ function DynamicThumbstick:InputInFrame(inputObject)
 end
 
 function DynamicThumbstick:DoFadeInBackground()
-	local playerGui = Players.LocalPlayer:FindFirstChildOfClass("PlayerGui")
+	local playerGui = LocalPlayer:FindFirstChildOfClass("PlayerGui")
 	local hasFadedBackgroundInOrientation = false
 
 	-- only fade in/out the background once per orientation
@@ -255,7 +284,7 @@ function DynamicThumbstick:DoMove(direction)
 	-- Scaled Radial Dead Zone
 	local inputAxisMagnitude = currentMoveVector.magnitude
 	if inputAxisMagnitude < self.radiusOfDeadZone then
-		currentMoveVector = Vector3.new()
+		currentMoveVector = ZERO_VECTOR3
 	else
 		currentMoveVector = currentMoveVector.unit*(
 			1 - math.max(0, (self.radiusOfMaxSpeed - currentMoveVector.magnitude)/self.radiusOfMaxSpeed)
@@ -549,10 +578,10 @@ function DynamicThumbstick:Create(parentFrame)
 		end
 	end)
 
-	local playerGui = Players.LocalPlayer:FindFirstChildOfClass("PlayerGui")
+	local playerGui = LocalPlayer:FindFirstChildOfClass("PlayerGui")
 	while not playerGui do
-		Players.LocalPlayer.ChildAdded:wait()
-		playerGui = Players.LocalPlayer:FindFirstChildOfClass("PlayerGui")
+		LocalPlayer.ChildAdded:wait()
+		playerGui = LocalPlayer:FindFirstChildOfClass("PlayerGui")
 	end
 
 	local playerGuiChangedConn = nil
@@ -565,33 +594,42 @@ function DynamicThumbstick:Create(parentFrame)
 		self.tweenInAlphaStart = tick()
 	end
 
-	playerGuiChangedConn = playerGui.Changed:connect(function(prop)
-		if prop == "CurrentScreenOrientation" then
-			if (originalScreenOrientationWasLandscape and playerGui.CurrentScreenOrientation == Enum.ScreenOrientation.Portrait) or
-				(not originalScreenOrientationWasLandscape and playerGui.CurrentScreenOrientation ~= Enum.ScreenOrientation.Portrait) then
+	playerGuiChangedConn = playerGui:GetPropertyChangedSignal("CurrentScreenOrientation"):Connect(function()
+		if (originalScreenOrientationWasLandscape and playerGui.CurrentScreenOrientation == Enum.ScreenOrientation.Portrait) or
+			(not originalScreenOrientationWasLandscape and playerGui.CurrentScreenOrientation ~= Enum.ScreenOrientation.Portrait) then
 
-				playerGuiChangedConn:disconnect()
-				longShowBackground()
+			playerGuiChangedConn:disconnect()
+			longShowBackground()
 
-				if originalScreenOrientationWasLandscape then
-					self.hasFadedBackgroundInPortrait = true
-				else
-					self.hasFadedBackgroundInLandscape = true
-				end
+			if originalScreenOrientationWasLandscape then
+				self.hasFadedBackgroundInPortrait = true
+			else
+				self.hasFadedBackgroundInLandscape = true
 			end
 		end
 	end)
 
 	self.thumbstickFrame.Parent = parentFrame
 
-	spawn(function()
+	if FFlagUserDTFastInit then
 		if game:IsLoaded() then
 			longShowBackground()
 		else
-			game.Loaded:wait()
-			longShowBackground()
+			coroutine.wrap(function()
+				game.Loaded:Wait()
+				longShowBackground()
+			end)()
 		end
-	end)
+	else
+		spawn(function()
+			if game:IsLoaded() then
+				longShowBackground()
+			else
+				game.Loaded:wait()
+				longShowBackground()
+			end
+		end)
+	end
 end
 
 return DynamicThumbstick

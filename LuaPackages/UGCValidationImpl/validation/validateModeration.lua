@@ -62,9 +62,9 @@ local function validateModeration(isAsync, instance)
 	end
 
 	for _, details in pairs(response) do
-		if details.status == Constants.AssetStatus.Unknown
-		or details.status == Constants.AssetStatus.ReviewPending
-		or details.status == Constants.AssetStatus.Moderated
+		if details.status == Constants.ASSET_STATUS.Unknown
+		or details.status == Constants.ASSET_STATUS.ReviewPending
+		or details.status == Constants.ASSET_STATUS.Moderated
 		then
 			table.insert(moderatedIds, details.assetId)
 		end

@@ -2,6 +2,8 @@
 	
 ]]
 
+local FFlagStudioGameSettingsRestrictPermissions = game:GetFastFlag("StudioGameSettingsRestrictPermissions")
+
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
@@ -63,18 +65,19 @@ local function getMatches(searchData, permissions, groupMetadata)
 
 		return a < b
 	end
-
-	local matches = {Users={}, Groups={}}
+	
+	local matches
+	if FFlagStudioGameSettingsRestrictPermissions then
+		matches = {Users={}}
+	else
+		matches = {Users={}, Groups={}}
+	end
 	if cachedSearchResults[searchTerm] and cachedSearchResults[searchTerm] ~= LOADING then
-		local rawGroupMatches = cachedSearchResults[searchTerm][PermissionsConstants.GroupSubjectKey]
 		local rawUserMatches = cachedSearchResults[searchTerm][PermissionsConstants.UserSubjectKey]
 		local userMatches = {}
-		local groupMatches = {}
 
 		local rawFriendMatches = typeof(searchData.LocalUserFriends) == "table" and getMatchesFromTable(searchTerm, searchData.LocalUserFriends) or {}
-		local rawMyGroups = typeof(searchData.LocalUserGroups) == "table" and getMatchesFromTable(searchTerm, searchData.LocalUserGroups) or {}
 		table.sort(rawFriendMatches, compare)
-		table.sort(rawMyGroups, compare)
 
 		local matchedUsers = {}
 		for _,v in pairs(rawUserMatches) do
@@ -98,27 +101,35 @@ local function getMatches(searchData, permissions, groupMetadata)
 
 		matches.Users = userMatches
 		
-		local matchedGroups = {}
-		for _,v in pairs(rawGroupMatches) do
-			if not groupMetadata[v[PermissionsConstants.SubjectIdKey]] then
-				table.insert(groupMatches, v)
-				matchedGroups[v[PermissionsConstants.SubjectIdKey]] = true
-			end
-		end
+		if not FFlagStudioGameSettingsRestrictPermissions then
+			local rawGroupMatches = cachedSearchResults[searchTerm][PermissionsConstants.GroupSubjectKey]
+			local groupMatches = {}
 
-		-- Insert your groups after exact match (if it exists), but before the rest of the web results (if they exist)
-		local firstGroupIsExactMatch = #matchedGroups > 0 and matchedGroups[1][PermissionsConstants.SubjectNameKey]:lower() == searchTerm:lower()
-		local position = math.min(firstGroupIsExactMatch and 1 or 2, #groupMatches + 1)
-		for _,v in pairs(rawMyGroups) do
-			 -- Group web search already matched this. Don't duplicate it
-			
-			if not (matchedGroups[v[PermissionsConstants.SubjectIdKey]] or groupMetadata[v[PermissionsConstants.SubjectIdKey]]) then
-				table.insert(groupMatches, position, v)
-				position = position + 1
-			end
-		end
+			local rawMyGroups = typeof(searchData.LocalUserGroups) == "table" and getMatchesFromTable(searchTerm, searchData.LocalUserGroups) or {}
+			table.sort(rawMyGroups, compare)
 
-		matches.Groups = groupMatches
+			local matchedGroups = {}
+			for _,v in pairs(rawGroupMatches) do
+				if not groupMetadata[v[PermissionsConstants.SubjectIdKey]] then
+					table.insert(groupMatches, v)
+					matchedGroups[v[PermissionsConstants.SubjectIdKey]] = true
+				end
+			end
+
+			-- Insert your groups after exact match (if it exists), but before the rest of the web results (if they exist)
+			local firstGroupIsExactMatch = #matchedGroups > 0 and matchedGroups[1][PermissionsConstants.SubjectNameKey]:lower() == searchTerm:lower()
+			local position = math.min(firstGroupIsExactMatch and 1 or 2, #groupMatches + 1)
+			for _,v in pairs(rawMyGroups) do
+				-- Group web search already matched this. Don't duplicate it
+				
+				if not (matchedGroups[v[PermissionsConstants.SubjectIdKey]] or groupMetadata[v[PermissionsConstants.SubjectIdKey]]) then
+					table.insert(groupMatches, position, v)
+					position = position + 1
+				end
+			end
+
+			matches.Groups = groupMatches
+		end
 	end
 
 	return matches
@@ -146,9 +157,14 @@ local function getResults(searchTerm, matches, thumbnailLoader, localized)
 		}
 		]]
 	else
-		results = {Users={LayoutOrder=0}, Groups={LayoutOrder=1}}
+		if FFlagStudioGameSettingsRestrictPermissions then
+			results = {Users={LayoutOrder=0}}
+		else
+			results = {Users={LayoutOrder=0}, Groups={LayoutOrder=1}}
+		end
 		for _, user in pairs(matches.Users) do
 			if #results.Users + 1 > PermissionsConstants.MaxSearchResultsPerSubjectType then break end
+			
 			table.insert(results.Users, {
 				Icon = Roact.createElement(CollaboratorThumbnail, {
 					Image = thumbnailLoader.getThumbnail(PermissionsConstants.UserSubjectKey, user[PermissionsConstants.SubjectIdKey]),
@@ -156,25 +172,33 @@ local function getResults(searchTerm, matches, thumbnailLoader, localized)
 					UseMask = true,
 				}),
 				Name = user[PermissionsConstants.SubjectNameKey],
-				Key = {Type=PermissionsConstants.UserSubjectKey, Id=user[PermissionsConstants.SubjectIdKey], Name=user[PermissionsConstants.SubjectNameKey]},
+				Key = {Type=PermissionsConstants.UserSubjectKey, Id=user[PermissionsConstants.SubjectIdKey], Name=user[PermissionsConstants.SubjectNameKey], IsFriend = user[PermissionsConstants.IsFriendKey]},
 			})
 		end
-		for _, group in pairs(matches.Groups) do
-			if #results.Groups + 1 > PermissionsConstants.MaxSearchResultsPerSubjectType then break end
-			table.insert(results.Groups, {
-				Icon = Roact.createElement(CollaboratorThumbnail, {
-					Image = thumbnailLoader.getThumbnail(PermissionsConstants.GroupSubjectKey, group[PermissionsConstants.SubjectIdKey]),
-					Size = UDim2.new(1, 0, 1, 0),
-				}),
-				Name = group[PermissionsConstants.SubjectNameKey],
-				Key = {Type=PermissionsConstants.GroupSubjectKey, Id=group[PermissionsConstants.SubjectIdKey], Name=group[PermissionsConstants.SubjectNameKey]},
-			})
+		if not FFlagStudioGameSettingsRestrictPermissions then
+			for _, group in pairs(matches.Groups) do
+				if #results.Groups + 1 > PermissionsConstants.MaxSearchResultsPerSubjectType then break end
+				table.insert(results.Groups, {
+					Icon = Roact.createElement(CollaboratorThumbnail, {
+						Image = thumbnailLoader.getThumbnail(PermissionsConstants.GroupSubjectKey, group[PermissionsConstants.SubjectIdKey]),
+						Size = UDim2.new(1, 0, 1, 0),
+					}),
+					Name = group[PermissionsConstants.SubjectNameKey],
+					Key = {Type=PermissionsConstants.GroupSubjectKey, Id=group[PermissionsConstants.SubjectIdKey], Name=group[PermissionsConstants.SubjectNameKey]},
+				})
+			end
 		end
 
-		results = {
-			[localized.AccessPermissions.Collaborators.UsersCollaboratorType] = #results.Users > 0 and results.Users or nil,
-			[localized.AccessPermissions.Collaborators.GroupsCollaboratorType] = #results.Groups > 0 and results.Groups or nil,
-		}
+		if FFlagStudioGameSettingsRestrictPermissions then
+			results = {
+				[localized.AccessPermissions.Collaborators.UsersCollaboratorType] = #results.Users > 0 and results.Users or nil,
+			}
+		else
+			results = {
+				[localized.AccessPermissions.Collaborators.UsersCollaboratorType] = #results.Users > 0 and results.Users or nil,
+				[localized.AccessPermissions.Collaborators.GroupsCollaboratorType] = #results.Groups > 0 and results.Groups or nil,
+			}
+		end
 	end
 
 	return results
@@ -244,7 +268,7 @@ function CollaboratorSearchWidget:render()
 	local maxCollaborators = game:GetFastInt("MaxAccessPermissionsCollaborators")
 	local tooManyCollaborators = numCollaborators >= maxCollaborators
 
-	local function collaboratorAdded(collaboratorType, collaboratorId, collaboratorName, action)
+	local function collaboratorAdded(collaboratorType, collaboratorId, collaboratorName, action, isFriend)
 		local newPermissions
 		if collaboratorType == PermissionsConstants.UserSubjectKey then
 			newPermissions = Cryo.Dictionary.join(props.Permissions, {
@@ -253,6 +277,7 @@ function CollaboratorSearchWidget:render()
 						[PermissionsConstants.SubjectNameKey] = collaboratorName,
 						[PermissionsConstants.SubjectIdKey] = collaboratorId,
 						[PermissionsConstants.ActionKey] = action,
+						[PermissionsConstants.IsFriendKey] = isFriend,
 					}
 				})
 			})
@@ -310,7 +335,7 @@ function CollaboratorSearchWidget:render()
 						if key == MY_FRIENDS_KEY then
 							print("TODO: enable friends option")
 						else
-							collaboratorAdded(key.Type, key.Id, key.Name, DEFAULT_ADD_ACTION)
+							collaboratorAdded(key.Type, key.Id, key.Name, DEFAULT_ADD_ACTION, key.IsFriend)
 						end
 					end,
 					

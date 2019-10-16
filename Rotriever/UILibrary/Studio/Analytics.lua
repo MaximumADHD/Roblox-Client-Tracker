@@ -27,7 +27,7 @@
 		iterating ephemeral counters.
 ]]
 
-local AnalyticsService = game:GetService("AnalyticsService")
+local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
 local HttpService = game:GetService("HttpService")
 local StudioService = game:GetService("StudioService")
 
@@ -42,7 +42,7 @@ function Analytics.new(props)
 	assert(props.Context, "Analytics expected a context string.")
 
 	local self = {
-		senders = props.Senders or AnalyticsService,
+		senders = props.Senders or RbxAnalyticsService,
 		logEvents = props.LogEvents,
 
 		target = props.Target or "studio",

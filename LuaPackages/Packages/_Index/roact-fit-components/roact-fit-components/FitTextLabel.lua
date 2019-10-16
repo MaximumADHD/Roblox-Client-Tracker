@@ -4,13 +4,14 @@ local Packages = root.Parent
 local Cryo = require(Packages.Cryo)
 local Roact = require(Packages.Roact)
 
+-- We need to add 2 to these values as a workaround to a documented engine bug
 local TextService = game:GetService("TextService")
 local function getTextHeight(text, fontSize, font, widthCap)
-	return TextService:GetTextSize(text, fontSize, font, Vector2.new(widthCap, 10000)).Y
+	return TextService:GetTextSize(text, fontSize, font, Vector2.new(widthCap, 10000)).Y + 2
 end
 
 local function getTextWidth(text, fontSize, font)
-	return TextService:GetTextSize(text, fontSize, font, Vector2.new(10000, 10000)).X
+	return TextService:GetTextSize(text, fontSize, font, Vector2.new(10000, 10000)).X + 2
 end
 
 local FitTextLabel = Roact.PureComponent:extend("FitTextLabel")

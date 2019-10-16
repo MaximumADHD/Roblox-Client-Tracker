@@ -2,6 +2,7 @@ game:DefineFastFlag("UGCValidateTags", false)
 game:DefineFastFlag("UGCValidateMeshBounds", false)
 game:DefineFastFlag("UGCValidateTextureSize", false)
 game:DefineFastFlag("UGCValidateHandleSize", false)
+game:DefineFastFlag("UGCValidateProperties", false)
 
 local root = script
 
@@ -13,6 +14,7 @@ local validateTags = require(root.validation.validateTags)
 local validateMeshBounds = require(root.validation.validateMeshBounds)
 local validateTextureSize = require(root.validation.validateTextureSize)
 local validateHandleSize = require(root.validation.validateHandleSize)
+local validateProperties = require(root.validation.validateProperties)
 
 local function validateInternal(isAsync, instances, assetTypeEnum, noModeration)
 	-- validate that only one instance was selected
@@ -34,6 +36,13 @@ local function validateInternal(isAsync, instances, assetTypeEnum, noModeration)
 	success, reasons = validateMaterials(instance)
 	if not success then
 		return false, reasons
+	end
+
+	if game:GetFastFlag("UGCValidateProperties") then
+		success, reasons = validateProperties(instance)
+		if not success then
+			return false, reasons
+		end
 	end
 
 	if game:GetFastFlag("UGCValidateTags") then

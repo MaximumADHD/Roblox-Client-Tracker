@@ -10,6 +10,7 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local FFlagAllowCatalogItemCreatorAssetConfig = game:DefineFastFlag("AllowCatalogItemCreatorAssetConfig", false)
+local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
@@ -89,13 +90,17 @@ function AssetTypeSelection:getSelectorItems(localizedContent)
 end
 
 function AssetTypeSelection:canSkip()
-	local amtSelectable = 0
-	for _, item in pairs(self:getSelectorItems()) do
-		if item.selectable then
-			amtSelectable = amtSelectable + 1
+	if FFlagEnablePurchasePluginFromLua2 and AssetConfigConstants.isBuyableMarketplaceAsset(self.props.assetTypeEnum) then
+		return true
+	else
+		local amtSelectable = 0
+		for _, item in pairs(self:getSelectorItems()) do
+			if item.selectable then
+				amtSelectable = amtSelectable + 1
+			end
 		end
+		return amtSelectable == 1
 	end
-	return amtSelectable == 1
 end
 
 function AssetTypeSelection:render()
@@ -123,6 +128,7 @@ function AssetTypeSelection:render()
 					Position = UDim2.new(0.5, -SELECTOR_WIDTH/2, 0, SELECTOR_Y_POS),
 					height = SELECTOR_HEIGHT,
 					width = SELECTOR_WIDTH,
+					assetTypeEnum = self.props.assetTypeEnum,
 					onAssetTypeSelected = self.props.onAssetTypeSelected,
 					items = self:getSelectorItems(localizedContent),
 				}),
@@ -175,6 +181,7 @@ local function mapStateToProps(state, props)
 		screenFlowType = state.screenFlowType,
 		isCatalogItemCreator = state.isCatalogItemCreator,
 		allowedAssetTypesForRelease = state.allowedAssetTypesForRelease,
+		assetTypeEnum = state.assetTypeEnum,
 	}
 end
 

@@ -31,15 +31,25 @@ local DropdownMenu = require(Components.DropdownMenu)
 
 local AssetTypeSelector = Roact.PureComponent:extend("AssetTypeSelector")
 
+local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
+
 function AssetTypeSelector:init(props)
 	self.onItemClicked = function(index)
 		self:setState({
 			dropDownIndex = index,
 		})
-		if self.props.onAssetTypeSelected then
-			local item = self.props.items[index]
-			if item and item.type then
-				self.props.onAssetTypeSelected(item.type)
+
+		-- For now, only plugin will skip assetTypeSelection
+		if FFlagEnablePurchasePluginFromLua2 and self.props.assetTypeEnum == Enum.AssetType.Plugin then
+			if self.props.onAssetTypeSelected then
+				self.props.onAssetTypeSelected(self.props.assetTypeEnum)
+			end
+		else
+			if self.props.onAssetTypeSelected then
+				local item = self.props.items[index]
+				if item and item.type then
+					self.props.onAssetTypeSelected(item.type)
+				end
 			end
 		end
 	end

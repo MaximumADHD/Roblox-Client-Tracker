@@ -1,7 +1,6 @@
 local EnableGroupPackagesForToolbox =  settings():GetFFlag("EnableGroupPackagesForToolbox")
 local FFlagPluginAccessAndInstallationInStudio = settings():GetFFlag("PluginAccessAndInstallationInStudio")
 local FFlagOnlyWhitelistedPluginsInStudio = settings():GetFFlag("OnlyWhitelistedPluginsInStudio")
-local FFlagStudioAddPackagePermissions = settings():GetFFlag("StudioAddPackagePermissions")
 local FFlagFixToolboxInitLoad = settings():GetFFlag("FixToolboxInitLoad")
 
 local Plugin = script.Parent.Parent.Parent
@@ -105,8 +104,6 @@ Category.MY_PACKAGES = {name = "MyPackages", category = "MyPackages",
 	ownershipType = Category.OwnershipType.MY, assetType = Category.AssetType.PACKAGE}
 Category.GROUP_PACKAGES = {name = "GroupPackages", category = "GroupPackages",
 	ownershipType = Category.OwnershipType.GROUP, assetType = Category.AssetType.PACKAGE}
-Category.SHARED_PACKAGES = {name = "SharedPackages", category = "SharedPackages",
-	ownershipType = Category.OwnershipType.My, assetType = Category.AssetType.PACKAGE}
 
 Category.CREATIONS_DEVELOPMENT_SECTION_DIVIDER = {name = "CreationsDevelopmentSectionDivider", selectable=false}
 Category.CREATIONS_MODELS = {name = "CreationsModels", assetType = Category.AssetType.MODEL}
@@ -209,10 +206,6 @@ local TABS = {
 
 if EnableGroupPackagesForToolbox then
 	table.insert(Category.INVENTORY_WITH_GROUPS, Category.GROUP_PACKAGES)
-end
-
-if FFlagStudioAddPackagePermissions then
-	table.insert(Category.INVENTORY_WITH_GROUPS, Category.SHARED_PACKAGES)
 end
 
 if FFlagPluginAccessAndInstallationInStudio then

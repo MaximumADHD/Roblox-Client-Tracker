@@ -3,6 +3,7 @@ local CoreGui = game:GetService('CoreGui')
 local Players = game:GetService("Players")
 
 local FFlagCoreScriptEnableRobloxTranslatorFallback = settings():GetFFlag("CoreScriptEnableRobloxTranslatorFallback")
+local CJVNotFallbackToEnglishForCoreGuiEnabled = settings():GetFFlag("CJVNotFallbackToEnglishForCoreGuiEnabled")
 
 local FALLBACK_ENGLISH_TRANSLATOR
 if FFlagCoreScriptEnableRobloxTranslatorFallback then
@@ -44,6 +45,8 @@ local function formatByKeyWithFallback(key, args, translator)
 
     if success then
         return result
+    elseif CJVNotFallbackToEnglishForCoreGuiEnabled and translator.LocaleId == "zh-cjv" then
+        return ""
     else
         return FALLBACK_ENGLISH_TRANSLATOR:FormatByKey(key, args)
     end

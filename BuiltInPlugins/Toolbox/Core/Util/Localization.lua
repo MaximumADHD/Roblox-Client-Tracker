@@ -302,7 +302,6 @@ function Localization:_recalculateContent()
 			GroupMeshes = self:_safeLocalize("Studio.Toolbox.General.CategoryGroupMeshes"),
 			GroupAudio = self:_safeLocalize("Studio.Toolbox.General.CategoryGroupAudio"),
 			GroupPackages = self:_safeLocalize("Studio.Toolbox.General.CategoryGroupPackages"),
-			SharedPackages = self:_safeLocalize("Studio.Toolbox.General.CategorySharedPackages"),
 			CreationsDevelopmentSectionDivider = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsDevelopmentSectionDivider"),
 			CreationsModels = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsModels"),
 			CreationsDecals = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsDecals"),
@@ -433,6 +432,7 @@ function Localization:_recalculateContent()
 					[Enum.AssetType.TeeShirt] = self:_safeLocalize("Studio.Toolbox.General.AssetTypeTeeShirt"),
 					[Enum.AssetType.Shirt] = self:_safeLocalize("Studio.Toolbox.General.AssetTypeShirt"),
 					[Enum.AssetType.Pants] = self:_safeLocalize("Studio.Toolbox.General.AssetTypePants"),
+					[Enum.AssetType.Plugin] = self:_safeLocalize("Studio.Toolbox.General.AssetTypePlugin"),
 					[Enum.AssetType.HairAccessory] = self:_safeLocalize("Studio.Toolbox.General.AssetTypeHairAccessory"),
 					[Enum.AssetType.FaceAccessory] = self:_safeLocalize("Studio.Toolbox.General.AssetTypeFaceAccessory"),
 					[Enum.AssetType.NeckAccessory] = self:_safeLocalize("Studio.Toolbox.General.AssetTypeNeckAccessory"),
@@ -461,6 +461,7 @@ function Localization:_recalculateContent()
 				[AssetConfigConstants.SIDE_TABS.Sales] = self:_safeLocalize("Studio.Toolbox.General.SideTabSales"),
 				[AssetConfigConstants.SIDE_TABS.Versions] = self:_safeLocalize("Studio.Toolbox.General.SideTabVersions"),
 				[AssetConfigConstants.SIDE_TABS.General] = self:_safeLocalize("Studio.Toolbox.General.SideTabGeneral"),
+				[AssetConfigConstants.SIDE_TABS.Permissions] = self:_safeLocalize("Studio.Toolbox.General.SideTabPermissions"),
 			},
 
 			Terms = self:_safeLocalize("Studio.Toolbox.AssetConfigCopy.Terms"),

@@ -16,6 +16,7 @@
 	like we do with Xbox, or from some reasonable endpoint. As it's implemented now,
 	we need to make client changes in order to introduce new products
 ]]
+
 local NativeProducts = {
 	IOS = {
 		PremiumSubscribed = {
@@ -90,6 +91,36 @@ local NativeProducts = {
 			}, {
 				robuxValue = 1870,
 				productId = "com.roblox.robloxmobile.premium1870subscribed",
+			}
+		},
+		PremiumSubscribedLarger = {
+			{
+				robuxValue = 88,
+				productId = "com.roblox.robloxmobile.premium88subscribed",
+			}, {
+				robuxValue = 175,
+				productId = "com.roblox.robloxmobile.premium175subscribed",
+			}, {
+				robuxValue = 265,
+				productId = "com.roblox.robloxmobile.premium265subscribed",
+			}, {
+				robuxValue = 350,
+				productId = "com.roblox.robloxmobile.premium350subscribed",
+			}, {
+				robuxValue = 440,
+				productId = "com.roblox.robloxmobile.premium440subscribed2",
+			}, {
+				robuxValue = 880,
+				productId = "com.roblox.robloxmobile.premium880subscribed",
+			}, {
+				robuxValue = 1870,
+				productId = "com.roblox.robloxmobile.premium1870subscribed",
+			}, {
+				robuxValue = 4950,
+				productId = "com.roblox.robloxmobile.premium4950robux",
+			}, {
+				robuxValue = 11000,
+				productId = "com.roblox.robloxmobile.premium11000robux",
 			},
 		},
 		PremiumNotSubscribed = {
@@ -114,6 +145,36 @@ local NativeProducts = {
 			}, {
 				robuxValue = 1700,
 				productId = "com.roblox.robloxmobile.premium1700robux",
+			},
+		},
+		PremiumNotSubscribedLarger = {
+			{
+				robuxValue = 80,
+				productId = "com.roblox.robloxmobile.premium80robux",
+			}, {
+				robuxValue = 160,
+				productId = "com.roblox.robloxmobile.premium160robux",
+			}, {
+				robuxValue = 240,
+				productId = "com.roblox.robloxmobile.premium240robux",
+			}, {
+				robuxValue = 320,
+				productId = "com.roblox.robloxmobile.premium320robux",
+			}, {
+				robuxValue = 400,
+				productId = "com.roblox.robloxmobile.premium400robux",
+			}, {
+				robuxValue = 800,
+				productId = "com.roblox.robloxmobile.premium800robux",
+			}, {
+				robuxValue = 1700,
+				productId = "com.roblox.robloxmobile.premium1700robux",
+			}, {
+				robuxValue = 4500,
+				productId = "com.roblox.robloxmobile.premium4500robux",
+			}, {
+				robuxValue = 10000,
+				productId = "com.roblox.robloxmobile.premium10000robux",
 			},
 		},
 	}

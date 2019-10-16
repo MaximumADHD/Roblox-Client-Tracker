@@ -81,6 +81,11 @@ local FFlagUserNoMoreKeyboardPan do
 	FFlagUserNoMoreKeyboardPan = success and result
 end
 
+local fixZoomIssuesFlagExists, fixZoomIssuesFlagEnabled = pcall(function()
+	return UserSettings():IsUserFeatureEnabled("UserFixZoomClampingIssues")
+end)
+local FFlagUserFixZoomClampingIssues = fixZoomIssuesFlagExists and fixZoomIssuesFlagEnabled
+
 local Util = require(script.Parent:WaitForChild("CameraUtils"))
 local ZoomController = require(script.Parent:WaitForChild("ZoomController"))
 
@@ -256,6 +261,10 @@ function BaseCamera.new()
 			self.gameLoadedConn:Disconnect()
 			self.gameLoadedConn = nil
 		end)
+	end
+
+	if FFlagUserFixZoomClampingIssues then
+		self:OnPlayerCameraPropertyChange()
 	end
 
 	return self

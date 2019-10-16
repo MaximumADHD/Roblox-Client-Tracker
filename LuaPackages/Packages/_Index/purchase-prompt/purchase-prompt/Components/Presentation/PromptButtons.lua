@@ -37,6 +37,7 @@ function PromptButtons:render()
 		if promptState == PromptState.PurchaseComplete
 			or promptState == PromptState.CannotPurchase
 			or promptState == PromptState.Error
+			or promptState == PromptState.Hiding
 		then
 			children = {
 				UIPadding = Roact.createElement("UIPadding", {

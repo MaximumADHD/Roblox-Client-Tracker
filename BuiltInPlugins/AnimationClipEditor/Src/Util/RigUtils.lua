@@ -16,6 +16,7 @@ local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
 local Workspace = game:GetService("Workspace")
 
 local Constants = require(Plugin.Src.Util.Constants)
+local FixRigUtils = require(Plugin.LuaFlags.GetFFlagFixRigUtils)
 
 local RigUtils = {}
 
@@ -85,28 +86,55 @@ end
 -- Returns a rig's Animator, or creates one if it does not exist.
 local function getAnimator(rig)
 	local animationController = RigUtils.getAnimationController(rig)
-	local animator = animationController:FindFirstChildOfClass("Animator")
-	if animator then
-		return animator
-	else
-		return Instance.new("Animator", animationController)
+	if animationController then
+		local animator = animationController:FindFirstChildOfClass("Animator")
+		if animator then
+			return animator
+		else
+			return Instance.new("Animator", animationController)
+		end
 	end
 end
 
 -- Given a rig, finds the root-most part of the rig.
 function RigUtils.findRootPart(rig)
-	for _, child in ipairs(rig:GetChildren()) do
-		if child:IsA("BasePart") then
-			local root = child:GetRootPart()
-			if root then
-				return root
+	if FixRigUtils() then
+		local humanoidRootPart = rig:FindFirstChild("HumanoidRootPart")
+		if humanoidRootPart then
+			return humanoidRootPart
+		elseif rig.PrimaryPart then
+			return rig.PrimaryPart
+		end
+
+		local _, motorMap = RigUtils.getRigInfo(rig)
+		local root = nil
+		local currentPart = next(motorMap)
+		if currentPart then
+			while not root do
+				local motor = motorMap[currentPart]
+				if motor then
+					currentPart = motorMap[currentPart].Part0.Name
+				else
+					root = currentPart
+				end
 			end
 		end
-	end
-	if rig.PrimaryPart then
-		return rig.PrimaryPart
+
+		return rig:FindFirstChild(root)
 	else
-		return rig:FindFirstChild("HumanoidRootPart")
+		for _, child in ipairs(rig:GetChildren()) do
+			if child:IsA("BasePart") then
+				local root = child:GetRootPart()
+				if root then
+					return root
+				end
+			end
+		end
+		if rig.PrimaryPart then
+			return rig.PrimaryPart
+		else
+			return rig:FindFirstChild("HumanoidRootPart")
+		end
 	end
 end
 
@@ -224,6 +252,12 @@ function RigUtils.rigHasErrors(rig)
 		})
 	end
 
+	if FixRigUtils() and getAnimator(rig) == nil then
+		table.insert(errorList, {
+			ID = Constants.RIG_ERRORS.NoAnimationController,
+		})
+	end
+
 	return #errorList > 0, errorList
 end
 
@@ -273,8 +307,15 @@ function RigUtils.canUseIK(rig)
 	for childPart, parentPart in pairs(Constants.R15links) do
 		local motor = motorMap[childPart]
 		if motor then
-			if motor.Part0.Name ~= parentPart then
-				return false, false
+			if FixRigUtils() then
+				local attachment0, attachment1 = RigUtils.findMatchingAttachments(rig:FindFirstChild(childPart), rig:FindFirstChild(parentPart))
+				if attachment0 == nil or attachment1 == nil or motor.Part0.Name ~= parentPart then
+					return false, false
+				end
+			else
+				if motor.Part0.Name ~= parentPart then
+					return false, false
+				end
 			end
 		end
 	end
@@ -291,11 +332,13 @@ function RigUtils.getPartByName(rig, name)
 end
 
 function RigUtils.findMatchingAttachments(part0, part1)
-	for _, child in ipairs(part0:GetChildren()) do
-		if child:IsA("Attachment") then
-			local other = part1:FindFirstChild(child.Name)
-			if other then
-				return child, other
+	if not FixRigUtils() or (part0 and part1) then
+		for _, child in ipairs(part0:GetChildren()) do
+			if child:IsA("Attachment") then
+				local other = part1:FindFirstChild(child.Name)
+				if other then
+					return child, other
+				end
 			end
 		end
 	end
@@ -360,7 +403,7 @@ local function restoreMotors(rig, ikPose, motorData, changedValues)
 			constraintMap[part.Name].Enabled = false
 		end
 
-		if part ~= RigUtils.findRootPart(rig) then
+		if FixRigUtils() or part ~= RigUtils.findRootPart(rig) then
 			part.Anchored = false
 		end
 
@@ -390,6 +433,10 @@ function RigUtils.ikDragEnd(rig, motorData)
 	local changedValues = {}
 	local ikPose = getRigPose(motorData)
 	restoreMotors(rig, ikPose, motorData, changedValues)
+	if FixRigUtils() then
+		local rootPart = RigUtils.findRootPart(rig)
+		rootPart.Anchored = true
+	end
 	return changedValues
 end
 
@@ -664,30 +711,29 @@ end
 -- constructs the chain, making use of existing poses along the way
 -- if they exist.
 local function makePoseChain(keyframe, trackName, rig, trackData)
-	local rootPart = RigUtils.findRootPart(rig)
+	if FixRigUtils() then
+		local poseInstance = keyframe:FindFirstChild(trackName, true)
+		if poseInstance == nil then
+			poseInstance = Instance.new("Pose")
+			poseInstance.Name = trackName
+		else
+			poseInstance.Weight = 1
+		end
+		poseInstance.CFrame = trackData.Value
+		poseInstance.EasingStyle = trackData.EasingStyle.Name
+		poseInstance.EasingDirection = trackData.EasingDirection.Name
+		local poseChain = poseInstance
 
-	local poseInstance = keyframe:FindFirstChild(trackName, true)
-	if poseInstance == nil then
-		poseInstance = Instance.new("Pose")
-		poseInstance.Name = trackName
-	else
-		poseInstance.Weight = 1
-	end
-	poseInstance.CFrame = trackData.Value
-	poseInstance.EasingStyle = trackData.EasingStyle.Name
-	poseInstance.EasingDirection = trackData.EasingDirection.Name
-
-	local poseChain = poseInstance
-	local currentPart = rig:FindFirstChild(trackName, true)
-	if currentPart then
-		repeat
-			local connection = currentPart:FindFirstChildOfClass("Motor6D")
-			if connection then
-				currentPart = connection.Part0
-				local parentPose = keyframe:FindFirstChild(currentPart.Name, true)
+		local _, partsToMotors = RigUtils.getRigInfo(rig)
+		local currentPart = trackName
+		while currentPart ~= nil do
+			local motor = partsToMotors[currentPart]
+			if motor then
+				currentPart = motor.Part0.Name
+				local parentPose = keyframe:FindFirstChild(currentPart, true)
 				if not parentPose then
 					parentPose = Instance.new("Pose")
-					parentPose.Name = currentPart.Name
+					parentPose.Name = currentPart
 					parentPose.Weight = 0
 				end
 				poseChain.Parent = parentPose
@@ -695,10 +741,46 @@ local function makePoseChain(keyframe, trackName, rig, trackData)
 			else
 				currentPart = nil
 			end
-		until currentPart == nil or currentPart == rootPart or poseChain.Weight == 0
-	end
+		end
 
-	poseChain.Parent = keyframe
+		poseChain.Parent = keyframe
+	else
+		local rootPart = RigUtils.findRootPart(rig)
+
+		local poseInstance = keyframe:FindFirstChild(trackName, true)
+		if poseInstance == nil then
+			poseInstance = Instance.new("Pose")
+			poseInstance.Name = trackName
+		else
+			poseInstance.Weight = 1
+		end
+		poseInstance.CFrame = trackData.Value
+		poseInstance.EasingStyle = trackData.EasingStyle.Name
+		poseInstance.EasingDirection = trackData.EasingDirection.Name
+
+		local poseChain = poseInstance
+		local currentPart = rig:FindFirstChild(trackName, true)
+		if currentPart then
+			repeat
+				local connection = currentPart:FindFirstChildOfClass("Motor6D")
+				if connection then
+					currentPart = connection.Part0
+					local parentPose = keyframe:FindFirstChild(currentPart.Name, true)
+					if not parentPose then
+						parentPose = Instance.new("Pose")
+						parentPose.Name = currentPart.Name
+						parentPose.Weight = 0
+					end
+					poseChain.Parent = parentPose
+					poseChain = parentPose
+				else
+					currentPart = nil
+				end
+			until currentPart == nil or currentPart == rootPart or poseChain.Weight == 0
+		end
+
+		poseChain.Parent = keyframe
+	end
 end
 
 -- Exporting to KeyframeSequence animation requires a dummy rig so that we

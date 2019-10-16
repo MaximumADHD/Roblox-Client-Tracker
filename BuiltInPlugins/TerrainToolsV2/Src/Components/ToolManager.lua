@@ -64,7 +64,6 @@ function ToolManager:render()
 			Roact.createElement("UIGridLayout", {
 				SortOrder = Enum.SortOrder.LayoutOrder,
 				CellSize = UDim2.new(0, 55, 0, 55),
-				FillDirectionMaxCells = currentTab == "Region" and 4 or 0,
 
 				[Roact.Ref] = self.layoutRef,
 				[Roact.Change.AbsoluteContentSize] = self.onContentSizeChanged,

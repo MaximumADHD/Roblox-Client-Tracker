@@ -317,6 +317,10 @@ RBX
 		{
 			ServerStatsItem
 		}
+		StreamingObserver
+		{
+			ResizeJob
+		}
 		CFrameAcknowledgementItem
 		Client
 		ClusterPacketCache
@@ -450,36 +454,6 @@ RBX
 	}
 	ScriptParser
 	{
-		AstExpr
-		AstExprBinary
-		AstExprCall
-		AstExprConstantBool
-		AstExprConstantNil
-		AstExprConstantNumber
-		AstExprConstantString
-		AstExprFunction
-		AstExprGlobal
-		AstExprGroup
-		AstExprIndexExpr
-		AstExprIndexName
-		AstExprLocal
-		AstExprTable
-		AstExprUnary
-		AstExprVarargs
-		AstNode
-		AstStat
-		AstStatAssign
-		AstStatBlock
-		AstStatBreak
-		AstStatExpr
-		AstStatFor
-		AstStatForIn
-		AstStatIf
-		AstStatLocal
-		AstStatRepeat
-		AstStatReturn
-		AstStatWhile
-		AstVisitor
 		Error
 	}
 	Solver
@@ -618,14 +592,6 @@ RBX
 	BackpackItem
 	BadgeService
 	Ball
-	BallBallConnector
-	BallBallContact
-	BallBlockConnector
-	BallBlockContact
-	BallEdgeConnector
-	BallPlaneConnector
-	BallPolyContact
-	BallVertexConnector
 	BasePlayerGui
 	BaseRenderJob
 	BaseScript
@@ -638,7 +604,6 @@ RBX
 	BindableEvent
 	BindableFunction
 	Block
-	BlockBlockContact
 	BlockMesh
 	BloomEffect
 	BlurEffect
@@ -658,21 +623,7 @@ RBX
 	BoxSelectCommand
 	BrowserService
 	BSPMesh
-	BulletCellContact
-	BulletConnector
-	BulletContact
 	BulletConvexDecompositionResult
-	BulletShapeCellConnector
-	BulletShapeCellContact
-	BulletShapeConnector
-	BulletShapeContact
-	BuoyancyBallContact
-	BuoyancyBoxContact
-	BuoyancyConnector
-	BuoyancyContact
-	BuoyancyCornerWedgeContact
-	BuoyancyCylinderContact
-	BuoyancyWedgeContact
 	CacheableContentProvider
 	Camera
 	CameraCenterCommand
@@ -687,7 +638,6 @@ RBX
 	CameraZoomOutCommand
 	CanCollideVerb
 	CanNotSelectCommand
-	CellContact
 	ChangeHistoryService
 	CharacterAppearance
 	CharacterMesh
@@ -710,8 +660,6 @@ RBX
 	Connectivity
 	Connector
 	ConstraintSurfacePair
-	Contact
-	ContactConnector
 	ContactManager
 	ContactStage
 	ContentProvider
@@ -767,8 +715,6 @@ RBX
 	DynamicRotateJoint
 	Edge
 	EdgeBuffer
-	EdgeEdgeConnector
-	EdgeEdgePair
 	EdgeStage
 	EditSelectionVerb
 	Effect
@@ -778,10 +724,7 @@ RBX
 	ExplicitWeldJoint
 	Explosion
 	ExtrudedPartInstance
-	FaceEdgeConnector
-	FaceFacePair
 	FaceInstance
-	FaceVertexConnector
 	FastLogJSON
 	Feature
 	File
@@ -823,7 +766,6 @@ RBX
 	GenericNumberHandler
 	Geometry
 	GeometryService
-	GeoPairConnector
 	GfxBinding
 	GfxPart
 	Glue
@@ -932,12 +874,10 @@ RBX
 	IWorldStage
 	JoinCommand
 	Joint
-	JointConnector
 	JointInstance
 	JointsService
 	JointStage
 	Kernel
-	KernelIndex
 	KernelJoint
 	KeyboardService
 	Keyframe
@@ -1017,7 +957,6 @@ RBX
 	MoveUpSelectionVerb
 	MovingAssemblyStage
 	MovingStage
-	MultiJoint
 	NavigationContext
 	NavigationService
 	NegateOperation
@@ -1027,7 +966,6 @@ RBX
 	NewNullTool
 	NoCollisionConstraintTool
 	NonReplicatedCSGDictionaryService
-	NormalBreakConnector
 	NotificationService
 	NumberHandler
 	NumHandler
@@ -1077,16 +1015,10 @@ RBX
 	PluginToolbar
 	PluginToolbarButton
 	PluginUIElement
-	Point
 	PointLight
 	PointsService
-	PointToPointBreakConnector
 	PolicyService
 	Poly
-	PolyConnector
-	PolyContact
-	PolyPair
-	PolyPolyContact
 	Pose
 	PostEffect
 	Primitive
@@ -1112,7 +1044,6 @@ RBX
 	RootInstance
 	Rotate
 	RotateAxisCommand
-	RotateConnector
 	RotateJoint
 	RotateP
 	RotatePJoint

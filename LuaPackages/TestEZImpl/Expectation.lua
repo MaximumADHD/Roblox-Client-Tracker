@@ -237,10 +237,10 @@ function Expectation:throw()
 	local result = ok ~= self.successCondition
 
 	local message = formatMessage(self.successCondition,
+		"Expected function to throw an error, but it did not.",
 		("Expected function to succeed, but it threw an error: %s"):format(
 			tostring(err)
-		),
-		"Expected function to throw an error, but it did not."
+		)
 	)
 
 	assertLevel(result, message, 3)

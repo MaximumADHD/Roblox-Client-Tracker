@@ -13,6 +13,8 @@
 		callback [Removed=nil] - Called whenever the delete button is clicked
 ]]
 
+local FFlagStudioGameSettingsRestrictPermissions = game:GetFastFlag("StudioGameSettingsRestrictPermissions")
+
 local ITEM_HEIGHT = 60
 local PADDING_Y = 20
 local PADDING_X = 12
@@ -126,6 +128,13 @@ local function CollaboratorItem(props)
 	props.Items = props.Items or {}
 
 	local removable = props.Removable and #props.Items > 0 and not props.IsLoading
+
+	local dropdownEnabled
+	if FFlagStudioGameSettingsRestrictPermissions then
+		dropdownEnabled = not props.IsPlayOnly and props.Enabled and #props.Items > 0
+	else
+		dropdownEnabled = props.Enabled and #props.Items > 0
+	end
 	
 	return withTheme(function(theme)
 		return Roact.createElement("Frame", {
@@ -162,7 +171,7 @@ local function CollaboratorItem(props)
 				}),
 				Dropdown = Roact.createElement(props.IsLoading and LoadingDropdown or DetailedDropdown, {
 					LayoutOrder = 2,
-					Enabled = props.Enabled and #props.Items > 0,
+					Enabled = dropdownEnabled,
 					
 					ButtonText = props.Action,
 					Items = props.Items,

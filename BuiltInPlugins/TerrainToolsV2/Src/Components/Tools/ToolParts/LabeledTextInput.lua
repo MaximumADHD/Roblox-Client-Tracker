@@ -139,32 +139,29 @@ function LabeledTextInput:init()
 		if not textBox then return end
 
 		-- if we encounter a tab key, it will be consumed to pass focus to the next textBox
-		if textBox.Text then
-			-- handle tab character
-			if string.find(textBox.Text, '\t') then
-				-- remove the tab character since we consumed it
-				textBox.Text = textBox.Text:gsub('\t', '')
+		if string.find(textBox.Text, '\t') then
+			-- remove the tab character since we consumed it
+			textBox.Text = textBox.Text:gsub('\t', '')
 
-				--hack to handle the focuslost case
-				textBox:ReleaseFocus(true)
+			--hack to handle the focuslost case
+			textBox:ReleaseFocus(true)
 
-				-- capture focus of next textbox if we want that
-			end
-
-			if self.props.MaxGraphenes then
-				if #textBox.Text > self.props.MaxGraphenes then
-					textBox.Text = string.sub(textBox.Text, 1, self.props.MaxGraphenes)
-				end
-			end
+			-- capture focus of next textbox if we want that
 		end
 
 		if self.props.ValidateText then
 			local currText = textBox.Text
 			local updatedText = ""
 			local warningMessage = ""
-			if #currText > 0 then
+			if utf8.len(currText) > 0 then
 				updatedText, warningMessage = self.props.ValidateText(currText)
-				textBox.Text = updatedText
+
+				if textBox.text ~= updatedText then
+					--used to keep the cursor in place if text was not changed
+					textBox.CursorPosition = textBox.CursorPosition - 1
+					textBox.Text = updatedText
+				end
+
 				if warningMessage == nil then
 					warningMessage = ""
 				end
@@ -177,13 +174,20 @@ function LabeledTextInput:init()
 			end
 		end
 
+		if self.props.MaxGraphenes then
+			if utf8.len(textBox.Text) > self.props.MaxGraphenes then
+				local offset = utf8.offset(textBox.Text, 1, self.props.MaxGraphenes+1)-1
+				textBox.Text = string.sub(textBox.Text, 1, offset)
+			end
+		end
+
 		self.updateTextBoxOffset()
 	end
 
 	-- updates the border color to "selected" highlight
 	self.onFocus = function()
 		local textInputBorder = self.textInputBorderRef.current
-		if textInputBorder and #self.state.warningMessage == 0 then
+		if textInputBorder and utf8.len(self.state.warningMessage) == 0 then
 			self:setState({
 				focused = true,
 			})
@@ -197,8 +201,13 @@ function LabeledTextInput:init()
 	-- resets the border color to "normal" highlight
 	-- also, this is where we know the input is complete
 	self.onFocusLost = function(rbx, enterPressed)
+		local currTextBox = self.textBoxRef.current
+		if currTextBox then
+			currTextBox.Position = UDim2.new(0, PADDING, 0, 0)
+		end
+
 		local textInputBorder = self.textInputBorderRef.current
-		if textInputBorder and #self.state.warningMessage == 0 then
+		if textInputBorder and utf8.len(self.state.warningMessage) == 0 then
 			self:setState({
 				focused = false,
 			})
@@ -207,8 +216,11 @@ function LabeledTextInput:init()
 		if self.props.OnFocusLost then
 			local textBox = self.textBoxRef.current
 			if textBox then
-				if #textBox.Text > 0 then -- and #self.state.warningMessage == 0 then
-					self.props.OnFocusLost(enterPressed, textBox.Text)
+				if utf8.len(textBox.Text) > 0 then
+					local textOverride = self.props.OnFocusLost(enterPressed, textBox.Text)
+					if textOverride then
+						textBox.Text = textOverride
+					end
 				end
 			end
 		end
@@ -327,7 +339,7 @@ function LabeledTextInput:render()
 				}),
 			}),
 
-			Warning = #warningMessage and Roact.createElement("TextLabel", {
+			Warning = utf8.len(warningMessage) > 0 and Roact.createElement("TextLabel", {
 				Size = UDim2.new(1, 0, 0, TEXTBOX_HEIGHT),
 				Position = UDim2.new(0, 0, 0, TEXTBOX_HEIGHT),
 

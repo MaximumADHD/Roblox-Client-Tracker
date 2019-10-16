@@ -117,6 +117,8 @@ return function()
 		constraint.Attachment0 = upperTorsoToHeadAttach
 		constraint.Attachment1 = headToUpperTorsoAttach
 
+		Instance.new("AnimationController", model)
+
 		return model
 	end
 

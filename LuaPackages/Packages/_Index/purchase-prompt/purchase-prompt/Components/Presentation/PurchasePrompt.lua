@@ -6,6 +6,7 @@ local Otter = require(CorePackages.Otter)
 
 local PromptState = require(script.Parent.Parent.Parent.PromptState)
 local signalFinishedAndHidePrompt = require(script.Parent.Parent.Parent.Thunks.signalFinishedAndHidePrompt)
+local hidePrompt = require(script.Parent.Parent.Parent.Thunks.hidePrompt)
 
 local ExternalEventConnection = require(script.Parent.Parent.Connection.ExternalEventConnection)
 local PromptContents = require(script.Parent.PromptContents)
@@ -13,6 +14,8 @@ local InProgressContents = require(script.Parent.InProgressContents)
 local connectToStore = require(script.Parent.Parent.Parent.connectToStore)
 
 local withLayoutValues = require(script.Parent.Parent.Connection.withLayoutValues)
+
+game:DefineFastFlag("FixQuickCancelPurchase", false)
 
 local PurchasePrompt = Roact.Component:extend(script.Name)
 
@@ -23,6 +26,7 @@ local SPRING_CONFIG = {
 
 function PurchasePrompt:init()
 	local setPromptHidden = self.props.setPromptHidden
+	local setPromptHiding = self.props.setPromptHiding
 
 	self.motor = Otter.createSingleMotor(0)
 	self.motor:start()
@@ -39,6 +43,13 @@ function PurchasePrompt:init()
 	end)
 
 	self.onClose = function()
+		local FFlagFixQuickCancelPurchase = game:GetFastFlag("FixQuickCancelPurchase")
+		if FFlagFixQuickCancelPurchase
+			and (self.props.promptState == PromptState.Hidden
+				or self.props.promptState == PromptState.Hiding) then
+			return
+		end
+
 		local onCompleteDisconnector
 		onCompleteDisconnector = self.motor:onComplete(function()
 			setPromptHidden()
@@ -46,13 +57,16 @@ function PurchasePrompt:init()
 		end)
 
 		self.motor:setGoal(Otter.spring(0, SPRING_CONFIG))
+		if FFlagFixQuickCancelPurchase then
+			setPromptHiding()
+		end
 	end
 end
 
 function PurchasePrompt:didUpdate(prevProps, prevState)
 	if prevProps.promptState ~= self.props.promptState then
 
-		local goal = self.props.promptState == PromptState.Hidden and 0 or 1
+		local goal = (self.props.promptState == PromptState.Hidden or self.props.promptState == PromptState.Hiding) and 0 or 1
 		self.motor:setGoal(Otter.spring(goal, SPRING_CONFIG))
 	end
 end
@@ -100,6 +114,9 @@ end
 
 local function mapDispatchToProps(dispatch)
 	return {
+		setPromptHiding = function()
+			dispatch(hidePrompt())
+		end,
 		setPromptHidden = function()
 			dispatch(signalFinishedAndHidePrompt())
 		end

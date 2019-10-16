@@ -93,6 +93,7 @@ local FFlagCoreScriptTranslateGameText2 = settings():GetFFlag('CoreScriptTransla
 local FFlagRobloxGuiSiblingZindexs = settings():GetFFlag("RobloxGuiSiblingZindexs")
 
 local FFlagAllowBackpackBinding = game:DefineFastFlag("AllowBackpackBinding", false)
+local FFlagFixBackpackDraggingReset = game:DefineFastFlag("FixBackpackDraggingReset", false)
 
 if FFlagBackpackScriptUseFormatByKey then
 	SEARCH_TEXT_OFFSET_FROMLEFT = 3
@@ -530,6 +531,9 @@ local function MakeSlot(parent, index)
 	end
 
 	function slot:Delete()
+		if FFlagFixBackpackDraggingReset then
+			Dragging[SlotFrame] = nil
+		end
 		SlotFrame:Destroy() --NOTE: Also clears connections
 		table.remove(Slots, self.Index)
 		local newSize = #Slots

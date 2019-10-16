@@ -40,6 +40,8 @@ local uniqueIdentifiers = {
 	SubjectRankKey = createKey("SubjectRank"),
 	GroupIdKey = createKey("GroupId"),
 	GroupNameKey = createKey("GroupName"),
+
+	IsFriendKey = createKey("IsFriend"),
 }
 
 local miscConstants = {

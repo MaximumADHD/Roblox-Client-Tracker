@@ -4,7 +4,10 @@ end
 
 local Plugin = script.Parent.Parent
 
-if not settings():GetFFlag("StudioVersionControlAlpha") then return end
+if not settings():GetFFlag("StudioVersionControlAlpha") and
+   not settings():GetFFlag("StudioForceDraftsUsageOnRCCSetting") then
+   return
+end
 
 local OverrideLocaleId = settings():GetFVariable("StudioForceLocale")
 game:DefineFastInt("DebugStudioDraftsWidgetTestCase", 0)

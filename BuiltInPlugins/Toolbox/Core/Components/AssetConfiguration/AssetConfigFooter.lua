@@ -24,6 +24,7 @@ local RoactRodux = require(Libs.RoactRodux)
 local Util = Plugin.Core.Util
 local ContextHelper = require(Util.ContextHelper)
 local Constants = require(Util.Constants)
+local ScreenSetup = require(Util.ScreenSetup)
 
 local UILibrary = Libs.UILibrary
 local RoundTextButton = require(UILibrary.Components.RoundTextButton)
@@ -37,7 +38,6 @@ local Requests = Plugin.Core.Networking.Requests
 local ToggleOverrideRequest = require(Requests.ToggleOverrideRequest)
 
 local AssetConfiguration = Plugin.Core.Components.AssetConfiguration
-local ScreenSetup = require(AssetConfiguration.ScreenSetup)
 local LinkButton = require(AssetConfiguration.LinkButton)
 
 local AssetConfigFooter = Roact.PureComponent:extend("AssetConfigFooter")

@@ -59,7 +59,7 @@ local Slider = Roact.PureComponent:extend("Slider")
 
 function Slider:init()
 	self.state = {
-		pressed = false
+		pressed = false,
 	}
 
 	self.sliderFrameRef = Roact.createRef()
@@ -223,10 +223,29 @@ function Slider:render()
 			Position = UDim2.new(0, inputBoxOffset, 0, 0),
 			Text = tostring(value),
 			OnFocusLost = function(enterPressed, text)
-				local val = tonumber(text)
+				-- we reverse first because we dont have a reverse match
+				-- This matching is used to restrict teh input that
+				-- can go into the textbox. When we make this a shared component
+				-- we will want to review if this is a pattern that we want.
+				local rev = string.reverse(text)
+				local revNum = string.match(rev,"[0-9]*[%.]?[0-9]*[%-]?")
+				local textNum = string.reverse(revNum)
+
+				local val = tonumber(textNum)
 				if val then
-					self.setValue(val)
+					local newVal = self.getSnappedValue(val)
+					self.props.SetValues(newVal)
+					-- this is required for the case where the value
+					-- needs to be reset to the previous value
+					return newVal
+				else
+					return value
 				end
+			end,
+
+			ValidateText = function(text)
+				local filter = string.gsub(text, "[^0-9%-%.%+]*","")
+				return filter
 			end,
 		}),
 

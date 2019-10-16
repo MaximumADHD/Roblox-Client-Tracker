@@ -1,10 +1,9 @@
 local Plugin = script.Parent.Parent.Parent
 
-local Components = Plugin.Core.Components
-local AssetConfiguration = Components.AssetConfiguration
-local ScreenSetup = require(AssetConfiguration.ScreenSetup)
-local AssetConfigConstants = require(Plugin.Core.Util.AssetConfigConstants)
-local Images = require(Plugin.Core.Util.Images)
+local Util = Plugin.Core.Util
+local AssetConfigConstants = require(Util.AssetConfigConstants)
+local ScreenSetup = require(Util.ScreenSetup)
+local Images = require(Util.Images)
 
 local ConfigTypes = {}
 
@@ -31,6 +30,11 @@ local OVERRIDE = {
 	name = AssetConfigConstants.SIDE_TABS.Override
 }
 
+local PERMISSIONS = {
+	name = AssetConfigConstants.SIDE_TABS.Permissions,
+	image = Images.PERMISSIONS_SIDE_TAB,
+}
+
 ConfigTypes.OWNER_TYPES = {
 	User = 1,
 	Group = 2
@@ -40,6 +44,13 @@ function ConfigTypes:getAssetconfigContent(screenFlowType, assetTypeEnum)
 	local result = {
 		GENERAL,
 	}
+
+	-- FIXME(mwang) need to verify that Asset is a Package to show Permissions.
+	if game:GetFastFlag("StudioMovePkgPermsToAssetConfig") then
+		if ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_PERMISSIONS) then 
+			result[#result + 1] = PERMISSIONS
+		end
+	end
 
 	-- Versions History is only accessible to models, so we only try to show the Versions if it's a model.
 	if FFlagEnableAssetConfigVersionCheckForModels then
