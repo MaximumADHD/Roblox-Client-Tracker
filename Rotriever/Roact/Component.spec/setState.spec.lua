@@ -545,14 +545,12 @@ return function()
 			expect(result:find("reached the setState update recursion limit")).to.be.ok()
 		end)
 
-		-- **** SKELETON EDITOR CHANGES **** --
-		--itSKIP("should process single updates with both new and pending state", function()
+		itSKIP("should process single updates with both new and pending state", function()
 			--[[
 				This situation shouldn't be possible currently, but the implementation
 				should support it for future update de-duplication
 			]]
-		--end)
-		-- ********************************* --
+		end)
 
 		it("should call trigger update after didMount when setting state in didMount", function()
 			--[[
