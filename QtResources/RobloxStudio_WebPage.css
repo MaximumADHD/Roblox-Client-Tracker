@@ -1,0 +1,242 @@
+/*
+ * This CSS file implements the Dark theme for web views in Studio, e.g. the
+ * Toolbox and the publishing dialogs.
+ */
+
+html, body, footer, header, form, .client-toolbox-noresult
+{
+    color: #ccc !important;
+    background-color: #2e2e2e !important;
+}
+
+body
+{
+    color: #ccc !important;
+    box-sizing: border-box !important;
+    border: 1px solid #222222 !important;
+}
+
+h1, h2, h3, h4, .form-label
+{
+	color: #ccc !important;
+}
+
+a:link,
+a:visited,
+a:hover
+{
+    color: #35B5FF !important;
+}
+
+.client-toolbox-header 
+{
+    background-color: #2e2e2e !important;
+	border: none !important;
+}
+
+.client-toolbox-footer
+{
+    box-sizing: border-box !important;
+    height: 42px !important;
+    color: #ccc !important;
+    background-color: #2e2e2e !important;
+    border: 1px solid #222222 !important;
+}
+
+.client-toolbox-btn-color
+{
+	color: #ccc !important;
+	background-color: #353535 !important;
+}
+
+.client-toolbox-selection,
+.client-toolbox-sort-selection,
+.client-toolbox-asset-name,
+.client-toolbox-paging-btn
+{
+	color: #ccc !important;
+}
+
+.client-toolbox-sort-selection[disabled]
+{
+	color: #555555 !important;
+}
+
+.client-toolbox-footer div
+{
+	color: #ccc !important;
+}
+
+.client-toolbox-searchinput
+{
+	background-color: #252525 !important;
+	color: #ccc !important;
+    border: 1px #222222 !important;
+}
+
+.client-toolbox-search-btn
+{
+    background-color: #252525 !important;
+    border: 1px #222222 !important;
+    height: 24px !important;
+}
+
+.client-toolbox-inner
+{
+    background-color: #2e2e2e !important;
+}
+
+.client-toolbox-inner:hover
+{
+    background-color: #353535 !important;
+    border: 1px solid #222222 !important;
+    box-shadow: 0 1px 8px 0 rgba(0,0,0,0.5) !important;
+}
+
+.client-toolbox-creator:hover
+{
+    color:#888888 !important;
+    text-decoration:underline !important;
+}
+
+.client-toolbox-item:hover
+{
+    background-color: #353535 !important;
+}
+
+.client-toolbox-asset-img
+{
+    border: 1px solid #424242 !important;
+}
+
+.footer-button-container
+{
+	color: #ccc !important;
+	background-color: #353535 !important;
+}
+
+.tab-container, .tab-container div
+{
+	color: #ccc !important;
+	background-color: #353535 !important;
+}
+
+.place.asset:hover
+{
+    background: #353535 !important;
+    border: 1px solid #222222 !important;
+    box-shadow: 0 1px 8px 0 rgba(0,0,0,0.5) !important;
+}
+
+.asset-list
+{
+    color: #ccc !important;
+    background-color: #353535 !important;
+    border: 1px solid #222 !important;
+}
+
+.divider-right
+{
+    background-color: #353535 !important;
+    border: none !important;
+}
+
+.verticaltab
+{
+    background-color: #353535 !important;
+}
+
+.verticaltab.selected
+{
+    background-color: #0B5AAF !important;
+    border: none !important;
+}
+
+.verticaltab a
+{
+    color: #ccc !important;
+    background-color: #353535 !important;
+}
+
+.verticaltab a:hover
+{
+    color: #ccc !important;
+    background-color: #424242 !important;
+    text-decoration:none !important;
+}
+
+.verticaltab.selected a
+{
+    color: #ccc !important;
+    background-color: #0B5AAF !important;
+    border: none !important;
+}
+
+.form-text-box,
+.text-box
+{
+    background-color: #252525 !important;
+    border: 1px solid #222222 !important;
+    color: #ccc !important;
+}
+
+.form-select
+{
+    color: #ccc !important;
+    background-color: #353535 !important;
+    border: 1px solid #424242 !important;
+}
+
+.thumbnail-container
+{
+    border-bottom: 1px #222222 !important;
+}
+
+.footer-button-container.divider-top
+{
+    border-top: 1px #222222 !important;
+}
+
+.divider-bottom
+{
+    background-color: #353535 !important;
+    border: 1px solid #222222 !important;
+}
+
+#newasset.asset.model:hover,
+.asset.model.list-item:hover
+{
+    background: #353535 !important;
+    border: 1px solid #222222 !important;
+    box-shadow: 0 1px 8px 0 rgba(0,0,0,0.5) !important;
+}
+
+#tutorialtestdiv2
+{
+    background: #353535 !important;
+    border: 1px solid #222222 !important;
+    color: #cccccc;
+}
+
+.gallerybox
+{
+    background: #2e2e2e !important;
+    border: 1px solid #222222 !important;
+}
+
+.box.shrink
+{
+    color: black;
+}
+
+.catalog
+{
+    background: #353535 !important;
+    color: #cccccc;
+}
+
+#Body
+{
+    background: #353535 !important;
+    color: #cccccc;
+}
