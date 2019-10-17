@@ -16,20 +16,26 @@ Use these links to compare versions of Roblox's client.
 * Compare [roblox->gametest2](https://github.com/CloneTrooper1019/Roblox-Client-Tracker/compare/gametest2.robloxlabs#files_bucket)
 * Compare [gametest1->gametest2](https://github.com/CloneTrooper1019/Roblox-Client-Tracker/compare/gametest1.robloxlabs...gametest2.robloxlabs)
 
-# Info Specification
+# Some Specifications
 
 ## API-Dump.json
 This is a JSON version of Roblox's API Dump. It contains more data than the original API Dump and can be read into a data tree by most programming languages using a JSON parser.
 This file is extracted using RobloxStudioBeta.exe -API API-Dump.json
 
 ## API-Dump.txt
-This is a readable version of Roblox's JSON API Dump. Its style is derived from the [Legacy API Dump](#legacy-api-dumptxt), but with a few alterations and improvements to the sorting of data. This file is generated from the [Roblox API Dump Tool](https://github.com/CloneTrooper1019/Roblox-API-Dump-Tool).
+A readable version of Roblox's JSON API Dump. This file is generated from the [Roblox API Dump Tool](https://github.com/CloneTrooper1019/Roblox-API-Dump-Tool).
+
+## AutoCompleteMetadata.xml
+A file used by Roblox Studio to provide auto completion for the types built into Roblox's Lua implementation.
 
 ## CppTree.txt
 A *very-rough* hierarchical dump of the C++ class/enum type names that could be extracted from the symbol data of Roblox Studio's exe.
 
 ## DeepStrings.txt
 This is a sorted list of dumped strings from Roblox Studio's exe. There is *some* garbage data dumped into this file, but most of it should be legible.
+
+## EmulatedDevices.xml
+A file used by Roblox Studio which defines the specifications, platforms, and images for all default emulation devices.
 
 ## FVariables.txt
 This is a sorted list of fast variables, which are used by Roblox to toggle changes to the engine remotely on multiple platforms without having to redeploy the client.
