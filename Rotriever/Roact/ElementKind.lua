@@ -19,7 +19,6 @@ local ElementKindInternal = {
 	Host = Symbol.named("Host"),
 	Function = Symbol.named("Function"),
 	Stateful = Symbol.named("Stateful"),
-	Fragment = Symbol.named("Fragment"),
 }
 
 function ElementKindInternal.of(value)

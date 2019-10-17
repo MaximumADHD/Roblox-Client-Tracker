@@ -91,12 +91,7 @@ return function()
 			someState = 2,
 		})
 
-		-- getDerivedStateFromProps will be called:
-		-- * Once on empty props
-		-- * Once during the self:setState in init
-		-- * Once more, defensively, on the resulting state AFTER init
-		-- * On updating with new state via updateVirtualNode
-		expect(getDerivedSpy.callCount).to.equal(4)
+		expect(getDerivedSpy.callCount).to.equal(3)
 
 		local values = getDerivedSpy:captureValues("props", "state")
 
@@ -128,11 +123,7 @@ return function()
 
 		noopReconciler.mountVirtualNode(element, hostParent, hostKey)
 
-		-- getDerivedStateFromProps will be called:
-		-- * Once on empty props
-		-- * Once during the self:setState in init
-		-- * Once more, defensively, on the resulting state AFTER init
-		expect(getDerivedSpy.callCount).to.equal(3)
+		expect(getDerivedSpy.callCount).to.equal(2)
 
 		local values = getDerivedSpy:captureValues("props", "state")
 
@@ -236,44 +227,5 @@ return function()
 
 		-- getDerivedStateFromProps is always called on initial state
 		expect(stateDerivedSpy.callCount).to.equal(3)
-	end)
-
-	it("should have derived state after assigning to state in init", function()
-		local getStateCallback
-		local getDerivedSpy = createSpy(function()
-			return {
-				derived = true,
-			}
-		end)
-		local WithDerivedState = Component:extend("WithDerivedState")
-
-		WithDerivedState.getDerivedStateFromProps = getDerivedSpy.value
-
-		function WithDerivedState:init()
-			self.state = {
-				init = true,
-			}
-
-			getStateCallback = function()
-				return self.state
-			end
-		end
-
-		function WithDerivedState:render()
-			return nil
-		end
-
-		local hostParent = nil
-		local hostKey = "WithDerivedState"
-		local element = createElement(WithDerivedState)
-
-		noopReconciler.mountVirtualNode(element, hostParent, hostKey)
-
-		expect(getDerivedSpy.callCount).to.equal(2)
-
-		assertDeepEqual(getStateCallback(), {
-			init = true,
-			derived = true,
-		})
 	end)
 end
