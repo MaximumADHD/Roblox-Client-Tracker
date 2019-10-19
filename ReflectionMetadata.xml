@@ -313,7 +313,7 @@
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">GetCollection</string>
-            <string name="summary">Returns a table for the assets stored in the category.  A category is an setId from www.roblox.com that links to a set.  &lt;a href="http://wiki.roblox.com/index.php?title=API:Class/InsertService/GetCollection" target="_blank"&gt;More info on table format&lt;/a&gt;. &lt;a href="http://wiki.roblox.com/index.php/Sets" target="_blank"&gt;More info on sets&lt;/a&gt;</string>
+            <string name="summary">Returns a table for the assets stored in the category.  A category is an setId from www.roblox.com that links to a set.  &lt;a href='http://wiki.roblox.com/index.php?title=API:Class/InsertService/GetCollection' target='_blank'&gt;More info on table format&lt;/a&gt;. &lt;a href='http://wiki.roblox.com/index.php/Sets' target='_blank'&gt;More info on sets&lt;/a&gt;</string>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
@@ -342,13 +342,13 @@
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">GetBaseSets</string>
-            <string name="summary">Returns a table containing a list of the various setIds that are ROBLOX approved. &lt;a href="http://wiki.roblox.com/index.php/Sets" target="_blank"&gt;More info on sets&lt;/a&gt;</string>
+            <string name="summary">Returns a table containing a list of the various setIds that are ROBLOX approved. &lt;a href='http://wiki.roblox.com/index.php/Sets' target='_blank'&gt;More info on sets&lt;/a&gt;</string>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">GetUserSets</string>
-            <string name="summary">Returns a table containing a list of the various setIds that correspond to argument 'userId'. &lt;a href="http://wiki.roblox.com/index.php/Sets" target="_blank"&gt;More info on sets&lt;/a&gt;</string>
+            <string name="summary">Returns a table containing a list of the various setIds that correspond to argument 'userId'. &lt;a href='http://wiki.roblox.com/index.php/Sets' target='_blank'&gt;More info on sets&lt;/a&gt;</string>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
@@ -368,7 +368,7 @@
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">LoadAsset</string>
-            <string name="summary">Returns a Model containing the Instance that resides at AssetId on the web. This call will also yield the script until the model is returned. Script execution can still continue, however, if you use a &lt;a href="http://wiki.roblox.com/index.php?title=Coroutine" target="_blank"&gt;coroutine&lt;/a&gt;.</string>
+            <string name="summary">Returns a Model containing the Instance that resides at AssetId on the web. This call will also yield the script until the model is returned. Script execution can still continue, however, if you use a &lt;a href='http://wiki.roblox.com/index.php?title=Coroutine' target='_blank'&gt;coroutine&lt;/a&gt;.</string>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
@@ -1105,7 +1105,7 @@
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">Icon</string>
-            <string name="summary">The current Texture of the Mouse Icon. Stored as a string, for more information on how to format the string &lt;a href="http://wiki.roblox.com/index.php/Content" target="_blank"&gt;go here&lt;/a&gt;</string>
+            <string name="summary">The current Texture of the Mouse Icon. Stored as a string, for more information on how to format the string &lt;a href='http://wiki.roblox.com/index.php/Content' target='_blank'&gt;go here&lt;/a&gt;</string>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
@@ -1624,7 +1624,7 @@
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">ExplosionType</string>
-            <string name="summary">Defines the behavior of the Explosion. &lt;a href="http://wiki.roblox.com/index.php/ExplosionType" target="_blank"&gt;More info&lt;/a&gt;</string>
+            <string name="summary">Defines the behavior of the Explosion. &lt;a href='http://wiki.roblox.com/index.php/ExplosionType' target='_blank'&gt;More info&lt;/a&gt;</string>
           </Properties>
         </Item>
       </Item>
@@ -1758,7 +1758,7 @@
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">Face</string>
-            <string name="summary">Describes the face of the Part the decal will be applied to. &lt;a href="http://wiki.roblox.com/index.php/NormalId" target="_blank"&gt;More info&lt;/a&gt;</string>
+            <string name="summary">Describes the face of the Part the decal will be applied to. &lt;a href='http://wiki.roblox.com/index.php/NormalId' target='_blank'&gt;More info&lt;/a&gt;</string>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
@@ -1910,13 +1910,13 @@
         <bool name="Deprecated">true</bool>
         <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">4</string>
-        <string name="summary">Renders a thin cylinder than can be adorned with textures that 'flow' from one object to the next. Has basic pathing abilities and attempts to to not intersect anything. &lt;a href="http://wiki.roblox.com/index.php/FloorWire_Guide" target="_blank"&gt;More info&lt;/a&gt;</string>
+        <string name="summary">Renders a thin cylinder than can be adorned with textures that 'flow' from one object to the next. Has basic pathing abilities and attempts to to not intersect anything. &lt;a href='http://wiki.roblox.com/index.php/FloorWire_Guide' target='_blank'&gt;More info&lt;/a&gt;</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">CycleOffset</string>
-            <string name="summary">Controls how the decals are positioned along the wire. &lt;a href="http://wiki.roblox.com/index.php/CycleOffset" target="_blank"&gt;More info&lt;/a&gt;</string>
+            <string name="summary">Controls how the decals are positioned along the wire. &lt;a href='http://wiki.roblox.com/index.php/CycleOffset' target='_blank'&gt;More info&lt;/a&gt;</string>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
@@ -3718,7 +3718,7 @@
           <Properties>
             <string name="Name">NameOcclusion</string>
 
-            <string name="summary">Sets how to display other humanoid names to this humanoid's player. &lt;a href="http://wiki.roblox.com/index.php/NameOcclusion" target="_blank"&gt;More info&lt;/a&gt;</string>
+            <string name="summary">Sets how to display other humanoid names to this humanoid's player. &lt;a href='http://wiki.roblox.com/index.php/NameOcclusion' target='_blank'&gt;More info&lt;/a&gt;</string>
           </Properties>
           <Properties>
             <string name="Name">Health</string>
@@ -3996,7 +3996,7 @@
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">IsA</string>
-            <string name="summary">Returns a boolean if this Instance is of type 'className' or a is a subclass of type 'className'.  If 'className' is not a valid class type in ROBLOX, this function will always return false.  &lt;a href="http://wiki.roblox.com/index.php/IsA" target="_blank"&gt;More info&lt;/a&gt;</string>
+            <string name="summary">Returns a boolean if this Instance is of type 'className' or a is a subclass of type 'className'.  If 'className' is not a valid class type in ROBLOX, this function will always return false.  &lt;a href='http://wiki.roblox.com/index.php/IsA' target='_blank'&gt;More info&lt;/a&gt;</string>
             <string name="Constraint">Instance:Any:0</string>
           </Properties>
         </Item>
@@ -4398,7 +4398,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">Teams</string>
-        <string name="summary">This Service-level object is the container for all Team objects in a level. A map that supports team games must have a Teams service. &lt;a href="http://wiki.roblox.com/index.php/Team" target="_blank"&gt;More info&lt;/a&gt;</string>
+        <string name="summary">This Service-level object is the container for all Team objects in a level. A map that supports team games must have a Teams service. &lt;a href='http://wiki.roblox.com/index.php/Team' target='_blank'&gt;More info&lt;/a&gt;</string>
         <string name="ExplorerOrder">140</string>
         <string name="ExplorerImageIndex">23</string>
         <string name="PreferredParent">Teams</string>
@@ -4416,7 +4416,7 @@
       <Properties>
         <string name="Name">Team</string>
         <string name="ClassCategory">Interaction</string>
-        <string name="summary">The Team class is used to represent a faction in a team game. The only valid location for a Team object is under the Teams service. &lt;a href="http://wiki.roblox.com/index.php/Team" target="_blank"&gt;More info&lt;/a&gt;</string>
+        <string name="summary">The Team class is used to represent a faction in a team game. The only valid location for a Team object is under the Teams service. &lt;a href='http://wiki.roblox.com/index.php/Team' target='_blank'&gt;More info&lt;/a&gt;</string>
         <string name="ExplorerOrder">10</string>
         <string name="ExplorerImageIndex">24</string>
         <string name="PreferredParent">Teams</string>
@@ -4841,7 +4841,7 @@
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">CameraType</string>
-            <string name="summary">Defines how the camera will behave. &lt;a href="http://wiki.roblox.com/index.php/CameraType" target="_blank"&gt;More info&lt;/a&gt;</string>
+            <string name="summary">Defines how the camera will behave. &lt;a href='http://wiki.roblox.com/index.php/CameraType' target='_blank'&gt;More info&lt;/a&gt;</string>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
@@ -5112,7 +5112,7 @@
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">GeographicLatitude</string>
-            <string name="summary">The latitude position the level is placed at.  This affects sun position. &lt;a href="http://wiki.roblox.com/index.php/GeographicLatitude" target="_blank"&gt;More info&lt;/a&gt;</string>
+            <string name="summary">The latitude position the level is placed at.  This affects sun position. &lt;a href='http://wiki.roblox.com/index.php/GeographicLatitude' target='_blank'&gt;More info&lt;/a&gt;</string>
             <double name="UIMinimum">0</double>
             <double name="UIMaximum">360</double>
             <double name="UINumTicks">360</double>
@@ -5267,14 +5267,14 @@
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">CameraMode</string>
-            <string name="summary">An enum that describes how a Player's camera is allowed to behave. &lt;a href="http://wiki.roblox.com/index.php/CameraMode" target="_blank"&gt;More info&lt;/a&gt;.</string>
+            <string name="summary">An enum that describes how a Player's camera is allowed to behave. &lt;a href='http://wiki.roblox.com/index.php/CameraMode' target='_blank'&gt;More info&lt;/a&gt;.</string>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">DataReady</string>
             <bool name="Deprecated">true</bool>
-            <string name="summary">Read-only. If true, this Player's persistent data can be loaded, false otherwise. &lt;a href="http://wiki.roblox.com/index.php/ROBLOX_Scripting_How_To:_Data_Persistence" target="_blank"&gt;Info on Data Persistence&lt;/a&gt;.</string>
+            <string name="summary">Read-only. If true, this Player's persistent data can be loaded, false otherwise. &lt;a href='http://wiki.roblox.com/index.php/ROBLOX_Scripting_How_To:_Data_Persistence' target='_blank'&gt;Info on Data Persistence&lt;/a&gt;.</string>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
@@ -5374,7 +5374,7 @@
             <string name="Name">WaitForDataReady</string>
             <bool name="Deprecated">true</bool>
             <bool name="Browsable">true</bool>
-            <string name="summary">Yields until the persistent data for this Player is ready to be loaded. &lt;a href="http://wiki.roblox.com/index.php/ROBLOX_Scripting_How_To:_Data_Persistence" target="_blank"&gt;Info on Data Persistence&lt;/a&gt;.</string>
+            <string name="summary">Yields until the persistent data for this Player is ready to be loaded. &lt;a href='http://wiki.roblox.com/index.php/ROBLOX_Scripting_How_To:_Data_Persistence' target='_blank'&gt;Info on Data Persistence&lt;/a&gt;.</string>
           </Properties>
         </Item>
       </Item>
@@ -5456,7 +5456,7 @@
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">CFrame</string>
-            <string name="summary">Contains information regarding the Part's position and a matrix that defines the Part's rotation.  Can read/write. &lt;a href="http://wiki.roblox.com/index.php/Cframe" target="_blank"&gt;More info&lt;/a&gt;</string>
+            <string name="summary">Contains information regarding the Part's position and a matrix that defines the Part's rotation.  Can read/write. &lt;a href='http://wiki.roblox.com/index.php/Cframe' target='_blank'&gt;More info&lt;/a&gt;</string>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
@@ -5514,7 +5514,7 @@
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">Material</string>
-            <string name="summary">Specifies the look and feel the Part should have.  Note: this does not define the color the Part is, see BrickColor for that. &lt;a href="http://wiki.roblox.com/index.php/Material" target="_blank"&gt;More info&lt;/a&gt;</string>
+            <string name="summary">Specifies the look and feel the Part should have.  Note: this does not define the color the Part is, see BrickColor for that. &lt;a href='http://wiki.roblox.com/index.php/Material' target='_blank'&gt;More info&lt;/a&gt;</string>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
@@ -5592,7 +5592,7 @@
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">MakeJoints</string>
-            <string name="summary">Creates the appropriate SurfaceJoints with all parts that are touching this Instance (including internal joints in the Instance, as in a Model).  This uses the SurfaceTypes defined on the surfaces of parts to create the appropriate welds. &lt;a href="http://wiki.roblox.com/index.php/MakeJoints" target="_blank"&gt;More info&lt;/a&gt;</string>
+            <string name="summary">Creates the appropriate SurfaceJoints with all parts that are touching this Instance (including internal joints in the Instance, as in a Model).  This uses the SurfaceTypes defined on the surfaces of parts to create the appropriate welds. &lt;a href='http://wiki.roblox.com/index.php/MakeJoints' target='_blank'&gt;More info&lt;/a&gt;</string>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
@@ -5755,13 +5755,22 @@
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
-      <Properties>
-        <string name="Name">StarterPlayerScripts</string>
-        <string name="summary">A container instance that contains LocalScripts.  LocalScript objects that are placed in this container will be copied to new Players on startup.</string>
-        <string name="ExplorerOrder">130</string>
-        <string name="ExplorerImageIndex">78</string>
-        <string name="Insertable">false</string>
-      </Properties>
+        <Properties>
+            <string name="Name">StandalonePluginScripts</string>
+            <string name="summary">A container instance that contains Scripts.  Useful only for Plugins.  When Studio starts, we load plugins into the 'UserPlugin' data model and execute Scripts contained in StandalonePluginScripts container. If a plugin doesn't have such a container then the plugin isn't loaded into UserPlugin data model.  When a data model for a place is created (e.g. the Edit data model), we load plugins into said data model and execute only those Scripts which are not contained in StandalonePluginScripts container.</string>
+            <string name="ExplorerOrder">130</string>
+            <string name="ExplorerImageIndex">78</string>
+            <string name="Insertable">true</string>
+        </Properties>
+    </Item>
+    <Item class="ReflectionMetadataClass">
+        <Properties>
+            <string name="Name">StarterPlayerScripts</string>
+            <string name="summary">A container instance that contains LocalScripts.  LocalScript objects that are placed in this container will be copied to new Players on startup.</string>
+            <string name="ExplorerOrder">130</string>
+            <string name="ExplorerImageIndex">78</string>
+            <string name="Insertable">false</string>
+        </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>
@@ -5893,7 +5902,7 @@
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">Size</string>
-            <string name="summary">A UDim2 value describing the size of the BillboardGui. More information on UDim2 is available &lt;a href="http://wiki.roblox.com/index.php/UDim2" target="_blank"&gt;here&lt;/a&gt;. Relative values are defined as one-to-one with studs.</string>
+            <string name="summary">A UDim2 value describing the size of the BillboardGui. More information on UDim2 is available &lt;a href='http://wiki.roblox.com/index.php/UDim2' target='_blank'&gt;here&lt;/a&gt;. Relative values are defined as one-to-one with studs.</string>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
@@ -6014,19 +6023,19 @@
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">TweenPosition</string>
-            <string name="summary">Smoothly moves a GuiObject from its current position to 'endPosition'. The only required argument is 'endPosition'. &lt;a href="http://wiki.roblox.com/index.php/TweenPosition" target="_blank"&gt;More info&lt;/a&gt; </string>
+            <string name="summary">Smoothly moves a GuiObject from its current position to 'endPosition'. The only required argument is 'endPosition'. &lt;a href='http://wiki.roblox.com/index.php/TweenPosition' target='_blank'&gt;More info&lt;/a&gt; </string>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">TweenSize</string>
-            <string name="summary">Smoothly translates a GuiObject's current size to 'endSize'. The only required argument is 'endSize'. &lt;a href="http://wiki.roblox.com/index.php/TweenSize" target="_blank"&gt;More info&lt;/a&gt; </string>
+            <string name="summary">Smoothly translates a GuiObject's current size to 'endSize'. The only required argument is 'endSize'. &lt;a href='http://wiki.roblox.com/index.php/TweenSize' target='_blank'&gt;More info&lt;/a&gt; </string>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">TweenSizeAndPosition</string>
-            <string name="summary">Smoothly translates a GuiObject's current size to 'endSize', and also smoothly translates the GuiObject's current position to 'endPosition'. The only required arguments are 'endSize' and 'endPosition'. &lt;a href="http://wiki.roblox.com/index.php/TweenSizeAndPosition" target="_blank"&gt;More info&lt;/a&gt; </string>
+            <string name="summary">Smoothly translates a GuiObject's current size to 'endSize', and also smoothly translates the GuiObject's current position to 'endPosition'. The only required arguments are 'endSize' and 'endPosition'. &lt;a href='http://wiki.roblox.com/index.php/TweenSizeAndPosition' target='_blank'&gt;More info&lt;/a&gt; </string>
           </Properties>
         </Item>
       </Item>
@@ -6080,19 +6089,19 @@
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">Size</string>
-            <string name="summary">A UDim2 value describing the size of the GuiObject on screen in both absolute and relative coordinates. More information on UDim2 is available &lt;a href="http://wiki.roblox.com/index.php/UDim2" target="_blank"&gt;here&lt;/a&gt;.</string>
+            <string name="summary">A UDim2 value describing the size of the GuiObject on screen in both absolute and relative coordinates. More information on UDim2 is available &lt;a href='http://wiki.roblox.com/index.php/UDim2' target='_blank'&gt;here&lt;/a&gt;.</string>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">Position</string>
-            <string name="summary">A UDim2 value describing the position of the top-left corner of the GuiObject on screen. More information on UDim2 is available &lt;a href="http://wiki.roblox.com/index.php/UDim2" target="_blank"&gt;here&lt;/a&gt;.</string>
+            <string name="summary">A UDim2 value describing the position of the top-left corner of the GuiObject on screen. More information on UDim2 is available &lt;a href='http://wiki.roblox.com/index.php/UDim2' target='_blank'&gt;here&lt;/a&gt;.</string>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">SizeConstraint</string>
-            <string name="summary">The direction(s) that an object can be resized in. &lt;a href="http://wiki.roblox.com/index.php/SizeConstraint" target="_blank"&gt;More info&lt;/a&gt;.</string>
+            <string name="summary">The direction(s) that an object can be resized in. &lt;a href='http://wiki.roblox.com/index.php/SizeConstraint' target='_blank'&gt;More info&lt;/a&gt;.</string>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
@@ -6229,7 +6238,7 @@
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">Style</string>
-            <string name="summary">Determines how a frame will look. Uses Enum.FrameStyle. &lt;a href="http://wiki.roblox.com/index.php?title=API:Enum/FrameStyle" target="_blank"&gt;More info&lt;/a&gt;</string>
+            <string name="summary">Determines how a frame will look. Uses Enum.FrameStyle. &lt;a href='http://wiki.roblox.com/index.php?title=API:Enum/FrameStyle' target='_blank'&gt;More info&lt;/a&gt;</string>
           </Properties>
         </Item>
       </Item>
@@ -6307,7 +6316,7 @@
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">Image</string>
-            <string name="summary">Specifies the id of the texture to display. &lt;a href="http://wiki.roblox.com/index.php?title=API:Class/ImageLabel/Image" target="_blank"&gt;More info&lt;/a&gt;</string>
+            <string name="summary">Specifies the id of the texture to display. &lt;a href='http://wiki.roblox.com/index.php?title=API:Class/ImageLabel/Image' target='_blank'&gt;More info&lt;/a&gt;</string>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
@@ -6412,7 +6421,7 @@
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">Style</string>
-            <string name="summary">Determines how a button will look, including mouse event states. Uses Enum.ButtonStyle. &lt;a href="http://wiki.roblox.com/index.php?title=API:Class/GuiButton/Style" target="_blank"&gt;More info&lt;/a&gt;</string>
+            <string name="summary">Determines how a button will look, including mouse event states. Uses Enum.ButtonStyle. &lt;a href='http://wiki.roblox.com/index.php?title=API:Class/GuiButton/Style' target='_blank'&gt;More info&lt;/a&gt;</string>
           </Properties>
         </Item>
       </Item>
@@ -6518,7 +6527,7 @@
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">Image</string>
-            <string name="summary">Specifies the asset id of the texture to display. &lt;a href="http://wiki.roblox.com/index.php?title=API:Class/ImageButton/Image" target="_blank"&gt;More info&lt;/a&gt; </string>
+            <string name="summary">Specifies the asset id of the texture to display. &lt;a href='http://wiki.roblox.com/index.php?title=API:Class/ImageButton/Image' target='_blank'&gt;More info&lt;/a&gt; </string>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
