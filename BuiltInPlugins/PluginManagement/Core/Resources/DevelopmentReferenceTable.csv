@@ -1,0 +1,15 @@
+Key,Source,Context,en-us
+Studio.PluginManagement.Manage.WindowTitle, , ,Plugin Management
+Studio.PluginManagement.Toolbar.ToolbarTitle, , ,Tools
+Studio.PluginManagement.Toolbar.ManageButtonTitle, , ,Manage Plugins
+Studio.PluginManagement.Toolbar.ManageButtonDescription, , ,Manage plugins installed from roblox.com
+Studio.PluginManagement.Main.Title, , ,Plugins
+Studio.PluginManagement.Main.UpdateAllButton, , ,Update all
+Studio.PluginManagement.Loading.Title, , ,Updating Plugins
+Studio.PluginManagement.Loading.UpdatingMessage, , ,Updating plugins...
+Studio.PluginManagement.Entry.UpdateButton, , ,Update
+Studio.PluginManagement.Entry.LastUpdatedDate, , ,Updated: {1}
+Studio.PluginManagement.EntrySeeMore.DetailsButton, , ,Details
+Studio.PluginManagement.EntrySeeMore.RemoveButton, , ,Remove
+Studio.PluginManagement.Header.PendingUpdates, , ,Pending updates
+Studio.PluginManagement.Header.UpToDate, , ,Up to date

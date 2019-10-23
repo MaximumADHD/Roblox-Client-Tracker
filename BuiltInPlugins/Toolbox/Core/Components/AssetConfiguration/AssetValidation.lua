@@ -28,6 +28,7 @@ local ContextHelper = require(Util.ContextHelper)
 local convertArrayToTable = require(Util.convertArrayToTable)
 local AssetConfigConstants = require(Util.AssetConfigConstants)
 local validateWithSchema = require(Util.validateWithSchema)
+local AssetConfigUtil = require(Util.AssetConfigUtil)
 
 local getNetwork = ContextGetter.getNetwork
 
@@ -186,7 +187,7 @@ function AssetValidation:init(props)
 	}
 
 	if FFlagEnablePurchasePluginFromLua2 and
-		AssetConfigConstants.isMarketplaceAsset(self.props.assetTypeEnum) or
+		AssetConfigUtil.isMarketplaceAsset(self.props.assetTypeEnum) or
 		self.props.assetTypeEnum == Enum.AssetType.Model then
 		self.props.nextScreen()
 	else
@@ -369,9 +370,9 @@ function AssetValidation:validateModeration(instance)
 	end
 
 	for _, details in pairs(result.responseBody) do
-		if details.status == Constants.AssetStatus.Unknown
-		or details.status == Constants.AssetStatus.ReviewPending
-		or details.status == Constants.AssetStatus.Moderated
+		if details.status == AssetConfigConstants.ASSET_STATUS.Unknown
+		or details.status == AssetConfigConstants.ASSET_STATUS.ReviewPending
+		or details.status == AssetConfigConstants.ASSET_STATUS.Moderated
 		then
 			table.insert(moderatedIds, details.assetId)
 		end

@@ -4,8 +4,8 @@
 	Necessary props:
 		assetTypeEnum, Enum.AssetType
 		allowedAssetTypesForRelease, table, information about what asset types can be released
-		newAssetStatus, string, from Constants.AssetStatus (what the status for the asset will be in the back-end after we save the changes on this widget)
-		currentAssetStatus, string, from Constants.AssetStatus (what the current status for the asset is in the back-end)
+		newAssetStatus, string, from AssetConfigConstants.ASSET_STATUS (what the status for the asset will be in the back-end after we save the changes on this widget)
+		currentAssetStatus, string, from AssetConfigConstants.ASSET_STATUS (what the current status for the asset is in the back-end)
 		price, number
 		minPrice, number
 		maxPrice, number
@@ -94,11 +94,11 @@ function SalesPage:render()
 				}),
 
 				SalesStatus = Roact.createElement(SalesComponent, {
-					title = localizedContent.Sales.Sale,
-					newAssetStatus = newAssetStatus,
-					currentAssetStatus = currentAssetStatus,
-					onStatusChange = onStatusChange,
-					canChangeSalesStatus = canChangeSalesStatus,
+					Title = localizedContent.Sales.Sale,
+					NewAssetStatus = newAssetStatus,
+					CurrentAssetStatus = currentAssetStatus,
+					OnStatusChange = onStatusChange,
+					CanChangeSalesStatus = canChangeSalesStatus,
 
 					LayoutOrder = orderIterator:getNextOrder(),
 				}),
@@ -108,16 +108,16 @@ function SalesPage:render()
 				}),
 
 				PriceComponent = Roact.createElement(PriceComponent, {
-					assetTypeEnum = assetTypeEnum,
-					allowedAssetTypesForRelease = allowedAssetTypesForRelease,
-					newAssetStatus = newAssetStatus,
+					AssetTypeEnum = assetTypeEnum,
+					AllowedAssetTypesForRelease = allowedAssetTypesForRelease,
+					NewAssetStatus = newAssetStatus,
 
-					price = price,
-					minPrice = minPrice,
-					maxPrice = maxPrice,
-					isPriceValid = isPriceValid,
+					Price = price,
+					MinPrice = minPrice,
+					MaxPrice = maxPrice,
+					IsPriceValid = isPriceValid,
 
-					onPriceChange = onPriceChange,
+					OnPriceChange = onPriceChange,
 
 					LayoutOrder = orderIterator:getNextOrder(),
 				})

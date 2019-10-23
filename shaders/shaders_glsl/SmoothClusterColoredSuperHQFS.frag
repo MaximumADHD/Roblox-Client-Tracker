@@ -25,6 +25,11 @@ struct Globals
     vec4 ShadowMatrix2;
     vec4 RefractionBias_FadeDistance_GlowFactor_SpecMul;
     vec4 OutlineBrightness_ShadowInfo;
+    vec4 SkyGradientTop_EnvDiffuse;
+    vec4 SkyGradientBottom_EnvSpec;
+    vec3 AmbientColorNoIBL;
+    vec3 SkyAmbientNoIBL;
+    vec4 AmbientCube[12];
     vec4 CascadeSphere0;
     vec4 CascadeSphere1;
     vec4 CascadeSphere2;
@@ -39,7 +44,7 @@ struct Globals
     float debugFlagsShadows;
 };
 
-uniform vec4 CB0[31];
+uniform vec4 CB0[47];
 uniform vec4 CB3[1];
 uniform vec4 CB4[36];
 uniform sampler2D ShadowMapTexture;
@@ -112,7 +117,7 @@ void main()
     vec2 f38 = (((texture2DGradARB(NormalMapTexture, f4, dFdx(f5), dFdy(f5)) * VARYING0.x) + (texture2DGradARB(NormalMapTexture, f7, dFdx(f8), dFdy(f8)) * VARYING0.y)) + (texture2DGradARB(NormalMapTexture, f1, dFdx(f3), dFdy(f3)) * VARYING0.z)).wy * 2.0;
     vec2 f39 = f38 - vec2(1.0);
     vec3 f40 = vec3(dot(VARYING8, VARYING0));
-    vec3 f41 = normalize(((mix(vec3(VARYING6.z, 0.0, f37), vec3(VARYING6.y, f37, 0.0), f40) * f39.x) + (mix(vec3(0.0, -1.0, 0.0), vec3(0.0, -VARYING6.z, VARYING6.y), f40) * f39.y)) + (VARYING6 * sqrt(clamp(1.0 + dot(vec2(1.0) - f38, f39), 0.0, 1.0))));
+    vec3 f41 = vec4(normalize(((mix(vec3(VARYING6.z, 0.0, f37), vec3(VARYING6.y, f37, 0.0), f40) * f39.x) + (mix(vec3(0.0, -1.0, 0.0), vec3(0.0, -VARYING6.z, VARYING6.y), f40) * f39.y)) + (VARYING6 * sqrt(clamp(1.0 + dot(vec2(1.0) - f38, f39), 0.0, 1.0)))), 0.0).xyz;
     vec4 f42 = ((texture2DGradARB(SpecularMapTexture, f4, dFdx(f5), dFdy(f5)) * VARYING0.x) + (texture2DGradARB(SpecularMapTexture, f7, dFdx(f8), dFdy(f8)) * VARYING0.y)) + (texture2DGradARB(SpecularMapTexture, f1, dFdx(f3), dFdy(f3)) * VARYING0.z);
     vec3 f43 = -CB0[11].xyz;
     float f44 = dot(f41, f43);
@@ -123,7 +128,7 @@ void main()
     vec4 f49 = mix(texture3D(LightGridSkylightTexture, f46), vec4(1.0), f47);
     vec4 f50 = texture2D(ShadowMapTexture, VARYING5.xy);
     float f51 = (1.0 - ((step(f50.x, VARYING5.z) * clamp(CB0[24].z + (CB0[24].w * abs(VARYING5.z - 0.5)), 0.0, 1.0)) * f50.y)) * f49.y;
-    vec3 f52 = (((min(((f48.xyz * (f48.w * 120.0)).xyz + CB0[8].xyz) + (CB0[9].xyz * f49.x), vec3(CB0[16].w)) + (((CB0[10].xyz * clamp(f44, 0.0, 1.0)) + (CB0[12].xyz * max(-f44, 0.0))) * f51)) + vec3((f42.z * 2.0) * f36)) * (f35 * f35).xyz) + (CB0[10].xyz * (((((step(0.0, f44) * f42.x) * f36) * CB3[0].z) * f51) * pow(clamp(dot(f41, normalize(f43 + normalize(VARYING7.xyz))), 0.0, 1.0), (clamp(f42.y, 0.0, 1.0) * 128.0) + 0.00999999977648258209228515625)));
+    vec3 f52 = (((min((f48.xyz * (f48.w * 120.0)).xyz + (CB0[8].xyz + (CB0[9].xyz * f49.x)), vec3(CB0[16].w)) + (((CB0[10].xyz * clamp(f44, 0.0, 1.0)) + (CB0[12].xyz * max(-f44, 0.0))) * f51)) + vec3((f42.z * 2.0) * f36)) * (f35 * f35).xyz) + (CB0[10].xyz * (((((step(0.0, f44) * f42.x) * f36) * CB3[0].z) * f51) * pow(clamp(dot(f41, normalize(f43 + normalize(VARYING7.xyz))), 0.0, 1.0), (clamp(f42.y, 0.0, 1.0) * 128.0) + 0.00999999977648258209228515625)));
     vec4 f53 = vec4(f52.x, f52.y, f52.z, vec4(0.0).w);
     f53.w = 1.0;
     vec3 f54 = mix(CB0[14].xyz, sqrt(clamp(f53.xyz * CB0[15].y, vec3(0.0), vec3(1.0))).xyz, vec3(clamp(VARYING5.w, 0.0, 1.0)));

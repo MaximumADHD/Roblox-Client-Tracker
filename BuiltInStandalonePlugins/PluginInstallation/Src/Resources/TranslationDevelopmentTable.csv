@@ -2,3 +2,12 @@ Key,Source,Context,en-us
 Studio.PluginInstallation.Meta.PluginWindowName, , ,Plugin Installation
 Studio.PluginInstallation.Main.InstallingPlugin, , ,Installing plugin : {1}
 Studio.PluginInstallation.Main.ErrorNoId, , ,Error : No plugin to install
+Studio.PluginInstallation.Dialog.Ok, , ,OK
+Studio.PluginInstallation.DialogTitle.InstallPlugin, , ,Installing plugin
+Studio.PluginInstallation.Progress.Completed, , ,Installation Complete!
+Studio.PluginInstallation.Progress.CompletedMessage, , ,{1} successfully installed.
+Studio.PluginInstallation.Progress.HttpError, , ,HTTP Error. Could not fetch information about this plugin. Try again later. {1}
+Studio.PluginInstallation.Progress.NotOwned, , ,You do not own this plugin. {1}
+Studio.PluginInstallation.Progress.Unavailable, , ,Could not fetch information about this plugin. Try again later. {1}
+Studio.PluginInstallation.Progress.NotInstalled, , ,Plugin Installation Failed. Please try again. {1}
+Studio.PluginInstallation.Progress.AlreadyInstalled, , ,This plugin is already installed. {1}

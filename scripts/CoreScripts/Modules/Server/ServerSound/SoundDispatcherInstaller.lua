@@ -1,6 +1,25 @@
--- Load the SoundDispatcher script into Studio
-local soundDispatcherName = "SoundDispatcher"
+-- Load the legacy SoundDispatcher script into the server if the rest of the old system is present
+
+local SOUND_DISPATCHER_NAME = "SoundDispatcher"
+local OLD_SOUND_SCRIPT_NAME = "Sound"
+
 local ServerScriptService = game:GetService("ServerScriptService")
+local StarterPlayer = game:GetService("StarterPlayer")
+
+local FFlagNewCharacterSoundScript = settings():GetFFlag("NewCharacterSoundScript")
+
+local function HasOldSoundScripts()
+	if ServerScriptService:FindFirstChild(SOUND_DISPATCHER_NAME) then
+		return true
+	end
+
+	local StarterCharacterScripts = StarterPlayer:FindFirstChildOfClass("StarterCharacterScripts")
+	if StarterCharacterScripts and StarterCharacterScripts:FindFirstChild(OLD_SOUND_SCRIPT_NAME) then
+		return true
+	end
+
+	return false
+end
 
 local function LoadScript(name, parent)
 	local originalModule = script.Parent:WaitForChild(name)
@@ -11,15 +30,20 @@ local function LoadScript(name, parent)
 	return script
 end
 
-local function Install()
-	local soundDispatcherArchivable = true
-	local SoundDispatcher = ServerScriptService:FindFirstChild(soundDispatcherName)
-	if not SoundDispatcher then
-		soundDispatcherArchivable = false
-		SoundDispatcher = LoadScript(soundDispatcherName, ServerScriptService)
+local function TryInstall()
+	if FFlagNewCharacterSoundScript and not HasOldSoundScripts() then
+		-- use the new system
+		return
 	end
 
-	if not ServerScriptService:FindFirstChild(soundDispatcherName) then
+	local soundDispatcherArchivable = true
+	local SoundDispatcher = ServerScriptService:FindFirstChild(SOUND_DISPATCHER_NAME)
+	if not SoundDispatcher then
+		soundDispatcherArchivable = false
+		SoundDispatcher = LoadScript(SOUND_DISPATCHER_NAME, ServerScriptService)
+	end
+
+	if not ServerScriptService:FindFirstChild(SOUND_DISPATCHER_NAME) then
 		local SoundDispatcherCopy = SoundDispatcher:Clone()
 		SoundDispatcherCopy.Archivable = false
 		SoundDispatcherCopy.Parent = ServerScriptService
@@ -28,4 +52,4 @@ local function Install()
 	SoundDispatcher.Archivable = soundDispatcherArchivable
 end
 
-return Install
+return TryInstall

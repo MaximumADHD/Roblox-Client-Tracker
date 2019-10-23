@@ -19,7 +19,7 @@ local Category = require(Plugin.Core.Types.Category)
 local NetworkInterface = {}
 NetworkInterface.__index = NetworkInterface
 
-local FFlagUseCreationToFetchMyOverrideData2 = game:GetFastFlag("UseCreationToFetchMyOverrideData2")
+local HttpService = game:GetService("HttpService")
 
 function NetworkInterface:new()
 	local networkImp = {
@@ -317,9 +317,48 @@ function NetworkInterface:uploadCatalogItem(formBodyData, boundary)
 		}
 	}
 
-	printUrl("uploadCatalogItem", "FORM-DATA", targetUrl, formBodyData)
+	printUrl("uploadCatalogItem", "POST FORM-DATA", targetUrl, formBodyData)
 	return self._networkImp:requestInternal(requestInfo)
 	:catch(function(err)
+		return Promise.reject(err)
+	end)
+end
+
+--multipart/form-data for uploading images to Roblox endpoints
+--Moderation occurs on the web
+local FORM_DATA =
+	"--%s\r\n" ..
+	"Content-Type: image/%s\r\n" ..
+	"Content-Disposition: form-data; filename=\"%s\"; name=\"request.files\"\r\n" ..
+	"\r\n" ..
+	"%s\r\n" ..
+	"--%s--\r\n"
+
+function NetworkInterface:uploadAssetThumbnail(assetId, iconFile)
+	local targetUrl = Urls.constructUploadAssetThumbnailUrl(assetId)
+
+	local contents = iconFile:GetBinaryContents()
+	local name = string.lower(iconFile.Name)
+	local index = string.find(name, ".", 1, true)
+	local extension = string.sub(name, index + 1)
+	--DEVTOOLS-3170
+	-- HttpService:GenerateGuid(false)
+	-- Lookinto why HttpService won't work here.
+	local key = "UUDD-LRLR-BABA"
+	local form = string.format(FORM_DATA, key, extension, name, contents, key)
+
+	local requestInfo = {
+		Url = targetUrl,
+		Method = "POST",
+		Body = form,
+		CachePolicy = Enum.HttpCachePolicy.None,
+		Headers = {
+			["Content-Type"] = "multipart/form-data; boundary=" .. tostring(key)
+		}
+	}
+
+	printUrl("uploadAssetThumbnail", "POST FORM-DATA", targetUrl, form)
+	return self._networkImp:requestInternal(requestInfo):catch(function(err)
 		return Promise.reject(err)
 	end)
 end

@@ -24,6 +24,11 @@ struct Globals
     vec4 ShadowMatrix2;
     vec4 RefractionBias_FadeDistance_GlowFactor_SpecMul;
     vec4 OutlineBrightness_ShadowInfo;
+    vec4 SkyGradientTop_EnvDiffuse;
+    vec4 SkyGradientBottom_EnvSpec;
+    vec3 AmbientColorNoIBL;
+    vec3 SkyAmbientNoIBL;
+    vec4 AmbientCube[12];
     vec4 CascadeSphere0;
     vec4 CascadeSphere1;
     vec4 CascadeSphere2;
@@ -38,7 +43,7 @@ struct Globals
     float debugFlagsShadows;
 };
 
-uniform vec4 CB0[31];
+uniform vec4 CB0[47];
 uniform sampler2D GBufferDepthTexture;
 uniform sampler2D DiffuseMapTexture;
 
@@ -58,9 +63,13 @@ void main()
     float f4 = f3.x;
     float f5 = (f4 > 0.0) ? ((1.0 - clamp(abs(f4 - CB0[14].w) * 13.0, 0.0, 1.0)) * f3.w) : 0.0;
     float f6 = max(max(1.0 - clamp(abs(dot(normalize(VARYING5.xyz), normalize(VARYING4.xyz))) * 2.0, 0.0, 1.0), (f2 > 0.99800002574920654296875) ? 0.0 : (1.0 - clamp((f2 - f1) * 3.0, 0.0, 1.0))), f5);
-    vec4 f7 = vec4(VARYING2.xyz * VARYING2.xyz, VARYING2.w * max(mix(f5, 1.0, f6) * f6, VARYING1.x));
-    vec3 f8 = sqrt(clamp(f7.xyz * CB0[15].y, vec3(0.0), vec3(1.0)));
-    _entryPointOutput = mix(vec4(CB0[14].xyz, 1.0), vec4(f8.x, f8.y, f8.z, f7.w), vec4(clamp((CB0[13].x * length(VARYING4.xyz)) + CB0[13].y, 0.0, 1.0)));
+    float f7 = VARYING2.w * max(mix(f5, 1.0, f6) * f6, VARYING1.x);
+    vec4 f8 = vec4(VARYING2.xyz * VARYING2.xyz, f7);
+    float f9 = clamp((CB0[13].x * length(VARYING4.xyz)) + CB0[13].y, 0.0, 1.0);
+    vec3 f10 = mix(CB0[14].xyz, sqrt(clamp(f8.xyz * CB0[15].y, vec3(0.0), vec3(1.0))).xyz, vec3(f9));
+    vec4 f11 = vec4(f10.x, f10.y, f10.z, f8.w);
+    f11.w = mix(1.0, f7, f9);
+    _entryPointOutput = f11;
 }
 
 //$$GBufferDepthTexture=s10

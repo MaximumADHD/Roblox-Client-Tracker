@@ -10,7 +10,7 @@
 
 	Optional Props:
 	LayoutOrder number, will be used by the layouter to change the position of the components.
-	AssetStatus, Constants.AssetStatus, will not show status label if nil or unknown passed in
+	AssetStatus, AssetConfigConstants.ASSET_STATUS, will not show status label if nil or unknown passed in
 	AssetId int, will not show asset id label if nil passed in
 ]]
 
@@ -19,14 +19,17 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 
-local SideTabs = require(Plugin.Core.Components.AssetConfiguration.SideTabs)
-local AssetThumbnailPreview = require(Plugin.Core.Components.AssetConfiguration.AssetThumbnailPreview)
+local AssetConfiguration = Plugin.Core.Components.AssetConfiguration
+local SideTabs = require(AssetConfiguration.SideTabs)
+local AssetThumbnailPreview = require(AssetConfiguration.AssetThumbnailPreview)
+local ImagePicker = require(AssetConfiguration.ImagePicker)
 
 local Util = Plugin.Core.Util
 local LayoutOrderIterator = require(Util.LayoutOrderIterator)
 local Constants = require(Util.Constants)
 local ContextHelper = require(Util.ContextHelper)
 local Urls = require(Util.Urls)
+local AssetConfigConstants = require(Util.AssetConfigConstants)
 
 local ImageWithDefault = require(Plugin.Core.Components.ImageWithDefault)
 
@@ -36,8 +39,9 @@ local withLocalization = ContextHelper.withLocalization
 local PreviewArea = Roact.PureComponent:extend("PreviewArea")
 
 local FFlagUseRBXThumbInToolbox = game:GetFastFlag("UseRBXThumbInToolbox") and settings():GetFFlag("EnableRbxThumbAPI")
-local FFlagEnablePreviewTabSelection = settings():GetFFlag("EnablePreviewTabSelection")
 
+local FFlagEnablePreviewTabSelection = settings():GetFFlag("EnablePreviewTabSelection")
+local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 
 local THUMBNAIL_SIZE = FFlagUseRBXThumbInToolbox and Constants.ASSET_THUMBNAIL_REQUESTED_IMAGE_SIZE or 110
 local TITLE_HEIGHT = 25
@@ -58,26 +62,26 @@ function PreviewArea:render()
 	return withTheme(function(theme)
 		return withLocalization(function(localization, localizedContent)
 			local props = self.props
-			local tabItems = props.tabItems
+			local tabItems = props.TabItems
 			local currentTab = props.CurrentTab
 			local assetStatus = props.AssetStatus
 			local assetId = props.AssetId
 
-			local TotalWidth = props.TotalWidth
-			local LayoutOrder = props.LayoutOrder
-			local OnTabSelect = props.OnTabSelect
+			local totalWidth = props.TotalWidth
+			local layoutOrder = props.LayoutOrder
+			local onTabSelect = props.OnTabSelect
+			local chooseThumbnail = props.ChooseThumbnail
+			local iconFile = props.IconFile
+			local previewType = props.PreviewType
 
-			local showThumbnailImage = props.ShowThumbnailImage
-			local showViewport = props.ShowViewport
-
-			local showSideTabs = (OnTabSelect and tabItems and #tabItems > 1) or false
+			local showSideTabs = (onTabSelect and tabItems and #tabItems > 1) or false
 
 			local thunmbnailHeight = THUMBNAIL_WIDTH
 
 			local previewAreaTheme = theme.previewArea
 
 			local thumbnailUrl = nil
-			if assetId and showThumbnailImage then
+			if assetId and previewType == AssetConfigConstants.PreviewTypes.Thumbnail then
 				thumbnailUrl = Urls.constructAssetThumbnailUrl(assetId, THUMBNAIL_SIZE, THUMBNAIL_SIZE)
 			end
 
@@ -90,7 +94,7 @@ function PreviewArea:render()
 			local orderIterator = LayoutOrderIterator.new()
 
 			return Roact.createElement("Frame", {
-				Size = UDim2.new(0, TotalWidth, 1, 0),
+				Size = UDim2.new(0, totalWidth, 1, 0),
 
 				BackgroundTransparency = 0,
 				BackgroundColor3 = previewAreaTheme.backgroundColor,
@@ -98,7 +102,7 @@ function PreviewArea:render()
 
 				[Roact.Ref] = self.baseFrameRef,
 
-				LayoutOrder = LayoutOrder,
+				LayoutOrder = layoutOrder,
 			}, {
 				Padding = Roact.createElement("UIPadding", {
 					PaddingTop = UDim.new(0, VERTICAL_PADDING),
@@ -117,7 +121,15 @@ function PreviewArea:render()
 					[Roact.Ref] = self.layouterRef,
 				}),
 
-				Thumbnail = showThumbnailImage and Roact.createElement(ImageWithDefault, {
+				ImagePicker = previewType == AssetConfigConstants.PreviewTypes.ImagePicker and Roact.createElement(ImagePicker, {
+					Size = UDim2.new(0, THUMBNAIL_WIDTH, 0, thunmbnailHeight),
+					AssetId = assetId,
+					ChooseThumbnail = chooseThumbnail,
+					IconFile = iconFile,
+					LayoutOrder = orderIterator:getNextOrder(),
+				}),
+
+				Thumbnail = previewType == AssetConfigConstants.PreviewTypes.Thumbnail and Roact.createElement(ImageWithDefault, {
 					Size = UDim2.new(0, THUMBNAIL_WIDTH, 0, thunmbnailHeight),
 					BackgroundTransparency = 1,
 					LayoutOrder = orderIterator:getNextOrder(),
@@ -126,7 +138,7 @@ function PreviewArea:render()
 					defaultImage = "",
 				}),
 
-				AssetThumbnailPreview = showViewport and Roact.createElement(AssetThumbnailPreview, {
+				AssetThumbnailPreview = previewType == AssetConfigConstants.PreviewTypes.ModelPreview and Roact.createElement(AssetThumbnailPreview, {
 					Size = UDim2.new(0, THUMBNAIL_WIDTH, 0, thunmbnailHeight),
 					ShowTitle = false,
 
@@ -153,7 +165,7 @@ function PreviewArea:render()
 						TextYAlignment = Enum.TextYAlignment.Center,
 					}),
 
-					AssetStatusLabel = (nil ~= assetStatus and Constants.AssetStatus.Unknown ~= assetStatus) and Roact.createElement("TextLabel", {
+					AssetStatusLabel = (nil ~= assetStatus and AssetConfigConstants.ASSET_STATUS.Unknown ~= assetStatus) and Roact.createElement("TextLabel", {
 						Size = UDim2.new(1, 0, 0, TITLE_HEIGHT),
 						Position = UDim2.new(0, 0, 0, TITLE_HEIGHT),
 
@@ -175,7 +187,7 @@ function PreviewArea:render()
 					ItemHeight = TAB_ITEM_HEIGHT,
 					Items = tabItems,
 					CurrentTab = currentTab,
-					ItemClickCallBack = OnTabSelect,
+					ItemClickCallBack = onTabSelect,
 					SelectParentRef = self.baseFrameRef,
 					LayoutOrder = orderIterator:getNextOrder()
 				}),
@@ -193,7 +205,7 @@ function PreviewArea:render()
 						ItemHeight = TAB_ITEM_HEIGHT,
 						Items = tabItems,
 						CurrentTab = currentTab,
-						ItemClickCallBack = OnTabSelect,
+						ItemClickCallBack = onTabSelect,
 						SelectParentRef = self.baseFrameRef,
 					})
 				}),

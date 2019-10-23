@@ -15,10 +15,21 @@ local withTheme = Theme.withTheme
 
 local StudioPlugin = require(Plugin.Src.ContextServices.StudioPlugin)
 
-local ToolLookup = require(Plugin.Src.Components.ToolLookup)
+local Tools = script.Parent.Tools
+local Generate = require(Tools.Generate)
+local Import = require(Tools.Import)
+local Clear = require(Tools.Clear)
+local Region = require(Tools.Region)
+local Fill = require(Tools.Fill)
+local Add = require(Tools.Add)
+local Subtract = require(Tools.Subtract)
+local Grow = require(Tools.Grow)
+local Erode = require(Tools.Erode)
+local Smooth = require(Tools.Smooth)
+local Flatten = require(Tools.Flatten)
+local Paint = require(Tools.Paint)
 
 local Actions = Plugin.Src.Actions
-local InitializeActivator = require(Actions.InitializeActivator)
 local ChangeTool = require(Actions.ChangeTool)
 
 local ToolRenderer = Roact.Component:extend(script.Name)
@@ -34,33 +45,57 @@ local FFlagTerrainToolMetrics = settings():GetFFlag("TerrainToolMetrics")
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 local StudioService = game:GetService("StudioService")
 
-local SCROLL_TOP_IMAGE = "rbxasset://textures/StudioToolbox/ScrollBarTop.png"
-local SCROLL_MID_IMAGE = "rbxasset://textures/StudioToolbox/ScrollBarMiddle.png"
-local SCROLL_BOT_IMAGE = "rbxasset://textures/StudioToolbox/ScrollBarBottom.png"
+local Constants = require(Plugin.Src.Util.Constants)
 
 local toolToScript = {
-	Generate = TerrainGeneration,
-	Import = TerrainImporter,
-	Clear = TerrainGeneration,
+	[Constants.ToolId.Generate] = TerrainGeneration,
+	[Constants.ToolId.Import] = TerrainImporter,
+	[Constants.ToolId.Clear] = TerrainGeneration,
 
-	Select = TerrainRegionEditor,
-	Move = TerrainRegionEditor,
-	Resize = TerrainRegionEditor,
-	Rotate = TerrainRegionEditor,
-	Copy = TerrainRegionEditor,
-	Paste = TerrainRegionEditor,
-	Delete = TerrainRegionEditor,
-	Fill = TerrainRegionEditor,
+	[Constants.ToolId.Select] = TerrainRegionEditor,
+	[Constants.ToolId.Move] = TerrainRegionEditor,
+	[Constants.ToolId.Resize] = TerrainRegionEditor,
+	[Constants.ToolId.Rotate] = TerrainRegionEditor,
+	[Constants.ToolId.Copy] = TerrainRegionEditor,
+	[Constants.ToolId.Paste] = TerrainRegionEditor,
+	[Constants.ToolId.Delete] = TerrainRegionEditor,
+	[Constants.ToolId.Fill] = TerrainRegionEditor,
 
-	Add = TerrainBrush,
-	Subtract = TerrainBrush,
+	[Constants.ToolId.Add] = TerrainBrush,
+	[Constants.ToolId.Subtract] = TerrainBrush,
 
-	Grow = TerrainBrush,
-	Erode = TerrainBrush,
-	Smooth = TerrainBrush,
-	Flatten = TerrainBrush,
+	[Constants.ToolId.Grow] = TerrainBrush,
+	[Constants.ToolId.Erode] = TerrainBrush,
+	[Constants.ToolId.Smooth] = TerrainBrush,
+	[Constants.ToolId.Flatten] = TerrainBrush,
 
-	Paint = TerrainBrush,
+	[Constants.ToolId.Paint] = TerrainBrush,
+}
+
+local toolComponent = {
+	[Constants.ToolId.Generate] = Generate,
+	[Constants.ToolId.Import] = Import,
+	[Constants.ToolId.SeaLevel] = SeaLevel,
+	[Constants.ToolId.Clear] = Clear,
+
+	[Constants.ToolId.Select] = Region,
+	[Constants.ToolId.Move] = Region,
+	[Constants.ToolId.Resize] = Region,
+	[Constants.ToolId.Rotate] = Region,
+	[Constants.ToolId.Copy] = Region,
+	[Constants.ToolId.Paste] = Region,
+	[Constants.ToolId.Delete] = Region,
+	[Constants.ToolId.Fill] = Fill,
+
+	[Constants.ToolId.Add] = Add	,
+	[Constants.ToolId.Subtract] = Subtract,
+
+	[Constants.ToolId.Grow] = Grow,
+	[Constants.ToolId.Erode] = Erode,
+	[Constants.ToolId.Smooth] = Smooth,
+	[Constants.ToolId.Flatten] = Flatten,
+
+	[Constants.ToolId.Paint] = Paint,
 }
 
 local function ToggleTool(toolName, mouse, plugin, theme, localization)
@@ -80,9 +115,11 @@ local function ToggleTool(toolName, mouse, plugin, theme, localization)
 	plugin:Activate(true)
 
 	if toolName and toolName ~= "None" then
-		coroutine.wrap(function()
-			currentToolScript.Init(toolName, mouse)
-		end)()
+		if currentToolScript then
+			coroutine.wrap(function()
+				currentToolScript.Init(toolName, mouse)
+			end)()
+		end
 	end
 
 	if FFlagTerrainToolMetrics and AnalyticsService and StudioService then
@@ -135,13 +172,10 @@ end
 function ToolRenderer:render()
 	local currentTool = self.props.currentTool
 	local layoutOrder = self.props.LayoutOrder
-	local roactElement = ToolLookup[currentTool]
+	local roactElement = toolComponent[currentTool]
 
 	return withLocalization(function(localization)
 		return withTheme(function(theme)
-			--local plugin = StudioPlugin.getPlugin(self)
-			--ToggleTool(currentTool, self.state.mouse, plugin, theme, localization)
-
 			local toolRenderTheme = theme.toolRenderTheme
 			return Roact.createElement("ScrollingFrame", {
 				Size = UDim2.new(1, 0, 1, -140),
@@ -161,7 +195,7 @@ function ToolRenderer:render()
 					[Roact.Ref] = self.layoutRef,
 					[Roact.Change.AbsoluteContentSize] = self.onContentSizeChanged,
 				}),
-				Tool = roactElement,
+				Tool = roactElement and Roact.createElement(roactElement),
 			})
 		end)
 	end)

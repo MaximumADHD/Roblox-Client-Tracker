@@ -1,11 +1,11 @@
-local EnableGroupPackagesForToolbox =  settings():GetFFlag("EnableGroupPackagesForToolbox")
+local FFlagLuaPackagePermissions =  settings():GetFFlag("LuaPackagePermissions")
 local FFlagPluginAccessAndInstallationInStudio = settings():GetFFlag("PluginAccessAndInstallationInStudio")
 local FFlagOnlyWhitelistedPluginsInStudio = settings():GetFFlag("OnlyWhitelistedPluginsInStudio")
 local FFlagFixToolboxInitLoad = settings():GetFFlag("FixToolboxInitLoad")
 
 local Plugin = script.Parent.Parent.Parent
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
-local AssetConfigConstants = require(Plugin.Core.Util.AssetConfigConstants)
+local AssetConfigUtil = require(Plugin.Core.Util.AssetConfigUtil)
 
 local Category = {}
 
@@ -204,7 +204,7 @@ local TABS = {
 	}
 }
 
-if EnableGroupPackagesForToolbox then
+if FFlagLuaPackagePermissions then
 	table.insert(Category.INVENTORY_WITH_GROUPS, Category.GROUP_PACKAGES)
 end
 
@@ -261,7 +261,7 @@ function Category.getCategories(tabName, roles)
 		if Category.CREATIONS_KEY == tabName then
 			local categories = getCreationCategories()
 			if roles and roles.isCatalogItemCreator then
-				local allowedAssetTypeEnums = AssetConfigConstants.getAllowedAssetTypeEnums(roles.allowedAssetTypesForRelease)
+				local allowedAssetTypeEnums = AssetConfigUtil.getAllowedAssetTypeEnums(roles.allowedAssetTypesForRelease)
 				if #allowedAssetTypeEnums > 0 then
 					table.insert(categories, Category.CREATIONS_CATALOG_SECTION_DIVIDER)
 					for _, assetTypeEnum in pairs(allowedAssetTypeEnums) do

@@ -1,6 +1,7 @@
 local ServiceWrapper = require(script.Parent.ServiceWrapper)
 
 local Plugin = script.Parent.Parent.Parent
+local Http = require(Plugin.Packages.Http)
 local Roact = require(Plugin.Packages.Roact)
 local Rodux = require(Plugin.Packages.Rodux)
 local UILibrary = require(Plugin.Packages.UILibrary)
@@ -13,13 +14,19 @@ local Localization = UILibrary.Studio.Localization
 
 return function()
 	it("should construct and destroy without errors", function()
+		local api = Http.API.mock()
+		local focusGui = {}
 		local localization = Localization.mock()
 		local pluginInstance = TestHelpers.MockPlugin.new()
+		local mouse = pluginInstance:GetMouse()
 		local store = Rodux.Store.new(MainReducer, {}, { Rodux.thunkMiddleware })
 		local theme = PluginTheme.mock()
 
 		local element = Roact.createElement(ServiceWrapper, {
+			api = api,
+			focusGui = focusGui,
 			localization = localization,
+			mouse = mouse,
 			plugin = pluginInstance,
 			store = store,
 			theme = theme,

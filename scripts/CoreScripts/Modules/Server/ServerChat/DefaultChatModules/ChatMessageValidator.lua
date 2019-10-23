@@ -15,6 +15,13 @@ if not ChatLocalization.FormatMessageToSend or not ChatLocalization.LocalizeForm
 	function ChatLocalization:FormatMessageToSend(key,default) return default end
 end
 
+local FFlagUserChatNewMessageLengthCheck do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserChatNewMessageLengthCheck")
+	end)
+	FFlagUserChatNewMessageLengthCheck = success and result
+end
+
 local DISALLOWED_WHITESPACE = {"\n", "\r", "\t", "\v", "\f"}
 
 if ChatSettings.DisallowedWhiteSpace then
@@ -48,9 +55,20 @@ local function Run(ChatService)
 			return true
 		end
 
-		if message:len() > ChatSettings.MaximumMessageLength + 1 then
-			speakerObj:SendSystemMessage(ChatLocalization:FormatMessageToSend("GameChat_ChatMessageValidator_MaxLengthError","Your message exceeds the maximum message length."), channel)
-			return true
+		if FFlagUserChatNewMessageLengthCheck then
+			if utf8.len(utf8.nfcnormalize(message)) > ChatSettings.MaximumMessageLength + 1 then
+				local localizedError = ChatLocalization:FormatMessageToSend(
+					"GameChat_ChatMessageValidator_MaxLengthError",
+					"Your message exceeds the maximum message length."
+				)
+				speakerObj:SendSystemMessage(localizedError, channel)
+				return true
+			end
+		else
+			if message:len() > ChatSettings.MaximumMessageLength + 1 then
+				speakerObj:SendSystemMessage(ChatLocalization:FormatMessageToSend("GameChat_ChatMessageValidator_MaxLengthError","Your message exceeds the maximum message length."), channel)
+				return true
+			end
 		end
 
 		for i = 1, #DISALLOWED_WHITESPACE do

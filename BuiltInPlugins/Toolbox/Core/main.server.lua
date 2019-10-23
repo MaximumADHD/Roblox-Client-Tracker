@@ -1,3 +1,4 @@
+local FFlagLuaPackagePermissions =  settings():GetFFlag("LuaPackagePermissions")
 local FFlagToolboxWithCMSV2 = settings():GetFFlag("ToolboxWithCMSV2")
 if not FFlagToolboxWithCMSV2 then
 	return
@@ -14,7 +15,6 @@ game:DefineFastFlag("UseRBXThumbInToolbox", false)
 game:DefineFastFlag("UseCreationToFetchMyOverrideData2", false)
 game:DefineFastFlag("EnableAssetConfigVersionCheckForModels", false)
 game:DefineFastFlag("CMSAdditionalAccessoryTypesV2", false)
-game:DefineFastFlag("StudioMovePkgPermsToAssetConfig", false)
 
 local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 
@@ -31,6 +31,7 @@ local ToolboxTheme = require(Util.ToolboxTheme)
 local Localization = require(Util.Localization)
 local AssetConfigTheme = require(Util.AssetConfigTheme)
 local AssetConfigConstants = require(Util.AssetConfigConstants)
+local AssetConfigUtil = require(Util.AssetConfigUtil)
 
 local Background = require(Plugin.Core.Types.Background)
 local Suggestion = require(Plugin.Core.Types.Suggestion)
@@ -136,7 +137,7 @@ local function createAssetConfig(assetId, flowType, instances, assetTypeEnum)
 		assetTypesForUpload = toolboxStore:getState().roles.allowedAssetTypesForUpload
 	end
 
-	local startScreen = AssetConfigConstants.getFlowStartScreen(flowType)
+	local startScreen = AssetConfigUtil.getFlowStartScreen(flowType)
 
 	-- If we don't have asset id, we will be publish an new asset.
 	-- Otherwise, we will be editing an asset.
@@ -261,7 +262,7 @@ local function main()
 		toolboxStore:dispatch(GetRolesRequest(networkInterface)):andThen(proceedToUpload, proceedToUpload)
 	end)
 
-	if game:GetFastFlag("StudioMovePkgPermsToAssetConfig") then
+	if FFlagLuaPackagePermissions then
 		StudioService.OnOpenManagePackagePlugin:connect(function(userId, assetId)
 			createAssetConfig(assetId, AssetConfigConstants.FLOW_TYPE.EDIT_FLOW, nil, Enum.AssetType.Model)
 		end)

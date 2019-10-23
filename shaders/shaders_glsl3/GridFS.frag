@@ -24,6 +24,11 @@ struct Globals
     vec4 ShadowMatrix2;
     vec4 RefractionBias_FadeDistance_GlowFactor_SpecMul;
     vec4 OutlineBrightness_ShadowInfo;
+    vec4 SkyGradientTop_EnvDiffuse;
+    vec4 SkyGradientBottom_EnvSpec;
+    vec3 AmbientColorNoIBL;
+    vec3 SkyAmbientNoIBL;
+    vec4 AmbientCube[12];
     vec4 CascadeSphere0;
     vec4 CascadeSphere1;
     vec4 CascadeSphere2;
@@ -43,7 +48,7 @@ struct GridParam
     vec4 GridScale;
 };
 
-uniform vec4 CB0[31];
+uniform vec4 CB0[47];
 uniform vec4 CB3[1];
 uniform sampler2D ShadowMapTexture;
 uniform sampler3D LightMapTexture;
@@ -51,7 +56,7 @@ uniform sampler3D LightGridSkylightTexture;
 uniform sampler2D DiffuseMapTexture;
 
 in vec4 VARYING2;
-in vec4 VARYING3;
+in vec3 VARYING3;
 in vec4 VARYING4;
 in vec4 VARYING5;
 in vec4 VARYING6;
@@ -85,14 +90,14 @@ void main()
     }
     vec4 f7 = texture(DiffuseMapTexture, f5) * VARYING2;
     vec3 f8 = f7.xyz;
-    float f9 = clamp(dot(step(CB0[19].xyz, abs(VARYING3.xyz - CB0[18].xyz)), vec3(1.0)), 0.0, 1.0);
+    float f9 = clamp(dot(step(CB0[19].xyz, abs(VARYING3 - CB0[18].xyz)), vec3(1.0)), 0.0, 1.0);
     vec3 f10 = VARYING3.yzx - (VARYING3.yzx * f9);
     vec4 f11 = vec4(clamp(f9, 0.0, 1.0));
     vec4 f12 = mix(texture(LightMapTexture, f10), vec4(0.0), f11);
     vec4 f13 = mix(texture(LightGridSkylightTexture, f10), vec4(1.0), f11);
     vec4 f14 = texture(ShadowMapTexture, VARYING7.xy);
     float f15 = (1.0 - ((step(f14.x, VARYING7.z) * clamp(CB0[24].z + (CB0[24].w * abs(VARYING7.z - 0.5)), 0.0, 1.0)) * f14.y)) * f13.y;
-    vec3 f16 = ((min(((f12.xyz * (f12.w * 120.0)).xyz + CB0[8].xyz) + (CB0[9].xyz * f13.x), vec3(CB0[16].w)) + (VARYING6.xyz * f15)) * (f8 * f8).xyz) + (CB0[10].xyz * (VARYING6.w * f15));
+    vec3 f16 = ((min((f12.xyz * (f12.w * 120.0)).xyz + (CB0[8].xyz + (CB0[9].xyz * f13.x)), vec3(CB0[16].w)) + (VARYING6.xyz * f15)) * (f8 * f8).xyz) + (CB0[10].xyz * (VARYING6.w * f15));
     vec4 f17 = vec4(f16.x, f16.y, f16.z, vec4(0.0).w);
     f17.w = f7.w;
     vec3 f18 = mix(CB0[14].xyz, sqrt(clamp(f17.xyz * CB0[15].y, vec3(0.0), vec3(1.0))).xyz, vec3(clamp((CB0[13].x * length(VARYING4.xyz)) + CB0[13].y, 0.0, 1.0)));

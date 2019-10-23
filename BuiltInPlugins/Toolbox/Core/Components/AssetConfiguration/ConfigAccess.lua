@@ -17,6 +17,7 @@ local ContextGetter =require (Util.ContextGetter)
 local Constants = require(Util.Constants)
 local AssetConfigConstants = require(Util.AssetConfigConstants)
 local getUserId = require(Util.getUserId)
+local AssetConfigUtil = require(Util.AssetConfigUtil)
 
 local DropdownMenu = require(Plugin.Core.Components.DropdownMenu)
 
@@ -64,7 +65,7 @@ function ConfigAccess:render()
 			-- TODO: Notice UX to change the website.
 			local ownerIndex = (owner.typeId or 1)
 
-			self.dropdownContent = AssetConfigConstants.getOwnerDropDownContent(props.groupsArray, localizedContent)
+			self.dropdownContent = AssetConfigUtil.getOwnerDropDownContent(props.groupsArray, localizedContent)
 
 			local onDropDownSelect = props.onDropDownSelect
 

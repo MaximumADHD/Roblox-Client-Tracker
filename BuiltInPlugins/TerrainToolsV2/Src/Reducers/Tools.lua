@@ -42,13 +42,6 @@ local Tools = Rodux.createReducer({
 			lastToolPerTab = newToolList,
 		})
 	end,
-	InitializeActivator = function (state, action)
-		local activatorfn = action.activator
-
-		return Cryo.Dictionary.join(state, {
-			activator = activatorfn,
-		})
-	end
 })
 
 return Tools

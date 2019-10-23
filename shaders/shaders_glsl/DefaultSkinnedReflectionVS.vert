@@ -24,6 +24,11 @@ struct Globals
     vec4 ShadowMatrix2;
     vec4 RefractionBias_FadeDistance_GlowFactor_SpecMul;
     vec4 OutlineBrightness_ShadowInfo;
+    vec4 SkyGradientTop_EnvDiffuse;
+    vec4 SkyGradientBottom_EnvSpec;
+    vec3 AmbientColorNoIBL;
+    vec3 SkyAmbientNoIBL;
+    vec4 AmbientCube[12];
     vec4 CascadeSphere0;
     vec4 CascadeSphere1;
     vec4 CascadeSphere2;
@@ -38,7 +43,7 @@ struct Globals
     float debugFlagsShadows;
 };
 
-uniform vec4 CB0[31];
+uniform vec4 CB0[47];
 uniform vec4 CB1[216];
 attribute vec4 POSITION;
 attribute vec4 NORMAL;
@@ -46,11 +51,10 @@ attribute vec2 TEXCOORD0;
 attribute vec2 TEXCOORD1;
 attribute vec4 COLOR0;
 attribute vec4 COLOR1;
-attribute vec4 TEXCOORD3;
-varying vec4 VARYING0;
-varying vec4 VARYING1;
+varying vec2 VARYING0;
+varying vec2 VARYING1;
 varying vec4 VARYING2;
-varying vec4 VARYING3;
+varying vec3 VARYING3;
 varying vec4 VARYING4;
 varying vec4 VARYING5;
 varying vec4 VARYING6;
@@ -76,21 +80,17 @@ void main()
     vec3 v14 = CB0[7].xyz - v7;
     vec4 v15 = vec4(v4, v5, v6, 1.0);
     vec4 v16 = v15 * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
-    vec4 v17 = vec4(TEXCOORD0, 0.0, 0.0);
-    vec4 v18 = vec4(TEXCOORD1, 0.0, 0.0);
-    float v19 = v16.w;
-    vec4 v20 = ((exp2(TEXCOORD3 * 0.0625) - vec4(1.0)) * CB0[23].z) + vec4((0.5 * v19) * CB0[23].y);
-    vec4 v21 = vec4(dot(CB0[20], v15), dot(CB0[21], v15), dot(CB0[22], v15), 0.0);
-    v21.w = COLOR1.w * 0.0039215688593685626983642578125;
+    vec4 v17 = vec4(dot(CB0[20], v15), dot(CB0[21], v15), dot(CB0[22], v15), 0.0);
+    v17.w = COLOR1.w * 0.0039215688593685626983642578125;
     gl_Position = v16;
-    VARYING0 = vec4(v17.x, v17.y, v20.x, v20.y);
-    VARYING1 = vec4(v18.x, v18.y, v20.z, v20.w);
+    VARYING0 = TEXCOORD0;
+    VARYING1 = TEXCOORD1;
     VARYING2 = COLOR0;
-    VARYING3 = vec4(((v7 + (v11 * 6.0)).yxz * CB0[16].xyz) + CB0[17].xyz, 0.0);
-    VARYING4 = vec4(v14, v19);
+    VARYING3 = ((v7 + (v11 * 6.0)).yxz * CB0[16].xyz) + CB0[17].xyz;
+    VARYING4 = vec4(v14, v16.w);
     VARYING5 = vec4(v8, v9, v10, COLOR1.z);
     VARYING6 = vec4((CB0[10].xyz * max(v13, 0.0)) + (CB0[12].xyz * max(-v13, 0.0)), ((float(v13 > 0.0) * pow(clamp(dot(v11, normalize(v12 + normalize(v14))), 0.0, 1.0), COLOR1.z)) * (COLOR1.y * 0.0039215688593685626983642578125)) * CB0[23].w);
-    VARYING7 = v21;
+    VARYING7 = v17;
     VARYING8 = NORMAL.w;
 }
 

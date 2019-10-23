@@ -8,6 +8,8 @@
 
 local FFlagCMSPrepopulateTitle = game:DefineFastFlag("CMSPrepopulateTitle", false)
 
+local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
+
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
@@ -22,6 +24,7 @@ local PublishAsset = require(AssetConfiguration.PublishAsset)
 local AssetConfigFooter = require(AssetConfiguration.AssetConfigFooter)
 local Versions = require(AssetConfiguration.Versions)
 local Sales = require(AssetConfiguration.SalesPage)
+local Permissions = require(AssetConfiguration.Permissions.Permissions)
 
 local OverrideAsset = require(AssetConfiguration.OverrideAsset)
 local MessageBox = require(Components.MessageBox.MessageBox)
@@ -59,8 +62,6 @@ local withTheme = ContextHelper.withTheme
 local withModal = ContextHelper.withModal
 local withLocalization = ContextHelper.withLocalization
 
-local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
-
 local AssetConfig = Roact.PureComponent:extend("AssetConfig")
 
 local FOOTER_HEIGHT = 62
@@ -70,8 +71,8 @@ local DEFAULT_GENRE = "All"
 function AssetConfig:init(props)
 	local initSalesStatus = nil
 	if FFlagEnablePurchasePluginFromLua2 then
-		if props.assetTypeEnum and AssetConfigConstants.isBuyableMarketplaceAsset(props.assetTypeEnum) then
-			initSalesStatus = Constants.AssetStatus.OffSale
+		if props.assetTypeEnum and AssetConfigUtil.isBuyableMarketplaceAsset(props.assetTypeEnum) then
+			initSalesStatus = AssetConfigConstants.ASSET_STATUS.OffSale
 		end
 	end
 
@@ -99,6 +100,7 @@ function AssetConfig:init(props)
 
 		overrideAssetId = nil,
 		groupId = nil,
+		iconFile = nil, -- Need for setting thumbnails for asset.
 	}
 
 		-- Used to fetching name before publish
@@ -119,7 +121,7 @@ function AssetConfig:init(props)
 			local state = self.state
 
 			if AssetConfigConstants.FLOW_TYPE.EDIT_FLOW == props.screenFlowType then
-				if AssetConfigConstants.isCatalogAsset(props.assetTypeEnum) then
+				if AssetConfigUtil.isCatalogAsset(props.assetTypeEnum) then
 					if props.assetConfigData and props.assetConfigData.Status then
 						props.configureCatalogItem(
 							getNetwork(self),
@@ -134,19 +136,22 @@ function AssetConfig:init(props)
 					else
 						warn("Could not configure sales, missing Asset Status!")
 					end
-				elseif AssetConfigConstants.isMarketplaceAsset(props.assetTypeEnum) then
-					props.configureMarketplaceItem(
-						getNetwork(self),
-						state.assetId,
-						state.name,
-						state.description,
-						state.genres,
-						state.commentOn,
-						state.copyOn
-					)
+				elseif AssetConfigUtil.isMarketplaceAsset(props.assetTypeEnum) then
+					props.configureMarketplaceItem({
+						networkInterface = getNetwork(self),
+						assetId = state.assetId,
+						name = state.name,
+						description = state.description,
+						genres = state.genres,
+						commentOn = state.commentOn,
+						copyOn = state.copyOn,
+						saleStatus = state.status,
+						price = state.price,
+						iconFile = state.iconFile,
+					})
 				end
 			elseif AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW == props.screenFlowType then
-				if AssetConfigConstants.isCatalogAsset(props.assetTypeEnum) then
+				if AssetConfigUtil.isCatalogAsset(props.assetTypeEnum) then
 					props.uploadCatalogItem(
 						getNetwork(self),
 						self.state.name,
@@ -155,7 +160,7 @@ function AssetConfig:init(props)
 						props.assetTypeEnum,
 						props.instances
 					)
-				elseif AssetConfigConstants.isMarketplaceAsset(props.assetTypeEnum) and
+				elseif AssetConfigUtil.isMarketplaceAsset(props.assetTypeEnum) and
 					ConfigTypes:isOverride(props.currentTab) then
 					-- Only need assetId from existing asset
 					props.overrideAsset(
@@ -168,20 +173,21 @@ function AssetConfig:init(props)
 					local genre = (state.genres or {})[1]
 					local genreTypeId = Enum.Genre[genre].Value + 1 -- All is 1 based
 
-					props.uploadMarketplaceItem(
-						getNetwork(self),
-						0, 								-- empyt or 0 for new asset
-						props.assetTypeEnum.Name,		-- accepts both id and name of the assetType.
-						state.name,
-						state.description,
-						genreTypeId, 					-- Convert into a ID
-						state.copyOn,
-						state.commentOn,
-						state.groupId,					-- Used only for upload group asset.
-						props.instances,
-						state.status,
-						state.price
-					)
+					props.uploadMarketplaceItem({
+						networkInterface = getNetwork(self),
+						assetId = 0, 								-- empyt or 0 for new asset
+						assetType = props.assetTypeEnum.Name,		-- accepts both id and name of the assetType.
+						name = state.name,
+						description = state.description,
+						genreTypeId = genreTypeId, 					-- Convert into a ID
+						copyOn = state.copyOn,
+						commentOn = state.commentOn,
+						groupId = state.groupId,					-- Used only for upload group asset.
+						instances = props.instances,
+						saleStatus = state.status,
+						price = state.price,
+						iconFile = state.iconFile,
+					})
 				end
 			end
 		end
@@ -309,7 +315,7 @@ function AssetConfig:init(props)
 		local Genres = self.props.assetConfigData.Genres or {}
 		self.props.makeChangeRequest("AssetConfigGenre", Genres[1] or DEFAULT_GENRE, item.name)
 
-		local newGenreName = AssetConfigConstants.getGenreName(newGenreIndex)
+		local newGenreName = AssetConfigUtil.getGenreName(newGenreIndex)
 		self:setState({
 			genres = Cryo.Dictionary.join(self.state.genres or {}, {
 				[1] = newGenreName,
@@ -342,6 +348,19 @@ function AssetConfig:init(props)
 			overrideAssetId = assetId
 		})
 	end
+
+	self.chooseThumbnail = function()
+		local iconFile = AssetConfigUtil.promptImagePicker()
+
+		-- Probably need to handle the if it fails
+		if iconFile then
+			self:setState({
+				iconFile = iconFile
+			})
+		end
+
+		self.props.makeChangeRequest("AssetConfigIconSelect", "", iconFile.Name)
+	end
 end
 
 function AssetConfig:attachXButtonCallback()
@@ -365,7 +384,7 @@ function AssetConfig:didUpdate(previousProps, previousState)
 		local assetConfigData = self.props.assetConfigData
 		if next(assetConfigData) and (not self.state.name) then
 			self:setState({
-				assetId = AssetConfigConstants.isMarketplaceAsset(self.props.assetTypeEnum) and assetConfigData.Id or assetConfigData.assetId, -- assetId is named differently in the data returned by different end-points
+				assetId = AssetConfigUtil.isMarketplaceAsset(self.props.assetTypeEnum) and assetConfigData.Id or assetConfigData.assetId, -- assetId is named differently in the data returned by different end-points
 
 				name = assetConfigData.Name,
 				description = assetConfigData.Description,
@@ -393,9 +412,9 @@ function AssetConfig:didMount()
 	-- From here, we can reqeust assetConfig data if we have assetId.
 	if AssetConfigConstants.FLOW_TYPE.EDIT_FLOW == self.props.screenFlowType then
 		if self.props.assetId then
-			if AssetConfigConstants.isCatalogAsset(self.props.assetTypeEnum) then
+			if AssetConfigUtil.isCatalogAsset(self.props.assetTypeEnum) then
 				self.props.getAssetDetails(getNetwork(self), self.props.assetId)
-			elseif AssetConfigConstants.isMarketplaceAsset(self.props.assetTypeEnum) then
+			elseif AssetConfigUtil.isMarketplaceAsset(self.props.assetTypeEnum) then
 				self.props.getAssetConfigData(getNetwork(self), self.props.assetId)
 			end
 		end
@@ -420,7 +439,7 @@ end
 
 local function validatePrice(text, minPrice, maxPrice, assetStatus)
 	local result = true
-	if Constants.AssetStatus.OnSale == assetStatus then
+	if AssetConfigConstants.ASSET_STATUS.OnSale == assetStatus then
 		result = false
 		text = tostring(text)
 		local isInt = text and text:match("%d+") == text
@@ -516,20 +535,18 @@ function AssetConfig:render()
 				local newAssetStatus = state.status
 				local showGetAssetFailed = props.networkErrorAction == ConfigTypes.GET_ASSET_DETAIL_FAILURE_ACTION
 				local isShowChangeDiscardMessageBox = state.isShowChangeDiscardMessageBox or showGetAssetFailed
+				local iconFile = state.iconFile
 
 				local assetTypeEnum = props.assetTypeEnum
 				local screenFlowType = props.screenFlowType
 				local changeTable = props.changeTable or {}
 				local allowedAssetTypesForRelease = props.allowedAssetTypesForRelease
-				local showThumbnailImage = not props.instances and true or false
-				local showViewport = props.instances and true or false
-				local assetId = AssetConfigConstants.FLOW_TYPE.EDIT_FLOW == props.screenFlowType and assetId or nil
 
 				local currentAssetStatus
-				if FFlagEnablePurchasePluginFromLua2 and AssetConfigConstants.isMarketplaceAsset(assetTypeEnum) then
-					currentAssetStatus = newAssetStatus or Constants.AssetStatus.OffSale
+				if FFlagEnablePurchasePluginFromLua2 and AssetConfigUtil.isMarketplaceAsset(assetTypeEnum) then
+					currentAssetStatus = newAssetStatus or AssetConfigConstants.ASSET_STATUS.OffSale
 				else
-					currentAssetStatus = newAssetStatus or Constants.AssetStatus.Unknown
+					currentAssetStatus = newAssetStatus or AssetConfigConstants.ASSET_STATUS.Unknown
 				end
 
 				local minPrice = AssetConfigUtil.getMinPrice(allowedAssetTypesForRelease, assetTypeEnum)
@@ -540,12 +557,21 @@ function AssetConfig:render()
 				local showCopy = ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_COPY)
 				local showComment = ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_COMMENT)
 				local showAssetType = ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_ASSET_TYPE)
+				-- Sales will acting as sales and allow copy for plugin.
 				local showSale = false
+				-- And then we show price according to the sales status and if user is whitelisted.
 				local showPrice = false
-				if FFlagEnablePurchasePluginFromLua2 and copyOn then
-					if allowedAssetTypesForRelease and assetTypeEnum and allowedAssetTypesForRelease[assetTypeEnum.Name] then
+				local previewType = props.instances and AssetConfigConstants.PreviewTypes.ModelPreview or AssetConfigConstants.PreviewTypes.Thumbnail
+				-- And then we show price according to the sales status and if user is whitelisted.
+				if FFlagEnablePurchasePluginFromLua2 then
+					if assetTypeEnum and AssetConfigUtil.isBuyableMarketplaceAsset(assetTypeEnum) then
 						showSale = ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_SALE)
-						showPrice = ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_PRICE)
+						previewType = AssetConfigConstants.PreviewTypes.ImagePicker
+					end
+					if newAssetStatus == AssetConfigConstants.ASSET_STATUS.OnSale and
+						allowedAssetTypesForRelease[assetTypeEnum.Name] and
+						screenFlowType == AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW then -- Only publish flow we could show price.
+						showPrice = true
 					end
 				end
 
@@ -588,16 +614,17 @@ function AssetConfig:render()
 						Preview = Roact.createElement(PreviewArea, {
 							TotalWidth = PREVIEW_WIDTH,
 
-							tabItems = ConfigTypes:getAssetconfigContent(screenFlowType, assetTypeEnum),
+							TabItems = ConfigTypes:getAssetconfigContent(screenFlowType, assetTypeEnum),
 
 							CurrentTab = currentTab,
 
-							ShowThumbnailImage = showThumbnailImage,
-							ShowViewport = showViewport,
+							PreviewType = previewType,
 							AssetStatus = newAssetStatus,
 							AssetId = assetId,
+							IconFile = iconFile,
 
 							OnTabSelect = self.onTabSelect,
+							ChooseThumbnail = self.chooseThumbnail,
 
 							LayoutOrder = 1,
 						}),
@@ -654,7 +681,7 @@ function AssetConfig:render()
 							LayoutOrder = 3,
 						}),
 
-						Versions = ConfigTypes:isVersions(currentTab) and Roact.createElement(Versions, {
+					Versions = ConfigTypes:isVersions(currentTab) and Roact.createElement(Versions, {
 							Size = UDim2.new(1, -PREVIEW_WIDTH, 1, 0),
 
 							assetId = assetId,
@@ -689,15 +716,21 @@ function AssetConfig:render()
 							onOverrideAssetSelected = self.onOverrideAssetSelected,
 
 							LayoutOrder = 3,
-						})
+						}),
+
+						PackagePermissions = ConfigTypes:isPermissions(currentTab) and Roact.createElement(Permissions, {
+							Size = UDim2.new(1, -PREVIEW_WIDTH, 1, 0),
+
+							LayoutOrder = 3,
+						}),
 					}),
 
 					Footer = Roact.createElement(AssetConfigFooter, {
 						Size = UDim2.new(1, 0, 0, FOOTER_HEIGHT),
 						CanSave = canSave,
 
-						tryCancel = self.tryCancelWithYield,
-						tryPublish = self.tryPublish,
+						TryCancel = self.tryCancelWithYield,
+						TryPublish = self.tryPublish,
 
 						LayoutOrder = 2
 					})
@@ -752,12 +785,12 @@ local function mapDispatchToProps(dispatch)
 		end,
 
 		-- For locale changes, we have no UI for them now, but we can add that in the future.
-		configureMarketplaceItem = function(networkInterface, assetid, name, description, genres, enableComments, isCopyingAllowed, locale, localName, localDescription)
-			dispatch(PatchAssetRequest(networkInterface, assetid, name, description, genres, enableComments, isCopyingAllowed, locale, localName, localDescription))
+		configureMarketplaceItem = function(requestInfo)
+			dispatch(PatchAssetRequest(requestInfo))
 		end,
 
-		uploadMarketplaceItem = function(networkInterface, assetid, type, name, description, genreTypeId, ispublic, allowComments, groupId, instances, saleStatus, price)
-			dispatch(PostUploadAssetRequest(networkInterface, assetid, type, name, description, genreTypeId, ispublic, allowComments, groupId, instances, saleStatus, price))
+		uploadMarketplaceItem = function(requestInfo)
+			dispatch(PostUploadAssetRequest(requestInfo))
 		end,
 
 		postRevertVersion = function(networkInterface, assetId, assetVersionNumber)

@@ -15,6 +15,8 @@
 
 local Library = script.Parent.Parent.Parent
 
+local HttpService = game:GetService("HttpService")
+
 local Plugin = require(Library.Plugin)
 local getPlugin = Plugin.getPlugin
 local Roact = require(Library.Parent.Roact)
@@ -28,7 +30,7 @@ function Dialog:init(props)
 	local options = props.Options
 	local title = props.Title or ""
 	local name = props.Name or title
-	local id = props.Id or title
+	local id = title .. HttpService:GenerateGUID()
 	local zIndexBehavior = props.ZIndexBehavior or Enum.ZIndexBehavior.Sibling
 
 	local plugin = getPlugin(self)

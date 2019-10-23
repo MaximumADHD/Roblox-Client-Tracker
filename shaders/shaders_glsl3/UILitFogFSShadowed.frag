@@ -24,6 +24,11 @@ struct Globals
     vec4 ShadowMatrix2;
     vec4 RefractionBias_FadeDistance_GlowFactor_SpecMul;
     vec4 OutlineBrightness_ShadowInfo;
+    vec4 SkyGradientTop_EnvDiffuse;
+    vec4 SkyGradientBottom_EnvSpec;
+    vec3 AmbientColorNoIBL;
+    vec3 SkyAmbientNoIBL;
+    vec4 AmbientCube[12];
     vec4 CascadeSphere0;
     vec4 CascadeSphere1;
     vec4 CascadeSphere2;
@@ -43,7 +48,7 @@ struct LightShadowGPUTransform
     mat4 transform;
 };
 
-uniform vec4 CB0[31];
+uniform vec4 CB0[47];
 uniform vec4 CB8[24];
 uniform vec4 CB2[1];
 uniform sampler3D LightMapTexture;
@@ -72,19 +77,19 @@ void main()
     vec4 f8 = mix(texture(LightMapTexture, f6), vec4(0.0), f7);
     vec4 f9 = mix(texture(LightGridSkylightTexture, f6), vec4(1.0), f7);
     float f10 = f9.y;
-    vec3 f11 = VARYING4.xyz - CB0[25].xyz;
-    vec3 f12 = VARYING4.xyz - CB0[26].xyz;
-    vec3 f13 = VARYING4.xyz - CB0[27].xyz;
-    vec4 f14 = vec4(VARYING4.xyz, 1.0) * mat4(CB8[((dot(f11, f11) < CB0[25].w) ? 0 : ((dot(f12, f12) < CB0[26].w) ? 1 : ((dot(f13, f13) < CB0[27].w) ? 2 : 3))) * 4 + 0], CB8[((dot(f11, f11) < CB0[25].w) ? 0 : ((dot(f12, f12) < CB0[26].w) ? 1 : ((dot(f13, f13) < CB0[27].w) ? 2 : 3))) * 4 + 1], CB8[((dot(f11, f11) < CB0[25].w) ? 0 : ((dot(f12, f12) < CB0[26].w) ? 1 : ((dot(f13, f13) < CB0[27].w) ? 2 : 3))) * 4 + 2], CB8[((dot(f11, f11) < CB0[25].w) ? 0 : ((dot(f12, f12) < CB0[26].w) ? 1 : ((dot(f13, f13) < CB0[27].w) ? 2 : 3))) * 4 + 3]);
+    vec3 f11 = VARYING4.xyz - CB0[41].xyz;
+    vec3 f12 = VARYING4.xyz - CB0[42].xyz;
+    vec3 f13 = VARYING4.xyz - CB0[43].xyz;
+    vec4 f14 = vec4(VARYING4.xyz, 1.0) * mat4(CB8[((dot(f11, f11) < CB0[41].w) ? 0 : ((dot(f12, f12) < CB0[42].w) ? 1 : ((dot(f13, f13) < CB0[43].w) ? 2 : 3))) * 4 + 0], CB8[((dot(f11, f11) < CB0[41].w) ? 0 : ((dot(f12, f12) < CB0[42].w) ? 1 : ((dot(f13, f13) < CB0[43].w) ? 2 : 3))) * 4 + 1], CB8[((dot(f11, f11) < CB0[41].w) ? 0 : ((dot(f12, f12) < CB0[42].w) ? 1 : ((dot(f13, f13) < CB0[43].w) ? 2 : 3))) * 4 + 2], CB8[((dot(f11, f11) < CB0[41].w) ? 0 : ((dot(f12, f12) < CB0[42].w) ? 1 : ((dot(f13, f13) < CB0[43].w) ? 2 : 3))) * 4 + 3]);
     vec4 f15 = textureLod(ShadowAtlasTexture, f14.xy, 0.0);
     vec2 f16 = vec2(0.0);
-    f16.x = CB0[29].z;
+    f16.x = CB0[45].z;
     vec2 f17 = f16;
-    f17.y = CB0[29].w;
+    f17.y = CB0[45].w;
     float f18 = (2.0 * f14.z) - 1.0;
-    float f19 = exp(CB0[29].z * f18);
-    float f20 = -exp((-CB0[29].w) * f18);
-    vec2 f21 = (f17 * CB0[30].y) * vec2(f19, f20);
+    float f19 = exp(CB0[45].z * f18);
+    float f20 = -exp((-CB0[45].w) * f18);
+    vec2 f21 = (f17 * CB0[46].y) * vec2(f19, f20);
     vec2 f22 = f21 * f21;
     float f23 = f15.x;
     float f24 = max(f15.y - (f23 * f23), f22.x);
@@ -93,7 +98,7 @@ void main()
     float f27 = max(f15.w - (f26 * f26), f22.y);
     float f28 = f20 - f26;
     vec3 f29 = (f4 * f4).xyz;
-    vec3 f30 = mix(CB0[14].xyz, sqrt(clamp(mix(f29, (min(((f8.xyz * (f8.w * 120.0)).xyz + CB0[8].xyz) + (CB0[9].xyz * f9.x), vec3(CB0[16].w)) + (VARYING2 * ((VARYING4.w > 0.0) ? mix(f10, mix(min((f19 <= f23) ? 1.0 : clamp(((f24 / (f24 + (f25 * f25))) - 0.20000000298023223876953125) * 1.25, 0.0, 1.0), (f20 <= f26) ? 1.0 : clamp(((f27 / (f27 + (f28 * f28))) - 0.20000000298023223876953125) * 1.25, 0.0, 1.0)), f10, clamp((length(VARYING4.xyz - CB0[7].xyz) * CB0[29].y) - (CB0[29].x * CB0[29].y), 0.0, 1.0)), CB0[30].x) : 0.0))) * f29, vec3(CB2[0].z)).xyz * CB0[15].y, vec3(0.0), vec3(1.0))).xyz, vec3(clamp((CB0[13].x * length(VARYING5)) + CB0[13].y, 0.0, 1.0)));
+    vec3 f30 = mix(CB0[14].xyz, sqrt(clamp(mix(f29, (min((f8.xyz * (f8.w * 120.0)).xyz + (CB0[8].xyz + (CB0[9].xyz * f9.x)), vec3(CB0[16].w)) + (VARYING2 * ((VARYING4.w > 0.0) ? mix(f10, mix(min((f19 <= f23) ? 1.0 : clamp(((f24 / (f24 + (f25 * f25))) - 0.20000000298023223876953125) * 1.25, 0.0, 1.0), (f20 <= f26) ? 1.0 : clamp(((f27 / (f27 + (f28 * f28))) - 0.20000000298023223876953125) * 1.25, 0.0, 1.0)), f10, clamp((length(VARYING4.xyz - CB0[7].xyz) * CB0[45].y) - (CB0[45].x * CB0[45].y), 0.0, 1.0)), CB0[46].x) : 0.0))) * f29, vec3(CB2[0].z)).xyz * CB0[15].y, vec3(0.0), vec3(1.0))).xyz, vec3(clamp((CB0[13].x * length(VARYING5)) + CB0[13].y, 0.0, 1.0)));
     _entryPointOutput = vec4(f30.x, f30.y, f30.z, f3.w);
 }
 

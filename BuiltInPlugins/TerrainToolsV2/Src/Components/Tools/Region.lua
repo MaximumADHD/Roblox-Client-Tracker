@@ -6,8 +6,6 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 
-local TexturePath = "rbxasset://textures/TerrainTools/"
-
 local ToolParts = Plugin.Src.Components.Tools.ToolParts
 local EditSettings = require(ToolParts.EditSettings)
 

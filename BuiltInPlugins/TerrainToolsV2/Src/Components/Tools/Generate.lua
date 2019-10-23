@@ -116,7 +116,7 @@ function Generate:init(initialProps)
 	end
 
 	self.updateGenerateProps = function()
-		if not self.state.isGenerationActive then
+		if self.state.isGenerationActive then
 			TerrainGeneration.ChangeProperties({
 				position = self.props.position,
 				size = self.props.size,
@@ -194,7 +194,7 @@ function Generate:render()
 					IsImport = false,
 					Position = position,
 					Size = size,
-					onTextEnter = self.onTextEnter,
+					OnTextEnter = self.onTextEnter,
 					LayoutOrder = 1,
 				}),
 
@@ -384,14 +384,14 @@ end
 
 local function MapStateToProps (state, props)
 	return {
-		position = state.GenerateTool.position,
-		size = state.GenerateTool.size,
+		position = state[REDUCER_KEY].position,
+		size = state[REDUCER_KEY].size,
 
-		biomeSelection = state.GenerateTool.biomeSelection,
-		biomeSize = state.GenerateTool.biomeSize,
-		haveCaves = state.GenerateTool.haveCaves,
+		biomeSelection = state[REDUCER_KEY].biomeSelection,
+		biomeSize = state[REDUCER_KEY].biomeSize,
+		haveCaves = state[REDUCER_KEY].haveCaves,
 
-		seed = state.GenerateTool.seed,
+		seed = state[REDUCER_KEY].seed,
 	}
 end
 

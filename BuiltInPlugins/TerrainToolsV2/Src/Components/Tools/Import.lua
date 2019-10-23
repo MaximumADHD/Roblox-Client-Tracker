@@ -163,7 +163,7 @@ function Import:render()
 					HeightMapValidation = self.heightMapValidated,
 					Position = position,
 					Size = size,
-					onTextEnter = self.onTextEnter,
+					OnTextEnter = self.onTextEnter,
 					LayoutOrder = 1,
 				}),
 
@@ -227,9 +227,9 @@ end
 
 local function MapStateToProps(state, props)
 	return {
-		Size = state.ImportTool.size,
-		Position = state.ImportTool.position,
-		UseColorMap = state.ImportTool.useColorMap,
+		Size = state[REDUCER_KEY].size,
+		Position = state[REDUCER_KEY].position,
+		UseColorMap = state[REDUCER_KEY].useColorMap,
 	}
 end
 

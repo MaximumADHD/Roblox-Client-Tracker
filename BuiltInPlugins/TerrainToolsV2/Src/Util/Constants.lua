@@ -35,6 +35,32 @@ local Constants = {
 		Both = "Both",
 		Grow = "Grow",
 	},
+
+	ToolId = {
+		Generate = "Generate",
+		Import = "Import",
+		SeaLevel = "SeaLevel",
+		Clear = "Clear",
+
+		Select = "Select",
+		Move = "Move",
+		Resize = "Resize",
+		Rotate = "Rotate",
+		Copy = "Copy",
+		Paste = "Paste",
+		Delete = "Delete",
+		Fill = "Fill",
+
+		Add = "Add",
+		Subtract = "Subtract",
+
+		Grow = "Grow",
+		Erode = "Erode",
+		Smooth = "Smooth",
+		Flatten = "Flatten",
+
+		Paint = "Paint",
+	}
 }
 
 

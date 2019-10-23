@@ -7,8 +7,8 @@
 	Size UDim2, used to set the size for the whole component.
 	CanSave, boolean, is the save button active
 
-	tryPublish function, callback when save button is clicked.
-	tryCancel function, callback when cancel button is clicked.
+	TryPublish function, callback when save button is clicked.
+	TryCancel function, callback when cancel button is clicked.
 
 	Optional Properties:
 	LayoutOrder number, will be checked by the layouter used inside the assetConfigFooter to
@@ -60,33 +60,33 @@ function AssetConfigFooter:render()
 			local props = self.props
 			local state = self.state
 
-			local Size = props.Size
-			local LayoutOrder = props.LayoutOrder
+			local size = props.Size
+			local layoutOrder = props.LayoutOrder
 
-			local tryPublish = props.tryPublish
-			local tryCancel = props.tryCancel
+			local tryPublish = props.TryPublish
+			local tryCancel = props.TryCancel
 
 			local footerTheme = theme.footer
 
 			local canSave = props.CanSave
 			local screenFlowType = props.screenFlowType
-			local assetTypeEnum = props.assetTypeEnum
+			local assetTypeEnum = props.AssetTypeEnum
 
 			local showOverride = ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_OVERRIDE_BUTTON)
 			local overrideText = localizedContent.AssetConfig.Footer.Override
-			if ConfigTypes:isOverride(props.currentTab) then
+			if ConfigTypes:isOverride(props.CurrentTab) then
 				overrideText = localizedContent.AssetConfig.Footer.NewAsset
 			end
 
 			return Roact.createElement("Frame", {
-				Size = Size,
+				Size = size,
 
 				BackgroundTransparency = 0,
 				BackgroundColor3 = footerTheme.backgroundColor,
 				BorderSizePixel = 1,
 				BorderColor3 = footerTheme.borderColor,
 
-				LayoutOrder = LayoutOrder,
+				LayoutOrder = layoutOrder,
 			}, {
 				UIPadding = Roact.createElement("UIPadding", {
 					PaddingBottom = UDim.new(0, 0),

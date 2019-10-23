@@ -1,7 +1,7 @@
 local Plugin = script.Parent.Parent.Parent
 
 local wrapStrictTable = require(Plugin.Core.Util.wrapStrictTable)
-local Constants = require(Plugin.Core.Util.Constants)
+local AssetConfigConstants = require(Plugin.Core.Util.AssetConfigConstants)
 
 local Images = {}
 
@@ -91,13 +91,20 @@ Images.SALES_SIDE_TAB = "rbxasset://textures/StudioToolbox/AssetConfig/creations
 Images.PERMISSIONS_SIDE_TAB = "rbxasset://textures/StudioToolbox/NoBackgroundIcon.png"
 
 Images.SELECTED_CHECK = "rbxasset://textures/StudioToolbox/AssetConfig/readyforsale@2x.png"
+Images.CLOSE_ICON = "rbxasset://textures/StudioSharedUI/close.png"
 
 Images.AssetStatus = {
-	[Constants.AssetStatus.ReviewPending] = "rbxasset://textures/StudioToolbox/AssetPreview/Pending.png",
-	[Constants.AssetStatus.Moderated] = "rbxasset://textures/StudioToolbox/AssetPreview/Rejected.png",
-	[Constants.AssetStatus.ReviewApproved] = "rbxasset://textures/StudioToolbox/AssetPreview/ReadyforSale.png",
-	[Constants.AssetStatus.OnSale] = "rbxasset://textures/StudioToolbox/AssetPreview/OnSale.png",
-	[Constants.AssetStatus.OffSale] = "rbxasset://textures/StudioToolbox/AssetPreview/OffSale.png",
+	[AssetConfigConstants.ASSET_STATUS.ReviewPending] = "rbxasset://textures/StudioToolbox/AssetPreview/Pending.png",
+	[AssetConfigConstants.ASSET_STATUS.Moderated] = "rbxasset://textures/StudioToolbox/AssetPreview/Rejected.png",
+	[AssetConfigConstants.ASSET_STATUS.ReviewApproved] = "rbxasset://textures/StudioToolbox/AssetPreview/ReadyforSale.png",
+	[AssetConfigConstants.ASSET_STATUS.OnSale] = "rbxasset://textures/StudioToolbox/AssetPreview/OnSale.png",
+	[AssetConfigConstants.ASSET_STATUS.OffSale] = "rbxasset://textures/StudioToolbox/AssetPreview/OffSale.png",
 }
+
+Images.PLUGIN_TEMP = "rbxasset://textures/StudioToolbox/AssetConfig/plugin_temp.png"
+
+Images.ARROW_SPRITESHEET = "rbxasset://textures/StudioSharedUI/arrowSpritesheet.png"
+
+Images.AVATAR_MASK = "rbxasset://textures/StudioSharedUI/avatarMask.png"
 
 return wrapStrictTable(Images)

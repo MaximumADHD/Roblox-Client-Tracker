@@ -22,13 +22,9 @@ local PromptCreator = require(CoreGuiModules:WaitForChild("PromptCreator"))
 local SocialUtil = require(CoreGuiModules:WaitForChild("SocialUtil"))
 local PlayerDropDownModule = require(CoreGuiModules:WaitForChild("PlayerDropDown"))
 
-local FFlagCoreScriptsUseLocalizationModule = settings():GetFFlag('CoreScriptsUseLocalizationModule')
 local FFlagFriendPlayerPromptUseFormatByKey = settings():GetFFlag('FriendPlayerPromptUseFormatByKey')
 
-local RobloxTranslator
-if FFlagCoreScriptsUseLocalizationModule then
-	RobloxTranslator = require(CoreGuiModules:WaitForChild("RobloxTranslator"))
-end
+local RobloxTranslator = require(CoreGuiModules:WaitForChild("RobloxTranslator"))
 
 local THUMBNAIL_URL = "https://www.roblox.com/Thumbs/Avatar.ashx?x=200&y=200&format=png&userId="
 local BUST_THUMBNAIL_URL = "https://www.roblox.com/bust-thumbnail/image?width=420&height=420&format=png&userId="
@@ -44,13 +40,7 @@ local FFlagUseNotificationsLocalization = success and result
 
 local function LocalizedGetString(key, rtv)
 	pcall(function()
-		if FFlagCoreScriptsUseLocalizationModule then
-			rtv = RobloxTranslator:FormatByKey(key)
-		else
-			local LocalizationService = game:GetService("LocalizationService")
-			local CorescriptLocalization = LocalizationService:GetCorescriptLocalizations()[1]
-			rtv = CorescriptLocalization:GetString(LocalizationService.RobloxLocaleId, key)
-		end
+		rtv = RobloxTranslator:FormatByKey(key)
 	end)
 	return rtv
 end

@@ -104,6 +104,8 @@ local function layoutGestureArea(portraitMode)
 	end
 end
 
+local IsAToolEquipped = false
+
 -- Setup gesture area that camera uses while DynamicThumbstick is enabled
 local function OnCharacterAdded(character)
 	if UserInputService.TouchEnabled then
@@ -169,6 +171,8 @@ local function GetRenderCFrame(part)
 	return part:GetRenderCFrame()
 end
 
+local DefaultZoom = nil
+
 local function CreateCamera()
 	local this = {}
 	local R15HeadHeight = R15_HEAD_OFFSET
@@ -211,6 +215,7 @@ local function CreateCamera()
 	this.RotateInput = ZERO_VECTOR2
 	this.DefaultZoom = LANDSCAPE_DEFAULT_ZOOM
 	this.activeGamepad = nil
+	this.currentZoom = nil
 	
 	local tweens = {}
 
@@ -651,6 +656,8 @@ local function CreateCamera()
 		R15HeadHeight = R15_HEAD_OFFSET*newScaleFactor
 	end
 
+	local heightScaleChangedConn = nil
+
 	local function onHumanoidSubjectChildAdded(child)
 		if child.Name == "BodyHeightScale" and child:IsA("NumberValue") then
 			if heightScaleChangedConn then
@@ -733,7 +740,7 @@ local function CreateCamera()
 		if cameraFrozen and humanoidJumpOrigin and humanoidJumpOrigin.y > lastFocus.y then
 			newFocus = CFrame.new(Vector3.new(subjectPosition.x, math.min(humanoidJumpOrigin.y, lastFocus.y + 5 * timeDelta), subjectPosition.z))
 		else
-			newFocus = CFrame.new(Vector3.new(subjectPosition.x, lastFocus.y, subjectPosition.z):lerp(subjectPosition, cameraTranslationConstraints.y))
+			newFocus = CFrame.new(Vector3.new(subjectPosition.x, lastFocus.y, subjectPosition.z):Lerp(subjectPosition, cameraTranslationConstraints.y))
 		end
 
 		if cameraFrozen then
@@ -771,6 +778,7 @@ local function CreateCamera()
 	this.ZoomEnabled = true
 	this.PanEnabled = true
 	this.KeyPanEnabled = true
+	this.GamepadPanningCamera = nil
 
 	local function OnTouchBegan(input, processed)
 		--If isDynamicThumbstickEnabled, then only process TouchBegan event if it starts in GestureArea
@@ -867,7 +875,7 @@ local function CreateCamera()
 	
 	local function calcLookBehindRotateInput(torso)
 		if torso then
-			local newDesiredLook = (torso.CFrame.lookVector - Vector3.new(0, math.sin(math.rad(DEFAULT_CAMERA_ANGLE), 0))).unit
+			local newDesiredLook = (torso.CFrame.lookVector - Vector3.new(0, math.sin(math.rad(DEFAULT_CAMERA_ANGLE)), 0)).unit
 			local horizontalShift = findAngleBetweenXZVectors(newDesiredLook, this:GetCameraLook())
 			local vertShift = math.asin(this:GetCameraLook().y) - math.asin(newDesiredLook.y)
 			if not IsFinite(horizontalShift) then

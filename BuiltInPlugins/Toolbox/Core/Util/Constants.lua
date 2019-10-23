@@ -1,9 +1,6 @@
 local Plugin = script.Parent.Parent.Parent
 
-local Cryo = require(Plugin.Libs.Cryo)
-
 local wrapStrictTable = require(Plugin.Core.Util.wrapStrictTable)
-local convertArrayToTable = require(Plugin.Core.Util.convertArrayToTable)
 local Category = require(Plugin.Core.Types.Category)
 
 local TextService = game:GetService("TextService")
@@ -14,16 +11,6 @@ local FFlagUseRBXThumbInToolbox = game:GetFastFlag("UseRBXThumbInToolbox") and s
 local Constants = {}
 
 Constants.DEFAULT_TAB = Category.MARKETPLACE_KEY
-
-Constants.AssetStatus = convertArrayToTable({
-	"Unknown",
-	"ReviewPending",
-	"Moderated",
-	"ReviewApproved",
-	"OnSale",
-	"OffSale",
-	"DelayedRelease",
-})
 
 Constants.TOOLTIP_LINE_HEIGHT = 1.3
 Constants.TOOLTIP_PADDING = 3
@@ -235,5 +222,8 @@ Constants.MAINVIEW_BUTTON_WIDTH = 28
 Constants.MAINVIEW_BUTTON_HEIGHT = 28
 
 Constants.TAB_WIDGET_HEIGHT = 36
+
+Constants.PERMISSIONS_TAB_LIST_PADDING = 35
+Constants.PERMISSIONS_UI_EDGE_PADDING = 24
 
 return wrapStrictTable(Constants, "Constants")

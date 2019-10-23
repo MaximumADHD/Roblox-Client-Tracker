@@ -88,27 +88,20 @@ local IsTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled
 local Utility = require(RobloxGui.Modules.Settings.Utility)
 local GameTranslator = require(RobloxGui.Modules.GameTranslator)
 
-local FFlagBackpackScriptUseFormatByKey = settings():GetFFlag('BackpackScriptUseFormatByKey')
 local FFlagCoreScriptTranslateGameText2 = settings():GetFFlag('CoreScriptTranslateGameText2')
 local FFlagRobloxGuiSiblingZindexs = settings():GetFFlag("RobloxGuiSiblingZindexs")
 
 local FFlagAllowBackpackBinding = game:DefineFastFlag("AllowBackpackBinding", false)
 local FFlagFixBackpackDraggingReset = game:DefineFastFlag("FixBackpackDraggingReset", false)
 
-if FFlagBackpackScriptUseFormatByKey then
-	SEARCH_TEXT_OFFSET_FROMLEFT = 3
-	local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
-	SEARCH_TEXT = RobloxTranslator:FormatByKey("BACKPACK_SEARCH")
-else
-	pcall(function()
-		local LocalizationService = game:GetService("LocalizationService")
-		local CorescriptLocalization = LocalizationService:GetCorescriptLocalizations()[1]
-		SEARCH_TEXT = CorescriptLocalization:GetString(
-			LocalizationService.RobloxLocaleId,
-			"BACKPACK_SEARCH"
-		)
-	end)
-end
+pcall(function()
+	local LocalizationService = game:GetService("LocalizationService")
+	local CorescriptLocalization = LocalizationService:GetCorescriptLocalizations()[1]
+	SEARCH_TEXT = CorescriptLocalization:GetString(
+		LocalizationService.RobloxLocaleId,
+		"BACKPACK_SEARCH"
+	)
+end)
 
 local TopbarEnabled = true
 

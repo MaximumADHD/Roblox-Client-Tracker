@@ -16,6 +16,7 @@ local Util = Plugin.Core.Util
 local ContextHelper = require(Util.ContextHelper)
 local Constants = require(Util.Constants)
 local AssetConfigConstants = require(Util.AssetConfigConstants)
+local AssetConfigUtil = require(Util.AssetConfigUtil)
 
 local withTheme = ContextHelper.withTheme
 
@@ -41,8 +42,8 @@ function ConfigGenre:render()
 		local TotalHeight = props.TotalHeight
 
 		local genres = props.genres or {}
-		local genreIndex = AssetConfigConstants.getGenreIndex(genres[1])
-		local genreTypes = AssetConfigConstants.getGenreTypes()
+		local genreIndex = AssetConfigUtil.getGenreIndex(genres[1])
+		local genreTypes = AssetConfigUtil.getGenreTypes()
 
 		local onDropDownSelect = props.onDropDownSelect
 

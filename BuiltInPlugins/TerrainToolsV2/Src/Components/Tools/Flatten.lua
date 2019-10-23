@@ -196,17 +196,17 @@ end
 
 local function MapStateToProps (state, props)
 	return {
-		baseSize = state.FlattenTool.baseSize,
-		height = state.FlattenTool.height,
-		brushShape = state.FlattenTool.brushShape,
-		strength = state.FlattenTool.strength,
-		flattenMode = state.FlattenTool.flattenMode,
-		pivot = state.FlattenTool.pivot,
-		planeLock = state.FlattenTool.planeLock,
-		planePositionY = state.FlattenTool.planePositionY,
-		heightPicker = state.FlattenTool.heightPicker,
-		snapToGrid = state.FlattenTool.snapToGrid,
-		ignoreWater = state.FlattenTool.ignoreWater,
+		baseSize = state[REDUCER_KEY].baseSize,
+		height = state[REDUCER_KEY].height,
+		brushShape = state[REDUCER_KEY].brushShape,
+		strength = state[REDUCER_KEY].strength,
+		flattenMode = state[REDUCER_KEY].flattenMode,
+		pivot = state[REDUCER_KEY].pivot,
+		planeLock = state[REDUCER_KEY].planeLock,
+		planePositionY = state[REDUCER_KEY].planePositionY,
+		heightPicker = state[REDUCER_KEY].heightPicker,
+		snapToGrid = state[REDUCER_KEY].snapToGrid,
+		ignoreWater = state[REDUCER_KEY].ignoreWater,
 	}
 end
 

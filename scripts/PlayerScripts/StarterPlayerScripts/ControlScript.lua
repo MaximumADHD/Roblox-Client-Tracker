@@ -105,7 +105,6 @@ local DynamicThumbstickModule = require(script.MasterControl:WaitForChild('Dynam
 local ThumbstickModule = require(script.MasterControl:WaitForChild('Thumbstick'))
 local ThumbpadModule = require(script.MasterControl:WaitForChild('Thumbpad'))
 local DPadModule = require(script.MasterControl:WaitForChild('DPad'))
-local DefaultModule = ControlModules.Thumbstick
 local TouchJumpModule = require(script.MasterControl:WaitForChild('TouchJump'))
 local ClickToMoveModule = require(script.MasterControl:WaitForChild('ClickToMoveController'))
 

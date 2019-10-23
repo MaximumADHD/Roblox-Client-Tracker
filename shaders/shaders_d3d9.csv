@@ -106,6 +106,7 @@ ShadowBlurFS,Fragment
 ShadowBlurMarkFS,Fragment
 ShadowBlurMarkVS,Vertex
 SkyFS,Fragment
+SkyFSLinear,Fragment
 SkyNoTranslateVS,Vertex
 SkyVS,Vertex
 SmoothClusterColoredFS,Fragment
@@ -114,6 +115,7 @@ SmoothClusterFS,Fragment
 SmoothClusterVS,Vertex
 SmoothWaterFS,Fragment
 SmoothWaterVS,Vertex
+SRGBToLinearFS,Fragment
 SSAOCompositFS,Fragment
 SSAOCompositVS,Vertex
 SSAOVS,Vertex

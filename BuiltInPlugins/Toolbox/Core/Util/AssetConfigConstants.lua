@@ -1,9 +1,6 @@
 local Plugin = script.Parent.Parent.Parent
 
 local Util = Plugin.Core.Util
-local getUserId = require(Util.getUserId)
-local DebugFlags = require(Util.DebugFlags)
-local wrapStrictTable = require(Util.wrapStrictTable)
 local convertArrayToTable = require(Util.convertArrayToTable)
 
 local Libs = Plugin.Libs
@@ -23,6 +20,12 @@ AssetConfigConstants.GetOverrideAssetNumbersPerPage = 100
 AssetConfigConstants.TITLE_GUTTER_WIDTH = 180
 
 AssetConfigConstants.OverrideAssetItemSize = UDim2.new(0, 150, 0, 200)
+
+AssetConfigConstants.PreviewTypes = convertArrayToTable({
+	"ImagePicker",
+	"Thumbnail",
+	"ModelPreview",
+})
 
 AssetConfigConstants.SIDE_TABS = convertArrayToTable({
 	"Sales",
@@ -64,7 +67,21 @@ AssetConfigConstants.SCREENS = convertArrayToTable({
 	"UPLOAD_ASSET_RESULT",
 })
 
-local catalogAssetTypes = convertArrayToTable({
+AssetConfigConstants.ASSET_STATUS = convertArrayToTable({
+	"Unknown",
+	"ReviewPending",
+	"Moderated",
+	"ReviewApproved",
+	"OnSale",
+	"OffSale",
+	"DelayedRelease",
+})
+
+AssetConfigConstants.SALES_STATUS_FOR_PRICE = convertArrayToTable({
+	"OnSale",
+})
+
+AssetConfigConstants.catalogAssetTypes = convertArrayToTable({
 	Enum.AssetType.Hat,
 	Enum.AssetType.TeeShirt,
 	Enum.AssetType.Shirt,
@@ -72,7 +89,7 @@ local catalogAssetTypes = convertArrayToTable({
 })
 
 if game:GetFastFlag("CMSAdditionalAccessoryTypesV2") then
-	catalogAssetTypes = Cryo.Dictionary.join(catalogAssetTypes, convertArrayToTable({
+	AssetConfigConstants.catalogAssetTypes = Cryo.Dictionary.join(AssetConfigConstants.catalogAssetTypes, convertArrayToTable({
 		Enum.AssetType.HairAccessory,
 		Enum.AssetType.FaceAccessory,
 		Enum.AssetType.NeckAccessory,
@@ -84,7 +101,7 @@ if game:GetFastFlag("CMSAdditionalAccessoryTypesV2") then
 end
 
 if game:GetFastFlag("CMSAdditionalAccessoryTypesV2") then
-	local ASSET_TYPE_LIST = {
+	AssetConfigConstants.ASSET_TYPE_LIST = {
 		Enum.AssetType.Hat,
 		Enum.AssetType.HairAccessory,
 		Enum.AssetType.FaceAccessory,
@@ -94,19 +111,9 @@ if game:GetFastFlag("CMSAdditionalAccessoryTypesV2") then
 		Enum.AssetType.BackAccessory,
 		Enum.AssetType.WaistAccessory,
 	}
-
-	function AssetConfigConstants.getAllowedAssetTypeEnums(allowedAssetTypesForRelease)
-		local result = {}
-		for _, assetTypeEnum in pairs(ASSET_TYPE_LIST) do
-			if allowedAssetTypesForRelease[assetTypeEnum.Name] ~= nil then
-				result[#result + 1] = assetTypeEnum
-			end
-		end
-		return result
-	end
 end
 
-local marketplaceAssetTypes = convertArrayToTable({
+AssetConfigConstants.marketplaceAssetTypes = convertArrayToTable({
 	Enum.AssetType.Model,
 	Enum.AssetType.Decal,
 	Enum.AssetType.Mesh,
@@ -115,84 +122,8 @@ local marketplaceAssetTypes = convertArrayToTable({
 	Enum.AssetType.Plugin,
 })
 
-local marketplaceBuyableAsset = convertArrayToTable({
+AssetConfigConstants.marketplaceBuyableAsset = convertArrayToTable({
 	Enum.AssetType.Plugin,
 })
 
-local function checkData(assetTypeEnum)
-	if DebugFlags.shouldDebugWarnings() then
-		local isAssetTypeBothCatalogAndMarketplace = catalogAssetTypes[assetTypeEnum] and marketplaceAssetTypes[assetTypeEnum]
-		if isAssetTypeBothCatalogAndMarketplace then
-			warn("Lua CMS: " .. tostring(assetTypeEnum) .. " cannot be both a catalog and marketplace asset")
-		end
-	end
-end
-
-function AssetConfigConstants.isCatalogAsset(assetTypeEnum)
-	checkData(assetTypeEnum)
-	return catalogAssetTypes[assetTypeEnum] and true or false
-end
-
-function AssetConfigConstants.isMarketplaceAsset(assetTypeEnum)
-	checkData(assetTypeEnum)
-	return marketplaceAssetTypes[assetTypeEnum] and true or false
-end
-
-function AssetConfigConstants.isBuyableMarketplaceAsset(assetTypeEnum)
-	checkData(assetTypeEnum)
-	return marketplaceBuyableAsset[assetTypeEnum] and true or false
-end
-
-function AssetConfigConstants.getFlowStartScreen(flowType)
-	if flowType == AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW then
-		return AssetConfigConstants.SCREENS.ASSET_TYPE_SELECTION
-	elseif flowType == AssetConfigConstants.FLOW_TYPE.EDIT_FLOW then
-		return AssetConfigConstants.SCREENS.CONFIGURE_ASSET
-	end
-end
-
-function AssetConfigConstants.getGenreTypes()
-	return AssetConfigConstants.GENRE_TYPE
-end
-
-function AssetConfigConstants.getGenreIndex(targetGnere)
-	local index = 1
-	for k,v in pairs(AssetConfigConstants.GENRE_TYPE) do
-		if targetGnere == v.name then
-			index = k
-			break
-		end
-	end
-	return index
-end
-
-function AssetConfigConstants.getGenreName(genreIndex)
-	if genreIndex > #AssetConfigConstants.GENRE_TYPE then
-		genreIndex = 1
-	end
-	return AssetConfigConstants.GENRE_TYPE[genreIndex].name
-end
-
-function AssetConfigConstants.isEditAssetScreen(currentScreen)
-	return AssetConfigConstants.SCREENS.EDIT_ASSET == currentScreen
-end
-
-function AssetConfigConstants.getOwnerDropDownContent(groupsArray, localizedContent)
-	local result = {
-		{name = localizedContent.AssetConfig.PublishAsset.Me, creatorType = "User", creatorId = getUserId()}
-	}
-
-	for index, groupData in pairs(groupsArray) do
-		local newDropDownitem = {
-			name = groupData.group.name,
-			creatorType = "Group",
-			creatorId = groupData.group.id,
-			item = groupData
-		}
-		table.insert(result, newDropDownitem)
-	end
-	return result
-end
-
--- TODO: Remove this, making stuff harder to use already
-return wrapStrictTable(AssetConfigConstants, "AssetConfigConstants")
+return AssetConfigConstants

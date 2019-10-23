@@ -21,6 +21,7 @@ local Constants = require(Util.Constants)
 local AssetConfigConstants = require(Util.AssetConfigConstants)
 local ContextHelper = require(Util.ContextHelper)
 local Urls = require(Util.Urls)
+local AssetConfigUtil = require(Util.AssetConfigUtil)
 
 local withTheme = ContextHelper.withTheme
 
@@ -65,7 +66,7 @@ local function getResultUrl(flowType, assetId, assetName, assetTypeEnum)
 	if flowType == AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW then
 		-- When we upload asset, depending on the assetType, it could go
 		-- to catalog or marketplace.
-		if AssetConfigConstants.isCatalogAsset(assetTypeEnum) then
+		if AssetConfigUtil.isCatalogAsset(assetTypeEnum) then
 			url = ContentProvider.BaseUrl .. "catalog/" .. assetId
 		else
 			local baseUrl = ContentProvider.BaseUrl
@@ -73,7 +74,7 @@ local function getResultUrl(flowType, assetId, assetName, assetTypeEnum)
 			url = string.format("%slibrary/%s/%s", baseUrl, HttpService:urlEncode(assetId), "NewAsset")
 		end
 	else -- Defualt to edit flow
-		if AssetConfigConstants.isCatalogAsset(assetTypeEnum) then
+		if AssetConfigUtil.isCatalogAsset(assetTypeEnum) then
 			url = ContentProvider.BaseUrl .. "catalog/" .. assetId
 		else
 			-- TODO: In edit flow, the assetName should be the same with current name.

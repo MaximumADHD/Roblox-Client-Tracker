@@ -160,11 +160,11 @@ function PublishAsset:render()
 			local allowedAssetTypesForRelease = props.allowedAssetTypesForRelease
 			local newAssetStatus = props.newAssetStatus
 			local currentAssetStatus = props.currentAssetStatus
-			if AssetConfigConstants.isCatalogAsset(assetTypeEnum) then
+			if AssetConfigUtil.isCatalogAsset(assetTypeEnum) then
 				canChangeSalesStatus = AssetConfigUtil.isReadyForSale(newAssetStatus)
 			else -- For everything else, we check the allowed list to toggle the sales status
 				-- For first release, we support only plugin. So, we check only plugin.
-				canChangeSalesStatus = allowedAssetTypesForRelease.Plugin and true or false
+				canChangeSalesStatus = AssetConfigUtil.isBuyableMarketplaceAsset(assetTypeEnum) and true or false
 			end
 
 			local orderIterator = LayoutOrderIterator.new()
@@ -305,28 +305,28 @@ function PublishAsset:render()
 				}),
 
 				Sale = displaySale and Roact.createElement(SalesComponent, {
-					title = localizedContent.Sales.Sale,
+					Title = localizedContent.Sales.Sale,
 
-					newAssetStatus = newAssetStatus,
-					currentAssetStatus = currentAssetStatus,
-					onStatusChange = onStatusChange,
-					canChangeSalesStatus = canChangeSalesStatus,
+					NewAssetStatus = newAssetStatus,
+					CurrentAssetStatus = currentAssetStatus,
+					OnStatusChange = onStatusChange,
+					CanChangeSalesStatus = canChangeSalesStatus,
 
-					layoutOrder = orderIterator:getNextOrder(),
+					LayoutOrder = orderIterator:getNextOrder(),
 				}),
 
 				Price = displayPrice and Roact.createElement(PriceComponent, {
-					assetTypeEnum = assetTypeEnum,
-					allowedAssetTypesForRelease = allowedAssetTypesForRelease,
-					newAssetStatus = newAssetStatus,
-					onPriceChange = onPriceChange,
-					isPriceValid = isPriceValid,
+					AssetTypeEnum = assetTypeEnum,
+					AllowedAssetTypesForRelease = allowedAssetTypesForRelease,
+					NewAssetStatus = newAssetStatus,
+					OnPriceChange = onPriceChange,
+					IsPriceValid = isPriceValid,
 
-					price = price,
-					minPrice = minPrice,
-					maxPrice = maxPrice,
+					Price = price,
+					MinPrice = minPrice,
+					MaxPrice = maxPrice,
 
-					layoutOrder = orderIterator:getNextOrder(),
+					LayoutOrder = orderIterator:getNextOrder(),
 				})
 			})
 		end)

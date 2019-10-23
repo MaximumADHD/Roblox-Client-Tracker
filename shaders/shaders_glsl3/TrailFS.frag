@@ -24,6 +24,11 @@ struct Globals
     vec4 ShadowMatrix2;
     vec4 RefractionBias_FadeDistance_GlowFactor_SpecMul;
     vec4 OutlineBrightness_ShadowInfo;
+    vec4 SkyGradientTop_EnvDiffuse;
+    vec4 SkyGradientBottom_EnvSpec;
+    vec3 AmbientColorNoIBL;
+    vec3 SkyAmbientNoIBL;
+    vec4 AmbientCube[12];
     vec4 CascadeSphere0;
     vec4 CascadeSphere1;
     vec4 CascadeSphere2;
@@ -43,18 +48,18 @@ struct TrailParams
     vec4 Params;
 };
 
-uniform vec4 CB0[31];
+uniform vec4 CB0[47];
 uniform vec4 CB1[1];
 uniform sampler2D texTexture;
 
-in vec3 VARYING0;
+in vec2 VARYING0;
 in vec4 VARYING1;
 in vec3 VARYING2;
 out vec4 _entryPointOutput;
 
 void main()
 {
-    vec4 f0 = texture(texTexture, VARYING0.xy);
+    vec4 f0 = texture(texTexture, VARYING0);
     vec3 f1 = (f0.xyz * VARYING1.xyz).xyz;
     float f2 = VARYING1.w * f0.w;
     vec3 f3 = mix(CB0[14].xyz, sqrt(clamp((f1 * f1).xyz * CB0[15].y, vec3(0.0), vec3(1.0))).xyz, vec3(clamp((CB0[13].x * length(VARYING2)) + CB0[13].y, 0.0, 1.0))).xyz * f2;

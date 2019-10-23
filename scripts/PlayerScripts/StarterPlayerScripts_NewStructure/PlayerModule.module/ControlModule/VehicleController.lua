@@ -21,9 +21,6 @@ local betterHandlingInputStatesFlagExists, betterHandlingInputStatesFlagEnabled 
 end)
 local FFlagBetterHandlingVehicleInputStates = betterHandlingInputStatesFlagExists and betterHandlingInputStatesFlagEnabled
 
-local FFlagUserClickToMoveFollowPathRefactorSuccess, FFlagUserClickToMoveFollowPathRefactorResult = pcall(function() return UserSettings():IsUserFeatureEnabled("UserClickToMoveFollowPathRefactor") end)
-local FFlagUserClickToMoveFollowPathRefactor = FFlagUserClickToMoveFollowPathRefactorSuccess and FFlagUserClickToMoveFollowPathRefactorResult
-
 local AUTO_PILOT_DEFAULT_MAX_STEERING_ANGLE = 35
 
 
@@ -88,10 +85,7 @@ function VehicleController:Enable(enable, vehicleSeat)
 		if vehicleSeat then
 			self.vehicleSeat = vehicleSeat
 
-			if FFlagUserClickToMoveFollowPathRefactor then
-				self:SetupAutoPilot()
-			end
-
+			self:SetupAutoPilot()
 			self:BindContextActions()
 		end
 	else

@@ -48,6 +48,13 @@ local ChatLocalization = nil
 pcall(function() ChatLocalization = require(game:GetService("Chat").ClientChatModules.ChatLocalization) end)
 if ChatLocalization == nil then ChatLocalization = {} function ChatLocalization:Get(key,default) return default end end
 
+local FFlagUserChatNewMessageLengthCheck do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserChatNewMessageLengthCheck")
+	end)
+	FFlagUserChatNewMessageLengthCheck = success and result
+end
+
 local numChildrenRemaining = 10 -- #waitChildren returns 0 because it's a dictionary
 local waitChildren =
 {
@@ -380,7 +387,7 @@ if not FFlagFixMouseCapture then
 				local windowPos = ChatWindow.GuiObject.AbsolutePosition
 				local windowSize = ChatWindow.GuiObject.AbsoluteSize
 				local screenSize = GuiParent.AbsoluteSize
-	
+
 				local centerScreenIsInWindow = CheckIfPointIsInSquare(screenSize/2, windowPos, windowPos + windowSize)
 				if centerScreenIsInWindow then
 					UserInputService.MouseBehavior = Enum.MouseBehavior.Default
@@ -676,7 +683,9 @@ function chatBarFocusLost(enterPressed, inputObject)
 			end
 		end
 
-		message = string.sub(message, 1, ChatSettings.MaximumMessageLength)
+		if not FFlagUserChatNewMessageLengthCheck then
+			message = string.sub(message, 1, ChatSettings.MaximumMessageLength)
+		end
 
 		ChatBar:GetTextBox().Text = ""
 

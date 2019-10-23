@@ -1,3 +1,5 @@
+local FFlagLuaPackagePermissions =  settings():GetFFlag("LuaPackagePermissions")
+
 local Plugin = script.Parent.Parent.Parent
 
 local Util = Plugin.Core.Util
@@ -46,10 +48,10 @@ function ConfigTypes:getAssetconfigContent(screenFlowType, assetTypeEnum)
 	}
 
 	-- FIXME(mwang) need to verify that Asset is a Package to show Permissions.
-	if game:GetFastFlag("StudioMovePkgPermsToAssetConfig") then
-		if ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_PERMISSIONS) then 
+	if FFlagLuaPackagePermissions then
+		-- if ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_PERMISSIONS_TAB) then
 			result[#result + 1] = PERMISSIONS
-		end
+		-- end
 	end
 
 	-- Versions History is only accessible to models, so we only try to show the Versions if it's a model.
@@ -86,6 +88,10 @@ end
 
 function ConfigTypes:isOverride(item)
 	return item == OVERRIDE
+end
+
+function ConfigTypes:isPermissions(item)
+	return item == PERMISSIONS
 end
 
 function ConfigTypes:getOverrideTab()

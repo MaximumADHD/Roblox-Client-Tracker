@@ -412,8 +412,6 @@
             icon=":/images/RibbonIcons/Terrain/icon_terrain_big.png"
             height="32"
             width="32"/>
-        <!-- TODO(mmcdonnell 8/114/2019): Remove toggleSandboxCppDockAction with SandboxWidgetMockup (C++ widget). See CLISTUDIO-19603 -->
-        <addaction name="toggleSandboxCppDockAction" style="textbesideicon" tooltip="Studio.App.RBXMainWindow.ViewSandboxCpp" height="32" width="32" fflag="DebugStudioSandboxControllerMockup"/>
         <addaction name="toggleDraftsDockAction" style="textbesideicon" text="Studio.App.RBXMainWindow.Drafts" tooltip="Studio.App.RBXMainWindow.ViewDrafts" icon=":/RibbonBar/images/RibbonIcons/View/Drafts.png" width="32" height="32" ischeckable="true" fflag="StudioShipCollaborativeEditingV0"/>
       </Group>
       <Group name="Actions" text="Studio.App.RobloxRibbonMainWindow.Actions">

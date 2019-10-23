@@ -204,6 +204,8 @@ do
 		end
 	end
 
+	local stateUpdated
+
 	-- Table of Enum.HumanoidStateType to handling function
 	local stateUpdateHandler = {
 		[Enum.HumanoidStateType.Dead] = function()

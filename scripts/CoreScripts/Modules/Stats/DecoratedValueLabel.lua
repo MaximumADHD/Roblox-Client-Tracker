@@ -9,22 +9,12 @@ local CoreGuiService = game:GetService('CoreGui')
 
 local StatsUtils = require(CoreGuiService.RobloxGui.Modules.Stats.StatsUtils)
 
-local RobloxTranslator
-local FFlagCoreScriptsUseLocalizationModule = settings():GetFFlag('CoreScriptsUseLocalizationModule')
-if FFlagCoreScriptsUseLocalizationModule then
-  RobloxTranslator = require(CoreGuiService.RobloxGui.Modules.RobloxTranslator)
-end
+local RobloxTranslator = require(CoreGuiService.RobloxGui.Modules.RobloxTranslator)
 
 function LocalizedGetKey(key)
   local rtv = key
   pcall(function()
-    if FFlagCoreScriptsUseLocalizationModule then
       rtv = RobloxTranslator:FormatByKey(key)
-    else
-      local LocalizationService = game:GetService("LocalizationService")
-      local CorescriptLocalization = LocalizationService:GetCorescriptLocalizations()[1]
-      rtv = CorescriptLocalization:GetString(LocalizationService.RobloxLocaleId, key)
-    end
   end)
 
   return rtv

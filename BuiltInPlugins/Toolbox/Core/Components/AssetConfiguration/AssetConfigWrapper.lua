@@ -99,7 +99,7 @@ function AssetConfigWrapper:render()
 				}, {
 					UILibraryWrapper = Roact.createElement(UILibraryWrapper, {
 						theme = theme:getUILibraryTheme(),
-						pluginGui = state.popUpGui
+						focusGui = state.popUpGui,
 					}, {
 						LocalizationProvider = Roact.createElement(LocalizationProvider, {
 							localization = localization

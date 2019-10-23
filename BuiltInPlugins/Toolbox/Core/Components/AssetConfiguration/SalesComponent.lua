@@ -3,8 +3,8 @@
 
 	Necessary props:
 		title, string, used to set the title for the sales componnent.
-		newAssetStatus, string, from Constants.AssetStatus (what the status for the asset will be in the back-end after we save the changes on this widget)
-		currentAssetStatus, string, from Constants.AssetStatus (what the current status for the asset is in the back-end)
+		newAssetStatus, string, from AssetConfigConstants.ASSET_STATUS (what the status for the asset will be in the back-end after we save the changes on this widget)
+		currentAssetStatus, string, from AssetConfigConstants.ASSET_STATUS (what the current status for the asset is in the back-end)
 		canChangeSalesStatus, bool, will be used to determine if the toggle button for sale is enabled or disabled.
 
 		onStatusChange, function, sales status has changed
@@ -27,6 +27,7 @@ local ContextHelper = require(Util.ContextHelper)
 local LayoutOrderIterator = require(Util.LayoutOrderIterator)
 local Constants = require(Util.Constants)
 local AssetConfigUtil = require(Util.AssetConfigUtil)
+local AssetConfigConstants = require(Util.AssetConfigConstants)
 
 local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
@@ -39,14 +40,14 @@ local SalesComponent = Roact.PureComponent:extend("SalesComponent")
 function SalesComponent:init(props)
 	self.onToggle = function()
 		local props = self.props
-		local canChangeSalesStatus = props.canChangeSalesStatus
-		local newAssetStatus = props.newAssetStatus
-		local currentAssetStatus = props.currentAssetStatus
-		local onStatusChange = props.onStatusChange
+		local canChangeSalesStatus = props.CanChangeSalesStatus
+		local newAssetStatus = props.NewAssetStatus
+		local currentAssetStatus = props.CurrentAssetStatus
+		local onStatusChange = props.OnStatusChange
 
 		if canChangeSalesStatus then
-			local onSaleStatus = AssetConfigUtil.isOnSale(currentAssetStatus) and currentAssetStatus or Constants.AssetStatus.OnSale
-			local offSaleStatus = not AssetConfigUtil.isOnSale(currentAssetStatus) and currentAssetStatus or Constants.AssetStatus.OffSale -- this allows us to return to the exact status in the back-end
+			local onSaleStatus = AssetConfigUtil.isOnSale(currentAssetStatus) and currentAssetStatus or AssetConfigConstants.ASSET_STATUS.OnSale
+			local offSaleStatus = not AssetConfigUtil.isOnSale(currentAssetStatus) and currentAssetStatus or AssetConfigConstants.ASSET_STATUS.OffSale -- this allows us to return to the exact status in the back-end
 
 			local newStatus = AssetConfigUtil.isOnSale(newAssetStatus) and offSaleStatus or onSaleStatus
 			onStatusChange(newStatus)
@@ -59,14 +60,14 @@ function SalesComponent:render(order)
 		return withLocalization(function(_, localizedContent)
 			local props = self.props
 
-			local title = props.title
-			local newAssetStatus = props.newAssetStatus
-			local currentAssetStatus = props.currentAssetStatus
+			local title = props.Title
+			local newAssetStatus = props.NewAssetStatus
+			local currentAssetStatus = props.CurrentAssetStatus
 
 			local subText = AssetConfigUtil.getSubText(newAssetStatus, currentAssetStatus, localizedContent)
-			local canChangeSalesStatus = props.canChangeSalesStatus
+			local canChangeSalesStatus = props.CanChangeSalesStatus
 
-			local layoutOrder = props.layoutOrder
+			local layoutOrder = props.LayoutOrder
 			local orderIterator = LayoutOrderIterator.new()
 
 			local assetConfigTheme = theme.assetConfig

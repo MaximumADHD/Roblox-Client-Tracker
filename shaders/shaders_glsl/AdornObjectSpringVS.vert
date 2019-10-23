@@ -24,6 +24,11 @@ struct Globals
     vec4 ShadowMatrix2;
     vec4 RefractionBias_FadeDistance_GlowFactor_SpecMul;
     vec4 OutlineBrightness_ShadowInfo;
+    vec4 SkyGradientTop_EnvDiffuse;
+    vec4 SkyGradientBottom_EnvSpec;
+    vec3 AmbientColorNoIBL;
+    vec3 SkyAmbientNoIBL;
+    vec4 AmbientCube[12];
     vec4 CascadeSphere0;
     vec4 CascadeSphere1;
     vec4 CascadeSphere2;
@@ -45,14 +50,14 @@ struct AdornParams
     vec4 Params;
 };
 
-uniform vec4 CB0[31];
+uniform vec4 CB0[47];
 uniform vec4 CB1[6];
 attribute vec4 POSITION;
 attribute vec2 TEXCOORD0;
 varying vec2 VARYING0;
 varying vec4 VARYING1;
 varying vec3 VARYING2;
-varying vec4 VARYING3;
+varying vec3 VARYING3;
 varying vec3 VARYING4;
 
 void main()
@@ -73,7 +78,7 @@ void main()
     VARYING0 = TEXCOORD0;
     VARYING1 = CB1[4];
     VARYING2 = (CB0[10].xyz * clamp(v11, 0.0, 1.0)) + (CB0[12].xyz * clamp(-v11, 0.0, 1.0));
-    VARYING3 = vec4(((v9 + (v10 * 6.0)).yxz * CB0[16].xyz) + CB0[17].xyz, 0.0);
+    VARYING3 = ((v9 + (v10 * 6.0)).yxz * CB0[16].xyz) + CB0[17].xyz;
     VARYING4 = CB0[7].xyz - v9;
 }
 

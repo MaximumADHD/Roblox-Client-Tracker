@@ -1,20 +1,20 @@
 local FFlagUserDTDoesNotForceAutoJump do
 	local success, result = pcall(function()
-		return UserSettings:GetUserFeatureEnabled("UserDTDoesNotForceAutoJump")
+		return UserSettings():IsUserFeatureEnabled("UserDTDoesNotForceAutoJump")
 	end)
 	FFlagUserDTDoesNotForceAutoJump = success and result
 end
 
 local FFlagUserDTDoesNotTrackTools do
 	local success, result = pcall(function()
-		return UserSettings:GetUserFeatureEnabled("UserDTDoesNotTrackTools")
+		return UserSettings():IsUserFeatureEnabled("UserDTDoesNotTrackTools")
 	end)
 	FFlagUserDTDoesNotTrackTools = success and result
 end
 
 local FFlagUserDTFastInit do
 	local success, result = pcall(function()
-		return UserSettings:GetUserFeatureEnabled("UserDTFastInit")
+		return UserSettings():IsUserFeatureEnabled("UserDTFastInit")
 	end)
 	FFlagUserDTFastInit = success and result
 end

@@ -392,12 +392,12 @@ function Localization:_recalculateContent()
 		},
 
 		Status = {
-			[Constants.AssetStatus.ReviewPending] = self:_safeLocalize("Studio.Toolbox.General.StatusReviewPending"),
-			[Constants.AssetStatus.Moderated] = self:_safeLocalize("Studio.Toolbox.General.StatusModerated"),
-			[Constants.AssetStatus.ReviewApproved] = self:_safeLocalize("Studio.Toolbox.General.StatusReviewApproved"),
-			[Constants.AssetStatus.OnSale] = self:_safeLocalize("Studio.Toolbox.General.StatusOnSale"),
-			[Constants.AssetStatus.OffSale] = self:_safeLocalize("Studio.Toolbox.General.StatusOffSale"),
-			[Constants.AssetStatus.DelayedRelease] = self:_safeLocalize("Studio.Toolbox.General.StatusDelayedRelease"),
+			[AssetConfigConstants.ASSET_STATUS.ReviewPending] = self:_safeLocalize("Studio.Toolbox.General.StatusReviewPending"),
+			[AssetConfigConstants.ASSET_STATUS.Moderated] = self:_safeLocalize("Studio.Toolbox.General.StatusModerated"),
+			[AssetConfigConstants.ASSET_STATUS.ReviewApproved] = self:_safeLocalize("Studio.Toolbox.General.StatusReviewApproved"),
+			[AssetConfigConstants.ASSET_STATUS.OnSale] = self:_safeLocalize("Studio.Toolbox.General.StatusOnSale"),
+			[AssetConfigConstants.ASSET_STATUS.OffSale] = self:_safeLocalize("Studio.Toolbox.General.StatusOffSale"),
+			[AssetConfigConstants.ASSET_STATUS.DelayedRelease] = self:_safeLocalize("Studio.Toolbox.General.StatusDelayedRelease"),
 		},
 
 		Sales = {
@@ -409,6 +409,14 @@ function Localization:_recalculateContent()
 			ItemCannotBeSold = self:_safeLocalize("Studio.Toolbox.General.SalesItemCannotBeSold"),
 			Price = self:_safeLocalize("Studio.Toolbox.General.SalesPrice"),
 			ServiceFee = self:_safeLocalize("Studio.Toolbox.General.SalesServiceFee"),
+		},
+
+		PackagePermissions = {
+			PackageOwner = self:_safeLocalize("Studio.Toolbox.AssetConfigPackagePermissions.PackageOwner"),
+			Owner = self:_safeLocalize("Studio.Toolbox.AssetConfigPackagePermissions.Owner"),
+			SearchByUser = self:_safeLocalize("Studio.Toolbox.AssetConfigPackagePermissions.SearchByUser"),
+			NoResults = self:_safeLocalize("Studio.Toolbox.AssetConfigPackagePermissions.NoResults"),
+			ShareWith = self:_safeLocalize("Studio.Toolbox.AssetConfigPackagePermissions.ShareWith"),
 		},
 
 		AssetConfig = {
@@ -443,9 +451,13 @@ function Localization:_recalculateContent()
 				},
 			},
 
+			PreviewArea ={
+				PreviewLabel = self:_safeLocalize("Studio.Toolbox.AssetConfigPreview.Preview"),
+			},
+
 			Footer = {
 				Override = self:_safeLocalize("Studio.Toolbox.AssetConfigFooter.Override"),
-				NewAsset = self:_safeLocalize("Studio.Toolbox.AssetConfigFooter.NewAsset")
+				NewAsset = self:_safeLocalize("Studio.Toolbox.AssetConfigFooter.NewAsset"),
 			},
 
 			Override = {
@@ -454,7 +466,7 @@ function Localization:_recalculateContent()
 
 			VersionsHistory = {
 				Current = self:_safeLocalize("Studio.Toolbox.AssetConfigVersions.Current"),
-				Restore = self:_safeLocalize("Studio.Toolbox.AssetConfigVersions.Restore")
+				Restore = self:_safeLocalize("Studio.Toolbox.AssetConfigVersions.Restore"),
 			},
 
 			SideTabs = {

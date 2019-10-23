@@ -86,25 +86,23 @@ function Manager:render()
 			Size = UDim2.new(1, 0, 1, 0),
 			BackgroundColor3 = theme.backgroundColor,
 		}, {
-			Roact.createElement("UIListLayout", {
+			UILayout = Roact.createElement("UIListLayout", {
 				Padding = UDim.new(0, 14),
 				SortOrder = Enum.SortOrder.LayoutOrder
 			}),
-			-- Tabs
-			Roact.createElement("Frame", {
+
+			Tabs = Roact.createElement("Frame", {
 				Size = UDim2.new(1, 0, 0, 29),
 				BackgroundTransparency = 1,
 				LayoutOrder = 1,
 			}, createTabs(self.props)),
 
-			-- Tools
-			Roact.createElement(ToolManager, {
+			ToolBar = Roact.createElement(ToolManager, {
 				CurrentTab = currentTab,
 				LayoutOrder = 2,
 			}),
 
-			-- ToolComponents
-			Roact.createElement(ToolRenderer, {
+			ToolPanel = Roact.createElement(ToolRenderer, {
 				LayoutOrder = 3,
 			}),
 		})

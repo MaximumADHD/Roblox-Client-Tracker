@@ -15,6 +15,7 @@ local GET_ASSETS_CREATION_DETAILS = Url.ITEM_CONFIGURATION_URL .. "v1/creations/
 local GET_CREATOR_NAME = Url.API_URL .. "users/%d"
 local GET_METADATA = Url.ITEM_CONFIGURATION_URL .. "v1/metadata"
 local GET_UPLOAD_CATALOG_ITEM = Url.PUBLISH_URL .. "v1/assets/upload"
+local POST_UPLOAD_ASSET_THUMBNAIL =  Url.PUBLISH_URL .. "v1/assets/%d/thumbnail"
 local GET_CONFIG_CATALOG_ITEM = Url.DEVELOP_URL .. "v1/assets/%d"
 local GET_CONFIGURE_SALES = Url.ITEM_CONFIGURATION_URL .. "v1/assets/%d/release"
 local GET_UPDATE_SALES = Url.ITEM_CONFIGURATION_URL .. "v1/assets/%d/update-price"
@@ -119,6 +120,10 @@ end
 
 function Urls.constructUploadCatalogItemUrl()
 	return GET_UPLOAD_CATALOG_ITEM
+end
+
+function Urls.constructUploadAssetThumbnailUrl(assetId)
+	return POST_UPLOAD_ASSET_THUMBNAIL:format(assetId)
 end
 
 function Urls.constructConfigureSalesUrl(assetId)

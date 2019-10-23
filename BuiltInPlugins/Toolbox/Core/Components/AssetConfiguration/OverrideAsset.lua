@@ -27,9 +27,8 @@ local DropdownMenu = require(Plugin.Core.Components.DropdownMenu)
 local Util = Plugin.Core.Util
 local ContextHelper = require(Util.ContextHelper)
 local ContextGetter = require(Util.ContextGetter)
-local AssetConfigConstants =require(Util.AssetConfigConstants)
 local Constants = require(Util.Constants)
-
+local AssetConfigUtil = require(Util.AssetConfigUtil)
 local getUserId = require(Util.getUserId)
 
 local withTheme = ContextHelper.withTheme
@@ -99,7 +98,7 @@ function OverrideAsset:render()
 
 			local selectIndex = state.selectIndex
 
-			self.dropdownContent = AssetConfigConstants.getOwnerDropDownContent(props.groupsArray, localizedContent)
+			self.dropdownContent = AssetConfigUtil.getOwnerDropDownContent(props.groupsArray, localizedContent)
 
 			return Roact.createElement("Frame", {
 				Size = Size,

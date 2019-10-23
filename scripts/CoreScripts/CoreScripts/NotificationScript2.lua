@@ -32,23 +32,13 @@ local GameSettings = Settings.GameSettings
 local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
 local FFlagUseNotificationsLocalization = success and result
 
-local FFlagCoreScriptsUseLocalizationModule = settings():GetFFlag('CoreScriptsUseLocalizationModule')
 local FFlagNotificationScript2UseFormatByKey = settings():GetFFlag('NotificationScript2UseFormatByKey')
 
-local RobloxTranslator
-if FFlagCoreScriptsUseLocalizationModule then
-	RobloxTranslator = require(RobloxGui:WaitForChild("Modules"):WaitForChild("RobloxTranslator"))
-end
+local RobloxTranslator = require(RobloxGui:WaitForChild("Modules"):WaitForChild("RobloxTranslator"))
 
 local function LocalizedGetString(key, rtv)
 	pcall(function()
-		if FFlagCoreScriptsUseLocalizationModule then
-			rtv = RobloxTranslator:FormatByKey(key)
-		else
-			local LocalizationService = game:GetService("LocalizationService")
-			local CorescriptLocalization = LocalizationService:GetCorescriptLocalizations()[1]
-			rtv = CorescriptLocalization:GetString(LocalizationService.RobloxLocaleId, key)
-		end
+		rtv = RobloxTranslator:FormatByKey(key)
 	end)
 	return rtv
 end

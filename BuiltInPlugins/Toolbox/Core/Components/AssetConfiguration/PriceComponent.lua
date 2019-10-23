@@ -4,7 +4,7 @@
 	Necessary props:
 		assetTypeEnum, Enum.AssetType
 		allowedAssetTypesForRelease, table, information about what asset types can be released
-		newAssetStatus, string, from Constants.AssetStatus (what the status for the asset will be in the back-end after we save the changes on this widget)
+		newAssetStatus, string, from AssetConfigConstants.ASSET_STATUS (what the status for the asset will be in the back-end after we save the changes on this widget)
 
 		price, number, the actual price.
 		minPrice, number, minimal price we allow.
@@ -48,8 +48,8 @@ function PriceComponent:init(props)
 
 	self.onPriceChange = function(text)
 		if tostring(props.Price) ~= tostring(text) then
-			if props.onPriceChange then
-				props.onPriceChange(text)
+			if props.OnPriceChange then
+				props.OnPriceChange(text)
 			end
 		end
 	end
@@ -60,16 +60,16 @@ function PriceComponent:render(order)
 		return withLocalization(function(localization, localizedContent)
 			local props = self.props
 
-			local assetTypeEnum = props.assetTypeEnum
-			local allowedAssetTypesForRelease = props.allowedAssetTypesForRelease
-			local assetStatus = props.newAssetStatus
+			local assetTypeEnum = props.AssetTypeEnum
+			local allowedAssetTypesForRelease = props.AllowedAssetTypesForRelease
+			local assetStatus = props.NewAssetStatus
 
-			local price = props.price
-			local minPrice = props.minPrice
-			local maxPrice = props.maxPrice
-			local isPriceValid = props.isPriceValid
+			local price = props.Price
+			local minPrice = props.MinPrice
+			local maxPrice = props.MaxPrice
+			local isPriceValid = props.IsPriceValid
 
-			local order = props.layoutOrder
+			local order = props.LayoutOrder
 
 			local orderIterator = LayoutOrderIterator.new()
 

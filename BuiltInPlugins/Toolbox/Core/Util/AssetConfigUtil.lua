@@ -1,20 +1,26 @@
 local Plugin = script.Parent.Parent.Parent
 local Util = Plugin.Core.Util
-local Constants = require(Util.Constants)
+local AssetConfigConstants = require(Util.AssetConfigConstants)
+local DebugFlags = require(Util.DebugFlags)
+local getUserId = require(Util.getUserId)
+
+local DFIntFileMaxSizeBytes = tonumber(settings():GetFVariable("FileMaxSizeBytes"))
+
+local StudioService = game:GetService("StudioService")
 
 local MathUtils = require(Plugin.Libs.UILibrary.Utils.MathUtils)
 
 local AssetConfigUtil = {}
 
 function AssetConfigUtil.isReadyForSale(assetStatus)
-	return Constants.AssetStatus.ReviewApproved == assetStatus or
-		Constants.AssetStatus.OnSale == assetStatus or
-		Constants.AssetStatus.OffSale == assetStatus or
-		Constants.AssetStatus.DelayedRelease == assetStatus
+	return AssetConfigConstants.ASSET_STATUS.ReviewApproved == assetStatus or
+		AssetConfigConstants.ASSET_STATUS.OnSale == assetStatus or
+		AssetConfigConstants.ASSET_STATUS.OffSale == assetStatus or
+		AssetConfigConstants.ASSET_STATUS.DelayedRelease == assetStatus
 end
 
 function AssetConfigUtil.isOnSale(assetStatus)
-	return Constants.AssetStatus.OnSale == assetStatus
+	return AssetConfigConstants.ASSET_STATUS.OnSale == assetStatus
 end
 
 function AssetConfigUtil.getSubText(newAssetStatus, currentAssetStatus, localizedContent)
@@ -61,6 +67,107 @@ end
 function AssetConfigUtil.getMaxPrice(allowedAssetTypesForRelease, assetTypeEnum)
 	local priceRange = AssetConfigUtil.getPriceRange(allowedAssetTypesForRelease, assetTypeEnum)
 	return priceRange.maxRobux and tonumber(priceRange.maxRobux) or 0
+end
+
+local IMAGE_TYPES = {"jpg", "jpeg", "png"}
+
+function AssetConfigUtil.promptImagePicker()
+	local iconFile = StudioService:PromptImportFile(IMAGE_TYPES)
+
+	if iconFile then
+		-- You can't pick too big a image.
+		if iconFile.Size > DFIntFileMaxSizeBytes then
+			-- Handles outside this function.
+			return nil
+		else
+			return iconFile
+		end
+	end
+end
+
+local catalogAssetTypes = AssetConfigConstants.catalogAssetTypes
+local marketplaceAssetTypes = AssetConfigConstants.marketplaceAssetTypes
+local marketplaceBuyableAsset = AssetConfigConstants.marketplaceBuyableAsset
+
+local function checkData(assetTypeEnum)
+	if DebugFlags.shouldDebugWarnings() then
+		local isAssetTypeBothCatalogAndMarketplace = catalogAssetTypes[assetTypeEnum] and marketplaceAssetTypes[assetTypeEnum]
+		if isAssetTypeBothCatalogAndMarketplace then
+			warn("Lua CMS: " .. tostring(assetTypeEnum) .. " cannot be both a catalog and marketplace asset")
+		end
+	end
+end
+
+function AssetConfigUtil.isCatalogAsset(assetTypeEnum)
+	checkData(assetTypeEnum)
+	return catalogAssetTypes[assetTypeEnum] and true or false
+end
+
+function AssetConfigUtil.isMarketplaceAsset(assetTypeEnum)
+	checkData(assetTypeEnum)
+	return marketplaceAssetTypes[assetTypeEnum] and true or false
+end
+
+function AssetConfigUtil.isBuyableMarketplaceAsset(assetTypeEnum)
+	checkData(assetTypeEnum)
+	return marketplaceBuyableAsset[assetTypeEnum] and true or false
+end
+
+function AssetConfigUtil.getFlowStartScreen(flowType)
+	if flowType == AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW then
+		return AssetConfigConstants.SCREENS.ASSET_TYPE_SELECTION
+	elseif flowType == AssetConfigConstants.FLOW_TYPE.EDIT_FLOW then
+		return AssetConfigConstants.SCREENS.CONFIGURE_ASSET
+	end
+end
+
+function AssetConfigUtil.getGenreTypes()
+	return AssetConfigConstants.GENRE_TYPE
+end
+
+function AssetConfigUtil.getGenreIndex(targetGnere)
+	local index = 1
+	for k,v in pairs(AssetConfigConstants.GENRE_TYPE) do
+		if targetGnere == v.name then
+			index = k
+			break
+		end
+	end
+	return index
+end
+
+function AssetConfigUtil.getGenreName(genreIndex)
+	if genreIndex > #AssetConfigConstants.GENRE_TYPE then
+		genreIndex = 1
+	end
+	return AssetConfigConstants.GENRE_TYPE[genreIndex].name
+end
+
+function AssetConfigUtil.getOwnerDropDownContent(groupsArray, localizedContent)
+	local result = {
+		{name = localizedContent.AssetConfig.PublishAsset.Me, creatorType = "User", creatorId = getUserId()}
+	}
+
+	for index, groupData in pairs(groupsArray) do
+		local newDropDownitem = {
+			name = groupData.group.name,
+			creatorType = "Group",
+			creatorId = groupData.group.id,
+			item = groupData
+		}
+		table.insert(result, newDropDownitem)
+	end
+	return result
+end
+
+function AssetConfigUtil.getAllowedAssetTypeEnums(allowedAssetTypesForRelease)
+	local result = {}
+	for _, assetTypeEnum in pairs(AssetConfigConstants.ASSET_TYPE_LIST) do
+		if allowedAssetTypesForRelease[assetTypeEnum.Name] ~= nil then
+			result[#result + 1] = assetTypeEnum
+		end
+	end
+	return result
 end
 
 return AssetConfigUtil

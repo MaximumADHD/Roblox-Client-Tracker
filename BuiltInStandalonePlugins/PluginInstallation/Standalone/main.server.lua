@@ -2,116 +2,44 @@ if not settings():GetFFlag("StudioPluginInstallationInLua") then
 	return
 end
 
--- services
 local StudioService = game:GetService("StudioService")
-
--- libraries
 local Plugin = script.Parent.Parent
-local Roact = require(Plugin.Packages.Roact)
-local Rodux = require(Plugin.Packages.Rodux)
-local UILibrary = require(Plugin.Packages.UILibrary)
 
--- components
-local ServiceWrapper = require(Plugin.Src.Components.ServiceWrapper)
-local MainView = require(Plugin.Src.Components.MainView)
+local getPluginGlobals = require(Plugin.Src.Util.getPluginGlobals)
+local showDialog = require(Plugin.Src.Util.showDialog)
+local InstallPluginFromWeb = require(Plugin.Src.Thunks.InstallPluginFromWeb)
 
--- data
-local MainReducer = require(Plugin.Src.Reducers.MainReducer)
+-- initialize all globals
+local globals = getPluginGlobals(plugin)
+local tokens = {}
 
--- theme
-local PluginTheme = require(Plugin.Src.Resources.PluginTheme)
+local function installPlugin(pluginId)
+	-- kick off the network requests
+	globals.store:dispatch(InstallPluginFromWeb(StudioService, globals.api, pluginId))
 
--- actions
-local SetPluginId = require(Plugin.Src.Actions.SetPluginId)
-local ClearPluginData = require(Plugin.Src.Actions.ClearPluginData)
-
--- localization
-local TranslationDevelopmentTable = Plugin.Src.Resources.TranslationDevelopmentTable
-local TranslationReferenceTable = Plugin.Src.Resources.TranslationReferenceTable
-local Localization = UILibrary.Studio.Localization
-
--- Plugin Specific Globals
-local dataStore = Rodux.Store.new(MainReducer)
-local theme = PluginTheme.new()
-local localization = Localization.new({
-	stringResourceTable = TranslationDevelopmentTable,
-	translationResourceTable = TranslationReferenceTable,
-	pluginName = "PluginInstallation",
-})
-
-
--- Widget Gui Elements
-local pluginHandle
-local pluginGui
-
-
---Initializes and populates the plugin popup window
-local function openPluginWindow()
-	if pluginHandle then
-		return
-	end
-
-	-- create the roact tree
-	local servicesProvider = Roact.createElement(ServiceWrapper, {
-		plugin = plugin,
-		localization = localization,
-		theme = theme,
-		store = dataStore,
-	}, {
-		MainView = Roact.createElement(MainView),
-	})
-
-	pluginHandle = Roact.mount(servicesProvider, pluginGui)
+	-- open a dialog that shows installation progress
+	showDialog(pluginId)
 end
 
---Closes and unmounts the dockwidget window
-local function closePluginWindow()
-	if pluginHandle then
-		Roact.unmount(pluginHandle)
-		pluginHandle = nil
-	end
-end
 
 local function main()
 	plugin.Name = "PluginInstallation"
 
-	local function showIfEnabled()
-		if pluginGui.Enabled then
-			openPluginWindow()
-		else
-			closePluginWindow()
-		end
-	end
+	-- if Studio fires the signal to install a plugin from web, do it!
+	table.insert(tokens, StudioService.OnPluginInstalledFromWeb:Connect(installPlugin))
 
-	-- create the plugin
-	local widgetInfo = DockWidgetPluginGuiInfo.new(
-		Enum.InitialDockState.Float,  -- Widget will be initialized floating around
-		false,   -- Widget will be initially enabled
-		true,   -- Should override the previous enabled state
-		300,    -- Default width of the floating window
-		300,    -- Default height of the floating window
-		150,    -- Minimum width of the floating window (optional)
-		150     -- Minimum height of the floating window (optional)
-	)
-	pluginGui = plugin:CreateDockWidgetPluginGui(plugin.Name, widgetInfo)
-	pluginGui.Name = plugin.Name
-	pluginGui.Title = localization:getText("Meta", "PluginWindowName")
-	pluginGui.ZIndexBehavior = Enum.ZIndexBehavior.Global
-	pluginGui:GetPropertyChangedSignal("Enabled"):connect(showIfEnabled)
-
-
-	local startupPluginId = StudioService:GetStartupPluginId();
+	-- check if Studio was started with a plugin to install
+	-- NOTE - IT APPEARS THAT THIS IS OPENING THE INSTALLATION WINDOW TWICE
+	--[[local startupPluginId = StudioService:GetStartupPluginId();
 	if startupPluginId and #startupPluginId > 0 then
-		dataStore:dispatch(SetPluginId(startupPluginId))
-		dataStore:flush()
-		pluginGui.Enabled = true;
-	end
+		installPlugin(startupPluginId)
+	end]]
 
-	StudioService.OnPluginInstalledFromWeb:connect(function(pluginId)
-		dataStore:dispatch(ClearPluginData());
-		dataStore:dispatch(SetPluginId(pluginId))
-		dataStore:flush()
-		pluginGui.Enabled = true;
+	-- clean up
+	plugin.Unloading:connect(function()
+		for _, token in ipairs(tokens) do
+			token:Disconnect()
+		end
 	end)
 end
 

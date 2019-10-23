@@ -76,7 +76,7 @@ function Thumbstick:Create(parentFrame)
 	outerImage.Position = UDim2.new(0, 0, 0, 0)
 	outerImage.Parent = ThumbstickFrame
 	
-	StickImage = Instance.new('ImageLabel')
+	local StickImage = Instance.new('ImageLabel')
 	StickImage.Name = "StickImage"
 	StickImage.Image = TOUCH_CONTROL_SHEET
 	StickImage.ImageRectOffset = Vector2.new(220, 0)

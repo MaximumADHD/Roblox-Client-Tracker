@@ -8,7 +8,7 @@
 		number LayoutOrder = 0
 		number curentSoundId
 		boolean isPlaying
-		Constants.AssetStatus status
+		AssetConfigConstants.ASSET_STATUS status
 
 		callback onMouseEnter()
 		callback onMouseLeave()

@@ -30,6 +30,7 @@ local ToggleButton = require(Components.ToggleButton)
 local TreeView = require(Components.TreeView)
 
 local Spritesheet = require(Utils.Spritesheet)
+local LayoutOrderIterator = require(Utils.LayoutOrderIterator)
 
 local Focus = require(Src.Focus)
 
@@ -77,8 +78,10 @@ local UILibrary = {
 
 	Util = {
 		Spritesheet = Spritesheet,
+		LayoutOrderIterator = LayoutOrderIterator,
 	},
 
+	Plugin = require(Src.Plugin),
 	Localizing = require(Src.Localizing),
 	Wrapper = require(Src.UILibraryWrapper),
 

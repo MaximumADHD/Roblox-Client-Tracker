@@ -27,6 +27,11 @@ struct Globals
     vec4 ShadowMatrix2;
     vec4 RefractionBias_FadeDistance_GlowFactor_SpecMul;
     vec4 OutlineBrightness_ShadowInfo;
+    vec4 SkyGradientTop_EnvDiffuse;
+    vec4 SkyGradientBottom_EnvSpec;
+    vec3 AmbientColorNoIBL;
+    vec3 SkyAmbientNoIBL;
+    vec4 AmbientCube[12];
     vec4 CascadeSphere0;
     vec4 CascadeSphere1;
     vec4 CascadeSphere2;
@@ -52,17 +57,17 @@ struct Instance
     vec4 uvOffset;
 };
 
-uniform vec4 CB0[31];
+uniform vec4 CB0[47];
 uniform vec4 CB1[511];
 in vec4 POSITION;
 in vec4 NORMAL;
 in vec4 TEXCOORD0;
 in vec4 TEXCOORD2;
 in vec4 COLOR0;
-out vec4 VARYING0;
-out vec4 VARYING1;
+out vec2 VARYING0;
+out vec2 VARYING1;
 out vec4 VARYING2;
-out vec4 VARYING3;
+out vec3 VARYING3;
 out vec4 VARYING4;
 out vec4 VARYING5;
 out vec4 VARYING6;
@@ -87,7 +92,7 @@ void main()
     v14.x = dot(CB1[gl_InstanceID * 7 + 5].xyz, v0[v2]);
     vec2 v15 = v14;
     v15.y = dot(CB1[gl_InstanceID * 7 + 5].xyz, v1[v2]);
-    vec2 v16 = vec2(0.0);
+    vec2 v16 = v15;
     v16.x = dot(CB1[gl_InstanceID * 7 + 3].xyz, v0[v2]);
     vec2 v17 = v16;
     v17.y = dot(CB1[gl_InstanceID * 7 + 3].xyz, v1[v2]);
@@ -96,21 +101,17 @@ void main()
     vec3 v20 = CB0[7].xyz - v9;
     vec4 v21 = vec4(v6, v7, v8, 1.0);
     vec4 v22 = v21 * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
-    vec4 v23 = vec4((TEXCOORD0.xy * v15) + CB1[gl_InstanceID * 7 + 6].xy, 0.0, 0.0);
-    vec4 v24 = vec4(TEXCOORD0.zw * v17, 0.0, 0.0);
-    float v25 = v22.w;
-    vec4 v26 = (vec4(10.0) * CB0[23].z) + vec4((0.5 * v25) * CB0[23].y);
-    vec4 v27 = vec4(dot(CB0[20], v21), dot(CB0[21], v21), dot(CB0[22], v21), 0.0);
-    v27.w = CB1[gl_InstanceID * 7 + 5].w * 0.0039215688593685626983642578125;
+    vec4 v23 = vec4(dot(CB0[20], v21), dot(CB0[21], v21), dot(CB0[22], v21), 0.0);
+    v23.w = CB1[gl_InstanceID * 7 + 5].w * 0.0039215688593685626983642578125;
     gl_Position = v22;
-    VARYING0 = vec4(v23.x, v23.y, v26.x, v26.y);
-    VARYING1 = vec4(v24.x, v24.y, v26.z, v26.w);
+    VARYING0 = (TEXCOORD0.xy * v15) + CB1[gl_InstanceID * 7 + 6].xy;
+    VARYING1 = TEXCOORD0.zw * v17;
     VARYING2 = CB1[gl_InstanceID * 7 + 4] * mix(COLOR0 * 0.0039215688593685626983642578125, vec4(1.0), vec4(float(CB1[gl_InstanceID * 7 + 3].w > 0.0)));
-    VARYING3 = vec4(((v9 + (v13 * 6.0)).yxz * CB0[16].xyz) + CB0[17].xyz, 0.0);
-    VARYING4 = vec4(v20, v25);
+    VARYING3 = ((v9 + (v13 * 6.0)).yxz * CB0[16].xyz) + CB0[17].xyz;
+    VARYING4 = vec4(v20, v22.w);
     VARYING5 = vec4(v10, v11, v12, CB1[gl_InstanceID * 7 + 6].w);
     VARYING6 = vec4((CB0[10].xyz * max(v19, 0.0)) + (CB0[12].xyz * max(-v19, 0.0)), ((float(v19 > 0.0) * pow(clamp(dot(v13, normalize(v18 + normalize(v20))), 0.0, 1.0), CB1[gl_InstanceID * 7 + 6].w)) * (CB1[gl_InstanceID * 7 + 6].z * 0.0039215688593685626983642578125)) * CB0[23].w);
-    VARYING7 = v27;
+    VARYING7 = v23;
     VARYING8 = TEXCOORD2.w - 1.0;
 }
 

@@ -32,19 +32,4 @@ return function()
 			expect(immutabilityPreserved).to.equal(true)
 		end)
 	end)
-
-	describe("InitializeActivator", function()
-		it("should set activator", function()
-			local state = Tools(nil, InitializeActivator("hello world"))
-
-			expect(state).to.be.ok()
-			expect(state.activator).to.be.ok()
-			expect(state.activator).to.equal("hello world")
-		end)
-
-		it("should preserve immutability", function()
-			local immutabilityPreserved = testImmutability(Tools, InitializeActivator("foo"))
-			expect(immutabilityPreserved).to.equal(true)
-		end)
-	end)
 end

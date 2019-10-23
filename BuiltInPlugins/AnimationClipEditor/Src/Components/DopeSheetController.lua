@@ -9,6 +9,7 @@
 		int TopTrackIndex = index of the track that should be displayed at the top of the Dope Sheet
 		bool ShowEvents = Whether to show the AnimationEvents track.
 ]]
+local FFlagAnimEditorRenameKeyOptionFix = game:DefineFastFlag("AnimEditorRenameKeyOptionFix", false)
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -357,10 +358,15 @@ function DopeSheetController:handleKeyframeRightClick(instance, track, frame, se
 		if instance == nil then
 			-- User selected a summary keyframe
 			self.props.SelectKeyframesAtFrame(frame)
-			rightClickInfo.SummaryKeyframe = frame
+			if not FFlagAnimEditorRenameKeyOptionFix then
+				rightClickInfo.SummaryKeyframe = frame
+			end
 		else
 			self.props.SelectKeyframe(instance, track, frame, false)
 		end
+	end
+	if FFlagAnimEditorRenameKeyOptionFix and instance == nil then
+		rightClickInfo.SummaryKeyframe = frame
 	end
 	self.props.SetRightClickContextInfo(rightClickInfo)
 	self.showMenu()

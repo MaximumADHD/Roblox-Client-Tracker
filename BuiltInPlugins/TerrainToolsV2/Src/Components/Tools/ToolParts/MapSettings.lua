@@ -31,8 +31,8 @@ function MapSettings:init()
 			if number then
 				return text, nil
 			else
-				if self.props.onTextEnter then
-					self.props.onTextEnter(text, key)
+				if self.props.OnTextEnter then
+					self.props.OnTextEnter(text, key)
 				end
 				return text, WARN_INVALID_INPUT
 			end
@@ -49,8 +49,8 @@ function MapSettings:init()
 				return text, nil
 			else
 				-- used to let the tool keep track or number of errors
-				if self.props.onTextEnter then
-					self.props.onTextEnter(text, key)
+				if self.props.OnTextEnter then
+					self.props.OnTextEnter(text, key)
 				end
 				return text, WARN_INVALID_INPUT
 			end
@@ -62,7 +62,7 @@ function MapSettings:render()
 	local heightMapValidation = self.props.HeightMapValidation
 	local pos = self.props.Position and self.props.Position or {X = "", Y = "", Z = ""}
 	local size = self.props.Size and self.props.Size or {X = "", Y = "", Z = ""}
-	local onTextEnter = self.props.onTextEnter
+	local onTextEnter = self.props.OnTextEnter
 	local layoutOrder = self.props.LayoutOrder
 
 	return withLocalization(function(localization)

@@ -19,6 +19,7 @@ local RoactRodux = require(Libs.RoactRodux)
 local Util = Plugin.Core.Util
 local ContextHelper = require(Util.ContextHelper)
 local AssetConfigConstants = require(Util.AssetConfigConstants)
+local AssetConfigUtil = require(Util.AssetConfigUtil)
 
 local Components = Plugin.Core.Components
 local NavButton = require(Components.NavButton)
@@ -61,7 +62,7 @@ function AssetTypeSelection:getSelectorItems(localizedContent)
 	-- only catalog item creators can upload hats
 	if FFlagAllowCatalogItemCreatorAssetConfig and self.props.isCatalogItemCreator then
 		if game:GetFastFlag("CMSAdditionalAccessoryTypesV2") then
-			local allowedAssetTypes = AssetConfigConstants.getAllowedAssetTypeEnums(self.props.allowedAssetTypesForRelease)
+			local allowedAssetTypes = AssetConfigUtil.getAllowedAssetTypeEnums(self.props.allowedAssetTypesForRelease)
 			if #allowedAssetTypes > 0 then
 				local dividerName = ""
 				if localizedContent then
@@ -90,7 +91,7 @@ function AssetTypeSelection:getSelectorItems(localizedContent)
 end
 
 function AssetTypeSelection:canSkip()
-	if FFlagEnablePurchasePluginFromLua2 and AssetConfigConstants.isBuyableMarketplaceAsset(self.props.assetTypeEnum) then
+	if FFlagEnablePurchasePluginFromLua2 and AssetConfigUtil.isBuyableMarketplaceAsset(self.props.assetTypeEnum) then
 		return true
 	else
 		local amtSelectable = 0

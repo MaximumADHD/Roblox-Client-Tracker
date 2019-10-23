@@ -25,6 +25,11 @@ struct Globals
     vec4 ShadowMatrix2;
     vec4 RefractionBias_FadeDistance_GlowFactor_SpecMul;
     vec4 OutlineBrightness_ShadowInfo;
+    vec4 SkyGradientTop_EnvDiffuse;
+    vec4 SkyGradientBottom_EnvSpec;
+    vec3 AmbientColorNoIBL;
+    vec3 SkyAmbientNoIBL;
+    vec4 AmbientCube[12];
     vec4 CascadeSphere0;
     vec4 CascadeSphere1;
     vec4 CascadeSphere2;
@@ -39,7 +44,7 @@ struct Globals
     float debugFlagsShadows;
 };
 
-uniform vec4 CB0[31];
+uniform vec4 CB0[47];
 uniform vec4 CB3[1];
 uniform sampler2D ShadowMapTexture;
 uniform sampler3D LightMapTexture;
@@ -88,7 +93,7 @@ void main()
     vec4 f26 = mix(texture3D(LightGridSkylightTexture, f23), vec4(1.0), f24);
     vec4 f27 = texture2D(ShadowMapTexture, VARYING5.xy);
     float f28 = (1.0 - ((step(f27.x, VARYING5.z) * clamp(CB0[24].z + (CB0[24].w * abs(VARYING5.z - 0.5)), 0.0, 1.0)) * f27.y)) * f26.y;
-    vec3 f29 = (((min(((f25.xyz * (f25.w * 120.0)).xyz + CB0[8].xyz) + (CB0[9].xyz * f26.x), vec3(CB0[16].w)) + (((CB0[10].xyz * clamp(f21, 0.0, 1.0)) + (CB0[12].xyz * max(-f21, 0.0))) * f28)) + vec3((f19.z * 2.0) * f17)) * (f16 * f16).xyz) + (CB0[10].xyz * (((((step(0.0, f21) * f19.x) * f17) * CB3[0].z) * f28) * pow(clamp(dot(f18, normalize(f20 + normalize(VARYING7.xyz))), 0.0, 1.0), (clamp(f19.y, 0.0, 1.0) * 128.0) + 0.00999999977648258209228515625)));
+    vec3 f29 = (((min((f25.xyz * (f25.w * 120.0)).xyz + (CB0[8].xyz + (CB0[9].xyz * f26.x)), vec3(CB0[16].w)) + (((CB0[10].xyz * clamp(f21, 0.0, 1.0)) + (CB0[12].xyz * max(-f21, 0.0))) * f28)) + vec3((f19.z * 2.0) * f17)) * (f16 * f16).xyz) + (CB0[10].xyz * (((((step(0.0, f21) * f19.x) * f17) * CB3[0].z) * f28) * pow(clamp(dot(f18, normalize(f20 + normalize(VARYING7.xyz))), 0.0, 1.0), (clamp(f19.y, 0.0, 1.0) * 128.0) + 0.00999999977648258209228515625)));
     vec4 f30 = vec4(f29.x, f29.y, f29.z, vec4(0.0).w);
     f30.w = 1.0;
     vec3 f31 = mix(CB0[14].xyz, sqrt(clamp(f30.xyz * CB0[15].y, vec3(0.0), vec3(1.0))).xyz, vec3(clamp(VARYING5.w, 0.0, 1.0)));

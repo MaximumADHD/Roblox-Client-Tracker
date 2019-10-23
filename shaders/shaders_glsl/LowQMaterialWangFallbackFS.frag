@@ -24,6 +24,11 @@ struct Globals
     vec4 ShadowMatrix2;
     vec4 RefractionBias_FadeDistance_GlowFactor_SpecMul;
     vec4 OutlineBrightness_ShadowInfo;
+    vec4 SkyGradientTop_EnvDiffuse;
+    vec4 SkyGradientBottom_EnvSpec;
+    vec3 AmbientColorNoIBL;
+    vec3 SkyAmbientNoIBL;
+    vec4 AmbientCube[12];
     vec4 CascadeSphere0;
     vec4 CascadeSphere1;
     vec4 CascadeSphere2;
@@ -38,31 +43,31 @@ struct Globals
     float debugFlagsShadows;
 };
 
-uniform vec4 CB0[31];
+uniform vec4 CB0[47];
 uniform sampler2D ShadowMapTexture;
 uniform sampler3D LightMapTexture;
 uniform sampler3D LightGridSkylightTexture;
 uniform sampler2D DiffuseMapTexture;
 
-varying vec4 VARYING0;
+varying vec2 VARYING0;
 varying vec4 VARYING2;
-varying vec4 VARYING3;
+varying vec3 VARYING3;
 varying vec4 VARYING4;
 varying vec4 VARYING5;
 varying vec4 VARYING6;
 
 void main()
 {
-    vec4 f0 = texture2D(DiffuseMapTexture, VARYING0.xy);
+    vec4 f0 = texture2D(DiffuseMapTexture, VARYING0);
     vec3 f1 = (mix(vec3(1.0), VARYING2.xyz, vec3(f0.w)) * f0.xyz).xyz;
-    float f2 = clamp(dot(step(CB0[19].xyz, abs(VARYING3.xyz - CB0[18].xyz)), vec3(1.0)), 0.0, 1.0);
+    float f2 = clamp(dot(step(CB0[19].xyz, abs(VARYING3 - CB0[18].xyz)), vec3(1.0)), 0.0, 1.0);
     vec3 f3 = VARYING3.yzx - (VARYING3.yzx * f2);
     vec4 f4 = vec4(clamp(f2, 0.0, 1.0));
     vec4 f5 = mix(texture3D(LightMapTexture, f3), vec4(0.0), f4);
     vec4 f6 = mix(texture3D(LightGridSkylightTexture, f3), vec4(1.0), f4);
     vec4 f7 = texture2D(ShadowMapTexture, VARYING6.xy);
     float f8 = (1.0 - ((step(f7.x, VARYING6.z) * clamp(CB0[24].z + (CB0[24].w * abs(VARYING6.z - 0.5)), 0.0, 1.0)) * f7.y)) * f6.y;
-    vec3 f9 = ((min(((f5.xyz * (f5.w * 120.0)).xyz + CB0[8].xyz) + (CB0[9].xyz * f6.x), vec3(CB0[16].w)) + (VARYING5.xyz * f8)) * (f1 * f1).xyz) + (CB0[10].xyz * (VARYING5.w * f8));
+    vec3 f9 = ((min((f5.xyz * (f5.w * 120.0)).xyz + (CB0[8].xyz + (CB0[9].xyz * f6.x)), vec3(CB0[16].w)) + (VARYING5.xyz * f8)) * (f1 * f1).xyz) + (CB0[10].xyz * (VARYING5.w * f8));
     vec4 f10 = vec4(f9.x, f9.y, f9.z, vec4(0.0).w);
     f10.w = VARYING2.w;
     vec3 f11 = mix(CB0[14].xyz, sqrt(clamp(f10.xyz * CB0[15].y, vec3(0.0), vec3(1.0))).xyz, vec3(clamp((CB0[13].x * length(VARYING4.xyz)) + CB0[13].y, 0.0, 1.0)));

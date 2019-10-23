@@ -7,11 +7,11 @@ return function()
 	local AssetConfigTheme = require(Plugin.Core.Util.AssetConfigTheme)
 	local MockWrapper = require(Plugin.Core.Util.MockWrapper)
 
-	local Constants = require(Plugin.Core.Util.Constants)
+	local AssetConfigConstants = require(Plugin.Core.Util.AssetConfigConstants)
 	local SalesPage = require(Plugin.Core.Components.AssetConfiguration.SalesPage)
 
 	local function createSales(status, price)
-		status = status or Constants.AssetStatus.Unknown
+		status = status or AssetConfigConstants.ASSET_STATUS.Unknown
 		price = price or 0
 
 		return Roact.createElement(MockWrapper, {
@@ -62,7 +62,7 @@ return function()
 		local container = Instance.new("Folder")
 
 		local price = 200
-		local element = createSales(Constants.AssetStatus.ReviewApproved, price)
+		local element = createSales(AssetConfigConstants.ASSET_STATUS.ReviewApproved, price)
 
 		local instance = Roact.mount(element, container)
 

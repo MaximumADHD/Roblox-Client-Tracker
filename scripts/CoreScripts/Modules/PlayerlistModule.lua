@@ -194,23 +194,10 @@ end
 
 local CHARACTER_BACKGROUND_IMAGE = 'rbxasset://textures/ui/PlayerList/CharacterImageBackground.png'
 
-local RobloxTranslator
-local FFlagCoreScriptsUseLocalizationModule = settings():GetFFlag('CoreScriptsUseLocalizationModule')
-if FFlagCoreScriptsUseLocalizationModule then
-  RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
-end
+local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
 local function LocalizedGetString(key, rtv)
-  if FFlagCoreScriptsUseLocalizationModule then
     return RobloxTranslator:FormatByKey(key)
-  else
-    pcall(function()
-      local LocalizationService = game:GetService("LocalizationService")
-      local CorescriptLocalization = LocalizationService:GetCorescriptLocalizations()[1]
-      rtv = CorescriptLocalization:GetString(LocalizationService.RobloxLocaleId, key)
-    end)
-    return rtv
-  end
 end
 
 local function rbx_profilebegin(name)

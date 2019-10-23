@@ -18,6 +18,7 @@ function PluginThemeProvider:init()
 end
 
 function PluginThemeProvider:render()
+	self._context[pluginThemeKey] = self.props.theme
 	return Roact.oneChild(self.props[Roact.Children])
 end
 

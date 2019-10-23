@@ -32,11 +32,11 @@ Class Instance : <<<ROOT>>> [NotCreatable] [NotBrowsable]
 	Event Instance.DescendantAdded(Instance descendant)
 	Event Instance.DescendantRemoving(Instance descendant)
 Class ABTestService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function void ABTestService:ClearUserVariations() {LocalUserSecurity}
 	Function string ABTestService:GetVariant(string name) {LocalUserSecurity}
 	Function void ABTestService:InitializeForUserId(int64 userId) {LocalUserSecurity}
 	Function void ABTestService:WaitUntilBrowserTrackerABTestsInitialized() {LocalUserSecurity} [Yields]
 	Function void ABTestService:WaitUntilUserABTestsInitialized() {LocalUserSecurity} [Yields]
-	Function void ABTestService:clearUserVariations() {LocalUserSecurity}
 Class Accoutrement : Instance
 	Property Vector3 Accoutrement.AttachmentForward [<📁> Load-only] [NotReplicated]
 	Property CFrame Accoutrement.AttachmentPoint
@@ -557,12 +557,12 @@ Class FileMesh : DataModelMesh
 Class SpecialMesh : FileMesh
 	Property Enum<MeshType> SpecialMesh.MeshType
 Class DataModelSession : Instance [NotCreatable]
-	Property Enum<StudioDataModelType> DataModelSession.CurrentDataModelType {PluginSecurity} [ReadOnly] [NotReplicated]
-	Property string DataModelSession.SessionId {PluginSecurity} [ReadOnly] [NotReplicated]
-	Event DataModelSession.CurrentDataModelTypeAboutToChange(Enum<StudioDataModelType> dataModelType) {PluginSecurity}
-	Event DataModelSession.CurrentDataModelTypeChanged() {PluginSecurity}
-	Event DataModelSession.DataModelCreated(Enum<StudioDataModelType> gameStateType) {PluginSecurity}
-	Event DataModelSession.DataModelWillBeDestroyed(Enum<StudioDataModelType> gameStateType) {PluginSecurity}
+	Property Enum<StudioDataModelType> DataModelSession.CurrentDataModelType {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
+	Property string DataModelSession.SessionId {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
+	Event DataModelSession.CurrentDataModelTypeAboutToChange(Enum<StudioDataModelType> dataModelType) {RobloxScriptSecurity}
+	Event DataModelSession.CurrentDataModelTypeChanged() {RobloxScriptSecurity}
+	Event DataModelSession.DataModelCreated(Enum<StudioDataModelType> gameStateType) {RobloxScriptSecurity}
+	Event DataModelSession.DataModelWillBeDestroyed(Enum<StudioDataModelType> gameStateType) {RobloxScriptSecurity}
 Class DataStoreService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool DataStoreService.AutomaticRetry {LocalUserSecurity} [NotReplicated]
 	Property bool DataStoreService.LegacyNamingScheme {LocalUserSecurity} [Deprecated]
@@ -577,23 +577,13 @@ Class Debris : Instance [NotCreatable] [Service]
 Class DebugSettings : Instance [Settings] [NotBrowsable]
 	Property bool DebugSettings.IsFmodProfilingEnabled
 	Property Enum<TickCountSampleMethod> DebugSettings.TickCountPreciseOverride
-	Property Enum<ErrorReporting> DebugSettings.ErrorReporting
 	Property bool DebugSettings.IsScriptStackTracingEnabled
 	Property bool DebugSettings.ReportSoundWarnings
 	Property int DebugSettings.DataModel [<💾> Save-only] [ReadOnly] [NotReplicated]
 	Property int DebugSettings.InstanceCount [<💾> Save-only] [ReadOnly] [NotReplicated]
 	Property int DebugSettings.JobCount [<💾> Save-only] [ReadOnly] [NotReplicated]
 	Property int DebugSettings.PlayerCount [<💾> Save-only] [ReadOnly] [NotReplicated]
-	Property string DebugSettings.GfxCard [<💾> Save-only] [ReadOnly] [NotReplicated]
-	Property bool DebugSettings.OsIs64Bit [<💾> Save-only] [ReadOnly] [NotReplicated]
-	Property string DebugSettings.OsPlatform [<💾> Save-only] [ReadOnly] [NotReplicated]
-	Property int DebugSettings.OsPlatformId [<💾> Save-only] [ReadOnly] [NotReplicated]
-	Property string DebugSettings.OsVer [<💾> Save-only] [ReadOnly] [NotReplicated]
-	Property string DebugSettings.RobloxProductName [<💾> Save-only] [ReadOnly] [NotReplicated]
 	Property string DebugSettings.RobloxVersion [<💾> Save-only] [ReadOnly] [NotReplicated]
-	Property string DebugSettings.SIMD [<💾> Save-only] [ReadOnly] [NotReplicated]
-	Property string DebugSettings.SystemProductName [<💾> Save-only] [ReadOnly] [NotReplicated]
-	Property int DebugSettings.VideoMemory [<💾> Save-only] [ReadOnly] [NotReplicated]
 Class DebuggerBreakpoint : Instance [NotCreatable]
 	Property string DebuggerBreakpoint.Condition
 	Property bool DebuggerBreakpoint.IsEnabled
@@ -1426,6 +1416,8 @@ Class Lighting : Instance [NotCreatable] [Service]
 	Property float Lighting.Brightness
 	Property Color3 Lighting.ColorShift_Bottom
 	Property Color3 Lighting.ColorShift_Top
+	Property float Lighting.EnvironmentDiffuseScale
+	Property float Lighting.EnvironmentSpecularScale
 	Property bool Lighting.GlobalShadows
 	Property bool Lighting.LegacyOutlines  [NotScriptable]
 	Property Color3 Lighting.OutdoorAmbient
@@ -1538,10 +1530,10 @@ Class ModuleScript : LuaSourceContainer
 	Property ProtectedString ModuleScript.Source {PluginSecurity}
 Class LuaWebService : Instance [NotCreatable] [Service]
 Class MDIInstance : Instance [NotCreatable]
-	Property Instance MDIInstance.FocusedDataModelSession {PluginSecurity} [ReadOnly] [NotReplicated]
-	Property string MDIInstance.FocusedDataModelSessionId {PluginSecurity} [ReadOnly] [NotReplicated]
-	Event MDIInstance.DataModelSessionEnded(string sessionId) {PluginSecurity}
-	Event MDIInstance.DataModelSessionStarted(string sessionId) {PluginSecurity}
+	Property Instance MDIInstance.FocusedDataModelSession {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
+	Property string MDIInstance.FocusedDataModelSessionId {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
+	Event MDIInstance.DataModelSessionEnded(string sessionId) {RobloxScriptSecurity}
+	Event MDIInstance.DataModelSessionStarted(string sessionId) {RobloxScriptSecurity}
 Class MarketplaceService : Instance [NotCreatable] [Service]
 	Function Instance MarketplaceService:GetDeveloperProductsAsync() [Yields]
 	Function Dictionary MarketplaceService:GetProductInfo(int64 assetId, Enum<InfoType> infoType = "Asset") [Yields]
@@ -1692,8 +1684,6 @@ Class NoCollisionConstraint : Instance
 	Property Class<BasePart> NoCollisionConstraint.Part0
 	Property Class<BasePart> NoCollisionConstraint.Part1
 Class NotificationService : Instance [NotCreatable] [Service]
-	Property bool NotificationService.IsLuaBottomBarEnabled {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
-	Property bool NotificationService.IsLuaBottomBarWithText {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
 	Property bool NotificationService.IsLuaChatEnabled {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
 	Property bool NotificationService.IsLuaGameDetailsEnabled {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
 	Property bool NotificationService.IsLuaHomeWithAvatarEnabled {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
@@ -2169,26 +2159,26 @@ Class Plugin : Instance [NotCreatable]
 	Property bool Plugin.UsesAssetInsertionDrag {RobloxScriptSecurity} [<📁> Load-only] [NotReplicated]
 	Property bool Plugin.CollisionEnabled  [ReadOnly] [NotReplicated]
 	Property float Plugin.GridSize  [ReadOnly] [NotReplicated]
-	Property Enum<StudioDataModelType> Plugin.HostDataModelType {PluginSecurity} [ReadOnly] [NotReplicated]
-	Property bool Plugin.HostDataModelTypeIsCurrent {PluginSecurity} [ReadOnly] [NotReplicated]
-	Property Class<MDIInstance> Plugin.MDIInstance {PluginSecurity} [ReadOnly] [NotReplicated]
+	Property Enum<StudioDataModelType> Plugin.HostDataModelType {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
+	Property bool Plugin.HostDataModelTypeIsCurrent {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
+	Property Class<MDIInstance> Plugin.MDIInstance {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
 	Function void Plugin:Activate(bool exclusiveMouse) {PluginSecurity}
-	Function Instance Plugin:Bind(string key, Function callback) {PluginSecurity}
-	Function Instance Plugin:BindAndFire(string key, Function callback) {PluginSecurity}
+	Function Instance Plugin:Bind(string key, Function callback) {RobloxScriptSecurity}
+	Function Instance Plugin:BindAndFire(string key, Function callback) {RobloxScriptSecurity}
 	Function Instance Plugin:CreateDockWidgetPluginGui(string pluginGuiId, DockWidgetPluginGuiInfo dockWidgetPluginGuiInfo) {PluginSecurity} [Yields]
 	Function Instance Plugin:CreatePluginAction(string actionId, string text, string statusTip, string iconName = "", bool allowBinding = true) {PluginSecurity}
 	Function Instance Plugin:CreatePluginMenu(string id, string title = "", string icon = "") {PluginSecurity}
 	Function Instance Plugin:CreateQWidgetPluginGui(string pluginGuiId, Dictionary pluginGuiOptions) {RobloxScriptSecurity} [Yields]
 	Function Instance Plugin:CreateToolbar(string name) {PluginSecurity}
 	Function void Plugin:Deactivate() {PluginSecurity}
-	Function void Plugin:Fire(string key, string value = "") {PluginSecurity}
-	Function string Plugin:GetItem(string key, string defaultValue = "") {PluginSecurity}
+	Function void Plugin:Fire(string key, string value = "") {RobloxScriptSecurity}
+	Function string Plugin:GetItem(string key, string defaultValue = "") {RobloxScriptSecurity}
 	Function Enum<JointCreationMode> Plugin:GetJoinMode() {PluginSecurity}
 	Function Instance Plugin:GetMouse() {PluginSecurity}
 	Function Enum<RibbonTool> Plugin:GetSelectedRibbonTool() {PluginSecurity}
 	Function Variant Plugin:GetSetting(string key) {PluginSecurity}
 	Function int64 Plugin:GetStudioUserId() {PluginSecurity}
-	Function bool Plugin:HasItem(string key) {PluginSecurity}
+	Function bool Plugin:HasItem(string key) {RobloxScriptSecurity}
 	Function Instance Plugin:ImportFbxAnimation(Instance rigModel, bool isR15 = true) {PluginSecurity} [Yields]
 	Function Instance Plugin:ImportFbxRig(bool isR15 = true) {PluginSecurity} [Yields]
 	Function bool Plugin:IsActivated() {PluginSecurity}
@@ -2200,12 +2190,12 @@ Class Plugin : Instance [NotCreatable]
 	Function void Plugin:PlaySound(Instance soundChannel) {RobloxScriptSecurity}
 	Function int64 Plugin:PromptForExistingAssetId(string assetType) {PluginSecurity} [Yields]
 	Function bool Plugin:PromptSaveSelection(string suggestedFileName = "") {PluginSecurity} [Yields]
-	Function bool Plugin:RemoveItem(string key) {PluginSecurity}
+	Function bool Plugin:RemoveItem(string key) {RobloxScriptSecurity}
 	Function void Plugin:ResumeSound(Instance soundChannel) {RobloxScriptSecurity}
 	Function void Plugin:SaveSelectedToRoblox() {PluginSecurity}
 	Function void Plugin:SelectRibbonTool(Enum<RibbonTool> tool, UDim2 position) {PluginSecurity}
 	Function Objects Plugin:Separate(Objects objects) {PluginSecurity}
-	Function void Plugin:SetItem(string key, string value = "") {PluginSecurity}
+	Function void Plugin:SetItem(string key, string value = "") {RobloxScriptSecurity}
 	Function void Plugin:SetSetting(string key, Variant value) {PluginSecurity}
 	Function void Plugin:StartDecalDrag(Instance decal) {RobloxScriptSecurity}
 	Function void Plugin:StartDrag(Dictionary dragData) {PluginSecurity}
@@ -3652,10 +3642,6 @@ Enum EnviromentalPhysicsThrottle
 	EnumItem EnviromentalPhysicsThrottle.Skip4 : 4
 	EnumItem EnviromentalPhysicsThrottle.Skip8 : 5
 	EnumItem EnviromentalPhysicsThrottle.Skip16 : 6
-Enum ErrorReporting
-	EnumItem ErrorReporting.DontReport : 0
-	EnumItem ErrorReporting.Prompt : 1
-	EnumItem ErrorReporting.Report : 2
 Enum ExplosionType
 	EnumItem ExplosionType.NoCraters : 0
 	EnumItem ExplosionType.Craters : 1
@@ -3881,14 +3867,6 @@ Enum JointCreationMode
 	EnumItem JointCreationMode.All : 0
 	EnumItem JointCreationMode.Surface : 1
 	EnumItem JointCreationMode.None : 2
-Enum JointType
-	EnumItem JointType.Weld : 1
-	EnumItem JointType.Snap : 3
-	EnumItem JointType.Rotate : 7
-	EnumItem JointType.RotateP : 8
-	EnumItem JointType.RotateV : 9
-	EnumItem JointType.Glue : 10
-	EnumItem JointType.None : 28
 Enum KeyCode
 	EnumItem KeyCode.Unknown : 0
 	EnumItem KeyCode.Backspace : 8
@@ -4535,7 +4513,7 @@ Enum StudioDataModelType
 	EnumItem StudioDataModelType.PlayServer : 3
 	EnumItem StudioDataModelType.RobloxPlugin : 4
 	EnumItem StudioDataModelType.UserPlugin : 5
-	EnumItem StudioDataModelType.Null : 6
+	EnumItem StudioDataModelType.None : 6
 Enum StudioStyleGuideColor
 	EnumItem StudioStyleGuideColor.MainBackground : 0
 	EnumItem StudioStyleGuideColor.Titlebar : 1

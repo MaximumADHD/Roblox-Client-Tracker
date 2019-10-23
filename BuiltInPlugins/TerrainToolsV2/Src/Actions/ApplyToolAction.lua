@@ -1,6 +1,5 @@
 local Action = require(script.Parent.Action)
 
-
 -- This action allow us to reuse an action across multiple reducers
 -- toolName the key used for the specified reducder while toolAction
 -- is an action that is recognized across all the various accepted keys

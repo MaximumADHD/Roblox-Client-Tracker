@@ -32,6 +32,13 @@ local ChatLocalization = nil
 pcall(function() ChatLocalization = require(game:GetService("Chat").ClientChatModules.ChatLocalization) end)
 if ChatLocalization == nil then ChatLocalization = {} function ChatLocalization:Get(key,default) return default end end
 
+local FFlagUserChatNewMessageLengthCheck do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserChatNewMessageLengthCheck")
+	end)
+	FFlagUserChatNewMessageLengthCheck = success and result
+end
+
 --////////////////////////////// Methods
 --//////////////////////////////////////
 local methods = {}
@@ -187,9 +194,17 @@ function methods:SetUpTextBoxEvents(TextBox, TextLabel, MessageModeTextButton)
 
 		self:CalculateSize()
 
-		if (string.len(TextBox.Text) > ChatSettings.MaximumMessageLength) then
-			TextBox.Text = string.sub(TextBox.Text, 1, ChatSettings.MaximumMessageLength)
-			return
+		if FFlagUserChatNewMessageLengthCheck then
+			if utf8.len(utf8.nfcnormalize(TextBox.Text)) > ChatSettings.MaximumMessageLength then
+				TextBox.Text = self.PreviousText
+			else
+				self.PreviousText = TextBox.Text
+			end
+		else
+			if (string.len(TextBox.Text) > ChatSettings.MaximumMessageLength) then
+				TextBox.Text = string.sub(TextBox.Text, 1, ChatSettings.MaximumMessageLength)
+				return
+			end
 		end
 
 		if not self.InCustomState then
@@ -555,6 +570,7 @@ function module.new(CommandProcessor, ChatWindow)
 	obj.eGuiObjectsChanged = Instance.new("BindableEvent")
 	obj.GuiObjectsChanged = obj.eGuiObjectsChanged.Event
 	obj.TextBoxConnections = {}
+	obj.PreviousText = ""
 
 	obj.InCustomState = false
 	obj.CustomState = nil

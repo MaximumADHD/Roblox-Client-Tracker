@@ -24,6 +24,11 @@ struct Globals
     vec4 ShadowMatrix2;
     vec4 RefractionBias_FadeDistance_GlowFactor_SpecMul;
     vec4 OutlineBrightness_ShadowInfo;
+    vec4 SkyGradientTop_EnvDiffuse;
+    vec4 SkyGradientBottom_EnvSpec;
+    vec3 AmbientColorNoIBL;
+    vec3 SkyAmbientNoIBL;
+    vec4 AmbientCube[12];
     vec4 CascadeSphere0;
     vec4 CascadeSphere1;
     vec4 CascadeSphere2;
@@ -38,7 +43,7 @@ struct Globals
     float debugFlagsShadows;
 };
 
-uniform vec4 CB0[31];
+uniform vec4 CB0[47];
 in vec4 VARYING2;
 in vec4 VARYING4;
 out vec4 _entryPointOutput;
@@ -46,9 +51,9 @@ out vec4 _entryPointOutput;
 void main()
 {
     float f0 = clamp((CB0[13].x * length(VARYING4.xyz)) + CB0[13].y, 0.0, 1.0);
-    vec4 f1 = vec4(VARYING2.x, VARYING2.y, VARYING2.z, vec4(0.0).w);
-    f1.w = 1.0 - (f0 * VARYING2.w);
-    vec3 f2 = mix(CB0[14].xyz, (sqrt(clamp((pow(f1.xyz * 1.35000002384185791015625, vec3(4.0)) * 4.0).xyz * CB0[15].y, vec3(0.0), vec3(1.0))) + vec3((-0.00048828125) + (0.0009765625 * fract(52.98291778564453125 * fract(dot(gl_FragCoord.xy, vec2(0.067110560834407806396484375, 0.005837149918079376220703125))))))).xyz, vec3(f0));
-    _entryPointOutput = vec4(f2.x, f2.y, f2.z, f1.w);
+    vec3 f1 = mix(CB0[14].xyz, (sqrt(clamp((pow(VARYING2.xyz * 1.35000002384185791015625, vec3(4.0)) * 4.0).xyz * CB0[15].y, vec3(0.0), vec3(1.0))) + vec3((-0.00048828125) + (0.0009765625 * fract(52.98291778564453125 * fract(dot(gl_FragCoord.xy, vec2(0.067110560834407806396484375, 0.005837149918079376220703125))))))).xyz, vec3(f0));
+    vec4 f2 = vec4(f1.x, f1.y, f1.z, vec4(0.0).w);
+    f2.w = 1.0 - (clamp(f0, 0.0, 1.0) * VARYING2.w);
+    _entryPointOutput = f2;
 }
 

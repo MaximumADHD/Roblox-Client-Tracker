@@ -1,5 +1,6 @@
 local CorePackages = game:GetService("CorePackages")
 local TextService = game:GetService("TextService")
+local ABTestService = game:GetService("ABTestService")
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
 local InspectAndBuyFolder = script.Parent.Parent
@@ -7,11 +8,10 @@ local Colors = require(InspectAndBuyFolder.Colors)
 local PromptPurchase = require(InspectAndBuyFolder.Thunks.PromptPurchase)
 local getSelectionImageObjectRounded = require(InspectAndBuyFolder.getSelectionImageObjectRounded)
 
-local FFlagEnableRobuxHexIcon = settings():GetFFlag("EnableRobuxHexIconV2")
-
 local TEXT_SIZE = 16
 local MIN_SIZE = 32
-local ROBUX_ICON_SIZE = FFlagEnableRobuxHexIcon and 16 or 18
+-- Restore this after AB test
+--local ROBUX_ICON_SIZE = FFlagEnableRobuxHexIcon and 16 or 18
 local BUTTON_PADDING = 10
 local ROBLOX_CREATOR_ID = "1"
 
@@ -36,6 +36,16 @@ function BuyButton:render()
 	local creatorId = assetInfo and assetInfo.creatorId or 0
 	local sizeXAdjustment = creatorId == ROBLOX_CREATOR_ID and -32 or -BUTTON_PADDING / 2
 	local transparencyOverride = 0
+
+	local FFlagEnableRobuxHexIconV2 = game:GetFastFlag("EnableRobuxHexIconV2")
+	local EnrolledInRobuxIconABTest = false
+	if game:GetFastFlag("EnableRobuxABTest") then
+		local RobuxIconABTestVariant = nil;
+		pcall(function() RobuxIconABTestVariant = ABTestService:GetVariant("RobuxHexIconABTestName") end)
+		EnrolledInRobuxIconABTest = RobuxIconABTestVariant == "Variant1"
+ 	end
+	local enableNewRobuxIcon = FFlagEnableRobuxHexIconV2 or EnrolledInRobuxIconABTest
+	local ROBUX_ICON_SIZE = enableNewRobuxIcon and 16 or 18
 
 	if FFlagInspectMenuUpdateDisabledColor and not forSale then
 		transparencyOverride = 0.5
@@ -66,7 +76,7 @@ function BuyButton:render()
 		RobuxIcon = Roact.createElement("ImageLabel", {
 			BackgroundTransparency = 1,
 			Size = UDim2.new(0, ROBUX_ICON_SIZE, 0, ROBUX_ICON_SIZE),
-			Image = FFlagEnableRobuxHexIcon
+			Image = enableNewRobuxIcon
 				and "rbxasset://textures/ui/common/robux_small.png"
 				or "rbxasset://textures/ui/InspectMenu/ico_robux.png",
 			ImageTransparency = transparencyOverride,

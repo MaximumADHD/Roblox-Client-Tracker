@@ -27,6 +27,11 @@ struct Globals
     vec4 ShadowMatrix2;
     vec4 RefractionBias_FadeDistance_GlowFactor_SpecMul;
     vec4 OutlineBrightness_ShadowInfo;
+    vec4 SkyGradientTop_EnvDiffuse;
+    vec4 SkyGradientBottom_EnvSpec;
+    vec3 AmbientColorNoIBL;
+    vec3 SkyAmbientNoIBL;
+    vec4 AmbientCube[12];
     vec4 CascadeSphere0;
     vec4 CascadeSphere1;
     vec4 CascadeSphere2;
@@ -52,17 +57,17 @@ struct Instance
     vec4 uvOffset;
 };
 
-uniform vec4 CB0[31];
+uniform vec4 CB0[47];
 uniform vec4 CB1[511];
 in vec4 POSITION;
 in vec4 NORMAL;
 in vec4 TEXCOORD0;
 in vec4 TEXCOORD2;
 in vec4 COLOR0;
-out vec4 VARYING0;
-out vec4 VARYING1;
+out vec2 VARYING0;
+out vec2 VARYING1;
 out vec4 VARYING2;
-out vec4 VARYING3;
+out vec3 VARYING3;
 out vec4 VARYING4;
 out vec4 VARYING5;
 out vec4 VARYING6;
@@ -83,7 +88,7 @@ void main()
     v11.x = dot(CB1[gl_InstanceID * 7 + 5].xyz, v0[v2]);
     vec2 v12 = v11;
     v12.y = dot(CB1[gl_InstanceID * 7 + 5].xyz, v1[v2]);
-    vec2 v13 = vec2(0.0);
+    vec2 v13 = v12;
     v13.x = dot(CB1[gl_InstanceID * 7 + 3].xyz, v0[v2]);
     vec2 v14 = v13;
     v14.y = dot(CB1[gl_InstanceID * 7 + 3].xyz, v1[v2]);
@@ -93,10 +98,10 @@ void main()
     vec4 v18 = vec4(v6, v7, v8, 1.0);
     vec4 v19 = v18 * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
     gl_Position = v19;
-    VARYING0 = vec4((TEXCOORD0.xy * v12) + CB1[gl_InstanceID * 7 + 6].xy, 0.0, 0.0);
-    VARYING1 = vec4(TEXCOORD0.zw * v14, 0.0, 0.0);
+    VARYING0 = (TEXCOORD0.xy * v12) + CB1[gl_InstanceID * 7 + 6].xy;
+    VARYING1 = TEXCOORD0.zw * v14;
     VARYING2 = CB1[gl_InstanceID * 7 + 4] * mix(COLOR0 * 0.0039215688593685626983642578125, vec4(1.0), vec4(float(CB1[gl_InstanceID * 7 + 3].w > 0.0)));
-    VARYING3 = vec4(((v9 + (v10 * 6.0)).yxz * CB0[16].xyz) + CB0[17].xyz, 0.0);
+    VARYING3 = ((v9 + (v10 * 6.0)).yxz * CB0[16].xyz) + CB0[17].xyz;
     VARYING4 = vec4(v17, v19.w);
     VARYING5 = vec4((CB0[10].xyz * max(v16, 0.0)) + (CB0[12].xyz * max(-v16, 0.0)), ((float(v16 > 0.0) * pow(clamp(dot(v10, normalize(v15 + normalize(v17))), 0.0, 1.0), CB1[gl_InstanceID * 7 + 6].w)) * (CB1[gl_InstanceID * 7 + 6].z * 0.0039215688593685626983642578125)) * CB0[23].w);
     VARYING6 = vec4(dot(CB0[20], v18), dot(CB0[21], v18), dot(CB0[22], v18), 0.0);

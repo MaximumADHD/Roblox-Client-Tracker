@@ -218,6 +218,7 @@ ShadowEvsmVBlurLFS_5,Fragment,✔,✔,✔,❌,❌,✔,✔
 ShadowEvsmVBlurLFS_7,Fragment,✔,✔,✔,❌,❌,✔,✔
 ShadowEvsmVBlurLFS_9,Fragment,✔,✔,✔,❌,❌,✔,✔
 SkyFS,Fragment,✔,✔,✔,✔,✔,✔,✔
+SkyFSLinear,Fragment,✔,✔,✔,✔,✔,✔,✔
 SkyNoTranslateVS,Vertex,✔,✔,✔,✔,✔,✔,✔
 SkyVS,Vertex,✔,✔,✔,✔,✔,✔,✔
 SmoothClusterColoredFS,Fragment,✔,✔,✔,✔,✔,✔,✔
@@ -256,6 +257,9 @@ SmoothWaterHQVSShadowed,Vertex,✔,✔,✔,❌,❌,✔,✔
 SmoothWaterSuperHQFS,Fragment,✔,✔,✔,❌,✔,✔,✔
 SmoothWaterSuperHQFSShadowed,Fragment,✔,✔,✔,❌,❌,✔,✔
 SmoothWaterVS,Vertex,✔,✔,✔,✔,✔,✔,✔
+SpecularConvFS,Fragment,✔,✔,✔,❌,✔,✔,✔
+SpecularConvVS,Vertex,✔,✔,✔,❌,✔,✔,✔
+SRGBToLinearFS,Fragment,✔,✔,✔,✔,✔,✔,✔
 SSAOBlurXFS,Fragment,✔,✔,✔,❌,✔,✔,✔
 SSAOBlurYFS,Fragment,✔,✔,✔,❌,✔,✔,✔
 SSAOCompositFS,Fragment,✔,✔,✔,✔,✔,✔,✔

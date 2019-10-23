@@ -13,7 +13,7 @@
 	onOwnerSelected, function, callback when owner changes.
 	toggleComment, function, callback when comment changes.
 ]]
-local FFlagStudioAddPackagePermissions = settings():GetFFlag("StudioAddPackagePermissions")
+local FFlagLuaPackagePermissions = settings():GetFFlag("LuaPackagePermissions")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -67,7 +67,7 @@ function PublishAsset:render()
 		local onOwnerSelected = props.onOwnerSelected
 		local toggleComment = props.toggleComment
 
-		local displayOwnership = props.displayOwnership or  FFlagStudioAddPackagePermissions
+		local displayOwnership = props.displayOwnership or FFlagLuaPackagePermissions
 		local orderIterator = LayoutOrderIterator.new()
 
 		local publishAssetTheme = theme.publishAsset
