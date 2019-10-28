@@ -1462,10 +1462,8 @@ Studio.App.LocalizationPlugin.ErrorWritingToFile1,,,Error writing to file %1,Err
 Studio.App.LocalizationPlugin.NoFileSelected,,,No file selected,No file selected,未选择文件
 Studio.App.Property.EnableCoreScriptDebugger,,,Enable CoreScript Debugger,Enable CoreScript Debugger,启用 CoreScript 调试器
 Studio.App.Property.ShowRobloxPluginGUIServiceInExplorer,,,Show Roblox Plugin GUI Service in Explorer,Show Roblox Plugin GUI Service in Explorer,在资源管理器中显示插件 GUI 服务
-Studio.App.RBXMainWindow.Sandbox,,,Sandbox,Sandbox,沙盒
 Studio.App.RBXMainWindow.SaveActiveDocumentToRobloxAs,,,Save Active Document to Roblox As,Save Active Document to Roblox As,将活跃文档保存至 Roblox 并重命名
 Studio.App.RBXMainWindow.SaveToRobloxAsElps,,,Save to Roblox As...,Save to Roblox As...,保存至 Roblox 为...
-Studio.App.RBXMainWindow.ViewSandbox,,,View Sandbox,View Sandbox,查看沙盒
 Studio.App.RBXMainWindow.ViewSelectorTooltip,,,Show view selector,Show view selector,显示视图选择器
 Studio.App.RobloxRibbonMainWindow.AngularVelocityTooltip,,,Create angular velocity constraint,Create angular velocity constraint,创建角速度约束
 Studio.App.UpdateUIManager.SaveTcDocToDiffSlot,,,Save Team Create Document to a different slot,Save Team Create Document to a different slot,将组队创作文档发布至另一栏位
@@ -1644,10 +1642,8 @@ Please check internet connection and restart Roblox.","功能在离线模式不�
 请检查网络连接并重启 Roblox。"
 Studio.App.RBXMainWindow.OpenLocalizationFolder,,,Open Localization Folder,Open Localization Folder,打开本地化文件夹
 Studio.App.RBXMainWindow.OutputWindowTitle,,,Output - Network Simulator Enabled,Output - Network Simulator Enabled,输出 - 网络模拟器已启用
-Studio.App.RBXMainWindow.SandboxCpp,,,Sandbox (C++),Sandbox (C++),沙盒 （C++）
 Studio.App.RBXMainWindow.SetAsDefaultInstance,,,Set as Default...,Set as Default...,设置为默认...
 Studio.App.RBXMainWindow.SetSelectionAsDefault,,,Set the Selection as the default for future newly created instances,Set the Selection as the default for future newly created instances,将选项设为今后新建实例的默认
-Studio.App.RBXMainWindow.ViewSandboxCpp,,,View Sandbox (C++),View Sandbox (C++),查看沙盒 （C++）
 Studio.App.RbxWorkspace.PluginInstallationFailed,,,Plugin Installation failed,Plugin Installation failed,插件安装失败
 Studio.App.RbxWorkspace.PressOkForSnapshot,,,"Press OK when you've positioned the camera, and are ready to take a snapshot.","Press OK when you've positioned the camera, and are ready to take a snapshot.",当你摆放好镜头并准备好拍摄屏幕快照时，按下“确认”键。
 Studio.App.RbxWorkspace.Processing,,,Processing...,Processing...,正在处理...
@@ -1722,11 +1718,6 @@ Studio.App.RobloxViewStudio.ExitUiLayer,,,Exit UI Layer,Exit UI Layer,退出 UI 
 Studio.App.RobloxViewStudio.SelectUILayer1,,,"Select UI Layer ""%1""","Select UI Layer ""%1""",选择 UI 层面 “%1”
 Studio.App.RobloxViewStudio.SelectUiLayer,,,Select UI Layer,Select UI Layer,选择 UI 层面
 Studio.App.RobloxWebDocWidget.Address,,,Address,Address,地址
-Studio.App.SandboxWidget.Revert,,,Revert,Revert,还原
-Studio.App.SandboxWidget.SelectAndOpenScript,,,Select and open script,Select and open script,选择并打开脚本
-Studio.App.SandboxWidget.Submit,,,Submit,Submit,提交
-Studio.App.SandboxWidget.Update,,,Update,Update,更新
-Studio.App.SandboxWidget.ViewDiff,,,View Diff,View Diff,查看差异
 Studio.App.ScriptComboBox.RunACommand,,,Run a command,Run a command,运行指令
 Studio.App.ScriptPickerDialog.CreateNewLinkedsource,,,Create new LinkedSource,Create new LinkedSource,创建新 LinkedSource
 Studio.App.ScriptResourceController.ConfirmPublishChanges,,,Are you sure you want to publish your changes?,Are you sure you want to publish your changes?,确定要发布你的更改？
@@ -1807,10 +1798,6 @@ Studio.App.UploadMeshRequest.TextureFormatIsUnsupportedPlease,,,Texture format i
 Studio.App.UploadMeshRequest.TextureNotFound,,,Texture not found,Texture not found,找不到纹理
 Studio.App.UploadMeshRequest.ThereWereErrorsWhileImportingYou,,,There were errors while importing your mesh,There were errors while importing your mesh,导入你的纹理时发生错误
 Studio.App.UploadMeshRequest.UnsupportedTextureFormat,,,Unsupported texture format,Unsupported texture format,不支持的纹理格式
-Studio.App.VersionControl.CloseScript,,,Close,Close,关闭
-Studio.App.VersionControl.CommitEditsToServer,,,Commit edits to server,Commit edits to server,将编辑提交至服务器
-Studio.App.VersionControl.CompareWithServer,,,Compare with server,Compare with server,与服务器比较
-Studio.App.VersionControl.DiscardSandboxEdits,,,Discard sandbox edits,Discard sandbox edits,舍弃沙盒编辑
 Studio.App.WatchTreeWidget.DeleteAll,,,Delete All,Delete All,全部删除
 Studio.App.WatchTreeWidget.DeleteWatch,,,Delete Watch,Delete Watch,删除监视
 Studio.App.WhatsNewWindow.GetAllUpdates,,,Get All Updates,Get All Updates,获取所有更新

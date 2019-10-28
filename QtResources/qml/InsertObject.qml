@@ -7,12 +7,14 @@ import "."
 
 Rectangle {
     id: rootWindow
-	// Window size is larger than actual widget size to prevent tooltip from being cut off
-    width: 400; height: 600
+	width: insertObjectWindow.getFFlagStudioInsertObjectStreamlining_InsertWidget() ? undefined : 400; 
+	height: insertObjectWindow.getFFlagStudioInsertObjectStreamlining_InsertWidget() ? undefined : 600;
     color: "transparent"
+    anchors.fill: insertObjectWindow.getFFlagStudioInsertObjectStreamlining_InsertWidget() ? parent : undefined;
 
     readonly property int defaultCurrentIndex: -1 // See Qt documentation
     property bool showBelow: false
+	property bool isTextFocused: false
 
     signal itemClicked(int index)
     signal filterTextChanged(string filterText)
@@ -26,14 +28,18 @@ Rectangle {
 
         // Emit classClicked signal
         rootWindow.itemClicked(listView.currentIndex);
-        searchBoxText.text = "";
-        listView.currentIndex = defaultCurrentIndex;
+		if (!insertObjectWindow.getFFlagStudioInsertObjectStreamlining_InsertWidget() || isWindow){
+			searchBoxText.text = "";
+			listView.currentIndex = defaultCurrentIndex;
+		}
     }
 
 	// The dialog rectangle was added so we can add a drop shadow to it.
 	Rectangle {
 	    id: dialog
-	    width: 240; height: 456
+		width: insertObjectWindow.getFFlagStudioInsertObjectStreamlining_InsertWidget() ? undefined : 240; 
+		height: insertObjectWindow.getFFlagStudioInsertObjectStreamlining_InsertWidget() ? undefined : 456;
+		anchors.fill: insertObjectWindow.getFFlagStudioInsertObjectStreamlining_InsertWidget() ? parent : undefined;
 	    color: userPreferences.theme.style("CommonStyle mainBackground")
 		x: 5
 		y: 5
@@ -43,6 +49,7 @@ Rectangle {
 			id: searchBox
 			anchors.left: parent.left
 			anchors.right: parent.right
+			anchors.top: insertObjectWindow.getFFlagStudioInsertObjectStreamlining_InsertWidget() ? dialog.top : undefined;
 			height: 36
 			color: userPreferences.theme.style("CommonStyle mainBackground")
 			z: 1 // Stay on top of list when scrolling
@@ -64,9 +71,29 @@ Rectangle {
 		        	}
 		    	}
 
+				onActiveFocusChanged: {
+					if(insertObjectWindow.getFFlagStudioInsertObjectStreamlining_InsertWidget()){
+						if (activeFocus){
+							selectAll();
+							rootWindow.isTextFocused = true;
+						}
+						else{
+							rootWindow.isTextFocused = false;
+						}
+					}
+				}
+
 		    	// Is called when the user types something in the search box.
 		    	onTextChanged: {
 		    		rootWindow.filterTextChanged(text);
+					if (insertObjectWindow.getFFlagStudioInsertObjectStreamlining_FlattenedFiltering()){
+						if (!text){
+							listView.section.delegate = categoryDelegate;
+						}
+						else{
+							listView.section.delegate = hiddenCategoryDelegate;
+						}
+					}
 		    		var exactMatchIndex = insertObjectModelMatcher.findExactMatch(text);
 		    		if (exactMatchIndex >= 0) {
 		    			listView.currentIndex = exactMatchIndex;
@@ -102,6 +129,9 @@ Rectangle {
                     }
                     else if (event.key == Qt.Key_PageDown) {
                         listView.currentIndex = Math.min(listView.count-1, listView.currentIndex+itemsPerPage);
+                        event.accepted = true;
+                    }
+					else if (insertObjectWindow.getFFlagStudioInsertObjectStreamlining_InsertWidget() && event.key == Qt.Key_Tab) {
                         event.accepted = true;
                     }
 
@@ -217,6 +247,14 @@ Rectangle {
 				}
 			}
 		}
+		// This component is responsible for hiding the category
+		Component {
+		    id: hiddenCategoryDelegate
+			Rectangle {
+			    visible: false
+				height:0
+			}
+		}
 
 		ScrollView {
             id: scrollView
@@ -225,9 +263,8 @@ Rectangle {
 		    anchors.left: parent.left
 		    anchors.right: parent.right
             anchors.bottom: parent.bottom
-
 		    ListView {
-		    	id: listView	    
+		    	id: listView
 		    	anchors.fill: parent
 		    	model: insertObjectListModel
                 currentIndex: defaultCurrentIndex
@@ -276,10 +313,24 @@ Rectangle {
 	states: [
 		State {
 			name: "" // Default state
-			when: rootWindow.showBelow
+			when: rootWindow.showBelow && !insertObjectWindow.getFFlagStudioInsertObjectStreamlining_InsertWidget()
 			AnchorChanges {
 				target: searchBox
 				anchors.top: dialog.top
+			}
+			AnchorChanges {
+				target: scrollView
+				anchors.top: searchBox.bottom
+				anchors.bottom: dialog.bottom
+			}
+		},
+		State {
+			name: "STATE_DEFAULT_FLAGGED" // Default state with getFFlagStudioInsertObjectStreamlining_InsertWidget flag
+			when: rootWindow.showBelow  && insertObjectWindow.getFFlagStudioInsertObjectStreamlining_InsertWidget()
+			AnchorChanges {
+				target: searchBox
+				anchors.top: dialog.top
+				anchors.bottom: undefined;
 			}
 			AnchorChanges {
 				target: scrollView
@@ -292,7 +343,7 @@ Rectangle {
 			when: !rootWindow.showBelow
 			AnchorChanges {
 				target: searchBox
-				anchors.top: scrollView.bottom
+				anchors.top: insertObjectWindow.getFFlagStudioInsertObjectStreamlining_InsertWidget() ? undefined : scrollView.bottom;
 				anchors.bottom: dialog.bottom
 			}
 			AnchorChanges {
