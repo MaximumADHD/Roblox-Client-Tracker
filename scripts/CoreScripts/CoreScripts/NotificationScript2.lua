@@ -94,7 +94,6 @@ if friendRequestNotificationFIntSuccess and friendRequestNotificationFIntValue ~
 	FRIEND_REQUEST_NOTIFICATION_THROTTLE = friendRequestNotificationFIntValue
 end
 
-local FFlagCoreScriptTranslateGameText2 = settings():GetFFlag("CoreScriptTranslateGameText2")
 local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp") -- todo: remove with UsePolicyServiceForCoreScripts
 
 
@@ -110,22 +109,6 @@ local function createFrame(name, size, position, bgt)
 	frame.BackgroundTransparency = bgt
 
 	return frame
-end
-
---remove along with FFlagCoreScriptTranslateGameText2
-local function createTextButtonOld(name, text, position)
-	local button = Instance.new('TextButton')
-	button.Name = name
-	button.Size = UDim2.new(0.5, -2, 0.5, 0)
-	button.Position = position
-	button.BackgroundTransparency = BG_TRANSPARENCY
-	button.BackgroundColor3 = Color3.new(0, 0, 0)
-	button.Font = Enum.Font.SourceSansBold
-	button.FontSize = Enum.FontSize.Size18
-	button.TextColor3 = Color3.new(1, 1, 1)
-	button.Text = text
-
-	return button
 end
 
 local function createTextButton(name, position)
@@ -433,13 +416,11 @@ local function onSendNotificationInfo(notificationInfo)
 
 	local button1Text = notificationInfo.Button1Text
 	local button2Text = notificationInfo.Button2Text
-	local localizedButton1Text = notificationInfo.Button1TextLocalized --remove along with FFlagCoreScriptTranslateGameText2
-	local localizedButton2Text = notificationInfo.Button2TextLocalized --remove along with FFlagCoreScriptTranslateGameText2
 
 	local notification = {}
 	local notificationFrame
 
-	if FFlagCoreScriptTranslateGameText2 and notificationInfo.AutoLocalize then
+	if notificationInfo.AutoLocalize then
 		-- AutoLocalize should only be used for Developer notifcations.
 		notificationFrame = createNotification(
 			GameTranslator:TranslateGameText(CoreGui, notificationInfo.Title),
@@ -452,15 +433,11 @@ local function onSendNotificationInfo(notificationInfo)
 	local button1
 	if button1Text and button1Text ~= "" then
 		notification.IsFriend = true -- Prevents other notifications overlapping the buttons
-		if FFlagCoreScriptTranslateGameText2 then
-			button1 = createTextButton("Button1", UDim2.new(0, 0, 1, 2))
-			if notificationInfo.AutoLocalize then
-				GameTranslator:TranslateAndRegister(button1, CoreGui, button1Text)
-			else
-				button1.Text = button1Text
-			end
+		button1 = createTextButton("Button1", UDim2.new(0, 0, 1, 2))
+		if notificationInfo.AutoLocalize then
+			GameTranslator:TranslateAndRegister(button1, CoreGui, button1Text)
 		else
-			button1 = createTextButtonOld("Button1", localizedButton1Text or button1Text, UDim2.new(0, 0, 1, 2))
+			button1.Text = button1Text
 		end
 
 		button1.Parent = notificationFrame
@@ -483,16 +460,12 @@ local function onSendNotificationInfo(notificationInfo)
 	if button2Text and button2Text ~= "" then
 		notification.IsFriend = true
 
-		if FFlagCoreScriptTranslateGameText2 then
-			button2 = createTextButton("Button2", UDim2.new(0.5, 2, 1, 2))
+		button2 = createTextButton("Button2", UDim2.new(0.5, 2, 1, 2))
 
-			if notificationInfo.AutoLocalize then
-				GameTranslator:TranslateAndRegister(button2, CoreGui, button2Text)
-			else
-				button2.Text = button2Text
-			end
+		if notificationInfo.AutoLocalize then
+			GameTranslator:TranslateAndRegister(button2, CoreGui, button2Text)
 		else
-			button2 = createTextButtonOld("Button1", localizedButton2Text or button2Text, UDim2.new(0.5, 2, 1, 2))
+			button2.Text = button2Text
 		end
 
 		button2.Parent = notificationFrame

@@ -3,7 +3,7 @@ local Cryo = require(Plugin.Libs.Cryo)
 
 local RequestReason = require(Plugin.Core.Types.RequestReason)
 
-local GetManageableGroupsRequest = require(Plugin.Core.Networking.Requests.GetManageableGroupsRequest)
+local GetToolboxManageableGroupsRequest = require(Plugin.Core.Networking.Requests.GetToolboxManageableGroupsRequest)
 local UpdatePageInfoAndSendRequest = require(Plugin.Core.Networking.Requests.UpdatePageInfoAndSendRequest)
 
 local Category = require(Plugin.Core.Types.Category)
@@ -26,7 +26,7 @@ return function(networkInterface, tabName, newCategories,  settings, options)
 
 		-- This is an independent request
 		if tabName == Category.INVENTORY_KEY then
-			store:dispatch(GetManageableGroupsRequest(networkInterface))
+			store:dispatch(GetToolboxManageableGroupsRequest(networkInterface))
 		end
 	end
 end

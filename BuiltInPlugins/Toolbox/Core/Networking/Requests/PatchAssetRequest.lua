@@ -28,12 +28,13 @@ local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePlu
 --iconFile
 return function(patchInfo)
 	return function(store)
+		store:dispatch(SetCurrentScreen(AssetConfigConstants.SCREENS.UPLOADING_ASSET))
+
 		local function onPatchSuccess(result)
 			if FFlagEnablePurchasePluginFromLua2 then
 				patchInfo.assetType = store:getState().assetTypeEnum.Name
 				store:dispatch(TrySaveSalesAndThumbnailRequest(patchInfo))
 			else
-				store:dispatch(SetCurrentScreen(AssetConfigConstants.SCREENS.UPLOADING_ASSET))
 				store:dispatch(UploadResult(true))
 			end
 		end
@@ -44,7 +45,6 @@ return function(patchInfo)
 			end
 
 			store:dispatch(NetworkError(result))
-			store:dispatch(SetCurrentScreen(AssetConfigConstants.SCREENS.UPLOAD_ASSET_RESULT))
 			store:dispatch(UploadResult(false))
 		end
 

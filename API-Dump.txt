@@ -14,6 +14,9 @@ Class Instance : <<<ROOT>>> [NotCreatable] [NotBrowsable]
 	Function Instance Instance:FindFirstChild(string name, bool recursive = false)
 	Function Instance Instance:FindFirstChildOfClass(string className)
 	Function Instance Instance:FindFirstChildWhichIsA(string className, bool recursive = false)
+	Function Variant Instance:GetAttribute(string attribute)
+	Function RBXScriptSignal Instance:GetAttributeChangedSignal(string attribute)
+	Function Dictionary Instance:GetAttributes()
 	Function Objects Instance:GetChildren()
 	Function string Instance:GetDebugId(int scopeLength = 4) {PluginSecurity} [NotBrowsable]
 	Function Array Instance:GetDescendants() [CustomLuaState]
@@ -23,9 +26,11 @@ Class Instance : <<<ROOT>>> [NotCreatable] [NotBrowsable]
 	Function bool Instance:IsAncestorOf(Instance descendant)
 	Function bool Instance:IsDescendantOf(Instance ancestor)
 	Function void Instance:Remove() [Deprecated]
+	Function void Instance:SetAttribute(string attribute, Variant value)
 	Function Instance Instance:WaitForChild(string childName, double timeOut) [CustomLuaState] [CanYield]
 	Function Objects Instance:children() [Deprecated]
 	Event Instance.AncestryChanged(Instance child, Instance parent)
+	Event Instance.AttributeChanged(string attribute)
 	Event Instance.Changed(string property)
 	Event Instance.ChildAdded(Instance child)
 	Event Instance.ChildRemoved(Instance child)
@@ -78,8 +83,10 @@ Class AnimationTrack : Instance [NotCreatable]
 	Event AnimationTrack.KeyframeReached(string keyframeName)
 	Event AnimationTrack.Stopped()
 Class Animator : Instance
+	Function Array Animator:GetPlayingAnimationTracks()
 	Function Instance Animator:LoadAnimation(Instance animation)
 	Function void Animator:StepAnimations(float deltaTime) {PluginSecurity}
+	Event Animator.AnimationPlayed(Instance animationTrack)
 Class AssetService : Instance [NotCreatable] [Service]
 	Function int64 AssetService:CreatePlaceAsync(string placeName, int64 templatePlaceID, string description = "") [Yields]
 	Function int64 AssetService:CreatePlaceInPlayerInventoryAsync(Instance player, string placeName, int64 templatePlaceID, string description = "") [Yields]
@@ -1313,6 +1320,7 @@ Class InputObject : Instance [NotCreatable]
 	Property Vector3 InputObject.Position
 	Property Enum<UserInputType> InputObject.UserInputType
 	Property Enum<UserInputState> InputObject.UserInputState
+	Function bool InputObject:IsModifierKeyDown(Enum<ModifierKey> modifierKey)
 Class InsertService : Instance [NotCreatable] [Service]
 	Property bool InsertService.AllowClientInsertModels {NotAccessibleSecurity} [NotScriptable]
 	Property bool InsertService.AllowInsertFreeModels  [NotReplicated] [NotBrowsable] [Deprecated]
@@ -1333,6 +1341,7 @@ Class InsertService : Instance [NotCreatable] [Service]
 	Function Objects InsertService:LoadPackageAsset(Content url) {RobloxScriptSecurity}
 Class JointInstance : Instance [NotCreatable]
 	Property bool JointInstance.Active  [ReadOnly] [NotReplicated]
+	Property bool JointInstance.Enabled  [Hidden]
 	Property CFrame JointInstance.C0
 	Property CFrame JointInstance.C1
 	Property Class<BasePart> JointInstance.Part0
@@ -1529,11 +1538,6 @@ Class ModuleScript : LuaSourceContainer
 	Property Content ModuleScript.LinkedSource
 	Property ProtectedString ModuleScript.Source {PluginSecurity}
 Class LuaWebService : Instance [NotCreatable] [Service]
-Class MDIInstance : Instance {RobloxScriptSecurity} [NotCreatable]
-	Property Instance MDIInstance.FocusedDataModelSession  [ReadOnly] [NotReplicated]
-	Property string MDIInstance.FocusedDataModelSessionId  [ReadOnly] [NotReplicated]
-	Event MDIInstance.DataModelSessionEnded(string sessionId)
-	Event MDIInstance.DataModelSessionStarted(string sessionId)
 Class MarketplaceService : Instance [NotCreatable] [Service]
 	Function Instance MarketplaceService:GetDeveloperProductsAsync() [Yields]
 	Function Dictionary MarketplaceService:GetProductInfo(int64 assetId, Enum<InfoType> infoType = "Asset") [Yields]
@@ -1622,6 +1626,10 @@ Class PlayerMouse : Mouse [NotCreatable]
 Class PluginMouse : Mouse {PluginSecurity} [NotCreatable]
 	Event PluginMouse.DragEnter(Objects instances)
 Class MouseService : Instance [NotCreatable] [Service] [NotReplicated]
+Class MultipleDocumentInterfaceInstance : Instance {RobloxScriptSecurity} [NotCreatable]
+	Property Instance MultipleDocumentInterfaceInstance.FocusedDataModelSession  [ReadOnly] [NotReplicated]
+	Event MultipleDocumentInterfaceInstance.DataModelSessionEnded(Instance dataModelSession)
+	Event MultipleDocumentInterfaceInstance.DataModelSessionStarted(Instance dataModelSession)
 Class NetworkMarker : Instance [NotCreatable] [NotBrowsable]
 	Event NetworkMarker.Received()
 Class NetworkPeer : Instance {PluginSecurity} [NotCreatable] [NotBrowsable]
@@ -2161,41 +2169,39 @@ Class Plugin : Instance [NotCreatable]
 	Property float Plugin.GridSize  [ReadOnly] [NotReplicated]
 	Property Enum<StudioDataModelType> Plugin.HostDataModelType {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
 	Property bool Plugin.HostDataModelTypeIsCurrent {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
-	Property Class<MDIInstance> Plugin.MDIInstance {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
+	Property Class<MultipleDocumentInterfaceInstance> Plugin.MultipleDocumentInterfaceInstance {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
 	Function void Plugin:Activate(bool exclusiveMouse) {PluginSecurity}
-	Function Instance Plugin:Bind(string key, Function callback) {RobloxScriptSecurity}
-	Function Instance Plugin:BindAndFire(string key, Function callback) {RobloxScriptSecurity}
 	Function Instance Plugin:CreateDockWidgetPluginGui(string pluginGuiId, DockWidgetPluginGuiInfo dockWidgetPluginGuiInfo) {PluginSecurity} [Yields]
 	Function Instance Plugin:CreatePluginAction(string actionId, string text, string statusTip, string iconName = "", bool allowBinding = true) {PluginSecurity}
 	Function Instance Plugin:CreatePluginMenu(string id, string title = "", string icon = "") {PluginSecurity}
 	Function Instance Plugin:CreateQWidgetPluginGui(string pluginGuiId, Dictionary pluginGuiOptions) {RobloxScriptSecurity} [Yields]
 	Function Instance Plugin:CreateToolbar(string name) {PluginSecurity}
 	Function void Plugin:Deactivate() {PluginSecurity}
-	Function void Plugin:Fire(string key, string value = "") {RobloxScriptSecurity}
-	Function string Plugin:GetItem(string key, string defaultValue = "") {RobloxScriptSecurity}
+	Function Variant Plugin:GetItem(string key, Variant defaultValue) {RobloxScriptSecurity}
 	Function Enum<JointCreationMode> Plugin:GetJoinMode() {PluginSecurity}
 	Function Instance Plugin:GetMouse() {PluginSecurity}
 	Function Enum<RibbonTool> Plugin:GetSelectedRibbonTool() {PluginSecurity}
 	Function Variant Plugin:GetSetting(string key) {PluginSecurity}
 	Function int64 Plugin:GetStudioUserId() {PluginSecurity}
-	Function bool Plugin:HasItem(string key) {RobloxScriptSecurity}
 	Function Instance Plugin:ImportFbxAnimation(Instance rigModel, bool isR15 = true) {PluginSecurity} [Yields]
 	Function Instance Plugin:ImportFbxRig(bool isR15 = true) {PluginSecurity} [Yields]
+	Function void Plugin:Invoke(string key, Tuple arguments) {RobloxScriptSecurity}
 	Function bool Plugin:IsActivated() {PluginSecurity}
 	Function bool Plugin:IsActivatedWithExclusiveMouse() {PluginSecurity}
 	Function Objects Plugin:Negate(Objects objects) {PluginSecurity}
+	Function Instance Plugin:OnInvoke(string key, Function callback) {RobloxScriptSecurity}
+	Function Instance Plugin:OnSetItem(string key, Function callback) {RobloxScriptSecurity}
 	Function void Plugin:OpenScript(Instance script, int lineNumber = 1) {PluginSecurity}
 	Function void Plugin:OpenWikiPage(string url) {PluginSecurity}
 	Function void Plugin:PauseSound(Instance soundChannel) {RobloxScriptSecurity}
 	Function void Plugin:PlaySound(Instance soundChannel) {RobloxScriptSecurity}
 	Function int64 Plugin:PromptForExistingAssetId(string assetType) {PluginSecurity} [Yields]
 	Function bool Plugin:PromptSaveSelection(string suggestedFileName = "") {PluginSecurity} [Yields]
-	Function bool Plugin:RemoveItem(string key) {RobloxScriptSecurity}
 	Function void Plugin:ResumeSound(Instance soundChannel) {RobloxScriptSecurity}
 	Function void Plugin:SaveSelectedToRoblox() {PluginSecurity}
 	Function void Plugin:SelectRibbonTool(Enum<RibbonTool> tool, UDim2 position) {PluginSecurity}
 	Function Objects Plugin:Separate(Objects objects) {PluginSecurity}
-	Function void Plugin:SetItem(string key, string value = "") {RobloxScriptSecurity}
+	Function void Plugin:SetItem(string key, Variant value) {RobloxScriptSecurity}
 	Function void Plugin:SetSetting(string key, Variant value) {PluginSecurity}
 	Function void Plugin:StartDecalDrag(Instance decal) {RobloxScriptSecurity}
 	Function void Plugin:StartDrag(Dictionary dragData) {PluginSecurity}
@@ -2437,6 +2443,7 @@ Class ServiceProvider : Instance [NotCreatable] [NotBrowsable]
 	Event ServiceProvider.ServiceAdded(Instance service)
 	Event ServiceProvider.ServiceRemoving(Instance service)
 Class DataModel : ServiceProvider [NotCreatable]
+	Property bool DataModel.EnableScriptCollabOnLoad {PluginSecurity} [Hidden]
 	Property bool DataModel.IsSFFlagsLoaded {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
 	Property string DataModel.PrivateServerId  [ReadOnly] [NotReplicated]
 	Property int64 DataModel.PrivateServerOwnerId  [ReadOnly] [NotReplicated]
@@ -4217,6 +4224,11 @@ Enum MessageType
 	EnumItem MessageType.MessageInfo : 1
 	EnumItem MessageType.MessageWarning : 2
 	EnumItem MessageType.MessageError : 3
+Enum ModifierKey
+	EnumItem ModifierKey.Shift : 0
+	EnumItem ModifierKey.Ctrl : 1
+	EnumItem ModifierKey.Alt : 2
+	EnumItem ModifierKey.Meta : 3
 Enum MouseBehavior
 	EnumItem MouseBehavior.Default : 0
 	EnumItem MouseBehavior.LockCenter : 1

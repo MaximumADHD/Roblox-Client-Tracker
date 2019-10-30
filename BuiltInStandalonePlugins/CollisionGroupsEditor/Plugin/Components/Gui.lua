@@ -38,17 +38,14 @@ function Gui:SetStateAndRefresh(state)
 end
 
 function Gui:GetGroups()
-	local groupsJsonString = self.props.plugin:GetItem("Groups")
-	if (groupsJsonString == '') then 
-		groupsJsonString = "{}"
+	local groups = self.props.plugin:GetItem("Groups")
+	if (groups == nil) then 
+		groups ={}
 	end
-	local selectedGroupsIdsJsonString = self.props.plugin:GetItem("SelectedGroupIds")
-	if (selectedGroupsIdsJsonString == '') then 
-		selectedGroupsIdsJsonString = "{}"
+	local selectedGroupIds = self.props.plugin:GetItem("SelectedGroupIds")
+	if (selectedGroupIds == nil) then 
+		selectedGroupIds = {}
 	end
-
-	local groups = HttpService:JSONDecode(groupsJsonString)
-	local selectedGroupIds = HttpService:JSONDecode(selectedGroupsIdsJsonString)
 
 	for _, group in pairs(groups) do
 		group.Renaming = (self.state.GroupRenaming == group.Name)
@@ -61,7 +58,7 @@ function Gui:GetGroups()
 			local messageArgs = {group.Name}
 
 			self:Modal(messageKey, messageArgs, function()
-				self.props.plugin:Fire("DeleteCollisionGroup", group.Name)
+				self.props.plugin:Invoke("DeleteCollisionGroup", group.Name)
 			end)
 		end
 
@@ -69,11 +66,10 @@ function Gui:GetGroups()
 			if group.Name == "Default" then return end
 
 			if newName then
-				local jsonBlob = {}
-				jsonBlob.oldName = group.Name
-				jsonBlob.newName = newName
-				local jsonBlobString = HttpService:JSONEncode(jsonBlob)
-				self.props.plugin:Fire("RenameCollisionGroup", jsonBlobString)
+				local renameBlob = {}
+				renameBlob.oldName = group.Name
+				renameBlob.newName = newName
+				self.props.plugin:Invoke("RenameCollisionGroup", renameBlob)
 			else
 				if self.state.GroupRenaming == "" then
 					self:SetStateAndRefresh({GroupRenaming = group.Name})
@@ -84,11 +80,11 @@ function Gui:GetGroups()
 		end
 
 		group.OnMembershipSet = function()
-			self.props.plugin:Fire("AddSelectedPartsToCollisionGroup", group.Name)
+			self.props.plugin:Invoke("AddSelectedPartsToCollisionGroup", group.Name)
 		end
 
 		group.OnSelected = function(gui)
-			self.props.plugin:Fire("SelectPartsInCollisionGroup", group.Name)
+			self.props.plugin:Invoke("SelectPartsInCollisionGroup", group.Name)
 		end
 
 		group.GetCollidesWith = function(otherGroup)
@@ -100,11 +96,10 @@ function Gui:GetGroups()
 		end
 
 		group.ToggleCollidesWith = function(otherGroup)
-			local jsonBlob = {}
-			jsonBlob.groupName = group.Name
-			jsonBlob.otherGroupName = otherGroup.Name
-			local jsonBlobString = HttpService:JSONEncode(jsonBlob)
-			self.props.plugin:Fire("ToggleCollidesWith", jsonBlobString)
+			local toggleCollisionBlob = {}
+			toggleCollisionBlob.groupName = group.Name
+			toggleCollisionBlob.otherGroupName = otherGroup.Name
+			self.props.plugin:Invoke("ToggleCollidesWith", toggleCollisionBlob)
 		end
 	end
 
@@ -141,7 +136,7 @@ function Gui:render()
 				Window = self.props.Window,
 
 				OnGroupAdded = function(groupName)
-					self.props.plugin:Fire("CreateCollisionGroup", groupName)
+					self.props.plugin:Invoke("CreateCollisionGroup", groupName)
 				end,
 			}),
 
@@ -168,10 +163,13 @@ function Gui:render()
 end
 
 function Gui:didMount()
-	self.SetStateAndRefreshConn = self.props.plugin:Bind("SetStateAndRefresh", function(jsonBlobString)
-		local jsonBlob = HttpService:JSONDecode(jsonBlobString)
-		self:SetStateAndRefresh(jsonBlob)
+	self.SetStateAndRefreshConn = self.props.plugin:OnInvoke("SetStateAndRefresh", function(digestedState)	
+		if digestedState == nil then 
+			digestedState = {}
+		end
+		self:SetStateAndRefresh(digestedState)
 	end)
+	self.SetStateAndRefreshConn.Name = "SetStateAndRefresh"
 
 	self.ThemeChangedConn = settings().Studio.ThemeChanged:Connect(function(theme)
 		self:SetStateAndRefresh({Theme = theme})

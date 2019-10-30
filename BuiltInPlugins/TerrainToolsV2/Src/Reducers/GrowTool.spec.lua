@@ -2,6 +2,8 @@ local Plugin = script.Parent.Parent.Parent
 local TestHelpers = Plugin.Src.TestHelpers
 local Packages = Plugin.Packages
 
+local Constants = require(Plugin.Src.Util.Constants)
+
 local GrowTool = require(script.Parent.GrowTool)
 local testImmutability = require(TestHelpers.testImmutability)
 local Rodux = require(Packages.Rodux)
@@ -22,16 +24,17 @@ return function()
 	it("should return its expected default state", function()
 		local r = Rodux.Store.new(GrowTool)
 		expect(r:getState()).to.be.ok()
+		expect(r:getState().brushShape).to.equal("Sphere")
 		expect(r:getState().autoMaterial).to.equal(false)
-		expect(r:getState().baseSize).to.equal(20)
-		expect(r:getState().brushShape).to.equal("Circle")
-		expect(r:getState().height).to.equal(20)
-		expect(r:getState().ignoreWater).to.equal(false)
+		expect(r:getState().baseSize).to.equal(6)
+		expect(r:getState().height).to.equal(6)
+		expect(r:getState().strength).to.equal(1)
+		expect(r:getState().ignoreWater).to.equal(true)
 		expect(r:getState().material).to.equal(Enum.Material.Grass)
-		expect(r:getState().pivot).to.equal("Cen")
+		expect(r:getState().pivot).to.equal(Constants.PivotType.Center)
 		expect(r:getState().planeLock).to.equal(false)
 		expect(r:getState().snapToGrid).to.equal(false)
-		expect(r:getState().strength).to.equal(20)
+
 	end)
 
 	describe("ChangeBaseSize", function()

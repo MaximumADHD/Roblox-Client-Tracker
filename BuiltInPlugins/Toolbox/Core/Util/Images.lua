@@ -76,6 +76,8 @@ Images.CREATIONS_TAB = "rbxasset://textures/StudioToolbox/Tabs/MyCreations.png"
 -- For asset config
 Images.GENERAL_TAB = "rbxasset://textures/StudioToolbox/AssetConfig/editlisting.png"
 Images.VERSIONS_TAB = "rbxasset://textures/StudioToolbox/AssetConfig/version.png"
+Images.CENTER_PLUS = "rbxasset://textures/StudioToolbox/AssetConfig/CenterPlus.png"
+Images.GRADIENT = "rbxasset://textures/gradient.png"
 
 Images.TOGGLE_ON_DARK = "rbxasset://textures/RoactStudioWidgets/toggle_on_dark.png"
 Images.TOGGLE_ON_LIGHT = "rbxasset://textures/RoactStudioWidgets/toggle_on_light.png"

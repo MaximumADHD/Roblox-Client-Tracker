@@ -2,6 +2,8 @@ local Plugin = script.Parent.Parent.Parent
 local TestHelpers = Plugin.Src.TestHelpers
 local Packages = Plugin.Packages
 
+local Constants = require(Plugin.Src.Util.Constants)
+
 local AddTool = require(script.Parent.AddTool)
 local testImmutability = require(TestHelpers.testImmutability)
 local Rodux = require(Packages.Rodux)
@@ -14,22 +16,20 @@ local ChangePivot = require(Actions.ChangePivot)
 local SetIgnoreWater = require(Actions.SetIgnoreWater)
 local SetSnapToGrid = require(Actions.SetSnapToGrid)
 local SetAutoMaterial = require(Actions.SetAutoMaterial)
-local SetPlaneLock = require(Actions.SetPlaneLock)
 local SetMaterial = require(Actions.SetMaterial)
 
 return function()
 	it("should return its expected default state", function()
 		local r = Rodux.Store.new(AddTool)
 		expect(r:getState()).to.be.ok()
-		expect(r:getState().autoMaterial).to.equal(false)
-		expect(r:getState().baseSize).to.equal(20)
-		expect(r:getState().brushShape).to.equal("Circle")
-		expect(r:getState().height).to.equal(20)
-		expect(r:getState().ignoreWater).to.equal(false)
-		expect(r:getState().material).to.equal("None")
-		expect(r:getState().pivot).to.equal("Cen")
-		expect(r:getState().planeLock).to.equal(true) -- MUST ALWAYS BE TRUE
+		expect(r:getState().brushShape).to.equal("Sphere")
+		expect(r:getState().baseSize).to.equal(6)
+		expect(r:getState().height).to.equal(6)
+		expect(r:getState().pivot).to.equal(Constants.PivotType.Center)
 		expect(r:getState().snapToGrid).to.equal(false)
+		expect(r:getState().ignoreWater).to.equal(false)
+		expect(r:getState().autoMaterial).to.equal(false)
+		expect(r:getState().material).to.equal(Enum.Material.Grass)
 
 	end)
 
@@ -119,21 +119,6 @@ return function()
 
 		it("should preserve immutability", function()
 			local immutabilityPreserved = testImmutability(AddTool, ChangePivot("foo"))
-			expect(immutabilityPreserved).to.equal(true)
-		end)
-	end)
-
-	describe("SetPlaneLock", function()
-		it("should not reset the current planeLock", function()
-			local state = AddTool(nil, SetPlaneLock(false))
-
-			expect(state).to.be.ok()
-			expect(state.planeLock).to.be.ok()
-			expect(state.planeLock).to.equal(true)
-		end)
-
-		it("should preserve immutability", function()
-			local immutabilityPreserved = testImmutability(AddTool, SetPlaneLock(true))
 			expect(immutabilityPreserved).to.equal(true)
 		end)
 	end)

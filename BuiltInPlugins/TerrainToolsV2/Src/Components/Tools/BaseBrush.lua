@@ -5,6 +5,7 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
+local StudioPlugin = require(Plugin.Src.ContextServices.StudioPlugin)
 
 local ToolParts = Plugin.Src.Components.Tools.ToolParts
 local BrushSettings = require(ToolParts.BrushSettings)
@@ -33,6 +34,8 @@ local PivotType = Constants.PivotType
 local BaseBrush = Roact.Component:extend(script.Name)
 
 function BaseBrush:init(initialProps)
+	assert(Constants.ToolId[initialProps.toolName], "cannot use basebrush if brush type is not known")
+
 	self.layoutRef = Roact.createRef()
 	self.mainFrameRef = Roact.createRef()
 
@@ -113,14 +116,31 @@ function BaseBrush:init(initialProps)
 			brushStrengthCallback = hasStrengthCallback and self.brushStrengthCallback or nil,
 		})
 	end
+
+	self.initializeBrush = function()
+		local plugin = StudioPlugin.getPlugin(self)
+		local mouse = plugin:GetMouse()
+
+		coroutine.wrap(function()
+			TerrainBrush.Init(self.props.toolName, mouse)
+		end)()
+	end
 end
 
-function BaseBrush:didUpdate()
+function BaseBrush:didUpdate(previousProps, previousState)
+	if previousProps.toolName ~= self.props.toolName then
+		self:initializeBrush()
+	end
 	self.updateBrushProperties()
 end
 
 function BaseBrush:didMount()
+	self:initializeBrush()
 	self.updateBrushProperties()
+end
+
+function BaseBrush:willUnmount()
+	TerrainBrush.Close()
 end
 
 function BaseBrush:render()

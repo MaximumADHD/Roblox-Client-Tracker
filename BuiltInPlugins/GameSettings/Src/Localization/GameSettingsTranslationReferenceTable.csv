@@ -67,6 +67,7 @@ Studio.GameSettings.General.TitleGenre,Genre, ,Genre,类别
 Studio.GameSettings.General.TitleDevices,Playable Devices, ,Playable Devices,可玩设备
 Studio.GameSettings.General.TitleHttp,Allow HTTP Requests, ,Allow HTTP Requests,允许HTTP请求
 Studio.GameSettings.General.TitleStudioApiServices,Enable Studio Access to API Services, ,Enable Studio Access to API Services,启用API服务的Studio访问功能
+Studio.GameSettings.General.TitleScriptCollab,Enable Collaborative Editing, , , 
 Studio.GameSettings.General.TitleWorldPresets,Presets, ,Presets,预设
 Studio.GameSettings.General.TitleGravity,Gravity, ,Gravity,Gravity
 Studio.GameSettings.General.TitleJump,Jump, ,Jump,Jump
@@ -112,6 +113,7 @@ Studio.GameSettings.General.DeviceTablet,Tablet, ,Tablet,平板
 Studio.GameSettings.General.DeviceConsole,Console, ,Console,游戏主机
 Studio.GameSettings.General.HttpDesc,Allow game server to issue requests to remote servers., ,Allow game server to issue requests to remote servers.,允许游戏服务器对远程服务器发出请求。
 Studio.GameSettings.General.StudioApiServicesDesc,Enables Studio access to game services such as Data Stores, ,Enables Studio access to game services such as Data Stores,允许Studio访问数据存储等游戏服务
+Studio.GameSettings.General.ScriptCollabDesc,Enable collaborative editing for scripts., , , 
 Studio.GameSettings.General.ContentDialogHeader,Content Agreement, ,Content Agreement,内容协议
 Studio.GameSettings.General.ContentDialogBody,Do you agree that your game is controller compatible and contains NONE of the following?, ,Do you agree that your game is controller compatible and contains NONE of the following?,你同意让游戏兼容控制器，并确认游戏不包含以下内容吗？
 Studio.GameSettings.General.ContentDialogItem1,Blood or Gore, ,Blood or Gore,血腥

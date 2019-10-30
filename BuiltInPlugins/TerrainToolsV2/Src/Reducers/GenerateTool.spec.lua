@@ -8,6 +8,7 @@ local Rodux = require(Packages.Rodux)
 
 local Actions = Plugin.Src.Actions
 local SetBiomeSelection = require(Actions.SetBiomeSelection)
+local SetBiomeSize = require(Actions.SetBiomeSize)
 local ChangePosition = require(Actions.ChangePosition)
 local ChangeSize = require(Actions.ChangeSize)
 local SetHaveCaves = require(Actions.SetHaveCaves)
@@ -24,18 +25,18 @@ return function()
 		expect(r:getState().position.Z).to.equal(0)
 
 		expect(r:getState().size).to.be.ok()
-		expect(r:getState().size.X).to.equal(258)
-		expect(r:getState().size.Y).to.equal(128)
-		expect(r:getState().size.Z).to.equal(258)
+		expect(r:getState().size.X).to.equal(1024)
+		expect(r:getState().size.Y).to.equal(512)
+		expect(r:getState().size.Z).to.equal(1024)
 
 		expect(r:getState().biomeSelection).to.be.ok()
 		expect(r:getState().biomeSelection.Water).to.equal(false)
-		expect(r:getState().biomeSelection.Plains).to.equal(false)
+		expect(r:getState().biomeSelection.Plains).to.equal(true)
 		expect(r:getState().biomeSelection.Dunes).to.equal(false)
 		expect(r:getState().biomeSelection.Mountains).to.equal(true)
 		expect(r:getState().biomeSelection.Arctic).to.equal(false)
 		expect(r:getState().biomeSelection.Marsh).to.equal(false)
-		expect(r:getState().biomeSelection.Hills).to.equal(false)
+		expect(r:getState().biomeSelection.Hills).to.equal(true)
 		expect(r:getState().biomeSelection.Canyons).to.equal(false)
 		expect(r:getState().biomeSelection.Lavascape).to.equal(false)
 
@@ -98,17 +99,15 @@ return function()
 
 	describe("SetBiomeSelection", function()
 		it("should set biomes table", function()
-			local state = GenerateTool(nil, SetBiomeSelection({
-				Water = true,
-				Plains = true,
-				Dunes = true,
-				Mountains = false,
-				Arctic = true,
-				Marsh = true,
-				Hills = true,
-				Canyons = true,
-				Lavascape = true,
-			}))
+			local state = GenerateTool(nil, SetBiomeSelection("Water", true))
+			state = GenerateTool(state, SetBiomeSelection("Plains", true))
+			state = GenerateTool(state, SetBiomeSelection("Dunes", true))
+			state = GenerateTool(state, SetBiomeSelection("Mountains", false))
+			state = GenerateTool(state, SetBiomeSelection("Arctic", true))
+			state = GenerateTool(state, SetBiomeSelection("Marsh", true))
+			state = GenerateTool(state, SetBiomeSelection("Hills", true))
+			state = GenerateTool(state, SetBiomeSelection("Canyons", true))
+			state = GenerateTool(state, SetBiomeSelection("Lavascape", true))
 
 			expect(state).to.be.ok()
 			expect(state.biomeSelection).to.be.ok()
@@ -141,15 +140,15 @@ return function()
 
 	describe("SetBiomeSize", function()
 		it("should set biomeSize", function()
-			local state = GenerateTool(nil, SetBiomeSize(9999999))
+			local state = GenerateTool(nil, SetBiomeSize("9999999"))
 
 			expect(state).to.be.ok()
 			expect(state.biomeSize).to.be.ok()
-			expect(state.biomeSize).to.equal(9999999)
+			expect(state.biomeSize).to.equal("9999999")
 		end)
 
 		it("should preserve immutability", function()
-			local immutabilityPreserved = testImmutability(GenerateTool, SetBiomeSize(1111111))
+			local immutabilityPreserved = testImmutability(GenerateTool, SetBiomeSize("1111111"))
 			expect(immutabilityPreserved).to.equal(true)
 		end)
 	end)

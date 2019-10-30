@@ -151,6 +151,7 @@ Studio.TerrainToolsV2.ToolName.Paste, , ,Paste
 Studio.TerrainToolsV2.ToolName.Regions, , ,Regions
 Studio.TerrainToolsV2.ToolName.Resize, , ,Resize
 Studio.TerrainToolsV2.ToolName.Rotate, , ,Rotate
+Studio.TerrainToolsV2.ToolName.SeaLevel, , ,SeaLevel
 Studio.TerrainToolsV2.ToolName.Select, , ,Select
 Studio.TerrainToolsV2.ToolName.Smooth, , ,Smooth
 Studio.TerrainToolsV2.ToolName.Subtract, , ,Subtract
@@ -164,4 +165,6 @@ Studio.TerrainToolsV2.Warning.PublishedRequired, , ,Game must be published befor
 Studio.TerrainToolsV2.Warning.RegionSizeUndefined, , ,Size of region must be defined.
 Studio.TerrainToolsV2.Warning.RequirePublishedForImport, , ,Game must be published before importing terrain.
 Studio.TerrainToolsV2.ClearTool.ConfirmationMessage, , ,Do you want to clear all terrain?
-Studio.TerrainToolsV2.Warning.ValidHeightMapImport, , ,Valid HeightMap required to begin importing Terrain
+Studio.TerrainToolsV2.Warning.ValidHeightMapImport, , ,Valid HeightMap required to begin importing Terrain.
+Studio.TerrainToolsV2.Warning.MinimumSize,{1:int}, ,Size cannot be less than {1:int}.
+Studio.TerrainToolsV2.Warning.MaximumSize,{1:int}, ,Size cannot be greater than {1:int}.

@@ -28,13 +28,6 @@ local function main()
 	-- if Studio fires the signal to install a plugin from web, do it!
 	table.insert(tokens, StudioService.OnPluginInstalledFromWeb:Connect(installPlugin))
 
-	-- check if Studio was started with a plugin to install
-	-- NOTE - IT APPEARS THAT THIS IS OPENING THE INSTALLATION WINDOW TWICE
-	--[[local startupPluginId = StudioService:GetStartupPluginId();
-	if startupPluginId and #startupPluginId > 0 then
-		installPlugin(startupPluginId)
-	end]]
-
 	-- clean up
 	plugin.Unloading:connect(function()
 		for _, token in ipairs(tokens) do

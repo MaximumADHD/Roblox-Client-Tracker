@@ -18,6 +18,7 @@ local Plugin = script.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
+local RoactRodux = require(Libs.RoactRodux)
 
 local AssetConfiguration = Plugin.Core.Components.AssetConfiguration
 local SideTabs = require(AssetConfiguration.SideTabs)
@@ -28,13 +29,18 @@ local Util = Plugin.Core.Util
 local LayoutOrderIterator = require(Util.LayoutOrderIterator)
 local Constants = require(Util.Constants)
 local ContextHelper = require(Util.ContextHelper)
+local ContextGetter = require(Util.ContextGetter)
 local Urls = require(Util.Urls)
 local AssetConfigConstants = require(Util.AssetConfigConstants)
 
 local ImageWithDefault = require(Plugin.Core.Components.ImageWithDefault)
 
+local GetAssetConfigThumbnailStatusRequest = require(Plugin.Core.Networking.Requests.GetAssetConfigThumbnailStatusRequest)
+
 local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
+
+local getNetwork = ContextGetter.getNetwork
 
 local PreviewArea = Roact.PureComponent:extend("PreviewArea")
 
@@ -58,6 +64,16 @@ function PreviewArea:init(props)
 	self.layouterRef = Roact.createRef()
 end
 
+function PreviewArea:didMount()
+	-- We only try to fetch the thumbnail status in edit flow.
+	local props = self.props
+	if FFlagEnablePurchasePluginFromLua2 and
+		props.ScreenFlowType == AssetConfigConstants.FLOW_TYPE.EDIT_FLOW and
+		props.PreviewType == AssetConfigConstants.PreviewTypes.ImagePicker then
+			props.getThumbnailStatus(getNetwork(self), props.AssetId)
+	end
+end
+
 function PreviewArea:render()
 	return withTheme(function(theme)
 		return withLocalization(function(localization, localizedContent)
@@ -73,6 +89,7 @@ function PreviewArea:render()
 			local chooseThumbnail = props.ChooseThumbnail
 			local iconFile = props.IconFile
 			local previewType = props.PreviewType
+			local thumbnailStatus = props.thumbnailStatus
 
 			local showSideTabs = (onTabSelect and tabItems and #tabItems > 1) or false
 
@@ -124,6 +141,7 @@ function PreviewArea:render()
 				ImagePicker = previewType == AssetConfigConstants.PreviewTypes.ImagePicker and Roact.createElement(ImagePicker, {
 					Size = UDim2.new(0, THUMBNAIL_WIDTH, 0, thunmbnailHeight),
 					AssetId = assetId,
+					ThumbnailStatus = thumbnailStatus,
 					ChooseThumbnail = chooseThumbnail,
 					IconFile = iconFile,
 					LayoutOrder = orderIterator:getNextOrder(),
@@ -214,4 +232,20 @@ function PreviewArea:render()
 	end)
 end
 
-return PreviewArea
+local function mapStateToProps(state, props)
+	state = state or {}
+
+	return {
+		thumbnailStatus = state.thumbnailStatus,
+	}
+end
+
+local function mapDispatchToProps(dispatch)
+	return {
+		getThumbnailStatus = function(networkInterface, assetId)
+			dispatch(GetAssetConfigThumbnailStatusRequest(networkInterface, assetId))
+		end,
+	}
+end
+
+return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(PreviewArea)

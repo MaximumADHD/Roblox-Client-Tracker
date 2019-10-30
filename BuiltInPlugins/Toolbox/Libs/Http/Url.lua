@@ -48,6 +48,7 @@ local _baseItemConfigurationUrl = string.format("https://itemconfiguration.%s", 
 local _basePublishUrl = string.format("https://publish.%s", _baseDomain)
 local _baseDataUrl = string.format("https://data.%s", _baseDomain)
 local _baseGroupUrl = string.format("https://groups.%s", _baseDomain)
+local _baseThumbnailUrl = string.format("https://thumbnails.%s", _baseDomain)
 
 -- public api
 local Url = {
@@ -68,6 +69,7 @@ local Url = {
 	PUBLISH_URL = _basePublishUrl,
 	DATA_URL = _baseDataUrl,
 	GROUP_URL = _baseGroupUrl,
+	THUMBNAIL_URL = _baseThumbnailUrl,
 }
 
 function Url:isVanitySite()

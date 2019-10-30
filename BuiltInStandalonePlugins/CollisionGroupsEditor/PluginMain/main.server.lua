@@ -26,6 +26,14 @@ end
 local Toolbar = plugin:CreateToolbar("collisionGroupsEditorToolbar")
 local Button = Toolbar:CreateButton("collisionGroupsEditorButton", "Edit collision groups", "rbxasset://textures/CollisionGroupsEditor/ToolbarIcon.png")
 
+local function updateButtonActive(button, pluginGui)
+	if pluginGui.Enabled then
+	  button:SetActive(true)
+	else
+	  button:SetActive(false)
+	end
+end
+
 local Info = DockWidgetPluginGuiInfo.new(
 	Enum.InitialDockState.Right,
 	false,
@@ -35,13 +43,22 @@ local Info = DockWidgetPluginGuiInfo.new(
 )
 
 local Window = nil
+local RoactHandle = nil
 -- Wait until we've created a place session before we create the GUI.
-plugin.MDIInstance.DataModelSessionStarted:connect(function(sessionId)
+plugin.MultipleDocumentInterfaceInstance.DataModelSessionStarted:connect(function(dmSession)
 	if (Window == nil) then 
 		Window = plugin:CreateDockWidgetPluginGui("CollisionGroupsEditorWindow", Info)
 		Window.Title = "Collision Groups Editor"
 		
-		Roact.mount(
+		updateButtonActive(Button, Window)
+
+		-- Listen for changes in plugin gui visibility to keep toolbar button
+		-- active state synced.
+		Window:GetPropertyChangedSignal("Enabled"):connect(function(property)
+			updateButtonActive(Button, Window)
+		end)
+
+		RoactHandle = Roact.mount(
 			Roact.createElement(Gui, {
 				Window = Window,
 				plugin = plugin
@@ -60,8 +77,10 @@ plugin.MDIInstance.DataModelSessionStarted:connect(function(sessionId)
 end)
 
 -- If place session ends and we have a gui, destroy it.
-plugin.MDIInstance.DataModelSessionEnded:connect(function(sessionId)
+plugin.MultipleDocumentInterfaceInstance.DataModelSessionEnded:connect(function(dmSession)
 	if (Window ~= nil) then 
+		Roact.unmount(RoactHandle)
+		RoactHandle = nil
 		Window:Destroy()
 		Window = nil
 	end

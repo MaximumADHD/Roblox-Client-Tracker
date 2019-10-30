@@ -18,6 +18,7 @@ Rectangle {
 
     signal itemClicked(int index)
     signal filterTextChanged(string filterText)
+	signal selectAfterInsertChecked(bool checked)
 
     function insertObject() {
         // Don't try to insert an object if the user hasn't selected any
@@ -256,10 +257,38 @@ Rectangle {
 			}
 		}
 
+		CheckBox {
+			id: selectedCheckBox
+			text: qsTr("Studio.App.InsertObjectWidget.SelectInsertedObject")
+			checked: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamlining_SelectAfterInsert() ? selectAfterInsert : true
+			onClicked: rootWindow.selectAfterInsertChecked(checked)
+			anchors.left: parent.left
+			anchors.top: searchBox.bottom
+			anchors.leftMargin: 6
+			visible: {
+			    if(insertObjectWindow.getFFlagStudioInsertObjectStreamlining_InsertWidget() && insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamlining_SelectAfterInsert()){
+				    return !isWindow;
+				}
+				else
+				{
+				    return false;
+				}
+			}			
+			height: {
+				if(insertObjectWindow.getFFlagStudioInsertObjectStreamlining_InsertWidget() && insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamlining_SelectAfterInsert()){
+				    return isWindow ? 0 : 25
+				}
+				else
+				{
+				    return 0;
+				}		
+			}
+		}
+
 		ScrollView {
             id: scrollView
             objectName: "qmlInsertObjectScrollView"
-			anchors.top: searchBox.bottom	    
+			anchors.top: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamlining_SelectAfterInsert() ? selectedCheckBox.bottom : searchBox.bottom	    
 		    anchors.left: parent.left
 		    anchors.right: parent.right
             anchors.bottom: parent.bottom
@@ -313,7 +342,11 @@ Rectangle {
 	states: [
 		State {
 			name: "" // Default state
-			when: rootWindow.showBelow && !insertObjectWindow.getFFlagStudioInsertObjectStreamlining_InsertWidget()
+			when: {
+				!insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamlining_SelectAfterInsert() 
+				&& rootWindow.showBelow 
+				&& !insertObjectWindow.getFFlagStudioInsertObjectStreamlining_InsertWidget()
+			}
 			AnchorChanges {
 				target: searchBox
 				anchors.top: dialog.top
@@ -326,7 +359,11 @@ Rectangle {
 		},
 		State {
 			name: "STATE_DEFAULT_FLAGGED" // Default state with getFFlagStudioInsertObjectStreamlining_InsertWidget flag
-			when: rootWindow.showBelow  && insertObjectWindow.getFFlagStudioInsertObjectStreamlining_InsertWidget()
+			when: {
+				!insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamlining_SelectAfterInsert() 
+				&& rootWindow.showBelow 
+				&& insertObjectWindow.getFFlagStudioInsertObjectStreamlining_InsertWidget()
+			}
 			AnchorChanges {
 				target: searchBox
 				anchors.top: dialog.top
@@ -340,7 +377,10 @@ Rectangle {
 		},
 		State {
 			name: "STATE_SHOW_ABOVE"
-			when: !rootWindow.showBelow
+			when: {
+				!insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamlining_SelectAfterInsert() 
+				&& !rootWindow.showBelow 
+			}
 			AnchorChanges {
 				target: searchBox
 				anchors.top: insertObjectWindow.getFFlagStudioInsertObjectStreamlining_InsertWidget() ? undefined : scrollView.bottom;

@@ -51,7 +51,7 @@ local params = {
 			[keys.SHOW_COMMENT] = true,
 			[keys.SHOW_COPY] = true,
 			[keys.SHOW_GENRE] = true,
-			[keys.SHOW_OVERRIDE_BUTTON] = true,
+			[keys.SHOW_OVERRIDE_BUTTON] = false,
 			[keys.SHOW_OWNERSHIP] = true,
 			[keys.SHOW_PRICE] = false,
 			[keys.SHOW_SALE] = false,
@@ -74,6 +74,7 @@ local assetTypeOverride = {
 			[keys.SHOW_COMMENT] = false,
 			[keys.SHOW_COPY] = false, -- For plugin, sales will be acting as allow copy when user is not whitelisted.
 			[keys.SHOW_GENRE] = false,
+			[keys.SHOW_OVERRIDE_BUTTON] = true,
 			[keys.SHOW_PRICE] = false, -- Only show price when sales has been set to OnSale.
 			[keys.SHOW_SALE] = true,
 		},
@@ -82,14 +83,19 @@ local assetTypeOverride = {
 			[keys.SHOW_COMMENT] = false,
 			[keys.SHOW_COPY] = false,
 			[keys.SHOW_GENRE] = false,
-			[keys.SHOW_OVERRIDE_BUTTON] = false,
+
 			[keys.SHOW_OWNERSHIP] = true,
 			[keys.SHOW_PRICE] = false,
 			[keys.SHOW_SALE] = false,
 			[keys.SHOW_VERSIONS_TAB] = false,
 			[keys.SHOW_SALES_TAB] = true,
 		}
-	}
+	},
+	[Enum.AssetType.Model] = {
+		[AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW] = {
+			[keys.SHOW_OVERRIDE_BUTTON] = true,
+		},
+	},
 }
 
 function ScreenSetup.queryParam(flowType, assetTypeEnum, paramKey)

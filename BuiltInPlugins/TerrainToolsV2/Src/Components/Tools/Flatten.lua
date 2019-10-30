@@ -5,8 +5,7 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
-
-local TexturePath = "rbxasset://textures/TerrainTools/"
+local StudioPlugin = require(Plugin.Src.ContextServices.StudioPlugin)
 
 local ToolParts = Plugin.Src.Components.Tools.ToolParts
 local BrushSettings = require(ToolParts.BrushSettings)
@@ -122,6 +121,12 @@ function Flatten:didUpdate()
 end
 
 function Flatten:didMount()
+	local plugin = StudioPlugin.getPlugin(self)
+	local mouse = plugin:GetMouse()
+
+	coroutine.wrap(function()
+		TerrainBrush.Init(Constants.ToolId.Flatten, mouse)
+	end)()
 	self:updateBrushProperties()
 end
 

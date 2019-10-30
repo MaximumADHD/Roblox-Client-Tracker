@@ -13,19 +13,19 @@ return function()
 		expect(state).to.be.ok()
 
 		local expectedKeys = {
-			"Tabs",
-			"PaintTool",
 			"Tools",
-			"AddTool",
-			"ErodeTool",
-			"FillTool",
 			"GenerateTool",
-			"GrowTool",
 			"ImportTool",
-			"SelectTool",
-			"SmoothTool",
+			"SeaLevelTool",
+			"RegionTool",
+			"FillTool",
+			"AddTool",
 			"SubtractTool",
+			"GrowTool",
+			"ErodeTool",
+			"SmoothTool",
 			"FlattenTool",
+			"PaintTool",
 		}
 		for _, childReducerName in ipairs(expectedKeys) do
 			expect(state[childReducerName]).to.be.ok()

@@ -19,6 +19,7 @@ local POST_UPLOAD_ASSET_THUMBNAIL =  Url.PUBLISH_URL .. "v1/assets/%d/thumbnail"
 local GET_CONFIG_CATALOG_ITEM = Url.DEVELOP_URL .. "v1/assets/%d"
 local GET_CONFIGURE_SALES = Url.ITEM_CONFIGURATION_URL .. "v1/assets/%d/release"
 local GET_UPDATE_SALES = Url.ITEM_CONFIGURATION_URL .. "v1/assets/%d/update-price"
+local Get_THUMBNAIL_STATUS = Url.THUMBNAIL_URL .. "v1/assets?"
 
 local POST_VOTE = Url.BASE_URL .. "voting/vote"
 local INSERT_ASSET = Url.BASE_URL .. "IDE/Toolbox/InsertAsset?"
@@ -41,6 +42,8 @@ local ASSET_GAME_ASSET_ID = Url.GAME_ASSET_URL .. ASSET_ID_PATH
 local ASSET_THUMBNAIL = Url.GAME_ASSET_URL .. "asset-thumbnail/image?"
 
 local RBXTHUMB_URL = FFlagUseRBXThumbInToolbox and "rbxthumb://type=Asset&id=%d&w=%d&h=%d" or nil
+local RBXTHUMB_AVATAR_HEADSHOT_URL = "rbxthumb://type=AvatarHeadShot&id=%d&w=%d&h=%d"
+local RBXTHUMB_GROUP_ICON_URL = "rbxthumb://type=GroupIcon&id=%d&w=%d&h=%d"
 
 local USER_SEARCH = Url.BASE_URL .. "search/users/results?"
 local USER_THUMBNAIL = Url.BASE_URL .. "headshot-thumbnail/image?"
@@ -61,6 +64,11 @@ local POST_UPLOAD_ASSET_BASE = Url.DATA_URL .. "Data/Upload.ashx?"
 
 local GET_MY_GROUPS = Url.GROUP_URL .. "v2/users/%%20%%20%s/groups/roles"
 local GET_IS_VERIFIED_CREATOR = Url.DEVELOP_URL .. "v1/user/is-verified-creator"
+
+local GET_USER_FRIENDS_URL = "https://friends.roblox.com/v1/users/%d/friends"
+
+-- Package Permissions URLs
+local GET_PACKAGE_COLLABORATORS = Url.DEVELOP_URL .. "v1/packages/assets/%s/permissions?"
 
 local DEFAULT_ASSET_SIZE = 100
 local DEFAULT_SEARCH_ROWS = 3
@@ -124,6 +132,15 @@ end
 
 function Urls.constructUploadAssetThumbnailUrl(assetId)
 	return POST_UPLOAD_ASSET_THUMBNAIL:format(assetId)
+end
+
+
+function Urls.contuctGetThumbnailStatusUrl(assetIds)
+	return Get_THUMBNAIL_STATUS .. Url.makeQueryString({
+		assetIds = assetIds,
+		format = "Png", -- Even you can't choos other option, you still need this.
+		size= "150x150", -- Again, not optional here.
+	})
 end
 
 function Urls.constructConfigureSalesUrl(assetId)
@@ -285,6 +302,24 @@ end
 
 function Urls.constructIsVerifiedCreatorUrl()
 	return GET_IS_VERIFIED_CREATOR
+end
+
+function Urls.constructAvatarHeadshotThumbnailUrl(assetId, size)
+	return RBXTHUMB_AVATAR_HEADSHOT_URL:format(assetId, size, size)
+end
+
+function Urls.constructGroupIconThumbnailUrl(assetId, size)
+	return RBXTHUMB_GROUP_ICON_URL:format(assetId, size, size)
+end
+
+function Urls.constructGetUserFriendsUrl(userId)
+	return GET_USER_FRIENDS_URL:format(userId)
+end
+
+function Urls.constructGetPackageCollaboratorsUrl(assetId)
+	return GET_PACKAGE_COLLABORATORS:format(assetId) .. Url.makeQueryString({
+		actionsTextToFilter = "UseView,Edit,Revoked,Own"
+	})
 end
 
 return wrapStrictTable(Urls)

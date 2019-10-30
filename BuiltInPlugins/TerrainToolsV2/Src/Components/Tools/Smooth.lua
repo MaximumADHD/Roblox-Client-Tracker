@@ -20,12 +20,16 @@ local SetSnapToGrid = require(Actions.SetSnapToGrid)
 local SetAutoMaterial = require(Actions.SetAutoMaterial)
 local SetMaterial = require(Actions.SetMaterial)
 
-local REDUCER_KEY = "SmoothTool"
-local Smooth = Roact.Component:extend(script.Name)
+local Constants = require(Plugin.Src.Util.Constants)
 
+local REDUCER_KEY = "SmoothTool"
+
+local Smooth = Roact.Component:extend(script.Name)
 
 local function MapStateToProps (state, props)
 	return {
+		toolName = Constants.ToolId.Smooth,
+
 		brushShape = state[REDUCER_KEY].brushShape,
 		baseSize = state[REDUCER_KEY].baseSize,
 		height = state[REDUCER_KEY].height,

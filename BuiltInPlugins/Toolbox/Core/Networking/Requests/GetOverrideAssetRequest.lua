@@ -14,6 +14,8 @@ local SetOverrideCursor = require(Actions.SetOverrideCursor)
 
 local FFlagUseCreationToFetchMyOverrideData2 = game:GetFastFlag("UseCreationToFetchMyOverrideData2")
 
+local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
+
 local function filterAssetByCreatorId(resultsArray, creatorId)
 	local results = {}
 	for index, asset in pairs(resultsArray) do
@@ -42,7 +44,7 @@ end
 
 -- creatoryType can be "User" or "Group"
 -- If creatorType is Group, creatorId is groupId
-return function(networkInterface, creatorType, creatorId, targetPage)
+return function(networkInterface, assetTypeEnum, creatorType, creatorId, targetPage)
 	return function(store)
 		local loadingPage = store:getState().loadingPage or 0
 		if targetPage > 1 then
@@ -115,45 +117,78 @@ return function(networkInterface, creatorType, creatorId, targetPage)
 			SetLoadingPage(0)
 		end
 
-		if FFlagUseCreationToFetchMyOverrideData2 then
-			-- We will be using creation endpoint to fetch models to override.
+
+		if FFlagEnablePurchasePluginFromLua2 then
 			local category = "Model"
 			local groupId = nil
 			if creatorType == "Group" then
-				category = "GroupModels"
 				groupId = creatorId
+				category = assetTypeEnum == Enum.AssetType.Model and "GroupModels" or "GroupPlugin"
+			else
+				if assetTypeEnum == Enum.AssetType.Plugin then category = "Plugin" end
 			end
 
-			local numPerPage = AssetConfigConstants.GetOverrideAssetNumbersPerPage
-
-			-- For model we will be using cursor while targetPage for groups
-			-- We will still using loadingPage and currentPage to check if we want to load next page.
-			-- And we will be using current cursor to index next page.
-			if category == "Model" then
-				local currentCursor = store:getState().overrideCursor or PagedRequestCursor.createDefaultCursor()
-				if PagedRequestCursor.isNextPageAvailable(currentCursor) then
-					return networkInterface:getAssetCreations(nil, PagedRequestCursor.getNextPageCursor(currentCursor), "Model"):andThen(
-						handleGetCreationOverrideSuccss,
-						handleOverrideFailed)
-				end
-			else
+			if creatorType == "Group" then
+				local numPerPage = AssetConfigConstants.GetOverrideAssetNumbersPerPage
 				return networkInterface:getOverrideModels(category, numPerPage, targetPage, "Relevance", groupId):andThen(
 					handleOverrideResult,
-					handleOverrideFailed)
+					handleOverrideFailed
+				)
+			else
+				local currentCursor = store:getState().overrideCursor or PagedRequestCursor.createDefaultCursor()
+				if PagedRequestCursor.isNextPageAvailable(currentCursor) then
+					return networkInterface:getAssetCreations(nil, PagedRequestCursor.getNextPageCursor(currentCursor), category):andThen(
+						handleGetCreationOverrideSuccss,
+						handleOverrideFailed
+					)
+				end
 			end
 		else
-			local category = "MyModelsExceptPackage" -- Default to user's category
-			local groupId = nil
-			if creatorType == "Group" then
-				category = "GroupModels"
-				groupId = creatorId
+			if FFlagUseCreationToFetchMyOverrideData2 then
+				-- We will be using creation endpoint to fetch models to override.
+				local category = "Model"
+				local groupId = nil
+				if creatorType == "Group" then
+					category = "GroupModels"
+					groupId = creatorId
+				end
+
+				local numPerPage = AssetConfigConstants.GetOverrideAssetNumbersPerPage
+
+				-- For model we will be using cursor while targetPage for groups
+				-- We will still using loadingPage and currentPage to check if we want to load next page.
+				-- And we will be using current cursor to index next page.
+				if category == "Model" then
+					local currentCursor = store:getState().overrideCursor or PagedRequestCursor.createDefaultCursor()
+					if PagedRequestCursor.isNextPageAvailable(currentCursor) then
+						return networkInterface:getAssetCreations(nil, PagedRequestCursor.getNextPageCursor(currentCursor), "Model"):andThen(
+							handleGetCreationOverrideSuccss,
+							handleOverrideFailed)
+					end
+				else
+					return networkInterface:getOverrideModels(category, numPerPage, targetPage, "Relevance", groupId):andThen(
+						handleOverrideResult,
+						handleOverrideFailed
+					)
+				end
+			else
+				local category = "MyModelsExceptPackage" -- Default to user's category
+				local groupId = nil
+				if creatorType == "Group" then
+					category = "GroupModels"
+					groupId = creatorId
+				end
+
+				local numPerPage = AssetConfigConstants.GetOverrideAssetNumbersPerPage
+
+				return networkInterface:getOverrideModels(category, numPerPage, targetPage, "Relevance", groupId):andThen(
+					handleOverrideResult,
+					handleOverrideFailed
+				)
 			end
 
-			local numPerPage = AssetConfigConstants.GetOverrideAssetNumbersPerPage
-
-			return networkInterface:getOverrideModels(category, numPerPage, targetPage, "Relevance", groupId):andThen(
-				handleOverrideResult,
-				handleOverrideFailed)
 		end
+
+
 	end
 end

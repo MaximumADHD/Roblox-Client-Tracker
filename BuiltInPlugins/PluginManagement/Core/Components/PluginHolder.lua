@@ -7,10 +7,7 @@ local PluginEntry = require(Plugin.Core.Components.PluginEntry)
 local Constants = require(Plugin.Core.Util.Constants)
 local LayoutOrderIterator = UILibrary.Util.LayoutOrderIterator
 
-local Theme = require(Plugin.Core.Context.Theme)
-local withTheme = Theme.withTheme
-local Localizing = UILibrary.Localizing
-local withLocalization = Localizing.withLocalization
+local ContextServices = require(Plugin.Libs.Framework.ContextServices)
 
 local PluginHolder = Roact.Component:extend("PluginHolder")
 
@@ -50,112 +47,110 @@ function PluginHolder:createLabel(theme, displayText)
 	})
 end
 
-local function composedRender(callback)
-	return withTheme(function(theme)
-		return withLocalization(function(localization)
-			return callback(theme, localization)
-		end)
-	end)
-end
-
 function PluginHolder:render()
-	return composedRender(function(theme, localization)
-		self.order = LayoutOrderIterator.new()
+	self.order = LayoutOrderIterator.new()
 
-		local props = self.props
-		local state = self.state
+	local props = self.props
+	local state = self.state
 
-		local contentHeight = state.contentHeight
-		local plugin = props.plugin
-		local pluginList = props.pluginList
-		local position = props.position
-		local size = props.size
-		local anchorPoint = props.anchorPoint
-		local onPluginUninstalled = props.onPluginUninstalled
+	local localization = props.Localization
+	local theme = props.Theme:get("Plugin")
 
-		local pendingHeader = localization:getText("Header", "PendingUpdates")
-		local upToDateHeader = localization:getText("Header", "UpToDate")
+	local contentHeight = state.contentHeight
+	local plugin = props.plugin
+	local pluginList = props.pluginList
+	local position = props.position
+	local size = props.size
+	local anchorPoint = props.anchorPoint
+	local onPluginUninstalled = props.onPluginUninstalled
 
-		local pluginEntries = {
-			Layout = Roact.createElement("UIListLayout", {
-				SortOrder = Enum.SortOrder.LayoutOrder,
-				HorizontalAlignment = Enum.HorizontalAlignment.Center,
-				VerticalAlignment = Enum.VerticalAlignment.Top,
-				[Roact.Change.AbsoluteContentSize] = self.resizeContainer,
-			}),
-		}
+	local pendingHeader = localization:getText("Header", "PendingUpdates")
+	local upToDateHeader = localization:getText("Header", "UpToDate")
 
-		local needsUpdate = {}
-		local updated = {}
+	local pluginEntries = {
+		Layout = Roact.createElement("UIListLayout", {
+			SortOrder = Enum.SortOrder.LayoutOrder,
+			HorizontalAlignment = Enum.HorizontalAlignment.Center,
+			VerticalAlignment = Enum.VerticalAlignment.Top,
+			[Roact.Change.AbsoluteContentSize] = self.resizeContainer,
+		}),
+	}
 
-		for id, data in pairs(pluginList) do
-			local isUpdated = StudioService:IsPluginUpToDate(id, data.latestVersion)
-			if isUpdated then
-				table.insert(updated, data)
-			else
-				table.insert(needsUpdate, data)
-			end
+	local needsUpdate = {}
+	local updated = {}
+
+	for id, data in pairs(pluginList) do
+		local isUpdated = StudioService:IsPluginUpToDate(id, data.latestVersion)
+		if isUpdated then
+			table.insert(updated, data)
+		else
+			table.insert(needsUpdate, data)
 		end
+	end
 
-		sortPlugins(updated)
-		sortPlugins(needsUpdate)
+	sortPlugins(updated)
+	sortPlugins(needsUpdate)
 
-		local showHeaders = #updated > 0 and #needsUpdate > 0
+	local showHeaders = #updated > 0 and #needsUpdate > 0
 
-		if showHeaders then
-			pluginEntries.PendingUpdates = self:createLabel(theme, pendingHeader)
-		end
+	if showHeaders then
+		pluginEntries.PendingUpdates = self:createLabel(theme, pendingHeader)
+	end
 
-		for _, data in ipairs(needsUpdate) do
-			pluginEntries[data.assetId .. "_Entry"] = Roact.createElement(PluginEntry, {
-				LayoutOrder = self.order:getNextOrder(),
-				data = data,
-				isUpdated = false,
-				plugin = plugin,
-				onPluginUninstalled = onPluginUninstalled,
-			})
-			pluginEntries[data.assetId .. "_Border"] = Roact.createElement("Frame", {
-				LayoutOrder = self.order:getNextOrder(),
-				Size = UDim2.new(0.8, 0, 0, 1),
-				BorderSizePixel = 0,
-				BackgroundColor3 = theme.BorderColor,
-				AnchorPoint = Vector2.new(0.5, 0.5),
-			})
-		end
-
-		if showHeaders then
-			pluginEntries.UpToDate = self:createLabel(theme, upToDateHeader)
-		end
-
-		for _, data in ipairs(updated) do
-			pluginEntries[data.assetId .. "_Entry"] = Roact.createElement(PluginEntry, {
-				LayoutOrder = self.order:getNextOrder(),
-				data = data,
-				isUpdated = true,
-				plugin = plugin,
-				onPluginUninstalled = onPluginUninstalled,
-			})
-			pluginEntries[data.assetId .. "_Border"] = Roact.createElement("Frame", {
-				LayoutOrder = self.order:getNextOrder(),
-				Size = UDim2.new(0.8, 0, 0, 1),
-				BorderSizePixel = 0,
-				BackgroundColor3 = theme.BorderColor,
-				AnchorPoint = Vector2.new(0.5, 0.5),
-			})
-		end
-
-		return Roact.createElement("ScrollingFrame", {
-			Size = size,
-			CanvasSize = UDim2.new(1, 0, 0, contentHeight),
-			Position = position,
-			AnchorPoint = anchorPoint,
-			BackgroundColor3 = theme.BackgroundColor,
-			TopImage = "rbxasset://textures/StudioToolbox/ScrollBarTop.png",
-			MidImage = "rbxasset://textures/StudioToolbox/ScrollBarMiddle.png",
-			BottomImage = "rbxasset://textures/StudioToolbox/ScrollBarBottom.png",
+	for _, data in ipairs(needsUpdate) do
+		pluginEntries[data.assetId .. "_Entry"] = Roact.createElement(PluginEntry, {
+			LayoutOrder = self.order:getNextOrder(),
+			data = data,
+			isUpdated = false,
+			plugin = plugin,
+			onPluginUninstalled = onPluginUninstalled,
+		})
+		pluginEntries[data.assetId .. "_Border"] = Roact.createElement("Frame", {
+			LayoutOrder = self.order:getNextOrder(),
+			Size = UDim2.new(0.8, 0, 0, 1),
 			BorderSizePixel = 0,
-		}, pluginEntries)
-	end)
+			BackgroundColor3 = theme.BorderColor,
+			AnchorPoint = Vector2.new(0.5, 0.5),
+		})
+	end
+
+	if showHeaders then
+		pluginEntries.UpToDate = self:createLabel(theme, upToDateHeader)
+	end
+
+	for _, data in ipairs(updated) do
+		pluginEntries[data.assetId .. "_Entry"] = Roact.createElement(PluginEntry, {
+			LayoutOrder = self.order:getNextOrder(),
+			data = data,
+			isUpdated = true,
+			plugin = plugin,
+			onPluginUninstalled = onPluginUninstalled,
+		})
+		pluginEntries[data.assetId .. "_Border"] = Roact.createElement("Frame", {
+			LayoutOrder = self.order:getNextOrder(),
+			Size = UDim2.new(0.8, 0, 0, 1),
+			BorderSizePixel = 0,
+			BackgroundColor3 = theme.BorderColor,
+			AnchorPoint = Vector2.new(0.5, 0.5),
+		})
+	end
+
+	return Roact.createElement("ScrollingFrame", {
+		Size = size,
+		CanvasSize = UDim2.new(1, 0, 0, contentHeight),
+		Position = position,
+		AnchorPoint = anchorPoint,
+		BackgroundColor3 = theme.BackgroundColor,
+		TopImage = "rbxasset://textures/StudioToolbox/ScrollBarTop.png",
+		MidImage = "rbxasset://textures/StudioToolbox/ScrollBarMiddle.png",
+		BottomImage = "rbxasset://textures/StudioToolbox/ScrollBarBottom.png",
+		BorderSizePixel = 0,
+	}, pluginEntries)
 end
+
+ContextServices.mapToProps(PluginHolder, {
+	Localization = ContextServices.Localization,
+	Theme = ContextServices.Theme,
+})
 
 return PluginHolder

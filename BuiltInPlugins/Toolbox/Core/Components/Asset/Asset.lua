@@ -22,6 +22,7 @@
 
 local FFlagStudioToolboxFixMouseHover = settings():GetFFlag("StudioToolboxFixMouseHover")
 local FFlagPluginAccessAndInstallationInStudio = settings():GetFFlag("PluginAccessAndInstallationInStudio")
+local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -88,6 +89,9 @@ function Asset:init(props)
 
 	self.onMouseButton2Click = function(rbx, x, y)
 		local showEditOption = Category.CREATIONS_KEY == props.currentTab
+		if FFlagEnablePurchasePluginFromLua2 then
+			showEditOption = props.currentTab == Category.CREATIONS_KEY or props.currentTab == Category.INVENTORY_KEY
+		end
 
 		self.props.tryCreateContextMenu(assetData, showEditOption)
 	end

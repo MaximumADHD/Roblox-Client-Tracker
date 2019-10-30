@@ -27,6 +27,12 @@ local tabLookup = {
 	Sculpt = {"Grow", "Erode", "Smooth", "Flatten"},
 	Paint = {"Paint"},
 }
+local FFlagTerrainToolsSeaLevel = settings():GetFFlag("TerrainToolsSeaLevel")
+if FFlagTerrainToolsSeaLevel then
+	-- insert sealevel tool between import and clear
+	tabLookup["Create"][3] = "SeaLevel"
+	tabLookup["Create"][4] = "Clear"
+end
 
 function ToolManager:init()
 	self.layoutRef = Roact.createRef()

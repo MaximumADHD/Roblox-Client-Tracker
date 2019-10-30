@@ -8,7 +8,7 @@
 		number ZIndex = 0
 		boolean Visible = true
 		number Count = 3 : number of blocks in loading animation
-		number GapRatio = 1.5 : sets gap between blocks 
+		number GapRatio = 1.5 : sets gap between blocks
 		number EndRatio = 0.25 : used for calculating block width
 ]]
 
@@ -19,8 +19,6 @@ local Theming = require(Library.Theming)
 local withTheme = Theming.withTheme
 
 local RunService = game:GetService("RunService")
-
-local animationCallbacks = {}
 
 local LoadingIndicator = Roact.PureComponent:extend("LoadingIndicator")
 
@@ -36,22 +34,11 @@ function LoadingIndicator:init()
 	}
 
 	self.animationConnection = RunService.RenderStepped:connect(function(deltaTime)
-		for callback, _ in pairs(animationCallbacks) do
-			callback(deltaTime)
-		end
+		self:updateAnimation(deltaTime)
 	end)
 end
 
-function LoadingIndicator:didMount()
-	self.callback = function(deltaTime)
-		self:updateAnimation(deltaTime)
-	end
-	animationCallbacks[self.callback] = true
-end
-
 function LoadingIndicator:willUnmount()
-	animationCallbacks[self.callback] = nil
-	
 	if self.animationConnection then
 		self.animationConnection:Disconnect()
 	end

@@ -552,7 +552,12 @@ function generate ()
 			--oMap[x] = oMapX
 			local mMapX = {}
 			--mMap[x] = mMapX
-			for z = 1, voxelSize.Z do
+			local regionStart = Vector3.new(voxelSize.X*-2+(x-1), voxelSize.Y*-2, voxelSize.Z*-2) + offset
+			local regionEnd = Vector3.new(voxelSize.X*-2+x, voxelSize.Y*2, voxelSize.Z*2) + offset
+			local mapRegion = Region3.new(regionStart, regionEnd)
+			mapRegion = mapRegion:ExpandToGrid(resolution)
+
+			for z = 1, (mapRegion.Size.Z/resolution) do
 				local offsetZ = offset.z + z
 				local biomeNoCave = false
 				local cellToBiomeX = offsetX/biomeSize + getPerlin(offsetX,0,offsetZ,233,biomeSize*.3)*.25 + getPerlin(offsetX,0,offsetZ,235,biomeSize*.05)*.075
@@ -602,7 +607,7 @@ function generate ()
 					end
 				end
 
-				for y = 1, voxelSize.Y do
+				for y = 1, (mapRegion.Size.Y/resolution) do
 					local oMapY = oMapX[y] or {}
 					oMapX[y] = oMapY
 					local mMapY = mMapX[y] or {}
@@ -685,10 +690,6 @@ function generate ()
 					mMapY[z] = (y == 1 and lava) or (smoothedResult <= 0 and air) or (surface and choiceSurface) or choiceFill
 				end
 			end
-
-			local regionStart = Vector3.new(voxelSize.X*-2+(x-1)*4, voxelSize.Y*-2, voxelSize.Z*-2) + scaledOffset
-			local regionEnd = Vector3.new(voxelSize.X*-2+x*4, voxelSize.Y*2, voxelSize.Z*2) + scaledOffset
-			local mapRegion = Region3.new(regionStart, regionEnd)
 			terrain:WriteVoxels(mapRegion, 4, {mMapX}, {oMapX})
 
 			local completionPercent = x/voxelSize.X

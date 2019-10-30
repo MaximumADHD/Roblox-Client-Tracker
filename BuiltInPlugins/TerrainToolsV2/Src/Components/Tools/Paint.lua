@@ -19,11 +19,16 @@ local SetSnapToGrid = require(Actions.SetSnapToGrid)
 local SetIgnoreWater = require(Actions.SetIgnoreWater)
 local SetMaterial = require(Actions.SetMaterial)
 
+local Constants = require(Plugin.Src.Util.Constants)
+
 local REDUCER_KEY = "PaintTool"
+
 local Paint = Roact.Component:extend(script.Name)
 
 local function MapStateToProps (state, props)
 	return {
+		toolName = Constants.ToolId.Paint,
+
 		brushShape = state[REDUCER_KEY].brushShape,
 		baseSize = state[REDUCER_KEY].baseSize,
 		height = state[REDUCER_KEY].height,

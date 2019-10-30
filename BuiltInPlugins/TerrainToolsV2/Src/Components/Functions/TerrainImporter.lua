@@ -75,6 +75,7 @@ module.FirstTimeSetup = function()
 			kProgressFrameObj:GetFill().Size = UDim2.new(completionPercent,0,1,0)
 		else
 			kProgressFrame.Visible = false
+			assert(onImportStartActiveButton ~= nil, "missing onImportStartActiveButton callback")
 			onImportStartActiveButton(true)
 		end
 	end)

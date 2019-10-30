@@ -37,4 +37,8 @@ function Urls.constructGetPluginInfoUrl(assetIds)
 	})
 end
 
+function Urls.constructFindPluginLibraryUrl()
+	return Url.BASE_URL .. "develop/library?CatalogContext=2&SortType=0&SortAggregation=3&SortCurrency=0&Category=7"
+end
+
 return Urls

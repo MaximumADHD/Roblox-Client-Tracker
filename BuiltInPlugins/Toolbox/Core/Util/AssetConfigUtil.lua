@@ -6,6 +6,8 @@ local getUserId = require(Util.getUserId)
 
 local DFIntFileMaxSizeBytes = tonumber(settings():GetFVariable("FileMaxSizeBytes"))
 
+local FFlagRemoveNilInstances = game:GetFastFlag("RemoveNilInstances")
+
 local StudioService = game:GetService("StudioService")
 
 local MathUtils = require(Plugin.Libs.UILibrary.Utils.MathUtils)
@@ -143,20 +145,32 @@ function AssetConfigUtil.getGenreName(genreIndex)
 	return AssetConfigConstants.GENRE_TYPE[genreIndex].name
 end
 
-function AssetConfigUtil.getOwnerDropDownContent(groupsArray, localizedContent)
+function AssetConfigUtil.getOwnerDropDownContent(manageableGroups, localizedContent)
 	local result = {
 		{name = localizedContent.AssetConfig.PublishAsset.Me, creatorType = "User", creatorId = getUserId()}
 	}
 
-	for index, groupData in pairs(groupsArray) do
-		local newDropDownitem = {
-			name = groupData.group.name,
-			creatorType = "Group",
-			creatorId = groupData.group.id,
-			item = groupData
-		}
-		table.insert(result, newDropDownitem)
+	if game:GetFastFlag("FixAssetConfigManageableGroups") then
+		for _, group in ipairs(manageableGroups) do
+			table.insert(result, {
+				name = group.name,
+				creatorId = group.id,
+				creatorType = "Group",
+				item = group,
+			})
+		end
+	else
+		for _, groupData in pairs(manageableGroups) do
+			local newDropDownitem = {
+				name = groupData.group.name,
+				creatorType = "Group",
+				creatorId = groupData.group.id,
+				item = groupData
+			}
+			table.insert(result, newDropDownitem)
+		end
 	end
+
 	return result
 end
 
@@ -168,6 +182,26 @@ function AssetConfigUtil.getAllowedAssetTypeEnums(allowedAssetTypesForRelease)
 		end
 	end
 	return result
+end
+
+function AssetConfigUtil.getClonedInstances(instances)
+	-- clone instances so that user cannot edit them while validating/uploading
+	local clonedInstances = {}
+
+	for i = 1, #instances do
+		if FFlagRemoveNilInstances then
+			local success, theClone = pcall(function()
+				return instances[i]:Clone()
+			end)
+			clonedInstances[#clonedInstances + 1] = success and theClone or nil
+		else
+			pcall(function()
+				clonedInstances[i] = instances[i]:Clone()
+			end)
+		end
+	end
+
+	return clonedInstances
 end
 
 return AssetConfigUtil

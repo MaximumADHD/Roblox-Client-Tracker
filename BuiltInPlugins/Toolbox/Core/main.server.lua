@@ -1,8 +1,4 @@
 local FFlagLuaPackagePermissions =  settings():GetFFlag("LuaPackagePermissions")
-local FFlagToolboxWithCMSV2 = settings():GetFFlag("ToolboxWithCMSV2")
-if not FFlagToolboxWithCMSV2 then
-	return
-end
 
 if not plugin then
 	return
@@ -15,6 +11,7 @@ game:DefineFastFlag("UseRBXThumbInToolbox", false)
 game:DefineFastFlag("UseCreationToFetchMyOverrideData2", false)
 game:DefineFastFlag("EnableAssetConfigVersionCheckForModels", false)
 game:DefineFastFlag("CMSAdditionalAccessoryTypesV2", false)
+game:DefineFastFlag("FixAssetConfigManageableGroups", false)
 
 local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 
@@ -241,23 +238,8 @@ local function main()
 
 	-- Create publish new asset page.
 	StudioService.OnSaveToRoblox:connect(function(instances)
-		-- clone instances so that user cannot edit them while validating/uploading
-		local clonedInstances = {}
-		for i = 1, #instances do
-			if game:GetFastFlag("RemoveNilInstances") then
-				local success, theClone = pcall(function()
-					return instances[i]:Clone()
-				end)
-				clonedInstances[#clonedInstances + 1] = success and theClone or nil
-			else
-				pcall(function()
-					clonedInstances[i] = instances[i]:Clone()
-				end)
-			end
-		end
-
 		local function proceedToUpload()
-			createAssetConfig(nil, AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW, clonedInstances)
+			createAssetConfig(nil, AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW, AssetConfigUtil.getClonedInstances(instances))
 		end
 		toolboxStore:dispatch(GetRolesRequest(networkInterface)):andThen(proceedToUpload, proceedToUpload)
 	end)
@@ -271,7 +253,12 @@ local function main()
 	-- Create publish new plugin page.
 	StudioService.OnPublishAsPlugin:connect(function(instances)
 		if FFlagEnablePurchasePluginFromLua2 then
-			createAssetConfig(nil, AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW, instances, Enum.AssetType.Plugin)
+			createAssetConfig(
+				nil,
+				AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW,
+				AssetConfigUtil.getClonedInstances(instances),
+				Enum.AssetType.Plugin
+			)
 		end
 	end)
 end

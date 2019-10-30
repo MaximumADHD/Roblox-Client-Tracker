@@ -7,6 +7,7 @@ local TexturePath = "rbxasset://textures/TerrainTools/"
 local Constants = {
 	Generate = TexturePath .. "mt_generate.png",
 	Import = TexturePath .. "mt_terrain_import.png",
+	SeaLevel = TexturePath .. "SeaLevel_PLACEHOLDER.png",
 	Clear = TexturePath .. "mt_terrain_clear.png",
 	Select = TexturePath .. "icon_regions_select.png",
 	Move = TexturePath .. "icon_regions_move.png",

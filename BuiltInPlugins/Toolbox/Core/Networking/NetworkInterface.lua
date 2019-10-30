@@ -363,6 +363,13 @@ function NetworkInterface:uploadAssetThumbnail(assetId, iconFile)
 	end)
 end
 
+function NetworkInterface:getThumbnailStatus(assetId)
+	local targetUrl = Urls.contuctGetThumbnailStatusUrl({assetId})
+
+	printUrl("getThumbnailStatus", "GET", targetUrl)
+	return self._networkImp:httpGetJson(targetUrl)
+end
+
 function NetworkInterface:configureCatalogItem(assetId, patchDataTable)
 	local targetUrl = Urls.constructConfigureCatalogItemUrl(assetId)
 
@@ -457,6 +464,20 @@ function NetworkInterface:getAssetVersionId(assetId)
 	local targetUrl = Urls.constructGetAssetVersionUrl(assetId)
 
 	printUrl("getAssetVersionId", "GET", targetUrl)
+	return self._networkImp:httpGet(targetUrl)
+end
+
+function NetworkInterface:getLocalUserFriends(userId)
+	local targetUrl = Urls.constructGetUserFriendsUrl(userId)
+
+	printUrl("getUserFriends", "GET", userId)
+	return self._networkImp:httpGet(targetUrl)
+end
+
+function NetworkInterface:getPackageCollaborators(assetId)
+	local targetUrl = Urls.constructGetPackageCollaboratorsUrl(assetId)
+
+	printUrl("getPackageCollaborators", "GET", assetId)
 	return self._networkImp:httpGet(targetUrl)
 end
 

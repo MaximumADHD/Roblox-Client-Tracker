@@ -175,6 +175,12 @@ function Localization:getLocalizedFooter(footerBackgroundNames)
 	return self:_localizeTable(footerBackgroundNames, "Footer", "name", "color")
 end
 
+function Localization:getLocalizedTooManyCollaborators(maxNumCollaborators)
+	return self:_safeLocalize("Studio.Toolbox.AssetConfigPackagePermissions.TooManyCollaboratorsText", {
+		maxNumCollaborators = maxNumCollaborators,
+	})
+end
+
 function Localization:destroy()
 	if self._externalLocaleIdChangedConnection then
 		self._externalLocaleIdChangedConnection:Disconnect()
@@ -412,11 +418,34 @@ function Localization:_recalculateContent()
 		},
 
 		PackagePermissions = {
-			PackageOwner = self:_safeLocalize("Studio.Toolbox.AssetConfigPackagePermissions.PackageOwner"),
-			Owner = self:_safeLocalize("Studio.Toolbox.AssetConfigPackagePermissions.Owner"),
-			SearchByUser = self:_safeLocalize("Studio.Toolbox.AssetConfigPackagePermissions.SearchByUser"),
-			NoResults = self:_safeLocalize("Studio.Toolbox.AssetConfigPackagePermissions.NoResults"),
-			ShareWith = self:_safeLocalize("Studio.Toolbox.AssetConfigPackagePermissions.ShareWith"),
+			ActionDropdown = {
+				NoAccessLabel = self:_safeLocalize("Studio.Toolbox.AssetConfigPackagePermissions.NoAccessLabel"),
+				UseViewLabel = self:_safeLocalize("Studio.Toolbox.AssetConfigPackagePermissions.UseViewLabel"),
+				EditLabel = self:_safeLocalize("Studio.Toolbox.AssetConfigPackagePermissions.EditLabel"),
+				OwnerLabel = self:_safeLocalize("Studio.Toolbox.AssetConfigPackagePermissions.OwnerLabel"),
+				MultipleLabel = self:_safeLocalize("Studio.Toolbox.AssetConfigPackagePermissions.MultipleLabel"),
+
+				NoAccessDescription = self:_safeLocalize("Studio.Toolbox.AssetConfigPackagePermissions.NoAccessDescription"),
+				UseViewDescription = self:_safeLocalize("Studio.Toolbox.AssetConfigPackagePermissions.UseViewDescription"),
+				EditDescription = self:_safeLocalize("Studio.Toolbox.AssetConfigPackagePermissions.EditDescription"),
+			},
+
+			Collaborators = {
+				FriendsCollaboratorType = self:_safeLocalize("Studio.Toolbox.AssetConfigPackagePermissions.FriendsCollaboratorType"),
+				UsersCollaboratorType = self:_safeLocalize("Studio.Toolbox.AssetConfigPackagePermissions.UsersCollaboratorType"),
+				GroupsCollaboratorType = self:_safeLocalize("Studio.Toolbox.AssetConfigPackagePermissions.GroupsCollaboratorType"),
+				MyFriendsCollaborator = self:_safeLocalize("Studio.Toolbox.AssetConfigPackagePermissions.MyFriendsCollaborator"),
+			},
+			
+			Searchbar = {
+				SearchByUser = self:_safeLocalize("Studio.Toolbox.AssetConfigPackagePermissions.SearchByUser"),
+				NoResults = self:_safeLocalize("Studio.Toolbox.AssetConfigPackagePermissions.NoResults"),
+			},
+
+			Title = {
+				PackageOwner = self:_safeLocalize("Studio.Toolbox.AssetConfigPackagePermissions.PackageOwner"),
+				ShareWith = self:_safeLocalize("Studio.Toolbox.AssetConfigPackagePermissions.ShareWith"),
+			}
 		},
 
 		AssetConfig = {
@@ -453,6 +482,7 @@ function Localization:_recalculateContent()
 
 			PreviewArea ={
 				PreviewLabel = self:_safeLocalize("Studio.Toolbox.AssetConfigPreview.Preview"),
+				Change = self:_safeLocalize("Studio.Toolbox.AssetConfigPreview.Change")
 			},
 
 			Footer = {

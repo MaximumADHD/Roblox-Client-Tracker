@@ -5,16 +5,14 @@ license = ""
 version = "0.1.0"
 
 [dependencies]
-Roact = { git = "https://github.com/roblox/roact", rev = "master" }
-Rodux = { git = "https://github.com/Roblox/rodux", rev = "master" }
+Roact = "roblox/roact@1.2"
 RoactRodux = { git = "https://github.com/roblox/roact-rodux", rev = "transitioning-roblox-roact-1x" }
-Cryo = { git = "https://github.com/Roblox/cryo", rev = "roblox" }
+Cryo = "roblox/cryo@1.0"
 LuaChatDeps = { git = "https://github.rbx.com/Roblox/lua-chat-deps" }
 LuaDiscussionsDeps = { git = "https://github.rbx.com/Roblox/lua-discussions-deps" }
 UIBlox = { git = "https://github.rbx.com/Roblox/uiblox", rev = "master" }
-Otter = { git = "https://github.com/Roblox/Otter", rev = "roblox" }
-OtterApp = { git = "https://github.com/Roblox/Otter", rev = "master" }
-t = { git = "https://github.com/Roblox/t", rev = "master" }
+Otter = { git = "https://github.com/Roblox/Otter", rev = "master" }
+t = "osyris/t@1.0"
 
 # The following packages were ported from AppTempCommon
 Promise = { git = "https://github.rbx.com/Roblox/lua-promise" }
@@ -22,3 +20,42 @@ Result = { git = "https://github.rbx.com/Roblox/lua-result" }
 tutils = { git = "https://github.rbx.com/Roblox/tutils" }
 
 PurchasePrompt = { git = "https://github.com/Roblox/PurchasePromptScript-Roact", rev = "master"}
+
+# We're introducing another dependency on Rodux to dodge the renaming issues
+# we've had previously. It's weird, I know. This will result in the index having
+# names like roblox_rodux_1234ABCD_1.0.0 and Rodux_ABCDEF12_123456AB, and avoids
+# us going from Rodux -> rodux in one go
+# This will be cleaned up some time in the future, at which point we'll also
+# patch rodux (or switch it cleanly to registry deps)
+Rodux_UNUSED_REGISTRY_DEP = "roblox/rodux@1.0"
+Rodux = { git = "https://github.com/Roblox/rodux", rev = "master" }
+
+[patch."https://github.com/roblox/roact"]
+name = "roblox/roact"
+version = "1.2"
+
+[patch."https://github.com/roblox/cryo"]
+name = "roblox/cryo"
+version = "1.0"
+
+[patch."https://github.com/roblox/t"]
+name = "osyris/t"
+version = "1.0"
+
+# This patch isn't safe right now because it will cause the corresponding folder
+# in the index to be renamed "Rodux" -> "rodux", which perforce handles poorly
+# [patch."https://github.com/roblox/rodux"]
+# name = "roblox/rodux"
+# version = "1.0"
+
+# Since roact-rodux also pulls in rodux, it would trigger the same problem as
+# the above patch
+# [patch."https://github.com/roblox/roact-rodux"]
+# name = "roblox/roact-rodux"
+# version = "0.1"
+
+# Otter is not yet safe to patch because the app currently switches between two
+# versions, and the patch would replace both of them
+# [patch."https://github.com/roblox/otter"]
+# name = "roblox/otter"
+# version = "0.1"

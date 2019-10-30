@@ -1,21 +1,30 @@
-local Plugin = script.Parent.Parent
-local Roact = require(Plugin.Libs.Roact)
-local UILibrary = require(Plugin.Libs.UILibrary)
-local MainView = require(Plugin.Core.Components.MainView)
-local Constants = require(Plugin.Core.Util.Constants)
+local Main = script.Parent.Parent
+local Roact = require(Main.Libs.Roact)
+local MainView = require(Main.Core.Components.MainView)
+local Constants = require(Main.Core.Util.Constants)
 
-local DevelopmentStringsTable = Plugin.Core.Resources.DevelopmentReferenceTable
-local TranslationStringsTable = Plugin.Core.Resources.TranslationReferenceTable
-local Localization = UILibrary.Studio.Localization
+local DevelopmentStringsTable = Main.Core.Resources.DevelopmentReferenceTable
+local TranslationStringsTable = Main.Core.Resources.TranslationReferenceTable
 
-local Theme = require(Plugin.Core.Util.Theme)
-local MainProvider = require(Plugin.Core.Context.MainProvider)
-local DockWidget = require(Plugin.Core.Components.PluginWidget.DockWidget)
+local ContextServices = require(Main.Libs.Framework.ContextServices)
+local Localization = ContextServices.Localization
+local Store = ContextServices.Store
+local Plugin = ContextServices.Plugin
+local makeTheme = require(Main.Core.Resources.makeTheme)
+
+local UILibraryWrapper = require(Main.Libs.Framework.ContextServices.UILibraryWrapper)
+
+local StudioUI = require(Main.Libs.Framework.StudioUI)
+local PluginButton = StudioUI.PluginButton
+local PluginToolbar = StudioUI.PluginToolbar
+local DockWidget = StudioUI.DockWidget
 
 local App = Roact.PureComponent:extend("App")
 
 function App:init(props)
-	self.tokens = {}
+	self.state = {
+		enabled = false,
+	}
 
 	self.localization = Localization.new({
 		stringResourceTable = DevelopmentStringsTable,
@@ -23,18 +32,18 @@ function App:init(props)
 		pluginName = "PluginManagement",
 	})
 
-	self.plugin = props.plugin
-	self.toolbar = self.plugin:CreateToolbar("luaManagePluginsToolbar")
-	self.toolboxButton = self.toolbar:CreateButton("luaManagePluginsButton",
-		"Manage plugins downloaded from the internet", "rbxasset://textures/StudioToolbox/ToolboxIcon.png")
-														--TODO: replace toolbox icon with plugin management icon
+	self.theme = makeTheme()
 
-	self.toolboxButton.Click:connect(function()
-		self.dockWidget.Enabled = not self.dockWidget.Enabled
-	end)
+	self.toggleState = function()
+		self:setState({
+			enabled = not self.state.enabled,
+		})
+	end
 
-	self.onDockWidgetEnabledChanged = function(rbx)
-		self.toolboxButton:SetActive(self.dockWidget.Enabled)
+	self.onClose = function()
+		self:setState({
+			enabled = false,
+		})
 	end
 
 	self.onAncestryChanged = function(rbx, child, parent)
@@ -42,23 +51,23 @@ function App:init(props)
 			self.props.onPluginWillDestroy()
 		end
 	end
-
-	self.dockWidgetRefFunc = function(ref)
-		self.dockWidget = ref
-	end
-
-	table.insert(self.tokens, self.localization.localeChanged:connect(function(newLocale)
-		-- force trigger a re-render of children
-		self:setState({
-			localization = tostring(newLocale)
-		})
-	end))
 end
 
-function App:willUnmount()
-	for _, token in ipairs(self.tokens) do
-		token:disconnect()
-	end
+function App:renderButtons(toolbar)
+	local enabled = self.state.enabled
+
+	-- Because the button is using a connection in PluginManager,
+	-- the tooltip is defined in Studio C++ code, so we don't
+	-- have to define one here.
+	return {
+		Toggle = Roact.createElement(PluginButton, {
+			Toolbar = toolbar,
+			Active = enabled,
+			Title = "luaManagePluginsButton",
+			Icon = "rbxasset://textures/StudioToolbox/ToolboxIcon.png",
+			OnClick = self.toggleState,
+		}),
+	}
 end
 
 function App:render()
@@ -66,37 +75,38 @@ function App:render()
 
 	local plugin = props.plugin
 	local store = props.store
+	local enabled = self.state.enabled
 
-	return Roact.createElement(DockWidget, {
-		plugin = plugin,
-
-		Title = self.localization:getText("Manage", "WindowTitle"),
-		Name = "Plugin Management",
-		ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
-
-		InitialDockState = Enum.InitialDockState.Float,
-		InitialEnabled = false,
-		InitialEnabledShouldOverrideRestore = true,
-		FloatingXSize = 0,
-		FloatingYSize = 0,
-		MinWidth = Constants.DOCKWIDGET_MIN_WIDTH,
-		MinHeight = Constants.DOCKWIDGET_MIN_HEIGHT,
-
-		Enabled = false,
-
-		[Roact.Ref] = self.dockWidgetRefFunc,
-		[Roact.Change.Enabled] = self.onDockWidgetEnabledChanged,
-		[Roact.Event.AncestryChanged] = self.onAncestryChanged,
+	return ContextServices.provide({
+		Plugin.new(plugin),
 	}, {
-		Roact.createElement(MainProvider, {
-			theme = Theme.new(),
-			focusGui = self.dockWidget,
-			plugin = plugin,
-			store = store,
-			localization = self.localization,
+		Toolbar = Roact.createElement(PluginToolbar, {
+			Title = "luaManagePluginsToolbar",
+			RenderButtons = function(toolbar)
+				return self:renderButtons(toolbar)
+			end,
+		}),
+
+		MainWidget = Roact.createElement(DockWidget, {
+			Enabled = enabled,
+			Title = self.localization:getText("Manage", "WindowTitle"),
+			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
+
+			InitialDockState = Enum.InitialDockState.Float,
+			Size = Vector2.new(Constants.DOCKWIDGET_MIN_WIDTH, Constants.DOCKWIDGET_MIN_HEIGHT),
+			MinSize = Vector2.new(Constants.DOCKWIDGET_MIN_WIDTH, Constants.DOCKWIDGET_MIN_HEIGHT),
+			OnClose = self.onClose,
+			ShouldRestore = false,
 		}, {
-			Roact.createElement(MainView, {plugin = plugin}),
-		})
+			MainProvider = enabled and ContextServices.provide({
+				self.localization,
+				self.theme,
+				UILibraryWrapper.new(),
+				Store.new(store),
+			}, {
+				MainView = Roact.createElement(MainView, {plugin = plugin}),
+			}),
+		}),
 	})
 end
 

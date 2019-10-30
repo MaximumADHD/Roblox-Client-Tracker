@@ -82,7 +82,7 @@ function CollaboratorThumbnail:render()
 		return Roact.createElement("ImageLabel", Cryo.Dictionary.join(imageProps, {
 			[Roact.Ref] = self.ref,
 
-			BackgroundColor3 = theme.packagePermissions.subjectThumbnail.backgroundColor,
+			BackgroundColor3 = theme.assetConfig.packagePermissions.subjectThumbnail.backgroundColor,
 			BackgroundTransparency = useMask and 0 or 1,
 			BorderSizePixel = 0,
 		}), {

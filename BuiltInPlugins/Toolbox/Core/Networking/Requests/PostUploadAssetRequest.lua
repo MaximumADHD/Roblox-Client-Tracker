@@ -36,31 +36,33 @@ local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePlu
 -- iconFile, userData, used for uploading thumbnail for asset.
 return function(publishInfo)
 	return function(store)
+		store:dispatch(SetCurrentScreen(AssetConfigConstants.SCREENS.UPLOADING_ASSET))
+
 		local allowedAssetTypesForRelease = store:getState().allowedAssetTypesForRelease
 		local newAssetId = nil
 
 		local function onSuccess(result)
-			newAssetId = result.responseBody
-
 			-- Check the result for uploading
 			if (result.responseBody):find("Error") then
-				store:dispatch(SetCurrentScreen(AssetConfigConstants.SCREENS.UPLOAD_ASSET_RESULT))
 				store:dispatch(UploadResult(false))
 				store:dispatch(NetworkError(result.responseBody))
 
 				Analytics.incrementUploadeAssetFailure(publishInfo.assetType)
 			else
-				-- Then we will try to set the price once' the asset is uploaded.
-				if FFlagEnablePurchasePluginFromLua2 then
-					publishInfo.assetId = newAssetId
-					store:dispatch(TrySaveSalesAndThumbnailRequest(publishInfo))
+				newAssetId = result.responseBody
+				-- No matter what, save the new assetID first.
+				store:dispatch(SetAssetId(newAssetId))
+				Analytics.incrementUploadAssetSuccess(publishInfo.assetType)
+
+				local needToCheckSale = publishInfo.saleStatus and store:getState().allowedAssetTypesForRelease[publishInfo.assetType]
+				if FFlagEnablePurchasePluginFromLua2 and
+					(needToCheckSale or publishInfo.iconFile) then
+						publishInfo.assetId = newAssetId
+						store:dispatch(TrySaveSalesAndThumbnailRequest(publishInfo))
 				else
-					-- Change the screen into succuss.
+					-- Then we will try to set the price once' the asset is uploaded.
 					store:dispatch(SetCurrentScreen(AssetConfigConstants.SCREENS.UPLOADING_ASSET))
 					store:dispatch(UploadResult(true))
-					store:dispatch(SetAssetId(newAssetId))
-
-					Analytics.incrementUploadAssetSuccess(publishInfo.assetType)
 				end
 			end
 		end
@@ -70,7 +72,6 @@ return function(publishInfo)
 				warn("Got false response from PostInsertAsset")
 			end
 
-			store:dispatch(SetCurrentScreen(AssetConfigConstants.SCREENS.UPLOAD_ASSET_RESULT))
 			store:dispatch(UploadResult(false))
 			store:dispatch(NetworkError(result.responseBody))
 

@@ -83,6 +83,8 @@ return function(patchInfo)
 			patchInfo.networkInterface:uploadAssetThumbnail(patchInfo.assetId, patchInfo.iconFile):andThen(
 				onThumbnailSetSuccess, onThumbnailSetFail
 			)
+		else
+			checkThumbnail = true
 		end
 	end
 end

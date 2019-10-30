@@ -18,12 +18,16 @@ local SetPlaneLock = require(Actions.SetPlaneLock)
 local SetSnapToGrid = require(Actions.SetSnapToGrid)
 local SetIgnoreWater = require(Actions.SetIgnoreWater)
 
-local REDUCER_KEY = "SubtractTool"
-local Subtract = Roact.Component:extend(script.Name)
+local Constants = require(Plugin.Src.Util.Constants)
 
+local REDUCER_KEY = "SubtractTool"
+
+local Subtract = Roact.Component:extend(script.Name)
 
 local function MapStateToProps (state, props)
 	return {
+		toolName = Constants.ToolId.Subtract,
+
 		brushShape = state[REDUCER_KEY].brushShape,
 		baseSize = state[REDUCER_KEY].baseSize,
 		height = state[REDUCER_KEY].height,

@@ -125,6 +125,7 @@ function Localization:recalculateContent()
 			Devices = self:getText("Studio.GameSettings.General.TitleDevices"),
 			Http = self:getText("Studio.GameSettings.General.TitleHttp"),
 			StudioApiServices = self:getText("Studio.GameSettings.General.TitleStudioApiServices"),
+			ScriptCollab = self:getText("Studio.GameSettings.General.TitleScriptCollab"),
 			GameOwner = self:getText("Studio.GameSettings.General.TitleGameOwner"),
 			Collaborators = self:getText("Studio.GameSettings.General.TitleCollaborators"),
 			Presets = FFlagWorldAvatarLocalization and self:getText("Studio.GameSettings.General.TitleWorldPresets") or nil,
@@ -208,6 +209,12 @@ function Localization:recalculateContent()
 
 		StudioApiServices = {
 			OnDescription = self:getText("Studio.GameSettings.General.StudioApiServicesDesc"),
+			On = self:getText("Studio.GameSettings.General.SettingOn"),
+			Off = self:getText("Studio.GameSettings.General.SettingOff"),
+		},
+
+		ScriptCollab = {
+			OnDescription = self:getText("Studio.GameSettings.General.ScriptCollabDesc"),
 			On = self:getText("Studio.GameSettings.General.SettingOn"),
 			Off = self:getText("Studio.GameSettings.General.SettingOff"),
 		},

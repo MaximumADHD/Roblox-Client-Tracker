@@ -16,8 +16,6 @@ local AnalyticsService = game:GetService("RbxAnalyticsService")
 local Settings = UserSettings()
 local GameSettings = Settings.GameSettings
 
-local FFlagCoreScriptTranslateGameText2 = settings():GetFFlag("CoreScriptTranslateGameText2")
-
 local FFlagRobloxGuiSiblingZindexs = settings():GetFFlag("RobloxGuiSiblingZindexs")
 
 local FFlagPlayerListNewIcons = settings():GetFFlag("PlayerListNewIcons")
@@ -667,11 +665,8 @@ local function createStatText(parent, text, isTopStat, isTeamStat)
     local statName = statText:Clone()
     statName.Name = "StatName"
 
-    if FFlagCoreScriptTranslateGameText2 then
-        GameTranslator:TranslateAndRegister(statName, CoreGui, parent.Name)
-    else
-        statName.Text = GameTranslator:TranslateGameText(CoreGui, parent.Name)
-    end
+    GameTranslator:TranslateAndRegister(statName, CoreGui, parent.Name)
+
     statName.Position = UDim2.new(0,0,0,0)
     statName.Font = Enum.Font.SourceSans
     statName.ClipsDescendants = true
@@ -1673,23 +1668,13 @@ local function createTeamEntry(team)
   entryFrame.Selectable = false  -- dont allow gamepad selection of team frames
   entryFrame.BackgroundColor3 = team.TeamColor.Color
 
-  local teamName
+  local teamName = createEntryNameText(
+    "TeamName",
+    team.Name,
+    UDim2.new(0.01, 1, 0, 0),
+    UDim2.new(-0.01, entryFrame.AbsoluteSize.x, 1, 0))
 
-  if FFlagCoreScriptTranslateGameText2 then
-    teamName = createEntryNameText(
-      "TeamName",
-      team.Name,
-      UDim2.new(0.01, 1, 0, 0),
-      UDim2.new(-0.01, entryFrame.AbsoluteSize.x, 1, 0))
-
-    GameTranslator:TranslateAndRegister(teamName, team, team.Name)
-  else
-    teamName = createEntryNameText(
-      "TeamName",
-      GameTranslator:TranslateGameText(team, team.Name),
-      UDim2.new(0.01, 1, 0, 0),
-      UDim2.new(-0.01, entryFrame.AbsoluteSize.x, 1, 0))
-  end
+  GameTranslator:TranslateAndRegister(teamName, team, team.Name)
 
   teamName.Parent = entryFrame
 
@@ -1722,11 +1707,7 @@ local function createTeamEntry(team)
   team.Changed:connect(function(property)
       rbx_profilebegin("team.Changed")
       if property == 'Name' then
-        if FFlagCoreScriptTranslateGameText2 then
-          GameTranslator:TranslateAndRegister(teamName, team, team.Name)
-        else
-          teamName.Text = GameTranslator:TranslateGameText(team, team.Name)
-        end
+        GameTranslator:TranslateAndRegister(teamName, team, team.Name)
       elseif property == 'TeamColor' then
         for _,childFrame in pairs(containerFrame:GetChildren()) do
           if childFrame:IsA('GuiObject') then

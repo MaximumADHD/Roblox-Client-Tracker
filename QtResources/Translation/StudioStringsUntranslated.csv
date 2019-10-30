@@ -167,6 +167,7 @@ Studio.App.ClientServerToggleFTUE.ToggleClientServerMode,,Click on the icon to t
 Studio.App.CloudEditController.JoinTeamTestServer,,Join Team Test Server,Join Team Test Server
 Studio.App.CloudEditController.ShutdownServer,,Shutdown Server,Shutdown Server
 Studio.App.CloudEditController.StartServerAndPlayers,,Start Server and Players,Start Server and Players
+Studio.App.CloudEditUserData.FailToRestoreCameraPosition,,Failed to restore camera position: %s,Failed to restore camera position: %s
 Studio.App.ContextMenuDropdown.Archive,Archive a game,Archive,Archive
 Studio.App.ContextMenuDropdown.ConfigureGame,,Configure game,Configure game
 Studio.App.ContextMenuDropdown.ConfigurePlace,,Configure place,Configure place
@@ -449,11 +450,13 @@ Studio.App.IdeDoc.WouldYouLikeToPublishTheseChanges,Roblox IDE Doc,Would you lik
 Studio.App.IdeDoc.WouldYouLikeToSaveTheseChanges,Roblox IDE Doc,Would you like to save these changes?,Would you like to save these changes?
 Studio.App.IdeDoc.YouMustLogInToCreateMeshes,Roblox IDE Doc,You must log in to create meshes.,You must log in to create meshes.
 Studio.App.InsertObject.SearchObject1,,Search object %1,Search object %1
+Studio.App.InsertObjectWidget.FavoritesCategory,,Frequently Used,Frequently Used
 Studio.App.InsertObjectWidget.SelectInsertedObject,,Select inserted object,Select inserted object
 Studio.App.InsertServiceDialog.Done,,Done,Done
 Studio.App.InsertServiceDialog.InsertService,,Insert Service,Insert Service
 Studio.App.InstanceSelectionEditor.ClearValue,,Clear Value,Clear Value
 Studio.App.InstanceSelectionEditor.SelectValue,,Select Value,Select Value
+Studio.App.LocalPlacePublishRequestMediator.Saving,,saving,saving
 Studio.App.LocalSaveHelper.DataModelError,,Failed to save the DataModel.,Failed to save the DataModel.
 Studio.App.LocalSaveHelper.FailedToLock1,,"Failed to obtain a file lock on '%1'.
 
@@ -649,7 +652,7 @@ Studio.App.MeshImportOptionsDialog.NoFilesAvailable,,No files available,No files
 Studio.App.MeshImportOptionsDialog.RescaleIfTooLarge,,Rescale if too large,Rescale if too large
 Studio.App.MeshImportOptionsDialog.ReverseInwardPointingMeshNormals,,Reverse inward-pointing mesh normals,Reverse inward-pointing mesh normals
 Studio.App.MeshPartLOD.Info1,MeshPart renderFidelity property selector,Finished simplifying %1 mesh parts,Finished simplifying %1 mesh parts
-Studio.App.MeshPartLOD.NotEnoughFacesInfo1,MeshPart renderFidelity property selector,Asset id %1 has too few triangles for renderFirdelity to be set to Automatic,Asset id %1 has too few triangles for renderFirdelity to be set to Automatic
+Studio.App.MeshPartLOD.NotEnoughFacesInfo1,MeshPart renderFidelity property selector,Asset id %1 has too few triangles for renderFidelity to be set to Automatic,Asset id %1 has too few triangles for renderFidelity to be set to Automatic
 Studio.App.MeshPartLOD.RenderFidelityWarning1,MeshPart renderFidelity property selector,Failed to change renderFidelity for asset id %1,Failed to change renderFidelity for asset id %1
 Studio.App.MeshPartLOD.Warning1,MeshPart renderFidelity property selector,Mesh Publish failure for asset id %1,Mesh Publish failure for asset id %1
 Studio.App.MeshPartLODNotification.Dismiss,MeshPart renderFidelity property selector,Do not show again,Do not show again
@@ -719,7 +722,7 @@ Studio.App.PackageResourceController.ManagePackage,,Manage Package,Manage Packag
 Studio.App.PackageResourceController.PackageInsertError1,,Game Explorer Package insert error: %1,Game Explorer Package insert error: %1
 Studio.App.PackageUtilities.GoToRevisionError1,,Package go to revision error: %1,Package go to revision error: %1
 Studio.App.PackageUtilities.ModifiedPackagesInDMError,,Error: Cannot save place to Roblox while there are packages with unpublished changes.,Error: Cannot save place to Roblox while there are packages with unpublished changes.
-Studio.App.PackageUtilities.PendingPackagesInDMError,,Unable to save or publish this place as there may be modified packages. Please try again later.,Unable to save or publish this place as there may be modified packages. Please try again later.
+Studio.App.PackageUtilities.PendingPackagesInDMError,,Unable to publish this place as there may be modified packages. Please try again later.,Unable to publish this place as there may be modified packages. Please try again later.
 Studio.App.PackageUtilities.SelectInExplorer,Button text. The button allows user to select some packages in Explorer,Select in Explorer,Select in Explorer
 Studio.App.PackageUtilities.UndoChangesError1,,Package undo changes error: %1,Package undo changes error: %1
 Studio.App.PackageUtilities.UpdateError1,,Package update error: %1,Package update error: %1
@@ -1716,7 +1719,10 @@ Studio.App.RobloxTeamCreateWidget.DeleteUser,,Delete User,Delete User
 Studio.App.RobloxTeamCreateWidget.TeamCreateDisabled,,Team Create in this game is disabled. Please enable Team Create to add editors to your place.,Team Create in this game is disabled. Please enable Team Create to add editors to your place.
 Studio.App.RobloxTeamCreateWidget.TeamCreateOptions,,Team Create Options,Team Create Options
 Studio.App.RobloxTeamCreateWidget.TurnOffTeamCreate,,Turn OFF Team Create,Turn OFF Team Create
+Studio.App.RobloxTextOutputWidget.ClearOutput,,Clear Output,Clear Output
+Studio.App.RobloxTextOutputWidget.Copy,,Copy,Copy
 Studio.App.RobloxTextOutputWidget.OpenLink,,Open link,Open link
+Studio.App.RobloxTextOutputWidget.SelectAll,,Select All,Select All
 Studio.App.RobloxTutorials.CopyText,,Build amazing games with Roblox Studio. No experience necessary!,Build amazing games with Roblox Studio. No experience necessary!
 Studio.App.RobloxTutorials.LearnNow,,Learn now,Learn now
 Studio.App.RobloxViewStudio.ExitUiLayer,,Exit UI Layer,Exit UI Layer
@@ -1729,7 +1735,6 @@ Studio.App.ScriptAnalysisWidget.DisplayOnlyCurrentScript,,Display only current s
 Studio.App.ScriptAnalysisWidget.NumErrorsTextFmt2,,%1 of %2 Errors,%1 of %2 Errors
 Studio.App.ScriptAnalysisWidget.NumWarningsTextFmt2,,%1 of %2 Warnings,%1 of %2 Warnings
 Studio.App.ScriptComboBox.RunACommand,,Run a command,Run a command
-Studio.App.ScriptPickerDialog.CreateNewLinkedsource,,Create new LinkedSource,Create new LinkedSource
 Studio.App.ScriptRecoveryWidget.ErrorRecovering,,Errors occurred while automatically recovering scripts.,Errors occurred while automatically recovering scripts.
 Studio.App.ScriptRecoveryWidget.ErrorRemovedFromWorksapce,,Unable to perform diff because this script has been removed from Workspace.,Unable to perform diff because this script has been removed from Workspace.
 Studio.App.ScriptRecoveryWidget.ErrorWriting,,Issue with writing script autosave,Issue with writing script autosave

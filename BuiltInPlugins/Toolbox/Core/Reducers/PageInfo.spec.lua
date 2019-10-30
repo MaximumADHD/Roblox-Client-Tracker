@@ -5,7 +5,7 @@ return function()
 
 	local Category = require(Plugin.Core.Types.Category)
 
-	local GetManageableGroups = require(Plugin.Core.Actions.GetManageableGroups)
+	local SetToolboxManageableGroups = require(Plugin.Core.Actions.SetToolboxManageableGroups)
 	local UpdatePageInfo = require(Plugin.Core.Actions.UpdatePageInfo)
 
 	local PageInfo = require(Plugin.Core.Reducers.PageInfo)
@@ -33,7 +33,7 @@ return function()
 		expect(state.page).to.be.ok()
 	end)
 
-	describe("GetManageableGroups action", function()
+	describe("SetToolboxManageableGroups action", function()
 		it("should set the groups", function()
 			local state = PageInfo(nil, {})
 			expect(tableLength(state.groups)).to.equal(0)
@@ -43,7 +43,7 @@ return function()
 				{Id = 67890, Name = "Test2"},
 			}
 
-			state = PageInfo(state, GetManageableGroups(testGroups))
+			state = PageInfo(state, SetToolboxManageableGroups(testGroups))
 
 			expect(tableLength(state.groups)).to.equal(#testGroups)
 
@@ -62,7 +62,7 @@ return function()
 				{Id = 67890, Name = "Test2"},
 			}
 
-			state = PageInfo(state, GetManageableGroups(testGroups))
+			state = PageInfo(state, SetToolboxManageableGroups(testGroups))
 
 			expect(tableLength(state.groups)).to.equal(#testGroups)
 
@@ -71,7 +71,7 @@ return function()
 				{Id = 24680, Name = "Test4"},
 			}
 
-			state = PageInfo(state, GetManageableGroups(nextTestGroups))
+			state = PageInfo(state, SetToolboxManageableGroups(nextTestGroups))
 
 			expect(tableLength(state.groups)).to.equal(#nextTestGroups)
 
@@ -96,7 +96,7 @@ return function()
 				{Id = 12345, Name = "Test1"},
 				{Id = 67890, Name = "Test2"},
 			}
-			state = PageInfo(state, GetManageableGroups(firstTestGroups))
+			state = PageInfo(state, SetToolboxManageableGroups(firstTestGroups))
 
 			expect(state.categories).to.equal(Category.INVENTORY_WITH_GROUPS)
 
@@ -112,7 +112,7 @@ return function()
 				{Id = 12345, Name = "Test1"},
 				{Id = 24680, Name = "Test4"},
 			}
-			state = PageInfo(state, GetManageableGroups(secondTestGroups))
+			state = PageInfo(state, SetToolboxManageableGroups(secondTestGroups))
 
 			expect(state.categories).to.equal(Category.INVENTORY_WITH_GROUPS)
 			expect(state.groupIndex).to.equal(2)
@@ -128,7 +128,7 @@ return function()
 
 			-- Clear the groups list
 			local thirdTestGroups = {}
-			state = PageInfo(state, GetManageableGroups(thirdTestGroups))
+			state = PageInfo(state, SetToolboxManageableGroups(thirdTestGroups))
 
 			-- Categories list should remove groups
 			expect(state.categories).to.equal(Category.INVENTORY)

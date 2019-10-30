@@ -33,7 +33,6 @@ Item {
     readonly property bool isRecentGamesPage: gamePageName == "recentGamesPage"
 	readonly property bool isArchivedGamesPage: gamePageName == "archivedGamesPage"
     readonly property bool fflagStudioSaveToCloudV2: groupGamesPageController.getFFlagStudioSaveToCloudV2()
-    readonly property bool fflagStudioAddOwnerLabel: groupGamesPageController.getFFlagStudioAddOwnerLabel()
 
 	function getGroupGamesPageController() {
         if (fflagStudioSaveToCloudV2) {
@@ -431,19 +430,7 @@ Item {
             SearchWidget {
                 id: _searchWidget
                 z: 7
-				function anchorSwitch()
-				{
-					if (fflagStudioAddOwnerLabel)
-					{
-						anchors.right = sortOptionsComboBoxContainer.left
-						return undefined
-					}
-					else
-					{
-						return parent.left
-					}
-				}
-				anchors.left: anchorSwitch()
+				anchors.right: sortOptionsComboBoxContainer.left
                 anchors.top: parent.top
                 anchors.leftMargin: gameTabBarLowerHorizontalOuterMargins
                 anchors.rightMargin: gameTabBarLowerHorizontalInnerMargins
@@ -482,9 +469,8 @@ Item {
 				width: 275
                 height: gameTabBarLowerRowItemHeight
 
-				// If searching is on and groups aren't being wrapped, then go to right of search. If search is off or we are wrapping groups, then go to left of screen
-				anchors.left: !fflagStudioAddOwnerLabel && showSearch && !isWrappingGroups ? searchWidget.right
-																: parent.left
+				anchors.left: parent.left
+
 				// If searching is on and we are wrapping groups, then go under search. If search is off or we aren't wrapping groups, then go to top of screen
 				anchors.top: showSearch && isWrappingGroups ? searchWidget.bottom
 															: parent.top
@@ -510,25 +496,13 @@ Item {
                     font.weight: userPreferences.theme.style("CommonStyle fontWeight")
                     renderType: userPreferences.theme.style("CommonStyle textRenderType")
 					color: userPreferences.theme.style("StartPage Page labelText")
-					visible: fflagStudioAddOwnerLabel
                 }
 
 				RobloxComboBox {
 					id: _groupGamesComboBox
 					objectName: "GroupGamesComboBox"
                     height: gameTabBarLowerRowItemHeight
-					function switchLocation()
-					{
-						if( fflagStudioAddOwnerLabel )
-						{
-							return parent.right
-						}
-						else
-						{
-							return parent.center
-						}
-					}
-					anchors.right: switchLocation()
+					anchors.right: parent.right
                     anchors.bottom: parent.bottom
                     anchors.verticalCenter: parent.verticalCenter
 					// Only visible on the games page, group games tab

@@ -8,7 +8,6 @@
 	Enabled = bool, Whether the component is enabled or not
 	OwnerId = num, used for getting the thumbnail and passing to CollaboratorItem
 	OwnerType = Enum.CreatorType.*, used for determining if this is a Group-Owned or User-Owned Package.
-	IsGroupOwner = bool, Used to determine what group-owned package permissions should be displayed.
 	GroupMetadata = table, used to populate information about rolesets and what permissions they have.
 	Permissions = table, contains the information about the current shared permissions of the package.
 	PermissionsChanged = function, callback for when a user's role has been changed.
@@ -28,8 +27,10 @@ local UILibrary = require(Libs.UILibrary)
 local createFitToContent = UILibrary.Component.createFitToContent
 
 local Util = Plugin.Core.Util
+local Urls = require(Util.Urls)
 local Constants = require(Util.Constants)
 local ContextHelper = require(Util.ContextHelper)
+local AssetConfigConstants = require(Util.AssetConfigConstants)
 
 local withLocalization = ContextHelper.withLocalization
 local withTheme = ContextHelper.withTheme
@@ -37,6 +38,7 @@ local withTheme = ContextHelper.withTheme
 local PermissionsDirectory = Plugin.Core.Components.AssetConfiguration.Permissions
 local PermissionsConstants = require(PermissionsDirectory.PermissionsConstants)
 local CollaboratorItem = require(PermissionsDirectory.CollaboratorItem)
+local GroupCollaboratorItem = require(PermissionsDirectory.GroupCollaboratorItem)
 
 local FitToContent = createFitToContent("Frame", "UIListLayout", {
 	SortOrder = Enum.SortOrder.LayoutOrder,
@@ -63,30 +65,46 @@ function PackageOwnerWidget:render()
 				
 			-- 	props.PermissionsChanged(newPermissions)
 			-- end
-			
-			-- This is only a collaborator item for a single user owned package.
-			-- FIXME(mwang) 9/30/2019 Add the GroupCollaboratorItem when hooking up network calls.
-			local collaboratorItem = Roact.createElement(CollaboratorItem, {
-				LayoutOrder = 1,
-				Removable = false,
-				
-				CollaboratorName = props.OwnerName,
-				CollaboratorId = props.OwnerId,
-				-- FIXME(mwang) CollaboratorIcon is nil for the time being because a thumbnailprovider context service hasn't been implemented yet.
-				-- CollaboratorIcon = thumbnailLoader.getThumbnail(PermissionsConstants.UserSubjectKey, props.OwnerId),
-				CollaboratorIcon = nil,
-				UseMask = true,
-				
-				Action =  localized.PackagePermissions.Owner,
-				Enabled = props.Enabled,
-				
-				Items = getUserOwnerPermissions(props),
-				--[[ 
-					FIXME(mwang) RolePermissionChanged is nil currently because this Component is only for User-Owned Packages.
-					Account for Group-Owned packages, RolePermissionChanged will not be nil.
-				]]
-				RolePermissionChanged = nil, -- Owner permissions can't be changed
-			})
+
+			local collaboratorItem
+			if props.OwnerType == Enum.CreatorType.User then 
+				collaboratorItem = Roact.createElement(CollaboratorItem, {
+					LayoutOrder = 1,
+					Removable = false,
+					
+					CollaboratorName = props.OwnerName,
+					CollaboratorId = props.OwnerId,
+					CollaboratorIcon = Urls.constructAvatarHeadshotThumbnailUrl(props.OwnerId,
+						AssetConfigConstants.rbxThumbSizes.AvatarHeadshotImageSize),
+					UseMask = true,
+					
+					Action =  localized.PackagePermissions.ActionDropdown.OwnerLabel,
+					Enabled = props.Enabled,
+					
+					Items = getUserOwnerPermissions(props),
+					--[[ 
+						FIXME(mwang) RolePermissionChanged is nil currently because this Component is only for User-Owned Packages.
+						Account for Group-Owned packages, RolePermissionChanged will not be nil.
+					]]
+					RolePermissionChanged = nil, -- Owner permissions can't be changed
+				})
+			else
+				collaboratorItem = Roact.createElement(GroupCollaboratorItem, {
+					LayoutOrder = 1,
+					Removable = false,
+					
+					GroupData = props.GroupMetadata,
+					Enabled = props.Enabled,
+
+					-- Items = getGroupOwnerPermissions(props, localized),
+					Items = {},
+					
+					RolePermissionChanged = rolePermissionChanged,
+					GroupPermissionChanged = nil, -- Cannot be bulk-changed because Owner is locked
+
+					Permissions = props.Permissions,
+				})
+			end
 
 			return Roact.createElement(FitToContent, {
 				LayoutOrder = props.LayoutOrder or 0,
@@ -95,9 +113,9 @@ function PackageOwnerWidget:render()
 				Title = Roact.createElement("TextLabel", {
 					Font = Constants.FONT,
 					TextSize = Constants.FONT_SIZE_TITLE,
-					TextColor3 = theme.packagePermissions.subTextColor,
+					TextColor3 = theme.assetConfig.packagePermissions.subTextColor,
 					LayoutOrder = 0,
-					Text = localized.PackagePermissions.PackageOwner,
+					Text = localized.PackagePermissions.Title.PackageOwner,
 					TextXAlignment = Enum.TextXAlignment.Left,
 					BackgroundTransparency = 1,
 					-- Accounting for the CollaboratorItem under it.

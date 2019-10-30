@@ -50,6 +50,7 @@ function Import:init()
 	self.layoutRef	= Roact.createRef()
 
 	self.state = {
+		validatedMapSettings = true,
 		validatedHeightMap = nil,
 		validatedColorMap = nil,
 		importButtonActive = true,
@@ -104,6 +105,12 @@ function Import:init()
 		})
 	end
 
+	self.mapSettingsValidated = function(validatedMapSettings)
+		self:setState({
+			validatedMapSettings = validatedMapSettings
+		})
+	end
+
 	self.heightMapValidated = function(validatedAssetId)
 		self:setState({
 			validatedHeightMap = validatedAssetId
@@ -116,9 +123,9 @@ function Import:init()
 		})
 	end
 
-	self.setImportButtonState = function(state)
+	self.setImportButtonState = function(isActive)
 		self:setState({
-			importButtonActive = state
+			importButtonActive = isActive
 		})
 	end
 end
@@ -141,13 +148,15 @@ function Import:render()
 	local position = self.props.Position
 	local useColorMap = self.props.UseColorMap
 
-	local importIsActive = self.state.importButtonActive
+	local importIsActive = self.state.importButtonActive and
+		self.state.validatedHeightMap and
+		self.state.validatedMapSettings
 
 	return withTheme(function(theme)
-		local toggleOn = theme.toggleTheme.toggleOnImage
-		local toggleOff = theme.toggleTheme.toggleOffImage
-
 		return withLocalization(function(localization)
+			local toggleOn = theme.toggleTheme.toggleOnImage
+			local toggleOff = theme.toggleTheme.toggleOffImage
+
 			return Roact.createElement("Frame", {
 				Size = UDim2.new(1, 0, 1, 0),
 				BackgroundTransparency = 1,
@@ -161,6 +170,8 @@ function Import:render()
 
 				MapSettings = Roact.createElement(MapSettings, {
 					HeightMapValidation = self.heightMapValidated,
+					IsMapSettingsValid = self.mapSettingsValidated,
+
 					Position = position,
 					Size = size,
 					OnTextEnter = self.onTextEnter,

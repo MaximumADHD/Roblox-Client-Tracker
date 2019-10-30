@@ -7,6 +7,30 @@ local Rodux = require(Libs.Rodux)
 local Actions = Plugin.Core.Actions
 local SetPluginInfo = require(Actions.SetPluginInfo)
 local SetPluginEnabledState = require(Actions.SetPluginEnabledState)
+local SetPluginUpdateStatus = require(Actions.SetPluginUpdateStatus)
+
+-- Removes decimal points from timestamps,
+-- which make them incompatible with localization.
+local function cleanTimestamp(timestamp)
+	local index = timestamp:find("%.")
+	if index then
+		return timestamp:sub(1, index - 1) .. "Z"
+	else
+		return timestamp
+	end
+end
+
+local function setPluginValues(state, assetId, values)
+	local newPlugins = {}
+	for id, entry in pairs(state.plugins) do
+		if id == assetId then
+			newPlugins[id] = Cryo.Dictionary.join(entry, values)
+		end
+	end
+	return Cryo.Dictionary.join(state, {
+		plugins = Cryo.Dictionary.join(state.plugins, newPlugins),
+	})
+end
 
 return Rodux.createReducer({
 	plugins = {}
@@ -22,7 +46,7 @@ return Rodux.createReducer({
 				name = entry.name,
 				description = entry.description,
 				latestVersion = entry.versionId,
-				updated = entry.updated,
+				updated = cleanTimestamp(entry.updated),
 			}
 		end
 
@@ -44,16 +68,14 @@ return Rodux.createReducer({
 	end,
 
 	[SetPluginEnabledState.name] = function(state, action)
-		local newPlugins = {}
-		for id, entry in pairs(state.plugins) do
-			if id == action.assetId then
-				newPlugins[id] = Cryo.Dictionary.join(entry, {
-					enabled = action.enabled,
-				})
-			end
-		end
-		return Cryo.Dictionary.join(state, {
-			plugins = Cryo.Dictionary.join(state.plugins, newPlugins),
+		return setPluginValues(state, action.assetId, {
+			enabled = action.enabled,
 		})
-	end
+	end,
+
+	[SetPluginUpdateStatus.name] = function(state, action)
+		return setPluginValues(state, action.assetId, {
+			status = action.status or Cryo.None,
+		})
+	end,
 })

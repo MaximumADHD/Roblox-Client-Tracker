@@ -53,8 +53,10 @@ function Generate:init(initialProps)
 	self.warnings = {}
 
 	self.state = {
-		isGenerationActive = true
+		mapSettingsValid = true,
+		isGenerationActive = true,
 	}
+
 	self.selectBiome = function(title)
 		local biomeS = self.props.biomeSelection
 		local value = not biomeS[title]
@@ -130,9 +132,16 @@ function Generate:init(initialProps)
 		end
 	end
 
-	self.setGenButtonState = function(state)
+	self.setGenButtonState = function(isActive)
 		self:setState({
-			isGenerationActive = state
+
+			isGenerationActive = isActive
+		})
+	end
+
+	self.setMapSettingsValidated = function(isValidated)
+		self:setState({
+			mapSettingsValid = isValidated
 		})
 	end
 
@@ -173,7 +182,7 @@ function Generate:render()
 
 	local biomeSizeString = tostring(biomeSize)
 
-	local generateIsActive = self.state.isGenerationActive
+	local generateIsActive = self.state.isGenerationActive and self.state.mapSettingsValid
 
 	return withTheme(function(theme)
 		local toggleOn = theme.toggleTheme.toggleOnImage
@@ -195,6 +204,7 @@ function Generate:render()
 					Position = position,
 					Size = size,
 					OnTextEnter = self.onTextEnter,
+					IsMapSettingsValid = self.setMapSettingsValidated,
 					LayoutOrder = 1,
 				}),
 

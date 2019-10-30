@@ -1,8 +1,12 @@
 local CorePackages = game:GetService("CorePackages")
+local UIBloxCorePackagesConfig = require(CorePackages.UIBloxCorePackagesConfig)
 
 -- This covers all of the Packages folder, which is fairly defensive, but should
 -- be okay even if it runs multiple times
 local initify = require(CorePackages.initify)
 initify(CorePackages.Packages)
 
-return require(CorePackages.Packages.UIBlox)
+local UIBlox = require(CorePackages.Packages.UIBlox)
+UIBlox.init(UIBloxCorePackagesConfig)
+
+return UIBlox

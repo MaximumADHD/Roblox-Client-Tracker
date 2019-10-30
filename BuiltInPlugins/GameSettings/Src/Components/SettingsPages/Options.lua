@@ -9,6 +9,7 @@
 local PageName = "Options"
 
 local FFlagGameSettingsReorganizeHeaders = settings():GetFFlag("GameSettingsReorganizeHeaders")
+local FFlagVersionControlServiceScriptCollabEnabled = settings():GetFFlag("VersionControlServiceScriptCollabEnabled")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -23,6 +24,7 @@ local function loadValuesToProps(getValue)
 	local loadedProps = {
 		HttpEnabled = getValue("HttpEnabled"),
 		studioAccessToApisAllowed = getValue("studioAccessToApisAllowed"),
+		ScriptCollabEnabled = FFlagVersionControlServiceScriptCollabEnabled and getValue("ScriptCollabEnabled"),
 	}
 	
 	return loadedProps
@@ -33,6 +35,7 @@ local function dispatchChanges(setValue, dispatch)
 	local dispatchFuncs = {
 		HttpEnabledChanged = setValue("HttpEnabled"),
 		StudioApiServicesChanged = setValue("studioAccessToApisAllowed"),
+		ScriptCollabEnabledChanged = FFlagVersionControlServiceScriptCollabEnabled and setValue("ScriptCollabEnabled"),
 	}
 	
 	return dispatchFuncs
@@ -86,7 +89,25 @@ local function displayContents(page, localized)
 			SelectionChanged = function(button)
 				props.StudioApiServicesChanged(button.Id)
 			end,
-		}) or nil
+		}),
+		EnableScriptCollab = FFlagVersionControlServiceScriptCollabEnabled and Roact.createElement(RadioButtonSet, {
+			Title = localized.Title.ScriptCollab,
+			Buttons = {{
+					Id = true,
+					Title = localized.ScriptCollab.On,
+					Description = localized.ScriptCollab.OnDescription,
+				}, {
+					Id = false,
+					Title = localized.ScriptCollab.Off,
+				},
+			},
+			Enabled = props.ScriptCollabEnabled ~= nil,
+			LayoutOrder = 5,
+			Selected = props.ScriptCollabEnabled,
+			SelectionChanged = function(button)
+				props.ScriptCollabEnabledChanged(button.Id)
+			end,
+		}),
 	}
 end
 

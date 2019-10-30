@@ -15,6 +15,8 @@ local FFlagGameSettingsUsesNewIconEndpoint = settings():GetFFlag("GameSettingsUs
 local FFlagGameSettingsUpdatesUniverseDisplayName = settings():GetFFlag("GameSettingsUpdatesUniverseDisplayName")
 local FFlagStudioGameSettingsAccessPermissions = settings():GetFFlag("StudioGameSettingsAccessPermissions")
 local FFlagStudioGameSettingsDisablePlayabilityForDrafts = game:GetFastFlag("StudioGameSettingsDisablePlayabilityForDrafts")
+local FFlagStudioGameSettingsUseNewSettingsImpl = settings():GetFFlag("StudioGameSettingsUseNewSettingsImpl")
+local FFlagVersionControlServiceScriptCollabEnabled = settings():GetFFlag("VersionControlServiceScriptCollabEnabled")
 
 local DFFlagDeveloperSubscriptionsEnabled = settings():GetFFlag("DeveloperSubscriptionsEnabled")
 
@@ -34,6 +36,7 @@ local Requests = {
 	RootPlaceInfo = require(RequestsFolder.RootPlaceInfo),
 	GameIcon = require(RequestsFolder.GameIcon),
 	Thumbnails = require(RequestsFolder.Thumbnails),
+	ScriptCollabEnabled = FFlagVersionControlServiceScriptCollabEnabled and require(RequestsFolder.ScriptCollabEnabled) or nil,
 	GamePermissions = FFlagStudioGameSettingsAccessPermissions and require(RequestsFolder.GamePermissions) or nil,
 	DeveloperSubscriptions = DFFlagDeveloperSubscriptionsEnabled and require(RequestsFolder.DevSubs.DeveloperSubscriptions) or nil,
 }
@@ -150,9 +153,12 @@ function SettingsImpl:GetSettings_New()
 			settings = Cryo.Dictionary.join(settings, loaded[2])
 
 			if (not isPublished) then
-				local getRequests = {
-					Requests.GamePermissions.Get(gameId, creatorName, creatorId, creatorType),
-				}
+				local getRequests = {}
+
+				if FFlagStudioGameSettingsAccessPermissions then
+					table.insert(getRequests, Requests.GamePermissions.Get(gameId, creatorName, creatorId, creatorType))
+				end
+
 				local success,loaded = Promise.all(getRequests):await()
 				if not success then reject(loaded) return end
 				for _, values in ipairs(loaded) do
@@ -164,8 +170,11 @@ function SettingsImpl:GetSettings_New()
 				local getRequests = {
 					Requests.Configuration.Get(gameId),
 					Requests.Thumbnails.Get(gameId),
-					Requests.GamePermissions.Get(gameId, creatorName, creatorId, creatorType),
 				}
+
+				if FFlagStudioGameSettingsAccessPermissions then
+					table.insert(getRequests, Requests.GamePermissions.Get(gameId, creatorName, creatorId, creatorType))
+				end
 
 				if FFlagGameSettingsUsesNewIconEndpoint then
 					table.insert(getRequests, Requests.RootPlaceInfo.Get(gameId))
@@ -179,6 +188,10 @@ function SettingsImpl:GetSettings_New()
 
 				if DFFlagDeveloperSubscriptionsEnabled then
 					table.insert(getRequests, Requests.DeveloperSubscriptions.Get())
+				end
+
+				if FFlagVersionControlServiceScriptCollabEnabled then
+					table.insert( getRequests, Requests.ScriptCollabEnabled.Get())
 				end
 
 				local success,loaded = Promise.all(getRequests):await()
@@ -195,7 +208,7 @@ end
 
 -- TODO (awarwick) 6/5/2019 Remove with flag
 function SettingsImpl:GetSettings()
-	if FFlagStudioGameSettingsAccessPermissions then
+	if FFlagStudioGameSettingsUseNewSettingsImpl then
 		return self:GetSettings_New()
 	else
 		return self:GetSettings_Old()
@@ -257,6 +270,10 @@ function SettingsImpl:SaveAll(state)
 			end
 		end
 
+		if FFlagVersionControlServiceScriptCollabEnabled and state.Changed.ScriptCollabEnabled ~= nil then
+			saveInfo.ScriptCollabEnabled = state.Changed.ScriptCollabEnabled
+		end
+
 		WorkspaceSettings.saveAllAvatarSettings(saveInfo)
 		if not canManage then
 			return
@@ -279,6 +296,10 @@ function SettingsImpl:SaveAll(state)
 
 		if FFlagStudioGameSettingsAccessPermissions and saveInfo.permissions then
 			table.insert(setRequests, Requests.GamePermissions.Set(universeId, saveInfo.permissions))
+		end
+
+		if FFlagVersionControlServiceScriptCollabEnabled and saveInfo.ScriptCollabEnabled ~= nil then
+			table.insert(setRequests, Requests.ScriptCollabEnabled.Set(saveInfo.ScriptCollabEnabled))
 		end
 
 		return Promise.all(setRequests):andThen(function()

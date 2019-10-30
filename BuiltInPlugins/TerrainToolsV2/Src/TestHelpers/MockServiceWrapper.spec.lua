@@ -55,17 +55,12 @@ return function()
 		it("should supply a functional Rodux Store object to its children", function()
 			local TestElement = Roact.Component:extend("Test")
 			function TestElement:init()
-				-- check that our connection to the rodux store works
-				assert(self.props.selectedBones ~= nil, "Expected a value for selectedBones")
-				assert(type(self.props.selectedBones) == "table", "Unexpected value for selectedBones")
 			end
 			function TestElement:render()
 				return Roact.createElement("Frame")
 			end
 			TestElement = RoactRodux.connect(function(state, props)
-				return {
-					selectedBones = state.Selection.Bones,
-				}
+
 			end)(TestElement)
 
 			local element = Roact.createElement(MockServiceWrapper, {}, {

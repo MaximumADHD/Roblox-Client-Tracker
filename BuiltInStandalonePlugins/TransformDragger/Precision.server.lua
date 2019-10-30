@@ -290,7 +290,7 @@ end
 
 -------------------------------------------------
 
-plugin:Bind("buttonClicked", function(payload)
+plugin:OnInvoke("buttonClicked", function(payload)
 	if on and Off then
 		Off()
 	elseif loaded and On then
@@ -2984,7 +2984,7 @@ function Off()
 	if not on then return end
 	on = false
 	
-	plugin:Fire("setActive", "false")
+	plugin:Invoke("setActive", "false")
 	
 	waypointUndoConnection:disconnect()
 	waypointRedoConnection:disconnect()
@@ -3005,7 +3005,7 @@ function On()
 	if on then return end
 	
 	plugin:Activate(true)
-	plugin:Fire("setActive", "true")
+	plugin:Invoke("setActive", "true")
 	on = true
 	
 	if rotateAdornPart then

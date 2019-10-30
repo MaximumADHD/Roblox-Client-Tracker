@@ -61,7 +61,7 @@ local function DeleteButton(props)
 						AnchorPoint = Vector2.new(0.5, 0.5),
 
 						Image = Images.CLOSE_ICON,
-						ImageColor3 = theme.packagePermissions.collaboratorItem.deleteButton,
+						ImageColor3 = theme.assetConfig.packagePermissions.collaboratorItem.deleteButton,
 						ImageTransparency = props.Enabled and 0 or 0.4,
 
 						BackgroundTransparency = 1,
@@ -119,7 +119,7 @@ local function CollaboratorLabels(props)
 
 				Font = Constants.FONT,
 				TextSize = Constants.FONT_SIZE_TITLE,
-				TextColor3 = theme.packagePermissions.subTextColor,
+				TextColor3 = theme.assetConfig.packagePermissions.subTextColor,
 
 				BackgroundTransparency = 1,
 			}),
@@ -143,7 +143,7 @@ local function CollaboratorItem(props)
 			Contents = Roact.createElement("Frame", {
 				Size = UDim2.new(1, 0, 1, 0),
 				BackgroundTransparency = 1,
-				BackgroundColor3 = theme.packagePermissions.backgroundColor,
+				BackgroundColor3 = theme.assetConfig.packagePermissions.backgroundColor,
 			}, {
 				Padding = Roact.createElement("UIPadding", {
 					PaddingLeft = UDim.new(0, PADDING_X),

@@ -1,4 +1,4 @@
-local CorePackages = game:GetService("CorePackages")
+ local CorePackages = game:GetService("CorePackages")
 local LocalizationService = game:GetService("LocalizationService")
 
 local Roact = require(CorePackages.Roact)
@@ -21,10 +21,27 @@ function LocalizationConsumer:init()
 	}
 
 	self.updateLocalization = function(newLocale)
+		if settings():GetFFlag("AppBridgeStartupController") then
+			newLocale = localization:GetLocale()
+		end
 		if newLocale ~= self.state.locale then
 			self:setState({
 				locale = newLocale
 			})
+		end
+	end
+
+	if settings():GetFFlag("AppBridgeStartupController") then
+		self.connections = {
+			localization.changed:connect(self.updateLocalization)
+		}
+	end
+end
+
+function LocalizationConsumer:willUnmount()
+	if settings():GetFFlag("AppBridgeStartupController") then
+		for _, connection in pairs(self.connections) do
+			connection:disconnect()
 		end
 	end
 end
@@ -68,12 +85,16 @@ function LocalizationConsumer:render()
 		end
 	end
 
-	return Roact.createElement(ExternalEventConnection, {
-		event = LocalizationService:GetPropertyChangedSignal("RobloxLocaleId"),
-		callback = self.updateLocalization,
-	}, {
-		Component = render(localizedStrings),
-	})
+	if settings():GetFFlag("AppBridgeStartupController") then
+		return render(localizedStrings)
+	else
+		return Roact.createElement(ExternalEventConnection, {
+			event = LocalizationService:GetPropertyChangedSignal("RobloxLocaleId"),
+			callback = self.updateLocalization,
+		}, {
+			Component = render(localizedStrings),
+		})
+	end
 end
 
 return LocalizationConsumer

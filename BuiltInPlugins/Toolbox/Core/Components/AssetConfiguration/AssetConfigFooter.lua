@@ -70,7 +70,7 @@ function AssetConfigFooter:render()
 
 			local canSave = props.CanSave
 			local screenFlowType = props.screenFlowType
-			local assetTypeEnum = props.AssetTypeEnum
+			local assetTypeEnum = props.assetTypeEnum
 
 			local showOverride = ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_OVERRIDE_BUTTON)
 			local overrideText = localizedContent.AssetConfig.Footer.Override

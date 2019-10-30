@@ -3,6 +3,7 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Actions = Plugin.Core.Actions
 local SetAssetConfigData = require(Actions.SetAssetConfigData)
 local firstToUpper = require(Plugin.Core.Util.firstToUpper)
+local NetworkError = require(Plugin.Core.Actions.NetworkError)
 
 return function(networkInterface, assetId)
 	return function(store)

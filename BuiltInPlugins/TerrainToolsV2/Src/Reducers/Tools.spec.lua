@@ -8,7 +8,6 @@ local Rodux = require(Packages.Rodux)
 
 local Actions = Plugin.Src.Actions
 local ChangeTool = require(Actions.ChangeTool)
-local InitializeActivator = require(Actions.InitializeActivator)
 
 return function()
 	it("should return its expected default state", function()

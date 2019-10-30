@@ -50,8 +50,6 @@ end
 game:GetService("UserInputService").InputBegan:connect(setUsingGamepad)
 game:GetService("UserInputService").InputChanged:connect(setUsingGamepad)
 
-FFlagCoreScriptTranslateGameText2 = settings():GetFFlag("CoreScriptTranslateGameText2")
-
 function waitForProperty(instance, name)
 	while not instance[name] do
 		instance.Changed:wait()
@@ -442,11 +440,7 @@ function presentDialogChoices(talkingPart, dialogChoices, parentDialog)
 		if pos <= #choices then
 			--3 lines is the maximum, set it to that temporarily
 			choices[pos].Size = UDim2.new(1, WIDTH_BONUS, 0, TEXT_HEIGHT * 3)
-            if FFlagCoreScriptTranslateGameText2 then
-			    GameTranslator:TranslateAndRegister(choices[pos].UserPrompt, obj, obj.UserDialog)
-            else
-                choices[pos].UserPrompt.Text = GameTranslator:TranslateGameText(obj, obj.UserDialog)
-            end
+			GameTranslator:TranslateAndRegister(choices[pos].UserPrompt, obj, obj.UserDialog)
 			local height = (math.ceil(choices[pos].UserPrompt.TextBounds.Y / TEXT_HEIGHT) * TEXT_HEIGHT) + CHOICE_PADDING
 
 			choices[pos].Position = UDim2.new(0, XPOS_OFFSET, 0, YPOS_OFFSET + yPosition)

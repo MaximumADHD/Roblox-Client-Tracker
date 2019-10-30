@@ -6,6 +6,8 @@ local Rodux = require(Libs.Rodux)
 
 local Util = Plugin.Core.Util
 local PagedRequestCursor = require(Util.PagedRequestCursor)
+local LOADING_IN_BACKGROUND = require(Util.Keys).LoadingInProgress
+local getUserId = require(Util.getUserId)
 
 local Actions = Plugin.Core.Actions
 local SetAssetId = require(Actions.SetAssetId)
@@ -21,12 +23,18 @@ local UploadResult = require(Actions.UploadResult)
 local NetworkError = require(Actions.NetworkError)
 local SetAssetConfigTab = require(Actions.SetAssetConfigTab)
 local SetOverrideAssets = require(Actions.SetOverrideAssets)
-local SetMyGroups = require(Actions.SetMyGroups)
+local SetAssetConfigManageableGroups = require(Actions.SetAssetConfigManageableGroups)
 local SetIsVerifiedCreator = require(Actions.SetIsVerifiedCreator)
 local SetLoadingPage = require(Actions.SetLoadingPage)
 local UpdateOverrideAssetData = require(Actions.UpdateOverrideAssetData)
 local SetCurrentPage = require(Actions.SetCurrentPage)
 local SetOverrideCursor = require(Actions.SetOverrideCursor)
+local SetAssetConfigThumbnailStatus = require(Actions.SetAssetConfigThumbnailStatus)
+local SetGroupMetadata = require(Actions.SetGroupMetadata)
+local SetOwnerUsername = require(Actions.SetOwnerUsername)
+local SetLocalUsername = require(Actions.SetLocalUsername)
+local CollaboratorSearchActions = require(Actions.CollaboratorSearchActions)
+local SetCollaborators = require(Plugin.Core.Actions.SetCollaborators)
 
 return Rodux.createReducer({
 	-- Empty table means publish new asset
@@ -42,6 +50,7 @@ return Rodux.createReducer({
 	changed = {},
 
 	assetId = nil,
+	thumbnailStatus = nil,
 	instances = nil,
 	screenFlowType = nil, -- AssetConfigConstants.FLOW_TYPE.*
 	assetTypeEnum = nil, -- Enum.AssetType.*
@@ -62,7 +71,7 @@ return Rodux.createReducer({
 	resultsArray = {},
 	filteredResultsArray = {},
 
-	groupsArray = {},
+	manageableGroups = {},
 
 	isVerifiedCreator = true,
 
@@ -76,6 +85,15 @@ return Rodux.createReducer({
 
 	-- For fetching Models to override only
 	overrideCursor = PagedRequestCursor.createDefaultCursor(),
+
+	-- For Package Permissions
+	groupMetadata = {},
+	ownerUsername = nil,
+	localUserFriends = nil,
+	cachedSearchResults = {},
+	searchText = "",
+	success = false,
+	collaborators = {},
 }, {
 
 	[SetAssetId.name] = function(state, action)
@@ -186,9 +204,9 @@ return Rodux.createReducer({
 		})
 	end,
 
-	[SetMyGroups.name] = function(state, action)
+	[SetAssetConfigManageableGroups.name] = function(state, action)
 		return Cryo.Dictionary.join(state, {
-			groupsArray = action.groupsArray
+			manageableGroups = action.manageableGroups
 		})
 	end,
 
@@ -213,6 +231,97 @@ return Rodux.createReducer({
 	[SetOverrideCursor.name] = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			overrideCursor = action.overrideCursor,
+		})
+	end,
+
+	[SetAssetConfigThumbnailStatus.name] = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			thumbnailStatus = action.thumbnailStatus,
+		})
+	end,
+
+	[SetGroupMetadata.name] = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			[action.groupMetadata.Id] = {
+				name = action.groupMetadata.Name,
+				groupMetadata = action.groupMetadata,
+			}
+		})
+	end,
+
+	[SetOwnerUsername.name] = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			ownerUsername = action.ownerUsername,
+		})
+	end,
+
+	[SetLocalUsername.name] = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			[getUserId()] = {
+				localUsername = action.localUsername,
+			}
+		})
+	end,
+
+	[CollaboratorSearchActions.LoadedLocalUserFriends.name] = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			localUserFriends = action.success and action.friends or {},
+		})
+	end,
+
+	[CollaboratorSearchActions.LoadedLocalUserGroups.name] = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			localUserGroups = action.success and action.groups or {},
+		})
+	end,
+
+	[CollaboratorSearchActions.LoadedWebResults.name] = function(state, action)
+		if not (state.cachedSearchResults) then
+			state = Cryo.Dictionary.join(state, {
+				cachedSearchResults = {},
+			})
+		end
+		return Cryo.Dictionary.join(state, {
+			cachedSearchResults = Cryo.Dictionary.join(state.cachedSearchResults, {
+				[action.key] = action.success and action.results or {},
+			})
+		})
+	end,
+
+	[CollaboratorSearchActions.LoadingWebResults.name] = function(state, action)
+		if not (state.cachedSearchResults) then
+			state = Cryo.Dictionary.join(state, {
+				cachedSearchResults = {},
+			})
+		end
+		return Cryo.Dictionary.join(state, {
+			cachedSearchResults = Cryo.Dictionary.join(state.cachedSearchResults, {
+				[action.searchTerm] = LOADING_IN_BACKGROUND,
+			})
+		})
+	end,
+
+	[CollaboratorSearchActions.LoadingLocalUserFriends.name] = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			localUserFriends = LOADING_IN_BACKGROUND,
+		})
+	end,
+
+	[CollaboratorSearchActions.LoadingLocalUserGroups.name] = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			localUserGroups = LOADING_IN_BACKGROUND,
+		})
+	end,
+
+	[CollaboratorSearchActions.SearchTextChanged.name] = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			searchText = action.text,
+		})
+	end,
+
+	[SetCollaborators.name] = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			collaborators = action.collaborators,
 		})
 	end,
 })

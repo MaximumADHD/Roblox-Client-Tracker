@@ -4,6 +4,7 @@
 	Props:
 	onDropDownSelect, function, will return current selected item if selected.
 ]]
+local FFlagLuaPackagePermissions =  settings():GetFFlag("LuaPackagePermissions")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -23,7 +24,8 @@ local DropdownMenu = require(Plugin.Core.Components.DropdownMenu)
 
 local Requests = Plugin.Core.Networking.Requests
 local GetAssetConfigGroupDataRequest = require(Requests.GetAssetConfigGroupDataRequest)
-local GetMyGroupsRequest = require(Requests.GetMyGroupsRequest)
+local GetAssetConfigManageableGroupsRequest = require(Requests.GetAssetConfigManageableGroupsRequest)
+local GetGroupMetadata = require(Plugin.Core.Thunks.GetGroupMetadata)
 
 local ConfigTypes = require(Plugin.Core.Types.ConfigTypes)
 
@@ -44,9 +46,13 @@ function ConfigAccess:init(props)
 end
 
 function ConfigAccess:didMount()
-	local userId = getUserId()
 	-- Initial request
-	self.props.getMyGroups(getNetwork(self), userId)
+	if game:GetFastFlag("FixAssetConfigManageableGroups") then
+		self.props.getManageableGroups(getNetwork(self))
+	else
+		local userId = getUserId()
+		self.props.getManageableGroups(getNetwork(self), userId)
+	end
 end
 
 function ConfigAccess:render()
@@ -65,7 +71,7 @@ function ConfigAccess:render()
 			-- TODO: Notice UX to change the website.
 			local ownerIndex = (owner.typeId or 1)
 
-			self.dropdownContent = AssetConfigUtil.getOwnerDropDownContent(props.groupsArray, localizedContent)
+			self.dropdownContent = AssetConfigUtil.getOwnerDropDownContent(props.manageableGroups, localizedContent)
 
 			local onDropDownSelect = props.onDropDownSelect
 
@@ -77,10 +83,18 @@ function ConfigAccess:render()
 					ownerName = localizedContent.AssetConfig.PublishAsset.Me
 				else -- If not owned by Me, then it's owned by a group.
 					-- Load the groupName
-					if props.assetGroupData then
-						ownerName = props.assetGroupData.name
+					if FFlagLuaPackagePermissions then
+						if props.assetGroupData then
+							ownerName = props.assetGroupData.Name
+						else
+							self.props.GetGroupMetadata(owner.targetId)
+						end
 					else
-						self.props.getGroupsData(getNetwork(self), owner.typeId)
+						if props.assetGroupData then
+							ownerName = props.assetGroupData.name
+						else
+							self.props.DEPRECATED_getGroupsData(getNetwork(self), owner.typeId)
+						end
 					end
 				end
 			end
@@ -154,21 +168,29 @@ end
 local function mapStateToProps(state, props)
 	state = state or {}
 
+	local assetGroupData = props.assetGroupData or (FFlagLuaPackagePermissions and state.groupMetadata)
+
 	return {
 		screenFlowType = state.screenFlowType,
-		groupsArray = state.groupsArray or {}
+		manageableGroups = state.manageableGroups or {},
+		groupsArray = state.groupsArray or {},
+		assetGroupData = assetGroupData,
 	}
 end
 
 local function mapDispatchToProps(dispatch)
 	return {
-		getGroupsData = function(networkInterface, groupId)
+		DEPRECATED_getGroupsData = function(networkInterface, groupId)
 			dispatch(GetAssetConfigGroupDataRequest(networkInterface, groupId))
 		end,
 
-		getMyGroups = function(networkInterface, userId)
-			dispatch(GetMyGroupsRequest(networkInterface, userId))
+		getManageableGroups = function(networkInterface, DEPRECATED_userId)
+			dispatch(GetAssetConfigManageableGroupsRequest(networkInterface, DEPRECATED_userId))
 		end,
+
+		GetGroupMetadata = FFlagLuaPackagePermissions and function(groupId)
+            dispatch(GetGroupMetadata(groupId))
+        end,
 	}
 end
 

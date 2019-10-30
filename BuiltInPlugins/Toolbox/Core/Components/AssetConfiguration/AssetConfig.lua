@@ -619,6 +619,7 @@ function AssetConfig:render()
 							CurrentTab = currentTab,
 
 							PreviewType = previewType,
+							ScreenFlowType = screenFlowType,
 							AssetStatus = newAssetStatus,
 							AssetId = assetId,
 							IconFile = iconFile,
@@ -720,6 +721,9 @@ function AssetConfig:render()
 
 						PackagePermissions = ConfigTypes:isPermissions(currentTab) and Roact.createElement(Permissions, {
 							Size = UDim2.new(1, -PREVIEW_WIDTH, 1, 0),
+							
+							Owner = owner,
+							AssetId = assetId,
 
 							LayoutOrder = 3,
 						}),

@@ -224,7 +224,7 @@ function AssetIdSelector:render()
 					}, {
 						PreviewImage = Roact.createElement("ImageLabel", {
 							Size = PREVIEW_SIZE,
-							Image = string.format(ASSET_URL_TEXT, tonumber(i)),
+							Image = string.format(ASSET_URL_TEXT, tonumber(id)),
 							BorderSizePixel = 0,
 						}),
 						PreviewText = Roact.createElement("TextLabel",{

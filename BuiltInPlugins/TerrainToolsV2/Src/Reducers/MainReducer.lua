@@ -16,10 +16,12 @@ local SmoothTool = require(Reducers.SmoothTool)
 local SubtractTool = require(Reducers.SubtractTool)
 local FlattenTool = require(Reducers.FlattenTool)
 local PaintTool = require(Reducers.PaintTool)
+local SeaLevelTool = require(Reducers.SeaLevelTool)
 
 local toolReducerTable = {
 	GenerateTool = GenerateTool,
 	ImportTool = ImportTool,
+	SeaLevelTool = SeaLevelTool,
 	AddTool = AddTool,
 	SubtractTool = SubtractTool,
 	GrowTool = GrowTool,
@@ -38,15 +40,19 @@ local MainReducer = function(state, action)
 	local reducer = state or {
 		Tools = Tools(state, action),
 
-		AddTool = AddTool(state, action),
-		ErodeTool = ErodeTool(state, action),
-		FillTool = FillTool(state, action),
 		GenerateTool = GenerateTool(state, action),
-		GrowTool = GrowTool(state, action),
 		ImportTool = ImportTool(state, action),
+		SeaLevelTool = SeaLevelTool(state, action),
+
 		RegionTool = RegionTool(state, action),
-		SmoothTool = SmoothTool(state, action),
+		FillTool = FillTool(state, action),
+
+		AddTool = AddTool(state, action),
 		SubtractTool = SubtractTool(state, action),
+
+		GrowTool = GrowTool(state, action),
+		ErodeTool = ErodeTool(state, action),
+		SmoothTool = SmoothTool(state, action),
 		FlattenTool = FlattenTool(state, action),
 
 		-- special cased reducer, is used by a tab since

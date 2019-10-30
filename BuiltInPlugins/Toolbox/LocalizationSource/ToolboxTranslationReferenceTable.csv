@@ -185,12 +185,25 @@ Studio.Toolbox.AssetConfigFooter.OverrideTitle,Choose an existing model to overw
 Studio.Toolbox.AssetConfigCopy.Terms,"By switching on, you are granting every other user of Roblox the right to use (in various ways) the content you are now sharing. If you do not want to grant this right, please do not check this box. For more information about sharing content, please review the Roblox Terms of Use.", ,"By switching on, you are granting every other user of Roblox the right to use (in various ways) the content you are now sharing. If you do not want to grant this right, please do not check this box. For more information about sharing content, please review the Roblox Terms of Use.","By switching on, you are granting every other user of Roblox the right to use (in various ways) the content you are now sharing. If you do not want to grant this right, please do not check this box. For more information about sharing content, please review the Roblox Terms of Use."
 Studio.Toolbox.AssetConfigCopy.AccountSetting,"In order to share content in Marketplace, you must add & verify an email address to your account. This can be done in Account Settings.", ,"In order to share content in Marketplace, you must add & verify an email address to your account. This can be done in Account Settings.","In order to share content in Marketplace, you must add & verify an email address to your account. This can be done in Account Settings."
 Studio.Toolbox.AssetConfigPreview.Preview,Preview, ,Preview,Preview
+Studio.Toolbox.AssetConfigPreview.Change,Change, ,Change,Change
 Studio.Toolbox.AssetConfigVersions.Current,Current published version, ,Current published version,Current published version
 Studio.Toolbox.AssetConfigVersions.Restore,Restore previous version, ,Restore previous version,Restore previous version
 Studio.Toolbox.AssetConfig.GetAssetFailed,There was an problem fetching asset data. We will be closing AssetConfig page., ,There was an problem fetching asset data. We will be closing AssetConfig page.,There was an problem fetching asset data. We will be closing AssetConfig page.
 Studio.Toolbox.AssetConfig.Error,Error, ,Error,Error
-Studio.Toolbox.AssetConfigPackagePermissions.PackageOwner,Package Owner, ,Package Owner,Package Owner
-Studio.Toolbox.AssetConfigPackagePermissions.Owner,Owner, ,Owner,Owner
-Studio.Toolbox.AssetConfigPackagePermissions.NoResults,No results found, ,No results found,No results found
-Studio.Toolbox.AssetConfigPackagePermissions.SearchByUser,Search by username, ,Search by username,Search by username
-Studio.Toolbox.AssetConfigPackagePermissions.ShareWith,Share with, ,Share with,Share with
+Studio.Toolbox.AssetConfigPackagePermissions.PackageOwner,Package Owner, ,Package Owner, 
+Studio.Toolbox.AssetConfigPackagePermissions.OwnerLabel,Owner, ,Owner, 
+Studio.Toolbox.AssetConfigPackagePermissions.NoResults,No results found, ,No results found, 
+Studio.Toolbox.AssetConfigPackagePermissions.SearchByUser,Search by username, ,Search by username, 
+Studio.Toolbox.AssetConfigPackagePermissions.ShareWith,Share with, ,Share with, 
+Studio.Toolbox.AssetConfigPackagePermissions.NoAccessLabel,No Access, ,No Access, 
+Studio.Toolbox.AssetConfigPackagePermissions.UseViewLabel,Use & View, ,Use & View, 
+Studio.Toolbox.AssetConfigPackagePermissions.EditLabel,Edit, ,Edit, 
+Studio.Toolbox.AssetConfigPackagePermissions.MultipleLabel,(Multiple), ,(Multiple), 
+Studio.Toolbox.AssetConfigPackagePermissions.NoAccessDescription,"Cannot use, view or edit this package", ,"Cannot use, view or edit this package", 
+Studio.Toolbox.AssetConfigPackagePermissions.UseViewDescription,Can use and view this package, ,Can use and view this package, 
+Studio.Toolbox.AssetConfigPackagePermissions.EditDescription,"Can use, view and edit this package", ,"Can use, view and edit this package", 
+Studio.Toolbox.AssetConfigPackagePermissions.FriendsCollaboratorType,Friends, ,Friends, 
+Studio.Toolbox.AssetConfigPackagePermissions.UsersCollaboratorType,Users, ,Users, 
+Studio.Toolbox.AssetConfigPackagePermissions.GroupsCollaboratorType,Groups, ,Groups, 
+Studio.Toolbox.AssetConfigPackagePermissions.MyFriendsCollaborator,My Friends, ,My Friends, 
+Studio.Toolbox.AssetConfigPackagePermissions.TooManyCollaboratorsText,You cannot add more than {maxNumCollaborators:int} collaborators, ,You cannot add more than {maxNumCollaborators:int} collaborators, 

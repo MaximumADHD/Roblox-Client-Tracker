@@ -8,7 +8,7 @@ local Cryo = require(Plugin.Packages.Cryo)
 
 local FillTool = Rodux.createReducer({
 	mergeEmpty = false,
-	material = nil,
+	material = Enum.Material.Grass,
 },
 {
 	SetMergeEmpty = function(state, action)

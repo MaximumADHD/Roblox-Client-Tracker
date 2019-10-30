@@ -38,7 +38,7 @@ local getNetwork = ContextGetter.getNetwork
 
 local Requests = Plugin.Core.Networking.Requests
 local GetOverrideAssetRequest = require(Requests.GetOverrideAssetRequest)
-local GetMyGroupsRequest = require(Requests.GetMyGroupsRequest)
+local GetAssetConfigManageableGroupsRequest = require(Requests.GetAssetConfigManageableGroupsRequest)
 
 local OverrideAsset = Roact.PureComponent:extend("OverrideAsset")
 
@@ -58,7 +58,7 @@ function OverrideAsset:init(props)
 
 	self.onDropDownSelect = function(index)
 		local item = self.dropdownContent[index]
-		self.props.getOverrideAssets(getNetwork(self), item.creatorType, item.creatorId, 1)
+		self.props.getOverrideAssets(getNetwork(self), self.props.assetTypeEnum, item.creatorType, item.creatorId, 1)
 		self:setState({
 			selectIndex = index,
 			selectItem = item,
@@ -67,15 +67,19 @@ function OverrideAsset:init(props)
 
 	self.getOverrideAssetsFunc = function(targetPage)
 		local selectItem = self.state.selectItem
-		self.props.getOverrideAssets(getNetwork(self), selectItem.creatorType, selectItem.creatorId, targetPage)
+		self.props.getOverrideAssets(getNetwork(self), self.props.assetTypeEnum, selectItem.creatorType, selectItem.creatorId, targetPage)
 	end
 end
 
 function OverrideAsset:didMount()
 	local userId = getUserId()
 	-- Initial request
-	self.props.getOverrideAssets(getNetwork(self), "User", userId, 1)
-	self.props.getMyGroups(getNetwork(self), userId)
+	self.props.getOverrideAssets(getNetwork(self), self.props.assetTypeEnum, "User", userId, 1)
+	if game:GetFastFlag("FixAssetConfigManageableGroups") then
+		self.props.getManageableGroups(getNetwork(self))
+	else
+		self.props.getManageableGroups(getNetwork(self), userId)
+	end
 end
 
 
@@ -98,7 +102,7 @@ function OverrideAsset:render()
 
 			local selectIndex = state.selectIndex
 
-			self.dropdownContent = AssetConfigUtil.getOwnerDropDownContent(props.groupsArray, localizedContent)
+			self.dropdownContent = AssetConfigUtil.getOwnerDropDownContent(props.manageableGroups, localizedContent)
 
 			return Roact.createElement("Frame", {
 				Size = Size,
@@ -174,18 +178,19 @@ local function mapStateToProps(state, props)
 		totalResults = state.totalResults,
 		resultsArray = state.resultsArray,
 		filteredResultsArray = state.filteredResultsArray,
-		groupsArray = state.groupsArray or {}
+		manageableGroups = state.manageableGroups or {},
+		assetTypeEnum = state.assetTypeEnum,
 	}
 end
 
 local function mapDispatchToProps(dispatch)
 	return {
-		getOverrideAssets = function(networkInterface, creatorType, creatorId, targetPage)
-			dispatch(GetOverrideAssetRequest(networkInterface, creatorType, creatorId, targetPage))
+		getOverrideAssets = function(networkInterface, assetTypeEnum, creatorType, creatorId, targetPage)
+			dispatch(GetOverrideAssetRequest(networkInterface, assetTypeEnum, creatorType, creatorId, targetPage))
 		end,
 
-		getMyGroups = function(networkInterface, userId)
-			dispatch(GetMyGroupsRequest(networkInterface, userId))
+		getManageableGroups = function(networkInterface, DEPRECATED_userId)
+			dispatch(GetAssetConfigManageableGroupsRequest(networkInterface, DEPRECATED_userId))
 		end,
 	}
 end

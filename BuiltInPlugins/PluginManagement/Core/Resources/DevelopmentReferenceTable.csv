@@ -8,8 +8,14 @@ Studio.PluginManagement.Main.UpdateAllButton, , ,Update all
 Studio.PluginManagement.Loading.Title, , ,Updating Plugins
 Studio.PluginManagement.Loading.UpdatingMessage, , ,Updating plugins...
 Studio.PluginManagement.Entry.UpdateButton, , ,Update
-Studio.PluginManagement.Entry.LastUpdatedDate, , ,Updated: {1}
+Studio.PluginManagement.Entry.LastUpdatedDate,{date}, ,Updated: {date:shortdate}
+Studio.PluginManagement.Entry.UpdateError, , ,Error. Try updating again.
+Studio.PluginManagement.Entry.UpdateSuccess, , ,Update complete!
 Studio.PluginManagement.EntrySeeMore.DetailsButton, , ,Details
 Studio.PluginManagement.EntrySeeMore.RemoveButton, , ,Remove
 Studio.PluginManagement.Header.PendingUpdates, , ,Pending updates
 Studio.PluginManagement.Header.UpToDate, , ,Up to date
+Studio.PluginManagement.Moved.Title, , ,Roblox Studio
+Studio.PluginManagement.Moved.MovedMessage, , ,We've moved.
+Studio.PluginManagement.Moved.NewLocationMessage, , ,Get plugins from Marketplace under Toolbox.
+Studio.PluginManagement.Moved.GotIt, , ,Got it

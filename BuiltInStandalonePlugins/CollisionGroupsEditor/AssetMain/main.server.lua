@@ -65,41 +65,40 @@ local function UpdateGroupsAndSelectedGroups()
     local groups = getGroups()
     local selectedGroupIds = getSelectedGroupIds(groups)
 
-    plugin:SetItem("Groups", HttpService:JSONEncode(groups))
-    plugin:SetItem("SelectedGroupIds", HttpService:JSONEncode(selectedGroupIds))
+    plugin:SetItem("Groups", groups)
+    plugin:SetItem("SelectedGroupIds", selectedGroupIds)
 end
 
-local function SetStateAndRefresh(jsonBlob) 
+local function SetStateAndRefresh(stateBlob) 
     -- Update store's notion of current groups/selected groups, and prompt a refresh on 
     -- GUI.
     UpdateGroupsAndSelectedGroups()
-    plugin:Fire("SetStateAndRefresh", HttpService:JSONEncode(jsonBlob))
+    plugin:Invoke("SetStateAndRefresh", stateBlob)
 end
 
 local PluginEventConnections = {}
 
 local function bindToPluginEvents()
     -- Bind to all the events from the Plugin DM.
-    table.insert(PluginEventConnections, plugin:Bind("WindowEnabled", function(payload) 
+    table.insert(PluginEventConnections, plugin:OnInvoke("WindowEnabled", function(payload) 
         SetStateAndRefresh({})
     end))
 
-    table.insert(PluginEventConnections, plugin:Bind("DeleteCollisionGroup", function(groupName) 
+    table.insert(PluginEventConnections, plugin:OnInvoke("DeleteCollisionGroup", function(groupName) 
         ChangeHistoryService:SetWaypoint("Deleting collision group")
         PhysicsService:RemoveCollisionGroup(groupName)
         ChangeHistoryService:SetWaypoint("Deleted collision group")
         SetStateAndRefresh({})
     end))
 
-    table.insert(PluginEventConnections, plugin:Bind("RenameCollisionGroup", function(jsonBlobString)
-        local jsonBlob = HttpService:JSONDecode(jsonBlobString)
+    table.insert(PluginEventConnections, plugin:OnInvoke("RenameCollisionGroup", function(renameBlob)
         ChangeHistoryService:SetWaypoint("Renaming collision group")
-        PhysicsService:RenameCollisionGroup(jsonBlob.oldName, jsonBlob.newName)
+        PhysicsService:RenameCollisionGroup(renameBlob.oldName, renameBlob.newName)
         ChangeHistoryService:SetWaypoint("Renamed collision group")
         SetStateAndRefresh({GroupRenaming = ""})
     end))
 
-    table.insert(PluginEventConnections, plugin:Bind("AddSelectedPartsToCollisionGroup", function(groupName)
+    table.insert(PluginEventConnections, plugin:OnInvoke("AddSelectedPartsToCollisionGroup", function(groupName)
         ChangeHistoryService:SetWaypoint("Setting part membership to collision group")
         for _, part in pairs(getSelectedParts()) do
             PhysicsService:SetPartCollisionGroup(part, groupName)
@@ -108,24 +107,23 @@ local function bindToPluginEvents()
         SetStateAndRefresh({})
     end))
 
-    table.insert(PluginEventConnections, plugin:Bind("ToggleCollidesWith", function(jsonBlobString)
-        local jsonBlob = HttpService:JSONDecode(jsonBlobString)
-        local collides = not PhysicsService:CollisionGroupsAreCollidable(jsonBlob.groupName, 
-            jsonBlob.otherGroupName)
+    table.insert(PluginEventConnections, plugin:OnInvoke("ToggleCollidesWith", function(toggleCollisionBlob)
+        local collides = not PhysicsService:CollisionGroupsAreCollidable(toggleCollisionBlob.groupName, 
+            toggleCollisionBlob.otherGroupName)
         ChangeHistoryService:SetWaypoint("Setting group collision state")
-        PhysicsService:CollisionGroupSetCollidable(jsonBlob.groupName, jsonBlob.otherGroupName, collides)
+        PhysicsService:CollisionGroupSetCollidable(toggleCollisionBlob.groupName, toggleCollisionBlob.otherGroupName, collides)
         ChangeHistoryService:SetWaypoint("Set group collision state")
         SetStateAndRefresh({})
     end))
 
-    table.insert(PluginEventConnections, plugin:Bind("CreateCollisionGroup", function(groupName) 
+    table.insert(PluginEventConnections, plugin:OnInvoke("CreateCollisionGroup", function(groupName) 
         ChangeHistoryService:SetWaypoint("Creating collision group")
         PhysicsService:CreateCollisionGroup(groupName)
         ChangeHistoryService:SetWaypoint("Created collision group")
         SetStateAndRefresh({})
     end))
 
-    table.insert(PluginEventConnections, plugin:Bind("SelectPartsInCollisionGroup", function(groupName)
+    table.insert(PluginEventConnections, plugin:OnInvoke("SelectPartsInCollisionGroup", function(groupName)
         game:GetService("Selection"):Set(getPartsInGroup(groupName))
     end))
 
@@ -170,7 +168,7 @@ local function pollForCollisionGroupChanges()
     spawn(function()
         while PollingGroupChanges do
             if getGroupsChanged() then
-                plugin:Fire("SetStateAndRefresh", HttpService:JSONEncode({}))
+                plugin:Invoke("SetStateAndRefresh", nil)
             end
             wait(1)
         end
@@ -214,5 +212,5 @@ end
 -- Listen to MDI instance of plugin.
 -- When a new DM session starts, listen to it to keep track 
 -- of which DM is current.
-local mdiInstance = plugin.MDIInstance
+local mdiInstance = plugin.MultipleDocumentInterfaceInstance
 bindToDataModelSession(mdiInstance.FocusedDataModelSession)

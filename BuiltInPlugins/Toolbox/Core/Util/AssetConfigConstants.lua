@@ -126,4 +126,11 @@ AssetConfigConstants.marketplaceBuyableAsset = convertArrayToTable({
 	Enum.AssetType.Plugin,
 })
 
+AssetConfigConstants.rbxThumbSizes = {
+	-- Supported sizes, 48, 60, 150
+	AvatarHeadshotImageSize = 60,
+	-- Supported sizes, 150, 420
+	GroupIconImageSize = 150,
+}
+
 return AssetConfigConstants

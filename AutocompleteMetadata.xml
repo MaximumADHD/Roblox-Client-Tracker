@@ -348,18 +348,6 @@
         which each character has the internal numerical code equal to its corresponding argument.
       </description>
     </Function>
-    <Function name="dump" static="true">
-      <returns>
-        <string>Binary representation of the function</string>
-      </returns>
-      <parameters>
-        <function name="function"></function>
-      </parameters>
-      <description>
-        Returns a string containing a binary representation of the given function, so that a
-        later load on this string returns a copy of the function (but with new upvalues).
-      </description>
-    </Function>
     <Function name="find" static="true">
       <returns>
         <number>The indices of s where find occured, otherwise nil</number>

@@ -5,7 +5,6 @@
 ]]
 
 --[[ FFLAG VALUES ]]
-local FFlagCoreScriptTranslateGameText2 = settings():GetFFlag("CoreScriptTranslateGameText2")
 local FFlagCoreScriptNoPosthumousHurtOverlay = settings():GetFFlag("CoreScriptNoPosthumousHurtOverlay")
 
 local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList")
@@ -770,41 +769,21 @@ local function CreateLeaderstatsMenuItem()
 					local columnName = columnData.Name
 					local columnValue = columnData.Text
 
-					local columnNameLabel
+					local columnNameLabel = Util.Create'TextLabel'
+					{
+						Name = "ColumnName";
+						Size = UDim2.new(1, 0, 0, 10);
+						Position = UDim2.new(0, 0, 0, 4);
+						Font = Enum.Font.SourceSans;
+						FontSize = Enum.FontSize.Size14;
+						BorderSizePixel = 0;
+						BackgroundTransparency = 1;
+						TextColor3 = TopbarConstants.FONT_COLOR;
+						TextYAlignment = Enum.TextYAlignment.Center;
+						TextXAlignment = Enum.TextXAlignment.Center;
+					}
 
-					if FFlagCoreScriptTranslateGameText2 then
-						columnNameLabel = Util.Create'TextLabel'
-						{
-							Name = "ColumnName";
-							Size = UDim2.new(1, 0, 0, 10);
-							Position = UDim2.new(0, 0, 0, 4);
-							Font = Enum.Font.SourceSans;
-							FontSize = Enum.FontSize.Size14;
-							BorderSizePixel = 0;
-							BackgroundTransparency = 1;
-							TextColor3 = TopbarConstants.FONT_COLOR;
-							TextYAlignment = Enum.TextYAlignment.Center;
-							TextXAlignment = Enum.TextXAlignment.Center;
-						}
-
-						GameTranslator:TranslateAndRegister(columnNameLabel, CoreGuiService, columnName);
-					else
-						columnNameLabel = Util.Create'TextLabel'
-						{
-							Name = "ColumnName";
-							Text = GameTranslator:TranslateGameText(CoreGuiService, columnName);
-							Size = UDim2.new(1, 0, 0, 10);
-							Position = UDim2.new(0, 0, 0, 4);
-							Font = Enum.Font.SourceSans;
-							FontSize = Enum.FontSize.Size14;
-							BorderSizePixel = 0;
-							BackgroundTransparency = 1;
-							TextColor3 = TopbarConstants.FONT_COLOR;
-							TextYAlignment = Enum.TextYAlignment.Center;
-							TextXAlignment = Enum.TextXAlignment.Center;
-						}
-					end
-
+					GameTranslator:TranslateAndRegister(columnNameLabel, CoreGuiService, columnName);
 
 					local columnframe = Util.Create'Frame'
 					{

@@ -259,7 +259,7 @@ function CollaboratorSearchBar:init()
 	end
 
 	-- A store provided by the consumer arbitrates which results are displayed, but is dependent
-	-- on this component to updates those results. This store persists between re-opening Game Settings,
+	-- on this component to updates those results. This store persists between re-opening Asset Config,
 	-- so it will show results from last session unless we tell it the text has changed
 	if self.props.onTextChanged then
 		self.props.onTextChanged("")
@@ -322,7 +322,7 @@ function CollaboratorSearchBar:render()
 			- Anchor the text label to the right side of the parent
 		]]
 
-		local searchBarTheme = theme.packagePermissions.searchBar
+		local searchBarTheme = theme.assetConfig.packagePermissions.searchBar
 		local borderColor
 		if isFocused then
 			borderColor = searchBarTheme.borderSelected
@@ -397,14 +397,14 @@ function CollaboratorSearchBar:render()
 							0, SEARCH_BAR_BUTTON_ICON_SIZE),
 						BackgroundTransparency = 1,
 						Image = Images.SEARCH_ICON,
-						ImageColor3 = theme.packagePermissions.searchBar.searchIcon,
+						ImageColor3 = theme.assetConfig.packagePermissions.searchBar.searchIcon,
 					}),
 				}),
 
 				TextBox = Roact.createElement("TextBox", {
 					Font = Constants.FONT,
 					TextSize = Constants.FONT_SIZE_TITLE,
-					TextColor3 = theme.packagePermissions.mainTextColor,
+					TextColor3 = theme.assetConfig.textColor,
 
 					LayoutOrder = 1,
 					Size = UDim2.new(1, textBoxOffset, 0, SEARCH_BAR_HEIGHT),
@@ -475,9 +475,9 @@ function CollaboratorSearchBar:render()
 									BorderSizePixel = 0,
 									TextWrapped = true,
 									LayoutOrder = index,
-									Font = theme.Labels.MainFont,
+									Font = Constants.FONT,
 									TextSize = 16,
-									TextColor3 = theme.Labels.DimmedTextColor,
+									TextColor3 = searchBarTheme.placeholderText,
 								}, {
 									Padding = Roact.createElement("UIPadding", {
 										PaddingLeft = UDim.new(0, textPadding),
@@ -487,7 +487,7 @@ function CollaboratorSearchBar:render()
 							return Roact.createElement("TextLabel", {
 								Font = Constants.FONT,
 								TextSize = Constants.FONT_SIZE_TITLE,
-								TextColor3 = theme.packagePermissions.mainTextColor,
+								TextColor3 = theme.assetConfig.textColor,
 
 								Size = UDim2.new(0, searchBarExtents.Width, 0, itemHeight),
 								Text = noResultsText,
@@ -568,9 +568,9 @@ function CollaboratorSearchBar:render()
 										}),
 	
 										TextLabel = Roact.createElement("TextLabel", {
-											Font = theme.Labels.MainFont,
+											Font = Constants.FONT,
 											TextSize = Constants.FONT_SIZE_TITLE,
-											TextColor3 = theme.Labels.MainTexTextcolor,
+											TextColor3 = theme.assetConfig.textColor,
 
 											Size = UDim2.new(1, textLabelOffset, 0, itemHeight),
 											Text = item.Name,

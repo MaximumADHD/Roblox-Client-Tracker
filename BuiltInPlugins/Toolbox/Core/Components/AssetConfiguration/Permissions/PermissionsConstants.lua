@@ -26,9 +26,8 @@ end
 local uniqueIdentifiers = {
 	-- Used in internal data structure for permissions
 	NoAccessKey = createKey("NoAccessPermission"),
-	PlayKey = createKey("PlayPermission"),
+	UseViewKey = createKey("UseViewPermission"),
 	EditKey = createKey("EditPermission"),
-	AdminKey = createKey("AdminPermission"),
 	
 	UserSubjectKey = createKey("UserSubjectType"),
 	GroupSubjectKey = createKey("GroupSubjectType"),

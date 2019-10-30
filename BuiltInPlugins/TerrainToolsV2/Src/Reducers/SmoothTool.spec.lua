@@ -2,6 +2,8 @@ local Plugin = script.Parent.Parent.Parent
 local TestHelpers = Plugin.Src.TestHelpers
 local Packages = Plugin.Packages
 
+local Constants = require(Plugin.Src.Util.Constants)
+
 local SmoothTool = require(script.Parent.SmoothTool)
 local testImmutability = require(TestHelpers.testImmutability)
 local Rodux = require(Packages.Rodux)
@@ -13,7 +15,6 @@ local ChangeStrength = require(Actions.ChangeStrength)
 local ChangePivot = require(Actions.ChangePivot)
 local ChooseBrushShape = require(Actions.ChooseBrushShape)
 local SetAutoMaterial = require(Actions.SetAutoMaterial)
-local SetIgnoreWater = require(Actions.SetIgnoreWater)
 local SetMaterial = require(Actions.SetMaterial)
 local SetPlaneLock = require(Actions.SetPlaneLock)
 local SetSnapToGrid = require(Actions.SetSnapToGrid)
@@ -22,14 +23,14 @@ return function()
 	it("should return its expected default state", function()
 		local r = Rodux.Store.new(SmoothTool)
 		expect(r:getState()).to.be.ok()
-		expect(r:getState().baseSize).to.equal(20)
 		expect(r:getState().brushShape).to.equal("Sphere")
-		expect(r:getState().height).to.equal(20)
-		expect(r:getState().ignoreWater).to.equal(false) -- MUST BE FALSE
-		expect(r:getState().pivot).to.equal("Cen")
-		expect(r:getState().planeLock).to.equal(true)
-		expect(r:getState().snapToGrid).to.equal(true)
-		expect(r:getState().strength).to.equal(20)
+		expect(r:getState().baseSize).to.equal(6)
+		expect(r:getState().height).to.equal(6)
+		expect(r:getState().strength).to.equal(1)
+		expect(r:getState().pivot).to.equal(Constants.PivotType.Center)
+		expect(r:getState().planeLock).to.equal(false)
+		expect(r:getState().snapToGrid).to.equal(false)
+
 	end)
 
 	describe("ChangeBaseSize", function()
@@ -73,21 +74,6 @@ return function()
 
 		it("should preserve immutability", function()
 			local immutabilityPreserved = testImmutability(SmoothTool, ChangeHeight(11111111))
-			expect(immutabilityPreserved).to.equal(true)
-		end)
-	end)
-
-	describe("SetIgnoreWater", function()
-		it("should not reset ignoreWater", function()
-			local state = SmoothTool(nil, SetIgnoreWater(true))
-
-			expect(state).to.be.ok()
-			expect(state.ignoreWater).to.be.ok()
-			expect(state.ignoreWater).to.equal(false)
-		end)
-
-		it("should preserve immutability", function()
-			local immutabilityPreserved = testImmutability(SmoothTool, SetIgnoreWater(true))
 			expect(immutabilityPreserved).to.equal(true)
 		end)
 	end)

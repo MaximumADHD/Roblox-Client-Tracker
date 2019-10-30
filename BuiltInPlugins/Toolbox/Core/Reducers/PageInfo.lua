@@ -14,7 +14,7 @@ local RequestReason = require(Plugin.Core.Types.RequestReason)
 
 local Actions = Plugin.Core.Actions
 local ChangeBackground = require(Actions.ChangeBackground)
-local GetManageableGroups = require(Actions.GetManageableGroups)
+local SetToolboxManageableGroups = require(Actions.SetToolboxManageableGroups)
 local UpdatePageInfo = require(Actions.UpdatePageInfo)
 local SetCurrentPage = require(Actions.SetCurrentPage)
 
@@ -150,10 +150,10 @@ return Rodux.createReducer({
 		return newState
 	end,
 
-	[GetManageableGroups.name] = function(state, action)
+	[SetToolboxManageableGroups.name] = function(state, action)
 		if not action.groups then
 			if DebugFlags.shouldDebugWarnings() then
-				warn("Toolbox GetManageableGroups action.groups = nil")
+				warn("Toolbox SetToolboxManageableGroups action.groups = nil")
 			end
 			return state
 		end

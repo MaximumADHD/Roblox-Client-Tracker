@@ -21,5 +21,6 @@ Keys.settings = createKey("Settings")
 Keys.theme = createKey("Theme")
 Keys.camera = createKey("MarketplaceCamera")
 Keys.UILibraryTheme = createKey("UILibraryraryTheme")
+Keys.LoadingInProgress = createKey("LoadingInProgress")
 
 return wrapStrictTable(Keys, "Keys")
