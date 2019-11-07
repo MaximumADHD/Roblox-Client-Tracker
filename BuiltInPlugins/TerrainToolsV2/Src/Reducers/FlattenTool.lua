@@ -6,22 +6,24 @@ local Plugin = script.Parent.Parent.Parent
 local Rodux = require(Plugin.Packages.Rodux)
 local Cryo = require(Plugin.Packages.Cryo)
 
-local Constants = require(Plugin.Src.Util.Constants)
+local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
+local BrushShape = TerrainEnums.BrushShape
+local FlattenMode = TerrainEnums.FlattenMode
+local PivotType = TerrainEnums.PivotType
 
 local ReducerToolFlatten = Rodux.createReducer({
-	brushShape = "Sphere",
+	brushShape = BrushShape.Sphere,
 	baseSize = 6,
 	height = 6,
-	pivot = Constants.PivotType.Center,
+	pivot = PivotType.Center,
 	strength = 0.5,
-	flattenMode = Constants.FlattenMode.Both,
+	flattenMode = FlattenMode.Both,
 	planePositionY = 30,
 	planeLock = false,
 	heightPicker = false,
 	snapToGrid = false,
 	ignoreWater = true,
-},
-{
+}, {
 	ChooseBrushShape = function(state, action)
 		local brushShape = action.brushShape
 

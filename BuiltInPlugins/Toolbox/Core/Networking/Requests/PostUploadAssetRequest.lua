@@ -4,18 +4,17 @@
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
-local DebugFlags = require(Plugin.Core.Util.DebugFlags)
-local AssetConfigConstants = require(Plugin.Core.Util.AssetConfigConstants)
+local Util = Plugin.Core.Util
+local DebugFlags = require(Util.DebugFlags)
+local AssetConfigConstants = require(Util.AssetConfigConstants)
+local SerializeInstances = require(Util.SerializeInstances)
+local Analytics = require(Util.Analytics.Analytics)
 
 local Actions = Plugin.Core.Actions
 local NetworkError = require(Actions.NetworkError)
 local SetCurrentScreen = require(Actions.SetCurrentScreen)
 local UploadResult = require(Actions.UploadResult)
 local SetAssetId = require(Actions.SetAssetId)
-
-local Util = Plugin.Core.Util
-local SerializeInstances = require(Util.SerializeInstances)
-local Analytics = require(Util.Analytics.Analytics)
 
 local TrySaveSalesAndThumbnailRequest = require(Plugin.Core.Networking.Requests.TrySaveSalesAndThumbnailRequest)
 
@@ -37,8 +36,6 @@ local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePlu
 return function(publishInfo)
 	return function(store)
 		store:dispatch(SetCurrentScreen(AssetConfigConstants.SCREENS.UPLOADING_ASSET))
-
-		local allowedAssetTypesForRelease = store:getState().allowedAssetTypesForRelease
 		local newAssetId = nil
 
 		local function onSuccess(result)
@@ -54,6 +51,8 @@ return function(publishInfo)
 				store:dispatch(SetAssetId(newAssetId))
 				Analytics.incrementUploadAssetSuccess(publishInfo.assetType)
 
+				-- Then for sales status, no matter if the user is whitelisted or not. As long as it's buyable
+				-- we will always need to overrid the sales status.
 				local needToCheckSale = publishInfo.saleStatus and store:getState().allowedAssetTypesForRelease[publishInfo.assetType]
 				if FFlagEnablePurchasePluginFromLua2 and
 					(needToCheckSale or publishInfo.iconFile) then
@@ -83,12 +82,8 @@ return function(publishInfo)
 		-- We will only override ispublic when purchase for plugin is enabled.
 		local ispublicOverride = publishInfo.ispublic
 		if FFlagEnablePurchasePluginFromLua2 then
-			-- And the behavior for release will be different for different user groups.
-			if allowedAssetTypesForRelease[publishInfo.assetType] then
-				ispublicOverride = false
-			else
-				-- Public(true) equals OnSale, private(false) equals OffSale
-				ispublicOverride = publishInfo.saleStatus == AssetConfigConstants.ASSET_STATUS.OnSale
+			if publishInfo.assetType == Enum.AssetType.Plugin.Name then
+				ispublicOverride = true
 			end
 		end
 

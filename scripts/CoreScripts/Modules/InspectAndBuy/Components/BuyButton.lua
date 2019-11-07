@@ -42,7 +42,7 @@ function BuyButton:render()
 	if game:GetFastFlag("EnableRobuxABTest") then
 		local RobuxIconABTestVariant = nil;
 		pcall(function() RobuxIconABTestVariant = ABTestService:GetVariant("RobuxHexIconABTestName") end)
-		EnrolledInRobuxIconABTest = RobuxIconABTestVariant == "Variant1"
+		EnrolledInRobuxIconABTest = RobuxIconABTestVariant == "Variation1"
  	end
 	local enableNewRobuxIcon = FFlagEnableRobuxHexIconV2 or EnrolledInRobuxIconABTest
 	local ROBUX_ICON_SIZE = enableNewRobuxIcon and 16 or 18

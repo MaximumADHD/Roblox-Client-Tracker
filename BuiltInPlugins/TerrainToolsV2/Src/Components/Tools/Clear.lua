@@ -18,8 +18,10 @@ local withLocalization = Localizing.withLocalization
 local Theme = require(Plugin.Src.ContextServices.Theming)
 local withTheme = Theme.withTheme
 
-local Clear = Roact.Component:extend(script.Name)
+local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
+local ToolId = TerrainEnums.ToolId
 
+local Clear = Roact.PureComponent:extend(script.Name)
 
 function Clear:init()
 	self.contextToConfirmation = function(theme, localization)
@@ -47,7 +49,7 @@ end
 local function MapDispatchToProps (dispatch)
 	return {
 		dispatchChangeTool = function (toolName)
-			dispatch(ChangeTool("None"))
+			dispatch(ChangeTool(ToolId.None))
 		end
 	}
 end

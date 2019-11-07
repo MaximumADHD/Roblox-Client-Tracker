@@ -2789,6 +2789,34 @@
                         }
                     ],
                     "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "OnBadgeAwarded",
+                    "Parameters": [
+                        {
+                            "Name": "userId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        },
+                        {
+                            "Name": "creatorId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        },
+                        {
+                            "Name": "badgeId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity"
                 }
             ],
             "MemoryCategory": "Instances",
@@ -43710,26 +43738,6 @@
                     }
                 },
                 {
-                    "Category": "Data",
-                    "MemberType": "Property",
-                    "Name": "EnableScriptCollabOnLoad",
-                    "Security": {
-                        "Read": "PluginSecurity",
-                        "Write": "PluginSecurity"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "Tags": [
-                        "Hidden"
-                    ],
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    }
-                },
-                {
                     "Category": "State",
                     "MemberType": "Property",
                     "Name": "GameId",
@@ -49249,6 +49257,26 @@
                 {
                     "Category": "Data",
                     "MemberType": "Property",
+                    "Name": "EnableScriptCollabOnLoad",
+                    "Security": {
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "Hidden"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
                     "Name": "SrcPlaceId",
                     "Security": {
                         "Read": "RobloxSecurity",
@@ -49294,8 +49322,7 @@
             "Superclass": "Instance",
             "Tags": [
                 "NotCreatable",
-                "Service",
-                "NotReplicated"
+                "Service"
             ]
         },
         {
@@ -49570,6 +49597,24 @@
                     "ReturnType": {
                         "Category": "Primitive",
                         "Name": "bool"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "OpenInBrowser_DONOTUSE",
+                    "Parameters": [
+                        {
+                            "Name": "url",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
                     },
                     "Security": "RobloxScriptSecurity"
                 },
@@ -59084,6 +59129,19 @@
                 }
             ],
             "Name": "DataStoreRequestType"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Utc",
+                    "Value": 0
+                },
+                {
+                    "Name": "Local",
+                    "Value": 1
+                }
+            ],
+            "Name": "DateTimeKind"
         },
         {
             "Items": [

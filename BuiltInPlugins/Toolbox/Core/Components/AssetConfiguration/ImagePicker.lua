@@ -4,13 +4,14 @@
 
 	Necessary props:
 		Size, UDim2, used to set how big the component is.
-		AssetId, number, used to get the thumbnail.
-		IconFile, userData, file.
-		ThumbnailStatus, string, used to show user the thumbnail status.
-		ChooseThumbnail, function, call back for choosing a thumbnail.
 
 	Optional pros:
+		AssetId, number, if set, will be used to get the thumbnail.
+		IconFile, userData, file, if set, will be used to show the image.
+		ThumbnailStatus, string, if set ,used to show user the thumbnail status.
+		ChooseThumbnail, function, call back for choosing a thumbnail, if you set this function, can imagePicker be hovered.
 		LayoutOrder, number, will be used by the parent layouter to change this componnet's position.
+		Position, UDim2, you should have a Position or LayoutOrder.
 ]]
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -41,9 +42,11 @@ function ImagePicker:init(props)
 	}
 
 	self.onMouseEnter = function(rbx, x, y)
-		self:setState({
-			hovered = true,
-		})
+		if self.props.ChooseThumbnail then
+			self:setState({
+				hovered = true,
+			})
+		end
 	end
 
 	self.onMouseLeave = function(rbx, x, y)
@@ -60,6 +63,7 @@ function ImagePicker:render()
 			local state = self.state
 
 			local size = props.Size
+			local position = props.Position
 			local layoutOrder = props.LayoutOrder
 			local iconFile = props.IconFile
 			local assetId = props.AssetId
@@ -78,6 +82,7 @@ function ImagePicker:render()
 			end
 
 			return Roact.createElement("ImageButton", {
+				Position = position,
 				Size = size,
 
 				BackgroundTransparency = 1,

@@ -37,6 +37,8 @@ local TOGGLE_BUTTON_WIDTH = 40
 
 local SalesComponent = Roact.PureComponent:extend("SalesComponent")
 
+local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
+
 function SalesComponent:init(props)
 	self.onToggle = function()
 		local props = self.props
@@ -46,31 +48,52 @@ function SalesComponent:init(props)
 		local onStatusChange = props.OnStatusChange
 
 		if canChangeSalesStatus then
-			local onSaleStatus = AssetConfigUtil.isOnSale(currentAssetStatus) and currentAssetStatus or AssetConfigConstants.ASSET_STATUS.OnSale
-			local offSaleStatus = not AssetConfigUtil.isOnSale(currentAssetStatus) and currentAssetStatus or AssetConfigConstants.ASSET_STATUS.OffSale -- this allows us to return to the exact status in the back-end
+			if FFlagEnablePurchasePluginFromLua2 then
+				local newStatus = AssetConfigUtil.isOnSale(currentAssetStatus) and
+					AssetConfigConstants.ASSET_STATUS.OffSale or
+					AssetConfigConstants.ASSET_STATUS.OnSale
+				onStatusChange(newStatus)
+			else
+				local onSaleStatus = AssetConfigUtil.isOnSale(currentAssetStatus) and currentAssetStatus or AssetConfigConstants.ASSET_STATUS.OnSale
+				local offSaleStatus = not AssetConfigUtil.isOnSale(currentAssetStatus) and currentAssetStatus or AssetConfigConstants.ASSET_STATUS.OffSale -- this allows us to return to the exact status in the back-end
 
-			local newStatus = AssetConfigUtil.isOnSale(newAssetStatus) and offSaleStatus or onSaleStatus
-			onStatusChange(newStatus)
+				local newStatus = AssetConfigUtil.isOnSale(newAssetStatus) and offSaleStatus or onSaleStatus
+				onStatusChange(newStatus)
+			end
 		end
 	end
 end
 
 function SalesComponent:render(order)
 	return withTheme(function(theme)
-		return withLocalization(function(_, localizedContent)
+		return withLocalization(function(localization, localizedContent)
 			local props = self.props
 
 			local title = props.Title
 			local newAssetStatus = props.NewAssetStatus
 			local currentAssetStatus = props.CurrentAssetStatus
+			local assetTypeEnum = props.AssetTypeEnum
+			local assetConfigTheme = theme.assetConfig
 
-			local subText = AssetConfigUtil.getSubText(newAssetStatus, currentAssetStatus, localizedContent)
+			local subText
+			if FFlagEnablePurchasePluginFromLua2 then
+				local market = AssetConfigUtil.isMarketplaceAsset(assetTypeEnum) and "Marketplace" or "Catalog"
+				local user = AssetConfigUtil.isMarketplaceAsset(assetTypeEnum) and "developer" or "user"
+
+				subText = localization:getSalesMessage(market, user)
+			else
+				subText = AssetConfigUtil.getSubText(newAssetStatus, currentAssetStatus, localizedContent)
+			end
 			local canChangeSalesStatus = props.CanChangeSalesStatus
+			local textColor
+			if FFlagEnablePurchasePluginFromLua2 then
+				textColor = assetConfigTheme.labelTextColor
+			else
+				textColor = canChangeSalesStatus and assetConfigTheme.textColor or assetConfigTheme.labelTextColor
+			end
 
 			local layoutOrder = props.LayoutOrder
 			local orderIterator = LayoutOrderIterator.new()
-
-			local assetConfigTheme = theme.assetConfig
 
 			return Roact.createElement(TitledFrame, {
 				Title = title,
@@ -100,7 +123,7 @@ function SalesComponent:render(order)
 					Size = UDim2.new(1, 0, 0, ROW_HEIGHT),
 
 					BackgroundTransparency = 1,
-					TextColor3 = canChangeSalesStatus and assetConfigTheme.textColor or assetConfigTheme.labelTextColor,
+					TextColor3 = textColor,
 					BorderSizePixel = 0,
 
 					Font = Constants.FONT,

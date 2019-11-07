@@ -12,8 +12,6 @@
 		pluginGui = A pluginGui object to provide in the UILibraryProvider
 ]]
 
-game:DefineFastFlag("StudioGameSettingsUseNewProviderAndThemeStuff", false)
-
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local RoactRodux = require(Plugin.RoactRodux)
@@ -25,60 +23,6 @@ local MouseProvider = require(Plugin.Src.Providers.MouseProvider)
 local LocalizationProvider = require(Plugin.Src.Providers.LocalizationProvider)
 local ThumbnailLoaderProvider = require(Plugin.Src.Providers.ThumbnailLoaderProvider)
 local UILibraryProvider = require(Plugin.Src.Providers.UILibraryProvider)
-local UILibraryWrapper = require(Plugin.UILibrary.UILibraryWrapper)
-
-local function DEPRECATED_ExternalServicesWrapper(props)
-	local providers = Roact.createElement(LocalizationProvider, {
-		localization = props.localization,
-	}, {
-		Roact.createElement(ThemeProvider, {
-			theme = props.theme,
-		}, {
-			Roact.createElement(UILibraryWrapper, {
-				theme = props.theme:getUILibraryTheme(),
-				focusGui = props.pluginGui,
-			},  {
-				Roact.createElement(MouseProvider, {
-					mouse = props.mouse,
-				}, props[Roact.Children]),
-			}),
-		}),
-	})
-
-	if props.settingsSaverLoader then
-		providers = Roact.createElement(SettingsImplProvider, {
-			settingsImpl = props.settingsSaverLoader,
-		}, {
-			providers
-		})
-	end
-
-	if props.store then
-		providers = Roact.createElement(RoactRodux.StoreProvider, {
-			store = props.store
-		}, {
-			providers
-		})
-
-		if settings():GetFFlag("StudioGameSettingsAccessPermissions") then
-			providers = Roact.createElement(ThumbnailLoaderProvider, {
-				store = props.store,
-			}, {
-				providers
-			})
-		end
-	end
-	
-	if props.showDialog then
-		providers = Roact.createElement(DialogProvider, {
-			showDialog = props.showDialog,
-		}, {
-			providers
-		})
-	end
-
-	return providers
-end
 
 local ServiceWrapper = Roact.PureComponent:extend("ServiceWrapper")
 
@@ -133,4 +77,4 @@ function ServiceWrapper:render()
 	return root
 end
 
-return game:GetFastFlag("StudioGameSettingsUseNewProviderAndThemeStuff") and ServiceWrapper or DEPRECATED_ExternalServicesWrapper
+return ServiceWrapper

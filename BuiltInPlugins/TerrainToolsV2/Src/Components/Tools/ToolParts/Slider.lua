@@ -54,7 +54,6 @@ local INPUT_BOX_SIZE = UDim2.new(0, 34, 0, 22)
 local TEXT_COLOR = Color3.new(151/255, 151/255, 151/255)
 local FRAME_BORDER_COLOR = Color3.new(182/255, 182/255, 182/255)
 
-
 local Slider = Roact.PureComponent:extend("Slider")
 
 function Slider:init()

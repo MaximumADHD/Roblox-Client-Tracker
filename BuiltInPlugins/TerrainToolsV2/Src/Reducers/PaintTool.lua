@@ -6,20 +6,20 @@ local Plugin = script.Parent.Parent.Parent
 local Rodux = require(Plugin.Packages.Rodux)
 local Cryo = require(Plugin.Packages.Cryo)
 
-local Constants = require(Plugin.Src.Util.Constants)
+local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
+local BrushShape = TerrainEnums.BrushShape
+local PivotType = TerrainEnums.PivotType
 
 local PaintTool = Rodux.createReducer({
-	brushShape = "Sphere",
+	brushShape = BrushShape.Sphere,
 	baseSize = 6,
 	height = 6,
-	pivot = Constants.PivotType.Center,
+	pivot = PivotType.Center,
 	planeLock = false,
 	snapToGrid = false,
 	ignoreWater = true,
-
 	material = Enum.Material.Grass,
-},
-{
+}, {
 	ChooseBrushShape = function(state, action)
 		local brushShape = action.brushShape
 

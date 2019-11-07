@@ -1,3 +1,5 @@
+local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
+
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Actions = Plugin.Core.Actions
@@ -147,7 +149,12 @@ return function(networkInterface, pageInfoOnStart)
 				end, errorFunc)
 			end
 		else -- Everything elase, change category, tabs, and getAsset
-			return networkInterface:getAssets(pageInfoOnStart):andThen(generalGetAssetHandleFunc, errorFunc)
+			-- We check if we are trying to access
+			if FFlagEnablePurchasePluginFromLua2 and PageInfoHelper.isDeveloperCategory(pageInfoOnStart) then
+				return networkInterface:getDevelopAsset(pageInfoOnStart):andThen(generalGetAssetHandleFunc, errorFunc)
+			else
+				return networkInterface:getAssets(pageInfoOnStart):andThen(generalGetAssetHandleFunc, errorFunc)
+			end
 		end
 	end
 end

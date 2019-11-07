@@ -11,6 +11,7 @@
 ]]
 
 game:DefineFastFlag("CMSBetterModerationErrors", false)
+game:DefineFastFlag("CMSUseSharedUGCValidation", false)
 
 local ContentProvider = game:GetService("ContentProvider")
 
@@ -29,6 +30,12 @@ local convertArrayToTable = require(Util.convertArrayToTable)
 local AssetConfigConstants = require(Util.AssetConfigConstants)
 local validateWithSchema = require(Util.validateWithSchema)
 local AssetConfigUtil = require(Util.AssetConfigUtil)
+
+local UGCValidation
+if game:GetFastFlag("CMSUseSharedUGCValidation") then
+	local CorePackages = game:GetService("CorePackages")
+	UGCValidation = require(CorePackages.UGCValidation)
+end
 
 local getNetwork = ContextGetter.getNetwork
 
@@ -191,7 +198,24 @@ function AssetValidation:init(props)
 		self.props.assetTypeEnum == Enum.AssetType.Model then
 		self.props.nextScreen()
 	else
-		self:validateAsync()
+		if game:GetFastFlag("CMSUseSharedUGCValidation") then
+			UGCValidation.validateAsync(self.props.instances, self.props.assetTypeEnum, function(success, reasons)
+				if success then
+					self:setState({ onFinish = self.props.nextScreen })
+				else
+					self:setState({
+						onFinish = function()
+							self:setState({
+								isLoading = false,
+								reasons = reasons
+							})
+						end
+					})
+				end
+			end)
+		else
+			self:validateAsync()
+		end
 	end
 end
 

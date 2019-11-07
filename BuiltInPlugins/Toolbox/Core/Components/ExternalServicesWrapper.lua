@@ -45,7 +45,8 @@ function ExternalServicesWrapper:render()
 				}, {
 					Roact.createElement(UILibraryWrapper, {
 						theme = theme:getUILibraryTheme(),
-						pluginGui = pluginGui
+						pluginGui = pluginGui,
+						plugin = plugin,
 					}, {
 						Roact.createElement(LocalizationProvider, {
 							localization = localization

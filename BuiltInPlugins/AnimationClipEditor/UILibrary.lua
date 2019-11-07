@@ -34,6 +34,8 @@ local LayoutOrderIterator = require(Utils.LayoutOrderIterator)
 
 local Focus = require(Src.Focus)
 
+local deepJoin = require(Src.deepJoin)
+
 local UILibrary = {
 	Component = {
 		BulletPoint = BulletPoint,
@@ -79,6 +81,7 @@ local UILibrary = {
 	Util = {
 		Spritesheet = Spritesheet,
 		LayoutOrderIterator = LayoutOrderIterator,
+		deepJoin = deepJoin,
 	},
 
 	Plugin = require(Src.Plugin),

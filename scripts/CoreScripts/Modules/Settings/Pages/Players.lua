@@ -58,7 +58,6 @@ end
 
 ------------ FAST FLAGS -------------------
 local FFlagEnableInviteGameInStudio = settings():GetFFlag("EnableInviteGameInStudio")
-local FFlagLuaInviteNewAnalytics = settings():GetFFlag("LuaInviteNewAnalytics")
 local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
 local FFlagUseNotificationsLocalization = success and result
 local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp") --todo: remove with FFlagUsePolicyServiceForCoreScripts
@@ -618,27 +617,14 @@ local function Initialize()
 		-- We shouldn't create this button if we're not in a live game
 		local isStudio = (not RunService:IsStudio()) or FFlagEnableInviteGameInStudio
 		if canShareCurrentGame() and not shareGameButton and isStudio then
-			local inviteToGameAnalytics
-			if FFlagLuaInviteNewAnalytics then
-				inviteToGameAnalytics = InviteToGameAnalytics.new()
-					:withEventStream(EventStream.new())
-					:withDiag(Diag.new(AnalyticsService))
-					:withButtonName(InviteToGameAnalytics.ButtonName.SettingsHub)
-			end
+			local inviteToGameAnalytics = InviteToGameAnalytics.new()
+				:withEventStream(EventStream.new())
+				:withDiag(Diag.new(AnalyticsService))
+				:withButtonName(InviteToGameAnalytics.ButtonName.SettingsHub)
 
 			shareGameButton = createShareGameButton()
 			shareGameButton.Activated:connect(function()
-				if FFlagLuaInviteNewAnalytics then
-					inviteToGameAnalytics:inputShareGameEntryPoint()
-				else
-					local eventStream = EventStream.new()
-					local eventContext = "inGame"
-					local eventName = "inputShareGameEntryPoint"
-					local additionalArgs = {
-						buttonName = "settingsHub",
-					}
-					eventStream:setRBXEventStream(eventContext, eventName, additionalArgs)
-				end
+				inviteToGameAnalytics:inputShareGameEntryPoint()
 
 				this.HubRef:InviteToGame()
 			end)

@@ -6,17 +6,13 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 
-local TexturePath = "rbxasset://textures/TerrainTools/"
-
 local ToolParts = Plugin.Src.Components.Tools.ToolParts
 local EditSettings = require(ToolParts.EditSettings)
 
 local Actions = Plugin.Src.Actions
 local SetMergeEmpty = require(Actions.SetMergeEmpty)
 
-local UILibrary = Plugin.Packages.UILibrary
-
-local Select = Roact.Component:extend(script.Name)
+local Select = Roact.PureComponent:extend(script.Name)
 
 local REDUCER_KEY = "SelectTool"
 

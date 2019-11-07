@@ -12,8 +12,10 @@ return function(networkInterface)
 	return function(store)
 		if networkInterface and networkInterface.getMetaData then -- this check was only added for when running the unit test (networkInterface and networkInterface.getMetaData were never nil otherwise)
 			local handlerFunc = function(response)
-				local isCreator = response.responseBody and response.responseBody.isUserGeneratedCatalogContentEnabled or false
-				store:dispatch(SetCatalogItemCreator(isCreator))
+				if not game:GetFastFlag("CMSRemoveUGCContentEnabledBoolean") then
+					local isCreator = response.responseBody and response.responseBody.isUserGeneratedCatalogContentEnabled or false
+					store:dispatch(SetCatalogItemCreator(isCreator))
+				end
 
 				local allowedAssetTypesForRelease = response.responseBody and response.responseBody.allowedAssetTypesForRelease or {}
 				local allowedAssetTypesForUpload = response.responseBody and response.responseBody.allowedAssetTypeForUpload or {}

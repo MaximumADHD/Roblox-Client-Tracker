@@ -7,10 +7,8 @@ local Plugin = script.Parent.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 
 local UILibrary = Plugin.Packages.UILibrary
-local Localizing = require(Plugin.Packages.UILibrary.Localizing)
+local Localizing = require(UILibrary.Localizing)
 local withLocalization = Localizing.withLocalization
-
-local TexturePath = "rbxasset://textures/TerrainTools/"
 
 local ToolParts = script.Parent
 local Panel = require(ToolParts.Panel)
@@ -18,11 +16,11 @@ local LabeledTextInput = require(ToolParts.LabeledTextInput)
 local LabeledElementPair = require(ToolParts.LabeledElementPair)
 local AssetIdSelector = require(ToolParts.AssetIdSelector)
 
-local MIN_SIZE = 4 
+local MIN_SIZE = 4
 local MAX_SIZE = 16384
 local MAX_GRAPHENES = 12
 
-local MapSettings = Roact.Component:extend(script.Name)
+local MapSettings = Roact.PureComponent:extend(script.Name)
 
 function MapSettings:init()
 	self.validState = {

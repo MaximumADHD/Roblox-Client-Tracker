@@ -41,6 +41,8 @@ local CollaboratorSearchBar = require(PermissionsDirectory.CollaboratorSearchBar
 local PermissionsConstants = require(PermissionsDirectory.PermissionsConstants)
 local CollaboratorThumbnail = require(PermissionsDirectory.CollaboratorThumbnail)
 
+local DEFAULT_ADD_ACTION = PermissionsConstants.EditKey
+
 local FitToContent = createFitToContent("Frame", "UIListLayout", {
 	SortOrder = Enum.SortOrder.LayoutOrder,
 	Padding = UDim.new(0, 32),
@@ -142,7 +144,10 @@ local function getMatches(searchData, permissions, groupMetadata)
 	local position = math.min(firstUserIsExactMatch and 1 or 2, #userMatches + 1)
 	for _,v in pairs(rawFriendMatches) do
 		local subjectId = v[PermissionsConstants.SubjectIdKey]
-		if not ((permissions and permissions[PermissionsConstants.UserSubjectKey][subjectId]) or matchedUsers[subjectId]) then
+		if not ((permissions 
+		and permissions[PermissionsConstants.UserSubjectKey][subjectId] 
+		and permissions[PermissionsConstants.UserSubjectKey][subjectId][PermissionsConstants.ActionKey] ~= PermissionsConstants.NoAccessKey) 
+		or matchedUsers[subjectId]) then
 			table.insert(userMatches, position, v)
 			position = position + 1
 		end
@@ -206,47 +211,6 @@ local function getResults(searchTerm, matches, localized)
 	return results
 end
 
-local function PublishWarning(props)
-	local function calculateTextSize(text, textSize, font)
-		return game:GetService('TextService'):GetTextSize(text, textSize, font, Vector2.new(1,1)*math.huge)
-	end
-
-	return withTheme(function(theme)
-		return withLocalization(function(_, localized)
-			local hyperlinkText = localized.PublishingIsRequired.HyperlinkText
-			local nonHyperlinkText = localized.PublishingIsRequired.FormattableSentence({
-				requiredForWhat = localized.PublishingIsRequired.AddingCollaborators,
-			})
-
-			local hyperLinkTextSize = calculateTextSize(hyperlinkText, theme.fontStyle.Normal.TextSize, theme.fontStyle.Normal.Font)
-			
-
-			return Roact.createElement("Frame", {
-				Size = UDim2.new(1, 0, 0, hyperLinkTextSize.Y),
-				BackgroundTransparency = 1,
-			}, {
-				Hyperlink = Roact.createElement(Hyperlink, {
-					Text = hyperlinkText,
-					Size = UDim2.new(0, hyperLinkTextSize.X, 0, hyperLinkTextSize.Y),
-					Enabled = true,
-					Mouse = props.Mouse,
-
-					OnClick = function()
-						StudioService:ShowPublishToRoblox()
-					end
-				}),
-				TextLabel = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Normal, {
-					BackgroundTransparency = 1,
-					Position = UDim2.new(0, hyperLinkTextSize.X, 0, 0),
-					Size = UDim2.new(1, 0, 1, 0),
-					TextXAlignment = Enum.TextXAlignment.Left,
-					Text = nonHyperlinkText,
-				}))
-			})
-		end)
-	end)
-end
-
 local CollaboratorSearchWidget = Roact.PureComponent:extend("CollaboratorSearchWidget")
 
 function CollaboratorSearchWidget:render()	
@@ -305,7 +269,6 @@ function CollaboratorSearchWidget:render()
 	return withTheme(function(theme)
 		return withLocalization(function(localization, localized)
 			local results = getResults(searchTerm, matches, localized)
-			local isPublished = game.GameId ~= 0
 			local tooManyCollaboratorsText = localization:getLocalizedTooManyCollaborators(maxCollaborators)
 	
 			return Roact.createElement(FitToContent, {
@@ -324,7 +287,7 @@ function CollaboratorSearchWidget:render()
 					TextColor3 = theme.assetConfig.packagePermissions.subTextColor,
 				}),
 
-				CollaboratorSearchBar = isPublished and Roact.createElement(CollaboratorSearchBar, {
+				CollaboratorSearchBar = Roact.createElement(CollaboratorSearchBar, {
 					LayoutOrder = 1,
 					Enabled = props.Enabled and not tooManyCollaborators,
 
@@ -352,11 +315,6 @@ function CollaboratorSearchWidget:render()
 					
 					Results = results,
 				}),
-
-				PublishWarning = (not isPublished) and Roact.createElement(PublishWarning, {
-					LayoutOrder = 1,
-					Mouse = getMouse(self),
-				})
 			})
 		end)
 	end)

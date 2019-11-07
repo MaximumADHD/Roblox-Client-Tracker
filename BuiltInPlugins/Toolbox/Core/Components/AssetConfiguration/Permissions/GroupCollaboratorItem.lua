@@ -59,25 +59,26 @@ local rightArrowProps = arrowSpritesheet[2]
 local downArrowProps = arrowSpritesheet[3]
 
 local function getLabelForAction(localized, action)
-	return "No Access"
-	-- if action == PermissionsConstants.NoAccessKey then
-	-- 	return localized.AccessPermissions.ActionDropdown.NoAccessLabel
-	-- elseif action == PermissionsConstants.PlayKey then
-	-- 	return localized.AccessPermissions.ActionDropdown.PlayLabel
-	-- elseif action == PermissionsConstants.EditKey then
-	-- 	return localized.AccessPermissions.ActionDropdown.EditLabel
-	-- elseif action == PermissionsConstants.AdminKey then
-	-- 	return localized.AccessPermissions.ActionDropdown.AdminLabel
-	-- else
-	-- 	return ""
-	-- end
+	if action == PermissionsConstants.NoAccessKey then
+		return localized.PackagePermissions.ActionDropdown.NoAccessLabel
+	elseif action == PermissionsConstants.UseViewKey then
+		return localized.PackagePermissions.ActionDropdown.UseViewLabel
+	elseif action == PermissionsConstants.EditKey then
+		return localized.PackagePermissions.ActionDropdown.EditLabel
+	else
+		return ""
+	end
 end
 
 local function getActionForRoleset(props, rolesetProps)
-	if rolesetProps.LockedTo then
-		return rolesetProps.LockedTo
+	if not props.Permissions[PermissionsConstants.RoleSubjectKey] then
+		return PermissionsConstants.NoAccessKey
 	end
-	
+
+	if not props.Permissions[PermissionsConstants.RoleSubjectKey][rolesetProps.Id] then
+		return PermissionsConstants.NoAccessKey
+	end
+
 	return props.Permissions[PermissionsConstants.RoleSubjectKey][rolesetProps.Id][PermissionsConstants.ActionKey]
 end
 
@@ -85,7 +86,7 @@ local function getRolesetItems(props, localized)
 	if next(props.Items) == nil then return {} end
 
 	local permissions = Cryo.List.join(
-		{Cryo.Dictionary.join({Key = PermissionsConstants.NoAccessKey, Display = localized.AccessPermissions.ActionDropdown.NoAccessLabel, Description = localized.AccessPermissions.ActionDropdown.NoAccessDescription})},
+		{Cryo.Dictionary.join({Key = PermissionsConstants.NoAccessKey, Display = localized.PackagePermissions.ActionDropdown.NoAccessLabel, Description = localized.PackagePermissions.ActionDropdown.NoAccessDescription})},
 		props.Items
 	)
 	
@@ -133,26 +134,19 @@ function GroupCollaboratorItem:render()
 			local sameAction = false
 
 			local rolesets = self.props.GroupData and self.props.GroupData.Roles or {}
-
-			-- for _,permission in pairs(props.Permissions[PermissionsConstants.RoleSubjectKey]) do
-			-- 	if permission[PermissionsConstants.GroupIdKey] == props.GroupId then
-			-- 		table.insert(rolesets, {
-			-- 			Name=permission[PermissionsConstants.SubjectNameKey],
-			-- 			Id=permission[PermissionsConstants.SubjectIdKey],
-			-- 			LockedTo=(props.IsOwner and permission[PermissionsConstants.SubjectRankKey]==255) and localized.AccessPermissions.ActionDropdown.OwnerLabel or nil,
-			-- 			Rank=permission[PermissionsConstants.SubjectRankKey]
-			-- 		})
-			-- 	end
-			-- end
 			table.sort(rolesets, function(a,b) return b.Rank < a.Rank end)
-			
+
 			local rolesetItems = getRolesetItems(props, localized)
 			local collaboratorItemOffset = props.Enabled and arrowSize + arrowPadding or 0
 			for i,rolesetProps in pairs(rolesets) do
-				-- local action = getActionForRoleset(props, rolesetProps)
-				local action = "NoAccessPermissions"
+				local action = getActionForRoleset(props, rolesetProps)
 				if i == 1 then
 					sameAction = action
+				end
+
+				local enabled = props.Enabled
+				if rolesetProps.Name == "Owner" then
+					enabled = false
 				end
 
 				local lockedPermission = permissionLocked(action, rolesetItems)
@@ -170,7 +164,7 @@ function GroupCollaboratorItem:render()
 						Size = UDim2.new(1, -collaboratorItemOffset, 0, 1),
 					}, {
 						Roact.createElement(CollaboratorItem, {
-							Enabled = props.Enabled,
+							Enabled = enabled,
 							
 							CollaboratorName = rolesetProps.Name,
 							CollaboratorId = rolesetProps.Id,
@@ -225,14 +219,13 @@ function GroupCollaboratorItem:render()
 							Position = UDim2.new(0, collaboratorItemOffset, 0, 0),
 						}, {
 							GroupCollaborator = props.GroupData and Roact.createElement(CollaboratorItem, {
-								Enabled = props.Enabled,
+								Enabled = false,
 
 								CollaboratorName = props.GroupData.Name,
 								CollaboratorId = props.GroupData.Id,
 								CollaboratorIcon =  Urls.constructGroupIconThumbnailUrl(props.GroupData.Id,
 								AssetConfigConstants.rbxThumbSizes.GroupIconImageSize),
-								-- Action = sameAction and getLabelForAction(localized, sameAction) or localized.AccessPermissions.ActionDropdown.MultipleLabel,
-								Action = "(Multiple)",
+								Action = sameAction and getLabelForAction(localized, sameAction) or localized.PackagePermissions.ActionDropdown.MultipleLabel,
 								Items = anyLocked and {} or props.Items,
 								
 								SecondaryText = props.SecondaryText,
@@ -241,9 +234,10 @@ function GroupCollaboratorItem:render()
 
 								IsLoading = #rolesets == 0,
 								
-								PermissionChanged = function(newPermission)
-									props.GroupPermissionChanged(props.GroupId, newPermission)
-								end,
+								-- mwang, 10/28/2019, commented out for the time being because it can be used later when adding group collaborators to a package.
+								-- PermissionChanged = function(newPermission)
+								-- 	props.GroupPermissionChanged(props.GroupId, newPermission)
+								-- end,
 							})
 						}),
 					}),

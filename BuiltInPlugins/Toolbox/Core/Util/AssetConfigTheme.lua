@@ -122,44 +122,43 @@ function AssetConfigTheme:_recalculateTheme()
 			labelTextColor = color(c.DimmedText),
 			separatorColor = color(c.Border),
 			errorColor = color(c.ErrorText),
-			
 
 			packagePermissions = {
 				backgroundColor = isDark and color(c.MainBackground) or Color3.fromRGB(46, 46, 46),
 				subTextColor = color(c.SubText),
-			
+
 				subjectThumbnail = {
 					backgroundColor = color(c.TableItem),
 				},
-	
+
 				collaboratorItem = {
 					collapseStateArrow = isDark and Color3.fromRGB(204, 204, 204) or Color3.fromRGB(25, 25, 25),
 					deleteButton = isDark and Color3.fromRGB(136, 136, 136) or Color3.fromRGB(184, 184, 184),
 				},
-	
+
 				searchBar = {
 					border = color(c.Border),
 					borderHover = isDark and color(c.MainButton) or color(c.CurrentMarker),
 					borderSelected = isDark and color(c.MainButton) or color(c.CurrentMarker),
 					placeholderText = color(c.DimmedText),
-		
+
 					searchIcon = color(c.SubText),
-		
+
 					clearButton = {
 						imageSelected = color(c.SubText),
 						image = color(c.SubText),
 					},
-		
+
 					dropDown = {
 						backgroundColor = color(c.InputFieldBackground),
 						itemText = color(c.MainText),
 						headerText = color(c.SubText),
-		
+
 						hovered = {
 							backgroundColor = color(c.Button, m.Hover),
 							itemText = color(c.ButtonText, m.Hover),
 						},
-		
+
 						selected = {
 							backgroundColor = color(c.Button, m.Selected),
 						},

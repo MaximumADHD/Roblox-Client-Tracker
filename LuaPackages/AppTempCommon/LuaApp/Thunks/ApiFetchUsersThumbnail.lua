@@ -143,7 +143,7 @@ if GetLuaAppUseNewAvatarThumbnailsApi() then
 
 						if isSuccessful and thumbnailInfo.state == "Completed" then
 							completedThumbnails[key] = result
-						else
+						elseif isSuccessful and thumbnailInfo.state == "Pending" then
 							table.insert(remainingUserIdsToFetch, thumbnailInfo.targetId)
 						end
 					end

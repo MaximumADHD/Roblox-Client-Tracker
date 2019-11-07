@@ -362,7 +362,10 @@
         <addaction name="cleanupServersAndPlayersAction" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.Cleanup" icon=":/RibbonBar/images/Studio 2.0 icons/32x32/delete_x_32.png"  width="32" height="32"/>
       </Group>
       <Group name ="Emulation" text="Studio.App.RobloxRibbonMainWindow.Emulation">
-        <addaction name="deviceEmulatorToggleAction" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.Emulator" ischeckable="true" icon=":/RibbonBar/images/RibbonIcons/Test/emulator_32.png"  width="32" height="32"/>
+        <addaction name="deviceEmulatorToggleAction" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.Emulator" ischeckable="true" icon=":/RibbonBar/images/RibbonIcons/Test/emulator_32.png"  width="32" height="32" fflag="!StudioPlayerEmulatorPluginEnabled"/>
+        <addaction name="deviceEmulatorToggleAction" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.DeviceEmulator" ischeckable="true" icon=":/RibbonBar/images/RibbonIcons/Test/emulator_32.png"  width="32" height="32" fflag="StudioPlayerEmulatorPluginEnabled"/>
+        <addseparator visible="false"/>
+        <addaction name="playerEmulatorToggleAction" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.PlayerEmulator" ischeckable="true" width="32" height="32" fflag="StudioPlayerEmulatorPluginEnabled"/>
       </Group>
       <Group name="Audio" text="Studio.App.RobloxRibbonMainWindow.Audio">
         <addaction name="audioToggleAction" iscommonslot="true" style="textundericon" ischeckable="true" icon=":/RibbonBar/images/RibbonIcons/Test/Audio-Disabled.png" width="32" height="32" text="Studio.App.RobloxRibbonMainWindow.Mute" tooltip="Studio.App.RobloxRibbonMainWindow.ToggleGameAudioSounds"/>

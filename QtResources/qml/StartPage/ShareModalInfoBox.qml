@@ -4,7 +4,6 @@ import ".."
 
 Item {
     property bool fflagStudioShareFromRibbonBarUXChanges: false
-	property bool fflagStudioShareModalBackgroundColorChange: false
     readonly property int innerWidth: fflagStudioShareFromRibbonBarUXChanges ? 165 : 185
     readonly property int innerHorizontalMargins: fflagStudioShareFromRibbonBarUXChanges ? 20 : 18
     readonly property int innerVerticalMargins: 20
@@ -19,10 +18,6 @@ Item {
     objectName: "ShareModalInfoBox"
     width: innerWidth + (2 * innerHorizontalMargins)
     height: background.height
-
-	function setFFlagStudioShareModalBackgroundColorChange(flag) {
-        fflagStudioShareModalBackgroundColorChange = flag || false;
-    }
 
     function setMessage(title, message, button) {
         titleText = title;
@@ -50,7 +45,7 @@ Item {
         anchors.topMargin: 8
         radius: 4
         height: childrenRect.height + (2 * innerVerticalMargins)
-		color: fflagStudioShareModalBackgroundColorChange ? userPreferences.theme.style("CommonStyle mainBackground") : userPreferences.theme.style("StartPage ShareModal background")
+		color: userPreferences.theme.style("CommonStyle mainBackground")
 
         opacity: parent.visible ? 1 : 0
         Behavior on opacity {

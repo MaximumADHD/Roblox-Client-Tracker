@@ -22,7 +22,7 @@ function PluginThemeProvider:render()
 end
 
 -- the consumer should complain if it doesn't have a theme
-local PluginThemeConsumer = Roact.Component:extend("PluginThemeConsumer")
+local PluginThemeConsumer = Roact.PureComponent:extend("PluginThemeConsumer")
 function PluginThemeConsumer:init()
 	assert(self._context[pluginThemeKey] ~= nil, "No PluginThemeProvider found.")
 	local pluginTheme = self._context[pluginThemeKey]

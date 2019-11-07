@@ -56,7 +56,6 @@
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
-local RoactRodux = require(Plugin.Packages.RoactRodux)
 
 local Theme = require(Plugin.Src.ContextServices.Theming)
 local withTheme = Theme.withTheme
@@ -81,7 +80,7 @@ local WARNING_RED = Color3.fromRGB(216, 104, 104)
 local ROUNDED_BACKGROUND_IMAGE = "rbxasset://textures/StudioToolbox/RoundedBorder.png"
 local ROUNDED_FRAME_SLICE = Rect.new(3, 3, 13, 13)
 
-local LabeledTextInput = Roact.Component:extend(script.Name)
+local LabeledTextInput = Roact.PureComponent:extend(script.Name)
 
 function LabeledTextInput:init()
 	local label = self.props.Label

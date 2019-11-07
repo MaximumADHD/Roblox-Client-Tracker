@@ -2,7 +2,9 @@ local Plugin = script.Parent.Parent.Parent
 local TestHelpers = Plugin.Src.TestHelpers
 local Packages = Plugin.Packages
 
-local Constants = require(Plugin.Src.Util.Constants)
+local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
+local BrushShape = TerrainEnums.BrushShape
+local PivotType = TerrainEnums.PivotType
 
 local SubtractTool = require(script.Parent.SubtractTool)
 local testImmutability = require(TestHelpers.testImmutability)
@@ -21,10 +23,10 @@ return function()
 		local r = Rodux.Store.new(SubtractTool)
 		expect(r:getState()).to.be.ok()
 		expect(r:getState().baseSize).to.equal(6)
-		expect(r:getState().brushShape).to.equal("Sphere")
+		expect(r:getState().brushShape).to.equal(BrushShape.Sphere)
 		expect(r:getState().height).to.equal(6)
 		expect(r:getState().ignoreWater).to.equal(true)
-		expect(r:getState().pivot).to.equal(Constants.PivotType.Center)
+		expect(r:getState().pivot).to.equal(PivotType.Center)
 		expect(r:getState().snapToGrid).to.equal(false)
 	end)
 

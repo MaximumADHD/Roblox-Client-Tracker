@@ -7,19 +7,22 @@ local Plugin = script.Parent.Parent.Parent
 local Rodux = require(Plugin.Packages.Rodux)
 local Cryo = require(Plugin.Packages.Cryo)
 
+local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
+local TabId = TerrainEnums.TabId
+local ToolId = TerrainEnums.ToolId
+
 local Tools = Rodux.createReducer({
-	currentTab = "Create", -- first tab
-	currentTool = "None", -- no tool ever initially selected
+	currentTab = TabId.Create, -- first tab
+	currentTool = ToolId.None, -- no tool ever initially selected
 	lastToolPerTab = {},
 	activator = nil,
-},
-{
+}, {
 	ChangeTab = function(state, action)
 		local tabName = action.tabName
 		local currentTool = state.lastToolPerTab[tabName]
 
 		if not currentTool then
-			currentTool = "None"
+			currentTool = ToolId.None
 		end
 
 		return Cryo.Dictionary.join(state, {
@@ -27,6 +30,7 @@ local Tools = Rodux.createReducer({
 			currentTool = currentTool,
 		})
 	end,
+
 	ChangeTool = function(state, action)
 		local currentTool = action.currentTool
 		local newToolList = Cryo.Dictionary.join(state.lastToolPerTab, {
@@ -34,7 +38,7 @@ local Tools = Rodux.createReducer({
 		})
 
 		if currentTool == state.currentTool then
-			currentTool = "None"
+			currentTool = ToolId.None
 		end
 
 		return Cryo.Dictionary.join(state, {

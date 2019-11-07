@@ -65,10 +65,12 @@ return function(patchInfo)
 		end
 
 		if allowedAssetTypesForRelease[patchInfo.assetType] then
-			if patchInfo.saleStatus and patchInfo.price then
+			if patchInfo.saleStatus then
 				local salesStatusOverride = patchInfo.saleStatus
-				if (not patchInfo.saleStatus) or patchInfo.saleStatus == AssetConfigConstants.ASSET_STATUS.Unknown then
-					salesStatusOverride = AssetConfigConstants.ASSET_STATUS.OffSale
+
+				-- Work around for setting the free plugins.
+				if tonumber(patchInfo.price) <= 0 then
+					salesStatusOverride = AssetConfigConstants.ASSET_STATUS.Free
 				end
 
 				patchInfo.networkInterface:configureSales(patchInfo.assetId, salesStatusOverride, patchInfo.price):andThen(
@@ -85,6 +87,12 @@ return function(patchInfo)
 			)
 		else
 			checkThumbnail = true
+		end
+
+		-- You shouldn't be here. But if you do, we won't block you.
+		if checkThumbnail and checkSales then
+			store:dispatch(SetCurrentScreen(AssetConfigConstants.SCREENS.UPLOADING_ASSET))
+			store:dispatch(UploadResult(true))
 		end
 	end
 end

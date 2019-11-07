@@ -14,42 +14,22 @@ function ThemeConsumer:init()
 		themeValues = theme.values,
 	}
 
-	if game:GetFastFlag("StudioGameSettingsUseNewProviderAndThemeStuff") then
-		-- observe any changes and force a re-render
-		self.themeConnection = theme:connect(function(newValues)
-			self:setState({
-				themeValues = newValues,
-			})
-		end)
-	end
+	-- observe any changes and force a re-render
+	self.themeConnection = theme:connect(function(newValues)
+		self:setState({
+			themeValues = newValues,
+		})
+	end)
 end
 
 function ThemeConsumer:render()
-	if game:GetFastFlag("StudioGameSettingsUseNewProviderAndThemeStuff") then
-		local tv = self.state.themeValues
-		return self.props.render(tv.PluginTheme, tv.UILibraryStylePalette, tv.UILibraryOverrides)
-	else
-		return self.props.render(self.state.themeValues)
-	end
-end
-
-function ThemeConsumer:didMount()
-	if not game:GetFastFlag("StudioGameSettingsUseNewProviderAndThemeStuff") then
-		self.disconnectThemeListener = self.theme:subscribe(function(newValues)
-			self:setState({
-				themeValues = newValues,
-			})
-		end)
-	end
+	local tv = self.state.themeValues
+	return self.props.render(tv.PluginTheme, tv.UILibraryStylePalette, tv.UILibraryOverrides)
 end
 
 function ThemeConsumer:willUnmount()
-	if game:GetFastFlag("StudioGameSettingsUseNewProviderAndThemeStuff") then
-		if self.themeConnection then
-			self.themeConnection:disconnect()
-		end
-	else
-		self.disconnectThemeListener()
+	if self.themeConnection then
+		self.themeConnection:disconnect()
 	end
 end
 

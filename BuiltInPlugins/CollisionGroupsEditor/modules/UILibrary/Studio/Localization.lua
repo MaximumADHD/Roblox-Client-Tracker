@@ -48,8 +48,11 @@
 		local example = pluginLocalization:getText("Sell", "LimitedsValue", "Valkyrie Helm", 71850, "R$")
 ]]
 
+game:DefineFastFlag("FixStudioLocalizationLocaleId", false)
+
 -- services
 local LocalizationService = game:GetService("LocalizationService")
+local StudioService = game:GetService("StudioService")
 
 -- libraries
 local Library = script.Parent.Parent
@@ -83,6 +86,8 @@ function Localization.new(props)
 	local externalLocaleChanged
 	if overrideLocaleChangedSignal then
 		externalLocaleChanged = overrideLocaleChangedSignal
+	elseif game:GetFastFlag("FixStudioLocalizationLocaleId") then
+		externalLocaleChanged = StudioService:GetPropertyChangedSignal("StudioLocaleId")
 	else
 		externalLocaleChanged = LocalizationService:GetPropertyChangedSignal("RobloxLocaleId")
 	end
@@ -95,6 +100,8 @@ function Localization.new(props)
 
 		if overrideLocaleId ~= nil then
 			return overrideLocaleId
+		elseif game:GetFastFlag("FixStudioLocalizationLocaleId") then
+			return StudioService["StudioLocaleId"]
 		else
 			return LocalizationService["RobloxLocaleId"]
 		end

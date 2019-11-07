@@ -4,8 +4,11 @@ local Actions = Plugin.Core.Actions
 local SetAssetConfigData = require(Actions.SetAssetConfigData)
 local firstToUpper = require(Plugin.Core.Util.firstToUpper)
 local NetworkError = require(Plugin.Core.Actions.NetworkError)
+local UpdateAssetConfigData = require(Actions.UpdateAssetConfigData)
 
-return function(networkInterface, assetId)
+local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
+
+return function(networkInterface, assetId, isMarketBuy)
 	return function(store)
 		local errorFunc = function(result)
 			store:dispatch(NetworkError(result))
@@ -19,7 +22,11 @@ return function(networkInterface, assetId)
 					newAssetConfigData[firstToUpper(key)] = value
 				end
 
-				store:dispatch(SetAssetConfigData(newAssetConfigData))
+				if FFlagEnablePurchasePluginFromLua2 and isMarketBuy then
+					store:dispatch(UpdateAssetConfigData(newAssetConfigData))
+				else
+					store:dispatch(SetAssetConfigData(newAssetConfigData))
+				end
 			end
 		end
 		networkInterface:getAssetCreationDetails({assetId}):andThen(handlerFunc, errorFunc)

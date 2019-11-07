@@ -7,7 +7,7 @@ InviteToGameAnalytics.ButtonName = {
 }
 
 InviteToGameAnalytics.EventName = {
-	InviteSent = "clickShareGameInviteSent",
+	InviteSent = "inputShareGameInviteSent",
 	EntryPoint = "inputShareGameEntryPoint",
 }
 

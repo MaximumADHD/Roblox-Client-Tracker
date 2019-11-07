@@ -1,3 +1,5 @@
+local FFlagLuaPackagePermissions =  settings():GetFFlag("LuaPackagePermissions")
+
 local Plugin = script.Parent.Parent.Parent
 
 local Category = require(Plugin.Core.Types.Category)
@@ -26,8 +28,16 @@ function Sort.getDefaultSortForCategory(categoryIndex, currentTab)
 	return RELEVANCE_INDEX
 end
 
-function Sort.getDefaultSortForGroups()
-	return RELEVANCE_INDEX
+--[[ 
+	Use the category index to determine the sort because Group Packages are sorted by "updated"
+	but other Group Categories (Audio, Meshes, Models, etc) are sorted by Relevance.
+]]
+function Sort.getDefaultSortForGroups(pageInfo)
+	if FFlagLuaPackagePermissions then
+		return Sort.getDefaultSortForCategory(pageInfo.categoryIndex, nil)
+	else
+		return RELEVANCE_INDEX
+	end
 end
 
 return Sort

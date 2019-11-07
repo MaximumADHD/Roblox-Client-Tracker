@@ -30,8 +30,8 @@ local LayoutOrderIterator = UILibrary.Util.LayoutOrderIterator
 local PermissionsDirectory = Plugin.Core.Components.AssetConfiguration.Permissions
 local PackageOwnerWidget = require(PermissionsDirectory.PackageOwnerWidget)
 local CollaboratorSearchWidget = require(PermissionsDirectory.CollaboratorSearchWidget)
-local PermissionsConstants = require(PermissionsDirectory.PermissionsConstants)
 local CollaboratorsWidget = require(PermissionsDirectory.CollaboratorsWidget)
+local PermissionsConstants = require(PermissionsDirectory.PermissionsConstants)
 
 local Util = Plugin.Core.Util
 local Constants = require(Util.Constants)
@@ -40,9 +40,16 @@ local ContextHelper = require(Util.ContextHelper)
 local withTheme = ContextHelper.withTheme
 local getUserId = require(Util.getUserId)
 
+local Requests = Plugin.Core.Networking.Requests
+local GetPackageCollaboratorsRequest = require(Requests.GetPackageCollaboratorsRequest)
+
 local GetUsername = require(Plugin.Core.Thunks.GetUsername)
 local SearchCollaborators = require(Plugin.Core.Thunks.SearchCollaborators)
-local GetPackageCollaborators = require(Plugin.Core.Thunks.GetPackageCollaborators)
+local GetGroupRoleInfo = require(Plugin.Core.Thunks.GetGroupRoleInfo)
+
+local SetCollaborators = require(Plugin.Core.Actions.SetCollaborators)
+local SetGroupMetadata = require(Plugin.Core.Actions.SetGroupMetadata)
+local AddChange = require(Plugin.Core.Actions.AddChange)
 
 local Permissions = Roact.PureComponent:extend("Permissions")
 
@@ -54,24 +61,31 @@ end
 
 
 function Permissions:didMount()
+    self.props.GetPackageCollaboratorsRequest(getNetwork(self), self.props.AssetId)
     if self.state.OwnerType == Enum.CreatorType.User then
         self.props.GetUsername(self.props.Owner.targetId)
-        self.props.GetPackageCollaborators(getNetwork(self), self.props.AssetId)
+    else
+        self.props.GetGroupRoleInfo(getNetwork(self), self.props.Owner.targetId)
     end
 end
 
 --Uses props to display current settings values
 function Permissions:render()
 	local orderIterator = LayoutOrderIterator.new()
-	
+    
+    --[[
+        hasPermission will be changed in the future to support users with "Edit" permissions.
+        Current compare currentUserId with owner user Id. This will change to the permissions of the current user
+        when the backend endpoint returns information about the owner in additon to collaborators.
+    ]] 
 	local hasPermission = false
 	if self.state.OwnerType == Enum.CreatorType.User and getUserId() == self.props.Owner.targetId then
 		hasPermission = true
 	elseif self.state.OwnerType == Enum.CreatorType.Group and getUserId() == self.props.GroupMetadata.Owner.Id then
 		hasPermission = true
 	end
-
-    self.props.Enabled = true
+    
+    local isUserOwnedPackage = self.state.OwnerType == Enum.CreatorType.User
 
     return withTheme(function(theme)
         return Roact.createElement(StyledScrollingFrame, {
@@ -81,7 +95,7 @@ function Permissions:render()
                 LayoutOrder = self.props.LayoutOrder,
                 BackgroundColor3 = theme.assetConfig.packagePermissions.backgroundColor,
 
-                [Roact.Ref] = self.baseFrameRefs
+                [Roact.Ref] = self.baseFrameRefs,
             }, {
                 Padding = Roact.createElement("UIPadding", {
                     PaddingTop = UDim.new(0, Constants.PERMISSIONS_UI_EDGE_PADDING),
@@ -103,12 +117,11 @@ function Permissions:render()
                     OwnerId = self.props.Owner.targetId,
                     OwnerType = self.state.OwnerType,
                     
-                    CanManage = self.props.CanManage,
+                    CanManage = hasPermission,
                     
                     GroupMetadata = self.props.GroupMetadata,
                     Permissions = self.props.Permissions,
                     PermissionsChanged = self.props.PermissionsChanged,
-                    Thumbnails = self.props.Thumbnails,
                 }),
 				
 				Separator = Roact.createElement(Separator, {
@@ -116,34 +129,30 @@ function Permissions:render()
                     Size = UDim2.new(1, 0, 0, 0),
                 }),
 
-				SearchbarWidget = self.state.OwnerType == Enum.CreatorType.User and Roact.createElement(CollaboratorSearchWidget, {
+				SearchbarWidget = hasPermission and isUserOwnedPackage and Roact.createElement(CollaboratorSearchWidget, {
                     LayoutOrder = orderIterator:getNextOrder(),
                     Enabled = true,
 
                     GroupMetadata = self.props.GroupMetadata,
                     SearchRequested = self.props.SearchRequested,
                     SearchData = self.props.SearchData,
-                    Thumbnails = self.props.Thumbnails,
                     Permissions = self.props.Permissions,
 
                     PermissionsChanged = self.props.PermissionsChanged,
                 }),
-
-                CollaboratorsWidget = self.state.OwnerType == Enum.CreatorType.User and Roact.createElement(CollaboratorsWidget, {
+                CollaboratorListWidget = hasPermission and isUserOwnedPackage and Roact.createElement(CollaboratorsWidget, {
                     LayoutOrder = orderIterator:getNextOrder(),
                     Enabled = true,
         
-                    -- StudioUserId = self.props.StudioUserId,
-                    -- GroupOwnerUserId = self.props.GroupOwnerUserId,
-                    -- OwnerId = self.props.OwnerId,
-                    -- OwnerType = self.props.OwnerType,
+                    OwnerId = self.props.Owner.targetId,
+                    OwnerType = self.state.OwnerType,
+                    
                     CanManage = hasPermission,
         
                     GroupMetadata = self.props.GroupMetadata,
                     Permissions = self.props.Permissions,
                     PermissionsChanged = self.props.PermissionsChanged,
-                    -- GroupMetadataChanged = self.props.GroupMetadataChanged,
-                    -- Thumbnails = self.props.Thumbnails,
+                    GroupMetadataChanged = self.props.GroupMetadataChanged,
                 }),
             })
     end)
@@ -175,17 +184,22 @@ local function mapDispatchToProps(dispatch)
         GetUsername = function(userId)
             dispatch(GetUsername(userId))
         end,
-
         SearchRequested = function(...)
             dispatch(SearchCollaborators(...))
         end,
-
-        PermissionsChanged = function(...)
-            dispatch(PermissionsChanged(...))
+        PermissionsChanged = function(newPermissions)
+            dispatch(SetCollaborators(newPermissions))
+            dispatch(AddChange("permissions", newPermissions))
+        end,
+        GetPackageCollaboratorsRequest = function(networkInterface, assetId)
+            dispatch(GetPackageCollaboratorsRequest(networkInterface, assetId))
+		end,
+        GroupMetadataChanged = function(groupMetadata)
+            dispatch(SetGroupMetadata(groupMetadata))
         end,
 
-        GetPackageCollaborators = function(networkInterface, assetId)
-            dispatch(GetPackageCollaborators(networkInterface, assetId))
+        GetGroupRoleInfo = function(networkInterface, groupId)
+            dispatch(GetGroupRoleInfo(networkInterface, groupId))
         end,
     }
 end

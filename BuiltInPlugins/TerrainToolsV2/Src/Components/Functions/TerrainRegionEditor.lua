@@ -1,3 +1,8 @@
+local Plugin = script.Parent.Parent.Parent.Parent
+
+local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
+local ToolId = TerrainEnums.ToolId
+
 local TerrainRegionEditor = {}
 
 local coreGui = game:GetService('CoreGui')
@@ -5,6 +10,7 @@ local changeHistory = game:GetService('ChangeHistoryService')
 
 local FFlagTerrainToolMetrics = settings():GetFFlag("TerrainToolMetrics")
 local FFlagTerrainClearButtonMove = settings():GetFFlag("TerrainClearButtonMove")
+
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 local StudioService = game:GetService("StudioService")
 
@@ -108,21 +114,21 @@ function renderSelection(temporaryStart,temporaryEnd,rotation)
 		selectionPart.Size = temporarySize
 		selectionPart.CFrame = CFrame.new((temporaryStart + temporaryEnd - Vector3.new(1, 1, 1)) * .5 * resolution) * (rotation or CFrame.new(0,0,0))
 	end
+
 	if selectionObject then
 		selectionObject.Visible = seeable
-		selectionObject.Color = BrickColor.new(mode == 'Select' and 'Toothpaste' or editColor1)
-		selectionObject.SurfaceColor = BrickColor.new(mode == 'Select' and 'Toothpaste' or editColor1)
+		selectionObject.Color = BrickColor.new(mode == ToolId.Select and 'Toothpaste' or editColor1)
+		selectionObject.SurfaceColor = BrickColor.new(mode == ToolId.Select and 'Toothpaste' or editColor1)
 	end
 	if selectionHandles then
-		selectionHandles.Visible = seeable and (tool == 'Move' or tool == 'Resize')
-		selectionHandles.Color = BrickColor.new(mode == 'Select' and 'Cyan' or editColor2)
-		selectionHandles.Style = tool == 'Move' and Enum.HandlesStyle.Movement or Enum.HandlesStyle.Resize
+		selectionHandles.Visible = seeable and (tool == ToolId.Move or tool == ToolId.Resize)
+		selectionHandles.Color = BrickColor.new(mode == ToolId.Select and 'Cyan' or editColor2)
+		selectionHandles.Style = tool == ToolId.Move and Enum.HandlesStyle.Movement or Enum.HandlesStyle.Resize
 	end
 	if selectionArcHandles then
-		selectionArcHandles.Visible = seeable and tool == 'Rotate'
-		selectionArcHandles.Color = BrickColor.new(mode == 'Select' and 'Cyan' or editColor2)
+		selectionArcHandles.Visible = seeable and tool == ToolId.Rotate
+		selectionArcHandles.Color = BrickColor.new(mode == ToolId.Select and 'Cyan' or editColor2)
 	end
-
 end
 
 local function round(n)
@@ -194,7 +200,7 @@ function FirstTimeSetup()
 		local dragVector = dragVector or Vector3.new(0,0,0)
 		local temporaryStart = selectionStart
 		local temporaryEnd = selectionEnd
-		if tool == 'Resize' then
+		if tool == ToolId.Resize then
 			if dragStart then
 				temporaryStart = Vector3.new(
 					math.min(
@@ -320,7 +326,7 @@ function FirstTimeSetup()
 			else
 				behindThis = nil
 			end
-		elseif tool == 'Move' then
+		elseif tool == ToolId.Move then
 			temporaryStart = temporaryStart + dragVector
 			temporaryEnd = temporaryEnd + dragVector
 			if mode == 'Edit' then
@@ -509,7 +515,7 @@ function FirstTimeSetup()
 	end
 
 	mouse.Button1Down:connect(function()
-		if on and mode == 'Select' then
+		if on and mode == ToolId.Select then
 			mouseDown = true
 			behindThis = nil
 			local mousePos = mouse.Hit.p + mouse.UnitRay.Direction * .05
@@ -540,7 +546,7 @@ function FirstTimeSetup()
 	mouse.Button1Up:connect(function()
 		mouseDown = false
 		if dragVector and dragVector.magnitude > 0 then
-			if tool == 'Resize' then
+			if tool == ToolId.Resize then
 				--[[if dragStart then
 					selectionStart = Vector3.new(math.min(selectionStart.x+dragVector.x,selectionEnd.x),math.min(selectionStart.y+dragVector.y,selectionEnd.y),math.min(selectionStart.z+dragVector.z,selectionEnd.z))
 				else
@@ -572,7 +578,7 @@ function FirstTimeSetup()
 							selectionStart.z)
 					)
 				end
-			elseif tool == 'Move' then
+			elseif tool == ToolId.Move then
 				selectionStart = selectionStart + dragVector
 				selectionEnd = selectionEnd + dragVector
 			end
@@ -611,7 +617,7 @@ function FirstTimeSetup()
 		selectionEnd = nil
 		lockedMaterials = nil
 		lockedOccupancies = nil
-		setButton('Select')
+		setButton(ToolId.Select)
 	end
 
 	changeHistory.OnUndo:connect(historyChanged)
@@ -695,19 +701,19 @@ function clearSelection()
 end
 
 toolSelect = {
-	Select = function ()
-		setButton("Select")
+	[ToolId.Select] = function ()
+		setButton(ToolId.Select)
 	end,
-	Move = function ()
-		setButton("Move")
+	[ToolId.Move] = function ()
+		setButton(ToolId.Move)
 	end,
-	Resize = function ()
-		setButton("Resize")
+	[ToolId.Resize] = function ()
+		setButton(ToolId.Resize)
 	end,
-	Rotate = function ()
-		setButton("Rotate")
+	[ToolId.Rotate] = function ()
+		setButton(ToolId.Rotate)
 	end,
-	Delete = function ()
+	[ToolId.Delete] = function ()
 		if selectionStart and selectionEnd then
 			local region = Region3.new((selectionStart - Vector3.new(1,1,1)) * resolution, selectionEnd * resolution)
 			local regionSize = region.Size / resolution
@@ -733,13 +739,13 @@ toolSelect = {
 			--[[lockedRegion = region
 			lockedMaterials, lockedOccupancies = emptyMaterialMap, emptyOccupancyMap]]
 			local oldStart, oldEnd = selectionStart, selectionEnd
-			setButton('Select')
+			setButton(ToolId.Select)
 
 			changeHistory:SetWaypoint('Terrain Delete')
 			selectionEffect(oldStart,oldEnd,'Really red',1,1.2,.5)
 		end
 	end,
-	Paste = function ()
+	[ToolId.Paste] = function ()
 		if copyRegion then
 			selectionEnd=selectionStart+copyRegion.SizeInCells-Vector3.new(1,1,1)
 
@@ -749,12 +755,12 @@ toolSelect = {
 			behindThis.materials, behindThis.occupancies = terrain:ReadVoxels(region, resolution)
 
 			terrain:PasteRegion(copyRegion,Vector3int16.new(selectionStart.x-1,selectionStart.y-1,selectionStart.z-1),true)
-			setButton('Move')
+			setButton(ToolId.Move)
 			changeHistory:SetWaypoint('Terrain Paste')
 			selectionEffect(nil,nil,'Lime green',1.2,1,.5)
 		end
 	end,
-	Copy = function ()
+	[ToolId.Copy] = function ()
 		if selectionStart and selectionEnd then
 			local selectionStartInt16=Vector3int16.new(selectionStart.x-1,selectionStart.y-1,selectionStart.z-1)
 			local selectionEndInt16=Vector3int16.new(selectionEnd.x-1,selectionEnd.y-1,selectionEnd.z-1)
@@ -763,8 +769,8 @@ toolSelect = {
 			selectionEffect(nil,nil,'New Yeller',1,1.2,.5)
 		end
 	end,
-	Fill = function ()
-		setButton('Fill')
+	[ToolId.Fill] = function ()
+		setButton(ToolId.Fill)
 	end,
 }
 
@@ -773,10 +779,10 @@ function TerrainRegionEditor.Init (toolName, theMouse)
 	mouse = theMouse
 	kCurrentTool = toolName
 
-	if toolName == "Select" then
+	if toolName == ToolId.Select then
 		mode = "Select"
-		tool = "Resize"
-	elseif toolName == "Move" or toolName == "Resize" or toolName == "Rotate" then
+		tool = ToolId.Resize
+	elseif toolName == ToolId.Move or toolName == ToolId.Resize or toolName == ToolId.Rotate then
 		mode = "Edit"
 		tool = toolName
 	end
@@ -788,7 +794,7 @@ function TerrainRegionEditor.Init (toolName, theMouse)
 	createSelectionPart()
 
 	renderSelection()
-	if terrain or kCurrentTool == Select then
+	if terrain or kCurrentTool == ToolId.Select then
 		toolSelect[kCurrentTool]()
 	end
 end
@@ -799,7 +805,7 @@ function TerrainRegionEditor.ChangeProperties (vals)
 end
 
 function TerrainRegionEditor.OnButtonClick ()
-	if kCurrentTool == "Fill" then
+	if kCurrentTool == ToolId.Fill then
 		if selectionStart and selectionEnd then
 			local region = Region3.new((selectionStart - Vector3.new(1,1,1)) * resolution, selectionEnd * resolution)
 			local regionSize = region.Size / resolution

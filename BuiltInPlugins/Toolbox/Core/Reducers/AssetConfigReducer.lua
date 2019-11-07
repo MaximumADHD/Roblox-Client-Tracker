@@ -34,7 +34,11 @@ local SetGroupMetadata = require(Actions.SetGroupMetadata)
 local SetOwnerUsername = require(Actions.SetOwnerUsername)
 local SetLocalUsername = require(Actions.SetLocalUsername)
 local CollaboratorSearchActions = require(Actions.CollaboratorSearchActions)
-local SetCollaborators = require(Plugin.Core.Actions.SetCollaborators)
+local SetCollaborators = require(Actions.SetCollaborators)
+local SetIsPackage = require(Actions.SetIsPackage)
+local UpdateAssetConfigData = require(Actions.UpdateAssetConfigData)
+local UpdateAssetConfigStore = require(Actions.UpdateAssetConfigStore)
+local SetGroupRoleInfo = require(Actions.SetGroupRoleInfo)
 
 return Rodux.createReducer({
 	-- Empty table means publish new asset
@@ -61,7 +65,7 @@ return Rodux.createReducer({
 		},
 		--]]
 	},
-	isCatalogItemCreator = false,
+	isCatalogItemCreator = false, -- remove with FFlagCMSRemoveUGCContentEnabledBoolean
 	allowedAssetTypesForRelease = {},
 	allowedAssetTypesForUpload = {},
 
@@ -94,7 +98,14 @@ return Rodux.createReducer({
 	searchText = "",
 	success = false,
 	collaborators = {},
+	isPackageAsset = false,
+
+	iconFile = nil, -- Will be used in preview and upload result
 }, {
+
+	[UpdateAssetConfigStore.name] = function(state, action)
+		return Cryo.Dictionary.join(state, action.storeData)
+	end,
 
 	[SetAssetId.name] = function(state, action)
 		return Cryo.Dictionary.join(state, {
@@ -138,6 +149,12 @@ return Rodux.createReducer({
 	[SetAssetConfigData.name] = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			assetConfigData = action.assetConfigData
+		})
+	end,
+
+	[UpdateAssetConfigData.name] = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			assetConfigData = Cryo.Dictionary.join(state.assetConfigData or {}, action.assetConfigData)
 		})
 	end,
 
@@ -323,5 +340,30 @@ return Rodux.createReducer({
 		return Cryo.Dictionary.join(state, {
 			collaborators = action.collaborators,
 		})
+	end,
+
+	[SetIsPackage.name] = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			isPackageAsset = action.isPackageAsset,
+		})
+	end,
+
+	[SetGroupRoleInfo.name] = function(state, action)
+		if Enum.CreatorType[state.assetConfigData.Creator.type] ~= Enum.CreatorType.Group then
+			return state
+		end
+
+		local groupId = state.assetConfigData.Creator.targetId
+		for i, role in pairs(action.groupRoleInfo) do
+			for j, roleset in pairs(state[groupId].groupMetadata.Roles) do
+				if role.name == roleset.Name then
+					local newRoleset = Cryo.Dictionary.join(roleset, {
+						Id = role.id,
+					})
+					state[groupId].groupMetadata.Roles[j] = newRoleset
+				end
+			end
+		end
+		return state
 	end,
 })

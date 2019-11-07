@@ -1,7 +1,5 @@
 #version 150
 
-const float f0[32] = float[](0.0, 0.5, 0.25, 0.75, 0.125, 0.625, 0.375, 0.875, 0.0625, 0.5625, 0.3125, 0.8125, 0.1875, 0.6875, 0.4375, 0.9375, 0.03125, 0.53125, 0.28125, 0.78125, 0.15625, 0.65625, 0.40625, 0.90625, 0.09375, 0.59375, 0.34375, 0.84375, 0.21875, 0.71875, 0.46875, 0.96875);
-
 struct ParamsIBL
 {
     vec4 normalTransformRow0;
@@ -10,6 +8,7 @@ struct ParamsIBL
     vec4 roughness;
 };
 
+uniform vec4 CB5[32];
 uniform vec4 CB2[4];
 uniform samplerCube envMapTexture;
 
@@ -18,42 +17,41 @@ out vec4 _entryPointOutput;
 
 void main()
 {
-    vec3 f1 = normalize(VARYING1);
-    vec3 f2;
-    float f3;
-    f3 = 0.0;
-    f2 = vec3(0.0);
-    vec3 f4;
-    float f5;
-    for (int f6 = 0; f6 < 32; f3 = f5, f2 = f4, f6++)
+    vec3 f0 = normalize(VARYING1);
+    vec3 f1;
+    float f2;
+    f2 = 0.0;
+    f1 = vec3(0.0);
+    vec3 f3;
+    float f4;
+    for (int f5 = 0; f5 < 32; f2 = f4, f1 = f3, f5++)
     {
-        float f7 = float(f6);
-        float f8 = f0[f6];
-        float f9 = CB2[3].x * CB2[3].x;
-        float f10 = sqrt((1.0 - f8) / (1.0 + (((f9 * f9) - 1.0) * f8)));
-        float f11 = sqrt(1.0 - (f10 * f10));
-        float f12 = f7 * 0.19634954631328582763671875;
-        bvec3 f13 = bvec3(abs(f1.z) < 0.999000012874603271484375);
-        vec3 f14 = normalize(cross(vec3(f13.x ? vec3(0.0, 0.0, 1.0).x : vec3(1.0, 0.0, 0.0).x, f13.y ? vec3(0.0, 0.0, 1.0).y : vec3(1.0, 0.0, 0.0).y, f13.z ? vec3(0.0, 0.0, 1.0).z : vec3(1.0, 0.0, 0.0).z), f1));
-        vec3 f15 = ((f14 * (f11 * cos(f12))) + (cross(f1, f14) * (f11 * sin(f12)))) + (f1 * f10);
-        vec3 f16 = (f15 * (2.0 * dot(f1, f15))) - f1;
-        float f17 = clamp(dot(f1, f16), 0.0, 1.0);
-        if (f17 > 0.0)
+        float f6 = float(f5);
+        float f7 = CB2[3].x * CB2[3].x;
+        float f8 = sqrt((1.0 - CB5[f5 * 1 + 0].x) / (1.0 + (((f7 * f7) - 1.0) * CB5[f5 * 1 + 0].x)));
+        float f9 = sqrt(1.0 - (f8 * f8));
+        float f10 = f6 * 0.19634954631328582763671875;
+        bvec3 f11 = bvec3(abs(f0.z) < 0.999000012874603271484375);
+        vec3 f12 = normalize(cross(vec3(f11.x ? vec3(0.0, 0.0, 1.0).x : vec3(1.0, 0.0, 0.0).x, f11.y ? vec3(0.0, 0.0, 1.0).y : vec3(1.0, 0.0, 0.0).y, f11.z ? vec3(0.0, 0.0, 1.0).z : vec3(1.0, 0.0, 0.0).z), f0));
+        vec3 f13 = ((f12 * (f9 * cos(f10))) + (cross(f0, f12) * (f9 * sin(f10)))) + (f0 * f8);
+        vec3 f14 = (f13 * (2.0 * dot(f0, f13))) - f0;
+        float f15 = clamp(dot(f0, f14), 0.0, 1.0);
+        if (f15 > 0.0)
         {
-            float f18 = (CB2[3].x * 5.0) - 1.0;
-            f5 = f3 + f17;
-            f4 = f2 + (textureLod(envMapTexture, vec4(f16, f18).xyz, f18).xyz * f17);
+            float f16 = (CB2[3].x * 5.0) - 1.0;
+            f4 = f2 + f15;
+            f3 = f1 + (textureLod(envMapTexture, vec4(f14, f16).xyz, f16).xyz * f15);
             continue;
         }
         else
         {
-            f5 = f3;
             f4 = f2;
+            f3 = f1;
             continue;
         }
         continue;
     }
-    _entryPointOutput = vec4(f2 / vec3(f3), 0.0);
+    _entryPointOutput = vec4(f1 / vec3(f2), 0.0);
 }
 
 //$$envMapTexture=s0

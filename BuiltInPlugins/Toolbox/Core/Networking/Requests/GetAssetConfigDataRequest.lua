@@ -7,6 +7,9 @@ local SetAssetConfigData = require(Actions.SetAssetConfigData)
 local firstToUpper = require(Plugin.Core.Util.firstToUpper)
 local NetworkError = require(Actions.NetworkError)
 local ConfigTypes = require(Plugin.Core.Types.ConfigTypes)
+local UpdateAssetConfigData = require(Actions.UpdateAssetConfigData)
+
+local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 
 return function(networkInterface, assetId)
 	return function(store)
@@ -23,7 +26,11 @@ return function(networkInterface, assetId)
 					newAssetConfigData[firstToUpper(key)] = value
 				end
 
-				store:dispatch(SetAssetConfigData(newAssetConfigData))
+				if FFlagEnablePurchasePluginFromLua2 then
+					store:dispatch(UpdateAssetConfigData(newAssetConfigData))
+				else
+					store:dispatch(SetAssetConfigData(newAssetConfigData))
+				end
 			end,
 			function(err)
 				store:dispatch(NetworkError(err, ConfigTypes.GET_ASSET_DETAIL_FAILURE_ACTION ))

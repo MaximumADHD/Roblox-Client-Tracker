@@ -1,4 +1,5 @@
 local FFlagLuaPackagePermissions =  settings():GetFFlag("LuaPackagePermissions")
+local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -42,19 +43,18 @@ ConfigTypes.OWNER_TYPES = {
 	Group = 2
 }
 
-function ConfigTypes:getAssetconfigContent(screenFlowType, assetTypeEnum)
+function ConfigTypes:getAssetconfigContent(screenFlowType, assetTypeEnum, isMarketBuyAndNonWhiteList, isPackage, owner)
 	local result = {
 		GENERAL,
 	}
 
-	-- FIXME(mwang) need to verify that Asset is a Package to show Permissions.
 	if FFlagLuaPackagePermissions then
-		-- if ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_PERMISSIONS_TAB) then
+		if isPackage then
 			result[#result + 1] = PERMISSIONS
-		-- end
+		end
 	end
 
-	-- Versions History is only accessible to models, so we only try to show the Versions if it's a model.
+	-- Versions History is only accessible to models and plugins, so we only try to show the Versions if it's a model.
 	if FFlagEnableAssetConfigVersionCheckForModels then
 		if assetTypeEnum == Enum.AssetType.Model then
 			if ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_VERSIONS_TAB) then
@@ -67,11 +67,20 @@ function ConfigTypes:getAssetconfigContent(screenFlowType, assetTypeEnum)
 		end
 	end
 
-	if ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_SALES_TAB) then
-		result[#result + 1] = SALES
+	if FFlagEnablePurchasePluginFromLua2 then
+		-- For non whiteList and group plugin, we will skip the sales tab.
+		if isMarketBuyAndNonWhiteList then return result end
+		if owner and owner.typeId == ConfigTypes.OWNER_TYPES.Group then return result end
+		if ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_SALES_TAB) then
+			result[#result + 1] = SALES
+		end
+		return result
+	else
+		if ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_SALES_TAB) then
+			result[#result + 1] = SALES
+		end
+		return result
 	end
-
-	return result
 end
 
 function ConfigTypes:isGeneral(item)

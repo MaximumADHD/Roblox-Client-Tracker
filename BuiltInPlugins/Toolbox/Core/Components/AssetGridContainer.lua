@@ -15,6 +15,8 @@
 		callback tryOpenAssetConfig, invoke assetConfig page with an assetId.
 ]]
 
+local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
+
 local Plugin = script.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
@@ -31,6 +33,7 @@ local InsertToolPromise = require(Util.InsertToolPromise)
 local InsertAsset = require(Util.InsertAsset)
 local ContextMenuHelper = require(Util.ContextMenuHelper)
 local PageInfoHelper = require(Util.PageInfoHelper)
+local Category = require(Plugin.Core.Types.Category)
 
 local getModal = ContextGetter.getModal
 local getPlugin = ContextGetter.getPlugin
@@ -252,17 +255,27 @@ function AssetGridContainer:render()
 			local previewAssetData = state.previewAssetData
 
 			local categoryIndex = props.categoryIndex
+			local currentTab = props.currentTab
+			local isPlugins = Category.categoryIsPlugin(currentTab, categoryIndex)
 
 			local onPreviewAudioButtonClicked = self.onPreviewAudioButtonClicked
 
 			local hoveredAssetId = modalStatus:canHoverAsset() and state.hoveredAssetId or 0
 			local isShowingToolMessageBox = state.isShowingToolMessageBox
 
+			local cellSize
+			if FFlagEnablePurchasePluginFromLua2 and isPlugins then
+				cellSize = UDim2.new(0, Constants.ASSET_WIDTH_NO_PADDING, 0,
+					Constants.ASSET_HEIGHT + Constants.PRICE_HEIGHT)
+			else
+				cellSize = UDim2.new(0, Constants.ASSET_WIDTH_NO_PADDING, 0, Constants.ASSET_HEIGHT)
+			end
+
 			local assetElements = {
 				UIGridLayout = Roact.createElement("UIGridLayout", {
 					CellPadding = UDim2.new(0, Constants.BETWEEN_ASSETS_HORIZONTAL_PADDING,
 						0, Constants.BETWEEN_ASSETS_VERTICAL_PADDING),
-					CellSize = UDim2.new(0, Constants.ASSET_WIDTH_NO_PADDING, 0, Constants.ASSET_HEIGHT),
+					CellSize = cellSize,
 					HorizontalAlignment = Enum.HorizontalAlignment.Left,
 					SortOrder = Enum.SortOrder.LayoutOrder,
 					[Roact.Event.Changed] = self.onAssetGridContainerChanged,

@@ -9,17 +9,24 @@ return function()
 		local state = RolesReducer(nil, {})
 
 		expect(type(state)).to.equal("table")
-		expect(state.isCatalogItemCreator).to.be.ok()
-		expect(state.isCatalogItemCreator).to.equal(false)
+		if game:GetFastFlag("CMSRemoveUGCContentEnabledBoolean") then
+			expect(type(state.allowedAssetTypesForRelease)).to.equal("table")
+			expect(type(state.allowedAssetTypesForUpload)).to.equal("table")
+		else
+			expect(state.isCatalogItemCreator).to.be.ok()
+			expect(state.isCatalogItemCreator).to.equal(false)
+		end
 	end)
 
-	describe("SetCatalogItemCreator action", function()
-		it("should update isCatalogItemCreator status", function()
-			local state = RolesReducer(nil, {})
+	if not game:GetFastFlag("CMSRemoveUGCContentEnabledBoolean") then
+		describe("SetCatalogItemCreator action", function()
+			it("should update isCatalogItemCreator status", function()
+				local state = RolesReducer(nil, {})
 
-			state = RolesReducer(state, SetCatalogItemCreator(true))
+				state = RolesReducer(state, SetCatalogItemCreator(true))
 
-			expect(state.isCatalogItemCreator).to.equal(true)
+				expect(state.isCatalogItemCreator).to.equal(true)
+			end)
 		end)
-	end)
+	end
 end

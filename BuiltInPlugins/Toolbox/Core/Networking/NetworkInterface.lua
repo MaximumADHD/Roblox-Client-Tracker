@@ -85,7 +85,7 @@ function NetworkInterface:getAssets(pageInfo)
 end
 
 -- For now, only whitelistplugin uses this endpoint to fetch data.
-function NetworkInterface:getWhiteListPlugin(pageInfo)
+function NetworkInterface:getDevelopAsset(pageInfo)
 	local category = PageInfoHelper.getCategoryForPageInfo(pageInfo) or ""
 	local searchTerm = pageInfo.searchTerm or ""
 	local targetPage = pageInfo.targetPage or 1
@@ -94,11 +94,12 @@ function NetworkInterface:getWhiteListPlugin(pageInfo)
 		and PageInfoHelper.getGroupIdForPageInfo(pageInfo)
 		or 0
 	local creatorId = pageInfo.creator and pageInfo.creator.Id or ""
+	local creatoryType = pageInfo.creator and pageInfo.creator.Type or 1
 
-	local targetUrl = Urls.constructGetAssetsUrl(category, searchTerm, sortType, creatorId,Constants.GET_ITEMS_PAGE_SIZE, targetPage, groupId, creatorId)
+	local targetUrl = Urls.getDevelopAssetUrl(category, searchTerm, sortType, creatorId, Constants.GET_ITEMS_PAGE_SIZE, targetPage, groupId, creatoryType)
 
 	return sendRequestAndRetry(function()
-		printUrl("getWhiteListPlugin", "GET", targetUrl)
+		printUrl("getDevelopAsset", "GET", targetUrl)
 		return self._networkImp:httpGetJson(targetUrl)
 	end)
 end
@@ -479,6 +480,51 @@ function NetworkInterface:getPackageCollaborators(assetId)
 
 	printUrl("getPackageCollaborators", "GET", assetId)
 	return self._networkImp:httpGet(targetUrl)
+end
+
+function NetworkInterface:postForPackageMetadata(assetid)
+	local targetUrl = Urls.constructPostPackageMetadata()
+	
+	local payload = "[{ \"assetId\" : " .. assetid .. ", \"assetVersionNumber\" : 1 }]"
+	return self._networkImp:httpPostJson(targetUrl, payload)
+end
+
+function NetworkInterface:getRobuxBalance(userId)
+	local targetUrl = Urls.constructGetRobuxBalanceUrl(userId)
+
+	printUrl("getRobuxBalance", "GET", targetUrl)
+	return self._networkImp:httpGetJson(targetUrl)
+end
+
+function NetworkInterface:getOwnsAsset(assetId, userId)
+	local targetUrl = Urls.constructOwnsAssetUrl(assetId, userId)
+
+	printUrl("getOwnsAsset", "GET", targetUrl)
+	return self._networkImp:httpGet(targetUrl)
+end
+
+function NetworkInterface:purchaseAsset(productId, info)
+	local infoJson = self:jsonEncode(info)
+	local targetUrl = Urls.constructAssetPurchaseUrl(productId)
+
+	printUrl("purchaseAsset", "GET", targetUrl)
+	return self._networkImp:httpPostJson(targetUrl, infoJson)
+end
+
+function NetworkInterface:getGroupRoleInfo(groupId)
+	local targetUrl = Urls.constructGetGroupRoleInfoUrl(groupId)
+
+	printUrl("getGroupRoleInfo", "GET", groupId)
+	return self._networkImp:httpGet(targetUrl)
+end
+
+function NetworkInterface:putPackagePermissions(assetId, permissions)
+	local targetUrl = Urls.constructPutPackagePermissionsUrl(assetId)
+
+	local putPayload = self._networkImp:jsonEncode(permissions)
+
+	printUrl("putPackagePermissions", "PUT", targetUrl, putPayload)
+	return self._networkImp:httpPut(targetUrl, putPayload)
 end
 
 return NetworkInterface

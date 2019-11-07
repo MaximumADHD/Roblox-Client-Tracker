@@ -6,6 +6,8 @@
 		onClose callback, called when the user presses the "cancel" button
 ]]
 
+local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
+
 local ContentProvider = game:GetService("ContentProvider")
 local GuiService = game:GetService("GuiService")
 local HttpService = game:GetService("HttpService")
@@ -28,6 +30,7 @@ local withTheme = ContextHelper.withTheme
 local Components = Plugin.Core.Components
 local AssetThumbnailPreview = require(Components.AssetConfiguration.AssetThumbnailPreview)
 local NavButton = require(Components.NavButton)
+local ImagePicker = require(Components.AssetConfiguration.ImagePicker)
 
 local TITLE_WIDTH = 400
 local TITLE_HEIGHT = 36
@@ -93,7 +96,11 @@ function AssetUploadResult:render()
 		local isUploadFlow = props.screenFlowType == AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW
 		local showModeration
 		if FFlagFixAssetUploadSuccssMessage then
-			showModeration = isUploadFlow and props.assetTypeEnum ~= Enum.AssetType.Model
+			if FFlagEnablePurchasePluginFromLua2 then
+				showModeration = isUploadFlow and (AssetConfigUtil.isCatalogAsset(props.assetTypeEnum))
+			else
+				showModeration = isUploadFlow and props.assetTypeEnum ~= Enum.AssetType.Model
+			end
 		else
 			showModeration = isUploadFlow
 		end
@@ -108,6 +115,11 @@ function AssetUploadResult:render()
 			)
 		end
 
+		local previewType = AssetConfigConstants.PreviewTypes.Thumbnail
+		if FFlagEnablePurchasePluginFromLua2 then
+			previewType = AssetConfigUtil.getPreviewType(props.assetTypeEnum, props.instances)
+		end
+
 		local thumbnailUrl = Urls.constructAssetThumbnailUrl(
 			props.assetId,
 			Constants.THUMBNAIL_SIZE_LARGE,
@@ -120,7 +132,7 @@ function AssetUploadResult:render()
 			BorderSizePixel = 0,
 			Size = props.Size,
 		}, {
-			ModelPreview = isUploadFlow and Roact.createElement(AssetThumbnailPreview, {
+			ModelPreview = previewType == AssetConfigConstants.PreviewTypes.ModelPreview and Roact.createElement(AssetThumbnailPreview, {
 				titleHeight = PREVIEW_TITLE_HEIGHT,
 				titlePadding = PREVIEW_TITLE_PADDING,
 				Position = UDim2.new(0.5, -PREVIEW_SIZE/2, 0, PREVIEW_PADDING),
@@ -130,7 +142,7 @@ function AssetUploadResult:render()
 				),
 			}),
 
-			ThumbnailPreview = (not isUploadFlow) and Roact.createElement("ImageLabel", {
+			ThumbnailPreview = previewType == AssetConfigConstants.PreviewTypes.Thumbnail and Roact.createElement("ImageLabel", {
 				Position = UDim2.new(0.5, -PREVIEW_SIZE/2, 0, PREVIEW_PADDING),
 				Size = UDim2.new(
 					0, PREVIEW_SIZE,
@@ -139,6 +151,18 @@ function AssetUploadResult:render()
 				Image = thumbnailUrl,
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
+			}),
+
+			ImagePicker = previewType == AssetConfigConstants.PreviewTypes.ImagePicker and Roact.createElement(ImagePicker, {
+				Position = UDim2.new(0.5, -PREVIEW_SIZE/2, 0, PREVIEW_PADDING),
+				Size = UDim2.new(
+					0, PREVIEW_SIZE,
+					0, PREVIEW_SIZE
+				),
+				AssetId = nil,
+				ThumbnailStatus = nil,
+				ChooseThumbnail = nil, -- Won't get called
+				IconFile = props.iconFile,
 			}),
 
 			LoadingResultSuccess = props.uploadSucceeded and Roact.createElement("Frame", {
@@ -261,7 +285,8 @@ local function mapStateToProps(state, props)
 		networkError = state.networkError,
 		screenFlowType = state.screenFlowType,
 		assetConfigData = state.assetConfigData,
-		assetTypeEnum = state.assetTypeEnum
+		assetTypeEnum = state.assetTypeEnum,
+		thumbnailStatus = state.thumbnailStatus,
 	}
 end
 

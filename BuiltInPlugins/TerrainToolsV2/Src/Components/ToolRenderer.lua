@@ -18,6 +18,7 @@ local StudioPlugin = require(Plugin.Src.ContextServices.StudioPlugin)
 local Tools = script.Parent.Tools
 local Generate = require(Tools.Generate)
 local Import = require(Tools.Import)
+local SeaLevel = require(Tools.SeaLevel)
 local Clear = require(Tools.Clear)
 local Region = require(Tools.Region)
 local Fill = require(Tools.Fill)
@@ -32,70 +33,53 @@ local Paint = require(Tools.Paint)
 local Actions = Plugin.Src.Actions
 local ChangeTool = require(Actions.ChangeTool)
 
-local ToolRenderer = Roact.Component:extend(script.Name)
-
 local Functions = Plugin.Src.Components.Functions
-local TerrainBrush = require(Functions.TerrainBrush)
 local TerrainGeneration = require(Functions.TerrainGeneration)
 local TerrainRegionEditor = require(Functions.TerrainRegionEditor)
 local TerrainImporter = require(Functions.TerrainImporter)
-local TerrainSmoother = require(Functions.TerrainSmoother)
 
-local FFlagTerrainToolMetrics = settings():GetFFlag("TerrainToolMetrics")
-local AnalyticsService = game:GetService("RbxAnalyticsService")
-local StudioService = game:GetService("StudioService")
-
-local Constants = require(Plugin.Src.Util.Constants)
+local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
+local ToolId = TerrainEnums.ToolId
 
 local toolToScript = {
-	[Constants.ToolId.Generate] = TerrainGeneration,
-	[Constants.ToolId.Import] = TerrainImporter,
-	[Constants.ToolId.Clear] = TerrainGeneration,
+	[ToolId.Generate] = TerrainGeneration,
+	[ToolId.Import] = TerrainImporter,
+	[ToolId.Clear] = TerrainGeneration,
 
-	[Constants.ToolId.Select] = TerrainRegionEditor,
-	[Constants.ToolId.Move] = TerrainRegionEditor,
-	[Constants.ToolId.Resize] = TerrainRegionEditor,
-	[Constants.ToolId.Rotate] = TerrainRegionEditor,
-	[Constants.ToolId.Copy] = TerrainRegionEditor,
-	[Constants.ToolId.Paste] = TerrainRegionEditor,
-	[Constants.ToolId.Delete] = TerrainRegionEditor,
-	[Constants.ToolId.Fill] = TerrainRegionEditor,
-
-	[Constants.ToolId.Add] = TerrainBrush,
-	[Constants.ToolId.Subtract] = TerrainBrush,
-
-	[Constants.ToolId.Grow] = TerrainBrush,
-	[Constants.ToolId.Erode] = TerrainBrush,
-	[Constants.ToolId.Smooth] = TerrainBrush,
-	[Constants.ToolId.Flatten] = TerrainBrush,
-
-	[Constants.ToolId.Paint] = TerrainBrush,
+	[ToolId.Select] = TerrainRegionEditor,
+	[ToolId.Move] = TerrainRegionEditor,
+	[ToolId.Resize] = TerrainRegionEditor,
+	[ToolId.Rotate] = TerrainRegionEditor,
+	[ToolId.Copy] = TerrainRegionEditor,
+	[ToolId.Paste] = TerrainRegionEditor,
+	[ToolId.Delete] = TerrainRegionEditor,
+	[ToolId.Fill] = TerrainRegionEditor,
 }
 
 local toolComponent = {
-	[Constants.ToolId.Generate] = Generate,
-	[Constants.ToolId.Import] = Import,
-	[Constants.ToolId.SeaLevel] = SeaLevel,
-	[Constants.ToolId.Clear] = Clear,
+	[ToolId.Generate] = Generate,
+	[ToolId.Import] = Import,
+	[ToolId.SeaLevel] = SeaLevel,
+	[ToolId.Clear] = Clear,
 
-	[Constants.ToolId.Select] = Region,
-	[Constants.ToolId.Move] = Region,
-	[Constants.ToolId.Resize] = Region,
-	[Constants.ToolId.Rotate] = Region,
-	[Constants.ToolId.Copy] = Region,
-	[Constants.ToolId.Paste] = Region,
-	[Constants.ToolId.Delete] = Region,
-	[Constants.ToolId.Fill] = Fill,
+	[ToolId.Select] = Region,
+	[ToolId.Move] = Region,
+	[ToolId.Resize] = Region,
+	[ToolId.Rotate] = Region,
+	[ToolId.Copy] = Region,
+	[ToolId.Paste] = Region,
+	[ToolId.Delete] = Region,
+	[ToolId.Fill] = Fill,
 
-	[Constants.ToolId.Add] = Add	,
-	[Constants.ToolId.Subtract] = Subtract,
+	[ToolId.Add] = Add,
+	[ToolId.Subtract] = Subtract,
 
-	[Constants.ToolId.Grow] = Grow,
-	[Constants.ToolId.Erode] = Erode,
-	[Constants.ToolId.Smooth] = Smooth,
-	[Constants.ToolId.Flatten] = Flatten,
+	[ToolId.Grow] = Grow,
+	[ToolId.Erode] = Erode,
+	[ToolId.Smooth] = Smooth,
+	[ToolId.Flatten] = Flatten,
 
-	[Constants.ToolId.Paint] = Paint,
+	[ToolId.Paint] = Paint,
 }
 
 local function ToggleTool(toolName, mouse, plugin, theme, localization)
@@ -103,33 +87,26 @@ local function ToggleTool(toolName, mouse, plugin, theme, localization)
 	if currentToolScript ~= TerrainRegionEditor then
 		TerrainRegionEditor.Close()
 	end
-	if currentToolScript ~= TerrainBrush then
-		TerrainBrush.Close()
-	end
 
-	if toolName == "None" then
+	-- brushes are handled in base brush, the scripts really should be factored out of this
+	if toolName == ToolId.None then
 		return
 	end
 
 	-- ensures only the plugin uses the mouse
 	plugin:Activate(true)
 
-	if toolName and toolName ~= "None" then
+	if toolName and toolName ~= ToolId.None then
 		if currentToolScript then
 			coroutine.wrap(function()
 				currentToolScript.Init(toolName, mouse)
 			end)()
 		end
 	end
-
-	if FFlagTerrainToolMetrics and AnalyticsService and StudioService then
-		AnalyticsService:SendEventDeferred("studio", "TerrainEditorV2", "RegionTool", {
-			userId = StudioService:GetUserId(),
-			buttonName = toolName,
-		})
-	end
 end
 
+
+local ToolRenderer = Roact.PureComponent:extend(script.Name)
 ------------------------------
 function ToolRenderer:init(initialProps)
 	local plugin = StudioPlugin.getPlugin(self)
@@ -162,9 +139,9 @@ end
 function ToolRenderer:didUpdate(previousProps, previousState)
 	-- we use this to enable the use of these buttons as
 	-- buttons and not as tools for the regions tools
-	if self.props.currentTool == "Delete" or
-		self.props.currentTool == "Paste" or
-		self.props.currentTool == "Copy" then
+	if self.props.currentTool == ToolId.Delete or
+		self.props.currentTool == ToolId.Paste or
+		self.props.currentTool == ToolId.Copy then
 		self.props.dispatchChangeTool(previousProps.currentTool)
 	end
 end
@@ -206,6 +183,7 @@ local function MapStateToProps (state, props)
 		currentTool = state.Tools.currentTool,
 	}
 end
+
 local function MapDispatchToProps(dispatch)
 	return {
 		dispatchChangeTool = function(tool)

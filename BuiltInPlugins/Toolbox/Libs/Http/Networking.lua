@@ -95,6 +95,12 @@ local function httpPatch(httpImpl, options)
 	end)
 end
 
+local function httpPut(httpImpl, options)
+	return baseHttpHandler("PUT", options, function()
+		return httpImpl:RequestAsync(options)
+	end)	
+end
+
 -- httpFunc : (function) one of the http functions defined above, like httpGet, or httpPost
 -- ... : arguments to pass into the httpFunc
 local function createHttpPromise(httpFunc, ...)
@@ -209,6 +215,19 @@ function Networking:httpPatch(url, payload)
 	}
 
 	return createHttpPromise(httpPatch, self._httpImpl, options)
+end
+
+function Networking:httpPut(url, payload)
+	local options = {
+		Url = url,
+		Method = "PUT",
+		Body = payload,
+		Headers = {
+			["Content-Type"] = "application/json",
+		},
+	}
+
+	return createHttpPromise(httpPut, self._httpImpl, options)
 end
 
 function Networking:requestInternal(requestInfo)

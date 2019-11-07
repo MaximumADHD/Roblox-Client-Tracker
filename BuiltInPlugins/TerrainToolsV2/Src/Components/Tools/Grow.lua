@@ -21,14 +21,13 @@ local SetIgnoreWater = require(Actions.SetIgnoreWater)
 local SetAutoMaterial = require(Actions.SetAutoMaterial)
 local SetMaterial = require(Actions.SetMaterial)
 
-local Constants = require(Plugin.Src.Util.Constants)
+local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 
 local REDUCER_KEY = "GrowTool"
-local Grow = Roact.Component:extend(script.Name)
 
 local function MapStateToProps (state, props)
 	return {
-		toolName = Constants.ToolId.Grow,
+		toolName = TerrainEnums.ToolId.Grow,
 
 		brushShape = state[REDUCER_KEY].brushShape,
 		baseSize = state[REDUCER_KEY].baseSize,

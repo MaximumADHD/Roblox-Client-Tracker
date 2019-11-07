@@ -23,7 +23,7 @@ local LabeledElementPair = require(ToolParts.LabeledElementPair)
 
 local FRAME_BORDER_COLOR1 = Color3.new(227/255, 227/255, 227/255)
 
-local MaterialSettings = Roact.Component:extend(script.Name)
+local MaterialSettings = Roact.PureComponent:extend(script.Name)
 
 local materialsList = {	--Interface order is defined by order here
 	{

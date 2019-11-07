@@ -12,14 +12,9 @@ import "."
 MouseArea {
     // TODO: ben.cooper 2018/05/30 remove fflagStudioShareFromRibbonBarUXChanges in QML when removing FFlag::StudioShareFromRibbonBarUXChanges
     property bool fflagStudioShareFromRibbonBarUXChanges: false
-	property bool fflagStudioShareModalBackgroundColorChange: false
 
     function setFFlagStudioShareFromRibbonBarUXChanges(flag) {
         fflagStudioShareFromRibbonBarUXChanges = flag || false;
-    }
-
-	function setFFlagStudioShareModalBackgroundColorChange(flag) {
-        fflagStudioShareModalBackgroundColorChange = flag || false;
     }
 
     readonly property int extraMarginForDropShadow: 16
@@ -270,6 +265,5 @@ MouseArea {
         anchors.top: animContainer.bottom
         anchors.horizontalCenter: parent.horizontalCenter
         onCloseRequested: fflagStudioShareFromRibbonBarUXChanges ? close(buttonClicked ? closeReason_accepted : closeReason_lostFocus) : deprecated_close(buttonClicked)
-		fflagStudioShareModalBackgroundColorChange: parent.fflagStudioShareModalBackgroundColorChange
     }
 }

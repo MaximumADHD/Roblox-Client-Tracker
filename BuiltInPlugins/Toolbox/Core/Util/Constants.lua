@@ -123,6 +123,9 @@ Constants.ASSET_CREATOR_NAME_HEIGHT = Constants.ASSET_CREATOR_NAME_FONT_SIZE
 Constants.STATUS_NAME_FONT_SIZE = Constants.FONT_SIZE_SMALL
 Constants.STATUS_NAME_HEIGHT = Constants.STATUS_NAME_FONT_SIZE
 
+Constants.PRICE_FONT_SIZE = Constants.FONT_SIZE_MEDIUM
+Constants.PRICE_HEIGHT = Constants.PRICE_FONT_SIZE
+
 Constants.ASSET_VOTE_BAR_HEIGHT = 5
 Constants.ASSET_VOTE_BAR_OUTER_HEIGHT = 13
 Constants.ASSET_VOTE_COUNT_FONT_SIZE = Constants.FONT_SIZE_SMALL
@@ -225,5 +228,22 @@ Constants.TAB_WIDGET_HEIGHT = 36
 
 Constants.PERMISSIONS_TAB_LIST_PADDING = 35
 Constants.PERMISSIONS_UI_EDGE_PADDING = 24
+
+Constants.Dialog = {
+	SIZE = Vector2.new(400, 186),
+	BUTTON_SIZE = Vector2.new(120, 32),
+	BUTTON_PADDING = 20,
+	BORDER_PADDING = 24,
+
+	IMAGE_SIZE = UDim2.fromOffset(80, 80),
+	PROMPT_SIZE = UDim2.fromOffset(260, 60),
+	HEADER_SIZE = UDim2.new(1, 0, 0, 18),
+	DETAILS_SIZE = UDim2.new(1, 0, 0, 40),
+	DETAILS_POSITION = UDim2.fromOffset(0, 56),
+	BALANCE_SIZE = UDim2.fromOffset(260, 18),
+	BALANCE_POSITION = UDim2.new(1, 0, 0, 64),
+	BALANCE_PADDING = UDim.new(0, 3),
+	ROBUX_SIZE = UDim2.fromOffset(16, 16),
+}
 
 return wrapStrictTable(Constants, "Constants")

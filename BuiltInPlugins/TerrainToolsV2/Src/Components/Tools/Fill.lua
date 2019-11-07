@@ -28,7 +28,8 @@ local withTheme = Theme.withTheme
 local TerrainRegionEditor = require(Plugin.Src.Components.Functions.TerrainRegionEditor)
 
 local REDUCER_KEY = "FillTool"
-local Fill = Roact.Component:extend(script.Name)
+
+local Fill = Roact.PureComponent:extend(script.Name)
 
 function Fill:init(initialProps)
 	self.toggleButtonFn = function(container)

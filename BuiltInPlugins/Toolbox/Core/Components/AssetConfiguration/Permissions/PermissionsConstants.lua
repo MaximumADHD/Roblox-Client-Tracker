@@ -28,6 +28,7 @@ local uniqueIdentifiers = {
 	NoAccessKey = createKey("NoAccessPermission"),
 	UseViewKey = createKey("UseViewPermission"),
 	EditKey = createKey("EditPermission"),
+	RevokedKey = createKey("RevokedPermission"),
 	
 	UserSubjectKey = createKey("UserSubjectType"),
 	GroupSubjectKey = createKey("GroupSubjectType"),

@@ -4,9 +4,6 @@ local AppTempCommon = CorePackages.AppTempCommon
 local User = require(AppTempCommon.LuaApp.Models.User)
 local ThumbnailRequest = require(AppTempCommon.LuaApp.Models.ThumbnailRequest)
 
-local FStringSettingsHubInviteToGameThumbnailSize = settings():GetFVariable("SettingsHubInviteToGameThumbnailSize")
-local FFlagSettingsHubInviteToGameDefaultThumbnailSize150x150 =
-	settings():GetFFlag("SettingsHubInviteToGameDefaultThumbnailSize150x150")
 local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabledV384")
 
 local DeviceLayout = {
@@ -138,13 +135,7 @@ local Constants = {
 }
 
 Constants.InviteAvatarThumbnailType = Constants.AvatarThumbnailTypes.HeadShot
-
-if FFlagSettingsHubInviteToGameDefaultThumbnailSize150x150 then
-	Constants.InviteAvatarThumbnailSize = Constants.AvatarThumbnailSizes.Size150x150
-else
-	Constants.InviteAvatarThumbnailSize = Constants.AvatarThumbnailSizes[FStringSettingsHubInviteToGameThumbnailSize]
-		or Constants.AvatarThumbnailSizes.Size100x100
-end
+Constants.InviteAvatarThumbnailSize = Constants.AvatarThumbnailSizes.Size150x150
 
 Constants.ThumbnailRequest = {
 	InviteToGame = {ThumbnailRequest.fromData(

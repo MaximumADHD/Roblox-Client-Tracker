@@ -9,7 +9,7 @@ local SetCatalogItemCreator = require(Actions.SetCatalogItemCreator)
 local SetAllowedAssetTypes =  require(Actions.SetAllowedAssetTypes)
 
 return Rodux.createReducer({
-	isCatalogItemCreator = false,
+	isCatalogItemCreator = false, -- remove with FFlagCMSRemoveUGCContentEnabledBoolean
 	allowedAssetTypesForRelease = {},
 	allowedAssetTypesForUpload = {}
 }, {

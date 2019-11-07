@@ -4,37 +4,23 @@
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
-local RoactRodux = require(Plugin.Packages.RoactRodux)
 local StudioPlugin = require(Plugin.Src.ContextServices.StudioPlugin)
 
 local ToolParts = Plugin.Src.Components.Tools.ToolParts
 local BrushSettings = require(ToolParts.BrushSettings)
 local MaterialSettings = require(ToolParts.MaterialSettings)
 
-local Actions = Plugin.Src.Actions
-local ApplyToolAction = require(Actions.ApplyToolAction)
-local ChangeBaseSize = require(Actions.ChangeBaseSize)
-local ChangeHeight = require(Actions.ChangeHeight)
-local ChangeStrength = require(Actions.ChangeStrength)
-local ChangePivot = require(Actions.ChangePivot)
-local ChooseBrushShape = require(Actions.ChooseBrushShape)
-local SetAutoMaterial = require(Actions.SetAutoMaterial)
-local SetIgnoreWater = require(Actions.SetIgnoreWater)
-local SetMaterial = require(Actions.SetMaterial)
-local SetPlaneLock = require(Actions.SetPlaneLock)
-local SetSnapToGrid = require(Actions.SetSnapToGrid)
-local SetMaterial = require(Actions.SetMaterial)
-
 local Functions = Plugin.Src.Components.Functions
 local TerrainBrush = require(Functions.TerrainBrush)
 
-local Constants = require(Plugin.Src.Util.Constants)
-local PivotType = Constants.PivotType
+local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
+local BrushShape = TerrainEnums.BrushShape
+local PivotType = TerrainEnums.PivotType
 
-local BaseBrush = Roact.Component:extend(script.Name)
+local BaseBrush = Roact.PureComponent:extend(script.Name)
 
 function BaseBrush:init(initialProps)
-	assert(Constants.ToolId[initialProps.toolName], "cannot use basebrush if brush type is not known")
+	assert(TerrainEnums.ToolId[initialProps.toolName], "cannot use basebrush if brush type is not known")
 
 	self.layoutRef = Roact.createRef()
 	self.mainFrameRef = Roact.createRef()
@@ -101,7 +87,7 @@ function BaseBrush:init(initialProps)
 			planeLockState = self.props.planeLock
 		end
 		TerrainBrush.ChangeProperties({
-			brushShape = self.props.brushShape or "Sphere",
+			brushShape = self.props.brushShape or BrushShape.Sphere,
 			baseSize = self.props.baseSize or 10,
 			height = self.props.baseSize or 10, -- change back to height when we implement height ui
 			pivot = self.props.pivot or PivotType.Center,

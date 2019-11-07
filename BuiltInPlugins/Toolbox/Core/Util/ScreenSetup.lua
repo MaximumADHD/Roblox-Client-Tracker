@@ -76,18 +76,17 @@ local assetTypeOverride = {
 			[keys.SHOW_GENRE] = false,
 			[keys.SHOW_OVERRIDE_BUTTON] = true,
 			[keys.SHOW_PRICE] = false, -- Only show price when sales has been set to OnSale.
-			[keys.SHOW_SALE] = true,
+			[keys.SHOW_SALES_TAB] = true,
 		},
 		[AssetConfigConstants.FLOW_TYPE.EDIT_FLOW] = {
 			[keys.SHOW_ASSET_TYPE] = true,
 			[keys.SHOW_COMMENT] = false,
 			[keys.SHOW_COPY] = false,
 			[keys.SHOW_GENRE] = false,
-
 			[keys.SHOW_OWNERSHIP] = true,
 			[keys.SHOW_PRICE] = false,
 			[keys.SHOW_SALE] = false,
-			[keys.SHOW_VERSIONS_TAB] = false,
+			[keys.SHOW_VERSIONS_TAB] = true,
 			[keys.SHOW_SALES_TAB] = true,
 		}
 	},

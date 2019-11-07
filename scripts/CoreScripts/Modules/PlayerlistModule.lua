@@ -20,8 +20,6 @@ local FFlagRobloxGuiSiblingZindexs = settings():GetFFlag("RobloxGuiSiblingZindex
 
 local FFlagPlayerListNewIcons = settings():GetFFlag("PlayerListNewIcons")
 
-local FFlagPlayerListPremiumPadding = settings():GetFFlag("PlayerListPremiumPadding")
-
 while not PlayersService.LocalPlayer do
   -- This does not follow the usual pattern of PlayersService:PlayerAdded:Wait()
   -- because it caused a bug where the local players name would show as Player in game.
@@ -563,15 +561,13 @@ local function createEntryNameText(name, text, position, size, fontSize)
   nameLabel.ClipsDescendants = true
   nameLabel.Text = text
   nameLabel.ZIndex = isTenFootInterface and 2 or 1
+  nameLabel.TextTruncate = Enum.TextTruncate.AtEnd
   if FFlagPlayerListNewIcons then
     nameLabel.AutoLocalize = false
   else
     pcall(function()
       nameLabel.Localize = false
     end)
-  end
-  if FFlagPlayerListPremiumPadding then
-    nameLabel.TextTruncate = Enum.TextTruncate.AtEnd
   end
 
   return nameLabel
@@ -841,10 +837,7 @@ end
 local function updateSocialIcon(newIcon, bgFrame)
   local socialIcon = bgFrame:FindFirstChild('SocialIcon')
   local nameFrame = bgFrame:FindFirstChild('PlayerName')
-  local offset = 19
-  if FFlagPlayerListPremiumPadding then
-    offset = offset + 8
-  end
+  local offset = 27
 
   if socialIcon then
     if newIcon then
@@ -859,10 +852,7 @@ local function updateSocialIcon(newIcon, bgFrame)
     end
   elseif newIcon and bgFrame then
     socialIcon = createImageIcon(newIcon, "SocialIcon", offset, bgFrame)
-    offset = offset + socialIcon.Size.X.Offset + 2
-    if FFlagPlayerListPremiumPadding then
-      offset = offset + 4
-    end
+    offset = offset + socialIcon.Size.X.Offset + 6
     if nameFrame then
       local newSize = bgFrame.Size.X.Offset - offset
       nameFrame.Size = UDim2.new(-0.01, newSize, 0.5, 0)
@@ -1500,10 +1490,7 @@ local function createPlayerEntry(player, isTopStat)
     onEntryFrameSelected(containerFrame, player)
   end)
 
-  local currentXOffset = isTenFootInterface and 14 or 1
-  if FFlagPlayerListPremiumPadding then
-    currentXOffset = currentXOffset + 4
-  end
+  local currentXOffset = isTenFootInterface and 18 or 5
 
   -- check membership
   local membershipIconImage = getMembershipIcon(player)
@@ -1511,10 +1498,7 @@ local function createPlayerEntry(player, isTopStat)
 
   if membershipIconImage then
     membershipIcon = createImageIcon(membershipIconImage, "MembershipIcon", currentXOffset, entryFrame)
-    currentXOffset = currentXOffset + membershipIcon.Size.X.Offset + (isTenFootInterface and 4 or 2)
-    if FFlagPlayerListPremiumPadding then
-      currentXOffset = currentXOffset + 4
-    end
+    currentXOffset = currentXOffset + membershipIcon.Size.X.Offset + (isTenFootInterface and 8 or 6)
   else
     currentXOffset = currentXOffset + offsetSize
   end

@@ -21,6 +21,8 @@ tutils = { git = "https://github.rbx.com/Roblox/tutils" }
 
 PurchasePrompt = { git = "https://github.com/Roblox/PurchasePromptScript-Roact", rev = "master"}
 
+InGameMenuDependencies = { git = "https://github.rbx.com/Roblox/in-game-menu-dependencies", rev = "master" }
+
 # We're introducing another dependency on Rodux to dodge the renaming issues
 # we've had previously. It's weird, I know. This will result in the index having
 # names like roblox_rodux_1234ABCD_1.0.0 and Rodux_ABCDEF12_123456AB, and avoids
@@ -59,3 +61,4 @@ version = "1.0"
 # [patch."https://github.com/roblox/otter"]
 # name = "roblox/otter"
 # version = "0.1"
+

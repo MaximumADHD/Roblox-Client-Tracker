@@ -30,7 +30,8 @@ local MapSettings = require(ToolParts.MapSettings)
 local UILibrary = Plugin.Packages.UILibrary
 
 local REDUCER_KEY = "SeaLevelTool"
-local SeaLevel = Roact.Component:extend(script.Name)
+
+local SeaLevel = Roact.PureComponent:extend(script.Name)
 
 function SeaLevel:init(initialProps)
 	self.toggleButton = function(containter)

@@ -1,6 +1,5 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
-local Rodux = require(Plugin.Packages.Rodux)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 
 local UILibrary = Plugin.Packages.UILibrary
@@ -37,15 +36,12 @@ local SetBiomeSelection = require(Actions.SetBiomeSelection)
 
 local TextService = game:GetService("TextService")
 
-
 local FONT = Enum.Font.SourceSans
 local FONT_SIZE = 15
 
-
 local REDUCER_KEY = "GenerateTool"
 
-
-local Generate = Roact.Component:extend(script.Name)
+local Generate = Roact.PureComponent:extend(script.Name)
 
 function Generate:init(initialProps)
 	self.layoutRef = Roact.createRef()

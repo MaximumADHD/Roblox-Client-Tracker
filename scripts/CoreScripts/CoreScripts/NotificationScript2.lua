@@ -16,7 +16,6 @@ local GuiService = game:GetService('GuiService')
 local Players = game:GetService('Players')
 local PointsService = game:GetService('PointsService')
 local MarketplaceService = game:GetService('MarketplaceService')
-local TeleportService = game:GetService('TeleportService')
 local TextService = game:GetService("TextService")
 local HttpService = game:GetService("HttpService")
 local UserInputService = game:GetService("UserInputService")
@@ -25,6 +24,7 @@ local StarterGui = game:GetService("StarterGui")
 local CoreGui = game:GetService("CoreGui")
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 local VRService = game:GetService("VRService")
+local GroupService = game:GetService("GroupService")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Settings = UserSettings()
 local GameSettings = Settings.GameSettings
@@ -33,6 +33,7 @@ local success, result = pcall(function() return settings():GetFFlag('UseNotifica
 local FFlagUseNotificationsLocalization = success and result
 
 local FFlagNotificationScript2UseFormatByKey = settings():GetFFlag('NotificationScript2UseFormatByKey')
+local FFlagNewAwardBadgeEndpoint = settings():GetFFlag('NewAwardBadgeEndpoint')
 
 local RobloxTranslator = require(RobloxGui:WaitForChild("Modules"):WaitForChild("RobloxTranslator"))
 
@@ -43,7 +44,7 @@ local function LocalizedGetString(key, rtv)
 	return rtv
 end
 
-local LocalPlayer = nil
+local LocalPlayer
 while not Players.LocalPlayer do
 	wait()
 end
@@ -99,7 +100,6 @@ local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp") -- todo:
 
 local PLAYER_POINTS_IMG = 'https://www.roblox.com/asset?id=206410433'
 local BADGE_IMG = 'https://www.roblox.com/asset?id=206410289'
-local FRIEND_IMAGE = 'https://www.roblox.com/thumbs/avatar.ashx?userId='
 
 local function createFrame(name, size, position, bgt)
 	local frame = Instance.new('Frame')
@@ -697,6 +697,39 @@ local function onPointsAwarded(userId, pointsAwarded, userBalanceInGame, userTot
 	end
 end
 
+
+--todo: rename to onBadgeAwarded when removing FFlagNewAwardBadgeEndpoint
+local function onBadgeAwarded_NEW(userId, creatorId, badgeId)
+	if not BadgeBlacklist[badgeId] and badgesNotificationsActive and userId == LocalPlayer.UserId then
+		BadgeBlacklist[badgeId] = true
+		local creatorName = ""
+		if game.CreatorType == Enum.CreatorType.Group then
+			local groupInfo = GroupService:GetGroupInfoAsync(creatorId)
+			if groupInfo then
+				creatorName = groupInfo.Name
+			end
+		elseif game.CreatorType == Enum.CreatorType.User then
+			creatorName = Players:GetNameFromUserIdAsync(creatorId)
+		end
+
+		local badgeInfo = BadgeService:GetBadgeInfoAsync(badgeId)
+
+		local badgeAwardText = RobloxTranslator:FormatByKey("NotificationScript2.onBadgeAwardedDetail",
+															{RBX_NAME = LocalPlayer.Name, CREATOR_NAME = creatorName, BADGE_NAME = badgeInfo.Name })
+		local badgeTitle = LocalizedGetString("NotificationScript2.onBadgeAwardedTitle")
+
+		sendNotificationInfo {
+			GroupName = "BadgeAwards",
+			Title = badgeTitle,
+			Text = badgeAwardText,
+			DetailText = badgeAwardText,
+			Image = BADGE_IMG,
+			Duration = DEFAULT_NOTIFICATION_DURATION
+		}
+	end
+end
+
+--todo: remove when removing FFlagNewAwardBadgeEndpoint
 local function onBadgeAwarded(message, userId, badgeId)
 	if not BadgeBlacklist[badgeId] and badgesNotificationsActive and userId == LocalPlayer.UserId then
 		BadgeBlacklist[badgeId] = true
@@ -756,11 +789,21 @@ end
 
 if PolicyService:IsEnabled() then
 	if not PolicyService:IsSubjectToChinaPolicies() then
-		BadgeService.BadgeAwarded:connect(onBadgeAwarded)
+		if FFlagNewAwardBadgeEndpoint then
+			BadgeService.OnBadgeAwarded:connect(onBadgeAwarded_NEW)
+			BadgeService.BadgeAwarded:connect(onBadgeAwarded) -- todo: remove this when removing flag (only here in case old servers for a bit send down the old event)
+		else
+			BadgeService.BadgeAwarded:connect(onBadgeAwarded)
+		end
 	end
 else
 	if not FFlagChinaLicensingApp then
-		BadgeService.BadgeAwarded:connect(onBadgeAwarded)
+		if FFlagNewAwardBadgeEndpoint then
+			BadgeService.OnBadgeAwarded:connect(onBadgeAwarded_NEW)
+			BadgeService.BadgeAwarded:connect(onBadgeAwarded) -- todo: remove this when removing flag (only here in case old servers for a bit send down the old event)
+		else
+			BadgeService.BadgeAwarded:connect(onBadgeAwarded)
+		end
 	end
 end
 
@@ -963,7 +1006,6 @@ if not isTenFootInterface then
 	end)
 end
 
-local UserInputService = game:GetService('UserInputService')
 local Platform = UserInputService:GetPlatform()
 local Modules = RobloxGui:FindFirstChild('Modules')
 local CSMModule = Modules:FindFirstChild('ControllerStateManager')

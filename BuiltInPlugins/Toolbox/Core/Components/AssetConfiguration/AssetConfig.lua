@@ -7,7 +7,7 @@
 ]]
 
 local FFlagCMSPrepopulateTitle = game:DefineFastFlag("CMSPrepopulateTitle", false)
-
+local FFlagLuaPackagePermissions = settings():GetFFlag("LuaPackagePermissions")
 local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -55,6 +55,10 @@ local PatchAssetRequest = require(Requests.PatchAssetRequest)
 local PostUploadAssetRequest = require(Requests.PostUploadAssetRequest)
 local PostOverrideAssetRequest = require(Requests.PostOverrideAssetRequest)
 local GetIsVerifiedCreatorRequest = require(Requests.GetIsVerifiedCreatorRequest)
+local PostPackageMetadataRequest = require(Requests.PostPackageMetadataRequest)
+local PutPackagePermissionsRequest = require(Requests.PutPackagePermissionsRequest)
+
+local UpdateAssetConfigStore = require(Plugin.Core.Actions.UpdateAssetConfigStore)
 
 local SetAssetConfigTab = require(Plugin.Core.Actions.SetAssetConfigTab)
 
@@ -69,13 +73,6 @@ local PREVIEW_WIDTH = 240
 local DEFAULT_GENRE = "All"
 
 function AssetConfig:init(props)
-	local initSalesStatus = nil
-	if FFlagEnablePurchasePluginFromLua2 then
-		if props.assetTypeEnum and AssetConfigUtil.isBuyableMarketplaceAsset(props.assetTypeEnum) then
-			initSalesStatus = AssetConfigConstants.ASSET_STATUS.OffSale
-		end
-	end
-
 	self.state = {
 		assetId = nil,
 
@@ -94,7 +91,7 @@ function AssetConfig:init(props)
 		allowComment = true,  -- Default to allow comment, but off.
 		commentOn = nil,
 		price = AssetConfigUtil.getMinPrice(props.allowedAssetTypesForRelease, props.assetTypeEnum),
-		status = initSalesStatus,
+		status = nil,
 
 		isShowChangeDiscardMessageBox = false,
 
@@ -202,14 +199,27 @@ function AssetConfig:init(props)
 			end
 		end
 
+		local function tryPublishPermissions(changeTable)
+			local assetConfigData = self.props.assetConfigData
+			local assetId = assetConfigData.Id
+			local assetVersionNumber = changeTable.VersionItemSelect
+
+			if assetId then
+				self.props.dispatchPutPackagePermissionsRequest(getNetwork(self), assetId, assetVersionNumber)
+			end
+		end
+
 		local changeTable = self.props.changeTable
-		local changed = next(changeTable) ~= nil
+		local changed = changeTable and next(changeTable) ~= nil
 
 		-- Our actions maybe defferent depends on if we
 		-- changed any thing on the page or not.
 		if changed then
 			tryPublishGeneral()
 			tryPublishVersions(changeTable)
+			if FFlagLuaPackagePermissions then
+				tryPublishPermissions(changeTable)
+			end
 		end
 	end
 
@@ -350,16 +360,20 @@ function AssetConfig:init(props)
 	end
 
 	self.chooseThumbnail = function()
-		local iconFile = AssetConfigUtil.promptImagePicker()
+		local iconFile
+		local success, response = pcall(function()
+			iconFile = AssetConfigUtil.promptImagePicker()
+		end)
 
 		-- Probably need to handle the if it fails
-		if iconFile then
+		if success and iconFile then
 			self:setState({
 				iconFile = iconFile
 			})
-		end
 
-		self.props.makeChangeRequest("AssetConfigIconSelect", "", iconFile.Name)
+			self.props.makeChangeRequest("AssetConfigIconSelect", "", iconFile.Name)
+			self.props.updateStore({iconFile})
+		end
 	end
 end
 
@@ -376,32 +390,73 @@ function AssetConfig:detachXButtonCallback()
 end
 
 function AssetConfig:didUpdate(previousProps, previousState)
-	self:attachXButtonCallback()
+	if not FFlagEnablePurchasePluginFromLua2 then
+		-- If we have assetConfigData and state is nil(defualt state),
+		-- then we will use the data retrived from the assetConfigData to trigger a re-render.
+		if self.props.screenFlowType == AssetConfigConstants.FLOW_TYPE.EDIT_FLOW then
+			local assetConfigData = self.props.assetConfigData
+			if next(assetConfigData) and (not self.state.owner) then
+				self:setState({
+					assetId = AssetConfigUtil.isMarketplaceAsset(self.props.assetTypeEnum) and assetConfigData.Id or assetConfigData.assetId, -- assetId is named differently in the data returned by different end-points
 
-	-- If we have assetConfigData and state is nil(defualt state),
-	-- then we will use the data retrived from the assetConfigData to trigger a re-render.
-	if self.props.screenFlowType == AssetConfigConstants.FLOW_TYPE.EDIT_FLOW then
-		local assetConfigData = self.props.assetConfigData
-		if next(assetConfigData) and (not self.state.name) then
-			self:setState({
-				assetId = AssetConfigUtil.isMarketplaceAsset(self.props.assetTypeEnum) and assetConfigData.Id or assetConfigData.assetId, -- assetId is named differently in the data returned by different end-points
-
-				name = assetConfigData.Name,
-				description = assetConfigData.Description,
-				owner = assetConfigData.Creator,
-				genres = assetConfigData.Genres,
-				allowCopy = assetConfigData.IsPublicDomainEnabled,
-				copyOn = assetConfigData.IsCopyingAllowed,
-				commentOn = assetConfigData.EnableComments,
-				price = assetConfigData.Price or AssetConfigUtil.getMinPrice(self.props.allowedAssetTypesForRelease, self.props.assetTypeEnum),
-				status = assetConfigData.Status,
-			})
+					name = assetConfigData.Name,
+					description = assetConfigData.Description,
+					owner = assetConfigData.Creator,
+					genres = assetConfigData.Genres,
+					allowCopy = assetConfigData.IsPublicDomainEnabled,
+					copyOn = assetConfigData.IsCopyingAllowed,
+					commentOn = assetConfigData.EnableComments,
+					price = assetConfigData.Price or AssetConfigUtil.getMinPrice(self.props.allowedAssetTypesForRelease, self.props.assetTypeEnum),
+					status = assetConfigData.Status,
+				})
+			end
+		else
+			if (self.props.isVerifiedCreator ~= nil) and self.state.allowCopy ~= self.props.isVerifiedCreator then
+				self:setState({
+					allowCopy = self.props.isVerifiedCreator
+				})
+			end
 		end
-	else
-		if (self.props.isVerifiedCreator ~= nil) and self.state.allowCopy ~= self.props.isVerifiedCreator then
-			self:setState({
-				allowCopy = self.props.isVerifiedCreator
-			})
+	end
+end
+
+function AssetConfig.getDerivedStateFromProps(nextProps, lastState)
+	if FFlagEnablePurchasePluginFromLua2 then
+		-- If we have assetConfigData and state is nil(defualt state),
+		-- then we will use the data retrived from the assetConfigData to trigger a re-render.
+		if nextProps.screenFlowType == AssetConfigConstants.FLOW_TYPE.EDIT_FLOW then
+			local assetConfigData = nextProps.assetConfigData
+			if next(assetConfigData) then
+				local newPrice = assetConfigData.Price or AssetConfigUtil.getMinPrice(nextProps.allowedAssetTypesForRelease, nextProps.assetTypeEnum)
+				if assetConfigData.Status == AssetConfigConstants.ASSET_STATUS.Free then
+					newPrice = 0
+				end
+				local preCheckStatus = assetConfigData.Status
+				-- Free is a special onSale status
+				if FFlagEnablePurchasePluginFromLua2 and preCheckStatus == AssetConfigConstants.ASSET_STATUS.Free then
+					preCheckStatus = AssetConfigConstants.ASSET_STATUS.OnSale
+				end
+
+				return {
+					assetId = AssetConfigUtil.isMarketplaceAsset(nextProps.assetTypeEnum) and assetConfigData.Id or assetConfigData.assetId, -- assetId is named differently in the data returned by different end-points
+
+					name = lastState.name or assetConfigData.Name,
+					description = lastState.description or assetConfigData.Description,
+					owner = lastState.owner or assetConfigData.Creator,
+					genres = lastState.genres or assetConfigData.Genres,
+					allowCopy = lastState.allowCopy or assetConfigData.IsPublicDomainEnabled,
+					copyOn = lastState.copyOn or assetConfigData.IsCopyingAllowed,
+					commentOn = lastState.commentOn or assetConfigData.EnableComments,
+					price = lastState.price or newPrice, -- If we have a prcie already, use that first
+					status = lastState.status or preCheckStatus,
+				}
+			end
+		else
+			if (nextProps.isVerifiedCreator ~= nil) and lastState.allowCopy ~= nextProps.isVerifiedCreator then
+				return {
+					allowCopy = nextProps.isVerifiedCreator
+				}
+			end
 		end
 	end
 end
@@ -413,13 +468,23 @@ function AssetConfig:didMount()
 	if AssetConfigConstants.FLOW_TYPE.EDIT_FLOW == self.props.screenFlowType then
 		if self.props.assetId then
 			if AssetConfigUtil.isCatalogAsset(self.props.assetTypeEnum) then
-				self.props.getAssetDetails(getNetwork(self), self.props.assetId)
-			elseif AssetConfigUtil.isMarketplaceAsset(self.props.assetTypeEnum) then
-				self.props.getAssetConfigData(getNetwork(self), self.props.assetId)
+				self.props.getAssetDetails(getNetwork(self), self.props.assetId, false)
+			else
+				if FFlagEnablePurchasePluginFromLua2 then
+					-- We will always use getAssetConfigData endpoint to fetch data first.
+					-- Then chekc if it's marketplace buyable asset, if true, use creation endpoint to fetch price.
+					self.props.getAssetConfigData(getNetwork(self), self.props.assetId)
+					if AssetConfigUtil.isBuyableMarketplaceAsset(self.props.assetTypeEnum) then
+						self.props.getAssetDetails(getNetwork(self), self.props.assetId, true)
+					end
+				else
+					if AssetConfigUtil.isMarketplaceAsset(self.props.assetTypeEnum) then
+						self.props.getAssetConfigData(getNetwork(self), self.props.assetId)
+					end
+				end
 			end
 		end
 	else -- If not edit, then we are in publish flow
-
 		if FFlagCMSPrepopulateTitle then
 			local instances = self.props.instances
 			if instances and #instances > 0 then
@@ -430,6 +495,11 @@ function AssetConfig:didMount()
 		end
 
 		self.props.getIsVerifiedCreator(getNetwork(self))
+	end
+
+	-- Check flow type or assetId
+	if AssetConfigConstants.FLOW_TYPE.EDIT_FLOW == self.props.screenFlowType then
+		self.props.dispatchPostPackageMetadataRequest(getNetwork(self), self.props.assetId)
 	end
 end
 
@@ -456,9 +526,13 @@ end
 local function checkCanSave(changeTable, name, description, price, minPrice, maxPrice, assetStatus, currentTab)
 	-- For now, override asset is nique, we only care if we change anything from the override.
 	if ConfigTypes:isOverride(currentTab) then
-		return changeTable.OverrideAssetId
+		return changeTable and changeTable.OverrideAssetId
+	elseif ConfigTypes:isPermissions(currentTab) then
+		local changed = changeTable and next(changeTable) ~= nil
+		local changedPermissions = changeTable.permissions and next(changeTable.permissions) ~= nil
+		return changed and changedPermissions
 	else
-		local changed = next(changeTable) ~= nil
+		local changed = changeTable and next(changeTable) ~= nil
 		local nameDataIsOk = (#name <= AssetConfigConstants.NAME_CHARACTER_LIMIT) and (tostring(name) ~= "")
 		local descriptionDataIsOk = #description <= AssetConfigConstants.DESCRIPTION_CHARACTER_LIMIT
 		local priceDataIsOk = validatePrice(price, minPrice, maxPrice, assetStatus)
@@ -533,6 +607,7 @@ function AssetConfig:render()
 				local allowComment = state.allowComment
 				local commentOn = state.commentOn
 				local newAssetStatus = state.status
+
 				local showGetAssetFailed = props.networkErrorAction == ConfigTypes.GET_ASSET_DETAIL_FAILURE_ACTION
 				local isShowChangeDiscardMessageBox = state.isShowChangeDiscardMessageBox or showGetAssetFailed
 				local iconFile = state.iconFile
@@ -542,40 +617,38 @@ function AssetConfig:render()
 				local changeTable = props.changeTable or {}
 				local allowedAssetTypesForRelease = props.allowedAssetTypesForRelease
 
-				local currentAssetStatus
-				if FFlagEnablePurchasePluginFromLua2 and AssetConfigUtil.isMarketplaceAsset(assetTypeEnum) then
-					currentAssetStatus = newAssetStatus or AssetConfigConstants.ASSET_STATUS.OffSale
+				local currentAssetStatus = newAssetStatus or AssetConfigConstants.ASSET_STATUS.Unknown
+
+				local minPrice, maxPrice, feeRate
+				if FFlagEnablePurchasePluginFromLua2 then
+					minPrice, maxPrice, feeRate = AssetConfigUtil.getPriceInfo(allowedAssetTypesForRelease, assetTypeEnum)
 				else
-					currentAssetStatus = newAssetStatus or AssetConfigConstants.ASSET_STATUS.Unknown
+					minPrice = AssetConfigUtil.getMinPrice(allowedAssetTypesForRelease, assetTypeEnum)
+					maxPrice = AssetConfigUtil.getMaxPrice(allowedAssetTypesForRelease, assetTypeEnum)
 				end
 
-				local minPrice = AssetConfigUtil.getMinPrice(allowedAssetTypesForRelease, assetTypeEnum)
-				local maxPrice = AssetConfigUtil.getMaxPrice(allowedAssetTypesForRelease, assetTypeEnum)
 				local price = state.price
 				local showOwnership = ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_OWNERSHIP)
 				local showGenre = ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_GENRE)
 				local showCopy = ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_COPY)
 				local showComment = ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_COMMENT)
 				local showAssetType = ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_ASSET_TYPE)
-				-- Sales will acting as sales and allow copy for plugin.
-				local showSale = false
-				-- And then we show price according to the sales status and if user is whitelisted.
-				local showPrice = false
 				local previewType = props.instances and AssetConfigConstants.PreviewTypes.ModelPreview or AssetConfigConstants.PreviewTypes.Thumbnail
 				-- And then we show price according to the sales status and if user is whitelisted.
 				if FFlagEnablePurchasePluginFromLua2 then
-					if assetTypeEnum and AssetConfigUtil.isBuyableMarketplaceAsset(assetTypeEnum) then
-						showSale = ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_SALE)
-						previewType = AssetConfigConstants.PreviewTypes.ImagePicker
-					end
-					if newAssetStatus == AssetConfigConstants.ASSET_STATUS.OnSale and
-						allowedAssetTypesForRelease[assetTypeEnum.Name] and
-						screenFlowType == AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW then -- Only publish flow we could show price.
-						showPrice = true
-					end
+					previewType = AssetConfigUtil.getPreviewType(assetTypeEnum, props.instances)
 				end
 
 				local isPriceValid = validatePrice(price, minPrice, maxPrice, newAssetStatus)
+				local isMarketBuyAndNonWhiteList = AssetConfigUtil.isBuyableMarketplaceAsset(assetTypeEnum) and (not allowedAssetTypesForRelease[assetTypeEnum.Name])
+				local tabItems = ConfigTypes:getAssetconfigContent(
+					screenFlowType,
+					assetTypeEnum,
+					isMarketBuyAndNonWhiteList,
+					FFlagLuaPackagePermissions and self.props.isPackageAsset or false,
+					owner
+				)
+
 				local canSave = checkCanSave(changeTable, name, description, price, minPrice, maxPrice, newAssetStatus, currentTab)
 
 				return Roact.createElement("Frame", {
@@ -614,7 +687,7 @@ function AssetConfig:render()
 						Preview = Roact.createElement(PreviewArea, {
 							TotalWidth = PREVIEW_WIDTH,
 
-							TabItems = ConfigTypes:getAssetconfigContent(screenFlowType, assetTypeEnum),
+							TabItems = tabItems,
 
 							CurrentTab = currentTab,
 
@@ -652,9 +725,6 @@ function AssetConfig:render()
 							copyOn = copyOn,
 							allowComment = allowComment,
 							commentOn = commentOn,
-							price = price,
-							minPrice = minPrice,
-							maxPrice = maxPrice,
 
 							assetTypeEnum = assetTypeEnum,
 							onNameChange = self.onNameChange,
@@ -663,21 +733,12 @@ function AssetConfig:render()
 							onGenreSelected = self.onGenreChange,
 							toggleCopy = self.toggleCopy,
 							toggleComment = self.toggleComment,
-							onStatusChange = self.onStatusChange,
-							onPriceChange = self.onPriceChange,
-
-							allowedAssetTypesForRelease = allowedAssetTypesForRelease,
-							newAssetStatus = newAssetStatus,
-							currentAssetStatus = currentAssetStatus,
-							isPriceValid = isPriceValid,
 
 							displayOwnership = showOwnership,
 							displayGenre = showGenre,
 							displayCopy = showCopy,
 							displayComment = showComment,
 							displayAssetType = showAssetType,
-							displaySale = showSale,
-							displayPrice = showPrice,
 
 							LayoutOrder = 3,
 						}),
@@ -701,6 +762,7 @@ function AssetConfig:render()
 							price = price,
 							minPrice = minPrice,
 							maxPrice = maxPrice,
+							feeRate = feeRate,
 							isPriceValid = isPriceValid,
 
 							onStatusChange = self.onStatusChange,
@@ -721,7 +783,7 @@ function AssetConfig:render()
 
 						PackagePermissions = ConfigTypes:isPermissions(currentTab) and Roact.createElement(Permissions, {
 							Size = UDim2.new(1, -PREVIEW_WIDTH, 1, 0),
-							
+
 							Owner = owner,
 							AssetId = assetId,
 
@@ -762,7 +824,8 @@ local function mapStateToProps(state, props)
 		currentTab = state.currentTab,
 		isVerifiedCreator = state.isVerifiedCreator,
 		networkError = state.networkError,
-		networkErrorAction = state.networkErrorAction
+		networkErrorAction = state.networkErrorAction,
+		isPackageAsset = state.isPackageAsset,
 	}
 end
 
@@ -772,8 +835,8 @@ local function mapDispatchToProps(dispatch)
 			dispatch(GetAssetConfigDataRequest(networkInterface, assetId))
 		end,
 
-		getAssetDetails = function(networkInterface, assetId)
-			dispatch(GetAssetDetailsRequest(networkInterface, assetId))
+		getAssetDetails = function(networkInterface, assetId, isMarketBuy)
+			dispatch(GetAssetDetailsRequest(networkInterface, assetId, isMarketBuy))
 		end,
 
 		makeChangeRequest = function(setting, currentValue, newValue)
@@ -811,6 +874,18 @@ local function mapDispatchToProps(dispatch)
 
 		getIsVerifiedCreator = function(networkInterface)
 			dispatch(GetIsVerifiedCreatorRequest(networkInterface))
+		end,
+
+		dispatchPostPackageMetadataRequest = function(networkInterface, assetid)
+			dispatch(PostPackageMetadataRequest(networkInterface, assetid))
+		end,
+
+		updateStore = function(storeData)
+			dispatch(UpdateAssetConfigStore(storeData))
+		end,
+
+		dispatchPutPackagePermissionsRequest = function(networkInterface, assetId)
+			dispatch(PutPackagePermissionsRequest(networkInterface, assetId))
 		end,
 	}
 end

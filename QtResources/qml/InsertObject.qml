@@ -19,6 +19,7 @@ Rectangle {
     signal itemClicked(int index)
     signal filterTextChanged(string filterText)
 	signal selectAfterInsertChecked(bool checked)
+	signal openInsertObjectWidget()
 
     function insertObject() {
         // Don't try to insert an object if the user hasn't selected any
@@ -285,13 +286,56 @@ Rectangle {
 			}
 		}
 
+		Rectangle
+		{
+		    id: seeAllSection
+			color: userPreferences.theme.style("CommonStyle mainBackground")
+			visible: {
+			    if(insertObjectWindow.getFFlagStudioInsertObjectStreamlining_InsertWidget() && insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamlining_InsertMenuTuning()){
+				    return isWindow;
+				}
+				else
+				{
+				    return false;
+				}
+			}			
+			height: {
+				if(insertObjectWindow.getFFlagStudioInsertObjectStreamlining_InsertWidget() && insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamlining_InsertMenuTuning()){
+				    return isWindow ? 25 : 0
+				}
+				else
+				{
+				    return 0;
+				}	
+			}
+			anchors.left: parent.left
+		    anchors.right: parent.right
+		    anchors.bottom: dialog.bottom
+			Rectangle {
+				id: seeAllDivider
+				anchors.top: seeAllSection.top
+				anchors.left: parent.left
+				anchors.right: parent.right
+				height: 2
+				color: userPreferences.theme.style("InsertObjectWindow separator")
+			}
+			Button{
+				    id: seeAllButton
+					anchors.top: seeAllDivider.bottom
+					anchors.left: parent.left
+					anchors.right: parent.right
+					text: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamlining_InsertMenuTuning() ? "See All " + openWidgetHotKey : "";
+					onClicked: openInsertObjectWidget()
+			}
+		}
+
 		ScrollView {
             id: scrollView
             objectName: "qmlInsertObjectScrollView"
 			anchors.top: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamlining_SelectAfterInsert() ? selectedCheckBox.bottom : searchBox.bottom	    
 		    anchors.left: parent.left
 		    anchors.right: parent.right
-            anchors.bottom: parent.bottom
+			anchors.bottom: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamlining_InsertMenuTuning() ? seeAllSection.top : parent.bottom
 		    ListView {
 		    	id: listView
 		    	anchors.fill: parent

@@ -12,9 +12,6 @@
 		copyOn, bool, decide if the user has set the copyOn to true or false.
 		allowComment, bool, decide if other users can change comment on this asset or not.
 		commentOn, bool, decide if the comment on is true or false.
-		price, number, the price for the asset, if applicable.
-		minPrice, number, the minimal price you can set.
-		maxPrice, number, the maximal price you can set.
 
 		assetTypeEnum, enum, asset type.
 
@@ -24,17 +21,12 @@
 		onGenreSelected, functoin, callback when genre changes.
 		toggleCopy, functoin, callback when copy changes.
 		toggleComment, functoin, callback when comment changes.
-		onStatusChange, functon, callback when sales status changes.
-		onPriceChange, function, callback when price changes.
 
 		displayOwnership, bool, if we want to show ownership.
 		displayGenre, bool, genre.
 		displayCopy, bool, copy.
 		displayComment, bool, comment.
 		displayAssetType, bool, assetType.
-		displaySale, bool, sale.
-		displayPrice, bool, price.
-		isPriceValid, bool, used to tell user if the price is legit or not.
 
 	Optional Props:
 		LayoutOrder, number, used by the layouter to set the position of the component.
@@ -54,7 +46,6 @@ local ContextHelper = require(Util.ContextHelper)
 local LayoutOrderIterator = require(Util.LayoutOrderIterator)
 local AssetConfigConstants = require(Util.AssetConfigConstants)
 local Constants = require(Util.Constants)
-local AssetConfigUtil = require(Util.AssetConfigUtil)
 
 local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
@@ -65,8 +56,6 @@ local ConfigAccess = require(AssetConfiguration.ConfigAccess)
 local ConfigGenre = require(AssetConfiguration.ConfigGenre)
 local ConfigCopy = require(AssetConfiguration.ConfigCopy)
 local ConfigComment = require(AssetConfiguration.ConfigComment)
-local SalesComponent = require(AssetConfiguration.SalesComponent)
-local PriceComponent = require(AssetConfiguration.PriceComponent)
 
 local PublishAsset = Roact.PureComponent:extend("PublishAsset")
 
@@ -130,10 +119,6 @@ function PublishAsset:render()
 			local copyOn = props.copyOn
 			local allowComment = props.allowComment
 			local commentOn = props.commentOn
-			local price = props.price
-			local minPrice = props.minPrice
-			local maxPrice = props.maxPrice
-
 			local assetTypeEnum = props.assetTypeEnum
 
 			local onNameChange = props.onNameChange
@@ -148,24 +133,6 @@ function PublishAsset:render()
 			local displayCopy = props.displayCopy
 			local displayComment = props.displayComment
 			local displayAssetType = props.displayAssetType
-			local displaySale = props.displaySale
-			local displayPrice = props.displayPrice
-
-			local isPriceValid = props.isPriceValid
-			local onStatusChange = props.onStatusChange
-			local onPriceChange = props.onPriceChange
-
-			-- If this is a catalog asset, we check this.
-			local canChangeSalesStatus
-			local allowedAssetTypesForRelease = props.allowedAssetTypesForRelease
-			local newAssetStatus = props.newAssetStatus
-			local currentAssetStatus = props.currentAssetStatus
-			if AssetConfigUtil.isCatalogAsset(assetTypeEnum) then
-				canChangeSalesStatus = AssetConfigUtil.isReadyForSale(newAssetStatus)
-			else -- For everything else, we check the allowed list to toggle the sales status
-				-- For first release, we support only plugin. So, we check only plugin.
-				canChangeSalesStatus = AssetConfigUtil.isBuyableMarketplaceAsset(assetTypeEnum) and true or false
-			end
 
 			local orderIterator = LayoutOrderIterator.new()
 
@@ -297,37 +264,6 @@ function PublishAsset:render()
 
 					LayoutOrder = orderIterator:getNextOrder(),
 				}),
-
-				DividerBase2 = displaySale and Roact.createElement(createDivider, {
-					size = UDim2.new(1, 0, 0, DIVIDER_BASE_HEIGHT),
-					order = orderIterator:getNextOrder(),
-					theme = theme,
-				}),
-
-				Sale = displaySale and Roact.createElement(SalesComponent, {
-					Title = localizedContent.Sales.Sale,
-
-					NewAssetStatus = newAssetStatus,
-					CurrentAssetStatus = currentAssetStatus,
-					OnStatusChange = onStatusChange,
-					CanChangeSalesStatus = canChangeSalesStatus,
-
-					LayoutOrder = orderIterator:getNextOrder(),
-				}),
-
-				Price = displayPrice and Roact.createElement(PriceComponent, {
-					AssetTypeEnum = assetTypeEnum,
-					AllowedAssetTypesForRelease = allowedAssetTypesForRelease,
-					NewAssetStatus = newAssetStatus,
-					OnPriceChange = onPriceChange,
-					IsPriceValid = isPriceValid,
-
-					Price = price,
-					MinPrice = minPrice,
-					MaxPrice = maxPrice,
-
-					LayoutOrder = orderIterator:getNextOrder(),
-				})
 			})
 		end)
 	end)

@@ -10,8 +10,6 @@ local WithLayoutValues = LayoutValues.WithLayoutValues
 
 local PlayerNameTag = Roact.PureComponent:extend("PlayerNameTag")
 
-local FFlagPlayerListPremiumPadding = settings():GetFFlag("PlayerListPremiumPadding")
-
 PlayerNameTag.validateProps = t.strictInterface({
 	player = t.instanceIsA("Player"),
 	isTitleEntry = t.boolean,
@@ -108,7 +106,7 @@ function PlayerNameTag:render()
 				TextStrokeTransparency = self.props.textStyle.StrokeTransparency,
 				BackgroundTransparency = 1,
 				Text = self.props.player.Name,
-				TextTruncate = FFlagPlayerListPremiumPadding and Enum.TextTruncate.AtEnd or nil,
+				TextTruncate = Enum.TextTruncate.AtEnd,
 			})
 		end
 

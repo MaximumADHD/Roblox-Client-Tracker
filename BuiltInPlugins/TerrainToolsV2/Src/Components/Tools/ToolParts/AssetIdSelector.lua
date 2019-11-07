@@ -104,7 +104,7 @@ local function isAssetModerated(assetId, localization)
 	return false, localization:getText("AssetIdSelector", "AwaitingModeration")
 end
 
-local AssetIdSelector = Roact.Component:extend(script.Name)
+local AssetIdSelector = Roact.PureComponent:extend(script.Name)
 
 function AssetIdSelector:init()
 	self.mainFrameRef = Roact.createRef()

@@ -6,13 +6,16 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local UILibrary = Plugin.Packages.UILibrary
 local Signal = require(UILibrary.Utils.Signal)
 
-local Constants = require(Plugin.Src.Util.Constants)
-local PivotType = Constants.PivotType
-local FlattenMode = Constants.FlattenMode
+local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
+local BrushShape = TerrainEnums.BrushShape
+local PivotType = TerrainEnums.PivotType
+local FlattenMode = TerrainEnums.FlattenMode
+local ToolId = TerrainEnums.ToolId
 
 local Smoother = require(script.Parent.TerrainSmoother)
 
 local FFlagTerrainToolMetrics = settings():GetFFlag("TerrainToolMetrics")
+
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 local StudioService = game:GetService("StudioService")
 local ChangeHistoryService = game:GetService("ChangeHistoryService")
@@ -24,7 +27,7 @@ local kCurrentTool
 local mouse
 
 local kAutoMaterial = false
-local kBrushShape = "Sphere"
+local kBrushShape = BrushShape.Sphere
 local kCurrentMaterial = Enum.Material.Grass
 local kIgnoreWater = true
 local kPlaneLock = false
@@ -52,14 +55,14 @@ local cos = math.cos
 local pi = math.pi
 
 local shape = {
-	["Sphere"] = Enum.PartType.Ball,
-	["Cube"] = Enum.PartType.Block,
-	["Cylinder"] = Enum.PartType.Cylinder,
+	[BrushShape.Sphere] = Enum.PartType.Ball,
+	[BrushShape.Cube] = Enum.PartType.Block,
+	[BrushShape.Cylinder] = Enum.PartType.Cylinder,
 }
 local brushShapeToSelectionShape = {
-	["Sphere"] = "SelectionSphere",
-	["Cube"] = "SelectionBox",
-	["Cylinder"] = "SelectionCylinder",
+	[BrushShape.Sphere] = "SelectionSphere",
+	[BrushShape.Cube] = "SelectionBox",
+	[BrushShape.Cylinder] = "SelectionCylinder",
 }
 
 local kMinSelectionSize = 1
@@ -167,7 +170,8 @@ function updateOperationInfo()
 	if selectionPart then
 		local size = kSelectionSize * resolution
 		local height = kSelectionHeight * resolution
-		selectionPart.Size = (kBrushShape == "Cylinder" and Vector3.new(height, size, size) or Vector3.new(size, size, size)) + Vector3.new(.1, .1, .1)
+		selectionPart.Size = (kBrushShape == BrushShape.Cylinder and Vector3.new(height, size, size) or Vector3.new(size, size, size)) + Vector3.new(.1, .1, .1)
+
 		--[[ TODO: DEVTOOLS-3103 add CylinderSelection Part
 		if not useSelectionObjects then
 			selectionPart.Transparency = .9 - (kStrength * .3)
@@ -190,7 +194,7 @@ module.Init = function (toolName, theMouse)
 	mouse = theMouse
 	kCurrentTool = toolName
 
-	kAutoMaterial = kCurrentTool == "Flatten" and true or false
+	kAutoMaterial = kCurrentTool == ToolId.Flatten
 
 	updateOperationInfo()
 	FirstTimeSetup()
@@ -376,7 +380,7 @@ FirstTimeSetup = function()
 		local selectionHeight = info.height and info.height or selectionSize
 
 		-- TOOD: add BaseSize and Height options
-		if operationName ~= "Flatten" then
+		if operationName ~= ToolId.Flatten then
 			selectionHeight = selectionSize
 		end
 
@@ -410,15 +414,15 @@ FirstTimeSetup = function()
 
 		if not autoMaterial then
 			-- may do a fast operation
-			if operationName == 'Add' or (operationName == 'Subtract' and (not ignoreWater)) then
-				if operationName == "Subtract" then
+			if operationName == ToolId.Add or (operationName == ToolId.Subtract and not ignoreWater) then
+				if operationName == ToolId.Subtract then
 					desiredMaterial = materialAir
 				end
-				if brushShape == 'Sphere' then
+				if brushShape == BrushShape.Sphere then
 					terrain:FillBall(centerPoint, radius, desiredMaterial)
-				elseif brushShape == 'Cube' then
+				elseif brushShape == BrushShape.Cube then
 					terrain:FillBlock(CFrame.new(centerPoint.x, centerPoint.y, centerPoint.z), Vector3.new(size, height, size), desiredMaterial)
-				elseif brushShape == 'Cylinder' then
+				elseif brushShape == BrushShape.Cylinder then
 					terrain:FillCylinder(CFrame.new(centerPoint.x, centerPoint.y, centerPoint.z), height, radius, desiredMaterial)
 				end
 				return
@@ -427,7 +431,7 @@ FirstTimeSetup = function()
 
 		local materials, occupancies = terrain:ReadVoxels(region, resolution)
 		---TODO: !!Please make a decision to remove or optimize Smooth operation for performance!!---
-		if operationName == "Smooth" then
+		if operationName == ToolId.Smooth then
 			local middle = materials[ceil(#materials * .5)]	--This little section of code sets nearMaterial to middle of matrix
 			if middle then	--dig X
 				local middle = middle[ceil(#middle * .5)]
@@ -446,7 +450,7 @@ FirstTimeSetup = function()
 			local airFillerMaterial = materialAir
 			local waterHeight = 0
 			---TODO: !!Please optimize this N Cube operation for performance!!---
-			if ignoreWater and (operationName == 'Erode' or operationName == 'Subtract') then
+			if ignoreWater and (operationName == ToolId.Erode or operationName == ToolId.Subtract) then
 				for ix,vx in ipairs(materials) do
 					for iy,vy in ipairs(vx) do
 						for iz, vz in ipairs(vy) do
@@ -490,11 +494,11 @@ FirstTimeSetup = function()
 						local magnitudePercent = 1
 						local brushOccupancy = 1
 						if selectionSize > 2 then -- selection size 1x1x1, no matter what occupancy cells have, always render a box shape, 2x2x2 to 4x4x4, always render a sphere like shape.
-							if brushShape == 'Sphere' then
+							if brushShape == BrushShape.Sphere then
 								local distance = sqrt(cellVectorX * cellVectorX + cellVectorY * cellVectorY + cellVectorZ * cellVectorZ)
 								magnitudePercent = cos(min(1, distance / radiusOfRegion) * pi * .5)
 								brushOccupancy = max(0, min(1, (radiusOfRegion - distance) / resolution))
-							elseif brushShape == 'Cylinder' then
+							elseif brushShape == BrushShape.Cylinder then
 								local distance = sqrt(cellVectorX * cellVectorX + cellVectorZ * cellVectorZ)
 								magnitudePercent = cos(min(1, distance / radiusOfRegion) * pi * .5)
 								brushOccupancy = max(0, min(1, (radiusOfRegion - distance) / resolution))
@@ -514,14 +518,14 @@ FirstTimeSetup = function()
 						end
 						airFillerMaterial = waterHeight >= iy and airFillerMaterial or materialAir
 
-						if operationName == 'Add' then -- no use FOR NOW, calling FillBlock/FillBall becuase they can do the same operations.
+						if operationName == ToolId.Add then -- no use FOR NOW, calling FillBlock/FillBall becuase they can do the same operations.
 							if brushOccupancy > cellOccupancy then
 								occupancies[ix][iy][iz] = brushOccupancy
 							end
 							if brushOccupancy >= .5 and cellMaterial == materialAir then
 								materials[ix][iy][iz] = desiredMaterial
 							end
-						elseif operationName == 'Subtract' then -- no use when stract is not ignore water, calling FillBlock/FillBall becuase they can do the same operations.
+						elseif operationName == ToolId.Subtract then -- no use when stract is not ignore water, calling FillBlock/FillBall becuase they can do the same operations.
 							if cellMaterial ~= materialAir then
 								local desiredOccupancy =  1 - brushOccupancy -- even this value can be smaller than 0, there is a check to clamp it to 0 in c++
 								if desiredOccupancy < cellOccupancy then
@@ -533,8 +537,8 @@ FirstTimeSetup = function()
 									end
 								end
 							end
-						elseif operationName == 'Grow' then
-							if brushOccupancy >= .5 then
+						elseif operationName == ToolId.Grow then
+							if brushOccupancy >= 0.5 then
 								local desiredOccupancy = cellOccupancy
 								local fullNeighbor = false
 								local noWater = ignoreWater and cellMaterial == materialWater
@@ -569,8 +573,8 @@ FirstTimeSetup = function()
 									occupancies[ix][iy][iz] = desiredOccupancy
 								end
 							end
-						elseif operationName == 'Erode' then
-							if cellMaterial ~= materialAir and brushOccupancy > .5 then
+						elseif operationName == ToolId.Erode then
+							if cellMaterial ~= materialAir and brushOccupancy > 0.5 then
 								local desiredOccupancy = cellOccupancy
 								local emptyNeighbor = false
 								local neighborOccupancies = 6
@@ -601,10 +605,10 @@ FirstTimeSetup = function()
 									occupancies[ix][iy][iz] = desiredOccupancy
 								end
 							end
-						elseif operationName == 'Flatten' then
-							if differenceY > 0.1  and not (flattenMode == "Grow") then
+						elseif operationName == ToolId.Flatten then
+							if differenceY > 0.1 and not (flattenMode == FlattenMode.Grow) then
 							--------------------- Copy from Erode --------------------------------
-								if cellMaterial ~= materialAir and brushOccupancy > .5 then
+								if cellMaterial ~= materialAir and brushOccupancy > 0.5 then
 									local desiredOccupancy = cellOccupancy
 									local emptyNeighbor = false
 									local neighborOccupancies = 6
@@ -635,9 +639,9 @@ FirstTimeSetup = function()
 										occupancies[ix][iy][iz] = desiredOccupancy
 									end
 								end
-							elseif differenceY < -0.1 and not (flattenMode == "Erode") then
+							elseif differenceY < -0.1 and not (flattenMode == FlattenMode.Erode) then
 								------------------ Copy from Grow------------------------------
-								if brushOccupancy >= .5 then
+								if brushOccupancy >= 0.5 then
 									local desiredOccupancy = cellOccupancy
 									local fullNeighbor = false
 									local noWater = ignoreWater and cellMaterial == materialWater
@@ -673,7 +677,7 @@ FirstTimeSetup = function()
 									end
 								end
 							end
-						elseif operationName == 'Paint' then
+						elseif operationName == ToolId.Paint then
 							if brushOccupancy > 0 and cellOccupancy > 0 then
 								materials[ix][iy][iz] = desiredMaterial
 							end
@@ -710,11 +714,11 @@ FirstTimeSetup = function()
 				module.PlanePositionYChanged:fire(mainPoint.Y - 1)
 			end
 
-			if kCurrentTool == 'Add' then
+			if kCurrentTool == ToolId.Add then
 				mainPoint = mainPoint - mouse.UnitRay.Direction * .05
-			elseif kCurrentTool == 'Subtract' or kCurrentTool == 'Paint' or kCurrentTool == 'Grow' then
+			elseif kCurrentTool == ToolId.Subtract or kCurrentTool == ToolId.Paint or kCurrentTool == ToolId.Grow then
 				mainPoint = mainPoint + mouse.UnitRay.Direction * .05
-			elseif kCurrentTool == 'Flatten' then
+			elseif kCurrentTool == ToolId.Flatten then
 				if (not kPlaneLock) and click then
 					if not kFixedPlane then
 						module.PlanePositionYChanged:fire(mainPoint.Y - 1)
@@ -729,7 +733,7 @@ FirstTimeSetup = function()
 			if not kPlaneLock or not (downKeys[Enum.KeyCode.LeftShift] or downKeys[Enum.KeyCode.RightShift]) then
 				if not mouseDown or click then
 					lastPlanePoint = mainPoint
-					lastNormal = kCurrentTool ~= "Flatten" and findFace() or Vector3.new(0, 1 ,0)
+					lastNormal = kCurrentTool ~= ToolId.Flatten and findFace() or Vector3.new(0, 1 ,0)
 					reportClick = true
 				end
 			end
@@ -792,7 +796,7 @@ FirstTimeSetup = function()
 						end
 						lastMainPoint = mainPoint
 
-						if kCurrentTool == "Flatten" and kHeightPicker then
+						if kCurrentTool == ToolId.Flatten and kHeightPicker then
 							module.HeightPickerSet:fire(false)
 						end
 					end
@@ -815,7 +819,7 @@ FirstTimeSetup = function()
 					selectionPart.BottomSurface = 'Smooth'
 					selectionPart.Anchored = true
 					selectionPart.CanCollide = false
-					selectionPart.Size = kBrushShape == "Cylinder" and cylinderSize or partSize
+					selectionPart.Size = kBrushShape == BrushShape.Cylinder and cylinderSize or partSize
 					selectionPart.Parent = screenGui
 				end
 
@@ -846,7 +850,7 @@ FirstTimeSetup = function()
 					selectionPart.Locked = true
 					selectionPart.Anchored = true
 					selectionPart.CanCollide = false
-					selectionPart.Size = kBrushShape == "Cylinder" and cylinderSize or partSize
+					selectionPart.Size = kBrushShape == BrushShape.Cylinder and cylinderSize or partSize
 					selectionPart.Shape = shape[kBrushShape]
 					selectionPart.BrickColor = BrickColor.new('Toothpaste')
 					selectionPart.Material = Enum.Material.Neon
@@ -865,10 +869,10 @@ FirstTimeSetup = function()
 						selectionPart.Transparency = .9 - (kStrength * .3)
 					end
 					selectionPart.CFrame = CFrame.new(pivotMainPoint)
-					selectionPart.Rotation = kBrushShape == "Cylinder" and Vector3.new(0, 0, 90) or Vector3.new(0, 0, 0)
+					selectionPart.Rotation = kBrushShape == BrushShape.Cylinder and Vector3.new(0, 0, 90) or Vector3.new(0, 0, 0)
 				end
 
-				if kCurrentTool == "Flatten" then
+				if kCurrentTool == ToolId.Flatten then
 					local mainPointIntersect
 					if kFixedPlane then
 						mainPointIntersect = Vector3.new(mainPoint.x, kDesiredHeight, mainPoint.z)

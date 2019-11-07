@@ -15,10 +15,9 @@ local SetMergeEmpty = require(Actions.SetMergeEmpty)
 
 local TerrainRegionEditor = require(Plugin.Src.Components.Functions.TerrainRegionEditor)
 
-local UILibrary = Plugin.Packages.UILibrary
-
 local REDUCER_KEY = "RegionTool"
-local Region = Roact.Component:extend(script.Name)
+
+local Region = Roact.PureComponent:extend(script.Name)
 
 function Region:init(initialProps)
 		self.toggleButton = function(containter)

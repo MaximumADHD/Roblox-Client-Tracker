@@ -1,15 +1,16 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 local Promise = require(Plugin.Promise)
 local ScriptCollabEnabled = {}
+local StudioData = game:GetService("StudioData")
 
 function ScriptCollabEnabled.Get()
     return Promise.resolve({
-        ScriptCollabEnabled = game.EnableScriptCollabOnLoad
+		ScriptCollabEnabled = StudioData.EnableScriptCollabOnLoad
     })
 end
 
 function ScriptCollabEnabled.Set(value)
-    game.EnableScriptCollabOnLoad = value
+	StudioData.EnableScriptCollabOnLoad = value
     return Promise.resolve()
 end
 

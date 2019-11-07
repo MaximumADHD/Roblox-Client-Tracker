@@ -150,6 +150,28 @@ function Localization:getLocalizedStatusText(assetStatus)
 	})
 end
 
+function Localization:getLocalizedImageFormat(formatString, maxX, maxY)
+	return self:_safeLocalize("Studio.Toolbox.AssetConfigPreview.Format", {
+		formatString = formatString,
+		maxDimensionsX = tostring(maxX),
+		maxDimensionsY = tostring(maxY),
+	})
+end
+
+-- percent, string, from 0 to 100
+function Localization:getLocalizedFee(percent)
+	return self:_safeLocalize("Studio.Toolbox.General.Fee", {
+		percent = percent
+	})
+end
+
+function Localization:getSalesMessage(market, user)
+	return self:_safeLocalize("Studio.Toolbox.AssetConfigSales.Target", {
+		market = market,
+		user = user,
+	})
+end
+
 function Localization:getLocalizedVoteText(voteCounts)
 	local localizedContent = self.content
 	local voteText = voteCounts ~= 1 and localizedContent.Voting.VotesText
@@ -178,6 +200,28 @@ end
 function Localization:getLocalizedTooManyCollaborators(maxNumCollaborators)
 	return self:_safeLocalize("Studio.Toolbox.AssetConfigPackagePermissions.TooManyCollaboratorsText", {
 		maxNumCollaborators = maxNumCollaborators,
+	})
+end
+
+function Localization:getLocalizedBuyPrompt(name, creator, robux)
+	return self:_safeLocalize("Studio.Toolbox.Purchase.BuyPrompt", {
+		name = name,
+		creator = creator,
+		robux = robux,
+	})
+end
+
+function Localization:getLocalizedInsufficientFundsPrompt(robux, name, creator)
+	return self:_safeLocalize("Studio.Toolbox.Purchase.InsufficientPrompt", {
+		robux = robux,
+		name = name,
+		creator = creator,
+	})
+end
+
+function Localization:getPurchaseFailedDetails(name)
+	return self:_safeLocalize("Studio.Toolbox.Purchase.FailedDetails", {
+		name = name,
 	})
 end
 
@@ -308,6 +352,7 @@ function Localization:_recalculateContent()
 			GroupMeshes = self:_safeLocalize("Studio.Toolbox.General.CategoryGroupMeshes"),
 			GroupAudio = self:_safeLocalize("Studio.Toolbox.General.CategoryGroupAudio"),
 			GroupPackages = self:_safeLocalize("Studio.Toolbox.General.CategoryGroupPackages"),
+			GroupPlugins = self:_safeLocalize("Studio.Toolbox.General.CategoryGroupPlugins"),
 			CreationsDevelopmentSectionDivider = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsDevelopmentSectionDivider"),
 			CreationsModels = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsModels"),
 			CreationsDecals = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsDecals"),
@@ -415,6 +460,8 @@ function Localization:_recalculateContent()
 			ItemCannotBeSold = self:_safeLocalize("Studio.Toolbox.General.SalesItemCannotBeSold"),
 			Price = self:_safeLocalize("Studio.Toolbox.General.SalesPrice"),
 			ServiceFee = self:_safeLocalize("Studio.Toolbox.General.SalesServiceFee"),
+			Fee = self:_safeLocalize("Studio.Toolbox.General.Fee"),
+			Earn = self:_safeLocalize("Studio.Toolbox.General.Earn"),
 		},
 
 		PackagePermissions = {
@@ -436,7 +483,7 @@ function Localization:_recalculateContent()
 				GroupsCollaboratorType = self:_safeLocalize("Studio.Toolbox.AssetConfigPackagePermissions.GroupsCollaboratorType"),
 				MyFriendsCollaborator = self:_safeLocalize("Studio.Toolbox.AssetConfigPackagePermissions.MyFriendsCollaborator"),
 			},
-			
+
 			Searchbar = {
 				SearchByUser = self:_safeLocalize("Studio.Toolbox.AssetConfigPackagePermissions.SearchByUser"),
 				NoResults = self:_safeLocalize("Studio.Toolbox.AssetConfigPackagePermissions.NoResults"),
@@ -482,7 +529,9 @@ function Localization:_recalculateContent()
 
 			PreviewArea ={
 				PreviewLabel = self:_safeLocalize("Studio.Toolbox.AssetConfigPreview.Preview"),
-				Change = self:_safeLocalize("Studio.Toolbox.AssetConfigPreview.Change")
+				Change = self:_safeLocalize("Studio.Toolbox.AssetConfigPreview.Change"),
+				Format = self:_safeLocalize("Studio.Toolbox.AssetConfigPreview.Format"),
+				Process = self:_safeLocalize("Studio.Toolbox.AssetConfigPreview.Process"),
 			},
 
 			Footer = {
@@ -528,7 +577,21 @@ function Localization:_recalculateContent()
 
 			InstallSuccess = self:_safeLocalize("Studio.Toolbox.General.InstallSuccess"),
 			InstallFailure = self:_safeLocalize("Studio.Toolbox.General.InstallFailure"),
-		}
+		},
+
+		PurchaseFlow = {
+			Cancel = self:_safeLocalize("Studio.Toolbox.Purchase.Cancel"),
+			Retry = self:_safeLocalize("Studio.Toolbox.Purchase.Retry"),
+			Buy = self:_safeLocalize("Studio.Toolbox.Purchase.Buy"),
+			BuyRobux = self:_safeLocalize("Studio.Toolbox.Purchase.BuyRobux"),
+			BuyPrompt = self:_safeLocalize("Studio.Toolbox.Purchase.BuyPrompt"),
+			BuyTitle = self:_safeLocalize("Studio.Toolbox.Purchase.BuyTitle"),
+			InsufficientFundsTitle = self:_safeLocalize("Studio.Toolbox.Purchase.InsufficientTitle"),
+			InsufficientPrompt = self:_safeLocalize("Studio.Toolbox.Purchase.InsufficientPrompt"),
+			CurrentBalance = self:_safeLocalize("Studio.Toolbox.Purchase.RobuxBalance"),
+			FailedHeader = self:_safeLocalize("Studio.Toolbox.Purchase.FailedHeader"),
+			Free = self:_safeLocalize("Studio.Toolbox.Purchase.Free"),
+		},
 	})
 end
 

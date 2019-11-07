@@ -6,10 +6,12 @@ local wrapStrictTable = require(Plugin.Core.Util.wrapStrictTable)
 
 local EnableDeveloperGetManageGroupUrl = game:DefineFastFlag("EnableDeveloperGetManageGroupUrl", false)
 local FFlagUseRBXThumbInToolbox = game:GetFastFlag("UseRBXThumbInToolbox") and settings():GetFFlag("EnableRbxThumbAPI")
+local FFlagLuaPackagePermissions = settings():GetFFlag("LuaPackagePermissions")
 
 local Urls = {}
 
 local GET_ASSETS = Url.BASE_URL .. "IDE/Toolbox/Items?"
+local GET_ASSETS_DEVELOPER = Url.DEVELOP_URL .. "v1/toolbox/items?"
 local GET_ASSETS_CREATIONS = Url.ITEM_CONFIGURATION_URL .. "v1/creations/get-assets?"
 local GET_ASSETS_CREATION_DETAILS = Url.ITEM_CONFIGURATION_URL .. "v1/creations/get-asset-details"
 local GET_CREATOR_NAME = Url.API_URL .. "users/%d"
@@ -32,8 +34,6 @@ end
 
 local GET_ASSET_VERSION = Url.BASE_URL .. "studio/plugins/info?"
 
-local GET_WHITE_LIST_PLUGIN = Url.BASE_URL .. "v1/toolbox/items?"
-
 local ASSET_ID_STRING = "rbxassetid://%d"
 local ASSET_ID_PATH = "asset/?"
 local ASSET_ID = Url.BASE_URL .. ASSET_ID_PATH
@@ -54,7 +54,8 @@ local GET_FAVORITED_BASE = "/favorites/users/%d/assets/%d/favorite"
 local POST_FAVORITED_BASE = "/favorites/users/%d/assets/%d/favorite"
 local DELETE_FAVORITE_BASE = "/favorites/users/%d/assets/%d/favorite"
 
-local GET_VERSION_HISTORY_BASE = Url.DEVELOP_URL .. "v1/assets/%s/saved-versions"
+local DEPRECATED_GET_VERSION_HISTORY_BASE = Url.DEVELOP_URL .. "v1/assets/%s/saved-versions"
+local GET_VERSION_HISTORY_BASE = Url.DEVELOP_URL .. "v1/assets/%s/published_versions"
 local POST_REVERT_HISTORY_BASE = Url.DEVELOP_URL .. "v1/assets/%s/revert-version?"
 local GET_ASSET_CONFIG = Url.DEVELOP_URL .. "v1/assets?"
 local GET_ASSET_GROUP = Url.DEVELOP_URL .. "/v1/groups/%s"
@@ -64,11 +65,18 @@ local POST_UPLOAD_ASSET_BASE = Url.DATA_URL .. "Data/Upload.ashx?"
 
 local GET_MY_GROUPS = Url.GROUP_URL .. "v2/users/%%20%%20%s/groups/roles"
 local GET_IS_VERIFIED_CREATOR = Url.DEVELOP_URL .. "v1/user/is-verified-creator"
+local GET_GROUP_ROLE_INFO = Url.GROUP_URL .. "v1/groups/%s/roles"
 
-local GET_USER_FRIENDS_URL = "https://friends.roblox.com/v1/users/%d/friends"
+local GET_USER_FRIENDS_URL = Url.FRIENDS_URL .. "v1/users/%d/friends"
+local ROBUX_PURCHASE_URL = Url.BASE_URL .. "upgrades/robux"
+local ROBUX_BALANCE_URL = Url.ECONOMY_URL .. "v1/users/%d/currency"
+local OWNS_ASSET_URL = Url.API_URL .. "ownership/hasasset?assetId=%d&userId=%d"
+local ASSET_PURCHASE_URL = Url.ECONOMY_URL .. "v1/purchases/products/%d"
 
 -- Package Permissions URLs
 local GET_PACKAGE_COLLABORATORS = Url.DEVELOP_URL .. "v1/packages/assets/%s/permissions?"
+local POST_PACKAGE_METADATA = Url.DEVELOP_URL .. "v1/packages/assets/versions/metadata/get"
+local PUT_PACKAGE_PERMISSIONS = Url.DEVELOP_URL .. "v1/packages/assets/%s/permissions-batch"
 
 local DEFAULT_ASSET_SIZE = 100
 local DEFAULT_SEARCH_ROWS = 3
@@ -93,8 +101,8 @@ end
 -- page, number, which page are we requesting.
 -- groupId, number, used to fetch group asset.
 -- creatorType, number, unused, maybe will be put in use one day.
-function Urls.getWhiteListPluginUrl(category, keyword, sort, creatorId, num, page, groupId, creatorType)
-	return GET_ASSETS .. Url.makeQueryString({
+function Urls.getDevelopAssetUrl(category, keyword, sort, creatorId, num, page, groupId, creatorType)
+	return GET_ASSETS_DEVELOPER .. Url.makeQueryString({
 		category = category,
 		keyword = keyword,
 		num = num,
@@ -186,7 +194,11 @@ function Urls.constructAssetIdUrl(assetId)
 end
 
 function Urls.constructAssetSavedVersionString(assetId)
-	return (GET_VERSION_HISTORY_BASE):format(assetId)
+	if FFlagLuaPackagePermissions then
+		return (GET_VERSION_HISTORY_BASE):format(assetId)
+	else
+		return (DEPRECATED_GET_VERSION_HISTORY_BASE):format(assetId)
+	end
 end
 
 function Urls.constructRevertAssetVersionString(assetId, versionNumber)
@@ -320,6 +332,34 @@ function Urls.constructGetPackageCollaboratorsUrl(assetId)
 	return GET_PACKAGE_COLLABORATORS:format(assetId) .. Url.makeQueryString({
 		actionsTextToFilter = "UseView,Edit,Revoked,Own"
 	})
+end
+
+function Urls.constructPutPackagePermissionsUrl(assetId)
+	return PUT_PACKAGE_PERMISSIONS:format(assetId)
+end
+
+function Urls.getRobuxPurchaseUrl()
+	return ROBUX_PURCHASE_URL
+end
+
+function Urls.constructPostPackageMetadata()
+	return POST_PACKAGE_METADATA
+end
+
+function Urls.constructGetRobuxBalanceUrl(userId)
+	return ROBUX_BALANCE_URL:format(userId)
+end
+
+function Urls.constructGetGroupRoleInfoUrl(groupId)
+	return GET_GROUP_ROLE_INFO:format(groupId)
+end
+
+function Urls.constructOwnsAssetUrl(assetId, userId)
+	return OWNS_ASSET_URL:format(assetId, userId)
+end
+
+function Urls.constructAssetPurchaseUrl(productId)
+	return ASSET_PURCHASE_URL:format(productId)
 end
 
 return wrapStrictTable(Urls)

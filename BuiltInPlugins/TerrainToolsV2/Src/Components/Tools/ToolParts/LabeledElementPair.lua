@@ -12,14 +12,14 @@
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
-local RoactRodux = require(Plugin.Packages.RoactRodux)
 
 local Theme = require(Plugin.Src.ContextServices.Theming)
 local withTheme = Theme.withTheme
 
 local FIRST_COLUMN_WIDTH = 110
 local SIDE_PADDING = 20
-local LabeledElementPair = Roact.Component:extend(script.Name)
+
+local LabeledElementPair = Roact.PureComponent:extend(script.Name)
 
 function LabeledElementPair:init()
 	self.mainFrameRef = Roact.createRef()

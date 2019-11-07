@@ -34,7 +34,6 @@ local VERSION_BAR_HEIGHT = isTenFootInterface and 32 or (utility:IsSmallTouchScr
 -- [[ FAST FLAGS ]]
 local FFlagUseNotificationsLocalization = settings():GetFFlag('UseNotificationsLocalization')
 local FFlagHelpMenuShowPlaceVersion = settings():GetFFlag("HelpMenuShowPlaceVersion")
-local FFlagLuaInviteNewAnalytics = settings():GetFFlag("LuaInviteNewAnalytics")
 
 local FFlagXboxPlayNextGame = settings():GetFFlag("XboxPlayNextGame")
 local FFlagXboxOverrideEnablePlayNextGame = settings():GetFFlag("XboxOverrideEnablePlayNextGame")
@@ -502,7 +501,7 @@ local function CreateSettingsHub()
             game:GetPropertyChangedSignal("PlaceVersion"):Connect(setPlaceVersionText)
             spawn(setPlaceVersionText)
 		end
-		
+
 		local shouldShowEnvLabel = not FFlagChinaLicensingApp
 		if PolicyService:IsEnabled() then
 			shouldShowEnvLabel = not PolicyService:IsSubjectToChinaPolicies()
@@ -1611,13 +1610,10 @@ local function CreateSettingsHub()
 			local Diag = require(CorePackages.AppTempCommon.AnalyticsReporters.Diag)
 
 			local eventStream = EventStream.new()
-			local inviteToGameAnalytics
-			if FFlagLuaInviteNewAnalytics then
-				inviteToGameAnalytics = InviteToGameAnalytics.new()
-					:withEventStream(eventStream)
-					:withDiag(Diag.new(AnalyticsService))
-					:withButtonName(InviteToGameAnalytics.ButtonName.SettingsHub)
-			end
+			local inviteToGameAnalytics = InviteToGameAnalytics.new()
+				:withEventStream(eventStream)
+				:withDiag(Diag.new(AnalyticsService))
+				:withButtonName(InviteToGameAnalytics.ButtonName.SettingsHub)
 
 			local ShareGameMaster = require(RobloxGui.Modules.Settings.ShareGameMaster)
 			this.ShareGameApp = ShareGameMaster.createApp(this.PageViewClipper, inviteToGameAnalytics)

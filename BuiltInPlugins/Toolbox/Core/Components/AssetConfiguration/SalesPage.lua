@@ -15,6 +15,8 @@
 		onPriceChange, function, price has changed
 ]]
 
+local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
+
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
@@ -57,10 +59,15 @@ function SalesPage:render()
 			local price = props.price
 			local minPrice = props.minPrice
 			local maxPrice = props.maxPrice
+			local feeRate = props.feeRate
 			local onPriceChange = props.onPriceChange
 			local isPriceValid = props.isPriceValid
 			local layoutOrder = props.layoutOrder
 			local canChangeSalesStatus = AssetConfigUtil.isReadyForSale(newAssetStatus)
+			-- If it's marketplace buyable asset, and if the sales tab are avaialble. You can always toggle it.
+			if FFlagEnablePurchasePluginFromLua2 and AssetConfigUtil.isBuyableMarketplaceAsset(assetTypeEnum) then
+				canChangeSalesStatus = true
+			end
 
 			local orderIterator = LayoutOrderIterator.new()
 
@@ -95,6 +102,7 @@ function SalesPage:render()
 
 				SalesStatus = Roact.createElement(SalesComponent, {
 					Title = localizedContent.Sales.Sale,
+					AssetTypeEnum = assetTypeEnum,
 					NewAssetStatus = newAssetStatus,
 					CurrentAssetStatus = currentAssetStatus,
 					OnStatusChange = onStatusChange,
@@ -115,6 +123,7 @@ function SalesPage:render()
 					Price = price,
 					MinPrice = minPrice,
 					MaxPrice = maxPrice,
+					FeeRate = feeRate,
 					IsPriceValid = isPriceValid,
 
 					OnPriceChange = onPriceChange,

@@ -1,3 +1,7 @@
+local LocalizationService = game:GetService("LocalizationService")
+local CorePackages = game:GetService("CorePackages")
+local GetFFlagUseDateTimeType = require(CorePackages.AppTempCommon.LuaApp.Flags.GetFFlagUseDateTimeType)
+
 local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp")
 
 --[[
@@ -9,7 +13,7 @@ local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp")
 local TimeZone = require(script.Parent.TimeZone)
 local TimeUnit = require(script.Parent.TimeUnit)
 
-local DateTime = {}
+local LuaDateTime = {}
 
 local monthShortNames = {
 	"Jan", "Feb", "Mar", "Apr",
@@ -162,12 +166,47 @@ local function getTimeZoneOffset()
 	end
 end
 
+if GetFFlagUseDateTimeType() then
+	--[[
+		Get DateTime userdata with tz provided
+	]]
+	function LuaDateTime:getDateTime(tz)
+		tz = tz or TimeZone.Current
+
+		local dateTime
+		if tz == TimeZone.UTC then
+			dateTime = self.dateTime:ToUniversalTime()
+		elseif tz == TimeZone.Current then
+			dateTime = self.dateTime:ToLocalTime()
+		else
+			error(("Invalid TimeZone \"%s\""):format(tostring(tz)), 2)
+		end
+		return dateTime
+	end
+end
+
 --[[
-	Create a DateTime with the given values in UTC.
+	Create a DateTime with the given values in UTC when GetFFlagUseDateTimeType() is off.
+	When GetFFlagUseDateTimeType() is on, "kind" is used to specify if the DateTime is UTC or local time.
 
 	All values are optional!
 ]]
-function DateTime.new(year, month, day, hour, minute, seconds)
+function LuaDateTime.new(year, month, day, hour, minute, seconds, kind)
+	if GetFFlagUseDateTimeType() then
+		local self = {}
+		self.dateTime = DateTime.new(
+			year or 1970,
+			month or 1,
+			day or 1,
+			hour or 0,
+			minute or 0,
+			seconds or 0,
+			kind or Enum.DateTimeKind.Utc)
+		self.value = self.dateTime.UnixTimestamp
+		setmetatable(self, LuaDateTime)
+		return self
+	end
+
 	local tzOffset = getTimeZoneOffset()
 	local timestamp = os.time({
 		year = year or 1970,
@@ -187,30 +226,47 @@ function DateTime.new(year, month, day, hour, minute, seconds)
 		timestamp = timestamp + subseconds
 	end
 
-	return DateTime.fromUnixTimestamp(timestamp + tzOffset)
+	return LuaDateTime.fromUnixTimestamp(timestamp + tzOffset)
 end
 
 --[[
 	Create a DateTime representing now.
 ]]
-function DateTime.now()
-	return DateTime.fromUnixTimestamp(os.time())
+function LuaDateTime.now(kind)
+	if GetFFlagUseDateTimeType() then
+		local self = {}
+		self.dateTime = DateTime.now(kind)
+		self.value = self.dateTime.UnixTimestamp
+		setmetatable(self, LuaDateTime)
+		return self
+	end
+
+	return LuaDateTime.fromUnixTimestamp(os.time())
 end
 
 --[[
 	Create a Datetime from the given Unix timestamp.
 
-	Limited to the range [0, 2^32), which lets us represent dates out to about
-	2038.
+	Limited to the range [0, 2^32) when GetFFlagUseDateTimeType() is off, which lets us represent
+	dates out to about 2038.
+	When GetFFlagUseDateTimeType() is on max year is 3000, and max timestamps is the last second of year 3000.
 ]]
-function DateTime.fromUnixTimestamp(timestamp)
+function LuaDateTime.fromUnixTimestamp(timestamp, kind)
 	assert(type(timestamp) == "number", "Invalid argument #1 to fromUnixTimestamp, expected number.")
+
+	if GetFFlagUseDateTimeType() then
+		local self = {}
+		self.dateTime = DateTime.fromUnixTimestamp(timestamp, kind)
+		self.value = self.dateTime.UnixTimestamp
+		setmetatable(self, LuaDateTime)
+		return self
+	end
 
 	local self = {}
 
 	self.value = timestamp
 
-	setmetatable(self, DateTime)
+	setmetatable(self, LuaDateTime)
 
 	return self
 end
@@ -222,8 +278,16 @@ end
 	went wrong. This can probably turned into a second return value if we need
 	to handle that data programmatically.
 ]]
-function DateTime.fromIsoDate(isoDate)
+function LuaDateTime.fromIsoDate(isoDate)
 	assert(type(isoDate) == "string", "Invalid argument #1 to DateTime.fromIsoDate, expected string.")
+
+	if GetFFlagUseDateTimeType() then
+		local self = {}
+		self.dateTime = DateTime.fromIsoDate(isoDate)
+		self.value = self.dateTime.UnixTimestamp
+		setmetatable(self, LuaDateTime)
+		return self
+	end
 
 	local datePattern = "^(%d+)%-(%d+)%-(%d+)" -- 0000-00-00
 	local timePattern = "T(%d+):(%d+):(%d+%.?%d*)" -- T00:00:00
@@ -267,7 +331,7 @@ function DateTime.fromIsoDate(isoDate)
 		end
 	end
 
-	local date = DateTime.new(unpack(values))
+	local date = LuaDateTime.new(unpack(values))
 	date.value = date.value - timezone
 
 	return date
@@ -281,8 +345,15 @@ end
 	The time zone parameter is optional and defaults to the current time zone,
 	TimeZone.Current.
 ]]
-function DateTime:Format(formatString, tz)
+function LuaDateTime:Format(formatString, tz, localeId)
 	assert(type(formatString) == "string", "Invalid argument #1 to Format, expected string.")
+
+	if GetFFlagUseDateTimeType() then
+		local dateTime = self:getDateTime(tz)
+		localeId = localeId or LocalizationService.RobloxLocaleId
+
+		return dateTime:ToString(formatString, localeId)
+	end
 
 	tz = tz or TimeZone.Current
 
@@ -328,7 +399,21 @@ end
 	The time zone parameter is optional and defaults to the current zime zone,
 	TimeZone.Current.
 ]]
-function DateTime:GetValues(tz)
+function LuaDateTime:GetValues(tz)
+	if GetFFlagUseDateTimeType() then
+		local dateTime = self:getDateTime(tz)
+
+		return {
+			Year = dateTime.Year,
+			Month = dateTime.Month,
+			Day = dateTime.Day,
+			Hour = dateTime.Hour,
+			Minute = dateTime.Minute,
+			Seconds = dateTime.Second,
+			WeekDay = dateTime.WeekDay
+		}
+	end
+
 	tz = tz or TimeZone.Current
 
 	local reference
@@ -357,7 +442,11 @@ end
 --[[
 	Recover a Unix timestamp representing the DateTime's value.
 ]]
-function DateTime:GetUnixTimestamp()
+function LuaDateTime:GetUnixTimestamp()
+	if GetFFlagUseDateTimeType() then
+		return self.dateTime.UnixTimestamp
+	end
+
 	return self.value
 end
 
@@ -367,7 +456,11 @@ end
 	Always formats the time as UTC. There generally aren't many reasons to
 	generate an ISO 8601 date in another time zone.
 ]]
-function DateTime:GetIsoDate()
+function LuaDateTime:GetIsoDate()
+	if GetFFlagUseDateTimeType() then
+		return self.dateTime:ToIsoDate()
+	end
+
 	return self:Format("YYYY-MM-DD[T]HH:mm:ss[Z]", TimeZone.UTC)
 end
 
@@ -406,7 +499,7 @@ local descendingGranularityUnits = {
 	Granularity defaults to seconds and time zone defaults to the current local
 	time zone.
 ]]
-function DateTime:IsSame(other, granularity, timezone)
+function LuaDateTime:IsSame(other, granularity, timezone)
 	granularity = granularity or TimeUnit.Seconds
 	timezone = timezone or TimeZone.Current
 
@@ -460,8 +553,16 @@ end
 	Get a human-readable timestamp relative to the given epoch, which defaults
 	to now. The format of the time is contextual to how far away the times are.
 ]]
-function DateTime:GetLongRelativeTime(epoch, timezone)
-	epoch = epoch or DateTime.now()
+function LuaDateTime:GetLongRelativeTime(epoch, timezone, localeId)
+	if GetFFlagUseDateTimeType() then
+		-- Not relative time format for now, will do that later in DateTime v2
+		local dateTime = self:getDateTime(timezone)
+		localeId = localeId or LocalizationService.RobloxLocaleId
+
+		return dateTime:ToString("lll", localeId)
+	end
+
+	epoch = epoch or LuaDateTime.now()
 	timezone = timezone or TimeZone.Current
 
 	if FFlagChinaLicensingApp then
@@ -491,8 +592,16 @@ end
 	Get a human-readable timestamp relative to the given epoch, which defaults
 	to now. The format of the time is contextual to how far away the times are.
 ]]
-function DateTime:GetShortRelativeTime(epoch, timezone)
-	epoch = epoch or DateTime.now()
+function LuaDateTime:GetShortRelativeTime(epoch, timezone, localeId)
+	if GetFFlagUseDateTimeType() then
+		-- Not relative time format for now, will do that later in DateTime v2
+		local dateTime = self:getDateTime(timezone)
+		localeId = localeId or LocalizationService.RobloxLocaleId
+
+		return dateTime:ToString("ll", localeId)
+	end
+
+	epoch = epoch or LuaDateTime.now()
 	timezone = timezone or TimeZone.Current
 
 	if FFlagChinaLicensingApp then
@@ -518,6 +627,6 @@ function DateTime:GetShortRelativeTime(epoch, timezone)
 	end
 end
 
-DateTime.__index = DateTime
+LuaDateTime.__index = LuaDateTime
 
-return DateTime
+return LuaDateTime

@@ -32,6 +32,7 @@ local ContextHelper = require(Util.ContextHelper)
 local ContextGetter = require(Util.ContextGetter)
 local Urls = require(Util.Urls)
 local AssetConfigConstants = require(Util.AssetConfigConstants)
+local AssetConfigUtil = require(Util.AssetConfigUtil)
 
 local ImageWithDefault = require(Plugin.Core.Components.ImageWithDefault)
 
@@ -58,6 +59,9 @@ local VERTICAL_PADDING = 24
 
 local TAB_ITEM_HEIGHT = 48
 local DEFAULT_PRE_TAB_HEIGHT = 400
+
+local MAX_IMAGE_X = 512
+local MAX_IMAGE_Y = 512
 
 function PreviewArea:init(props)
 	self.baseFrameRef = Roact.createRef()
@@ -107,6 +111,7 @@ function PreviewArea:render()
 			if currentLayouter then
 				preTabHeight = currentLayouter.AbsoluteContentSize.Y
 			end
+			local formatText = localization:getLocalizedImageFormat(AssetConfigUtil.getImageFormatString(), MAX_IMAGE_X, MAX_IMAGE_Y)
 
 			local orderIterator = LayoutOrderIterator.new()
 
@@ -163,7 +168,7 @@ function PreviewArea:render()
 					LayoutOrder = orderIterator:getNextOrder()
 				}),
 
-				AssetInfo = Roact.createElement("Frame", {
+				AssetInfo = (previewType ~= AssetConfigConstants.PreviewTypes.ImagePicker) and Roact.createElement("Frame", {
 					Size = UDim2.new(1, 0, 0, TITLE_HEIGHT*2),
 					BackgroundTransparency = 1,
 					LayoutOrder = orderIterator:getNextOrder(),
@@ -197,6 +202,73 @@ function PreviewArea:render()
 						TextTruncate = Enum.TextTruncate.AtEnd,
 						TextXAlignment = Enum.TextXAlignment.Center,
 						TextYAlignment = Enum.TextYAlignment.Top,
+					}),
+				}),
+
+				Guide = (previewType == AssetConfigConstants.PreviewTypes.ImagePicker) and Roact.createElement("Frame", {
+					Size = UDim2.new(0, 192, 0, 120),
+					BackgroundTransparency = 1,
+					LayoutOrder = orderIterator:getNextOrder(),
+				}, {
+					UIListLayout = Roact.createElement("UIListLayout", {
+						FillDirection = Enum.FillDirection.Vertical,
+						HorizontalAlignment = Enum.HorizontalAlignment.Left,
+						VerticalAlignment = Enum.VerticalAlignment.Top,
+						SortOrder = Enum.SortOrder.LayoutOrder,
+						Padding = UDim.new(0, 8),
+					}),
+
+					Container = Roact.createElement("Frame", {
+						Size = UDim2.new(1, 0, 0, 54),
+						BackgroundTransparency = 1,
+						LayoutOrder = 1,
+					}, {
+						Dot = Roact.createElement("Frame", {
+							AnchorPoint = Vector2.new(0.5, 0.5),
+							Size = UDim2.new(0, 2, 0, 2),
+							Position = UDim2.new(0, 2, 0, 12),
+							BorderSizePixel = 0,
+						}),
+
+						FormatLabel = Roact.createElement("TextLabel", {
+							Size = UDim2.new(0, 176, 0, 54),
+							Position = UDim2.new(0, 10, 0, 0),
+							BackgroundTransparency = 1,
+							Text = formatText,
+							Font = Constants.FONT,
+							TextSize = Constants.FONT_SIZE_MEDIUM,
+							TextColor3 = previewAreaTheme.textColor,
+							TextWrapped = true,
+							TextXAlignment = Enum.TextXAlignment.Left,
+							TextYAlignment = Enum.TextYAlignment.Center,
+						}),
+					}),
+
+					Container2 = Roact.createElement("Frame", {
+						Size = UDim2.new(1, 0, 0, 54),
+						BackgroundTransparency = 1,
+						LayoutOrder = 2,
+					}, {
+						Dot = Roact.createElement("Frame", {
+							AnchorPoint = Vector2.new(0.5, 0.5),
+							Size = UDim2.new(0, 2, 0, 2),
+							Position = UDim2.new(0, 2, 0, 12),
+							BorderSizePixel = 0,
+						}),
+
+						ProcessLabel = Roact.createElement("TextLabel", {
+							Size = UDim2.new(0, 176, 0, 54),
+							Position = UDim2.new(0, 10, 0, 0),
+							BackgroundTransparency = 1,
+							Text = localizedContent.AssetConfig.PreviewArea.Process,
+							Font = Constants.FONT,
+							TextSize = Constants.FONT_SIZE_MEDIUM,
+							TextColor3 = previewAreaTheme.textColor,
+							TextWrapped = true,
+							TextXAlignment = Enum.TextXAlignment.Left,
+							TextYAlignment = Enum.TextYAlignment.Center,
+							LayoutOrder = 2,
+						})
 					}),
 				}),
 

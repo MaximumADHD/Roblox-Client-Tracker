@@ -1,4 +1,6 @@
 -- 24RightAngles
+local Plugin = script.Parent.Parent.Parent.Parent
+
 local coreGui = game:GetService('CoreGui')
 local ChangeHistoryService = game:GetService('ChangeHistoryService')
 local AnalyticsService = game:GetService("RbxAnalyticsService")
@@ -6,6 +8,9 @@ local StudioService = game:GetService("StudioService")
 local UserInputService = game:GetService("UserInputService")
 
 local ProgressFrame = require(script.Parent.ProgressFrame)
+
+local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
+local ToolId = TerrainEnums.ToolId
 
 local FFlagTerrainToolMetrics = settings():GetFFlag("TerrainToolMetrics")
 
@@ -37,7 +42,7 @@ module = {}
 module.Init = function (toolName, theMouse)
 	mouse = theMouse
 
-	if toolName == "Clear" then
+	if toolName == ToolId.Clear then
 		module.clearTerrain()
 	end
 	module.FirstTimeSetup()

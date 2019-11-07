@@ -14,15 +14,10 @@ local Diag = require(CorePackages.AppTempCommon.AnalyticsReporters.Diag)
 local EventStream = require(CorePackages.AppTempCommon.Temp.EventStream)
 local InviteToGameAnalytics = require(ShareGameDirectory.Analytics.InviteToGameAnalytics)
 
-local FFlagLuaInviteNewAnalytics = settings():GetFFlag("LuaInviteNewAnalytics")
-
-local inviteToGameAnalytics
-if FFlagLuaInviteNewAnalytics then
-	inviteToGameAnalytics = InviteToGameAnalytics.new()
-		:withEventStream(EventStream.new())
-		:withDiag(Diag.new(AnalyticsService))
-		:withButtonName(InviteToGameAnalytics.ButtonName.ModalPrompt)
-end
+local inviteToGameAnalytics = InviteToGameAnalytics.new()
+	:withEventStream(EventStream.new())
+	:withDiag(Diag.new(AnalyticsService))
+	:withButtonName(InviteToGameAnalytics.ButtonName.ModalPrompt)
 
 local InviteToGamePrompt = require(ShareGameDirectory.InviteToGamePrompt)
 local modalPrompt = InviteToGamePrompt.new(CoreGui)

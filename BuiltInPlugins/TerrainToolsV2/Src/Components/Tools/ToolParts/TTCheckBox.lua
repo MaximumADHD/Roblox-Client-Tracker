@@ -7,11 +7,7 @@ local Roact = require(Plugin.Packages.Roact)
 local UILibrary = Plugin.Packages.UILibrary
 local CheckBox = require(UILibrary.Components.CheckBox)
 
-local TexturePath = "rbxasset://textures/TerrainTools/"
-
-local ToolParts = script.Parent
-
-local TTCheckBox = Roact.Component:extend(script.Name)
+local TTCheckBox = Roact.PureComponent:extend(script.Name)
 
 function TTCheckBox:render()
 	local title = self.props.Title

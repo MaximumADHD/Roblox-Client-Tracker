@@ -411,6 +411,7 @@ Studio.App.IdeDoc.OpenPlaceFileReadOnly,Roblox IDE Doc,File is in use or is not 
 Studio.App.IdeDoc.OpeningPlace,Roblox IDE Doc,Opening Place,Opening Place
 Studio.App.IdeDoc.PasteInto,Roblox IDE Doc,Paste Into,Paste Into
 Studio.App.IdeDoc.PasteIntoSelected,Roblox IDE Doc,Paste Into Selected,Paste Into Selected
+Studio.App.IdeDoc.PlaceNotDirty,Roblox IDE Doc,No changes detected. Did not save.,No changes detected. Did not save.
 Studio.App.IdeDoc.PlayGame,Roblox IDE Doc,Play Game,Play Game
 Studio.App.IdeDoc.PleaseCheckPermissionsAndTryAgain,Roblox IDE Doc,Please check permissions and try again.,Please check permissions and try again.
 Studio.App.IdeDoc.Publish,Roblox IDE Doc,Publish,Publish
@@ -504,6 +505,9 @@ Studio.App.LoginManager.CaptchaError,,Error displaying captcha,Error displaying 
 Studio.App.LoginManager.ClosingDownAllOpenPlacesElps,,Closing down all open places...,Closing down all open places...
 Studio.App.LoginManager.LogOut,,Log Out,Log Out
 Studio.App.LoginManager.LoggedOut,,Logged Out,Logged Out
+Studio.App.LoginManager.ToSIAgree,,I Agree,I Agree
+Studio.App.LoginManager.ToSMessage3,,"By clicking ""%1"", you are agreeing to the <a href='%2'>Terms of Use</a> and <a href='%3'>Privacy Policy</a>.","By clicking ""%1"", you are agreeing to the <a href='%2'>Terms of Use</a> and <a href='%3'>Privacy Policy</a>."
+Studio.App.LoginManager.ToSTitle,,Roblox Terms of Service,Roblox Terms of Service
 Studio.App.LoginRequest.InternalServerError,Start page login,Our servers are having problems right now. Please try again later.,Our servers are having problems right now. Please try again later.
 Studio.App.LoginRequest.NetworkConnection,Start page login,Could not connect to the server. Please check your internet connection and try again later.,Could not connect to the server. Please check your internet connection and try again later.
 Studio.App.LoginRequest.ParseError,Start page login,Could not read response from server. Please try again later.,Could not read response from server. Please try again later.
@@ -609,6 +613,9 @@ Studio.App.Materials.Sand,,Sand,Sand
 Studio.App.Materials.Slate,,Slate,Slate
 Studio.App.Materials.SmoothPlastic,,Smooth Plastic,Smooth Plastic
 Studio.App.Materials.Wood,,Wood,Wood
+Studio.App.Merge.Accept,,Accept,Accept
+Studio.App.Merge.AcceptServerChanges,,Accept server changes,Accept server changes
+Studio.App.Merge.CompareDraftAndNewServer,,Compare draft & new server,Compare draft & new server
 Studio.App.Merge.ConflictInstruction,,Which code do you want to keep for this conflict?,Which code do you want to keep for this conflict?
 Studio.App.Merge.ConflictOptionDraft,"You can select the Draft, Server, or Other version of code to keep",Draft,Draft
 Studio.App.Merge.ConflictOptionOther,"You can select the Draft, Server, or Other version of code to keep",Other,Other
@@ -620,7 +627,15 @@ Studio.App.Merge.EditConflict,Button that prompts the user to edit the conflict,
 Studio.App.Merge.EditScriptConflict2,Edit - Scriptname - Conflict 1,Edit - %1 - Conflict %2,Edit - %1 - Conflict %2
 Studio.App.Merge.Next,,Next >,Next >
 Studio.App.Merge.NextUnresolved,,Next unresolved >>,Next unresolved >>
-Studio.App.Merge.NoConflictsDetectedUseCompareOption,,"No Conflicts Detected. To view changes to this script, please close this dialog and use the Compare option for this draft.","No Conflicts Detected. To view changes to this script, please close this dialog and use the Compare option for this draft."
+Studio.App.Merge.NoConflictsDetected,,"The server script was updated since you started your draft.
+
+In order to be able to commit your edits back to the server later, accept these changes to ensure that you are working off of the latest server version. No conflicts were detected between the new server version and your draft.
+
+Preview of merged code: ","The server script was updated since you started your draft.
+
+In order to be able to commit your edits back to the server later, accept these changes to ensure that you are working off of the latest server version. No conflicts were detected between the new server version and your draft.
+
+Preview of merged code: "
 Studio.App.Merge.OrSeparator,[x] Draft [ ] Server or: [ ] Other,or,or
 Studio.App.Merge.Preview,,Preview Resolution,Preview Resolution
 Studio.App.Merge.Previous,,< Previous,< Previous
@@ -1321,6 +1336,7 @@ Studio.App.RBXMainWindow.ToggleFSAndWindow,,Toggles between full screen and wind
 Studio.App.RBXMainWindow.ToggleGameAudio,,Toggle Game Audio,Toggle Game Audio
 Studio.App.RBXMainWindow.ToggleJoinSurfacesCheck,,Enables or Disables Join Surfaces Check,Enables or Disables Join Surfaces Check
 Studio.App.RBXMainWindow.ToggleLocalSpace,,Toggle Local Space,Toggle Local Space
+Studio.App.RBXMainWindow.TogglePlayerEmulator,,Toggle Player Emulator,Toggle Player Emulator
 Studio.App.RBXMainWindow.ToggleSelectionCommenting,,Toggle selection commenting,Toggle selection commenting
 Studio.App.RBXMainWindow.TogglesVideoRecord,,Toggles video record,Toggles video record
 Studio.App.RBXMainWindow.Toolbox,,Toolbox,Toolbox
@@ -1509,6 +1525,7 @@ Studio.App.RobloxRibbonMainWindow.CustomizeQuickAccessBar,,Customize Quick Acces
 Studio.App.RobloxRibbonMainWindow.CutSelectedText,,Cut selected text,Cut selected text
 Studio.App.RobloxRibbonMainWindow.Cylindrical,,Cylindrical,Cylindrical
 Studio.App.RobloxRibbonMainWindow.DebugErrors,,Debug Errors,Debug Errors
+Studio.App.RobloxRibbonMainWindow.DeviceEmulator,,Device,Device
 Studio.App.RobloxRibbonMainWindow.DiamondPlate,,Diamond Plate,Diamond Plate
 Studio.App.RobloxRibbonMainWindow.DiffMenu,,Diff Menu,Diff Menu
 Studio.App.RobloxRibbonMainWindow.DisplayAxis,,Display Axis,Display Axis
@@ -1591,6 +1608,7 @@ Studio.App.RobloxRibbonMainWindow.PlaceConstraintAttachment,,Place a constraint 
 Studio.App.RobloxRibbonMainWindow.PlacePart,,Place part,Place part
 Studio.App.RobloxRibbonMainWindow.PlacePartWorkspace,,Place a part into the workspace,Place a part into the workspace
 Studio.App.RobloxRibbonMainWindow.PlayTheGameInsideTheWindow,,Play the game inside the window,Play the game inside the window
+Studio.App.RobloxRibbonMainWindow.PlayerEmulator,,Player,Player
 Studio.App.RobloxRibbonMainWindow.Plugins,,Plugins,Plugins
 Studio.App.RobloxRibbonMainWindow.PluginsFolder,,Plugins Folder,Plugins Folder
 Studio.App.RobloxRibbonMainWindow.PreciselyManipulateAnObject,,Precisely Manipulate an Object,Precisely Manipulate an Object

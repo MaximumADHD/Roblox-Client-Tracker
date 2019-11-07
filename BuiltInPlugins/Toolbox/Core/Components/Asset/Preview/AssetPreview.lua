@@ -29,6 +29,7 @@ local FFlagStudioRemoveToolboxScrollingFrameHack = settings():GetFFlag("StudioRe
 local FFlagEnableMarketplaceFavorite = settings():GetFFlag("EnableMarketplaceFavorite")
 local FFlagEnableCatelogForAPIService = settings():GetFFlag("EnableCatelogForAPIService")
 local FFlagPluginAccessAndInstallationInStudio = settings():GetFFlag("PluginAccessAndInstallationInStudio")
+local FFlagStudioToolboxPluginPurchaseFlow = game:GetFastFlag("StudioToolboxPluginPurchaseFlow")
 
 local RunService = game:GetService("RunService")
 local StudioService = game:GetService("StudioService")
@@ -51,12 +52,19 @@ local Constants = require(Util.Constants)
 local Colors = require(Util.Colors)
 local Images = require(Util.Images)
 local ContextHelper = require(Util.ContextHelper)
+local ContextGetter = require(Util.ContextGetter)
 local getTextSize = require(Util.getTextSize)
 local Analytics = require(Util.Analytics.Analytics)
 local InsertAsset = require(Util.InsertAsset)
+local PluginPurchaseFlow = require(Plugin.Core.Components.PurchaseFlow.PluginPurchaseFlow)
 
 local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
+local getNetwork = ContextGetter.getNetwork
+
+local GetOwnsAssetRequest = require(Plugin.Core.Networking.Requests.GetOwnsAssetRequest)
+local ClearPurchaseFlow = require(Plugin.Core.Actions.ClearPurchaseFlow)
+local PurchaseStatus = require(Plugin.Core.Types.PurchaseStatus)
 
 local AssetType = require(Plugin.Core.Types.AssetType)
 
@@ -93,6 +101,7 @@ function AssetPreview:init(props)
 	self.state = {
 		enableScroller = true,
 		overrideEnableVoting = false,
+		showPurchaseFlow = false,
 	}
 
 	self.assetSizeInited = false
@@ -137,6 +146,12 @@ function AssetPreview:init(props)
 		end
 	end
 
+	self.purchaseCancelled = function()
+		self:setState({
+			showPurchaseFlow = false,
+		})
+	end
+
 	self.tryInstall = function()
 		local assetData = self.props.assetData
 		local assetVersionId = self.props.assetVersionId
@@ -144,6 +159,21 @@ function AssetPreview:init(props)
 		local assetId = asset.Id
 		local assetName = asset.Name
 		local assetTypeId = asset.TypeId
+
+		if FFlagStudioToolboxPluginPurchaseFlow then
+			local owned = self.props.Owned
+			if not owned then
+				-- Prompt user to purchase plugin
+				self:setState({
+					showPurchaseFlow = true,
+				})
+				return false
+			else
+				self:setState({
+					showPurchaseFlow = false,
+				})
+			end
+		end
 
 		local success = InsertAsset.tryInsert({
 			plugin = plugin,
@@ -161,6 +191,10 @@ function AssetPreview:init(props)
 			StudioService:UpdatePluginManagement()
 		end
 		return success
+	end
+
+	if FFlagStudioToolboxPluginPurchaseFlow then
+		self.props.clearPurchaseFlow(props.assetData.Asset.Id)
 	end
 
 	Analytics.onAssetPreviewSelected(props.assetData.Asset.Id)
@@ -189,6 +223,13 @@ function AssetPreview:didMount()
 			end)
 		end
 	end
+
+	if FFlagStudioToolboxPluginPurchaseFlow then
+		local assetData = self.props.assetData
+		local Asset = assetData.Asset
+		local assetId = Asset.Id
+		self.props.getOwnsAsset(getNetwork(self), assetId)
+	end
 end
 
 function AssetPreview:didUpdate()
@@ -200,6 +241,7 @@ function AssetPreview:render()
 		return withLocalization(function(localization, localizedContent)
 			-- TODO: Time to tide up the properties passed from the asset.
 			local props = self.props
+			local state = self.state
 
 			local assetPreviewTheme = theme.assetPreview
 
@@ -221,6 +263,13 @@ function AssetPreview:render()
 			local updated = Asset.Updated
 			local assetGenres = Asset.AssetGenres
 
+			local price, owned, showPurchaseFlow
+			if FFlagStudioToolboxPluginPurchaseFlow then
+				price = assetData.Product and assetData.Product.Price or 0
+				owned = props.Owned
+				showPurchaseFlow = state.showPurchaseFlow
+			end
+
 			local creator = assetData.Creator
 			local creatorName = creator.Name
 
@@ -236,18 +285,44 @@ function AssetPreview:render()
 				assetPreviewType = AssetType:getAssetType(currentPreview)
 			end
 
-			local isPluginAsset = AssetType:isPlugin(assetPreviewType)
-			local isPluginInstalled = isPluginAsset and StudioService:IsPluginInstalled(assetId)
-			local isPluginLoading = isPluginAsset and assetVersionId == nil
-			local isPluginUpToDate = isPluginAsset and not isPluginLoading
-				and StudioService:IsPluginUpToDate(assetId, assetVersionId)
+			local isPluginAsset, isPluginPaid, isPluginInstalled, isPluginLoading, isPluginUpToDate
+			isPluginAsset = AssetType:isPlugin(assetPreviewType)
+			isPluginInstalled = isPluginAsset and StudioService:IsPluginInstalled(assetId)
+
+			if FFlagStudioToolboxPluginPurchaseFlow then
+				isPluginPaid = isPluginAsset and price > 0
+				isPluginLoading = isPluginAsset and assetVersionId == nil and owned == nil
+				isPluginUpToDate = isPluginAsset and not isPluginLoading and assetVersionId
+					and StudioService:IsPluginUpToDate(assetId, assetVersionId)
+
+				-- Display loading indicator when plugin was just purchased and is installing
+				local purchaseStatus = props.PurchaseStatus
+				if (purchaseStatus == PurchaseStatus.Success or purchaseStatus == PurchaseStatus.Waiting)
+					and not isPluginInstalled then
+					isPluginLoading = true
+				end
+			else
+				isPluginLoading = isPluginAsset and assetVersionId == nil
+				isPluginUpToDate = isPluginAsset and not isPluginLoading
+			end
 
 			local pluginButtonText = localizedContent.AssetConfig.Insert
+			local showRobuxIcon
 			if isPluginAsset then
 				if isPluginLoading then
 					pluginButtonText = localizedContent.AssetConfig.Loading
 				elseif not isPluginInstalled then
-					pluginButtonText = localizedContent.AssetConfig.Install
+					if FFlagStudioToolboxPluginPurchaseFlow then
+						-- Show price if paid plugin has not been purchased
+						if isPluginPaid and not owned then
+							showRobuxIcon = true
+							pluginButtonText = price
+						else
+							pluginButtonText = localizedContent.AssetConfig.Install
+						end
+					else
+						pluginButtonText = localizedContent.AssetConfig.Install
+					end
 				elseif not isPluginUpToDate then
 					pluginButtonText = localizedContent.AssetConfig.Update
 				else
@@ -493,8 +568,16 @@ function AssetPreview:render()
 					TryInsert = tryInsert,
 					TryCreateContextMenu = tryCreateContextMenu,
 					InstallDisabled = isPluginAsset and (isPluginLoading or isPluginUpToDate),
-					DisplayResultOfInsertAttempt = isPluginAsset,
-				})
+					DisplayResultOfInsertAttempt = isPluginAsset and not showPurchaseFlow,
+					ShowRobuxIcon = showRobuxIcon,
+				}),
+
+				PurchaseFlow = FFlagStudioToolboxPluginPurchaseFlow and showPurchaseFlow
+					and Roact.createElement(PluginPurchaseFlow, {
+					Cancel = self.purchaseCancelled,
+					Continue = self.tryInstall,
+					AssetData = assetData,
+				}),
 			})
 		end)
 	end)
@@ -505,15 +588,37 @@ local function mapStateToProps(state, props)
 
 	local assets = state.assets or {}
 	local voting = state.voting or {}
+	local purchase = state.purchase or {}
 	local idToAssetMap = assets.idToAssetMap or {}
 	local assetId = props.assetData.Asset.Id
 	local pageInfo = state.pageInfo or {}
+	local purchaseStatus = purchase.status
+	local owned = purchase.cachedOwnedAssets[tostring(assetId)]
 
-	return {
+	local stateToProps = {
 		asset = idToAssetMap[assetId],
 		voting = voting[assetId] or {},
 		currentTab = pageInfo.currentTab,
 	}
+
+	if FFlagStudioToolboxPluginPurchaseFlow then
+		stateToProps.Owned = owned
+		stateToProps.PurchaseStatus = purchaseStatus
+	end
+
+	return stateToProps
 end
 
-return RoactRodux.connect(mapStateToProps, nil)(AssetPreview)
+local function mapDispatchToProps(dispatch)
+	return {
+		getOwnsAsset = function(network, assetId)
+			dispatch(GetOwnsAssetRequest(network, assetId))
+		end,
+
+		clearPurchaseFlow = function(assetId)
+			dispatch(ClearPurchaseFlow(assetId))
+		end,
+	}
+end
+
+return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(AssetPreview)

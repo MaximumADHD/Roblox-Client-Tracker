@@ -495,21 +495,21 @@ function findBiomeTransitionValue(biome,weight,value,averageValue)
 end
 
 function updatePausedButton()
-	--pauseButton.Style = paused and 'RobloxRoundButton' or 'RobloxRoundDefaultButton'
-	--pauseButton.Text = paused and 'Resume' or 'Pause'
+	pauseButton.Style = paused and 'RobloxRoundButton' or 'RobloxRoundDefaultButton'
+	pauseButton.Text = paused and 'Resume' or 'Pause'
 end
 
 --[[
 	Generate "activation" button
 ]]
-
-function generate ()
+function generate()
 	terrain = workspace.Terrain
 	if not generating and not clearing and terrain then
 		generating = true
 		if onGenStartActiveButton then
 			onGenStartActiveButton(false)
 		end
+
 		paused = false
 		cancelIt = false
 		updatePausedButton()
@@ -522,17 +522,33 @@ function generate ()
 		local biomeBlendPercentInverse = 1-biomeBlendPercent
 		local biomeBlendDistortion = biomeBlendPercent
 		local smoothScale = .5/mapHeight
-		local offset = Vector3.new(
-			floor(position.X / resolution),
-			floor(position.Y / resolution),
-			floor(position.Z / resolution)
+		local mapPosition = Vector3.new(
+			position.X,
+			position.Y,
+			position.Z
 		)
-		local voxelSize = Vector3.new(
-			floor(size.X / resolution),
-			floor(size.Y / resolution),
-			floor(size.Z / resolution)
+		local mapSize = Vector3.new(
+			size.X,
+			size.Y,
+			size.Z
 		)
-		local scaledOffset = offset * resolution
+		local mapExtents = mapSize / 2
+		local mapRegion = Region3.new(mapPosition - mapExtents, mapPosition + mapExtents)
+		mapRegion = mapRegion:ExpandToGrid(resolution)
+
+		-- convert back to voxels
+		local voxelSize = mapRegion.Size / resolution
+		local voxelExtents = voxelSize / 2
+
+		if FFlagTerrainToolMetrics then
+			local numVoxels = tostring(voxelSize.X * voxelSize.Y * voxelSize.Z)
+			AnalyticsService:SendEventDeferred("studio", "TerrainEditorV2", "GenerateTerrain", {
+				userId = StudioService:GetUserId(),
+				numVoxels = numVoxels,
+				biomeSize = biomeSize,
+				seed = textSeed,
+			})
+		end
 
 		local startTime = tick()
 		biomes = {}
@@ -544,21 +560,22 @@ function generate ()
 		if #biomes<=0 then
 			table.insert(biomes,'Hills')
 		end
-		--local oMap = {}
-		--local mMap = {}
+
 		for x = 1, voxelSize.X do  -- REMAP
-			local offsetX = offset.x + x
+			local offsetX = -voxelSize.X / 2 + x
 			local oMapX = {}
 			--oMap[x] = oMapX
 			local mMapX = {}
 			--mMap[x] = mMapX
-			local regionStart = Vector3.new(voxelSize.X*-2+(x-1), voxelSize.Y*-2, voxelSize.Z*-2) + offset
-			local regionEnd = Vector3.new(voxelSize.X*-2+x, voxelSize.Y*2, voxelSize.Z*2) + offset
-			local mapRegion = Region3.new(regionStart, regionEnd)
-			mapRegion = mapRegion:ExpandToGrid(resolution)
+			local regionStart = Vector3.new(offsetX - 1, -voxelExtents.Y, -voxelExtents.Z) * resolution + mapPosition
+			local regionEnd = Vector3.new(offsetX, voxelExtents.Y, voxelExtents.Z) * resolution + mapPosition
 
-			for z = 1, (mapRegion.Size.Z/resolution) do
-				local offsetZ = offset.z + z
+			local sliceRegion = Region3.new(regionStart, regionEnd)
+
+			sliceRegion = sliceRegion:ExpandToGrid(resolution)
+
+			for z = 1, voxelSize.Z do
+				local offsetZ = -voxelSize.Z / 2 + z
 				local biomeNoCave = false
 				local cellToBiomeX = offsetX/biomeSize + getPerlin(offsetX,0,offsetZ,233,biomeSize*.3)*.25 + getPerlin(offsetX,0,offsetZ,235,biomeSize*.05)*.075
 				local cellToBiomeZ = offsetZ/biomeSize + getPerlin(offsetX,0,offsetZ,234,biomeSize*.3)*.25 + getPerlin(offsetX,0,offsetZ,236,biomeSize*.05)*.075
@@ -607,7 +624,7 @@ function generate ()
 					end
 				end
 
-				for y = 1, (mapRegion.Size.Y/resolution) do
+				for y = 1, voxelSize.Y do
 					local oMapY = oMapX[y] or {}
 					oMapX[y] = oMapY
 					local mMapY = mMapX[y] or {}
@@ -690,7 +707,8 @@ function generate ()
 					mMapY[z] = (y == 1 and lava) or (smoothedResult <= 0 and air) or (surface and choiceSurface) or choiceFill
 				end
 			end
-			terrain:WriteVoxels(mapRegion, 4, {mMapX}, {oMapX})
+
+			terrain:WriteVoxels(sliceRegion, 4, {mMapX}, {oMapX})
 
 			local completionPercent = x/voxelSize.X
 			barFill.Size = UDim2.new(completionPercent,0,1,0)

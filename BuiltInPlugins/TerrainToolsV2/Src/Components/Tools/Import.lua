@@ -4,7 +4,6 @@
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
-local Rodux = require(Plugin.Packages.Rodux)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 
 local UILibrary = Plugin.Packages.UILibrary
@@ -43,7 +42,7 @@ local MAX_STUDS_ERROR_STR = string.format("Input can not exceed %d studs.", MAX_
 
 local REDUCER_KEY = "ImportTool"
 
-local Import = Roact.Component:extend(script.Name)
+local Import = Roact.PureComponent:extend(script.Name)
 
 function Import:init()
 	self.mainFrameRef = Roact.createRef()

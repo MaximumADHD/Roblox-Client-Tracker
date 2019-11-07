@@ -4,13 +4,13 @@
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
-local RoactRodux = require(Plugin.Packages.RoactRodux)
 
 local Theme = require(Plugin.Src.ContextServices.Theming)
 local withTheme = Theme.withTheme
 
 local DEFAULT_PADDING = UDim.new(0, 12)
-local Panel = Roact.Component:extend(script.Name)
+
+local Panel = Roact.PureComponent:extend(script.Name)
 
 function Panel:init(initialProps)
 	local padding = initialProps.Padding or DEFAULT_PADDING

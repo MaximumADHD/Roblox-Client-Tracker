@@ -70,7 +70,6 @@ function ConfigAccess:render()
 			-- User is 0, howerver in source code, User is 1.
 			-- TODO: Notice UX to change the website.
 			local ownerIndex = (owner.typeId or 1)
-
 			self.dropdownContent = AssetConfigUtil.getOwnerDropDownContent(props.manageableGroups, localizedContent)
 
 			local onDropDownSelect = props.onDropDownSelect
@@ -168,7 +167,7 @@ end
 local function mapStateToProps(state, props)
 	state = state or {}
 
-	local assetGroupData = props.assetGroupData or (FFlagLuaPackagePermissions and state.groupMetadata)
+	local assetGroupData = props.assetGroupData or (FFlagLuaPackagePermissions and props.owner and state[props.owner.targetId] and state[props.owner.targetId].groupMetadata)
 
 	return {
 		screenFlowType = state.screenFlowType,

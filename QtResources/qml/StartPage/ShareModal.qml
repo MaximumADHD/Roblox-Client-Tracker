@@ -9,8 +9,6 @@ Item {
     readonly property bool onFirstPage: shareStackLayout.currentIndex == 0
     readonly property bool onSecondPage: shareStackLayout.currentIndex == 1
 
-	property bool fflagStudioShareModalBackgroundColorChange: false
-
     // Should the grey header be visible
     property bool showHeader: true
     // "point" refers to the triangle in the top right corner when opened from the ribbon
@@ -30,8 +28,8 @@ Item {
     readonly property int pointDistanceFromRight: 40
     readonly property int pointSize: 16
 
-    readonly property string backgroundColour: fflagStudioShareModalBackgroundColorChange ? userPreferences.theme.style("CommonStyle mainBackground") : userPreferences.theme.style("StartPage ShareModal background")
-	readonly property string headerColour: fflagStudioShareModalBackgroundColorChange ? userPreferences.theme.style("CommonStyle mainBackground") : userPreferences.theme.style("StartPage ShareModal titleBarBackground")
+    readonly property string backgroundColour: userPreferences.theme.style("CommonStyle mainBackground")
+	readonly property string headerColour: userPreferences.theme.style("CommonStyle mainBackground")
 
     // Make the background bigger when displayed in a window so that the drop shadow is visible
     readonly property int extraMarginForDropShadow: 16
@@ -53,10 +51,6 @@ Item {
     height: 0
     opacity: 0
     visible: false
-
-	function setFFlagStudioShareModalBackgroundColorChange(flag) {
-        fflagStudioShareModalBackgroundColorChange = flag || false;
-    }
 
     // Set the size of the container from C++ so the "window" scales with it
     function setContainerSize(width, height) {

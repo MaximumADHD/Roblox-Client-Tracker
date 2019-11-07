@@ -5,6 +5,7 @@ local DebugFlags = require(Util.DebugFlags)
 local getUserId = require(Util.getUserId)
 
 local DFIntFileMaxSizeBytes = tonumber(settings():GetFVariable("FileMaxSizeBytes"))
+local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 
 local FFlagRemoveNilInstances = game:GetFastFlag("RemoveNilInstances")
 
@@ -22,7 +23,11 @@ function AssetConfigUtil.isReadyForSale(assetStatus)
 end
 
 function AssetConfigUtil.isOnSale(assetStatus)
-	return AssetConfigConstants.ASSET_STATUS.OnSale == assetStatus
+	if FFlagEnablePurchasePluginFromLua2 then
+		return AssetConfigConstants.ASSET_STATUS.OnSale == assetStatus or AssetConfigConstants.ASSET_STATUS.Free == assetStatus
+	else
+		return AssetConfigConstants.ASSET_STATUS.OnSale == assetStatus
+	end
 end
 
 function AssetConfigUtil.getSubText(newAssetStatus, currentAssetStatus, localizedContent)
@@ -44,18 +49,20 @@ function AssetConfigUtil.getMarketplaceFeesPercentage(allowedAssetTypesForReleas
 end
 
 
-function AssetConfigUtil.calculatePotentialEarning(allowedAssetTypesForRelease, price, assetTypeEnum)
+function AssetConfigUtil.calculatePotentialEarning(allowedAssetTypesForRelease, price, assetTypeEnum, minPrice)
 	price = tonumber(price)
 	if not price then
-		return 0
+		return 0, 0
 	end
 	price = MathUtils:round(price)
 	local convertToZeroToOne = 0.01
 	local scaler = convertToZeroToOne * AssetConfigUtil.getMarketplaceFeesPercentage(allowedAssetTypesForRelease, assetTypeEnum)
-	local marketPlaceFee = math.max(1, MathUtils:round(price * scaler))
-	return math.max(0, price - marketPlaceFee)
+	local marketPlaceFee = math.max(FFlagEnablePurchasePluginFromLua2 and minPrice or 1, MathUtils:round(price * scaler))
+
+	return math.max(0, price - marketPlaceFee), marketPlaceFee or 0
 end
 
+-- Remove me with FFlagEnablePurchasePluginFromLua2
 function AssetConfigUtil.getPriceRange(allowedAssetTypesForRelease, assetTypeEnum)
 	local releaseDataForAssetType = allowedAssetTypesForRelease and assetTypeEnum and allowedAssetTypesForRelease[assetTypeEnum.Name]
 	return releaseDataForAssetType and releaseDataForAssetType.allowedPriceRange or {}
@@ -63,18 +70,42 @@ end
 
 function AssetConfigUtil.getMinPrice(allowedAssetTypesForRelease, assetTypeEnum)
 	local priceRange = AssetConfigUtil.getPriceRange(allowedAssetTypesForRelease, assetTypeEnum)
-	return priceRange.minRobux and tonumber(priceRange.minRobux) or 0
+	-- Plugin are on the only buyable asset now, the price will start from 0.
+	if FFlagEnablePurchasePluginFromLua2 and AssetConfigUtil.isBuyableMarketplaceAsset(assetTypeEnum) then
+		return 0
+	else
+		return priceRange.minRobux and tonumber(priceRange.minRobux) or 0
+	end
 end
 
+-- Remove me with FFlagEnablePurchasePluginFromLua2
 function AssetConfigUtil.getMaxPrice(allowedAssetTypesForRelease, assetTypeEnum)
 	local priceRange = AssetConfigUtil.getPriceRange(allowedAssetTypesForRelease, assetTypeEnum)
 	return priceRange.maxRobux and tonumber(priceRange.maxRobux) or 0
 end
 
-local IMAGE_TYPES = {"jpg", "jpeg", "png"}
+-- Get min price, max price and feeRate
+function AssetConfigUtil.getPriceInfo(allowedAssetTypesForRelease, assetTypeEnum, clamp)
+	local minPrice, maxPrice, feeRate = 0, 0, 0
+	if assetTypeEnum and allowedAssetTypesForRelease[assetTypeEnum.Name] then
+		local assetInfo = (allowedAssetTypesForRelease and assetTypeEnum) and allowedAssetTypesForRelease[assetTypeEnum.Name]
+		local priceRange = assetInfo.allowedPriceRange
+		feeRate = tonumber(assetInfo.marketplaceFeesPercentage) or 0
+		-- This is V1 work around method for publishing free plugins.
+		-- In V2 we will be having an independent UI to set the "Free" status.
+		if FFlagEnablePurchasePluginFromLua2 and AssetConfigUtil.isBuyableMarketplaceAsset(assetTypeEnum) then
+			minPrice = 0
+		else
+			minPrice = priceRange.minRobux and tonumber(priceRange.minRobux) or 0
+		end
+		maxPrice = priceRange.maxRobux and tonumber(priceRange.maxRobux) or 0
+	end
+
+	return minPrice, maxPrice, feeRate
+end
 
 function AssetConfigUtil.promptImagePicker()
-	local iconFile = StudioService:PromptImportFile(IMAGE_TYPES)
+	local iconFile = StudioService:PromptImportFile(AssetConfigConstants.IMAGE_TYPES)
 
 	if iconFile then
 		-- You can't pick too big a image.
@@ -85,6 +116,17 @@ function AssetConfigUtil.promptImagePicker()
 			return iconFile
 		end
 	end
+end
+
+function AssetConfigUtil.getImageFormatString()
+	local resultString = ""
+	for index, v in pairs(AssetConfigConstants.IMAGE_TYPES) do
+		resultString = resultString .. v
+		if AssetConfigConstants.IMAGE_TYPES[index + 1] then
+		    resultString = resultString .. ", "
+		end
+	end
+	return resultString
 end
 
 local catalogAssetTypes = AssetConfigConstants.catalogAssetTypes
@@ -202,6 +244,15 @@ function AssetConfigUtil.getClonedInstances(instances)
 	end
 
 	return clonedInstances
+end
+
+function AssetConfigUtil.getPreviewType(assetTypeEnum, instances)
+	local previewType = instances and AssetConfigConstants.PreviewTypes.ModelPreview or AssetConfigConstants.PreviewTypes.Thumbnail
+	-- And then we show price according to the sales status and if user is whitelisted.
+	if assetTypeEnum and AssetConfigUtil.isBuyableMarketplaceAsset(assetTypeEnum) then
+		previewType = AssetConfigConstants.PreviewTypes.ImagePicker
+	end
+	return previewType
 end
 
 return AssetConfigUtil

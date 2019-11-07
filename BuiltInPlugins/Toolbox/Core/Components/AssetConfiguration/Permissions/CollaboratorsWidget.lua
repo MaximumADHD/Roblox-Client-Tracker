@@ -22,13 +22,12 @@ local Roact = require(Libs.Roact)
 local Cryo = require(Libs.Cryo)
 
 local Util = Plugin.Core.Util
-local Images = require(Util.Images)
+local AssetConfigConstants = require(Util.AssetConfigConstants)
+local Urls = require(Util.Urls)
 local Constants = require(Util.Constants)
 local ContextHelper = require(Util.ContextHelper)
 local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
-local Urls = require(Util.Urls)
-local AssetConfigConstants = require(Util.AssetConfigConstants)
 
 local PermissionsDirectory = Plugin.Core.Components.AssetConfiguration.Permissions
 local PermissionsConstants = require(PermissionsDirectory.PermissionsConstants)
@@ -38,6 +37,7 @@ local GroupCollaboratorItem = require(PermissionsDirectory.GroupCollaboratorItem
 local UILibrary = require(Libs.UILibrary)
 local Separator = UILibrary.Component.Separator
 local createFitToContent = UILibrary.Component.createFitToContent
+local deepJoin = UILibrary.Util.deepJoin
 
 local FitToContentWidget = createFitToContent("Frame", "UIListLayout", {
 	SortOrder = Enum.SortOrder.LayoutOrder,
@@ -84,12 +84,13 @@ end
 local function getLabelForAction(localized, action)
 	if action == PermissionsConstants.NoAccessKey then
 		return localized.PackagePermissions.ActionDropdown.NoAccessLabel
-	elseif action == PermissionsConstants.PlayKey then
+	elseif action == PermissionsConstants.UseViewKey then
 		return localized.PackagePermissions.ActionDropdown.UseViewLabel
 	elseif action == PermissionsConstants.EditKey then
 		return localized.PackagePermissions.ActionDropdown.EditLabel
+	else
+		return ""
 	end
-	return ""
 end
 
 local CollaboratorsWidget = Roact.PureComponent:extend("CollaboratorsWidget")
@@ -97,26 +98,42 @@ local CollaboratorsWidget = Roact.PureComponent:extend("CollaboratorsWidget")
 function CollaboratorsWidget:render()
 	local props = self.props
 
-	return withLocalization(function(_, localized)
+	return withLocalization(function(localization, localized)
 		return withTheme(function(theme)
 			local function rolePermissionChanged(roleId, newPermission)
 				local roleData = props.Permissions[PermissionsConstants.RoleSubjectKey][roleId]
 				local groupId = roleData[PermissionsConstants.GroupIdKey]
+				local groupKey = props.GroupMetadata[groupId]
 
-				local newGroupMetadata = Cryo.Dictionary.join(props.GroupMetadata, {[groupId] = Cryo.Dictionary.join(props.GroupMetadata[groupId], {Action=PermissionsConstants.NoAccessKey})})
+				local newGroupMetadata = deepJoin(props.GroupMetadata, {
+					[groupId] = {
+						[groupKey] = {
+							[PermissionsConstants.ActionKey] = PermissionsConstants.NoAccessKey
+						}						
+					}
+				})
 
-				local newPermissions = 	Cryo.Dictionary.join(props.Permissions, {[PermissionsConstants.RoleSubjectKey]=Cryo.Dictionary.join(
-											props.Permissions[PermissionsConstants.RoleSubjectKey], {[roleId]=Cryo.Dictionary.join(
-												props.Permissions[PermissionsConstants.RoleSubjectKey][roleId], {[PermissionsConstants.ActionKey]=newPermission}
-											)}
-										)})
-				
+				local newPermissions = 	deepJoin(props.Permissions, {
+					[PermissionsConstants.RoleSubjectKey] = {
+						[roleId] = {
+							[PermissionsConstants.ActionKey] = newPermission
+						}
+					}
+				})
+
 				props.PermissionsChanged(newPermissions)
 				props.GroupMetadataChanged(newGroupMetadata)
 			end
 
 			local function groupPermissionChanged(groupId, newPermission)
-				local newGroupMetadata = Cryo.Dictionary.join(props.GroupMetadata, {[groupId] = Cryo.Dictionary.join(props.GroupMetadata[groupId], {Action=newPermission})})
+				local groupKey = props.GroupMetadata[groupId]
+				local newGroupMetadata = deepJoin(props.GroupMetadata, {
+					[groupId] = {
+						[groupKey] = {
+							[PermissionsConstants.ActionKey] = newPermission
+						}						
+					}
+				})
 
 				local nonePermissions = {}
 				for roleId,roleData in pairs(props.Permissions[PermissionsConstants.RoleSubjectKey]) do
@@ -134,11 +151,13 @@ function CollaboratorsWidget:render()
 			end
 
 			local function userPermissionChanged(userId, newPermission)
-				local newPermissions = 	Cryo.Dictionary.join(props.Permissions, {[PermissionsConstants.UserSubjectKey]=Cryo.Dictionary.join(
-											props.Permissions[PermissionsConstants.UserSubjectKey], {[userId]=Cryo.Dictionary.join(
-												props.Permissions[PermissionsConstants.UserSubjectKey][userId], {[PermissionsConstants.ActionKey]=newPermission}
-											)}
-										)})
+				local newPermissions = deepJoin(props.Permissions, {
+					[PermissionsConstants.UserSubjectKey] = {
+						[userId] = {
+							[PermissionsConstants.ActionKey] = newPermission
+						}
+					}
+				})
 				
 				props.PermissionsChanged(newPermissions)
 			end
@@ -152,9 +171,13 @@ function CollaboratorsWidget:render()
 			end
 
 			local function userRemoved(userId)
-				local newPermissions = 	Cryo.Dictionary.join(props.Permissions, {[PermissionsConstants.UserSubjectKey]=Cryo.Dictionary.join(
-											props.Permissions[PermissionsConstants.UserSubjectKey], {[userId]=Cryo.None}
-										)})
+				local newPermissions = deepJoin(props.Permissions, {
+					[PermissionsConstants.UserSubjectKey] = {
+						[userId] = {
+							[PermissionsConstants.ActionKey] = PermissionsConstants.NoAccessKey
+						}
+					}
+				})
 				
 				props.PermissionsChanged(newPermissions)
 			end
@@ -176,7 +199,7 @@ function CollaboratorsWidget:render()
 			local users = {}
 			if (props.Permissions[PermissionsConstants.UserSubjectKey]) then
 				for userId,permission in pairs(props.Permissions[PermissionsConstants.UserSubjectKey]) do
-					if props.OwnerType ~= Enum.CreatorType.User or props.OwnerId ~= userId then
+					if props.OwnerType ~= Enum.CreatorType.User or props.OwnerId ~= userId and permission[PermissionsConstants.ActionKey] ~= PermissionsConstants.NoAccessKey then
 						table.insert(users, {Name=permission[PermissionsConstants.SubjectNameKey], Id=permission[PermissionsConstants.SubjectIdKey], Action=permission[PermissionsConstants.ActionKey]})
 					end
 				end
@@ -185,7 +208,7 @@ function CollaboratorsWidget:render()
 					return a.Name < b.Name
 				end)
 			end
-
+						
 			-- Roact elements built from users and groups tables
 			local userCollaborators = {}
 			local userAssignablePermissions = getUserCollaboratorPermissions(props, localized)			
@@ -201,7 +224,7 @@ function CollaboratorsWidget:render()
 					LayoutOrder = i,
 				}, {
 					FirstSeparator = Roact.createElement(Separator, {
-						Size = UDim2.new(1, 0, 0, 0),
+						Size = UDim2.new(1, 0, 0, 1),
 						Position = UDim2.new(0.5, 0, 0, 0),
 					}),
 					CollaboratorItem = Roact.createElement(CollaboratorItem, {
@@ -209,8 +232,7 @@ function CollaboratorsWidget:render()
 						
 						CollaboratorName = user.Name,
 						CollaboratorId = user.Id,
-						CollaboratorIcon = Urls.constructAvatarHeadshotThumbnailUrl(user.Id,
-						AssetConfigConstants.rbxThumbSizes.AvatarHeadshotImageSize),
+						CollaboratorIcon = Urls.constructAvatarHeadshotThumbnailUrl(user.Id, AssetConfigConstants.rbxThumbSizes.AvatarHeadshotImageSize),
 						UseMask = true,
 
 						Items = lockedPermission and {} or userAssignablePermissions,
@@ -259,16 +281,16 @@ function CollaboratorsWidget:render()
 			}, {
 				UsersTitle = Roact.createElement("TextLabel", {
 					LayoutOrder = 0,
+
+					Font = Constants.FONT,
 					
-					Text = "Users",
+					Text = localized.PackagePermissions.Collaborators.UsersCollaboratorType,
+					TextSize = Constants.FONT_SIZE_TITLE,
+					TextColor3 = theme.assetConfig.packagePermissions.subTextColor,
 					TextXAlignment = Enum.TextXAlignment.Left,
 					
 					Visible = #users > 0,
 					BackgroundTransparency = 1,
-
-					Font = Constants.FONT,
-					TextSize = Constants.FONT_SIZE_TITLE,
-					TextColor3 = theme.assetConfig.packagePermissions.subTextColor,
 				}),
 				
 				Users = Roact.createElement(FitToContentList, {
@@ -276,18 +298,19 @@ function CollaboratorsWidget:render()
 					BackgroundTransparency = 1,
 				}, userCollaborators),
 				
+				-- TODO: re-enable when groups are added to package permisse, {
 				GroupsTitle = FFlagStudioAllowPkgPermsForOtherUsrsAndGrps and Roact.createElement("TextLabel", {
 					LayoutOrder = 2,
+
+					Font = Constants.FONT,
 					
-					Text = "Groups",
+					Text = localized.PackagePermissions.Collaborators.GroupsCollaboratorType,
+					TextSize = Constants.FONT_SIZE_TITLE,
+					TextColor3 = theme.assetConfig.packagePermissions.subTextColor,
 					TextXAlignment = Enum.TextXAlignment.Left,
 					
 					Visible = #groups > 0,
 					BackgroundTransparency = 1,
-
-					Font = Constants.FONT,
-					TextSize = Constants.FONT_SIZE_TITLE,
-					TextColor3 = theme.assetConfig.packagePermissions.subTextColor,
 				}),
 				
 				Groups = FFlagStudioAllowPkgPermsForOtherUsrsAndGrps and Roact.createElement(FitToContentList, {

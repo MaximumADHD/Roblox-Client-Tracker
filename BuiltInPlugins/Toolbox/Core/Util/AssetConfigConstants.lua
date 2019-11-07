@@ -75,6 +75,7 @@ AssetConfigConstants.ASSET_STATUS = convertArrayToTable({
 	"OnSale",
 	"OffSale",
 	"DelayedRelease",
+	"Free",
 })
 
 AssetConfigConstants.SALES_STATUS_FOR_PRICE = convertArrayToTable({
@@ -126,11 +127,19 @@ AssetConfigConstants.marketplaceBuyableAsset = convertArrayToTable({
 	Enum.AssetType.Plugin,
 })
 
+AssetConfigConstants.developCategoryType = convertArrayToTable({
+	"WhitelistedPlugins",
+	"MyPlugins",
+	"GroupPlugins",
+})
+
 AssetConfigConstants.rbxThumbSizes = {
 	-- Supported sizes, 48, 60, 150
 	AvatarHeadshotImageSize = 60,
 	-- Supported sizes, 150, 420
 	GroupIconImageSize = 150,
 }
+
+AssetConfigConstants.IMAGE_TYPES = {"jpg", "jpeg", "png", "tga", "bmp"}
 
 return AssetConfigConstants

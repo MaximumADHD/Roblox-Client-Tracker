@@ -52,8 +52,10 @@ local Requests = Plugin.Core.Networking.Requests
 local UpdatePageInfoAndSendRequest = require(Requests.UpdatePageInfoAndSendRequest)
 local ChangeMarketplaceTab = require(Requests.ChangeMarketplaceTab)
 local GetRolesRequest = require(Requests.GetRolesRequest)
+local GetRobuxBalance = require(Requests.GetRobuxBalance)
 
 local FFlagFixToolboxInitLoad = settings():GetFFlag("FixToolboxInitLoad")
+local FFlagStudioToolboxPluginPurchaseFlow = game:GetFastFlag("StudioToolboxPluginPurchaseFlow")
 
 local Toolbox = Roact.PureComponent:extend("Toolbox")
 
@@ -188,6 +190,10 @@ function Toolbox:didMount()
 	self:handleInitialSettings(self.props.categories)
 
 	self.props.setRoles(getNetwork(self))
+
+	if FFlagStudioToolboxPluginPurchaseFlow then
+		self.props.getRobuxBalance(getNetwork(self))
+	end
 end
 
 function Toolbox:render()
@@ -282,6 +288,10 @@ local function mapDispatchToProps(dispatch)
 
 		changeMarketplaceTab = function(networkInterface, tabName, newCategories, settings, options)
 			dispatch(ChangeMarketplaceTab(networkInterface, tabName, newCategories, settings, options))
+		end,
+
+		getRobuxBalance = function(networkInterface)
+			dispatch(GetRobuxBalance(networkInterface))
 		end,
 	}
 end

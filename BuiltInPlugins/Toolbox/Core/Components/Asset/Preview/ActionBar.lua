@@ -16,6 +16,7 @@
 	assetVersionId = version ID, for plugin installs
 	installDisabled = true if we're a plugin and we are loading, disables install attempts while loading
 	displayResultOfInsertAttempt = if true, overwrites button color/text once you click it based on result of insert
+	ShowRobuxIcon = Whether to show a robux icon next to the text.
 ]]
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
@@ -89,6 +90,7 @@ function ActionBar:render()
 			local size = props.Size
 			local position = props.Position
 			local anchorPoint = props.AnchorPoint
+			local showRobuxIcon = props.ShowRobuxIcon
 
 			local color = state.overrideButtonColor or props.Color
 
@@ -100,6 +102,7 @@ function ActionBar:render()
 				text = localizedContent.AssetConfig.InstallFailure
 			end
 
+			local textWidth = Constants.getTextSize(text, Constants.FONT_SIZE_LARGE, Constants.FONT_BOLD).X
 
 			local actionBarTheme = theme.assetPreview.actionBar
 
@@ -165,20 +168,37 @@ function ActionBar:render()
 
 					LayoutOrder = 2,
 				}, {
+					Layout = Roact.createElement("UIListLayout", {
+						SortOrder = Enum.SortOrder.LayoutOrder,
+						FillDirection = Enum.FillDirection.Horizontal,
+						VerticalAlignment = Enum.VerticalAlignment.Center,
+						HorizontalAlignment = Enum.HorizontalAlignment.Center,
+						Padding = UDim.new(0, 2)
+					}),
+
+					Icon = showRobuxIcon and Roact.createElement("ImageLabel", {
+						LayoutOrder = 1,
+						Size = Constants.Dialog.ROBUX_SIZE,
+						BackgroundTransparency = 1,
+						Image = Images.ROBUX_SMALL,
+						ImageColor3 = Colors.WHITE,
+					}),
+
 					InsertTextLabel = Roact.createElement("TextLabel", {
-						Size = UDim2.new(1, 0, 1, 0),
+						LayoutOrder = 2,
+						Size = UDim2.new(0, textWidth, 1, 0),
 
 						Text = text,
 						Font = Constants.FONT_BOLD,
 						TextSize = Constants.FONT_SIZE_LARGE,
-						TextColor3 = Color3.fromRGB(255, 255, 255),
+						TextColor3 = Colors.WHITE,
 						TextXAlignment = Enum.TextXAlignment.Center,
 						TextYAlignment = Enum.TextYAlignment.Center,
 
 						BackgroundTransparency = 1,
 						BorderSizePixel = 0,
-					})
-				})
+					}),
+				}),
 			})
 		end)
 	end)

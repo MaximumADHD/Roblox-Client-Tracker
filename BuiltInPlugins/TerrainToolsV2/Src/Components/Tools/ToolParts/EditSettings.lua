@@ -15,7 +15,7 @@ local ToolParts = script.Parent
 local Panel = require(ToolParts.Panel)
 local LabeledElementPair = require(ToolParts.LabeledElementPair)
 
-local EditSettings = Roact.Component:extend(script.Name)
+local EditSettings = Roact.PureComponent:extend(script.Name)
 
 function EditSettings:render()
 	local toggleButton = self.props.toggleButton

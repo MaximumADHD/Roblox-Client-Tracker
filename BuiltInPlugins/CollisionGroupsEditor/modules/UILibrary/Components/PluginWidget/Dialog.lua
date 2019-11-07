@@ -39,7 +39,7 @@ function Dialog:init(props)
 	widget.ZIndexBehavior = zIndexBehavior
 	self.widget = widget
 
-	if props.OnClose then
+	if props.OnClose and widget:IsA("PluginGui") then
 		widget:BindToClose(function()
 			props.OnClose()
 		end)

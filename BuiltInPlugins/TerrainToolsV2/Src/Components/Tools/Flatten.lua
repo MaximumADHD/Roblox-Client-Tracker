@@ -28,12 +28,15 @@ local SetIgnoreWater = require(Actions.SetIgnoreWater)
 local Functions = Plugin.Src.Components.Functions
 local TerrainBrush = require(Functions.TerrainBrush)
 
-local Constants = require(Plugin.Src.Util.Constants)
-local PivotType = Constants.PivotType
-local FlattenMode = Constants.FlattenMode
+local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
+local BrushShape = TerrainEnums.BrushShape
+local PivotType = TerrainEnums.PivotType
+local FlattenMode = TerrainEnums.FlattenMode
+local ToolId = TerrainEnums.ToolId
 
 local REDUCER_KEY = "FlattenTool"
-local Flatten = Roact.Component:extend(script.Name)
+
+local Flatten = Roact.PureComponent:extend(script.Name)
 
 function Flatten:init(initialProps)
 	self.layoutRef = Roact.createRef()
@@ -98,7 +101,7 @@ function Flatten:init(initialProps)
 
 	self.updateBrushProperties = function()
 		TerrainBrush.ChangeProperties({
-			brushShape = self.props.brushShape or "Sphere",
+			brushShape = self.props.brushShape or BrushShape.Sphere,
 			baseSize = self.props.baseSize or 10,
 			height = self.props.baseSize or 10, -- change back to height when we make height an option
 			pivot = self.props.pivot or PivotType.Center,
@@ -125,13 +128,13 @@ function Flatten:didMount()
 	local mouse = plugin:GetMouse()
 
 	coroutine.wrap(function()
-		TerrainBrush.Init(Constants.ToolId.Flatten, mouse)
+		TerrainBrush.Init(ToolId.Flatten, mouse)
 	end)()
 	self:updateBrushProperties()
 end
 
 function Flatten:render()
-	local brushShape = self.props.brushShape or "Cube"
+	local brushShape = self.props.brushShape or BrushShape.Cube
 	local baseSize = self.props.baseSize or 6
 	local height = self.props.height or 6
 	local strength = self.props.strength or 1

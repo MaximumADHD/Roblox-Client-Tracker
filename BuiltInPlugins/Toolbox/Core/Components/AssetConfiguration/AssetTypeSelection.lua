@@ -60,7 +60,7 @@ function AssetTypeSelection:getSelectorItems(localizedContent)
 	}
 
 	-- only catalog item creators can upload hats
-	if FFlagAllowCatalogItemCreatorAssetConfig and self.props.isCatalogItemCreator then
+	if FFlagAllowCatalogItemCreatorAssetConfig and (game:GetFastFlag("CMSRemoveUGCContentEnabledBoolean") or self.props.isCatalogItemCreator) then
 		if game:GetFastFlag("CMSAdditionalAccessoryTypesV2") then
 			local allowedAssetTypes = AssetConfigUtil.getAllowedAssetTypeEnums(self.props.allowedAssetTypesForRelease)
 			if #allowedAssetTypes > 0 then
@@ -180,7 +180,7 @@ local function mapStateToProps(state, props)
 		instances = state.instances,
 		currentScreen = state.currentScreen,
 		screenFlowType = state.screenFlowType,
-		isCatalogItemCreator = state.isCatalogItemCreator,
+		isCatalogItemCreator = state.isCatalogItemCreator, -- remove with FFlagCMSRemoveUGCContentEnabledBoolean
 		allowedAssetTypesForRelease = state.allowedAssetTypesForRelease,
 		assetTypeEnum = state.assetTypeEnum,
 	}

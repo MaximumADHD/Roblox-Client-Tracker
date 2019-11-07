@@ -10,8 +10,11 @@ local withLocalization = Localizing.withLocalization
 local Theme = require(Plugin.Src.ContextServices.Theming)
 local withTheme = Theme.withTheme
 
-local Constants = require(Plugin.Src.Util.Constants)
-local FlattenMode = Constants.FlattenMode
+local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
+local BrushShape = TerrainEnums.BrushShape
+local FlattenMode = TerrainEnums.FlattenMode
+local PivotType = TerrainEnums.PivotType
+local ToolId = TerrainEnums.ToolId
 
 local MAX_GRAPHENES = 12
 --- Color ---
@@ -27,7 +30,7 @@ local LabeledTextInput = require(ToolParts.LabeledTextInput)
 local LabeledElementPair = require(ToolParts.LabeledElementPair)
 local Slider = require(ToolParts.Slider)
 
-local BrushSettings = Roact.Component:extend(script.Name)
+local BrushSettings = Roact.PureComponent:extend(script.Name)
 
 function BrushSettings:init()
 	self.layoutRef = Roact.createRef()
@@ -63,7 +66,7 @@ function BrushSettings:render()
 
 		local setText = self.props.setText
 
-		local isFlatten = currentTool == "Flatten"
+		local isFlatten = currentTool == ToolId.Flatten
 
 		local toggleOn = theme.toggleTheme.toggleOnImage
 		local toggleOff = theme.toggleTheme.toggleOffImage
@@ -95,30 +98,30 @@ function BrushSettings:render()
 				Image = sphereBrushImage,
 				Size = UDim2.new(0, 32, 0, 32),
 				[Roact.Event.Activated] = function ()
-					self.props.setBrushShape("Sphere")
+					self.props.setBrushShape(BrushShape.Sphere)
 				end,
 				BorderColor3 = FRAME_BORDER_COLOR1,
-				BackgroundTransparency = (brushShape == "Sphere") and .5 or 1,
+				BackgroundTransparency = (brushShape == BrushShape.Sphere) and .5 or 1,
 				LayoutOrder = 1,
 			}),
 			Cube = Roact.createElement("ImageButton", {
 				Image = cubeBrushImage,
 				Size = UDim2.new(0, 32, 0, 32),
 				[Roact.Event.Activated] = function ()
-					self.props.setBrushShape("Cube")
+					self.props.setBrushShape(BrushShape.Cube)
 				end,
 				BorderColor3 = FRAME_BORDER_COLOR1,
-				BackgroundTransparency = (brushShape == "Cube") and .5 or 1,
+				BackgroundTransparency = (brushShape == BrushShape.Cube) and .5 or 1,
 				LayoutOrder = 2,
 			}),
 			Cylinder = Roact.createElement("ImageButton", {
 				Image = cylinderBrushImage,
 				Size = UDim2.new(0, 32, 0, 32),
 				[Roact.Event.Activated] = function ()
-					self.props.setBrushShape("Cylinder")
+					self.props.setBrushShape(BrushShape.Cylinder)
 				end,
 				BorderColor3 = FRAME_BORDER_COLOR1,
-				BackgroundTransparency = (brushShape == "Cylinder") and .5 or 1,
+				BackgroundTransparency = (brushShape == BrushShape.Cylinder) and .5 or 1,
 				LayoutOrder = 3,
 			}),
 		}

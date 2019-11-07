@@ -62,6 +62,8 @@ local Redo = require(Plugin.Src.Thunks.History.Redo)
 
 local TogglePlay = require(Plugin.Src.Thunks.Playback.TogglePlay)
 
+local FFlagAnimEditorFixBackspaceOnMac = require(Plugin.LuaFlags.GetFFlagAnimEditorFixBackspaceOnMac)
+
 local TimelineActions = Roact.PureComponent:extend("TimelineActions")
 
 -- Returns the easing value shared among all selected keyframes,
@@ -254,6 +256,9 @@ function TimelineActions:init(initialProps)
 
 	self:addAction(actions.CopySelected, initialProps.CopySelectedKeyframes)
 	self:addAction(actions.DeleteSelected, initialProps.DeleteSelectedKeyframes)
+	if FFlagAnimEditorFixBackspaceOnMac() then
+		self:addAction(actions.DeleteSelectedBackspace, initialProps.DeleteSelectedKeyframes)
+	end
 	self:addAction(actions.ResetSelected, initialProps.ResetSelectedKeyframes)
 	self:addAction(actions.SelectAll, initialProps.SelectAllKeyframes)
 	self:addAction(actions.DeselectAll, initialProps.DeselectAllKeyframes)
@@ -295,6 +300,9 @@ function TimelineActions:render()
 			pluginActions.CopySelected.Enabled = true
 			pluginActions.ResetSelected.Enabled = true
 			pluginActions.DeleteSelected.Enabled = true
+			if FFlagAnimEditorFixBackspaceOnMac() then
+				pluginActions.DeleteSelectedBackspace.Enabled = true
+			end
 		else
 			pluginActions.SelectAll.Enabled = true
 		end

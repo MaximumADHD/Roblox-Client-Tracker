@@ -12,7 +12,7 @@ return function(networkInterface, groupIndex)
 
 		store:dispatch(UpdatePageInfoAndSendRequest(networkInterface, nil, {
 			searchTerm = "",
-			sortIndex = Sort.getDefaultSortForGroups(),
+			sortIndex = Sort.getDefaultSortForGroups(store:getState().pageInfo),
 			groupIndex = groupIndex,
 			targetPage = 1,
 			currentPage = 0,

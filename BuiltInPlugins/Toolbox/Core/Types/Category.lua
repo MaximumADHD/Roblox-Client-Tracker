@@ -2,10 +2,12 @@ local FFlagLuaPackagePermissions =  settings():GetFFlag("LuaPackagePermissions")
 local FFlagPluginAccessAndInstallationInStudio = settings():GetFFlag("PluginAccessAndInstallationInStudio")
 local FFlagOnlyWhitelistedPluginsInStudio = settings():GetFFlag("OnlyWhitelistedPluginsInStudio")
 local FFlagFixToolboxInitLoad = settings():GetFFlag("FixToolboxInitLoad")
+local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 
 local Plugin = script.Parent.Parent.Parent
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 local AssetConfigUtil = require(Plugin.Core.Util.AssetConfigUtil)
+local Cryo = require(Plugin.Libs.Cryo)
 
 local Category = {}
 
@@ -69,7 +71,7 @@ Category.FREE_AUDIO = {name = "FreeAudio", category = "FreeAudio",
 Category.FREE_PLUGINS = {name = "FreePlugins", category = "FreePlugins",
 	ownershipType = Category.OwnershipType.FREE, Category.AssetType.PLUGIN}
 Category.WHITELISTED_PLUGINS = {name = "PaidPlugins", category = "WhitelistedPlugins",
-	ownershipType = Category.OwnershipType.FREE, Category.AssetType.PLUGIN}
+	ownershipType = Category.OwnershipType.FREE, assetType = Category.AssetType.PLUGIN}
 
 Category.MY_MODELS = {name = "MyModels", category = "MyModelsExceptPackage",
 	ownershipType = Category.OwnershipType.MY, assetType = Category.AssetType.MODEL}
@@ -99,6 +101,8 @@ Category.GROUP_MESHES = {name = "GroupMeshes", category = "GroupMeshes",
 	ownershipType = Category.OwnershipType.GROUP, assetType = Category.AssetType.MESH}
 Category.GROUP_AUDIO = {name = "GroupAudio", category = "GroupAudio",
 	ownershipType = Category.OwnershipType.GROUP, assetType = Category.AssetType.AUDIO}
+Category.GROUP_PLUGINs = {name = "GroupPlugins", category = "GroupPlugins",
+	ownershipType = Category.OwnershipType.GROUP, assetType = Category.AssetType.PLUGIN}
 
 Category.MY_PACKAGES = {name = "MyPackages", category = "MyPackages",
 	ownershipType = Category.OwnershipType.MY, assetType = Category.AssetType.PACKAGE}
@@ -110,6 +114,7 @@ Category.CREATIONS_MODELS = {name = "CreationsModels", assetType = Category.Asse
 Category.CREATIONS_DECALS = {name = "CreationsDecals", assetType = Category.AssetType.DECAL}
 Category.CREATIONS_AUDIO = {name = "CreationsAudio", assetType = Category.AssetType.AUDIO}
 Category.CREATIONS_MESHES = {name = "CreationsMeshes", assetType = Category.AssetType.MESHPART}
+Category.CREATIONS_PLUGIN = {name = "CreationsPlugins", assetType = Category.AssetType.PLUGIN}
 Category.CREATIONS_CATALOG_SECTION_DIVIDER = {name = "CreationsCatalogSectionDivider", selectable=false}
 Category.CREATIONS_HATS = {name = "CreationsHats", assetType = Category.AssetType.HAT}
 Category.CREATIONS_TEE_SHIRT = {name = "CreationsTeeShirts", assetType = Category.AssetType.TEE_SHIRT}
@@ -149,6 +154,7 @@ Category.INVENTORY_WITH_GROUPS = {
 	Category.GROUP_DECALS,
 	Category.GROUP_MESHES,
 	Category.GROUP_AUDIO,
+	Category.GROUP_PLUGINs,
 }
 
 Category.RECENT = {
@@ -159,13 +165,24 @@ Category.RECENT = {
 }
 
 local function getCreationCategories()
-	return {
-		Category.CREATIONS_DEVELOPMENT_SECTION_DIVIDER,
-		Category.CREATIONS_MODELS,
-		Category.CREATIONS_DECALS,
-		Category.CREATIONS_AUDIO,
-		Category.CREATIONS_MESHES,
-	}
+	if FFlagEnablePurchasePluginFromLua2 then
+		return {
+			Category.CREATIONS_DEVELOPMENT_SECTION_DIVIDER,
+			Category.CREATIONS_MODELS,
+			Category.CREATIONS_DECALS,
+			Category.CREATIONS_AUDIO,
+			Category.CREATIONS_MESHES,
+			Category.CREATIONS_PLUGIN,
+		}
+	else
+		return {
+			Category.CREATIONS_DEVELOPMENT_SECTION_DIVIDER,
+			Category.CREATIONS_MODELS,
+			Category.CREATIONS_DECALS,
+			Category.CREATIONS_AUDIO,
+			Category.CREATIONS_MESHES,
+		}
+	end
 end
 
 local CREATIONS = {
@@ -215,7 +232,8 @@ if FFlagPluginAccessAndInstallationInStudio then
 	else
 		table.insert(Category.MARKETPLACE, Category.FREE_PLUGINS)
 	end
-	table.insert(Category.INVENTORY_WITH_GROUPS, 5, Category.MY_PLUGINS)
+	local insertIndex = Cryo.List.find(Category.INVENTORY_WITH_GROUPS, Category.MY_PACKAGES) + 1
+	table.insert(Category.INVENTORY_WITH_GROUPS, insertIndex, Category.MY_PLUGINS)
 end
 
 local function checkBounds(index)
@@ -241,8 +259,12 @@ function Category.categoryIsGroupAsset(currentTab, index)
 	return checkBounds(index) and Category.INVENTORY_WITH_GROUPS[index].ownershipType == Category.OwnershipType.GROUP
 end
 
-function Category.categoryIsPlugin(index)
-	return checkBounds(index) and Category.INVENTORY_WITH_GROUPS[index].assetType == Category.AssetType.PLUGIN
+function Category.categoryIsPlugin(currentTab, index)
+	if currentTab == Category.MARKETPLACE_KEY then
+		return checkBounds(index) and Category.MARKETPLACE[index].assetType == Category.AssetType.PLUGIN
+	else
+		return checkBounds(index) and Category.INVENTORY_WITH_GROUPS[index].assetType == Category.AssetType.PLUGIN
+	end
 end
 
 local ASSET_ENUM_CATEGORY_MAP = {
@@ -260,7 +282,7 @@ function Category.getCategories(tabName, roles)
 	if game:GetFastFlag("CMSAdditionalAccessoryTypesV2") then
 		if Category.CREATIONS_KEY == tabName then
 			local categories = getCreationCategories()
-			if roles and roles.isCatalogItemCreator then
+			if roles and (game:GetFastFlag("CMSRemoveUGCContentEnabledBoolean") or roles.isCatalogItemCreator) then
 				local allowedAssetTypeEnums = AssetConfigUtil.getAllowedAssetTypeEnums(roles.allowedAssetTypesForRelease)
 				if #allowedAssetTypeEnums > 0 then
 					table.insert(categories, Category.CREATIONS_CATALOG_SECTION_DIVIDER)

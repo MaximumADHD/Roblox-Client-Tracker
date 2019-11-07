@@ -7,6 +7,9 @@ if not plugin then
 	return
 end
 
+-- Fast flags
+game:DefineFastFlag("TerrainToolsRefactorTabsAndTools", false)
+
 -- libraries
 local Plugin = script.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -23,6 +26,13 @@ local ChangeTool = require(Plugin.Src.Actions.ChangeTool)
 -- data
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 
+-- middleWare
+local getReportTerrainToolMetrics = require(Plugin.Src.MiddleWare.getReportTerrainToolMetrics)
+
+-- util
+local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
+local ToolId = TerrainEnums.ToolId
+
 -- theme
 local PluginTheme = require(Plugin.Src.Resources.PluginTheme)
 
@@ -36,7 +46,13 @@ local TOOLBAR_NAME = "TerrainToolsLuaToolbarName"
 local DOCK_WIDGET_PLUGIN_NAME = "TerrainTools_PluginGui"
 
 -- Plugin Specific Globals
-local dataStore = Rodux.Store.new(MainReducer)
+local dataStore = Rodux.Store.new(MainReducer, nil, {
+	getReportTerrainToolMetrics({
+		AnalyticsService = game:GetService("RbxAnalyticsService"),
+		StudioService = game:GetService("StudioService")
+	}),
+})
+
 local theme = PluginTheme.new()
 local localization = Localization.new({
 	pluginName = PLUGIN_NAME,
@@ -47,8 +63,6 @@ local localization = Localization.new({
 -- Widget Gui Elements
 local pluginHandle
 local pluginGui
-
--- Fast flags
 
 --Initializes and populates the plugin popup window
 local function openPluginWindow()
@@ -73,7 +87,7 @@ local function openPluginWindow()
 
 	if plugin then
 		plugin.Deactivation:connect(function()
-			dataStore:dispatch(ChangeTool("None"))
+			dataStore:dispatch(ChangeTool(ToolId.None))
 		end)
 	end
 end

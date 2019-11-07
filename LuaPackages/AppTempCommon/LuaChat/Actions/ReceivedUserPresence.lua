@@ -1,7 +1,7 @@
 local Modules = game:GetService("CorePackages").AppTempCommon
 
 local Action = require(Modules.Common.Action)
-local DateTime = require(Modules.LuaChat.DateTime)
+local LuaDateTime = require(Modules.LuaChat.DateTime)
 
 return Action(script.Name, function(userId,
 		presence, lastLocation,
@@ -10,7 +10,7 @@ return Action(script.Name, function(userId,
 
 	local lastOnline = 0
 	if lastOnlineISO ~= nil then
-		local lastDateTime = DateTime.fromIsoDate(lastOnlineISO)
+		local lastDateTime = LuaDateTime.fromIsoDate(lastOnlineISO)
 		if lastDateTime ~= nil then
 			lastOnline = lastDateTime:GetUnixTimestamp()
 		end

@@ -30,6 +30,8 @@ local CopySelectedEvents = require(Plugin.Src.Thunks.Events.CopySelectedEvents)
 local DeleteSelectedEvents = require(Plugin.Src.Thunks.Events.DeleteSelectedEvents)
 local SetRightClickContextInfo = require(Plugin.Src.Actions.SetRightClickContextInfo)
 
+local FFlagAnimEditorFixBackspaceOnMac = require(Plugin.LuaFlags.GetFFlagAnimEditorFixBackspaceOnMac)
+
 local EventActions = Roact.PureComponent:extend("EventActions")
 
 function EventActions:makeMenuActions()
@@ -86,6 +88,10 @@ function EventActions:init(initialProps)
 
 	self:addAction(actions.CopyEvents, initialProps.CopySelectedEvents)
 	self:addAction(actions.DeleteEvents, initialProps.DeleteSelectedEvents)
+
+	if FFlagAnimEditorFixBackspaceOnMac() then
+		self:addAction(actions.DeleteEventsBackspace, initialProps.DeleteSelectedEvents)
+	end
 end
 
 function EventActions:render()
@@ -114,6 +120,9 @@ function EventActions:render()
 			pluginActions.CutEvents.Enabled = true
 			pluginActions.CopyEvents.Enabled = true
 			pluginActions.DeleteEvents.Enabled = true
+			if FFlagAnimEditorFixBackspaceOnMac() then
+				pluginActions.DeleteEventsBackspace.Enabled = true
+			end
 		end
 		if props.OnEvent then
 			pluginActions.EditEvents.Enabled = true

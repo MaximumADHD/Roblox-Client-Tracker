@@ -14,19 +14,16 @@ local ChooseBrushShape = require(Actions.ChooseBrushShape)
 local ChangeBaseSize = require(Actions.ChangeBaseSize)
 local ChangeHeight = require(Actions.ChangeHeight)
 local ChangePivot = require(Actions.ChangePivot)
-local SetPlaneLock = require(Actions.SetPlaneLock)
 local SetSnapToGrid = require(Actions.SetSnapToGrid)
 local SetIgnoreWater = require(Actions.SetIgnoreWater)
 
-local Constants = require(Plugin.Src.Util.Constants)
+local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 
 local REDUCER_KEY = "SubtractTool"
 
-local Subtract = Roact.Component:extend(script.Name)
-
 local function MapStateToProps (state, props)
 	return {
-		toolName = Constants.ToolId.Subtract,
+		toolName = TerrainEnums.ToolId.Subtract,
 
 		brushShape = state[REDUCER_KEY].brushShape,
 		baseSize = state[REDUCER_KEY].baseSize,

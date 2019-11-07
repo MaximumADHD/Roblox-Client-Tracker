@@ -9,6 +9,7 @@ local StarterGui = game:GetService("StarterGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local FFlagEmotesMenuShowUiOnlyWhenAvailable = game:DefineFastFlag("EmotesMenuShowUiOnlyWhenAvailable", false)
+local FFlagAllowEmotesMenuWhenTopbarIsDisabled = game:DefineFastFlag("AllowEmotesMenuWhenTopbarIsDisabled", false)
 local FFlagCoreScriptLoadEmotesFromWeb = settings():GetFFlag("CoreScriptLoadEmotesFromWeb")
 
 -- Wait for LocalPlayer to exist
@@ -80,12 +81,23 @@ end
 
 function EmotesMenuMaster:setTopBarEnabled(isEnabled)
     self.topBarEnabled = isEnabled
-    local isEmotesMenuEnabled = StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.EmotesMenu)
 
-    if isEnabled and (not FFlagEmotesMenuShowUiOnlyWhenAvailable or (isEmotesMenuEnabled and self.canPlayEmotes)) then
-        self:_mount()
+    if FFlagAllowEmotesMenuWhenTopbarIsDisabled then
+        if not isEnabled then
+            -- Don't allow user to get stuck in a state where the Emotes Menu is stuck open
+            if self:isOpen() then
+                self:close()
+            end
+        end
     else
-        self:_unmount()
+        local isEmotesMenuEnabled = StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.EmotesMenu)
+
+        if isEnabled and (not FFlagEmotesMenuShowUiOnlyWhenAvailable
+            or (isEmotesMenuEnabled and self.canPlayEmotes)) then
+            self:_mount()
+        else
+            self:_unmount()
+        end
     end
 end
 
@@ -114,7 +126,7 @@ end
 
 function EmotesMenuMaster:_connectApiListeners()
     StarterGui.CoreGuiChangedSignal:connect(function(coreGuiType, enabled)
-        if not self.topBarEnabled then
+        if not FFlagAllowEmotesMenuWhenTopbarIsDisabled and not self.topBarEnabled then
             return
         end
 
@@ -294,10 +306,18 @@ function EmotesMenuMaster:_connectListeners()
             self.canPlayEmotes = canPlay
             local isEmotesMenuEnabled = StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.EmotesMenu)
 
-            if canPlay and self.topBarEnabled and isEmotesMenuEnabled then
-                self:_mount()
+            if FFlagAllowEmotesMenuWhenTopbarIsDisabled then
+                if canPlay and isEmotesMenuEnabled then
+                    self:_mount()
+                else
+                    self:_unmount()
+                end
             else
-                self:_unmount()
+                if canPlay and self.topBarEnabled and isEmotesMenuEnabled then
+                    self:_mount()
+                else
+                    self:_unmount()
+                end
             end
         end)
     end

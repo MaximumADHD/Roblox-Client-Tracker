@@ -1,4 +1,4 @@
-local FIntLuaAppUseNewAvatarThumbnailsApi = settings():GetFVariable("LuaAppUseNewAvatarThumbnailsApi4")
+local FIntLuaAppUseNewAvatarThumbnailsApi = settings():GetFVariable("LuaAppUseNewAvatarThumbnailsApi5")
 
 local throttledFlagValue = nil
 --[[

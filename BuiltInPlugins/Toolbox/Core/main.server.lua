@@ -13,6 +13,9 @@ game:DefineFastFlag("EnableAssetConfigVersionCheckForModels", false)
 game:DefineFastFlag("CMSAdditionalAccessoryTypesV2", false)
 game:DefineFastFlag("FixAssetConfigManageableGroups", false)
 
+-- when removing this flag, remove all references to isCatalogItemCreator
+game:DefineFastFlag("CMSRemoveUGCContentEnabledBoolean", false)
+
 local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 
 local Plugin = script.Parent.Parent
@@ -125,11 +128,13 @@ local function createAssetConfig(assetId, flowType, instances, assetTypeEnum)
 		return
 	end
 
-	local isCatalogItemCreator = false
+	local isCatalogItemCreator = false -- remove with FFlagCMSRemoveUGCContentEnabledBoolean
 	local assetTypesForRelease = {}
 	local assetTypesForUpload = {}
 	if toolboxStore then
-		isCatalogItemCreator = toolboxStore:getState().roles.isCatalogItemCreator
+		if not game:GetFastFlag("CMSRemoveUGCContentEnabledBoolean") then
+			isCatalogItemCreator = toolboxStore:getState().roles.isCatalogItemCreator
+		end
 		assetTypesForRelease = toolboxStore:getState().roles.allowedAssetTypesForRelease
 		assetTypesForUpload = toolboxStore:getState().roles.allowedAssetTypesForUpload
 	end
@@ -143,7 +148,7 @@ local function createAssetConfig(assetId, flowType, instances, assetTypeEnum)
 			screenFlowType = flowType,
 			currentScreen = startScreen,
 			instances = instances,
-			isCatalogItemCreator = isCatalogItemCreator,
+			isCatalogItemCreator = isCatalogItemCreator, -- remove with FFlagCMSRemoveUGCContentEnabledBoolean
 			allowedAssetTypesForRelease = assetTypesForRelease,
 			allowedAssetTypesForUpload = assetTypesForUpload,
 			assetTypeEnum = assetTypeEnum,

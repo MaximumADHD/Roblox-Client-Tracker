@@ -13,5 +13,6 @@ return function()
 		expect(state.pageInfo).to.be.ok()
 		expect(state.voting).to.be.ok()
 		expect(state.liveSearch).to.be.ok()
+		expect(state.purchase).to.be.ok()
 	end)
 end

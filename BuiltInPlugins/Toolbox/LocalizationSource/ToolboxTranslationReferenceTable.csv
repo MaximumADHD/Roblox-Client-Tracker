@@ -1,6 +1,5 @@
 Key,Source,Context,en-us,zh-cn
 Studio.Common.Action.Apply,Apply, ,Apply,应用
-Studio.Common.Action.Submit,Submit, ,Submit,提交
 Studio.Common.Action.Back,Back, ,Back,返回
 Studio.Common.Action.Cancel,Cancel, ,Cancel,取消
 Studio.Common.Action.Clear,Clear, ,Clear,清除
@@ -17,9 +16,6 @@ Studio.Common.Action.Help,Help, ,Help,帮助
 Studio.Common.Action.Home,Home, ,Home,首页
 Studio.Common.Action.Ignore,Ignore, ,Ignore,忽略
 Studio.Common.Action.Insert,Insert, ,Insert,插入
-Studio.Common.Action.Install,Install, ,Install, 
-Studio.Common.Action.Installed,Installed, ,Installed, 
-Studio.Common.Action.Loading,Loading..., ,Loading..., 
 Studio.Common.Action.New,New, ,New,新增
 Studio.Common.Action.Next,Next, ,Next,下一个
 Studio.Common.Action.No,No, ,No,否
@@ -45,19 +41,34 @@ Studio.Common.Action.Continue,Continue, ,Continue,继续
 Studio.Common.Action.Redo,Redo, ,Redo,恢复
 Studio.Common.Action.Undo,Undo, ,Undo,撤消
 Studio.Common.Action.Update,Update, ,Update,更新
-Studio.Common.Action.Reset,Reset, ,Reset, 
+Studio.Common.Action.Reset,Reset, ,Reset,重置
+Studio.Common.Action.Fill,Fill, ,Fill,填充
+Studio.Common.Action.Goto,Goto, ,Goto,前往
+Studio.Common.Action.Move,Move, ,Move,移动
+Studio.Common.Action.Rotate,Rotate, ,Rotate,旋转
+Studio.Common.Action.Error,Error, ,Error,错误
+Studio.Common.Action.Height,Height, ,Height,高度
+Studio.Common.Action.LabelWithColon1,%1:, ,%1:,%1:
+Studio.Common.Action.Name,Name, ,Name,名称
+Studio.Common.Action.Search,Search, ,Search,搜索
+Studio.Common.Action.Value,Value, ,Value,值
+Studio.Common.Action.Warning,Warning, ,Warning,警告
+Studio.Common.Action.Width,Width, ,Width,宽度
+Studio.Common.Action.Submit,Submit, ,Submit,提交
+Studio.Common.Action.Install,Install, ,Install,安装
+Studio.Common.Action.Installed,Installed, ,Installed,已安装
+Studio.Common.Action.Loading,Loading..., ,Loading...,正在加载...
 Studio.Toolbox.General.ToolboxToolbarName,Toolbox, ,Toolbox,工具箱
 Studio.Toolbox.General.CategoryModels,Models, ,Models,模型
 Studio.Toolbox.General.CategoryDecals,Images, ,Images,图片
 Studio.Toolbox.General.CategoryMeshes,Meshes, ,Meshes,网格
 Studio.Toolbox.General.CategoryAudio,Audio, ,Audio,音频
 Studio.Toolbox.General.CategoryPlugins,Plugins, ,Plugins,插件
-Studio.Toolbox.General.CategoryPaidPlugins,Plugins, ,Plugins, 
 Studio.Toolbox.General.CategoryMyModels,My Models, ,My Models,我的模型
 Studio.Toolbox.General.CategoryMyDecals,My Images, ,My Images,我的图片
 Studio.Toolbox.General.CategoryMyMeshes,My Meshes, ,My Meshes,我的网格
 Studio.Toolbox.General.CategoryMyAudio,My Audio, ,My Audio,我的音频
-Studio.Toolbox.General.CategoryMyPackages,My Packages, ,My Packages,我的套装
+Studio.Toolbox.General.CategoryMyPackages,My Packages, ,My Packages,我的包
 Studio.Toolbox.General.CategoryMyPlugins,My Plugins, ,My Plugins,我的插件
 Studio.Toolbox.General.CategoryRecentModels,Recent Models, ,Recent Models,最近模型
 Studio.Toolbox.General.CategoryRecentDecals,Recent Images, ,Recent Images,最近图片
@@ -67,42 +78,26 @@ Studio.Toolbox.General.CategoryGroupModels,Group Models, ,Group Models,群组模
 Studio.Toolbox.General.CategoryGroupDecals,Group Images, ,Group Images,群组图片
 Studio.Toolbox.General.CategoryGroupMeshes,Group Meshes, ,Group Meshes,群组网格
 Studio.Toolbox.General.CategoryGroupAudio,Group Audio, ,Group Audio,群组音频
-Studio.Toolbox.General.CategoryGroupPackages,Group Packages, ,Group Packages,群组套装
-Studio.Toolbox.General.CategoryCreationsDevelopmentSectionDivider,Game development assets, ,Game development assets,Game development assets
-Studio.Toolbox.General.CategoryCreationsModels,Models, ,Models,Models
-Studio.Toolbox.General.CategoryCreationsDecals,Images, ,Images,图片
-Studio.Toolbox.General.CategoryCreationsAudio,Audio, ,Audio,Audio
-Studio.Toolbox.General.CategoryCreationsMeshes,Meshes, ,Meshes,Meshes
-Studio.Toolbox.General.CategoryCreationsCatalogSectionDivider,Avatar assets, ,Avatar assets,Avatar assets
-Studio.Toolbox.General.CategoryCreationsHats,Hats, ,Hats,Hats
-Studio.Toolbox.General.CategoryCreationsTeeShirts,T-Shirts, ,T-Shirts,T-Shirts
-Studio.Toolbox.General.CategoryCreationsShirts,Shirts, ,Shirts,Shirts
-Studio.Toolbox.General.CategoryCreationsPants,Pants, ,Pants,Pants
-Studio.Toolbox.General.CategoryCreationsHair,Hair, ,Hair,Hair
-Studio.Toolbox.General.CategoryCreationsFaceAccessory,Face Accessories, ,Face Accessories,Face Accessories
-Studio.Toolbox.General.CategoryCreationsNeckAccessory,Neck Accessories, ,Neck Accessories,Neck Accessories
-Studio.Toolbox.General.CategoryCreationsShoulderAccessory,Shoulder Accessories, ,Shoulder Accessories,Shoulder Accessories
-Studio.Toolbox.General.CategoryCreationsFrontAccessory,Front Accessories, ,Front Accessories,Front Accessories
-Studio.Toolbox.General.CategoryCreationsBackAccessory,Back Accessories, ,Back Accessories,Back Accessories
-Studio.Toolbox.General.CategoryCreationsWaistAccessory,Waist Accessories, ,Waist Accessories,Waist Accessories
+Studio.Toolbox.General.CategoryGroupPackages,Group Packages, ,Group Packages,群组包
+Studio.Toolbox.General.CategoryGroupPlugins,Group Plugins, ,Group Plugins,插件包
 Studio.Toolbox.General.SearchBarDefaultText,Search, ,Search,搜索
 Studio.Toolbox.General.SearchBarCreatorText,Search for users, ,Search for users,搜索用户
-Studio.Toolbox.General.SuggestionsIntroText,Try searching for:, ,Try searching for:,尝试搜索：
+Studio.Toolbox.General.SuggestionsIntroText,Try searching for:, ,Try searching for:,尝试搜索:
 Studio.Toolbox.General.SuggestionsNPC,NPC, ,NPC,NPC
 Studio.Toolbox.General.SuggestionsVehicle,Vehicle, ,Vehicle,车辆
 Studio.Toolbox.General.SuggestionsWeapon,Weapon, ,Weapon,武器
 Studio.Toolbox.General.SuggestionsBuilding,Building, ,Building,建筑
 Studio.Toolbox.General.SuggestionsLight,Light, ,Light,光
-Studio.Toolbox.General.SortByText,Sort by:, ,Sort by:,排序方式：
+Studio.Toolbox.General.SortByText,Sort by:, ,Sort by:,排序方式:
 Studio.Toolbox.General.SortByRelevance,Relevance, ,Relevance,关联
 Studio.Toolbox.General.SortByMostTaken,Most Taken, ,Most Taken,最多采用
 Studio.Toolbox.General.SortByFavorites,Favorites, ,Favorites,收藏
 Studio.Toolbox.General.SortByUpdated,Updated, ,Updated,已更新
 Studio.Toolbox.General.SortByRatings,Ratings, ,Ratings,评级
-Studio.Toolbox.General.AssetCreatorIntroText,by {name:username}, ,by {name:username},作者：{name:username}
+Studio.Toolbox.General.AssetCreatorIntroText,by {name:username}, ,by {name:username},作者: {name:username}
 Studio.Toolbox.General.VotingVoteText,vote, ,vote,票
 Studio.Toolbox.General.VotingVotesText,votes, ,votes,票
-Studio.Toolbox.General.FooterBGText,Background:, ,Background:,背景：
+Studio.Toolbox.General.FooterBGText,Background:, ,Background:,背景:
 Studio.Toolbox.General.FooterButtonWhiteName,White, ,White,白色
 Studio.Toolbox.General.FooterButtonBlackName,Black, ,Black,黑色
 Studio.Toolbox.General.FooterButtonNoneName,None, ,None,无
@@ -110,100 +105,137 @@ Studio.Toolbox.General.EndorseBadgeTooltipText,Marked as a high-quality item, ,M
 Studio.Toolbox.General.InfoBannerText,No results found, ,No results found,未找到结果
 Studio.Toolbox.General.CategoryEndorsedPlugins,EndorsedPlugins, ,EndorsedPlugins,官方认可的插件
 Studio.Toolbox.General.SearchResults,Search Results, ,Search Results,搜索结果
-Studio.Toolbox.General.SearchResultsKeyword,Search Results for, ,Search Results for,搜索结果：
+Studio.Toolbox.General.SearchResultsKeyword,Search Results for, ,Search Results for,搜索结果:
 Studio.Toolbox.General.SearchResultsClearAll,Clear, ,Clear,清除
 Studio.Toolbox.General.SearchOptionCreator,Creator, ,Creator,创建者
 Studio.Toolbox.General.SearchOptionSort,Sort By, ,Sort By,排序方式
 Studio.Toolbox.General.SearchOptionsApply,Apply, ,Apply,应用
 Studio.Toolbox.General.SearchOptionsCancel,Cancel, ,Cancel,取消
-Studio.Toolbox.General.SearchTagCreator,by:, ,by:,作者：
-Studio.Toolbox.General.TabMarketplace,Marketplace, ,Marketplace,市集
+Studio.Toolbox.General.SearchTagCreator,by:, ,by:,作者:
+Studio.Toolbox.General.TabMarketplace,Marketplace, ,Marketplace,商店
 Studio.Toolbox.General.TabInventory,Inventory, ,Inventory,道具
 Studio.Toolbox.General.TabRecent,Recent, ,Recent,最近
-Studio.Toolbox.General.TabCreations,Creations, ,Creations,Creations
-Studio.Toolbox.General.RightClickMenuCopyAssetID,Copy Asset ID, ,Copy Asset ID,Copy Asset ID
-Studio.Toolbox.General.RightClickMenuCopyAssetURI,Copy Asset URI, ,Copy Asset URI,Copy Asset URI
-Studio.Toolbox.General.RightClickMenuViewInBrowser,View In Browser, ,View In Browser,View In Browser
-Studio.Toolbox.General.RightClickMenuConfigureAsset,Configure asset, ,Configure asset,Configure asset
-Studio.Toolbox.General.RightClickMenuEditAsset,Edit Asset, ,Edit Asset,Edit Asset
-Studio.Toolbox.General.RightClickMenuReport,Report, ,Report,Report
-Studio.Toolbox.General.StatusReviewPending,In Review, ,In Review,In Review
-Studio.Toolbox.General.StatusModerated,Rejected, ,Rejected,Rejected
-Studio.Toolbox.General.StatusReviewApproved,Ready For Sale, ,Ready For Sale,Ready For Sale
-Studio.Toolbox.General.StatusOnSale,On Sale, ,On Sale,On Sale
-Studio.Toolbox.General.StatusOffSale,Off Sale, ,Off Sale,Off Sale
-Studio.Toolbox.General.StatusDelayedRelease,Ready For Sale, ,Ready For Sale,Ready For Sale
-Studio.Toolbox.General.StatusUnknown,Unknown, ,Unknown,Unknown
-Studio.Toolbox.General.AssetTypeModel,Model, ,Model,Model
-Studio.Toolbox.General.AssetTypeDecal,Decal, ,Decal,Decal
-Studio.Toolbox.General.AssetTypeMesh,Mesh, ,Mesh,Mesh
-Studio.Toolbox.General.AssetTypeAudio,Audio, ,Audio,Audio
-Studio.Toolbox.General.AssetTypeHat,Hat, ,Hat,Hat
-Studio.Toolbox.General.AssetTypeTeeShirt,T-Shirt, ,T-Shirt,T-Shirt
-Studio.Toolbox.General.AssetTypeShirt,Shirt, ,Shirt,Shirt
-Studio.Toolbox.General.AssetTypePants,Pants, ,Pants,Pants
-Studio.Toolbox.General.AssetTypePlugin,Plugin, ,Plugin,Plugin
-Studio.Toolbox.General.AssetTypeHairAccessory,Hair, ,Hair,Hair
-Studio.Toolbox.General.AssetTypeFaceAccessory,Face Accessory, ,Face Accessory,Face Accessory
-Studio.Toolbox.General.AssetTypeNeckAccessory,Neck Accessory, ,Neck Accessory,Neck Accessory
-Studio.Toolbox.General.AssetTypeShoulderAccessory,Shoulder Accessory, ,Shoulder Accessory,Shoulder Accessory
-Studio.Toolbox.General.AssetTypeFrontAccessory,Front Accessory, ,Front Accessory,Front Accessory
-Studio.Toolbox.General.AssetTypeBackAccessory,Back Accessory, ,Back Accessory,Back Accessory
-Studio.Toolbox.General.AssetTypeWaistAccessory,Waist Accessory, ,Waist Accessory,Waist Accessory
-Studio.Toolbox.General.DiscardMessage,Would you like to discard all changes?, ,Would you like to discard all changes?,Would you like to discard all changes?
-Studio.Toolbox.General.Discard,Discard, ,Discard,丢弃
-Studio.Toolbox.General.Title,Title, ,Title,Title
-Studio.Toolbox.General.Description,Description, ,Description,Description
-Studio.Toolbox.General.Ownership,Creator, ,Creator,Creator
-Studio.Toolbox.General.Genre,Genre, ,Genre,Genre
-Studio.Toolbox.General.Copy,Allow Copying, ,Allow Copying,Allow Copying
-Studio.Toolbox.General.Comments,Allow Comments, ,Allow Comments,Allow Comments
-Studio.Toolbox.General.LearnMore,Learn more, ,Learn more,Learn more
-Studio.Toolbox.General.Me,Me, ,Me,Me
-Studio.Toolbox.General.AssetType,Asset type, ,Asset type,Asset type
-Studio.Toolbox.General.SalesSale,Sale, ,Sale,Sale
-Studio.Toolbox.General.SalesOnsale,Onsale, ,Onsale,Onsale
-Studio.Toolbox.General.SalesOnsaleApplyToSave,Onsale (apply to save changes), ,Onsale (apply to save changes),Onsale (apply to save changes)
-Studio.Toolbox.General.SalesOffsale,Offsale, ,Offsale,Offsale
-Studio.Toolbox.General.SalesOffsaleApplyToSave,Offsale (apply to save changes), ,Offsale (apply to save changes),Offsale (apply to save changes)
-Studio.Toolbox.General.SalesItemCannotBeSold,This item cannot be sold right now, ,This item cannot be sold right now,This item cannot be sold right now
-Studio.Toolbox.General.SalesPrice,Price, ,Price,Price
-Studio.Toolbox.General.SalesPriceRange,Price range: {minPrice} - {maxPrice}, ,Price range: {minPrice} - {maxPrice},Price range: {minPrice} - {maxPrice}
-Studio.Toolbox.General.SalesEarning,You earn: {earning}, ,You earn: {earning},You earn: {earning}
-Studio.Toolbox.General.SalesServiceFee,Service fee will be collected upon sale, ,Service fee will be collected upon sale,Service fee will be collected upon sale
-Studio.Toolbox.General.SideTabSales,Sales, ,Sales,Sales
-Studio.Toolbox.General.SideTabVersions,Versions, ,Versions,Versions
-Studio.Toolbox.General.SideTabGeneral,General, ,General,General
-Studio.Toolbox.General.SideTabPermissions,Permissions, ,Permissions,Permissions
-Studio.Toolbox.General.PreviewAreaAssetID,Asset ID: {assetId}, ,Asset ID: {assetId},Asset ID: {assetId}
-Studio.Toolbox.General.PreviewAreaStatus,Status: {assetStatus}, ,Status: {assetStatus},Status: {assetStatus}
-Studio.Toolbox.General.InstallSuccess,Success!, ,Success!, 
-Studio.Toolbox.General.InstallFailure,Failure, ,Failure, 
-Studio.Toolbox.AssetConfigFooter.NewAsset,Save as a new asset..., ,Save as a new asset...,Save as a new asset...
-Studio.Toolbox.AssetConfigFooter.Override,Overwrite an existing asset..., ,Overwrite an existing asset...,Overwrite an existing asset...
-Studio.Toolbox.AssetConfigFooter.OverrideTitle,Choose an existing model to overwrite., ,Choose an existing model to overwrite.,Choose an existing model to overwrite.
-Studio.Toolbox.AssetConfigCopy.Terms,"By switching on, you are granting every other user of Roblox the right to use (in various ways) the content you are now sharing. If you do not want to grant this right, please do not check this box. For more information about sharing content, please review the Roblox Terms of Use.", ,"By switching on, you are granting every other user of Roblox the right to use (in various ways) the content you are now sharing. If you do not want to grant this right, please do not check this box. For more information about sharing content, please review the Roblox Terms of Use.","By switching on, you are granting every other user of Roblox the right to use (in various ways) the content you are now sharing. If you do not want to grant this right, please do not check this box. For more information about sharing content, please review the Roblox Terms of Use."
-Studio.Toolbox.AssetConfigCopy.AccountSetting,"In order to share content in Marketplace, you must add & verify an email address to your account. This can be done in Account Settings.", ,"In order to share content in Marketplace, you must add & verify an email address to your account. This can be done in Account Settings.","In order to share content in Marketplace, you must add & verify an email address to your account. This can be done in Account Settings."
-Studio.Toolbox.AssetConfigPreview.Preview,Preview, ,Preview,Preview
-Studio.Toolbox.AssetConfigPreview.Change,Change, ,Change,Change
-Studio.Toolbox.AssetConfigVersions.Current,Current published version, ,Current published version,Current published version
-Studio.Toolbox.AssetConfigVersions.Restore,Restore previous version, ,Restore previous version,Restore previous version
-Studio.Toolbox.AssetConfig.GetAssetFailed,There was an problem fetching asset data. We will be closing AssetConfig page., ,There was an problem fetching asset data. We will be closing AssetConfig page.,There was an problem fetching asset data. We will be closing AssetConfig page.
-Studio.Toolbox.AssetConfig.Error,Error, ,Error,Error
-Studio.Toolbox.AssetConfigPackagePermissions.PackageOwner,Package Owner, ,Package Owner, 
-Studio.Toolbox.AssetConfigPackagePermissions.OwnerLabel,Owner, ,Owner, 
-Studio.Toolbox.AssetConfigPackagePermissions.NoResults,No results found, ,No results found, 
-Studio.Toolbox.AssetConfigPackagePermissions.SearchByUser,Search by username, ,Search by username, 
-Studio.Toolbox.AssetConfigPackagePermissions.ShareWith,Share with, ,Share with, 
-Studio.Toolbox.AssetConfigPackagePermissions.NoAccessLabel,No Access, ,No Access, 
-Studio.Toolbox.AssetConfigPackagePermissions.UseViewLabel,Use & View, ,Use & View, 
-Studio.Toolbox.AssetConfigPackagePermissions.EditLabel,Edit, ,Edit, 
-Studio.Toolbox.AssetConfigPackagePermissions.MultipleLabel,(Multiple), ,(Multiple), 
-Studio.Toolbox.AssetConfigPackagePermissions.NoAccessDescription,"Cannot use, view or edit this package", ,"Cannot use, view or edit this package", 
-Studio.Toolbox.AssetConfigPackagePermissions.UseViewDescription,Can use and view this package, ,Can use and view this package, 
-Studio.Toolbox.AssetConfigPackagePermissions.EditDescription,"Can use, view and edit this package", ,"Can use, view and edit this package", 
-Studio.Toolbox.AssetConfigPackagePermissions.FriendsCollaboratorType,Friends, ,Friends, 
-Studio.Toolbox.AssetConfigPackagePermissions.UsersCollaboratorType,Users, ,Users, 
-Studio.Toolbox.AssetConfigPackagePermissions.GroupsCollaboratorType,Groups, ,Groups, 
-Studio.Toolbox.AssetConfigPackagePermissions.MyFriendsCollaborator,My Friends, ,My Friends, 
-Studio.Toolbox.AssetConfigPackagePermissions.TooManyCollaboratorsText,You cannot add more than {maxNumCollaborators:int} collaborators, ,You cannot add more than {maxNumCollaborators:int} collaborators, 
+Studio.Toolbox.General.CategoryPaidPlugins,Plugins, ,Plugins,插件
+Studio.Toolbox.General.CategoryCreationsDevelopmentSectionDivider,Game development assets, ,Game development assets,游戏开发资源
+Studio.Toolbox.General.CategoryCreationsModels,Models, ,Models,模型
+Studio.Toolbox.General.CategoryCreationsDecals,Images, ,Images,图片
+Studio.Toolbox.General.CategoryCreationsAudio,Audio, ,Audio,音频
+Studio.Toolbox.General.CategoryCreationsMeshes,Meshes, ,Meshes,网格
+Studio.Toolbox.General.CategoryCreationsCatalogSectionDivider,Avatar assets, ,Avatar assets,虚拟形象资源
+Studio.Toolbox.General.CategoryCreationsHats,Hats, ,Hats,帽子
+Studio.Toolbox.General.CategoryCreationsTeeShirts,T-Shirts, ,T-Shirts,T 恤
+Studio.Toolbox.General.CategoryCreationsShirts,Shirts, ,Shirts,上衣
+Studio.Toolbox.General.CategoryCreationsPants,Pants, ,Pants,裤子
+Studio.Toolbox.General.CategoryCreationsHair,Hair, ,Hair,头发
+Studio.Toolbox.General.CategoryCreationsFaceAccessory,Face Accessories, ,Face Accessories,脸部配件
+Studio.Toolbox.General.CategoryCreationsNeckAccessory,Neck Accessories, ,Neck Accessories,颈部配件
+Studio.Toolbox.General.CategoryCreationsShoulderAccessory,Shoulder Accessories, ,Shoulder Accessories,肩部配件
+Studio.Toolbox.General.CategoryCreationsFrontAccessory,Front Accessories, ,Front Accessories,正面配件
+Studio.Toolbox.General.CategoryCreationsBackAccessory,Back Accessories, ,Back Accessories,背面配件
+Studio.Toolbox.General.CategoryCreationsWaistAccessory,Waist Accessories, ,Waist Accessories,腰部配件
+Studio.Toolbox.General.TabCreations,Creations, ,Creations,作品
+Studio.Toolbox.General.RightClickMenuCopyAssetID,Copy Asset ID, ,Copy Asset ID,复制资源 ID
+Studio.Toolbox.General.RightClickMenuCopyAssetURI,Copy Asset URI, ,Copy Asset URI,复制资源 URI
+Studio.Toolbox.General.RightClickMenuViewInBrowser,View In Browser, ,View In Browser,在浏览器中查看
+Studio.Toolbox.General.RightClickMenuConfigureAsset,Configure asset, ,Configure asset,配置资源
+Studio.Toolbox.General.RightClickMenuEditAsset,Edit Asset, ,Edit Asset,编辑资源
+Studio.Toolbox.General.RightClickMenuReport,Report, ,Report,举报
+Studio.Toolbox.General.StatusReviewPending,In Review, ,In Review,审阅中
+Studio.Toolbox.General.StatusModerated,Rejected, ,Rejected,已拒绝
+Studio.Toolbox.General.StatusReviewApproved,Ready For Sale, ,Ready For Sale,待售
+Studio.Toolbox.General.StatusOnSale,On Sale, ,On Sale,在售
+Studio.Toolbox.General.StatusOffSale,Off Sale, ,Off Sale,特价
+Studio.Toolbox.General.StatusDelayedRelease,Ready For Sale, ,Ready For Sale,待售
+Studio.Toolbox.General.StatusUnknown,Unknown, ,Unknown,未知
+Studio.Toolbox.General.AssetTypeModel,Model, ,Model,模型
+Studio.Toolbox.General.AssetTypeDecal,Decal, ,Decal,贴花
+Studio.Toolbox.General.AssetTypeMesh,Mesh, ,Mesh,网格
+Studio.Toolbox.General.AssetTypeAudio,Audio, ,Audio,音频
+Studio.Toolbox.General.AssetTypeHat,Hat, ,Hat,帽子
+Studio.Toolbox.General.AssetTypeTeeShirt,T-Shirt, ,T-Shirt,T 恤
+Studio.Toolbox.General.AssetTypeShirt,Shirt, ,Shirt,上衣
+Studio.Toolbox.General.AssetTypePants,Pants, ,Pants,裤子
+Studio.Toolbox.General.AssetTypePlugin,Plugin, ,Plugin,插件
+Studio.Toolbox.General.AssetTypeHairAccessory,Hair, ,Hair,头发
+Studio.Toolbox.General.AssetTypeFaceAccessory,Face Accessory, ,Face Accessory,脸部配件
+Studio.Toolbox.General.AssetTypeNeckAccessory,Neck Accessory, ,Neck Accessory,颈部配件
+Studio.Toolbox.General.AssetTypeShoulderAccessory,Shoulder Accessory, ,Shoulder Accessory,肩部配件
+Studio.Toolbox.General.AssetTypeFrontAccessory,Front Accessory, ,Front Accessory,正面配件
+Studio.Toolbox.General.AssetTypeBackAccessory,Back Accessory, ,Back Accessory,背面配件
+Studio.Toolbox.General.AssetTypeWaistAccessory,Waist Accessory, ,Waist Accessory,腰部配件
+Studio.Toolbox.General.DiscardMessage,Would you like to discard all changes?, ,Would you like to discard all changes?,你要放弃所有更改吗?
+Studio.Toolbox.General.Discard,Discard, ,Discard,放弃
+Studio.Toolbox.General.Title,Title, ,Title,标题
+Studio.Toolbox.General.Description,Description, ,Description,描述
+Studio.Toolbox.General.Ownership,Creator, ,Creator,创建者
+Studio.Toolbox.General.Genre,Genre, ,Genre,类型
+Studio.Toolbox.General.Copy,Allow Copying, ,Allow Copying,允许复制
+Studio.Toolbox.General.Comments,Allow Comments, ,Allow Comments,允许评论
+Studio.Toolbox.General.LearnMore,Learn more, ,Learn more,了解更多
+Studio.Toolbox.General.Me,Me, ,Me,我
+Studio.Toolbox.General.AssetType,Asset type, ,Asset type,资源类型
+Studio.Toolbox.General.SalesSale,Sale, ,Sale,销售
+Studio.Toolbox.General.SalesOnsale,Onsale, ,Onsale,在售
+Studio.Toolbox.General.SalesOnsaleApplyToSave,Onsale (apply to save changes), ,Onsale (apply to save changes),在售 (应用以保存更改)
+Studio.Toolbox.General.SalesOffsale,Offsale, ,Offsale,特价
+Studio.Toolbox.General.SalesOffsaleApplyToSave,Offsale (apply to save changes), ,Offsale (apply to save changes),特价 (应用以保存更改)
+Studio.Toolbox.General.SalesItemCannotBeSold,This item cannot be sold right now, ,This item cannot be sold right now,此物品无法立即出售
+Studio.Toolbox.General.SalesPrice,Price, ,Price,价格
+Studio.Toolbox.General.SalesPriceRange,Price range: {minPrice} - {maxPrice}, ,Price range: {minPrice} - {maxPrice},价格范围: {minPrice} - {maxPrice}
+Studio.Toolbox.General.SalesEarning,You earn: {earning}, ,You earn: {earning},你赚取: {earning}
+Studio.Toolbox.General.SalesServiceFee,Service fee will be collected upon sale, ,Service fee will be collected upon sale,将在销售时收取手续费
+Studio.Toolbox.General.SideTabSales,Sales, ,Sales,销售
+Studio.Toolbox.General.SideTabVersions,Versions, ,Versions,版本
+Studio.Toolbox.General.SideTabGeneral,General, ,General,通用
+Studio.Toolbox.General.SideTabPermissions,Permissions, ,Permissions,许可
+Studio.Toolbox.General.PreviewAreaAssetID,Asset ID: {assetId}, ,Asset ID: {assetId},资源 ID: {assetId}
+Studio.Toolbox.General.PreviewAreaStatus,Status: {assetStatus}, ,Status: {assetStatus},状态: {assetStatus}
+Studio.Toolbox.General.InstallSuccess,Success!, ,Success!,成功!
+Studio.Toolbox.General.InstallFailure,Failure, ,Failure,失败
+Studio.Toolbox.AssetConfigFooter.NewAsset,Save as a new asset..., ,Save as a new asset...,另存为新资源...
+Studio.Toolbox.AssetConfigFooter.Override,Overwrite an existing asset..., ,Overwrite an existing asset...,覆盖现有资源...
+Studio.Toolbox.AssetConfigFooter.OverrideTitle,Choose an existing model to overwrite., ,Choose an existing model to overwrite.,选择要覆盖的现有模型。
+Studio.Toolbox.AssetConfigCopy.Terms,"By switching on, you are granting every other user of Roblox the right to use (in various ways) the content you are now sharing. If you do not want to grant this right, please do not check this box. For more information about sharing content, please review the Roblox Terms of Use.", ,"By switching on, you are granting every other user of Roblox the right to use (in various ways) the content you are now sharing. If you do not want to grant this right, please do not check this box. For more information about sharing content, please review the Roblox Terms of Use.",切换至开位置，即表示你授予 Roblox 的所有其他用户 (以各种方式) 使用你现在分享的内容的权限。如果你不想授予此权限，请勿勾选此框。有关分享内容的详细信息，请检阅 Roblox 使用条款。
+Studio.Toolbox.AssetConfigCopy.AccountSetting,"In order to share content in Marketplace, you must add & verify an email address to your account. This can be done in Account Settings.", ,"In order to share content in Marketplace, you must add & verify an email address to your account. This can be done in Account Settings.",为了在市集中分享内容，你必须向你的帐户添加电子邮件地址并进行验证。可在“帐户设置”中完成此操作。
+Studio.Toolbox.AssetConfigPreview.Preview,Preview, ,Preview,预览
+Studio.Toolbox.AssetConfigPreview.Change,Change, ,Change,更改
+Studio.Toolbox.AssetConfigVersions.Current,Current published version, ,Current published version,当前发布的版本
+Studio.Toolbox.AssetConfigVersions.Restore,Restore previous version, ,Restore previous version,还原之前版本
+Studio.Toolbox.AssetConfig.GetAssetFailed,There was an problem fetching asset data. We will be closing AssetConfig page., ,There was an problem fetching asset data. We will be closing AssetConfig page.,提取资源数据时发生问题。将关闭 AssetConfig 页面。
+Studio.Toolbox.AssetConfig.Error,Error, ,Error,错误
+Studio.Toolbox.AssetConfigPackagePermissions.PackageOwner,Package Owner, ,Package Owner,套装所有者
+Studio.Toolbox.AssetConfigPackagePermissions.Owner,Owner, ,Owner,所有者
+Studio.Toolbox.AssetConfigPackagePermissions.NoResults,No results found, ,No results found,未找到结果
+Studio.Toolbox.AssetConfigPackagePermissions.SearchByUser,Search by username, ,Search by username,依用户名搜索
+Studio.Toolbox.AssetConfigPackagePermissions.ShareWith,Share with, ,Share with,分享对象
+Studio.Toolbox.AssetConfigPackagePermissions.NoAccessLabel,No Access, ,No Access,无法访问
+Studio.Toolbox.AssetConfigPackagePermissions.UseViewLabel,Use & View, ,Use & View,使用和查看
+Studio.Toolbox.AssetConfigPackagePermissions.EditLabel,Edit, ,Edit,编辑
+Studio.Toolbox.AssetConfigPackagePermissions.MultipleLabel,(Multiple), ,(Multiple),(多项)
+Studio.Toolbox.AssetConfigPackagePermissions.NoAccessDescription,"Cannot use, view or edit this package", ,"Cannot use, view or edit this package",无法使用、查看或编辑此套装
+Studio.Toolbox.AssetConfigPackagePermissions.UseViewDescription,Can use and view this package, ,Can use and view this package,可以使用并查看此套装
+Studio.Toolbox.AssetConfigPackagePermissions.EditDescription,"Can use, view and edit this package", ,"Can use, view and edit this package",可以使用、查看和编辑此套装
+Studio.Toolbox.AssetConfigPackagePermissions.FriendsCollaboratorType,Friends, ,Friends,好友
+Studio.Toolbox.AssetConfigPackagePermissions.UsersCollaboratorType,Users, ,Users,用户
+Studio.Toolbox.AssetConfigPackagePermissions.GroupsCollaboratorType,Groups, ,Groups,组合
+Studio.Toolbox.AssetConfigPackagePermissions.MyFriendsCollaborator,My Friends, ,My Friends,我的好友
+Studio.Toolbox.AssetConfigPreview.Format,Acceptable files: {formatString},Max: {maxDimensionsX} x {maxDimensionsY}, ,Acceptable files: {formatString}
+Max: {maxDimensionsX} x {maxDimensionsY}, ,Studio.Toolbox.AssetConfigPreview.Process,Image will be reviewed by moderators before being made visible to other users, 
+Image will be reviewed by moderators before being made visible to other users, ,Studio.Toolbox.AssetConfigPackagePermissions.OwnerLabel,Owner, 
+Owner, ,Studio.Toolbox.AssetConfigPackagePermissions.TooManyCollaboratorsText,You cannot add more than {maxNumCollaborators:int} collaborators, 
+You cannot add more than {maxNumCollaborators:int} collaborators, ,Studio.Toolbox.Purchase.RobuxBalance,Your current balance:, 
+Your current balance:, ,Studio.Toolbox.Purchase.BuyPrompt,Would you like to buy "{name}" from {creator} for {robux:int} Robux?, 
+Would you like to buy "{name}" from {creator} for {robux:int} Robux?, ,Studio.Toolbox.Purchase.InsufficientPrompt,You need {robux:int} more Robux to buy "{name}" from {creator}., 
+You need {robux:int} more Robux to buy "{name}" from {creator}., ,Studio.Toolbox.Purchase.Cancel,Cancel, 
+Cancel, ,Studio.Toolbox.Purchase.Retry,Retry, 
+Retry, ,Studio.Toolbox.Purchase.Buy,Buy, 
+Buy, ,Studio.Toolbox.Purchase.BuyRobux,Buy Robux, 
+Buy Robux, ,Studio.Toolbox.Purchase.BuyTitle,Buy & Install Plugin, 
+Buy & Install Plugin, ,Studio.Toolbox.Purchase.InsufficientTitle,Insufficient Robux, 
+Insufficient Robux, ,Studio.Toolbox.Purchase.FailedHeader,Purchase failed, 
+Purchase failed, ,Studio.Toolbox.Purchase.FailedDetails,Purchase of "{name}" failed., 
+Purchase of "{name}" failed., ,Studio.Toolbox.Purchase.Free,FREE, 
+FREE, ,Studio.Toolbox.General.Fee,After {percent}% fee:, 
+After {percent}% fee:, ,Studio.Toolbox.General.Earn,You earn:, 
+You earn:, ,Studio.Toolbox.AssetConfigSales.Target,"By enabling it, this asset will be put in {market} and available for any Roblox {user}.", 
+"By enabling it, this asset will be put in {market} and available for any Roblox {user}.", 

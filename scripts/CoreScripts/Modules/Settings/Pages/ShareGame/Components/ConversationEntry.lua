@@ -13,7 +13,6 @@ local EventStream = require(CorePackages.AppTempCommon.Temp.EventStream)
 local InviteButton = require(ShareGame.Components.InviteButton)
 
 local FFlagLuaInviteFailOnZeroPlaceId = settings():GetFFlag("LuaInviteFailOnZeroPlaceIdV384")
-local FFlagLuaInviteNewAnalytics = settings():GetFFlag("LuaInviteNewAnalytics")
 
 local ENTRY_BG_IMAGE = "rbxasset://textures/ui/dialog_white.png"
 local ENTRY_BG_SLICE = Rect.new(10, 10, 10, 10)
@@ -104,25 +103,7 @@ function ConversationEntry:render()
 						end
 
 						local localPlayer = Players.LocalPlayer
-
-						if FFlagLuaInviteNewAnalytics then
-							analytics:onActivatedInviteSent(localPlayer.UserId, results.conversationId, participants)
-						else
-							local senderId = tostring(localPlayer.UserId)
-
-							local eventContext = "inGame"
-							local eventName = "clickShareGameInviteSent"
-							local participantsString = table.concat(participants, ",")
-							local additionalArgs = {
-								btn = "settingsHub",
-								placeId = tostring(results.placeId),
-								senderId = senderId,
-								conversationId = tostring(results.conversationId),
-								participants = participantsString,
-							}
-
-							self.eventStream:setRBXEventStream(eventContext, eventName, additionalArgs)
-						end
+						analytics:onActivatedInviteSent(localPlayer.UserId, results.conversationId, participants)
 					end
 
 					local onReject

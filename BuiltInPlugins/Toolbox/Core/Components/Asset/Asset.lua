@@ -32,11 +32,15 @@ local RoactRodux = require(Libs.RoactRodux)
 
 local Util = Plugin.Core.Util
 local Constants = require(Util.Constants)
+local Images = require(Util.Images)
 local ContextHelper = require(Util.ContextHelper)
+local ContextGetter = require(Util.ContextGetter)
 local DebugFlags = require(Util.DebugFlags)
+local AssetType = require(Plugin.Core.Types.AssetType)
 
 local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
+local getNetwork = ContextGetter.getNetwork
 
 local Components = Plugin.Core.Components
 local AssetFolder = Components.Asset
@@ -46,6 +50,8 @@ local AssetCreatorName = require(AssetFolder.AssetCreatorName)
 local AssetIcon = require(AssetFolder.AssetIcon)
 local AssetName = require(AssetFolder.AssetName)
 local Voting = require(AssetFolder.Voting.Voting)
+
+local GetOwnsAssetRequest = require(Plugin.Core.Networking.Requests.GetOwnsAssetRequest)
 
 local Category = require(Plugin.Core.Types.Category)
 
@@ -122,6 +128,15 @@ function Asset:init(props)
 	end
 end
 
+function Asset:didMount()
+	if FFlagPluginAccessAndInstallationInStudio and FFlagEnablePurchasePluginFromLua2 then
+		local assetData = self.props.asset
+		local asset = assetData.Asset
+		local assetId = asset.Id
+		self.props.getOwnsAsset(getNetwork(self), assetId)
+	end
+end
+
 function Asset:render()
 	return withTheme(function(theme)
 		return withLocalization(function(_, localizedContent)
@@ -132,6 +147,7 @@ function Asset:render()
 			end
 
 			local assetData = props.asset
+			local ownsAsset = props.ownsAsset
 
 			local asset = assetData.Asset
 			local assetId = asset.Id
@@ -139,6 +155,15 @@ function Asset:render()
 			local isEndorsed = asset.IsEndorsed
 			local assetName = asset.Name
 			local status = asset.Status
+
+			local isPluginAsset, price, isFree
+			if FFlagPluginAccessAndInstallationInStudio and FFlagEnablePurchasePluginFromLua2
+				and (assetTypeId == Enum.AssetType.Plugin.Value) then
+				local assetType = AssetType:markAsPlugin()
+				isPluginAsset = AssetType:isPlugin(assetType)
+				price = assetData.Product and assetData.Product.Price or 0
+				isFree = price == 0
+			end
 
 			local creator = assetData.Creator
 			local creatorName = creator.Name
@@ -154,15 +179,22 @@ function Asset:render()
 			local layoutOrder = props.LayoutOrder
 			local isHovered = props.isHovered
 
-			local assetOutlineHeight = showVotes and Constants.ASSET_OUTLINE_EXTRA_HEIGHT_WITH_VOTING or Constants.ASSET_OUTLINE_EXTRA_HEIGHT
+			local assetOutlineHeight = showVotes and Constants.ASSET_OUTLINE_EXTRA_HEIGHT_WITH_VOTING
+				or Constants.ASSET_OUTLINE_EXTRA_HEIGHT
 			if showStatus then
 				assetOutlineHeight = assetOutlineHeight + Constants.ASSET_CREATOR_NAME_HEIGHT
+			end
+			if FFlagEnablePurchasePluginFromLua2 and isPluginAsset then
+				assetOutlineHeight = assetOutlineHeight + Constants.ASSET_INNER_PADDING
 			end
 
 			local isDarkerTheme = theme.isDarkerTheme
 			local outlineTheme = theme.asset.outline
 			local dropShadowSize = Constants.DROP_SHADOW_SIZE
 			local innerFrameHeight = isHovered and assetOutlineHeight - (2 * Constants.ASSET_OUTLINE_PADDING) or 0
+
+			local showPriceInfo = FFlagEnablePurchasePluginFromLua2 and FFlagPluginAccessAndInstallationInStudio
+				and isPluginAsset and ownsAsset ~= nil
 
 			return Roact.createElement("Frame", {
 				Position = UDim2.new(0, 0, 0, 0),
@@ -245,9 +277,51 @@ function Asset:render()
 						assetName = assetName,
 					}),
 
+					Price = showPriceInfo and Roact.createElement("Frame", {
+						BackgroundTransparency = 1,
+						LayoutOrder = 2,
+						Size = UDim2.new(1, 0, 0, Constants.PRICE_HEIGHT),
+					}, {
+						Layout = Roact.createElement("UIListLayout", {
+							SortOrder = Enum.SortOrder.LayoutOrder,
+							FillDirection = Enum.FillDirection.Horizontal,
+							VerticalAlignment = Enum.VerticalAlignment.Center,
+							HorizontalAlignment = Enum.HorizontalAlignment.Left,
+							Padding = UDim.new(0, 4),
+						}),
+
+						RobuxIcon = not isFree and not ownsAsset and Roact.createElement("ImageLabel", {
+							LayoutOrder = 1,
+							Image = Images.ROBUX_SMALL,
+							Size = Constants.Dialog.ROBUX_SIZE,
+							BackgroundTransparency = 1,
+							ImageColor3 = theme.asset.status.textColor,
+						}),
+
+						PriceText = not ownsAsset and Roact.createElement("TextLabel", {
+							LayoutOrder = 2,
+							BackgroundTransparency = 1,
+							Size = UDim2.new(1, -20, 0, Constants.PRICE_HEIGHT),
+							TextColor3 = theme.asset.status.textColor,
+							Font = Constants.FONT,
+							TextSize = Constants.PRICE_FONT_SIZE,
+							TextXAlignment = Enum.TextXAlignment.Left,
+							Text = isFree and localizedContent.PurchaseFlow.Free or price,
+							TextTruncate = Enum.TextTruncate.AtEnd,
+						}),
+
+						OwnedIcon = ownsAsset and Roact.createElement("ImageLabel", {
+							LayoutOrder = 1,
+							Image = Images.OWNED_ICON,
+							Size = Constants.Dialog.ROBUX_SIZE,
+							BackgroundTransparency = 1,
+							ImageColor3 = theme.asset.status.textColor,
+						}),
+					}),
+
 					CreatorName = isHovered and Roact.createElement(AssetCreatorName,{
 						Size = UDim2.new(1, 0, 0.15, 0),
-						LayoutOrder = 2,
+						LayoutOrder = 3,
 
 						assetId = assetId,
 						creatorName = creatorName,
@@ -256,14 +330,14 @@ function Asset:render()
 					}),
 
 					Voting = isHovered and showVotes and Roact.createElement(Voting, {
-						LayoutOrder = 3,
+						LayoutOrder = 4,
 						assetId = assetId,
 						voting = votingProps,
 					}),
 
 					Status = isHovered and showStatus and Roact.createElement("TextLabel", {
 						BackgroundTransparency = 1,
-						LayoutOrder = 4,
+						LayoutOrder = 5,
 						Size = UDim2.new(1, 0, 0, Constants.STATUS_NAME_HEIGHT),
 						Text = localizedContent.Status[status],
 						TextColor3 = theme.asset.status.textColor,
@@ -294,20 +368,24 @@ local function mapStateToProps(state, props)
 	local categoryIndex = pageInfo.categoryIndex or 1
 	local searchTerm = pageInfo.searchTerm or ""
 
+	local cachedOwnedAssets = state.purchase.cachedOwnedAssets
+	local ownsAsset = cachedOwnedAssets[tostring(assetId)]
+
 	return {
 		asset = idToAssetMap[assetId],
 		voting = voting[assetId] or {},
 
 		categoryIndex = categoryIndex,
 		searchTerm = searchTerm,
-		currentTab = pageInfo.currentTab or Category.MARKETPLACE_KEY
+		currentTab = pageInfo.currentTab or Category.MARKETPLACE_KEY,
+		ownsAsset = ownsAsset,
 	}
 end
 
 local function mapDispatchToProps(dispatch)
 	return {
-		getAssetVersionId = function(networkInterface, assetId)
-			dispatch(GetAssetVersionIdRequest(networkInterface, assetId))
+		getOwnsAsset = function(networkInterface, assetId)
+			dispatch(GetOwnsAssetRequest(networkInterface, assetId))
 		end
 	}
 end

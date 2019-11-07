@@ -32,6 +32,7 @@ local AddWaypoint = require(Plugin.Src.Thunks.History.AddWaypoint)
 local SetEvents = require(Plugin.Src.Thunks.Events.SetEvents)
 local SelectEvent = require(Plugin.Src.Thunks.Events.SelectEvent)
 local DeselectEvent = require(Plugin.Src.Thunks.Events.DeselectEvent)
+local DeleteSelectedEvents = require(Plugin.Src.Thunks.Events.DeleteSelectedEvents)
 local MoveSelectedEvents = require(Plugin.Src.Thunks.Events.MoveSelectedEvents)
 local SetRightClickContextInfo = require(Plugin.Src.Actions.SetRightClickContextInfo)
 local SetEventEditingFrame = require(Plugin.Src.Actions.SetEventEditingFrame)
@@ -41,6 +42,8 @@ local SetSelectedKeyframes = require(Plugin.Src.Actions.SetSelectedKeyframes)
 local SetIsPlaying = require(Plugin.Src.Actions.SetIsPlaying)
 
 local EditEventsDialog = require(Plugin.Src.Components.EditEventsDialog.EditEventsDialog)
+
+local FFlagAnimEditorFixBackspaceOnMac = require(Plugin.LuaFlags.GetFFlagAnimEditorFixBackspaceOnMac)
 
 local EventsController = Roact.PureComponent:extend("EventsController")
 
@@ -172,6 +175,8 @@ function EventsController:handleTimelineInputBegan(input, keysHeld)
 		if Input.isMultiSelectKey(input.KeyCode) then
 			-- Start multi selecting on ctrl hold
 			self.isMultiSelecting = true
+		elseif FFlagAnimEditorFixBackspaceOnMac() and Input.isDeleteKey(input.KeyCode) then
+			self.props.DeleteSelectedEvents()
 		end
 	elseif input.UserInputType == Enum.UserInputType.MouseButton1 then
 		self.props.DeselectAllEvents()
@@ -386,6 +391,12 @@ local function mapDispatchToProps(dispatch)
 
 		DeselectEvent = function(frame)
 			dispatch(DeselectEvent(frame))
+		end,
+
+		DeleteSelectedEvents = function()
+			dispatch(AddWaypoint())
+			dispatch(DeleteSelectedEvents())
+			dispatch(SetRightClickContextInfo({}))
 		end,
 
 		MoveSelectedEvents = function(pivot, newFrame)

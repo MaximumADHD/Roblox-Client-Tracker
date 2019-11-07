@@ -4,50 +4,102 @@
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 
-local UILibrary = Plugin.Packages.UILibrary
 local Theme = require(Plugin.Src.ContextServices.Theming)
 local withTheme = Theme.withTheme
 
-local Tab = Roact.Component:extend(script.Name)
+local Localizing = require(Plugin.Packages.UILibrary.Localizing)
+local withLocalization = Localizing.withLocalization
 
-function Tab:render()
-	return withTheme(function(theme)
-		local name = self.props.Name
-		local layoutOrder = self.props.LayoutOrder
-		local size = self.props.Size
-		local current = self.props.Current
+local FFlagTerrainToolsRefactorTabsAndTools = game:GetFastFlag("TerrainToolsRefactorTabsAndTools")
 
-		local buttonSize
-		local buttonPos
-		if current then
-			buttonSize = theme.tabTheme.currentTabSize
-			buttonPos = theme.tabTheme.currentTabOffset
-		else
-			buttonSize = theme.tabTheme.otherTabSize
-			buttonPos = theme.tabTheme.otherTabOffset
+local Tab = Roact.PureComponent:extend(script.Name)
+
+if FFlagTerrainToolsRefactorTabsAndTools then
+	function Tab:init()
+		self.onClick = function()
+			self.props.OnClick(self.props.TabId)
 		end
+	end
 
-		return Roact.createElement("Frame", {
-			Size = size,
-			BackgroundColor3 = theme.borderColor,
-			LayoutOrder = layoutOrder,
-			BorderSizePixel = 0,
-		},{
-			TabButton = Roact.createElement("TextButton", {
-				Name = name,
-				Text = name,
-				TextColor3 = theme.textColor,
-				Size = buttonSize,
-				Position = buttonPos,
-				BackgroundColor3 = theme.backgroundColor,
+	function Tab:render()
+		return withTheme(function(theme)
+			return withLocalization(function(localization)
+				local tabId = self.props.TabId
+				local text = localization:getText("Tab", tabId)
+				local layoutOrder = self.props.LayoutOrder
+				local size = self.props.Size
+				local isCurrent = self.props.IsCurrent
+
+				local buttonSize
+				local buttonPos
+				if isCurrent then
+					buttonSize = theme.tabTheme.currentTabSize
+					buttonPos = theme.tabTheme.currentTabOffset
+				else
+					buttonSize = theme.tabTheme.otherTabSize
+					buttonPos = theme.tabTheme.otherTabOffset
+				end
+
+				return Roact.createElement("Frame", {
+					Size = size,
+					BackgroundColor3 = theme.borderColor,
+					LayoutOrder = layoutOrder,
+					BorderSizePixel = 0,
+				}, {
+					TabButton = Roact.createElement("TextButton", {
+						Text = text,
+						TextColor3 = theme.textColor,
+						Size = buttonSize,
+						Position = buttonPos,
+						BackgroundColor3 = theme.backgroundColor,
+						BorderSizePixel = 0,
+
+						[Roact.Event.Activated] = self.onClick,
+					})
+				})
+			end)
+		end)
+	end
+else
+	function Tab:render()
+		return withTheme(function(theme)
+			local name = self.props.Name
+			local layoutOrder = self.props.LayoutOrder
+			local size = self.props.Size
+			local current = self.props.Current
+
+			local buttonSize
+			local buttonPos
+			if current then
+				buttonSize = theme.tabTheme.currentTabSize
+				buttonPos = theme.tabTheme.currentTabOffset
+			else
+				buttonSize = theme.tabTheme.otherTabSize
+				buttonPos = theme.tabTheme.otherTabOffset
+			end
+
+			return Roact.createElement("Frame", {
+				Size = size,
+				BackgroundColor3 = theme.borderColor,
+				LayoutOrder = layoutOrder,
 				BorderSizePixel = 0,
+			},{
+				TabButton = Roact.createElement("TextButton", {
+					Name = name,
+					Text = name,
+					TextColor3 = theme.textColor,
+					Size = buttonSize,
+					Position = buttonPos,
+					BackgroundColor3 = theme.backgroundColor,
+					BorderSizePixel = 0,
 
-				[Roact.Event.Activated] = function()
-					self.props.OnClick(name)
-				end,
+					[Roact.Event.Activated] = function()
+						self.props.OnClick(name)
+					end,
+				})
 			})
-		})
-	end)
+		end)
+	end
 end
 
 return Tab

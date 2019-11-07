@@ -9,11 +9,14 @@ local Rodux = require(Packages.Rodux)
 local Actions = Plugin.Src.Actions
 local ChangeTool = require(Actions.ChangeTool)
 
+local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
+local ToolId = TerrainEnums.ToolId
+
 return function()
 	it("should return its expected default state", function()
 		local r = Rodux.Store.new(Tools)
 		expect(r:getState()).to.be.ok()
-		expect(r:getState().currentTool).to.equal("None")
+		expect(r:getState().currentTool).to.equal(ToolId.None)
 		expect(r:getState().activator).to.equal(nil)
 	end)
 

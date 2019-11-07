@@ -39,6 +39,13 @@ local FFlagUserMakeThumbstickDynamic do
 	FFlagUserMakeThumbstickDynamic = success and value
 end
 
+local FFlagUserSiblingTouchGui do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserSiblingTouchGui")
+	end)
+	FFlagUserSiblingTouchGui = success and result
+end
+
 local TouchDPad = FFlagUserTheMovementModeInquisition and DynamicThumbstick or require(script:WaitForChild("TouchDPad"))
 local TouchThumbpad = FFlagUserTheMovementModeInquisition and DynamicThumbstick or require(script:WaitForChild("TouchThumbpad"))
 local TouchThumbstick = FFlagUserMakeThumbstickDynamic and DynamicThumbstick or require(script:WaitForChild("TouchThumbstick"))
@@ -481,9 +488,12 @@ function ControlModule:CreateTouchGuiContainer()
 	if self.touchGui then self.touchGui:Destroy() end
 
 	-- Container for all touch device guis
-	self.touchGui = Instance.new('ScreenGui')
+	self.touchGui = Instance.new("ScreenGui")
 	self.touchGui.Name = "TouchGui"
 	self.touchGui.ResetOnSpawn = false
+	if FFlagUserSiblingTouchGui then
+		self.touchGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+	end
 	self.touchGui.Enabled = self.humanoid ~= nil
 
 	self.touchControlFrame = Instance.new("Frame")

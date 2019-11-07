@@ -2,16 +2,7 @@ local AnalyticsService = game:GetService("RbxAnalyticsService")
 local RunService = game:GetService("RunService")
 local UserInputService = game:GetService("UserInputService")
 
-local FFlagSettingsHubInviteReleaseStreamTimeAs10 = settings():GetFFlag("SettingsHubInviteReleaseStreamTimeAs10")
-
-local SETTINGS_HUB_INVITE_RELEASE_STREAM_TIME
-
-if FFlagSettingsHubInviteReleaseStreamTimeAs10 then
-	SETTINGS_HUB_INVITE_RELEASE_STREAM_TIME = 10
-else
-	SETTINGS_HUB_INVITE_RELEASE_STREAM_TIME = tonumber(settings():GetFVariable("SettingsHubInviteReleaseStreamTime"))
-		or math.huge
-end
+local SETTINGS_HUB_INVITE_RELEASE_STREAM_TIME = 10
 
 local function getPlatformTarget()
 	local platformTarget = "unknownLua"

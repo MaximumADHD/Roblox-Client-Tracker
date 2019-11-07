@@ -7,6 +7,9 @@ local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 
+local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
+local TabId = TerrainEnums.TabId
+
 local Theme = require(Plugin.Src.ContextServices.Theming)
 local withTheme = Theme.withTheme
 
@@ -20,63 +23,91 @@ local ToolRenderer = require(Components.ToolRenderer)
 
 local Actions = Plugin.Src.Actions
 local ChangeTab = require(Actions.ChangeTab)
-local ChangeTool = require(Actions.ChangeTool)
 
-local Manager = Roact.Component:extend(script.Name)
+local FFlagTerrainToolsRefactorTabsAndTools = game:GetFastFlag("TerrainToolsRefactorTabsAndTools")
 
--- Seperate because of weird UIListLayout behavior - just creates top tab layer
+local Manager = Roact.PureComponent:extend(script.Name)
+
+local TabOrder = {
+	TabId.Create,
+	TabId.Region,
+	TabId.Build,
+	TabId.Sculpt,
+	TabId.Paint,
+}
+
+-- Separate because of weird UIListLayout behavior - just creates top tab layer
 local function createTabs(props)
 	local dispatchChangeTab = props.dispatchChangeTab
 	local currTab = props.currentTab
 
-	local selected = Color3.fromRGB(186, 187, 186)
-	local default = Color3.fromRGB(227, 227, 227)
+	local buttonSize = UDim2.new(0.2, 0, 1, 0)
 
-	return withLocalization(function(localization)
-		local buttonSize = UDim2.new(.2, 0, 1, 0)
-		return Roact.createFragment({
-			Layout = Roact.createElement("UIListLayout", {
+	if FFlagTerrainToolsRefactorTabsAndTools then
+		local fragment = {
+			UIListLayout = Roact.createElement("UIListLayout", {
 				FillDirection = Enum.FillDirection.Horizontal,
 				SortOrder = Enum.SortOrder.LayoutOrder,
 			}),
-			Create = Roact.createElement(Tab, {
-				Size = buttonSize,
-				Name = localization:getText("Tab", "Create"),
-				OnClick = dispatchChangeTab,
-				Current = currTab == "Create",
-				LayoutOrder = 0,
-			}),
-			Region = Roact.createElement(Tab, {
-				Size = buttonSize,
-				Name = localization:getText("Tab", "Region"),
-				LayoutOrder = 1,
-				Current = currTab == "Region",
-				OnClick = dispatchChangeTab,
+		}
 
-			}),
-			Build = Roact.createElement(Tab, {
+		for i, tabId in ipairs(TabOrder) do
+			fragment[tabId] = Roact.createElement(Tab, {
+				TabId = tabId,
 				Size = buttonSize,
-				Name = localization:getText("Tab", "Build"),
 				OnClick = dispatchChangeTab,
-				Current = currTab == "Build",
-				LayoutOrder = 2,
-			}),
-			Sculpt = Roact.createElement(Tab, {
-				Size = buttonSize,
-				Name = localization:getText("Tab", "Sculpt"),
-				OnClick = dispatchChangeTab,
-				Current = currTab == "Sculpt",
-				LayoutOrder = 3,
-			}),
-			Paint = Roact.createElement(Tab, {
-				Size = buttonSize,
-				Name = localization:getText("Tab", "Paint"),
-				OnClick = dispatchChangeTab,
-				Current = currTab == "Paint",
-				LayoutOrder = 4,
-			}),
-		})
-	end)
+				IsCurrent = currTab == tabId,
+				LayoutOrder = i,
+			})
+		end
+
+		return Roact.createFragment(fragment)
+	else
+		return withLocalization(function(localization)
+			return Roact.createFragment({
+				Layout = Roact.createElement("UIListLayout", {
+					FillDirection = Enum.FillDirection.Horizontal,
+					SortOrder = Enum.SortOrder.LayoutOrder,
+				}),
+				Create = Roact.createElement(Tab, {
+					Size = buttonSize,
+					Name = localization:getText("Tab", "Create"),
+					OnClick = dispatchChangeTab,
+					Current = currTab == "Create",
+					LayoutOrder = 0,
+				}),
+				Region = Roact.createElement(Tab, {
+					Size = buttonSize,
+					Name = localization:getText("Tab", "Region"),
+					LayoutOrder = 1,
+					Current = currTab == "Region",
+					OnClick = dispatchChangeTab,
+
+				}),
+				Build = Roact.createElement(Tab, {
+					Size = buttonSize,
+					Name = localization:getText("Tab", "Build"),
+					OnClick = dispatchChangeTab,
+					Current = currTab == "Build",
+					LayoutOrder = 2,
+				}),
+				Sculpt = Roact.createElement(Tab, {
+					Size = buttonSize,
+					Name = localization:getText("Tab", "Sculpt"),
+					OnClick = dispatchChangeTab,
+					Current = currTab == "Sculpt",
+					LayoutOrder = 3,
+				}),
+				Paint = Roact.createElement(Tab, {
+					Size = buttonSize,
+					Name = localization:getText("Tab", "Paint"),
+					OnClick = dispatchChangeTab,
+					Current = currTab == "Paint",
+					LayoutOrder = 4,
+				}),
+			})
+		end)
+	end
 end
 
 function Manager:render()

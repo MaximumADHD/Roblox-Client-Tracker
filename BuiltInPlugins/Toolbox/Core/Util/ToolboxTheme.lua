@@ -3,7 +3,9 @@ local Plugin = script.Parent.Parent.Parent
 local Libs = Plugin.Libs
 local Cryo = require(Libs.Cryo)
 
-local createTheme = require(Libs.UILibrary).createTheme
+local UILibrary = require(Libs.UILibrary)
+local createTheme = UILibrary.createTheme
+local StudioStyle = UILibrary.Studio.Style
 
 local Util = Plugin.Core.Util
 local Colors = require(Util.Colors)
@@ -406,10 +408,17 @@ function ToolboxTheme:_recalculateTheme()
 			contentColor = color(c.TitlebarText),
 			selectedColor = isDark and Colors.WHITE or Colors.BLUE_PRIMARY,
 		},
+
+		purchaseDialog = {
+			promptText = color(c.MainText),
+			balanceText = color(c.DimmedText),
+		},
 	})
 
 	-- Need more color for the style
-	local styleGuide = {
+	local styleGuide = Cryo.Dictionary.join(StudioStyle.new(color, c, m), {
+		font = Enum.Font.SourceSans,
+
 		backgroundColor = color(c.InputFieldBackground),
 		textColor = color(c.MainText),
 		subTextColor = color(c.SubText),
@@ -428,7 +437,7 @@ function ToolboxTheme:_recalculateTheme()
 		selectionBorderColor = color(c.ButtonBorder, m.Selected),
 
 		errorColor = color(c.ErrorText),
-	}
+	})
 
 	local overrides = {
 		toggleButton = {
@@ -438,7 +447,17 @@ function ToolboxTheme:_recalculateTheme()
 			onImage = isDark and Images.TOGGLE_ON_DARK or Images.TOGGLE_ON_LIGHT,
 			offImage = isDark and Images.TOGGLE_OFF_DARK or Images.TOGGLE_OFF_LIGHT,
 			disabledImage = isDark and Images.TOGGLE_DISABLE_DARK or Images.TOGGLE_DISABLE_LIGHT,
-		}
+		},
+
+		dialog = {
+			background = color(c.MainBackground),
+		},
+
+		button = {
+			Default = {
+				backgroundColor = color(c.Button),
+			},
+		},
 	}
 
 	self:_updateUILibrary(styleGuide, overrides)

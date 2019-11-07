@@ -239,6 +239,7 @@ SmoothWaterSuperHQFS,Fragment
 SmoothWaterSuperHQFSShadowed,Fragment
 SmoothWaterVS,Vertex
 SpecularConvFS,Fragment
+SpecularConvFS_DEPRECATED,Fragment
 SpecularConvVS,Vertex
 SRGBToLinearFS,Fragment
 SSAOBlurXFS,Fragment

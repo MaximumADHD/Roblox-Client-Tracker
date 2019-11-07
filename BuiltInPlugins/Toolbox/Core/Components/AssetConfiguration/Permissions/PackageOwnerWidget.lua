@@ -11,7 +11,6 @@
 	GroupMetadata = table, used to populate information about rolesets and what permissions they have.
 	Permissions = table, contains the information about the current shared permissions of the package.
 	PermissionsChanged = function, callback for when a user's role has been changed.
-	Thumbnails = table, contain the thumbnails for the group if it is a group owned package.
 
 	Optional Properties:
 	
@@ -44,6 +43,16 @@ local FitToContent = createFitToContent("Frame", "UIListLayout", {
 	SortOrder = Enum.SortOrder.LayoutOrder,
 })
 
+local function getGroupOwnerPermissions(props, localized)
+	if not props.CanManage then return {} end
+
+	local permissions = {
+		{Key = PermissionsConstants.EditKey, Display = localized.PackagePermissions.ActionDropdown.EditLabel, Description = localized.PackagePermissions.ActionDropdown.EditDescription},
+	}
+
+	return permissions
+end
+
 local function getUserOwnerPermissions()
 	return {} -- Owner can never be changed
 end
@@ -55,16 +64,16 @@ function PackageOwnerWidget:render()
 
 	return withLocalization(function(_, localized)
 		return withTheme(function(theme)
-			-- local function rolePermissionChanged(roleId, newPermission)
-			-- 	-- Cryo does not provide a good way to replace a deep key
-			-- 	local newPermissions = 	Cryo.Dictionary.join(props.Permissions, {[PermissionsConstants.RoleSubjectKey]=Cryo.Dictionary.join(
-			-- 								props.Permissions[PermissionsConstants.RoleSubjectKey], {[roleId]=Cryo.Dictionary.join(
-			-- 									props.Permissions[PermissionsConstants.RoleSubjectKey][roleId], {[PermissionsConstants.ActionKey]=newPermission}
-			-- 								)}
-			-- 							)})
+			local function rolePermissionChanged(roleId, newPermission)
+				-- Cryo does not provide a good way to replace a deep key
+				local newPermissions = 	Cryo.Dictionary.join(props.Permissions, {[PermissionsConstants.RoleSubjectKey]=Cryo.Dictionary.join(
+											props.Permissions[PermissionsConstants.RoleSubjectKey], {[roleId]=Cryo.Dictionary.join(
+												props.Permissions[PermissionsConstants.RoleSubjectKey][roleId], {[PermissionsConstants.ActionKey]=newPermission}
+											)}
+										)})
 				
-			-- 	props.PermissionsChanged(newPermissions)
-			-- end
+				props.PermissionsChanged(newPermissions)
+			end
 
 			local collaboratorItem
 			if props.OwnerType == Enum.CreatorType.User then 
@@ -82,10 +91,6 @@ function PackageOwnerWidget:render()
 					Enabled = props.Enabled,
 					
 					Items = getUserOwnerPermissions(props),
-					--[[ 
-						FIXME(mwang) RolePermissionChanged is nil currently because this Component is only for User-Owned Packages.
-						Account for Group-Owned packages, RolePermissionChanged will not be nil.
-					]]
 					RolePermissionChanged = nil, -- Owner permissions can't be changed
 				})
 			else
@@ -96,8 +101,7 @@ function PackageOwnerWidget:render()
 					GroupData = props.GroupMetadata,
 					Enabled = props.Enabled,
 
-					-- Items = getGroupOwnerPermissions(props, localized),
-					Items = {},
+					Items = getGroupOwnerPermissions(props, localized),
 					
 					RolePermissionChanged = rolePermissionChanged,
 					GroupPermissionChanged = nil, -- Cannot be bulk-changed because Owner is locked
