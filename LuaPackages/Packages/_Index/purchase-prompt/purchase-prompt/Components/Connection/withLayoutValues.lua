@@ -2,9 +2,11 @@
 	Helpful wrapper around LayoutValuesConsumer to make it a
 	little less verbose to use
 ]]
-local CorePackages = game:GetService("CorePackages")
+local FFlagIGPDepSwap = game:GetFastFlag("IGPDepSwap")
+local Root = script.Parent.Parent.Parent
+local LuaPackages = FFlagIGPDepSwap and Root.Parent or game:GetService("CorePackages")
 
-local Roact = require(CorePackages.Roact)
+local Roact = require(LuaPackages.Roact)
 
 local LayoutValuesConsumer_DEPRECATED = require(script.Parent.LayoutValuesConsumer_DEPRECATED)
 local LayoutValuesConsumer = require(script.Parent.LayoutValuesConsumer)

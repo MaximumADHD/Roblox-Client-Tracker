@@ -1,7 +1,9 @@
 return function()
+	local FFlagIGPDepSwap = game:GetFastFlag("IGPDepSwap")
+	local Root = script.Parent.Parent
+	local LuaPackages = FFlagIGPDepSwap and Root.Parent or game:GetService("CorePackages")
 	local MarketplaceService = game:GetService("MarketplaceService")
-	local CorePackages = game:GetService("CorePackages")
-	local Rodux = require(CorePackages.Rodux)
+	local Rodux = require(LuaPackages.Rodux)
 
 	local Reducer = require(script.Parent.Parent.Reducers.Reducer)
 	local Thunk = require(script.Parent.Parent.Thunk)

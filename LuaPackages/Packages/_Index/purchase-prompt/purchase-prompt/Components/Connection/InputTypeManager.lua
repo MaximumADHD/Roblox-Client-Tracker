@@ -2,10 +2,13 @@
 	Sets whether or not gamepad buttons should be shown, based on recently
 	received inputs
 ]]
+local FFlagIGPDepSwap = game:GetFastFlag("IGPDepSwap")
+local Root = script.Parent.Parent.Parent
+local LuaPackages = FFlagIGPDepSwap and Root.Parent or game:GetService("CorePackages")
 local CorePackages = game:GetService("CorePackages")
 local UserInputService = game:GetService("UserInputService")
 
-local Roact = require(CorePackages.Roact)
+local Roact = require(LuaPackages.Roact)
 local MouseIconOverrideService = require(CorePackages.InGameServices.MouseIconOverrideService)
 local ExternalEventConnection = require(script.Parent.ExternalEventConnection)
 

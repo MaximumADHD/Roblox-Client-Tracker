@@ -2,11 +2,13 @@
 	Connects to MarketplaceService's callback for completing a native purchase, so that we can
 	retry after an upsell purchase was processed
 ]]
-local CorePackages = game:GetService("CorePackages")
+local FFlagIGPDepSwap = game:GetFastFlag("IGPDepSwap")
+local Root = script.Parent.Parent.Parent
+local LuaPackages = FFlagIGPDepSwap and Root.Parent or game:GetService("CorePackages")
 local Players = game:GetService("Players")
 local ABTestService = game:GetService("ABTestService")
 
-local Roact = require(CorePackages.Roact)
+local Roact = require(LuaPackages.Roact)
 local ExternalEventConnection = require(script.Parent.ExternalEventConnection)
 
 local connectToStore = require(script.Parent.Parent.Parent.connectToStore)

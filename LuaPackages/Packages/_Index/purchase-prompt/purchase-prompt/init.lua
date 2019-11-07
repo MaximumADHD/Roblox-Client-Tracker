@@ -1,8 +1,10 @@
+local FFlagIGPDepSwap = game:GetFastFlag("IGPDepSwap")
+local Root = script
+local LuaPackages = FFlagIGPDepSwap and Root.Parent or game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
-local CorePackages = game:GetService("CorePackages")
 local RunService = game:GetService("RunService")
 
-local Roact = require(CorePackages.Roact)
+local Roact = require(LuaPackages.Roact)
 
 local PurchasePromptApp = require(script.Components.PurchasePromptApp)
 

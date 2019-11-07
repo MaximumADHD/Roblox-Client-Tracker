@@ -1,7 +1,9 @@
 return function()
-	local CorePackages = game:GetService("CorePackages")
-	local Roact = require(CorePackages.Roact)
-	local Rodux = require(CorePackages.Rodux)
+	local FFlagIGPDepSwap = game:GetFastFlag("IGPDepSwap")
+	local Root = script.Parent.Parent.Parent
+	local LuaPackages = FFlagIGPDepSwap and Root.Parent or game:GetService("CorePackages")
+	local Roact = require(LuaPackages.Roact)
+	local Rodux = require(LuaPackages.Rodux)
 
 	local Reducer = require(script.Parent.Parent.Parent.Reducers.Reducer)
 	local UnitTestContainer = require(script.Parent.Parent.Parent.Test.UnitTestContainer)

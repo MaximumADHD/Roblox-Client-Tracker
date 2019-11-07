@@ -1,6 +1,8 @@
-local CorePackages = game:GetService("CorePackages")
+local FFlagIGPDepSwap = game:GetFastFlag("IGPDepSwap")
+local Root = script.Parent.Parent
+local LuaPackages = FFlagIGPDepSwap and Root.Parent or game:GetService("CorePackages")
 
-local Rodux = require(CorePackages.Rodux)
+local Rodux = require(LuaPackages.Rodux)
 
 local SetProduct = require(script.Parent.Parent.Actions.SetProduct)
 local HidePrompt = require(script.Parent.Parent.Actions.HidePrompt)

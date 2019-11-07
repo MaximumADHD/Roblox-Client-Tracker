@@ -1,7 +1,7 @@
 local XboxCatalogData = require(script.Parent.XboxCatalogData)
 local NativeProducts = require(script.Parent.NativeProducts)
 
-game:DefineFastFlag("EnableLargeRobuxAndroidUpsellV2", false)
+game:DefineFastFlag("EnableLargeRobuxAndroidUpsellV3", false)
 
 local Promise = require(script.Parent.Parent.Promise)
 
@@ -36,7 +36,7 @@ local function selectRobuxProduct(platform, neededRobux, userIsSubscribed)
 			and NativeProducts.IOS.PremiumSubscribed
 			or NativeProducts.IOS.PremiumNotSubscribed
 	else -- This product format is standard for other supported platforms (Android, Amazon, and UWP)
-		if platform == Enum.Platform.Android and game:GetFastFlag("EnableLargeRobuxAndroidUpsellV2") then
+		if platform == Enum.Platform.Android and game:GetFastFlag("EnableLargeRobuxAndroidUpsellV3") then
 			-- Contains upsell for 4500 and 10000 packages only available on android
 			productOptions = userIsSubscribed
 				and NativeProducts.Standard.PremiumSubscribedLarger

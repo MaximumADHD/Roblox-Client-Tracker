@@ -1,10 +1,12 @@
 --[[
 	Connects to GuiService's browser close callback to retry purchase after upsell
 ]]
-local CorePackages = game:GetService("CorePackages")
+local FFlagIGPDepSwap = game:GetFastFlag("IGPDepSwap")
+local Root = script.Parent.Parent.Parent
+local LuaPackages = FFlagIGPDepSwap and Root.Parent or game:GetService("CorePackages")
 local GuiService = game:GetService("GuiService")
 
-local Roact = require(CorePackages.Roact)
+local Roact = require(LuaPackages.Roact)
 local ExternalEventConnection = require(script.Parent.ExternalEventConnection)
 
 local retryAfterUpsell = require(script.Parent.Parent.Parent.Thunks.retryAfterUpsell)

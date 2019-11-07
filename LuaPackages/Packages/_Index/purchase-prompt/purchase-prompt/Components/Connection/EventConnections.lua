@@ -1,10 +1,12 @@
 --[[
 	Connects relevant Roblox engine events to the rodux store
 ]]
-local CorePackages = game:GetService("CorePackages")
+local FFlagIGPDepSwap = game:GetFastFlag("IGPDepSwap")
+local Root = script.Parent.Parent.Parent
+local LuaPackages = FFlagIGPDepSwap and Root.Parent or game:GetService("CorePackages")
 local UserInputService = game:GetService("UserInputService")
 
-local Roact = require(CorePackages.Roact)
+local Roact = require(LuaPackages.Roact)
 
 local UpsellFlow = require(script.Parent.Parent.Parent.UpsellFlow)
 

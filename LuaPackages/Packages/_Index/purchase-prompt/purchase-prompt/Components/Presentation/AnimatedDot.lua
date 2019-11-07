@@ -1,6 +1,8 @@
-local CorePackages = game:GetService("CorePackages")
+local FFlagIGPDepSwap = game:GetFastFlag("IGPDepSwap")
+local Root = script.Parent.Parent.Parent
+local LuaPackages = FFlagIGPDepSwap and Root.Parent or game:GetService("CorePackages")
 
-local Roact = require(CorePackages.Roact)
+local Roact = require(LuaPackages.Roact)
 
 local GRAY = Color3.fromRGB(184, 184, 184)
 local BLUE = Color3.fromRGB(0, 162, 255)

@@ -1,7 +1,9 @@
-local CorePackages = game:GetService("CorePackages")
+local FFlagIGPDepSwap = game:GetFastFlag("IGPDepSwap")
+local Root = script.Parent.Parent.Parent
+local LuaPackages = FFlagIGPDepSwap and Root.Parent or game:GetService("CorePackages")
 local TextService = game:GetService("TextService")
 
-local Roact = require(CorePackages.Roact)
+local Roact = require(LuaPackages.Roact)
 local join = require(script.Parent.Parent.Parent.join)
 
 local AutoSizedTextLabel = Roact.PureComponent:extend("AutoSizedTextLabel")

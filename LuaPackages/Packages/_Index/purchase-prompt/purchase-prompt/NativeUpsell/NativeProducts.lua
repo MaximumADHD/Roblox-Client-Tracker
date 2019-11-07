@@ -117,10 +117,10 @@ local NativeProducts = {
 				productId = "com.roblox.robloxmobile.premium1870subscribed",
 			}, {
 				robuxValue = 4950,
-				productId = "com.roblox.robloxmobile.premium4950robux",
+				productId = "com.roblox.robloxmobile.premium4950subscribed",
 			}, {
 				robuxValue = 11000,
-				productId = "com.roblox.robloxmobile.premium11000robux",
+				productId = "com.roblox.robloxmobile.premium11000subscribed",
 			},
 		},
 		PremiumNotSubscribed = {

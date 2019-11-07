@@ -1,8 +1,10 @@
-local CorePackages = game:GetService("CorePackages")
+local FFlagIGPDepSwap = game:GetFastFlag("IGPDepSwap")
+local Root = script.Parent.Parent
+local LuaPackages = FFlagIGPDepSwap and Root.Parent or game:GetService("CorePackages")
 
-local Roact = require(CorePackages.Roact)
-local Rodux = require(CorePackages.Rodux)
-local RoactRodux = require(CorePackages.RoactRodux)
+local Roact = require(LuaPackages.Roact)
+local Rodux = require(LuaPackages.Rodux)
+local RoactRodux = require(LuaPackages.RoactRodux)
 
 local Thunk = require(script.Parent.Parent.Thunk)
 
@@ -22,8 +24,6 @@ local ExternalSettings = require(script.Parent.Parent.Services.ExternalSettings)
 local preloadImageAssets = require(script.Parent.Parent.preloadImageAssets)
 
 local Reducer = require(script.Parent.Parent.Reducers.Reducer)
-
-game:DefineFastFlag("EnableRobuxABTest", false)
 
 local PurchasePromptApp = Roact.Component:extend("PurchasePromptApp")
 

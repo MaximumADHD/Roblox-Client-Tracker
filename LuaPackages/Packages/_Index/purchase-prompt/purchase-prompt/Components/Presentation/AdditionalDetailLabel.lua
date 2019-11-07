@@ -1,7 +1,9 @@
-local CorePackages = game:GetService("CorePackages")
+local FFlagIGPDepSwap = game:GetFastFlag("IGPDepSwap")
+local Root = script.Parent.Parent.Parent
+local LuaPackages = FFlagIGPDepSwap and Root.Parent or game:GetService("CorePackages")
 local UserInputService = game:GetService("UserInputService")
 
-local Roact = require(CorePackages.Roact)
+local Roact = require(LuaPackages.Roact)
 
 local connectToStore = require(script.Parent.Parent.Parent.connectToStore)
 
@@ -16,6 +18,8 @@ local withLayoutValues = require(script.Parent.Parent.Connection.withLayoutValue
 
 local getUpsellFlow = require(script.Parent.Parent.Parent.NativeUpsell.getUpsellFlow)
 local isMockingPurchases = require(script.Parent.Parent.Parent.isMockingPurchases)
+
+local FFlagEnableHexRobuxIcon = game:GetFastFlag("EnableRobuxHexIconV2")
 
 local PURCHASE_DETAILS_KEY = "CoreScripts.PurchasePrompt.PurchaseDetails.%s"
 
@@ -76,7 +80,9 @@ local function mapStateToProps(state)
 		elseif isMockingPurchases() then
 			messageKey = PURCHASE_DETAILS_KEY:format("MockPurchase")
 		else
-			messageKey = PURCHASE_DETAILS_KEY:format("BalanceFuture")
+			messageKey = FFlagEnableHexRobuxIcon
+				and PURCHASE_DETAILS_KEY:format("BalanceFutureV2")
+				or PURCHASE_DETAILS_KEY:format("BalanceFuture")
 			messageParams = {
 				BALANCE_FUTURE = LocalizationService.numberParam(balance - price),
 			}

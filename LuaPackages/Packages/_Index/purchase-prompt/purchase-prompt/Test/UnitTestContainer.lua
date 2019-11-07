@@ -2,12 +2,14 @@
 	Component that wraps its provided children with a store provider,
 	a LayoutValues object, and a ScreenGui. Convenient for testing!
 ]]
-local CorePackages = game:GetService("CorePackages")
+local FFlagIGPDepSwap = game:GetFastFlag("IGPDepSwap")
+local Root = script.Parent.Parent
+local LuaPackages = FFlagIGPDepSwap and Root.Parent or game:GetService("CorePackages")
 local LocalizationService = game:GetService("LocalizationService")
 
-local Roact = require(CorePackages.Roact)
-local Rodux = require(CorePackages.Rodux)
-local RoactRodux = require(CorePackages.RoactRodux)
+local Roact = require(LuaPackages.Roact)
+local Rodux = require(LuaPackages.Rodux)
+local RoactRodux = require(LuaPackages.RoactRodux)
 
 local LayoutValues = require(script.Parent.Parent.Services.LayoutValues)
 local LayoutValuesProvider = require(script.Parent.Parent.Components.Connection.LayoutValuesProvider)

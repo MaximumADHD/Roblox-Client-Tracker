@@ -1,11 +1,13 @@
 --[[
 	Connects Rodux store to external MarketplaceService events
 ]]
-local CorePackages = game:GetService("CorePackages")
+local FFlagIGPDepSwap = game:GetFastFlag("IGPDepSwap")
+local Root = script.Parent.Parent.Parent
+local LuaPackages = FFlagIGPDepSwap and Root.Parent or game:GetService("CorePackages")
 local MarketplaceService = game:GetService("MarketplaceService")
 local Players = game:GetService("Players")
 
-local Roact = require(CorePackages.Roact)
+local Roact = require(LuaPackages.Roact)
 local ExternalEventConnection = require(script.Parent.ExternalEventConnection)
 
 local PurchaseError = require(script.Parent.Parent.Parent.PurchaseError)

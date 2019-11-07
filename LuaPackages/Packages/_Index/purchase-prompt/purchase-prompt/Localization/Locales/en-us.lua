@@ -96,6 +96,7 @@ return{
 	["CoreScripts.PurchasePrompt.PurchaseDetails.MockPurchaseComplete"] = [[This was a test purchase.]],
 	["CoreScripts.PurchasePrompt.PurchaseDetails.InvalidBuildersClub"] = [[This item requires {BC_LEVEL}. Click 'Upgrade' to upgrade your Builders Club!]],
 	["CoreScripts.PurchasePrompt.PurchaseDetails.BalanceFuture"] = [[Your balance after this transaction will be R${BALANCE_FUTURE}]],
+	["CoreScripts.PurchasePrompt.PurchaseDetails.BalanceFutureV2"] = [[Your balance after this transaction will be {BALANCE_FUTURE} Robux]],
 	["CoreScripts.PurchasePrompt.PurchaseDetails.BalanceNow"] = [[Your balance is now {BALANCE_NOW}.]],
 	["CoreScripts.PurchasePrompt.PurchaseDetails.RemainingAfterUpsell"] = [[The remaining {REMAINING_ROBUX} Robux will be credited to your balance.]],
 	["CoreScripts.PurchasePrompt.PurchaseFailed.InvalidFunds"] = [[Your purchase failed because your account does not have enough Robux. Your account has not been charged.]],

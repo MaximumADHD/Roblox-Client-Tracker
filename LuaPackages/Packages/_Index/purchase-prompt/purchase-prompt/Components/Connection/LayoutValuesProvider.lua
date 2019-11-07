@@ -2,11 +2,11 @@
 	LayoutValuesProvider is a simple wrapper component that injects the
 	specified services into context
 ]]
-local CorePackages = game:GetService("CorePackages")
-
-local Roact = require(CorePackages.Roact)
-
+local FFlagIGPDepSwap = game:GetFastFlag("IGPDepSwap")
 local Root = script.Parent.Parent.Parent
+local LuaPackages = FFlagIGPDepSwap and Root.Parent or game:GetService("CorePackages")
+
+local Roact = require(LuaPackages.Roact)
 
 local LayoutValues = require(Root.Services.LayoutValues)
 local LayoutValuesKey = require(Root.LayoutValuesKey)

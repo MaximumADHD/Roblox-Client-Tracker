@@ -26,10 +26,6 @@ function MockExternalSettings.new(isStudio, isTenFoot, flags)
 		return isStudio
 	end
 
-	function service.getFlagPurchasePromptPremiumEnabled()
-		return flags.PurchasePromptPremiumEnabled
-	end
-
 	function service.getFlagRestrictSales2()
 		return flags.RestrictSales2
 	end

@@ -2,10 +2,12 @@
 	Helper for supplying the current Roblox Locale to the Roact
 	tree via context using the LocalizationContextProvider
 ]]
-local CorePackages = game:GetService("CorePackages")
+local FFlagIGPDepSwap = game:GetFastFlag("IGPDepSwap")
+local Root = script.Parent.Parent.Parent
+local LuaPackages = FFlagIGPDepSwap and Root.Parent or game:GetService("CorePackages")
 local LocalizationService = game:GetService("LocalizationService")
 
-local Roact = require(CorePackages.Roact)
+local Roact = require(LuaPackages.Roact)
 
 local LocalizationContextProvider = require(script.Parent.LocalizationContextProvider)
 

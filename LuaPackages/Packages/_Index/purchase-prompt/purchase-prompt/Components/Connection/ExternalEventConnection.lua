@@ -1,9 +1,11 @@
 --[[
 	A component that establishes a connection to a Roblox event when it is rendered.
 ]]
-local CorePackages = game:GetService("CorePackages")
+local FFlagIGPDepSwap = game:GetFastFlag("IGPDepSwap")
+local Root = script.Parent.Parent.Parent
+local LuaPackages = FFlagIGPDepSwap and Root.Parent or game:GetService("CorePackages")
 
-local Roact = require(CorePackages.Roact)
+local Roact = require(LuaPackages.Roact)
 
 local ExternalEventConnection = Roact.Component:extend("ExternalEventConnection")
 
