@@ -135,22 +135,6 @@ function LocalizationService.getKeyFromItemType(itemType)
 end
 
 --[[
-	Utility function returns the localization key for a given
-	builders club level
-]]
-function LocalizationService.getBuildersClubLevelKey(bcLevelId)
-	assert(typeof(bcLevelId) == "number" or typeof(bcLevelId) == "string",
-		"provided builders club level must be a number")
-	local bcLevel = KeyMappings.BuildersClubLevelById[tostring(bcLevelId)]
-
-	if DEBUG_LOCALIZATION and bcLevel == nil then
-		warn("Invalid Builders Club Level id " .. tostring(bcLevelId))
-	end
-
-	return bcLevel
-end
-
---[[
 	Utility function to retrieve relevant localization key for various
 	types of errors that may be encountered
 ]]

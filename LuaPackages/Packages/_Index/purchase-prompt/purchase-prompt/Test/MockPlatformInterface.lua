@@ -8,18 +8,15 @@ local MockPlatformInterface = {}
 
 function MockPlatformInterface.new()
 	local startRobuxUpsellWeb = createSpy()
-	local startBuildersClubUpsellWeb = createSpy()
 	local promptNativePurchase = createSpy()
 
 	local mockService = {
 		startRobuxUpsellWeb = startRobuxUpsellWeb.value,
-		startBuildersClubUpsellWeb = startBuildersClubUpsellWeb.value,
 		promptNativePurchase = promptNativePurchase.value,
 	}
 
 	local spies = {
 		startRobuxUpsellWeb = startRobuxUpsellWeb,
-		startBuildersClubUpsellWeb = startBuildersClubUpsellWeb,
 		promptNativePurchase = promptNativePurchase,
 	}
 

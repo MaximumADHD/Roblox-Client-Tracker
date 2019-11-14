@@ -190,39 +190,35 @@ function Scroller:willUpdate(nextProps, nextState)
 
 	self.sizeDebounce = true
 
-	local diffs = {}
+	local deletions = {}
+	local additions = {}
 
 	if not Cryo.isEmpty(self.props.itemList) and self.state.lead then
 		for n = self.state.trail.index, self.state.lead.index do
 			local id = self.props.identifier(self.props.itemList[n])
-			diffs[id] = -1
+			deletions[id] = true
 		end
 	end
 
 	if not Cryo.isEmpty(nextProps.itemList) and nextState.lead then
 		for n = nextState.trail.index, nextState.lead.index do
-			local id = nextProps.identifier(nextProps.itemList[n])
-			if diffs[id] then
+			local item = nextProps.itemList[n]
+			local id = nextProps.identifier(item)
+			if deletions[id] then
 				-- Element is in both ranges.
-				diffs[id] = nil
+				deletions[id] = nil
 			else
-				diffs[id] = 1
+				additions[id] = item
 			end
 		end
 	end
 
 	-- Clear names first, so new items can use them.
-	for id, change in pairs(diffs) do
-		if change == -1 then
-			-- In old list, but not new.
-			self:clearMetadata(id)
-		end
+	for id, _ in pairs(deletions) do
+		self:clearMetadata(id)
 	end
-	for id, change in pairs(diffs) do
-		if change == 1 then
-			-- In new list, but not old.
-			self:updateMetadata(id, nextProps)
-		end
+	for id, item in pairs(additions) do
+		self:updateMetadata(id, item, nextProps)
 	end
 
 	-- The focus lock changed, clear the non-state anchor variables.
@@ -800,9 +796,9 @@ function Scroller:getID(index)
 	return self.props.identifier(self.props.itemList[index])
 end
 
--- Create or update a metadata entry for the element with the given id. This can't use self.props in willUpdate as
--- any props it uses could be out of date.
-function Scroller:updateMetadata(id, props)
+-- Create or update a metadata entry for the given element. This can't use
+-- self.props in willUpdate as any props it uses could be out of date.
+function Scroller:updateMetadata(id, item, props)
 	local meta = self.metadata[id]
 	if not meta then
 		meta = {}
@@ -810,7 +806,7 @@ function Scroller:updateMetadata(id, props)
 	end
 
 	if not meta.name then
-		local elem = props.renderItem(id, false)
+		local elem = props.renderItem(item, false)
 		local class = tostring(elem.component)
 		local pool = self:getKeyPool(class)
 		meta.name = pool:get()

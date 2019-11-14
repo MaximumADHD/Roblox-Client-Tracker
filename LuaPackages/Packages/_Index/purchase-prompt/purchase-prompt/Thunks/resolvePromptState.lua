@@ -42,15 +42,7 @@ local function resolvePromptState(productInfo, accountInfo, alreadyOwned)
 		local platform = UserInputService:GetPlatform()
 		local upsellFlow = getUpsellFlow(platform)
 
-		if productInfo.MinimumMembershipLevel > accountInfo.MembershipType then
-
-			if upsellFlow == UpsellFlow.Web then
-				return store:dispatch(SetPromptState(PromptState.BuildersClubUpsell))
-			else
-				return store:dispatch(ItemCannotBePurchased(PurchaseError.BuildersClubLevelTooLow))
-			end
-
-		elseif price > accountInfo.RobuxBalance then
+		if price > accountInfo.RobuxBalance then
 
 			if upsellFlow == UpsellFlow.CLB then
 				return store:dispatch(ItemCannotBePurchased(PurchaseError.NotEnoughRobux))

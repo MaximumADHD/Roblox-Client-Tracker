@@ -25,12 +25,6 @@ function PlatformInterface.new()
 		GuiService:OpenBrowserWindow(url)
 	end
 
-	function service.startBuildersClubUpsellWeb()
-		local url = ("%sUpgrades/BuildersClubMemberships.aspx"):format(BASE_URL)
-
-		GuiService:OpenBrowserWindow(url)
-	end
-
 	function service.promptNativePurchase(player, mobileProductId)
 		return MarketplaceService:PromptNativePurchase(player, mobileProductId)
 	end

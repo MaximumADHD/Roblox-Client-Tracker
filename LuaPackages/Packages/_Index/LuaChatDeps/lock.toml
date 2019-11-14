@@ -4,6 +4,6 @@ version = "0.1.0"
 source = "git+https://github.rbx.com/roblox/lua-chat-deps#master"
 commit = "d9941346d9956288e7ae1fcbfb11371d381af423"
 dependencies = [
-    "InfiniteScroll InfiniteScroller 25d09f0f git+https://github.rbx.com/roblox/infinite-scroll#master",
+    "InfiniteScroll InfiniteScroller 6edda2f5 git+https://github.rbx.com/roblox/infinite-scroll#master",
     "RoduxNetworking rodux-networking cd528e25 git+https://github.rbx.com/roblox/rodux-networking#master",
 ]

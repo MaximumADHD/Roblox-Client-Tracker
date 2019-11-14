@@ -18,15 +18,11 @@ local PurchaseError = createEnum("PurchaseError", {
 	"NotEnoughRobux",
 	"NotEnoughRobuxXbox",
 
-	-- Upsell
-	"BuildersClubLevelTooLow",
-
 	-- Network-reported failures
 	"UnknownFailure",
 	"UnknownFailureNoItemName",
 	"PurchaseDisabled",
 	"InvalidFunds",
-	"BuildersClubUpsellFailure",
 })
 
 return PurchaseError

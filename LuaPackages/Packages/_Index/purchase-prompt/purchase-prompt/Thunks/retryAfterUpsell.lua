@@ -32,10 +32,8 @@ local function retryAfterUpsell(retriesRemaining)
 				local state = store:getState()
 
 				local price = state.productInfo.price
-				local minimumBCLevel = state.productInfo.bcLevelRequired
 
 				local balance = accountInfo.RobuxBalance
-				local membershipLevel = accountInfo.MembershipType
 
 				store:dispatch(AccountInfoReceived(accountInfo))
 
@@ -49,18 +47,6 @@ local function retryAfterUpsell(retriesRemaining)
 					else
 						store:dispatch(ErrorOccurred(PurchaseError.InvalidFunds))
 					end
-
-				elseif minimumBCLevel > membershipLevel then
-					if retriesRemaining > 0 then
-						-- Upsell result may not yet have propagated, so we need to
-						-- wait a while and try again
-						delay(RETRY_RATE, function()
-							store:dispatch(retryAfterUpsell(retriesRemaining - 1))
-						end)
-					else
-						store:dispatch(ErrorOccurred(PurchaseError.BuildersClubUpsellFailure))
-					end
-
 				else
 					-- Upsell was successful and purchase can now be completed
 					store:dispatch(purchaseItem())

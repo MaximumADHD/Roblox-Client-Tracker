@@ -6,13 +6,21 @@ local Scroller = require(Root.InfiniteScroller.Components.Scroller)
 local Story = Roact.PureComponent:extend("Rhodium Story - infinite scroll in both directions")
 
 function Story:init()
-	self.state.items = {0}
+	self.state.items = {
+		{
+			token = 0,
+			color = Color3.fromRGB(255, 255, 255),
+		}
+	}
 
 	self.loadPrevious = function()
 		local newItems = {}
-		local n = self.state.items[1]
+		local n = self.state.items[1].token
 		for i = n-10, n-1 do
-			table.insert(newItems, i)
+			table.insert(newItems, {
+				token = i,
+				color = Color3.fromRGB(0, 128 - i, 128 + i),
+			})
 		end
 		self:setState({
 			items = Cryo.List.join(newItems, self.state.items)
@@ -21,9 +29,12 @@ function Story:init()
 
 	self.loadNext = function()
 		local newItems = {}
-		local n = self.state.items[#self.state.items]
+		local n = self.state.items[#self.state.items].token
 		for i = n+1, n+10 do
-			table.insert(newItems, i)
+			table.insert(newItems, {
+				token = i,
+				color = Color3.fromRGB(0, 128 - i, 128 + i),
+			})
 		end
 		self:setState({
 			items = Cryo.List.join(self.state.items, newItems)
@@ -44,14 +55,17 @@ function Story:render()
 		orientation = Scroller.Orientation.Up,
 		estimatedItemSize = 10,
 		mountingBuffer = 50,
+		identifier = function(item)
+			return item.token
+		end,
 		renderItem = function(item, _)
+			assert(item.token, "Item's token is unset")
+			assert(item.color, "Item's color is unset")
 			return Roact.createElement("Frame", {
 				Size = UDim2.new(0, 10, 0, 10),
-				BackgroundColor3 = item == 0
-					and Color3.fromRGB(255, 255, 255)
-					or Color3.fromRGB(0, 128 - item, 128 + item),
+				BackgroundColor3 = item.color,
 			}, {
-				["INDEX" .. tostring(item)] = Roact.createElement("Frame"),
+				["INDEX" .. tostring(item.token)] = Roact.createElement("Frame"),
 			})
 		end,
 	}, self.props))

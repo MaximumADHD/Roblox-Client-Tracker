@@ -107,27 +107,4 @@ return function()
 			expect(state.promptState).to.equal(PromptState.RobuxUpsell)
 		end
 	end)
-
-	it("should resolve state to BuildersClubUpsell if account has insufficient bc level", function()
-		local store = Rodux.Store.new(Reducer, {})
-
-		local productInfo = getTestProductInfo()
-		-- Player does not have the sufficient BC level
-		productInfo.MinimumMembershipLevel = 3
-		local accountInfo = {
-			RobuxBalance = 0,
-			MembershipType = 0,
-		}
-		local thunk = resolvePromptState(productInfo, accountInfo, false, false)
-
-		Thunk.test(thunk, store, {
-			[ExternalSettings] = MockExternalSettings.new(false, false, {})
-		})
-
-		local state = store:getState()
-
-		if not settings():GetFFlag("ChinaLicensingApp") then
-			expect(state.promptState).to.equal(PromptState.BuildersClubUpsell)
-		end
-	end)
 end

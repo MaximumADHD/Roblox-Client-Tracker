@@ -28,9 +28,6 @@ local requiredServices = {
 	ExternalSettings,
 }
 
--- TODO(dnurkkala): change this to use MembershipType enum when it has Premium
-local MEMBERSHIP_TYPE_PREMIUM = 4
-
 local function initiatePurchase(id, infoType, equipIfPurchased)
 	return Thunk.new(script.Name, requiredServices, function(store, services)
 		local network = services[Network]

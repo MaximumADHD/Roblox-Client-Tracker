@@ -6,8 +6,6 @@
 		iOS: PascalCase product name
 		Android, Amazon, UWP: all lowercase product name
 
-	Old products (Builders Club). Separated into iOS and everything else:
-
 	Product naming conventions:
 		iOS: prefixed with "com.roblox.robloxmobile", PascalCase product name
 		Android, Amazon, UWP: prefixed with "com.roblox.client", all lowercase product name

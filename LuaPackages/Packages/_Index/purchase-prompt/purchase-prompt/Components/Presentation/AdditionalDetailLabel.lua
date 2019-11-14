@@ -100,14 +100,6 @@ local function mapStateToProps(state)
 				REMAINING_ROBUX = LocalizationService.numberParam(amountRemaining),
 			}
 		end
-	elseif promptState == PromptState.BuildersClubUpsell then
-		local bcLevelRequired = state.productInfo.bcLevelRequired
-		messageKey = PURCHASE_DETAILS_KEY:format("InvalidBuildersClub")
-		messageParams = {
-			BC_LEVEL = LocalizationService.nestedKeyParam(
-				LocalizationService.getBuildersClubLevelKey(bcLevelRequired)
-			)
-		}
 	elseif promptState == PromptState.PurchaseComplete then
 		if isMockingPurchases() then
 			messageKey = PURCHASE_DETAILS_KEY:format("MockPurchaseComplete")

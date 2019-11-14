@@ -8,7 +8,6 @@ local PromptState = require(script.Parent.Parent.Parent.PromptState)
 
 local purchaseItem = require(script.Parent.Parent.Parent.Thunks.purchaseItem)
 local launchRobuxUpsell = require(script.Parent.Parent.Parent.Thunks.launchRobuxUpsell)
-local launchBuildersClubUpsell = require(script.Parent.Parent.Parent.Thunks.launchBuildersClubUpsell)
 
 local ConfirmButton = require(script.Parent.ConfirmButton)
 local CancelButton = require(script.Parent.CancelButton)
@@ -33,7 +32,6 @@ function PromptButtons:render()
 
 		local onBuy = self.props.onBuy
 		local onRobuxUpsell = self.props.onRobuxUpsell
-		local onBuildersClubUpsell = self.props.onBuildersClubUpsell
 
 		local children
 		if promptState == PromptState.PurchaseComplete
@@ -59,9 +57,6 @@ function PromptButtons:render()
 					and CONFIRM_PURCHASE_KEY:format("BuyRobuxV2")
 					or CONFIRM_PURCHASE_KEY:format("BuyRobux")
 				leftButtonCallback = onRobuxUpsell
-			elseif promptState == PromptState.BuildersClubUpsell then
-				confirmButtonStringKey = CONFIRM_PURCHASE_KEY:format("UpgradeBuildersClub")
-				leftButtonCallback = onBuildersClubUpsell
 			end
 			children = {
 				ConfirmButton = Roact.createElement(ConfirmButton, {
@@ -97,9 +92,6 @@ local function mapDispatchToProps(dispatch)
 		end,
 		onRobuxUpsell = function()
 			dispatch(launchRobuxUpsell())
-		end,
-		onBuildersClubUpsell = function()
-			dispatch(launchBuildersClubUpsell())
 		end,
 	}
 end

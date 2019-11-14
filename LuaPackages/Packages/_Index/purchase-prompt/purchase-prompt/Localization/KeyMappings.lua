@@ -4,7 +4,6 @@ local KeyMappings = {}
 
 local PURCHASE_FAILED_KEY = "CoreScripts.PurchasePrompt.PurchaseFailed.%s"
 local ASSET_TYPE_KEY = "Common.AssetTypes.Label.%s"
-local BUILDERS_CLUB_LEVEL_KEY = "Common.BuildersClub.Label.%s"
 
 KeyMappings.AssetTypeById = {
 	--[[
@@ -61,12 +60,6 @@ KeyMappings.AssetTypeById = {
 	["61"] = ASSET_TYPE_KEY:format("Emote"),
 }
 
-KeyMappings.BuildersClubLevelById = {
-	["1"] = BUILDERS_CLUB_LEVEL_KEY:format("BuildersClub"),
-	["2"] = BUILDERS_CLUB_LEVEL_KEY:format("TurboBuildersClub"),
-	["3"] = BUILDERS_CLUB_LEVEL_KEY:format("OutrageousBuildersClub"),
-}
-
 KeyMappings.PurchaseErrorKey = {
 	[PurchaseError.CannotGetBalance] = PURCHASE_FAILED_KEY:format("CannotGetBalance"),
 	[PurchaseError.CannotGetItemPrice] = PURCHASE_FAILED_KEY:format("CannotGetItemPrice"),
@@ -78,13 +71,10 @@ KeyMappings.PurchaseErrorKey = {
 	[PurchaseError.ThirdPartyDisabled] = PURCHASE_FAILED_KEY:format("ThirdPartyDisabled"),
 	[PurchaseError.NotEnoughRobux] = PURCHASE_FAILED_KEY:format("NotEnoughRobux"),
 	[PurchaseError.NotEnoughRobuxXbox] = PURCHASE_FAILED_KEY:format("NotEnoughRobuxXbox"),
-	-- TODO: CLILUACORE-376 Replace this with a more specific error message
-	[PurchaseError.BuildersClubLevelTooLow] = PURCHASE_FAILED_KEY:format("BuildersClubUpsellFailure"),
 	[PurchaseError.UnknownFailure] = PURCHASE_FAILED_KEY:format("UnknownFailure"),
 	[PurchaseError.UnknownFailureNoItemName] = PURCHASE_FAILED_KEY:format("UnknownFailureNoItemName"),
 	[PurchaseError.PurchaseDisabled] = PURCHASE_FAILED_KEY:format("PurchaseDisabled"),
 	[PurchaseError.InvalidFunds] = PURCHASE_FAILED_KEY:format("InvalidFunds"),
-	[PurchaseError.BuildersClubUpsellFailure] = PURCHASE_FAILED_KEY:format("BuildersClubUpsellFailure"),
 }
 
 return KeyMappings
