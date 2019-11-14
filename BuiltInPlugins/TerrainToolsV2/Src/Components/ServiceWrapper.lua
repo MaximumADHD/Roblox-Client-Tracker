@@ -11,10 +11,17 @@ local StudioPlugin = require(Plugin.Src.ContextServices.StudioPlugin)
 local UILibraryProvider = require(Plugin.Src.ContextServices.UILibraryProvider)
 local Localizing = UILibrary.Localizing
 
+local FFlagTerrainToolsRefactorTerrainBrush = game:GetFastFlag("TerrainToolsRefactorTerrainBrush")
+local TerrainInterface
+if FFlagTerrainToolsRefactorTerrainBrush then
+	TerrainInterface = require(Plugin.Src.ContextServices.TerrainInterface)
+end
+
 -- props.localization : (UILibary.Localization) an object for fetching translated strings
 -- props.plugin : (plugin instance) the instance of plugin defined in main.server.lua
 -- props.store : (Rodux Store) the data store for the plugin
 -- props.theme : (Resources.PluginTheme) a table for styling elements in the plugin and UILibrary
+-- props.terrainBrush (TerrainBrush)
 local ServiceWrapper = Roact.PureComponent:extend("ServiceWrapper")
 
 function ServiceWrapper:init()
@@ -23,6 +30,10 @@ function ServiceWrapper:init()
 	assert(self.props.plugin ~= nil, "Expected a plugin object")
 	assert(self.props.store ~= nil, "Expected a Rodux Store object")
 	assert(self.props.theme ~= nil, "Expected a PluginTheme object")
+
+	if FFlagTerrainToolsRefactorTerrainBrush then
+		assert(self.props.terrainBrush ~= nil, "Expected a TerrainBrush object")
+	end
 end
 
 local function addProvider(provider, props, rootElement)
@@ -35,6 +46,7 @@ function ServiceWrapper:render()
 	local plugin = self.props.plugin
 	local store = self.props.store
 	local theme = self.props.theme
+	local terrainBrush = self.props.terrainBrush
 
 	-- the order of these providers should be read as bottom up,
 	-- things most likely to change or trigger updates should be near the top of the list
@@ -44,6 +56,11 @@ function ServiceWrapper:render()
 	root = addProvider(Theming.Provider, { theme = theme, }, root)
 	root = addProvider(Localizing.Provider, { localization = localization }, root)
 	root = addProvider(StudioPlugin.Provider, { plugin = plugin }, root)
+
+	if FFlagTerrainToolsRefactorTerrainBrush then
+		-- TODO: Add more terrain interfaces to TerrainInterface.Provider
+		root = addProvider(TerrainInterface.Provider, { terrainBrush = terrainBrush }, root)
+	end
 
 	return root
 end

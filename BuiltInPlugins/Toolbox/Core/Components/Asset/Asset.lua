@@ -23,6 +23,7 @@
 local FFlagStudioToolboxFixMouseHover = settings():GetFFlag("StudioToolboxFixMouseHover")
 local FFlagPluginAccessAndInstallationInStudio = settings():GetFFlag("PluginAccessAndInstallationInStudio")
 local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
+local FFlagEditAssetForManagedAssets = game:DefineFastFlag("EditAssetForManagedAssets", false)
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -52,6 +53,7 @@ local AssetName = require(AssetFolder.AssetName)
 local Voting = require(AssetFolder.Voting.Voting)
 
 local GetOwnsAssetRequest = require(Plugin.Core.Networking.Requests.GetOwnsAssetRequest)
+local GetCanManageAssetRequest = require(Plugin.Core.Networking.Requests.GetCanManageAssetRequest)
 
 local Category = require(Plugin.Core.Types.Category)
 
@@ -94,9 +96,13 @@ function Asset:init(props)
 	end
 
 	self.onMouseButton2Click = function(rbx, x, y)
-		local showEditOption = Category.CREATIONS_KEY == props.currentTab
-		if FFlagEnablePurchasePluginFromLua2 then
-			showEditOption = props.currentTab == Category.CREATIONS_KEY or props.currentTab == Category.INVENTORY_KEY
+		local showEditOption
+		if FFlagEditAssetForManagedAssets then
+			showEditOption = self.props.canManage
+		elseif FFlagEnablePurchasePluginFromLua2 then
+			showEditOption = (props.currentTab == Category.CREATIONS_KEY or props.currentTab == Category.INVENTORY_KEY)
+		else
+			showEditOption = Category.CREATIONS_KEY == props.currentTab
 		end
 
 		self.props.tryCreateContextMenu(assetData, showEditOption)
@@ -129,11 +135,16 @@ function Asset:init(props)
 end
 
 function Asset:didMount()
+	local assetData = self.props.asset
+	local asset = assetData.Asset
+	local assetId = asset.Id
+
 	if FFlagPluginAccessAndInstallationInStudio and FFlagEnablePurchasePluginFromLua2 then
-		local assetData = self.props.asset
-		local asset = assetData.Asset
-		local assetId = asset.Id
 		self.props.getOwnsAsset(getNetwork(self), assetId)
+	end
+
+	if FFlagEditAssetForManagedAssets then
+		self.props.getCanManageAsset(getNetwork(self), assetId)
 	end
 end
 
@@ -371,6 +382,9 @@ local function mapStateToProps(state, props)
 	local cachedOwnedAssets = state.purchase.cachedOwnedAssets
 	local ownsAsset = cachedOwnedAssets[tostring(assetId)]
 
+	local manageableAssets = assets.manageableAssets
+	local canManage = manageableAssets[tostring(assetId)]
+
 	return {
 		asset = idToAssetMap[assetId],
 		voting = voting[assetId] or {},
@@ -379,6 +393,7 @@ local function mapStateToProps(state, props)
 		searchTerm = searchTerm,
 		currentTab = pageInfo.currentTab or Category.MARKETPLACE_KEY,
 		ownsAsset = ownsAsset,
+		canManage = canManage,
 	}
 end
 
@@ -386,7 +401,11 @@ local function mapDispatchToProps(dispatch)
 	return {
 		getOwnsAsset = function(networkInterface, assetId)
 			dispatch(GetOwnsAssetRequest(networkInterface, assetId))
-		end
+		end,
+
+		getCanManageAsset = function(networkInterface, assetId)
+			dispatch(GetCanManageAssetRequest(networkInterface, assetId))
+		end,
 	}
 end
 

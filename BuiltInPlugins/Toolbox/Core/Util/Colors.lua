@@ -50,4 +50,6 @@ Colors.VOTING_RED = Color3.fromRGB(206, 100, 91)
 Colors.INSTALL_GREEN = Color3.new(0,.7,0)
 Colors.INSTALL_RED = Color3.new(.9,0,0)
 
+Colors.BUTTON_CTA_BG_DISABLED_DARK = Color3.fromRGB(60, 60, 60)
+
 return wrapStrictTable(Colors, "Colors")

@@ -4,7 +4,7 @@ local ThrottleUserId = require(CorePackages.AppTempCommon.LuaApp.Utils.ThrottleU
 
 return function()
     return ThrottleUserId(
-        game:DefineFastInt("LuaChatUseNewFriendsEndpoints", 0),
+        game:DefineFastInt("LuaChatUseNewFriendsEndpointsV2", 0),
         Players.LocalPlayer.UserId
     )
 end

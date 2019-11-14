@@ -44,6 +44,12 @@ local withTheme = ContextHelper.withTheme
 local PermissionsDirectory = Plugin.Core.Components.AssetConfiguration.Permissions
 local CollaboratorThumbnail = require(PermissionsDirectory.CollaboratorThumbnail)
 
+local FFlagDefaultThumbnailForRBXThumb = game:DefineFastFlag("DefaultThumbnailForRBXThumb", false)
+
+local ContentProvider = game:GetService("ContentProvider")
+
+local CollaboratorItem = Roact.PureComponent:extend("CollaboratorItem")
+
 local function DeleteButton(props)
 	return withTheme(function(theme)
 		return Roact.createElement(Button, {
@@ -95,11 +101,9 @@ local function CollaboratorIcon(props)
 		Size = UDim2.new(0, CONTENT_HEIGHT, 0, CONTENT_HEIGHT),
 		LayoutOrder = props.LayoutOrder or 0,
 		
-		Image = props.CollaboratorIcon,
+		Image = props.IsLoadedThumbnail and props.CollaboratorIcon or Images.DEFAULT_THUMBNAIL,
 		UseMask = props.UseMask,
-		ImageTransparency = 0,
-		
-		BackgroundTransparency = 1,
+		IsLoadedThumbnail = props.IsLoadedThumbnail,
 	})
 end
 
@@ -127,12 +131,45 @@ local function CollaboratorLabels(props)
 	end)
 end
 
-local function CollaboratorItem(props)
-	props.Items = props.Items or {}
+function CollaboratorItem:init()
+	self.state = {
+		assetFetchStatus = nil,		
+	}
 
-	local removable = props.Removable and #props.Items > 0 and not props.IsLoading
-	
+	self.isMounted = false
+end
+
+function CollaboratorItem:didMount()
+	self.isMounted = true
+	if FFlagDefaultThumbnailForRBXThumb then
+		spawn(function()
+			local asset = { self.props.CollaboratorIcon }
+			local function setStatus(contentId, status)
+				if self.isMounted then
+					self:setState({
+						assetFetchStatus = status
+					})
+				end
+			end
+			ContentProvider:PreloadAsync(asset, setStatus)
+		end)
+	end
+end
+
+function CollaboratorItem:willUnmount()
+	self.isMounted = false
+end
+
+function CollaboratorItem:render()
 	return withTheme(function(theme)
+		local props = self.props
+
+		props.Items = props.Items or {}
+
+		local removable = props.Removable and #props.Items > 0 and not props.IsLoading
+
+		local isLoadedThumbnail = self.state.assetFetchStatus == Enum.AssetFetchStatus.Success
+
 		return Roact.createElement("Frame", {
 			Size = UDim2.new(1, 0, 0, ITEM_HEIGHT),
 			LayoutOrder = props.LayoutOrder or 0,
@@ -157,6 +194,7 @@ local function CollaboratorItem(props)
 
 					UseMask = props.UseMask,
 					CollaboratorIcon = props.CollaboratorIcon,
+					IsLoadedThumbnail = isLoadedThumbnail,
 				}),
 				Labels = Roact.createElement(CollaboratorLabels, {
 					LayoutOrder = 1,

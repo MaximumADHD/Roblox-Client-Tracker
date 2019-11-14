@@ -8,7 +8,7 @@ local AssetConfigConstants = require(Util.AssetConfigConstants)
 local EnumConvert = require(Util.EnumConvert)
 
 local FFlagEnableCopyToClipboard = settings():GetFFlag("EnableCopyToClipboard")
-local FFlagPluginAccessAndInstallationInStudio = settings():GetFFlag("PluginAccessAndInstallationInStudio")
+local FFlagShowReportOptionInToolbox = game:DefineFastFlag("ShowReportOptionInToolbox", false)
 
 local StudioService = game:GetService("StudioService")
 local GuiService = game:GetService("GuiService")
@@ -36,7 +36,7 @@ local function getImageIdFromDecalId(decalId)
 end
 
 -- typeof(assetTypeId) == number
-function ContextMenuHelper.tryCreateContextMenu(plugin, assetId, assetTypeId, showEditOption, localizedContent, editAssetFunc)
+function ContextMenuHelper.tryCreateContextMenu(plugin, assetId, assetTypeId, showEditOption, localizedContent, editAssetFunc, isPackageAsset)
 	local menu = plugin:CreatePluginMenu("ToolboxAssetMenu")
 
 	local localize = localizedContent
@@ -48,17 +48,17 @@ function ContextMenuHelper.tryCreateContextMenu(plugin, assetId, assetTypeId, sh
 		GuiService:OpenBrowserWindow(targetUrl)
 	end)
 
-	if assetTypeId == Enum.AssetType.Plugin.Value then
-		if FFlagPluginAccessAndInstallationInStudio then
-			menu:AddNewAction("Report", localize.RightClickMenu.Report).Triggered:connect(function()
-				local baseUrl = ContentProvider.BaseUrl
-				local targetUrl = string.format("%s/abusereport/asset?id=%s", baseUrl, HttpService:urlEncode(assetId))
-				GuiService:OpenBrowserWindow(targetUrl)
-			end)
-		end
+	if FFlagShowReportOptionInToolbox and not showEditOption then
+		-- User should only be able to report assets they can't edit
+		menu:AddNewAction("Report", localize.RightClickMenu.Report).Triggered:connect(function()
+			local baseUrl = ContentProvider.BaseUrl
+			local targetUrl = string.format("%s/abusereport/asset?id=%s", baseUrl, HttpService:urlEncode(assetId))
+			GuiService:OpenBrowserWindow(targetUrl)
+		end)
+	end
 
 	-- only add this action if we have access to copying to clipboard and we aren't looking at a plugin asset
-	elseif FFlagEnableCopyToClipboard then
+	if assetTypeId ~= Enum.AssetType.Plugin.Value and FFlagEnableCopyToClipboard then
 		local trueAssetId = assetId
 		if assetTypeId == Enum.AssetType.Decal.Value then
 			trueAssetId = getImageIdFromDecalId(assetId)
@@ -74,7 +74,7 @@ function ContextMenuHelper.tryCreateContextMenu(plugin, assetId, assetTypeId, sh
 	end
 
 	if showEditOption and editAssetFunc then
-		menu:AddNewAction("EditAsset", localize.RightClickMenu.EditAsset).Triggered:connect(function()
+		menu:AddNewAction("EditAsset", isPackageAsset and localize.PackagePermissions.RightClickMenu.PackageDetails or localize.RightClickMenu.EditAsset).Triggered:connect(function()
 			editAssetFunc(assetId, AssetConfigConstants.FLOW_TYPE.EDIT_FLOW, nil, EnumConvert.convertAssetTypeValueToEnum(assetTypeId))
 		end)
 	end

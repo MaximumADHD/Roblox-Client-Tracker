@@ -363,6 +363,7 @@ Studio.App.IdeDoc.Cancel,Roblox IDE Doc,Cancel,Cancel
 Studio.App.IdeDoc.CannotFindMesh,Roblox IDE Doc,Cannot find mesh,Cannot find mesh
 Studio.App.IdeDoc.CannotLoadPublishedPlace,Roblox IDE Doc,Cannot load published place,Cannot load published place
 Studio.App.IdeDoc.Cleanup,Roblox IDE Doc (Team Test Server),Cleanup,Cleanup
+Studio.App.IdeDoc.CloudTestFailed,Roblox IDE Doc,Request to connect to team test failed.,Request to connect to team test failed.
 Studio.App.IdeDoc.ConnectingtoServer,Roblox IDE Doc,Connecting to server...,Connecting to server...
 Studio.App.IdeDoc.ConstraintObjectsWillNotWorkPhysicsSolverOverrideTrue,Roblox IDE Doc,Constraint objects will not function correctly because Workspace.TemporaryLegacyPhysicsSolverOverride is true,Constraint objects will not function correctly because Workspace.TemporaryLegacyPhysicsSolverOverride is true
 Studio.App.IdeDoc.CouldNotLoadPlaceDueToPermissionError,Roblox IDE Doc,"<b>Sorry, we could not load this place due to a permission error</b>","<b>Sorry, we could not load this place due to a permission error</b>"
@@ -615,7 +616,7 @@ Studio.App.Materials.SmoothPlastic,,Smooth Plastic,Smooth Plastic
 Studio.App.Materials.Wood,,Wood,Wood
 Studio.App.Merge.Accept,,Accept,Accept
 Studio.App.Merge.AcceptServerChanges,,Accept server changes,Accept server changes
-Studio.App.Merge.CompareDraftAndNewServer,,Compare draft & new server,Compare draft & new server
+Studio.App.Merge.CompareCurrentDraftWithThis,,Compare current draft with this,Compare current draft with this
 Studio.App.Merge.ConflictInstruction,,Which code do you want to keep for this conflict?,Which code do you want to keep for this conflict?
 Studio.App.Merge.ConflictOptionDraft,"You can select the Draft, Server, or Other version of code to keep",Draft,Draft
 Studio.App.Merge.ConflictOptionOther,"You can select the Draft, Server, or Other version of code to keep",Other,Other
@@ -733,7 +734,7 @@ Studio.App.PackageMassUpdate.Version,Version of a package,Version,Version
 Studio.App.PackageMassUpdate.VersionContent1,latest mean the last version of the package,%1 (latest),%1 (latest)
 Studio.App.PackageMassUpdate.Waiting,One of the update status,Waiting,Waiting
 Studio.App.PackageMassUpdate.WarningMessage,,Note: We recommend closing other Studio instances before mass updating.,Note: We recommend closing other Studio instances before mass updating.
-Studio.App.PackageResourceController.ManagePackage,,Manage Package,Manage Package
+Studio.App.PackageResourceController.PackageDetails,,Package Details,Package Details
 Studio.App.PackageResourceController.PackageInsertError1,,Game Explorer Package insert error: %1,Game Explorer Package insert error: %1
 Studio.App.PackageUtilities.GoToRevisionError1,,Package go to revision error: %1,Package go to revision error: %1
 Studio.App.PackageUtilities.ModifiedPackagesInDMError,,Error: Cannot save place to Roblox while there are packages with unpublished changes.,Error: Cannot save place to Roblox while there are packages with unpublished changes.
@@ -1730,6 +1731,7 @@ Studio.App.RobloxStudioVerbs.PackageLinkDuplicate,,Cannot duplicate selection(s)
 Studio.App.RobloxStudioVerbs.PlaySolo,,Play Solo,Play Solo
 Studio.App.RobloxStudioVerbs.PlaySoloSaveFailure,,Play solo - save failure,Play solo - save failure
 Studio.App.RobloxStudioVerbs.Redo1,,Redo %s,Redo %s
+Studio.App.RobloxStudioVerbs.RevealInExplorer,,Reveal In Explorer/Finder,Reveal In Explorer/Finder
 Studio.App.RobloxStudioVerbs.StartServer,,Start server,Start server
 Studio.App.RobloxStudioVerbs.StartServerSaveFailure,,Start server - save failure,Start server - save failure
 Studio.App.RobloxStudioVerbs.Undo1,,Undo %s,Undo %s
@@ -1819,6 +1821,9 @@ Studio.App.StartPageLogin.OpeningPlaceElps,,Opening place...,Opening place...
 Studio.App.StartPageLogin.Password,,Password,Password
 Studio.App.StartPageLogin.SignUp,,Sign up,Sign up
 Studio.App.StartPageLogin.StartCreatingOwnGames,,Start creating your own games with Roblox Studio!,Start creating your own games with Roblox Studio!
+Studio.App.StartPageLogin.TwoStepVerificationEmailInstruction,,Enter the code we just sent to you via email,Enter the code we just sent to you via email
+Studio.App.StartPageLogin.TwoStepVerificationSmsInstruction,,Enter the code we just sent to you via sms,Enter the code we just sent to you via sms
+Studio.App.StartPageLogin.TwoStepVerificationTitle,,2-Step Verification,2-Step Verification
 Studio.App.StartPageLogin.Username,,Username,Username
 Studio.App.StudioDataModelLoadUtil.ErrorCannotOpenTCPlaceDueToCancellation,,Failed to open the team create place due to cancellation,Failed to open the team create place due to cancellation
 Studio.App.StudioDataModelLoadUtil.ErrorCannotOpenTCPlaceDueToTimeout,,Failed to open the team create place due to timeout,Failed to open the team create place due to timeout

@@ -110,7 +110,7 @@ void main()
     v28.w = mix(v26, 1.0, v27);
     vec4 v29 = vec4(dot(CB0[20], v22), dot(CB0[21], v22), dot(CB0[22], v22), 0.0);
     v29.w = mix(CB1[gl_InstanceID * 7 + 5].w * v26, 1.0, v27);
-    float v30 = CB1[gl_InstanceID * 7 + 6].z * 9.06472015380859375;
+    float v30 = CB1[gl_InstanceID * 7 + 6].z * 0.50359570980072021484375;
     float v31 = clamp(v20, 0.0, 1.0);
     vec3 v32 = (CB0[10].xyz * v31) + (CB0[12].xyz * clamp(-v20, 0.0, 1.0));
     vec4 v33 = vec4(v32.x, v32.y, v32.z, vec4(0.0).w);

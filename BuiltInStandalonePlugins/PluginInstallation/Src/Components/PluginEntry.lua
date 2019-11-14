@@ -14,11 +14,12 @@ local PluginAPI2 = require(Plugin.Src.ContextServices.PluginAPI2)
 local SetPluginEnabledState = require(Plugin.Src.Thunks.SetPluginEnabledState)
 local UpdatePlugin = require(Plugin.Src.Thunks.UpdatePlugin)
 local Button = UILibrary.Component.Button
-local LoadingIndicator = UILibrary.Component.LoadingIndicator
+local LoadingBar = require(Plugin.Src.Components.LoadingBar)
 local MoreDropdown = require(Plugin.Src.Components.MoreDropdown)
 
 local FFlagEnableStudioServiceOpenBrowser = game:GetFastFlag("EnableStudioServiceOpenBrowser")
-
+local LOADING_BAR_SIZE = UDim2.new(0, 120, 0, 8)
+local LOADING_BAR_TIME = 0.5
 
 local PluginEntry = Roact.Component:extend("PluginEntry")
 
@@ -262,9 +263,12 @@ function PluginEntry:render()
 		}),
 
 		ProgressIndicator = not isUpdated and updateStatus == UpdateStatus.Updating
-			and Roact.createElement(LoadingIndicator, {
+			and Roact.createElement(LoadingBar, {
 			AnchorPoint = Vector2.new(1, 0.5),
 			Position = buttonPosition,
+			Size = LOADING_BAR_SIZE,
+			HoldPercent = 1,
+			LoadingTime = LOADING_BAR_TIME,
 		}),
 
 		SuccessLabel = isUpdated and state.showSuccessMessage

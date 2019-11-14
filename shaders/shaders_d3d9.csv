@@ -55,6 +55,8 @@ FXCompositingLinearFS,Fragment
 GlassSkinnedVS,Vertex
 GlassStaticVS,Vertex
 GlassTintFS,Fragment
+GrassFS,Fragment
+GrassVS,Vertex
 GridFS,Fragment
 ImageProcessAlphaFS,Fragment
 ImageProcessAlphaSrgbFS,Fragment

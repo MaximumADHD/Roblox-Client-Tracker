@@ -19,6 +19,7 @@ local SetPlaneLock = require(Actions.SetPlaneLock)
 local SetSnapToGrid = require(Actions.SetSnapToGrid)
 local SetAutoMaterial = require(Actions.SetAutoMaterial)
 local SetMaterial = require(Actions.SetMaterial)
+local SetBaseSizeHeightLocked = require(Actions.SetBaseSizeHeightLocked)
 
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 
@@ -31,6 +32,7 @@ local function MapStateToProps (state, props)
 		brushShape = state[REDUCER_KEY].brushShape,
 		baseSize = state[REDUCER_KEY].baseSize,
 		height = state[REDUCER_KEY].height,
+		baseSizeHeightLocked = state[REDUCER_KEY].baseSizeHeightLocked,
 		strength = state[REDUCER_KEY].strength,
 		pivot = state[REDUCER_KEY].pivot,
 		planeLock = state[REDUCER_KEY].planeLock,
@@ -67,6 +69,9 @@ local function MapDispatchToProps (dispatch)
 		end,
 		dispatchSetSnapToGrid = function (snapToGrid)
 			dispatchToSmooth(SetSnapToGrid(snapToGrid))
+		end,
+		dispatchSetBaseSizeHeightLocked = function (locked)
+			dispatchToSmooth(SetBaseSizeHeightLocked(locked))
 		end,
 	}
 end

@@ -26,7 +26,7 @@ local function setPluginValues(state, assetId, values)
 end
 
 return Rodux.createReducer({
-	plugins = {}
+	plugins = nil,
 }, {
 	--[[ fired when the network request returns with information about a specific plugin ]]
 	SetPluginInfo = function(state, action)

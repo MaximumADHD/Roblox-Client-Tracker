@@ -25,7 +25,7 @@ local ConfigGenre = Roact.PureComponent:extend("ConfigGenre")
 local TITLE_HEIGHT = 40
 
 local DROP_DOWN_WIDTH = 220
-local DORP_DOWN_HEIGHT = 38
+local DROP_DOWN_HEIGHT = 38
 
 function ConfigGenre:init(props)
 	self.state = {
@@ -46,6 +46,7 @@ function ConfigGenre:render()
 		local genreTypes = AssetConfigUtil.getGenreTypes()
 
 		local onDropDownSelect = props.onDropDownSelect
+		local setDropdownHeight = props.setDropdownHeight
 
 		local publishAssetTheme = theme.publishAsset
 
@@ -56,6 +57,8 @@ function ConfigGenre:render()
 			BorderSizePixel = 0,
 
 			LayoutOrder = LayoutOrder,
+
+			[Roact.Ref] = props[Roact.Ref],
 		}, {
 			UIListLayout = Roact.createElement("UIListLayout", {
 				FillDirection = Enum.FillDirection.Horizontal,
@@ -82,13 +85,15 @@ function ConfigGenre:render()
 			}),
 
 			DropDown = Roact.createElement(DropdownMenu, {
-				Size = UDim2.new(0, DROP_DOWN_WIDTH, 0, DORP_DOWN_HEIGHT),
+				Size = UDim2.new(0, DROP_DOWN_WIDTH, 0, DROP_DOWN_HEIGHT),
 				visibleDropDownCount = 5,
 				selectedDropDownIndex = genreIndex,
 
 				items = genreTypes,
 				fontSize = Constants.FONT_SIZE_LARGE,
 				onItemClicked = onDropDownSelect,
+
+				setDropdownHeight = setDropdownHeight,
 
 				LayoutOrder = 2,
 			})

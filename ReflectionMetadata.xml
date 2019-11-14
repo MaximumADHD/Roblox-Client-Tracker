@@ -6641,6 +6641,15 @@
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>
+        <string name="Name">WorldModel</string>
+        <string name="ClassCategory">World</string>
+        <string name="summary">An object that contains a World. Supports rigid joints. Unlike Workspace, WorldModels do not support dynamics simulation.</string>
+        <string name="ExplorerOrder">22</string>
+        <string name="ExplorerImageIndex">19</string>
+      </Properties>
+    </Item>
+    <Item class="ReflectionMetadataClass">
+      <Properties>
         <string name="Name">SelectionPartLasso</string>
         <bool name="Deprecated">true</bool>
         <string name="summary">A visual line drawn representation between two part objects</string>
@@ -6889,6 +6898,12 @@
                   <double name="UIMinimum">0</double>
                   <double name="UIMaximum">1</double>
               </Properties>
+          </Item>
+          <Item class="ReflectionMetadataMember">
+            <Properties>
+              <string name="Name">Decoration</string>
+              <string name="summary">Enables terrain materials decoration</string>
+            </Properties>
           </Item>
       </Item>
       <Item class="ReflectionMetadataFunctions">

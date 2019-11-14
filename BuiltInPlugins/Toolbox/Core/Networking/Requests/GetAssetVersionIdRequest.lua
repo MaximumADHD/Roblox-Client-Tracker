@@ -8,7 +8,7 @@ local HttpService = game:getService("HttpService")
 
 return function(networkInterface, assetId)
 	return function(store)
-		return networkInterface:getAssetVersionId(assetId):andThen(function(result)
+		return networkInterface:deprecated_getAssetVersionId(assetId):andThen(function(result)
 			local data = result.responseBody
 
 			-- TODO: replace this hacky regexing with an endpoint that accepts the asset ID of a plugin

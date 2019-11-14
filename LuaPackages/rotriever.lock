@@ -12,7 +12,7 @@ dependencies = [
     "LuaDiscussionsDeps LuaDiscussionsDeps 6ecae597 git+https://github.rbx.com/roblox/lua-discussions-deps#master",
     "Otter roblox/otter acc8b912 git+https://github.com/roblox/otter#master",
     "Promise lua-promise bbb9e162 git+https://github.rbx.com/roblox/lua-promise#master",
-    "PurchasePrompt roblox/purchase-prompt d2c3bd47 git+https://github.com/roblox/purchasepromptscript-roact#master",
+    "PurchasePrompt roblox/purchase-prompt 1eee1e25 git+https://github.com/roblox/purchasepromptscript-roact#master",
     "Result lua-Result 4c69dedd git+https://github.rbx.com/roblox/lua-result#master",
     "Roact roblox/roact 1.2.0 registry+https://github.rbx.com/roblox/rotriever-index",
     "RoactRodux RoactRodux f92dedb2 git+https://github.com/roblox/roact-rodux#transitioning-roblox-roact-1x",
@@ -43,13 +43,12 @@ dependencies = [
 name = "InfiniteScroller"
 version = "0.2.0"
 source = "git+https://github.rbx.com/roblox/infinite-scroll#master"
-commit = "25d09f0fd1626630f31d4c43cfe9702d302c8e24"
+commit = "6edda2f593fd3521599a6c4f79c86ffbd8de3e82"
 dependencies = [
     "Cryo <patched> roblox/cryo 1.0.0 registry+https://github.rbx.com/roblox/rotriever-index",
     "FitFrame roact-fit-components ab1a2160 git+https://github.rbx.com/roblox/roact-box-components#master",
     "Otter roblox/otter acc8b912 git+https://github.com/roblox/otter#master",
     "Roact <patched> roblox/roact 1.2.0 registry+https://github.rbx.com/roblox/rotriever-index",
-    "TestEZ TestEZ 17e1408b git+https://github.com/roblox/testez#master",
     "t <patched> osyris/t 1.2.5 registry+https://github.rbx.com/roblox/rotriever-index",
 ]
 
@@ -59,7 +58,7 @@ version = "0.1.0"
 source = "git+https://github.rbx.com/roblox/lua-chat-deps#master"
 commit = "d9941346d9956288e7ae1fcbfb11371d381af423"
 dependencies = [
-    "InfiniteScroll InfiniteScroller 25d09f0f git+https://github.rbx.com/roblox/infinite-scroll#master",
+    "InfiniteScroll InfiniteScroller 6edda2f5 git+https://github.rbx.com/roblox/infinite-scroll#master",
     "RoduxNetworking rodux-networking cd528e25 git+https://github.rbx.com/roblox/rodux-networking#master",
 ]
 
@@ -69,7 +68,7 @@ version = "0.1.0"
 source = "git+https://github.rbx.com/roblox/lua-discussions-deps#master"
 commit = "6ecae597b544f219403355a04c4c4ef74101df46"
 dependencies = [
-    "InfiniteScroll InfiniteScroller 25d09f0f git+https://github.rbx.com/roblox/infinite-scroll#master",
+    "InfiniteScroll InfiniteScroller 6edda2f5 git+https://github.rbx.com/roblox/infinite-scroll#master",
     "RoactFitComponents roact-fit-components ab1a2160 git+https://github.rbx.com/roblox/roact-box-components#master",
     "RoactNavigation roact-navigation 534a60f1 git+https://github.rbx.com/roblox/roact-navigation#v0.1.1",
     "RoduxNetworking rodux-networking cd528e25 git+https://github.rbx.com/roblox/rodux-networking#master",
@@ -103,12 +102,6 @@ name = "Rodux"
 version = "0.1.0"
 source = "git+https://github.com/roblox/rodux#master"
 commit = "cdea578ff648116d63fe077b0b4b2fe64bdd8ee5"
-
-[[package]]
-name = "TestEZ"
-version = "0.1.0"
-source = "git+https://github.com/roblox/testez#master"
-commit = "17e1408bd6643ab1b45ddcdad4340e88730a1627"
 
 [[package]]
 name = "UIBlox"
@@ -211,9 +204,9 @@ commit = "acc8b912c1fe84be1c43ac6123bea5cb96ee98c4"
 
 [[package]]
 name = "roblox/purchase-prompt"
-version = "0.1.3"
+version = "0.1.4"
 source = "git+https://github.com/roblox/purchasepromptscript-roact#master"
-commit = "d2c3bd47d93b09818c0521291c3321682dfc7531"
+commit = "1eee1e2572a018f6fb713607ea9e31538d4cb876"
 dependencies = [
     "Cryo <patched> roblox/cryo 1.0.0 registry+https://github.rbx.com/roblox/rotriever-index",
     "Otter roblox/otter acc8b912 git+https://github.com/roblox/otter#master",

@@ -6,15 +6,17 @@ local Plugin = script.Parent.Parent.Parent
 local Rodux = require(Plugin.Packages.Rodux)
 local Cryo = require(Plugin.Packages.Cryo)
 
+local Constants = require(Plugin.Src.Util.Constants)
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 local BrushShape = TerrainEnums.BrushShape
 local PivotType = TerrainEnums.PivotType
 
 local SmoothTool = Rodux.createReducer({
 	brushShape = BrushShape.Sphere,
-	baseSize = 6,
-	height = 6,
-	strength = 1,
+	baseSize = Constants.INITIAL_BRUSH_SIZE,
+	height = Constants.INITIAL_BRUSH_SIZE,
+	baseSizeHeightLocked = true,
+	strength = Constants.INITIAL_BRUSH_STRENGTH,
 	pivot = PivotType.Center,
 	planeLock = false,
 	snapToGrid = false,
@@ -66,6 +68,12 @@ local SmoothTool = Rodux.createReducer({
 
 		return Cryo.Dictionary.join(state, {
 			snapToGrid = snapToGrid,
+		})
+	end,
+	SetBaseSizeHeightLocked = function(state, action)
+		local locked = action.locked
+		return Cryo.Dictionary.join(state, {
+			baseSizeHeightLocked = locked,
 		})
 	end,
 })

@@ -585,6 +585,7 @@ Studio.ReflectionMetadata.ReflectionMetadata.TeamsGetPlayers,,,Returns a read-on
 Studio.ReflectionMetadata.ReflectionMetadata.TeleportService,,,Allows players to seamlessly leave a game and join another,Allows players to seamlessly leave a game and join another
 Studio.ReflectionMetadata.ReflectionMetadata.TeleportServiceCustomizedTeleportUI,,,Deprecated,Deprecated
 Studio.ReflectionMetadata.ReflectionMetadata.Terrain,,,Object representing a high performance bounded grid of static 4x4 parts,Object representing a high performance bounded grid of static 4x4 parts
+Studio.ReflectionMetadata.ReflectionMetadata.TerrainDecoration,,,Enables terrain materials decoration,Enables terrain materials decoration
 Studio.ReflectionMetadata.ReflectionMetadata.TerrainGetCell,,,"Returns CellMaterial, CellBlock, CellOrientation","Returns CellMaterial, CellBlock, CellOrientation"
 Studio.ReflectionMetadata.ReflectionMetadata.TerrainGetWaterCell,,,"Returns hasAnyWater, WaterForce, WaterDirection","Returns hasAnyWater, WaterForce, WaterDirection"
 Studio.ReflectionMetadata.ReflectionMetadata.TerrainRegion,,,Object representing a snapshot of the region of terrain,Object representing a snapshot of the region of terrain
@@ -704,6 +705,7 @@ Studio.ReflectionMetadata.ReflectionMetadata.WorkspaceFindPartOnRayWithIgnoreLis
 Studio.ReflectionMetadata.ReflectionMetadata.WorkspaceFindPartsInRegion3,,,"Returns parts in the area defined by the Region3, up to specified maxCount or 100, whichever is less","Returns parts in the area defined by the Region3, up to specified maxCount or 100, whichever is less"
 Studio.ReflectionMetadata.ReflectionMetadata.WorkspaceFindPartsInRegion3WithIgnoreList,,,"Returns parts in the area defined by the Region3, up to specified maxCount or 100, whichever is less","Returns parts in the area defined by the Region3, up to specified maxCount or 100, whichever is less"
 Studio.ReflectionMetadata.ReflectionMetadata.WorkspacePGSPhysicsSolverEnabled,,,Boolean used to enable the new physics solver,Boolean used to enable the new physics solver
+Studio.ReflectionMetadata.ReflectionMetadata.WorldModel,,,"An object that contains a World. Supports rigid joints. Unlike Workspace, WorldModels do not support dynamics simulation.","An object that contains a World. Supports rigid joints. Unlike Workspace, WorldModels do not support dynamics simulation."
 Studio.ReflectionMetadata.ReflectionMetadata.ZIndexBehavior,,,Controls the behavior of the ZIndex property.,Controls the behavior of the ZIndex property.
 Studio.ReflectionMetadata.ReflectionMetadata.ZIndexBehaviorGlobal,,,The ZIndex property will override the default value computed from the depth in the hierarchy.,The ZIndex property will override the default value computed from the depth in the hierarchy.
 Studio.ReflectionMetadata.ReflectionMetadata.ZIndexBehaviorSibling,,,The ZIndex property will control the order that the GuiObject will be rendered relative to its siblings.,The ZIndex property will control the order that the GuiObject will be rendered relative to its siblings.

@@ -101,7 +101,7 @@ void main()
     vec4 v21 = v20 * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
     vec2 v22 = TEXCOORD0.zw * v16;
     v22.x = max(0.0500000007450580596923828125, mix((COLOR0 * 0.0039215688593685626983642578125).x, 0.0, float(CB1[gl_InstanceID * 7 + 3].w > 0.0)));
-    float v23 = CB1[gl_InstanceID * 7 + 6].z * 9.06472015380859375;
+    float v23 = CB1[gl_InstanceID * 7 + 6].z * 0.50359570980072021484375;
     float v24 = clamp(v18, 0.0, 1.0);
     vec3 v25 = (CB0[10].xyz * v24) + (CB0[12].xyz * clamp(-v18, 0.0, 1.0));
     vec4 v26 = vec4(v25.x, v25.y, v25.z, vec4(0.0).w);

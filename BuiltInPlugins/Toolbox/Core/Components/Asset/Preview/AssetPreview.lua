@@ -30,6 +30,8 @@ local FFlagEnableMarketplaceFavorite = settings():GetFFlag("EnableMarketplaceFav
 local FFlagEnableCatelogForAPIService = settings():GetFFlag("EnableCatelogForAPIService")
 local FFlagPluginAccessAndInstallationInStudio = settings():GetFFlag("PluginAccessAndInstallationInStudio")
 local FFlagStudioToolboxPluginPurchaseFlow = game:GetFastFlag("StudioToolboxPluginPurchaseFlow")
+local FFlagStudioToolboxShowPluginInstallationProgress = game:GetFastFlag("StudioToolboxShowPluginInstallationProgress")
+local FFlagUseDevelopFetchPluginVersionId = game:GetFastFlag("UseDevelopFetchPluginVersionId")
 
 local RunService = game:GetService("RunService")
 local StudioService = game:GetService("StudioService")
@@ -39,6 +41,7 @@ local Plugin = script.Parent.Parent.Parent.Parent.Parent
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 local RoactRodux = require(Libs.RoactRodux)
+local UILibrary = require(Libs.UILibrary)
 
 local Preview = Plugin.Core.Components.Asset.Preview
 local AssetDescription = require(Preview.AssetDescription)
@@ -46,6 +49,8 @@ local Vote = require(Preview.Vote)
 local PreviewController = require(Preview.PreviewController)
 local ActionBar = require(Preview.ActionBar)
 local Favorites = require(Preview.Favorites)
+local LoadingBar = require(Plugin.Core.Components.AssetConfiguration.LoadingBar)
+local LayoutOrderIterator = UILibrary.Util.LayoutOrderIterator
 
 local Util = Plugin.Core.Util
 local Constants = require(Util.Constants)
@@ -57,6 +62,7 @@ local getTextSize = require(Util.getTextSize)
 local Analytics = require(Util.Analytics.Analytics)
 local InsertAsset = require(Util.InsertAsset)
 local PluginPurchaseFlow = require(Plugin.Core.Components.PurchaseFlow.PluginPurchaseFlow)
+local PurchaseSuccessDialog = require(Plugin.Core.Components.PurchaseFlow.PurchaseSuccessDialog)
 
 local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
@@ -82,6 +88,11 @@ local BOTTOM_PADDING = 20
 local VOTE_HEIGHT = 36
 
 local ACTION_BAR_HEIGHT = 52
+local INSTALLATION_BAR_SECTION_HEIGHT = 80
+local INSTALLATION_BAR_SECTION_PADDING = 16
+local INSTALLATION_BAR_HEIGHT = 6
+local INSTALLATION_ANIMATION_TIME = 1.0 --seconds
+
 
 -- Multiply minimum treeview width by 2 to get minimum threshold
 -- When the asset preview is twice the minimum width, then we
@@ -102,6 +113,8 @@ function AssetPreview:init(props)
 		enableScroller = true,
 		overrideEnableVoting = false,
 		showPurchaseFlow = false,
+		showSuccessDialog = false,
+		showInstallationBar = false,
 	}
 
 	self.assetSizeInited = false
@@ -120,6 +133,12 @@ function AssetPreview:init(props)
 	self.onModelPreviewFrameLeft = function()
 		self:setState({
 			enableScroller = true
+		})
+	end
+
+	self.closeSuccessDialog = function()
+		self:setState({
+			showSuccessDialog = false,
 		})
 	end
 
@@ -146,15 +165,53 @@ function AssetPreview:init(props)
 		end
 	end
 
+	self.toggleShowInstallationBar = function(shouldShow)
+		self:setState({
+			showInstallationBar = shouldShow
+		})
+	end
+
+	self.showInstallationBarUntilCompleted = function(workToComplete)
+		local startTime = tick()
+		self.toggleShowInstallationBar(true)
+
+		local result = workToComplete()
+
+		-- artificially slow down the installation to watch the animation complete
+		local timeToInstall = tick() - startTime
+		if timeToInstall < INSTALLATION_ANIMATION_TIME then
+			wait(INSTALLATION_ANIMATION_TIME - timeToInstall)
+		end
+		self.toggleShowInstallationBar(false)
+
+		return result
+	end
+
 	self.purchaseCancelled = function()
 		self:setState({
 			showPurchaseFlow = false,
 		})
 	end
 
+	self.purchaseSucceeded = function()
+		local tryInstall = FFlagStudioToolboxShowPluginInstallationProgress and self.tryInstallWithProgress or self.tryInstall
+		if tryInstall() then
+			self:setState({
+				showSuccessDialog = true,
+			})
+		end
+	end
+
 	self.tryInstall = function()
 		local assetData = self.props.assetData
-		local assetVersionId = self.props.assetVersionId
+		local assetVersionId
+		if FFlagUseDevelopFetchPluginVersionId then
+			local previewPluginData = self.props.previewPluginData
+			assetVersionId = previewPluginData.versionId
+		else
+			assetVersionId = self.props.assetVersionId
+		end
+
 		local asset = assetData.Asset
 		local assetId = asset.Id
 		local assetName = asset.Name
@@ -191,6 +248,10 @@ function AssetPreview:init(props)
 			StudioService:UpdatePluginManagement()
 		end
 		return success
+	end
+
+	self.tryInstallWithProgress = function()
+		return self.showInstallationBarUntilCompleted( self.tryInstall )
 	end
 
 	if FFlagStudioToolboxPluginPurchaseFlow then
@@ -238,7 +299,7 @@ end
 
 function AssetPreview:render()
 	return withTheme(function(theme)
-		return withLocalization(function(localization, localizedContent)
+		return withLocalization(function(_, localizedContent)
 			-- TODO: Time to tide up the properties passed from the asset.
 			local props = self.props
 			local state = self.state
@@ -263,11 +324,12 @@ function AssetPreview:render()
 			local updated = Asset.Updated
 			local assetGenres = Asset.AssetGenres
 
-			local price, owned, showPurchaseFlow
+			local price, owned, showPurchaseFlow, showSuccessDialog
 			if FFlagStudioToolboxPluginPurchaseFlow then
 				price = assetData.Product and assetData.Product.Price or 0
 				owned = props.Owned
 				showPurchaseFlow = state.showPurchaseFlow
+				showSuccessDialog = state.showSuccessDialog
 			end
 
 			local creator = assetData.Creator
@@ -304,6 +366,16 @@ function AssetPreview:render()
 			else
 				isPluginLoading = isPluginAsset and assetVersionId == nil
 				isPluginUpToDate = isPluginAsset and not isPluginLoading
+					and StudioService:IsPluginUpToDate(assetId, assetVersionId)
+			end
+
+			local shouldShowInstallationProgress = false
+			if FFlagStudioToolboxShowPluginInstallationProgress then
+				shouldShowInstallationProgress = isPluginAsset and self.state.showInstallationBar
+
+				-- prevent the ActionBar's text from changing to "Installed" before the loading bar
+				--  finishes its animation
+				isPluginLoading = isPluginLoading or shouldShowInstallationProgress
 			end
 
 			local pluginButtonText = localizedContent.AssetConfig.Insert
@@ -330,16 +402,6 @@ function AssetPreview:render()
 				end
 			end
 
-			local buttonColor
-
-			if isPluginLoading then
-				buttonColor = Colors.BLUE_DISABLED
-			elseif isPluginInstalled and isPluginUpToDate then
-				buttonColor = Colors.INSTALL_GREEN
-			else
-				buttonColor = Colors.BLUE_PRIMARY
-			end
-
 			local hasRating = typeId == Enum.AssetType.Model.Value
 				or (isPluginAsset and isPluginInstalled) or self.state.overrideEnableVoting
 
@@ -362,7 +424,15 @@ function AssetPreview:render()
 			local onTreeItemClicked = props.onTreeItemClicked
 
 			local canInsertAsset = props.canInsertAsset
-			local tryInsert = isPluginAsset and self.tryInstall or props.tryInsert
+			local tryInsert
+			if FFlagStudioToolboxShowPluginInstallationProgress and not FFlagStudioToolboxPluginPurchaseFlow then
+				-- This is a workaround to support progress indicators if the purchase flow is disabled.
+				tryInsert = isPluginAsset and self.tryInstallWithProgress or props.tryInsert
+			else
+				tryInsert = isPluginAsset and self.tryInstall or props.tryInsert
+			end
+
+
 			local tryCreateContextMenu = props.tryCreateContextMenu
 
 			local enableScroller = self.state.enableScroller
@@ -375,6 +445,8 @@ function AssetPreview:render()
 			local detailDescriptionHeight = textSize.y + VERTICAL_PADDING
 
 			local enableFavorite = FFlagEnableMarketplaceFavorite and FFlagEnableCatelogForAPIService
+
+			local layoutIndex = LayoutOrderIterator.new()
 
 			return Roact.createElement("ImageButton", {
 				Position = position,
@@ -445,14 +517,14 @@ function AssetPreview:render()
 
 						AutoLocalize = false,
 
-						LayoutOrder = 1,
+						LayoutOrder = layoutIndex:getNextOrder(),
 					}),
 
 					Rating = hasRating and Roact.createElement("Frame", {
 						BackgroundTransparency = 1,
 						Size = UDim2.new(1, 0, 0, 12),
 
-						LayoutOrder = 2,
+						LayoutOrder = layoutIndex:getNextOrder(),
 					}, {
 						VoteIcon = Roact.createElement("ImageLabel", {
 							Size = UDim2.new(0, 16, 0, 16),
@@ -488,14 +560,34 @@ function AssetPreview:render()
 						onModelPreviewFrameEntered = self.onModelPreviewFrameEntered,
 						onModelPreviewFrameLeft = self.onModelPreviewFrameLeft,
 
-						layoutOrder = 3,
+						layoutOrder = layoutIndex:getNextOrder(),
+					}),
+
+					LoadingIndicator = shouldShowInstallationProgress and Roact.createElement("Frame", {
+						Size = UDim2.new(1, 0, 0, INSTALLATION_BAR_SECTION_HEIGHT),
+						BackgroundTransparency = 1,
+						LayoutOrder = layoutIndex:getNextOrder(),
+					}, {
+						UIPadding = Roact.createElement("UIPadding", {
+							PaddingBottom = UDim.new(0, 0),
+							PaddingLeft = UDim.new(0, INSTALLATION_BAR_SECTION_PADDING),
+							PaddingRight = UDim.new(0, INSTALLATION_BAR_SECTION_PADDING),
+							PaddingTop = UDim.new(0, (INSTALLATION_BAR_SECTION_HEIGHT * 0.5) + 10),
+						}),
+						LoadingBar = Roact.createElement(LoadingBar, {
+							loadingText = localizedContent.AssetConfig.Installing,
+							Size = UDim2.new(1, 0, 0, INSTALLATION_BAR_HEIGHT),
+							holdPercent = 0.92,
+							loadingTime = INSTALLATION_ANIMATION_TIME,
+							onFinish = isPluginInstalled and function() end or nil,
+						}),
 					}),
 
 					Favorites = enableFavorite and Roact.createElement(Favorites, {
 						size = UDim2.new(1, 0, 0, 20),
 						assetId = assetId,
 
-						layoutOrder = 4,
+						layoutOrder = layoutIndex:getNextOrder(),
 					}),
 
 					DetailDescription = Roact.createElement("TextLabel", {
@@ -510,7 +602,7 @@ function AssetPreview:render()
 						TextColor3 = assetPreviewTheme.detailedDescription.textColor,
 						TextXAlignment = Enum.TextXAlignment.Left,
 
-						LayoutOrder = 5,
+						LayoutOrder = layoutIndex:getNextOrder(),
 					}),
 
 					Vote = hasRating and Roact.createElement(Vote, {
@@ -519,21 +611,21 @@ function AssetPreview:render()
 						voting = voting,
 						assetId = assetId,
 
-						layoutOrder = 6,
+						layoutOrder = layoutIndex:getNextOrder(),
 					}),
 
 					Developer = Roact.createElement(AssetDescription, {
 						leftContent = "Creator",
 						rightContent = creatorName,
 
-						layoutOrder = 7,
+						layoutOrder = layoutIndex:getNextOrder(),
 					}),
 
 					Category = Roact.createElement(AssetDescription, {
 						leftContent = "Type",
 						rightContent = getGenreString(assetGenres),
 
-						layoutOrder = 8,
+						layoutOrder = layoutIndex:getNextOrder(),
 					}),
 
 					-- For the format of the time, we need only a generic function to handle that.
@@ -542,7 +634,7 @@ function AssetPreview:render()
 						leftContent = "Created",
 						rightContent = created,
 
-						layoutOrder = 9,
+						layoutOrder = layoutIndex:getNextOrder(),
 					}),
 
 					Updated = Roact.createElement(AssetDescription, {
@@ -550,13 +642,12 @@ function AssetPreview:render()
 						rightContent = updated,
 						hideSeparator = true,
 
-						layoutOrder = 10,
+						layoutOrder = layoutIndex:getNextOrder(),
 					})
 				}),
 
 				ActionBar = Roact.createElement(ActionBar, {
 					Text = pluginButtonText,
-					Color = isPluginAsset and buttonColor or Colors.BLUE_PRIMARY,
 					Size = UDim2.new(1, 0, 0, ACTION_BAR_HEIGHT),
 					Position = UDim2.new(0, 0, 1, 0),
 					AnchorPoint = Vector2.new(0, 1),
@@ -568,15 +659,21 @@ function AssetPreview:render()
 					TryInsert = tryInsert,
 					TryCreateContextMenu = tryCreateContextMenu,
 					InstallDisabled = isPluginAsset and (isPluginLoading or isPluginUpToDate),
-					DisplayResultOfInsertAttempt = isPluginAsset and not showPurchaseFlow,
 					ShowRobuxIcon = showRobuxIcon,
 				}),
 
 				PurchaseFlow = FFlagStudioToolboxPluginPurchaseFlow and showPurchaseFlow
 					and Roact.createElement(PluginPurchaseFlow, {
 					Cancel = self.purchaseCancelled,
-					Continue = self.tryInstall,
+					Continue = self.purchaseSucceeded,
 					AssetData = assetData,
+				}),
+
+				SuccessDialog = FFlagStudioToolboxPluginPurchaseFlow and showSuccessDialog
+					and Roact.createElement(PurchaseSuccessDialog, {
+					OnClose = self.closeSuccessDialog,
+					Name = assetData.Asset.Name,
+					Balance = props.Balance,
 				}),
 			})
 		end)
@@ -594,6 +691,7 @@ local function mapStateToProps(state, props)
 	local pageInfo = state.pageInfo or {}
 	local purchaseStatus = purchase.status
 	local owned = purchase.cachedOwnedAssets[tostring(assetId)]
+	local balance = purchase.robuxBalance
 
 	local stateToProps = {
 		asset = idToAssetMap[assetId],
@@ -604,6 +702,7 @@ local function mapStateToProps(state, props)
 	if FFlagStudioToolboxPluginPurchaseFlow then
 		stateToProps.Owned = owned
 		stateToProps.PurchaseStatus = purchaseStatus
+		stateToProps.Balance = balance
 	end
 
 	return stateToProps

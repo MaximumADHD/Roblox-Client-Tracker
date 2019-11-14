@@ -128,6 +128,12 @@ GlassInstancedVS,Vertex
 GlassSkinnedVS,Vertex
 GlassStaticVS,Vertex
 GlassTintFS,Fragment
+GrassFS,Fragment
+GrassHQFS,Fragment
+GrassHQFSShadowed,Fragment
+GrassHQVS,Vertex
+GrassHQVSShadowed,Vertex
+GrassVS,Vertex
 GridFS,Fragment
 GridFSShadowed,Fragment
 ImageProcessAlphaFS,Fragment
@@ -211,7 +217,9 @@ SmoothClusterColoredHQFSShadowed,Fragment
 SmoothClusterColoredHQVS,Vertex
 SmoothClusterColoredHQVSShadowed,Vertex
 SmoothClusterColoredSuperHQFS,Fragment
+SmoothClusterColoredSuperHQFSDep,Fragment
 SmoothClusterColoredSuperHQFSShadowed,Fragment
+SmoothClusterColoredSuperHQFSShadowedDep,Fragment
 SmoothClusterColoredSuperHQVS,Vertex
 SmoothClusterColoredSuperHQVSShadowed,Vertex
 SmoothClusterColoredVS,Vertex
@@ -225,7 +233,9 @@ SmoothClusterNewShadowPancakingFallbackFS,Fragment
 SmoothClusterNewShadowPancakingFallbackVS,Vertex
 SmoothClusterNewShadowVS,Vertex
 SmoothClusterSuperHQFS,Fragment
+SmoothClusterSuperHQFSDep,Fragment
 SmoothClusterSuperHQFSShadowed,Fragment
+SmoothClusterSuperHQFSShadowedDep,Fragment
 SmoothClusterSuperHQVS,Vertex
 SmoothClusterSuperHQVSShadowed,Vertex
 SmoothClusterVS,Vertex

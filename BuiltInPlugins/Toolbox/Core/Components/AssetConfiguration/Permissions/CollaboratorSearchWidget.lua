@@ -173,7 +173,7 @@ local function getResults(searchTerm, matches, localized)
 			
 			table.insert(results.Users, {
 				Icon = Roact.createElement(CollaboratorThumbnail, {
-					Image = Urls.constructAvatarHeadshotThumbnailUrl(user[PermissionsConstants.SubjectIdKey], AssetConfigConstants.rbxThumbSizes.AvatarHeadshotImageSize),
+					Image = Urls.constructRBXThumbUrl(AssetConfigConstants.rbxThumbTypes["AvatarHeadShot"], user[PermissionsConstants.SubjectIdKey], AssetConfigConstants.rbxThumbSizes.AvatarHeadshotImageSize),
 					Size = UDim2.new(1, 0, 1, 0),
 					UseMask = true,
 				}),

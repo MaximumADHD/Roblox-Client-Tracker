@@ -70,7 +70,7 @@ void main()
     vec4 v5 = v4 * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
     vec2 v6 = TEXCOORD1;
     v6.x = max(0.0500000007450580596923828125, TEXCOORD1.x);
-    float v7 = COLOR1.y * 9.06472015380859375;
+    float v7 = COLOR1.y * 0.50359570980072021484375;
     float v8 = clamp(v2, 0.0, 1.0);
     vec3 v9 = (CB0[10].xyz * v8) + (CB0[12].xyz * clamp(-v2, 0.0, 1.0));
     vec4 v10 = vec4(v9.x, v9.y, v9.z, vec4(0.0).w);

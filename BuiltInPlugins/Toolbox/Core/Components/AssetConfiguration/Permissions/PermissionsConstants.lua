@@ -29,6 +29,7 @@ local uniqueIdentifiers = {
 	UseViewKey = createKey("UseViewPermission"),
 	EditKey = createKey("EditPermission"),
 	RevokedKey = createKey("RevokedPermission"),
+	OwnKey = createKey("OwnPermisison"),
 	
 	UserSubjectKey = createKey("UserSubjectType"),
 	GroupSubjectKey = createKey("GroupSubjectType"),
@@ -45,6 +46,7 @@ local uniqueIdentifiers = {
 
 local miscConstants = {
 	MaxSearchResultsPerSubjectType = 3,
+	MaxPackageAssetIdsForHighestPermissionsRequest = 100,
 }
 
 return Cryo.Dictionary.join(

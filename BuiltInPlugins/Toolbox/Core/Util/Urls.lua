@@ -4,6 +4,7 @@ local Url = require(Plugin.Libs.Http.Url)
 
 local wrapStrictTable = require(Plugin.Core.Util.wrapStrictTable)
 
+local FFlagUseGenericRBXThumbUrl = game:DefineFastFlag("UseGenericRBXThumbUrl", false)
 local EnableDeveloperGetManageGroupUrl = game:DefineFastFlag("EnableDeveloperGetManageGroupUrl", false)
 local FFlagUseRBXThumbInToolbox = game:GetFastFlag("UseRBXThumbInToolbox") and settings():GetFFlag("EnableRbxThumbAPI")
 local FFlagLuaPackagePermissions = settings():GetFFlag("LuaPackagePermissions")
@@ -33,6 +34,7 @@ else
 end
 
 local GET_ASSET_VERSION = Url.BASE_URL .. "studio/plugins/info?"
+local GET_PLUGIN_INFO = Url.DEVELOP_URL .. "v1/plugins?"
 
 local ASSET_ID_STRING = "rbxassetid://%d"
 local ASSET_ID_PATH = "asset/?"
@@ -41,9 +43,9 @@ local ASSET_GAME_ASSET_ID = Url.GAME_ASSET_URL .. ASSET_ID_PATH
 
 local ASSET_THUMBNAIL = Url.GAME_ASSET_URL .. "asset-thumbnail/image?"
 
-local RBXTHUMB_URL = FFlagUseRBXThumbInToolbox and "rbxthumb://type=Asset&id=%d&w=%d&h=%d" or nil
-local RBXTHUMB_AVATAR_HEADSHOT_URL = "rbxthumb://type=AvatarHeadShot&id=%d&w=%d&h=%d"
-local RBXTHUMB_GROUP_ICON_URL = "rbxthumb://type=GroupIcon&id=%d&w=%d&h=%d"
+-- mwang, 11/5/2019, remove with FFlagUseGenericRBXThumbUrl
+local DEPRECATED_RBXTHUMB_URL = "rbxthumb://type=Asset&id=%d&w=%d&h=%d"
+local RBXTHUMB_BASE_URL = "rbxthumb://type=%s&id=%d&w=%d&h=%d"
 
 local USER_SEARCH = Url.BASE_URL .. "search/users/results?"
 local USER_THUMBNAIL = Url.BASE_URL .. "headshot-thumbnail/image?"
@@ -54,8 +56,7 @@ local GET_FAVORITED_BASE = "/favorites/users/%d/assets/%d/favorite"
 local POST_FAVORITED_BASE = "/favorites/users/%d/assets/%d/favorite"
 local DELETE_FAVORITE_BASE = "/favorites/users/%d/assets/%d/favorite"
 
-local DEPRECATED_GET_VERSION_HISTORY_BASE = Url.DEVELOP_URL .. "v1/assets/%s/saved-versions"
-local GET_VERSION_HISTORY_BASE = Url.DEVELOP_URL .. "v1/assets/%s/published_versions"
+local GET_VERSION_HISTORY_BASE = Url.DEVELOP_URL .. "v1/assets/%s/saved-versions"
 local POST_REVERT_HISTORY_BASE = Url.DEVELOP_URL .. "v1/assets/%s/revert-version?"
 local GET_ASSET_CONFIG = Url.DEVELOP_URL .. "v1/assets?"
 local GET_ASSET_GROUP = Url.DEVELOP_URL .. "/v1/groups/%s"
@@ -71,12 +72,20 @@ local GET_USER_FRIENDS_URL = Url.FRIENDS_URL .. "v1/users/%d/friends"
 local ROBUX_PURCHASE_URL = Url.BASE_URL .. "upgrades/robux"
 local ROBUX_BALANCE_URL = Url.ECONOMY_URL .. "v1/users/%d/currency"
 local OWNS_ASSET_URL = Url.API_URL .. "ownership/hasasset?assetId=%d&userId=%d"
+local CAN_MANAGE_ASSET_URL = Url.API_URL .. "users/%d/canmanage/%d"
 local ASSET_PURCHASE_URL = Url.ECONOMY_URL .. "v1/purchases/products/%d"
 
 -- Package Permissions URLs
 local GET_PACKAGE_COLLABORATORS = Url.DEVELOP_URL .. "v1/packages/assets/%s/permissions?"
 local POST_PACKAGE_METADATA = Url.DEVELOP_URL .. "v1/packages/assets/versions/metadata/get"
 local PUT_PACKAGE_PERMISSIONS = Url.DEVELOP_URL .. "v1/packages/assets/%s/permissions-batch"
+local GET_PACKAGE_HIGHEST_PERMISSION_LIST = Url.DEVELOP_URL .. "v1/packages/assets/highest-permissions?assetIds=%s"
+
+local GET_TAGS_PREFIX_SEARCH = Url.ITEM_CONFIGURATION_URL .. "v1/tags/prefix-search?"
+local GET_ITEM_TAGS_METADATA = Url.ITEM_CONFIGURATION_URL .. "v1/item-tags/metadata"
+local GET_ITEM_TAGS = Url.ITEM_CONFIGURATION_URL .. "v1/item-tags?"
+local ADD_ASSET_TAG = Url.ITEM_CONFIGURATION_URL .. "v1/item-tags"
+local DELETE_ITEM_TAG = Url.ITEM_CONFIGURATION_URL .. "v1/item-tags/%s"
 
 local DEFAULT_ASSET_SIZE = 100
 local DEFAULT_SEARCH_ROWS = 3
@@ -179,6 +188,12 @@ function Urls.constructGetAssetVersionUrl(assetId)
 	})
 end
 
+function Urls.constructGetPluginInfoUrl(assetId)
+	return GET_PLUGIN_INFO .. Url.makeQueryString({
+		pluginIds = assetId,
+	})
+end
+
 function Urls.constructGetManageableGroupsUrl()
 	return GET_MANAGEABLE_GROUPS
 end
@@ -194,11 +209,7 @@ function Urls.constructAssetIdUrl(assetId)
 end
 
 function Urls.constructAssetSavedVersionString(assetId)
-	if FFlagLuaPackagePermissions then
 		return (GET_VERSION_HISTORY_BASE):format(assetId)
-	else
-		return (DEPRECATED_GET_VERSION_HISTORY_BASE):format(assetId)
-	end
 end
 
 function Urls.constructRevertAssetVersionString(assetId, versionNumber)
@@ -233,8 +244,12 @@ end
 
 function Urls.constructAssetThumbnailUrl(assetId, width, height)
 	if FFlagUseRBXThumbInToolbox then
-		-- The URL only accepts certain sizes for thumbnails. This includes only 150 and 420
-		return RBXTHUMB_URL:format(tonumber(assetId) or 0, width, height)
+		if FFlagUseGenericRBXThumbUrl then
+			return RBXTHUMB_BASE_URL:format("Asset", tonumber(assetId) or 0, width, height)
+		else
+			-- The URL only accepts certain sizes for thumbnails. This includes only 150 and 420
+			return DEPRECATED_RBXTHUMB_URL:format(tonumber(assetId) or 0, width, height)
+		end
 	else
 		-- The URL only accepts certain sizes for thumbnails. This includes 50, 75, 100, 150, 250, 420 etc.
 		width = width or DEFAULT_ASSET_SIZE
@@ -246,6 +261,13 @@ function Urls.constructAssetThumbnailUrl(assetId, width, height)
 			height = height,
 		})
 	end
+end
+
+function Urls.constructRBXThumbUrl(type, assetId, size)
+	if not FFlagUseRBXThumbInToolbox then
+		return ""
+	end
+	return RBXTHUMB_BASE_URL:format(type, tonumber(assetId) or 0, size, size)
 end
 
 function Urls.constructUserSearchUrl(searchTerm, numResults)
@@ -316,14 +338,6 @@ function Urls.constructIsVerifiedCreatorUrl()
 	return GET_IS_VERIFIED_CREATOR
 end
 
-function Urls.constructAvatarHeadshotThumbnailUrl(assetId, size)
-	return RBXTHUMB_AVATAR_HEADSHOT_URL:format(assetId, size, size)
-end
-
-function Urls.constructGroupIconThumbnailUrl(assetId, size)
-	return RBXTHUMB_GROUP_ICON_URL:format(assetId, size, size)
-end
-
 function Urls.constructGetUserFriendsUrl(userId)
 	return GET_USER_FRIENDS_URL:format(userId)
 end
@@ -354,12 +368,49 @@ function Urls.constructGetGroupRoleInfoUrl(groupId)
 	return GET_GROUP_ROLE_INFO:format(groupId)
 end
 
+function Urls.constructPackageHighestPermissionUrl(assetIds)
+	local assetIdStringList = ""
+	for i, assetId in ipairs(assetIds) do
+		assetIdStringList = assetIdStringList .. assetId .. (assetIds[i+1] ~= nil and "," or "")
+	end
+	return GET_PACKAGE_HIGHEST_PERMISSION_LIST:format(assetIdStringList)
+end
+
 function Urls.constructOwnsAssetUrl(assetId, userId)
 	return OWNS_ASSET_URL:format(assetId, userId)
 end
 
+function Urls.constructCanManageAssetUrl(assetId, userId)
+	return CAN_MANAGE_ASSET_URL:format(userId, assetId)
+end
+
 function Urls.constructAssetPurchaseUrl(productId)
 	return ASSET_PURCHASE_URL:format(productId)
+end
+
+function Urls.constructGetTagsPrefixSearchUrl(prefix, numberOfResults)
+	return GET_TAGS_PREFIX_SEARCH .. Url.makeQueryString({
+		prefix = prefix,
+		numberOfResults = numberOfResults,
+	})
+end
+
+function Urls.constructGetTagsMetadataUrl()
+	return GET_ITEM_TAGS_METADATA
+end
+
+function Urls.constructGetAssetItemTagsUrl(assetId)
+	return GET_ITEM_TAGS .. Url.makeQueryString({
+		itemIds = string.format("AssetId:%d", assetId)
+	})
+end
+
+function Urls.constructAddAssetTagUrl()
+	return ADD_ASSET_TAG
+end
+
+function Urls.constructDeleteAssetItemTagUrl(itemTagId)
+	return DELETE_ITEM_TAG:format(itemTagId)
 end
 
 return wrapStrictTable(Urls)

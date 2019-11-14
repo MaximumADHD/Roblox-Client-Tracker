@@ -695,7 +695,7 @@
     },
     "Merge": {
         "TextUnconflicted": "#4CB5C2BD",
-        "TextConflictActive": "#E0B5C2BD",
+        "TextConflictActive": "#DDDDDDDD",
         "TextConflictInactive": "#4CB5C2BD",
         
         "HighlightServerActive": "#20FA6400",
@@ -704,11 +704,11 @@
         "HighlightDraftInactive": "#1000B06F",
         "HighlightOtherActive": "#4CCCCCCC",
         "HighlightOtherInactive": "#26CCCCCC",
-        "HighlightResolvedActive": "#FFE3E3E3",
+        "HighlightResolvedActive": "#BBBBBBBB",
 
         "Background": "#2D2D2D",
 
-        "OtherTopLabelOverride": "#19000000"
+        "OtherTopLabelOverride": "#4CCCCCCC"
     },
     "MeshSplitting": {
 

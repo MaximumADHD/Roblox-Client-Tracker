@@ -18,11 +18,12 @@ local function serializeForRequest(changedPermissions, groupMetadata, assetVersi
     local changes = {}
 
 	changes[PermissionsConstants.GroupSubjectKey] = {}
-	for subjectType,_ in pairs(changedPermissions) do
-		changes[subjectType] = {}
-	end
     
     if changedPermissions and next(changedPermissions) ~= nil then
+        for subjectType,_ in pairs(changedPermissions) do
+            changes[subjectType] = {}
+        end
+
         for subjectType,permissions in pairs(changedPermissions) do
             for subjectId,permission in pairs(permissions) do
                 changes[subjectType][subjectId] = {Action = permission[PermissionsConstants.ActionKey]}
@@ -54,14 +55,21 @@ end
 
 return function(networkInterface, assetId, assetVersionNumber)
     return function(store)
-        local permissions = serializeForRequest(store:getState().changed.permissions, store:getState().groupMetadata, assetVersionNumber)
-        return networkInterface:putPackagePermissions(assetId, permissions):andThen(
-            function(result)
-                store:dispatch(ClearChange("permissions"))
-            end,
-            function(error)
-                store:dispatch(NetworkError(result))
+        local changeTable = store:getState().changed
+        -- should be verified already in AssetConfig but just in case
+        if changeTable and next(changeTable) ~= nil then
+            local permissions = serializeForRequest(changeTable.permissions, changeTable.groupMetadata, assetVersionNumber)
+            if next(permissions) ~= nil then
+                return networkInterface:putPackagePermissions(assetId, permissions):andThen(
+                    function(result)
+                        store:dispatch(ClearChange("permissions"))
+                        store:dispatch(ClearChange("groupMetadata"))
+                    end,
+                    function(err)
+                        store:dispatch(NetworkError(err))
+                    end
+                )
             end
-        )
+        end
 	end
 end

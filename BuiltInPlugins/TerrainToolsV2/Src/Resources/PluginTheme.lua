@@ -6,6 +6,9 @@ local StudioStyle = UILibrary.Studio.Style
 local deepJoin = require(Plugin.Src.Util.deepJoin)
 local Cryo = require(Plugin.Packages.Cryo)
 
+local FFlagTerrainToolsEnablePivotPosition = game:GetFastFlag("TerrainToolsEnablePivotPosition")
+local FFlagTerrainToolsEnableHeightSlider = game:GetFastFlag("TerrainToolsEnableHeightSlider")
+
 local Theme = {}
 
 local ColorSheet = {
@@ -26,6 +29,15 @@ local ColorSheet = {
 	panelColor = Color3.fromRGB(240, 240, 240),
 	panelColor_dark = Color3.fromRGB(53, 53, 53), -- used in panel
 	textBox_dark = Color3.fromRGB(37, 37, 37),
+
+	singleSelectButtonSelected = Color3.fromRGB(219, 219, 219),
+	singleSelectButtonSelected_dark = Color3.fromRGB(85, 85, 85),
+
+	propertyLockPaperclipColor = Color3.fromRGB(151, 151, 151),
+	propertyLockIconBackgroundHover = Color3.fromRGB(228, 238, 254),
+	propertyLockIconBackgroundHover_dark = Color3.fromRGB(163, 162, 165),
+	propertyLockIconBorderHover = Color3.fromRGB(219, 219, 219),
+	propertyLockIconBorderHover_dark = Color3.fromRGB(227, 227, 227),
 }
 
 -- getColor : function<Color3>(color enum)
@@ -47,7 +59,9 @@ function Theme.createValues(getColor, c, m)
 	--UILibraryStylePalette.backgroundColor = Color3.new(1, 1, 1)
 
 	local roundedBorderImage = "rbxasset://textures/StudioToolbox/RoundedBorder.png"
-	local roundedBorderSlice = Rect.new(3, 3, 13, 13)
+	local roundedBackgroundImage = "rbxasset://textures/StudioToolbox/RoundedBackground.png"
+	local roundedElementSlice = Rect.new(3, 3, 13, 13)
+
 	local toggleTheme = defineTheme({
 		toggleOnImage = "rbxasset://textures/TerrainTools/import_toggleOn.png",
 		toggleOffImage = "rbxasset://textures/TerrainTools/import_toggleOff.png",
@@ -110,6 +124,39 @@ function Theme.createValues(getColor, c, m)
 		}
 	})
 
+	local singleSelectButtonGroupTheme
+	if FFlagTerrainToolsEnablePivotPosition then
+		singleSelectButtonGroupTheme = defineTheme({
+			roundedBorderImage = roundedBorderImage,
+			roundedBackgroundImage = roundedBackgroundImage,
+			roundedElementSlice = roundedElementSlice,
+
+			buttonSelectedColor = ColorSheet.singleSelectButtonSelected,
+		}, {
+			Dark = {
+				buttonSelectedColor = ColorSheet.singleSelectButtonSelected_dark,
+			}
+		})
+	end
+
+	local propertyLockTheme
+	if FFlagTerrainToolsEnableHeightSlider then
+		propertyLockTheme = defineTheme({
+			lockedIcon = "rbxasset://textures/TerrainTools/locked.png",
+			unlockedIcon = "rbxasset://textures/TerrainTools/unlocked.png",
+			paperclipColor = ColorSheet.propertyLockPaperclipColor,
+			iconBackgroundHover = ColorSheet.propertyLockIconBackgroundHover,
+			iconBorderHover = ColorSheet.propertyLockIconBorderHover,
+			iconBackgroundHoverTransparency = 0,
+		}, {
+			Dark = {
+				iconBackgroundHover = ColorSheet.propertyLockIconBackgroundHover_dark,
+				iconBorderHover = ColorSheet.propertyLockIconBorderHover_dark,
+				iconBackgroundHoverTransparency = 0.5,
+			}
+		})
+	end
+
 	local toolRenderTheme = defineTheme({
 		scrollTopImage = "rbxasset://textures/StudioToolbox/ScrollBarTop.png",
 		scrollMidImage = "rbxasset://textures/StudioToolbox/ScrollBarMiddle.png",
@@ -142,6 +189,9 @@ function Theme.createValues(getColor, c, m)
 		errorColor = Color3.fromRGB(216, 104, 104),
 		selectionBorderColor = Color3.fromRGB(0, 162, 255),
 		roundTextButtonTheme = roundTextButtonTheme,
+		singleSelectButtonGroupTheme = FFlagTerrainToolsEnablePivotPosition and singleSelectButtonGroupTheme
+			or nil,
+		propertyLockTheme = FFlagTerrainToolsEnableHeightSlider and propertyLockTheme or nil,
 		textSize = 10,
 		padding = 4,
 		font = Enum.Font.SourceSans,

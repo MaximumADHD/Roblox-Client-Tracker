@@ -82,7 +82,7 @@ void main()
     vec4 v15 = vec4(v4, v5, v6, 0.0);
     v15.w = COLOR1.z * 0.0039215688593685626983642578125;
     vec4 v16 = vec4(v8, v9, v10, COLOR1.z);
-    v16.w = inversesqrt(3.1415927410125732421875 * COLOR1.y);
+    v16.w = inversesqrt(0.1745329201221466064453125 * COLOR1.y);
     gl_Position = v11;
     VARYING0 = vec4(TEXCOORD0.x, TEXCOORD0.y, v14.x, v14.y);
     VARYING1 = vec4(v12.x, v12.y, v14.z, v14.w);

@@ -66,8 +66,7 @@ local function sortActionRows(a, b)
 		end 
 	else 
 		return true 
-	end 
-	return true 
+	end
  end
 
 local function createEmptyRow(name, height)

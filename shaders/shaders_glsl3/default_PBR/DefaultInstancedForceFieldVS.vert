@@ -106,7 +106,7 @@ void main()
     vec4 v25 = v24 * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
     vec2 v26 = TEXCOORD0.zw * v18;
     v26.x = max(0.0500000007450580596923828125, mix(1.0 - v3.w, 0.0, v4));
-    float v27 = CB1[gl_InstanceID * 7 + 6].z * 9.06472015380859375;
+    float v27 = CB1[gl_InstanceID * 7 + 6].z * 0.50359570980072021484375;
     float v28 = clamp(v22, 0.0, 1.0);
     vec3 v29 = (CB0[10].xyz * v28) + (CB0[12].xyz * clamp(-v22, 0.0, 1.0));
     vec4 v30 = vec4(v29.x, v29.y, v29.z, vec4(0.0).w);

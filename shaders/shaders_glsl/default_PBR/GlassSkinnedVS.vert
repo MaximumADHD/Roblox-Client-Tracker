@@ -88,7 +88,7 @@ void main()
     v21.w = mix(v19, 1.0, v20);
     vec4 v22 = vec4(dot(CB0[20], v15), dot(CB0[21], v15), dot(CB0[22], v15), 0.0);
     v22.w = mix((COLOR1.w * 0.0039215688593685626983642578125) * v19, 1.0, v20);
-    float v23 = COLOR1.y * 9.06472015380859375;
+    float v23 = COLOR1.y * 0.50359570980072021484375;
     float v24 = clamp(v13, 0.0, 1.0);
     vec3 v25 = (CB0[10].xyz * v24) + (CB0[12].xyz * clamp(-v13, 0.0, 1.0));
     vec4 v26 = vec4(v25.x, v25.y, v25.z, vec4(0.0).w);

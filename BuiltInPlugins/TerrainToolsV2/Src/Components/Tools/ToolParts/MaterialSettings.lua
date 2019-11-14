@@ -124,13 +124,14 @@ function MaterialSettings:init()
 	self.state = {
 		hoverKey = nil
 	}
+
 	self.onMouseEnter = function(index)
 		self:setState({
 			hoverKey = index
 		})
 	end
-
 end
+
 function MaterialSettings:render()
 	return withTheme(function(theme)
 		return withLocalization(function(localization)
@@ -187,7 +188,7 @@ function MaterialSettings:render()
 
 						[Roact.Event.MouseLeave] = function()
 							self.onMouseEnter(0)
-						end,m
+						end,
 					},{
 						Tooltip = isHovered and Roact.createElement("TextLabel",{
 							BackgroundTransparency = 0,

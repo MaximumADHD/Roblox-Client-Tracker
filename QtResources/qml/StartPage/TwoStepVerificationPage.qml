@@ -37,6 +37,14 @@ Rectangle {
         }
     }
 
+    function getTwoStepVerificationInstruction() {
+        if (mediaType === "Email") {
+            return qsTr("Studio.App.StartPageLogin.TwoStepVerificationEmailInstruction");
+        } else {
+            return qsTr("Studio.App.StartPageLogin.TwoStepVerificationSmsInstruction");
+        }
+    }
+
 	Image {
         id: bannerImage
         x: 0
@@ -89,7 +97,7 @@ Rectangle {
 
     PlainText {
         id: twoStepVerificationTitle
-        text: "2-Step Verification"
+        text: qsTr("Studio.App.StartPageLogin.TwoStepVerificationTitle")
         anchors.top: bannerImage.bottom
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.topMargin: 15
@@ -119,7 +127,7 @@ Rectangle {
 
         PlainText {
             id: twoStepVerificationInstructions
-            text: "Enter the code we just sent to you via " + mediaType.toLowerCase()
+            text: getTwoStepVerificationInstruction()
             anchors.top: mediaTypeImage.bottom
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.topMargin: 36

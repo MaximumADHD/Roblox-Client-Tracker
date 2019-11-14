@@ -1,8 +1,8 @@
-game:DefineFastInt("LuaAppPercentRolloutGameDetailsPeekView", 0) -- GAMEDISC-195
+game:DefineFastInt("LuaAppPercentRolloutGameDetailsPeekViewV1p5", 0) -- GAMEDISC-195
 
 local Players = game:GetService("Players")
 
-local FIntLuaAppPercentRolloutGameDetailsPeekView = game:GetFastInt("LuaAppPercentRolloutGameDetailsPeekView")
+local FIntLuaAppPercentRolloutGameDetailsPeekView = game:GetFastInt("LuaAppPercentRolloutGameDetailsPeekViewV1p5")
 local FFlagLuaAppDeepLinkEventReceiver = settings():GetFFlag("LuaAppDeepLinkEventReceiver")
 
 return function()

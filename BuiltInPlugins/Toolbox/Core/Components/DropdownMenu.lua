@@ -25,6 +25,10 @@
 
 local Plugin = script.Parent.Parent.Parent
 
+if game:GetFastFlag("CMSEnableCatalogTags") then
+	return require(Plugin.Core.Components.DropdownMenu2)
+end
+
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 

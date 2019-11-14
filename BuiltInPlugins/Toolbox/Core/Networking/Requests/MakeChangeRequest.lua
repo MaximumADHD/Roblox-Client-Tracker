@@ -4,12 +4,20 @@ local Actions = Plugin.Core.Actions
 local AddChange = require(Actions.AddChange)
 local ClearChange = require(Actions.ClearChange)
 
-return function(setting, currentValue, newValue)
+-- comparisonFunc can be optionally provided with the following signature (currentValue, newValue) => boolean
+-- if not provided, it defaults to just using ==
+return function(setting, currentValue, newValue, comparisonFunc)
 	return function(store)
-		if currentValue == newValue then
+		local equals
+		if game:GetFastFlag("CMSEnableCatalogTags") and comparisonFunc then
+			equals = comparisonFunc(currentValue, newValue)
+		else
+			equals = currentValue == newValue
+		end
+		if equals then
 			store:dispatch(ClearChange(setting))
 		else
-			store:dispatch(AddChange(setting, newValue))
+		store:dispatch(AddChange(setting, newValue))
 		end
 	end
 end

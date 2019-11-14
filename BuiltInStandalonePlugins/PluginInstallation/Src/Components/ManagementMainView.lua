@@ -12,16 +12,15 @@ local UILibrary = require(Plugin.Packages.UILibrary)
 local PluginHolder = require(Plugin.Src.Components.PluginHolder)
 local GetPluginInfoRequest = require(Plugin.Src.Thunks.GetPluginInfoRequest)
 local Constants = require(Plugin.Src.Util.Constants)
-local LoadingDialog = require(Plugin.Src.Components.LoadingDialog)
 local MovedDialog = require(Plugin.Src.Components.MovedDialog)
 local ContextServices = require(Plugin.Packages.Framework.ContextServices)
 local PluginAPI2 = require(Plugin.Src.ContextServices.PluginAPI2)
 local UpdateAllPlugins = require(Plugin.Src.Thunks.UpdateAllPlugins)
 local RefreshPlugins = require(Plugin.Src.Thunks.RefreshPlugins)
 local Button = UILibrary.Component.Button
+local LoadingIndicator = UILibrary.Component.LoadingIndicator
 
-
-local FFlagPluginAccessAndInstallationInStudio = game:GetFastFlag("PluginAccessAndInstallationInStudio")
+local FFlagEnablePurchasePluginFromLua2 = game:GetFastFlag("EnablePurchasePluginFromLua2")
 local FFlagEnableStudioServiceOpenBrowser = game:GetFastFlag("EnableStudioServiceOpenBrowser")
 
 local ManagementMainView = Roact.Component:extend("ManagementMainView")
@@ -64,7 +63,7 @@ function ManagementMainView:init()
 	end
 
 	self.findPlugins = function()
-		if not FFlagPluginAccessAndInstallationInStudio then
+		if not FFlagEnablePurchasePluginFromLua2 then
 			-- Open a browser window to the Library tab of the Create page
 			local api = self.props.API:get()
 			local catalogContext = 2
@@ -72,7 +71,7 @@ function ManagementMainView:init()
 			local sortAggregation = 3
 			local sortCurrency = 0
 			local category = 7
-			local libraryUrl = API.WWW.Develop.Library(catalogContext, sortType, sortAggregation, sortCurrency, category)
+			local libraryUrl = api.WWW.Develop.Library(catalogContext, sortType, sortAggregation, sortCurrency, category)
 			if FFlagEnableStudioServiceOpenBrowser then
 				StudioService:OpenInBrowser_DONOTUSE(libraryUrl)
 			else
@@ -124,10 +123,10 @@ function ManagementMainView:render()
 
 	local anyUpdateNeeded = self.anyUpdateNeeded()
 	local updateDisabled = not anyUpdateNeeded or updating
-	
-	local pluginCount = 0
-	for _ in pairs(pluginList) do pluginCount = pluginCount + 1 end
-	local showList = pluginCount > 0
+
+	local loading = pluginList == nil
+	local showList = not loading and next(pluginList) ~= nil
+	local showNoPlugins = not showList and not loading
 
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 1, 0),
@@ -195,11 +194,7 @@ function ManagementMainView:render()
 			OnClose = self.onCloseMoveDialog
 		}),
 
-		UpdatingDialog = updating and Roact.createElement(LoadingDialog, {
-			plugin = plugin,
-		}),
-
-		NoPluginsMessage = not showList and Roact.createElement("TextLabel", {
+		NoPluginsMessage = showNoPlugins and Roact.createElement("TextLabel", {
 			Position = UDim2.new(
 				0, Constants.HEADER_LEFT_PADDING,
 				0, Constants.HEADER_HEIGHT
@@ -217,7 +212,7 @@ function ManagementMainView:render()
 			TextYAlignment = Enum.TextYAlignment.Top.Value,
 		}),
 
-		FindPluginsMessage = not showList and Roact.createElement("TextButton", {
+		FindPluginsMessage = showNoPlugins and Roact.createElement("TextButton", {
 			Position = UDim2.new(
 				0, Constants.HEADER_LEFT_PADDING,
 				0, Constants.HEADER_HEIGHT + Constants.HEADER_MESSAGE_LINE_HEIGHT
@@ -248,6 +243,11 @@ function ManagementMainView:render()
 			pluginList = pluginList,
 			onPluginUninstalled = self.refreshPlugins,
 		}),
+
+		Indicator = loading and Roact.createElement(LoadingIndicator, {
+			AnchorPoint = Vector2.new(0.5, 0),
+			Position = UDim2.new(0.5, 0, 0, Constants.HEADER_HEIGHT + Constants.HEADER_MESSAGE_LINE_HEIGHT),
+		}),
 	})
 end
 
@@ -259,7 +259,7 @@ ContextServices.mapToProps(ManagementMainView, {
 
 local function mapStateToProps(state, _)
 	return {
-		pluginList = state.Management.plugins or {}
+		pluginList = state.Management.plugins,
 	}
 end
 

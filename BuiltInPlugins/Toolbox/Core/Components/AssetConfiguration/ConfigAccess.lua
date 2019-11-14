@@ -145,7 +145,7 @@ function ConfigAccess:render()
 				}),
 
 				OwnerType = (not self.allowOwnerEdit) and Roact.createElement("TextLabel", {
-					Size = UDim2.new(1, -AssetConfigConstants.TITLE_GUTTER_WIDTH, 0, 0),
+					Size = UDim2.new(1, -AssetConfigConstants.TITLE_GUTTER_WIDTH, 0, game:GetFastFlag("CMSEnableCatalogTags") and Constants.FONT_SIZE_LARGE or 0),
 
 					BackgroundTransparency = 1,
 					BorderSizePixel = 0,

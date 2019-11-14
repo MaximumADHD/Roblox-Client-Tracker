@@ -6,6 +6,7 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local UILibrary = Plugin.Packages.UILibrary
 local Signal = require(UILibrary.Utils.Signal)
 
+local Constants = require(Plugin.Src.Util.Constants)
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 local BrushShape = TerrainEnums.BrushShape
 local PivotType = TerrainEnums.PivotType
@@ -15,6 +16,7 @@ local ToolId = TerrainEnums.ToolId
 local Smoother = require(script.Parent.TerrainSmoother)
 
 local FFlagTerrainToolMetrics = settings():GetFFlag("TerrainToolMetrics")
+local FFlagTerrainToolsEnableHeightSlider = game:GetFastFlag("TerrainToolsEnableHeightSlider")
 
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 local StudioService = game:GetService("StudioService")
@@ -65,11 +67,11 @@ local brushShapeToSelectionShape = {
 	[BrushShape.Cylinder] = "SelectionCylinder",
 }
 
-local kMinSelectionSize = 1
-local kMaxSelectionSize = 32
-local kSelectionSize = 6
-local kSelectionHeight = 6
-local kStrength = .5
+local kMinSelectionSize = Constants.MIN_BRUSH_SIZE
+local kMaxSelectionSize = Constants.MAX_BRUSH_SIZE
+local kSelectionSize = Constants.INITIAL_BRUSH_SIZE
+local kSelectionHeight = Constants.INITIAL_BRUSH_SIZE
+local kStrength = Constants.INITIAL_BRUSH_STRENGTH
 
 local screenGui = Instance.new("ScreenGui")
 screenGui.Name = "TerrainBrushGui"
@@ -170,7 +172,12 @@ function updateOperationInfo()
 	if selectionPart then
 		local size = kSelectionSize * resolution
 		local height = kSelectionHeight * resolution
-		selectionPart.Size = (kBrushShape == BrushShape.Cylinder and Vector3.new(height, size, size) or Vector3.new(size, size, size)) + Vector3.new(.1, .1, .1)
+		if FFlagTerrainToolsEnableHeightSlider then
+			selectionPart.Size = kBrushShape == BrushShape.Cylinder and Vector3.new(height, size, size)
+				or Vector3.new(size, height, size) + Vector3.new(0.1, 0.1, 0.1)
+		else
+			selectionPart.Size = (kBrushShape == BrushShape.Cylinder and Vector3.new(height, size, size) or Vector3.new(size, size, size)) + Vector3.new(.1, .1, .1)
+		end
 
 		--[[ TODO: DEVTOOLS-3103 add CylinderSelection Part
 		if not useSelectionObjects then
@@ -379,9 +386,11 @@ FirstTimeSetup = function()
 		local selectionSize = info.size -- (1 ~ 32)
 		local selectionHeight = info.height and info.height or selectionSize
 
-		-- TOOD: add BaseSize and Height options
-		if operationName ~= ToolId.Flatten then
-			selectionHeight = selectionSize
+		if not FFlagTerrainToolsEnableHeightSlider then
+			-- TOOD: add BaseSize and Height options
+			if operationName ~= ToolId.Flatten then
+				selectionHeight = selectionSize
+			end
 		end
 
 		centerPoint = applyPivot(centerPoint, selectionHeight * resolution)
@@ -838,7 +847,12 @@ FirstTimeSetup = function()
 				selectionPart = nil
 			else
 				local cylinderSize = Vector3.new(height, size, size)
-				local partSize = Vector3.new(size, size, size) + Vector3.new(.1, .1, .1)
+				local partSize
+				if FFlagTerrainToolsEnableHeightSlider then
+					partSize = Vector3.new(size, height, size) + Vector3.new(0.1, 0.1, 0.1)
+				else
+					partSize = Vector3.new(size, size, size) + Vector3.new(.1, .1, .1)
+				end
 
 				if not selectionPart then
 					ChangeHistoryService:SetEnabled(false)

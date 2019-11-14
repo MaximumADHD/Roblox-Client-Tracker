@@ -4,6 +4,7 @@ local AnalyticsSenders = require(Plugin.Core.Util.Analytics.Senders)
 
 local DebugSettings = settings():GetService("DebugSettings")
 local AnalyticsService = game:GetService("RbxAnalyticsService")
+local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 
 local getUserId = require(Plugin.Core.Util.getUserId)
 local platformId = 0
@@ -11,6 +12,7 @@ local platformId = 0
 local FFlagStudioToolboxSearchOptionsAnalytics = settings():GetFFlag("StudioToolboxSearchOptionsAnalytics")
 local FFlagEnableInsertAssetCategoryAnalytics = settings():GetFFlag("EnableInsertAssetCategoryAnalytics")
 local FFlagEnableToolboxUploadReport = settings():GetFFlag("EnableToolboxUploadReport")
+local FFlagStudioToolboxEnablePlaceIDInAnalytics = settings():GetFFlag("StudioToolboxEnablePlaceIDInAnalytics")
 
 -- TODO CLIDEVSRVS-1689: StudioSession + StudioID
 local function getStudioSessionId()
@@ -36,6 +38,19 @@ local function getPlatformId()
 		end)
 	end
 	return platformId
+end
+
+local function getPlaceId()
+	-- while game.PlaceId is normally a safe call, it's possible that the code might be executed by tests
+	-- outside the context of an open place.
+	local placeId = -1
+	local success, result = pcall(function()
+		placeId = game.PlaceId
+	end)
+	if not success and DebugFlags.shouldDebugWarnings() then
+		warn(result)
+	end
+	return placeId
 end
 
 local Analytics = { }
@@ -92,6 +107,7 @@ function Analytics.onAssetInserted(assetId, searchTerm, assetIndex, currentCateg
 			currentCategory = currentCategory,
 			studioSid = getStudioSessionId(),
 			clientId = getClientId(),
+			placeId = FFlagStudioToolboxEnablePlaceIDInAnalytics and getPlaceId() or nil,
 		})
 	else
 		AnalyticsSenders.sendEventImmediately("studio", "click", "toolboxInsert", {
@@ -100,6 +116,7 @@ function Analytics.onAssetInserted(assetId, searchTerm, assetIndex, currentCateg
 			assetIndex = assetIndex,
 			studioSid = getStudioSessionId(),
 			clientId = getClientId(),
+			placeId = FFlagStudioToolboxEnablePlaceIDInAnalytics and getPlaceId() or nil,
 		})
 	end
 end
@@ -113,6 +130,7 @@ function Analytics.onAssetDragInserted(assetId, searchTerm, assetIndex, currentC
 			currentCategory = currentCategory,
 			studioSid = getStudioSessionId(),
 			clientId = getClientId(),
+			placeId = FFlagStudioToolboxEnablePlaceIDInAnalytics and getPlaceId() or nil,
 		})
 	else
 		AnalyticsSenders.sendEventImmediately("studio", "drag", "toolboxInsert", {
@@ -121,6 +139,7 @@ function Analytics.onAssetDragInserted(assetId, searchTerm, assetIndex, currentC
 			assetIndex = assetIndex,
 			studioSid = getStudioSessionId(),
 			clientId = getClientId(),
+			placeId = FFlagStudioToolboxEnablePlaceIDInAnalytics and getPlaceId() or nil,
 		})
 	end
 end

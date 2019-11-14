@@ -531,7 +531,7 @@ Rectangle {
         }
         onIncorrectUsernameOrPassword: {
             usernameField.errorText = "";
-            passwordField.errorText = errorMessage;
+            passwordField.errorText = qsTr("Studio.App.Login.IncorrectUsernamePassword");
             loginPage.state = "STATE_INCORRECT_USERNAME_OR_PASSWORD";
             clearPasswordField();
         }

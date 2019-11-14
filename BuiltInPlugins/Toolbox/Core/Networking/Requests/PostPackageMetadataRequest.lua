@@ -4,6 +4,7 @@ local HttpService = game:GetService("HttpService")
 
 local Actions = Plugin.Core.Actions
 local SetIsPackage = require(Actions.SetIsPackage)
+local NetworkError = require(Actions.NetworkError)
 
 return function(networkInterface, assetId)
     return function(store)
@@ -19,6 +20,7 @@ return function(networkInterface, assetId)
             end,
             function(err)
                 store:dispatch(SetIsPackage(false))
+                store:dispatch(NetworkError(err))
             end
         )
     end

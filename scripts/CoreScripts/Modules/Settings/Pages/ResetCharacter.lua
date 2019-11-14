@@ -24,9 +24,6 @@ local PageInstance = nil
 RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
 local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
 
-
-local FFlagTrackResetCharacterButtonUsage = settings():GetFFlag("TrackResetCharacterButtonUsage")
-
 ----------- CLASS DECLARATION --------------
 
 local function Initialize()
@@ -113,9 +110,7 @@ local function Initialize()
 				end
 			end
 		end
-		if FFlagTrackResetCharacterButtonUsage then
-			AnalyticsService:ReportCounter("InGameMenu-ResetCharacter")
-		end
+		AnalyticsService:ReportCounter("InGameMenu-ResetCharacter")
 	end
 	
 	this.ResetBindable = true

@@ -19,8 +19,6 @@ local Category = require(Plugin.Core.Types.Category)
 local NetworkInterface = {}
 NetworkInterface.__index = NetworkInterface
 
-local HttpService = game:GetService("HttpService")
-
 function NetworkInterface:new()
 	local networkImp = {
 		_networkImp = Networking.new()
@@ -188,6 +186,13 @@ function NetworkInterface:configureSales(assetId, saleStatus, price)
 		saleStatus = saleStatus,
 	})
 
+	if game:GetFastFlag("CMSEnableCatalogTags") then
+		return sendRequestAndRetry(function()
+			printUrl("configureSales", "POST", targetUrl, payload)
+			return self._networkImp:httpPostJson(targetUrl, payload)
+		end)
+	end
+
 	printUrl("configureSales", "POST", targetUrl, payload)
 	return self._networkImp:httpPostJson(targetUrl, payload)
 end
@@ -198,6 +203,13 @@ function NetworkInterface:updateSales(assetId, price)
 	local payload = self._networkImp:jsonEncode({
 		price = price,
 	})
+
+	if game:GetFastFlag("CMSEnableCatalogTags") then
+		return sendRequestAndRetry(function()
+			printUrl("updateSales", "POST", targetUrl, payload)
+			return self._networkImp:httpPostJson(targetUrl, payload)
+		end)
+	end
 
 	printUrl("updateSales", "POST", targetUrl, payload)
 	return self._networkImp:httpPostJson(targetUrl, payload)
@@ -461,11 +473,19 @@ function NetworkInterface:getIsVerifiedCreator()
 	return self._networkImp:httpGetJson(targetUrl)
 end
 
-function NetworkInterface:getAssetVersionId(assetId)
+function NetworkInterface:deprecated_getAssetVersionId(assetId)
 	local targetUrl = Urls.constructGetAssetVersionUrl(assetId)
 
-	printUrl("getAssetVersionId", "GET", targetUrl)
+	printUrl("deprecated_getAssetVersionId", "GET", targetUrl)
 	return self._networkImp:httpGet(targetUrl)
+end
+
+-- Extend this function if using an array.
+function NetworkInterface:getPluginInfo(assetId)
+	local targetUrl = Urls.constructGetPluginInfoUrl(assetId)
+
+	printUrl("getPluginInfo", "GET", targetUrl)
+	return self._networkImp:httpGetJson(targetUrl)
 end
 
 function NetworkInterface:getLocalUserFriends(userId)
@@ -484,7 +504,7 @@ end
 
 function NetworkInterface:postForPackageMetadata(assetid)
 	local targetUrl = Urls.constructPostPackageMetadata()
-	
+
 	local payload = "[{ \"assetId\" : " .. assetid .. ", \"assetVersionNumber\" : 1 }]"
 	return self._networkImp:httpPostJson(targetUrl, payload)
 end
@@ -501,6 +521,13 @@ function NetworkInterface:getOwnsAsset(assetId, userId)
 
 	printUrl("getOwnsAsset", "GET", targetUrl)
 	return self._networkImp:httpGet(targetUrl)
+end
+
+function NetworkInterface:getCanManageAsset(assetId, userId)
+	local targetUrl = Urls.constructCanManageAssetUrl(assetId, userId)
+
+	printUrl("getCanManageAsset", "GET", targetUrl)
+	return self._networkImp:httpGetJson(targetUrl)
 end
 
 function NetworkInterface:purchaseAsset(productId, info)
@@ -525,6 +552,63 @@ function NetworkInterface:putPackagePermissions(assetId, permissions)
 
 	printUrl("putPackagePermissions", "PUT", targetUrl, putPayload)
 	return self._networkImp:httpPut(targetUrl, putPayload)
+end
+
+function NetworkInterface:getPackageHighestPermission(assetIds)
+	local targetUrl = Urls.constructPackageHighestPermissionUrl(assetIds)
+
+	printUrl("getPackageHighestPermission", "GET", targetUrl)
+	return self._networkImp:httpGet(targetUrl)
+end
+
+function NetworkInterface:tagsPrefixSearch(prefix, numberOfResults)
+	local targetUrl = Urls.constructGetTagsPrefixSearchUrl(prefix, numberOfResults)
+
+	return sendRequestAndRetry(function()
+		printUrl("tagsPrefixSearch", "GET", targetUrl)
+		return self._networkImp:httpGetJson(targetUrl)
+	end)
+end
+
+function NetworkInterface:getTagsMetadata()
+	local targetUrl = Urls.constructGetTagsMetadataUrl()
+
+	return sendRequestAndRetry(function()
+		printUrl("getTagsMetadata", "GET", targetUrl)
+		return self._networkImp:httpGetJson(targetUrl)
+	end)
+end
+
+function NetworkInterface:getAssetItemTags(assetId)
+	local targetUrl = Urls.constructGetAssetItemTagsUrl(assetId)
+
+	return sendRequestAndRetry(function()
+		printUrl("getAssetItemTags", "GET", targetUrl)
+		return self._networkImp:httpGetJson(targetUrl)
+	end)
+end
+
+function NetworkInterface:addAssetTag(assetId, tagId)
+	local targetUrl = Urls.constructAddAssetTagUrl()
+
+	local payload = self._networkImp:jsonEncode({
+		itemId = string.format("AssetId:%d", assetId),
+		tagId = tagId,
+	})
+
+	return sendRequestAndRetry(function()
+		printUrl("addAssetTag", "POST", targetUrl, payload)
+		return self._networkImp:httpPost(targetUrl, payload)
+	end)
+end
+
+function NetworkInterface:deleteAssetItemTag(itemTagId)
+	local targetUrl = Urls.constructDeleteAssetItemTagUrl(itemTagId)
+
+	return sendRequestAndRetry(function()
+		printUrl("deleteAssetItemTag", "DELETE", targetUrl)
+		return self._networkImp:httpDelete(targetUrl)
+	end)
 end
 
 return NetworkInterface

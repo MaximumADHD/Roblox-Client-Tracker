@@ -90,7 +90,7 @@ local function isAssetModerated(assetId, localization)
 			local status = creationDetailsResult[1].status
 
 			if status == MODERATED_STATUS then
-				return false, localization:getText("AssetIdSelector", "Moderated")
+				return false, localization:getText("Warning", "Moderated")
 			end
 
 			for _, approval in pairs(APPROVED_REVIEWED_STATUSES) do
@@ -101,7 +101,7 @@ local function isAssetModerated(assetId, localization)
 		end
 	end
 
-	return false, localization:getText("AssetIdSelector", "AwaitingModeration")
+	return false, localization:getText("Warning", "AwaitingModeration")
 end
 
 local AssetIdSelector = Roact.PureComponent:extend(script.Name)
@@ -136,7 +136,7 @@ function AssetIdSelector:init()
 			-- from being used
 			if not self.state.showImageSelection then
 				if tonumber(game.GameId) == 0 then
-					warn(localization:getText("AssetIdSelector", "RequirePublishedForImport"))
+					warn(localization:getText("Warning", "RequirePublishedForImport"))
 					return
 				end
 

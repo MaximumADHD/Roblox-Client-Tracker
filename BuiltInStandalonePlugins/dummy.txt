@@ -1,1 +1,0 @@
-We need this directory to exist.  Perforce won't create the directory without some contents.  Later on we will add real built in standalone plugins.

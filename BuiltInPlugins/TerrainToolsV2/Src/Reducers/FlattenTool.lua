@@ -6,6 +6,7 @@ local Plugin = script.Parent.Parent.Parent
 local Rodux = require(Plugin.Packages.Rodux)
 local Cryo = require(Plugin.Packages.Cryo)
 
+local Constants = require(Plugin.Src.Util.Constants)
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 local BrushShape = TerrainEnums.BrushShape
 local FlattenMode = TerrainEnums.FlattenMode
@@ -13,12 +14,13 @@ local PivotType = TerrainEnums.PivotType
 
 local ReducerToolFlatten = Rodux.createReducer({
 	brushShape = BrushShape.Sphere,
-	baseSize = 6,
-	height = 6,
+	baseSize = Constants.INITIAL_BRUSH_SIZE,
+	height = Constants.INITIAL_BRUSH_SIZE,
+	baseSizeHeightLocked = true,
 	pivot = PivotType.Center,
-	strength = 0.5,
+	strength = Constants.INITIAL_BRUSH_STRENGTH,
 	flattenMode = FlattenMode.Both,
-	planePositionY = 30,
+	planePositionY = Constants.INITIAL_PLANE_POSITION_Y,
 	planeLock = false,
 	heightPicker = false,
 	snapToGrid = false,
@@ -100,6 +102,12 @@ local ReducerToolFlatten = Rodux.createReducer({
 
 		return Cryo.Dictionary.join(state, {
 			ignoreWater = ignoreWater,
+		})
+	end,
+	SetBaseSizeHeightLocked = function(state, action)
+		local locked = action.locked
+		return Cryo.Dictionary.join(state, {
+			baseSizeHeightLocked = locked,
 		})
 	end,
 })

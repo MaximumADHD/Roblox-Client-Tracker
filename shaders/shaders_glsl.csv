@@ -77,6 +77,10 @@ FXCompositingLinearFS,Fragment
 GlassSkinnedVS,Vertex
 GlassStaticVS,Vertex
 GlassTintFS,Fragment
+GrassFS,Fragment
+GrassHQFS,Fragment
+GrassHQVS,Vertex
+GrassVS,Vertex
 GridFS,Fragment
 ImageProcessAlphaFS,Fragment
 ImageProcessAlphaSrgbFS,Fragment
@@ -136,12 +140,14 @@ SmoothClusterColoredFS,Fragment
 SmoothClusterColoredHQFS,Fragment
 SmoothClusterColoredHQVS,Vertex
 SmoothClusterColoredSuperHQFS,Fragment
+SmoothClusterColoredSuperHQFSDep,Fragment
 SmoothClusterColoredSuperHQVS,Vertex
 SmoothClusterColoredVS,Vertex
 SmoothClusterFS,Fragment
 SmoothClusterHQFS,Fragment
 SmoothClusterHQVS,Vertex
 SmoothClusterSuperHQFS,Fragment
+SmoothClusterSuperHQFSDep,Fragment
 SmoothClusterSuperHQVS,Vertex
 SmoothClusterVS,Vertex
 SmoothWaterFS,Fragment

@@ -2,6 +2,7 @@ local Plugin = script.Parent.Parent.Parent
 local TestHelpers = Plugin.Src.TestHelpers
 local Packages = Plugin.Packages
 
+local Constants = require(Plugin.Src.Util.Constants)
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 local BrushShape = TerrainEnums.BrushShape
 local PivotType = TerrainEnums.PivotType
@@ -25,14 +26,13 @@ return function()
 		local r = Rodux.Store.new(ErodeTool)
 		expect(r:getState()).to.be.ok()
 		expect(r:getState().brushShape).to.equal(BrushShape.Sphere)
-		expect(r:getState().baseSize).to.equal(6)
-
-		expect(r:getState().height).to.equal(6)
+		expect(r:getState().baseSize).to.equal(Constants.INITIAL_BRUSH_SIZE)
+		expect(r:getState().height).to.equal(Constants.INITIAL_BRUSH_SIZE)
 		expect(r:getState().ignoreWater).to.equal(true)
 		expect(r:getState().pivot).to.equal(PivotType.Center)
 		expect(r:getState().planeLock).to.equal(false)
 		expect(r:getState().snapToGrid).to.equal(false)
-		expect(r:getState().strength).to.equal(1)
+		expect(r:getState().strength).to.equal(Constants.INITIAL_BRUSH_STRENGTH)
 	end)
 
 	describe("ChangeBaseSize", function()

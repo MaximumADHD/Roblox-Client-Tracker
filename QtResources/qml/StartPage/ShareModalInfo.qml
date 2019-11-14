@@ -98,7 +98,5 @@ Item {
         id: shareModalInfoBox
         anchors.centerIn: parent
         onCloseRequested: close(buttonClicked)
-
-        fflagStudioShareFromRibbonBarUXChanges: loginManager.getFFlagStudioShareFromRibbonBarUXChanges();
     }
 }

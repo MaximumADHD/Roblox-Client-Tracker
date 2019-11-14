@@ -35,6 +35,7 @@ local function createValues(theme)
 			Toggle = toggle,
 			BackgroundColor = theme:GetColor(c.MainBackground),
 			ButtonColor = theme:GetColor(c.Button),
+			ProgressBarColor = theme:GetColor(c.DialogMainButton, m.Selected),
 			HoverColor = theme:GetColor(c.Button, m.Hover),
 			BorderColor = theme:GetColor(c.Border),
 			TextColor = theme:GetColor(c.MainText),

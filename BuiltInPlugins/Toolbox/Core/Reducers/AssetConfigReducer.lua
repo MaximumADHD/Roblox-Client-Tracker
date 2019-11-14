@@ -39,6 +39,8 @@ local SetIsPackage = require(Actions.SetIsPackage)
 local UpdateAssetConfigData = require(Actions.UpdateAssetConfigData)
 local UpdateAssetConfigStore = require(Actions.UpdateAssetConfigStore)
 local SetGroupRoleInfo = require(Actions.SetGroupRoleInfo)
+local SetPackagePermission = require(Actions.SetPackagePermission)
+local SetTagSuggestions = require(Actions.SetTagSuggestions)
 
 return Rodux.createReducer({
 	-- Empty table means publish new asset
@@ -99,8 +101,14 @@ return Rodux.createReducer({
 	success = false,
 	collaborators = {},
 	isPackageAsset = false,
+	packagePermissions = {},	
 
 	iconFile = nil, -- Will be used in preview and upload result
+
+	-- catalog tags
+	tagSuggestions = {},
+	latestTagSuggestionTime = 0,
+	latestTagSearchQuery = "",
 }, {
 
 	[UpdateAssetConfigStore.name] = function(state, action)
@@ -365,5 +373,27 @@ return Rodux.createReducer({
 			end
 		end
 		return state
+	end,
+
+	[SetPackagePermission.name] = function(state, action)
+		if not state.packagePermissions then
+			state.packagePermissions = {}
+		end
+		
+		state.packagePermissions = Cryo.Dictionary.join(state.packagePermissions, action.packagePermissions)
+
+		return state
+	end,
+
+	[SetTagSuggestions.name] = function(state, action)
+		if action.sentTime < (state.latestTagSuggestionTime or 0) then
+			return state
+		end
+
+		return Cryo.Dictionary.join(state, {
+			tagSuggestions = action.suggestions,
+			latestTagSuggestionTime = action.sentTime,
+			latestTagSearchQuery = action.prefix,
+		})
 	end,
 })

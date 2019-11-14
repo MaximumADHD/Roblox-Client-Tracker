@@ -10,6 +10,7 @@ local withLocalization = Localizing.withLocalization
 local Theme = require(Plugin.Src.ContextServices.Theming)
 local withTheme = Theme.withTheme
 
+local Constants = require(Plugin.Src.Util.Constants)
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 local BrushShape = TerrainEnums.BrushShape
 local FlattenMode = TerrainEnums.FlattenMode
@@ -26,9 +27,14 @@ local FRAME_BORDER_COLOR3 = Color3.new(151/255, 151/255, 151/255)
 
 local ToolParts = script.Parent
 local Panel = require(ToolParts.Panel)
+local PropertyLock = require(ToolParts.PropertyLock)
 local LabeledTextInput = require(ToolParts.LabeledTextInput)
 local LabeledElementPair = require(ToolParts.LabeledElementPair)
+local SingleSelectButtonGroup = require(ToolParts.SingleSelectButtonGroup)
 local Slider = require(ToolParts.Slider)
+
+local FFlagTerrainToolsEnablePivotPosition = game:GetFastFlag("TerrainToolsEnablePivotPosition")
+local FFlagTerrainToolsEnableHeightSlider = game:GetFastFlag("TerrainToolsEnableHeightSlider")
 
 local BrushSettings = Roact.PureComponent:extend(script.Name)
 
@@ -50,6 +56,7 @@ function BrushSettings:render()
 		local brushShape = self.props.brushShape
 		local baseSize = self.props.baseSize
 		local height = self.props.height
+		local baseSizeHeightLocked = self.props.baseSizeHeightLocked
 		local strength = self.props.strength
 		local pivot = self.props.pivot
 		local planeLock = self.props.planeLock
@@ -65,6 +72,10 @@ function BrushSettings:render()
 		local layoutOrder = self.props.LayoutOrder
 
 		local setText = self.props.setText
+		local toggleBaseSizeHeightLocked = self.props.toggleBaseSizeHeightLocked
+
+		-- As you can't change the height separately from the size for spheres, hide the slider and the property lock UI
+		local showHeight = FFlagTerrainToolsEnableHeightSlider and brushShape ~= BrushShape.Sphere
 
 		local isFlatten = currentTool == ToolId.Flatten
 
@@ -205,9 +216,9 @@ function BrushSettings:render()
 					Text = localization:getText("BrushSettings", "BaseSize"),
 					LayoutOrder = 2,
 				}, {
-					Roact.createElement(Slider, {
-						Min = 1,
-						Max = 32,
+					Slider = Roact.createElement(Slider, {
+						Min = Constants.MIN_BRUSH_SIZE,
+						Max = Constants.MAX_BRUSH_SIZE,
 						SnapIncrement = 1,
 						ShowInput = true,
 						Value = baseSize,
@@ -215,12 +226,34 @@ function BrushSettings:render()
 							setText(tostring(val), "BaseSize")
 						end,
 					}),
+
+					SizeHeightLock = showHeight and Roact.createElement(PropertyLock, {
+						Locked = baseSizeHeightLocked,
+						Clicked = toggleBaseSizeHeightLocked,
+					}),
+				}),
+
+				HeightSlider = showHeight and Roact.createElement(LabeledElementPair, {
+					Size = UDim2.new(1, 0, 0, 15),
+					Text = localization:getText("BrushSettings", "Height"),
+					LayoutOrder = 3,
+				}, {
+					Roact.createElement(Slider, {
+						Min = Constants.MIN_BRUSH_SIZE,
+						Max = Constants.MAX_BRUSH_SIZE,
+						SnapIncrement = 1,
+						ShowInput = true,
+						Value = height,
+						SetValues = function(val)
+							setText(tostring(val), "Height")
+						end,
+					}),
 				}),
 
 				StrengthSlider = strength ~= nil and Roact.createElement(LabeledElementPair, {
 					Size = UDim2.new(1, 0, 0, 15),
 					Text = localization:getText("BrushSettings", "Strength"),
-					LayoutOrder = 2,
+					LayoutOrder = 4,
 				}, {
 					Roact.createElement(Slider, {
 						Min = .1,
@@ -238,69 +271,40 @@ function BrushSettings:render()
 					Size = UDim2.new(1, 0, 0, 48),
 					Text = localization:getText("BrushSettings", "FlattenMode"),
 					BackgroundTransparency = 1,
-					LayoutOrder = 3,
+					LayoutOrder = 5,
 				}, flattenModes),
 
-				-- TODO: Reenable Pivot UI
-				--[[
-				Pivot = Roact.createElement(LabeledElementPair, {
+				Pivot = FFlagTerrainToolsEnablePivotPosition and Roact.createElement(LabeledElementPair, {
 					Size = UDim2.new(1, 0, 0, 22),
 					Text = localization:getText("BrushSettings", "PivotPosition"),
-					LayoutOrder = 4
+					LayoutOrder = 4,
 				}, {
-					TextBox = Roact.createElement("ImageLabel", {
+					Roact.createElement(SingleSelectButtonGroup, {
 						Size = UDim2.new(0, 141, 0, 22),
+						Selected = pivot,
+						Select = function(data)
+							setText(data, "Pivot")
+						end,
 
-						Image = theme.roundedBorderImage,
-						ImageTransparency = 0,
-						ImageColor3 = theme.borderColor,
-						ScaleType = Enum.ScaleType.Slice,
-						SliceCenter = theme.roundedBorderSlice,
-
-						BackgroundTransparency = 1,
-					}, {
-						buttonLayout = Roact.createElement("UIListLayout", {
-							FillDirection = Enum.FillDirection.Horizontal,
-							SortOrder = Enum.SortOrder.LayoutOrder,
-						}),
-
-						Bot = Roact.createElement("TextButton", {
-							Size = UDim2.new(0, 47, 0, 22),
-							Text = localization:getText("BrushSettings", "BottomPivot"),
-							BorderSizePixel = 0,
-							BackgroundTransparency = (pivot == PivotType.Bottom) and 0.5 or 1,
-							[Roact.Event.Activated] = function( )
-								setText(PivotType.Bottom, "Pivot")
-							end,
-						}),
-
-						Cen = Roact.createElement("TextButton", {
-							Size = UDim2.new(0, 47, 0, 22),
-							Text = localization:getText("BrushSettings", "CenterPivot"),
-							BorderSizePixel = 0,
-							BackgroundTransparency = (pivot == PivotType.Center) and 0.5 or 1,
-							[Roact.Event.Activated] = function( )
-								setText(PivotType.Center, "Pivot")
-							end,
-						}),
-
-						Top = Roact.createElement("TextButton", {
-							Size = UDim2.new(0, 47, 0, 22),
-							Text = localization:getText("BrushSettings", "TopPivot"),
-							BorderSizePixel = 0,
-							BackgroundTransparency = (pivot == PivotType.Top) and 0.5 or 1,
-							[Roact.Event.Activated] = function( )
-								setText(PivotType.Top, "Pivot")
-							end,
-						}),
+						Options = {
+							{
+								Text = localization:getText("BrushSettings", "BottomPivot"),
+								Data = PivotType.Bottom,
+							}, {
+								Text = localization:getText("BrushSettings", "CenterPivot"),
+								Data = PivotType.Center,
+							}, {
+								Text = localization:getText("BrushSettings", "TopPivot"),
+								Data = PivotType.Top,
+							},
+						}
 					}),
 				}),
-				]]
 
 				PlaneLockToggle = planeLock ~= nil and Roact.createElement(LabeledElementPair, {
 					Size = UDim2.new(1, 0, 0, 18),
 					Text = localization:getText("BrushSettings", "PlaneLock"),
-					LayoutOrder = 5
+					LayoutOrder = 7
 				}, {
 					Roact.createElement("ImageButton", {
 						Size = UDim2.new(0, 27, 0, 16),
@@ -315,7 +319,7 @@ function BrushSettings:render()
 				FixedPlane = fixedPlane ~= nil and Roact.createElement(LabeledElementPair, {
 					Size = UDim2.new(1, 0, 0, 18),
 					Text = localization:getText("BrushSettings", "FixedPlane"),
-					LayoutOrder = 5
+					LayoutOrder = 8
 				}, {
 					Roact.createElement("ImageButton", {
 						Size = UDim2.new(0, 27, 0, 16),
@@ -332,7 +336,7 @@ function BrushSettings:render()
 					Text = localization:getText("BrushSettings", "PlanePosition"),
 					Padding = UDim.new(0, 4),
 					SizeToContent = true,
-					LayoutOrder = 6,
+					LayoutOrder = 9,
 				}, {
 					HeightPicker = Roact.createElement("Frame", {
 						Size = UDim2.new(1, 0, 0, 22),
@@ -375,7 +379,7 @@ function BrushSettings:render()
 				SnapToGridToggle = snapToGrid ~= nil and Roact.createElement(LabeledElementPair, {
 					Size = UDim2.new(1, 0, 0, 18),
 					Text = localization:getText("BrushSettings", "SnapToGrid"),
-					LayoutOrder = 7,
+					LayoutOrder = 10,
 				}, {
 					Roact.createElement("ImageButton", {
 						Size = UDim2.new(0, 27, 0, 16),
@@ -390,7 +394,7 @@ function BrushSettings:render()
 				IgnoreWaterToggle = ignoreWater ~= nil and Roact.createElement(LabeledElementPair, {
 					Size = UDim2.new(1, 0, 0, 18),
 					Text = localization:getText("BrushSettings", "IgnoreWater"),
-					LayoutOrder = 8,
+					LayoutOrder = 11,
 				}, {
 					Roact.createElement("ImageButton", {
 						Size = UDim2.new(0, 27, 0, 16),

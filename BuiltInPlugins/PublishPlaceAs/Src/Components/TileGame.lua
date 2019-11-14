@@ -6,8 +6,7 @@ local UILibrary = require(Plugin.Packages.UILibrary)
 local Localizing = UILibrary.Localizing
 local Separator = UILibrary.Component.Separator
 
-local DFFlagPreloadAsyncCallbackFunction = settings():getFFlag("PreloadAsyncCallbackFunction")
-local FFlagEnableRbxThumbAPI = settings():GetFFlag("EnableRbxThumbAPI")
+local FFlagDefaultThumbnailForRBXThumb = game:DefineFastFlag("DefaultThumbnailForRBXThumb", false)
 
 local ContentProvider = game:GetService("ContentProvider")
 
@@ -30,7 +29,7 @@ end
 
 function TileGame:didMount()
 	self.isMounted = true
-	if DFFlagPreloadAsyncCallbackFunction and FFlagEnableRbxThumbAPI then
+	if FFlagDefaultThumbnailForRBXThumb then
 		spawn(function()
 			local asset = { self.thumbnailUrl }
 			local function setStatus(contentId, status)

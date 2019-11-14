@@ -16,6 +16,8 @@ local SetAssetPreview = require(Actions.SetAssetPreview)
 local SetPreviewModel = require(Actions.SetPreviewModel)
 local ClearPreview = require(Actions.ClearPreview)
 local SetAssetVersionId = require(Actions.SetAssetVersionId)
+local SetCanManageAsset = require(Actions.SetCanManageAsset)
+local SetPluginData = require(Actions.SetPluginData)
 
 local function handleAssetsAddedToState(state, assets, totalAssets, newCursor)
 	if not assets then
@@ -72,6 +74,12 @@ return Rodux.createReducer({
 
 	previewModel = nil,
 	isPreviewing = false,
+
+	manageableAssets = {},
+	-- Currently used by a hacky implementation, will be removed with FFlagUseDevelopFetchPluginVersionId
+	assetVersionId = nil,
+	-- Will be used to fetch versionId to install the latest plugin.
+	previewPluginData = nil,
 }, {
 	[ClearAssets.name] = function(state, action)
 		return Cryo.Dictionary.join(state, {
@@ -80,6 +88,7 @@ return Rodux.createReducer({
 			assetsReceived = 0,
 			hasReachedBottom = false,
 			currentCursor = PagedRequestCursor.createDefaultCursor(),
+			manageableAssets = {},
 		})
 	end,
 
@@ -122,5 +131,23 @@ return Rodux.createReducer({
 		return Cryo.Dictionary.join(state, {
 			assetVersionId = action.assetVersionId
 		})
-	end
+	end,
+
+	[SetCanManageAsset.name] = function(state, action)
+		local canManage = action.canManage
+		local assetId = action.assetId
+		local manageableAssets = Cryo.Dictionary.join(state.manageableAssets, {
+			[tostring(assetId)] = canManage,
+		})
+		return Cryo.Dictionary.join(state, {
+			manageableAssets = manageableAssets,
+		})
+	end,
+
+	-- We care about only the plugin that in preview, so no need to cache the data.
+	[SetPluginData.name] = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			previewPluginData = action.pluginData,
+		})
+	end,
 })

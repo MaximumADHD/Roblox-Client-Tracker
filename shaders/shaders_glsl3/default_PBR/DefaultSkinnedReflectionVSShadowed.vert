@@ -81,7 +81,7 @@ void main()
     vec4 v15 = vec4(v4, v5, v6, 1.0) * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
     vec4 v16 = vec4(v4, v5, v6, 0.0);
     v16.w = COLOR1.w * 0.0039215688593685626983642578125;
-    float v17 = COLOR1.y * 9.06472015380859375;
+    float v17 = COLOR1.y * 0.50359570980072021484375;
     float v18 = clamp(v13, 0.0, 1.0);
     vec3 v19 = (CB0[10].xyz * v18) + (CB0[12].xyz * clamp(-v13, 0.0, 1.0));
     vec4 v20 = vec4(v19.x, v19.y, v19.z, vec4(0.0).w);

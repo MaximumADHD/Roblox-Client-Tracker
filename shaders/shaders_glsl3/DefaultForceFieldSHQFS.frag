@@ -62,7 +62,7 @@ void main()
     vec4 f3 = texture(DiffuseMapTexture, VARYING0.xy);
     float f4 = f3.x;
     float f5 = (f4 > 0.0) ? ((1.0 - clamp(abs(f4 - CB0[14].w) * 13.0, 0.0, 1.0)) * f3.w) : 0.0;
-    float f6 = max(max(1.0 - clamp(abs(dot(normalize(VARYING5.xyz), normalize(VARYING4.xyz))) * 2.0, 0.0, 1.0), (f2 > 0.99800002574920654296875) ? 0.0 : (1.0 - clamp((f2 - f1) * 3.0, 0.0, 1.0))), f5);
+    float f6 = max(max(1.0 - clamp(abs(dot(normalize(VARYING5.xyz), normalize(VARYING4.xyz))) * 2.0, 0.0, 1.0), (f2 > 499.0) ? 0.0 : (1.0 - clamp((f2 - f1) * 3.0, 0.0, 1.0))), f5);
     float f7 = VARYING2.w * max(mix(f5, 1.0, f6) * f6, VARYING1.x);
     vec4 f8 = vec4(VARYING2.xyz * VARYING2.xyz, f7);
     float f9 = clamp((CB0[13].x * length(VARYING4.xyz)) + CB0[13].y, 0.0, 1.0);

@@ -1536,6 +1536,7 @@ Class Script : BaseScript {PluginSecurity}
 	Function string Script:GetHash() {LocalUserSecurity}
 Class LocalScript : Script
 Class ModuleScript : LuaSourceContainer
+	Property bool ModuleScript.CoreScriptModified {NotAccessibleSecurity} [NotReplicated] [NotScriptable]
 	Property Content ModuleScript.LinkedSource
 	Property ProtectedString ModuleScript.Source {PluginSecurity}
 Class LuaWebService : Instance [NotCreatable] [Service]
@@ -1813,6 +1814,7 @@ Class SpawnLocation : Part
 	Property BrickColor SpawnLocation.TeamColor
 Class WedgePart : FormFactorPart
 Class Terrain : BasePart [NotCreatable]
+	Property bool Terrain.Decoration {NotAccessibleSecurity} [NotScriptable]
 	Property BinaryString Terrain.MaterialColors {NotAccessibleSecurity} [NotScriptable]
 	Property Color3 Terrain.WaterColor
 	Property float Terrain.WaterReflectance
@@ -1893,7 +1895,16 @@ Class Model : PVInstance
 	Function void Model:TranslateBy(Vector3 delta)
 	Function void Model:move(Vector3 location) [Deprecated]
 Class Status : Model [NotCreatable] [Deprecated]
-Class Workspace : Model [NotCreatable] [Service]
+Class WorldRoot : Model [NotCreatable]
+	Function Tuple WorldRoot:FindPartOnRay(Ray ray, Instance ignoreDescendantsInstance = nil, bool terrainCellsAreCubes = false, bool ignoreWater = false)
+	Function Tuple WorldRoot:FindPartOnRayWithIgnoreList(Ray ray, Objects ignoreDescendantsTable, bool terrainCellsAreCubes = false, bool ignoreWater = false)
+	Function Tuple WorldRoot:FindPartOnRayWithWhitelist(Ray ray, Objects whitelistDescendantsTable, bool ignoreWater = false)
+	Function Objects WorldRoot:FindPartsInRegion3(Region3 region, Instance ignoreDescendantsInstance = nil, int maxParts = 20)
+	Function Objects WorldRoot:FindPartsInRegion3WithIgnoreList(Region3 region, Objects ignoreDescendantsTable, int maxParts = 20)
+	Function Objects WorldRoot:FindPartsInRegion3WithWhiteList(Region3 region, Objects whitelistDescendantsTable, int maxParts = 20)
+	Function bool WorldRoot:IsRegion3Empty(Region3 region, Instance ignoreDescendentsInstance = nil)
+	Function bool WorldRoot:IsRegion3EmptyWithIgnoreList(Region3 region, Objects ignoreDescendentsTable)
+Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property bool Workspace.AllowThirdPartySales  [NotReplicated]
 	Property float Workspace.FallenPartsDestroyHeight {✏️PluginSecurity}
 	Property bool Workspace.FilteringEnabled {✏️PluginSecurity}
@@ -1909,23 +1920,16 @@ Class Workspace : Model [NotCreatable] [Service]
 	Function void Workspace:BreakJoints(Objects objects) {PluginSecurity}
 	Function float Workspace:CalculateJumpPower(float gravity, float jumpHeight) {RobloxScriptSecurity}
 	Function bool Workspace:ExperimentalSolverIsEnabled() {LocalUserSecurity}
-	Function Tuple Workspace:FindPartOnRay(Ray ray, Instance ignoreDescendantsInstance = nil, bool terrainCellsAreCubes = false, bool ignoreWater = false)
-	Function Tuple Workspace:FindPartOnRayWithIgnoreList(Ray ray, Objects ignoreDescendantsTable, bool terrainCellsAreCubes = false, bool ignoreWater = false)
-	Function Tuple Workspace:FindPartOnRayWithWhitelist(Ray ray, Objects whitelistDescendantsTable, bool ignoreWater = false)
-	Function Objects Workspace:FindPartsInRegion3(Region3 region, Instance ignoreDescendantsInstance = nil, int maxParts = 20)
-	Function Objects Workspace:FindPartsInRegion3WithIgnoreList(Region3 region, Objects ignoreDescendantsTable, int maxParts = 20)
-	Function Objects Workspace:FindPartsInRegion3WithWhiteList(Region3 region, Objects whitelistDescendantsTable, int maxParts = 20)
 	Function int Workspace:GetNumAwakeParts()
 	Function int Workspace:GetPhysicsThrottling()
 	Function double Workspace:GetRealPhysicsFPS()
-	Function bool Workspace:IsRegion3Empty(Region3 region, Instance ignoreDescendentsInstance = nil)
-	Function bool Workspace:IsRegion3EmptyWithIgnoreList(Region3 region, Objects ignoreDescendentsTable)
 	Function void Workspace:JoinToOutsiders(Objects objects, Enum<JointCreationMode> jointType)
 	Function void Workspace:MakeJoints(Objects objects) {PluginSecurity}
 	Function bool Workspace:PGSIsEnabled()
 	Function void Workspace:SetPhysicsThrottleEnabled(bool value) {LocalUserSecurity}
 	Function void Workspace:UnjoinFromOutsiders(Objects objects)
 	Function void Workspace:ZoomToExtents() {PluginSecurity}
+Class WorldModel : WorldRoot
 Class PackageLink : Instance [NotCreatable] [NotBrowsable]
 	Property bool PackageLink.AutoUpdate {NotAccessibleSecurity} [NotScriptable]
 	Property Content PackageLink.PackageId  [ReadOnly] [NotReplicated]

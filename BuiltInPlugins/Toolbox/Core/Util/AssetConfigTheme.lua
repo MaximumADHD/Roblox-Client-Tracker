@@ -124,11 +124,12 @@ function AssetConfigTheme:_recalculateTheme()
 			errorColor = color(c.ErrorText),
 
 			packagePermissions = {
-				backgroundColor = isDark and color(c.MainBackground) or Color3.fromRGB(46, 46, 46),
+				backgroundColor = color(c.MainBackground),
 				subTextColor = color(c.SubText),
 
 				subjectThumbnail = {
 					backgroundColor = color(c.TableItem),
+					defaultImageColor = isDark and Color3.fromRGB(102, 102, 102) or Color3.fromRGB(151, 151, 151)
 				},
 
 				collaboratorItem = {
@@ -342,6 +343,21 @@ function AssetConfigTheme:_recalculateTheme()
 			textColor = Color3.fromRGB(0, 162, 255),
 		},
 
+		inputFields = {
+			backgroundColor = color(c.InputFieldBackground),
+			backgroundColorDisabled = color(c.InputFieldBackground, m.Disabled),
+			borderColorActive = color(c.InputFieldBorder, m.Selected),
+			borderColorDisabled = color(c.InputFieldBorder, m.Disabled),
+			borderColor = color(c.InputFieldBorder),
+			toolTip = color(c.DimmedText),
+			error = color(c.ErrorText),
+		},
+
+		tags = {
+			textColor = color(c.MainText),
+			backgroundColor = color(c.MainBackground),
+			borderColor = color(c.InputFieldBorder),
+		},
 	})
 
 	-- Need more color for the style

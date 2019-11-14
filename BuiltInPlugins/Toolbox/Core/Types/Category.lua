@@ -1,5 +1,4 @@
 local FFlagLuaPackagePermissions =  settings():GetFFlag("LuaPackagePermissions")
-local FFlagPluginAccessAndInstallationInStudio = settings():GetFFlag("PluginAccessAndInstallationInStudio")
 local FFlagOnlyWhitelistedPluginsInStudio = settings():GetFFlag("OnlyWhitelistedPluginsInStudio")
 local FFlagFixToolboxInitLoad = settings():GetFFlag("FixToolboxInitLoad")
 local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
@@ -101,7 +100,7 @@ Category.GROUP_MESHES = {name = "GroupMeshes", category = "GroupMeshes",
 	ownershipType = Category.OwnershipType.GROUP, assetType = Category.AssetType.MESH}
 Category.GROUP_AUDIO = {name = "GroupAudio", category = "GroupAudio",
 	ownershipType = Category.OwnershipType.GROUP, assetType = Category.AssetType.AUDIO}
-Category.GROUP_PLUGINs = {name = "GroupPlugins", category = "GroupPlugins",
+Category.GROUP_PLUGINS = {name = "GroupPlugins", category = "GroupPlugins",
 	ownershipType = Category.OwnershipType.GROUP, assetType = Category.AssetType.PLUGIN}
 
 Category.MY_PACKAGES = {name = "MyPackages", category = "MyPackages",
@@ -154,7 +153,6 @@ Category.INVENTORY_WITH_GROUPS = {
 	Category.GROUP_DECALS,
 	Category.GROUP_MESHES,
 	Category.GROUP_AUDIO,
-	Category.GROUP_PLUGINs,
 }
 
 Category.RECENT = {
@@ -225,7 +223,7 @@ if FFlagLuaPackagePermissions then
 	table.insert(Category.INVENTORY_WITH_GROUPS, Category.GROUP_PACKAGES)
 end
 
-if FFlagPluginAccessAndInstallationInStudio then
+if FFlagEnablePurchasePluginFromLua2 then
 	table.insert(Category.INVENTORY, Category.MY_PLUGINS)
 	if FFlagOnlyWhitelistedPluginsInStudio then
 		table.insert(Category.MARKETPLACE, Category.WHITELISTED_PLUGINS)
@@ -234,6 +232,8 @@ if FFlagPluginAccessAndInstallationInStudio then
 	end
 	local insertIndex = Cryo.List.find(Category.INVENTORY_WITH_GROUPS, Category.MY_PACKAGES) + 1
 	table.insert(Category.INVENTORY_WITH_GROUPS, insertIndex, Category.MY_PLUGINS)
+	local insertIndex2 = Cryo.List.find(Category.INVENTORY_WITH_GROUPS, Category.GROUP_AUDIO) + 1
+	table.insert(Category.INVENTORY_WITH_GROUPS, insertIndex2, Category.GROUP_PLUGINS)
 end
 
 local function checkBounds(index)

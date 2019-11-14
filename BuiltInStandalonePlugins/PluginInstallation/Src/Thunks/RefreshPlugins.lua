@@ -2,6 +2,7 @@ local Plugin = script.Parent.Parent.Parent
 local StudioService = game:GetService("StudioService")
 local HttpService = game:GetService("HttpService")
 local GetPluginInfoRequest = require(Plugin.Src.Thunks.GetPluginInfoRequest)
+local SetPluginInfo = require(Plugin.Src.Actions.SetPluginInfo)
 
 local function extractPluginsFromJsonString(json)
 	local success, decoded = xpcall(
@@ -35,6 +36,8 @@ return function(apiImpl)
 		end
 		if #assetIds > 0 then
 			store:dispatch(GetPluginInfoRequest(apiImpl, assetIds, plugins))
+		else
+			store:dispatch(SetPluginInfo({}, {}))
 		end
 	end
 end

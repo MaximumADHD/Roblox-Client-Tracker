@@ -37,6 +37,7 @@ local AssetConfigConstants =require(Util.AssetConfigConstants)
 local Constants = require(Util.Constants)
 local ScreenSetup = require(Util.ScreenSetup)
 local AssetConfigUtil = require(Util.AssetConfigUtil)
+local TagsUtil = require(Util.TagsUtil)
 
 local getNetwork = ContextGetter.getNetwork
 local getPlugin = ContextGetter.getPlugin
@@ -50,13 +51,16 @@ local GetAssetConfigDataRequest = require(Requests.GetAssetConfigDataRequest)
 local UploadCatalogItemRequest = require(Requests.UploadCatalogItemRequest)
 local ConfigureCatalogItemRequest = require(Requests.ConfigureCatalogItemRequest)
 local GetAssetDetailsRequest = require(Requests.GetAssetDetailsRequest)
+local GetAssetItemTagsRequest = require(Requests.GetAssetItemTagsRequest)
 local PostRevertVersionRequest = require(Requests.PostRevertVersionRequest)
 local PatchAssetRequest = require(Requests.PatchAssetRequest)
 local PostUploadAssetRequest = require(Requests.PostUploadAssetRequest)
 local PostOverrideAssetRequest = require(Requests.PostOverrideAssetRequest)
 local GetIsVerifiedCreatorRequest = require(Requests.GetIsVerifiedCreatorRequest)
 local PostPackageMetadataRequest = require(Requests.PostPackageMetadataRequest)
+local GetPackageCollaboratorsRequest = require(Requests.GetPackageCollaboratorsRequest)
 local PutPackagePermissionsRequest = require(Requests.PutPackagePermissionsRequest)
+local GetPackageHighestPermission = require(Requests.GetPackageHighestPermission)
 
 local UpdateAssetConfigStore = require(Plugin.Core.Actions.UpdateAssetConfigStore)
 
@@ -79,6 +83,7 @@ function AssetConfig:init(props)
 		-- Those states should be managed by the most common parrent. In this case, assetConfig.
 		name = nil,
 		description = nil,
+		tags = nil,
 		-- We will be ignoreing the assetTypeEnum send from the server.
 		-- Because from pubishing new asset, we will be selecting the assetType. From Editing, we already have the
 		-- We will be using teh AssetTypeEnum passed in instead.
@@ -128,7 +133,9 @@ function AssetConfig:init(props)
 							props.assetConfigData.Status,
 							state.status,
 							props.assetConfigData.Price,
-							state.price
+							state.price,
+							props.assetConfigData.ItemTags,
+							state.tags
 						)
 					else
 						warn("Could not configure sales, missing Asset Status!")
@@ -155,7 +162,8 @@ function AssetConfig:init(props)
 						getExtension(props.allowedAssetTypesForUpload, props.assetTypeEnum),
 						self.state.description,
 						props.assetTypeEnum,
-						props.instances
+						props.instances,
+						self.state.tags
 					)
 				elseif AssetConfigUtil.isMarketplaceAsset(props.assetTypeEnum) and
 					ConfigTypes:isOverride(props.currentTab) then
@@ -290,6 +298,13 @@ function AssetConfig:init(props)
 		})
 	end
 
+	self.onTagsChange = function(newTags)
+		self.props.makeChangeRequest("AssetItemTags", getCurrent("ItemTags", {}), newTags, TagsUtil.areSetsDifferent)
+		self:setState({
+			tags = newTags
+		})
+	end
+
 	self.onStatusChange = function(newStatus)
 		self.props.makeChangeRequest("AssetConfigStatus", getCurrent("Status"), newStatus)
 		self:setState({
@@ -395,7 +410,7 @@ function AssetConfig:didUpdate(previousProps, previousState)
 		-- then we will use the data retrived from the assetConfigData to trigger a re-render.
 		if self.props.screenFlowType == AssetConfigConstants.FLOW_TYPE.EDIT_FLOW then
 			local assetConfigData = self.props.assetConfigData
-			if next(assetConfigData) and (not self.state.owner) then
+			if next(assetConfigData) and (not self.state.name) then
 				self:setState({
 					assetId = AssetConfigUtil.isMarketplaceAsset(self.props.assetTypeEnum) and assetConfigData.Id or assetConfigData.assetId, -- assetId is named differently in the data returned by different end-points
 
@@ -408,6 +423,12 @@ function AssetConfig:didUpdate(previousProps, previousState)
 					commentOn = assetConfigData.EnableComments,
 					price = assetConfigData.Price or AssetConfigUtil.getMinPrice(self.props.allowedAssetTypesForRelease, self.props.assetTypeEnum),
 					status = assetConfigData.Status,
+				})
+			end
+
+			if game:GetFastFlag("CMSEnableCatalogTags") and assetConfigData.ItemTags and self.state.tags == nil then
+				self:setState({
+					tags = TagsUtil.getTagsFromItemTags(assetConfigData.ItemTags),
 				})
 			end
 		else
@@ -442,6 +463,7 @@ function AssetConfig.getDerivedStateFromProps(nextProps, lastState)
 
 					name = lastState.name or assetConfigData.Name,
 					description = lastState.description or assetConfigData.Description,
+					tags = game:GetFastFlag("CMSEnableCatalogTags") and (lastState.tags or TagsUtil.getTagsFromItemTags(assetConfigData.ItemTags)),
 					owner = lastState.owner or assetConfigData.Creator,
 					genres = lastState.genres or assetConfigData.Genres,
 					allowCopy = lastState.allowCopy or assetConfigData.IsPublicDomainEnabled,
@@ -469,6 +491,10 @@ function AssetConfig:didMount()
 		if self.props.assetId then
 			if AssetConfigUtil.isCatalogAsset(self.props.assetTypeEnum) then
 				self.props.getAssetDetails(getNetwork(self), self.props.assetId, false)
+
+				if game:GetFastFlag("CMSEnableCatalogTags") and TagsUtil.areTagsEnabled(self.props.isItemTagsFeatureEnabled, self.props.enabledAssetTypesForItemTags, self.props.assetTypeEnum) then
+					self.props.getAssetTags(getNetwork(self), self.props.assetId)
+				end
 			else
 				if FFlagEnablePurchasePluginFromLua2 then
 					-- We will always use getAssetConfigData endpoint to fetch data first.
@@ -480,6 +506,18 @@ function AssetConfig:didMount()
 				else
 					if AssetConfigUtil.isMarketplaceAsset(self.props.assetTypeEnum) then
 						self.props.getAssetConfigData(getNetwork(self), self.props.assetId)
+					end
+				end
+
+				if FFlagLuaPackagePermissions then
+					if self.props.isPackageAsset == nil then
+						self.props.dispatchPostPackageMetadataRequest(getNetwork(self), self.props.assetId)
+					end
+					self.props.dispatchGetPackageCollaboratorsRequest(getNetwork(self), self.props.assetId)
+					-- Current user's package permissions is not known when Asset Config is opened from Game Explorer,
+					-- so a call needs to be made to query for it.
+					if not self.props.hasPackagePermission then
+						self.props.dispatchGetPackageHighestPermission(getNetwork(self), { self.props.assetId })
 					end
 				end
 			end
@@ -495,11 +533,6 @@ function AssetConfig:didMount()
 		end
 
 		self.props.getIsVerifiedCreator(getNetwork(self))
-	end
-
-	-- Check flow type or assetId
-	if AssetConfigConstants.FLOW_TYPE.EDIT_FLOW == self.props.screenFlowType then
-		self.props.dispatchPostPackageMetadataRequest(getNetwork(self), self.props.assetId)
 	end
 end
 
@@ -600,6 +633,7 @@ function AssetConfig:render()
 				local assetId = state.assetId or props.assetId
 				local name = state.name or ""
 				local description = state.description or ""
+				local tags = state.tags or {}
 				local owner = state.owner
 				local genres = state.genres
 				local allowCopy = state.allowCopy
@@ -638,6 +672,8 @@ function AssetConfig:render()
 				if FFlagEnablePurchasePluginFromLua2 then
 					previewType = AssetConfigUtil.getPreviewType(assetTypeEnum, props.instances)
 				end
+
+				local showTags = game:GetFastFlag("CMSEnableCatalogTags") and TagsUtil.areTagsEnabled(props.isItemTagsFeatureEnabled, props.enabledAssetTypesForItemTags, assetTypeEnum)
 
 				local isPriceValid = validatePrice(price, minPrice, maxPrice, newAssetStatus)
 				local isMarketBuyAndNonWhiteList = AssetConfigUtil.isBuyableMarketplaceAsset(assetTypeEnum) and (not allowedAssetTypesForRelease[assetTypeEnum.Name])
@@ -719,6 +755,7 @@ function AssetConfig:render()
 							assetId = assetId,
 							name = name,
 							description = description,
+							tags = tags,
 							owner = owner,
 							genres = genres,
 							allowCopy = allowCopy,
@@ -729,6 +766,7 @@ function AssetConfig:render()
 							assetTypeEnum = assetTypeEnum,
 							onNameChange = self.onNameChange,
 							onDescChange = self.onDescChange,
+							onTagsChange = self.onTagsChange,
 							onOwnerSelected = self.onAccessChange,
 							onGenreSelected = self.onGenreChange,
 							toggleCopy = self.toggleCopy,
@@ -739,6 +777,9 @@ function AssetConfig:render()
 							displayCopy = showCopy,
 							displayComment = showComment,
 							displayAssetType = showAssetType,
+							displayTags = showTags,
+
+							maximumItemTagsPerItem = props.maximumItemTagsPerItem,
 
 							LayoutOrder = 3,
 						}),
@@ -781,7 +822,7 @@ function AssetConfig:render()
 							LayoutOrder = 3,
 						}),
 
-						PackagePermissions = ConfigTypes:isPermissions(currentTab) and Roact.createElement(Permissions, {
+						PackagePermissions = FFlagLuaPackagePermissions and ConfigTypes:isPermissions(currentTab) and Roact.createElement(Permissions, {
 							Size = UDim2.new(1, -PREVIEW_WIDTH, 1, 0),
 
 							Owner = owner,
@@ -826,6 +867,10 @@ local function mapStateToProps(state, props)
 		networkError = state.networkError,
 		networkErrorAction = state.networkErrorAction,
 		isPackageAsset = state.isPackageAsset,
+		hasPackagePermission = props.assetId and state.packagePermissions[props.assetId] ~= nil,
+		isItemTagsFeatureEnabled = state.isItemTagsFeatureEnabled,
+		enabledAssetTypesForItemTags = state.enabledAssetTypesForItemTags,
+		maximumItemTagsPerItem = game:GetFastFlag("CMSEnableCatalogTags") and state.maximumItemTagsPerItem,
 	}
 end
 
@@ -839,16 +884,20 @@ local function mapDispatchToProps(dispatch)
 			dispatch(GetAssetDetailsRequest(networkInterface, assetId, isMarketBuy))
 		end,
 
-		makeChangeRequest = function(setting, currentValue, newValue)
-			dispatch(MakeChangeRequest(setting, currentValue, newValue))
+		getAssetTags = function(networkInterface, assetId)
+			dispatch(GetAssetItemTagsRequest(networkInterface, assetId))
 		end,
 
-		uploadCatalogItem = function(networkInterface, nameWithoutExtension, extension, description, assetTypeEnum, instances)
-			dispatch(UploadCatalogItemRequest(networkInterface, nameWithoutExtension, extension, description, assetTypeEnum, instances))
+		makeChangeRequest = function(setting, currentValue, newValue, comparisonFunc)
+			dispatch(MakeChangeRequest(setting, currentValue, newValue, comparisonFunc))
 		end,
 
-		configureCatalogItem = function(networkInterface, assetId, nameWithoutExtension, description, fromStatus, toStatus, fromPrice, toPrice)
-			dispatch(ConfigureCatalogItemRequest(networkInterface, assetId, nameWithoutExtension, description, fromStatus, toStatus, fromPrice, toPrice))
+		uploadCatalogItem = function(networkInterface, nameWithoutExtension, extension, description, assetTypeEnum, instances, tags)
+			dispatch(UploadCatalogItemRequest(networkInterface, nameWithoutExtension, extension, description, assetTypeEnum, instances, tags))
+		end,
+
+		configureCatalogItem = function(networkInterface, assetId, nameWithoutExtension, description, fromStatus, toStatus, fromPrice, toPrice, fromItemTags, toTags)
+			dispatch(ConfigureCatalogItemRequest(networkInterface, assetId, nameWithoutExtension, description, fromStatus, toStatus, fromPrice, toPrice, fromItemTags, toTags))
 		end,
 
 		-- For locale changes, we have no UI for them now, but we can add that in the future.
@@ -876,16 +925,24 @@ local function mapDispatchToProps(dispatch)
 			dispatch(GetIsVerifiedCreatorRequest(networkInterface))
 		end,
 
-		dispatchPostPackageMetadataRequest = function(networkInterface, assetid)
-			dispatch(PostPackageMetadataRequest(networkInterface, assetid))
+		dispatchPostPackageMetadataRequest = function(networkInterface, assetId)
+			dispatch(PostPackageMetadataRequest(networkInterface, assetId))
 		end,
 
 		updateStore = function(storeData)
 			dispatch(UpdateAssetConfigStore(storeData))
 		end,
 
+		dispatchGetPackageCollaboratorsRequest = function(networkInterface, assetId)
+			dispatch(GetPackageCollaboratorsRequest(networkInterface, assetId))
+		end,
+
 		dispatchPutPackagePermissionsRequest = function(networkInterface, assetId)
 			dispatch(PutPackagePermissionsRequest(networkInterface, assetId))
+		end,
+
+		dispatchGetPackageHighestPermission = function(networkInterface, assetId)
+			dispatch(GetPackageHighestPermission(networkInterface, assetId))
 		end,
 	}
 end

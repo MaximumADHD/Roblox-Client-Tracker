@@ -9,6 +9,14 @@ end
 
 -- Fast flags
 game:DefineFastFlag("TerrainToolsRefactorTabsAndTools", false)
+game:DefineFastFlag("TerrainToolsEnablePivotPosition", false)
+game:DefineFastFlag("TerrainToolsEnableHeightSlider", false)
+game:DefineFastFlag("TerrainToolsRefactorTerrainBrush", false)
+
+local FFlagTerrainToolsRefactorTerrainBrush = game:GetFastFlag("TerrainToolsRefactorTerrainBrush")
+
+-- services
+local Workspace = game:GetService("Workspace")
 
 -- libraries
 local Plugin = script.Parent.Parent
@@ -16,6 +24,10 @@ local Roact = require(Plugin.Packages.Roact)
 local Rodux = require(Plugin.Packages.Rodux)
 local UILibrary = require(Plugin.Packages.UILibrary)
 local Manager = require(Plugin.Src.Components.Manager) -- top most ui component
+local TerrainBrush
+if FFlagTerrainToolsRefactorTerrainBrush then
+	TerrainBrush = require(Plugin.Src.Components.Functions.TerrainBrushInstance)
+end
 
 -- components
 local ServiceWrapper = require(Plugin.Src.Components.ServiceWrapper)
@@ -60,6 +72,14 @@ local localization = Localization.new({
 	translationResourceTable = TranslationReferenceTable,
 })
 
+local terrainBrush
+if FFlagTerrainToolsRefactorTerrainBrush then
+	terrainBrush = TerrainBrush.new({
+		plugin = plugin,
+		terrain = Workspace:WaitForChild("Terrain"),
+	})
+end
+
 -- Widget Gui Elements
 local pluginHandle
 local pluginGui
@@ -77,6 +97,7 @@ local function openPluginWindow()
 		localization = localization,
 		theme = theme,
 		store = dataStore,
+		terrainBrush = FFlagTerrainToolsRefactorTerrainBrush and terrainBrush or nil,
 	}, {
 		UIManager = Roact.createElement(Manager, {
 			Name = Manager,
@@ -150,6 +171,10 @@ local function main()
 
 	-- configure the widget and button if its visible
 	showIfEnabled()
+
+	if FFlagTerrainToolsRefactorTerrainBrush then
+		plugin.Unloading:Connect(closePluginWindow)
+	end
 end
 
 main()

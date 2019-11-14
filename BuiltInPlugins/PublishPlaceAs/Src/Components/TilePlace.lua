@@ -6,8 +6,7 @@ local UILibrary = require(Plugin.Packages.UILibrary)
 local Localizing = UILibrary.Localizing
 local Separator = UILibrary.Component.Separator
 
-local DFFlagPreloadAsyncCallbackFunction = settings():getFFlag("PreloadAsyncCallbackFunction")
-local FFlagEnableRbxThumbAPI = settings():GetFFlag("EnableRbxThumbAPI")
+local FFlagDefaultThumbnailForRBXThumb = game:GetFastFlag("DefaultThumbnailForRBXThumb")
 
 local ContentProvider = game:GetService("ContentProvider")
 
@@ -29,7 +28,7 @@ end
 
 function TilePlace:didMount()
 	self.isMounted = true
-	if DFFlagPreloadAsyncCallbackFunction and FFlagEnableRbxThumbAPI and self.props.Id then
+	if FFlagDefaultThumbnailForRBXThumb and self.props.Id then
 		spawn(function()
 			local asset = { self.thumbnailUrl }
 			local function setStatus(contentId, status)

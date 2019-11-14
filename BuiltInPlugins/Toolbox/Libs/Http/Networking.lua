@@ -98,7 +98,7 @@ end
 local function httpPut(httpImpl, options)
 	return baseHttpHandler("PUT", options, function()
 		return httpImpl:RequestAsync(options)
-	end)	
+	end)
 end
 
 -- httpFunc : (function) one of the http functions defined above, like httpGet, or httpPost
@@ -156,30 +156,47 @@ end
 -- url : (string)
 -- returns a Promise that resolves to an HttpResponse object
 function Networking:httpGetJson(url)
-	return createHttpPromise(httpGet, self._httpImpl, url):andThen(
-		-- On promise resolved
-		function(result)
-			result.responseBody = self:jsonDecode(result.responseBody)
-			return result
-		end,
-		-- on Promise rejected
-		function(result)
-			return result
-		end)
+	if game:GetFastFlag("CMSEnableCatalogTags") then
+		return createHttpPromise(httpGet, self._httpImpl, url):andThen(
+			-- On promise resolved
+			function(result)
+				result.responseBody = self:jsonDecode(result.responseBody)
+				return result
+			end)
+	else
+		return createHttpPromise(httpGet, self._httpImpl, url):andThen(
+			-- On promise resolved
+			function(result)
+				result.responseBody = self:jsonDecode(result.responseBody)
+				return result
+			end,
+			-- on Promise rejected
+			function(result)
+				return result
+			end)
+	end
 end
 
 -- url : (string)
 -- payload : (string)
 -- returns a Promise that resolves to an HttpResponse object
 function Networking:httpPostJson(url, payload)
-	return createHttpPromise(httpPost, self._httpImpl, url, payload):andThen(
-		function(result)
-			result.responseBody = self:jsonDecode(result.responseBody)
-			return result
-		end,
-		function(result)
-			return result
-		end)
+	if game:GetFastFlag("CMSEnableCatalogTags") then
+		return createHttpPromise(httpPost, self._httpImpl, url, payload):andThen(
+			function(result)
+				result.responseBody = self:jsonDecode(result.responseBody)
+				return result
+			end)
+	else
+		return createHttpPromise(httpPost, self._httpImpl, url, payload):andThen(
+			function(result)
+				result.responseBody = self:jsonDecode(result.responseBody)
+				return result
+			end,
+			function(result)
+				return result
+			end)
+	end
 end
 
 -- url : (string)

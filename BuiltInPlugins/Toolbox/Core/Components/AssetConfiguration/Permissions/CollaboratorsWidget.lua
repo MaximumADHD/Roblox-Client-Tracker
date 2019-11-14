@@ -232,7 +232,7 @@ function CollaboratorsWidget:render()
 						
 						CollaboratorName = user.Name,
 						CollaboratorId = user.Id,
-						CollaboratorIcon = Urls.constructAvatarHeadshotThumbnailUrl(user.Id, AssetConfigConstants.rbxThumbSizes.AvatarHeadshotImageSize),
+						CollaboratorIcon = Urls.constructRBXThumbUrl(AssetConfigConstants.rbxThumbTypes["AvatarHeadShot"], user.Id, AssetConfigConstants.rbxThumbSizes.AvatarHeadshotImageSize),
 						UseMask = true,
 
 						Items = lockedPermission and {} or userAssignablePermissions,
@@ -279,6 +279,10 @@ function CollaboratorsWidget:render()
 				LayoutOrder = props.LayoutOrder or 0,
 				BackgroundTransparency = 1,
 			}, {
+				Padding = Roact.createElement("UIPadding", {
+                    PaddingLeft = UDim.new(0, Constants.PERMISSIONS_UI_EDGE_PADDING),
+				}),
+				
 				UsersTitle = Roact.createElement("TextLabel", {
 					LayoutOrder = 0,
 

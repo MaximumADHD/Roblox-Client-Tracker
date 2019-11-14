@@ -33,7 +33,6 @@ local VERSION_BAR_HEIGHT = isTenFootInterface and 32 or (utility:IsSmallTouchScr
 
 -- [[ FAST FLAGS ]]
 local FFlagUseNotificationsLocalization = settings():GetFFlag('UseNotificationsLocalization')
-local FFlagHelpMenuShowPlaceVersion = settings():GetFFlag("HelpMenuShowPlaceVersion")
 
 local FFlagXboxPlayNextGame = settings():GetFFlag("XboxPlayNextGame")
 local FFlagXboxOverrideEnablePlayNextGame = settings():GetFFlag("XboxOverrideEnablePlayNextGame")
@@ -475,32 +474,30 @@ local function CreateSettingsHub()
         }
         this.ClientVersionLabel.TextScaled = not this.ClientVersionLabel.TextFits
 
-        if FFlagHelpMenuShowPlaceVersion then
-            this.PlaceVersionLabel = utility:Create("TextLabel") {
-                Name = "PlaceVersionLabel",
-                Parent = this.VersionContainer,
-                BackgroundTransparency = 1,
-                LayoutOrder = 3,
-                TextColor3 = Color3.new(1, 1, 1),
-                TextSize = isTenFootInterface and 28 or (utility:IsSmallTouchScreen() and 14 or 20),
-                Text = "Place Version: ...",
-                Size = size,
-                Font = Enum.Font.SourceSans,
-                TextXAlignment = Enum.TextXAlignment.Center,
-                TextYAlignment = Enum.TextYAlignment.Center,
-                ZIndex = 5,
-            }
-            local function setPlaceVersionText()
-            	local placeVersionString = "Place Version: "
-            	if shouldTryLocalizeVersionLabels then
-            		placeVersionString = tryTranslate("InGame.HelpMenu.Label.PlaceVersion", "Place Version: ")
-            	end
-                this.PlaceVersionLabel.Text = placeVersionString..GetPlaceVersionText()
-                this.PlaceVersionLabel.TextScaled = not this.PlaceVersionLabel.TextFits
+        this.PlaceVersionLabel = utility:Create("TextLabel") {
+            Name = "PlaceVersionLabel",
+            Parent = this.VersionContainer,
+            BackgroundTransparency = 1,
+            LayoutOrder = 3,
+            TextColor3 = Color3.new(1, 1, 1),
+            TextSize = isTenFootInterface and 28 or (utility:IsSmallTouchScreen() and 14 or 20),
+            Text = "Place Version: ...",
+            Size = size,
+            Font = Enum.Font.SourceSans,
+            TextXAlignment = Enum.TextXAlignment.Center,
+            TextYAlignment = Enum.TextYAlignment.Center,
+            ZIndex = 5,
+        }
+        local function setPlaceVersionText()
+            local placeVersionString = "Place Version: "
+            if shouldTryLocalizeVersionLabels then
+                placeVersionString = tryTranslate("InGame.HelpMenu.Label.PlaceVersion", "Place Version: ")
             end
-            game:GetPropertyChangedSignal("PlaceVersion"):Connect(setPlaceVersionText)
-            spawn(setPlaceVersionText)
-		end
+            this.PlaceVersionLabel.Text = placeVersionString..GetPlaceVersionText()
+            this.PlaceVersionLabel.TextScaled = not this.PlaceVersionLabel.TextFits
+        end
+        game:GetPropertyChangedSignal("PlaceVersion"):Connect(setPlaceVersionText)
+        spawn(setPlaceVersionText)
 
 		local shouldShowEnvLabel = not FFlagChinaLicensingApp
 		if PolicyService:IsEnabled() then

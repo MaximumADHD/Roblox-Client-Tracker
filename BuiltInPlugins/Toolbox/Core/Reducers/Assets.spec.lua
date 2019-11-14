@@ -4,6 +4,7 @@ return function()
 	local ClearAssets = require(Plugin.Core.Actions.ClearAssets)
 	local GetAssets = require(Plugin.Core.Actions.GetAssets)
 	local SetLoading = require(Plugin.Core.Actions.SetLoading)
+	local SetCanManageAsset = require(Plugin.Core.Actions.SetCanManageAsset)
 
 	local Assets = require(Plugin.Core.Reducers.Assets)
 
@@ -41,6 +42,7 @@ return function()
 		expect(state.totalAssets).to.be.ok()
 		expect(state.assetsReceived).to.be.ok()
 		expect(state.hasReachedBottom).to.be.ok()
+		expect(state.manageableAssets).to.be.ok()
 	end)
 
 	describe("ClearAssets action", function()
@@ -296,6 +298,13 @@ return function()
 			end)
 		end)
 	end)]==]
+
+	describe("SetCanManageAsset action", function()
+		it("should update the manageable assets", function()
+			local state = Assets(nil, {})
+			state = Assets(state, SetCanManageAsset(true, 0))
+
+			expect(state.manageableAssets["0"]).to.equal(true)
+		end)
+	end)
 end
-
-

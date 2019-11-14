@@ -16,6 +16,7 @@
 ]]
 
 local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
+local FFlagLuaPackagePermissions = settings():GetFFlag("LuaPackagePermissions")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -44,11 +45,14 @@ local Asset = require(Plugin.Core.Components.Asset.Asset)
 local AssetPreviewWrapper = require(Plugin.Core.Components.Asset.Preview.AssetPreviewWrapper)
 local MessageBox = require(Plugin.Core.Components.MessageBox.MessageBox)
 
+local PermissionsConstants = require(Plugin.Core.Components.AssetConfiguration.Permissions.PermissionsConstants)
+
 local PlayPreviewSound = require(Plugin.Core.Actions.PlayPreviewSound)
 local PausePreviewSound = require(Plugin.Core.Actions.PausePreviewSound)
 local ResumePreviewSound = require(Plugin.Core.Actions.ResumePreviewSound)
 local PostInsertAssetRequest = require(Plugin.Core.Networking.Requests.PostInsertAssetRequest)
 local SetAssetPreview = require(Plugin.Core.Actions.SetAssetPreview)
+local GetPackageHighestPermission = require(Plugin.Core.Networking.Requests.GetPackageHighestPermission)
 
 local Analytics = require(Plugin.Core.Util.Analytics.Analytics)
 
@@ -183,7 +187,15 @@ function AssetGridContainer:init(props)
 		local assetId = asset.Id
 		local assetTypeId = asset.TypeId
 		local plugin = getPlugin(self)
-		ContextMenuHelper.tryCreateContextMenu(plugin, assetId, assetTypeId, showEditOption, localizedContent, props.tryOpenAssetConfig)
+
+		local isPackageAsset = FFlagLuaPackagePermissions and Category.categoryIsPackage(self.props.categoryIndex, self.props.currentTab)
+		if isPackageAsset then
+			local canEditPackage = (self.props.currentUserPackagePermissions[assetId] == PermissionsConstants.EditKey or
+			self.props.currentUserPackagePermissions[assetId] == PermissionsConstants.OwnKey)
+			showEditOption = canEditPackage
+		end
+
+		ContextMenuHelper.tryCreateContextMenu(plugin, assetId, assetTypeId, showEditOption, localizedContent, props.tryOpenAssetConfig, isPackageAsset)
 	end
 
 	self.tryInsert = function(assetData, assetWasDragged)
@@ -257,6 +269,7 @@ function AssetGridContainer:render()
 			local categoryIndex = props.categoryIndex
 			local currentTab = props.currentTab
 			local isPlugins = Category.categoryIsPlugin(currentTab, categoryIndex)
+			local isPackages = Category.categoryIsPackage(categoryIndex, categoryIsPackage)
 
 			local onPreviewAudioButtonClicked = self.onPreviewAudioButtonClicked
 
@@ -281,6 +294,22 @@ function AssetGridContainer:render()
 					[Roact.Event.Changed] = self.onAssetGridContainerChanged,
 				})
 			}
+
+			if isPackages and #assetIds ~= 0 then
+				local assetIdList = {}
+				local index = 1
+				while index < PermissionsConstants.MaxPackageAssetIdsForHighestPermissionsRequest and assetIds[index] ~= nil do
+					local assetId = assetIds[index][1]
+					if not self.props.currentUserPackagePermissions[assetId] then
+						table.insert(assetIdList, assetId)
+					end
+					index = index + 1
+				end
+
+				if #assetIdList ~= 0 then
+					self.props.dispatchGetPackageHighestPermission(getNetwork(self), assetIdList)
+				end
+			end
 
 			local function tryCreateLocalizedContextMenu(assetData, showEditOption)
 				self.tryCreateContextMenu(assetData, showEditOption, localizedContent)
@@ -371,6 +400,7 @@ local function mapStateToProps(state, props)
 		categoryIndex = categoryIndex or 1,
 		categories = pageInfo.categories or {},
 		currentTab = pageInfo.currentTab,
+		currentUserPackagePermissions = state.packages.permissionsTable or {},
 	}
 end
 
@@ -394,6 +424,14 @@ local function mapDispatchToProps(dispatch)
 
 		onPreviewToggled = function(isPreviewing)
 			dispatch(SetAssetPreview(isPreviewing))
+		end,
+
+		dispatchGetPackageHighestPermission = function(networkInterface, assetIds)
+			if FFlagLuaPackagePermissions then
+				return
+			end
+
+			dispatch(GetPackageHighestPermission(networkInterface, assetIds))
 		end,
 	}
 end

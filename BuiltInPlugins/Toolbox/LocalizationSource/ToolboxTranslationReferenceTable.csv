@@ -121,6 +121,7 @@ Studio.Toolbox.General.CategoryCreationsModels,Models, ,Models,模型
 Studio.Toolbox.General.CategoryCreationsDecals,Images, ,Images,图片
 Studio.Toolbox.General.CategoryCreationsAudio,Audio, ,Audio,音频
 Studio.Toolbox.General.CategoryCreationsMeshes,Meshes, ,Meshes,网格
+Studio.Toolbox.General.CategoryCreationsPlugins,Plugins, ,Plugins,插件
 Studio.Toolbox.General.CategoryCreationsCatalogSectionDivider,Avatar assets, ,Avatar assets,虚拟形象资源
 Studio.Toolbox.General.CategoryCreationsHats,Hats, ,Hats,帽子
 Studio.Toolbox.General.CategoryCreationsTeeShirts,T-Shirts, ,T-Shirts,T 恤
@@ -146,6 +147,7 @@ Studio.Toolbox.General.StatusReviewApproved,Ready For Sale, ,Ready For Sale,待�
 Studio.Toolbox.General.StatusOnSale,On Sale, ,On Sale,在售
 Studio.Toolbox.General.StatusOffSale,Off Sale, ,Off Sale,特价
 Studio.Toolbox.General.StatusDelayedRelease,Ready For Sale, ,Ready For Sale,待售
+Studio.Toolbox.General.Free,Free, ,Free,免费
 Studio.Toolbox.General.StatusUnknown,Unknown, ,Unknown,未知
 Studio.Toolbox.General.AssetTypeModel,Model, ,Model,模型
 Studio.Toolbox.General.AssetTypeDecal,Decal, ,Decal,贴花
@@ -192,6 +194,8 @@ Studio.Toolbox.General.PreviewAreaAssetID,Asset ID: {assetId}, ,Asset ID: {asset
 Studio.Toolbox.General.PreviewAreaStatus,Status: {assetStatus}, ,Status: {assetStatus},状态: {assetStatus}
 Studio.Toolbox.General.InstallSuccess,Success!, ,Success!,成功!
 Studio.Toolbox.General.InstallFailure,Failure, ,Failure,失败
+Studio.Toolbox.General.Installing,Installing, ,Installing, 
+Studio.Toolbox.General.Tags,Tags, ,Tags, 
 Studio.Toolbox.AssetConfigFooter.NewAsset,Save as a new asset..., ,Save as a new asset...,另存为新资源...
 Studio.Toolbox.AssetConfigFooter.Override,Overwrite an existing asset..., ,Overwrite an existing asset...,覆盖现有资源...
 Studio.Toolbox.AssetConfigFooter.OverrideTitle,Choose an existing model to overwrite., ,Choose an existing model to overwrite.,选择要覆盖的现有模型。
@@ -219,11 +223,14 @@ Studio.Toolbox.AssetConfigPackagePermissions.FriendsCollaboratorType,Friends, ,F
 Studio.Toolbox.AssetConfigPackagePermissions.UsersCollaboratorType,Users, ,Users,用户
 Studio.Toolbox.AssetConfigPackagePermissions.GroupsCollaboratorType,Groups, ,Groups,组合
 Studio.Toolbox.AssetConfigPackagePermissions.MyFriendsCollaborator,My Friends, ,My Friends,我的好友
+Studio.Toolbox.AssetConfigPackagePermissions.OwnerLabel,Owner, ,Owner, 
+Studio.Toolbox.AssetConfigPackagePermissions.TooManyCollaboratorsText,You cannot add more than {maxNumCollaborators:int} collaborators, ,You cannot add more than {maxNumCollaborators:int} collaborators, 
+Studio.Toolbox.AssetConfigPackagePermissions.UserOwnedWarning,Users you share with will always have access to the current and previous versions of this package. Removing collaborators will discontinue their access to newer versions of the package., , Users you share with will always have access to the current and previous versions of this package. Removing collaborators will discontinue their access to newer versions of the package., 
+Studio.Toolbox.AssetConfigPackagePermissions.GroupOwnedWarning,No Access takes effect from new versions of this package. Users assigned to rolesets with "Edit" permissions will always have access to current and previous versions of this package., ,No Access takes effect from new versions of this package. Users assigned to rolesets with "Edit" permissions will always have access to current and previous versions of this package., 
+Studio.Toolbox.AssetConfigPackagePermissions.PackageDetails,Package Details, ,Package Details, 
 Studio.Toolbox.AssetConfigPreview.Format,Acceptable files: {formatString},Max: {maxDimensionsX} x {maxDimensionsY}, ,Acceptable files: {formatString}
 Max: {maxDimensionsX} x {maxDimensionsY}, ,Studio.Toolbox.AssetConfigPreview.Process,Image will be reviewed by moderators before being made visible to other users, 
-Image will be reviewed by moderators before being made visible to other users, ,Studio.Toolbox.AssetConfigPackagePermissions.OwnerLabel,Owner, 
-Owner, ,Studio.Toolbox.AssetConfigPackagePermissions.TooManyCollaboratorsText,You cannot add more than {maxNumCollaborators:int} collaborators, 
-You cannot add more than {maxNumCollaborators:int} collaborators, ,Studio.Toolbox.Purchase.RobuxBalance,Your current balance:, 
+Image will be reviewed by moderators before being made visible to other users, ,Studio.Toolbox.Purchase.RobuxBalance,Your current balance:, 
 Your current balance:, ,Studio.Toolbox.Purchase.BuyPrompt,Would you like to buy "{name}" from {creator} for {robux:int} Robux?, 
 Would you like to buy "{name}" from {creator} for {robux:int} Robux?, ,Studio.Toolbox.Purchase.InsufficientPrompt,You need {robux:int} more Robux to buy "{name}" from {creator}., 
 You need {robux:int} more Robux to buy "{name}" from {creator}., ,Studio.Toolbox.Purchase.Cancel,Cancel, 
@@ -234,8 +241,12 @@ Buy Robux, ,Studio.Toolbox.Purchase.BuyTitle,Buy & Install Plugin,
 Buy & Install Plugin, ,Studio.Toolbox.Purchase.InsufficientTitle,Insufficient Robux, 
 Insufficient Robux, ,Studio.Toolbox.Purchase.FailedHeader,Purchase failed, 
 Purchase failed, ,Studio.Toolbox.Purchase.FailedDetails,Purchase of "{name}" failed., 
-Purchase of "{name}" failed., ,Studio.Toolbox.Purchase.Free,FREE, 
+Purchase of "{name}" failed., ,Studio.Toolbox.Purchase.SuccessHeader,Buy & Installation Complete!, 
+Buy & Installation Complete!, ,Studio.Toolbox.Purchase.SuccessDetails,Successfully installed "{name}"., 
+Successfully installed "{name}"., ,Studio.Toolbox.Purchase.Free,FREE, 
 FREE, ,Studio.Toolbox.General.Fee,After {percent}% fee:, 
 After {percent}% fee:, ,Studio.Toolbox.General.Earn,You earn:, 
 You earn:, ,Studio.Toolbox.AssetConfigSales.Target,"By enabling it, this asset will be put in {market} and available for any Roblox {user}.", 
-"By enabling it, this asset will be put in {market} and available for any Roblox {user}.", 
+"By enabling it, this asset will be put in {market} and available for any Roblox {user}.", ,Studio.Toolbox.MaxTagsDescription,Add up to {max:int} tags from the tag library, 
+Add up to {max:int} tags from the tag library, ,Studio.Toolbox.NoTagFound,Word(s) not found in the tag library, 
+Word(s) not found in the tag library, 

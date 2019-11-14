@@ -74,6 +74,14 @@ local function stopSound(sound)
 	sound.TimePosition = 0
 end
 
+local function shallowCopy(t)
+	local out = {}
+	for k, v in pairs(t) do
+		out[k] = v
+	end
+	return out
+end
+
 local function initializeSoundSystem(player, humanoid, rootPart)
 	local sounds = {}
 
@@ -99,7 +107,7 @@ local function initializeSoundSystem(player, humanoid, rootPart)
 	local playingLoopedSounds = {}
 
 	local function stopPlayingLoopedSounds(except)
-		for sound in pairs(playingLoopedSounds) do
+		for sound in pairs(shallowCopy(playingLoopedSounds)) do
 			if sound ~= except then
 				sound.Playing = false
 				playingLoopedSounds[sound] = nil

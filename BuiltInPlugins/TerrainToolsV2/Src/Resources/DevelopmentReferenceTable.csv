@@ -46,6 +46,7 @@ Studio.TerrainToolsV2.BrushSettings.BottomPivot, , ,Bot
 Studio.TerrainToolsV2.BrushSettings.BrushSettings, , ,Brush Settings
 Studio.TerrainToolsV2.BrushSettings.CenterPivot, , ,Cen
 Studio.TerrainToolsV2.BrushSettings.FlattenMode, , ,Flatten Mode
+Studio.TerrainToolsV2.BrushSettings.Height, , ,Height
 Studio.TerrainToolsV2.BrushSettings.IgnoreWater, , ,Ignore Water
 Studio.TerrainToolsV2.BrushSettings.Material, , ,Material
 Studio.TerrainToolsV2.BrushSettings.PivotPosition, , ,Pivot Position

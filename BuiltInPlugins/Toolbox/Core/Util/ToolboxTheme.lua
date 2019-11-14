@@ -128,6 +128,13 @@ function ToolboxTheme:_recalculateTheme()
 			borderColor = color(c.Border),
 		},
 
+		-- stolen from AssetConfigTheme
+		loading = {
+			text = color(c.MainText),
+			backgroundBar = color(c.Midlight),
+			bar = color(c.CurrentMarker),
+		},
+
 		dropdownMenu = {
 			currentSelection = {
 				backgroundColor = color(c.Dropdown),
@@ -362,9 +369,14 @@ function ToolboxTheme:_recalculateTheme()
 
 			actionBar = {
 				background = isDark and Color3.fromRGB(46,46,46) or Color3.fromRGB(70,70,70),
+				buttonBG = Colors.BLUE_PRIMARY,
+				buttonBGDisabled = isDark and Colors.BUTTON_CTA_BG_DISABLED_DARK or Colors.BLUE_DISABLED,
 
 				showMoreBGColor = isDark and Color3.fromRGB(109, 109, 109) or Color3.fromRGB(168,168,168),
 				showMoreBorderColor = isDark and Color3.fromRGB(109, 109, 109) or Color3.fromRGB(207, 207, 207),
+
+				textColor = Colors.WHITE,
+				textColorDisabled = isDark and Colors.DARK_DIMMER_TEXT_COLOR or Colors.WHITE,
 			},
 
 			previewButtons = {

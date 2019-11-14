@@ -8,9 +8,6 @@
         LayoutOrder = num, determines the layout order of this Permissions page in its parent.
     Optional Properties:
 
-    *Note:
-        FIXME(mwang) Hook up network calls/actions/reducers/Roact-Rodux
-        Several of the other props are currently nil, but will be retrieved from network calls/reducers.
 ]]
 
 local FFlagStudioAllowPkgPermsForOtherUsrsAndGrps = game:DefineFastFlag("StudioAllowPkgPermsForOtherUsrsAndGrps", false)
@@ -36,12 +33,10 @@ local PermissionsConstants = require(PermissionsDirectory.PermissionsConstants)
 local Util = Plugin.Core.Util
 local Constants = require(Util.Constants)
 local getNetwork = require(Util.ContextGetter).getNetwork
-local ContextHelper = require(Util.ContextHelper)
-local withTheme = ContextHelper.withTheme
 local getUserId = require(Util.getUserId)
-
-local Requests = Plugin.Core.Networking.Requests
-local GetPackageCollaboratorsRequest = require(Requests.GetPackageCollaboratorsRequest)
+local ContextHelper = require(Util.ContextHelper)
+local withLocalization = ContextHelper.withLocalization
+local withTheme = ContextHelper.withTheme
 
 local GetUsername = require(Plugin.Core.Thunks.GetUsername)
 local SearchCollaborators = require(Plugin.Core.Thunks.SearchCollaborators)
@@ -50,6 +45,8 @@ local GetGroupRoleInfo = require(Plugin.Core.Thunks.GetGroupRoleInfo)
 local SetCollaborators = require(Plugin.Core.Actions.SetCollaborators)
 local SetGroupMetadata = require(Plugin.Core.Actions.SetGroupMetadata)
 local AddChange = require(Plugin.Core.Actions.AddChange)
+
+local TextService = game:GetService("TextService")
 
 local Permissions = Roact.PureComponent:extend("Permissions")
 
@@ -61,7 +58,6 @@ end
 
 
 function Permissions:didMount()
-    self.props.GetPackageCollaboratorsRequest(getNetwork(self), self.props.AssetId)
     if self.state.OwnerType == Enum.CreatorType.User then
         self.props.GetUsername(self.props.Owner.targetId)
     else
@@ -73,22 +69,15 @@ end
 function Permissions:render()
 	local orderIterator = LayoutOrderIterator.new()
     
-    --[[
-        hasPermission will be changed in the future to support users with "Edit" permissions.
-        Current compare currentUserId with owner user Id. This will change to the permissions of the current user
-        when the backend endpoint returns information about the owner in additon to collaborators.
-    ]] 
-	local hasPermission = false
-	if self.state.OwnerType == Enum.CreatorType.User and getUserId() == self.props.Owner.targetId then
-		hasPermission = true
-	elseif self.state.OwnerType == Enum.CreatorType.Group and getUserId() == self.props.GroupMetadata.Owner.Id then
-		hasPermission = true
-	end
-    
+    local hasPermission = self.props.currentUserPackagePermission == PermissionsConstants.OwnKey
     local isUserOwnedPackage = self.state.OwnerType == Enum.CreatorType.User
+    
+    -- Text Label should only have 2 lines max
+    local textLabelYSize = Constants.FONT_SIZE_SMALL * 2
 
     return withTheme(function(theme)
-        return Roact.createElement(StyledScrollingFrame, {
+        return withLocalization(function(localization, localized)
+            return Roact.createElement(StyledScrollingFrame, {
                 Size = self.props.Size,
                 
                 BackgroundTransparency = 1,
@@ -123,13 +112,13 @@ function Permissions:render()
                     Permissions = self.props.Permissions,
                     PermissionsChanged = self.props.PermissionsChanged,
                 }),
-				
-				Separator = Roact.createElement(Separator, {
+                
+                Separator = Roact.createElement(Separator, {
                     LayoutOrder = orderIterator:getNextOrder(),
                     Size = UDim2.new(1, 0, 0, 0),
                 }),
 
-				SearchbarWidget = hasPermission and isUserOwnedPackage and Roact.createElement(CollaboratorSearchWidget, {
+                SearchbarWidget = hasPermission and isUserOwnedPackage and Roact.createElement(CollaboratorSearchWidget, {
                     LayoutOrder = orderIterator:getNextOrder(),
                     Enabled = true,
 
@@ -140,6 +129,22 @@ function Permissions:render()
 
                     PermissionsChanged = self.props.PermissionsChanged,
                 }),
+
+                RevokedWarningMessage = Roact.createElement("TextLabel", {
+                    LayoutOrder = orderIterator:getNextOrder(),
+                    Size = UDim2.new(1, 0, 0, textLabelYSize),
+                    
+                    Text = isUserOwnedPackage and localized.PackagePermissions.Warning.UserOwned or localized.PackagePermissions.Warning.GroupOwned,
+                    TextXAlignment = Enum.TextXAlignment.Left,
+                    
+                    Font = Constants.FONT,
+                    TextSize = Constants.FONT_SIZE_SMALL,
+                    TextColor3 = theme.assetConfig.packagePermissions.subTextColor,
+                    TextWrapped = true,
+                    
+                    BackgroundTransparency = 1,
+                }),
+
                 CollaboratorListWidget = hasPermission and isUserOwnedPackage and Roact.createElement(CollaboratorsWidget, {
                     LayoutOrder = orderIterator:getNextOrder(),
                     Enabled = true,
@@ -155,6 +160,7 @@ function Permissions:render()
                     GroupMetadataChanged = self.props.GroupMetadataChanged,
                 }),
             })
+        end)
     end)
 end
 
@@ -162,6 +168,7 @@ local function mapStateToProps(state, props)
     local groupMetadata = {}
     local localUsername = {}
     local permissions = state.collaborators or {}
+    local currentUserPackagePermission = PermissionsConstants.NoAccessKey
 
     if state[props.Owner.targetId] then
         if Enum.CreatorType[props.Owner.type] == Enum.CreatorType.Group then
@@ -171,11 +178,18 @@ local function mapStateToProps(state, props)
         end
     end
 
+    if props.AssetId ~= nil then
+        if state.packagePermissions and state.packagePermissions[props.AssetId] then
+            currentUserPackagePermission = state.packagePermissions[props.AssetId]
+        end
+    end
+
     return { 
         OwnerName = state.ownerUsername,
         GroupMetadata = groupMetadata,
         LocalUsername = localUsername,
         Permissions = permissions,
+        currentUserPackagePermission = currentUserPackagePermission,
     }
 end
 
@@ -191,13 +205,10 @@ local function mapDispatchToProps(dispatch)
             dispatch(SetCollaborators(newPermissions))
             dispatch(AddChange("permissions", newPermissions))
         end,
-        GetPackageCollaboratorsRequest = function(networkInterface, assetId)
-            dispatch(GetPackageCollaboratorsRequest(networkInterface, assetId))
-		end,
         GroupMetadataChanged = function(groupMetadata)
             dispatch(SetGroupMetadata(groupMetadata))
+            dispatch(AddChange("groupMetadata", groupMetadata))
         end,
-
         GetGroupRoleInfo = function(networkInterface, groupId)
             dispatch(GetGroupRoleInfo(networkInterface, groupId))
         end,

@@ -44,6 +44,8 @@ local PurchaseStatus = require(Plugin.Core.Types.PurchaseStatus)
 local PurchaseFlow = Roact.PureComponent:extend("PurchaseFlow")
 
 function PurchaseFlow:init()
+	self.continued = false
+
 	self.state = {
 		purchaseStatus = PurchaseStatus.None,
 	}
@@ -110,7 +112,12 @@ function PurchaseFlow:didUpdate()
 	-- Purchase complete, continue to install
 	if nextStatus == PurchaseStatus.Success then
 		spawn(function()
-			self.props.Continue()
+			-- The self.continued check is to make sure that Continue is not called
+			-- more than once, even if this component re-renders after success.
+			if not self.continued then
+				self.continued = true
+				self.props.Continue()
+			end
 		end)
 	end
 end

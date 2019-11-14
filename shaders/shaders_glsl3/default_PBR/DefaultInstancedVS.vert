@@ -97,7 +97,7 @@ void main()
     vec3 v17 = CB0[7].xyz - v9;
     vec4 v18 = vec4(v6, v7, v8, 1.0);
     vec4 v19 = v18 * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
-    float v20 = CB1[gl_InstanceID * 7 + 6].z * 9.06472015380859375;
+    float v20 = CB1[gl_InstanceID * 7 + 6].z * 0.50359570980072021484375;
     float v21 = clamp(v16, 0.0, 1.0);
     vec3 v22 = (CB0[10].xyz * v21) + (CB0[12].xyz * clamp(-v16, 0.0, 1.0));
     vec4 v23 = vec4(v22.x, v22.y, v22.z, vec4(0.0).w);

@@ -13,6 +13,8 @@ local AssetConfigConstants = require(Util.AssetConfigConstants)
 local SerializeInstances = require(Util.SerializeInstances)
 local Analytics = require(Util.Analytics.Analytics)
 
+local ConfigureItemTagsRequest = require(Plugin.Core.Networking.Requests.ConfigureItemTagsRequest)
+
 local function createConfigDataTable(nameWithoutExtension, assetTypeId, description)
 	return {
 		[nameWithoutExtension] = {
@@ -36,7 +38,7 @@ local function createFormDataBody(configDataJsonBlob, nameWithoutExtension, exte
 	return result
 end
 
-return function(networkInterface, nameWithoutExtension, extension, description, assetTypeId, instances)
+return function(networkInterface, nameWithoutExtension, extension, description, assetTypeId, instances, tags)
 	return function(store)
 		-- this thunk should never be called if names and descriptions exceed their maximum lengths, so we don't need to trim the strings here (just precautionary)
 		nameWithoutExtension = string.sub(nameWithoutExtension or "", 1, AssetConfigConstants.NAME_CHARACTER_LIMIT)
@@ -59,7 +61,12 @@ return function(networkInterface, nameWithoutExtension, extension, description, 
 					return
 				elseif assetDetails.assetId then
 					store:dispatch(SetAssetId(assetDetails.assetId))
-					store:dispatch(UploadResult(true))
+
+					if game:GetFastFlag("CMSEnableCatalogTags") then
+						store:dispatch(ConfigureItemTagsRequest(networkInterface, assetDetails.assetId, {}, tags))
+					else
+						store:dispatch(UploadResult(true))
+					end
 
 					Analytics.incrementUploadAssetSuccess(assetTypeId)
 					return

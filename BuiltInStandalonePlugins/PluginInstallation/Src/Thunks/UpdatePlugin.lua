@@ -13,6 +13,9 @@ return function(plugin)
 		end)
 		if success then
 			store:dispatch(SetPluginUpdateStatus(assetId, UpdateStatus.Success))
+			if not plugin.enabled then
+				StudioService:SetPluginEnabled(assetId, plugin.enabled)
+			end
 		else
 			store:dispatch(SetPluginUpdateStatus(assetId, UpdateStatus.Error))
 		end

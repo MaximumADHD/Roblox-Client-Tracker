@@ -223,7 +223,7 @@ function GroupCollaboratorItem:render()
 
 								CollaboratorName = props.GroupData.Name,
 								CollaboratorId = props.GroupData.Id,
-								CollaboratorIcon =  Urls.constructGroupIconThumbnailUrl(props.GroupData.Id,
+								CollaboratorIcon =  Urls.constructRBXThumbUrl(AssetConfigConstants.rbxThumbTypes["GroupIcon"], props.GroupData.Id,
 								AssetConfigConstants.rbxThumbSizes.GroupIconImageSize),
 								Action = sameAction and getLabelForAction(localized, sameAction) or localized.PackagePermissions.ActionDropdown.MultipleLabel,
 								Items = anyLocked and {} or props.Items,

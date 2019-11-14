@@ -24,6 +24,7 @@ local Roact = require(Libs.Roact)
 
 local UILibrary = require(Libs.UILibrary)
 local createFitToContent = UILibrary.Component.createFitToContent
+local deepJoin = UILibrary.Util.deepJoin
 
 local Util = Plugin.Core.Util
 local Urls = require(Util.Urls)
@@ -65,13 +66,14 @@ function PackageOwnerWidget:render()
 	return withLocalization(function(_, localized)
 		return withTheme(function(theme)
 			local function rolePermissionChanged(roleId, newPermission)
-				-- Cryo does not provide a good way to replace a deep key
-				local newPermissions = 	Cryo.Dictionary.join(props.Permissions, {[PermissionsConstants.RoleSubjectKey]=Cryo.Dictionary.join(
-											props.Permissions[PermissionsConstants.RoleSubjectKey], {[roleId]=Cryo.Dictionary.join(
-												props.Permissions[PermissionsConstants.RoleSubjectKey][roleId], {[PermissionsConstants.ActionKey]=newPermission}
-											)}
-										)})
-				
+				local newPermissions = deepJoin(props.Permissions, {
+					[PermissionsConstants.RoleSubjectKey] = {
+						[roleId] = {
+							[PermissionsConstants.ActionKey] = newPermission,
+						}
+					}
+				})
+
 				props.PermissionsChanged(newPermissions)
 			end
 
@@ -83,7 +85,7 @@ function PackageOwnerWidget:render()
 					
 					CollaboratorName = props.OwnerName,
 					CollaboratorId = props.OwnerId,
-					CollaboratorIcon = Urls.constructAvatarHeadshotThumbnailUrl(props.OwnerId,
+					CollaboratorIcon = Urls.constructRBXThumbUrl(AssetConfigConstants.rbxThumbTypes["AvatarHeadShot"], props.OwnerId,
 						AssetConfigConstants.rbxThumbSizes.AvatarHeadshotImageSize),
 					UseMask = true,
 					

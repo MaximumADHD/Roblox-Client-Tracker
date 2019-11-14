@@ -12,9 +12,12 @@ game:DefineFastFlag("UseCreationToFetchMyOverrideData2", false)
 game:DefineFastFlag("EnableAssetConfigVersionCheckForModels", false)
 game:DefineFastFlag("CMSAdditionalAccessoryTypesV2", false)
 game:DefineFastFlag("FixAssetConfigManageableGroups", false)
+game:DefineFastFlag("UseDevelopFetchPluginVersionId", false)
 
 -- when removing this flag, remove all references to isCatalogItemCreator
 game:DefineFastFlag("CMSRemoveUGCContentEnabledBoolean", false)
+
+game:DefineFastFlag("CMSEnableCatalogTags", false)
 
 local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 
@@ -131,12 +134,25 @@ local function createAssetConfig(assetId, flowType, instances, assetTypeEnum)
 	local isCatalogItemCreator = false -- remove with FFlagCMSRemoveUGCContentEnabledBoolean
 	local assetTypesForRelease = {}
 	local assetTypesForUpload = {}
+	local packagePermissions = {}
+
+	local isItemTagsFeatureEnabled = false
+	local enabledAssetTypesForItemTags = {}
+	local maximumItemTagsPerItem = 0
+
 	if toolboxStore then
 		if not game:GetFastFlag("CMSRemoveUGCContentEnabledBoolean") then
 			isCatalogItemCreator = toolboxStore:getState().roles.isCatalogItemCreator
 		end
 		assetTypesForRelease = toolboxStore:getState().roles.allowedAssetTypesForRelease
 		assetTypesForUpload = toolboxStore:getState().roles.allowedAssetTypesForUpload
+		packagePermissions = toolboxStore:getState().packages.permissionsTable
+
+		if game:GetFastFlag("CMSEnableCatalogTags") then
+			isItemTagsFeatureEnabled = toolboxStore:getState().itemTags.isItemTagsFeatureEnabled
+			enabledAssetTypesForItemTags = toolboxStore:getState().itemTags.enabledAssetTypesForItemTags
+			maximumItemTagsPerItem = toolboxStore:getState().itemTags.maximumItemTagsPerItem
+		end
 	end
 
 	local startScreen = AssetConfigUtil.getFlowStartScreen(flowType)
@@ -151,8 +167,12 @@ local function createAssetConfig(assetId, flowType, instances, assetTypeEnum)
 			isCatalogItemCreator = isCatalogItemCreator, -- remove with FFlagCMSRemoveUGCContentEnabledBoolean
 			allowedAssetTypesForRelease = assetTypesForRelease,
 			allowedAssetTypesForUpload = assetTypesForUpload,
+			isItemTagsFeatureEnabled = isItemTagsFeatureEnabled,
+			enabledAssetTypesForItemTags = enabledAssetTypesForItemTags,
+			maximumItemTagsPerItem = maximumItemTagsPerItem,
 			assetTypeEnum = assetTypeEnum,
 			currentTab = ConfigTypes:getDefualtTab(),
+			packagePermissions = packagePermissions,
 		}, {
 			Rodux.thunkMiddleware
 		}

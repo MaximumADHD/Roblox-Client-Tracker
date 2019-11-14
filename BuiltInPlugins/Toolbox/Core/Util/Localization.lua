@@ -225,6 +225,18 @@ function Localization:getPurchaseFailedDetails(name)
 	})
 end
 
+function Localization:getPurchaseSuccessDetails(name)
+	return self:_safeLocalize("Studio.Toolbox.Purchase.SuccessDetails", {
+		name = name,
+	})
+end
+
+function Localization:getMaxTags(max)
+	return self:_safeLocalize("Studio.Toolbox.MaxTagsDescription", {
+		max = max,
+	})
+end
+
 function Localization:destroy()
 	if self._externalLocaleIdChangedConnection then
 		self._externalLocaleIdChangedConnection:Disconnect()
@@ -358,6 +370,7 @@ function Localization:_recalculateContent()
 			CreationsDecals = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsDecals"),
 			CreationsAudio = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsAudio"),
 			CreationsMeshes = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsMeshes"),
+			CreationsPlugins = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsPlugins"),
 			CreationsCatalogSectionDivider = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsCatalogSectionDivider"),
 			CreationsHats = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsHats"),
 			CreationsTeeShirts = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsTeeShirts"),
@@ -449,6 +462,7 @@ function Localization:_recalculateContent()
 			[AssetConfigConstants.ASSET_STATUS.OnSale] = self:_safeLocalize("Studio.Toolbox.General.StatusOnSale"),
 			[AssetConfigConstants.ASSET_STATUS.OffSale] = self:_safeLocalize("Studio.Toolbox.General.StatusOffSale"),
 			[AssetConfigConstants.ASSET_STATUS.DelayedRelease] = self:_safeLocalize("Studio.Toolbox.General.StatusDelayedRelease"),
+			[AssetConfigConstants.ASSET_STATUS.Free] = self:_safeLocalize("Studio.Toolbox.General.Free"),
 		},
 
 		Sales = {
@@ -492,6 +506,15 @@ function Localization:_recalculateContent()
 			Title = {
 				PackageOwner = self:_safeLocalize("Studio.Toolbox.AssetConfigPackagePermissions.PackageOwner"),
 				ShareWith = self:_safeLocalize("Studio.Toolbox.AssetConfigPackagePermissions.ShareWith"),
+			},
+
+			Warning = {
+				UserOwned = self:_safeLocalize("Studio.Toolbox.AssetConfigPackagePermissions.UserOwnedWarning"),
+				GroupOwned = self:_safeLocalize("Studio.Toolbox.AssetConfigPackagePermissions.GroupOwnedWarning"),
+			},
+
+			RightClickMenu = {
+				PackageDetails = self:_safeLocalize("Studio.Toolbox.AssetConfigPackagePermissions.PackageDetails")
 			}
 		},
 
@@ -506,6 +529,7 @@ function Localization:_recalculateContent()
 				LearnMore = self:_safeLocalize("Studio.Toolbox.General.LearnMore"),
 				Me = self:_safeLocalize("Studio.Toolbox.General.Me"),
 				AssetType = self:_safeLocalize("Studio.Toolbox.General.AssetType"),
+				Tags = self:_safeLocalize("Studio.Toolbox.General.Tags"),
 
 				AssetTextDisplay = {
 					[Enum.AssetType.Model] = self:_safeLocalize("Studio.Toolbox.General.AssetTypeModel"),
@@ -577,6 +601,9 @@ function Localization:_recalculateContent()
 
 			InstallSuccess = self:_safeLocalize("Studio.Toolbox.General.InstallSuccess"),
 			InstallFailure = self:_safeLocalize("Studio.Toolbox.General.InstallFailure"),
+			Installing = self:_safeLocalize("Studio.Toolbox.General.Installing"),
+
+			NoTagFound = self:_safeLocalize("Studio.Toolbox.NoTagFound"),
 		},
 
 		PurchaseFlow = {
@@ -590,7 +617,9 @@ function Localization:_recalculateContent()
 			InsufficientPrompt = self:_safeLocalize("Studio.Toolbox.Purchase.InsufficientPrompt"),
 			CurrentBalance = self:_safeLocalize("Studio.Toolbox.Purchase.RobuxBalance"),
 			FailedHeader = self:_safeLocalize("Studio.Toolbox.Purchase.FailedHeader"),
+			SuccessHeader = self:_safeLocalize("Studio.Toolbox.Purchase.SuccessHeader"),
 			Free = self:_safeLocalize("Studio.Toolbox.Purchase.Free"),
+			OK = self:_safeLocalize("Studio.Common.Action.OK"),
 		},
 	})
 end

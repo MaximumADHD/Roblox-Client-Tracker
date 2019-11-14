@@ -17,6 +17,9 @@ local PlayerDropDown = require(script.Parent.PlayerDropDown)
 
 local FAKE_NEUTRAL_TEAM = Instance.new("Team")
 
+local FFlagPlayerListDontSortTeamsByScore = game:DefineFastFlag("PlayerListDontSortTeamsByScore", false)
+local FFlagPlayerListDontSinkTouchUnnecessarily = game:DefineFastFlag("PlayerListDontSinkTouchUnnecessarily", false)
+
 local PlayerScrollList = Roact.Component:extend("PlayerScrollList")
 
 local function playerInTeam(player, team)
@@ -81,18 +84,20 @@ local function buildSortedTeams(teamScores, primaryStat, teams, showNeutralTeam)
 	end
 
 	table.sort(sortedTeams, function(a, b)
-		if primaryStat ~= nil then
-			local statA = teamScores[a.team][primaryStat]
-			local statB = teamScores[b.team][primaryStat]
-			if statA ~= statB then
-				if statA == nil then
-					return false
-				elseif statB == nil then
-					return true
+		if not FFlagPlayerListDontSortTeamsByScore then
+			if primaryStat ~= nil then
+				local statA = teamScores[a.team][primaryStat]
+				local statB = teamScores[b.team][primaryStat]
+				if statA ~= statB then
+					if statA == nil then
+						return false
+					elseif statB == nil then
+						return true
+					end
+					-- Much less complicated than sorting player scores as these
+					-- are always numbers
+					return statA > statB
 				end
-				-- Much less complicated than sorting player scores as these
-				-- are always numbers
-				return statA > statB
 			end
 		end
 		if a.team == FAKE_NEUTRAL_TEAM then
@@ -138,6 +143,10 @@ end
 function PlayerScrollList:init()
 	self.scrollingFrameRef = Roact.createRef()
 	self.firstPlayerRef = Roact.createRef()
+
+	self.state = {
+		containerSizeY = 100,
+	}
 end
 
 function PlayerScrollList:calculateDropDownAbsPosition(dropDownPosition, playerEntrySizeY)
@@ -247,10 +256,21 @@ function PlayerScrollList:render()
 		local absDropDownPosition, canvasPositionOverride = self:calculateDropDownAbsPosition(
 			dropDownPosition, playerEntrySizeY)
 
+		local scrollingFrameSize = UDim2.new(1, 0, 1, 0)
+		if FFlagPlayerListDontSinkTouchUnnecessarily then
+			scrollingFrameSize = UDim2.new(1, 0, 0, math.min(canvasSizeY, self.state.containerSizeY))
+		end
+
 		return Roact.createElement("Frame", {
 			Position = layoutValues.PlayerScrollListPosition,
 			Size = layoutValues.PlayerScrollListSize,
 			BackgroundTransparency = 1,
+
+			[Roact.Change.AbsoluteSize] = FFlagPlayerListDontSinkTouchUnnecessarily and function(rbx)
+				self:setState({
+					containerSizeY = rbx.AbsoluteSize.Y,
+				})
+			end or nil,
 		}, {
 			PlayerDropDown = Roact.createElement(PlayerDropDown, {
 				positionY = absDropDownPosition,
@@ -258,7 +278,7 @@ function PlayerScrollList:render()
 
 			ScollingFrame = Roact.createElement("ScrollingFrame", {
 				Position = UDim2.new(0, 0, 0, 0),
-				Size = UDim2.new(1, 0, 1, 0),
+				Size = scrollingFrameSize,
 				CanvasSize = UDim2.new(0, 0, 0, canvasSizeY),
 				BackgroundTransparency = 1,
 				ScrollBarImageColor3 = layoutValues.ScrollImageColor,

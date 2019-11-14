@@ -2,6 +2,9 @@ local Plugin = script.Parent.Parent.Parent.Parent
 
 local HttpService = game:GetService("HttpService")
 
+local FFlagGetVersionHistoryAssetError = game:DefineFastFlag("GetVersionHistoryAssetFailure", false)
+
+local NetworkError = require(Plugin.Core.Actions.NetworkError)
 local SetVersionHistoryData = require(Plugin.Core.Actions.SetVersionHistoryData)
 
 return function(networkInterface, assetId)
@@ -22,8 +25,10 @@ return function(networkInterface, assetId)
 				    }]]
 				store:dispatch(SetVersionHistoryData(response.data))
 			end,
-			function(result)
-				-- Error function
+			function(err)
+				if FFlagGetVersionHistoryAssetError then
+					store:dispatch(NetworkError(err))
+				end
 			end)
 	end
 end

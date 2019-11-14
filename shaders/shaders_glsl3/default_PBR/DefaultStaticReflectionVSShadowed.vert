@@ -69,7 +69,7 @@ void main()
     vec4 v4 = vec4(POSITION.xyz, 1.0) * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
     vec4 v5 = vec4(POSITION.xyz, 0.0);
     v5.w = COLOR1.w * 0.0039215688593685626983642578125;
-    float v6 = COLOR1.y * 9.06472015380859375;
+    float v6 = COLOR1.y * 0.50359570980072021484375;
     float v7 = clamp(v2, 0.0, 1.0);
     vec3 v8 = (CB0[10].xyz * v7) + (CB0[12].xyz * clamp(-v2, 0.0, 1.0));
     vec4 v9 = vec4(v8.x, v8.y, v8.z, vec4(0.0).w);

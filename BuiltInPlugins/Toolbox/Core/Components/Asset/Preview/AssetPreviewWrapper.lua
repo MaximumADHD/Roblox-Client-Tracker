@@ -14,6 +14,8 @@
 			preview to close it.
 ]]
 
+local FFlagEditAssetForManagedAssets = game:GetFastFlag("EditAssetForManagedAssets")
+
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
@@ -31,11 +33,14 @@ local getNetwork = ContextGetter.getNetwork
 local withModal = ContextHelper.withModal
 local withTheme = ContextHelper.withTheme
 
+local ClearPreview = require(Plugin.Core.Actions.ClearPreview)
+
 local AssetPreview = require(Plugin.Core.Components.Asset.Preview.AssetPreview)
 
-local GetPreviewInstanceRequest = require(Plugin.Core.Networking.Requests.GetPreviewInstanceRequest)
-local ClearPreview = require(Plugin.Core.Actions.ClearPreview)
-local GetAssetVersionIdRequest = require(Plugin.Core.Networking.Requests.GetAssetVersionIdRequest)
+local Requests = Plugin.Core.Networking.Requests
+local GetPreviewInstanceRequest = require(Requests.GetPreviewInstanceRequest)
+local GetAssetVersionIdRequest = require(Requests.GetAssetVersionIdRequest)
+local GetPluginInfoRequest = require(Requests.GetPluginInfoRequest)
 
 local Category = require(Plugin.Core.Types.Category)
 local ConfigTypes = require(Plugin.Core.Types.ConfigTypes)
@@ -43,6 +48,7 @@ local ConfigTypes = require(Plugin.Core.Types.ConfigTypes)
 local AssetPreviewWrapper = Roact.PureComponent:extend("AssetPreviewWrapper")
 
 local FixModelPreviewSelection = settings():GetFFlag("FixModelPreviewSelection")
+local FFlagUseDevelopFetchPluginVersionId = game:GetFastFlag("UseDevelopFetchPluginVersionId")
 
 local PADDING = 20
 
@@ -98,16 +104,21 @@ function AssetPreviewWrapper:init(props)
 	self.tryCreateContextMenu = function()
 		local assetData = self.props.assetData
 
-		-- Check if the user owns the asset.
-		local creatorData = assetData.Creator
-		local showEditOption = false
-		if creatorData.Type == ConfigTypes.OWNER_TYPES.User then
-			if creatorData.Id == getUserId() then
-				showEditOption = true
-			end
+		local showEditOption
+		if FFlagEditAssetForManagedAssets then
+			showEditOption = self.props.canManage
 		else
-			-- TODO: Check if the user belong to the group owns it.
-			-- DEVTOOLS-2872
+			-- Check if the user owns the asset.
+			local creatorData = assetData.Creator
+			showEditOption = false
+			if creatorData.Type == ConfigTypes.OWNER_TYPES.User then
+				if creatorData.Id == getUserId() then
+					showEditOption = true
+				end
+			else
+				-- TODO: Check if the user belong to the group owns it.
+				-- DEVTOOLS-2872
+			end
 		end
 
 		self.props.tryCreateContextMenu(assetData, showEditOption)
@@ -127,7 +138,11 @@ end
 function AssetPreviewWrapper:didMount()
 	self.props.getPreviewInstance(self.props.assetData.Asset.Id)
 	if self.props.assetData.Asset.TypeId == Enum.AssetType.Plugin.Value then
-		self.props.getAssetVersionId(getNetwork(self), self.props.assetData.Asset.Id)
+		if FFlagUseDevelopFetchPluginVersionId then
+			self.props.getPluginInfo(getNetwork(self), self.props.assetData.Asset.Id)
+		else
+			self.props.deprecated_getAssetVersionId(getNetwork(self), self.props.assetData.Asset.Id)
+		end
 	end
 end
 
@@ -138,7 +153,10 @@ function AssetPreviewWrapper:render()
 			local state = self.state
 
 			local assetData = props.assetData
+
+			-- Remove me with FFlagUseDevelopFetchPluginVersionId
 			local assetVersionId = props.assetVersionId
+			local previewPluginData = FFlagUseDevelopFetchPluginVersionId and props.previewPluginData
 
 			local maxPreviewWidth = math.min(state.maxPreviewWidth, Constants.ASSET_PREVIEW_MAX_WIDTH)
 			local maxPreviewHeight = state.maxPreviewHeight
@@ -189,6 +207,7 @@ function AssetPreviewWrapper:render()
 
 					assetData = assetData,
 					assetVersionId = assetVersionId,
+					previewPluginData = previewPluginData,
 					canInsertAsset = canInsertAsset,
 					tryInsert = self.tryInsert,
 					tryCreateContextMenu = self.tryCreateContextMenu,
@@ -208,10 +227,16 @@ local function mapStateToProps(state, props)
 	local pageInfo = state.pageInfo or {}
 	local assetVersionId = assets.assetVersionId
 
+	local assetId = props.assetData.Asset.Id
+	local manageableAssets = assets.manageableAssets
+	local canManage = manageableAssets[tostring(assetId)]
+
 	return {
 		previewModel = previewModel or nil,
 		currentTab = pageInfo.currentTab or Category.MARKETPLACE_KEY,
 		assetVersionId = assetVersionId,
+		canManage = canManage,
+		previewPluginData = assets.previewPluginData,
 	}
 end
 
@@ -225,9 +250,13 @@ local function mapDispatchToProps(dispatch)
 			dispatch(ClearPreview())
 		end,
 
-		getAssetVersionId = function(networkInterface, assetId)
+		deprecated_getAssetVersionId = function(networkInterface, assetId)
 			dispatch(GetAssetVersionIdRequest(networkInterface, assetId))
-		end
+		end,
+
+		getPluginInfo = function(networkInterface, assetId)
+			dispatch(GetPluginInfoRequest(networkInterface, assetId))
+		end,
 	}
 end
 

@@ -18,6 +18,9 @@
 		function OnActivated = A callback fired when the user clicks the frame.
 		function OnMouseEnter = A callback fired when the mouse enters the frame.
 		function OnMouseLeave = A callback fired when the mouse leaves the frame.
+
+		[Roact.Change.AbsoluteSize] = An event that fires when the frame's AbsoluteSize changes
+		[Roact.Change.AbsolutePosition] = An event that fires when the frame's AbsolutePosition changes
 ]]
 
 local Library = script.Parent.Parent
@@ -81,6 +84,9 @@ function RoundFrame:render()
 			[Roact.Event.MouseEnter] = mouseEnterCallback,
 			[Roact.Event.MouseLeave] = mouseLeaveCallback,
 			[Roact.Event.Activated] = activatedCallback,
+
+			[Roact.Change.AbsoluteSize] = props[Roact.Change.AbsoluteSize],
+			[Roact.Change.AbsolutePosition] = props[Roact.Change.AbsolutePosition],
 		}, {
 			Border = Roact.createElement("ImageLabel", {
 				Size = UDim2.new(1, 0, 1, 0),

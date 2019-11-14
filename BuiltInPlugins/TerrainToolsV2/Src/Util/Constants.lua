@@ -7,13 +7,13 @@ local FFlagTerrainToolsRefactorTabsAndTools = game:GetFastFlag("TerrainToolsRefa
 
 local TexturePath = "rbxasset://textures/TerrainTools/"
 
-if FFlagTerrainToolsRefactorTabsAndTools then
-	local Constants = {}
+local Constants = {}
 
+if FFlagTerrainToolsRefactorTabsAndTools then
 	Constants.ToolIcons = {
 		[ToolId.Generate] = TexturePath .. "mt_generate.png",
 		[ToolId.Import] = TexturePath .. "mt_terrain_import.png",
-		[ToolId.SeaLevel] = TexturePath .. "mt_terrain_clear.png", -- "SeaLevel_PLACEHOLDER.png", replace with correct asset when design gets it to us
+		[ToolId.SeaLevel] = TexturePath .. "mt_sea_level.png",
 		[ToolId.Clear] = TexturePath .. "mt_terrain_clear.png",
 		[ToolId.Select] = TexturePath .. "icon_regions_select.png",
 		[ToolId.Move] = TexturePath .. "icon_regions_move.png",
@@ -31,13 +31,11 @@ if FFlagTerrainToolsRefactorTabsAndTools then
 		[ToolId.Flatten] = TexturePath .. "mt_flatten.png",
 		[ToolId.Paint] = TexturePath .. "mt_paint.png",
 	}
-
-	return Constants
 else
-	local Constants = {
+	Constants = {
 		Generate = TexturePath .. "mt_generate.png",
 		Import = TexturePath .. "mt_terrain_import.png",
-		SeaLevel = TexturePath .. "mt_terrain_clear.png", -- "SeaLevel_PLACEHOLDER.png", replace with correct asset when design gets it to us
+		SeaLevel = TexturePath .. "mt_sea_level.png",
 		Clear = TexturePath .. "mt_terrain_clear.png",
 		Select = TexturePath .. "icon_regions_select.png",
 		Move = TexturePath .. "icon_regions_move.png",
@@ -93,6 +91,17 @@ else
 			Paint = "Paint",
 		}
 	}
-
-	return Constants
 end
+
+Constants.INITIAL_BRUSH_SIZE = 6
+Constants.MIN_BRUSH_SIZE = 1
+Constants.MAX_BRUSH_SIZE = 32
+
+Constants.INITIAL_BRUSH_STRENGTH = 1
+
+Constants.INITIAL_PLANE_POSITION_Y = 30
+
+-- Each voxel in Roblox smooth terrain is 4x4x4
+Constants.VOXEL_RESOLUTION = 4
+
+return Constants

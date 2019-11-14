@@ -27,6 +27,7 @@
 		displayCopy, bool, copy.
 		displayComment, bool, comment.
 		displayAssetType, bool, assetType.
+		displayTags, bool, tags.
 
 	Optional Props:
 		LayoutOrder, number, used by the layouter to set the position of the component.
@@ -56,6 +57,7 @@ local ConfigAccess = require(AssetConfiguration.ConfigAccess)
 local ConfigGenre = require(AssetConfiguration.ConfigGenre)
 local ConfigCopy = require(AssetConfiguration.ConfigCopy)
 local ConfigComment = require(AssetConfiguration.ConfigComment)
+local TagsComponent = require(AssetConfiguration.CatalogTags.TagsComponent)
 
 local PublishAsset = Roact.PureComponent:extend("PublishAsset")
 
@@ -98,9 +100,61 @@ end
 
 function PublishAsset:init(props)
 	self.state = {
+		maxDropdownPosition = 0,
 	}
 
 	self.baseFrameRef = Roact.createRef()
+	self.listLayoutRef = Roact.createRef()
+	self.tagsRef = Roact.createRef()
+	self.genreRef = Roact.createRef()
+
+	self.refreshCanvas = function()
+		if self.baseFrameRef.current and self.listLayoutRef.current then
+			local baseFrame = self.baseFrameRef.current
+			local uiListLayout = self.listLayoutRef.current
+			local canvasHeight = math.max(uiListLayout.AbsoluteContentSize.y + PADDING*2, self.state.maxDropdownPosition)
+			baseFrame.CanvasSize = UDim2.new(props.Size.X.Scale, props.Size.X.Offset, 0, canvasHeight)
+		end
+	end
+
+	self.updateMaxDropdownPosition = function(ref, dropdownHeight)
+		local frame = ref.current
+		if frame and dropdownHeight > 0 then
+			local topOfDropdownField =
+				ref.current.AbsolutePosition.Y
+				+ self.baseFrameRef.current.CanvasPosition.Y
+				+ -self.baseFrameRef.current.AbsolutePosition.Y
+				- PADDING
+
+			local bottomOfDropdown =
+				topOfDropdownField
+				+ PADDING
+				+ ref.current.AbsoluteSize.Y
+				+ dropdownHeight
+				+ PADDING
+
+			spawn(function()
+				if bottomOfDropdown > self.state.maxDropdownPosition then
+					self:setState({ maxDropdownPosition = bottomOfDropdown })
+					self.refreshCanvas()
+				end
+				self:bumpCanvas(topOfDropdownField, bottomOfDropdown)
+			end)
+		end
+	end
+end
+
+function PublishAsset:bumpCanvas(top, bottom)
+	if self.baseFrameRef.current then
+		local baseFrame = self.baseFrameRef.current
+		local canvasY = baseFrame.CanvasPosition.Y
+		local baseFrameSizeY = baseFrame.AbsoluteSize.Y
+		if top < canvasY then
+			baseFrame.CanvasPosition = Vector2.new(0, math.max(0, top))
+		elseif bottom > canvasY + baseFrameSizeY then
+			baseFrame.CanvasPosition = Vector2.new(0, math.max(0, bottom - baseFrameSizeY))
+		end
+	end
 end
 
 function PublishAsset:render()
@@ -113,6 +167,7 @@ function PublishAsset:render()
 
 			local name = props.name
 			local description = props.description
+			local tags = props.tags
 			local owner = props.owner
 			local genres = props.genres
 			local allowCopy = props.allowCopy
@@ -123,6 +178,7 @@ function PublishAsset:render()
 
 			local onNameChange = props.onNameChange
 			local onDescChange = props.onDescChange
+			local onTagsChange = props.onTagsChange
 			local onOwnerSelected = props.onOwnerSelected
 			local onGenreSelected = props.onGenreSelected
 			local toggleCopy = props.toggleCopy
@@ -133,6 +189,9 @@ function PublishAsset:render()
 			local displayCopy = props.displayCopy
 			local displayComment = props.displayComment
 			local displayAssetType = props.displayAssetType
+			local displayTags = props.displayTags
+
+			local maximumItemTagsPerItem = props.maximumItemTagsPerItem
 
 			local orderIterator = LayoutOrderIterator.new()
 
@@ -169,9 +228,11 @@ function PublishAsset:render()
 					SortOrder = Enum.SortOrder.LayoutOrder,
 					Padding = UDim.new(0, 5),
 
-					[Roact.Change.AbsoluteContentSize] = function(rbx)
+					[Roact.Change.AbsoluteContentSize] = game:GetFastFlag("CMSEnableCatalogTags") and self.refreshCanvas or function(rbx)
 						self.baseFrameRef.current.CanvasSize = UDim2.new(Size.X.Scale, Size.X.Offset, 0, rbx.AbsoluteContentSize.y + PADDING*2)
 					end,
+
+					[Roact.Ref] = self.listLayoutRef,
 				}),
 
 				Title = Roact.createElement(ConfigTextField, {
@@ -213,6 +274,22 @@ function PublishAsset:render()
 					})
 				}),
 
+				Tags = game:GetFastFlag("CMSEnableCatalogTags") and displayTags and Roact.createElement(TagsComponent, {
+					tags = tags,
+					onTagsChange = onTagsChange,
+					maximumItemTagsPerItem = maximumItemTagsPerItem,
+
+					Title = publishAssetLocalized.Tags,
+					AssetTypeEnum = assetTypeEnum,
+					LayoutOrder = orderIterator:getNextOrder(),
+
+					setDropdownHeight = function(dropdownHeight)
+						self.updateMaxDropdownPosition(self.tagsRef, dropdownHeight)
+					end,
+
+					[Roact.Ref] = self.tagsRef,
+				}),
+
 				Ownership = displayOwnership and Roact.createElement(ConfigAccess, {
 					Title = publishAssetLocalized.Ownership,
 					owner = owner,
@@ -233,6 +310,12 @@ function PublishAsset:render()
 					onDropDownSelect = onGenreSelected,
 
 					LayoutOrder = orderIterator:getNextOrder(),
+
+					setDropdownHeight = game:GetFastFlag("CMSEnableCatalogTags") and function(dropdownHeight)
+						self.updateMaxDropdownPosition(self.genreRef, dropdownHeight)
+					end,
+
+					[Roact.Ref] = self.genreRef,
 				}),
 
 				DividerBase = displayGenre and Roact.createElement(createDivider, {

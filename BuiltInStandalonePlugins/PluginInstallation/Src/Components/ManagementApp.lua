@@ -26,12 +26,14 @@ local DOCKWIDGET_MIN_HEIGHT = 180
 local DOCKWIDGET_INITIAL_WIDTH = 600
 local DOCKWIDGET_INITIAL_HEIGHT = 560
 
+local FFlagPluginManagementFixWhiteScreen = game:DefineFastFlag("PluginManagementFixWhiteScreen", false)
 
 local ManagementApp = Roact.PureComponent:extend("ManagementApp")
 
 function ManagementApp:init()
 	self.state = {
 		enabled = false,
+		killDockWidget = false,
 	}
 
 	-- TODO : Unify existing PluginInstallation code with Context2 services so these globals
@@ -59,6 +61,28 @@ function ManagementApp:init()
 	self.onAncestryChanged = function(_, _, parent)
 		if not parent and self.props.onPluginWillDestroy then
 			self.props.onPluginWillDestroy()
+		end
+	end
+
+	if FFlagPluginManagementFixWhiteScreen then
+		self.props.plugin.MultipleDocumentInterfaceInstance.DataModelSessionEnded:connect(function(dmSession)
+			-- RobloxIDEDoc has a bug in which closes DockWidget that belong to standalone plugins
+			-- which causes state inconsistencies that render empty windows.
+			-- killDockWidget is a workaround that forces the plugin to recreate the widget the next time it is opened
+			self:setState({
+				enabled = false,
+				killDockWidget = true,
+			})
+		end)
+	end
+end
+
+function ManagementApp.getDerivedStateFromProps(nextProps, finalState)
+	if FFlagPluginManagementFixWhiteScreen then
+		if finalState.enabled then
+			return {
+				killDockWidget = false
+			}
 		end
 	end
 end
@@ -98,7 +122,7 @@ function ManagementApp:render()
 			end,
 		}),
 
-		MainWidget = Roact.createElement(DockWidget, {
+		MainWidget = (not self.state.killDockWidget) and Roact.createElement(DockWidget, {
 			Enabled = enabled,
 			Title = self.localization:getText("Manage", "WindowTitle"),
 			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,

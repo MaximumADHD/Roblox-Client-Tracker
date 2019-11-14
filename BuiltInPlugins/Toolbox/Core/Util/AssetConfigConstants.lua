@@ -133,6 +133,18 @@ AssetConfigConstants.developCategoryType = convertArrayToTable({
 	"GroupPlugins",
 })
 
+AssetConfigConstants.rbxThumbTypes = convertArrayToTable({
+	"Asset",
+	"Avatar",
+	"AvatarHeadShot",
+	"BadgeIcon",
+	"BundleThumbnail",
+	"GameIcon",
+	"GamePass",
+	"GroupIcon",
+	"Outfit",
+})
+
 AssetConfigConstants.rbxThumbSizes = {
 	-- Supported sizes, 48, 60, 150
 	AvatarHeadshotImageSize = 60,
@@ -140,6 +152,10 @@ AssetConfigConstants.rbxThumbSizes = {
 	GroupIconImageSize = 150,
 }
 
-AssetConfigConstants.IMAGE_TYPES = {"jpg", "jpeg", "png", "tga", "bmp"}
+AssetConfigConstants.IMAGE_TYPES = {"jpg", "jpeg", "png"}
+
+AssetConfigConstants.TAGS_SUGGESTION_SUCCESS = "Success"
+AssetConfigConstants.MAX_DISPLAY_SUGGESTIONS = 5
+AssetConfigConstants.MAX_FETCH_SUGGESTIONS = 10
 
 return AssetConfigConstants

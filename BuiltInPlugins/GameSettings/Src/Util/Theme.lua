@@ -236,7 +236,7 @@ function Theme.createValues(getColor, StyleColor, StyleModifier)
 	local UILibraryOverrides = {
 		button = {
 			LargeHitboxButton = {
-				backgroundColor = Color3.new(1,0,0),
+				backgroundColor = getColor(StyleColor.MainBackground, StyleModifier.Default),
 
 				hovered = {
 					backgroundColor = getColor(StyleColor.Button, StyleModifier.Hover),

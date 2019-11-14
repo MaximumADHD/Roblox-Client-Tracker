@@ -16,6 +16,7 @@ local ChangeHeight = require(Actions.ChangeHeight)
 local ChangePivot = require(Actions.ChangePivot)
 local SetSnapToGrid = require(Actions.SetSnapToGrid)
 local SetIgnoreWater = require(Actions.SetIgnoreWater)
+local SetBaseSizeHeightLocked = require(Actions.SetBaseSizeHeightLocked)
 
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 
@@ -28,6 +29,7 @@ local function MapStateToProps (state, props)
 		brushShape = state[REDUCER_KEY].brushShape,
 		baseSize = state[REDUCER_KEY].baseSize,
 		height = state[REDUCER_KEY].height,
+		baseSizeHeightLocked = state[REDUCER_KEY].baseSizeHeightLocked,
 		pivot = state[REDUCER_KEY].pivot,
 		snapToGrid = state[REDUCER_KEY].snapToGrid,
 		ignoreWater = state[REDUCER_KEY].ignoreWater,
@@ -57,6 +59,9 @@ local function MapDispatchToProps (dispatch)
 		end,
 		dispatchSetIgnoreWater = function (ignoreWater)
 			dispatchToSubtract(SetIgnoreWater(ignoreWater))
+		end,
+		dispatchSetBaseSizeHeightLocked = function (locked)
+			dispatchToSubtract(SetBaseSizeHeightLocked(locked))
 		end,
 	}
 end

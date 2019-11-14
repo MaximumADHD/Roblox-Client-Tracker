@@ -73,15 +73,19 @@ end
 
 function CollaboratorThumbnail:render()
 	local useMask = self.props.UseMask or false
+	local isLoadedThumbnail = self.props.IsLoadedThumbnail or false
 
 	local imageProps = Cryo.Dictionary.join(self.props, {
 		UseMask = Cryo.None,
+		IsLoadedThumbnail = Cryo.None
 	})
 
 	return withTheme(function(theme)
 		return Roact.createElement("ImageLabel", Cryo.Dictionary.join(imageProps, {
 			[Roact.Ref] = self.ref,
 
+			ImageColor3 = isLoadedThumbnail and Color3.new(1,1,1) or theme.assetConfig.packagePermissions.subjectThumbnail.defaultImageColor,
+			ImageTransparency = 0,
 			BackgroundColor3 = theme.assetConfig.packagePermissions.subjectThumbnail.backgroundColor,
 			BackgroundTransparency = useMask and 0 or 1,
 			BorderSizePixel = 0,

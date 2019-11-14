@@ -3,9 +3,8 @@ import QtGraphicalEffects 1.0
 import ".."
 
 Item {
-    property bool fflagStudioShareFromRibbonBarUXChanges: false
-    readonly property int innerWidth: fflagStudioShareFromRibbonBarUXChanges ? 165 : 185
-    readonly property int innerHorizontalMargins: fflagStudioShareFromRibbonBarUXChanges ? 20 : 18
+    readonly property int innerWidth: 165
+    readonly property int innerHorizontalMargins: 20
     readonly property int innerVerticalMargins: 20
 
     property string titleText: ""
@@ -72,7 +71,7 @@ Item {
             anchors.bottomMargin: innerVerticalMargins
 
             text: titleText
-            font.pixelSize: fflagStudioShareFromRibbonBarUXChanges ? 20 : 22
+            font.pixelSize: 20
             font.family: RobloxStyle.fontSourceSansPro
             renderType: Text.NativeRendering
 			color: userPreferences.theme.style("CommonStyle mainText")
@@ -92,7 +91,7 @@ Item {
 
             text: messageText
             wrapMode: Text.Wrap
-            font.pixelSize: fflagStudioShareFromRibbonBarUXChanges ? 14 : 16
+            font.pixelSize: 14
             font.family: RobloxStyle.fontSourceSansPro
             renderType: Text.NativeRendering
             color: userPreferences.theme.style("StartPage ShareModal messageText")
@@ -105,12 +104,12 @@ Item {
             anchors.top: description.bottom
             anchors.left: parent.left
             anchors.right: parent.right
-            anchors.leftMargin: (fflagStudioShareFromRibbonBarUXChanges ? 1.5 : 2) * innerHorizontalMargins
-            anchors.rightMargin: (fflagStudioShareFromRibbonBarUXChanges ? 1.5 : 2) * innerHorizontalMargins
+            anchors.leftMargin: 1.5 * innerHorizontalMargins
+            anchors.rightMargin: 1.5 * innerHorizontalMargins
             anchors.topMargin: innerVerticalMargins
             anchors.bottomMargin: innerVerticalMargins
-            height: fflagStudioShareFromRibbonBarUXChanges ? 24 : 28
-            fontSize: fflagStudioShareFromRibbonBarUXChanges ? 14 : 18
+            height: 24
+            fontSize: 14
 
             onClicked: {
                 closeRequested(true);

@@ -6,14 +6,20 @@ local NetworkError = require(Plugin.Core.Actions.NetworkError)
 local UploadResult = require(Plugin.Core.Actions.UploadResult)
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 
-return function(networkInterface, assetId, fromStatus, toStatus, fromPrice, toPrice)
+local ConfigureItemTagsRequest = require(Plugin.Core.Networking.Requests.ConfigureItemTagsRequest)
+
+return function(networkInterface, assetId, fromStatus, toStatus, fromPrice, toPrice, fromItemTags, toTags)
 	return function(store)
 		local handlerFunc = function(response)
-			if response.responseCode == 200 then
-				store:dispatch(UploadResult(true))
+			if game:GetFastFlag("CMSEnableCatalogTags") then
+				store:dispatch(ConfigureItemTagsRequest(networkInterface, assetId, fromItemTags, toTags))
 			else
-				store:dispatch(NetworkError(response))
-				store:dispatch(UploadResult(false))
+				if response.responseCode == 200 then
+					store:dispatch(UploadResult(true))
+				else
+					store:dispatch(NetworkError(response))
+					store:dispatch(UploadResult(false))
+				end
 			end
 		end
 
@@ -34,7 +40,11 @@ return function(networkInterface, assetId, fromStatus, toStatus, fromPrice, toPr
 		elseif fromStatus == AssetConfigConstants.ASSET_STATUS.OnSale and fromPrice ~= toPrice then
 			networkInterface:updateSales(assetId, salesPrice):andThen(handlerFunc, errorFunc)
 		else
-			store:dispatch(UploadResult(true))
+			if game:GetFastFlag("CMSEnableCatalogTags") then
+				store:dispatch(ConfigureItemTagsRequest(networkInterface, assetId, fromItemTags, toTags))
+			else
+				store:dispatch(UploadResult(true))
+			end
 		end
 	end
 end

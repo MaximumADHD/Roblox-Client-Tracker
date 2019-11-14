@@ -6,7 +6,9 @@ local HttpService = game:GetService("HttpService")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
-local SetCollaborators = require(Plugin.Core.Actions.SetCollaborators)
+local Actions = Plugin.Core.Actions
+local SetCollaborators = require(Actions.SetCollaborators)
+local NetworkError = require(Actions.NetworkError)
 
 local PermissionsConstants = require(Plugin.Core.Components.AssetConfiguration.Permissions.PermissionsConstants)
 
@@ -47,7 +49,8 @@ return function(networkInterface, assetId)
 
                 store:dispatch(SetCollaborators(deserializeResultData))
             end,
-            function(error)
+            function(err)
+                store:dispatch(NetworkError(err))
             end
         )
 	end

@@ -1,12 +1,6 @@
 if not plugin then
 	return
 end
-local FFlagStudioConvertToPackageLua = settings():GetFFlag("StudioConvertToPackageLua")
-local FFlagStudioAllowConvertToPackageLuaResize = game:DefineFastFlag("StudioAllowConvertToPackageLuaResize", false)
-
-if not FFlagStudioConvertToPackageLua then
-	return
-end
 
 local Plugin = script.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -41,9 +35,9 @@ local assetConfigHandle = nil
 local assetConfigGui  = nil
 local function makePluginGui()
 	assetConfigGui = plugin:CreateQWidgetPluginGui(plugin.Name, {
-		Size = Vector2.new(960, FFlagStudioAllowConvertToPackageLuaResize and 600 or 700),
-		MinSize = Vector2.new(960, FFlagStudioAllowConvertToPackageLuaResize and 600 or 700),
-		Resizable = FFlagStudioAllowConvertToPackageLuaResize,
+		Size = Vector2.new(960, 600),
+		MinSize = Vector2.new(960, 600),
+		Resizable = true,
 		Modal = true,
 		InitialEnabled = false,
 	})

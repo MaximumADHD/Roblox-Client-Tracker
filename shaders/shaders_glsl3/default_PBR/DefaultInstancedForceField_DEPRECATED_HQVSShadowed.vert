@@ -102,7 +102,7 @@ void main()
     vec4 v22 = vec4(v9 - (CB0[11].xyz * abs(CB1[gl_InstanceID * 7 + 3].w)), 0.0);
     v22.w = CB1[gl_InstanceID * 7 + 6].w;
     vec4 v23 = vec4(v10, v11, v12, CB1[gl_InstanceID * 7 + 6].w);
-    v23.w = inversesqrt(3.1415927410125732421875 * CB1[gl_InstanceID * 7 + 6].z);
+    v23.w = inversesqrt(0.1745329201221466064453125 * CB1[gl_InstanceID * 7 + 6].z);
     gl_Position = v18;
     VARYING0 = vec4(v15.x, v15.y, v21.x, v21.y);
     VARYING1 = vec4(v19.x, v19.y, v21.z, v21.w);
