@@ -49,7 +49,7 @@ uniform sampler3D LightMapTexture;
 uniform sampler3D LightGridSkylightTexture;
 uniform sampler2DArray AlbedoMapTexture;
 
-in vec3 VARYING0;
+in vec4 VARYING0;
 in vec4 VARYING1;
 in vec4 VARYING2;
 in vec4 VARYING3;

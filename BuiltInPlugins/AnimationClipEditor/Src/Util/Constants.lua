@@ -11,6 +11,9 @@ local Constants = {
 	ZOOM_INCREMENT = 0.04,
 
 	DEFAULT_FRAMERATE = 30,
+	MIN_FRAMERATE = 1,
+	MAX_FRAMERATE = 120,
+
 	MAX_TIME = 30,
 	MIN_TIMELINE_RANGE = 30,
 
@@ -122,6 +125,14 @@ local Constants = {
 	TIMELINE_UNITS = {
 		Seconds = "Seconds",
 		Frames = "Frames",
+	},
+
+	FRAMERATES = {
+		FPS_24 = 24,
+		FPS_30 = 30,
+		FPS_60 = 60,
+		FPS_120 = 120,
+		CUSTOM = -1
 	},
 
 	CLIPBOARD_TYPE = {

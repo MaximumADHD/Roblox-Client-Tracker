@@ -9,6 +9,8 @@ local DEFAULT_TOLERANCE = 0.0001
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
+
+local MathUtils = require(Plugin.UILibrary.Utils.MathUtils)
 local buildHierarchy = require(Plugin.Src.Util.buildHierarchy)
 local AnimationData = require(Plugin.Src.Util.AnimationData)
 local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
@@ -836,6 +838,47 @@ function RigUtils.toRigAnimation(animationData, rig)
 
 	local numKeyframes = #keyframeSequence:GetKeyframes()
 	return keyframeSequence, numKeyframes, numPoses, numEvents
+end
+
+function RigUtils.calculateFrameRate(keyframeSequence)
+	assert(keyframeSequence ~= nil
+		and typeof(keyframeSequence) == "Instance"
+		and keyframeSequence.ClassName == "KeyframeSequence",
+		"Expected a KeyframeSequence for the AnimationData."
+	)
+
+	local keyframes = keyframeSequence:GetKeyframes()
+	table.sort(keyframes, function(a, b) return a.Time < b.Time end)
+
+	local minDelta
+	local previousTime = 0
+
+	for _, keyframe in pairs(keyframes) do
+		local delta = keyframe.Time - previousTime
+		if delta ~=0 then
+			if not minDelta or minDelta > delta then
+				minDelta = delta
+			end
+		end
+		previousTime = keyframe.Time
+	end
+
+	local fps = Constants.DEFAULT_FRAMERATE
+	if minDelta and minDelta > 0 then
+		fps = MathUtils:round(1/minDelta)
+	end
+
+	-- check all keyframes can align with frames at 30/24/60 fps first
+	-- before usng custom framerate
+	if Constants.FRAMERATES.FPS_30 % fps == 0 then
+		fps = Constants.FRAMERATES.FPS_30
+	elseif Constants.FRAMERATES.FPS_24 % fps == 0 then
+		fps = Constants.FRAMERATES.FPS_24
+	elseif Constants.FRAMERATES.FPS_60 % fps == 0 then
+		fps = Constants.FRAMERATES.FPS_60
+	end
+
+	return math.clamp(fps, 1, Constants.MAX_FRAMERATE)
 end
 
 -- Importing a R15 animation from a KeyframeSequence and its children

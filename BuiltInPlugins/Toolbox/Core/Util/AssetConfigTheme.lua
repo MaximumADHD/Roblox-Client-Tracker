@@ -146,7 +146,6 @@ function AssetConfigTheme:_recalculateTheme()
 					searchIcon = color(c.SubText),
 
 					clearButton = {
-						imageSelected = color(c.SubText),
 						image = color(c.SubText),
 					},
 
@@ -369,6 +368,7 @@ function AssetConfigTheme:_recalculateTheme()
 		disabledColor = color(c.Tab),
 		borderColor = color(c.Border),
 		hoverColor = isDark and color(c.MainButton) or color(c.CurrentMarker),
+		itemColor = color(c.MainBackground),
 
 		-- Dropdown item
 		hoveredItemColor = color(c.Button, m.Hover),

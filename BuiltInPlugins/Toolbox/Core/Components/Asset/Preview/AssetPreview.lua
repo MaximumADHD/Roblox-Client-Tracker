@@ -674,6 +674,7 @@ function AssetPreview:render()
 					OnClose = self.closeSuccessDialog,
 					Name = assetData.Asset.Name,
 					Balance = props.Balance,
+					IsFree = price == nil or price == 0,
 				}),
 			})
 		end)

@@ -523,4 +523,76 @@ return function()
 			expect(#animSaves).to.equal(1)
 		end)
 	end)
+
+	describe("calculateFrameRate", function()
+		it("should still work if no keyframe at time 0", function()
+			local kfs = Instance.new("KeyframeSequence")
+			local kf1 = Instance.new("Keyframe", kfs)
+			local kf2 = Instance.new("Keyframe", kfs)
+			kf1.Time = 0.11111
+			kf2.Time = 0.22222
+			local fps = RigUtils.calculateFrameRate(kfs)
+			expect(fps).to.equal(90)
+		end)
+
+		it("should check for 30 fps first", function()
+			local kfs = Instance.new("KeyframeSequence")
+			local kf1 = Instance.new("Keyframe", kfs)
+			local kf2 = Instance.new("Keyframe", kfs)
+			local kf3 = Instance.new("Keyframe", kfs)
+			kf1.Time = 0
+			kf2.Time = 0.5
+			kf3.Time = 1
+			local fps = RigUtils.calculateFrameRate(kfs)
+			expect(fps).to.equal(30)
+		end)
+
+		it("should check for 24 fps next", function()
+			local kfs = Instance.new("KeyframeSequence")
+			local kf1 = Instance.new("Keyframe", kfs)
+			local kf2 = Instance.new("Keyframe", kfs)
+			local kf3 = Instance.new("Keyframe", kfs)
+			kf1.Time = 0
+			kf2.Time = 0.16666
+			kf3.Time = 1
+			local fps = RigUtils.calculateFrameRate(kfs)
+			expect(fps).to.equal(24)
+		end)
+
+		it("should check for 60 fps next", function()
+			local kfs = Instance.new("KeyframeSequence")
+			local kf1 = Instance.new("Keyframe", kfs)
+			local kf2 = Instance.new("Keyframe", kfs)
+			local kf3 = Instance.new("Keyframe", kfs)
+			kf1.Time = 0
+			kf2.Time = 0.083333
+			kf3.Time = 1
+			local fps = RigUtils.calculateFrameRate(kfs)
+			expect(fps).to.equal(60)
+		end)
+
+		it("should return correct fps", function()
+			local kfs = Instance.new("KeyframeSequence")
+			local kf1 = Instance.new("Keyframe", kfs)
+			local kf2 = Instance.new("Keyframe", kfs)
+			local kf3 = Instance.new("Keyframe", kfs)
+			kf1.Time = 0
+			kf2.Time = 0.1111
+			kf3.Time = 1
+			local fps = RigUtils.calculateFrameRate(kfs)
+			expect(fps).to.equal(90)
+		end)
+
+		it("should not exceed 120 fps", function()
+			local kfs = Instance.new("KeyframeSequence")
+			local kf1 = Instance.new("Keyframe", kfs)
+			local kf2 = Instance.new("Keyframe", kfs)
+			local kf3 = Instance.new("Keyframe", kfs)
+			kf1.Time = 0
+			kf2.Time = 0.00001
+			kf3.Time = 0.00002
+			local fps = RigUtils.calculateFrameRate(kfs)
+			expect(fps).to.equal(120)
+		end)
+	end)
 end

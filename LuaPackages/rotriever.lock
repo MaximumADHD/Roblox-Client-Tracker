@@ -12,13 +12,14 @@ dependencies = [
     "LuaDiscussionsDeps LuaDiscussionsDeps 6ecae597 git+https://github.rbx.com/roblox/lua-discussions-deps#master",
     "Otter roblox/otter acc8b912 git+https://github.com/roblox/otter#master",
     "Promise lua-promise bbb9e162 git+https://github.rbx.com/roblox/lua-promise#master",
-    "PurchasePrompt roblox/purchase-prompt 1eee1e25 git+https://github.com/roblox/purchasepromptscript-roact#master",
+    "PurchasePrompt roblox/purchase-prompt 582f422c git+https://github.com/roblox/purchasepromptscript-roact#master",
     "Result lua-Result 4c69dedd git+https://github.rbx.com/roblox/lua-result#master",
     "Roact roblox/roact 1.2.0 registry+https://github.rbx.com/roblox/rotriever-index",
+    "RoactNavigation roblox/roact-navigation 0.2.1 registry+https://github.rbx.com/roblox/rotriever-index",
     "RoactRodux RoactRodux f92dedb2 git+https://github.com/roblox/roact-rodux#transitioning-roblox-roact-1x",
     "Rodux Rodux cdea578f git+https://github.com/roblox/rodux#master",
     "Rodux_UNUSED_REGISTRY_DEP roblox/rodux 1.0.0 registry+https://github.rbx.com/roblox/rotriever-index",
-    "UIBlox UIBlox eaf9510e git+https://github.rbx.com/roblox/uiblox#master",
+    "UIBlox UIBlox 16209304 git+https://github.rbx.com/roblox/uiblox#master",
     "t osyris/t 1.2.5 registry+https://github.rbx.com/roblox/rotriever-index",
     "tutils tutils 74574fde git+https://github.rbx.com/roblox/tutils#master",
 ]
@@ -107,13 +108,13 @@ commit = "cdea578ff648116d63fe077b0b4b2fe64bdd8ee5"
 name = "UIBlox"
 version = "0.1.0"
 source = "git+https://github.rbx.com/roblox/uiblox#master"
-commit = "eaf9510e6f2ad65666d7362555c1656f1292fdce"
+commit = "16209304764f1e0e0b00209b927245c33606cae2"
 dependencies = [
-    "Cryo <patched> roblox/cryo 1.0.0 registry+https://github.rbx.com/roblox/rotriever-index",
-    "Otter Otter fff3ac76 git+https://github.com/roblox/otter#roblox",
-    "Roact <patched> roblox/roact 1.2.0 registry+https://github.rbx.com/roblox/rotriever-index",
-    "enumerate roblox/enumerate 48daaf0d git+https://github.com/roblox/enumerate#v1.0.0",
-    "t <patched> osyris/t 1.2.5 registry+https://github.rbx.com/roblox/rotriever-index",
+    "Cryo roblox/cryo 1.0.0 registry+https://github.rbx.com/roblox/rotriever-index",
+    "Otter roblox/otter 0.0.1 registry+https://github.rbx.com/roblox/rotriever-index",
+    "Roact roblox/roact 1.2.0 registry+https://github.rbx.com/roblox/rotriever-index",
+    "enumerate roblox/enumerate 1.0.0 registry+https://github.rbx.com/roblox/rotriever-index",
+    "t osyris/t 1.2.5 registry+https://github.rbx.com/roblox/rotriever-index",
 ]
 
 [[package]]
@@ -193,8 +194,17 @@ source = "registry+https://github.rbx.com/roblox/rotriever-index"
 [[package]]
 name = "roblox/enumerate"
 version = "1.0.0"
-source = "git+https://github.com/roblox/enumerate#v1.0.0"
-commit = "48daaf0df47eaf36c154d691a8320239e4a1312e"
+source = "registry+https://github.rbx.com/roblox/rotriever-index"
+
+[[package]]
+name = "roblox/otter"
+version = "0.0.1"
+source = "registry+https://github.rbx.com/roblox/rotriever-index"
+
+[[package]]
+name = "roblox/otter"
+version = "0.1.0"
+source = "registry+https://github.rbx.com/roblox/rotriever-index"
 
 [[package]]
 name = "roblox/otter"
@@ -206,7 +216,7 @@ commit = "acc8b912c1fe84be1c43ac6123bea5cb96ee98c4"
 name = "roblox/purchase-prompt"
 version = "0.1.4"
 source = "git+https://github.com/roblox/purchasepromptscript-roact#master"
-commit = "1eee1e2572a018f6fb713607ea9e31538d4cb876"
+commit = "582f422c9c06c572ccda9e0a0f82990e7080e49c"
 dependencies = [
     "Cryo <patched> roblox/cryo 1.0.0 registry+https://github.rbx.com/roblox/rotriever-index",
     "Otter roblox/otter acc8b912 git+https://github.com/roblox/otter#master",
@@ -221,8 +231,24 @@ version = "1.2.0"
 source = "registry+https://github.rbx.com/roblox/rotriever-index"
 
 [[package]]
+name = "roblox/roact-navigation"
+version = "0.2.1"
+source = "registry+https://github.rbx.com/roblox/rotriever-index"
+dependencies = [
+    "Cryo roblox/cryo 1.0.0 registry+https://github.rbx.com/roblox/rotriever-index",
+    "Otter roblox/otter 0.1.0 registry+https://github.rbx.com/roblox/rotriever-index",
+    "Roact roblox/roact 1.2.0 registry+https://github.rbx.com/roblox/rotriever-index",
+    "StateTable roblox/state-table 0.1.0 registry+https://github.rbx.com/roblox/rotriever-index",
+]
+
+[[package]]
 name = "roblox/rodux"
 version = "1.0.0"
+source = "registry+https://github.rbx.com/roblox/rotriever-index"
+
+[[package]]
+name = "roblox/state-table"
+version = "0.1.0"
 source = "registry+https://github.rbx.com/roblox/rotriever-index"
 
 [[package]]

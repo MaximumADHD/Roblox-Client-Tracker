@@ -9,6 +9,7 @@
 local FFlagCMSPrepopulateTitle = game:DefineFastFlag("CMSPrepopulateTitle", false)
 local FFlagLuaPackagePermissions = settings():GetFFlag("LuaPackagePermissions")
 local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
+local FFlagAssetConfigOverrideFromAnyScreen = game:DefineFastFlag("AssetConfigOverrideFromAnyScreen", false)
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -61,10 +62,13 @@ local PostPackageMetadataRequest = require(Requests.PostPackageMetadataRequest)
 local GetPackageCollaboratorsRequest = require(Requests.GetPackageCollaboratorsRequest)
 local PutPackagePermissionsRequest = require(Requests.PutPackagePermissionsRequest)
 local GetPackageHighestPermission = require(Requests.GetPackageHighestPermission)
+local GetGroupMetadata = require(Plugin.Core.Thunks.GetGroupMetadata)
+local GetUsername = require(Plugin.Core.Thunks.GetUsername)
 
 local UpdateAssetConfigStore = require(Plugin.Core.Actions.UpdateAssetConfigStore)
 
 local SetAssetConfigTab = require(Plugin.Core.Actions.SetAssetConfigTab)
+local ClearChange = require(Plugin.Core.Actions.ClearChange)
 
 local withTheme = ContextHelper.withTheme
 local withModal = ContextHelper.withModal
@@ -95,7 +99,7 @@ function AssetConfig:init(props)
 		copyOn = false,
 		allowComment = true,  -- Default to allow comment, but off.
 		commentOn = nil,
-		price = AssetConfigUtil.getMinPrice(props.allowedAssetTypesForRelease, props.assetTypeEnum),
+		price = nil,		-- The price has to be nil in the first place for the price to load correctly when initial load.
 		status = nil,
 
 		isShowChangeDiscardMessageBox = false,
@@ -105,7 +109,14 @@ function AssetConfig:init(props)
 		iconFile = nil, -- Need for setting thumbnails for asset.
 	}
 
-		-- Used to fetching name before publish
+	if FFlagEnablePurchasePluginFromLua2 and AssetConfigUtil.isBuyableMarketplaceAsset(props.assetTypeEnum) then
+		self.state.status = AssetConfigConstants.ASSET_STATUS.OffSale
+	end
+	if AssetConfigUtil.isCatalogAsset(props.assetTypeEnum) then
+		self.state.price = AssetConfigUtil.getMinPrice(props.allowedAssetTypesForRelease, props.assetTypeEnum)
+	end
+
+	-- Used to fetching name before publish
 	self.nameString = nil
 	self.descriptionString = nil
 
@@ -129,7 +140,7 @@ function AssetConfig:init(props)
 							getNetwork(self),
 							props.assetId,
 							state.name,
-							state.description,
+							state.description or "",
 							props.assetConfigData.Status,
 							state.status,
 							props.assetConfigData.Price,
@@ -145,7 +156,7 @@ function AssetConfig:init(props)
 						networkInterface = getNetwork(self),
 						assetId = state.assetId,
 						name = state.name,
-						description = state.description,
+						description = state.description or "",
 						genres = state.genres,
 						commentOn = state.commentOn,
 						copyOn = state.copyOn,
@@ -160,7 +171,7 @@ function AssetConfig:init(props)
 						getNetwork(self),
 						self.state.name,
 						getExtension(props.allowedAssetTypesForUpload, props.assetTypeEnum),
-						self.state.description,
+						self.state.description or "",
 						props.assetTypeEnum,
 						props.instances,
 						self.state.tags
@@ -183,7 +194,7 @@ function AssetConfig:init(props)
 						assetId = 0, 								-- empyt or 0 for new asset
 						assetType = props.assetTypeEnum.Name,		-- accepts both id and name of the assetType.
 						name = state.name,
-						description = state.description,
+						description = state.description or "",
 						genreTypeId = genreTypeId, 					-- Convert into a ID
 						copyOn = state.copyOn,
 						commentOn = state.commentOn,
@@ -225,7 +236,7 @@ function AssetConfig:init(props)
 		if changed then
 			tryPublishGeneral()
 			tryPublishVersions(changeTable)
-			if FFlagLuaPackagePermissions then
+			if FFlagLuaPackagePermissions and self.props.isPackageAsset then
 				tryPublishPermissions(changeTable)
 			end
 		end
@@ -426,6 +437,18 @@ function AssetConfig:didUpdate(previousProps, previousState)
 				})
 			end
 
+			if FFlagLuaPackagePermissions then
+				if next(assetConfigData) then
+					local creator = assetConfigData.Creator or {}
+					if creator.typeId == ConfigTypes.OWNER_TYPES.User and not creator.username then
+						self.props.dispatchGetUsername(creator.targetId)
+					elseif creator.typeId == ConfigTypes.OWNER_TYPES.Group and next(self.state.groupMetadata) == nil then
+						self.props.dispatchGetGroupMetadata(creator.targetId)
+						self.props.dispatchGetGroupRoleInfo(getNetwork(self), creator.targetId)
+					end
+				end
+			end
+
 			if game:GetFastFlag("CMSEnableCatalogTags") and assetConfigData.ItemTags and self.state.tags == nil then
 				self:setState({
 					tags = TagsUtil.getTagsFromItemTags(assetConfigData.ItemTags),
@@ -456,6 +479,16 @@ function AssetConfig.getDerivedStateFromProps(nextProps, lastState)
 				-- Free is a special onSale status
 				if FFlagEnablePurchasePluginFromLua2 and preCheckStatus == AssetConfigConstants.ASSET_STATUS.Free then
 					preCheckStatus = AssetConfigConstants.ASSET_STATUS.OnSale
+				end
+
+				if FFlagLuaPackagePermissions then
+					local creator = assetConfigData.Creator or {}
+					if creator.typeId == ConfigTypes.OWNER_TYPES.User then
+						nextProps.dispatchGetUsername(creator.targetId)
+					elseif creator.typeId == ConfigTypes.OWNER_TYPES.Group then
+						nextProps.dispatchGetGroupMetadata(creator.targetId)
+						nextProps.dispatchGetGroupRoleInfo(getNetwork(self), creator.targetId)
+					end
 				end
 
 				return {
@@ -784,7 +817,7 @@ function AssetConfig:render()
 							LayoutOrder = 3,
 						}),
 
-					Versions = ConfigTypes:isVersions(currentTab) and Roact.createElement(Versions, {
+						Versions = ConfigTypes:isVersions(currentTab) and Roact.createElement(Versions, {
 							Size = UDim2.new(1, -PREVIEW_WIDTH, 1, 0),
 
 							assetId = assetId,
@@ -915,6 +948,9 @@ local function mapDispatchToProps(dispatch)
 
 		setTab = function(tabItem)
 			dispatch(SetAssetConfigTab(tabItem))
+			if FFlagAssetConfigOverrideFromAnyScreen then
+				dispatch(ClearChange("OverrideAssetId"))
+			end
 		end,
 
 		overrideAsset = function(networkInterface, assetid, type, instances)
@@ -944,6 +980,18 @@ local function mapDispatchToProps(dispatch)
 		dispatchGetPackageHighestPermission = function(networkInterface, assetId)
 			dispatch(GetPackageHighestPermission(networkInterface, assetId))
 		end,
+
+		dispatchGetGroupMetadata = function(groupId)
+            dispatch(GetGroupMetadata(groupId))
+		end,
+		
+		dispatchGetUsername = function(userId)
+			dispatch(GetUsername(userId))
+		end, 
+
+		dispatchGetGroupRoleInfo = function(networkInterface, groupId)
+            dispatch(GetGroupRoleInfo(networkInterface, groupId))
+        end,
 	}
 end
 

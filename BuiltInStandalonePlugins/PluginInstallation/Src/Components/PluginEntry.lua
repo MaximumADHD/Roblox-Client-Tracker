@@ -1,3 +1,6 @@
+local FFlagEnableStudioServiceOpenBrowser = game:GetFastFlag("EnableStudioServiceOpenBrowser")
+local FFlagPluginManagementNewLoadingBar = game:DefineFastFlag("PluginManagementNewLoadingBar", false)
+
 local StudioService = game:getService("StudioService")
 local ContentProvider = game:getService("ContentProvider")
 local GuiService = game:getService("GuiService")
@@ -14,10 +17,16 @@ local PluginAPI2 = require(Plugin.Src.ContextServices.PluginAPI2)
 local SetPluginEnabledState = require(Plugin.Src.Thunks.SetPluginEnabledState)
 local UpdatePlugin = require(Plugin.Src.Thunks.UpdatePlugin)
 local Button = UILibrary.Component.Button
-local LoadingBar = require(Plugin.Src.Components.LoadingBar)
 local MoreDropdown = require(Plugin.Src.Components.MoreDropdown)
 
-local FFlagEnableStudioServiceOpenBrowser = game:GetFastFlag("EnableStudioServiceOpenBrowser")
+local LoadingBar
+if FFlagPluginManagementNewLoadingBar then
+	local UI = require(Plugin.Packages.Framework.UI)
+	LoadingBar = UI.FakeLoadingBar
+else
+	LoadingBar = require(Plugin.Src.Components.LoadingBar)
+end
+
 local LOADING_BAR_SIZE = UDim2.new(0, 120, 0, 8)
 local LOADING_BAR_TIME = 0.5
 
@@ -267,8 +276,8 @@ function PluginEntry:render()
 			AnchorPoint = Vector2.new(1, 0.5),
 			Position = buttonPosition,
 			Size = LOADING_BAR_SIZE,
-			HoldPercent = 1,
 			LoadingTime = LOADING_BAR_TIME,
+			HoldPercent = (not FFlagPluginManagementNewLoadingBar and 1) or nil,
 		}),
 
 		SuccessLabel = isUpdated and state.showSuccessMessage
@@ -308,7 +317,7 @@ function PluginEntry:render()
 
 		ShowMoreButton = Roact.createElement(Button, {
 			AnchorPoint = Vector2.new(0, 0.5),
-			Size = UDim2.new(0, 28, 0, 28),
+			Size = UDim2.new(0, Constants.HEADER_BUTTON_SIZE, 0, Constants.HEADER_BUTTON_SIZE),
 			Position = UDim2.new(1,Constants.PLUGIN_HORIZONTAL_PADDING*-1 - Constants.PLUGIN_CONTEXT_WIDTH,.5,0),
 			Style = "Default",
 			OnClick = self.onShowMoreActivated,

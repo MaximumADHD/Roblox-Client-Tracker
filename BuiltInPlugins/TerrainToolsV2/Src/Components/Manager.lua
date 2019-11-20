@@ -27,13 +27,10 @@ local ChangeTab = require(Actions.ChangeTab)
 local FFlagTerrainToolsRefactorTabsAndTools = game:GetFastFlag("TerrainToolsRefactorTabsAndTools")
 
 local Manager = Roact.PureComponent:extend(script.Name)
-
 local TabOrder = {
 	TabId.Create,
 	TabId.Region,
-	TabId.Build,
-	TabId.Sculpt,
-	TabId.Paint,
+	TabId.Edit,
 }
 
 -- Separate because of weird UIListLayout behavior - just creates top tab layer
@@ -41,13 +38,14 @@ local function createTabs(props)
 	local dispatchChangeTab = props.dispatchChangeTab
 	local currTab = props.currentTab
 
-	local buttonSize = UDim2.new(0.2, 0, 1, 0)
+	local buttonSize = UDim2.new(1 / #TabOrder, 0, 1, 0)
 
 	if FFlagTerrainToolsRefactorTabsAndTools then
 		local fragment = {
 			UIListLayout = Roact.createElement("UIListLayout", {
 				FillDirection = Enum.FillDirection.Horizontal,
 				SortOrder = Enum.SortOrder.LayoutOrder,
+				HorizontalAlignment = Enum.HorizontalAlignment.Center
 			}),
 		}
 
@@ -68,6 +66,7 @@ local function createTabs(props)
 				Layout = Roact.createElement("UIListLayout", {
 					FillDirection = Enum.FillDirection.Horizontal,
 					SortOrder = Enum.SortOrder.LayoutOrder,
+					HorizontalAlignment = Enum.HorizontalAlignment.Center
 				}),
 				Create = Roact.createElement(Tab, {
 					Size = buttonSize,
@@ -84,26 +83,12 @@ local function createTabs(props)
 					OnClick = dispatchChangeTab,
 
 				}),
-				Build = Roact.createElement(Tab, {
+				Edit = Roact.createElement(Tab, {
 					Size = buttonSize,
-					Name = localization:getText("Tab", "Build"),
+					Name = localization:getText("Tab", "Edit"),
 					OnClick = dispatchChangeTab,
-					Current = currTab == "Build",
+					Current = currTab == "Edit",
 					LayoutOrder = 2,
-				}),
-				Sculpt = Roact.createElement(Tab, {
-					Size = buttonSize,
-					Name = localization:getText("Tab", "Sculpt"),
-					OnClick = dispatchChangeTab,
-					Current = currTab == "Sculpt",
-					LayoutOrder = 3,
-				}),
-				Paint = Roact.createElement(Tab, {
-					Size = buttonSize,
-					Name = localization:getText("Tab", "Paint"),
-					OnClick = dispatchChangeTab,
-					Current = currTab == "Paint",
-					LayoutOrder = 4,
 				}),
 			})
 		end)

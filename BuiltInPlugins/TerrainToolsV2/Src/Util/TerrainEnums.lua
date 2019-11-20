@@ -35,12 +35,16 @@ TerrainEnums.ToolId = {
 	None = "None",
 }
 
+-- TODO: Remove Build, Sculpt and Paint tabs when cleaning up
+-- They have been replaced by Edit
+-- Also remove them from the localization CSVs
 TerrainEnums.TabId = {
 	Create = "Create",
 	Build = "Build",
 	Region = "Region",
 	Sculpt = "Sculpt",
 	Paint = "Paint",
+	Edit = "Edit",
 }
 
 TerrainEnums.PivotType = {

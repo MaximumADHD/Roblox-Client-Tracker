@@ -30,9 +30,6 @@ return function(dependencies)
 	return function(nextDispatch, store)
 		return function(action)
 			if FFlagTerrainToolMetrics then
-				for i,v in pairs(action) do
-					print(i,v)
-				end
 				if reportAction[action.type] then
 					reportAction[action.type](dependencies, store, action)
 				end

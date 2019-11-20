@@ -112,6 +112,7 @@ Images.ARROW_SPRITESHEET = "rbxasset://textures/StudioSharedUI/arrowSpritesheet.
 
 Images.AVATAR_MASK = "rbxasset://textures/StudioSharedUI/avatarMask.png"
 
-Images.DEFAULT_THUMBNAIL = "rbxasset://textures/StudioToolbox/AssetConfig/menu_friends.png"
+Images.DEFAULT_USER_THUMBNAIL = "rbxasset://textures/StudioSharedUI/default_user.png"
+Images.DEFAULT_GROUP_THUMBNAIL = "rbxasset://textures/StudioSharedUI/default_group.png"
 
 return wrapStrictTable(Images)

@@ -116,6 +116,28 @@ function UtilAndTab:render()
 
 	local useDropDown = tabOverLap < TAB_OVERALAP_THESHOLD and windowWidth > 0
 
+	local buttons = nil
+
+	if settings():GetFFlag("DevConsoleLogMemoryButton") then
+		local height = formFactor == Constants.FormFactor.Small and SMALL_UTIL_HEIGHT or UTIL_HEIGHT
+		local leftOffset = formFactor == Constants.FormFactor.Small and 6 or 7
+		buttons = Roact.createElement("Frame", {
+			Position = UDim2.new(1, -leftOffset * CS_BUTTON_WIDTH - PADDING, 0, 0),
+			Size = UDim2.new(0, 5*CS_BUTTON_WIDTH, 0, height),
+			BackgroundTransparency = 1.0,
+		}, {
+			Layout = Roact.createElement("UIGridLayout", {
+				CellPadding = UDim2.new(0, PADDING, 0, 0),
+				CellSize = UDim2.new(0, CS_BUTTON_WIDTH, 0, height),
+				SortOrder = Enum.SortOrder.LayoutOrder,
+				HorizontalAlignment = Enum.HorizontalAlignment.Right,
+				VerticalAlignment = Enum.VerticalAlignment.Top,
+				FillDirectionMaxCells = 5,
+			}),
+			unpack(self.props[Roact.Children] or {})
+		})
+	end
+
 	if (formFactor == Constants.FormFactor.Small) or
 		useDropDown then
 		local frameHeight = SMALL_UTIL_HEIGHT + SMALL_PADDING
@@ -190,7 +212,6 @@ function UtilAndTab:render()
 						layoutOrder = 3,
 						onCheckBoxChanged = onCheckBoxChanged,
 					}),
-
 				}),
 
 				SearchButton = Roact.createElement("ImageButton", {
@@ -202,6 +223,7 @@ function UtilAndTab:render()
 
 					[Roact.Event.Activated] = self.showSearchBar,
 				}),
+				Buttons = buttons,
 			}),
 
 			-- the searchBar is only visible when there is an active searchterm in the textbox
@@ -312,6 +334,8 @@ function UtilAndTab:render()
 					cancelInput = self.cancelInput,
 					focusLost = self.focusLost,
 				}),
+
+				Buttons = buttons
 			}),
 		})
 	end

@@ -221,10 +221,14 @@ function GroupCollaboratorItem:render()
 							GroupCollaborator = props.GroupData and Roact.createElement(CollaboratorItem, {
 								Enabled = false,
 
+								SubjectType = Enum.CreatorType.Group,
+
 								CollaboratorName = props.GroupData.Name,
 								CollaboratorId = props.GroupData.Id,
-								CollaboratorIcon =  Urls.constructRBXThumbUrl(AssetConfigConstants.rbxThumbTypes["GroupIcon"], props.GroupData.Id,
-								AssetConfigConstants.rbxThumbSizes.GroupIconImageSize),
+								CollaboratorIcon =  Urls.constructRBXThumbUrl(AssetConfigConstants.rbxThumbTypes["GroupIcon"], props.GroupData.Id, 
+									AssetConfigConstants.rbxThumbSizes.GroupIconImageSize),
+								UseMask = false,
+								
 								Action = sameAction and getLabelForAction(localized, sameAction) or localized.PackagePermissions.ActionDropdown.MultipleLabel,
 								Items = anyLocked and {} or props.Items,
 								
@@ -233,6 +237,7 @@ function GroupCollaboratorItem:render()
 								Removed = props.Removed,
 
 								IsLoading = #rolesets == 0,
+
 								
 								-- mwang, 10/28/2019, commented out for the time being because it can be used later when adding group collaborators to a package.
 								-- PermissionChanged = function(newPermission)

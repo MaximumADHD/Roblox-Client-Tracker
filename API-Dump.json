@@ -19953,6 +19953,24 @@
             "Members": [
                 {
                     "MemberType": "Function",
+                    "Name": "GetDocumentationUrl",
+                    "Parameters": [
+                        {
+                            "Name": "partialUrl",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "GetAsync",
                     "Parameters": [
                         {

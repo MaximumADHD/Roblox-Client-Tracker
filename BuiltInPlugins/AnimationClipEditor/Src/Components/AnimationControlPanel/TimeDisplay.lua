@@ -69,7 +69,7 @@ function TimeDisplay:init()
 
 			local newLength = StringUtils.parseTime(rbx.Text, frameRate) or 0
 			newLength = math.min(newLength, maxLength)
-			newLength = math.max(newLength, endFrame, Constants.DEFAULT_FRAMERATE)
+			newLength = math.max(newLength, endFrame, animationData.Metadata.FrameRate)
 			rbx.Text = showAsTime and StringUtils.formatTime(newLength, frameRate) or tostring(newLength)
 			updateEditingLength(newLength)
 		end

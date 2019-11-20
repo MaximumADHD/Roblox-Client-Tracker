@@ -69,7 +69,7 @@ return function(patchInfo)
 				local salesStatusOverride = patchInfo.saleStatus
 
 				-- Work around for setting the free plugins.
-				if tonumber(patchInfo.price) <= 0 then
+				if patchInfo.price and tonumber(patchInfo.price) <= 0 then
 					salesStatusOverride = AssetConfigConstants.ASSET_STATUS.Free
 				end
 

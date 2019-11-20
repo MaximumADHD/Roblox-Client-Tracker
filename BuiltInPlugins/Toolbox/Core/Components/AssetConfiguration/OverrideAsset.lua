@@ -30,6 +30,7 @@ local ContextGetter = require(Util.ContextGetter)
 local Constants = require(Util.Constants)
 local AssetConfigUtil = require(Util.AssetConfigUtil)
 local getUserId = require(Util.getUserId)
+local PagedRequestCursor = require(Util.PagedRequestCursor)
 
 local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
@@ -39,6 +40,10 @@ local getNetwork = ContextGetter.getNetwork
 local Requests = Plugin.Core.Networking.Requests
 local GetOverrideAssetRequest = require(Requests.GetOverrideAssetRequest)
 local GetAssetConfigManageableGroupsRequest = require(Requests.GetAssetConfigManageableGroupsRequest)
+
+local UpdateAssetConfigStore = require(Plugin.Core.Actions.UpdateAssetConfigStore)
+
+local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 
 local OverrideAsset = Roact.PureComponent:extend("OverrideAsset")
 
@@ -63,6 +68,15 @@ function OverrideAsset:init(props)
 			selectIndex = index,
 			selectItem = item,
 		})
+
+		-- We supported override plugin only after this change.
+		if FFlagEnablePurchasePluginFromLua2 then
+			self.props.updateStore({
+				fetchedAll = false,
+				loadingPage = 0,
+				overrideCursor = PagedRequestCursor.createDefaultCursor(),
+			})
+		end
 	end
 
 	self.getOverrideAssetsFunc = function(targetPage)
@@ -191,6 +205,10 @@ local function mapDispatchToProps(dispatch)
 
 		getManageableGroups = function(networkInterface, DEPRECATED_userId)
 			dispatch(GetAssetConfigManageableGroupsRequest(networkInterface, DEPRECATED_userId))
+		end,
+
+		updateStore = function(storeData)
+			dispatch(UpdateAssetConfigStore(storeData))
 		end,
 	}
 end

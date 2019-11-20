@@ -62,7 +62,7 @@ local TagsComponent = require(AssetConfiguration.CatalogTags.TagsComponent)
 local PublishAsset = Roact.PureComponent:extend("PublishAsset")
 
 local NAME_HEIGHT = 100
-local DESC_HEIGHT = 320
+local DESC_HEIGHT = 180
 local ACCESS_HEIGHT = 70
 local ASSET_TYPE_HEIGHT = 60
 local GENRE_HEIGHT = 70

@@ -23,6 +23,9 @@ local LabeledElementPair = require(ToolParts.LabeledElementPair)
 
 local FRAME_BORDER_COLOR1 = Color3.new(227/255, 227/255, 227/255)
 
+local FFlagTerrainToolsHoldAltToSelectMaterial = game:GetFastFlag("TerrainToolsHoldAltToSelectMaterial")
+local TerrainInterface = FFlagTerrainToolsHoldAltToSelectMaterial and require(Plugin.Src.ContextServices.TerrainInterface)
+
 local MaterialSettings = Roact.PureComponent:extend(script.Name)
 
 local materialsList = {	--Interface order is defined by order here
@@ -121,6 +124,11 @@ local materialsList = {	--Interface order is defined by order here
 }
 
 function MaterialSettings:init()
+	if FFlagTerrainToolsHoldAltToSelectMaterial then
+		self.terrainBrush = TerrainInterface.getTerrainBrush(self)
+		assert(self.terrainBrush, "MaterialSettings requires a TerrainBrush from context")
+	end
+
 	self.state = {
 		hoverKey = nil
 	}
@@ -129,6 +137,23 @@ function MaterialSettings:init()
 		self:setState({
 			hoverKey = index
 		})
+	end
+
+	if FFlagTerrainToolsHoldAltToSelectMaterial then
+		self.selectMaterial = function(materialEnum)
+			self.props.setText(materialEnum, "Material")
+		end
+
+		self.materialSelectedConnection = self.terrainBrush:subscribeToMaterialSelectRequested(self.selectMaterial)
+	end
+end
+
+if FFlagTerrainToolsHoldAltToSelectMaterial then
+	function MaterialSettings:willUnmount()
+		if self.materialSelectedConnection then
+			self.materialSelectedConnection:disconnect()
+			self.materialSelectedConnection = nil
+		end
 	end
 end
 
@@ -176,7 +201,11 @@ function MaterialSettings:render()
 					Roact.createElement("ImageButton", {
 						Image = TexturePath .. v.image,
 						[Roact.Event.Activated] = function()
-							self.props.setText(v.enum, "Material")
+							if FFlagTerrainToolsHoldAltToSelectMaterial then
+								self.selectMaterial(v.enum)
+							else
+								self.props.setText(v.enum, "Material")
+							end
 						end,
 						BackgroundColor3 = Color3.new(1, 1, 1),
 						BorderSizePixel = (material == v.enum) and 2 or 0,

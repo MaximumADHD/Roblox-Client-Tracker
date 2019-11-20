@@ -24,6 +24,7 @@ local FFlagStudioToolboxFixMouseHover = settings():GetFFlag("StudioToolboxFixMou
 local FFlagPluginAccessAndInstallationInStudio = settings():GetFFlag("PluginAccessAndInstallationInStudio")
 local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 local FFlagEditAssetForManagedAssets = game:DefineFastFlag("EditAssetForManagedAssets", false)
+local FFlagFixAssetTextTruncation = game:DefineFastFlag("FixAssetTextTruncation", false)
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -357,7 +358,8 @@ function Asset:render()
 						TextXAlignment = Enum.TextXAlignment.Center,
 						TextYAlignment = Enum.TextYAlignment.Top,
 						ClipsDescendants = false,
-						TextTruncate = Enum.TextTruncate.AtEnd
+						TextTruncate = FFlagFixAssetTextTruncation and Enum.TextTruncate.None
+							or Enum.TextTruncate.AtEnd,
 					}),
 				}),
 			})

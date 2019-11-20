@@ -6,6 +6,8 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 
+local FFlagTerrainToolsRefactorTerrainImporter = game:GetFastFlag("TerrainToolsRefactorTerrainImporter")
+
 local UILibrary = Plugin.Packages.UILibrary
 local RoundTextButton = require(UILibrary.Components.RoundTextButton)
 local Localizing = require(UILibrary.Localizing)
@@ -16,9 +18,9 @@ local withTheme = Theme.withTheme
 local ToolParts = script.Parent.ToolParts
 local Panel = require(ToolParts.Panel)
 local LabeledElementPair = require(ToolParts.LabeledElementPair)
-local LabeledTextInput = require(ToolParts.LabeledTextInput)
 local MapSettings = require(ToolParts.MapSettings)
 local AssetIdSelector = require(ToolParts.AssetIdSelector)
+local ImportProgressFrame = require(Plugin.Src.Components.ImportProgressFrame)
 
 local Actions = Plugin.Src.Actions
 local ApplyToolAction = require(Actions.ApplyToolAction)
@@ -27,18 +29,9 @@ local ChangeSize = require(Actions.ChangeSize)
 local SetUseColorMap = require(Actions.SetUseColorMap)
 
 local Functions = Plugin.Src.Components.Functions
-local TerrainImporter = require(Functions.TerrainImporter)
-
-local TexturePath = "rbxasset://textures/TerrainTools/"
-local TOGGLE_ON = TexturePath .. "import_toggleOn.png"
-local TOGGLE_OFF = TexturePath .. "import_toggleOff.png"
-
--- be sure to localize these strings
-local MIN_STUDS = 5
-local MAX_STUDS = 16384
-
-local MIN_STUDS_ERROR_STR = string.format("Input must be greater than %d studs.", MIN_STUDS - 1)
-local MAX_STUDS_ERROR_STR = string.format("Input can not exceed %d studs.", MAX_STUDS)
+local TerrainImporter = not FFlagTerrainToolsRefactorTerrainImporter and require(Functions.TerrainImporter) or nil
+local TerrainInterface = FFlagTerrainToolsRefactorTerrainImporter
+	and require(Plugin.Src.ContextServices.TerrainInterface)
 
 local REDUCER_KEY = "ImportTool"
 
@@ -48,12 +41,33 @@ function Import:init()
 	self.mainFrameRef = Roact.createRef()
 	self.layoutRef	= Roact.createRef()
 
-	self.state = {
-		validatedMapSettings = true,
-		validatedHeightMap = nil,
-		validatedColorMap = nil,
-		importButtonActive = true,
-	}
+	if FFlagTerrainToolsRefactorTerrainImporter then
+		self.terrainImporter = TerrainInterface.getTerrainImporter(self)
+		assert(self.terrainImporter, "Import component requires a TerrainImporter from context")
+	end
+
+	if FFlagTerrainToolsRefactorTerrainImporter then
+		self.state = {
+			validatedMapSettings = true,
+			validatedHeightMap = nil,
+			validatedColorMap = nil,
+
+			-- If we open the import tool and there's an import in progress
+			-- Then we want to initialize with that state
+			isImporting = self.terrainImporter:isImporting(),
+			importProgress = self.terrainImporter:getImportProgress(),
+		}
+
+	else
+		self.state = {
+			validatedMapSettings = true,
+			validatedHeightMap = nil,
+			validatedColorMap = nil,
+
+			importButtonActive = true,
+		}
+	end
+
 	-- this function is used to propagate changes back to rodux from the mapsettings
 	self.onTextEnter = function(text, container)
 		-- warning should be displayed using the
@@ -94,14 +108,25 @@ function Import:init()
 	end
 
 	self.updateImportProps = function()
-		TerrainImporter.ChangeProperties({
-			size = Vector3.new(self.props.Size.X, self.props.Size.Y, self.props.Size.Z),
-			position = Vector3.new(self.props.Position.X, self.props.Position.Y, self.props.Position.Z),
-			useColorMap = self.props.UseColorMap,
+		if FFlagTerrainToolsRefactorTerrainImporter then
+			self.terrainImporter:updateSettings({
+				size = Vector3.new(self.props.Size.X, self.props.Size.Y, self.props.Size.Z),
+				position = Vector3.new(self.props.Position.X, self.props.Position.Y, self.props.Position.Z),
+				useColorMap = self.props.UseColorMap,
 
-			heightMapUrl = self.state.validatedHeightMap,
-			colorMapUrl = self.state.validatedColorMap,
-		})
+				heightMapUrl = self.state.validatedHeightMap,
+				colorMapUrl = self.state.validatedColorMap,
+			})
+		else
+			TerrainImporter.ChangeProperties({
+				size = Vector3.new(self.props.Size.X, self.props.Size.Y, self.props.Size.Z),
+				position = Vector3.new(self.props.Position.X, self.props.Position.Y, self.props.Position.Z),
+				useColorMap = self.props.UseColorMap,
+
+				heightMapUrl = self.state.validatedHeightMap,
+				colorMapUrl = self.state.validatedColorMap,
+			})
+		end
 	end
 
 	self.mapSettingsValidated = function(validatedMapSettings)
@@ -122,10 +147,35 @@ function Import:init()
 		})
 	end
 
+	-- TODO: Remove when removing FFlagTerrainToolsRefactorTerrainImporter
 	self.setImportButtonState = function(isActive)
 		self:setState({
 			importButtonActive = isActive
 		})
+	end
+
+	self.toggleUseColorMap = function()
+		if self.props.dispatchSetUseColorMap then
+			self.props.dispatchSetUseColorMap(not self.props.UseColorMap)
+		end
+	end
+
+	if FFlagTerrainToolsRefactorTerrainImporter then
+		self.onImportButtonClicked = function()
+			self.terrainImporter:startImport()
+		end
+
+		self.onImportingStateChangedConnnection = self.terrainImporter:subscribeToImportingStateChanged(function(importing)
+			self:setState({
+				isImporting = importing,
+			})
+		end)
+
+		self.onImportProgressChangedConnection = self.terrainImporter:subscribeToImportProgressChanged(function(progress)
+			self:setState({
+				importProgress = progress,
+			})
+		end)
 	end
 end
 
@@ -135,11 +185,25 @@ end
 
 function Import:didMount()
 	self.updateImportProps()
-	TerrainImporter.SetImportButtonStateFunc(self.setImportButtonState)
+	if not FFlagTerrainToolsRefactorTerrainImporter then
+		TerrainImporter.SetImportButtonStateFunc(self.setImportButtonState)
+	end
 end
 
 function Import:willUnmount()
-	TerrainImporter.SetImportButtonStateFunc(nil)
+	if FFlagTerrainToolsRefactorTerrainImporter then
+		if self.onImportingStateChangedConnnection then
+			self.onImportingStateChangedConnnection:disconnect()
+			self.onImportingStateChangedConnnection = nil
+		end
+
+		if self.onImportProgressChangedConnection then
+			self.onImportProgressChangedConnection:disconnect()
+			self.onImportProgressChangedConnection = nil
+		end
+	else
+		TerrainImporter.SetImportButtonStateFunc(nil)
+	end
 end
 
 function Import:render()
@@ -147,9 +211,19 @@ function Import:render()
 	local position = self.props.Position
 	local useColorMap = self.props.UseColorMap
 
-	local importIsActive = self.state.importButtonActive and
-		self.state.validatedHeightMap and
-		self.state.validatedMapSettings
+	local importInProgress = self.state.isImporting
+	local importProgress = self.state.importProgress
+
+	local importIsActive
+	if FFlagTerrainToolsRefactorTerrainImporter then
+		importIsActive = (not importInProgress)
+			and self.state.validatedHeightMap
+			and self.state.validatedMapSettings
+	else
+		importIsActive = self.state.importButtonActive
+			and self.state.validatedHeightMap
+			and self.state.validatedMapSettings
+	end
 
 	return withTheme(function(theme)
 		return withLocalization(function(localization)
@@ -191,11 +265,7 @@ function Import:render()
 							Size = UDim2.new(0, 27, 0, 16),
 							Image = useColorMap and toggleOn or toggleOff,
 							BackgroundTransparency = 1,
-							[Roact.Event.Activated] = function()
-								if self.props.dispatchSetUseColorMap then
-									self.props.dispatchSetUseColorMap(not useColorMap)
-								end
-							end,
+							[Roact.Event.Activated] = self.toggleUseColorMap,
 						}),
 					}),
 					AssetIdField = Roact.createElement(AssetIdSelector, {
@@ -224,12 +294,17 @@ function Import:render()
 						Style = theme.roundTextButtonTheme.styleSheet,
 						TextSize = theme.roundTextButtonTheme.textSize,
 
-						OnClicked = function()
+						OnClicked = FFlagTerrainToolsRefactorTerrainImporter and self.onImportButtonClicked or function()
 							TerrainImporter.ImportTerrain(localization)
 						end,
 					}),
-				})
+				}),
 
+				ImportProgressFrame = FFlagTerrainToolsRefactorTerrainImporter
+					and importInProgress
+					and Roact.createElement(ImportProgressFrame, {
+					ImportProgress = importProgress,
+				})
 			})
 		end)
 	end)

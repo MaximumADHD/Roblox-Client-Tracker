@@ -52,6 +52,8 @@ Studio.App.BetaFeatures.EnableNewLuaVMTitle,,Enable New Lua VM,Enable New Lua VM
 Studio.App.BetaFeatures.LearnMoreTooltip,,Learn More,Learn More
 Studio.App.BetaFeatures.LuaPublishWorkflowDescription,,Uses the new lua-based publish workflow,Uses the new lua-based publish workflow
 Studio.App.BetaFeatures.LuaPublishWorkflowTitle,,Lua Publish Workflow,Lua Publish Workflow
+Studio.App.BetaFeatures.NewScriptFoldStateDescription,,Enables new improved behavior for code folding in the Script Editor.,Enables new improved behavior for code folding in the Script Editor.
+Studio.App.BetaFeatures.NewScriptFoldStateTitle,,Script Editor Folds Behavior Beta,Script Editor Folds Behavior Beta
 Studio.App.BetaFeatures.PackagePermissionsDescription,,"Add any group, user, or role as a user or editor for your packages through the Package Management action in Game Explorer","Add any group, user, or role as a user or editor for your packages through the Package Management action in Game Explorer"
 Studio.App.BetaFeatures.PackagePermissionsTitle,,Packages Permissions,Packages Permissions
 Studio.App.BetaFeatures.RestartStudioTitle,,Restart Studio,Restart Studio
@@ -313,48 +315,29 @@ Studio.App.GameWidget.Public,,Public,Public
 Studio.App.GameWidget.TemplateHasInstruction,,This template contains instructions about how to get started in Studio,This template contains instructions about how to get started in Studio
 Studio.App.GamesPageController.Alphabetical,,Alphabetical,Alphabetical
 Studio.App.GamesPageController.ArchiveGame,,Archive Game,Archive Game
-Studio.App.GamesPageController.ArchiveGameDetails,,<p>Archiving a game makes it private so only <br>you can play. Any running servers will be <br>shutdown. <a href='https://wiki.roblox.com/'>Learn more</a><br><br>Are you sure you want to archive this game?</p>,<p>Archiving a game makes it private so only <br>you can play. Any running servers will be <br>shutdown. <a href='https://wiki.roblox.com/'>Learn more</a><br><br>Are you sure you want to archive this game?</p>
-Studio.App.GamesPageController.ArchiveGameFail,,Failed to archive game,Failed to archive game
 Studio.App.GamesPageController.Archived,,Archived,Archived
-Studio.App.GamesPageController.ArchivedFile1,,Archived %1,Archived %1
 Studio.App.GamesPageController.ArchivingAGameMakesItPrivate,,<p>Archiving a game makes it private so only <br>you can play. Any running servers will be <br>shutdown. <a href='https://wiki.roblox.com/'>Learn more</a><br><br>Are you sure you want to archive this game?</p>,<p>Archiving a game makes it private so only <br>you can play. Any running servers will be <br>shutdown. <a href='https://wiki.roblox.com/'>Learn more</a><br><br>Are you sure you want to archive this game?</p>
+Studio.App.GamesPageController.ArchivingAGameMakesItPrivate1,,<p>Archiving a game makes it private so only <br>you can play. Any running servers will be <br>shutdown. <a href='%1'>Learn more</a><br><br>Are you sure you want to archive this game?</p>,<p>Archiving a game makes it private so only <br>you can play. Any running servers will be <br>shutdown. <a href='%1'>Learn more</a><br><br>Are you sure you want to archive this game?</p>
 Studio.App.GamesPageController.CantOpenArchivedGame,,You cannot open archived games. You must restore the game to open it.,You cannot open archived games. You must restore the game to open it.
-Studio.App.GamesPageController.ConfirmPrivateWarn,,"Are you sure you want to make this game private?
-This will shutdown all running servers.","Are you sure you want to make this game private?
-This will shutdown all running servers."
 Studio.App.GamesPageController.ConfirmRemoveSelf,,Are you sure you want to remove yourself from this game? You will no longer be able to edit it.,Are you sure you want to remove yourself from this game? You will no longer be able to edit it.
-Studio.App.GamesPageController.ConfirmTeamCreateOff,,"Turning off team create may result in loss of work.
-Are you sure?","Turning off team create may result in loss of work.
-Are you sure?"
 Studio.App.GamesPageController.DateCreated,,Date Created,Date Created
 Studio.App.GamesPageController.DateCreatedDescending,,Date Created (Descending),Date Created (Descending)
-Studio.App.GamesPageController.FailedPublic,,Failed to make game public,Failed to make game public
 Studio.App.GamesPageController.FailedToLeaveTeamCreateGame,,Failed to leave team create game.,Failed to leave team create game.
 Studio.App.GamesPageController.FailedToMakeGamePublic,,Failed to make game public,Failed to make game public
 Studio.App.GamesPageController.FailedToOpenLocalFile,,Failed to open local file,Failed to open local file
 Studio.App.GamesPageController.LastModified,,Last Modified,Last Modified
-Studio.App.GamesPageController.LeaveTeamCreateFail,,Failed to leave team create game.,Failed to leave team create game.
-Studio.App.GamesPageController.MakePrivateFail,,Failed to make game private,Failed to make game private
-Studio.App.GamesPageController.MakePublicFail,,Failed to make game public,Failed to make game public
 Studio.App.GamesPageController.MakingGamePrivate,,Making game private,Making game private
 Studio.App.GamesPageController.PromptUserForMakingGamePrivate,Do not translate \n,"Are you sure you want to make this game private?
 This will shutdown all running servers.","Are you sure you want to make this game private?
 This will shutdown all running servers."
-Studio.App.GamesPageController.RemoveTeamCreateConfirm,,Are you sure you want to remove yourself from this game? You will no longer be able to edit it.,Are you sure you want to remove yourself from this game? You will no longer be able to edit it.
 Studio.App.GamesPageController.RemoveTeamCreateGame,,Remove Team Create Game,Remove Team Create Game
-Studio.App.GamesPageController.RestoreGameFail,,Failed to restore game,Failed to restore game
 Studio.App.GamesPageController.Restored,,Restored,Restored
-Studio.App.GamesPageController.RestoredFile1,,Restored %1,Restored %1
-Studio.App.GamesPageController.UndoArchiveGameFail,,Failed to undo archived game,Failed to undo archived game
-Studio.App.GamesPageController.UndoRestoreGameFail,,Failed to undo restored game,Failed to undo restored game
-Studio.App.GamesPageController.YouCannotOpenArchivedGames,,You cannot open archived games. You must restore the game to open it.,You cannot open archived games. You must restore the game to open it.
 Studio.App.GoToLineDialog.LineNumber,,Line number:,Line number:
 Studio.App.GradientEditor.Time,,Time,Time
 Studio.App.IDEGameSettingsLinkDefinition.GameSettingsNotAvailable,,Game Settings not available,Game Settings not available
 Studio.App.IDEGameSettingsLinkDefinition.OpenGameSettings,,Open Game Settings,Open Game Settings
 Studio.App.IdeDoc.AllRobloxPlaceFilesFileFilter,Roblox IDE Doc,All Roblox Place Files(*rbxl *rbxlx);; Roblox Place Files(*.rbxl);; Roblox XML Place Files(*.rbxlx),All Roblox Place Files(*rbxl *rbxlx);; Roblox Place Files(*.rbxl);; Roblox XML Place Files(*.rbxlx)
 Studio.App.IdeDoc.AnimationFilesFBX,Roblox IDE Doc,Animation Files (*fbx),Animation Files (*fbx)
-Studio.App.IdeDoc.Archive,Roblox IDE Doc,Discard,Discard
 Studio.App.IdeDoc.AudioDisabledGoToServerAudioBehaviorToChange,Roblox IDE Doc,Audio has been disabled. Please go to File->Settings->Studio and then Server Audio Behavior to change this.,Audio has been disabled. Please go to File->Settings->Studio and then Server Audio Behavior to change this.
 Studio.App.IdeDoc.AutoRecoveryFileCreated1,Roblox IDE Doc,%1 auto-recovery file was created,%1 auto-recovery file was created
 Studio.App.IdeDoc.AutoSaving,Roblox IDE Doc,Auto-Saving,Auto-Saving
@@ -453,7 +436,7 @@ Studio.App.IdeDoc.WouldYouLikeToSaveTheseChanges,Roblox IDE Doc,Would you like t
 Studio.App.IdeDoc.YouMustLogInToCreateMeshes,Roblox IDE Doc,You must log in to create meshes.,You must log in to create meshes.
 Studio.App.InsertObject.SearchObject1,,Search object %1,Search object %1
 Studio.App.InsertObjectWidget.FavoritesCategory,,Frequently Used,Frequently Used
-Studio.App.InsertObjectWidget.SelectInsertedObject,,Select inserted object,Select inserted object
+Studio.App.InsertObjectWidget.SelectInsertedObject,,Select object after insert,Select object after insert
 Studio.App.InsertServiceDialog.Done,,Done,Done
 Studio.App.InsertServiceDialog.InsertService,,Insert Service,Insert Service
 Studio.App.InstanceSelectionEditor.ClearValue,,Clear Value,Clear Value
@@ -592,7 +575,11 @@ Studio.App.MainWindow.UnableToOpenGameOrPlaceRestartApplication,Main Window,"Una
 Studio.App.MainWindow.UnableToOpenPlace2,Main Window,"Could not open the place ""%1"" with exception: ""%2"".","Could not open the place ""%1"" with exception: ""%2""."
 Studio.App.MainWindow.UploadingImageQuitAnyway,Main Window,Roblox is uploading an image. Quit anyway?,Roblox is uploading an image. Quit anyway?
 Studio.App.MainWindow.UploadingPlaceQuitPublish,Main Window,Unable to close Studio because we are currently publishing.,Unable to close Studio because we are currently publishing.
+Studio.App.MainWindow.UploadingPlaceQuitPublishAuto,Main Window,Publishing in progress. Studio will close automatically when complete.,Publishing in progress. Studio will close automatically when complete.
+Studio.App.MainWindow.UploadingPlaceQuitPublishFailed,Main Window,Failed To Publish. Please try again later.,Failed To Publish. Please try again later.
 Studio.App.MainWindow.UploadingPlaceQuitSave,Main Window,Unable to close Studio because we are currently saving.,Unable to close Studio because we are currently saving.
+Studio.App.MainWindow.UploadingPlaceQuitSaveAuto,Main Window,Saving in progress. Studio will close automatically when complete.,Saving in progress. Studio will close automatically when complete.
+Studio.App.MainWindow.UploadingPlaceQuitSaveFailed,Main Window,Failed To Save. Please try again later.,Failed To Save. Please try again later.
 Studio.App.MainWindow.UploadingVideoQuitAnyway,Main Window,Roblox is uploading a video. Quit anyway?,Roblox is uploading a video. Quit anyway?
 Studio.App.MainWindow.Version1,Main Window,Version %1,Version %1
 Studio.App.MainWindow.VersionLatest,About Dialog,Latest version available %1,Latest version available %1
@@ -737,7 +724,7 @@ Studio.App.PackageMassUpdate.WarningMessage,,Note: We recommend closing other St
 Studio.App.PackageResourceController.PackageDetails,,Package Details,Package Details
 Studio.App.PackageResourceController.PackageInsertError1,,Game Explorer Package insert error: %1,Game Explorer Package insert error: %1
 Studio.App.PackageUtilities.GoToRevisionError1,,Package go to revision error: %1,Package go to revision error: %1
-Studio.App.PackageUtilities.ModifiedPackagesInDMError,,Error: Cannot save place to Roblox while there are packages with unpublished changes.,Error: Cannot save place to Roblox while there are packages with unpublished changes.
+Studio.App.PackageUtilities.ModifiedPackagesInDMError,,Error: Cannot publish place to Roblox while there are packages with unpublished changes.,Error: Cannot publish place to Roblox while there are packages with unpublished changes.
 Studio.App.PackageUtilities.PendingPackagesInDMError,,Unable to publish this place as there may be modified packages. Please try again later.,Unable to publish this place as there may be modified packages. Please try again later.
 Studio.App.PackageUtilities.SelectInExplorer,Button text. The button allows user to select some packages in Explorer,Select in Explorer,Select in Explorer
 Studio.App.PackageUtilities.UndoChangesError1,,Package undo changes error: %1,Package undo changes error: %1
@@ -920,6 +907,7 @@ Studio.App.Property.SystemProductName,,System Product Name,System Product Name
 Studio.App.Property.TabWidth,,Tab Width,Tab Width
 Studio.App.Property.TextColor,,Text Color,Text Color
 Studio.App.Property.TextWrapping,,Text Wrapping,Text Wrapping
+Studio.App.Property.Theme,,Theme,Theme
 Studio.App.Property.ThreadPoolConfig,,Thread Pool Config,Thread Pool Config
 Studio.App.Property.ThreadPoolSize,,Thread Pool Size,Thread Pool Size
 Studio.App.Property.ThrottleAdjustTime,,Throttle Adjust Time,Throttle Adjust Time
@@ -1015,6 +1003,7 @@ Studio.App.PropertyEnum.Vertical,,Vertical,Vertical
 Studio.App.PropertyEnum.VeryFast,,Very Fast,Very Fast
 Studio.App.PropertyEnum.VerySlow,,Very Slow,Very Slow
 Studio.App.PropertyEnum.Vulkan,,Vulkan,Vulkan
+Studio.App.PropertyItems.DefaultTheme,,Default,Default
 Studio.App.PropertyItems.InvertMeshFaces,,The mesh you are importing contains odd number negative scales. Would you like to invert mesh faces?,The mesh you are importing contains odd number negative scales. Would you like to invert mesh faces?
 Studio.App.PropertyItems.MoveTheMesh,,Your mesh contains location data. Would you like to move your mesh to the given location?,Your mesh contains location data. Would you like to move your mesh to the given location?
 Studio.App.PropertyItems.NotAValidLocation1,,"""%1"" is not a valid content location.
@@ -1150,6 +1139,7 @@ Studio.App.RBXMainWindow.InsertClipboardContents,,Insert Clipboard contents,Inse
 Studio.App.RBXMainWindow.InsertFromFileElps,,Insert from File...,Insert from File...
 Studio.App.RBXMainWindow.InsertModels,,Insert Models,Insert Models
 Studio.App.RBXMainWindow.InsertObject,,Insert Object,Insert Object
+Studio.App.RBXMainWindow.InsertObjectAction,,Insert Object...,Insert Object...
 Studio.App.RBXMainWindow.InsertObjectsFromWeb,,Insert Objects from Web,Insert Objects from Web
 Studio.App.RBXMainWindow.InsertObjectsWidgetExplorer,,Open insert objects widget in explorer,Open insert objects widget in explorer
 Studio.App.RBXMainWindow.InsertPart,,Insert Part,Insert Part
@@ -1379,6 +1369,7 @@ Studio.App.RBXMainWindow.ZoomIn,,Zoom In,Zoom In
 Studio.App.RBXMainWindow.ZoomOut,,Zoom Out,Zoom Out
 Studio.App.RBXMainWindow.ZoomTo,,Zoom to,Zoom to
 Studio.App.RbxWorkspace.PluginInstallationFailed,,Plugin Installation failed,Plugin Installation failed
+Studio.App.RbxWorkspace.PluginModerationCheckFailed,,Plugin moderation check failed,Plugin moderation check failed
 Studio.App.RbxWorkspace.PressOkForSnapshot,,"Press OK when you've positioned the camera, and are ready to take a snapshot.","Press OK when you've positioned the camera, and are ready to take a snapshot."
 Studio.App.RbxWorkspace.Processing,,Processing...,Processing...
 Studio.App.RbxWorkspace.SnapshotInProgress,,Snapshot in progress...,Snapshot in progress...
@@ -1570,6 +1561,7 @@ Studio.App.RobloxRibbonMainWindow.InsertBlockPart,,Insert block part,Insert bloc
 Studio.App.RobloxRibbonMainWindow.InsertCylinderPart,,Insert cylinder part,Insert cylinder part
 Studio.App.RobloxRibbonMainWindow.InsertFromServiceSelection,,Insert service from a service selection,Insert service from a service selection
 Studio.App.RobloxRibbonMainWindow.InsertItemsFromTheToolbox,,Insert items from the toolbox,Insert items from the toolbox
+Studio.App.RobloxRibbonMainWindow.InsertObjectToolTip,,View list of insertable objects,View list of insertable objects
 Studio.App.RobloxRibbonMainWindow.InsertScriptsAndOtherAdvance,,Insert scripts and other advanced objects into the game,Insert scripts and other advanced objects into the game
 Studio.App.RobloxRibbonMainWindow.InsertSpherePart,,Insert sphere part,Insert sphere part
 Studio.App.RobloxRibbonMainWindow.InsertWedgePart,,Insert wedge part,Insert wedge part

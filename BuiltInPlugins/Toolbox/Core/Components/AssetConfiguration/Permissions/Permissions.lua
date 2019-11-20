@@ -38,7 +38,6 @@ local ContextHelper = require(Util.ContextHelper)
 local withLocalization = ContextHelper.withLocalization
 local withTheme = ContextHelper.withTheme
 
-local GetUsername = require(Plugin.Core.Thunks.GetUsername)
 local SearchCollaborators = require(Plugin.Core.Thunks.SearchCollaborators)
 local GetGroupRoleInfo = require(Plugin.Core.Thunks.GetGroupRoleInfo)
 
@@ -56,20 +55,11 @@ function Permissions:init()
     }
 end
 
-
-function Permissions:didMount()
-    if self.state.OwnerType == Enum.CreatorType.User then
-        self.props.GetUsername(self.props.Owner.targetId)
-    else
-        self.props.GetGroupRoleInfo(getNetwork(self), self.props.Owner.targetId)
-    end
-end
-
 --Uses props to display current settings values
 function Permissions:render()
 	local orderIterator = LayoutOrderIterator.new()
     
-    local hasPermission = self.props.currentUserPackagePermission == PermissionsConstants.OwnKey
+    local hasPermission = self.props.CurrentUserPackagePermission == PermissionsConstants.OwnKey
     local isUserOwnedPackage = self.state.OwnerType == Enum.CreatorType.User
     
     -- Text Label should only have 2 lines max
@@ -187,17 +177,13 @@ local function mapStateToProps(state, props)
     return { 
         OwnerName = state.ownerUsername,
         GroupMetadata = groupMetadata,
-        LocalUsername = localUsername,
         Permissions = permissions,
-        currentUserPackagePermission = currentUserPackagePermission,
+        CurrentUserPackagePermission = currentUserPackagePermission,
     }
 end
 
 local function mapDispatchToProps(dispatch)
     return {
-        GetUsername = function(userId)
-            dispatch(GetUsername(userId))
-        end,
         SearchRequested = function(...)
             dispatch(SearchCollaborators(...))
         end,
@@ -209,9 +195,7 @@ local function mapDispatchToProps(dispatch)
             dispatch(SetGroupMetadata(groupMetadata))
             dispatch(AddChange("groupMetadata", groupMetadata))
         end,
-        GetGroupRoleInfo = function(networkInterface, groupId)
-            dispatch(GetGroupRoleInfo(networkInterface, groupId))
-        end,
+        
     }
 end
 

@@ -38,6 +38,8 @@ local withTheme = Theme.withTheme
 local FocusedPrompt = require(Plugin.Src.Components.EditEventsDialog.FocusedPrompt)
 local TextBox = require(Plugin.Src.Components.TextBox)
 
+local UseCustomFPS = require(Plugin.LuaFlags.GetFFlagAnimEditorUseCustomFPS)
+
 local TextEntryPrompt = Roact.PureComponent:extend("TextEntryPrompt")
 
 function TextEntryPrompt:init(initialProps)
@@ -54,10 +56,18 @@ function TextEntryPrompt:init(initialProps)
 	self.onFocusChanged = function(rbx, focused, submitted)
 		if not focused then
 			local text = rbx.Text
+			local result
 			if submitted and text ~= "" then
-				self.props.OnTextSubmitted(text)
-			else
+				result = self.props.OnTextSubmitted(text)
+			elseif not UseCustomFPS() then
 				self.setCurrentText(text)
+			end
+			if UseCustomFPS() then
+				if result == true then
+					self.onClose()
+				else
+					self.setCurrentText(text)
+				end
 			end
 		end
 	end
@@ -78,6 +88,7 @@ function TextEntryPrompt:render()
 		local promptText = props.PromptText
 		local inputText = props.InputText
 		local noticeText = props.NoticeText
+		local hasError = props.HasError
 		local buttons = props.Buttons
 		local onButtonClicked = props.OnButtonClicked
 		local onTextSubmitted = props.OnTextSubmitted
@@ -104,8 +115,10 @@ function TextEntryPrompt:render()
 				else
 					if button then
 						if currentText ~= "" then
-							onTextSubmitted(currentText)
-							self.onClose()
+							local result = onTextSubmitted(currentText)
+							if not UseCustomFPS() or (result ~= false) then
+								self.onClose()
+							end
 						end
 					else
 						self.onClose()
@@ -171,7 +184,7 @@ function TextEntryPrompt:render()
 				TextYAlignment = Enum.TextYAlignment.Top,
 				Text = noticeText,
 				TextSize = dialogTheme.subTextSize,
-				TextColor3 = dialogTheme.subTextColor,
+				TextColor3 = hasError and dialogTheme.errorTextColor or dialogTheme.subTextColor,
 				TextWrapped = true,
 				Font = theme.font,
 			}),

@@ -31,6 +31,9 @@ function BaseBrush:init(initialProps)
 	assert(TerrainEnums.ToolId[initialProps.toolName], "cannot use basebrush if brush type is not known")
 
 	if FFlagTerrainToolsRefactorTerrainBrush then
+		self.pluginActivationController = TerrainInterface.getPluginActivationController(self)
+		assert(self.pluginActivationController, "BaseBrush requires a PluginActivationController from context")
+
 		self.terrainBrush = TerrainInterface.getTerrainBrush(self)
 		assert(self.terrainBrush, "BaseBrush requires a TerrainBrush from context")
 	end
@@ -180,34 +183,61 @@ function BaseBrush:init(initialProps)
 		end
 	end
 
-	self.initializeBrush = function()
+	self.DEPRECATED_initializeBrush = function()
 		local plugin = StudioPlugin.getPlugin(self)
 		local mouse = plugin:GetMouse()
 
 		coroutine.wrap(function()
-			if FFlagTerrainToolsRefactorTerrainBrush then
-				self.terrainBrush:activateTool(self.props.toolName)
-			else
-				TerrainBrush.Init(self.props.toolName, mouse)
-			end
+			TerrainBrush.Init(self.props.toolName, mouse)
 		end)()
 	end
 
 	if FFlagTerrainToolsRefactorTerrainBrush then
 		self.brushSizeChangedConnection = self.terrainBrush:subscribeToRequestBrushSizeChanged(self.brushSizeCallback)
 		self.brushStrengthChangedConnection = self.terrainBrush:subscribeToRequestBrushStrengthChanged(self.brushStrengthCallback)
+
+		-- Starts the terrain brush with the base brush's tool only if
+		-- active tool in plugin activation co
+		-- Starts the terrain brush with the base brush's tool only if
+		-- active tool in plugin activation controller is base brush's tool
+		self.safeStartWithTool = function()
+			-- :getActiveTool() returns ToolId.None if no tool is selected, so this works in that case too
+			if self.pluginActivationController:getActiveTool() == self.props.toolName then
+				coroutine.wrap(function()
+					self.terrainBrush:startWithTool(self.props.toolName)
+				end)()
+			end
+		end
+
+		-- When my tool becomes active, we want to run the terrain brush
+		self.onToolActivatedConnection = self.pluginActivationController:subscribeToToolActivated(self.safeStartWithTool)
+
+		-- Stop the terrain brush if the tool that was deselected is my tool
+		self.onToolDeactivatedConnection = self.pluginActivationController:subscribeToToolDeactivated(function(toolId)
+			if toolId == self.props.toolName then
+				self.terrainBrush:stop()
+			end
+		end)
 	end
 end
 
 function BaseBrush:didUpdate(previousProps, previousState)
 	if previousProps.toolName ~= self.props.toolName then
-		self:initializeBrush()
+		if FFlagTerrainToolsRefactorTerrainBrush then
+			self.safeStartWithTool()
+		else
+			self:DEPRECATED_initializeBrush()
+		end
 	end
 	self.updateBrushProperties()
 end
 
 function BaseBrush:didMount()
-	self:initializeBrush()
+	if FFlagTerrainToolsRefactorTerrainBrush then
+		self.safeStartWithTool()
+	else
+		self:DEPRECATED_initializeBrush()
+	end
 	self.updateBrushProperties()
 end
 
@@ -223,7 +253,23 @@ function BaseBrush:willUnmount()
 			self.brushStrengthChangedConnection = nil
 		end
 
-		self.terrainBrush:deactivate()
+		if self.onToolActivatedConnection then
+			self.onToolActivatedConnection:disconnect()
+			self.onToolActivatedConnection = nil
+		end
+
+		if self.onToolDeactivatedConnection then
+			self.onToolDeactivatedConnection:disconnect()
+			self.onToolDeactivatedConnection = nil
+		end
+
+		-- If the base brush is unmounting, but my tool is still active
+		-- Stop the terrain brush anyway
+		-- This case happens when BaseBrush unmounts before ToolSelectionListener:didUpdate()
+		-- Or when Roact.unmount() was used on the whole tree because the plugin window is closing
+		if self.pluginActivationController:getActiveTool() == self.props.toolName then
+			self.terrainBrush:stop()
+		end
 	else
 		TerrainBrush.Close()
 	end

@@ -14,7 +14,7 @@
 local PageName = "Avatar"
 
 local FFlagGameSettingsReorganizeHeaders = settings():GetFFlag("GameSettingsReorganizeHeaders")
-local FFlagAccessPermissions = settings():GetFFlag("StudioGameSettingsAccessPermissions")
+local FFlagStudioGameSettingsUseNewSettingsImpl2 = settings():GetFFlag("StudioGameSettingsUseNewSettingsImpl2")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -41,7 +41,7 @@ local createSettingsPage = require(Plugin.Src.Components.SettingsPages.createSet
 local MorpherRootPanel = require(Plugin.MorpherEditor.Code.Components.ComponentRootPanelExternal)
 
 local isPlaceDataAvailable = function(props)
-	if FFlagAccessPermissions then
+	if FFlagStudioGameSettingsUseNewSettingsImpl2 then
 		return game.GameId ~= 0
 	else
 		return props.CanManage
@@ -65,7 +65,7 @@ local function loadValuesToProps(getValue, state)
 		CurrentAvatarType = state.Settings.Current.universeAvatarType,
 		AssetOverrideErrors = state.Settings.Errors.universeAvatarAssetOverrides,
 
-		CanManage = (not FFlagAccessPermissions) and getValue("canManage"),
+		CanManage = (not FFlagStudioGameSettingsUseNewSettingsImpl2) and getValue("canManage"),
 	}
 end
 

@@ -30,8 +30,8 @@ return Rodux.createReducer({
 }, {
 	--[[ fired when the network request returns with information about a specific plugin ]]
 	SetPluginInfo = function(state, action)
-		local pluginTab = action.plugins
-		local dataTab = action.data
+		local pluginTab = action.plugins or {}
+		local dataTab = action.data or {}
 
 		local resultTab = {}
 		for _, entry in pairs(dataTab) do

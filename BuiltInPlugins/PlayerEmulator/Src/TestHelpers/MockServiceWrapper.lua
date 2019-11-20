@@ -5,23 +5,21 @@ local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
 local Rodux = require(Plugin.Packages.Rodux)
-local UILibrary = require(Plugin.Packages.UILibrary)
-local ServiceWrapper = require(Plugin.Src.Components.ServiceWrapper)
-local PluginTheme = require(Plugin.Src.Resources.PluginTheme)
+
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 local MockPlugin = require(Plugin.Src.TestHelpers.MockPlugin)
-local Localization = UILibrary.Studio.Localization
+local Http = require(Plugin.Packages.Http)
+local NetworkingContext = require(Plugin.Src.ContextServices.NetworkingContext)
+
+local ContextServices = require(Plugin.Packages.Framework.ContextServices)
+local globals = require(Plugin.Src.Util.CreatePluginGlobals)
 
 local MockServiceWrapper = Roact.Component:extend("MockSkeletonEditorServiceWrapper")
 
--- props.localization : (optional, UILibrary.Localization)
--- props.plugin : (optional, plugin)
--- props.storeState : (optional, table) a default state for the MainReducer
--- props.theme : (optional, Resources.PluginTheme)
 function MockServiceWrapper:render()
 	local localization = self.props.localization
 	if not localization then
-		localization = Localization.mock()
+		localization = ContextServices.Localization.mock()
 	end
 
 	local pluginInstance = self.props.plugin
@@ -32,16 +30,14 @@ function MockServiceWrapper:render()
 	local storeState = self.props.storeState
 	local store = Rodux.Store.new(MainReducer, storeState, { Rodux.thunkMiddleware })
 
-	local theme = self.props.theme
-	if not theme then
-		theme = PluginTheme.mock()
-	end
+	local networkingImpl = Http.Networking.mock()
 
-	return Roact.createElement(ServiceWrapper, {
-		localization = localization,
-		plugin = pluginInstance,
-		store = store,
-		theme = theme,
+	return ContextServices.provide({
+		ContextServices.Plugin.new(pluginInstance),
+		globals.theme,
+		localization,
+		ContextServices.Store.new(store),
+		NetworkingContext.new(networkingImpl),
 	}, self.props[Roact.Children])
 end
 

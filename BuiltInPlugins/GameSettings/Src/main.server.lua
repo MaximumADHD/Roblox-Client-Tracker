@@ -282,6 +282,7 @@ local function main()
 	-- it is for edit mode only!
 	if RunService:IsEdit() then
 		makePluginGui()
+		settingsButton.ClickableWhenViewportHidden = true
 		settingsButton.Enabled = true
 		settingsButton.Click:connect(function()
 			openGameSettings()

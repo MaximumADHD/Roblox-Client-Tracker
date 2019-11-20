@@ -4,6 +4,7 @@
 	Props:
 		string Name = The name of the product to purchase.
 		int Balance = The current user's Robux balance.
+		bool IsFree = Whether the plugin is a free plugin.
 
 		function OnClose = A callback for when the dialog is closed.
 ]]
@@ -39,9 +40,15 @@ function PurchaseDialog:render()
 		local onClose = props.OnClose
 		local name = props.Name
 		local balance = props.Balance or "---"
+		local isFree = props.IsFree
 
 		local textWidth = Constants.getTextSize(localizedContent.PurchaseFlow.CurrentBalance,
 			Constants.FONT_SIZE_MEDIUM).X
+
+		local title = isFree and localizedContent.PurchaseFlow.FreeTitle
+			or localizedContent.PurchaseFlow.BuyTitle
+		local header = isFree and localizedContent.PurchaseFlow.FreeSuccessHeader
+			or localizedContent.PurchaseFlow.SuccessHeader
 
 		return Roact.createElement(StyledDialog, {
 			Buttons = {
@@ -56,18 +63,17 @@ function PurchaseDialog:render()
 			ButtonWidth = Dialog.BUTTON_SIZE.X,
 			ButtonPadding = Dialog.BUTTON_PADDING,
 			TextSize = Constants.FONT_SIZE_LARGE,
-			Title = localizedContent.PurchaseFlow.BuyTitle,
+			Title = title,
 			Modal = true,
 		}, {
 			Header = Roact.createElement("TextLabel", {
 				Size = Dialog.HEADER_SIZE,
 				BackgroundTransparency = 1,
 
-				Text = localizedContent.PurchaseFlow.SuccessHeader,
+				Text = header,
 				TextSize = Constants.FONT_SIZE_TITLE,
 				Font = Constants.FONT_BOLD,
 				TextXAlignment = Enum.TextXAlignment.Left,
-				--TextYAlignment = Enum.TextYAlignment.Top,
 				TextColor3 = theme.purchaseDialog.promptText,
 			}),
 

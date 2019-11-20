@@ -18,7 +18,10 @@ local Constants = require(Plugin.Src.Util.Constants)
 local ContextMenu = require(Plugin.Src.Components.ContextMenu)
 local SetShowAsSeconds = require(Plugin.Src.Actions.SetShowAsSeconds)
 local ToggleSnapToKeys = require(Plugin.Src.Thunks.ToggleSnapToKeys)
+local SetFrameRate = require(Plugin.Src.Thunks.SetFrameRate)
 local SetShowEvents = require(Plugin.Src.Actions.SetShowEvents)
+
+local UseCustomFPS = require(Plugin.LuaFlags.GetFFlagAnimEditorUseCustomFPS)
 
 local SettingsMenu = Roact.PureComponent:extend("SettingsMenu")
 
@@ -39,12 +42,58 @@ function SettingsMenu:makeTimelineUnitMenu(localization)
 	}
 end
 
+function SettingsMenu:makeFrameRateMenu(localization)
+	local props = self.props
+	local animationData = props.AnimationData
+	if not animationData or not animationData.Metadata then
+		return
+	end
+
+	local currentFPS = animationData.Metadata.FrameRate
+
+	local isPresetFrameRate = false
+	for _, fps in pairs(Constants.FRAMERATES) do
+		if fps ~= Constants.FRAMERATES.CUSTOM and fps == currentFPS then
+			isPresetFrameRate = true
+			break
+		end
+	end
+
+	return {
+		Name = localization:getText("Settings", "FrameRate") ..": " ..currentFPS .." fps",
+		Items = {
+			{Name = "24 fps", Value = Constants.FRAMERATES.FPS_24},
+			{Name = "30 fps", Value = Constants.FRAMERATES.FPS_30},
+			{Name = "60 fps", Value = Constants.FRAMERATES.FPS_60},
+			{Name = "120 fps", Value = Constants.FRAMERATES.FPS_120},
+			{Name = localization:getText("Settings", "CustomFPS") .."...", Value = Constants.FRAMERATES.CUSTOM},
+		},
+
+		CurrentItem = isPresetFrameRate and currentFPS or Constants.FRAMERATES.CUSTOM,
+		ItemSelected = function(item)
+			if item.Value ~= Constants.FRAMERATES.CUSTOM then
+				props.SetFrameRate(item.Value)
+			else
+				if props.OnChangeFPS then
+					props.OnChangeFPS()
+				end
+			end
+		end,
+	}
+end
+
 function SettingsMenu:makeMenuActions(localization)
 	local props = self.props
 	local actions = {}
 
 	table.insert(actions, self:makeTimelineUnitMenu(localization))
 	table.insert(actions, Constants.MENU_SEPARATOR)
+
+	if UseCustomFPS() then
+		table.insert(actions, self:makeFrameRateMenu(localization))
+		table.insert(actions, Constants.MENU_SEPARATOR)
+	end
+
 	table.insert(actions, {
 		Name = localization:getText("Settings", "ShowEvents"),
 		IsEnabled = props.ShowEvents,
@@ -78,16 +127,23 @@ end
 
 local function mapStateToProps(state, props)
 	local status = state.Status
-	return {
+
+	local stateToProps = {
 		ShowAsSeconds = status.ShowAsSeconds,
 		SnapToKeys = status.SnapToKeys,
 		ShowEvents = status.ShowEvents,
 		Analytics = state.Analytics,
 	}
+
+	if UseCustomFPS() then
+		stateToProps["AnimationData"] = state.AnimationData
+	end
+
+	return stateToProps
 end
 
 local function mapDispatchToProps(dispatch)
-	return {
+	local dispatchToProps = {
 		SetShowAsSeconds = function(showAsSeconds)
 			dispatch(SetShowAsSeconds(showAsSeconds))
 		end,
@@ -100,6 +156,14 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetShowEvents(showEvents))
 		end,
 	}
+
+	if UseCustomFPS() then
+		dispatchToProps["SetFrameRate"] = function(frameRate)
+			dispatch(SetFrameRate(frameRate))
+		end
+	end
+
+	return dispatchToProps
 end
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(SettingsMenu)

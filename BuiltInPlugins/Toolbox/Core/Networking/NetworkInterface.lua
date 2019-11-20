@@ -4,6 +4,8 @@
 	Provides an interface between real Networking implementation and Mock one for production and test
 ]]--
 
+local FFlagToolboxShowGroupCreations = game:GetFastFlag("ToolboxShowGroupCreations")
+
 local Plugin = script.Parent.Parent.Parent
 
 local Networking = require(Plugin.Libs.Http.Networking)
@@ -115,6 +117,7 @@ end
 -- categories and index.
 function NetworkInterface:getAssetCreations(pageInfo, cursor, assetTypeOverride)
 	local assetTypeName = assetTypeOverride
+	local groupId
 	if pageInfo then
 		if game:GetFastFlag("CMSAdditionalAccessoryTypesV2") then
 			assetTypeName = PageInfoHelper.getBackendNameForPageInfoCategory(pageInfo)
@@ -122,9 +125,16 @@ function NetworkInterface:getAssetCreations(pageInfo, cursor, assetTypeOverride)
 			local assetType = PageInfoHelper.getEngineAssetTypeForPageInfoCategory(pageInfo)
 			assetTypeName = assetType and assetType.Name or ""
 		end
+
+		if FFlagToolboxShowGroupCreations then
+			groupId = Category.categoryIsGroupAsset(pageInfo.currentTab, pageInfo.categoryIndex)
+				and PageInfoHelper.getGroupIdForPageInfo(pageInfo)
+				or 0
+		end
 	end
 
-	local targetUrl = Urls.constructGetAssetCreationsUrl(assetTypeName, Constants.GET_ASSET_CREATIONS_PAGE_SIZE_LIMIT, cursor)
+	local targetUrl = Urls.constructGetAssetCreationsUrl(assetTypeName, Constants.GET_ASSET_CREATIONS_PAGE_SIZE_LIMIT,
+		cursor, nil, groupId)
 
 	return sendRequestAndRetry(function()
 		printUrl("getAssetCreations", "GET", targetUrl)

@@ -6,6 +6,7 @@
 		int StartFrame = beginning frame of timeline range
 		int EndFrame = end frame of timeline range
 		int LastFrame = The last frame of the animation
+		int FrameRate = the rate (frames per second) of the animation
 		int Playhead = current frame the scrubber is on
 		UDim2 Size = size of the frame
 		int LayoutOrder = The layout order of the frame, if in a Layout.
@@ -128,6 +129,7 @@ function TrackEditor:render()
 	local endFrame = props.EndFrame
 	local lastFrame = props.LastFrame
 	local snapToKeys = props.SnapToKeys
+	local frameRate = props.FrameRate
 	local showAsSeconds = props.ShowAsSeconds
 	local scroll = props.Scroll
 	local zoom = props.Zoom
@@ -169,6 +171,7 @@ function TrackEditor:render()
 			EndFrame = endFrame,
 			LastFrame = lastFrame,
 			SnapToKeys = snapToKeys,
+			FrameRate = frameRate,
 			ShowAsSeconds = showAsSeconds,
 			LayoutOrder = 0,
 			ParentSize = absoluteSize,

@@ -148,8 +148,9 @@
       </returns>
       <parameters>
         <number name="x"></number>
+        <number name="base" optional="true"></number>
       </parameters>
-      <description>Returns the natural logarithm of x.</description>
+      <description>Returns the logarithm of x in the given base. The default for base is e (so that the function returns the natural logarithm of x).</description>
     </Function>
     <Function name="log10" static="true">
       <returns>
@@ -619,6 +620,33 @@
       <description>
         Moves elements from table a1 to table a2, moving elements in the positions between f and e from a1 to positions starting from t in a2.
         The default for a2 is a1. The destination range can overlap with the source range.
+      </description>
+    </Function>
+    <Function name="create" static="true">
+	  <returns>
+	    <table></table>
+	  </returns>
+      <parameters>
+        <number name="count"></number>
+        <value name="value" optional="true"></value>
+      </parameters>
+      <description>
+	    Creates an array-like table with count values, initialized to value.
+	    When value is nil or omitted, the resulting table has length 0, but has preallocated storage for count elements.
+      </description>
+    </Function>
+    <Function name="find" static="true">
+	  <returns>
+	    <value></value>
+	  </returns>
+      <parameters>
+	    <table name="table"></table>
+        <value name="value"></value>
+        <number name="init" optional="true"></number>
+      </parameters>
+      <description>
+	    Returns the numeric index of the first occurence of value, starting from init, or nil if value isn't present in the table.
+		The default for init is 1.
       </description>
     </Function>
   </LuaLibrary>

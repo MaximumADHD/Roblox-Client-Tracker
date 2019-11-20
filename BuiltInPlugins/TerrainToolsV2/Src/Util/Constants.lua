@@ -95,7 +95,7 @@ end
 
 Constants.INITIAL_BRUSH_SIZE = 6
 Constants.MIN_BRUSH_SIZE = 1
-Constants.MAX_BRUSH_SIZE = 32
+Constants.MAX_BRUSH_SIZE = game:GetFastFlag("TerrainToolsLargerBrush") and 64 or 32
 
 Constants.INITIAL_BRUSH_STRENGTH = 1
 
@@ -103,5 +103,24 @@ Constants.INITIAL_PLANE_POSITION_Y = 30
 
 -- Each voxel in Roblox smooth terrain is 4x4x4
 Constants.VOXEL_RESOLUTION = 4
+
+Constants.ToolActivatesPlugin = {
+	[ToolId.Select] = true,
+	[ToolId.Move] = true,
+	[ToolId.Resize] = true,
+	[ToolId.Rotate] = true,
+	[ToolId.Copy] = true,
+	[ToolId.Paste] = true,
+	[ToolId.Delete] = true,
+	[ToolId.Fill] = true,
+	[ToolId.Add] = true,
+	[ToolId.Subtract] = true,
+	[ToolId.Grow] = true,
+	[ToolId.Erode] = true,
+	[ToolId.Smooth] = true,
+	[ToolId.Flatten] = true,
+	[ToolId.Paint] = true,
+	[ToolId.SeaLevel] = true,
+}
 
 return Constants

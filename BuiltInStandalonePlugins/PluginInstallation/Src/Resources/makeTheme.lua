@@ -1,14 +1,16 @@
 local Plugin = script.Parent.Parent.Parent
 local ContextServices = require(Plugin.Packages.Framework.ContextServices)
-local Theme = ContextServices.Theme
+local StudioUI = require(Plugin.Packages.Framework.StudioUI)
 local Util = require(Plugin.Packages.Framework.Util)
+local Theme = ContextServices.Theme
 local StyleValue = Util.StyleValue
+local StudioFrameworkStyles = StudioUI.StudioFrameworkStyles
 
 local UILibrary = require(Plugin.Packages.UILibrary)
 local createTheme = UILibrary.createTheme
 local StudioStyle = UILibrary.Studio.Style
 
-local function createValues(theme)
+local function createValues(theme, getColor)
 	-- TODO: Replace with actual getColor from the DevFramework
 	-- when the Palette becomes available
 	local themeName = theme.Name
@@ -45,6 +47,8 @@ local function createValues(theme)
 			White = Color3.fromRGB(255, 255, 255),
 			DisabledColor = theme:GetColor(c.MainText, m.Disabled),
 		},
+
+		Framework = StudioFrameworkStyles.new(theme, getColor),
 	}
 end
 

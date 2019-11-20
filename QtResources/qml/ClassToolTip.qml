@@ -27,11 +27,27 @@ Item {
         container.visible = false;
     }
 
-
-    function show(text, x, y) {
+    // FIXME(rmendelsohn)
+    // 2019/11/13
+    // Remove with StudioInsertObjectStreamlining_InsertWidget
+    function deprecated_show(text, x, y) {
         hide(); // Resets the state
         container.x = x;
         container.y = y;
+        toolTipText.text = text;
+        toolTipTimer.start();
+    }
+
+    function show(text, x, y, yOffset, windowHeight, windowWidth) {
+        hide(); // Resets the state
+        container.x = x;
+        toolTipRectangle.width = Math.min(container.maxWidth, windowWidth)
+        if(y + toolTipRectangle.height + yOffset > windowHeight) {
+            container.y = y - toolTipRectangle.height;
+        }
+        else {
+            container.y = y + yOffset;
+        }
         toolTipText.text = text;
         toolTipTimer.start();
     }

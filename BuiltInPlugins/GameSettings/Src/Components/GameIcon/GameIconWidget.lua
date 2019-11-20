@@ -12,6 +12,7 @@
 ]]
 
 local GuiService = game:GetService("GuiService")
+local HttpRbxApiService = game:GetService("HttpRbxApiService")
 
 local NOTES_POSITION = UDim2.new(0, 180, 0, 0)
 local NOTES_SIZE = UDim2.new(1, -180, 0, 100)
@@ -25,7 +26,12 @@ local getMouse = require(Plugin.Src.Consumers.getMouse)
 local Constants = require(Plugin.Src.Util.Constants)
 
 local Http = require(Plugin.Src.Networking.Http)
-local TUTORIAL_URL = Http.BuildRobloxUrl("developer", "articles/Game-Icons-Tips")
+local TUTORIAL_URL
+if settings():GetFFlag("UseNewDocumentationUrls") then
+	TUTORIAL_URL = HttpRbxApiService:GetDocumentationUrl("articles/Game-Icons-Tips")
+else
+	TUTORIAL_URL = Http.BuildRobloxUrl("developer", "articles/Game-Icons-Tips")
+end
 
 local TitledFrame = require(Plugin.UILibrary.Components.TitledFrame)
 local BulletPoint = require(Plugin.UILibrary.Components.BulletPoint)

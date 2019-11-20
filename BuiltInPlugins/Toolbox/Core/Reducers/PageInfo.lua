@@ -22,6 +22,7 @@ local defaultSorts = Sort.SORT_OPTIONS
 local defaultCategories = Category.MARKETPLACE
 
 local EnableDeveloperGetManageGroupUrl = game:GetFastFlag("EnableDeveloperGetManageGroupUrl")
+local FFlagToolboxShowGroupCreations = game:GetFastFlag("ToolboxShowGroupCreations")
 
 local function warnIfUpdatePageInfoChangesInvalid(state, changes)
 	if changes.categories then
@@ -185,10 +186,25 @@ return Rodux.createReducer({
 			end
 
 			newState.groupIndex = newIndex
-			newState.categories = Category.INVENTORY_WITH_GROUPS
+
+			if FFlagToolboxShowGroupCreations then
+				if newState.categories == Category.INVENTORY then
+					newState.categories = Category.INVENTORY_WITH_GROUPS
+				end
+			else
+				newState.categories = Category.INVENTORY_WITH_GROUPS
+			end
 		else
 			newState.groupIndex = 0
-			newState.categories = Category.INVENTORY
+
+			if FFlagToolboxShowGroupCreations then
+				if newState.categories == Category.INVENTORY_WITH_GROUPS then
+					newState.categories = Category.INVENTORY
+				end
+			else
+				newState.categories = Category.INVENTORY
+			end
+
 			if newState.categoryIndex > #newState.categories then
 				newState.categoryIndex = 1
 			end

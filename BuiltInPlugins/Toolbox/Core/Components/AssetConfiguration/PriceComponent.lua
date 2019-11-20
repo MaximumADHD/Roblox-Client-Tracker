@@ -158,8 +158,8 @@ function PriceComponent:render(order)
 							Active = AssetConfigUtil.isOnSale(assetStatus),
 							Position = UDim2.new(0.1, 0, 0, 0),
 							Size = UDim2.new(0.9, 0 ,1, 0),
-							Text = price,
-							TextSize = Constants.FONT_SIZE_SMALL,
+							Text = price or "",
+							TextSize = Constants.FONT_SIZE_MEDIUM,
 							Multiline = false,
 							MaxLength = 1000,
 							Height = TEXT_INPUT_BOX_HEIGHT,
@@ -309,7 +309,7 @@ function PriceComponent:render(order)
 						BorderSizePixel = 0,
 
 						Text = localizedContent.Sales.Earn,
-						TextColor3 = Color3.new(255, 255, 255),
+						TextColor3 = assetConfigTheme.textColor,
 						Font = Constants.FONT,
 						TextSize = Constants.FONT_SIZE_MEDIUM,
 						TextXAlignment = Enum.TextXAlignment.Left,
@@ -337,7 +337,7 @@ function PriceComponent:render(order)
 							BorderSizePixel = 0,
 
 							Text = finalPrice,
-							TextColor3 = Color3.new(255, 255, 255),
+							TextColor3 = assetConfigTheme.textColor,
 							Font = Constants.FONT,
 							TextSize = Constants.FONT_SIZE_LARGE,
 							TextXAlignment = Enum.TextXAlignment.Right,
@@ -349,7 +349,7 @@ function PriceComponent:render(order)
 							Size = Constants.Dialog.ROBUX_SIZE,
 
 							Image = Images.ROBUX_SMALL,
-							ImageColor3 = Color3.fromRGB(255, 255, 255),
+							ImageColor3 = assetConfigTheme.textColor,
 							BackgroundTransparency = 1,
 
 							LayoutOrder = 1,

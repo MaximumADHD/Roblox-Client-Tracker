@@ -1162,6 +1162,7 @@ Class Hopper : Instance [NotCreatable] [Service] [Deprecated]
 Class HttpRbxApiService : Instance {RobloxScriptSecurity} [NotCreatable] [Service]
 	Function string HttpRbxApiService:GetAsync(string apiUrlPath, Enum<ThrottlingPriority> priority = "Default", Enum<HttpRequestType> httpRequestType = "Default", bool doNotAllowDiabolicalMode = false) [Yields]
 	Function string HttpRbxApiService:GetAsyncFullUrl(string apiUrl, Enum<ThrottlingPriority> priority = "Default", Enum<HttpRequestType> httpRequestType = "Default", bool doNotAllowDiabolicalMode = false) [Yields]
+	Function string HttpRbxApiService:GetDocumentationUrl(string partialUrl)
 	Function string HttpRbxApiService:PostAsync(string apiUrlPath, string data, Enum<ThrottlingPriority> priority = "Default", Enum<HttpContentType> content_type = "ApplicationJson", Enum<HttpRequestType> httpRequestType = "Default", bool doNotAllowDiabolicalMode = false) [Yields]
 	Function string HttpRbxApiService:PostAsyncFullUrl(string apiUrl, string data, Enum<ThrottlingPriority> priority = "Default", Enum<HttpContentType> content_type = "ApplicationJson", Enum<HttpRequestType> httpRequestType = "Default", bool doNotAllowDiabolicalMode = false) [Yields]
 	Function string HttpRbxApiService:RequestAsync(Dictionary requestOptions, Enum<ThrottlingPriority> priority = "Default", Enum<HttpContentType> content_type = "ApplicationJson", Enum<HttpRequestType> httpRequestType = "Default", bool doNotAllowDiabolicalMode = false) [Yields]

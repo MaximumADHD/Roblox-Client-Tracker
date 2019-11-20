@@ -6,6 +6,7 @@ local Components = script.Parent.Parent.Parent.Components
 local ClientMemory = require(Components.Memory.ClientMemory)
 local ServerMemory = require(Components.Memory.ServerMemory)
 local UtilAndTab = require(Components.UtilAndTab)
+local DataConsumer = require(Components.DataConsumer)
 
 local Actions = script.Parent.Parent.Parent.Actions
 local ClientMemoryUpdateSearchFilter = require(Actions.ClientMemoryUpdateSearchFilter)
@@ -14,8 +15,52 @@ local ServerMemoryUpdateSearchFilter = require(Actions.ServerMemoryUpdateSearchF
 local Constants = require(script.Parent.Parent.Parent.Constants)
 local MAIN_ROW_PADDING = Constants.GeneralFormatting.MainRowPadding
 
-local MainViewMemory = Roact.Component:extend("MainViewMemory")
+local LogButton
+if settings():GetFFlag("DevConsoleLogMemoryButton") then
+	LogButton = Roact.Component:extend("LogButton")
+	function LogButton:init()
+		self.onAction = function()
+			local data = self.props.isClientView and self.props.ClientMemoryData or self.props.ServerMemoryData
+			local result = "\n"
+			local function line(str) result = result .. str .. "\n" end
 
+			line("Name                                       Min   Max")
+			line("----------------------------------------   ---   ---")
+
+			local function recurseMemoryTree(name, what, indent)
+				line(string.format("%s %s %s %3d   %3d",
+					string.rep(" ", indent),
+					name,
+					string.rep(" ", 40 - indent - #name),
+					what.min, what.max
+				))
+				if what.children then
+					for subname,tree in pairs(what.children) do
+						recurseMemoryTree(subname, tree, indent+2)
+					end
+				end
+			end
+			recurseMemoryTree("Memory", data._memoryData.Memory, 0)
+			print(result)
+		end
+	end
+
+	function LogButton:render()
+		return Roact.createElement("TextButton", {
+			Text = "Log",
+			Visible = true,
+			BorderSizePixel = 1,
+			BackgroundColor3 = Constants.Color.UnselectedGray,
+			TextColor3 = Constants.Color.Text,
+			[Roact.Event.Activated] = self.onAction
+		})
+	end
+
+	LogButton = DataConsumer(LogButton, "ClientMemoryData", "ServerMemoryData")
+end
+
+
+local MainViewMemory = Roact.Component:extend("MainViewMemory")
 function MainViewMemory:init()
 	self.onUtilTabHeightChanged = function(utilTabHeight)
 		self:setState({
@@ -95,6 +140,8 @@ function MainViewMemory:render()
 		onClientButton = isdeveloperView and self.onClientButton,
 		onServerButton = isdeveloperView and self.onServerButton,
 		onSearchTermChanged = self.onSearchTermChanged,
+	}, {
+		LogButton and Roact.createElement(LogButton, {isClientView = isClientView}),
 	})
 
 

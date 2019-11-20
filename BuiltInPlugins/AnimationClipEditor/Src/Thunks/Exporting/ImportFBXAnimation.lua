@@ -9,6 +9,8 @@ local RigUtils = require(Plugin.Src.Util.RigUtils)
 local LoadAnimationData = require(Plugin.Src.Thunks.LoadAnimationData)
 local SetIsDirty = require(Plugin.Src.Actions.SetIsDirty)
 
+local UseCustomFPS = require(Plugin.LuaFlags.GetFFlagAnimEditorUseCustomFPS)
+
 return function(plugin)
 	return function(store)
 		local state = store:getState()
@@ -22,7 +24,13 @@ return function(plugin)
 		end)
 
 		if success then
-			local newData = RigUtils.fromRigAnimation(result, Constants.DEFAULT_FRAMERATE)
+			local newData
+			if UseCustomFPS() then
+				local frameRate = RigUtils.calculateFrameRate(result)
+				newData = RigUtils.fromRigAnimation(result, frameRate)
+			else
+				newData = RigUtils.fromRigAnimation(result, Constants.DEFAULT_FRAMERATE)
+			end
 			newData.Metadata.Name = Constants.DEFAULT_IMPORTED_NAME
 			store:dispatch(LoadAnimationData(newData))
 			store:dispatch(SetIsDirty(false))

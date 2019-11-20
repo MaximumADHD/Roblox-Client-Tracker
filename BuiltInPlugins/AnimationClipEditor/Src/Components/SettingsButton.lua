@@ -49,7 +49,10 @@ end
 
 function SettingsButton:render()
 	return withTheme(function(theme)
+		local props = self.props
 		local state = self.state
+
+		onChangeFPS = props.OnChangeFPS
 
 		return Roact.createElement("ImageButton", {
 			BackgroundColor3 = theme.backgroundColor,
@@ -67,6 +70,7 @@ function SettingsButton:render()
 			SettingsMenu = Roact.createElement(SettingsMenu, {
 				ShowMenu = state.showMenu,
 				OnMenuOpened = self.hideMenu,
+				OnChangeFPS = onChangeFPS,
 			}),
 		})
 	end)

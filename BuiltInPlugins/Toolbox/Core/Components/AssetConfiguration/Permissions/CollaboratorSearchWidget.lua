@@ -41,7 +41,7 @@ local CollaboratorSearchBar = require(PermissionsDirectory.CollaboratorSearchBar
 local PermissionsConstants = require(PermissionsDirectory.PermissionsConstants)
 local CollaboratorThumbnail = require(PermissionsDirectory.CollaboratorThumbnail)
 
-local DEFAULT_ADD_ACTION = PermissionsConstants.EditKey
+local DEFAULT_ADD_ACTION = PermissionsConstants.UseViewKey
 
 local FitToContent = createFitToContent("Frame", "UIListLayout", {
 	SortOrder = Enum.SortOrder.LayoutOrder,

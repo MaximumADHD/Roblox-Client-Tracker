@@ -70,7 +70,7 @@ void main()
     vec4 f7 = texture2D(ShadowMapTexture, VARYING6.xy);
     float f8 = (1.0 - ((step(f7.x, VARYING6.z) * clamp(CB0[24].z + (CB0[24].w * abs(VARYING6.z - 0.5)), 0.0, 1.0)) * f7.y)) * f6.y;
     vec3 f9 = (f1 * f1).xyz;
-    vec3 f10 = (((VARYING5.xyz * f8) + min((f5.xyz * (f5.w * 120.0)).xyz + (CB0[8].xyz + (CB0[9].xyz * f6.x)), vec3(CB0[16].w))) * f9) + ((CB0[10].xyz * mix(vec3(0.100000001490116119384765625), f9, vec3(VARYING6.w))) * (VARYING5.w * f8));
+    vec3 f10 = (((VARYING5.xyz * f8) + min((f5.xyz * (f5.w * 120.0)).xyz + (CB0[8].xyz + (CB0[9].xyz * f6.x)), vec3(CB0[16].w))) * f9) + ((CB0[10].xyz * mix(vec3(0.100000001490116119384765625), f9, vec3(VARYING6.w * CB0[26].w))) * (VARYING5.w * f8));
     vec4 f11 = vec4(f10.x, f10.y, f10.z, vec4(0.0).w);
     f11.w = VARYING2.w;
     vec3 f12 = mix(CB0[14].xyz, sqrt(clamp(f11.xyz * CB0[15].y, vec3(0.0), vec3(1.0))).xyz, vec3(clamp((CB0[13].x * length(VARYING4.xyz)) + CB0[13].y, 0.0, 1.0)));

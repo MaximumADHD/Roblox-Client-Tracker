@@ -176,9 +176,7 @@ module.ChangeProperties = function (vals)
 
 	if type(vals.biomeSelection) == "table" then
 		for key,_ in pairs(kSelectedBiomes) do
-			if vals.biomeSelection[key] then
-				kSelectedBiomes[key] = vals.biomeSelection[key]
-			end
+			kSelectedBiomes[key] = vals.biomeSelection[key]
 		end
 	end
 

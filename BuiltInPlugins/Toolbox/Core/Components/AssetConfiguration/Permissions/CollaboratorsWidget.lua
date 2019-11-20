@@ -229,10 +229,13 @@ function CollaboratorsWidget:render()
 					}),
 					CollaboratorItem = Roact.createElement(CollaboratorItem, {
 						Enabled = props.Enabled,
+
+						SubjectType = Enum.CreatorType.User,
 						
 						CollaboratorName = user.Name,
 						CollaboratorId = user.Id,
-						CollaboratorIcon = Urls.constructRBXThumbUrl(AssetConfigConstants.rbxThumbTypes["AvatarHeadShot"], user.Id, AssetConfigConstants.rbxThumbSizes.AvatarHeadshotImageSize),
+						CollaboratorIcon = Urls.constructRBXThumbUrl(AssetConfigConstants.rbxThumbTypes["AvatarHeadShot"], user.Id, 
+							AssetConfigConstants.rbxThumbSizes.AvatarHeadshotImageSize),
 						UseMask = true,
 
 						Items = lockedPermission and {} or userAssignablePermissions,

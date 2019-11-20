@@ -41,9 +41,12 @@ local TerrainImporter = require(Functions.TerrainImporter)
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 local ToolId = TerrainEnums.ToolId
 
+local FFlagTerrainToolsRefactorTerrainBrush = game:GetFastFlag("TerrainToolsRefactorTerrainBrush")
+local FFlagTerrainToolsRefactorTerrainImporter = game:GetFastFlag("TerrainToolsRefactorTerrainImporter")
+
 local toolToScript = {
 	[ToolId.Generate] = TerrainGeneration,
-	[ToolId.Import] = TerrainImporter,
+	[ToolId.Import] = not FFlagTerrainToolsRefactorTerrainImporter and TerrainImporter or nil,
 	[ToolId.Clear] = TerrainGeneration,
 
 	[ToolId.Select] = TerrainRegionEditor,
@@ -83,28 +86,42 @@ local toolComponent = {
 }
 
 local function ToggleTool(toolName, mouse, plugin, theme, localization)
-	local currentToolScript = toolToScript[toolName]
-	if currentToolScript ~= TerrainRegionEditor then
-		TerrainRegionEditor.Close()
-	end
+	if FFlagTerrainToolsRefactorTerrainBrush then
+		-- TODO: As other terrain interface modules get refactored
+		-- Remove this function and move the logic elsewhere
+		local currentToolScript = toolToScript[toolName]
+		if currentToolScript ~= TerrainRegionEditor then
+			TerrainRegionEditor.Close()
+		end
 
-	-- brushes are handled in base brush, the scripts really should be factored out of this
-	if toolName == ToolId.None then
-		return
-	end
-
-	-- ensures only the plugin uses the mouse
-	plugin:Activate(true)
-
-	if toolName and toolName ~= ToolId.None then
-		if currentToolScript then
+		if toolName and toolName ~= ToolId.None and currentToolScript then
 			coroutine.wrap(function()
 				currentToolScript.Init(toolName, mouse)
 			end)()
 		end
+	else
+		local currentToolScript = toolToScript[toolName]
+		if currentToolScript ~= TerrainRegionEditor then
+			TerrainRegionEditor.Close()
+		end
+
+		-- brushes are handled in base brush, the scripts really should be factored out of this
+		if toolName == ToolId.None then
+			return
+		end
+
+		-- ensures only the plugin uses the mouse
+		plugin:Activate(true)
+
+		if toolName and toolName ~= ToolId.None then
+			if currentToolScript then
+				coroutine.wrap(function()
+					currentToolScript.Init(toolName, mouse)
+				end)()
+			end
+		end
 	end
 end
-
 
 local ToolRenderer = Roact.PureComponent:extend(script.Name)
 ------------------------------

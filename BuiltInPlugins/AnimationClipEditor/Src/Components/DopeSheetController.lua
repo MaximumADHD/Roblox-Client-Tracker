@@ -57,6 +57,7 @@ local SetNotification = require(Plugin.Src.Actions.SetNotification)
 local SetIsPlaying = require(Plugin.Src.Actions.SetIsPlaying)
 
 local GetFFlagEnforceMaxAnimLength = require(Plugin.LuaFlags.GetFFlagEnforceMaxAnimLength)
+local UseCustomFPS = require(Plugin.LuaFlags.GetFFlagAnimEditorUseCustomFPS)
 
 local DopeSheetController = Roact.Component:extend("DopeSheetController")
 
@@ -289,7 +290,7 @@ function DopeSheetController:init()
 
 	self.setSelectedKeyframeDuration = function(textInput)
 		self.setChangingDuration()
-		local newLength = StringUtils.parseTime(textInput, Constants.DEFAULT_FRAMERATE)
+		local newLength = StringUtils.parseTime(textInput, UseCustomFPS() and self.props.AnimationData.Metadata.FrameRate or Constants.DEFAULT_FRAMERATE)
 		if newLength ~= nil then
 			local earliest, latest = self:getSelectedKeyframesExtents()
 			local currentLength = latest - earliest
@@ -473,6 +474,14 @@ function DopeSheetController:render()
 		local namedKeyframes = animationData and animationData.Events
 			and animationData.Events.NamedKeyframes or {}
 
+		local quantizeWarningText = localization:getText("Toast", "QuantizeWarning")
+		if UseCustomFPS() then
+			local frameRate = animationData and animationData.Metadata and animationData.Metadata.FrameRate
+			if frameRate > Constants.MAX_FRAMERATE then
+				quantizeWarningText = localization:getText("Toast", "MaxFramerateWarning")
+			end
+		end
+
 		local showQuantizeWarning = props.QuantizeWarning
 			and not AnimationData.isQuantized(animationData)
 		local loadedAnimName = props.Loaded
@@ -655,7 +664,7 @@ function DopeSheetController:render()
 					}),
 
 					QuantizeToast = showQuantizeWarning and Roact.createElement(ActionToast, {
-						Text = localization:getText("Toast", "QuantizeWarning"),
+						Text = quantizeWarningText,
 						ButtonWidth = Constants.PROMPT_BUTTON_SIZE.X * 1.5,
 						Buttons = {
 							{Key = true, Text = localization:getText("Toast", "AlignNow")},

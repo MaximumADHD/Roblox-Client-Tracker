@@ -119,15 +119,17 @@ function Urls.getDevelopAssetUrl(category, keyword, sort, creatorId, num, page, 
 		sort = sort,
 		groupId = groupId,
 		creatorType = creatorType,
+		creatorId = creatorId,
 	})
 end
 
-function Urls.constructGetAssetCreationsUrl(assetType, limit, cursor, isPackageExcluded)
+function Urls.constructGetAssetCreationsUrl(assetType, limit, cursor, isPackageExcluded, groupId)
 	return GET_ASSETS_CREATIONS .. Url.makeQueryString({
 		assetType = assetType,
 		isArchived=false,
 		limit = limit,
 		cursor = cursor,
+		groupId = groupId,
 	})
 end
 

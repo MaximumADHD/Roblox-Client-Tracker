@@ -12,6 +12,8 @@ local BlockingUtility = require(RobloxGui.Modules.BlockingUtility)
 
 local PlayerList = script.Parent.Parent
 
+local FFlagPlayerListBetterGroupCheck = game:DefineFastFlag("PlayerListBetterGroupCheck", false)
+
 local SPECIAL_PLAYER_ICONS = {
 	Admin = "rbxasset://textures/ui/icon_admin-16.png",
 	Intern = "rbxasset://textures/ui/icon_intern-16.png",
@@ -40,11 +42,17 @@ local function getGameCreator(store, player)
 		return
 	end
 
-	local success, result = pcall(function()
-		return player:GetRankInGroup(game.CreatorId) == 255
-	end)
-	if success and result then
-		store:dispatch(SetPlayerIsCreator(player, true))
+	if FFlagPlayerListBetterGroupCheck then
+		if PlayerPermissionsModule.IsPlayerPlaceOwnerAsync(player) then
+			store:dispatch(SetPlayerIsCreator(player, true))
+		end
+	else
+		local success, result = pcall(function()
+			return player:GetRankInGroup(game.CreatorId) == 255
+		end)
+		if success and result then
+			store:dispatch(SetPlayerIsCreator(player, true))
+		end
 	end
 end
 

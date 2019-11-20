@@ -27,32 +27,33 @@ local ToolManager = Roact.PureComponent:extend(script.Name)
 local tabLookup
 if FFlagTerrainToolsRefactorTabsAndTools then
 	tabLookup = {
-		[TabId.Create] = {ToolId.Generate, ToolId.Import, ToolId.Clear},
-		[TabId.Build] = {ToolId.Add, ToolId.Subtract},
-		[TabId.Region] = {ToolId.Select, ToolId.Move, ToolId.Resize, ToolId.Rotate,
-			ToolId.Copy, ToolId.Paste, ToolId.Delete, ToolId.Fill},
-		[TabId.Sculpt] = {ToolId.Grow, ToolId.Erode, ToolId.Smooth, ToolId.Flatten},
-		[TabId.Paint] = {ToolId.Paint},
+		[TabId.Create] = {
+			ToolId.Generate, ToolId.Import, ToolId.Clear
+		},
+		[TabId.Region] = {
+			ToolId.Select, ToolId.Move, ToolId.Resize, ToolId.Rotate,
+			ToolId.Copy, ToolId.Paste, ToolId.Delete, ToolId.Fill
+		},
+		[TabId.Edit] = {
+			ToolId.Add, ToolId.Subtract,
+			ToolId.Grow, ToolId.Erode, ToolId.Smooth, ToolId.Flatten,
+			ToolId.Paint
+		},
 	}
 
 	if settings():GetFFlag("TerrainToolsSeaLevel") then
-		-- Insert sea level between import and clear
 		-- When removing flag, put this straight into the tabLookup table
-		table.insert(tabLookup[TabId.Create], 3, ToolId.SeaLevel)
+		table.insert(tabLookup[TabId.Edit], ToolId.SeaLevel)
 	end
 else
 	tabLookup = {
 		Create = {"Generate", "Import", "Clear"},
-		Build = {"Add", "Subtract"},
 		Region = {"Select", "Move", "Resize", "Rotate", "Copy", "Paste", "Delete", "Fill"},
-		Sculpt = {"Grow", "Erode", "Smooth", "Flatten"},
-		Paint = {"Paint"},
+		Edit = {"Add", "Subtract", "Grow", "Erode", "Smooth", "Flatten", "Paint"}
 	}
 	local FFlagTerrainToolsSeaLevel = settings():GetFFlag("TerrainToolsSeaLevel")
 	if FFlagTerrainToolsSeaLevel then
-		-- insert sealevel tool between import and clear
-		tabLookup["Create"][3] = "SeaLevel"
-		tabLookup["Create"][4] = "Clear"
+		table.insert(tabLookup.Edit, ToolId.SeaLevel)
 	end
 end
 

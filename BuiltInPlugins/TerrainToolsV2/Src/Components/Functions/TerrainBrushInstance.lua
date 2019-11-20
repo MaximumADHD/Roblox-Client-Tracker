@@ -13,7 +13,7 @@ local ToolId = TerrainEnums.ToolId
 local TerrainBrushCursor = require(script.Parent.TerrainBrushCursor)
 local TerrainBrushCursorGrid = require(script.Parent.TerrainBrushCursorGrid)
 
-local performTerrainBrushOperation = require(script.Parent.performTerrainBrushOperation)
+local performTerrainBrushOperation = require(Plugin.Src.TerrainOperations.performTerrainBrushOperation)
 
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 local ChangeHistoryService = game:GetService("ChangeHistoryService")
@@ -23,6 +23,7 @@ local UserInputService = game:GetService("UserInputService")
 local Workspace = game:GetService("Workspace")
 
 local FFlagTerrainToolMetrics = settings():GetFFlag("TerrainToolMetrics")
+local FFlagTerrainToolsHoldAltToSelectMaterial = game:GetFastFlag("TerrainToolsHoldAltToSelectMaterial")
 
 local CLICK_THRESHOLD = 0.1
 
@@ -66,8 +67,8 @@ TerrainBrush.__index = TerrainBrush
 
 function TerrainBrush.new(options)
 	local self = setmetatable({
-		_plugin = options.plugin,
 		_terrain = options.terrain,
+		_mouse = options.mouse,
 
 		_operationSettings = {
 			currentTool = ToolId.None,
@@ -93,10 +94,9 @@ function TerrainBrush.new(options)
 			planePositionY = Constants.INITIAL_PLANE_POSITION_Y,
 		},
 
-		_active = false,
+		_isRunning = false,
 		_currentLoopTag = nil,
 
-		_mouse = nil,
 		_mouseDown = false,
 		_mouseClick = false,
 		_downKeys = {},
@@ -113,13 +113,14 @@ function TerrainBrush.new(options)
 		_heightPickerSet = Signal.new(),
 		_requestBrushSizeChanged = Signal.new(),
 		_requestBrushStrengthChanged = Signal.new(),
+		_materialSelectRequested = FFlagTerrainToolsHoldAltToSelectMaterial and Signal.new() or nil,
 	}, TerrainBrush)
 
 	return self
 end
 
 function TerrainBrush:destroy()
-	self:deactivate()
+	self:stop()
 end
 
 function TerrainBrush:subscribeToPlanePositionYChanged(...)
@@ -138,39 +139,49 @@ function TerrainBrush:subscribeToRequestBrushStrengthChanged(...)
 	return self._requestBrushStrengthChanged:connect(...)
 end
 
+function TerrainBrush:subscribeToMaterialSelectRequested(...)
+	return self._materialSelectRequested:connect(...)
+end
+
 function TerrainBrush:updateSettings(newSettings)
 	self._operationSettings = Cryo.Dictionary.join(self._operationSettings, newSettings)
 	self:_updateCursor()
 end
 
-function TerrainBrush:activateTool(newTool)
-	if self._active and newTool ~= self._operationSettings.currentTool then
-		self:deactivate()
-	end
-
+function TerrainBrush:startWithTool(newTool)
 	self:updateSettings({
 		currentTool = newTool,
 		autoMaterial = newTool == ToolId.Flatten,
 	})
 
-	self._plugin:Activate(true)
-	self._active = true
-	self:_connectInput()
+	if newTool == ToolId.None then
+		self:stop()
+		return
+	end
 
+	if self._isRunning then
+		return
+	end
+	self._isRunning = true
+
+	self:_connectInput()
 	self:_run()
 end
 
-function TerrainBrush:deactivate()
+function TerrainBrush:stop()
+	if not self._isRunning then
+		return
+	end
 	self._currentLoopTag = nil
-	self._active = false
 
-	self._mouse = nil
 	self._mouseDown = false
 	self._mouseClick = false
 	self._downKeys = {}
 	self:_disconnectAllConnections()
 
 	self:_destroyCursor()
+
+	self._isRunning = false
 end
 
 function TerrainBrush:_updateCursor()
@@ -223,8 +234,6 @@ function TerrainBrush:_disconnectAllConnections()
 end
 
 function TerrainBrush:_connectInput()
-	self._mouse = self._plugin:GetMouse()
-
 	local function connectHelper(event, func)
 		if self._connections[event] then
 			self._connections[event]:Disconnect()
@@ -235,7 +244,7 @@ function TerrainBrush:_connectInput()
 
 	connectHelper(UserInputService.InputBegan, function(event, soaked)
 		self._downKeys[event.KeyCode] = true
-		if event.UserInputType == Enum.UserInputType.MouseButton1 and not soaked and self._active then
+		if event.UserInputType == Enum.UserInputType.MouseButton1 and not soaked and self._isRunning then
 			self._mouseDown = true
 			self._mouseClick = true
 		end
@@ -297,7 +306,7 @@ function TerrainBrush:_connectInput()
 end
 
 function TerrainBrush:_run()
-	self._active = true
+	self._isRunning = true
 
 	local lastCursorDistance = 300
 	local lastPlanePoint = Vector3.new(0, 0, 0)
@@ -329,7 +338,7 @@ function TerrainBrush:_run()
 
 		local unitRay = self._mouse.UnitRay.Direction
 		local mouseRay = Ray.new(cameraPos, unitRay * 10000)
-		local _, mainPoint, _, _ = Workspace:FindPartOnRayWithIgnoreList(mouseRay, ignoreList,
+		local rayHit, mainPoint, _, hitMaterial = Workspace:FindPartOnRayWithIgnoreList(mouseRay, ignoreList,
 			false, self._operationSettings.ignoreWater)
 
 		if self._operationSettings.heightPicker then
@@ -341,12 +350,6 @@ function TerrainBrush:_run()
 			mainPoint = mainPoint - unitRay * 0.05
 		elseif currentTool == ToolId.Subtract or currentTool == ToolId.Paint or currentTool == ToolId.Grow then
 			mainPoint = mainPoint + unitRay * 0.05
-		elseif currentTool == ToolId.Flatten then
-			if not self._operationSettings.planeLock and self._mouseClick then
-				if not self._operationSettings.fixedPlane then
-					self._planePositionYChanged:fire(mainPoint.Y - 1)
-				end
-			end
 		end
 
 		if not self._mouse.Target then
@@ -393,30 +396,37 @@ function TerrainBrush:_run()
 					reportClick = false
 				end
 
-				local difference = mainPoint - lastMainPoint
-				local dragDistance = difference.magnitude
-				local crawlDistance = radius * 0.5
+				if FFlagTerrainToolsHoldAltToSelectMaterial and (self._downKeys[Enum.KeyCode.LeftAlt]
+					or self._downKeys[Enum.KeyCode.RightAlt]) then
+					if rayHit and rayHit:IsA("Terrain") then
+						self._materialSelectRequested:fire(hitMaterial)
+					end
+				else
+					local difference = mainPoint - lastMainPoint
+					local dragDistance = difference.magnitude
+					local crawlDistance = radius * 0.5
 
-				if dragDistance > crawlDistance then
-					local differenceVector = difference.unit
-					local dragDistance = math.min(dragDistance, (crawlDistance * 2) + 20)
-					local samples = math.ceil((dragDistance / crawlDistance) - 0.1)
+					if dragDistance > crawlDistance then
+						local differenceVector = difference.unit
+						local dragDistance = math.min(dragDistance, (crawlDistance * 2) + 20)
+						local samples = math.ceil((dragDistance / crawlDistance) - 0.1)
 
-					for i = 1, samples, 1 do
-						self._operationSettings.centerPoint = lastMainPoint + (differenceVector * dragDistance * (i / samples))
+						for i = 1, samples, 1 do
+							self._operationSettings.centerPoint = lastMainPoint + (differenceVector * dragDistance * (i / samples))
+							performTerrainBrushOperation(self._terrain, self._operationSettings)
+						end
+						mainPoint = lastMainPoint + differenceVector * dragDistance
+					else
+						self._operationSettings.centerPoint = mainPoint
 						performTerrainBrushOperation(self._terrain, self._operationSettings)
 					end
-					mainPoint = lastMainPoint + differenceVector * dragDistance
-				else
-					self._operationSettings.centerPoint = mainPoint
-					performTerrainBrushOperation(self._terrain, self._operationSettings)
-				end
 
-				lastMainPoint = mainPoint
-
-				if currentTool == ToolId.Flatten and self._operationSettings.heightPicker then
-					self._heightPickerSet:fire(false)
+					lastMainPoint = mainPoint
 				end
+			end
+
+			if currentTool == ToolId.Flatten and self._operationSettings.heightPicker then
+				self._heightPickerSet:fire(false)
 			end
 		end
 

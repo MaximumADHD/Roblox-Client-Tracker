@@ -50,14 +50,13 @@ struct LightShadowGPUTransform
 
 uniform vec4 CB0[47];
 uniform vec4 CB8[24];
-uniform vec4 CB3[1];
 uniform sampler3D LightMapTexture;
 uniform sampler3D LightGridSkylightTexture;
 uniform sampler2D ShadowAtlasTexture;
 uniform sampler2DArray AlbedoMapTexture;
 uniform sampler2DArray SpecularMapTexture;
 
-in vec3 VARYING0;
+in vec4 VARYING0;
 in vec4 VARYING1;
 in vec4 VARYING2;
 in vec4 VARYING3;
@@ -113,7 +112,7 @@ void main()
     float f38 = max(f26.w - (f37 * f37), f33.y);
     float f39 = f31 - f37;
     float f40 = (f15 > 0.0) ? mix(f21, mix(min((f30 <= f34) ? 1.0 : clamp(((f35 / (f35 + (f36 * f36))) - 0.20000000298023223876953125) * 1.25, 0.0, 1.0), (f31 <= f37) ? 1.0 : clamp(((f38 / (f38 + (f39 * f39))) - 0.20000000298023223876953125) * 1.25, 0.0, 1.0)), f21, clamp((length(VARYING5.xyz - CB0[7].xyz) * CB0[45].y) - (CB0[45].x * CB0[45].y), 0.0, 1.0)), CB0[46].x) : 0.0;
-    vec3 f41 = (((min((f19.xyz * (f19.w * 120.0)).xyz + (CB0[8].xyz + (CB0[9].xyz * f20.x)), vec3(CB0[16].w)) + (((CB0[10].xyz * clamp(f15, 0.0, 1.0)) + (CB0[12].xyz * max(-f15, 0.0))) * f40)) + vec3((f13.z * 2.0) * f11)) * (f10 * f10).xyz) + (CB0[10].xyz * (((((step(0.0, f15) * f13.x) * f11) * CB3[0].z) * f40) * pow(clamp(dot(f12, normalize(f14 + normalize(VARYING7.xyz))), 0.0, 1.0), (clamp(f13.y, 0.0, 1.0) * 128.0) + 0.00999999977648258209228515625)));
+    vec3 f41 = (((min((f19.xyz * (f19.w * 120.0)).xyz + (CB0[8].xyz + (CB0[9].xyz * f20.x)), vec3(CB0[16].w)) + (((CB0[10].xyz * clamp(f15, 0.0, 1.0)) + (CB0[12].xyz * max(-f15, 0.0))) * f40)) + vec3((f13.z * 2.0) * f11)) * (f10 * f10).xyz) + (CB0[10].xyz * (((((step(0.0, f15) * f13.x) * f11) * VARYING0.w) * f40) * pow(clamp(dot(f12, normalize(f14 + normalize(VARYING7.xyz))), 0.0, 1.0), (clamp(f13.y, 0.0, 1.0) * 128.0) + 0.00999999977648258209228515625)));
     vec4 f42 = vec4(f41.x, f41.y, f41.z, vec4(0.0).w);
     f42.w = 1.0;
     vec3 f43 = mix(CB0[14].xyz, sqrt(clamp(f42.xyz * CB0[15].y, vec3(0.0), vec3(1.0))).xyz, vec3(clamp(VARYING5.w, 0.0, 1.0)));

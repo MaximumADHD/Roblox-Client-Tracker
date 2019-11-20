@@ -15,7 +15,7 @@ local FFlagGameSettingsUsesNewIconEndpoint = settings():GetFFlag("GameSettingsUs
 local FFlagGameSettingsUpdatesUniverseDisplayName = settings():GetFFlag("GameSettingsUpdatesUniverseDisplayName")
 local FFlagStudioGameSettingsAccessPermissions = settings():GetFFlag("StudioGameSettingsAccessPermissions")
 local FFlagStudioGameSettingsDisablePlayabilityForDrafts = game:GetFastFlag("StudioGameSettingsDisablePlayabilityForDrafts")
-local FFlagStudioGameSettingsUseNewSettingsImpl = settings():GetFFlag("StudioGameSettingsUseNewSettingsImpl")
+local FFlagStudioGameSettingsUseNewSettingsImpl2 = settings():GetFFlag("StudioGameSettingsUseNewSettingsImpl2")
 local FFlagVersionControlServiceScriptCollabEnabled = settings():GetFFlag("VersionControlServiceScriptCollabEnabled")
 
 local DFFlagDeveloperSubscriptionsEnabled = settings():GetFFlag("DeveloperSubscriptionsEnabled")
@@ -55,7 +55,7 @@ function SettingsImpl:GetUserId()
 end
 
 function SettingsImpl:CanManagePlace()
-	if FFlagStudioGameSettingsAccessPermissions and not self:IsPublished() then
+	if FFlagStudioGameSettingsUseNewSettingsImpl2 and not self:IsPublished() then
 		return Promise.new(function(resolve, _) resolve(true) end)
 	end
 
@@ -74,7 +74,7 @@ end
 function SettingsImpl:GetSettings_Old()
 	local settings = {
 		HttpEnabled = HttpService:GetHttpEnabled(),
-		studioUserId = FFlagStudioGameSettingsAccessPermissions and self:GetUserId() or nil,
+		studioUserId = FFlagStudioGameSettingsUseNewSettingsImpl2 and self:GetUserId() or nil,
 	}
 	settings = Cryo.Dictionary.join(settings, WorkspaceSettings.getWorldSettings(settings))
 
@@ -208,7 +208,7 @@ end
 
 -- TODO (awarwick) 6/5/2019 Remove with flag
 function SettingsImpl:GetSettings()
-	if FFlagStudioGameSettingsUseNewSettingsImpl then
+	if FFlagStudioGameSettingsUseNewSettingsImpl2 then
 		return self:GetSettings_New()
 	else
 		return self:GetSettings_Old()

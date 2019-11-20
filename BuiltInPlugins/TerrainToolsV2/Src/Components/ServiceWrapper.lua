@@ -11,11 +11,13 @@ local StudioPlugin = require(Plugin.Src.ContextServices.StudioPlugin)
 local UILibraryProvider = require(Plugin.Src.ContextServices.UILibraryProvider)
 local Localizing = UILibrary.Localizing
 
+local FFlagTerrainToolsSeaLevel = game:GetFastFlag("TerrainToolsSeaLevel")
 local FFlagTerrainToolsRefactorTerrainBrush = game:GetFastFlag("TerrainToolsRefactorTerrainBrush")
 local TerrainInterface
 if FFlagTerrainToolsRefactorTerrainBrush then
 	TerrainInterface = require(Plugin.Src.ContextServices.TerrainInterface)
 end
+local FFlagTerrainToolsRefactorTerrainImporter = game:GetFastFlag("TerrainToolsRefactorTerrainImporter")
 
 -- props.localization : (UILibary.Localization) an object for fetching translated strings
 -- props.plugin : (plugin instance) the instance of plugin defined in main.server.lua
@@ -33,6 +35,16 @@ function ServiceWrapper:init()
 
 	if FFlagTerrainToolsRefactorTerrainBrush then
 		assert(self.props.terrainBrush ~= nil, "Expected a TerrainBrush object")
+		assert(self.props.pluginActivationController ~= nil, "Expected a PluginActivationController object")
+
+		if FFlagTerrainToolsRefactorTerrainImporter then
+			assert(self.props.terrainImporter ~= nil, "Expected a TerrainImporter object")
+		end
+	end
+
+	-- dependent on FFlagTerrainToolsRefactorTerrainBrush being on
+	if FFlagTerrainToolsSeaLevel then
+		assert(self.props.seaLevel ~= nil, "Expected a SeaLevel object")
 	end
 end
 
@@ -46,7 +58,10 @@ function ServiceWrapper:render()
 	local plugin = self.props.plugin
 	local store = self.props.store
 	local theme = self.props.theme
+	local pluginActivationController = self.props.pluginActivationController
 	local terrainBrush = self.props.terrainBrush
+	local terrainImporter = self.props.terrainImporter
+	local seaLevel = self.props.seaLevel
 
 	-- the order of these providers should be read as bottom up,
 	-- things most likely to change or trigger updates should be near the top of the list
@@ -59,7 +74,12 @@ function ServiceWrapper:render()
 
 	if FFlagTerrainToolsRefactorTerrainBrush then
 		-- TODO: Add more terrain interfaces to TerrainInterface.Provider
-		root = addProvider(TerrainInterface.Provider, { terrainBrush = terrainBrush }, root)
+		root = addProvider(TerrainInterface.Provider, {
+			pluginActivationController = pluginActivationController,
+			terrainBrush = terrainBrush,
+			terrainImporter = terrainImporter,
+			seaLevel = seaLevel,
+		}, root)
 	end
 
 	return root

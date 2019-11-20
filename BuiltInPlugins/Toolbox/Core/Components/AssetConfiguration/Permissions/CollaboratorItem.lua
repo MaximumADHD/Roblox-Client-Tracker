@@ -57,20 +57,22 @@ local function DeleteButton(props)
 			Position = UDim2.new(1, 0, 0, 0),
 			AnchorPoint = Vector2.new(1, 0),
 
+			BackgroundTransparency = 1,
 			BorderSizePixel = 0,
 
 			RenderContents = function(buttonTheme, hovered)
 				return {
 					Icon = Roact.createElement("ImageLabel", {
-						Size = UDim2.new(0, 16, 0, 16),
+						Size = UDim2.new(0, 24, 0, 24),
 						Position = UDim2.new(0.5, 0, 0.5, 0),
 						AnchorPoint = Vector2.new(0.5, 0.5),
 
 						Image = Images.CLOSE_ICON,
 						ImageColor3 = theme.assetConfig.packagePermissions.collaboratorItem.deleteButton,
-						ImageTransparency = props.Enabled and 0 or 0.4,
+						ImageTransparency = hovered and 0 or 0.4,
 
 						BackgroundTransparency = 1,
+						BorderSizePixel = 0,
 					})
 				}
 			end,
@@ -101,7 +103,7 @@ local function CollaboratorIcon(props)
 		Size = UDim2.new(0, CONTENT_HEIGHT, 0, CONTENT_HEIGHT),
 		LayoutOrder = props.LayoutOrder or 0,
 		
-		Image = props.IsLoadedThumbnail and props.CollaboratorIcon or Images.DEFAULT_THUMBNAIL,
+		Image = props.IsLoadedThumbnail and props.CollaboratorIcon or props.DefaultIcon,
 		UseMask = props.UseMask,
 		IsLoadedThumbnail = props.IsLoadedThumbnail,
 	})
@@ -170,6 +172,14 @@ function CollaboratorItem:render()
 
 		local isLoadedThumbnail = self.state.assetFetchStatus == Enum.AssetFetchStatus.Success
 
+		local defaultIcon = nil
+		-- only user thumbnail uses mask
+		if props.SubjectType == Enum.CreatorType.User then
+			defaultIcon = Images.DEFAULT_USER_THUMBNAIL
+		else
+			defaultIcon = Images.DEFAULT_GROUP_THUMBNAIL
+		end
+
 		return Roact.createElement("Frame", {
 			Size = UDim2.new(1, 0, 0, ITEM_HEIGHT),
 			LayoutOrder = props.LayoutOrder or 0,
@@ -188,12 +198,13 @@ function CollaboratorItem:render()
 					PaddingTop = UDim.new(0, PADDING_Y),
 					PaddingBottom = UDim.new(0, PADDING_Y),
 				}),
-				Icon = Roact.createElement(CollaboratorIcon, {
+				Icon = props.CollaboratorIcon ~= nil and Roact.createElement(CollaboratorIcon, {
 					LayoutOrder = 0,
 					Enabled = props.Enabled,
 
 					UseMask = props.UseMask,
 					CollaboratorIcon = props.CollaboratorIcon,
+					DefaultIcon = defaultIcon,
 					IsLoadedThumbnail = isLoadedThumbnail,
 				}),
 				Labels = Roact.createElement(CollaboratorLabels, {

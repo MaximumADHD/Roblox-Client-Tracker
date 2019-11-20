@@ -79,14 +79,12 @@ function ConfigAccess:render()
 			local ownerName = ""
 			if (not self.allowOwnerEdit) and owner.typeId then
 				if owner.typeId == ConfigTypes.OWNER_TYPES.User then
-					ownerName = localizedContent.AssetConfig.PublishAsset.Me
+					ownerName =  FFlagLuaPackagePermissions and props.isPackageAsset and owner.username or localizedContent.AssetConfig.PublishAsset.Me
 				else -- If not owned by Me, then it's owned by a group.
 					-- Load the groupName
 					if FFlagLuaPackagePermissions then
 						if props.assetGroupData then
 							ownerName = props.assetGroupData.Name
-						else
-							self.props.GetGroupMetadata(owner.targetId)
 						end
 					else
 						if props.assetGroupData then
@@ -168,12 +166,15 @@ local function mapStateToProps(state, props)
 	state = state or {}
 
 	local assetGroupData = props.assetGroupData or (FFlagLuaPackagePermissions and props.owner and state[props.owner.targetId] and state[props.owner.targetId].groupMetadata)
+	local owner = (FFlagLuaPackagePermissions and state.assetConfigData and state.assetConfigData.Creator) or props.owner
 
 	return {
 		screenFlowType = state.screenFlowType,
 		manageableGroups = state.manageableGroups or {},
 		groupsArray = state.groupsArray or {},
 		assetGroupData = assetGroupData,
+		owner = owner,
+		isPackageAsset = state.isPackageAsset,
 	}
 end
 
@@ -186,10 +187,6 @@ local function mapDispatchToProps(dispatch)
 		getManageableGroups = function(networkInterface, DEPRECATED_userId)
 			dispatch(GetAssetConfigManageableGroupsRequest(networkInterface, DEPRECATED_userId))
 		end,
-
-		GetGroupMetadata = FFlagLuaPackagePermissions and function(groupId)
-            dispatch(GetGroupMetadata(groupId))
-        end,
 	}
 end
 

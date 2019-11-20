@@ -51,6 +51,7 @@ local UILibrary = require(Libs.UILibrary)
 local createFitToContent = UILibrary.Component.createFitToContent
 local DropdownMenu = UILibrary.Component.DropdownMenu
 local LoadingIndicator = UILibrary.Component.LoadingIndicator
+local LayoutOrderIterator = UILibrary.Util.LayoutOrderIterator
 
 local Util = Plugin.Core.Util
 local Constants = require(Util.Constants)
@@ -298,6 +299,8 @@ function CollaboratorSearchBar:render()
 		local props = self.props
 		local state = self.state
 
+		local orderIterator = LayoutOrderIterator.new()
+
 		local layoutOrder = props.LayoutOrder or 0
 
 		local text = state.text
@@ -336,7 +339,7 @@ function CollaboratorSearchBar:render()
 		local errorText = props.ErrorText
 		local noResultsText = props.NoResultsText
 
-		local textBoxOffset = text ~= "" and -SEARCH_BAR_HEIGHT * 2 or -SEARCH_BAR_HEIGHT
+		local textBoxOffset = -SEARCH_BAR_HEIGHT * 2
 
 		local showDropdown = state.showDropdown
 		local searchBarRef = self.textBoxRef and self.textBoxRef.current
@@ -384,29 +387,12 @@ function CollaboratorSearchBar:render()
 				[Roact.Event.MouseMoved] = self.onContainerHovered,
 				[Roact.Event.MouseLeave] = self.onContainerHoverEnded,
 			}, {
-				ImageFrame = Roact.createElement("Frame", {
-					BackgroundTransparency = 1,
-					LayoutOrder = 0,
-					Size = UDim2.new(0, SEARCH_BAR_HEIGHT,
-						0, SEARCH_BAR_HEIGHT),
-				} , {
-					Image = Roact.createElement("ImageLabel", {
-						AnchorPoint = Vector2.new(0.5, 0.5),
-						Position = UDim2.new(0.5, 0, 0.5, 0),
-						Size = UDim2.new(0, SEARCH_BAR_BUTTON_ICON_SIZE,
-							0, SEARCH_BAR_BUTTON_ICON_SIZE),
-						BackgroundTransparency = 1,
-						Image = Images.SEARCH_ICON,
-						ImageColor3 = theme.assetConfig.packagePermissions.searchBar.searchIcon,
-					}),
-				}),
-
 				TextBox = Roact.createElement("TextBox", {
 					Font = Constants.FONT,
 					TextSize = Constants.FONT_SIZE_TITLE,
 					TextColor3 = theme.assetConfig.textColor,
 
-					LayoutOrder = 1,
+					LayoutOrder = orderIterator:getNextOrder(),
 					Size = UDim2.new(1, textBoxOffset, 0, SEARCH_BAR_HEIGHT),
 					BackgroundTransparency = 1,
 					ClipsDescendants = true,
@@ -433,7 +419,7 @@ function CollaboratorSearchBar:render()
 				
 				ClearButtonFrame = Roact.createElement("Frame", {
 					BackgroundTransparency = 1,
-					LayoutOrder = 2,
+					LayoutOrder = orderIterator:getNextOrder(),
 					Size = UDim2.new(0, SEARCH_BAR_HEIGHT,
 						0, SEARCH_BAR_HEIGHT),
 				} , {
@@ -444,13 +430,38 @@ function CollaboratorSearchBar:render()
 						BackgroundTransparency = 1,
 						Visible = text ~= "",
 						Image = isClearButtonHovered and Images.CLEAR_ICON_HOVER or Images.CLEAR_ICON,
-						ImageColor3 = isClearButtonHovered and searchBarTheme.clearButton.imageSelected
-							or searchBarTheme.clearButton.image,
+						ImageColor3 = searchBarTheme.clearButton.image,
 		
 						[Roact.Event.MouseEnter] = self.onClearButtonHovered,
 						[Roact.Event.MouseMoved] = self.onClearButtonHovered,
 						[Roact.Event.MouseLeave] = self.onClearButtonHoverEnded,
 						[Roact.Event.MouseButton1Down] = self.onClearButtonClicked,
+					}),
+				}),
+
+				-- Thin dividing line between the text box
+				Line = showSearchButton and Roact.createElement("Frame", {
+					LayoutOrder = orderIterator:getNextOrder(),
+					AnchorPoint = Vector2.new(0, 0),
+					Size = UDim2.new(0, 1, 1, -2),
+					BackgroundColor3 = borderColor,
+					BorderSizePixel = 0,
+				}),
+
+				ImageFrame = Roact.createElement("Frame", {
+					BackgroundTransparency = 1,
+					LayoutOrder = orderIterator:getNextOrder(),
+					Size = UDim2.new(0, SEARCH_BAR_HEIGHT,
+						0, SEARCH_BAR_HEIGHT),
+				} , {
+					Image = Roact.createElement("ImageLabel", {
+						AnchorPoint = Vector2.new(0.5, 0.5),
+						Position = UDim2.new(0.5, 0, 0.5, 0),
+						Size = UDim2.new(0, SEARCH_BAR_BUTTON_ICON_SIZE,
+							0, SEARCH_BAR_BUTTON_ICON_SIZE),
+						BackgroundTransparency = 1,
+						Image = Images.SEARCH_ICON,
+						ImageColor3 = theme.assetConfig.packagePermissions.searchBar.searchIcon,
 					}),
 				}),
 

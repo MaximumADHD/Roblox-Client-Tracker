@@ -10,6 +10,8 @@ local LoadAnimationData = require(Plugin.Src.Thunks.LoadAnimationData)
 local SetNotification = require(Plugin.Src.Actions.SetNotification)
 local SetIsDirty = require(Plugin.Src.Actions.SetIsDirty)
 
+local UseCustomFPS = require(Plugin.LuaFlags.GetFFlagAnimEditorUseCustomFPS)
+
 return function(name)
 	return function(store)
 		local state = store:getState()
@@ -22,9 +24,15 @@ return function(name)
 		if animSaves then
 			local keyframeSequence = animSaves:FindFirstChild(name)
 			if keyframeSequence then
-				local newData, numKeyframes, numPoses, numEvents = RigUtils.fromRigAnimation(
-					keyframeSequence, Constants.DEFAULT_FRAMERATE)
-
+				local newData
+				if UseCustomFPS() then
+					local frameRate = RigUtils.calculateFrameRate(keyframeSequence)
+					newData, numKeyframes, numPoses, numEvents = RigUtils.fromRigAnimation(
+						keyframeSequence, frameRate)
+				else
+					newData, numKeyframes, numPoses, numEvents = RigUtils.fromRigAnimation(
+						keyframeSequence, Constants.DEFAULT_FRAMERATE)
+				end
 				store:dispatch(LoadAnimationData(newData))
 				store:dispatch(SetNotification("Loaded", name))
 				store:dispatch(SetIsDirty(false))

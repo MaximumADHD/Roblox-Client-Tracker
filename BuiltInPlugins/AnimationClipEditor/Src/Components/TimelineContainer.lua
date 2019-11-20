@@ -6,6 +6,7 @@
 		int StartFrame = beginning frame of timeline range
 		int EndFrame = end frame of timeline range
 		int LastFrame = The last frame of the animation
+		int FrameRate = the rate (frames per second) of the animation
 		int LayoutOrder = The layout order of the frame, if in a Layout.
 		Vector2 ParentSize = size of the frame this frame is parented to
 ]]
@@ -77,6 +78,7 @@ function TimelineContainer:render()
 		local startFrame = props.StartFrame
 		local endFrame = props.EndFrame
 		local lastFrame = props.LastFrame
+		local frameRate = props.FrameRate
 		local showAsSeconds = props.ShowAsSeconds
 		local layoutOrder = props.LayoutOrder
 		local parentSize = props.ParentSize
@@ -105,6 +107,7 @@ function TimelineContainer:render()
 				Width = parentSize.X - Constants.TRACK_PADDING,
 				TickHeightScale = 0.7,
 				SmallTickHeightScale = 0.3,
+				SampleRate = frameRate,
 				ShowAsTime = showAsSeconds,
 				OnInputBegan = self.onTimelineClicked,
 				OnDragMoved = self.onScrubberMoved,

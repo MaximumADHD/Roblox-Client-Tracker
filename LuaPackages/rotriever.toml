@@ -7,6 +7,7 @@ version = "0.1.0"
 [dependencies]
 Roact = "roblox/roact@1.2"
 RoactRodux = { git = "https://github.com/roblox/roact-rodux", rev = "transitioning-roblox-roact-1x" }
+RoactNavigation = "roblox/roact-navigation@0.2"
 Cryo = "roblox/cryo@1.0"
 LuaChatDeps = { git = "https://github.rbx.com/Roblox/lua-chat-deps" }
 LuaDiscussionsDeps = { git = "https://github.rbx.com/Roblox/lua-discussions-deps" }

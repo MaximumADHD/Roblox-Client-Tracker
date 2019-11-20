@@ -22,6 +22,9 @@ Rectangle {
 	signal openInsertObjectWidget()
 
     function insertObject() {
+		if(insertObjectWindow.getFFlagStudioInsertObjectStreamlining_InsertWidget()) {
+			classToolTip.hide();
+		}
         // Don't try to insert an object if the user hasn't selected any
         if (listView.currentIndex < 0 || listView.currentIndex > listView.count) {
             // Close the window
@@ -118,6 +121,9 @@ Rectangle {
                 Keys.onEnterPressed: insertObject()
                 Keys.onReturnPressed: insertObject()
                 Keys.onEscapePressed: {
+					if(insertObjectWindow.getFFlagStudioInsertObjectStreamlining_InsertWidget()) {
+						classToolTip.hide();
+					}
                     Qt.quit();
                 }
 
@@ -146,6 +152,7 @@ Rectangle {
 		Component {
 			id: nameDelegate
 			Rectangle {
+                id: nameDelegateArea
                 objectName: "qmlInsertObjectRectangle" + name
     			color: "transparent"
     			height: 28
@@ -163,14 +170,24 @@ Rectangle {
 						listView.currentIndex = index;
 						if (description != "") {
 							var pos = mouseArea.mapToItem(dialog, mouseArea.x, mouseArea.y);
-							classToolTip.show(description ? description : "", pos.x, pos.y + 29);
+                            if(insertObjectWindow.getFFlagStudioInsertObjectStreamlining_InsertWidget()) {
+                                classToolTip.show(description ? description : "", pos.x, pos.y, nameDelegateArea.height+1, dialog.height, dialog.width);
+                            }
+							else {
+                                classToolTip.deprecated_show(description ? description : "", pos.x, pos.y + 29);
+                            }
 						}
 					} 
 					onPositionChanged: {
 						if (description != "") {
 							// Tooltip show method hides any displayed tooltip to reset the state
 							var pos = mouseArea.mapToItem(dialog, mouseArea.x, mouseArea.y);
-							classToolTip.show(description ? description : "", pos.x, pos.y + 29);
+                            if(insertObjectWindow.getFFlagStudioInsertObjectStreamlining_InsertWidget()) {
+                                classToolTip.show(description ? description : "", pos.x, pos.y, nameDelegateArea.height+1, dialog.height, dialog.width);
+                            }
+                            else {
+                                classToolTip.deprecated_show(description ? description : "", pos.x, pos.y + 29);
+                            }			
 						}
 					}
 					onExited: { 
@@ -260,7 +277,30 @@ Rectangle {
 
 		CheckBox {
 			id: selectedCheckBox
-			text: qsTr("Studio.App.InsertObjectWidget.SelectInsertedObject")
+
+			style: CheckBoxStyle {
+                indicator: Rectangle {
+                    width: 16
+                    height: 16
+                    color: control.checked ? userPreferences.theme.style("Checkbox checkedBackground") : userPreferences.theme.style("Checkbox background")
+                    border.color: userPreferences.theme.style("Checkbox border")
+                    radius: 3
+
+                    Image {
+                        anchors.centerIn: parent
+                        width: 16
+                        height: 16
+                        source: userPreferences.theme.style("Checkbox checkMarkIcon")
+                        visible: control.checked
+                    }
+                }
+                spacing: 6
+                label: PlainText {
+					text: qsTr("Studio.App.InsertObjectWidget.SelectInsertedObject")
+					color: userPreferences.theme.style("CommonStyle mainText")
+                }
+            }
+
 			checked: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamlining_SelectAfterInsert() ? selectAfterInsert : true
 			onClicked: rootWindow.selectAfterInsertChecked(checked)
 			anchors.left: parent.left
@@ -277,7 +317,7 @@ Rectangle {
 			}			
 			height: {
 				if(insertObjectWindow.getFFlagStudioInsertObjectStreamlining_InsertWidget() && insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamlining_SelectAfterInsert()){
-				    return isWindow ? 0 : 25
+				    return isWindow ? 0 : 30
 				}
 				else
 				{

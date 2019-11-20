@@ -165,11 +165,12 @@ function ManagementMainView:render()
 
 		FindPluginsButton = Roact.createElement(Button, {
 			Size = UDim2.new(
-				0, Constants.FIND_PLUGINS_BUTTON_SIZE,
-				0, Constants.FIND_PLUGINS_BUTTON_SIZE),
+				0, Constants.HEADER_BUTTON_SIZE,
+				0, Constants.HEADER_BUTTON_SIZE),
 			Position = UDim2.new(
-				1, Constants.HEADER_RIGHT_PADDING - Constants.FIND_PLUGINS_BUTTON_SIZE,
+				1, Constants.HEADER_RIGHT_PADDING,
 				0, Constants.HEADER_TOP_PADDING),
+			AnchorPoint = Vector2.new(1, 0),
 			Style = "Primary",
 			BackgroundTransparency = 1,
 			OnClick = self.findPlugins,

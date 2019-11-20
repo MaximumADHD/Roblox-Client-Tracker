@@ -16,6 +16,9 @@
 		callback onSearchOptionsToggled()
 ]]
 
+local FFlagToolboxShowGroupCreations = game:GetFastFlag("ToolboxShowGroupCreations")
+local FFlagToolboxHideSearchForMyPlugins = game:DefineFastFlag("ToolboxHideSearchForMyPlugins", false)
+
 local Plugin = script.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
@@ -132,6 +135,23 @@ function Header:render()
 			local headerTheme = theme.header
 
 			local isCreationsTab = currentTab == Category.CREATIONS_KEY
+			local isInventoryTab = currentTab == Category.INVENTORY_KEY
+
+			local fullWidthDropdown
+			if FFlagToolboxShowGroupCreations then
+				fullWidthDropdown = isCreationsTab and not isGroupCategory
+			else
+				fullWidthDropdown = isCreationsTab
+			end
+
+			local showSearchBar
+			if FFlagToolboxHideSearchForMyPlugins then
+				local isPlugins = Category.categoryIsPlugin(currentTab, categoryIndex)
+				showSearchBar = not isGroupCategory and not isCreationsTab
+					and not (isInventoryTab and isPlugins)
+			else
+				showSearchBar = not isGroupCategory and not isCreationsTab
+			end
 
 			return Roact.createElement("ImageButton", {
 				Position = props.Position,
@@ -156,7 +176,7 @@ function Header:render()
 
 				CategoryMenu = Roact.createElement(DropdownMenu, {
 					Position = UDim2.new(0, 0, 0, 0),
-					Size = isCreationsTab and UDim2.new(1, 0, 1, 0) or UDim2.new(0, dropdownWidth, 1, 0),
+					Size = fullWidthDropdown and UDim2.new(1, 0, 1, 0) or UDim2.new(0, dropdownWidth, 1, 0),
 					LayoutOrder = 0,
 					visibleDropDownCount = 8,
 					selectedDropDownIndex = categoryIndex,
@@ -166,7 +186,7 @@ function Header:render()
 					onItemClicked = onCategorySelected,
 				}),
 
-				SearchBar = (not isGroupCategory and not isCreationsTab) and Roact.createElement(SearchBar, {
+				SearchBar = showSearchBar and Roact.createElement(SearchBar, {
 					width = searchBarWidth,
 					LayoutOrder = 1,
 

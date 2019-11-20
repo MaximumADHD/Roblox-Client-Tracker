@@ -267,21 +267,24 @@ function DevConsoleMaster:SetVisibility(value)
 	end
 end
 
-StarterGui:RegisterGetCore("DevConsoleVisible", function()
-	if PolicyService:IsEnabled() and PolicyService:IsSubjectToChinaPolicies() then return end
-	if FFlagChinaLicensingApp then return false end
+if RunService:IsClient() and not RunService:IsServer() then
+	--Registering these during unit testing causes errors.
+	StarterGui:RegisterGetCore("DevConsoleVisible", function()
+		if PolicyService:IsEnabled() and PolicyService:IsSubjectToChinaPolicies() then return end
+		if FFlagChinaLicensingApp then return false end
 
-	return master:GetVisibility()
-end)
+		return master:GetVisibility()
+	end)
 
-StarterGui:RegisterSetCore("DevConsoleVisible", function(visible)
-	if (type(visible) ~= "boolean") then
-		error("DevConsoleVisible must be given a boolean value.")
-	end
-	if PolicyService:IsEnabled() and PolicyService:IsSubjectToChinaPolicies() then return end
-	if FFlagChinaLicensingApp then return end
-	
-	master:SetVisibility(visible)
-end)
+	StarterGui:RegisterSetCore("DevConsoleVisible", function(visible)
+		if (type(visible) ~= "boolean") then
+			error("DevConsoleVisible must be given a boolean value.")
+		end
+		if PolicyService:IsEnabled() and PolicyService:IsSubjectToChinaPolicies() then return end
+		if FFlagChinaLicensingApp then return end
+
+		master:SetVisibility(visible)
+	end)
+end
 
 return master

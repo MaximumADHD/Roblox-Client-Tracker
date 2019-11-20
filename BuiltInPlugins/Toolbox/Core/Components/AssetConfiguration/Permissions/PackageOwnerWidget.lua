@@ -82,6 +82,8 @@ function PackageOwnerWidget:render()
 				collaboratorItem = Roact.createElement(CollaboratorItem, {
 					LayoutOrder = 1,
 					Removable = false,
+
+					SubjectType = Enum.CreatorType.User,
 					
 					CollaboratorName = props.OwnerName,
 					CollaboratorId = props.OwnerId,

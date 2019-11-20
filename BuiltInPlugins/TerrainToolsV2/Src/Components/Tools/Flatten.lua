@@ -48,6 +48,9 @@ local Flatten = Roact.PureComponent:extend(script.Name)
 
 function Flatten:init(initialProps)
 	if FFlagTerrainToolsRefactorTerrainBrush then
+		self.pluginActivationController = TerrainInterface.getPluginActivationController(self)
+		assert(self.pluginActivationController, "BaseBrush requires a PluginActivationController from context")
+
 		self.terrainBrush = TerrainInterface.getTerrainBrush(self)
 		assert(self.terrainBrush, "Flatten requires a TerrainBrush from context")
 	end
@@ -179,15 +182,41 @@ function Flatten:init(initialProps)
 			local sigFig = math.floor(planePositionY * 1000)/1000
 			self.props.dispatchChangePlanePositionY(sigFig)
 		end)
+
 		self.connectionPickerSet = self.terrainBrush:subscribeToHeightPickerSet(self.props.dispatchSetHeightPicker)
 
 		self.brushSizeChangedConnection = self.terrainBrush:subscribeToRequestBrushSizeChanged(self.brushSizeCallback)
 		self.brushStrengthChangedConnection = self.terrainBrush:subscribeToRequestBrushStrengthChanged(self.brushStrengthCallback)
+
+		-- Starts the terrain brush with Flatten tool only if
+		-- active tool in plugin activation controller 
+		-- Starts the terrain brush with Flatten tool only if
+		-- active tool in plugin activation controller is Flatten
+		self.safeStartWithTool = function()
+			-- :getActiveTool() returns ToolId.None if no tool is selected, so this works in that case too
+			if self.pluginActivationController:getActiveTool() == self.props.toolName then
+				coroutine.wrap(function()
+					self.terrainBrush:startWithTool(self.props.toolName)
+				end)()
+			end
+		end
+
+		-- When my tool becomes active, we want to run the terrain brush
+		self.onToolActivatedConnection = self.pluginActivationController:subscribeToToolActivated(self.safeStartWithTool)
+
+		-- Stop the terrain brush if the tool that was deselected is my tool
+		self.onToolDeactivatedConnection = self.pluginActivationController:subscribeToToolDeactivated(function(toolId)
+			if toolId == self.props.toolName then
+				self.terrainBrush:stop()
+			end
+		end)
+
 	else
 		self.connectionYChanged = TerrainBrush.PlanePositionYChanged:connect(function(planePositionY)
 			local sigFig = math.floor(planePositionY * 1000)/1000
 			self.props.dispatchChangePlanePositionY(sigFig)
 		end)
+
 		self.connectionPickerSet = TerrainBrush.HeightPickerSet:connect(self.props.dispatchSetHeightPicker)
 	end
 end
@@ -197,16 +226,20 @@ function Flatten:didUpdate()
 end
 
 function Flatten:didMount()
-	local plugin = StudioPlugin.getPlugin(self)
-	local mouse = plugin:GetMouse()
+	if FFlagTerrainToolsRefactorTerrainBrush then
+		self.safeStartWithTool()
+	else
+		local plugin = StudioPlugin.getPlugin(self)
+		local mouse = plugin:GetMouse()
 
-	coroutine.wrap(function()
-		if FFlagTerrainToolsRefactorTerrainBrush then
-			self.terrainBrush:activateTool(ToolId.Flatten)
-		else
-			TerrainBrush.Init(ToolId.Flatten, mouse)
-		end
-	end)()
+		coroutine.wrap(function()
+			if FFlagTerrainToolsRefactorTerrainBrush then
+				self.terrainBrush:activateTool(ToolId.Flatten)
+			else
+				TerrainBrush.Init(ToolId.Flatten, mouse)
+			end
+		end)()
+	end
 	self:updateBrushProperties()
 end
 
@@ -292,12 +325,30 @@ function Flatten:willUnmount()
 			self.brushStrengthChangedConnection = nil
 		end
 
-		self.terrainBrush:deactivate()
+		if self.onToolActivatedConnection then
+			self.onToolActivatedConnection:disconnect()
+			self.onToolActivatedConnection = nil
+		end
+
+		if self.onToolDeactivatedConnection then
+			self.onToolDeactivatedConnection:disconnect()
+			self.onToolDeactivatedConnection = nil
+		end
+
+		-- If the flatten brush is unmounting, but my tool is still active
+		-- Stop the terrain brush anyway
+		-- This case happens when Flatten unmounts before ToolSelectionListener:didUpdate()
+		-- Or when Roact.unmount() was used on the whole tree because the plugin window is closing
+		if self.pluginActivationController:getActiveTool() == self.props.toolName then
+			self.terrainBrush:stop()
+		end
 	end
 end
 
 local function MapStateToProps (state, props)
 	return {
+		toolName = ToolId.Flatten,
+
 		baseSize = state[REDUCER_KEY].baseSize,
 		height = state[REDUCER_KEY].height,
 		baseSizeHeightLocked = state[REDUCER_KEY].baseSizeHeightLocked,

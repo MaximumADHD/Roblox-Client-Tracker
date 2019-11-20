@@ -1,10 +1,12 @@
 local Plugin = script.Parent.Parent.Parent
 local Rodux = require(Plugin.Packages.Rodux)
 
-local Example = require(Plugin.Src.Reducers.Example)
+local LanguagesReducer = require(Plugin.Src.Reducers.LanguagesReducer)
+local CountryRegionReducer = require(Plugin.Src.Reducers.CountryRegionReducer)
 
 local MainReducer = Rodux.combineReducers({
-	Example = Example,
+	Languages = LanguagesReducer,
+	CountryRegion = CountryRegionReducer,
 })
 
 return MainReducer

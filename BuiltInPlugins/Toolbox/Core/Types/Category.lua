@@ -2,6 +2,7 @@ local FFlagLuaPackagePermissions =  settings():GetFFlag("LuaPackagePermissions")
 local FFlagOnlyWhitelistedPluginsInStudio = settings():GetFFlag("OnlyWhitelistedPluginsInStudio")
 local FFlagFixToolboxInitLoad = settings():GetFFlag("FixToolboxInitLoad")
 local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
+local FFlagToolboxShowGroupCreations = game:DefineFastFlag("ToolboxShowGroupCreations", false)
 
 local Plugin = script.Parent.Parent.Parent
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
@@ -109,23 +110,49 @@ Category.GROUP_PACKAGES = {name = "GroupPackages", category = "GroupPackages",
 	ownershipType = Category.OwnershipType.GROUP, assetType = Category.AssetType.PACKAGE}
 
 Category.CREATIONS_DEVELOPMENT_SECTION_DIVIDER = {name = "CreationsDevelopmentSectionDivider", selectable=false}
-Category.CREATIONS_MODELS = {name = "CreationsModels", assetType = Category.AssetType.MODEL}
-Category.CREATIONS_DECALS = {name = "CreationsDecals", assetType = Category.AssetType.DECAL}
-Category.CREATIONS_AUDIO = {name = "CreationsAudio", assetType = Category.AssetType.AUDIO}
-Category.CREATIONS_MESHES = {name = "CreationsMeshes", assetType = Category.AssetType.MESHPART}
-Category.CREATIONS_PLUGIN = {name = "CreationsPlugins", assetType = Category.AssetType.PLUGIN}
+Category.CREATIONS_MODELS = {name = "CreationsModels", assetType = Category.AssetType.MODEL,
+	ownershipType = Category.OwnershipType.MY,}
+Category.CREATIONS_DECALS = {name = "CreationsDecals", assetType = Category.AssetType.DECAL,
+	ownershipType = Category.OwnershipType.MY,}
+Category.CREATIONS_AUDIO = {name = "CreationsAudio", assetType = Category.AssetType.AUDIO,
+	ownershipType = Category.OwnershipType.MY,}
+Category.CREATIONS_MESHES = {name = "CreationsMeshes", assetType = Category.AssetType.MESHPART,
+	ownershipType = Category.OwnershipType.MY,}
+Category.CREATIONS_PLUGIN = {name = "CreationsPlugins", assetType = Category.AssetType.PLUGIN,
+	ownershipType = Category.OwnershipType.MY,}
+Category.CREATIONS_GROUP_MODELS = {name = "CreationsGroupModels", assetType = Category.AssetType.MODEL,
+	ownershipType = Category.OwnershipType.GROUP,}
+Category.CREATIONS_GROUP_DECALS = {name = "CreationsGroupDecals", assetType = Category.AssetType.DECAL,
+	ownershipType = Category.OwnershipType.GROUP,}
+Category.CREATIONS_GROUP_AUDIO = {name = "CreationsGroupAudio", assetType = Category.AssetType.AUDIO,
+	ownershipType = Category.OwnershipType.GROUP,}
+Category.CREATIONS_GROUP_MESHES = {name = "CreationsGroupMeshes", assetType = Category.AssetType.MESHPART,
+	ownershipType = Category.OwnershipType.GROUP,}
+Category.CREATIONS_GROUP_PLUGIN = {name = "CreationsGroupPlugins", assetType = Category.AssetType.PLUGIN,
+	ownershipType = Category.OwnershipType.GROUP,}
 Category.CREATIONS_CATALOG_SECTION_DIVIDER = {name = "CreationsCatalogSectionDivider", selectable=false}
-Category.CREATIONS_HATS = {name = "CreationsHats", assetType = Category.AssetType.HAT}
-Category.CREATIONS_TEE_SHIRT = {name = "CreationsTeeShirts", assetType = Category.AssetType.TEE_SHIRT}
-Category.CREATIONS_SHIRT = {name = "CreationsShirts", assetType = Category.AssetType.SHIRT}
-Category.CREATIONS_PANTS = {name = "CreationsPants", assetType = Category.AssetType.PANTS}
-Category.CREATIONS_HAIR = {name = "CreationsHair", assetType = Category.AssetType.HAIR_ACCESSORY}
-Category.CREATIONS_FACE_ACCESSORIES = {name = "CreationsFaceAccessories", assetType = Category.AssetType.FACE_ACCESSORY}
-Category.CREATIONS_NECK_ACCESSORIES = {name = "CreationsNeckAccessories", assetType = Category.AssetType.NECK_ACCESSORY}
-Category.CREATIONS_SHOULDER_ACCESSORIES = {name = "CreationsShoulderAccessories", assetType = Category.AssetType.SHOULDER_ACCESSORY}
-Category.CREATIONS_FRONT_ACCESSORIES = {name = "CreationsFrontAccessories", assetType = Category.AssetType.FRONT_ACCESSORY}
-Category.CREATIONS_BACK_ACCESSORIES = {name = "CreationsBackAccessories", assetType = Category.AssetType.BACK_ACCESSORY}
-Category.CREATIONS_WAIST_ACCESSORIES = {name = "CreationsWaistAccessories", assetType = Category.AssetType.WAIST_ACCESSORY}
+Category.CREATIONS_HATS = {name = "CreationsHats", assetType = Category.AssetType.HAT,
+	ownershipType = Category.OwnershipType.MY,}
+Category.CREATIONS_TEE_SHIRT = {name = "CreationsTeeShirts", assetType = Category.AssetType.TEE_SHIRT,
+	ownershipType = Category.OwnershipType.MY,}
+Category.CREATIONS_SHIRT = {name = "CreationsShirts", assetType = Category.AssetType.SHIRT,
+	ownershipType = Category.OwnershipType.MY,}
+Category.CREATIONS_PANTS = {name = "CreationsPants", assetType = Category.AssetType.PANTS,
+	ownershipType = Category.OwnershipType.MY,}
+Category.CREATIONS_HAIR = {name = "CreationsHair", assetType = Category.AssetType.HAIR_ACCESSORY,
+	ownershipType = Category.OwnershipType.MY,}
+Category.CREATIONS_FACE_ACCESSORIES = {name = "CreationsFaceAccessories", assetType = Category.AssetType.FACE_ACCESSORY,
+	ownershipType = Category.OwnershipType.MY,}
+Category.CREATIONS_NECK_ACCESSORIES = {name = "CreationsNeckAccessories", assetType = Category.AssetType.NECK_ACCESSORY,
+	ownershipType = Category.OwnershipType.MY,}
+Category.CREATIONS_SHOULDER_ACCESSORIES = {name = "CreationsShoulderAccessories", assetType = Category.AssetType.SHOULDER_ACCESSORY,
+	ownershipType = Category.OwnershipType.MY,}
+Category.CREATIONS_FRONT_ACCESSORIES = {name = "CreationsFrontAccessories", assetType = Category.AssetType.FRONT_ACCESSORY,
+	ownershipType = Category.OwnershipType.MY,}
+Category.CREATIONS_BACK_ACCESSORIES = {name = "CreationsBackAccessories", assetType = Category.AssetType.BACK_ACCESSORY,
+	ownershipType = Category.OwnershipType.MY,}
+Category.CREATIONS_WAIST_ACCESSORIES = {name = "CreationsWaistAccessories", assetType = Category.AssetType.WAIST_ACCESSORY,
+	ownershipType = Category.OwnershipType.MY,}
 
 -- Category sets used for splitting inventory/shop
 Category.MARKETPLACE = {
@@ -163,17 +190,21 @@ Category.RECENT = {
 }
 
 local function getCreationCategories()
-	if FFlagEnablePurchasePluginFromLua2 then
-		return {
+	local categories
+	if FFlagToolboxShowGroupCreations then
+		categories = {
 			Category.CREATIONS_DEVELOPMENT_SECTION_DIVIDER,
 			Category.CREATIONS_MODELS,
 			Category.CREATIONS_DECALS,
 			Category.CREATIONS_AUDIO,
 			Category.CREATIONS_MESHES,
-			Category.CREATIONS_PLUGIN,
+			Category.CREATIONS_GROUP_MODELS,
+			Category.CREATIONS_GROUP_DECALS,
+			Category.CREATIONS_GROUP_AUDIO,
+			Category.CREATIONS_GROUP_MESHES,
 		}
 	else
-		return {
+		categories = {
 			Category.CREATIONS_DEVELOPMENT_SECTION_DIVIDER,
 			Category.CREATIONS_MODELS,
 			Category.CREATIONS_DECALS,
@@ -181,6 +212,17 @@ local function getCreationCategories()
 			Category.CREATIONS_MESHES,
 		}
 	end
+
+	if FFlagEnablePurchasePluginFromLua2 then
+		table.insert(categories, Cryo.List.find(categories, Category.CREATIONS_MESHES) + 1,
+			Category.CREATIONS_PLUGIN)
+		if FFlagToolboxShowGroupCreations then
+			table.insert(categories, Cryo.List.find(categories, Category.CREATIONS_GROUP_MESHES) + 1,
+				Category.CREATIONS_GROUP_PLUGIN)
+		end
+	end
+
+	return categories
 end
 
 local CREATIONS = {
@@ -254,8 +296,17 @@ end
 
 function Category.categoryIsGroupAsset(currentTab, index)
 	if currentTab == Category.CREATIONS_KEY then
-		return false
+		if FFlagToolboxShowGroupCreations then
+			local categories = Category.getCategories(currentTab, {})
+			if categories[index] == nil then
+				return false
+			end
+			return categories[index].ownershipType == Category.OwnershipType.GROUP
+		else
+			return false
+		end
 	end
+
 	return checkBounds(index) and Category.INVENTORY_WITH_GROUPS[index].ownershipType == Category.OwnershipType.GROUP
 end
 

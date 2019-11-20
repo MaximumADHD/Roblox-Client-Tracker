@@ -1,27 +1,83 @@
 -- Terrain SeaLevel
+local Plugin = script.Parent.Parent.Parent.Parent
+local UILibrary = Plugin.Packages.UILibrary
+local Signal = require(UILibrary.Utils.Signal)
 
-local RESOLUTION = 4
+local ChangeHistoryService = game:GetService('ChangeHistoryService')
+
+local Constants = require(Plugin.Src.Util.Constants)
 local MAX_VOXELS_PER_SLICE = 4*1024*1024-1
-
--- To localized when strings are finalized
-local MISSING_TERRAIN = "Could not find terrain."
-local REGION_SIZE_TOO_SMALL = "Region Size is too small."
-local REGION_TOO_LARGE = "Region Size is too large."
-local ALREADY_GENERATING = "Already Generating"
-local START_SEA_LEVEL = "Starting Sea Level"
-local FINISH_SEA_LEVEL = "SeaLevel Complete: "
 
 TerrainSeaLevel = {}
 TerrainSeaLevel.__index = TerrainSeaLevel
 
-function TerrainSeaLevel.new()
-	local self = {}
-	setmetatable(self, TerrainSeaLevel)
+function TerrainSeaLevel.new(localization)
+	local self = setmetatable({
+		_replacing = false,
+		_replacingProgress = 0,
 
-	self._generating = false
-	self._seaLevelSurfaceParts = {}
+		_progressChanged = Signal.new(),
+		_stateChange = Signal.new(),
+	}, TerrainSeaLevel)
+
+	self._localization = localization
+
+	self._setReplacing = function(state)
+		if state ~= self._replacing then
+			self._replacing = state
+			self._stateChange:fire(state)
+		end
+
+		if state == false then
+			self._replacingProgress = 0
+		end
+	end
+
+	self._updateReplaceProgress = function(completionPercent)
+		self._replaceProgress = completionPercent
+		self._progressChanged:fire(completionPercent)
+		if completionPercent >= 1 then
+			self._setReplacing(false)
+		end
+	end
 
 	return self
+end
+
+function TerrainSeaLevel:destroy()
+	-- nothing needs to be done
+end
+
+function TerrainSeaLevel:localizedWarn(...)
+	if self._localization then
+		warn(self._localization:getText(...))
+	end
+end
+
+function TerrainSeaLevel:localizedPrint(...)
+	if self._localization then
+		print(self._localization:getText(...))
+	end
+end
+
+function TerrainSeaLevel:subscribeToProgressChange(...)
+	return self._progressChanged:connect(...)
+end
+
+function TerrainSeaLevel:subscribeToStateChange(...)
+	return self._stateChange:connect(...)
+end
+
+function TerrainSeaLevel:isReplacing()
+	return self._replacing
+end
+
+function TerrainSeaLevel:getProgress()
+	return self._replacingProgress
+end
+
+function TerrainSeaLevel:cancel()
+	self._setReplacing(false)
 end
 
 -- position is the center of the of the targetRegion
@@ -29,24 +85,30 @@ end
 -- seaLevel is the y plane position to set the sea level
 --   within the targetRegion
 -- Note all args are expected in studs
-function TerrainSeaLevel:ReplaceMaterial(position, size, sourceMaterial, targetMaterial)
-	if self._generating then
-		warn(ALREADY_GENERATING)
+function TerrainSeaLevel:replaceMaterial(position, size, sourceMaterial, targetMaterial)
+	if self._replacing then
+		self:localizedWarn("Warning", "AlreadyGeneratingTerrain")
 		return
 	end
-	self._generating = true
-	print(START_SEA_LEVEL)
+	self._updateReplaceProgress(0)
+	self._setReplacing(true)
+
+	self:localizedPrint("SeaLevel", "Start")
 
 	local startTime = tick()
 	local terrain = workspace.terrain
 	if not terrain then
-		warn(MISSING_TERRAIN)
+		self:localizedWarn("Warning", "MissingTerrain")
 		return
 	end
 
+	assert(size.x >= 4,"")
+	assert(size.y >= 4,"")
+	assert(size.z >= 4,"")
+
 	-- convert to voxels
-	position = position / RESOLUTION
-	size = size / RESOLUTION
+	position = position / Constants.VOXEL_RESOLUTION
+	size = size / Constants.VOXEL_RESOLUTION
 
 	local offset = (size)/2
 	local minExtent = position - offset
@@ -59,21 +121,22 @@ function TerrainSeaLevel:ReplaceMaterial(position, size, sourceMaterial, targetM
 	local voxelsXPerSlice = math.floor(MAX_VOXELS_PER_SLICE / sliceZY )
 
 	if voxelsXPerSlice == 0 then
-		warn(REGION_TOO_LARGE)
-		self._generating = false
+		self:localizedWarn("Warning", "RegionTooLarge")
+		self._setReplacing(false)
 		return
 	end
-	local slicePosIncrement = Vector3.new(voxelsXPerSlice, 0, 0) * RESOLUTION
+
+	local slicePosIncrement = Vector3.new(voxelsXPerSlice, 0, 0) * Constants.VOXEL_RESOLUTION
 
 	local minSliceExtent = Vector3.new(
 		math.floor(minExtent.X),
 		math.floor(minExtent.Y),
-		math.floor(minExtent.Z)) * RESOLUTION
+		math.floor(minExtent.Z)) * Constants.VOXEL_RESOLUTION
 
 	local maxSliceExtent = Vector3.new(
 		math.ceil(math.min(maxExtent.X, minExtent.X + voxelsXPerSlice)),
 		math.ceil(maxExtent.Y),
-		math.ceil(maxExtent.Z)) * RESOLUTION
+		math.ceil(maxExtent.Z)) * Constants.VOXEL_RESOLUTION
 
 	local extentOffset = size
 	local x = minSliceExtent.X
@@ -81,20 +144,30 @@ function TerrainSeaLevel:ReplaceMaterial(position, size, sourceMaterial, targetM
 	-- There is a bug here where the level does not generate correctly for
 	-- any height%4 == 1 such as 1,5,9 etc. These heights resolve to the
 	-- same mesh as height%4 == 2
-	while minSliceExtent.x <= (maxExtent.x * RESOLUTION) do
+	local maxSliceX = maxExtent.x * Constants.VOXEL_RESOLUTION
+	local minSliceX = minExtent.x * Constants.VOXEL_RESOLUTION
+
+	while minSliceExtent.x <= (maxSliceX) and self._replacing do
+		-- output progress metric
+		self._updateReplaceProgress(1 - ((maxSliceX - minSliceExtent.X) / (maxSliceX-minSliceX)))
+
 		-- calculate slicing targetSlice
 		local regionSlice = Region3.new(minSliceExtent, maxSliceExtent)
+		regionSlice = regionSlice:ExpandToGrid(Constants.VOXEL_RESOLUTION)
 
-		terrain:ReplaceMaterial(regionSlice, RESOLUTION, Enum.Material.Air, Enum.Material.Water)
+		pcall(function()
+			terrain:ReplaceMaterial(regionSlice, Constants.VOXEL_RESOLUTION, sourceMaterial, targetMaterial)
+		end)
 		wait()
 
 		-- fix the surface
 		if surfaceVoxelOccupancy > 0 then
 			local surfaceSlice = Region3.new(
-				Vector3.new(minSliceExtent.X, (surfaceVoxelY) * RESOLUTION, minSliceExtent.Z),
-				Vector3.new(maxSliceExtent.X, (surfaceVoxelY + 1) * RESOLUTION, maxSliceExtent.Z)
+				Vector3.new(minSliceExtent.X, (surfaceVoxelY) * Constants.VOXEL_RESOLUTION, minSliceExtent.Z),
+				Vector3.new(maxSliceExtent.X, (surfaceVoxelY + 1) * Constants.VOXEL_RESOLUTION, maxSliceExtent.Z)
 			)
-			local surfaceMat, surfaceOcc = terrain:ReadVoxels(surfaceSlice, RESOLUTION)
+			surfaceSlice = surfaceSlice:ExpandToGrid(Constants.VOXEL_RESOLUTION)
+			local surfaceMat, surfaceOcc = terrain:ReadVoxels(surfaceSlice, Constants.VOXEL_RESOLUTION)
 			for ix, vx in ipairs(surfaceOcc) do
 				for iy, vy in pairs(vx) do
 					for iz, cellOccupancy in pairs(vy) do
@@ -104,25 +177,27 @@ function TerrainSeaLevel:ReplaceMaterial(position, size, sourceMaterial, targetM
 					end
 				end
 			end
-			terrain:WriteVoxels(surfaceSlice, RESOLUTION, surfaceMat, surfaceOcc)
+			terrain:WriteVoxels(surfaceSlice, Constants.VOXEL_RESOLUTION, surfaceMat, surfaceOcc)
 		end
 
 
 		minSliceExtent = minSliceExtent + slicePosIncrement
 
-		if maxSliceExtent.X + slicePosIncrement.X <= maxExtent.X * RESOLUTION then
+		if maxSliceExtent.X + slicePosIncrement.X <= maxExtent.X * Constants.VOXEL_RESOLUTION then
 			maxSliceExtent = maxSliceExtent + slicePosIncrement
 		else
-			maxSliceExtent = Vector3.new(maxExtent.X * RESOLUTION, maxSliceExtent.Y, maxSliceExtent.Z)
+			maxSliceExtent = Vector3.new(maxExtent.X * Constants.VOXEL_RESOLUTION, maxSliceExtent.Y, maxSliceExtent.Z)
 		end
 	end
 
+	ChangeHistoryService:SetWaypoint('TerrainReplace')
+
 	-- resolution is currently a fixed value of 4 until terrain
 	-- provides that as an actual option
-
+	self._updateReplaceProgress(1)
 	local endTime = tick()
-	print(FINISH_SEA_LEVEL, endTime - startTime)
-	self._generating = false
+	self:localizedPrint("SeaLevel", "End", endTime - startTime)
+	self._setReplacing(false)
 end
 
 return TerrainSeaLevel

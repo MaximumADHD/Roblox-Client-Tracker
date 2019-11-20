@@ -3,6 +3,9 @@ local Plugin = script.Parent.Parent.Parent
 local Libs = Plugin.Libs
 local Cryo = require(Libs.Cryo)
 local Rodux = require(Libs.Rodux)
+local UILibrary = require(Libs.UILibrary)
+
+local deepJoin = UILibrary.Util.deepJoin
 
 local Util = Plugin.Core.Util
 local PagedRequestCursor = require(Util.PagedRequestCursor)
@@ -32,7 +35,6 @@ local SetOverrideCursor = require(Actions.SetOverrideCursor)
 local SetAssetConfigThumbnailStatus = require(Actions.SetAssetConfigThumbnailStatus)
 local SetGroupMetadata = require(Actions.SetGroupMetadata)
 local SetOwnerUsername = require(Actions.SetOwnerUsername)
-local SetLocalUsername = require(Actions.SetLocalUsername)
 local CollaboratorSearchActions = require(Actions.CollaboratorSearchActions)
 local SetCollaborators = require(Actions.SetCollaborators)
 local SetIsPackage = require(Actions.SetIsPackage)
@@ -89,7 +91,7 @@ return Rodux.createReducer({
 	loadingPage = 0,
 	currentPage = 1,
 
-	-- For fetching Models to override only
+	-- For fetching my models and plugins to override only
 	overrideCursor = PagedRequestCursor.createDefaultCursor(),
 
 	-- For Package Permissions
@@ -275,17 +277,18 @@ return Rodux.createReducer({
 	end,
 
 	[SetOwnerUsername.name] = function(state, action)
-		return Cryo.Dictionary.join(state, {
-			ownerUsername = action.ownerUsername,
-		})
-	end,
-
-	[SetLocalUsername.name] = function(state, action)
-		return Cryo.Dictionary.join(state, {
-			[getUserId()] = {
-				localUsername = action.localUsername,
-			}
-		})
+		if Enum.CreatorType[state.assetConfigData.Creator.type] ~= Enum.CreatorType.User then
+			return state
+		end
+		
+		return deepJoin(state, {
+            ownerUsername = action.ownerUsername,
+            assetConfigData = {
+                Creator = {
+                    username = action.ownerUsername,
+                }
+            },
+        })
 	end,
 
 	[CollaboratorSearchActions.LoadedLocalUserFriends.name] = function(state, action)

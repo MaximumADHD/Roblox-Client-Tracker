@@ -30,6 +30,7 @@ local AnimationEventsTrack = require(Plugin.Src.Components.TrackList.AnimationEv
 local TrackScrollbar = require(Plugin.Src.Components.TrackList.TrackScrollbar)
 local StartScreen = require(Plugin.Src.Components.StartScreen)
 local FloorGrid = require(Plugin.Src.Components.FloorGrid)
+local ChangeFPSPrompt = require(Plugin.Src.Components.ChangeFPSPrompt)
 
 local SettingsButton = require(Plugin.Src.Components.SettingsButton)
 
@@ -47,12 +48,15 @@ local SetEventEditingFrame = require(Plugin.Src.Actions.SetEventEditingFrame)
 local LoadAnimationData = require(Plugin.Src.Thunks.LoadAnimationData)
 local SetIsPlaying = require(Plugin.Src.Actions.SetIsPlaying)
 local SetIsDirty = require(Plugin.Src.Actions.SetIsDirty)
+local SetFrameRate = require(Plugin.Src.Thunks.SetFrameRate)
 
 local Playback = require(Plugin.Src.Components.Playback)
 local InstanceSelector = require(Plugin.Src.Components.InstanceSelector)
 local JointSelector = require(Plugin.Src.Components.JointManipulator.JointSelector)
 local AnimationControlPanel = require(Plugin.Src.Components.AnimationControlPanel.AnimationControlPanel)
 local TrackColors = require(Plugin.Src.Components.TrackList.TrackColors)
+
+local UseCustomFPS = require(Plugin.LuaFlags.GetFFlagAnimEditorUseCustomFPS)
 
 local EditorController = Roact.PureComponent:extend("EditorController")
 
@@ -62,7 +66,22 @@ function EditorController:init()
 		AbsoluteSize = Vector2.new(),
 		TrackListWidth = Constants.TRACK_LIST_START_WIDTH,
 		showContextMenu = false,
+		showChangeFPSPrompt = false,
 	}
+
+	if UseCustomFPS() then
+		self.showChangeFPSPrompt = function()
+			self:setState({
+				showChangeFPSPrompt = true,
+			})
+		end
+
+		self.hideChangeFPSPrompt = function()
+			self:setState({
+				showChangeFPSPrompt = false,
+			})
+		end
+	end
 
 	self.setTopTrackIndex = function(index)
 		local tracks = self.props.Tracks
@@ -208,6 +227,7 @@ function EditorController:render()
 	local rootInstance = props.RootInstance
 
 	local absoluteSize = state.AbsoluteSize
+	local showChangeFPSPrompt = state.showChangeFPSPrompt
 
 	if animationData then
 		local range = TrackUtils.getZoomRange(props.AnimationData, scroll, zoom, editingLength)
@@ -347,6 +367,7 @@ function EditorController:render()
 			EndFrame = endFrame,
 			LastFrame = lastFrame,
 			Playhead = playhead,
+			FrameRate = UseCustomFPS() and animationData and animationData.Metadata and animationData.Metadata.FrameRate,
 			ShowAsSeconds = showAsSeconds,
 			ShowEvents = showEvents,
 			Scroll = scroll,
@@ -359,7 +380,9 @@ function EditorController:render()
 			Size = UDim2.new(0, Constants.SCROLL_BAR_SIZE, 1, 0),
 			LayoutOrder = 3,
 		}, {
-			SettingsButton = Roact.createElement(SettingsButton),
+			SettingsButton = Roact.createElement(SettingsButton, {
+				OnChangeFPS = UseCustomFPS() and self.showChangeFPSPrompt,
+			}),
 
 			TrackScrollbar = Roact.createElement(TrackScrollbar, {
 				Size = UDim2.new(1, 0, 1, -Constants.SCROLL_BAR_SIZE - Constants.TIMELINE_HEIGHT - 1),
@@ -421,7 +444,13 @@ function EditorController:render()
 
 		InactiveCover = not active and Roact.createElement(InactiveCover, {
 			OnFocused = props.AttachEditor,
-		})
+		}),
+
+		ChangeFPSPrompt = UseCustomFPS() and showChangeFPSPrompt and Roact.createElement(ChangeFPSPrompt, {
+			FrameRate = animationData and animationData.Metadata and animationData.Metadata.FrameRate,
+			SetFrameRate = props.SetFrameRate,
+			OnClose = self.hideChangeFPSPrompt,
+		}),
 	})
 end
 
@@ -466,7 +495,7 @@ local function mapStateToProps(state, props)
 end
 
 local function mapDispatchToProps(dispatch)
-	return {
+	local dispatchToProps = {
 		SetTracksExpanded = function(tracks, expanded)
 			dispatch(SetTracksExpanded(tracks, expanded))
 		end,
@@ -530,6 +559,14 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetIsPlaying(isPlaying))
 		end,
 	}
+
+	if UseCustomFPS() then
+		dispatchToProps["SetFrameRate"] = function(frameRate)
+			dispatch(SetFrameRate(frameRate))
+		end
+	end
+
+	return dispatchToProps
 end
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(EditorController)

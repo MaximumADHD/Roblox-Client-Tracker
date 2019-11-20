@@ -163,6 +163,7 @@ function Theme.createValues(getColor, c, m)
 		headerFont = Enum.Font.SourceSansSemibold,
 		textColor = getColor(c.MainText),
 		subTextColor = getColor(c.DimmedText),
+		errorTextColor = Color3.fromRGB(255, 68, 68),
 		deleteImage = "rbxasset://textures/AnimationEditor/icon_close.png",
 		addImage = "rbxasset://textures/AnimationEditor/icon_add.png",
 		errorImage = "rbxasset://textures/AnimationEditor/icon_error.png",

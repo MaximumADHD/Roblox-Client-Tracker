@@ -1,3 +1,5 @@
+local FFlagToolboxShowGroupCreations = game:GetFastFlag("ToolboxShowGroupCreations")
+
 local Plugin = script.Parent.Parent.Parent.Parent
 local Cryo = require(Plugin.Libs.Cryo)
 
@@ -25,7 +27,13 @@ return function(networkInterface, tabName, newCategories,  settings, options)
 		}))
 
 		-- This is an independent request
-		if tabName == Category.INVENTORY_KEY then
+		local shouldGetGroups
+		if FFlagToolboxShowGroupCreations then
+			shouldGetGroups = tabName == Category.INVENTORY_KEY or tabName == Category.CREATIONS_KEY
+		else
+			shouldGetGroups = tabName == Category.INVENTORY_KEY
+		end
+		if shouldGetGroups then
 			store:dispatch(GetToolboxManageableGroupsRequest(networkInterface))
 		end
 	end

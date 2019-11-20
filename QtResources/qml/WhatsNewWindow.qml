@@ -39,6 +39,9 @@ Item {
 	readonly property var lineColor: userPreferences.theme.style("StartPage WhatsNew lineSeparator")
 	readonly property var shadowColor: userPreferences.theme.style("StartPage WhatsNew shadow")
 
+    property bool fflagStudioUpdateWhatsNewDevForumUrl: false;
+    property var devForumUrl: "";
+
     signal closeRequested(bool buttonClicked)
 
     id: container
@@ -50,6 +53,15 @@ Item {
 		containerWidth = width;
 		containerHeight = height;
 	}
+
+    function setFFlagStudioUpdateWhatsNewDevForumUrl(flag) {
+        fflagStudioUpdateWhatsNewDevForumUrl = flag || false;
+    }
+
+    function setUpdateDevForumUrl(url)
+    {
+        devForumUrl = url;
+    }
 
 	function getContainerWidth() {
         return containerWidth;
@@ -219,7 +231,14 @@ Item {
 				anchors.fill: parent
 				cursorShape: Qt.PointingHandCursor
 				onClicked: {
-					whatsNewWindow.launchSeeAllUrl("https://devforum.roblox.com/tags/c/public/public-updates-announcements/studio")
+                    if(fflagStudioUpdateWhatsNewDevForumUrl)
+                    {
+                        whatsNewWindow.launchSeeAllUrl(devForumUrl)
+                    }
+                    else
+                    {
+					    whatsNewWindow.launchSeeAllUrl("https://devforum.roblox.com/tags/c/public/public-updates-announcements/studio")
+                    }
 				}
 			}
 

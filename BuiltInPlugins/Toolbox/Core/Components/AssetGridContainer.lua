@@ -294,20 +294,21 @@ function AssetGridContainer:render()
 					[Roact.Event.Changed] = self.onAssetGridContainerChanged,
 				})
 			}
-
-			if isPackages and #assetIds ~= 0 then
-				local assetIdList = {}
-				local index = 1
-				while index < PermissionsConstants.MaxPackageAssetIdsForHighestPermissionsRequest and assetIds[index] ~= nil do
-					local assetId = assetIds[index][1]
-					if not self.props.currentUserPackagePermissions[assetId] then
-						table.insert(assetIdList, assetId)
+			if FFlagLuaPackagePermissions then
+				if isPackages and #assetIds ~= 0 then
+					local assetIdList = {}
+					local index = 1
+					while index < PermissionsConstants.MaxPackageAssetIdsForHighestPermissionsRequest and assetIds[index] ~= nil do
+						local assetId = assetIds[index][1]
+						if not self.props.currentUserPackagePermissions[assetId] then
+							table.insert(assetIdList, assetId)
+						end
+						index = index + 1
 					end
-					index = index + 1
-				end
 
-				if #assetIdList ~= 0 then
-					self.props.dispatchGetPackageHighestPermission(getNetwork(self), assetIdList)
+					if #assetIdList ~= 0 then
+						self.props.dispatchGetPackageHighestPermission(getNetwork(self), assetIdList)
+					end
 				end
 			end
 
@@ -427,10 +428,6 @@ local function mapDispatchToProps(dispatch)
 		end,
 
 		dispatchGetPackageHighestPermission = function(networkInterface, assetIds)
-			if FFlagLuaPackagePermissions then
-				return
-			end
-
 			dispatch(GetPackageHighestPermission(networkInterface, assetIds))
 		end,
 	}

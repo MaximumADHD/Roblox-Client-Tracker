@@ -80,7 +80,7 @@ return function(publishInfo)
 		local fileDataString = SerializeInstances(publishInfo.instances)
 
 		-- We will only override ispublic when purchase for plugin is enabled.
-		local ispublicOverride = publishInfo.ispublic
+		local ispublicOverride = publishInfo.copyOn
 		if FFlagEnablePurchasePluginFromLua2 then
 			if publishInfo.assetType == Enum.AssetType.Plugin.Name then
 				ispublicOverride = true

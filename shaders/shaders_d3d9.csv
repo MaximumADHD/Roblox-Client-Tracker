@@ -20,7 +20,6 @@ Blur3FS,Fragment
 Blur5FS,Fragment
 Blur7FS,Fragment
 CopyGuiVS,Vertex
-DefaultForceField_DEPRECATED_FS,Fragment
 DefaultForceFieldFS,Fragment
 DefaultNeonFS,Fragment
 DefaultNeonInGuiFS,Fragment
@@ -32,11 +31,9 @@ DefaultShadowGeomSkinnedVS,Vertex
 DefaultShadowGeomStaticVS,Vertex
 DefaultShadowSkinnedVS,Vertex
 DefaultShadowStaticVS,Vertex
-DefaultSkinnedForceField_DEPRECATED_VS,Vertex
 DefaultSkinnedForceFieldVS,Vertex
 DefaultSkinnedReflectionVS,Vertex
 DefaultSkinnedVS,Vertex
-DefaultStaticForceField_DEPRECATED_VS,Vertex
 DefaultStaticForceFieldVS,Vertex
 DefaultStaticReflectionVS,Vertex
 DefaultStaticVS,Vertex
@@ -113,8 +110,10 @@ SkyNoTranslateVS,Vertex
 SkyVS,Vertex
 SmoothClusterColoredFS,Fragment
 SmoothClusterColoredVS,Vertex
+SmoothClusterColoredVSFFlagSpecular,Vertex
 SmoothClusterFS,Fragment
 SmoothClusterVS,Vertex
+SmoothClusterVSFFlagSpecular,Vertex
 SmoothWaterFS,Fragment
 SmoothWaterVS,Vertex
 SRGBToLinearFS,Fragment

@@ -12,7 +12,7 @@ return function(networkInterface, assetId)
             function(result)
                 local response = result.responseBody.data[1]
                 
-                if response.message and response.message == "blank" then
+                if response and response.assetId and response.assetVersionNumber then
                     store:dispatch(SetIsPackage(true))
                 else
                     store:dispatch(SetIsPackage(false))
