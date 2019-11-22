@@ -95,11 +95,8 @@ RBX
 		{
 			ShadowMapSystem
 			ShadowMapSystemImpl
-			ShadowObject
 			ShadowObjectBase
 			ShadowObjectDirectional
-			ShadowObjectPoint
-			ShadowObjectSpot
 		}
 		SmoothCluster
 		{
@@ -129,6 +126,7 @@ RBX
 		DeviceVulkan
 		Emitter
 		EnvMap
+		EnvMapPBR
 		ExplosionEmitter
 		FastCluster
 		FastClusterBinding
@@ -144,6 +142,7 @@ RBX
 		GeometryD3D9
 		GeometryGL
 		GeometryVulkan
+		GrassRenderEntity
 		GuiCluster
 		IndexBufferD3D9
 		InstancedBinding2
@@ -234,6 +233,7 @@ RBX
 	Instance
 	{
 		AncestryChangedSignalData
+		AttributeChangedSignalData
 		ChildAddedSignalData
 		ChildRemovedSignalData
 		EventInvocationSignalData
@@ -282,7 +282,6 @@ RBX
 		}
 		PhysicsSenderS2
 		{
-			JobS2
 			TouchJobS2
 		}
 		Replicator
@@ -293,11 +292,13 @@ RBX
 				StreamDataItem
 				StreamTerrainItem
 			}
+			ChangeAttributeItem
 			ChangePropertyItem
 			DeleteInstanceItem
 			EventInvocationItem
 			IdResponseItem
 			JoinDataItem
+			JoinDataItemV2
 			MarkerItem
 			NewInstanceItem
 			PingBackItem
@@ -326,6 +327,7 @@ RBX
 		ClusterPacketCache
 		DeserializedAacChallengeItem
 		DeserializedCcRequestItem
+		DeserializedChangeAttributeItem
 		DeserializedChangePropertyItem
 		DeserializedClusterItem
 		DeserializedDeleteInstanceItem
@@ -420,9 +422,9 @@ RBX
 		Humanoid
 		Instance
 		LocalizationTable
-		MDIInstance
 		MemberDescriptor
 		ModelInstance
+		MultipleDocumentInterfaceInstance
 		PartInstance
 		PropertyDescriptor
 		PVInstance
@@ -451,10 +453,6 @@ RBX
 		StepInBreakpoint
 		StepOutBreakpoint
 		StepOverBreakpoint
-	}
-	ScriptParser
-	{
-		Error
 	}
 	Solver
 	{
@@ -566,9 +564,6 @@ RBX
 	AnalyticsProviderBase
 	AnalyticsProviderPlayFab
 	AnalyticsService
-	AnalyzerPassWarnGlobalLocal
-	AnalyzerPassWarnMultiLineStatement
-	AnalyzerPassWarnUnknownType
 	AnchorJoint
 	AnchorTool
 	AnchorVerb
@@ -576,6 +571,8 @@ RBX
 	AnimationController
 	AnimationTrack
 	Animator
+	AppStorage
+	AppStorageService
 	ArcHandles
 	ArrowToolBase
 	Assembly
@@ -867,7 +864,6 @@ RBX
 	IStepped
 	IStudioPluginHost
 	IStudioServiceHost
-	IUIServiceHost
 	IValue
 	IVersionControlService
 	IVideoCapture
@@ -903,6 +899,8 @@ RBX
 	LocalizationService
 	LocalizationTable
 	LocalScript
+	LocalStorage
+	LocalStorageService
 	LockTool
 	LogService
 	LuaDragger
@@ -923,7 +921,6 @@ RBX
 	MarketplaceService
 	MaterialTool
 	MaterialVerb
-	MDIInstance
 	MechanicalJoint
 	Mechanism
 	MechanismInterpolationParallelManager
@@ -957,6 +954,7 @@ RBX
 	MoveUpSelectionVerb
 	MovingAssemblyStage
 	MovingStage
+	MultipleDocumentInterfaceInstance
 	NavigationContext
 	NavigationService
 	NegateOperation
@@ -1041,7 +1039,6 @@ RBX
 	RobloxPluginGuiService
 	RobloxReplicatedStorage
 	Rocket
-	RootInstance
 	Rotate
 	RotateAxisCommand
 	RotateJoint
@@ -1224,4 +1221,6 @@ RBX
 	Workspace
 	WorkspaceInterpolatorInterface
 	WorkspaceStatsItem
+	WorldModel
+	WorldRoot
 }
