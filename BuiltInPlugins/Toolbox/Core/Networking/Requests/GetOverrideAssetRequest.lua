@@ -123,7 +123,7 @@ return function(networkInterface, assetTypeEnum, creatorType, creatorId, targetP
 			local groupId = nil
 			if creatorType == "Group" then
 				groupId = creatorId
-				category = assetTypeEnum == Enum.AssetType.Model and "GroupModels" or "GroupPlugin"
+				category = assetTypeEnum == Enum.AssetType.Model and "GroupModels" or "GroupPlugins"
 			else
 				if assetTypeEnum == Enum.AssetType.Plugin then category = "Plugin" end
 			end

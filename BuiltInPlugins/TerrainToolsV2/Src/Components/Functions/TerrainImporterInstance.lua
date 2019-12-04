@@ -138,6 +138,8 @@ function TerrainImporter:startImport()
 				userId = StudioService:GetUserId(),
 				regionDims = ("%d,%d,%d)"):format(region.Size.x, region.Size.y, region.Size.z),
 				useColorMap = useColorMap,
+				studioSId = AnalyticsService:GetSessionId(),
+				placeId = game.PlaceId,
 			})
 		end
 

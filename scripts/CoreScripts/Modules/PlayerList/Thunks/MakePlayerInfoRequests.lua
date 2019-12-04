@@ -13,6 +13,7 @@ local BlockingUtility = require(RobloxGui.Modules.BlockingUtility)
 local PlayerList = script.Parent.Parent
 
 local FFlagPlayerListBetterGroupCheck = game:DefineFastFlag("PlayerListBetterGroupCheck", false)
+local FFlagUpdateLeaderboardIconPriority = game:GetFastFlag("UpdateLeaderboardIconPriority")
 
 local SPECIAL_PLAYER_ICONS = {
 	Admin = "rbxasset://textures/ui/icon_admin-16.png",
@@ -28,12 +29,22 @@ local SetPlayerIsBlocked = require(PlayerList.Actions.SetPlayerIsBlocked)
 local SetPlayerFriendStatus = require(PlayerList.Actions.SetPlayerFriendStatus)
 
 local function getGroupsPermissionsInfo(store, player)
-	if PlayerPermissionsModule.IsPlayerAdminAsync(player) then
-		store:dispatch(SetPlayerSpecialGroupIcon(player, SPECIAL_PLAYER_ICONS.Admin))
-	elseif PlayerPermissionsModule.IsPlayerInternAsync(player) then
-		store:dispatch(SetPlayerSpecialGroupIcon(player, SPECIAL_PLAYER_ICONS.Intern))
-	elseif PlayerPermissionsModule.IsPlayerStarAsync(player) then
-		store:dispatch(SetPlayerSpecialGroupIcon(player, SPECIAL_PLAYER_ICONS.Star))
+	if FFlagUpdateLeaderboardIconPriority then
+		if PlayerPermissionsModule.IsPlayerAdminAsync(player) then
+			store:dispatch(SetPlayerSpecialGroupIcon(player, SPECIAL_PLAYER_ICONS.Admin))
+		elseif PlayerPermissionsModule.IsPlayerStarAsync(player) then
+			store:dispatch(SetPlayerSpecialGroupIcon(player, SPECIAL_PLAYER_ICONS.Star))
+		elseif PlayerPermissionsModule.IsPlayerInternAsync(player) then
+			store:dispatch(SetPlayerSpecialGroupIcon(player, SPECIAL_PLAYER_ICONS.Intern))
+		end
+	else
+		if PlayerPermissionsModule.IsPlayerAdminAsync(player) then
+			store:dispatch(SetPlayerSpecialGroupIcon(player, SPECIAL_PLAYER_ICONS.Admin))
+		elseif PlayerPermissionsModule.IsPlayerInternAsync(player) then
+			store:dispatch(SetPlayerSpecialGroupIcon(player, SPECIAL_PLAYER_ICONS.Intern))
+		elseif PlayerPermissionsModule.IsPlayerStarAsync(player) then
+			store:dispatch(SetPlayerSpecialGroupIcon(player, SPECIAL_PLAYER_ICONS.Star))
+		end
 	end
 end
 

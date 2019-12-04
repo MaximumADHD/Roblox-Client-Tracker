@@ -25,7 +25,7 @@
 
 local Plugin = script.Parent.Parent.Parent
 
-if game:GetFastFlag("CMSEnableCatalogTags") then
+if game:GetFastFlag("CMSEnableCatalogTags2") then
 	return require(Plugin.Core.Components.DropdownMenu2)
 end
 

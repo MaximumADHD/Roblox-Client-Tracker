@@ -3,6 +3,7 @@ local FFlagOnlyWhitelistedPluginsInStudio = settings():GetFFlag("OnlyWhitelisted
 local FFlagFixToolboxInitLoad = settings():GetFFlag("FixToolboxInitLoad")
 local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 local FFlagToolboxShowGroupCreations = game:DefineFastFlag("ToolboxShowGroupCreations", false)
+local FFlagFixToolboxPluginScaling = game:DefineFastFlag("FixToolboxPluginScaling", false)
 
 local Plugin = script.Parent.Parent.Parent
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
@@ -315,6 +316,20 @@ function Category.categoryIsPlugin(currentTab, index)
 		return checkBounds(index) and Category.MARKETPLACE[index].assetType == Category.AssetType.PLUGIN
 	else
 		return checkBounds(index) and Category.INVENTORY_WITH_GROUPS[index].assetType == Category.AssetType.PLUGIN
+	end
+end
+
+function Category.shouldShowPrices(currentTab, index)
+	if FFlagEnablePurchasePluginFromLua2 then
+		if FFlagFixToolboxPluginScaling then
+			local isPlugins = Category.categoryIsPlugin(currentTab, index)
+			local showPrices = isPlugins and currentTab == Category.MARKETPLACE_KEY
+			return showPrices
+		else
+			return Category.categoryIsPlugin(currentTab, index)
+		end
+	else
+		return false
 	end
 end
 

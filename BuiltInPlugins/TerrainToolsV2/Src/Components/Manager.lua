@@ -25,7 +25,9 @@ local Actions = Plugin.Src.Actions
 local ChangeTab = require(Actions.ChangeTab)
 
 local FFlagTerrainToolsRefactorTabsAndTools = game:GetFastFlag("TerrainToolsRefactorTabsAndTools")
+local FFlagTerrainToolsFixScrollBarResize = game:GetFastFlag("TerrainToolsFixScrollBarResize")
 
+local PADDING = 14
 local Manager = Roact.PureComponent:extend(script.Name)
 local TabOrder = {
 	TabId.Create,
@@ -33,6 +35,19 @@ local TabOrder = {
 	TabId.Edit,
 }
 
+function Manager:init()
+	self.state = {
+		upperContentYSize = 0,
+	}
+
+	self.updateRenderToolContentSize = function(rbx)
+		if rbx then
+			self:setState({
+				upperContentYSize = rbx.AbsoluteContentSize.Y
+			})
+		end
+	end
+end
 -- Separate because of weird UIListLayout behavior - just creates top tab layer
 local function createTabs(props)
 	local dispatchChangeTab = props.dispatchChangeTab
@@ -98,30 +113,71 @@ end
 function Manager:render()
 	local currentTab = self.props.currentTab
 	return withTheme(function(theme)
-		return Roact.createElement("Frame", {
-			Size = UDim2.new(1, 0, 1, 0),
-			BackgroundColor3 = theme.backgroundColor,
-		}, {
-			UILayout = Roact.createElement("UIListLayout", {
-				Padding = UDim.new(0, 14),
-				SortOrder = Enum.SortOrder.LayoutOrder
-			}),
+		if FFlagTerrainToolsFixScrollBarResize then
+			return Roact.createElement("Frame", {
+				Size = UDim2.new(1, 0, 1, 0),
+				BackgroundColor3 = theme.backgroundColor,
+			}, {
+				UILayout = Roact.createElement("UIListLayout", {
+					Padding = UDim.new(0, PADDING),
+					SortOrder = Enum.SortOrder.LayoutOrder
+				}),
 
-			Tabs = Roact.createElement("Frame", {
-				Size = UDim2.new(1, 0, 0, 29),
-				BackgroundTransparency = 1,
-				LayoutOrder = 1,
-			}, createTabs(self.props)),
+				Upper = Roact.createElement("Frame", {
+					Size = UDim2.new(1, 0, 0, self.state.upperContentYSize),
+					BackgroundTransparency = 1,
+					[Roact.Ref] = self.upperFrame,
+				}, {
+					UILayout = Roact.createElement("UIListLayout", {
+						Padding = UDim.new(0, PADDING),
+						SortOrder = Enum.SortOrder.LayoutOrder,
 
-			ToolBar = Roact.createElement(ToolManager, {
-				CurrentTab = currentTab,
-				LayoutOrder = 2,
-			}),
+						[Roact.Change.AbsoluteContentSize] = self.updateRenderToolContentSize,
+					}),
 
-			ToolPanel = Roact.createElement(ToolRenderer, {
-				LayoutOrder = 3,
-			}),
-		})
+					Tabs = Roact.createElement("Frame", {
+						Size = UDim2.new(1, 0, 0, 29),
+						BackgroundTransparency = 1,
+						LayoutOrder = 1,
+					}, createTabs(self.props)),
+
+					ToolBar = Roact.createElement(ToolManager, {
+						CurrentTab = currentTab,
+						LayoutOrder = 2,
+					}),
+				}),
+
+				ToolPanel = Roact.createElement(ToolRenderer, {
+					UpperContentYSize = self.state.upperContentYSize + PADDING,
+					LayoutOrder = 3,
+				}),
+			})
+		else
+			return Roact.createElement("Frame", {
+				Size = UDim2.new(1, 0, 1, 0),
+				BackgroundColor3 = theme.backgroundColor,
+			}, {
+				UILayout = Roact.createElement("UIListLayout", {
+					Padding = UDim.new(0, PADDING),
+					SortOrder = Enum.SortOrder.LayoutOrder
+				}),
+
+				Tabs = Roact.createElement("Frame", {
+					Size = UDim2.new(1, 0, 0, 29),
+					BackgroundTransparency = 1,
+					LayoutOrder = 1,
+				}, createTabs(self.props)),
+
+				ToolBar = Roact.createElement(ToolManager, {
+					CurrentTab = currentTab,
+					LayoutOrder = 2,
+				}),
+
+				ToolPanel = Roact.createElement(ToolRenderer, {
+					LayoutOrder = 3,
+				}),
+			})
+		end
 	end)
 end
 

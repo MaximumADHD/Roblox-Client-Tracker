@@ -18,7 +18,8 @@ Studio.PluginInstallation.Toolbar.ManageButtonDescription, , ,Manage plugins ins
 Studio.PluginInstallation.Main.Title, , ,Plugins
 Studio.PluginInstallation.Main.UpdateAllButton, , ,Update all
 Studio.PluginInstallation.Main.NoPluginsMessage, , ,You haven’t installed any plugins yet.
-Studio.PluginInstallation.Main.FindPluginsMessage, , ,Find plugins now
+Studio.PluginInstallation.Main.FindPluginsMessage_Old, , ,Find plugins now
+Studio.PluginInstallation.Main.FindPluginsMessage, , ,"To find more plugins, open Toolbox > Marketplace > Plugins."
 Studio.PluginInstallation.Loading.Title, , ,Updating Plugins
 Studio.PluginInstallation.Loading.UpdatingMessage, , ,Updating plugins...
 Studio.PluginInstallation.Entry.UpdateButton, , ,Update

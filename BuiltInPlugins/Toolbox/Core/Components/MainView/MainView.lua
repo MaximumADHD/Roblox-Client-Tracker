@@ -25,6 +25,8 @@
 		callback tryOpenAssetConfig, invoke assetConfig page with an assetId.
 ]]
 
+local FFlagFixToolboxEmptyRender = game:DefineFastFlag("FixToolboxEmptyRender", false)
+
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
@@ -35,12 +37,12 @@ local Constants = require(Plugin.Core.Util.Constants)
 local ContextGetter = require(Plugin.Core.Util.ContextGetter)
 local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 local Layouter = require(Plugin.Core.Util.Layouter)
+local Category = require(Plugin.Core.Types.Category)
 
 local getNetwork = ContextGetter.getNetwork
 local getSettings = ContextGetter.getSettings
 local getModal = ContextGetter.getModal
 local withLocalization = ContextHelper.withLocalization
-
 
 local AssetGridContainer = require(Plugin.Core.Components.AssetGridContainer)
 local InfoBanner = require(Plugin.Core.Components.InfoBanner)
@@ -149,8 +151,10 @@ function MainView:didMount()
 end
 
 function MainView:calculateRenderBounds()
+	local props = self.props
+	local showPrices = Category.shouldShowPrices(props.currentTab, props.categoryIndex)
 	local lowerBound, upperBound = Layouter.calculateRenderBoundsForScrollingFrame(self.scrollingFrameRef.current,
-		self.containerWidth, self.headerHeight)
+		self.containerWidth, self.headerHeight, showPrices)
 
 	-- If either bound has changed then recalculate the assets
 	if lowerBound ~= self.state.lowerIndexToRender or upperBound ~= self.state.upperIndexToRender then
@@ -177,6 +181,12 @@ function MainView:didUpdate(prevProps, prevState)
 	-- And user's action to request more data will reset my network error status
 	if (not networkError) and displayed < spaceToDisplay and displayed ~= 0 then
 		self.requestNextPage()
+	end
+
+	if FFlagFixToolboxEmptyRender then
+		if prevProps.idsToRender ~= self.props.idsToRender then
+			self:calculateRenderBounds()
+		end
 	end
 end
 
@@ -210,10 +220,10 @@ function MainView:render()
 		local containerWidth = maxWidth - (2 * Constants.MAIN_VIEW_PADDING)
 			- Constants.SCROLLBAR_BACKGROUND_THICKNESS - Constants.SCROLLBAR_PADDING
 
+		local showPrices = Category.shouldShowPrices(props.currentTab, props.categoryIndex)
+
 		-- Add a bit extra to the container so we can see the details of the assets on the last row
-		local gridContainerHeight = Layouter.calculateAssetsHeight(assetCount, containerWidth)
-			+ Constants.ASSET_OUTLINE_EXTRA_HEIGHT
-		local allAssetsHeight = Layouter.calculateAssetsHeight(allAssetCount, containerWidth)
+		local allAssetsHeight = Layouter.calculateAssetsHeight(allAssetCount, containerWidth, showPrices)
 			+ Constants.ASSET_OUTLINE_EXTRA_HEIGHT
 
 		local suggestionIntro = localizedContent.Sort.ByText
@@ -226,16 +236,21 @@ function MainView:render()
 		local headerHeight, headerToBodyPadding = Layouter.calculateMainViewHeaderHeight(showTags,
 			suggestionIntro, suggestions, containerWidth, props.creator)
 
-		local innerHeight = headerHeight + gridContainerHeight + headerToBodyPadding
 		local fullInnerHeight = headerHeight + allAssetsHeight + headerToBodyPadding
 		local canvasHeight = fullInnerHeight + (2 * Constants.MAIN_VIEW_PADDING)
 
-		local hasResults = assetCount > 0
+		local hasResults
+		if FFlagFixToolboxEmptyRender then
+			hasResults = allAssetCount > 0
+		else
+			hasResults = assetCount > 0
+		end
+
 		local showInfoBanner = not hasResults and not isLoading
 
 		-- Need to shift the position of AssetGridContainer depending on how many rows we've cut off the start
 		local assetsPerRow = Layouter.getAssetsPerRow(containerWidth)
-		local assetHeight = Layouter.getAssetCellHeightWithPadding()
+		local assetHeight = Layouter.getAssetCellHeightWithPadding(showPrices)
 		local gridContainerOffset = math.max(math.floor(lowerIndexToRender / assetsPerRow) * assetHeight, 0)
 
 		local scrollingEnabled = not props.isPreviewing
@@ -271,32 +286,25 @@ function MainView:render()
 					PaddingTop = UDim.new(0, Constants.MAIN_VIEW_PADDING),
 				}),
 
-				Container = Roact.createElement("Frame", {
-					Position = UDim2.new(0, 0, 0, 0),
-					Size = UDim2.new(0, containerWidth, 0, innerHeight),
-					BackgroundTransparency = 1,
-				}, {
-					Header = Roact.createElement(MainViewHeader, {
-						suggestions = suggestions,
-						containerWidth = containerWidth,
-						creator = props.creator,
-						showTags = showTags,
-						onTagsCleared = self.onTagsCleared,
-					}),
+				Header = Roact.createElement(MainViewHeader, {
+					suggestions = suggestions,
+					containerWidth = containerWidth,
+					creator = props.creator,
+					showTags = showTags,
+					onTagsCleared = self.onTagsCleared,
+				}),
 
-					AssetGridContainer = Roact.createElement(AssetGridContainer, {
-						Position = UDim2.new(0, 0, 0, headerHeight + headerToBodyPadding + gridContainerOffset),
-						Size = UDim2.new(1, 0, 0, gridContainerHeight),
+				AssetGridContainer = Roact.createElement(AssetGridContainer, {
+					Position = UDim2.new(0, 0, 0, headerHeight + headerToBodyPadding + gridContainerOffset),
 
-						assetIds = assetIds,
-						searchTerm = searchTerm,
-						categoryIndex = categoryIndex,
+					assetIds = assetIds,
+					searchTerm = searchTerm,
+					categoryIndex = categoryIndex,
 
-						ZIndex = 1,
+					ZIndex = 1,
 
-						onAssetGridContainerChanged = self.onAssetGridContainerChanged,
-						tryOpenAssetConfig = tryOpenAssetConfig,
-					}),
+					onAssetGridContainerChanged = self.onAssetGridContainerChanged,
+					tryOpenAssetConfig = tryOpenAssetConfig,
 				}),
 			}),
 
@@ -353,6 +361,7 @@ local function mapStateToProps(state, props)
 		sortIndex = pageInfo.sortIndex or 1,
 		searchTerm = pageInfo.searchTerm or "",
 		creator = pageInfo.creator,
+		currentTab = pageInfo.currentTab,
 
 		liveSearchData = liveSearchData or {},
 	}

@@ -39,8 +39,6 @@ local VRService = game:GetService("VRService")
 local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
 local FFlagUseNotificationsLocalization = success and result
 
-local FFlagFixGamepadReportPlayer = game:DefineFastFlag("FixGamepadReportPlayer", false)
-
 ------------------ VARIABLES --------------------
 local tenFootInterfaceEnabled = require(RobloxGui.Modules:WaitForChild("TenFootInterface")):IsEnabled()
 
@@ -680,7 +678,7 @@ local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 		lastSelectedCoreObject = this.DropDownFrame
 		if this.CurrentIndex and this.CurrentIndex > 0 then
 			GuiService.SelectedCoreObject = this.Selections[this.CurrentIndex]
-		elseif FFlagFixGamepadReportPlayer and #this.Selections > 0 then
+		elseif #this.Selections > 0 then
 			GuiService.SelectedCoreObject = this.Selections[1]
 		end
 

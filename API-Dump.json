@@ -20331,6 +20331,17 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "GetUserAgent",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "JSONDecode",
                     "Parameters": [
                         {
@@ -44513,6 +44524,81 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "SetFastFlagForTesting",
+                    "Parameters": [
+                        {
+                            "Name": "name",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "newValue",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SetFastIntForTesting",
+                    "Parameters": [
+                        {
+                            "Name": "name",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "newValue",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "int"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SetFastStringForTesting",
+                    "Parameters": [
+                        {
+                            "Name": "name",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "newValue",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "SetPlaceId",
                     "Parameters": [
                         {
@@ -49130,23 +49216,6 @@
                 {
                     "Category": "Explorer",
                     "MemberType": "Property",
-                    "Name": "Show Roblox Plugin GUI Service in Explorer",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    }
-                },
-                {
-                    "Category": "Explorer",
-                    "MemberType": "Property",
                     "Name": "Show plus button on hover in Explorer",
                     "Security": {
                         "Read": "None",
@@ -52726,6 +52795,81 @@
         },
         {
             "Members": [
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "Color",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "ColorSequence"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "Offset",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Vector2"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "Rotation",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "Transparency",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "NumberSequence"
+                    }
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "UIGradient",
+            "Superclass": "UIComponent"
+        },
+        {
+            "Members": [
             ],
             "MemoryCategory": "Instances",
             "Name": "UILayout",
@@ -54373,7 +54517,7 @@
             "Name": "UserGameSettings",
             "Superclass": "Instance",
             "Tags": [
-                "Service"
+                "UserSettings"
             ]
         },
         {

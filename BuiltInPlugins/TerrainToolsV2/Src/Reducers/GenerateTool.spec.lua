@@ -44,7 +44,7 @@ return function()
 
 		expect(r:getState().haveCaves).to.equal(true)
 
-		expect(r.getState().seed).to.equal("618033988")
+		expect(r:getState().seed).to.equal("618033988")
 	end)
 
 	describe("ChangePosition", function()

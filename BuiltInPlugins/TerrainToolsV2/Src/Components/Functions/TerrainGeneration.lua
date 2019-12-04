@@ -545,6 +545,8 @@ function generate()
 				numVoxels = numVoxels,
 				biomeSize = biomeSize,
 				seed = textSeed,
+				studioSId = AnalyticsService:GetSessionId(),
+				placeId = game.PlaceId,
 			})
 		end
 

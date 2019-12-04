@@ -33,13 +33,15 @@ local Tools = Rodux.createReducer({
 
 	ChangeTool = function(state, action)
 		local currentTool = action.currentTool
-		local newToolList = Cryo.Dictionary.join(state.lastToolPerTab, {
-			[state.currentTab] = currentTool,
-		})
 
+		-- Selecting a tool again will deselect it (acts like a toggle button)
 		if currentTool == state.currentTool then
 			currentTool = ToolId.None
 		end
+
+		local newToolList = Cryo.Dictionary.join(state.lastToolPerTab, {
+			[state.currentTab] = currentTool,
+		})
 
 		return Cryo.Dictionary.join(state, {
 			currentTool = currentTool,

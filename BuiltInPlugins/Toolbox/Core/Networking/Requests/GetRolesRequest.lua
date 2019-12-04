@@ -23,7 +23,7 @@ return function(networkInterface)
 				local allowedAssetTypesForUpload = response.responseBody and response.responseBody.allowedAssetTypeForUpload or {}
 				store:dispatch(SetAllowedAssetTypes(allowedAssetTypesForRelease, allowedAssetTypesForUpload))
 
-				if game:GetFastFlag("CMSEnableCatalogTags") then
+				if game:GetFastFlag("CMSEnableCatalogTags2") then
 					local tagsHandlerFunc = function(response)
 						local isItemTagsFeatureEnabled = response.responseBody and response.responseBody.isItemTagsFeatureEnabled == true
 						local enabledAssetTypes = response.responseBody and response.responseBody.enabledAssetTypes or {}

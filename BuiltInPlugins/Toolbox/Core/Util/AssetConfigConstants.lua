@@ -150,6 +150,7 @@ AssetConfigConstants.rbxThumbSizes = {
 	AvatarHeadshotImageSize = 60,
 	-- Supported sizes, 150, 420
 	GroupIconImageSize = 150,
+	AssetThumbnailSize = 420,
 }
 
 AssetConfigConstants.IMAGE_TYPES = {"jpg", "jpeg", "png"}

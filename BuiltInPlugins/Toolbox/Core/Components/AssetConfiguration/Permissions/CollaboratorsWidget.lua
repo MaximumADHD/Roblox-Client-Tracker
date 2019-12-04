@@ -14,6 +14,7 @@
 ]]
 
 local FFlagStudioAllowPkgPermsForOtherUsrsAndGrps = game:GetFastFlag("StudioAllowPkgPermsForOtherUsrsAndGrps")
+local FFlagPackagePermissionsAddDefaultNone = game:GetFastFlag("PackagePermissionsAddDefaultNone")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
@@ -88,7 +89,10 @@ local function getLabelForAction(localized, action)
 		return localized.PackagePermissions.ActionDropdown.UseViewLabel
 	elseif action == PermissionsConstants.EditKey then
 		return localized.PackagePermissions.ActionDropdown.EditLabel
+	elseif FFlagPackagePermissionsAddDefaultNone and action == PermissionsConstants.NoneKey then
+		return ""
 	else
+		error("Unsupported Action: "..tostring(action))
 		return ""
 	end
 end

@@ -38,19 +38,6 @@ local FFlagTerrainToolsEnableHeightSlider = game:GetFastFlag("TerrainToolsEnable
 
 local BrushSettings = Roact.PureComponent:extend(script.Name)
 
-function BrushSettings:init()
-	self.layoutRef = Roact.createRef()
-	self.mainFrameRef = Roact.createRef()
-
-	self.onContentSizeChanged = function()
-		local mainFrame = self.mainFrameRef.current
-		local layout = self.layoutRef.current
-		if mainFrame and layout then
-			mainFrame.Size = UDim2.new(1, 0, 0, layout.AbsoluteContentSize.Y)
-		end
-	end
-end
-
 function BrushSettings:render()
 	return withTheme(function(theme)
 		local brushShape = self.props.brushShape

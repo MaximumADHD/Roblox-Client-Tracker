@@ -14,7 +14,11 @@ local NetworkingContext = require(Plugin.Src.ContextServices.NetworkingContext)
 local ContextServices = require(Plugin.Packages.Framework.ContextServices)
 local globals = require(Plugin.Src.Util.CreatePluginGlobals)
 
-local MockServiceWrapper = Roact.Component:extend("MockSkeletonEditorServiceWrapper")
+local MockServiceWrapper = Roact.Component:extend("MockServiceWrapper")
+
+local function mockFocus()
+	return Instance.new("ScreenGui")
+end
 
 function MockServiceWrapper:render()
 	local localization = self.props.localization
@@ -27,6 +31,11 @@ function MockServiceWrapper:render()
 		pluginInstance = MockPlugin.new()
 	end
 
+	local focusGui = self.props.focusGui
+	if not focusGui then
+		focusGui = mockFocus()
+	end
+
 	local storeState = self.props.storeState
 	local store = Rodux.Store.new(MainReducer, storeState, { Rodux.thunkMiddleware })
 
@@ -34,10 +43,12 @@ function MockServiceWrapper:render()
 
 	return ContextServices.provide({
 		ContextServices.Plugin.new(pluginInstance),
+		ContextServices.Focus.new(focusGui),
 		globals.theme,
 		localization,
 		ContextServices.Store.new(store),
 		NetworkingContext.new(networkingImpl),
+		globals.uiLibraryWrapper,
 	}, self.props[Roact.Children])
 end
 

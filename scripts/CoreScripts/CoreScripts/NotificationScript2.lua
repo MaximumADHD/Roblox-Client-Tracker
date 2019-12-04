@@ -33,7 +33,7 @@ local success, result = pcall(function() return settings():GetFFlag('UseNotifica
 local FFlagUseNotificationsLocalization = success and result
 
 local FFlagNotificationScript2UseFormatByKey = settings():GetFFlag('NotificationScript2UseFormatByKey')
-local FFlagNewAwardBadgeEndpoint = settings():GetFFlag('NewAwardBadgeEndpoint')
+local FFlagNewAwardBadgeEndpoint = settings():GetFFlag('NewAwardBadgeEndpoint2')
 
 local RobloxTranslator = require(RobloxGui:WaitForChild("Modules"):WaitForChild("RobloxTranslator"))
 
@@ -715,7 +715,7 @@ local function onBadgeAwarded_NEW(userId, creatorId, badgeId)
 		local badgeInfo = BadgeService:GetBadgeInfoAsync(badgeId)
 
 		local badgeAwardText = RobloxTranslator:FormatByKey("NotificationScript2.onBadgeAwardedDetail",
-															{RBX_NAME = LocalPlayer.Name, CREATOR_NAME = creatorName, BADGE_NAME = badgeInfo.Name })
+															{RBX_NAME = LocalPlayer.Name, CREATOR_NAME = creatorName, BADGE_NAME = badgeInfo.DisplayName })
 		local badgeTitle = LocalizedGetString("NotificationScript2.onBadgeAwardedTitle")
 
 		sendNotificationInfo {

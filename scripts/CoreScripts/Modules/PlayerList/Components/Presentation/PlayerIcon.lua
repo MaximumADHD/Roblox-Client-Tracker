@@ -8,6 +8,8 @@ local Connection = Components.Connection
 local LayoutValues = require(Connection.LayoutValues)
 local WithLayoutValues = LayoutValues.WithLayoutValues
 
+local FFlagUpdateLeaderboardIconPriority = game:GetFastFlag("UpdateLeaderboardIconPriority")
+
 local PlayerIcon = Roact.Component:extend("PlayerIcon")
 
 PlayerIcon.validateProps = t.strictInterface({
@@ -35,7 +37,7 @@ local function getSocialIconImage(layoutValues, relationship)
 		return layoutValues.BlockedIcon
 	elseif friendIcon then
 		return friendIcon
-	elseif relationship.isFollowing then
+	elseif relationship.isFollowing and not FFlagUpdateLeaderboardIconPriority then
 		return layoutValues.FollowingIcon
 	end
 
@@ -45,17 +47,34 @@ end
 local function getIconImage(layoutValues, player, iconInfo, relationship)
 	local membershipIcon = layoutValues.MembershipIcons[player.MembershipType]
 	local socialIcon = getSocialIconImage(layoutValues, relationship)
-	if layoutValues.CustomPlayerIcons[player.UserId] then
-		return layoutValues.CustomPlayerIcons[player.UserId]
-	elseif iconInfo.isPlaceOwner then
-		return layoutValues.PlaceOwnerIcon
-	elseif iconInfo.specialGroupIcon then
-		return iconInfo.specialGroupIcon
-	elseif socialIcon then
-		return socialIcon
-	elseif membershipIcon then
-		-- TODO: Replace this with single premium icon check if that is the future.
-		return membershipIcon
+	if FFlagUpdateLeaderboardIconPriority then
+		if socialIcon then
+			return socialIcon
+		elseif iconInfo.isPlaceOwner then
+			return layoutValues.PlaceOwnerIcon
+		elseif layoutValues.CustomPlayerIcons[player.UserId] then
+			return layoutValues.CustomPlayerIcons[player.UserId]
+		elseif iconInfo.specialGroupIcon then
+			return iconInfo.specialGroupIcon
+		elseif relationship.isFollowing then
+			return layoutValues.FollowingIcon
+		elseif membershipIcon then
+			-- TODO: Replace this with single premium icon check if that is the future.
+			return membershipIcon
+		end
+	else
+		if layoutValues.CustomPlayerIcons[player.UserId] then
+			return layoutValues.CustomPlayerIcons[player.UserId]
+		elseif iconInfo.isPlaceOwner then
+			return layoutValues.PlaceOwnerIcon
+		elseif iconInfo.specialGroupIcon then
+			return iconInfo.specialGroupIcon
+		elseif socialIcon then
+			return socialIcon
+		elseif membershipIcon then
+			-- TODO: Replace this with single premium icon check if that is the future.
+			return membershipIcon
+		end
 	end
 	return ""
 end

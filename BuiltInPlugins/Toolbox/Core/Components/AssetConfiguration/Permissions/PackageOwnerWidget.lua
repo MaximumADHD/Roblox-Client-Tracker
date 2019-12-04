@@ -123,7 +123,7 @@ function PackageOwnerWidget:render()
 					TextSize = Constants.FONT_SIZE_TITLE,
 					TextColor3 = theme.assetConfig.packagePermissions.subTextColor,
 					LayoutOrder = 0,
-					Text = localized.PackagePermissions.Title.PackageOwner,
+					Text = localized.PackagePermissions.Title.PackageCreator,
 					TextXAlignment = Enum.TextXAlignment.Left,
 					BackgroundTransparency = 1,
 					-- Accounting for the CollaboratorItem under it.

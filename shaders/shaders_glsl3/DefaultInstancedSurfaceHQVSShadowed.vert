@@ -43,7 +43,7 @@ struct Globals
     float globalShadow;
     float shadowBias;
     float shadowAlphaRef;
-    float debugFlagsShadows;
+    float debugFlags;
 };
 
 struct Instance

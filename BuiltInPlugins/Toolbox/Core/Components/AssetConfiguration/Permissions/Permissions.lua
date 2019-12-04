@@ -11,6 +11,7 @@
 ]]
 
 local FFlagStudioAllowPkgPermsForOtherUsrsAndGrps = game:DefineFastFlag("StudioAllowPkgPermsForOtherUsrsAndGrps", false)
+local FFlagPackagePermissionsAddDefaultNone = game:DefineFastFlag("PackagePermissionsAddDefaultNone", false)
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
@@ -39,7 +40,6 @@ local withLocalization = ContextHelper.withLocalization
 local withTheme = ContextHelper.withTheme
 
 local SearchCollaborators = require(Plugin.Core.Thunks.SearchCollaborators)
-local GetGroupRoleInfo = require(Plugin.Core.Thunks.GetGroupRoleInfo)
 
 local SetCollaborators = require(Plugin.Core.Actions.SetCollaborators)
 local SetGroupMetadata = require(Plugin.Core.Actions.SetGroupMetadata)
@@ -58,12 +58,13 @@ end
 --Uses props to display current settings values
 function Permissions:render()
 	local orderIterator = LayoutOrderIterator.new()
-    
-    local hasPermission = self.props.CurrentUserPackagePermission == PermissionsConstants.OwnKey
+
+    local canViewCollaborators = self.props.CurrentUserPackagePermission == PermissionsConstants.OwnKey or self.props.CurrentUserPackagePermission == PermissionsConstants.EditKey
+    local canManagePermissions = self.props.CurrentUserPackagePermission == PermissionsConstants.OwnKey
     local isUserOwnedPackage = self.state.OwnerType == Enum.CreatorType.User
     
     -- Text Label should only have 2 lines max
-    local textLabelYSize = Constants.FONT_SIZE_SMALL * 2
+    local textLabelYSize = Constants.FONT_SIZE_MEDIUM * 2
 
     return withTheme(function(theme)
         return withLocalization(function(localization, localized)
@@ -91,12 +92,12 @@ function Permissions:render()
                 OwnerWidget = Roact.createElement(PackageOwnerWidget, {
                     LayoutOrder = orderIterator:getNextOrder(),
                     
-                    Enabled = hasPermission,
-                    OwnerName = self.props.OwnerName,
+                    Enabled = true,
+                    OwnerName = self.props.Owner.username,
                     OwnerId = self.props.Owner.targetId,
                     OwnerType = self.state.OwnerType,
                     
-                    CanManage = hasPermission,
+                    CanManage = canManagePermissions,
                     
                     GroupMetadata = self.props.GroupMetadata,
                     Permissions = self.props.Permissions,
@@ -108,7 +109,7 @@ function Permissions:render()
                     Size = UDim2.new(1, 0, 0, 0),
                 }),
 
-                SearchbarWidget = hasPermission and isUserOwnedPackage and Roact.createElement(CollaboratorSearchWidget, {
+                SearchbarWidget = canManagePermissions and isUserOwnedPackage and Roact.createElement(CollaboratorSearchWidget, {
                     LayoutOrder = orderIterator:getNextOrder(),
                     Enabled = true,
 
@@ -128,21 +129,21 @@ function Permissions:render()
                     TextXAlignment = Enum.TextXAlignment.Left,
                     
                     Font = Constants.FONT,
-                    TextSize = Constants.FONT_SIZE_SMALL,
+                    TextSize = Constants.FONT_SIZE_MEDIUM,
                     TextColor3 = theme.assetConfig.packagePermissions.subTextColor,
                     TextWrapped = true,
                     
                     BackgroundTransparency = 1,
                 }),
 
-                CollaboratorListWidget = hasPermission and isUserOwnedPackage and Roact.createElement(CollaboratorsWidget, {
+                CollaboratorListWidget = canViewCollaborators and isUserOwnedPackage and Roact.createElement(CollaboratorsWidget, {
                     LayoutOrder = orderIterator:getNextOrder(),
                     Enabled = true,
         
                     OwnerId = self.props.Owner.targetId,
                     OwnerType = self.state.OwnerType,
                     
-                    CanManage = hasPermission,
+                    CanManage = canManagePermissions,
         
                     GroupMetadata = self.props.GroupMetadata,
                     Permissions = self.props.Permissions,
@@ -156,15 +157,12 @@ end
 
 local function mapStateToProps(state, props)
     local groupMetadata = {}
-    local localUsername = {}
     local permissions = state.collaborators or {}
     local currentUserPackagePermission = PermissionsConstants.NoAccessKey
 
     if state[props.Owner.targetId] then
         if Enum.CreatorType[props.Owner.type] == Enum.CreatorType.Group then
             groupMetadata = state[props.Owner.targetId].groupMetadata
-        else
-            localUsername = state[props.Owner.targetId].localUsername
         end
     end
 
@@ -174,8 +172,10 @@ local function mapStateToProps(state, props)
         end
     end
 
+    local owner = state.assetConfigData and state.assetConfigData.Creator or props.Owner
+
     return { 
-        OwnerName = state.ownerUsername,
+        Owner = owner,
         GroupMetadata = groupMetadata,
         Permissions = permissions,
         CurrentUserPackagePermission = currentUserPackagePermission,

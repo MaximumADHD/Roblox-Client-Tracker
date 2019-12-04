@@ -10,6 +10,8 @@ local FlattenMode = TerrainEnums.FlattenMode
 local PivotType = TerrainEnums.PivotType
 local ToolId = TerrainEnums.ToolId
 
+local quickWait = require(Plugin.Src.Util.quickWait)
+
 local TerrainBrushCursor = require(script.Parent.TerrainBrushCursor)
 local TerrainBrushCursorGrid = require(script.Parent.TerrainBrushCursorGrid)
 
@@ -22,26 +24,17 @@ local StudioService = game:GetService("StudioService")
 local UserInputService = game:GetService("UserInputService")
 local Workspace = game:GetService("Workspace")
 
+game:DefineFastFlag("TerrainToolsBrushOnlyUndoWhenDirty", false)
+game:DefineFastFlag("TerrainToolsFixAutoMaterial", false)
+game:DefineFastFlag("TerrainToolsFixFlattenToolPlanePosition", false)
+
 local FFlagTerrainToolMetrics = settings():GetFFlag("TerrainToolMetrics")
 local FFlagTerrainToolsHoldAltToSelectMaterial = game:GetFastFlag("TerrainToolsHoldAltToSelectMaterial")
+local FFlagTerrainToolsBrushOnlyUndoWhenDirty = game:GetFastFlag("TerrainToolsBrushOnlyUndoWhenDirty")
+local FFlagTerrainToolsFixAutoMaterial = game:GetFastFlag("TerrainToolsFixAutoMaterial")
+local FFlagTerrainToolsFixFlattenToolPlanePosition = game:GetFastFlag("TerrainToolsFixFlattenToolPlanePosition")
 
 local CLICK_THRESHOLD = 0.1
-
-local RenderStepped = game:GetService("RunService").RenderStepped
-local function quickWait(waitTime)
-	if not waitTime then
-		RenderStepped:wait()
-	elseif waitTime < 0.033333 then
-		local startTick = tick()
-		RenderStepped:wait()
-		local delta = tick - startTick
-		if delta <= waitTime * 0.5 then
-			quickWait(waitTime - delta)
-		end
-	else
-		wait(waitTime)
-	end
-end
 
 local function lineToPlaneIntersection(linePoint, lineDirection, planePoint, planeNormal)
 	local denominator = lineDirection:Dot(planeNormal)
@@ -114,6 +107,8 @@ function TerrainBrush.new(options)
 		_requestBrushSizeChanged = Signal.new(),
 		_requestBrushStrengthChanged = Signal.new(),
 		_materialSelectRequested = FFlagTerrainToolsHoldAltToSelectMaterial and Signal.new() or nil,
+
+		_isTerrainDirty = false,
 	}, TerrainBrush)
 
 	return self
@@ -149,10 +144,21 @@ function TerrainBrush:updateSettings(newSettings)
 end
 
 function TerrainBrush:startWithTool(newTool)
-	self:updateSettings({
-		currentTool = newTool,
-		autoMaterial = newTool == ToolId.Flatten,
-	})
+	if FFlagTerrainToolsFixAutoMaterial then
+		self:updateSettings({
+			currentTool = newTool,
+
+			-- The flatten tool requires autoMaterial to be true
+			-- Else just use what's already there
+			autoMaterial = newTool == ToolId.Flatten
+				or self._operationSettings.autoMaterial,
+		})
+	else
+		self:updateSettings({
+			currentTool = newTool,
+			autoMaterial = newTool == ToolId.Flatten,
+		})
+	end
 
 	if newTool == ToolId.None then
 		self:stop()
@@ -169,6 +175,9 @@ function TerrainBrush:startWithTool(newTool)
 end
 
 function TerrainBrush:stop()
+	if FFlagTerrainToolsBrushOnlyUndoWhenDirty then
+		self:_saveChanges()
+	end
 	if not self._isRunning then
 		return
 	end
@@ -233,6 +242,13 @@ function TerrainBrush:_disconnectAllConnections()
 	self._connections = {}
 end
 
+function TerrainBrush:_saveChanges()
+	if self._isTerrainDirty then
+		ChangeHistoryService:SetWaypoint("Terrain " .. self._operationSettings.currentTool)
+		self._isTerrainDirty = false
+	end
+end
+
 function TerrainBrush:_connectInput()
 	local function connectHelper(event, func)
 		if self._connections[event] then
@@ -254,7 +270,12 @@ function TerrainBrush:_connectInput()
 		self._downKeys[event.KeyCode] = nil
 		if event.UserInputType == Enum.UserInputType.MouseButton1 and self._mouseDown then
 			self._mouseDown = false
-			ChangeHistoryService:SetWaypoint("Terrain " .. self._operationSettings.currentTool)
+
+			if FFlagTerrainToolsBrushOnlyUndoWhenDirty then
+				self:_saveChanges()
+			else
+				ChangeHistoryService:SetWaypoint("Terrain " .. self._operationSettings.currentTool)
+			end
 		end
 	end)
 
@@ -341,8 +362,10 @@ function TerrainBrush:_run()
 		local rayHit, mainPoint, _, hitMaterial = Workspace:FindPartOnRayWithIgnoreList(mouseRay, ignoreList,
 			false, self._operationSettings.ignoreWater)
 
-		if self._operationSettings.heightPicker then
-			self._planePositionYChanged:fire(mainPoint.y - 1)
+		if not FFlagTerrainToolsFixFlattenToolPlanePosition then
+			if self._operationSettings.heightPicker then
+				self._planePositionYChanged:fire(mainPoint.y - 1)
+			end
 		end
 
 		local currentTool = self._operationSettings.currentTool
@@ -350,6 +373,14 @@ function TerrainBrush:_run()
 			mainPoint = mainPoint - unitRay * 0.05
 		elseif currentTool == ToolId.Subtract or currentTool == ToolId.Paint or currentTool == ToolId.Grow then
 			mainPoint = mainPoint + unitRay * 0.05
+		end
+
+		if FFlagTerrainToolsFixFlattenToolPlanePosition then
+			if self._operationSettings.heightPicker
+				or (currentTool == ToolId.Flatten and self._mouseClick
+					and not self._operationSettings.fixedPlane and not self._operationSettings.planeLock) then
+				self._planePositionYChanged:fire(mainPoint.y - 1)
+			end
 		end
 
 		if not self._mouse.Target then
@@ -390,7 +421,9 @@ function TerrainBrush:_run()
 					if FFlagTerrainToolMetrics then
 						AnalyticsService:SendEventDeferred("studio", "TerrainEditorV2", "UseTerrainTool", {
 							userId = StudioService:GetUserId(),
-							toolName = currentTool
+							toolName = currentTool,
+							studioSId = AnalyticsService:GetSessionId(),
+							placeId = game.PlaceId,
 						})
 					end
 					reportClick = false
@@ -420,6 +453,8 @@ function TerrainBrush:_run()
 						self._operationSettings.centerPoint = mainPoint
 						performTerrainBrushOperation(self._terrain, self._operationSettings)
 					end
+
+					self._isTerrainDirty = true
 
 					lastMainPoint = mainPoint
 				end

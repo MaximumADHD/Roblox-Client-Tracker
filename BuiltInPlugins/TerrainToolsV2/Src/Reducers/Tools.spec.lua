@@ -30,7 +30,7 @@ return function()
 		end)
 
 		it("should preserve immutability", function()
-			local immutabilityPreserved = testImmutability(ChangeTool, ChangeTool("foo"))
+			local immutabilityPreserved = testImmutability(Tools, ChangeTool("foo"))
 			expect(immutabilityPreserved).to.equal(true)
 		end)
 	end)

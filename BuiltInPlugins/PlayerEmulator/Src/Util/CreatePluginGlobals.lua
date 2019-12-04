@@ -25,9 +25,9 @@ local networkingImpl = Http.Networking.new({
 })
 
 return {
-	uiLibraryWrapper = UILibraryWrapper.new(),
 	theme = MakeTheme(),
 	localization = localization,
 	store = ContextServices.Store.new(store),
 	networking = NetworkingContext.new(networkingImpl),
+	uiLibraryWrapper = UILibraryWrapper.new(),
 }

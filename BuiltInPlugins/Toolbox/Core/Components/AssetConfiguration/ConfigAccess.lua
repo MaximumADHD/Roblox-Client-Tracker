@@ -79,7 +79,11 @@ function ConfigAccess:render()
 			local ownerName = ""
 			if (not self.allowOwnerEdit) and owner.typeId then
 				if owner.typeId == ConfigTypes.OWNER_TYPES.User then
-					ownerName =  FFlagLuaPackagePermissions and props.isPackageAsset and owner.username or localizedContent.AssetConfig.PublishAsset.Me
+					if FFlagLuaPackagePermissions and owner.targetId ~= getUserId() then
+						ownerName = owner.username
+					else
+						ownerName = localizedContent.AssetConfig.PublishAsset.Me
+					end
 				else -- If not owned by Me, then it's owned by a group.
 					-- Load the groupName
 					if FFlagLuaPackagePermissions then
@@ -143,7 +147,7 @@ function ConfigAccess:render()
 				}),
 
 				OwnerType = (not self.allowOwnerEdit) and Roact.createElement("TextLabel", {
-					Size = UDim2.new(1, -AssetConfigConstants.TITLE_GUTTER_WIDTH, 0, game:GetFastFlag("CMSEnableCatalogTags") and Constants.FONT_SIZE_LARGE or 0),
+					Size = UDim2.new(1, -AssetConfigConstants.TITLE_GUTTER_WIDTH, 0, game:GetFastFlag("CMSEnableCatalogTags2") and Constants.FONT_SIZE_LARGE or 0),
 
 					BackgroundTransparency = 1,
 					BorderSizePixel = 0,
@@ -165,7 +169,7 @@ end
 local function mapStateToProps(state, props)
 	state = state or {}
 
-	local assetGroupData = props.assetGroupData or (FFlagLuaPackagePermissions and props.owner and state[props.owner.targetId] and state[props.owner.targetId].groupMetadata)
+	local assetGroupData = (FFlagLuaPackagePermissions and props.owner and state[props.owner.targetId] and state[props.owner.targetId].groupMetadata) or props.assetGroupData 
 	local owner = (FFlagLuaPackagePermissions and state.assetConfigData and state.assetConfigData.Creator) or props.owner
 
 	return {

@@ -47,16 +47,13 @@ return function()
 		local uiPadding = scrollingFrame.UIPadding
 		expect(uiPadding).to.be.ok()
 
-		local scrollContainer = scrollingFrame.Container
-		expect(scrollContainer).to.be.ok()
-
-		local header = scrollContainer.Header
+		local header = scrollingFrame.Header
 		expect(header).to.be.ok()
 
 		local suggestions = header.Suggestions
 		expect(suggestions).to.be.ok()
 
-		local assetGridContainer = scrollContainer.AssetGridContainer
+		local assetGridContainer = scrollingFrame.AssetGridContainer
 		expect(assetGridContainer).to.be.ok()
 
 		--local innerHeight = header.AbsoluteSize.y + assetGridContainer.AbsoluteSize.y + Constants.MAIN_VIEW_VERTICAL_PADDING

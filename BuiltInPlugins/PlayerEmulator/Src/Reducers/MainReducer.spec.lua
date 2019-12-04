@@ -15,6 +15,7 @@ return function()
 		local expectedKeys = {
 			"Languages",
 			"CountryRegion",
+			"Policies",
 		}
 		for _, childReducerName in ipairs(expectedKeys) do
 			expect(state[childReducerName]).to.be.ok()

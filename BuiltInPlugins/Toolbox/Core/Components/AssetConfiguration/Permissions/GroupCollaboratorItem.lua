@@ -17,6 +17,7 @@
 	Optional Properties:
 
 ]]
+local FFlagPackagePermissionsAddDefaultNone = game:GetFastFlag("PackagePermissionsAddDefaultNone")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
@@ -65,18 +66,29 @@ local function getLabelForAction(localized, action)
 		return localized.PackagePermissions.ActionDropdown.UseViewLabel
 	elseif action == PermissionsConstants.EditKey then
 		return localized.PackagePermissions.ActionDropdown.EditLabel
+	elseif FFlagPackagePermissionsAddDefaultNone and action == PermissionsConstants.NoneKey then
+		return ""
 	else
+		error("Unsupported Action: "..tostring(action))
 		return ""
 	end
 end
 
 local function getActionForRoleset(props, rolesetProps)
 	if not props.Permissions[PermissionsConstants.RoleSubjectKey] then
-		return PermissionsConstants.NoAccessKey
+		if FFlagPackagePermissionsAddDefaultNone then
+			return PermissionsConstants.NoneKey
+		else
+			return PermissionsConstants.NoAccessKey
+		end
 	end
 
 	if not props.Permissions[PermissionsConstants.RoleSubjectKey][rolesetProps.Id] then
-		return PermissionsConstants.NoAccessKey
+		if FFlagPackagePermissionsAddDefaultNone then
+			return PermissionsConstants.NoneKey
+		else
+			return PermissionsConstants.NoAccessKey
+		end
 	end
 
 	return props.Permissions[PermissionsConstants.RoleSubjectKey][rolesetProps.Id][PermissionsConstants.ActionKey]

@@ -114,6 +114,7 @@ function LanguageSection:render()
 
 	local theme = props.Theme:get("Plugin")
 	local localization = props.Localization
+	local layoutOrder = props.LayoutOrder
 
 	local selectorModule = Roact.createElement("Frame", {
 		Size = theme.SELECTOR_SIZE,
@@ -191,7 +192,7 @@ function LanguageSection:render()
 	return Roact.createElement("Frame", {
 		Size = theme.LANGUAGE_SECTION_SIZE,
 		BackgroundTransparency = 1,
-		LayoutOrder = props.LayoutOrder,
+		LayoutOrder = layoutOrder,
 	}, {
 		Layout = Roact.createElement("UIListLayout", {
 			SortOrder = Enum.SortOrder.LayoutOrder,

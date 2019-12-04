@@ -19,6 +19,7 @@ local Lighting = game:GetService("Lighting")
 local FFlagPluginAccessAndInstallationInStudio = settings():GetFFlag("PluginAccessAndInstallationInStudio")
 local FFlagEnableDataModelFetchAssetAsync = settings():GetFFlag("EnableDataModelFetchAssetAsync")
 local FFlagEnableToolboxInsertWithJoin = settings():GetFFlag("EnableToolboxInsertWithJoin")
+local FFlagStudioToolboxInsertAssetCategoryAnalytics = settings():GetFFlag("StudioToolboxInsertAssetCategoryAnalytics")
 
 local INSERT_MAX_SEARCH_DEPTH = 2048
 local INSERT_MAX_DISTANCE_AWAY = 64
@@ -314,7 +315,11 @@ function InsertAsset.doInsertAsset(options, insertToolPromise)
 		ChangeHistoryService:SetWaypoint(("After insert asset %d"):format(assetId))
 		sendInsertionAnalytics(options, false)
 
-		AssetInsertionTracker.trackInsert(assetId, asset)
+		if FFlagStudioToolboxInsertAssetCategoryAnalytics then
+			AssetInsertionTracker.trackInsert(assetId, asset, options.currentCategoryName)
+		else
+			AssetInsertionTracker.trackInsert(assetId, asset)
+		end
 
 		options.onSuccess(assetId)
 	else

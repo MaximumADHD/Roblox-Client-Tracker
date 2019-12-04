@@ -18,6 +18,7 @@ local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
+local Cryo = require(Libs.Cryo)
 
 local Constants = require(Plugin.Core.Util.Constants)
 local ContextHelper = require(Plugin.Core.Util.ContextHelper)
@@ -39,14 +40,7 @@ function AssetDescription:render()
 
 		local layoutOrder = props.layoutOrder
 
-		return Roact.createElement("Frame", {
-			Position = position,
-			Size = UDim2.new(1, 0, 0, Constants.ASSET_DESCRIPTION_HEIGHT),
-
-			BackgroundTransparency = 1,
-			BackgroundColor3 = descriptionTheme.background,
-			LayoutOrder = layoutOrder,
-		},{
+		local children = Cryo.Dictionary.join({
 			-- Make sure left side and right side won't be cut off.
 			UIPadding = Roact.createElement("UIPadding", {
 				PaddingBottom = UDim.new(0, 0),
@@ -91,7 +85,16 @@ function AssetDescription:render()
 				BackgroundColor3 = descriptionTheme.lineColor,
 				BorderColor3 = descriptionTheme.lineColor,
 			})
-		})
+		}, props[Roact.Children] or {})
+
+		return Roact.createElement("Frame", {
+			Position = position,
+			Size = UDim2.new(1, 0, 0, Constants.ASSET_DESCRIPTION_HEIGHT),
+
+			BackgroundTransparency = 1,
+			BackgroundColor3 = descriptionTheme.background,
+			LayoutOrder = layoutOrder,
+		}, children)
 	end)
 end
 

@@ -1,4 +1,4 @@
-if not settings():GetFFlag("StudioUseStandaloneCollisionEditor") then
+if not settings():GetFFlag("StudioUseStandaloneCollisionEditor2") then
 	return
 end
 
@@ -97,7 +97,7 @@ function onClicked()
 	Window.Enabled = not Window.Enabled
 	if (Window.Enabled) then 
 		-- Reasonable time to update view.
-		plugin:Fire("WindowEnabled", "true")
+		plugin:Invoke("WindowEnabled", "true")
 	end
 
 	-- report an opening if we were just opened

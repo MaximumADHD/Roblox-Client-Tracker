@@ -1,4 +1,4 @@
-if settings():GetFFlag("StudioUseStandaloneCollisionEditor") then
+if settings():GetFFlag("StudioUseStandaloneCollisionEditor2") then
 	return
 end
 

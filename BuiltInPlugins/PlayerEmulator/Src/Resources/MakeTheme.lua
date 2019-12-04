@@ -8,6 +8,7 @@ local StyleValue = Util.StyleValue
 local UILibrary = require(Plugin.Packages.UILibrary)
 local createTheme = UILibrary.createTheme
 local StudioStyle = UILibrary.Studio.Style
+local Spritesheet = UILibrary.Util.Spritesheet
 
 local function createValues(theme)
 	-- TODO: Replace with actual getColor from the DevFramework
@@ -31,8 +32,22 @@ local function createValues(theme)
 		Off = ToggleOff:get(themeName),
 	}
 
+	local arrowDimension = 12
+
+	local arrowSpritesheet = Spritesheet("rbxasset://textures/StudioSharedUI/arrowSpritesheet.png", {
+		SpriteSize = arrowDimension,
+		NumSprites = 4,
+	})
+
+	local arrow = {
+		rightArrowImage = arrowSpritesheet[1],
+		downArrowImage = arrowSpritesheet[3],
+		dimension = arrowDimension,
+	}
+
 	local pluginTheme = {
 		Toggle = toggle,
+		Arrow = arrow,
 		BackgroundColor = theme:GetColor(c.MainBackground),
 		ButtonColor = theme:GetColor(c.MainBackground),
 		HoverColor = theme:GetColor(c.Button, m.Hover),
@@ -47,23 +62,46 @@ local function createValues(theme)
 	}
 
 	local sectionWidth = 300
+	local rowHeight = 25
 	local constants = {
 		TOOLBAR_ICON_PATH = "rbxasset://textures/StudioPlayerEmulator/player_emulator_32.png",
-		PLUGIN_WINDOW_SIZE = Vector2.new(300, 600),
+		PLUGIN_WINDOW_SIZE = Vector2.new(300, 300),
 		PLUGIN_WINDOW_SIZE_MIN = Vector2.new(150, 150),
+
+		ROW_HEIGHT = 25,
 
 		MAINVIEW_PADDING_TOP = UDim.new(0, 15),
 		MAINVIEW_PADDING_LEFT = UDim.new(0, 10),
-		SECTION_LABEL_SIZE = UDim2.new(0, 50, 0, 25),
-		DROPDOWN_BUTTON_SIZE = UDim2.new(0, 170, 0, 25),
+		SECTION_LABEL_SIZE = UDim2.new(0, 50, 0, rowHeight),
+		TEXT_INDENT_PADDING = UDim.new(0, 4),
 		HORIZONTAL_LISTLAYOUT_PADDING = UDim.new(0, 5),
+
+		DROPDOWN_BUTTON_SIZE = UDim2.new(0, 170, 0, rowHeight),
+		DROPDOWN_ARROW_IMAGE = "rbxasset://textures/menuDownArrow.png",
+		DROPDOWN_ARROW_POSITION = UDim2.new(1, -15, 0.5, 0),
+		DROPDOWN_ARROW_SIZE = UDim2.new(0, 5, 0, 3),
 		SELECTOR_SIZE = UDim2.new(0,sectionWidth,0,30),
+		DROPDOWN_MAX_HEIGHT = 8 * rowHeight,
+		SCROLLBAR_THICKNESS = 10,
+
 		LANGUAGE_SECTION_SIZE = UDim2.new(0,sectionWidth,0,50),
 		LANGUAGE_INSTRUCTION_SIZE = UDim2.new(0,sectionWidth,0,20),
-		TEXT_INDENT_PADDING = UDim.new(0, 4),
-		DROPDOWN_MAX_HEIGHT = 8 * 25,
-		LOCALEID_TEXTBOX_SIZE = UDim2.new(0, 50, 0, 25),
-		SCROLLBAR_THICKNESS = 10,
+		LOCALEID_TEXTBOX_SIZE = UDim2.new(0, 50, 0, rowHeight),
+
+		TOGGLE_ITEM_FRAME_SIZE = UDim2.new(0, sectionWidth, 0, rowHeight),
+		TOGGLE_ITEM_LABEL_SIZE = UDim2.new(0, 200, 0, rowHeight),
+		TOGGLE_BUTTON_HEIGHT = 15,
+		TOGGLE_BUTTON_WIDTH = 25,
+		TOGGLE_BUTTON_OFFSET = 255,
+
+		COLLAPSE_ARROW_OFFSET = 265,
+
+		LISTITEM_INDENT_LEFT = UDim.new(0, 20),
+		LISTITEM_CHECKBOX_HEIGHT = 18,
+
+		CHECKBOX_FRAME_SIZE = UDim2.new(1,0,0,20),
+		CHECKBOX_HEIGHT = 18,
+		CHECKBOX_TEXT_SIZE = 11,
 	}
 
 	return {
@@ -113,6 +151,9 @@ local function getUILibraryTheme()
 				},
 			},
 		},
+		checkBox = {
+			font = Enum.Font.Arial,
+		}
 	}
 
 	return createTheme(UILibraryPalette, UILibraryOverrides)

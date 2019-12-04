@@ -28,6 +28,8 @@ function ProgressFrame:render()
 
 	local progress = self.props.Progress or 0
 
+	local isPaused = self.props.IsPaused
+
 	local onPauseButtonClicked = self.props.OnPauseButtonClicked
 	local onCancelButtonClicked = self.props.OnCancelButtonClicked
 	local pausable = type(onPauseButtonClicked) == "function"
@@ -77,13 +79,13 @@ function ProgressFrame:render()
 			Size = UDim2.new(0.5, -2 * kStandardHMargin, 0, kButtonHeight),
 
 			-- TODO: Styling
-			Style = Enum.ButtonStyle.RobloxRoundDefaultButton,
+			Style = isPaused and Enum.ButtonStyle.RobloxRoundButton or Enum.ButtonStyle.RobloxRoundDefaultButton,
 			Font = Enum.Font.SourceSansBold,
 			TextColor3 = Color3.new(1, 1, 1),
 			TextSize = 18,
 
 			-- TODO: Localization
-			Text = "Pause",
+			Text = isPaused and "Resume" or "Pause",
 
 			[Roact.Event.Activated] = onPauseButtonClicked,
 		}),

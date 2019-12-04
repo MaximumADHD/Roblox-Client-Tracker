@@ -11,6 +11,8 @@
 		function FocusChanged(focus) = Callback to tell parent that this component has focus
 ]]
 
+local StudioTextEntryRoactBugPatch = game:DefineFastFlag("StudioTextEntryRoactBugPatch", false)
+
 local Roact = require(script.Parent.Internal.RequireRoact)
 
 local TextEntry = Roact.PureComponent:extend("TextEntry")
@@ -42,7 +44,7 @@ end
 function TextEntry:render()
 	local children = nil
 	local enabled = nil == self.props.Enabled and true or self.props.Enabled
-	if not enabled then
+	if (not StudioTextEntryRoactBugPatch) and not enabled then
 		children = {
 			Roact.createElement("ImageButton", {
 				Size = UDim2.new(1, 0, 1, 0),
@@ -50,6 +52,11 @@ function TextEntry:render()
 				ImageTransparency = 1
 			})
 		}
+	end
+	
+	local textEditable = true
+	if StudioTextEntryRoactBugPatch then
+		textEditable = enabled
 	end
 
 	return Roact.createElement("Frame", {
@@ -65,6 +72,7 @@ function TextEntry:render()
 			BorderSizePixel = 0,
 
 			ClearTextOnFocus = false,
+			TextEditable = textEditable,
 			Font = Enum.Font.SourceSans,
 			TextSize = 22,
 			TextColor3 = self.props.TextColor3,

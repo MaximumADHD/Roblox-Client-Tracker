@@ -57,9 +57,11 @@ function DropdownModule:render()
 	local buttonExtents = state.buttonExtents
 	local items = props.Items
 	local currentSelected = props.CurrentSelected
+	local onItemClicked = props.OnItemClicked
 
 	local theme = props.Theme:get("Plugin")
 	local localization = props.Localization
+	local layoutOrder = props.LayoutOrder
 
 	local dropdownButton = Roact.createElement("TextButton", {
 			Size = UDim2.new(1, 0, 1, 0),
@@ -96,7 +98,7 @@ function DropdownModule:render()
 			Dropdown = Roact.createElement(DropdownMenu, {
 				SourceExtents = buttonExtents,
 				Items = items,
-				OnItemClicked = props.OnItemClicked,
+				OnItemClicked = onItemClicked,
 				OnFocusLost = self.setClose,
 				MaxHeight = theme.DROPDOWN_MAX_HEIGHT,
 				ShowBorder = true,
@@ -137,7 +139,7 @@ function DropdownModule:render()
 	return Roact.createElement("Frame", {
 		Size = theme.DROPDOWN_BUTTON_SIZE,
 		BackgroundTransparency = 1,
-		LayoutOrder = props.LayoutOrder,
+		LayoutOrder = layoutOrder,
 	}, {
 		DropdownButton = dropdownButton,
 		DropdownFrame = dropdownFrame,

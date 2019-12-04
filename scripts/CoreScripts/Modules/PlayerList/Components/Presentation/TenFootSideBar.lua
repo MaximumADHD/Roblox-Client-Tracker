@@ -12,9 +12,16 @@ local PlayerList = Components.Parent
 local ClosePlayerDropDown = require(PlayerList.Actions.ClosePlayerDropDown)
 local SetPlayerListVisibility = require(PlayerList.Actions.SetPlayerListVisibility)
 
+local isNewInGameMenuEnabled = require(CoreGui.RobloxGui.Modules.isNewInGameMenuEnabled)
+
 local TenFootSideBar = Roact.Component:extend("TenFootSideBar")
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+
+local InGameMenu
+if isNewInGameMenuEnabled() then
+	InGameMenu = require(RobloxGui.Modules.InGameMenu)
+end
 
 local function openPlatformProfileUI(platformId)
 	pcall(function()
@@ -77,6 +84,7 @@ function TenFootSideBar:openSidebar(player)
 		end)
 	end
 
+	--Remove with FIntNewInGameMenuPercentRollout
 	local ReportAbuseMenu = require(RobloxGui.Modules.Settings.Pages.ReportAbuseMenu)
 
 	--We can't report guests/localplayer
@@ -85,7 +93,11 @@ function TenFootSideBar:openSidebar(player)
 			--Force closing player list before open the report tab
 			self.props.closePlayerList()
 			GuiService.SelectedCoreObject = nil
-			ReportAbuseMenu:ReportPlayer(player)
+			if isNewInGameMenuEnabled() then
+				InGameMenu.openReportDialog(player)
+			else
+				ReportAbuseMenu:ReportPlayer(player)
+			end
 		end)
 	end
 

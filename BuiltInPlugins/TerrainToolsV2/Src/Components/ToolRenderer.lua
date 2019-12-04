@@ -43,11 +43,12 @@ local ToolId = TerrainEnums.ToolId
 
 local FFlagTerrainToolsRefactorTerrainBrush = game:GetFastFlag("TerrainToolsRefactorTerrainBrush")
 local FFlagTerrainToolsRefactorTerrainImporter = game:GetFastFlag("TerrainToolsRefactorTerrainImporter")
+local FFlagTerrainToolsRefactorTerrainGeneration = game:GetFastFlag("TerrainToolsRefactorTerrainGeneration")
 
 local toolToScript = {
-	[ToolId.Generate] = TerrainGeneration,
+	[ToolId.Generate] = not FFlagTerrainToolsRefactorTerrainGeneration and TerrainGeneration or nil,
 	[ToolId.Import] = not FFlagTerrainToolsRefactorTerrainImporter and TerrainImporter or nil,
-	[ToolId.Clear] = TerrainGeneration,
+	[ToolId.Clear] = not TerrainToolsRefactorTerrainGeneration and TerrainGeneration or nil,
 
 	[ToolId.Select] = TerrainRegionEditor,
 	[ToolId.Move] = TerrainRegionEditor,
@@ -168,11 +169,18 @@ function ToolRenderer:render()
 	local layoutOrder = self.props.LayoutOrder
 	local roactElement = toolComponent[currentTool]
 
+	-- the ToolRenderer is the last element in the the list of 
+	-- elements in the layout, so we pass it the previous
+	-- elements' aggregate size so this element fills the remaining
+	-- space. This can probably removed when we get better
+	-- layout size management.
+	local upperContentYSize = self.props.UpperContentYSize or 0
+
 	return withLocalization(function(localization)
 		return withTheme(function(theme)
 			local toolRenderTheme = theme.toolRenderTheme
 			return Roact.createElement("ScrollingFrame", {
-				Size = UDim2.new(1, 0, 1, -140),
+				Size = UDim2.new(1, 0, 1, -upperContentYSize),
 				CanvasSize = UDim2.new(),
 				BackgroundTransparency = 1,
 				LayoutOrder = layoutOrder,

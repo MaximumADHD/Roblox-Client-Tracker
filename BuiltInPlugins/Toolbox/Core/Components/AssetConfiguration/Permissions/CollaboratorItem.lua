@@ -23,7 +23,8 @@ local PADDING_X = 6
 local CONTENT_HEIGHT = ITEM_HEIGHT - PADDING_Y
 local LIST_PADDING = 30
 local DROPDOWN_WIDTH = 120
-local ICON_SIZE = 20
+local DROPDOWN_ICON_SIZE = 20
+local CLOSE_ICON_SIZE = 16
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
@@ -63,7 +64,7 @@ local function DeleteButton(props)
 			RenderContents = function(buttonTheme, hovered)
 				return {
 					Icon = Roact.createElement("ImageLabel", {
-						Size = UDim2.new(0, 24, 0, 24),
+						Size = UDim2.new(0, CLOSE_ICON_SIZE, 0, CLOSE_ICON_SIZE),
 						Position = UDim2.new(0.5, 0, 0.5, 0),
 						AnchorPoint = Vector2.new(0.5, 0.5),
 
@@ -226,7 +227,7 @@ function CollaboratorItem:render()
 					ItemHeight = ITEM_HEIGHT,
 					DescriptionTextSize = Constants.FONT_SIZE_MEDIUM,
 					DisplayTextSize = Constants.FONT_SIZE_TITLE,
-					IconSize = ICON_SIZE,
+					IconSize = DROPDOWN_ICON_SIZE,
 					
 					Size = UDim2.new(0, DROPDOWN_WIDTH, 0, CONTENT_HEIGHT),
 					Position = UDim2.new(1, -(CONTENT_HEIGHT+LIST_PADDING), 0, 0),

@@ -27,6 +27,11 @@ function Senders.trackEvent(category, action, label, value)
 	RbxAnalyticsService:TrackEvent(category, action, label, value)
 end
 
+function Senders.trackEventWithArgs(category, action, label, argTable, value)
+	AnalyticsLogs.logEvent("trackEventWithArgs", category, action, label, value)
+	RbxAnalyticsService:TrackEventWithArgs(category, action, label, argTable, value)
+end
+
 function Senders.reportCounter(counter, amount)
 	amount = amount or 1
 	AnalyticsLogs.logCounterEvent("reportCounter", counter, amount)

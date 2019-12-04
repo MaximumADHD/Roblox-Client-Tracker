@@ -14,6 +14,8 @@
 		Position, UDim2, you should have a Position or LayoutOrder.
 ]]
 
+local FFlagFixImagePickerStatus = game:DefineFastFlag("FixImagePickerStatus", false)
+
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
@@ -56,9 +58,33 @@ function ImagePicker:init(props)
 	end
 end
 
+function ImagePicker:getStatus(localization, localizedContent)
+	local state = self.state
+	local props = self.props
+	local iconFile = props.IconFile
+	local thumbnailStatus = props.ThumbnailStatus
+	local hovered = state.hovered
+
+	local status, showStatus
+	if FFlagFixImagePickerStatus then
+		local completed = thumbnailStatus == "Completed" or thumbnailStatus == nil
+		showStatus = not (hovered or (completed and iconFile == nil))
+		if iconFile then
+			status = localizedContent.AssetConfig.PreviewArea.PreviewLabel
+		else
+			status = thumbnailStatus and localization:getThumbnailStatus(thumbnailStatus) or ""
+		end
+	else
+		status = thumbnailStatus or localizedContent.AssetConfig.PreviewArea.PreviewLabel
+		showStatus = not hovered
+	end
+
+	return status, showStatus
+end
+
 function ImagePicker:render()
 	return withTheme(function(theme)
-		return withLocalization(function(_, localizedContent)
+		return withLocalization(function(localization, localizedContent)
 			local props = self.props
 			local state = self.state
 
@@ -68,9 +94,9 @@ function ImagePicker:render()
 			local iconFile = props.IconFile
 			local assetId = props.AssetId
 			local chooseThumbnail = props.ChooseThumbnail
-			local thumbnailStatus = props.ThumbnailStatus
 
 			local hovered = state.hovered
+			local status, showStatus = self:getStatus(localization, localizedContent)
 
 			local tempId = Images.PLUGIN_TEMP
 			if iconFile then
@@ -108,36 +134,36 @@ function ImagePicker:render()
 					ImageRectSize = HOVER_RECT,
 				}),
 
-				StatusFrame = Roact.createElement("Frame", {
+				StatusFrame = showStatus and Roact.createElement("Frame", {
 					Position = UDim2.new(0, 0, 1, - PREVIEW_HEIGHT),
 					Size = UDim2.new(1, 0, 0, PREVIEW_HEIGHT),
 					BackgroundColor3 = Color3.new(0, 0, 0),
 					BackgroundTransparency = 0.5,
 				}, {
-					Status = (not hovered) and Roact.createElement("TextLabel", {
+					Status = Roact.createElement("TextLabel", {
 						AnchorPoint = Vector2.new(0.5, 0.5),
 						Size = UDim2.new(1, 0, 1, 0),
 						Position = UDim2.new(0.5, 0, 0.5, 0),
-						Text = thumbnailStatus or localizedContent.AssetConfig.PreviewArea.PreviewLabel,
+						Text = status,
 						-- Confirm theme color
 						TextColor3 = Colors.WHITE,
 						TextSize = PREVIEW_FONT_SIZE,
 						Font = Constants.FONT,
 						BackgroundTransparency = 1,
 					}),
+				}),
 
-					ChangeLabel = hovered and Roact.createElement("TextLabel", {
-						AnchorPoint = Vector2.new(0, 1),
-						Position = UDim2.new(0, 0, 1, -15),
-						Size = UDim2.new(1, 0, 0, 30),
-						BackgroundTransparency = 1,
-						Text = localizedContent.AssetConfig.PreviewArea.Change,
-						TextColor3 = Colors.WHITE,
-						TextSize = PREVIEW_FONT_SIZE,
-						Font = Constants.FONT,
-						ZIndex = 2,
-					})
-				})
+				ChangeLabel = hovered and Roact.createElement("TextLabel", {
+					AnchorPoint = Vector2.new(0, 1),
+					Position = UDim2.new(0, 0, 1, -15),
+					Size = UDim2.new(1, 0, 0, 30),
+					BackgroundTransparency = 1,
+					Text = localizedContent.AssetConfig.PreviewArea.Change,
+					TextColor3 = Colors.WHITE,
+					TextSize = PREVIEW_FONT_SIZE,
+					Font = Constants.FONT,
+					ZIndex = 2,
+				}),
 			})
 		end)
 	end)

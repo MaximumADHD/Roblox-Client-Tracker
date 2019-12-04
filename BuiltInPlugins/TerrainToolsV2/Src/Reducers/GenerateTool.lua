@@ -6,6 +6,11 @@ local Plugin = script.Parent.Parent.Parent
 local Rodux = require(Plugin.Packages.Rodux)
 local Cryo = require(Plugin.Packages.Cryo)
 
+local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
+local Biome = TerrainEnums.Biome
+
+local FFlagTerrainToolsRefactorTerrainGeneration = game:GetFastFlag("TerrainToolsRefactorTerrainGeneration")
+
 local GenerateTool = Rodux.createReducer({
 	position = {
 		X = 0,
@@ -19,7 +24,18 @@ local GenerateTool = Rodux.createReducer({
 		Z = 1024,
 	},
 
-	biomeSelection = {
+	biomeSelection = FFlagTerrainToolsRefactorTerrainGeneration and {
+		[Biome.Plains] = true,
+		[Biome.Mountains] = true,
+		[Biome.Hills] = true,
+
+		[Biome.Water] = false,
+		[Biome.Dunes] = false,
+		[Biome.Arctic] = false,
+		[Biome.Marsh] = false,
+		[Biome.Canyons] = false,
+		[Biome.Lavascape] = false,
+	} or {
 		Water = false,
 		Plains = true,
 		Dunes = false,

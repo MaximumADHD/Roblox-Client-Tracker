@@ -315,6 +315,7 @@ function AssetConfigTheme:_recalculateTheme()
 
 		uploadResult = {
 			greenText = Color3.fromRGB(2, 183, 87),
+			redText = Color3.fromRGB(255, 68, 68),
 			text = color(c.MainText),
 			background = color(c.TableItem),
 			link = color(c.LinkText),

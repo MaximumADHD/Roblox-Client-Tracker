@@ -32,17 +32,9 @@ local defaultTimeoutTime  = safeGetFInt("DefaultTimeoutTimeMs", 10000) / 1000
 local reconnectDisabled = settings():GetFFlag("ReconnectDisabled")
 local reconnectDisabledReason = safeGetFString("ReconnectDisabledReason", "We're sorry, Roblox is temporarily unavailable.  Please try again later.")
 
-local fflagUseNewErrorStrings = settings():GetFFlag("UseNewErrorStrings")
-local fflagReconnectToStarterPlace = settings():GetFFlag("ReconnectToStarterPlace")
-
 local fflagChinaLicensingBuild = settings():GetFFlag("ChinaLicensingApp") --todo: remove with UsePolicyServiceForCoreScripts
 
-local fflagPhoneHomeSooner = game:DefineFastFlag("PhoneHomeSooner", false)
-
-local coreScriptTableTranslator
-if fflagUseNewErrorStrings then
-	coreScriptTableTranslator = CoreGui.CoreScriptLocalization:GetTranslator(LocalizationService.RobloxLocaleId)
-end
+local coreScriptTableTranslator = CoreGui.CoreScriptLocalization:GetTranslator(LocalizationService.RobloxLocaleId)
 
 local errorPrompt
 local graceTimeout = -1
@@ -130,41 +122,19 @@ local reconnectFunction = function()
 	connectionPromptState = ConnectionPromptState.IS_RECONNECTING
 	errorPrompt:primaryShimmerPlay()
 
-	if fflagPhoneHomeSooner then
-		local fetchStarterPlaceSuccess, starterPlaceId
-		if game.GameId > 0 then
-			fetchStarterPlaceSuccess, starterPlaceId = fetchStarterPlaceId(game.GameId)
-		end
-		-- Wait for the remaining time (if there is any)
-		local currentTime = tick()
-		if currentTime < graceTimeout then
-			wait(graceTimeout - currentTime)
-		end
-		if fetchStarterPlaceSuccess and starterPlaceId > 0 then
-			TeleportService:Teleport(starterPlaceId)
-		else
-			TeleportService:Teleport(game.PlaceId)
-		end
+	local fetchStarterPlaceSuccess, starterPlaceId
+	if game.GameId > 0 then
+		fetchStarterPlaceSuccess, starterPlaceId = fetchStarterPlaceId(game.GameId)
+	end
+	-- Wait for the remaining time (if there is any)
+	local currentTime = tick()
+	if currentTime < graceTimeout then
+		wait(graceTimeout - currentTime)
+	end
+	if fetchStarterPlaceSuccess and starterPlaceId > 0 then
+		TeleportService:Teleport(starterPlaceId)
 	else
-		-- Wait until it passes the defaultTimeOut
-		local currentTime = tick()
-		if currentTime < graceTimeout then
-			wait(graceTimeout - currentTime)
-		end
-		if fflagReconnectToStarterPlace then
-			if game.GameId > 0 then
-				local success, starterPlaceId = fetchStarterPlaceId(game.GameId)
-				if success and starterPlaceId > 0 then
-					TeleportService:Teleport(starterPlaceId)
-				else
-					TeleportService:Teleport(game.PlaceId)
-				end
-			else
-				TeleportService:Teleport(game.PlaceId)
-			end
-		else
-			TeleportService:Teleport(game.placeId)
-		end
+		TeleportService:Teleport(game.PlaceId)
 	end
 end
 
@@ -383,6 +353,10 @@ end
 -- Look up in corelocalization for new string. Otherwise fallback to the original string
 -- If it is teleport error but not TELEPORT_FAILED, use general string "Reconnect failed."
 local function getErrorString(errorMsg, errorCode, reconnectError)
+	if errorCode == Enum.ConnectionError.OK then
+		return ""
+	end
+
 	if reconnectError then
 		local success, attemptTranslation = pcall(function()
 			return coreScriptTableTranslator:FormatByKey("InGame.ConnectionError.ReconnectFailed")
@@ -435,15 +409,11 @@ local function updateErrorPrompt(errorMsg, errorCode, errorType)
 		onEnter(newPromptState)
 	end
 
-	if fflagUseNewErrorStrings then
-		if errorType == Enum.ConnectionError.TeleportErrors and
-			connectionPromptState ~= ConnectionPromptState.TELEPORT_FAILED then
-			errorMsg = getErrorString(errorMsg, errorCode, true)
-		else
-			errorMsg = getErrorString(errorMsg, errorCode)
-		end
-	elseif connectionPromptState ~= ConnectionPromptState.TELEPORT_FAILED then
-		errorMsg = string.match(errorMsg, "Teleport Failed: (.*)") or errorMsg
+	if errorType == Enum.ConnectionError.TeleportErrors and
+		connectionPromptState ~= ConnectionPromptState.TELEPORT_FAILED then
+		errorMsg = getErrorString(errorMsg, errorCode, true)
+	else
+		errorMsg = getErrorString(errorMsg, errorCode)
 	end
 
 	if connectionPromptState == ConnectionPromptState.RECONNECT_DISABLED then
@@ -478,10 +448,7 @@ local function onLocaleIdChanged()
 end
 
 RobloxGui:GetPropertyChangedSignal("AbsoluteSize"):connect(onScreenSizeChanged)
-
-if fflagUseNewErrorStrings then
-	LocalizationService:GetPropertyChangedSignal("RobloxLocaleId"):connect(onLocaleIdChanged)
-end
+LocalizationService:GetPropertyChangedSignal("RobloxLocaleId"):connect(onLocaleIdChanged)
 
 -- pre-run it once in case some error occurs before the connection
 onErrorMessageChanged()

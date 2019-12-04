@@ -13,11 +13,15 @@ game:DefineFastFlag("EnableAssetConfigVersionCheckForModels", false)
 game:DefineFastFlag("CMSAdditionalAccessoryTypesV2", false)
 game:DefineFastFlag("FixAssetConfigManageableGroups", false)
 game:DefineFastFlag("UseDevelopFetchPluginVersionId", false)
+game:DefineFastFlag("ShowAssetConfigReasons", false)
+game:DefineFastFlag("DebugAssetConfigNetworkError", false)
+game:DefineFastFlag("FixAssetConfigIcon", false)
+game:DefineFastFlag("EnableAssetConfigFreeFix2", false)
 
 -- when removing this flag, remove all references to isCatalogItemCreator
 game:DefineFastFlag("CMSRemoveUGCContentEnabledBoolean", false)
 
-game:DefineFastFlag("CMSEnableCatalogTags", false)
+game:DefineFastFlag("CMSEnableCatalogTags2", false)
 
 local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 
@@ -148,7 +152,7 @@ local function createAssetConfig(assetId, flowType, instances, assetTypeEnum)
 		assetTypesForUpload = toolboxStore:getState().roles.allowedAssetTypesForUpload
 		packagePermissions = toolboxStore:getState().packages.permissionsTable
 
-		if game:GetFastFlag("CMSEnableCatalogTags") then
+		if game:GetFastFlag("CMSEnableCatalogTags2") then
 			isItemTagsFeatureEnabled = toolboxStore:getState().itemTags.isItemTagsFeatureEnabled
 			enabledAssetTypesForItemTags = toolboxStore:getState().itemTags.enabledAssetTypesForItemTags
 			maximumItemTagsPerItem = toolboxStore:getState().itemTags.maximumItemTagsPerItem

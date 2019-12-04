@@ -38,8 +38,6 @@ local FlagSettings = require(CoreGuiModules.FlagSettings)
 
 -- VARIABLES
 
-local FFlagTranslateAvatarContextMenu = settings():GetFFlag("TranslateAvatarContextMenu")
-
 local LocalPlayer = PlayersService.LocalPlayer
 while not LocalPlayer do
 	PlayersService.PlayerAdded:wait()
@@ -172,9 +170,7 @@ function ContextMenuItems:CreateCustomMenuItems()
 
 			itemInfo.event:Fire(self.SelectedPlayer)
 		end
-		if FFlagTranslateAvatarContextMenu then
-			buttonText = GameTranslator:TranslateGameText(self.MenuItemFrame, buttonText)
-		end
+		buttonText = GameTranslator:TranslateGameText(self.MenuItemFrame, buttonText)
 		local customButton = ContextMenuUtil:MakeStyledButton(
 			"CustomButton",
 			buttonText,
@@ -199,13 +195,11 @@ local blockedString = "Player Blocked"
 local addFriendDisabledTransparency = 0.75
 local friendStatusChangedConn = nil
 function ContextMenuItems:CreateFriendButton(status, isBlocked)
-	if FFlagTranslateAvatarContextMenu then
-		addFriendString = RobloxTranslator:FormatByKey("Corescripts.AvatarContextMenu.AddFriend")
-		friendsString = RobloxTranslator:FormatByKey("Corescripts.AvatarContextMenu.Friends")
-		friendRequestPendingString = RobloxTranslator:FormatByKey("Corescripts.AvatarContextMenu.FriendRequestPending")
-		acceptFriendRequestString = RobloxTranslator:FormatByKey("Corescripts.AvatarContextMenu.AcceptFriendRequest")
-		blockedString = RobloxTranslator:FormatByKey("Corescripts.AvatarContextMenu.PlayerBlocked")
-	end
+	addFriendString = RobloxTranslator:FormatByKey("Corescripts.AvatarContextMenu.AddFriend")
+	friendsString = RobloxTranslator:FormatByKey("Corescripts.AvatarContextMenu.Friends")
+	friendRequestPendingString = RobloxTranslator:FormatByKey("Corescripts.AvatarContextMenu.FriendRequestPending")
+	acceptFriendRequestString = RobloxTranslator:FormatByKey("Corescripts.AvatarContextMenu.AcceptFriendRequest")
+	blockedString = RobloxTranslator:FormatByKey("Corescripts.AvatarContextMenu.PlayerBlocked")
 
 	local friendLabel = self.MenuItemFrame:FindFirstChild("FriendStatus")
 	if friendLabel then
@@ -305,10 +299,7 @@ function ContextMenuItems:CreateEmoteButton()
 		PlayersService:Chat("/e wave")
 	end
 
-	local waveString = "Wave"
-	if FFlagTranslateAvatarContextMenu then
-		waveString = RobloxTranslator:FormatByKey("Corescripts.AvatarContextMenu.Wave")
-	end
+	local waveString = RobloxTranslator:FormatByKey("Corescripts.AvatarContextMenu.Wave")
 	local waveButton = ContextMenuUtil:MakeStyledButton(
 		"Wave",
 		waveString,
@@ -347,10 +338,7 @@ function ContextMenuItems:CreateChatButton()
 		end
 	end
 
-	local chatString = "Chat"
-	if FFlagTranslateAvatarContextMenu then
-		chatString = RobloxTranslator:FormatByKey("Corescripts.AvatarContextMenu.Chat")
-	end
+	local chatString = RobloxTranslator:FormatByKey("Corescripts.AvatarContextMenu.Chat")
 	local chatButton, chatLabelText = ContextMenuUtil:MakeStyledButton(
 		"ChatStatus",
 		chatString,
@@ -372,11 +360,7 @@ function ContextMenuItems:CreateChatButton()
 			chatDisabled = true
 			chatButton.Selectable = false
 			chatLabelText.TextTransparency = addFriendDisabledTransparency
-			if FFlagTranslateAvatarContextMenu then
-				chatLabelText.Text = RobloxTranslator:FormatByKey("Corescripts.AvatarContextMenu.ChatDisabled")
-			else
-				chatLabelText.Text = "Chat Disabled"
-			end
+			chatLabelText.Text = RobloxTranslator:FormatByKey("Corescripts.AvatarContextMenu.ChatDisabled")
 		end
 	else
 		chatButton.Parent = nil

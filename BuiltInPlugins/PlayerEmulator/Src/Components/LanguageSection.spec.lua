@@ -24,10 +24,19 @@ return function()
 		}
 	}
 
-    it("should create and destroy without errors", function()
+    it("should create and destroy without errors with mock data", function()
         local mockServiceWrapper = Roact.createElement(MockServiceWrapper, {
 			storeState = store
         }, {
+            LanguageSection = Roact.createElement(LanguageSection)
+        })
+
+        local instance = Roact.mount(mockServiceWrapper)
+        Roact.unmount(instance)
+    end)
+
+    it("should create and destroy without errors", function()
+        local mockServiceWrapper = Roact.createElement(MockServiceWrapper, {}, {
             LanguageSection = Roact.createElement(LanguageSection)
         })
 

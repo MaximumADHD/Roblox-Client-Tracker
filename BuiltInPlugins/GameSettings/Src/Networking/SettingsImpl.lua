@@ -15,7 +15,7 @@ local FFlagGameSettingsUsesNewIconEndpoint = settings():GetFFlag("GameSettingsUs
 local FFlagGameSettingsUpdatesUniverseDisplayName = settings():GetFFlag("GameSettingsUpdatesUniverseDisplayName")
 local FFlagStudioGameSettingsAccessPermissions = settings():GetFFlag("StudioGameSettingsAccessPermissions")
 local FFlagStudioGameSettingsDisablePlayabilityForDrafts = game:GetFastFlag("StudioGameSettingsDisablePlayabilityForDrafts")
-local FFlagStudioGameSettingsUseNewSettingsImpl2 = settings():GetFFlag("StudioGameSettingsUseNewSettingsImpl2")
+local FFlagStudioGameSettingsUseNewSettingsImpl3 = settings():GetFFlag("StudioGameSettingsUseNewSettingsImpl3")
 local FFlagVersionControlServiceScriptCollabEnabled = settings():GetFFlag("VersionControlServiceScriptCollabEnabled")
 
 local DFFlagDeveloperSubscriptionsEnabled = settings():GetFFlag("DeveloperSubscriptionsEnabled")
@@ -55,7 +55,7 @@ function SettingsImpl:GetUserId()
 end
 
 function SettingsImpl:CanManagePlace()
-	if FFlagStudioGameSettingsUseNewSettingsImpl2 and not self:IsPublished() then
+	if FFlagStudioGameSettingsUseNewSettingsImpl3 and not self:IsPublished() then
 		return Promise.new(function(resolve, _) resolve(true) end)
 	end
 
@@ -74,7 +74,7 @@ end
 function SettingsImpl:GetSettings_Old()
 	local settings = {
 		HttpEnabled = HttpService:GetHttpEnabled(),
-		studioUserId = FFlagStudioGameSettingsUseNewSettingsImpl2 and self:GetUserId() or nil,
+		studioUserId = FFlagStudioGameSettingsUseNewSettingsImpl3 and self:GetUserId() or nil,
 	}
 	settings = Cryo.Dictionary.join(settings, WorkspaceSettings.getWorldSettings(settings))
 
@@ -155,6 +155,8 @@ function SettingsImpl:GetSettings_New()
 			if (not isPublished) then
 				local getRequests = {}
 
+				settings = Cryo.Dictionary.join(settings, WorkspaceSettings.getAvatarSettings(settings))
+
 				if FFlagStudioGameSettingsAccessPermissions then
 					table.insert(getRequests, Requests.GamePermissions.Get(gameId, creatorName, creatorId, creatorType))
 				end
@@ -208,7 +210,7 @@ end
 
 -- TODO (awarwick) 6/5/2019 Remove with flag
 function SettingsImpl:GetSettings()
-	if FFlagStudioGameSettingsUseNewSettingsImpl2 then
+	if FFlagStudioGameSettingsUseNewSettingsImpl3 then
 		return self:GetSettings_New()
 	else
 		return self:GetSettings_Old()
@@ -275,11 +277,11 @@ function SettingsImpl:SaveAll(state)
 		end
 
 		WorkspaceSettings.saveAllAvatarSettings(saveInfo)
-		if not canManage then
+		local universeId = game.GameId
+
+		if (FFlagStudioGameSettingsUseNewSettingsImpl3 and universeId == 0) or not canManage then
 			return
 		end
-
-		local universeId = game.GameId
 
 		local setRequests = {
 			Requests.Configuration.Set(universeId, saveInfo.Configuration),

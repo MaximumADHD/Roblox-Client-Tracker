@@ -144,6 +144,8 @@ module.ImportTerrain = function(localization)
 					userId = StudioService:GetUserId(),
 					regionDims = string.format("%d,%d,%d)", region.Size.x, region.Size.y, region.Size.z),
 					useColorMap = binary2 ~= nil,
+					studioSId = AnalyticsService:GetSessionId(),
+					placeId = game.PlaceId,
 				})
 			end
 

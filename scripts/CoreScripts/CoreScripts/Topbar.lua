@@ -11,9 +11,7 @@ local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList")
 local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp") --todo: remove with FFlagUsePolicyServiceForCoreScripts
 local FFlagEmotesMenuEnabled2 = settings():GetFFlag("CoreScriptEmotesMenuEnabled2")
 
-
 --[[ END OF FFLAG VALUES ]]
-
 
 --[[ SERVICES ]]
 
@@ -27,9 +25,11 @@ local RunService = game:GetService('RunService')
 local TextService = game:GetService('TextService')
 local ChatService = game:GetService('Chat')
 local VRService = game:GetService('VRService')
+local CorePackages = game:GetService('CorePackages')
 
 --[[ END OF SERVICES ]]
 
+local isNewInGameMenuEnabled = require(CoreGuiService.RobloxGui.Modules.isNewInGameMenuEnabled)
 
 local topbarEnabled = true
 local topbarEnabledChangedEvent = Instance.new('BindableEvent')
@@ -59,6 +59,10 @@ if FFlagEmotesMenuEnabled2 then
 	FFlagEmotesMenuShowUiOnlyWhenAvailable = game:GetFastFlag("EmotesMenuShowUiOnlyWhenAvailable", false)
 end
 
+local InGameMenu
+if isNewInGameMenuEnabled() then
+	InGameMenu = require(GuiRoot.Modules.InGameMenu)
+end
 
 --[[ END OF MODULES ]]
 
@@ -784,6 +788,7 @@ local function CreateLeaderstatsMenuItem()
 
 					GameTranslator:TranslateAndRegister(columnNameLabel, CoreGuiService, columnName);
 
+
 					local columnframe = Util.Create'Frame'
 					{
 						Name = "Column" .. tostring(index);
@@ -868,6 +873,11 @@ end
 ----- END OF LEADERSTATS -----
 
 --- SETTINGS ---
+local function mountInGameMenu()
+	local menuButton = InGameMenu.mountInGameMenu()
+	return CreateMenuItem(menuButton)
+end
+
 local function CreateSettingsIcon(topBarInstance)
 	local MenuModule = require(GuiRoot.Modules.Settings.SettingsHub)
 
@@ -1028,6 +1038,7 @@ local function CreateChatIcon()
 
 	local ChatModule = require(GuiRoot.Modules.ChatSelector)
 
+
 	local chatIconButton = Util.Create'ImageButton'
 	{
 		Name = "Chat";
@@ -1149,6 +1160,7 @@ local function CreateMobileHideChatIcon()
 			chatIconImage.Image = GetChatIcon("ToggleChat")
 		end
 	end
+
 
 	local function onChatStateChanged(visible)
 		updateIcon(visible)
@@ -1370,7 +1382,13 @@ local TopBar = CreateTopBar()
 local LeftMenubar = CreateMenuBar(BarAlignmentEnum.Left)
 local RightMenubar = CreateMenuBar(BarAlignmentEnum.Right)
 
-local settingsIcon = CreateSettingsIcon(TopBar)
+local settingsIcon
+if isNewInGameMenuEnabled() then
+	settingsIcon = mountInGameMenu()
+else
+	settingsIcon = CreateSettingsIcon(TopBar)
+end
+
 local noTopBarAccountType = nil
 
 if isTenFootInterface then
@@ -1491,7 +1509,7 @@ local function OnCoreGuiChanged(coreGuiType, coreGuiEnabled)
 		else
 			if chatIcon then
 				LeftMenubar:RemoveItem(chatIcon)
-			end
+		end
 		end
 	end
 

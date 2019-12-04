@@ -5,6 +5,8 @@ local NetworkError = require(Actions.NetworkError)
 local ConfigTypes = require(Plugin.Core.Types.ConfigTypes)
 local UpdateAssetConfigData = require(Actions.UpdateAssetConfigData)
 
+local FFlagShowAssetConfigReasons = game:GetFastFlag("ShowAssetConfigReasons")
+
 return function(networkInterface, assetId)
 	return function(store)
 		return networkInterface:getAssetItemTags(assetId):andThen(
@@ -19,7 +21,11 @@ return function(networkInterface, assetId)
 				store:dispatch(UpdateAssetConfigData(newAssetConfigData))
 			end,
 			function(err)
-				store:dispatch(NetworkError(err, ConfigTypes.GET_ASSET_DETAIL_FAILURE_ACTION ))
+				if FFlagShowAssetConfigReasons then
+					store:dispatch(NetworkError(err, ConfigTypes.NetworkErrors.GET_ASSET_DETAIL_FAILURE))
+				else
+					store:dispatch(NetworkError(err, ConfigTypes.GET_ASSET_DETAIL_FAILURE_ACTION ))
+				end
 			end
 		)
 	end

@@ -8,6 +8,7 @@ local RobloxLocaleSelector = Roact.PureComponent:extend("RobloxLocaleSelector")
 local LocalizationService = game:GetService("LocalizationService")
 
 local UseAllSupportedLanguageList = settings():GetFFlag("UseAllSupportedLanguageList")
+local UseStudioLocaleForForceLocale = settings():GetFFlag("UseStudioLocaleForForceLocale")
 
 local robloxLocaleLabelText = "Locale"
 
@@ -19,7 +20,9 @@ local function GetLocaleId()
 	return LocalizationService.RobloxForcePlayModeRobloxLocaleId
 end
 
-LocalizationService.RobloxForcePlayModeRobloxLocaleId = LocalizationService.RobloxLocaleId
+if not UseStudioLocaleForForceLocale then
+	LocalizationService.RobloxForcePlayModeRobloxLocaleId = LocalizationService.RobloxLocaleId
+end
 
 function RobloxLocaleSelector.getTestLangInstructionText(allLanguagesInfo, localeId)
 	localeId = string.gsub(localeId, '-', '_')

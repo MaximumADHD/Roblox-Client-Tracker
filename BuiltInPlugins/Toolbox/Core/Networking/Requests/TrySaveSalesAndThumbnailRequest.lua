@@ -7,11 +7,18 @@ local Plugin = script.Parent.Parent.Parent.Parent
 
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 local AssetConfigConstants = require(Plugin.Core.Util.AssetConfigConstants)
+local AssetConfigUtil = require(Plugin.Core.Util.AssetConfigUtil)
+
+local ConfigTypes = require(Plugin.Core.Types.ConfigTypes)
 
 local Actions = Plugin.Core.Actions
 local NetworkError = require(Actions.NetworkError)
 local SetCurrentScreen = require(Actions.SetCurrentScreen)
 local UploadResult = require(Actions.UploadResult)
+
+local FFlagShowAssetConfigReasons = game:GetFastFlag("ShowAssetConfigReasons")
+local FFlagDebugAssetConfigNetworkError = game:GetFastFlag("DebugAssetConfigNetworkError")
+local FFlagEnableAssetConfigFreeFix2 = game:GetFastFlag("EnableAssetConfigFreeFix2")
 
 -- assetId, number, defualt to 0 for new asset.
 -- assetType, string, the asset type of the asset.
@@ -34,14 +41,19 @@ return function(patchInfo)
 			end
 		end
 
-		local function onThumbnailSetFail(result)
+		local function onThumbnailSetFail(err)
 			checkThumbnail = true
-			-- DEVTOOLS-3120
-			-- In this case, we still consider the upload a success.
-			-- We will need to tell the user that we failed to upload the thumbnail
+
 			if checkSales and checkThumbnail then
 				store:dispatch(SetCurrentScreen(AssetConfigConstants.SCREENS.UPLOADING_ASSET))
 				store:dispatch(UploadResult(true))
+			end
+
+			-- DEVTOOLS-3120
+			-- In this case, we still consider the upload a success.
+			-- We will need to tell the user that we failed to upload the thumbnail
+			if FFlagShowAssetConfigReasons then
+				store:dispatch(NetworkError(err, ConfigTypes.NetworkErrors.SET_ASSET_THUMBNAIL_FAILURE))
 			end
 		end
 
@@ -53,46 +65,83 @@ return function(patchInfo)
 			end
 		end
 
-		local function onPriceSetFail(result)
+		local function onPriceSetFail(err)
 			checkSales = true
-			-- DEVTOOLS-3120
-			-- In this case, we still consider the upload succuss.
-			-- We will need to tell user failed to set the price.
+
 			if checkSales and checkThumbnail then
 				store:dispatch(SetCurrentScreen(AssetConfigConstants.SCREENS.UPLOADING_ASSET))
 				store:dispatch(UploadResult(true))
 			end
-		end
 
-		if allowedAssetTypesForRelease[patchInfo.assetType] then
-			if patchInfo.saleStatus then
-				local salesStatusOverride = patchInfo.saleStatus
-
-				-- Work around for setting the free plugins.
-				if patchInfo.price and tonumber(patchInfo.price) <= 0 then
-					salesStatusOverride = AssetConfigConstants.ASSET_STATUS.Free
-				end
-
-				patchInfo.networkInterface:configureSales(patchInfo.assetId, salesStatusOverride, patchInfo.price):andThen(
-					onPriceSetSuccess, onPriceSetFail
-				)
+			-- DEVTOOLS-3120
+			-- In this case, we still consider the upload succuss.
+			-- We will need to tell user failed to set the price.
+			if FFlagShowAssetConfigReasons then
+				store:dispatch(NetworkError(err, ConfigTypes.NetworkErrors.SET_ASSET_PRICE_FAILURE))
 			end
-		else -- Can't set the sales status.
+		end
+
+		if FFlagDebugAssetConfigNetworkError then
+			local function failedToSetPrice()
+				onPriceSetFail({responseBody = "Debug failed to set the price !! "})
+			end
+
+			failedToSetPrice()
 			checkSales = true
-		end
-
-		if patchInfo.iconFile then
-			patchInfo.networkInterface:uploadAssetThumbnail(patchInfo.assetId, patchInfo.iconFile):andThen(
-				onThumbnailSetSuccess, onThumbnailSetFail
-			)
 		else
-			checkThumbnail = true
+			if allowedAssetTypesForRelease[patchInfo.assetType] then
+				if patchInfo.saleStatus then
+					local salesStatusOverride = patchInfo.saleStatus
+
+					if FFlagEnableAssetConfigFreeFix2 then
+						-- we only try to override sales status if it's OnSale and price will determine what the status is.
+						-- The status we got from the UI is only OnSale or OffSale. For plugins, we could set the price to 0. Only then
+						-- the sale status will be Free.
+						if AssetConfigUtil.isOnSale(salesStatusOverride) then
+							if patchInfo.price then
+								if tonumber(patchInfo.price) <= 0 then
+									salesStatusOverride = AssetConfigConstants.ASSET_STATUS.Free
+								else
+									salesStatusOverride = AssetConfigConstants.ASSET_STATUS.OnSale
+								end
+							end
+						end
+					else
+						if patchInfo.price and tonumber(patchInfo.price) <= 0 then
+							salesStatusOverride = AssetConfigConstants.ASSET_STATUS.Free
+						end
+					end
+
+					patchInfo.networkInterface:configureSales(patchInfo.assetId, salesStatusOverride, patchInfo.price):andThen(
+						onPriceSetSuccess, onPriceSetFail
+					)
+				end
+			else -- Can't set the sales status.
+				checkSales = true
+			end
 		end
 
-		-- You shouldn't be here. But if you do, we won't block you.
-		if checkThumbnail and checkSales then
-			store:dispatch(SetCurrentScreen(AssetConfigConstants.SCREENS.UPLOADING_ASSET))
-			store:dispatch(UploadResult(true))
+		if FFlagDebugAssetConfigNetworkError then
+			local function failedToSetThumbnail()
+				onThumbnailSetFail({responseBody = "Debug failed to set the thumbnail !! "})
+			end
+
+			failedToSetThumbnail()
+			checkThumbnail = true
+		else
+			if patchInfo.iconFile then
+				patchInfo.networkInterface:uploadAssetThumbnail(patchInfo.assetId, patchInfo.iconFile):andThen(
+					onThumbnailSetSuccess, onThumbnailSetFail
+				)
+			else
+				checkThumbnail = true
+			end
+
+			-- You shouldn't be here. But if you do, we won't block you.
+			if checkThumbnail and checkSales then
+				store:dispatch(SetCurrentScreen(AssetConfigConstants.SCREENS.UPLOADING_ASSET))
+				store:dispatch(UploadResult(true))
+			end
 		end
 	end
 end

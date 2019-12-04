@@ -10,6 +10,7 @@ local Roact = require(game:GetService("CorePackages").Roact)
 
 local UnofficialLanguageSupportEnabled = settings():GetFFlag("UnofficialLanguageSupportEnabled")
 local UseAllSupportedLanguageList = settings():GetFFlag("UseAllSupportedLanguageList")
+local UseStudioLocaleForForceLocale = settings():GetFFlag("UseStudioLocaleForForceLocale")
 
 local function getTextScraperButtonIconAsset()
 	return LocalizationService.IsTextScraperRunning
@@ -366,6 +367,12 @@ end
 
 
 return function(plugin, studioSettings)
+	if UseStudioLocaleForForceLocale then
+		-- GetService needs to be put here to prevent errors in the unit test environment.
+		local StudioService = game:GetService("StudioService")
+		LocalizationService.RobloxForcePlayModeRobloxLocaleId = StudioService.StudioLocaleId
+	end
+
 	local toolbar = plugin:CreateToolbar("Localization")
 	if IsEdit() then
 		createTextScraperControlsEnabled(toolbar, plugin)

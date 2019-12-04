@@ -1174,6 +1174,7 @@ Class HttpService : Instance [NotCreatable] [Service]
 	Function string HttpService:GenerateGUID(bool wrapInCurlyBraces = true)
 	Function string HttpService:GetAsync(string url, bool nocache = false, Variant headers) [Yields]
 	Function bool HttpService:GetHttpEnabled() {RobloxScriptSecurity}
+	Function string HttpService:GetUserAgent() {RobloxScriptSecurity}
 	Function Variant HttpService:JSONDecode(string input)
 	Function string HttpService:JSONEncode(Variant input)
 	Function string HttpService:PostAsync(string url, string data, Enum<HttpContentType> content_type = "ApplicationJson", bool compress = false, Variant headers) [Yields]
@@ -2490,6 +2491,9 @@ Class DataModel : ServiceProvider [NotCreatable]
 	Function void DataModel:OpenVideosFolder() {RobloxScriptSecurity}
 	Function void DataModel:ReportInGoogleAnalytics(string category, string action = "custom", string label = "none", int value = 0) {RobloxScriptSecurity}
 	Function bool DataModel:SavePlace(Enum<SaveFilter> saveFilter = "SaveAll") [Yields] [Deprecated]
+	Function bool DataModel:SetFastFlagForTesting(string name, bool newValue) {RobloxScriptSecurity}
+	Function int DataModel:SetFastIntForTesting(string name, int newValue) {RobloxScriptSecurity}
+	Function string DataModel:SetFastStringForTesting(string name, string newValue) {RobloxScriptSecurity}
 	Function void DataModel:SetPlaceId(int64 placeId) {PluginSecurity}
 	Function void DataModel:SetUniverseId(int64 universeId) {PluginSecurity}
 	Function void DataModel:Shutdown() {LocalUserSecurity}
@@ -2723,7 +2727,6 @@ Class Studio : Instance [Service] [NotReplicated]
 	Property bool Studio.Show Core GUI in Explorer while Playing
 	Property bool Studio.Show Hidden Objects in Explorer
 	Property bool Studio.Show Plugin GUI Service in Explorer
-	Property bool Studio.Show Roblox Plugin GUI Service in Explorer
 	Property bool Studio.Show plus button on hover in Explorer
 	Property bool Studio.Always Save Script Changes
 	Property Enum<ListDisplayMode> Studio.Basic Objects Display Mode
@@ -2954,6 +2957,11 @@ Class UISizeConstraint : UIConstraint
 Class UITextSizeConstraint : UIConstraint
 	Property int UITextSizeConstraint.MaxTextSize
 	Property int UITextSizeConstraint.MinTextSize
+Class UIGradient : UIComponent
+	Property ColorSequence UIGradient.Color
+	Property Vector2 UIGradient.Offset
+	Property float UIGradient.Rotation
+	Property NumberSequence UIGradient.Transparency
 Class UILayout : UIComponent [NotCreatable]
 Class UIGridStyleLayout : UILayout [NotCreatable] [NotBrowsable]
 	Property Enum<FillDirection> UIGridStyleLayout.FillDirection
@@ -3005,7 +3013,7 @@ Class UIPadding : UIComponent
 	Property UDim UIPadding.PaddingTop
 Class UIScale : UIComponent
 	Property float UIScale.Scale
-Class UserGameSettings : Instance [Service]
+Class UserGameSettings : Instance [UserSettings]
 	Property Enum<SavedQualitySetting> UserGameSettings.SavedQualityLevel
 	Property Enum<CustomCameraMode> UserGameSettings.CameraMode {RobloxScriptSecurity}
 	Property Enum<ComputerCameraMovementMode> UserGameSettings.ComputerCameraMovementMode

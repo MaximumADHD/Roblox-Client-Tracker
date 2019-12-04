@@ -15,6 +15,7 @@ Rectangle {
     readonly property int defaultCurrentIndex: -1 // See Qt documentation
     property bool showBelow: false
 	property bool isTextFocused: false
+	property int mouseHighlightedIndex: -1
 
     signal itemClicked(int index)
     signal filterTextChanged(string filterText)
@@ -168,6 +169,9 @@ Rectangle {
     				anchors.fill: parent
     				onEntered:	{
 						listView.currentIndex = index;
+						if(insertObjectWindow.getFFlagStudioInsertObjectStreamlining_DragAndDrop()){
+							mouseHighlightedIndex = index
+						}
 						if (description != "") {
 							var pos = mouseArea.mapToItem(dialog, mouseArea.x, mouseArea.y);
                             if(insertObjectWindow.getFFlagStudioInsertObjectStreamlining_InsertWidget()) {
@@ -191,6 +195,9 @@ Rectangle {
 						}
 					}
 					onExited: { 
+						if(insertObjectWindow.getFFlagStudioInsertObjectStreamlining_DragAndDrop()){
+							mouseHighlightedIndex = -1
+						}
 						classToolTip.hide();
 					}
     				onClicked: insertObject()
@@ -223,7 +230,7 @@ Rectangle {
     				color:{
 					    if(insertObjectWindow.getFFlagStudioInsertObjectStreamlining_Filtering()){
 					        isUnpreferred ?  
-							    userPreferences.theme.style("CommonStyle mutedText") : 
+							    userPreferences.theme.style("CommonStyle dimmedText") : 
 							    userPreferences.theme.style("CommonStyle mainText")
 					    }
 					    else{
@@ -364,7 +371,7 @@ Rectangle {
 					anchors.top: seeAllDivider.bottom
 					anchors.left: parent.left
 					anchors.right: parent.right
-					text: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamlining_InsertMenuTuning() ? "See All " + openWidgetHotKey : "";
+					text: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamlining_InsertMenuTuning() ? qsTr("Studio.App.InsertObjectWidget.SeeAllButton") + " " + openWidgetHotKey : "";
 					onClicked: openInsertObjectWidget()
 			}
 		}
@@ -376,6 +383,13 @@ Rectangle {
 		    anchors.left: parent.left
 		    anchors.right: parent.right
 			anchors.bottom: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamlining_InsertMenuTuning() ? seeAllSection.top : parent.bottom
+            Text {
+                anchors.fill: parent
+			    text: qsTr("Studio.App.InsertObjectWidget.EmptyFrequentlyUsedList")
+                wrapMode: Text.WordWrap
+			    color: userPreferences.theme.style("CommonStyle dimmedText")
+                visible: insertObjectWindow.getFFlagStudioInsertObjectStreamlining_InsertWidget() && listView.count == 0 && isWindow
+            }
 		    ListView {
 		    	id: listView
 		    	anchors.fill: parent

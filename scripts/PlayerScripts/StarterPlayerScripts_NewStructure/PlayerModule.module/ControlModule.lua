@@ -59,11 +59,6 @@ local VehicleController = require(script:WaitForChild("VehicleController"))
 
 local CONTROL_ACTION_PRIORITY = Enum.ContextActionPriority.Default.Value
 
-local FFlagUserFixMovementCameraStraightDownSuccess, FFlagUserFixMovementCameraStraightDownResult = pcall(function()
-	return UserSettings():IsUserFeatureEnabled("UserFixMovementCameraStraightDown")
-end)
-local FFlagUserFixMovementCameraStraightDown = FFlagUserFixMovementCameraStraightDownSuccess and FFlagUserFixMovementCameraStraightDownResult
-
 -- Mapping from movement mode and lastInputType enum values to control modules to avoid huge if elseif switching
 local movementEnumToModuleMap = {
 	[Enum.TouchMovementMode.DPad] = TouchDPad, -- Map to DT
@@ -343,14 +338,10 @@ function ControlModule:OnRenderStepped(dt)
 		-- If not, move the player
 		-- Verification of vehicleConsumedInput is commented out to preserve legacy behavior, in case some game relies on Humanoid.MoveDirection still being set while in a VehicleSeat
 		--if not vehicleConsumedInput then
-			if FFlagUserFixMovementCameraStraightDown then
-				if cameraRelative then
-					moveVector = calculateRawMoveVector(self.humanoid, moveVector)
-				end
-				self.moveFunction(Players.LocalPlayer, moveVector, false)
-			else
-				self.moveFunction(Players.LocalPlayer, moveVector, cameraRelative)
+			if cameraRelative then
+				moveVector = calculateRawMoveVector(self.humanoid, moveVector)
 			end
+			self.moveFunction(Players.LocalPlayer, moveVector, false)
 		--end
 
 		-- And make them jump if needed

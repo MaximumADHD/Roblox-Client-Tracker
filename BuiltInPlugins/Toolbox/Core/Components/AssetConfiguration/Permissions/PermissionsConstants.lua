@@ -25,6 +25,7 @@ end
 --]]
 local uniqueIdentifiers = {
 	-- Used in internal data structure for permissions
+	NoneKey = createKey("NonePermission"), --This is used for default, e.g. in case web request fails.
 	NoAccessKey = createKey("NoAccessPermission"),
 	UseViewKey = createKey("UseViewPermission"),
 	EditKey = createKey("EditPermission"),

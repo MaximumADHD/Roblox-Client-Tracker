@@ -21,7 +21,9 @@ local reportAction = {
 	[ChangeTool.name] = function(dependencies, store, action)
 		dependencies.AnalyticsService:SendEventDeferred("studio", "TerrainEditorV2", "TopLevelButton", {
 			userId = dependencies.StudioService:GetUserId(),
-			name = action.currentTool
+			name = action.currentTool,
+			studioSId = AnalyticsService:GetSessionId(),
+			placeId = game.PlaceId,
 		})
 	end
 }

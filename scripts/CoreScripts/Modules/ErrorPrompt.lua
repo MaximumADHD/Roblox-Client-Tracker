@@ -11,7 +11,6 @@ local MouseIconOverrideService = require(CorePackages.InGameServices.MouseIconOv
 local Constants = require(RobloxGui.Modules.Common.Constants)
 local Shimmer = require(RobloxGui.Modules.Shimmer)
 
-local fflagErrorPromptTakeExtraConfigurations = settings():GetFFlag("ErrorPromptTakeExtraConfigurations")
 local fflagLocalizeErrorCodeString = settings():GetFFlag("LocalizeErrorCodeString")
 
 local DEFAULT_ERROR_PROMPT_KEY = "ErrorPrompt"
@@ -24,10 +23,10 @@ local coreScriptTableTranslator
 local function onLocaleIdChanged()
 	coreScriptTableTranslator = CoreGui.CoreScriptLocalization:GetTranslator(LocalizationService.RobloxLocaleId)
 end
-if fflagErrorPromptTakeExtraConfigurations then
-	onLocaleIdChanged()
-	LocalizationService:GetPropertyChangedSignal("RobloxLocaleId"):connect(onLocaleIdChanged)
-end
+
+onLocaleIdChanged()
+LocalizationService:GetPropertyChangedSignal("RobloxLocaleId"):connect(onLocaleIdChanged)
+
 
 local function attemptTranslate(key, defaultString, parameters)
 	if not coreScriptTableTranslator then
@@ -205,7 +204,7 @@ function ErrorPrompt.new(style, extraConfiguration)
 	self._hideErrorCode = false
 	self._menuIsOpenKey = DEFAULT_ERROR_PROMPT_KEY
 
-	if fflagErrorPromptTakeExtraConfigurations and extraConfiguration then
+	if extraConfiguration then
 		if extraConfiguration.PlayAnimation ~= nil then
 			self._playAnimation = extraConfiguration.PlayAnimation
 		end
@@ -233,7 +232,7 @@ function ErrorPrompt:_open(errorMsg, errorCode)
 		GuiService:SetMenuIsOpen(true, self._menuIsOpenKey)
 		self._frame.Visible = true
 		self._isOpen = true
-		if self._playAnimation or not fflagErrorPromptTakeExtraConfigurations then
+		if self._playAnimation then
 			self._openAnimation:Play()
 			self._openAnimation.Completed:wait()
 			self._frame.PromptScale.Scale = 1
@@ -248,7 +247,7 @@ function ErrorPrompt:_close()
 		MouseIconOverrideService.pop("ErrorPromptOverride")
 		GuiService:SetMenuIsOpen(false, self._menuIsOpenKey)
 		self._isOpen = false
-		if self._playAnimation or not fflagErrorPromptTakeExtraConfigurations then
+		if self._playAnimation then
 			self._closeAnimation:Play()
 			self._closeAnimation.Completed:wait()
 		else
@@ -266,7 +265,7 @@ function ErrorPrompt:setErrorText(errorMsg, errorCode)
 
 	-- Any unknown error that uses guiservices will have errno(UNKNOWN) as -1
 	local errorLabel = self._frame.MessageArea.ErrorFrame.ErrorMessage
-	if self._hideErrorCode and fflagErrorPromptTakeExtraConfigurations then
+	if self._hideErrorCode then
 		errorLabel.Text = errorMsg
 	else
 		if fflagLocalizeErrorCodeString then
@@ -295,7 +294,7 @@ function ErrorPrompt:setErrorTitle(title, localizationKey)
 		return
 	end
 	local errorTitle = self._frame.TitleFrame.ErrorTitle
-	if fflagErrorPromptTakeExtraConfigurations and localizationKey then
+	if localizationKey then
 		errorTitle.Text = attemptTranslate(localizationKey, title)
 	else
 		errorTitle.Text = title
@@ -372,7 +371,7 @@ function ErrorPrompt:updateButtons(buttonList, style)
 	for _, buttonData in pairs(buttonList) do
 
 		local buttonText = buttonData.Text
-		if fflagErrorPromptTakeExtraConfigurations and buttonData.LocalizationKey then
+		if buttonData.LocalizationKey then
 			buttonText = attemptTranslate(buttonData.LocalizationKey, buttonData.Text)
 		end
 		local button = styledButton[style](buttonText, buttonData.LayoutOrder, buttonData.Primary)

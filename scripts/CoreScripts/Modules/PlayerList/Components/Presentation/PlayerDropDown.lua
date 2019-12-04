@@ -23,7 +23,14 @@ local InspectMenuAnalytics = require(RobloxGui.Modules.InspectAndBuy.Services.An
 
 local PolicyService = require(RobloxGui.Modules.Common.PolicyService)
 
+local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
+
 local FFlagFixInspectMenuAnalytics = settings():GetFFlag("FixInspectMenuAnalytics")
+
+local InGameMenu
+if isNewInGameMenuEnabled() then
+	InGameMenu = require(RobloxGui.Modules.InGameMenu)
+end
 
 local PlayerList = Components.Parent
 
@@ -151,10 +158,12 @@ function PlayerDropDown:createReportButton()
 		layoutOrder = 5,
 		text = "Report Abuse",
 		onActivated = function()
-			-- This module has to be required here or it yields on initalization which breaks the unit tests.
-			-- TODO: Revist this with new in game menu.
-			local ReportAbuseMenu = require(RobloxGui.Modules.Settings.Pages.ReportAbuseMenu)
-			ReportAbuseMenu:ReportPlayer(selectedPlayer)
+			if isNewInGameMenuEnabled() then
+				InGameMenu.openReportDialog(selectedPlayer)
+			else
+				local ReportAbuseMenu = require(RobloxGui.Modules.Settings.Pages.ReportAbuseMenu)
+				ReportAbuseMenu:ReportPlayer(selectedPlayer)
+			end
 			self.props.closeDropDown()
 		end,
 	})

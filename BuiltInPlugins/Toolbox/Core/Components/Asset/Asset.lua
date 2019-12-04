@@ -20,7 +20,6 @@
 		callback onPreviewAudioButtonClicked
 ]]
 
-local FFlagStudioToolboxFixMouseHover = settings():GetFFlag("StudioToolboxFixMouseHover")
 local FFlagPluginAccessAndInstallationInStudio = settings():GetFFlag("PluginAccessAndInstallationInStudio")
 local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 local FFlagEditAssetForManagedAssets = game:DefineFastFlag("EditAssetForManagedAssets", false)
@@ -91,9 +90,7 @@ function Asset:init(props)
 	end
 
 	self.onMouseMoved = function(rbx, x, y)
-		if FFlagStudioToolboxFixMouseHover then
-			onAssetHovered(assetId)
-		end
+		onAssetHovered(assetId)
 	end
 
 	self.onMouseButton2Click = function(rbx, x, y)
@@ -168,11 +165,9 @@ function Asset:render()
 			local assetName = asset.Name
 			local status = asset.Status
 
-			local isPluginAsset, price, isFree
+			local price, isFree
 			if FFlagPluginAccessAndInstallationInStudio and FFlagEnablePurchasePluginFromLua2
 				and (assetTypeId == Enum.AssetType.Plugin.Value) then
-				local assetType = AssetType:markAsPlugin()
-				isPluginAsset = AssetType:isPlugin(assetType)
 				price = assetData.Product and assetData.Product.Price or 0
 				isFree = price == 0
 			end
@@ -191,12 +186,14 @@ function Asset:render()
 			local layoutOrder = props.LayoutOrder
 			local isHovered = props.isHovered
 
+			local showPrices = Category.shouldShowPrices(props.currentTab, props.categoryIndex)
+
 			local assetOutlineHeight = showVotes and Constants.ASSET_OUTLINE_EXTRA_HEIGHT_WITH_VOTING
 				or Constants.ASSET_OUTLINE_EXTRA_HEIGHT
 			if showStatus then
 				assetOutlineHeight = assetOutlineHeight + Constants.ASSET_CREATOR_NAME_HEIGHT
 			end
-			if FFlagEnablePurchasePluginFromLua2 and isPluginAsset then
+			if showPrices then
 				assetOutlineHeight = assetOutlineHeight + Constants.ASSET_INNER_PADDING
 			end
 
@@ -204,9 +201,6 @@ function Asset:render()
 			local outlineTheme = theme.asset.outline
 			local dropShadowSize = Constants.DROP_SHADOW_SIZE
 			local innerFrameHeight = isHovered and assetOutlineHeight - (2 * Constants.ASSET_OUTLINE_PADDING) or 0
-
-			local showPriceInfo = FFlagEnablePurchasePluginFromLua2 and FFlagPluginAccessAndInstallationInStudio
-				and isPluginAsset and ownsAsset ~= nil
 
 			return Roact.createElement("Frame", {
 				Position = UDim2.new(0, 0, 0, 0),
@@ -289,7 +283,7 @@ function Asset:render()
 						assetName = assetName,
 					}),
 
-					Price = showPriceInfo and Roact.createElement("Frame", {
+					Price = showPrices and Roact.createElement("Frame", {
 						BackgroundTransparency = 1,
 						LayoutOrder = 2,
 						Size = UDim2.new(1, 0, 0, Constants.PRICE_HEIGHT),

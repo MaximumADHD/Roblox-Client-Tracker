@@ -22,6 +22,7 @@ local LoadingIndicator = UILibrary.Component.LoadingIndicator
 
 local FFlagEnablePurchasePluginFromLua2 = game:GetFastFlag("EnablePurchasePluginFromLua2")
 local FFlagEnableStudioServiceOpenBrowser = game:GetFastFlag("EnableStudioServiceOpenBrowser")
+local FFlagFixFindPluginsMessage = game:DefineFastFlag("FixFindPluginsMessage", false)
 
 local ManagementMainView = Roact.Component:extend("ManagementMainView")
 
@@ -213,7 +214,27 @@ function ManagementMainView:render()
 			TextYAlignment = Enum.TextYAlignment.Top.Value,
 		}),
 
-		FindPluginsMessage = showNoPlugins and Roact.createElement("TextButton", {
+		-- Remove when removing FFlagFixFindPluginsMessage
+		FindPluginsMessage_Old = showNoPlugins and not FFlagFixFindPluginsMessage and Roact.createElement("TextButton", {
+			Position = UDim2.new(
+				0, Constants.HEADER_LEFT_PADDING,
+				0, Constants.HEADER_HEIGHT + Constants.HEADER_MESSAGE_LINE_HEIGHT
+			),
+			Size = UDim2.new(
+				1, -Constants.HEADER_LEFT_PADDING,
+				0, Constants.HEADER_MESSAGE_LINE_HEIGHT
+			),
+			Text = localization:getText("Main", "FindPluginsMessage_Old"),
+			TextSize = 17,
+			TextColor3 = theme.LinkColor,
+			Font = Enum.Font.SourceSans,
+			BackgroundTransparency = 1,
+			TextXAlignment = Enum.TextXAlignment.Left.Value,
+			TextYAlignment = Enum.TextYAlignment.Top.Value,
+			[Roact.Event.Activated] = self.findPlugins,
+		}),
+
+		FindPluginsMessage = showNoPlugins and FFlagFixFindPluginsMessage and Roact.createElement("TextLabel", {
 			Position = UDim2.new(
 				0, Constants.HEADER_LEFT_PADDING,
 				0, Constants.HEADER_HEIGHT + Constants.HEADER_MESSAGE_LINE_HEIGHT
@@ -224,12 +245,11 @@ function ManagementMainView:render()
 			),
 			Text = localization:getText("Main", "FindPluginsMessage"),
 			TextSize = 17,
-			TextColor3 = theme.LinkColor,
+			TextColor3 = theme.TextColor,
 			Font = Enum.Font.SourceSans,
 			BackgroundTransparency = 1,
 			TextXAlignment = Enum.TextXAlignment.Left.Value,
 			TextYAlignment = Enum.TextYAlignment.Top.Value,
-			[Roact.Event.Activated] = self.findPlugins,
 		}),
 
 		ScrollablePluginList = showList and Roact.createElement(PluginHolder, {

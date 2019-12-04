@@ -52,7 +52,7 @@ Studio.TerrainToolsV2.BrushSettings.Material, , ,Material
 Studio.TerrainToolsV2.BrushSettings.PivotPosition, , ,Pivot Position
 Studio.TerrainToolsV2.BrushSettings.PlaneLock, , ,Plane Lock
 Studio.TerrainToolsV2.BrushSettings.FixedPlane, , ,Fixed Plane
-Studio.TerrainToolsV2.BrushSettings.PlanePosition, , ,PlanePosition
+Studio.TerrainToolsV2.BrushSettings.PlanePosition, , ,Plane Position
 Studio.TerrainToolsV2.BrushSettings.Shape, , ,Shape
 Studio.TerrainToolsV2.BrushSettings.Size, , ,Size
 Studio.TerrainToolsV2.BrushSettings.SnapToGrid, , ,Snap to Grid
@@ -75,9 +75,11 @@ Studio.TerrainToolsV2.Generate.BiomesSettings, , ,Biomes Settings
 Studio.TerrainToolsV2.Generate.BiomeWater, , ,Water
 Studio.TerrainToolsV2.Generate.ButtonGenerate, , ,Generate
 Studio.TerrainToolsV2.Generate.Caves, , ,Caves
+Studio.TerrainToolsV2.Generate.GenerationFinished, , ,Generation finished: {1} seconds
 Studio.TerrainToolsV2.Generate.MapSize, , ,Map Size
 Studio.TerrainToolsV2.Generate.OtherSettings, , ,Other Settings
 Studio.TerrainToolsV2.Generate.Seed, , ,Seed
+Studio.TerrainToolsV2.Generate.StartGeneration, , ,Generating with size ({1}) at position ({2}) using seed {3} and biomes: {4}
 Studio.TerrainToolsV2.Main.Title, , ,Terrain Editor
 Studio.TerrainToolsV2.Main.ToolbarButton, , ,Editor
 Studio.TerrainToolsV2.Main.Tooltip,"Add, remove, and modify terrain", ,"Add, remove, and modify terrain"
@@ -123,7 +125,6 @@ Studio.TerrainToolsV2.MaterialSettings.ChooseBiome, , ,Choose Biomes to apply
 Studio.TerrainToolsV2.MaterialSettings.ChooseMaterial, , ,Choose a material to apply
 Studio.TerrainToolsV2.MaterialSettings.MaterialSettings, , ,Material Settings
 Studio.TerrainToolsV2.MaterialSettings.UseColorMap, , ,Use ColorMap
-Studio.TerrainToolsV2.Meta.PluginButtonEditor, , ,Editor
 Studio.TerrainToolsV2.Meta.PluginButtonEditorTooltip, , ,"Add, remove, and modify terrain"
 Studio.TerrainToolsV2.Meta.PluginDescription, , ,"Add, remove, and modify terrain"
 Studio.TerrainToolsV2.Meta.PluginName, , ,TerrainToolsV2

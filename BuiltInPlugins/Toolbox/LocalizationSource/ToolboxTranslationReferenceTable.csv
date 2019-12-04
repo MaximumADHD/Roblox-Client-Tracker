@@ -200,6 +200,7 @@ Studio.Toolbox.AssetConfigFooter.NewAsset,Save as a new asset..., ,Save as a new
 Studio.Toolbox.AssetConfigFooter.Override,Overwrite an existing asset..., ,Overwrite an existing asset...,覆盖现有资源...
 Studio.Toolbox.AssetConfigFooter.OverrideTitle,Choose an existing model to overwrite., ,Choose an existing model to overwrite.,选择要覆盖的现有模型。
 Studio.Toolbox.AssetConfigCopy.Terms,"By switching on, you are granting every other user of Roblox the right to use (in various ways) the content you are now sharing. If you do not want to grant this right, please do not check this box. For more information about sharing content, please review the Roblox Terms of Use.", ,"By switching on, you are granting every other user of Roblox the right to use (in various ways) the content you are now sharing. If you do not want to grant this right, please do not check this box. For more information about sharing content, please review the Roblox Terms of Use.",切换至开位置，即表示你授予 Roblox 的所有其他用户 (以各种方式) 使用你现在分享的内容的权限。如果你不想授予此权限，请勿勾选此框。有关分享内容的详细信息，请检阅 Roblox 使用条款。
+Studio.Toolbox.AssetConfigError.NetworkError,We encountered some problems:, ,We encountered some problems:,We encountered some problems:
 Studio.Toolbox.AssetConfigCopy.AccountSetting,"In order to share content in Marketplace, you must add & verify an email address to your account. This can be done in Account Settings.", ,"In order to share content in Marketplace, you must add & verify an email address to your account. This can be done in Account Settings.",为了在市集中分享内容，你必须向你的帐户添加电子邮件地址并进行验证。可在“帐户设置”中完成此操作。
 Studio.Toolbox.AssetConfigPreview.Preview,Preview, ,Preview,预览
 Studio.Toolbox.AssetConfigPreview.Change,Change, ,Change,更改
@@ -207,10 +208,10 @@ Studio.Toolbox.AssetConfigVersions.Current,Current published version, ,Current p
 Studio.Toolbox.AssetConfigVersions.Restore,Restore previous version, ,Restore previous version,还原之前版本
 Studio.Toolbox.AssetConfig.GetAssetFailed,There was an problem fetching asset data. We will be closing AssetConfig page., ,There was an problem fetching asset data. We will be closing AssetConfig page.,提取资源数据时发生问题。将关闭 AssetConfig 页面。
 Studio.Toolbox.AssetConfig.Error,Error, ,Error,错误
-Studio.Toolbox.AssetConfigPackagePermissions.PackageOwner,Package Owner, ,Package Owner,套装所有者
+Studio.Toolbox.AssetConfigPackagePermissions.PackageCreator,Package Creator, ,Package Creator,套装所有者
 Studio.Toolbox.AssetConfigPackagePermissions.Owner,Owner, ,Owner,所有者
 Studio.Toolbox.AssetConfigPackagePermissions.NoResults,No results found, ,No results found,未找到结果
-Studio.Toolbox.AssetConfigPackagePermissions.SearchByUser,Search by username, ,Search by username,依用户名搜索
+Studio.Toolbox.AssetConfigPackagePermissions.SearchbarDefault,Search for Friends, ,Search for Friends,依用户名搜索
 Studio.Toolbox.AssetConfigPackagePermissions.ShareWith,Share with, ,Share with,分享对象
 Studio.Toolbox.AssetConfigPackagePermissions.NoAccessLabel,No Access, ,No Access,无法访问
 Studio.Toolbox.AssetConfigPackagePermissions.UseViewLabel,Use & View, ,Use & View,使用和查看
@@ -251,4 +252,8 @@ After {percent}% fee:, ,Studio.Toolbox.General.Earn,You earn:,
 You earn:, ,Studio.Toolbox.AssetConfigSales.Target,"By enabling it, this asset will be put in {market} and available for any Roblox {user}.", 
 "By enabling it, this asset will be put in {market} and available for any Roblox {user}.", ,Studio.Toolbox.MaxTagsDescription,Add up to {max:int} tags from the tag library, 
 Add up to {max:int} tags from the tag library, ,Studio.Toolbox.NoTagFound,Word(s) not found in the tag library, 
-Word(s) not found in the tag library, 
+Word(s) not found in the tag library, ,Studio.Toolbox.ThumbnailStatus.Error,Error, 
+Error, ,Studio.Toolbox.ThumbnailStatus.InReview,In Review, 
+In Review, ,Studio.Toolbox.ThumbnailStatus.Pending,Pending, 
+Pending, ,Studio.Toolbox.ThumbnailStatus.Blocked,Blocked, 
+Blocked, 

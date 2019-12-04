@@ -18,6 +18,7 @@ if FFlagTerrainToolsRefactorTerrainBrush then
 	TerrainInterface = require(Plugin.Src.ContextServices.TerrainInterface)
 end
 local FFlagTerrainToolsRefactorTerrainImporter = game:GetFastFlag("TerrainToolsRefactorTerrainImporter")
+local FFlagTerrainToolsRefactorTerrainGeneration = game:GetFastFlag("TerrainToolsRefactorTerrainGeneration")
 
 -- props.localization : (UILibary.Localization) an object for fetching translated strings
 -- props.plugin : (plugin instance) the instance of plugin defined in main.server.lua
@@ -40,6 +41,10 @@ function ServiceWrapper:init()
 		if FFlagTerrainToolsRefactorTerrainImporter then
 			assert(self.props.terrainImporter ~= nil, "Expected a TerrainImporter object")
 		end
+
+		if FFlagTerrainToolsRefactorTerrainGeneration then
+			assert(self.props.terrainGeneration ~= nil, "Expected a TerrainGeneration object")
+		end
 	end
 
 	-- dependent on FFlagTerrainToolsRefactorTerrainBrush being on
@@ -61,6 +66,7 @@ function ServiceWrapper:render()
 	local pluginActivationController = self.props.pluginActivationController
 	local terrainBrush = self.props.terrainBrush
 	local terrainImporter = self.props.terrainImporter
+	local terrainGeneration = self.props.terrainGeneration
 	local seaLevel = self.props.seaLevel
 
 	-- the order of these providers should be read as bottom up,
@@ -73,11 +79,11 @@ function ServiceWrapper:render()
 	root = addProvider(StudioPlugin.Provider, { plugin = plugin }, root)
 
 	if FFlagTerrainToolsRefactorTerrainBrush then
-		-- TODO: Add more terrain interfaces to TerrainInterface.Provider
 		root = addProvider(TerrainInterface.Provider, {
 			pluginActivationController = pluginActivationController,
 			terrainBrush = terrainBrush,
 			terrainImporter = terrainImporter,
+			terrainGeneration = terrainGeneration,
 			seaLevel = seaLevel,
 		}, root)
 	end

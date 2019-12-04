@@ -2,7 +2,7 @@
 	Get request for universe active status, as well as creator info.
 ]]
 
--- TODO (awarwick) 4/29/2019 Remove with FFlagStudioGameSettingsUseNewSettingsImpl2
+-- TODO (awarwick) 4/29/2019 Remove with FFlagStudioGameSettingsUseNewSettingsImpl3
 local DEPRECATED_RELEVANT_ENTRIES = {
 	isActive = true,
 	privacyType = true,
@@ -17,7 +17,7 @@ local Promise = require(Plugin.Promise)
 local Http = require(Plugin.Src.Networking.Http)
 local Analytics = require(Plugin.Src.Util.Analytics)
 
--- TODO (awarwick) 4/29/2019 Remove with FFlagStudioGameSettingsUseNewSettingsImpl2
+-- TODO (awarwick) 4/29/2019 Remove with FFlagStudioGameSettingsUseNewSettingsImpl3
 local DEPRECATED_extractRelevantEntries = require(Plugin.Src.Util.extractRelevantEntries)
 
 local UNIVERSES_REQUEST_URL = "v1/universes/%d"
@@ -44,7 +44,7 @@ function Universes.Get(universeId, studioUserId)
 		Method = "GET",
 	}
 
-	if universeId == 0 and settings():GetFFlag("StudioGameSettingsUseNewSettingsImpl2") then
+	if universeId == 0 and settings():GetFFlag("StudioGameSettingsUseNewSettingsImpl3") then
 		local studioUsernameRequestInfo = {
 			Url = Http.BuildRobloxUrl(USERS_REQUEST_TYPE, USERS_URL, studioUserId),
 			Method = "GET",
@@ -66,7 +66,7 @@ function Universes.Get(universeId, studioUserId)
 	return Http.Request(requestInfo):andThen(function(jsonResult)
 		local result = HttpService:JSONDecode(jsonResult)
 		
-		if settings():GetFFlag("StudioGameSettingsUseNewSettingsImpl2") then
+		if settings():GetFFlag("StudioGameSettingsUseNewSettingsImpl3") then
 			return {
 				isActive = result.isActive,
 				privacyType = result.privacyType,

@@ -27,10 +27,12 @@ return function(networkInterface, assetId, fromItemTags, toTags)
 
 		local toTagsIdSet = {}
 		local addTagIds = {}
-		for _, tag in pairs(toTags) do
-			toTagsIdSet[tag.tagId] = true
-			if not fromItemTagsIdSet[tag.tagId] then
-				table.insert(addTagIds, tag.tagId)
+		if toTags then
+			for _, tag in pairs(toTags) do
+				toTagsIdSet[tag.tagId] = true
+				if not fromItemTagsIdSet[tag.tagId] then
+					table.insert(addTagIds, tag.tagId)
+				end
 			end
 		end
 

@@ -3,14 +3,14 @@ local Plugin = script.Parent.Parent.Parent
 local Libs = Plugin.Libs
 local Cryo = require(Libs.Cryo)
 local Rodux = require(Libs.Rodux)
-local UILibrary = require(Libs.UILibrary)
-
-local deepJoin = UILibrary.Util.deepJoin
 
 local Util = Plugin.Core.Util
 local PagedRequestCursor = require(Util.PagedRequestCursor)
 local LOADING_IN_BACKGROUND = require(Util.Keys).LoadingInProgress
 local getUserId = require(Util.getUserId)
+
+local UILibrary = require(Libs.UILibrary)
+local deepJoin = UILibrary.Util.deepJoin
 
 local Actions = Plugin.Core.Actions
 local SetAssetId = require(Actions.SetAssetId)
@@ -43,6 +43,10 @@ local UpdateAssetConfigStore = require(Actions.UpdateAssetConfigStore)
 local SetGroupRoleInfo = require(Actions.SetGroupRoleInfo)
 local SetPackagePermission = require(Actions.SetPackagePermission)
 local SetTagSuggestions = require(Actions.SetTagSuggestions)
+
+local ConfigTypes = require(Plugin.Core.Types.ConfigTypes)
+
+local FFlagShowAssetConfigReasons = game:GetFastFlag("ShowAssetConfigReasons")
 
 return Rodux.createReducer({
 	-- Empty table means publish new asset
@@ -83,8 +87,14 @@ return Rodux.createReducer({
 
 	isVerifiedCreator = true,
 
+	-- Remove me with FFlagShowAssetConfigReasons
 	networkError = nil,
 	networkErrorAction = nil,
+
+	-- This is a table that will hold every network request.
+	-- However, not all network requests will be treated equally. Some will require us to break currrent
+	-- asset config session, some of those will only require us to show user what happened.
+	networkTable = {},
 
 	-- For overrideAsset
 	fetchedAll = false,
@@ -96,14 +106,13 @@ return Rodux.createReducer({
 
 	-- For Package Permissions
 	groupMetadata = {},
-	ownerUsername = nil,
 	localUserFriends = nil,
 	cachedSearchResults = {},
 	searchText = "",
 	success = false,
 	collaborators = {},
 	isPackageAsset = false,
-	packagePermissions = {},	
+	packagePermissions = {},
 
 	iconFile = nil, -- Will be used in preview and upload result
 
@@ -196,10 +205,20 @@ return Rodux.createReducer({
 	end,
 
 	[NetworkError.name] = function(state, action)
-		return Cryo.Dictionary.join(state, {
-			networkError = action.response,
-			networkErrorAction = action.networkErrorAction
-		})
+		-- actions is a table contains networkAction object and response from the request.
+		-- the name of the error, trigger and what to do with this error is defined in networkAction.
+		if FFlagShowAssetConfigReasons then
+			return deepJoin(state, {
+				networkTable = {
+					[action.name] = action,
+				}
+			})
+		else
+			return Cryo.Dictionary.join(state, {
+				networkError = action.response,
+				networkErrorAction = action.networkErrorAction
+			})
+		end
 	end,
 
 	[UploadResult.name] = function(state, action)
@@ -281,14 +300,13 @@ return Rodux.createReducer({
 			return state
 		end
 		
-		return deepJoin(state, {
-            ownerUsername = action.ownerUsername,
-            assetConfigData = {
-                Creator = {
-                    username = action.ownerUsername,
-                }
-            },
-        })
+		return Cryo.Dictionary.join(state, {
+			assetConfigData = Cryo.Dictionary.join(state.assetConfigData, {
+				Creator = Cryo.Dictionary.join(state.assetConfigData.Creator, {
+					username = action.ownerUsername,
+				})
+			})
+		})
 	end,
 
 	[CollaboratorSearchActions.LoadedLocalUserFriends.name] = function(state, action)
@@ -382,7 +400,7 @@ return Rodux.createReducer({
 		if not state.packagePermissions then
 			state.packagePermissions = {}
 		end
-		
+
 		state.packagePermissions = Cryo.Dictionary.join(state.packagePermissions, action.packagePermissions)
 
 		return state

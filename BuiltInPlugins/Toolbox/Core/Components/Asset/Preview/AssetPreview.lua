@@ -32,6 +32,7 @@ local FFlagPluginAccessAndInstallationInStudio = settings():GetFFlag("PluginAcce
 local FFlagStudioToolboxPluginPurchaseFlow = game:GetFastFlag("StudioToolboxPluginPurchaseFlow")
 local FFlagStudioToolboxShowPluginInstallationProgress = game:GetFastFlag("StudioToolboxShowPluginInstallationProgress")
 local FFlagUseDevelopFetchPluginVersionId = game:GetFastFlag("UseDevelopFetchPluginVersionId")
+local FFlagCreatorSearchFromAssetPreview = game:DefineFastFlag("CreatorSearchFromAssetPreview", false)
 
 local RunService = game:GetService("RunService")
 local StudioService = game:GetService("StudioService")
@@ -49,6 +50,7 @@ local Vote = require(Preview.Vote)
 local PreviewController = require(Preview.PreviewController)
 local ActionBar = require(Preview.ActionBar)
 local Favorites = require(Preview.Favorites)
+local SearchLinkText = require(Preview.SearchLinkText)
 local LoadingBar = require(Plugin.Core.Components.AssetConfiguration.LoadingBar)
 local LayoutOrderIterator = UILibrary.Util.LayoutOrderIterator
 
@@ -252,6 +254,15 @@ function AssetPreview:init(props)
 
 	self.tryInstallWithProgress = function()
 		return self.showInstallationBarUntilCompleted( self.tryInstall )
+	end
+
+	self.searchByCreator = function()
+		local assetData = props.assetData
+		local creator = assetData.Creator
+		local creatorName = creator.Name
+		if self.props.searchByCreator then
+			self.props.searchByCreator(creatorName)
+		end
 	end
 
 	if FFlagStudioToolboxPluginPurchaseFlow then
@@ -616,9 +627,16 @@ function AssetPreview:render()
 
 					Developer = Roact.createElement(AssetDescription, {
 						leftContent = "Creator",
-						rightContent = creatorName,
+						rightContent = FFlagCreatorSearchFromAssetPreview and "" or creatorName,
 
 						layoutOrder = layoutIndex:getNextOrder(),
+					}, {
+						LinkText = FFlagCreatorSearchFromAssetPreview and Roact.createElement(SearchLinkText, {
+							Text = creatorName,
+							Position = UDim2.fromScale(1, 0.5),
+							AnchorPoint = Vector2.new(1, 0.5),
+							OnClick = self.searchByCreator,
+						})
 					}),
 
 					Category = Roact.createElement(AssetDescription, {

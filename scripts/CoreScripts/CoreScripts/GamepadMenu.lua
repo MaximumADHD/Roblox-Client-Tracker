@@ -26,9 +26,14 @@ local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList")
 local FFlagEmotesMenuEnabled2 = settings():GetFFlag("CoreScriptEmotesMenuEnabled2")
 
 --[[ MODULES ]]
+local isNewInGameMenuEnabled = require(GuiRoot.Modules.isNewInGameMenuEnabled)
 local tenFootInterface = require(GuiRoot.Modules.TenFootInterface)
 local utility = require(GuiRoot.Modules.Settings.Utility)
-local recordPage = require(GuiRoot.Modules.Settings.Pages.Record)
+--Remove with FIntNewInGameMenuPercentRollout
+local recordPage = nil
+if not isNewInGameMenuEnabled() then
+	recordPage = require(GuiRoot.Modules.Settings.Pages.Record)
+end
 local businessLogic = require(GuiRoot.Modules.BusinessLogic)
 local Panel3D = require(GuiRoot.Modules.VR.Panel3D)
 local EmotesModule
@@ -39,6 +44,10 @@ if FFlagEmotesMenuEnabled2 then
 	FFlagEmotesMenuShowUiOnlyWhenAvailable = game:GetFastFlag("EmotesMenuShowUiOnlyWhenAvailable", false)
 end
 
+local InGameMenu
+if isNewInGameMenuEnabled() then
+	InGameMenu = require(GuiRoot.Modules.InGameMenu)
+end
 
 --[[ VARIABLES ]]
 local gamepadSettingsFrame = nil
@@ -734,8 +743,12 @@ local function createGamepadMenuGui()
 	-------- Settings Menu ----------
 	local function settingsFunc()
 		toggleCoreGuiRadial(true)
-		local MenuModule = require(GuiRoot.Modules.Settings.SettingsHub)
-		MenuModule:SetVisibility(true, nil, MenuModule.Instance.GameSettingsPage, true)
+		if isNewInGameMenuEnabled() then
+			InGameMenu.openGameSettingsPage()
+		else
+			local MenuModule = require(GuiRoot.Modules.Settings.SettingsHub)
+			MenuModule:SetVisibility(true, nil, MenuModule.Instance.GameSettingsPage, true)
+		end
 	end
 	local settingsRadial = createRadialButton("Settings", "Settings", 1, 1, false, nil, settingsFunc)
 	settingsRadial.Parent = gamepadSettingsFrame
@@ -745,8 +758,12 @@ local function createGamepadMenuGui()
 	local function playerListFunc()
 		if VRService.VREnabled then
 			toggleCoreGuiRadial(true)
-			local MenuModule = require(GuiRoot.Modules.Settings.SettingsHub)
-			MenuModule:SetVisibility(true, nil, MenuModule.Instance.PlayersPage, true)
+			if isNewInGameMenuEnabled() then
+				InGameMenu.openPlayersPage()
+			else
+				local MenuModule = require(GuiRoot.Modules.Settings.SettingsHub)
+				MenuModule:SetVisibility(true, nil, MenuModule.Instance.PlayersPage, true)
+			end
 		else
 			if FFlagUseRoactPlayerList then
 				local PlayerListMaster = require(GuiRoot.Modules.PlayerList.PlayerListManager)
@@ -930,6 +947,7 @@ local function createGamepadMenuGui()
 		closeHintText.FontSize = Enum.FontSize.Size36
 	end
 
+	--Remove with FIntNewInGameMenuPercentRollout
 	------------------------------------------
 	--------- Stop Recording Button ----------
 	--todo: enable this when recording is not a verb

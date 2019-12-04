@@ -7,6 +7,9 @@
 ]]
 
 local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
+local FFlagFixAssetConfigIcon = game:GetFastFlag("FixAssetConfigIcon")
+local FFlagShowAssetConfigReasons = game:GetFastFlag("ShowAssetConfigReasons")
+local FFlagFixAssetUploadSuccssMessage = game:DefineFastFlag("FixAssetUploadSuccssMessage", false)
 
 local ContentProvider = game:GetService("ContentProvider")
 local GuiService = game:GetService("GuiService")
@@ -21,16 +24,18 @@ local RoactRodux = require(Libs.RoactRodux)
 local Util = Plugin.Core.Util
 local Constants = require(Util.Constants)
 local AssetConfigConstants = require(Util.AssetConfigConstants)
+local PreviewTypes = AssetConfigConstants.PreviewTypes
 local ContextHelper = require(Util.ContextHelper)
-local Urls = require(Util.Urls)
 local AssetConfigUtil = require(Util.AssetConfigUtil)
 
 local withTheme = ContextHelper.withTheme
 
 local Components = Plugin.Core.Components
-local AssetThumbnailPreview = require(Components.AssetConfiguration.AssetThumbnailPreview)
 local NavButton = require(Components.NavButton)
-local ImagePicker = require(Components.AssetConfiguration.ImagePicker)
+local AssetConfiguration = Components.AssetConfiguration
+local AssetThumbnailPreview = require(AssetConfiguration.AssetThumbnailPreview)
+local ImagePicker = require(AssetConfiguration.ImagePicker)
+local ReasonFrame = require(AssetConfiguration.ReasonFrame)
 
 local TITLE_WIDTH = 400
 local TITLE_HEIGHT = 36
@@ -53,8 +58,6 @@ local RESULT_Y_POS = 279
 
 local SUCCESS_PADDING = 12
 local SUCCESS_HEIGHT = 24
-
-local FFlagFixAssetUploadSuccssMessage = game:DefineFastFlag("FixAssetUploadSuccssMessage", false)
 
 local AssetUploadResult = Roact.PureComponent:extend("AssetUploadResult")
 
@@ -89,6 +92,14 @@ local function getResultUrl(flowType, assetId, assetName, assetTypeEnum)
 	return url
 end
 
+local function getReasonArray(networkTable)
+	local reasons = {}
+	for name, networkErrorAction in pairs(networkTable) do
+		table.insert(reasons, networkErrorAction)
+	end
+	return reasons
+end
+
 function AssetUploadResult:render()
 	return withTheme(function(theme)
 		local props = self.props
@@ -120,11 +131,24 @@ function AssetUploadResult:render()
 			previewType = AssetConfigUtil.getPreviewType(props.assetTypeEnum, props.instances)
 		end
 
-		local thumbnailUrl = Urls.constructAssetThumbnailUrl(
-			props.assetId,
-			Constants.THUMBNAIL_SIZE_LARGE,
-			Constants.THUMBNAIL_SIZE_LARGE
-		)
+		local showViewport = previewType == PreviewTypes.ModelPreview
+		local showThumbnail
+		if FFlagFixAssetConfigIcon then
+			showThumbnail = previewType == PreviewTypes.Thumbnail
+				or previewType == PreviewTypes.ImagePicker
+		else
+			showThumbnail = previewType == PreviewTypes.Thumbnail
+		end
+
+		local reasons = getReasonArray(props.networkTable)
+		local showSuccess = props.uploadSucceeded
+		local showFail = not showSuccess
+		local showReasons = false
+		if FFlagShowAssetConfigReasons then
+			showSuccess = true
+			showFail = false
+			showReasons = #reasons > 1
+		end
 
 		return Roact.createElement("Frame", {
 			BackgroundColor3 = theme.uploadResult.background,
@@ -132,7 +156,7 @@ function AssetUploadResult:render()
 			BorderSizePixel = 0,
 			Size = props.Size,
 		}, {
-			ModelPreview = previewType == AssetConfigConstants.PreviewTypes.ModelPreview and Roact.createElement(AssetThumbnailPreview, {
+			ModelPreview = showViewport and Roact.createElement(AssetThumbnailPreview, {
 				titleHeight = PREVIEW_TITLE_HEIGHT,
 				titlePadding = PREVIEW_TITLE_PADDING,
 				Position = UDim2.new(0.5, -PREVIEW_SIZE/2, 0, PREVIEW_PADDING),
@@ -142,50 +166,55 @@ function AssetUploadResult:render()
 				),
 			}),
 
-			ThumbnailPreview = previewType == AssetConfigConstants.PreviewTypes.Thumbnail and Roact.createElement("ImageLabel", {
+			ThumbnailPreview = showThumbnail and Roact.createElement("ImageLabel", {
 				Position = UDim2.new(0.5, -PREVIEW_SIZE/2, 0, PREVIEW_PADDING),
 				Size = UDim2.new(
 					0, PREVIEW_SIZE,
 					0, PREVIEW_SIZE
 				),
-				Image = thumbnailUrl,
+				Image = AssetConfigUtil.getResultThumbnail(props.assetId, props.iconFile),
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
 			}),
 
-			ImagePicker = previewType == AssetConfigConstants.PreviewTypes.ImagePicker and Roact.createElement(ImagePicker, {
-				Position = UDim2.new(0.5, -PREVIEW_SIZE/2, 0, PREVIEW_PADDING),
-				Size = UDim2.new(
-					0, PREVIEW_SIZE,
-					0, PREVIEW_SIZE
-				),
-				AssetId = nil,
-				ThumbnailStatus = nil,
-				ChooseThumbnail = nil, -- Won't get called
-				IconFile = props.iconFile,
-			}),
-
-			LoadingResultSuccess = props.uploadSucceeded and Roact.createElement("Frame", {
+			LoadingResultSuccess = showSuccess and Roact.createElement("Frame", {
 				Position = UDim2.new(0, 0, 0, RESULT_Y_POS),
 				Size = UDim2.new(1, 0, 1, -RESULT_Y_POS),
 				BackgroundTransparency = 1,
 			}, {
+				UIListLayout = Roact.createElement("UIListLayout", {
+					FillDirection = Enum.FillDirection.Vertical,
+					HorizontalAlignment = Enum.HorizontalAlignment.Center,
+					VerticalAlignment = Enum.VerticalAlignment.Top,
+					SortOrder = Enum.SortOrder.LayoutOrder,
+					Padding = UDim.new(0, 5),
+				}),
+
 				Title = Roact.createElement("TextLabel", {
 					BackgroundTransparency = 1,
 					Position = UDim2.new(0.5, -TITLE_WIDTH/2, 0, 0),
 					Size = UDim2.new(0, TITLE_WIDTH, 0, TITLE_HEIGHT),
-					Text = "Successfully submitted!",
+					Text = props.uploadSucceeded and "Successfully submitted!" or "Submission failed",
 					Font = Constants.FONT,
-					TextColor3 = FFlagFixAssetUploadSuccssMessage and theme.uploadResult.greenText or theme.uploadResult.text,
+					TextColor3 = FFlagFixAssetUploadSuccssMessage and theme.uploadResult.greenText or theme.uploadResult.redText,
 					TextSize = Constants.FONT_SIZE_TITLE,
 					TextXAlignment = Enum.TextXAlignment.Center,
 					TextYAlignment = Enum.TextYAlignment.Center,
+					LayoutOrder = 1,
+				}),
+
+				ReasonFrame = showReasons and Roact.createElement(ReasonFrame, {
+					Position = UDim2.new(0.5, -REASON_WIDTH/2, 0, TITLE_HEIGHT + REASON_PADDING),
+					Size = UDim2.new(0, REASON_WIDTH, 0, REASON_HEIGHT),
+					Reasons = reasons,
+					LayoutOrder = 2,
 				}),
 
 				Rows = Roact.createElement("Frame", {
 					BackgroundTransparency = 1,
 					Size = UDim2.new(0, REASON_WIDTH, 0, REASON_HEIGHT),
 					Position = UDim2.new(0.5, -REASON_WIDTH/2, 0, TITLE_HEIGHT + REASON_PADDING),
+					LayoutOrder = 3,
 				}, {
 					UIListLayout = Roact.createElement("UIListLayout", {
 						Padding = UDim.new(0, SUCCESS_PADDING),
@@ -227,7 +256,8 @@ function AssetUploadResult:render()
 				})
 			}),
 
-			LoadingResultFailure = not props.uploadSucceeded and Roact.createElement("Frame", {
+			-- Remove me along with FFlagShowAssetConfigReasons
+			LoadingResultFailure = showFail and Roact.createElement("Frame", {
 				Position = UDim2.new(0, 0, 0, RESULT_Y_POS),
 				Size = UDim2.new(1, 0, 1, -RESULT_Y_POS),
 				BackgroundTransparency = 1,
@@ -278,7 +308,7 @@ end
 local function mapStateToProps(state, props)
 	state = state or {}
 
-	return {
+	local stateToProps = {
 		assetId = state.assetId,
 		uploadSucceeded = state.uploadSucceeded,
 		instances = state.instances,
@@ -287,7 +317,15 @@ local function mapStateToProps(state, props)
 		assetConfigData = state.assetConfigData,
 		assetTypeEnum = state.assetTypeEnum,
 		thumbnailStatus = state.thumbnailStatus,
+		-- Will be using this to generate reasons for generating a list of reasons to render.
+		networkTable = state.networkTable or {},
 	}
+
+	if FFlagFixAssetConfigIcon then
+		stateToProps.iconFile = state.iconFile
+	end
+
+	return stateToProps
 end
 
 local function mapDispatchToProps(dispatch)

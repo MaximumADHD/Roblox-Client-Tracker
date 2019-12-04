@@ -1,4 +1,3 @@
-local FFlagStudioFixToolboxDialog = game:DefineFastFlag("StudioFixToolboxDialog", false)
 --[[
 	This component is responsible for craeting a pluginGui that comes with an close button.
 	It's most used in message box.
@@ -29,14 +28,10 @@ return PluginWidget("Dialog", function(self, id)
 	local plugin = props.plugin or getPlugin(self)
 
 	local initialEnabled
-	if FFlagStudioFixToolboxDialog then
-		if props.InitialEnabled then
-			initialEnabled = props.InitialEnabled
-		else
-			initialEnabled = true
-		end
+	if props.InitialEnabled then
+		initialEnabled = props.InitialEnabled
 	else
-		initialEnabled = props.InitialEnabled or nil
+		initialEnabled = true
 	end
 
 	local options = props.options or {

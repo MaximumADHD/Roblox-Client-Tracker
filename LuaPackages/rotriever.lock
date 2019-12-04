@@ -19,7 +19,7 @@ dependencies = [
     "RoactRodux RoactRodux f92dedb2 git+https://github.com/roblox/roact-rodux#transitioning-roblox-roact-1x",
     "Rodux Rodux cdea578f git+https://github.com/roblox/rodux#master",
     "Rodux_UNUSED_REGISTRY_DEP roblox/rodux 1.0.0 registry+https://github.rbx.com/roblox/rotriever-index",
-    "UIBlox UIBlox 16209304 git+https://github.rbx.com/roblox/uiblox#master",
+    "UIBlox UIBlox 19000524 git+https://github.rbx.com/roblox/uiblox#master",
     "t osyris/t 1.2.5 registry+https://github.rbx.com/roblox/rotriever-index",
     "tutils tutils 74574fde git+https://github.rbx.com/roblox/tutils#master",
 ]
@@ -108,9 +108,10 @@ commit = "cdea578ff648116d63fe077b0b4b2fe64bdd8ee5"
 name = "UIBlox"
 version = "0.1.0"
 source = "git+https://github.rbx.com/roblox/uiblox#master"
-commit = "16209304764f1e0e0b00209b927245c33606cae2"
+commit = "19000524f631e46dac94d0210e04988aa6df7ff6"
 dependencies = [
     "Cryo roblox/cryo 1.0.0 registry+https://github.rbx.com/roblox/rotriever-index",
+    "InfiniteScroller roblox/infinite-scroller 0.3.2 registry+https://github.rbx.com/roblox/rotriever-index",
     "Otter roblox/otter 0.0.1 registry+https://github.rbx.com/roblox/rotriever-index",
     "Roact roblox/roact 1.2.0 registry+https://github.rbx.com/roblox/rotriever-index",
     "enumerate roblox/enumerate 1.0.0 registry+https://github.rbx.com/roblox/rotriever-index",
@@ -197,6 +198,18 @@ version = "1.0.0"
 source = "registry+https://github.rbx.com/roblox/rotriever-index"
 
 [[package]]
+name = "roblox/infinite-scroller"
+version = "0.3.2"
+source = "registry+https://github.rbx.com/roblox/rotriever-index"
+dependencies = [
+    "Cryo roblox/cryo 1.0.0 registry+https://github.rbx.com/roblox/rotriever-index",
+    "FitFrame roblox/roact-fit-components 1.0.0 registry+https://github.rbx.com/roblox/rotriever-index",
+    "Otter roblox/otter 0.0.1 registry+https://github.rbx.com/roblox/rotriever-index",
+    "Roact roblox/roact 1.2.0 registry+https://github.rbx.com/roblox/rotriever-index",
+    "t osyris/t 1.2.5 registry+https://github.rbx.com/roblox/rotriever-index",
+]
+
+[[package]]
 name = "roblox/otter"
 version = "0.0.1"
 source = "registry+https://github.rbx.com/roblox/rotriever-index"
@@ -229,6 +242,15 @@ dependencies = [
 name = "roblox/roact"
 version = "1.2.0"
 source = "registry+https://github.rbx.com/roblox/rotriever-index"
+
+[[package]]
+name = "roblox/roact-fit-components"
+version = "1.0.0"
+source = "registry+https://github.rbx.com/roblox/rotriever-index"
+dependencies = [
+    "Cryo roblox/cryo 1.0.0 registry+https://github.rbx.com/roblox/rotriever-index",
+    "Roact roblox/roact 1.2.0 registry+https://github.rbx.com/roblox/rotriever-index",
+]
 
 [[package]]
 name = "roblox/roact-navigation"

@@ -237,6 +237,10 @@ function Localization:getMaxTags(max)
 	})
 end
 
+function Localization:getThumbnailStatus(status)
+	return self:_safeLocalize("Studio.Toolbox.ThumbnailStatus." .. status)
+end
+
 function Localization:destroy()
 	if self._externalLocaleIdChangedConnection then
 		self._externalLocaleIdChangedConnection:Disconnect()
@@ -505,12 +509,12 @@ function Localization:_recalculateContent()
 			},
 
 			Searchbar = {
-				SearchByUser = self:_safeLocalize("Studio.Toolbox.AssetConfigPackagePermissions.SearchByUser"),
+				Default = self:_safeLocalize("Studio.Toolbox.AssetConfigPackagePermissions.SearchbarDefault"),
 				NoResults = self:_safeLocalize("Studio.Toolbox.AssetConfigPackagePermissions.NoResults"),
 			},
 
 			Title = {
-				PackageOwner = self:_safeLocalize("Studio.Toolbox.AssetConfigPackagePermissions.PackageOwner"),
+				PackageCreator = self:_safeLocalize("Studio.Toolbox.AssetConfigPackagePermissions.PackageCreator"),
 				ShareWith = self:_safeLocalize("Studio.Toolbox.AssetConfigPackagePermissions.ShareWith"),
 			},
 
@@ -593,6 +597,7 @@ function Localization:_recalculateContent()
 			Cancel = self:_safeLocalize("Studio.Toolbox.General.SearchOptionsCancel"),
 
 			Error = self:_safeLocalize("Studio.Toolbox.AssetConfig.Error"),
+			NetworkError = self:_safeLocalize("Studio.Toolbox.AssetConfigError.NetworkError"),
 			GetAssetFailed = self:_safeLocalize("Studio.Toolbox.AssetConfig.GetAssetFailed"),
 
 			Discard = self:_safeLocalize("Studio.Toolbox.General.Discard"),

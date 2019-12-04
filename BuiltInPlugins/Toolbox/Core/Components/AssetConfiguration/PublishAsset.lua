@@ -228,7 +228,7 @@ function PublishAsset:render()
 					SortOrder = Enum.SortOrder.LayoutOrder,
 					Padding = UDim.new(0, 5),
 
-					[Roact.Change.AbsoluteContentSize] = game:GetFastFlag("CMSEnableCatalogTags") and self.refreshCanvas or function(rbx)
+					[Roact.Change.AbsoluteContentSize] = game:GetFastFlag("CMSEnableCatalogTags2") and self.refreshCanvas or function(rbx)
 						self.baseFrameRef.current.CanvasSize = UDim2.new(Size.X.Scale, Size.X.Offset, 0, rbx.AbsoluteContentSize.y + PADDING*2)
 					end,
 
@@ -274,7 +274,7 @@ function PublishAsset:render()
 					})
 				}),
 
-				Tags = game:GetFastFlag("CMSEnableCatalogTags") and displayTags and Roact.createElement(TagsComponent, {
+				Tags = game:GetFastFlag("CMSEnableCatalogTags2") and displayTags and Roact.createElement(TagsComponent, {
 					tags = tags,
 					onTagsChange = onTagsChange,
 					maximumItemTagsPerItem = maximumItemTagsPerItem,
@@ -311,7 +311,7 @@ function PublishAsset:render()
 
 					LayoutOrder = orderIterator:getNextOrder(),
 
-					setDropdownHeight = game:GetFastFlag("CMSEnableCatalogTags") and function(dropdownHeight)
+					setDropdownHeight = game:GetFastFlag("CMSEnableCatalogTags2") and function(dropdownHeight)
 						self.updateMaxDropdownPosition(self.genreRef, dropdownHeight)
 					end,
 

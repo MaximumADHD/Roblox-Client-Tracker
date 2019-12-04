@@ -48,6 +48,11 @@ local FriendCountUrl = string.gsub(BaseUrl, "www", "friends") .. "v1/users/{user
 
 local RobloxGui = CoreGui:WaitForChild('RobloxGui')
 local reportAbuseMenu = require(RobloxGui.Modules.Settings.Pages.ReportAbuseMenu)
+local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
+local InGameMenu
+if isNewInGameMenuEnabled() then
+	InGameMenu = require(RobloxGui.Modules.InGameMenu)
+end
 
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
@@ -485,7 +490,11 @@ function createPlayerDropDown()
 
 	local function onReportButtonPressed()
 		if playerDropDown.Player then
-			reportAbuseMenu:ReportPlayer(playerDropDown.Player)
+			if isNewInGameMenuEnabled() then
+				InGameMenu.openReportDialog(playerDropDown.Player)
+			else
+				reportAbuseMenu:ReportPlayer(playerDropDown.Player)
+			end
 			playerDropDown:Hide()
 		end
 	end

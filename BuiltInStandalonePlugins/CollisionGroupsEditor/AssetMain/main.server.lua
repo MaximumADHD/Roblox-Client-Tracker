@@ -11,7 +11,7 @@
 --   a) Stop listening for events from key value store and from asset DM.  We are 
 --      essentially hibernating.
 
-if not settings():GetFFlag("StudioUseStandaloneCollisionEditor") then
+if not settings():GetFFlag("StudioUseStandaloneCollisionEditor2") then
 	return
 end
 

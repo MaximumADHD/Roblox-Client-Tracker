@@ -129,7 +129,7 @@ function NetworkInterface:getAssetCreations(pageInfo, cursor, assetTypeOverride)
 		if FFlagToolboxShowGroupCreations then
 			groupId = Category.categoryIsGroupAsset(pageInfo.currentTab, pageInfo.categoryIndex)
 				and PageInfoHelper.getGroupIdForPageInfo(pageInfo)
-				or 0
+				or nil
 		end
 	end
 
@@ -196,7 +196,7 @@ function NetworkInterface:configureSales(assetId, saleStatus, price)
 		saleStatus = saleStatus,
 	})
 
-	if game:GetFastFlag("CMSEnableCatalogTags") then
+	if game:GetFastFlag("CMSEnableCatalogTags2") then
 		return sendRequestAndRetry(function()
 			printUrl("configureSales", "POST", targetUrl, payload)
 			return self._networkImp:httpPostJson(targetUrl, payload)
@@ -214,7 +214,7 @@ function NetworkInterface:updateSales(assetId, price)
 		price = price,
 	})
 
-	if game:GetFastFlag("CMSEnableCatalogTags") then
+	if game:GetFastFlag("CMSEnableCatalogTags2") then
 		return sendRequestAndRetry(function()
 			printUrl("updateSales", "POST", targetUrl, payload)
 			return self._networkImp:httpPostJson(targetUrl, payload)

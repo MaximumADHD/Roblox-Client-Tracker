@@ -8,9 +8,11 @@ local PluginActivationControllerKey = Symbol.named("PluginActivationController")
 local TerrainBrushKey = Symbol.named("TerrainBrush")
 local SeaLevelKey = Symbol.named("SeaLevelKey")
 local TerrainImporterKey = Symbol.named("TerrainImporter")
+local TerrainGenerationKey = Symbol.named("TerrainGeneration")
 
 local FFlagTerrainToolsSeaLevel = game:GetFastFlag("TerrainToolsSeaLevel")
 local FFlagTerrainToolsRefactorTerrainImporter = game:GetFastFlag("TerrainToolsRefactorTerrainImporter")
+local FFlagTerrainToolsRefactorTerrainGeneration = game:GetFastFlag("TerrainToolsRefactorTerrainGeneration")
 
 local TerrainInterfaceProvider = Roact.PureComponent:extend("TerrainInterfaceProvider")
 
@@ -27,6 +29,12 @@ function TerrainInterfaceProvider:init()
 		local terrainImporter = self.props.terrainImporter
 		assert(terrainImporter, "TerrainInterfaceProvider expects a TerrainImporter")
 		self._context[TerrainImporterKey] = terrainImporter
+	end
+
+	if FFlagTerrainToolsRefactorTerrainGeneration then
+		local terrainGeneration = self.props.terrainGeneration
+		assert(terrainGeneration, "TerrainInterfaceProvider expects a TerrainGeneration")
+		self._context[TerrainGenerationKey] = terrainGeneration
 	end
 
 	if FFlagTerrainToolsSeaLevel then
@@ -56,10 +64,15 @@ local function getTerrainImporter(component)
 	return component._context[TerrainImporterKey]
 end
 
+local function getTerrainGeneration(component)
+	return component._context[TerrainGenerationKey]
+end
+
 return {
 	Provider = TerrainInterfaceProvider,
 	getPluginActivationController = getPluginActivationController,
 	getTerrainBrush = getTerrainBrush,
 	getSeaLevel = getSeaLevel,
 	getTerrainImporter = getTerrainImporter,
+	getTerrainGeneration = getTerrainGeneration,
 }

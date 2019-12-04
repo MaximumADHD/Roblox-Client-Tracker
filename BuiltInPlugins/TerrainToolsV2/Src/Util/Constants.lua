@@ -1,6 +1,7 @@
 local Plugin = script.Parent.Parent.Parent
 
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
+local Biome = TerrainEnums.Biome
 local ToolId = TerrainEnums.ToolId
 
 local FFlagTerrainToolsRefactorTabsAndTools = game:GetFastFlag("TerrainToolsRefactorTabsAndTools")
@@ -121,6 +122,18 @@ Constants.ToolActivatesPlugin = {
 	[ToolId.Flatten] = true,
 	[ToolId.Paint] = true,
 	[ToolId.SeaLevel] = true,
+}
+
+Constants.BiomeToLocalizationKey = {
+	[Biome.Water] = "BiomeWater",
+	[Biome.Marsh] = "BiomeMarsh",
+	[Biome.Plains] = "BiomePlains",
+	[Biome.Hills] = "BiomeHills",
+	[Biome.Dunes] = "BiomeDunes",
+	[Biome.Canyons] = "BiomeCanyons",
+	[Biome.Mountains] = "BiomeMountains",
+	[Biome.Lavascape] = "BiomeLavascape",
+	[Biome.Arctic] = "BiomeArctic",
 }
 
 return Constants

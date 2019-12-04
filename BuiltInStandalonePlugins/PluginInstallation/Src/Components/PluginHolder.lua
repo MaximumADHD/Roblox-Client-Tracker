@@ -1,3 +1,5 @@
+local FFlagPluginManagementScrollbarDesign = game:DefineFastFlag("PluginManagementScrollbarDesign", false)
+
 local StudioService = game:GetService("StudioService")
 
 local Plugin = script.Parent.Parent.Parent
@@ -144,6 +146,11 @@ function PluginHolder:render()
 		MidImage = "rbxasset://textures/StudioToolbox/ScrollBarMiddle.png",
 		BottomImage = "rbxasset://textures/StudioToolbox/ScrollBarBottom.png",
 		BorderSizePixel = 0,
+
+		ScrollBarImageColor3 = FFlagPluginManagementScrollbarDesign and theme.ScrollbarColor or nil,
+		ScrollBarThickness = FFlagPluginManagementScrollbarDesign and theme.ScrollbarSize or nil,
+		ScrollBarImageTransparency = FFlagPluginManagementScrollbarDesign
+			and theme.ScrollbarTransparency or nil,
 	}, pluginEntries)
 end
 

@@ -74,9 +74,15 @@ function ContextMenuHelper.tryCreateContextMenu(plugin, assetId, assetTypeId, sh
 	end
 
 	if showEditOption and editAssetFunc then
-		menu:AddNewAction("EditAsset", isPackageAsset and localize.PackagePermissions.RightClickMenu.PackageDetails or localize.RightClickMenu.EditAsset).Triggered:connect(function()
-			editAssetFunc(assetId, AssetConfigConstants.FLOW_TYPE.EDIT_FLOW, nil, EnumConvert.convertAssetTypeValueToEnum(assetTypeId))
-		end)
+		if isPackageAsset then
+			menu:AddNewAction("PackageDetails", localize.PackagePermissions.RightClickMenu.PackageDetails).Triggered:connect(function()
+				editAssetFunc(assetId, AssetConfigConstants.FLOW_TYPE.EDIT_FLOW, nil, EnumConvert.convertAssetTypeValueToEnum(assetTypeId))
+			end)
+		else
+			menu:AddNewAction("EditAsset", localize.RightClickMenu.EditAsset).Triggered:connect(function()
+				editAssetFunc(assetId, AssetConfigConstants.FLOW_TYPE.EDIT_FLOW, nil, EnumConvert.convertAssetTypeValueToEnum(assetTypeId))
+			end)
+		end
 	end
 
 	menu:ShowAsync()

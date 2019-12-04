@@ -1,3 +1,5 @@
+local FFlagFixToolboxPluginScaling = game:GetFastFlag("FixToolboxPluginScaling")
+
 local Plugin = script.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
@@ -18,11 +20,23 @@ function Layouter.getAssetsPerRow(width)
 		/ (Constants.ASSET_WIDTH_NO_PADDING + Constants.BETWEEN_ASSETS_HORIZONTAL_PADDING))
 end
 
-function Layouter.getAssetCellHeightWithPadding()
-	return Constants.ASSET_HEIGHT + Constants.BETWEEN_ASSETS_VERTICAL_PADDING
+function Layouter.getAssetCellHeightWithPadding(showPrices)
+	if not FFlagFixToolboxPluginScaling then
+		showPrices = false
+	end
+
+	local height = Constants.ASSET_HEIGHT
+	if showPrices then
+		height = height + Constants.PRICE_HEIGHT
+	end
+	return height + Constants.BETWEEN_ASSETS_VERTICAL_PADDING
 end
 
-function Layouter.calculateAssetsHeight(assetCount, maxWidth)
+function Layouter.calculateAssetsHeight(assetCount, maxWidth, showPrices)
+	if not FFlagFixToolboxPluginScaling then
+		showPrices = false
+	end
+
 	-- TODO CLIDEVSRVS-1587: All of this is terrible, make it better
 	-- This calculates how tall to make the grid container based on how its
 	-- going to layout the assets. First get how wide the container is, from
@@ -40,9 +54,16 @@ function Layouter.calculateAssetsHeight(assetCount, maxWidth)
 		return 0
 	end
 
+	local assetHeight = Layouter.getAssetCellHeightWithPadding(showPrices)
+
 	local rowsNeeded = math.ceil(assetCount / assetsPerRow)
-	return ((Constants.ASSET_HEIGHT + Constants.BETWEEN_ASSETS_VERTICAL_PADDING) * rowsNeeded)
-		- Constants.BETWEEN_ASSETS_VERTICAL_PADDING
+	local totalHeight = (assetHeight * rowsNeeded) - Constants.BETWEEN_ASSETS_VERTICAL_PADDING
+
+	if FFlagFixToolboxPluginScaling then
+		totalHeight = totalHeight + Constants.ASSET_VOTING_HEIGHT
+	end
+
+	return totalHeight
 end
 
 function Layouter.sliceAssetsFromBounds(idsToRender, lowerBound, upperBound)
@@ -60,14 +81,18 @@ function Layouter.sliceAssetsFromBounds(idsToRender, lowerBound, upperBound)
 	return assetIds
 end
 
-function Layouter.calculateRenderBoundsForScrollingFrame(scrollingFrame, containerWidth, headerHeight)
+function Layouter.calculateRenderBoundsForScrollingFrame(scrollingFrame, containerWidth, headerHeight, showPrices)
+	if not FFlagFixToolboxPluginScaling then
+		showPrices = false
+	end
+
 	if not scrollingFrame then
 		return 0, 0
 	end
 
 	-- TODO CLIDEVSRVS-1587: Tidy this up
 	local assetsPerRow = Layouter.getAssetsPerRow(containerWidth)
-	local assetHeight = Layouter.getAssetCellHeightWithPadding()
+	local assetHeight = Layouter.getAssetCellHeightWithPadding(showPrices)
 
 	-- Top and range of the window
 	local scrollDist = scrollingFrame.CanvasPosition.Y - headerHeight

@@ -769,7 +769,9 @@ FirstTimeSetup = function()
 						if FFlagTerrainToolMetrics then
 							AnalyticsService:SendEventDeferred("studio", "TerrainEditorV2", "UseTerrainTool", {
 								userId = StudioService:GetUserId(),
-								toolName = kCurrentTool
+								toolName = kCurrentTool,
+								studioSId = AnalyticsService:GetSessionId(),
+								placeId = game.PlaceId,
 							})
 						end
 					end

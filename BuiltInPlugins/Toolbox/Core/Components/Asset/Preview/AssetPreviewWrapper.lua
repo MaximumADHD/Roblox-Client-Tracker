@@ -29,6 +29,7 @@ local ContextGetter = require(Util.ContextGetter)
 
 local getUserId = require(Util.getUserId)
 local getNetwork = ContextGetter.getNetwork
+local getSettings = ContextGetter.getSettings
 
 local withModal = ContextHelper.withModal
 local withTheme = ContextHelper.withTheme
@@ -41,6 +42,7 @@ local Requests = Plugin.Core.Networking.Requests
 local GetPreviewInstanceRequest = require(Requests.GetPreviewInstanceRequest)
 local GetAssetVersionIdRequest = require(Requests.GetAssetVersionIdRequest)
 local GetPluginInfoRequest = require(Requests.GetPluginInfoRequest)
+local SearchWithOptions = require(Plugin.Core.Networking.Requests.SearchWithOptions)
 
 local Category = require(Plugin.Core.Types.Category)
 local ConfigTypes = require(Plugin.Core.Types.ConfigTypes)
@@ -133,6 +135,15 @@ function AssetPreviewWrapper:init(props)
 		local networkInterface = getNetwork(self)
 		networkInterface:postTakePlugin()
 	end
+
+	self.searchByCreator = function(creatorName)
+		local networkInterface = getNetwork(self)
+		local settings = getSettings(self)
+		self.props.searchWithOptions(networkInterface, settings, {
+			Creator = creatorName,
+		})
+		self.props.onClose()
+	end
 end
 
 function AssetPreviewWrapper:didMount()
@@ -211,6 +222,7 @@ function AssetPreviewWrapper:render()
 					canInsertAsset = canInsertAsset,
 					tryInsert = self.tryInsert,
 					tryCreateContextMenu = self.tryCreateContextMenu,
+					searchByCreator = self.searchByCreator,
 				})
 			})
 		end)
@@ -256,6 +268,10 @@ local function mapDispatchToProps(dispatch)
 
 		getPluginInfo = function(networkInterface, assetId)
 			dispatch(GetPluginInfoRequest(networkInterface, assetId))
+		end,
+
+		searchWithOptions = function(networkInterface, settings, options)
+			dispatch(SearchWithOptions(networkInterface, settings, options))
 		end,
 	}
 end

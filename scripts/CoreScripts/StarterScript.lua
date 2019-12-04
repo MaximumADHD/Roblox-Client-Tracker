@@ -13,6 +13,7 @@ local CoreGuiModules = RobloxGui:WaitForChild("Modules")
 local FlagSettings = require(CoreGuiModules.FlagSettings)
 
 local PolicyService = require(CoreGuiModules:WaitForChild("Common"):WaitForChild("PolicyService"))
+local initify = require(CorePackages.initify)
 
 local FFlagConnectionScriptEnabled = settings():GetFFlag("ConnectionScriptEnabled")
 local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabledV384")
@@ -22,6 +23,12 @@ local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList")
 local FFlagEmotesMenuEnabled2 = settings():GetFFlag("CoreScriptEmotesMenuEnabled2")
 
 local FFlagEnableNetworkPauseGui = game:DefineFastFlag("EnableNetworkPauseGui", false)
+
+-- The Rotriever index, as well as the in-game menu code itself, relies on
+-- the init.lua convention, so we have to run initify over the module.
+-- We do this explicitly because the LocalPlayer hasn't been created at this
+-- point, so we can't check enrollment status.
+initify(CoreGuiModules.InGameMenu)
 
 local soundFolder = Instance.new("Folder")
 soundFolder.Name = "Sounds"
@@ -77,6 +84,7 @@ end
 -- Purchase Prompt Script
 coroutine.wrap(function()
 	local PurchasePrompt = safeRequire(CorePackages.PurchasePrompt)
+
 	if PurchasePrompt then
 		PurchasePrompt.mountPurchasePrompt()
 	end

@@ -9,10 +9,15 @@ MockLogger.Levels = {
 	Info = "MockInfo",
 	Debug = "MockDebug",
 	Trace = "MockTrace",
+	fromString = function()
+		return "MockInfo"
+	end,
 }
 
+MockLogger.__index = MockLogger
+
 function MockLogger.new()
-    return MockLogger
+    return setmetatable({}, MockLogger)
 end
 
 function MockLogger.setParent()

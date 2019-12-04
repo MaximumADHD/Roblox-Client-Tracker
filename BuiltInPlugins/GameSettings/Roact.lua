@@ -2,6 +2,11 @@
 	Packages up the internals of Roact and exposes a public API for it.
 ]]
 
+local StudioGameSettingsUseRoact1_2 = game:DefineFastFlag("StudioGameSettingsUseRoact1_2", false)
+if StudioGameSettingsUseRoact1_2 then
+	return require(script.Parent.RoactNew)
+end
+
 local GlobalConfig = require(script.GlobalConfig)
 local createReconciler = require(script.createReconciler)
 local createReconcilerCompat = require(script.createReconcilerCompat)

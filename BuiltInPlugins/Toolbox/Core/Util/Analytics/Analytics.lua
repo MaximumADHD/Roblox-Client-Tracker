@@ -9,10 +9,10 @@ local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 local getUserId = require(Plugin.Core.Util.getUserId)
 local platformId = 0
 
-local FFlagStudioToolboxSearchOptionsAnalytics = settings():GetFFlag("StudioToolboxSearchOptionsAnalytics")
 local FFlagEnableInsertAssetCategoryAnalytics = settings():GetFFlag("EnableInsertAssetCategoryAnalytics")
 local FFlagEnableToolboxUploadReport = settings():GetFFlag("EnableToolboxUploadReport")
 local FFlagStudioToolboxEnablePlaceIDInAnalytics = settings():GetFFlag("StudioToolboxEnablePlaceIDInAnalytics")
+local FFlagStudioToolboxInsertAssetCategoryAnalytics = settings():GetFFlag("StudioToolboxInsertAssetCategoryAnalytics")
 
 -- TODO CLIDEVSRVS-1689: StudioSession + StudioID
 local function getStudioSessionId()
@@ -60,7 +60,7 @@ function Analytics.sendReports(plugin)
 end
 
 function Analytics.onTermSearched(categoryName, searchTerm, creatorId)
-	if FFlagStudioToolboxSearchOptionsAnalytics and creatorId and creatorId > 0 then
+	if creatorId and creatorId > 0 then
 		AnalyticsSenders.trackEvent("Studio", categoryName, searchTerm, creatorId)
 	else
 		AnalyticsSenders.trackEvent("Studio", categoryName, searchTerm)
@@ -68,25 +68,21 @@ function Analytics.onTermSearched(categoryName, searchTerm, creatorId)
 end
 
 function Analytics.onCreatorSearched(searchTerm, creatorId)
-	if FFlagStudioToolboxSearchOptionsAnalytics then
-		AnalyticsSenders.sendEventImmediately("studio", "toolbox", "creatorSearched", {
-			searchTerm = searchTerm,
-			creatorId = creatorId,
-			studioSid = getStudioSessionId(),
-			clientId = getClientId(),
-			userId = getUserId(),
-		})
-	end
+	AnalyticsSenders.sendEventImmediately("studio", "toolbox", "creatorSearched", {
+		searchTerm = searchTerm,
+		creatorId = creatorId,
+		studioSid = getStudioSessionId(),
+		clientId = getClientId(),
+		userId = getUserId(),
+	})
 end
 
 function Analytics.onSearchOptionsOpened()
-	if FFlagStudioToolboxSearchOptionsAnalytics then
-		AnalyticsSenders.sendEventImmediately("studio", "toolbox", "searchOptionsOpened", {
-			studioSid = getStudioSessionId(),
-			clientId = getClientId(),
-			userId = getUserId(),
-		})
-	end
+	AnalyticsSenders.sendEventImmediately("studio", "toolbox", "searchOptionsOpened", {
+		studioSid = getStudioSessionId(),
+		clientId = getClientId(),
+		userId = getUserId(),
+	})
 end
 
 function Analytics.onCategorySelected(oldCategory, newCategory)
@@ -144,12 +140,24 @@ function Analytics.onAssetDragInserted(assetId, searchTerm, assetIndex, currentC
 	end
 end
 
-function Analytics.onAssetInsertRemains(time, contentId)
-	AnalyticsSenders.trackEvent("Studio", ("InsertRemains%d"):format(time), contentId)
+function Analytics.onAssetInsertRemains(time, contentId, currentCategory)
+	if FFlagStudioToolboxInsertAssetCategoryAnalytics then
+		AnalyticsSenders.trackEventWithArgs("Studio", ("InsertRemains%d"):format(time), contentId, {
+			currentCategory = currentCategory,
+		})
+	else
+		AnalyticsSenders.trackEvent("Studio", ("InsertRemains%d"):format(time), contentId)
+	end
 end
 
-function Analytics.onAssetInsertDeleted(time, contentId)
-	AnalyticsSenders.trackEvent("Studio", ("InsertDeleted%d"):format(time), contentId)
+function Analytics.onAssetInsertDeleted(time, contentId, currentCategory)
+	if FFlagStudioToolboxInsertAssetCategoryAnalytics then
+		AnalyticsSenders.trackEventWithArgs("Studio", ("InsertDeleted%d"):format(time), contentId, {
+			currentCategory = currentCategory,
+		})
+	else
+		AnalyticsSenders.trackEvent("Studio", ("InsertDeleted%d"):format(time), contentId)
+	end
 end
 
 function Analytics.DEPRECATED_onAssetInsertRemains(contentId)

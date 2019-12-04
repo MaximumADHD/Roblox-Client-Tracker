@@ -65,4 +65,16 @@ TerrainEnums.BrushShape = {
 	Cylinder = "Cylinder",
 }
 
+TerrainEnums.Biome = {
+	Water = "Water",
+	Plains = "Plains",
+	Dunes = "Dunes",
+	Mountains = "Mountains",
+	Arctic = "Arctic",
+	Marsh = "Marsh",
+	Hills = "Hills",
+	Canyons = "Canyons",
+	Lavascape = "Lavascape",
+}
+
 return TerrainEnums

@@ -156,7 +156,7 @@ end
 -- url : (string)
 -- returns a Promise that resolves to an HttpResponse object
 function Networking:httpGetJson(url)
-	if game:GetFastFlag("CMSEnableCatalogTags") then
+	if game:GetFastFlag("CMSEnableCatalogTags2") then
 		return createHttpPromise(httpGet, self._httpImpl, url):andThen(
 			-- On promise resolved
 			function(result)
@@ -181,7 +181,7 @@ end
 -- payload : (string)
 -- returns a Promise that resolves to an HttpResponse object
 function Networking:httpPostJson(url, payload)
-	if game:GetFastFlag("CMSEnableCatalogTags") then
+	if game:GetFastFlag("CMSEnableCatalogTags2") then
 		return createHttpPromise(httpPost, self._httpImpl, url, payload):andThen(
 			function(result)
 				result.responseBody = self:jsonDecode(result.responseBody)

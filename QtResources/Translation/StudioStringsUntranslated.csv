@@ -49,6 +49,8 @@ Studio.App.BetaFeatures.EnableLuauTypeCheckingDescription,,Enables new script an
 Studio.App.BetaFeatures.EnableLuauTypeCheckingTitle,,Enable New Lua Script Analysis,Enable New Lua Script Analysis
 Studio.App.BetaFeatures.EnableNewLuaVMDescription,,Switches to the new Lua VM,Switches to the new Lua VM
 Studio.App.BetaFeatures.EnableNewLuaVMTitle,,Enable New Lua VM,Enable New Lua VM
+Studio.App.BetaFeatures.InsertObjectStreamliningDescription,,Enables a new unified workflow for inserting objects.,Enables a new unified workflow for inserting objects.
+Studio.App.BetaFeatures.InsertObjectStreamliningTitle,,Insert Object Streamlining,Insert Object Streamlining
 Studio.App.BetaFeatures.LearnMoreTooltip,,Learn More,Learn More
 Studio.App.BetaFeatures.LuaPublishWorkflowDescription,,Uses the new lua-based publish workflow,Uses the new lua-based publish workflow
 Studio.App.BetaFeatures.LuaPublishWorkflowTitle,,Lua Publish Workflow,Lua Publish Workflow
@@ -435,8 +437,11 @@ Studio.App.IdeDoc.WouldYouLikeToPublishTheseChanges,Roblox IDE Doc,Would you lik
 Studio.App.IdeDoc.WouldYouLikeToSaveTheseChanges,Roblox IDE Doc,Would you like to save these changes?,Would you like to save these changes?
 Studio.App.IdeDoc.YouMustLogInToCreateMeshes,Roblox IDE Doc,You must log in to create meshes.,You must log in to create meshes.
 Studio.App.InsertObject.SearchObject1,,Search object %1,Search object %1
+Studio.App.InsertObjectWidget.EmptyFrequentlyUsedList,,Objects are not usually inserted under this parent.,Objects are not usually inserted under this parent.
 Studio.App.InsertObjectWidget.FavoritesCategory,,Frequently Used,Frequently Used
+Studio.App.InsertObjectWidget.SeeAllButton,,See All,See All
 Studio.App.InsertObjectWidget.SelectInsertedObject,,Select object after insert,Select object after insert
+Studio.App.InsertObjectWidget.UnpreferredObjectTooltip,,This object does not make sense under the currently selected parent.,This object does not make sense under the currently selected parent.
 Studio.App.InsertServiceDialog.Done,,Done,Done
 Studio.App.InsertServiceDialog.InsertService,,Insert Service,Insert Service
 Studio.App.InstanceSelectionEditor.ClearValue,,Clear Value,Clear Value
@@ -1376,6 +1381,7 @@ Studio.App.RbxWorkspace.SnapshotInProgress,,Snapshot in progress...,Snapshot in 
 Studio.App.RbxWorkspace.TakeSnapshot,,Take Snapshot,Take Snapshot
 Studio.App.RecentGamesPage.RecentGames,,Recent Games,Recent Games
 Studio.App.RenderScheduler.FailedCreateGameWindow,,Failed to Create Game Window.  A key file may have gotten Corrupted.  Please try to reInstall Roblox Studio.  If the issue persists make sure your drivers are up to date http://www.roblox.com/drivers or Contact Customer support,Failed to Create Game Window.  A key file may have gotten Corrupted.  Please try to reInstall Roblox Studio.  If the issue persists make sure your drivers are up to date http://www.roblox.com/drivers or Contact Customer support
+Studio.App.RenderScheduler.FailedToBindToWorkspace,,Failed to Bind to Workspace. Please restart Studio in order to resolve the issue.,Failed to Bind to Workspace. Please restart Studio in order to resolve the issue.
 Studio.App.Restart.RestartLater,restart studio later,Restart Later,Restart Later
 Studio.App.Restart.RestartNow,restart studio right now,Restart,Restart
 Studio.App.RobloxChatWidget.ChatOptions,,Chat Options,Chat Options
@@ -1575,7 +1581,7 @@ Studio.App.RobloxRibbonMainWindow.LineForce,,Line Force,Line Force
 Studio.App.RobloxRibbonMainWindow.LocalServer,,Local Server,Local Server
 Studio.App.RobloxRibbonMainWindow.Lock,,Lock,Lock
 Studio.App.RobloxRibbonMainWindow.LockTool,,Lock Tool,Lock Tool
-Studio.App.RobloxRibbonMainWindow.ManageCloudPlugins,,Manage plugins installed from roblox.com,Manage plugins installed from roblox.com
+Studio.App.RobloxRibbonMainWindow.ManageCloudPlugins,,Manage installed plugins,Manage installed plugins
 Studio.App.RobloxRibbonMainWindow.Material,,Material,Material
 Studio.App.RobloxRibbonMainWindow.MaterialActionAsTool,,Material Action as Tool,Material Action as Tool
 Studio.App.RobloxRibbonMainWindow.Model,,Model,Model

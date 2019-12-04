@@ -30,6 +30,8 @@ end
 local Player = PlayersService.LocalPlayer
 local RobloxGui = CoreGui:WaitForChild('RobloxGui')
 
+local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
+
 local Utility = require(RobloxGui.Modules.Settings.Utility)
 local StatsUtils = require(RobloxGui.Modules.Stats.StatsUtils)
 
@@ -43,6 +45,11 @@ local playerDropDown = playerDropDownModule:CreatePlayerDropDown()
 local PlayerPermissionsModule = require(RobloxGui.Modules.PlayerPermissionsModule)
 
 local GameTranslator = require(RobloxGui.Modules.GameTranslator)
+
+local InGameMenu
+if isNewInGameMenuEnabled() then
+	InGameMenu = require(RobloxGui.Modules.InGameMenu)
+end
 
 local RemoveEvent_OnFollowRelationshipChanged = nil
 local RemoteFunc_GetFollowRelationships = nil
@@ -174,8 +181,6 @@ local FRIEND_ICON = 'rbxasset://textures/ui/icon_friends_16.png'
 local FRIEND_REQUEST_ICON = 'rbxasset://textures/ui/icon_friendrequestsent_16.png'
 local FRIEND_RECEIVED_ICON = 'rbxasset://textures/ui/icon_friendrequestrecieved-16.png'
 
-local FFlagCoreScriptPlayerListPremiumIcon = settings():GetFFlag("CoreScriptPlayerListPremiumIcon2")
-
 local FOLLOWER_ICON = 'rbxasset://textures/ui/icon_follower-16.png'
 local FOLLOWING_ICON = 'rbxasset://textures/ui/icon_following-16.png'
 local MUTUAL_FOLLOWING_ICON = 'rbxasset://textures/ui/icon_mutualfollowing-16.png'
@@ -193,7 +198,7 @@ local CHARACTER_BACKGROUND_IMAGE = 'rbxasset://textures/ui/PlayerList/CharacterI
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
 local function LocalizedGetString(key, rtv)
-    return RobloxTranslator:FormatByKey(key)
+  return RobloxTranslator:FormatByKey(key)
 end
 
 local function rbx_profilebegin(name)
@@ -281,7 +286,7 @@ local function getMembershipIcon(player)
         return PLACE_OWNER_ICON
       elseif membershipType == Enum.MembershipType.None then
         return ""
-      elseif FFlagCoreScriptPlayerListPremiumIcon and membershipType == Enum.MembershipType.Premium then
+      elseif membershipType == Enum.MembershipType.Premium then
         return PREMIUM_ICON
       elseif membershipType == Enum.MembershipType.BuildersClub then
         return BC_ICON
@@ -940,6 +945,7 @@ local function createPlayerSideBarOption(player)
         end)
       end
 
+      --Remove with FIntNewInGameMenuPercentRollout
       if not reportAbuseMenu then
         reportAbuseMenu = require(RobloxGui.Modules.Settings.Pages.ReportAbuseMenu)
       end
@@ -951,7 +957,11 @@ local function createPlayerSideBarOption(player)
           isOpen = false
           setVisible(false)
           GuiService.SelectedCoreObject = nil
-          reportAbuseMenu:ReportPlayer(player)
+          if isNewInGameMenuEnabled() then
+            InGameMenu.openReportDialog(player)
+          else
+            reportAbuseMenu:ReportPlayer(player)
+          end
         end)
       end
 

@@ -10,6 +10,9 @@ local FFlagCMSPrepopulateTitle = game:DefineFastFlag("CMSPrepopulateTitle", fals
 local FFlagLuaPackagePermissions = settings():GetFFlag("LuaPackagePermissions")
 local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 local FFlagAssetConfigOverrideFromAnyScreen = game:DefineFastFlag("AssetConfigOverrideFromAnyScreen", false)
+local FFlagCanPublishDefaultAsset = game:DefineFastFlag("CanPublishDefaultAsset", false)
+local FFlagShowAssetConfigReasons = game:GetFastFlag("ShowAssetConfigReasons")
+local FFlagEnableAssetConfigFreeFix2 = game:GetFastFlag("EnableAssetConfigFreeFix2")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -62,13 +65,14 @@ local PostPackageMetadataRequest = require(Requests.PostPackageMetadataRequest)
 local GetPackageCollaboratorsRequest = require(Requests.GetPackageCollaboratorsRequest)
 local PutPackagePermissionsRequest = require(Requests.PutPackagePermissionsRequest)
 local GetPackageHighestPermission = require(Requests.GetPackageHighestPermission)
-local GetGroupMetadata = require(Plugin.Core.Thunks.GetGroupMetadata)
-local GetUsername = require(Plugin.Core.Thunks.GetUsername)
 
+local ClearChange = require(Plugin.Core.Actions.ClearChange)
+local SetAssetConfigTab = require(Plugin.Core.Actions.SetAssetConfigTab)
 local UpdateAssetConfigStore = require(Plugin.Core.Actions.UpdateAssetConfigStore)
 
-local SetAssetConfigTab = require(Plugin.Core.Actions.SetAssetConfigTab)
-local ClearChange = require(Plugin.Core.Actions.ClearChange)
+local GetGroupMetadata = require(Plugin.Core.Thunks.GetGroupMetadata)
+local GetGroupRoleInfo = require(Plugin.Core.Thunks.GetGroupRoleInfo)
+local GetUsername = require(Plugin.Core.Thunks.GetUsername)
 
 local withTheme = ContextHelper.withTheme
 local withModal = ContextHelper.withModal
@@ -107,9 +111,10 @@ function AssetConfig:init(props)
 		overrideAssetId = nil,
 		groupId = nil,
 		iconFile = nil, -- Need for setting thumbnails for asset.
-	}
 
-	if FFlagEnablePurchasePluginFromLua2 and AssetConfigUtil.isBuyableMarketplaceAsset(props.assetTypeEnum) then
+		dispatchGetFunction = false,
+	}
+	if FFlagEnableAssetConfigFreeFix2 and AssetConfigUtil.isMarketplaceAsset(props.assetTypeEnum) then
 		self.state.status = AssetConfigConstants.ASSET_STATUS.OffSale
 	end
 	if AssetConfigUtil.isCatalogAsset(props.assetTypeEnum) then
@@ -231,10 +236,14 @@ function AssetConfig:init(props)
 		local changeTable = self.props.changeTable
 		local changed = changeTable and next(changeTable) ~= nil
 
-		-- Our actions maybe defferent depends on if we
-		-- changed any thing on the page or not.
-		if changed then
+		-- Always try to publish the asset if we could save
+		-- This allows the default asset to be published (default name, no changes)
+		if FFlagCanPublishDefaultAsset or changed then
 			tryPublishGeneral()
+		end
+
+		-- If the asset was modified, publish versions and permissions
+		if changed then
 			tryPublishVersions(changeTable)
 			if FFlagLuaPackagePermissions and self.props.isPackageAsset then
 				tryPublishPermissions(changeTable)
@@ -398,7 +407,7 @@ function AssetConfig:init(props)
 			})
 
 			self.props.makeChangeRequest("AssetConfigIconSelect", "", iconFile.Name)
-			self.props.updateStore({iconFile})
+			self.props.updateStore({iconFile = iconFile})
 		end
 	end
 end
@@ -416,6 +425,27 @@ function AssetConfig:detachXButtonCallback()
 end
 
 function AssetConfig:didUpdate(previousProps, previousState)
+	if FFlagLuaPackagePermissions then
+		if self.props.screenFlowType == AssetConfigConstants.FLOW_TYPE.EDIT_FLOW then
+			local assetConfigData = self.props.assetConfigData
+			if next(assetConfigData) and (not self.state.dispatchGetFunction) then
+				local creator = assetConfigData.Creator or {}
+				local groupMetadataMissing = not self.state.groupMetadata or next(self.state.groupMetadata) == nil
+				if creator.typeId == ConfigTypes.OWNER_TYPES.User and not creator.username then
+					self.props.dispatchGetUsername(creator.targetId)
+					self:setState({
+						dispatchGetFunction = true,
+					})
+				elseif creator.typeId == ConfigTypes.OWNER_TYPES.Group and groupMetadataMissing then
+					self.props.dispatchGetGroupMetadata(creator.targetId)
+					self.props.dispatchGetGroupRoleInfo(getNetwork(self), creator.targetId)
+					self:setState({
+						dispatchGetFunction = true,
+					})
+				end
+			end
+		end
+	end
 	if not FFlagEnablePurchasePluginFromLua2 then
 		-- If we have assetConfigData and state is nil(defualt state),
 		-- then we will use the data retrived from the assetConfigData to trigger a re-render.
@@ -437,19 +467,7 @@ function AssetConfig:didUpdate(previousProps, previousState)
 				})
 			end
 
-			if FFlagLuaPackagePermissions then
-				if next(assetConfigData) then
-					local creator = assetConfigData.Creator or {}
-					if creator.typeId == ConfigTypes.OWNER_TYPES.User and not creator.username then
-						self.props.dispatchGetUsername(creator.targetId)
-					elseif creator.typeId == ConfigTypes.OWNER_TYPES.Group and next(self.state.groupMetadata) == nil then
-						self.props.dispatchGetGroupMetadata(creator.targetId)
-						self.props.dispatchGetGroupRoleInfo(getNetwork(self), creator.targetId)
-					end
-				end
-			end
-
-			if game:GetFastFlag("CMSEnableCatalogTags") and assetConfigData.ItemTags and self.state.tags == nil then
+			if game:GetFastFlag("CMSEnableCatalogTags2") and assetConfigData.ItemTags and self.state.tags == nil then
 				self:setState({
 					tags = TagsUtil.getTagsFromItemTags(assetConfigData.ItemTags),
 				})
@@ -481,22 +499,12 @@ function AssetConfig.getDerivedStateFromProps(nextProps, lastState)
 					preCheckStatus = AssetConfigConstants.ASSET_STATUS.OnSale
 				end
 
-				if FFlagLuaPackagePermissions then
-					local creator = assetConfigData.Creator or {}
-					if creator.typeId == ConfigTypes.OWNER_TYPES.User then
-						nextProps.dispatchGetUsername(creator.targetId)
-					elseif creator.typeId == ConfigTypes.OWNER_TYPES.Group then
-						nextProps.dispatchGetGroupMetadata(creator.targetId)
-						nextProps.dispatchGetGroupRoleInfo(getNetwork(self), creator.targetId)
-					end
-				end
-
 				return {
 					assetId = AssetConfigUtil.isMarketplaceAsset(nextProps.assetTypeEnum) and assetConfigData.Id or assetConfigData.assetId, -- assetId is named differently in the data returned by different end-points
 
 					name = lastState.name or assetConfigData.Name,
 					description = lastState.description or assetConfigData.Description,
-					tags = game:GetFastFlag("CMSEnableCatalogTags") and (lastState.tags or TagsUtil.getTagsFromItemTags(assetConfigData.ItemTags)),
+					tags = game:GetFastFlag("CMSEnableCatalogTags2") and (lastState.tags or TagsUtil.getTagsFromItemTags(assetConfigData.ItemTags)),
 					owner = lastState.owner or assetConfigData.Creator,
 					genres = lastState.genres or assetConfigData.Genres,
 					allowCopy = lastState.allowCopy or assetConfigData.IsPublicDomainEnabled,
@@ -525,7 +533,7 @@ function AssetConfig:didMount()
 			if AssetConfigUtil.isCatalogAsset(self.props.assetTypeEnum) then
 				self.props.getAssetDetails(getNetwork(self), self.props.assetId, false)
 
-				if game:GetFastFlag("CMSEnableCatalogTags") and TagsUtil.areTagsEnabled(self.props.isItemTagsFeatureEnabled, self.props.enabledAssetTypesForItemTags, self.props.assetTypeEnum) then
+				if game:GetFastFlag("CMSEnableCatalogTags2") and TagsUtil.areTagsEnabled(self.props.isItemTagsFeatureEnabled, self.props.enabledAssetTypesForItemTags, self.props.assetTypeEnum) then
 					self.props.getAssetTags(getNetwork(self), self.props.assetId)
 				end
 			else
@@ -589,9 +597,11 @@ local function validatePrice(text, minPrice, maxPrice, assetStatus)
 	return result
 end
 
-local function checkCanSave(changeTable, name, description, price, minPrice, maxPrice, assetStatus, currentTab)
-	-- For now, override asset is nique, we only care if we change anything from the override.
+local function checkCanSave(changeTable, name, description, price, minPrice, maxPrice,
+	assetStatus, currentTab, screenFlowType)
+
 	if ConfigTypes:isOverride(currentTab) then
+		-- Overwriting an existing asset is a separate flow, we can only save if an asset is selected
 		return changeTable and changeTable.OverrideAssetId
 	elseif ConfigTypes:isPermissions(currentTab) then
 		local changed = changeTable and next(changeTable) ~= nil
@@ -602,7 +612,21 @@ local function checkCanSave(changeTable, name, description, price, minPrice, max
 		local nameDataIsOk = (#name <= AssetConfigConstants.NAME_CHARACTER_LIMIT) and (tostring(name) ~= "")
 		local descriptionDataIsOk = #description <= AssetConfigConstants.DESCRIPTION_CHARACTER_LIMIT
 		local priceDataIsOk = validatePrice(price, minPrice, maxPrice, assetStatus)
-		return changed and nameDataIsOk and descriptionDataIsOk and priceDataIsOk
+
+		if not FFlagCanPublishDefaultAsset then
+			return changed and nameDataIsOk and descriptionDataIsOk and priceDataIsOk
+		end
+
+		local isValid = nameDataIsOk and descriptionDataIsOk and priceDataIsOk
+		if screenFlowType == AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW then
+			-- If we are uploading a new asset, we can still submit even if no changes
+			-- were made. So, we should only check that the data is valid in this case.
+			return isValid
+		else
+			-- When editing an existing asset, we shouldn't be able to save unless
+			-- there are actual changes to save. Otherwise, it's a no-op.
+			return isValid and changed
+		end
 	end
 end
 
@@ -675,7 +699,12 @@ function AssetConfig:render()
 				local commentOn = state.commentOn
 				local newAssetStatus = state.status
 
-				local showGetAssetFailed = props.networkErrorAction == ConfigTypes.GET_ASSET_DETAIL_FAILURE_ACTION
+				local showGetAssetFailed
+				if FFlagShowAssetConfigReasons then
+					showGetAssetFailed = props.networkErrorAction[ConfigTypes.NetworkErrors.GET_ASSET_DETAIL_FAILURE.name]
+				else
+					showGetAssetFailed = props.networkErrorAction == ConfigTypes.GET_ASSET_DETAIL_FAILURE_ACTION
+				end
 				local isShowChangeDiscardMessageBox = state.isShowChangeDiscardMessageBox or showGetAssetFailed
 				local iconFile = state.iconFile
 
@@ -698,6 +727,9 @@ function AssetConfig:render()
 				local showOwnership = ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_OWNERSHIP)
 				local showGenre = ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_GENRE)
 				local showCopy = ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_COPY)
+				if FFlagLuaPackagePermissions and props.isPackageAsset then
+					showCopy = false
+				end
 				local showComment = ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_COMMENT)
 				local showAssetType = ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_ASSET_TYPE)
 				local previewType = props.instances and AssetConfigConstants.PreviewTypes.ModelPreview or AssetConfigConstants.PreviewTypes.Thumbnail
@@ -706,7 +738,7 @@ function AssetConfig:render()
 					previewType = AssetConfigUtil.getPreviewType(assetTypeEnum, props.instances)
 				end
 
-				local showTags = game:GetFastFlag("CMSEnableCatalogTags") and TagsUtil.areTagsEnabled(props.isItemTagsFeatureEnabled, props.enabledAssetTypesForItemTags, assetTypeEnum)
+				local showTags = game:GetFastFlag("CMSEnableCatalogTags2") and TagsUtil.areTagsEnabled(props.isItemTagsFeatureEnabled, props.enabledAssetTypesForItemTags, assetTypeEnum)
 
 				local isPriceValid = validatePrice(price, minPrice, maxPrice, newAssetStatus)
 				local isMarketBuyAndNonWhiteList = AssetConfigUtil.isBuyableMarketplaceAsset(assetTypeEnum) and (not allowedAssetTypesForRelease[assetTypeEnum.Name])
@@ -718,7 +750,8 @@ function AssetConfig:render()
 					owner
 				)
 
-				local canSave = checkCanSave(changeTable, name, description, price, minPrice, maxPrice, newAssetStatus, currentTab)
+				local canSave = checkCanSave(changeTable, name, description, price, minPrice, maxPrice,
+					newAssetStatus, currentTab, screenFlowType)
 
 				return Roact.createElement("Frame", {
 					Size = Size,
@@ -898,12 +931,12 @@ local function mapStateToProps(state, props)
 		currentTab = state.currentTab,
 		isVerifiedCreator = state.isVerifiedCreator,
 		networkError = state.networkError,
-		networkErrorAction = state.networkErrorAction,
+		networkErrorAction = state.networkErrorAction or {},
 		isPackageAsset = state.isPackageAsset,
 		hasPackagePermission = props.assetId and state.packagePermissions[props.assetId] ~= nil,
 		isItemTagsFeatureEnabled = state.isItemTagsFeatureEnabled,
 		enabledAssetTypesForItemTags = state.enabledAssetTypesForItemTags,
-		maximumItemTagsPerItem = game:GetFastFlag("CMSEnableCatalogTags") and state.maximumItemTagsPerItem,
+		maximumItemTagsPerItem = game:GetFastFlag("CMSEnableCatalogTags2") and state.maximumItemTagsPerItem,
 	}
 end
 
@@ -984,14 +1017,14 @@ local function mapDispatchToProps(dispatch)
 		dispatchGetGroupMetadata = function(groupId)
             dispatch(GetGroupMetadata(groupId))
 		end,
-		
-		dispatchGetUsername = function(userId)
-			dispatch(GetUsername(userId))
-		end, 
 
 		dispatchGetGroupRoleInfo = function(networkInterface, groupId)
             dispatch(GetGroupRoleInfo(networkInterface, groupId))
         end,
+		
+		dispatchGetUsername = function(userId)
+			dispatch(GetUsername(userId))
+		end, 
 	}
 end
 

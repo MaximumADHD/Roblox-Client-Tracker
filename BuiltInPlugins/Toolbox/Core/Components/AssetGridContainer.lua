@@ -17,6 +17,7 @@
 
 local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 local FFlagLuaPackagePermissions = settings():GetFFlag("LuaPackagePermissions")
+local FFlagHideNoAccessGroupPackages = settings():GetFFlag("HideNoAccessGroupPackages")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -267,8 +268,6 @@ function AssetGridContainer:render()
 			local previewAssetData = state.previewAssetData
 
 			local categoryIndex = props.categoryIndex
-			local currentTab = props.currentTab
-			local isPlugins = Category.categoryIsPlugin(currentTab, categoryIndex)
 			local isPackages = Category.categoryIsPackage(categoryIndex, categoryIsPackage)
 
 			local onPreviewAudioButtonClicked = self.onPreviewAudioButtonClicked
@@ -276,8 +275,10 @@ function AssetGridContainer:render()
 			local hoveredAssetId = modalStatus:canHoverAsset() and state.hoveredAssetId or 0
 			local isShowingToolMessageBox = state.isShowingToolMessageBox
 
+			local showPrices = Category.shouldShowPrices(props.currentTab, props.categoryIndex)
+
 			local cellSize
-			if FFlagEnablePurchasePluginFromLua2 and isPlugins then
+			if FFlagEnablePurchasePluginFromLua2 and showPrices then
 				cellSize = UDim2.new(0, Constants.ASSET_WIDTH_NO_PADDING, 0,
 					Constants.ASSET_HEIGHT + Constants.PRICE_HEIGHT)
 			else
@@ -316,11 +317,23 @@ function AssetGridContainer:render()
 				self.tryCreateContextMenu(assetData, showEditOption, localizedContent)
 			end
 
+			local isGroupPackageAsset = FFlagLuaPackagePermissions and self.props.categories[self.props.categoryIndex] == Category.GROUP_PACKAGES
+
 			for index, asset in ipairs(assetIds) do
 				local assetId = asset[1]
 				local assetIndex = asset[2]
 
-				assetElements[tostring(assetId)] = Roact.createElement(Asset, {
+				local canEditPackage = (self.props.currentUserPackagePermissions[assetId] == PermissionsConstants.EditKey or 
+				self.props.currentUserPackagePermissions[assetId] == PermissionsConstants.OwnKey)
+
+				-- If the asset is a group packages, then we want to check only want to show it if we have permission.
+				-- if the category is not group packages, then we always want to show.
+				local showAsset = true
+				if FFlagHideNoAccessGroupPackages then
+					showAsset = (isGroupPackageAsset and canEditPackage) or not isGroupPackageAsset
+				end
+
+				assetElements[tostring(assetId)] = showAsset and Roact.createElement(Asset, {
 					assetId = assetId,
 					LayoutOrder = index,
 					assetIndex = assetIndex,

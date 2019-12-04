@@ -6,11 +6,14 @@
 
 local PlayersService = game:GetService('Players')
 
-local FFlagUsePolicyServiceForCoreScripts = settings():GetFFlag("UsePolicyServiceForCoreScripts")
+local FFlagUsePolicyServiceForCoreScripts = settings():GetFFlag("UsePolicyServiceForCoreScripts2")
 
 local isSubjectToChinaPolicies = true
 local policyTable
 local initialized = false
+local initAsyncCalledOnce = false
+
+local initializedEvent = Instance.new("BindableEvent")
 
 --[[ Classes ]]--
 local PolicyService = {}
@@ -22,7 +25,11 @@ end
 
 function PolicyService:InitAsync()
 	if initialized then return end
-	initialized = true
+	if initAsyncCalledOnce then
+		initializedEvent.Event:Wait()
+		return
+	end
+	initAsyncCalledOnce = true
 
 	local localPlayer = PlayersService.LocalPlayer
 	while not localPlayer do
@@ -36,8 +43,11 @@ function PolicyService:InitAsync()
 			isSubjectToChinaPolicies = policyTable["IsSubjectToChinaPolicies"]
 		end
 	end
+
+	initialized = true
+	initializedEvent:Fire()
 end
-			
+
 function PolicyService:IsSubjectToChinaPolicies()
 	if not self:IsEnabled() then
 		return false

@@ -8,18 +8,15 @@ if not plugin then
 end
 
 -- Fast flags
-game:DefineFastFlag("TerrainToolsRefactorTabsAndTools", false)
-game:DefineFastFlag("TerrainToolsEnablePivotPosition", false)
-game:DefineFastFlag("TerrainToolsEnableHeightSlider", false)
-game:DefineFastFlag("TerrainToolsRefactorTerrainBrush", false)
-game:DefineFastFlag("TerrainToolsLargerBrush", false)
-game:DefineFastFlag("TerrainToolsRefactorTerrainImporter", false)
-game:DefineFastFlag("TerrainToolsHoldAltToSelectMaterial", false)
+require(script.Parent.defineLuaFlags)
 
 local FFlagTerrainToolsRefactorTerrainBrush = game:GetFastFlag("TerrainToolsRefactorTerrainBrush")
 
 -- FFlagTerrainToolsRefactorTerrainImporter depends on FFlagTerrainToolsRefactorTerrainBrush
 local FFlagTerrainToolsRefactorTerrainImporter = game:GetFastFlag("TerrainToolsRefactorTerrainImporter")
+
+-- FFlagTerrainToolsRefactorTerrainGeneration depends on FFlagTerrainToolsRefactorTerrainBrush
+local FFlagTerrainToolsRefactorTerrainGeneration = game:GetFastFlag("TerrainToolsRefactorTerrainGeneration")
 
 -- sea Level is now dependent on FFlagTerrainToolsRefactorTerrainBrush
 local FFlagTerrainToolsSeaLevel = game:GetFastFlag("TerrainToolsSeaLevel")
@@ -37,12 +34,16 @@ local PluginActivationController
 local TerrainBrush
 local ToolSelectionListener
 local TerrainImporter
+local TerrainGeneration
 if FFlagTerrainToolsRefactorTerrainBrush then
 	PluginActivationController = require(Plugin.Src.Util.PluginActivationController)
 	TerrainBrush = require(Plugin.Src.Components.Functions.TerrainBrushInstance)
 	ToolSelectionListener = require(Plugin.Src.Components.ToolSelectionListener)
 	if FFlagTerrainToolsRefactorTerrainImporter then
 		TerrainImporter = require(Plugin.Src.Components.Functions.TerrainImporterInstance)
+	end
+	if FFlagTerrainToolsRefactorTerrainGeneration then
+		TerrainGeneration = require(Plugin.Src.Components.Functions.TerrainGenerationInstance)
 	end
 end
 
@@ -75,6 +76,7 @@ local DevelopmentReferenceTable = Plugin.Src.Resources.DevelopmentReferenceTable
 local TranslationReferenceTable = Plugin.Src.Resources.TranslationReferenceTable
 local Localization = UILibrary.Studio.Localization
 
+local EDITOR_META_NAME = "Editor"
 local PLUGIN_NAME = "TerrainToolsV2"
 local TOOLBAR_NAME = "TerrainToolsLuaToolbarName"
 local DOCK_WIDGET_PLUGIN_NAME = "TerrainTools_PluginGui"
@@ -97,18 +99,26 @@ local localization = Localization.new({
 local pluginActivationController
 local terrainBrush
 local terrainImporter
+local terrainGeneration
 if FFlagTerrainToolsRefactorTerrainBrush then
 	local terrain = Workspace:WaitForChild("Terrain")
 
 	pluginActivationController = PluginActivationController.new(plugin)
+
 	terrainBrush = TerrainBrush.new({
-		pluginActivationController = pluginActivationController,
 		mouse = plugin:GetMouse(),
 		terrain = terrain
 	})
 
 	if FFlagTerrainToolsRefactorTerrainImporter then
 		terrainImporter = TerrainImporter.new({
+			terrain = terrain,
+			localization = localization,
+		})
+	end
+
+	if FFlagTerrainToolsRefactorTerrainGeneration then
+		terrainGeneration = TerrainGeneration.new({
 			terrain = terrain,
 			localization = localization,
 		})
@@ -143,6 +153,7 @@ local function openPluginWindow()
 			pluginActivationController = pluginActivationController,
 			terrainBrush = terrainBrush,
 			terrainImporter = terrainImporter,
+			terrainGeneration = terrainGeneration,
 			seaLevel = seaLevel,
 		}, {
 			TerrainTools = Roact.createFragment({
@@ -224,6 +235,11 @@ local function onPluginUnloading()
 		terrainImporter = nil
 	end
 
+	if terrainGeneration then
+		terrainGeneration:destroy()
+		terrainGeneration = nil
+	end
+
 	if seaLevel then
 		seaLevel:destroy()
 		seaLevel = nil
@@ -236,7 +252,7 @@ local function main()
 	plugin.Name = "Terrain Editor"
 	local toolbar = plugin:CreateToolbar(TOOLBAR_NAME)
 	local exampleButton = toolbar:CreateButton(
-		localization:getText("Meta", "PluginButtonEditor"),
+		EDITOR_META_NAME,
 		localization:getText("Main", "PluginButtonEditorTooltip"),
 		"rbxasset://textures/TerrainTools/icon_terrain_big.png",
 		localization:getText("Main", "ToolbarButton")

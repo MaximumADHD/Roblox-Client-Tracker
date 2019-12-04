@@ -34,21 +34,15 @@ local GetCountryRegion = require(Plugin.Src.Networking.Requests.GetCountryRegion
 
 local CountryRegionSection = Roact.PureComponent:extend("CountryRegionSection")
 
-local mockCountryRegionList = {
-	{ code = "US", name = "United States", displayText = "United States(US)" },
-	{ code = "GB", name = "United Kingdom", displayText = "United Kingdom(GB)" },
-	{ code = "CA", name = "Canada", displayText = "Canada(CA)" },
-}
-
-local mockCountryRegionTable = {
-	US = { code = "US", name = "United States", displayText = "United States(US)" },
-	GB = { code = "GB", name = "United Kingdom", displayText = "United Kingdom(GB)" },
-	CA = { code = "CA", name = "Canada", displayText = "Canada(CA)" },
-}
-
 function CountryRegionSection:getCurrentCountryRegionText()
+	local countryRegionTable = self.props.countryRegionTable
 	local countryRegionCode = self.state.countryRegionCode
-	return self.props.countryRegionTable[countryRegionCode].displayText
+
+	if countryRegionTable and countryRegionTable[countryRegionCode] then
+		return countryRegionTable[countryRegionCode].displayText
+	end
+
+	return ""
 end
 
 function CountryRegionSection:init()
@@ -74,11 +68,12 @@ function CountryRegionSection:render()
 
 	local theme = props.Theme:get("Plugin")
 	local localization = props.Localization
+	local layoutOrder = props.LayoutOrder
 
 	return Roact.createElement("Frame", {
 		Size = theme.SELECTOR_SIZE,
 		BackgroundTransparency = 1,
-		LayoutOrder = props.LayoutOrder,
+		LayoutOrder = layoutOrder,
 	}, {
 		Layout = Roact.createElement("UIListLayout", {
 			SortOrder = Enum.SortOrder.LayoutOrder,
@@ -114,10 +109,8 @@ ContextServices.mapToProps(CountryRegionSection, {
 
 local function mapStateToProps(state, _)
 	return {
-		-- countryRegionTable = state.CountryRegion.countryRegionTable,
-		-- countryRegionList = state.CountryRegion.countryRegionList,
-		countryRegionTable = mockCountryRegionTable,
-		countryRegionList = mockCountryRegionList,
+		countryRegionTable = state.CountryRegion.countryRegionTable,
+		countryRegionList = state.CountryRegion.countryRegionList,
 	}
 end
 

@@ -7,6 +7,7 @@
 ]]
 
 local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
+local FFlagFixAssetConfigIcon = game:GetFastFlag("FixAssetConfigIcon")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -17,8 +18,7 @@ local RoactRodux = require(Libs.RoactRodux)
 local Util = Plugin.Core.Util
 local ContextHelper = require(Util.ContextHelper)
 local AssetConfigConstants = require(Util.AssetConfigConstants)
-local Urls = require(Util.Urls)
-local Constants = require(Util.Constants)
+local PreviewTypes = AssetConfigConstants.PreviewTypes
 local AssetConfigUtil = require(Util.AssetConfigUtil)
 
 local Actions = Plugin.Core.Actions
@@ -56,16 +56,23 @@ function AssetUpload:render()
 	return withTheme(function(theme)
 		local props = self.props
 
-		local thumbnailUrl = Urls.constructAssetThumbnailUrl(
-			props.assetId,
-			Constants.THUMBNAIL_SIZE_LARGE,
-			Constants.THUMBNAIL_SIZE_LARGE
-		)
-
-		local previewType = AssetConfigConstants.PreviewTypes.Thumbnail
+		local previewType = PreviewTypes.Thumbnail
 		if FFlagEnablePurchasePluginFromLua2 then
 			previewType = AssetConfigUtil.getPreviewType(props.assetTypeEnum, props.instances)
 		end
+
+		local showViewport = previewType == PreviewTypes.ModelPreview
+		local showThumbnail
+		if FFlagFixAssetConfigIcon then
+			showThumbnail = previewType == PreviewTypes.Thumbnail
+				or previewType == PreviewTypes.ImagePicker
+		else
+			showThumbnail = previewType == PreviewTypes.Thumbnail
+		end
+
+		-- Remove when removing FFlagFixAssetConfigIcon
+		local showPicker = not FFlagFixAssetConfigIcon
+			and previewType == PreviewTypes.ImagePicker
 
 		return Roact.createElement("Frame", {
 			BackgroundColor3 = theme.typeValidation.background,
@@ -73,7 +80,7 @@ function AssetUpload:render()
 			BorderSizePixel = 0,
 			Size = props.Size,
 		}, {
-			ModelPreview = previewType == AssetConfigConstants.PreviewTypes.ModelPreview and Roact.createElement(AssetThumbnailPreview, {
+			ModelPreview = showViewport and Roact.createElement(AssetThumbnailPreview, {
 				titleHeight = PREVIEW_TITLE_HEIGHT,
 				titlePadding = PREVIEW_TITLE_PADDING,
 				Position = UDim2.new(0.5, -PREVIEW_SIZE/2, 0, PREVIEW_PADDING),
@@ -83,18 +90,19 @@ function AssetUpload:render()
 				),
 			}),
 
-			ThumbnailPreview = previewType == AssetConfigConstants.PreviewTypes.Thumbnail and Roact.createElement("ImageLabel", {
+			ThumbnailPreview = showThumbnail and Roact.createElement("ImageLabel", {
 				Position = UDim2.new(0.5, -PREVIEW_SIZE/2, 0, PREVIEW_PADDING),
 				Size = UDim2.new(
 					0, PREVIEW_SIZE,
 					0, PREVIEW_SIZE
 				),
-				Image = thumbnailUrl,
+				Image = AssetConfigUtil.getResultThumbnail(props.assetId, props.iconFile),
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
 			}),
 
-			ImagePicker = previewType == AssetConfigConstants.PreviewTypes.ImagePicker and Roact.createElement(ImagePicker, {
+			-- Remove when removing FFlagFixAssetConfigIcon
+			ImagePicker = showPicker and Roact.createElement(ImagePicker, {
 				Position = UDim2.new(0.5, -PREVIEW_SIZE/2, 0, PREVIEW_PADDING),
 				Size = UDim2.new(
 					0, PREVIEW_SIZE,
@@ -105,6 +113,7 @@ function AssetUpload:render()
 				ChooseThumbnail = nil, -- Won't get called
 				IconFile = props.iconFile,
 			}),
+
 
 			LoadingBar = Roact.createElement(LoadingBar, {
 				loadingText = LOADING_TEXT,
@@ -121,7 +130,7 @@ end
 local function mapStateToProps(state, props)
 	state = state or {}
 
-	return {
+	local stateToProps = {
 		uploadSucceeded = state.uploadSucceeded,
 		instances = state.instances,
 		assetId = state.assetId,
@@ -129,6 +138,12 @@ local function mapStateToProps(state, props)
 		assetTypeEnum = state.assetTypeEnum,
 		thumbnailStatus = state.thumbnailStatus,
 	}
+
+	if FFlagFixAssetConfigIcon then
+		stateToProps.iconFile = state.iconFile
+	end
+
+	return stateToProps
 end
 
 local function mapDispatchToProps(dispatch)

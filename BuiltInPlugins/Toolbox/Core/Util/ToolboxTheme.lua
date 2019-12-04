@@ -12,6 +12,7 @@ local Colors = require(Util.Colors)
 local createSignal = require(Util.createSignal)
 local wrapStrictTable = require(Util.wrapStrictTable)
 local Images = require(Util.Images)
+local Constants = require(Util.Constants)
 
 local ToolboxTheme = {}
 ToolboxTheme.__index = ToolboxTheme
@@ -469,6 +470,10 @@ function ToolboxTheme:_recalculateTheme()
 			Default = {
 				backgroundColor = color(c.Button),
 			},
+		},
+
+		tooltip = {
+			textSize = Constants.FONT_SIZE_SMALL,
 		},
 	}
 

@@ -42,10 +42,11 @@ local PermissionsConstants = require(PermissionsDirectory.PermissionsConstants)
 local CollaboratorThumbnail = require(PermissionsDirectory.CollaboratorThumbnail)
 
 local DEFAULT_ADD_ACTION = PermissionsConstants.UseViewKey
+local ELEMENT_PADDING = 24
 
 local FitToContent = createFitToContent("Frame", "UIListLayout", {
 	SortOrder = Enum.SortOrder.LayoutOrder,
-	Padding = UDim.new(0, 32),
+	Padding = UDim.new(0, ELEMENT_PADDING),
 })
 
 local function getMatchesFromTable(text, t)
@@ -295,7 +296,7 @@ function CollaboratorSearchWidget:render()
 					ItemHeight = 50,
 
 					ErrorText = tooManyCollaborators and tooManyCollaboratorsText or nil,
-					DefaultText = localized.PackagePermissions.Searchbar.SearchByUser,
+					DefaultText = localized.PackagePermissions.Searchbar.Default,
 					NoResultsText = localized.PackagePermissions.Searchbar.NoResults,
 					LoadingMore = isLoading,
 

@@ -48,7 +48,7 @@ struct Globals
     float globalShadow;
     float shadowBias;
     float shadowAlphaRef;
-    float debugFlagsShadows;
+    float debugFlags;
 };
 
 uniform vec4 CB1[10];

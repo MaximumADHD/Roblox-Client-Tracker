@@ -3,6 +3,7 @@ local Util = Plugin.Core.Util
 local AssetConfigConstants = require(Util.AssetConfigConstants)
 local DebugFlags = require(Util.DebugFlags)
 local getUserId = require(Util.getUserId)
+local Urls = require(Util.Urls)
 
 local DFIntFileMaxSizeBytes = tonumber(settings():GetFVariable("FileMaxSizeBytes"))
 local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
@@ -218,9 +219,11 @@ end
 
 function AssetConfigUtil.getAllowedAssetTypeEnums(allowedAssetTypesForRelease)
 	local result = {}
-	for _, assetTypeEnum in pairs(AssetConfigConstants.ASSET_TYPE_LIST) do
-		if allowedAssetTypesForRelease[assetTypeEnum.Name] ~= nil then
-			result[#result + 1] = assetTypeEnum
+	if allowedAssetTypesForRelease then
+		for _, assetTypeEnum in pairs(AssetConfigConstants.ASSET_TYPE_LIST) do
+			if allowedAssetTypesForRelease[assetTypeEnum.Name] ~= nil then
+				result[#result + 1] = assetTypeEnum
+			end
 		end
 	end
 	return result
@@ -253,6 +256,20 @@ function AssetConfigUtil.getPreviewType(assetTypeEnum, instances)
 		previewType = AssetConfigConstants.PreviewTypes.ImagePicker
 	end
 	return previewType
+end
+
+function AssetConfigUtil.getResultThumbnail(assetId, iconFile)
+	local thumbnail
+	if iconFile then
+		thumbnail = iconFile:GetTemporaryId()
+	else
+		thumbnail = Urls.constructAssetThumbnailUrl(
+			assetId,
+			AssetConfigConstants.rbxThumbSizes.AssetThumbnailSize,
+			AssetConfigConstants.rbxThumbSizes.AssetThumbnailSize
+		)
+	end
+	return thumbnail
 end
 
 return AssetConfigUtil
