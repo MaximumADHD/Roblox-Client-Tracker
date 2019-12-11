@@ -8,5 +8,4 @@ return {
 	Otter = require(InGameMenuDependencies.Otter),
 	Cryo = require(InGameMenuDependencies.Cryo),
 	t = require(InGameMenuDependencies.t),
-	RoactNavigation = require(InGameMenuDependencies.RoactNavigation),
 }
