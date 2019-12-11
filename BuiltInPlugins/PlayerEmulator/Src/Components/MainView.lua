@@ -1,6 +1,6 @@
 --[[
 	The top level container of the Player Emulator window.
-	Contains LanuageSection, CountryRegionSection and PolicySection
+	Contains MainSwitchSection, LanuageSection, CountryRegionSection and PolicySection
 ]]
 
 local Plugin = script.Parent.Parent.Parent
@@ -8,7 +8,9 @@ local Roact = require(Plugin.Packages.Roact)
 local ContextServices = require(Plugin.Packages.Framework.ContextServices)
 local UILibrary = require(Plugin.Packages.UILibrary)
 local Separator = UILibrary.Component.Separator
+local LayoutOrderIterator = UILibrary.Util.LayoutOrderIterator
 
+local MainSwitchSection = require(Plugin.Src.Components.MainSwitchSection)
 local LanguageSection = require(Plugin.Src.Components.LanguageSection)
 local CountryRegionSection = require(Plugin.Src.Components.CountryRegionSection)
 local PolicySection = require(Plugin.Src.Components.PolicySection)
@@ -16,6 +18,8 @@ local PolicySection = require(Plugin.Src.Components.PolicySection)
 local MainView = Roact.PureComponent:extend("MainView")
 
 function MainView:render()
+	local layoutIndex = LayoutOrderIterator.new()
+
 	local props = self.props
 	local theme = props.Theme:get("Plugin")
 
@@ -34,18 +38,21 @@ function MainView:render()
 			FillDirection = Enum.FillDirection.Vertical,
 			Padding = theme.HORIZONTAL_LISTLAYOUT_PADDING,
 		}),
-		LanguageSection = Roact.createElement(LanguageSection, {
-			LayoutOrder = 1,
-		}),
-		CountryRegionSection = Roact.createElement(CountryRegionSection, {
-			LayoutOrder = 3,
+		MainSwitchSection = Roact.createElement(MainSwitchSection, {
+			LayoutOrder = layoutIndex:getNextOrder(),
 		}),
 		Separator = Roact.createElement(Separator, {
 			Size = UDim2.new(1, 0, 0, 1),
-			LayoutOrder = 4,
+			LayoutOrder = layoutIndex:getNextOrder(),
+		}),
+		LanguageSection = Roact.createElement(LanguageSection, {
+			LayoutOrder = layoutIndex:getNextOrder(),
+		}),
+		CountryRegionSection = Roact.createElement(CountryRegionSection, {
+			LayoutOrder = layoutIndex:getNextOrder(),
 		}),
 		PolicySection =  Roact.createElement(PolicySection, {
-			LayoutOrder = 5,
+			LayoutOrder = layoutIndex:getNextOrder(),
 		}),
 	})
 end

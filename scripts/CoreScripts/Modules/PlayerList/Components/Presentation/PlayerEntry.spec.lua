@@ -4,6 +4,7 @@ return function()
 	local Roact = require(CorePackages.Roact)
 	local Rodux = require(CorePackages.Rodux)
 	local RoactRodux = require(CorePackages.RoactRodux)
+	local UIBlox = require(CorePackages.UIBlox)
 
 	local PlayerList = script.Parent.Parent.Parent
 	local Reducers = PlayerList.Reducers
@@ -17,6 +18,16 @@ return function()
 	local CreateLayoutValues = require(PlayerList.CreateLayoutValues)
 
 	local PlayerEntry = require(script.Parent.PlayerEntry)
+
+	local AppDarkTheme = require(CorePackages.AppTempCommon.LuaApp.Style.Themes.DarkTheme)
+	local AppFont = require(CorePackages.AppTempCommon.LuaApp.Style.Fonts.Gotham)
+
+	local appStyle = {
+		Theme = AppDarkTheme,
+		Font = AppFont,
+	}
+
+	local FFlagPlayerListDesignUpdate = settings():GetFFlag("PlayerListDesignUpdate")
 
 	local function getFakeRelationship()
 		return {
@@ -35,49 +46,117 @@ return function()
 		}
 	end
 
-	it("should create and destroy without errors", function()
-		local store = Rodux.Store.new(Reducer)
+	if FFlagPlayerListDesignUpdate then
+		it("should create and destroy without errors", function()
+			local store = Rodux.Store.new(Reducer)
 
-		local element = Roact.createElement(RoactRodux.StoreProvider, {
-			store = store,
-		}, {
-			LayoutValuesProvider = Roact.createElement(LayoutValuesProvider, {
-				layoutValues = CreateLayoutValues(false, false)
+			local element = Roact.createElement(RoactRodux.StoreProvider, {
+				store = store,
 			}, {
-				PlayerEntry = Roact.createElement(PlayerEntry, {
-					player = Players.LocalPlayer,
-					playerStats = {},
-					playerIconInfo = getFakeIconInfo(),
-					playerRelationship = getFakeRelationship(),
-					titlePlayerEntry = false,
-					gameStats = {},
+				LayoutValuesProvider = Roact.createElement(LayoutValuesProvider, {
+					layoutValues = CreateLayoutValues(false, false)
+				}, {
+					ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
+						style = appStyle,
+					}, {
+						PlayerEntry = Roact.createElement(PlayerEntry, {
+							player = Players.LocalPlayer,
+							layoutOrder = 1,
+							playerStats = {},
+							playerIconInfo = getFakeIconInfo(),
+							playerRelationship = getFakeRelationship(),
+							titlePlayerEntry = false,
+							hasDivider = true,
+							gameStats = {},
+						})
+					})
 				})
 			})
-		})
-		local instance = Roact.mount(element)
-		Roact.unmount(instance)
-	end)
+			local instance = Roact.mount(element)
+			Roact.unmount(instance)
+		end)
 
-	it("should create and destroy without errors tenfoot", function()
-		local store = Rodux.Store.new(Reducer)
+		it("should create and destroy without errors tenfoot", function()
+			local store = Rodux.Store.new(Reducer)
 
-		local element = Roact.createElement(RoactRodux.StoreProvider, {
-			store = store,
-		}, {
-			LayoutValuesProvider = Roact.createElement(LayoutValuesProvider, {
-				layoutValues = CreateLayoutValues(true, false)
+			local element = Roact.createElement(RoactRodux.StoreProvider, {
+				store = store,
 			}, {
-				PlayerEntry = Roact.createElement(PlayerEntry, {
-					player = Players.LocalPlayer,
-					playerStats = {},
-					playerIconInfo = getFakeIconInfo(),
-					playerRelationship = getFakeRelationship(),
-					titlePlayerEntry = true,
-					gameStats = {},
+				LayoutValuesProvider = Roact.createElement(LayoutValuesProvider, {
+					layoutValues = CreateLayoutValues(true, false)
+				}, {
+					ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
+						style = appStyle,
+					}, {
+						PlayerEntry = Roact.createElement(PlayerEntry, {
+							player = Players.LocalPlayer,
+							layoutOrder = 1,
+							playerStats = {},
+							playerIconInfo = getFakeIconInfo(),
+							playerRelationship = getFakeRelationship(),
+							titlePlayerEntry = true,
+							hasDivider = false,
+							gameStats = {},
+						})
+					})
 				})
 			})
-		})
-		local instance = Roact.mount(element)
-		Roact.unmount(instance)
-	end)
+			local instance = Roact.mount(element)
+			Roact.unmount(instance)
+		end)
+	else
+		it("should create and destroy without errors", function()
+			local store = Rodux.Store.new(Reducer)
+
+			local element = Roact.createElement(RoactRodux.StoreProvider, {
+				store = store,
+			}, {
+				LayoutValuesProvider = Roact.createElement(LayoutValuesProvider, {
+					layoutValues = CreateLayoutValues(false, false)
+				}, {
+					ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
+						style = appStyle,
+					}, {
+						PlayerEntry = Roact.createElement(PlayerEntry, {
+							player = Players.LocalPlayer,
+							playerStats = {},
+							playerIconInfo = getFakeIconInfo(),
+							playerRelationship = getFakeRelationship(),
+							titlePlayerEntry = false,
+							gameStats = {},
+						})
+					})
+				})
+			})
+			local instance = Roact.mount(element)
+			Roact.unmount(instance)
+		end)
+
+		it("should create and destroy without errors tenfoot", function()
+			local store = Rodux.Store.new(Reducer)
+
+			local element = Roact.createElement(RoactRodux.StoreProvider, {
+				store = store,
+			}, {
+				LayoutValuesProvider = Roact.createElement(LayoutValuesProvider, {
+					layoutValues = CreateLayoutValues(true, false)
+				}, {
+					ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
+						style = appStyle,
+					}, {
+						PlayerEntry = Roact.createElement(PlayerEntry, {
+							player = Players.LocalPlayer,
+							playerStats = {},
+							playerIconInfo = getFakeIconInfo(),
+							playerRelationship = getFakeRelationship(),
+							titlePlayerEntry = true,
+							gameStats = {},
+						})
+					})
+				})
+			})
+			local instance = Roact.mount(element)
+			Roact.unmount(instance)
+		end)
+	end
 end

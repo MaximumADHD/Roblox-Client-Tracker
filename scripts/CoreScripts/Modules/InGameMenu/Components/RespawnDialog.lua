@@ -26,6 +26,9 @@ local function RespawnDialog(props)
 			bodyText = localized.bodyText,
 			confirmText = localized.confirmText,
 			cancelText = localized.cancelText,
+
+			bindReturnToConfirm = false,
+
 			onCancel = props.onCancel,
 			onConfirm = props.onConfirm,
 		})

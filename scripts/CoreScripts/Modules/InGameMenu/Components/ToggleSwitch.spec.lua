@@ -16,7 +16,7 @@ return function()
 	local ToggleSwitch = require(script.Parent.ToggleSwitch)
 
 	it("should create and destroy without errors", function()
-		local element = Roact.createElement(UIBlox.Style.Provider, {
+		local element = Roact.createElement(UIBlox.Core.Style.Provider, {
 			style = appStyle,
 		}, {
 			ToggleSwitch = Roact.createElement(ToggleSwitch, {
@@ -37,7 +37,7 @@ return function()
 	end)
 
 	it("should create and destroy without errors when checked", function()
-		local element = Roact.createElement(UIBlox.Style.Provider, {
+		local element = Roact.createElement(UIBlox.Core.Style.Provider, {
 			style = appStyle,
 		}, {
 			ToggleSwitch = Roact.createElement(ToggleSwitch, {

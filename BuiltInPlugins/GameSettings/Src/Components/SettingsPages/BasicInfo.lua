@@ -32,7 +32,7 @@ local MAX_DESCRIPTION_LENGTH = 1000
 
 local FFlagGameSettingsReorganizeHeaders = settings():GetFFlag("GameSettingsReorganizeHeaders")
 local FFlagStudioGameSettingsAccessPermissions = settings():GetFFlag("StudioGameSettingsAccessPermissions")
-local FFlagStudioGameSettingsDisablePlayabilityForDrafts = game:DefineFastFlag("StudioGameSettingsDisablePlayabilityForDrafts", false)
+local FFlagStudioGameSettingsDisablePlayabilityForDrafts = settings():GetFFlag("StudioGameSettingsDisablePlayabilityForDrafts")
 
 local nameErrors = {
 	Moderated = "ErrorNameModerated",

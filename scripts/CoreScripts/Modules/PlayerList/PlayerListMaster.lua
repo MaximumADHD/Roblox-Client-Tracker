@@ -8,18 +8,23 @@ local UserInputService = game:GetService("UserInputService")
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
+local AppDarkTheme = require(CorePackages.AppTempCommon.LuaApp.Style.Themes.DarkTheme)
+local AppFont = require(CorePackages.AppTempCommon.LuaApp.Style.Fonts.Gotham)
+
 local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
 local SettingsUtil = require(RobloxGui.Modules.Settings.Utility)
 
 local Roact = require(CorePackages.Roact)
 local Rodux = require(CorePackages.Rodux)
 local RoactRodux = require(CorePackages.RoactRodux)
+local UIBlox = require(CorePackages.UIBlox)
 
 local PlayerList = script.Parent
 
 local PlayerListApp = require(PlayerList.Components.PlayerListApp)
 local Reducer = require(PlayerList.Reducers.Reducer)
 
+local GlobalConfig = require(PlayerList.GlobalConfig)
 local CreateLayoutValues = require(PlayerList.CreateLayoutValues)
 local Connection = PlayerList.Components.Connection
 local LayoutValues = require(Connection.LayoutValues)
@@ -47,11 +52,20 @@ end
 
 local XPRIVILEGE_COMMUNICATION_VOICE_INGAME = 205
 
+local FFlagPlayerListDesignUpdate = settings():GetFFlag("PlayerListDesignUpdate")
+
 local PlayerListMaster = {}
 PlayerListMaster.__index = PlayerListMaster
 
 function PlayerListMaster.new()
 	local self = setmetatable({}, PlayerListMaster)
+
+	if FFlagPlayerListDesignUpdate then
+		Roact.setGlobalConfig({
+			propValidation = GlobalConfig.propValidation,
+			elementTracing = GlobalConfig.elementTracing,
+		})
+	end
 
 	self.store = Rodux.Store.new(Reducer, nil, {
 		Rodux.thunkMiddleware,
@@ -84,6 +98,11 @@ function PlayerListMaster.new()
 	self:_initalizeTeams()
 	self:_initalizeFollowingInfo()
 
+	local appStyle = {
+		Theme = AppDarkTheme,
+		Font = AppFont,
+	}
+
 	self.root = Roact.createElement(RoactRodux.StoreProvider, {
 		store = self.store,
 	}, {
@@ -93,7 +112,11 @@ function PlayerListMaster.new()
 				SettingsUtil.IsSmallTouchScreen()
 			)
 		}, {
-			PlayerListApp = Roact.createElement(PlayerListApp)
+			ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
+				style = appStyle,
+			}, {
+				PlayerListApp = Roact.createElement(PlayerListApp)
+			})
 		})
 	})
 

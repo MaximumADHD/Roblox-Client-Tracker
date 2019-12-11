@@ -49,11 +49,30 @@ end
 	as state doesn't need to be passed around between functions or explicitly
 	global.
 ]]
-function TestPlanner.createEnvironment(builder)
+function TestPlanner.createEnvironment(builder, extraEnvironment)
 	local env = {}
 
-	function env.describe(phrase, callback)
-		local node = builder:pushNode(phrase, TestEnum.NodeType.Describe)
+	if extraEnvironment then
+		if type(extraEnvironment) ~= "table" then
+			error(("Bad argument #2 to TestPlanner.createEnvironment. Expected table, got %s"):format(
+				typeof(extraEnvironment)), 2)
+		end
+
+		for key, value in pairs(extraEnvironment) do
+			env[key] = value
+		end
+	end
+
+	function env.describeFOCUS(phrase, callback)
+		return env.describe(phrase, callback, TestEnum.NodeModifier.Focus)
+	end
+
+	function env.describeSKIP(phrase, callback)
+		return env.describe(phrase, callback, TestEnum.NodeModifier.Skip)
+	end
+
+	function env.describe(phrase, callback, nodeModifier)
+		local node = builder:pushNode(phrase, TestEnum.NodeType.Describe, nodeModifier)
 
 		local ok, err = pcall(callback)
 
@@ -102,6 +121,22 @@ function TestPlanner.createEnvironment(builder)
 		builder:popNode()
 	end
 
+	function env.itFIXME(phrase, callback)
+		local node = builder:pushNode(phrase, TestEnum.NodeType.It, TestEnum.NodeModifier.Skip)
+
+		warn("FIXME: broken test", node:getFullName())
+		node.callback = callback
+
+		builder:popNode()
+	end
+
+	function env.FIXME(optionalMessage)
+		local currentNode = builder:getCurrentNode()
+		warn("FIXME: broken test", currentNode:getFullName(), optionalMessage or "")
+
+		currentNode.modifier = TestEnum.NodeModifier.Skip
+	end
+
 	function env.FOCUS()
 		local currentNode = builder:getCurrentNode()
 
@@ -131,6 +166,11 @@ function TestPlanner.createEnvironment(builder)
 
 	env.step = env.it
 
+	env.fit = env.itFOCUS
+	env.xit = env.itSKIP
+	env.fdescribe = env.describeFOCUS
+	env.xdescribe = env.describeSKIP
+
 	function env.include(...)
 		local args = {...}
 		local method, path
@@ -153,10 +193,11 @@ end
 	These functions should call a combination of `describe` and `it` (and their
 	variants), which will be turned into a test plan to be executed.
 ]]
-function TestPlanner.createPlan(specFunctions, noXpcallByDefault)
+function TestPlanner.createPlan(specFunctions, noXpcallByDefault, testNamePattern, extraEnvironment)
 	local builder = TestPlanBuilder.new()
 	builder.noXpcallByDefault = noXpcallByDefault
-	local env = TestPlanner.createEnvironment(builder)
+	builder.testNamePattern = testNamePattern
+	local env = TestPlanner.createEnvironment(builder, extraEnvironment)
 
 	for _, module in ipairs(specFunctions) do
 		buildPlan(builder, module, env)

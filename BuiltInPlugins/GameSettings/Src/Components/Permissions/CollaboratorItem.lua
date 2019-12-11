@@ -131,7 +131,7 @@ local function CollaboratorItem(props)
 
 	local dropdownEnabled
 	if FFlagStudioGameSettingsRestrictPermissions then
-		dropdownEnabled = not props.IsPlayOnly and props.Enabled and #props.Items > 0
+		dropdownEnabled = not props.IsDropdownLocked and props.Enabled and #props.Items > 0
 	else
 		dropdownEnabled = props.Enabled and #props.Items > 0
 	end

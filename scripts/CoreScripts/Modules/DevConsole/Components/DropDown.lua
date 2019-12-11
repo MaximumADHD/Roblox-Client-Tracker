@@ -10,9 +10,6 @@ local ARROW_OFFSET = ARROW_SIZE / 2
 local OPEN_ARROW = Constants.Image.DownArrow
 local INNER_FRAME_PADDING = 12
 
-local FFlagDevConsoleUpdateLayering = settings():GetFFlag("DevConsoleUpdateLayering")
-local FFlagRespectDisplayOrderForOnTopOfCoreBlur = settings():GetFFlag("RespectDisplayOrderForOnTopOfCoreBlur")
-
 local DropDown = Roact.Component:extend("DropDown")
 
 function DropDown:init()
@@ -102,115 +99,55 @@ function DropDown:render()
 	end
 
 
-	if FFlagDevConsoleUpdateLayering then
-		return Roact.createElement("TextButton", {
-			Size = buttonSize,
-			Text = dropDownList[selectedIndex],
-			TextColor3 = Constants.Color.Text,
-			TextSize = FONT_SIZE,
-			Font = FONT,
+	return Roact.createElement("TextButton", {
+		Size = buttonSize,
+		Text = dropDownList[selectedIndex],
+		TextColor3 = Constants.Color.Text,
+		TextSize = FONT_SIZE,
+		Font = FONT,
 
-			AutoButtonColor = false,
-			BackgroundColor3 = Constants.Color.UnselectedGray,
-			BackgroundTransparency = 0,
-			LayoutOrder = layoutOrder,
+		AutoButtonColor = false,
+		BackgroundColor3 = Constants.Color.UnselectedGray,
+		BackgroundTransparency = 0,
+		LayoutOrder = layoutOrder,
 
-			[Roact.Event.Activated] = self.onMainButtonPressed,
+		[Roact.Event.Activated] = self.onMainButtonPressed,
 
-			[Roact.Ref] = self.ref,
+		[Roact.Ref] = self.ref,
+	}, {
+		arrow = Roact.createElement("ImageLabel", {
+			Image = OPEN_ARROW,
+			BackgroundTransparency = 1,
+			Size = UDim2.new(0, ARROW_SIZE, 0, ARROW_SIZE),
+			Position = UDim2.new(1, -ARROW_SIZE - ARROW_OFFSET, .5, -ARROW_OFFSET),
+		}),
+
+		DropDown = showDropDown and Roact.createElement(Roact.Portal, {
+			target = dropDownTargetParent ~= nil and dropDownTargetParent or game:GetService("CoreGui").DevConsoleMaster,
 		}, {
-			arrow = Roact.createElement("ImageLabel", {
-				Image = OPEN_ARROW,
+			InputCatcher = Roact.createElement("Frame", {
+				Size = UDim2.new(1, 0, 1, 0),
+				Position = UDim2.new(0, 0, 0, 0),
 				BackgroundTransparency = 1,
-				Size = UDim2.new(0, ARROW_SIZE, 0, ARROW_SIZE),
-				Position = UDim2.new(1, -ARROW_SIZE - ARROW_OFFSET, .5, -ARROW_OFFSET),
-			}),
 
-			DropDown = showDropDown and Roact.createElement(Roact.Portal, {
-				target = dropDownTargetParent ~= nil and dropDownTargetParent or game:GetService("CoreGui").DevConsoleMaster,
+				[Roact.Event.InputEnded] = self.nonDropDownSelection,
 			}, {
-				InputCatcher = Roact.createElement("Frame", {
-					Size = UDim2.new(1, 0, 1, 0),
-					Position = UDim2.new(0, 0, 0, 0),
-					BackgroundTransparency = 1,
-
-					[Roact.Event.InputEnded] = self.nonDropDownSelection,
+				OuterFrame = Roact.createElement("ImageButton", {
+					Size = outerFrameSize,
+					AutoButtonColor = false,
+					Position = absolutePosition,
+					BackgroundColor3 = Constants.Color.TextBoxGray,
+					BackgroundTransparency = 0,
 				}, {
-					OuterFrame = Roact.createElement("ImageButton", {
-						Size = outerFrameSize,
-						AutoButtonColor = false,
-						Position = absolutePosition,
-						BackgroundColor3 = Constants.Color.TextBoxGray,
-						BackgroundTransparency = 0,
-					}, {
-						innerFrame = Roact.createElement("Frame", {
-							Position = UDim2.new(0, INNER_FRAME_PADDING, 0 , INNER_FRAME_PADDING),
-							Size = UDim2.new(0, frameWidth, 0, frameHeight),
-							BackgroundTransparency = 1,
-						}, children)
-					})
-				})
-			})
-		})
-		
-	else
-
-		return Roact.createElement("TextButton", {
-			Size = buttonSize,
-			Text = dropDownList[selectedIndex],
-			TextColor3 = Constants.Color.Text,
-			TextSize = FONT_SIZE,
-			Font = FONT,
-
-			AutoButtonColor = false,
-			BackgroundColor3 = Constants.Color.UnselectedGray,
-			BackgroundTransparency = 0,
-			LayoutOrder = layoutOrder,
-
-			[Roact.Event.Activated] = self.onMainButtonPressed,
-
-			[Roact.Ref] = self.ref,
-		}, {
-			arrow = Roact.createElement("ImageLabel", {
-				Image = OPEN_ARROW,
-				BackgroundTransparency = 1,
-				Size = UDim2.new(0, ARROW_SIZE, 0, ARROW_SIZE),
-				Position = UDim2.new(1, -ARROW_SIZE - ARROW_OFFSET, .5, -ARROW_OFFSET),
-			}),
-
-			DropDown = showDropDown and Roact.createElement(Roact.Portal, {
-				target = RobloxGui,
-			}, {
-				FullScreen = Roact.createElement("ScreenGui", {
-					OnTopOfCoreBlur = true,
-					-- 20 so that it will render on top of the main window, which is set to 10.
-					DisplayOrder = FFlagRespectDisplayOrderForOnTopOfCoreBlur and 20 or nil,
-				}, {
-					InputCatcher = Roact.createElement("Frame", {
-						Size = UDim2.new(1, 0, 1, 0),
-						Position = UDim2.new(0, 0, 0, 0),
+					innerFrame = Roact.createElement("Frame", {
+						Position = UDim2.new(0, INNER_FRAME_PADDING, 0 , INNER_FRAME_PADDING),
+						Size = UDim2.new(0, frameWidth, 0, frameHeight),
 						BackgroundTransparency = 1,
-
-						[Roact.Event.InputEnded] = self.nonDropDownSelection,
-					}, {
-						OuterFrame = Roact.createElement("ImageButton", {
-							Size = outerFrameSize,
-							AutoButtonColor = false,
-							Position = absolutePosition,
-							BackgroundColor3 = Constants.Color.TextBoxGray,
-							BackgroundTransparency = 0,
-						}, {
-							innerFrame = Roact.createElement("Frame", {
-								Position = UDim2.new(0, INNER_FRAME_PADDING, 0 , INNER_FRAME_PADDING),
-								Size = UDim2.new(0, frameWidth, 0, frameHeight),
-								BackgroundTransparency = 1,
-							}, children)
-						})
-					})
+					}, children)
 				})
 			})
 		})
-	end
+	})
 end
 
 return DropDown

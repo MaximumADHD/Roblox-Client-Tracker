@@ -75,6 +75,7 @@ local _baseApisRcsUrl = string.format("https://apis.rcs.%s", _baseDomain)
 local _baseDiscussionsUrl = string.format("https://discussions.%s", _baseDomain)
 local _baseContactsUrl = string.format("https://contacts.%s", _baseDomain)
 local _baseSearchUrl = string.format("https://search.%s", _baseDomain)
+local _baseGameSearchUITreatments = string.format("https://gamesearchuitreatments.api.%s", _baseDomain)
 local _baseUrlSecure = string.gsub(_baseUrl, "http://", "https://")
 
 -- public api
@@ -102,6 +103,7 @@ local Url = {
 	WWW_URL = _baseWwwUrl,
 	ADS_URL = _baseAdsUrl,
 	SEARCH_URL = _baseSearchUrl,
+	GAME_SEARCH_UI_TREATMENTS = _baseGameSearchUITreatments,
 	FOLLOWINGS_URL = _baseFollowingsUrl,
 	ECONOMY_URL = _baseEconomyUrl,
 	THUMBNAILS_URL = _baseThumbnailsUrl,

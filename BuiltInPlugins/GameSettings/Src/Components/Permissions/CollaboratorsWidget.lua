@@ -55,11 +55,13 @@ local function getGroupCollaboratorPermissions(props, localized)
 		{Key = PermissionsConstants.EditKey, Display = localized.AccessPermissions.ActionDropdown.EditLabel, Description = localized.AccessPermissions.ActionDropdown.EditDescription},
 	}
 	
-	if isStudioUserOwner(props) then
-		permissions = Cryo.List.join(
-			permissions,
-			{{Key = PermissionsConstants.AdminKey, Display = localized.AccessPermissions.ActionDropdown.AdminLabel, Description = localized.AccessPermissions.ActionDropdown.AdminDescription}}
-		)
+	if not FFlagStudioGameSettingsRestrictPermissions then
+		if isStudioUserOwner(props) then
+			permissions = Cryo.List.join(
+				permissions,
+				{{Key = PermissionsConstants.AdminKey, Display = localized.AccessPermissions.ActionDropdown.AdminLabel, Description = localized.AccessPermissions.ActionDropdown.AdminDescription}}
+			)
+		end
 	end
 
 	return permissions
@@ -73,11 +75,13 @@ local function getUserCollaboratorPermissions(props, localized)
 		{Key = PermissionsConstants.EditKey, Display = localized.AccessPermissions.ActionDropdown.EditLabel, Description = localized.AccessPermissions.ActionDropdown.EditDescription},
 	}
 	
-	if isStudioUserOwner(props) then
-		permissions = Cryo.List.join(
-			permissions,
-			{{Key = PermissionsConstants.AdminKey, Display = localized.AccessPermissions.ActionDropdown.AdminLabel, Description = localized.AccessPermissions.ActionDropdown.AdminDescription}}
-		)
+	if not FFlagStudioGameSettingsRestrictPermissions then
+		if isStudioUserOwner(props) then
+			permissions = Cryo.List.join(
+				permissions,
+				{{Key = PermissionsConstants.AdminKey, Display = localized.AccessPermissions.ActionDropdown.AdminLabel, Description = localized.AccessPermissions.ActionDropdown.AdminDescription}}
+			)
+		end
 	end
 	
 	return permissions
@@ -217,7 +221,7 @@ function CollaboratorsWidget:render()
 					}),
 					CollaboratorItem = Roact.createElement(CollaboratorItem, {
 						Enabled = props.Enabled,
-						IsPlayOnly = props.OwnerType == Enum.CreatorType.Group or (props.OwnerType == Enum.CreatorType.User and not user.IsFriend),
+						IsDropdownLocked = props.OwnerType == Enum.CreatorType.Group or (props.OwnerType == Enum.CreatorType.User and not user.IsFriend),
 						
 						CollaboratorName = user.Name,
 						CollaboratorId = user.Id,

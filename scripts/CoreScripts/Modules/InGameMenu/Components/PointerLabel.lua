@@ -11,7 +11,7 @@ local Assets = require(InGameMenu.Resources.Assets)
 
 local GlobalConfig = require(InGameMenu.GlobalConfig)
 
-local ImageSetLabel = UIBlox.ImageSet.Label
+local ImageSetLabel = UIBlox.Core.ImageSet.Label
 
 local INPUT_TYPE_TO_ICON_MAP = {
 	[Enum.UserInputType.MouseButton1] = Assets.Images.Mouse1Press,
@@ -26,7 +26,7 @@ local validateProps = t.strictInterface({
 	LayoutOrder = t.optional(t.integer),
 })
 
-local function KeyLabel(props)
+local function PointerLabel(props)
 	if GlobalConfig.propValidation then
 		assert(validateProps(props))
 	end
@@ -43,4 +43,4 @@ local function KeyLabel(props)
 	})
 end
 
-return KeyLabel
+return PointerLabel

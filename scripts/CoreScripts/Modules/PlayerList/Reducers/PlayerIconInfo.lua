@@ -31,7 +31,7 @@ local PlayerIconInfo = Rodux.createReducer({}, {
 	[SetPlayerAvatarIcon.name] = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			[action.userId] = {
-				isPlaceOwner = state[action.userId].isCreator,
+				isPlaceOwner = state[action.userId].isPlaceOwner,
 				avatarIcon = action.avatarIcon,
 				specialGroupIcon = state[action.userId].specialGroupIcon,
 			},
@@ -51,7 +51,7 @@ local PlayerIconInfo = Rodux.createReducer({}, {
 	[SetPlayerSpecialGroupIcon.name] = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			[action.userId] = {
-				isPlaceOwner = state[action.userId].isCreator,
+				isPlaceOwner = state[action.userId].isPlaceOwner,
 				avatarIcon = state[action.userId].avatarIcon,
 				specialGroupIcon = action.specialGroupIcon,
 			},

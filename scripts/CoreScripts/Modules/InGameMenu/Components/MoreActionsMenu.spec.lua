@@ -20,7 +20,7 @@ return function()
 	local MoreActionsMenu = require(script.Parent.MoreActionsMenu)
 
 	it("should create and destroy without errors", function()
-		local element = Roact.createElement(UIBlox.Style.Provider, {
+		local element = Roact.createElement(UIBlox.Core.Style.Provider, {
 			style = appStyle,
 		}, {
 			LocalizationProvider = Roact.createElement(LocalizationProvider, {

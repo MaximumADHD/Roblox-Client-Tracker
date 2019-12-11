@@ -13,6 +13,7 @@ return function()
 		expect(state).to.be.ok()
 
 		local expectedKeys = {
+			"MainSwitch",
 			"Languages",
 			"CountryRegion",
 			"Policies",

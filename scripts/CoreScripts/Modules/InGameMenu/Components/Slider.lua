@@ -7,7 +7,7 @@ local UIBlox = InGameMenuDependencies.UIBlox
 local t = InGameMenuDependencies.t
 local Otter = InGameMenuDependencies.Otter
 
-local withStyle = UIBlox.Style.withStyle
+local withStyle = UIBlox.Core.Style.withStyle
 
 local InGameMenu = script.Parent.Parent
 
@@ -15,7 +15,7 @@ local divideTransparency = require(InGameMenu.Utility.divideTransparency)
 
 local AssetImage = require(script.Parent.AssetImage)
 
-local ImageSetButton = UIBlox.ImageSet.Button
+local ImageSetButton = UIBlox.Core.ImageSet.Button
 
 local PLUGINGUI_INPUT_CAPTURER_ZINDEX = 100000
 local SLIDER_HEIGHT = 36

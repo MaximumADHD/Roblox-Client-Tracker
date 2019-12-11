@@ -32,7 +32,7 @@ local MovementModeEntry = require(script.Parent.MovementModeEntry)
 local ToggleEntry = require(script.Parent.ToggleEntry)
 local VolumeEntry = require(script.Parent.VolumeEntry)
 
-local ImageSetLabel = UIBlox.ImageSet.Label
+local ImageSetLabel = UIBlox.Core.ImageSet.Label
 
 local BasicPage = Roact.PureComponent:extend("BasicPage")
 BasicPage.validateProps = t.strictInterface({

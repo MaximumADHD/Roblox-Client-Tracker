@@ -27,11 +27,6 @@ local FFlagConnectionScriptEnabled = settings():GetFFlag("ConnectionScriptEnable
 local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp") --todo: remove with FFlagUsePolicyServiceForCoreScripts
 local antiAddictionNoticeStringEn = "Boycott bad games, refuse pirated games. Be aware of self-defense and being deceived. Playing games is good for your brain, but too much game play can harm your health. Manage your time well and enjoy a healthy lifestyle."
 
-if PolicyService:IsEnabled() then
-	coroutine.wrap(function() -- this is the first place we call, which can yield so wrap in coroutine
-		PolicyService:InitAsync()
-	end)()
-end
 
 local debugMode = false
 
@@ -245,13 +240,14 @@ local function GenerateGui()
     local numberOfTaps = 0
     local lastTapTime = math.huge
 	local doubleTapTimeThreshold = 0.5
-	
+
 	local showConnectionHealth = not FFlagChinaLicensingApp
-	if PolicyService:IsEnabled() then
-		showConnectionHealth = not PolicyService:IsSubjectToChinaPolicies()
-	end
 
     loadingImageInputBeganConn = showConnectionHealth and loadingImage.InputBegan:connect(function()
+        if PolicyService:IsEnabled() and PolicyService:IsSubjectToChinaPolicies() then
+            return
+        end
+
         if numberOfTaps == 0 then
             numberOfTaps = 1
             lastTapTime = tick()

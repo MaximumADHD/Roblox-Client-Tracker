@@ -7,7 +7,7 @@ local RoactRodux = InGameMenuDependencies.RoactRodux
 local t = InGameMenuDependencies.t
 local UIBlox = InGameMenuDependencies.UIBlox
 
-local withStyle = UIBlox.Style.withStyle
+local withStyle = UIBlox.Core.Style.withStyle
 
 local InGameMenu = script.Parent.Parent.Parent
 
@@ -21,7 +21,7 @@ local SystemSecondaryButton = require(InGameMenu.Components.SystemSecondaryButto
 
 local SetCurrentPage = require(InGameMenu.Actions.SetCurrentPage)
 
-local ImageSetLabel = UIBlox.ImageSet.Label
+local ImageSetLabel = UIBlox.Core.ImageSet.Label
 
 local CONTAINER_WIDTH = 304
 local TEXT_PADDING_TOP = 4

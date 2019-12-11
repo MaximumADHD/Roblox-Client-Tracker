@@ -2,6 +2,8 @@
 	CheckBox module for social link items or other list items
 
 	Props:
+		bool Enabled
+			if interactable
 		string ItemKey
 			Label text
 		boolean Selected
@@ -30,6 +32,7 @@ function CheckBoxModule:render()
 	local props = self.props
 	local theme = props.Theme:get("Plugin")
 
+	local enabled = props.Enabled
 	local itemKey = props.ItemKey
 	local selected = props.Selected
 
@@ -43,7 +46,7 @@ function CheckBoxModule:render()
 		CheckBox = Roact.createElement(CheckBox, {
 			Title = itemKey,
 			Selected = selected,
-			Enabled = true,
+			Enabled = enabled,
 			Height = theme.CHECKBOX_HEIGHT,
 			TextSize = theme.CHECKBOX_TEXT_SIZE,
 			OnActivated = self.onActivated,

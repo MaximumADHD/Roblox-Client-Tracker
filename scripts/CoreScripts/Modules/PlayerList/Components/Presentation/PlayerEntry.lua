@@ -3,6 +3,10 @@ local Players = game:GetService("Players")
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
+local t = require(CorePackages.Packages.t)
+local UIBlox = require(CorePackages.UIBlox)
+
+local withStyle = UIBlox.Style.withStyle
 
 local Components = script.Parent.Parent
 local Connection = Components.Connection
@@ -13,20 +17,72 @@ local EntryFrame = require(script.Parent.EntryFrame)
 local PlayerIcon = require(script.Parent.PlayerIcon)
 local PlayerNameTag = require(script.Parent.PlayerNameTag)
 local StatEntry = require(script.Parent.StatEntry)
+local CellExtender = require(script.Parent.CellExtender)
 
 local PlayerList = Components.Parent
 local ClosePlayerDropDown = require(PlayerList.Actions.ClosePlayerDropDown)
 local OpenPlayerDropDown = require(PlayerList.Actions.OpenPlayerDropDown)
 
+local FFlagPlayerListDesignUpdate = settings():GetFFlag("PlayerListDesignUpdate")
+
 local PlayerEntry = Roact.PureComponent:extend("PlayerEntry")
+
+if FFlagPlayerListDesignUpdate then
+	PlayerEntry.validateProps = t.strictInterface({
+		player = t.instanceIsA("Player"),
+		layoutOrder = t.optional(t.integer),
+		titlePlayerEntry = t.boolean,
+		hasDivider = t.boolean,
+		overrideEntrySize = t.optional(t.integer),
+
+		playerStats = t.map(t.string, t.any),
+
+		playerIconInfo = t.strictInterface({
+			isPlaceOwner = t.boolean,
+			avatarIcon = t.optional(t.string),
+			specialGroupIcon = t.optional(t.string),
+		}),
+
+		playerRelationship = t.strictInterface({
+			isBlocked = t.boolean,
+			friendStatus = t.enum(Enum.FriendStatus),
+			isFollowing = t.boolean,
+			isFollower = t.boolean,
+		}),
+
+		gameStats = t.array(t.strictInterface({
+			name = t.string,
+			text = t.string,
+			addId = t.integer,
+			isPrimary = t.boolean,
+			priority = t.number,
+		})),
+
+		[Roact.Ref] = t.optional(t.table),
+
+		selectedPlayer = t.optional(t.instanceIsA("Player")),
+		dropDownOpen = t.boolean,
+
+		closeDropDown = t.callback,
+		openDropDown = t.callback,
+	})
+end
 
 function PlayerEntry:init()
 	self.state  = {
 		isHovered = false,
+		isPressed = false,
 	}
 end
 
-function PlayerEntry:getBackgroundStyle(layoutValues)
+function PlayerEntry:getBackgroundStyle(layoutValues, style)
+	if FFlagPlayerListDesignUpdate and not layoutValues.IsTenFoot then
+		return {
+			Color = style.Theme.BackgroundContrast.Color,
+			Transparency = 1,
+		}
+	end
+
 	local isSelected = self.props.dropDownOpen and self.props.selectedPlayer == self.props.player
 	local isHovered = self.state.isHovered
 
@@ -49,7 +105,26 @@ function PlayerEntry:getBackgroundStyle(layoutValues)
 	return layoutValues.BackgroundStyle.Default
 end
 
-function PlayerEntry:getTextStyle(layoutValues)
+function PlayerEntry:getOverlayStyle(layoutValues, style)
+	if FFlagPlayerListDesignUpdate and not layoutValues.IsTenFoot then
+		local isSelected = self.props.dropDownOpen and self.props.selectedPlayer == self.props.player
+		if self.state.isPressed then
+			return style.Theme.BackgroundOnPress
+		elseif isSelected then
+			return style.Theme.BackgroundOnPress
+		elseif self.state.isHovered then
+			return style.Theme.BackgroundOnHover
+		end
+	end
+
+	return {
+		Transparency = 1,
+		Color = Color3.new(1, 1, 1),
+	}
+end
+
+--Remove with FFlagPlayerListDesignUpdate
+function PlayerEntry:getTextStyle_deprecated(layoutValues)
 	local isSelected = self.props.dropDownOpen and self.props.selectedPlayer == self.props.player
 	local isLocalPlayer = self.props.player == Players.LocalPlayer
 	local isHovered = self.state.isHovered
@@ -73,130 +148,279 @@ function PlayerEntry:getTextStyle(layoutValues)
 	return layoutValues.TextStyle.Default
 end
 
+function PlayerEntry:getTextStyle(layoutValues, style)
+	if layoutValues.IsTenFoot then
+		if self.state.isHovered then
+			return layoutValues.HoveredTextStyle, layoutValues.PlayerNameTextSize
+		end
+		return layoutValues.DefaultTextStyle, layoutValues.PlayerNameTextSize
+	end
+
+	local isLocalPlayer = self.props.player == Players.LocalPlayer
+	if isLocalPlayer then
+		return style.Theme.TextEmphasis
+	end
+
+	return style.Theme.TextMuted
+end
+
+function PlayerEntry:getPlayerNameFont(layoutValues, style)
+	if layoutValues.IsTenFoot then
+		if self.props.titlePlayerEntry then
+			return {
+				Font = layoutValues.TitlePlayerEntryFont,
+				Size = layoutValues.PlayerNameTextSize,
+			}
+		end
+		return {
+			Font = layoutValues.PlayerEntryFont,
+			Size = layoutValues.PlayerNameTextSize,
+		}
+	end
+
+	local isLocalPlayer = self.props.player == Players.LocalPlayer
+	if isLocalPlayer then
+		return {
+			Font = style.Font.CaptionHeader.Font,
+			Size = style.Font.CaptionHeader.RelativeSize * style.Font.BaseSize,
+		}
+	end
+
+	return {
+		Font = style.Font.CaptionBody.Font,
+		Size = style.Font.CaptionBody.RelativeSize * style.Font.BaseSize,
+	}
+end
+
 function PlayerEntry:render()
 	return WithLayoutValues(function(layoutValues)
-		local backgroundStyle = self:getBackgroundStyle(layoutValues)
-		local textStyle = self:getTextStyle(layoutValues)
-
-		local playerEntryChildren = {}
-
-		playerEntryChildren["Layout"] = Roact.createElement("UIListLayout", {
-			SortOrder = Enum.SortOrder.LayoutOrder,
-			FillDirection = Enum.FillDirection.Horizontal,
-			VerticalAlignment = Enum.VerticalAlignment.Center,
-			Padding = UDim.new(0, layoutValues.PlayerEntryPadding)
-		})
-
-		playerEntryChildren["NameFrame"] = Roact.createElement("Frame", {
-			LayoutOrder = 0,
-			Size = UDim2.new(0, layoutValues.EntrySizeX, 0, layoutValues.PlayerEntrySizeY),
-			BackgroundTransparency = 1,
-		}, {
-			Shadow = Roact.createElement("ImageLabel", {
-				BackgroundTransparency = 1,
-				Image = layoutValues.ShadowImage,
-				Position = UDim2.new(0, -layoutValues.ShadowSize, 0, 0),
-				Size = UDim2.new(1, layoutValues.ShadowSize * 2, 1, layoutValues.ShadowSize),
-				ScaleType = Enum.ScaleType.Slice,
-				SliceCenter = layoutValues.ShadowSliceRect,
-				Visible = layoutValues.IsTenFoot,
-			}),
-
-			BGFrame = Roact.createElement(EntryFrame, {
-				sizeX = layoutValues.EntrySizeX,
-				sizeY = layoutValues.PlayerEntrySizeY,
-				isTeamFrame = false,
-				backgroundStyle = backgroundStyle,
-
-				onActivated = function()
-					if self.props.selectedPlayer == self.props.player and self.props.dropDownOpen then
-						self.props.closeDropDown()
-					else
-						self.props.openDropDown(self.props.player)
-					end
-				end,
-
-				onSelectionGained = function()
-					self:setState({
-						isHovered = true,
-					})
-				end,
-
-				onSelectionLost = function()
-					self:setState({
-						isHovered = false,
-					})
-				end,
-
-				onMouseEnter = function()
-					self:setState({
-						isHovered = true,
-					})
-				end,
-
-				onMouseLeave = function()
-					self:setState({
-						isHovered = false,
-					})
-				end,
-
-				[Roact.Ref] = self.props[Roact.Ref]
-			}, {
-				Layout = Roact.createElement("UIListLayout", {
-					SortOrder = Enum.SortOrder.LayoutOrder,
-					FillDirection = Enum.FillDirection.Horizontal,
-					VerticalAlignment = Enum.VerticalAlignment.Center,
-					Padding = UDim.new(0, layoutValues.PlayerEntryPadding)
-				}),
-
-				InitalPadding = Roact.createElement("UIPadding", {
-					PaddingLeft = UDim.new(0, layoutValues.InitalPlayerEntryPadding)
-				}),
-
-				PlayerIcon = Roact.createElement(PlayerIcon, {
-					player = self.props.player,
-					playerIconInfo = self.props.playerIconInfo,
-					playerRelationship = self.props.playerRelationship,
-					layoutOrder = 1,
-				}),
-
-				PlayerName = Roact.createElement(PlayerNameTag, {
-					player = self.props.player,
-					isTitleEntry = self.props.titlePlayerEntry,
-					isHovered = self.state.isHovered,
-					layoutOrder = 3,
-
-					textStyle = textStyle
-				}),
-			})
-		})
-
-		for i, gameStat in ipairs(self.props.gameStats) do
-			if i > layoutValues.MaxLeaderstats then
-				break
+		return withStyle(function(style)
+			local backgroundStyle = self:getBackgroundStyle(layoutValues, style)
+			local textStyle
+			local playerNameFont
+			if FFlagPlayerListDesignUpdate then
+				textStyle = self:getTextStyle(layoutValues, style)
+				playerNameFont = self:getPlayerNameFont(layoutValues, style)
+			else
+				textStyle = self:getTextStyle_deprecated(layoutValues)
 			end
-			playerEntryChildren[gameStat.name] = Roact.createElement(StatEntry, {
-				statName = gameStat.name,
-				statValue = self.props.playerStats[gameStat.name],
-				isTitleEntry = self.props.titlePlayerEntry,
-				isTeamEntry = false,
-				layoutOrder = i,
+			local overlayStyle = nil
+			if FFlagPlayerListDesignUpdate then
+				overlayStyle = self:getOverlayStyle(layoutValues, style)
+			end
 
-				backgroundStyle = backgroundStyle,
-				textStyle = textStyle,
+			local entrySizeX = layoutValues.EntrySizeX
+			if FFlagPlayerListDesignUpdate and self.props.overrideEntrySize then
+				entrySizeX = self.props.overrideEntrySize
+			end
+
+			local playerEntryChildren = {}
+
+			local padding = nil
+			if not FFlagPlayerListDesignUpdate or layoutValues.IsTenFoot then
+				padding = UDim.new(0, layoutValues.PlayerEntryPadding)
+			end
+			playerEntryChildren["Layout"] = Roact.createElement("UIListLayout", {
+				SortOrder = Enum.SortOrder.LayoutOrder,
+				FillDirection = Enum.FillDirection.Horizontal,
+				VerticalAlignment = Enum.VerticalAlignment.Center,
+				Padding = padding,
 			})
-		end
 
-		return Roact.createElement("Frame", {
-			LayoutOrder = self.props.layoutOrder,
-			Size = UDim2.new(
-				1,
-				layoutValues.EntryXOffset,
-				0,
-				layoutValues.PlayerEntrySizeY
-			),
-			BackgroundTransparency = 1,
-		}, playerEntryChildren)
+
+			local function onActivated()
+				if self.props.selectedPlayer == self.props.player and self.props.dropDownOpen then
+					self.props.closeDropDown()
+				else
+					self.props.openDropDown(self.props.player)
+				end
+				if FFlagPlayerListDesignUpdate then
+					coroutine.wrap(function()
+						-- Need to wait here as the state is updated before the props
+						-- Without the wait it briefly flashes to hover and then selected.
+						wait(0)
+						self:setState({
+							isPressed = false,
+						})
+					end)()
+				end
+			end
+
+			local function onSelectionGained()
+				self:setState({
+					isHovered = true,
+				})
+			end
+
+			local function onSelectionLost()
+				self:setState({
+					isHovered = false,
+				})
+			end
+
+			local function onMouseEnter()
+				self:setState({
+					isHovered = true,
+				})
+			end
+
+			local function onMouseLeave()
+				self:setState({
+					isHovered = false,
+					isPressed = false,
+				})
+			end
+
+			local function onMouseDown()
+				self:setState({
+					isPressed = true,
+				})
+			end
+
+			local doubleOverlay = nil
+			if FFlagPlayerListDesignUpdate then
+				doubleOverlay = self.state.isPressed
+			end
+
+			playerEntryChildren["NameFrame"] = Roact.createElement("Frame", {
+				LayoutOrder = 0,
+				Size = UDim2.new(0, entrySizeX, 0, layoutValues.PlayerEntrySizeY),
+				BackgroundTransparency = 1,
+			}, {
+				Shadow = Roact.createElement("ImageLabel", {
+					BackgroundTransparency = 1,
+					Image = layoutValues.ShadowImage,
+					Position = UDim2.new(0, -layoutValues.ShadowSize, 0, 0),
+					Size = UDim2.new(1, layoutValues.ShadowSize * 2, 1, layoutValues.ShadowSize),
+					ScaleType = Enum.ScaleType.Slice,
+					SliceCenter = layoutValues.ShadowSliceRect,
+					Visible = layoutValues.IsTenFoot,
+				}),
+
+				BGFrame = Roact.createElement(EntryFrame, {
+					sizeX = entrySizeX,
+					sizeY = layoutValues.PlayerEntrySizeY,
+					isTeamFrame = false,
+					backgroundStyle = backgroundStyle,
+					overlayStyle = overlayStyle,
+					doubleOverlay = doubleOverlay,
+
+					onActivated = onActivated,
+					onSelectionGained = onSelectionGained,
+					onSelectionLost = onSelectionLost,
+
+					onMouseEnter = onMouseEnter,
+					onMouseLeave = onMouseLeave,
+
+					onMouseDown = FFlagPlayerListDesignUpdate and onMouseDown or nil,
+
+					[Roact.Ref] = self.props[Roact.Ref]
+				}, {
+					Layout = Roact.createElement("UIListLayout", {
+						SortOrder = Enum.SortOrder.LayoutOrder,
+						FillDirection = Enum.FillDirection.Horizontal,
+						VerticalAlignment = Enum.VerticalAlignment.Center,
+						Padding = UDim.new(0, layoutValues.PlayerEntryPadding)
+					}),
+
+					InitalPadding = Roact.createElement("UIPadding", {
+						PaddingLeft = UDim.new(0, layoutValues.InitalPlayerEntryPadding)
+					}),
+
+					PlayerIcon = Roact.createElement(PlayerIcon, {
+						player = self.props.player,
+						playerIconInfo = self.props.playerIconInfo,
+						playerRelationship = self.props.playerRelationship,
+						layoutOrder = 1,
+					}),
+
+					PlayerName = Roact.createElement(PlayerNameTag, {
+						player = self.props.player,
+						isTitleEntry = self.props.titlePlayerEntry,
+						isHovered = self.state.isHovered,
+						layoutOrder = 3,
+
+						textStyle = textStyle,
+						textFont = playerNameFont,
+					}),
+				})
+			})
+
+			for i, gameStat in ipairs(self.props.gameStats) do
+				if i > layoutValues.MaxLeaderstats then
+					break
+				end
+				playerEntryChildren["GameStat_" ..gameStat.name] = Roact.createElement(StatEntry, {
+					statName = gameStat.name,
+					statValue = self.props.playerStats[gameStat.name],
+					isTitleEntry = self.props.titlePlayerEntry,
+					isTeamEntry = false,
+					layoutOrder = i,
+
+					backgroundStyle = backgroundStyle,
+					overlayStyle = overlayStyle,
+					doubleOverlay = doubleOverlay,
+					textStyle = textStyle,
+
+					onActivated = FFlagPlayerListDesignUpdate and onActivated or nil,
+					onSelectionGained = FFlagPlayerListDesignUpdate and onSelectionGained or nil,
+					onSelectionLost = FFlagPlayerListDesignUpdate and onSelectionLost or nil,
+
+					onMouseEnter = FFlagPlayerListDesignUpdate and onMouseEnter or nil,
+					onMouseLeave = FFlagPlayerListDesignUpdate and onMouseLeave or nil,
+
+					onMouseDown = FFlagPlayerListDesignUpdate and onMouseDown or nil,
+				})
+			end
+
+			if FFlagPlayerListDesignUpdate and not layoutValues.IsTenFoot then
+				playerEntryChildren["BackgroundExtender"] = Roact.createElement(CellExtender, {
+					layoutOrder = 100,
+					size = UDim2.new(0, layoutValues.ExtraContainerPadding, 1, 0),
+					backgroundStyle = backgroundStyle,
+					overlayStyle = overlayStyle,
+					doubleOverlay = doubleOverlay,
+				})
+			end
+
+			if FFlagPlayerListDesignUpdate then
+				return Roact.createElement("Frame", {
+					LayoutOrder = self.props.layoutOrder,
+					Size = UDim2.new(
+						1,
+						layoutValues.EntryXOffset,
+						0,
+						layoutValues.PlayerEntrySizeY
+					),
+					BackgroundTransparency = 1,
+				}, {
+					ChildrenFrame = Roact.createElement("Frame", {
+						Size = UDim2.new(1, 0, 1, 0),
+						BackgroundTransparency = 1,
+					}, playerEntryChildren),
+
+					Divider = not layoutValues.IsTenFoot and self.props.hasDivider and Roact.createElement("Frame", {
+						Size = UDim2.new(1, 0, 0, 1),
+						Position = UDim2.new(0, 0, 1, 0),
+						AnchorPoint = Vector2.new(0, 1),
+						BackgroundTransparency = style.Theme.Divider.Transparency,
+						BackgroundColor3 = style.Theme.Divider.Color,
+						BorderSizePixel = 0,
+					}),
+				})
+			else
+				return Roact.createElement("Frame", {
+					LayoutOrder = self.props.layoutOrder,
+					Size = UDim2.new(
+						1,
+						layoutValues.EntryXOffset,
+						0,
+						layoutValues.PlayerEntrySizeY
+					),
+					BackgroundTransparency = 1,
+				}, playerEntryChildren)
+			end
+		end)
 	end)
 end
 

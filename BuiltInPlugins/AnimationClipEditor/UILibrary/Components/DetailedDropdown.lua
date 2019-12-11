@@ -34,6 +34,7 @@
 		int ScrollBarPadding = The padding which appears on either side of the scrollbar.
 		int ScrollBarThickness = The horizontal width of the scrollbar.
 ]]
+local FFlagStudioFixUILibDropdownStyle = game:GetFastFlag("StudioFixUILibDropdownStyle")
 
 -- Defaults
 local TEXT_PADDING = 10
@@ -185,6 +186,7 @@ function DetailedDropdown:render()
 		end
 
 		local items = props.Items or {}
+		local selectedItem = props.SelectedItem
 		local size = props.Size
 		local position = props.Position
         local displayTextSize = props.DisplayTextSize
@@ -224,7 +226,12 @@ function DetailedDropdown:render()
 
 		maxWidth = math.min(maxItemWidth, maxWidth)
 
-		local buttonTheme = (showDropdown or isButtonHovered) and dropdownTheme.selected
+		local hoverTheme = dropdownTheme.selected
+		if FFlagStudioFixUILibDropdownStyle then
+			hoverTheme = dropdownTheme.hovered
+		end
+
+		local buttonTheme = (showDropdown or isButtonHovered) and hoverTheme
 			or dropdownTheme
 
 		return Roact.createElement("ImageButton", {
@@ -283,6 +290,7 @@ function DetailedDropdown:render()
 				Items = items,
 				RenderItem = function(item, index, activated)
 					local key = item.Key
+					local selected = key == selectedItem
                     local displayText = item.Display
                     local descriptionText = item.Description
 					local isHovered = dropdownItem == key
@@ -295,12 +303,17 @@ function DetailedDropdown:render()
             
             		local descriptionTextBound = TextService:GetTextSize(descriptionText,
 						descriptionTextSize, dropdownTheme.font, Vector2.new(maxWidth, math.huge))
-				
+
+					local itemColor = dropdownTheme.backgroundColor
+					if FFlagStudioFixUILibDropdownStyle and selected then
+						itemColor = dropdownTheme.selected.backgroundColor
+					elseif isHovered then
+						itemColor = dropdownTheme.hovered.backgroundColor
+					end
 
 					return Roact.createElement("ImageButton", {
 							Size = UDim2.new(0, maxWidth, 0, displayTextBound.Y + descriptionTextBound.Y + textPadding * 2),
-							BackgroundColor3 = isHovered and dropdownTheme.hovered.backgroundColor
-								or dropdownTheme.backgroundColor,
+							BackgroundColor3 = itemColor,
 							BorderSizePixel = 0,
 							LayoutOrder = index,
 							AutoButtonColor = false,

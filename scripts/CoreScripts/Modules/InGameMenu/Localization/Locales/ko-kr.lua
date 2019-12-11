@@ -118,4 +118,5 @@ return{
 	["CoreScripts.InGameMenu.GameSettings.PlaceVersion"] = [[장소 버전: {PLACE_VERSION}]],
 	["CoreScripts.InGameMenu.GameSettings.PlaceVersionWithLatest"] = [[장소 버전: {PLACE_VERSION} (최신: {LATEST_PLACE_VERSION})]],
 	["CoreScripts.InGameMenu.Label.MicroProfiler"] = [[마이크로 프로파일러]],
+	["CoreScripts.InGameMenu.InviteFriends.Loading"] = [[불러오는 중!]],
 }

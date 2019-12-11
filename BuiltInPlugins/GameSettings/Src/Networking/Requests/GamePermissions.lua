@@ -2,6 +2,8 @@
 	Loads all user, group, and roleset permissions for the universe
 ]]
 
+local FFlagStudioGameSettingsRestrictPermissions = game:GetFastFlag("StudioGameSettingsRestrictPermissions")
+
 local HttpService = game:GetService("HttpService")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -36,7 +38,11 @@ local function getTextForAction(action)
 	elseif action == PermissionsConstants.EditKey then
 		return "Edit"
 	elseif action == PermissionsConstants.AdminKey then
-		return "Admin"
+		if FFlagStudioGameSettingsRestrictPermissions then
+			return "Edit"
+		else
+			return "Admin"
+		end
 	elseif action == PermissionsConstants.NoAccessKey then
 		return "No Access"
 	else

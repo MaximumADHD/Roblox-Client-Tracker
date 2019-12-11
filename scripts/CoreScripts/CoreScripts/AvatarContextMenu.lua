@@ -8,7 +8,7 @@
 local DEBUG_MODE = game:GetService("RunService"):IsStudio() -- use this to run as a guest/use in games that don't have AvatarContextMenu. FOR TESTING ONLY!
 local isAvatarContextMenuEnabled = false
 
-local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList")
+local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList2")
 
 -- CONSTANTS
 local MAX_CONTEXT_MENU_DISTANCE = 100

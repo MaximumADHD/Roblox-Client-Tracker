@@ -97,4 +97,9 @@ function PageInfoHelper.isDeveloperCategory(pageInfo)
 	return AssetConfigConstants.developCategoryType[currentCategory]
 end
 
+function PageInfoHelper.isPackagesCategory(pageInfo)
+	local currentCategory = PageInfoHelper.getCategoryForPageInfo(pageInfo)
+	return AssetConfigConstants.packagesCategoryType[currentCategory]
+end
+
 return PageInfoHelper

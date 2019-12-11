@@ -4,6 +4,7 @@
 	Props:
 	onDropDownSelect, function, will return current selected item if selected.
 ]]
+local FFlagStudioFixUILibDropdownStyle = game:GetFastFlag("StudioFixUILibDropdownStyle")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -102,8 +103,8 @@ function ConfigAccess:render()
 				ShowRibbon = publishAssetTheme.showDropdownRibbon,
 				ScrollBarPadding = Constants.SCROLLBAR_PADDING,
 				Items = self.dropdownContent,
-				ListWidth = DROP_DOWN_WIDTH,
 				OnItemClicked = onDropDownSelect,
+				ListWidth = FFlagStudioFixUILibDropdownStyle and nil or DROP_DOWN_WIDTH,
 				LayoutOrder = 2,
 			}),
 		})

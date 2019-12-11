@@ -6,6 +6,7 @@ return function()
 	local Roact = require(CorePackages.Roact)
 	local RoactRodux = require(CorePackages.RoactRodux)
 	local Rodux = require(CorePackages.Rodux)
+	local UIBlox = require(CorePackages.UIBlox)
 
 	local PlayerList = script.Parent.Parent
 	local Reducers = PlayerList.Reducers
@@ -40,6 +41,14 @@ return function()
 
 	local PlayerListApp = require(script.Parent.PlayerListApp)
 
+	local AppDarkTheme = require(CorePackages.AppTempCommon.LuaApp.Style.Themes.DarkTheme)
+	local AppFont = require(CorePackages.AppTempCommon.LuaApp.Style.Fonts.Gotham)
+
+	local appStyle = {
+		Theme = AppDarkTheme,
+		Font = AppFont,
+	}
+
 	it("should create and destroy without errors", function()
 		local element = Roact.createElement(RoactRodux.StoreProvider, {
 			store = Rodux.Store.new(Reducer)
@@ -47,7 +56,11 @@ return function()
 			LayoutValuesProvider = Roact.createElement(LayoutValuesProvider, {
 				layoutValues = CreateLayoutValues(false, false)
 			}, {
-				PlayerListApp = Roact.createElement(PlayerListApp),
+				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
+					style = appStyle,
+				}, {
+					PlayerListApp = Roact.createElement(PlayerListApp),
+				})
 			})
 		})
 
@@ -65,7 +78,11 @@ return function()
 			LayoutValuesProvider = Roact.createElement(LayoutValuesProvider, {
 				layoutValues = CreateLayoutValues(true, false)
 			}, {
-				PlayerListApp = Roact.createElement(PlayerListApp),
+				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
+					style = appStyle,
+				}, {
+					PlayerListApp = Roact.createElement(PlayerListApp),
+				})
 			})
 		})
 

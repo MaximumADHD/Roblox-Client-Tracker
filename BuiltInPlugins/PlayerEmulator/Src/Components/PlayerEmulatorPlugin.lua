@@ -1,45 +1,59 @@
+local RunService = game:GetService("RunService")
+
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local ContextServices = require(Plugin.Packages.Framework.ContextServices)
 local StudioUI = require(Plugin.Packages.Framework.StudioUI)
-local PluginButton = StudioUI.PluginButton
 local PluginToolbar = StudioUI.PluginToolbar
 local DockWidget = StudioUI.DockWidget
 
 local MainView = require(Plugin.Src.Components.MainView)
 
 local globals = require(Plugin.Src.Util.CreatePluginGlobals)
+local Constants = require(Plugin.Src.Util.Constants)
 
 local PlayerEmulatorPlugin = Roact.PureComponent:extend("PlayerEmulatorPlugin")
 
-function PlayerEmulatorPlugin:renderButton(toolbar, icon)
-	local enabled = self.state.enabled
+function PlayerEmulatorPlugin:updateToolbarButtonActiveState()
+	local active = self.state.active
+	self.button:SetActive(active)
+end
 
-	return {
-		Button = Roact.createElement(PluginButton, {
-			Toolbar = toolbar,
-			Active = enabled,
-			Title = "luaPlayerEmulatorButton",
-			Icon = icon,
-			OnClick = self.toggleEnabled,
-		}),
-	}
+function PlayerEmulatorPlugin:renderButton(toolbar, icon, enabled)
+	if not self.button then
+		self.button = toolbar:CreateButton("luaPlayerEmulatorButton", "", icon)
+		self.button.Click:Connect(self.toggleActive)
+	end
+	self.button.Enabled = enabled
+end
+
+function PlayerEmulatorPlugin:initPluginWidgetStatus()
+	local plugin = self.props.plugin
+	local prevActiveState = plugin:GetSetting(Constants.PLUGIN_WIDGET_STATE)
+	if prevActiveState ~= self.state.active then
+		self:setState({
+			active = prevActiveState,
+		})
+	end
 end
 
 function PlayerEmulatorPlugin:init()
 	self.state = {
-		enabled = true,
+		active = false,
 	}
 
-	self.toggleEnabled = function()
+	self.toggleActive = function()
+		local plugin = self.props.plugin
+		local active = not self.state.active
 		self:setState({
-			enabled = not self.state.enabled,
+			active = active,
 		})
+		plugin:SetSetting(Constants.PLUGIN_WIDGET_STATE, active)
 	end
 
 	self.onClose = function()
 		self:setState({
-			enabled = false,
+			active = false,
 		})
 	end
 
@@ -50,13 +64,24 @@ function PlayerEmulatorPlugin:init()
 	end
 end
 
+function PlayerEmulatorPlugin:didMount()
+	self:initPluginWidgetStatus()
+	self:updateToolbarButtonActiveState()
+end
+
+function PlayerEmulatorPlugin:didUpdate()
+	self:updateToolbarButtonActiveState()
+end
+
 function PlayerEmulatorPlugin:render()
 	local state = self.state
 	local props = self.props
 
-	local enabled = state.enabled
+	local active = state.active
 	local plugin = props.plugin
 	local theme = globals.theme:get("Plugin")
+
+	local enabled = RunService:IsEdit()
 
 	return ContextServices.provide({
 		ContextServices.Plugin.new(plugin),
@@ -64,11 +89,11 @@ function PlayerEmulatorPlugin:render()
 		Toolbar = Roact.createElement(PluginToolbar, {
 			Title = "luaPlayerEmulatorToolbar",
 			RenderButtons = function(toolbar)
-				return self:renderButton(toolbar, theme.TOOLBAR_ICON_PATH)
+				return self:renderButton(toolbar, theme.TOOLBAR_ICON_PATH, enabled)
 			end,
 		}),
-		MainWidget = Roact.createElement(DockWidget, {
-			Enabled = enabled,
+		MainWidget = enabled and Roact.createElement(DockWidget, {
+			Enabled = active,
 			Title = globals.localization:getText("Meta", "PluginTitle"),
 			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 			InitialDockState = Enum.InitialDockState.Left,
@@ -77,7 +102,7 @@ function PlayerEmulatorPlugin:render()
 			OnClose = self.onClose,
 			ShouldRestore = false,
 		}, {
-			MainProvider = enabled and ContextServices.provide({
+			MainProvider = active and ContextServices.provide({
 				globals.localization,
 				globals.theme,
 				globals.uiLibraryWrapper,

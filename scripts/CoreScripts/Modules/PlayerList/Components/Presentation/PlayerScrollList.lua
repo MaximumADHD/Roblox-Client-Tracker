@@ -5,6 +5,9 @@ local UserInputService = game:GetService("UserInputService")
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
 local Cryo = require(CorePackages.Cryo)
+local UIBlox = require(CorePackages.UIBlox)
+
+local withStyle = UIBlox.Style.withStyle
 
 local Components = script.Parent.Parent
 local Connection = Components.Connection
@@ -14,11 +17,13 @@ local WithLayoutValues = LayoutValues.WithLayoutValues
 local PlayerEntry = require(script.Parent.PlayerEntry)
 local TeamEntry = require(script.Parent.TeamEntry)
 local PlayerDropDown = require(script.Parent.PlayerDropDown)
+local TitleBar = require(script.Parent.TitleBar)
 
 local FAKE_NEUTRAL_TEAM = Instance.new("Team")
 
 local FFlagPlayerListDontSortTeamsByScore = game:DefineFastFlag("PlayerListDontSortTeamsByScore", false)
 local FFlagPlayerListDontSinkTouchUnnecessarily = game:DefineFastFlag("PlayerListDontSinkTouchUnnecessarily", false)
+local FFlagPlayerListDesignUpdate = settings():GetFFlag("PlayerListDesignUpdate")
 
 local PlayerScrollList = Roact.Component:extend("PlayerScrollList")
 
@@ -146,6 +151,7 @@ function PlayerScrollList:init()
 
 	self.state = {
 		containerSizeY = 100,
+		scrollingFramePositionY = 0,
 	}
 end
 
@@ -164,140 +170,349 @@ end
 
 function PlayerScrollList:render()
 	return WithLayoutValues(function(layoutValues)
-		local entryPadding = layoutValues.EntryPadding
-		local teamEntrySizeY = layoutValues.TeamEntrySizeY
-		local playerEntrySizeY = layoutValues.PlayerEntrySizeY
+		return withStyle(function(style)
+			local entryPadding = layoutValues.EntryPadding
+			local teamEntrySizeY = layoutValues.TeamEntrySizeY
+			local playerEntrySizeY = layoutValues.PlayerEntrySizeY
 
-		local childElements = {}
+			local childElements = {}
 
-		childElements["Layout"] = Roact.createElement("UIListLayout", {
-			SortOrder = Enum.SortOrder.LayoutOrder,
-			FillDirection = Enum.FillDirection.Vertical,
-			HorizontalAlignment = Enum.HorizontalAlignment.Left,
-			Padding = UDim.new(0, entryPadding)
-		})
+			childElements["Layout"] = Roact.createElement("UIListLayout", {
+				SortOrder = Enum.SortOrder.LayoutOrder,
+				FillDirection = Enum.FillDirection.Vertical,
+				HorizontalAlignment = Enum.HorizontalAlignment.Left,
+				Padding = UDim.new(0, entryPadding)
+			})
 
-		local canvasSizeY = 0
-		local dropDownPosition = 0
+			local canvasSizeY = 0
+			local dropDownPosition = 0
 
-		local primaryStat = self.props.gameStats[1] and self.props.gameStats[1].name or nil
-		local sortedPlayers = buildSortedPlayers(primaryStat, self.props.players, self.props.playerStats)
-		if not Cryo.isEmpty(self.props.teams) then
-			local teamScores = buildTeamScores(
-				self.props.gameStats, self.props.teams, self.props.players, self.props.playerStats
-			)
-			local showNeutralTeam = shouldShowNeutralTeam(self.props.players)
-			local sortedTeams = buildSortedTeams(teamScores, primaryStat, self.props.teams, showNeutralTeam)
+			local primaryStat = self.props.gameStats[1] and self.props.gameStats[1].name or nil
+			local sortedPlayers = buildSortedPlayers(primaryStat, self.props.players, self.props.playerStats)
+			if not Cryo.isEmpty(self.props.teams) then
+				local teamScores = buildTeamScores(
+					self.props.gameStats, self.props.teams, self.props.players, self.props.playerStats
+				)
+				local showNeutralTeam = shouldShowNeutralTeam(self.props.players)
+				local sortedTeams = buildSortedTeams(teamScores, primaryStat, self.props.teams, showNeutralTeam)
 
-			local addedEntriesCount = 0
-			local firstPlayer = true
-			for i, sortedTeam in ipairs(sortedTeams) do
-				childElements[i] = Roact.createElement(TeamEntry, {
-					teamName = self.props.teamNames[sortedTeam.team],
-					teamColor = self.props.teamColors[sortedTeam.team],
-					layoutOrder = addedEntriesCount + 1,
-					leaderstats = teamScores[sortedTeam.team],
-					gameStats = self.props.gameStats,
-				})
-				addedEntriesCount = addedEntriesCount + 1
-				canvasSizeY = canvasSizeY + teamEntrySizeY + entryPadding
-
-				for _, player in ipairs(sortedPlayers) do
-					local userId = player.UserId
-					local inTeam = player.TeamColor == sortedTeam.team.TeamColor
-					if sortedTeam.team == FAKE_NEUTRAL_TEAM then
-						inTeam = self.props.playerTeam[userId] == nil
+				if FFlagPlayerListDesignUpdate then
+					local teamColorToPlayerMap = {}
+					for _, player in ipairs(sortedPlayers) do
+						if player.TeamColor and self.props.playerTeam[player.UserId] ~= nil then
+							if teamColorToPlayerMap[player.TeamColor.Number] then
+								table.insert(teamColorToPlayerMap[player.TeamColor.Number], player)
+							else
+								teamColorToPlayerMap[player.TeamColor.Number] = {player}
+							end
+						end
 					end
-					if inTeam then
-						childElements[player.Name] = Roact.createElement(PlayerEntry, {
-							player = player,
-							playerStats = self.props.playerStats[userId],
-							playerIconInfo = self.props.playerIconInfo[userId],
-							playerRelationship = self.props.playerRelationship[userId],
+
+					--hasDivider = not (addedPlayersCount == #sortedPlayers)
+					local addedEntriesCount = 0
+					local firstPlayer = true
+					for i, sortedTeam in ipairs(sortedTeams) do
+						childElements[i] = Roact.createElement(TeamEntry, {
+							teamName = self.props.teamNames[sortedTeam.team],
+							teamColor = self.props.teamColors[sortedTeam.team],
 							layoutOrder = addedEntriesCount + 1,
-							titlePlayerEntry = false,
+							leaderstats = teamScores[sortedTeam.team],
 							gameStats = self.props.gameStats,
-
-							[Roact.Ref] = firstPlayer and self.firstPlayerRef or nil,
+							overrideEntrySize = self.props.overrideEntrySize,
 						})
-						firstPlayer = false
+						addedEntriesCount = addedEntriesCount + 1
+						canvasSizeY = canvasSizeY + teamEntrySizeY + entryPadding
 
-						if player == self.props.dropDownPlayer then
-							dropDownPosition = canvasSizeY
+						local teamPlayers
+						if sortedTeam.team == FAKE_NEUTRAL_TEAM then
+							teamPlayers = {}
+							for _, player in ipairs(sortedPlayers) do
+								if self.props.playerTeam[player.UserId] == nil then
+									table.insert(teamPlayers, player)
+								end
+							end
+						else
+							teamPlayers = teamColorToPlayerMap[sortedTeam.team.TeamColor.Number] or {}
 						end
 
-						canvasSizeY = canvasSizeY + playerEntrySizeY + entryPadding
+						for j, player in ipairs(teamPlayers) do
+							local userId = player.UserId
+							childElements[player.Name] = Roact.createElement(PlayerEntry, {
+								player = player,
+								playerStats = self.props.playerStats[userId],
+								playerIconInfo = self.props.playerIconInfo[userId],
+								playerRelationship = self.props.playerRelationship[userId],
+								layoutOrder = addedEntriesCount + 1,
+								titlePlayerEntry = false,
+								gameStats = self.props.gameStats,
+								hasDivider = not (j == #teamPlayers),
+								overrideEntrySize = self.props.overrideEntrySize,
+
+								[Roact.Ref] = firstPlayer and self.firstPlayerRef or nil,
+							})
+							firstPlayer = false
+
+							if player == self.props.dropDownPlayer then
+								dropDownPosition = canvasSizeY
+							end
+
+							canvasSizeY = canvasSizeY + playerEntrySizeY + entryPadding
+							addedEntriesCount = addedEntriesCount + 1
+						end
+					end
+				else
+					local addedEntriesCount = 0
+					local firstPlayer = true
+					for i, sortedTeam in ipairs(sortedTeams) do
+						childElements[i] = Roact.createElement(TeamEntry, {
+							teamName = self.props.teamNames[sortedTeam.team],
+							teamColor = self.props.teamColors[sortedTeam.team],
+							layoutOrder = addedEntriesCount + 1,
+							leaderstats = teamScores[sortedTeam.team],
+							gameStats = self.props.gameStats,
+							overrideEntrySize = self.props.overrideEntrySize,
+						})
 						addedEntriesCount = addedEntriesCount + 1
+						canvasSizeY = canvasSizeY + teamEntrySizeY + entryPadding
+
+						for _, player in ipairs(sortedPlayers) do
+							local userId = player.UserId
+							local inTeam = player.TeamColor == sortedTeam.team.TeamColor
+							if sortedTeam.team == FAKE_NEUTRAL_TEAM then
+								inTeam = self.props.playerTeam[userId] == nil
+							end
+							if inTeam then
+								childElements[player.Name] = Roact.createElement(PlayerEntry, {
+									player = player,
+									playerStats = self.props.playerStats[userId],
+									playerIconInfo = self.props.playerIconInfo[userId],
+									playerRelationship = self.props.playerRelationship[userId],
+									layoutOrder = addedEntriesCount + 1,
+									titlePlayerEntry = false,
+									gameStats = self.props.gameStats,
+									overrideEntrySize = self.props.overrideEntrySize,
+
+									[Roact.Ref] = firstPlayer and self.firstPlayerRef or nil,
+								})
+								firstPlayer = false
+
+								if player == self.props.dropDownPlayer then
+									dropDownPosition = canvasSizeY
+								end
+
+								canvasSizeY = canvasSizeY + playerEntrySizeY + entryPadding
+								addedEntriesCount = addedEntriesCount + 1
+							end
+						end
 					end
 				end
+			else
+				for i, player in ipairs(sortedPlayers) do
+					childElements[player.Name] = Roact.createElement(PlayerEntry, {
+						player = player,
+						playerStats = self.props.playerStats[player.UserId],
+						playerIconInfo = self.props.playerIconInfo[player.UserId],
+						playerRelationship = self.props.playerRelationship[player.UserId],
+						layoutOrder = i,
+						titlePlayerEntry = false,
+						gameStats = self.props.gameStats,
+						hasDivider = i ~= #sortedPlayers,
+						overrideEntrySize = self.props.overrideEntrySize,
+
+						[Roact.Ref] = i == 1 and self.firstPlayerRef or nil,
+					})
+
+					if player == self.props.dropDownPlayer then
+						dropDownPosition = canvasSizeY
+					end
+
+					canvasSizeY = canvasSizeY + playerEntrySizeY + entryPadding
+				end
 			end
-		else
-			for i, player in ipairs(sortedPlayers) do
-				childElements[player.Name] = Roact.createElement(PlayerEntry, {
-					player = player,
-					playerStats = self.props.playerStats[player.UserId],
-					playerIconInfo = self.props.playerIconInfo[player.UserId],
-					playerRelationship = self.props.playerRelationship[player.UserId],
-					layoutOrder = i,
-					titlePlayerEntry = false,
-					gameStats = self.props.gameStats,
 
-					[Roact.Ref] = i == 1 and self.firstPlayerRef or nil,
-				})
+			local absDropDownPosition, canvasPositionOverride = self:calculateDropDownAbsPosition(
+				dropDownPosition, playerEntrySizeY)
 
-				if player == self.props.dropDownPlayer then
-					dropDownPosition = canvasSizeY
+			if FFlagPlayerListDesignUpdate then
+				if layoutValues.IsTenFoot then
+					return Roact.createElement("Frame", {
+						Position = layoutValues.PlayerScrollListPosition,
+						Size = layoutValues.PlayerScrollListSize,
+						BackgroundTransparency = 1,
+					}, {
+						ScollingFrame = Roact.createElement("ScrollingFrame", {
+							Position = UDim2.new(0, 0, 0, 0),
+							Size = UDim2.new(1, 0, 1, 0),
+							CanvasSize = UDim2.new(0, 0, 0, canvasSizeY),
+							BackgroundTransparency = 1,
+							ScrollBarImageColor3 = layoutValues.ScrollImageColor,
+							ScrollBarImageTransparency = layoutValues.ScrollImageTransparency,
+							BorderSizePixel = 0,
+							ScrollBarThickness = 6,
+							ScrollingEnabled = not self.props.dropDownVisible,
+							Selectable = false,
+							CanvasPosition = self.props.dropDownVisible and canvasPositionOverride or self.lastCanvasPosition,
+
+							[Roact.Change.CanvasPosition] = function()
+								if self.scrollingFrameRef.current then
+									self.lastCanvasPosition = self.scrollingFrameRef.current.CanvasPosition
+								end
+							end,
+
+							[Roact.Ref] = self.scrollingFrameRef,
+						}, childElements),
+					})
+				else
+					local scrollingFrameMaxSizeY = self.state.containerSizeY - 8
+					if #self.props.gameStats > 0 then
+						scrollingFrameMaxSizeY = scrollingFrameMaxSizeY - layoutValues.TitleBarSizeY
+					end
+
+					return Roact.createElement("Frame", {
+						Position = layoutValues.PlayerScrollListPosition,
+						Size = layoutValues.PlayerScrollListSize,
+						BackgroundTransparency = 1,
+
+						[Roact.Change.AbsoluteSize] = function(rbx)
+							self:setState({
+								containerSizeY = rbx.AbsoluteSize.Y,
+							})
+						end,
+					}, {
+						UIListLayout = Roact.createElement("UIListLayout", {
+							SortOrder = Enum.SortOrder.LayoutOrder,
+							FillDirection = Enum.FillDirection.Vertical,
+							VerticalAlignment = Enum.VerticalAlignment.Top,
+							HorizontalAlignment = Enum.HorizontalAlignment.Left,
+						}),
+
+						TopRoundedRect = Roact.createElement("ImageLabel", {
+							LayoutOrder = 1,
+							BackgroundTransparency = 1,
+							Image = "rbxasset://textures/ui/TopRoundedRect8px.png",
+							ImageColor3 = style.Theme.BackgroundContrast.Color,
+							ImageTransparency = layoutValues.OverrideBackgroundTransparency,
+							ScaleType = Enum.ScaleType.Slice,
+							SliceCenter = Rect.new(8, 8, 24, 16),
+							SliceScale = 0.5,
+							Size = UDim2.new(1, 0, 0, 4),
+						}),
+
+						TitleBar = #self.props.gameStats > 0 and Roact.createElement(TitleBar, {
+							LayoutOrder = 2,
+							gameStats = self.props.gameStats,
+							Size = UDim2.new(1, 0, 0, layoutValues.TitleBarSizeY),
+							overrideEntrySize = self.props.overrideEntrySize,
+						}),
+
+						ScrollingFrameContainer = Roact.createElement("Frame", {
+							LayoutOrder = 3,
+							Position = UDim2.new(0, 0, 0, 0),
+							Size = UDim2.new(1, 0, 0, math.min(canvasSizeY, scrollingFrameMaxSizeY)),
+							BackgroundColor3 = style.Theme.BackgroundContrast.Color,
+							BackgroundTransparency = layoutValues.OverrideBackgroundTransparency,
+							BorderSizePixel = 0,
+
+							[Roact.Change.AbsolutePosition] = function(rbx)
+								self:setState({
+									scrollingFramePositionY = rbx.AbsolutePosition.Y,
+								})
+							end,
+						}, {
+							PlayerDropDown = Roact.createElement(PlayerDropDown, {
+								positionY = absDropDownPosition,
+								minPositionBoundY = -self.state.scrollingFramePositionY + layoutValues.DropDownScreenSidePadding,
+								maxPositionBoundY = (self.props.screenSizeY -
+									self.state.scrollingFramePositionY - layoutValues.DropDownScreenSidePadding),
+							}),
+
+							ScrollingFrameClippingFrame = Roact.createElement("Frame", {
+								Size = UDim2.new(1, 0, 1, 0),
+								BackgroundTransparency = 1,
+								ClipsDescendants = true,
+							}, {
+								ScollingFrame = Roact.createElement("ScrollingFrame", {
+									Size = UDim2.new(1, -layoutValues.ScrollBarOffset, 1, 0),
+									CanvasSize = UDim2.new(0, 0, 0, canvasSizeY),
+									BackgroundTransparency = 1,
+									ScrollBarImageColor3 = layoutValues.ScrollImageColor,
+									ScrollBarImageTransparency = layoutValues.ScrollImageTransparency,
+									BorderSizePixel = 0,
+									ScrollBarThickness = layoutValues.ScrollBarSize,
+									VerticalScrollBarInset = Enum.ScrollBarInset.Always,
+									ClipsDescendants = false,
+									ScrollingEnabled = not self.props.dropDownVisible,
+									Selectable = false,
+									CanvasPosition = self.props.dropDownVisible and canvasPositionOverride or self.lastCanvasPosition,
+
+									[Roact.Change.CanvasPosition] = function()
+										if self.scrollingFrameRef.current then
+											self.lastCanvasPosition = self.scrollingFrameRef.current.CanvasPosition
+										end
+									end,
+
+									[Roact.Ref] = self.scrollingFrameRef,
+								}, {
+									OffsetUndoFrame = Roact.createElement("Frame", {
+										Size = UDim2.new(1, layoutValues.ScrollBarOffset + layoutValues.ScrollBarSize, 0, canvasSizeY),
+										BackgroundTransparency = 1,
+									}, childElements)
+								}),
+							})
+						}),
+
+						BottomRoundedRect = Roact.createElement("ImageLabel", {
+							LayoutOrder = 4,
+							BackgroundTransparency = 1,
+							Image = "rbxasset://textures/ui/BottomRoundedRect8px.png",
+							ImageColor3 = style.Theme.BackgroundContrast.Color,
+							ImageTransparency = layoutValues.OverrideBackgroundTransparency,
+							ScaleType = Enum.ScaleType.Slice,
+							SliceCenter = Rect.new(8, 8, 24, 16),
+							SliceScale = 0.5,
+							Size = UDim2.new(1, 0, 0, 4),
+						}),
+					})
+				end
+			else
+				local scrollingFrameSize = UDim2.new(1, 0, 1, 0)
+				if FFlagPlayerListDontSinkTouchUnnecessarily then
+					scrollingFrameSize = UDim2.new(1, 0, 0, math.min(canvasSizeY, self.state.containerSizeY))
 				end
 
-				canvasSizeY = canvasSizeY + playerEntrySizeY + entryPadding
-			end
-		end
+				return Roact.createElement("Frame", {
+					Position = layoutValues.PlayerScrollListPosition,
+					Size = layoutValues.PlayerScrollListSize,
+					BackgroundTransparency = 1,
+				}, {
+					PlayerDropDown = Roact.createElement(PlayerDropDown, {
+						positionY = absDropDownPosition,
+					}),
 
-		local absDropDownPosition, canvasPositionOverride = self:calculateDropDownAbsPosition(
-			dropDownPosition, playerEntrySizeY)
+					ScollingFrame = Roact.createElement("ScrollingFrame", {
+						Position = UDim2.new(0, 0, 0, 0),
+						Size = scrollingFrameSize,
+						CanvasSize = UDim2.new(0, 0, 0, canvasSizeY),
+						BackgroundTransparency = 1,
+						ScrollBarImageColor3 = layoutValues.ScrollImageColor,
+						ScrollBarImageTransparency = layoutValues.ScrollImageTransparency,
+						BorderSizePixel = 0,
+						ScrollBarThickness = 6,
+						ScrollingEnabled = not self.props.dropDownVisible,
+						Selectable = false,
+						CanvasPosition = self.props.dropDownVisible and canvasPositionOverride or self.lastCanvasPosition,
 
-		local scrollingFrameSize = UDim2.new(1, 0, 1, 0)
-		if FFlagPlayerListDontSinkTouchUnnecessarily then
-			scrollingFrameSize = UDim2.new(1, 0, 0, math.min(canvasSizeY, self.state.containerSizeY))
-		end
+						[Roact.Change.CanvasPosition] = function()
+							if self.scrollingFrameRef.current then
+								self.lastCanvasPosition = self.scrollingFrameRef.current.CanvasPosition
+							end
+						end,
 
-		return Roact.createElement("Frame", {
-			Position = layoutValues.PlayerScrollListPosition,
-			Size = layoutValues.PlayerScrollListSize,
-			BackgroundTransparency = 1,
-
-			[Roact.Change.AbsoluteSize] = FFlagPlayerListDontSinkTouchUnnecessarily and function(rbx)
-				self:setState({
-					containerSizeY = rbx.AbsoluteSize.Y,
+						[Roact.Ref] = self.scrollingFrameRef,
+					}, childElements),
 				})
-			end or nil,
-		}, {
-			PlayerDropDown = Roact.createElement(PlayerDropDown, {
-				positionY = absDropDownPosition,
-			}),
-
-			ScollingFrame = Roact.createElement("ScrollingFrame", {
-				Position = UDim2.new(0, 0, 0, 0),
-				Size = scrollingFrameSize,
-				CanvasSize = UDim2.new(0, 0, 0, canvasSizeY),
-				BackgroundTransparency = 1,
-				ScrollBarImageColor3 = layoutValues.ScrollImageColor,
-				ScrollBarImageTransparency = layoutValues.ScrollImageTransparency,
-				BorderSizePixel = 0,
-				ScrollBarThickness = 6,
-				ScrollingEnabled = not self.props.dropDownVisible,
-				Selectable = false,
-				CanvasPosition = self.props.dropDownVisible and canvasPositionOverride or self.lastCanvasPosition,
-
-				[Roact.Change.CanvasPosition] = function()
-					if self.scrollingFrameRef.current then
-						self.lastCanvasPosition = self.scrollingFrameRef.current.CanvasPosition
-					end
-				end,
-
-				[Roact.Ref] = self.scrollingFrameRef,
-			}, childElements),
-		})
+			end
+		end)
 	end)
 end
 

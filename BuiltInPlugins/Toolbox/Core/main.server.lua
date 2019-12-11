@@ -17,6 +17,7 @@ game:DefineFastFlag("ShowAssetConfigReasons", false)
 game:DefineFastFlag("DebugAssetConfigNetworkError", false)
 game:DefineFastFlag("FixAssetConfigIcon", false)
 game:DefineFastFlag("EnableAssetConfigFreeFix2", false)
+game:DefineFastFlag("EnableNonWhitelistedToggle", false)
 
 -- when removing this flag, remove all references to isCatalogItemCreator
 game:DefineFastFlag("CMSRemoveUGCContentEnabledBoolean", false)

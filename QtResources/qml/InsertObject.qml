@@ -20,6 +20,7 @@ Rectangle {
     signal itemClicked(int index)
     signal filterTextChanged(string filterText)
 	signal selectAfterInsertChecked(bool checked)
+    signal showRecommendedOnlyChecked(bool checked)
 	signal openInsertObjectWidget()
 
     function insertObject() {
@@ -282,36 +283,45 @@ Rectangle {
 			}
 		}
 
-		CheckBox {
+        RobloxCheckBox {
+			id: showRecommendedOnlyCheckBox
+            text: qsTr("Studio.App.InsertObjectWidget.ShowRecommendedOnly")
+
+            checked: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ShowRecommendedObjectsOnly() ? showRecommendedObjects : true
+			onClicked: rootWindow.showRecommendedOnlyChecked(checked)
+
+			anchors.left: parent.left
+			anchors.top: searchBox.bottom
+			anchors.leftMargin: 6
+
+			visible: {
+			    if(insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ShowRecommendedObjectsOnly()){
+				    return !isWindow;
+				}
+				else
+				{
+				    return false;
+				}
+			}			
+			height: {
+				if(insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ShowRecommendedObjectsOnly()){
+				    return isWindow ? 0 : 30
+				}
+				else
+				{
+				    return 0;
+				}		
+			}
+		}
+
+		RobloxCheckBox {
 			id: selectedCheckBox
-
-			style: CheckBoxStyle {
-                indicator: Rectangle {
-                    width: 16
-                    height: 16
-                    color: control.checked ? userPreferences.theme.style("Checkbox checkedBackground") : userPreferences.theme.style("Checkbox background")
-                    border.color: userPreferences.theme.style("Checkbox border")
-                    radius: 3
-
-                    Image {
-                        anchors.centerIn: parent
-                        width: 16
-                        height: 16
-                        source: userPreferences.theme.style("Checkbox checkMarkIcon")
-                        visible: control.checked
-                    }
-                }
-                spacing: 6
-                label: PlainText {
-					text: qsTr("Studio.App.InsertObjectWidget.SelectInsertedObject")
-					color: userPreferences.theme.style("CommonStyle mainText")
-                }
-            }
+            text: qsTr("Studio.App.InsertObjectWidget.SelectInsertedObject")
 
 			checked: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamlining_SelectAfterInsert() ? selectAfterInsert : true
 			onClicked: rootWindow.selectAfterInsertChecked(checked)
 			anchors.left: parent.left
-			anchors.top: searchBox.bottom
+			anchors.top: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ShowRecommendedObjectsOnly() ? showRecommendedOnlyCheckBox.bottom : searchBox.bottom
 			anchors.leftMargin: 6
 			visible: {
 			    if(insertObjectWindow.getFFlagStudioInsertObjectStreamlining_InsertWidget() && insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamlining_SelectAfterInsert()){

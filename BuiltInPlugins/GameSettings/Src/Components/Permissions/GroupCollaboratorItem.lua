@@ -15,6 +15,8 @@
 		table Permissions - Permissions prop
 ]]
 
+local FFlagStudioGameSettingsRestrictPermissions = game:GetFastFlag("StudioGameSettingsRestrictPermissions")
+
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
@@ -56,7 +58,11 @@ local function getLabelForAction(localized, action)
 	elseif action == PermissionsConstants.EditKey then
 		return localized.AccessPermissions.ActionDropdown.EditLabel
 	elseif action == PermissionsConstants.AdminKey then
-		return localized.AccessPermissions.ActionDropdown.AdminLabel
+		if FFlagStudioGameSettingsRestrictPermissions then
+			return localized.AccessPermissions.ActionDropdown.EditLabel
+		else
+			return localized.AccessPermissions.ActionDropdown.AdminLabel
+		end
 	else
 		return ""
 	end

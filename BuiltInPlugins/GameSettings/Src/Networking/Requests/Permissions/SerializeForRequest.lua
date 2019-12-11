@@ -2,6 +2,8 @@
 	This file is used to translate our internal data structure back into requests we can then send to the endpoints
 --]]
 
+local FFlagStudioGameSettingsRestrictPermissions = game:GetFastFlag("StudioGameSettingsRestrictPermissions")
+
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local PermissionsConstants = require(Plugin.Src.Components.Permissions.PermissionsConstants)
@@ -9,7 +11,8 @@ local Constants = require(Plugin.Src.Networking.Requests.Permissions.Constants)
 
 local webKeys = Constants.webKeys
 
-local PERMISSION_HIERARCHY = {PermissionsConstants.NoAccessKey, PermissionsConstants.PlayKey, PermissionsConstants.EditKey, PermissionsConstants.AdminKey}
+local PERMISSION_HIERARCHY = FFlagStudioGameSettingsRestrictPermissions and {PermissionsConstants.NoAccessKey, PermissionsConstants.PlayKey, PermissionsConstants.EditKey} or
+	{PermissionsConstants.NoAccessKey, PermissionsConstants.PlayKey, PermissionsConstants.EditKey, PermissionsConstants.AdminKey}
 local PERMISSION_HIERARCHY_POSITION = {}
 for i,v in pairs(PERMISSION_HIERARCHY) do
 	PERMISSION_HIERARCHY_POSITION[v] = i
@@ -34,7 +37,11 @@ local function getWebAction(internalAction)
 	elseif internalAction == PermissionsConstants.EditKey then
 		return webKeys.EditAction
 	elseif internalAction == PermissionsConstants.AdminKey then
-		return webKeys.AdminAction
+		if FFlagStudioGameSettingsRestrictPermissions then
+			return webKeys.EditAction
+		else
+			return webKeys.AdminAction
+		end
 	elseif internalAction == PermissionsConstants.NoAccessKey then
 		return nil
 	else

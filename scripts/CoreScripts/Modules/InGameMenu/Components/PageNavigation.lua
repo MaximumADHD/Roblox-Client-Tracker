@@ -6,8 +6,8 @@ local Roact = InGameMenuDependencies.Roact
 local RoactRodux = InGameMenuDependencies.RoactRodux
 local UIBlox = InGameMenuDependencies.UIBlox
 
-local withStyle = UIBlox.Style.withStyle
-local ImageSetLabel = UIBlox.ImageSet.Label
+local withStyle = UIBlox.Core.Style.withStyle
+local ImageSetLabel = UIBlox.Core.ImageSet.Label
 
 local InGameMenu = script.Parent.Parent
 

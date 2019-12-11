@@ -33,6 +33,7 @@ local FFlagStudioToolboxPluginPurchaseFlow = game:GetFastFlag("StudioToolboxPlug
 local FFlagStudioToolboxShowPluginInstallationProgress = game:GetFastFlag("StudioToolboxShowPluginInstallationProgress")
 local FFlagUseDevelopFetchPluginVersionId = game:GetFastFlag("UseDevelopFetchPluginVersionId")
 local FFlagCreatorSearchFromAssetPreview = game:DefineFastFlag("CreatorSearchFromAssetPreview", false)
+local FFlagStudioHideSuccessDialogWhenFree = game:GetFastFlag("StudioHideSuccessDialogWhenFree")
 
 local RunService = game:GetService("RunService")
 local StudioService = game:GetService("StudioService")
@@ -198,6 +199,16 @@ function AssetPreview:init(props)
 	self.purchaseSucceeded = function()
 		local tryInstall = FFlagStudioToolboxShowPluginInstallationProgress and self.tryInstallWithProgress or self.tryInstall
 		if tryInstall() then
+
+			-- if this is a free asset/plugin, don't show the success dialog
+			if FFlagStudioHideSuccessDialogWhenFree then
+				local assetData = props.assetData
+				local price = assetData.Product and assetData.Product.Price or 0
+				if price == 0 then
+					return
+				end
+			end
+
 			self:setState({
 				showSuccessDialog = true,
 			})
@@ -393,7 +404,7 @@ function AssetPreview:render()
 			local showRobuxIcon
 			if isPluginAsset then
 				if isPluginLoading then
-					pluginButtonText = localizedContent.AssetConfig.Loading
+					pluginButtonText = localizedContent.AssetConfig.Installing
 				elseif not isPluginInstalled then
 					if FFlagStudioToolboxPluginPurchaseFlow then
 						-- Show price if paid plugin has not been purchased

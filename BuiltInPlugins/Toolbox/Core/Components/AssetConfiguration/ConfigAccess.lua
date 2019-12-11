@@ -147,7 +147,7 @@ function ConfigAccess:render()
 				}),
 
 				OwnerType = (not self.allowOwnerEdit) and Roact.createElement("TextLabel", {
-					Size = UDim2.new(1, -AssetConfigConstants.TITLE_GUTTER_WIDTH, 0, game:GetFastFlag("CMSEnableCatalogTags2") and Constants.FONT_SIZE_LARGE or 0),
+					Size = UDim2.new(1, -AssetConfigConstants.TITLE_GUTTER_WIDTH, 0, Constants.FONT_SIZE_TITLE),
 
 					BackgroundTransparency = 1,
 					BorderSizePixel = 0,
@@ -156,8 +156,8 @@ function ConfigAccess:render()
 					Font = Constants.FONT,
 					TextXAlignment = Enum.TextXAlignment.Left,
 					TextYAlignment = Enum.TextYAlignment.Center,
-					TextSize = Constants.FONT_SIZE_LARGE,
-					TextColor3 = publishAssetTheme.titleTextColor,
+					TextSize = Constants.FONT_SIZE_TITLE,
+					TextColor3 = publishAssetTheme.textColor,
 
 					LayoutOrder = 2,
 				}),

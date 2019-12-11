@@ -30,8 +30,8 @@ local InGameMenu = script.Parent.Parent
 local Assets = require(InGameMenu.Resources.Assets)
 local divideTransparency = require(InGameMenu.Utility.divideTransparency)
 
-local ImageSetButton = UIBlox.ImageSet.Button
-local withStyle = UIBlox.Style.withStyle
+local ImageSetButton = UIBlox.Core.ImageSet.Button
+local withStyle = UIBlox.Core.Style.withStyle
 
 local ThemedButton = Roact.PureComponent:extend("ThemedButton")
 

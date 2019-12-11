@@ -629,6 +629,9 @@ local function CleanupPath()
 end
 
 local function HandleMoveTo(thisPather, hitPt, hitChar, character, overrideShowPath)
+	if ExistingPather then
+		CleanupPath()
+	end
 	ExistingPather = thisPather
 	thisPather:Start(overrideShowPath)
 
@@ -1104,8 +1107,6 @@ function ClickToMove:MoveTo(position, showPath, useDirectPath)
 	end
 	local thisPather = Pather(position, Vector3.new(0, 1, 0), useDirectPath)
 	if thisPather and thisPather:IsValidPath() then
-		-- Clean up previous path
-		CleanupPath()
 		HandleMoveTo(thisPather, position, nil, character, showPath)
 		return true
 	end

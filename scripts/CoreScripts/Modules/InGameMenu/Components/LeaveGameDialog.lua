@@ -38,6 +38,8 @@ local function LeaveGameDialog(props)
 			titleText = localized.titleText,
 			cancelText = localized.cancelText,
 
+			bindReturnToConfirm = true,
+
 			onCancel = props.onCancel,
 			onConfirm = function()
 				RunService.Heartbeat:Wait()

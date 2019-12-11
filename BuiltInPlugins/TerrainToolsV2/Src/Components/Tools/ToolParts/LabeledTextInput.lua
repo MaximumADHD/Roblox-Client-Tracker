@@ -81,6 +81,7 @@ local ROUNDED_BACKGROUND_IMAGE = "rbxasset://textures/StudioToolbox/RoundedBorde
 local ROUNDED_FRAME_SLICE = Rect.new(3, 3, 13, 13)
 
 local LabeledTextInput = Roact.PureComponent:extend(script.Name)
+local FFlagTerrainToolsAutoFormatNum = game:GetFastFlag("TerrainToolsAutoFormatNum")
 
 function LabeledTextInput:init()
 	local label = self.props.Label
@@ -216,6 +217,12 @@ function LabeledTextInput:init()
 			local textBox = self.textBoxRef.current
 			if textBox then
 				if utf8.len(textBox.Text) > 0 then
+					if FFlagTerrainToolsAutoFormatNum and not self.props.IgnoreNumFormatting then
+						local num = tonumber(textBox.Text)
+						if num then
+							textBox.Text = string.format("%.3f", num)
+						end
+					end
 					local textOverride = self.props.OnFocusLost(enterPressed, textBox.Text)
 					if textOverride then
 						textBox.Text = textOverride

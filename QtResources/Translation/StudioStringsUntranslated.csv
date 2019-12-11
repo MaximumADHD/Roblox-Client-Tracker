@@ -72,6 +72,8 @@ Studio.App.BetaFeatures.TerrainEditorDescription,,Enables the new Beta version o
 Studio.App.BetaFeatures.TerrainEditorTitle,,Terrain Editor Beta,Terrain Editor Beta
 Studio.App.BetaFeatures.TryCoolFeatures,,Try out cool new Studio features! Your feedback is invaluable to us as we move forward towards building a powerful imagination platform.,Try out cool new Studio features! Your feedback is invaluable to us as we move forward towards building a powerful imagination platform.
 Studio.App.BetaFeatures.TryCoolFeaturesWithWarning,,Try out cool new Studio features before they are released to everyone! Please be aware that Beta features could be unstable. Your feedback is invaluable to us as we move towards building the imagination platform.,Try out cool new Studio features before they are released to everyone! Please be aware that Beta features could be unstable. Your feedback is invaluable to us as we move towards building the imagination platform.
+Studio.App.BetaFeatures.UIGradientDescription,,Add gradient to parent gui object,Add gradient to parent gui object
+Studio.App.BetaFeatures.UIGradientTitle,,UI Gradient Beta,UI Gradient Beta
 Studio.App.BetaFeatures.WhatsNewWindowDescription,,Open up a scrolling window that shows all of the recent updates to Roblox Studio,Open up a scrolling window that shows all of the recent updates to Roblox Studio
 Studio.App.BetaFeatures.WhatsNewWindowTitle,,New Updates Window,New Updates Window
 Studio.App.BreakpointConditionEditDialog.BreakpointCondition,,Breakpoint Condition,Breakpoint Condition
@@ -441,6 +443,7 @@ Studio.App.InsertObjectWidget.EmptyFrequentlyUsedList,,Objects are not usually i
 Studio.App.InsertObjectWidget.FavoritesCategory,,Frequently Used,Frequently Used
 Studio.App.InsertObjectWidget.SeeAllButton,,See All,See All
 Studio.App.InsertObjectWidget.SelectInsertedObject,,Select object after insert,Select object after insert
+Studio.App.InsertObjectWidget.ShowRecommendedOnly,,Show only recommended objects,Show only recommended objects
 Studio.App.InsertObjectWidget.UnpreferredObjectTooltip,,This object does not make sense under the currently selected parent.,This object does not make sense under the currently selected parent.
 Studio.App.InsertServiceDialog.Done,,Done,Done
 Studio.App.InsertServiceDialog.InsertService,,Insert Service,Insert Service
@@ -823,6 +826,8 @@ Studio.App.Property.GraphicsMode,,Graphics Mode,Graphics Mode
 Studio.App.Property.HardwareMouse,,Hardware Mouse,Hardware Mouse
 Studio.App.Property.HoverAnimateSpeed,,Hover Animate Speed,Hover Animate Speed
 Studio.App.Property.HoverOverColor,,Hover Over Color,Hover Over Color
+Studio.App.Property.HttpProxyEnabled,,Proxy Enabled,Proxy Enabled
+Studio.App.Property.HttpProxyURL,,Proxy URL,Proxy URL
 Studio.App.Property.IncommingReplicationLag,,Incomming Replication Lag,Incomming Replication Lag
 Studio.App.Property.InstanceCount,,Instance Count,Instance Count
 Studio.App.Property.IsFmodProfilingEnabled,,Is Fmod Profiling Enabled,Is Fmod Profiling Enabled
@@ -869,8 +874,6 @@ Studio.App.Property.PrintProperties,,Print Properties,Print Properties
 Studio.App.Property.PrintSplitMessage,,Print Split Message,Print Split Message
 Studio.App.Property.PrintStreamInstanceQuota,,Print Stream Instance Quota,Print Stream Instance Quota
 Studio.App.Property.PrintTouches,,Print Touches,Print Touches
-Studio.App.Property.ProxyEnabled,,Proxy Enabled,Proxy Enabled
-Studio.App.Property.ProxyURL,,Proxy URL,Proxy URL
 Studio.App.Property.QualityLevel,,Quality Level,Quality Level
 Studio.App.Property.ReceiveRate,,Receive Rate,Receive Rate
 Studio.App.Property.RecentSavesDir,,Recent Saves Dir,Recent Saves Dir
@@ -1189,6 +1192,8 @@ Studio.App.RBXMainWindow.OneStudGrid,,One Stud Grid,One Stud Grid
 Studio.App.RBXMainWindow.OnlineHelpElps,,Online Help...,Online Help...
 Studio.App.RBXMainWindow.OpenARecentDocument,,Open a recent document,Open a recent document
 Studio.App.RBXMainWindow.OpenAnExistingDocument,,Open an existing document,Open an existing document
+Studio.App.RBXMainWindow.OpenAutoSaves,,Open Auto Saves,Open Auto Saves
+Studio.App.RBXMainWindow.OpenAutoSavesFolder,,Open Auto Saves Folder,Open Auto Saves Folder
 Studio.App.RBXMainWindow.OpenElps,,Open...,Open...
 Studio.App.RBXMainWindow.OpenFlagEditor,,Open Flag Editor,Open Flag Editor
 Studio.App.RBXMainWindow.OpenLocalizationFolder,,Open Localization Folder,Open Localization Folder

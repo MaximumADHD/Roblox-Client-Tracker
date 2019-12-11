@@ -13,6 +13,7 @@ local FFlagAssetConfigOverrideFromAnyScreen = game:DefineFastFlag("AssetConfigOv
 local FFlagCanPublishDefaultAsset = game:DefineFastFlag("CanPublishDefaultAsset", false)
 local FFlagShowAssetConfigReasons = game:GetFastFlag("ShowAssetConfigReasons")
 local FFlagEnableAssetConfigFreeFix2 = game:GetFastFlag("EnableAssetConfigFreeFix2")
+local FFlagEnableNonWhitelistedToggle = game:GetFastFlag("EnableNonWhitelistedToggle")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -27,7 +28,7 @@ local PreviewArea = require(AssetConfiguration.PreviewArea)
 local PublishAsset = require(AssetConfiguration.PublishAsset)
 local AssetConfigFooter = require(AssetConfiguration.AssetConfigFooter)
 local Versions = require(AssetConfiguration.Versions)
-local Sales = require(AssetConfiguration.SalesPage)
+local SalesPage = require(AssetConfiguration.SalesPage)
 local Permissions = require(AssetConfiguration.Permissions.Permissions)
 
 local OverrideAsset = require(AssetConfiguration.OverrideAsset)
@@ -65,6 +66,7 @@ local PostPackageMetadataRequest = require(Requests.PostPackageMetadataRequest)
 local GetPackageCollaboratorsRequest = require(Requests.GetPackageCollaboratorsRequest)
 local PutPackagePermissionsRequest = require(Requests.PutPackagePermissionsRequest)
 local GetPackageHighestPermission = require(Requests.GetPackageHighestPermission)
+local GetMarketplaceInfoRequest = require(Requests.GetMarketplaceInfoRequest)
 
 local ClearChange = require(Plugin.Core.Actions.ClearChange)
 local SetAssetConfigTab = require(Plugin.Core.Actions.SetAssetConfigTab)
@@ -124,6 +126,7 @@ function AssetConfig:init(props)
 	-- Used to fetching name before publish
 	self.nameString = nil
 	self.descriptionString = nil
+	self.init = false
 
 	self.tryPublish = function()
 		local function tryPublishGeneral()
@@ -446,9 +449,42 @@ function AssetConfig:didUpdate(previousProps, previousState)
 			end
 		end
 	end
-	if not FFlagEnablePurchasePluginFromLua2 then
+	if  FFlagEnablePurchasePluginFromLua2 then
 		-- If we have assetConfigData and state is nil(defualt state),
 		-- then we will use the data retrived from the assetConfigData to trigger a re-render.
+		if self.props.screenFlowType == AssetConfigConstants.FLOW_TYPE.EDIT_FLOW then
+			local assetConfigData = self.props.assetConfigData
+			if next(assetConfigData) and (not self.init) then
+				self:setState({
+					assetId = AssetConfigUtil.isMarketplaceAsset(self.props.assetTypeEnum) and assetConfigData.Id or assetConfigData.assetId, -- assetId is named differently in the data returned by different end-points
+
+					name = assetConfigData.Name,
+					description = assetConfigData.Description,
+					owner = assetConfigData.Creator,
+					genres = assetConfigData.Genres,
+					allowCopy = assetConfigData.IsPublicDomainEnabled,
+					copyOn = assetConfigData.IsCopyingAllowed,
+					commentOn = assetConfigData.EnableComments,
+					price = assetConfigData.Price or AssetConfigUtil.getMinPrice(self.props.allowedAssetTypesForRelease, self.props.assetTypeEnum),
+					status = assetConfigData.Status,
+				})
+				self.init = true
+			end
+
+			if game:GetFastFlag("CMSEnableCatalogTags2") and assetConfigData.ItemTags and self.state.tags == nil then
+				self:setState({
+					tags = TagsUtil.getTagsFromItemTags(assetConfigData.ItemTags),
+				})
+			end
+		else
+			if (self.props.isVerifiedCreator ~= nil) and self.state.allowCopy ~= self.props.isVerifiedCreator then
+				self:setState({
+					allowCopy = self.props.isVerifiedCreator
+				})
+			end
+		end
+	else
+		-- To be removed with FFlagEnablePurchasePluginFromLua2
 		if self.props.screenFlowType == AssetConfigConstants.FLOW_TYPE.EDIT_FLOW then
 			local assetConfigData = self.props.assetConfigData
 			if next(assetConfigData) and (not self.state.name) then
@@ -482,48 +518,6 @@ function AssetConfig:didUpdate(previousProps, previousState)
 	end
 end
 
-function AssetConfig.getDerivedStateFromProps(nextProps, lastState)
-	if FFlagEnablePurchasePluginFromLua2 then
-		-- If we have assetConfigData and state is nil(defualt state),
-		-- then we will use the data retrived from the assetConfigData to trigger a re-render.
-		if nextProps.screenFlowType == AssetConfigConstants.FLOW_TYPE.EDIT_FLOW then
-			local assetConfigData = nextProps.assetConfigData
-			if next(assetConfigData) then
-				local newPrice = assetConfigData.Price or AssetConfigUtil.getMinPrice(nextProps.allowedAssetTypesForRelease, nextProps.assetTypeEnum)
-				if assetConfigData.Status == AssetConfigConstants.ASSET_STATUS.Free then
-					newPrice = 0
-				end
-				local preCheckStatus = assetConfigData.Status
-				-- Free is a special onSale status
-				if FFlagEnablePurchasePluginFromLua2 and preCheckStatus == AssetConfigConstants.ASSET_STATUS.Free then
-					preCheckStatus = AssetConfigConstants.ASSET_STATUS.OnSale
-				end
-
-				return {
-					assetId = AssetConfigUtil.isMarketplaceAsset(nextProps.assetTypeEnum) and assetConfigData.Id or assetConfigData.assetId, -- assetId is named differently in the data returned by different end-points
-
-					name = lastState.name or assetConfigData.Name,
-					description = lastState.description or assetConfigData.Description,
-					tags = game:GetFastFlag("CMSEnableCatalogTags2") and (lastState.tags or TagsUtil.getTagsFromItemTags(assetConfigData.ItemTags)),
-					owner = lastState.owner or assetConfigData.Creator,
-					genres = lastState.genres or assetConfigData.Genres,
-					allowCopy = lastState.allowCopy or assetConfigData.IsPublicDomainEnabled,
-					copyOn = lastState.copyOn or assetConfigData.IsCopyingAllowed,
-					commentOn = lastState.commentOn or assetConfigData.EnableComments,
-					price = lastState.price or newPrice, -- If we have a prcie already, use that first
-					status = lastState.status or preCheckStatus,
-				}
-			end
-		else
-			if (nextProps.isVerifiedCreator ~= nil) and lastState.allowCopy ~= nextProps.isVerifiedCreator then
-				return {
-					allowCopy = nextProps.isVerifiedCreator
-				}
-			end
-		end
-	end
-end
-
 function AssetConfig:didMount()
 	self:attachXButtonCallback()
 
@@ -538,11 +532,10 @@ function AssetConfig:didMount()
 				end
 			else
 				if FFlagEnablePurchasePluginFromLua2 then
-					-- We will always use getAssetConfigData endpoint to fetch data first.
-					-- Then chekc if it's marketplace buyable asset, if true, use creation endpoint to fetch price.
-					self.props.getAssetConfigData(getNetwork(self), self.props.assetId)
 					if AssetConfigUtil.isBuyableMarketplaceAsset(self.props.assetTypeEnum) then
-						self.props.getAssetDetails(getNetwork(self), self.props.assetId, true)
+						self.props.getMarketplaceAsset(getNetwork(self), self.props.assetId)
+					else
+						self.props.getAssetConfigData(getNetwork(self), self.props.assetId)
 					end
 				else
 					if AssetConfigUtil.isMarketplaceAsset(self.props.assetTypeEnum) then
@@ -583,7 +576,13 @@ end
 
 local function validatePrice(text, minPrice, maxPrice, assetStatus)
 	local result = true
-	if AssetConfigConstants.ASSET_STATUS.OnSale == assetStatus then
+
+	local shouldValidate = AssetConfigConstants.ASSET_STATUS.OnSale == assetStatus
+	if FFlagEnableNonWhitelistedToggle then
+		shouldValidate = shouldValidate and text ~= nil
+	end
+
+	if shouldValidate and AssetConfigConstants.ASSET_STATUS.OnSale == assetStatus then
 		result = false
 		text = tostring(text)
 		local isInt = text and text:match("%d+") == text
@@ -858,7 +857,7 @@ function AssetConfig:render()
 							LayoutOrder = 3,
 						}),
 
-						Sales = ConfigTypes:isSales(currentTab) and Roact.createElement(Sales, {
+						Sales = ConfigTypes:isSales(currentTab) and Roact.createElement(SalesPage, {
 							size = UDim2.new(1, -PREVIEW_WIDTH, 1, 0),
 
 							assetTypeEnum = props.assetTypeEnum,
@@ -950,6 +949,10 @@ local function mapDispatchToProps(dispatch)
 			dispatch(GetAssetDetailsRequest(networkInterface, assetId, isMarketBuy))
 		end,
 
+		getMarketplaceAsset = function(networkInterface, assetId)
+			dispatch(GetMarketplaceInfoRequest(networkInterface, assetId))
+		end,
+
 		getAssetTags = function(networkInterface, assetId)
 			dispatch(GetAssetItemTagsRequest(networkInterface, assetId))
 		end,
@@ -1021,10 +1024,10 @@ local function mapDispatchToProps(dispatch)
 		dispatchGetGroupRoleInfo = function(networkInterface, groupId)
             dispatch(GetGroupRoleInfo(networkInterface, groupId))
         end,
-		
+
 		dispatchGetUsername = function(userId)
 			dispatch(GetUsername(userId))
-		end, 
+		end,
 	}
 end
 

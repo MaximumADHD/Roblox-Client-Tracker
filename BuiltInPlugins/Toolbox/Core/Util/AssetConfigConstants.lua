@@ -133,6 +133,11 @@ AssetConfigConstants.developCategoryType = convertArrayToTable({
 	"GroupPlugins",
 })
 
+AssetConfigConstants.packagesCategoryType = convertArrayToTable({
+	"MyPackages",
+	"GroupPackages",
+})
+
 AssetConfigConstants.rbxThumbTypes = convertArrayToTable({
 	"Asset",
 	"Avatar",

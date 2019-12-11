@@ -12,6 +12,9 @@ local CoreGuiConnector = require(script.Parent.CoreGuiConnector)
 local SocialConnector = require(script.Parent.SocialConnector)
 local GuiServiceConnector = require(script.Parent.GuiServiceConnector)
 local UserInputServiceConnector = require(script.Parent.UserInputServiceConnector)
+local ScreenSizeConnector = require(script.Parent.ScreenSizeConnector)
+
+local FFlagPlayerListDesignUpdate = settings():GetFFlag("PlayerListDesignUpdate")
 
 local function EventConnections()
 	-- TODO: Clean this up when Fragments are released.
@@ -23,6 +26,7 @@ local function EventConnections()
 		SocialConnector = Roact.createElement(SocialConnector),
 		GuiServiceConnector = Roact.createElement(GuiServiceConnector),
 		UserInputServiceConnector = Roact.createElement(UserInputServiceConnector),
+		ScreenSizeConnector = FFlagPlayerListDesignUpdate and Roact.createElement(ScreenSizeConnector) or nil,
 	})
 end
 

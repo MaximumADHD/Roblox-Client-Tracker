@@ -1,7 +1,7 @@
 Key,Source,Context,en-us
-Studio.AnimationClipEditor.Plugin.Name, , ,Animation Editor [BETA]
+Studio.AnimationClipEditor.Plugin.Name, , ,Animation Editor
 Studio.AnimationClipEditor.Plugin.Toolbar, , ,Animations
-Studio.AnimationClipEditor.Plugin.Button, , ,Animation Editor [BETA]
+Studio.AnimationClipEditor.Plugin.Button, , ,Animation Editor
 Studio.AnimationClipEditor.Plugin.Description, , ,"Create, preview, and publish Animation clips"
 Studio.AnimationClipEditor.ContextMenu.AddKeyframeHere, , ,Add Keyframe Here
 Studio.AnimationClipEditor.ContextMenu.AddResetKeyframe, , ,Add Reset Keyframe Here

@@ -37,6 +37,16 @@ function TestPlan:visitAllNodes(callback, root)
 	end
 end
 
+local function constructNodeFullName(node)
+	if node.parent then
+		local parentPhrase = constructNodeFullName(node.parent)
+		if parentPhrase then
+			return parentPhrase .. " " .. node.phrase
+		end
+	end
+	return node.phrase
+end
+
 --[[
 	Creates a new node that would be suitable to insert into the TestPlan.
 ]]
@@ -48,7 +58,8 @@ function TestPlan.createNode(phrase, nodeType, nodeModifier)
 		type = nodeType,
 		modifier = nodeModifier,
 		children = {},
-		callback = nil
+		callback = nil,
+		getFullName = constructNodeFullName
 	}
 
 	return node

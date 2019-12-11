@@ -210,6 +210,9 @@ Studio.ReflectionMetadata.ReflectionMetadata.ExplosionBlastPressure,,,How much f
 Studio.ReflectionMetadata.ReflectionMetadata.ExplosionBlastRadius,,,"How big the Explosion is. This is a circle starting from the center of the Explosion's Position, the larger this property the larger the circle of destruction.","How big the Explosion is. This is a circle starting from the center of the Explosion's Position, the larger this property the larger the circle of destruction."
 Studio.ReflectionMetadata.ReflectionMetadata.ExplosionExplosionType,,,Defines the behavior of the Explosion. <a href='http://wiki.roblox.com/index.php/ExplosionType' target='_blank'>More info</a>,Defines the behavior of the Explosion. <a href='http://wiki.roblox.com/index.php/ExplosionType' target='_blank'>More info</a>
 Studio.ReflectionMetadata.ReflectionMetadata.ExplosionPosition,,,Where the Explosion occurs in absolute world coordinates.,Where the Explosion occurs in absolute world coordinates.
+Studio.ReflectionMetadata.ReflectionMetadata.FileSyncItemEnabled,,,Enabling File Sync,Enabling File Sync
+Studio.ReflectionMetadata.ReflectionMetadata.FileSyncItemFileSystemPath,,,Path of file system,Path of file system
+Studio.ReflectionMetadata.ReflectionMetadata.FileSyncItemTarget,,,Target Instance in DataModel,Target Instance in DataModel
 Studio.ReflectionMetadata.ReflectionMetadata.Fire,,,Makes the parent part or model object emit fire,Makes the parent part or model object emit fire
 Studio.ReflectionMetadata.ReflectionMetadata.FireColor,,,The color of the base of the fire.  See SecondaryColor for more.,The color of the base of the fire.  See SecondaryColor for more.
 Studio.ReflectionMetadata.ReflectionMetadata.FireHeat,,,How hot the fire appears to be. The flame moves quicker the higher this value is set.,How hot the fire appears to be. The flame moves quicker the higher this value is set.

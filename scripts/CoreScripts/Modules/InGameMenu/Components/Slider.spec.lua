@@ -16,7 +16,7 @@ return function()
 	local Slider = require(script.Parent.Slider)
 
 	it("should create and destroy without errors", function()
-		local element = Roact.createElement(UIBlox.Style.Provider, {
+		local element = Roact.createElement(UIBlox.Core.Style.Provider, {
 			style = appStyle,
 		}, {
 			Slider = Roact.createElement(Slider, {

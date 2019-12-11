@@ -11,9 +11,9 @@
 --------------------------------------------------------------------------------------------------------]]
 
 return{
-	["CoreScripts.InGameMenu.LeaveGame"] = [[Leave Game]],
+	["CoreScripts.InGameMenu.LeaveGame"] = [[Leave]],
 	["CoreScripts.InGameMenu.ConfirmLeaveGame"] = [[If you leave the game, you will lose any unsaved progress.]],
-	["CoreScripts.InGameMenu.LeaveGameQuestion"] = [[Leave Game?]],
+	["CoreScripts.InGameMenu.LeaveGameQuestion"] = [[Leave?]],
 	["CoreScripts.InGameMenu.Leave"] = [[Leave]],
 	["CoreScripts.InGameMenu.RespawnCharacterDialogTitle"] = [[Respawn Character?]],
 	["CoreScripts.InGameMenu.RespawnCharacterDialogBody"] = [[Your character will respawn back at a spawn location.]],
@@ -58,7 +58,7 @@ return{
 	["CoreScripts.InGameMenu.Controls.Playerlist"] = [[Playerlist]],
 	["CoreScripts.InGameMenu.Controls.Chat"] = [[Chat]],
 	["CoreScripts.InGameMenu.Controls.RespawnCharacter"] = [[Respawn Character]],
-	["CoreScripts.InGameMenu.Controls.LeaveGame"] = [[Leave Game]],
+	["CoreScripts.InGameMenu.Controls.LeaveGame"] = [[Leave]],
 	["CoreScripts.InGameMenu.Controls.MiscellaneousTitle"] = [[MISCELLANEOUS]],
 	["CoreScripts.InGameMenu.Controls.Screenshot"] = [[Screenshot]],
 	["CoreScripts.InGameMenu.Controls.DevConsole"] = [[Dev Console]],
@@ -119,4 +119,5 @@ return{
 	["CoreScripts.InGameMenu.GameSettings.PlaceVersionWithLatest"] = [[Place Version: {PLACE_VERSION} (latest: {LATEST_PLACE_VERSION})]],
 	["CoreScripts.InGameMenu.Label.MicroProfiler"] = [[Micro Profiler]],
 	["CoreScripts.InGameMenu.InviteFriends.Loading"] = [[Loading!]],
+	["CoreScripts.InGameMenu.RespawnCharacter"] = [[Respawn Character]],
 }

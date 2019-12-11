@@ -6,7 +6,7 @@ local Cryo = InGameMenuDependencies.Cryo
 local UIBlox = InGameMenuDependencies.UIBlox
 local t = InGameMenuDependencies.t
 
-local withStyle = UIBlox.Style.withStyle
+local withStyle = UIBlox.Core.Style.withStyle
 
 local InGameMenu = script.Parent.Parent
 

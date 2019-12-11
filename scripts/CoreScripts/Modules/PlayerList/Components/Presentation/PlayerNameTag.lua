@@ -8,20 +8,42 @@ local Connection = Components.Connection
 local LayoutValues = require(Connection.LayoutValues)
 local WithLayoutValues = LayoutValues.WithLayoutValues
 
+local FFlagPlayerListDesignUpdate = settings():GetFFlag("PlayerListDesignUpdate")
+
 local PlayerNameTag = Roact.PureComponent:extend("PlayerNameTag")
 
-PlayerNameTag.validateProps = t.strictInterface({
-	player = t.instanceIsA("Player"),
-	isTitleEntry = t.boolean,
-	isHovered = t.boolean,
-	layoutOrder = t.integer,
+if FFlagPlayerListDesignUpdate then
+	PlayerNameTag.validateProps = t.strictInterface({
+		player = t.instanceIsA("Player"),
+		isTitleEntry = t.boolean,
+		isHovered = t.boolean,
+		layoutOrder = t.integer,
 
-	textStyle = t.strictInterface({
-		Color = t.Color3,
-		StrokeTransparency = t.number,
-		StrokeColor = t.Color3,
+		textStyle = t.strictInterface({
+			Color = t.Color3,
+			Transparency = t.number,
+			StrokeColor = t.optional(t.Color3),
+			StrokeTransparency = t.optional(t.number),
+		}),
+		textFont = t.strictInterface({
+			Size = t.number,
+			Font = t.enum(Enum.Font),
+		}),
 	})
-})
+else
+	PlayerNameTag.validateProps = t.strictInterface({
+		player = t.instanceIsA("Player"),
+		isTitleEntry = t.boolean,
+		isHovered = t.boolean,
+		layoutOrder = t.integer,
+
+		textStyle = t.strictInterface({
+			Color = t.Color3,
+			StrokeTransparency = t.number,
+			StrokeColor = t.Color3,
+		})
+	})
+end
 
 function PlayerNameTag:render()
 	return WithLayoutValues(function(layoutValues)
@@ -30,9 +52,21 @@ function PlayerNameTag:render()
 			iconColor = layoutValues.IconSelectedColor
 		end
 
-		local playerNameFont = layoutValues.PlayerEntryFont
-		if self.props.isTitleEntry then
-			playerNameFont = layoutValues.TitlePlayerEntryFont
+		local playerNameFont
+		if FFlagPlayerListDesignUpdate then
+			playerNameFont = self.props.textFont.Font
+		else
+			playerNameFont = layoutValues.PlayerEntryFont
+			if self.props.isTitleEntry then
+				playerNameFont = layoutValues.TitlePlayerEntryFont
+			end
+		end
+
+		local textSize
+		if FFlagPlayerListDesignUpdate then
+			textSize = self.props.textFont.Size
+		else
+			textSize = layoutValues.PlayerNameTextSize
 		end
 
 		local playerNameChildren = {}
@@ -50,8 +84,9 @@ function PlayerNameTag:render()
 				Size = UDim2.new(1, 0, 0.35, 0),
 				TextXAlignment = Enum.TextXAlignment.Left,
 				Font = Enum.Font.SourceSans,
-				TextSize = layoutValues.PlayerNameTextSize,
+				TextSize = textSize,
 				TextColor3 = self.props.textStyle.Color,
+				TextTransparency = self.props.textStyle.Transparency,
 				TextStrokeColor3 = self.props.textStyle.StrokeColor,
 				TextStrokeTransparency = self.props.textStyle.StrokeTransparency,
 				BackgroundTransparency = 1,
@@ -84,8 +119,9 @@ function PlayerNameTag:render()
 					Size = UDim2.new(1, -30, 1, 0),
 					TextXAlignment = Enum.TextXAlignment.Left,
 					Font = playerNameFont,
-					TextSize = layoutValues.PlayerNameTextSize,
+					TextSize = textSize,
 					TextColor3 = self.props.textStyle.Color,
+					TextTransparency = self.props.textStyle.Transparency,
 					TextStrokeColor3 = self.props.textStyle.StrokeColor,
 					TextStrokeTransparency = self.props.textStyle.StrokeTransparency,
 					BackgroundTransparency = 1,
@@ -100,8 +136,9 @@ function PlayerNameTag:render()
 				Size = UDim2.new(1, 0, 1, 0),
 				TextXAlignment = Enum.TextXAlignment.Left,
 				Font = playerNameFont,
-				TextSize = layoutValues.PlayerNameTextSize,
+				TextSize = textSize,
 				TextColor3 = self.props.textStyle.Color,
+				TextTransparency = self.props.textStyle.Transparency,
 				TextStrokeColor3 = self.props.textStyle.StrokeColor,
 				TextStrokeTransparency = self.props.textStyle.StrokeTransparency,
 				BackgroundTransparency = 1,

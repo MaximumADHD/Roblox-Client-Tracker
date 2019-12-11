@@ -48,7 +48,7 @@ Studio.Common.Action.Move,Move, ,Move,移动
 Studio.Common.Action.Rotate,Rotate, ,Rotate,旋转
 Studio.Common.Action.Error,Error, ,Error,错误
 Studio.Common.Action.Height,Height, ,Height,高度
-Studio.Common.Action.LabelWithColon1,%1:, ,%1:,%1:
+Studio.Common.Action.LabelWithColon1,%1:, ,%1:,%1
 Studio.Common.Action.Name,Name, ,Name,名称
 Studio.Common.Action.Search,Search, ,Search,搜索
 Studio.Common.Action.Value,Value, ,Value,值

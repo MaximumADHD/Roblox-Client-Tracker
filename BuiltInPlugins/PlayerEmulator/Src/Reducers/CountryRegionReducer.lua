@@ -3,6 +3,7 @@ local Cryo = require(Plugin.Packages.Cryo)
 local Rodux = require(Plugin.Packages.Rodux)
 
 return Rodux.createReducer({
+	userCountryRegionCode = "",
 	countryRegionTable = {},
 	countryRegionList = {},
 }, {
@@ -14,7 +15,7 @@ return Rodux.createReducer({
 		for _, countryRegionInfo in pairs(data) do
 			local code = countryRegionInfo.code
 			local name = countryRegionInfo.displayName
-			local displayText = string.format("%s(%s)", name, code)
+			local displayText = string.format("%s (%s)", name, code)
 
 			resTable[code] = {
 				code = code,
@@ -33,5 +34,13 @@ return Rodux.createReducer({
 			countryRegionTable = resTable,
 			countryRegionList = resList,
 		})
-	end
+	end,
+
+	OnEmulatedCountryRegionChanged = function(state, action)
+		local code = action.countryRegionCode
+
+		return Cryo.Dictionary.join(state, {
+			userCountryRegionCode = code,
+		})
+	end,
 })

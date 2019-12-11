@@ -8,6 +8,7 @@ local Cryo = require(Plugin.Packages.Cryo)
 
 local FFlagTerrainToolsEnablePivotPosition = game:GetFastFlag("TerrainToolsEnablePivotPosition")
 local FFlagTerrainToolsEnableHeightSlider = game:GetFastFlag("TerrainToolsEnableHeightSlider")
+local FFlagTerrainToolsClearConfirmationDialog = game:GetFastFlag("TerrainToolsClearConfirmationDialog")
 
 local Theme = {}
 
@@ -192,7 +193,7 @@ function Theme.createValues(getColor, c, m)
 		singleSelectButtonGroupTheme = FFlagTerrainToolsEnablePivotPosition and singleSelectButtonGroupTheme
 			or nil,
 		propertyLockTheme = FFlagTerrainToolsEnableHeightSlider and propertyLockTheme or nil,
-		textSize = 10,
+		textSize = FFlagTerrainToolsClearConfirmationDialog and 14 or 10,
 		padding = 4,
 		font = Enum.Font.SourceSans,
 	},{

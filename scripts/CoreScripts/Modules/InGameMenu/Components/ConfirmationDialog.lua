@@ -2,13 +2,14 @@ local CoreGui = game:GetService("CoreGui")
 local RunService = game:GetService("RunService")
 local TextService = game:GetService("TextService")
 local CorePackages = game:GetService("CorePackages")
+local ContextActionService = game:GetService("ContextActionService")
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
 local UIBlox = InGameMenuDependencies.UIBlox
 local t = InGameMenuDependencies.t
 
-local withStyle = UIBlox.Style.withStyle
+local withStyle = UIBlox.Core.Style.withStyle
 
 local InGameMenu = script.Parent.Parent
 
@@ -18,7 +19,10 @@ local SystemPrimaryButton = require(script.Parent.SystemPrimaryButton)
 local SystemSecondaryButton = require(script.Parent.SystemSecondaryButton)
 local ThemedTextLabel = require(script.Parent.ThemedTextLabel)
 
-local ImageSetLabel = UIBlox.ImageSet.Label
+local ImageSetLabel = UIBlox.Core.ImageSet.Label
+
+local MODAL_CONFIRM_ACTION = "InGameMenuModalConfirm"
+local MODAL_CANCEL_ACTION = "InGameMenuModalCancel"
 
 local ConfirmationDialog = Roact.PureComponent:extend("ConfirmationDialog")
 
@@ -27,6 +31,8 @@ ConfirmationDialog.validateProps = t.strictInterface({
 	cancelText = t.string,
 	confirmText = t.string,
 	titleText = t.string,
+
+	bindReturnToConfirm = t.boolean,
 
 	onCancel = t.callback,
 	onConfirm = t.callback,
@@ -186,13 +192,57 @@ function ConfirmationDialog:updateBlur()
 	RunService:SetRobloxGuiFocused(shouldBlur)
 end
 
-ConfirmationDialog.didMount = ConfirmationDialog.updateBlur
-ConfirmationDialog.didUpdate = ConfirmationDialog.updateBlur
+-- TODO: consider if we want to have a button selection model like the old menu rather than enter always confirming
+function ConfirmationDialog:bindActions()
+	local function confirmFunc(actionName, inputState, input)
+		if inputState == Enum.UserInputState.Begin then
+			self.props.onConfirm()
+		end
+	end
+
+	if self.props.bindReturnToConfirm then
+		ContextActionService:BindCoreAction(
+			MODAL_CONFIRM_ACTION, confirmFunc, false, Enum.KeyCode.Return)
+	end
+
+	local function cancelFunc(actionName, inputState, input)
+		if inputState == Enum.UserInputState.Begin then
+			self.props.onCancel()
+		end
+	end
+
+	ContextActionService:BindCoreAction(
+		MODAL_CANCEL_ACTION, cancelFunc, false, Enum.KeyCode.Escape)
+end
+
+function ConfirmationDialog:unbindActions()
+	ContextActionService:UnbindCoreAction(MODAL_CONFIRM_ACTION)
+	ContextActionService:UnbindCoreAction(MODAL_CANCEL_ACTION)
+end
+
+function ConfirmationDialog:didMount()
+	self:updateBlur()
+
+	if self.props.visible then
+		self:bindActions()
+	end
+end
+
+function ConfirmationDialog:didUpdate()
+	self:updateBlur()
+
+	if self.props.visible then
+		self:bindActions()
+	else
+		self:unbindActions()
+	end
+end
 
 function ConfirmationDialog:willUnmount()
 	if self.props.blurBackground then
 		RunService:SetRobloxGuiFocused(false)
 	end
+	self:unbindActions()
 end
 
 return ConfirmationDialog

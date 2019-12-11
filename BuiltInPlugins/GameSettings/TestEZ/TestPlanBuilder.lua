@@ -8,6 +8,7 @@
 ]]
 
 local TestPlan = require(script.Parent.TestPlan)
+local TestEnum = require(script.Parent.TestEnum)
 
 local TestPlanBuilder = {}
 
@@ -21,6 +22,7 @@ function TestPlanBuilder.new()
 		plan = TestPlan.new(),
 		nodeStack = {},
 		noXpcallByDefault = false,
+		testNamePattern = nil,
 	}
 
 	setmetatable(self, TestPlanBuilder)
@@ -71,6 +73,15 @@ function TestPlanBuilder:pushNode(phrase, nodeType, nodeModifier)
 
 	table.insert(self.nodeStack, useNode)
 
+	local nodeModifierNotSet = useNode.modifier == nil or useNode.modifier == TestEnum.NodeModifier.None
+	if self.testNamePattern and nodeModifierNotSet then
+		local fullName = useNode:getFullName()
+		if fullName:match(self.testNamePattern) then
+			useNode.modifier = TestEnum.NodeModifier.Focus
+		else
+			useNode.modifier = TestEnum.NodeModifier.Skip
+		end
+	end
 	useNode.HACK_NO_XPCALL = self.noXpcallByDefault
 
 	return useNode

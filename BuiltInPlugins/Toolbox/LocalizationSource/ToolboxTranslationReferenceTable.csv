@@ -48,7 +48,7 @@ Studio.Common.Action.Move,Move, ,Move,移动
 Studio.Common.Action.Rotate,Rotate, ,Rotate,旋转
 Studio.Common.Action.Error,Error, ,Error,错误
 Studio.Common.Action.Height,Height, ,Height,高度
-Studio.Common.Action.LabelWithColon1,%1:, ,%1:,%1:
+Studio.Common.Action.LabelWithColon1,%1:, ,%1:,%1
 Studio.Common.Action.Name,Name, ,Name,名称
 Studio.Common.Action.Search,Search, ,Search,搜索
 Studio.Common.Action.Value,Value, ,Value,值
@@ -70,16 +70,15 @@ Studio.Toolbox.General.CategoryMyMeshes,My Meshes, ,My Meshes,我的网格
 Studio.Toolbox.General.CategoryMyAudio,My Audio, ,My Audio,我的音频
 Studio.Toolbox.General.CategoryMyPackages,My Packages, ,My Packages,我的包
 Studio.Toolbox.General.CategoryMyPlugins,My Plugins, ,My Plugins,我的插件
-Studio.Toolbox.General.CategoryRecentModels,Recent Models, ,Recent Models,最近模型
-Studio.Toolbox.General.CategoryRecentDecals,Recent Images, ,Recent Images,最近图片
-Studio.Toolbox.General.CategoryRecentMeshes,Recent Meshes, ,Recent Meshes,最近网格
-Studio.Toolbox.General.CategoryRecentAudio,Recent Audio, ,Recent Audio,最近音频
+Studio.Toolbox.General.CategoryRecentModels,Recent Models, ,Recent Models,最近使用的模型
+Studio.Toolbox.General.CategoryRecentDecals,Recent Images, ,Recent Images,最近使用的图片
+Studio.Toolbox.General.CategoryRecentMeshes,Recent Meshes, ,Recent Meshes,最近使用的网格
+Studio.Toolbox.General.CategoryRecentAudio,Recent Audio, ,Recent Audio,最近使用的音频
 Studio.Toolbox.General.CategoryGroupModels,Group Models, ,Group Models,群组模型
 Studio.Toolbox.General.CategoryGroupDecals,Group Images, ,Group Images,群组图片
 Studio.Toolbox.General.CategoryGroupMeshes,Group Meshes, ,Group Meshes,群组网格
 Studio.Toolbox.General.CategoryGroupAudio,Group Audio, ,Group Audio,群组音频
 Studio.Toolbox.General.CategoryGroupPackages,Group Packages, ,Group Packages,群组包
-Studio.Toolbox.General.CategoryGroupPlugins,Group Plugins, ,Group Plugins,插件包
 Studio.Toolbox.General.SearchBarDefaultText,Search, ,Search,搜索
 Studio.Toolbox.General.SearchBarCreatorText,Search for users, ,Search for users,搜索用户
 Studio.Toolbox.General.SuggestionsIntroText,Try searching for:, ,Try searching for:,尝试搜索:
@@ -121,7 +120,6 @@ Studio.Toolbox.General.CategoryCreationsModels,Models, ,Models,模型
 Studio.Toolbox.General.CategoryCreationsDecals,Images, ,Images,图片
 Studio.Toolbox.General.CategoryCreationsAudio,Audio, ,Audio,音频
 Studio.Toolbox.General.CategoryCreationsMeshes,Meshes, ,Meshes,网格
-Studio.Toolbox.General.CategoryCreationsPlugins,Plugins, ,Plugins,插件
 Studio.Toolbox.General.CategoryCreationsCatalogSectionDivider,Avatar assets, ,Avatar assets,虚拟形象资源
 Studio.Toolbox.General.CategoryCreationsHats,Hats, ,Hats,帽子
 Studio.Toolbox.General.CategoryCreationsTeeShirts,T-Shirts, ,T-Shirts,T 恤
@@ -147,7 +145,6 @@ Studio.Toolbox.General.StatusReviewApproved,Ready For Sale, ,Ready For Sale,待�
 Studio.Toolbox.General.StatusOnSale,On Sale, ,On Sale,在售
 Studio.Toolbox.General.StatusOffSale,Off Sale, ,Off Sale,特价
 Studio.Toolbox.General.StatusDelayedRelease,Ready For Sale, ,Ready For Sale,待售
-Studio.Toolbox.General.Free,Free, ,Free,免费
 Studio.Toolbox.General.StatusUnknown,Unknown, ,Unknown,未知
 Studio.Toolbox.General.AssetTypeModel,Model, ,Model,模型
 Studio.Toolbox.General.AssetTypeDecal,Decal, ,Decal,贴花
@@ -194,13 +191,10 @@ Studio.Toolbox.General.PreviewAreaAssetID,Asset ID: {assetId}, ,Asset ID: {asset
 Studio.Toolbox.General.PreviewAreaStatus,Status: {assetStatus}, ,Status: {assetStatus},状态: {assetStatus}
 Studio.Toolbox.General.InstallSuccess,Success!, ,Success!,成功!
 Studio.Toolbox.General.InstallFailure,Failure, ,Failure,失败
-Studio.Toolbox.General.Installing,Installing, ,Installing, 
-Studio.Toolbox.General.Tags,Tags, ,Tags, 
 Studio.Toolbox.AssetConfigFooter.NewAsset,Save as a new asset..., ,Save as a new asset...,另存为新资源...
 Studio.Toolbox.AssetConfigFooter.Override,Overwrite an existing asset..., ,Overwrite an existing asset...,覆盖现有资源...
 Studio.Toolbox.AssetConfigFooter.OverrideTitle,Choose an existing model to overwrite., ,Choose an existing model to overwrite.,选择要覆盖的现有模型。
 Studio.Toolbox.AssetConfigCopy.Terms,"By switching on, you are granting every other user of Roblox the right to use (in various ways) the content you are now sharing. If you do not want to grant this right, please do not check this box. For more information about sharing content, please review the Roblox Terms of Use.", ,"By switching on, you are granting every other user of Roblox the right to use (in various ways) the content you are now sharing. If you do not want to grant this right, please do not check this box. For more information about sharing content, please review the Roblox Terms of Use.",切换至开位置，即表示你授予 Roblox 的所有其他用户 (以各种方式) 使用你现在分享的内容的权限。如果你不想授予此权限，请勿勾选此框。有关分享内容的详细信息，请检阅 Roblox 使用条款。
-Studio.Toolbox.AssetConfigError.NetworkError,We encountered some problems:, ,We encountered some problems:,We encountered some problems:
 Studio.Toolbox.AssetConfigCopy.AccountSetting,"In order to share content in Marketplace, you must add & verify an email address to your account. This can be done in Account Settings.", ,"In order to share content in Marketplace, you must add & verify an email address to your account. This can be done in Account Settings.",为了在市集中分享内容，你必须向你的帐户添加电子邮件地址并进行验证。可在“帐户设置”中完成此操作。
 Studio.Toolbox.AssetConfigPreview.Preview,Preview, ,Preview,预览
 Studio.Toolbox.AssetConfigPreview.Change,Change, ,Change,更改
@@ -208,10 +202,10 @@ Studio.Toolbox.AssetConfigVersions.Current,Current published version, ,Current p
 Studio.Toolbox.AssetConfigVersions.Restore,Restore previous version, ,Restore previous version,还原之前版本
 Studio.Toolbox.AssetConfig.GetAssetFailed,There was an problem fetching asset data. We will be closing AssetConfig page., ,There was an problem fetching asset data. We will be closing AssetConfig page.,提取资源数据时发生问题。将关闭 AssetConfig 页面。
 Studio.Toolbox.AssetConfig.Error,Error, ,Error,错误
-Studio.Toolbox.AssetConfigPackagePermissions.PackageCreator,Package Creator, ,Package Creator,套装所有者
+Studio.Toolbox.AssetConfigPackagePermissions.PackageOwner,Package Owner, ,Package Owner,套装所有者
 Studio.Toolbox.AssetConfigPackagePermissions.Owner,Owner, ,Owner,所有者
 Studio.Toolbox.AssetConfigPackagePermissions.NoResults,No results found, ,No results found,未找到结果
-Studio.Toolbox.AssetConfigPackagePermissions.SearchbarDefault,Search for Friends, ,Search for Friends,依用户名搜索
+Studio.Toolbox.AssetConfigPackagePermissions.SearchByUser,Search by username, ,Search by username,依用户名搜索
 Studio.Toolbox.AssetConfigPackagePermissions.ShareWith,Share with, ,Share with,分享对象
 Studio.Toolbox.AssetConfigPackagePermissions.NoAccessLabel,No Access, ,No Access,无法访问
 Studio.Toolbox.AssetConfigPackagePermissions.UseViewLabel,Use & View, ,Use & View,使用和查看
@@ -224,36 +218,44 @@ Studio.Toolbox.AssetConfigPackagePermissions.FriendsCollaboratorType,Friends, ,F
 Studio.Toolbox.AssetConfigPackagePermissions.UsersCollaboratorType,Users, ,Users,用户
 Studio.Toolbox.AssetConfigPackagePermissions.GroupsCollaboratorType,Groups, ,Groups,组合
 Studio.Toolbox.AssetConfigPackagePermissions.MyFriendsCollaborator,My Friends, ,My Friends,我的好友
-Studio.Toolbox.AssetConfigPackagePermissions.OwnerLabel,Owner, ,Owner, 
-Studio.Toolbox.AssetConfigPackagePermissions.TooManyCollaboratorsText,You cannot add more than {maxNumCollaborators:int} collaborators, ,You cannot add more than {maxNumCollaborators:int} collaborators, 
-Studio.Toolbox.AssetConfigPackagePermissions.UserOwnedWarning,Users you share with will always have access to the current and previous versions of this package. Removing collaborators will discontinue their access to newer versions of the package., , Users you share with will always have access to the current and previous versions of this package. Removing collaborators will discontinue their access to newer versions of the package., 
-Studio.Toolbox.AssetConfigPackagePermissions.GroupOwnedWarning,No Access takes effect from new versions of this package. Users assigned to rolesets with "Edit" permissions will always have access to current and previous versions of this package., ,No Access takes effect from new versions of this package. Users assigned to rolesets with "Edit" permissions will always have access to current and previous versions of this package., 
-Studio.Toolbox.AssetConfigPackagePermissions.PackageDetails,Package Details, ,Package Details, 
 Studio.Toolbox.AssetConfigPreview.Format,Acceptable files: {formatString},Max: {maxDimensionsX} x {maxDimensionsY}, ,Acceptable files: {formatString}
-Max: {maxDimensionsX} x {maxDimensionsY}, ,Studio.Toolbox.AssetConfigPreview.Process,Image will be reviewed by moderators before being made visible to other users, 
-Image will be reviewed by moderators before being made visible to other users, ,Studio.Toolbox.Purchase.RobuxBalance,Your current balance:, 
-Your current balance:, ,Studio.Toolbox.Purchase.BuyPrompt,Would you like to buy "{name}" from {creator} for {robux:int} Robux?, 
-Would you like to buy "{name}" from {creator} for {robux:int} Robux?, ,Studio.Toolbox.Purchase.InsufficientPrompt,You need {robux:int} more Robux to buy "{name}" from {creator}., 
-You need {robux:int} more Robux to buy "{name}" from {creator}., ,Studio.Toolbox.Purchase.Cancel,Cancel, 
-Cancel, ,Studio.Toolbox.Purchase.Retry,Retry, 
-Retry, ,Studio.Toolbox.Purchase.Buy,Buy, 
-Buy, ,Studio.Toolbox.Purchase.BuyRobux,Buy Robux, 
-Buy Robux, ,Studio.Toolbox.Purchase.BuyTitle,Buy & Install Plugin, 
-Buy & Install Plugin, ,Studio.Toolbox.Purchase.FreeTitle,Install Plugin, 
-Install Plugin, ,Studio.Toolbox.Purchase.InsufficientTitle,Insufficient Robux, 
-Insufficient Robux, ,Studio.Toolbox.Purchase.FailedHeader,Purchase failed, 
-Purchase failed, ,Studio.Toolbox.Purchase.FailedDetails,Purchase of "{name}" failed., 
-Purchase of "{name}" failed., ,Studio.Toolbox.Purchase.SuccessHeader,Buy & Installation Complete!, 
-Buy & Installation Complete!, ,Studio.Toolbox.Purchase.FreeSuccessHeader,Installation Complete!, 
-Installation Complete!, ,Studio.Toolbox.Purchase.SuccessDetails,Successfully installed "{name}"., 
-Successfully installed "{name}"., ,Studio.Toolbox.Purchase.Free,FREE, 
-FREE, ,Studio.Toolbox.General.Fee,After {percent}% fee:, 
-After {percent}% fee:, ,Studio.Toolbox.General.Earn,You earn:, 
-You earn:, ,Studio.Toolbox.AssetConfigSales.Target,"By enabling it, this asset will be put in {market} and available for any Roblox {user}.", 
-"By enabling it, this asset will be put in {market} and available for any Roblox {user}.", ,Studio.Toolbox.MaxTagsDescription,Add up to {max:int} tags from the tag library, 
-Add up to {max:int} tags from the tag library, ,Studio.Toolbox.NoTagFound,Word(s) not found in the tag library, 
-Word(s) not found in the tag library, ,Studio.Toolbox.ThumbnailStatus.Error,Error, 
-Error, ,Studio.Toolbox.ThumbnailStatus.InReview,In Review, 
-In Review, ,Studio.Toolbox.ThumbnailStatus.Pending,Pending, 
-Pending, ,Studio.Toolbox.ThumbnailStatus.Blocked,Blocked, 
-Blocked, 
+Max: {maxDimensionsX} x {maxDimensionsY},可接受的文件: {formatString},最大: {maxDimensionsX} x {maxDimensionsY},Studio.Toolbox.AssetConfigPreview.Process,Image will be reviewed by moderators before being made visible to other users
+ ,Image will be reviewed by moderators before being made visible to other users,图片将由协调员审查，然后再对其他用户开放显示,Studio.Toolbox.AssetConfigPackagePermissions.OwnerLabel,Owner
+ ,Owner,所有者,Studio.Toolbox.AssetConfigPackagePermissions.TooManyCollaboratorsText,You cannot add more than {maxNumCollaborators:int} collaborators
+ ,You cannot add more than {maxNumCollaborators:int} collaborators,无法添加 {maxNumCollaborators:int} 位以上的合作者,Studio.Toolbox.Purchase.RobuxBalance,Your current balance:
+ ,Your current balance:,你当前的余额:,Studio.Toolbox.Purchase.BuyPrompt,Would you like to buy "{name}" from {creator} for {robux:int} Robux?
+ ,Would you like to buy "{name}" from {creator} for {robux:int} Robux?,你要以 {robux:int} Robux 从 {creator} 处购买 "{name}" 吗?,Studio.Toolbox.Purchase.InsufficientPrompt,You need {robux:int} more Robux to buy "{name}" from {creator}.
+ ,You need {robux:int} more Robux to buy "{name}" from {creator}.,你还需要 {robux:int} Robux 才能从 {creator} 处购买到 "{name}"。,Studio.Toolbox.Purchase.Cancel,Cancel
+ ,Cancel,取消,Studio.Toolbox.Purchase.Retry,Retry
+ ,Retry,重试,Studio.Toolbox.Purchase.Buy,Buy
+ ,Buy,购买,Studio.Toolbox.Purchase.BuyRobux,Buy Robux
+ ,Buy Robux,购买 Robux,Studio.Toolbox.Purchase.BuyTitle,Buy & Install Plugin
+ ,Buy & Install Plugin,购买和安装插件,Studio.Toolbox.Purchase.InsufficientTitle,Insufficient Robux
+ ,Insufficient Robux,Robux 不足,Studio.Toolbox.Purchase.FailedHeader,Purchase failed
+ ,Purchase failed,购买失败,Studio.Toolbox.Purchase.FailedDetails,Purchase of "{name}" failed.
+ ,Purchase of "{name}" failed.,购买 "{name}" 失败。,Studio.Toolbox.Purchase.Free,FREE
+ ,FREE,免费,Studio.Toolbox.General.Fee,After {percent}% fee:
+ ,After {percent}% fee:,在支付 {percent}% 的手续费后:,Studio.Toolbox.General.Earn,You earn:
+ ,You earn:,你赚取:,Studio.Toolbox.AssetConfigSales.Target,"By enabling it, this asset will be put in {market} and available for any Roblox {user}."
+ ,"By enabling it, this asset will be put in {market} and available for any Roblox {user}.",启用之后，此项资源就会投放到 {market} 并可供所有 Roblox {user} 使用。,Studio.Toolbox.General.CategoryGroupPlugins,Group Plugins
+ ,Group Plugins, ,Studio.Toolbox.General.CategoryCreationsPlugins,Plugins
+ ,Plugins, ,Studio.Toolbox.General.Free,Free
+ ,Free, ,Studio.Toolbox.General.Installing,Installing
+ ,Installing, ,Studio.Toolbox.General.Tags,Tags
+ ,Tags, ,Studio.Toolbox.AssetConfigError.NetworkError,We encountered some problems:
+ ,We encountered some problems:, ,Studio.Toolbox.AssetConfigPackagePermissions.PackageCreator,Package Creator
+ ,Package Creator, ,Studio.Toolbox.AssetConfigPackagePermissions.SearchbarDefault,Search for Friends
+ ,Search for Friends, ,Studio.Toolbox.AssetConfigPackagePermissions.UserOwnedWarning, Users you share with will always have access to the current and previous versions of this package. Removing collaborators will discontinue their access to newer versions of the package.
+ , Users you share with will always have access to the current and previous versions of this package. Removing collaborators will discontinue their access to newer versions of the package., ,Studio.Toolbox.AssetConfigPackagePermissions.GroupOwnedWarning,No Access takes effect from new versions of this package. Users assigned to rolesets with "Edit" permissions will always have access to current and previous versions of this package.
+ ,No Access takes effect from new versions of this package. Users assigned to rolesets with "Edit" permissions will always have access to current and previous versions of this package., ,Studio.Toolbox.AssetConfigPackagePermissions.PackageDetails,Package Details
+ ,Package Details, ,Studio.Toolbox.Purchase.FreeTitle,Install Plugin
+ ,Install Plugin, ,Studio.Toolbox.Purchase.SuccessHeader,Buy & Installation Complete!
+ ,Buy & Installation Complete!, ,Studio.Toolbox.Purchase.FreeSuccessHeader,Installation Complete!
+ ,Installation Complete!, ,Studio.Toolbox.Purchase.SuccessDetails,Successfully installed "{name}".
+ ,Successfully installed "{name}"., ,Studio.Toolbox.MaxTagsDescription,Add up to {max:int} tags from the tag library
+ ,Add up to {max:int} tags from the tag library, ,Studio.Toolbox.NoTagFound,Word(s) not found in the tag library
+ ,Word(s) not found in the tag library, ,Studio.Toolbox.ThumbnailStatus.Error,Error
+ ,Error, ,Studio.Toolbox.ThumbnailStatus.InReview,In Review
+ ,In Review, ,Studio.Toolbox.ThumbnailStatus.Pending,Pending
+ ,Pending, ,Studio.Toolbox.ThumbnailStatus.Blocked,Blocked
+ ,Blocked, 

@@ -7,7 +7,7 @@ local Roact = InGameMenuDependencies.Roact
 local UIBlox = InGameMenuDependencies.UIBlox
 local t = InGameMenuDependencies.t
 
-local withStyle = UIBlox.Style.withStyle
+local withStyle = UIBlox.Core.Style.withStyle
 
 local InGameMenu = script.Parent.Parent
 
@@ -17,7 +17,7 @@ local GlobalConfig = require(InGameMenu.GlobalConfig)
 
 local ThemedTextLabel = require(InGameMenu.Components.ThemedTextLabel)
 
-local ImageSetLabel = UIBlox.ImageSet.Label
+local ImageSetLabel = UIBlox.Core.ImageSet.Label
 
 -- Additional width for keys with centered text like [Backspace], [Enter], etc
 local CENTERED_EXTRA_WIDTH = 14 * 2
@@ -29,6 +29,9 @@ local OFF_CENTER_PADDING = 9
 -- populating override more easy)
 local BIG = "CaptionHeader"
 local SMALL = "Footer"
+
+local DEFAULT_BORDER_THEME = "UIEmphasis"
+local DEFAULT_TEXT_THEME = "TextEmphasis"
 
 local CONTENT_OVERRIDE_MAP = {
 	[Enum.KeyCode.Escape] = {text = "ESC", fontKey = SMALL, width = 36},
@@ -53,12 +56,17 @@ local CONTENT_OVERRIDE_MAP = {
 
 local validateProps = t.strictInterface({
 	input = t.enum(Enum.KeyCode),
+	--Defaults to UIEmphasis
+	borderThemeKey = t.optional(t.string),
+	--Defaults to TextEmphasis
+	textThemeKey = t.optional(t.string),
+
 	AnchorPoint = t.optional(t.Vector2),
 	Position = t.optional(t.UDim2),
 	LayoutOrder = t.optional(t.integer),
 })
 
-local function getLabelWidthAndContent(input, style)
+local function getLabelWidthAndContent(input, style, textThemeKey)
 	local override = CONTENT_OVERRIDE_MAP[input]
 
 	if override and override.image then
@@ -121,7 +129,7 @@ local function getLabelWidthAndContent(input, style)
 
 		local content = Roact.createElement(ThemedTextLabel, {
 			fontKey = fontKey,
-			themeKey = "TextEmphasis",
+			themeKey = textThemeKey or DEFAULT_TEXT_THEME,
 			Text = text,
 
 			Size = UDim2.new(1, 0, 1, 0),
@@ -139,9 +147,16 @@ local function KeyLabel(props)
 	end
 
 	return withStyle(function(style)
-		local width, content, alignment = getLabelWidthAndContent(props.input, style)
-		local padding
+		local borderTheme = style.Theme[props.borderThemeKey or DEFAULT_BORDER_THEME]
 
+		local width, content, alignment = getLabelWidthAndContent(
+			props.input,
+			style,
+			props.borderThemeKey,
+			props.textThemeKey
+		)
+
+		local padding
 		if alignment then
 			padding = OFF_CENTER_PADDING
 		end
@@ -149,8 +164,8 @@ local function KeyLabel(props)
 		return Roact.createElement(ImageSetLabel, {
 			BackgroundTransparency = 1,
 
-			ImageTransparency = style.Theme.UIEmphasis.Transparency,
-			ImageColor3 = style.Theme.UIEmphasis.Color,
+			ImageTransparency = borderTheme.Transparency,
+			ImageColor3 = borderTheme.Color,
 
 			Image = Assets.Images.KeyBorder,
 			ScaleType = Enum.ScaleType.Slice,

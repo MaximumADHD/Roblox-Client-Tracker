@@ -15,6 +15,7 @@ local smartLargeSmoothBrush = require(script.Parent.smartLargeSmoothBrush)
 local smoothBrush = require(script.Parent.smoothBrush)
 
 local FFlagTerrainToolsLargerBrush = game:GetFastFlag("TerrainToolsLargerBrush")
+local FFlagTerrainToolsFixSmoothDesiredMaterial = game:GetFastFlag("TerrainToolsFixSmoothDesiredMaterial")
 
 -- Air and water materials are frequently referenced in terrain brush
 local materialAir = Enum.Material.Air
@@ -118,15 +119,18 @@ local function performOperation(terrain, opSet)
 	end
 
 	if tool == ToolId.Smooth then
-		if autoMaterial then
-			local middle = readMaterials[math.ceil(#readMaterials * 0.5)]
-			if middle then
-				middle = middle[math.ceil(#middle * 0.5)]
+		-- TODO: Remove desiredMaterial property from smoothBrush and smartLargeSmoothBrush when removing FFlagTerrainToolsFixSmoothDesiredMaterial
+		if not FFlagTerrainToolsFixSmoothDesiredMaterial then
+			if autoMaterial then
+				local middle = readMaterials[math.ceil(#readMaterials * 0.5)]
 				if middle then
 					middle = middle[math.ceil(#middle * 0.5)]
-					if middle and middle ~= materialAir and middle ~= materialWater then
-						nearMaterial = middle
-						desiredMaterial = autoMaterial and nearMaterial or desiredMaterial
+					if middle then
+						middle = middle[math.ceil(#middle * 0.5)]
+						if middle and middle ~= materialAir and middle ~= materialWater then
+							nearMaterial = middle
+							desiredMaterial = autoMaterial and nearMaterial or desiredMaterial
+						end
 					end
 				end
 			end
@@ -138,7 +142,7 @@ local function performOperation(terrain, opSet)
 					centerPoint = centerPoint,
 					selectionSize = selectionSize,
 					strength = strength,
-					desiredMaterial = desiredMaterial,
+					desiredMaterial = not FFlagTerrainToolsFixSmoothDesiredMaterial and desiredMaterial or nil,
 					brushShape = brushShape,
 				}, minBounds, maxBounds, readMaterials, readOccupancies, writeMaterials, writeOccupancies)
 			else
@@ -146,7 +150,7 @@ local function performOperation(terrain, opSet)
 					centerPoint = centerPoint,
 					selectionSize = selectionSize,
 					strength = strength,
-					desiredMaterial = desiredMaterial,
+					desiredMaterial = not FFlagTerrainToolsFixSmoothDesiredMaterial and desiredMaterial or nil,
 					brushShape = brushShape,
 				}, minBounds, maxBounds, readMaterials, readOccupancies, writeMaterials, writeOccupancies)
 			end

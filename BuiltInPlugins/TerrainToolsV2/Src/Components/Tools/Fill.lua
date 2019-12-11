@@ -53,6 +53,13 @@ function Fill:didUpdate()
 	})
 end
 
+function Fill:didMount()
+	TerrainRegionEditor.ChangeProperties({
+		material = self.props.material,
+		mergeEmpty = self.props.mergeEmpty,
+	})
+end
+
 function Fill:render()
 	local mergeEmpty = self.props.mergeEmpty
 	local mat = self.props.material

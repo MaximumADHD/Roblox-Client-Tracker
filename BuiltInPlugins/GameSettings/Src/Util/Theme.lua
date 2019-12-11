@@ -266,6 +266,8 @@ function Theme.createValues(getColor, StyleColor, StyleModifier)
 		selectionBorderColor = getColor(StyleColor.ButtonBorder, StyleModifier.Selected),
 		
 		errorColor = getColor(StyleColor.ErrorText),
+
+		hyperlinkTextColor = getColor(StyleColor.LinkText),
 	}
 
 	return {

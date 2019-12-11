@@ -7,7 +7,7 @@ local Roact = require(Plugin.Packages.Roact)
 local Rodux = require(Plugin.Packages.Rodux)
 
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
-local MockPlugin = require(Plugin.Src.TestHelpers.MockPlugin)
+local MockStudioPlugin = require(Plugin.Src.TestHelpers.MockStudioPlugin)
 local Http = require(Plugin.Packages.Http)
 local NetworkingContext = require(Plugin.Src.ContextServices.NetworkingContext)
 
@@ -28,7 +28,7 @@ function MockServiceWrapper:render()
 
 	local pluginInstance = self.props.plugin
 	if not pluginInstance then
-		pluginInstance = MockPlugin.new()
+		pluginInstance = MockStudioPlugin.new()
 	end
 
 	local focusGui = self.props.focusGui

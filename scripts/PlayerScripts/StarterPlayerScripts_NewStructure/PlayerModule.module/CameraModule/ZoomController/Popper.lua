@@ -20,6 +20,10 @@ local rad = math.rad
 local inf = math.huge
 local ray = Ray.new
 
+local function getTotalTransparency(part)
+	return 1 - (1 - part.Transparency)*(1 - part.LocalTransparencyModifier)
+end
+
 local function eraseFromEnd(t, toSize)
 	for i = #t, toSize + 1, -1 do
 		t[i] = nil
@@ -129,7 +133,7 @@ local function canOcclude(part)
 
 	if FFlagUserPoppercamLooseOpacityThreshold then
 		return
-			part.Transparency < 0.25 and
+			getTotalTransparency(part) < 0.25 and
 			part.CanCollide and
 			subjectRoot ~= (part:GetRootPart() or part) and
 			not part:IsA('TrussPart')

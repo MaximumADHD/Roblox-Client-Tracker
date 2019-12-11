@@ -117,5 +117,6 @@ return{
 	["CoreScripts.InGameMenu.GameSettings.ServerVersion"] = [[服务器版本：{SERVER_VERSION}]],
 	["CoreScripts.InGameMenu.GameSettings.PlaceVersion"] = [[场景版本：{PLACE_VERSION}]],
 	["CoreScripts.InGameMenu.GameSettings.PlaceVersionWithLatest"] = [[场景版本：{PLACE_VERSION}（最新版本：{LATEST_PLACE_VERSION}）]],
-	["CoreScripts.InGameMenu.Label.MicroProfiler"] = [[MicroProfiler]],
+	["CoreScripts.InGameMenu.Label.MicroProfiler"] = [[微观性能分析器]],
+	["CoreScripts.InGameMenu.InviteFriends.Loading"] = [[正在载入！]],
 }

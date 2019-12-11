@@ -5,13 +5,13 @@ local Roact = InGameMenuDependencies.Roact
 local UIBlox = InGameMenuDependencies.UIBlox
 local t = InGameMenuDependencies.t
 
-local withStyle = UIBlox.Style.withStyle
+local withStyle = UIBlox.Core.Style.withStyle
 
 local InGameMenu = script.Parent.Parent
 
 local Assets = require(InGameMenu.Resources.Assets)
 
-local ImageSetButton = UIBlox.ImageSet.Button
+local ImageSetButton = UIBlox.Core.ImageSet.Button
 
 local MoreButton = Roact.PureComponent:extend("MoreButton")
 

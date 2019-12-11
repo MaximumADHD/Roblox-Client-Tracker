@@ -10,10 +10,7 @@
 	by using this component's SetScrollbarEnabled function.
 ]]
 
-local DFFlagTextBoxesNeverSinkMouseEvents = settings():GetFFlag("TextBoxesNeverSinkMouseEvents")
 local FFlagGameSettingsReorganizeHeaders = settings():GetFFlag("GameSettingsReorganizeHeaders")
-
-local ShouldUseFocusScrolling = DFFlagTextBoxesNeverSinkMouseEvents
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -41,7 +38,7 @@ function CurrentPage:init()
 					+ Constants.ELEMENT_PADDING + Constants.HEADER_HEIGHT + Constants.ELEMENT_PADDING)
 			end
 			canvas.CanvasSize = contentSize
-			
+
 			-- TODO (awarwick) 5/1/2019 Remove with FFlagQuantumScrollingFrame
 			if settings():GetFFlag("StudioGameSettingsFixBrokenScrollingFrames") then
 				-- ScrollingFrames don't use QuantumGui and aren't very great at telling when they've updated
@@ -55,11 +52,9 @@ function CurrentPage:init()
 	end
 
 	self.setScrollbarEnabled = function(enabled)
-		if ShouldUseFocusScrolling then
-			local canvas = self.canvasRef.current
-			if canvas then
-				canvas.ScrollingEnabled = enabled
-			end
+		local canvas = self.canvasRef.current
+		if canvas then
+			canvas.ScrollingEnabled = enabled
 		end
 	end
 end
@@ -72,10 +67,7 @@ function CurrentPage:didUpdate(previousProps)
 		local canvas = self.canvasRef.current
 		if canvas then
 			canvas.CanvasPosition = Vector2.new()
-
-			if ShouldUseFocusScrolling then
-				canvas.ScrollingEnabled = true
-			end
+			canvas.ScrollingEnabled = true
 		end
 	end
 end

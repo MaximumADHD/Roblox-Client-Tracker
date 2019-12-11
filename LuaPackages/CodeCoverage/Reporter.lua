@@ -44,7 +44,7 @@ function Reporter.processCoverageStats()
             local scanner = LineScanner:new()
             local lineNumber = 1
 
-            for line in source:gmatch('(.-)\n') do
+            for line in source:gmatch('([^\r\n]*)[\r\n]?') do
                 local excluded, excludedIfNotHit = scanner:consume(line)
 
                 local ignored = excluded
@@ -83,13 +83,28 @@ function Reporter.processCoverageStats()
     return files
 end
 
+local function matchesAny(str, excludes)
+    if not str or str:len() == 0 or not excludes then
+        return false
+    end
 
-function Reporter.generateReport(path)
+    for _,exclude in ipairs(excludes) do
+        if string.find(str, exclude) ~= nil then
+            return true
+        end
+    end
+    return false
+end
+
+function Reporter.generateReport(path, excludes)
     local report = LcovReporter.generate(Reporter.processCoverageStats(), function(file)
-        local isTest = file.script.Name:match(".spec$")
+        local isExcluded = file.script.Name:match(".spec$")
             or file.script:FindFirstAncestor("TestEZ")
             or file.script:IsDescendantOf(CodeCoverage)
-        return not isTest and file.path and file.path:len() > 0
+            or matchesAny(file.path, excludes)
+        local isIncluded = file.path and file.path:len() > 0
+
+        return isIncluded and not isExcluded
     end)
     if report:len() == 0 then
         warn("Generating code coverage report failed. Produced report has zero size.")

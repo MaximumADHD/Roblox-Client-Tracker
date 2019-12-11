@@ -118,4 +118,5 @@ return{
 	["CoreScripts.InGameMenu.GameSettings.PlaceVersion"] = [[Version de la location : {PLACE_VERSION}]],
 	["CoreScripts.InGameMenu.GameSettings.PlaceVersionWithLatest"] = [[Version de la location : {PLACE_VERSION} (dernière : {LATEST_PLACE_VERSION})]],
 	["CoreScripts.InGameMenu.Label.MicroProfiler"] = [[MicroProfiler]],
+	["CoreScripts.InGameMenu.InviteFriends.Loading"] = [[Chargement !]],
 }

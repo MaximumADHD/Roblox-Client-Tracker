@@ -5,9 +5,6 @@ local Roact = require(CorePackages.Roact)
 local Constants = require(script.Parent.Parent.Constants)
 local INNER_FRAME_PADDING = 12
 
-local FFlagDevConsoleUpdateLayering = settings():GetFFlag("DevConsoleUpdateLayering")
-local FFlagRespectDisplayOrderForOnTopOfCoreBlur = settings():GetFFlag("RespectDisplayOrderForOnTopOfCoreBlur")
-
 local CheckBoxDropDown = Roact.Component:extend("CheckBoxDropDown")
 
 function CheckBoxDropDown:render()
@@ -23,66 +20,32 @@ function CheckBoxDropDown:render()
 	local frameHeight = elementHeight * numElements
 	local outerFrameSize = UDim2.new( 0, frameWidth, 0, (2 * INNER_FRAME_PADDING) + frameHeight)
 
-	
-	if FFlagDevConsoleUpdateLayering then
-		return Roact.createElement(Roact.Portal, {
-			-- render the portal into the same ScreenGui as the DevConsole
-			target = dropdownTargetGui ~= nil and dropdownTargetGui or game:GetService("CoreGui").DevConsoleMaster,
-		}, {
-			InputCatcher = Roact.createElement("Frame", {
-				Size = UDim2.new(1, 0, 1, 0),
-				Position = UDim2.new(0, 0, 0, 0),
-				BackgroundTransparency = 1,
+	return Roact.createElement(Roact.Portal, {
+		-- render the portal into the same ScreenGui as the DevConsole
+		target = dropdownTargetGui ~= nil and dropdownTargetGui or game:GetService("CoreGui").DevConsoleMaster,
+	}, {
+		InputCatcher = Roact.createElement("Frame", {
+			Size = UDim2.new(1, 0, 1, 0),
+			Position = UDim2.new(0, 0, 0, 0),
+			BackgroundTransparency = 1,
 
-				[Roact.Event.InputEnded] = onCloseCheckBox,
-			}, {
-				OuterFrame = Roact.createElement("ImageButton", {
-					Size = outerFrameSize,
-					AutoButtonColor = false,
-					Position = absolutePosition,
-					BackgroundColor3 = Constants.Color.TextBoxGray,
-					BackgroundTransparency = 0,
-				}, {
-					innerFrame = Roact.createElement("Frame", {
-						Position = UDim2.new(0, INNER_FRAME_PADDING, 0 , INNER_FRAME_PADDING),
-						Size = UDim2.new(0,frameWidth, 0, frameHeight),
-						BackgroundTransparency = 1,
-					}, children)
-				})
-			}),
-		})
-	else
-
-		return Roact.createElement(Roact.Portal, {
-			target = RobloxGui,
+			[Roact.Event.InputEnded] = onCloseCheckBox,
 		}, {
-			FullScreen = Roact.createElement("ScreenGui", {
-				OnTopOfCoreBlur = FFlagRespectDisplayOrderForOnTopOfCoreBlur and true or nil,
+			OuterFrame = Roact.createElement("ImageButton", {
+				Size = outerFrameSize,
+				AutoButtonColor = false,
+				Position = absolutePosition,
+				BackgroundColor3 = Constants.Color.TextBoxGray,
+				BackgroundTransparency = 0,
 			}, {
-				InputCatcher = Roact.createElement("Frame", {
-					Size = UDim2.new(1, 0, 1, 0),
-					Position = UDim2.new(0, 0, 0, 0),
+				innerFrame = Roact.createElement("Frame", {
+					Position = UDim2.new(0, INNER_FRAME_PADDING, 0 , INNER_FRAME_PADDING),
+					Size = UDim2.new(0,frameWidth, 0, frameHeight),
 					BackgroundTransparency = 1,
-
-					[Roact.Event.InputEnded] = onCloseCheckBox,
-				}, {
-					OuterFrame = Roact.createElement("ImageButton", {
-						Size = outerFrameSize,
-						AutoButtonColor = false,
-						Position = absolutePosition,
-						BackgroundColor3 = Constants.Color.TextBoxGray,
-						BackgroundTransparency = 0,
-					}, {
-						innerFrame = Roact.createElement("Frame", {
-							Position = UDim2.new(0, INNER_FRAME_PADDING, 0 , INNER_FRAME_PADDING),
-							Size = UDim2.new(0,frameWidth, 0, frameHeight),
-							BackgroundTransparency = 1,
-						}, children)
-					})
-				}),
-			}),
-		})
-	end
+				}, children)
+			})
+		}),
+	})
 end
 
 return CheckBoxDropDown

@@ -58,6 +58,10 @@ Studio.TerrainToolsV2.BrushSettings.Size, , ,Size
 Studio.TerrainToolsV2.BrushSettings.SnapToGrid, , ,Snap to Grid
 Studio.TerrainToolsV2.BrushSettings.Strength, , ,Strength
 Studio.TerrainToolsV2.BrushSettings.TopPivot, , ,Top
+Studio.TerrainToolsV2.ClearTool.ConfirmationTitle, , ,Clear Terrain
+Studio.TerrainToolsV2.ClearTool.ConfirmationMessage, , ,Do you want to clear all terrain?
+Studio.TerrainToolsV2.Confirmation.Yes, , ,Yes
+Studio.TerrainToolsV2.Confirmation.No, , ,No
 Studio.TerrainToolsV2.EditSettings.EditSettings, , ,Edit Settings
 Studio.TerrainToolsV2.EditSettings.MergeEmpty, , ,Merge Empty
 Studio.TerrainToolsV2.Example.ErrorAnUnexpectedThing, , ,"An unexpected thing happened, try again"
@@ -175,7 +179,6 @@ Studio.TerrainToolsV2.Warning.RegionTooLarge, , ,Region size is too large.
 Studio.TerrainToolsV2.Warning.RegionTooSmall, , ,Region size is too small.
 Studio.TerrainToolsV2.Warning.RequirePublishedForImport, , ,Game must be published before importing terrain.
 Studio.TerrainToolsV2.Warning.ValidHeightMapImport, , ,Valid HeightMap required to begin importing Terrain.
-Studio.TerrainToolsV2.ClearTool.ConfirmationMessage, , ,Do you want to clear all terrain?
 Studio.TerrainToolsV2.SeaLevel.Start, , ,Starting Sea Level
 Studio.TerrainToolsV2.SeaLevel.End,{1:int}, ,Sea Level Complete: {1:int} seconds.
 Studio.TerrainToolsV2.SeaLevel.Create, , ,Create

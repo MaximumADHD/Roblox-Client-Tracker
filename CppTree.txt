@@ -486,7 +486,6 @@ RBX
 		ForceAngular
 		ForceLinear
 		InteractingPair
-		LDLPGSSolver
 		LDLPGSSolverMT
 		PGSSolver
 		SolverInterface
@@ -996,6 +995,7 @@ RBX
 	PlayDeleteSelectionVerb
 	Player
 	PlayerConfigurer
+	PlayerEmulatorService
 	PlayerGui
 	PlayerLocaleLocalizationServiceTranslatorInstance
 	PlayerMouse

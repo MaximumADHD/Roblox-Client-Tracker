@@ -138,11 +138,11 @@ function AssetConfigTheme:_recalculateTheme()
 				},
 
 				searchBar = {
-					border = color(c.Border),
+					border = color(c.InputFieldBorder),
 					borderHover = isDark and color(c.MainButton) or color(c.CurrentMarker),
 					borderSelected = isDark and color(c.MainButton) or color(c.CurrentMarker),
 					placeholderText = color(c.DimmedText),
-
+					backgroundColor = color(c.InputFieldBackground),
 					searchIcon = color(c.SubText),
 
 					clearButton = {
@@ -155,7 +155,7 @@ function AssetConfigTheme:_recalculateTheme()
 						headerText = color(c.SubText),
 
 						hovered = {
-							backgroundColor = color(c.Button, m.Hover),
+							backgroundColor = color(c.Item, m.Hover),
 							itemText = color(c.ButtonText, m.Hover),
 						},
 
@@ -391,7 +391,23 @@ function AssetConfigTheme:_recalculateTheme()
 			onImage = isDark and Images.TOGGLE_ON_DARK or Images.TOGGLE_ON_LIGHT,
 			offImage = isDark and Images.TOGGLE_OFF_DARK or Images.TOGGLE_OFF_LIGHT,
 			disabledImage = isDark and Images.TOGGLE_DISABLE_DARK or Images.TOGGLE_DISABLE_LIGHT,
-		}
+		},
+
+		detailedDropdown = {
+			backgroundColor = color(c.MainBackground),
+			borderColor = color(c.DialogButtonBorder),
+
+			hovered = {
+				backgroundColor = color(c.Item, m.Hover),
+				displayText = color(c.MainText, m.Hover),
+				borderColor = color(c.DialogButtonBorder, m.Hover),
+			},
+
+			selected = {
+				backgroundColor = color(c.Item, m.Selected),
+				displayText = color(c.MainText, m.Selected),
+			}
+		},
 	}
 
 	self:_updateUILibrary(styleGuide, overrides)

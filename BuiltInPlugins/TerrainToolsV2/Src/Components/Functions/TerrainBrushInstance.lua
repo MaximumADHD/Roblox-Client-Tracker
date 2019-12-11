@@ -27,12 +27,14 @@ local Workspace = game:GetService("Workspace")
 game:DefineFastFlag("TerrainToolsBrushOnlyUndoWhenDirty", false)
 game:DefineFastFlag("TerrainToolsFixAutoMaterial", false)
 game:DefineFastFlag("TerrainToolsFixFlattenToolPlanePosition", false)
+game:DefineFastFlag("TerrainToolsBrushUseIsKeyDown", false)
 
 local FFlagTerrainToolMetrics = settings():GetFFlag("TerrainToolMetrics")
 local FFlagTerrainToolsHoldAltToSelectMaterial = game:GetFastFlag("TerrainToolsHoldAltToSelectMaterial")
 local FFlagTerrainToolsBrushOnlyUndoWhenDirty = game:GetFastFlag("TerrainToolsBrushOnlyUndoWhenDirty")
 local FFlagTerrainToolsFixAutoMaterial = game:GetFastFlag("TerrainToolsFixAutoMaterial")
 local FFlagTerrainToolsFixFlattenToolPlanePosition = game:GetFastFlag("TerrainToolsFixFlattenToolPlanePosition")
+local FFlagTerrainToolsBrushUseIsKeyDown = game:GetFastFlag("TerrainToolsBrushUseIsKeyDown")
 
 local CLICK_THRESHOLD = 0.1
 
@@ -53,6 +55,18 @@ local function getCameraLookSnappedForPlane()
 	local camera = Workspace.CurrentCamera
 	local lookVector = camera.CoordinateFrame.lookVector
 	return Vector3.new(round(lookVector.x), round(lookVector.y), round(lookVector.z)).unit
+end
+
+local function isShiftKeyDown()
+	return UserInputService:IsKeyDown(Enum.KeyCode.LeftShift) or UserInputService:IsKeyDown(Enum.KeyCode.RightShift)
+end
+
+local function isCtrlKeyDown()
+	return UserInputService:IsKeyDown(Enum.KeyCode.LeftControl) or UserInputService:IsKeyDown(Enum.KeyCode.RightControl)
+end
+
+local function isAltKeyDown()
+	return UserInputService:IsKeyDown(Enum.KeyCode.LeftAlt) or UserInputService:IsKeyDown(Enum.KeyCode.RightAlt)
 end
 
 local TerrainBrush = {}
@@ -92,7 +106,7 @@ function TerrainBrush.new(options)
 
 		_mouseDown = false,
 		_mouseClick = false,
-		_downKeys = {},
+		_downKeys = not FFlagTerrainToolsBrushUseIsKeyDown and {} or nil,
 		_connections = {},
 
 		_cursor = TerrainBrushCursor.new(options.terrain),
@@ -185,7 +199,9 @@ function TerrainBrush:stop()
 
 	self._mouseDown = false
 	self._mouseClick = false
-	self._downKeys = {}
+	if not FFlagTerrainToolsBrushUseIsKeyDown then
+		self._downKeys = {}
+	end
 	self:_disconnectAllConnections()
 
 	self:_destroyCursor()
@@ -259,7 +275,10 @@ function TerrainBrush:_connectInput()
 	end
 
 	connectHelper(UserInputService.InputBegan, function(event, soaked)
-		self._downKeys[event.KeyCode] = true
+		if not FFlagTerrainToolsBrushUseIsKeyDown then
+			self._downKeys[event.KeyCode] = true
+		end
+
 		if event.UserInputType == Enum.UserInputType.MouseButton1 and not soaked and self._isRunning then
 			self._mouseDown = true
 			self._mouseClick = true
@@ -267,7 +286,10 @@ function TerrainBrush:_connectInput()
 	end)
 
 	connectHelper(UserInputService.InputEnded, function(event, soaked)
-		self._downKeys[event.KeyCode] = nil
+		if not FFlagTerrainToolsBrushUseIsKeyDown then
+			self._downKeys[event.KeyCode] = nil
+		end
+
 		if event.UserInputType == Enum.UserInputType.MouseButton1 and self._mouseDown then
 			self._mouseDown = false
 
@@ -279,12 +301,20 @@ function TerrainBrush:_connectInput()
 		end
 	end)
 
-	connectHelper(UserInputService.WindowFocusReleased, function()
-		self._downKeys = {}
-	end)
+	if not FFlagTerrainToolsBrushUseIsKeyDown then
+		connectHelper(UserInputService.WindowFocusReleased, function()
+			self._downKeys = {}
+		end)
+	end
 
 	local function handleScrollWheel(direction)
-		if self._downKeys[Enum.KeyCode.LeftShift] or self._downKeys[Enum.KeyCode.RightShift] then
+		local shiftDown
+		if FFlagTerrainToolsBrushUseIsKeyDown then
+			shiftDown = isShiftKeyDown()
+		else
+			shiftDown = self._downKeys[Enum.KeyCode.LeftShift] or self._downKeys[Enum.KeyCode.RightShift]
+		end
+		if shiftDown then
 			local scalingChange = direction / 10
 
 			local sizeGrow = self._operationSettings.cursorSize * scalingChange
@@ -310,7 +340,13 @@ function TerrainBrush:_connectInput()
 			self._requestBrushSizeChanged:fire(newSizeClamped, newHeightClamped)
 		end
 
-		if self._downKeys[Enum.KeyCode.LeftControl] or self._downKeys[Enum.KeyCode.RightControl] then
+		local ctrlDown
+		if FFlagTerrainToolsBrushUseIsKeyDown then
+			ctrlDown = isCtrlKeyDown()
+		else
+			ctrlDown = self._downKeys[Enum.KeyCode.LeftControl] or self._downKeys[Enum.KeyCode.RightControl]
+		end
+		if ctrlDown then
 			local newStrength = math.max(0.1, math.min(1, self._operationSettings.strength + (direction * 0.1)))
 
 			self._requestBrushStrengthChanged:fire(newStrength)
@@ -387,8 +423,14 @@ function TerrainBrush:_run()
 			mainPoint = cameraPos + unitRay * lastCursorDistance
 		end
 
+		local shiftDown
+		if FFlagTerrainToolsBrushUseIsKeyDown then
+			shiftDown = isShiftKeyDown()
+		else
+			shiftDown = self._downKeys[Enum.KeyCode.LeftShift] or self._downKeys[Enum.KeyCode.RightShift]
+		end
 		if not self._operationSettings.planeLock
-			or not (self._downKeys[Enum.KeyCode.LeftShift] or self._downKeys[Enum.KeyCode.RightShift]) then
+			or not shiftDown then
 			if not self._mouseDown or self._mouseClick then
 				lastPlanePoint = mainPoint
 				lastNormal = currentTool == ToolId.Flatten and Vector3.new(0, 1, 0) or getCameraLookSnappedForPlane()
@@ -429,8 +471,13 @@ function TerrainBrush:_run()
 					reportClick = false
 				end
 
-				if FFlagTerrainToolsHoldAltToSelectMaterial and (self._downKeys[Enum.KeyCode.LeftAlt]
-					or self._downKeys[Enum.KeyCode.RightAlt]) then
+				local altDown
+				if FFlagTerrainToolsBrushUseIsKeyDown then
+					altDown = isAltKeyDown()
+				else
+					altDown = self._downKeys[Enum.KeyCode.LeftAlt] or self._downKeys[Enum.KeyCode.RightAlt]
+				end
+				if FFlagTerrainToolsHoldAltToSelectMaterial and altDown then
 					if rayHit and rayHit:IsA("Terrain") then
 						self._materialSelectRequested:fire(hitMaterial)
 					end

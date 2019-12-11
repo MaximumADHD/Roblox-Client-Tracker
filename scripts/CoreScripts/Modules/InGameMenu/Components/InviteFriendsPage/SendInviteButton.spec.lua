@@ -21,7 +21,7 @@ return function()
 	local InviteStatus = Constants.InviteStatus
 
 	it("should create and destroy without errors", function()
-		local element = Roact.createElement(UIBlox.Style.Provider, {
+		local element = Roact.createElement(UIBlox.Core.Style.Provider, {
 			style = appStyle,
 		}, {
 			SendInviteButton = Roact.createElement(SendInviteButton, {
@@ -48,7 +48,7 @@ return function()
 			local animationBegunCalled = 0
 			local animationEndedCalled = 0
 
-			local element = Roact.createElement(UIBlox.Style.Provider, {
+			local element = Roact.createElement(UIBlox.Core.Style.Provider, {
 				style = appStyle,
 			}, {
 				SendInviteButton = Roact.createElement(SendInviteButton, {

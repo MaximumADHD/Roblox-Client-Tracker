@@ -1,7 +1,7 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 local Http = require(Plugin.Packages.Http)
 local UrlConstructor = require(Plugin.Src.Networking.UrlConstructor)
-local LoadPolicySettings = require(Plugin.Src.Actions.LoadPolicySettings)
+local InitPolicySettingStatus = require(Plugin.Src.Thunks.InitPolicySettingStatus)
 
 local SUBDOMAIN = "gameinternationalization"
 local ALL_POLICIES_PATH = "v1/player-policies/all-values"
@@ -16,13 +16,13 @@ local function getPlayerPolicyInfo(allPoliciesResponse, store, networkingImpl, p
 	networkingImpl.parseJson(playerPolicyRetryPromise):andThen(function(result)
 		if result.responseCode == Http.StatusCodes.OK then
 			local playerPolicyResponse = result.responseBody
-			store:dispatch(LoadPolicySettings(allPoliciesResponse, playerPolicyResponse, plugin))
+			store:dispatch(InitPolicySettingStatus(allPoliciesResponse, playerPolicyResponse, plugin))
 		else
-			store:dispatch(LoadPolicySettings(allPoliciesResponse, {}, plugin))
+			store:dispatch(InitPolicySettingStatus(allPoliciesResponse, {}, plugin))
 			warn("Player Emulator can't get player policy info: HTTP error "..tostring(result.responseCode))
 		end
 	end, function(err)
-		store:dispatch(LoadPolicySettings(allPoliciesResponse, {}, plugin))
+		store:dispatch(InitPolicySettingStatus(allPoliciesResponse, {}, plugin))
 		warn("Player Emulator can't get player policy info: " .. err)
 	end)
 end
@@ -43,3 +43,5 @@ return function(networkingImpl, plugin)
 		end)
 	end
 end
+
+

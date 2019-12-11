@@ -373,8 +373,9 @@ function CollaboratorSearchBar:render()
 		end
 
 		return Roact.createElement(ContentFit, {
-			BackgroundTransparency = 1,
 			LayoutOrder = layoutOrder,
+			BackgroundColor3 = theme.inputFields.backgroundColor,
+			BorderSizePixel = 0,
 		}, {
 			Background =  Roact.createElement(SearchBarContentFit, {
 				BackgroundTransparency = 1,

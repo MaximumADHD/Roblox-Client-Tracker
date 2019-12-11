@@ -6,6 +6,7 @@ return function()
 	local Roact = require(CorePackages.Roact)
 	local RoactRodux = require(CorePackages.RoactRodux)
 	local Rodux = require(CorePackages.Rodux)
+	local UIBlox = require(CorePackages.UIBlox)
 
 	local Components = script.Parent.Parent
 	local PlayerList = Components.Parent
@@ -29,33 +30,96 @@ return function()
 
 	local PlayerScrollList = require(script.Parent.PlayerScrollList)
 
-	it("should create and destroy without errors", function()
-		local element = Roact.createElement(RoactRodux.StoreProvider, {
-			store = Rodux.Store.new(Reducer)
-		}, {
-			LayoutValuesProvider = Roact.createElement(LayoutValuesProvider, {
-				layoutValues = CreateLayoutValues(false, false)
+	local AppDarkTheme = require(CorePackages.AppTempCommon.LuaApp.Style.Themes.DarkTheme)
+	local AppFont = require(CorePackages.AppTempCommon.LuaApp.Style.Fonts.Gotham)
+
+	local appStyle = {
+		Theme = AppDarkTheme,
+		Font = AppFont,
+	}
+
+	local FFlagPlayerListDesignUpdate = settings():GetFFlag("PlayerListDesignUpdate")
+
+	if FFlagPlayerListDesignUpdate then
+		it("should create and destroy without errors", function()
+			local element = Roact.createElement(RoactRodux.StoreProvider, {
+				store = Rodux.Store.new(Reducer)
 			}, {
-				PlayerScrollList = Roact.createElement(PlayerScrollList),
+				LayoutValuesProvider = Roact.createElement(LayoutValuesProvider, {
+					layoutValues = CreateLayoutValues(false, false)
+				}, {
+					ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
+						style = appStyle,
+					}, {
+						PlayerScrollList = Roact.createElement(PlayerScrollList, {
+							screenSizeY = 1000,
+							overrideEntrySize = 200,
+						}),
+					})
+				})
 			})
-		})
 
-		local instance = Roact.mount(element)
-		Roact.unmount(instance)
-	end)
+			local instance = Roact.mount(element)
+			Roact.unmount(instance)
+		end)
 
-	it("should create and destroy without errors tenfoot", function()
-		local element = Roact.createElement(RoactRodux.StoreProvider, {
-			store = Rodux.Store.new(Reducer)
-		}, {
-			LayoutValuesProvider = Roact.createElement(LayoutValuesProvider, {
-				layoutValues = CreateLayoutValues(true, false)
+		it("should create and destroy without errors tenfoot", function()
+			local element = Roact.createElement(RoactRodux.StoreProvider, {
+				store = Rodux.Store.new(Reducer)
 			}, {
-				PlayerScrollList = Roact.createElement(PlayerScrollList),
+				LayoutValuesProvider = Roact.createElement(LayoutValuesProvider, {
+					layoutValues = CreateLayoutValues(true, false)
+				}, {
+					ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
+						style = appStyle,
+					}, {
+						PlayerScrollList = Roact.createElement(PlayerScrollList, {
+							screenSizeY = 1000,
+						}),
+					})
+				})
 			})
-		})
 
-		local instance = Roact.mount(element)
-		Roact.unmount(instance)
-	end)
+			local instance = Roact.mount(element)
+			Roact.unmount(instance)
+		end)
+	else
+		it("should create and destroy without errors", function()
+			local element = Roact.createElement(RoactRodux.StoreProvider, {
+				store = Rodux.Store.new(Reducer)
+			}, {
+				LayoutValuesProvider = Roact.createElement(LayoutValuesProvider, {
+					layoutValues = CreateLayoutValues(false, false)
+				}, {
+					ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
+						style = appStyle,
+					}, {
+						PlayerScrollList = Roact.createElement(PlayerScrollList),
+					})
+				})
+			})
+
+			local instance = Roact.mount(element)
+			Roact.unmount(instance)
+		end)
+
+		it("should create and destroy without errors tenfoot", function()
+			local element = Roact.createElement(RoactRodux.StoreProvider, {
+				store = Rodux.Store.new(Reducer)
+			}, {
+				LayoutValuesProvider = Roact.createElement(LayoutValuesProvider, {
+					layoutValues = CreateLayoutValues(true, false)
+				}, {
+					ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
+						style = appStyle,
+					}, {
+						PlayerScrollList = Roact.createElement(PlayerScrollList),
+					})
+				})
+			})
+
+			local instance = Roact.mount(element)
+			Roact.unmount(instance)
+		end)
+	end
 end

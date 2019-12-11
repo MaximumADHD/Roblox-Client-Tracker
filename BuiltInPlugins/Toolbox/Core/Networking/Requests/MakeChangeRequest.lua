@@ -17,7 +17,7 @@ return function(setting, currentValue, newValue, comparisonFunc)
 		if equals then
 			store:dispatch(ClearChange(setting))
 		else
-		store:dispatch(AddChange(setting, newValue))
+			store:dispatch(AddChange(setting, newValue))
 		end
 	end
 end

@@ -31,6 +31,12 @@ function Region:didUpdate()
 	})
 end
 
+function Region:didMount()
+	TerrainRegionEditor.ChangeProperties({
+		mergeEmpty = self.props.mergeEmpty,
+	})
+end
+
 function Region:render()
 	local mergeEmpty = self.props.mergeEmpty
 

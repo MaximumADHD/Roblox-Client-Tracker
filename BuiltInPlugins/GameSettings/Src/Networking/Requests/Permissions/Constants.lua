@@ -20,6 +20,7 @@ local webKeys = {
 	RoleRank = "rank",
 
 	Action = "action",
+	AllowedPermissions = "allowedPermissions",
 
 	PlayAction = "Play",
 	EditAction = "Edit",

@@ -1,12 +1,13 @@
 local TextService = game:GetService("TextService")
 local CorePackages = game:GetService("CorePackages")
+local ContextActionService = game:GetService("ContextActionService")
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
 local UIBlox = InGameMenuDependencies.UIBlox
 local t = InGameMenuDependencies.t
 
-local withStyle = UIBlox.Style.withStyle
+local withStyle = UIBlox.Core.Style.withStyle
 
 local InGameMenu = script.Parent.Parent
 
@@ -16,10 +17,12 @@ local SystemPrimaryButton = require(script.Parent.SystemPrimaryButton)
 local ThemedTextLabel = require(script.Parent.ThemedTextLabel)
 local Divider = require(script.Parent.Divider)
 
-local ImageSetLabel = UIBlox.ImageSet.Label
+local ImageSetLabel = UIBlox.Core.ImageSet.Label
 
 local DIALOG_WIDTH = 312
 local DIALOG_PADDING = 24
+
+local MODAL_DISMISS_ACTION = "InGameMenuModalDismiss"
 
 local InfoDialog = Roact.PureComponent:extend("InfoDialog")
 
@@ -136,6 +139,39 @@ function InfoDialog:render()
 			}),
 		})
 	end)
+end
+
+function InfoDialog:bindActions()
+	local function dismissFunc(actionName, inputState, input)
+		if inputState == Enum.UserInputState.Begin then
+			self.props.onDismiss()
+		end
+	end
+
+	ContextActionService:BindCoreAction(
+		MODAL_DISMISS_ACTION, dismissFunc, false, Enum.KeyCode.Escape)
+end
+
+function InfoDialog:unbindActions()
+	ContextActionService:UnbindCoreAction(MODAL_DISMISS_ACTION)
+end
+
+function InfoDialog:didMount()
+	if self.props.visible then
+		self:bindActions()
+	end
+end
+
+function InfoDialog:didUpdate()
+	if self.props.visible then
+		self:bindActions()
+	else
+		self:unbindActions()
+	end
+end
+
+function InfoDialog:willUnmount()
+	self:unbindActions()
 end
 
 return InfoDialog

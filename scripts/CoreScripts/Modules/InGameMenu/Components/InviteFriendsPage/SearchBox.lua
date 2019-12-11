@@ -5,7 +5,7 @@ local Roact = InGameMenuDependencies.Roact
 local t = InGameMenuDependencies.t
 local UIBlox = InGameMenuDependencies.UIBlox
 
-local withStyle = UIBlox.Style.withStyle
+local withStyle = UIBlox.Core.Style.withStyle
 
 local InGameMenu = script.Parent.Parent.Parent
 
@@ -16,8 +16,8 @@ local withLocalization = require(InGameMenu.Localization.withLocalization)
 
 local ThemedTextLabel = require(InGameMenu.Components.ThemedTextLabel)
 
-local ImageSetLabel = UIBlox.ImageSet.Label
-local ImageSetButton = UIBlox.ImageSet.Button
+local ImageSetLabel = UIBlox.Core.ImageSet.Label
+local ImageSetButton = UIBlox.Core.ImageSet.Button
 
 local SearchBox = Roact.PureComponent:extend("SearchBox")
 

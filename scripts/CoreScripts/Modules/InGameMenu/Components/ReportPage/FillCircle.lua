@@ -10,7 +10,7 @@ local InGameMenu = script.Parent.Parent.Parent
 
 local Assets = require(InGameMenu.Resources.Assets)
 
-local ImageSetLabel = UIBlox.ImageSet.Label
+local ImageSetLabel = UIBlox.Core.ImageSet.Label
 
 local BORDER_SIZE = 2
 local FILL_RING_SIZE = 4

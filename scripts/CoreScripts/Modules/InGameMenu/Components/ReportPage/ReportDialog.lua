@@ -1,4 +1,5 @@
 local CorePackages = game:GetService("CorePackages")
+local ContextActionService = game:GetService("ContextActionService")
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
@@ -7,7 +8,7 @@ local UIBlox = InGameMenuDependencies.UIBlox
 local t = InGameMenuDependencies.t
 local Cryo = InGameMenuDependencies.Cryo
 
-local withStyle = UIBlox.Style.withStyle
+local withStyle = UIBlox.Core.Style.withStyle
 
 local InGameMenu = script.Parent.Parent.Parent
 
@@ -24,9 +25,11 @@ local DropDownSelection = require(InGameMenu.Components.DropDownSelection)
 
 local SendReport = require(InGameMenu.Thunks.SendReport)
 
-local ImageSetLabel = UIBlox.ImageSet.Label
+local ImageSetLabel = UIBlox.Core.ImageSet.Label
 
 local ReportDialog = Roact.PureComponent:extend("ReportDialog")
+
+local REPORT_MODAL_CLOSE_ACTION = "InGameMenuReportModalClose"
 
 local ABUSE_TYPES_PLAYER = {
 	"Swearing",
@@ -343,6 +346,27 @@ function ReportDialog:render()
 	end)
 end
 
+function ReportDialog:bindActions()
+	local function closeReportFunc(actionName, inputState, input)
+		if inputState == Enum.UserInputState.Begin then
+			self.props.dispatchCloseReportDialog()
+		end
+	end
+
+	ContextActionService:BindCoreAction(
+		REPORT_MODAL_CLOSE_ACTION, closeReportFunc, false, Enum.KeyCode.Escape)
+end
+
+function ReportDialog:unbindActions()
+	ContextActionService:UnbindCoreAction(REPORT_MODAL_CLOSE_ACTION)
+end
+
+function ReportDialog:didMount()
+	if self.props.isOpen then
+		self:bindActions()
+	end
+end
+
 function ReportDialog:didUpdate(prevProps)
 	if prevProps.isOpen and not self.props.isOpen then
 		self:setState({
@@ -350,6 +374,16 @@ function ReportDialog:didUpdate(prevProps)
 			abuseDescription = "",
 		})
 	end
+
+	if self.props.isOpen then
+		self:bindActions()
+	else
+		self:unbindActions()
+	end
+end
+
+function ReportDialog:willUnmount()
+	self:unbindActions()
 end
 
 return RoactRodux.UNSTABLE_connect2(

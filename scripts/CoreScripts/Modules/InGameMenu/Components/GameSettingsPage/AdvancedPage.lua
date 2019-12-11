@@ -10,7 +10,7 @@ local RoactRodux = InGameMenuDependencies.RoactRodux
 local t = InGameMenuDependencies.t
 local UIBlox = InGameMenuDependencies.UIBlox
 
-local withStyle = UIBlox.Style.withStyle
+local withStyle = UIBlox.Core.Style.withStyle
 
 local DevConsoleMaster = require(CoreGui.RobloxGui.Modules.DevConsoleMaster)
 
@@ -27,7 +27,7 @@ local VersionReporter = require(script.Parent.VersionReporter)
 local CloseMenu = require(InGameMenu.Thunks.CloseMenu)
 local Assets = require(InGameMenu.Resources.Assets)
 
-local ImageSetButton = UIBlox.ImageSet.Button
+local ImageSetButton = UIBlox.Core.ImageSet.Button
 
 local withLocalization = require(InGameMenu.Localization.withLocalization)
 

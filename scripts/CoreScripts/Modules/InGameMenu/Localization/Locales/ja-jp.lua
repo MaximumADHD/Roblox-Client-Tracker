@@ -118,4 +118,5 @@ return{
 	["CoreScripts.InGameMenu.GameSettings.PlaceVersion"] = [[プレースバージョン: {PLACE_VERSION}]],
 	["CoreScripts.InGameMenu.GameSettings.PlaceVersionWithLatest"] = [[プレースバージョン: {PLACE_VERSION} (最新: {LATEST_PLACE_VERSION})]],
 	["CoreScripts.InGameMenu.Label.MicroProfiler"] = [[マイクロプロファイラー]],
+	["CoreScripts.InGameMenu.InviteFriends.Loading"] = [[読み込み中！]],
 }

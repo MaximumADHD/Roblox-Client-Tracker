@@ -7,7 +7,7 @@
 --[[ FFLAG VALUES ]]
 local FFlagCoreScriptNoPosthumousHurtOverlay = settings():GetFFlag("CoreScriptNoPosthumousHurtOverlay")
 
-local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList")
+local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList2")
 local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp") --todo: remove with FFlagUsePolicyServiceForCoreScripts
 local FFlagEmotesMenuEnabled2 = settings():GetFFlag("CoreScriptEmotesMenuEnabled2")
 

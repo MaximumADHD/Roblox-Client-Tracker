@@ -1,13 +1,31 @@
+local LocalizationToolsPluginV2Enabled = settings():GetFFlag("LocalizationToolsPluginV2Enabled")
+
+local GuiService = game:GetService("GuiService")
+local BaseUrl = game:GetService("ContentProvider").BaseUrl:lower()
+
 local Roact = require(game:GetService("CorePackages").Roact)
 local Theming = require(script.Parent.Parent.Theming)
 
 local LabeledButton = require(script.Parent.LabeledButton)
 local UploadDialogContent = require(script.Parent.UploadDialogContent)
 local UploadDownloadFlow = require(script.Parent.Parent.GameTable.UploadDownloadFlow)
-local Collapsible = require(script.Parent.Collapsible)
+local LinkText = require(script.Parent.LinkText)
+local Collapsible
+if LocalizationToolsPluginV2Enabled then
+	Collapsible = require(script.Parent.Collapsible)
+else
+	Collapsible = require(script.Parent.Collapsible_DEPRECATED)
+end
 
 local GameTableSection = Roact.Component:extend("GameTableSection")
 
+local function openCloudTableConfigInBrowser()
+	local Url = BaseUrl
+		.. "localization/games/"
+		.. tostring(game.GameId)
+		.. "/configure"
+	GuiService:OpenBrowserWindow(Url)
+end
 --[[
 	To determine if this feature is available, we have to wait for
 	a web request.  While waiting, we don't draw any UI.  That way
@@ -21,7 +39,6 @@ local Availability = {
 	AVAILABLE = "AVAILABLE",
 	NOT_AVAILABLE = "NOT_AVAILABLE",
 }
-
 
 function GameTableSection:init()
 	self.state = {
@@ -137,6 +154,15 @@ function GameTableSection:render()
 				})
 			end
 
+			local linkText
+			if LocalizationToolsPluginV2Enabled then
+				linkText = Roact.createElement(LinkText, {
+					Text = "Click here to configure your cloud localization table",
+					OnActivated = openCloudTableConfigInBrowser,
+					LayoutOrder = 4,
+				})
+			end
+
 			content = Roact.createElement("Frame", {
 				Size = UDim2.new(1, 0, 0, 200),
 				BackgroundTransparency = 1,
@@ -216,6 +242,8 @@ function GameTableSection:render()
 								})
 							end
 						}),
+
+						LinkText = linkText,
 					}),
 
 					ProgressSpinner = progressSpinner,
@@ -224,7 +252,7 @@ function GameTableSection:render()
 		elseif self.state.Available == Availability.NOT_AVAILABLE then
 			content = Roact.createElement("Frame", {
 				Position = UDim2.new(0, 0, 0, 0),
-				Size = UDim2.new(1, 0, 1, 0),
+				Size = UDim2.new(1, 0, 1, -35),
 				BackgroundTransparency = 0,
 				BorderSizePixel = 1,
 				BorderColor3 = theme.Border,
@@ -248,7 +276,7 @@ function GameTableSection:render()
 		end
 
 		return Roact.createElement("Frame", {
-			Size = UDim2.new(0, 320, 0, 200),
+			Size = UDim2.new(0, 320, 0, 215),
 			BackgroundTransparency = 1,
 			BorderSizePixel = 0,
 			LayoutOrder = self.props.LayoutOrder,
@@ -275,6 +303,7 @@ function GameTableSection:render()
 					TextXAlignment = Enum.TextXAlignment.Left,
 					LayoutOrder = 1,
 					TextColor3 = theme.BrightText,
+					TextSize = theme.SectionLabelTextSize,
 				}),
 
 				Content = content,

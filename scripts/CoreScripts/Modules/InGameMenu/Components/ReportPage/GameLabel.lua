@@ -6,14 +6,14 @@ local UIBlox = InGameMenuDependencies.UIBlox
 local t = InGameMenuDependencies.t
 local Cryo = InGameMenuDependencies.Cryo
 
-local withStyle = UIBlox.Style.withStyle
+local withStyle = UIBlox.Core.Style.withStyle
 
 local InGameMenu = script.Parent.Parent.Parent
 
 local ThemedTextLabel = require(InGameMenu.Components.ThemedTextLabel)
 local Assets = require(InGameMenu.Resources.Assets)
 
-local ImageSetLabel = UIBlox.ImageSet.Label
+local ImageSetLabel = UIBlox.Core.ImageSet.Label
 
 local CONTAINER_FRAME_HEIGHT = 70
 local GAME_ICON_SIZE = 44

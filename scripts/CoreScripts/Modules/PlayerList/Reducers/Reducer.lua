@@ -2,6 +2,7 @@ local CorePackages = game:GetService("CorePackages")
 local Rodux = require(CorePackages.Rodux)
 
 local DisplayOptions = require(script.Parent.DisplayOptions)
+local ScreenSize = require(script.Parent.ScreenSize)
 local GameStats = require(script.Parent.GameStats)
 
 local Teams = require(script.Parent.Teams)
@@ -18,6 +19,7 @@ local PlayerDropDown = require(script.Parent.PlayerDropDown)
 
 local Reducer = Rodux.combineReducers({
 	displayOptions = DisplayOptions,
+	screenSize = ScreenSize,
 	gameStats = GameStats,
 
 	teams = Teams,

@@ -33,6 +33,7 @@
 		int ScrollBarPadding = The padding which appears on either side of the scrollbar.
 		int ScrollBarThickness = The horizontal width of the scrollbar.
 ]]
+local FFlagStudioFixUILibDropdownStyle = game:GetFastFlag("StudioFixUILibDropdownStyle")
 
 -- Defaults
 local TEXT_PADDING = 8
@@ -177,6 +178,10 @@ function StyledDropdown:render()
 			maxWidth = math.max(maxWidth, itemWidth)
 		end
 
+		if FFlagStudioFixUILibDropdownStyle then
+			maxWidth = math.max(maxWidth, listWidth)
+		end
+
 		local buttonTheme = (showDropdown or isButtonHovered) and dropdownTheme.selected
 			or dropdownTheme
 
@@ -232,7 +237,7 @@ function StyledDropdown:render()
 				ShowBorder = true,
 				ScrollBarPadding = scrollBarPadding,
 				ScrollBarThickness = scrollBarThickness,
-				ListWidth = listWidth,
+				ListWidth = FFlagStudioFixUILibDropdownStyle and maxWidth or listWidth,
 				Items = items,
 				RenderItem = function(item, index, activated)
 					local key = item.Key
@@ -249,7 +254,7 @@ function StyledDropdown:render()
 					end
 
 					return Roact.createElement("ImageButton", {
-						Size = UDim2.new(0, math.max(listWidth, maxWidth), 0, itemHeight),
+						Size = UDim2.new(0, FFlagStudioFixUILibDropdownStyle and maxWidth or math.max(listWidth, maxWidth), 0, itemHeight),
 						BackgroundColor3 = itemColor,
 						BorderSizePixel = 0,
 						LayoutOrder = index,

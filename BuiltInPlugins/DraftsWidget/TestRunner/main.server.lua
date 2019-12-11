@@ -2,6 +2,9 @@ if not plugin then
 	return
 end
 
+-- Fast flags
+require(script.Parent.defineLuaFlags)
+
 local Plugin = script.Parent.Parent
 
 if not settings():GetFFlag("StudioVersionControlAlpha") and
@@ -10,8 +13,6 @@ if not settings():GetFFlag("StudioVersionControlAlpha") and
 end
 
 local OverrideLocaleId = settings():GetFVariable("StudioForceLocale")
-game:DefineFastInt("DebugStudioDraftsWidgetTestCase", 0)
-
 local MockDraftsService = require(Plugin.Src.TestHelpers.MockDraftsService)
 local DraftsService = game:GetService("DraftsService")
 local RunService = game:GetService("RunService")

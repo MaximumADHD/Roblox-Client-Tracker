@@ -83,7 +83,7 @@ return {
 			StoreProvider = Roact.createElement(RoactRodux.StoreProvider, {
 				store = menuStore,
 			}, {
-				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
+				ThemeProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
 					style = appStyle,
 				}, {
 					LocalizationProvider = Roact.createElement(LocalizationProvider, {

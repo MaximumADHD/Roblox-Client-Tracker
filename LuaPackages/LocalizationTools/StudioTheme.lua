@@ -38,6 +38,13 @@ return function(studioSettings)
 		and "rbxasset://textures/LightThemeLoadingCircle.png"
 		or  "rbxasset://textures/DarkThemeLoadingCircle.png"
 
+	local ExportButtonImage = "rbxasset://textures/localizationExport.png"
+	local ImportButtonImage = "rbxasset://textures/localizationImport.png"
+	local TextCaptureButtonImage = {
+		On = "rbxasset://textures/localizationUIScrapingOn.png",
+		Off = "rbxasset://textures/localizationUIScrapingOff.png",
+	}
+
 	return {
 		BrightText =
 			studioSettings.Theme:GetColor(colorEnum.BrightText),
@@ -47,6 +54,8 @@ return function(studioSettings)
 			studioSettings.Theme:GetColor(colorEnum.WarningText),
 		ErrorText =
 			studioSettings.Theme:GetColor(colorEnum.ErrorText),
+		LinkText =
+			studioSettings.Theme:GetColor(colorEnum.LinkText),
 		MainButton =
 			studioSettings.Theme:GetColor(colorEnum.MainButton),
 		RibbonTab =
@@ -66,6 +75,15 @@ return function(studioSettings)
 		InputFieldBackground =
 			studioSettings.Theme:GetColor(colorEnum.InputFieldBackground),
 
-		ProgressSpinnerImageUrl = ProgressSpinnerImageUrl
+		ProgressSpinnerImageUrl = ProgressSpinnerImageUrl,
+
+		ExportButtonImage = ExportButtonImage,
+		ImportButtonImage = ImportButtonImage,
+		TextCaptureButtonImage = TextCaptureButtonImage,
+		SectionLabelTextSize = 10,
+		ButtonTextLabelSize = 6,
+
+		LinkTextFont = Enum.Font.Arial,
+		LinkTextTextSize = 12,
 	}
 end

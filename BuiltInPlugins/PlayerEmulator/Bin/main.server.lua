@@ -2,6 +2,9 @@ if not plugin then
 	return
 end
 
+-- Fast flags
+require(script.Parent.defineLuaFlags)
+
 local FFlagStudioPlayerEmulatorPluginEnabled = settings():GetFFlag("StudioPlayerEmulatorPluginEnabled")
 
 if not FFlagStudioPlayerEmulatorPluginEnabled then

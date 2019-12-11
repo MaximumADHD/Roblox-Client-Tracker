@@ -29,14 +29,14 @@ local function GameIconHeader(props)
 	local isPlaceholder = game.GameId == 0
 	local gameIcon
 	if isPlaceholder then
-		gameIcon = UIBlox.Style.withStyle(function(style)
+		gameIcon = UIBlox.Core.Style.withStyle(function(style)
 			return Roact.createElement(AssetImage.Label, {
 				imageKey = "RoundedRect",
 				Size = UDim2.fromOffset(GAME_ICON_RENDER_SIZE, GAME_ICON_RENDER_SIZE),
 				ImageColor3 = style.Theme.PlaceHolder.Color,
 				ImageTransparency = style.Theme.PlaceHolder.Transparency,
 			}, {
-				PlaceholderIcon = Roact.createElement(UIBlox.ImageSet.Label, {
+				PlaceholderIcon = Roact.createElement(UIBlox.Core.ImageSet.Label, {
 					BackgroundTransparency = 1,
 					Size = UDim2.fromOffset(44, 44),
 					Position = UDim2.fromScale(0.5, 0.5),

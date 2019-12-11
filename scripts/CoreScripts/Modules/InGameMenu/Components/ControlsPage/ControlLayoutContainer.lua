@@ -6,7 +6,7 @@ local RoactRodux = InGameMenuDependencies.RoactRodux
 local UIBlox = InGameMenuDependencies.UIBlox
 local t = InGameMenuDependencies.t
 
-local withStyle = UIBlox.Style.withStyle
+local withStyle = UIBlox.Core.Style.withStyle
 
 local InGameMenu = script.Parent.Parent.Parent
 
@@ -23,8 +23,8 @@ local withLocalization = require(InGameMenu.Localization.withLocalization)
 local Assets = require(InGameMenu.Resources.Assets)
 local Constants = require(InGameMenu.Resources.Constants)
 
-local ImageSetButton = UIBlox.ImageSet.Button
-local ImageSetLabel = UIBlox.ImageSet.Label
+local ImageSetButton = UIBlox.Core.ImageSet.Button
+local ImageSetLabel = UIBlox.Core.ImageSet.Label
 
 local HEADER_HEIGHT = 132
 

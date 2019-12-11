@@ -346,7 +346,7 @@ end
 
 function Urls.constructGetPackageCollaboratorsUrl(assetId)
 	return GET_PACKAGE_COLLABORATORS:format(assetId) .. Url.makeQueryString({
-		actionsTextToFilter = "UseView,Edit,Revoked,Own"
+		actionsTextToFilter = "UseView,Edit"
 	})
 end
 

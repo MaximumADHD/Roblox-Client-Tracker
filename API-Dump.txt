@@ -582,7 +582,7 @@ Class Debris : Instance [NotCreatable] [Service]
 	Property int Debris.MaxItems  [Deprecated]
 	Function void Debris:AddItem(Instance item, double lifetime = 10)
 	Function void Debris:SetLegacyMaxItems(bool enabled) {LocalUserSecurity}
-Class DebugSettings : Instance [Settings] [NotBrowsable]
+Class DebugSettings : Instance [NotCreatable] [Settings] [NotBrowsable]
 	Property bool DebugSettings.IsFmodProfilingEnabled
 	Property Enum<TickCountSampleMethod> DebugSettings.TickCountPreciseOverride
 	Property bool DebugSettings.IsScriptStackTracingEnabled
@@ -711,7 +711,7 @@ Class FunctionalTest : Instance [Deprecated]
 	Function void FunctionalTest:Warn(string message = "") [Deprecated]
 Class GamePassService : Instance [NotCreatable] [Service] [Deprecated]
 	Function bool GamePassService:PlayerHasPass(Instance player, int64 gamePassId) [Yields] [Deprecated]
-Class GameSettings : Instance [Settings] [NotBrowsable]
+Class GameSettings : Instance [NotCreatable] [Settings] [NotBrowsable]
 	Property string GameSettings.AdditionalCoreIncludeDirs
 	Property bool GameSettings.HardwareMouse
 	Property float GameSettings.BubbleChatLifetime
@@ -738,7 +738,7 @@ Class GlobalDataStore : Instance [NotCreatable] [NotReplicated]
 	Function Tuple GlobalDataStore:UpdateAsync(string key, Function transformFunction) [Yields]
 Class OrderedDataStore : GlobalDataStore [NotCreatable] [NotReplicated]
 	Function Instance OrderedDataStore:GetSortedAsync(bool ascending, int pagesize, Variant minValue, Variant maxValue) [Yields]
-Class GoogleAnalyticsConfiguration : Instance [Service]
+Class GoogleAnalyticsConfiguration : Instance [NotCreatable] [Service]
 Class GroupService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Instance GroupService:GetAlliesAsync(int64 groupId) [Yields]
 	Function Instance GroupService:GetEnemiesAsync(int64 groupId) [Yields]
@@ -1519,7 +1519,7 @@ Class LoginService : Instance {RobloxSecurity} [NotCreatable] [Service]
 	Function void LoginService:PromptLogin()
 	Event LoginService.LoginFailed(string loginError)
 	Event LoginService.LoginSucceeded(string username)
-Class LuaSettings : Instance [Settings]
+Class LuaSettings : Instance [NotCreatable] [Settings]
 	Property bool LuaSettings.AreScriptStartsReported
 	Property int LuaSettings.GcFrequency
 	Property int LuaSettings.GcLimit
@@ -1656,7 +1656,7 @@ Class ClientReplicator : NetworkReplicator {RobloxScriptSecurity} [NotCreatable]
 	Event ClientReplicator.RCCProfilerDataComplete(bool success, string message)
 	Event ClientReplicator.StatsReceived(Dictionary stats)
 Class ServerReplicator : NetworkReplicator [NotCreatable] [NotReplicated]
-Class NetworkSettings : Instance [Service] [NotBrowsable]
+Class NetworkSettings : Instance [NotCreatable] [Service] [NotBrowsable]
 	Property bool NetworkSettings.RenderStreamedRegions
 	Property bool NetworkSettings.ShowActiveAnimationAsset
 	Property int NetworkSettings.DataMtuAdjust
@@ -1689,8 +1689,8 @@ Class NetworkSettings : Instance [Service] [NotBrowsable]
 	Property bool NetworkSettings.UsePhysicsPacketCache
 	Property int NetworkSettings.PhysicsMtuAdjust
 	Property Enum<PacketPriority> NetworkSettings.PhysicsSendPriority  [Hidden] [NotReplicated]
-	Property bool NetworkSettings.ProxyEnabled
-	Property string NetworkSettings.ProxyURL
+	Property bool NetworkSettings.HttpProxyEnabled {✏️RobloxScriptSecurity}
+	Property string NetworkSettings.HttpProxyURL {✏️RobloxScriptSecurity}
 Class NoCollisionConstraint : Instance
 	Property bool NoCollisionConstraint.Enabled
 	Property Class<BasePart> NoCollisionConstraint.Part0
@@ -1999,7 +1999,7 @@ Class PhysicsService : Instance [NotCreatable] [Service]
 	Function void PhysicsService:RemoveCollisionGroup(string name)
 	Function void PhysicsService:RenameCollisionGroup(string from, string to)
 	Function void PhysicsService:SetPartCollisionGroup(Instance part, string name)
-Class PhysicsSettings : Instance [Settings]
+Class PhysicsSettings : Instance [NotCreatable] [Settings]
 	Property bool PhysicsSettings.AreAnchorsShown
 	Property bool PhysicsSettings.AreAssembliesShown
 	Property bool PhysicsSettings.AreAwakePartsHighlighted
@@ -2112,6 +2112,11 @@ Class Player : Instance
 	Event Player.Idled(double time)
 	Event Player.OnTeleport(Enum<TeleportState> teleportState, int64 placeId, string spawnName)
 	Event Player.SimulationRadiusChanged(float radius) {LocalUserSecurity}
+Class PlayerEmulatorService : Instance {RobloxScriptSecurity} [NotCreatable] [Service] [NotReplicated]
+	Property bool PlayerEmulatorService.PlayerEmulationEnabled [<📁> LoadOnly] [NotReplicated]
+	Property string PlayerEmulatorService.StudioEmulatedCountryRegionCode [<📁> LoadOnly] [NotReplicated]
+	Function Dictionary PlayerEmulatorService:GetEmulatedPolicyInfo()
+	Function void PlayerEmulatorService:SetEmulatedPolicyInfo(Dictionary emulatedPolicyInfo)
 Class PlayerScripts : Instance [NotCreatable] [NotReplicated]
 	Function void PlayerScripts:ClearComputerCameraMovementModes()
 	Function void PlayerScripts:ClearComputerMovementModes()
@@ -2341,7 +2346,7 @@ Class RemoteFunction : Instance
 	Function Tuple RemoteFunction:InvokeServer(Tuple arguments) [Yields]
 	Callback Tuple RemoteFunction.OnClientInvoke(Tuple arguments)
 	Callback Tuple RemoteFunction.OnServerInvoke(Instance player, Tuple arguments)
-Class RenderSettings : Instance [Service] [NotBrowsable]
+Class RenderSettings : Instance [NotCreatable] [Service] [NotBrowsable]
 	Property int RenderSettings.MeshCacheSize
 	Property int RenderSettings.AutoFRMLevel
 	Property bool RenderSettings.EnableFRM [<📁> LoadOnly] [Hidden] [NotReplicated]
@@ -2699,7 +2704,7 @@ Class StopWatchReporter : Instance {RobloxScriptSecurity} [NotCreatable] [Servic
 	Function void StopWatchReporter:FinishTask(int taskId)
 	Function void StopWatchReporter:SendReport(string reportName)
 	Function int StopWatchReporter:StartTask(string reportName, string taskName)
-Class Studio : Instance [Service] [NotReplicated]
+Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool Studio.Disable Accurate Play Solo
 	Property bool Studio.Drag Multiple Parts As Single Part
 	Property bool Studio.Enable CoreScript Debugger
@@ -2821,7 +2826,7 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 Class StudioTheme : Instance {PluginSecurity} [NotCreatable] [NotReplicated]
 	Function Color3 StudioTheme:GetColor(Enum<StudioStyleGuideColor> styleguideitem, Enum<StudioStyleGuideModifier> modifier = "Default")
 	Function string StudioTheme:GetPath(string assetid, Enum<StudioStyleGuideModifier> modifier = "Default")
-Class TaskScheduler : Instance [Service]
+Class TaskScheduler : Instance [NotCreatable] [Service]
 	Property Enum<ThreadPoolConfig> TaskScheduler.ThreadPoolConfig
 	Property double TaskScheduler.SchedulerDutyCycle  [ReadOnly] [NotReplicated]
 	Property double TaskScheduler.SchedulerRate  [ReadOnly] [NotReplicated]
@@ -3013,7 +3018,7 @@ Class UIPadding : UIComponent
 	Property UDim UIPadding.PaddingTop
 Class UIScale : UIComponent
 	Property float UIScale.Scale
-Class UserGameSettings : Instance [UserSettings]
+Class UserGameSettings : Instance [NotCreatable] [UserSettings]
 	Property Enum<SavedQualitySetting> UserGameSettings.SavedQualityLevel
 	Property Enum<CustomCameraMode> UserGameSettings.CameraMode {RobloxScriptSecurity}
 	Property Enum<ComputerCameraMovementMode> UserGameSettings.ComputerCameraMovementMode

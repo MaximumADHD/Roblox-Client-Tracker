@@ -22,6 +22,8 @@ return function()
 		confirmText = "Confirm",
 		titleText = "Title",
 
+		bindReturnToConfirm = false,
+
 		onCancel = function()
 			print("cancel")
 		end,
@@ -33,7 +35,7 @@ return function()
 	}
 
 	it("should create and destroy without errors", function()
-		local element = Roact.createElement(UIBlox.Style.Provider, {
+		local element = Roact.createElement(UIBlox.Core.Style.Provider, {
 			style = appStyle,
 		}, {
 			ConfirmationDialog = Roact.createElement(ConfirmationDialog, dummyDialogProps),
@@ -44,7 +46,7 @@ return function()
 	end)
 
 	it("should be portaled into CoreGui", function()
-		local element = Roact.createElement(UIBlox.Style.Provider, {
+		local element = Roact.createElement(UIBlox.Core.Style.Provider, {
 			style = appStyle,
 		}, {
 			ConfirmationDialog = Roact.createElement(ConfirmationDialog, dummyDialogProps),

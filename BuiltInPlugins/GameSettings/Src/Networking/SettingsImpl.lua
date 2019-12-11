@@ -12,9 +12,8 @@ local HttpService = game:GetService("HttpService")
 local StudioService = game:GetService("StudioService")
 
 local FFlagGameSettingsUsesNewIconEndpoint = settings():GetFFlag("GameSettingsUsesNewIconEndpoint")
-local FFlagGameSettingsUpdatesUniverseDisplayName = settings():GetFFlag("GameSettingsUpdatesUniverseDisplayName")
 local FFlagStudioGameSettingsAccessPermissions = settings():GetFFlag("StudioGameSettingsAccessPermissions")
-local FFlagStudioGameSettingsDisablePlayabilityForDrafts = game:GetFastFlag("StudioGameSettingsDisablePlayabilityForDrafts")
+local FFlagStudioGameSettingsDisablePlayabilityForDrafts = settings():GetFFlag("StudioGameSettingsDisablePlayabilityForDrafts")
 local FFlagStudioGameSettingsUseNewSettingsImpl3 = settings():GetFFlag("StudioGameSettingsUseNewSettingsImpl3")
 local FFlagVersionControlServiceScriptCollabEnabled = settings():GetFFlag("VersionControlServiceScriptCollabEnabled")
 
@@ -305,8 +304,7 @@ function SettingsImpl:SaveAll(state)
 		end
 
 		return Promise.all(setRequests):andThen(function()
-			if FFlagGameSettingsUpdatesUniverseDisplayName and saveInfo.Configuration
-				and saveInfo.Configuration.name then
+			if saveInfo.Configuration and saveInfo.Configuration.name then
 				StudioService:SetUniverseDisplayName(saveInfo.Configuration.name)
 			end
 		end)

@@ -15,7 +15,7 @@ local Controls = require(InGameMenu.Resources.Controls)
 
 local withLocalization = require(InGameMenu.Localization.withLocalization)
 
-local ImageSetLabel = UIBlox.ImageSet.Label
+local ImageSetLabel = UIBlox.Core.ImageSet.Label
 
 local GAMEPAD_IMAGE_HEIGHT = 465
 

@@ -6,7 +6,7 @@ local Roact = InGameMenuDependencies.Roact
 local UIBlox = InGameMenuDependencies.UIBlox
 local t = InGameMenuDependencies.t
 
-local withStyle = UIBlox.Style.withStyle
+local withStyle = UIBlox.Core.Style.withStyle
 
 local InGameMenu = script.Parent.Parent.Parent
 
@@ -15,7 +15,7 @@ local Assets = require(InGameMenu.Resources.Assets)
 local FillCircle = require(script.Parent.FillCircle)
 local ThemedTextLabel = require(InGameMenu.Components.ThemedTextLabel)
 
-local ImageSetLabel = UIBlox.ImageSet.Label
+local ImageSetLabel = UIBlox.Core.ImageSet.Label
 
 local TextEntryField = Roact.PureComponent:extend("TextEntryField")
 

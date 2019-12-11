@@ -120,7 +120,7 @@ return function(terrain, generateSettings)
 	local seed = generateSettings.seed
 
 	local masterSeed = computeMasterSeed(seed)
-	local mapHeight = mapSize.Y
+	local mapHeight = .5/(mapSize.Y/Constants.VOXEL_RESOLUTION)
 
 	-- Turn set of selected biomes into list
 	-- If no biomes are selected, default to just hills
@@ -145,6 +145,7 @@ return function(terrain, generateSettings)
 	-- Turn the region back into voxel coordinates
 	local voxelSize = mapRegion.Size / Constants.VOXEL_RESOLUTION
 	local voxelExtents = voxelSize / 2
+	mapPosition = mapRegion.CFrame.Position
 
 	-- Default values to use for a biome if it's not in BiomeInfoFuncs below
 	local defaultBiomeValue = 0.5
@@ -494,7 +495,6 @@ return function(terrain, generateSettings)
 
 		local biomeBlendPercent = 0.25
 		local biomeBlendPercentInverse = 1 - biomeBlendPercent
-		local smoothScale = 0.5 / mapHeight
 
 		if FFlagTerrainToolMetrics then
 			local numVoxels = tostring(voxelSize.X * voxelSize.Y * voxelSize.Z)
@@ -519,31 +519,39 @@ return function(terrain, generateSettings)
 			}
 		end
 
+		local regionStart = (Vector3.new(-voxelExtents.X - 1, -voxelExtents.Y, -voxelExtents.Z) * Constants.VOXEL_RESOLUTION)
+			+ mapPosition
+		local regionEnd = (Vector3.new(-voxelExtents.X, voxelExtents.Y, voxelExtents.Z) * Constants.VOXEL_RESOLUTION)
+			+ mapPosition
+		local sliceRegion = Region3.new(regionStart, regionEnd):ExpandToGrid(Constants.VOXEL_RESOLUTION)
+		local sliceY = sliceRegion.Size.Y / Constants.VOXEL_RESOLUTION
+		local sliceZ = sliceRegion.Size.Z / Constants.VOXEL_RESOLUTION
+
+
 		-- Preallocate the tables we're going to write into
 		-- And then because we touch every voxel, we don't need to destroy or clear them each iteration
 		local occupancyMap = table.create(1)
 		local materialMap = table.create(1)
 		for x = 1, 1, 1 do
-			occupancyMap[x] = table.create(voxelSize.y)
-			materialMap[x] = table.create(voxelSize.y)
-			for y = 1, voxelSize.y, 1 do
-				occupancyMap[x][y] = table.create(voxelSize.z, 0)
-				materialMap[x][y] = table.create(voxelSize.z, mat.Air)
+			occupancyMap[x] = table.create(sliceY)
+			materialMap[x] = table.create(sliceY)
+			for y = 1, sliceY, 1 do
+				occupancyMap[x][y] = table.create(sliceZ, 0)
+				materialMap[x][y] = table.create(sliceZ, mat.Air)
 			end
 		end
 
-		for x = 1, voxelSize.x, 1 do
-			local offsetX = (-voxelSize.x / 2) + x
-
+		for x = 1, voxelSize.X, 1 do
+			local offsetX = x - voxelExtents.X
 			-- Translate our voxel coordinates into world coordinates, offsetted by target position
-			local regionStart = (Vector3.new(offsetX - 1, -voxelExtents.y, -voxelExtents.z) * Constants.VOXEL_RESOLUTION)
+			regionStart = (Vector3.new(offsetX - 1, -voxelExtents.Y, -voxelExtents.Z) * Constants.VOXEL_RESOLUTION)
 				+ mapPosition
-			local regionEnd = (Vector3.new(offsetX, voxelExtents.Y, voxelExtents.Z) * Constants.VOXEL_RESOLUTION)
+			regionEnd = (Vector3.new(offsetX, voxelExtents.Y, voxelExtents.Z) * Constants.VOXEL_RESOLUTION)
 				+ mapPosition
-			local sliceRegion = Region3.new(regionStart, regionEnd):ExpandToGrid(Constants.VOXEL_RESOLUTION)
+			sliceRegion = Region3.new(regionStart, regionEnd):ExpandToGrid(Constants.VOXEL_RESOLUTION)
 
-			for z = 1, voxelSize.z, 1 do
-				local offsetZ = (-voxelSize.z / 2) + z
+			for z = 1, sliceZ, 1 do
+				local offsetZ = z
 
 				local cellToBiomeX = (offsetX / biomeSize)
 					+ (getPerlin(offsetX, 0, offsetZ, 233, biomeSize * 0.3) * 0.25)
@@ -608,8 +616,8 @@ return function(terrain, generateSettings)
 					end
 				end
 
-				for y = 1, voxelSize.y, 1 do
-					local verticalGradient = 1 - ((y - 1) / (voxelSize.y - 1))
+				for y = 1, sliceY, 1 do
+					local verticalGradient = 1 - ((y - 1) / (sliceY - 1))
 					local verticalGradientTurbulence = (verticalGradient * 0.9) + (0.1 * getPerlin(offsetX, y, offsetZ, 107, 15))
 
 					local choiceValue = 0
@@ -683,7 +691,7 @@ return function(terrain, generateSettings)
 					end
 
 					local comp = preCaveComp - caves
-					local smoothedResult = thresholdFilter(comp, 0.5, smoothScale)
+					local smoothedResult = thresholdFilter(comp, 0.5, mapHeight)
 
 					if 1 - verticalGradient < waterLevel -- Below water level
 						and preCaveComp <= 0.5       -- Above surface
@@ -704,7 +712,15 @@ return function(terrain, generateSettings)
 			end
 
 			-- Apply our changes to the terrain
-			terrain:WriteVoxels(sliceRegion, Constants.VOXEL_RESOLUTION, materialMap, occupancyMap)
+
+			local success, msg = pcall(function()
+				terrain:WriteVoxels(sliceRegion, Constants.VOXEL_RESOLUTION, materialMap, occupancyMap)
+ 			end)
+
+			if not success then
+				cancelled = true
+				warn(msg)
+			end
 
 			-- Update the UI
 			updateProgress(x / voxelSize.x)

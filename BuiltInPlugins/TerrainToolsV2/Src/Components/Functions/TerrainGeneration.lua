@@ -519,7 +519,7 @@ function generate()
 		local biomeBlendPercent = .25	--(biomeSize==50 or biomeSize == 100) and .5 or .25
 		local biomeBlendPercentInverse = 1-biomeBlendPercent
 		local biomeBlendDistortion = biomeBlendPercent
-		local smoothScale = .5/mapHeight
+		local smoothScale = .5/(size.Y/resolution)
 		local mapPosition = Vector3.new(
 			position.X,
 			position.Y,
@@ -533,6 +533,7 @@ function generate()
 		local mapExtents = mapSize / 2
 		local mapRegion = Region3.new(mapPosition - mapExtents, mapPosition + mapExtents)
 		mapRegion = mapRegion:ExpandToGrid(resolution)
+		mapPosition = mapRegion.CFrame.Position
 
 		-- convert back to voxels
 		local voxelSize = mapRegion.Size / resolution
@@ -562,7 +563,7 @@ function generate()
 		end
 
 		for x = 1, voxelSize.X do  -- REMAP
-			local offsetX = -voxelSize.X / 2 + x
+			local offsetX = x - voxelSize.X / 2
 			local oMapX = {}
 			--oMap[x] = oMapX
 			local mMapX = {}
@@ -573,9 +574,11 @@ function generate()
 			local sliceRegion = Region3.new(regionStart, regionEnd)
 
 			sliceRegion = sliceRegion:ExpandToGrid(resolution)
+			local slizeY = sliceRegion.Size.Y / resolution
+			local slizeZ = sliceRegion.Size.Z / resolution
 
-			for z = 1, voxelSize.Z do
-				local offsetZ = -voxelSize.Z / 2 + z
+			for z = 1, slizeZ do
+				local offsetZ = z
 				local biomeNoCave = false
 				local cellToBiomeX = offsetX/biomeSize + getPerlin(offsetX,0,offsetZ,233,biomeSize*.3)*.25 + getPerlin(offsetX,0,offsetZ,235,biomeSize*.05)*.075
 				local cellToBiomeZ = offsetZ/biomeSize + getPerlin(offsetX,0,offsetZ,234,biomeSize*.3)*.25 + getPerlin(offsetX,0,offsetZ,236,biomeSize*.05)*.075
@@ -624,7 +627,7 @@ function generate()
 					end
 				end
 
-				for y = 1, voxelSize.Y do
+				for y = 1, slizeY do
 					local oMapY = oMapX[y] or {}
 					oMapX[y] = oMapY
 					local mMapY = mMapX[y] or {}
@@ -635,7 +638,7 @@ function generate()
 					local mMapY = {}
 					mMapX[z] = mMapY]]
 
-					local verticalGradient = 1-((y-1)/(voxelSize.Y-1))
+					local verticalGradient = 1-((y-1)/(slizeY-1))
 					local caves = 0
 					local verticalGradientTurbulence = verticalGradient*.9 + .1*getPerlin(offsetX,y,offsetZ,107,15)
 					local choiceValue = 0
@@ -708,7 +711,14 @@ function generate()
 				end
 			end
 
-			terrain:WriteVoxels(sliceRegion, 4, {mMapX}, {oMapX})
+			local success, msg = pcall(function()
+				terrain:WriteVoxels(sliceRegion, 4, {mMapX}, {oMapX})
+ 			end)
+
+			if not success then
+				cancelIt = true
+				warn(msg)
+			end
 
 			local completionPercent = x/voxelSize.X
 			barFill.Size = UDim2.new(completionPercent,0,1,0)
@@ -717,6 +727,7 @@ function generate()
 			while paused and not cancelIt do
 				wait()
 			end
+
 			if cancelIt then
 				break
 			end

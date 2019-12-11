@@ -6,8 +6,6 @@ local UILibrary = require(Plugin.Packages.UILibrary)
 local Localizing = UILibrary.Localizing
 local Separator = UILibrary.Component.Separator
 
-local FFlagDefaultThumbnailForRBXThumb = game:GetFastFlag("DefaultThumbnailForRBXThumb")
-
 local ContentProvider = game:GetService("ContentProvider")
 
 local ASSET_SIZE = 150
@@ -28,7 +26,7 @@ end
 
 function TilePlace:didMount()
 	self.isMounted = true
-	if FFlagDefaultThumbnailForRBXThumb and self.props.Id then
+	if self.props.Id then
 		spawn(function()
 			local asset = { self.thumbnailUrl }
 			local function setStatus(contentId, status)

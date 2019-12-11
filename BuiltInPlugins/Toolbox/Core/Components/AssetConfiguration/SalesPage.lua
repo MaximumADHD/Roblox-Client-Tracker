@@ -16,6 +16,7 @@
 ]]
 
 local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
+local FFlagEnableNonWhitelistedToggle = game:GetFastFlag("EnableNonWhitelistedToggle")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -69,6 +70,17 @@ function SalesPage:render()
 				canChangeSalesStatus = true
 			end
 
+			-- When we are in this page, sales and price are default to available.
+			-- Only when for marketplace buyable, and none whitelist user, we hide the price.
+			-- And the sales will only be toggle between Free and OffSale.
+			local showPrice = true
+			if FFlagEnableNonWhitelistedToggle then
+				-- Only none whileList and marketplace buy will have no price
+				if not allowedAssetTypesForRelease[assetTypeEnum.Name] then
+					showPrice = false
+				end
+			end
+
 			local orderIterator = LayoutOrderIterator.new()
 
 			return Roact.createElement("ScrollingFrame", {
@@ -115,7 +127,7 @@ function SalesPage:render()
 					LayoutOrder = orderIterator:getNextOrder(),
 				}),
 
-				PriceComponent = Roact.createElement(PriceComponent, {
+				PriceComponent = showPrice and Roact.createElement(PriceComponent, {
 					AssetTypeEnum = assetTypeEnum,
 					AllowedAssetTypesForRelease = allowedAssetTypesForRelease,
 					NewAssetStatus = newAssetStatus,

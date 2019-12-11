@@ -12,6 +12,8 @@ local UnofficialLanguageSupportEnabled = settings():GetFFlag("UnofficialLanguage
 local UseAllSupportedLanguageList = settings():GetFFlag("UseAllSupportedLanguageList")
 local UseStudioLocaleForForceLocale = settings():GetFFlag("UseStudioLocaleForForceLocale")
 
+local LocalizationToolsPluginV2Enabled = settings():GetFFlag("LocalizationToolsPluginV2Enabled")
+
 local function getTextScraperButtonIconAsset()
 	return LocalizationService.IsTextScraperRunning
 		and "rbxasset://textures/localizationUIScrapingOn.png"
@@ -375,10 +377,14 @@ return function(plugin, studioSettings)
 
 	local toolbar = plugin:CreateToolbar("Localization")
 	if IsEdit() then
-		createTextScraperControlsEnabled(toolbar, plugin)
+		if not LocalizationToolsPluginV2Enabled then
+			createTextScraperControlsEnabled(toolbar, plugin)
+		end
 		createLocalizationToolsEnabled(toolbar, plugin, studioSettings)
 	else
-		createTextScraperControlsDisabled(toolbar)
+		if not LocalizationToolsPluginV2Enabled then
+			createTextScraperControlsDisabled(toolbar)
+		end
 		createLocalizationToolsDisabled(toolbar)
 	end
 end

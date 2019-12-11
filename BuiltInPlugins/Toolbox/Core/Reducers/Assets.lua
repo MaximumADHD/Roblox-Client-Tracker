@@ -1,3 +1,5 @@
+local FFlagStudioGetSharedPackagesInToolbox = game:GetFastFlag("StudioGetSharedPackagesInToolbox")
+
 local Plugin = script.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
@@ -48,7 +50,15 @@ local function handleAssetsAddedToState(state, assets, totalAssets, newCursor)
 	if newCursor then
 		newHasReachedBottom = not PagedRequestCursor.isNextPageAvailable(newCursor)
 	else
-		newHasReachedBottom = state.hasReachedBottom or (newAssetsReceived >= newTotalAssets) or (#newIdsToRender == 0 and newTotalAssets > 0)
+
+		local haveAllAssets = false
+		if FFlagStudioGetSharedPackagesInToolbox then
+			haveAllAssets = (newAssetsReceived >= newTotalAssets and #assets == 0)
+		else
+			haveAllAssets = (newAssetsReceived >= newTotalAssets)
+		end
+
+		newHasReachedBottom = state.hasReachedBottom or haveAllAssets or (#newIdsToRender == 0 and newTotalAssets > 0)
 	end
 
 	return Cryo.Dictionary.join(state, {

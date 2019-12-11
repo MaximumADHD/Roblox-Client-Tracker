@@ -74,6 +74,9 @@ local function getLabelForAction(localized, action)
 	end
 end
 
+-- if RoleSubjectKey doesn't exist then there was a problem, so NoneKey is returned.
+-- but if RoleSubjectKey is Okay, but the roleset.id doesn't exist, 
+-- then that roleset hasn't had it's permission set in the past, so it should be no access.
 local function getActionForRoleset(props, rolesetProps)
 	if not props.Permissions[PermissionsConstants.RoleSubjectKey] then
 		if FFlagPackagePermissionsAddDefaultNone then
@@ -84,11 +87,7 @@ local function getActionForRoleset(props, rolesetProps)
 	end
 
 	if not props.Permissions[PermissionsConstants.RoleSubjectKey][rolesetProps.Id] then
-		if FFlagPackagePermissionsAddDefaultNone then
-			return PermissionsConstants.NoneKey
-		else
-			return PermissionsConstants.NoAccessKey
-		end
+		return PermissionsConstants.NoAccessKey
 	end
 
 	return props.Permissions[PermissionsConstants.RoleSubjectKey][rolesetProps.Id][PermissionsConstants.ActionKey]
@@ -184,6 +183,7 @@ function GroupCollaboratorItem:render()
 							
 							Action = rolesetProps.LockedTo or getLabelForAction(localized, action),
 							Items = (lockedPermission or rolesetProps.LockedTo) and {} or rolesetItems,
+							SelectedItem = action,
 							
 							HideLastSeparator = i ~= #rolesets,
 							Removable = false,

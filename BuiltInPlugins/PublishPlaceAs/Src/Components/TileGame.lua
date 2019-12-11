@@ -6,8 +6,6 @@ local UILibrary = require(Plugin.Packages.UILibrary)
 local Localizing = UILibrary.Localizing
 local Separator = UILibrary.Component.Separator
 
-local FFlagDefaultThumbnailForRBXThumb = game:DefineFastFlag("DefaultThumbnailForRBXThumb", false)
-
 local ContentProvider = game:GetService("ContentProvider")
 
 local ICON_SIZE = 150
@@ -29,19 +27,17 @@ end
 
 function TileGame:didMount()
 	self.isMounted = true
-	if FFlagDefaultThumbnailForRBXThumb then
-		spawn(function()
-			local asset = { self.thumbnailUrl }
-			local function setStatus(contentId, status)
-				if self.isMounted then
-					self:setState({
-						assetFetchStatus = status
-					})
-				end
+	spawn(function()
+		local asset = { self.thumbnailUrl }
+		local function setStatus(contentId, status)
+			if self.isMounted then
+				self:setState({
+					assetFetchStatus = status
+				})
 			end
-			ContentProvider:PreloadAsync(asset, setStatus)
-		end)
-	end
+		end
+		ContentProvider:PreloadAsync(asset, setStatus)
+	end)
 end
 
 function TileGame:willUnmount()

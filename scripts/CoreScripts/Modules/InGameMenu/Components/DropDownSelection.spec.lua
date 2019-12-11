@@ -41,7 +41,7 @@ return function()
 	}
 
 	it("should create and destroy without errors", function()
-		local element = Roact.createElement(UIBlox.Style.Provider, {
+		local element = Roact.createElement(UIBlox.Core.Style.Provider, {
 			style = appStyle,
 		}, {
 			LocalizationProvider = Roact.createElement(LocalizationProvider, {
@@ -56,7 +56,7 @@ return function()
 	end)
 
 	it("should create and destroy without errors with a selected item", function()
-		local element = Roact.createElement(UIBlox.Style.Provider, {
+		local element = Roact.createElement(UIBlox.Core.Style.Provider, {
 			style = appStyle,
 		}, {
 			LocalizationProvider = Roact.createElement(LocalizationProvider, {
@@ -77,7 +77,7 @@ return function()
 			propValidation = true,
 		})
 
-		local element = Roact.createElement(UIBlox.Style.Provider, {
+		local element = Roact.createElement(UIBlox.Core.Style.Provider, {
 			style = appStyle,
 		}, {
 			LocalizationProvider = Roact.createElement(LocalizationProvider, {

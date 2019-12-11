@@ -11,6 +11,9 @@ local TestBootstrap = {}
 local function stripSpecSuffix(name)
 	return (name:gsub("%.spec$", ""))
 end
+local function isSpecScript(aScript)
+	return aScript:IsA("ModuleScript") and aScript.Name:match("%.spec$")
+end
 
 local function getPath(module, root)
 	root = root or game
@@ -22,6 +25,7 @@ local function getPath(module, root)
 		table.insert(path, stripSpecSuffix(last.Name))
 		last = last.Parent
 	end
+	table.insert(path, stripSpecSuffix(root.Name))
 
 	return path
 end
@@ -33,18 +37,18 @@ function TestBootstrap:getModules(root, modules, current)
 	modules = modules or {}
 	current = current or root
 
-	for _, child in ipairs(current:GetChildren()) do
-		if child:IsA("ModuleScript") and child.Name:match("%.spec$") then
-			local method = require(child)
-			local path = getPath(child, root)
+	if isSpecScript(current) then
+		local method = require(current)
+		local path = getPath(current, root)
 
-			table.insert(modules, {
-				method = method,
-				path = path
-			})
-		else
-			self:getModules(root, modules, child)
-		end
+		table.insert(modules, {
+			method = method,
+			path = path
+		})
+	end
+
+	for _, child in ipairs(current:GetChildren()) do
+		self:getModules(root, modules, child)
 	end
 
 	table.sort(modules, function(a, b)
@@ -69,26 +73,29 @@ end
 	the test plan before we execute it, allowing them to toggle specific tests
 	before they're run, but after they've been identified!
 ]]
-function TestBootstrap:run(root, reporter, showTimingInfo, noXpcallByDefault)
-	noXpcallByDefault = noXpcallByDefault or false
-	if not root then
-		error("You must provide a root object to search for tests in!", 2)
-	end
-
+function TestBootstrap:run(roots, reporter, otherOptions)
 	reporter = reporter or TextReporter
+
+	otherOptions = otherOptions or {}
+	local showTimingInfo = otherOptions["showTimingInfo"] or false
+	local noXpcallByDefault = otherOptions["noXpcallByDefault"] or false
+	local testNamePattern = otherOptions["testNamePattern"]
+	local extraEnvironment = otherOptions["extraEnvironment"] or {}
+
+	if type(roots) ~= "table" then
+		error(("Bad argument #1 to TestBootstrap:run. Expected table, got %s"):format(typeof(roots)), 2)
+	end
 
 	local startTime = tick()
 
 	local modules
-	if type(root) == "function" then
-		modules = {{method = root, path = {}}}
-	else
-		modules = self:getModules(root)
+	for _, subRoot in ipairs(roots) do
+		modules = self:getModules(subRoot, modules)
 	end
 
 	local afterModules = tick()
 
-	local plan = TestPlanner.createPlan(modules, noXpcallByDefault)
+	local plan = TestPlanner.createPlan(modules, noXpcallByDefault, testNamePattern, extraEnvironment)
 	local afterPlan = tick()
 
 	local results = TestRunner.runPlan(plan)

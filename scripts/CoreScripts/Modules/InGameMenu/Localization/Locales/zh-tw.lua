@@ -118,4 +118,5 @@ return{
 	["CoreScripts.InGameMenu.GameSettings.PlaceVersion"] = [[空間版本：{PLACE_VERSION}]],
 	["CoreScripts.InGameMenu.GameSettings.PlaceVersionWithLatest"] = [[空間版本：{PLACE_VERSION}（最新：{LATEST_PLACE_VERSION}）]],
 	["CoreScripts.InGameMenu.Label.MicroProfiler"] = [[Micro Profiler]],
+	["CoreScripts.InGameMenu.InviteFriends.Loading"] = [[正在載入！]],
 }

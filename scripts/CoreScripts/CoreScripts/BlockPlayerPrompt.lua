@@ -16,7 +16,7 @@ while LocalPlayer == nil do
 	LocalPlayer = PlayersService.LocalPlayer
 end
 
-local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList")
+local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList2")
 
 local CoreGuiModules = RobloxGui:WaitForChild("Modules")
 local PromptCreator = require(CoreGuiModules:WaitForChild("PromptCreator"))

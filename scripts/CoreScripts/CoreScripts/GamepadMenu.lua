@@ -22,7 +22,7 @@ local TextService = game:GetService('TextService')
 local VRService = game:GetService('VRService')
 --[[ END OF SERVICES ]]
 
-local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList")
+local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList2")
 local FFlagEmotesMenuEnabled2 = settings():GetFFlag("CoreScriptEmotesMenuEnabled2")
 
 --[[ MODULES ]]

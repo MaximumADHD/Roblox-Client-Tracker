@@ -13,6 +13,8 @@ local ErrorPrompt = require(RobloxGui.Modules.ErrorPrompt)
 local Url = require(RobloxGui.Modules.Common.Url)
 local PolicyService = require(RobloxGui.Modules.Common.PolicyService)
 
+local fflagEnableErrorStringTesting = game:DefineFastFlag("EnableErrorStringTesting", false)
+
 local LEAVE_GAME_FRAME_WAITS = 2
 
 local function safeGetFInt(name, defaultValue)
@@ -283,7 +285,8 @@ local updateFullScreenEffect = {
 local function onEnter(newState)
 	if not errorPrompt then
 		local extraConfiguration = {
-			MenuIsOpenKey = "ConnectionErrorPrompt"
+			MenuIsOpenKey = "ConnectionErrorPrompt",
+			PlayAnimation = not fflagEnableErrorStringTesting
 		}
 		errorPrompt = ErrorPrompt.new("Default", extraConfiguration)
 		errorPrompt:setParent(promptOverlay)
@@ -453,3 +456,14 @@ LocalizationService:GetPropertyChangedSignal("RobloxLocaleId"):connect(onLocaleI
 -- pre-run it once in case some error occurs before the connection
 onErrorMessageChanged()
 GuiService.ErrorMessageChanged:connect(onErrorMessageChanged)
+
+if fflagEnableErrorStringTesting then
+	local testingSet = require(RobloxGui.Modules.ErrorTestSets)
+	for errorType, errorList in pairs(testingSet) do
+		for _, errorCode in pairs(errorList) do
+			updateErrorPrompt("Should show localized strings, please file a jira ticket for missing translation.", errorCode, errorType)
+			wait(2)
+			connectionPromptState = ConnectionPromptState.NONE
+		end
+	end
+end

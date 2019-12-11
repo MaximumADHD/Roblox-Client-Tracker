@@ -11,6 +11,9 @@ game:DefineFastFlag("TerrainToolsRefactorTerrainImporter", false)
 game:DefineFastFlag("TerrainToolsHoldAltToSelectMaterial", false)
 game:DefineFastFlag("TerrainToolsRefactorTerrainGeneration", false)
 game:DefineFastFlag("TerrainToolsFixScrollBarResize", false)
+game:DefineFastFlag("TerrainToolsFixSmoothDesiredMaterial", false)
+game:DefineFastFlag("TerrainToolsClearConfirmationDialog", false)
+game:DefineFastFlag("TerrainToolsAutoFormatNum", false)
 
 -- Need to explicitly return something from a module
 -- Else you get an error "Module code did not return exactly one value"

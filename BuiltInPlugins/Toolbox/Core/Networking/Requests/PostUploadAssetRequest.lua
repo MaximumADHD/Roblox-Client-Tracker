@@ -20,6 +20,7 @@ local TrySaveSalesAndThumbnailRequest = require(Plugin.Core.Networking.Requests.
 
 local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 local FFlagDebugAssetConfigNetworkError = game:GetFastFlag("DebugAssetConfigNetworkError")
+local FFlagEnableNonWhitelistedToggle = game:GetFastFlag("EnableNonWhitelistedToggle")
 
 -- publishInfo is a table contains the following:
 -- assetId, number, defualt to 0 for new asset.
@@ -54,7 +55,13 @@ return function(publishInfo)
 
 				-- Then for sales status, no matter if the user is whitelisted or not. As long as it's buyable
 				-- we will always need to overrid the sales status.
-				local needToCheckSale = publishInfo.saleStatus and store:getState().allowedAssetTypesForRelease[publishInfo.assetType]
+				local needToCheckSale
+				if FFlagEnableNonWhitelistedToggle then
+					needToCheckSale = publishInfo.saleStatus
+				else
+					needToCheckSale = publishInfo.saleStatus and store:getState().allowedAssetTypesForRelease[publishInfo.assetType]
+				end
+
 				if FFlagDebugAssetConfigNetworkError then
 					publishInfo.assetId = newAssetId
 					store:dispatch(TrySaveSalesAndThumbnailRequest(publishInfo))

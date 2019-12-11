@@ -14,8 +14,6 @@ local Roact = require(Library.Parent.Roact)
 
 local TextEntry = Roact.PureComponent:extend("TextEntry")
 
-game:DefineFastFlag("NoDisconnectEventBeforeUnmountWorkaround", false)
-
 function TextEntry:init()
 	self.textBoxRef = Roact.createRef()
 	self.onTextChanged = function(rbx)
@@ -77,9 +75,7 @@ function TextEntry:render()
 			[Roact.Event.FocusLost] = function()
 				-- workaround because we do not disconnect events before we start unmounting host components.
 				-- see https://github.com/Roblox/roact/issues/235 for more info
-				if game:GetFastFlag("NoDisconnectEventBeforeUnmountWorkaround") then
-					if not self.textBoxRef.current then return end
-				end
+				if not self.textBoxRef.current then return end
 
 				local textBox = self.textBoxRef.current
 				textBox.TextXAlignment = Enum.TextXAlignment.Left
@@ -89,9 +85,7 @@ function TextEntry:render()
 			[Roact.Change.Text] = function(rbx) 
 				-- workaround because we do not disconnect events before we start unmounting host components.
 				-- see https://github.com/Roblox/roact/issues/235 for more info
-				if game:GetFastFlag("NoDisconnectEventBeforeUnmountWorkaround") then
-					if not self.textBoxRef.current then return end
-				end
+				if not self.textBoxRef.current then return end
 
 				self.onTextChanged(rbx)
 			end 

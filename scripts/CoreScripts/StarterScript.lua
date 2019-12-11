@@ -19,7 +19,7 @@ local FFlagConnectionScriptEnabled = settings():GetFFlag("ConnectionScriptEnable
 local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabledV384")
 local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp") --todo: remove with FFlagUsePolicyServiceForCoreScripts
 
-local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList")
+local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList2")
 local FFlagEmotesMenuEnabled2 = settings():GetFFlag("CoreScriptEmotesMenuEnabled2")
 
 local FFlagEnableNetworkPauseGui = game:DefineFastFlag("EnableNetworkPauseGui", false)
@@ -29,6 +29,10 @@ local FFlagEnableNetworkPauseGui = game:DefineFastFlag("EnableNetworkPauseGui", 
 -- We do this explicitly because the LocalPlayer hasn't been created at this
 -- point, so we can't check enrollment status.
 initify(CoreGuiModules.InGameMenu)
+
+local UIBlox = require(CorePackages.UIBlox)
+local uiBloxConfig = require(CoreGuiModules.UIBloxInGameConfig)
+UIBlox.init(uiBloxConfig)
 
 local soundFolder = Instance.new("Folder")
 soundFolder.Name = "Sounds"

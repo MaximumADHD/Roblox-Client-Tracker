@@ -33,6 +33,8 @@ local SetGameStatText = require(PlayerList.Actions.SetGameStatText)
 
 local LeaderstatsConnector = Roact.PureComponent:extend("LeaderstatsConnector")
 
+local FFlagNewPlayerListFixBackpackMemoryLeak = game:DefineFastFlag("NewPlayerListFixBackpackMemoryLeak", false)
+
 local function isValidStat(obj)
 	return obj:IsA("StringValue") or obj:IsA("IntValue") or obj:IsA("BoolValue") or obj:IsA("NumberValue") or
 		obj:IsA("DoubleConstrainedValue") or obj:IsA("IntConstrainedValue")
@@ -148,22 +150,47 @@ function LeaderstatsConnector:leaderstatsAdded(player, leaderstats)
 	end
 end
 
-function LeaderstatsConnector:connectLeaderstatsEvents(player)
-	self.playerConnections[player] = {}
-	local childAddedConn = player.ChildAdded:Connect(function(child)
-		local childChangedConn = child.Changed:Connect(function(property)
-			if property == "Name" then
-				if child.Name == "leaderstats" then
-					self:leaderstatsAdded(player, child)
-				end
+function LeaderstatsConnector:onPlayerChildAdded(player, child)
+	if not (child:IsA("ValueBase") or child:IsA("Folder")) then
+		return
+	end
+
+	local childChangedConn = child.Changed:Connect(function(property)
+		if property == "Name" then
+			if child.Name == "leaderstats" then
+				self:leaderstatsAdded(player, child)
 			end
-		end)
-		table.insert(self.playerConnections[player], childChangedConn)
-		if child.Name == "leaderstats" then
-			self:leaderstatsAdded(player, child)
 		end
 	end)
-	table.insert(self.playerConnections[player], childAddedConn)
+	table.insert(self.playerConnections[player], childChangedConn)
+	if child.Name == "leaderstats" then
+		self:leaderstatsAdded(player, child)
+	end
+end
+
+function LeaderstatsConnector:connectLeaderstatsEvents(player)
+	self.playerConnections[player] = {}
+	if FFlagNewPlayerListFixBackpackMemoryLeak then
+		local childAddedConn = player.ChildAdded:Connect(function(child)
+			self:onPlayerChildAdded(player, child)
+		end)
+		table.insert(self.playerConnections[player], childAddedConn)
+	else
+		local childAddedConn = player.ChildAdded:Connect(function(child)
+			local childChangedConn = child.Changed:Connect(function(property)
+				if property == "Name" then
+					if child.Name == "leaderstats" then
+						self:leaderstatsAdded(player, child)
+					end
+				end
+			end)
+			table.insert(self.playerConnections[player], childChangedConn)
+			if child.Name == "leaderstats" then
+				self:leaderstatsAdded(player, child)
+			end
+		end)
+		table.insert(self.playerConnections[player], childAddedConn)
+	end
 
 	local childRemovedConn = player.ChildRemoved:Connect(function(child)
 		if child.Name == "leaderstats" then
@@ -182,6 +209,10 @@ function LeaderstatsConnector:connectLeaderstatsEvents(player)
 	local leaderstats = player:FindFirstChild("leaderstats")
 	if leaderstats then
 		self:leaderstatsAdded(player, leaderstats)
+	elseif FFlagNewPlayerListFixBackpackMemoryLeak then
+		for _, child in ipairs(player:GetChildren()) do
+			self:onPlayerChildAdded(player, child)
+		end
 	end
 end
 

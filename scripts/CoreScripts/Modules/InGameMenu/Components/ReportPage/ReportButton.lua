@@ -14,7 +14,7 @@ local Assets = require(InGameMenu.Resources.Assets)
 
 local OpenReportDialog = require(InGameMenu.Actions.OpenReportDialog)
 
-local ImageSetButton = UIBlox.ImageSet.Button
+local ImageSetButton = UIBlox.Core.ImageSet.Button
 
 local validateProps = t.strictInterface({
 	userId = t.optional(t.integer),

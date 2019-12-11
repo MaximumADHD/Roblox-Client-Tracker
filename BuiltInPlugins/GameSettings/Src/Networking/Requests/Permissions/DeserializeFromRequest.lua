@@ -13,6 +13,8 @@
 	}
 --]]
 
+local FFlagStudioGameSettingsRestrictPermissions = game:GetFastFlag("StudioGameSettingsRestrictPermissions")
+
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 local Promise = require(Plugin.Promise)
 local Cryo = require(Plugin.Cryo)
@@ -44,7 +46,11 @@ local function getInternalAction(webKey)
 	elseif webKey == webKeys.EditAction then
 		return PermissionsConstants.EditKey
 	elseif webKey == webKeys.AdminAction then
-		return PermissionsConstants.AdminKey
+		if FFlagStudioGameSettingsRestrictPermissions then
+			return PermissionConstants.EditKey
+		else
+			return PermissionsConstants.AdminKey
+		end
 	elseif webKey == nil then
 		return PermissionsConstants.NoAccessKey
 	else
@@ -88,6 +94,17 @@ function Deserialize._deserializeOne(webPermission, subjectType)
 
 	internalPermission[PermissionsConstants.SubjectNameKey] = subjectName
 	internalPermission[PermissionsConstants.SubjectIdKey] = subjectId
+
+	-- allowedPermissions will be empty string for groups/rolesets and Play for non-friends
+	local allowedPermissions = ""
+	allowedPermissions = webPermission[webKeys.AllowedPermissions]
+	if subjectType == PermissionsConstants.UserSubjectKey then
+		if not allowedPermissions or allowedPermissions == "" or allowedPermissions == "Play" then
+			internalPermission[PermissionsConstants.IsFriendKey] = false
+		else
+			internalPermission[PermissionsConstants.IsFriendKey] = true
+		end
+	end
 
 	if subjectType == PermissionsConstants.RoleSubjectKey then
 		internalPermission[PermissionsConstants.SubjectRankKey] = webPermission[webKeys.RoleRank]
@@ -161,7 +178,7 @@ function Deserialize._addOwnerIfMissing(webPermissions, ownerName, ownerId, owne
 		table.insert(webPermissions, {
 			[webKeys.UserId] = ownerId,
 			[webKeys.UserName] = ownerName,
-			[webKeys.Action] = nil,
+			[webKeys.Action] = FFlagStudioGameSettingsRestrictPermissions and webKeys.EditAction or nil,
 		})
 		
 		return Promise.new(function(resolve) resolve() end)
@@ -174,11 +191,20 @@ function Deserialize._addOwnerIfMissing(webPermissions, ownerName, ownerId, owne
 	})
 	return GroupRoles.Get(ownerId):andThen(function(groupRoles)
 		for _,roleMetadata in pairs(groupRoles) do
-			table.insert(webPermissions, Cryo.Dictionary.join(roleMetadata, {
-				[webKeys.GroupId] = ownerId,
-				[webKeys.GroupName] = ownerName,
-				[webKeys.Action] = nil,
-			}))
+			-- owner role id is always 255
+			if roleMetadata[webKeys.RoleId] == 255 and FFlagStudioGameSettingsRestrictPermissions then
+				table.insert(webPermissions, Cryo.Dictionary.join(roleMetadata, {
+					[webKeys.GroupId] = ownerId,
+					[webKeys.GroupName] = ownerName,
+					[webKeys.Action] = webKeys.EditAction,
+				}))
+			else
+				table.insert(webPermissions, Cryo.Dictionary.join(roleMetadata, {
+					[webKeys.GroupId] = ownerId,
+					[webKeys.GroupName] = ownerName,
+					[webKeys.Action] = nil,
+				}))
+			end
 		end
 	end)
 end

@@ -27,7 +27,7 @@ return function()
 		local element = Roact.createElement(RoactRodux.StoreProvider, {
 			store = Rodux.Store.new(reducer)
 		}, {
-			ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
+			ThemeProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
 				style = appStyle,
 			}, {
 				LocalizationProvider = Roact.createElement(LocalizationProvider, {

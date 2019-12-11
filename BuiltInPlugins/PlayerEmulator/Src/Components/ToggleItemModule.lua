@@ -5,6 +5,7 @@
 		string Key
 			Label text
 		boolean IsOn
+		boolean Enabled
 
 		function ToggleCallback
 			The reason we extract this as a module.
@@ -22,8 +23,11 @@ local ToggleItemModule = Roact.PureComponent:extend("ToggleItemModule")
 
 function ToggleItemModule:init(props)
 	self.onToggle = function(isOn)
-		local key = props.Key
-		props.ToggleCallback(key, isOn, props.Plugin:get())
+		local enabled = self.props.Enabled
+		if enabled then
+			local key = props.Key
+			props.ToggleCallback(key, isOn, props.Plugin:get())
+		end
 	end
 end
 
@@ -33,6 +37,7 @@ function ToggleItemModule:render()
 
 	local key = props.Key
 	local isOn = props.IsOn
+	local enabled = props.Enabled
 
 	return Roact.createElement("Frame", {
 		Size = theme.TOGGLE_ITEM_FRAME_SIZE,
@@ -41,7 +46,7 @@ function ToggleItemModule:render()
 		TextLabel = Roact.createElement("TextLabel", {
 			TextXAlignment = Enum.TextXAlignment.Left,
 			TextYAlignment = Enum.TextYAlignment.Center,
-			TextColor3 = theme.TextColor,
+			TextColor3 = enabled and theme.TextColor or theme.DisabledColor,
 			Size = theme.TOGGLE_ITEM_LABEL_SIZE,
 			Text = key,
 			BackgroundTransparency = 1,
@@ -50,7 +55,7 @@ function ToggleItemModule:render()
 			Size = UDim2.new(0, theme.TOGGLE_BUTTON_WIDTH, 0, theme.TOGGLE_BUTTON_HEIGHT),
 			AnchorPoint = Vector2.new(0, 0.5),
 			Position = UDim2.new(0, theme.TOGGLE_BUTTON_OFFSET, 0.5, -theme.TOGGLE_BUTTON_HEIGHT/2),
-			Enabled = true,
+			Enabled = enabled,
 			IsOn = isOn,
 			onToggle = self.onToggle,
 		})

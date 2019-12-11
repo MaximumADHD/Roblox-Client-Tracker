@@ -2,6 +2,8 @@
 	ListItemsModule for containing social link items or other list items
 
 	Props:
+		boolean Enabled
+			if checkboxes are interactable
 		string LabelText
 			Label text
 		table Items
@@ -43,6 +45,7 @@ function ListItemsModule:render()
 	local state = self.state
 	local props = self.props
 
+	local enabled = props.Enabled
 	local expanded = state.expanded
 	local labelText = props.LabelText
 	local items = props.Items or {}
@@ -54,6 +57,7 @@ function ListItemsModule:render()
 	for _, value in pairs(items) do
 		local selected = Cryo.List.find(listStatus, value) ~= nil
 		itemElements["Item"..value] = Roact.createElement(CheckBoxModule, {
+			Enabled = enabled,
 			ItemKey = value,
 			Selected = selected,
 			CheckBoxCallback = self.checkBoxCallback,
@@ -71,7 +75,7 @@ function ListItemsModule:render()
 				Label = Roact.createElement("TextLabel", {
 					Size = UDim2.new(1, 0, 1, 0),
 					Text = labelText,
-					TextColor3 = theme.TextColor,
+					TextColor3 = enabled and theme.TextColor or theme.DisabledColor,
 					TextXAlignment = Enum.TextXAlignment.Left,
 					BackgroundTransparency = 1,
 				}),

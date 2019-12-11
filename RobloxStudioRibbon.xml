@@ -30,7 +30,7 @@
       <addaction name="downloadPlaceCopyAction"/>
       <addseparator />
       <submenu name="Advanced" text="Studio.App.RobloxRibbonMainWindow.Advanced">
-        <addaction name="fileOpenRecentSavesAction"/>
+        <addaction name="fileOpenAutoSavesAction"/>
         <addaction name="publishGameAction"/>
         <addaction name="exportPlaceAction"/>
         <addaction name="shortcutHelpAction"/>
@@ -369,9 +369,6 @@
       </Group>
       <Group name="Audio" text="Studio.App.RobloxRibbonMainWindow.Audio">
         <addaction name="audioToggleAction" iscommonslot="true" style="textundericon" ischeckable="true" icon=":/RibbonBar/images/RibbonIcons/Test/Audio-Disabled.png" width="32" height="32" text="Studio.App.RobloxRibbonMainWindow.Mute" tooltip="Studio.App.RobloxRibbonMainWindow.ToggleGameAudioSounds"/>
-      </Group>
-      <Group name="Collaboration" text="Studio.App.RobloxRibbonMainWindow.Collaboration" fflag="StudioShipCollaborativeEditingV0">
-        <addaction name="toggleDraftsDockAction" style="textundericon" text="Studio.App.RBXMainWindow.Drafts" tooltip="Studio.App.RBXMainWindow.ViewDrafts" icon=":/RibbonBar/images/RibbonIcons/View/Drafts.png" width="32" height="32" ischeckable="true" fflag="StudioShipCollaborativeEditingV0"/>
       </Group>
     </TabPage>
     <!--

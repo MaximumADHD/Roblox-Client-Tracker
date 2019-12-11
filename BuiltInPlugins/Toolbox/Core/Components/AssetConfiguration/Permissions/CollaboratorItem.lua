@@ -45,8 +45,6 @@ local withTheme = ContextHelper.withTheme
 local PermissionsDirectory = Plugin.Core.Components.AssetConfiguration.Permissions
 local CollaboratorThumbnail = require(PermissionsDirectory.CollaboratorThumbnail)
 
-local FFlagDefaultThumbnailForRBXThumb = game:DefineFastFlag("DefaultThumbnailForRBXThumb", false)
-
 local ContentProvider = game:GetService("ContentProvider")
 
 local CollaboratorItem = Roact.PureComponent:extend("CollaboratorItem")
@@ -113,7 +111,7 @@ end
 local function CollaboratorLabels(props)
 	return withTheme(function(theme)
 		return Roact.createElement("Frame", {
-			Size = UDim2.new(1, -(LIST_PADDING*3 + CONTENT_HEIGHT + DROPDOWN_WIDTH), 0, CONTENT_HEIGHT),
+			Size = UDim2.new(1, -(LIST_PADDING*4 + CONTENT_HEIGHT + DROPDOWN_WIDTH), 0, CONTENT_HEIGHT),
 			Position = UDim2.new(0, CONTENT_HEIGHT + LIST_PADDING, 0, 0),
 			LayoutOrder = props.LayoutOrder or 0,
 
@@ -127,6 +125,7 @@ local function CollaboratorLabels(props)
 				Font = Constants.FONT,
 				TextSize = Constants.FONT_SIZE_TITLE,
 				TextColor3 = theme.assetConfig.packagePermissions.subTextColor,
+				TextTruncate = Enum.TextTruncate.AtEnd,
 
 				BackgroundTransparency = 1,
 			}),
@@ -144,19 +143,17 @@ end
 
 function CollaboratorItem:didMount()
 	self.isMounted = true
-	if FFlagDefaultThumbnailForRBXThumb then
-		spawn(function()
-			local asset = { self.props.CollaboratorIcon }
-			local function setStatus(contentId, status)
-				if self.isMounted then
-					self:setState({
-						assetFetchStatus = status
-					})
-				end
+	spawn(function()
+		local asset = { self.props.CollaboratorIcon }
+		local function setStatus(contentId, status)
+			if self.isMounted then
+				self:setState({
+					assetFetchStatus = status
+				})
 			end
-			ContentProvider:PreloadAsync(asset, setStatus)
-		end)
-	end
+		end
+		ContentProvider:PreloadAsync(asset, setStatus)
+	end)
 end
 
 function CollaboratorItem:willUnmount()
@@ -221,6 +218,7 @@ function CollaboratorItem:render()
 					
 					ButtonText = props.Action,
 					Items = props.Items,
+					SelectedItem = props.SelectedItem,
 
 					BackgroundTransparency = 1,
 

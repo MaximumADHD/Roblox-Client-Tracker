@@ -218,6 +218,7 @@ function Theme.createValues(getColor, c, m)
 		}),
 		textBox = {
 			borderHover = getColor(c.DialogMainButton),
+			background = getColor(c.InputFieldBackground),
 		},
 		button = {
 			Default = defineTheme({

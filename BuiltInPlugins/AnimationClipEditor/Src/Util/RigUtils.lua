@@ -19,6 +19,7 @@ local Workspace = game:GetService("Workspace")
 
 local Constants = require(Plugin.Src.Util.Constants)
 local FixRigUtils = require(Plugin.LuaFlags.GetFFlagFixRigUtils)
+local FixExportSpeed = require(Plugin.LuaFlags.GetFFlagFixExportSpeed)
 
 local RigUtils = {}
 
@@ -319,6 +320,8 @@ function RigUtils.canUseIK(rig)
 					return false, false
 				end
 			end
+		elseif FixExportSpeed() then
+			return false, false
 		end
 	end
 
@@ -712,7 +715,7 @@ end
 -- a chain all the way back to the root part. This function
 -- constructs the chain, making use of existing poses along the way
 -- if they exist.
-local function makePoseChain(keyframe, trackName, rig, trackData)
+local function makePoseChain(keyframe, trackName, rig, trackData, partsToMotors)
 	if FixRigUtils() then
 		local poseInstance = keyframe:FindFirstChild(trackName, true)
 		if poseInstance == nil then
@@ -726,7 +729,10 @@ local function makePoseChain(keyframe, trackName, rig, trackData)
 		poseInstance.EasingDirection = trackData.EasingDirection.Name
 		local poseChain = poseInstance
 
-		local _, partsToMotors = RigUtils.getRigInfo(rig)
+		local parts
+		if not FixExportSpeed() then
+			parts, partsToMotors = RigUtils.getRigInfo(rig)
+		end
 		local currentPart = trackName
 		while currentPart ~= nil do
 			local motor = partsToMotors[currentPart]
@@ -802,6 +808,11 @@ function RigUtils.toRigAnimation(animationData, rig)
 	local numPoses = 0
 	local numEvents = 0
 
+	local parts, partsToMotors
+	if FixExportSpeed() then
+		parts, partsToMotors = RigUtils.getRigInfo(rig)
+	end
+
 	-- Create poses
 	local root = animationData.Instances.Root
 	assert(root.Type == Constants.INSTANCE_TYPES.Rig, "Can only export Rig animations to KeyframeSequence.")
@@ -811,7 +822,7 @@ function RigUtils.toRigAnimation(animationData, rig)
 			local time = keyframe / frameRate
 			local keyframeInstance = getKeyframeInstance(keyframeSequence, time)
 			local trackData = track.Data[keyframe]
-			makePoseChain(keyframeInstance, trackName, rig, trackData)
+			makePoseChain(keyframeInstance, trackName, rig, trackData, partsToMotors)
 
 			-- Set keyframe name, if one exists
 			if namedKeyframes[keyframe] then

@@ -65,13 +65,14 @@ local function createValues(theme)
 	local rowHeight = 25
 	local constants = {
 		TOOLBAR_ICON_PATH = "rbxasset://textures/StudioPlayerEmulator/player_emulator_32.png",
-		PLUGIN_WINDOW_SIZE = Vector2.new(300, 300),
+		PLUGIN_WINDOW_SIZE = Vector2.new(300, 320),
 		PLUGIN_WINDOW_SIZE_MIN = Vector2.new(150, 150),
 
 		ROW_HEIGHT = 25,
 
 		MAINVIEW_PADDING_TOP = UDim.new(0, 15),
 		MAINVIEW_PADDING_LEFT = UDim.new(0, 10),
+		MAINSWITCH_LABEL_SIZE = UDim2.new(0, 150, 0, rowHeight),
 		SECTION_LABEL_SIZE = UDim2.new(0, 50, 0, rowHeight),
 		TEXT_INDENT_PADDING = UDim.new(0, 4),
 		HORIZONTAL_LISTLAYOUT_PADDING = UDim.new(0, 5),

@@ -6,6 +6,8 @@ local BrushShape = TerrainEnums.BrushShape
 
 local materialAir = Enum.Material.Air
 
+local FFlagTerrainToolsFixSmoothDesiredMaterial = game:GetFastFlag("TerrainToolsFixSmoothDesiredMaterial")
+
 --[[
 	Perform a floodfill from the center voxel, to find surface voxels that can be smoothed
 	Should only be used for larger brush sizes due to the overheard from the floodfill algorithm
@@ -105,6 +107,10 @@ return function(options, minBounds, maxBounds, readMaterials, readOccupancies, w
 				local hasFullNeighbour = false
 				local hasEmptyNeighbour = false
 
+				local materialsAroundCell = {}
+				local cellStartMaterial = readMaterials[voxelX][voxelY][voxelZ]
+				local cellStartsEmpty = cellStartMaterial == materialAir or cellOccupancy <= 0
+
 				for xo = -filterSize, filterSize, 1 do
 					for yo = -filterSize, filterSize, 1 do
 						for zo = -filterSize, filterSize, 1 do
@@ -131,6 +137,15 @@ return function(options, minBounds, maxBounds, readMaterials, readOccupancies, w
 
 								totalNeighbours = totalNeighbours + 1 * distanceScale
 								neighbourOccupanciesSum = neighbourOccupanciesSum + occupancy * distanceScale
+
+								-- Later on, if the occupancy for this cell becomes non-zero, then we need to give it a material
+								-- So whilst we're looking at its neighbours, make a note of the frequency of their materials
+								if FFlagTerrainToolsFixSmoothDesiredMaterial and cellStartsEmpty then
+									local m = readMaterials[checkX][checkY][checkZ]
+									if m ~= materialAir then
+										materialsAroundCell[m] = (materialsAroundCell[m] or 0) + 1
+									end
+								end
 							end
 						end
 					end
@@ -151,12 +166,40 @@ return function(options, minBounds, maxBounds, readMaterials, readOccupancies, w
 					difference = 0
 				end
 
-				if readMaterials[voxelX][voxelY][voxelZ] == materialAir or cellOccupancy <= 0 and difference > 0 then
-					writeMaterials[voxelX][voxelY][voxelZ] = desiredMaterial
-				end
+				if FFlagTerrainToolsFixSmoothDesiredMaterial then
+					-- If this voxel won't be be changing occupancy, then we don't need to try to change its occupancy or material
+					local targetOccupancy = math.max(0, math.min(1, cellOccupancy + difference))
+					if targetOccupancy ~= cellOccupancy then
+						if cellStartsEmpty and targetOccupancy > 0 then
+							-- If the cell is becoming non-empty, then we need to give it a material
+							-- Use the most common non-air material around this cell
+							local cellDesiredMaterial = cellStartMaterial
+							local mostCommonNum = 0
+							for mat, freq in pairs(materialsAroundCell) do
+								if freq > mostCommonNum then
+									mostCommonNum = freq
+									cellDesiredMaterial = mat
+								end
+							end
 
-				if difference ~= 0 then
-					writeOccupancies[voxelX][voxelY][voxelZ] = math.max(0, math.min(1, cellOccupancy + difference))
+							writeMaterials[voxelX][voxelY][voxelZ] = cellDesiredMaterial
+
+						elseif targetOccupancy <= 0 then
+							-- Cell is becoming empty, set it to air
+							writeMaterials[voxelX][voxelY][voxelZ] = materialAir
+						end
+						-- Else oldOccupancy > 0 and targetOccupancy > 0, leave its material unchanged
+
+						writeOccupancies[voxelX][voxelY][voxelZ] = targetOccupancy
+					end
+				else
+					if readMaterials[voxelX][voxelY][voxelZ] == materialAir or cellOccupancy <= 0 and difference > 0 then
+						writeMaterials[voxelX][voxelY][voxelZ] = desiredMaterial
+					end
+
+					if difference ~= 0 then
+						writeOccupancies[voxelX][voxelY][voxelZ] = math.max(0, math.min(1, cellOccupancy + difference))
+					end
 				end
 			end
 		end

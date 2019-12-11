@@ -118,4 +118,5 @@ return{
 	["CoreScripts.InGameMenu.GameSettings.PlaceVersion"] = [[Versión del lugar: {PLACE_VERSION}]],
 	["CoreScripts.InGameMenu.GameSettings.PlaceVersionWithLatest"] = [[Versión del lugar: {PLACE_VERSION} (más reciente: {LATEST_PLACE_VERSION})]],
 	["CoreScripts.InGameMenu.Label.MicroProfiler"] = [[Micro Profiler]],
+	["CoreScripts.InGameMenu.InviteFriends.Loading"] = [[Cargando.]],
 }

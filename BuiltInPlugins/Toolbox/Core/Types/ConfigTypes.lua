@@ -7,10 +7,9 @@ local Util = Plugin.Core.Util
 local AssetConfigConstants = require(Util.AssetConfigConstants)
 local ScreenSetup = require(Util.ScreenSetup)
 local Images = require(Util.Images)
-local convertArrayToTable = require(Util.convertArrayToTable)
 
 local FFlagEnableAssetConfigVersionCheckForModels = game:GetFastFlag("EnableAssetConfigVersionCheckForModels")
-local FFlagShowAssetConfigReasons = game:GetFastFlag("ShowAssetConfigReasons")
+local FFlagEnableNonWhitelistedToggle = game:GetFastFlag("EnableNonWhitelistedToggle")
 
 local ConfigTypes = {}
 
@@ -86,8 +85,10 @@ function ConfigTypes:getAssetconfigContent(screenFlowType, assetTypeEnum, isMark
 	end
 
 	if FFlagEnablePurchasePluginFromLua2 then
-		-- For non whiteList and group plugin, we will skip the sales tab.
-		if isMarketBuyAndNonWhiteList then return result end
+		-- Non-whitelisted users will also have access to sales tab.
+		if not FFlagEnableNonWhitelistedToggle then
+			if isMarketBuyAndNonWhiteList then return result end
+		end
 		if owner and owner.typeId == ConfigTypes.OWNER_TYPES.Group then return result end
 		if ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_SALES_TAB) then
 			result[#result + 1] = SALES

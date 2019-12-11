@@ -1,6 +1,7 @@
 return function()
 	local CorePackages = game:GetService("CorePackages")
 	local Roact = require(CorePackages.Roact)
+	local UIBlox = require(CorePackages.UIBlox)
 
 	local Components = script.Parent.Parent
 	local Connection = Components.Connection
@@ -12,14 +13,26 @@ return function()
 
 	local TeamEntry = require(script.Parent.TeamEntry)
 
+	local AppDarkTheme = require(CorePackages.AppTempCommon.LuaApp.Style.Themes.DarkTheme)
+	local AppFont = require(CorePackages.AppTempCommon.LuaApp.Style.Fonts.Gotham)
+
+	local appStyle = {
+		Theme = AppDarkTheme,
+		Font = AppFont,
+	}
+
 	it("should create and destroy without errors", function()
 		local element = Roact.createElement(LayoutValuesProvider, {
 			layoutValues = CreateLayoutValues(false, false)
 		}, {
-			TeamEntry = Roact.createElement(TeamEntry, {
-				layoutOrder = 0,
-				leaderstats = {},
-				gameStats = {},
+			ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
+				style = appStyle,
+			}, {
+				TeamEntry = Roact.createElement(TeamEntry, {
+					layoutOrder = 0,
+					leaderstats = {},
+					gameStats = {},
+				})
 			})
 		})
 		local instance = Roact.mount(element)
@@ -30,10 +43,14 @@ return function()
 		local element = Roact.createElement(LayoutValuesProvider, {
 			layoutValues = CreateLayoutValues(true, false)
 		}, {
-			TeamEntry = Roact.createElement(TeamEntry, {
-				layoutOrder = 0,
-				leaderstats = {},
-				gameStats = {},
+			ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
+				style = appStyle,
+			}, {
+				TeamEntry = Roact.createElement(TeamEntry, {
+					layoutOrder = 0,
+					leaderstats = {},
+					gameStats = {},
+				})
 			})
 		})
 		local instance = Roact.mount(element)

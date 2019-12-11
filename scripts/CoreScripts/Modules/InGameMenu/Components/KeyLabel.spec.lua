@@ -16,7 +16,7 @@ return function()
 	}
 
 	it("should create and destroy without errors", function()
-		local element = Roact.createElement(UIBlox.Style.Provider, {
+		local element = Roact.createElement(UIBlox.Core.Style.Provider, {
 			style = appStyle,
 		}, {
 			KeyLabel = Roact.createElement(KeyLabel, {
@@ -29,7 +29,7 @@ return function()
 	end)
 
 	it("should create and destroy without errors for keys with special display strings", function()
-		local element = Roact.createElement(UIBlox.Style.Provider, {
+		local element = Roact.createElement(UIBlox.Core.Style.Provider, {
 			style = appStyle,
 		}, {
 			KeyLabel = Roact.createElement(KeyLabel, {
@@ -42,7 +42,7 @@ return function()
 	end)
 
 	it("should create and destroy without errors for keys with special display images", function()
-		local element = Roact.createElement(UIBlox.Style.Provider, {
+		local element = Roact.createElement(UIBlox.Core.Style.Provider, {
 			style = appStyle,
 		}, {
 			KeyLabel = Roact.createElement(KeyLabel, {

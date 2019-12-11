@@ -2,6 +2,8 @@
 	Dropdown module for languages and country region selector
 
 	Props:
+		boolean Enabled
+			if dropdown is interactable
 		int LayoutOrder
 			layout order of UIListLayout in parent view
 		table Items
@@ -53,6 +55,7 @@ end
 function DropdownModule:render()
 	local state = self.state
 	local props = self.props
+	local enabled = props.Enabled
 	local isOpen = state.open
 	local buttonExtents = state.buttonExtents
 	local items = props.Items
@@ -68,6 +71,8 @@ function DropdownModule:render()
 			BorderColor3 = theme.BorderColor,
 			BackgroundColor3 = theme.ButtonColor,
 			Text = "",
+			Active = enabled,
+			AutoButtonColor = enabled,
 
 			[Roact.Event.Activated] = self.setOpen,
 		}, {
@@ -77,7 +82,7 @@ function DropdownModule:render()
 			Label = Roact.createElement("TextLabel", {
 				Size = UDim2.new(1, 0, 1, 0),
 				Text = currentSelected or localization:getText("LanguageSection", "CustomLanguageDisplayText"),
-				TextColor3 = theme.TextColor,
+				TextColor3 = enabled and theme.TextColor or theme.DisabledColor,
 				TextXAlignment = Enum.TextXAlignment.Left,
 				BackgroundTransparency = 1,
 			}),

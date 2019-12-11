@@ -5,7 +5,7 @@ local Roact = InGameMenuDependencies.Roact
 local UIBlox = InGameMenuDependencies.UIBlox
 local t = InGameMenuDependencies.t
 
-local withStyle = UIBlox.Style.withStyle
+local withStyle = UIBlox.Core.Style.withStyle
 
 local InGameMenu = script.Parent.Parent
 
@@ -19,7 +19,7 @@ local BarOnTopScrollingFrame = require(script.Parent.BarOnTopScrollingFrame)
 
 local withLocalization = require(InGameMenu.Localization.withLocalization)
 
-local ImageSetLabel = UIBlox.ImageSet.Label
+local ImageSetLabel = UIBlox.Core.ImageSet.Label
 
 local DropDownSelection = Roact.PureComponent:extend("DropDownSelection")
 

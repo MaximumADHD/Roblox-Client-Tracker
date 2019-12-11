@@ -244,6 +244,7 @@ function CollaboratorsWidget:render()
 
 						Items = lockedPermission and {} or userAssignablePermissions,
 						Action = getLabelForAction(localized, user.Action),
+						SelectedItem = user.Action,
 
 						Removable = true,
 						Removed = function() userRemoved(user.Id) end,

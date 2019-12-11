@@ -10480,6 +10480,7 @@
             "Name": "DebugSettings",
             "Superclass": "Instance",
             "Tags": [
+                "NotCreatable",
                 "Settings",
                 "NotBrowsable"
             ]
@@ -12642,6 +12643,7 @@
             "Name": "GameSettings",
             "Superclass": "Instance",
             "Tags": [
+                "NotCreatable",
                 "Settings",
                 "NotBrowsable"
             ]
@@ -12894,6 +12896,7 @@
             "Name": "GoogleAnalyticsConfiguration",
             "Superclass": "Instance",
             "Tags": [
+                "NotCreatable",
                 "Service"
             ]
         },
@@ -26515,6 +26518,7 @@
             "Name": "LuaSettings",
             "Superclass": "Instance",
             "Tags": [
+                "NotCreatable",
                 "Settings"
             ]
         },
@@ -29208,6 +29212,40 @@
                     }
                 },
                 {
+                    "Category": "Proxy Settings",
+                    "MemberType": "Property",
+                    "Name": "HttpProxyEnabled",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Proxy Settings",
+                    "MemberType": "Property",
+                    "Name": "HttpProxyURL",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                },
+                {
                     "Category": "Diagnostics",
                     "MemberType": "Property",
                     "Name": "IncommingReplicationLag",
@@ -29501,40 +29539,6 @@
                     }
                 },
                 {
-                    "Category": "Proxy Settings",
-                    "MemberType": "Property",
-                    "Name": "ProxyEnabled",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    }
-                },
-                {
-                    "Category": "Proxy Settings",
-                    "MemberType": "Property",
-                    "Name": "ProxyURL",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "string"
-                    }
-                },
-                {
                     "Category": "Network",
                     "MemberType": "Property",
                     "Name": "ReceiveRate",
@@ -29658,6 +29662,7 @@
             "Name": "NetworkSettings",
             "Superclass": "Instance",
             "Tags": [
+                "NotCreatable",
                 "Service",
                 "NotBrowsable"
             ]
@@ -36027,6 +36032,7 @@
             "Name": "PhysicsSettings",
             "Superclass": "Instance",
             "Tags": [
+                "NotCreatable",
                 "Settings"
             ]
         },
@@ -37931,6 +37937,87 @@
             "MemoryCategory": "Instances",
             "Name": "Player",
             "Superclass": "Instance"
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "PlayerEmulationEnabled",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "StudioEmulatedCountryRegionCode",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetEmulatedPolicyInfo",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Dictionary"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SetEmulatedPolicyInfo",
+                    "Parameters": [
+                        {
+                            "Name": "emulatedPolicyInfo",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "PlayerEmulatorService",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service",
+                "NotReplicated"
+            ]
         },
         {
             "Members": [
@@ -42344,6 +42431,7 @@
             "Name": "RenderSettings",
             "Superclass": "Instance",
             "Tags": [
+                "NotCreatable",
                 "Service",
                 "NotBrowsable"
             ]
@@ -49393,6 +49481,7 @@
             "Name": "Studio",
             "Superclass": "Instance",
             "Tags": [
+                "NotCreatable",
                 "Service",
                 "NotReplicated"
             ]
@@ -50332,6 +50421,7 @@
             "Name": "TaskScheduler",
             "Superclass": "Instance",
             "Tags": [
+                "NotCreatable",
                 "Service"
             ]
         },
@@ -54517,6 +54607,7 @@
             "Name": "UserGameSettings",
             "Superclass": "Instance",
             "Tags": [
+                "NotCreatable",
                 "UserSettings"
             ]
         },

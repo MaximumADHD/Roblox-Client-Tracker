@@ -5,6 +5,8 @@
 		int LayoutOrder
 			layout order of UIListLayout in Mainview
 
+		boolean mainSwitchEnabled
+			if emulation is enabled
 		table allPolicies
 			all policies items need be rendered
 		table policySettingStatus
@@ -29,8 +31,8 @@ local FitToContent = createFitToContent("Frame", "UIListLayout", {
 })
 
 local GetPolicySettings = require(Plugin.Src.Networking.Requests.GetPolicySettings)
-local UpdatePolicyBooleanItem = require(Plugin.Src.Actions.UpdatePolicyBooleanItem)
-local UpdatePolicyListItem = require(Plugin.Src.Actions.UpdatePolicyListItem)
+local UpdatePolicyBooleanItem = require(Plugin.Src.Thunks.UpdatePolicyBooleanItem)
+local UpdatePolicyListItem = require(Plugin.Src.Thunks.UpdatePolicyListItem)
 local ToggleItemModule = require(Plugin.Src.Components.ToggleItemModule)
 local ListItemsModule = require(Plugin.Src.Components.ListItemsModule)
 
@@ -47,6 +49,7 @@ function PolicySection:render()
 
 	local layoutOrder = props.LayoutOrder
 
+	local mainSwitchEnabled = props.mainSwitchEnabled
 	local allPolicies = props.allPolicies
 	local allPolicySortedKeys = props.allPolicySortedKeys
 	local policySettingStatus = props.policySettingStatus
@@ -62,11 +65,13 @@ function PolicySection:render()
 			toggleElements["Toggle"..key] = Roact.createElement(ToggleItemModule, {
 				Key = key,
 				IsOn = isOn,
+				Enabled = mainSwitchEnabled,
 				ToggleCallback = updateToggleItem,
 			})
 		elseif type(allPolicies[key]) == "table" then
 			listItemElements["List"..key] = Roact.createElement(ListItemsModule, {
 				LabelText = key,
+				Enabled = mainSwitchEnabled,
 				Items = allPolicies[key],
 				ListItemsCheckBoxCallback = updateListItem,
 				ListStatus = policySettingStatus[key],
@@ -97,6 +102,7 @@ ContextServices.mapToProps(PolicySection, {
 
 local function mapStateToProps(state, _)
 	return {
+		mainSwitchEnabled = state.MainSwitch.mainSwitchEnabled,
 		allPolicies = state.Policies.allPolicies,
 		allPolicySortedKeys = state.Policies.allPolicySortedKeys,
 		policySettingStatus = state.Policies.policySettingStatus,

@@ -32,8 +32,8 @@ local GameSettings = Settings.GameSettings
 local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
 local FFlagUseNotificationsLocalization = success and result
 
-local FFlagNotificationScript2UseFormatByKey = settings():GetFFlag('NotificationScript2UseFormatByKey')
 local FFlagNewAwardBadgeEndpoint = settings():GetFFlag('NewAwardBadgeEndpoint2')
+
 
 local RobloxTranslator = require(RobloxGui:WaitForChild("Modules"):WaitForChild("RobloxTranslator"))
 
@@ -506,14 +506,7 @@ spawn(function()
 	local RemoteEvent_NewFollower = RobloxReplicatedStorage:WaitForChild('NewFollower', 86400) or RobloxReplicatedStorage:WaitForChild('NewFollower')
 
 	RemoteEvent_NewFollower.OnClientEvent:connect(function(followerRbxPlayer)
-		local message = ("%s is now following you"):format(followerRbxPlayer.Name)
-		if FFlagNotificationScript2UseFormatByKey then
-			message = RobloxTranslator:FormatByKey("NotificationScript2.NewFollower", {RBX_NAME = followerRbxPlayer.Name})
-		else
-			if FFlagUseNotificationsLocalization then
-				message = string.gsub(LocalizedGetString("NotificationScript2.NewFollower",message),"{RBX_NAME}",followerRbxPlayer.Name)
-			end
-		end
+		local message = RobloxTranslator:FormatByKey("NotificationScript2.NewFollower", {RBX_NAME = followerRbxPlayer.Name})
 
 		local image = getFriendImage(followerRbxPlayer.UserId)
 		sendNotificationInfo {
@@ -582,17 +575,9 @@ local function onFriendRequestEvent(fromPlayer, toPlayer, event)
 	--
 	if fromPlayer == LocalPlayer then
 		if event == Enum.FriendRequestEvent.Accept then
-			local detailText = "You are now friends with " .. toPlayer.Name .. "!"
-
-			if FFlagNotificationScript2UseFormatByKey then
-				detailText = RobloxTranslator:FormatByKey(
-					"NotificationScript2.FriendRequestEvent.Accept",
-					{RBX_NAME = toPlayer.Name})
-			else
-				if FFlagUseNotificationsLocalization then
-					detailText = string.gsub(LocalizedGetString("NotificationScript2.FriendRequestEvent.Accept",detailText), "{RBX_NAME}", toPlayer.Name)
-				end
-			end
+			local detailText = RobloxTranslator:FormatByKey(
+				"NotificationScript2.FriendRequestEvent.Accept",
+				{RBX_NAME = toPlayer.Name})
 
 			sendNotificationInfo {
 				GroupName = "Friends",
@@ -610,36 +595,17 @@ local function onFriendRequestEvent(fromPlayer, toPlayer, event)
 			if FriendRequestBlacklist[fromPlayer] then return end
 			sendFriendNotification(fromPlayer)
 		elseif event == Enum.FriendRequestEvent.Accept then
-			local detailText = "You are now friends with " .. fromPlayer.Name .. "!"
+			local detailText = RobloxTranslator:FormatByKey("NotificationScript2.FriendRequestEvent.Accept", {RBX_NAME = fromPlayer.Name})
 
-			if FFlagNotificationScript2UseFormatByKey then
-				detailText = RobloxTranslator:FormatByKey("NotificationScript2.FriendRequestEvent.Accept", {RBX_NAME = fromPlayer.Name})
+			sendNotificationInfo {
+				GroupName = "Friends",
+				Title = "New Friend",
+				Text = fromPlayer.Name,
+				DetailText = detailText,
 
-				sendNotificationInfo {
-					GroupName = "Friends",
-					Title = "New Friend",
-					Text = fromPlayer.Name,
-					DetailText = detailText,
-
-					Image = getFriendImage(fromPlayer.UserId),
-					Duration = DEFAULT_NOTIFICATION_DURATION
-				}
-			else
-				if FFlagUseNotificationsLocalization then
-					detailText = string.gsub(LocalizedGetString("NotificationScript2.FriendRequestEvent.Accept",detailText), "{RBX_NAME}", fromPlayer.Name)
-				end
-
-				sendNotificationInfo {
-					GroupName = "Friends",
-					Title = "New Friend",
-					Text = fromPlayer.Name,
-					DetailText = "You are now friends with " .. fromPlayer.Name .. "!",
-
-					Image = getFriendImage(fromPlayer.UserId),
-					Duration = DEFAULT_NOTIFICATION_DURATION
-				}
-			end
-
+				Image = getFriendImage(fromPlayer.UserId),
+				Duration = DEFAULT_NOTIFICATION_DURATION
+			}
 		end
 	end
 end
@@ -649,37 +615,13 @@ local function onPointsAwarded(userId, pointsAwarded, userBalanceInGame, userTot
 		local title, text, detailText
 		if pointsAwarded == 1 then
 			title = "Point Awarded"
-			text = "You received 1 point!"
-
-			if FFlagNotificationScript2UseFormatByKey then
-				text = RobloxTranslator:FormatByKey("NotificationScript2.onPointsAwarded.single", {RBX_NUMBER = tostring(pointsAwarded)})
-			else
-				if FFlagUseNotificationsLocalization then
-					text = string.gsub(LocalizedGetString("NotificationScript2.onPointsAwarded.single",text),"{RBX_NUMBER}",pointsAwarded)
-				end
-			end
+			text = RobloxTranslator:FormatByKey("NotificationScript2.onPointsAwarded.single", {RBX_NUMBER = tostring(pointsAwarded)})
 		elseif pointsAwarded > 0 then
 			title = "Points Awarded"
-			text = ("You received %d points!"):format(pointsAwarded)
-
-			if FFlagNotificationScript2UseFormatByKey then
-				text = RobloxTranslator:FormatByKey("NotificationScript2.onPointsAwarded.multiple", {RBX_NUMBER = tostring(pointsAwarded)})
-			else
-				if FFlagUseNotificationsLocalization then
-					text = string.gsub(LocalizedGetString("NotificationScript2.onPointsAwarded.multiple",text),"{RBX_NUMBER}",pointsAwarded)
-				end
-			end
+			text = RobloxTranslator:FormatByKey("NotificationScript2.onPointsAwarded.multiple", {RBX_NUMBER = tostring(pointsAwarded)})
 		elseif pointsAwarded < 0 then
 			title = "Points Lost"
-			text = ("You lost %d points!"):format(math.abs(pointsAwarded))
-
-			if FFlagNotificationScript2UseFormatByKey then
-				text = RobloxTranslator:FormatByKey("NotificationScript2.onPointsAwarded.negative", {RBX_NUMBER = tostring(pointsAwarded)})
-			else
-				if FFlagUseNotificationsLocalization then
-					text = string.gsub(LocalizedGetString("NotificationScript2.onPointsAwarded.negative",text),"{RBX_NUMBER}",math.abs(pointsAwarded))
-				end
-			end
+			text = RobloxTranslator:FormatByKey("NotificationScript2.onPointsAwarded.negative", {RBX_NUMBER = tostring(pointsAwarded)})
 		else
 			--don't notify for 0 points, shouldn't even happen
 			return
@@ -758,20 +700,10 @@ function onGameSettingsChanged(property, amount)
 			local action = (level > CurrentGraphicsQualityLevel) and "Increased" or "Decreased"
 			local message = ("%s to (%d)"):format(action, level)
 
-			if FFlagNotificationScript2UseFormatByKey then
-				if level > CurrentGraphicsQualityLevel then
-					message = RobloxTranslator:FormatByKey("NotificationScrip2.onCurrentGraphicsQualityLevelChanged.Increased", {RBX_NUMBER = tostring(level)})
-				else
-					message = RobloxTranslator:FormatByKey("NotificationScrip2.onCurrentGraphicsQualityLevelChanged.Decreased", {RBX_NUMBER = tostring(level)})
-				end
+			if level > CurrentGraphicsQualityLevel then
+				message = RobloxTranslator:FormatByKey("NotificationScrip2.onCurrentGraphicsQualityLevelChanged.Increased", {RBX_NUMBER = tostring(level)})
 			else
-				if FFlagUseNotificationsLocalization then
-					if level > CurrentGraphicsQualityLevel then
-						message = string.gsub(LocalizedGetString("NotificationScrip2.onCurrentGraphicsQualityLevelChanged.Increased",message),"{RBX_NUMBER}",tostring(level))
-					else
-						message = string.gsub(LocalizedGetString("NotificationScrip2.onCurrentGraphicsQualityLevelChanged.Decreased",message),"{RBX_NUMBER}",tostring(level))
-					end
-				end
+				message = RobloxTranslator:FormatByKey("NotificationScrip2.onCurrentGraphicsQualityLevelChanged.Decreased", {RBX_NUMBER = tostring(level)})
 			end
 
 			sendNotificationInfo {

@@ -10,6 +10,8 @@ local InGameMenu = script.Parent.Parent
 
 local OpenMenu = require(InGameMenu.Thunks.OpenMenu)
 local CloseMenu = require(InGameMenu.Thunks.CloseMenu)
+local SetRespawning = require(InGameMenu.Actions.SetRespawning)
+local StartLeavingGame = require(InGameMenu.Actions.StartLeavingGame)
 local SetCurrentPage = require(InGameMenu.Actions.SetCurrentPage)
 
 local Pages = require(InGameMenu.Components.Pages)
@@ -18,6 +20,8 @@ local Constants = require(InGameMenu.Resources.Constants)
 local TOGGLE_DEVELOPER_CONSOLE_ACTION_NAME = "ToggleDeveloperConsole"
 local TOGGLE_PERFORMANCE_STATS_ACTION_NAME = "TogglePerformanceStats"
 local TOGGLE_MENU_ACTION_NAME = "ToggleInGameMenu"
+local LEAVE_GAME_ACTION_NAME = "LeaveGame"
+local RESET_ACTION_NAME = "ResetCharacter"
 
 local function bindMenuActions(store)
 	local function toggleMenuFunc(actionName, inputState, input)
@@ -72,6 +76,40 @@ local function bindMenuActions(store)
 
 		UserGameSettings.PerformanceStatsVisible = not UserGameSettings.PerformanceStatsVisible
 	end, false, Enum.KeyCode.F7)
+
+	local function leaveGameFunc(actionName, inputState, input)
+		local state = store:getState()
+		if inputState ~= Enum.UserInputState.Begin or not state.isMenuOpen then
+			return Enum.ContextActionResult.Pass
+		end
+
+		if Pages.pagesByKey[state.menuPage].isModal then
+			return Enum.ContextActionResult.Pass
+		end
+
+		store:dispatch(StartLeavingGame())
+
+		return Enum.ContextActionResult.Sink
+	end
+
+	ContextActionService:BindCoreAction(LEAVE_GAME_ACTION_NAME, leaveGameFunc, false, Enum.KeyCode.L, Enum.KeyCode.ButtonX)
+
+	local function resetCharacterFunc(actionName, inputState, input)
+		local state = store:getState()
+		if inputState ~= Enum.UserInputState.Begin or not state.isMenuOpen then
+			return Enum.ContextActionResult.Pass
+		end
+
+		if Pages.pagesByKey[state.menuPage].isModal then
+			return Enum.ContextActionResult.Pass
+		end
+
+		store:dispatch(SetRespawning(true))
+
+		return Enum.ContextActionResult.Sink
+	end
+
+	ContextActionService:BindCoreAction(RESET_ACTION_NAME, resetCharacterFunc, false, Enum.KeyCode.R, Enum.KeyCode.ButtonY)
 end
 
 return bindMenuActions

@@ -5,7 +5,7 @@ local Roact = InGameMenuDependencies.Roact
 local UIBlox = InGameMenuDependencies.UIBlox
 local t = InGameMenuDependencies.t
 
-local withStyle = UIBlox.Style.withStyle
+local withStyle = UIBlox.Core.Style.withStyle
 
 local InGameMenu = script.Parent.Parent
 
@@ -17,7 +17,7 @@ local divideTransparency = require(InGameMenu.Utility.divideTransparency)
 
 local withLocalization = require(InGameMenu.Localization.withLocalization)
 
-local ImageSetLabel = UIBlox.ImageSet.Label
+local ImageSetLabel = UIBlox.Core.ImageSet.Label
 
 local MoreActionsMenu = Roact.PureComponent:extend("MoreActionsMenu")
 

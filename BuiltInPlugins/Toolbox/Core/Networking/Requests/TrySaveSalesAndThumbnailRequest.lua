@@ -19,6 +19,7 @@ local UploadResult = require(Actions.UploadResult)
 local FFlagShowAssetConfigReasons = game:GetFastFlag("ShowAssetConfigReasons")
 local FFlagDebugAssetConfigNetworkError = game:GetFastFlag("DebugAssetConfigNetworkError")
 local FFlagEnableAssetConfigFreeFix2 = game:GetFastFlag("EnableAssetConfigFreeFix2")
+local FFlagEnableNonWhitelistedToggle = game:GetFastFlag("EnableNonWhitelistedToggle")
 
 -- assetId, number, defualt to 0 for new asset.
 -- assetType, string, the asset type of the asset.
@@ -89,35 +90,81 @@ return function(patchInfo)
 			failedToSetPrice()
 			checkSales = true
 		else
-			if allowedAssetTypesForRelease[patchInfo.assetType] then
-				if patchInfo.saleStatus then
-					local salesStatusOverride = patchInfo.saleStatus
+			if FFlagEnableNonWhitelistedToggle then
+				if allowedAssetTypesForRelease then
+					-- Whitelist
+					if allowedAssetTypesForRelease[patchInfo.assetType] then
+						if patchInfo.saleStatus then
+							local salesStatusOverride = patchInfo.saleStatus
 
-					if FFlagEnableAssetConfigFreeFix2 then
-						-- we only try to override sales status if it's OnSale and price will determine what the status is.
-						-- The status we got from the UI is only OnSale or OffSale. For plugins, we could set the price to 0. Only then
-						-- the sale status will be Free.
-						if AssetConfigUtil.isOnSale(salesStatusOverride) then
-							if patchInfo.price then
-								if tonumber(patchInfo.price) <= 0 then
+							if FFlagEnableAssetConfigFreeFix2 then
+								-- we only try to override sales status if it's OnSale and price will determine what the status is.
+								-- The status we got from the UI is only OnSale or OffSale. For plugins, we could set the price to 0. Only then
+								-- the sale status will be Free.
+								if AssetConfigUtil.isOnSale(salesStatusOverride) then
+									if patchInfo.price then
+										if tonumber(patchInfo.price) <= 0 then
+											salesStatusOverride = AssetConfigConstants.ASSET_STATUS.Free
+										else
+											salesStatusOverride = AssetConfigConstants.ASSET_STATUS.OnSale
+										end
+									end
+								end
+							else
+								if patchInfo.price and tonumber(patchInfo.price) <= 0 then
 									salesStatusOverride = AssetConfigConstants.ASSET_STATUS.Free
-								else
-									salesStatusOverride = AssetConfigConstants.ASSET_STATUS.OnSale
 								end
 							end
-						end
-					else
-						if patchInfo.price and tonumber(patchInfo.price) <= 0 then
-							salesStatusOverride = AssetConfigConstants.ASSET_STATUS.Free
-						end
-					end
 
-					patchInfo.networkInterface:configureSales(patchInfo.assetId, salesStatusOverride, patchInfo.price):andThen(
-						onPriceSetSuccess, onPriceSetFail
-					)
+							patchInfo.networkInterface:configureSales(patchInfo.assetId, salesStatusOverride, patchInfo.price):andThen(
+								onPriceSetSuccess, onPriceSetFail
+							)
+						end
+					else --None WhiteList
+						-- For none whileListed the sales status will only be OffSale and Free.
+						local salesStatusOverride = patchInfo.saleStatus
+						salesStatusOverride = salesStatusOverride == AssetConfigConstants.ASSET_STATUS.OffSale and
+							AssetConfigConstants.ASSET_STATUS.OffSale or
+							AssetConfigConstants.ASSET_STATUS.Free
+
+						patchInfo.networkInterface:configureSales(patchInfo.assetId, salesStatusOverride, 0):andThen(
+							onPriceSetSuccess, onPriceSetFail
+						)
+					end
+				else-- If we don't have whiteList creator info, we will be skipping this check.
+					checkSales = true
 				end
-			else -- Can't set the sales status.
-				checkSales = true
+			else
+				if allowedAssetTypesForRelease[patchInfo.assetType] then
+					if patchInfo.saleStatus then
+						local salesStatusOverride = patchInfo.saleStatus
+
+						if FFlagEnableAssetConfigFreeFix2 then
+							-- we only try to override sales status if it's OnSale and price will determine what the status is.
+							-- The status we got from the UI is only OnSale or OffSale. For plugins, we could set the price to 0. Only then
+							-- the sale status will be Free.
+							if AssetConfigUtil.isOnSale(salesStatusOverride) then
+								if patchInfo.price then
+									if tonumber(patchInfo.price) <= 0 then
+										salesStatusOverride = AssetConfigConstants.ASSET_STATUS.Free
+									else
+										salesStatusOverride = AssetConfigConstants.ASSET_STATUS.OnSale
+									end
+								end
+							end
+						else
+							if patchInfo.price and tonumber(patchInfo.price) <= 0 then
+								salesStatusOverride = AssetConfigConstants.ASSET_STATUS.Free
+							end
+						end
+
+						patchInfo.networkInterface:configureSales(patchInfo.assetId, salesStatusOverride, patchInfo.price):andThen(
+							onPriceSetSuccess, onPriceSetFail
+						)
+					end
+				else -- Can't set the sales status.
+					checkSales = true
+				end
 			end
 		end
 
