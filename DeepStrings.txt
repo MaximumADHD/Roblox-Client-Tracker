@@ -398,7 +398,6 @@ AHPEAU_iobuf
 AHPEAX1PEAPEAX
 AHW4DataStoreRequestType
 AHW4UserInputType
-AjXqgjgsU6LL7nr
 Algorithms
 AliasRequestResult
 ALIGN_TYPE
@@ -493,7 +492,6 @@ AM_KSPROPSETID_FrameStep
 AM_KSPROPSETID_MPEG4_MediaType_Attributes
 AM_KSPROPSETID_TSRateChange
 AmbientReverb
-AmdiERnobKXnRDM
 AmdPowerXpressRequestHighPerformance
 AmericanExpress
 AMMW4TweenEasingStyle
@@ -3999,7 +3997,7 @@ BrowserWindow
 BrowserWindowClosed
 BrowserWindowWillNavigate
 BrushStyle
-BsmGT7QKJzdxac0
+BtIECAwEAAQ
 BtYovqVKoHMDMoDd0u9Mc5CIyRqyu0IGS99A0jeEXRj7aofQ
 BU_Simplex1to4
 BubbleChat
@@ -4094,7 +4092,7 @@ BytesReceivedAndIgnoredPerSec
 BytesReceivedPerSec
 BytesRecvAndIgnored
 BytesWritten
-ByVersion_0.413.0.368698
+ByVersion_0.413.1.370526
 ByVersionForPlatform_
 C_specific_handler
 CA_NPEAVQObject
@@ -5195,6 +5193,7 @@ Cnd_signal
 Cnd_timedwait
 CoAddRefServerProcess
 Cobblestone
+CobCWvUIcJ6cCneNrIrb0ECMrv1qk7m45XKwmJoCXKHfqBR
 CoCreateGuid
 CoCreateInstance
 CODECAPI_AVDecMmcssClass
@@ -7883,7 +7882,6 @@ EnableRoactAnimationEditor2
 EnableRobuxABTest
 EnableRobuxHexIcon
 EnableRobuxHexIconV2
-EnableScaleIndependentBulletCollision
 EnableScriptCollabOnLoad
 EnableSetInstanceDefaults
 EnableStudioServiceGetUserId
@@ -8326,7 +8324,6 @@ FB64AAAED11E38B9D871882A8E559
 FB6CE584711E29A3DBD856014A660
 FB6CF584711E29A3DBD856014A660
 FB8E4A9E79B
-FBEEqzgSWnelelM0d
 FbPnXNTBBz2CM47ldc6zPnp04Gg1Ch1zQNrS9Q0fLcTp94XeqG0DjA42Iq0M3ZDg
 FbxAMatrix
 FbxAnimation
@@ -9167,7 +9164,6 @@ GE_packagefolder.png
 GearAction
 GearGenreSetting
 GearVersionIds
-GebuK1UViJpN
 GenAlgorithm
 GenBuffers
 GenCryptgrm
@@ -10103,6 +10099,7 @@ GroupTime.Sum.toFixed
 GSSolverActive
 GSSS466FSSS455
 GTInfluxDB
+GTTRztC6VHKTN4G0Nnn6hP1roPUBV
 Guaranteed
 GuestFriendCheckFailImmediate
 Gui.Enabled
@@ -10214,6 +10211,7 @@ HatAttachment
 HaveActiveUser
 HB_OPTIONS
 HB_SHAPER_LIST
+Hc5lGv6jrtmfpPqrVVLqSF8xOSvgwi3Fgnr9qBs9R
 Hcircumflex
 HDCacheLock
 HeadColor3
@@ -10269,7 +10267,6 @@ HHVQRegularExpression
 HHW4AspectRatioMode
 HHW4Format
 HHW4Policy
-HI8gUkmP8W2kG2JILTZuuqOMzs1rPd4pq1SwA6GVzRSUtM
 HiddenOgreWidget
 HIDE_TAB_BAR
 HideFromPlayer
@@ -10333,7 +10330,7 @@ HKEY_PERFORMANCE_DATA
 HKEY_PERFORMANCE_NLSTEXT
 HKEY_PERFORMANCE_TEXT
 HMACGostR3411
-HnG7nosPQXEqkFQX6LFViYlmaG8FR
+HNLihlOtrWfB
 HoldTrottleValue
 HomeClicked
 HomePageLoaded
@@ -11300,6 +11297,7 @@ Javascript
 JavaScript
 JavaScriptCallback
 Jba5qWkYU5nARYZm1gQVP
+JCiojwYWEE1vonb
 Jcircumflex
 JDJNJXJbJlJvJ
 JHJRJ\JfJpJxJ
@@ -11691,7 +11689,6 @@ LevelChanged
 LevelItemCount
 LevelOfDetailSetting
 LevelQuality
-LgiAxuDX3gFDi4nhVqP5qXDcJYpB13nNLLLSF2qve2TXc
 Liberation
 LIBOVR_DLL_DIR
 Lightbulb.png
@@ -12730,7 +12727,7 @@ MigrateTriangleMeshData3
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsI9zRp2OSccqdFx2
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAupANB3EbN9hFHHUj0eA
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzjPRQo9jc
-MIICCgKCAgEAwjMf4VowbG910EhpY
+MIICCgKCAgEAxetw
 MillisecondsBeforeHandlingReconnect
 MimeDataFromSelection
 MinCounter
@@ -12772,6 +12769,7 @@ Miscellaneous
 MiscIndividualAssetRequestUseAssetdelivery2
 Mismatched
 MissingDumpFile
+MLfEhuK8NVebaFS3qiQoSP5mWRP7kaBkGWOpLPShgELNf4ZK8V04XaCkxVnso
 MMW4PartMaterial
 MMW4UserInputState
 MobileDevelopmentDeployer
@@ -12981,7 +12979,6 @@ MSACM32.dll
 MsecBetweenTextureMemoryUsageArrayRefresh
 MSecsSinceEpoch
 MsgWaitForMultipleObjectsEx
-MSnfRkNxoUVF
 MsToScreen
 MSVCP140.dll
 MTU_Country_
@@ -13041,8 +13038,8 @@ MultTransposeMatrixf
 MusicalInstruments
 MutexLifetime
 MW4PartMaterial
-MwOB9Zity32LH
 MyModelsAction
+MZnpM3V6z4mz34xhgZ3a9Yybk5YBO0lyHydE
 N_NW4StudioGameStateType
 NAEAVHttpResponse
 NAEBUPlaceLauncherRequestInfo
@@ -13263,8 +13260,8 @@ NextSpawnLocation
 NextTabPage
 NfXf`fhfzf
 NHVVariant
-NianzhVE0N72etyMa7SxxAGd
 NinjaMask.mesh
+NLDH2ErxElmVDhRl8zDTQNWEjRZvNvZ1
 NNW4SizeMode
 NoCacheForLocalContent
 NoCollisionConstraint
@@ -13349,8 +13346,8 @@ NPCsAction
 NPCUnequipTools
 NPEAVQString
 NPEAVQWidget
+NsQARD7X5ZdUXIoMC
 Ntildesmall
-Nuktyox29H6CuVMVxPnjrwRJ3TuoJHUxeDyEde37mgXm8FWR8IH2HkPgLWYKc7Dc
 NullPassword
 NUMBER_OF_ORDERED_STREAMS
 NumberAnimation
@@ -13483,6 +13480,7 @@ OCSPResponse
 OCSPSigning
 OCTETSTRING
 Odieresissmall
+OEgiv3JGiiqnw
 OfA9HPuHfA9H`uAfA9Hpu
 OfAdmissions
 OfApproval
@@ -13729,6 +13727,7 @@ OtherBlues
 OtherDisconnect
 OtherTextChanged
 OtherTopLabelOverride
+OtiBhxFHekpPfKJO9feMojExjrX
 Otildesmall
 OutBufferHealth
 OutClusters
@@ -13795,6 +13794,7 @@ OverrideStarterScript
 OverrideToMyBranch
 OverwriteMode
 OwnProperty
+OY1eFMAVRe
 Ozs8xYCf2Q05p4gHyX
 PA^A]A\_^]
 PA^A]A\_^][
@@ -17471,6 +17471,7 @@ RigidBodyLazyUpdating
 RigidityEnabled
 RiseVelocity
 Rj0isQcnqX
+RmFVNk426UC
 Roact.createElement
 RoactPurchasePromptAllowBundles
 ROBLOSECURITY
@@ -17667,6 +17668,7 @@ RSA_verify_PKCS1_PSS_mgf1
 RSAPrivateKey
 RSAPublicKey
 RTDynamicCast
+RtEtS6uzTx8WgdvVLbkWpeANnN9O1
 RtlCaptureContext
 RtlLookupFunctionEntry
 RtlVirtualUnwind
@@ -18982,8 +18984,6 @@ SslConnectFail
 SSLFailure
 SSLKEYLOGFILE
 SslServerName
-SsqoateymOVPqUucGj3ydMzjhJFN6b2mBUECyLWI0CAwEAAQ
-SSscEU3EQl8XElsQaYQlS9eYzIYGDX8g2f7
 Stabilization
 Stack[StackPos]
 StackArray
@@ -21311,6 +21311,7 @@ TattletaleShuffleCount
 TattletaleUseNewWordListFeatures
 TattletaleUseOriginalWordList
 TattletaleUseStrstr
+TBS0KMDLu8uzA1ydOT
 Tcommaaccent
 TCP_NODELAY
 Team_Create
@@ -22519,6 +22520,7 @@ UGeometryBatch
 UGlobalResult
 Ugravesmall
 UGroupRolesResult
+UgroXMgiNOSl5AVEf2PU2OYlkZWT1IJok2783YqDs
 UGuiClusterRT
 UHttpApiRequest
 UHttpRequest
@@ -22601,7 +22603,6 @@ ULoadedImage
 ULuaCallbacks
 UMeshResource
 UMessageAndSenderId
-UmiDuRnqFplfV4TH6NSoIzEkapturp
 UMouseDownCaptureInfo
 Unaccounted
 UnAnchorCursor
@@ -23075,6 +23076,7 @@ UVWAUAVAWH
 UWATAUAVAW
 UWATAUAVAWH
 Uweb_response
+UwHQvfTQvlCZo5
 UWindowInputState
 V_http_request
 V_http_response
@@ -23515,7 +23517,6 @@ VHeartbeatTask
 VHeightfieldBuilder
 VHingeConstraint
 VHingeTool
-VHJdXznmrCeONO
 VHopperBin
 Vhttp_network_handler
 Vhttp_pipeline
@@ -23722,6 +23723,7 @@ VObjectValue
 VogpHgQ70F57MdFiBApyJwNSBk
 VoiceChatService
 VoidStoredMemberFunctionPointerCall2
+VOILMR6qjIz
 Vollbeding
 VOnPublishDialogController
 VOrderedDataStore
@@ -24045,7 +24047,6 @@ VVertexLayoutVulkan
 VViewportFrame
 VVirtualInputManager
 VVirtualUser
-VVIXOLAyPpCpKgno7GKIkO5qPAeI4YOmXPUFQA9iBl
 VVRService
 VWaitingScriptsJob
 VWaitScriptSlot
@@ -24464,7 +24465,6 @@ XInputGetCapabilities
 XInputGetState
 XInputSetState
 Xinvalid_argument
-XitvEyT2T12HLhfw3cZmKDZNRalsw
 Xlength_error
 Xout_of_range
 XP6AXAEBUTextFilterResult
@@ -24491,7 +24491,6 @@ XPEAVDataModel
 XPEAVInstance
 XPEAVQNetworkReply
 XQColorDialog
-XqmXwc7S1x7aLUmwXE6m9qy1y5k5GzoGDWI9gSi5OyV3gFz99y8ri69RvwS9
 Xregex_error
 XResolution
 Xtime_get_ticks
@@ -24605,6 +24604,7 @@ XW4CanManageStatus
 XW4HttpErrorCode
 XW4websocket_close_status
 XwhvcEikuIaqb7nHhEJ
+Xx0IK1JW8uLSnoWvFul6lgIxAwSdcHJDz3KF14dvKVsLfQvpL971IQnUhbhQ4
 XXXXXX.rbxl
 XZP8CoreGuiService
 XZP8CRenderSettingsItem
@@ -24658,10 +24658,12 @@ YResolution
 YwBBvY55YvBBwY5
 Z_KPEIBX_K_KPEIAU1
 Zcaronsmall
+ZCXDSzWDUjIJFjcee
 Zdotaccent
 ZgnhKhWhci
 ZIndexBehavior
 ZLcJhLcGhM
+ZMKHytMTz8MODbo5PRrKwJf5xZovAvZ5
 ZNjlXiODrHUcaGRYt
 ZntaLkerGlryCnmrArbeHbarAcrySaahTaveDgneBuruGrjuGayrOlmaTuleTadnKmylMhniSiahTooaLtbiTrmyMroeGgnaHihtErehCsnaCmagOrnuRrmhKgnoMariHanaKopoBinaHiiiYlatIhtoGtrsDhniZglgTonaHdhuBbgaTbmiLelaTbniLragUwahSamsOtrpCiarBiguBtpoCulaTgalGgnfTolySoepXrahKilaBxusXxnhPgahPoo
 ZoomActive
