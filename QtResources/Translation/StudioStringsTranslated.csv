@@ -106,7 +106,6 @@ Studio.App.GameExplorer.InsertAsLocalScript,,,Insert as LocalScript,Insert as Lo
 Studio.App.GameExplorer.InsertAsModuleScript,,,Insert as ModuleScript,Insert as ModuleScript,ModuleScript로 삽입,Вставить как ModuleScript,插入为 ModuleScript
 Studio.App.GameExplorer.InsertAsScript,,,InsertAsScript,InsertAsScript,스크립트로 삽입,InsertAsScript,InsertAsScript
 Studio.App.GameExplorer.InsertWithLocation,,,Insert with location,Insert with location,위치 포함 삽입,Вставка с указанием местоположения,带位置插入
-Studio.App.GameExplorer.MarkAsStartPlace,,,Mark as Start Place,Mark as Start Place,시작 장소로 표시,Отметить как стартовое место,标记为开始场景
 Studio.App.GameExplorer.MassUpdateCurrentPlacePackages,,,Update this Package in Current Place,Update this Package in Current Place,현재 플레이스에 이 패키지 업데이트,Обновить пакет в текущем месте,在当前场景更新此包
 Studio.App.GameExplorer.ProductSettings,,,Product Settings...,Product Settings...,제품 설정...,Параметры продукта...,产品设置...
 Studio.App.GameExplorer.PublishLinkedSource,,,Publish this LinkedSource,Publish this LinkedSource,이 LinkedSource 게시,Опубликовать этот LinkedSource,发布此LinkedSource
@@ -410,7 +409,6 @@ Studio.App.RBXMainWindow.CommentSelection,,,Comment Selection,Comment Selection,
 Studio.App.RBXMainWindow.ConditionElps,,,Condition...,Condition...,조건...,Условие...,条件...
 Studio.App.RBXMainWindow.ConnectorsOnSurface,,,Connectors on Surface,Connectors on Surface,표면의 커넥터,Коннекторы на поверхности,表面连接件
 Studio.App.RBXMainWindow.ConstraintCheck,,,Constraint Check,Constraint Check,제약 확인,Проверка ограничений,约束检查
-Studio.App.RBXMainWindow.ContextHelp,,,Context Help,Context Help,컨텍스트 도움말,Контекстная справка,语境帮助
 Studio.App.RBXMainWindow.ConvertToPackageElps,,,Convert to Package...,Convert to Package...,패키지로 전환...,Преобразовать в пакет....,转换为包...
 Studio.App.RBXMainWindow.CopyTheSelectionAndPutItOn,,,Copy the selection and put it on the Clipboard,Copy the selection and put it on the Clipboard,선택 항목을 클립보드로 복사,Скопировать выделенное и поместить в буфер обмена,复制选中内容并置入剪贴板
 Studio.App.RBXMainWindow.CreateANewDocument,,,Create a new document,Create a new document,새 문서 만들기,Создать новый документ,创建一个新文档
@@ -566,7 +564,6 @@ Studio.App.RBXMainWindow.PublishSelectionToRobloxAsPlugin,,,Publish the Selectio
 Studio.App.RBXMainWindow.PublishTheSelectionToRoblox,,,Publish the Selection to Roblox,Publish the Selection to Roblox,변경 사항을 Roblox에 게시,Опубликовать выбранное в Roblox,将选中内容发布至 Roblox
 Studio.App.RBXMainWindow.PublishToRoblox,,,Publish to Roblox,Publish to Roblox,Roblox에 게시,Опубликовать в Roblox,发布至 Roblox
 Studio.App.RBXMainWindow.PublishToRobloxAsElps,,,Publish to Roblox As...,Publish to Roblox As...,다음으로 Roblox에 게시...,Опубликовать в Roblox как...,发布至 Roblox 为...
-Studio.App.RBXMainWindow.PublishWholeGameElps,,,Publish Whole Game...,Publish Whole Game...,전체 게임 게시...,Публиковать всю игру...,发布整个游戏...
 Studio.App.RBXMainWindow.QuitApplication,,,Quit the application; prompts to save documents,Quit the application; prompts to save documents,"응용 프로그램 종료, 문서 저장 메시지 표시",Выйти из приложения; будет предложено сохранение документов,退出应用程序；提示保存文档
 Studio.App.RBXMainWindow.RedoThePreviouslyUndo,,,Redo the previously undone action,Redo the previously undone action,이전에 실행 취소한 작업 다시 실행,Повторить отмененное действие,恢复之前撤销的操作
 Studio.App.RBXMainWindow.ReloadScript,,,Reload Script,Reload Script,스크립트 다시 불러오기,Перезагрузить скрипт,重新加载脚本
@@ -684,7 +681,6 @@ Studio.App.RBXMainWindow.UniversalsForSurface,,,Universals for Surface,Universal
 Studio.App.RBXMainWindow.UnlockAll,,,Unlock All,Unlock All,모두 잠금 해제,Разблокировать все,全部解锁
 Studio.App.RBXMainWindow.UploadLogFiles,,,Upload Log Files,Upload Log Files,로그 파일 업로드,Загрузить файлы журнала,上传日志文件
 Studio.App.RBXMainWindow.VideoRecord,,,Video Record,Video Record,비디오 녹화,Видеозапись,视频录像
-Studio.App.RBXMainWindow.ViewContextSensitiveHelp,,,View Context-sensitive Help,View Context-sensitive Help,상황에 맞는 도움말 보기,Просмотр контекстно-зависимой справки,查看语境相关帮助
 Studio.App.RBXMainWindow.ViewFindResults,,,View Find Results,View Find Results,결과 찾기 보기,Просмотр результатов поиска,查看查找结果
 Studio.App.RBXMainWindow.ViewGameExplorerElps,,,View Game Explorer...,View Game Explorer...,게임 탐색기 보기...,Просмотр проводника игр...,查看游戏资源管理器
 Studio.App.RBXMainWindow.ViewObjectExplorer,,,View Object Explorer,View Object Explorer,개체 탐색기 보기,Просмотр проводника объектов,查看对象资源管理器
@@ -946,7 +942,6 @@ Studio.App.RobloxRibbonMainWindow.Universal,,,Universal,Universal,유니버설,�
 Studio.App.RobloxRibbonMainWindow.UpdateSettingsCurrentGame,,,Update settings related to current game,Update settings related to current game,현재 게임과 관련된 설정 업데이트,Обновить настройки текущей игры,更新当前游戏的相关设置
 Studio.App.RobloxRibbonMainWindow.VectorForce,,,Vector Force,Vector Force,벡터량,Вектор силы,矢量力
 Studio.App.RobloxRibbonMainWindow.View,,,View,View,보기,Просмотр,查看
-Studio.App.RobloxRibbonMainWindow.ViewContextSensitiveHelp,,,View context-sensitive help,View context-sensitive help,상황에 맞는 도움말 보기,Просмотр контекстно-зависимой справки,查看语境相关帮助
 Studio.App.RobloxRibbonMainWindow.ViewCurrentCallStack,,,View current call stack,View current call stack,현재 호출 스택 보기,Просмотр стека текущих вызовов,查看当前调用堆栈
 Studio.App.RobloxRibbonMainWindow.ViewCurrentlyWatchedVariables,,,View currently watched variables,View currently watched variables,현재 감시되는 변수 보기,Просмотр текущих переменных,查看当前监视的变量
 Studio.App.RobloxRibbonMainWindow.ViewDiagnosticInfo,,,View diagnostic information of your game,View diagnostic information of your game,게임의 진단 정보 보기,Просмотр диагностической информации о вашей игре,查看游戏的诊断信息

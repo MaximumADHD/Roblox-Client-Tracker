@@ -7,10 +7,10 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 
-local FFlagTerrainToolsRefactorTerrainBrush = game:GetFastFlag("TerrainToolsRefactorTerrainBrush")
+local FFlagTerrainToolsUseFragmentsForToolPanel = game:GetFastFlag("TerrainToolsUseFragmentsForToolPanel")
+local FFlagTerrainToolsRefactor = game:GetFastFlag("TerrainToolsRefactor")
 
-local StudioPlugin = require(Plugin.Src.ContextServices.StudioPlugin)
-local TerrainInterface = FFlagTerrainToolsRefactorTerrainBrush and require(Plugin.Src.ContextServices.TerrainInterface)
+local TerrainInterface = require(Plugin.Src.ContextServices.TerrainInterface)
 
 local ToolParts = Plugin.Src.Components.Tools.ToolParts
 local BrushSettings = require(ToolParts.BrushSettings)
@@ -30,8 +30,6 @@ local SetSnapToGrid = require(Actions.SetSnapToGrid)
 local SetIgnoreWater = require(Actions.SetIgnoreWater)
 local SetBaseSizeHeightLocked = require(Actions.SetBaseSizeHeightLocked)
 
-local Functions = Plugin.Src.Components.Functions
-local TerrainBrush = not FFlagTerrainToolsRefactorTerrainBrush and require(Functions.TerrainBrush) or nil
 
 local Constants = require(Plugin.Src.Util.Constants)
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
@@ -40,26 +38,26 @@ local PivotType = TerrainEnums.PivotType
 local FlattenMode = TerrainEnums.FlattenMode
 local ToolId = TerrainEnums.ToolId
 
-local FFlagTerrainToolsEnableHeightSlider = game:GetFastFlag("TerrainToolsEnableHeightSlider")
-
 local REDUCER_KEY = "FlattenTool"
 
 local Flatten = Roact.PureComponent:extend(script.Name)
 
 function Flatten:init(initialProps)
-	if FFlagTerrainToolsRefactorTerrainBrush then
-		self.pluginActivationController = TerrainInterface.getPluginActivationController(self)
-		assert(self.pluginActivationController, "BaseBrush requires a PluginActivationController from context")
+	self.pluginActivationController = TerrainInterface.getPluginActivationController(self)
+	assert(self.pluginActivationController, "BaseBrush requires a PluginActivationController from context")
 
-		self.terrainBrush = TerrainInterface.getTerrainBrush(self)
-		assert(self.terrainBrush, "Flatten requires a TerrainBrush from context")
+	self.terrainBrush = TerrainInterface.getTerrainBrush(self)
+	assert(self.terrainBrush, "Flatten requires a TerrainBrush from context")
+
+	if not FFlagTerrainToolsUseFragmentsForToolPanel then
+		self.layoutRef = Roact.createRef()
+		self.mainFrameRef = Roact.createRef()
 	end
 
-	self.layoutRef = Roact.createRef()
-	self.mainFrameRef = Roact.createRef()
-
 	self.toggleButtonFn = function(container)
-		bool = not bool
+		if FFlagTerrainToolsRefactor then
+			warn("Flatten.toggleButtonFn() should not be used when FFlagTerrainToolsRefactor is true")
+		end
 		if container == "SnapToGrid" then
 			self.props.dispatchSetSnapToGrid(not self.props.snapToGrid)
 		elseif container == "IgnoreWater" then
@@ -86,6 +84,9 @@ function Flatten:init(initialProps)
 	end
 
 	self.setTextFn = function (text, container)
+		if FFlagTerrainToolsRefactor then
+			warn("Flatten.setTextFn() should not be used when FFlagTerrainToolsRefactor is true")
+		end
 		if container == "Pivot" then
 			if text == PivotType.Top or text == PivotType.Bottom or text == PivotType.Center then
 				self.props.dispatchChangePivot(text)
@@ -96,18 +97,33 @@ function Flatten:init(initialProps)
 
 		if container == "BaseSize" then
 			self.props.dispatchChangeBaseSize(text)
-			if FFlagTerrainToolsEnableHeightSlider and self.props.baseSizeHeightLocked then
+			if self.props.baseSizeHeightLocked then
 				self.props.dispatchChangeHeight(text)
 			end
 		elseif container == "Height" then
 			self.props.dispatchChangeHeight(text)
-			if FFlagTerrainToolsEnableHeightSlider and self.props.baseSizeHeightLocked then
+			if self.props.baseSizeHeightLocked then
 				self.props.dispatchChangeBaseSize(text)
 			end
 		elseif container == "Strength" then
 			self.props.dispatchChangeStrength(text)
 		elseif container == "PlanePositionY" then
 			self.props.dispatchChangePlanePositionY(text)
+		end
+	end
+
+	self.setBaseSize = function(baseSize)
+		self.props.dispatchChangeBaseSize(baseSize)
+		if self.props.baseSizeHeightLocked then
+			self.props.dispatchChangeHeight(baseSize)
+		end
+
+	end
+
+	self.setHeight = function(height)
+		self.props.dispatchChangeHeight(height)
+		if self.props.baseSizeHeightLocked then
+			self.props.dispatchChangeBaseSize(height)
 		end
 	end
 
@@ -124,11 +140,13 @@ function Flatten:init(initialProps)
 		end
 	end
 
-	self.onContentSizeChanged = function()
-		local mainFrame = self.mainFrameRef.current
-		local layout = self.layoutRef.current
-		if mainFrame and layout then
-			mainFrame.Size = UDim2.new(1, 0, 0, layout.AbsoluteContentSize.Y)
+	if not FFlagTerrainToolsUseFragmentsForToolPanel then
+		self.onContentSizeChanged = function()
+			local mainFrame = self.mainFrameRef.current
+			local layout = self.layoutRef.current
+			if mainFrame and layout then
+				mainFrame.Size = UDim2.new(1, 0, 0, layout.AbsoluteContentSize.Y)
+			end
 		end
 	end
 
@@ -142,83 +160,55 @@ function Flatten:init(initialProps)
 	end
 
 	self.updateBrushProperties = function()
-		if FFlagTerrainToolsRefactorTerrainBrush then
-			self.terrainBrush:updateSettings({
-				currentTool = ToolId.Flatten,
-				brushShape = self.props.brushShape or BrushShape.Sphere,
-				cursorSize = self.props.baseSize or Constants.INITIAL_BRUSH_SIZE,
-				cursorHeight = self.props.height or Constants.INITIAL_BRUSH_SIZE,
-				pivot = self.props.pivot or PivotType.Center,
-				strength = self.props.strength or Constants.INITIAL_BRUSH_STRENGTH,
-				flattenMode = self.props.flattenMode,
-				planePositionY = self.props.planePositionY or Constants.INITIAL_PLANE_POSITION_Y,
-				heightPicker = self.props.heightPicker,
-				fixedPlane = self.props.planeLock, -- TODO: DEVTOOLS-3102 add proper fixedPlane to value loop
-				snapToGrid = self.props.snapToGrid,
-				ignoreWater = self.props.ignoreWater,
-			})
-		else
-			TerrainBrush.ChangeProperties({
-				brushShape = self.props.brushShape or BrushShape.Sphere,
-				baseSize = self.props.baseSize or 10,
-				height = self.props.baseSize or 10, -- change back to height when we make height an option
-				pivot = self.props.pivot or PivotType.Center,
-				strength = self.props.strength or 1,
-				flattenMode = self.props.flattenMode,
-				planePositionY = self.props.planePositionY,
-				heightPicker = self.props.heightPicker,
-				fixedPlane = self.props.planeLock, -- TODO: DEVTOOLS-3102 add proper fixedPlane to value loop
-				snapToGrid = self.props.snapToGrid,
-				ignoreWater = self.props.ignoreWater,
+		self.terrainBrush:updateSettings({
+			currentTool = ToolId.Flatten,
+			brushShape = self.props.brushShape or BrushShape.Sphere,
+			cursorSize = self.props.baseSize or Constants.INITIAL_BRUSH_SIZE,
+			cursorHeight = self.props.height or Constants.INITIAL_BRUSH_SIZE,
+			pivot = self.props.pivot or PivotType.Center,
+			strength = self.props.strength or Constants.INITIAL_BRUSH_STRENGTH,
+			flattenMode = self.props.flattenMode,
+			planePositionY = self.props.planePositionY or Constants.INITIAL_PLANE_POSITION_Y,
+			heightPicker = self.props.heightPicker,
+			fixedPlane = self.props.planeLock, -- TODO: DEVTOOLS-3102 add proper fixedPlane to value loop
+			snapToGrid = self.props.snapToGrid,
+			ignoreWater = self.props.ignoreWater,
+		})
+	end
 
-				brushSizeCallback = self.brushSizeCallback,
-				brushStrengthCallback = self.brushStrengthCallback,
-			})
+	self.connectionYChanged = self.terrainBrush:subscribeToPlanePositionYChanged(function(planePositionY)
+		local sigFig = math.floor(planePositionY * 1000)/1000
+		self.props.dispatchChangePlanePositionY(sigFig)
+	end)
+
+	self.connectionPickerSet = self.terrainBrush:subscribeToHeightPickerSet(self.props.dispatchSetHeightPicker)
+
+	self.brushSizeChangedConnection = self.terrainBrush:subscribeToRequestBrushSizeChanged(self.brushSizeCallback)
+	self.brushStrengthChangedConnection = self.terrainBrush:subscribeToRequestBrushStrengthChanged(
+		self.brushStrengthCallback)
+
+	-- Starts the terrain brush with Flatten tool only if
+	-- active tool in plugin activation controller
+	-- Starts the terrain brush with Flatten tool only if
+	-- active tool in plugin activation controller is Flatten
+	self.safeStartWithTool = function()
+		-- :getActiveTool() returns ToolId.None if no tool is selected, so this works in that case too
+		if self.pluginActivationController:getActiveTool() == self.props.toolName then
+			coroutine.wrap(function()
+				self.terrainBrush:startWithTool(self.props.toolName)
+			end)()
 		end
 	end
 
-	if FFlagTerrainToolsRefactorTerrainBrush then
-		self.connectionYChanged = self.terrainBrush:subscribeToPlanePositionYChanged(function(planePositionY)
-			local sigFig = math.floor(planePositionY * 1000)/1000
-			self.props.dispatchChangePlanePositionY(sigFig)
-		end)
+	-- When my tool becomes active, we want to run the terrain brush
+	self.onToolActivatedConnection = self.pluginActivationController:subscribeToToolActivated(self.safeStartWithTool)
 
-		self.connectionPickerSet = self.terrainBrush:subscribeToHeightPickerSet(self.props.dispatchSetHeightPicker)
-
-		self.brushSizeChangedConnection = self.terrainBrush:subscribeToRequestBrushSizeChanged(self.brushSizeCallback)
-		self.brushStrengthChangedConnection = self.terrainBrush:subscribeToRequestBrushStrengthChanged(self.brushStrengthCallback)
-
-		-- Starts the terrain brush with Flatten tool only if
-		-- active tool in plugin activation controller 
-		-- Starts the terrain brush with Flatten tool only if
-		-- active tool in plugin activation controller is Flatten
-		self.safeStartWithTool = function()
-			-- :getActiveTool() returns ToolId.None if no tool is selected, so this works in that case too
-			if self.pluginActivationController:getActiveTool() == self.props.toolName then
-				coroutine.wrap(function()
-					self.terrainBrush:startWithTool(self.props.toolName)
-				end)()
-			end
+	-- Stop the terrain brush if the tool that was deselected is my tool
+	self.onToolDeactivatedConnection = self.pluginActivationController:subscribeToToolDeactivated(function(toolId)
+		if toolId == self.props.toolName then
+			self.terrainBrush:stop()
 		end
-
-		-- When my tool becomes active, we want to run the terrain brush
-		self.onToolActivatedConnection = self.pluginActivationController:subscribeToToolActivated(self.safeStartWithTool)
-
-		-- Stop the terrain brush if the tool that was deselected is my tool
-		self.onToolDeactivatedConnection = self.pluginActivationController:subscribeToToolDeactivated(function(toolId)
-			if toolId == self.props.toolName then
-				self.terrainBrush:stop()
-			end
-		end)
-
-	else
-		self.connectionYChanged = TerrainBrush.PlanePositionYChanged:connect(function(planePositionY)
-			local sigFig = math.floor(planePositionY * 1000)/1000
-			self.props.dispatchChangePlanePositionY(sigFig)
-		end)
-
-		self.connectionPickerSet = TerrainBrush.HeightPickerSet:connect(self.props.dispatchSetHeightPicker)
-	end
+	end)
 end
 
 function Flatten:didUpdate()
@@ -226,20 +216,7 @@ function Flatten:didUpdate()
 end
 
 function Flatten:didMount()
-	if FFlagTerrainToolsRefactorTerrainBrush then
-		self.safeStartWithTool()
-	else
-		local plugin = StudioPlugin.getPlugin(self)
-		local mouse = plugin:GetMouse()
-
-		coroutine.wrap(function()
-			if FFlagTerrainToolsRefactorTerrainBrush then
-				self.terrainBrush:activateTool(ToolId.Flatten)
-			else
-				TerrainBrush.Init(ToolId.Flatten, mouse)
-			end
-		end)()
-	end
+	self.safeStartWithTool()
 	self:updateBrushProperties()
 end
 
@@ -257,17 +234,7 @@ function Flatten:render()
 	local planePositionY = self.props.planePositionY or Constants.INITIAL_PLANE_POSITION_Y
 	local heightPicker = self.props.heightPicker or false
 
-	return Roact.createElement("Frame", {
-		Size = UDim2.new(1, 0, 1, 0),
-		BackgroundTransparency = 1,
-		[Roact.Ref] = self.mainFrameRef,
-	}, {
-		Layout = Roact.createElement("UIListLayout", {
-			SortOrder = Enum.SortOrder.LayoutOrder,
-			[Roact.Ref] = self.layoutRef,
-			[Roact.Change.AbsoluteContentSize] = self.onContentSizeChanged,
-		}),
-
+	local children = {
 		BrushSettings = Roact.createElement(BrushSettings, {
 			LayoutOrder = 1,
 			currentTool = script.Name,
@@ -288,19 +255,43 @@ function Flatten:render()
 			toggleButton = self.toggleButtonFn,
 			toggleBaseSizeHeightLocked = self.toggleBaseSizeHeightLocked,
 
-			setBrushShape = FFlagTerrainToolsEnableHeightSlider and self.setBrushShape or function(brushShape)
-				self.props.dispatchChooseBrushShape(brushShape)
-			end,
-			setFlattenMode = function(flattenMode)
+			setBrushShape = self.setBrushShape,
+
+			setFlattenMode = FFlagTerrainToolsRefactor and self.props.dispatchChooseFlattenMode
+				or function(flattenMode)
 				self.props.dispatchChooseFlattenMode(flattenMode)
 			end,
-			setHeightPicker = function()
+			setHeightPicker = FFlagTerrainToolsRefactor and self.props.dispatchSetHeightPicker or function()
 				heightPicker = not heightPicker
 				self.props.dispatchSetHeightPicker(not self.props.heightPicker)
 			end,
 
+			setBaseSize = self.setBaseSize,
+			setHeight = self.setHeight,
+			setStrength = self.props.dispatchChangeStrength,
+			setPlanePositionY = self.props.dispatchChangePlanePositionY,
+			setPivot = self.props.dispatchChangePivot,
+			setPlaneLock = self.props.dispatchSetPlaneLock,
+			setSnapToGrid = self.props.dispatchSetSnapToGrid,
+			setIgnoreWater = self.props.dispatchSetIgnoreWater,
 		}),
-	})
+	}
+
+	if FFlagTerrainToolsUseFragmentsForToolPanel then
+		return Roact.createFragment(children)
+	else
+		children.Layout = Roact.createElement("UIListLayout", {
+			SortOrder = Enum.SortOrder.LayoutOrder,
+			[Roact.Ref] = self.layoutRef,
+			[Roact.Change.AbsoluteContentSize] = self.onContentSizeChanged,
+		})
+
+		return Roact.createElement("Frame", {
+			Size = UDim2.new(1, 0, 1, 0),
+			BackgroundTransparency = 1,
+			[Roact.Ref] = self.mainFrameRef,
+		}, children)
+	end
 end
 
 function Flatten:willUnmount()
@@ -314,38 +305,36 @@ function Flatten:willUnmount()
 		self.connectionPickerSet = nil
 	end
 
-	if FFlagTerrainToolsRefactorTerrainBrush then
-		if self.brushSizeChangedConnection then
-			self.brushSizeChangedConnection:disconnect()
-			self.brushSizeChangedConnection = nil
-		end
+	if self.brushSizeChangedConnection then
+		self.brushSizeChangedConnection:disconnect()
+		self.brushSizeChangedConnection = nil
+	end
 
-		if self.brushStrengthChangedConnection then
-			self.brushStrengthChangedConnection:disconnect()
-			self.brushStrengthChangedConnection = nil
-		end
+	if self.brushStrengthChangedConnection then
+		self.brushStrengthChangedConnection:disconnect()
+		self.brushStrengthChangedConnection = nil
+	end
 
-		if self.onToolActivatedConnection then
-			self.onToolActivatedConnection:disconnect()
-			self.onToolActivatedConnection = nil
-		end
+	if self.onToolActivatedConnection then
+		self.onToolActivatedConnection:disconnect()
+		self.onToolActivatedConnection = nil
+	end
 
-		if self.onToolDeactivatedConnection then
-			self.onToolDeactivatedConnection:disconnect()
-			self.onToolDeactivatedConnection = nil
-		end
+	if self.onToolDeactivatedConnection then
+		self.onToolDeactivatedConnection:disconnect()
+		self.onToolDeactivatedConnection = nil
+	end
 
-		-- If the flatten brush is unmounting, but my tool is still active
-		-- Stop the terrain brush anyway
-		-- This case happens when Flatten unmounts before ToolSelectionListener:didUpdate()
-		-- Or when Roact.unmount() was used on the whole tree because the plugin window is closing
-		if self.pluginActivationController:getActiveTool() == self.props.toolName then
-			self.terrainBrush:stop()
-		end
+	-- If the flatten brush is unmounting, but my tool is still active
+	-- Stop the terrain brush anyway
+	-- This case happens when Flatten unmounts before ToolSelectionListener:didUpdate()
+	-- Or when Roact.unmount() was used on the whole tree because the plugin window is closing
+	if self.pluginActivationController:getActiveTool() == self.props.toolName then
+		self.terrainBrush:stop()
 	end
 end
 
-local function MapStateToProps (state, props)
+local function mapStateToProps(state, props)
 	return {
 		toolName = ToolId.Flatten,
 
@@ -364,7 +353,7 @@ local function MapStateToProps (state, props)
 	}
 end
 
-local function MapDispatchToProps (dispatch)
+local function mapDispatchToProps(dispatch)
 	local dispatchToFlatten = function(action)
 		dispatch(ApplyToolAction(REDUCER_KEY, action))
 	end
@@ -409,4 +398,4 @@ local function MapDispatchToProps (dispatch)
 	}
 end
 
-return RoactRodux.connect(MapStateToProps, MapDispatchToProps)(Flatten)
+return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(Flatten)

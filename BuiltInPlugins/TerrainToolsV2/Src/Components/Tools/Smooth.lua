@@ -17,33 +17,47 @@ local ChangeStrength = require(Actions.ChangeStrength)
 local ChangePivot = require(Actions.ChangePivot)
 local SetPlaneLock = require(Actions.SetPlaneLock)
 local SetSnapToGrid = require(Actions.SetSnapToGrid)
-local SetAutoMaterial = require(Actions.SetAutoMaterial)
-local SetMaterial = require(Actions.SetMaterial)
 local SetBaseSizeHeightLocked = require(Actions.SetBaseSizeHeightLocked)
 
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 
+local FFlagTerrainToolsRefactor = game:GetFastFlag("TerrainToolsRefactor")
+
 local REDUCER_KEY = "SmoothTool"
 
-local function MapStateToProps (state, props)
-	return {
-		toolName = TerrainEnums.ToolId.Smooth,
+local function mapStateToProps(state, props)
+	if FFlagTerrainToolsRefactor then
+		return {
+			toolName = TerrainEnums.ToolId.Smooth,
 
-		brushShape = state[REDUCER_KEY].brushShape,
-		baseSize = state[REDUCER_KEY].baseSize,
-		height = state[REDUCER_KEY].height,
-		baseSizeHeightLocked = state[REDUCER_KEY].baseSizeHeightLocked,
-		strength = state[REDUCER_KEY].strength,
-		pivot = state[REDUCER_KEY].pivot,
-		planeLock = state[REDUCER_KEY].planeLock,
-		snapToGrid = state[REDUCER_KEY].snapToGrid,
+			brushShape = state[REDUCER_KEY].brushShape,
+			baseSize = state[REDUCER_KEY].baseSize,
+			height = state[REDUCER_KEY].height,
+			baseSizeHeightLocked = state[REDUCER_KEY].baseSizeHeightLocked,
+			strength = state[REDUCER_KEY].strength,
+			pivot = state[REDUCER_KEY].pivot,
+			planeLock = state[REDUCER_KEY].planeLock,
+			snapToGrid = state[REDUCER_KEY].snapToGrid,
+		}
+	else
+		return {
+			toolName = TerrainEnums.ToolId.Smooth,
 
-		autoMaterial = state[REDUCER_KEY].autoMaterial,
-		material = state[REDUCER_KEY].material,
-	}
+			brushShape = state[REDUCER_KEY].brushShape,
+			baseSize = state[REDUCER_KEY].baseSize,
+			height = state[REDUCER_KEY].height,
+			baseSizeHeightLocked = state[REDUCER_KEY].baseSizeHeightLocked,
+			strength = state[REDUCER_KEY].strength,
+			pivot = state[REDUCER_KEY].pivot,
+			planeLock = state[REDUCER_KEY].planeLock,
+			snapToGrid = state[REDUCER_KEY].snapToGrid,
+			autoMaterial = state[REDUCER_KEY].autoMaterial,
+			material = state[REDUCER_KEY].material,
+		}
+	end
 end
 
-local function MapDispatchToProps (dispatch)
+local function mapDispatchToProps(dispatch)
 	local dispatchToSmooth = function(action)
 		dispatch(ApplyToolAction(REDUCER_KEY, action))
 	end
@@ -76,8 +90,12 @@ local function MapDispatchToProps (dispatch)
 	}
 end
 
-local SmoothTool = RoactRodux.connect(MapStateToProps, MapDispatchToProps)(BaseBrush)
+if FFlagTerrainToolsRefactor then
+	return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(BaseBrush)
+else
+	local SmoothTool = RoactRodux.connect(mapStateToProps, mapDispatchToProps)(BaseBrush)
 
-return function(props)
-	return Roact.createElement(SmoothTool)
+	return function(props)
+		return Roact.createElement(SmoothTool)
+	end
 end

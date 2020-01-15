@@ -6,7 +6,7 @@ local wrapStrictTable = require(Plugin.Core.Util.wrapStrictTable)
 
 local FFlagUseGenericRBXThumbUrl = game:DefineFastFlag("UseGenericRBXThumbUrl", false)
 local EnableDeveloperGetManageGroupUrl = game:DefineFastFlag("EnableDeveloperGetManageGroupUrl", false)
-local FFlagUseRBXThumbInToolbox = game:GetFastFlag("UseRBXThumbInToolbox") and settings():GetFFlag("EnableRbxThumbAPI")
+local FFlagUseRBXThumbInToolbox = game:GetFastFlag("UseRBXThumbInToolbox")
 local FFlagLuaPackagePermissions = settings():GetFFlag("LuaPackagePermissions")
 
 local Urls = {}

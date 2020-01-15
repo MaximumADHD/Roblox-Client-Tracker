@@ -6,6 +6,9 @@ local Action = require(script.Parent.Action)
 -- in the main reducer. Take a look at MainReducer.lua to understand
 -- how this action direct the usage of one action across multiple reducers
 return Action(script.Name, function(toolName, toolAction)
+	assert(type(toolName) == "string", ("Expected toolName to be a string, received %s"):format(type(toolName)))
+	assert(type(toolAction) == "table", ("Expected toolAction to be a table, received %s"):format(type(toolAction)))
+
 	return {
 		toolName = toolName,
 		toolAction = toolAction,

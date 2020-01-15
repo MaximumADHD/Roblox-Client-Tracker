@@ -20,9 +20,11 @@ local SetBaseSizeHeightLocked = require(Actions.SetBaseSizeHeightLocked)
 
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 
+local FFlagTerrainToolsRefactor = game:GetFastFlag("TerrainToolsRefactor")
+
 local REDUCER_KEY = "SubtractTool"
 
-local function MapStateToProps (state, props)
+local function mapStateToProps(state, props)
 	return {
 		toolName = TerrainEnums.ToolId.Subtract,
 
@@ -36,7 +38,7 @@ local function MapStateToProps (state, props)
 	}
 end
 
-local function MapDispatchToProps (dispatch)
+local function mapDispatchToProps (dispatch)
 	local dispatchToSubtract = function(action)
 		dispatch(ApplyToolAction(REDUCER_KEY, action))
 	end
@@ -66,8 +68,12 @@ local function MapDispatchToProps (dispatch)
 	}
 end
 
-local SubtractTool = RoactRodux.connect(MapStateToProps, MapDispatchToProps)(BaseBrush)
+if FFlagTerrainToolsRefactor then
+	return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(BaseBrush)
+else
+	local SubtractTool = RoactRodux.connect(mapStateToProps, mapDispatchToProps)(BaseBrush)
 
-return function(props)
-	return Roact.createElement(SubtractTool)
+	return function(props)
+		return Roact.createElement(SubtractTool)
+	end
 end

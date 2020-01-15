@@ -10,21 +10,21 @@ local Theming = require(Plugin.Src.ContextServices.Theming)
 local StudioPlugin = require(Plugin.Src.ContextServices.StudioPlugin)
 local UILibraryProvider = require(Plugin.Src.ContextServices.UILibraryProvider)
 local Localizing = UILibrary.Localizing
+local TerrainInterface = require(Plugin.Src.ContextServices.TerrainInterface)
 
 local FFlagTerrainToolsSeaLevel = game:GetFastFlag("TerrainToolsSeaLevel")
-local FFlagTerrainToolsRefactorTerrainBrush = game:GetFastFlag("TerrainToolsRefactorTerrainBrush")
-local TerrainInterface
-if FFlagTerrainToolsRefactorTerrainBrush then
-	TerrainInterface = require(Plugin.Src.ContextServices.TerrainInterface)
-end
-local FFlagTerrainToolsRefactorTerrainImporter = game:GetFastFlag("TerrainToolsRefactorTerrainImporter")
-local FFlagTerrainToolsRefactorTerrainGeneration = game:GetFastFlag("TerrainToolsRefactorTerrainGeneration")
+local FFlagTerrainToolsFixGettingTerrain = game:GetFastFlag("TerrainToolsFixGettingTerrain")
 
 -- props.localization : (UILibary.Localization) an object for fetching translated strings
 -- props.plugin : (plugin instance) the instance of plugin defined in main.server.lua
 -- props.store : (Rodux Store) the data store for the plugin
 -- props.theme : (Resources.PluginTheme) a table for styling elements in the plugin and UILibrary
--- props.terrainBrush (TerrainBrush)
+-- props.terrain : (Terrain instance)
+-- props.terrainBrush : (TerrainBrush)
+-- props.pluginActivationController : (PluginActivationController)
+-- props.terrainImporter : (TerrainImporter)
+-- props.terrainGeneration : (TerrainGeneration)
+-- props.seaLevel : (SeaLevel)
 local ServiceWrapper = Roact.PureComponent:extend("ServiceWrapper")
 
 function ServiceWrapper:init()
@@ -34,20 +34,13 @@ function ServiceWrapper:init()
 	assert(self.props.store ~= nil, "Expected a Rodux Store object")
 	assert(self.props.theme ~= nil, "Expected a PluginTheme object")
 
-	if FFlagTerrainToolsRefactorTerrainBrush then
-		assert(self.props.terrainBrush ~= nil, "Expected a TerrainBrush object")
-		assert(self.props.pluginActivationController ~= nil, "Expected a PluginActivationController object")
-
-		if FFlagTerrainToolsRefactorTerrainImporter then
-			assert(self.props.terrainImporter ~= nil, "Expected a TerrainImporter object")
-		end
-
-		if FFlagTerrainToolsRefactorTerrainGeneration then
-			assert(self.props.terrainGeneration ~= nil, "Expected a TerrainGeneration object")
-		end
+	if FFlagTerrainToolsFixGettingTerrain then
+		assert(self.props.terrain ~= nil, "Expected a Terrain instance")
 	end
-
-	-- dependent on FFlagTerrainToolsRefactorTerrainBrush being on
+	assert(self.props.terrainBrush ~= nil, "Expected a TerrainBrush object")
+	assert(self.props.pluginActivationController ~= nil, "Expected a PluginActivationController object")
+	assert(self.props.terrainImporter ~= nil, "Expected a TerrainImporter object")
+	assert(self.props.terrainGeneration ~= nil, "Expected a TerrainGeneration object")
 	if FFlagTerrainToolsSeaLevel then
 		assert(self.props.seaLevel ~= nil, "Expected a SeaLevel object")
 	end
@@ -63,6 +56,7 @@ function ServiceWrapper:render()
 	local plugin = self.props.plugin
 	local store = self.props.store
 	local theme = self.props.theme
+	local terrain = self.props.terrain
 	local pluginActivationController = self.props.pluginActivationController
 	local terrainBrush = self.props.terrainBrush
 	local terrainImporter = self.props.terrainImporter
@@ -78,15 +72,14 @@ function ServiceWrapper:render()
 	root = addProvider(Localizing.Provider, { localization = localization }, root)
 	root = addProvider(StudioPlugin.Provider, { plugin = plugin }, root)
 
-	if FFlagTerrainToolsRefactorTerrainBrush then
-		root = addProvider(TerrainInterface.Provider, {
-			pluginActivationController = pluginActivationController,
-			terrainBrush = terrainBrush,
-			terrainImporter = terrainImporter,
-			terrainGeneration = terrainGeneration,
-			seaLevel = seaLevel,
-		}, root)
-	end
+	root = addProvider(TerrainInterface.Provider, {
+		terrain = terrain,
+		pluginActivationController = pluginActivationController,
+		terrainBrush = terrainBrush,
+		terrainImporter = terrainImporter,
+		terrainGeneration = terrainGeneration,
+		seaLevel = seaLevel,
+	}, root)
 
 	return root
 end

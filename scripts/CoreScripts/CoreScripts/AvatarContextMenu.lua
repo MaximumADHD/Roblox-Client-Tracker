@@ -9,6 +9,7 @@ local DEBUG_MODE = game:GetService("RunService"):IsStudio() -- use this to run a
 local isAvatarContextMenuEnabled = false
 
 local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList2")
+local FFlagFixACMOverlappingIssues = game:DefineFastFlag("FixACMOverlappingIssues", false)
 
 -- CONSTANTS
 local MAX_CONTEXT_MENU_DISTANCE = 100
@@ -61,6 +62,9 @@ local ContextMenuItemsModule = require(AvatarMenuModules:WaitForChild("ContextMe
 local ContextMenuUtil = require(AvatarMenuModules:WaitForChild("ContextMenuUtil"))
 local SelectedCharacterIndicator = require(AvatarMenuModules:WaitForChild("SelectedCharacterIndicator"))
 local ThemeHandler = require(AvatarMenuModules.ThemeHandler)
+
+local Backpack = require(CoreGuiModules.BackpackScript)
+local EmotesMenuMaster = require(CoreGuiModules.EmotesMenu.EmotesMenuMaster)
 
 local BlockingUtility
 if FFlagUseRoactPlayerList then
@@ -187,12 +191,27 @@ PlayersService.PlayerRemoving:connect(function(player)
 	end
 end)
 
+local function CloseOtherOpenCoreGui()
+	if EmotesMenuMaster:isOpen() then
+		EmotesMenuMaster:close()
+	end
+
+	if Backpack.IsOpen then
+		Backpack.OpenClose()
+	end
+end
+
 function OpenContextMenu(player, worldPoint)
     if ContextMenuOpening or ContextMenuOpen or not isAvatarContextMenuEnabled then
         return
 	end
 
 	ContextMenuOpen = true
+
+	if FFlagFixACMOverlappingIssues then
+		CloseOtherOpenCoreGui()
+	end
+
 	BuildPlayerCarousel(player, worldPoint)
 	ContextMenuUtil:DisablePlayerMovement()
 	BindMenuActions()
@@ -372,6 +391,20 @@ LocalPlayer.FriendStatusChanged:Connect(function(player, friendStatus)
 		ContextMenuItems:UpdateFriendButton(friendStatus, isBlocked)
 	end
 end)
+
+if FFlagFixACMOverlappingIssues then
+	Backpack.StateChanged.Event:Connect(function(isBackpackOpen)
+		if isBackpackOpen and ContextMenuOpen then
+			CloseContextMenu()
+		end
+	end)
+
+	EmotesMenuMaster.EmotesMenuToggled.Event:Connect(function(isEmotesOpen)
+		if isEmotesOpen and ContextMenuOpen then
+			CloseContextMenu()
+		end
+	end)
+end
 
 function GetWorldPoint(player)
 	if player.Character then

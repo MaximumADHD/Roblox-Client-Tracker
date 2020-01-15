@@ -2,6 +2,10 @@ if not plugin then
 	return
 end
 
+-- Fast flags
+require(script.Parent.defineLuaFlags)
+
+
 local Plugin = script.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Rodux = require(Plugin.Packages.Rodux)

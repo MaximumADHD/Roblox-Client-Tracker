@@ -6438,6 +6438,17 @@
         </Item>
       </Item>
     </Item>
+      <!--Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">VideoFrame</string>
+        <string name="ClassCategory">GUI</string>
+        <string name="summary">A GUI object containing a video Image</string>
+        <string name="ExplorerOrder">18</string>
+        <string name="ExplorerImageIndex">49</string>
+        <string name="PreferredParent">GuiBase2d</string>
+        <string name="PreferredParents">GuiBase2d</string>
+      </Properties>
+    </Item -->
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">TextLabel</string>
@@ -6723,10 +6734,20 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">WorldModel</string>
+        <bool name="Insertable">false</bool>
         <string name="ClassCategory">World</string>
         <string name="summary">An object that contains a World. Supports rigid joints. Unlike Workspace, WorldModels do not support dynamics simulation.</string>
         <string name="ExplorerOrder">22</string>
         <string name="ExplorerImageIndex">19</string>
+      </Properties>
+    </Item>
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">Motor6D</string>
+        <string name="ClassCategory">Animations</string>
+        <string name="summary">The Motor6D object is used to make movable joints between two Parts.</string>
+        <string name="ExplorerOrder">200</string>
+        <string name="ExplorerImageIndex">0</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">

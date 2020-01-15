@@ -44,6 +44,7 @@ local PolicyService = require(CoreGui.RobloxGui.Modules.Common.PolicyService)
 local DFFlagEnableRemoteProfilingForDevConsole = settings():GetFFlag("EnableRemoteProfilingForDevConsole")
 local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp") --todo: remove with FFlagUsePolicyServiceForCoreScripts
 local FFlagRespectDisplayOrderForOnTopOfCoreBlur = settings():GetFFlag("RespectDisplayOrderForOnTopOfCoreBlur")
+local FFlagDevConsoleAnalyticsIncludeOwner = settings():GetFFlag("DevConsoleAnalyticsIncludeOwner")
 
 
 local DEV_TAB_LIST = {
@@ -188,9 +189,13 @@ function DevConsoleMaster:SetupDevConsole()
 	end
 
 	-- create store
-	self.store = Rodux.Store.new(DevConsoleReducer, initTabListForStore, {
-		DevConsoleAnalytics
-	})
+	local middleWare = {}
+	if FFlagDevConsoleAnalyticsIncludeOwner then
+		middleWare = { DevConsoleAnalytics(developerConsoleView) }
+	else
+		middleWare = { DevConsoleAnalytics }
+	end
+	self.store = Rodux.Store.new(DevConsoleReducer, initTabListForStore, middleWare)
 
 	local isVisible = self.store:getState().DisplayOptions.isVisible
 

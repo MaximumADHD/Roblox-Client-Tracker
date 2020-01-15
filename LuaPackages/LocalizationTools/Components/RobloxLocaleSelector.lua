@@ -7,7 +7,6 @@ local RobloxLocaleSelector = Roact.PureComponent:extend("RobloxLocaleSelector")
 
 local LocalizationService = game:GetService("LocalizationService")
 
-local UseAllSupportedLanguageList = settings():GetFFlag("UseAllSupportedLanguageList")
 local UseStudioLocaleForForceLocale = settings():GetFFlag("UseStudioLocaleForForceLocale")
 
 local robloxLocaleLabelText = "Locale"
@@ -97,27 +96,24 @@ function RobloxLocaleSelector:render()
 			}),
 		})
 
-		local textModule
-		if UseAllSupportedLanguageList then
-			textModule = Roact.createElement("Frame", {
+		local textModule = Roact.createElement("Frame", {
+			Size = UDim2.new(0, 300, 0, 25),
+			BackgroundTransparency = 1,
+			BorderSizePixel = 0,
+			LayoutOrder = 2,
+		}, {
+			Padding = Roact.createElement("UIPadding", {
+				PaddingLeft = UDim.new(0, 15),
+			}),
+			TextLabel = Roact.createElement("TextLabel", {
+				Text = self.getTestLangInstructionText(self.props.AllLanguagesInfo, GetLocaleId()),
 				Size = UDim2.new(0, 300, 0, 25),
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
-				LayoutOrder = 2,
-			}, {
-				Padding = Roact.createElement("UIPadding", {
-					PaddingLeft = UDim.new(0, 15),
-				}),
-				TextLabel = Roact.createElement("TextLabel", {
-					Text = self.getTestLangInstructionText(self.props.AllLanguagesInfo, GetLocaleId()),
-					Size = UDim2.new(0, 300, 0, 25),
-					BackgroundTransparency = 1,
-					BorderSizePixel = 0,
-					TextXAlignment = Enum.TextXAlignment.Left,
-					TextColor3 = theme.BrightText,
-				}),
-			})
-		end
+				TextXAlignment = Enum.TextXAlignment.Left,
+				TextColor3 = theme.BrightText,
+			}),
+		})
 
 		return Roact.createElement("Frame", {
 			Size = UDim2.new(0, 300, 0, 65),

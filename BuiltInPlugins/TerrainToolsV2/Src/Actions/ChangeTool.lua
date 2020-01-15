@@ -5,11 +5,9 @@ local Action = require(script.Parent.Action)
 
 -- currentTool : (string) name of the tool activated
 return Action(script.Name, function(currentTool)
-	if currentTool then
-		assert(type(currentTool) == "string", string.format("Expected currentTool to be a string, received %s", type(currentTool)))
-	end
+	assert(type(currentTool) == "string", ("Expected currentTool to be a string, received %s"):format(type(currentTool)))
+
 	return {
-		currentTool = currentTool
-		
+		currentTool = currentTool,
 	}
 end)

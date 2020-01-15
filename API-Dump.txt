@@ -939,6 +939,21 @@ Class TextBox : GuiObject
 	Event TextBox.FocusLost(bool enterPressed, Instance inputThatCausedFocusLoss)
 	Event TextBox.Focused()
 	Event TextBox.ReturnPressedFromOnScreenKeyboard()
+Class VideoFrame : GuiObject
+	Property bool VideoFrame.IsLoaded  [ReadOnly] [NotReplicated]
+	Property bool VideoFrame.Looped
+	Property bool VideoFrame.Playing  [NotReplicated]
+	Property double VideoFrame.TimeLength  [ReadOnly] [NotReplicated]
+	Property double VideoFrame.TimePosition  [NotReplicated]
+	Property Content VideoFrame.Video
+	Property float VideoFrame.Volume
+	Function void VideoFrame:Pause()
+	Function void VideoFrame:Play()
+	Event VideoFrame.DidLoop(string video)
+	Event VideoFrame.Ended(string video)
+	Event VideoFrame.Loaded(string video)
+	Event VideoFrame.Paused(string video)
+	Event VideoFrame.Played(string video)
 Class ViewportFrame : GuiObject
 	Property Color3 ViewportFrame.Ambient
 	Property Color3 ViewportFrame.LightColor
@@ -1160,12 +1175,12 @@ Class HapticService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void HapticService:SetMotor(Enum<UserInputType> inputType, Enum<VibrationMotor> vibrationMotor, Tuple vibrationValues)
 Class Hopper : Instance [NotCreatable] [Service] [Deprecated]
 Class HttpRbxApiService : Instance {RobloxScriptSecurity} [NotCreatable] [Service]
-	Function string HttpRbxApiService:GetAsync(string apiUrlPath, Enum<ThrottlingPriority> priority = "Default", Enum<HttpRequestType> httpRequestType = "Default", bool doNotAllowDiabolicalMode = false) [Yields]
-	Function string HttpRbxApiService:GetAsyncFullUrl(string apiUrl, Enum<ThrottlingPriority> priority = "Default", Enum<HttpRequestType> httpRequestType = "Default", bool doNotAllowDiabolicalMode = false) [Yields]
+	Function string HttpRbxApiService:GetAsync(string apiUrlPath, Enum<ThrottlingPriority> priority = "Default", Enum<HttpRequestType> httpRequestType = "Default") [Yields]
+	Function string HttpRbxApiService:GetAsyncFullUrl(string apiUrl, Enum<ThrottlingPriority> priority = "Default", Enum<HttpRequestType> httpRequestType = "Default") [Yields]
 	Function string HttpRbxApiService:GetDocumentationUrl(string partialUrl)
-	Function string HttpRbxApiService:PostAsync(string apiUrlPath, string data, Enum<ThrottlingPriority> priority = "Default", Enum<HttpContentType> content_type = "ApplicationJson", Enum<HttpRequestType> httpRequestType = "Default", bool doNotAllowDiabolicalMode = false) [Yields]
-	Function string HttpRbxApiService:PostAsyncFullUrl(string apiUrl, string data, Enum<ThrottlingPriority> priority = "Default", Enum<HttpContentType> content_type = "ApplicationJson", Enum<HttpRequestType> httpRequestType = "Default", bool doNotAllowDiabolicalMode = false) [Yields]
-	Function string HttpRbxApiService:RequestAsync(Dictionary requestOptions, Enum<ThrottlingPriority> priority = "Default", Enum<HttpContentType> content_type = "ApplicationJson", Enum<HttpRequestType> httpRequestType = "Default", bool doNotAllowDiabolicalMode = false) [Yields]
+	Function string HttpRbxApiService:PostAsync(string apiUrlPath, string data, Enum<ThrottlingPriority> priority = "Default", Enum<HttpContentType> content_type = "ApplicationJson", Enum<HttpRequestType> httpRequestType = "Default") [Yields]
+	Function string HttpRbxApiService:PostAsyncFullUrl(string apiUrl, string data, Enum<ThrottlingPriority> priority = "Default", Enum<HttpContentType> content_type = "ApplicationJson", Enum<HttpRequestType> httpRequestType = "Default") [Yields]
+	Function string HttpRbxApiService:RequestAsync(Dictionary requestOptions, Enum<ThrottlingPriority> priority = "Default", Enum<HttpContentType> content_type = "ApplicationJson", Enum<HttpRequestType> httpRequestType = "Default") [Yields]
 Class HttpRequest : Instance {RobloxScriptSecurity} [NotCreatable]
 	Function void HttpRequest:Cancel()
 	Function void HttpRequest:Start(Function callback)
@@ -1698,7 +1713,6 @@ Class NoCollisionConstraint : Instance
 Class NotificationService : Instance {LocalUserSecurity} [NotCreatable] [Service]
 	Property bool NotificationService.IsLuaChatEnabled {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
 	Property bool NotificationService.IsLuaGameDetailsEnabled {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
-	Property bool NotificationService.IsLuaHomeWithAvatarEnabled {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
 	Property string NotificationService.SelectedTheme {RobloxScriptSecurity} [<📁> LoadOnly] [NotReplicated]
 	Function void NotificationService:ActionEnabled(Enum<AppShellActionType> actionType) {RobloxScriptSecurity}
 	Function void NotificationService:ActionTaken(Enum<AppShellActionType> actionType) {RobloxScriptSecurity}
@@ -1984,7 +1998,6 @@ Class PathfindingService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Instance PathfindingService:ComputeSmoothPathAsync(Vector3 start, Vector3 finish, float maxDistance) [Yields] [Deprecated]
 	Function Instance PathfindingService:CreatePath(Dictionary agentParameters = nil)
 	Function Instance PathfindingService:FindPathAsync(Vector3 start, Vector3 finish) [Yields]
-Class PhysicsPacketCache : Instance [NotCreatable] [Service] [NotReplicated]
 Class PhysicsService : Instance [NotCreatable] [Service]
 	Function bool PhysicsService:CollisionGroupContainsPart(string name, Instance part)
 	Function void PhysicsService:CollisionGroupSetCollidable(string name1, string name2, bool collidable)
@@ -2012,6 +2025,7 @@ Class PhysicsSettings : Instance [NotCreatable] [Settings]
 	Property bool PhysicsSettings.AreOwnersShown
 	Property bool PhysicsSettings.ArePartCoordsShown
 	Property bool PhysicsSettings.AreRegionsShown
+	Property bool PhysicsSettings.AreTerrainReplicationRegionsShown
 	Property bool PhysicsSettings.AreUnalignedPartsShown
 	Property bool PhysicsSettings.AreWorldCoordsShown
 	Property bool PhysicsSettings.DisableCSGv2
@@ -2486,8 +2500,8 @@ Class DataModel : ServiceProvider [NotCreatable]
 	Function Objects DataModel:GetObjectsAsync(Content url) {RobloxScriptSecurity} [Yields]
 	Function Array DataModel:GetObjectsList(Array urls) {RobloxScriptSecurity}
 	Function bool DataModel:GetRemoteBuildMode() [Deprecated]
-	Function string DataModel:HttpGetAsync(string url, Enum<HttpRequestType> httpRequestType = "Default", bool doNotAllowDiabolicalMode = false) {RobloxScriptSecurity} [Yields]
-	Function string DataModel:HttpPostAsync(string url, string data, string contentType = "*/*", Enum<HttpRequestType> httpRequestType = "Default", bool doNotAllowDiabolicalMode = false) {RobloxScriptSecurity} [Yields]
+	Function string DataModel:HttpGetAsync(string url, Enum<HttpRequestType> httpRequestType = "Default") {RobloxScriptSecurity} [Yields]
+	Function string DataModel:HttpPostAsync(string url, string data, string contentType = "*/*", Enum<HttpRequestType> httpRequestType = "Default") {RobloxScriptSecurity} [Yields]
 	Function Objects DataModel:InsertObjectsAndJoinIfLegacyAsync(Content url) {RobloxScriptSecurity} [Yields]
 	Function bool DataModel:IsGearTypeAllowed(Enum<GearType> gearType) [Deprecated]
 	Function bool DataModel:IsLoaded()
@@ -3474,6 +3488,7 @@ Enum ComputerCameraMovementMode
 	EnumItem ComputerCameraMovementMode.Classic : 1
 	EnumItem ComputerCameraMovementMode.Follow : 2
 	EnumItem ComputerCameraMovementMode.Orbital : 3
+	EnumItem ComputerCameraMovementMode.CameraToggle : 4
 Enum ComputerMovementMode
 	EnumItem ComputerMovementMode.Default : 0
 	EnumItem ComputerMovementMode.KeyboardMouse : 1
@@ -3580,6 +3595,7 @@ Enum DevComputerCameraMovementMode
 	EnumItem DevComputerCameraMovementMode.Classic : 1
 	EnumItem DevComputerCameraMovementMode.Follow : 2
 	EnumItem DevComputerCameraMovementMode.Orbital : 3
+	EnumItem DevComputerCameraMovementMode.CameraToggle : 4
 Enum DevComputerMovementMode
 	EnumItem DevComputerMovementMode.UserChoice : 0
 	EnumItem DevComputerMovementMode.KeyboardMouse : 1

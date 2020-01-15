@@ -58,9 +58,9 @@ struct Params
 uniform vec4 CB0[47];
 uniform vec4 CB8[24];
 uniform vec4 CB3[3];
+uniform sampler2D ShadowAtlasTexture;
 uniform sampler3D LightMapTexture;
 uniform sampler3D LightGridSkylightTexture;
-uniform sampler2D ShadowAtlasTexture;
 uniform sampler2D NormalMap1Texture;
 uniform sampler2D NormalMap2Texture;
 uniform samplerCube EnvMapTexture;
@@ -117,16 +117,16 @@ void main()
     vec3 f35 = mix(VARYING6.xyz, f34, vec3(0.25));
     vec3 f36 = normalize(VARYING7.xyz);
     vec3 f37 = texture(EnvMapTexture, reflect(-f36, f35)).xyz;
-    vec3 f38 = mix((min(f7 + (CB0[8].xyz + (CB0[9].xyz * f8)), vec3(CB0[16].w)) + (CB0[10].xyz * f28)) * CB3[1].xyz, (((f37 * f37) * CB0[15].x) * vec3(f8)) + (f7 * 0.100000001490116119384765625), vec3(((clamp(0.7799999713897705078125 - (2.5 * abs(dot(f35, f36))), 0.0, 1.0) + 0.300000011920928955078125) * VARYING0.w) * CB3[2].z)) + (CB0[10].xyz * ((((2.0 * clamp(1.0 - (VARYING7.w * CB0[23].y), 0.0, 1.0)) * CB3[2].z) * f28) * pow(clamp(dot(f34, normalize(f1 + f36)), 0.0, 1.0), 900.0)));
+    vec3 f38 = mix((min(f7 + (CB0[8].xyz + (CB0[9].xyz * f8)), vec3(CB0[16].w)) + (CB0[10].xyz * f28)) * CB3[1].xyz, (((f37 * f37) * CB0[15].x) * f8) + (f7 * 0.100000001490116119384765625), vec3(((clamp(0.7799999713897705078125 - (2.5 * abs(dot(f35, f36))), 0.0, 1.0) + 0.300000011920928955078125) * VARYING0.w) * CB3[2].z)) + (CB0[10].xyz * ((((2.0 * clamp(1.0 - (VARYING7.w * CB0[23].y), 0.0, 1.0)) * CB3[2].z) * f28) * pow(clamp(dot(f34, normalize(f1 + f36)), 0.0, 1.0), 900.0)));
     vec4 f39 = vec4(f38.x, f38.y, f38.z, vec4(0.0).w);
     f39.w = 1.0;
     vec3 f40 = mix(CB0[14].xyz, sqrt(clamp(f39.xyz * CB0[15].y, vec3(0.0), vec3(1.0))).xyz, vec3(clamp(VARYING6.w, 0.0, 1.0)));
     _entryPointOutput = vec4(f40.x, f40.y, f40.z, f39.w);
 }
 
+//$$ShadowAtlasTexture=s1
 //$$LightMapTexture=s6
 //$$LightGridSkylightTexture=s7
-//$$ShadowAtlasTexture=s1
 //$$NormalMap1Texture=s0
 //$$NormalMap2Texture=s2
 //$$EnvMapTexture=s3

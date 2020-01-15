@@ -19,11 +19,14 @@ local RunService = game:GetService("RunService")
 
 ----------- UTILITIES --------------
 local utility = require(RobloxGui.Modules.Settings.Utility)
+local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
 ------------ Variables -------------------
 local PageInstance = nil
 RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
 local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
+
+local FFlagUpdateSettingsHubGameText = require(RobloxGui.Modules.Flags.FFlagUpdateSettingsHubGameText)
 
 ----------- CLASS DECLARATION --------------
 
@@ -33,7 +36,7 @@ local function Initialize()
 
 	this.LeaveFunc = function()
 		GuiService.SelectedCoreObject = nil -- deselects the button and prevents spamming the popup to save in studio when using gamepad
-		
+
 		-- need to wait for render frames so on slower devices the leave button highlight will update
 		-- otherwise, since on slow devices it takes so long to leave you are left wondering if you pressed the button
 		for i = 1, LEAVE_GAME_FRAME_WAITS do
@@ -58,7 +61,7 @@ local function Initialize()
 	this.DontLeaveFromButton = function(isUsingGamepad)
 		this.DontLeaveFunc(isUsingGamepad)
 	end
-	
+
 	------ TAB CUSTOMIZATION -------
 	this.TabHeader = nil -- no tab for this page
 
@@ -67,10 +70,15 @@ local function Initialize()
 	this.ShouldShowBottomBar = false
 	this.ShouldShowHubBar = false
 
+	local leaveGameConfirmationText = "Are you sure you want to leave the game?"
+	if FFlagUpdateSettingsHubGameText then
+		leaveGameConfirmationText = RobloxTranslator:FormatByKey("InGame.HelpMenu.ConfirmLeaveGame")
+	end
+
 	local leaveGameText =  utility:Create'TextLabel'
 	{
 		Name = "LeaveGameText",
-		Text = "Are you sure you want to leave the game?",
+		Text = leaveGameConfirmationText,
 		Font = Enum.Font.SourceSansBold,
 		FontSize = Enum.FontSize.Size36,
 		TextColor3 = Color3.new(1,1,1),
@@ -81,7 +89,7 @@ local function Initialize()
 		Parent = this.Page,
 		Position = isTenFootInterface and UDim2.new(0,0,0,100) or UDim2.new(0,0,0,0)
 	};
-	
+
 	local leaveButtonContainer = utility:Create"Frame"
 	{
 		Name = "LeaveButtonContainer",
@@ -90,7 +98,7 @@ local function Initialize()
 		BackgroundTransparency = 1,
 		Position = UDim2.new(0,0,1,0)
 	};
-	
+
 	local leaveButtonLayout = utility:Create'UIGridLayout'
 	{
 		Name = "LeavetButtonsLayout",
@@ -102,7 +110,7 @@ local function Initialize()
 		VerticalAlignment = Enum.VerticalAlignment.Top,
 		Parent = leaveButtonContainer
 	};
-	
+
 	if utility:IsSmallTouchScreen() then
 		leaveGameText.FontSize = Enum.FontSize.Size24
 		leaveGameText.Size = UDim2.new(1,0,0,100)
@@ -115,7 +123,7 @@ local function Initialize()
 	this.LeaveGameButton.Parent = leaveButtonContainer
 
 	------------- Init ----------------------------------
-	
+
 	local dontleaveGameButton = utility:MakeStyledButton("DontLeaveGame", "Don't Leave", nil, this.DontLeaveFromButton)
 	dontleaveGameButton.NextSelectionLeft = nil
 	dontleaveGameButton.Parent = leaveButtonContainer

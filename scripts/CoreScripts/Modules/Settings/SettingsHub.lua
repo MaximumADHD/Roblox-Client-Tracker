@@ -43,6 +43,8 @@ local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList2")
 
 local FFlagLocalizeVersionLabels = settings():GetFFlag("LocalizeVersionLabels")
 
+local FFlagUpdateSettingsHubGameText = require(RobloxGui.Modules.Flags.FFlagUpdateSettingsHubGameText)
+
 
 --[[ SERVICES ]]
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
@@ -92,7 +94,7 @@ end
 --[[ Localization Fixes for Version Labels]]
 local shouldTryLocalizeVersionLabels = FFlagLocalizeVersionLabels or shouldLocalize
 local RobloxTranslator = nil
-if shouldTryLocalizeVersionLabels then
+if shouldTryLocalizeVersionLabels or FFlagUpdateSettingsHubGameText then
 	RobloxTranslator = require(RobloxGui.Modules:WaitForChild("RobloxTranslator"))
 end
 local function tryTranslate(key, defaultString)
@@ -752,7 +754,12 @@ local function CreateSettingsHub()
 			buttonImageAppend = "@2x"
 		end
 
-		addBottomBarButton("LeaveGame", "Leave Game", "rbxasset://textures/ui/Settings/Help/XButtonLight" .. buttonImageAppend .. ".png",
+		local leaveGameText = "Leave Game"
+		if FFlagUpdateSettingsHubGameText then
+			leaveGameText = RobloxTranslator:FormatByKey("InGame.HelpMenu.Leave")
+		end
+
+		addBottomBarButton("LeaveGame", leaveGameText, "rbxasset://textures/ui/Settings/Help/XButtonLight" .. buttonImageAppend .. ".png",
 			"rbxasset://textures/ui/Settings/Help/LeaveIcon.png", UDim2.new(0.5,isTenFootInterface and -160 or -130,0.5,-25),
 			leaveGameFunc, {Enum.KeyCode.L, Enum.KeyCode.ButtonX}
 		)
@@ -770,7 +777,13 @@ local function CreateSettingsHub()
 			"rbxasset://textures/ui/Settings/Help/ResetIcon.png", UDim2.new(0.5,isTenFootInterface and -550 or -400,0.5,-25),
 			resetCharFunc, {Enum.KeyCode.R, Enum.KeyCode.ButtonY}
 		)
-		addBottomBarButton("Resume", "Resume Game", "rbxasset://textures/ui/Settings/Help/BButtonLight" .. buttonImageAppend .. ".png",
+
+		local resumeGameText = "Resume Game"
+		if FFlagUpdateSettingsHubGameText then
+			resumeGameText = RobloxTranslator:FormatByKey("InGame.HelpMenu.Resume")
+		end
+
+		addBottomBarButton("Resume", resumeGameText, "rbxasset://textures/ui/Settings/Help/BButtonLight" .. buttonImageAppend .. ".png",
 			"rbxasset://textures/ui/Settings/Help/EscapeIcon.png", UDim2.new(0.5,isTenFootInterface and 200 or 140,0.5,-25),
 			resumeFunc, {Enum.KeyCode.ButtonB, Enum.KeyCode.ButtonStart}
 		)

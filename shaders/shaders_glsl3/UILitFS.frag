@@ -54,7 +54,7 @@ in vec2 VARYING0;
 in vec4 VARYING1;
 in vec3 VARYING2;
 in vec3 VARYING3;
-in vec3 VARYING4;
+in vec4 VARYING4;
 out vec4 _entryPointOutput;
 
 void main()

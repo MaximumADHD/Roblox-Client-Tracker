@@ -8,17 +8,18 @@ version = "0.1.0"
 dependencies = [
     "Cryo roblox/cryo 1.0.0 registry+https://github.rbx.com/roblox/rotriever-index",
     "InGameMenuDependencies InGameMenuDependencies 0a5670ca git+https://github.rbx.com/roblox/in-game-menu-dependencies#master",
-    "LuaChatDeps LuaChatDeps d9941346 git+https://github.rbx.com/roblox/lua-chat-deps#master",
-    "LuaDiscussionsDeps LuaDiscussionsDeps 3c0cee7e git+https://github.rbx.com/roblox/lua-discussions-deps#master",
+    "LuaChatDeps LuaChatDeps adcf8a1b git+https://github.rbx.com/roblox/lua-chat-deps#master",
+    "LuaDiscussionsDeps LuaDiscussionsDeps f61ab8c8 git+https://github.rbx.com/roblox/lua-discussions-deps#master",
+    "LuaSocialLibrariesDeps LuaSocialLibrariesDeps 1f18f7ae git+https://github.rbx.com/roblox/lua-social-libraries-deps#master",
     "Otter roblox/otter 0.1.0 registry+https://github.rbx.com/roblox/rotriever-index",
     "Promise lua-promise bbb9e162 git+https://github.rbx.com/roblox/lua-promise#master",
     "PurchasePrompt roblox/purchase-prompt 582f422c git+https://github.com/roblox/purchasepromptscript-roact#master",
     "Result lua-Result 4c69dedd git+https://github.rbx.com/roblox/lua-result#master",
     "Roact roblox/roact 1.2.0 registry+https://github.rbx.com/roblox/rotriever-index",
-    "RoactNavigation roblox/roact-navigation 0.2.1 registry+https://github.rbx.com/roblox/rotriever-index",
+    "RoactNavigation roblox/roact-navigation 0.2.3 registry+https://github.rbx.com/roblox/rotriever-index",
     "RoactRodux roblox/roact-rodux 0.2.0 registry+https://github.rbx.com/roblox/rotriever-index",
     "Rodux roblox/rodux 1.0.0 registry+https://github.rbx.com/roblox/rotriever-index",
-    "UIBlox UIBlox 9be9995e git+https://github.rbx.com/roblox/uiblox#master",
+    "UIBlox UIBlox 89e8f944 git+https://github.rbx.com/roblox/uiblox#master",
     "t osyris/t 1.2.5 registry+https://github.rbx.com/roblox/rotriever-index",
     "tutils tutils 74574fde git+https://github.rbx.com/roblox/tutils#master",
 ]
@@ -34,43 +35,40 @@ dependencies = [
     "Roact roblox/roact 1.2.0 registry+https://github.rbx.com/roblox/rotriever-index",
     "RoactRodux roblox/roact-rodux 0.2.0 registry+https://github.rbx.com/roblox/rotriever-index",
     "Rodux roblox/rodux 1.0.0 registry+https://github.rbx.com/roblox/rotriever-index",
-    "UIBlox UIBlox 9be9995e git+https://github.rbx.com/roblox/uiblox#master",
+    "UIBlox UIBlox 89e8f944 git+https://github.rbx.com/roblox/uiblox#master",
     "t osyris/t 1.2.5 registry+https://github.rbx.com/roblox/rotriever-index",
 ]
 
 [[package]]
-name = "InfiniteScroller"
-version = "0.2.0"
-source = "git+https://github.rbx.com/roblox/infinite-scroll#master"
-commit = "6edda2f593fd3521599a6c4f79c86ffbd8de3e82"
-dependencies = [
-    "Cryo <patched> roblox/cryo 1.0.0 registry+https://github.rbx.com/roblox/rotriever-index",
-    "FitFrame roact-fit-components ab1a2160 git+https://github.rbx.com/roblox/roact-box-components#master",
-    "Otter <patched> roblox/otter 0.1.0 registry+https://github.rbx.com/roblox/rotriever-index",
-    "Roact <patched> roblox/roact 1.2.0 registry+https://github.rbx.com/roblox/rotriever-index",
-    "t <patched> osyris/t 1.2.5 registry+https://github.rbx.com/roblox/rotriever-index",
-]
-
-[[package]]
 name = "LuaChatDeps"
-version = "0.1.0"
+version = "0.1.1"
 source = "git+https://github.rbx.com/roblox/lua-chat-deps#master"
-commit = "d9941346d9956288e7ae1fcbfb11371d381af423"
+commit = "adcf8a1b3204577bb7f1836a70201974b79f78c1"
 dependencies = [
-    "InfiniteScroll InfiniteScroller 6edda2f5 git+https://github.rbx.com/roblox/infinite-scroll#master",
+    "InfiniteScroll roblox/infinite-scroller 0.3.3 registry+https://github.rbx.com/roblox/rotriever-index",
     "RoduxNetworking rodux-networking cd528e25 git+https://github.rbx.com/roblox/rodux-networking#master",
 ]
 
 [[package]]
 name = "LuaDiscussionsDeps"
-version = "0.1.0"
+version = "0.1.1"
 source = "git+https://github.rbx.com/roblox/lua-discussions-deps#master"
-commit = "3c0cee7ef28a1af55b94d8e0b7e90940879d0996"
+commit = "f61ab8c8d197f9afeee8951281bea0a905b3045a"
 dependencies = [
-    "InfiniteScroll InfiniteScroller 6edda2f5 git+https://github.rbx.com/roblox/infinite-scroll#master",
-    "RoactFitComponents roact-fit-components ab1a2160 git+https://github.rbx.com/roblox/roact-box-components#master",
+    "InfiniteScroll roblox/infinite-scroller 0.3.3 registry+https://github.rbx.com/roblox/rotriever-index",
+    "RoactFitComponents roblox/roact-fit-components 1.0.0 registry+https://github.rbx.com/roblox/rotriever-index",
     "RoactNavigation roact-navigation 9887d065 git+https://github.rbx.com/roblox/roact-navigation#v0.1.1b",
     "RoduxNetworking rodux-networking cd528e25 git+https://github.rbx.com/roblox/rodux-networking#master",
+]
+
+[[package]]
+name = "LuaSocialLibrariesDeps"
+version = "0.1.1"
+source = "git+https://github.rbx.com/roblox/lua-social-libraries-deps#master"
+commit = "1f18f7aec11319b50f3b6120b427736cc5db83ae"
+dependencies = [
+    "GenericPagination roblox/genericpagination cf641eb5 git+https://github.rbx.com/roblox/genericpagination#master",
+    "RoactFitComponents roblox/roact-fit-components 1.0.0 registry+https://github.rbx.com/roblox/rotriever-index",
 ]
 
 [[package]]
@@ -84,10 +82,11 @@ dependencies = ["Roact <patched> roblox/roact 1.2.0 registry+https://github.rbx.
 name = "UIBlox"
 version = "0.1.0"
 source = "git+https://github.rbx.com/roblox/uiblox#master"
-commit = "9be9995ebc4f340ddaa6b828091f2e546acd09d0"
+commit = "89e8f944f860b75a3c14a5c01214fb800747474f"
 dependencies = [
     "Cryo roblox/cryo 1.0.0 registry+https://github.rbx.com/roblox/rotriever-index",
-    "InfiniteScroller roblox/infinite-scroller 0.3.2 registry+https://github.rbx.com/roblox/rotriever-index",
+    "FitFrame roblox/roact-fit-components 1.0.0 registry+https://github.rbx.com/roblox/rotriever-index",
+    "InfiniteScroller roblox/infinite-scroller 0.3.3 registry+https://github.rbx.com/roblox/rotriever-index",
     "Otter roblox/otter 0.0.1 registry+https://github.rbx.com/roblox/rotriever-index",
     "Roact roblox/roact 1.2.0 registry+https://github.rbx.com/roblox/rotriever-index",
     "enumerate roblox/enumerate 1.0.0 registry+https://github.rbx.com/roblox/rotriever-index",
@@ -120,16 +119,6 @@ version = "1.2.5"
 source = "registry+https://github.rbx.com/roblox/rotriever-index"
 
 [[package]]
-name = "roact-fit-components"
-version = "1.0.0"
-source = "git+https://github.rbx.com/roblox/roact-box-components#master"
-commit = "ab1a21607a71dd1d5841cc824152ba7ea03b60f5"
-dependencies = [
-    "Cryo <patched> roblox/cryo 1.0.0 registry+https://github.rbx.com/roblox/rotriever-index",
-    "Roact <patched> roblox/roact 1.2.0 registry+https://github.rbx.com/roblox/rotriever-index",
-]
-
-[[package]]
 name = "roact-navigation"
 version = "0.1.0"
 source = "git+https://github.rbx.com/roblox/roact-navigation#v0.1.1b"
@@ -151,8 +140,18 @@ version = "1.0.0"
 source = "registry+https://github.rbx.com/roblox/rotriever-index"
 
 [[package]]
+name = "roblox/genericpagination"
+version = "0.1.0"
+source = "git+https://github.rbx.com/roblox/genericpagination#master"
+commit = "cf641eb5d4fe466735f776cb812870358a61cd65"
+dependencies = [
+    "Promise lua-promise bbb9e162 git+https://github.rbx.com/roblox/lua-promise#master",
+    "t <patched> osyris/t 1.2.5 registry+https://github.rbx.com/roblox/rotriever-index",
+]
+
+[[package]]
 name = "roblox/infinite-scroller"
-version = "0.3.2"
+version = "0.3.3"
 source = "registry+https://github.rbx.com/roblox/rotriever-index"
 dependencies = [
     "Cryo roblox/cryo 1.0.0 registry+https://github.rbx.com/roblox/rotriever-index",
@@ -201,7 +200,7 @@ dependencies = [
 
 [[package]]
 name = "roblox/roact-navigation"
-version = "0.2.1"
+version = "0.2.3"
 source = "registry+https://github.rbx.com/roblox/rotriever-index"
 dependencies = [
     "Cryo roblox/cryo 1.0.0 registry+https://github.rbx.com/roblox/rotriever-index",

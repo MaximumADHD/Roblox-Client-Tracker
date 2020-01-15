@@ -49,6 +49,12 @@ function GraphicsQualityEntry:init()
 			automatic = newSavedQuality == Enum.SavedQualitySetting.Automatic,
 		})
 	end
+
+	if isAutomatic then
+		self:setAutomaticQualityLevel()
+	else
+		self:setManualQualityLevel(self.state.quality)
+	end
 end
 
 function GraphicsQualityEntry:setAutomaticQualityLevel()

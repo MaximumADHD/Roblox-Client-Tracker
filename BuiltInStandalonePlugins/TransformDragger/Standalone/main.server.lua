@@ -1,7 +1,4 @@
-if not settings():GetFFlag("StudioUseStandaloneTransformTool2") then
-	return
-end
-	
+
 local plugin, settings = plugin, settings
 
 local toolbar = plugin:CreateToolbar("Transform")

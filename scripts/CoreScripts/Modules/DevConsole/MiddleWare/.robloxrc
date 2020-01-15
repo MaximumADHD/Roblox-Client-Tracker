@@ -1,0 +1,10 @@
+{
+	"language": {
+		"mode": "nonstrict"
+	},
+	"lint": {
+		"LocalShadow": "fatal",
+		"LocalUnused": "fatal",
+		"ImplicitReturn": "fatal"
+	}
+}

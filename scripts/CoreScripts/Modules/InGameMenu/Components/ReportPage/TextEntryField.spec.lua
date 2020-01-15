@@ -39,6 +39,7 @@ return function()
 							print("textChanged")
 						end,
 						maxTextLength = 30,
+						autoFocusOnEnabled = false,
 
 						PlaceholderText = "Enter text here",
 						LayoutOrder = 2,
@@ -71,6 +72,7 @@ return function()
 							textChangedWasCalled = true
 						end,
 						maxTextLength = 200,
+						autoFocusOnEnabled = false,
 
 						PlaceholderText = "Enter text here",
 						LayoutOrder = 2,
@@ -109,6 +111,7 @@ return function()
 							textChangedTo = newText
 						end,
 						maxTextLength = 5,
+						autoFocusOnEnabled = false,
 
 						PlaceholderText = "Enter text here",
 						LayoutOrder = 2,

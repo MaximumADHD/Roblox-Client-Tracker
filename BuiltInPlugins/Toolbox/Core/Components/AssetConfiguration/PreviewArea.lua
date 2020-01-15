@@ -45,7 +45,7 @@ local getNetwork = ContextGetter.getNetwork
 
 local PreviewArea = Roact.PureComponent:extend("PreviewArea")
 
-local FFlagUseRBXThumbInToolbox = game:GetFastFlag("UseRBXThumbInToolbox") and settings():GetFFlag("EnableRbxThumbAPI")
+local FFlagUseRBXThumbInToolbox = game:GetFastFlag("UseRBXThumbInToolbox")
 
 local FFlagEnablePreviewTabSelection = settings():GetFFlag("EnablePreviewTabSelection")
 local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")

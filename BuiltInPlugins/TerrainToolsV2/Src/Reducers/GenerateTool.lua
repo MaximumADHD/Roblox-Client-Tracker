@@ -9,8 +9,6 @@ local Cryo = require(Plugin.Packages.Cryo)
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 local Biome = TerrainEnums.Biome
 
-local FFlagTerrainToolsRefactorTerrainGeneration = game:GetFastFlag("TerrainToolsRefactorTerrainGeneration")
-
 local GenerateTool = Rodux.createReducer({
 	position = {
 		X = 0,
@@ -24,7 +22,7 @@ local GenerateTool = Rodux.createReducer({
 		Z = 1024,
 	},
 
-	biomeSelection = FFlagTerrainToolsRefactorTerrainGeneration and {
+	biomeSelection = {
 		[Biome.Plains] = true,
 		[Biome.Mountains] = true,
 		[Biome.Hills] = true,
@@ -35,24 +33,13 @@ local GenerateTool = Rodux.createReducer({
 		[Biome.Marsh] = false,
 		[Biome.Canyons] = false,
 		[Biome.Lavascape] = false,
-	} or {
-		Water = false,
-		Plains = true,
-		Dunes = false,
-		Mountains = true,
-		Arctic = false,
-		Marsh = false,
-		Hills = true,
-		Canyons = false,
-		Lavascape = false,
 	},
 
 	biomeSize = 100,
 	haveCaves = true,
 
 	seed = "618033988",
-},
-{
+}, {
 	ChangePosition = function(state, action)
 		local position = action.position
 

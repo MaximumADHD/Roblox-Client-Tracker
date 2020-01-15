@@ -50,9 +50,9 @@ struct LightShadowGPUTransform
 
 uniform vec4 CB0[47];
 uniform vec4 CB8[24];
+uniform sampler2D ShadowAtlasTexture;
 uniform sampler3D LightMapTexture;
 uniform sampler3D LightGridSkylightTexture;
-uniform sampler2D ShadowAtlasTexture;
 
 in vec4 VARYING0;
 in vec3 VARYING1;
@@ -93,6 +93,6 @@ void main()
     _entryPointOutput = vec4(mix(CB0[14].xyz, sqrt(clamp((((min((f3.xyz * (f3.w * 120.0)).xyz + (CB0[8].xyz + (CB0[9].xyz * f4.x)), vec3(CB0[16].w)) + (VARYING2 * f24)) * VARYING4) + ((((VARYING4 * clamp(VARYING3.z * pow(VARYING3.x, 3.0), 0.0, 1.0)) + vec3(pow(clamp(VARYING3.y, 0.0, 1.0), 12.0) * VARYING3.w)) * f24) * CB0[10].xyz)) * CB0[15].y, vec3(0.0), vec3(1.0))), vec3(clamp(VARYING0.w, 0.0, 1.0))), 1.0);
 }
 
+//$$ShadowAtlasTexture=s1
 //$$LightMapTexture=s6
 //$$LightGridSkylightTexture=s7
-//$$ShadowAtlasTexture=s1

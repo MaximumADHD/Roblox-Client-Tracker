@@ -54,7 +54,7 @@ varying vec2 VARYING0;
 varying vec4 VARYING1;
 varying vec3 VARYING2;
 varying vec3 VARYING3;
-varying vec3 VARYING4;
+varying vec4 VARYING4;
 varying vec3 VARYING5;
 
 void main()

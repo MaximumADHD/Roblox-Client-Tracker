@@ -16479,6 +16479,238 @@
         {
             "Members": [
                 {
+                    "Category": "Video",
+                    "MemberType": "Property",
+                    "Name": "IsLoaded",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Video",
+                    "MemberType": "Property",
+                    "Name": "Looped",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Video",
+                    "MemberType": "Property",
+                    "Name": "Playing",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Video",
+                    "MemberType": "Property",
+                    "Name": "TimeLength",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "double"
+                    }
+                },
+                {
+                    "Category": "Video",
+                    "MemberType": "Property",
+                    "Name": "TimePosition",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "double"
+                    }
+                },
+                {
+                    "Category": "Video",
+                    "MemberType": "Property",
+                    "Name": "Video",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Content"
+                    }
+                },
+                {
+                    "Category": "Video",
+                    "MemberType": "Property",
+                    "Name": "Volume",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "Pause",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "None"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "Play",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "None"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "DidLoop",
+                    "Parameters": [
+                        {
+                            "Name": "video",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "Security": "None"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "Ended",
+                    "Parameters": [
+                        {
+                            "Name": "video",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "Security": "None"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "Loaded",
+                    "Parameters": [
+                        {
+                            "Name": "video",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "Security": "None"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "Paused",
+                    "Parameters": [
+                        {
+                            "Name": "video",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "Security": "None"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "Played",
+                    "Parameters": [
+                        {
+                            "Name": "video",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "Security": "None"
+                }
+            ],
+            "MemoryCategory": "Gui",
+            "Name": "VideoFrame",
+            "Superclass": "GuiObject"
+        },
+        {
+            "Members": [
+                {
                     "Category": "Appearance",
                     "MemberType": "Property",
                     "Name": "Ambient",
@@ -19998,14 +20230,6 @@
                                 "Category": "Enum",
                                 "Name": "HttpRequestType"
                             }
-                        },
-                        {
-                            "Default": "false",
-                            "Name": "doNotAllowDiabolicalMode",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "bool"
-                            }
                         }
                     ],
                     "ReturnType": {
@@ -20042,14 +20266,6 @@
                             "Type": {
                                 "Category": "Enum",
                                 "Name": "HttpRequestType"
-                            }
-                        },
-                        {
-                            "Default": "false",
-                            "Name": "doNotAllowDiabolicalMode",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "bool"
                             }
                         }
                     ],
@@ -20103,14 +20319,6 @@
                                 "Category": "Enum",
                                 "Name": "HttpRequestType"
                             }
-                        },
-                        {
-                            "Default": "false",
-                            "Name": "doNotAllowDiabolicalMode",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "bool"
-                            }
                         }
                     ],
                     "ReturnType": {
@@ -20163,14 +20371,6 @@
                                 "Category": "Enum",
                                 "Name": "HttpRequestType"
                             }
-                        },
-                        {
-                            "Default": "false",
-                            "Name": "doNotAllowDiabolicalMode",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "bool"
-                            }
                         }
                     ],
                     "ReturnType": {
@@ -20215,14 +20415,6 @@
                             "Type": {
                                 "Category": "Enum",
                                 "Name": "HttpRequestType"
-                            }
-                        },
-                        {
-                            "Default": "false",
-                            "Name": "doNotAllowDiabolicalMode",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "bool"
                             }
                         }
                     ],
@@ -29772,27 +29964,6 @@
                 {
                     "Category": "Behavior",
                     "MemberType": "Property",
-                    "Name": "IsLuaHomeWithAvatarEnabled",
-                    "Security": {
-                        "Read": "RobloxScriptSecurity",
-                        "Write": "RobloxScriptSecurity"
-                    },
-                    "Serialization": {
-                        "CanLoad": false,
-                        "CanSave": false
-                    },
-                    "Tags": [
-                        "ReadOnly",
-                        "NotReplicated"
-                    ],
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    }
-                },
-                {
-                    "Category": "Behavior",
-                    "MemberType": "Property",
                     "Name": "SelectedTheme",
                     "Security": {
                         "Read": "RobloxScriptSecurity",
@@ -35326,18 +35497,6 @@
         },
         {
             "Members": [
-            ],
-            "MemoryCategory": "Instances",
-            "Name": "PhysicsPacketCache",
-            "Superclass": "Instance",
-            "Tags": [
-                "NotCreatable",
-                "Service",
-                "NotReplicated"
-            ]
-        },
-        {
-            "Members": [
                 {
                     "MemberType": "Function",
                     "Name": "CollisionGroupContainsPart",
@@ -35861,6 +36020,23 @@
                     "Category": "Display",
                     "MemberType": "Property",
                     "Name": "AreRegionsShown",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Display",
+                    "MemberType": "Property",
+                    "Name": "AreTerrainReplicationRegionsShown",
                     "Security": {
                         "Read": "None",
                         "Write": "None"
@@ -44771,14 +44947,6 @@
                                 "Category": "Enum",
                                 "Name": "HttpRequestType"
                             }
-                        },
-                        {
-                            "Default": "false",
-                            "Name": "doNotAllowDiabolicalMode",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "bool"
-                            }
                         }
                     ],
                     "ReturnType": {
@@ -44822,14 +44990,6 @@
                             "Type": {
                                 "Category": "Enum",
                                 "Name": "HttpRequestType"
-                            }
-                        },
-                        {
-                            "Default": "false",
-                            "Name": "doNotAllowDiabolicalMode",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "bool"
                             }
                         }
                     ],
@@ -59046,6 +59206,10 @@
                 {
                     "Name": "Orbital",
                     "Value": 3
+                },
+                {
+                    "Name": "CameraToggle",
+                    "Value": 4
                 }
             ],
             "Name": "ComputerCameraMovementMode"
@@ -59484,6 +59648,10 @@
                 {
                     "Name": "Orbital",
                     "Value": 3
+                },
+                {
+                    "Name": "CameraToggle",
+                    "Value": 4
                 }
             ],
             "Name": "DevComputerCameraMovementMode"

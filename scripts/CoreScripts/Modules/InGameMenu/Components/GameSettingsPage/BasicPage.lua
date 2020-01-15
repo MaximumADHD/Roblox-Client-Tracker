@@ -157,6 +157,7 @@ function BasicPage:render()
 					})
 				end),
 				Icon = Roact.createElement(ImageSetLabel, {
+					BackgroundTransparency = 1,
 					Image = Assets.Images.NavigateForward,
 					Size = UDim2.new(0, 36, 0, 36),
 					Position = UDim2.new(1, -36, 0.5, 0),

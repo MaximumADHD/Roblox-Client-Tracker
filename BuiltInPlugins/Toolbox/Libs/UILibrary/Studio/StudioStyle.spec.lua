@@ -1,7 +1,7 @@
 local StudioStyle = require(script.Parent.StudioStyle)
 
 local Library = script.Parent.Parent
-local Style = require(Library.Style)
+local Style = require(Library.StyleDefaults)
 local StudioTheme = require(Library.Studio.StudioTheme)
 
 return function()

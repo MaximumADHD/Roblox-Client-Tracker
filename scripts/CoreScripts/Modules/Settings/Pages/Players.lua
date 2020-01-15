@@ -57,11 +57,11 @@ if FlagSettings.IsInspectAndBuyEnabled() then
 end
 
 ------------ FAST FLAGS -------------------
-local FFlagEnableInviteGameInStudio = settings():GetFFlag("EnableInviteGameInStudio")
 local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
 local FFlagUseNotificationsLocalization = success and result
 local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp") --todo: remove with FFlagUsePolicyServiceForCoreScripts
 local FFlagFixInspectMenuAnalytics = settings():GetFFlag("FixInspectMenuAnalytics")
+local FFlagUpdateSettingsHubGameText = require(RobloxGui.Modules.Flags.FFlagUpdateSettingsHubGameText)
 
 ----------- CLASS DECLARATION --------------
 local function Initialize()
@@ -305,7 +305,13 @@ local function Initialize()
 	local leaveGameFunc = function()
 		this.HubRef:SwitchToPage(this.HubRef.LeaveGamePage, false, 1)
 	end
-	local leaveButton, leaveLabel = utility:MakeStyledButton("LeaveButton", "Leave Game", UDim2.new(1 / 3, -5, 1, 0), leaveGameFunc)
+
+	local leaveGameText = "Leave Game"
+	if FFlagUpdateSettingsHubGameText then
+		leaveGameText = RobloxTranslator:FormatByKey("InGame.HelpMenu.Leave")
+	end
+
+	local leaveButton, leaveLabel = utility:MakeStyledButton("LeaveButton", leaveGameText, UDim2.new(1 / 3, -5, 1, 0), leaveGameFunc)
 	leaveButton.AnchorPoint = Vector2.new(0, 0)
 	leaveButton.Position = UDim2.new(0, 0, 0, 0)
 	leaveLabel.Size = UDim2.new(1, 0, 1, -6)
@@ -323,7 +329,13 @@ local function Initialize()
 	local resumeGameFunc = function()
 		this.HubRef:SetVisibility(false)
 	end
-	local resumeButton, resumeLabel = utility:MakeStyledButton("ResumeButton", "Resume Game", UDim2.new(1 / 3, -5, 1, 0), resumeGameFunc)
+
+	local resumeGameText = "Resume Game"
+	if FFlagUpdateSettingsHubGameText then
+		resumeGameText = RobloxTranslator:FormatByKey("InGame.HelpMenu.Resume")
+	end
+
+	local resumeButton, resumeLabel = utility:MakeStyledButton("ResumeButton", resumeGameText, UDim2.new(1 / 3, -5, 1, 0), resumeGameFunc)
 	resumeButton.AnchorPoint = Vector2.new(1, 0)
 	resumeButton.Position = UDim2.new(1, 0, 0, 0)
 	resumeLabel.Size = UDim2.new(1, 0, 1, -6)
@@ -615,7 +627,7 @@ local function Initialize()
 
 		-- Create "invite friends" button if it doesn't exist yet
 		-- We shouldn't create this button if we're not in a live game
-		local isStudio = (not RunService:IsStudio()) or FFlagEnableInviteGameInStudio
+		local isStudio = (not RunService:IsStudio())
 		if canShareCurrentGame() and not shareGameButton and isStudio then
 			local inviteToGameAnalytics = InviteToGameAnalytics.new()
 				:withEventStream(EventStream.new())

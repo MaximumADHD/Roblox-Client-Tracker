@@ -25,13 +25,6 @@ local Keyboard = require(script:WaitForChild("Keyboard"))
 local Gamepad = require(script:WaitForChild("Gamepad"))
 local DynamicThumbstick = require(script:WaitForChild("DynamicThumbstick"))
 
-local FFlagUserTheMovementModeInquisition do
-	local success, value = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserTheMovementModeInquisition")
-	end)
-	FFlagUserTheMovementModeInquisition = success and value
-end
-
 local FFlagUserMakeThumbstickDynamic do
 	local success, value = pcall(function()
 		return UserSettings():IsUserFeatureEnabled("UserMakeThumbstickDynamic")
@@ -39,15 +32,6 @@ local FFlagUserMakeThumbstickDynamic do
 	FFlagUserMakeThumbstickDynamic = success and value
 end
 
-local FFlagUserSiblingTouchGui do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserSiblingTouchGui")
-	end)
-	FFlagUserSiblingTouchGui = success and result
-end
-
-local TouchDPad = FFlagUserTheMovementModeInquisition and DynamicThumbstick or require(script:WaitForChild("TouchDPad"))
-local TouchThumbpad = FFlagUserTheMovementModeInquisition and DynamicThumbstick or require(script:WaitForChild("TouchThumbpad"))
 local TouchThumbstick = FFlagUserMakeThumbstickDynamic and DynamicThumbstick or require(script:WaitForChild("TouchThumbstick"))
 
 -- These controllers handle only walk/run movement, jumping is handled by the
@@ -61,12 +45,12 @@ local CONTROL_ACTION_PRIORITY = Enum.ContextActionPriority.Default.Value
 
 -- Mapping from movement mode and lastInputType enum values to control modules to avoid huge if elseif switching
 local movementEnumToModuleMap = {
-	[Enum.TouchMovementMode.DPad] = TouchDPad, -- Map to DT
-	[Enum.DevTouchMovementMode.DPad] = TouchDPad, -- Map to DT
-	[Enum.TouchMovementMode.Thumbpad] = TouchThumbpad, -- Map to DT
-	[Enum.DevTouchMovementMode.Thumbpad] = TouchThumbpad, -- Map to DT
-	[Enum.TouchMovementMode.Thumbstick] = TouchThumbstick, -- Map to DT
-	[Enum.DevTouchMovementMode.Thumbstick] = TouchThumbstick, -- Map to DT
+	[Enum.TouchMovementMode.DPad] = DynamicThumbstick,
+	[Enum.DevTouchMovementMode.DPad] = DynamicThumbstick,
+	[Enum.TouchMovementMode.Thumbpad] = DynamicThumbstick,
+	[Enum.DevTouchMovementMode.Thumbpad] = DynamicThumbstick,
+	[Enum.TouchMovementMode.Thumbstick] = TouchThumbstick,
+	[Enum.DevTouchMovementMode.Thumbstick] = TouchThumbstick,
 	[Enum.TouchMovementMode.DynamicThumbstick] = DynamicThumbstick,
 	[Enum.DevTouchMovementMode.DynamicThumbstick] = DynamicThumbstick,
 	[Enum.TouchMovementMode.ClickToMove] = ClickToMove,
@@ -413,9 +397,8 @@ function ControlModule:SwitchToController(controlModule)
 			self.activeController = self.controllers[controlModule]
 			self.activeControlModule = controlModule -- Only used to check if controller switch is necessary
 
-			if self.touchControlFrame and (self.activeControlModule == TouchThumbpad
+			if self.touchControlFrame and (self.activeControlModule == ClickToMove
 						or self.activeControlModule == TouchThumbstick
-						or self.activeControlModule == ClickToMove
 						or self.activeControlModule == DynamicThumbstick) then
 				if not self.controllers[TouchJump] then
 					self.controllers[TouchJump] = TouchJump.new()
@@ -482,9 +465,7 @@ function ControlModule:CreateTouchGuiContainer()
 	self.touchGui = Instance.new("ScreenGui")
 	self.touchGui.Name = "TouchGui"
 	self.touchGui.ResetOnSpawn = false
-	if FFlagUserSiblingTouchGui then
-		self.touchGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-	end
+	self.touchGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 	self.touchGui.Enabled = self.humanoid ~= nil
 
 	self.touchControlFrame = Instance.new("Frame")

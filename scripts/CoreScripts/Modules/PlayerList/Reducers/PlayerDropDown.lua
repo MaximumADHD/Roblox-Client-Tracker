@@ -23,6 +23,7 @@ local PlayerDropDown = Rodux.createReducer(defaultState, {
 				selectedPlayer = state.selectedPlayer,
 			}
 		end
+		return state
 	end,
 
 	[OpenPlayerDropDown.name] = function(state, action)

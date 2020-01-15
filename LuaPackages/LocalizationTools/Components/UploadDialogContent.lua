@@ -1,12 +1,8 @@
 local Roact = require(game:GetService("CorePackages").Roact)
 local Theming = require(script.Parent.Parent.Theming)
-local SupportedLocales = require(script.Parent.Parent.SupportedLocales)
 local NumTranslationsLine = require(script.Parent.NumTranslationsLine)
 
 local UploadDialogContent = Roact.PureComponent:extend("UploadDialogContent")
-
-local UnofficialLanguageSupportEnabled = settings():GetFFlag("UnofficialLanguageSupportEnabled")
-local RecordAddOrRemoveEntries = settings():GetFFlag("RecordAddOrRemoveEntries")
 
 local function Line(props)
 	return Roact.createElement("TextLabel", {
@@ -64,22 +60,19 @@ function UploadDialogContent:render()
 			PromptText = "Upload patch?"
 		end
 
-		local AddEntriesLine
-		if RecordAddOrRemoveEntries then
-			AddEntriesLine = Roact.createElement(NumTranslationsLine, {
-				PreText = "Add entries: ",
-				NumTranslations = self.props.PatchInfo.numAddedEntries,
-				EnabledColor = theme.BrightText,
-				DisabledColor = theme.DimmedText,
-				LayoutOrder = 1,
-				Checked = self.state.AddEntriesLineEnabled,
-				OnClicked = function()
-					self:setState({
-						AddLineEnabled = not self.state.AddEntriesLineEnabled,
-					})
-				end
-			})
-		end
+		local AddEntriesLine = Roact.createElement(NumTranslationsLine, {
+			PreText = "Add entries: ",
+			NumTranslations = self.props.PatchInfo.numAddedEntries,
+			EnabledColor = theme.BrightText,
+			DisabledColor = theme.DimmedText,
+			LayoutOrder = 1,
+			Checked = self.state.AddEntriesLineEnabled,
+			OnClicked = function()
+				self:setState({
+					AddLineEnabled = not self.state.AddEntriesLineEnabled,
+				})
+			end
+		})
 
 		local AddLine = Roact.createElement(NumTranslationsLine, {
 			PreText = "Add translations: ",
@@ -110,7 +103,7 @@ function UploadDialogContent:render()
 		})
 
 		local DeleteEntriesLine
-		if RecordAddOrRemoveEntries and self.props.PatchInfo.includeDeletes then
+		if self.props.PatchInfo.includeDeletes then
 			DeleteEntriesLine = Roact.createElement(NumTranslationsLine, {
 				PreText = "Delete entries: ",
 				NumTranslations = self.props.PatchInfo.numRemovedEntries,
@@ -144,8 +137,7 @@ function UploadDialogContent:render()
 		end
 
 		local AddLanguagesLine
-		if UnofficialLanguageSupportEnabled and 
-			self.props.PatchInfo.newLanguages ~= nil and 
+		if self.props.PatchInfo.newLanguages ~= nil and 
 			self.props.PatchInfo.newLanguages ~= "" then
 			AddLanguagesLine = Roact.createElement(Line, {
 				Text = "Add languages: " .. self.props.PatchInfo.newLanguages,

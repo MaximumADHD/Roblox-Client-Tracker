@@ -395,7 +395,14 @@ Rectangle {
 			anchors.bottom: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamlining_InsertMenuTuning() ? seeAllSection.top : parent.bottom
             Text {
                 anchors.fill: parent
-			    text: qsTr("Studio.App.InsertObjectWidget.EmptyFrequentlyUsedList")
+			    text:{
+                    if(insertObjectWindow.getFFlagStudioInsertObjectStreamlining_InsertWidget()){
+                        searchBoxText.text.length == 0 ? qsTr("Studio.App.InsertObjectWidget.EmptyFrequentlyUsedList") : qsTr("Studio.App.InsertObjectWidget.NoResultsFound")
+                    }
+                    else{
+                        qsTr("Studio.App.InsertObjectWidget.EmptyFrequentlyUsedList")
+                    }
+                }
                 wrapMode: Text.WordWrap
 			    color: userPreferences.theme.style("CommonStyle dimmedText")
                 visible: insertObjectWindow.getFFlagStudioInsertObjectStreamlining_InsertWidget() && listView.count == 0 && isWindow

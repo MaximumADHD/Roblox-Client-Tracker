@@ -14,20 +14,203 @@ local Theme = require(Plugin.Src.ContextServices.Theming)
 local withTheme = Theme.withTheme
 
 local TexturePath = "rbxasset://textures/TerrainTools/"
-local ToggleOn = TexturePath .. "import_toggleOn.png"
-local ToggleOff = TexturePath .. "import_toggleOff.png"
 
 local ToolParts = script.Parent
 local Panel = require(ToolParts.Panel)
 local LabeledElementPair = require(ToolParts.LabeledElementPair)
+local LabeledToggle = require(ToolParts.LabeledToggle)
 
-local FRAME_BORDER_COLOR1 = Color3.new(227/255, 227/255, 227/255)
+local FFlagTerrainToolsRefactor = game:GetFastFlag("TerrainToolsRefactor")
 
-local FFlagTerrainToolsHoldAltToSelectMaterial = game:GetFastFlag("TerrainToolsHoldAltToSelectMaterial")
-local TerrainInterface = FFlagTerrainToolsHoldAltToSelectMaterial and require(Plugin.Src.ContextServices.TerrainInterface)
+local TerrainInterface = require(Plugin.Src.ContextServices.TerrainInterface)
+
+local MaterialDetails = require(Plugin.Src.Util.MaterialDetails)
 
 local MaterialSettings = Roact.PureComponent:extend(script.Name)
 
+if FFlagTerrainToolsRefactor then
+local materialsOrder = {
+	Enum.Material.Grass,      Enum.Material.Sand,        Enum.Material.Rock,      Enum.Material.Water,
+	Enum.Material.Ground,     Enum.Material.Sandstone,   Enum.Material.Slate,     Enum.Material.Snow,
+	Enum.Material.Mud,        Enum.Material.Brick,       Enum.Material.Concrete,  Enum.Material.Glacier,
+	Enum.Material.WoodPlanks, Enum.Material.CrackedLava, Enum.Material.Basalt,    Enum.Material.Ice,
+	Enum.Material.Salt,       Enum.Material.Cobblestone, Enum.Material.Limestone, Enum.Material.Asphalt,
+	Enum.Material.LeafyGrass, Enum.Material.Pavement,
+}
+
+local MaterialButton = Roact.PureComponent:extend("MaterialButton")
+
+function MaterialButton:init(props)
+	self.onMouseEnter = function()
+		self.props.OnMouseEnter(self.props.Material)
+	end
+
+	self.onMouseLeave = function()
+		self.props.OnMouseLeave(self.props.Material)
+	end
+
+	self.selectMaterial = function()
+		self.props.SelectMaterial(self.props.Material)
+	end
+end
+
+function MaterialButton:render()
+	return withLocalization(function(localization)
+		return withTheme(function(theme)
+			local props = self.props
+			local layoutOrder = props.LayoutOrder
+			local material = props.Material
+
+			local isSelected = props.IsSelected
+			local isHovered = props.IsHovered
+
+			local image = MaterialDetails[material].image
+
+			local materialName
+			local tooltipSize
+			if isHovered then
+				materialName = localization:getText("Materials", material.Name)
+				tooltipSize = TextService:GetTextSize(materialName, theme.textSize, 0, Vector2.new())
+			end
+
+			return Roact.createElement("ImageButton", {
+				LayoutOrder = layoutOrder,
+				Image = TexturePath .. image,
+				BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+				BorderSizePixel = isSelected and 2 or 0,
+				BorderColor3 = isSelected and theme.selectionBorderColor or theme.borderColor,
+
+				[Roact.Event.MouseEnter] = self.onMouseEnter,
+				[Roact.Event.MouseLeave] = self.onMouseLeave,
+				[Roact.Event.Activated] = self.selectMaterial,
+			}, {
+				Tooltip = isHovered and Roact.createElement("TextLabel", {
+					BackgroundTransparency = 0,
+					BackgroundColor3 = theme.backgroundColor,
+					Size = UDim2.new(0, tooltipSize.x + theme.padding * 2, 0, theme.textSize * 1.5),
+					AnchorPoint = Vector2.new(0.5, 0),
+					Position = UDim2.new(0.5, 0, 0, -theme.textSize),
+
+					Text = materialName,
+					TextSize = theme.textSize,
+					TextColor3 = theme.textColor,
+					Font = theme.textFont,
+					ZIndex = 5
+				})
+			})
+		end)
+	end)
+end
+
+function MaterialSettings:init(props)
+	self.terrainBrush = TerrainInterface.getTerrainBrush(self)
+	assert(self.terrainBrush, "MaterialSettings requires a TerrainBrush from context")
+
+	self.state = {
+		hoverMaterial = nil
+	}
+
+	self.onMouseEnterMaterial = function(material)
+		self:setState({
+			hoverMaterial = material
+		})
+	end
+
+	self.onMouseLeaveMaterial = function(material)
+		self:setState({
+			hoverMaterial = Roact.None,
+		})
+	end
+
+	self.selectMaterial = function(material)
+		self.props.setMaterial(material)
+	end
+
+	self.materialSelectedConnection = self.terrainBrush:subscribeToMaterialSelectRequested(self.selectMaterial)
+end
+
+function MaterialSettings:willUnmount()
+	if self.materialSelectedConnection then
+		self.materialSelectedConnection:disconnect()
+		self.materialSelectedConnection = nil
+	end
+end
+
+function MaterialSettings:render()
+	return withLocalization(function(localization)
+		return withTheme(function(theme)
+			local layoutOrder = self.props.LayoutOrder
+			local autoMaterial = self.props.autoMaterial
+			local material = self.props.material
+
+			local materialsTable = {
+				UIGridLayout = Roact.createElement("UIGridLayout", {
+					CellSize = UDim2.new(0, 32, 0, 32),
+					CellPadding = UDim2.new(0, 9, 0, 9),
+					HorizontalAlignment = Enum.HorizontalAlignment.Center,
+				}),
+
+				LayoutPadding = Roact.createElement("UIPadding", {
+					PaddingTop = UDim.new(0, 9),
+					PaddingBottom = UDim.new(0, 9),
+					PaddingLeft = UDim.new(0, 9),
+					PaddingRight = UDim.new(0, 9),
+				}),
+			}
+
+			for index, materialEnum in ipairs(materialsOrder) do
+				materialsTable[materialEnum.Name] = Roact.createElement(MaterialButton, {
+					LayoutOrder = index,
+					Material = materialEnum,
+					IsHovered = materialEnum == self.state.hoverMaterial,
+					IsSelected = material == materialEnum,
+
+					OnMouseEnter = self.onMouseEnterMaterial,
+					OnMouseLeave = self.onMouseLeaveMaterial,
+					SelectMaterial = self.selectMaterial,
+				})
+			end
+
+			return Roact.createElement(Panel, {
+				Title = localization:getText("MaterialSettings", "MaterialSettings"),
+				Padding = UDim.new(0, 10),
+				LayoutOrder = layoutOrder,
+			}, {
+				AutoMaterial = autoMaterial ~= nil and Roact.createElement(LabeledToggle, {
+					LayoutOrder = 1,
+					Text = localization:getText("MaterialSettings", "AutoMaterial"),
+					IsOn = autoMaterial,
+					SetIsOn = self.props.setAutoMaterial,
+				}),
+
+				MaterialSelect = Roact.createElement("Frame", {
+					LayoutOrder = 2,
+					Size = UDim2.new(0, 230, 0, 235),
+					Position = UDim2.new(0, 20, 0, 0),
+					BackgroundTransparency = 1,
+				}, {
+					Label = Roact.createElement("TextLabel", {
+						Text = localization:getText("MaterialSettings", "ChooseMaterial"),
+						TextColor3 = theme.textColor,
+						Size = UDim2.new(1, 0, 0, 16),
+						TextXAlignment = Enum.TextXAlignment.Left,
+						Position = UDim2.new(0, 20, 0, 0),
+						BackgroundTransparency = 1,
+					}),
+
+					Container = Roact.createElement("Frame", {
+						BackgroundColor3 = theme.backgroundColor,
+						Size = UDim2.new(0, 230, 0, 214),
+						Position = UDim2.new(0, 20, 0, 20),
+						BorderColor3 = theme.borderColor,
+					}, materialsTable)
+				})
+			})
+		end)
+	end)
+end
+
+else
 local materialsList = {	--Interface order is defined by order here
 	{
 		enum = Enum.Material.Grass,
@@ -124,10 +307,8 @@ local materialsList = {	--Interface order is defined by order here
 }
 
 function MaterialSettings:init()
-	if FFlagTerrainToolsHoldAltToSelectMaterial then
-		self.terrainBrush = TerrainInterface.getTerrainBrush(self)
-		assert(self.terrainBrush, "MaterialSettings requires a TerrainBrush from context")
-	end
+	self.terrainBrush = TerrainInterface.getTerrainBrush(self)
+	assert(self.terrainBrush, "MaterialSettings requires a TerrainBrush from context")
 
 	self.state = {
 		hoverKey = nil
@@ -139,28 +320,23 @@ function MaterialSettings:init()
 		})
 	end
 
-	if FFlagTerrainToolsHoldAltToSelectMaterial then
-		self.selectMaterial = function(materialEnum)
-			self.props.setText(materialEnum, "Material")
-		end
-
-		self.materialSelectedConnection = self.terrainBrush:subscribeToMaterialSelectRequested(self.selectMaterial)
+	self.selectMaterial = function(materialEnum)
+		self.props.setText(materialEnum, "Material")
 	end
+
+	self.materialSelectedConnection = self.terrainBrush:subscribeToMaterialSelectRequested(self.selectMaterial)
 end
 
-if FFlagTerrainToolsHoldAltToSelectMaterial then
-	function MaterialSettings:willUnmount()
-		if self.materialSelectedConnection then
-			self.materialSelectedConnection:disconnect()
-			self.materialSelectedConnection = nil
-		end
+function MaterialSettings:willUnmount()
+	if self.materialSelectedConnection then
+		self.materialSelectedConnection:disconnect()
+		self.materialSelectedConnection = nil
 	end
 end
 
 function MaterialSettings:render()
 	return withTheme(function(theme)
 		return withLocalization(function(localization)
-			local currentTool = self.props.currentTool -- if nil all components are shown
 			local autoMaterial = self.props.autoMaterial
 			local material = self.props.material
 			local layoutOrder = self.props.LayoutOrder
@@ -171,10 +347,10 @@ function MaterialSettings:render()
 
 			local materialsTable = {
 				Padding = Roact.createElement("UIPadding", {
-		        	PaddingRight = UDim.new(0, 5),
-		            PaddingLeft = UDim.new(0, 5),
-		            PaddingTop = UDim.new(0, 5),
-		            PaddingBottom = UDim.new(0, 5),
+					PaddingRight = UDim.new(0, 5),
+					PaddingLeft = UDim.new(0, 5),
+					PaddingTop = UDim.new(0, 5),
+					PaddingBottom = UDim.new(0, 5),
 				}),
 				Roact.createElement("UIGridLayout", {
 					CellSize = UDim2.new(0, 32, 0, 32),
@@ -201,13 +377,9 @@ function MaterialSettings:render()
 					Roact.createElement("ImageButton", {
 						Image = TexturePath .. v.image,
 						[Roact.Event.Activated] = function()
-							if FFlagTerrainToolsHoldAltToSelectMaterial then
-								self.selectMaterial(v.enum)
-							else
-								self.props.setText(v.enum, "Material")
-							end
+							self.selectMaterial(v.enum)
 						end,
-						BackgroundColor3 = Color3.new(1, 1, 1),
+						BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 						BorderSizePixel = (material == v.enum) and 2 or 0,
 						BorderColor3 = (material == v.enum) and theme.selectionBorderColor or theme.borderColor,
 
@@ -280,6 +452,7 @@ function MaterialSettings:render()
 			})
 		end)
 	end)
+end
 end
 
 return MaterialSettings

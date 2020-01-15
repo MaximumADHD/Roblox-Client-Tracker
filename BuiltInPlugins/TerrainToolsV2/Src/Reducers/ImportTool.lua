@@ -15,11 +15,8 @@ local ImportTool = Rodux.createReducer({
 		Z = 1024,
 	},
 
-	heightMapAssetId = "",
-	colorMapAssetId = "",
-	useColorMap = ""
-},
-{
+	useColorMap = false,
+}, {
 	ChangePosition = function(state, action)
 		local position = action.position
 

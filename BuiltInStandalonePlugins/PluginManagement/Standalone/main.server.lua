@@ -1,17 +1,20 @@
 local FFlagStudioPluginInstallationInLua = settings():GetFFlag("StudioPluginInstallationInLua")
 local FFlagStudioEnablePluginManagementPlugin = settings():GetFFlag("StudioEnablePluginManagementPlugin")
+local FFlagPluginManagementAllowLotsOfPlugins = settings():GetFFlag("PluginManagementAllowLotsOfPlugins")
 
 if not FFlagStudioEnablePluginManagementPlugin and not FFlagStudioPluginInstallationInLua then
 	return
 end
 
-
 local StudioService = game:GetService("StudioService")
+local MarketplaceService = game:GetService("MarketplaceService")
+
 local Plugin = script.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local getPluginGlobals = require(Plugin.Src.Util.getPluginGlobals)
 local showDialog = require(Plugin.Src.Util.showDialog)
 local InstallPluginFromWeb = require(Plugin.Src.Thunks.InstallPluginFromWeb)
+local RefreshPlugins = require(Plugin.Src.Thunks.RefreshPlugins)
 local ManagementApp = require(Plugin.Src.Components.ManagementApp)
 
 -- initialize all globals
@@ -49,6 +52,11 @@ local function main()
 			if mgmtHandle then
 				Roact.unmount(mgmtHandle)
 			end
+		end
+
+		-- start preloading data
+		if FFlagPluginManagementAllowLotsOfPlugins then
+			globals.store:dispatch(RefreshPlugins(globals.api, MarketplaceService))
 		end
 
 		local mgmtWindow = Roact.createElement(ManagementApp, {

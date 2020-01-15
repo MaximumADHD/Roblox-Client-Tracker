@@ -24,16 +24,6 @@ local VRCamera = require(RootCamera:WaitForChild("VRCamera"))()
 
 local GameSettings = UserSettings().GameSettings
 
-local AllCamerasInLua = false
-local success, msg = pcall(function()
-	AllCamerasInLua = UserSettings():IsUserFeatureEnabled("UserAllCamerasInLua")
-end)
-if not success then
-	print("Couldn't get feature UserAllCamerasInLua because:" , msg) 
-end
-
-local isOrbitalCameraEnabled = pcall(function() local test = Enum.CameraType.Orbital end)
-
 -- register what camera scripts we are using
 do
 	local PlayerScripts = PlayersService.LocalPlayer:WaitForChild("PlayerScripts")
@@ -57,11 +47,8 @@ local CameraTypeEnumMap =
 	[Enum.CameraType.Track] = TrackCamera;
 	[Enum.CameraType.Watch] = WatchCamera;
 	[Enum.CameraType.Follow] = FollowCamera;
+	[Enum.CameraType.Orbital] = OrbitalCamera;
 }
-
-if isOrbitalCameraEnabled then
-	CameraTypeEnumMap[Enum.CameraType.Orbital] = OrbitalCamera;
-end
 
 local EnabledCamera = nil
 local EnabledOcclusion = nil
@@ -77,26 +64,9 @@ local function IsTouch()
 	return UserInputService.TouchEnabled
 end
 
-local function shouldUsePlayerScriptsCamera()
-	local player = PlayersService.LocalPlayer
-	local currentCamera = workspace.CurrentCamera
-	if AllCamerasInLua then
-		return true
-	else
-		if player then
-			if currentCamera == nil or (currentCamera.CameraType == Enum.CameraType.Custom)
-						or (isOrbitalCameraEnabled and currentCamera.CameraType == Enum.CameraType.Orbital) then
-				return true
-			end
-		end
-	end
-	return false
-end
-
 local function isClickToMoveOn()
-	local usePlayerScripts = shouldUsePlayerScriptsCamera()
 	local player = PlayersService.LocalPlayer
-	if usePlayerScripts and player then
+	if player then
 		if (hasLastInput and lastInputType == Enum.UserInputType.Touch) or IsTouch() then -- Touch
 			if player.DevTouchMovementMode == Enum.DevTouchMovementMode.ClickToMove or
 					(player.DevTouchMovementMode == Enum.DevTouchMovementMode.UserChoice and GameSettings.TouchMovementMode == Enum.TouchMovementMode.ClickToMove) then
@@ -113,9 +83,8 @@ local function isClickToMoveOn()
 end
 
 local function getCurrentCameraMode()
-	local usePlayerScripts = shouldUsePlayerScriptsCamera()
 	local player = PlayersService.LocalPlayer
-	if usePlayerScripts and player then
+	if player then
 		if (hasLastInput and lastInputType == Enum.UserInputType.Touch) or IsTouch() then -- Touch (iPad, etc...)
 			if player.DevTouchCameraMode == Enum.DevTouchCameraMovementMode.UserChoice then
 				local touchMovementMode = GameSettings.TouchCameraMovementMode
@@ -141,14 +110,12 @@ local function getCurrentCameraMode()
 end
 
 local function getCameraOcclusionMode()
-	local usePlayerScripts = shouldUsePlayerScriptsCamera()
 	local player = PlayersService.LocalPlayer
-	if usePlayerScripts and player then
+	if player then
 		return player.DevCameraOcclusionMode
 	end
 end
 
--- New for AllCameraInLua support
 local function shouldUseOcclusionModule()
 	local player = PlayersService.LocalPlayer
 	if player and game.Workspace.CurrentCamera and game.Workspace.CurrentCamera.CameraType == Enum.CameraType.Custom then
@@ -164,9 +131,7 @@ local function Update()
 	if EnabledOcclusion and not VRService.VREnabled then
 		EnabledOcclusion:Update(EnabledCamera)
 	end
-	if shouldUsePlayerScriptsCamera() then
-		TransparencyController:Update()
-	end
+	TransparencyController:Update()
 end
 
 local function SetEnabledCamera(newCamera)
@@ -187,16 +152,16 @@ local function OnCameraMovementModeChange(newCameraMode)
 		if VRService.VREnabled and currentCameraType ~= Enum.CameraType.Scriptable then
 			SetEnabledCamera(VRCamera)
 			TransparencyController:SetEnabled(false)		
-		elseif (currentCameraType == Enum.CameraType.Custom or not AllCamerasInLua) and newCameraMode == Enum.ComputerCameraMovementMode.Classic.Name then
+		elseif currentCameraType == Enum.CameraType.Custom and newCameraMode == Enum.ComputerCameraMovementMode.Classic.Name then
 			SetEnabledCamera(ClassicCamera)			
 			TransparencyController:SetEnabled(true)
-		elseif (currentCameraType == Enum.CameraType.Custom or not AllCamerasInLua) and newCameraMode == Enum.ComputerCameraMovementMode.Follow.Name then
+		elseif currentCameraType == Enum.CameraType.Custom and newCameraMode == Enum.ComputerCameraMovementMode.Follow.Name then
 			SetEnabledCamera(FollowCamera)
 			TransparencyController:SetEnabled(true)
-		elseif (currentCameraType == Enum.CameraType.Custom or not AllCamerasInLua) and (isOrbitalCameraEnabled and (newCameraMode == Enum.ComputerCameraMovementMode.Orbital.Name)) then
+		elseif currentCameraType == Enum.CameraType.Custom and newCameraMode == Enum.ComputerCameraMovementMode.Orbital.Name then
 			SetEnabledCamera(OrbitalCamera)
 			TransparencyController:SetEnabled(true)
-		elseif AllCamerasInLua and CameraTypeEnumMap[currentCameraType] then
+		elseif CameraTypeEnumMap[currentCameraType] then
 			SetEnabledCamera(CameraTypeEnumMap[currentCameraType])
 			TransparencyController:SetEnabled(false)
 		else -- Our camera movement code was disabled by the developer
@@ -213,7 +178,7 @@ local function OnCameraMovementModeChange(newCameraMode)
 	
 	-- PopperCam does not work with OrbitalCamera, as OrbitalCamera's distance can be fixed.
 	if useOcclusion then	
-		if newOcclusionMode == Enum.DevCameraOcclusionMode.Zoom and ( isOrbitalCameraEnabled and newCameraMode ~= Enum.ComputerCameraMovementMode.Orbital.Name ) then
+		if newOcclusionMode == Enum.DevCameraOcclusionMode.Zoom and newCameraMode ~= Enum.ComputerCameraMovementMode.Orbital.Name then
 			EnabledOcclusion = PopperCam
 		elseif newOcclusionMode == Enum.DevCameraOcclusionMode.Invisicam then
 			EnabledOcclusion = Invisicam

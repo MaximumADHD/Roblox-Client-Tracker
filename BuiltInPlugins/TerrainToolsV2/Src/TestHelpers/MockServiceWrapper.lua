@@ -6,13 +6,29 @@ local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Rodux = require(Plugin.Packages.Rodux)
 local UILibrary = require(Plugin.Packages.UILibrary)
-local ServiceWrapper = require(Plugin.Src.Components.ServiceWrapper)
-local PluginTheme = require(Plugin.Src.Resources.PluginTheme)
-local MainReducer = require(Plugin.Src.Reducers.MainReducer)
-local MockPlugin = require(Plugin.Src.TestHelpers.MockPlugin)
 local Localization = UILibrary.Studio.Localization
 
+local ServiceWrapper = require(Plugin.Src.Components.ServiceWrapper)
+
+local PluginTheme = require(Plugin.Src.Resources.PluginTheme)
+local MainReducer = require(Plugin.Src.Reducers.MainReducer)
+local PluginActivationController = require(Plugin.Src.Util.PluginActivationController)
+local TerrainBrush = require(Plugin.Src.TerrainInterfaces.TerrainBrushInstance)
+local TerrainGeneration = require(Plugin.Src.TerrainInterfaces.TerrainGenerationInstance)
+local TerrainImporter = require(Plugin.Src.TerrainInterfaces.TerrainImporterInstance)
+local TerrainSeaLevel = require(Plugin.Src.TerrainInterfaces.TerrainSeaLevel)
+
+local TestHelpers = Plugin.Src.TestHelpers
+local MockPlugin = require(TestHelpers.MockPlugin)
+local MockMouse = require(TestHelpers.MockMouse)
+local MockTerrain = require(TestHelpers.MockTerrain)
+
 local MockServiceWrapper = Roact.Component:extend("MockSkeletonEditorServiceWrapper")
+
+local terrain = MockTerrain.new()
+local mouse = MockMouse.new()
+
+local FFlagTerrainToolsFixGettingTerrain = game:GetFastFlag("TerrainToolsFixGettingTerrain")
 
 -- props.localization : (optional, UILibrary.Localization)
 -- props.plugin : (optional, plugin)
@@ -37,11 +53,51 @@ function MockServiceWrapper:render()
 		theme = PluginTheme.mock()
 	end
 
+	local pluginActivationController = self.props.pluginActivationController
+	if not pluginActivationController then
+		pluginActivationController = PluginActivationController.new(pluginInstance)
+	end
+
+	local terrainBrush = self.props.terrainBrush
+	if not terrainBrush then
+		terrainBrush = TerrainBrush.new({
+			terrain = terrain,
+			mouse = mouse
+		})
+	end
+
+	local terrainGeneration = self.props.terrainGeneration
+	if not terrainGeneration then
+		terrainGeneration = TerrainGeneration.new({
+			terrain = terrain,
+		})
+	end
+
+	local terrainImporter = self.props.terrainImporter
+	if not terrainImporter then
+		terrainImporter = TerrainImporter.new({
+			terrain = terrain,
+		})
+	end
+
+	local seaLevel = self.props.seaLevel
+	if not seaLevel then
+		seaLevel = FFlagTerrainToolsFixGettingTerrain and TerrainSeaLevel.new({
+			terrain = terrain,
+		}) or TerrainSeaLevel.new()
+	end
+
 	return Roact.createElement(ServiceWrapper, {
 		localization = localization,
 		plugin = pluginInstance,
 		store = store,
 		theme = theme,
+		terrain = terrain,
+		pluginActivationController = pluginActivationController,
+		terrainBrush = terrainBrush,
+		terrainGeneration = terrainGeneration,
+		terrainImporter = terrainImporter,
+		seaLevel = seaLevel,
 	}, self.props[Roact.Children])
 end
 

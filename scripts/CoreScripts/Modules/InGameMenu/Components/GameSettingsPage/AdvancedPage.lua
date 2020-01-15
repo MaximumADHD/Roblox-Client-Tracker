@@ -56,6 +56,7 @@ function AdvancedPage:render()
 			position = self.props.position,
 			titleChildren = {
 				BackButton = Roact.createElement(ImageSetButton, {
+					BackgroundTransparency = 1,
 					Image = Assets.Images.NavigateBack,
 					AnchorPoint = Vector2.new(0, 0.5),
 					ImageColor3 = style.Theme.IconEmphasis.Color,

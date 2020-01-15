@@ -12,7 +12,7 @@
 
 return{
 	["CoreScripts.InGameMenu.LeaveGame"] = [[Leave]],
-	["CoreScripts.InGameMenu.ConfirmLeaveGame"] = [[If you leave the game, you will lose any unsaved progress.]],
+	["CoreScripts.InGameMenu.ConfirmLeaveGame"] = [[Are you sure you want to leave?]],
 	["CoreScripts.InGameMenu.LeaveGameQuestion"] = [[Leave?]],
 	["CoreScripts.InGameMenu.Leave"] = [[Leave]],
 	["CoreScripts.InGameMenu.RespawnCharacterDialogTitle"] = [[Respawn Character?]],

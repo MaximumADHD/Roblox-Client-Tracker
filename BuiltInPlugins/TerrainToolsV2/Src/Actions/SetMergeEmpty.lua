@@ -1,9 +1,8 @@
 local Action = require(script.Parent.Action)
 
 return Action(script.Name, function(mergeEmpty)
-	if mergeEmpty then
-		assert(type(mergeEmpty) == "boolean", string.format("Expected mergeEmpty to be a boolean, received %s", type(mergeEmpty)))
-	end
+	assert(type(mergeEmpty) == "boolean", ("Expected mergeEmpty to be a boolean, received %s"):format(type(mergeEmpty)))
+
 	return {
 		mergeEmpty = mergeEmpty,
 	}

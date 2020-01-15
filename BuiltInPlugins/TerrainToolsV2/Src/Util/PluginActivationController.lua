@@ -28,6 +28,8 @@ function PluginActivationController.new(plugin)
 		_onToolDeactivated = Signal.new(),
 	}, PluginActivationController)
 
+	assert(self._plugin, "PluginActivationController.new() requires a plugin")
+
 	self.onPluginDeactivation = function()
 		self:pauseActivatedTool()
 	end

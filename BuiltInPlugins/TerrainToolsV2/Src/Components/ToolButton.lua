@@ -18,7 +18,6 @@ local UILibrary = Plugin.Packages.UILibrary
 local Localizing = require(UILibrary.Localizing)
 local withLocalization = Localizing.withLocalization
 
-local FFlagTerrainToolsRefactorTabsAndTools = game:GetFastFlag("TerrainToolsRefactorTabsAndTools")
 
 local BACKGROUND_TRANSPARENCY = 1
 local BACKGROUND_SELECTED_TRANSPARENCY = 0.5
@@ -46,101 +45,51 @@ function ToolButton:init()
 	end
 end
 
-if FFlagTerrainToolsRefactorTabsAndTools then
-	function ToolButton:render()
-		return withLocalization(function(localization)
-			return withTheme(function(theme)
-				local toolId = self.props.ToolId
-				local text = localization:getText("ToolName", toolId)
-				local layoutOrder = self.props.LayoutOrder
-				local image = Constants.ToolIcons[toolId]
+function ToolButton:render()
+	return withLocalization(function(localization)
+		return withTheme(function(theme)
+			local toolId = self.props.ToolId
+			local text = localization:getText("ToolName", toolId)
+			local layoutOrder = self.props.LayoutOrder
+			local image = Constants.ToolIcons[toolId]
 
-				local isCurrentTool = self.props.IsCurrentTool
-				local isHovered = self.state.isHovered
+			local isCurrentTool = self.props.IsCurrentTool
+			local isHovered = self.state.isHovered
 
-				local transparency = isCurrentTool and BACKGROUND_SELECTED_TRANSPARENCY or BACKGROUND_TRANSPARENCY
-				if isHovered then
-					transparency = BACKGROUND_HOVERED_TRANSPARENCY
-				end
+			local transparency = isCurrentTool and BACKGROUND_SELECTED_TRANSPARENCY or BACKGROUND_TRANSPARENCY
+			if isHovered then
+				transparency = BACKGROUND_HOVERED_TRANSPARENCY
+			end
 
-				return Roact.createElement("ImageButton", {
-					BorderSizePixel = 1,
-					BackgroundTransparency = transparency,
-					LayoutOrder = layoutOrder,
-					[Roact.Event.MouseEnter] = self.mouseEnter,
-					[Roact.Event.MouseLeave] = self.mouseLeave,
-					[Roact.Event.Activated] = self.onClick,
-				}, {
-					-- Displays proper formatting within img button
-					Roact.createElement("ImageLabel", {
-						BackgroundTransparency = 1,
-						Image = image,
-						ScaleType = Enum.ScaleType.Fit,
-						Size = UDim2.new(0, 26, 0, 27),
-						AnchorPoint = Vector2.new(0.5, 0),
-						Position = UDim2.new(0.5, 0, 0, 0),
-					}),
+			return Roact.createElement("ImageButton", {
+				BorderSizePixel = 1,
+				BackgroundTransparency = transparency,
+				LayoutOrder = layoutOrder,
+				[Roact.Event.MouseEnter] = self.mouseEnter,
+				[Roact.Event.MouseLeave] = self.mouseLeave,
+				[Roact.Event.Activated] = self.onClick,
+			}, {
+				-- Displays proper formatting within img button
+				Roact.createElement("ImageLabel", {
+					BackgroundTransparency = 1,
+					Image = image,
+					ScaleType = Enum.ScaleType.Fit,
+					Size = UDim2.new(0, 26, 0, 27),
+					AnchorPoint = Vector2.new(0.5, 0),
+					Position = UDim2.new(0.5, 0, 0, 0),
+				}),
 
-					Roact.createElement("TextLabel", {
-						BackgroundTransparency = 1,
-						Text = text,
-						TextXAlignment = Enum.TextXAlignment.Center,
-						TextColor3 = theme.textColor,
-						Size = UDim2.new(1, 0, 0, 15),
-						Position = UDim2.new(0, 0, 1, -15),
-					}),
-				})
-			end)
+				Roact.createElement("TextLabel", {
+					BackgroundTransparency = 1,
+					Text = text,
+					TextXAlignment = Enum.TextXAlignment.Center,
+					TextColor3 = theme.textColor,
+					Size = UDim2.new(1, 0, 0, 15),
+					Position = UDim2.new(0, 0, 1, -15),
+				}),
+			})
 		end)
-	end
-else
-	function ToolButton:render()
-		return withLocalization(function(localization)
-			return withTheme(function(theme)
-				local toolName = self.props.Name
-				local localizedName = localization:getText("ToolName", toolName)
-				local layoutOrder = self.props.LayoutOrder
-				local image = Constants[toolName]
-				local isCurrentTool = self.props.currentTool == toolName
-
-				local isHovered = self.state.isHovered
-				local transparency = isCurrentTool and 0.5 or 1
-				if isHovered then
-					transparency = .75
-				end
-				return Roact.createElement("ImageButton", {
-					Name = toolName,
-					BorderSizePixel = 1,
-					BackgroundTransparency = transparency,
-					LayoutOrder = layoutOrder,
-					[Roact.Event.MouseEnter] = self.mouseEnter,
-					[Roact.Event.MouseLeave] = self.mouseLeave,
-					[Roact.Event.Activated] = function()
-						self.props.OnClick(toolName)
-					end,
-				}, {
-					-- Displays proper formatting within img button
-					Roact.createElement("ImageLabel", {
-						BackgroundTransparency = 1,
-						Image = image,
-						ScaleType = Enum.ScaleType.Fit,
-						Size = UDim2.new(0, 26, 0, 27),
-						AnchorPoint = Vector2.new(.5, 0),
-						Position = UDim2.new(.5, 0, 0, 0),
-					}),
-
-					Roact.createElement("TextLabel", {
-						BackgroundTransparency = 1,
-						Text = localizedName,
-						TextXAlignment = Enum.TextXAlignment.Center,
-						TextColor3 = theme.textColor,
-						Size = UDim2.new(1, 0, 0, 15),
-						Position = UDim2.new(0, 0, 1, -15),
-					}),
-				})
-			end)
-		end)
-	end
+	end)
 end
 
 return ToolButton

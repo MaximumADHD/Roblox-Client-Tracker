@@ -46,7 +46,6 @@ struct Globals
 uniform vec4 CB0[47];
 uniform vec4 CB2[74];
 uniform vec4 CB1[1];
-uniform vec4 CB3[1];
 attribute vec4 POSITION;
 attribute vec4 NORMAL;
 attribute vec4 TEXCOORD0;
@@ -78,7 +77,7 @@ void main()
     int v10 = int(TEXCOORD1.z);
     int v11 = 36 + int(TEXCOORD0.z);
     vec4 v12 = vec4(0.0);
-    v12.w = (abs(POSITION.w) > 3.0) ? 0.0 : CB3[0].z;
+    v12.w = (abs(POSITION.w) > 3.0) ? 0.0 : 1.0;
     bvec3 v13 = greaterThan(TEXCOORD1.xyz, vec3(7.5));
     gl_Position = v4;
     VARYING0 = vec4(vec3(0.0).x, vec3(0.0).y, vec3(0.0).z, v12.w);

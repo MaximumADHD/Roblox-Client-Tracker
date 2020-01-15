@@ -1,16 +1,16 @@
-MockStudioService = {}
+local MockStudioService = {}
 MockStudioService.__index = MockStudioService
+
 function MockStudioService.new()
-	local self = {}
-	setmetatable(self, MockStudioService)
-
-	self.localUserId = 0
-
-	self.GetUserId = function()
-		return self.localUserId
-	end
+	local self = setmetatable({
+		_localUserId = 0,
+	}, MockStudioService)
 
 	return self
+end
+
+function MockStudioService:GetUserId()
+	return self._localUserId
 end
 
 return MockStudioService

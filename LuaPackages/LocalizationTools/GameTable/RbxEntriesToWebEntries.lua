@@ -1,7 +1,3 @@
-local SupportedLocales = require(script.Parent.Parent.SupportedLocales)
-
-local UnofficialLanguageSupportEnabled = settings():GetFFlag("UnofficialLanguageSupportEnabled")
-
 --[[
 	Iterates through a table and returns a list of keys
 ]]
@@ -50,11 +46,7 @@ return function(rbxEntries, allSupportedLanguageSet, gameSupportedLanguageSet)
 	]]
 
 	local function IsLanguageSupported(languageCode)
-		if UnofficialLanguageSupportEnabled then
-			return allSupportedLanguageSet[languageCode] or false
-		else
-			return SupportedLocales.IsLocaleSupported(languageCode)
-		end
+		return allSupportedLanguageSet[languageCode] or false
 	end
 
 	local function RbxEntriesToTranslationEntries(translationMap)

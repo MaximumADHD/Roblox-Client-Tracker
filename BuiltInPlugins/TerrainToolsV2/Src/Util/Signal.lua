@@ -37,10 +37,10 @@ function Signal:connect(callback)
 
 	return {
 		Disconnect = function()
-			warn(string.format(
+			--[=[warn(string.format(
 				"Connection:Disconnect() has been deprecated, use Connection:disconnect()\n%s]",
 				debug.traceback()
-			))
+			))]=]
 			disconnect()
 		end,
 		disconnect = disconnect,
@@ -56,18 +56,18 @@ function Signal:fire(...)
 end
 
 function Signal:Connect(...)
-	warn(string.format(
+	--[=[warn(string.format(
 		"Signal:Connect() has been deprecated, use Signal:connect()\n%s]",
 		debug.traceback()
-	))
+	))]=]
 	return self:connect(...)
 end
 
 function Signal:Fire(...)
-	warn(string.format(
+	--[=[warn(string.format(
 		"Signal:Fire() has been deprecated, use Signal:fire()\n%s]",
 		debug.traceback()
-	))
+	))]=]
 	self:fire(...)
 end
 

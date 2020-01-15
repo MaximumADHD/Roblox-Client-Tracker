@@ -16,11 +16,6 @@ local VALID_SUBJECTS = {
 	'SkateboardPlatform',
 }
 
-local portraitPopperFixFlagExists, portraitPopperFixFlagEnabled = pcall(function()
-	return UserSettings():IsUserFeatureEnabled("UserPortraitPopperFix")
-end)
-local FFlagUserPortraitPopperFix = portraitPopperFixFlagExists and portraitPopperFixFlagEnabled
-
 -----------------
 --| Variables |--
 -----------------
@@ -65,16 +60,6 @@ local function OnCameraSubjectChanged()
 		if newSubject:IsA('VehicleSeat') then
 			VehicleParts = newSubject:GetConnectedParts(true)
 		end
-	
-		if FFlagUserPortraitPopperFix then
-			if newSubject:IsA("BasePart") then
-				SubjectPart = newSubject
-			elseif newSubject:IsA("Model") then
-				SubjectPart = newSubject.PrimaryPart
-			elseif newSubject:IsA("Humanoid") then
-				SubjectPart = newSubject.Torso
-  			end
-  		end
   	end
 end
 
@@ -124,10 +109,6 @@ function PopperCam:Update(EnabledCamera)
 		-- First, prep some intermediate vars
 		local cameraCFrame = Camera.CFrame
 		local focusPoint = Camera.Focus.p
-
-		if FFlagUserPortraitPopperFix and SubjectPart then
-			focusPoint = SubjectPart.CFrame.p
-		end
 
 		local ignoreList = {}
 		for _, character in pairs(PlayerCharacters) do

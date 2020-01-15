@@ -19,7 +19,7 @@
 			Would change the background color of only the Checkbox component.
 ]]
 
-local Style = require(script.Parent.Style)
+local Style = require(script.Parent.StyleDefaults)
 local replaceDefaults = require(script.Parent.deepJoin)
 
 return function(style, overrides)

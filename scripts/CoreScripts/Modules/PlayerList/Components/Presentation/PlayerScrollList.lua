@@ -484,6 +484,12 @@ function PlayerScrollList:render()
 					Position = layoutValues.PlayerScrollListPosition,
 					Size = layoutValues.PlayerScrollListSize,
 					BackgroundTransparency = 1,
+
+					[Roact.Change.AbsoluteSize] = FFlagPlayerListDontSinkTouchUnnecessarily and function(rbx)
+						self:setState({
+							containerSizeY = rbx.AbsoluteSize.Y,
+						})
+					end or nil,
 				}, {
 					PlayerDropDown = Roact.createElement(PlayerDropDown, {
 						positionY = absDropDownPosition,

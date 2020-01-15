@@ -50,4 +50,33 @@ return function()
 
 		Roact.unmount(instance)
 	end)
+
+	it("should set the rendering setting to the saved quality level when initalized", function()
+		local element = Roact.createElement(RoactRodux.StoreProvider, {
+			store = Rodux.Store.new(reducer)
+		}, {
+			ThemeProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
+				style = appStyle,
+			}, {
+				LocalizationProvider = Roact.createElement(LocalizationProvider, {
+					localization = Localization.new("en-us"),
+				}, {
+					GraphicsQualityEntry = Roact.createElement(GraphicsQualityEntry, {
+						LayoutOrder = 2,
+					}),
+				}),
+			}),
+		})
+
+		UserGameSettings.SavedQualityLevel = Enum.SavedQualitySetting.QualityLevel2
+
+		local instance = Roact.mount(element)
+		expect(RenderSettings.QualityLevel).to.equal(Enum.QualityLevel.Level03)
+		Roact.unmount(instance)
+
+		UserGameSettings.SavedQualityLevel = Enum.SavedQualitySetting.QualityLevel10
+		instance = Roact.mount(element)
+		expect(RenderSettings.QualityLevel).to.equal(Enum.QualityLevel.Level21)
+		Roact.unmount(instance)
+	end)
 end

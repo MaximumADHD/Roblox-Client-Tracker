@@ -3,20 +3,16 @@
 	TouchThumbstick
 	
 --]]
-
 local Players = game:GetService("Players")
 local GuiService = game:GetService("GuiService")
 local UserInputService = game:GetService("UserInputService")
-
 --[[ Constants ]]--
 local ZERO_VECTOR3 = Vector3.new(0,0,0)
 local TOUCH_CONTROL_SHEET = "rbxasset://textures/ui/TouchControlsSheet.png"
-
 --[[ The Module ]]--
 local BaseCharacterController = require(script.Parent:WaitForChild("BaseCharacterController"))
 local TouchThumbstick = setmetatable({}, BaseCharacterController)
 TouchThumbstick.__index = TouchThumbstick
-
 function TouchThumbstick.new()
 	local self = setmetatable(BaseCharacterController.new(), TouchThumbstick)
 	
@@ -32,7 +28,6 @@ function TouchThumbstick.new()
 	
 	return self
 end
-
 function TouchThumbstick:Enable(enable, uiParentFrame)
 	if enable == nil then return false end			-- If nil, return false (invalid argument)
 	enable = enable and true or false				-- Force anything non-nil to boolean before comparison
@@ -54,18 +49,15 @@ function TouchThumbstick:Enable(enable, uiParentFrame)
 	end
 	self.enabled = enable
 end
-
 function TouchThumbstick:OnInputEnded()
 	self.thumbstickFrame.Position = self.screenPos
 	self.stickImage.Position = UDim2.new(0, self.thumbstickFrame.Size.X.Offset/2 - self.thumbstickSize/4, 0, self.thumbstickFrame.Size.Y.Offset/2 - self.thumbstickSize/4)
 	
 	self.moveVector = ZERO_VECTOR3
 	self.isJumping = false
-
 	self.thumbstickFrame.Position = self.screenPos
 	self.moveTouchObject = nil
 end
-
 function TouchThumbstick:Create(parentFrame)
 	
 	if self.thumbstickFrame then
@@ -193,5 +185,4 @@ function TouchThumbstick:Create(parentFrame)
 	
 	self.thumbstickFrame.Parent = parentFrame
 end
-
 return TouchThumbstick

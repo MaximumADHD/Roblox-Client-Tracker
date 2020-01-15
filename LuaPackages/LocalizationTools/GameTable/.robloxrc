@@ -1,0 +1,9 @@
+{
+	"language": {
+		"mode": "nonstrict"
+	},
+	"lint": {
+		"ImportUnused": "fatal",
+		"ImplicitReturn": "fatal"
+	}
+}

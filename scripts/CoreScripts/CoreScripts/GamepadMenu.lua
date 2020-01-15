@@ -29,6 +29,8 @@ local FFlagEmotesMenuEnabled2 = settings():GetFFlag("CoreScriptEmotesMenuEnabled
 local isNewInGameMenuEnabled = require(GuiRoot.Modules.isNewInGameMenuEnabled)
 local tenFootInterface = require(GuiRoot.Modules.TenFootInterface)
 local utility = require(GuiRoot.Modules.Settings.Utility)
+local RobloxTranslator = require(GuiRoot.Modules.RobloxTranslator)
+
 --Remove with FIntNewInGameMenuPercentRollout
 local recordPage = nil
 if not isNewInGameMenuEnabled() then
@@ -43,6 +45,8 @@ if FFlagEmotesMenuEnabled2 then
 	EmotesModule = require(GuiRoot.Modules.EmotesMenu.EmotesMenuMaster)
 	FFlagEmotesMenuShowUiOnlyWhenAvailable = game:GetFastFlag("EmotesMenuShowUiOnlyWhenAvailable", false)
 end
+
+local FFlagUpdateSettingsHubGameText = require(GuiRoot.Modules.Flags.FFlagUpdateSettingsHubGameText)
 
 local InGameMenu
 if isNewInGameMenuEnabled() then
@@ -853,7 +857,13 @@ local function createGamepadMenuGui()
 		local MenuModule = require(GuiRoot.Modules.Settings.SettingsHub)
 		MenuModule:SetVisibility(true, false, MenuModule.Instance.LeaveGamePage, true)
 	end
-	local leaveGameRadial = createRadialButton("LeaveGame", "Leave Game", 4, 5, false, nil, leaveGameFunc)
+
+	local leaveGameText = "Leave Game"
+	if FFlagUpdateSettingsHubGameText then
+		leaveGameText = RobloxTranslator:FormatByKey("InGame.HelpMenu.Leave")
+	end
+
+	local leaveGameRadial = createRadialButton("LeaveGame", leaveGameText, 4, 5, false, nil, leaveGameFunc)
 	leaveGameRadial.Parent = gamepadSettingsFrame
 
 	---------------------------------

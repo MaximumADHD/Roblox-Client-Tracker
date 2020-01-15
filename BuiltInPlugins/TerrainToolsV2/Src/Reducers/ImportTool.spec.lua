@@ -9,12 +9,24 @@ local Rodux = require(Packages.Rodux)
 local Actions = Plugin.Src.Actions
 local ChangePosition = require(Actions.ChangePosition)
 local ChangeSize = require(Actions.ChangeSize)
+local SetUseColorMap = require(Actions.SetUseColorMap)
 
 return function()
 	it("should return its expected default state", function()
 		local r = Rodux.Store.new(ImportTool)
 		expect(r:getState()).to.be.ok()
-		expect(r:getState().message).to.equal(nil)
+
+		expect(r:getState().position).to.be.ok()
+		expect(r:getState().position.X).to.equal(0)
+		expect(r:getState().position.Y).to.equal(0)
+		expect(r:getState().position.Z).to.equal(0)
+
+		expect(r:getState().size).to.be.ok()
+		expect(r:getState().size.X).to.equal(1024)
+		expect(r:getState().size.Y).to.equal(512)
+		expect(r:getState().size.Z).to.equal(1024)
+
+		expect(r:getState().useColorMap).to.equal(false)
 	end)
 
 	describe("ChangePosition", function()
@@ -63,6 +75,21 @@ return function()
 				Y = 456,
 				Z = 789,
 			}))
+			expect(immutabilityPreserved).to.equal(true)
+		end)
+	end)
+
+	describe("SetUseColorMap", function()
+		it("should set base size and height locked", function()
+			local state = ImportTool(nil, SetUseColorMap(false))
+
+			expect(state).to.be.ok()
+			expect(state.useColorMap).to.be.ok()
+			expect(state.useColorMap).to.equal(false)
+		end)
+
+		it("should preserve immutability", function()
+			local immutabilityPreserved = testImmutability(ImportTool, SetUseColorMap(false))
 			expect(immutabilityPreserved).to.equal(true)
 		end)
 	end)

@@ -3,8 +3,6 @@ local Theming = require(script.Parent.Parent.Theming)
 
 local Dropdown = require(script.Parent.Dropdown)
 
-local UseAllSupportedLanguageList = settings():GetFFlag("UseAllSupportedLanguageList")
-
 local customMenuItemText = "(Custom)"
 
 local localeInfos = {
@@ -30,49 +28,26 @@ function LocaleSelector:init()
 	self.textBoxRef = Roact.createRef()
 end
 
-local function getMenuTextForLocale_deprecated(localeId)
-	if localeId == "" then
+function LocaleSelector.getMenuTextForLocale(allLanguageInfo, localeId)
+	localeId = string.gsub(localeId, '-', '_')
+
+	if localeId == "" or not allLanguageInfo.localeInfoTable[localeId] then
 		return customMenuItemText
 	end
-	return localeNameMap[localeId] or customMenuItemText
-end
-
-function LocaleSelector.getMenuTextForLocale(allLanguageInfo, localeId)
-	if UseAllSupportedLanguageList then
-		localeId = string.gsub(localeId, '-', '_')
-
-		if localeId == "" or not allLanguageInfo.localeInfoTable[localeId] then
-			return customMenuItemText
-		end
-		-- need this because client uses hyphen, platform uses underscore...
-		return allLanguageInfo.localeInfoTable[localeId].languageName or customMenuItemText
-	else
-		return getMenuTextForLocale_deprecated(localeId)
-	end
+	-- need this because client uses hyphen, platform uses underscore...
+	return allLanguageInfo.localeInfoTable[localeId].languageName or customMenuItemText
 end
 
 function LocaleSelector:render()
 	return Theming.withTheme(function(theme)
 		local ListItems = {}
-
-		if UseAllSupportedLanguageList then
-			for _, info in ipairs(self.props.AllLanguagesInfo.languageInfoTable) do
-				table.insert(ListItems, {
-					Text = info.languageName,
-					OnActivated = function()
-						self.props.SetLocaleId(info.localeCode)
-					end
-				})
-			end
-		else
-			for _, info in ipairs(localeInfos) do
-				table.insert(ListItems, {
-					Text = info.name,
-					OnActivated = function()
-						self.props.SetLocaleId(info.localeId)
-					end
-				})
-			end
+		for _, info in ipairs(self.props.AllLanguagesInfo.languageInfoTable) do
+			table.insert(ListItems, {
+				Text = info.languageName,
+				OnActivated = function()
+					self.props.SetLocaleId(info.localeCode)
+				end
+			})
 		end
 
 		table.insert(ListItems, {

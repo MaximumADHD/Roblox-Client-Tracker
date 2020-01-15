@@ -22,7 +22,7 @@ local reportAction = {
 		dependencies.AnalyticsService:SendEventDeferred("studio", "TerrainEditorV2", "TopLevelButton", {
 			userId = dependencies.StudioService:GetUserId(),
 			name = action.currentTool,
-			studioSId = AnalyticsService:GetSessionId(),
+			studioSId = dependencies.AnalyticsService:GetSessionId(),
 			placeId = game.PlaceId,
 		})
 	end
@@ -32,7 +32,9 @@ return function(dependencies)
 	return function(nextDispatch, store)
 		return function(action)
 			if FFlagTerrainToolMetrics then
-				if reportAction[action.type] then
+				if reportAction[action.type] and
+					dependencies.AnalyticsService and
+					dependencies.StudioService then
 					reportAction[action.type](dependencies, store, action)
 				end
 			end

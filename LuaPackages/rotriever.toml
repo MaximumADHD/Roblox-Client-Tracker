@@ -12,6 +12,7 @@ RoactNavigation = "roblox/roact-navigation@0.2"
 Cryo = "roblox/cryo@1.0"
 LuaChatDeps = { git = "https://github.rbx.com/Roblox/lua-chat-deps" }
 LuaDiscussionsDeps = { git = "https://github.rbx.com/Roblox/lua-discussions-deps" }
+LuaSocialLibrariesDeps = { git = "https://github.rbx.com/Roblox/lua-social-libraries-deps" }
 UIBlox = { git = "https://github.rbx.com/Roblox/uiblox", rev = "master" }
 Otter = "roblox/otter@0.1"
 t = "osyris/t@1.0"

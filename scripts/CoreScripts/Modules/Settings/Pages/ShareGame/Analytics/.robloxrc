@@ -1,0 +1,7 @@
+{
+	"lint": {
+		"LocalUnused": "fatal",
+		"ImportUnused": "fatal",
+		"ImplicitReturn": "fatal"
+	}
+}

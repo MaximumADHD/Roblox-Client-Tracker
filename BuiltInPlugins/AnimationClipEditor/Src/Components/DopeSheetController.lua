@@ -477,7 +477,7 @@ function DopeSheetController:render()
 		local quantizeWarningText = localization:getText("Toast", "QuantizeWarning")
 		if UseCustomFPS() then
 			local frameRate = animationData and animationData.Metadata and animationData.Metadata.FrameRate
-			if frameRate > Constants.MAX_FRAMERATE then
+			if frameRate and frameRate > Constants.MAX_FRAMERATE then
 				quantizeWarningText = localization:getText("Toast", "MaxFramerateWarning")
 			end
 		end

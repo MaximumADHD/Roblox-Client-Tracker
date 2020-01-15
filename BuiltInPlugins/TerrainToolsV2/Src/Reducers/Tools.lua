@@ -15,7 +15,6 @@ local Tools = Rodux.createReducer({
 	currentTab = TabId.Create, -- first tab
 	currentTool = ToolId.None, -- no tool ever initially selected
 	lastToolPerTab = {},
-	activator = nil,
 }, {
 	ChangeTab = function(state, action)
 		local tabName = action.tabName

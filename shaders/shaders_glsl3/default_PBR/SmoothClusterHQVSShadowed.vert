@@ -46,7 +46,6 @@ struct Globals
 uniform vec4 CB0[47];
 uniform vec4 CB2[74];
 uniform vec4 CB1[1];
-uniform vec4 CB3[1];
 in vec4 POSITION;
 in vec4 NORMAL;
 in vec4 TEXCOORD0;
@@ -83,7 +82,7 @@ void main()
     vec2 v16 = vec2(dot(v0, CB2[v14 * 1 + 0].xyz), dot(v0, CB2[(18 + v14) * 1 + 0].xyz)) * CB2[v15 * 1 + 0].x;
     float v17 = ((TEXCOORD1.w * 0.0078125) - 1.0) * CB2[v15 * 1 + 0].z;
     vec4 v18 = vec4(0.0);
-    v18.w = CB3[0].z;
+    v18.w = 1.0;
     bvec3 v19 = equal(abs(POSITION.www), vec3(1.0, 2.0, 3.0));
     vec3 v20 = vec3(v19.x ? vec3(1.0).x : vec3(0.0).x, v19.y ? vec3(1.0).y : vec3(0.0).y, v19.z ? vec3(1.0).z : vec3(0.0).z);
     bvec3 v21 = greaterThan(TEXCOORD1.xyz, vec3(7.5));

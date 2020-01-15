@@ -4,6 +4,7 @@
 
 local StudioService = game:GetService("StudioService")
 local GuiService = game:GetService("GuiService")
+local MarketplaceService = game:GetService("MarketplaceService")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -11,6 +12,7 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 local UILibrary = require(Plugin.Packages.UILibrary)
 local PluginHolder = require(Plugin.Src.Components.PluginHolder)
 local GetPluginInfoRequest = require(Plugin.Src.Thunks.GetPluginInfoRequest)
+local MultiGetPluginInfoRequest = require(Plugin.Src.Thunks.MultiGetPluginInfoRequest)
 local Constants = require(Plugin.Src.Util.Constants)
 local MovedDialog = require(Plugin.Src.Components.MovedDialog)
 local ContextServices = require(Plugin.Packages.Framework.ContextServices)
@@ -22,6 +24,7 @@ local LoadingIndicator = UILibrary.Component.LoadingIndicator
 
 local FFlagEnablePurchasePluginFromLua2 = game:GetFastFlag("EnablePurchasePluginFromLua2")
 local FFlagEnableStudioServiceOpenBrowser = game:GetFastFlag("EnableStudioServiceOpenBrowser")
+local FFlagPluginManagementAllowLotsOfPlugins = settings():GetFFlag("PluginManagementAllowLotsOfPlugins")
 local FFlagFixFindPluginsMessage = game:DefineFastFlag("FixFindPluginsMessage", false)
 
 local ManagementMainView = Roact.Component:extend("ManagementMainView")
@@ -287,7 +290,11 @@ end
 local function mapDispatchToProps(dispatch)
 	return {
 		onPluginInfoRequested = function(apiImpl, assetIds, plugins)
-			dispatch(GetPluginInfoRequest(apiImpl, assetIds, plugins))
+			if FFlagPluginManagementAllowLotsOfPlugins then
+				dispatch(MultiGetPluginInfoRequest(apiImpl, MarketplaceService, assetIds, plugins))
+			else
+				dispatch(GetPluginInfoRequest(apiImpl, assetIds, plugins))
+			end
 		end,
 
 		UpdateAllPlugins = function()
@@ -295,7 +302,11 @@ local function mapDispatchToProps(dispatch)
 		end,
 
 		dispatchRefreshPlugins = function(apiImpl)
-			dispatch(RefreshPlugins(apiImpl))
+			if FFlagPluginManagementAllowLotsOfPlugins then
+				dispatch(RefreshPlugins(apiImpl, MarketplaceService))
+			else
+				dispatch(RefreshPlugins(apiImpl))
+			end
 		end,
 	}
 end

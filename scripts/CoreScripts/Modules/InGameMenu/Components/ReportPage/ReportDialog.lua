@@ -102,6 +102,7 @@ function ReportDialog:renderTextEntryField(localized, reportChildren, size)
 			})
 		end,
 		maxTextLength = MAX_DESCRIPTION_LENGTH,
+		autoFocusOnEnabled = true,
 
 		PlaceholderText = localized.textboxPlaceHolder,
 		LayoutOrder = 5,

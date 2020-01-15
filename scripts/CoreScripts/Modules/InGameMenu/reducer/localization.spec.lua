@@ -3,7 +3,8 @@ return function()
 	local SetLocaleId = require(InGameMenu.Actions.SetLocaleId)
 	local SetNames = require(InGameMenu.Actions.SetNames)
 	local SetDescriptions = require(InGameMenu.Actions.SetDescriptions)
-	local SetSourceLocaleId = require(InGameMenu.Actions.SetSourceLocaleId)
+	local SetSourceLanguageCode = require(InGameMenu.Actions.SetSourceLanguageCode)
+	local SetLanguageCodeMap = require(InGameMenu.Actions.SetLanguageCodeMap)
 	local localization = require(script.Parent.localization)
 
 	local Constants = require(InGameMenu.Resources.Constants)
@@ -20,12 +21,21 @@ return function()
 		["en"] = "Test Name 1",
 		["de"] = "Test Name 2",
 		["fr"] = "Le Test Name",
+		["zh-hant"] = "Traditional test name",
 	}
 
 	local dummyGameDescriptions = {
 		["en"] = "Test Description 1",
 		["de"] = "Test Description 2",
 		["fr"] = "Le Test Description",
+		["zh-hant"] = "Traditional test description",
+	}
+
+	local dummyLanguageCodeMap = {
+		["en-us"] = "en",
+		["fr-fr"] = "fr",
+		["de-de"] = "de",
+		["zh_tw"] = "zh-hant",
 	}
 
 	it("should have fallbacks by default", function()
@@ -73,17 +83,30 @@ return function()
 		end)
 	end)
 
-	describe("SetSourceLocaleId", function()
+	describe("SetSourceLanguageCode", function()
 		it("should correctly set the source locale id and fallback to source language", function()
 			local oldState = localization(nil, SetNames(dummyGameNames))
 			oldState = localization(oldState, SetDescriptions(dummyGameDescriptions))
 			oldState = localization(oldState, SetLocaleId("xx"))
-			local newState = localization(oldState, SetSourceLocaleId("de"))
+			local newState = localization(oldState, SetSourceLanguageCode("de"))
 			expect(oldState).to.never.equal(newState)
 			expect(newState.currentLocaleId).to.equal("xx")
-			expect(newState.sourceLocaleId).to.equal("de")
+			expect(newState.sourceLanguageCode).to.equal("de")
 			expect(newState.currentGameName).to.equal(dummyGameNames["de"])
 			expect(newState.currentGameDescription).to.equal(dummyGameDescriptions["de"])
+		end)
+	end)
+
+	describe("SetLanguageCodeMap", function()
+		it("should correctly map between locale and language code", function()
+			local oldState = localization(nil, SetNames(dummyGameNames))
+			oldState = localization(oldState, SetDescriptions(dummyGameDescriptions))
+			oldState = localization(oldState, SetLocaleId("zh_tw"))
+			local newState = localization(oldState, SetLanguageCodeMap(dummyLanguageCodeMap))
+			expect(oldState).to.never.equal(newState)
+			expect(newState.currentLocaleId).to.equal("zh_tw")
+			expect(newState.currentGameName).to.equal(dummyGameNames["zh-hant"])
+			expect(newState.currentGameDescription).to.equal(dummyGameDescriptions["zh-hant"])
 		end)
 	end)
 end

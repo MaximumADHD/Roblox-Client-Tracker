@@ -6,9 +6,6 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 
-local Functions = Plugin.Src.Components.Functions
-local TerrainGeneration = require(Functions.TerrainGeneration)
-
 local Actions = Plugin.Src.Actions
 local ChangeTool = require(Actions.ChangeTool)
 
@@ -24,12 +21,15 @@ local ToolId = TerrainEnums.ToolId
 local ConfirmationPrompt = require(Plugin.Src.Components.ConfirmationPrompt)
 local StyledDialog = require(UILibrary.Components.StyledDialog)
 
+local TerrainInterface = require(Plugin.Src.ContextServices.TerrainInterface)
+
 local ChangeHistoryService = game:GetService("ChangeHistoryService")
 local CoreGui = game:GetService("CoreGui")
 local TextService = game:GetService("TextService")
 local Workspace = game:GetService("Workspace")
 
 local FFlagTerrainToolsClearConfirmationDialog = game:GetFastFlag("TerrainToolsClearConfirmationDialog")
+local FFlagTerrainToolsFixGettingTerrain = game:GetFastFlag("TerrainToolsFixGettingTerrain")
 
 local Clear = Roact.PureComponent:extend(script.Name)
 
@@ -47,170 +47,139 @@ local PADDING = 8
 local DIALOG_MIN_WIDTH = (2 * BUTTON_WIDTH) + (3 * PADDING)
 local DIALOG_HEIGHT = 80
 
-if game:GetFastFlag("TerrainToolsRefactorTerrainGeneration") then
-	function Clear:init()
-		-- TODO: Remove clearingStarted when removing FFlagTerrainToolsClearConfirmationDialog
-		-- showingDialog has replaced it
-		self.state = {
-			clearingStarted = false,
+function Clear:init()
+	-- TODO: Remove clearingStarted when removing FFlagTerrainToolsClearConfirmationDialog
+	-- showingDialog has replaced it
+	self.state = {
+		clearingStarted = false,
+		showingDialog = false,
+	}
+
+	self.onYesClicked = function()
+		if self.state.clearing then
+			return
+		end
+
+		self:setState({
+			clearingStarted = true,
 			showingDialog = false,
-		}
+		})
 
-		self.onYesClicked = function()
-			if self.state.clearing then
-				return
-			end
-
-			self:setState({
-				clearingStarted = true,
-				showingDialog = false,
-			})
-
-			Workspace.Terrain:Clear()
-			ChangeHistoryService:SetWaypoint("Terrain Clear")
-			self.props.dispatchChangeTool(ToolId.None)
-		end
-
-		self.onNoClicked = function()
-			self.props.dispatchChangeTool(ToolId.None)
-		end
-
-		self.onButtonClicked = function(key)
-			if key == KEY_YES then
-				self.onYesClicked()
-			elseif key == KEY_NO then
-				self.onNoClicked()
-			end
-		end
-	end
-
-	function Clear:didMount()
-		-- We need to create the dialog on a separate thread because the CreateQWidgetPluginGui() call yields
-		spawn(function()
-			self:setState({
-				showingDialog = true,
-			})
-		end)
-	end
-
-	function Clear:render()
-		if FFlagTerrainToolsClearConfirmationDialog then
-			return withTheme(function(theme)
-				return withLocalization(function(localization)
-					local message = localization:getText("ClearTool", "ConfirmationMessage")
-					local messageSize = TextService:GetTextSize(message, theme.textSize, theme.font, Vector2.new())
-					local messageWidth = messageSize.x
-
-					local dialogWidth = math.max(DIALOG_MIN_WIDTH,
-						PADDING + ICON_SIZE + PADDING + messageWidth + PADDING)
-
-					return self.state.showingDialog and Roact.createElement(StyledDialog, {
-						Title = localization:getText("ClearTool", "ConfirmationTitle"),
-						Buttons = {
-							{Key = KEY_NO, Text = localization:getText("Confirmation", "No")},
-							{Key = KEY_YES, Text = localization:getText("Confirmation", "Yes"), Style = "Primary"},
-						},
-
-						OnButtonClicked = self.onButtonClicked,
-						OnClose = self.onNoClicked,
-
-						Size = Vector2.new(dialogWidth, DIALOG_HEIGHT),
-						MinSize = Vector2.new(dialogWidth, DIALOG_HEIGHT),
-						Resizable = false,
-
-						BorderPadding = PADDING,
-						ButtonPadding = PADDING,
-
-						ButtonWidth = BUTTON_WIDTH,
-						ButtonHeight = BUTTON_HEIGHT,
-
-						TextSize = theme.textSize,
-					}, {
-						Icon = Roact.createElement("ImageLabel", {
-							Size = UDim2.new(0, ICON_SIZE, 0, ICON_SIZE),
-							BackgroundTransparency = 1,
-							Image = INFO_ICON,
-						}),
-
-						Message = Roact.createElement("TextLabel", {
-							Position = UDim2.new(0, ICON_SIZE + PADDING, 0, 0),
-							Size = UDim2.new(0, messageWidth, 1, 0),
-							BackgroundTransparency = 1,
-							Text = localization:getText("ClearTool", "ConfirmationMessage"),
-							Font = theme.font,
-							TextSize = theme.textSize,
-							TextColor3 = theme.textColor,
-							TextYAlignment = Enum.TextYAlignment.Top,
-						}),
-					})
-				end)
-			end)
+		if FFlagTerrainToolsFixGettingTerrain then
+			TerrainInterface.getTerrain(self):Clear()
 		else
-			return withLocalization(function (localization)
-				if self.state.clearingStarted then
-					return
-				end
+			Workspace.Terrain:Clear()
+		end
 
-				return Roact.createElement(Roact.Portal, {
-					target = CoreGui,
+		ChangeHistoryService:SetWaypoint("Terrain Clear")
+		self.props.dispatchChangeTool(ToolId.None)
+	end
+
+	self.onNoClicked = function()
+		self.props.dispatchChangeTool(ToolId.None)
+	end
+
+	self.onButtonClicked = function(key)
+		if key == KEY_YES then
+			self.onYesClicked()
+		elseif key == KEY_NO then
+			self.onNoClicked()
+		end
+	end
+end
+
+function Clear:didMount()
+	-- We need to create the dialog on a separate thread because the CreateQWidgetPluginGui() call yields
+	spawn(function()
+		self:setState({
+			showingDialog = true,
+		})
+	end)
+end
+
+function Clear:render()
+	if FFlagTerrainToolsClearConfirmationDialog then
+		return withTheme(function(theme)
+			return withLocalization(function(localization)
+				local message = localization:getText("ClearTool", "ConfirmationMessage")
+				local messageSize = TextService:GetTextSize(message, theme.textSize, theme.font, Vector2.new())
+				local messageWidth = messageSize.x
+
+				local dialogWidth = math.max(DIALOG_MIN_WIDTH,
+					PADDING + ICON_SIZE + PADDING + messageWidth + PADDING)
+
+				return self.state.showingDialog and Roact.createElement(StyledDialog, {
+					Title = localization:getText("ClearTool", "ConfirmationTitle"),
+					Buttons = {
+						{Key = KEY_NO, Text = localization:getText("Confirmation", "No")},
+						{Key = KEY_YES, Text = localization:getText("Confirmation", "Yes"), Style = "Primary"},
+					},
+
+					OnButtonClicked = self.onButtonClicked,
+					OnClose = self.onNoClicked,
+
+					Size = Vector2.new(dialogWidth, DIALOG_HEIGHT),
+					MinSize = Vector2.new(dialogWidth, DIALOG_HEIGHT),
+					Resizable = false,
+
+					BorderPadding = PADDING,
+					ButtonPadding = PADDING,
+
+					ButtonWidth = BUTTON_WIDTH,
+					ButtonHeight = BUTTON_HEIGHT,
+
+					TextSize = theme.textSize,
 				}, {
-					TerrainClearConfirmationPrompt = Roact.createElement("ScreenGui", {}, {
-						ConfirmationPrompt = Roact.createElement(ConfirmationPrompt, {
-							AnchorPoint = Vector2.new(0.5, 0.5),
-							Position = UDim2.new(0.5, 0, 0.5, 0),
+					Icon = Roact.createElement("ImageLabel", {
+						Size = UDim2.new(0, ICON_SIZE, 0, ICON_SIZE),
+						BackgroundTransparency = 1,
+						Image = INFO_ICON,
+					}),
 
-							Text = localization:getText("ClearTool", "ConfirmationMessage"),
-
-							OnYesClicked = self.onYesClicked,
-							OnNoClicked = self.onNoClicked,
-						}),
+					Message = Roact.createElement("TextLabel", {
+						Position = UDim2.new(0, ICON_SIZE + PADDING, 0, 0),
+						Size = UDim2.new(0, messageWidth, 1, 0),
+						BackgroundTransparency = 1,
+						Text = localization:getText("ClearTool", "ConfirmationMessage"),
+						Font = theme.font,
+						TextSize = theme.textSize,
+						TextColor3 = theme.textColor,
+						TextYAlignment = Enum.TextYAlignment.Top,
 					}),
 				})
 			end)
-		end
-	end
+		end)
+	else
+		return withLocalization(function (localization)
+			if self.state.clearingStarted then
+				return
+			end
 
-	local function MapDispatchToProps (dispatch)
-		return {
-			dispatchChangeTool = function (toolName)
-				dispatch(ChangeTool(toolName))
-			end,
-		}
-	end
+			return Roact.createElement(Roact.Portal, {
+				target = CoreGui,
+			}, {
+				TerrainClearConfirmationPrompt = Roact.createElement("ScreenGui", {}, {
+					ConfirmationPrompt = Roact.createElement(ConfirmationPrompt, {
+						AnchorPoint = Vector2.new(0.5, 0.5),
+						Position = UDim2.new(0.5, 0, 0.5, 0),
 
-	return RoactRodux.connect(nil , MapDispatchToProps)(Clear)
-else
+						Text = localization:getText("ClearTool", "ConfirmationMessage"),
 
-	function Clear:init()
-		self.contextToConfirmation = function(theme, localization)
-			TerrainGeneration.SetConfirmationVisible(theme, localization)
-		end
-	end
-	function Clear:didMount()
-		TerrainGeneration.OnClearConfirmedFunc(self.props.dispatchChangeTool)
-	end
-
-	function Clear:render()
-		return withTheme(function(theme)
-			return withLocalization(function(localization)
-				self.contextToConfirmation(theme, localization)
-			end)
+						OnYesClicked = self.onYesClicked,
+						OnNoClicked = self.onNoClicked,
+					}),
+				}),
+			})
 		end)
 	end
-
-	local function MapStateToProps (state, props)
-		return {
-			currentTool = state.Tools.currentTool,
-		}
-	end
-
-	local function MapDispatchToProps (dispatch)
-		return {
-			dispatchChangeTool = function (toolName)
-				dispatch(ChangeTool(ToolId.None))
-			end
-		}
-	end
-
-	return RoactRodux.connect(MapStateToProps, MapDispatchToProps)(Clear)
 end
+
+local function MapDispatchToProps (dispatch)
+	return {
+		dispatchChangeTool = function (toolName)
+			dispatch(ChangeTool(toolName))
+		end,
+	}
+end
+
+return RoactRodux.connect(nil , MapDispatchToProps)(Clear)

@@ -32,8 +32,7 @@
 		UILibrary style the item buttons should be rendered in.
 --]]
 
--- Need a way to test multiselect since UserInputService doesn't work with lua widgets
-local fflagDebugMultiselect = game:DefineFastFlag("DebugStudioDraftsWidgetMultiselect", false)
+local fflagUseMultiselect = game:DefineFastFlag("StudioDraftsUseMultiselect", false)
 
 local UserInputService = game:GetService("UserInputService")
 
@@ -62,42 +61,20 @@ function AbstractItemView:init()
 		selectionAnchorBottom = nil,
 
 		contextMenuOpened = false,
-
-		DEBUG_selectionMode = 0,
 	})
 
 	self.lastItemClicked = nil
 	self.lastClickTime = 0
 
-	-- Since we can't detect ctrl/shift presses in lua widgets, use MMB to cycle between
-	-- normal, ctrl, and shift select (in that order)
-	self.DEBUG_cycleSelectionMode = function()
-		assert(fflagDebugMultiselect)
-
-		local newSelectionMode = (self.state.DEBUG_selectionMode+1) % 3
-		self:setState({
-			DEBUG_selectionMode = newSelectionMode
-		})
-
-		print("DEBUG_selectionMode changed to:", newSelectionMode)
-		return
-	end
-
-	self.getPressedModifiers = function()
-		if fflagDebugMultiselect then
-			return {
-				Toggle = self.state.DEBUG_selectionMode == 1,
-				Expand = self.state.DEBUG_selectionMode == 2,
-			}
-		else
-			-- These will not work until UserInputService is compatible with lua widgets
-			return {
-				Toggle = UserInputService:IsKeyDown(Enum.KeyCode.LeftControl)
-						 or UserInputService:IsKeyDown(Enum.KeyCode.RightControl),
-				Expand = UserInputService:IsKeyDown(Enum.KeyCode.LeftShift)
-						 or UserInputService:IsKeyDown(Enum.KeyCode.RightShift),
-			}
+	self.getPressedModifiers = function(inputObject)
+		if (not fflagUseMultiselect) then
+			return {}
 		end
+		
+		return {
+			Toggle = inputObject:IsModifierKeyDown(Enum.ModifierKey.Ctrl),
+			Expand = inputObject:IsModifierKeyDown(Enum.ModifierKey.Shift),
+		}
 	end
 
 	self.itemRightClicked = function(id)
@@ -111,8 +88,8 @@ function AbstractItemView:init()
 		return
 	end
 
-	self.itemClicked = function(id, userInputType)
-		local modifiers = self.getPressedModifiers()
+	self.itemClicked = function(id, inputObject)
+		local modifiers = self.getPressedModifiers(inputObject)
 
 		if modifiers.Expand then
 			self.expandSelection(id)
@@ -245,7 +222,7 @@ function AbstractItemView:render()
 						Size = UDim2.new(1, 0, 1, 0),
 						Text = "",
 
-						[Roact.Event.Activated] = function() self.itemClicked(id) end,
+						[Roact.Event.Activated] = function(_, inputObject) self.itemClicked(id, inputObject) end,
 						[Roact.Event.MouseButton2Click] = function() self.itemRightClicked(id) end,
 					}, { Item = renderItem(id, ...) })
 				}
@@ -267,18 +244,6 @@ function AbstractItemView:render()
 				OnMenuOpened = function()
 					self:setState({contextMenuOpened = false})
 				end,
-			}),
-
-			DEBUG_ClickCapturer = fflagDebugMultiselect and Roact.createElement("Frame", {
-				BackgroundTransparency = 1,
-				Size = UDim2.new(1, 0, 1, 0),
-				ZIndex = 2,
-
-				[Roact.Event.InputBegan] = function(_, input)
-					if input.UserInputType == Enum.UserInputType.MouseButton3 then
-						self.DEBUG_cycleSelectionMode()
-					end
-				end
 			}),
 		})
 	end)

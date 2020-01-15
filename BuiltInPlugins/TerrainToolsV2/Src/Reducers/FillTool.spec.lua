@@ -8,7 +8,6 @@ local Rodux = require(Packages.Rodux)
 
 local Actions = Plugin.Src.Actions
 local SetMergeEmpty = require(Actions.SetMergeEmpty)
-local SetAutoMaterial = require(Actions.SetAutoMaterial)
 
 return function()
 	it("should return its expected default state", function()

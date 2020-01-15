@@ -1,10 +1,9 @@
 local Action = require(script.Parent.Action)
 
 return Action(script.Name, function(snapToGrid)
-	if snapToGrid then
-		assert(type(snapToGrid) == "boolean", string.format("Expected snapToGrid to be a boolean, received %s", type(snapToGrid)))
-	end
+	assert(type(snapToGrid) == "boolean", ("Expected snapToGrid to be a boolean, received %s"):format(type(snapToGrid)))
+
 	return {
-		snapToGrid = snapToGrid
+		snapToGrid = snapToGrid,
 	}
 end)

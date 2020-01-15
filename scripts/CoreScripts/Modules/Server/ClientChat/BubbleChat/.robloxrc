@@ -1,0 +1,10 @@
+{
+	"language": {
+		"mode": "nonstrict"
+	},
+	"lint": {
+		"SameLineStatement": "fatal",
+		"LocalUnused": "fatal",
+		"ImportUnused": "fatal"
+	}
+}

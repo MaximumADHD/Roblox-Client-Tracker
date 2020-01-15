@@ -24,9 +24,11 @@ local SetBaseSizeHeightLocked = require(Actions.SetBaseSizeHeightLocked)
 
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 
+local FFlagTerrainToolsRefactor = game:GetFastFlag("TerrainToolsRefactor")
+
 local REDUCER_KEY = "GrowTool"
 
-local function MapStateToProps (state, props)
+local function mapStateToProps(state, props)
 	return {
 		toolName = TerrainEnums.ToolId.Grow,
 
@@ -45,7 +47,7 @@ local function MapStateToProps (state, props)
 	}
 end
 
-local function MapDispatchToProps (dispatch)
+local function mapDispatchToProps(dispatch)
 	local dispatchToGrow = function(action)
 		dispatch(ApplyToolAction(REDUCER_KEY, action))
 	end
@@ -87,8 +89,12 @@ local function MapDispatchToProps (dispatch)
 	}
 end
 
-local GrowTool = RoactRodux.connect(MapStateToProps, MapDispatchToProps)(BaseBrush)
+if FFlagTerrainToolsRefactor then
+	return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(BaseBrush)
+else
+	local GrowTool = RoactRodux.connect(mapStateToProps, mapDispatchToProps)(BaseBrush)
 
-return function(props)
-	return Roact.createElement(GrowTool)
+	return function(props)
+		return Roact.createElement(GrowTool)
+	end
 end

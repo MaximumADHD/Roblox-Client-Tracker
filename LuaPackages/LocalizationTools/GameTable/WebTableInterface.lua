@@ -23,9 +23,6 @@ local LocalizationTableUploadRowMax =
 local LocalizationTableUploadTranslationMax =
 	tonumber(settings():GetFVariable("LocalizationTableUploadTranslationMax")) or 250
 
-local UnofficialLanguageSupportEnabled = settings():GetFFlag("UnofficialLanguageSupportEnabled")
-local ThrowDetailedMessageForBadEntries = settings():GetFFlag("ThrowDetailedMessageForBadEntries")
-
 return function(studioUserId)
 --[[When a tableid is obtained, remember the gameId associated with it, then check
 that gameId matches next time we attempt to access the table, hit the get/create web endpoint
@@ -190,18 +187,13 @@ local function DownloadGameTableWithId(gameId, tableId)
 		pageDownloader:download():andThen(
 			function(receivedEntries)
 				local localizationTable = Instance.new("LocalizationTable")
-				if ThrowDetailedMessageForBadEntries then
-					local success, result = pcall(function()
-						localizationTable:SetEntries(receivedEntries)
-						resolve(localizationTable)
-					end)
-					if not success then
-						warn(result)
-						reject("Game table download failed (See Output)")
-					end
-				else
+				local success, result = pcall(function()
 					localizationTable:SetEntries(receivedEntries)
 					resolve(localizationTable)
+				end)
+				if not success then
+					warn(result)
+					reject("Game table download failed (See Output)")
 				end
 			end,
 			function(errorMessage)
@@ -560,13 +552,6 @@ local function GetGameSupportedLanguages(gameId)
 	end
 end
 
-local UploadPatchFunc
-if UnofficialLanguageSupportEnabled then
-	UploadPatchFunc = AddLanguageAndUploadPatch
-else
-	UploadPatchFunc = UploadPatch
-end
-
 --[[
 	Request regenerate asset through gameinternationalization API.
 	Returns a promise that resolves with no arguments upon success.
@@ -593,7 +578,7 @@ local function RequestAssetGeneration(gameId)
 end
 
 return {
-	UploadPatch = UploadPatchFunc,
+	UploadPatch = AddLanguageAndUploadPatch,
 	DownloadGameTable = DownloadGameTable,
 	CheckTableAvailability = CheckTableAvailability,
 	GetAllSupportedLanguages = GetAllSupportedLanguages,

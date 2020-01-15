@@ -51,6 +51,15 @@ local function getIsLoading(searchData)
 		or (cachedSearchResults[searchTerm] == nil and searchTerm ~= "")
 end
 
+local function getIsFriend(subjectId, friendTable)
+	for _,v in pairs(friendTable) do
+		if subjectId == v[PermissionsConstants.SubjectIdKey] then
+			return true
+		end
+	end
+	return false
+end
+
 local function getMatches(searchData, permissions, groupMetadata)
 	local cachedSearchResults = searchData.CachedSearchResults
 	local searchTerm = searchData.SearchText
@@ -171,7 +180,7 @@ local function getResults(searchTerm, matches, thumbnailLoader, localized)
 					UseMask = true,
 				}),
 				Name = user[PermissionsConstants.SubjectNameKey],
-				Key = {Type=PermissionsConstants.UserSubjectKey, Id=user[PermissionsConstants.SubjectIdKey], Name=user[PermissionsConstants.SubjectNameKey], IsFriend = user[PermissionsConstants.IsFriendKey]},
+				Key = {Type=PermissionsConstants.UserSubjectKey, Id=user[PermissionsConstants.SubjectIdKey], Name=user[PermissionsConstants.SubjectNameKey]},
 			})
 		end
 		if not FFlagStudioGameSettingsRestrictPermissions then
@@ -226,7 +235,7 @@ function CollaboratorSearchWidget:render()
 	local maxCollaborators = game:GetFastInt("MaxAccessPermissionsCollaborators")
 	local tooManyCollaborators = numCollaborators >= maxCollaborators
 
-	local function collaboratorAdded(collaboratorType, collaboratorId, collaboratorName, action, isFriend)
+	local function collaboratorAdded(collaboratorType, collaboratorId, collaboratorName, action)
 		local newPermissions
 		if collaboratorType == PermissionsConstants.UserSubjectKey then
 			newPermissions = Cryo.Dictionary.join(props.Permissions, {
@@ -235,7 +244,7 @@ function CollaboratorSearchWidget:render()
 						[PermissionsConstants.SubjectNameKey] = collaboratorName,
 						[PermissionsConstants.SubjectIdKey] = collaboratorId,
 						[PermissionsConstants.ActionKey] = action,
-						[PermissionsConstants.IsFriendKey] = isFriend,
+						[PermissionsConstants.IsFriendKey] = getIsFriend(collaboratorId, searchData.LocalUserFriends),
 					}
 				})
 			})
@@ -292,7 +301,7 @@ function CollaboratorSearchWidget:render()
 						if key == MY_FRIENDS_KEY then
 							print("TODO: enable friends option")
 						else
-							collaboratorAdded(key.Type, key.Id, key.Name, DEFAULT_ADD_ACTION, key.IsFriend)
+							collaboratorAdded(key.Type, key.Id, key.Name, DEFAULT_ADD_ACTION)
 						end
 					end,
 					

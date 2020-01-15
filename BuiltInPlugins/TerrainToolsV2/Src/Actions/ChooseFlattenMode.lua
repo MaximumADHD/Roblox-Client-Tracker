@@ -1,10 +1,9 @@
 local Action = require(script.Parent.Action)
 
 return Action(script.Name, function(flattenMode)
-	if flattenMode then
-		assert(type(flattenMode) == "string", string.format("Expected flattenMode to be a string, received %s", type(flattenMode)))
-	end
+	assert(type(flattenMode) == "string", ("Expected flattenMode to be a string, received %s"):format(type(flattenMode)))
+
 	return {
-		flattenMode = flattenMode
+		flattenMode = flattenMode,
 	}
 end)

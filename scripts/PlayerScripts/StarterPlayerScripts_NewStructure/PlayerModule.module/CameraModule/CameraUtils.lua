@@ -5,8 +5,20 @@
 
 local CameraUtils = {}
 
+local FFlagUserCameraToggle do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserCameraToggle")
+	end)
+	FFlagUserCameraToggle = success and result
+end
+
 local function round(num)
 	return math.floor(num + 0.5)
+end
+
+-- map a value from one range to another
+function CameraUtils.map(x, inMin, inMax, outMin, outMax)
+	return (x - inMin)*(outMax - outMin)/(inMax - inMin) + outMin
 end
 
 -- Note, arguments do not match the new math.clamp
@@ -80,8 +92,7 @@ function CameraUtils.GamepadLinearToCurve(thumbstickPosition)
 end
 
 -- This function converts 4 different, redundant enumeration types to one standard so the values can be compared
-function CameraUtils.ConvertCameraModeEnumToStandard( enumValue )
-	
+function CameraUtils.ConvertCameraModeEnumToStandard(enumValue)
 	if enumValue == Enum.TouchCameraMovementMode.Default then
 		return Enum.ComputerCameraMovementMode.Follow
 	end
@@ -109,6 +120,13 @@ function CameraUtils.ConvertCameraModeEnumToStandard( enumValue )
 		enumValue == Enum.DevComputerCameraMovementMode.Orbital or
 		enumValue == Enum.ComputerCameraMovementMode.Orbital then
 		return Enum.ComputerCameraMovementMode.Orbital
+	end
+	
+	if FFlagUserCameraToggle then
+		if enumValue == Enum.ComputerCameraMovementMode.CameraToggle or
+			enumValue == Enum.DevComputerCameraMovementMode.CameraToggle then
+			return Enum.ComputerCameraMovementMode.CameraToggle
+		end
 	end
 	
 	-- Note: Only the Dev versions of the Enums have UserChoice as an option

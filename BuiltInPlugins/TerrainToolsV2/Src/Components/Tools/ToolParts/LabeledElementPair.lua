@@ -1,6 +1,6 @@
 --[[
-	This script enforces consistency in two-column settings. One LabeledElementPair will use UIListLayout to ensure everything
-	looks good and size must be passed in. Position is expected to be handled externally by another UIListLayout
+	This script enforces consistency in two-column settings. One LabeledElementPair will use UIListLayout to ensure
+	everything looks good and size must be passed in. Position is expected to be handled externally by another UIListLayout
 
 	Required Props:
 		Text - Left hand display name
@@ -18,6 +18,8 @@ local withTheme = Theme.withTheme
 
 local FIRST_COLUMN_WIDTH = 110
 local SIDE_PADDING = 20
+
+local FFlagTerrainToolsFixPlanePositionErrorMessage = game:GetFastFlag("TerrainToolsFixPlanePositionErrorMessage")
 
 local LabeledElementPair = Roact.PureComponent:extend(script.Name)
 
@@ -41,9 +43,12 @@ end
 function LabeledElementPair:render()
 	local padding = self.props.Padding or UDim.new(0, 0)
 	local text = self.props.Text or ""
-	local content = self.props.Content or {}
 	local size = self.props.Size
 	local layoutOrder = self.props.LayoutOrder
+	local fillDirection
+	if FFlagTerrainToolsFixPlanePositionErrorMessage then
+		fillDirection = self.props.ContentDirection or Enum.FillDirection.Vertical
+	end
 
 	-- this prop enables auto resizing the content's size changes
 	local sizeToContent = self.props.SizeToContent
@@ -54,6 +59,8 @@ function LabeledElementPair:render()
 	if sizeToContent and children then
 		children["UIListLayout"] = Roact.createElement("UIListLayout", {
 			Padding = padding,
+			FillDirection = fillDirection,
+			SortOrder = FFlagTerrainToolsFixPlanePositionErrorMessage and Enum.SortOrder.LayoutOrder or Enum.SortOrder.Name,
 			[Roact.Change.AbsoluteContentSize] = self.resizeToContent,
 			[Roact.Ref] = self.layoutRef,
 		})

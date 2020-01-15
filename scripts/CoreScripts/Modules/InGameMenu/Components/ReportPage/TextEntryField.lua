@@ -32,6 +32,8 @@ TextEntryField.validateProps = t.strictInterface({
 	textChanged = t.callback,
 	-- The maximum length of text allowed in codepoints
 	maxTextLength = t.integer,
+	-- If the TextBox should be auto focused when the TextEntry field is enabled.
+	autoFocusOnEnabled = t.boolean,
 
 	-- The placeholder text that is displayed when the TextEntryField is empty (text = "").
 	PlaceholderText = t.string,
@@ -217,6 +219,10 @@ function TextEntryField:didUpdate(prevProps, prevState)
 		-- Release focus of current textbox.
 		if self.textBoxRef.current and self.textBoxRef.current:IsFocused() then
 			self.textBoxRef.current:ReleaseFocus()
+		end
+	elseif self.props.enabled and not prevProps.enabled then
+		if self.props.autoFocusOnEnabled and self.textBoxRef.current then
+			self.textBoxRef.current:CaptureFocus()
 		end
 	end
 end

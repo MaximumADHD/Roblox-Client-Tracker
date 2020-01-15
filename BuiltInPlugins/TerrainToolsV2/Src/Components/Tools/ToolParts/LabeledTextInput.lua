@@ -71,17 +71,20 @@ local BORDER_PADDING = 2
 
 local TEXTBOX_HEIGHT = 22
 local BORDERFRAME_HEIGHT = TEXTBOX_HEIGHT + 2 -- +2 from teh border size
-local LABEL_BACKGROUND_COLOR = Color3.fromRGB(245, 245, 245)
-local BORDER_COLOR = Color3.fromRGB(182, 182, 182)
-local BORDER_COLOR_DARK = Color3.fromRGB(26, 26, 26)
-local SELECTED_BORDER_COLOR = Color3.fromRGB(0, 162, 255)
-local WARNING_RED = Color3.fromRGB(216, 104, 104)
 
 local ROUNDED_BACKGROUND_IMAGE = "rbxasset://textures/StudioToolbox/RoundedBorder.png"
 local ROUNDED_FRAME_SLICE = Rect.new(3, 3, 13, 13)
 
 local LabeledTextInput = Roact.PureComponent:extend(script.Name)
 local FFlagTerrainToolsAutoFormatNum = game:GetFastFlag("TerrainToolsAutoFormatNum")
+
+local function textToSigFig(textNum)
+	local num = tonumber(textNum)
+	if num then
+		return string.format("%.3f", num)
+	end
+	return textNum
+end
 
 function LabeledTextInput:init()
 	local label = self.props.Label
@@ -151,7 +154,7 @@ function LabeledTextInput:init()
 
 		if self.props.ValidateText then
 			local currText = textBox.Text
-			local updatedText = ""
+			local updatedText
 			local warningMessage = ""
 			if utf8.len(currText) > 0 then
 				updatedText, warningMessage = self.props.ValidateText(currText)
@@ -218,11 +221,9 @@ function LabeledTextInput:init()
 			if textBox then
 				if utf8.len(textBox.Text) > 0 then
 					if FFlagTerrainToolsAutoFormatNum and not self.props.IgnoreNumFormatting then
-						local num = tonumber(textBox.Text)
-						if num then
-							textBox.Text = string.format("%.3f", num)
-						end
+						textBox.Text = textToSigFig(textBox.Text)
 					end
+
 					local textOverride = self.props.OnFocusLost(enterPressed, textBox.Text)
 					if textOverride then
 						textBox.Text = textOverride
@@ -243,10 +244,14 @@ end
 function LabeledTextInput:render()
 	local position = self.props.Position
 	local width = self.props.Width or UDim.new(1, 0)
-	local size = self.props.Size
 
 	local label = self.props.Label or ""
 	local text = self.props.Text or ""
+
+	if FFlagTerrainToolsAutoFormatNum and not self.props.IgnoreNumFormatting then
+		text = textToSigFig(text)
+	end
+
 	local placeholderText = self.props.PlaceholderText or text
 	local clearTextOnFocus = self.props.ClearTextOnFocus or false
 	local layoutOrder = self.props.LayoutOrder
@@ -258,12 +263,8 @@ function LabeledTextInput:render()
 		warningMessage = self.props.WarningOverride
 	end
 
-	local size, borderSize, borderColor
+	local size, borderColor
 	local borderSize = UDim2.new(1, 0, 0, BORDERFRAME_HEIGHT)
-
-	if size then
-		width = size.Width
-	end
 
 	return withTheme(function(theme)
 		if #warningMessage == 0 then

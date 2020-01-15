@@ -1,17 +1,7 @@
 local Plugin = script.Parent.Parent.Parent
 local Cryo = require(Plugin.Packages.Cryo)
 local Rodux = require(Plugin.Packages.Rodux)
-
--- Removes decimal points from timestamps,
--- which make them incompatible with localization.
-local function cleanTimestamp(timestamp)
-	local index = timestamp:find("%.")
-	if index then
-		return timestamp:sub(1, index - 1) .. "Z"
-	else
-		return timestamp
-	end
-end
+local cleanTimestamp = require(Plugin.Src.Util.cleanTimestamp)
 
 local function setPluginValues(state, assetId, values)
 	local newPlugins = {}
@@ -28,8 +18,23 @@ end
 return Rodux.createReducer({
 	plugins = nil,
 }, {
+	--[[ fired when the request to fetch plugin data fails and we need to clear out any bad state ]]
+	ClearPluginData = function(state, _)
+		return Cryo.Dictionary.join(state, {
+			plugins = Cryo.None,
+		})
+	end,
+
+	--[[ Allows data to be loaded as it comes in from the network ]]
+	SetLoadedPluginData = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			plugins = Cryo.Dictionary.join(state.plugins or {}, action.pluginData),
+		})
+	end,
+
 	--[[ fired when the network request returns with information about a specific plugin ]]
 	SetPluginInfo = function(state, action)
+		-- FFlagPluginManagementAllowLotsOfPlugins TODO : Remove this handler when cleaning up this flag
 		local pluginTab = action.plugins or {}
 		local dataTab = action.data or {}
 

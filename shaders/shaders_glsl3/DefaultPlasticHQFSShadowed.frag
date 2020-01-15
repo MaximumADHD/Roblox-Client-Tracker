@@ -75,9 +75,9 @@ struct MaterialParams
 uniform vec4 CB0[47];
 uniform vec4 CB8[24];
 uniform vec4 CB2[5];
+uniform sampler2D ShadowAtlasTexture;
 uniform sampler3D LightMapTexture;
 uniform sampler3D LightGridSkylightTexture;
-uniform sampler2D ShadowAtlasTexture;
 uniform samplerCube EnvironmentMapTexture;
 uniform sampler2D DiffuseMapTexture;
 uniform sampler2D NormalMapTexture;
@@ -144,9 +144,9 @@ void main()
     _entryPointOutput = vec4(f40.x, f40.y, f40.z, f37.w);
 }
 
+//$$ShadowAtlasTexture=s1
 //$$LightMapTexture=s6
 //$$LightGridSkylightTexture=s7
-//$$ShadowAtlasTexture=s1
 //$$EnvironmentMapTexture=s2
 //$$DiffuseMapTexture=s3
 //$$NormalMapTexture=s4

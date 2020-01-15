@@ -7,6 +7,7 @@ local SetDevConsoleMinimized = require(script.Parent.Parent.Actions.SetDevConsol
 
 local FFlagDevConsoleTabMetrics = settings():GetFFlag("DevConsoleTabMetrics")
 local FFlagReportDevConsoleOpenClose = settings():GetFFlag("ReportDevConsoleOpenClose")
+local FFlagDevConsoleAnalyticsIncludeOwner = settings():GetFFlag("DevConsoleAnalyticsIncludeOwner")
 
 local START_VISIBLE = "DevConsoleStartVisible"
 local CLOSE_SESSION_TIME = "DevConsoleSessionTime"
@@ -43,7 +44,7 @@ function dispatchTabAnalytics(additionArgs)
 	AnalyticsService:SendEventImmediately("client", "devConsoleMetric", "devConsoleTabChange", additionArgs)
 end
 
-function ReportTabChange(store, action)
+function ReportTabChange(store, action, isDeveloper)
 	if action.type == SetActiveTab.name then
 		local mainView = store:getState().MainView
 
@@ -58,6 +59,10 @@ function ReportTabChange(store, action)
 				initTab = getTabAnalyticsKeyName(mainView.currTabIndex, mainView.isClientView),
 				endTab = getTabAnalyticsKeyName(updateIndex, updateIsClient),
 			}
+			if FFlagDevConsoleAnalyticsIncludeOwner then
+				additionArgs.isOwner = isDeveloper
+			end
+
 			dispatchTabAnalytics(additionArgs)
 		end
 
@@ -82,6 +87,9 @@ function ReportTabChange(store, action)
 				endTab = TABBING_END_VISIBLE,
 			}
 		end
+		if FFlagDevConsoleAnalyticsIncludeOwner then
+			additionArgs.isOwner = isDeveloper
+		end
 		dispatchTabAnalytics(additionArgs)
 
 	elseif action.type == SetDevConsoleMinimized.name then
@@ -99,22 +107,42 @@ function ReportTabChange(store, action)
 				endTab = getTabAnalyticsKeyName(mainView.currTabIndex, mainView.isClientView),
 			}
 		end
+		if FFlagDevConsoleAnalyticsIncludeOwner then
+			additionArgs.isOwner = isDeveloper
+		end
 		dispatchTabAnalytics(additionArgs)
 
 	end
 end
 
-function DevConsoleAnalytics(nextDispatch, store)
-	return function(action)
-		if FFlagDevConsoleTabMetrics then
-			ReportTabChange(store, action)
-		end
 
-		if FFlagReportDevConsoleOpenClose then
-			ReportDevConsoleOpenClose(store, action)
+if FFlagDevConsoleAnalyticsIncludeOwner then
+	-- wrap this middleware in a functional constructor to pass initalization information
+	return function(isDeveloper)
+		return function(nextDispatch, store)
+			return function(action)
+				if FFlagDevConsoleTabMetrics then
+					ReportTabChange(store, action, isDeveloper)
+				end
+
+				if FFlagReportDevConsoleOpenClose then
+					ReportDevConsoleOpenClose(store, action)
+				end
+				nextDispatch(action)
+			end
 		end
-		nextDispatch(action)
+	end
+else
+	return function(nextDispatch, store)
+		return function(action)
+			if FFlagDevConsoleTabMetrics then
+				ReportTabChange(store, action)
+			end
+
+			if FFlagReportDevConsoleOpenClose then
+				ReportDevConsoleOpenClose(store, action)
+			end
+			nextDispatch(action)
+		end
 	end
 end
-
-return DevConsoleAnalytics

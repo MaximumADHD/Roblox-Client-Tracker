@@ -62,23 +62,11 @@ local ZOOM_SENSITIVITY_CURVATURE = 0.5
 local abs = math.abs
 local sign = math.sign
 
-local thirdGamepadZoomStepFlagExists, thirdGamepadZoomStepFlagEnabled = pcall(function()
-	return UserSettings():IsUserFeatureEnabled("UserThirdGamepadZoomStep")
-end)
-local FFlagUserThirdGamepadZoomStep = thirdGamepadZoomStepFlagExists and thirdGamepadZoomStepFlagEnabled
-
-local FFlagUserPointerActionsInPlayerScripts do
+local FFlagUserCameraToggle do
 	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserPointerActionsInPlayerScripts")
+		return UserSettings():IsUserFeatureEnabled("UserCameraToggle")
 	end)
-	FFlagUserPointerActionsInPlayerScripts = success and result
-end
-
-local FFlagUserNoMoreKeyboardPan do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserNoMoreKeyboardPan")
-	end)
-	FFlagUserNoMoreKeyboardPan = success and result
+	FFlagUserCameraToggle = success and result
 end
 
 local fixZoomIssuesFlagExists, fixZoomIssuesFlagEnabled = pcall(function()
@@ -88,6 +76,9 @@ local FFlagUserFixZoomClampingIssues = fixZoomIssuesFlagExists and fixZoomIssues
 
 local Util = require(script.Parent:WaitForChild("CameraUtils"))
 local ZoomController = require(script.Parent:WaitForChild("ZoomController"))
+local CameraToggleStateController = require(script.Parent:WaitForChild("CameraToggleStateController"))
+local CameraInput = require(script.Parent:WaitForChild("CameraInput"))
+local CameraUI = require(script.Parent:WaitForChild("CameraUI"))
 
 --[[ Roblox Services ]]--
 local Players = game:GetService("Players")
@@ -541,8 +532,6 @@ function BaseCamera:OnInputChanged(input, processed)
 		self:OnTouchChanged(input, processed)
 	elseif input.UserInputType == Enum.UserInputType.MouseMovement then
 		self:OnMouseMoved(input, processed)
-	elseif input.UserInputType == Enum.UserInputType.MouseWheel and not FFlagUserPointerActionsInPlayerScripts then -- remove with FFlagUserPointerActionsInPlayerScripts
-		self:OnMouseWheel(input, processed)
 	end
 end
 
@@ -583,11 +572,9 @@ function BaseCamera:OnPointerAction(wheel, pan, pinch, processed)
 end
 
 function BaseCamera:ConnectInputEvents()
-	if FFlagUserPointerActionsInPlayerScripts then
-		self.pointerActionConn = UserInputService.PointerAction:Connect(function(wheel, pan, pinch, processed)
-			self:OnPointerAction(wheel, pan, pinch, processed)
-		end)
-	end
+	self.pointerActionConn = UserInputService.PointerAction:Connect(function(wheel, pan, pinch, processed)
+		self:OnPointerAction(wheel, pan, pinch, processed)
+	end)
 
 	self.inputBeganConn = UserInputService.InputBegan:Connect(function(input, processed)
 		self:OnInputBegan(input, processed)
@@ -666,7 +653,7 @@ function BaseCamera:UnbindContextActions()
 end
 
 function BaseCamera:Cleanup()
-	if FFlagUserPointerActionsInPlayerScripts and self.pointerActionConn then
+	if self.pointerActionConn then
 		self.pointerActionConn:Disconnect()
 		self.pointerActionConn = nil
 	end
@@ -811,52 +798,19 @@ function BaseCamera:DoPanRotateCamera(rotateAngle)
 	end
 end
 
-function BaseCamera:DoKeyboardPan(name, state, input)
-	if FFlagUserNoMoreKeyboardPan or not self.hasGameLoaded and VRService.VREnabled then
-		return Enum.ContextActionResult.Pass
-	end
-
-	if state ~= Enum.UserInputState.Begin then
-		return Enum.ContextActionResult.Pass
-	end
-
-	if self.panBeginLook == nil and self.keyPanEnabled then
-		if input.KeyCode == Enum.KeyCode.Comma then
-			self:DoPanRotateCamera(-math.pi*0.1875)
-		elseif input.KeyCode == Enum.KeyCode.Period then
-			self:DoPanRotateCamera(math.pi*0.1875)
-		elseif input.KeyCode == Enum.KeyCode.PageUp then
-			self.rotateInput = self.rotateInput + Vector2.new(0,math.rad(15))
-			self.lastCameraTransform = nil
-		elseif input.KeyCode == Enum.KeyCode.PageDown then
-			self.rotateInput = self.rotateInput + Vector2.new(0,math.rad(-15))
-			self.lastCameraTransform = nil
-		end
-		return Enum.ContextActionResult.Sink
-	end
-	return Enum.ContextActionResult.Pass
-end
-
 function BaseCamera:DoGamepadZoom(name, state, input)
 	if input.UserInputType == self.activeGamepad then
 		if input.KeyCode == Enum.KeyCode.ButtonR3 then
 			if state == Enum.UserInputState.Begin then
 				if self.distanceChangeEnabled then
 					local dist = self:GetCameraToSubjectDistance()
-					if FFlagUserThirdGamepadZoomStep then
-						if dist > (GAMEPAD_ZOOM_STEP_2 + GAMEPAD_ZOOM_STEP_3)/2 then
-							self:SetCameraToSubjectDistance(GAMEPAD_ZOOM_STEP_2)
-						elseif dist > (GAMEPAD_ZOOM_STEP_1 + GAMEPAD_ZOOM_STEP_2)/2 then
-							self:SetCameraToSubjectDistance(GAMEPAD_ZOOM_STEP_1)
-						else
-							self:SetCameraToSubjectDistance(GAMEPAD_ZOOM_STEP_3)
-						end
+
+					if dist > (GAMEPAD_ZOOM_STEP_2 + GAMEPAD_ZOOM_STEP_3)/2 then
+						self:SetCameraToSubjectDistance(GAMEPAD_ZOOM_STEP_2)
+					elseif dist > (GAMEPAD_ZOOM_STEP_1 + GAMEPAD_ZOOM_STEP_2)/2 then
+						self:SetCameraToSubjectDistance(GAMEPAD_ZOOM_STEP_1)
 					else
-						if dist > 0.5 then
-							self:SetCameraToSubjectDistance(0)
-						else
-							self:SetCameraToSubjectDistance(10)
-						end
+						self:SetCameraToSubjectDistance(GAMEPAD_ZOOM_STEP_3)
 					end
 				end
 			end
@@ -922,8 +876,6 @@ end
 function BaseCamera:BindKeyboardInputActions()
 	self:BindAction("BaseCameraKeyboardPanArrowKeys", function(name, state, input) return self:DoKeyboardPanTurn(name, state, input) end,
 		false, Enum.KeyCode.Left, Enum.KeyCode.Right)
-	self:BindAction("BaseCameraKeyboardPan", function(name, state, input) return self:DoKeyboardPan(name, state, input) end,
-		false, Enum.KeyCode.Comma, Enum.KeyCode.Period, Enum.KeyCode.PageUp, Enum.KeyCode.PageDown)
 	self:BindAction("BaseCameraKeyboardZoom", function(name, state, input) return self:DoKeyboardZoom(name, state, input) end,
 		false, Enum.KeyCode.I, Enum.KeyCode.O)
 end
@@ -1142,40 +1094,27 @@ function BaseCamera:OnMousePanButtonReleased(input, processed)
 	end
 end
 
-function BaseCamera:OnMouseWheel(input, processed)  -- remove with FFlagUserPointerActionsInPlayerScripts
-	if not self.hasGameLoaded and VRService.VREnabled then
-		return
-	end
-	if not processed then
-		if self.distanceChangeEnabled then
-			local wheelInput = Util.Clamp(-1, 1, -input.Position.Z)
-
-			local newDistance
-			if self.inFirstPerson and wheelInput > 0 then
-				newDistance = FIRST_PERSON_DISTANCE_THRESHOLD
-			else
-				-- The 0.156 and 1.7 values are the slope and intercept of a line that is replacing the old
-				-- rk4Integrator function which was not being used as an integrator, only to get a delta as a function of distance,
-				-- which was linear as it was being used. These constants preserve the status quo behavior.
-				newDistance = self.currentSubjectDistance + 0.156 * self.currentSubjectDistance * wheelInput + 1.7 * math.sign(wheelInput)
-			end
-
-			self:SetCameraToSubjectDistance(newDistance)
-		end
-	end
-end
-
 function BaseCamera:UpdateMouseBehavior()
-	-- first time transition to first person mode or mouse-locked third person
-	if self.inFirstPerson or self.inMouseLockedMode then
-		UserGameSettings.RotationType = Enum.RotationType.CameraRelative
-		UserInputService.MouseBehavior = Enum.MouseBehavior.LockCenter
+	if FFlagUserCameraToggle and self.isCameraToggle then
+		CameraUI.setCameraModeToastEnabled(true)
+		CameraInput.enableCameraToggleInput()
+		CameraToggleStateController(self.inFirstPerson)
 	else
-		UserGameSettings.RotationType = Enum.RotationType.MovementRelative
-		if self.isRightMouseDown or self.isMiddleMouseDown then
-			UserInputService.MouseBehavior = Enum.MouseBehavior.LockCurrentPosition
+		if FFlagUserCameraToggle then
+			CameraUI.setCameraModeToastEnabled(false)
+			CameraInput.disableCameraToggleInput()
+		end
+		-- first time transition to first person mode or mouse-locked third person
+		if self.inFirstPerson or self.inMouseLockedMode then
+			UserGameSettings.RotationType = Enum.RotationType.CameraRelative
+			UserInputService.MouseBehavior = Enum.MouseBehavior.LockCenter
 		else
-			UserInputService.MouseBehavior = Enum.MouseBehavior.Default
+			UserGameSettings.RotationType = Enum.RotationType.MovementRelative
+			if self.isRightMouseDown or self.isMiddleMouseDown then
+				UserInputService.MouseBehavior = Enum.MouseBehavior.LockCurrentPosition
+			else
+				UserInputService.MouseBehavior = Enum.MouseBehavior.Default
+			end
 		end
 	end
 end
@@ -1582,13 +1521,8 @@ function BaseCamera:GetRepeatDelayValue(vrRotationIntensity)
 	return 0
 end
 
-function BaseCamera:Test()
-	print("BaseCamera:Test()")
-end
-
 function BaseCamera:Update(dt)
-	warn("BaseCamera:Update() This is a virtual function that should never be getting called.")
-	return game.Workspace.CurrentCamera.CFrame, game.Workspace.CurrentCamera.Focus
+	error("BaseCamera:Update() This is a virtual function that should never be getting called.", 2)
 end
 
 return BaseCamera

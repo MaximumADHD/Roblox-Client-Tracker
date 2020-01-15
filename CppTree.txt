@@ -27,6 +27,7 @@ RBX
 		BallBlockContact
 		BallPolyContact
 		BlockBlockContact
+		BlockBlockContact_New
 		BulletCellContact
 		BulletContact
 		BuoyancyBallContact
@@ -359,7 +360,6 @@ RBX
 		PacketReceiveJob
 		Peer
 		PeerStatsItem
-		PhysicsPacketCache
 		PooledItem
 		RakStatsItem
 		ReplicatorJob
@@ -436,6 +436,12 @@ RBX
 		Workspace
 		YieldFunctionDescriptor
 	}
+	RVideoInternal
+	{
+		FramesCallback
+		RVIOContextReader
+		TrackEntriesCallback
+	}
 	ScriptAnalyzer
 	{
 		AutocompleteResult
@@ -453,6 +459,13 @@ RBX
 		StepInBreakpoint
 		StepOutBreakpoint
 		StepOverBreakpoint
+	}
+	Security
+	{
+		ReplicatorCryptoContext
+		ReplicatorCryptoContextOpenSSL
+		ReplicatorCryptoSystem
+		ReplicatorCryptoSystemOpenSSL
 	}
 	Solver
 	{
@@ -578,7 +591,6 @@ RBX
 	AssemblyStage
 	AssetFetchMediator
 	AssetService
-	AsyncContactStepTask
 	AsyncHttpQueue
 	Attachment
 	AttachmentDraggerTool
@@ -734,7 +746,6 @@ RBX
 	FilterSameAssembly
 	Fire
 	FirstPersonCommand
-	FixedHandler
 	Flag
 	FlagStand
 	FlagStandService
@@ -852,7 +863,6 @@ RBX
 	InletTool
 	InputObject
 	InsertService
-	IntHandler
 	InventoryPages
 	IPipelined
 	IPluginElementHost
@@ -923,7 +933,6 @@ RBX
 	MechanicalJoint
 	Mechanism
 	MechanismInterpolationParallelManager
-	MechanismInterpolationParallelTask
 	MechToAssemblyStage
 	MegaClusterInstance
 	MemStorageConnection
@@ -965,7 +974,6 @@ RBX
 	NonReplicatedCSGDictionaryService
 	NotificationService
 	NumberHandler
-	NumHandler
 	ObjectValue
 	OnDemandInstance
 	OrderedDataStore
@@ -1205,6 +1213,9 @@ RBX
 	Verb
 	VerbContainer
 	VersionControlService
+	VideoFrame
+	VideoJob
+	VideoStream
 	ViewBase
 	ViewportFrame
 	VirtualHardwareDevice

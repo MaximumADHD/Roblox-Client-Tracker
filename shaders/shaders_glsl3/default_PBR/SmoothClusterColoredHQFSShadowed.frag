@@ -50,9 +50,9 @@ struct LightShadowGPUTransform
 
 uniform vec4 CB0[47];
 uniform vec4 CB8[24];
+uniform sampler2D ShadowAtlasTexture;
 uniform sampler3D LightMapTexture;
 uniform sampler3D LightGridSkylightTexture;
-uniform sampler2D ShadowAtlasTexture;
 uniform sampler2DArray AlbedoMapTexture;
 uniform sampler2DArray SpecularMapTexture;
 
@@ -131,8 +131,8 @@ void main()
     _entryPointOutput = vec4(f55.x, f55.y, f55.z, f54.w);
 }
 
+//$$ShadowAtlasTexture=s1
 //$$LightMapTexture=s6
 //$$LightGridSkylightTexture=s7
-//$$ShadowAtlasTexture=s1
 //$$AlbedoMapTexture=s0
 //$$SpecularMapTexture=s2

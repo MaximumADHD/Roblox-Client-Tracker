@@ -12,7 +12,6 @@ local SeaLevelTool = Rodux.createReducer({
 		Y = 0,
 		Z = 0,
 	},
-
 	size = {
 		X = 1024,
 		Y = 512,
@@ -20,8 +19,7 @@ local SeaLevelTool = Rodux.createReducer({
 	},
 	planePositionY = 0,
 	heightPicker = false,
-},
-{
+}, {
 	ChangePosition = function(state, action)
 		local position = action.position
 
@@ -45,6 +43,7 @@ local SeaLevelTool = Rodux.createReducer({
 			planePositionY = planePositionY,
 		})
 	end,
+
 	SetHeightPicker = function(state, action)
 		local heightPicker = action.heightPicker
 

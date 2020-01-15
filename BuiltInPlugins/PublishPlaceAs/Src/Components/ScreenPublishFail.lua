@@ -23,9 +23,6 @@ local SettingsImpl = require(Plugin.Src.Network.Requests.SettingsImpl)
 local StudioService = game:GetService("StudioService")
 local ContentProvider = game:GetService("ContentProvider")
 
-local DFFlagPreloadAsyncCallbackFunction = settings():getFFlag("PreloadAsyncCallbackFunction")
-local FFlagEnableRbxThumbAPI = settings():GetFFlag("EnableRbxThumbAPI")
-
 local ICON_SIZE = 150
 local BUTTON_WIDTH = 150
 local BUTTON_HEIGHT = 40
@@ -46,19 +43,17 @@ end
 
 function ScreenPublishFail:didMount()
 	self.isMounted = true
-	if DFFlagPreloadAsyncCallbackFunction and FFlagEnableRbxThumbAPI then
-		spawn(function()
-			local asset = { self.thumbnailUrl }
-			local function setStatus(contentId, status)
-				if self.isMounted then
-					self:setState({
-						assetFetchStatus = status
-					})
-				end
+	spawn(function()
+		local asset = { self.thumbnailUrl }
+		local function setStatus(contentId, status)
+			if self.isMounted then
+				self:setState({
+					assetFetchStatus = status
+				})
 			end
-			ContentProvider:PreloadAsync(asset, setStatus)
-		end)
-	end
+		end
+		ContentProvider:PreloadAsync(asset, setStatus)
+	end)
 
 	self.finishedConnection = StudioService.GamePublishFinished:connect(function(success)
 		if success then

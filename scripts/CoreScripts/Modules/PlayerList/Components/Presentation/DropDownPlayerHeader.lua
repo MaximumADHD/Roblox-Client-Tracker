@@ -23,6 +23,7 @@ function DropDownPlayerHeader:render()
 			return Roact.createElement("TextButton", {
 				--Used as a text button instead of a frame so that clicking on this doesn't close the player drop down.
 				BackgroundTransparency = 1,
+				Text = "",
 				Size = UDim2.new(1, 0, 0, layoutValues.DropDownHeaderSizeY),
 				LayoutOrder = 0,
 			}, {

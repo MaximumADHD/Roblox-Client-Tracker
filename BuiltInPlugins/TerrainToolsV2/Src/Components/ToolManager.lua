@@ -20,41 +20,26 @@ local ToolButton = require(Components.ToolButton)
 local Actions = Plugin.Src.Actions
 local ChangeTool = require(Actions.ChangeTool)
 
-local FFlagTerrainToolsRefactorTabsAndTools = game:GetFastFlag("TerrainToolsRefactorTabsAndTools")
-
 local ToolManager = Roact.PureComponent:extend(script.Name)
 
-local tabLookup
-if FFlagTerrainToolsRefactorTabsAndTools then
-	tabLookup = {
-		[TabId.Create] = {
-			ToolId.Generate, ToolId.Import, ToolId.Clear
-		},
-		[TabId.Region] = {
-			ToolId.Select, ToolId.Move, ToolId.Resize, ToolId.Rotate,
-			ToolId.Copy, ToolId.Paste, ToolId.Delete, ToolId.Fill
-		},
-		[TabId.Edit] = {
-			ToolId.Add, ToolId.Subtract,
-			ToolId.Grow, ToolId.Erode, ToolId.Smooth, ToolId.Flatten,
-			ToolId.Paint
-		},
-	}
+local tabLookup = {
+	[TabId.Create] = {
+		ToolId.Generate, ToolId.Import, ToolId.Clear
+	},
+	[TabId.Region] = {
+		ToolId.Select, ToolId.Move, ToolId.Resize, ToolId.Rotate,
+		ToolId.Copy, ToolId.Paste, ToolId.Delete, ToolId.Fill
+	},
+	[TabId.Edit] = {
+		ToolId.Add, ToolId.Subtract,
+		ToolId.Grow, ToolId.Erode, ToolId.Smooth, ToolId.Flatten,
+		ToolId.Paint
+	},
+}
 
-	if settings():GetFFlag("TerrainToolsSeaLevel") then
-		-- When removing flag, put this straight into the tabLookup table
-		table.insert(tabLookup[TabId.Edit], ToolId.SeaLevel)
-	end
-else
-	tabLookup = {
-		Create = {"Generate", "Import", "Clear"},
-		Region = {"Select", "Move", "Resize", "Rotate", "Copy", "Paste", "Delete", "Fill"},
-		Edit = {"Add", "Subtract", "Grow", "Erode", "Smooth", "Flatten", "Paint"}
-	}
-	local FFlagTerrainToolsSeaLevel = settings():GetFFlag("TerrainToolsSeaLevel")
-	if FFlagTerrainToolsSeaLevel then
-		table.insert(tabLookup.Edit, ToolId.SeaLevel)
-	end
+if settings():GetFFlag("TerrainToolsSeaLevel") then
+	-- When removing flag, put this straight into the tabLookup table
+	table.insert(tabLookup[TabId.Edit], ToolId.SeaLevel)
 end
 
 function ToolManager:init()
@@ -78,26 +63,13 @@ function ToolManager:render()
 
 		local tools = {}
 
-		if FFlagTerrainToolsRefactorTabsAndTools then
-			for i, toolId in ipairs(tabLookup[currentTab]) do
-				tools[toolId] = Roact.createElement(ToolButton, {
-					ToolId = toolId,
-					LayoutOrder = i,
-					OnClick = self.props.dispatchChangeTool,
-					IsCurrentTool = currentTool == toolId,
-				})
-			end
-		else
-			for i, v in ipairs(tabLookup[currentTab]) do
-				tools[v] = Roact.createElement(ToolButton, {
-					Name = localization:getText("ToolName", v),
-					LayoutOrder = i,
-					OnClick = function()
-						self.props.dispatchChangeTool(v)
-					end,
-					currentTool = currentTool,
-				})
-			end
+		for i, toolId in ipairs(tabLookup[currentTab]) do
+			tools[toolId] = Roact.createElement(ToolButton, {
+				ToolId = toolId,
+				LayoutOrder = i,
+				OnClick = self.props.dispatchChangeTool,
+				IsCurrentTool = currentTool == toolId,
+			})
 		end
 
 		table.insert(tools,

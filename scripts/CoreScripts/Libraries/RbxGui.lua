@@ -1821,7 +1821,8 @@ t.CreateScrollingFrame = function(orderList,scrollStyle)
 		setRowSize = true
 		local lastChildSize = 0
 		
-		local xOffset,yOffset = 0
+		local xOffset = 0
+		local yOffset = 0
 		if guiObjects[1] then
 			yOffset = math.ceil(math.floor(math.fmod(totalPixelsY,guiObjects[1].AbsoluteSize.X))/2)
 			xOffset = math.ceil(math.floor(math.fmod(totalPixelsX,guiObjects[1].AbsoluteSize.Y))/2)

@@ -210,6 +210,7 @@ Studio.App.DeclarationView.BackEnd,,<b>Back-end: </b>This item can only be used 
 Studio.App.DeclarationView.Deprecated,,<b>Deprecated: </b>This item is deprecated. Do not use it for new work.,<b>Deprecated: </b>This item is deprecated. Do not use it for new work.
 Studio.App.DeclarationView.MemberOf1,,"Member of <label style=""font-weight: bold"">%1</label>","Member of <label style=""font-weight: bold"">%1</label>"
 Studio.App.DeclarationView.Summary,,Summary:,Summary:
+Studio.App.DraftsServiceHost.ConfirmScriptDeleteButton,,Delete,Delete
 Studio.App.DraftsServiceHost.ConfirmScriptDeleteMine1,,"Are you sure you want to delete %1 from the place?
 
 You have uncommitted edits on this script","Are you sure you want to delete %1 from the place?
@@ -297,7 +298,6 @@ Studio.App.GameExplorer.InsertAsLocalScript,,Insert as LocalScript,Insert as Loc
 Studio.App.GameExplorer.InsertAsModuleScript,,Insert as ModuleScript,Insert as ModuleScript
 Studio.App.GameExplorer.InsertAsScript,,InsertAsScript,InsertAsScript
 Studio.App.GameExplorer.InsertWithLocation,,Insert with location,Insert with location
-Studio.App.GameExplorer.MarkAsStartPlace,,Mark as Start Place,Mark as Start Place
 Studio.App.GameExplorer.MassUpdatePackage,,Update All,Update All
 Studio.App.GameExplorer.ProductSettings,,Product Settings...,Product Settings...
 Studio.App.GameExplorer.PublishLinkedSource,,Publish this LinkedSource,Publish this LinkedSource
@@ -307,9 +307,12 @@ Studio.App.GameExplorer.RevertToLastPublishedVersion,,Revert to Last Published V
 Studio.App.GameExplorer.UnpublishedScriptMessageBoxMessage,,RobloxStudio is using unpublished changes in linked scripts for this universe. You can revert these changes to the last published version using Game Explorer.,RobloxStudio is using unpublished changes in linked scripts for this universe. You can revert these changes to the last published version using Game Explorer.
 Studio.App.GameExplorer.UnpublishedScriptMessageBoxTitle,,Unpublished Scripts,Unpublished Scripts
 Studio.App.GameExplorer.ViewOnWebsite,,View on website,View on website
+Studio.App.GameExplorerUtils.FailedToCreateImage1,,Failed to create image: %1,Failed to create image: %1
 Studio.App.GameExplorerUtils.NameAlreadyTakenNotCaseSensitive,,Name already taken (not case sensitive),Name already taken (not case sensitive)
 Studio.App.GameExplorerUtils.NameCannotBeEmpty,,Name cannot be empty,Name cannot be empty
 Studio.App.GameExplorerUtils.NameCannotContain,,Name cannot include '\\' or '/',Name cannot include '\\' or '/'
+Studio.App.GameExplorerUtils.NameInappropriate,,The name or description contains inappropriate text.,The name or description contains inappropriate text.
+Studio.App.GameExplorerUtils.TryAgainLater,,Try again later.,Try again later.
 Studio.App.GameGridViewWithHeader.Owner,,Owner:,Owner:
 Studio.App.GameGridViewWithHeader.Sort,,Sort:,Sort:
 Studio.App.GameWidget.Draft,,Draft,Draft
@@ -438,9 +441,12 @@ Studio.App.IdeDoc.WasSavedToFile1,Roblox IDE Doc,%1 was saved to file,%1 was sav
 Studio.App.IdeDoc.WouldYouLikeToPublishTheseChanges,Roblox IDE Doc,Would you like to publish these changes?,Would you like to publish these changes?
 Studio.App.IdeDoc.WouldYouLikeToSaveTheseChanges,Roblox IDE Doc,Would you like to save these changes?,Would you like to save these changes?
 Studio.App.IdeDoc.YouMustLogInToCreateMeshes,Roblox IDE Doc,You must log in to create meshes.,You must log in to create meshes.
+Studio.App.ImagePickerWidget.AddImageElps,,Add Image...,Add Image...
+Studio.App.ImageResourceController.ImagesReferencedByName,,"Images are referenced by name, so any references to this image will fail to load. Are you sure you want to remove it?","Images are referenced by name, so any references to this image will fail to load. Are you sure you want to remove it?"
 Studio.App.InsertObject.SearchObject1,,Search object %1,Search object %1
 Studio.App.InsertObjectWidget.EmptyFrequentlyUsedList,,Objects are not usually inserted under this parent.,Objects are not usually inserted under this parent.
 Studio.App.InsertObjectWidget.FavoritesCategory,,Frequently Used,Frequently Used
+Studio.App.InsertObjectWidget.NoResultsFound,,No Results Found,No Results Found
 Studio.App.InsertObjectWidget.SeeAllButton,,See All,See All
 Studio.App.InsertObjectWidget.SelectInsertedObject,,Select object after insert,Select object after insert
 Studio.App.InsertObjectWidget.ShowRecommendedOnly,,Show only recommended objects,Show only recommended objects
@@ -512,6 +518,7 @@ Studio.App.MainWindow.AboutToLogOutNewLine,Main Window,"Roblox Studio is about t
 
 "
 Studio.App.MainWindow.AmongRegisteredTrademarks,Main Window,"<i>Roblox</i>, the Roblox <i>logo</i> and <i>Powering Imagination</i> are among our registered and unregistered trademarks in the U.S. and other countries.</p><p>Contact us at <a href='https://www.roblox.com/support'>https://www.roblox.com/support</a></p></div>","<i>Roblox</i>, the Roblox <i>logo</i> and <i>Powering Imagination</i> are among our registered and unregistered trademarks in the U.S. and other countries.</p><p>Contact us at <a href='https://www.roblox.com/support'>https://www.roblox.com/support</a></p></div>"
+Studio.App.MainWindow.AmongRegisteredTrademarks2,Replacement of Studio.App.MainWindow.AmongRegisteredTrademarks with only hyper link excluded,"<i>Roblox</i>, the Roblox <i>logo</i> and <i>Powering Imagination</i> are among our registered and unregistered trademarks in the U.S. and other countries.</p><p>Contact us at <a href='%1'>%2</a></p></div>","<i>Roblox</i>, the Roblox <i>logo</i> and <i>Powering Imagination</i> are among our registered and unregistered trademarks in the U.S. and other countries.</p><p>Contact us at <a href='%1'>%2</a></p></div>"
 Studio.App.MainWindow.ArgumentsBreak,Main Window,Arguments:<br>,Arguments:<br>
 Studio.App.MainWindow.BreakPathSpace,Main Window,<br>Path: ,<br>Path: 
 Studio.App.MainWindow.BuildTypeSpace1,Main Window,Build Type: %1,Build Type: %1
@@ -582,10 +589,8 @@ Studio.App.MainWindow.UnableToOpenDeletedFile1,Main Window,"Could not open the f
 Studio.App.MainWindow.UnableToOpenGameOrPlaceRestartApplication,Main Window,"Unable to open the game or place. Please restart your application and try again. If you continue to encounter this error, please contact customer service.","Unable to open the game or place. Please restart your application and try again. If you continue to encounter this error, please contact customer service."
 Studio.App.MainWindow.UnableToOpenPlace2,Main Window,"Could not open the place ""%1"" with exception: ""%2"".","Could not open the place ""%1"" with exception: ""%2""."
 Studio.App.MainWindow.UploadingImageQuitAnyway,Main Window,Roblox is uploading an image. Quit anyway?,Roblox is uploading an image. Quit anyway?
-Studio.App.MainWindow.UploadingPlaceQuitPublish,Main Window,Unable to close Studio because we are currently publishing.,Unable to close Studio because we are currently publishing.
 Studio.App.MainWindow.UploadingPlaceQuitPublishAuto,Main Window,Publishing in progress. Studio will close automatically when complete.,Publishing in progress. Studio will close automatically when complete.
 Studio.App.MainWindow.UploadingPlaceQuitPublishFailed,Main Window,Failed To Publish. Please try again later.,Failed To Publish. Please try again later.
-Studio.App.MainWindow.UploadingPlaceQuitSave,Main Window,Unable to close Studio because we are currently saving.,Unable to close Studio because we are currently saving.
 Studio.App.MainWindow.UploadingPlaceQuitSaveAuto,Main Window,Saving in progress. Studio will close automatically when complete.,Saving in progress. Studio will close automatically when complete.
 Studio.App.MainWindow.UploadingPlaceQuitSaveFailed,Main Window,Failed To Save. Please try again later.,Failed To Save. Please try again later.
 Studio.App.MainWindow.UploadingVideoQuitAnyway,Main Window,Roblox is uploading a video. Quit anyway?,Roblox is uploading a video. Quit anyway?
@@ -769,6 +774,7 @@ Studio.App.Property.ArePartCoordsShown,,Are Part Coords Shown,Are Part Coords Sh
 Studio.App.Property.ArePhysicsRejectionsReported,,Are Physics Rejections Reported,Are Physics Rejections Reported
 Studio.App.Property.AreRegionsShown,,Are Regions Shown,Are Regions Shown
 Studio.App.Property.AreScriptStartsReported,,Are Script Starts Reported,Are Script Starts Reported
+Studio.App.Property.AreTerrainReplicationRegionsShown,,Are Terrain Replication Regions Shown,Are Terrain Replication Regions Shown
 Studio.App.Property.AreUnalignedPartsShown,,Are Unaligned Parts Shown,Are Unaligned Parts Shown
 Studio.App.Property.AreWorldCoordsShown,,Are World Coords Shown,Are World Coords Shown
 Studio.App.Property.AttachDebuggerTo,,Attach Debugger To,Attach Debugger To
@@ -1027,6 +1033,11 @@ Studio.App.QDebuggerClient.InvalidText,,Invalid,Invalid
 Studio.App.QDebuggerClient.WatchExpression,,Watch Expression:,Watch Expression:
 Studio.App.QDebuggerClient.WatchWindowTitle,,Watch,Watch
 Studio.App.QtUtilities.DontAskMeAgain,,Don't ask me again,Don't ask me again
+Studio.App.QuickOpenDialog.Instance,,Instance,Instance
+Studio.App.QuickOpenDialog.Recent,,Recent,Recent
+Studio.App.QuickOpenDialog.ScriptOnly,,Script Only,Script Only
+Studio.App.QuickOpenDialog.ShowMore,,Show More,Show More
+Studio.App.QuickOpenDialog.SpaceAsWildcard,,Space as Wildcard,Space as Wildcard
 Studio.App.RBXMainWindow.15StudGrid,,1/5 Stud Grid,1/5 Stud Grid
 Studio.App.RBXMainWindow.3DGrid,,3D Grid,3D Grid
 Studio.App.RBXMainWindow.AboutRobloxStudio,,About Roblox Studio,About Roblox Studio
@@ -1065,7 +1076,6 @@ Studio.App.RBXMainWindow.CommandBar,,Command Bar,Command Bar
 Studio.App.RBXMainWindow.ConditionElps,,Condition...,Condition...
 Studio.App.RBXMainWindow.ConnectorsOnSurface,,Connectors on Surface,Connectors on Surface
 Studio.App.RBXMainWindow.ConstraintCheck,,Constraint Check,Constraint Check
-Studio.App.RBXMainWindow.ContextHelp,,Context Help,Context Help
 Studio.App.RBXMainWindow.ConvertToPackageElps,,Convert to Package...,Convert to Package...
 Studio.App.RBXMainWindow.CopyTheSelectionAndPutItOn,,Copy the selection and put it on the Clipboard,Copy the selection and put it on the Clipboard
 Studio.App.RBXMainWindow.CreateANewDocument,,Create a new document,Create a new document
@@ -1231,7 +1241,6 @@ Studio.App.RBXMainWindow.PublishSelectionToRobloxElps,,Save to Roblox...,Save to
 Studio.App.RBXMainWindow.PublishTheSelectionToRoblox,,Publish the Selection to Roblox,Publish the Selection to Roblox
 Studio.App.RBXMainWindow.PublishToRoblox,,Publish to Roblox,Publish to Roblox
 Studio.App.RBXMainWindow.PublishToRobloxAsElps,,Publish to Roblox As...,Publish to Roblox As...
-Studio.App.RBXMainWindow.PublishWholeGameElps,,Publish Whole Game...,Publish Whole Game...
 Studio.App.RBXMainWindow.QuickFindScript,,Type to quickly open another script,Type to quickly open another script
 Studio.App.RBXMainWindow.QuitApplication,,Quit the application; prompts to save documents,Quit the application; prompts to save documents
 Studio.App.RBXMainWindow.RedoThePreviouslyUndo,,Redo the previously undone action,Redo the previously undone action
@@ -1357,7 +1366,6 @@ Studio.App.RBXMainWindow.UnlockAll,,Unlock All,Unlock All
 Studio.App.RBXMainWindow.UploadLogFiles,,Upload Log Files,Upload Log Files
 Studio.App.RBXMainWindow.VideoRecord,,Video Record,Video Record
 Studio.App.RBXMainWindow.ViewCommandBar,,View Command Bar,View Command Bar
-Studio.App.RBXMainWindow.ViewContextSensitiveHelp,,View Context-sensitive Help,View Context-sensitive Help
 Studio.App.RBXMainWindow.ViewDrafts,,View Drafts,View Drafts
 Studio.App.RBXMainWindow.ViewFindResults,,View Find Results,View Find Results
 Studio.App.RBXMainWindow.ViewGameExplorerElps,,View Game Explorer...,View Game Explorer...
@@ -1391,6 +1399,8 @@ Studio.App.Restart.RestartLater,restart studio later,Restart Later,Restart Later
 Studio.App.Restart.RestartNow,restart studio right now,Restart,Restart
 Studio.App.RobloxChatWidget.ChatOptions,,Chat Options,Chat Options
 Studio.App.RobloxChatWidget.ConnectingToChatElps,,Connecting to chat...,Connecting to chat...
+Studio.App.RobloxChatWidget.ContentModerated,,Content was moderated. Message not sent.,Content was moderated. Message not sent.
+Studio.App.RobloxChatWidget.SendAMessage,,Send a message,Send a message
 Studio.App.RobloxCustomWidgets.Loading,,(Loading...),(Loading...)
 Studio.App.RobloxCustomWidgets.Url,,URL:,URL:
 Studio.App.RobloxDocManager.NoToggleBetweenDMsWhilePaused,Explain why click through message doesn't work,You cannot open a script from one data model while debugger is paused on a different data model.,You cannot open a script from one data model while debugger is paused on a different data model.
@@ -1422,6 +1432,8 @@ Studio.App.RobloxKeyboardConfigWidget.SearchActions,,Search Actions,Search Actio
 Studio.App.RobloxKeyboardConfigWidget.Shortcut,,Shortcut,Shortcut
 Studio.App.RobloxMainWindow.Configure,,Configure,Configure
 Studio.App.RobloxMainWindow.OpenAllFilesPattern,,All Files (*.*),All Files (*.*)
+Studio.App.RobloxMainWindow.OpenMeshFile,,Open Mesh File,Open Mesh File
+Studio.App.RobloxMainWindow.OpenMeshFilesPattern,,Mesh Files (*.fbx *.obj),Mesh Files (*.fbx *.obj)
 Studio.App.RobloxMainWindow.OpenScriptFile,,Open Script File,Open Script File
 Studio.App.RobloxMainWindow.OpenScriptsPattern,,Scripts (*.rbxs *.lua *.txt),Scripts (*.rbxs *.lua *.txt)
 Studio.App.RobloxMainWindow.PluginInstallation,,Plugin Installation,Plugin Installation
@@ -1690,7 +1702,6 @@ Studio.App.RobloxRibbonMainWindow.Universal,,Universal,Universal
 Studio.App.RobloxRibbonMainWindow.UpdateSettingsCurrentGame,,Update settings related to current game,Update settings related to current game
 Studio.App.RobloxRibbonMainWindow.VectorForce,,Vector Force,Vector Force
 Studio.App.RobloxRibbonMainWindow.View,,View,View
-Studio.App.RobloxRibbonMainWindow.ViewContextSensitiveHelp,,View context-sensitive help,View context-sensitive help
 Studio.App.RobloxRibbonMainWindow.ViewCurrentCallStack,,View current call stack,View current call stack
 Studio.App.RobloxRibbonMainWindow.ViewCurrentlyWatchedVariables,,View currently watched variables,View currently watched variables
 Studio.App.RobloxRibbonMainWindow.ViewDiagnosticInfo,,View diagnostic information of your game,View diagnostic information of your game
@@ -1710,10 +1721,13 @@ Studio.App.RobloxRibbonMainWindow.Weld,,Weld,Weld
 Studio.App.RobloxRibbonMainWindow.WoodPlanks,,Wood Planks,Wood Planks
 Studio.App.RobloxScriptDoc.BreakpointsDisabledLinkedSource,,Breakpoints are currently disabled for LinkedSource.,Breakpoints are currently disabled for LinkedSource.
 Studio.App.RobloxScriptDoc.CantAccessRevertingChange,,"Cannot gain write access to script, reverting your change","Cannot gain write access to script, reverting your change"
+Studio.App.RobloxScriptDoc.CloseOtherScripts,,Close Other Scripts,Close Other Scripts
+Studio.App.RobloxScriptDoc.CloseScript,,Close Script,Close Script
 Studio.App.RobloxScriptDoc.LockTakenInactivity,,A script lock was taken from you due to inactivity. Please see the Script Recovery Widget to resolve issues.,A script lock was taken from you due to inactivity. Please see the Script Recovery Widget to resolve issues.
 Studio.App.RobloxScriptDoc.MultipleScriptLocks,,Multiple script locks were taken from you due to inactivity. Please see the Script Recovery Widget to resolve issues.,Multiple script locks were taken from you due to inactivity. Please see the Script Recovery Widget to resolve issues.
 Studio.App.RobloxScriptDoc.OtherChangesReverted1,,"%1 is currently modifying this script, your changes will be reverted","%1 is currently modifying this script, your changes will be reverted"
 Studio.App.RobloxScriptDoc.ScriptDeleted1,,%1 has been deleted from the server,%1 has been deleted from the server
+Studio.App.RobloxScriptDoc.ShowInExplorer,,Show in Explorer,Show in Explorer
 Studio.App.RobloxSettingsDialog.ResetAllSettings,,Reset All Settings,Reset All Settings
 Studio.App.RobloxSettingsDialog.ResetSettingsText,,Resetting settings will not take effect until you restart Roblox,Resetting settings will not take effect until you restart Roblox
 Studio.App.RobloxSettingsDialog.ResetSettingsTitle,,Reset Settings,Reset Settings
@@ -1728,16 +1742,24 @@ Studio.App.RobloxStudioVerbs.InsertOpenModel,,Open Roblox Model,Open Roblox Mode
 Studio.App.RobloxStudioVerbs.LinkedSource,,"Unable to create LinkedSource, see output for details.","Unable to create LinkedSource, see output for details."
 Studio.App.RobloxStudioVerbs.LoadCSVExt,,LocalizationTable CSV (*.csv),LocalizationTable CSV (*.csv)
 Studio.App.RobloxStudioVerbs.LoadCSVFile,,Open LocalizationTable CSV,Open LocalizationTable CSV
+Studio.App.RobloxStudioVerbs.NegationFailed,,Negation failed,Negation failed
 Studio.App.RobloxStudioVerbs.PackageLinkCopy,,Cannot copy selection(s) with PackageLink included!,Cannot copy selection(s) with PackageLink included!
 Studio.App.RobloxStudioVerbs.PackageLinkCut,,Cannot cut selection(s) with PackageLink included!,Cannot cut selection(s) with PackageLink included!
 Studio.App.RobloxStudioVerbs.PackageLinkDuplicate,,Cannot duplicate selection(s) with PackageLink included!,Cannot duplicate selection(s) with PackageLink included!
 Studio.App.RobloxStudioVerbs.PlaySolo,,Play Solo,Play Solo
 Studio.App.RobloxStudioVerbs.PlaySoloSaveFailure,,Play solo - save failure,Play solo - save failure
+Studio.App.RobloxStudioVerbs.QuickOpen,,Quick Open,Quick Open
 Studio.App.RobloxStudioVerbs.Redo1,,Redo %s,Redo %s
 Studio.App.RobloxStudioVerbs.RevealInExplorer,,Reveal In Explorer/Finder,Reveal In Explorer/Finder
+Studio.App.RobloxStudioVerbs.RobloxLuaScripts,,Roblox Lua Scripts (*.lua),Roblox Lua Scripts (*.lua)
+Studio.App.RobloxStudioVerbs.RobloxModelFiles,,Roblox Model Files (*.rbxm),Roblox Model Files (*.rbxm)
+Studio.App.RobloxStudioVerbs.RobloxXmlModelFiles,,Roblox XML Model Files (*.rbxmx),Roblox XML Model Files (*.rbxmx)
+Studio.App.RobloxStudioVerbs.SaveAsPlugin,,Save As Plugin,Save As Plugin
+Studio.App.RobloxStudioVerbs.SeparateFailed,,Separate failed,Separate failed
 Studio.App.RobloxStudioVerbs.StartServer,,Start server,Start server
 Studio.App.RobloxStudioVerbs.StartServerSaveFailure,,Start server - save failure,Start server - save failure
 Studio.App.RobloxStudioVerbs.Undo1,,Undo %s,Undo %s
+Studio.App.RobloxStudioVerbs.UnionFailed,,Union failed,Union failed
 Studio.App.RobloxTeamCreateWidget.DeleteUser,,Delete User,Delete User
 Studio.App.RobloxTeamCreateWidget.TeamCreateDisabled,,Team Create in this game is disabled. Please enable Team Create to add editors to your place.,Team Create in this game is disabled. Please enable Team Create to add editors to your place.
 Studio.App.RobloxTeamCreateWidget.TeamCreateOptions,,Team Create Options,Team Create Options
@@ -1751,6 +1773,8 @@ Studio.App.RobloxTutorials.LearnNow,,Learn now,Learn now
 Studio.App.RobloxViewStudio.ExitUiLayer,,Exit UI Layer,Exit UI Layer
 Studio.App.RobloxViewStudio.SelectUILayer1,,"Select UI Layer ""%1""","Select UI Layer ""%1"""
 Studio.App.RobloxViewStudio.SelectUiLayer,,Select UI Layer,Select UI Layer
+Studio.App.RobloxViewStudio.UseLocalSpace,,Use Local Space,Use Local Space
+Studio.App.RobloxViewStudio.UseWorldSpace,,Use World Space,Use World Space
 Studio.App.RobloxWebDocWidget.Address,,Address,Address
 Studio.App.RobloxWebDocWidget.GoBack,,Go Back,Go Back
 Studio.App.RobloxWebDocWidget.GoForward,,Go Forward,Go Forward
@@ -1935,6 +1959,9 @@ Studio.App.UploadMeshRequest.TextureNotFound,,Texture not found,Texture not foun
 Studio.App.UploadMeshRequest.ThereWereErrorsWhileImportingYou,,There were errors while importing your mesh,There were errors while importing your mesh
 Studio.App.UploadMeshRequest.UnsupportedTextureFormat,,Unsupported texture format,Unsupported texture format
 Studio.App.UploadTextureRequest.CouldNotReadTexture1FromTheDisk,,"Could not read texture ""%1"" from the disk","Could not read texture ""%1"" from the disk"
+Studio.App.UserPlaceCreatorsListWidget.Offline,User is offline,Offline,Offline
+Studio.App.UserPlaceCreatorsListWidget.PlaceOwner,User is owner of place,Place Owner,Place Owner
+Studio.App.UserPlaceCreatorsListWidget.PlaceOwnerOffline,User is owner of place and is offline,Place Owner (Offline),Place Owner (Offline)
 Studio.App.WatchTreeWidget.DeleteAll,,Delete All,Delete All
 Studio.App.WatchTreeWidget.DeleteWatch,,Delete Watch,Delete Watch
 Studio.App.WatchWidget.Expression,,Expression,Expression

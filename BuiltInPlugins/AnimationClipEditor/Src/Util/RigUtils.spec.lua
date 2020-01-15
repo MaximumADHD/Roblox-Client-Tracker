@@ -529,7 +529,7 @@ return function()
 			local kfs = Instance.new("KeyframeSequence")
 			local kf1 = Instance.new("Keyframe", kfs)
 			local kf2 = Instance.new("Keyframe", kfs)
-			kf1.Time = 0.11111
+			kf1.Time = 0.011111
 			kf2.Time = 0.22222
 			local fps = RigUtils.calculateFrameRate(kfs)
 			expect(fps).to.equal(90)
@@ -553,7 +553,7 @@ return function()
 			local kf2 = Instance.new("Keyframe", kfs)
 			local kf3 = Instance.new("Keyframe", kfs)
 			kf1.Time = 0
-			kf2.Time = 0.16666
+			kf2.Time = 0.125
 			kf3.Time = 1
 			local fps = RigUtils.calculateFrameRate(kfs)
 			expect(fps).to.equal(24)
@@ -565,7 +565,7 @@ return function()
 			local kf2 = Instance.new("Keyframe", kfs)
 			local kf3 = Instance.new("Keyframe", kfs)
 			kf1.Time = 0
-			kf2.Time = 0.083333
+			kf2.Time = 0.05
 			kf3.Time = 1
 			local fps = RigUtils.calculateFrameRate(kfs)
 			expect(fps).to.equal(60)
@@ -577,7 +577,7 @@ return function()
 			local kf2 = Instance.new("Keyframe", kfs)
 			local kf3 = Instance.new("Keyframe", kfs)
 			kf1.Time = 0
-			kf2.Time = 0.1111
+			kf2.Time = 0.01111
 			kf3.Time = 1
 			local fps = RigUtils.calculateFrameRate(kfs)
 			expect(fps).to.equal(90)

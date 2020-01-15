@@ -6,8 +6,6 @@ local StudioStyle = UILibrary.Studio.Style
 local deepJoin = require(Plugin.Src.Util.deepJoin)
 local Cryo = require(Plugin.Packages.Cryo)
 
-local FFlagTerrainToolsEnablePivotPosition = game:GetFastFlag("TerrainToolsEnablePivotPosition")
-local FFlagTerrainToolsEnableHeightSlider = game:GetFastFlag("TerrainToolsEnableHeightSlider")
 local FFlagTerrainToolsClearConfirmationDialog = game:GetFastFlag("TerrainToolsClearConfirmationDialog")
 
 local Theme = {}
@@ -125,38 +123,32 @@ function Theme.createValues(getColor, c, m)
 		}
 	})
 
-	local singleSelectButtonGroupTheme
-	if FFlagTerrainToolsEnablePivotPosition then
-		singleSelectButtonGroupTheme = defineTheme({
-			roundedBorderImage = roundedBorderImage,
-			roundedBackgroundImage = roundedBackgroundImage,
-			roundedElementSlice = roundedElementSlice,
+	local singleSelectButtonGroupTheme = defineTheme({
+		roundedBorderImage = roundedBorderImage,
+		roundedBackgroundImage = roundedBackgroundImage,
+		roundedElementSlice = roundedElementSlice,
 
-			buttonSelectedColor = ColorSheet.singleSelectButtonSelected,
-		}, {
-			Dark = {
-				buttonSelectedColor = ColorSheet.singleSelectButtonSelected_dark,
-			}
-		})
-	end
+		buttonSelectedColor = ColorSheet.singleSelectButtonSelected,
+	}, {
+		Dark = {
+			buttonSelectedColor = ColorSheet.singleSelectButtonSelected_dark,
+		}
+	})
 
-	local propertyLockTheme
-	if FFlagTerrainToolsEnableHeightSlider then
-		propertyLockTheme = defineTheme({
-			lockedIcon = "rbxasset://textures/TerrainTools/locked.png",
-			unlockedIcon = "rbxasset://textures/TerrainTools/unlocked.png",
-			paperclipColor = ColorSheet.propertyLockPaperclipColor,
-			iconBackgroundHover = ColorSheet.propertyLockIconBackgroundHover,
-			iconBorderHover = ColorSheet.propertyLockIconBorderHover,
-			iconBackgroundHoverTransparency = 0,
-		}, {
-			Dark = {
-				iconBackgroundHover = ColorSheet.propertyLockIconBackgroundHover_dark,
-				iconBorderHover = ColorSheet.propertyLockIconBorderHover_dark,
-				iconBackgroundHoverTransparency = 0.5,
-			}
-		})
-	end
+	local propertyLockTheme = defineTheme({
+		lockedIcon = "rbxasset://textures/TerrainTools/locked.png",
+		unlockedIcon = "rbxasset://textures/TerrainTools/unlocked.png",
+		paperclipColor = ColorSheet.propertyLockPaperclipColor,
+		iconBackgroundHover = ColorSheet.propertyLockIconBackgroundHover,
+		iconBorderHover = ColorSheet.propertyLockIconBorderHover,
+		iconBackgroundHoverTransparency = 0,
+	}, {
+		Dark = {
+			iconBackgroundHover = ColorSheet.propertyLockIconBackgroundHover_dark,
+			iconBorderHover = ColorSheet.propertyLockIconBorderHover_dark,
+			iconBackgroundHoverTransparency = 0.5,
+		}
+	})
 
 	local toolRenderTheme = defineTheme({
 		scrollTopImage = "rbxasset://textures/StudioToolbox/ScrollBarTop.png",
@@ -190,9 +182,8 @@ function Theme.createValues(getColor, c, m)
 		errorColor = Color3.fromRGB(216, 104, 104),
 		selectionBorderColor = Color3.fromRGB(0, 162, 255),
 		roundTextButtonTheme = roundTextButtonTheme,
-		singleSelectButtonGroupTheme = FFlagTerrainToolsEnablePivotPosition and singleSelectButtonGroupTheme
-			or nil,
-		propertyLockTheme = FFlagTerrainToolsEnableHeightSlider and propertyLockTheme or nil,
+		singleSelectButtonGroupTheme = singleSelectButtonGroupTheme,
+		propertyLockTheme = propertyLockTheme,
 		textSize = FFlagTerrainToolsClearConfirmationDialog and 14 or 10,
 		padding = 4,
 		font = Enum.Font.SourceSans,

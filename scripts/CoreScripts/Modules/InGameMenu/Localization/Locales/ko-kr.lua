@@ -13,8 +13,8 @@
 return{
 	["CoreScripts.InGameMenu.LeaveGame"] = [[게임 종료]],
 	["CoreScripts.InGameMenu.ConfirmLeaveGame"] = [[게임을 종료하면 저장하지 않은 항목이 모두 사라집니다.]],
-	["CoreScripts.InGameMenu.LeaveGameQuestion"] = [[게임을 종료할까요?]],
-	["CoreScripts.InGameMenu.Leave"] = [[종료하기]],
+	["CoreScripts.InGameMenu.LeaveGameQuestion"] = [[종료할까요?]],
+	["CoreScripts.InGameMenu.Leave"] = [[게임 종료]],
 	["CoreScripts.InGameMenu.RespawnCharacterDialogTitle"] = [[캐릭터를 리스폰할까요?]],
 	["CoreScripts.InGameMenu.RespawnCharacterDialogBody"] = [[캐릭터가 스폰 지점에서 리스폰됩니다.]],
 	["CoreScripts.InGameMenu.RespawnCharacterDialogConfirm"] = [[리스폰]],
@@ -119,4 +119,5 @@ return{
 	["CoreScripts.InGameMenu.GameSettings.PlaceVersionWithLatest"] = [[장소 버전: {PLACE_VERSION} (최신: {LATEST_PLACE_VERSION})]],
 	["CoreScripts.InGameMenu.Label.MicroProfiler"] = [[마이크로 프로파일러]],
 	["CoreScripts.InGameMenu.InviteFriends.Loading"] = [[불러오는 중!]],
+	["CoreScripts.InGameMenu.RespawnCharacter"] = [[캐릭터 리스폰]],
 }

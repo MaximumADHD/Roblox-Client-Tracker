@@ -10,9 +10,15 @@ local changeHistory = game:GetService('ChangeHistoryService')
 
 local FFlagTerrainToolMetrics = settings():GetFFlag("TerrainToolMetrics")
 local FFlagTerrainClearButtonMove = settings():GetFFlag("TerrainClearButtonMove")
+local FFlagTerrainToolsFixGettingTerrain = game:GetFastFlag("TerrainToolsFixGettingTerrain")
 
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 local StudioService = game:GetService("StudioService")
+
+local getTerrain
+if FFlagTerrainToolsFixGettingTerrain then
+	getTerrain = require(Plugin.Src.Util.getTerrain)
+end
 
 local on = false
 local mouse
@@ -30,8 +36,8 @@ local selectionArcHandles = nil
 
 --SUB SETTINGS--
 local resolution = 4			--This is the size of voxels on Roblox. Why is this a variable? ;)
-local textSelectColor = Color3.new(72/255, 145/255, 212/255)
-local white = Color3.new(238/255, 238/255, 238/255)
+local textSelectColor = Color3.fromRGB(72, 145, 212)
+local white = Color3.fromRGB(238, 238, 238)
 local editColor1 = 'Institutional white'
 local editColor2 = 'Light stone grey'
 local rotationInterval = math.pi * .5
@@ -775,7 +781,11 @@ toolSelect = {
 }
 
 function TerrainRegionEditor.Init (toolName, theMouse)
-	terrain = workspace.Terrain
+	if FFlagTerrainToolsFixGettingTerrain then
+		terrain = getTerrain()
+	else
+		terrain = workspace.Terrain
+	end
 	mouse = theMouse
 	kCurrentTool = toolName
 

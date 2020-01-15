@@ -335,7 +335,13 @@ function AssetPreview:render()
 			local anchorPoint = props.anchorPoint
 
 			local assetData = props.assetData
-			local assetVersionId = props.assetVersionId
+			local assetVersionId
+			if FFlagUseDevelopFetchPluginVersionId then
+				local previewPluginData = self.props.previewPluginData
+				assetVersionId = previewPluginData.versionId
+			else
+				assetVersionId = self.props.assetVersionId
+			end
 
 			-- Data structure from the server
 			local Asset = assetData.Asset

@@ -34,22 +34,14 @@ local Actions = Plugin.Src.Actions
 local ChangeTool = require(Actions.ChangeTool)
 
 local Functions = Plugin.Src.Components.Functions
-local TerrainGeneration = require(Functions.TerrainGeneration)
 local TerrainRegionEditor = require(Functions.TerrainRegionEditor)
-local TerrainImporter = require(Functions.TerrainImporter)
 
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 local ToolId = TerrainEnums.ToolId
 
-local FFlagTerrainToolsRefactorTerrainBrush = game:GetFastFlag("TerrainToolsRefactorTerrainBrush")
-local FFlagTerrainToolsRefactorTerrainImporter = game:GetFastFlag("TerrainToolsRefactorTerrainImporter")
-local FFlagTerrainToolsRefactorTerrainGeneration = game:GetFastFlag("TerrainToolsRefactorTerrainGeneration")
+local FFlagTerrainToolsUseFragmentsForToolPanel = game:GetFastFlag("TerrainToolsUseFragmentsForToolPanel")
 
 local toolToScript = {
-	[ToolId.Generate] = not FFlagTerrainToolsRefactorTerrainGeneration and TerrainGeneration or nil,
-	[ToolId.Import] = not FFlagTerrainToolsRefactorTerrainImporter and TerrainImporter or nil,
-	[ToolId.Clear] = not TerrainToolsRefactorTerrainGeneration and TerrainGeneration or nil,
-
 	[ToolId.Select] = TerrainRegionEditor,
 	[ToolId.Move] = TerrainRegionEditor,
 	[ToolId.Resize] = TerrainRegionEditor,
@@ -87,40 +79,17 @@ local toolComponent = {
 }
 
 local function ToggleTool(toolName, mouse, plugin, theme, localization)
-	if FFlagTerrainToolsRefactorTerrainBrush then
-		-- TODO: As other terrain interface modules get refactored
-		-- Remove this function and move the logic elsewhere
-		local currentToolScript = toolToScript[toolName]
-		if currentToolScript ~= TerrainRegionEditor then
-			TerrainRegionEditor.Close()
-		end
+	-- TODO: As other terrain interface modules get refactored
+	-- Remove this function and move the logic elsewhere
+	local currentToolScript = toolToScript[toolName]
+	if currentToolScript ~= TerrainRegionEditor then
+		TerrainRegionEditor.Close()
+	end
 
-		if toolName and toolName ~= ToolId.None and currentToolScript then
-			coroutine.wrap(function()
-				currentToolScript.Init(toolName, mouse)
-			end)()
-		end
-	else
-		local currentToolScript = toolToScript[toolName]
-		if currentToolScript ~= TerrainRegionEditor then
-			TerrainRegionEditor.Close()
-		end
-
-		-- brushes are handled in base brush, the scripts really should be factored out of this
-		if toolName == ToolId.None then
-			return
-		end
-
-		-- ensures only the plugin uses the mouse
-		plugin:Activate(true)
-
-		if toolName and toolName ~= ToolId.None then
-			if currentToolScript then
-				coroutine.wrap(function()
-					currentToolScript.Init(toolName, mouse)
-				end)()
-			end
-		end
+	if toolName and toolName ~= ToolId.None and currentToolScript then
+		coroutine.wrap(function()
+			currentToolScript.Init(toolName, mouse)
+		end)()
 	end
 end
 
@@ -169,7 +138,7 @@ function ToolRenderer:render()
 	local layoutOrder = self.props.LayoutOrder
 	local roactElement = toolComponent[currentTool]
 
-	-- the ToolRenderer is the last element in the the list of 
+	-- the ToolRenderer is the last element in the the list of
 	-- elements in the layout, so we pass it the previous
 	-- elements' aggregate size so this element fills the remaining
 	-- space. This can probably removed when we get better
@@ -196,6 +165,7 @@ function ToolRenderer:render()
 				UIListLayout = Roact.createElement("UIListLayout", {
 					[Roact.Ref] = self.layoutRef,
 					[Roact.Change.AbsoluteContentSize] = self.onContentSizeChanged,
+					SortOrder = FFlagTerrainToolsUseFragmentsForToolPanel and Enum.SortOrder.LayoutOrder or nil,
 				}),
 				Tool = roactElement and Roact.createElement(roactElement),
 			})

@@ -14,9 +14,7 @@ local BuyButton = require(InspectAndBuyFolder.Components.BuyButton)
 local DetailsButtons = Roact.PureComponent:extend("DetailsButtons")
 
 local FFlagRoactPurchasePromptAllowBundles = settings():GetFFlag("RoactPurchasePromptAllowBundles")
-local FFlagUpdateInspectAndBuyOffsaleText = settings():GetFFlag("UpdateInspectAndBuyOffsaleText")
 
-local BUY_KEY = "InGame.InspectMenu.Action.Buy"
 local OFFSALE_KEY = "InGame.InspectMenu.Label.Offsale"
 local LIMITED_KEY = "InGame.InspectMenu.Label.Limited"
 local OWNED_KEY = "InGame.InspectMenu.Label.Owned"
@@ -35,16 +33,13 @@ local function getBuyText(itemInfo, locale)
 
 	if itemInfo.owned then
 		buyText = RobloxTranslator:FormatByKeyForLocale(OWNED_KEY, locale)
-	elseif FFlagUpdateInspectAndBuyOffsaleText and itemInfo.isLimited then
+	elseif itemInfo.isLimited then
 		buyText = RobloxTranslator:FormatByKeyForLocale(LIMITED_KEY, locale)
-	elseif FFlagUpdateInspectAndBuyOffsaleText and not itemInfo.isForSale and not itemInfo.isLimited then
+	elseif not itemInfo.isForSale and not itemInfo.isLimited then
 		buyText = RobloxTranslator:FormatByKeyForLocale(OFFSALE_KEY, locale)
-	elseif not FFlagUpdateInspectAndBuyOffsaleText and (itemInfo.isLimited or not itemInfo.isForSale) then
-		buyText = RobloxTranslator:FormatByKeyForLocale(BUY_KEY, locale)
 	elseif itemInfo.isForSale then
 		buyText = itemInfo.price
 	end
-
 	return buyText
 end
 

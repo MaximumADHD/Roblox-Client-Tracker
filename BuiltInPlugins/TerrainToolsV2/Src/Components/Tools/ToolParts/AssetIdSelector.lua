@@ -33,6 +33,8 @@ local DROPDOWN_ELEMENT_LABEL_SIZE = UDim2.new(1, -PREVIEW_HEIGHT-PADDING, 0, PRE
 local PADDING = 4
 local TEXT_LEFT_PADDING = 4
 
+local AUTOCLOSEDELAY = .3
+
 local FONT = Enum.Font.SourceSans
 local FONT_SIZE = 14
 local BORDER_COLOR = Color3.fromRGB(182, 182, 182)
@@ -277,9 +279,28 @@ function AssetIdSelector:render()
 						Size = UDim2.new(1, 0, 1, 0),
 						CanvasSize = UDim2.new(1, 0, 0, assetCount * PREVIEW_HEIGHT),
 						TopImage = theme.toolRenderTheme.scrollTopImage,
-						MidImage = theme.toolRenderTheme.scrollTMidImage,
+						MidImage = theme.toolRenderTheme.scrollMidImage,
 						BottomImage = theme.toolRenderTheme.scrollBotImage,
 						LayoutOrder = 2,
+
+						[Roact.Event.MouseEnter] = function ()
+							self._lastHoverTime = tick()
+						end,
+						[Roact.Event.MouseLeave] = function ()
+							self._lastHoverTime = tick()
+
+							self._hoverEndClose = coroutine.create(function()
+								wait(AUTOCLOSEDELAY)
+								local t = tick()
+								if self._lastHoverTime and t - self._lastHoverTime > AUTOCLOSEDELAY then
+									self:setState({
+										showImageSelection = false,
+									})
+								end
+							end)
+
+							coroutine.resume(self._hoverEndClose)
+						end,
 					}, imageAssets),
 				}),
 

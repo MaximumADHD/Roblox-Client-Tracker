@@ -20,6 +20,7 @@ local Workspace = game:GetService("Workspace")
 local Constants = require(Plugin.Src.Util.Constants)
 local FixRigUtils = require(Plugin.LuaFlags.GetFFlagFixRigUtils)
 local FixExportSpeed = require(Plugin.LuaFlags.GetFFlagFixExportSpeed)
+local FindNestedParts = require(Plugin.LuaFlags.GetFFlagFindNestedParts)
 
 local RigUtils = {}
 
@@ -655,7 +656,14 @@ function RigUtils.getRigInfo(rig)
 	local partNameToMotorMap = {}
 	local partNameToConstraintMap = {}
 
-	for _, child in ipairs(rig:GetChildren()) do
+	local descendants
+	if FindNestedParts() then
+		descendants = getDescendants({}, rig)
+	else
+		descendants = rig:GetChildren()
+	end
+
+	for _, child in ipairs(descendants) do
 		if child:IsA("BasePart") then
 			for _, motor in ipairs(motors) do
 				if motor.Part1 == child then

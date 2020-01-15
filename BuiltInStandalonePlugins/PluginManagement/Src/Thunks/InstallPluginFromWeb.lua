@@ -1,3 +1,5 @@
+local FFlagPluginManagementFixYieldingAndRetries = settings():GetFFlag("PluginManagementFixYieldingAndRetries")
+
 local Plugin = script.Parent.Parent.Parent
 local PIS = require(Plugin.Src.Constants.PluginInstalledStatus)
 local SetPluginInstallStatus = require(Plugin.Src.Actions.SetPluginInstallStatus)
@@ -33,18 +35,23 @@ return function(studioServiceImpl, apiImpl, pluginId)
 						local targetPluginData = pluginsData[1]
 						if targetPluginData and targetPluginData["versionId"] then
 
-							spawn(function()
+							if FFlagPluginManagementFixYieldingAndRetries then
 								store:dispatch(SetPluginMetadata(pluginId, targetPluginData["name"],
 									targetPluginData["description"] or "", tostring(targetPluginData["commentsEnabled"]),
 									tostring(targetPluginData["versionId"]) or "", targetPluginData["created"] or "",
 									targetPluginData["updated"] or ""))
-							end)
+							else
+								spawn(function()
+									store:dispatch(SetPluginMetadata(pluginId, targetPluginData["name"],
+										targetPluginData["description"] or "", tostring(targetPluginData["commentsEnabled"]),
+										tostring(targetPluginData["versionId"]) or "", targetPluginData["created"] or "",
+										targetPluginData["updated"] or ""))
+								end)
+							end
 
 							-- 3) tell the c++ code to install the plugin
 							local versionNumber = targetPluginData["versionId"]
-
-							-- Http Requests complain if the callbacks yield, so spawn this into a different thread
-							spawn(function()
+							if FFlagPluginManagementFixYieldingAndRetries then
 								local success, errorMsg = pcall(function()
 									studioServiceImpl:TryInstallPlugin(pluginId, versionNumber)
 								end)
@@ -56,7 +63,21 @@ return function(studioServiceImpl, apiImpl, pluginId)
 									setStatus(PIS.PLUGIN_NOT_INSTALLED, errorMsg or "")
 									return
 								end
-							end)
+							else
+								-- Http Requests complain if the callbacks yield, so spawn this into a different thread
+								spawn(function()
+									local success, errorMsg = pcall(function()
+										studioServiceImpl:TryInstallPlugin(pluginId, versionNumber)
+									end)
+									if success then
+										setStatus(PIS.PLUGIN_INSTALLED_SUCCESSFULLY, "")
+										return
+									else
+										setStatus(PIS.PLUGIN_NOT_INSTALLED, errorMsg or "")
+										return
+									end
+								end)
+							end
 
 						else
 							-- whatever we got back, it isn't the expected format

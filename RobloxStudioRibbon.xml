@@ -31,7 +31,6 @@
       <addseparator />
       <submenu name="Advanced" text="Studio.App.RobloxRibbonMainWindow.Advanced">
         <addaction name="fileOpenAutoSavesAction"/>
-        <addaction name="publishGameAction"/>
         <addaction name="exportPlaceAction"/>
         <addaction name="shortcutHelpAction"/>
         <addaction name="fastLogDumpAction"/>
@@ -333,12 +332,6 @@
             height="32"/>
         <addaction name="simulationStopAction" style="textundericon" text="Studio.Common.Action.Pause" icon=":/RibbonBar/images/RibbonIcons/Test/Pause.png" width="32" height="32" />
         <addaction name="simulationResetAction" style="textundericon" text="Studio.Common.Action.Stop" icon=":/RibbonBar/images/RibbonIcons/Test/Stop.png" width="32" height="32"/>
-        <addaction name="simulationDiabolicalModeAction"
-            style="textundericon"
-            text="Studio.App.RBXMainWindow.NetworkSimulator"
-            icon=":/RibbonBar/images/RibbonIcons/Test/Diabolical-Mode.png"
-            width="32"
-            height="32"/>
       </Group>
       <Group name="Clients and Servers" text="Studio.App.RobloxRibbonMainWindow.ClientsAndServers">
         <addaction name="startServerAndPlayersAction" iscommonslot="true" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.Start"  tooltip="Studio.App.RobloxRibbonMainWindow.StartServerAndPlayers" icon=":/RibbonBar/images/RibbonIcons/Test/Start-Server.png" width="32" height="32" />
@@ -382,12 +375,6 @@
         <addseparator visible="false"/>
         <addaction name="toggleGameExplorerDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Explorer.png" tooltip="Studio.App.RobloxRibbonMainWindow.ViewGameExplorer" height="32" width="32"/>
         <addaction name="luaToolboxAction" style="textbesideicon" icon=":/images/ToolboxIcon.png" height="32" width="32"/>
-        <!--
-         FIXME(mwang)
-         Remove DEPRECATED_toggleContextualHelpDockAction
-         with RemoveContextHelpWidget
-         -->
-        <addaction fflag="!RemoveContextHelpWidget" name="DEPRECATED_toggleContextualHelpDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Help-Wiki.png" tooltip="Studio.App.RobloxRibbonMainWindow.ViewContextSensitiveHelp" height="32" width="32"/>
         <addaction fflag="StudioShowTutorialsByDefault" name="toggleTutorialsDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Tutorials.png" tooltip="Studio.App.RobloxRibbonMainWindow.ViewTutorials" height="32" width="32"/>
         <addaction name="objectBrowserAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Object-Browser.png"  tooltip="Studio.App.RobloxRibbonMainWindow.ViewLuaAPIObjects" height="32" width="32"/>
         <addaction name="toggleOutputWindowDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Output.png" tooltip="Studio.App.RobloxRibbonMainWindow.OutputFeedOfScripts" text="Studio.App.RBXMainWindow.Output" height="32" width="32"/>
@@ -486,7 +473,8 @@
           <addaction name="findNextAction" icon=":/16x16/images/Studio 2.0 icons/16x16/find_next.png" />
           <addaction name="findPreviousAction" icon=":/16x16/images/Studio 2.0 icons/16x16/find_previous.png" />
           <addaction name="findInScriptsAction" icon =":/16x16/images/Studio 2.0 icons/16x16/find.png" />
-	      <addaction name="goToLineAction" icon=":/16x16/images/Studio 2.0 icons/16x16/goToLine.png" />
+	        <addaction name="goToLineAction" icon=":/16x16/images/Studio 2.0 icons/16x16/goToLine.png" />
+          <addaction fflag="StudioQuickOpen2" name="quickOpenAction" icon=":/16x16/images/Studio 2.0 icons/16x16/find.png" />
         </MenuButton>
         <addaction fflag="!StudioReplaceAll" name="replaceAction" text="Studio.Common.Action.Replace" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.FindTextAndReplaceWithElps" icon=":/RibbonBar/images/RibbonIcons/Home/Replace.png" width="32" height="32" />
         <MenuButton fflag="StudioReplaceAll" name="actionReplaceMenu" style ="textundericon" text="Studio.Common.Action.Replace" icon=":/RibbonBar/images/RibbonIcons/Home/Replace.png" tooltip="Studio.App.RobloxRibbonMainWindow.FindTextAndReplaceWithElps" width="32" height="32">

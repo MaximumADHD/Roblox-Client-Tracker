@@ -15,6 +15,7 @@ local GuiService = game:GetService("GuiService")
 
 ----------- UTILITIES --------------
 local utility = require(RobloxGui.Modules.Settings.Utility)
+local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
 ------------ Variables -------------------
 local PageInstance = nil
@@ -22,19 +23,21 @@ local PageInstance = nil
 local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
 local FFlagUseNotificationsLocalization = success and result
 
+local FFlagUpdateSettingsHubGameText = require(RobloxGui.Modules.Flags.FFlagUpdateSettingsHubGameText)
+
 ----------- CLASS DECLARATION --------------
 
 local function Initialize()
 	local settingsPageFactory = require(RobloxGui.Modules.Settings.SettingsPageFactory)
 	local this = settingsPageFactory:CreateNewPage()
-	
+
 	------ TAB CUSTOMIZATION -------
 	this.TabHeader.Name = "HomeTab"
 
 	this.TabHeader.Icon.Image = "rbxasset://textures/ui/Settings/MenuBarIcons/HomeTab.png"
 	this.TabHeader.Icon.Size = UDim2.new(0,32,0,30)
 	this.TabHeader.Icon.Position = UDim2.new(0,5,0.5,-15)
-	
+
 	if FFlagUseNotificationsLocalization then
 		this.TabHeader.Title.Text = "Home"
 	else
@@ -49,7 +52,12 @@ local function Initialize()
 		this.HubRef:SetVisibility(false)
 	end
 
-	this.ResumeButton = utility:MakeStyledButton("ResumeButton", "Resume Game", UDim2.new(0, 200, 0, 50), resumeGameFunc)
+	local resumeGameText = "Resume Game"
+	if FFlagUpdateSettingsHubGameText then
+		resumeGameText = RobloxTranslator:FormatByKey("InGame.HelpMenu.Resume")
+	end
+
+	this.ResumeButton = utility:MakeStyledButton("ResumeButton", resumeGameText, UDim2.new(0, 200, 0, 50), resumeGameFunc)
 	this.ResumeButton.Position = UDim2.new(0.5,-100,0,BUTTON_OFFSET)
 	this.ResumeButton.Parent = this.Page
 
@@ -65,12 +73,17 @@ local function Initialize()
 		this.HubRef:SwitchToPage(this.HubRef.LeaveGamePage, false, 1)
 	end
 
-	local leaveButton = utility:MakeStyledButton("LeaveButton", "Leave Game", UDim2.new(0, 200, 0, 50), leaveGameFunc)
+	local leaveGameText = "Leave Game"
+	if FFlagUpdateSettingsHubGameText then
+		leaveGameText = RobloxTranslator:FormatByKey("InGame.HelpMenu.Leave")
+	end
+
+	local leaveButton = utility:MakeStyledButton("LeaveButton", leaveGameText, UDim2.new(0, 200, 0, 50), leaveGameFunc)
 	leaveButton.Position = UDim2.new(0.5,-100,0,resetButton.AbsolutePosition.Y + resetButton.AbsoluteSize.Y + BUTTON_SPACING)
 	leaveButton.Parent = this.Page
 
 	this.Page.Size = UDim2.new(1,0,0,leaveButton.AbsolutePosition.Y + leaveButton.AbsoluteSize.Y)
-	
+
 	return this
 end
 

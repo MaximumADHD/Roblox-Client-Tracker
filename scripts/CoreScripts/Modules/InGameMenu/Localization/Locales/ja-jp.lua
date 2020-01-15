@@ -11,9 +11,9 @@
 --------------------------------------------------------------------------------------------------------]]
 
 return{
-	["CoreScripts.InGameMenu.LeaveGame"] = [[ゲームを終了]],
+	["CoreScripts.InGameMenu.LeaveGame"] = [[終了]],
 	["CoreScripts.InGameMenu.ConfirmLeaveGame"] = [[ゲームを終了すると、未保存の内容が失われます。]],
-	["CoreScripts.InGameMenu.LeaveGameQuestion"] = [[ゲームを終了しますか？]],
+	["CoreScripts.InGameMenu.LeaveGameQuestion"] = [[終了しますか？]],
 	["CoreScripts.InGameMenu.Leave"] = [[終了]],
 	["CoreScripts.InGameMenu.RespawnCharacterDialogTitle"] = [[キャラクターをリスポーンしますか？]],
 	["CoreScripts.InGameMenu.RespawnCharacterDialogBody"] = [[あなたのキャラクターはスポーン地点に戻ってリスポーンします。]],
@@ -58,7 +58,7 @@ return{
 	["CoreScripts.InGameMenu.Controls.Playerlist"] = [[プレイヤーリスト]],
 	["CoreScripts.InGameMenu.Controls.Chat"] = [[チャット]],
 	["CoreScripts.InGameMenu.Controls.RespawnCharacter"] = [[キャラクターをリスポーンする]],
-	["CoreScripts.InGameMenu.Controls.LeaveGame"] = [[ゲームを終了]],
+	["CoreScripts.InGameMenu.Controls.LeaveGame"] = [[終了]],
 	["CoreScripts.InGameMenu.Controls.MiscellaneousTitle"] = [[その他]],
 	["CoreScripts.InGameMenu.Controls.Screenshot"] = [[スクリーンショット]],
 	["CoreScripts.InGameMenu.Controls.DevConsole"] = [[Dev コンソール]],
@@ -119,4 +119,5 @@ return{
 	["CoreScripts.InGameMenu.GameSettings.PlaceVersionWithLatest"] = [[プレースバージョン: {PLACE_VERSION} (最新: {LATEST_PLACE_VERSION})]],
 	["CoreScripts.InGameMenu.Label.MicroProfiler"] = [[マイクロプロファイラー]],
 	["CoreScripts.InGameMenu.InviteFriends.Loading"] = [[読み込み中！]],
+	["CoreScripts.InGameMenu.RespawnCharacter"] = [[キャラクターをリスポーンする]],
 }

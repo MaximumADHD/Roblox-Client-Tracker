@@ -1,0 +1,12 @@
+{
+	"language": {
+		"mode": "nonstrict"
+	},
+	"lint": {
+		"SameLineStatement": "fatal",
+		"LocalShadow": "fatal",
+		"FunctionUnused": "fatal",
+		"ImportUnused": "fatal",
+		"ImplicitReturn": "fatal"
+	}
+}

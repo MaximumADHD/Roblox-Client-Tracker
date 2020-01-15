@@ -1,10 +1,10 @@
 local Action = require(script.Parent.Action)
 
 return Action(script.Name, function(heightPicker)
-	if heightPicker then
-		assert(type(heightPicker) == "boolean", string.format("Expected heightPicker to be a boolean, received %s", type(heightPicker)))
-	end
+	assert(type(heightPicker) == "boolean", ("Expected heightPicker to be a boolean, received %s"):format(
+		type(heightPicker)))
+
 	return {
-		heightPicker = heightPicker
+		heightPicker = heightPicker,
 	}
 end)

@@ -2,7 +2,11 @@ local Plugin = script.Parent.Parent.Parent
 local StudioService = game:GetService("StudioService")
 local HttpService = game:GetService("HttpService")
 local GetPluginInfoRequest = require(Plugin.Src.Thunks.GetPluginInfoRequest)
+local MultiGetPluginInfoRequest = require(Plugin.Src.Thunks.MultiGetPluginInfoRequest)
 local SetPluginInfo = require(Plugin.Src.Actions.SetPluginInfo)
+local ClearAllPluginData = require(Plugin.Src.Actions.ClearAllPluginData)
+
+local FFlagPluginManagementAllowLotsOfPlugins = settings():GetFFlag("PluginManagementAllowLotsOfPlugins")
 
 local function extractPluginsFromJsonString(json)
 	local success, decoded = xpcall(
@@ -27,7 +31,7 @@ local function extractPluginsFromJsonString(json)
 	return result
 end
 
-return function(apiImpl)
+return function(apiImpl, marketplaceService)
 	return function(store)
 		local plugins = extractPluginsFromJsonString(StudioService.InstalledPluginData)
 		local assetIds = {}
@@ -35,10 +39,18 @@ return function(apiImpl)
 			plugins[index].assetId = tonumber(data.assetId)
 			assetIds[#assetIds+1] = data.assetId
 		end
-		if #assetIds > 0 then
-			store:dispatch(GetPluginInfoRequest(apiImpl, assetIds, plugins))
+
+		if FFlagPluginManagementAllowLotsOfPlugins then
+			store:dispatch(ClearAllPluginData())
+			if #assetIds > 0 then
+				store:dispatch(MultiGetPluginInfoRequest(apiImpl, marketplaceService, assetIds, plugins))
+			end
 		else
-			store:dispatch(SetPluginInfo({}, {}))
+			if #assetIds > 0 then
+				store:dispatch(GetPluginInfoRequest(apiImpl, assetIds, plugins))
+			else
+				store:dispatch(SetPluginInfo({}, {}))
+			end
 		end
 	end
 end

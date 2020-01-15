@@ -15,6 +15,13 @@
 local CameraModule = {}
 CameraModule.__index = CameraModule
 
+local FFlagUserCameraToggle do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserCameraToggle")
+	end)
+	FFlagUserCameraToggle = success and result
+end
+
 -- NOTICE: Player property names do not all match their StarterPlayer equivalents,
 -- with the differences noted in the comments on the right
 local PLAYER_CAMERA_PROPERTIES =
@@ -61,14 +68,7 @@ local LegacyCamera = require(script:WaitForChild("LegacyCamera"))
 
 -- Load Roblox Occlusion Modules
 local Invisicam = require(script:WaitForChild("Invisicam"))
-local Poppercam do
-	local success, useNewPoppercam = pcall(UserSettings().IsUserFeatureEnabled, UserSettings(), "UserNewPoppercam4")
-	if success and useNewPoppercam then
-		Poppercam = require(script:WaitForChild("Poppercam"))
-	else
-		Poppercam = require(script:WaitForChild("Poppercam_Classic"))
-	end
-end
+local Poppercam = require(script:WaitForChild("Poppercam"))
 
 -- Load the near-field character transparency controller and the mouse lock "shift lock" controller
 local TransparencyController = require(script:WaitForChild("TransparencyController"))
@@ -89,6 +89,9 @@ do
 	PlayerScripts:RegisterComputerCameraMovementMode(Enum.ComputerCameraMovementMode.Default)
 	PlayerScripts:RegisterComputerCameraMovementMode(Enum.ComputerCameraMovementMode.Follow)
 	PlayerScripts:RegisterComputerCameraMovementMode(Enum.ComputerCameraMovementMode.Classic)
+	if FFlagUserCameraToggle then
+		PlayerScripts:RegisterComputerCameraMovementMode(Enum.ComputerCameraMovementMode.CameraToggle)
+	end
 end
 
 
@@ -267,7 +270,7 @@ end
 
 -- When supplied, legacyCameraType is used and cameraMovementMode is ignored (should be nil anyways)
 -- Next, if userCameraCreator is passed in, that is used as the cameraCreator
-function CameraModule:ActivateCameraController( cameraMovementMode, legacyCameraType )
+function CameraModule:ActivateCameraController(cameraMovementMode, legacyCameraType)
 	local newCameraCreator = nil
 	
 	if legacyCameraType~=nil then
@@ -310,7 +313,8 @@ function CameraModule:ActivateCameraController( cameraMovementMode, legacyCamera
 	if not newCameraCreator then		
 		if cameraMovementMode == Enum.ComputerCameraMovementMode.Classic or
 			cameraMovementMode == Enum.ComputerCameraMovementMode.Follow or
-			cameraMovementMode == Enum.ComputerCameraMovementMode.Default then
+			cameraMovementMode == Enum.ComputerCameraMovementMode.Default or
+			(FFlagUserCameraToggle and cameraMovementMode == Enum.ComputerCameraMovementMode.CameraToggle) then
 			newCameraCreator = ClassicCamera
 		elseif cameraMovementMode == Enum.ComputerCameraMovementMode.Orbital then
 			newCameraCreator = OrbitalCamera
@@ -509,7 +513,6 @@ function CameraModule:GetCameraControlChoice()
 	end
 end
 
-
 function CameraModule:OnCharacterAdded(char, player)
 	if self.activeOcclusionModule then
 		self.activeOcclusionModule:CharacterAdded(char, player)
@@ -541,7 +544,5 @@ function CameraModule:OnMouseLockToggled()
 		end
 	end
 end
-
-
 
 return CameraModule.new()

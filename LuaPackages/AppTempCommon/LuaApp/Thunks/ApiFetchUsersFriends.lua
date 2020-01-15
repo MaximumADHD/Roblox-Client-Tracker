@@ -28,16 +28,16 @@ return function(requestImpl, userId, thumbnailRequest, checkPoints)
 			checkPoints:startFetchUserFriends()
 		end
 
+		local fetchedUserIds = {}
 		return UsersGetFriends(requestImpl, userId):andThen(function(response)
 			local responseBody = response.responseBody
 
-			local userIds = {}
 			local newUsers = {}
 			for _, userData in pairs(responseBody.data) do
 				local id = tostring(userData.id)
 				local newUser = UserModel.fromData(id, userData.name, true)
 
-				table.insert(userIds, id)
+				table.insert(fetchedUserIds, id)
 				newUsers[newUser.id] = newUser
 			end
 			if LuaAppRemoveGetFriendshipCountApiCalls then
@@ -50,7 +50,7 @@ return function(requestImpl, userId, thumbnailRequest, checkPoints)
 				checkPoints:finishFetchUserFriends()
 			end
 
-			return userIds
+			return fetchedUserIds
 		end):andThen(function(userIds)
 			if checkPoints ~= nil and checkPoints.startFetchUsersPresences ~= nil then
 				checkPoints:startFetchUsersPresences()
@@ -71,7 +71,7 @@ return function(requestImpl, userId, thumbnailRequest, checkPoints)
 					checkPoints:finishFetchUsersPresences()
 				end
 
-				return Promise.resolve(result)
+				return Promise.resolve(fetchedUserIds)
 			end,
 			function(response)
 				store:dispatch(FetchUserFriendsFailed(userId, response))

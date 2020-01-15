@@ -77,7 +77,6 @@ GrassHQVS,Vertex
 GrassVS,Vertex
 GridFS,Fragment
 ImageProcessAlphaFS,Fragment
-ImageProcessAlphaSrgbFS,Fragment
 ImageProcessBloomFS,Fragment
 ImageProcessBloomLinearFS,Fragment
 ImageProcessBlurBloomFS,Fragment
@@ -128,7 +127,6 @@ ShadowBlurMarkFS,Fragment
 ShadowBlurMarkVS,Vertex
 SkyFS,Fragment
 SkyFSLinear,Fragment
-SkyNoTranslateVS,Vertex
 SkyVS,Vertex
 SmoothClusterColoredFS,Fragment
 SmoothClusterColoredHQFS,Fragment
@@ -166,7 +164,6 @@ SSAODepthDownFS,Fragment
 SSAOFS,Fragment
 SSAOVS,Vertex
 StarsFS,Fragment
-StarsNoTranslateVS,Vertex
 StarsVS,Vertex
 SunRaysFS,Fragment
 TexCompFS,Fragment

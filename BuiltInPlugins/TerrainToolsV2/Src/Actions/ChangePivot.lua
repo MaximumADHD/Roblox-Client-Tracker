@@ -1,12 +1,9 @@
 local Action = require(script.Parent.Action)
 
 return Action(script.Name, function(pivot)
-	if pivot then
-		assert(type(pivot) == "string", string.format("Expected pivot to be a string, received %s", type(pivot)))
-	end
+	assert(type(pivot) == "string", ("Expected pivot to be a string, received %s"):format(type(pivot)))
 
 	return {
-		pivot = pivot
+		pivot = pivot,
 	}
-
 end)

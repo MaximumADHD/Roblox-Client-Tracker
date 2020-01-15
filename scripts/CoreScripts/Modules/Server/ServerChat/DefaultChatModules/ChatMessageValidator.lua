@@ -22,6 +22,14 @@ local FFlagUserChatNewMessageLengthCheck do
 	FFlagUserChatNewMessageLengthCheck = success and result
 end
 
+local FFlagUserChatValidateFirst do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserChatValidateFirst")
+	end)
+	FFlagUserChatValidateFirst = success and result
+end
+
+local MAX_BYTES_PER_UTF8_CODEPOINT = 6
 local DISALLOWED_WHITESPACE = {"\n", "\r", "\t", "\v", "\f"}
 
 if ChatSettings.DisallowedWhiteSpace then
@@ -56,13 +64,18 @@ local function Run(ChatService)
 		end
 
 		if FFlagUserChatNewMessageLengthCheck then
-			if utf8.len(utf8.nfcnormalize(message)) > ChatSettings.MaximumMessageLength + 1 then
-				local localizedError = ChatLocalization:FormatMessageToSend(
-					"GameChat_ChatMessageValidator_MaxLengthError",
-					"Your message exceeds the maximum message length."
-				)
-				speakerObj:SendSystemMessage(localizedError, channel)
-				return true
+			-- Worst-case byte length check: Fast for large strings
+			if message:len() <= (ChatSettings.MaximumMessageLength + 1)*MAX_BYTES_PER_UTF8_CODEPOINT then
+
+				-- Codepoint check
+				if utf8.len(utf8.nfcnormalize(message)) > ChatSettings.MaximumMessageLength + 1 then
+					local localizedError = ChatLocalization:FormatMessageToSend(
+						"GameChat_ChatMessageValidator_MaxLengthError",
+						"Your message exceeds the maximum message length."
+					)
+					speakerObj:SendSystemMessage(localizedError, channel)
+					return true
+				end
 			end
 		else
 			if message:len() > ChatSettings.MaximumMessageLength + 1 then
@@ -80,7 +93,11 @@ local function Run(ChatService)
 		return false
 	end
 
-	ChatService:RegisterProcessCommandsFunction("message_validation", ValidateChatFunction, ChatSettings.LowPriority)
+	if FFlagUserChatValidateFirst then
+		ChatService:RegisterProcessCommandsFunction("message_validation", ValidateChatFunction, ChatConstants.VeryHighPriority)
+	else
+		ChatService:RegisterProcessCommandsFunction("message_validation", ValidateChatFunction, ChatSettings.LowPriority)
+	end
 end
 
 return Run

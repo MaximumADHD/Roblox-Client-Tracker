@@ -1,24 +1,3 @@
-local FFlagUserDTDoesNotForceAutoJump do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserDTDoesNotForceAutoJump")
-	end)
-	FFlagUserDTDoesNotForceAutoJump = success and result
-end
-
-local FFlagUserDTDoesNotTrackTools do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserDTDoesNotTrackTools")
-	end)
-	FFlagUserDTDoesNotTrackTools = success and result
-end
-
-local FFlagUserDTFastInit do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserDTFastInit")
-	end)
-	FFlagUserDTFastInit = success and result
-end
-
 --[[ Constants ]]--
 local ZERO_VECTOR3 = Vector3.new(0,0,0)
 local TOUCH_CONTROLS_SHEET = "rbxasset://textures/ui/Input/TouchControlsSheetV2.png"
@@ -65,11 +44,6 @@ DynamicThumbstick.__index = DynamicThumbstick
 function DynamicThumbstick.new()
 	local self = setmetatable(BaseCharacterController.new(), DynamicThumbstick)
 
-	self.humanoid = nil -- Remove on FFlagUserDTDoesNotTrackTools
-
-	self.tools = {} -- Remove on FFlagUserDTDoesNotTrackTools
-	self.toolEquipped = nil -- Remove on FFlagUserDTDoesNotTrackTools
-
 	self.moveTouchObject = nil
 	self.moveTouchLockedIn = false
 	self.moveTouchFirstChanged = false
@@ -97,10 +71,6 @@ function DynamicThumbstick.new()
 	self.tweenInAlphaStart = nil
 	self.tweenOutAlphaStart = nil
 
-	-- If this module changes a player's humanoid's AutoJumpEnabled, it saves
-	-- the previous state in this variable to revert to
-	self.shouldRevertAutoJumpOnDisable = false -- Remove on FFlagUserDTDoesNotForceAutoJump
-
 	return self
 end
 
@@ -110,21 +80,6 @@ function DynamicThumbstick:GetIsJumping()
 	local wasJumping = self.isJumping
 	self.isJumping = false
 	return wasJumping
-end
-
-function DynamicThumbstick:EnableAutoJump(enable) -- Remove on FFlagUserDTDoesNotForceAutoJump
-	if FFlagUserDTDoesNotForceAutoJump then
-		return
-	end
-	local humanoid = LocalPlayer.Character and LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
-	if humanoid then
-		if enable then
-			self.shouldRevertAutoJumpOnDisable = (humanoid.AutoJumpEnabled == false) and (LocalPlayer.DevTouchMovementMode == Enum.DevTouchMovementMode.UserChoice)
-			humanoid.AutoJumpEnabled = true
-		elseif self.shouldRevertAutoJumpOnDisable then
-			humanoid.AutoJumpEnabled = false
-		end
-	end
 end
 
 function DynamicThumbstick:Enable(enable, uiParentFrame)
@@ -139,16 +94,6 @@ function DynamicThumbstick:Enable(enable, uiParentFrame)
 		end
 
 		self:BindContextActions()
-
-		if not FFlagUserDTDoesNotTrackTools then
-			if LocalPlayer.Character then
-				self:OnCharacterAdded(LocalPlayer.Character)
-			else
-				LocalPlayer.CharacterAdded:Connect(function(char)
-					self:OnCharacterAdded(char)
-				end)
-			end
-		end
 	else
 		ContextActionService:UnbindAction(DYNAMIC_THUMBSTICK_ACTION_NAME)
 		-- Disable
@@ -157,34 +102,6 @@ function DynamicThumbstick:Enable(enable, uiParentFrame)
 
 	self.enabled = enable
 	self.thumbstickFrame.Visible = enable
-end
-
-function DynamicThumbstick:OnCharacterAdded(char) -- Remove on FFlagUserDTDoesNotTrackTools
-	assert(not FFlagUserDTDoesNotTrackTools)
-
-	for _, child in ipairs(char:GetChildren()) do
-		if child:IsA("Tool") then
-			self.toolEquipped = child
-		end
-	end
-
-	char.ChildAdded:Connect(function(child)
-		if child:IsA("Tool") then
-			self.toolEquipped = child
-		elseif child:IsA("Humanoid") then
-			self:EnableAutoJump(true) -- Remove on FFlagUserDTDoesNotForceAutoJump
-		end
-	end)
-	char.ChildRemoved:Connect(function(child)
-		if child == self.toolEquipped then
-			self.toolEquipped = nil
-		end
-	end)
-
-	self.humanoid = char:FindFirstChildOfClass("Humanoid")
-	if self.humanoid then
-		self:EnableAutoJump(true) -- Remove on FFlagUserDTDoesNotForceAutoJump
-	end
 end
 
 -- Was called OnMoveTouchEnded in previous version
@@ -611,24 +528,13 @@ function DynamicThumbstick:Create(parentFrame)
 
 	self.thumbstickFrame.Parent = parentFrame
 
-	if FFlagUserDTFastInit then
-		if game:IsLoaded() then
-			longShowBackground()
-		else
-			coroutine.wrap(function()
-				game.Loaded:Wait()
-				longShowBackground()
-			end)()
-		end
+	if game:IsLoaded() then
+		longShowBackground()
 	else
-		spawn(function()
-			if game:IsLoaded() then
-				longShowBackground()
-			else
-				game.Loaded:wait()
-				longShowBackground()
-			end
-		end)
+		coroutine.wrap(function()
+			game.Loaded:Wait()
+			longShowBackground()
+		end)()
 	end
 end
 

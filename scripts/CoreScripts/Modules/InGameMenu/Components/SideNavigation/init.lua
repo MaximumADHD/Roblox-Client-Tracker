@@ -27,7 +27,9 @@ local function SideNavigation(props)
 	end
 
 	return withStyle(function(style)
-		return Roact.createElement("Frame", {
+		return Roact.createElement("TextButton", {
+			AutoButtonColor = false,
+			Text = "",
 			BackgroundColor3 = style.Theme.BackgroundUIContrast.Color,
 			BackgroundTransparency = style.Theme.BackgroundUIContrast.Transparency,
 			BorderSizePixel = 0,

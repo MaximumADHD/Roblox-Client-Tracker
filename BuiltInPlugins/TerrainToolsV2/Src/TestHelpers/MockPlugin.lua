@@ -4,6 +4,8 @@
 local Plugin = script.Parent.Parent.Parent
 local Signal = require(Plugin.Src.Util.Signal)
 
+local MockMouse = require(script.Parent.MockMouse)
+
 --[[
 	MockPluginToolbarButton
 ]]
@@ -19,7 +21,7 @@ do
 			Enabled = false,
 			Click = Signal.new(),
 		}
-		setmetatable(mptb)
+		setmetatable(mptb, MockPluginToolbarButton)
 
 		return mptb
 	end
@@ -107,6 +109,8 @@ do
 	end
 end
 
+local mockedPlugins = {}
+
 --[[
 	MockPlugin
 ]]
@@ -114,12 +118,25 @@ local MockPlugin = {}
 MockPlugin.__index = MockPlugin
 
 function MockPlugin.new()
-	local mp = {
+	local self = setmetatable({
 		Name = "",
-	}
-	setmetatable(mp, MockPlugin)
 
-	return mp
+		Deactivation = Signal.new(),
+		Unloading = Signal.new(),
+
+		_activated = false,
+		_activatedWithExclusiveMouse = false,
+
+		_mouse = MockMouse.new(),
+	}, MockPlugin)
+
+	mockedPlugins[self] = true
+
+	return self
+end
+
+function MockPlugin:Destroy()
+	mockedPlugins[self] = nil
 end
 
 function MockPlugin:CreateToolbar(title)
@@ -128,6 +145,40 @@ end
 
 function MockPlugin:CreateDockWidgetPluginGui(title, widgetInfo)
 	return MockDockWidgetPluginGui.new(title, widgetInfo)
+end
+
+function MockPlugin:GetMouse()
+	return self._mouse
+end
+
+function MockPlugin:IsActivated()
+	return self._activated
+end
+
+function MockPlugin:IsActivatedWithExclusiveMouse()
+	return self._activatedWithExclusiveMouse
+end
+
+function MockPlugin:Activate(exclusiveMouse)
+	if self._activated then
+		return
+	end
+	for mockedPlugin, _ in pairs(mockedPlugins) do
+		if mockedPlugin._activated then
+			mockedPlugin:Deactivate()
+		end
+	end
+	self._activated = true
+	self._activatedWithExclusiveMouse = exclusiveMouse
+end
+
+function MockPlugin:Deactivate()
+	if not self._activated then
+		return
+	end
+	self._activated = false
+	self._activatedWithExclusiveMouse = false
+	self.Deactivation:fire()
 end
 
 return MockPlugin

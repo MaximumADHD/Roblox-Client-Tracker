@@ -5,6 +5,9 @@
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 
+local FFlagTerrainToolsRefactor = game:GetFastFlag("TerrainToolsRefactor")
+local FFlagTerrainToolsFixPlanePositionErrorMessage = game:GetFastFlag("TerrainToolsFixPlanePositionErrorMessage")
+
 local Localizing = require(Plugin.Packages.UILibrary.Localizing)
 local withLocalization = Localizing.withLocalization
 local Theme = require(Plugin.Src.ContextServices.Theming)
@@ -19,10 +22,8 @@ local ToolId = TerrainEnums.ToolId
 
 local MAX_GRAPHENES = 12
 --- Color ---
-local BUTTON_BACKGROUND_COLOR = Color3.new(228/255, 238/255, 254/255)
-local FRAME_BORDER_COLOR1 = Color3.new(227/255, 227/255, 227/255)
-local FRAME_BORDER_COLOR2 = Color3.new(182/255, 182/255, 182/255)
-local FRAME_BORDER_COLOR3 = Color3.new(151/255, 151/255, 151/255)
+local BUTTON_BACKGROUND_COLOR = Color3.fromRGB(228, 238, 254)
+local FRAME_BORDER_COLOR1 = Color3.fromRGB(227, 227, 227)
 -------------
 
 local ToolParts = script.Parent
@@ -32,12 +33,118 @@ local LabeledTextInput = require(ToolParts.LabeledTextInput)
 local LabeledElementPair = require(ToolParts.LabeledElementPair)
 local SingleSelectButtonGroup = require(ToolParts.SingleSelectButtonGroup)
 local Slider = require(ToolParts.Slider)
-
-local FFlagTerrainToolsEnablePivotPosition = game:GetFastFlag("TerrainToolsEnablePivotPosition")
-local FFlagTerrainToolsEnableHeightSlider = game:GetFastFlag("TerrainToolsEnableHeightSlider")
+local LabeledSlider = require(ToolParts.LabeledSlider)
+local LabeledToggle = require(ToolParts.LabeledToggle)
 
 local BrushSettings = Roact.PureComponent:extend(script.Name)
 
+if FFlagTerrainToolsRefactor then
+local BrushProperties = ToolParts.BrushProperties
+local BaseSizeSlider = require(BrushProperties.BaseSizeSlider)
+local BrushShapeSelector = require(BrushProperties.BrushShapeSelector)
+local FlattenModeSelector = require(BrushProperties.FlattenModeSelector)
+local HeightSelectionToggle = require(BrushProperties.HeightSelectionToggle)
+local PivotSelector = require(BrushProperties.PivotSelector)
+
+function BrushSettings:render()
+	return withLocalization(function(localization)
+		local layoutOrder = self.props.LayoutOrder
+
+		local showHeight = self.props.brushShape ~= BrushShape.Sphere
+		local isFlatten = self.props.currentTool == ToolId.Flatten
+
+		return Roact.createElement(Panel, {
+			Title = localization:getText("BrushSettings", "BrushSettings"),
+			Padding = UDim.new(0, 12),
+			LayoutOrder = layoutOrder,
+		}, {
+			BrushShapeSelector = Roact.createElement(BrushShapeSelector, {
+				LayoutOrder = 1,
+				brushShape = self.props.brushShape,
+				setBrushShape = self.props.setBrushShape,
+			}),
+
+			BaseSizeSlider = Roact.createElement(BaseSizeSlider, {
+				LayoutOrder = 2,
+				baseSize = self.props.baseSize,
+				setBaseSize = self.props.setBaseSize,
+				ShowLock = showHeight,
+				IsLocked = self.props.baseSizeHeightLocked,
+				ToggleLock = self.props.toggleBaseSizeHeightLocked,
+			}),
+
+			HeightSlider = showHeight and Roact.createElement(LabeledSlider, {
+				LayoutOrder = 3,
+				Text = localization:getText("BrushSettings", "Height"),
+				Min = Constants.MIN_BRUSH_SIZE,
+				Max = Constants.MAX_BRUSH_SIZE,
+				SnapIncrement = 1,
+				Value = self.props.height,
+				SetValue = self.props.setHeight,
+			}),
+
+			StrengthSlider = self.props.strength ~= nil and Roact.createElement(LabeledSlider, {
+				LayoutOrder = 4,
+				Text = localization:getText("BrushSettings", "Strength"),
+				Min = 0.1,
+				Max = 1,
+				SnapIncrement = 0.1,
+				Value = self.props.strength,
+				SetValue = self.props.setStrength,
+			}),
+
+			FlattenModeSelector = isFlatten and Roact.createElement(FlattenModeSelector, {
+				LayoutOrder = 5,
+				flattenMode = self.props.flattenMode,
+				setFlattenMode = self.props.setFlattenMode,
+			}),
+
+			PivotSelector = Roact.createElement(PivotSelector, {
+				LayoutOrder = 6,
+				pivot = self.props.pivot,
+				setPivot = self.props.setPivot,
+			}),
+
+			PlaneLockToggle = self.props.planeLock ~= nil and Roact.createElement(LabeledToggle, {
+				LayoutOrder = 7,
+				Text = localization:getText("BrushSettings", "PlaneLock"),
+				IsOn = self.props.planeLock,
+				SetIsOn = self.props.setPlaneLock,
+			}),
+
+			FixedPlaneToggle = self.props.fixedPlane ~= nil and Roact.createElement(LabeledToggle, {
+				LayoutOrder = 8,
+				Text = localization:getText("BrushSettings", "FixedPlane"),
+				IsOn = self.props.fixedPlane,
+				SetIsOn = self.props.setPlaneLock, -- TODO: DEVTOOLS-3102 add proper fixed plane value to dataloop
+			}),
+
+			HeightSelectionToggle = self.props.fixedPlane and isFlatten and Roact.createElement(HeightSelectionToggle, {
+				LayoutOrder = 9,
+				heightPicker = self.props.heightPicker,
+				setHeightPicker = self.props.setHeightPicker,
+				planePositionY = self.props.planePositionY,
+				setPlanePositionY = self.props.setPlanePositionY,
+			}),
+
+			SnapToGridToggle = self.props.snapToGrid ~= nil and Roact.createElement(LabeledToggle, {
+				LayoutOrder = 10,
+				Text = localization:getText("BrushSettings", "SnapToGrid"),
+				IsOn = self.props.snapToGrid,
+				SetIsOn = self.props.setSnapToGrid,
+			}),
+
+			IgnoreWaterToggle = self.props.ignoreWater ~= nil and Roact.createElement(LabeledToggle, {
+				LayoutOrder = 11,
+				Text = localization:getText("BrushSettings", "IgnoreWater"),
+				IsOn = self.props.ignoreWater,
+				SetIsOn = self.props.setIgnoreWater,
+			}),
+		})
+	end)
+end
+
+else
 function BrushSettings:render()
 	return withTheme(function(theme)
 		local brushShape = self.props.brushShape
@@ -62,7 +169,7 @@ function BrushSettings:render()
 		local toggleBaseSizeHeightLocked = self.props.toggleBaseSizeHeightLocked
 
 		-- As you can't change the height separately from the size for spheres, hide the slider and the property lock UI
-		local showHeight = FFlagTerrainToolsEnableHeightSlider and brushShape ~= BrushShape.Sphere
+		local showHeight = brushShape ~= BrushShape.Sphere
 
 		local isFlatten = currentTool == ToolId.Flatten
 
@@ -82,8 +189,8 @@ function BrushSettings:render()
 
 		local brushes = {
 			Padding = Roact.createElement("UIPadding", {
-	        	PaddingRight = UDim.new(0, 5),
-	            PaddingLeft = UDim.new(0, 5),
+				PaddingRight = UDim.new(0, 5),
+				PaddingLeft = UDim.new(0, 5),
 			}),
 			Layout = Roact.createElement("UIListLayout", {
 				FillDirection = Enum.FillDirection.Horizontal,
@@ -261,7 +368,7 @@ function BrushSettings:render()
 					LayoutOrder = 5,
 				}, flattenModes),
 
-				Pivot = FFlagTerrainToolsEnablePivotPosition and Roact.createElement(LabeledElementPair, {
+				Pivot = Roact.createElement(LabeledElementPair, {
 					Size = UDim2.new(1, 0, 0, 22),
 					Text = localization:getText("BrushSettings", "PivotPosition"),
 					LayoutOrder = 4,
@@ -318,7 +425,47 @@ function BrushSettings:render()
 					}),
 				}),
 
-				HeightSelectionToggle = fixedPlane and isFlatten and Roact.createElement(LabeledElementPair, {
+				HeightSelectionToggle = fixedPlane and isFlatten and (FFlagTerrainToolsFixPlanePositionErrorMessage
+				and Roact.createElement(LabeledElementPair, {
+					Size = UDim2.new(1, 0, 0, 22),
+					Text = localization:getText("BrushSettings", "PlanePosition"),
+					Padding = UDim.new(0, 4),
+					SizeToContent = true,
+					LayoutOrder = 9,
+					ContentDirection = Enum.FillDirection.Horizontal,
+				}, {
+					Input = Roact.createElement(LabeledTextInput, {
+						Size = UDim2.new(0, 116, 0, 22),
+						Width = UDim.new(0, 116),
+						Label = "Y",
+						Text = planePositionY,
+						MaxGraphenes = MAX_GRAPHENES,
+						LayoutOrder = 1,
+
+						OnFocusLost = function(enterPressed, text)
+							setText(text, "PlanePositionY")
+						end,
+
+						ValidateText = function(text)
+							local number = tonumber(text)
+							if number then
+								return text
+							else
+								return text, localization:getText("Warning", "InvalidNumber")
+							end
+						end,
+					}),
+
+					HeightPicker = Roact.createElement("ImageButton", {
+						Size = UDim2.new(0, 18, 0, 18),
+						Image = heightPicker and pickerOnImage or pickerOffImage,
+						BackgroundTransparency = 1,
+						LayoutOrder = 2,
+						[Roact.Event.Activated] = function()
+							self.props.toggleButton("HeightPicker")
+						end,
+					})
+				}) or Roact.createElement(LabeledElementPair, {
 					Size = UDim2.new(1, 0, 0, 22),
 					Text = localization:getText("BrushSettings", "PlanePosition"),
 					Padding = UDim.new(0, 4),
@@ -361,7 +508,7 @@ function BrushSettings:render()
 							end,
 						})
 					})
-				}),
+				})),
 
 				SnapToGridToggle = snapToGrid ~= nil and Roact.createElement(LabeledElementPair, {
 					Size = UDim2.new(1, 0, 0, 18),
@@ -395,6 +542,7 @@ function BrushSettings:render()
 			})
 		end)
 	end)
+end
 end
 
 return BrushSettings

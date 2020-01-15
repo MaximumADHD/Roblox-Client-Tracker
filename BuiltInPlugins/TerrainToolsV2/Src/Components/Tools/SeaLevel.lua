@@ -5,7 +5,10 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
-local StudioPlugin = require(Plugin.Src.ContextServices.StudioPlugin)
+local Cryo = require(Plugin.Packages.Cryo)
+
+local FFlagTerrainToolsUseFragmentsForToolPanel = game:GetFastFlag("TerrainToolsUseFragmentsForToolPanel")
+local FFlagTerrainToolsRefactor = game:GetFastFlag("TerrainToolsRefactor")
 
 local CoreGui = game:GetService("CoreGui")
 
@@ -15,6 +18,7 @@ local Localizing = require(UILibrary.Localizing)
 local withLocalization = Localizing.withLocalization
 local Theme = require(Plugin.Src.ContextServices.Theming)
 local withTheme = Theme.withTheme
+local StudioPlugin = require(Plugin.Src.ContextServices.StudioPlugin)
 
 local Actions = Plugin.Src.Actions
 local ApplyToolAction = require(Actions.ApplyToolAction)
@@ -26,22 +30,20 @@ local SetHeightPicker = require(Actions.SetHeightPicker)
 local ProgressFrame = require(script.Parent.Parent.ProgressFrame)
 
 local ToolParts = script.Parent.ToolParts
-local Panel = require(ToolParts.Panel)
-local LabeledElementPair = require(ToolParts.LabeledElementPair)
-local LabeledTextInput = require(ToolParts.LabeledTextInput)
 local MapSettings = require(ToolParts.MapSettings)
+local ButtonGroup = require(ToolParts.ButtonGroup)
 
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 local ToolId = TerrainEnums.ToolId
 
-local LargeVoxelRegionPreview = require(Plugin.Src.Components.Functions.LargeVoxelRegionPreview)
+local LargeVoxelRegionPreview = require(Plugin.Src.TerrainWorldUI.LargeVoxelRegionPreview)
 
 local TerrainInterface = require(Plugin.Src.ContextServices.TerrainInterface)
 local getSeaLevel = TerrainInterface.getSeaLevel
 
-local UILibrary = Plugin.Packages.UILibrary
-
 local REDUCER_KEY = "SeaLevelTool"
+
+local FFlagTerrainToolsFixGettingTerrain = game:GetFastFlag("TerrainToolsFixGettingTerrain")
 
 local SeaLevel = Roact.PureComponent:extend(script.Name)
 
@@ -49,7 +51,11 @@ function SeaLevel:init(initialProps)
 	local plugin = StudioPlugin.getPlugin(self)
 	local mouse = plugin:GetMouse()
 
-	self.preview = LargeVoxelRegionPreview.new(mouse)
+	if FFlagTerrainToolsFixGettingTerrain then
+		self.preview = LargeVoxelRegionPreview.new(mouse, TerrainInterface.getTerrain(self))
+	else
+		self.preview = LargeVoxelRegionPreview.new(mouse)
+	end
 
 	self.pluginActivationController = TerrainInterface.getPluginActivationController(self)
 	self.seaLevel = getSeaLevel(self)
@@ -65,6 +71,7 @@ function SeaLevel:init(initialProps)
 	self.toggleButton = function(containter)
 		self.props.dispatchSetMergeEmpty(not self.props.mergeEmpty)
 	end
+
 	self.onTextEnter = function(text, container)
 		-- warning should be displayed using the
 		-- validation funtion in the LabeledTextInput
@@ -194,20 +201,10 @@ function SeaLevel:render()
 	local progress = self.state.progress
 	return withLocalization(function(localization)
 		return withTheme(function(theme)
-
 			-- same as if the sealevel is currently active
 			local isReplacing = self.state.isReplacing
-			return Roact.createElement("Frame", {
-				Size = UDim2.new(1, 0, 1, 0),
-				BackgroundTransparency = 1,
-				[Roact.Ref] = self.mainFrameRef,
-			}, {
-				UIListLayout = Roact.createElement("UIListLayout", {
-					SortOrder = Enum.SortOrder.LayoutOrder,
-					[Roact.Ref] = self.layoutRef,
-					[Roact.Change.AbsoluteContentSize] = self.onContentSizeChanged,
-				}),
 
+			local children = {
 				MapSettings = Roact.createElement(MapSettings, {
 					IsImport = false,
 					Position = position,
@@ -216,11 +213,27 @@ function SeaLevel:render()
 					LayoutOrder = 1,
 				}),
 
-				SeaLevelButtons = Roact.createElement("Frame", {
+				SeaLevelButtons = FFlagTerrainToolsRefactor and Roact.createElement(ButtonGroup, {
+					LayoutOrder = 2,
+					Buttons = {
+						{
+							Key = "Evaporate",
+							Name = localization:getText("SeaLevel", "Evaporate"),
+							Active = not isReplacing,
+							OnClicked = self.tryEvaporateSeaLevel
+						},
+						{
+							Key = "Create",
+							Name = localization:getText("SeaLevel", "Create"),
+							Active = not isReplacing,
+							OnClicked = self.tryGenerateSeaLevel
+						},
+					}
+				}) or Roact.createElement("Frame", {
 					Size = UDim2.new(1, 0 ,0, 28+24),
 					BackgroundTransparency = 1,
 					LayoutOrder = 2,
-				},{
+				}, {
 					Evaporate = Roact.createElement(RoundTextButton, {
 						Size = UDim2.new(0, 100, 0, 28),
 						AnchorPoint = Vector2.new(1, 0.5),
@@ -234,6 +247,7 @@ function SeaLevel:render()
 
 						OnClicked = self.tryEvaporateSeaLevel
 					}),
+
 					Create = Roact.createElement(RoundTextButton, {
 						Size = UDim2.new(0, 100, 0, 28),
 						AnchorPoint = Vector2.new(0, 0.5),
@@ -260,14 +274,32 @@ function SeaLevel:render()
 							OnCancelButtonClicked = self.cancel,
 						})
 					})
+				}),
+			}
+
+			if FFlagTerrainToolsUseFragmentsForToolPanel then
+				return Roact.createFragment(children)
+			else
+				children.UIListLayout = Roact.createElement("UIListLayout", {
+					SortOrder = Enum.SortOrder.LayoutOrder,
+					[Roact.Ref] = self.layoutRef,
+					[Roact.Change.AbsoluteContentSize] = self.onContentSizeChanged,
 				})
-			})
+
+				return Roact.createElement("Frame", {
+					Size = UDim2.new(1, 0, 1, 0),
+					BackgroundTransparency = 1,
+					[Roact.Ref] = self.mainFrameRef,
+				}, children)
+			end
 		end)
 	end)
 end
 
-local function MapStateToProps (state, props)
+local function mapStateToProps(state, props)
 	return {
+		toolName = TerrainEnums.ToolId.SeaLevel,
+
 		Position = state[REDUCER_KEY].position,
 		Size = state[REDUCER_KEY].size,
 		PlanePositionY = state[REDUCER_KEY].PlanePositionY,
@@ -275,7 +307,7 @@ local function MapStateToProps (state, props)
 	}
 end
 
-local function MapDispatchToProps (dispatch)
+local function mapDispatchToProps(dispatch)
 	local dispatchToSeaLevel = function(action)
 		dispatch(ApplyToolAction(REDUCER_KEY, action))
 	end
@@ -296,4 +328,4 @@ local function MapDispatchToProps (dispatch)
 	}
 end
 
-return RoactRodux.connect(MapStateToProps, MapDispatchToProps)(SeaLevel)
+return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(SeaLevel)

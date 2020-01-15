@@ -14,9 +14,31 @@ local withTheme = Theming.withTheme
 local ToolParts = script.Parent
 local Panel = require(ToolParts.Panel)
 local LabeledElementPair = require(ToolParts.LabeledElementPair)
+local LabeledToggle = require(ToolParts.LabeledToggle)
+
+local FFlagTerrainToolsRefactor = game:GetFastFlag("TerrainToolsRefactor")
 
 local EditSettings = Roact.PureComponent:extend(script.Name)
 
+if FFlagTerrainToolsRefactor then
+function EditSettings:render()
+	return withLocalization(function(localization)
+		return Roact.createElement(Panel, {
+			Title = localization:getText("EditSettings", "EditSettings"),
+			Padding = UDim.new(0, 12),
+			LayoutOrder = self.props.LayoutOrder,
+		}, {
+			MergeEmptyToggle = Roact.createElement(LabeledToggle, {
+				LayoutOrder = 1,
+				Text = localization:getText("EditSettings", "MergeEmpty"),
+				IsOn = self.props.mergeEmpty,
+				SetIsOn = self.props.setMergeEmpty,
+			}),
+		})
+	end)
+end
+
+else
 function EditSettings:render()
 	local toggleButton = self.props.toggleButton
 	local mergeEmpty = self.props.mergeEmpty
@@ -47,6 +69,7 @@ function EditSettings:render()
 			})
 		end)
 	end)
+end
 end
 
 return EditSettings

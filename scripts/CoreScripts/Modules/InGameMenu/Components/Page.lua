@@ -15,7 +15,9 @@ local ThemedTextLabel = require(script.Parent.ThemedTextLabel)
 
 local function Page(props)
 	return withStyle(function(style)
-		return Roact.createElement("Frame", {
+		return Roact.createElement("TextButton", {
+			AutoButtonColor = false,
+			Text = "",
 			BackgroundColor3 = style.Theme.BackgroundContrast.Color,
 			BackgroundTransparency = style.Theme.BackgroundContrast.Transparency,
 			BorderSizePixel = 0,

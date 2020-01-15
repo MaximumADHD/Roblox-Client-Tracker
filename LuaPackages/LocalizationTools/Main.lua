@@ -8,8 +8,6 @@ local MakeGameTableMain = require(script.Parent.GameTable.GameTableMain)
 local RbxEntriesToWebEntries = require(script.Parent.GameTable.RbxEntriesToWebEntries)
 local Roact = require(game:GetService("CorePackages").Roact)
 
-local UnofficialLanguageSupportEnabled = settings():GetFFlag("UnofficialLanguageSupportEnabled")
-local UseAllSupportedLanguageList = settings():GetFFlag("UseAllSupportedLanguageList")
 local UseStudioLocaleForForceLocale = settings():GetFFlag("UseStudioLocaleForForceLocale")
 
 local LocalizationToolsPluginV2Enabled = settings():GetFFlag("LocalizationToolsPluginV2Enabled")
@@ -171,28 +169,6 @@ local function reportUploadPatch(plugin, patchInfo, btnName)
 	AnalyticsService:SendEventDeferred(target, context, eventName, args)
 end
 
-local function reportDownloadTable_deprecated(plugin, table, btnName)
-	local target = "studio"
-	local context = "localizationPlugin"
-	local eventName = "logLocalizationPerfStats"
-
-	local info = RbxEntriesToWebEntries(table:GetEntries())
-
-	local args = {
-		uid = plugin:GetStudioUserId(),
-		gameId = game.GameId,
-		placeId = game.PlaceId,
-		btnName = btnName,
-
-		totalRows = info.totalRows,
-		totalTranslations = info.totalTranslations,
-		supportedLocales = info.supportedLocales,
-		unsupportedLocales = info.unsupportedLocales,
-	}
-
-	AnalyticsService:SendEventDeferred(target, context, eventName, args)
-end
-
 local function reportDownloadTable(plugin, table, btnName, getAllSuppLanguagesFunc)
 	local target = "studio"
 	local context = "localizationPlugin"
@@ -251,64 +227,8 @@ local function createLocalizationToolsEnabled(toolbar, plugin, studioSettings)
 	Window.Title = "Localization Tools"
 	Window.Name = "Localization"
 
-	if UseAllSupportedLanguageList then
-		GameTableMain.GetAllSupportedLanguages():andThen(function(languageTable)
-			local allLanguageInfo = processLanguageInfo(languageTable)
-			local localizationToolsHandle = Roact.mount(Roact.createElement(LocalizationTools, {
-				Window = Window,
-				ShowDialog = ShowDialog,
-				OpenCSV = GameTableMain.OpenCSV,
-				SaveCSV = GameTableMain.SaveCSV,
-				ComputeReplacePatch = GameTableMain.ComputeReplacePatch,
-				ComputeUpdatePatch = GameTableMain.ComputeUpdatePatch,
-				UploadPatch = GameTableMain.UploadPatch,
-				DownloadGameTable = GameTableMain.DownloadGameTable,
-				CheckTableAvailability = GameTableMain.CheckTableAvailability,
-				GameIdChangedSignal = GameTableMain.GameIdChangedSignal,
-				AllLanguagesInfo = allLanguageInfo,
-				RequestAssetGeneration = GameTableMain.RequestAssetGeneration,
-				StudioSettings = studioSettings,
-				HandleUploadAnalytics = function(patchInfo, btnName)
-					reportUploadPatch(plugin, patchInfo, btnName)
-				end,
-				HandleDownloadAnalytics = function(table, btnName)
-					if UnofficialLanguageSupportEnabled then
-						reportDownloadTable(plugin, table, btnName, GameTableMain.GetAllSupportedLanguages)
-					else
-						reportDownloadTable_deprecated(plugin, table, btnName)
-					end
-				end,
-			}), Window)
-
-			local button = createLocalizationToolsPluginButton(toolbar)
-
-			Window.AncestryChanged:Connect(function(child, parent)
-				if child == Window and parent == nil then
-					Roact.unmount(localizationToolsHandle)
-				end
-			end)
-
-			Window:GetPropertyChangedSignal("Enabled"):connect(function()
-				button:SetActive(Window.Enabled)
-			end)
-
-			button.Enabled = true
-			button.Click:Connect(function()
-				Window.Enabled = not Window.Enabled
-				button:SetActive(Window.Enabled)
-
-				if (Window.Enabled) then
-					reportToolOpened(plugin, 1)
-				end
-
-				if Window.Enabled then
-					reportButtonPress(plugin, "tools", "open")
-				else
-					reportButtonPress(plugin, "tools", "closed")
-				end
-			end)
-		end)
-	else
+	GameTableMain.GetAllSupportedLanguages():andThen(function(languageTable)
+		local allLanguageInfo = processLanguageInfo(languageTable)
 		local localizationToolsHandle = Roact.mount(Roact.createElement(LocalizationTools, {
 			Window = Window,
 			ShowDialog = ShowDialog,
@@ -320,18 +240,14 @@ local function createLocalizationToolsEnabled(toolbar, plugin, studioSettings)
 			DownloadGameTable = GameTableMain.DownloadGameTable,
 			CheckTableAvailability = GameTableMain.CheckTableAvailability,
 			GameIdChangedSignal = GameTableMain.GameIdChangedSignal,
-			GetAllSupportedLanguages = GameTableMain.GetAllSupportedLanguages,
+			AllLanguagesInfo = allLanguageInfo,
 			RequestAssetGeneration = GameTableMain.RequestAssetGeneration,
 			StudioSettings = studioSettings,
 			HandleUploadAnalytics = function(patchInfo, btnName)
 				reportUploadPatch(plugin, patchInfo, btnName)
 			end,
 			HandleDownloadAnalytics = function(table, btnName)
-				if UnofficialLanguageSupportEnabled then
-					reportDownloadTable(plugin, table, btnName, GameTableMain.GetAllSupportedLanguages)
-				else
-					reportDownloadTable_deprecated(plugin, table, btnName)
-				end
+				reportDownloadTable(plugin, table, btnName, GameTableMain.GetAllSupportedLanguages)
 			end,
 		}), Window)
 
@@ -359,7 +275,7 @@ local function createLocalizationToolsEnabled(toolbar, plugin, studioSettings)
 				reportButtonPress(plugin, "tools", "closed")
 			end
 		end)
-	end
+	end)
 end
 
 

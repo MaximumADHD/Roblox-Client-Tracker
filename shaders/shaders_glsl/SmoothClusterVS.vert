@@ -46,7 +46,6 @@ struct Globals
 uniform vec4 CB0[47];
 uniform vec4 CB2[74];
 uniform vec4 CB1[1];
-uniform vec4 CB3[1];
 attribute vec4 POSITION;
 attribute vec4 NORMAL;
 attribute vec4 TEXCOORD0;
@@ -74,7 +73,7 @@ void main()
     int v9 = int(TEXCOORD1.z);
     int v10 = 36 + int(TEXCOORD0.z);
     vec4 v11 = vec4(0.0);
-    v11.w = CB3[0].z;
+    v11.w = 1.0;
     bvec3 v12 = equal(abs(POSITION.www), vec3(1.0, 2.0, 3.0));
     vec3 v13 = vec3(v12.x ? vec3(1.0).x : vec3(0.0).x, v12.y ? vec3(1.0).y : vec3(0.0).y, v12.z ? vec3(1.0).z : vec3(0.0).z);
     float v14 = dot(v1, -CB0[11].xyz);

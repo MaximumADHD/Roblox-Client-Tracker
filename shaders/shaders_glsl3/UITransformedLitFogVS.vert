@@ -59,7 +59,7 @@ out vec2 VARYING0;
 out vec4 VARYING1;
 out vec3 VARYING2;
 out vec3 VARYING3;
-out vec3 VARYING4;
+out vec4 VARYING4;
 out vec3 VARYING5;
 
 void main()
@@ -76,7 +76,7 @@ void main()
     VARYING1 = COLOR0;
     VARYING2 = (CB0[10].xyz * clamp(v3, 0.0, 1.0)) + (CB0[12].xyz * clamp(-v3, 0.0, 1.0));
     VARYING3 = ((v4 + (CB1[0].xyz * 6.0)).yxz * CB0[16].xyz) + CB0[17].xyz;
-    VARYING4 = vec3(dot(CB0[20], v5), dot(CB0[21], v5), dot(CB0[22], v5));
+    VARYING4 = vec4(dot(CB0[20], v5), dot(CB0[21], v5), dot(CB0[22], v5), 1.0);
     VARYING5 = CB0[7].xyz - v4;
 }
 

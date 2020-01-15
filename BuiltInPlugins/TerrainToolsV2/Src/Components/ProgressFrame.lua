@@ -48,9 +48,9 @@ function ProgressFrame:render()
 
 			-- TODO: Styling
 			BackgroundTransparency = 0.75,
-			BackgroundColor3 = Color3.new(1, 1, 1),
+			BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 			Font = Enum.Font.SourceSansBold,
-			TextColor3 = Color3.new(1, 1, 1),
+			TextColor3 = Color3.fromRGB(255, 255, 255),
 			TextSize = 18,
 
 			-- TODO: Localization
@@ -65,7 +65,7 @@ function ProgressFrame:render()
 		}, {
 			Fill = Roact.createElement("ImageLabel", {
 				Image = progressBarImage,
-				ImageColor3 = Color3.new(0, 0.9, 0.4),
+				ImageColor3 = Color3.fromRGB(0, 230, 102),
 				ImageRectOffset = Vector2.new(0, 256),
 				ImageRectSize = Vector2.new(0, -100),
 				ScaleType = Enum.ScaleType.Stretch,
@@ -81,7 +81,7 @@ function ProgressFrame:render()
 			-- TODO: Styling
 			Style = isPaused and Enum.ButtonStyle.RobloxRoundButton or Enum.ButtonStyle.RobloxRoundDefaultButton,
 			Font = Enum.Font.SourceSansBold,
-			TextColor3 = Color3.new(1, 1, 1),
+			TextColor3 = Color3.fromRGB(255, 255, 255),
 			TextSize = 18,
 
 			-- TODO: Localization
@@ -98,7 +98,7 @@ function ProgressFrame:render()
 			-- TODO: Styling
 			Style = Enum.ButtonStyle.RobloxRoundDefaultButton,
 			Font = Enum.Font.SourceSansBold,
-			TextColor3 = Color3.new(1, 1, 1),
+			TextColor3 = Color3.fromRGB(255, 255, 255),
 			TextSize = 18,
 
 			-- TODO: Localization

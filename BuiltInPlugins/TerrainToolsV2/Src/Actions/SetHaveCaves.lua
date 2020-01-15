@@ -1,14 +1,9 @@
---[[
-	toggles a gosh darn boolean
-]]
 local Action = require(script.Parent.Action)
 
-return Action(script.Name, function(bool)
-	if bool then
-		assert(type(bool) == "boolean", string.format("Expected bool to be a boolean, received %s", type(bool)))
-	end
+return Action(script.Name, function(haveCaves)
+	assert(type(haveCaves) == "boolean", ("Expected haveCaves to be a boolean, received %s"):format(type(haveCaves)))
+
 	return {
-		haveCaves = bool
-		
+		haveCaves = haveCaves,
 	}
 end)

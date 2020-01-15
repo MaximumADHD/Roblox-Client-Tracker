@@ -7,14 +7,12 @@ local FlattenMode = TerrainEnums.FlattenMode
 local ToolId = TerrainEnums.ToolId
 
 local applyPivot = require(Plugin.Src.Util.applyPivot)
-local Smoother = require(Plugin.Src.Components.Functions.TerrainSmoother)
 
 local OperationHelper = require(script.Parent.OperationHelper)
 local smartLargeSculptBrush = require(script.Parent.smartLargeSculptBrush)
 local smartLargeSmoothBrush = require(script.Parent.smartLargeSmoothBrush)
 local smoothBrush = require(script.Parent.smoothBrush)
 
-local FFlagTerrainToolsLargerBrush = game:GetFastFlag("TerrainToolsLargerBrush")
 local FFlagTerrainToolsFixSmoothDesiredMaterial = game:GetFastFlag("TerrainToolsFixSmoothDesiredMaterial")
 
 -- Air and water materials are frequently referenced in terrain brush
@@ -104,22 +102,19 @@ local function performOperation(terrain, opSet)
 	-- As we update a voxel, we don't want to interfere with its neighbours
 	-- So we want a readonly copy of all the data
 	-- And a writeable copy
-	local writeMaterials, writeOccupancies = readMaterials, readOccupancies
-	if FFlagTerrainToolsLargerBrush then
-		writeMaterials, writeOccupancies = terrain:ReadVoxels(region, Constants.VOXEL_RESOLUTION)
-	end
+	local writeMaterials, writeOccupancies = terrain:ReadVoxels(region, Constants.VOXEL_RESOLUTION)
 
-	if FFlagTerrainToolsLargerBrush then
-		if selectionSize > USE_LARGE_BRUSH_MIN_SIZE and (tool == ToolId.Grow or tool == ToolId.Erode or tool == ToolId.Flatten) then
-			smartLargeSculptBrush(opSet, minBounds, maxBounds,
-				readMaterials, readOccupancies, writeMaterials, writeOccupancies)
-			terrain:WriteVoxels(region, Constants.VOXEL_RESOLUTION, writeMaterials, writeOccupancies)
-			return
-		end
+	if selectionSize > USE_LARGE_BRUSH_MIN_SIZE
+		and (tool == ToolId.Grow or tool == ToolId.Erode or tool == ToolId.Flatten) then
+		smartLargeSculptBrush(opSet, minBounds, maxBounds,
+			readMaterials, readOccupancies, writeMaterials, writeOccupancies)
+		terrain:WriteVoxels(region, Constants.VOXEL_RESOLUTION, writeMaterials, writeOccupancies)
+		return
 	end
 
 	if tool == ToolId.Smooth then
-		-- TODO: Remove desiredMaterial property from smoothBrush and smartLargeSmoothBrush when removing FFlagTerrainToolsFixSmoothDesiredMaterial
+		-- TODO: Remove desiredMaterial property from smoothBrush and smartLargeSmoothBrush
+		-- when removing FFlagTerrainToolsFixSmoothDesiredMaterial
 		if not FFlagTerrainToolsFixSmoothDesiredMaterial then
 			if autoMaterial then
 				local middle = readMaterials[math.ceil(#readMaterials * 0.5)]
@@ -136,39 +131,26 @@ local function performOperation(terrain, opSet)
 			end
 		end
 
-		if FFlagTerrainToolsLargerBrush then
-			if selectionSize > USE_LARGE_BRUSH_MIN_SIZE then
-				smartLargeSmoothBrush({
-					centerPoint = centerPoint,
-					selectionSize = selectionSize,
-					strength = strength,
-					desiredMaterial = not FFlagTerrainToolsFixSmoothDesiredMaterial and desiredMaterial or nil,
-					brushShape = brushShape,
-				}, minBounds, maxBounds, readMaterials, readOccupancies, writeMaterials, writeOccupancies)
-			else
-				smoothBrush({
-					centerPoint = centerPoint,
-					selectionSize = selectionSize,
-					strength = strength,
-					desiredMaterial = not FFlagTerrainToolsFixSmoothDesiredMaterial and desiredMaterial or nil,
-					brushShape = brushShape,
-				}, minBounds, maxBounds, readMaterials, readOccupancies, writeMaterials, writeOccupancies)
-			end
-
-			terrain:WriteVoxels(region, Constants.VOXEL_RESOLUTION, writeMaterials, writeOccupancies)
-			return
-
+		if selectionSize > USE_LARGE_BRUSH_MIN_SIZE then
+			smartLargeSmoothBrush({
+				centerPoint = centerPoint,
+				selectionSize = selectionSize,
+				strength = strength,
+				desiredMaterial = not FFlagTerrainToolsFixSmoothDesiredMaterial and desiredMaterial or nil,
+				brushShape = brushShape,
+			}, minBounds, maxBounds, readMaterials, readOccupancies, writeMaterials, writeOccupancies)
 		else
-			Smoother.BrushOperation(centerPoint, readMaterials, readOccupancies,
-				Constants.VOXEL_RESOLUTION, selectionSize, strength,
-				desiredMaterial, brushShape,
-				minBounds, maxBounds)
-
-			-- Smoother module modifiers materials and occupancies
-			-- So just apply to terrain and exit function here because smoothing is finished
-			terrain:WriteVoxels(region, Constants.VOXEL_RESOLUTION, readMaterials, readOccupancies)
-			return
+			smoothBrush({
+				centerPoint = centerPoint,
+				selectionSize = selectionSize,
+				strength = strength,
+				desiredMaterial = not FFlagTerrainToolsFixSmoothDesiredMaterial and desiredMaterial or nil,
+				brushShape = brushShape,
+			}, minBounds, maxBounds, readMaterials, readOccupancies, writeMaterials, writeOccupancies)
 		end
+
+		terrain:WriteVoxels(region, Constants.VOXEL_RESOLUTION, writeMaterials, writeOccupancies)
+		return
 	end
 
 	local flattenMode = opSet.flattenMode
@@ -188,25 +170,7 @@ local function performOperation(terrain, opSet)
 	local waterHeight = 0
 
 	if ignoreWater and (tool == ToolId.Erode or tool == ToolId.Subtract) then
-		if FFlagTerrainToolsLargerBrush then
-			waterHeight, airFillerMaterial = OperationHelper.getWaterHeightAndAirFillerMaterial(readMaterials)
-		else
-			-- TODO: Improve performance
-			-- Perhaps iterating from size.Y down to 0 could find something faster?
-			-- Then break once we've found the highest water
-			for _, vx in ipairs(readMaterials) do
-				for y, vy in ipairs(vx) do
-					for _, vz in ipairs(vy) do
-						if vz == materialWater then
-							airFillerMaterial = materialWater
-							if y > waterHeight then
-								waterHeight = y
-							end
-						end
-					end
-				end
-			end
-		end
+		waterHeight, airFillerMaterial = OperationHelper.getWaterHeightAndAirFillerMaterial(readMaterials)
 	end
 
 	local sizeX = table.getn(readOccupancies)
@@ -222,166 +186,84 @@ local function performOperation(terrain, opSet)
 	local magnitudePercent
 	local brushOccupancy
 
-	local erode
-	local grow
+	local function erode(ix, iy, iz)
+		if cellOccupancy == 0 or cellMaterial == materialAir or brushOccupancy <= 0.5 then
+			return
+		end
 
-	if FFlagTerrainToolsLargerBrush then
-		function erode(ix, iy, iz)
-			if cellOccupancy == 0 or cellMaterial == materialAir or brushOccupancy <= 0.5 then
-				return
-			end
-
-			local desiredOccupancy = cellOccupancy
-			local emptyNeighbor = false
-			local neighborOccupancies = 6
-			for i = 1, 6, 1 do
-				local nx = ix + OperationHelper.xOffset[i]
-				local ny = iy + OperationHelper.yOffset[i]
-				local nz = iz + OperationHelper.zOffset[i]
-				if nx > 0 and nx <= sizeX
-					and ny > 0 and ny <= sizeY
-					and nz > 0 and nz <= sizeZ then
-					local neighbor = readOccupancies[nx][ny][nz]
-					local neighborMaterial = readMaterials[nx][ny][nz]
-					if ignoreWater and neighborMaterial == materialWater then
-						neighbor = 0
-					end
-					if neighbor <= 0 then
-						emptyNeighbor = true
-					end
-					neighborOccupancies = neighborOccupancies - neighbor
+		local desiredOccupancy = cellOccupancy
+		local emptyNeighbor = false
+		local neighborOccupancies = 6
+		for i = 1, 6, 1 do
+			local nx = ix + OperationHelper.xOffset[i]
+			local ny = iy + OperationHelper.yOffset[i]
+			local nz = iz + OperationHelper.zOffset[i]
+			if nx > 0 and nx <= sizeX
+				and ny > 0 and ny <= sizeY
+				and nz > 0 and nz <= sizeZ then
+				local neighbor = readOccupancies[nx][ny][nz]
+				local neighborMaterial = readMaterials[nx][ny][nz]
+				if ignoreWater and neighborMaterial == materialWater then
+					neighbor = 0
 				end
-			end
-
-			if cellOccupancy < 1 or emptyNeighbor then
-				desiredOccupancy = desiredOccupancy
-					- (neighborOccupancies / 6) * (strength + 0.1) * 0.25 * brushOccupancy * magnitudePercent
-			end
-			if desiredOccupancy <= OperationHelper.one256th then
-				writeOccupancies[ix][iy][iz] = airFillerMaterial == materialWater and 1 or 0
-				writeMaterials[ix][iy][iz] = airFillerMaterial
-			else
-				writeOccupancies[ix][iy][iz] = desiredOccupancy
+				if neighbor <= 0 then
+					emptyNeighbor = true
+				end
+				neighborOccupancies = neighborOccupancies - neighbor
 			end
 		end
 
-		function grow(ix, iy, iz)
-			if cellOccupancy == 1 or brushOccupancy < 0.5 then
-				return
-			end
-
-			local desiredOccupancy = cellOccupancy
-			local fullNeighbor = false
-			local totalNeighbors = 0
-			local neighborOccupancies = 0
-			for i = 1, 6, 1 do
-				local nx = ix + OperationHelper.xOffset[i]
-				local ny = iy + OperationHelper.yOffset[i]
-				local nz = iz + OperationHelper.zOffset[i]
-				if nx > 0 and nx <= sizeX
-					and ny > 0 and ny <= sizeY
-					and nz > 0 and nz <= sizeZ then
-					local neighbor = readOccupancies[nx][ny][nz]
-					local neighborMaterial = readMaterials[nx][ny][nz]
-					if ignoreWater and neighborMaterial == materialWater then
-						neighbor = 0
-					end
-					if neighbor >= 1 then
-						fullNeighbor = true
-					end
-					totalNeighbors = totalNeighbors + 1
-					neighborOccupancies = neighborOccupancies + neighbor
-				end
-			end
-
-			if cellOccupancy > 0 or fullNeighbor then
-				neighborOccupancies = totalNeighbors == 0 and 0 or neighborOccupancies / totalNeighbors
-				desiredOccupancy = desiredOccupancy
-					+ neighborOccupancies * (strength + 0.1) * 0.25 * brushOccupancy * magnitudePercent
-			end
-			if cellMaterial == materialAir and desiredOccupancy > 0 then
-				writeMaterials[ix][iy][iz] = desiredMaterial
-			end
-			if desiredOccupancy ~= cellOccupancy then
-				writeOccupancies[ix][iy][iz] = desiredOccupancy
-			end
+		if cellOccupancy < 1 or emptyNeighbor then
+			desiredOccupancy = desiredOccupancy
+				- (neighborOccupancies / 6) * (strength + 0.1) * 0.25 * brushOccupancy * magnitudePercent
 		end
-	else
-		function erode(ix, iy, iz)
-			if cellMaterial ~= materialAir and brushOccupancy > 0.5 then
-				local desiredOccupancy = cellOccupancy
-				local emptyNeighbor = false
-				local neighborOccupancies = 6
-				for i = 1, 6, 1 do
-					local nx = ix + OperationHelper.xOffset[i]
-					local ny = iy + OperationHelper.yOffset[i]
-					local nz = iz + OperationHelper.zOffset[i]
-					if nx > 0 and nx <= sizeX
-						and ny > 0 and ny <= sizeY
-						and nz > 0 and nz <= sizeZ then
-						local neighbor = readOccupancies[nx][ny][nz]
-						local neighborMaterial = readMaterials[nx][ny][nz]
-						if ignoreWater and neighborMaterial == materialWater then
-							neighbor = 0
-						end
-						if neighbor <= 0 then
-							emptyNeighbor = true
-						end
-						neighborOccupancies = neighborOccupancies - neighbor
-					end
-				end
+		if desiredOccupancy <= OperationHelper.one256th then
+			writeOccupancies[ix][iy][iz] = airFillerMaterial == materialWater and 1 or 0
+			writeMaterials[ix][iy][iz] = airFillerMaterial
+		else
+			writeOccupancies[ix][iy][iz] = desiredOccupancy
+		end
+	end
 
-				if cellOccupancy < 1 or emptyNeighbor then
-					desiredOccupancy = desiredOccupancy
-						- (neighborOccupancies / 6) * (strength + 0.1) * 0.25 * brushOccupancy * magnitudePercent
+	local function grow(ix, iy, iz)
+		if cellOccupancy == 1 or brushOccupancy < 0.5 then
+			return
+		end
+
+		local desiredOccupancy = cellOccupancy
+		local fullNeighbor = false
+		local totalNeighbors = 0
+		local neighborOccupancies = 0
+		for i = 1, 6, 1 do
+			local nx = ix + OperationHelper.xOffset[i]
+			local ny = iy + OperationHelper.yOffset[i]
+			local nz = iz + OperationHelper.zOffset[i]
+			if nx > 0 and nx <= sizeX
+				and ny > 0 and ny <= sizeY
+				and nz > 0 and nz <= sizeZ then
+				local neighbor = readOccupancies[nx][ny][nz]
+				local neighborMaterial = readMaterials[nx][ny][nz]
+				if ignoreWater and neighborMaterial == materialWater then
+					neighbor = 0
 				end
-				if desiredOccupancy <= OperationHelper.one256th then
-					writeOccupancies[ix][iy][iz] = airFillerMaterial == materialWater and 1 or 0
-					writeMaterials[ix][iy][iz] = airFillerMaterial
-				else
-					writeOccupancies[ix][iy][iz] = desiredOccupancy
+				if neighbor >= 1 then
+					fullNeighbor = true
 				end
+				totalNeighbors = totalNeighbors + 1
+				neighborOccupancies = neighborOccupancies + neighbor
 			end
 		end
 
-		function grow(ix, iy, iz)
-			if brushOccupancy >= 0.5 then
-				local desiredOccupancy = cellOccupancy
-				local fullNeighbor = false
-				local totalNeighbors = 0
-				local neighborOccupancies = 0
-				for i = 1, 6, 1 do
-					local nx = ix + OperationHelper.xOffset[i]
-					local ny = iy + OperationHelper.yOffset[i]
-					local nz = iz + OperationHelper.zOffset[i]
-					if nx > 0 and nx <= sizeX
-						and ny > 0 and ny <= sizeY
-						and nz > 0 and nz <= sizeZ then
-						local neighbor = readOccupancies[nx][ny][nz]
-						local neighborMaterial = readMaterials[nx][ny][nz]
-						if ignoreWater and neighborMaterial == materialWater then
-							neighbor = 0
-						end
-						if neighbor >= 1 then
-							fullNeighbor = true
-						end
-						totalNeighbors = totalNeighbors + 1
-						neighborOccupancies = neighborOccupancies + neighbor
-					end
-				end
-
-				if cellOccupancy > 0 or fullNeighbor then
-					neighborOccupancies = totalNeighbors == 0 and 0 or neighborOccupancies / totalNeighbors
-					desiredOccupancy = desiredOccupancy
-						+ neighborOccupancies * (strength + 0.1) * 0.25 * brushOccupancy * magnitudePercent
-				end
-				if cellMaterial == materialAir and desiredOccupancy > 0 then
-					writeMaterials[ix][iy][iz] = desiredMaterial
-				end
-				if desiredOccupancy ~= cellOccupancy then
-					writeOccupancies[ix][iy][iz] = desiredOccupancy
-				end
-			end
+		if cellOccupancy > 0 or fullNeighbor then
+			neighborOccupancies = totalNeighbors == 0 and 0 or neighborOccupancies / totalNeighbors
+			desiredOccupancy = desiredOccupancy
+				+ neighborOccupancies * (strength + 0.1) * 0.25 * brushOccupancy * magnitudePercent
+		end
+		if cellMaterial == materialAir and desiredOccupancy > 0 then
+			writeMaterials[ix][iy][iz] = desiredMaterial
+		end
+		if desiredOccupancy ~= cellOccupancy then
+			writeOccupancies[ix][iy][iz] = desiredOccupancy
 		end
 	end
 

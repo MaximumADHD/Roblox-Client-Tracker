@@ -10,16 +10,8 @@ end
 -- Fast flags
 require(script.Parent.defineLuaFlags)
 
-local FFlagTerrainToolsRefactorTerrainBrush = game:GetFastFlag("TerrainToolsRefactorTerrainBrush")
-
--- FFlagTerrainToolsRefactorTerrainImporter depends on FFlagTerrainToolsRefactorTerrainBrush
-local FFlagTerrainToolsRefactorTerrainImporter = game:GetFastFlag("TerrainToolsRefactorTerrainImporter")
-
--- FFlagTerrainToolsRefactorTerrainGeneration depends on FFlagTerrainToolsRefactorTerrainBrush
-local FFlagTerrainToolsRefactorTerrainGeneration = game:GetFastFlag("TerrainToolsRefactorTerrainGeneration")
-
--- sea Level is now dependent on FFlagTerrainToolsRefactorTerrainBrush
 local FFlagTerrainToolsSeaLevel = game:GetFastFlag("TerrainToolsSeaLevel")
+local FFlagTerrainToolsFixGettingTerrain = game:GetFastFlag("TerrainToolsFixGettingTerrain")
 
 -- services
 local Workspace = game:GetService("Workspace")
@@ -30,43 +22,25 @@ local Roact = require(Plugin.Packages.Roact)
 local Rodux = require(Plugin.Packages.Rodux)
 local UILibrary = require(Plugin.Packages.UILibrary)
 local Manager = require(Plugin.Src.Components.Manager) -- top most ui component
-local PluginActivationController
-local TerrainBrush
-local ToolSelectionListener
-local TerrainImporter
-local TerrainGeneration
-if FFlagTerrainToolsRefactorTerrainBrush then
-	PluginActivationController = require(Plugin.Src.Util.PluginActivationController)
-	TerrainBrush = require(Plugin.Src.Components.Functions.TerrainBrushInstance)
-	ToolSelectionListener = require(Plugin.Src.Components.ToolSelectionListener)
-	if FFlagTerrainToolsRefactorTerrainImporter then
-		TerrainImporter = require(Plugin.Src.Components.Functions.TerrainImporterInstance)
-	end
-	if FFlagTerrainToolsRefactorTerrainGeneration then
-		TerrainGeneration = require(Plugin.Src.Components.Functions.TerrainGenerationInstance)
-	end
-end
+local PluginActivationController = require(Plugin.Src.Util.PluginActivationController)
+local TerrainBrush = require(Plugin.Src.TerrainInterfaces.TerrainBrushInstance)
+local ToolSelectionListener = require(Plugin.Src.Components.ToolSelectionListener)
+local TerrainImporter = require(Plugin.Src.TerrainInterfaces.TerrainImporterInstance)
+local TerrainGeneration = require(Plugin.Src.TerrainInterfaces.TerrainGenerationInstance)
 
 local TerrainSeaLevel
 if FFlagTerrainToolsSeaLevel then
-	TerrainSeaLevel = require(Plugin.Src.Components.Functions.TerrainSeaLevel)
+	TerrainSeaLevel = require(Plugin.Src.TerrainInterfaces.TerrainSeaLevel)
 end
 
 -- components
 local ServiceWrapper = require(Plugin.Src.Components.ServiceWrapper)
-
--- actions
-local ChangeTool = require(Plugin.Src.Actions.ChangeTool)
 
 -- data
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 
 -- middleWare
 local getReportTerrainToolMetrics = require(Plugin.Src.MiddleWare.getReportTerrainToolMetrics)
-
--- util
-local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
-local ToolId = TerrainEnums.ToolId
 
 -- theme
 local PluginTheme = require(Plugin.Src.Resources.PluginTheme)
@@ -96,38 +70,32 @@ local localization = Localization.new({
 	translationResourceTable = TranslationReferenceTable,
 })
 
-local pluginActivationController
-local terrainBrush
-local terrainImporter
-local terrainGeneration
-if FFlagTerrainToolsRefactorTerrainBrush then
-	local terrain = Workspace:WaitForChild("Terrain")
-
-	pluginActivationController = PluginActivationController.new(plugin)
-
-	terrainBrush = TerrainBrush.new({
-		mouse = plugin:GetMouse(),
-		terrain = terrain
-	})
-
-	if FFlagTerrainToolsRefactorTerrainImporter then
-		terrainImporter = TerrainImporter.new({
-			terrain = terrain,
-			localization = localization,
-		})
-	end
-
-	if FFlagTerrainToolsRefactorTerrainGeneration then
-		terrainGeneration = TerrainGeneration.new({
-			terrain = terrain,
-			localization = localization,
-		})
-	end
-end
+local terrain = FFlagTerrainToolsFixGettingTerrain and require(Plugin.Src.Util.getTerrain)()
+	or Workspace:WaitForChild("Terrain")
+local pluginActivationController = PluginActivationController.new(plugin)
+local terrainBrush = TerrainBrush.new({
+	terrain = terrain,
+	mouse = plugin:GetMouse(),
+})
+local terrainImporter = TerrainImporter.new({
+	terrain = terrain,
+	localization = localization,
+})
+local terrainGeneration = TerrainGeneration.new({
+	terrain = terrain,
+	localization = localization,
+})
 
 local seaLevel
 if FFlagTerrainToolsSeaLevel then
-	seaLevel = TerrainSeaLevel.new(localization)
+	if FFlagTerrainToolsFixGettingTerrain then
+		seaLevel = TerrainSeaLevel.new({
+			terrain = terrain,
+			localization = localization,
+		})
+	else
+		seaLevel = TerrainSeaLevel.new(localization)
+	end
 end
 
 -- Widget Gui Elements
@@ -142,61 +110,38 @@ local function openPluginWindow()
 	end
 
 	-- create the roact tree
-	local servicesProvider
-	if FFlagTerrainToolsRefactorTerrainBrush then
-		servicesProvider = Roact.createElement(ServiceWrapper, {
-			plugin = plugin,
-			localization = localization,
-			theme = theme,
-			store = dataStore,
+	local servicesProvider = Roact.createElement(ServiceWrapper, {
+		plugin = plugin,
+		localization = localization,
+		theme = theme,
+		store = dataStore,
 
-			pluginActivationController = pluginActivationController,
-			terrainBrush = terrainBrush,
-			terrainImporter = terrainImporter,
-			terrainGeneration = terrainGeneration,
-			seaLevel = seaLevel,
-		}, {
-			TerrainTools = Roact.createFragment({
-				UIManager = Roact.createElement(Manager, {
-					Name = Manager,
-				}),
-
-				ToolSelectionListener = Roact.createElement(ToolSelectionListener),
-			}),
-		})
-	else
-		servicesProvider = Roact.createElement(ServiceWrapper, {
-			plugin = plugin,
-			localization = localization,
-			theme = theme,
-			store = dataStore,
-		}, {
+		terrain = terrain,
+		pluginActivationController = pluginActivationController,
+		terrainBrush = terrainBrush,
+		terrainImporter = terrainImporter,
+		terrainGeneration = terrainGeneration,
+		seaLevel = seaLevel,
+	}, {
+		TerrainTools = Roact.createFragment({
 			UIManager = Roact.createElement(Manager, {
 				Name = Manager,
 			}),
-		})
-	end
+
+			ToolSelectionListener = Roact.createElement(ToolSelectionListener),
+		}),
+	})
 
 	pluginHandle = Roact.mount(servicesProvider, pluginGui)
 
-	if FFlagTerrainToolsRefactorTerrainBrush then
-		-- Bring back the last tool the user was using, if there is one
-		pluginActivationController:restoreSelectedTool()
-	else
-		if plugin then
-			plugin.Deactivation:connect(function()
-				dataStore:dispatch(ChangeTool(ToolId.None))
-			end)
-		end
-	end
+	-- Bring back the last tool the user was using, if there is one
+	pluginActivationController:restoreSelectedTool()
 end
 
 --Closes and unmounts the plugin popup window
 local function closePluginWindow()
-	if FFlagTerrainToolsRefactorTerrainBrush then
-		-- Save the tool the user's using for later
-		pluginActivationController:pauseActivatedTool()
-	end
+	-- Save the tool the user's using for later
+	pluginActivationController:pauseActivatedTool()
 
 	if pluginHandle then
 		Roact.unmount(pluginHandle)
@@ -279,7 +224,7 @@ local function main()
 		300,    -- Default width of the floating window
 		600,    -- Default height of the floating window
 		270,    -- Minimum width of the floating window (optional)
-		150     -- Minimum height of the floating window (optional)
+		256     -- Minimum height of the floating window (optional)
 	)
 	pluginGui = plugin:CreateDockWidgetPluginGui(DOCK_WIDGET_PLUGIN_NAME, widgetInfo)
 	pluginGui.Name = localization:getText("Meta", "PluginName")
@@ -291,10 +236,8 @@ local function main()
 	-- configure the widget and button if its visible
 	showIfEnabled()
 
-	if FFlagTerrainToolsRefactorTerrainBrush then
-		pluginGui.WindowFocused:Connect(onWidgetFocused)
-		plugin.Unloading:Connect(onPluginUnloading)
-	end
+	pluginGui.WindowFocused:Connect(onWidgetFocused)
+	plugin.Unloading:Connect(onPluginUnloading)
 end
 
 main()

@@ -123,35 +123,42 @@ return function()
 		end)
 
 		it("should preserve immutability", function()
-			local immutabilityPreserved = testImmutability(GenerateTool, SetBiomeSelection({
-				Water = true,
-				Plains = true,
-				Dunes = true,
-				Mountains = false,
-				Arctic = true,
-				Marsh = true,
-				Hills = true,
-				Canyons = true,
-				Lavascape = true,
-			}))
+			local immutabilityPreserved = testImmutability(GenerateTool, SetBiomeSelection("Water", true))
 			expect(immutabilityPreserved).to.equal(true)
 		end)
 	end)
 
-	describe("SetBiomeSize", function()
-		it("should set biomeSize", function()
-			local state = GenerateTool(nil, SetBiomeSize("9999999"))
+	if game:GetFastFlag("TerrainToolsRefactor") then
+		describe("SetBiomeSize", function()
+			it("should set biomeSize", function()
+				local state = GenerateTool(nil, SetBiomeSize(9999999))
 
-			expect(state).to.be.ok()
-			expect(state.biomeSize).to.be.ok()
-			expect(state.biomeSize).to.equal("9999999")
-		end)
+				expect(state).to.be.ok()
+				expect(state.biomeSize).to.be.ok()
+				expect(state.biomeSize).to.equal(9999999)
+			end)
 
-		it("should preserve immutability", function()
-			local immutabilityPreserved = testImmutability(GenerateTool, SetBiomeSize("1111111"))
-			expect(immutabilityPreserved).to.equal(true)
+			it("should preserve immutability", function()
+				local immutabilityPreserved = testImmutability(GenerateTool, SetBiomeSize(1111111))
+				expect(immutabilityPreserved).to.equal(true)
+			end)
 		end)
-	end)
+	else
+		describe("SetBiomeSize", function()
+			it("should set biomeSize", function()
+				local state = GenerateTool(nil, SetBiomeSize("9999999"))
+
+				expect(state).to.be.ok()
+				expect(state.biomeSize).to.be.ok()
+				expect(state.biomeSize).to.equal("9999999")
+			end)
+
+			it("should preserve immutability", function()
+				local immutabilityPreserved = testImmutability(GenerateTool, SetBiomeSize("1111111"))
+				expect(immutabilityPreserved).to.equal(true)
+			end)
+		end)
+	end
 
 	describe("SetHaveCaves", function()
 		it("should set haveCaves", function()
