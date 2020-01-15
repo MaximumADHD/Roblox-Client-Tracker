@@ -12,9 +12,9 @@ It generates information by data mining files retrieved from Roblox's deployment
 # Comparison Links
 Use these links to compare versions of Roblox's client.
 
-* Compare [roblox->gametest1](https://github.com/CloneTrooper1019/Roblox-Client-Tracker/compare/gametest1.robloxlabs#files_bucket)
-* Compare [roblox->gametest2](https://github.com/CloneTrooper1019/Roblox-Client-Tracker/compare/gametest2.robloxlabs#files_bucket)
-* Compare [gametest1->gametest2](https://github.com/CloneTrooper1019/Roblox-Client-Tracker/compare/gametest1.robloxlabs...gametest2.robloxlabs)
+* Compare [roblox->sitetest1](https://github.com/CloneTrooper1019/Roblox-Client-Tracker/compare/sitetest1.robloxlabs#files_bucket)
+* Compare [roblox->sitetest2](https://github.com/CloneTrooper1019/Roblox-Client-Tracker/compare/sitetest2.robloxlabs#files_bucket)
+* Compare [sitetest1->sitetest2](https://github.com/CloneTrooper1019/Roblox-Client-Tracker/compare/sitetest1.robloxlabs...sitetest2.robloxlabs)
 
 # Some Specifications
 
