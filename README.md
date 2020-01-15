@@ -63,7 +63,7 @@ Decompressed Size
 These files are fetched from Roblox's servers via:
 `http://setup.{roblox}.com/{version-guid}-{FileName.ext}`<br/>
 (or `https://s3.amazonaws.com/setup.{roblox}.com/{version-guid}-{FileName.ext}`)
-Note that `{roblox}` switches out with either `roblox`, `gametest1.robloxlabs` or `gametest2.robloxlabs`.
+Note that `{roblox}` switches out with either `roblox`, `sitetest1.robloxlabs` or `sitetest2.robloxlabs`.
 
 ## rbxManifest.csv
 A CSV version of `rbxManifest.txt`, made to be easier to read from GitHub.
