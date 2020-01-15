@@ -51,10 +51,14 @@ local function initializeLibrary()
 		}),
 
 		Button = strict({
+			Enum = strict({
+				ButtonType = require(script.App.Button.Enum.ButtonType),
+			}),
 			PrimaryContextualButton = require(script.App.Button.PrimaryContextualButton),
 			PrimarySystemButton = require(script.App.Button.PrimarySystemButton),
 			SecondaryButton = require(script.App.Button.SecondaryButton),
 			AlertButton = require(script.App.Button.AlertButton),
+			ButtonStack = require(script.App.Button.ButtonStack),
 		}),
 
 		Text = strict({
@@ -87,6 +91,13 @@ local function initializeLibrary()
 		}),
 
 		Dialog = strict({
+			Alert = strict({
+				InformativeAlert = require(script.App.Dialog.Alert.InformativeAlert),
+				InteractiveAlert = require(script.App.Dialog.Alert.InteractiveAlert),
+			}),
+			Enum = strict({
+				AlertType = require(script.App.Dialog.Alert.Enum.AlertType),
+			}),
 			Toast = require(script.App.Dialog.Toast.SlideFromTopToast),
 		}),
 

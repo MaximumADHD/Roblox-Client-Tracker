@@ -3,7 +3,7 @@
 ]]
 local PackageIndex = script.Parent.Parent
 
-local package = PackageIndex["roact-fit-components"]["roact-fit-components"]
+local package = PackageIndex["lua-promise"]["lua-promise"]
 
 if package.ClassName == "ModuleScript" then
 	return require(package)

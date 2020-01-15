@@ -1,5 +1,6 @@
 return function()
 	local Roact = require(script.Parent.Parent.Parent.Roact)
+	local NavigationActions = require(script.Parent.Parent.NavigationActions)
 	local createAppContainer = require(script.Parent.Parent.createAppContainer)
 	local createSwitchNavigator = require(script.Parent.Parent.navigators.createSwitchNavigator)
 
@@ -64,7 +65,7 @@ return function()
 			"component with a 'router' field")).to.never.equal(nil)
 	end)
 
-	it("should connect and disconnect from backActionSignal", function()
+	it("should accept actions from externalDispatchConnector", function()
 		local TestNavigator = createSwitchNavigator({
 			routes = {
 				Foo = function() end,
@@ -72,26 +73,34 @@ return function()
 			initialRouteName = "Foo",
 		})
 
-		local backHandler = nil
-		local backSignal = {
-			connect = function(handler)
-				backHandler = handler
-				return {
-					disconnect = function()
-						backHandler = nil
-					end
-				}
+		local registeredCallback = nil
+		local externalDispatchConnector = function(rnCallback)
+			registeredCallback = rnCallback
+			return function()
+				registeredCallback = nil
 			end
-		}
+		end
 
 		local element = Roact.createElement(createAppContainer(TestNavigator), {
-			backActionSignal = backSignal,
+			externalDispatchConnector = externalDispatchConnector,
 		})
 
 		local instance = Roact.mount(element)
-		expect(backHandler).to.never.equal(nil)
+		expect(type(registeredCallback)).to.equal("function")
+
+		-- Make sure it processes action
+		local result = registeredCallback(NavigationActions.navigate({
+			routeName = "Foo",
+		}))
+		expect(result).to.equal(true)
+
+		local failResult = registeredCallback(NavigationActions.navigate({
+			routeName = "Bar", -- should fail because not a valid route
+		}))
+		expect(failResult).to.equal(false)
+
 		Roact.unmount(instance)
-		expect(backHandler).to.equal(nil)
+		expect(registeredCallback).to.equal(nil)
 	end)
 end
 

@@ -8,7 +8,7 @@ local t = require(Packages.t)
 local withStyle = require(UIBlox.Style.withStyle)
 
 local SpringAnimatedItem = require(UIBlox.Utility.SpringAnimatedItem)
-local GetTextSize = require(UIBlox.Core.Text.GetTextSize)
+local GetTextHeight = require(UIBlox.Core.Text.GetTextHeight)
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
 local Images = require(UIBlox.App.ImageSet.Images)
 local GenericTextLabel = require(UIBlox.Core.Text.GenericTextLabel.GenericTextLabel)
@@ -26,9 +26,6 @@ local GRADIENT_IMAGE = Images["gradient/gradient_0_100"]
 local DOWN_ARROW_IMAGE_EXPAND = Images["truncate_arrows/actions_truncationExpand"]
 local DOWN_ARROW_IMAGE_COLLAPSE = Images["truncate_arrows/actions_truncationCollapse"]
 
--- NOTE: Any number greater than 2^30 will make TextService:GetTextSize give invalid results
-local MAX_BOUND = 10000
-
 -- TODO remove this when CLIPLAYEREX-1633 is fixed
 local PATCHED_PADDING = 2
 
@@ -40,12 +37,6 @@ local GRADIENT_ANIMATION_SPRING_SETTINGS = {
 	dampingRatio = 1,
 	frequency = 3.5,
 }
-
-local function getTextHeight(text, font, fontSize, widthCap)
-	local bounds = Vector2.new(widthCap, MAX_BOUND)
-	local textSize = GetTextSize(text, fontSize, font, bounds)
-	return textSize.Y
-end
 
 local SpringImageComponent = SpringAnimatedItem.wrap(ImageSetComponent.Label)
 local ExpandableTextArea = Roact.PureComponent:extend("ExpandableTextArea")
@@ -121,7 +112,7 @@ function ExpandableTextArea:render()
 		local font = stylePalette.Font
 		local textSize = font.BaseSize * font.Body.RelativeSize
 		local textFont = font.Body.Font
-		local fullTextHeight = getTextHeight(descriptionText, textFont, textSize, self.state.frameWidth)
+		local fullTextHeight = GetTextHeight(descriptionText, textFont, textSize, self.state.frameWidth)
 
 		local compactHeight = compactNumberOfLines * textSize + PATCHED_PADDING
 		local compactSize = UDim2.new(1, 0, 0, compactHeight + PADDING_BOTTOM)

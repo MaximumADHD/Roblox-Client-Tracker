@@ -247,7 +247,8 @@ return function(config)
 		-- has had its chance to handle the action.
 		if behavesLikePushAction(action) and childRouters[action.routeName] ~= nil then
 			local childRouter = childRouters[action.routeName]
-			validate(action.type ~= StackActions.Push or action.key == nil, "StackRouter does not support key on the push action")
+			validate(action.type ~= StackActions.Push or action.key == nil,
+				"StackRouter does not support key on the push action")
 
 			-- Before pushing new route, try to find existing one in the stack.
 			local lastRouteIndex = nil

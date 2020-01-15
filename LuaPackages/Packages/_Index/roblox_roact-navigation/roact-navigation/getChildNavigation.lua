@@ -44,7 +44,7 @@ local function getChildNavigation(navigation, childKey, getCurrentParentNavigati
 	end
 
 	local childRouterActionCreators = childRouter and
-	childRouter.getActionCreators(focusedGrandChildRoute, childRoute.key) or {}
+		childRouter.getActionCreators(focusedGrandChildRoute, childRoute.key) or {}
 
 	local actionCreators = Cryo.Dictionary.join(
 		navigation.actions or {},
@@ -113,4 +113,3 @@ local function getChildNavigation(navigation, childKey, getCurrentParentNavigati
 end
 
 return getChildNavigation
-

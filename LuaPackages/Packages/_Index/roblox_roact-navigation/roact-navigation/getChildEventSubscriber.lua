@@ -26,9 +26,9 @@ return function(addListener, key, initialState)
 		[NavigationEvents.Refocus] = {},
 	}
 
-	local function emit(type, payload)
-		local payloadWithType = Cryo.Dictionary.join(payload or {}, { type = type })
-		local subscribers = subscriberMap[type]
+	local function emit(subscriberType, payload)
+		local payloadWithType = Cryo.Dictionary.join(payload or {}, { type = subscriberType })
+		local subscribers = subscriberMap[subscriberType]
 		if subscribers then
 			for _, subs in ipairs(subscribers) do
 				subs(payloadWithType)

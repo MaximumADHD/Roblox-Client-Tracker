@@ -6,6 +6,5 @@ return function(screenOptions, route)
 	validate(type(route.routeName) == "string", "route.routeName must be a string")
 	validate(type(screenOptions.title) ~= "function",
 		"title cannot be defined as a function in navigation options for screen '%s'",
-	route.routeName)
+		route.routeName)
 end
-

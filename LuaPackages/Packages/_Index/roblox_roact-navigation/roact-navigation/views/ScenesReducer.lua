@@ -48,7 +48,7 @@ return function(scenes, nextState, prevState, descriptors)
 	for _, scene in ipairs(scenes) do
 		local route = scene.route
 		if descriptors and descriptors[route.key] then
-			scene.desciptor = descriptors[route.key]
+			scene.descriptor = descriptors[route.key]
 		end
 	end
 

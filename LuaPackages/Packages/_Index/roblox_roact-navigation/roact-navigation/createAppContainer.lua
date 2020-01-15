@@ -31,9 +31,24 @@ end
 	'navigation' prop to any child navigators.
 
 	Additional props:
-		renderLoading    	- 	Roact component to render while the app is loading.
-		backActionSignal 	- 	Signal that allows the container to listen to external
-								back action events (e.g. Android back button).
+		renderLoading    			- 	Roact component to render while the app is loading.
+		externalDispatchConnector	-	Function that Roact Navigation can use to connect to
+										externally triggered navigation Actions. This is useful
+										for external UI or handling of the Android back button.
+
+										Ex:
+										local connector = function(rnDispatch)
+											-- You store rnDispatch and call it when you want to inject
+											-- an event from outside RN.
+											return function()
+												-- You disconnect rnDispatch when RN calls this.
+											end
+										end
+
+										...
+										Roact.createElement(MyRNAppContainer, {
+											externalDispatchConnector = connector,
+										})
 ]]
 return function(AppComponent)
 	validate(type(AppComponent) == "table" and AppComponent.router ~= nil,
@@ -50,27 +65,11 @@ return function(AppComponent)
 	function NavigationContainer:init()
 		validateProps(self.props)
 
-		local backActionSignal = self.props.backActionSignal
-
 		self._actionEventSubscribers = {}
 		self._initialAction = NavigationActions.init()
 
-		local containerIsStateful = self:_isStateful()
-
-		if containerIsStateful and backActionSignal ~= nil then
-			self.subs = backActionSignal.connect(function()
-				if not self._isMounted then
-					if self.subs then
-						self.subs.disconnect()
-						self.subs = nil
-					end
-				else
-					self:dispatch(NavigationActions.back())
-				end
-			end)
-		end
-
 		local initialNav = nil
+		local containerIsStateful = self:_isStateful()
 		if containerIsStateful and not self.props.persistenceKey then
 			initialNav = AppComponent.router.getStateForAction(self._initialAction)
 		end
@@ -78,6 +77,25 @@ return function(AppComponent)
 		self.state = {
 			nav = initialNav,
 		}
+	end
+
+	function NavigationContainer:_updateExternalDispatchConnector()
+		local externalDispatchConnector = self.props.externalDispatchConnector
+		if self._subs then
+			self._subs()
+			self._subs = nil
+		end
+
+		if externalDispatchConnector ~= nil then
+			self._subs = externalDispatchConnector(function(...)
+				if self._isMounted then
+					return self:dispatch(...)
+				end
+
+				-- External dispatch while we're not mounted gets dropped on floor.
+				return false
+			end)
+		end
 	end
 
 	function NavigationContainer:_renderLoading()
@@ -133,6 +151,8 @@ return function(AppComponent)
 	function NavigationContainer:didMount()
 		self._isMounted = true
 
+		self:_updateExternalDispatchConnector()
+
 		if not self:_isStateful() then
 			return
 		end
@@ -171,16 +191,20 @@ return function(AppComponent)
 
 		-- TODO: Disconnect from from URL listener once implemented
 
-		if self.subs then
-			self.subs.disconnect()
-			self.subs = nil
+		if self._subs then
+			self._subs()
+			self._subs = nil
 		end
 	end
 
-	function NavigationContainer:didUpdate()
+	function NavigationContainer:didUpdate(oldProps)
 		-- Clear cached _navState every time we update.
 		if self._navState == self.state.nav then
 			self._navState = nil
+		end
+
+		if self.props.externalDispatchConnector ~= oldProps.externalDispatchConnector then
+			self:_updateExternalDispatchConnector()
 		end
 	end
 

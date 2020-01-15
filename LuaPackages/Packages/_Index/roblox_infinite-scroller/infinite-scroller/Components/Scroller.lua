@@ -152,7 +152,7 @@ function Scroller:render()
 		layout = Roact.createElement("UIListLayout", {
 			SortOrder = Enum.SortOrder.LayoutOrder,
 			FillDirection = axis.fillDirection,
-			Padding = self.props.padding,
+			Padding = UDim.new(0, self.itemPadding),
 			[Roact.Change.AbsoluteContentSize] = self.onContentResize,
 		}),
 		padding = Roact.createElement("UIPadding", {
@@ -612,7 +612,6 @@ end
 function Scroller:expandCanvas(newState)
 	debugPrint("expandCanvas")
 	local reverse = isReverse[self.props.orientation]
-	local topIndex = reverse and self.state.lead.index or self.state.trail.index
 	local bottomIndex = reverse and self.state.trail.index or self.state.lead.index
 
 	local size = self.state.size
