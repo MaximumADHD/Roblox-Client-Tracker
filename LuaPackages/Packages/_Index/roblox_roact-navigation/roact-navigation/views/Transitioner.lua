@@ -200,10 +200,11 @@ function Transitioner:_startTransition(props, nextProps)
 		-- If nextScenes is nil, nothing has changed, so report transition end, then bail
 		self._prevTransitionProps = self._transitionProps
 
-		-- Ensure that position is set to final position before firing transitionEnd
-		-- See https://github.com/react-navigation/react-navigation/issues/5247
-		self.state.position:setGoal(Otter.instant(props.navigation.state.index))
-		-- Transition end will be called by position motor.
+		-- Trigger end transition logic if we daisy-chained from queued transitions via _onTransitionEnd.
+		if self._isTransitionRunning then
+			self:_onTransitionEnd()
+		end
+
 		return
 	end
 

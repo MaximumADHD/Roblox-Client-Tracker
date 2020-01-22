@@ -3,7 +3,7 @@
 ]]
 local PackageIndex = script.Parent._Index
 
-local package = PackageIndex["roblox_purchase-prompt"]["purchase-prompt"]
+local package = PackageIndex["PurchasePromptMigration"]["PurchasePromptMigration"]
 
 if package.ClassName == "ModuleScript" then
 	return require(package)
