@@ -6,8 +6,6 @@
 local RunService = game:GetService("RunService")
 local Selection = game:GetService("Selection")
 
-local FFlagActionEnabledState = settings():GetFFlag("PluginActionSetEnabled")
-
 local Plugin = script.Parent.Parent.Parent
 
 local getDraftsService = require(Plugin.Src.ContextServices.DraftsService).getDraftService
@@ -122,17 +120,6 @@ function DraftListView:init()
             canDiscardSelection = false
         end
 
-        local revertActionEnabled, commitActionEnabled, diffActionEnabled
-        if FFlagActionEnabledState then
-            revertActionEnabled = true
-            commitActionEnabled = not canUpdateSelection
-            diffActionEnabled = true
-        else
-            revertActionEnabled = canDiscardSelection
-            commitActionEnabled = canCommitSelection
-            diffActionEnabled = canDiffSelection
-        end
-
         local contextMenuItems = {
             {
 				Text = localization:getText("ContextMenu", "OpenScript"),
@@ -140,7 +127,7 @@ function DraftListView:init()
 					self.openScripts(selectedDrafts)
 				end,
             },
-            diffActionEnabled and {
+            {
                 Text = localization:getText("ContextMenu", "ShowDiff"),
                 Enabled = canDiffSelection,
 				ItemSelected = function()
@@ -149,11 +136,12 @@ function DraftListView:init()
             },
             canUpdateSelection and {
                 Text = localization:getText("ContextMenu", "Update"),
+                Enabled = (not game:GetFastFlag("StudioDraftsUseMultiselect2")) or #selectedDrafts == 1,
                 ItemSelected = function()
                     self.updateSource(selectedDrafts)
                 end,
             },
-            commitActionEnabled and {
+            not canUpdateSelection and {
                 Text = localization:getText("ContextMenu", "Commit"),
                 Enabled = canCommitSelection,
 				ItemSelected = function()
@@ -166,7 +154,7 @@ function DraftListView:init()
                     self.restoreScripts(selectedDrafts)
                 end,
             },
-            revertActionEnabled and {
+            {
                 Text = localization:getText("ContextMenu", "Revert"),
                 Enabled = canDiscardSelection,
                 ItemSelected = function()

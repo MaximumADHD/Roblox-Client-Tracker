@@ -13,8 +13,6 @@ local buttonVector = {}
 local buttonScreenGui = nil
 local buttonFrame = nil
 
-local FFlagFixBindActionTouchButtonError = game:DefineFastFlag("FixBindActionTouchButtonError", false)
-
 local ContextDownImage = "https://www.roblox.com/asset/?id=97166756"
 local ContextUpImage = "https://www.roblox.com/asset/?id=97166444"
 
@@ -41,24 +39,13 @@ while not localPlayer do
 	localPlayer = playersService.LocalPlayer
 end
 
-local playerGui
-if FFlagFixBindActionTouchButtonError then
-	playerGui = localPlayer:WaitForChild("PlayerGui")
-end
+local playerGui = localPlayer:WaitForChild("PlayerGui")
 
 function createContextActionGui()
 	if not buttonScreenGui and isTouchDevice then
 		buttonScreenGui = Instance.new("ScreenGui")
 		buttonScreenGui.Name = "ContextActionGui"
-		if FFlagFixBindActionTouchButtonError then
-			buttonScreenGui.ResetOnSpawn = false
-		else
-			buttonScreenGui.AncestryChanged:connect(function(child, newParent)
-				if newParent == nil then
-					buttonScreenGui = nil
-				end
-			end)
-		end
+		buttonScreenGui.ResetOnSpawn = false
 
 		buttonFrame = Instance.new("Frame")
 		buttonFrame.BackgroundTransparency = 1
@@ -212,11 +199,7 @@ function createButton( actionName, functionInfoTable )
 	button.Parent = buttonFrame
 
 	if buttonScreenGui and buttonScreenGui.Parent == nil then
-		if FFlagFixBindActionTouchButtonError then
-			buttonScreenGui.Parent = playerGui
-		else
-			buttonScreenGui.Parent = localPlayer.PlayerGui
-		end
+		buttonScreenGui.Parent = playerGui
 		if not buttonFrame.Parent then
 			buttonFrame.Parent = buttonScreenGui
 		end

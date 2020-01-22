@@ -1156,9 +1156,6 @@ t.SetupStamperDragger = function(modelToStamp, Mouse, StampInModel, AllowedStamp
 			end)
 		then
 			error("Error: RbxStamper.DoStamperMouseMove Mouse is nil on second check")
-			game:GetService("JointsService"):ClearJoinAfterMoveJoints()
-			Mouse = nil
-			return
 		end
 
 		if Mouse and Mouse.Target and Mouse.Target.Parent:FindFirstChild("RobloxModel") == nil then

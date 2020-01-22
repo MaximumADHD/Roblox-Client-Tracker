@@ -23,6 +23,7 @@ game:DefineFastFlag("EnableNonWhitelistedToggle", false)
 game:DefineFastFlag("CMSRemoveUGCContentEnabledBoolean", false)
 
 game:DefineFastFlag("CMSEnableCatalogTags2", false)
+game:DefineFastFlag("CMSTabErrorIcon", false)
 
 local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 

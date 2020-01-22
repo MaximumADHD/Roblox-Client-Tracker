@@ -218,7 +218,7 @@ function PlayerScrollList:render()
 							layoutOrder = addedEntriesCount + 1,
 							leaderstats = teamScores[sortedTeam.team],
 							gameStats = self.props.gameStats,
-							overrideEntrySize = self.props.overrideEntrySize,
+							entrySize = self.props.entrySize,
 						})
 						addedEntriesCount = addedEntriesCount + 1
 						canvasSizeY = canvasSizeY + teamEntrySizeY + entryPadding
@@ -246,7 +246,7 @@ function PlayerScrollList:render()
 								titlePlayerEntry = false,
 								gameStats = self.props.gameStats,
 								hasDivider = not (j == #teamPlayers),
-								overrideEntrySize = self.props.overrideEntrySize,
+								entrySize = self.props.entrySize,
 
 								[Roact.Ref] = firstPlayer and self.firstPlayerRef or nil,
 							})
@@ -270,7 +270,7 @@ function PlayerScrollList:render()
 							layoutOrder = addedEntriesCount + 1,
 							leaderstats = teamScores[sortedTeam.team],
 							gameStats = self.props.gameStats,
-							overrideEntrySize = self.props.overrideEntrySize,
+							entrySize = self.props.entrySize,
 						})
 						addedEntriesCount = addedEntriesCount + 1
 						canvasSizeY = canvasSizeY + teamEntrySizeY + entryPadding
@@ -290,7 +290,7 @@ function PlayerScrollList:render()
 									layoutOrder = addedEntriesCount + 1,
 									titlePlayerEntry = false,
 									gameStats = self.props.gameStats,
-									overrideEntrySize = self.props.overrideEntrySize,
+									entrySize = self.props.entrySize,
 
 									[Roact.Ref] = firstPlayer and self.firstPlayerRef or nil,
 								})
@@ -317,7 +317,7 @@ function PlayerScrollList:render()
 						titlePlayerEntry = false,
 						gameStats = self.props.gameStats,
 						hasDivider = i ~= #sortedPlayers,
-						overrideEntrySize = self.props.overrideEntrySize,
+						entrySize = self.props.entrySize,
 
 						[Roact.Ref] = i == 1 and self.firstPlayerRef or nil,
 					})
@@ -402,7 +402,7 @@ function PlayerScrollList:render()
 							LayoutOrder = 2,
 							gameStats = self.props.gameStats,
 							Size = UDim2.new(1, 0, 0, layoutValues.TitleBarSizeY),
-							overrideEntrySize = self.props.overrideEntrySize,
+							entrySize = self.props.entrySize,
 						}),
 
 						ScrollingFrameContainer = Roact.createElement("Frame", {

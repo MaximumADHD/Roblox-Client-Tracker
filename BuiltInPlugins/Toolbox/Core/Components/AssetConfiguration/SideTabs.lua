@@ -21,15 +21,18 @@
 ]]
 
 local ICON_SCALE = 0.4
+local ERROR_ICON_SIZE = 20
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
+local RoactRodux = require(Libs.RoactRodux)
 
 local Util = Plugin.Core.Util
 local ContextHelper = require(Util.ContextHelper)
 local Constants = require(Util.Constants)
+local Images = require(Util.Images)
 
 local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
@@ -148,6 +151,19 @@ function SideTabs:createSideButtons(items, currentTab, ItemHeight, theme, locali
 					BorderSizePixel = 0,
 				})
 			}),
+
+			Error = game:GetFastFlag("CMSTabErrorIcon") and self.props.tabHasErrors(item.name) and Roact.createElement("ImageButton", {
+				BackgroundTransparency = 1,
+				Size = UDim2.new(0, ERROR_ICON_SIZE, 0, ERROR_ICON_SIZE),
+				Position = UDim2.new(1, -ERROR_ICON_SIZE, 0.5, -ERROR_ICON_SIZE/2),
+				Image = Images.ERROR_ICON,
+
+				[Roact.Event.Activated] = function(rbx)
+					self.props.ItemClickCallBack(LayoutOrder, item)
+				end,
+
+				LayoutOrder = 3,
+			}),
 		})
 	end
 
@@ -184,4 +200,23 @@ function SideTabs:render()
 	end)
 end
 
-return SideTabs
+local function mapStateToProps(state, props)
+	state = state or {}
+	return {
+		tabHasErrors = function(tabName)
+			if state.tabErrors then
+				local fields = state.tabErrors[tabName]
+				if fields then
+					for _, hasError in pairs(fields) do
+						if hasError == true then
+							return true
+						end
+					end
+				end
+			end
+			return false
+		end,
+	}
+end
+
+return RoactRodux.connect(mapStateToProps)(SideTabs)

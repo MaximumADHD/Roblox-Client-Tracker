@@ -5,10 +5,8 @@ local Settings = UserSettings()
 local GameSettings = Settings.GameSettings
 
 local Roact = require(CorePackages.Roact)
-local RoactRodux = require(CorePackages.RoactRodux)
 
 local Components = script.Parent.Parent.Parent.Components
-local ServerJobsChart = require(Components.ServerJobs.ServerJobsChart)
 local UtilAndTab = require(Components.UtilAndTab)
 local ServerProfilerInterface = require(script.Parent.ServerProfilerInterface)
 

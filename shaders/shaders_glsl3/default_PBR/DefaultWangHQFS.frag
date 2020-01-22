@@ -72,7 +72,6 @@ uniform vec4 CB2[5];
 uniform sampler2D ShadowMapTexture;
 uniform sampler3D LightMapTexture;
 uniform sampler3D LightGridSkylightTexture;
-uniform samplerCube EnvironmentMapTexture;
 uniform sampler2D WangTileMapTexture;
 uniform sampler2D DiffuseMapTexture;
 uniform sampler2D NormalMapTexture;
@@ -111,49 +110,45 @@ void main()
     vec2 f14 = (vec3(f12, f13).xy + (vec3((texture(NormalDetailMapTexture, f3 * CB2[1].w).wy * 2.0) - vec2(1.0), 0.0).xy * CB2[2].x)).xy * f2;
     float f15 = f14.x;
     vec4 f16 = textureGrad(SpecularMapTexture, f7, f8, f9);
-    float f17 = f16.y;
-    vec3 f18 = normalize(((VARYING6.xyz * f15) + (cross(VARYING5.xyz, VARYING6.xyz) * f14.y)) + (VARYING5.xyz * f13));
-    vec3 f19 = vec4(((mix(vec3(1.0), VARYING2.xyz, vec3(clamp(f10.w + CB2[3].w, 0.0, 1.0))) * f10.xyz) * (1.0 + (f15 * CB2[1].x))) * (texture(StudsMapTexture, f0).x * 2.0), VARYING2.w).xyz;
-    float f20 = clamp(dot(step(CB0[19].xyz, abs(VARYING3 - CB0[18].xyz)), vec3(1.0)), 0.0, 1.0);
-    vec3 f21 = VARYING3.yzx - (VARYING3.yzx * f20);
-    vec4 f22 = vec4(clamp(f20, 0.0, 1.0));
-    vec4 f23 = mix(texture(LightMapTexture, f21), vec4(0.0), f22);
-    vec4 f24 = mix(texture(LightGridSkylightTexture, f21), vec4(1.0), f22);
-    vec4 f25 = texture(ShadowMapTexture, VARYING7.xy);
-    float f26 = (1.0 - ((step(f25.x, VARYING7.z) * clamp(CB0[24].z + (CB0[24].w * abs(VARYING7.z - 0.5)), 0.0, 1.0)) * f25.y)) * f24.y;
-    vec3 f27 = normalize(VARYING4.xyz);
-    float f28 = CB0[26].w * f2;
-    float f29 = max(f17, 0.04500000178813934326171875);
-    vec3 f30 = texture(EnvironmentMapTexture, reflect(-f27, f18)).xyz;
-    vec3 f31 = mix((f19 * f19).xyz, (f30 * f30) * CB0[15].x, vec3(((1.0 - f17) * f2) * CB2[0].w));
-    float f32 = f16.x * f28;
-    vec3 f33 = -CB0[11].xyz;
-    vec3 f34 = normalize(f33 + f27);
-    float f35 = dot(f18, f33);
-    float f36 = clamp(f35, 0.0, 1.0);
-    float f37 = f29 * f29;
-    float f38 = max(0.001000000047497451305389404296875, dot(f18, f34));
-    float f39 = dot(f33, f34);
-    float f40 = 1.0 - f39;
-    float f41 = f40 * f40;
-    float f42 = (f41 * f41) * f40;
-    vec3 f43 = vec3(f42) + (mix(vec3(0.039999999105930328369140625), f31, vec3(f32)) * (1.0 - f42));
-    float f44 = f37 * f37;
-    float f45 = (((f38 * f44) - f38) * f38) + 1.0;
-    float f46 = 1.0 - f32;
-    vec3 f47 = ((((((((vec3(1.0) - (f43 * f28)) * f46) * CB0[10].xyz) * f36) + ((CB0[12].xyz * f46) * clamp(-f35, 0.0, 1.0))) * f26) + min((f23.xyz * (f23.w * 120.0)).xyz + (CB0[8].xyz + (CB0[9].xyz * f24.x)), vec3(CB0[16].w))) * f31) + ((((f43 * ((f44 + (f44 * f44)) / (((f45 * f45) * ((f39 * 3.0) + 0.5)) * ((f38 * 0.75) + 0.25)))) * CB0[10].xyz) * f36) * f26);
-    vec4 f48 = vec4(f47.x, f47.y, f47.z, vec4(0.0).w);
-    f48.w = VARYING2.w;
-    vec2 f49 = min(VARYING0.wz, VARYING1.wz);
-    float f50 = min(f49.x, f49.y) / f1;
-    vec3 f51 = mix(CB0[14].xyz, (sqrt(clamp((f48.xyz * clamp((clamp((f1 * CB0[24].x) + CB0[24].y, 0.0, 1.0) * (1.5 - f50)) + f50, 0.0, 1.0)).xyz * CB0[15].y, vec3(0.0), vec3(1.0))) + vec3((-0.00048828125) + (0.0009765625 * fract(52.98291778564453125 * fract(dot(gl_FragCoord.xy, vec2(0.067110560834407806396484375, 0.005837149918079376220703125))))))).xyz, vec3(clamp((CB0[13].x * length(VARYING4.xyz)) + CB0[13].y, 0.0, 1.0)));
-    _entryPointOutput = vec4(f51.x, f51.y, f51.z, f48.w);
+    vec3 f17 = normalize(((VARYING6.xyz * f15) + (cross(VARYING5.xyz, VARYING6.xyz) * f14.y)) + (VARYING5.xyz * f13));
+    vec3 f18 = vec4(((mix(vec3(1.0), VARYING2.xyz, vec3(clamp(f10.w + CB2[3].w, 0.0, 1.0))) * f10.xyz) * (1.0 + (f15 * CB2[1].x))) * (texture(StudsMapTexture, f0).x * 2.0), VARYING2.w).xyz;
+    float f19 = clamp(dot(step(CB0[19].xyz, abs(VARYING3 - CB0[18].xyz)), vec3(1.0)), 0.0, 1.0);
+    vec3 f20 = VARYING3.yzx - (VARYING3.yzx * f19);
+    vec4 f21 = vec4(clamp(f19, 0.0, 1.0));
+    vec4 f22 = mix(texture(LightMapTexture, f20), vec4(0.0), f21);
+    vec4 f23 = mix(texture(LightGridSkylightTexture, f20), vec4(1.0), f21);
+    vec4 f24 = texture(ShadowMapTexture, VARYING7.xy);
+    float f25 = (1.0 - ((step(f24.x, VARYING7.z) * clamp(CB0[24].z + (CB0[24].w * abs(VARYING7.z - 0.5)), 0.0, 1.0)) * f24.y)) * f23.y;
+    vec3 f26 = (f18 * f18).xyz;
+    float f27 = max(CB0[26].w, CB2[0].w) * f2;
+    float f28 = max(f16.y, 0.04500000178813934326171875);
+    float f29 = f16.x * f27;
+    vec3 f30 = -CB0[11].xyz;
+    vec3 f31 = normalize(f30 + normalize(VARYING4.xyz));
+    float f32 = dot(f17, f30);
+    float f33 = clamp(f32, 0.0, 1.0);
+    float f34 = f28 * f28;
+    float f35 = max(0.001000000047497451305389404296875, dot(f17, f31));
+    float f36 = dot(f30, f31);
+    float f37 = 1.0 - f36;
+    float f38 = f37 * f37;
+    float f39 = (f38 * f38) * f37;
+    vec3 f40 = vec3(f39) + (mix(vec3(0.039999999105930328369140625), f26, vec3(f29)) * (1.0 - f39));
+    float f41 = f34 * f34;
+    float f42 = (((f35 * f41) - f35) * f35) + 1.0;
+    float f43 = 1.0 - f29;
+    vec3 f44 = ((((((((vec3(1.0) - (f40 * f27)) * f43) * CB0[10].xyz) * f33) + ((CB0[12].xyz * f43) * clamp(-f32, 0.0, 1.0))) * f25) + min((f22.xyz * (f22.w * 120.0)).xyz + (CB0[8].xyz + (CB0[9].xyz * f23.x)), vec3(CB0[16].w))) * f26) + ((((f40 * ((f41 + (f41 * f41)) / (((f42 * f42) * ((f36 * 3.0) + 0.5)) * ((f35 * 0.75) + 0.25)))) * CB0[10].xyz) * f33) * f25);
+    vec4 f45 = vec4(f44.x, f44.y, f44.z, vec4(0.0).w);
+    f45.w = VARYING2.w;
+    vec2 f46 = min(VARYING0.wz, VARYING1.wz);
+    float f47 = min(f46.x, f46.y) / f1;
+    vec3 f48 = mix(CB0[14].xyz, (sqrt(clamp((f45.xyz * clamp((clamp((f1 * CB0[24].x) + CB0[24].y, 0.0, 1.0) * (1.5 - f47)) + f47, 0.0, 1.0)).xyz * CB0[15].y, vec3(0.0), vec3(1.0))) + vec3((-0.00048828125) + (0.0009765625 * fract(52.98291778564453125 * fract(dot(gl_FragCoord.xy, vec2(0.067110560834407806396484375, 0.005837149918079376220703125))))))).xyz, vec3(clamp((CB0[13].x * length(VARYING4.xyz)) + CB0[13].y, 0.0, 1.0)));
+    _entryPointOutput = vec4(f48.x, f48.y, f48.z, f45.w);
 }
 
 //$$ShadowMapTexture=s1
 //$$LightMapTexture=s6
 //$$LightGridSkylightTexture=s7
-//$$EnvironmentMapTexture=s2
 //$$WangTileMapTexture=s9
 //$$DiffuseMapTexture=s3
 //$$NormalMapTexture=s4

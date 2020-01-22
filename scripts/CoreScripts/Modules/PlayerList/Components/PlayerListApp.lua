@@ -25,13 +25,44 @@ local LayoutValues = require(Connection.LayoutValues)
 local WithLayoutValues = LayoutValues.WithLayoutValues
 
 local FFlagPlayerListDesignUpdate = settings():GetFFlag("PlayerListDesignUpdate")
+local FFlagPlayerListAdjustHeightToMatchLegacy = game:DefineFastFlag("PlayerListAdjustHeightToMatchLegacy", false)
 
 local MOTOR_OPTIONS = {
     dampingRatio = 1,
     frequency = 7,
 }
 
+local OLD_PLAYERLIST_PLAYER_ENTRY_SIZE = 26
+local OLD_PLAYERLIST_TEAM_ENTRY_SIZE = 20
+
+local MIN_PLAYERS_HEIGHT_ADJUST = 6
+local MAX_PLAYERS_HEIGHT_ADJUST = 12
+
 local PlayerListApp = Roact.PureComponent:extend("PlayerListApp")
+
+local function shouldShowNeutralTeam(players)
+	for _, player in ipairs(players) do
+		if player.Team == nil then
+			return true
+		end
+	end
+	return false
+end
+
+local function getTeamCount(teams, players)
+	local uniqueTeams = {}
+	local teamCount = 0
+	for _, team in pairs(teams) do
+		if not uniqueTeams[team.TeamColor.Number] then
+			uniqueTeams[team.TeamColor.Number] = true
+			teamCount = teamCount + 1
+		end
+	end
+	if teamCount > 0 and shouldShowNeutralTeam(players) then
+		teamCount = teamCount + 1
+	end
+	return teamCount
+end
 
 if FFlagPlayerListDesignUpdate then
 	function PlayerListApp:init()
@@ -70,19 +101,32 @@ function PlayerListApp:render()
 			containerSize = containerSize + UDim2.new(0, statOffsetX * leaderstatsCount, 0, 0)
 		end
 
-		local overrideEntrySize = nil
-		if FFlagPlayerListDesignUpdate and not layoutValues.IsTenFoot then
-			containerSize = containerSize + UDim2.new(0, layoutValues.ExtraContainerPadding, 0, 0)
-
-			local dropDownSpace = layoutValues.PlayerDropDownSizeX + layoutValues.PlayerDropDownOffset
-			local usedScreenSpace = containerSize.X.Offset + layoutValues.ContainerPadding * 2 + dropDownSpace
-
-			if self.props.screenSizeX - usedScreenSpace < layoutValues.EntrySizeX then
-				overrideEntrySize = self.props.screenSizeX - usedScreenSpace
-				containerSize = containerSize + UDim2.new(0, overrideEntrySize, 0, 0)
+		local entrySize = nil
+		if FFlagPlayerListDesignUpdate then
+			if layoutValues.IsTenFoot then
+				entrySize = layoutValues.EntrySizeX
 			else
-				containerSize = containerSize + UDim2.new(0, layoutValues.EntrySizeX, 0, 0)
+				entrySize = layoutValues.EntryBaseSizeX + (math.min(4, leaderstatsCount) * layoutValues.EntrySizeIncreasePerStat)
+
+				containerSize = containerSize + UDim2.new(0, layoutValues.ExtraContainerPadding, 0, 0)
+
+				local dropDownSpace = layoutValues.PlayerDropDownSizeX + layoutValues.PlayerDropDownOffset
+				local usedScreenSpace = containerSize.X.Offset + layoutValues.ContainerPadding * 2 + dropDownSpace
+
+				if self.props.screenSizeX - usedScreenSpace < entrySize then
+					entrySize = self.props.screenSizeX - usedScreenSpace
+				end
+				containerSize = containerSize + UDim2.new(0, entrySize, 0, 0)
 			end
+		end
+
+		local previousSizeBound = math.huge
+		local doHeightAdjust = Players.MaxPlayers >= MIN_PLAYERS_HEIGHT_ADJUST
+			and Players.MaxPlayers <= MAX_PLAYERS_HEIGHT_ADJUST
+		if FFlagPlayerListAdjustHeightToMatchLegacy and doHeightAdjust then
+			previousSizeBound = Players.MaxPlayers * OLD_PLAYERLIST_PLAYER_ENTRY_SIZE
+			local teamCount = getTeamCount(self.props.teams, self.props.players)
+			previousSizeBound = previousSizeBound + teamCount * OLD_PLAYERLIST_TEAM_ENTRY_SIZE
 		end
 
 		local childElements = {}
@@ -111,7 +155,7 @@ function PlayerListApp:render()
 		if FFlagPlayerListDesignUpdate then
 			childElements["PlayerScrollList"] = Roact.createElement(PlayerScrollList, {
 				screenSizeY = self.props.screenSizeY,
-				overrideEntrySize = overrideEntrySize,
+				entrySize = entrySize,
 			})
 		else
 			childElements["PlayerScrollList"] = Roact.createElement(PlayerScrollList)
@@ -142,7 +186,12 @@ function PlayerListApp:render()
 					Size = UDim2.new(1, 0, 1, 0),
 					Position = self.positionOffset,
 					BackgroundTransparency = 1,
-				}, childElements)
+				}, childElements),
+
+				UISizeConstraint = FFlagPlayerListAdjustHeightToMatchLegacy and Roact.createElement("UISizeConstraint", {
+					MinSize = Vector2.new(0, 0),
+					MaxSize = Vector2.new(math.huge, previousSizeBound)
+				}) or nil,
 			})
 		else
 			return Roact.createElement("Frame", {
@@ -209,6 +258,8 @@ if FFlagPlayerListDesignUpdate then
 			playerIconInfo = state.playerIconInfo,
 			playerRelationship = state.playerRelationship,
 			gameStats = state.gameStats,
+
+			teams = state.teams,
 		}
 	end
 

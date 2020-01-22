@@ -8,7 +8,7 @@
 local DEBUG_MODE = game:GetService("RunService"):IsStudio() -- use this to run as a guest/use in games that don't have AvatarContextMenu. FOR TESTING ONLY!
 local isAvatarContextMenuEnabled = false
 
-local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList2")
+local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList3")
 local FFlagFixACMOverlappingIssues = game:DefineFastFlag("FixACMOverlappingIssues", false)
 
 -- CONSTANTS
@@ -75,8 +75,6 @@ else
 end
 
 --- VARIABLES
-
-local FFlagFixGamepadNavigationWithACM = game:DefineFastFlag("FixGamepadNavigationWithACM", false)
 
 local LocalPlayer = PlayersService.LocalPlayer
 while not LocalPlayer do
@@ -478,10 +476,8 @@ local function gamepadOpenMenu(actionName, inputState, input)
 		return Enum.ContextActionResult.Pass
 	end
 
-	if FFlagFixGamepadNavigationWithACM then
-		if GuiService.SelectedCoreObject or GuiService.SelectedObject then
-			return Enum.ContextActionResult.Pass
-		end
+	if GuiService.SelectedCoreObject or GuiService.SelectedObject then
+		return Enum.ContextActionResult.Pass
 	end
 
 	if inputState ~= Enum.UserInputState.Begin then

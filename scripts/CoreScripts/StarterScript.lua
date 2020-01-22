@@ -19,7 +19,7 @@ local FFlagConnectionScriptEnabled = settings():GetFFlag("ConnectionScriptEnable
 local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabledV384")
 local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp") --todo: remove with FFlagUsePolicyServiceForCoreScripts
 
-local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList2")
+local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList3")
 local FFlagEmotesMenuEnabled2 = settings():GetFFlag("CoreScriptEmotesMenuEnabled2")
 
 local FFlagEnableNetworkPauseGui = game:DefineFastFlag("EnableNetworkPauseGui", false)

@@ -17,8 +17,10 @@
 		Color3 TextColor = The color of range text
 		int TextLabelHeight == The height of the range text label
 
-		function SetValues(value) = Callback to tell parent that value has changed.
+		function SetValue(value) = Callback to tell parent that value has changed.
 ]]
+
+local FFlagTerrainToolsRefactor = game:GetFastFlag("TerrainToolsRefactor")
 
 --TODO: FIX THE THEME
 local BACKGROUND_BAR_IMAGE_LIGHT = "rbxasset://textures/RoactStudioWidgets/slider_bar_background_light.png"
@@ -51,8 +53,7 @@ local HANDLE_SIZE = UDim2.new(0, 13, 0, 13)
 local INPUT_BOX_SIZE = UDim2.new(0, 34, 0, 22)
 
 -- Default Color --
-local TEXT_COLOR = Color3.new(151/255, 151/255, 151/255)
-local FRAME_BORDER_COLOR = Color3.new(182/255, 182/255, 182/255)
+local TEXT_COLOR = Color3.fromRGB(151, 151, 151)
 
 local Slider = Roact.PureComponent:extend("Slider")
 
@@ -104,13 +105,76 @@ function Slider:init()
 
 	self.setValueFromInput = function(input)
 		local newValue = self.getMouseClickValue(input)
-		self.props.SetValues(newValue)
+		self.props.SetValue(newValue)
 	end
 
 	self.setValue = function(value)
 		value = self.getSnappedValue(value)
-		self.props.SetValues(value)
+		self.props.SetValue(value)
 	end
+
+	self.isEnabled = function()
+		-- Allow nil to use the default of true, but false to stay false
+		-- Can't just use `or true` here or it will always be true
+		-- And so `Enabled = false` wouldn't work
+		if self.props.Enabled then
+			return true
+		elseif self.props.Enabled == nil then
+			return true
+		else
+			return false
+		end
+	end
+
+	self.onInputBegan = function(rbx, input)
+		if self.isEnabled() and input.UserInputType == Enum.UserInputType.MouseButton1 then
+			self:setState({
+				pressed = true,
+			})
+			self.setValueFromInput(input)
+		end
+	end
+
+	self.onInputChanged = function(rbx, input)
+		if self.isEnabled() and self.state.pressed and input.UserInputType == Enum.UserInputType.MouseMovement then
+			self.setValueFromInput(input)
+		end
+	end
+
+	self.onInputEnded = function(rbx, input)
+		if self.isEnabled() and input.UserInputType == Enum.UserInputType.MouseButton1 then
+			self:setState({
+				pressed = false,
+			})
+		end
+	end
+
+	self.onInputFocusLost = function(enterPressed, text)
+		-- we reverse first because we dont have a reverse match
+		-- This matching is used to restrict teh input that
+		-- can go into the textbox. When we make this a shared component
+		-- we will want to review if this is a pattern that we want.
+		local rev = string.reverse(text)
+		local revNum = string.match(rev,"[0-9]*[%.]?[0-9]*[%-]?")
+		local textNum = string.reverse(revNum)
+
+		local val = tonumber(textNum)
+		if val then
+			local newVal = self.getSnappedValue(val)
+			self.props.SetValue(newVal)
+			-- this is required for the case where the value
+			-- needs to be reset to the previous value
+			return newVal
+		else
+			return self.props.Value or MIN_VAL
+		end
+	end
+
+	self.validateInputText = function(text)
+		local filter = string.gsub(text, "[^0-9%-%.%+]*","")
+		return filter
+	end
+
 	--- inital value ---
 	self.setValue(self.props.Value or MIN_VAL)
 end
@@ -119,9 +183,22 @@ function Slider:render()
 	local value = self.props.Value or MIN_VAL
 	local min = self.props.Min or MIN_VAL
 	local max = self.props.Max or MAX_VAL
-	local enabled = self.props.Enabled or true
+	local enabled
+	if FFlagTerrainToolsRefactor then
+		enabled = self.isEnabled()
+	else
+		enabled = self.props.Enabled or true
+	end
 	local showRange = self.props.ShowRange or false
-	local showInput = self.props.ShowInput or false
+	local showInput
+	if FFlagTerrainToolsRefactor then
+		showInput = self.props.ShowInput
+		if showInput == nil then
+			showInput = true
+		end
+	else
+		showInput = true
+	end
 	local size = self.props.Size or SIZE
 	local sliderSize = self.props.SliderSize or SLIDER_SIZE
 	local handleSize = self.props.HandleSize or HANDLE_SIZE
@@ -156,7 +233,7 @@ function Slider:render()
 				BackgroundTransparency = 1,
 				ZIndex = 4,
 
-				[Roact.Event.InputBegan] = function(rbx, input)
+				[Roact.Event.InputBegan] = FFlagTerrainToolsRefactor and self.onInputBegan or function(rbx, input)
 					if enabled and input.UserInputType == Enum.UserInputType.MouseButton1 then
 						self:setState({
 							pressed = true,
@@ -165,13 +242,13 @@ function Slider:render()
 					end
 				end,
 
-				[Roact.Event.InputChanged] = function(rbx, input)
+				[Roact.Event.InputChanged] = FFlagTerrainToolsRefactor and self.onInputChanged or function(rbx, input)
 					if enabled and self.state.pressed and input.UserInputType == Enum.UserInputType.MouseMovement then
 						self.setValueFromInput(input)
 					end
 				end,
 
-				[Roact.Event.InputEnded] = function(rbx, input)
+				[Roact.Event.InputEnded] = FFlagTerrainToolsRefactor and self.onInputEnded or function(rbx, input)
 					if enabled and input.UserInputType == Enum.UserInputType.MouseButton1 then
 						self:setState({
 							pressed = false,
@@ -217,11 +294,11 @@ function Slider:render()
 			}),
 		}),
 
-		Input = Roact.createElement(LabeledTextInput, {
+		Input = showInput and Roact.createElement(LabeledTextInput, {
 			Width = inputSize.Width,
 			Position = UDim2.new(0, inputBoxOffset, 0, 0),
 			Text = tostring(value),
-			OnFocusLost = function(enterPressed, text)
+			OnFocusLost = FFlagTerrainToolsRefactor and self.onInputFocusLost or function(enterPressed, text)
 				-- we reverse first because we dont have a reverse match
 				-- This matching is used to restrict teh input that
 				-- can go into the textbox. When we make this a shared component
@@ -233,7 +310,7 @@ function Slider:render()
 				local val = tonumber(textNum)
 				if val then
 					local newVal = self.getSnappedValue(val)
-					self.props.SetValues(newVal)
+					self.props.SetValue(newVal)
 					-- this is required for the case where the value
 					-- needs to be reset to the previous value
 					return newVal
@@ -242,7 +319,7 @@ function Slider:render()
 				end
 			end,
 
-			ValidateText = function(text)
+			ValidateText = FFlagTerrainToolsRefactor and self.validateInputText or function(text)
 				local filter = string.gsub(text, "[^0-9%-%.%+]*","")
 				return filter
 			end,

@@ -260,4 +260,6 @@ Studio.GameSettings.AccessPermissions.CollaboratorSearchbarTooManyText1,You cann
 Studio.GameSettings.AccessPermissions.CollaboratorSearchbarNoResultsText,There were no results, ,There were no results, 
 Studio.GameSettings.AccessPermissions.PublishRequiredForCollaborators,adding collaborators,Appended as argument to end of 'Publishing a game is required for ',adding collaborators, 
 Studio.GameSettings.AccessPermissions.TeamCreateWarning,"To add collaborators, turn on Team Create", ,"To add collaborators, turn on Team Create", 
+Studio.GameSettings.AccessPermissions.PermissionsUpdateMessage,We've updated our permission system!, , We've updated our permission system!, 
+Studio.GameSettings.AccessPermissions.UpdateHyperlinkText,Learn more, , Learn more, 
 Studio.GameSettings.DraftGames.PublishRequiredToActivatePlayability, to activate Playability options,Appended as argument to end of 'Publishing a game is required', to activate Playability options, 

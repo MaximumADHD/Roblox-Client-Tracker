@@ -131,4 +131,43 @@ return function()
 
 		expect(textChangedTo).to.equal("Hello")
 	end)
+
+	it("should trim multi-byte utf8 characters correctly when it exceeds max length limit", function()
+		local textChangedTo = ""
+		local element = Roact.createElement(RoactRodux.StoreProvider, {
+			store = Rodux.Store.new(reducer)
+		}, {
+			ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
+				style = appStyle,
+			}, {
+				LocalizationProvider = Roact.createElement(LocalizationProvider, {
+					localization = Localization.new("en-us"),
+				}, {
+					TextEntryField = Roact.createElement(TextEntryField, {
+						enabled = true,
+						text = "",
+						textChanged = function(newText)
+							textChangedTo = newText
+						end,
+						maxTextLength = 4,
+						autoFocusOnEnabled = false,
+
+						PlaceholderText = "Enter text here",
+						LayoutOrder = 2,
+						Size = UDim2.new(0.5, 0, 0.5, 0),
+					}),
+				}),
+			}),
+		})
+
+		local folder = Instance.new("Folder")
+
+		local instance = Roact.mount(element, folder)
+
+		local textBox = folder:FindFirstChildWhichIsA("TextBox", true)
+		textBox.Text = "罗布乐思是世界最大的多人在线游戏"
+		Roact.unmount(instance)
+
+		expect(textChangedTo).to.equal("罗布乐思")
+	end)
 end

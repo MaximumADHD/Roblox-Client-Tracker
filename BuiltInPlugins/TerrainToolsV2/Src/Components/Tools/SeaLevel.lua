@@ -72,7 +72,26 @@ function SeaLevel:init(initialProps)
 		self.props.dispatchSetMergeEmpty(not self.props.mergeEmpty)
 	end
 
+	self.onPositionChanged = function(_, axis, text, isValid)
+		if isValid then
+			self.props.dispatchChangePosition(Cryo.Dictionary.join(self.props.Position, {
+				[axis] = text,
+			}))
+		end
+	end
+
+	self.onSizeChanged = function(_, axis, text, isValid)
+		if isValid then
+			self.props.dispatchChangeSize(Cryo.Dictionary.join(self.props.Size, {
+				[axis] = text,
+			}))
+		end
+	end
+
 	self.onTextEnter = function(text, container)
+		if FFlagTerrainToolsRefactor then
+			warn("SeaLevel.onTextEnter() should not be used when FFlagTerrainToolsRefactor is true")
+		end
 		-- warning should be displayed using the
 		-- validation funtion in the LabeledTextInput
 		if not tonumber(text) then
@@ -206,11 +225,15 @@ function SeaLevel:render()
 
 			local children = {
 				MapSettings = Roact.createElement(MapSettings, {
-					IsImport = false,
+					LayoutOrder = 1,
+
 					Position = position,
 					Size = size,
+
+					OnPositionChanged = self.onPositionChanged,
+					OnSizeChanged = self.onSizeChanged,
+
 					OnTextEnter = self.onTextEnter,
-					LayoutOrder = 1,
 				}),
 
 				SeaLevelButtons = FFlagTerrainToolsRefactor and Roact.createElement(ButtonGroup, {

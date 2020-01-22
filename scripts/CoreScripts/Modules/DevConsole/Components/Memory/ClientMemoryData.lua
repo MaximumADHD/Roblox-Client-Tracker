@@ -83,7 +83,7 @@ local function fetchGraphicsTextureMemoryData()
 	local textureData2 = StatsService:GetPaginatedMemoryByTexture(Enum.TextureQueryType.NonHumanoidOrphaned, 0, 100)
 	local sortedTextureData = {}
 
-	function aggregateData(retData, data)
+	local function aggregateData(retData, data)
 		for _,v in ipairs(data.Results) do
 			local mem = v.MemoryInBytes / BYTE_IN_MB
 			table.insert(retData, {
@@ -107,7 +107,7 @@ local function fetchGraphicsTextureCharacterMemoryData()
 	local textureData2 = StatsService:GetPaginatedMemoryByTexture(Enum.TextureQueryType.HumanoidOrphaned, 0, 100)
 	local sortedTextureData = {}
 
-	function aggregateData(retData, data)
+	local function aggregateData(retData, data)
 		for _,v in ipairs(data.Results) do
 			local mem = v.MemoryInBytes / BYTE_IN_MB
 			local compTextures = {}
@@ -375,7 +375,7 @@ function ClientMemoryData:start()
 		while instanced_pollingId == self._pollingId do
 			local statsItem = GetMemoryPerformanceStatsItem()
 			if not statsItem then
-				return nil
+				return
 			end
 			self._lastUpdate = os.time()
 			self:recursiveUpdateEntry(self._memoryData, self._memoryDataSorted, statsItem)

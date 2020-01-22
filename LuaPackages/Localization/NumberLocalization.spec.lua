@@ -1,7 +1,9 @@
 return function()
 	local CorePackages = game:GetService("CorePackages")
     local Logging = require(CorePackages.Logging)
-    local NumberLocalization = require(CorePackages.Localization.NumberLocalization)
+	local NumberLocalization = require(CorePackages.Localization.NumberLocalization)
+
+	local RoundingBehaviour = require(script.Parent.RoundingBehaviour)
 
 	local function checkLocale(locale, responseMapping)
 		for input, output in pairs(responseMapping) do
@@ -63,5 +65,46 @@ return function()
 		it("should localize correctly. (zh-tw)", function()
 			checkValid_en_zh("zh-tw")
         end)
+	end)
+
+	describe("NumberLocalization.abbreviate", function()
+		it("should round towards zero when using RoundingBehaviour.Truncate", function()
+			local roundToZeroMap = {
+				[0] = "0",
+				[1] = "1",
+				[25] = "25",
+				[364] = "364",
+				[4120] = "4.1K",
+				[57860] = "57.8K",
+				[624390] = "624K",
+				[999999] = "999K",
+				[7857000] = "7.8M",
+				[8e7] = "80M",
+				[9e8] = "900M",
+				[1e9] = "1B",
+				[1e12] = "1,000B",
+				[-0] = "0",
+				[-1] = "-1",
+				[-25] = "-25",
+				[-364] = "-364",
+				[-4120] = "-4.1K",
+				[-57860] = "-57.8K",
+				[-624390] = "-624K",
+				[-999999] = "-999K",
+				[-7857000] = "-7.8M",
+				[-8e7] = "-80M",
+				[-9e8] = "-900M",
+				[-1e9] = "-1B",
+				[-1e12] = "-1,000B",
+				[1.1] = "1.1",
+				[1499.99] = "1.4K",
+				[-1.1] = "-1.1",
+				[-1499.99] = "-1.4K",
+			}
+
+			for input, output in pairs(roundToZeroMap) do
+				expect(NumberLocalization.abbreviate(input, "en-us", RoundingBehaviour.Truncate)).to.equal(output)
+			end
+		end)
 	end)
 end

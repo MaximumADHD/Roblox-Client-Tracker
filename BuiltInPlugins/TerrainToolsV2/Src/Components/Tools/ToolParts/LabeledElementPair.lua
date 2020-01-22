@@ -8,6 +8,7 @@
 		Size - Size of your content (will be deprecated if Expandable List starts working)
 	OptionalProps:
 		Padding - UIListLayout Padding
+		FillDirection - UIListLayout fill direction
 ]]
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
@@ -20,6 +21,7 @@ local FIRST_COLUMN_WIDTH = 110
 local SIDE_PADDING = 20
 
 local FFlagTerrainToolsFixPlanePositionErrorMessage = game:GetFastFlag("TerrainToolsFixPlanePositionErrorMessage")
+local FFlagTerrainToolsRefactor = game:GetFastFlag("TerrainToolsRefactor")
 
 local LabeledElementPair = Roact.PureComponent:extend(script.Name)
 
@@ -49,7 +51,6 @@ function LabeledElementPair:render()
 	if FFlagTerrainToolsFixPlanePositionErrorMessage then
 		fillDirection = self.props.ContentDirection or Enum.FillDirection.Vertical
 	end
-
 	-- this prop enables auto resizing the content's size changes
 	local sizeToContent = self.props.SizeToContent
 
@@ -79,7 +80,7 @@ function LabeledElementPair:render()
 				Text = text,
 				TextColor3 = theme.textColor,
 				TextXAlignment = Enum.TextXAlignment.Left,
-				TextYAlignment = Enum.TextYAlignment.Center,
+				TextYAlignment = FFlagTerrainToolsRefactor and Enum.TextYAlignment.Bottom or Enum.TextYAlignment.Center,
 				Size = UDim2.new(0, FIRST_COLUMN_WIDTH - SIDE_PADDING, 0, 15),
 				Position = UDim2.new(0, SIDE_PADDING, 0, 2),
 				BackgroundTransparency = 1,

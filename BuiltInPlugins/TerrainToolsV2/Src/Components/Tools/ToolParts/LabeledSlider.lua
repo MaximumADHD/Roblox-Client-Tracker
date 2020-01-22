@@ -9,23 +9,16 @@ local Slider = require(ToolParts.Slider)
 local function LabeledSlider(props)
 	local layoutOrder = props.LayoutOrder
 	local text = props.Text
-	local value = props.Value
 
-	local min = props.Min
-	local max = props.Max
-	local snapIncrement = props.SnapIncrement
-
-	local setValue = props.SetValue
+	-- Remove the props intended for the LabeledElementPair so we're just left with the slider
+	local propsForSlider = Cryo.Dictionary.join(props, {
+		[Roact.Children] = Cryo.None,
+		LayoutOrder = Cryo.None,
+		Text = Cryo.None,
+	})
 
 	local children = Cryo.Dictionary.join(props[Roact.Children] or {}, {
-		Slider = Roact.createElement(Slider, {
-			Min = min,
-			Max = max,
-			SnapIncrement = snapIncrement,
-			ShowInput = true,
-			Value = value,
-			SetValues = setValue,
-		}),
+		Slider = Roact.createElement(Slider, propsForSlider),
 	})
 
 	return Roact.createElement(LabeledElementPair, {

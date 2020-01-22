@@ -6,6 +6,7 @@
 		"LocalShadow": "fatal",
 		"LocalUnused": "fatal",
 		"ImportUnused": "fatal",
-		"DeprecatedGlobal": "fatal"
+		"DeprecatedGlobal": "fatal",
+		"ImplicitReturn": "fatal"
 	}
 }

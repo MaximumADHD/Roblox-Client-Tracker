@@ -6752,6 +6752,60 @@
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>
+        <string name="Name">BoxHandleAdornment</string>
+        <string name="ClassCategory">Adornments</string>
+        <string name="summary">The BoxHandleAdornment is a rectangular prism that can be adorned to a BasePart.</string>
+        <string name="ExplorerOrder">205</string>
+        <string name="ExplorerImageIndex">0</string>
+      </Properties>
+    </Item>
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">ConeHandleAdornment</string>
+        <string name="ClassCategory">Adornments</string>
+        <string name="summary">A ConeHandleAdornment is a cone that can be adorned to a BasePart.</string>
+        <string name="ExplorerOrder">205</string>
+        <string name="ExplorerImageIndex">0</string>
+      </Properties>
+    </Item>
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">CylinderHandleAdornment</string>
+        <string name="ClassCategory">Adornments</string>
+        <string name="summary">The CylinderHandleAdornment is a cylinder that can be adorned to a BasePart.</string>
+        <string name="ExplorerOrder">205</string>
+        <string name="ExplorerImageIndex">0</string>
+      </Properties>
+    </Item>
+        <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">SphereHandleAdornment</string>
+        <string name="ClassCategory">Adornments</string>
+        <string name="summary">The SphereHandleAdornment is a sphere that can be adorned to a BasePart.</string>
+        <string name="ExplorerOrder">205</string>
+        <string name="ExplorerImageIndex">0</string>
+      </Properties>
+    </Item>
+        <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">LineHandleAdornment</string>
+        <string name="ClassCategory">Adornments</string>
+        <string name="summary">The LineHandleAdornment is a line that can be adorned to a BasePart.</string>
+        <string name="ExplorerOrder">205</string>
+        <string name="ExplorerImageIndex">0</string>
+      </Properties>
+    </Item>
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">ImageHandleAdornment</string>
+        <string name="ClassCategory">Adornments</string>
+        <string name="summary">The ImageHandleAdornment is an image that can be adorned to a BasePart.</string>
+        <string name="ExplorerOrder">205</string>
+        <string name="ExplorerImageIndex">0</string>
+      </Properties>
+      </Item>
+    <Item class="ReflectionMetadataClass">
+      <Properties>
         <string name="Name">SelectionPartLasso</string>
         <bool name="Deprecated">true</bool>
         <string name="summary">A visual line drawn representation between two part objects</string>

@@ -142,7 +142,7 @@ function TextEntryField:render()
 
 					[Roact.Change.Text] = function(rbx)
 						if utf8.len(utf8.nfcnormalize(rbx.Text)) > self.props.maxTextLength then
-							local byteOffset = utf8.offset(rbx.Text, self.props.maxTextLength)
+							local byteOffset = utf8.offset(rbx.Text, self.props.maxTextLength + 1) - 1
 							rbx.Text = string.sub(rbx.Text, 1, byteOffset)
 							return
 						end

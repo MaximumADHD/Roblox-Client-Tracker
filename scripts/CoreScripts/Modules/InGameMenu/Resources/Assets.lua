@@ -76,7 +76,6 @@ return {
 		Circle = Images["InGameMenu/Graphic/Circle"],
 		CircleCutout = "rbxasset://textures/ui/InGameMenu/CircleCutout.png",
 
-		PlaceholderGameIcon = Images["InGameMenu/Graphic/GameIconPlaceholder"],
 		QuarterCircle = "rbxasset://textures/ui/InGameMenu/QuarterCircle.png",
 		ExpandArrow = Images["InGameMenu/Icons/ExpandArrow"],
 		SelectedCheck = Images["InGameMenu/Icons/SelectedCheck"],

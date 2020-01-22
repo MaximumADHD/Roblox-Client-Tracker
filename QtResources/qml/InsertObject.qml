@@ -23,6 +23,28 @@ Rectangle {
     signal showRecommendedOnlyChecked(bool checked)
 	signal openInsertObjectWidget()
 
+    Connections {
+        target: insertObjectWindow
+        onForceTextFocusEvent: {
+            if(focusEvent) {
+                tryFocusText()
+            }
+            else {
+                tryUnfocusText()
+            }
+        }
+    }
+
+    function tryFocusText() {
+        searchBoxText.forceActiveFocus()
+        searchBoxText.selectAll();
+        rootWindow.isTextFocused = true;
+    }
+     function tryUnfocusText() {
+        searchBoxText.focus = false;
+        rootWindow.isTextFocused = false;
+    }
+
     function insertObject() {
 		if(insertObjectWindow.getFFlagStudioInsertObjectStreamlining_InsertWidget()) {
 			classToolTip.hide();

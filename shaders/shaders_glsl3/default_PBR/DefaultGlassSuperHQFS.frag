@@ -157,7 +157,7 @@ void main()
     vec3 f59 = f58 * mix(vec3(1.0), VARYING2.xyz, vec3(f14));
     vec4 f60 = vec4(f59.x, f59.y, f59.z, vec4(0.0).w);
     f60.w = mix(1.0, f56.w, dot(f59.xyz, vec3(1.0)) / (dot(f58, vec3(1.0)) + 0.00999999977648258209228515625));
-    vec4 f61 = mix(mix(f60, vec4(mix((((((((vec3(1.0) - (f40 * (CB0[26].w * f1))) * 1.0) * CB0[10].xyz) * f33) + ((CB0[12].xyz * 1.0) * clamp(-f32, 0.0, 1.0))) * f25) + min(f22 + (CB0[8].xyz + (CB0[9].xyz * f23)), vec3(CB0[16].w))) * (f26 * f15), f29, vec3(mix(((1.0 - f12) * f1) * CB2[0].w, 1.0, VARYING7.w))), 1.0), vec4(f15)), vec4(f29, 1.0), vec4(((f43 * f43) * 0.800000011920928955078125) * f14)) + vec4((((f40 * ((f41 + (f41 * f41)) / (((f42 * f42) * ((f36 * 3.0) + 0.5)) * ((f35 * 0.75) + 0.25)))) * CB0[10].xyz) * f33) * f25, 0.0);
+    vec4 f61 = mix(mix(f60, vec4(mix((((((((vec3(1.0) - (f40 * (CB0[26].w * f1))) * 1.0) * CB0[10].xyz) * f33) + ((CB0[12].xyz * 1.0) * clamp(-f32, 0.0, 1.0))) * f25) + min(f22 + (CB0[8].xyz + (CB0[9].xyz * f23)), vec3(CB0[16].w))) * (f26 * f15), f29, vec3(VARYING7.w)), 1.0), vec4(f15)), vec4(f29, 1.0), vec4(((f43 * f43) * 0.800000011920928955078125) * f14)) + vec4((((f40 * ((f41 + (f41 * f41)) / (((f42 * f42) * ((f36 * 3.0) + 0.5)) * ((f35 * 0.75) + 0.25)))) * CB0[10].xyz) * f33) * f25, 0.0);
     float f62 = clamp((CB0[13].x * length(VARYING4.xyz)) + CB0[13].y, 0.0, 1.0);
     vec3 f63 = mix(CB0[14].xyz, sqrt(clamp(f61.xyz * CB0[15].y, vec3(0.0), vec3(1.0))).xyz, vec3(f62));
     vec4 f64 = vec4(f63.x, f63.y, f63.z, f61.w);

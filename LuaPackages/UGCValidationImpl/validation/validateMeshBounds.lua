@@ -23,6 +23,7 @@ local function getAttachment(parent, names)
 			return result
 		end
 	end
+	return nil
 end
 
 local function validateMeshBounds(isAsync, instance, assetTypeEnum)

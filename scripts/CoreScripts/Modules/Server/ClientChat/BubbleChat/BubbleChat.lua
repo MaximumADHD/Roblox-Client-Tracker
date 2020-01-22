@@ -307,7 +307,7 @@ initChatBubbleType(BubbleColor.GREEN,	"ui/dialog_green",	"ui/chatBubble_green_no
 function this:SanitizeChatLine(msg)
 	if FFlagUserChatNewMessageLengthCheck then
 		if getMessageLength(msg) > MaxChatMessageLengthExclusive then
-			local byteOffset = utf8.offset(msg, MaxChatMessageLengthExclusive + getMessageLength(ELIPSES))
+			local byteOffset = utf8.offset(msg, MaxChatMessageLengthExclusive + getMessageLength(ELIPSES) + 1) - 1
 			return string.sub(msg, 1, byteOffset)
 		else
 			return msg

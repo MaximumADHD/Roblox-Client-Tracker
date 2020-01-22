@@ -14,7 +14,6 @@ local StudioService = game:GetService("StudioService")
 local FFlagGameSettingsUsesNewIconEndpoint = settings():GetFFlag("GameSettingsUsesNewIconEndpoint")
 local FFlagStudioGameSettingsAccessPermissions = settings():GetFFlag("StudioGameSettingsAccessPermissions")
 local FFlagStudioGameSettingsDisablePlayabilityForDrafts = settings():GetFFlag("StudioGameSettingsDisablePlayabilityForDrafts")
-local FFlagStudioGameSettingsUseNewSettingsImpl3 = settings():GetFFlag("StudioGameSettingsUseNewSettingsImpl3")
 local FFlagVersionControlServiceScriptCollabEnabled = settings():GetFFlag("VersionControlServiceScriptCollabEnabled")
 
 local DFFlagDeveloperSubscriptionsEnabled = settings():GetFFlag("DeveloperSubscriptionsEnabled")
@@ -54,7 +53,7 @@ function SettingsImpl:GetUserId()
 end
 
 function SettingsImpl:CanManagePlace()
-	if FFlagStudioGameSettingsUseNewSettingsImpl3 and not self:IsPublished() then
+	if not self:IsPublished() then
 		return Promise.new(function(resolve, _) resolve(true) end)
 	end
 
@@ -70,62 +69,7 @@ end
 	Used to get the state of the game settings by downloading them from web
 	endpoints or reading their properties from the datamodel.
 ]]
-function SettingsImpl:GetSettings_Old()
-	local settings = {
-		HttpEnabled = HttpService:GetHttpEnabled(),
-		studioUserId = FFlagStudioGameSettingsUseNewSettingsImpl3 and self:GetUserId() or nil,
-	}
-	settings = Cryo.Dictionary.join(settings, WorkspaceSettings.getWorldSettings(settings))
-
-	return self:CanManagePlace():andThen(function(canManage)
-		settings = Cryo.Dictionary.join(settings, {["canManage"] = canManage })
-		if not canManage then
-			settings = Cryo.Dictionary.join(settings, WorkspaceSettings.getAvatarSettings(settings))
-
-			if FFlagStudioGameSettingsDisablePlayabilityForDrafts then
-				settings = Cryo.Dictionary.join(settings, {["privacyType"] = nil})
-			end
-
-			return settings
-		end
-
-		local universeId = game.GameId
-
-		local getRequests = {
-			Requests.Configuration.Get(universeId),
-			Requests.Universes.Get(universeId),
-			Requests.Thumbnails.Get(universeId),
-		}
-
-		if FFlagGameSettingsUsesNewIconEndpoint then
-			table.insert(getRequests, Requests.RootPlaceInfo.Get(universeId))
-			table.insert(getRequests, Requests.GameIcon.Get(universeId))
-		else
-			table.insert(getRequests, Requests.RootPlaceInfo.Get(universeId):andThen(function(result)
-				settings = Cryo.Dictionary.join(settings, result)
-				return Requests.GameIcon.DEPRECATED_Get(result.rootPlaceId)
-			end))
-		end
-
-		if DFFlagDeveloperSubscriptionsEnabled then
-			table.insert(getRequests, Requests.DeveloperSubscriptions.Get())
-		end
-
-		if FFlagStudioGameSettingsAccessPermissions then
-			table.insert(getRequests, Requests.GamePermissions.Get(universeId))
-		end
-
-		return Promise.all(getRequests)
-		:andThen(function(loaded)
-			for _, values in ipairs(loaded) do
-				settings = Cryo.Dictionary.join(settings, values)
-			end
-			return settings
-		end)
-	end)
-end
-
-function SettingsImpl:GetSettings_New()
+function SettingsImpl:GetSettings()
 	local settings = {
 		HttpEnabled = HttpService:GetHttpEnabled(),
 		studioUserId = self:GetUserId(),
@@ -207,15 +151,6 @@ function SettingsImpl:GetSettings_New()
 	end)
 end
 
--- TODO (awarwick) 6/5/2019 Remove with flag
-function SettingsImpl:GetSettings()
-	if FFlagStudioGameSettingsUseNewSettingsImpl3 then
-		return self:GetSettings_New()
-	else
-		return self:GetSettings_Old()
-	end
-end
-
 --[[
 	Used to save the chosen state of all game settings by saving to web
 	endpoints or setting properties in the datamodel.
@@ -278,7 +213,7 @@ function SettingsImpl:SaveAll(state)
 		WorkspaceSettings.saveAllAvatarSettings(saveInfo)
 		local universeId = game.GameId
 
-		if (FFlagStudioGameSettingsUseNewSettingsImpl3 and universeId == 0) or not canManage then
+		if universeId == 0 or not canManage then
 			return
 		end
 

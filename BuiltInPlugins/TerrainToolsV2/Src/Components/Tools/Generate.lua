@@ -1,6 +1,7 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
+local Cryo = require(Plugin.Packages.Cryo)
 
 local UILibrary = Plugin.Packages.UILibrary
 local RoundTextButton = require(UILibrary.Components.RoundTextButton)
@@ -72,8 +73,33 @@ function Generate:init(initialProps)
 		self.props.dispatchSetBiomeSelection(biome, value)
 	end
 
+	local function makeOnVectorAxisChanged(getCurrentValue, setNewValue)
+		return function(vector, axis, text, isValid)
+			if not isValid then
+				self.warnings[vector .. axis] = true
+				return
+			end
+			self.warnings[vector .. axis] = false
+
+			setNewValue(Cryo.Dictionary.join(getCurrentValue(), {
+				[axis] = text,
+			}))
+		end
+	end
+
+	self.onPositionChanged = makeOnVectorAxisChanged(function()
+		return self.props.position
+	end, self.props.dispatchChangePosition)
+
+	self.onSizeChanged = makeOnVectorAxisChanged(function()
+		return self.props.size
+	end, self.props.dispatchChangeSize)
+
 	-- this function is used to propagate changes back to rodux from the mapsettings
 	self.onTextEnter = function(text, container)
+		if FFlagTerrainToolsRefactor then
+			warn("Generate.onTextEnter() should not be used when FFlagTerrainToolsRefactor is true")
+		end
 		-- warning should be displayed using the
 		-- validation funtion in the LabeledTextInput
 		if not tonumber(text) then
@@ -249,12 +275,17 @@ function Generate:render()
 		return withLocalization(function(localization)
 			local children = {
 				MapSettings = Roact.createElement(MapSettings, {
-					IsImport = false,
+					LayoutOrder = 1,
+
 					Position = position,
 					Size = size,
+
+					OnPositionChanged = self.onPositionChanged,
+					OnSizeChanged = self.onSizeChanged,
+					SetMapSettingsValid = self.setMapSettingsValidated,
+
 					OnTextEnter = self.onTextEnter,
 					IsMapSettingsValid = self.setMapSettingsValidated,
-					LayoutOrder = 1,
 				}),
 
 				MaterialSettings = Roact.createElement(Panel, {
@@ -307,7 +338,7 @@ function Generate:render()
 							SnapIncrement = 4,
 							ShowInput = true,
 							Value = tonumber(biomeSizeString),
-							SetValues = function(val)
+							SetValue = function(val)
 								self.onBiomeSizeChanged(tostring(val))
 							end,
 						}),
@@ -347,7 +378,7 @@ function Generate:render()
 						SeedTextBox = Roact.createElement(LabeledTextInput, {
 							Width = UDim.new(0, 136),
 							Text = seed,
-							MaxGraphenes = 12,
+							MaxGraphemes = 12,
 
 							OnFocusLost = FFlagTerrainToolsRefactor and self.onSeedFocusLost or function(enterPressed, text)
 								self.props.dispatchSetSeed(text)

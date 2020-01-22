@@ -273,7 +273,14 @@ return function(style, overrides)
 		font = style.font,
 	}
 
+	local assetPreview = {
+		modelPreview = {
+			background = style.backgroundColor,
+		}
+	}
+
 	return replaceDefaults({
+		assetPreview = assetPreview,
 		checkBox = checkBox,
 		roundFrame = roundFrame,
 		dropShadow = dropShadow,

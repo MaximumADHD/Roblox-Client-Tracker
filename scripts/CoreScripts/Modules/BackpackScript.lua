@@ -91,7 +91,6 @@ local GameTranslator = require(RobloxGui.Modules.GameTranslator)
 local FFlagRobloxGuiSiblingZindexs = settings():GetFFlag("RobloxGuiSiblingZindexs")
 
 local FFlagAllowBackpackBinding = game:DefineFastFlag("AllowBackpackBinding", false)
-local FFlagFixBackpackDraggingReset = game:DefineFastFlag("FixBackpackDraggingReset", false)
 
 pcall(function()
 	local LocalizationService = game:GetService("LocalizationService")
@@ -504,9 +503,7 @@ local function MakeSlot(parent, index)
 	end
 
 	function slot:Delete()
-		if FFlagFixBackpackDraggingReset then
-			Dragging[SlotFrame] = nil
-		end
+		Dragging[SlotFrame] = nil
 		SlotFrame:Destroy() --NOTE: Also clears connections
 		table.remove(Slots, self.Index)
 		local newSize = #Slots

@@ -122,7 +122,7 @@ void main()
     vec3 f29 = vec3(f28) + (vec3(0.039999999105930328369140625) * (1.0 - f28));
     float f30 = f23 * f23;
     float f31 = (((f24 * f30) - f24) * f24) + 1.0;
-    vec3 f32 = ((((((((vec3(1.0) - (f29 * (CB0[26].w * f2))) * 1.0) * CB0[10].xyz) * f22) + ((CB0[12].xyz * 1.0) * clamp(-f21, 0.0, 1.0))) * f15) + min((f12.xyz * (f12.w * 120.0)).xyz + (CB0[8].xyz + (CB0[9].xyz * f13.x)), vec3(CB0[16].w))) * mix((f8 * f8).xyz, (f18 * f18) * CB0[15].x, vec3(VARYING7.w))) + ((((f29 * ((f30 + (f30 * f30)) / (((f31 * f31) * ((f25 * 3.0) + 0.5)) * ((f24 * 0.75) + 0.25)))) * CB0[10].xyz) * f22) * f15);
+    vec3 f32 = ((((((((vec3(1.0) - (f29 * (max(CB0[26].w, CB2[0].w) * f2))) * 1.0) * CB0[10].xyz) * f22) + ((CB0[12].xyz * 1.0) * clamp(-f21, 0.0, 1.0))) * f15) + min((f12.xyz * (f12.w * 120.0)).xyz + (CB0[8].xyz + (CB0[9].xyz * f13.x)), vec3(CB0[16].w))) * mix((f8 * f8).xyz, (f18 * f18) * CB0[15].x, vec3(VARYING7.w))) + ((((f29 * ((f30 + (f30 * f30)) / (((f31 * f31) * ((f25 * 3.0) + 0.5)) * ((f24 * 0.75) + 0.25)))) * CB0[10].xyz) * f22) * f15);
     vec4 f33 = vec4(f32.x, f32.y, f32.z, vec4(0.0).w);
     f33.w = VARYING2.w;
     vec2 f34 = min(VARYING0.wz, VARYING1.wz);

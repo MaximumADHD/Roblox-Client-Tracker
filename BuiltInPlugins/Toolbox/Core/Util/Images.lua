@@ -115,4 +115,6 @@ Images.AVATAR_MASK = "rbxasset://textures/StudioSharedUI/avatarMask.png"
 Images.DEFAULT_USER_THUMBNAIL = "rbxasset://textures/StudioSharedUI/default_user.png"
 Images.DEFAULT_GROUP_THUMBNAIL = "rbxasset://textures/StudioSharedUI/default_group.png"
 
+Images.ERROR_ICON = "rbxasset://textures/GameSettings/ErrorIcon.png"
+
 return wrapStrictTable(Images)

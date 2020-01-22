@@ -8,8 +8,6 @@ local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
 
 local Components = script.Parent.Parent.Parent.Components
-local ServerJobsChart = require(Components.ServerJobs.ServerJobsChart)
-local UtilAndTab = require(Components.UtilAndTab)
 
 local Actions = script.Parent.Parent.Parent.Actions
 local SetRCCProfilerState = require(Actions.SetRCCProfilerState)

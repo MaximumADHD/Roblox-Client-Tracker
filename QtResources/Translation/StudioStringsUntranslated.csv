@@ -624,6 +624,7 @@ Studio.App.Merge.ConflictOptionServer,"You can select the Draft, Server, or Othe
 Studio.App.Merge.ConflictPosition2,Conflict 2 of 5,Conflict %1 of %2,Conflict %1 of %2
 Studio.App.Merge.ConflictsRemaining1,4 unresolved conflicts,%1 unresolved conflict(s),%1 unresolved conflict(s)
 Studio.App.Merge.DeletedCode,,DELETED CODE ,DELETED CODE 
+Studio.App.Merge.DialogTitle1,Merge Server with Draft - PlayerDataManagerScript,Merge Server with Draft - %1,Merge Server with Draft - %1
 Studio.App.Merge.EditConflict,Button that prompts the user to edit the conflict,Edit,Edit
 Studio.App.Merge.EditScriptConflict2,Edit - Scriptname - Conflict 1,Edit - %1 - Conflict %2,Edit - %1 - Conflict %2
 Studio.App.Merge.Next,,Next >,Next >
@@ -645,21 +646,6 @@ Studio.App.Merge.ProtipDiscovery,,"Use the ""Other"" option to edit the resoluti
 Studio.App.Merge.ReadyToSave,,Ready to save,Ready to save
 Studio.App.Merge.Save,,Save,Save
 Studio.App.Merge.UnresolvedConflict,,UNRESOLVED CONFLICT ,UNRESOLVED CONFLICT 
-Studio.App.Merge3.ConfirmUnresolvedConflictsTitle,,Unresolved Conflicts,Unresolved Conflicts
-Studio.App.Merge3.ConflictMarkerRemaining,,1 conflict; 1 marker remaining,1 conflict; 1 marker remaining
-Studio.App.Merge3.ConflictMarkersRemaining1,,1 conflict; %1 markers remaining,1 conflict; %1 markers remaining
-Studio.App.Merge3.ConflictsMarkerRemaining1,,%1 conflicts; 1 marker remaining,%1 conflicts; 1 marker remaining
-Studio.App.Merge3.ConflictsMarkersRemaining2,,%1 conflicts; %2 markers remaining,%1 conflicts; %2 markers remaining
-Studio.App.Merge3.DialogTitle1,,Merge server with draft - %1,Merge server with draft - %1
-Studio.App.Merge3.DialogTitle1,Merge Server with Draft - PlayerDataManagerScript,Merge Server with Draft - %1,Merge Server with Draft - %1
-Studio.App.Merge3.EditToResolveConflicts,,Edit to resolve conflicts.  Then remove all conflict markers to save this to your drafts.,Edit to resolve conflicts.  Then remove all conflict markers to save this to your drafts.
-Studio.App.Merge3.Mine,,Mine (Draft),Mine (Draft)
-Studio.App.Merge3.NextConflict,,Next Conflict >>,Next Conflict >>
-Studio.App.Merge3.NextMarker,,Next Marker >,Next Marker >
-Studio.App.Merge3.Original,,Original,Original
-Studio.App.Merge3.PrevConflict,,<< Prev Conflict,<< Prev Conflict
-Studio.App.Merge3.PrevMarker,,< Prev Marker,< Prev Marker
-Studio.App.Merge3.Theirs,,Theirs (Server),Theirs (Server)
 Studio.App.MeshImportOptionsDialog.ApplyAll,,Apply All,Apply All
 Studio.App.MeshImportOptionsDialog.FileCount2,,%1 of %2 files,%1 of %2 files
 Studio.App.MeshImportOptionsDialog.ImportFileAsSingleMesh,,Import file as single mesh,Import file as single mesh
@@ -1941,6 +1927,11 @@ Studio.App.UpdateUIManager.PublishToRobloxToElps,,Publish to Roblox To...,Publis
 Studio.App.UpdateUIManager.SaveTcDocToDiffSlot,,Save Team Create Document to a different slot,Save Team Create Document to a different slot
 Studio.App.UpdateUIManager.SaveToRobloxToElps,,Save to Roblox To...,Save to Roblox To...
 Studio.App.UpdateUIManager.ViewChatWindow,,View Chat Window,View Chat Window
+Studio.App.Updates.BetaFeatureDescription,,"Instead of blocking the opening of new Studio windows and test sessions when an update is available, cancellable prompts will periodically appear offering to update Studio","Instead of blocking the opening of new Studio windows and test sessions when an update is available, cancellable prompts will periodically appear offering to update Studio"
+Studio.App.Updates.BetaFeatureName,,Safe Studio Updates,Safe Studio Updates
+Studio.App.Updates.ShutdownConfirmationText,,There is a new Studio update available. Shutdown to update?,There is a new Studio update available. Shutdown to update?
+Studio.App.Updates.ShutdownPromptButton,Button name in 'Are you sure you want to shut down Studio for update? [Shutdown] [Cancel]',Shutdown,Shutdown
+Studio.App.Updates.UpdateAvailableToast,,A new version of Studio is available,A new version of Studio is available
 Studio.App.UploadImageRequest.UploadingQuickly1,,Uploading too quickly. Try again in %1 minute(s),Uploading too quickly. Try again in %1 minute(s)
 Studio.App.UploadImageRequest.UploadingQuicklyHour1,,Uploading too quickly. Try again in %1 hour(s),Uploading too quickly. Try again in %1 hour(s)
 Studio.App.UploadImageRequest.UploadingTooQuickly,,Uploading too quickly,Uploading too quickly

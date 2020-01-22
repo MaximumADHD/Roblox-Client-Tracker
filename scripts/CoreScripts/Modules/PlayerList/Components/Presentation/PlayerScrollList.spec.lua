@@ -53,7 +53,7 @@ return function()
 					}, {
 						PlayerScrollList = Roact.createElement(PlayerScrollList, {
 							screenSizeY = 1000,
-							overrideEntrySize = 200,
+							entrySize = 200,
 						}),
 					})
 				})

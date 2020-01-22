@@ -2,6 +2,7 @@ local ContentProvider = game:GetService("ContentProvider")
 local CorePackages = game:GetService("CorePackages")
 
 local FFlagCoreScriptEmotesMenuBetterMouseBehavior = settings():GetFFlag("CoreScriptEmotesMenuBetterMouseBehavior")
+local FFlagFixEmotesMenuInputPassthrough = game:DefineFastFlag("FixEmotesMenuInputPassthrough", false)
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
@@ -109,34 +110,33 @@ function EmotesButtons:render()
         })
     end
 
-    return Roact.createElement("Frame", {
-        AnchorPoint = Vector2.new(0.5, 0.5),
-        Size = UDim2.new(1, 0, 1, 0),
-        Position = UDim2.new(0.5, 0, 0.5, 0),
-        BackgroundTransparency = 1,
+    if FFlagFixEmotesMenuInputPassthrough then
+        return Roact.createElement("TextButton", {
+            AnchorPoint = Vector2.new(0.5, 0.5),
+            Size = UDim2.new(1, 0, 1, 0),
+            Position = UDim2.new(0.5, 0, 0.5, 0),
+            BackgroundTransparency = 1,
+            Text = "",
 
-        [Roact.Event.InputChanged] = function(frame, input)
-            local inputType = input.UserInputType
+            [Roact.Event.InputChanged] = function(frame, input)
+                local inputType = input.UserInputType
 
-            if inputType == Enum.UserInputType.MouseMovement or inputType == Enum.UserInputType.Touch then
-                local segmentIndex = getSegmentFromInput(frame, input)
+                if inputType == Enum.UserInputType.MouseMovement or inputType == Enum.UserInputType.Touch then
+                    local segmentIndex = getSegmentFromInput(frame, input)
 
-                if segmentIndex == self.props.emotesWheel.focusedSegmentIndex then
-                    return
+                    if segmentIndex == self.props.emotesWheel.focusedSegmentIndex then
+                        return
+                    end
+
+                    if self.props.emotesPage.currentEmotes[segmentIndex] then
+                        self.props.focusSegment(segmentIndex)
+                    else
+                        self.props.focusSegment(0)
+                    end
                 end
+            end,
 
-                if self.props.emotesPage.currentEmotes[segmentIndex] then
-                    self.props.focusSegment(segmentIndex)
-                else
-                    self.props.focusSegment(0)
-                end
-            end
-        end,
-
-        [Roact.Event.InputBegan] = function(frame, input)
-            local inputType = input.UserInputType
-
-            if inputType == Enum.UserInputType.MouseButton1 or inputType == Enum.UserInputType.Touch then
+            [Roact.Event.Activated] = function(frame, input)
                 local segmentIndex = getSegmentFromInput(frame, input)
                 if FFlagCoreScriptEmotesMenuBetterMouseBehavior then
                     if segmentIndex == 0 then
@@ -157,13 +157,69 @@ function EmotesButtons:render()
 
                 local assetId = getRandomAssetId(emoteAssetIds)
                 self.props.playEmote(emoteName, segmentIndex, assetId)
-            end
-        end,
+            end,
 
-        [Roact.Event.MouseLeave] = function()
-            self.props.focusSegment(0)
-        end,
-    }, emoteButtons)
+            [Roact.Event.MouseLeave] = function()
+                self.props.focusSegment(0)
+            end,
+        }, emoteButtons)
+    else
+        return Roact.createElement("Frame", {
+            AnchorPoint = Vector2.new(0.5, 0.5),
+            Size = UDim2.new(1, 0, 1, 0),
+            Position = UDim2.new(0.5, 0, 0.5, 0),
+            BackgroundTransparency = 1,
+
+            [Roact.Event.InputChanged] = function(frame, input)
+                local inputType = input.UserInputType
+
+                if inputType == Enum.UserInputType.MouseMovement or inputType == Enum.UserInputType.Touch then
+                    local segmentIndex = getSegmentFromInput(frame, input)
+
+                    if segmentIndex == self.props.emotesWheel.focusedSegmentIndex then
+                        return
+                    end
+
+                    if self.props.emotesPage.currentEmotes[segmentIndex] then
+                        self.props.focusSegment(segmentIndex)
+                    else
+                        self.props.focusSegment(0)
+                    end
+                end
+            end,
+
+            [Roact.Event.InputBegan] = function(frame, input)
+                local inputType = input.UserInputType
+
+                if inputType == Enum.UserInputType.MouseButton1 or inputType == Enum.UserInputType.Touch then
+                    local segmentIndex = getSegmentFromInput(frame, input)
+                    if FFlagCoreScriptEmotesMenuBetterMouseBehavior then
+                        if segmentIndex == 0 then
+                            self.props.hideMenu()
+                            return
+                        end
+                    end
+
+                    local emoteName = self.props.emotesPage.currentEmotes[segmentIndex]
+                    if not emoteName then
+                        return
+                    end
+
+                    local emoteAssetIds = self.props.emotesPage.emotesInfo[emoteName]
+                    if not emoteAssetIds then
+                        return
+                    end
+
+                    local assetId = getRandomAssetId(emoteAssetIds)
+                    self.props.playEmote(emoteName, segmentIndex, assetId)
+                end
+            end,
+
+            [Roact.Event.MouseLeave] = function()
+                self.props.focusSegment(0)
+            end,
+        }, emoteButtons)
+    end
 end
 
 local function mapStateToProps(state)

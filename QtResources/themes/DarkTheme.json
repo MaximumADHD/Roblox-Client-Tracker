@@ -409,18 +409,6 @@
                 "Default": "#FFFFFF",
                 "Disabled": "#666666"
             }
-        }, {
-            "Merge3HighlightOriginal": {
-                "Default": "#2E3A4D"
-            }
-        }, {
-            "Merge3HighlightMine": {
-                "Default": "#403E26"
-            }
-        }, {
-            "Merge3HighlightTheirs": {
-                "Default": "#4D3A2E"
-            }
         }
     ],
   "Paths": [

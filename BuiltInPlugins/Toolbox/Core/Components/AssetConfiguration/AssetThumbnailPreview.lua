@@ -1,7 +1,6 @@
 --[[
 	AssetThumbnailPreview
 	Finds "instances" from the store provider and displays them in a ViewportFrame with a title below.
-	Will attempt to use a ThumbnailCamera if it finds one.
 
 	Necessary Props:
 		UDim2 Size - size of the preview
@@ -15,6 +14,8 @@
 		int LayoutOrder - will be used by the layouter to change the position of the components (defaults to 1 if not passed in)
 
 ]]
+
+local FFlagEnableThumbnailCameraValueExists, FFlagEnableThumbnailCameraValueValue = pcall(function() return settings():GetFFlag("EnableThumbnailCameraValue") end)
 
 local PREVIEW_TITLE_PADDING = 12
 local PREVIEW_TITLE_HEIGHT = 24
@@ -34,14 +35,27 @@ local withTheme = ContextHelper.withTheme
 local Components = Plugin.Core.Components
 local RoundFrame = require(Components.RoundFrame)
 
-local HANDLE_NAME = "Handle"
-
 local function removeAllScripts(object)
 	for _, descendant in pairs(object:GetDescendants()) do
 		if descendant:IsA("LuaSourceContainer") then
 			descendant:Destroy()
 		end
 	end
+end
+
+local function setDefaultCameraView(camera, model)
+	local modelCF = model:GetModelCFrame()
+	camera:SetImageServerView(modelCF)
+
+	local radius = model:GetExtentsSize().magnitude/2
+	local halfFov = math.rad(camera.FieldOfView)/2
+	local depth = radius/math.tan(halfFov)
+
+	-- 1. remove translation
+	-- 2. move to model position
+	-- 3. push camera back by depth in the original angle given by SetImageServerView
+	-- SetImageServerView ensures that camera.CFrame.p and modelCF.p will always be different values
+	camera.CFrame = (camera.CFrame - camera.CFrame.p) + modelCF.p + ((camera.CFrame.p - modelCF.p).unit * depth)
 end
 
 local AssetThumbnailPreview = Roact.PureComponent:extend("AssetThumbnailPreview")
@@ -75,18 +89,27 @@ function AssetThumbnailPreview:didMount()
 			end
 		end
 
-		local modelCF = model:GetModelCFrame()
-		camera:SetImageServerView(modelCF)
+		if FFlagEnableThumbnailCameraValueExists and FFlagEnableThumbnailCameraValueValue then
+			local thumbnailCameraValue = model:FindFirstChild("ThumbnailCameraValue", true)
+			if thumbnailCameraValue and thumbnailCameraValue:IsA("CFrameValue") then
+				camera.CFrame = thumbnailCameraValue.Parent.CFrame:toWorldSpace(thumbnailCameraValue.Value)
+			else
+				setDefaultCameraView(camera, model)
+			end
+		else
+			local modelCF = model:GetModelCFrame()
+			camera:SetImageServerView(modelCF)
 
-		local radius = model:GetExtentsSize().magnitude/2
-		local halfFov = math.rad(camera.FieldOfView)/2
-		local depth = radius/math.tan(halfFov)
+			local radius = model:GetExtentsSize().magnitude/2
+			local halfFov = math.rad(camera.FieldOfView)/2
+			local depth = radius/math.tan(halfFov)
 
-		-- 1. remove translation
-		-- 2. move to model position
-		-- 3. push camera back by depth in the original angle given by SetImageServerView
-		-- SetImageServerView ensures that camera.CFrame.p and modelCF.p will always be different values
-		camera.CFrame = (camera.CFrame - camera.CFrame.p) + modelCF.p + ((camera.CFrame.p - modelCF.p).unit * depth)
+			-- 1. remove translation
+			-- 2. move to model position
+			-- 3. push camera back by depth in the original angle given by SetImageServerView
+			-- SetImageServerView ensures that camera.CFrame.p and modelCF.p will always be different values
+			camera.CFrame = (camera.CFrame - camera.CFrame.p) + modelCF.p + ((camera.CFrame.p - modelCF.p).unit * depth)
+		end
 	end
 end
 

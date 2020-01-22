@@ -100,7 +100,7 @@ function whisperStateMethods:EnterWhisperState(player)
 
 	self.MessageModeButton.TextColor3 = self:GetWhisperChanneNameColor()
 
-	local xSize = self.MessageModeButton.TextBounds.X
+	local xSize = math.ceil(self.MessageModeButton.TextBounds.X)
 	self.MessageModeButton.Size = UDim2.new(0, xSize, 1, 0)
 	self.TextBox.Size = UDim2.new(1, -xSize, 1, 0)
 	self.TextBox.Position = UDim2.new(0, xSize, 0, 0)

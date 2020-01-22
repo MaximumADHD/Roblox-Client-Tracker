@@ -16,11 +16,6 @@ local useTriggersForThrottle = true
 local onlyTriggersForThrottle = false
 local ZERO_VECTOR3 = Vector3.new(0,0,0)
 
-local betterHandlingInputStatesFlagExists, betterHandlingInputStatesFlagEnabled = pcall(function()
-	return UserSettings():IsUserFeatureEnabled("UserBetterHandlingVehicleInputStates")
-end)
-local FFlagBetterHandlingVehicleInputStates = betterHandlingInputStatesFlagExists and betterHandlingInputStatesFlagEnabled
-
 local AUTO_PILOT_DEFAULT_MAX_STEERING_ANGLE = 35
 
 
@@ -100,53 +95,37 @@ function VehicleController:Enable(enable, vehicleSeat)
 end
 
 function VehicleController:OnThrottleAccel(actionName, inputState, inputObject)
-	if FFlagBetterHandlingVehicleInputStates then
-		if inputState == Enum.UserInputState.End or inputState == Enum.UserInputState.Cancel then
-			self.acceleration = 0
-		else
-			self.acceleration = -1
-		end
+	if inputState == Enum.UserInputState.End or inputState == Enum.UserInputState.Cancel then
+		self.acceleration = 0
 	else
-		self.acceleration = (inputState ~= Enum.UserInputState.End) and -1 or 0
+		self.acceleration = -1
 	end
 	self.throttle = self.acceleration + self.decceleration
 end
 
 function VehicleController:OnThrottleDeccel(actionName, inputState, inputObject)
-	if FFlagBetterHandlingVehicleInputStates then
-		if inputState == Enum.UserInputState.End or inputState == Enum.UserInputState.Cancel then
-			self.decceleration = 0
-		else
-			self.decceleration = 1
-		end
+	if inputState == Enum.UserInputState.End or inputState == Enum.UserInputState.Cancel then
+		self.decceleration = 0
 	else
-		self.decceleration = (inputState ~= Enum.UserInputState.End) and 1 or 0
+		self.decceleration = 1
 	end
 	self.throttle = self.acceleration + self.decceleration
 end
 
 function VehicleController:OnSteerRight(actionName, inputState, inputObject)
-	if FFlagBetterHandlingVehicleInputStates then
-		if inputState == Enum.UserInputState.End or inputState == Enum.UserInputState.Cancel then
-			self.turningRight = 0
-		else
-			self.turningRight = 1
-		end
+	if inputState == Enum.UserInputState.End or inputState == Enum.UserInputState.Cancel then
+		self.turningRight = 0
 	else
-		self.turningRight = (inputState ~= Enum.UserInputState.End) and 1 or 0
+		self.turningRight = 1
 	end
 	self.steer = self.turningRight + self.turningLeft
 end
 
 function VehicleController:OnSteerLeft(actionName, inputState, inputObject)
-	if FFlagBetterHandlingVehicleInputStates then
-		if inputState == Enum.UserInputState.End or inputState == Enum.UserInputState.Cancel then
-			self.turningLeft = 0
-		else
-			self.turningLeft = -1
-		end
+	if inputState == Enum.UserInputState.End or inputState == Enum.UserInputState.Cancel then
+		self.turningLeft = 0
 	else
-		self.turningLeft = (inputState ~= Enum.UserInputState.End) and -1 or 0
+		self.turningLeft = -1
 	end
 	self.steer = self.turningRight + self.turningLeft
 end

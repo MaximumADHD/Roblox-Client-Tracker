@@ -96,7 +96,7 @@ if friendRequestNotificationFIntSuccess and friendRequestNotificationFIntValue ~
 end
 
 local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp") -- todo: remove with UsePolicyServiceForCoreScripts
-
+local FFlagLocalizeVideoRecordAndScreenshotText = game:DefineFastFlag("LocalizeVideoRecordAndScreenshotText", false)
 
 local PLAYER_POINTS_IMG = 'https://www.roblox.com/asset?id=206410433'
 local BADGE_IMG = 'https://www.roblox.com/asset?id=206410289'
@@ -755,13 +755,24 @@ end
 
 if allowScreenshots then
 	game.ScreenshotReady:Connect(function(path)
+
+		local titleText = "Screenshot Taken"
+		local descriptionText = "Check out your screenshots folder to see it."
+		local buttonText = "Open Folder"
+
+		if FFlagLocalizeVideoRecordAndScreenshotText then
+			titleText = RobloxTranslator:FormatByKey("NotificationScript2.Screenshot.Title")
+			descriptionText = RobloxTranslator:FormatByKey("NotificationScript2.Screenshot.Description")
+			buttonText = RobloxTranslator:FormatByKey("NotificationScript2.Screenshot.ButtonText")
+		end
+
 		sendNotificationInfo {
-			Title = "Screenshot Taken",
-			Text = "Check out your screenshots folder to see it.",
+			Title = titleText,
+			Text = descriptionText,
 			Duration = 3.0,
-			Button1Text = "Open Folder",
+			Button1Text = buttonText,
 			Callback = function(text)
-				if text == "Open Folder" then
+				if text == buttonText then
 					game:OpenScreenshotsFolder()
 				end
 			end
@@ -770,13 +781,23 @@ if allowScreenshots then
 
 	settings():GetService("GameSettings").VideoRecordingChangeRequest:Connect(function(value)
 		if not value then
+			local titleText = "Video Recorded"
+			local descriptionText = "Check out your videos folder to see it."
+			local buttonText = "Open Folder"
+
+			if FFlagLocalizeVideoRecordAndScreenshotText then
+				titleText = RobloxTranslator:FormatByKey("NotificationScript2.Video.Title")
+				descriptionText = RobloxTranslator:FormatByKey("NotificationScript2.Video.Description")
+				buttonText = RobloxTranslator:FormatByKey("NotificationScript2.Video.ButtonText")
+			end
+
 			sendNotificationInfo {
-				Title = "Video Recorded",
-				Text = "Check out your videos folder to see it.",
+				Title = titleText,
+				Text = descriptionText,
 				Duration = 3.0,
-				Button1Text = "Open Folder",
+				Button1Text = buttonText,
 				Callback = function(text)
-					if text == "Open Folder" then
+					if text == buttonText then
 						game:OpenVideosFolder()
 					end
 				end

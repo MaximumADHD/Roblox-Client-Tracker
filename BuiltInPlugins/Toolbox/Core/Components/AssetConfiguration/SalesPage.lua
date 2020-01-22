@@ -22,10 +22,13 @@ local Plugin = script.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
+local RoactRodux = require(Libs.RoactRodux)
 
 local AssetConfiguration = Plugin.Core.Components.AssetConfiguration
 local SalesComponent = require(AssetConfiguration.SalesComponent)
 local PriceComponent = require(AssetConfiguration.PriceComponent)
+
+local SetFieldError = require(Plugin.Core.Actions.SetFieldError)
 
 local UILibrary = Libs.UILibrary
 local Separator = require(UILibrary.Components.Separator)
@@ -34,6 +37,7 @@ local Util = Plugin.Core.Util
 local ContextHelper = require(Util.ContextHelper)
 local LayoutOrderIterator = require(Util.LayoutOrderIterator)
 local AssetConfigUtil = require(Util.AssetConfigUtil)
+local AssetConfigConstants = require(Util.AssetConfigConstants)
 
 local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
@@ -63,6 +67,11 @@ function SalesPage:render()
 			local feeRate = props.feeRate
 			local onPriceChange = props.onPriceChange
 			local isPriceValid = props.isPriceValid
+
+			if game:GetFastFlag("CMSTabErrorIcon") then
+				self.props.setFieldError(AssetConfigConstants.FIELD_NAMES.Price, not isPriceValid)
+			end
+
 			local layoutOrder = props.layoutOrder
 			local canChangeSalesStatus = AssetConfigUtil.isReadyForSale(newAssetStatus)
 			-- If it's marketplace buyable asset, and if the sales tab are avaialble. You can always toggle it.
@@ -147,4 +156,12 @@ function SalesPage:render()
 	end)
 end
 
-return SalesPage
+local function mapDispatchToProps(dispatch)
+	return {
+		setFieldError = function(fieldName, hasError)
+			dispatch(SetFieldError(AssetConfigConstants.SIDE_TABS.Sales, fieldName, hasError))
+		end,
+	}
+end
+
+return RoactRodux.connect(nil, mapDispatchToProps)(SalesPage)

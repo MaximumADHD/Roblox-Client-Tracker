@@ -48,16 +48,6 @@ function ListItemView:init()
 		local canvas = self.canvasRef.current
 		if canvas then
 			canvas.CanvasSize = UDim2.new(1, 0, 0, contentSize.Y)
-
-			-- TODO (awarwick) 5/1/2019 Remove with FFlagQuantumScrollingFrame
-			if settings():GetFFlag("StudioGameSettingsFixBrokenScrollingFrames") then
-				-- ScrollingFrames don't use QuantumGui and aren't very great at telling when they've updated
-				-- and need to enable scrolling. Give it another update slightly later so it enables scrolling
-				spawn(function()
-					canvas.CanvasSize = canvas.CanvasSize + UDim2.new(0, 0, 0, 1)
-					canvas.CanvasSize = canvas.CanvasSize - UDim2.new(0, 0, 0, 1)
-				end)
-			end
 		end
 	end
 end

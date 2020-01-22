@@ -43,6 +43,7 @@ local UpdateAssetConfigStore = require(Actions.UpdateAssetConfigStore)
 local SetGroupRoleInfo = require(Actions.SetGroupRoleInfo)
 local SetPackagePermission = require(Actions.SetPackagePermission)
 local SetTagSuggestions = require(Actions.SetTagSuggestions)
+local SetFieldError = require(Actions.SetFieldError)
 
 local ConfigTypes = require(Plugin.Core.Types.ConfigTypes)
 
@@ -415,6 +416,16 @@ return Rodux.createReducer({
 			tagSuggestions = action.suggestions,
 			latestTagSuggestionTime = action.sentTime,
 			latestTagSearchQuery = action.prefix,
+		})
+	end,
+
+	[SetFieldError.name] = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			tabErrors = Cryo.Dictionary.join(state.tabErrors or {}, {
+				[action.tabName] = Cryo.Dictionary.join(state.tabErrors and state.tabErrors[action.tabName] or {}, {
+					[action.fieldName] = action.hasError
+				})
+			})
 		})
 	end,
 })

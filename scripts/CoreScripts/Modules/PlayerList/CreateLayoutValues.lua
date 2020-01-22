@@ -1,6 +1,6 @@
 local FFlagPlayerListDesignUpdate = settings():GetFFlag("PlayerListDesignUpdate")
 
-local SCREEN_SIDE_PADDING = 24
+local SCREEN_SIDE_PADDING = 4
 
 return function(isTenFoot, isSmallTouchScreen)
 	local LayoutValues = {}
@@ -108,7 +108,7 @@ return function(isTenFoot, isSmallTouchScreen)
 			LayoutValues.ContainerPadding = SCREEN_SIDE_PADDING
 			LayoutValues.ContainerPosition = UDim2.new(1, -SCREEN_SIDE_PADDING, 0, SCREEN_SIDE_PADDING)
 			LayoutValues.ContainerSize = UDim2.new(0, 0, 0.5, 0)
-			LayoutValues.ExtraContainerPadding = 10
+			LayoutValues.ExtraContainerPadding = 16
 		else
 			LayoutValues.ContainerPosition = UDim2.new(1, 0, 0, 2)
 			LayoutValues.ContainerSize = UDim2.new(0, 170, 0.5, 0)
@@ -117,21 +117,21 @@ return function(isTenFoot, isSmallTouchScreen)
 
 		if FFlagPlayerListDesignUpdate then
 			LayoutValues.PlayerDropDownSizeX = 300
-			LayoutValues.PlayerDropDownOffset = 16
 		else
 			LayoutValues.PlayerDropDownSizeX = 150
-			LayoutValues.PlayerDropDownOffset = 4
 		end
+		LayoutValues.PlayerDropDownOffset = 4
 
 		LayoutValues.PlayerScrollListPosition = UDim2.new(0, 0, 0, 0)
 		LayoutValues.PlayerScrollListSize = UDim2.new(1, -1, 1, 0)
 
 		if FFlagPlayerListDesignUpdate then
-			LayoutValues.EntrySizeX = 202
+			LayoutValues.EntryBaseSizeX = 150
+			LayoutValues.EntrySizeIncreasePerStat = 11
 			LayoutValues.PlayerEntrySizeY = 40
 			LayoutValues.EntryPadding = 0
 			LayoutValues.TeamEntrySizeY = 24
-			LayoutValues.StatEntrySizeX = 72
+			LayoutValues.StatEntrySizeX = 66
 			LayoutValues.TitleBarSizeY = 20
 		else
 			LayoutValues.EntrySizeX = 170
@@ -197,10 +197,10 @@ return function(isTenFoot, isSmallTouchScreen)
 
 		LayoutValues.PlayerIconSize = UDim2.new(0, 16, 0, 16)
 		if FFlagPlayerListDesignUpdate then
-			LayoutValues.InitalPlayerEntryPadding = 16
+			LayoutValues.InitalPlayerEntryPadding = 12
 			LayoutValues.PlayerEntryPadding = 12
 			LayoutValues.TeamEntryTextPadding = 15
-			LayoutValues.StatTextPadding = 12
+			LayoutValues.StatTextPadding = 4
 		else
 			LayoutValues.InitalPlayerEntryPadding = 4
 			LayoutValues.PlayerEntryPadding = 4

@@ -16,13 +16,14 @@ LuaSocialLibrariesDeps = { git = "https://github.rbx.com/Roblox/lua-social-libra
 UIBlox = { git = "https://github.rbx.com/Roblox/uiblox", rev = "master" }
 Otter = "roblox/otter@0.1"
 t = "osyris/t@1.0"
+enumerate = "roblox/enumerate@1.0.0"
 
 # The following packages were ported from AppTempCommon
 Promise = { git = "https://github.rbx.com/Roblox/lua-promise" }
 Result = { git = "https://github.rbx.com/Roblox/lua-result" }
 tutils = { git = "https://github.rbx.com/Roblox/tutils" }
 
-PurchasePrompt = { git = "https://github.com/Roblox/PurchasePromptScript-Roact", rev = "master"}
+PurchasePrompt = { git = "https://github.rbx.com/esauer/purchase-prompt-migration", rev = "master"}
 
 InGameMenuDependencies = { git = "https://github.rbx.com/Roblox/in-game-menu-dependencies", rev = "master" }
 

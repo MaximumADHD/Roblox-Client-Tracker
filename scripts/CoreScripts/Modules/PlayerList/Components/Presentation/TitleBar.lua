@@ -18,10 +18,12 @@ local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
 local TitleBar = Roact.PureComponent:extend("TitleBar")
 
+local FFlagPlayerListDesignUpdate = settings():GetFFlag("PlayerListDesignUpdate")
+
 TitleBar.validateProps = t.strictInterface({
 	Size = t.UDim2,
 	LayoutOrder = t.integer,
-	overrideEntrySize = t.optional(t.integer),
+	entrySize = t.integer,
 
 	gameStats = t.array(t.strictInterface({
 		name = t.string,
@@ -43,9 +45,11 @@ function TitleBar:render()
 				VerticalAlignment = Enum.VerticalAlignment.Center,
 			})
 
-			local entrySizeX = layoutValues.EntrySizeX
-			if self.props.overrideEntrySize then
-				entrySizeX = self.props.overrideEntrySize
+			local entrySizeX
+			if FFlagPlayerListDesignUpdate then
+				entrySizeX = self.props.entrySize
+			else
+				entrySizeX = layoutValues.EntrySizeX
 			end
 
 			children.playersHeader = Roact.createElement("TextLabel", {

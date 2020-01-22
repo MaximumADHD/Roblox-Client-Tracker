@@ -399,7 +399,7 @@ local function Initialize()
 			end
 
 			local hidden
-			if scheme == Enum.TouchMovementMode.DynamicThumbstick then
+			if scheme == Enum.TouchMovementMode.DynamicThumbstick or scheme == Enum.TouchMovementMode.Default then
 				-- show that movement is done by dragging
 				-- show that tapping on bottom of the screen is to jump
 				-- show that tapping on the top of the screen is to use tools

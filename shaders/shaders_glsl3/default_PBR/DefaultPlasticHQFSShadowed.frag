@@ -149,7 +149,7 @@ void main()
     vec3 f47 = vec3(f46) + (vec3(0.039999999105930328369140625) * (1.0 - f46));
     float f48 = f41 * f41;
     float f49 = (((f42 * f48) - f42) * f42) + 1.0;
-    vec3 f50 = (((((((vec3(1.0) - (f47 * (CB0[26].w * f2))) * 1.0) * CB0[10].xyz) * f40) * f35) + min((f14.xyz * (f14.w * 120.0)).xyz + (CB0[8].xyz + (CB0[9].xyz * f15.x)), vec3(CB0[16].w))) * mix((f10 * f10).xyz, (f38 * f38) * CB0[15].x, vec3(VARYING7.w))) + ((((f47 * ((f48 + (f48 * f48)) / (((f49 * f49) * ((f43 * 3.0) + 0.5)) * ((f42 * 0.75) + 0.25)))) * CB0[10].xyz) * f40) * f35);
+    vec3 f50 = (((((((vec3(1.0) - (f47 * (max(CB0[26].w, CB2[0].w) * f2))) * 1.0) * CB0[10].xyz) * f40) * f35) + min((f14.xyz * (f14.w * 120.0)).xyz + (CB0[8].xyz + (CB0[9].xyz * f15.x)), vec3(CB0[16].w))) * mix((f10 * f10).xyz, (f38 * f38) * CB0[15].x, vec3(VARYING7.w))) + ((((f47 * ((f48 + (f48 * f48)) / (((f49 * f49) * ((f43 * 3.0) + 0.5)) * ((f42 * 0.75) + 0.25)))) * CB0[10].xyz) * f40) * f35);
     vec4 f51 = vec4(f50.x, f50.y, f50.z, vec4(0.0).w);
     f51.w = VARYING2.w;
     vec2 f52 = min(VARYING0.wz, VARYING1.wz);

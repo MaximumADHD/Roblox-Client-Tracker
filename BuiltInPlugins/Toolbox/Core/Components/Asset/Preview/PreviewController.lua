@@ -2,14 +2,17 @@
 	This component is used to render both mainPreview and TreeView.
 	MainView can be modelPreview, soundPreview, scriptPreview, imagePreview and otherPreview.
 ]]
+local FFlagStudioRefactorAssetPreview = settings():GetFFlag("StudioRefactorAssetPreview")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
+local UILibrary =require(Libs.UILibrary)
 
 local Preview = Plugin.Core.Components.Asset.Preview
-local ModelPreview = require(Preview.ModelPreview)
+local DEPRECATED_ModelPreview = require(Preview.ModelPreview)
+local ModelPreview = UILibrary.Component.ModelPreview
 local ImagePreview = require(Preview.ImagePreview)
 local OtherPreview = require(Preview.OtherPreview)
 local MainViewButtons = require(Preview.MainViewButtons)
@@ -192,11 +195,18 @@ function PreviewController:render()
 		}, {
 			PreviewLoading = AssetType:isLoading(assetPreviewType) and Roact.createElement(PreviewLoading),
 
-			ModelPreview = AssetType:isModel(assetPreviewType) and Roact.createElement(ModelPreview, {
+			DEPRECATED_ModelPreview = not FFlagStudioRefactorAssetPreview and AssetType:isModel(assetPreviewType) and Roact.createElement(DEPRECATED_ModelPreview, {
 				currentPreview = currentPreview,
 
 				onModelPreviewFrameEntered = onModelPreviewFrameEntered,
 				onModelPreviewFrameLeft = onModelPreviewFrameLeft,
+			}),
+
+			ModelPreview = FFlagStudioRefactorAssetPreview and AssetType:isModel(assetPreviewType) and Roact.createElement(ModelPreview, {
+					TargetModel = currentPreview,
+
+					OnModelPreviewFrameEntered = onModelPreviewFrameEntered,
+					OnModelPreviewFrameLeft = onModelPreviewFrameLeft,
 			}),
 
 			ImagePreview = AssetType:isImage(assetPreviewType) and Roact.createElement(ImagePreview, {

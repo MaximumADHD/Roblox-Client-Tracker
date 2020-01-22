@@ -39,7 +39,7 @@ local FFlagXboxOverrideEnablePlayNextGame = settings():GetFFlag("XboxOverrideEna
 local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp") --todo: remove with FFlagUsePolicyServiceForCoreScripts
 local FStringPlayNextGameTestName = settings():GetFVariable("PlayNextGameTestName")
 
-local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList2")
+local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList3")
 
 local FFlagLocalizeVersionLabels = settings():GetFFlag("LocalizeVersionLabels")
 

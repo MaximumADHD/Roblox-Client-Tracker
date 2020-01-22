@@ -459,7 +459,6 @@ end
 
 function methods:EnterWhisperState(player)
 	self:ResetCustomState()
-	self:CaptureFocus()
 	if WhisperModule.CustomStateCreator then
 		self.CustomState = WhisperModule.CustomStateCreator(
 			player,
@@ -471,6 +470,7 @@ function methods:EnterWhisperState(player)
 	else
 		self:SetText("/w " .. player.Name)
 	end
+	self:CaptureFocus()
 end
 
 function methods:GetCustomMessage()

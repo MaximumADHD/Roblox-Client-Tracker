@@ -12380,7 +12380,7 @@
                     "Name": "AdditionalCoreIncludeDirs",
                     "Security": {
                         "Read": "None",
-                        "Write": "None"
+                        "Write": "RobloxScriptSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -12545,7 +12545,7 @@
                     "Name": "OverrideStarterScript",
                     "Security": {
                         "Read": "None",
-                        "Write": "None"
+                        "Write": "RobloxScriptSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -19197,6 +19197,24 @@
                     "ReturnType": {
                         "Category": "Primitive",
                         "Name": "bool"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "ForceTenFootInterface",
+                    "Parameters": [
+                        {
+                            "Name": "isForced",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
                     },
                     "Security": "RobloxScriptSecurity"
                 },
@@ -27012,6 +27030,24 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "PromptPremiumPurchase",
+                    "Parameters": [
+                        {
+                            "Name": "player",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "None"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "PromptProductPurchase",
                     "Parameters": [
                         {
@@ -27262,6 +27298,17 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "SignalMockPurchasePremium",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "SignalPromptBundlePurchaseFinished",
                     "Parameters": [
                         {
@@ -27312,6 +27359,24 @@
                         },
                         {
                             "Name": "success",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SignalPromptPremiumPurchaseFinished",
+                    "Parameters": [
+                        {
+                            "Name": "didTryPurchasing",
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "bool"
@@ -27816,6 +27881,27 @@
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "int64"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "PromptPremiumPurchaseFinished",
+                    "Parameters": [
+                    ],
+                    "Security": "None"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "PromptPremiumPurchaseRequested",
+                    "Parameters": [
+                        {
+                            "Name": "player",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
                             }
                         }
                     ],
@@ -39271,6 +39357,20 @@
                 },
                 {
                     "MemberType": "Event",
+                    "Name": "PlayerMembershipChanged",
+                    "Parameters": [
+                        {
+                            "Name": "player",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        }
+                    ],
+                    "Security": "None"
+                },
+                {
+                    "MemberType": "Event",
                     "Name": "PlayerRejoining",
                     "Parameters": [
                         {
@@ -44498,7 +44598,7 @@
                         "Category": "Primitive",
                         "Name": "bool"
                     },
-                    "Security": "RobloxScriptSecurity"
+                    "Security": "LocalUserSecurity"
                 },
                 {
                     "MemberType": "Function",
@@ -44516,7 +44616,7 @@
                         "Category": "Primitive",
                         "Name": "int"
                     },
-                    "Security": "RobloxScriptSecurity"
+                    "Security": "LocalUserSecurity"
                 },
                 {
                     "MemberType": "Function",
@@ -44534,7 +44634,7 @@
                         "Category": "Primitive",
                         "Name": "string"
                     },
-                    "Security": "RobloxScriptSecurity"
+                    "Security": "LocalUserSecurity"
                 },
                 {
                     "MemberType": "Function",
@@ -49093,7 +49193,7 @@
                     "Name": "OverrideCoreScripts",
                     "Security": {
                         "Read": "None",
-                        "Write": "None"
+                        "Write": "RobloxScriptSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -49110,7 +49210,7 @@
                     "Name": "OverrideCoreScriptsDir",
                     "Security": {
                         "Read": "None",
-                        "Write": "None"
+                        "Write": "RobloxScriptSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -49862,7 +49962,7 @@
                         "Category": "Primitive",
                         "Name": "void"
                     },
-                    "Security": "PluginSecurity"
+                    "Security": "RobloxScriptSecurity"
                 },
                 {
                     "MemberType": "Function",
@@ -64129,18 +64229,6 @@
                 {
                     "Name": "DialogMainButtonText",
                     "Value": 88
-                },
-                {
-                    "Name": "Merge3HighlightOriginal",
-                    "Value": 89
-                },
-                {
-                    "Name": "Merge3HighlightMine",
-                    "Value": 90
-                },
-                {
-                    "Name": "Merge3HighlightTheirs",
-                    "Value": 91
                 }
             ],
             "Name": "StudioStyleGuideColor"

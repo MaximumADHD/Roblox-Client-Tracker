@@ -85,6 +85,7 @@ function GameLabel:render()
 				Size = UDim2.new(0, GAMENAME_WIDTH, 0, GAMENAME_HEIGHT),
 				Text = self.props.gameName,
 				TextXAlignment = Enum.TextXAlignment.Left,
+				TextTruncate = Enum.TextTruncate.AtEnd,
 			}),
 
 			ButtonContainer = Roact.createElement("Frame", {

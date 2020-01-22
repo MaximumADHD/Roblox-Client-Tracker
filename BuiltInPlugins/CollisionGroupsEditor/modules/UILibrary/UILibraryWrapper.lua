@@ -22,6 +22,9 @@ local FocusProvider = Focus.Provider
 local Plugin = require(Library.Plugin)
 local PluginProvider = Plugin.Provider
 
+local Camera = require(Library.Camera)
+local CameraProvider = Camera.Provider
+
 local UILibraryWrapper = Roact.PureComponent:extend("UILibraryWrapper")
 
 function UILibraryWrapper:addProvider(root, provider, props)
@@ -56,6 +59,9 @@ function UILibraryWrapper:render()
 			plugin = plugin,
 		})
 	end
+
+	-- CameraProvider
+	root = self:addProvider(root, CameraProvider, nil)
 
 	return root
 end

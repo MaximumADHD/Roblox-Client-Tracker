@@ -7,6 +7,7 @@
 	Size, UDim2.
 	MaxCount, number, how many content is allowed to type inside the textField.
 	TextChangeCallBack, function, return current character content.
+	ErrorCallBack, function, called when error state of field changes
 
 	Optional Props:
 	LayoutOrder = number, will automatic be overrode Position property by UILayouter.
@@ -37,6 +38,8 @@ function ConfigTextField:init(props)
 		currentContent = nil
 	}
 
+	self.hasError = false
+
 	self.onTextChanged = function(newText)
 		self:setState({
 			currentContent = newText
@@ -59,6 +62,20 @@ function ConfigTextField:render()
 
 			local TextContent = props.TextContent or ""
 			local currentContent = state.currentContent or TextContent
+
+			if game:GetFastFlag("CMSTabErrorIcon") and self.props.ErrorCallback then
+				if #currentContent > self.props.MaxCount then
+					if not self.hasError then
+						self.hasError = true
+						self.props.ErrorCallback(self.hasError)
+					end
+				else
+					if self.hasError then
+						self.hasError = false
+						self.props.ErrorCallback(self.hasError)
+					end
+				end
+			end
 
 			local publishAssetTheme = theme.publishAsset
 

@@ -41,7 +41,7 @@ function Hyperlink:render()
 			Font = Enum.Font.SourceSans,
 			TextColor3 = theme.hyperlink.textColor,
 			Size = self.props.Size or calculateTextSize(self.props.Text, textSize, Enum.Font.SourceSans),
-			Position = self.Position,
+			Position = self.props.Position,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			LayoutOrder = self.props.LayoutOrder,
 

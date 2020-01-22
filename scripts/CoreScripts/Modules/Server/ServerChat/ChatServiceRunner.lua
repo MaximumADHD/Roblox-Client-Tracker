@@ -19,9 +19,18 @@ local ChatLocalization = nil
 pcall(function() ChatLocalization = require(Chat.ClientChatModules.ChatLocalization) end)
 ChatLocalization = ChatLocalization or {}
 
+local FFlagUserChatAddServerSideChecks do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserChatAddServerSideChecks")
+	end)
+	FFlagUserChatAddServerSideChecks = success and result
+end
+
 if not ChatLocalization.FormatMessageToSend or not ChatLocalization.LocalizeFormattedMessage then
 	function ChatLocalization:FormatMessageToSend(key,default) return default end
 end
+
+local MAX_BLOCKED_SPEAKERS_PER_REQ = 50
 
 local useEvents = {}
 
@@ -195,24 +204,45 @@ PlayersService.PlayerRemoving:connect(function(removingPlayer)
 	BlockedUserIdsMap[removingPlayer] = nil
 end)
 
-EventFolder.SetBlockedUserIdsRequest.OnServerEvent:connect(function(player, blockedUserIdsList)
-	if type(blockedUserIdsList) ~= "table" then
-		return
-	end
+if not FFlagUserChatAddServerSideChecks then
+	EventFolder.SetBlockedUserIdsRequest.OnServerEvent:connect(function(player, blockedUserIdsList)
+		if type(blockedUserIdsList) ~= "table" then
+			return
+		end
 
-	BlockedUserIdsMap[player] = blockedUserIdsList
-	local speaker = ChatService:GetSpeaker(player.Name)
-	if speaker then
-		for i = 1, #blockedUserIdsList do
-			if type(blockedUserIdsList[i]) == "number" then
-				local blockedPlayer = PlayersService:GetPlayerByUserId(blockedUserIdsList[i])
-				if blockedPlayer then
-					speaker:AddMutedSpeaker(blockedPlayer.Name)
+		BlockedUserIdsMap[player] = blockedUserIdsList
+		local speaker = ChatService:GetSpeaker(player.Name)
+		if speaker then
+			for i = 1, #blockedUserIdsList do
+				if type(blockedUserIdsList[i]) == "number" then
+					local blockedPlayer = PlayersService:GetPlayerByUserId(blockedUserIdsList[i])
+					if blockedPlayer then
+						speaker:AddMutedSpeaker(blockedPlayer.Name)
+					end
 				end
 			end
 		end
-	end
-end)
+	end)
+else
+	EventFolder.SetBlockedUserIdsRequest.OnServerEvent:Connect(function(player, blockedUserIdsList)
+		if type(blockedUserIdsList) ~= "table" then
+			return
+		end
+
+		BlockedUserIdsMap[player] = blockedUserIdsList
+		local speaker = ChatService:GetSpeaker(player.Name)
+		if speaker then
+			for i = 1, math.min(#blockedUserIdsList, MAX_BLOCKED_SPEAKERS_PER_REQ) do
+				if type(blockedUserIdsList[i]) == "number" then
+					local blockedPlayer = PlayersService:GetPlayerByUserId(blockedUserIdsList[i])
+					if blockedPlayer then
+						speaker:AddMutedSpeaker(blockedPlayer.Name)
+					end
+				end
+			end
+		end
+	end)
+end
 
 EventFolder.GetInitDataRequest.OnServerInvoke = (function(playerObj)
 	local speaker = ChatService:GetSpeaker(playerObj.Name)

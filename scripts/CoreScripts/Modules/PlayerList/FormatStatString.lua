@@ -2,6 +2,7 @@ local CorePackages = game:GetService("CorePackages")
 local LocalizationService = game:GetService("LocalizationService")
 
 local NumberLocalization = require(CorePackages.Localization.NumberLocalization)
+local RoundingBehaviour = require(CorePackages.Localization.RoundingBehaviour)
 
 local FFlagPlayerListDesignUpdate = settings():GetFFlag("PlayerListDesignUpdate")
 
@@ -16,12 +17,16 @@ local function formatNumber(value)
 	return minusSign .. int .. fraction
 end
 
-return function(statValue)
+return function(statValue, abbreviate)
 	if statValue == nil then
 		return "-"
 	elseif type(statValue) == "number" then
 		if FFlagPlayerListDesignUpdate then
-			return NumberLocalization.abbreviate(statValue, LocalizationService.RobloxLocaleId)
+			if abbreviate then
+				return NumberLocalization.abbreviate(statValue, LocalizationService.RobloxLocaleId, RoundingBehaviour.Truncate)
+			else
+				return NumberLocalization.localize(statValue, LocalizationService.RobloxLocaleId)
+			end
 		else
 			return formatNumber(statValue)
 		end

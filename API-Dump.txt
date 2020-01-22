@@ -712,14 +712,14 @@ Class FunctionalTest : Instance [Deprecated]
 Class GamePassService : Instance [NotCreatable] [Service] [Deprecated]
 	Function bool GamePassService:PlayerHasPass(Instance player, int64 gamePassId) [Yields] [Deprecated]
 Class GameSettings : Instance [NotCreatable] [Settings] [NotBrowsable]
-	Property string GameSettings.AdditionalCoreIncludeDirs
+	Property string GameSettings.AdditionalCoreIncludeDirs {✏️RobloxScriptSecurity}
 	Property bool GameSettings.HardwareMouse
 	Property float GameSettings.BubbleChatLifetime
 	Property int GameSettings.BubbleChatMaxBubbles
 	Property int GameSettings.ChatHistory
 	Property int GameSettings.ChatScrollLength
 	Property int GameSettings.ReportAbuseChatHistory
-	Property string GameSettings.OverrideStarterScript
+	Property string GameSettings.OverrideStarterScript {✏️RobloxScriptSecurity}
 	Property bool GameSettings.CollisionSoundEnabled [<📁> LoadOnly] [NotReplicated] [Deprecated]
 	Property float GameSettings.CollisionSoundVolume [<📁> LoadOnly] [NotReplicated] [Deprecated]
 	Property int GameSettings.MaxCollisionSounds [<📁> LoadOnly] [NotReplicated] [Deprecated]
@@ -1116,6 +1116,7 @@ Class GuiService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void GuiService:ClearError() {RobloxScriptSecurity}
 	Function void GuiService:CloseInspectMenu()
 	Function bool GuiService:CloseStatsBasedOnInputString(string input) {RobloxScriptSecurity}
+	Function void GuiService:ForceTenFootInterface(bool isForced) {RobloxScriptSecurity}
 	Function int GuiService:GetBrickCount() {RobloxScriptSecurity}
 	Function Instance GuiService:GetClosestDialogToPosition(Vector3 position) {RobloxScriptSecurity}
 	Function bool GuiService:GetEmotesMenuOpen()
@@ -1568,6 +1569,7 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Function void MarketplaceService:PromptBundlePurchase(Instance player, int64 bundleId) {RobloxScriptSecurity}
 	Function void MarketplaceService:PromptGamePassPurchase(Instance player, int64 gamePassId)
 	Function void MarketplaceService:PromptNativePurchase(Instance player, string productId) {RobloxScriptSecurity}
+	Function void MarketplaceService:PromptPremiumPurchase(Instance player)
 	Function void MarketplaceService:PromptProductPurchase(Instance player, int64 productId, bool equipIfPurchased = true, Enum<CurrencyType> currencyType = "Default")
 	Function void MarketplaceService:PromptPurchase(Instance player, int64 assetId, bool equipIfPurchased = true, Enum<CurrencyType> currencyType = "Default")
 	Function void MarketplaceService:PromptSubscriptionCancellation(Instance player, int64 subscriptionId)
@@ -1577,8 +1579,10 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Function void MarketplaceService:ReportRobuxUpsellStarted() {RobloxScriptSecurity}
 	Function void MarketplaceService:SignalAssetTypePurchased(Instance player, Enum<AssetType> assetType) {RobloxScriptSecurity}
 	Function void MarketplaceService:SignalClientPurchaseSuccess(string ticket, int64 playerId, int64 productId) {RobloxScriptSecurity}
+	Function void MarketplaceService:SignalMockPurchasePremium() {RobloxScriptSecurity}
 	Function void MarketplaceService:SignalPromptBundlePurchaseFinished(Instance player, int64 bundleId, bool success) {RobloxScriptSecurity}
 	Function void MarketplaceService:SignalPromptGamePassPurchaseFinished(Instance player, int64 gamePassId, bool success) {RobloxScriptSecurity}
+	Function void MarketplaceService:SignalPromptPremiumPurchaseFinished(bool didTryPurchasing) {RobloxScriptSecurity}
 	Function void MarketplaceService:SignalPromptProductPurchaseFinished(int64 userId, int64 productId, bool success) {RobloxScriptSecurity}
 	Function void MarketplaceService:SignalPromptPurchaseFinished(Instance player, int64 assetId, bool success) {RobloxScriptSecurity}
 	Function void MarketplaceService:SignalPromptSubscriptionCancellationFinished(Instance player, int64 subscriptionId, bool wasCanceled) {RobloxScriptSecurity}
@@ -1592,6 +1596,8 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Event MarketplaceService.PromptBundlePurchaseRequested(Instance player, int64 bundleId) {RobloxScriptSecurity}
 	Event MarketplaceService.PromptGamePassPurchaseFinished(Instance player, int64 gamePassId, bool wasPurchased)
 	Event MarketplaceService.PromptGamePassPurchaseRequested(Instance player, int64 gamePassId) {RobloxScriptSecurity}
+	Event MarketplaceService.PromptPremiumPurchaseFinished()
+	Event MarketplaceService.PromptPremiumPurchaseRequested(Instance player) {RobloxScriptSecurity}
 	Event MarketplaceService.PromptProductPurchaseFinished(int64 userId, int64 productId, bool isPurchased) [Deprecated]
 	Event MarketplaceService.PromptProductPurchaseRequested(Instance player, int64 productId, bool equipIfPurchased, Enum<CurrencyType> currencyType) {RobloxScriptSecurity}
 	Event MarketplaceService.PromptPurchaseFinished(Instance player, int64 assetId, bool isPurchased)
@@ -2187,6 +2193,7 @@ Class Players : Instance [NotCreatable] [Service]
 	Event Players.PlayerChatted(Enum<PlayerChatType> chatType, Instance player, string message, Instance targetPlayer) {LocalUserSecurity}
 	Event Players.PlayerConnecting(Instance player) {LocalUserSecurity}
 	Event Players.PlayerDisconnecting(Instance player) {LocalUserSecurity}
+	Event Players.PlayerMembershipChanged(Instance player)
 	Event Players.PlayerRejoining(Instance player) {LocalUserSecurity}
 	Event Players.PlayerRemoving(Instance player)
 Class Plugin : Instance [NotCreatable]
@@ -2488,9 +2495,9 @@ Class DataModel : ServiceProvider [NotCreatable]
 	Function bool DataModel:DefineFastFlag(string name, bool defaultValue) {RobloxScriptSecurity}
 	Function int DataModel:DefineFastInt(string name, int defaultValue) {RobloxScriptSecurity}
 	Function string DataModel:DefineFastString(string name, string defaultValue) {RobloxScriptSecurity}
-	Function bool DataModel:GetFastFlag(string name) {RobloxScriptSecurity}
-	Function int DataModel:GetFastInt(string name) {RobloxScriptSecurity}
-	Function string DataModel:GetFastString(string name) {RobloxScriptSecurity}
+	Function bool DataModel:GetFastFlag(string name) {LocalUserSecurity}
+	Function int DataModel:GetFastInt(string name) {LocalUserSecurity}
+	Function string DataModel:GetFastString(string name) {LocalUserSecurity}
 	Function double DataModel:GetJobIntervalPeakFraction(string jobname, double greaterThan) {PluginSecurity}
 	Function double DataModel:GetJobTimePeakFraction(string jobname, double greaterThan) {PluginSecurity}
 	Function Array DataModel:GetJobsExtendedStats() {PluginSecurity}
@@ -2739,8 +2746,8 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool Studio.Camera Zoom to Mouse Position
 	Property int Studio.Device Pairing Code
 	Property QDir Studio.DefaultScriptFileDir
-	Property bool Studio.OverrideCoreScripts
-	Property QDir Studio.OverrideCoreScriptsDir
+	Property bool Studio.OverrideCoreScripts {✏️RobloxScriptSecurity}
+	Property QDir Studio.OverrideCoreScriptsDir {✏️RobloxScriptSecurity}
 	Property QDir Studio.PluginsDir
 	Property QDir Studio.RecentSavesDir
 	Property bool Studio.Show Core GUI in Explorer while Playing
@@ -2805,7 +2812,7 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool StudioService.UseLocalSpace [<📁> LoadOnly] [NotReplicated]
 	Property Instance StudioService.ActiveScript  [ReadOnly] [NotReplicated]
 	Property string StudioService.StudioLocaleId  [ReadOnly] [NotReplicated]
-	Function void StudioService:ConvertToPackageUpload(string uploadUrl) {PluginSecurity}
+	Function void StudioService:ConvertToPackageUpload(string uploadUrl) {RobloxScriptSecurity}
 	Function void StudioService:CopyToClipboard(string stringToCopy) {RobloxScriptSecurity}
 	Function void StudioService:EmitPlacePublishedSignal() {RobloxScriptSecurity}
 	Function Dictionary StudioService:GetClassIcon(string className) {PluginSecurity}
@@ -4655,9 +4662,6 @@ Enum StudioStyleGuideColor
 	EnumItem StudioStyleGuideColor.DialogButtonBorder : 86
 	EnumItem StudioStyleGuideColor.DialogMainButton : 87
 	EnumItem StudioStyleGuideColor.DialogMainButtonText : 88
-	EnumItem StudioStyleGuideColor.Merge3HighlightOriginal : 89
-	EnumItem StudioStyleGuideColor.Merge3HighlightMine : 90
-	EnumItem StudioStyleGuideColor.Merge3HighlightTheirs : 91
 Enum StudioStyleGuideModifier
 	EnumItem StudioStyleGuideModifier.Default : 0
 	EnumItem StudioStyleGuideModifier.Selected : 1

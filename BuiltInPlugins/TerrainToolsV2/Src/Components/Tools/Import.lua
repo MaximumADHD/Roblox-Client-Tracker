@@ -5,6 +5,7 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
+local Cryo = require(Plugin.Packages.Cryo)
 
 local FFlagTerrainToolsUseFragmentsForToolPanel = game:GetFastFlag("TerrainToolsUseFragmentsForToolPanel")
 local FFlagTerrainToolsRefactor = game:GetFastFlag("TerrainToolsRefactor")
@@ -57,8 +58,27 @@ function Import:init()
 		importProgress = self.terrainImporter:getImportProgress(),
 	}
 
+	self.onPositionChanged = function(_, axis, text, isValid)
+		if isValid then
+			self.props.dispatchChangePosition(Cryo.Dictionary.join(self.props.Position, {
+				[axis] = text,
+			}))
+		end
+	end
+
+	self.onSizeChanged = function(_, axis, text, isValid)
+		if isValid then
+			self.props.dispatchChangeSize(Cryo.Dictionary.join(self.props.Size, {
+				[axis] = text,
+			}))
+		end
+	end
+
 	-- this function is used to propagate changes back to rodux from the mapsettings
 	self.onTextEnter = function(text, container)
+		if FFlagTerrainToolsRefactor then
+			warn("Import.onTextEnter() should not be used when FFlagTerrainToolsRefactor is true")
+		end
 		-- warning should be displayed using the
 		-- validation funtion in the LabeledTextInput
 		if not tonumber(text) then
@@ -189,13 +209,18 @@ function Import:render()
 
 			local children = {
 				MapSettings = Roact.createElement(MapSettings, {
-					HeightMapValidation = self.heightMapValidated,
-					IsMapSettingsValid = self.mapSettingsValidated,
+					LayoutOrder = 1,
 
 					Position = position,
 					Size = size,
+
+					OnPositionChanged = self.onPositionChanged,
+					OnSizeChanged = self.onSizeChanged,
+					SetMapSettingsValid = self.mapSettingsValidated,
+					HeightMapValidation = self.heightMapValidated,
+
 					OnTextEnter = self.onTextEnter,
-					LayoutOrder = 1,
+					IsMapSettingsValid = self.mapSettingsValidated,
 				}),
 
 				MaterialSettings = Roact.createElement(Panel, {

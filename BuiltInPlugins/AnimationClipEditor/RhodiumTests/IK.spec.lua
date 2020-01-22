@@ -232,7 +232,7 @@ return function()
 
 			for _, child in ipairs(dummy:GetChildren()) do
 				if child:IsA("Part") then
-					if child.Name == "HumanoidRootPart" or child.Name == "UpperTorso" or child.Name == "LowerTorso" then
+					if child.Name == "UpperTorso" or child.Name == "LowerTorso" then
 						expect(child.Anchored).to.equal(true)
 					else
 						expect(child.Anchored).to.equal(false)

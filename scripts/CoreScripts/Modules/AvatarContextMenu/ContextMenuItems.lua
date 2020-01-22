@@ -23,7 +23,7 @@ local ContextMenuUtil = require(AvatarMenuModules:WaitForChild("ContextMenuUtil"
 local ThemeHandler = require(AvatarMenuModules.ThemeHandler)
 local InspectMenuAnalytics = require(RobloxGui.Modules.InspectAndBuy.Services.Analytics)
 
-local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList2")
+local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList3")
 local FFlagFixInspectMenuAnalytics = settings():GetFFlag("FixInspectMenuAnalytics")
 
 local BlockingUtility

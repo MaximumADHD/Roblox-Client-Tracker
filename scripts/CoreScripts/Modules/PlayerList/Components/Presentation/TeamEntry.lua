@@ -67,9 +67,11 @@ function TeamEntry:render()
 				textStyle = layoutValues.TextStyle.Default
 			end
 
-			local entrySizeX = layoutValues.EntrySizeX
-			if FFlagPlayerListDesignUpdate and self.props.overrideEntrySize then
-				entrySizeX = self.props.overrideEntrySize
+			local entrySizeX
+			if FFlagPlayerListDesignUpdate then
+				entrySizeX = self.props.entrySize
+			else
+				entrySizeX = layoutValues.EntrySizeX
 			end
 
 			local textSize, textFont

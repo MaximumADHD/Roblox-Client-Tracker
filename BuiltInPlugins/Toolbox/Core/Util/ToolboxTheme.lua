@@ -453,6 +453,12 @@ function ToolboxTheme:_recalculateTheme()
 	})
 
 	local overrides = {
+		asstetPreview = {
+			modelPreview = {
+				background = isDark and Color3.fromRGB(37, 37, 37) or Color3.fromRGB(227, 227, 227)
+			},
+		},
+
 		toggleButton = {
 			defaultWidth = 40,
 			defaultHeight = 24,

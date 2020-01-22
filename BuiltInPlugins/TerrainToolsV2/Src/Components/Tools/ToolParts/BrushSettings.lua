@@ -20,7 +20,7 @@ local FlattenMode = TerrainEnums.FlattenMode
 local PivotType = TerrainEnums.PivotType
 local ToolId = TerrainEnums.ToolId
 
-local MAX_GRAPHENES = 12
+local MAX_GRAPHEMES = 12
 --- Color ---
 local BUTTON_BACKGROUND_COLOR = Color3.fromRGB(228, 238, 254)
 local FRAME_BORDER_COLOR1 = Color3.fromRGB(227, 227, 227)
@@ -121,6 +121,7 @@ function BrushSettings:render()
 
 			HeightSelectionToggle = self.props.fixedPlane and isFlatten and Roact.createElement(HeightSelectionToggle, {
 				LayoutOrder = 9,
+				Label = localization:getText("BrushSettings", "PlanePosition"),
 				heightPicker = self.props.heightPicker,
 				setHeightPicker = self.props.setHeightPicker,
 				planePositionY = self.props.planePositionY,
@@ -316,7 +317,7 @@ function BrushSettings:render()
 						SnapIncrement = 1,
 						ShowInput = true,
 						Value = baseSize,
-						SetValues = function(val)
+						SetValue = function(val)
 							setText(tostring(val), "BaseSize")
 						end,
 					}),
@@ -338,7 +339,7 @@ function BrushSettings:render()
 						SnapIncrement = 1,
 						ShowInput = true,
 						Value = height,
-						SetValues = function(val)
+						SetValue = function(val)
 							setText(tostring(val), "Height")
 						end,
 					}),
@@ -355,7 +356,7 @@ function BrushSettings:render()
 						SnapIncrement = 0.1,
 						ShowInput = true,
 						Value = strength,
-						SetValues = function(val)
+						SetValue = function(val)
 							setText(tostring(val), "Strength")
 						end,
 					}),
@@ -439,7 +440,7 @@ function BrushSettings:render()
 						Width = UDim.new(0, 116),
 						Label = "Y",
 						Text = planePositionY,
-						MaxGraphenes = MAX_GRAPHENES,
+						MaxGraphemes = MAX_GRAPHEMES,
 						LayoutOrder = 1,
 
 						OnFocusLost = function(enterPressed, text)
@@ -481,7 +482,7 @@ function BrushSettings:render()
 							Width = UDim.new(0, 116),
 							Label = "Y",
 							Text = planePositionY,
-							MaxGraphenes = MAX_GRAPHENES,
+							MaxGraphemes = MAX_GRAPHEMES,
 							LayoutOrder = 1,
 
 							OnFocusLost = function(enterPressed, text)

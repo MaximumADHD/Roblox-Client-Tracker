@@ -18,6 +18,8 @@
 local CorePackages = game:GetService("CorePackages")
 local Logging = require(CorePackages.Logging)
 
+local RoundingBehaviour = require(script.Parent.RoundingBehaviour)
+
 local localeInfos = {}
 
 local DEFAULT_LOCALE = "en-us"
@@ -179,10 +181,15 @@ local function findDecimalOffset(number)
 	return -(offsetToOnesRange + 1) -- Offset one more (or less) digit
 end
 
-local function roundToSignificantDigits(number, significantDigits)
+local function roundToSignificantDigits(number, significantDigits, roundingBehaviour)
 	local offset = findDecimalOffset(number)
 	local multiplier = 10^(significantDigits + offset)
-	local significand = math.floor(number * multiplier + 0.5)
+	local significand
+	if roundingBehaviour == RoundingBehaviour.Truncate then
+		significand = math.modf(number * multiplier)
+	else
+		significand = math.floor(number * multiplier + 0.5)
+	end
 	return significand / multiplier;
 end
 
@@ -199,12 +206,17 @@ local function addGroupDelimiters(numberStr, delimiter)
 	return formatted
 end
 
-local function findDenominationEntry(localeInfo, number)
+local function findDenominationEntry(localeInfo, number, roundingBehaviour)
 	local denominationEntry = localeInfo[1] -- Default to base denominations
 	local absOfNumber = math.abs(number)
 	for i = #localeInfo, 2, -1 do
 		local entry = localeInfo[i]
-		local baseValue = entry[1] - (localeInfo[i - 1][1]) / 2
+		local baseValue
+		if roundingBehaviour == RoundingBehaviour.Truncate then
+			baseValue = entry[1]
+		else
+			baseValue = entry[1] - (localeInfo[i - 1][1]) / 2
+		end
 		if baseValue <= absOfNumber then
 			denominationEntry = entry
 			break
@@ -234,9 +246,13 @@ function NumberLocalization.localize(number, locale)
     return number
 end
 
-function NumberLocalization.abbreviate(number, locale)
+function NumberLocalization.abbreviate(number, locale, roundingBehaviour)
 	if number == 0 then
 		return "0"
+	end
+
+	if roundingBehaviour == nil then
+		roundingBehaviour = RoundingBehaviour.RoundToClosest
 	end
 
 	local localeInfo = localeInfos[locale]
@@ -247,15 +263,20 @@ function NumberLocalization.abbreviate(number, locale)
 	end
 
 	-- select which denomination we are going to use
-	local denominationEntry = findDenominationEntry(localeInfo, number)
+	local denominationEntry = findDenominationEntry(localeInfo, number, roundingBehaviour)
 	local baseValue = denominationEntry[1]
 	local symbol = denominationEntry[2]
 
 	-- Round to required significant digits
-	local significantQuotient = roundToSignificantDigits(number / baseValue, 3)
+	local significantQuotient = roundToSignificantDigits(number / baseValue, 3, roundingBehaviour)
 
 	-- trim to 1 decimal point
-	local trimmedQuotient = math.floor(significantQuotient * 10 + 0.5) / 10
+	local trimmedQuotient
+	if roundingBehaviour == RoundingBehaviour.Truncate then
+		trimmedQuotient = math.modf(significantQuotient * 10) / 10
+	else
+		trimmedQuotient = math.floor(significantQuotient * 10 + 0.5) / 10
+	end
 	local trimmedQuotientString = tostring(trimmedQuotient)
 
 	-- Split the string into integer and fraction parts

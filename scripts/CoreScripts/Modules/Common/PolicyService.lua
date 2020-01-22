@@ -38,7 +38,7 @@ function PolicyService:InitAsync()
 	end
 
 	if self:IsEnabled() then
-		policyTable = game:GetService("PolicyService"):GetPolicyInfoForPlayerAsync(localPlayer)
+		pcall(function() policyTable = game:GetService("PolicyService"):GetPolicyInfoForPlayerAsync(localPlayer) end)
 		if policyTable then
 			isSubjectToChinaPolicies = policyTable["IsSubjectToChinaPolicies"]
 		end

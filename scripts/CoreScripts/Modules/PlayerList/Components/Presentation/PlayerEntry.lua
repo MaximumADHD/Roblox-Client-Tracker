@@ -33,7 +33,7 @@ if FFlagPlayerListDesignUpdate then
 		layoutOrder = t.optional(t.integer),
 		titlePlayerEntry = t.boolean,
 		hasDivider = t.boolean,
-		overrideEntrySize = t.optional(t.integer),
+		entrySize = t.integer,
 
 		playerStats = t.map(t.string, t.any),
 
@@ -209,9 +209,11 @@ function PlayerEntry:render()
 				overlayStyle = self:getOverlayStyle(layoutValues, style)
 			end
 
-			local entrySizeX = layoutValues.EntrySizeX
-			if FFlagPlayerListDesignUpdate and self.props.overrideEntrySize then
-				entrySizeX = self.props.overrideEntrySize
+			local entrySizeX
+			if FFlagPlayerListDesignUpdate then
+				entrySizeX = self.props.entrySize
+			else
+				entrySizeX = layoutValues.EntrySizeX
 			end
 
 			local playerEntryChildren = {}

@@ -1206,6 +1206,7 @@ RBX
 	UserInputBase
 	UserInputService
 	UsernameHandler
+	UserStorage
 	ValueBase
 	VehicleController
 	VehicleSeat

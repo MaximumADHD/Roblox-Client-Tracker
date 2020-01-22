@@ -413,18 +413,6 @@
             "DialogMainButtonText": {
                 "Default": "#FFFFFF"
             }
-        }, {
-            "Merge3HighlightOriginal": {
-                "Default": "#EFF5FE"
-            }
-        }, {
-            "Merge3HighlightMine": {
-                "Default": "#FEFBD8"
-            }
-        }, {
-            "Merge3HighlightTheirs": {
-                "Default": "#FEF2EA"
-            }
         }
     ],
   "Paths": [

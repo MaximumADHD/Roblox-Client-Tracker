@@ -3,6 +3,7 @@
 ]]
 
 local FFlagStudioGameSettingsRestrictPermissions = game:GetFastFlag("StudioGameSettingsRestrictPermissions")
+local FFlagStudioGameSettingsPermisisonUpdateWarning = game:DefineFastFlag("StudioGameSettingsPermissionUpdateWarning", false)
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -13,6 +14,9 @@ local getThumbnailLoader = require(Plugin.Src.Consumers.getThumbnailLoader)
 local getMouse = require(Plugin.Src.Consumers.getMouse)
 
 local StudioService = game:GetService("StudioService")
+local TextService = game:GetService("TextService")
+--even though this is deprecated, the warning message will only be up for a while before being removed
+local GuiService = game:GetService("GuiService")
 
 local PermissionsConstants = require(Plugin.Src.Components.Permissions.PermissionsConstants)
 local LOADING = require(Plugin.Src.Keys.loadingInProgress)
@@ -23,11 +27,20 @@ local Searchbar = require(Plugin.Src.Components.Permissions.SearchBar)
 local CollaboratorThumbnail = require(Plugin.Src.Components.Permissions.CollaboratorThumbnail)
 
 local createFitToContent = require(Plugin.UILibrary.Components.createFitToContent)
+local Hyperlink = require(Plugin.UILibrary.Studio.Hyperlink)
 
 local FitToContent = createFitToContent("Frame", "UIListLayout", {
 	SortOrder = Enum.SortOrder.LayoutOrder,
 	Padding = UDim.new(0, 32),
 })
+
+local TextFitToContent = createFitToContent("Frame", "UIListLayout", {
+	SortOrder = Enum.SortOrder.LayoutOrder,
+	Padding = UDim.new(0, 0),
+	FillDirection = Enum.FillDirection.Horizontal,
+})
+
+local PADDING = 16
 
 local function getMatchesFromTable(text, t)
 	local matches = {}
@@ -265,12 +278,21 @@ function CollaboratorSearchWidget:render()
 			local tooManyCollaboratorsText = localized.AccessPermissions.Searchbar.TooManyCollaboratorsText({
 				maxNumCollaborators = maxCollaborators,
 			})
+
+			local TitleTextSize = TextService:GetTextSize(localized.Title.Collaborators, theme.fontStyle.Subtitle.TextSize, 
+				theme.fontStyle.Subtitle.Font, Vector2.new(math.huge, math.huge))
+	
+			local WarningTextSize = TextService:GetTextSize(localized.AccessPermissions.Update.Text, theme.fontStyle.Smaller.TextSize, 
+				theme.fontStyle.Smaller.Font, Vector2.new(math.huge, math.huge))
+
+			local HyperlinkTextSize = TextService:GetTextSize(localized.AccessPermissions.Update.HyperlinkText, theme.fontStyle.Smaller.TextSize, 
+				theme.fontStyle.Smaller.Font, Vector2.new(math.huge, math.huge))
 	
 			return Roact.createElement(FitToContent, {
 				BackgroundTransparency = 1,
 				LayoutOrder = props.LayoutOrder,
 			}, {
-				Title = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Subtitle, {
+				Title = not FFlagStudioGameSettingsPermisisonUpdateWarning and Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Subtitle, {
 					LayoutOrder = 0,
 					
 					Text = localized.Title.Collaborators,
@@ -278,6 +300,46 @@ function CollaboratorSearchWidget:render()
 					
 					BackgroundTransparency = 1,
 				})),
+
+				WarningLayout = FFlagStudioGameSettingsPermisisonUpdateWarning and Roact.createElement(TextFitToContent, {
+					BackgroundTransparency = 1,
+					LayoutOrder = 0,
+				}, {
+					Title = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Subtitle, {
+						LayoutOrder = 0,
+
+						Size = UDim2.new(1, -WarningTextSize.X - HyperlinkTextSize.X - PADDING, 0, theme.fontStyle.Subtitle.TextSize),
+						
+						Text = localized.Title.Collaborators,
+						TextXAlignment = Enum.TextXAlignment.Left,
+						
+						BackgroundTransparency = 1,
+					})),
+
+					WarningText = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Smaller, {
+						LayoutOrder = 1,
+
+						Size = UDim2.new(0, WarningTextSize.X + PADDING, 0, theme.fontStyle.Smaller.TextSize),
+						
+						Text = localized.AccessPermissions.Update.Text,
+						TextXAlignment = Enum.TextXAlignment.Left,
+						
+						BackgroundTransparency = 1,
+					})),
+
+					Hyperlink = Roact.createElement(Hyperlink, {
+						LayoutOrder = 2,
+						Enabled = true,
+						
+						Text = localized.AccessPermissions.Update.HyperlinkText,
+						TextSize = theme.fontStyle.Smaller.TextSize,
+
+						OnClick = function()
+							GuiService:OpenBrowserWindow("https://devforum.roblox.com/t/introducing-game-permissions/428956")
+						end,
+						Mouse = getMouse(self):getNativeMouse(),
+					}),
+				}),
 
 				Searchbar = Roact.createElement(Searchbar, {
 					LayoutOrder = 1,

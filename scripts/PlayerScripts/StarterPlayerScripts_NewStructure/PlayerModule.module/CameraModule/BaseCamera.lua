@@ -34,15 +34,7 @@ local VR_HIGH_INTENSITY_REPEAT = 0.4
 local ZERO_VECTOR2 = Vector2.new(0,0)
 local ZERO_VECTOR3 = Vector3.new(0,0,0)
 
-local touchSensitivityFlagExists, touchSensitivityFlagEnabled = pcall(function()
-	return UserSettings():IsUserFeatureEnabled("UserTouchSensitivityAdjust")
-end)
-local FFlagUserTouchSensitivityAdjust = touchSensitivityFlagExists and touchSensitivityFlagEnabled
-
-local TOUCH_SENSITIVTY = Vector2.new(0.0045 * math.pi, 0.003375 * math.pi)
-if FFlagUserTouchSensitivityAdjust then
-	TOUCH_SENSITIVTY = Vector2.new(0.00945 * math.pi, 0.003375 * math.pi)
-end
+local TOUCH_SENSITIVTY = Vector2.new(0.00945 * math.pi, 0.003375 * math.pi)
 local MOUSE_SENSITIVITY = Vector2.new( 0.002 * math.pi, 0.0015 * math.pi )
 
 local SEAT_OFFSET = Vector3.new(0,5,0)
@@ -68,11 +60,6 @@ local FFlagUserCameraToggle do
 	end)
 	FFlagUserCameraToggle = success and result
 end
-
-local fixZoomIssuesFlagExists, fixZoomIssuesFlagEnabled = pcall(function()
-	return UserSettings():IsUserFeatureEnabled("UserFixZoomClampingIssues")
-end)
-local FFlagUserFixZoomClampingIssues = fixZoomIssuesFlagExists and fixZoomIssuesFlagEnabled
 
 local Util = require(script.Parent:WaitForChild("CameraUtils"))
 local ZoomController = require(script.Parent:WaitForChild("ZoomController"))
@@ -254,9 +241,7 @@ function BaseCamera.new()
 		end)
 	end
 
-	if FFlagUserFixZoomClampingIssues then
-		self:OnPlayerCameraPropertyChange()
-	end
+	self:OnPlayerCameraPropertyChange()
 
 	return self
 end
@@ -966,9 +951,7 @@ function BaseCamera:OnTouchChanged(input, processed)
 			delta = Vector2.new(delta.X, delta.Y * UserGameSettings:GetCameraYInvertValue())
 			if self.panEnabled then
 				local adjustedTouchSensitivity = TOUCH_SENSITIVTY
-				if FFlagUserTouchSensitivityAdjust then
-					self:AdjustTouchSensitivity(delta, TOUCH_SENSITIVTY)
-				end
+				self:AdjustTouchSensitivity(delta, TOUCH_SENSITIVTY)
 
 				local desiredXYVector = self:InputTranslationToCameraAngleChange(delta, adjustedTouchSensitivity)
 				self.rotateInput = self.rotateInput + desiredXYVector

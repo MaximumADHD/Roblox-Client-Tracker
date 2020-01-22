@@ -32,7 +32,7 @@
 		UILibrary style the item buttons should be rendered in.
 --]]
 
-local fflagUseMultiselect = game:DefineFastFlag("StudioDraftsUseMultiselect", false)
+local fflagUseMultiselect = game:DefineFastFlag("StudioDraftsUseMultiselect2", false)
 
 local UserInputService = game:GetService("UserInputService")
 

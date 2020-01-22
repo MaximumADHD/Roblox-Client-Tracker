@@ -468,6 +468,11 @@ function Localization:recalculateContent()
 				NoResultsText = self:getText("Studio.GameSettings.AccessPermissions.CollaboratorSearchbarNoResultsText"),
 			},
 
+			Update = {
+				Text = self:getText("Studio.GameSettings.AccessPermissions.PermissionsUpdateMessage"),
+				HyperlinkText = self:getText("Studio.GameSettings.AccessPermissions.UpdateHyperlinkText"),
+			},
+
 			TeamCreateWarning = self:getText("Studio.GameSettings.AccessPermissions.TeamCreateWarning"),
 		},
 

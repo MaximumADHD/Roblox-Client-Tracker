@@ -7,8 +7,6 @@ local UIBlox = InGameMenuDependencies.UIBlox
 
 local InGameMenu = script.Parent.Parent
 
-local Assets = require(InGameMenu.Resources.Assets)
-
 local AssetImage = require(InGameMenu.Components.AssetImage)
 local ThemedTextLabel = require(InGameMenu.Components.ThemedTextLabel)
 
@@ -40,7 +38,9 @@ local function GameIconHeader(props)
 					BackgroundTransparency = 1,
 					Size = UDim2.fromOffset(44, 44),
 					Position = UDim2.fromScale(0.5, 0.5),
-					Image = Assets.Images.PlaceholderGameIcon,
+					Image = UIBlox.App.ImageSet.Images["icons/imageUnavailable"],
+					ImageColor3 = style.Theme.UIDefault.Color,
+					ImageTransparency = style.Theme.UIDefault.Transparency,
 					AnchorPoint = Vector2.new(0.5, 0.5),
 				}),
 			})

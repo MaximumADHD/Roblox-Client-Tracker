@@ -20,13 +20,75 @@ local Panel = require(ToolParts.Panel)
 local LabeledElementPair = require(ToolParts.LabeledElementPair)
 local LabeledToggle = require(ToolParts.LabeledToggle)
 
+game:DefineFastFlag("TerrainToolsFixMaterialTooltipClipping", false)
+
 local FFlagTerrainToolsRefactor = game:GetFastFlag("TerrainToolsRefactor")
+local FFlagTerrainToolsFixMaterialTooltipClipping = game:GetFastFlag("TerrainToolsFixMaterialTooltipClipping")
 
 local TerrainInterface = require(Plugin.Src.ContextServices.TerrainInterface)
 
 local MaterialDetails = require(Plugin.Src.Util.MaterialDetails)
 
 local MaterialSettings = Roact.PureComponent:extend(script.Name)
+
+local MaterialTooltip
+if FFlagTerrainToolsFixMaterialTooltipClipping then
+MaterialTooltip = Roact.PureComponent:extend("MaterialTooltip")
+
+function MaterialTooltip:init()
+	self.ref = Roact.createRef()
+end
+
+function MaterialTooltip:didMount()
+	if self.ref.current then
+		local tooltip = self.ref.current
+
+		local pos = tooltip.AbsolutePosition
+		local size = tooltip.AbsoluteSize
+
+		local containerPosition = tooltip.Parent.Parent.AbsolutePosition
+		local containerSize = tooltip.Parent.Parent.AbsoluteSize
+
+		-- Nil if we don't need to update the tooltip
+		-- Else is what the offset should be so the tooltip is on screen
+		local newOffset
+
+		if pos.x < containerPosition.x then
+			newOffset = containerPosition.x - pos.x
+		elseif pos.x + size.x > containerPosition.x + containerSize.x then
+			newOffset = (containerPosition.x + containerSize.x)  - (pos.x + size.x) - 1
+		end
+
+		if newOffset then
+			local p = tooltip.Position
+			tooltip.Position = UDim2.new(p.X.Scale, newOffset, p.Y.Scale, p.Y.Offset)
+		end
+	end
+end
+
+function MaterialTooltip:render()
+	return withTheme(function(theme)
+		local materialName = self.props.MaterialName
+		local tooltipSize = TextService:GetTextSize(materialName, theme.textSize, 0, Vector2.new())
+
+		return Roact.createElement("TextLabel", {
+			BackgroundTransparency = 0,
+			BackgroundColor3 = theme.backgroundColor,
+			Size = UDim2.new(0, tooltipSize.x + theme.padding * 2, 0, theme.textSize * 1.5),
+			AnchorPoint = Vector2.new(0.5, 0),
+			Position = UDim2.new(0.5, 0, 0, -theme.textSize),
+
+			Text = materialName,
+			TextSize = theme.textSize,
+			TextColor3 = theme.textColor,
+			Font = theme.textFont,
+			ZIndex = 5,
+
+			[Roact.Ref] = self.ref,
+		})
+	end)
+end
+end
 
 if FFlagTerrainToolsRefactor then
 local materialsOrder = {
@@ -70,7 +132,9 @@ function MaterialButton:render()
 			local tooltipSize
 			if isHovered then
 				materialName = localization:getText("Materials", material.Name)
-				tooltipSize = TextService:GetTextSize(materialName, theme.textSize, 0, Vector2.new())
+				if not FFlagTerrainToolsFixMaterialTooltipClipping then
+					tooltipSize = TextService:GetTextSize(materialName, theme.textSize, 0, Vector2.new())
+				end
 			end
 
 			return Roact.createElement("ImageButton", {
@@ -84,7 +148,9 @@ function MaterialButton:render()
 				[Roact.Event.MouseLeave] = self.onMouseLeave,
 				[Roact.Event.Activated] = self.selectMaterial,
 			}, {
-				Tooltip = isHovered and Roact.createElement("TextLabel", {
+				Tooltip = isHovered and (FFlagTerrainToolsFixMaterialTooltipClipping and Roact.createElement(MaterialTooltip, {
+					MaterialName = materialName,
+				}) or Roact.createElement("TextLabel", {
 					BackgroundTransparency = 0,
 					BackgroundColor3 = theme.backgroundColor,
 					Size = UDim2.new(0, tooltipSize.x + theme.padding * 2, 0, theme.textSize * 1.5),
@@ -96,7 +162,7 @@ function MaterialButton:render()
 					TextColor3 = theme.textColor,
 					Font = theme.textFont,
 					ZIndex = 5
-				})
+				})),
 			})
 		end)
 	end)
@@ -371,7 +437,9 @@ function MaterialSettings:render()
 				local tooltipSize
 				if isHovered then
 					materialName =  localization:getText("Materials", v.enum.Name)
-					tooltipSize = TextService:GetTextSize(materialName, theme.textSize, 0, Vector2.new())
+					if not FFlagTerrainToolsFixMaterialTooltipClipping then
+						tooltipSize = TextService:GetTextSize(materialName, theme.textSize, 0, Vector2.new())
+					end
 				end
 				table.insert(materialsTable,
 					Roact.createElement("ImageButton", {
@@ -391,7 +459,9 @@ function MaterialSettings:render()
 							self.onMouseEnter(0)
 						end,
 					},{
-						Tooltip = isHovered and Roact.createElement("TextLabel",{
+						Tooltip = isHovered and (FFlagTerrainToolsFixMaterialTooltipClipping and Roact.createElement(MaterialTooltip, {
+							MaterialName = materialName,
+						}) or Roact.createElement("TextLabel",{
 							BackgroundTransparency = 0,
 							BackgroundColor3 = theme.backgroundColor,
 							Size = UDim2.new(0, tooltipSize.x + theme.padding * 2, 0, theme.textSize*1.5),
@@ -403,7 +473,7 @@ function MaterialSettings:render()
 							TextColor3 = theme.textColor,
 							Font = theme.textFont,
 							ZIndex = 5
-						})
+						})),
 					})
 				)
 			end

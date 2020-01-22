@@ -1,5 +1,6 @@
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
+local TextService = game:GetService("TextService")
 
 local Roact = require(CorePackages.Roact)
 local t = require(CorePackages.Packages.t)
@@ -80,8 +81,8 @@ function StatEntry:render()
 			local statName = GameTranslator:TranslateGameText(CoreGui, self.props.statName)
 			local font, textSize
 			if FFlagPlayerListDesignUpdate and not layoutValues.IsTenFoot then
-				font = style.Font.CaptionSubHeader.Font
-				textSize = style.Font.CaptionSubHeader.RelativeSize * style.Font.BaseSize
+				font = style.Font.CaptionHeader.Font
+				textSize = style.Font.CaptionHeader.RelativeSize * style.Font.BaseSize
 			else
 				textSize = layoutValues.StatTextSize
 				font = layoutValues.StatFont
@@ -89,6 +90,14 @@ function StatEntry:render()
 					font = layoutValues.TitleStatFont
 				elseif self.props.isTeamEntry then
 					font = layoutValues.TeamStatFont
+				end
+			end
+
+			local statText = FormatStatString(self.props.statValue, --[[abbreviate = ]] false)
+			if FFlagPlayerListDesignUpdate and type(self.props.statValue) == "number" then
+				local textArea = TextService:GetTextSize(statText, textSize, font, Vector2.new(1000, 1000))
+				if textArea.X > layoutValues.StatEntrySizeX - layoutValues.StatTextPadding then
+					statText = FormatStatString(self.props.statValue, --[[abbreviate = ]] true)
 				end
 			end
 
@@ -115,13 +124,12 @@ function StatEntry:render()
 				TextTransparency = self.props.textStyle.Transparency,
 				TextStrokeColor3 = self.props.textStyle.StrokeColor,
 				TextStrokeTransparency = self.props.textStyle.StrokeTransparency,
-				Text = FormatStatString(self.props.statValue),
+				Text = statText,
 				TextTruncate = Enum.TextTruncate.AtEnd,
 				Active = true,
 			}, {
 				FFlagPlayerListDesignUpdate and Roact.createElement("UIPadding", {
-					PaddingLeft = UDim.new(0, layoutValues.StatTextPadding/2),
-					PaddingRight = UDim.new(0, layoutValues.StatTextPadding/2),
+					PaddingLeft = UDim.new(0, layoutValues.StatTextPadding),
 				}) or nil,
 			})
 

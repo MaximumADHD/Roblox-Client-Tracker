@@ -37,6 +37,7 @@ local Plugin = script.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
+local RoactRodux = require(Libs.RoactRodux)
 
 local UILibrary = Libs.UILibrary
 local StyledScrollingFrame = require(UILibrary.Components.StyledScrollingFrame)
@@ -58,6 +59,8 @@ local ConfigGenre = require(AssetConfiguration.ConfigGenre)
 local ConfigCopy = require(AssetConfiguration.ConfigCopy)
 local ConfigComment = require(AssetConfiguration.ConfigComment)
 local TagsComponent = require(AssetConfiguration.CatalogTags.TagsComponent)
+
+local SetFieldError = require(Plugin.Core.Actions.SetFieldError)
 
 local PublishAsset = Roact.PureComponent:extend("PublishAsset")
 
@@ -242,6 +245,10 @@ function PublishAsset:render()
 					TextChangeCallBack = onNameChange,
 					TextContent = name,
 
+					ErrorCallback = function(hasError)
+						self.props.setFieldError(AssetConfigConstants.FIELD_NAMES.Title, hasError)
+					end,
+
 					LayoutOrder = orderIterator:getNextOrder(),
 				}),
 
@@ -251,6 +258,10 @@ function PublishAsset:render()
 					MaxCount = AssetConfigConstants.DESCRIPTION_CHARACTER_LIMIT ,
 					TextChangeCallBack = onDescChange,
 					TextContent = description,
+
+					ErrorCallback = function(hasError)
+						self.props.setFieldError(AssetConfigConstants.FIELD_NAMES.Description, hasError)
+					end,
 
 					LayoutOrder = orderIterator:getNextOrder(),
 				}),
@@ -352,4 +363,12 @@ function PublishAsset:render()
 	end)
 end
 
-return PublishAsset
+local function mapDispatchToProps(dispatch)
+	return {
+		setFieldError = function(fieldName, hasError)
+			dispatch(SetFieldError(AssetConfigConstants.SIDE_TABS.General, fieldName, hasError))
+		end,
+	}
+end
+
+return RoactRodux.connect(nil, mapDispatchToProps)(PublishAsset)

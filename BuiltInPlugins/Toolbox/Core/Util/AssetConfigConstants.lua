@@ -37,6 +37,13 @@ AssetConfigConstants.SIDE_TABS = convertArrayToTable({
 	"Permissions",
 })
 
+-- arbitrary keys for tracking error state
+AssetConfigConstants.FIELD_NAMES = convertArrayToTable({
+	"Title",
+	"Description",
+	"Price",
+})
+
 AssetConfigConstants.GENRE_TYPE = {
 	{name = Enum.Genre.All.Name},
 	{name = Enum.Genre.TownAndCity.Name},

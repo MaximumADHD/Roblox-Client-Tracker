@@ -38,7 +38,7 @@ Studio.TerrainToolsV2.Action.Stop, , ,Stop
 Studio.TerrainToolsV2.Action.Undo, , ,Undo
 Studio.TerrainToolsV2.Action.Update, , ,Update
 Studio.TerrainToolsV2.Action.Yes, , ,Yes
-Studio.TerrainToolsV2.AssetIdSelector.PlaceHolderText, , ,Asset ID
+Studio.TerrainToolsV2.AssetIdSelector.PlaceHolderText, , ,Select game asset image
 Studio.TerrainToolsV2.BrushSettings.Advanced, , ,Advanced
 Studio.TerrainToolsV2.BrushSettings.Auto, , ,Auto
 Studio.TerrainToolsV2.BrushSettings.BaseSize, , ,Base Size
