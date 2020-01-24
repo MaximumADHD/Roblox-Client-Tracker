@@ -7,6 +7,7 @@ local Roact = require(Plugin.Packages.Roact)
 
 local FFlagTerrainToolsRefactor = game:GetFastFlag("TerrainToolsRefactor")
 local FFlagTerrainToolsFixPlanePositionErrorMessage = game:GetFastFlag("TerrainToolsFixPlanePositionErrorMessage")
+local FFlagTerrainToolsFlattenUseBaseBrush = game:GetFastFlag("TerrainToolsFlattenUseBaseBrush")
 
 local Localizing = require(Plugin.Packages.UILibrary.Localizing)
 local withLocalization = Localizing.withLocalization
@@ -51,7 +52,27 @@ function BrushSettings:render()
 		local layoutOrder = self.props.LayoutOrder
 
 		local showHeight = self.props.brushShape ~= BrushShape.Sphere
-		local isFlatten = self.props.currentTool == ToolId.Flatten
+		local showStrength = self.props.strength ~= nil
+		local showSnapToGrid = self.props.snapToGrid ~= nil
+		local showIgnoreWater = self.props.ignoreWater ~= nil
+		local showPlaneLockToggle = self.props.planeLock ~= nil
+		local showFixedPlaneToggle = self.props.fixedPlane ~= nil
+
+		local showFlattenModes
+		local showHeightSelectionToggle
+		local setFixedPlane
+
+		if FFlagTerrainToolsFlattenUseBaseBrush then
+			showFlattenModes = self.props.flattenMode ~= nil
+			showHeightSelectionToggle = self.props.fixedPlane and self.props.planePositionY ~= nil
+			setFixedPlane = self.props.setFixedPlane
+		else
+			local isFlatten = self.props.currentTool == ToolId.Flatten
+			showFlattenModes = isFlatten
+			showHeightSelectionToggle = self.props.fixedPlane and isFlatten
+			setFixedPlane = self.props.setPlaneLock
+		end
+
 
 		return Roact.createElement(Panel, {
 			Title = localization:getText("BrushSettings", "BrushSettings"),
@@ -83,7 +104,7 @@ function BrushSettings:render()
 				SetValue = self.props.setHeight,
 			}),
 
-			StrengthSlider = self.props.strength ~= nil and Roact.createElement(LabeledSlider, {
+			StrengthSlider = showStrength and Roact.createElement(LabeledSlider, {
 				LayoutOrder = 4,
 				Text = localization:getText("BrushSettings", "Strength"),
 				Min = 0.1,
@@ -93,7 +114,7 @@ function BrushSettings:render()
 				SetValue = self.props.setStrength,
 			}),
 
-			FlattenModeSelector = isFlatten and Roact.createElement(FlattenModeSelector, {
+			FlattenModeSelector = showFlattenModes and Roact.createElement(FlattenModeSelector, {
 				LayoutOrder = 5,
 				flattenMode = self.props.flattenMode,
 				setFlattenMode = self.props.setFlattenMode,
@@ -105,21 +126,21 @@ function BrushSettings:render()
 				setPivot = self.props.setPivot,
 			}),
 
-			PlaneLockToggle = self.props.planeLock ~= nil and Roact.createElement(LabeledToggle, {
+			PlaneLockToggle = showPlaneLockToggle and Roact.createElement(LabeledToggle, {
 				LayoutOrder = 7,
 				Text = localization:getText("BrushSettings", "PlaneLock"),
 				IsOn = self.props.planeLock,
 				SetIsOn = self.props.setPlaneLock,
 			}),
 
-			FixedPlaneToggle = self.props.fixedPlane ~= nil and Roact.createElement(LabeledToggle, {
+			FixedPlaneToggle = showFixedPlaneToggle and Roact.createElement(LabeledToggle, {
 				LayoutOrder = 8,
 				Text = localization:getText("BrushSettings", "FixedPlane"),
 				IsOn = self.props.fixedPlane,
-				SetIsOn = self.props.setPlaneLock, -- TODO: DEVTOOLS-3102 add proper fixed plane value to dataloop
+				SetIsOn = setFixedPlane,
 			}),
 
-			HeightSelectionToggle = self.props.fixedPlane and isFlatten and Roact.createElement(HeightSelectionToggle, {
+			HeightSelectionToggle = showHeightSelectionToggle and Roact.createElement(HeightSelectionToggle, {
 				LayoutOrder = 9,
 				Label = localization:getText("BrushSettings", "PlanePosition"),
 				heightPicker = self.props.heightPicker,
@@ -128,14 +149,14 @@ function BrushSettings:render()
 				setPlanePositionY = self.props.setPlanePositionY,
 			}),
 
-			SnapToGridToggle = self.props.snapToGrid ~= nil and Roact.createElement(LabeledToggle, {
+			SnapToGridToggle = showSnapToGrid and Roact.createElement(LabeledToggle, {
 				LayoutOrder = 10,
 				Text = localization:getText("BrushSettings", "SnapToGrid"),
 				IsOn = self.props.snapToGrid,
 				SetIsOn = self.props.setSnapToGrid,
 			}),
 
-			IgnoreWaterToggle = self.props.ignoreWater ~= nil and Roact.createElement(LabeledToggle, {
+			IgnoreWaterToggle = showIgnoreWater and Roact.createElement(LabeledToggle, {
 				LayoutOrder = 11,
 				Text = localization:getText("BrushSettings", "IgnoreWater"),
 				IsOn = self.props.ignoreWater,

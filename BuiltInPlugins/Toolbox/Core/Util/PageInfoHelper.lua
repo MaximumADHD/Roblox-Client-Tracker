@@ -1,7 +1,5 @@
 local Plugin = script.Parent.Parent.Parent
 
-game:DefineFastFlag("CMSRemoveAssetTypeBackendMap", false)
-
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 local AssetConfigConstants = require(Plugin.Core.Util.AssetConfigConstants)
 local Category = require(Plugin.Core.Types.Category)
@@ -85,11 +83,7 @@ function PageInfoHelper.getBackendNameForPageInfoCategory(pageInfo)
 		return nil
 	end
 
-	if game:GetFastFlag("CMSRemoveAssetTypeBackendMap") then
-		return Category.getEngineAssetType(category.assetType).Name
-	else
-		return Category.getBackendNameForAssetTypeEnd(Category.getEngineAssetType(category.assetType))
-	end
+	return Category.getEngineAssetType(category.assetType).Name
 end
 
 function PageInfoHelper.isDeveloperCategory(pageInfo)

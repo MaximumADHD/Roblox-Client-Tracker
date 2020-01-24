@@ -27,13 +27,13 @@ local function getCurrentLanguageCode(currentLocaleId, languageCodeMap)
 	return currentLocaleId
 end
 
-local function getLocalized(languageTable, currentLanguageCode, sourceLocaleId)
+local function getLocalized(languageTable, currentLanguageCode, sourceLanguageCode)
 	if languageTable[currentLanguageCode] then
 		return languageTable[currentLanguageCode]
 	end
 
-	if languageTable[sourceLocaleId] then
-		return languageTable[sourceLocaleId]
+	if languageTable[sourceLanguageCode] then
+		return languageTable[sourceLanguageCode]
 	end
 
 	if languageTable[Constants.FallbackLocaleId] then

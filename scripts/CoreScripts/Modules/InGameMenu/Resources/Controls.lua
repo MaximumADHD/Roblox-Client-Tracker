@@ -27,7 +27,7 @@ local inputToControlTypeMap = {
 	[Enum.UserInputType.Gamepad7] = ControlLayouts.GAMEPAD,
 	[Enum.UserInputType.Gamepad8] = ControlLayouts.GAMEPAD,
 
-	[Enum.UserInputType.Touch] = ControlLayouts.TOUCH,
+	--[Enum.UserInputType.Touch] = ControlLayouts.TOUCH,
 }
 
 --[[

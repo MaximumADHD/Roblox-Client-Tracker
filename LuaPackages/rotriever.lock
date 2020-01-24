@@ -13,13 +13,14 @@ dependencies = [
     "LuaSocialLibrariesDeps LuaSocialLibrariesDeps 1f18f7ae git+https://github.rbx.com/roblox/lua-social-libraries-deps#master",
     "Otter roblox/otter 0.1.0 registry+https://github.rbx.com/roblox/rotriever-index",
     "Promise lua-promise bbb9e162 git+https://github.rbx.com/roblox/lua-promise#master",
-    "PurchasePrompt PurchasePromptMigration 38269871 git+https://github.rbx.com/esauer/purchase-prompt-migration#master",
+    "PurchasePrompt PurchasePromptMigration 05c159a2 git+https://github.rbx.com/esauer/purchase-prompt-migration#master",
     "Result lua-Result 4c69dedd git+https://github.rbx.com/roblox/lua-result#master",
     "Roact roblox/roact 1.2.0 registry+https://github.rbx.com/roblox/rotriever-index",
     "RoactNavigation roblox/roact-navigation 0.2.4 registry+https://github.rbx.com/roblox/rotriever-index",
     "RoactRodux roblox/roact-rodux 0.2.0 registry+https://github.rbx.com/roblox/rotriever-index",
     "Rodux roblox/rodux 1.0.0 registry+https://github.rbx.com/roblox/rotriever-index",
-    "UIBlox UIBlox c6de0182 git+https://github.rbx.com/roblox/uiblox#master",
+    "TestEZ roblox/testez ef0f618c git+https://github.com/roblox/testez#v0.1",
+    "UIBlox UIBlox 27b49bee git+https://github.rbx.com/roblox/uiblox#master",
     "enumerate roblox/enumerate 1.0.0 registry+https://github.rbx.com/roblox/rotriever-index",
     "t osyris/t 1.2.5 registry+https://github.rbx.com/roblox/rotriever-index",
     "tutils tutils 74574fde git+https://github.rbx.com/roblox/tutils#master",
@@ -36,7 +37,7 @@ dependencies = [
     "Roact roblox/roact 1.2.0 registry+https://github.rbx.com/roblox/rotriever-index",
     "RoactRodux roblox/roact-rodux 0.2.0 registry+https://github.rbx.com/roblox/rotriever-index",
     "Rodux roblox/rodux 1.0.0 registry+https://github.rbx.com/roblox/rotriever-index",
-    "UIBlox UIBlox c6de0182 git+https://github.rbx.com/roblox/uiblox#master",
+    "UIBlox UIBlox 27b49bee git+https://github.rbx.com/roblox/uiblox#master",
     "t osyris/t 1.2.5 registry+https://github.rbx.com/roblox/rotriever-index",
 ]
 
@@ -47,7 +48,7 @@ source = "git+https://github.rbx.com/roblox/lua-chat-deps#master"
 commit = "4a259061ee104cefbbfddb4d57c2ec851894a614"
 dependencies = [
     "InfiniteScroll roblox/infinite-scroller 0.3.3 registry+https://github.rbx.com/roblox/rotriever-index",
-    "RoduxNetworking rodux-networking cd528e25 git+https://github.rbx.com/roblox/rodux-networking#master",
+    "RoduxNetworking rodux-networking 1f998bb4 git+https://github.rbx.com/roblox/rodux-networking#master",
     "UIBlox UIBlox 59a469fd git+https://github.rbx.com/axia/uiblox#master",
 ]
 
@@ -60,7 +61,7 @@ dependencies = [
     "InfiniteScroll roblox/infinite-scroller 0.3.3 registry+https://github.rbx.com/roblox/rotriever-index",
     "RoactFitComponents roblox/roact-fit-components 1.0.0 registry+https://github.rbx.com/roblox/rotriever-index",
     "RoactNavigation roact-navigation 9887d065 git+https://github.rbx.com/roblox/roact-navigation#v0.1.1b",
-    "RoduxNetworking rodux-networking cd528e25 git+https://github.rbx.com/roblox/rodux-networking#master",
+    "RoduxNetworking rodux-networking 1f998bb4 git+https://github.rbx.com/roblox/rodux-networking#master",
 ]
 
 [[package]]
@@ -77,10 +78,10 @@ dependencies = [
 name = "PurchasePromptMigration"
 version = "0.6.5"
 source = "git+https://github.rbx.com/esauer/purchase-prompt-migration#master"
-commit = "38269871c48a664d19d71b53ebbd7ede764c1862"
+commit = "05c159a253b2ec2b5abcf4299e856d26bf13f38d"
 dependencies = [
-    "PurchasePrompt roblox/purchase-prompt 63e1d483 git+https://github.com/roblox/purchasepromptscript-roact#master",
-    "PurchasePromptOld roblox/purchase-prompt 582f422c git+https://github.com/roblox/purchasepromptscript-roact#0.1.4",
+    "PurchasePrompt roblox/purchase-prompt 9757e299 git+https://github.com/roblox/purchasepromptscript-roact#master",
+    "PurchasePromptOld roblox/purchase-prompt 582f422c git+https://github.com/roblox/purchasepromptscript-roact#v0.1.4",
 ]
 
 [[package]]
@@ -109,7 +110,7 @@ dependencies = [
 name = "UIBlox"
 version = "0.1.0"
 source = "git+https://github.rbx.com/roblox/uiblox#master"
-commit = "c6de0182bfd715f0617400528695514022f4452f"
+commit = "27b49beec8b4685f583880ad5c49c71ac4e57f47"
 dependencies = [
     "Cryo roblox/cryo 1.0.0 registry+https://github.rbx.com/roblox/rotriever-index",
     "FitFrame roblox/roact-fit-components 1.0.0 registry+https://github.rbx.com/roblox/rotriever-index",
@@ -201,7 +202,7 @@ source = "registry+https://github.rbx.com/roblox/rotriever-index"
 [[package]]
 name = "roblox/purchase-prompt"
 version = "0.1.4"
-source = "git+https://github.com/roblox/purchasepromptscript-roact#0.1.4"
+source = "git+https://github.com/roblox/purchasepromptscript-roact#v0.1.4"
 commit = "582f422c9c06c572ccda9e0a0f82990e7080e49c"
 dependencies = [
     "Cryo <patched> roblox/cryo 1.0.0 registry+https://github.rbx.com/roblox/rotriever-index",
@@ -215,7 +216,7 @@ dependencies = [
 name = "roblox/purchase-prompt"
 version = "0.1.5"
 source = "git+https://github.com/roblox/purchasepromptscript-roact#master"
-commit = "63e1d483959fdd35871d5197e8f067ba332f55c4"
+commit = "9757e299fd760b745dc8013215fb2d2c043cdf34"
 dependencies = [
     "Cryo roblox/cryo 1.0.0 registry+https://github.rbx.com/roblox/rotriever-index",
     "FitFrame roblox/roact-fit-components 1.0.0 registry+https://github.rbx.com/roblox/rotriever-index",
@@ -223,7 +224,7 @@ dependencies = [
     "Roact roblox/roact 1.2.0 registry+https://github.rbx.com/roblox/rotriever-index",
     "RoactRodux roblox/roact-rodux 0.2.0 registry+https://github.rbx.com/roblox/rotriever-index",
     "Rodux roblox/rodux 1.0.0 registry+https://github.rbx.com/roblox/rotriever-index",
-    "UIBlox UIBlox c6de0182 git+https://github.rbx.com/roblox/uiblox#master",
+    "UIBlox UIBlox 27b49bee git+https://github.rbx.com/roblox/uiblox#master",
     "t osyris/t 1.2.5 registry+https://github.rbx.com/roblox/rotriever-index",
 ]
 
@@ -272,10 +273,16 @@ version = "0.1.0"
 source = "registry+https://github.rbx.com/roblox/rotriever-index"
 
 [[package]]
+name = "roblox/testez"
+version = "0.1.0"
+source = "git+https://github.com/roblox/testez#v0.1"
+commit = "ef0f618cd7491019d1cb6766818e0f372b953678"
+
+[[package]]
 name = "rodux-networking"
 version = "0.1.0"
 source = "git+https://github.rbx.com/roblox/rodux-networking#master"
-commit = "cd528e2538135532cd55cab852538f25fb9543ec"
+commit = "1f998bb4afe27993b1b154f48295223e9c29c63c"
 dependencies = [
     "Cryo <patched> roblox/cryo 1.0.0 registry+https://github.rbx.com/roblox/rotriever-index",
     "Freeze freeze f18cf7e5 git+https://github.rbx.com/roblox/freeze#master",

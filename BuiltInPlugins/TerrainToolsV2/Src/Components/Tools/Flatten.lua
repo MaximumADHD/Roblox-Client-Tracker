@@ -9,6 +9,9 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 
 local FFlagTerrainToolsUseFragmentsForToolPanel = game:GetFastFlag("TerrainToolsUseFragmentsForToolPanel")
 local FFlagTerrainToolsRefactor = game:GetFastFlag("TerrainToolsRefactor")
+local FFlagTerrainToolsFlattenUseBaseBrush = game:GetFastFlag("TerrainToolsFlattenUseBaseBrush")
+
+local BaseBrush = require(Plugin.Src.Components.Tools.BaseBrush)
 
 local TerrainInterface = require(Plugin.Src.ContextServices.TerrainInterface)
 
@@ -26,10 +29,10 @@ local ChangePivot = require(Actions.ChangePivot)
 local ChangePlanePositionY = require(Actions.ChangePlanePositionY)
 local SetHeightPicker = require(Actions.SetHeightPicker)
 local SetPlaneLock = require(Actions.SetPlaneLock)
+local SetFixedPlane = require(Actions.SetFixedPlane)
 local SetSnapToGrid = require(Actions.SetSnapToGrid)
 local SetIgnoreWater = require(Actions.SetIgnoreWater)
 local SetBaseSizeHeightLocked = require(Actions.SetBaseSizeHeightLocked)
-
 
 local Constants = require(Plugin.Src.Util.Constants)
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
@@ -40,6 +43,74 @@ local ToolId = TerrainEnums.ToolId
 
 local REDUCER_KEY = "FlattenTool"
 
+if FFlagTerrainToolsFlattenUseBaseBrush then
+local function mapStateToProps(state, props)
+	return {
+		toolName = ToolId.Flatten,
+
+		baseSize = state[REDUCER_KEY].baseSize,
+		height = state[REDUCER_KEY].height,
+		baseSizeHeightLocked = state[REDUCER_KEY].baseSizeHeightLocked,
+		brushShape = state[REDUCER_KEY].brushShape,
+		strength = state[REDUCER_KEY].strength,
+		flattenMode = state[REDUCER_KEY].flattenMode,
+		pivot = state[REDUCER_KEY].pivot,
+		fixedPlane = state[REDUCER_KEY].fixedPlane,
+		planePositionY = state[REDUCER_KEY].planePositionY,
+		heightPicker = state[REDUCER_KEY].heightPicker,
+		snapToGrid = state[REDUCER_KEY].snapToGrid,
+		ignoreWater = state[REDUCER_KEY].ignoreWater,
+	}
+end
+
+local function mapDispatchToProps(dispatch)
+	local dispatchToFlatten = function(action)
+		dispatch(ApplyToolAction(REDUCER_KEY, action))
+	end
+
+	return {
+		dispatchChooseBrushShape = function (shape)
+			dispatchToFlatten(ChooseBrushShape(shape))
+		end,
+		dispatchChangeBaseSize = function (size)
+			dispatchToFlatten(ChangeBaseSize(size))
+		end,
+		dispatchChangeHeight = function (height)
+			dispatchToFlatten(ChangeHeight(height))
+		end,
+		dispatchChangeStrength = function (strength)
+			dispatchToFlatten(ChangeStrength(strength))
+		end,
+		dispatchChooseFlattenMode = function (flattenMode)
+			dispatchToFlatten(ChooseFlattenMode(flattenMode))
+		end,
+		dispatchChangePivot = function (pivot)
+			dispatchToFlatten(ChangePivot(pivot))
+		end,
+		dispatchSetFixedPlane = function (fixedPlane)
+			dispatchToFlatten(SetFixedPlane(fixedPlane))
+		end,
+		dispatchChangePlanePositionY = function (planePositionY)
+			dispatchToFlatten(ChangePlanePositionY(planePositionY))
+		end,
+		dispatchSetHeightPicker = function (heightPicker)
+			dispatchToFlatten(SetHeightPicker(heightPicker))
+		end,
+		dispatchSetSnapToGrid = function (snapToGrid)
+			dispatchToFlatten(SetSnapToGrid(snapToGrid))
+		end,
+		dispatchSetIgnoreWater = function (ignoreWater)
+			dispatchToFlatten(SetIgnoreWater(ignoreWater))
+		end,
+		dispatchSetBaseSizeHeightLocked = function (locked)
+			dispatchToFlatten(SetBaseSizeHeightLocked(locked))
+		end,
+	}
+end
+
+return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(BaseBrush)
+
+else
 local Flatten = Roact.PureComponent:extend(script.Name)
 
 function Flatten:init(initialProps)
@@ -399,3 +470,4 @@ local function mapDispatchToProps(dispatch)
 end
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(Flatten)
+end

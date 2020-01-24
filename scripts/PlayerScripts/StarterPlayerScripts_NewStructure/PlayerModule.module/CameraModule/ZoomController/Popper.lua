@@ -5,13 +5,6 @@
 
 local Players = game:GetService('Players')
 
-local FFlagUserPoppercamLooseOpacityThreshold do
-	local success, enabled = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserPoppercamLooseOpacityThreshold")
-	end)
-	FFlagUserPoppercamLooseOpacityThreshold = success and enabled
-end
-
 local camera = game.Workspace.CurrentCamera
 
 local min = math.min
@@ -130,19 +123,12 @@ local function canOcclude(part)
 	-- 1. Opaque
 	-- 2. Interactable
 	-- 3. Not in the same assembly as the subject
-
-	if FFlagUserPoppercamLooseOpacityThreshold then
-		return
-			getTotalTransparency(part) < 0.25 and
-			part.CanCollide and
-			subjectRoot ~= (part:GetRootPart() or part) and
-			not part:IsA('TrussPart')
-	else
-		return
-			part.Transparency < 0.95 and
-			part.CanCollide and
-			subjectRoot ~= (part:GetRootPart() or part)
-	end
+	
+	return
+		getTotalTransparency(part) < 0.25 and
+		part.CanCollide and
+		subjectRoot ~= (part:GetRootPart() or part) and
+		not part:IsA('TrussPart')
 end
 
 -- Offsets for the volume visibility test

@@ -6,7 +6,6 @@
 	assetId, numeber, will be used to request assetData on didMount.
 ]]
 
-local FFlagCMSPrepopulateTitle = game:DefineFastFlag("CMSPrepopulateTitle", false)
 local FFlagLuaPackagePermissions = settings():GetFFlag("LuaPackagePermissions")
 local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 local FFlagAssetConfigOverrideFromAnyScreen = game:DefineFastFlag("AssetConfigOverrideFromAnyScreen", false)
@@ -471,7 +470,7 @@ function AssetConfig:didUpdate(previousProps, previousState)
 				self.init = true
 			end
 
-			if game:GetFastFlag("CMSEnableCatalogTags2") and assetConfigData.ItemTags and self.state.tags == nil then
+			if assetConfigData.ItemTags and self.state.tags == nil then
 				self:setState({
 					tags = TagsUtil.getTagsFromItemTags(assetConfigData.ItemTags),
 				})
@@ -503,7 +502,7 @@ function AssetConfig:didUpdate(previousProps, previousState)
 				})
 			end
 
-			if game:GetFastFlag("CMSEnableCatalogTags2") and assetConfigData.ItemTags and self.state.tags == nil then
+			if assetConfigData.ItemTags and self.state.tags == nil then
 				self:setState({
 					tags = TagsUtil.getTagsFromItemTags(assetConfigData.ItemTags),
 				})
@@ -527,7 +526,7 @@ function AssetConfig:didMount()
 			if AssetConfigUtil.isCatalogAsset(self.props.assetTypeEnum) then
 				self.props.getAssetDetails(getNetwork(self), self.props.assetId, false)
 
-				if game:GetFastFlag("CMSEnableCatalogTags2") and TagsUtil.areTagsEnabled(self.props.isItemTagsFeatureEnabled, self.props.enabledAssetTypesForItemTags, self.props.assetTypeEnum) then
+				if TagsUtil.areTagsEnabled(self.props.isItemTagsFeatureEnabled, self.props.enabledAssetTypesForItemTags, self.props.assetTypeEnum) then
 					self.props.getAssetTags(getNetwork(self), self.props.assetId)
 				end
 			else
@@ -557,13 +556,11 @@ function AssetConfig:didMount()
 			end
 		end
 	else -- If not edit, then we are in publish flow
-		if FFlagCMSPrepopulateTitle then
-			local instances = self.props.instances
-			if instances and #instances > 0 then
-				self:setState({
-					name = instances[1].Name
-				})
-			end
+		local instances = self.props.instances
+		if instances and #instances > 0 then
+			self:setState({
+				name = instances[1].Name
+			})
 		end
 
 		self.props.getIsVerifiedCreator(getNetwork(self))
@@ -737,7 +734,7 @@ function AssetConfig:render()
 					previewType = AssetConfigUtil.getPreviewType(assetTypeEnum, props.instances)
 				end
 
-				local showTags = game:GetFastFlag("CMSEnableCatalogTags2") and TagsUtil.areTagsEnabled(props.isItemTagsFeatureEnabled, props.enabledAssetTypesForItemTags, assetTypeEnum)
+				local showTags = TagsUtil.areTagsEnabled(props.isItemTagsFeatureEnabled, props.enabledAssetTypesForItemTags, assetTypeEnum)
 
 				local isPriceValid = validatePrice(price, minPrice, maxPrice, newAssetStatus)
 				local isMarketBuyAndNonWhiteList = AssetConfigUtil.isBuyableMarketplaceAsset(assetTypeEnum) and (not allowedAssetTypesForRelease[assetTypeEnum.Name])
@@ -935,7 +932,7 @@ local function mapStateToProps(state, props)
 		hasPackagePermission = props.assetId and state.packagePermissions[props.assetId] ~= nil,
 		isItemTagsFeatureEnabled = state.isItemTagsFeatureEnabled,
 		enabledAssetTypesForItemTags = state.enabledAssetTypesForItemTags,
-		maximumItemTagsPerItem = game:GetFastFlag("CMSEnableCatalogTags2") and state.maximumItemTagsPerItem,
+		maximumItemTagsPerItem = state.maximumItemTagsPerItem,
 	}
 end
 

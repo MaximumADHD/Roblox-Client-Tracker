@@ -16,6 +16,8 @@
 		is specified then the natural max characters are allowed
 	bool EditingDisabled = false
 
+	function OnFocused()
+		Called when the textbox gains focus
 	function OnFocusLost(enterPressed, self.textBoxRef.current.Text):
 		Handled the textinput how you want. enterPressed is from the focuslost event.
 

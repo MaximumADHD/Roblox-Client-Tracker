@@ -24,14 +24,8 @@ end
 
 local function validateWithSchemaHelper(schema, instance, authorizedSet)
 	-- validate
-	if game:GetFastFlag("CMSAdditionalAccessoryTypesV2") then
-		if instance.ClassName ~= schema.ClassName or (schema.Name ~= nil and not checkName(schema.Name, instance.Name)) then
-			return { success = false }
-		end
-	else
-		if instance.ClassName ~= schema.ClassName or (schema.Name ~= nil and schema.Name ~= instance.Name) then
-			return { success = false }
-		end
+	if instance.ClassName ~= schema.ClassName or (schema.Name ~= nil and not checkName(schema.Name, instance.Name)) then
+		return { success = false }
 	end
 
 	-- validate children
@@ -52,13 +46,7 @@ local function validateWithSchemaHelper(schema, instance, authorizedSet)
 				if mostRecentFailure then
 					return mostRecentFailure
 				else
-					local childSchemaName
-					if game:GetFastFlag("CMSAdditionalAccessoryTypesV2") then
-						childSchemaName = getReadableName(childSchema.Name)
-					else
-						childSchemaName = childSchema.Name or ANY_NAME
-					end
-
+					local childSchemaName = getReadableName(childSchema.Name)
 					return {
 						success = false,
 						message = "Could not find a "

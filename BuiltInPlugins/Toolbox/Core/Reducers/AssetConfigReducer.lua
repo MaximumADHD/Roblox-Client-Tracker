@@ -74,7 +74,6 @@ return Rodux.createReducer({
 		},
 		--]]
 	},
-	isCatalogItemCreator = false, -- remove with FFlagCMSRemoveUGCContentEnabledBoolean
 	allowedAssetTypesForRelease = {},
 	allowedAssetTypesForUpload = {},
 

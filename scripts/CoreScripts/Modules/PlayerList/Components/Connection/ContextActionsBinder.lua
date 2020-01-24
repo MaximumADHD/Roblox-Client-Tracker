@@ -1,8 +1,11 @@
 local CorePackages = game:GetService("CorePackages")
 local ContextActionService = game:GetService("ContextActionService")
+local CoreGui = game:GetService("CoreGui")
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
+
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local Components = script.Parent.Parent
 local PlayerList = Components.Parent
@@ -10,6 +13,8 @@ local PlayerList = Components.Parent
 local TOGGLE_CONTEXT_ACTION_NAME = "RbxPlayerListToggle"
 local GAMEPAD_CLOSE_CONTEXT_ACTION_NAME = "RbxPlayerListGamepadClose"
 local GAMEPAD_STOP_MOVEMENT_ACTION_NAME = "RbxPlayerListStopMovement"
+
+local FFlagPlayerListDontCreateUIWhenDisabled = require(RobloxGui.Modules.Flags.FFlagPlayerListDontCreateUIWhenDisabled)
 
 local SetPlayerListVisibility = require(PlayerList.Actions.SetPlayerListVisibility)
 
@@ -79,26 +84,30 @@ function ContextActionsBinder:unbindActions()
 	self.boundPlayerListActions = false
 end
 
-function ContextActionsBinder:canBindActions()
-	if self.props.displayOptions.isTenFootInterface then
-		return true
+if not FFlagPlayerListDontCreateUIWhenDisabled then
+	function ContextActionsBinder:canBindActions()
+		if self.props.displayOptions.isTenFootInterface then
+			return true
+		end
+		return self.props.displayOptions.playerlistCoreGuiEnabled and self.props.displayOptions.topbarEnabled
 	end
-	return self.props.displayOptions.playerlistCoreGuiEnabled and self.props.displayOptions.topbarEnabled
 end
 
 function ContextActionsBinder:didMount()
-	if self:canBindActions() then
+	if FFlagPlayerListDontCreateUIWhenDisabled or self:canBindActions() then
 		self:bindActions()
 	end
 end
 
-function ContextActionsBinder:didUpdate()
-	if self:canBindActions() then
-		if not self.boundPlayerListActions then
-			self:bindActions()
+if not FFlagPlayerListDontCreateUIWhenDisabled then
+	function ContextActionsBinder:didUpdate()
+		if self:canBindActions() then
+			if not self.boundPlayerListActions then
+				self:bindActions()
+			end
+		elseif self.boundPlayerListActions then
+			self:unbindActions()
 		end
-	elseif self.boundPlayerListActions then
-		self:unbindActions()
 	end
 end
 

@@ -5,9 +5,9 @@ local InGameMenu = script.Parent.Parent
 local SetLanguageCodeMap = require(InGameMenu.Actions.SetLanguageCodeMap)
 
 local httpImpl = require(InGameMenu.Network.httpRequest)(HttpRbxApiService)
-local GetSupportedLanguages = require(InGameMenu.Network.Requests.Games.GetSupportedLanguages)
+local GetSupportedLanguages = require(InGameMenu.Network.Requests.GetSupportedLanguages)
 
-local function requestGameSourceLanguage(store)
+local function requestLocaleInfo(store)
 	GetSupportedLanguages(httpImpl):andThen(function(result)
 		local data = result.responseBody.data
 
@@ -15,7 +15,8 @@ local function requestGameSourceLanguage(store)
 
 		for _, localeInfo in ipairs(data) do
 			-- Locale being repeated here twice looks wrong but it is correct.
-			languageCodeMap[localeInfo.locale.locale] = localeInfo.locale.language.languageCode
+			-- Web passes in the locales with _ as a seperator but we use - on the client
+			languageCodeMap[localeInfo.locale.locale:gsub("_", "-")] = localeInfo.locale.language.languageCode
 		end
 
 		store:dispatch(SetLanguageCodeMap(languageCodeMap))
@@ -24,4 +25,4 @@ local function requestGameSourceLanguage(store)
 	end)
 end
 
-return requestGameSourceLanguage
+return requestLocaleInfo

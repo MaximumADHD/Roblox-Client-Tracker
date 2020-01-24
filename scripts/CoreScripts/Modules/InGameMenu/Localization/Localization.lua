@@ -50,8 +50,7 @@ function Localization:Format(key, arguments)
 		error("ERROR: NO STRING FOR KEY")
 	end
 
-	local string = self.localizationContext:getString(self.locale, key, arguments)
-	return string
+	return self.localizationContext:getString(self.locale, key, arguments)
 end
 
 return Localization

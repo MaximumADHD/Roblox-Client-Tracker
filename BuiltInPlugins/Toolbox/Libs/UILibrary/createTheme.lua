@@ -274,9 +274,26 @@ return function(style, overrides)
 	}
 
 	local assetPreview = {
+		font = style.font,
+		textSize = 14,
+
 		modelPreview = {
 			background = style.backgroundColor,
-		}
+		},
+
+		imagePreview = {
+			background = style.backgroundColor,
+			textColor = style.textColor,
+		},
+
+		thumbnailIconPreview = {
+			background = style.backgroundColor,
+			textColor = style.textColor,
+
+			textLabelPadding  = 20,
+			iconSize = 16,
+			defaultTextLabelHeight = 20,
+		},
 	}
 
 	return replaceDefaults({

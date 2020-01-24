@@ -2,9 +2,6 @@
 	A set of utilities for interfacing between Motor6D Rigs and the AnimationClip editor.
 ]]
 
-local FFlagStudioAnimEditorFocusRig = game:DefineFastFlag("StudioAnimEditorFocusRig", false)
-local FFlagStudioFixAnimEditorDescendants = game:DefineFastFlag("StudioFixAnimEditorDescendants", false)
-
 local DEFAULT_TOLERANCE = 0.0001
 
 local Plugin = script.Parent.Parent.Parent
@@ -21,6 +18,7 @@ local Constants = require(Plugin.Src.Util.Constants)
 local FixRigUtils = require(Plugin.LuaFlags.GetFFlagFixRigUtils)
 local FixExportSpeed = require(Plugin.LuaFlags.GetFFlagFixExportSpeed)
 local FindNestedParts = require(Plugin.LuaFlags.GetFFlagFindNestedParts)
+local FixDuplicateChildNames = require(Plugin.LuaFlags.GetFFlagFixDuplicateChildNames)
 
 local RigUtils = {}
 
@@ -37,16 +35,15 @@ local function getDescendants(descendants, model)
 	return descendants
 end
 
+function RigUtils.getDescendants(descendants,  model)
+	getDescendants(descendants, model)
+end
+
 -- Returns a list of every Motor6D in the rig.
 function RigUtils.getMotors(rig)
 	local motors = {}
 
-	local descendants
-	if FFlagStudioFixAnimEditorDescendants then
-		descendants = getDescendants({}, rig)
-	else
-		descendants = rig:GetDescendants()
-	end
+	local descendants = getDescendants({}, rig)
 
 	for _, child in ipairs(descendants) do
 		if child:IsA("Motor6D") then
@@ -68,12 +65,7 @@ local function getConstraints(rig)
 	local constraints = {}
 
 	local target = getTemporaryConstraints() or rig
-	local descendants
-	if FFlagStudioFixAnimEditorDescendants then
-		descendants = getDescendants({}, target)
-	else
-		descendants = target:GetDescendants()
-	end
+	local descendants = getDescendants({}, target)
 
 	for _, child in ipairs(descendants) do
 		if child:IsA("BallSocketConstraint") or child:IsA("HingeConstraint") then
@@ -201,18 +193,36 @@ function RigUtils.rigHasErrors(rig)
 		end
 	end
 
-	local nameCollision = false
-	for _, part1 in ipairs(parts) do
-		for _, part2 in ipairs(parts) do
-			if part1 ~= part2 and part1.Name == part2.Name then
-				table.insert(errorList, {
-					ID = Constants.RIG_ERRORS.NameCollision,
-				})
-				nameCollision = true
-				break
+	if FixDuplicateChildNames() then
+		local descendants = {}
+		getDescendants(descendants, rig)
+		local names = {}
+		for _, child in ipairs(descendants) do
+			if child:IsA("BasePart") then
+				if not names[child.Name] then
+					names[child.Name] = true
+				else
+					table.insert(errorList, {
+						ID = Constants.RIG_ERRORS.NameCollision,
+					})
+					break
+				end
 			end
-			if nameCollision then
-				break
+		end
+	else
+		local nameCollision = false
+		for _, part1 in ipairs(parts) do
+			for _, part2 in ipairs(parts) do
+				if part1 ~= part2 and part1.Name == part2.Name then
+					table.insert(errorList, {
+						ID = Constants.RIG_ERRORS.NameCollision,
+					})
+					nameCollision = true
+					break
+				end
+				if nameCollision then
+					break
+				end
 			end
 		end
 	end
@@ -1037,7 +1047,6 @@ function RigUtils.getAnimSaves(rig)
 end
 
 function RigUtils.focusCamera(rig)
-	assert(FFlagStudioAnimEditorFocusRig)
 	local camera = Workspace:FindFirstChildOfClass("Camera")
 	if camera then
 		local extents = rig:GetExtentsSize()

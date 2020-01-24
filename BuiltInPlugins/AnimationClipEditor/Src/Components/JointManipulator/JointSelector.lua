@@ -46,6 +46,7 @@ local JointManipulator = require(Plugin.Src.Components.JointManipulator.JointMan
 local ToggleWorldSpace = require(Plugin.Src.Actions.ToggleWorldSpace)
 local FixManipulators = require(Plugin.LuaFlags.GetFFlagFixAnimEditorManipulators)
 local FindNestedParts = require(Plugin.LuaFlags.GetFFlagFindNestedParts)
+local FixDuplicateChildNames = require(Plugin.LuaFlags.GetFFlagFixDuplicateChildNames)
 
 local JointSelector = Roact.PureComponent:extend("JointSelector")
 
@@ -139,7 +140,16 @@ function JointSelector.getDerivedStateFromProps(nextProps, lastState)
 	local currentParts = {}
 	if selectedTracks and rootInstance then
 		for _, track in ipairs(selectedTracks) do
-			if FindNestedParts() then
+			if FixDuplicateChildNames() then
+				local descendants = {}
+				RigUtils.getDescendants(descendants, rootInstance)
+				for _, child in ipairs(descendants) do
+					if child.Name == track and child:IsA("BasePart") then
+						table.insert(currentParts, child)
+						break
+					end
+				end
+			elseif FindNestedParts() then
 				local part = RigUtils.getPartByName(rootInstance, track)
 				if part then
 					table.insert(currentParts, part)

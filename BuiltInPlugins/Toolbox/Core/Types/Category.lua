@@ -345,34 +345,24 @@ local ASSET_ENUM_CATEGORY_MAP = {
 }
 
 function Category.getCategories(tabName, roles)
-	if game:GetFastFlag("CMSAdditionalAccessoryTypesV2") then
-		if Category.CREATIONS_KEY == tabName then
-			local categories = getCreationCategories()
-			if roles and (game:GetFastFlag("CMSRemoveUGCContentEnabledBoolean") or roles.isCatalogItemCreator) then
-				local allowedAssetTypeEnums = AssetConfigUtil.getAllowedAssetTypeEnums(roles.allowedAssetTypesForRelease)
-				if #allowedAssetTypeEnums > 0 then
-					table.insert(categories, Category.CREATIONS_CATALOG_SECTION_DIVIDER)
-					for _, assetTypeEnum in pairs(allowedAssetTypeEnums) do
-						table.insert(categories, ASSET_ENUM_CATEGORY_MAP[assetTypeEnum])
-					end
+	if Category.CREATIONS_KEY == tabName then
+		local categories = getCreationCategories()
+		if roles then
+			local allowedAssetTypeEnums = AssetConfigUtil.getAllowedAssetTypeEnums(roles.allowedAssetTypesForRelease)
+			if #allowedAssetTypeEnums > 0 then
+				table.insert(categories, Category.CREATIONS_CATALOG_SECTION_DIVIDER)
+				for _, assetTypeEnum in pairs(allowedAssetTypeEnums) do
+					table.insert(categories, ASSET_ENUM_CATEGORY_MAP[assetTypeEnum])
 				end
 			end
-			return categories
-		elseif Category.MARKETPLACE_KEY == tabName then
-			return Category.MARKETPLACE
-		elseif Category.INVENTORY_KEY == tabName then
-			return Category.INVENTORY
-		elseif Category.RECENT_KEY == tabName then
-			return Category.RECENT
 		end
-	else
-		if Category.CREATIONS_KEY == tabName then
-			if roles and roles.isCatalogItemCreator then
-				return TABS[tabName][CreationsCatalogItemCreatorCategoriesKey]
-			end
-			return TABS[tabName][CreationsCatagoriesKey]
-		end
-		return TABS[tabName];
+		return categories
+	elseif Category.MARKETPLACE_KEY == tabName then
+		return Category.MARKETPLACE
+	elseif Category.INVENTORY_KEY == tabName then
+		return Category.INVENTORY
+	elseif Category.RECENT_KEY == tabName then
+		return Category.RECENT
 	end
 end
 
@@ -384,26 +374,6 @@ function Category.getEngineAssetType(assetType)
 		end
 	end
 	return result
-end
-
-function Category.getBackendNameForAssetTypeEnd(assetTypeEnum)
-	local BACKEND_ASSET_TYPE_MAP = {
-		[Enum.AssetType.Hat] = "Hat",
-		[Enum.AssetType.HairAccessory] = "Hair Accessory",
-		[Enum.AssetType.FaceAccessory] = "Face Accessory",
-		[Enum.AssetType.NeckAccessory] = "Neck Accessory",
-		[Enum.AssetType.ShoulderAccessory] = "Shoulder Accessory",
-		[Enum.AssetType.FrontAccessory] = "Front Accessory",
-		[Enum.AssetType.BackAccessory] = "Back Accessory",
-		[Enum.AssetType.WaistAccessory] = "Waist Accessory",
-	}
-
-	local result = BACKEND_ASSET_TYPE_MAP[assetTypeEnum]
-	if result then
-		return result
-	else
-		return assetTypeEnum.Name
-	end
 end
 
 local function ownershipTypeToString(ownershipType)

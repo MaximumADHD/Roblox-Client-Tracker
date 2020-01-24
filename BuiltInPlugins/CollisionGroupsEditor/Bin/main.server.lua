@@ -5,6 +5,8 @@ if settings():GetFFlag("StudioUseStandaloneCollisionEditor2") then
 	return
 end
 
+local StudioDeferCGESelectionListener = game:DefineFastFlag("StudioDeferCGESelectionListener", false)
+
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 local Opened = false
 
@@ -38,14 +40,37 @@ Window.Title = "Collision Groups Editor"
 local Roact = require(script.Parent.Parent.modules.Roact)
 local Gui = require(script.Parent.Parent.Plugin.Components.Gui)
 
-Roact.mount(
-	Roact.createElement(Gui, {
-		Window = Window,
-		plugin = plugin
-	}),
-	Window,
-	"CollisionGroupEditorGui"
-)
+if StudioDeferCGESelectionListener then
+	local mountHandle = nil
+
+	local function widgetEnabledChanged()
+		if Window.Enabled then
+			mountHandle = Roact.mount(
+				Roact.createElement(Gui, {
+					Window = Window,
+					plugin = plugin
+				}),
+				Window,
+				"CollisionGroupEditorGui"
+			)
+		else
+			if mountHandle then
+				Roact.unmount(mountHandle)
+			end
+		end
+	end
+	Window:GetPropertyChangedSignal("Enabled"):Connect(widgetEnabledChanged)
+	widgetEnabledChanged()
+else
+	Roact.mount(
+		Roact.createElement(Gui, {
+			Window = Window,
+			plugin = plugin
+		}),
+		Window,
+		"CollisionGroupEditorGui"
+	)
+end
 
 function onClicked()
 	Window.Enabled = not Window.Enabled

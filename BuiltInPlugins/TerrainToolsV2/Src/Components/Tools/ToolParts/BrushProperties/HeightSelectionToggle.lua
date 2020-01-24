@@ -2,6 +2,7 @@ local Plugin = script.Parent.Parent.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 
 local FFlagTerrainToolsFixPlanePositionErrorMessage = game:GetFastFlag("TerrainToolsFixPlanePositionErrorMessage")
+local FFlagTerrainToolsFlattenUseBaseBrush = game:GetFastFlag("TerrainToolsFlattenUseBaseBrush")
 
 local Theme = require(Plugin.Src.ContextServices.Theming)
 local withTheme = Theme.withTheme
@@ -14,14 +15,36 @@ local PickerButton = require(ToolParts.ToggleButtons).PickerButton
 local HeightSelectionToggle = Roact.PureComponent:extend("HeightSelectionToggle")
 
 function HeightSelectionToggle:init(props)
+	self.onFocused = function()
+		if self.props.setHeightPicker then
+			self.props.setHeightPicker(false)
+		end
+	end
+
 	self.onFocusLost = function(_, _, text, isValid)
-		if isValid then
-			self.props.setPlanePositionY(text)
+		if FFlagTerrainToolsFlattenUseBaseBrush then
+			if self.props.setHeightPicker then
+				self.props.setHeightPicker(false)
+			end
+
+			local setPlanePositionY = self.props.setPlanePositionY
+			if isValid and setPlanePositionY then
+				-- When the height picker is on, it's possible that this call gets ignored
+				-- And instead where ever the height picker was is used instead
+				-- So delay this a frame to let the height picker finish
+				spawn(function()
+					setPlanePositionY(text)
+				end)
+			end
+		else
+			if isValid and self.props.setPlanePositionY then
+				self.props.setPlanePositionY(text)
+			end
 		end
 	end
 
 	self.onValueChanged = function(_, text, isValid)
-		if isValid then
+		if isValid and self.props.setPlanePositionY then
 			self.props.setPlanePositionY(text)
 		end
 	end
@@ -52,6 +75,7 @@ function HeightSelectionToggle:render()
 				Label = "Y",
 				Value = planePositionY,
 				Precision = 3,
+				OnFocused = FFlagTerrainToolsFlattenUseBaseBrush and self.onFocused,
 				OnFocusLost = self.onFocusLost,
 				OnValueChanged = self.onValueChanged,
 			}),
@@ -87,6 +111,7 @@ function HeightSelectionToggle:render()
 					Label = "Y",
 					Value = planePositionY,
 					Precision = 3,
+					OnFocused = FFlagTerrainToolsFlattenUseBaseBrush and self.onFocused,
 					OnFocusLost = self.onFocusLost,
 					OnValueChanged = self.onValueChanged,
 				}),

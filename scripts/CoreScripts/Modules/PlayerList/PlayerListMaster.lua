@@ -8,6 +8,8 @@ local UserInputService = game:GetService("UserInputService")
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
+local FFlagPlayerListDontCreateUIWhenDisabled = require(RobloxGui.Modules.Flags.FFlagPlayerListDontCreateUIWhenDisabled)
+
 local AppDarkTheme = require(CorePackages.AppTempCommon.LuaApp.Style.Themes.DarkTheme)
 local AppFont = require(CorePackages.AppTempCommon.LuaApp.Style.Fonts.Gotham)
 
@@ -97,6 +99,9 @@ function PlayerListMaster.new()
 	self:_initalizePlayers()
 	self:_initalizeTeams()
 	self:_initalizeFollowingInfo()
+	if FFlagPlayerListDontCreateUIWhenDisabled then
+		self:_trackEnabled()
+	end
 
 	local appStyle = {
 		Theme = AppDarkTheme,
@@ -122,7 +127,38 @@ function PlayerListMaster.new()
 
 	self.element = Roact.mount(self.root, RobloxGui, "PlayerListMaster")
 
+	if FFlagPlayerListDontCreateUIWhenDisabled then
+		self.mounted = true
+		self.coreGuiEnabled = StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.PlayerList)
+		self:_updateMounted()
+	end
+
 	return self
+end
+
+if FFlagPlayerListDontCreateUIWhenDisabled then
+	function PlayerListMaster:_updateMounted()
+		if not TenFootInterface:IsEnabled() then
+			local shouldMount = self.coreGuiEnabled and self.topBarEnabled
+			if shouldMount and not self.mounted then
+				self.element = Roact.mount(self.root, RobloxGui, "PlayerListMaster")
+				self.mounted = true
+			elseif not shouldMount and self.mounted then
+				Roact.unmount(self.element)
+				self.mounted = false
+			end
+		end
+	end
+
+	function PlayerListMaster:_trackEnabled()
+		StarterGui.CoreGuiChangedSignal:Connect(function(coreGuiType, enabled)
+			if coreGuiType == Enum.CoreGuiType.All or coreGuiType == Enum.CoreGuiType.PlayerList then
+				self.coreGuiEnabled = enabled
+				self:_updateMounted()
+				self.store:dispatch(SetPlayerListEnabled(enabled))
+			end
+		end)
+	end
 end
 
 function PlayerListMaster:_initalizePlayers()
@@ -177,7 +213,12 @@ function PlayerListMaster:HideTemp(requester, hidden)
 end
 
 function PlayerListMaster:SetTopBarEnabled(value)
-	self.store:dispatch(SetTopBarEnabled(value))
+	if FFlagPlayerListDontCreateUIWhenDisabled then
+		self.topBarEnabled = value
+		self:_updateMounted()
+	else
+		self.store:dispatch(SetTopBarEnabled(value))
+	end
 end
 
 return PlayerListMaster

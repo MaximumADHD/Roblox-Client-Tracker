@@ -6,15 +6,14 @@
     After the asset is returned, we will re-calculate canvase size.
 	This component will send out request to try to load more pages on didMount and after didUpdate.
 
-	Necesarry Properties:
-		UDim2 Position - The position of the scrolling frame.
-		UDim2 Size - The size of the scrolling frame.
-
+	Required Properties:
 		function NextPageFunc - called during re-render when there is more empty spaces. This function should includes all the
 			parameters needed for the request except for the currentPage. Target page will be determined by the infiScroller.
 
 	Optional Properties:
-        int LayoutOrder - sets order of element in layout
+		UDim2 Position - The position of the scrolling frame.
+		UDim2 Size - The size of the scrolling frame.
+		int LayoutOrder - sets order of element in layout
 		int NextPageRequestDistance - space left in layout before making request to fetch more elements
 		int CanvasHeight - used to specify height of canvas.
 		Roact ref LayoutRef - used to calculate the height of the canvas.
@@ -64,9 +63,7 @@ function InfiniteScrollingFrame:init(props)
 	end
 
 	self.requestNextPage = function()
-		if self.props.NextPageFunc then
-			self.props.NextPageFunc()
-		end
+		self.props.NextPageFunc()
 	end
 end
 
@@ -89,12 +86,16 @@ function InfiniteScrollingFrame:didUpdate(previousProps, previousState)
 end
 
 function InfiniteScrollingFrame:render()
-    local props = self.props
-    local state = self.state
+	local props = self.props
+	
+	local nextPageFunc = self.props.NextPageFunc
+	
+	assert(nextPageFunc ~= nil and type(NextPageFunc) == "function",
+		"InfiniteScrollingFrame requires a NextPageFunc function.")
 
-    local Position = props.Position
-    local Size = props.Size
-    local LayoutOrder = props.LayoutOrder
+    local position = props.Position
+    local size = props.Size
+    local layoutOrder = props.LayoutOrder
 
     local layoutRef = props.LayoutRef and props.LayoutRef.current
 	local canvasHeight = DEFAULT_CANVAS_HEIGHT
@@ -105,18 +106,17 @@ function InfiniteScrollingFrame:render()
 	end
 
     return Roact.createElement(StyledScrollingFrame, {
-        Position = Position,
-        Size = Size,
-        CanvasSize = UDim2.new(1, 0, 0, canvasHeight),
-        LayoutOrder = LayoutOrder,
+        Position = position,
+        Size = size,
+		CanvasSize = UDim2.new(1, 0, 0, canvasHeight),
+		LayoutOrder = layoutOrder,
         ZIndex = 1,
 
         ScrollingEnabled = true,
 
         [Roact.Ref] = self.scrollingFrameRef,
         onScroll = self.onScroll,
-    },
-    props[Roact.Children])
+    }, props[Roact.Children])
 end
 
 return InfiniteScrollingFrame

@@ -637,6 +637,11 @@
         "Default": ":/images/ResponsiveUI/Toggle/toggle_off_dark.png",
         "Disabled": ":/images/ResponsiveUI/Toggle/toggle_off_disable_dark.png"
       } 
+    },
+    {
+      "StatusSuccessIcon": {
+        "Default": ":/images/statusSuccess.png"
+      } 
     }
   ],
     "Package": {

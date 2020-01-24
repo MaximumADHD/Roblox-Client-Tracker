@@ -631,6 +631,11 @@
         "Default": ":/images/ResponsiveUI/Toggle/toggle_off_light.png",
         "Disabled": ":/images/ResponsiveUI/Toggle/toggle_off_disable_light.png"
       } 
+    },
+    {
+      "StatusSuccessIcon": {
+        "Default": ":/images/statusSuccess.png"
+      } 
     }
   ],
     "Package": {

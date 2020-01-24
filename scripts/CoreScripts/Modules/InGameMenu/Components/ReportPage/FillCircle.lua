@@ -46,33 +46,33 @@ local function getFillRingZIndex(fillFraction)
 	return 0
 end
 
-local function linearTween(time, startFrame, endFrame)
+local function linearTween(dTime, startFrame, endFrame)
 	local range = (endFrame - startFrame)/FPS
-	return (time - (startFrame/FPS)) / range
+	return (dTime - (startFrame/FPS)) / range
 end
 
-local function isBetweenFrames(time, startFrame, endFrame)
-	return time >= (startFrame/FPS) and time <= (endFrame/FPS)
+local function isBetweenFrames(dTime, startFrame, endFrame)
+	return dTime >= (startFrame/FPS) and dTime <= (endFrame/FPS)
 end
 
-local function largerCircleAnimation(elapsedTime, updateBindings, reverse, stopCallback)
+local function largerCircleAnimation(timeElapsed, updateBindings, reverse, stopCallback)
 	--[[
 		- frame 0 -> 16x16
 		- frame 5 -> 22x22
 		- frame 8 -> 20x20
 	]]
 	if reverse then
-		elapsedTime = 8/FPS - elapsedTime
+		timeElapsed = 8/FPS - timeElapsed
 	end
-	if isBetweenFrames(elapsedTime, 0, 5) then
-		local scaledElapsed = linearTween(elapsedTime, 0, 5)
+	if isBetweenFrames(timeElapsed, 0, 5) then
+		local scaledElapsed = linearTween(timeElapsed, 0, 5)
 		local ringSize = 16 + (6 * scaledElapsed)
 		updateBindings.size(UDim2.new(0, ringSize, 0, ringSize))
-	elseif isBetweenFrames(elapsedTime, 5, 8) then
-		local scaledElapsed = linearTween(elapsedTime, 5, 8)
+	elseif isBetweenFrames(timeElapsed, 5, 8) then
+		local scaledElapsed = linearTween(timeElapsed, 5, 8)
 		local ringSize = 22 - (2 * scaledElapsed)
 		updateBindings.size(UDim2.new(0, ringSize, 0, ringSize))
-	elseif elapsedTime < 0 then
+	elseif timeElapsed < 0 then
 		--Complete reversed animation
 		updateBindings.size(UDim2.new(0, FILL_RING_MIN_SIZE, 0, FILL_RING_MIN_SIZE))
 		stopCallback()
@@ -83,18 +83,18 @@ local function largerCircleAnimation(elapsedTime, updateBindings, reverse, stopC
 	end
 end
 
-local function popCircleAnimation(elapsedTime, updateBindings, reverse, stopCallback)
+local function popCircleAnimation(timeElapsed, updateBindings, reverse, stopCallback)
 	--[[
 		- frame 0 -> 20x20
 		- frame 3 -> 24x24
 		- frame 6 -> 20x20
 	]]
-	if isBetweenFrames(elapsedTime, 0, 3) then
-		local scaledElapsed = linearTween(elapsedTime, 0, 3)
+	if isBetweenFrames(timeElapsed, 0, 3) then
+		local scaledElapsed = linearTween(timeElapsed, 0, 3)
 		local ringSize = 20 + (4 * scaledElapsed)
 		updateBindings.size(UDim2.new(0, ringSize, 0, ringSize))
-	elseif isBetweenFrames(elapsedTime, 3, 6) then
-		local scaledElapsed = linearTween(elapsedTime, 3, 6)
+	elseif isBetweenFrames(timeElapsed, 3, 6) then
+		local scaledElapsed = linearTween(timeElapsed, 3, 6)
 		local ringSize = 24 - (4 * scaledElapsed)
 		updateBindings.size(UDim2.new(0, ringSize, 0, ringSize))
 	else
@@ -104,7 +104,7 @@ local function popCircleAnimation(elapsedTime, updateBindings, reverse, stopCall
 	end
 end
 
-local function shakeCircleAnimation(elapsedTime, updateBindings, reverse, stopCallback)
+local function shakeCircleAnimation(timeElapsed, updateBindings, reverse, stopCallback)
 	--[[
 		- frame 0 -> center
 		- frame 3 -> left 4 pixels
@@ -114,23 +114,23 @@ local function shakeCircleAnimation(elapsedTime, updateBindings, reverse, stopCa
 		- frame 12 -> left 8 pixels
 		- frame 14 -> center
 	]]
-	if isBetweenFrames(elapsedTime, 0, 3) then
-		local scaledElapsed = linearTween(elapsedTime, 0, 3)
+	if isBetweenFrames(timeElapsed, 0, 3) then
+		local scaledElapsed = linearTween(timeElapsed, 0, 3)
 		updateBindings.positionOffset(UDim2.new(0, -4 * scaledElapsed, 0, 0))
-	elseif isBetweenFrames(elapsedTime, 3, 6) then
-		local scaledElapsed = linearTween(elapsedTime, 3, 6)
+	elseif isBetweenFrames(timeElapsed, 3, 6) then
+		local scaledElapsed = linearTween(timeElapsed, 3, 6)
 		updateBindings.positionOffset(UDim2.new(0, -4 + 12 * scaledElapsed, 0, 0))
-	elseif isBetweenFrames(elapsedTime, 6, 8) then
-		local scaledElapsed = linearTween(elapsedTime, 6, 8)
+	elseif isBetweenFrames(timeElapsed, 6, 8) then
+		local scaledElapsed = linearTween(timeElapsed, 6, 8)
 		updateBindings.positionOffset(UDim2.new(0, 8 - 16 * scaledElapsed, 0, 0))
-	elseif isBetweenFrames(elapsedTime, 8, 10) then
-		local scaledElapsed = linearTween(elapsedTime, 8, 10)
+	elseif isBetweenFrames(timeElapsed, 8, 10) then
+		local scaledElapsed = linearTween(timeElapsed, 8, 10)
 		updateBindings.positionOffset(UDim2.new(0, -8 + 16 * scaledElapsed, 0, 0))
-	elseif isBetweenFrames(elapsedTime, 10, 12) then
-		local scaledElapsed = linearTween(elapsedTime, 10, 12)
+	elseif isBetweenFrames(timeElapsed, 10, 12) then
+		local scaledElapsed = linearTween(timeElapsed, 10, 12)
 		updateBindings.positionOffset(UDim2.new(0, 8 - 16 * scaledElapsed, 0, 0))
-	elseif isBetweenFrames(elapsedTime, 12, 14) then
-		local scaledElapsed = linearTween(elapsedTime, 12, 14)
+	elseif isBetweenFrames(timeElapsed, 12, 14) then
+		local scaledElapsed = linearTween(timeElapsed, 12, 14)
 		updateBindings.positionOffset(UDim2.new(0, -8 + 8 * scaledElapsed, 0, 0))
 	else
 		--Complete animation

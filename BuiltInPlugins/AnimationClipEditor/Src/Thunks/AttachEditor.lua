@@ -3,8 +3,6 @@
 	by the AnimationClip editor to its pose.
 ]]
 
-local FFlagStudioAnimEditorFocusRig = game:GetFastFlag("StudioAnimEditorFocusRig")
-
 local ChangeHistoryService = game:GetService("ChangeHistoryService")
 local StudioService = game:GetService("StudioService")
 
@@ -40,9 +38,7 @@ return function()
 			return
 		end
 
-		if FFlagStudioAnimEditorFocusRig then
-			RigUtils.focusCamera(rootInstance)
-		end
+		RigUtils.focusCamera(rootInstance)
 
 		-- Make sure the tracks are synchronized in case the user renamed a part.
 		local animationData = state.AnimationData

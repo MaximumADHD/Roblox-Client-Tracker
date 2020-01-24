@@ -60,30 +60,25 @@ function AssetTypeSelection:getSelectorItems(localizedContent)
 	}
 
 	-- only catalog item creators can upload hats
-	if FFlagAllowCatalogItemCreatorAssetConfig and (game:GetFastFlag("CMSRemoveUGCContentEnabledBoolean") or self.props.isCatalogItemCreator) then
-		if game:GetFastFlag("CMSAdditionalAccessoryTypesV2") then
-			local allowedAssetTypes = AssetConfigUtil.getAllowedAssetTypeEnums(self.props.allowedAssetTypesForRelease)
-			if #allowedAssetTypes > 0 then
-				local dividerName = ""
-				if localizedContent then
-					dividerName = localizedContent.Category.CreationsCatalogSectionDivider
-				end
-				items[#items + 1] = { name = dividerName, selectable = false }
-				for _, assetTypeEnum in pairs(allowedAssetTypes) do
-					local assetTypeName = ""
-					if localizedContent then
-						assetTypeName = localizedContent.AssetConfig.PublishAsset.AssetTextDisplay[assetTypeEnum]
-					end
-					items[#items + 1] = {
-						name = assetTypeName,
-						selectable = true,
-						type = assetTypeEnum,
-					}
-				end
+	if FFlagAllowCatalogItemCreatorAssetConfig then
+		local allowedAssetTypes = AssetConfigUtil.getAllowedAssetTypeEnums(self.props.allowedAssetTypesForRelease)
+		if #allowedAssetTypes > 0 then
+			local dividerName = ""
+			if localizedContent then
+				dividerName = localizedContent.Category.CreationsCatalogSectionDivider
 			end
-		else
-			items[#items + 1] = { name = "Avatar assets", selectable = false }
-			items[#items + 1] = { name = "Hat", selectable = true, type = Enum.AssetType.Hat }
+			items[#items + 1] = { name = dividerName, selectable = false }
+			for _, assetTypeEnum in pairs(allowedAssetTypes) do
+				local assetTypeName = ""
+				if localizedContent then
+					assetTypeName = localizedContent.AssetConfig.PublishAsset.AssetTextDisplay[assetTypeEnum]
+				end
+				items[#items + 1] = {
+					name = assetTypeName,
+					selectable = true,
+					type = assetTypeEnum,
+				}
+			end
 		end
 	end
 
@@ -180,7 +175,6 @@ local function mapStateToProps(state, props)
 		instances = state.instances,
 		currentScreen = state.currentScreen,
 		screenFlowType = state.screenFlowType,
-		isCatalogItemCreator = state.isCatalogItemCreator, -- remove with FFlagCMSRemoveUGCContentEnabledBoolean
 		allowedAssetTypesForRelease = state.allowedAssetTypesForRelease,
 		assetTypeEnum = state.assetTypeEnum,
 	}

@@ -17,6 +17,7 @@ local bindMenuActions = require(script.SetupFunctions.bindMenuActions)
 local registerSetCores = require(script.SetupFunctions.registerSetCores)
 local requestGameInfo = require(script.SetupFunctions.requestGameInfo)
 local requestGameSourceLanguage = require(script.SetupFunctions.requestGameSourceLanguage)
+local requestLocaleInfo = require(script.SetupFunctions.requestLocaleInfo)
 local createStore = require(script.createStore)
 
 local OpenMenuButton = require(script.Components.OpenMenuButton)
@@ -40,6 +41,8 @@ return {
 		bindMenuActions(menuStore)
 		requestGameInfo(menuStore)
 		requestGameSourceLanguage(menuStore)
+		requestLocaleInfo(menuStore)
+
 		Roact.setGlobalConfig({
 			propValidation = GlobalConfig.propValidation,
 			elementTracing = GlobalConfig.elementTracing,

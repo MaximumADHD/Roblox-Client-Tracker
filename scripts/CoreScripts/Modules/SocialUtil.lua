@@ -7,6 +7,7 @@ local SocialUtil = {}
 
 --[[ Services ]]--
 local Players = game:GetService("Players")
+local CoreGui = game:GetService("CoreGui")
 
 --[[ Constants ]]--
 local THUMBNAIL_SIZE_MAP = {
@@ -19,19 +20,38 @@ local THUMBNAIL_SIZE_MAP = {
 	[Enum.ThumbnailSize.Size352x352] = 352
 }
 
-local THUMBNAIL_FALLBACK_URLS = {
-	[Enum.ThumbnailType.HeadShot] = "https://www.roblox.com/headshot-thumbnail/image?width=%d&height=%d&format=png&userId=%d",
-	[Enum.ThumbnailType.AvatarBust] = "https://www.roblox.com/bust-thumbnail/image?width=%d&height=%d&format=png&userId=%d",
-	[Enum.ThumbnailType.AvatarThumbnail] = "https://www.roblox.com/avatar-thumbnail/image?width=%d&height=%d&format=png&userId=%d"
-}
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local CoreGuiModules = RobloxGui:WaitForChild("Modules")
+
+local FFlagCorescriptThumbnailsRespectBaseUrl = require(CoreGuiModules.Flags.FFlagCorescriptThumbnailsRespectBaseUrl)
+local LegacyThumbnailUrls = require(CoreGuiModules.Common.LegacyThumbnailUrls)
+
+local THUMBNAIL_FALLBACK_URLS
+if FFlagCorescriptThumbnailsRespectBaseUrl then
+	THUMBNAIL_FALLBACK_URLS = {
+		[Enum.ThumbnailType.HeadShot] = LegacyThumbnailUrls.Headshot,
+		[Enum.ThumbnailType.AvatarBust] = LegacyThumbnailUrls.Bust,
+		[Enum.ThumbnailType.AvatarThumbnail] = LegacyThumbnailUrls.Thumbnail,
+	}
+else
+	THUMBNAIL_FALLBACK_URLS = {
+		[Enum.ThumbnailType.HeadShot] = "https://www.roblox.com/headshot-thumbnail/image?width=%d&height=%d&format=png&userId=%d",
+		[Enum.ThumbnailType.AvatarBust] = "https://www.roblox.com/bust-thumbnail/image?width=%d&height=%d&format=png&userId=%d",
+		[Enum.ThumbnailType.AvatarThumbnail] = "https://www.roblox.com/avatar-thumbnail/image?width=%d&height=%d&format=png&userId=%d"
+	}
+end
 
 local GET_PLAYER_IMAGE_DEFAULT_TIMEOUT = 5
 local DEFAULT_THUMBNAIL_SIZE = Enum.ThumbnailSize.Size100x100
 local DEFAULT_THUMBNAIL_TYPE = Enum.ThumbnailType.AvatarThumbnail
 local GET_USER_THUMBNAIL_ASYNC_RETRY_TIME = 1
 
-local gutartSuccess,gutart = pcall(function() return tonumber(settings():GetFVariable("GetUserThumbnailAsyncRetryTime")) end)
-local gpidtSuccess,gpidt = pcall(function() return tonumber(settings():GetFVariable("GetPlayerImageDefaultTimeout")) end)
+local gutartSuccess,gutart = pcall(function()
+	return tonumber(settings():GetFVariable("GetUserThumbnailAsyncRetryTime"))
+end)
+local gpidtSuccess,gpidt = pcall(function()
+	return tonumber(settings():GetFVariable("GetPlayerImageDefaultTimeout"))
+end)
 
 if gutartSuccess then
     GET_USER_THUMBNAIL_ASYNC_RETRY_TIME = gutart
@@ -53,7 +73,7 @@ function SocialUtil.GetFallbackPlayerImageUrl(userId, thumbnailSize, thumbnailTy
 
 		sizeNumber = THUMBNAIL_SIZE_MAP[DEFAULT_THUMBNAIL_SIZE]
 	end
-	
+
 	local thumbnailFallbackUrl = THUMBNAIL_FALLBACK_URLS[thumbnailType]
 	if not thumbnailFallbackUrl then
 		if thumbnailType then
@@ -62,7 +82,7 @@ function SocialUtil.GetFallbackPlayerImageUrl(userId, thumbnailSize, thumbnailTy
 
 		thumbnailFallbackUrl = THUMBNAIL_FALLBACK_URLS[DEFAULT_THUMBNAIL_TYPE]
 	end
-	
+
 	return thumbnailFallbackUrl:format(sizeNumber, sizeNumber, userId)
 end
 
@@ -88,7 +108,7 @@ function SocialUtil.GetPlayerImage(userId, thumbnailSize, thumbnailType, timeOut
 			if finished then
 				break
 			end
-		
+
 			local thumbnailUrl, isFinal = Players:GetUserThumbnailAsync(userId, thumbnailType, thumbnailSize)
 
 			if finished then
@@ -100,7 +120,7 @@ function SocialUtil.GetPlayerImage(userId, thumbnailSize, thumbnailType, timeOut
 				finishedBindable:Fire(thumbnailUrl)
 				break
 			end
-			
+
 			wait(GET_USER_THUMBNAIL_ASYNC_RETRY_TIME)
 		end
 	end)

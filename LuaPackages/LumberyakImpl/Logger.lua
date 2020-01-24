@@ -201,7 +201,7 @@ local function log(level, node, args)
 	-- Send the message to any sinks that are listening to the right level.
 	local rank = levelRank[level]
 	for _, k in pairs(node.cache.sinks) do
-		if levelRank[k.maxLevel] >= rank then
+		if levelRank[k.maxLevel] and levelRank[k.maxLevel] >= rank then
 			k:log(interpMsg, fullContext)
 		end
 	end

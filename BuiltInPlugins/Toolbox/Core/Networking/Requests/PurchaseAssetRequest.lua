@@ -17,16 +17,23 @@ local SetOwnsAsset = require(Plugin.Core.Actions.SetOwnsAsset)
 local SetPurchaseStatus = require(Plugin.Core.Actions.SetPurchaseStatus)
 local PurchaseStatus = require(Plugin.Core.Types.PurchaseStatus)
 
+local FFlagEnablePurchaseV2 = game:GetFastFlag("EnablePurchaseV2")
+
 return function(networkInterface, assetId, productId, price)
 	return function(store)
 		store:dispatch(SetPurchaseStatus(PurchaseStatus.Waiting))
-		local info = {
-			expectedPrice = price,
+		local info
+		if FFlagEnablePurchaseV2 then
+			info = {
+				expectedPrice = price,
+			}
+		else
+			info = {
+				expectedPrice = price,
+				expectedCurrency = 0,
+			}
+		end
 
-			-- TODO: Remove when switching to the v2 endpoint.
-			-- The v1 endpoint always expects "expectedCurrency = 0" for Robux.
-			expectedCurrency = 0,
-		}
 		return networkInterface:purchaseAsset(productId, info):andThen(function(result)
 			local purchased = result.responseBody.purchased
 			if purchased then

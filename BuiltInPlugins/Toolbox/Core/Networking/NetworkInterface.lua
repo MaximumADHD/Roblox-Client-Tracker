@@ -119,12 +119,7 @@ function NetworkInterface:getAssetCreations(pageInfo, cursor, assetTypeOverride)
 	local assetTypeName = assetTypeOverride
 	local groupId
 	if pageInfo then
-		if game:GetFastFlag("CMSAdditionalAccessoryTypesV2") then
-			assetTypeName = PageInfoHelper.getBackendNameForPageInfoCategory(pageInfo)
-		else
-			local assetType = PageInfoHelper.getEngineAssetTypeForPageInfoCategory(pageInfo)
-			assetTypeName = assetType and assetType.Name or ""
-		end
+		assetTypeName = PageInfoHelper.getBackendNameForPageInfoCategory(pageInfo)
 
 		if FFlagToolboxShowGroupCreations then
 			groupId = Category.categoryIsGroupAsset(pageInfo.currentTab, pageInfo.categoryIndex)
@@ -196,15 +191,10 @@ function NetworkInterface:configureSales(assetId, saleStatus, price)
 		saleStatus = saleStatus,
 	})
 
-	if game:GetFastFlag("CMSEnableCatalogTags2") then
-		return sendRequestAndRetry(function()
-			printUrl("configureSales", "POST", targetUrl, payload)
-			return self._networkImp:httpPostJson(targetUrl, payload)
-		end)
-	end
-
-	printUrl("configureSales", "POST", targetUrl, payload)
-	return self._networkImp:httpPostJson(targetUrl, payload)
+	return sendRequestAndRetry(function()
+		printUrl("configureSales", "POST", targetUrl, payload)
+		return self._networkImp:httpPostJson(targetUrl, payload)
+	end)
 end
 
 function NetworkInterface:updateSales(assetId, price)
@@ -214,15 +204,10 @@ function NetworkInterface:updateSales(assetId, price)
 		price = price,
 	})
 
-	if game:GetFastFlag("CMSEnableCatalogTags2") then
-		return sendRequestAndRetry(function()
-			printUrl("updateSales", "POST", targetUrl, payload)
-			return self._networkImp:httpPostJson(targetUrl, payload)
-		end)
-	end
-
-	printUrl("updateSales", "POST", targetUrl, payload)
-	return self._networkImp:httpPostJson(targetUrl, payload)
+	return sendRequestAndRetry(function()
+		printUrl("updateSales", "POST", targetUrl, payload)
+		return self._networkImp:httpPostJson(targetUrl, payload)
+	end)
 end
 
 function NetworkInterface:postUnvote(assetId)

@@ -3,6 +3,8 @@
 	Also retrieves the start place id.
 ]]
 
+local FFlagStudioGameSettingsFixDescriptionFetch = game:DefineFastFlag("StudioGameSettingsFixDescriptionFetch", false)
+
 local RELEVANT_ENTRIES = {
 	description = true,
 }
@@ -20,8 +22,11 @@ local isEmpty = require(Plugin.Src.Util.isEmpty)
 local UNIVERSES_REQUEST_URL = "v1/universes/%d"
 local UNIVERSES_REQUEST_TYPE = "develop"
 
-local PLACES_GET_URL = "v1/universes/%d/places"
-local PLACES_GET_REQUEST_TYPE = "develop"
+local DEPRECATED_PLACES_GET_URL = "v1/universes/%d/places"
+local DEPRECATED_PLACES_GET_REQUEST_TYPE = "develop"
+
+local PLACES_GET_URL = "v1/games/multiget-place-details"
+local PLACES_GET_REQUEST_TYPE = "games"
 
 local PLACES_PATCH_URL = "v1/places/%d"
 local PLACES_PATCH_REQUEST_TYPE = "develop"
@@ -42,22 +47,39 @@ function RootPlaceInfo.Get(universeId)
 		local result = HttpService:JSONDecode(jsonResult)
 		local rootPlaceId = result.rootPlaceId
 
-		local placesRequestInfo = {
-			Url = Http.BuildRobloxUrl(PLACES_GET_REQUEST_TYPE, PLACES_GET_URL, universeId),
-			Method = "GET",
-		}
+		if FFlagStudioGameSettingsFixDescriptionFetch then
+			local placesRequestInfo = {
+				Url = Http.BuildRobloxUrl(PLACES_GET_REQUEST_TYPE, PLACES_GET_URL),
+				Params = {placeIds = rootPlaceId},
+				Method = "GET",
+			}
 
-		return Http.Request(placesRequestInfo):andThen(function(placesJsonResult)
-			local placesResult = HttpService:JSONDecode(placesJsonResult)
+			return Http.Request(placesRequestInfo):andThen(function(placesJsonResult)
+				local placesResult = HttpService:JSONDecode(placesJsonResult)
 
-			for _, place in ipairs(placesResult.data) do
-				if place.id == rootPlaceId then
-					return Cryo.Dictionary.join(extractRelevantEntries(place, RELEVANT_ENTRIES), {
-						rootPlaceId = place.id,
-					})
+				return {
+					rootPlaceId = rootPlaceId,
+					description = placesResult[1].description
+				}
+			end)
+		else
+			local placesRequestInfo = {
+				Url = Http.BuildRobloxUrl(DEPRECATED_PLACES_GET_REQUEST_TYPE, DEPRECATED_PLACES_GET_URL, universeId),
+				Method = "GET",
+			}
+
+			return Http.Request(placesRequestInfo):andThen(function(placesJsonResult)
+				local placesResult = HttpService:JSONDecode(placesJsonResult)
+
+				for _, place in ipairs(placesResult.data) do
+					if place.id == rootPlaceId then
+						return Cryo.Dictionary.join(extractRelevantEntries(place, RELEVANT_ENTRIES), {
+							rootPlaceId = place.id,
+						})
+					end
 				end
-			end
-		end)
+			end)
+		end
 	end)
 	:catch(function()
 		warn("Game Settings: Could not load root place configuration settings.")
