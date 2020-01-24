@@ -1,0 +1,116 @@
+--[[
+	Connects Rodux store to external MarketplaceService events
+]]
+local Root = script.Parent.Parent.Parent
+local MarketplaceService = game:GetService("MarketplaceService")
+local Players = game:GetService("Players")
+
+local LuaPackages = Root.Parent
+local Roact = require(LuaPackages.Roact)
+
+local ErrorOccurred = require(Root.Actions.ErrorOccurred)
+local PurchaseError = require(Root.Enums.PurchaseError)
+local completePurchase = require(Root.Thunks.completePurchase)
+local initiatePurchase = require(Root.Thunks.initiatePurchase)
+local initiateBundlePurchase = require(Root.Thunks.initiateBundlePurchase)
+local initiatePremiumPurchase = require(Root.Thunks.initiatePremiumPurchase)
+local connectToStore = require(Root.connectToStore)
+
+game:DefineFastFlag("PremiumLuaUpsellEnabled", false)
+
+local ExternalEventConnection = require(script.Parent.ExternalEventConnection)
+
+local function MarketplaceServiceEventConnector(props)
+	local onPurchaseRequest = props.onPurchaseRequest
+	local onProductPurchaseRequest = props.onProductPurchaseRequest
+	local onPurchaseGamePassRequest = props.onPurchaseGamePassRequest
+	local onServerPurchaseVerification = props.onServerPurchaseVerification
+	local onBundlePurchaseRequest = props.onBundlePurchaseRequest
+	local onPremiumPurchaseRequest = props.onPremiumPurchaseRequest
+
+	return Roact.createFragment({
+		Roact.createElement(ExternalEventConnection, {
+			event = MarketplaceService.PromptPurchaseRequested,
+			callback = onPurchaseRequest,
+		}),
+		Roact.createElement(ExternalEventConnection, {
+			event = MarketplaceService.PromptProductPurchaseRequested,
+			callback = onProductPurchaseRequest,
+		}),
+		Roact.createElement(ExternalEventConnection, {
+			event = MarketplaceService.PromptGamePassPurchaseRequested,
+			callback = onPurchaseGamePassRequest,
+		}),
+		Roact.createElement(ExternalEventConnection, {
+			event = MarketplaceService.ServerPurchaseVerification,
+			callback = onServerPurchaseVerification,
+		}),
+		Roact.createElement(ExternalEventConnection, {
+			event = MarketplaceService.PromptBundlePurchaseRequested,
+			callback = onBundlePurchaseRequest,
+		}),
+		game:GetFastFlag("PremiumLuaUpsellEnabled") and Roact.createElement(ExternalEventConnection, {
+			event = MarketplaceService.PromptPremiumPurchaseRequested,
+			callback = onPremiumPurchaseRequest,
+		})
+	})
+end
+
+MarketplaceServiceEventConnector = connectToStore(nil,
+function(dispatch)
+	local function onPurchaseRequest(player, assetId, equipIfPurchased, currencyType)
+		if player == Players.LocalPlayer then
+			dispatch(initiatePurchase(assetId, Enum.InfoType.Asset, equipIfPurchased))
+		end
+	end
+
+	local function onProductPurchaseRequest(player, productId, equipIfPurchased, currencyType)
+		if player == Players.LocalPlayer then
+			dispatch(initiatePurchase(productId, Enum.InfoType.Product, equipIfPurchased))
+		end
+	end
+
+	local function onPurchaseGamePassRequest(player, gamePassId)
+		if player == Players.LocalPlayer then
+			dispatch(initiatePurchase(gamePassId, Enum.InfoType.GamePass, false))
+		end
+	end
+
+	-- Specific to purchasing dev products
+	local function onServerPurchaseVerification(serverResponseTable)
+		if not serverResponseTable then
+			dispatch(ErrorOccurred(PurchaseError.UnknownFailure))
+		else
+			local playerId = serverResponseTable["playerId"]
+			if playerId ~= nil then
+				playerId = tonumber(serverResponseTable["playerId"])
+			end
+			if playerId == Players.LocalPlayer.UserId then
+				dispatch(completePurchase())
+			end
+		end
+	end
+
+	local function onBundlePurchaseRequest(player, bundleId)
+		if player == Players.LocalPlayer then
+			dispatch(initiateBundlePurchase(bundleId))
+		end
+	end
+
+	local function onPremiumPurchaseRequest(player)
+		if player == Players.LocalPlayer then
+			dispatch(initiatePremiumPurchase())
+		end
+	end
+
+	return {
+		onPurchaseRequest = onPurchaseRequest,
+		onProductPurchaseRequest = onProductPurchaseRequest,
+		onPurchaseGamePassRequest = onPurchaseGamePassRequest,
+		onServerPurchaseVerification = onServerPurchaseVerification,
+		onBundlePurchaseRequest = onBundlePurchaseRequest,
+		onPremiumPurchaseRequest = onPremiumPurchaseRequest,
+	}
+end)(MarketplaceServiceEventConnector)
+
+return MarketplaceServiceEventConnector
