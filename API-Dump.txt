@@ -1857,6 +1857,7 @@ Class Terrain : BasePart [NotCreatable]
 	Function void Terrain:FillBlock(CFrame cframe, Vector3 size, Enum<Material> material)
 	Function void Terrain:FillCylinder(CFrame cframe, float height, float radius, Enum<Material> material)
 	Function void Terrain:FillRegion(Region3 region, float resolution, Enum<Material> material)
+	Function void Terrain:FillWedge(CFrame cframe, Vector3 size, Enum<Material> material)
 	Function Tuple Terrain:GetCell(int x, int y, int z) [Deprecated]
 	Function Color3 Terrain:GetMaterialColor(Enum<Material> material)
 	Function Tuple Terrain:GetWaterCell(int x, int y, int z) [Deprecated]
@@ -2432,6 +2433,7 @@ Class ScriptContext : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Array ScriptContext:GetCoverageStats() {RobloxScriptSecurity}
 	Function void ScriptContext:SetTimeout(double seconds) {PluginSecurity}
 	Event ScriptContext.Error(string message, string stackTrace, Instance script)
+	Event ScriptContext.ErrorDetailed(string message, string stackTrace, Instance script, string details) {RobloxScriptSecurity}
 Class ScriptDebugger : Instance [NotCreatable]
 	Property int ScriptDebugger.CurrentLine  [ReadOnly] [NotReplicated]
 	Property bool ScriptDebugger.IsDebugging  [ReadOnly] [NotReplicated]
@@ -2574,12 +2576,12 @@ Class Sound : Instance
 	Property float Sound.Pitch [<📁> LoadOnly] [Deprecated]
 	Property double Sound.PlaybackLoudness  [ReadOnly] [NotReplicated]
 	Property float Sound.PlaybackSpeed  [NotReplicated]
-	Property bool Sound.Playing
+	Property bool Sound.Playing  [NotReplicated]
 	Property Enum<RollOffMode> Sound.RollOffMode
 	Property Class<SoundGroup> Sound.SoundGroup
 	Property Content Sound.SoundId
 	Property double Sound.TimeLength  [ReadOnly] [NotReplicated]
-	Property double Sound.TimePosition
+	Property double Sound.TimePosition  [NotReplicated]
 	Property float Sound.Volume
 	Function void Sound:Pause()
 	Function void Sound:Play()
@@ -2821,6 +2823,7 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function int64 StudioService:GetUserId() {RobloxScriptSecurity}
 	Function bool StudioService:IsPluginInstalled(int64 assetId) {RobloxScriptSecurity}
 	Function bool StudioService:IsPluginUpToDate(int64 assetId, int64 currentAssetVersion) {RobloxScriptSecurity}
+	Function int StudioService:LaunchBulkImport(int assetTypeToImport) {RobloxScriptSecurity} [Yields]
 	Function void StudioService:OpenInBrowser_DONOTUSE(string url) {RobloxScriptSecurity}
 	Function void StudioService:OpenPluginInsertPage(int64 assetId) {RobloxScriptSecurity}
 	Function Instance StudioService:PromptImportFile(Array fileTypeFilter = {}) {PluginSecurity} [Yields]
@@ -3667,6 +3670,7 @@ Enum DraftStatusCode
 	EnumItem DraftStatusCode.OK : 0
 	EnumItem DraftStatusCode.DraftOutdated : 1
 	EnumItem DraftStatusCode.ScriptRemoved : 2
+	EnumItem DraftStatusCode.DraftCommitted : 3
 Enum EasingDirection
 	EnumItem EasingDirection.In : 0
 	EnumItem EasingDirection.Out : 1

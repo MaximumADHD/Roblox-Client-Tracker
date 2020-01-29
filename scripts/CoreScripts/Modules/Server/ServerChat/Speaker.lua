@@ -77,20 +77,23 @@ function methods:LazyFire(eventName, ...)
 end
 
 function methods:SayMessage(message, channelName, extraData)
-	if (self.ChatService:InternalDoProcessCommands(self.Name, message, channelName)) then return end
-	if (not channelName) then return end
+	if self.ChatService:InternalDoProcessCommands(self.Name, message, channelName) then
+		return
+	end
+	if not channelName then
+		return
+	end
 
 	local channel = self.Channels[channelName:lower()]
-	if (not channel) then
-		error("Speaker is not in channel \"" .. channelName .. "\"")
+	if not channel then
+		return
 	end
 
 	local messageObj = channel:InternalPostMessage(self, message, extraData)
-	if (messageObj) then
-		local success, err = pcall(function() self:LazyFire("eSaidMessage", messageObj, channelName) end)
-		if not success and err then
-			print("Error saying message: " ..err)
-		end
+	if messageObj then
+		pcall(function()
+			self:LazyFire("eSaidMessage", messageObj, channelName)
+		end)
 	end
 
 	return messageObj

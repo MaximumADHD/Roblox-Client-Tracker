@@ -1,4 +1,4 @@
-local InGameMenu = script.Parent.Parent.Parent.Parent
+local InGameMenu = script.Parent.Parent.Parent
 local Url = require(InGameMenu.Network.Url)
 
 --[[

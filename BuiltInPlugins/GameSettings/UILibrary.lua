@@ -14,6 +14,7 @@ local DragTarget = require(Components.DragTarget)
 local DropdownMenu = require(Components.DropdownMenu)
 local DropShadow = require(Components.DropShadow)
 local ExpandableList = require(Components.ExpandableList)
+local ImagePreview = require(Components.Preview.ImagePreview)
 local Keyframe = require(Components.Timeline.Keyframe)
 local InfiniteScrollingFrame = require(Components.InfiniteScrollingFrame)
 local LoadingIndicator = require(Components.LoadingIndicator)
@@ -26,6 +27,7 @@ local Separator = require(Components.Separator)
 local StyledDialog = require(Components.StyledDialog)
 local StyledDropdown = require(Components.StyledDropdown)
 local StyledScrollingFrame = require(Components.StyledScrollingFrame)
+local ThumbnailIconPreview = require(Components.Preview.ThumbnailIconPreview)
 local TitledFrame = require(Components.TitledFrame)
 local Tooltip = require(Components.Tooltip)
 local ToggleButton = require(Components.ToggleButton)
@@ -33,6 +35,7 @@ local TreeView = require(Components.TreeView)
 
 local Spritesheet = require(Utils.Spritesheet)
 local LayoutOrderIterator = require(Utils.LayoutOrderIterator)
+local GetClassIcon = require(Utils.GetClassIcon)
 
 local Focus = require(Src.Focus)
 
@@ -48,6 +51,7 @@ local UILibrary = {
 		DropdownMenu = DropdownMenu,
 		DropShadow = DropShadow,
 		ExpandableList = ExpandableList,
+		ImagePreview = ImagePreview,
 		InfiniteScrollingFrame = InfiniteScrollingFrame,
 		Keyframe = Keyframe,
 		LoadingIndicator = LoadingIndicator,
@@ -60,6 +64,7 @@ local UILibrary = {
 		StyledDialog = StyledDialog,
 		StyledDropdown = StyledDropdown,
 		StyledScrollingFrame = StyledScrollingFrame,
+		ThumbnailIconPreview = ThumbnailIconPreview,
 		TitledFrame = TitledFrame,
 		Tooltip = Tooltip,
 		ToggleButton = ToggleButton,
@@ -86,6 +91,7 @@ local UILibrary = {
 		Spritesheet = Spritesheet,
 		LayoutOrderIterator = LayoutOrderIterator,
 		deepJoin = deepJoin,
+		GetClassIcon = GetClassIcon,
 	},
 
 	Plugin = require(Src.Plugin),

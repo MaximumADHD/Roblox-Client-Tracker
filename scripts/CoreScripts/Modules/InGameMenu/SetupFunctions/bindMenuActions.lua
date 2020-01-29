@@ -75,6 +75,7 @@ local function bindMenuActions(store)
 		end
 
 		UserGameSettings.PerformanceStatsVisible = not UserGameSettings.PerformanceStatsVisible
+		return
 	end, false, Enum.KeyCode.F7)
 
 	local function leaveGameFunc(actionName, inputState, input)

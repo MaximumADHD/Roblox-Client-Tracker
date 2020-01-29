@@ -3,6 +3,11 @@
 		"SameLineStatement": "fatal",
 		"LocalUnused": "fatal",
 		"FunctionUnused": "fatal",
-		"ImportUnused": "fatal"
+		"ImportUnused": "fatal",
+		"LocalShadow": "fatal",
+		"ImplicitReturn": "fatal"
+	},
+	"language": {
+		"mode": "nonstrict"
 	}
 }

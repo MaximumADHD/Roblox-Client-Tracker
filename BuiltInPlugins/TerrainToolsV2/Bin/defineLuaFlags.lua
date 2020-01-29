@@ -10,6 +10,12 @@ game:DefineFastFlag("TerrainToolsUseFragmentsForToolPanel", false)
 game:DefineFastFlag("TerrainToolsFixPlanePositionErrorMessage", false)
 game:DefineFastFlag("TerrainToolsFixGettingTerrain", false)
 game:DefineFastFlag("TerrainToolsRefactor", false)
+game:DefineFastFlag("TerrainToolsFlattenUseBaseBrush", false)
+
+if game:GetFastFlag("TerrainToolsFlattenUseBaseBrush") then
+	assert(game:GetFastFlag("TerrainToolsRefactor"),
+		"FFlagTerrainToolsFlattenUseBaseBrush requires FFlagTerrainToolsRefactor to be on")
+end
 
 -- Need to explicitly return something from a module
 -- Else you get an error "Module code did not return exactly one value"

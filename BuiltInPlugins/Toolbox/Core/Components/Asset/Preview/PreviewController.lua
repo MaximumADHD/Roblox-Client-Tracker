@@ -8,13 +8,17 @@ local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
-local UILibrary =require(Libs.UILibrary)
 
+local UILibrary =require(Libs.UILibrary)
+local ModelPreview = UILibrary.Component.ModelPreview
+local ImagePreview = UILibrary.Component.ImagePreview
+local ThumbnailIconPreview = UILibrary.Component.ThumbnailIconPreview
+
+-- mwang, 1/16/2020, remove with FFlagStudioRefactorAssetPreview
 local Preview = Plugin.Core.Components.Asset.Preview
 local DEPRECATED_ModelPreview = require(Preview.ModelPreview)
-local ModelPreview = UILibrary.Component.ModelPreview
-local ImagePreview = require(Preview.ImagePreview)
-local OtherPreview = require(Preview.OtherPreview)
+local DEPRECATED_ImagePreview = require(Preview.ImagePreview)
+local DEPRECATED_OtherPreview = require(Preview.OtherPreview)
 local MainViewButtons = require(Preview.MainViewButtons)
 local PreviewLoading = require(Preview.PreviewLoading)
 
@@ -209,10 +213,16 @@ function PreviewController:render()
 					OnModelPreviewFrameLeft = onModelPreviewFrameLeft,
 			}),
 
-			ImagePreview = AssetType:isImage(assetPreviewType) and Roact.createElement(ImagePreview, {
+			DEPRECATED_ImagePreview = not FFlagStudioRefactorAssetPreview and AssetType:isImage(assetPreviewType) and Roact.createElement(DEPRECATED_ImagePreview, {
 				imageContent = getImage(currentPreview),
-				scaleType = getImageScaleType(currentPreview)
+				scaleType = getImageScaleType(currentPreview),
 			}),
+
+			ImagePreview = FFlagStudioRefactorAssetPreview and AssetType:isImage(assetPreviewType) and Roact.createElement(ImagePreview, {
+				ImageContent = getImage(currentPreview),
+				ScaleType = getImageScaleType(currentPreview),
+			}),
+
 
 			PluginPreview = AssetType:isPlugin(assetPreviewType) and Roact.createElement("ImageLabel", {
 				Image = Urls.constructAssetThumbnailUrl(assetId, 420, 420),
@@ -221,13 +231,21 @@ function PreviewController:render()
 				AnchorPoint = Vector2.new(0.5,0),
 			}),
 
-			-- Let the script and other share the same component for now
-			OtherPreview = (AssetType:isScript(assetPreviewType) or AssetType:isOtherType(assetPreviewType)
-				or AssetType:isAudio(assetPreviewType)) and Roact.createElement(OtherPreview, {
+			DEPRECATED_OtherPreview = not FFlagStudioRefactorAssetPreview and (AssetType:isScript(assetPreviewType) or AssetType:isOtherType(assetPreviewType)
+				or AssetType:isAudio(assetPreviewType)) and Roact.createElement(DEPRECATED_OtherPreview, {
 
 				instance = currentPreview,
 				assetId = assetId,
 				textContent = currentPreview.Name,
+			}),
+
+			-- Let the script and other share the same component for now
+			ThumbnailIconPreview = FFlagStudioRefactorAssetPreview and (AssetType:isScript(assetPreviewType) or AssetType:isOtherType(assetPreviewType)
+				or AssetType:isAudio(assetPreviewType)) and Roact.createElement(ThumbnailIconPreview, {
+
+				TargetInstance = currentPreview,
+				AssetId = assetId,
+				ElementName = currentPreview.Name,
 			}),
 
 			MainViewButtons = not AssetType:isPlugin(assetPreviewType) and Roact.createElement(MainViewButtons, {

@@ -29,29 +29,29 @@ SendInviteButton.validateProps = t.strictInterface({
 local FPS = 30
 
 -- Returns 0-1 based on the value of time betweenStartFrame and endFrame
-local function linearTween(time, startFrame, endFrame)
+local function linearTween(dTime, startFrame, endFrame)
 	local range = (endFrame - startFrame)/FPS
-	return (time - (startFrame/FPS)) / range
+	return (dTime - (startFrame/FPS)) / range
 end
 
-local function isBetweenFrames(time, startFrame, endFrame)
-	return time >= (startFrame/FPS) and time <= (endFrame/FPS)
+local function isBetweenFrames(dTime, startFrame, endFrame)
+	return dTime >= (startFrame/FPS) and dTime <= (endFrame/FPS)
 end
 
 local STATUS_TO_ANIMATION_MAP = {
-	[InviteStatus.Pending] = function(elapsedTime, updateBindings)
+	[InviteStatus.Pending] = function(timeElapsed, updateBindings)
 		local maxTransparency = 0.75
 		local minTransparency = 0
 		local range = (maxTransparency - minTransparency) / 2
 
 		-- Tween transparency on a sin wave for a transparency "pulse" effect
-		local transparency = range + (range * math.sin(2 * math.pi * elapsedTime))
+		local transparency = range + (range * math.sin(2 * math.pi * timeElapsed))
 		updateBindings.sendTransparency(transparency)
 	end,
-	[InviteStatus.Success] = function(elapsedTime, updateBindings, stopCallback)
+	[InviteStatus.Success] = function(timeElapsed, updateBindings, stopCallback)
 		-- Fade out send icon, fade-in and scale-down success icon
-		if isBetweenFrames(elapsedTime, 0, 4) then
-			local scaledElapse = linearTween(elapsedTime, 0, 4)
+		if isBetweenFrames(timeElapsed, 0, 4) then
+			local scaledElapse = linearTween(timeElapsed, 0, 4)
 			updateBindings.sendTransparency(scaledElapse)
 			updateBindings.successTransparency(1-scaledElapse)
 
@@ -62,11 +62,11 @@ local STATUS_TO_ANIMATION_MAP = {
 			updateBindings.successSize(size)
 
 		-- Complete fade-outs, scale success icon to normal size
-		elseif isBetweenFrames(elapsedTime, 4, 9) then
+		elseif isBetweenFrames(timeElapsed, 4, 9) then
 			updateBindings.sendTransparency(1)
 			updateBindings.successTransparency(0)
 
-			local scaledElapse = linearTween(elapsedTime, 4, 9)
+			local scaledElapse = linearTween(timeElapsed, 4, 9)
 			local successSizeMax = 1
 			local successSizeMin = 0.75
 			local range = successSizeMax-successSizeMin
@@ -79,19 +79,19 @@ local STATUS_TO_ANIMATION_MAP = {
 			stopCallback()
 		end
 	end,
-	[InviteStatus.Failed] = function(elapsedTime, updateBindings, stopCallback)
+	[InviteStatus.Failed] = function(timeElapsed, updateBindings, stopCallback)
 		-- Fade out send icon
-		if isBetweenFrames(elapsedTime, 0, 2) then
-			local scaledElapse = linearTween(elapsedTime, 0, 4)
+		if isBetweenFrames(timeElapsed, 0, 2) then
+			local scaledElapse = linearTween(timeElapsed, 0, 4)
 			updateBindings.sendTransparency(scaledElapse)
 
 		-- Hold fadeout to frame 52
-		elseif isBetweenFrames(elapsedTime, 2, 52) then
+		elseif isBetweenFrames(timeElapsed, 2, 52) then
 			updateBindings.sendTransparency(1)
 
 		-- Fade in send icon
-		elseif isBetweenFrames(elapsedTime, 52, 57) then
-			local scaledElapse = linearTween(elapsedTime, 52, 57)
+		elseif isBetweenFrames(timeElapsed, 52, 57) then
+			local scaledElapse = linearTween(timeElapsed, 52, 57)
 			updateBindings.sendTransparency(1-scaledElapse)
 
 		-- Finish send fade-in and stop animation
@@ -101,12 +101,12 @@ local STATUS_TO_ANIMATION_MAP = {
 		end
 
 		-- Fade in fail icon
-		if isBetweenFrames(elapsedTime, 0, 4) then
-			local scaledElapse = linearTween(elapsedTime, 0, 4)
+		if isBetweenFrames(timeElapsed, 0, 4) then
+			local scaledElapse = linearTween(timeElapsed, 0, 4)
 			updateBindings.failTransparency(1-scaledElapse)
 
 		-- Shake fail icon
-		elseif isBetweenFrames(elapsedTime, 4, 42) then
+		elseif isBetweenFrames(timeElapsed, 4, 42) then
 			updateBindings.failTransparency(0)
 
 			local e = 2.71828182846
@@ -118,15 +118,15 @@ local STATUS_TO_ANIMATION_MAP = {
 			local k = 8
 
 			-- Damped oscillation https://www.desmos.com/calculator/ajx32emroq
-			local et = elapsedTime - 4/FPS
+			local et = timeElapsed - 4/FPS
 			local pos = a * e^(-et * k) * math.sin(et * f)
 			updateBindings.failPos(pos)
 
 		-- Fadeout fail icon
-		elseif isBetweenFrames(elapsedTime, 42, 47) then
+		elseif isBetweenFrames(timeElapsed, 42, 47) then
 			updateBindings.failPos(0)
 
-			local scaledElapse = linearTween(elapsedTime, 42, 47)
+			local scaledElapse = linearTween(timeElapsed, 42, 47)
 			updateBindings.failTransparency(scaledElapse)
 
 		-- Complete fadeout

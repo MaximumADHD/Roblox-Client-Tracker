@@ -67,16 +67,12 @@ local function insertAsset(assetId, assetName, insertToolPromise)
 
 		if FFlagEnableDataModelFetchAssetAsync then
 			if FFlagEnableToolboxInsertWithJoin then
-				assetInstance = game:InsertObjectsAndJoinIfLegacy(url)
+				assetInstance = game:InsertObjectsAndJoinIfLegacyAsync(url)
 			else
 				assetInstance = game:GetObjectsAsync(url)
 			end
 		else
-			if FFlagEnableToolboxInsertWithJoin then
-				assetInstance = game:InsertObjectsAndJoinIfLegacy(url)
-			else
-				assetInstance = game:GetObjects(url)
-			end
+			assetInstance = game:GetObjects(url)
 		end
 	end)
 

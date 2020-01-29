@@ -19,10 +19,11 @@ local function ControlsPage(props)
 		return Roact.createElement(KeyboardControls)
 	elseif controlLayout == Controls.ControlLayouts.GAMEPAD then
 		return Roact.createElement(GamepadControls)
-	end
 	-- elseif controlLayout == Controls.ControlLayouts.TOUCH then
 	-- 	return Roact.createElement(TouchControls)
-	-- end
+	else
+		return nil
+	end
 end
 
 return RoactRodux.UNSTABLE_connect2(function(state)

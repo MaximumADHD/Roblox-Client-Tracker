@@ -42,7 +42,6 @@ RBX
 		FeaturePolyContact
 		PolyPair
 		PolyPolyContact
-		SpatialHash
 		SpatialHashHierarchical
 	}
 	Constraints

@@ -3,9 +3,6 @@ local Plugin = script.Parent.Parent.Parent
 local Util = Plugin.Core.Util
 local convertArrayToTable = require(Util.convertArrayToTable)
 
-local Libs = Plugin.Libs
-local Cryo = require(Libs.Cryo)
-
 local AssetConfigConstants = {}
 
 AssetConfigConstants.TERM_OF_USE_URL = "https://en.help.roblox.com/hc/en-us/articles/115004647846-Roblox-Terms-of-Use"
@@ -89,15 +86,62 @@ AssetConfigConstants.SALES_STATUS_FOR_PRICE = convertArrayToTable({
 	"OnSale",
 })
 
-AssetConfigConstants.catalogAssetTypes = convertArrayToTable({
-	Enum.AssetType.Hat,
-	Enum.AssetType.TeeShirt,
-	Enum.AssetType.Shirt,
-	Enum.AssetType.Pants,
-})
+if game:GetFastFlag("CMSConsolidateAssetTypeInfo") then
+	local function catalogAssetInfo(type, isUploadable)
+		return {
+			type = type,
+			isCatalog = true,
+			isUploadable = isUploadable == true,
+		}
+	end
 
-if game:GetFastFlag("CMSAdditionalAccessoryTypesV2") then
-	AssetConfigConstants.catalogAssetTypes = Cryo.Dictionary.join(AssetConfigConstants.catalogAssetTypes, convertArrayToTable({
+	local function marketplaceAssetInfo(type, isBuyable)
+		return {
+			type = type,
+			isMarketplace = true,
+			isBuyable = isBuyable == true,
+		}
+	end
+
+	AssetConfigConstants.ASSET_TYPE_INFO = {
+		-- catalog assets
+		catalogAssetInfo(Enum.AssetType.Hat, --[[ isUploadable = ]] true),
+		catalogAssetInfo(Enum.AssetType.TeeShirt),
+		catalogAssetInfo(Enum.AssetType.Shirt),
+		catalogAssetInfo(Enum.AssetType.Pants),
+		catalogAssetInfo(Enum.AssetType.HairAccessory, true),
+		catalogAssetInfo(Enum.AssetType.FaceAccessory, true),
+		catalogAssetInfo(Enum.AssetType.NeckAccessory, true),
+		catalogAssetInfo(Enum.AssetType.ShoulderAccessory, true),
+		catalogAssetInfo(Enum.AssetType.FrontAccessory, true),
+		catalogAssetInfo(Enum.AssetType.BackAccessory, true),
+		catalogAssetInfo(Enum.AssetType.WaistAccessory, true),
+
+		-- marketplace assets
+		marketplaceAssetInfo(Enum.AssetType.Model),
+		marketplaceAssetInfo(Enum.AssetType.Decal),
+		marketplaceAssetInfo(Enum.AssetType.Mesh),
+		marketplaceAssetInfo(Enum.AssetType.MeshPart),
+		marketplaceAssetInfo(Enum.AssetType.Audio),
+		marketplaceAssetInfo(Enum.AssetType.Plugin, --[[ isBuyable = ]] true),
+	}
+
+	-- allow lookup by Enum.AssetType
+	for _, info in ipairs(AssetConfigConstants.ASSET_TYPE_INFO) do
+		if info.isCatalog and info.isMarketplace then
+			error(tostring(info.type) .. " cannot be both a catalog and marketplace asset")
+		end
+		if AssetConfigConstants.ASSET_TYPE_INFO[info.type] then
+			error("AssetConfigConstants.ASSET_TYPE_INFO contains a duplicate of " .. tostring(info.type))
+		end
+		AssetConfigConstants.ASSET_TYPE_INFO[info.type] = info
+	end
+else
+	AssetConfigConstants.catalogAssetTypes = convertArrayToTable({
+		Enum.AssetType.Hat,
+		Enum.AssetType.TeeShirt,
+		Enum.AssetType.Shirt,
+		Enum.AssetType.Pants,
 		Enum.AssetType.HairAccessory,
 		Enum.AssetType.FaceAccessory,
 		Enum.AssetType.NeckAccessory,
@@ -105,10 +149,8 @@ if game:GetFastFlag("CMSAdditionalAccessoryTypesV2") then
 		Enum.AssetType.FrontAccessory,
 		Enum.AssetType.BackAccessory,
 		Enum.AssetType.WaistAccessory,
-	}))
-end
+	})
 
-if game:GetFastFlag("CMSAdditionalAccessoryTypesV2") then
 	AssetConfigConstants.ASSET_TYPE_LIST = {
 		Enum.AssetType.Hat,
 		Enum.AssetType.HairAccessory,
@@ -119,20 +161,20 @@ if game:GetFastFlag("CMSAdditionalAccessoryTypesV2") then
 		Enum.AssetType.BackAccessory,
 		Enum.AssetType.WaistAccessory,
 	}
+
+	AssetConfigConstants.marketplaceAssetTypes = convertArrayToTable({
+		Enum.AssetType.Model,
+		Enum.AssetType.Decal,
+		Enum.AssetType.Mesh,
+		Enum.AssetType.MeshPart,
+		Enum.AssetType.Audio,
+		Enum.AssetType.Plugin,
+	})
+
+	AssetConfigConstants.marketplaceBuyableAsset = convertArrayToTable({
+		Enum.AssetType.Plugin,
+	})
 end
-
-AssetConfigConstants.marketplaceAssetTypes = convertArrayToTable({
-	Enum.AssetType.Model,
-	Enum.AssetType.Decal,
-	Enum.AssetType.Mesh,
-	Enum.AssetType.MeshPart,
-	Enum.AssetType.Audio,
-	Enum.AssetType.Plugin,
-})
-
-AssetConfigConstants.marketplaceBuyableAsset = convertArrayToTable({
-	Enum.AssetType.Plugin,
-})
 
 AssetConfigConstants.developCategoryType = convertArrayToTable({
 	"WhitelistedPlugins",

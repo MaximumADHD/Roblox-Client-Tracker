@@ -88,6 +88,21 @@ end
 
 --[[
 Dict options =
+	number cursorSize
+	bool mouseDown
+	Vector3 planePoint
+	Vector3 planeNormal
+]]
+function TerrainBrushCursorGrid:update(options)
+	local cursorSize = options.cursorSize
+	local mouseDown = options.mouseDown
+	local planePoint = options.planePoint
+	local planeNormal = options.planeNormal
+	self:_updateInternal(planePoint, planeNormal, cursorSize, mouseDown and 0.8 or 0.3)
+end
+
+--[[
+Dict options =
 	ToolId currentTool
 	number cursorSize
 	bool fixedPlane
@@ -97,7 +112,8 @@ Dict options =
 	Vector3 mainPoint
 	Vector3 lastNormal
 ]]
-function TerrainBrushCursorGrid:update(options)
+-- TODO: Remove TerrainBrushCursorGrid:DEPRECATED_update when removing FFlagTerrainToolsFlattenUseBaseBrush
+function TerrainBrushCursorGrid:DEPRECATED_update(options)
 	local currentTool = options.currentTool
 	local cursorSize = options.cursorSize
 

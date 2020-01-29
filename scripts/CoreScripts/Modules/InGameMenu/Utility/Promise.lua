@@ -322,6 +322,8 @@ function Promise.prototype:await()
 		return true, unpack(self._values, 1, self._valuesLength)
 	elseif self._status == Promise.Status.Rejected then
 		return false, unpack(self._values, 1, self._valuesLength)
+	else
+		error("Promise had an invalid status.")
 	end
 end
 

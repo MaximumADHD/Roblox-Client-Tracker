@@ -457,6 +457,16 @@ function ToolboxTheme:_recalculateTheme()
 			modelPreview = {
 				background = isDark and Color3.fromRGB(37, 37, 37) or Color3.fromRGB(227, 227, 227)
 			},
+
+			imagePreview = {
+				background = isDark and Color3.fromRGB(37, 37, 37) or Color3.fromRGB(227, 227, 227),
+				textColor = color(c.MainText)
+			},
+
+			thumbnailIconPreview = {
+				background = isDark and Color3.fromRGB(37, 37, 37) or Color3.fromRGB(227, 227, 227),
+				textColor = color(c.MainText),
+			},
 		},
 
 		toggleButton = {

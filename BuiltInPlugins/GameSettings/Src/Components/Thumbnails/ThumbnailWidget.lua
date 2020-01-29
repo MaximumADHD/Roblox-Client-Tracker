@@ -22,8 +22,6 @@
 			These actions are handled by the ThumbnailController above this component.
 ]]
 
-local FFlagFixGameSettingsThumbnailDrag = game:DefineFastFlag("FixGameSettingsThumbnailDrag", false)
-
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
@@ -91,28 +89,16 @@ function ThumbnailWidget:init()
 	end
 end
 
-if FFlagFixGameSettingsThumbnailDrag then
-	function ThumbnailWidget:didUpdate(nextProps)
-		-- When the user stops dragging, the Order prop will change, and
-		-- the lastState will still hold a dragId and dragIndex. Set those values
-		-- back to nil here so that the thumbnails render in the right order.
-		if nextProps.Order ~= self.props.Order then
-			self:setState({
-				dragId = Roact.None,
-				dragIndex = Roact.None,
-				oldIndex = Roact.None,
-			})
-		end
-	end
-else
-	function ThumbnailWidget.getDerivedStateFromProps(_, lastState)
-		if lastState.dragId ~= nil then
-			return {
-				dragId = Roact.None,
-				dragIndex = Roact.None,
-				oldIndex = Roact.None,
-			}
-		end
+function ThumbnailWidget:didUpdate(nextProps)
+	-- When the user stops dragging, the Order prop will change, and
+	-- the lastState will still hold a dragId and dragIndex. Set those values
+	-- back to nil here so that the thumbnails render in the right order.
+	if nextProps.Order ~= self.props.Order then
+		self:setState({
+			dragId = Roact.None,
+			dragIndex = Roact.None,
+			oldIndex = Roact.None,
+		})
 	end
 end
 

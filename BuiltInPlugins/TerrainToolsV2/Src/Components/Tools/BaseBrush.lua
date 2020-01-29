@@ -11,6 +11,7 @@ game:DefineFastFlag("TerrainToolsFixNilBrushProperties", false)
 local FFlagTerrainToolsFixNilBrushProperties = game:GetFastFlag("TerrainToolsFixNilBrushProperties")
 local FFlagTerrainToolsUseFragmentsForToolPanel = game:GetFastFlag("TerrainToolsUseFragmentsForToolPanel")
 local FFlagTerrainToolsRefactor = game:GetFastFlag("TerrainToolsRefactor")
+local FFlagTerrainToolsFlattenUseBaseBrush = game:GetFastFlag("TerrainToolsFlattenUseBaseBrush")
 
 local TerrainInterface = require(Plugin.Src.ContextServices.TerrainInterface)
 
@@ -33,6 +34,10 @@ function BaseBrush:init(initialProps)
 
 	self.terrainBrush = TerrainInterface.getTerrainBrush(self)
 	assert(self.terrainBrush, "BaseBrush requires a TerrainBrush from context")
+
+	-- Ordered array of connections to signals
+	-- Disconnected in willUnmount() in reverse order of connection
+	self.connections = {}
 
 	if not FFlagTerrainToolsUseFragmentsForToolPanel then
 		self.layoutRef = Roact.createRef()
@@ -127,6 +132,15 @@ function BaseBrush:init(initialProps)
 		end
 	end
 
+	self.setFixedPlane = function(newFixedPlane)
+		if self.props.dispatchSetFixedPlane then
+			self.props.dispatchSetFixedPlane(newFixedPlane)
+		end
+		if self.props.dispatchSetHeightPicker then
+			self.props.dispatchSetHeightPicker(false)
+		end
+	end
+
 	if not FFlagTerrainToolsUseFragmentsForToolPanel then
 		self.onContentSizeChanged = function()
 			local mainFrame = self.mainFrameRef.current
@@ -137,16 +151,17 @@ function BaseBrush:init(initialProps)
 		end
 	end
 
-	self.brushSizeCallback = function(baseSize, height)
-		if self.props.dispatchChangeBaseSize then
-			self.props.dispatchChangeBaseSize(baseSize)
-			self.props.dispatchChangeHeight(height)
+	if not FFlagTerrainToolsFlattenUseBaseBrush then
+		self.brushSizeCallback = function(baseSize, height)
+			if self.props.dispatchChangeBaseSize then
+				self.props.dispatchChangeBaseSize(baseSize)
+				self.props.dispatchChangeHeight(height)
+			end
 		end
-	end
-
-	self.brushStrengthCallback = function(strength)
-		if self.props.dispatchChangeStrength then
-			self.props.dispatchChangeStrength(strength)
+		self.brushStrengthCallback = function(strength)
+			if self.props.dispatchChangeStrength then
+				self.props.dispatchChangeStrength(strength)
+			end
 		end
 	end
 
@@ -155,6 +170,8 @@ function BaseBrush:init(initialProps)
 		local autoMaterial = false
 		local ignoreWater = false
 		local snapToGrid = false
+		local fixedPlane = false
+		local heightPicker = false
 		-- For tools where these properties aren't settable, we need to set them to a default value
 		-- Otherwise we'd try to pass autoMaterial=nil in the table below
 		-- Which would fail and we'd inherit the state from the previous tool that was used
@@ -179,24 +196,54 @@ function BaseBrush:init(initialProps)
 
 		local height = self.props.height
 
-		self.terrainBrush:updateSettings({
-			currentTool = self.props.toolName,
-			brushShape = self.props.brushShape or BrushShape.Sphere,
-			cursorSize = self.props.baseSize or Constants.INITIAL_BRUSH_SIZE,
-			cursorHeight = height or Constants.INITIAL_BRUSH_SIZE,
-			pivot = self.props.pivot or PivotType.Center,
-			strength = self.props.strength or Constants.INITIAL_BRUSH_STRENGTH,
-			planeLock = planeLockState,
-			snapToGrid = snapToGrid,
-			ignoreWater = ignoreWater,
-			autoMaterial = autoMaterial,
-			material = self.props.material,
-		})
+		if FFlagTerrainToolsFlattenUseBaseBrush then
+			if self.props.dispatchSetFixedPlane then
+				fixedPlane = self.props.fixedPlane
+			end
+			if self.props.dispatchSetHeightPicker then
+				heightPicker = self.props.heightPicker
+			end
+
+			self.terrainBrush:updateSettings({
+				currentTool = self.props.toolName,
+				brushShape = self.props.brushShape or BrushShape.Sphere,
+				cursorSize = self.props.baseSize or Constants.INITIAL_BRUSH_SIZE,
+				cursorHeight = height or Constants.INITIAL_BRUSH_SIZE,
+				pivot = self.props.pivot or PivotType.Center,
+				strength = self.props.strength or Constants.INITIAL_BRUSH_STRENGTH,
+				planeLock = planeLockState,
+				snapToGrid = snapToGrid,
+				ignoreWater = ignoreWater,
+				autoMaterial = autoMaterial,
+				material = self.props.material,
+				planePositionY = self.props.planePositionY,
+				flattenMode = self.props.flattenMode,
+				heightPicker = heightPicker,
+				fixedPlane = fixedPlane,
+			})
+		else
+			self.terrainBrush:updateSettings({
+				currentTool = self.props.toolName,
+				brushShape = self.props.brushShape or BrushShape.Sphere,
+				cursorSize = self.props.baseSize or Constants.INITIAL_BRUSH_SIZE,
+				cursorHeight = height or Constants.INITIAL_BRUSH_SIZE,
+				pivot = self.props.pivot or PivotType.Center,
+				strength = self.props.strength or Constants.INITIAL_BRUSH_STRENGTH,
+				planeLock = planeLockState,
+				snapToGrid = snapToGrid,
+				ignoreWater = ignoreWater,
+				autoMaterial = autoMaterial,
+				material = self.props.material,
+			})
+		end
 	end
 
-	self.brushSizeChangedConnection = self.terrainBrush:subscribeToRequestBrushSizeChanged(self.brushSizeCallback)
-	self.brushStrengthChangedConnection = self.terrainBrush:subscribeToRequestBrushStrengthChanged(
-		self.brushStrengthCallback)
+	if not FFlagTerrainToolsFlattenUseBaseBrush then
+		self.brushSizeChangedConnection = self.terrainBrush:subscribeToRequestBrushSizeChanged(self.brushSizeCallback)
+
+		self.brushStrengthChangedConnection = self.terrainBrush:subscribeToRequestBrushStrengthChanged(
+			self.brushStrengthCallback)
+	end
 
 	-- Starts the terrain brush with the base brush's tool only if
 	-- active tool in plugin activation co
@@ -211,15 +258,55 @@ function BaseBrush:init(initialProps)
 		end
 	end
 
-	-- When my tool becomes active, we want to run the terrain brush
-	self.onToolActivatedConnection = self.pluginActivationController:subscribeToToolActivated(self.safeStartWithTool)
+	if FFlagTerrainToolsFlattenUseBaseBrush then
+		table.insert(self.connections, self.pluginActivationController:subscribeToToolDeactivated(function(toolId)
+			-- Stop the terrain brush if the tool that was deselected is my tool
+			if toolId == self.props.toolName then
+				self.terrainBrush:stop()
+			end
+		end))
 
-	-- Stop the terrain brush if the tool that was deselected is my tool
-	self.onToolDeactivatedConnection = self.pluginActivationController:subscribeToToolDeactivated(function(toolId)
-		if toolId == self.props.toolName then
-			self.terrainBrush:stop()
-		end
-	end)
+		table.insert(self.connections, self.pluginActivationController:subscribeToToolActivated(self.safeStartWithTool))
+
+		table.insert(self.connections, self.terrainBrush:subscribeToRequestBrushSizeChanged(function(baseSize, height)
+			if self.props.dispatchChangeBaseSize then
+				self.props.dispatchChangeBaseSize(baseSize)
+			end
+			if self.props.dispatchChangeHeight then
+				self.props.dispatchChangeHeight(height)
+			end
+		end))
+
+		table.insert(self.connections, self.terrainBrush:subscribeToRequestBrushStrengthChanged(function(strength)
+			if self.props.dispatchChangeStrength then
+				self.props.dispatchChangeStrength(strength)
+			end
+		end))
+
+		table.insert(self.connections, self.terrainBrush:subscribeToPlanePositionYChanged(function(planePositionY)
+			if self.props.dispatchChangePlanePositionY then
+				local sigFig = math.floor(planePositionY * 1000)/1000
+				self.props.dispatchChangePlanePositionY(sigFig)
+			end
+		end))
+
+		table.insert(self.connections, self.terrainBrush:subscribeToHeightPickerSet(function(heightPicker)
+			if self.props.dispatchSetHeightPicker then
+				self.props.dispatchSetHeightPicker(heightPicker)
+			end
+		end))
+
+	else
+		-- When my tool becomes active, we want to run the terrain brush
+		self.onToolActivatedConnection = self.pluginActivationController:subscribeToToolActivated(self.safeStartWithTool)
+
+		-- Stop the terrain brush if the tool that was deselected is my tool
+		self.onToolDeactivatedConnection = self.pluginActivationController:subscribeToToolDeactivated(function(toolId)
+			if toolId == self.props.toolName then
+				self.terrainBrush:stop()
+			end
+		end)
+	end
 end
 
 function BaseBrush:didUpdate(previousProps, previousState)
@@ -235,24 +322,36 @@ function BaseBrush:didMount()
 end
 
 function BaseBrush:willUnmount()
-	if self.brushSizeChangedConnection then
-		self.brushSizeChangedConnection:disconnect()
-		self.brushSizeChangedConnection = nil
-	end
+	if FFlagTerrainToolsFlattenUseBaseBrush then
+		if self.connections then
+			-- Disconnect in the reverse order of connections
+			-- So last to connect is first to disconnect
+			for i = #self.connections, 1, -1 do
+				self.connections[i]:disconnect()
+			end
+			self.connections = nil
+		end
 
-	if self.brushStrengthChangedConnection then
-		self.brushStrengthChangedConnection:disconnect()
-		self.brushStrengthChangedConnection = nil
-	end
+	else
+		if self.brushSizeChangedConnection then
+			self.brushSizeChangedConnection:disconnect()
+			self.brushSizeChangedConnection = nil
+		end
 
-	if self.onToolActivatedConnection then
-		self.onToolActivatedConnection:disconnect()
-		self.onToolActivatedConnection = nil
-	end
+		if self.brushStrengthChangedConnection then
+			self.brushStrengthChangedConnection:disconnect()
+			self.brushStrengthChangedConnection = nil
+		end
 
-	if self.onToolDeactivatedConnection then
-		self.onToolDeactivatedConnection:disconnect()
-		self.onToolDeactivatedConnection = nil
+		if self.onToolActivatedConnection then
+			self.onToolActivatedConnection:disconnect()
+			self.onToolActivatedConnection = nil
+		end
+
+		if self.onToolDeactivatedConnection then
+			self.onToolDeactivatedConnection:disconnect()
+			self.onToolDeactivatedConnection = nil
+		end
 	end
 
 	-- If the base brush is unmounting, but my tool is still active
@@ -276,9 +375,14 @@ function BaseBrush:render()
 	local ignoreWater = self.props.ignoreWater
 	local autoMaterial = self.props.autoMaterial
 	local mat = self.props.material
+	local flattenMode = self.props.flattenMode
+	local planePositionY = self.props.planePositionY
+	local heightPicker = self.props.heightPicker
+	local fixedPlane = self.props.fixedPlane
 
 	local children = {
 		BrushSettings = Roact.createElement(BrushSettings, {
+			currentTool = self.props.toolName,
 			LayoutOrder = 1,
 			baseSize = baseSize,
 			brushShape = brushShape,
@@ -289,6 +393,10 @@ function BaseBrush:render()
 			planeLock = planeLock,
 			snapToGrid = snapToGrid,
 			strength = strength,
+			flattenMode = flattenMode,
+			fixedPlane = fixedPlane,
+			planePositionY = planePositionY,
+			heightPicker = heightPicker,
 
 			setBrushShape = self.setBrushShape,
 			setText = self.setTextFn,
@@ -300,8 +408,12 @@ function BaseBrush:render()
 			setStrength = self.props.dispatchChangeStrength,
 			setPivot = self.props.dispatchChangePivot,
 			setPlaneLock = self.props.dispatchSetPlaneLock,
+			setFixedPlane = self.setFixedPlane,
 			setSnapToGrid = self.props.dispatchSetSnapToGrid,
 			setIgnoreWater = self.props.dispatchSetIgnoreWater,
+			setFlattenMode = self.props.dispatchChooseFlattenMode,
+			setHeightPicker = self.props.dispatchSetHeightPicker,
+			setPlanePositionY = self.props.dispatchChangePlanePositionY,
 		}),
 
 		MaterialSettings = mat and Roact.createElement(MaterialSettings, {

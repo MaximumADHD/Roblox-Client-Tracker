@@ -85,6 +85,7 @@ Studio.App.BreakpointsWidget.DisableAllBreakpoints,,Disable All Breakpoints,Disa
 Studio.App.BreakpointsWidget.DoYouWantToDeleteAllBreakpoints,,Do you want to delete all breakpoints?,Do you want to delete all breakpoints?
 Studio.App.BreakpointsWidget.EnableAllBreakpoints,,Enable All Breakpoints,Enable All Breakpoints
 Studio.App.BulkImport.CancelImport,Bulk importer,Cancel Import,Cancel Import
+Studio.App.BulkImport.ClearWindow,Bulk importer,Clear Window,Clear Window
 Studio.App.BulkImport.CloseWindow,Bulk importer,Close Window,Close Window
 Studio.App.BulkImport.Collapse,Bulk importer,Collapse,Collapse
 Studio.App.BulkImport.Completed,Bulk importer,Completed,Completed
@@ -98,6 +99,8 @@ Studio.App.BulkImportController.BusySplitting,,Already busy mesh splitting. Plea
 Studio.App.BulkImportController.CouldNotStart,,Could not start mesh splitting. Please restart Studio or contact support if the problem persists.,Could not start mesh splitting. Please restart Studio or contact support if the problem persists.
 Studio.App.BulkImportController.EmptyListToSpliut,,Got an empty list of assets to split. Please try again or contact support if the problem persists.,Got an empty list of assets to split. Please try again or contact support if the problem persists.
 Studio.App.BulkImportController.GotEmptyList,,Got an empty list of files to import. Please try again or contact support if the problem persists.,Got an empty list of files to import. Please try again or contact support if the problem persists.
+Studio.App.BulkImportController.ImagesSupportedTypes1,,Images (%1),Images (%1)
+Studio.App.BulkImportController.MeshesSupportedTypes1,,Meshes (%1),Meshes (%1)
 Studio.App.BulkImportController.TooManyFiles1,,You cannot import more than %1 files at a time.,You cannot import more than %1 files at a time.
 Studio.App.BulkImportController.TooManyFiles2,,You cannot import more than %1 assets at a time. The %2 file(s) you selected exceeds the limit. Please re-select file to import.,You cannot import more than %1 assets at a time. The %2 file(s) you selected exceeds the limit. Please re-select file to import.
 Studio.App.BulkImportController.TooManyToSplit,,You cannot split more than %1 files at a time.,You cannot split more than %1 files at a time.
@@ -1041,6 +1044,7 @@ Studio.App.RBXMainWindow.AutomaticallyCreateJoints,,Automatically Create Joints,
 Studio.App.RBXMainWindow.AxisWidget,,Axis Widget,Axis Widget
 Studio.App.RBXMainWindow.BasicObjects,,Basic Objects,Basic Objects
 Studio.App.RBXMainWindow.BreakAllExceptionsDebugger,,Break all exceptions into debugger,Break all exceptions into debugger
+Studio.App.RBXMainWindow.BulkImport,,Bulk Import,Bulk Import
 Studio.App.RBXMainWindow.CalibratePhysicalSizeScaling,,Calibrate Physical Size scaling for your screen,Calibrate Physical Size scaling for your screen
 Studio.App.RBXMainWindow.CalibrateScalingElps,,Calibrate scaling...,Calibrate scaling...
 Studio.App.RBXMainWindow.CheckNetworkAndUserAuthentication,,"Feature not available in offline mode.
@@ -1688,6 +1692,7 @@ Studio.App.RobloxRibbonMainWindow.Universal,,Universal,Universal
 Studio.App.RobloxRibbonMainWindow.UpdateSettingsCurrentGame,,Update settings related to current game,Update settings related to current game
 Studio.App.RobloxRibbonMainWindow.VectorForce,,Vector Force,Vector Force
 Studio.App.RobloxRibbonMainWindow.View,,View,View
+Studio.App.RobloxRibbonMainWindow.ViewBulkImport,,View Bulk Import,View Bulk Import
 Studio.App.RobloxRibbonMainWindow.ViewCurrentCallStack,,View current call stack,View current call stack
 Studio.App.RobloxRibbonMainWindow.ViewCurrentlyWatchedVariables,,View currently watched variables,View currently watched variables
 Studio.App.RobloxRibbonMainWindow.ViewDiagnosticInfo,,View diagnostic information of your game,View diagnostic information of your game

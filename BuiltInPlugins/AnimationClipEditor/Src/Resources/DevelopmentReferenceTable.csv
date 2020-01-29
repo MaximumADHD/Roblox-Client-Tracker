@@ -109,7 +109,7 @@ Studio.AnimationClipEditor.Toast.AlignNow, , ,Align all keys now
 Studio.AnimationClipEditor.Toast.IgnoreWarning, , ,Ignore warning
 Studio.AnimationClipEditor.Toast.Saved,{1}, ,Saved animation {1}
 Studio.AnimationClipEditor.Toast.Loaded,{1}, ,Loaded animation {1}
-Studio.AnimationClipEditor.RigErrors.NameCollision, , ,This rig contains multiple animated parts which share the same name. Please give unique names to all animated parts.
+Studio.AnimationClipEditor.RigErrors.NameCollision, , ,This rig contains multiple parts which share the same name. Please give unique names to all parts.
 Studio.AnimationClipEditor.Tooltip.CurrentFrameBox, , ,Change scrubber time
 Studio.AnimationClipEditor.Tooltip.EndFrameBox, , ,Change timeline length
 Studio.AnimationClipEditor.Tooltip.ToggleLooping, , ,Toggle looping animation

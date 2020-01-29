@@ -1,9 +1,14 @@
 local CorePackages = game:GetService("CorePackages")
 local VRService = game:GetService("VRService")
 local GuiService = game:GetService("GuiService")
+local CoreGui = game:GetService("CoreGui")
 
 local Rodux = require(CorePackages.Rodux)
 local Cryo = require(CorePackages.Cryo)
+
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+
+local FFlagPlayerListDontCreateUIWhenDisabled = require(RobloxGui.Modules.Flags.FFlagPlayerListDontCreateUIWhenDisabled)
 
 local Actions = script.Parent.Parent.Actions
 local SetPlayerListVisibility = require(Actions.SetPlayerListVisibility)
@@ -25,7 +30,7 @@ local initialDisplayOptions = {
 	vrEnabled = VRService.VREnabled,
 	inspectMenuEnabled = GuiService:GetInspectMenuEnabled(),
 	playerlistCoreGuiEnabled = true,
-	topbarEnabled = true,
+	topbarEnabled = true, -- Remove with FFlagPlayerListDontCreateUIWhenDisabled
 	isTenFootInterface = false,
 	isUsingGamepad = false,
 	hasPermissionToVoiceChat = false,
@@ -36,9 +41,14 @@ local function updateIsVisible(state)
 	state.isVisible = state.setVisible
 	-- Leaderboard visiblity is independent of coreGui options on console.
 	if not state.isTenFootInterface then
-		local playerlistEnabled = state.playerlistCoreGuiEnabled and state.topbarEnabled
-		state.isVisible = state.isVisible and playerlistEnabled
-			and (not state.isSmallTouchDevice) and (not state.vrEnabled)
+		if FFlagPlayerListDontCreateUIWhenDisabled then
+			state.isVisible = state.isVisible
+				and (not state.isSmallTouchDevice) and (not state.vrEnabled)
+		else
+			local playerlistEnabled = state.playerlistCoreGuiEnabled and state.topbarEnabled
+			state.isVisible = state.isVisible and playerlistEnabled
+				and (not state.isSmallTouchDevice) and (not state.vrEnabled)
+		end
 	end
 	state.isVisible = state.isVisible and Cryo.isEmpty(state.tempHideKeys)
 	return state
@@ -57,11 +67,11 @@ local DisplayOptions = Rodux.createReducer(initialDisplayOptions, {
 		}))
 	end,
 
-	[SetTopBarEnabled.name] = function(state, action)
+	[SetTopBarEnabled.name] = (not FFlagPlayerListDontCreateUIWhenDisabled) and function(state, action)
 		return updateIsVisible(Cryo.Dictionary.join(state, {
 			topbarEnabled = action.isEnabled,
 		}))
-	end,
+	end or nil,
 
 	[SetTempHideKey.name] = function(state, action)
 		local tempHideValue = action.tempHideValue

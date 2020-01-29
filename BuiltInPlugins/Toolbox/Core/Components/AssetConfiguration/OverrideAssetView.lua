@@ -13,6 +13,7 @@
 		LayoutOrder, number, will be used by the layout to change the component's position.
 ]]
 
+local FFlagToolboxUseInfinteScroller = game:DefineFastFlag("ToolboxUseInfiniteScroller", false)
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -31,10 +32,9 @@ local Images = require(Util.Images)
 local Colors = require(Util.Colors)
 local AssetConfigConstants = require(Util.AssetConfigConstants)
 
-local InfiniteScrollingFrame = require(Plugin.Core.Components.InfiniteScrollingFrame)
-
-local UILibrary = Libs.UILibrary
-local StyledScrollingFrame = require(UILibrary.Components.StyledScrollingFrame)
+local UILibrary = require(Libs.UILibrary)
+local InfiniteScrollingFrame = UILibrary.Component.InfiniteScrollingFrame
+local DEPRECATED_InfiniteScrollingFrame = require(Plugin.Core.Components.InfiniteScrollingFrame)
 
 local withTheme = ContextHelper.withTheme
 
@@ -53,6 +53,7 @@ local CHECK_ICON_SIZE = 28
 function OverrideAssetView:init(props)
 	self.state = {
 		selectedAssetId = 0,
+		pageIndex = 1,
 	}
 
 	self.newAssetInfo = {
@@ -76,7 +77,14 @@ function OverrideAssetView:init(props)
 		})
 	end
 
-	self.requestOverrideAsset = function(targetPage)
+	self.requestOverrideAsset = function()
+		props.getOverrideAssets(self.state.pageIndex)
+		self:setState({
+			pageIndex = pageIndex + 1,
+		})
+	end
+
+	self.DEPRECATED_requestOverrideAsset = function(targetPage)
 		props.getOverrideAssets(targetPage)
 	end
 end
@@ -194,16 +202,28 @@ function OverrideAssetView:render()
 
 		local layouterRef = self.layouterRef
 
-		return Roact.createElement(InfiniteScrollingFrame, {
-			Size = Size,
+		if FFlagToolboxUseInfinteScroller then
+			return Roact.createElement(InfiniteScrollingFrame, {
+				Size = Size,
 
-			BackgroundColor3 = publishAssetTheme.backgroundColor,
-			layouterRef = layouterRef,
+				LayoutRef = layouterRef,
 
-			nextPageFunc = self.requestOverrideAsset,
+				NextPageFunc = self.requestOverrideAsset,
 
-			LayoutOrder = props.LayoutOrder,
-		}, itemList)
+				LayoutOrder = props.LayoutOrder,
+			}, itemList)
+		else
+			return Roact.createElement(DEPRECATED_InfiniteScrollingFrame, {
+				Size = Size,
+
+				BackgroundColor3 = publishAssetTheme.backgroundColor,
+				layouterRef = layouterRef,
+
+				nextPageFunc = self.DEPRECATED_requestOverrideAsset,
+
+				LayoutOrder = props.LayoutOrder,
+			}, itemList)
+		end
 	end)
 end
 

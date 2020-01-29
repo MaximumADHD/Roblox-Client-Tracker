@@ -156,47 +156,23 @@ end
 -- url : (string)
 -- returns a Promise that resolves to an HttpResponse object
 function Networking:httpGetJson(url)
-	if game:GetFastFlag("CMSEnableCatalogTags2") then
-		return createHttpPromise(httpGet, self._httpImpl, url):andThen(
-			-- On promise resolved
-			function(result)
-				result.responseBody = self:jsonDecode(result.responseBody)
-				return result
-			end)
-	else
-		return createHttpPromise(httpGet, self._httpImpl, url):andThen(
-			-- On promise resolved
-			function(result)
-				result.responseBody = self:jsonDecode(result.responseBody)
-				return result
-			end,
-			-- on Promise rejected
-			function(result)
-				return result
-			end)
-	end
+	return createHttpPromise(httpGet, self._httpImpl, url):andThen(
+		-- On promise resolved
+		function(result)
+			result.responseBody = self:jsonDecode(result.responseBody)
+			return result
+		end)
 end
 
 -- url : (string)
 -- payload : (string)
 -- returns a Promise that resolves to an HttpResponse object
 function Networking:httpPostJson(url, payload)
-	if game:GetFastFlag("CMSEnableCatalogTags2") then
-		return createHttpPromise(httpPost, self._httpImpl, url, payload):andThen(
-			function(result)
-				result.responseBody = self:jsonDecode(result.responseBody)
-				return result
-			end)
-	else
-		return createHttpPromise(httpPost, self._httpImpl, url, payload):andThen(
-			function(result)
-				result.responseBody = self:jsonDecode(result.responseBody)
-				return result
-			end,
-			function(result)
-				return result
-			end)
-	end
+	return createHttpPromise(httpPost, self._httpImpl, url, payload):andThen(
+		function(result)
+			result.responseBody = self:jsonDecode(result.responseBody)
+			return result
+		end)
 end
 
 -- url : (string)

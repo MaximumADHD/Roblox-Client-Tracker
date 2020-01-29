@@ -22,7 +22,6 @@
 
 local FFlagPluginAccessAndInstallationInStudio = settings():GetFFlag("PluginAccessAndInstallationInStudio")
 local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
-local FFlagEditAssetForManagedAssets = game:DefineFastFlag("EditAssetForManagedAssets", false)
 local FFlagFixAssetTextTruncation = game:DefineFastFlag("FixAssetTextTruncation", false)
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -94,14 +93,7 @@ function Asset:init(props)
 	end
 
 	self.onMouseButton2Click = function(rbx, x, y)
-		local showEditOption
-		if FFlagEditAssetForManagedAssets then
-			showEditOption = self.props.canManage
-		elseif FFlagEnablePurchasePluginFromLua2 then
-			showEditOption = (props.currentTab == Category.CREATIONS_KEY or props.currentTab == Category.INVENTORY_KEY)
-		else
-			showEditOption = Category.CREATIONS_KEY == props.currentTab
-		end
+		local showEditOption = self.props.canManage
 
 		self.props.tryCreateContextMenu(assetData, showEditOption)
 	end
@@ -141,9 +133,7 @@ function Asset:didMount()
 		self.props.getOwnsAsset(getNetwork(self), assetId)
 	end
 
-	if FFlagEditAssetForManagedAssets then
-		self.props.getCanManageAsset(getNetwork(self), assetId)
-	end
+	self.props.getCanManageAsset(getNetwork(self), assetId)
 end
 
 function Asset:render()

@@ -32,7 +32,6 @@ local FFlagPluginAccessAndInstallationInStudio = settings():GetFFlag("PluginAcce
 local FFlagStudioToolboxPluginPurchaseFlow = game:GetFastFlag("StudioToolboxPluginPurchaseFlow")
 local FFlagStudioToolboxShowPluginInstallationProgress = game:GetFastFlag("StudioToolboxShowPluginInstallationProgress")
 local FFlagUseDevelopFetchPluginVersionId = game:GetFastFlag("UseDevelopFetchPluginVersionId")
-local FFlagCreatorSearchFromAssetPreview = game:DefineFastFlag("CreatorSearchFromAssetPreview", false)
 local FFlagStudioHideSuccessDialogWhenFree = game:GetFastFlag("StudioHideSuccessDialogWhenFree")
 
 local RunService = game:GetService("RunService")
@@ -644,11 +643,11 @@ function AssetPreview:render()
 
 					Developer = Roact.createElement(AssetDescription, {
 						leftContent = "Creator",
-						rightContent = FFlagCreatorSearchFromAssetPreview and "" or creatorName,
+						rightContent = "",
 
 						layoutOrder = layoutIndex:getNextOrder(),
 					}, {
-						LinkText = FFlagCreatorSearchFromAssetPreview and Roact.createElement(SearchLinkText, {
+						LinkText = Roact.createElement(SearchLinkText, {
 							Text = creatorName,
 							Position = UDim2.fromScale(1, 0.5),
 							AnchorPoint = Vector2.new(1, 0.5),

@@ -4,7 +4,6 @@ return function()
 	local Promise = require(CorePackages.AppTempCommon.LuaApp.Promise)
 	local Result = require(CorePackages.AppTempCommon.LuaApp.Result)
 	local TableUtilities = require(CorePackages.AppTempCommon.LuaApp.TableUtilities)
-	local FFlagFixPromiseUtilitiesBatch = settings():GetFFlag("FixPromiseUtilitiesBatch")
 
 	describe("PromiseUtilities.Batch", function()
 		it("should assert if input is not a list of Promises", function()
@@ -84,38 +83,31 @@ return function()
 			expect(Result.is(promiseResults[1])).to.equal(true)
 			local success1, value1 = promiseResults[1]:unwrap()
 			expect(success1).to.equal(true)
-			if FFlagFixPromiseUtilitiesBatch then
-				expect(value1).to.equal(5)
-				local isMatchCalled = false
-				promiseResults[1]:match(function(result)
-					expect(result).to.equal(5)
-					isMatchCalled = true
-				end,
-				function()
-					error("should not be called")
-				end)
-				expect(isMatchCalled).to.equal(true)
-			else
-				expect(value1[1]).to.equal(5)
-			end
+			expect(value1).to.equal(5)
+			local isMatchCalled = false
+			promiseResults[1]:match(function(result)
+				expect(result).to.equal(5)
+				isMatchCalled = true
+			end,
+			function()
+				error("should not be called")
+			end)
+			expect(isMatchCalled).to.equal(true)
+
 
 			expect(Result.is(promiseResults["Home"])).to.equal(true)
 			local success2, value2 = promiseResults["Home"]:unwrap()
 			expect(success2).to.equal(false)
-			if FFlagFixPromiseUtilitiesBatch then
-				expect(value2).to.equal("failed")
-				local isMatchCalled = false
-				promiseResults["Home"]:match(function()
-					error("should not be called")
-				end,
-				function(err)
-					expect(err).to.equal("failed")
-					isMatchCalled = true
-				end)
-				expect(isMatchCalled).to.equal(true)
-			else
-				expect(value2[1]).to.equal("failed")
-			end
+			expect(value2).to.equal("failed")
+			local isMatchCalled = false
+			promiseResults["Home"]:match(function()
+				error("should not be called")
+			end,
+			function(err)
+				expect(err).to.equal("failed")
+				isMatchCalled = true
+			end)
+			expect(isMatchCalled).to.equal(true)
 		end)
 
 		it("should return the correct results of each individual promise that resolved later", function()

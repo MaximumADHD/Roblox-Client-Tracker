@@ -61,12 +61,7 @@ return function(networkInterface, nameWithoutExtension, extension, description, 
 					return
 				elseif assetDetails.assetId then
 					store:dispatch(SetAssetId(assetDetails.assetId))
-
-					if game:GetFastFlag("CMSEnableCatalogTags2") then
-						store:dispatch(ConfigureItemTagsRequest(networkInterface, assetDetails.assetId, {}, tags))
-					else
-						store:dispatch(UploadResult(true))
-					end
+					store:dispatch(ConfigureItemTagsRequest(networkInterface, assetDetails.assetId, {}, tags))
 
 					Analytics.incrementUploadAssetSuccess(assetTypeId)
 					return

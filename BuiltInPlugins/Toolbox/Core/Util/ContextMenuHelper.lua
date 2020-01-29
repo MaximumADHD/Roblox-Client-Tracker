@@ -7,7 +7,6 @@ local DebugFlags = require(Util.DebugFlags)
 local AssetConfigConstants = require(Util.AssetConfigConstants)
 local EnumConvert = require(Util.EnumConvert)
 
-local FFlagEnableCopyToClipboard = settings():GetFFlag("EnableCopyToClipboard")
 local FFlagShowReportOptionInToolbox = game:DefineFastFlag("ShowReportOptionInToolbox", false)
 
 local StudioService = game:GetService("StudioService")
@@ -58,7 +57,7 @@ function ContextMenuHelper.tryCreateContextMenu(plugin, assetId, assetTypeId, sh
 	end
 
 	-- only add this action if we have access to copying to clipboard and we aren't looking at a plugin asset
-	if assetTypeId ~= Enum.AssetType.Plugin.Value and FFlagEnableCopyToClipboard then
+	if assetTypeId ~= Enum.AssetType.Plugin.Value then
 		local trueAssetId = assetId
 		if assetTypeId == Enum.AssetType.Decal.Value then
 			trueAssetId = getImageIdFromDecalId(assetId)

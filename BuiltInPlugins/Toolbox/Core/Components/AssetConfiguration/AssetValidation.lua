@@ -10,7 +10,6 @@
 		onClose callback, called when the user presses the "cancel" button
 ]]
 
-game:DefineFastFlag("CMSBetterModerationErrors", false)
 game:DefineFastFlag("CMSUseSharedUGCValidation", false)
 
 local ContentProvider = game:GetService("ContentProvider")
@@ -167,23 +166,18 @@ local function createAccessorySchema(attachmentNames)
 end
 
 local SCHEMA_MAP = {}
-
-if game:GetFastFlag("CMSAdditionalAccessoryTypesV2") then
-	SCHEMA_MAP[Enum.AssetType.Hat] = createAccessorySchema({ "HatAttachment" })
-	SCHEMA_MAP[Enum.AssetType.HairAccessory] = createAccessorySchema({ "HairAttachment" })
-	SCHEMA_MAP[Enum.AssetType.FaceAccessory] = createAccessorySchema({ "FaceFrontAttachment" })
-	SCHEMA_MAP[Enum.AssetType.NeckAccessory] = createAccessorySchema({ "NeckAttachment" })
-	SCHEMA_MAP[Enum.AssetType.ShoulderAccessory] = createAccessorySchema({
-		"NeckAttachment",
-		"LeftCollarAttachment",
-		"RightCollarAttachment",
-	})
-	SCHEMA_MAP[Enum.AssetType.FrontAccessory] = createAccessorySchema({ "BodyFrontAttachment" })
-	SCHEMA_MAP[Enum.AssetType.BackAccessory] = createAccessorySchema({ "BodyBackAttachment" })
-	SCHEMA_MAP[Enum.AssetType.WaistAccessory] = createAccessorySchema({ "WaistBackAttachment" })
-else
-	SCHEMA_MAP[Enum.AssetType.Hat] = createAccessorySchema("HatAttachment")
-end
+SCHEMA_MAP[Enum.AssetType.Hat] = createAccessorySchema({ "HatAttachment" })
+SCHEMA_MAP[Enum.AssetType.HairAccessory] = createAccessorySchema({ "HairAttachment" })
+SCHEMA_MAP[Enum.AssetType.FaceAccessory] = createAccessorySchema({ "FaceFrontAttachment" })
+SCHEMA_MAP[Enum.AssetType.NeckAccessory] = createAccessorySchema({ "NeckAttachment" })
+SCHEMA_MAP[Enum.AssetType.ShoulderAccessory] = createAccessorySchema({
+	"NeckAttachment",
+	"LeftCollarAttachment",
+	"RightCollarAttachment",
+})
+SCHEMA_MAP[Enum.AssetType.FrontAccessory] = createAccessorySchema({ "BodyFrontAttachment" })
+SCHEMA_MAP[Enum.AssetType.BackAccessory] = createAccessorySchema({ "BodyBackAttachment" })
+SCHEMA_MAP[Enum.AssetType.WaistAccessory] = createAccessorySchema({ "WaistBackAttachment" })
 
 local AssetValidation = Roact.PureComponent:extend("AssetValidation")
 
@@ -356,34 +350,13 @@ function AssetValidation:validateModeration(instance)
 	local function parseDescendantContentIds(instance)
 		for _, descendant in pairs(instance:GetDescendants()) do
 			if descendant:IsA("SpecialMesh") then
-				if game:GetFastFlag("CMSBetterModerationErrors") then
-					parseContentId(descendant, "MeshId")
-					parseContentId(descendant, "TextureId")
-				else
-					table.insert(contentIds, descendant.MeshId)
-					table.insert(contentIds, descendant.TextureId)
-				end
+				parseContentId(descendant, "MeshId")
+				parseContentId(descendant, "TextureId")
 			end
 		end
 	end
 
 	parseDescendantContentIds(instance)
-
-	if not game:GetFastFlag("CMSBetterModerationErrors") then
-		-- map to ending digits
-		-- rbxassetid://1234 -> 1234
-		-- http://www.roblox.com/asset/?id=1234 -> 1234
-		for key, contentId in pairs(contentIds) do
-			local id = tonumber(string.match(contentId, "%d+$"))
-			if id == nil then
-				self:fail({
-					"Could not parse ContentId",
-					contentId,
-				})
-			end
-			contentIds[key] = id
-		end
-	end
 
 	local moderatedIds = {}
 
@@ -403,31 +376,24 @@ function AssetValidation:validateModeration(instance)
 	end
 
 	if #moderatedIds > 0 then
-		if game:GetFastFlag("CMSBetterModerationErrors") then
-			local moderationMessages = {}
-			for idx, id in pairs(moderatedIds) do
-				local mapped = contentIdMap[id]
-				if mapped then
-					moderationMessages[idx] = string.format(
-						"%s.%s ( %s )",
-						mapped.instance:GetFullName(),
-						mapped.fieldName,
-						id
-					)
-				else
-					moderationMessages[idx] = id
-				end
+		local moderationMessages = {}
+		for idx, id in pairs(moderatedIds) do
+			local mapped = contentIdMap[id]
+			if mapped then
+				moderationMessages[idx] = string.format(
+					"%s.%s ( %s )",
+					mapped.instance:GetFullName(),
+					mapped.fieldName,
+					id
+				)
+			else
+				moderationMessages[idx] = id
 			end
-			self:fail({
-				"The following asset IDs have not passed moderation:",
-				unpack(moderationMessages),
-			})
-		else
-			self:fail({
-				"The following asset IDs have not passed moderation:",
-				unpack(moderatedIds),
-			})
 		end
+		self:fail({
+			"The following asset IDs have not passed moderation:",
+			unpack(moderationMessages),
+		})
 	end
 end
 
@@ -448,13 +414,9 @@ function AssetValidation:validateAsync()
 			local instance = self.props.instances[1]
 
 			self:validateInstanceTree(instance)
-
-			-- extra validation for hats
-			if game:GetFastFlag("CMSAdditionalAccessoryTypesV2") or self.props.assetTypeEnum == Enum.AssetType.Hat then
-				self:validateMaterials(instance)
-				self:validateMeshTriangles(instance)
-				self:validateModeration(instance)
-			end
+			self:validateMaterials(instance)
+			self:validateMeshTriangles(instance)
+			self:validateModeration(instance)
 
 			coroutine.resume(self.validateThread)
 		end)

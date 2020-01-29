@@ -33,8 +33,22 @@ else
 	BlockingUtility = PlayerDropDownModule:CreateBlockingUtility()
 end
 
-local THUMBNAIL_URL = "https://www.roblox.com/Thumbs/Avatar.ashx?x=200&y=200&format=png&userId="
-local BUST_THUMBNAIL_URL = "https://www.roblox.com/bust-thumbnail/image?width=420&height=420&format=png&userId="
+local FFlagCorescriptThumbnailsRespectBaseUrl = require(CoreGuiModules.Flags.FFlagCorescriptThumbnailsRespectBaseUrl)
+local LegacyThumbnailUrls = require(CoreGuiModules.Common.LegacyThumbnailUrls)
+
+local THUMBNAIL_SIZE = 200
+local BUST_THUMBNAIL_SIZE = 420
+
+local THUMBNAIL_URL
+local BUST_THUMBNAIL_URL
+
+if FFlagCorescriptThumbnailsRespectBaseUrl then
+	THUMBNAIL_URL = LegacyThumbnailUrls.Thumbnail
+	BUST_THUMBNAIL_URL = LegacyThumbnailUrls.Bust
+else
+	THUMBNAIL_URL = "https://www.roblox.com/Thumbs/Avatar.ashx?x=200&y=200&format=png&userId="
+	BUST_THUMBNAIL_URL = "https://www.roblox.com/bust-thumbnail/image?width=420&height=420&format=png&userId="
+end
 
 local REGULAR_THUMBNAIL_IMAGE_SIZE = Enum.ThumbnailSize.Size150x150
 local CONSOLE_THUMBNAIL_IMAGE_SIZE = Enum.ThumbnailSize.Size352x352
@@ -59,6 +73,15 @@ function DoPromptBlockPlayer(playerToBlock)
 		return
 	end
 
+	local thumbnailUrl, thumbnailUrlConsole
+	if FFlagCorescriptThumbnailsRespectBaseUrl then
+		thumbnailUrl = BUST_THUMBNAIL_URL:format(BUST_THUMBNAIL_SIZE, BUST_THUMBNAIL_SIZE, playerToBlock.UserId)
+		thumbnailUrlConsole = THUMBNAIL_URL:format(THUMBNAIL_SIZE, THUMBNAIL_SIZE, playerToBlock.UserId)
+	else
+		thumbnailUrl = BUST_THUMBNAIL_URL ..playerToBlock.UserId
+		thumbnailUrlConsole = THUMBNAIL_URL ..playerToBlock.UserId
+	end
+
 	local function promptCompletedCallback(clickedConfirm)
 		if clickedConfirm then
 			local successfullyBlocked = BlockingUtility:BlockPlayerAsync(playerToBlock)
@@ -72,8 +95,8 @@ function DoPromptBlockPlayer(playerToBlock)
 					MainText = string.format("An error occurred while blocking %s. Please try again later.", playerToBlock.Name),
 					ConfirmationText = "Okay",
 					CancelActive = false,
-					Image = BUST_THUMBNAIL_URL ..playerToBlock.UserId,
-					ImageConsoleVR = THUMBNAIL_URL ..playerToBlock.UserId,
+					Image = thumbnailUrl,
+					ImageConsoleVR = thumbnailUrlConsole,
 					FetchImageFunction = createFetchImageFunction(playerToBlock.UserId, REGULAR_THUMBNAIL_IMAGE_SIZE, REGULAR_THUMBNAIL_IMAGE_TYPE),
 					FetchImageFunctionConsoleVR = createFetchImageFunction(playerToBlock.UserId, CONSOLE_THUMBNAIL_IMAGE_SIZE, CONSOLE_THUMBNAIL_IMAGE_TYPE),
 					StripeColor = Color3.fromRGB(183, 34, 54),
@@ -87,8 +110,8 @@ function DoPromptBlockPlayer(playerToBlock)
 		ConfirmationText = "Block",
 		CancelText = "Cancel",
 		CancelActive = true,
-		Image = BUST_THUMBNAIL_URL ..playerToBlock.UserId,
-		ImageConsoleVR = THUMBNAIL_URL ..playerToBlock.UserId,
+		Image = thumbnailUrl,
+		ImageConsoleVR = thumbnailUrlConsole,
 		FetchImageFunction = createFetchImageFunction(playerToBlock.UserId, REGULAR_THUMBNAIL_IMAGE_SIZE, REGULAR_THUMBNAIL_IMAGE_TYPE),
 		FetchImageFunctionConsoleVR = createFetchImageFunction(playerToBlock.UserId, CONSOLE_THUMBNAIL_IMAGE_SIZE, CONSOLE_THUMBNAIL_IMAGE_TYPE),
 		PromptCompletedCallback = promptCompletedCallback,
@@ -117,6 +140,15 @@ function DoPromptUnblockPlayer(playerToUnblock)
 		return
 	end
 
+	local thumbnailUrl, thumbnailUrlConsole
+	if FFlagCorescriptThumbnailsRespectBaseUrl then
+		thumbnailUrl = BUST_THUMBNAIL_URL:format(BUST_THUMBNAIL_SIZE, BUST_THUMBNAIL_SIZE, playerToUnblock.UserId)
+		thumbnailUrlConsole = THUMBNAIL_URL:format(THUMBNAIL_SIZE, THUMBNAIL_SIZE, playerToUnblock.UserId)
+	else
+		thumbnailUrl = BUST_THUMBNAIL_URL ..playerToUnblock.UserId
+		thumbnailUrlConsole = THUMBNAIL_URL ..playerToUnblock.UserId
+	end
+
 	local function promptCompletedCallback(clickedConfirm)
 		if clickedConfirm then
 			local successfullyUnblocked = BlockingUtility:UnblockPlayerAsync(playerToUnblock)
@@ -128,8 +160,8 @@ function DoPromptUnblockPlayer(playerToUnblock)
 					WindowTitle = "Error Unblocking Player",
 					MainText = string.format("An error occurred while unblocking %s. Please try again later.", playerToUnblock.Name),
 					ConfirmationText = "Okay",
-					Image = BUST_THUMBNAIL_URL ..playerToUnblock.UserId,
-					ImageConsoleVR = THUMBNAIL_URL ..playerToUnblock.UserId,
+					Image = thumbnailUrl,
+					ImageConsoleVR = thumbnailUrlConsole,
 					FetchImageFunction = createFetchImageFunction(playerToUnblock.UserId, REGULAR_THUMBNAIL_IMAGE_SIZE, REGULAR_THUMBNAIL_IMAGE_TYPE),
 					FetchImageFunctionConsoleVR = createFetchImageFunction(playerToUnblock.UserId, CONSOLE_THUMBNAIL_IMAGE_SIZE, CONSOLE_THUMBNAIL_IMAGE_TYPE),
 					StripeColor = Color3.fromRGB(183, 34, 54),
@@ -144,8 +176,8 @@ function DoPromptUnblockPlayer(playerToUnblock)
 		ConfirmationText = "Unblock",
 		CancelText = "Cancel",
 		CancelActive = true,
-		Image = BUST_THUMBNAIL_URL ..playerToUnblock.UserId,
-		ImageConsoleVR = THUMBNAIL_URL ..playerToUnblock.UserId,
+		Image = thumbnailUrl,
+		ImageConsoleVR = thumbnailUrlConsole,
 		FetchImageFunction = createFetchImageFunction(playerToUnblock.UserId, REGULAR_THUMBNAIL_IMAGE_SIZE, REGULAR_THUMBNAIL_IMAGE_TYPE),
 		FetchImageFunctionConsoleVR = createFetchImageFunction(playerToUnblock.UserId, CONSOLE_THUMBNAIL_IMAGE_SIZE, CONSOLE_THUMBNAIL_IMAGE_TYPE),
 		PromptCompletedCallback = promptCompletedCallback,

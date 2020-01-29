@@ -9,7 +9,7 @@ local ClearChange = require(Actions.ClearChange)
 return function(setting, currentValue, newValue, comparisonFunc)
 	return function(store)
 		local equals
-		if game:GetFastFlag("CMSEnableCatalogTags2") and comparisonFunc then
+		if comparisonFunc then
 			equals = comparisonFunc(currentValue, newValue)
 		else
 			equals = currentValue == newValue

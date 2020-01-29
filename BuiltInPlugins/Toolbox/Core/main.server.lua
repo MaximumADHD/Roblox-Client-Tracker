@@ -10,7 +10,6 @@ game:DefineFastFlag("RemoveNilInstances", false)
 game:DefineFastFlag("UseRBXThumbInToolbox", false)
 game:DefineFastFlag("UseCreationToFetchMyOverrideData2", false)
 game:DefineFastFlag("EnableAssetConfigVersionCheckForModels", false)
-game:DefineFastFlag("CMSAdditionalAccessoryTypesV2", false)
 game:DefineFastFlag("FixAssetConfigManageableGroups", false)
 game:DefineFastFlag("UseDevelopFetchPluginVersionId", false)
 game:DefineFastFlag("ShowAssetConfigReasons", false)
@@ -18,12 +17,10 @@ game:DefineFastFlag("DebugAssetConfigNetworkError", false)
 game:DefineFastFlag("FixAssetConfigIcon", false)
 game:DefineFastFlag("EnableAssetConfigFreeFix2", false)
 game:DefineFastFlag("EnableNonWhitelistedToggle", false)
+game:DefineFastFlag("EnablePurchaseV2", false)
 
--- when removing this flag, remove all references to isCatalogItemCreator
-game:DefineFastFlag("CMSRemoveUGCContentEnabledBoolean", false)
-
-game:DefineFastFlag("CMSEnableCatalogTags2", false)
 game:DefineFastFlag("CMSTabErrorIcon", false)
+game:DefineFastFlag("CMSConsolidateAssetTypeInfo", false)
 
 local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 
@@ -137,7 +134,6 @@ local function createAssetConfig(assetId, flowType, instances, assetTypeEnum)
 		return
 	end
 
-	local isCatalogItemCreator = false -- remove with FFlagCMSRemoveUGCContentEnabledBoolean
 	local assetTypesForRelease = {}
 	local assetTypesForUpload = {}
 	local packagePermissions = {}
@@ -147,18 +143,12 @@ local function createAssetConfig(assetId, flowType, instances, assetTypeEnum)
 	local maximumItemTagsPerItem = 0
 
 	if toolboxStore then
-		if not game:GetFastFlag("CMSRemoveUGCContentEnabledBoolean") then
-			isCatalogItemCreator = toolboxStore:getState().roles.isCatalogItemCreator
-		end
 		assetTypesForRelease = toolboxStore:getState().roles.allowedAssetTypesForRelease
 		assetTypesForUpload = toolboxStore:getState().roles.allowedAssetTypesForUpload
 		packagePermissions = toolboxStore:getState().packages.permissionsTable
-
-		if game:GetFastFlag("CMSEnableCatalogTags2") then
-			isItemTagsFeatureEnabled = toolboxStore:getState().itemTags.isItemTagsFeatureEnabled
-			enabledAssetTypesForItemTags = toolboxStore:getState().itemTags.enabledAssetTypesForItemTags
-			maximumItemTagsPerItem = toolboxStore:getState().itemTags.maximumItemTagsPerItem
-		end
+		isItemTagsFeatureEnabled = toolboxStore:getState().itemTags.isItemTagsFeatureEnabled
+		enabledAssetTypesForItemTags = toolboxStore:getState().itemTags.enabledAssetTypesForItemTags
+		maximumItemTagsPerItem = toolboxStore:getState().itemTags.maximumItemTagsPerItem
 	end
 
 	local startScreen = AssetConfigUtil.getFlowStartScreen(flowType)
@@ -170,7 +160,6 @@ local function createAssetConfig(assetId, flowType, instances, assetTypeEnum)
 			screenFlowType = flowType,
 			currentScreen = startScreen,
 			instances = instances,
-			isCatalogItemCreator = isCatalogItemCreator, -- remove with FFlagCMSRemoveUGCContentEnabledBoolean
 			allowedAssetTypesForRelease = assetTypesForRelease,
 			allowedAssetTypesForUpload = assetTypesForUpload,
 			isItemTagsFeatureEnabled = isItemTagsFeatureEnabled,

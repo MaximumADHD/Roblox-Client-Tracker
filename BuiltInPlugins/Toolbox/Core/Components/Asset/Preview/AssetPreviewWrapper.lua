@@ -14,8 +14,6 @@
 			preview to close it.
 ]]
 
-local FFlagEditAssetForManagedAssets = game:GetFastFlag("EditAssetForManagedAssets")
-
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
@@ -106,22 +104,7 @@ function AssetPreviewWrapper:init(props)
 	self.tryCreateContextMenu = function()
 		local assetData = self.props.assetData
 
-		local showEditOption
-		if FFlagEditAssetForManagedAssets then
-			showEditOption = self.props.canManage
-		else
-			-- Check if the user owns the asset.
-			local creatorData = assetData.Creator
-			showEditOption = false
-			if creatorData.Type == ConfigTypes.OWNER_TYPES.User then
-				if creatorData.Id == getUserId() then
-					showEditOption = true
-				end
-			else
-				-- TODO: Check if the user belong to the group owns it.
-				-- DEVTOOLS-2872
-			end
-		end
+		local showEditOption = self.props.canManage
 
 		self.props.tryCreateContextMenu(assetData, showEditOption)
 	end

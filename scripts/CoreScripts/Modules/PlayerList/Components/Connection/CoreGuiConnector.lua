@@ -16,23 +16,26 @@ local BlockedStatusChangedEvent = BlockingUtility:GetBlockedStatusChangedEvent()
 local Components = script.Parent.Parent
 local PlayerList = Components.Parent
 
+-- Remove with FFlagPlayerListDontCreateUIWhenDisabled
 local SetPlayerListEnabled = require(PlayerList.Actions.SetPlayerListEnabled)
 local SetPerformanceStatsVisible = require(PlayerList.Actions.SetPerformanceStatsVisible)
 local SetPlayerIsBlocked = require(PlayerList.Actions.SetPlayerIsBlocked)
+
+local FFlagPlayerListDontCreateUIWhenDisabled = require(RobloxGui.Modules.Flags.FFlagPlayerListDontCreateUIWhenDisabled)
 
 local EventConnection = require(script.Parent.EventConnection)
 
 local function CoreGuiConnector(props)
 	-- TODO: Clean this up when Fragments are released.
 	return Roact.createElement("Folder", {}, {
-		CoreGuiChangedConnection = Roact.createElement(EventConnection, {
+		CoreGuiChangedConnection = (not FFlagPlayerListDontCreateUIWhenDisabled) and Roact.createElement(EventConnection, {
 			event = StarterGui.CoreGuiChangedSignal,
 			callback = function(coreGuiType, enabled)
 				if coreGuiType == Enum.CoreGuiType.All or coreGuiType == Enum.CoreGuiType.PlayerList then
 					props.setPlayerListEnabled(enabled)
 				end
 			end,
-		}),
+		}) or nil,
 
 		PerformanceStatsChangedConnection = Roact.createElement(EventConnection, {
 			event = GameSettings.PerformanceStatsVisibleChanged,
@@ -59,9 +62,9 @@ local function mapDispatchToProps(dispatch)
 			return dispatch(SetPerformanceStatsVisible(value))
 		end,
 
-		setPlayerListEnabled = function(value)
+		setPlayerListEnabled = (not FFlagPlayerListDontCreateUIWhenDisabled) and function(value)
 			return dispatch(SetPlayerListEnabled(value))
-		end,
+		end or nil,
 
 		setPlayerIsBlocked = function(player, isBlocked)
 			return dispatch(SetPlayerIsBlocked(player, isBlocked))

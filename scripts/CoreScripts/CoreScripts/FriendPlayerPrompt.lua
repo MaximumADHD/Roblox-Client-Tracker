@@ -26,8 +26,23 @@ local FFlagFriendPlayerPromptUseFormatByKey = settings():GetFFlag('FriendPlayerP
 
 local RobloxTranslator = require(CoreGuiModules:WaitForChild("RobloxTranslator"))
 
-local THUMBNAIL_URL = "https://www.roblox.com/Thumbs/Avatar.ashx?x=200&y=200&format=png&userId="
-local BUST_THUMBNAIL_URL = "https://www.roblox.com/bust-thumbnail/image?width=420&height=420&format=png&userId="
+local FFlagCorescriptThumbnailsRespectBaseUrl = require(CoreGuiModules.Flags.FFlagCorescriptThumbnailsRespectBaseUrl)
+
+local LegacyThumbnailUrls = require(CoreGuiModules.Common.LegacyThumbnailUrls)
+
+local THUMBNAIL_SIZE = 200
+local BUST_THUMBNAIL_SIZE = 420
+
+local THUMBNAIL_URL
+local BUST_THUMBNAIL_URL
+
+if FFlagCorescriptThumbnailsRespectBaseUrl then
+	THUMBNAIL_URL = LegacyThumbnailUrls.Thumbnail
+	BUST_THUMBNAIL_URL = LegacyThumbnailUrls.Bust
+else
+	THUMBNAIL_URL = "https://www.roblox.com/Thumbs/Avatar.ashx?x=200&y=200&format=png&userId="
+	BUST_THUMBNAIL_URL = "https://www.roblox.com/bust-thumbnail/image?width=420&height=420&format=png&userId="
+end
 
 local REGULAR_THUMBNAIL_IMAGE_SIZE = Enum.ThumbnailSize.Size150x150
 local CONSOLE_THUMBNAIL_IMAGE_SIZE = Enum.ThumbnailSize.Size352x352
@@ -82,19 +97,30 @@ function DoPromptRequestFriendPlayer(playerToFriend)
 	if LocalPlayer:IsFriendsWith(playerToFriend.UserId) then
 		return
 	end
+
+	local thumbnailUrl, thumbnailUrlConsole
+	if FFlagCorescriptThumbnailsRespectBaseUrl then
+		thumbnailUrl = BUST_THUMBNAIL_URL:format(BUST_THUMBNAIL_SIZE, BUST_THUMBNAIL_SIZE, playerToFriend.UserId)
+		thumbnailUrlConsole = THUMBNAIL_URL:format(THUMBNAIL_SIZE, THUMBNAIL_SIZE, playerToFriend.UserId)
+	else
+		thumbnailUrl = BUST_THUMBNAIL_URL ..playerToFriend.UserId
+		thumbnailUrlConsole = THUMBNAIL_URL ..playerToFriend.UserId
+	end
+
 	local function promptCompletedCallback(clickedConfirm)
 		if clickedConfirm then
 			if AtFriendLimit(LocalPlayer) then
 				while PromptCreator:IsCurrentlyPrompting() do
 					wait()
 				end
+
 				PromptCreator:CreatePrompt({
 					WindowTitle = "Friend Limit Reached",
 					MainText = "You can not send a friend request because you are at the max friend limit.",
 					ConfirmationText = "Okay",
 					CancelActive = false,
-					Image = BUST_THUMBNAIL_URL ..playerToFriend.UserId,
-					ImageConsoleVR = THUMBNAIL_URL ..playerToFriend.UserId,
+					Image = thumbnailUrl,
+					ImageConsoleVR = thumbnailUrlConsole,
 					FetchImageFunction = createFetchImageFunction(playerToFriend.UserId, REGULAR_THUMBNAIL_IMAGE_SIZE, REGULAR_THUMBNAIL_IMAGE_TYPE),
 					FetchImageFunctionConsoleVR = createFetchImageFunction(playerToFriend.UserId, CONSOLE_THUMBNAIL_IMAGE_SIZE, CONSOLE_THUMBNAIL_IMAGE_TYPE),
 					StripeColor = Color3.fromRGB(183, 34, 54),
@@ -117,8 +143,8 @@ function DoPromptRequestFriendPlayer(playerToFriend)
 						MainText = mainText,
 						ConfirmationText = "Okay",
 						CancelActive = false,
-						Image = BUST_THUMBNAIL_URL ..playerToFriend.UserId,
-						ImageConsoleVR = THUMBNAIL_URL ..playerToFriend.UserId,
+						Image = thumbnailUrl,
+						ImageConsoleVR = thumbnailUrlConsole,
 						FetchImageFunction = createFetchImageFunction(playerToFriend.UserId, REGULAR_THUMBNAIL_IMAGE_SIZE, REGULAR_THUMBNAIL_IMAGE_TYPE),
 						FetchImageFunctionConsoleVR = createFetchImageFunction(playerToFriend.UserId, CONSOLE_THUMBNAIL_IMAGE_SIZE, CONSOLE_THUMBNAIL_IMAGE_TYPE),
 						StripeColor = Color3.fromRGB(183, 34, 54),
@@ -144,8 +170,8 @@ function DoPromptRequestFriendPlayer(playerToFriend)
 							MainText = mainText,
 							ConfirmationText = "Okay",
 							CancelActive = false,
-							Image = BUST_THUMBNAIL_URL ..playerToFriend.UserId,
-							ImageConsoleVR = THUMBNAIL_URL ..playerToFriend.UserId,
+							Image = thumbnailUrl,
+							ImageConsoleVR = thumbnailUrlConsole,
 							FetchImageFunction = createFetchImageFunction(playerToFriend.UserId, REGULAR_THUMBNAIL_IMAGE_SIZE, REGULAR_THUMBNAIL_IMAGE_TYPE),
 							FetchImageFunctionConsoleVR = createFetchImageFunction(playerToFriend.UserId, CONSOLE_THUMBNAIL_IMAGE_SIZE, CONSOLE_THUMBNAIL_IMAGE_TYPE),
 							StripeColor = Color3.fromRGB(183, 34, 54),
@@ -172,8 +198,8 @@ function DoPromptRequestFriendPlayer(playerToFriend)
 		ConfirmationText = "Send Request",
 		CancelText = "Cancel",
 		CancelActive = true,
-		Image = BUST_THUMBNAIL_URL ..playerToFriend.UserId,
-		ImageConsoleVR = THUMBNAIL_URL ..playerToFriend.UserId,
+		Image = thumbnailUrl,
+		ImageConsoleVR = thumbnailUrlConsole,
 		FetchImageFunction = createFetchImageFunction(playerToFriend.UserId, REGULAR_THUMBNAIL_IMAGE_SIZE, REGULAR_THUMBNAIL_IMAGE_TYPE),
 		FetchImageFunctionConsoleVR = createFetchImageFunction(playerToFriend.UserId, CONSOLE_THUMBNAIL_IMAGE_SIZE, CONSOLE_THUMBNAIL_IMAGE_TYPE),
 		PromptCompletedCallback = promptCompletedCallback,
@@ -208,6 +234,16 @@ function DoPromptUnfriendPlayer(playerToUnfriend)
 	if not LocalPlayer:IsFriendsWith(playerToUnfriend.UserId) then
 		return
 	end
+
+	local thumbnailUrl, thumbnailUrlConsole
+	if FFlagCorescriptThumbnailsRespectBaseUrl then
+		thumbnailUrl = BUST_THUMBNAIL_URL:format(BUST_THUMBNAIL_SIZE, BUST_THUMBNAIL_SIZE, playerToUnfriend.UserId)
+		thumbnailUrlConsole = THUMBNAIL_URL:format(THUMBNAIL_SIZE, THUMBNAIL_SIZE, playerToUnfriend.UserId)
+	else
+		thumbnailUrl = BUST_THUMBNAIL_URL ..playerToUnfriend.UserId
+		thumbnailUrlConsole = THUMBNAIL_URL ..playerToUnfriend.UserId
+	end
+
 	local function promptCompletedCallback(clickedConfirm)
 		if clickedConfirm then
 			local successfullyUnfriended = UnFriendPlayer(playerToUnfriend)
@@ -226,8 +262,8 @@ function DoPromptUnfriendPlayer(playerToUnfriend)
 					MainText = mainText,
 					ConfirmationText = "Okay",
 					CancelActive = false,
-					Image = BUST_THUMBNAIL_URL ..playerToUnfriend.UserId,
-					ImageConsoleVR = THUMBNAIL_URL ..playerToUnfriend.UserId,
+					Image = thumbnailUrl,
+					ImageConsoleVR = thumbnailUrlConsole,
 					FetchImageFunction = createFetchImageFunction(playerToUnfriend.UserId, REGULAR_THUMBNAIL_IMAGE_SIZE, REGULAR_THUMBNAIL_IMAGE_TYPE),
 					FetchImageFunctionConsoleVR = createFetchImageFunction(playerToUnfriend.UserId, CONSOLE_THUMBNAIL_IMAGE_SIZE, CONSOLE_THUMBNAIL_IMAGE_TYPE),
 					StripeColor = Color3.fromRGB(183, 34, 54),
@@ -247,8 +283,8 @@ function DoPromptUnfriendPlayer(playerToUnfriend)
 		ConfirmationText = "Unfriend",
 		CancelText = "Cancel",
 		CancelActive = true,
-		Image = BUST_THUMBNAIL_URL ..playerToUnfriend.UserId,
-		ImageConsoleVR = THUMBNAIL_URL ..playerToUnfriend.UserId,
+		Image = thumbnailUrl,
+		ImageConsoleVR = thumbnailUrlConsole,
 		FetchImageFunction = createFetchImageFunction(playerToUnfriend.UserId, REGULAR_THUMBNAIL_IMAGE_SIZE, REGULAR_THUMBNAIL_IMAGE_TYPE),
 		FetchImageFunctionConsoleVR = createFetchImageFunction(playerToUnfriend.UserId, CONSOLE_THUMBNAIL_IMAGE_SIZE, CONSOLE_THUMBNAIL_IMAGE_TYPE),
 		PromptCompletedCallback = promptCompletedCallback,

@@ -92,7 +92,7 @@ local function GamepadControls()
 			}),
 			RightIconsControlslIst = Roact.createElement(verticalControlsList, {
 				TextXAlignment = Enum.TextXAlignment.Left,
-				Position = UDim2.new(1, TEXT_X_PADDING, 0, CONTROL_CAMERA_TEXT_Y_OFFSET, 0),
+				Position = UDim2.new(1, TEXT_X_PADDING, 0, CONTROL_CAMERA_TEXT_Y_OFFSET),
 				controls = Controls.gamepadLabels.camera
 			})
 		})
