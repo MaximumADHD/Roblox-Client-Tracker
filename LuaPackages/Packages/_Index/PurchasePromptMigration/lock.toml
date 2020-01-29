@@ -2,8 +2,8 @@
 name = "PurchasePromptMigration"
 version = "0.6.5"
 source = "git+https://github.rbx.com/esauer/purchase-prompt-migration#master"
-commit = "38269871c48a664d19d71b53ebbd7ede764c1862"
+commit = "05c159a253b2ec2b5abcf4299e856d26bf13f38d"
 dependencies = [
-    "PurchasePrompt roblox/purchase-prompt 63e1d483 git+https://github.com/roblox/purchasepromptscript-roact#master",
-    "PurchasePromptOld roblox/purchase-prompt 582f422c git+https://github.com/roblox/purchasepromptscript-roact#0.1.4",
+    "PurchasePrompt roblox/purchase-prompt 9757e299 git+https://github.com/roblox/purchasepromptscript-roact#master",
+    "PurchasePromptOld roblox/purchase-prompt 582f422c git+https://github.com/roblox/purchasepromptscript-roact#v0.1.4",
 ]
