@@ -25,7 +25,6 @@ local Constants = require(Util.Constants)
 local ContextHelper = require(Util.ContextHelper)
 local ContextGetter = require(Util.ContextGetter)
 
-local getUserId = require(Util.getUserId)
 local getNetwork = ContextGetter.getNetwork
 local getSettings = ContextGetter.getSettings
 
@@ -40,10 +39,11 @@ local Requests = Plugin.Core.Networking.Requests
 local GetPreviewInstanceRequest = require(Requests.GetPreviewInstanceRequest)
 local GetAssetVersionIdRequest = require(Requests.GetAssetVersionIdRequest)
 local GetPluginInfoRequest = require(Requests.GetPluginInfoRequest)
-local SearchWithOptions = require(Plugin.Core.Networking.Requests.SearchWithOptions)
+local SearchWithOptions = require(Requests.SearchWithOptions)
+local PostUnvoteRequest = require(Requests.PostUnvoteRequest)
+local PostVoteRequest = require(Requests.PostVoteRequest)
 
 local Category = require(Plugin.Core.Types.Category)
-local ConfigTypes = require(Plugin.Core.Types.ConfigTypes)
 
 local AssetPreviewWrapper = Roact.PureComponent:extend("AssetPreviewWrapper")
 
@@ -60,6 +60,7 @@ function AssetPreviewWrapper:init(props)
 	}
 
 	self.ClickDetectorRef = Roact.createRef()
+	local networkInterface = getNetwork(self)
 
 	self.onCloseButtonClicked = function()
 		local state = self.state
@@ -115,17 +116,35 @@ function AssetPreviewWrapper:init(props)
 	end
 
 	self.takePlugin = function(assetId)
-		local networkInterface = getNetwork(self)
 		networkInterface:postTakePlugin()
 	end
 
 	self.searchByCreator = function(creatorName)
-		local networkInterface = getNetwork(self)
 		local settings = getSettings(self)
 		self.props.searchWithOptions(networkInterface, settings, {
 			Creator = creatorName,
 		})
 		self.props.onClose()
+	end
+
+	-- For Voting in Asset Preview
+	local onVoteRequested = self.props.onVoteRequested
+	local onUnvoteRequested = self.props.onUnvoteRequested
+
+	self.onVoteUpButtonActivated = function(assetId, voting)
+		if voting.HasVoted and voting.UserVote then
+			onUnvoteRequested(networkInterface, assetId)
+		else
+			onVoteRequested(networkInterface, assetId, true)
+		end
+	end
+
+	self.onVoteDownButtonActivated = function(assetId, voting)
+		if voting.HasVoted and (not voting.UserVote) then
+			onUnvoteRequested(networkInterface, assetId)
+		else
+			onVoteRequested(networkInterface, assetId, false)
+		end
 	end
 end
 
@@ -206,6 +225,9 @@ function AssetPreviewWrapper:render()
 					tryInsert = self.tryInsert,
 					tryCreateContextMenu = self.tryCreateContextMenu,
 					searchByCreator = self.searchByCreator,
+
+					OnVoteUp = self.onVoteUpButtonActivated,
+					OnVoteDown = self.onVoteDownButtonActivated,
 				})
 			})
 		end)
@@ -256,6 +278,14 @@ local function mapDispatchToProps(dispatch)
 		searchWithOptions = function(networkInterface, settings, options)
 			dispatch(SearchWithOptions(networkInterface, settings, options))
 		end,
+
+		onVoteRequested = function(networkInterface, assetId, bool)
+			dispatch(PostVoteRequest(networkInterface, assetId, bool))
+		end,
+
+		onUnvoteRequested = function(networkInterface, assetId)
+			dispatch(PostUnvoteRequest(networkInterface, assetId))
+		end
 	}
 end
 

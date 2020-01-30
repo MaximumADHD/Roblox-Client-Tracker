@@ -41,6 +41,8 @@ function EmotesMenu:bindActions()
                 self.props.openMenu()
             end
         end
+
+        return nil
     end
 
     ContextActionService:BindAction(Constants.ToggleMenuAction, toggleMenuFunc, --[[createTouchButton = ]] false,

@@ -7,6 +7,7 @@
 		"LocalShadow": "fatal",
 		"LocalUnused": "fatal",
 		"FunctionUnused": "fatal",
-		"ImportUnused": "fatal"
+		"ImportUnused": "fatal",
+		"ImplicitReturn": "fatal"
 	}
 }

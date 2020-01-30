@@ -3,7 +3,7 @@
 -- Prevents your camera from clipping through walls.
 --------------------------------------------------------------------------------
 
-local Players = game:GetService('Players')
+local Players = game:GetService("Players")
 
 local camera = game.Workspace.CurrentCamera
 
@@ -33,13 +33,13 @@ local nearPlaneZ, projX, projY do
 		projX = ar*projY
 	end
 
-	camera:GetPropertyChangedSignal('FieldOfView'):Connect(updateProjection)
-	camera:GetPropertyChangedSignal('ViewportSize'):Connect(updateProjection)
+	camera:GetPropertyChangedSignal("FieldOfView"):Connect(updateProjection)
+	camera:GetPropertyChangedSignal("ViewportSize"):Connect(updateProjection)
 
 	updateProjection()
 
 	nearPlaneZ = camera.NearPlaneZ
-	camera:GetPropertyChangedSignal('NearPlaneZ'):Connect(function()
+	camera:GetPropertyChangedSignal("NearPlaneZ"):Connect(function()
 		nearPlaneZ = camera.NearPlaneZ
 	end)
 end
@@ -90,15 +90,15 @@ end
 --------------------------------------------------------------------------------------------
 -- Popper uses the level geometry find an upper bound on subject-to-camera distance.
 --
--- Hard limits are applied immediately and unconditionally. They're generally caused
+-- Hard limits are applied immediately and unconditionally. They are generally caused
 -- when level geometry intersects with the near plane (with exceptions, see below).
 --
 -- Soft limits are only applied under certain conditions.
--- They're caused when level geometry occludes the subject without actually intersecting
+-- They are caused when level geometry occludes the subject without actually intersecting
 -- with the near plane at the target distance.
 --
 -- Soft limits can be promoted to hard limits and hard limits can be demoted to soft limits.
--- We usually don't want the latter to happen.
+-- We usually don"t want the latter to happen.
 --
 -- A soft limit will be promoted to a hard limit if an obstruction
 -- lies between the current and target camera positions.
@@ -107,11 +107,11 @@ end
 local subjectRoot
 local subjectPart
 
-camera:GetPropertyChangedSignal('CameraSubject'):Connect(function()
+camera:GetPropertyChangedSignal("CameraSubject"):Connect(function()
 	local subject = camera.CameraSubject
-	if subject:IsA('Humanoid') then
+	if subject:IsA("Humanoid") then
 		subjectPart = subject.RootPart
-	elseif subject:IsA('BasePart') then
+	elseif subject:IsA("BasePart") then
 		subjectPart = subject
 	else
 		subjectPart = nil
@@ -123,12 +123,12 @@ local function canOcclude(part)
 	-- 1. Opaque
 	-- 2. Interactable
 	-- 3. Not in the same assembly as the subject
-	
+
 	return
 		getTotalTransparency(part) < 0.25 and
 		part.CanCollide and
 		subjectRoot ~= (part:GetRootPart() or part) and
-		not part:IsA('TrussPart')
+		not part:IsA("TrussPart")
 end
 
 -- Offsets for the volume visibility test
@@ -166,7 +166,7 @@ end
 --------------------------------------------------------------------------------
 
 local function queryPoint(origin, unitDir, dist, lastPos)
-	debug.profilebegin('queryPoint')
+	debug.profilebegin("queryPoint")
 
 	local originalSize = #blacklist
 
@@ -220,7 +220,7 @@ local function queryPoint(origin, unitDir, dist, lastPos)
 end
 
 local function queryViewport(focus, dist)
-	debug.profilebegin('queryViewport')
+	debug.profilebegin("queryViewport")
 
 	local fP =  focus.p
 	local fX =  focus.rightVector
@@ -261,7 +261,7 @@ local function queryViewport(focus, dist)
 end
 
 local function testPromotion(focus, dist, focusExtrapolation)
-	debug.profilebegin('testPromotion')
+	debug.profilebegin("testPromotion")
 
 	local fP = focus.p
 	local fX = focus.rightVector
@@ -270,7 +270,7 @@ local function testPromotion(focus, dist, focusExtrapolation)
 
 	do
 		-- Dead reckoning the camera rotation and focus
-		debug.profilebegin('extrapolate')
+		debug.profilebegin("extrapolate")
 
 		local SAMPLE_DT = 0.0625
 		local SAMPLE_MAX_T = 1.25
@@ -292,11 +292,11 @@ local function testPromotion(focus, dist, focusExtrapolation)
 
 	do
 		-- Test screen-space offsets from the focus for the presence of soft limits
-		debug.profilebegin('testOffsets')
+		debug.profilebegin("testOffsets")
 
 		for _, offset in ipairs(SCAN_SAMPLE_OFFSETS) do
 			local scaledOffset = offset
-			local pos, isHit = getCollisionPoint(fP, fX*scaledOffset.x + fY*scaledOffset.y)
+			local pos = getCollisionPoint(fP, fX*scaledOffset.x + fY*scaledOffset.y)
 			if queryPoint(pos, (fP + fZ*dist - pos).Unit, dist) == inf then
 				return false
 			end
@@ -310,7 +310,7 @@ local function testPromotion(focus, dist, focusExtrapolation)
 end
 
 local function Popper(focus, targetDist, focusExtrapolation)
-	debug.profilebegin('popper')
+	debug.profilebegin("popper")
 
 	subjectRoot = subjectPart and subjectPart:GetRootPart() or subjectPart
 

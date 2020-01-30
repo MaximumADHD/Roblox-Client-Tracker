@@ -1925,6 +1925,7 @@ Class WorldRoot : Model [NotCreatable]
 	Function Objects WorldRoot:FindPartsInRegion3(Region3 region, Instance ignoreDescendantsInstance = nil, int maxParts = 20)
 	Function Objects WorldRoot:FindPartsInRegion3WithIgnoreList(Region3 region, Objects ignoreDescendantsTable, int maxParts = 20)
 	Function Objects WorldRoot:FindPartsInRegion3WithWhiteList(Region3 region, Objects whitelistDescendantsTable, int maxParts = 20)
+	Function void WorldRoot:IkMoveTo(Instance part, CFrame target, float translateStiffness = 1, float rotateStiffness = 1, Enum<CollisionsMode> collisionsMode = "OtherMechanismsAnchored") {RobloxScriptSecurity}
 	Function bool WorldRoot:IsRegion3Empty(Region3 region, Instance ignoreDescendentsInstance = nil)
 	Function bool WorldRoot:IsRegion3EmptyWithIgnoreList(Region3 region, Objects ignoreDescendentsTable)
 Class Workspace : WorldRoot [NotCreatable] [Service]
@@ -2748,6 +2749,7 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool Studio.Camera Zoom to Mouse Position
 	Property int Studio.Device Pairing Code
 	Property QDir Studio.DefaultScriptFileDir
+	Property QDir Studio.LocalAssetsFolder {✏️RobloxScriptSecurity}
 	Property bool Studio.OverrideCoreScripts {✏️RobloxScriptSecurity}
 	Property QDir Studio.OverrideCoreScriptsDir {✏️RobloxScriptSecurity}
 	Property QDir Studio.PluginsDir
@@ -2761,7 +2763,7 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property Enum<LanguagePreference> Studio.Language
 	Property int Studio.Render Throttle Percentage
 	Property Instance Studio.Theme
-	Property Enum<UITheme> Studio.UI Theme [<💾> SaveOnly] [ReadOnly] [NotReplicated]
+	Property Enum<UITheme> Studio.UI Theme [<💾> SaveOnly] [Hidden] [ReadOnly] [NotReplicated] [Deprecated]
 	Property bool Studio.LuaDebuggerEnabled
 	Property bool Studio.LuaDebuggerEnabledAtStartup  [Hidden] [ReadOnly] [NotReplicated]
 	Property int Studio.ScriptTimeoutLength
@@ -2834,6 +2836,7 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function string StudioService:SerializeInstances(Objects instances) {RobloxScriptSecurity}
 	Function void StudioService:SetPluginEnabled(int64 assetId, bool state) {RobloxScriptSecurity}
 	Function void StudioService:SetUniverseDisplayName(string newName) {RobloxScriptSecurity}
+	Function void StudioService:ShowBulkImportView() {RobloxScriptSecurity}
 	Function void StudioService:ShowPublishToRoblox() {RobloxScriptSecurity}
 	Function void StudioService:TryInstallPlugin(int64 assetId, int64 assetVersionId) {RobloxScriptSecurity} [Yields]
 	Function void StudioService:UninstallPlugin(int64 assetId) {RobloxScriptSecurity}
@@ -3493,6 +3496,10 @@ Enum CollisionFidelity
 	EnumItem CollisionFidelity.Default : 0
 	EnumItem CollisionFidelity.Hull : 1
 	EnumItem CollisionFidelity.Box : 2
+Enum CollisionsMode
+	EnumItem CollisionsMode.NoCollisions : 0
+	EnumItem CollisionsMode.OtherMechanismsAnchored : 1
+	EnumItem CollisionsMode.IncludeContactedMechanisms : 2
 Enum ComputerCameraMovementMode
 	EnumItem ComputerCameraMovementMode.Default : 0
 	EnumItem ComputerCameraMovementMode.Classic : 1

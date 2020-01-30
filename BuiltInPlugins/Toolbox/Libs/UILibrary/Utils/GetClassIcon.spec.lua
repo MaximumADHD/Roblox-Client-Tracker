@@ -1,7 +1,7 @@
 -- Icon location is determined by an offset within a sequential list of icons in a single image.
 local ICON_NOTFOUND = Vector2.new(0,0)
 local ICON_JOINTINSTANCE = Vector2.new(544,0)
-local ICON_SCRIPT = Vector2(96,0)
+local ICON_SCRIPT = Vector2.new(96,0)
 
 return function()
     local GetClassIcon = require(script.Parent.GetClassIcon)

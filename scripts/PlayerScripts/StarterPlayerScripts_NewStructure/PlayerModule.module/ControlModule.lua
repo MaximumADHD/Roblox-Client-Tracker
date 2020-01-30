@@ -81,6 +81,8 @@ local computerInputTypeToModuleMap = {
 	[Enum.UserInputType.Gamepad4] = Gamepad,
 }
 
+local lastInputType
+
 function ControlModule.new()
 	local self = setmetatable({},ControlModule)
 
@@ -109,17 +111,28 @@ function ControlModule.new()
 		self:OnCharacterAdded(Players.LocalPlayer.Character)
 	end
 
-	RunService:BindToRenderStep("ControlScriptRenderstep", Enum.RenderPriority.Input.Value, function(dt) self:OnRenderStepped(dt) end)
+	RunService:BindToRenderStep("ControlScriptRenderstep", Enum.RenderPriority.Input.Value, function(dt)
+		self:OnRenderStepped(dt)
+	end)
 
-	UserInputService.LastInputTypeChanged:Connect(function(newLastInputType) self:OnLastInputTypeChanged(newLastInputType) end)
+	UserInputService.LastInputTypeChanged:Connect(function(newLastInputType)
+		self:OnLastInputTypeChanged(newLastInputType)
+	end)
 
-	local propertyChangeListeners = {
-		UserGameSettings:GetPropertyChangedSignal("TouchMovementMode"):Connect(function() self:OnTouchMovementModeChange() end),
-		Players.LocalPlayer:GetPropertyChangedSignal("DevTouchMovementMode"):Connect(function() self:OnTouchMovementModeChange() end),
 
-		UserGameSettings:GetPropertyChangedSignal("ComputerMovementMode"):Connect(function() self:OnComputerMovementModeChange() end),
-		Players.LocalPlayer:GetPropertyChangedSignal("DevComputerMovementMode"):Connect(function() self:OnComputerMovementModeChange() end),
-	}
+	UserGameSettings:GetPropertyChangedSignal("TouchMovementMode"):Connect(function()
+		self:OnTouchMovementModeChange()
+	end)
+	Players.LocalPlayer:GetPropertyChangedSignal("DevTouchMovementMode"):Connect(function()
+		self:OnTouchMovementModeChange()
+	end)
+
+	UserGameSettings:GetPropertyChangedSignal("ComputerMovementMode"):Connect(function()
+		self:OnComputerMovementModeChange()
+	end)
+	Players.LocalPlayer:GetPropertyChangedSignal("DevComputerMovementMode"):Connect(function()
+		self:OnComputerMovementModeChange()
+	end)
 
 	--[[ Touch Device UI ]]--
 	self.playerGui = nil
@@ -212,7 +225,7 @@ function ControlModule:SelectComputerMovementModule()
 		return nil, false
 	end
 
-	local computerModule = nil
+	local computerModule
 	local DevMovementMode = Players.LocalPlayer.DevComputerMovementMode
 
 	if DevMovementMode == Enum.DevComputerMovementMode.UserChoice then
@@ -249,7 +262,7 @@ function ControlModule:SelectTouchModule()
 	if not UserInputService.TouchEnabled then
 		return nil, false
 	end
-	local touchModule = nil
+	local touchModule
 	local DevMovementMode = Players.LocalPlayer.DevTouchMovementMode
 	if DevMovementMode == Enum.DevTouchMovementMode.UserChoice then
 		touchModule = movementEnumToModuleMap[UserGameSettings.TouchMovementMode]
@@ -320,7 +333,8 @@ function ControlModule:OnRenderStepped(dt)
 		end
 
 		-- If not, move the player
-		-- Verification of vehicleConsumedInput is commented out to preserve legacy behavior, in case some game relies on Humanoid.MoveDirection still being set while in a VehicleSeat
+		-- Verification of vehicleConsumedInput is commented out to preserve legacy behavior,
+		-- in case some game relies on Humanoid.MoveDirection still being set while in a VehicleSeat
 		--if not vehicleConsumedInput then
 			if cameraRelative then
 				moveVector = calculateRawMoveVector(self.humanoid, moveVector)
@@ -363,7 +377,9 @@ function ControlModule:OnCharacterAdded(char)
 		self.humanoidSeatedConn:Disconnect()
 		self.humanoidSeatedConn = nil
 	end
-	self.humanoidSeatedConn = self.humanoid.Seated:Connect(function(active, currentSeatPart) self:OnHumanoidSeated(active, currentSeatPart) end)
+	self.humanoidSeatedConn = self.humanoid.Seated:Connect(function(active, currentSeatPart)
+		self:OnHumanoidSeated(active, currentSeatPart)
+	end)
 end
 
 function ControlModule:OnCharacterRemoving(char)

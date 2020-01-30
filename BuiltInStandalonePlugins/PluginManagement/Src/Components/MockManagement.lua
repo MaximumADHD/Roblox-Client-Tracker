@@ -19,6 +19,9 @@ local ContextServices = require(Plugin.Packages.Framework.ContextServices)
 local UILibraryWrapper = require(Plugin.Packages.Framework.ContextServices.UILibraryWrapper)
 local makeTheme = require(Plugin.Src.Resources.makeTheme)
 local PluginAPI2 = require(Plugin.Src.ContextServices.PluginAPI2)
+local Navigation = require(Plugin.Src.ContextServices.Navigation)
+
+local FFlagEnablePluginPermissionsPage = game:DefineFastFlag("EnablePluginPermissionsPage", false)
 
 local MockManagement = Roact.PureComponent:extend("MockManagement")
 
@@ -49,22 +52,35 @@ local function mockPlugin(container)
 end
 
 function MockManagement:init(props)
-	self.store = Rodux.Store.new(MainReducer, nil, { Rodux.thunkMiddleware })
+	self.store = Rodux.Store.new(MainReducer, self.props.initialStoreState, { Rodux.thunkMiddleware })
 	self.api = Http.API.mock({})
 	self.plugin = mockPlugin(props.Container)
 	self.target = props.FocusTarget or mockFocus()
 end
 
 function MockManagement:render()
-	return ContextServices.provide({
-		ContextServices.Plugin.new(self.plugin),
-		PluginAPI2.new(self.api),
-		ContextServices.Localization.mock(),
-		makeTheme(),
-		ContextServices.Focus.new(self.target),
-		UILibraryWrapper.new(),
-		ContextServices.Store.new(self.store),
-	}, self.props[Roact.Children])
+	if FFlagEnablePluginPermissionsPage then
+		return ContextServices.provide({
+			ContextServices.Plugin.new(self.plugin),
+			PluginAPI2.new(self.api),
+			ContextServices.Localization.mock(),
+			makeTheme(),
+			ContextServices.Focus.new(self.target),
+			UILibraryWrapper.new(),
+			ContextServices.Store.new(self.store),
+			Navigation.new(),
+		}, self.props[Roact.Children])
+	else
+		return ContextServices.provide({
+			ContextServices.Plugin.new(self.plugin),
+			PluginAPI2.new(self.api),
+			ContextServices.Localization.mock(),
+			makeTheme(),
+			ContextServices.Focus.new(self.target),
+			UILibraryWrapper.new(),
+			ContextServices.Store.new(self.store),
+		}, self.props[Roact.Children])
+	end
 end
 
 return MockManagement

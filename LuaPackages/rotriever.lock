@@ -19,7 +19,7 @@ dependencies = [
     "RoactNavigation roblox/roact-navigation 0.2.4 registry+https://github.rbx.com/roblox/rotriever-index",
     "RoactRodux roblox/roact-rodux 0.2.0 registry+https://github.rbx.com/roblox/rotriever-index",
     "Rodux roblox/rodux 1.0.0 registry+https://github.rbx.com/roblox/rotriever-index",
-    "TestEZ roblox/testez ef0f618c git+https://github.com/roblox/testez#v0.1",
+    "TestEZ roblox/testez 0.1.1 registry+https://github.rbx.com/roblox/rotriever-index",
     "UIBlox UIBlox 27b49bee git+https://github.rbx.com/roblox/uiblox#master",
     "enumerate roblox/enumerate 1.0.0 registry+https://github.rbx.com/roblox/rotriever-index",
     "t osyris/t 1.2.5 registry+https://github.rbx.com/roblox/rotriever-index",
@@ -274,9 +274,8 @@ source = "registry+https://github.rbx.com/roblox/rotriever-index"
 
 [[package]]
 name = "roblox/testez"
-version = "0.1.0"
-source = "git+https://github.com/roblox/testez#v0.1"
-commit = "ef0f618cd7491019d1cb6766818e0f372b953678"
+version = "0.1.1"
+source = "registry+https://github.rbx.com/roblox/rotriever-index"
 
 [[package]]
 name = "rodux-networking"

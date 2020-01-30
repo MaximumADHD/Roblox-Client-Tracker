@@ -13,6 +13,9 @@ local EmbeddedTableInterface = require(script.Parent.Parent.GameTable.EmbeddedTa
 
 local EmbeddedTableSection = Roact.Component:extend("EmbeddedTableSection")
 
+local TextCaptureStartText = "Start untranslated text capture"
+local TextCaptureStopText = "Stop untranslated text capture"
+
 function EmbeddedTableSection:init()
 	self.toggleTextScraperEnabled = function()
 		EmbeddedTableInterface.ToggleTextScraperEnabled()
@@ -50,7 +53,7 @@ function EmbeddedTableSection:render()
 				}),
 
 				TextCapture = Roact.createElement(LabeledImageButton, {
-					LabelText = "Enable untranslated text capture",
+					LabelText = isTextScraperRunning and TextCaptureStopText or TextCaptureStartText,
 					ButtonText = "Text Capture",
 					ButtonImage = textCaptureButtonImage,
 					OnActivated = self.toggleTextScraperEnabled,

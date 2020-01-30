@@ -3,7 +3,6 @@ local AppTempCommon = CorePackages.AppTempCommon
 
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
 local Roact = require(CorePackages.Roact)
 
@@ -24,11 +23,8 @@ local INVITE_STATUS_TEXT = {
 }
 
 local FFlagLuaInviteGameHandleUnknownResponse = settings():GetFFlag("LuaInviteGameHandleUnknownResponse")
-local FFlagLuaInviteGameMockTextLocalization = settings():GetFFlag("LuaInviteGameMockTextLocalization")
-if FFlagLuaInviteGameMockTextLocalization then
-	local getTranslator = require(ShareGame.getTranslator)
-	RobloxTranslator = getTranslator()
-end
+local getTranslator = require(ShareGame.getTranslator)
+local RobloxTranslator = getTranslator()
 
 local InviteButton = Roact.PureComponent:extend("InviteButton")
 

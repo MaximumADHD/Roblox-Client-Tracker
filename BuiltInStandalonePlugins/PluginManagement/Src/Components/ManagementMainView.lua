@@ -10,9 +10,11 @@ local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local UILibrary = require(Plugin.Packages.UILibrary)
+
 local PluginHolder = require(Plugin.Src.Components.PluginHolder)
-local GetPluginInfoRequest = require(Plugin.Src.Thunks.GetPluginInfoRequest)
-local MultiGetPluginInfoRequest = require(Plugin.Src.Thunks.MultiGetPluginInfoRequest)
+
+local GetAllPluginPermissions = require(Plugin.Src.Thunks.GetAllPluginPermissions)
+
 local Constants = require(Plugin.Src.Util.Constants)
 local MovedDialog = require(Plugin.Src.Components.MovedDialog)
 local ContextServices = require(Plugin.Packages.Framework.ContextServices)
@@ -25,6 +27,7 @@ local LoadingIndicator = UILibrary.Component.LoadingIndicator
 local FFlagEnablePurchasePluginFromLua2 = game:GetFastFlag("EnablePurchasePluginFromLua2")
 local FFlagEnableStudioServiceOpenBrowser = game:GetFastFlag("EnableStudioServiceOpenBrowser")
 local FFlagPluginManagementAllowLotsOfPlugins = settings():GetFFlag("PluginManagementAllowLotsOfPlugins")
+local FFlagEnablePluginPermissionsPage = game:GetFastFlag("EnablePluginPermissionsPage")
 local FFlagFixFindPluginsMessage = game:DefineFastFlag("FixFindPluginsMessage", false)
 
 local ManagementMainView = Roact.Component:extend("ManagementMainView")
@@ -51,6 +54,11 @@ function ManagementMainView:init()
 		local apiImpl = self.props.API:get()
 		local refreshPluginCallback = self.props.dispatchRefreshPlugins
 		refreshPluginCallback(apiImpl)
+	end
+
+	self.getAllPluginPermissions = function()
+		local apiImpl = self.props.API:get()
+		self.props.getAllPluginPermissions(apiImpl)
 	end
 
 	self.updateAllPlugins = function()
@@ -104,6 +112,10 @@ function ManagementMainView:didMount()
 	self.refreshPlugins()
 	local changedToken = StudioService:GetPropertyChangedSignal("InstalledPluginData"):Connect(self.refreshPlugins)
 	table.insert(self.tokens, changedToken)
+
+	if FFlagEnablePluginPermissionsPage then
+		self.getAllPluginPermissions()
+	end
 end
 
 function ManagementMainView:willUnmount()
@@ -117,7 +129,12 @@ function ManagementMainView:render()
 	local props = self.props
 	local state = self.state
 
-	local plugin = props.plugin
+	local plugin
+	if FFlagEnablePluginPermissionsPage then
+		plugin = props.Plugin:get()
+	else
+		plugin = props.plugin
+	end
 	local pluginList = props.pluginList
 	local updating = state.updating
 	local showingMovedDialog = state.showingMovedDialog
@@ -184,7 +201,6 @@ function ManagementMainView:render()
 					Dots = Roact.createElement("TextLabel", {
 						Position = UDim2.new(0, 0, 0, 0),
 						Size = UDim2.new(1, 0, 1, 0),
-
 						Text = "+",
 						TextColor3 = theme.White,
 						Font = Enum.Font.SourceSansBold,
@@ -276,6 +292,7 @@ function ManagementMainView:render()
 end
 
 ContextServices.mapToProps(ManagementMainView, {
+	Plugin = FFlagPluginManagementAllowLotsOfPlugins and ContextServices.Plugin,
 	Localization = ContextServices.Localization,
 	Theme = ContextServices.Theme,
 	API = PluginAPI2,
@@ -289,14 +306,6 @@ end
 
 local function mapDispatchToProps(dispatch)
 	return {
-		onPluginInfoRequested = function(apiImpl, assetIds, plugins)
-			if FFlagPluginManagementAllowLotsOfPlugins then
-				dispatch(MultiGetPluginInfoRequest(apiImpl, MarketplaceService, assetIds, plugins))
-			else
-				dispatch(GetPluginInfoRequest(apiImpl, assetIds, plugins))
-			end
-		end,
-
 		UpdateAllPlugins = function()
 			dispatch(UpdateAllPlugins())
 		end,
@@ -307,6 +316,10 @@ local function mapDispatchToProps(dispatch)
 			else
 				dispatch(RefreshPlugins(apiImpl))
 			end
+		end,
+
+		getAllPluginPermissions = function(apiImpl)
+			dispatch(GetAllPluginPermissions(apiImpl))
 		end,
 	}
 end

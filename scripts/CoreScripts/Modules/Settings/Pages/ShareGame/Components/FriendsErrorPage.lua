@@ -2,18 +2,14 @@ local CorePackages = game:GetService("CorePackages")
 
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
 local ShareGame = RobloxGui.Modules.Settings.Pages.ShareGame
 
 local Roact = require(CorePackages.Roact)
 local Constants = require(ShareGame.Constants)
 
-local FFlagLuaInviteGameMockTextLocalization = settings():GetFFlag("LuaInviteGameMockTextLocalization")
-if FFlagLuaInviteGameMockTextLocalization then
-	local getTranslator = require(ShareGame.getTranslator)
-	RobloxTranslator = getTranslator()
-end
+local getTranslator = require(ShareGame.getTranslator)
+local RobloxTranslator = getTranslator()
 
 local FriendsErrorPage = Roact.PureComponent:extend("FriendsErrorPage")
 

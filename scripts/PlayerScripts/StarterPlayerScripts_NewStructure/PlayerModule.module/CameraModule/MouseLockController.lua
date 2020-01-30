@@ -9,17 +9,12 @@ local DEFAULT_MOUSE_LOCK_CURSOR = "rbxasset://textures/MouseLockedCursor.png"
 local CONTEXT_ACTION_NAME = "MouseLockSwitchAction"
 local MOUSELOCK_ACTION_PRIORITY = Enum.ContextActionPriority.Default.Value
 
-local Util = require(script.Parent:WaitForChild("CameraUtils"))
-
 --[[ Services ]]--
 local PlayersService = game:GetService("Players")
-local UserInputService = game:GetService("UserInputService")
 local ContextActionService = game:GetService("ContextActionService")
 local Settings = UserSettings()	-- ignore warning
 local GameSettings = Settings.GameSettings
 local Mouse = PlayersService.LocalPlayer:GetMouse()
-
---[[ Variables ]]
 
 --[[ The Module ]]--
 local MouseLockController = {}
@@ -121,7 +116,7 @@ end
 function MouseLockController:OnBoundKeysObjectChanged(newValue)
 	self.boundKeys = {} -- Overriding defaults, note: possibly with nothing at all if boundKeysObj.Value is "" or contains invalid values
 	for token in string.gmatch(newValue,"[^%s,]+") do
-		for keyCode, keyEnum in pairs(Enum.KeyCode:GetEnumItems()) do
+		for _, keyEnum in pairs(Enum.KeyCode:GetEnumItems()) do
 			if token == keyEnum.Name then
 				self.boundKeys[#self.boundKeys+1] = keyEnum
 				break
@@ -171,12 +166,13 @@ function MouseLockController:DoMouseLockSwitch(name, state, input)
 end
 
 function MouseLockController:BindContextActions()
-	ContextActionService:BindActionAtPriority(CONTEXT_ACTION_NAME, function(name, state, input) return self:DoMouseLockSwitch(name, state, input) end,
-		false, MOUSELOCK_ACTION_PRIORITY, unpack(self.boundKeys))
+	ContextActionService:BindActionAtPriority(CONTEXT_ACTION_NAME, function(name, state, input)
+		return self:DoMouseLockSwitch(name, state, input)
+	end, false, MOUSELOCK_ACTION_PRIORITY, unpack(self.boundKeys))
 end
 
 function MouseLockController:UnbindContextActions()
-		ContextActionService:UnbindAction(CONTEXT_ACTION_NAME)
+	ContextActionService:UnbindAction(CONTEXT_ACTION_NAME)
 end
 
 function MouseLockController:IsMouseLocked()
@@ -184,7 +180,7 @@ function MouseLockController:IsMouseLocked()
 end
 
 function MouseLockController:EnableMouseLock(enable)
-	if enable~=self.enabled then
+	if enable ~= self.enabled then
 
 		self.enabled = enable
 

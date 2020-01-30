@@ -42,7 +42,7 @@ return function()
 			expect(folder:FindFirstChildOfClass("ScreenGui", true).Enabled).to.equal(false)
 
 
-			local newInstance = Roact.reconcile(instance, createModal(true))
+			local newInstance = Roact.update(instance, createModal(true))
 
 			expect(newInstance).to.be.ok()
 			expect(folder:FindFirstChildOfClass("ScreenGui", true).Enabled).to.equal(true)

@@ -1,6 +1,6 @@
 --[[
 	TransparencyController - Manages transparency of player character at close camera-to-subject distances
-	2018 Camera Update - AllYourBlox		
+	2018 Camera Update - AllYourBlox
 --]]
 
 local MAX_TWEEN_RATE = 2.8 -- per second
@@ -13,7 +13,7 @@ TransparencyController.__index = TransparencyController
 
 function TransparencyController.new()
 	local self = setmetatable({}, TransparencyController)
-	
+
 	self.lastUpdate = tick()
 	self.transparencyDirty = false
 	self.enabled = false
@@ -23,7 +23,7 @@ function TransparencyController.new()
 	self.toolDescendantAddedConns = {}
 	self.toolDescendantRemovingConns = {}
 	self.cachedParts = {}
-	
+
 	return self
 end
 
@@ -161,7 +161,7 @@ function TransparencyController:Update()
 
 			if self.lastTransparency then
 				local deltaTransparency = transparency - self.lastTransparency
-				
+
 				-- Don't tween transparency if it is instant or your character was fully invisible last frame
 				if not instant and transparency < 1 and self.lastTransparency < 0.95 then
 					local maxDelta = MAX_TWEEN_RATE * (now - self.lastUpdate)

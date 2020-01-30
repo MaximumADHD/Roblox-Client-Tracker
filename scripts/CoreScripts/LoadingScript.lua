@@ -20,6 +20,7 @@ local PolicyService = require(RobloxGui.Modules.Common:WaitForChild("PolicyServi
 --FFlags
 local FFlagLoadTheLoadingScreenFasterSuccess, FFlagLoadTheLoadingScreenFasterValue = pcall(function() return settings():GetFFlag("LoadTheLoadingScreenFaster") end)
 local FFlagLoadTheLoadingScreenFaster = FFlagLoadTheLoadingScreenFasterSuccess and FFlagLoadTheLoadingScreenFasterValue
+local FFlagLoadTheLoadingScreenEvenFaster = game:DefineFastFlag("LoadTheLoadingScreenEvenFaster", false)
 
 local FFlagShowConnectionErrorCode = settings():GetFFlag("ShowConnectionErrorCode")
 local FFlagConnectionScriptEnabled = settings():GetFFlag("ConnectionScriptEnabled")
@@ -32,6 +33,11 @@ local debugMode = false
 
 local startTime = tick()
 local loadingImageInputBeganConn = nil
+local waitForGameIdConnection
+
+local GAME_THUMBNAIL_URL = "rbxthumb://type=GameIcon&id=%d&w=256&h=256"
+local MAX_ICON_SIZE = Vector2.new(256, 256)
+local ICON_ASPECT_RATIO = 1
 
 local COLORS = {
 	BACKGROUND_COLOR = Color3.fromRGB(45, 45, 45),
@@ -344,46 +350,65 @@ local function GenerateGui()
 		Image = "",
 
 		create("UIAspectRatioConstraint") {
-			AspectRatio = 576 / 324,
+			AspectRatio = FFlagLoadTheLoadingScreenEvenFaster and ICON_ASPECT_RATIO or 576 / 324,
 			AspectType = Enum.AspectType.ScaleWithParentSize,
 			DominantAxis = Enum.DominantAxis.Width
 		},
 		create("UISizeConstraint") {
-			MaxSize = Vector2.new(400, 400)
+			MaxSize = FFlagLoadTheLoadingScreenEvenFaster and MAX_ICON_SIZE or Vector2.new(400, 400)
 		}
 	}
 
-	--Start trying to load the place icon image
-	--Web might not have this icon size generated, so we can poll asset-thumbnail/json and check
-	--the JSON result for thumbnailFinal/Final to see when it's done being generated so we never
-	--show a N/A image. This is how the console AppShell does it!
-	coroutine.wrap(function()
-		local placeId = WaitForPlaceId()
-
-		local function tryGetFinalAsync()
-			local imageUrl = nil
-			local isGenerated = false
-			local success, msg = pcall(function()
-				imageUrl, isGenerated = AssetService:GetAssetThumbnailAsync(placeId, Vector2.new(576, 324), 1)
+	if FFlagLoadTheLoadingScreenEvenFaster then
+		local function onGameId()
+			local gameId = game.GameId
+			local imageUrl = GAME_THUMBNAIL_URL:format(gameId)
+			placeIcon.Image = imageUrl
+			ContentProvider:PreloadAsync({ placeIcon })
+			if not backgroundFadeStarted then
+				placeIcon.ImageTransparency = 0
+			end
+		end
+		if game.GameId > 0 then
+			coroutine.wrap(onGameId)()
+		else
+			waitForGameIdConnection = game:GetPropertyChangedSignal("GameId"):Connect(function ()
+				waitForGameIdConnection:Disconnect()
+				onGameId()
 			end)
+		end
+	else
+		--Start trying to load the place icon image
+		--Web might not have this icon size generated, so we can poll asset-thumbnail/json and check
+		--the JSON result for thumbnailFinal/Final to see when it's done being generated so we never
+		--show a N/A image. This is how the console AppShell does it!
+		coroutine.wrap(function()
+			local placeId = WaitForPlaceId()
 
-			if success and isGenerated == true and imageUrl then
-				ContentProvider:PreloadAsync { imageUrl }
-				placeIcon.Image = imageUrl
+			local function tryGetFinalAsync()
+				local imageUrl = nil
+				local isGenerated = false
+				local success, msg = pcall(function()
+					imageUrl, isGenerated = AssetService:GetAssetThumbnailAsync(placeId, Vector2.new(576, 324), 1)
+				end)
 
-				if not backgroundFadeStarted then
-					placeIcon.ImageTransparency = 0
+				if success and isGenerated == true and imageUrl then
+					ContentProvider:PreloadAsync { imageUrl }
+					placeIcon.Image = imageUrl
+
+					if not backgroundFadeStarted then
+						placeIcon.ImageTransparency = 0
+					end
+
+					return true
 				end
 
-				return true
+				return false
 			end
 
-			return false
-		end
-
-		while not tryGetFinalAsync() do end
-	end)()
-
+			while not tryGetFinalAsync() do end
+		end)()
+	end
 
 	placeLabel = create 'TextLabel' {
 		Name = 'PlaceLabel',
@@ -782,6 +807,10 @@ local function fadeAndDestroyBlackFrame(blackFrame)
 		if blackFrame ~= nil then
 			stopListeningToRenderingStep()
 			blackFrame:Destroy()
+		end
+
+		if waitForGameIdConnection then
+			waitForGameIdConnection:Disconnect()
 		end
 
 		if loadingImageInputBeganConn then

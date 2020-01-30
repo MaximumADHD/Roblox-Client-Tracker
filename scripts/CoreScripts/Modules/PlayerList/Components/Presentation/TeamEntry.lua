@@ -135,6 +135,7 @@ function TeamEntry:render()
 						TextStrokeColor3 = textStyle.StrokeColor,
 						BackgroundTransparency = 1,
 						Text = teamName,
+						TextTruncate = Enum.TextTruncate.AtEnd,
 					}, {
 						FFlagPlayerListDesignUpdate and Roact.createElement("UIPadding", {
 							PaddingLeft = UDim.new(0, layoutValues.TeamEntryTextPadding),

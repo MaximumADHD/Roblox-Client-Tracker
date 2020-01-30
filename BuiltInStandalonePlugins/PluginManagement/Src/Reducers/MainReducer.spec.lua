@@ -14,6 +14,7 @@ return function()
 
 		local expectedKeys = {
 			"PluginInfo",
+			"PluginPermissions",
 			"Management",
 		}
 		for _, childReducerName in ipairs(expectedKeys) do

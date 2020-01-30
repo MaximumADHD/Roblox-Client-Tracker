@@ -12,6 +12,8 @@ if not settings():GetFFlag("StudioVersionControlAlpha") and
    return
 end
 
+local FFlagVersionControlServiceBatchCommit = game:DefineFastFlag("VersionControlServiceBatchCommit2", false)
+
 local OverrideLocaleId = settings():GetFVariable("StudioForceLocale")
 local MockDraftsService = require(Plugin.Src.TestHelpers.MockDraftsService)
 local DraftsService = game:GetService("DraftsService")
@@ -137,11 +139,20 @@ local function connectToDraftsService()
 			roduxStore:dispatch(DraftStateChangedAction(draft, DraftState.Outdated, true))
 		elseif status == Enum.DraftStatusCode.OK then
 			roduxStore:dispatch(DraftStateChangedAction(draft, DraftState.Outdated, false))
+		elseif FFlagVersionControlServiceBatchCommit and status == Enum.DraftStatusCode.DraftCommitted then
+			-- Draft state should be OK and does not need to be updated, but double check the "dirty" states are not set
+			local state = roduxStore:getState()
+			assert(state.Drafts[draft][DraftState.Outdated] == false,
+				"Draft '"..draft:GetFullName().."' was committed with dirty Outdated state")
+			assert(state.Drafts[draft][DraftState.Deleted] == false,
+				"Draft '"..draft:GetFullName().."' was committed with dirty Deleted state")
 		elseif status == Enum.DraftStatusCode.ScriptRemoved then
 			-- Do nothing. AncestryChanged event will handle this
 		end
 
-		return status == Enum.DraftStatusCode.OK
+		if not FFlagVersionControlServiceBatchCommit then
+			return status == Enum.DraftStatusCode.OK
+		end
 	end
 
 	local function draftInit(draft)
@@ -188,19 +199,28 @@ local function connectToDraftsService()
             handleStatus(draft, draftStatus)
 		end)
 
-		draftsService.UpdateStatusChanged:connect(function(draft)
-			local draftStatus = draftsService:GetDraftStatus(draft)
-			local success = handleStatus(draft, draftStatus)
-			if success then
-				roduxStore:dispatch(DraftStateChangedAction(draft, DraftState.Outdated, false))
+		draftsService.UpdateStatusChanged:connect(function(draft, draftStatus)
+			if FFlagVersionControlServiceBatchCommit then
+				handleStatus(draft, draftStatus)
+			else
+				local success = handleStatus(draft, draftsService:GetDraftStatus(draft))
+				if success then
+					roduxStore:dispatch(DraftStateChangedAction(draft, DraftState.Outdated, false))
+				end
 			end
 		end)
-		draftsService.CommitStatusChanged:connect(function(draft, status)
-			local success = handleStatus(draft, status)
-			if success then
-				roduxStore:dispatch(DraftStateChangedAction(draft, DraftState.Committed, CommitState.Committed))
+		draftsService.CommitStatusChanged:connect(function(draft, draftStatus)
+			if FFlagVersionControlServiceBatchCommit then
+				local commitState = (draftStatus == Enum.DraftStatusCode.DraftCommitted) and CommitState.Committed or CommitState.Uncommitted
+				roduxStore:dispatch(DraftStateChangedAction(draft, DraftState.Committed, commitState))
+				handleStatus(draft, draftStatus)
 			else
-				roduxStore:dispatch(DraftStateChangedAction(draft, DraftState.Committed, CommitState.Uncommitted))
+				local success = handleStatus(draft, draftStatus)
+				if success then
+					roduxStore:dispatch(DraftStateChangedAction(draft, DraftState.Committed, CommitState.Committed))
+				else
+					roduxStore:dispatch(DraftStateChangedAction(draft, DraftState.Committed, CommitState.Uncommitted))
+				end
 			end
 		end)
 

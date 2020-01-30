@@ -12,8 +12,10 @@ local KeyboardControls = require(script.ControlLayouts.KeyboardControls)
 local GamepadControls = require(script.ControlLayouts.GamepadControls)
 -- local TouchControls = require(InGameMenu.Components.ControlLayouts.TouchControls)
 
-local function ControlsPage(props)
-	local controlLayout = props.controlLayout
+local ControlsPage = Roact.PureComponent:extend("ControlsPage")
+
+function ControlsPage:render()
+	local controlLayout = self.props.controlLayout
 
 	if controlLayout == Controls.ControlLayouts.KEYBOARD then
 		return Roact.createElement(KeyboardControls)

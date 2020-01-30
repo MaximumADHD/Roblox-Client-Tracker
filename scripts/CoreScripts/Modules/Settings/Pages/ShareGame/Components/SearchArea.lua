@@ -12,18 +12,14 @@ local SearchBox = require(ShareGame.Components.SearchBox)
 local IconButton = require(ShareGame.Components.IconButton)
 local Constants = require(ShareGame.Constants)
 local Text = require(AppTempCommon.Common.Text)
-local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
 local SetSearchAreaActive = require(ShareGame.Actions.SetSearchAreaActive)
 local SetSearchText = require(ShareGame.Actions.SetSearchText)
 local ShareGameIcons = require(RobloxGui.Modules.Settings.Pages.ShareGame.Spritesheets.ShareGameIcons)
 
 local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabledV384")
-local FFlagLuaInviteGameMockTextLocalization = settings():GetFFlag("LuaInviteGameMockTextLocalization")
-if FFlagLuaInviteGameMockTextLocalization then
-	local getTranslator = require(ShareGame.getTranslator)
-	RobloxTranslator = getTranslator()
-end
+local getTranslator = require(ShareGame.getTranslator)
+local RobloxTranslator = getTranslator()
 
 local SEARCH_ICON_SPRITE_PATH = ShareGameIcons:GetImagePath()
 local SEARCH_ICON_SPRITE_FRAME = ShareGameIcons:GetFrame("search_large")

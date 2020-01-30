@@ -150,10 +150,6 @@ function Logger:setContext(context)
 end
 
 local function log(level, node, args)
-	if args.n == 0 then
-		error("No log message given")
-	end
-
 	if node.dirty then
 		updateCache(node)
 	end
@@ -175,10 +171,16 @@ local function log(level, node, args)
 	end
 
 	-- Interpolate the log message.
-	local interpMsg = args[1]
+	local interpMsg
+	if args.n == 0 then
+		interpMsg = "LUMBERYAK INTERNAL: No log message given"
+	else
+		interpMsg = args[1]
+	end
 	if fullContext.prefix then
 		interpMsg = fullContext.prefix .. interpMsg
 	end
+
 	if interpMsg:find("{") then
 		local i = 1
 		interpMsg = (interpMsg:gsub("{(.-)}", function(w)

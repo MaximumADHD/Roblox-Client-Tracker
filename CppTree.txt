@@ -742,7 +742,9 @@ RBX
 	FilterHumanoidNameOcclusion
 	FilterHumanoidParts
 	FilterInvisibleNonColliding
+	FilterPrimitiveList
 	FilterSameAssembly
+	FilterSinglePrimitive
 	Fire
 	FirstPersonCommand
 	Flag

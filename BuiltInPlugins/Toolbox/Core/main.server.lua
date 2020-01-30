@@ -18,6 +18,7 @@ game:DefineFastFlag("FixAssetConfigIcon", false)
 game:DefineFastFlag("EnableAssetConfigFreeFix2", false)
 game:DefineFastFlag("EnableNonWhitelistedToggle", false)
 game:DefineFastFlag("EnablePurchaseV2", false)
+local FFlagEnableOverrideAssetCursorFix = game:DefineFastFlag("EnableOverrideAssetCursorFix", true)
 
 game:DefineFastFlag("CMSTabErrorIcon", false)
 game:DefineFastFlag("CMSConsolidateAssetTypeInfo", false)
@@ -168,6 +169,7 @@ local function createAssetConfig(assetId, flowType, instances, assetTypeEnum)
 			assetTypeEnum = assetTypeEnum,
 			currentTab = ConfigTypes:getDefualtTab(),
 			packagePermissions = packagePermissions,
+			overrideCursor = FFlagEnableOverrideAssetCursorFix and {} or nil,
 		}, {
 			Rodux.thunkMiddleware
 		}

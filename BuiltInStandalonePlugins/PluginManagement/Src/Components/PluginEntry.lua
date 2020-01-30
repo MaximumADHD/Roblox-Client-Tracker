@@ -1,23 +1,30 @@
 local FFlagEnableStudioServiceOpenBrowser = game:GetFastFlag("EnableStudioServiceOpenBrowser")
 local FFlagPluginManagementNewLoadingBar = game:DefineFastFlag("PluginManagementNewLoadingBar", false)
 local FFlagShowModeratedPluginInfo = game:DefineFastFlag("ShowModeratedPluginInfo", false)
+local FFlagEnablePluginPermissionsPage = game:DefineFastFlag("EnablePluginPermissionsPage", false)
+
 local StudioService = game:getService("StudioService")
 local ContentProvider = game:getService("ContentProvider")
 local GuiService = game:getService("GuiService")
 local HttpService = game:getService("HttpService")
+local TextService = game:GetService("TextService")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
+
 local Constants = require(Plugin.Src.Util.Constants)
 local UILibrary = require(Plugin.Packages.UILibrary)
 local UpdateStatus = require(Plugin.Src.Util.UpdateStatus)
 local ContextServices = require(Plugin.Packages.Framework.ContextServices)
 local PluginAPI2 = require(Plugin.Src.ContextServices.PluginAPI2)
+local Navigation = require(Plugin.Src.ContextServices.Navigation)
 local SetPluginEnabledState = require(Plugin.Src.Thunks.SetPluginEnabledState)
 local UpdatePlugin = require(Plugin.Src.Thunks.UpdatePlugin)
 local Button = UILibrary.Component.Button
+
 local MoreDropdown = require(Plugin.Src.Components.MoreDropdown)
+local HttpRequestOverview = require(Plugin.Src.Components.HttpRequestOverview)
 
 local LoadingBar
 if FFlagPluginManagementNewLoadingBar then
@@ -31,6 +38,12 @@ local LOADING_BAR_SIZE = UDim2.new(0, 120, 0, 8)
 local LOADING_BAR_TIME = 0.5
 
 local PluginEntry = Roact.Component:extend("PluginEntry")
+
+local function getTextHeight(text, fontSize, font, widthCap)
+	return TextService:GetTextSize(text, fontSize, font, Vector2.new(widthCap, 10000)).Y
+end
+-- TODO: Add theme font values into here instead
+local ONE_LINE_TEXT_HEIGHT = getTextHeight("a", 16, Enum.Font.SourceSans, 9999)
 
 function PluginEntry:init()
 	self.state = {
@@ -111,6 +124,14 @@ function PluginEntry:init()
 			GuiService:OpenBrowserWindow(targetUrl)
 		end
 	end
+
+	self.openPluginDetails = function()
+		local rn = self.props.Navigation:get()
+		rn.navigation.navigate({
+			routeName = Constants.APP_PAGE.Detail,
+			params = { assetId = self.props.data.assetId },
+		})
+	end
 end
 
 function PluginEntry.getDerivedStateFromProps(nextProps, _)
@@ -133,6 +154,8 @@ function PluginEntry:render()
 	local props = self.props
 	local state = self.state
 	local data = props.data
+	local allowedHttpCount = props.allowedHttpCount
+	local deniedHttpCount = props.deniedHttpCount
 	local showMore = state.showMore
 
 	local localization = props.Localization
@@ -158,11 +181,16 @@ function PluginEntry:render()
 	local buttonPosition = UDim2.new(1,Constants.PLUGIN_HORIZONTAL_PADDING*-3 - Constants.PLUGIN_ENABLE_WIDTH
 		- Constants.PLUGIN_CONTEXT_WIDTH,.5,0)
 
+	local hasHttpPermissions = false
+	if FFlagEnablePluginPermissionsPage then
+		hasHttpPermissions = (allowedHttpCount > 0) or (deniedHttpCount > 0)
+	end
+
 	return Roact.createElement("Frame", {
-		Size = UDim2.new(1, Constants.SCROLLBAR_WIDTH_ADJUSTMENT, 0, Constants.PLUGIN_ENTRY_HEIGHT),
 		BackgroundColor3 = theme.BackgroundColor,
 		BorderSizePixel = 0,
 		LayoutOrder = layoutOrder,
+		Size = UDim2.new(1, Constants.SCROLLBAR_WIDTH_ADJUSTMENT, 0, Constants.PLUGIN_ENTRY_HEIGHT),
 	}, {
 		Padding = Roact.createElement("UIPadding", {
 			PaddingTop = UDim.new(0, 12),
@@ -171,7 +199,7 @@ function PluginEntry:render()
 
 		Thumbnail = Roact.createElement("ImageLabel", {
 			Size = UDim2.new(0,Constants.THUMBNAIL_SIZE, 0, Constants.THUMBNAIL_SIZE),
-			Position = UDim2.new(0,Constants.PLUGIN_HORIZONTAL_PADDING,0,Constants.PLUGIN_VERTICAL_PADDING),
+			Position = UDim2.new(0,Constants.PLUGIN_HORIZONTAL_PADDING, 0, Constants.PLUGIN_VERTICAL_PADDING),
 			Image = thumbnailUrl,
 			BackgroundTransparency = 1,
 		}),
@@ -216,7 +244,9 @@ function PluginEntry:render()
 			Description = Roact.createElement("TextLabel", {
 				LayoutOrder = 2,
 				TextWrapped = true,
-				Size = UDim2.new(1, 0, 1, -42 - Constants.PLUGIN_VERTICAL_PADDING * 2),
+				Size = FFlagEnablePluginPermissionsPage
+					and UDim2.new(1, 0, 0, ONE_LINE_TEXT_HEIGHT * 2)
+					or UDim2.new(1, 0, 1, -42 - Constants.PLUGIN_VERTICAL_PADDING * 2),
 				BackgroundTransparency = 1,
 				TextXAlignment = Enum.TextXAlignment.Left,
 				TextYAlignment = Enum.TextYAlignment.Top,
@@ -225,6 +255,12 @@ function PluginEntry:render()
 				TextTruncate = Enum.TextTruncate.AtEnd,
 				Font = Enum.Font.SourceSansLight,
 				TextSize = 16,
+			}),
+
+			HttpRequestOverview = FFlagEnablePluginPermissionsPage and hasHttpPermissions
+				and Roact.createElement(HttpRequestOverview, {
+				assetId = data.assetId,
+				LayoutOrder = 3,
 			}),
 		}),
 
@@ -362,11 +398,31 @@ function PluginEntry:render()
 	})
 end
 
-ContextServices.mapToProps(PluginEntry, {
-	Localization = ContextServices.Localization,
-	Theme = ContextServices.Theme,
-	API = PluginAPI2,
-})
+if FFlagEnablePluginPermissionsPage then
+	ContextServices.mapToProps(PluginEntry, {
+		Navigation = Navigation,
+		Localization = ContextServices.Localization,
+		Theme = ContextServices.Theme,
+		API = PluginAPI2,
+	})
+else
+	ContextServices.mapToProps(PluginEntry, {
+		Localization = ContextServices.Localization,
+		Theme = ContextServices.Theme,
+		API = PluginAPI2,
+	})
+end
+
+local mapStateToProps
+if FFlagEnablePluginPermissionsPage then
+	mapStateToProps = function(state, props)
+		local pluginPermissions = state.PluginPermissions[props.data.assetId]
+		return {
+			allowedHttpCount = pluginPermissions and pluginPermissions.allowedHttpCount or 0,
+			deniedHttpCount = pluginPermissions and pluginPermissions.deniedHttpCount or 0,
+		}
+	end
+end
 
 local function mapDispatchToProps(dispatch)
 	return {
@@ -380,4 +436,4 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-return RoactRodux.connect(nil, mapDispatchToProps)(PluginEntry)
+return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(PluginEntry)

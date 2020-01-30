@@ -3,12 +3,8 @@
 	2018 Camera Update - AllYourBlox		
 --]]
 
---[[ Camera Maths Utilities Library ]]--
-local Util = require(script.Parent:WaitForChild("CameraUtils"))
-
 --[[ Top Level Roblox Services ]]--
 local PlayersService = game:GetService("Players")
-local RunService = game:GetService("RunService")
 
 --[[ Constants ]]--
 local ZERO_VECTOR3 = Vector3.new(0,0,0)
@@ -31,13 +27,13 @@ local MODE = {
 local LIMB_TRACKING_SET = {
 	-- Body parts common to R15 and R6
 	['Head'] = true,
-	
+
 	-- Body parts unique to R6
 	['Left Arm'] = true,
 	['Right Arm'] = true,
 	['Left Leg'] = true,
 	['Right Leg'] = true,
-	
+
 	-- Body parts unique to R15
 	['LeftLowerArm'] = true,
 	['RightLowerArm'] = true,
@@ -85,17 +81,17 @@ local function RayIntersection(p0, v0, p1, v1)
 	local d2 = p1.y - p0.y
 	local d3 = p1.z - p0.z
 	local denom = Det3x3(v0.x,-v1.x,v2.x,v0.y,-v1.y,v2.y,v0.z,-v1.z,v2.z)
-	
+
 	if (denom == 0) then
 		return ZERO_VECTOR3 -- No solution (rays are parallel)
 	end
-	
+
 	local t0 = Det3x3(d1,-v1.x,v2.x,d2,-v1.y,v2.y,d3,-v1.z,v2.z) / denom
 	local t1 = Det3x3(v0.x,d1,v2.x,v0.y,d2,v2.y,v0.z,d3,v2.z) / denom
 	local s0 = p0 + t0 * v0
 	local s1 = p1 + t1 * v1
 	local s = s0 + 0.5 * ( s1 - s0 )
-	
+
 	-- 0.25 studs is a threshold for deciding if the rays are
 	-- close enough to be considered intersecting, found through testing 
 	if (s1-s0).Magnitude < 0.25 then
@@ -114,15 +110,15 @@ Invisicam.__index = Invisicam
 
 function Invisicam.new()
 	local self = setmetatable(BaseOcclusion.new(), Invisicam)
-	
+
 	self.char = nil
 	self.humanoidRootPart = nil
 	self.torsoPart = nil
 	self.headPart = nil
-	
+
 	self.childAddedConn = nil
 	self.childRemovedConn = nil
-	
+
 	self.behaviors = {} 	-- Map of modes to behavior fns
 	self.behaviors[MODE.LIMBS] = self.LimbBehavior
 	self.behaviors[MODE.MOVEMENT] = self.MoveBehavior
@@ -131,15 +127,14 @@ function Invisicam.new()
 	self.behaviors[MODE.CIRCLE2] = self.CircleBehavior
 	self.behaviors[MODE.LIMBMOVE] = self.LimbMoveBehavior
 	self.behaviors[MODE.SMART_CIRCLE] = self.SmartCircleBehavior
-	self.behaviors[MODE.CHAR_OUTLINE] = self.CharacterOutlineBehavior	
-	
+	self.behaviors[MODE.CHAR_OUTLINE] = self.CharacterOutlineBehavior
+
 	self.mode = MODE.SMART_CIRCLE
 	self.behaviorFunction = self.SmartCircleBehavior
-	
-	
+
 	self.savedHits = {} 	-- Objects currently being faded in/out
 	self.trackedLimbs = {}	-- Used in limb-tracking casting modes
-		
+
 	self.camera = game.Workspace.CurrentCamera
 
 	self.enabled = false
@@ -148,7 +143,7 @@ end
 
 function Invisicam:Enable(enable)
 	self.enabled = enable
-	
+
 	if not enable then
 		self:Cleanup()
 	end
@@ -186,7 +181,7 @@ function Invisicam:CornerBehavior(castPoints)
 end
 
 function Invisicam:CircleBehavior(castPoints)
-	local cframe = nil
+	local cframe
 	if self.mode == MODE.CIRCLE1 then
 		cframe = self.humanoidRootPart.CFrame
 	else
@@ -199,7 +194,7 @@ function Invisicam:CircleBehavior(castPoints)
 		local offset = 3 * Vector3.new(math.cos(angle), math.sin(angle), 0)
 		castPoints[#castPoints + 1] = cframe * offset
 	end
-end	
+end
 
 function Invisicam:LimbMoveBehavior(castPoints)
 	self:LimbBehavior(castPoints)
@@ -209,7 +204,7 @@ end
 function Invisicam:CharacterOutlineBehavior(castPoints)
 	local torsoUp = self.torsoPart.CFrame.upVector.unit
 	local torsoRight = self.torsoPart.CFrame.rightVector.unit
-	
+
 	-- Torso cross of points for interior coverage
 	castPoints[#castPoints + 1] = self.torsoPart.CFrame.p
 	castPoints[#castPoints + 1] = self.torsoPart.CFrame.p + torsoUp
@@ -219,24 +214,24 @@ function Invisicam:CharacterOutlineBehavior(castPoints)
 	if self.headPart then
 		castPoints[#castPoints + 1] = self.headPart.CFrame.p
 	end
-	
+
 	local cframe = CFrame.new(ZERO_VECTOR3,Vector3.new(self.camera.CoordinateFrame.lookVector.X,0,self.camera.CoordinateFrame.lookVector.Z))
 	local centerPoint = (self.torsoPart and self.torsoPart.Position or self.humanoidRootPart.Position)
-	
+
 	local partsWhitelist = {self.torsoPart}
 	if self.headPart then
 		partsWhitelist[#partsWhitelist + 1] = self.headPart
 	end
-	
+
 	for i = 1, CHAR_OUTLINE_CASTS do
 		local angle = (2 * math.pi * i / CHAR_OUTLINE_CASTS)
 		local offset = cframe * (3 * Vector3.new(math.cos(angle), math.sin(angle), 0))
-		
+
 		offset = Vector3.new(offset.X, math.max(offset.Y, -2.25), offset.Z)	
-		
+
 		local ray = Ray.new(centerPoint + offset, -3 * offset)
 		local hit, hitPoint = game.Workspace:FindPartOnRayWithWhitelist(ray, partsWhitelist, false, false)
-		
+
 		if hit then
 			-- Use hit point as the cast point, but nudge it slightly inside the character so that bumping up against
 			-- walls is less likely to cause a transparency glitch
@@ -248,7 +243,7 @@ end
 function Invisicam:SmartCircleBehavior(castPoints)
 	local torsoUp = self.torsoPart.CFrame.upVector.unit
 	local torsoRight = self.torsoPart.CFrame.rightVector.unit
-	
+
 	-- SMART_CIRCLE mode includes rays to head and 5 to the torso.
 	-- Hands, arms, legs and feet are not included since they
 	-- are not canCollide and can therefore go inside of parts
@@ -260,11 +255,11 @@ function Invisicam:SmartCircleBehavior(castPoints)
 	if self.headPart then
 		castPoints[#castPoints + 1] = self.headPart.CFrame.p
 	end
-	
+
 	local cameraOrientation = self.camera.CFrame - self.camera.CFrame.p
 	local torsoPoint = Vector3.new(0,0.5,0) + (self.torsoPart and self.torsoPart.Position or self.humanoidRootPart.Position)
 	local radius = 2.5
-	
+
 	-- This loop first calculates points in a circle of radius 2.5 around the torso of the character, in the
 	-- plane orthogonal to the camera's lookVector. Each point is then raycast to, to determine if it is within
 	-- the free space surrounding the player (not inside anything). Two iterations are done to adjust points that
@@ -276,37 +271,36 @@ function Invisicam:SmartCircleBehavior(castPoints)
 	for i = 1, SMART_CIRCLE_CASTS do
 		local angle = SMART_CIRCLE_INCREMENT * i - 0.5 * math.pi
 		local offset = radius * Vector3.new(math.cos(angle), math.sin(angle), 0)
-		local circlePoint = torsoPoint + cameraOrientation * offset		
-		 
-		-- Vector from camera to point on the circle being tested		
+		local circlePoint = torsoPoint + cameraOrientation * offset
+
+		-- Vector from camera to point on the circle being tested
 		local vp = circlePoint - self.camera.CFrame.p
-		
+
 		local ray = Ray.new(torsoPoint, circlePoint - torsoPoint)
 		local hit, hp, hitNormal = game.Workspace:FindPartOnRayWithIgnoreList(ray, {self.char}, false, false )
 		local castPoint = circlePoint
-				
+
 		if hit then
 			local hprime = hp + 0.1 * hitNormal.unit -- Slightly offset hit point from the hit surface
 			local v0 = hprime - torsoPoint -- Vector from torso to offset hit point
-			local d0 = v0.magnitude
-			
+
 			local perp = (v0:Cross(vp)).unit
 
 			-- Vector from the offset hit point, along the hit surface
 			local v1 = (perp:Cross(hitNormal)).unit
-			
+
 			-- Vector from camera to offset hit
 			local vprime = (hprime - self.camera.CFrame.p).unit
-			
+
 			-- This dot product checks to see if the vector along the hit surface would hit the correct
 			-- side of the invisicam cone, or if it would cross the camera look vector and hit the wrong side
 			if ( v0.unit:Dot(-v1) < v0.unit:Dot(vprime)) then
 				castPoint = RayIntersection(hprime, v1, circlePoint, vp)
-				
+
 				if castPoint.Magnitude > 0 then
 					local ray = Ray.new(hprime, castPoint - hprime)
 					local hit, hitPoint, hitNormal = game.Workspace:FindPartOnRayWithIgnoreList(ray, {self.char}, false, false )
-					
+
 					if hit then
 						local hprime2 = hitPoint + 0.1 * hitNormal.unit
 						castPoint = hprime2
@@ -317,16 +311,16 @@ function Invisicam:SmartCircleBehavior(castPoints)
 			else
 				castPoint = hprime
 			end
-			
+
 			local ray = Ray.new(torsoPoint, (castPoint - torsoPoint))
 			local hit, hitPoint, hitNormal = game.Workspace:FindPartOnRayWithIgnoreList(ray, {self.char}, false, false )
-	
+
 			if hit then
 				local castPoint2 = hitPoint - 0.1 * (castPoint - torsoPoint).unit
-				castPoint = castPoint2	
+				castPoint = castPoint2
 			end
 		end
-		
+
 		castPoints[#castPoints + 1] = castPoint
 	end
 end
@@ -340,7 +334,7 @@ function Invisicam:CheckTorsoReference()
 				self.torsoPart = self.char:FindFirstChild("HumanoidRootPart")
 			end
 		end
-		
+
 		self.headPart = self.char:FindFirstChild("Head")
 	end
 end
@@ -348,7 +342,7 @@ end
 function Invisicam:CharacterAdded(char, player)
 	-- We only want the LocalPlayer's character
 	if player~=PlayersService.LocalPlayer then return end
-	
+
 	if self.childAddedConn then
 		self.childAddedConn:Disconnect()
 		self.childAddedConn = nil
@@ -359,7 +353,7 @@ function Invisicam:CharacterAdded(char, player)
 	end
 
 	self.char = char
-	
+
 	self.trackedLimbs = {}
 	local function childAdded(child)
 		if child:IsA("BasePart") then
@@ -367,23 +361,23 @@ function Invisicam:CharacterAdded(char, player)
 				self.trackedLimbs[child] = true
 			end
 
-			if (child.Name == "Torso" or child.Name == "UpperTorso") then
+			if child.Name == "Torso" or child.Name == "UpperTorso" then
 				self.torsoPart = child
 			end
 
-			if (child.Name == "Head") then
+			if child.Name == "Head" then
 				self.headPart = child
-			end			
+			end
 		end
 	end
-	
+
 	local function childRemoved(child)
 		self.trackedLimbs[child] = nil
-		
+
 		-- If removed/replaced part is 'Torso' or 'UpperTorso' double check that we still have a TorsoPart to use
 		self:CheckTorsoReference()
-	end	
-	
+	end
+
 	self.childAddedConn = char.ChildAdded:Connect(childAdded)
 	self.childRemovedConn = char.ChildRemoved:Connect(childRemoved)
 	for _, child in pairs(self.char:GetChildren()) do
@@ -393,7 +387,7 @@ end
 
 function Invisicam:SetMode(newMode)
 	AssertTypes(newMode, 'number')
-	for modeName, modeNum in pairs(MODE) do
+	for _, modeNum in pairs(MODE) do
 		if modeNum == newMode then
 			self.mode = newMode
 			self.behaviorFunction = self.behaviors[self.mode]
@@ -415,14 +409,13 @@ function Invisicam:Cleanup()
 end
 
 function Invisicam:Update(dt, desiredCameraCFrame, desiredCameraFocus)
-	
 	-- Bail if there is no Character
 	if not self.enabled or not self.char then
-		return desiredCameraCFrame, desiredCameraFocus		
+		return desiredCameraCFrame, desiredCameraFocus
 	end
 
 	self.camera = game.Workspace.CurrentCamera
-	
+
 	-- TODO: Move this to a GetHumanoidRootPart helper, probably combine with CheckTorsoReference
 	-- Make sure we still have a HumanoidRootPart
 	if not self.humanoidRootPart then
@@ -437,7 +430,7 @@ function Invisicam:Update(dt, desiredCameraCFrame, desiredCameraFocus)
 				return desiredCameraCFrame, desiredCameraFocus
 			end
 		end
-		
+
 		-- TODO: Replace this with something more sensible
 		local ancestryChangedConn
 		ancestryChangedConn = self.humanoidRootPart.AncestryChanged:Connect(function(child, parent)
@@ -450,7 +443,7 @@ function Invisicam:Update(dt, desiredCameraCFrame, desiredCameraFocus)
 			end
 		end)
 	end
-	
+
 	if not self.torsoPart then
 		self:CheckTorsoReference()
 		if not self.torsoPart then
@@ -462,7 +455,7 @@ function Invisicam:Update(dt, desiredCameraCFrame, desiredCameraFocus)
 	-- Make a list of world points to raycast to
 	local castPoints = {}
 	self.behaviorFunction(self, castPoints)
-	
+
 	-- Cast to get a list of objects between the camera and the cast points
 	local currentHits = {}
 	local ignoreList = {self.char}
@@ -472,26 +465,25 @@ function Invisicam:Update(dt, desiredCameraCFrame, desiredCameraFocus)
 			self.savedHits[hit] = hit.LocalTransparencyModifier
 		end
 	end
-	
+
 	local hitParts
 	local hitPartCount = 0
-	
+
 	-- Hash table to treat head-ray-hit parts differently than the rest of the hit parts hit by other rays
 	-- head/torso ray hit parts will be more transparent than peripheral parts when USE_STACKING_TRANSPARENCY is enabled
-	local headTorsoRayHitParts = {}	
-	local partIsTouchingCamera = {}
-	
+	local headTorsoRayHitParts = {}
+
 	local perPartTransparencyHeadTorsoHits = TARGET_TRANSPARENCY
 	local perPartTransparencyOtherHits = TARGET_TRANSPARENCY
-	
+
 	if USE_STACKING_TRANSPARENCY then
-	
+
 		-- This first call uses head and torso rays to find out how many parts are stacked up
 		-- for the purpose of calculating required per-part transparency
 		local headPoint = self.headPart and self.headPart.CFrame.p or castPoints[1]
 		local torsoPoint = self.torsoPart and self.torsoPart.CFrame.p or castPoints[2]
 		hitParts = self.camera:GetPartsObscuringTarget({headPoint, torsoPoint}, ignoreList)
-		
+
 		-- Count how many things the sample rays passed through, including decals. This should only
 		-- count decals facing the camera, but GetPartsObscuringTarget does not return surface normals,
 		-- so my compromise for now is to just let any decal increase the part count by 1. Only one
@@ -507,22 +499,22 @@ function Invisicam:Update(dt, desiredCameraCFrame, desiredCameraFocus)
 				end
 			end
 		end
-		
+
 		if (hitPartCount > 0) then
 			perPartTransparencyHeadTorsoHits = math.pow( ((0.5 * TARGET_TRANSPARENCY) + (0.5 * TARGET_TRANSPARENCY / hitPartCount)), 1 / hitPartCount )
 			perPartTransparencyOtherHits = math.pow( ((0.5 * TARGET_TRANSPARENCY_PERIPHERAL) + (0.5 * TARGET_TRANSPARENCY_PERIPHERAL / hitPartCount)), 1 / hitPartCount )
 		end
 	end
-	
+
 	-- Now get all the parts hit by all the rays
 	hitParts = self.camera:GetPartsObscuringTarget(castPoints, ignoreList)
-	
+
 	local partTargetTransparency = {}
-	
+
 	-- Include decals and textures
 	for i = 1, #hitParts do
 		local hitPart = hitParts[i]
-		
+
 		partTargetTransparency[hitPart] =headTorsoRayHitParts[hitPart] and perPartTransparencyHeadTorsoHits or perPartTransparencyOtherHits
 
 		-- If the part is not already as transparent or more transparent than what invisicam requires, add it to the list of
@@ -530,7 +522,7 @@ function Invisicam:Update(dt, desiredCameraCFrame, desiredCameraFocus)
 		if hitPart.Transparency < partTargetTransparency[hitPart] then
 			add(hitPart)
 		end
-		
+
 		-- Check all decals and textures on the part
 		for _, child in pairs(hitPart:GetChildren()) do
 			if child:IsA('Decal') or child:IsA('Texture') then
@@ -541,18 +533,18 @@ function Invisicam:Update(dt, desiredCameraCFrame, desiredCameraFocus)
 			end
 		end
 	end
-	
+
 	-- Invisibilize objects that are in the way, restore those that aren't anymore
 	for hitPart, originalLTM in pairs(self.savedHits) do
 		if currentHits[hitPart] then
-			-- LocalTransparencyModifier gets whatever value is required to print the part's total transparency to equal perPartTransparency			
+			-- LocalTransparencyModifier gets whatever value is required to print the part's total transparency to equal perPartTransparency
 			hitPart.LocalTransparencyModifier = (hitPart.Transparency < 1) and ((partTargetTransparency[hitPart] - hitPart.Transparency) / (1.0 - hitPart.Transparency)) or 0
 		else -- Restore original pre-invisicam value of LTM
 			hitPart.LocalTransparencyModifier = originalLTM
 			self.savedHits[hitPart] = nil
 		end
 	end
-	
+
 	-- Invisicam does not change the camera values
 	return desiredCameraCFrame, desiredCameraFocus
 end

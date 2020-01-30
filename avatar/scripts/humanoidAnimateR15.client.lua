@@ -86,14 +86,6 @@ local animNames = {
 -- Existance in this list signifies that it is an emote, the value indicates if it is a looping emote
 local emoteNames = { wave = false, point = false, dance = true, dance2 = true, dance3 = true, laugh = false, cheer = false}
 
-local PreloadAnimsUserFlag = false
-local successPreloadAnim, msgPreloadAnim = pcall(function()
-	PreloadAnimsUserFlag = UserSettings():IsUserFeatureEnabled("UserPreloadAnimations")
-end)
-if not successPreloadAnim then
-	PreloadAnimsUserFlag = false
-end
-
 math.randomseed(tick())
 
 function configureAnimationSet(name, fileList)
@@ -153,11 +145,9 @@ function configureAnimationSet(name, fileList)
 	end
 	
 	-- preload anims
-	if PreloadAnimsUserFlag then
-		for i, animType in pairs(animTable) do
-			for idx = 1, animType.count, 1 do 
-				Humanoid:LoadAnimation(animType[idx].anim)
-			end
+	for i, animType in pairs(animTable) do
+		for idx = 1, animType.count, 1 do 
+			Humanoid:LoadAnimation(animType[idx].anim)
 		end
 	end
 end

@@ -12,8 +12,6 @@ local paintOrderMap = {} --map of child to position in order
 
 local BUFFER_SIZE_MINIMUM = 5
 
-local FFlagInvisibilityCloaksCannotBeSelected  = settings():GetFFlag("InvisibilityCloaksCannotBeSelected")
-
 local function calculateVisibleBounds(instance)
 	if instance.AbsoluteRotation ~= 0 then
 		return instance.AbsolutePosition, instance.AbsoluteSize
@@ -41,34 +39,18 @@ end
 
 local function doesPointExistInInstance(point, instance)
 	if not instance or not instance:IsA("GuiBase2d") then return false end
-
-	if FFlagInvisibilityCloaksCannotBeSelected then
-
-		local visiblePosition, visibleSize = calculateVisibleBounds(instance)
-		
-		local sizeBuffer = visibleSize
-		sizeBuffer = Vector2.new(math.max(BUFFER_SIZE_MINIMUM, sizeBuffer.X), math.max(BUFFER_SIZE_MINIMUM, sizeBuffer.Y))
-		
-		local upperLeft = visiblePosition + (visibleSize * 0.5) - (sizeBuffer * 0.5)
-		
-		return point.x >= upperLeft.x and
-			point.x <= upperLeft.x + sizeBuffer.x and
-			point.y >= upperLeft.y and
-			point.y <= upperLeft.y + sizeBuffer.y
-
-	else
-
-		local sizeBuffer = instance.AbsoluteSize
-		sizeBuffer = Vector2.new(math.max(BUFFER_SIZE_MINIMUM, sizeBuffer.X), math.max(BUFFER_SIZE_MINIMUM, sizeBuffer.Y))
-		
-		local upperLeft = instance.AbsolutePosition + (instance.AbsoluteSize * 0.5) - (sizeBuffer * 0.5)
-		
-		return point.x >= upperLeft.x and
-			point.x <= upperLeft.x + sizeBuffer.x and
-			point.y >= upperLeft.y and
-			point.y <= upperLeft.y + sizeBuffer.y
-
-	end
+	
+	local visiblePosition, visibleSize = calculateVisibleBounds(instance)
+	
+	local sizeBuffer = visibleSize
+	sizeBuffer = Vector2.new(math.max(BUFFER_SIZE_MINIMUM, sizeBuffer.X), math.max(BUFFER_SIZE_MINIMUM, sizeBuffer.Y))
+	
+	local upperLeft = visiblePosition + (visibleSize * 0.5) - (sizeBuffer * 0.5)
+	
+	return point.x >= upperLeft.x and
+		point.x <= upperLeft.x + sizeBuffer.x and
+		point.y >= upperLeft.y and
+		point.y <= upperLeft.y + sizeBuffer.y
 	
 end
 

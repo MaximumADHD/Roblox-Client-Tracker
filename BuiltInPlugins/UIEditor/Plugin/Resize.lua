@@ -53,9 +53,6 @@ local DATA_POSITION = 3
 local DATA_ABSSIZE = 4
 local DATA_SIZE = 5
 
--- Flags
-local FFlagAllowSafeDivisionByZero = game:DefineFastFlag("AllowSafeDivisionByZero", false)
-
 -- Variables
 local m_actionMediator = nil
 
@@ -630,28 +627,22 @@ function Resize:updateDrag(location)
 		
 		local newAbsoluteSize = (data[DATA_ABSSIZE] / m_originalExtents.Size) * newExtents.Size
 
-		if FFlagAllowSafeDivisionByZero then
 
-			if m_originalExtents.Size.X == 0 then
-				newAbsolutePosition = Vector2.new(newExtents.TopLeft.X, newAbsolutePosition.Y)
-				newAbsoluteSize = Vector2.new(newExtents.Size.X, newAbsoluteSize.Y)
-			end
+		if m_originalExtents.Size.X == 0 then
+			newAbsolutePosition = Vector2.new(newExtents.TopLeft.X, newAbsolutePosition.Y)
+			newAbsoluteSize = Vector2.new(newExtents.Size.X, newAbsoluteSize.Y)
+		end
 
-			if m_originalExtents.Size.Y == 0 then
-				newAbsolutePosition = Vector2.new(newAbsolutePosition.X, newExtents.TopLeft.Y)
-				newAbsoluteSize = Vector2.new(newAbsoluteSize.X, newExtents.Size.Y)
-			end
-
+		if m_originalExtents.Size.Y == 0 then
+			newAbsolutePosition = Vector2.new(newAbsolutePosition.X, newExtents.TopLeft.Y)
+			newAbsoluteSize = Vector2.new(newAbsoluteSize.X, newExtents.Size.Y)
 		end
 		
 		--adjust for anchor point
 		newAbsolutePosition = newAbsolutePosition + (newAbsoluteSize * guiObject.AnchorPoint)
 		
-		if FFlagAllowSafeDivisionByZero then
-			if (newAbsoluteSize.X < 0 or newAbsoluteSize.Y < 0) then return end
-		else
-			-- looks like this was added to stop the NaN bug. Since it's been fixed we can support resizing to 0 on an axis
-			if (newAbsoluteSize.X <= 0 or newAbsoluteSize.Y <= 0) then return end
+		if (newAbsoluteSize.X < 0 or newAbsoluteSize.Y < 0) then
+			return
 		end
 
 		local shouldUseScalePosition = Utility:isOnlyScaleUDim2(data[DATA_POSITION]) or 
