@@ -346,7 +346,7 @@ local function Initialize()
 				end
 			end
 
-			local nameLabelChangeCn = parentGui:GetPropertyChangedSignal('AbsoluteSize'):connect(function()
+			local _nameLabelChangeCn = parentGui:GetPropertyChangedSignal('AbsoluteSize'):connect(function()
 				updateNameLabelSize()
 			end)
 
@@ -495,7 +495,7 @@ local function Initialize()
 				nameLabel.Size = UDim2.new(nameLabel.Size.X.Scale, nameLabel.Size.X.Offset, nameLabel.Size.Y.Scale, nameLabel.Size.Y.Offset + 4)
 			end
 
-			local nameBackgroundImage = utility:Create'ImageLabel'
+			local _nameBackgroundImage = utility:Create'ImageLabel'
 			{
 				Name = text .. "BackgroundImage",
 				Size = UDim2.new(1.25,0,1.25,0),

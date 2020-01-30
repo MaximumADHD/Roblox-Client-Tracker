@@ -21,7 +21,6 @@ function IconButton:render()
 	local horizontalInset = self.props.horizontalInset or 12
 	local offsetLayoutOrder = 0
 	local iconLayoutOrder = 1
-	local iconSize = UDim2.new(0, iconSpriteFrame.size.X, 0, iconSpriteFrame.size.Y)
 
 	if iconHorizontalAlignment == Enum.HorizontalAlignment.Center then
 		horizontalInset = 0

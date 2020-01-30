@@ -379,6 +379,7 @@ AfterRequested
 AfterSeconds
 AfterUpdateContentFromSource
 AgainstLatestPackageAction
+AGDeMOPHGQXCNVjD5iMItyQYlza
 Age13OrOver
 AgeBracket
 AgentCanJump
@@ -3984,7 +3985,6 @@ BPuVfD9B`uOfD9BpuH
 BQByteArray
 BQJsonValueRef
 BQPersistentModelIndex
-BQV7PmWWMcgFQ138YNgIGUbHMVa
 BranchIcon
 BreakGroup
 BreakJoints
@@ -4161,7 +4161,7 @@ BytesReceivedAndIgnoredPerSec
 BytesReceivedPerSec
 BytesRecvAndIgnored
 BytesWritten
-ByVersion_0.418.0.378532
+ByVersion_0.418.0.378913
 ByVersionForPlatform_
 C_specific_handler
 CA_NPEAVQObject
@@ -4486,7 +4486,6 @@ ChainCAPath
 Chalkboard
 ChangedFile
 ChangedFiles
-ChangedSearch
 ChangedSignal
 ChangeFlag
 ChangeHistory
@@ -7305,6 +7304,7 @@ DKECCAK1600_ASM
 DlcVersion
 DListenerAttributes
 DMinMaxDistance
+DNp26AsuwdzSH3YkadWrCuDCFVuS7ldpUSk8EIKrUpHla
 DnsResolve
 DocChanged
 DocDockManager
@@ -7523,6 +7523,7 @@ DVPAES_ASM
 DWebBrowserEvents2
 DwmSetWindowAttribute
 DX25519_ASM
+Dx82EVAFRq1ai1XSUYGDwAo73
 DXCloseDeviceNV
 DXLockObjectsNV
 DXObjectAccessNV
@@ -7548,7 +7549,6 @@ E_disc_bottom_link.png
 E_modified.png
 E`u3fE9Epu
 EA2AAEB11E38B9D871882A8E559
-Ea9GZXN9UF32mENnZw2LEx
 EAAEB11E38B9D871882A8E559
 EAAF011E38B9D871882A8E559
 EAAF886F11E18561866242201959
@@ -7797,7 +7797,6 @@ EEAAXPEAVQAbstractItemModel
 EEBA_NAEBVQModelIndex
 EEBAHAEBVQModelIndex
 EEBAPEAVQPlatformSurface
-EeZvFSQ8TpUNg6t5iSwqVKeRu9C
 EF351327957B
 EF65B11E38470F846885BB6FB
 EFAAAF011E38B9D871882A8E559
@@ -7811,7 +7810,6 @@ EffectBoundings
 EffectiveRetryCount
 EFrontVector
 Egravesmall
-EHCkxinECb4SNcM
 EHERE\EfEpEzE
 EJTU\^bcfguw
 ElapsedTime
@@ -7968,7 +7966,7 @@ EnableRobuxABTest
 EnableRobuxHexIcon
 EnableRobuxHexIconV2
 EnableSafeUpdateBeta
-EnableScaleIndependentBulletCollision4
+EnableScaleIndependentBulletCollision5
 EnableScriptCollabOnLoad
 EnableSetInstanceDefaults
 EnableStudioServiceGetUserId
@@ -8693,6 +8691,7 @@ FixGetPropertyChangedSignalMemoryLeak
 FixGetStringForKeycodeCrash
 FixHorizontalScrollBarGaps2
 FixIAdornableCollectorCrash3
+FixIMECursorDesyncInStudio
 FixInspectAndBuyMountError
 FixInspectMenuAnalytics
 FixJointCollisions
@@ -9044,7 +9043,6 @@ FrontSurface
 FrontSurfaceInput
 FrustumOrdered
 FrustumRenderQueue
-Ft9PrJsT5ASppaaCr
 FullRenderObjects
 Fullscreen
 FullScreen
@@ -9058,8 +9056,6 @@ FunctionFilterEditLine
 FunctionFilterWidgetDelegate
 FunctionUnused
 FunctionVar
-FutureIsBrightPhase2_5_v3
-FutureIsBrightPhase2_5EnableControls
 FutureIsBrightPhase2GL3
 FutureIsBrightPhase2GLES3
 FXCompositing
@@ -9991,6 +9987,7 @@ Glsles3Mediump1
 Glsles3MediumpNoHQ1
 GlslesMediump1
 GlueCursor
+GnohsHbyZ8wJI
 GoldenHashes
 GoodbyeChoiceActive
 GoodbyeChoiceActiveProperty
@@ -10200,7 +10197,6 @@ GunCursor.png
 GunWaitCursor.png
 GvEphfEUiHHoD6hYFI4xWGpAnIHcklKQCxrf46kAhDGeZnqIgeGszlGdWafunGE8
 GVKUTS[BXIWH\KbHi
-GWyFKMbzfV87
 GXGfGkGpGuG
 GyroscopeEnabled
 H_Key_dn.png
@@ -10292,7 +10288,6 @@ HB_OPTIONS
 HB_SHAPER_LIST
 Hcircumflex
 HDCacheLock
-HdNmxCLF09YbLkqkKjXcCAwEAAQ
 HeadColor3
 HeaderCheckBoxClicked
 HeaderData
@@ -10349,6 +10344,7 @@ HIDE_TAB_BAR
 HideFromPlayer
 HideNoAccessGroupPackages
 HideProxySettings
+HideStreamingPropsWhenNotStreaming
 HIGH_PRIORITY
 HighlightDraft
 HighlightDraftActive
@@ -10597,6 +10593,7 @@ HttpServiceBetterUserAgent
 HttpServiceBlacklist
 HttpServiceErrorCapLimit
 HttpServiceErrorRateLimit
+HttpServiceLogPluginDomains
 HttpServiceNeverCache
 HttpServicePermyriad
 HttpServicePermyriad2
@@ -10678,7 +10675,6 @@ HW4PacketPriority
 HwngSmldAskhBcraMaweNegsOgnaT
 HWYGOTH.ttf
 HybridEvent
-HYfooyJuX8WFcDefDd9o8TNbjLF1B1NqbqIC4FYGz8Vu2af1beo5EpJIjoer
 Iacutesmall
 IAutocompleter
 IBusyStateModel
@@ -10973,7 +10969,6 @@ InitializeCriticalSectionEx
 Initialized
 InitializeForUserId
 InitializeSListHead
-InitializeVideoManager
 Initializing
 InitialPoses
 InitialPrompt
@@ -11350,7 +11345,7 @@ ItemWidget
 Iterations
 ITRedirect
 IUserDataStoreServiceBase
-IuzvcTByJkiXYVum7mSEdvW4oblHTU7ZU1A
+IuyweBafaFUW
 IVRApplications_006
 IVRChaperone_003
 IVRChaperoneSetup_005
@@ -11365,6 +11360,7 @@ IVRScreenshots_001
 IVRSettings_002
 IVRSystem_017
 IVRTrackedCamera_003
+Iw6HuJ3kMCy5HN46tmkOxQx3uxxXI9zguFTEWyH3cLRTMmZV0NdBSFfc
 IWorldStage
 IXMLHTTPRequest2
 J_Key_dn.png
@@ -11374,7 +11370,6 @@ Javascript
 JavaScript
 JavaScriptCallback
 Jba5qWkYU5nARYZm1gQVP
-JbxULYcCPL6MVu
 Jcircumflex
 JDJNJXJbJlJvJ
 JHJRJ\JfJpJxJ
@@ -11438,7 +11433,6 @@ JointsService
 JointTime_TextureCooldown
 JointToolHelpDialogVerb
 JPEBUSG_INDEX_TRIANGLE
-JqwIEHkwWq9ak74W1HCvv7ZGzIhXwRvjmrTiDQ7ycUvqzRzqW2B
 JSON.parse
 JSON.stringify
 JSON_Parser
@@ -11470,7 +11464,6 @@ K_Key_dn.png
 KaiTi_GB2312
 KAXPEBDHAEAPEAVQChar
 KBytesPerSec
-KD32vJron6
 KeepAliveTimeout
 KeepPositionOnInsert
 KERNEL32.dll
@@ -11526,13 +11519,12 @@ KickByDatacenter_
 KiDszBCYB0gyp03Pc
 KillPtClicked
 KillSurfaceJointsPart1
-KLzAeekROuPlmkUajxGs7G
-KMiIobqk9MZ122vXU8NfFsAIzpv
 KnownHeaders
 KodchiangUPC
 KPEIBX_K_KPEIAU_iobuf
 KVScriptContext
 KYULPhCBFoD3mw5mygYqAeFlHdSL2k3MnDG
+KzLzPOwjIxFNNSIRd87nAvW2Unk
 LabelArray
 LabelArray.push
 LabelArray[globstart]
@@ -11565,6 +11557,7 @@ LastVisitedUrl
 LatchedSignal
 LatencyErrorMultiplierTennths
 LatencyStats
+LaterPlayerTeamRemovingSignal
 LatestAssetVersion
 LatestAssetVersionSuccess
 LatestPlaceVersionReturn
@@ -12194,6 +12187,7 @@ LuauRecursionLimit
 LuauWarnOnUtf8
 LuauWatchdog
 LuaWebService
+LUPtpDDEJVrF1CBLr02f2f6TJssCAwEAAQ
 LVvuOx39]O
 M_NVWeakFunctionRef
 MachineAddress
@@ -12812,7 +12806,7 @@ MigrateTriangleMeshData3
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsI9zRp2OSccqdFx2
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAupANB3EbN9hFHHUj0eA
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzjPRQo9jc
-MIICCgKCAgEAxAclrFIVPEp3TC8jq
+MIICCgKCAgEAx1wrpJ2mAoZcG
 MillisecondsBeforeHandlingReconnect
 MimeDataFromSelection
 MinDelta[nLog]
@@ -13211,7 +13205,6 @@ NdnuScpeLkclOiiaVruaSilaKgnjRicyLiraCidyLmahCanaLtvaTtsvApygErmaSusiLumaBavaJiet
 NE9F0uHE9F4uBE9F8u
 NearPlaneZ
 NEC55rACiLgxis9XCIP8J1xrZ2y
-NeCdfnEfqGSpTzrksI8hJeBvCvm1YFz
 NeckAccessory
 NeckAttachment
 NeckReduction
@@ -13344,6 +13337,7 @@ NextTabPage
 NfXf`fhfzf
 NHVVariant
 NinjaMask.mesh
+NLwcqijo4TNO2TGJs9rmuXA9HR
 NNW4SizeMode
 NoCacheForLocalContent
 NoCollisionConstraint
@@ -13420,6 +13414,7 @@ NotReplicated
 NotScriptable
 NotStartedYet
 NotSupported
+Np3B3pWINpaFfWmSB
 NP6A_NAEBVQString
 NP6A_NPEAV
 NP6A_NPEAVInstance
@@ -13668,7 +13663,6 @@ OnTeleport
 OnTeleportInternal
 OnTopOfCoreBlur
 OnUnhandledScriptErrorsAction
-ONWr6EOxpEjWfwAq
 OpacityMask
 OpaqueUseMaterialAndDistanceSort
 OPEN_BUILDERS_CLUB
@@ -13897,7 +13891,6 @@ PackageAssetDataCallback
 PackageAssetDataPullingIntervalInSeconds
 PackageDecorators
 PackageErrorCode
-PackageFixJsonParserCrash
 PackageHashData
 PackageHashDataRequests
 PackageHasUpdateIcon
@@ -14851,6 +14844,7 @@ PersistentEditor
 PersistentFifoComboBox
 PerThreadTimer
 PerThreadTimerTotal
+PfkyhHBLOCsA61M0tbQ
 PGSAdaptiveCollisionMarginFixEnabled
 PGSAlign2AxesCorrectionDamping
 PGSAlign2AxesPStageFrictionConstant
@@ -15286,6 +15280,7 @@ PluginDragSource
 PluginElementHost
 PluginGuiService
 PluginGuiTitleChanged
+PluginHttpRequest
 PluginInstall
 PluginInstallation
 PluginInstallComplete
@@ -15297,7 +15292,7 @@ PluginManagement
 PluginManagement.rbxm
 PluginManagement.rbxm_luaManagePluginsToolbar
 PluginManagement.rbxm_luaManagePluginsToolbar_luaManagePluginsButton
-PluginManagementAllowLotsOfPlugins
+PluginManagementAllowLotsOfPlugins2
 PluginManagementFixYieldingAndRetries
 PluginManager
 PluginMDIInterface
@@ -15328,6 +15323,7 @@ PluginWidgetRelay
 PluginWidgetRelayForPluginGui
 PluginWriteTemp
 PlusButtonPressed
+PNk4p19VW6FJBnN8VepOWy8eOPZgAJ
 POINT_SIZE
 PointBalanceCacheInvalidateTimeMs
 PointDataChanged
@@ -16284,6 +16280,7 @@ QSizePolicy
 QSortFilterProxyModel
 QSpacerItem
 QSplashScreen
+Qsql6vi1NBK11xDizgjuA8Tvpx7SKn3d
 QSslConfiguration
 QSslSocket
 QStackedWidget
@@ -16600,6 +16597,7 @@ RAW_UNDERLINE_POSITION
 RAW_UNDERLINE_THICKNESS
 RAW_X_HEIGHT
 RawJoinData
+RbpCQqBfSVZt7P9Nr3iX85UOHmD0Ply4o19qLUGwaBalDZLv2cBnMmU
 RBX_CHECK_EQUAL
 RBX_CHECK_GE
 RBX_CHECK_GT
@@ -17546,7 +17544,6 @@ RigidBodyLazyUpdating
 RigidityEnabled
 RiseVelocity
 Rj0isQcnqX
-RLcTTOtLHvqrC8XiIl2dNRrDfP
 Roact.createElement
 RoactPurchasePromptAllowBundles
 ROBLOSECURITY
@@ -18063,7 +18060,6 @@ SCT_set1_extensions
 SCT_set1_log_id
 SCT_set1_signature
 SCT_signature
-SDISkipJDINetworkStream
 SDL_EVENT_QUEUE_STATISTICS
 SDL_GAMECONTROLLERCONFIG
 SDL_HAPTIC_GAIN_MAX
@@ -18754,9 +18750,7 @@ SizeToTwoAction
 SizingMode
 SkateboardController
 SkateboardPlatform
-SkipContainerCheckOnJoin
 SkipLowResFix2
-SkipSDILogName
 Sky.SkyboxBk
 Sky.SkyboxDn
 Sky.SkyboxFt
@@ -19270,6 +19264,7 @@ StoppedTouching
 StopRecording
 StopRelatives
 StopRenderingForBackgroundMode
+StopRenderTransparentGlyph
 StopRestreamInstancesWithoutParent
 StopTextScraper
 StopTheDefaultTeleporter
@@ -19305,7 +19300,6 @@ StreamingBandwidthQueueingLimitPercent
 StreamingCheckParentBeforeAddingNewInstanceItem
 StreamingCriticalLowMemWatermarkMB
 StreamingEnabled
-StreamingExtentsForceUpdateOnlyWhenAlive
 StreamingFasterTargetRadiusIncreaseAfterGC
 StreamingGcDistance
 StreamingGCDistance
@@ -19336,7 +19330,6 @@ StreamingSetPlayerPausedFirst
 StreamingSounds
 StreamingTargetRadius
 StreamingUISkipFirstPause
-StreamingUpdateWorldExtentsWhenPlayerMoves
 StreamJobLimits
 StreamJobMaxBufferHealthThresholdHundredths
 StreamJobMinBufferHealthThresholdHundredths
@@ -19360,7 +19353,6 @@ StretchStopArmsAndLegs
 StrExclAverage
 StrExclMax
 StrictNetworkFilter
-StrictParsingFix
 STRIKEOUT_ASCENT
 STRIKEOUT_DESCENT
 StringArray
@@ -19934,6 +19926,7 @@ Studio.App.PluginLoader.RefreshingPluginsElps
 Studio.App.Properties.TitleFmt1
 Studio.App.PropertyItems.DefaultTheme
 Studio.App.PropertyItems.InvertMeshFaces
+Studio.App.PropertyItems.LoadStringEnbledWarning
 Studio.App.PropertyItems.MoveTheMesh
 Studio.App.PropertyItems.NotAValidLocation1
 Studio.App.PropertyItems.ResizeTheMesh
@@ -20853,6 +20846,7 @@ StudioFixAutoCompleteInAnonymousFunctionDef
 StudioFixCannotSetBreakPoint
 StudioFixChangeNameMacCrash
 StudioFixDefaultShortcutComparison
+StudioFixEndOfDocumentSelection
 StudioFixFoldStateCalculation
 StudioFixHashFromFileContentsLeak
 StudioFixInitialEnabledPluginGui2
@@ -21031,6 +21025,7 @@ StudioPushSaveUrlFailure
 StudioQuickActionLookup
 StudioQuickOpen5
 StudioQuickOpenFilterHiddenInstances
+StudioQuickOpenFixPosition
 StudioQuickOpenPatch
 StudioRecentActionCacheSize
 StudioRecoveryWidgetDuplicatedEntry
@@ -21344,6 +21339,7 @@ SXNET_add_id_INTEGER
 SXNET_add_id_ulong
 SXNET_get_id_asc
 SXNET_get_id_ulong
+SXTbtJ77K1k5Goc1
 SymantecPKI
 SymbolicLink
 SymbolValue
@@ -21410,7 +21406,6 @@ TaskQueueLinger
 TaskScheduler
 TaskSchedulerAutoThreadLimit
 TaskSchedulerDockAction
-TaskSchedulerEnsureCOMIsInitialized
 TaskSchedulerEraseDone
 TaskSchedulerHang
 TASKSCHEDULERIMAGES.png
@@ -21482,6 +21477,7 @@ TeamServerStatus
 TeamTestAction
 TeamTestDisconnect
 TeamTestGame
+TEAObbm9IiqSW49UDjh87v27mwUUJ1E4KH0Y4wqfFF64ZbmRbSTH
 Technologies
 Technology
 TelegrafAddress
@@ -22737,7 +22733,6 @@ UIViewportFrameCollectFrames
 UIViewportFrameDeviceRestore
 UIViewportFrameSetCameraNearZ
 UIViewportFrameWorkspace
-UKyPj459JROWaAOPGnexl2nFbOliO4mEhlR5k
 ULinkedScriptLoadData
 ULoadedImage
 ULuaCallbacks
@@ -23147,6 +23142,7 @@ UsesAssetInsertionDrag
 UseSortForClient
 UseStarterHumanoidRigType
 UseStudioLocaleForForceLocale
+UseStudioServiceInPluginGetUserId
 UseSuperSafeChat
 UseSystemConfiguration
 UseTLSv1_2_a
@@ -23192,7 +23188,6 @@ UThumbnailRequestRecord
 Utimer_thread_function
 UTimerData
 UTimeSlice
-UTL1wYK3RXuQexj30hee67
 UTrackEntry
 Utransport_config
 UUID_UdriTagTables
@@ -23901,6 +23896,7 @@ VogpHgQ70F57MdFiBApyJwNSBk
 VoiceChatService
 VoidStoredMemberFunctionPointerCall2
 Vollbeding
+VoLUfPY3AjEmp
 VOnPublishDialogController
 VOrderedDataStore
 VOrientationConstraint
@@ -24759,7 +24755,6 @@ XVScriptAnalysisWidget
 XVScriptContext
 XVScriptDebugger
 XVScriptRecoveryWidget
-XVScriptTextEditor
 XVSendMessageResponse
 XVSeparateSelectionVerb
 XVSolveBatchTask
@@ -24786,7 +24781,6 @@ XW4HttpErrorCode
 XW4websocket_close_status
 XwhvcEikuIaqb7nHhEJ
 XXXXXX.rbxl
-XzKiaXFtUrPj4dml87vAqwWrlRX
 XZP8CoreGuiService
 XZP8CRenderSettingsItem
 XZP8GuiObject
@@ -24832,6 +24826,7 @@ YieldFuncDesc
 YieldFunction
 YQByteArray
 YResolution
+YRPk6szsVMWB
 YwBBvY55YvBBwY5
 Z_KPEIBX_K_KPEIAU1
 Zcaronsmall
@@ -24839,6 +24834,7 @@ Zdotaccent
 ZgnhKhWhci
 ZIndexBehavior
 ZLcJhLcGhM
+ZmwMj2sL6kZkeeHOk4WqJX
 ZNjlXiODrHUcaGRYt
 ZntaLkerGlryCnmrArbeHbarAcrySaahTaveDgneBuruGrjuGayrOlmaTuleTadnKmylMhniSiahTooaLtbiTrmyMroeGgnaHihtErehCsnaCmagOrnuRrmhKgnoMariHanaKopoBinaHiiiYlatIhtoGtrsDhniZglgTonaHdhuBbgaTbmiLelaTbniLragUwahSamsOtrpCiarBiguBtpoCulaTgalGgnfTolySoepXrahKilaBxusXxnhPgahPoo
 ZoomActive

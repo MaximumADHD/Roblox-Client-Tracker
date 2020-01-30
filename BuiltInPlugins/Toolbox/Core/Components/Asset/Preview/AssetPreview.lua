@@ -44,6 +44,7 @@ local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 local RoactRodux = require(Libs.RoactRodux)
 local UILibrary = require(Libs.UILibrary)
+local Favorites = UILibrary.Component.Favorites
 local PreviewController = UILibrary.Component.PreviewController
 local Vote = UILibrary.Component.Vote
 
@@ -52,7 +53,7 @@ local AssetDescription = require(Preview.AssetDescription)
 local DEPRECATED_Vote = require(Preview.Vote)
 local DEPRECATED_PreviewController = require(Preview.PreviewController)
 local ActionBar = require(Preview.ActionBar)
-local Favorites = require(Preview.Favorites)
+local DEPRECATED_Favorites = require(Preview.Favorites)
 local SearchLinkText = require(Preview.SearchLinkText)
 local LoadingBar = require(Plugin.Core.Components.AssetConfiguration.LoadingBar)
 local LayoutOrderIterator = UILibrary.Util.LayoutOrderIterator
@@ -628,11 +629,22 @@ function AssetPreview:render()
 						}),
 					}),
 
-					Favorites = enableFavorite and Roact.createElement(Favorites, {
+					DEPRECATED_Favorites = not FFlagStudioRefactorAssetPreview and enableFavorite and Roact.createElement(DEPRECATED_Favorites, {
 						size = UDim2.new(1, 0, 0, 20),
 						assetId = assetId,
 
 						layoutOrder = layoutIndex:getNextOrder(),
+					}),
+
+					Favorites = FFlagStudioRefactorAssetPreview and enableFavorite and Roact.createElement(Favorites, {
+						Size = UDim2.new(1, 0, 0, 20),
+
+						FavoriteCounts = self.props.FavoriteCounts,
+						Favorited = self.props.Favorited,
+
+						OnActivated = self.props.OnFavoritedActivated,
+
+						LayoutOrder = layoutIndex:getNextOrder(),
 					}),
 
 					DetailDescription = Roact.createElement("TextLabel", {

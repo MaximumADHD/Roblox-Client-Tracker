@@ -14,8 +14,6 @@ local ShareGame = Modules.Settings.Pages.ShareGame
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
 local httpRequest = require(AppTempCommon.Temp.httpRequest)
-local ApiFetchUsersFriends = require(ShareGame.Thunks.ApiFetchUsersFriends)
-local RetrievalStatus = require(CorePackages.AppTempCommon.LuaApp.Enum.RetrievalStatus)
 
 local ShareGamePageFrame = require(ShareGame.Components.ShareGamePageFrame)
 local Constants = require(ShareGame.Constants)

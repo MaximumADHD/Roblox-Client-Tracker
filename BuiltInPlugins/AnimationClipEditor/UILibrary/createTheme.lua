@@ -276,15 +276,22 @@ return function(style, overrides)
 	local assetPreview = {
 		font = style.font,
 		textSize = 14,
+		textSizeMedium = 16,
 		textSizeLarge = 18,
 
-		modelPreview = {
-			background = style.backgroundColor,
+		favorites = {
+			contentColor = Color3.fromRGB(246, 183, 2),
+			favorited = "rbxasset://textures/StudioToolbox/AssetPreview/star_filled.png",
+			unfavorited = "rbxasset://textures/StudioToolbox/AssetPreview/star_stroke.png"
 		},
 
 		imagePreview = {
 			background = style.backgroundColor,
 			textColor = style.textColor,
+		},
+
+		modelPreview = {
+			background = style.backgroundColor,
 		},
 
 		thumbnailIconPreview = {

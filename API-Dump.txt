@@ -2217,7 +2217,7 @@ Class Plugin : Instance [NotCreatable]
 	Function Instance Plugin:GetMouse() {PluginSecurity}
 	Function Enum<RibbonTool> Plugin:GetSelectedRibbonTool() {PluginSecurity}
 	Function Variant Plugin:GetSetting(string key) {PluginSecurity}
-	Function int64 Plugin:GetStudioUserId() {PluginSecurity}
+	Function int64 Plugin:GetStudioUserId() {PluginSecurity} [Deprecated]
 	Function Instance Plugin:ImportFbxAnimation(Instance rigModel, bool isR15 = true) {PluginSecurity} [Yields]
 	Function Instance Plugin:ImportFbxRig(bool isR15 = true) {PluginSecurity} [Yields]
 	Function void Plugin:Invoke(string key, Tuple arguments) {RobloxScriptSecurity}
@@ -2822,7 +2822,7 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Dictionary StudioService:GetClassIcon(string className) {PluginSecurity}
 	Function Dictionary StudioService:GetResourceByCategory(string category) {RobloxScriptSecurity}
 	Function string StudioService:GetStartupPluginId() {RobloxScriptSecurity}
-	Function int64 StudioService:GetUserId() {RobloxScriptSecurity}
+	Function int64 StudioService:GetUserId() {PluginSecurity}
 	Function bool StudioService:IsPluginInstalled(int64 assetId) {RobloxScriptSecurity}
 	Function bool StudioService:IsPluginUpToDate(int64 assetId, int64 currentAssetVersion) {RobloxScriptSecurity}
 	Function int StudioService:LaunchBulkImport(int assetTypeToImport) {RobloxScriptSecurity} [Yields]

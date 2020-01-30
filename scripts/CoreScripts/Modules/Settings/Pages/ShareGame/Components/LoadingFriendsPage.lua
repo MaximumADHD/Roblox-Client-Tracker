@@ -1,13 +1,10 @@
 local CorePackages = game:GetService("CorePackages")
 
 local CoreGui = game:GetService("CoreGui")
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local _RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local LoadingBar = require(CorePackages.AppTempCommon.LuaApp.Components.LoadingBar)
 
-local ShareGame = RobloxGui.Modules.Settings.Pages.ShareGame
-
 local Roact = require(CorePackages.Roact)
-local Constants = require(ShareGame.Constants)
 
 local LoadingFriendsPage = Roact.PureComponent:extend("LoadingFriendsPage")
 

@@ -97,7 +97,7 @@ void main()
     vec4 f13 = mix(texture(LightGridSkylightTexture, f10), vec4(1.0), f11);
     vec4 f14 = texture(ShadowMapTexture, VARYING7.xy);
     float f15 = (1.0 - ((step(f14.x, VARYING7.z) * clamp(CB0[24].z + (CB0[24].w * abs(VARYING7.z - 0.5)), 0.0, 1.0)) * f14.y)) * f13.y;
-    vec3 f16 = ((min((f12.xyz * (f12.w * 120.0)).xyz + (CB0[8].xyz + (CB0[9].xyz * f13.x)), vec3(CB0[16].w)) + (VARYING6.xyz * f15)) * (f8 * f8).xyz) + (CB0[10].xyz * (VARYING6.w * f15));
+    vec3 f16 = (((VARYING6.xyz * f15) + min((f12.xyz * (f12.w * 120.0)).xyz + (CB0[8].xyz + (CB0[9].xyz * f13.x)), vec3(CB0[16].w))) * (f8 * f8).xyz) + (CB0[10].xyz * ((VARYING6.w * f15) * 0.100000001490116119384765625));
     vec4 f17 = vec4(f16.x, f16.y, f16.z, vec4(0.0).w);
     f17.w = f7.w;
     vec3 f18 = mix(CB0[14].xyz, sqrt(clamp(f17.xyz * CB0[15].y, vec3(0.0), vec3(1.0))).xyz, vec3(clamp((CB0[13].x * length(VARYING4.xyz)) + CB0[13].y, 0.0, 1.0)));

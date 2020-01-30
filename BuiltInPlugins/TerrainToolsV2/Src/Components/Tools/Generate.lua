@@ -379,6 +379,7 @@ function Generate:render()
 							Width = UDim.new(0, 136),
 							Text = seed,
 							MaxGraphemes = 12,
+							IgnoreNumFormatting = true,
 
 							OnFocusLost = FFlagTerrainToolsRefactor and self.onSeedFocusLost or function(enterPressed, text)
 								self.props.dispatchSetSeed(text)

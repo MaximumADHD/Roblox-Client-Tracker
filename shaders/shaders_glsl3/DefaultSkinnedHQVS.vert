@@ -59,8 +59,7 @@ out vec3 VARYING3;
 out vec4 VARYING4;
 out vec4 VARYING5;
 out vec4 VARYING6;
-out vec4 VARYING7;
-out float VARYING8;
+out float VARYING7;
 
 void main()
 {
@@ -75,23 +74,22 @@ void main()
     float v8 = dot(CB1[v1 * 1 + 0].xyz, v0);
     float v9 = dot(CB1[v2 * 1 + 0].xyz, v0);
     float v10 = dot(CB1[v3 * 1 + 0].xyz, v0);
-    vec3 v11 = vec3(v8, v9, v10);
-    float v12 = dot(v11, -CB0[11].xyz);
-    vec4 v13 = vec4(v4, v5, v6, 1.0);
-    vec4 v14 = v13 * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
-    float v15 = v14.w;
-    vec4 v16 = ((exp2(TEXCOORD3 * 0.0625) - vec4(1.0)) * CB0[23].z) + vec4((0.5 * v15) * CB0[23].y);
-    vec4 v17 = vec4(dot(CB0[20], v13), dot(CB0[21], v13), dot(CB0[22], v13), 0.0);
-    v17.w = COLOR1.w * 0.0039215688593685626983642578125;
-    gl_Position = v14;
-    VARYING0 = vec4(TEXCOORD0.x, TEXCOORD0.y, v16.x, v16.y);
-    VARYING1 = vec4(TEXCOORD1.x, TEXCOORD1.y, v16.z, v16.w);
+    vec4 v11 = vec4(v4, v5, v6, 1.0);
+    vec4 v12 = v11 * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
+    float v13 = v12.w;
+    vec4 v14 = ((exp2(TEXCOORD3 * 0.0625) - vec4(1.0)) * CB0[23].z) + vec4((0.5 * v13) * CB0[23].y);
+    vec4 v15 = vec4(dot(CB0[20], v11), dot(CB0[21], v11), dot(CB0[22], v11), 0.0);
+    v15.w = COLOR1.z * 0.0039215688593685626983642578125;
+    vec4 v16 = vec4(v8, v9, v10, COLOR1.z);
+    v16.w = inversesqrt(0.1745329201221466064453125 * COLOR1.y);
+    gl_Position = v12;
+    VARYING0 = vec4(TEXCOORD0.x, TEXCOORD0.y, v14.x, v14.y);
+    VARYING1 = vec4(TEXCOORD1.x, TEXCOORD1.y, v14.z, v14.w);
     VARYING2 = COLOR0;
-    VARYING3 = ((v7 + (v11 * 6.0)).yxz * CB0[16].xyz) + CB0[17].xyz;
-    VARYING4 = vec4(CB0[7].xyz - v7, v15);
-    VARYING5 = vec4(v8, v9, v10, COLOR1.z);
-    VARYING6 = vec4((CB0[10].xyz * max(v12, 0.0)) + (CB0[12].xyz * max(-v12, 0.0)), (float(v12 > 0.0) * (COLOR1.y * 0.0039215688593685626983642578125)) * CB0[23].w);
-    VARYING7 = v17;
-    VARYING8 = NORMAL.w;
+    VARYING3 = ((v7 + (vec3(v8, v9, v10) * 6.0)).yxz * CB0[16].xyz) + CB0[17].xyz;
+    VARYING4 = vec4(CB0[7].xyz - v7, v13);
+    VARYING5 = v16;
+    VARYING6 = v15;
+    VARYING7 = NORMAL.w;
 }
 

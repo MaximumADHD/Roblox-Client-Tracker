@@ -13,27 +13,35 @@
 		function onClose = A callback for when the user clicks outside of the
 			preview to close it.
 ]]
+local StudioService = game:GetService("StudioService")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 local RoactRodux = require(Libs.RoactRodux)
+local Cryo = require(Libs.Cryo)
 
 local Util = Plugin.Core.Util
 local Constants = require(Util.Constants)
 local ContextHelper = require(Util.ContextHelper)
 local ContextGetter = require(Util.ContextGetter)
+local InsertAsset = require(Util.InsertAsset)
 
+local getUserId = require(Util.getUserId)
 local getNetwork = ContextGetter.getNetwork
 local getSettings = ContextGetter.getSettings
 
 local withModal = ContextHelper.withModal
 local withTheme = ContextHelper.withTheme
+local withLocalization = ContextHelper.withLocalization
 
 local ClearPreview = require(Plugin.Core.Actions.ClearPreview)
 
 local AssetPreview = require(Plugin.Core.Components.Asset.Preview.AssetPreview)
+
+local PluginPurchaseFlow = require(Plugin.Core.Components.PurchaseFlow.PluginPurchaseFlow)
+local PurchaseSuccessDialog = require(Plugin.Core.Components.PurchaseFlow.PurchaseSuccessDialog)
 
 local Requests = Plugin.Core.Networking.Requests
 local GetPreviewInstanceRequest = require(Requests.GetPreviewInstanceRequest)
@@ -42,25 +50,160 @@ local GetPluginInfoRequest = require(Requests.GetPluginInfoRequest)
 local SearchWithOptions = require(Requests.SearchWithOptions)
 local PostUnvoteRequest = require(Requests.PostUnvoteRequest)
 local PostVoteRequest = require(Requests.PostVoteRequest)
+local GetOwnsAssetRequest = require(Plugin.Core.Networking.Requests.GetOwnsAssetRequest)
+local ClearPurchaseFlow = require(Plugin.Core.Actions.ClearPurchaseFlow)
+local GetFavoriteCountsRequest = require(Requests.GetFavoriteCountsRequest)
+local GetFavoritedRequest = require(Requests.GetFavoritedRequest)
+local ToggleFavoriteStatusRequest = require(Requests.ToggleFavoriteStatusRequest)
 
 local Category = require(Plugin.Core.Types.Category)
+local AssetType = require(Plugin.Core.Types.AssetType)
+local PurchaseStatus = require(Plugin.Core.Types.PurchaseStatus)
 
 local AssetPreviewWrapper = Roact.PureComponent:extend("AssetPreviewWrapper")
 
 local FixModelPreviewSelection = settings():GetFFlag("FixModelPreviewSelection")
 local FFlagUseDevelopFetchPluginVersionId = game:GetFastFlag("UseDevelopFetchPluginVersionId")
+local FFlagStudioToolboxPluginPurchaseFlow = game:GetFastFlag("StudioToolboxPluginPurchaseFlow")
+local FFlagStudioHideSuccessDialogWhenFree = game:GetFastFlag("StudioHideSuccessDialogWhenFree")
+local FFlagPluginAccessAndInstallationInStudio = settings():GetFFlag("PluginAccessAndInstallationInStudio")
+local FFlagStudioToolboxShowPluginInstallationProgress = game:GetFastFlag("StudioToolboxShowPluginInstallationProgress")
+local FFlagStudioRefactorAssetPreview = settings():GetFFlag("StudioRefactorAssetPreview")
 
 local PADDING = 20
+local INSTALLATION_ANIMATION_TIME = 1.0 --seconds
+
+function AssetPreviewWrapper:createPurchaseFlow(localizedContent)
+	local props = self.props
+
+	local showPurchaseFlow = self.state.showPurchaseFlow
+	local showSuccessDialog = self.state.showSuccessDialog
+
+	local assetData = props.assetData
+	local Asset = assetData.Asset
+	local assetId = Asset.Id
+	local currentPreview = props.currentPreview
+	local price = assetData.Product and assetData.Product.Price or 0
+	local owned = props.Owned
+
+	local typeId = assetData.Asset.TypeId or Enum.AssetType.Model.Value
+
+	local assetVersionId
+	if FFlagUseDevelopFetchPluginVersionId then
+		local previewPluginData = self.props.previewPluginData
+		assetVersionId = previewPluginData.versionId
+	else
+		assetVersionId = self.props.assetVersionId
+	end
+
+	local assetPreviewType
+	if FFlagPluginAccessAndInstallationInStudio and (typeId == Enum.AssetType.Plugin.Value) then
+		assetPreviewType = AssetType:markAsPlugin()
+	else
+		assetPreviewType = AssetType:getAssetType(currentPreview)
+	end
+
+	local isPluginAsset, isPluginPaid, isPluginInstalled, isPluginLoading, isPluginUpToDate
+	isPluginAsset = AssetType:isPlugin(assetPreviewType)
+	isPluginInstalled = isPluginAsset and StudioService:IsPluginInstalled(assetId)
+
+	if FFlagStudioToolboxPluginPurchaseFlow then
+		isPluginPaid = isPluginAsset and price > 0
+		isPluginLoading = isPluginAsset and assetVersionId == nil and owned == nil
+		isPluginUpToDate = isPluginAsset and not isPluginLoading and assetVersionId
+			and StudioService:IsPluginUpToDate(assetId, assetVersionId)
+
+		-- Display loading indicator when plugin was just purchased and is installing
+		local purchaseStatus = props.PurchaseStatus
+		if (purchaseStatus == PurchaseStatus.Success or purchaseStatus == PurchaseStatus.Waiting)
+			and not isPluginInstalled then
+			isPluginLoading = true
+		end
+	else
+		isPluginLoading = isPluginAsset and assetVersionId == nil
+		isPluginUpToDate = isPluginAsset and not isPluginLoading
+			and StudioService:IsPluginUpToDate(assetId, assetVersionId)
+	end
+
+	local shouldShowInstallationProgress = isPluginAsset and self.state.showInstallationBar
+	isPluginLoading = isPluginLoading or shouldShowInstallationProgress
+	local hasRating = typeId == Enum.AssetType.Model.Value
+		or (isPluginAsset and isPluginInstalled) or self.state.overrideEnableVoting
+
+	local installDisabled = isPluginAsset and (isPluginLoading or isPluginUpToDate)
+
+	local tryInsert
+	if FFlagStudioToolboxShowPluginInstallationProgress and not FFlagStudioToolboxPluginPurchaseFlow then
+		-- This is a workaround to support progress indicators if the purchase flow is disabled.
+		tryInsert = isPluginAsset and self.tryInstallWithProgress or self.tryInsert
+	else
+		tryInsert = isPluginAsset and self.tryInstall or self.tryInsert
+	end
+
+	local showRobuxIcon
+	local pluginButtonText = localizedContent.AssetConfig.Insert
+	if isPluginAsset then
+		if isPluginLoading then
+			pluginButtonText = localizedContent.AssetConfig.Installing
+		elseif not isPluginInstalled then
+			if FFlagStudioToolboxPluginPurchaseFlow then
+				-- Show price if paid plugin has not been purchased
+				if isPluginPaid and not owned then
+					showRobuxIcon = true
+					pluginButtonText = price
+				else
+					pluginButtonText = localizedContent.AssetConfig.Install
+				end
+			else
+				pluginButtonText = localizedContent.AssetConfig.Install
+			end
+		elseif not isPluginUpToDate then
+			pluginButtonText = localizedContent.AssetConfig.Update
+		else
+			pluginButtonText = localizedContent.AssetConfig.Installed
+		end
+	end
+
+	return {
+		InstallDisabled = installDisabled,
+		ActionBarText = pluginButtonText,
+		ShowInstallationBar = shouldShowInstallationProgress,
+		ShowRobuxIcon = showRobuxIcon,
+		HasRating = hasRating,
+
+		TryInsert = tryInsert,
+
+		PurchaseFlow = FFlagStudioToolboxPluginPurchaseFlow and showPurchaseFlow
+		and Roact.createElement(PluginPurchaseFlow, {
+			Cancel = self.purchaseCancelled,
+			Continue = self.purchaseSucceeded,
+			AssetData = assetData,
+		}),
+
+		SuccessDialog = FFlagStudioToolboxPluginPurchaseFlow and showSuccessDialog
+			and Roact.createElement(PurchaseSuccessDialog, {
+			OnClose = self.closeSuccessDialog,
+			Name = assetData.Asset.Name,
+			Balance = props.Balance,
+			IsFree = price == nil or price == 0,
+		}),
+	}
+end
 
 function AssetPreviewWrapper:init(props)
+	local networkInterface = getNetwork(self)
+
 	self.state = {
 		maxPreviewWidth = 0,
 		maxPreviewHeight = 0,
 		currentPreview = nil,
+
+		showPurchaseFlow = false,
+		showSuccessDialog = false,
+		showInstallationBar = false,
 	}
 
 	self.ClickDetectorRef = Roact.createRef()
-	local networkInterface = getNetwork(self)
 
 	self.onCloseButtonClicked = function()
 		local state = self.state
@@ -146,6 +289,132 @@ function AssetPreviewWrapper:init(props)
 			onVoteRequested(networkInterface, assetId, false)
 		end
 	end
+
+	self.purchaseCancelled = function()
+		self:setState({
+			showPurchaseFlow = false,
+		})
+	end
+
+	self.purchaseSucceeded = function()
+		local tryInstall = self.tryInstallWithProgress
+		if tryInstall() then
+
+			-- if this is a free asset/plugin, don't show the success dialog
+			if FFlagStudioHideSuccessDialogWhenFree then
+				local assetData = props.assetData
+				local price = assetData.Product and assetData.Product.Price or 0
+				if price == 0 then
+					return
+				end
+			end
+
+			self:setState({
+				showSuccessDialog = true,
+			})
+		end
+	end
+
+	self.tryInstall = function()
+		local assetData = self.props.assetData
+		local assetVersionId
+		if FFlagUseDevelopFetchPluginVersionId then
+			local previewPluginData = self.props.previewPluginData
+			assetVersionId = previewPluginData.versionId
+		else
+			assetVersionId = self.props.assetVersionId
+		end
+
+		local asset = assetData.Asset
+		local assetId = asset.Id
+		local assetName = asset.Name
+		local assetTypeId = asset.TypeId
+
+		if FFlagStudioToolboxPluginPurchaseFlow then
+			local owned = self.props.Owned
+			if not owned then
+				-- Prompt user to purchase plugin
+				self:setState({
+					showPurchaseFlow = true,
+				})
+				return false
+			else
+				self:setState({
+					showPurchaseFlow = false,
+				})
+			end
+		end
+
+		local success = InsertAsset.tryInsert({
+			plugin = plugin,
+			assetId = assetId,
+			assetVersionId = assetVersionId,
+			assetName = assetName,
+			assetTypeId = assetTypeId,
+			currentTab = self.props.currentTab,
+		})
+		if success then
+			self:setState({
+				overrideEnableVoting = true,
+			})
+
+			StudioService:UpdatePluginManagement()
+		end
+		return success
+	end
+
+	self.tryInstallWithProgress = function()
+		return self.showInstallationBarUntilCompleted( self.tryInstall )
+	end
+
+	self.toggleShowInstallationBar = function(shouldShow)
+		self:setState({
+			showInstallationBar = shouldShow
+		})
+	end
+
+	self.showInstallationBarUntilCompleted = function(workToComplete)
+		local startTime = tick()
+		self.toggleShowInstallationBar(true)
+
+		local result = workToComplete()
+
+		-- artificially slow down the installation to watch the animation complete
+		local timeToInstall = tick() - startTime
+		if timeToInstall < INSTALLATION_ANIMATION_TIME then
+			wait(INSTALLATION_ANIMATION_TIME - timeToInstall)
+		end
+		self.toggleShowInstallationBar(false)
+
+		return result
+	end
+
+	self.closeSuccessDialog = function()
+		self:setState({
+			showSuccessDialog = false,
+		})
+	end
+
+	-- For Favorite component
+	self.requestFavoriteCounts = function()
+		local assetId = self.props.assetId
+		self.props.getFavoriteCounts(networkInterface, assetId)
+	end
+
+	self.checkFavorited = function()
+		local assetId = self.props.assetId
+		self.props.getFavorited(networkInterface, getUserId(), assetId)
+	end
+
+	self.onFavoritedActivated = function(rbx)
+		local assetId = self.props.assetId
+		local favorited = self.props.favorited
+		self.props.toggleFavoriteStatus(networkInterface, getUserId(), assetId, favorited)
+	end
+
+	if FFlagStudioToolboxPluginPurchaseFlow then
+		self.props.clearPurchaseFlow(props.assetData.Asset.Id)
+	end
 end
 
 function AssetPreviewWrapper:didMount()
@@ -157,55 +426,50 @@ function AssetPreviewWrapper:didMount()
 			self.props.deprecated_getAssetVersionId(getNetwork(self), self.props.assetData.Asset.Id)
 		end
 	end
+
+	if FFlagStudioToolboxPluginPurchaseFlow then
+		local assetData = self.props.assetData
+		local Asset = assetData.Asset
+		local assetId = Asset.Id
+		self.props.getOwnsAsset(getNetwork(self), assetId)
+	end
+
+	if FFlagStudioRefactorAssetPreview then
+		self.requestFavoriteCounts()
+		self.checkFavorited()
+	end
 end
 
 function AssetPreviewWrapper:render()
 	return withTheme(function(theme)
 		return withModal(function(modalTarget)
-			local props = self.props
-			local state = self.state
+			return withLocalization(function(_, localizedContent)
+				local purchaseFlow = self:createPurchaseFlow(localizedContent)
 
-			local assetData = props.assetData
+				local props = self.props
+				local state = self.state
 
-			-- Remove me with FFlagUseDevelopFetchPluginVersionId
-			local assetVersionId = props.assetVersionId
-			local previewPluginData = FFlagUseDevelopFetchPluginVersionId and props.previewPluginData
+				local assetData = props.assetData
 
-			local maxPreviewWidth = math.min(state.maxPreviewWidth, Constants.ASSET_PREVIEW_MAX_WIDTH)
-			local maxPreviewHeight = state.maxPreviewHeight
+				-- Remove me with FFlagUseDevelopFetchPluginVersionId
+				local assetVersionId = props.assetVersionId
+				local previewPluginData = FFlagUseDevelopFetchPluginVersionId and props.previewPluginData
 
-			local previewModel = props.previewModel
-			local currentPreview
-			if FixModelPreviewSelection then
-				currentPreview = state.currentPreview or previewModel
-			else
-				currentPreview = previewModel
-			end
+				local maxPreviewWidth = math.min(state.maxPreviewWidth, Constants.ASSET_PREVIEW_MAX_WIDTH)
+				local maxPreviewHeight = state.maxPreviewHeight
 
-			local canInsertAsset = props.canInsertAsset
+				local previewModel = props.previewModel
+				local currentPreview
+				if FixModelPreviewSelection then
+					currentPreview = state.currentPreview or previewModel
+				else
+					currentPreview = previewModel
+				end
 
-			local popUpTheme = theme.assetPreview.popUpWrapperButton
+				local canInsertAsset = props.canInsertAsset
+				local popUpTheme = theme.assetPreview.popUpWrapperButton
 
-			return modalTarget and Roact.createElement(Roact.Portal, {
-				target = modalTarget
-			}, {
-				-- This frame should be as big as the screen
-				-- So, we will know it's time to close the pop up if there is a click
-				-- within the screen
-				ScreenClickDetector =  Roact.createElement("TextButton", {
-					Size = UDim2.new(1, 0, 1, 0),
-
-					BackgroundTransparency = popUpTheme.detectorBGTrans,
-					BackgroundColor3 = popUpTheme.detectorBackground,
-					ZIndex = 1,
-					AutoButtonColor = false,
-
-					[Roact.Event.Activated] = self.onCloseButtonClicked,
-					[Roact.Ref] = self.ClickDetectorRef,
-					[Roact.Change.AbsoluteSize] = self.onDetectorABSSizeChange,
-				}),
-
-				AssetPreview = Roact.createElement(AssetPreview, {
+				local assetPreviewProps = {
 					position = UDim2.new(0.5, 0, 0.5, 0),
 					maxPreviewWidth = maxPreviewWidth,
 					maxPreviewHeight = maxPreviewHeight,
@@ -222,14 +486,50 @@ function AssetPreviewWrapper:render()
 					assetVersionId = assetVersionId,
 					previewPluginData = previewPluginData,
 					canInsertAsset = canInsertAsset,
-					tryInsert = self.tryInsert,
 					tryCreateContextMenu = self.tryCreateContextMenu,
 					searchByCreator = self.searchByCreator,
 
 					OnVoteUp = self.onVoteUpButtonActivated,
 					OnVoteDown = self.onVoteDownButtonActivated,
+				}
+
+				if FFlagStudioRefactorAssetPreview then
+					assetPreviewProps = Cryo.Dictionary.join(assetPreviewProps,{
+						InstallDisabled = purchaseFlow.InstallDisabled,
+						PurchaseFlow = purchaseFlow.PurchaseFlow,
+						SuccessDialog = purchaseFlow.SuccessDialog,
+						ShowRobuxIcon = purchaseFlow.ShowRobuxIcon,
+						ActionBarText = purchaseFlow.ActionBarText,
+						ShowInstallationBar = purchaseFlow.ShowInstallationBar,
+						TryInsert = purchaseFlow.TryInsert,
+						OnFavoritedActivated = self.onFavoritedActivated,
+						FavoriteCounts = self.props.favoriteCounts,
+						Favorited = self.props.favorited,
+					})
+				end
+
+				return modalTarget and Roact.createElement(Roact.Portal, {
+					target = modalTarget
+				}, {
+					-- This frame should be as big as the screen
+					-- So, we will know it's time to close the pop up if there is a click
+					-- within the screen
+					ScreenClickDetector =  Roact.createElement("TextButton", {
+						Size = UDim2.new(1, 0, 1, 0),
+
+						BackgroundTransparency = popUpTheme.detectorBGTrans,
+						BackgroundColor3 = popUpTheme.detectorBackground,
+						ZIndex = 1,
+						AutoButtonColor = false,
+
+						[Roact.Event.Activated] = self.onCloseButtonClicked,
+						[Roact.Ref] = self.ClickDetectorRef,
+						[Roact.Change.AbsoluteSize] = self.onDetectorABSSizeChange,
+					}),
+
+					AssetPreview = Roact.createElement(AssetPreview, assetPreviewProps)
 				})
-			})
+			end)
 		end)
 	end)
 end
@@ -248,13 +548,34 @@ local function mapStateToProps(state, props)
 	local manageableAssets = assets.manageableAssets
 	local canManage = manageableAssets[tostring(assetId)]
 
-	return {
+	local purchase = state.purchase or {}
+	local purchaseStatus = purchase.status
+	local owned = purchase.cachedOwnedAssets[tostring(assetId)]
+	local balance = purchase.robuxBalance
+
+	-- For Favorites
+	local favorite = state.favorite or {}
+	local assetIdToCountsMap = favorite.assetIdToCountsMap or {}
+	local assetIdToFavoritedMap = favorite.assetIdToFavoritedMap or {}
+
+	local stateToProps = {
 		previewModel = previewModel or nil,
 		currentTab = pageInfo.currentTab or Category.MARKETPLACE_KEY,
 		assetVersionId = assetVersionId,
 		canManage = canManage,
 		previewPluginData = assets.previewPluginData,
+		assetId = assetId,
+		favoriteCounts = assetIdToCountsMap[assetId] or 0,
+		favorited = assetIdToFavoritedMap[assetId] or false
 	}
+
+	if FFlagStudioToolboxPluginPurchaseFlow then
+		stateToProps.Owned = owned
+		stateToProps.PurchaseStatus = purchaseStatus
+		stateToProps.Balance = balance
+	end
+
+	return stateToProps
 end
 
 local function mapDispatchToProps(dispatch)
@@ -285,7 +606,29 @@ local function mapDispatchToProps(dispatch)
 
 		onUnvoteRequested = function(networkInterface, assetId)
 			dispatch(PostUnvoteRequest(networkInterface, assetId))
-		end
+		end,
+
+		-- For Purchase Flow
+		getOwnsAsset = function(network, assetId)
+			dispatch(GetOwnsAssetRequest(network, assetId))
+		end,
+
+		clearPurchaseFlow = function(assetId)
+			dispatch(ClearPurchaseFlow(assetId))
+		end,
+
+		-- For Favorites
+		getFavorited = function(networkInterface, userId, assetId)
+			dispatch(GetFavoritedRequest(networkInterface, userId, assetId))
+		end,
+
+		getFavoriteCounts = function(networkInterface, assetId)
+			dispatch(GetFavoriteCountsRequest(networkInterface, assetId))
+		end,
+
+		toggleFavoriteStatus = function(networkInterface, userId, assetId, favorited)
+			dispatch(ToggleFavoriteStatusRequest(networkInterface, userId, assetId, favorited))
+		end,
 	}
 end
 

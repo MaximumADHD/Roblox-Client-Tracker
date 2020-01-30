@@ -39828,7 +39828,10 @@
                         "Category": "Primitive",
                         "Name": "int64"
                     },
-                    "Security": "PluginSecurity"
+                    "Security": "PluginSecurity",
+                    "Tags": [
+                        "Deprecated"
+                    ]
                 },
                 {
                     "MemberType": "Function",
@@ -50190,7 +50193,7 @@
                         "Category": "Primitive",
                         "Name": "int64"
                     },
-                    "Security": "RobloxScriptSecurity"
+                    "Security": "PluginSecurity"
                 },
                 {
                     "MemberType": "Function",

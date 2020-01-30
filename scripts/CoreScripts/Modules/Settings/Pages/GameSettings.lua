@@ -19,7 +19,6 @@ pcall(
   end
 )
 local ContextActionService = game:GetService("ContextActionService")
-local StarterGui = game:GetService("StarterGui")
 local Players = game:GetService("Players")
 local VRService = game:GetService("VRService")
 local AnalyticsService = game:GetService("RbxAnalyticsService")
@@ -75,13 +74,13 @@ local LocalPlayer = Players.LocalPlayer
 local platform = UserInputService:GetPlatform()
 local PolicyService = require(RobloxGui.Modules.Common.PolicyService)
 
-local success, result =
+local UnlSuccess, UnlResult =
   pcall(
   function()
     return settings():GetFFlag("UseNotificationsLocalization")
   end
 )
-local FFlagUseNotificationsLocalization = success and result
+local FFlagUseNotificationsLocalization = UnlSuccess and UnlResult
 local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp") --todo: remove with FFlagUsePolicyServiceForCoreScripts
 game:DefineFastInt("RomarkStartWithGraphicQualityLevel", -1)
 local FIntRomarkStartWithGraphicQualityLevel = game:GetFastInt("RomarkStartWithGraphicQualityLevel")
@@ -446,6 +445,8 @@ local function Initialize()
         else
           return 2
         end
+      else
+        return 2
       end
     end
 
@@ -535,7 +536,6 @@ local function Initialize()
     ------------------------------------------------------
     ------------------
     ------------------ Camera Mode -----------------------
-    local enumItems = {}
 
     function setCameraModeVisible(visible)
       if this.CameraMode then
@@ -1076,7 +1076,7 @@ local function Initialize()
       local AdvancedMouseSteps = 10
       local textBoxWidth = 60
       local canSetSensitivity = true
-      local MouseAdvancedStart = tostring(GameSettings.MouseSensitivityFirstPerson.X)
+      local _MouseAdvancedStart = tostring(GameSettings.MouseSensitivityFirstPerson.X)
 
       this.MouseAdvancedFrame, this.MouseAdvancedLabel, this.MouseAdvancedEntry =
         utility:AddNewRow(this, "Camera Sensitivity", "Slider", AdvancedMouseSteps, startMouseLevel)

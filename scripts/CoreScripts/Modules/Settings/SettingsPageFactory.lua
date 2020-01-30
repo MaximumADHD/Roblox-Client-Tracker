@@ -7,7 +7,6 @@
 ----------------- SERVICES ------------------------------
 local GuiService = game:GetService("GuiService")
 local HttpService = game:GetService("HttpService")
-local UserInputService = game:GetService("UserInputService")
 
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
@@ -74,7 +73,7 @@ local function Initialize()
 		ImageTransparency = 0.5,
 		Parent = this.TabHeader
 	};
-	local iconAspectRatio = utility:Create'UIAspectRatioConstraint'
+	local _iconAspectRatio = utility:Create'UIAspectRatioConstraint'
 	{
 		Name = "AspectRatioConstraint",
 		AspectRatio = 1,
@@ -114,7 +113,7 @@ local function Initialize()
 		titleTextSizeConstraint.MaxTextSize = 48
 	end
 
-	local tabSelection = StyleWidgets.MakeTabSelectionWidget(this.TabHeader)
+	local _tabSelection = StyleWidgets.MakeTabSelectionWidget(this.TabHeader)
 	local titleScaleInitial = Vector2.new(title.Size.X.Scale, title.Size.Y.Scale)
 	local function onResized()
 		if not this.TabHeader then

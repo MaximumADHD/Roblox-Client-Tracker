@@ -1,4 +1,5 @@
 #version 110
+#extension GL_ARB_shader_texture_lod : require
 
 struct Globals
 {
@@ -47,8 +48,8 @@ uniform vec4 CB0[47];
 uniform sampler2D ShadowMapTexture;
 uniform sampler3D LightMapTexture;
 uniform sampler3D LightGridSkylightTexture;
+uniform samplerCube PrefilteredEnvTexture;
 uniform sampler2D DiffuseMapTexture;
-uniform samplerCube EnvironmentMapTexture;
 
 varying vec2 VARYING0;
 varying vec4 VARYING2;
@@ -69,16 +70,17 @@ void main()
     float f6 = f5.x;
     vec4 f7 = texture2D(ShadowMapTexture, VARYING7.xy);
     float f8 = (1.0 - ((step(f7.x, VARYING7.z) * clamp(CB0[24].z + (CB0[24].w * abs(VARYING7.z - 0.5)), 0.0, 1.0)) * f7.y)) * f5.y;
-    vec3 f9 = textureCube(EnvironmentMapTexture, reflect(-VARYING4.xyz, normalize(VARYING5.xyz))).xyz;
-    float f10 = clamp((CB0[13].x * length(VARYING4.xyz)) + CB0[13].y, 0.0, 1.0);
-    vec3 f11 = mix(CB0[14].xyz, sqrt(clamp((((min((f4.xyz * (f4.w * 120.0)).xyz + (CB0[8].xyz + (CB0[9].xyz * f6)), vec3(CB0[16].w)) + (VARYING6.xyz * f8)) * ((mix(vec3(1.0), (f9 * f9) * CB0[15].x, vec3(f6)) * VARYING7.w) + ((f0 * f0).xyz * (VARYING2.w - VARYING7.w))).xyz) + (CB0[10].xyz * (VARYING6.w * f8))).xyz * CB0[15].y, vec3(0.0), vec3(1.0))).xyz, vec3(f10));
-    vec4 f12 = vec4(f11.x, f11.y, f11.z, vec4(0.0).w);
-    f12.w = mix(1.0, VARYING2.w, f10);
-    gl_FragData[0] = f12;
+    vec3 f9 = reflect(-normalize(VARYING4.xyz), normalize(VARYING5.xyz));
+    float f10 = (VARYING7.w != 0.0) ? 0.0 : (max(VARYING5.w, 0.04500000178813934326171875) * 5.0);
+    float f11 = clamp((CB0[13].x * length(VARYING4.xyz)) + CB0[13].y, 0.0, 1.0);
+    vec3 f12 = mix(CB0[14].xyz, sqrt(clamp(((((VARYING6.xyz * f8) + min((f4.xyz * (f4.w * 120.0)).xyz + (CB0[8].xyz + (CB0[9].xyz * f6)), vec3(CB0[16].w))) * ((mix(vec3(1.0), textureCubeLod(PrefilteredEnvTexture, vec4(f9, f10).xyz, f10).xyz * mix(CB0[26].xyz, CB0[25].xyz, vec3(clamp(f9.y * 1.58823525905609130859375, 0.0, 1.0))), vec3(f6)) * VARYING7.w) + ((f0 * f0).xyz * (VARYING2.w - VARYING7.w)))) + (CB0[10].xyz * ((VARYING6.w * f8) * 0.100000001490116119384765625))).xyz * CB0[15].y, vec3(0.0), vec3(1.0))).xyz, vec3(f11));
+    vec4 f13 = vec4(f12.x, f12.y, f12.z, vec4(0.0).w);
+    f13.w = mix(1.0, VARYING2.w, f11);
+    gl_FragData[0] = f13;
 }
 
 //$$ShadowMapTexture=s1
 //$$LightMapTexture=s6
 //$$LightGridSkylightTexture=s7
+//$$PrefilteredEnvTexture=s15
 //$$DiffuseMapTexture=s3
-//$$EnvironmentMapTexture=s2

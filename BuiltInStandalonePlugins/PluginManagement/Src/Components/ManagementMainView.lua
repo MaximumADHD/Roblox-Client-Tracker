@@ -26,7 +26,7 @@ local LoadingIndicator = UILibrary.Component.LoadingIndicator
 
 local FFlagEnablePurchasePluginFromLua2 = game:GetFastFlag("EnablePurchasePluginFromLua2")
 local FFlagEnableStudioServiceOpenBrowser = game:GetFastFlag("EnableStudioServiceOpenBrowser")
-local FFlagPluginManagementAllowLotsOfPlugins = settings():GetFFlag("PluginManagementAllowLotsOfPlugins")
+local FFlagPluginManagementAllowLotsOfPlugins2 = settings():GetFFlag("PluginManagementAllowLotsOfPlugins2")
 local FFlagEnablePluginPermissionsPage = game:GetFastFlag("EnablePluginPermissionsPage")
 local FFlagFixFindPluginsMessage = game:DefineFastFlag("FixFindPluginsMessage", false)
 
@@ -292,7 +292,7 @@ function ManagementMainView:render()
 end
 
 ContextServices.mapToProps(ManagementMainView, {
-	Plugin = FFlagPluginManagementAllowLotsOfPlugins and ContextServices.Plugin,
+	Plugin = FFlagPluginManagementAllowLotsOfPlugins2 and ContextServices.Plugin or nil,
 	Localization = ContextServices.Localization,
 	Theme = ContextServices.Theme,
 	API = PluginAPI2,
@@ -311,7 +311,7 @@ local function mapDispatchToProps(dispatch)
 		end,
 
 		dispatchRefreshPlugins = function(apiImpl)
-			if FFlagPluginManagementAllowLotsOfPlugins then
+			if FFlagPluginManagementAllowLotsOfPlugins2 then
 				dispatch(RefreshPlugins(apiImpl, MarketplaceService))
 			else
 				dispatch(RefreshPlugins(apiImpl))

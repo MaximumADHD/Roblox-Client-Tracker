@@ -1,8 +1,5 @@
 #version 150
 
-const vec3 v0[16] = vec3[](vec3(0.0, 0.0, 1.0), vec3(1.0, 0.0, 0.0), vec3(1.0, 0.0, 0.0), vec3(0.0, 0.0, 1.0), vec3(1.0, 0.0, 0.0), vec3(1.0, 0.0, 0.0), vec3(1.0, 0.0, 0.0), vec3(1.0, 0.0, 0.0), vec3(0.0, 0.0, 1.0), vec3(0.0), vec3(1.0, 0.0, 0.0), vec3(0.0, 1.0, 0.0), vec3(0.0, 1.0, 0.0), vec3(1.0, 0.0, 0.0), vec3(0.0, 1.0, 0.0), vec3(0.0, 1.0, 0.0));
-const vec3 v1[16] = vec3[](vec3(0.0, 1.0, 0.0), vec3(0.0, 0.0, 1.0), vec3(0.0, 1.0, 0.0), vec3(0.0, 1.0, 0.0), vec3(0.0, 0.0, 1.0), vec3(0.0, 1.0, 0.0), vec3(0.0, 0.699999988079071044921875, 0.699999988079071044921875), vec3(0.0, 0.699999988079071044921875, 0.699999988079071044921875), vec3(0.699999988079071044921875, 0.699999988079071044921875, 0.0), vec3(0.0), vec3(0.0, 0.0, 1.0), vec3(0.0, 0.0, 1.0), vec3(1.0, 0.0, 0.0), vec3(0.0, 0.0, 1.0), vec3(0.0, 0.0, -1.0), vec3(0.0, 0.0, 1.0));
-
 struct Globals
 {
     mat4 ViewProjection;
@@ -57,6 +54,9 @@ struct Instance
     vec4 uvOffset;
 };
 
+const vec3 v0[16] = vec3[](vec3(0.0, 0.0, 1.0), vec3(1.0, 0.0, 0.0), vec3(1.0, 0.0, 0.0), vec3(0.0, 0.0, 1.0), vec3(1.0, 0.0, 0.0), vec3(1.0, 0.0, 0.0), vec3(1.0, 0.0, 0.0), vec3(1.0, 0.0, 0.0), vec3(0.0, 0.0, 1.0), vec3(0.0), vec3(1.0, 0.0, 0.0), vec3(0.0, 1.0, 0.0), vec3(0.0, 1.0, 0.0), vec3(1.0, 0.0, 0.0), vec3(0.0, 1.0, 0.0), vec3(0.0, 1.0, 0.0));
+const vec3 v1[16] = vec3[](vec3(0.0, 1.0, 0.0), vec3(0.0, 0.0, 1.0), vec3(0.0, 1.0, 0.0), vec3(0.0, 1.0, 0.0), vec3(0.0, 0.0, 1.0), vec3(0.0, 1.0, 0.0), vec3(0.0, 0.699999988079071044921875, 0.699999988079071044921875), vec3(0.0, 0.699999988079071044921875, 0.699999988079071044921875), vec3(0.699999988079071044921875, 0.699999988079071044921875, 0.0), vec3(0.0), vec3(0.0, 0.0, 1.0), vec3(0.0, 0.0, 1.0), vec3(1.0, 0.0, 0.0), vec3(0.0, 0.0, 1.0), vec3(0.0, 0.0, -1.0), vec3(0.0, 0.0, 1.0));
+
 uniform vec4 CB0[47];
 uniform vec4 CB1[511];
 in vec4 POSITION;
@@ -105,21 +105,25 @@ void main()
     vec4 v24 = vec4(v21, v23.w);
     float v25 = v18.w * 2.0;
     float v26 = clamp(v25 - 1.0, 0.0, 1.0);
-    float v27 = clamp(v25, 0.0, 1.0);
-    float v28 = (clamp(2.0 - (dot(v13, normalize(v24.xyz)) * 3.0), 0.0, 1.0) * 0.300000011920928955078125) * v27;
-    vec4 v29 = v18;
-    v29.w = mix(v26, 1.0, v28);
-    vec4 v30 = vec4(dot(CB0[20], v22), dot(CB0[21], v22), dot(CB0[22], v22), 0.0);
-    v30.w = mix((CB1[gl_InstanceID * 7 + 5].w * 0.0039215688593685626983642578125) * v26, 1.0, v28);
+    float v27 = (clamp(2.0 - (dot(v13, normalize(v24.xyz)) * 3.0), 0.0, 1.0) * 0.300000011920928955078125) * clamp(v25, 0.0, 1.0);
+    vec4 v28 = v18;
+    v28.w = mix(v26, 1.0, v27);
+    vec4 v29 = vec4(dot(CB0[20], v22), dot(CB0[21], v22), dot(CB0[22], v22), 0.0);
+    v29.w = mix(CB1[gl_InstanceID * 7 + 5].w * v26, 1.0, v27);
+    float v30 = CB1[gl_InstanceID * 7 + 6].z * 0.50359570980072021484375;
+    float v31 = clamp(v20, 0.0, 1.0);
+    vec3 v32 = (CB0[10].xyz * v31) + (CB0[12].xyz * clamp(-v20, 0.0, 1.0));
+    vec4 v33 = vec4(v32.x, v32.y, v32.z, vec4(0.0).w);
+    v33.w = (v31 * CB0[23].w) * (CB1[gl_InstanceID * 7 + 6].z * exp2((v30 * dot(v13, normalize(v19 + normalize(v21)))) - v30));
     gl_Position = v23;
     VARYING0 = (TEXCOORD0.xy * v15) + CB1[gl_InstanceID * 7 + 6].xy;
     VARYING1 = TEXCOORD0.zw * v17;
-    VARYING2 = v29;
+    VARYING2 = v28;
     VARYING3 = ((v9 + (v13 * 6.0)).yxz * CB0[16].xyz) + CB0[17].xyz;
     VARYING4 = v24;
     VARYING5 = vec4(v10, v11, v12, CB1[gl_InstanceID * 7 + 6].w);
-    VARYING6 = vec4((CB0[10].xyz * max(v20, 0.0)) + (CB0[12].xyz * max(-v20, 0.0)), (((float(v20 > 0.0) * pow(clamp(dot(v13, normalize(v19 + normalize(v21))), 0.0, 1.0), CB1[gl_InstanceID * 7 + 6].w)) * v27) * (CB1[gl_InstanceID * 7 + 6].z * 0.0039215688593685626983642578125)) * CB0[23].w);
-    VARYING7 = v30;
+    VARYING6 = v33;
+    VARYING7 = v29;
     VARYING8 = TEXCOORD2.w - 1.0;
 }
 

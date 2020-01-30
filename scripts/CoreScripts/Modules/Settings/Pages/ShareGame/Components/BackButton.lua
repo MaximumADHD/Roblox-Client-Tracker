@@ -72,6 +72,7 @@ if FFlagLuaInviteModalEnabled then
 				iconSpriteFrame = iconSpriteFrame,
 			})
 		end
+		return
 	end
 end
 

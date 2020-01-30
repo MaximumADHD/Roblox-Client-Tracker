@@ -16,7 +16,7 @@ local function multigetPluginInfoRequest(apiImpl, marketplaceService, assetIds, 
 		if #assetIds > MAX_IDS_PER_REQUESTS then
 			local extraIds = {}
 			for i = #assetIds, MAX_IDS_PER_REQUESTS, -1 do
-				table.insert(extraIds, i)
+				table.insert(extraIds, assetIds[i])
 				table.remove(assetIds, i)
 
 				if #extraIds == MAX_IDS_PER_REQUESTS then

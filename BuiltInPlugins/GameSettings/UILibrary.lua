@@ -14,6 +14,7 @@ local DragTarget = require(Components.DragTarget)
 local DropdownMenu = require(Components.DropdownMenu)
 local DropShadow = require(Components.DropShadow)
 local ExpandableList = require(Components.ExpandableList)
+local Favorites = require(Components.Preview.Favorites)
 local ImagePreview = require(Components.Preview.ImagePreview)
 local Keyframe = require(Components.Timeline.Keyframe)
 local InfiniteScrollingFrame = require(Components.InfiniteScrollingFrame)
@@ -39,6 +40,7 @@ local Vote = require(Components.Preview.Vote)
 local Spritesheet = require(Utils.Spritesheet)
 local LayoutOrderIterator = require(Utils.LayoutOrderIterator)
 local GetClassIcon = require(Utils.GetClassIcon)
+local InsertAsset = require(Utils.InsertAsset)
 
 local Focus = require(Src.Focus)
 
@@ -54,6 +56,7 @@ local UILibrary = {
 		DropdownMenu = DropdownMenu,
 		DropShadow = DropShadow,
 		ExpandableList = ExpandableList,
+		Favorites = Favorites,
 		ImagePreview = ImagePreview,
 		InfiniteScrollingFrame = InfiniteScrollingFrame,
 		Keyframe = Keyframe,
@@ -98,6 +101,7 @@ local UILibrary = {
 		LayoutOrderIterator = LayoutOrderIterator,
 		deepJoin = deepJoin,
 		GetClassIcon = GetClassIcon,
+		InsertAsset = InsertAsset,
 	},
 
 	Plugin = require(Src.Plugin),

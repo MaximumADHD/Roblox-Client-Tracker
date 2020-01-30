@@ -1008,6 +1008,7 @@ Studio.App.PropertyEnum.VerySlow,,Very Slow,Very Slow
 Studio.App.PropertyEnum.Vulkan,,Vulkan,Vulkan
 Studio.App.PropertyItems.DefaultTheme,,Default,Default
 Studio.App.PropertyItems.InvertMeshFaces,,The mesh you are importing contains odd number negative scales. Would you like to invert mesh faces?,The mesh you are importing contains odd number negative scales. Would you like to invert mesh faces?
+Studio.App.PropertyItems.LoadStringEnbledWarning,,Activating the <b>%1</b> property might make your game vulnerable to exploits. Are you sure you want to enable this?,Activating the <b>%1</b> property might make your game vulnerable to exploits. Are you sure you want to enable this?
 Studio.App.PropertyItems.MoveTheMesh,,Your mesh contains location data. Would you like to move your mesh to the given location?,Your mesh contains location data. Would you like to move your mesh to the given location?
 Studio.App.PropertyItems.NotAValidLocation1,,"""%1"" is not a valid content location.
 Please enter an asset ID or a correctly formatted asset url.","""%1"" is not a valid content location.

@@ -123,7 +123,7 @@ void main()
     float f31 = max(f19.w - (f30 * f30), f26.y);
     float f32 = f24 - f30;
     float f33 = (dot(normalize(VARYING5.xyz), -CB0[11].xyz) > 0.0) ? mix(f14, mix(min((f23 <= f27) ? 1.0 : clamp(((f28 / (f28 + (f29 * f29))) - 0.20000000298023223876953125) * 1.25, 0.0, 1.0), (f24 <= f30) ? 1.0 : clamp(((f31 / (f31 + (f32 * f32))) - 0.20000000298023223876953125) * 1.25, 0.0, 1.0)), f14, clamp((length(VARYING7.xyz - CB0[7].xyz) * CB0[45].y) - (CB0[45].x * CB0[45].y), 0.0, 1.0)), CB0[46].x) : 0.0;
-    vec3 f34 = ((min((f12.xyz * (f12.w * 120.0)).xyz + (CB0[8].xyz + (CB0[9].xyz * f13.x)), vec3(CB0[16].w)) + (VARYING6.xyz * f33)) * (f8 * f8).xyz) + (CB0[10].xyz * (VARYING6.w * f33));
+    vec3 f34 = (((VARYING6.xyz * f33) + min((f12.xyz * (f12.w * 120.0)).xyz + (CB0[8].xyz + (CB0[9].xyz * f13.x)), vec3(CB0[16].w))) * (f8 * f8).xyz) + (CB0[10].xyz * ((VARYING6.w * f33) * 0.100000001490116119384765625));
     vec4 f35 = vec4(f34.x, f34.y, f34.z, vec4(0.0).w);
     f35.w = f7.w;
     vec3 f36 = mix(CB0[14].xyz, sqrt(clamp(f35.xyz * CB0[15].y, vec3(0.0), vec3(1.0))).xyz, vec3(clamp((CB0[13].x * length(VARYING4.xyz)) + CB0[13].y, 0.0, 1.0)));
