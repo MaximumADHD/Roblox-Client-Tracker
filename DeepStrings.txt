@@ -3710,6 +3710,7 @@ BC0DB1AAF011E38B9D871882A8E559
 BC0DB2AAF011E38B9D871882A8E559
 BC0DB5AAF011E38B9D871882A8E559
 BC0DB6AAF011E38B9D871882A8E559
+Bc21cGWmw8g23C2j
 BC32CAAED11E38B9D871882A8E559
 BC32DAAED11E38B9D871882A8E559
 BC330AAED11E38B9D871882A8E559
@@ -3718,7 +3719,6 @@ BC334AAED11E38B9D871882A8E559
 BC3A91111E2B410EF351327957B
 BC4A91111E2B410EF351327957B
 BC753F42475
-BcADDYh5FicIfuGUb69FWOUqsWff1czPNolFKtgT5lY7v9K9LVpVuEwNPrO4rt
 BCBSBUB[BaBsB
 BCFB47F7B1F11E4A86BBBBE005A3BAD
 BCFB4807B1F11E4A86BBBBE005A3BAD
@@ -4161,7 +4161,7 @@ BytesReceivedAndIgnoredPerSec
 BytesReceivedPerSec
 BytesRecvAndIgnored
 BytesWritten
-ByVersion_0.418.0.379260
+ByVersion_0.418.0.379407
 ByVersionForPlatform_
 C_specific_handler
 CA_NPEAVQObject
@@ -5282,7 +5282,6 @@ Cnd_do_broadcast_at_thread_exit
 Cnd_init_in_situ
 Cnd_signal
 Cnd_timedwait
-CngnqZXDrR
 CoAddRefServerProcess
 Cobblestone
 CoCreateGuid
@@ -7577,7 +7576,6 @@ EAEIESEUEaEwE
 EagerBulkExecution
 EarAccessory
 EARLY_EXPORTER_SECRET
-EAsGVRlXn7Al1uIoWIxC9XOBCfP8vbePh7x0WoSpJNE
 Easing.InOutQuad
 EasingCurve
 EasingDirection
@@ -9043,7 +9041,6 @@ FrontSurface
 FrontSurfaceInput
 FrustumOrdered
 FrustumRenderQueue
-FsVSlNP1z42MJcH3KcJ
 FullRenderObjects
 Fullscreen
 FullScreen
@@ -9064,7 +9061,6 @@ FXCompositingFS
 FXCompositingLinearFS
 FXComposition
 FxI9Fpu5E2
-FxVpQQHRSbdBPniFr5OaTYUdq2KbXwSZuwzMUJB
 GainMakeup
 GameAbsenceInWeb.
 GameAction
@@ -11206,7 +11202,7 @@ IPluginElementHost
 IPTypeAndDataCenter
 IPublishedGamesStore
 IPV6RobloxStudioCleanUp
-IQ1l1gmYeU9fUjCCpt9Bj0SFGCp9z2tKobJQ
+Iqkc7n5iTnX
 IRobloxDoc
 Is30FpsThrottleEnabled
 IsActivated
@@ -11347,7 +11343,6 @@ ItemWidget
 Iterations
 ITRedirect
 IUserDataStoreServiceBase
-IvMfOo1OnS9cZbgNImL9brgNhDabdwpUfhX
 IVRApplications_006
 IVRChaperone_003
 IVRChaperoneSetup_005
@@ -11362,6 +11357,7 @@ IVRScreenshots_001
 IVRSettings_002
 IVRSystem_017
 IVRTrackedCamera_003
+IVYuZfgKe3HY1S3
 IWorldStage
 IXMLHTTPRequest2
 J_Key_dn.png
@@ -11520,7 +11516,6 @@ KickByDatacenter_
 KiDszBCYB0gyp03Pc
 KillPtClicked
 KillSurfaceJointsPart1
-KLobeq5k4jvgSL3hcEqGihaaHOMrYUirC
 KnownHeaders
 KodchiangUPC
 KPEIBX_K_KPEIAU_iobuf
@@ -11584,7 +11579,6 @@ LayoutNode
 LayoutOrder
 LazySubmitTask
 LC_MESSAGES
-LCM46dbWgklTC45r1wvyB
 LCMapStringW
 LDLAkisMethodEnabled
 LDLBuildProgramTimeReportEnabled
@@ -12190,6 +12184,8 @@ LuauWarnOnUtf8
 LuauWatchdog
 LuaWebService
 LVvuOx39]O
+LVW9vCoYe1d1AEDTYtz
+LZP3IUuVtBZUF8ruOQqlWzMEOWm3nz5j
 M_NVWeakFunctionRef
 MachineAddress
 MachineConfig
@@ -12224,6 +12220,7 @@ ManualFocusReleaseDisablesSinking
 ManualGlue
 ManualSurfaceJointInstance
 ManualWeld
+MaoneovLRlOKTPSs
 MapBufferRange
 MapMouseButton
 MappingScheme
@@ -12807,7 +12804,7 @@ MigrateTriangleMeshData3
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsI9zRp2OSccqdFx2
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAupANB3EbN9hFHHUj0eA
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzjPRQo9jc
-MIICCgKCAgEAqYw
+MIICCgKCAgEAur5w16HTAb0qglJFyIdMMzeb406ExrwimRHyAMdAyC3c0DOdwNFD
 MillisecondsBeforeHandlingReconnect
 MimeDataFromSelection
 MinDelta[nLog]
@@ -12844,7 +12841,6 @@ MirrorMode
 Miscellaneous
 Mismatched
 MissingDumpFile
-MLGqyREHG2
 MMW4IkDragCollisionsMode
 MMW4PartMaterial
 MMW4UserInputState
@@ -13043,7 +13039,6 @@ MpsRateLimitDuration
 MQDateTime
 MQListWidgetItem
 MQModelIndex
-MQRD4odRD58U4bi7G4cVbWgI5JhdXyA4YBvnLkcw2Ed3WjDxvvl
 MQStandardItem
 MQTableWidgetItem
 MQTreeWidgetItem
@@ -13419,7 +13414,6 @@ NotSupported
 NP6A_NAEBVQString
 NP6A_NPEAV
 NP6A_NPEAVInstance
-NpatFVynbCOPFS0gN
 NPCsAction
 NPCUnequipTools
 NPEAVInstance
@@ -13480,6 +13474,7 @@ NVWorkspace
 NW4FileSystemDir
 NW4PenStyle
 NW4UserInputType
+NXdKPKFdO1Y0b1HBat2L9d
 Oacutesmall
 OAEPEncryptionSET
 OAUTHBEARER
@@ -13870,6 +13865,7 @@ OverrideStarterScript
 OverrideToMyBranch
 OverwriteMode
 OwnProperty
+OyfMeOyh7xm0A9I3tGCUYwtEPZCbx9nXo0LfSzf7muaTf
 Ozs8xYCf2Q05p4gHyX
 PA^A]A\_^]
 PA^A]A\_^][
@@ -15704,6 +15700,8 @@ PVAdornment
 PVInstance
 PVK_header
 PyJlf7IHZQpFHohBe
+PyksFVIQX16HZQQqvC2UQiunRfbbuCRUtW4Tp7LLVsFmo1X6c5pPK5BvL4YSwyYI
+PYTw7p7HwkZmGEaiGspn3ZK4tOpWzEgjmVGoKM4aglqJHuI4f84s7bckfuflrV4
 QAbstractAnimation
 QAbstractButton
 QAbstractConcatenable
@@ -16414,6 +16412,7 @@ QueuePresentKHR
 QueueSubmit
 QueueUserAPC
 QueueWaitIdle
+Qui1tVXIcRbcD33wv22fHGhLsGddfDb
 Quick_Access_Button
 QuickAccess
 QuickAccess_
@@ -17542,6 +17541,8 @@ RigidBodyLazyUpdating
 RigidityEnabled
 RiseVelocity
 Rj0isQcnqX
+RjCCVLM4aHiKXifNaGRWOMNq2UylY3DZ1Zh3THNp22BRudUMJMCAwEAAQ
+Ro55FdSxI6S37OSbdex1uGZ3RdrXJmRluhTs0c9DADokxO3Lp0dGqGyJPZr3
 Roact.createElement
 RoactPurchasePromptAllowBundles
 ROBLOSECURITY
@@ -17857,7 +17858,6 @@ SAXPEAUData
 SAXPEAVQObject
 SAXPEAVQStyle
 SAXPEBDP6AXAEAVQDataStream
-SB82QCmHtURi
 ScaleButton.png
 ScaleButton_dn.png
 ScaleCompensation
@@ -19721,6 +19721,7 @@ Studio.App.LocalizationPlugin.CSVEmpty
 Studio.App.LocalizationPlugin.ErrorReading1Csv2
 Studio.App.LocalizationPlugin.ErrorWritingToFile1
 Studio.App.LocalizationPlugin.NoFileSelected
+Studio.App.LocalPlacePublishRequestMediator.ErrorWhileSaving1
 Studio.App.LocalPlacePublishRequestMediator.Saving
 Studio.App.LocalSaveHelper.DataModelError
 Studio.App.LocalSaveHelper.FailedToLock1
@@ -20753,6 +20754,7 @@ StudioBulkImportUploadRetry
 StudioBulkImportUploadSuccess
 StudioBulkImportUploadTrustLimitHIt
 StudioBulkImportUploadWarning
+StudioCatchUploadExceptionForAsync
 StudioCharacterLoadTime
 StudioChat
 StudioChatSessionHandlerCrashFix
@@ -21012,6 +21014,7 @@ StudioPublishPlace.End.Failure.PublishInProcess
 StudioPublishPlace.End.Failure.Total
 StudioPublishPlace.End.Failure.UnpublishedPackages
 StudioPublishPlace.End.Success
+StudioPublishPlace.PartOperations.Failure
 StudioPublishPlace.Start
 StudioPublishPlaceAs
 StudioPublishPlaceAs.End.Failure.AuthenticationError
@@ -21945,7 +21948,6 @@ TitleBarProgress
 TitlebarText
 TitleBarVisible
 TJNLerU][Wr
-TlPh52wq3rW8CAwEAAQ
 TLS_AES_128_CCM_8_SHA256
 TLS_AES_128_CCM_SHA256
 TLS_AES_128_GCM_SHA256
@@ -22415,7 +22417,6 @@ TrimCommandPoolKHR
 TripletColor
 Troubleshooting
 TrowelTexture.png
-Trp0IdesPMQir0ztb53l70mVXK8SFGDcWUKoHQtYZwpUCKvdUJi9sWLvWP
 TrueTypeFont
 TRUEVISION
 TrussCFrame
@@ -22457,6 +22458,7 @@ TS_TST_INFO_set_serial
 TS_TST_INFO_set_time
 TS_TST_INFO_set_tsa
 TS_VERIFY_CTX_new
+TSjnEZ2E4dIKpdN2xE1G22ZLVVbW
 TSMk2ThrottleStreamJob
 TTUUEDDsss
 TurboBuildersClub
@@ -22497,6 +22499,7 @@ TwoStepVerificationWidgetShown
 TxtArray.length
 TxtArray[j]
 TXtComment
+TYaO1RLztYQ
 TypeArray.length
 TypeArray.push
 TypeArray[glob
@@ -23762,7 +23765,6 @@ VikingHelmet.mesh
 VImageHandleAdornment
 VImageLabel
 VImageResourceController
-ViMRuT6pKkp
 VIndexBufferD3D9
 VInletTool
 VInputObject
@@ -24189,7 +24191,6 @@ VTweenBase
 VTweenInfo
 VTweenService
 VTypesetter
-VUeGKdnW94djck1uZCbPb
 VUGCValidationService
 VUIAspectRatioConstraint
 VUIComponent
@@ -24550,6 +24551,7 @@ WithSHA224
 WithSHA256
 WithSHA384
 WithSHA512
+Wk3TGygVlOTgVxoGwloAsEe
 WM_ATLGETCONTROL
 WM_ATLGETHOST
 WMCreateProfileManager
@@ -24615,8 +24617,6 @@ WSAStartup
 WSAStringToAddressW
 WTHelperGetProvSignerFromChain
 WTHelperProvDataFromStateData
-Ww5NH4UNgzds
-WyCiXURosqi6RVO
 X_JW4AssetType
 XA_A]A\_^[
 XA_A^_^[]H
@@ -24821,7 +24821,6 @@ YAXPEAXPEBX1
 YAXPEBVQObject
 YAXW4error_type
 Ycircumflex
-YCMC0XaWOVWZlitBj6xsXcmohc8DQLgeTxce
 Ydieresissmall
 YffYZefYDNNDCOO
 YieldEvent

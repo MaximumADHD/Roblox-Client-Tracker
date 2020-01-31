@@ -457,6 +457,7 @@ Studio.App.InsertServiceDialog.Done,,Done,Done
 Studio.App.InsertServiceDialog.InsertService,,Insert Service,Insert Service
 Studio.App.InstanceSelectionEditor.ClearValue,,Clear Value,Clear Value
 Studio.App.InstanceSelectionEditor.SelectValue,,Select Value,Select Value
+Studio.App.LocalPlacePublishRequestMediator.ErrorWhileSaving1,,Error while publishing: %1,Error while publishing: %1
 Studio.App.LocalPlacePublishRequestMediator.Saving,,saving,saving
 Studio.App.LocalSaveHelper.DataModelError,,Failed to save the DataModel.,Failed to save the DataModel.
 Studio.App.LocalSaveHelper.FailedToLock1,,"Failed to obtain a file lock on '%1'.
