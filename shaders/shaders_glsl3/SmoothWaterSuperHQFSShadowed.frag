@@ -65,7 +65,7 @@ uniform sampler2D NormalMap1Texture;
 uniform sampler2D NormalMap2Texture;
 uniform sampler2D GBufferDepthTexture;
 uniform sampler2D GBufferColorTexture;
-uniform samplerCube PrefilteredEnvTexture;
+uniform samplerCube EnvMapTexture;
 
 in vec4 VARYING0;
 in vec3 VARYING1;
@@ -143,39 +143,39 @@ void main()
     vec3 f56 = f55.xyz;
     vec3 f57 = reflect(-f39, f38);
     float f58 = VARYING8.w * 0.20000000298023223876953125;
-    vec4 f59 = vec4(f57, 0.0);
-    vec4 f60 = f59 * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
-    float f61 = f60.w;
-    vec2 f62 = (f60.xy * 0.5) + vec2(0.5 * f61);
-    vec4 f63 = vec4(f62.x, f62.y, f60.z, f60.w);
-    float f64 = 1.0 + clamp(0.0, VARYING8.w * (-0.20000000298023223876953125), f58);
-    vec4 f65 = VARYING8 + (f63 * f64);
-    float f66 = f65.w;
-    float f67 = f64 + clamp((texture(GBufferDepthTexture, f65.xy / vec2(f66)).x * 500.0) - f66, VARYING8.w * (-0.20000000298023223876953125), f58);
-    vec4 f68 = VARYING8 + (f63 * f67);
-    float f69 = f68.w;
-    float f70 = f67 + clamp((texture(GBufferDepthTexture, f68.xy / vec2(f69)).x * 500.0) - f69, VARYING8.w * (-0.20000000298023223876953125), f58);
-    vec4 f71 = VARYING8 + (f63 * f70);
-    float f72 = f71.w;
-    float f73 = f70 + clamp((texture(GBufferDepthTexture, f71.xy / vec2(f72)).x * 500.0) - f72, VARYING8.w * (-0.20000000298023223876953125), f58);
-    vec4 f74 = VARYING8 + (f63 * f73);
-    float f75 = f74.w;
-    float f76 = f73 + clamp((texture(GBufferDepthTexture, f74.xy / vec2(f75)).x * 500.0) - f75, VARYING8.w * (-0.20000000298023223876953125), f58);
-    vec4 f77 = VARYING8 + (f63 * f76);
-    float f78 = f77.w;
-    float f79 = f76 + clamp((texture(GBufferDepthTexture, f77.xy / vec2(f78)).x * 500.0) - f78, VARYING8.w * (-0.20000000298023223876953125), f58);
-    vec4 f80 = VARYING8 + (f63 * f79);
-    float f81 = f80.w;
-    float f82 = f79 + clamp((texture(GBufferDepthTexture, f80.xy / vec2(f81)).x * 500.0) - f81, VARYING8.w * (-0.20000000298023223876953125), f58);
-    vec4 f83 = VARYING8 + (f63 * f82);
-    float f84 = f83.w;
-    float f85 = f82 + clamp((texture(GBufferDepthTexture, f83.xy / vec2(f84)).x * 500.0) - f84, VARYING8.w * (-0.20000000298023223876953125), f58);
-    vec4 f86 = VARYING8 + (f63 * f85);
-    float f87 = f86.w;
-    vec4 f88 = VARYING8 + (f63 * f85);
-    float f89 = f88.w;
-    vec2 f90 = f88.xy / vec2(f89);
-    vec3 f91 = texture(GBufferColorTexture, f90).xyz;
+    vec4 f59 = vec4(f57, 0.0) * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
+    float f60 = f59.w;
+    vec2 f61 = (f59.xy * 0.5) + vec2(0.5 * f60);
+    vec4 f62 = vec4(f61.x, f61.y, f59.z, f59.w);
+    float f63 = 1.0 + clamp(0.0, VARYING8.w * (-0.20000000298023223876953125), f58);
+    vec4 f64 = VARYING8 + (f62 * f63);
+    float f65 = f64.w;
+    float f66 = f63 + clamp((texture(GBufferDepthTexture, f64.xy / vec2(f65)).x * 500.0) - f65, VARYING8.w * (-0.20000000298023223876953125), f58);
+    vec4 f67 = VARYING8 + (f62 * f66);
+    float f68 = f67.w;
+    float f69 = f66 + clamp((texture(GBufferDepthTexture, f67.xy / vec2(f68)).x * 500.0) - f68, VARYING8.w * (-0.20000000298023223876953125), f58);
+    vec4 f70 = VARYING8 + (f62 * f69);
+    float f71 = f70.w;
+    float f72 = f69 + clamp((texture(GBufferDepthTexture, f70.xy / vec2(f71)).x * 500.0) - f71, VARYING8.w * (-0.20000000298023223876953125), f58);
+    vec4 f73 = VARYING8 + (f62 * f72);
+    float f74 = f73.w;
+    float f75 = f72 + clamp((texture(GBufferDepthTexture, f73.xy / vec2(f74)).x * 500.0) - f74, VARYING8.w * (-0.20000000298023223876953125), f58);
+    vec4 f76 = VARYING8 + (f62 * f75);
+    float f77 = f76.w;
+    float f78 = f75 + clamp((texture(GBufferDepthTexture, f76.xy / vec2(f77)).x * 500.0) - f77, VARYING8.w * (-0.20000000298023223876953125), f58);
+    vec4 f79 = VARYING8 + (f62 * f78);
+    float f80 = f79.w;
+    float f81 = f78 + clamp((texture(GBufferDepthTexture, f79.xy / vec2(f80)).x * 500.0) - f80, VARYING8.w * (-0.20000000298023223876953125), f58);
+    vec4 f82 = VARYING8 + (f62 * f81);
+    float f83 = f82.w;
+    float f84 = f81 + clamp((texture(GBufferDepthTexture, f82.xy / vec2(f83)).x * 500.0) - f83, VARYING8.w * (-0.20000000298023223876953125), f58);
+    vec4 f85 = VARYING8 + (f62 * f84);
+    float f86 = f85.w;
+    vec4 f87 = VARYING8 + (f62 * f84);
+    float f88 = f87.w;
+    vec2 f89 = f87.xy / vec2(f88);
+    vec3 f90 = texture(EnvMapTexture, f57).xyz;
+    vec3 f91 = texture(GBufferColorTexture, f89).xyz;
     vec3 f92 = normalize(f1 + f39);
     float f93 = f34 * f34;
     float f94 = max(0.001000000047497451305389404296875, dot(f37, f92));
@@ -185,7 +185,7 @@ void main()
     float f98 = (f97 * f97) * f96;
     float f99 = f93 * f93;
     float f100 = (((f94 * f99) - f94) * f94) + 1.0;
-    vec3 f101 = mix(mix(((f56 * f56) * CB0[15].x).xyz, ((min(f7 + (CB0[27].xyz + (CB0[28].xyz * f8)), vec3(CB0[16].w)) + (((((((CB0[35].xyz * f44) + (CB0[37].xyz * f45)) + (CB0[39].xyz * f46)) + (CB0[36].xyz * f47)) + (CB0[38].xyz * f48)) + (CB0[40].xyz * f49)) + (((((((CB0[29].xyz * f44) + (CB0[31].xyz * f45)) + (CB0[33].xyz * f46)) + (CB0[30].xyz * f47)) + (CB0[32].xyz * f48)) + (CB0[34].xyz * f49)) * f8))) + (CB0[10].xyz * f28)) * CB3[1].xyz, vec3(clamp(clamp(((f55.w - VARYING8.w) * CB3[2].x) + CB3[2].y, 0.0, 1.0) + clamp((VARYING8.w * 0.0040000001899898052215576171875) - 1.0, 0.0, 1.0), 0.0, 1.0))), mix((textureLod(PrefilteredEnvTexture, f59.xyz, 0.0).xyz * mix(CB0[26].xyz, CB0[25].xyz, vec3(clamp(f57.y * 1.58823525905609130859375, 0.0, 1.0)))) * f8, (f91 * f91) * CB0[15].x, vec3((((float(abs(f90.x - 0.5) < 0.550000011920928955078125) * float(abs(f90.y - 0.5) < 0.5)) * clamp(3.900000095367431640625 - (max(VARYING8.w, f89) * 0.008000000379979610443115234375), 0.0, 1.0)) * float(abs((texture(GBufferDepthTexture, f86.xy / vec2(f87)).x * 500.0) - f87) < 10.0)) * float(f61 > 0.0))) + (f7 * 0.100000001490116119384765625), vec3(((clamp(0.7799999713897705078125 - (2.5 * abs(dot(f38, f39))), 0.0, 1.0) + 0.300000011920928955078125) * VARYING0.w) * CB3[2].z)) + ((((((vec3(f98) + (vec3(0.0199999995529651641845703125) * (1.0 - f98))) * ((f99 + (f99 * f99)) / (((f100 * f100) * ((f95 * 3.0) + 0.5)) * ((f94 * 0.75) + 0.25)))) * CB0[10].xyz) * clamp(dot(f37, f1), 0.0, 1.0)) * f28) * clamp(1.0 - (VARYING7.w * CB0[23].y), 0.0, 1.0));
+    vec3 f101 = mix(mix(((f56 * f56) * CB0[15].x).xyz, ((min(f7 + (CB0[27].xyz + (CB0[28].xyz * f8)), vec3(CB0[16].w)) + (((((((CB0[35].xyz * f44) + (CB0[37].xyz * f45)) + (CB0[39].xyz * f46)) + (CB0[36].xyz * f47)) + (CB0[38].xyz * f48)) + (CB0[40].xyz * f49)) + (((((((CB0[29].xyz * f44) + (CB0[31].xyz * f45)) + (CB0[33].xyz * f46)) + (CB0[30].xyz * f47)) + (CB0[32].xyz * f48)) + (CB0[34].xyz * f49)) * f8))) + (CB0[10].xyz * f28)) * CB3[1].xyz, vec3(clamp(clamp(((f55.w - VARYING8.w) * CB3[2].x) + CB3[2].y, 0.0, 1.0) + clamp((VARYING8.w * 0.0040000001899898052215576171875) - 1.0, 0.0, 1.0), 0.0, 1.0))), mix(((f90 * f90) * CB0[15].x) * f8, (f91 * f91) * CB0[15].x, vec3((((float(abs(f89.x - 0.5) < 0.550000011920928955078125) * float(abs(f89.y - 0.5) < 0.5)) * clamp(3.900000095367431640625 - (max(VARYING8.w, f88) * 0.008000000379979610443115234375), 0.0, 1.0)) * float(abs((texture(GBufferDepthTexture, f85.xy / vec2(f86)).x * 500.0) - f86) < 10.0)) * float(f60 > 0.0))) + (f7 * 0.100000001490116119384765625), vec3(((clamp(0.7799999713897705078125 - (2.5 * abs(dot(f38, f39))), 0.0, 1.0) + 0.300000011920928955078125) * VARYING0.w) * CB3[2].z)) + ((((((vec3(f98) + (vec3(0.0199999995529651641845703125) * (1.0 - f98))) * ((f99 + (f99 * f99)) / (((f100 * f100) * ((f95 * 3.0) + 0.5)) * ((f94 * 0.75) + 0.25)))) * CB0[10].xyz) * clamp(dot(f37, f1), 0.0, 1.0)) * f28) * clamp(1.0 - (VARYING7.w * CB0[23].y), 0.0, 1.0));
     vec4 f102 = vec4(f101.x, f101.y, f101.z, vec4(0.0).w);
     f102.w = 1.0;
     vec3 f103 = mix(CB0[14].xyz, sqrt(clamp(f102.xyz * CB0[15].y, vec3(0.0), vec3(1.0))).xyz, vec3(clamp(VARYING6.w, 0.0, 1.0)));
@@ -199,4 +199,4 @@ void main()
 //$$NormalMap2Texture=s2
 //$$GBufferDepthTexture=s5
 //$$GBufferColorTexture=s4
-//$$PrefilteredEnvTexture=s15
+//$$EnvMapTexture=s3

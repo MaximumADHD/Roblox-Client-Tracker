@@ -379,7 +379,6 @@ AfterRequested
 AfterSeconds
 AfterUpdateContentFromSource
 AgainstLatestPackageAction
-AGDeMOPHGQXCNVjD5iMItyQYlza
 Age13OrOver
 AgeBracket
 AgentCanJump
@@ -3719,6 +3718,7 @@ BC334AAED11E38B9D871882A8E559
 BC3A91111E2B410EF351327957B
 BC4A91111E2B410EF351327957B
 BC753F42475
+BcADDYh5FicIfuGUb69FWOUqsWff1czPNolFKtgT5lY7v9K9LVpVuEwNPrO4rt
 BCBSBUB[BaBsB
 BCFB47F7B1F11E4A86BBBBE005A3BAD
 BCFB4807B1F11E4A86BBBBE005A3BAD
@@ -4161,7 +4161,7 @@ BytesReceivedAndIgnoredPerSec
 BytesReceivedPerSec
 BytesRecvAndIgnored
 BytesWritten
-ByVersion_0.418.0.378913
+ByVersion_0.418.0.379260
 ByVersionForPlatform_
 C_specific_handler
 CA_NPEAVQObject
@@ -5282,6 +5282,7 @@ Cnd_do_broadcast_at_thread_exit
 Cnd_init_in_situ
 Cnd_signal
 Cnd_timedwait
+CngnqZXDrR
 CoAddRefServerProcess
 Cobblestone
 CoCreateGuid
@@ -7304,7 +7305,6 @@ DKECCAK1600_ASM
 DlcVersion
 DListenerAttributes
 DMinMaxDistance
-DNp26AsuwdzSH3YkadWrCuDCFVuS7ldpUSk8EIKrUpHla
 DnsResolve
 DocChanged
 DocDockManager
@@ -7523,7 +7523,6 @@ DVPAES_ASM
 DWebBrowserEvents2
 DwmSetWindowAttribute
 DX25519_ASM
-Dx82EVAFRq1ai1XSUYGDwAo73
 DXCloseDeviceNV
 DXLockObjectsNV
 DXObjectAccessNV
@@ -7578,6 +7577,7 @@ EAEIESEUEaEwE
 EagerBulkExecution
 EarAccessory
 EARLY_EXPORTER_SECRET
+EAsGVRlXn7Al1uIoWIxC9XOBCfP8vbePh7x0WoSpJNE
 Easing.InOutQuad
 EasingCurve
 EasingDirection
@@ -9043,6 +9043,7 @@ FrontSurface
 FrontSurfaceInput
 FrustumOrdered
 FrustumRenderQueue
+FsVSlNP1z42MJcH3KcJ
 FullRenderObjects
 Fullscreen
 FullScreen
@@ -9063,6 +9064,7 @@ FXCompositingFS
 FXCompositingLinearFS
 FXComposition
 FxI9Fpu5E2
+FxVpQQHRSbdBPniFr5OaTYUdq2KbXwSZuwzMUJB
 GainMakeup
 GameAbsenceInWeb.
 GameAction
@@ -9987,7 +9989,6 @@ Glsles3Mediump1
 Glsles3MediumpNoHQ1
 GlslesMediump1
 GlueCursor
-GnohsHbyZ8wJI
 GoldenHashes
 GoodbyeChoiceActive
 GoodbyeChoiceActiveProperty
@@ -11205,6 +11206,7 @@ IPluginElementHost
 IPTypeAndDataCenter
 IPublishedGamesStore
 IPV6RobloxStudioCleanUp
+IQ1l1gmYeU9fUjCCpt9Bj0SFGCp9z2tKobJQ
 IRobloxDoc
 Is30FpsThrottleEnabled
 IsActivated
@@ -11345,7 +11347,7 @@ ItemWidget
 Iterations
 ITRedirect
 IUserDataStoreServiceBase
-IuyweBafaFUW
+IvMfOo1OnS9cZbgNImL9brgNhDabdwpUfhX
 IVRApplications_006
 IVRChaperone_003
 IVRChaperoneSetup_005
@@ -11360,7 +11362,6 @@ IVRScreenshots_001
 IVRSettings_002
 IVRSystem_017
 IVRTrackedCamera_003
-Iw6HuJ3kMCy5HN46tmkOxQx3uxxXI9zguFTEWyH3cLRTMmZV0NdBSFfc
 IWorldStage
 IXMLHTTPRequest2
 J_Key_dn.png
@@ -11519,12 +11520,12 @@ KickByDatacenter_
 KiDszBCYB0gyp03Pc
 KillPtClicked
 KillSurfaceJointsPart1
+KLobeq5k4jvgSL3hcEqGihaaHOMrYUirC
 KnownHeaders
 KodchiangUPC
 KPEIBX_K_KPEIAU_iobuf
 KVScriptContext
 KYULPhCBFoD3mw5mygYqAeFlHdSL2k3MnDG
-KzLzPOwjIxFNNSIRd87nAvW2Unk
 LabelArray
 LabelArray.push
 LabelArray[globstart]
@@ -11583,6 +11584,7 @@ LayoutNode
 LayoutOrder
 LazySubmitTask
 LC_MESSAGES
+LCM46dbWgklTC45r1wvyB
 LCMapStringW
 LDLAkisMethodEnabled
 LDLBuildProgramTimeReportEnabled
@@ -12187,7 +12189,6 @@ LuauRecursionLimit
 LuauWarnOnUtf8
 LuauWatchdog
 LuaWebService
-LUPtpDDEJVrF1CBLr02f2f6TJssCAwEAAQ
 LVvuOx39]O
 M_NVWeakFunctionRef
 MachineAddress
@@ -12806,7 +12807,7 @@ MigrateTriangleMeshData3
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsI9zRp2OSccqdFx2
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAupANB3EbN9hFHHUj0eA
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzjPRQo9jc
-MIICCgKCAgEAx1wrpJ2mAoZcG
+MIICCgKCAgEAqYw
 MillisecondsBeforeHandlingReconnect
 MimeDataFromSelection
 MinDelta[nLog]
@@ -12843,6 +12844,7 @@ MirrorMode
 Miscellaneous
 Mismatched
 MissingDumpFile
+MLGqyREHG2
 MMW4IkDragCollisionsMode
 MMW4PartMaterial
 MMW4UserInputState
@@ -13041,6 +13043,7 @@ MpsRateLimitDuration
 MQDateTime
 MQListWidgetItem
 MQModelIndex
+MQRD4odRD58U4bi7G4cVbWgI5JhdXyA4YBvnLkcw2Ed3WjDxvvl
 MQStandardItem
 MQTableWidgetItem
 MQTreeWidgetItem
@@ -13337,7 +13340,6 @@ NextTabPage
 NfXf`fhfzf
 NHVVariant
 NinjaMask.mesh
-NLwcqijo4TNO2TGJs9rmuXA9HR
 NNW4SizeMode
 NoCacheForLocalContent
 NoCollisionConstraint
@@ -13414,10 +13416,10 @@ NotReplicated
 NotScriptable
 NotStartedYet
 NotSupported
-Np3B3pWINpaFfWmSB
 NP6A_NAEBVQString
 NP6A_NPEAV
 NP6A_NPEAVInstance
+NpatFVynbCOPFS0gN
 NPCsAction
 NPCUnequipTools
 NPEAVInstance
@@ -14844,7 +14846,6 @@ PersistentEditor
 PersistentFifoComboBox
 PerThreadTimer
 PerThreadTimerTotal
-PfkyhHBLOCsA61M0tbQ
 PGSAdaptiveCollisionMarginFixEnabled
 PGSAlign2AxesCorrectionDamping
 PGSAlign2AxesPStageFrictionConstant
@@ -15323,7 +15324,6 @@ PluginWidgetRelay
 PluginWidgetRelayForPluginGui
 PluginWriteTemp
 PlusButtonPressed
-PNk4p19VW6FJBnN8VepOWy8eOPZgAJ
 POINT_SIZE
 PointBalanceCacheInvalidateTimeMs
 PointDataChanged
@@ -16280,7 +16280,6 @@ QSizePolicy
 QSortFilterProxyModel
 QSpacerItem
 QSplashScreen
-Qsql6vi1NBK11xDizgjuA8Tvpx7SKn3d
 QSslConfiguration
 QSslSocket
 QStackedWidget
@@ -16597,7 +16596,6 @@ RAW_UNDERLINE_POSITION
 RAW_UNDERLINE_THICKNESS
 RAW_X_HEIGHT
 RawJoinData
-RbpCQqBfSVZt7P9Nr3iX85UOHmD0Ply4o19qLUGwaBalDZLv2cBnMmU
 RBX_CHECK_EQUAL
 RBX_CHECK_GE
 RBX_CHECK_GT
@@ -17859,6 +17857,7 @@ SAXPEAUData
 SAXPEAVQObject
 SAXPEAVQStyle
 SAXPEBDP6AXAEAVQDataStream
+SB82QCmHtURi
 ScaleButton.png
 ScaleButton_dn.png
 ScaleCompensation
@@ -21339,7 +21338,6 @@ SXNET_add_id_INTEGER
 SXNET_add_id_ulong
 SXNET_get_id_asc
 SXNET_get_id_ulong
-SXTbtJ77K1k5Goc1
 SymantecPKI
 SymbolicLink
 SymbolValue
@@ -21477,7 +21475,6 @@ TeamServerStatus
 TeamTestAction
 TeamTestDisconnect
 TeamTestGame
-TEAObbm9IiqSW49UDjh87v27mwUUJ1E4KH0Y4wqfFF64ZbmRbSTH
 Technologies
 Technology
 TelegrafAddress
@@ -21948,6 +21945,7 @@ TitleBarProgress
 TitlebarText
 TitleBarVisible
 TJNLerU][Wr
+TlPh52wq3rW8CAwEAAQ
 TLS_AES_128_CCM_8_SHA256
 TLS_AES_128_CCM_SHA256
 TLS_AES_128_GCM_SHA256
@@ -22417,6 +22415,7 @@ TrimCommandPoolKHR
 TripletColor
 Troubleshooting
 TrowelTexture.png
+Trp0IdesPMQir0ztb53l70mVXK8SFGDcWUKoHQtYZwpUCKvdUJi9sWLvWP
 TrueTypeFont
 TRUEVISION
 TrussCFrame
@@ -23763,6 +23762,7 @@ VikingHelmet.mesh
 VImageHandleAdornment
 VImageLabel
 VImageResourceController
+ViMRuT6pKkp
 VIndexBufferD3D9
 VInletTool
 VInputObject
@@ -23896,7 +23896,6 @@ VogpHgQ70F57MdFiBApyJwNSBk
 VoiceChatService
 VoidStoredMemberFunctionPointerCall2
 Vollbeding
-VoLUfPY3AjEmp
 VOnPublishDialogController
 VOrderedDataStore
 VOrientationConstraint
@@ -24190,6 +24189,7 @@ VTweenBase
 VTweenInfo
 VTweenService
 VTypesetter
+VUeGKdnW94djck1uZCbPb
 VUGCValidationService
 VUIAspectRatioConstraint
 VUIComponent
@@ -24615,6 +24615,8 @@ WSAStartup
 WSAStringToAddressW
 WTHelperGetProvSignerFromChain
 WTHelperProvDataFromStateData
+Ww5NH4UNgzds
+WyCiXURosqi6RVO
 X_JW4AssetType
 XA_A]A\_^[
 XA_A^_^[]H
@@ -24819,6 +24821,7 @@ YAXPEAXPEBX1
 YAXPEBVQObject
 YAXW4error_type
 Ycircumflex
+YCMC0XaWOVWZlitBj6xsXcmohc8DQLgeTxce
 Ydieresissmall
 YffYZefYDNNDCOO
 YieldEvent
@@ -24826,7 +24829,6 @@ YieldFuncDesc
 YieldFunction
 YQByteArray
 YResolution
-YRPk6szsVMWB
 YwBBvY55YvBBwY5
 Z_KPEIBX_K_KPEIAU1
 Zcaronsmall
@@ -24834,7 +24836,6 @@ Zdotaccent
 ZgnhKhWhci
 ZIndexBehavior
 ZLcJhLcGhM
-ZmwMj2sL6kZkeeHOk4WqJX
 ZNjlXiODrHUcaGRYt
 ZntaLkerGlryCnmrArbeHbarAcrySaahTaveDgneBuruGrjuGayrOlmaTuleTadnKmylMhniSiahTooaLtbiTrmyMroeGgnaHihtErehCsnaCmagOrnuRrmhKgnoMariHanaKopoBinaHiiiYlatIhtoGtrsDhniZglgTonaHdhuBbgaTbmiLelaTbniLragUwahSamsOtrpCiarBiguBtpoCulaTgalGgnfTolySoepXrahKilaBxusXxnhPgahPoo
 ZoomActive
