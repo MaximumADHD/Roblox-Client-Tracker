@@ -18,7 +18,6 @@ local function getTextScraperButtonIconAsset()
 		or "rbxasset://textures/localizationUIScrapingOff.png"
 end
 
-
 local function reportButtonPress(plugin, btnName, status)
 	local target = "studio"
 	local context = "localizationPlugin"
@@ -39,7 +38,7 @@ end
 local function createTextScraperPluginButtons(toolbar)
 	local captureButton = toolbar:CreateButton(
 		"Text Capture",
-		"Enable untranslated text capture",
+		"Start untranslated text capture",
 		getTextScraperButtonIconAsset()
 	)
 
@@ -62,8 +61,8 @@ local function createTextScraperPluginButtons(toolbar)
 	}
 end
 
-
-local function createTextScraperControlsEnabled(toolbar, plugin)
+-- deprecate with LocalizationToolsPluginV2Enabled
+local function createTextScraperControlsEnabled_deprecated(toolbar, plugin)
 	local buttons = createTextScraperPluginButtons(toolbar)
 
 	buttons.captureButton.Enabled = true
@@ -115,8 +114,8 @@ local function createTextScraperControlsEnabled(toolbar, plugin)
 	end)
 end
 
-
-local function createTextScraperControlsDisabled(toolbar)
+-- deprecate with LocalizationToolsPluginV2Enabled
+local function createTextScraperControlsDisabled_deprecated(toolbar)
 	local buttons = createTextScraperPluginButtons(toolbar)
 
 	buttons.captureButton.Enabled = false
@@ -294,12 +293,12 @@ return function(plugin, studioSettings)
 	local toolbar = plugin:CreateToolbar("Localization")
 	if IsEdit() then
 		if not LocalizationToolsPluginV2Enabled then
-			createTextScraperControlsEnabled(toolbar, plugin)
+			createTextScraperControlsEnabled_deprecated(toolbar, plugin)
 		end
 		createLocalizationToolsEnabled(toolbar, plugin, studioSettings)
 	else
 		if not LocalizationToolsPluginV2Enabled then
-			createTextScraperControlsDisabled(toolbar)
+			createTextScraperControlsDisabled_deprecated(toolbar)
 		end
 		createLocalizationToolsDisabled(toolbar)
 	end

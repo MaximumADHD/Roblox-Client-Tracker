@@ -15,6 +15,10 @@ local PolicyService = require(RobloxGui.Modules.Common.PolicyService)
 
 local fflagEnableErrorStringTesting = game:DefineFastFlag("EnableErrorStringTesting", false)
 
+-- After 2 hours, disable reconnect after the failure of first try
+local fflagDisableReconnectAfterPotentialTimeout = game:DefineFastFlag("DisableReconnectAfterPotentialTimeout", false)
+local fIntPotentialClientTimeout = game:DefineFastInt("PotentialClientTimeoutSeconds", 7200)
+
 local LEAVE_GAME_FRAME_WAITS = 2
 
 local function safeGetFInt(name, defaultValue)
@@ -35,6 +39,8 @@ local reconnectDisabled = settings():GetFFlag("ReconnectDisabled")
 local reconnectDisabledReason = safeGetFString("ReconnectDisabledReason", "We're sorry, Roblox is temporarily unavailable.  Please try again later.")
 
 local fflagChinaLicensingBuild = settings():GetFFlag("ChinaLicensingApp") --todo: remove with UsePolicyServiceForCoreScripts
+
+local lastErrorTimeStamp = tick()
 
 local coreScriptTableTranslator = CoreGui.CoreScriptLocalization:GetTranslator(LocalizationService.RobloxLocaleId)
 
@@ -315,6 +321,8 @@ local function stateTransit(errorType, errorCode, oldState)
 		if reconnectDisabled then
 			return ConnectionPromptState.RECONNECT_DISABLED
 		end
+		lastErrorTimeStamp = tick()
+
 		if errorType == Enum.ConnectionError.DisconnectErrors then
 			-- reconnection will be delayed after graceTimeout
 			graceTimeout = tick() + defaultTimeoutTime
@@ -341,7 +349,20 @@ local function stateTransit(errorType, errorCode, oldState)
 
 		-- if is reconnecting, then it is the reconnect failure
 		AnalyticsService:ReportCounter("ReconnectPrompt-ReconnectFailed")
+
 		if errorType == Enum.ConnectionError.TeleportErrors then
+
+			if fflagDisableReconnectAfterPotentialTimeout then
+				-- disable reconnect at second try after a long period of time since last error pops up.
+				if tick() > lastErrorTimeStamp + fIntPotentialClientTimeout then
+					if errorForReconnect == Enum.ConnectionError.PlacelaunchErrors then
+						return ConnectionPromptState.RECONNECT_DISABLED_PLACELAUNCH
+					else
+						return ConnectionPromptState.RECONNECT_DISABLED_DISCONNECT
+					end
+				end
+			end
+
 			if errorForReconnect == Enum.ConnectionError.PlacelaunchErrors then
 				return ConnectionPromptState.RECONNECT_PLACELAUNCH
 			elseif errorForReconnect == Enum.ConnectionError.DisconnectErrors then

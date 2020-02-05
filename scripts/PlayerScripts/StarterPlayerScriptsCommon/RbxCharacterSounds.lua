@@ -69,11 +69,6 @@ local function playSound(sound)
 	sound.Playing = true
 end
 
-local function stopSound(sound)
-	sound.Playing = false
-	sound.TimePosition = 0
-end
-
 local function shallowCopy(t)
 	local out = {}
 	for k, v in pairs(t) do
@@ -209,7 +204,6 @@ local function initializeSoundSystem(player, humanoid, rootPart)
 	}
 
 	local activeState = stateRemap[humanoid:GetState()] or humanoid:GetState()
-	local activeConnections = {}
 
 	local stateChangedConn = humanoid.StateChanged:Connect(function(_, state)
 		state = stateRemap[state] or state

@@ -4,7 +4,6 @@ local AppTempCommon = CorePackages.AppTempCommon
 
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 local Players = game:GetService("Players")
 
 local Roact = require(CorePackages.Roact)
@@ -19,22 +18,15 @@ local InviteUserIdToPlaceId = require(ShareGame.Thunks.InviteUserIdToPlaceId)
 local LoadingFriendsPage = require(ShareGame.Components.LoadingFriendsPage)
 local NoFriendsPage = require(ShareGame.Components.NoFriendsPage)
 
-local Promise = require(AppTempCommon.LuaApp.Promise)
-local ReceivedUserInviteStatus = require(ShareGame.Actions.ReceivedUserInviteStatus)
 local User = require(AppTempCommon.LuaApp.Models.User)
 local httpRequest = require(AppTempCommon.Temp.httpRequest)
 local memoize = require(AppTempCommon.Common.memoize)
 
-local ApiSendGameInvite = require(AppTempCommon.LuaApp.Thunks.ApiSendGameInvite)
-local ApiFetchPlaceInfos = require(AppTempCommon.LuaApp.Thunks.ApiFetchPlaceInfos)
 local RetrievalStatus = require(CorePackages.AppTempCommon.LuaApp.Enum.RetrievalStatus)
 
 local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabledV384")
-local FFlagLuaInviteGameMockTextLocalization = settings():GetFFlag("LuaInviteGameMockTextLocalization")
-if FFlagLuaInviteGameMockTextLocalization then
-	local getTranslator = require(ShareGame.getTranslator)
-	RobloxTranslator = getTranslator()
-end
+local getTranslator = require(ShareGame.getTranslator)
+local RobloxTranslator = getTranslator()
 
 local ENTRY_HEIGHT = 62
 local ENTRY_PADDING = 18
@@ -43,8 +35,6 @@ local NO_RESULTS_FONT = Enum.Font.SourceSans
 local NO_RESULTS_TEXTCOLOR = Constants.Color.GRAY3
 local NO_RESULTS_TEXTSIZE = 19
 local NO_RESULTS_TRANSPRENCY = 0.22
-
-local InviteStatus = Constants.InviteStatus
 
 local PRESENCE_WEIGHTS = {
 	[User.PresenceType.ONLINE] = 3,

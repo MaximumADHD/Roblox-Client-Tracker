@@ -15,7 +15,6 @@ local UserModel = require(CorePackages.AppTempCommon.LuaApp.Models.User)
 local UpdateUsers = require(CorePackages.AppTempCommon.LuaApp.Thunks.UpdateUsers)
 
 local LuaAppRemoveGetFriendshipCountApiCalls = settings():GetFFlag("LuaAppRemoveGetFriendshipCountApiCalls")
-local GetLuaAppUseNewAvatarThumbnailsApi = require(CorePackages.AppTempCommon.LuaApp.Flags.GetLuaAppUseNewAvatarThumbnailsApi)
 
 return function(requestImpl, userId, thumbnailRequest, checkPoints)
 	return function(store)
@@ -56,11 +55,7 @@ return function(requestImpl, userId, thumbnailRequest, checkPoints)
 				checkPoints:startFetchUsersPresences()
 			end
 			-- Asynchronously fetch friend thumbnails so we don't block display of UI
-			if GetLuaAppUseNewAvatarThumbnailsApi() then
-				store:dispatch(ApiFetchUsersThumbnail.Fetch(requestImpl, userIds, thumbnailRequest))
-			else
-				store:dispatch(ApiFetchUsersThumbnail(requestImpl, userIds, thumbnailRequest))
-			end
+			store:dispatch(ApiFetchUsersThumbnail.Fetch(requestImpl, userIds, thumbnailRequest))
 
 			return store:dispatch(ApiFetchUsersPresences(requestImpl, userIds))
 		end):andThen(

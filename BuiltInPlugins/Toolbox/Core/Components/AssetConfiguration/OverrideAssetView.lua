@@ -14,6 +14,7 @@
 ]]
 
 local FFlagToolboxUseInfinteScroller = game:DefineFastFlag("ToolboxUseInfiniteScroller", false)
+local FFlagEnableOverrideAssetCursorFix = game:GetFastFlag("EnableOverrideAssetCursorFix")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -80,7 +81,7 @@ function OverrideAssetView:init(props)
 	self.requestOverrideAsset = function()
 		props.getOverrideAssets(self.state.pageIndex)
 		self:setState({
-			pageIndex = pageIndex + 1,
+			pageIndex = (FFlagEnableOverrideAssetCursorFix and self.state.pageIndex or pageIndex) + 1,
 		})
 	end
 

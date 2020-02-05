@@ -13,14 +13,16 @@ local UILibrary =require(Libs.UILibrary)
 local ModelPreview = UILibrary.Component.ModelPreview
 local ImagePreview = UILibrary.Component.ImagePreview
 local ThumbnailIconPreview = UILibrary.Component.ThumbnailIconPreview
+local TreeViewButton =  UILibrary.Component.TreeViewButton
+local PreviewLoading = UILibrary.Component.PreviewLoading
 
 -- mwang, 1/16/2020, remove with FFlagStudioRefactorAssetPreview
 local Preview = Plugin.Core.Components.Asset.Preview
 local DEPRECATED_ModelPreview = require(Preview.ModelPreview)
 local DEPRECATED_ImagePreview = require(Preview.ImagePreview)
 local DEPRECATED_OtherPreview = require(Preview.OtherPreview)
-local MainViewButtons = require(Preview.MainViewButtons)
-local PreviewLoading = require(Preview.PreviewLoading)
+local DEPRECATED_MainViewButtons = require(Preview.MainViewButtons)
+local DEPRECATED_PreviewLoading = require(Preview.PreviewLoading)
 
 local Util = Plugin.Core.Util
 local Analytics = require(Util.Analytics.Analytics)
@@ -197,7 +199,9 @@ function PreviewController:render()
 
 			LayoutOrder = 1,
 		}, {
-			PreviewLoading = AssetType:isLoading(assetPreviewType) and Roact.createElement(PreviewLoading),
+			DEPRECATED_PreviewLoading = not FFlagStudioRefactorAssetPreview and AssetType:isLoading(assetPreviewType) and Roact.createElement(DEPRECATED_PreviewLoading),
+
+			PreviewLoading = FFlagStudioRefactorAssetPreview and AssetType:isLoading(assetPreviewType) and Roact.createElement(PreviewLoading),
 
 			DEPRECATED_ModelPreview = not FFlagStudioRefactorAssetPreview and AssetType:isModel(assetPreviewType) and Roact.createElement(DEPRECATED_ModelPreview, {
 				currentPreview = currentPreview,
@@ -242,18 +246,25 @@ function PreviewController:render()
 			-- Let the script and other share the same component for now
 			ThumbnailIconPreview = FFlagStudioRefactorAssetPreview and (AssetType:isScript(assetPreviewType) or AssetType:isOtherType(assetPreviewType)
 				or AssetType:isAudio(assetPreviewType)) and Roact.createElement(ThumbnailIconPreview, {
-
 				TargetInstance = currentPreview,
 				AssetId = assetId,
 				ElementName = currentPreview.Name,
 			}),
 
-			MainViewButtons = not AssetType:isPlugin(assetPreviewType) and Roact.createElement(MainViewButtons, {
+			DEPRECATED_MainViewButtons = not FFlagStudioRefactorAssetPreview and not AssetType:isPlugin(assetPreviewType) and Roact.createElement(DEPRECATED_MainViewButtons, {
 				position = UDim2.new(1, MAINVIEW_BUTTONS_X_OFFSET, 1, MAINVIEW_BUTTONS_Y_OFFSET),
 				ZIndex = 2,
 
 				showTreeView = state.showTreeView,
 				onTreeviewStatusToggle = self.onTreeviewStatusToggle,
+			}),
+
+			TreeViewButton = FFlagStudioRefactorAssetPreview and not AssetType:isPlugin(assetPreviewType) and Roact.createElement(TreeViewButton, {
+				Position = UDim2.new(1, MAINVIEW_BUTTONS_X_OFFSET, 1, MAINVIEW_BUTTONS_Y_OFFSET),
+				ZIndex = 2,
+
+				ShowTreeView = state.showTreeView,
+				OnTreeviewStatusToggle = self.onTreeviewStatusToggle,
 			})
 		}),
 

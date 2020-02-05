@@ -34,6 +34,7 @@ local SetGameStatText = require(PlayerList.Actions.SetGameStatText)
 local LeaderstatsConnector = Roact.PureComponent:extend("LeaderstatsConnector")
 
 local FFlagNewPlayerListFixBackpackMemoryLeak = game:DefineFastFlag("NewPlayerListFixBackpackMemoryLeak", false)
+local FFlagPlayerListMorePermissiveLeaderstatsCheck = game:DefineFastFlag("PlayerListMorePermissiveLeaderstatsCheck", false)
 
 local function isValidStat(obj)
 	return obj:IsA("StringValue") or obj:IsA("IntValue") or obj:IsA("BoolValue") or obj:IsA("NumberValue") or
@@ -151,8 +152,16 @@ function LeaderstatsConnector:leaderstatsAdded(player, leaderstats)
 end
 
 function LeaderstatsConnector:onPlayerChildAdded(player, child)
-	if not (child:IsA("ValueBase") or child:IsA("Folder")) then
-		return
+	if FFlagPlayerListMorePermissiveLeaderstatsCheck then
+		local isLeaderStats = child.Name == "leaderstats"
+		local isPossibleLeaderstats = child:IsA("ValueBase") or child:IsA("Folder") or child:IsA("Model")
+		if not (isLeaderStats or isPossibleLeaderstats) then
+			return
+		end
+	else
+		if not (child:IsA("ValueBase") or child:IsA("Folder")) then
+			return
+		end
 	end
 
 	local childChangedConn = child.Changed:Connect(function(property)

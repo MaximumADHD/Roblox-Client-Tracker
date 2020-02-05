@@ -1,11 +1,11 @@
 --[[
 	The main entry point for the Plugin Management window
-
 ]]
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local ManagementMainView = require(Plugin.Src.Components.ManagementMainView)
+local NavigationContainer = require(Plugin.Src.Components.Navigation.NavigationContainer)
 
 local ContextServices = require(Plugin.Packages.Framework.ContextServices)
 local UILibraryWrapper = require(Plugin.Packages.Framework.ContextServices.UILibraryWrapper)
@@ -20,13 +20,13 @@ local DockWidget = StudioUI.DockWidget
 local DevelopmentStringsTable = Plugin.Src.Resources.TranslationDevelopmentTable
 local TranslationStringsTable = Plugin.Src.Resources.TranslationReferenceTable
 
-
 local DOCKWIDGET_MIN_WIDTH = 600
 local DOCKWIDGET_MIN_HEIGHT = 180
 local DOCKWIDGET_INITIAL_WIDTH = 600
 local DOCKWIDGET_INITIAL_HEIGHT = 560
 
 local FFlagPluginManagementFixWhiteScreen = game:DefineFastFlag("PluginManagementFixWhiteScreen", false)
+local FFlagEnablePluginPermissionsPage = game:DefineFastFlag("EnablePluginPermissionsPage", false)
 
 local ManagementApp = Roact.PureComponent:extend("ManagementApp")
 
@@ -139,7 +139,8 @@ function ManagementApp:render()
 				UILibraryWrapper.new(),
 				ContextServices.Store.new(store),
 			}, {
-				MainView = Roact.createElement(ManagementMainView, { plugin = plugin }),
+				MainView = FFlagEnablePluginPermissionsPage and Roact.createElement(NavigationContainer)
+					or Roact.createElement(ManagementMainView, { plugin = plugin }),
 			}),
 		}),
 	})

@@ -44,11 +44,11 @@ local GetAssetConfigManageableGroupsRequest = require(Requests.GetAssetConfigMan
 local UpdateAssetConfigStore = require(Plugin.Core.Actions.UpdateAssetConfigStore)
 
 local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
+local FFlagEnableOverrideAssetCursorFix = game:GetFastFlag("EnableOverrideAssetCursorFix")
 
 local OverrideAsset = Roact.PureComponent:extend("OverrideAsset")
 
 local TITLE_HEIGHT = 30
-local ITEM_HEIGHT = 80
 
 function OverrideAsset:init(props)
 	self.dropdownContent = {
@@ -80,7 +80,7 @@ function OverrideAsset:init(props)
 	end
 
 	self.getOverrideAssetsFunc = function(targetPage)
-		local selectItem = self.state.selectItem
+		local selectItem = FFlagEnableOverrideAssetCursorFix and self.state.selectItem[1] or {}
 		self.props.getOverrideAssets(getNetwork(self), self.props.assetTypeEnum, selectItem.creatorType, selectItem.creatorId, targetPage)
 	end
 end

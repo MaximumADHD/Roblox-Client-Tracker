@@ -82,10 +82,6 @@ function clamp(low, high, input)
 	return math.max(low, math.min(high, input))
 end
 
-function ClampVector2(low, high, input)
-	return Vector2.new(clamp(low.x, high.x, input.x), clamp(low.y, high.y, input.y))
-end
-
 ---- TWEENZ ----
 local function Linear(t, b, c, d)
 	if t >= d then
@@ -252,91 +248,6 @@ local function usesSelectedObject()
 	return true
 end
 
-local function isPosOverGui(pos, gui, debug) -- does not account for rotation
-	local ax, ay = gui.AbsolutePosition.x, gui.AbsolutePosition.y
-	local sx, sy = gui.AbsoluteSize.x, gui.AbsoluteSize.y
-	local bx, by = ax+sx, ay+sy
-
-	return pos.x > ax and pos.x < bx and pos.y > ay and pos.y < by
-end
-
-local function isPosOverGuiWithClipping(pos, gui) -- isPosOverGui, accounts for clipping and visibility, does not account for rotation
-	if not isPosOverGui(pos, gui) then
-		return false
-	end
-
-	local clipping = false
-	local check = gui
-	while true do
-		if check == nil or (not check:IsA'GuiObject' and not check:IsA'LayerCollector') then
-			clipping = true
-			if check and check:IsA'CoreGui' then
-				clipping = false
-			end
-			break
-		end
-
-		if check:IsA'GuiObject' and not check.Visible then
-			clipping = true
-			break
-		end
-		if check:IsA'LayerCollector' or check.ClipsDescendants then
-			if not isPosOverGui(pos, check) then
-				clipping = true
-				break
-			end
-		end
-
-		check = check.Parent
-	end
-
-	return not clipping
-end
-
-local function areGuisIntersecting(a, b) -- does not account for rotation
-	local aax, aay = a.AbsolutePosition.x, a.AbsolutePosition.y
-	local asx, asy = a.AbsoluteSize.x, a.AbsoluteSize.y
-	local abx, aby = aax+asx, aay+asy
-	local bax, bay = b.AbsolutePosition.x, b.AbsolutePosition.y
-	local bsx, bsy = b.AbsoluteSize.x, b.AbsoluteSize.y
-	local bbx, bby = bax+bsx, bay+bsy
-
-	local intersectingX = aax < bbx and abx > bax
-	local intersectingY = aay < bby and aby > bay
-	local intersecting = intersectingX and intersectingY
-
-	return intersecting
-end
-
-local function isGuiVisible(gui, debug) -- true if any part of the gui is visible on the screen, considers clipping, does not account for rotation
-	local clipping = false
-	local check = gui
-	while true do
-		if check == nil or not check:IsA'GuiObject' and not check:IsA'LayerCollector' then
-			clipping = true
-			if check and check:IsA'CoreGui' then
-				clipping = false
-			end
-			break
-		end
-
-		if check:IsA'GuiObject' and not check.Visible then
-			clipping = true
-			break
-		end
-		if check:IsA'LayerCollector' or check.ClipsDescendants then
-			if not areGuisIntersecting(check, gui) then
-				clipping = true
-				break
-			end
-		end
-
-		check = check.Parent
-	end
-
-	return not clipping
-end
-
 local function addHoverState(button, instance, onNormalButtonState, onHoverButtonState)
 	local function onNormalButtonStateCallback()
         if button.Active then
@@ -393,7 +304,7 @@ local function MakeDefaultButton(name, size, clickFunc, pageRef, hubRef)
 		SelectionImageObject = SelectionOverrideObject
 	};
 
-	local enabled = Util.Create'BoolValue'
+	local _enabled = Util.Create'BoolValue'
 	{
 		Name = 'Enabled',
 		Parent = button,
@@ -459,7 +370,7 @@ local function MakeDefaultButton(name, size, clickFunc, pageRef, hubRef)
 		deselectButton()
 	end)
 
-	local guiServiceCon = GuiService.Changed:Connect(function(prop)
+	local _guiServiceCon = GuiService.Changed:Connect(function(prop)
 		if prop ~= "SelectedCoreObject" then return end
 		if not usesSelectedObject() then return end
 
@@ -757,27 +668,6 @@ local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 			indexChangedEvent:Fire(this.CurrentIndex)
 		end
 		return shouldFireChanged
-	end
-
-	local enterIsDown = false
-	local function processInput(input)
-		if input.UserInputState == Enum.UserInputState.Begin then
-			if input.KeyCode == Enum.KeyCode.Return then
-				if GuiService.SelectedCoreObject == this.DropDownFrame or this.SelectionInfo and this.SelectionInfo[GuiService.SelectedCoreObject] then
-					enterIsDown = true
-				end
-			end
-		elseif input.UserInputState == Enum.UserInputState.End then
-			if input.KeyCode == Enum.KeyCode.Return and enterIsDown then
-				enterIsDown = false
-				if GuiService.SelectedCoreObject == this.DropDownFrame then
-					DropDownFrameClicked()
-				elseif this.SelectionInfo and this.SelectionInfo[GuiService.SelectedCoreObject] then
-					local info = this.SelectionInfo[GuiService.SelectedCoreObject]
-					info.Clicked()
-				end
-			end
-		end
 	end
 
 	local function setIsFaded(isFaded)
@@ -1315,7 +1205,10 @@ local function CreateSelector(selectionStringTable, startPosition)
 
 	UserInputService.InputChanged:Connect(function(inputObject)
 		if not interactable then return end
-		if not isInTree then lastInputDirection = 0 return end
+		if not isInTree then
+			lastInputDirection = 0
+			return
+		end
 
 		if inputObject.UserInputType ~= Enum.UserInputType.Gamepad1 then return end
 
@@ -1392,9 +1285,6 @@ local function ShowAlert(alertMessage, okButtonText, settingsHub, okPressedFunc,
 	end
 	local vrEnabledConn = VRService.Changed:Connect(onVREnabled)
 
-	local NON_SELECTED_TEXT_COLOR = Color3.fromRGB(59, 166, 241)
-	local SELECTED_TEXT_COLOR = Color3.fromRGB(255, 255, 255)
-
 	AlertViewBacking = Util.Create'ImageLabel'
 	{
 		Name = "AlertViewBacking",
@@ -1423,7 +1313,7 @@ local function ShowAlert(alertMessage, okButtonText, settingsHub, okPressedFunc,
 		AlertViewBacking.Position = UDim2.new(AlertViewBacking.Position.X.Scale, -AlertViewBacking.Size.X.Offset/2, 0.5, -AlertViewBacking.Size.Y.Offset/2)
 	end
 
-	local AlertViewText = Util.Create'TextLabel'
+	local _AlertViewText = Util.Create'TextLabel'
 	{
 		Name = "AlertViewText",
 		BackgroundTransparency = 1,
@@ -1440,7 +1330,7 @@ local function ShowAlert(alertMessage, okButtonText, settingsHub, okPressedFunc,
 		Parent = AlertViewBacking
 	};
 
-	local SelectionOverrideObject = Util.Create'ImageLabel'
+	local _SelectionOverrideObject = Util.Create'ImageLabel'
 	{
 		Image = "",
 		BackgroundTransparency = 1
@@ -1510,7 +1400,6 @@ local function CreateNewSlider(numOfSteps, startStep, minStep)
 	local this = {}
 
 	local spacing = 4
-	local initialSpacing = 8
 	local steps = tonumber(numOfSteps)
 	local currentStep = startStep
 
@@ -1799,10 +1688,6 @@ local function CreateNewSlider(numOfSteps, startStep, minStep)
 		if not isActivateEvent(inputObject) then return end
 
 		lastInputDirection = 0
-	end
-
-	local function touchClickFunc(inputObject, newStepPos, repeatAction)
-		mouseDownFunc(inputObject, newStepPos, repeatAction)
 	end
 
 	--------------------- PUBLIC FACING FUNCTIONS -----------------------

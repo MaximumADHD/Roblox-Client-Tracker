@@ -10,13 +10,10 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local GuiService = game:GetService("GuiService")
 local TextService = game:GetService("TextService")
 local VRService = game:GetService("VRService")
-local Settings = UserSettings()
-local GameSettings = Settings.GameSettings
 
 ----------- UTILITIES --------------
 RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
 local utility = require(RobloxGui.Modules.Settings.Utility)
-local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
 
 ------------ Variables -------------------
 local PageInstance = nil
@@ -113,15 +110,15 @@ local function Initialize()
 			this.HubRef:SetVisibility(false, true)
 		end
 
-		local screenshotTitle = makeTextLabel("ScreenshotTitle", "Screenshot", true, this.Page, 1)
-		local screenshotBody = makeTextLabel("ScreenshotBody", "By clicking the 'Take Screenshot' button, the menu will close and take a screenshot and save it to your computer.", false, this.Page, 2)
+		local _screenshotTitle = makeTextLabel("ScreenshotTitle", "Screenshot", true, this.Page, 1)
+		local _screenshotBody = makeTextLabel("ScreenshotBody", "By clicking the 'Take Screenshot' button, the menu will close and take a screenshot and save it to your computer.", false, this.Page, 2)
 
 		this.ScreenshotButtonRow, this.ScreenshotButton = utility:AddButtonRow(this, "ScreenshotButton", "Take Screenshot", UDim2.new(0, 300, 0, 44), closeSettingsFunc)
 		this.ScreenshotButtonRow.LayoutOrder = 3
 
 		---------------------------------- VIDEO -------------------------------------
-		local videoTitle = makeTextLabel("VideoTitle", "Video", true, this.Page, 4)
-		local videoBody = makeTextLabel("VideoBody", "By clicking the 'Record Video' button, the menu will close and start recording your screen.", false, this.Page, 5)
+		local _videoTitle = makeTextLabel("VideoTitle", "Video", true, this.Page, 4)
+		local _videoBody = makeTextLabel("VideoBody", "By clicking the 'Record Video' button, the menu will close and start recording your screen.", false, this.Page, 5)
 
 		local recordButtonRow, recordButton = utility:AddButtonRow(this, "RecordButton", "Record Video", UDim2.new(0, 300, 0, 44), closeSettingsFunc)
 		recordButtonRow.LayoutOrder = 6

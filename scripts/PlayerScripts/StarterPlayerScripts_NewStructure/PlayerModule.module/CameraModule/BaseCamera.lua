@@ -61,6 +61,13 @@ local FFlagUserCameraToggle do
 	FFlagUserCameraToggle = success and result
 end
 
+local FFlagUserDontAdjustSensitvityForPortrait do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserDontAdjustSensitvityForPortrait")
+	end)
+	FFlagUserDontAdjustSensitvityForPortrait = success and result
+end
+
 local Util = require(script.Parent:WaitForChild("CameraUtils"))
 local ZoomController = require(script.Parent:WaitForChild("ZoomController"))
 local CameraToggleStateController = require(script.Parent:WaitForChild("CameraToggleStateController"))
@@ -468,10 +475,12 @@ function BaseCamera:GetCameraHeight()
 end
 
 function BaseCamera:InputTranslationToCameraAngleChange(translationVector, sensitivity)
-	local camera = game.Workspace.CurrentCamera
-	if camera and camera.ViewportSize.X > 0 and camera.ViewportSize.Y > 0 and (camera.ViewportSize.Y > camera.ViewportSize.X) then
-		-- Screen has portrait orientation, swap X and Y sensitivity
-		return translationVector * Vector2.new( sensitivity.Y, sensitivity.X)
+	if not FFlagUserDontAdjustSensitvityForPortrait then
+		local camera = game.Workspace.CurrentCamera
+		if camera and camera.ViewportSize.X > 0 and camera.ViewportSize.Y > 0 and (camera.ViewportSize.Y > camera.ViewportSize.X) then
+			-- Screen has portrait orientation, swap X and Y sensitivity
+			return translationVector * Vector2.new( sensitivity.Y, sensitivity.X)
+		end
 	end
 	return translationVector * sensitivity
 end

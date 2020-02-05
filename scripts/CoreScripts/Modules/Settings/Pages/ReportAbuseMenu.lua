@@ -10,7 +10,6 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local GuiService = game:GetService("GuiService")
 local PlayersService = game:GetService("Players")
 local MarketplaceService = game:GetService("MarketplaceService")
-local LocalizationService = game:GetService("LocalizationService")
 
 local utility = require(RobloxGui.Modules.Settings.Utility)
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
@@ -191,7 +190,7 @@ local function Initialize()
 			end
 		end)
 
-		local SelectionOverrideObject = utility:Create'ImageLabel'
+		local _SelectionOverrideObject = utility:Create'ImageLabel'
 		{
 			Image = "",
 			BackgroundTransparency = 1

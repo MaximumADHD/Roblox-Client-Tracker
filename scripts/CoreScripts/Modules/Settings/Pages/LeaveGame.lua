@@ -99,7 +99,7 @@ local function Initialize()
 		Position = UDim2.new(0,0,1,0)
 	};
 
-	local leaveButtonLayout = utility:Create'UIGridLayout'
+	local _leaveButtonLayout = utility:Create'UIGridLayout'
 	{
 		Name = "LeavetButtonsLayout",
 		CellSize = isTenFootInterface and UDim2.new(0, 300, 0, 80) or UDim2.new(0, 200, 0, 50),

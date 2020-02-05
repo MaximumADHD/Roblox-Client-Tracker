@@ -1,4 +1,4 @@
-import QtQuick 2.3
+import QtQuick 2.6
 import QtQuick.Controls 1.4
 import QtQuick.Controls.Styles 1.4
 import QtQml.Models 2.2
@@ -14,6 +14,7 @@ Rectangle {
 
     readonly property int defaultCurrentIndex: -1 // See Qt documentation
     property bool showBelow: false
+    property bool expandedView: false
 	property bool isTextFocused: false
 	property int mouseHighlightedIndex: -1
 
@@ -22,6 +23,7 @@ Rectangle {
 	signal selectAfterInsertChecked(bool checked)
     signal showRecommendedOnlyChecked(bool checked)
 	signal openInsertObjectWidget()
+    signal showExpandedViewToggled(bool state)
 
     Connections {
         target: insertObjectWindow
@@ -32,6 +34,26 @@ Rectangle {
             else {
                 tryUnfocusText()
             }
+        }
+    }
+    Connections {
+        target: insertObjectWindow
+        onShowExpandedViewEvent: {
+           showExpandedView(state)
+        }
+    }
+
+    function showExpandedView(state) {
+        expandedView = state
+        showExpandedViewToggled(state)
+    }
+
+    function getCurrentView() {
+        if (insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView() && expandedView) {
+            return gridView
+        }
+        else {
+            return listView
         }
     }
 
@@ -49,17 +71,18 @@ Rectangle {
 		if(insertObjectWindow.getFFlagStudioInsertObjectStreamlining_InsertWidget()) {
 			classToolTip.hide();
 		}
+        var currentView = getCurrentView();
         // Don't try to insert an object if the user hasn't selected any
-        if (listView.currentIndex < 0 || listView.currentIndex > listView.count) {
+        if (currentView.currentIndex < 0 || currentView.currentIndex > currentView.count) {
             // Close the window
             Qt.quit();
         }
 
         // Emit classClicked signal
-        rootWindow.itemClicked(listView.currentIndex);
+        rootWindow.itemClicked(currentView.currentIndex);
 		if (!insertObjectWindow.getFFlagStudioInsertObjectStreamlining_InsertWidget() || isWindow){
 			searchBoxText.text = "";
-			listView.currentIndex = defaultCurrentIndex;
+			currentView.currentIndex = defaultCurrentIndex;
 		}
     }
 
@@ -69,6 +92,7 @@ Rectangle {
 		width: insertObjectWindow.getFFlagStudioInsertObjectStreamlining_InsertWidget() ? undefined : 240; 
 		height: insertObjectWindow.getFFlagStudioInsertObjectStreamlining_InsertWidget() ? undefined : 456;
 		anchors.fill: insertObjectWindow.getFFlagStudioInsertObjectStreamlining_InsertWidget() ? parent : undefined;
+        anchors.margins: (insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView() && isWindow) ? 2 : 0
 	    color: userPreferences.theme.style("CommonStyle mainBackground")
 		x: 5
 		y: 5
@@ -79,15 +103,32 @@ Rectangle {
 			anchors.left: parent.left
 			anchors.right: parent.right
 			anchors.top: insertObjectWindow.getFFlagStudioInsertObjectStreamlining_InsertWidget() ? dialog.top : undefined;
-			height: 36
+            anchors.margins: insertObjectWindow.getFFlagStudioInsertObjectStreamlining_InsertWidget() ? 6 : 0
+			height:insertObjectWindow.getFFlagStudioInsertObjectStreamlining_InsertWidget() ? 28 : 36
 			color: userPreferences.theme.style("CommonStyle mainBackground")
 			z: 1 // Stay on top of list when scrolling
+            RobloxButton {
+                id: expandButton
+                visible: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView()
+                anchors.left: parent.left
+                anchors.verticalCenter: searchBoxText.verticalCenter
+                width: 20; height: 20
+                tooltip: qsTr("Studio.App.InsertObjectWidget.ExpandTooltip")
+                onClicked: showExpandedView(!expandedView)
+                Image {
+                    anchors.centerIn: parent
+                    source: "/16x16/images/Studio 2.0 icons/16x16/resize.png"
+                }
+            }
 			TextField {
 				id: searchBoxText
                 objectName: "qmlInsertObjectTextFilter"
                 placeholderText: qsTr("Studio.App.InsertObject.SearchObject1").arg(insertObjectConfiguration.searchShortcut)
-				anchors.fill: parent			
-				anchors.margins: 6
+				anchors.left: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView() ? expandButton.right : parent.left
+                anchors.margins: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView() ? 0 : 6
+                anchors.leftMargin: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView() ? 3 : 0
+                anchors.right: parent.right
+                anchors.top: parent.top
 				focus: true
 				style: TextFieldStyle {
 		        	textColor: userPreferences.theme.style("CommonStyle mainText")
@@ -115,31 +156,35 @@ Rectangle {
 		    	// Is called when the user types something in the search box.
 		    	onTextChanged: {
 		    		rootWindow.filterTextChanged(text);
-					if (insertObjectWindow.getFFlagStudioInsertObjectStreamlining_FlattenedFiltering()){
+					if (!insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView() && insertObjectWindow.getFFlagStudioInsertObjectStreamlining_FlattenedFiltering()){
 						if (!text){
-							listView.section.delegate = categoryDelegate;
+							listView.section.delegate = _DEPRECATED_categoryDelegate;
 						}
 						else{
-							listView.section.delegate = hiddenCategoryDelegate;
+							listView.section.delegate = _DEPRECATED_hiddenCategoryDelegate;
 						}
 					}
+
 		    		var exactMatchIndex = insertObjectModelMatcher.findExactMatch(text);
+                    var currentView = getCurrentView();
 		    		if (exactMatchIndex >= 0) {
-		    			listView.currentIndex = exactMatchIndex;
+		    			currentView.currentIndex = exactMatchIndex;
 		    		}
-		    		else if (listView.count > 0) {
-		    			listView.currentIndex = 0;
+		    		else if (currentView.count > 0) {
+		    			currentView.currentIndex = 0;
 		    		}
 
 					classToolTip.hide();
 		    	}
 
                 Keys.onUpPressed: {
-                    listView.currentIndex = Math.max(0, listView.currentIndex-1);
+                    var currentView = getCurrentView();
+                    currentView.currentIndex = Math.max(0, currentView.currentIndex-1);
 					classToolTip.hide();
                 }
                 Keys.onDownPressed: {
-                    listView.currentIndex = Math.min(listView.count-1, listView.currentIndex+1);
+                    var currentView = getCurrentView();
+                    currentView.currentIndex = Math.min(currentView.count-1, currentView.currentIndex+1);
 					classToolTip.hide();
                 }
                 Keys.onEnterPressed: insertObject()
@@ -154,13 +199,13 @@ Rectangle {
                 // Handle PageUp and PageDown separately. There are no special events for them,.
                 Keys.onPressed: {
                     var itemsPerPage = 5;
-
+                    var currentView = getCurrentView();
                     if (event.key == Qt.Key_PageUp) {
-                        listView.currentIndex = Math.max(0, listView.currentIndex-itemsPerPage);
+                        currentView.currentIndex = Math.max(0, currentView.currentIndex-itemsPerPage);
                         event.accepted = true;
                     }
                     else if (event.key == Qt.Key_PageDown) {
-                        listView.currentIndex = Math.min(listView.count-1, listView.currentIndex+itemsPerPage);
+                        currentView.currentIndex = Math.min(currentView.count-1, currentView.currentIndex+itemsPerPage);
                         event.accepted = true;
                     }
 					else if (insertObjectWindow.getFFlagStudioInsertObjectStreamlining_InsertWidget() && event.key == Qt.Key_Tab) {
@@ -177,43 +222,45 @@ Rectangle {
 			id: nameDelegate
 			Rectangle {
                 id: nameDelegateArea
-                objectName: "qmlInsertObjectRectangle" + name
+                objectName: "qmlInsertObjectRectangle" + mName
     			color: "transparent"
-    			height: 28
-    			// There is a rare race condtion where parent is not defined.
-    			anchors.left: parent ? parent.left : undefined
-    			anchors.right: parent ? parent.right : undefined
+    			height: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView() ? 25 : 28
+                width: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView() ? 185 : undefined
+                // There is a rare race condtion where parent is not defined.
+    			anchors.left: (parent && !insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView()) ? parent.left : undefined
+    			anchors.right: (parent && !insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView()) ? parent.right : undefined
 
     			MouseArea {
-                    objectName: "qmlInsertObjectMouseArea" + name
+                    objectName: "qmlInsertObjectMouseArea" + mName
 					id: mouseArea
     				hoverEnabled: true
 					cursorShape: Qt.PointingHandCursor
     				anchors.fill: parent
     				onEntered:	{
-						listView.currentIndex = index;
+                        var currentView = getCurrentView();
+                        currentView.currentIndex = mIndex
 						if(insertObjectWindow.getFFlagStudioInsertObjectStreamlining_DragAndDrop()){
-							mouseHighlightedIndex = index
+							mouseHighlightedIndex = mIndex
 						}
-						if (description != "") {
+						if (mDescription != "") {
 							var pos = mouseArea.mapToItem(dialog, mouseArea.x, mouseArea.y);
                             if(insertObjectWindow.getFFlagStudioInsertObjectStreamlining_InsertWidget()) {
-                                classToolTip.show(description ? description : "", pos.x, pos.y, nameDelegateArea.height+1, dialog.height, dialog.width);
+                                classToolTip.show(mDescription ? mDescription : "", pos.x, pos.y, nameDelegateArea.height+1, dialog.height, dialog.width);
                             }
 							else {
-                                classToolTip.deprecated_show(description ? description : "", pos.x, pos.y + 29);
+                                classToolTip.deprecated_show(mDescription ? mDescription : "", pos.x, pos.y + 29);
                             }
 						}
 					} 
 					onPositionChanged: {
-						if (description != "") {
+						if (mDescription != "") {
 							// Tooltip show method hides any displayed tooltip to reset the state
 							var pos = mouseArea.mapToItem(dialog, mouseArea.x, mouseArea.y);
                             if(insertObjectWindow.getFFlagStudioInsertObjectStreamlining_InsertWidget()) {
-                                classToolTip.show(description ? description : "", pos.x, pos.y, nameDelegateArea.height+1, dialog.height, dialog.width);
+                                classToolTip.show(mDescription ? mDescription : "", pos.x, pos.y, nameDelegateArea.height+1, dialog.height, dialog.width);
                             }
                             else {
-                                classToolTip.deprecated_show(description ? description : "", pos.x, pos.y + 29);
+                                classToolTip.deprecated_show(mDescription ? mDescription : "", pos.x, pos.y + 29);
                             }			
 						}
 					}
@@ -233,42 +280,65 @@ Rectangle {
 						mouseArea.entered();				
 					}
     			}
-
-    			Image {
-                    objectName: "qmlInsertObjectImage" + name
-    				id: icon
-    				width: 16
-    				height: 16
-    				anchors.left: parent.left
-    				anchors.verticalCenter: parent.verticalCenter
-    				anchors.leftMargin: 12
-    				source: imageIndex >= 0 ? "image://ClassName/" + imageIndex : ""
-    			}
-    			PlainText {    
-                    objectName: "qmlInsertObjectText" + name		
-    				anchors.verticalCenter: parent.verticalCenter
-    				anchors.left: icon.right
-    				anchors.leftMargin: 12
-    				font.pixelSize: 14
-    				color:{
-					    if(insertObjectWindow.getFFlagStudioInsertObjectStreamlining_Filtering()){
-					        isUnpreferred ?  
-							    userPreferences.theme.style("CommonStyle dimmedText") : 
-							    userPreferences.theme.style("CommonStyle mainText")
+                Row {
+                    spacing: 3
+                    leftPadding: 13
+    			    Image {
+                        objectName: "qmlInsertObjectImage" + mName
+    				    id: icon
+    				    width: 16
+    				    height: 16
+    				    source: mImageIndex >= 0 ? "image://ClassName/" + mImageIndex : ""
+    			    }
+    			    PlainText {    
+                        objectName: "qmlInsertObjectText" + mName
+    				    font.pixelSize: 14
+    				    color:{
+					        if(insertObjectWindow.getFFlagStudioInsertObjectStreamlining_Filtering()){
+					            mIsUnpreferred ?  
+							        userPreferences.theme.style("CommonStyle dimmedText") : 
+							        userPreferences.theme.style("CommonStyle mainText")
+					        }
+					        else{
+					            userPreferences.theme.style("CommonStyle mainText")
+					        }
 					    }
-					    else{
-					        userPreferences.theme.style("CommonStyle mainText")
-					    }
-					}
-    				// Work around rare race condition where name is undefined
-    				text: name ? name : ""
-    			}
+    				    // Work around rare race condition where name is undefined
+    				    text: mName ? mName : ""
+    			    }
+                }
     		}
 		}
 
+        Component {
+	        id: categoryDelegate
+	        Rectangle {
+		        color: userPreferences.theme.style("CommonStyle mainBackground")
+		        PlainText {
+			        id: categoryText
+			        leftPadding : 9
+			        font.pixelSize: 14
+			        color: userPreferences.theme.style("InsertObjectWindow categoryText")
+			        text: mCategory
+		        }
+		        Rectangle {
+			        id: divider
+                    anchors.left: categoryText.right
+			        anchors.leftMargin: 6
+			        anchors.verticalCenter: categoryText.verticalCenter 
+                    anchors.verticalCenterOffset: -1
+                    anchors.right: parent.right
+			        height: 1
+			        color:  userPreferences.theme.style("InsertObjectWindow separator")
+		        }
+	        }
+        }
 		// This component is responsible for rendering the category
+        // FIXME(rmendelsohn)
+        // 2020/01/27
+        // remove with FFlag StudioInsertObjectStreamliningv2_ExpandedView
 		Component {
-			id: categoryDelegate
+			id: _DEPRECATED_categoryDelegate
 			Rectangle {
 				color: userPreferences.theme.style("CommonStyle mainBackground")
 				height: 30
@@ -283,7 +353,6 @@ Rectangle {
 					color: userPreferences.theme.style("InsertObjectWindow categoryText")
 					text: section
 				}
-
 				Rectangle {
 					id: divider
 					anchors.left: categoryText.right
@@ -296,9 +365,12 @@ Rectangle {
 				}
 			}
 		}
+        // FIXME(rmendelsohn)
+        // 2020/01/27
+        // remove with FFlag StudioInsertObjectStreamliningv2_ExpandedView
 		// This component is responsible for hiding the category
 		Component {
-		    id: hiddenCategoryDelegate
+		    id: _DEPRECATED_hiddenCategoryDelegate
 			Rectangle {
 			    visible: false
 				height:0
@@ -408,13 +480,16 @@ Rectangle {
 			}
 		}
 
-		ScrollView {
-            id: scrollView
-            objectName: "qmlInsertObjectScrollView"
-			anchors.top: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamlining_SelectAfterInsert() ? selectedCheckBox.bottom : searchBox.bottom	    
+        Rectangle
+        {
+            id: scrollViewContainer
+        	anchors.top: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamlining_SelectAfterInsert() ? selectedCheckBox.bottom : searchBox.bottom	  
+            anchors.topMargin: 5
 		    anchors.left: parent.left
 		    anchors.right: parent.right
 			anchors.bottom: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamlining_InsertMenuTuning() ? seeAllSection.top : parent.bottom
+            color: userPreferences.theme.style("CommonStyle mainBackground")
+
             Text {
                 anchors.fill: parent
 			    text:{
@@ -429,36 +504,104 @@ Rectangle {
 			    color: userPreferences.theme.style("CommonStyle dimmedText")
                 visible: insertObjectWindow.getFFlagStudioInsertObjectStreamlining_InsertWidget() && listView.count == 0 && isWindow
             }
-		    ListView {
-		    	id: listView
-		    	anchors.fill: parent
-		    	model: insertObjectListModel
-                currentIndex: defaultCurrentIndex
-		    	delegate: nameDelegate
-                highlightFollowsCurrentItem: true
-				highlightMoveDuration: 50 // Speed up highlight follow
-				highlightMoveVelocity: 1000
-				highlight: Rectangle {
-					id: highlightBar
-		    		color: userPreferences.theme.style("Menu itemHover")
-		    		width: listView.width
-		    		height: 28
-		    		Rectangle {
-		    		    width: 4
-		    		    anchors.top: parent.top
-		    		    anchors.bottom: parent.bottom
-		    		    color: userPreferences.theme.style("CommonStyle currentItemMarker")
-                        visible: true
-		    		}
-		    	}
+            ScrollView {
+                id: listScrollView
+                visible: !expandedView || !insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView()
+                objectName: "qmlInsertObjectListScrollView"
+			    anchors.fill: parent
+                ListView {
+		    	    id: listView
+		    	    anchors.fill: parent
+		    	    model: insertObjectListModel
+                    currentIndex: defaultCurrentIndex
+                    delegate: Component {
+                                Loader {
+                                    property int mIndex: index
+                                    property int mImageIndex: imageIndex
+                                    property string mName: name
+                                    property string mCategory: category
+                                    property string mDescription: description
+                                    property bool mIsUnpreferred: insertObjectWindow.getFFlagStudioInsertObjectStreamlining_Filtering() ? isUnpreferred : false
 
-		    	section {
-		    		property: "category"
-		    		criteria: ViewSection.FullString
-		    		delegate: categoryDelegate
-		    	}
+                                    anchors.left: parent ? parent.left : undefined
+                                    anchors.right: parent ? parent.right : undefined
+                                    height: 28
+                                    sourceComponent: (insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView() && isPlaceholder) ? categoryDelegate : nameDelegate
+                                }
+                            }
+                    highlightFollowsCurrentItem: true
+				    highlightMoveDuration: 50 // Speed up highlight follow
+				    highlightMoveVelocity: 1000
+				    highlight: Rectangle {
+					    id: highlightBar
+		    		    color: userPreferences.theme.style("Menu itemHover")
+		    		    width: listView.width
+		    		    height: 28
+		    		    Rectangle {
+		    		        width: 4
+		    		        anchors.top: parent.top
+		    		        anchors.bottom: parent.bottom
+		    		        color: userPreferences.theme.style("CommonStyle currentItemMarker")
+                            visible: true
+		    		    }
+		    	    }
+                    // FIXME(rmendelsohn)
+                    // 2020/01/27
+                    // remove with FFlag StudioInsertObjectStreamliningv2_ExpandedView
+                    section {
+                        id: _DEPRECATED_section
+		    		    property: "category"
+		    		    criteria: ViewSection.FullString
+		    		    delegate:  insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView() ? _DEPRECATED_hiddenCategoryDelegate : _DEPRECATED_categoryDelegate
+		    	    }
+                }
+            }
+            ScrollView {
+                id: gridScrollView
+                visible: expandedView
+                objectName: "qmlInsertObjectGridScrollView"
+			    anchors.fill: parent
+		        GridView {
+		    	    id: gridView
+		    	    anchors.fill: parent
+                    anchors.topMargin: 5
+                    cellWidth: 185; cellHeight: 25
+                    flow: GridView.TopToBottom
+		    	    model: insertObjectListModel
+                    currentIndex: defaultCurrentIndex
+                    delegate: Component {
+                                Loader {
+                                    property int mIndex: index
+                                    property int mImageIndex: imageIndex
+                                    property string mName: name
+                                    property string mCategory: category
+                                    property string mDescription: description
+                                    property bool mIsUnpreferred: insertObjectWindow.getFFlagStudioInsertObjectStreamlining_Filtering() ? isUnpreferred : false
+
+                                    height: 25
+                                    width: 185
+                                    sourceComponent: (insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView() && isPlaceholder) ? categoryDelegate : nameDelegate
+                                }
+                            }
+                    highlightFollowsCurrentItem: true
+				    highlightMoveDuration: 50 // Speed up highlight follow
+				    highlight: Rectangle {
+					    id: highlightBar
+		    		    color: userPreferences.theme.style("Menu itemHover")
+		    		    width: 185
+		    		    height: 28
+		    		    Rectangle {
+		    		        width: 4
+		    		        anchors.top: parent.top
+		    		        anchors.bottom: parent.bottom
+		    		        color: userPreferences.theme.style("CommonStyle currentItemMarker")
+                            visible: true
+                        }
+		    	    }
+		        }
 		    }
-		}
+        }
+		
 	}
 
 	// Adds a drop shadow around the window.
@@ -489,7 +632,7 @@ Rectangle {
 				anchors.top: dialog.top
 			}
 			AnchorChanges {
-				target: scrollView
+				target: scrollViewContainer
 				anchors.top: searchBox.bottom
 				anchors.bottom: dialog.bottom
 			}
@@ -507,7 +650,7 @@ Rectangle {
 				anchors.bottom: undefined;
 			}
 			AnchorChanges {
-				target: scrollView
+				target: scrollViewContainer
 				anchors.top: searchBox.bottom
 				anchors.bottom: dialog.bottom
 			}
@@ -520,11 +663,11 @@ Rectangle {
 			}
 			AnchorChanges {
 				target: searchBox
-				anchors.top: insertObjectWindow.getFFlagStudioInsertObjectStreamlining_InsertWidget() ? undefined : scrollView.bottom;
+				anchors.top: insertObjectWindow.getFFlagStudioInsertObjectStreamlining_InsertWidget() ? undefined : scrollViewContainer.bottom;
 				anchors.bottom: dialog.bottom
 			}
 			AnchorChanges {
-				target: scrollView
+				target: scrollViewContainer
 				anchors.top: dialog.top
 				anchors.bottom: searchBox.top
 			}

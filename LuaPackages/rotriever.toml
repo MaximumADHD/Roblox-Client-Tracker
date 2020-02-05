@@ -28,8 +28,7 @@ PurchasePrompt = { git = "https://github.rbx.com/esauer/purchase-prompt-migratio
 InGameMenuDependencies = { git = "https://github.rbx.com/Roblox/in-game-menu-dependencies", rev = "master" }
 
 [dev_dependencies]
-TestEZ = { git = "https://github.com/Roblox/testez", rev = "v0.1" }
-
+TestEZ = "roblox/testez@0.1.1"
 
 [patch."https://github.com/roblox/roact"]
 name = "roblox/roact"

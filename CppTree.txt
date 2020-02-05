@@ -125,7 +125,6 @@ RBX
 		DeviceVR
 		DeviceVulkan
 		Emitter
-		EnvMap
 		EnvMapPBR
 		ExplosionEmitter
 		FastCluster
@@ -742,7 +741,9 @@ RBX
 	FilterHumanoidNameOcclusion
 	FilterHumanoidParts
 	FilterInvisibleNonColliding
+	FilterPrimitiveList
 	FilterSameAssembly
+	FilterSinglePrimitive
 	Fire
 	FirstPersonCommand
 	Flag

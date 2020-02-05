@@ -33,6 +33,7 @@ local FFlagStudioToolboxPluginPurchaseFlow = game:GetFastFlag("StudioToolboxPlug
 local FFlagStudioToolboxShowPluginInstallationProgress = game:GetFastFlag("StudioToolboxShowPluginInstallationProgress")
 local FFlagUseDevelopFetchPluginVersionId = game:GetFastFlag("UseDevelopFetchPluginVersionId")
 local FFlagStudioHideSuccessDialogWhenFree = game:GetFastFlag("StudioHideSuccessDialogWhenFree")
+local FFlagStudioRefactorAssetPreview = settings():GetFFlag("StudioRefactorAssetPreview")
 
 local RunService = game:GetService("RunService")
 local StudioService = game:GetService("StudioService")
@@ -43,20 +44,22 @@ local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 local RoactRodux = require(Libs.RoactRodux)
 local UILibrary = require(Libs.UILibrary)
+local Favorites = UILibrary.Component.Favorites
+local PreviewController = UILibrary.Component.PreviewController
+local Vote = UILibrary.Component.Vote
 
 local Preview = Plugin.Core.Components.Asset.Preview
 local AssetDescription = require(Preview.AssetDescription)
-local Vote = require(Preview.Vote)
-local PreviewController = require(Preview.PreviewController)
+local DEPRECATED_Vote = require(Preview.Vote)
+local DEPRECATED_PreviewController = require(Preview.PreviewController)
 local ActionBar = require(Preview.ActionBar)
-local Favorites = require(Preview.Favorites)
+local DEPRECATED_Favorites = require(Preview.Favorites)
 local SearchLinkText = require(Preview.SearchLinkText)
 local LoadingBar = require(Plugin.Core.Components.AssetConfiguration.LoadingBar)
 local LayoutOrderIterator = UILibrary.Util.LayoutOrderIterator
 
 local Util = Plugin.Core.Util
 local Constants = require(Util.Constants)
-local Colors = require(Util.Colors)
 local Images = require(Util.Images)
 local ContextHelper = require(Util.ContextHelper)
 local ContextGetter = require(Util.ContextGetter)
@@ -574,7 +577,7 @@ function AssetPreview:render()
 						}),
 					}),
 
-					PreviewController = Roact.createElement(PreviewController, {
+					DEPRECATED_PreviewController = not FFlagStudioRefactorAssetPreview and Roact.createElement(DEPRECATED_PreviewController, {
 						width = PADDING * 2,
 
 						currentPreview = currentPreview,
@@ -588,6 +591,22 @@ function AssetPreview:render()
 						onModelPreviewFrameLeft = self.onModelPreviewFrameLeft,
 
 						layoutOrder = layoutIndex:getNextOrder(),
+					}),
+
+					PreviewController = FFlagStudioRefactorAssetPreview and Roact.createElement(PreviewController, {
+						Width = PADDING * 2,
+
+						CurrentPreview = currentPreview,
+						PreviewModel = previewModel,
+						AssetPreviewType = assetPreviewType,
+						AssetId = assetId,
+						PutTreeviewOnBottom = putTreeviewOnBottom,
+
+						OnTreeItemClicked = onTreeItemClicked,
+						OnModelPreviewFrameEntered = self.onModelPreviewFrameEntered,
+						OnModelPreviewFrameLeft = self.onModelPreviewFrameLeft,
+
+						LayoutOrder = layoutIndex:getNextOrder(),
 					}),
 
 					LoadingIndicator = shouldShowInstallationProgress and Roact.createElement("Frame", {
@@ -610,11 +629,22 @@ function AssetPreview:render()
 						}),
 					}),
 
-					Favorites = enableFavorite and Roact.createElement(Favorites, {
+					DEPRECATED_Favorites = not FFlagStudioRefactorAssetPreview and enableFavorite and Roact.createElement(DEPRECATED_Favorites, {
 						size = UDim2.new(1, 0, 0, 20),
 						assetId = assetId,
 
 						layoutOrder = layoutIndex:getNextOrder(),
+					}),
+
+					Favorites = FFlagStudioRefactorAssetPreview and enableFavorite and Roact.createElement(Favorites, {
+						Size = UDim2.new(1, 0, 0, 20),
+
+						FavoriteCounts = self.props.FavoriteCounts,
+						Favorited = self.props.Favorited,
+
+						OnActivated = self.props.OnFavoritedActivated,
+
+						LayoutOrder = layoutIndex:getNextOrder(),
 					}),
 
 					DetailDescription = Roact.createElement("TextLabel", {
@@ -632,13 +662,25 @@ function AssetPreview:render()
 						LayoutOrder = layoutIndex:getNextOrder(),
 					}),
 
-					Vote = hasRating and Roact.createElement(Vote, {
+					DEPRECATED_Vote = not FFlagStudioRefactorAssetPreview and hasRating and Roact.createElement(DEPRECATED_Vote, {
 						size = UDim2.new(1, 0, 0, VOTE_HEIGHT),
 
 						voting = voting,
 						assetId = assetId,
 
 						layoutOrder = layoutIndex:getNextOrder(),
+					}),
+
+					Vote = FFlagStudioRefactorAssetPreview and hasRating and Roact.createElement(Vote, {
+						Size = UDim2.new(1, 0, 0, VOTE_HEIGHT),
+
+						Voting = voting,
+						AssetId = assetId,
+
+						OnVoteUpButtonActivated = props.OnVoteUp,
+						OnVoteDownButtonActivated = props.OnVoteDown,
+
+						LayoutOrder = layoutIndex:getNextOrder(),
 					}),
 
 					Developer = Roact.createElement(AssetDescription, {

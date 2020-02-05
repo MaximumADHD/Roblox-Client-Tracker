@@ -2,7 +2,6 @@ local CorePackages = game:GetService("CorePackages")
 
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
 local Roact = require(CorePackages.Roact)
 
@@ -18,11 +17,8 @@ local TITLE_TEXT_SIZE = 19
 local PRESENCE_FONT = Enum.Font.SourceSans
 local PRESENCE_TEXT_SIZE = 16
 
-local FFlagLuaInviteGameMockTextLocalization = settings():GetFFlag("LuaInviteGameMockTextLocalization")
-if FFlagLuaInviteGameMockTextLocalization then
-	local getTranslator = require(ShareGame.getTranslator)
-	RobloxTranslator = getTranslator()
-end
+local getTranslator = require(ShareGame.getTranslator)
+local RobloxTranslator = getTranslator()
 
 local ConversationDetails = Roact.PureComponent:extend("ConversationDetails")
 

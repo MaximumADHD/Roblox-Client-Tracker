@@ -45,6 +45,8 @@ local function createValues(theme, getColor)
 			ProgressBarColor = theme:GetColor(c.DialogMainButton, m.Selected),
 			HoverColor = theme:GetColor(c.Button, m.Hover),
 			BorderColor = theme:GetColor(c.Border),
+			SubTextColor = theme:GetColor(c.SubText),
+			InfoTextColor = theme:GetColor(c.DimmedText),
 			TextColor = theme:GetColor(c.MainText),
 			ErrorColor = theme:GetColor(c.ErrorText),
 			LinkColor = theme:GetColor(c.LinkText),
@@ -54,6 +56,8 @@ local function createValues(theme, getColor)
 			ScrollbarColor = ScrollbarColor:get(themeName),
 			ScrollbarTransparency = 0.7,
 			ScrollbarSize = 8,
+			Font = Enum.Font.SourceSans,
+            FontBold = Enum.Font.SourceSansSemibold
 		},
 
 		Framework = StudioFrameworkStyles.new(theme, getColor),
@@ -81,6 +85,16 @@ local function getUILibraryTheme()
 		Dark = Color3.fromRGB(11, 90, 175),
 	})
 
+	local SelectedCheckboxImage = StyleValue.new("SelectedCheckboxImage", {
+		Light = "rbxasset://textures/PluginManagement/checked_light.png",
+		Dark = "rbxasset://textures/PluginManagement/checked_dark.png",
+	})
+
+	local CheckboxBackgroundColor = StyleValue.new("CheckboxBackgroundColor", {
+		Light = Color3.fromRGB(255, 255, 255),
+		Dark = Color3.fromRGB(37, 37, 37),
+	})
+
 	local UILibraryOverrides = {
 		loadingIndicator = {
 			baseColor = BaseColor:get(themeName),
@@ -101,6 +115,11 @@ local function getUILibraryTheme()
 					backgroundColor = theme:GetColor(c.DialogMainButton, m.Hover),
 				},
 			},
+		},
+		checkBox = {
+			backgroundImage = "rbxasset://textures/PluginManagement/unchecked.png",
+			backgroundColor = CheckboxBackgroundColor:get(themeName),
+			selectedImage = SelectedCheckboxImage:get(themeName),
 		},
 	}
 

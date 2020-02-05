@@ -36,7 +36,6 @@ local Library = script.Parent.Parent
 local Roact = require(Library.Parent.Roact)
 local Theming = require(Library.Theming)
 local withTheme = Theming.withTheme
-local deepJoin = require(Library.deepJoin)
 
 local TreeView = Roact.PureComponent:extend("TreeView")
 

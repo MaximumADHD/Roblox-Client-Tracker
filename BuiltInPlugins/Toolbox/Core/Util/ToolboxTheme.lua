@@ -453,7 +453,7 @@ function ToolboxTheme:_recalculateTheme()
 	})
 
 	local overrides = {
-		asstetPreview = {
+		assetPreview = {
 			modelPreview = {
 				background = isDark and Color3.fromRGB(37, 37, 37) or Color3.fromRGB(227, 227, 227)
 			},
@@ -467,6 +467,43 @@ function ToolboxTheme:_recalculateTheme()
 				background = isDark and Color3.fromRGB(37, 37, 37) or Color3.fromRGB(227, 227, 227),
 				textColor = color(c.MainText),
 			},
+
+			previewButtons = {
+				backgroundTrans = isDark and 0.25 or 0.25,
+				backgroundColor = isDark and Color3.fromRGB(102, 102, 102) or Color3.fromRGB(158, 158, 158),
+				backgroundDisabledColor = isDark and Color3.fromRGB(50, 50, 50) or Color3.fromRGB(100, 100, 100),
+			},
+
+			vote = {
+				background = isDark and Color3.fromRGB(255, 255, 255) or Color3.fromRGB(0, 0, 0),
+				boderColor = isDark and Color3.fromRGB(67, 67, 67) or Color3.fromRGB(229, 229, 229),
+
+				button = {
+					backgroundColor = isDark and Color3.fromRGB(255, 255, 255) or Color3.fromRGB(178, 178, 178),
+					backgroundTrans = isDark and 0.7 or 0,
+				},
+
+				voteUp = {
+					borderColor = isDark and Color3.fromRGB(124, 124, 124) or Color3.fromRGB(178, 178, 178),
+				},
+
+				voteDown = {
+					borderColor = isDark and Color3.fromRGB(124, 124, 124) or Color3.fromRGB(178, 178, 178),
+				},
+			},
+
+			treeViewButton = {
+				backgroundColor = isDark and Color3.fromRGB(102, 102, 102) or Color3.fromRGB(158, 158, 158),
+				backgroundDisabledColor = isDark and Color3.fromRGB(50, 50, 50) or Color3.fromRGB(100, 100, 100),
+			}
+		},
+
+		instanceTreeView = {
+			background = isDark and color(c.ScrollBarBackground) or color(c.TabBar),
+			arrowColor = Color3.fromRGB(140, 140, 140),
+			selectedText = Color3.fromRGB(255, 255, 255),
+			hover = color(c.Item, m.Hover),
+			selected = color(c.Item, m.Selected),
 		},
 
 		toggleButton = {

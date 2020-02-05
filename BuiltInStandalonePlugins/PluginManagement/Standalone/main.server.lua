@@ -1,6 +1,6 @@
 local FFlagStudioPluginInstallationInLua = settings():GetFFlag("StudioPluginInstallationInLua")
 local FFlagStudioEnablePluginManagementPlugin = settings():GetFFlag("StudioEnablePluginManagementPlugin")
-local FFlagPluginManagementAllowLotsOfPlugins = settings():GetFFlag("PluginManagementAllowLotsOfPlugins")
+local FFlagPluginManagementAllowLotsOfPlugins2 = settings():GetFFlag("PluginManagementAllowLotsOfPlugins2")
 
 if not FFlagStudioEnablePluginManagementPlugin and not FFlagStudioPluginInstallationInLua then
 	return
@@ -55,7 +55,7 @@ local function main()
 		end
 
 		-- start preloading data
-		if FFlagPluginManagementAllowLotsOfPlugins then
+		if FFlagPluginManagementAllowLotsOfPlugins2 then
 			globals.store:dispatch(RefreshPlugins(globals.api, MarketplaceService))
 		end
 

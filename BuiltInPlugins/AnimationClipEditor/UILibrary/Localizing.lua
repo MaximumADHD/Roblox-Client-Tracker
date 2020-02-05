@@ -4,7 +4,7 @@
 
 	When initializing LocalizationProvider, it expects a Localization object, an example being
 	src/Studio/Localization.lua where there is two tables for development strings and translated
-	strings. withLocalization is mainly used to render elements with the localized strings using 
+	strings. withLocalization is mainly used to render elements with the localized strings using
 	the localization object passed into LocalizationProvider
 ]]
 
@@ -86,9 +86,13 @@ local function withLocalization(callback)
 	})
 end
 
+local function getLocalization(component)
+	return component._context[localizationKey]
+end
 
 return {
 	Provider = LocalizationProvider,
 	Consumer = LocalizationConsumer,
 	withLocalization = withLocalization,
+	getLocalization = getLocalization,
 }

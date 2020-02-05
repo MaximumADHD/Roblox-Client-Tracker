@@ -1,14 +1,11 @@
 --[[
 	BaseCharacterController - Abstract base class for character controllers, not intended to be
 	directly instantiated.
-	
-	2018 PlayerScripts Update - AllYourBlox		
+
+	2018 PlayerScripts Update - AllYourBlox
 --]]
 
 local ZERO_VECTOR3 = Vector3.new(0,0,0)
-
---[[ Roblox Services ]]--
-local Players = game:GetService("Players")
 
 --[[ The Module ]]--
 local BaseCharacterController = {}

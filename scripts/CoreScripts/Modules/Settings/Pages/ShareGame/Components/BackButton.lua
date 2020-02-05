@@ -2,7 +2,6 @@ local CorePackages = game:GetService("CorePackages")
 
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
 local ShareGame = RobloxGui.Modules.Settings.Pages.ShareGame
 local RectangleButton = require(ShareGame.Components.RectangleButton)
@@ -13,11 +12,9 @@ local Constants = require(ShareGame.Constants)
 local ShareGameIcons = require(RobloxGui.Modules.Settings.Pages.ShareGame.Spritesheets.ShareGameIcons)
 
 local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabledV384")
-local FFlagLuaInviteGameMockTextLocalization = settings():GetFFlag("LuaInviteGameMockTextLocalization")
-if FFlagLuaInviteGameMockTextLocalization then
-	local getTranslator = require(ShareGame.getTranslator)
-	RobloxTranslator = getTranslator()
-end
+
+local getTranslator = require(ShareGame.getTranslator)
+local RobloxTranslator = getTranslator()
 
 local BACK_IMAGE_SPRITE_PATH
 if not FFlagLuaInviteModalEnabled then
@@ -75,6 +72,7 @@ if FFlagLuaInviteModalEnabled then
 				iconSpriteFrame = iconSpriteFrame,
 			})
 		end
+		return
 	end
 end
 

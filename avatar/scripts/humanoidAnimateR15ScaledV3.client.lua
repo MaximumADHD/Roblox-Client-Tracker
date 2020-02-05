@@ -4,8 +4,6 @@ local pose = "Standing"
 
 local userNoUpdateOnLoopSuccess, userNoUpdateOnLoopValue = pcall(function() return UserSettings():IsUserFeatureEnabled("UserNoUpdateOnLoop") end)
 local userNoUpdateOnLoop = userNoUpdateOnLoopSuccess and userNoUpdateOnLoopValue
-local userAnimationSpeedDampeningSuccess, userAnimationSpeedDampeningValue = pcall(function() return UserSettings():IsUserFeatureEnabled("UserAnimationSpeedDampening") end)
-local userAnimationSpeedDampening = userAnimationSpeedDampeningSuccess and userAnimationSpeedDampeningValue
 
 local animateScriptEmoteHookFlagExists, animateScriptEmoteHookFlagEnabled = pcall(function()
 	return UserSettings():IsUserFeatureEnabled("UserAnimateScriptEmoteHook")
@@ -25,6 +23,8 @@ local currentAnimSpeed = 1.0
 
 local runAnimTrack = nil
 local runAnimKeyframeHandler = nil
+
+local PreloadedAnims = {}
 
 local animTable = {}
 local animNames = { 
@@ -97,15 +97,6 @@ local animNames = {
 
 -- Existance in this list signifies that it is an emote, the value indicates if it is a looping emote
 local emoteNames = { wave = false, point = false, dance = true, dance2 = true, dance3 = true, laugh = false, cheer = false}
-
-local PreloadAnimsUserFlag = false
-local PreloadedAnims = {}
-local successPreloadAnim, msgPreloadAnim = pcall(function()
-	PreloadAnimsUserFlag = UserSettings():IsUserFeatureEnabled("UserPreloadAnimations")
-end)
-if not successPreloadAnim then
-	PreloadAnimsUserFlag = false
-end
 
 math.randomseed(tick())
 
@@ -182,14 +173,12 @@ function configureAnimationSet(name, fileList)
 	end
 	
 	-- preload anims
-	if PreloadAnimsUserFlag then
-		for i, animType in pairs(animTable) do
-			for idx = 1, animType.count, 1 do
-				if PreloadedAnims[animType[idx].anim.AnimationId] == nil then
-					Humanoid:LoadAnimation(animType[idx].anim)
-					PreloadedAnims[animType[idx].anim.AnimationId] = true
-				end				
-			end
+	for i, animType in pairs(animTable) do
+		for idx = 1, animType.count, 1 do
+			if PreloadedAnims[animType[idx].anim.AnimationId] == nil then
+				Humanoid:LoadAnimation(animType[idx].anim)
+				PreloadedAnims[animType[idx].anim.AnimationId] = true
+			end				
 		end
 	end
 end
@@ -253,11 +242,9 @@ function configureAnimationSetOld(name, fileList)
 	end
 	
 	-- preload anims
-	if PreloadAnimsUserFlag then
-		for i, animType in pairs(animTable) do
-			for idx = 1, animType.count, 1 do 
-				Humanoid:LoadAnimation(animType[idx].anim)
-			end
+	for i, animType in pairs(animTable) do
+		for idx = 1, animType.count, 1 do 
+			Humanoid:LoadAnimation(animType[idx].anim)
 		end
 	end
 end
@@ -340,13 +327,11 @@ function getHeightScale()
 		end
 		
 		local scale = Humanoid.HipHeight / HumanoidHipHeight
-		if userAnimationSpeedDampening then
-			if AnimationSpeedDampeningObject == nil then
-				AnimationSpeedDampeningObject = script:FindFirstChild("ScaleDampeningPercent")
-			end
-			if AnimationSpeedDampeningObject ~= nil then
-				scale = 1 + (Humanoid.HipHeight - HumanoidHipHeight) * AnimationSpeedDampeningObject.Value / HumanoidHipHeight
-			end
+		if AnimationSpeedDampeningObject == nil then
+			AnimationSpeedDampeningObject = script:FindFirstChild("ScaleDampeningPercent")
+		end
+		if AnimationSpeedDampeningObject ~= nil then
+			scale = 1 + (Humanoid.HipHeight - HumanoidHipHeight) * AnimationSpeedDampeningObject.Value / HumanoidHipHeight
 		end
 		return scale
 	end	

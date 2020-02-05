@@ -65,7 +65,7 @@ function InviteToGamePrompt:show()
 	if not self.instance then
 		self.instance = Roact.mount(self:_createTree(true), self.mountTarget)
 	else
-		self.instance = Roact.reconcile(self.instance, self:_createTree(true))
+		self.instance = Roact.update(self.instance, self:_createTree(true))
 	end
 
 	if self.analytics then
@@ -79,7 +79,7 @@ function InviteToGamePrompt:hide(sentToUserIds)
 	end
 	self.isActive = false
 
-	self.instance = Roact.reconcile(self.instance, self:_createTree(false))
+	self.instance = Roact.update(self.instance, self:_createTree(false))
 	if self.socialService and self.localPlayer then
 		self.socialService:InvokeGameInvitePromptClosed(self.localPlayer, {})
 	end

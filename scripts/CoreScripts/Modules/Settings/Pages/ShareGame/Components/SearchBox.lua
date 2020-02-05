@@ -2,7 +2,6 @@ local CorePackages = game:GetService("CorePackages")
 
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
 local Roact = require(CorePackages.Roact)
 local Constants = require(RobloxGui.Modules.Settings.Pages.ShareGame.Constants)
@@ -30,12 +29,9 @@ local SEARCH_FIELD_MARGINS = 12
 
 local SEARCH_BOX_TEXT_SIZE = 16
 
-local FFlagLuaInviteGameMockTextLocalization = settings():GetFFlag("LuaInviteGameMockTextLocalization")
-if FFlagLuaInviteGameMockTextLocalization then
-	local ShareGame = RobloxGui.Modules.Settings.Pages.ShareGame
-	local getTranslator = require(ShareGame.getTranslator)
-	RobloxTranslator = getTranslator()
-end
+local ShareGame = RobloxGui.Modules.Settings.Pages.ShareGame
+local getTranslator = require(ShareGame.getTranslator)
+local RobloxTranslator = getTranslator()
 
 function SearchBox:init()
 	self.state = {

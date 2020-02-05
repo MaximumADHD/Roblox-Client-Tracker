@@ -6,7 +6,6 @@ local RoactRodux = require(CorePackages.RoactRodux)
 
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
 local ShareGame = RobloxGui.Modules.Settings.Pages.ShareGame
 
@@ -18,11 +17,8 @@ local INNER_TEXT_PADDING = 6
 local TEXT_SIZE = 16
 local TIMER_LENGTH = 4
 
-local FFlagLuaInviteGameMockTextLocalization = settings():GetFFlag("LuaInviteGameMockTextLocalization")
-if FFlagLuaInviteGameMockTextLocalization then
-	local getTranslator = require(ShareGame.getTranslator)
-	RobloxTranslator = getTranslator()
-end
+local getTranslator = require(ShareGame.getTranslator)
+local RobloxTranslator = getTranslator()
 
 local ErrorToaster = Roact.PureComponent:extend("ErrorToaster")
 

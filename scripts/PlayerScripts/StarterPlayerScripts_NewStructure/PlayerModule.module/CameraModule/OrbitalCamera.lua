@@ -4,20 +4,11 @@
 --]]
 
 -- Local private variables and constants
-local UNIT_X = Vector3.new(1,0,0)
-local UNIT_Y = Vector3.new(0,1,0)
 local UNIT_Z = Vector3.new(0,0,1)
 local X1_Y0_Z1 = Vector3.new(1,0,1)	--Note: not a unit vector, used for projecting onto XZ plane
 local ZERO_VECTOR3 = Vector3.new(0,0,0)
 local ZERO_VECTOR2 = Vector2.new(0,0)
 local TAU = 2 * math.pi
-
-local VR_PITCH_FRACTION = 0.25
-local tweenAcceleration = math.rad(220)		--Radians/Second^2
-local tweenSpeed = math.rad(0)				--Radians/Second
-local tweenMaxSpeed = math.rad(250)			--Radians/Second
-local TIME_BEFORE_AUTO_ROTATE = 2.0 		--Seconds, used when auto-aligning camera with vehicles
-local PORTRAIT_OFFSET = Vector3.new(0,-3,0)
 
 --[[ Gamepad Support ]]--
 local THUMBSTICK_DEADZONE = 0.2
@@ -28,31 +19,22 @@ local MIN_ALLOWED_ELEVATION_DEG = -80
 local MAX_ALLOWED_ELEVATION_DEG = 80
 
 local externalProperties = {}
-externalProperties["InitialDistance"] 	= 25
-externalProperties["MinDistance"] 		= 10
-externalProperties["MaxDistance"] 		= 100
-externalProperties["InitialElevation"] 	= 35
-externalProperties["MinElevation"] 		= 35
-externalProperties["MaxElevation"] 		= 35
-externalProperties["ReferenceAzimuth"] 	= -45	-- Angle around the Y axis where the camera starts. -45 offsets the camera in the -X and +Z directions equally
-externalProperties["CWAzimuthTravel"] 	= 90	-- How many degrees the camera is allowed to rotate from the reference position, CW as seen from above
-externalProperties["CCWAzimuthTravel"] 	= 90	-- How many degrees the camera is allowed to rotate from the reference position, CCW as seen from above
-externalProperties["UseAzimuthLimits"] 	= false -- Full rotation around Y axis available by default
+externalProperties["InitialDistance"]  = 25
+externalProperties["MinDistance"]      = 10
+externalProperties["MaxDistance"]      = 100
+externalProperties["InitialElevation"] = 35
+externalProperties["MinElevation"]     = 35
+externalProperties["MaxElevation"]     = 35
+externalProperties["ReferenceAzimuth"] = -45	-- Angle around the Y axis where the camera starts. -45 offsets the camera in the -X and +Z directions equally
+externalProperties["CWAzimuthTravel"]  = 90	-- How many degrees the camera is allowed to rotate from the reference position, CW as seen from above
+externalProperties["CCWAzimuthTravel"] = 90	-- How many degrees the camera is allowed to rotate from the reference position, CCW as seen from above
+externalProperties["UseAzimuthLimits"] = false -- Full rotation around Y axis available by default
 
 local Util = require(script.Parent:WaitForChild("CameraUtils"))
 
 --[[ Services ]]--
 local PlayersService = game:GetService('Players')
 local VRService = game:GetService("VRService")
-
---[[ Utility functions specific to OrbitalCamera ]]--
-local function GetValueObject(name, defaultValue)
-	local valueObj = script:FindFirstChild(name)
-	if valueObj then
-		return valueObj.Value
-	end
-	return defaultValue
-end
 
 --[[ The Module ]]--
 local BaseCamera = require(script.Parent:WaitForChild("BaseCamera"))
@@ -305,7 +287,6 @@ function OrbitalCamera:Update(dt)
 	local newCameraCFrame = camera.CFrame
 	local newCameraFocus = camera.Focus
 	local player = PlayersService.LocalPlayer
-	local humanoid = self:GetHumanoid()
 	local cameraSubject = camera and camera.CameraSubject
 	local isInVehicle = cameraSubject and cameraSubject:IsA('VehicleSeat')
 	local isOnASkateboard = cameraSubject and cameraSubject:IsA('SkateboardPlatform')
@@ -343,11 +324,9 @@ function OrbitalCamera:Update(dt)
 
 	-- Reset tween speed if user is panning
 	if userPanningTheCamera then
-		tweenSpeed = 0
 		self.lastUserPanCamera = tick()
 	end
 
-	local userRecentlyPannedCamera = now - self.lastUserPanCamera < TIME_BEFORE_AUTO_ROTATE
 	local subjectPosition = self:GetSubjectPosition()
 
 	if subjectPosition and player and camera then

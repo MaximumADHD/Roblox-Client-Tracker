@@ -81,6 +81,11 @@ void main()
     vec4 v15 = vec4(v4, v5, v6, 1.0) * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
     vec4 v16 = vec4(v4, v5, v6, 0.0);
     v16.w = COLOR1.w * 0.0039215688593685626983642578125;
+    float v17 = COLOR1.y * 0.50359570980072021484375;
+    float v18 = clamp(v13, 0.0, 1.0);
+    vec3 v19 = (CB0[10].xyz * v18) + (CB0[12].xyz * clamp(-v13, 0.0, 1.0));
+    vec4 v20 = vec4(v19.x, v19.y, v19.z, vec4(0.0).w);
+    v20.w = (v18 * CB0[23].w) * (COLOR1.y * exp2((v17 * dot(v11, normalize(v12 + normalize(v14)))) - v17));
     gl_Position = v15;
     VARYING0 = TEXCOORD0;
     VARYING1 = TEXCOORD1;
@@ -88,7 +93,7 @@ void main()
     VARYING3 = ((v7 + (v11 * 6.0)).yxz * CB0[16].xyz) + CB0[17].xyz;
     VARYING4 = vec4(v14, v15.w);
     VARYING5 = vec4(v8, v9, v10, COLOR1.z);
-    VARYING6 = vec4((CB0[10].xyz * max(v13, 0.0)) + (CB0[12].xyz * max(-v13, 0.0)), ((float(v13 > 0.0) * pow(clamp(dot(v11, normalize(v12 + normalize(v14))), 0.0, 1.0), COLOR1.z)) * (COLOR1.y * 0.0039215688593685626983642578125)) * CB0[23].w);
+    VARYING6 = v20;
     VARYING7 = v16;
     VARYING8 = NORMAL.w;
 }

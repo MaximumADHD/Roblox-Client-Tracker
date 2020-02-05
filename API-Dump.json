@@ -34161,6 +34161,55 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "IkMoveTo",
+                    "Parameters": [
+                        {
+                            "Name": "part",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        },
+                        {
+                            "Name": "target",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "CFrame"
+                            }
+                        },
+                        {
+                            "Default": "1",
+                            "Name": "translateStiffness",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "float"
+                            }
+                        },
+                        {
+                            "Default": "1",
+                            "Name": "rotateStiffness",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "float"
+                            }
+                        },
+                        {
+                            "Default": "OtherMechanismsAnchored",
+                            "Name": "collisionsMode",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "CollisionsMode"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "IsRegion3Empty",
                     "Parameters": [
                         {
@@ -39779,7 +39828,10 @@
                         "Category": "Primitive",
                         "Name": "int64"
                     },
-                    "Security": "PluginSecurity"
+                    "Security": "PluginSecurity",
+                    "Tags": [
+                        "Deprecated"
+                    ]
                 },
                 {
                     "MemberType": "Function",
@@ -49103,6 +49155,23 @@
                     }
                 },
                 {
+                    "Category": "Directories",
+                    "MemberType": "Property",
+                    "Name": "LocalAssetsFolder",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "QDir"
+                    }
+                },
+                {
                     "Category": "Lua Debugger",
                     "MemberType": "Property",
                     "Name": "LuaDebuggerEnabled",
@@ -49766,8 +49835,10 @@
                         "CanSave": true
                     },
                     "Tags": [
+                        "Hidden",
                         "ReadOnly",
-                        "NotReplicated"
+                        "NotReplicated",
+                        "Deprecated"
                     ],
                     "ValueType": {
                         "Category": "Enum",
@@ -50122,7 +50193,7 @@
                         "Category": "Primitive",
                         "Name": "int64"
                     },
-                    "Security": "RobloxScriptSecurity"
+                    "Security": "PluginSecurity"
                 },
                 {
                     "MemberType": "Function",
@@ -50282,6 +50353,17 @@
                                 "Name": "string"
                             }
                         }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "ShowBulkImportView",
+                    "Parameters": [
                     ],
                     "ReturnType": {
                         "Category": "Primitive",
@@ -59382,6 +59464,23 @@
                 }
             ],
             "Name": "CollisionFidelity"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "NoCollisions",
+                    "Value": 0
+                },
+                {
+                    "Name": "OtherMechanismsAnchored",
+                    "Value": 1
+                },
+                {
+                    "Name": "IncludeContactedMechanisms",
+                    "Value": 2
+                }
+            ],
+            "Name": "CollisionsMode"
         },
         {
             "Items": [

@@ -1,6 +1,6 @@
 --[[
 	CameraUtils - Math utility functions shared by multiple camera scripts
-	2018 Camera Update - AllYourBlox		
+	2018 Camera Update - AllYourBlox
 --]]
 
 local CameraUtils = {}
@@ -77,7 +77,7 @@ end
 local function fromSCurveSpace(t)
 	return t/2 + 0.5
 end
-	
+
 function CameraUtils.GamepadLinearToCurve(thumbstickPosition)
 	local function onAxis(axisValue)
 		local sign = 1
@@ -96,45 +96,45 @@ function CameraUtils.ConvertCameraModeEnumToStandard(enumValue)
 	if enumValue == Enum.TouchCameraMovementMode.Default then
 		return Enum.ComputerCameraMovementMode.Follow
 	end
-	
+
 	if enumValue == Enum.ComputerCameraMovementMode.Default then
 		return Enum.ComputerCameraMovementMode.Classic
 	end
-	
+
 	if enumValue == Enum.TouchCameraMovementMode.Classic or
 		enumValue == Enum.DevTouchCameraMovementMode.Classic or
 		enumValue == Enum.DevComputerCameraMovementMode.Classic or
 		enumValue == Enum.ComputerCameraMovementMode.Classic then
 		return Enum.ComputerCameraMovementMode.Classic
 	end
-	
+
 	if enumValue == Enum.TouchCameraMovementMode.Follow or
 		enumValue == Enum.DevTouchCameraMovementMode.Follow or
 		enumValue == Enum.DevComputerCameraMovementMode.Follow or
 		enumValue == Enum.ComputerCameraMovementMode.Follow then
 		return Enum.ComputerCameraMovementMode.Follow
 	end
-	
+
 	if enumValue == Enum.TouchCameraMovementMode.Orbital or
 		enumValue == Enum.DevTouchCameraMovementMode.Orbital or
 		enumValue == Enum.DevComputerCameraMovementMode.Orbital or
 		enumValue == Enum.ComputerCameraMovementMode.Orbital then
 		return Enum.ComputerCameraMovementMode.Orbital
 	end
-	
+
 	if FFlagUserCameraToggle then
 		if enumValue == Enum.ComputerCameraMovementMode.CameraToggle or
 			enumValue == Enum.DevComputerCameraMovementMode.CameraToggle then
 			return Enum.ComputerCameraMovementMode.CameraToggle
 		end
 	end
-	
+
 	-- Note: Only the Dev versions of the Enums have UserChoice as an option
 	if enumValue == Enum.DevTouchCameraMovementMode.UserChoice or
 		enumValue == Enum.DevComputerCameraMovementMode.UserChoice then
 		return Enum.DevComputerCameraMovementMode.UserChoice
 	end
-	
+
 	-- For any unmapped options return Classic camera
 	return Enum.ComputerCameraMovementMode.Classic
 end

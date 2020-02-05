@@ -6,7 +6,7 @@ local MultiGetPluginInfoRequest = require(Plugin.Src.Thunks.MultiGetPluginInfoRe
 local SetPluginInfo = require(Plugin.Src.Actions.SetPluginInfo)
 local ClearAllPluginData = require(Plugin.Src.Actions.ClearAllPluginData)
 
-local FFlagPluginManagementAllowLotsOfPlugins = settings():GetFFlag("PluginManagementAllowLotsOfPlugins")
+local FFlagPluginManagementAllowLotsOfPlugins2 = settings():GetFFlag("PluginManagementAllowLotsOfPlugins2")
 
 local function extractPluginsFromJsonString(json)
 	local success, decoded = xpcall(
@@ -40,7 +40,7 @@ return function(apiImpl, marketplaceService)
 			assetIds[#assetIds+1] = data.assetId
 		end
 
-		if FFlagPluginManagementAllowLotsOfPlugins then
+		if FFlagPluginManagementAllowLotsOfPlugins2 then
 			store:dispatch(ClearAllPluginData())
 			if #assetIds > 0 then
 				store:dispatch(MultiGetPluginInfoRequest(apiImpl, marketplaceService, assetIds, plugins))

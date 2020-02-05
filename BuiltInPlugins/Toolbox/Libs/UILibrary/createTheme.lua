@@ -276,14 +276,22 @@ return function(style, overrides)
 	local assetPreview = {
 		font = style.font,
 		textSize = 14,
+		textSizeMedium = 16,
+		textSizeLarge = 18,
 
-		modelPreview = {
-			background = style.backgroundColor,
+		favorites = {
+			contentColor = Color3.fromRGB(246, 183, 2),
+			favorited = "rbxasset://textures/StudioToolbox/AssetPreview/star_filled.png",
+			unfavorited = "rbxasset://textures/StudioToolbox/AssetPreview/star_stroke.png"
 		},
 
 		imagePreview = {
 			background = style.backgroundColor,
 			textColor = style.textColor,
+		},
+
+		modelPreview = {
+			background = style.backgroundColor,
 		},
 
 		thumbnailIconPreview = {
@@ -294,6 +302,76 @@ return function(style, overrides)
 			iconSize = 16,
 			defaultTextLabelHeight = 20,
 		},
+
+		treeViewButton = {
+			buttonSize = 28,
+			backgroundTrans = 0.25,
+			backgroundColor = style.background,
+			backgroundDisabledColor = style.disabledColor,
+			hierarchy = "rbxasset://textures/StudioToolbox/AssetPreview/hierarchy.png"
+		},
+
+		vote = {
+			backgroundTrans = 0.9,
+			background = style.backgroundColor,
+			borderColor = style.borderColor,
+			textColor = style.textColor,
+			subTextColor = style.subTextColor,
+
+			button = {
+				backgroundColor = style.itemColor,
+				backgroundTrans = 0,
+				disabledColor = Color3.fromRGB(10, 10, 10),
+			},
+
+			voteUp = {
+				backgroundColor = Color3.fromRGB(0, 100, 0),
+				borderColor = style.borderColor,
+			},
+
+			voteDown = {
+				backgroundColor = Color3.fromRGB(100, 0, 0),
+				borderColor = style.borderColor,
+			},
+
+			images = {
+				voteDown = "rbxasset://textures/StudioToolbox/AssetPreview/vote_down.png",
+				voteUp = "rbxasset://textures/StudioToolbox/AssetPreview/vote_up.png",
+				thumbUp = "rbxasset://textures/StudioToolbox/AssetPreview/rating_large.png"
+			}
+		},
+	}
+
+	local instanceTreeView = {
+		font = style.font,
+		textSize = 14,
+
+		background = style.background,
+
+		treeItemHeight = 16,
+		treeViewIndent = 20,
+
+		scrollbarPadding = 2,
+		scrollbarThickness = 8,
+
+		scrollbarTopImage = "rbxasset://textures/StudioToolbox/ScrollBarTop.png",
+		scrollbarMiddleImage = "rbxasset://textures/StudioToolbox/ScrollBarMiddle.png",
+		scrollBarBottomImage = "rbxasset://textures/StudioToolbox/ScrollBarBottom.png",
+
+		arrowExpanded = "rbxasset://textures/StudioToolbox/ArrowExpanded.png",
+		arrowCollapsed = "rbxasset://textures/StudioToolbox/ArrowCollapsed.png",
+
+		elementPadding = 4,
+
+		borderPadding = 15,
+
+		tooltipShowDelay = 0.3,
+
+		arrowColor = style.textColor,
+		selectedText = style.selectedTextColor,
+		textColor = style.textColor,
+		selected = style.selectedTextColor,
+		hover = style.hoverColor,
 	}
 
 	return replaceDefaults({
@@ -320,5 +398,6 @@ return function(style, overrides)
 		radioButton = radioButton,
 		treeView = treeView,
 		hyperlink = hyperlink,
+		instanceTreeView = instanceTreeView,
 	}, overrides)
 end

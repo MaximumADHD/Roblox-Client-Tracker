@@ -37,7 +37,6 @@ local FFlagUseNotificationsLocalization = settings():GetFFlag('UseNotificationsL
 local FFlagXboxPlayNextGame = settings():GetFFlag("XboxPlayNextGame")
 local FFlagXboxOverrideEnablePlayNextGame = settings():GetFFlag("XboxOverrideEnablePlayNextGame")
 local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp") --todo: remove with FFlagUsePolicyServiceForCoreScripts
-local FStringPlayNextGameTestName = settings():GetFVariable("PlayNextGameTestName")
 
 local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList3")
 
@@ -266,7 +265,6 @@ local function CreateSettingsHub()
 				this[textName].Size = UDim2.new(0.75,0,0.9,0)
 				this[textName].Position = UDim2.new(0.25,0,0,0)
 			end
-			local hintNameText = name .. "HintText"
 			local hintName = name .. "Hint"
 			local image = ""
 			if UserInputService:GetGamepadConnected(Enum.UserInputType.Gamepad1) or platform == Enum.Platform.XBoxOne then
@@ -420,7 +418,7 @@ local function CreateSettingsHub()
 			Visible = false
 		}
 
-        local versionContainerLayout = utility:Create("UIListLayout") {
+        local _versionContainerLayout = utility:Create("UIListLayout") {
             Name = "VersionContainer",
             Parent = this.VersionContainer,
 
@@ -1313,7 +1311,6 @@ local function CreateSettingsHub()
 
 	function setVisibilityInternal(visible, noAnimation, customStartPage, switchedFromGamepadInput)
 		this.OpenStateChangedCount = this.OpenStateChangedCount + 1
-		local switchedFromGamepadInput = switchedFromGamepadInput or isTenFootInterface
 		this.Visible = visible
 
 		if this.ResizedConnection then

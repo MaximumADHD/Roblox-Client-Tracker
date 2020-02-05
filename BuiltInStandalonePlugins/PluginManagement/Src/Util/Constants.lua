@@ -1,4 +1,3 @@
-
 local Constants = {}
 
 Constants.HEADER_HEIGHT = 70
@@ -31,7 +30,20 @@ Constants.PLUGIN_ENABLE_WIDTH = 40
 Constants.PLUGIN_CONTEXT_WIDTH = 28
 Constants.MODERATED_WARNING_WIDTH = 194
 
+Constants.HTTP_OVERVIEW_HEIGHT = 18
+Constants.HTTP_OVERVIEW_ICON_SIZE = 16
+Constants.DETAILS_THUMBNAIL_SIZE = 32
+Constants.LIST_ITEM_TITLE_WIDTH = 170
+Constants.PERMISSION_TYPES = {
+    HttpPermission = "HttpPermission",
+}
+
 -- Workaround because the ScrollbarInset does not work.
 Constants.SCROLLBAR_WIDTH_ADJUSTMENT = 12
+
+Constants.APP_PAGE = {
+    Main = "Main",
+    Detail = "Detail",
+}
 
 return Constants

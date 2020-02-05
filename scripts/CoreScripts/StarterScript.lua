@@ -22,8 +22,6 @@ local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp") --todo: 
 local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList3")
 local FFlagEmotesMenuEnabled2 = settings():GetFFlag("CoreScriptEmotesMenuEnabled2")
 
-local FFlagEnableNetworkPauseGui = game:DefineFastFlag("EnableNetworkPauseGui", false)
-
 -- The Rotriever index, as well as the in-game menu code itself, relies on
 -- the init.lua convention, so we have to run initify over the module.
 -- We do this explicitly because the LocalPlayer hasn't been created at this
@@ -137,6 +135,4 @@ coroutine.wrap(function()
 	safeRequire(RobloxGui.Modules.VR.UserGui)
 end)()
 
-if FFlagEnableNetworkPauseGui then
-	ScriptContext:AddCoreScriptLocal("CoreScripts/NetworkPause", RobloxGui)
-end
+ScriptContext:AddCoreScriptLocal("CoreScripts/NetworkPause", RobloxGui)

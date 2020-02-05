@@ -58,29 +58,28 @@ out vec3 VARYING3;
 out vec4 VARYING4;
 out vec4 VARYING5;
 out vec4 VARYING6;
-out vec4 VARYING7;
-out float VARYING8;
+out float VARYING7;
 
 void main()
 {
     vec3 v0 = (NORMAL.xyz * 0.0078740157186985015869140625) - vec3(1.0);
-    float v1 = dot(v0, -CB0[11].xyz);
-    vec4 v2 = vec4(POSITION.xyz, 1.0) * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
-    vec4 v3 = vec4(TEXCOORD1.x, TEXCOORD1.y, vec4(0.0).z, vec4(0.0).w);
-    v3.x = max(0.0500000007450580596923828125, TEXCOORD1.x);
-    float v4 = v2.w;
-    vec4 v5 = ((exp2(TEXCOORD3 * 0.0625) - vec4(1.0)) * CB0[23].z) + vec4((0.5 * v4) * CB0[23].y);
-    vec4 v6 = vec4(POSITION.xyz, 0.0);
-    v6.w = COLOR1.w * 0.0039215688593685626983642578125;
-    gl_Position = v2;
-    VARYING0 = vec4(TEXCOORD0.x, TEXCOORD0.y, v5.x, v5.y);
-    VARYING1 = vec4(v3.x, v3.y, v5.z, v5.w);
+    vec4 v1 = vec4(POSITION.xyz, 1.0) * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
+    vec4 v2 = vec4(TEXCOORD1.x, TEXCOORD1.y, vec4(0.0).z, vec4(0.0).w);
+    v2.x = max(0.0500000007450580596923828125, TEXCOORD1.x);
+    float v3 = v1.w;
+    vec4 v4 = ((exp2(TEXCOORD3 * 0.0625) - vec4(1.0)) * CB0[23].z) + vec4((0.5 * v3) * CB0[23].y);
+    vec4 v5 = vec4(POSITION.xyz, 0.0);
+    v5.w = COLOR1.z * 0.0039215688593685626983642578125;
+    vec4 v6 = vec4(v0, COLOR1.z);
+    v6.w = inversesqrt(0.1745329201221466064453125 * COLOR1.y);
+    gl_Position = v1;
+    VARYING0 = vec4(TEXCOORD0.x, TEXCOORD0.y, v4.x, v4.y);
+    VARYING1 = vec4(v2.x, v2.y, v4.z, v4.w);
     VARYING2 = COLOR0;
     VARYING3 = ((POSITION.xyz + (v0 * 6.0)).yxz * CB0[16].xyz) + CB0[17].xyz;
-    VARYING4 = vec4(CB0[7].xyz - POSITION.xyz, v4);
-    VARYING5 = vec4(v0, COLOR1.z);
-    VARYING6 = vec4((CB0[10].xyz * max(v1, 0.0)) + (CB0[12].xyz * max(-v1, 0.0)), (float(v1 > 0.0) * (COLOR1.y * 0.0039215688593685626983642578125)) * CB0[23].w);
-    VARYING7 = v6;
-    VARYING8 = NORMAL.w;
+    VARYING4 = vec4(CB0[7].xyz - POSITION.xyz, v3);
+    VARYING5 = v6;
+    VARYING6 = v5;
+    VARYING7 = NORMAL.w;
 }
 

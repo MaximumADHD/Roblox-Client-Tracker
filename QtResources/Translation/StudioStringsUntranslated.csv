@@ -72,8 +72,6 @@ Studio.App.BetaFeatures.TerrainEditorDescription,,Enables the new Beta version o
 Studio.App.BetaFeatures.TerrainEditorTitle,,Terrain Editor Beta,Terrain Editor Beta
 Studio.App.BetaFeatures.TryCoolFeatures,,Try out cool new Studio features! Your feedback is invaluable to us as we move forward towards building a powerful imagination platform.,Try out cool new Studio features! Your feedback is invaluable to us as we move forward towards building a powerful imagination platform.
 Studio.App.BetaFeatures.TryCoolFeaturesWithWarning,,Try out cool new Studio features before they are released to everyone! Please be aware that Beta features could be unstable. Your feedback is invaluable to us as we move towards building the imagination platform.,Try out cool new Studio features before they are released to everyone! Please be aware that Beta features could be unstable. Your feedback is invaluable to us as we move towards building the imagination platform.
-Studio.App.BetaFeatures.UIGradientDescription,,Add gradient to parent gui object,Add gradient to parent gui object
-Studio.App.BetaFeatures.UIGradientTitle,,UI Gradient Beta,UI Gradient Beta
 Studio.App.BetaFeatures.WhatsNewWindowDescription,,Open up a scrolling window that shows all of the recent updates to Roblox Studio,Open up a scrolling window that shows all of the recent updates to Roblox Studio
 Studio.App.BetaFeatures.WhatsNewWindowTitle,,New Updates Window,New Updates Window
 Studio.App.BreakpointConditionEditDialog.BreakpointCondition,,Breakpoint Condition,Breakpoint Condition
@@ -448,6 +446,7 @@ Studio.App.ImagePickerWidget.AddImageElps,,Add Image...,Add Image...
 Studio.App.ImageResourceController.ImagesReferencedByName,,"Images are referenced by name, so any references to this image will fail to load. Are you sure you want to remove it?","Images are referenced by name, so any references to this image will fail to load. Are you sure you want to remove it?"
 Studio.App.InsertObject.SearchObject1,,Search object %1,Search object %1
 Studio.App.InsertObjectWidget.EmptyFrequentlyUsedList,,Objects are not usually inserted under this parent.,Objects are not usually inserted under this parent.
+Studio.App.InsertObjectWidget.ExpandTooltip,,Toggle expanded view,Toggle expanded view
 Studio.App.InsertObjectWidget.FavoritesCategory,,Frequently Used,Frequently Used
 Studio.App.InsertObjectWidget.NoResultsFound,,No Results Found,No Results Found
 Studio.App.InsertObjectWidget.SeeAllButton,,See All,See All
@@ -458,6 +457,7 @@ Studio.App.InsertServiceDialog.Done,,Done,Done
 Studio.App.InsertServiceDialog.InsertService,,Insert Service,Insert Service
 Studio.App.InstanceSelectionEditor.ClearValue,,Clear Value,Clear Value
 Studio.App.InstanceSelectionEditor.SelectValue,,Select Value,Select Value
+Studio.App.LocalPlacePublishRequestMediator.ErrorWhileSaving1,,Error while publishing: %1,Error while publishing: %1
 Studio.App.LocalPlacePublishRequestMediator.Saving,,saving,saving
 Studio.App.LocalSaveHelper.DataModelError,,Failed to save the DataModel.,Failed to save the DataModel.
 Studio.App.LocalSaveHelper.FailedToLock1,,"Failed to obtain a file lock on '%1'.
@@ -834,6 +834,7 @@ Studio.App.Property.JobCount,,Job Count,Job Count
 Studio.App.Property.KeywordColor,,Keyword Color,Keyword Color
 Studio.App.Property.Language,,Language,Language
 Studio.App.Property.LineThickness,,Line Thickness,Line Thickness
+Studio.App.Property.LocalAssetsFolder,,Local Assets Folder,Local Assets Folder
 Studio.App.Property.LuaDebuggerEnabled,,Lua Debugger Enabled,Lua Debugger Enabled
 Studio.App.Property.MatchingWordBackgroundColor,,Matching Word Background Color,Matching Word Background Color
 Studio.App.Property.MaximumOutputLines,,Maximum Output Lines,Maximum Output Lines
@@ -1008,6 +1009,7 @@ Studio.App.PropertyEnum.VerySlow,,Very Slow,Very Slow
 Studio.App.PropertyEnum.Vulkan,,Vulkan,Vulkan
 Studio.App.PropertyItems.DefaultTheme,,Default,Default
 Studio.App.PropertyItems.InvertMeshFaces,,The mesh you are importing contains odd number negative scales. Would you like to invert mesh faces?,The mesh you are importing contains odd number negative scales. Would you like to invert mesh faces?
+Studio.App.PropertyItems.LoadStringEnbledWarning,,Activating the <b>%1</b> property might make your game vulnerable to exploits. Are you sure you want to enable this?,Activating the <b>%1</b> property might make your game vulnerable to exploits. Are you sure you want to enable this?
 Studio.App.PropertyItems.MoveTheMesh,,Your mesh contains location data. Would you like to move your mesh to the given location?,Your mesh contains location data. Would you like to move your mesh to the given location?
 Studio.App.PropertyItems.NotAValidLocation1,,"""%1"" is not a valid content location.
 Please enter an asset ID or a correctly formatted asset url.","""%1"" is not a valid content location.
@@ -1232,6 +1234,7 @@ Studio.App.RBXMainWindow.PublishTheSelectionToRoblox,,Publish the Selection to R
 Studio.App.RBXMainWindow.PublishToRoblox,,Publish to Roblox,Publish to Roblox
 Studio.App.RBXMainWindow.PublishToRobloxAsElps,,Publish to Roblox As...,Publish to Roblox As...
 Studio.App.RBXMainWindow.QuickFindScript,,Type to quickly open another script,Type to quickly open another script
+Studio.App.RBXMainWindow.QuickFindScriptUseCtrlP,,"This Dialog is deprecated, please use Quick Open (Ctrl+P) instead","This Dialog is deprecated, please use Quick Open (Ctrl+P) instead"
 Studio.App.RBXMainWindow.QuitApplication,,Quit the application; prompts to save documents,Quit the application; prompts to save documents
 Studio.App.RBXMainWindow.RedoThePreviouslyUndo,,Redo the previously undone action,Redo the previously undone action
 Studio.App.RBXMainWindow.ReloadScript,,Reload Script,Reload Script
@@ -1304,6 +1307,7 @@ Studio.App.RBXMainWindow.ShowsHidesGridMaterial,,Shows/Hides Grid Material,Shows
 Studio.App.RBXMainWindow.SmoothSurface,,Smooth Surface,Smooth Surface
 Studio.App.RBXMainWindow.SmoothSurfaceWithoutOutlines,,Smooth Surface without Outlines,Smooth Surface without Outlines
 Studio.App.RBXMainWindow.StartPlayer,,Start Player,Start Player
+Studio.App.RBXMainWindow.StartRemoteDebug,,Start Remote Debug,Start Remote Debug
 Studio.App.RBXMainWindow.StartServer,,Start Server,Start Server
 Studio.App.RBXMainWindow.Stats,,Stats,Stats
 Studio.App.RBXMainWindow.StepInto,,Step Into,Step Into
@@ -1741,6 +1745,8 @@ Studio.App.RobloxStudioVerbs.PlaySolo,,Play Solo,Play Solo
 Studio.App.RobloxStudioVerbs.PlaySoloSaveFailure,,Play solo - save failure,Play solo - save failure
 Studio.App.RobloxStudioVerbs.QuickOpen,,Quick Open,Quick Open
 Studio.App.RobloxStudioVerbs.Redo1,,Redo %s,Redo %s
+Studio.App.RobloxStudioVerbs.RemoteDebug,,Remote Debug,Remote Debug
+Studio.App.RobloxStudioVerbs.RemoteDebugSaveFailure,,Remote Debug - save failure,Remote Debug - save failure
 Studio.App.RobloxStudioVerbs.RevealInExplorer,,Reveal In Explorer/Finder,Reveal In Explorer/Finder
 Studio.App.RobloxStudioVerbs.RobloxLuaScripts,,Roblox Lua Scripts (*.lua),Roblox Lua Scripts (*.lua)
 Studio.App.RobloxStudioVerbs.RobloxModelFiles,,Roblox Model Files (*.rbxm),Roblox Model Files (*.rbxm)

@@ -107,11 +107,23 @@ void main()
     float f34 = max(f22.w - (f33 * f33), f29.y);
     float f35 = f27 - f33;
     float f36 = (f11 > 0.0) ? mix(f17, mix(min((f26 <= f30) ? 1.0 : clamp(((f31 / (f31 + (f32 * f32))) - 0.20000000298023223876953125) * 1.25, 0.0, 1.0), (f27 <= f33) ? 1.0 : clamp(((f34 / (f34 + (f35 * f35))) - 0.20000000298023223876953125) * 1.25, 0.0, 1.0)), f17, clamp((length(VARYING5.xyz - CB0[7].xyz) * CB0[45].y) - (CB0[45].x * CB0[45].y), 0.0, 1.0)), CB0[46].x) : 0.0;
-    vec3 f37 = (((min((f15.xyz * (f15.w * 120.0)).xyz + (CB0[8].xyz + (CB0[9].xyz * f16.x)), vec3(CB0[16].w)) + (((CB0[10].xyz * clamp(f11, 0.0, 1.0)) + (CB0[12].xyz * max(-f11, 0.0))) * f36)) + vec3((f9.z * 2.0) * f7)) * (f6 * f6).xyz) + (CB0[10].xyz * (((((step(0.0, f11) * f9.x) * f7) * VARYING0.w) * f36) * pow(clamp(dot(f8, normalize(f10 + normalize(VARYING7.xyz))), 0.0, 1.0), (clamp(f9.y, 0.0, 1.0) * 128.0) + 0.00999999977648258209228515625)));
-    vec4 f38 = vec4(f37.x, f37.y, f37.z, vec4(0.0).w);
-    f38.w = 1.0;
-    vec3 f39 = mix(CB0[14].xyz, sqrt(clamp(f38.xyz * CB0[15].y, vec3(0.0), vec3(1.0))).xyz, vec3(clamp(VARYING5.w, 0.0, 1.0)));
-    _entryPointOutput = vec4(f39.x, f39.y, f39.z, f38.w);
+    float f37 = f9.y;
+    vec3 f38 = normalize(f10 + normalize(VARYING7.xyz));
+    float f39 = clamp(f11, 0.0, 1.0);
+    float f40 = f37 * f37;
+    float f41 = max(0.001000000047497451305389404296875, dot(f8, f38));
+    float f42 = dot(f10, f38);
+    float f43 = 1.0 - f42;
+    float f44 = f43 * f43;
+    float f45 = (f44 * f44) * f43;
+    vec3 f46 = vec3(f45) + (vec3(0.039999999105930328369140625) * (1.0 - f45));
+    float f47 = f40 * f40;
+    float f48 = (((f41 * f47) - f41) * f41) + 1.0;
+    vec3 f49 = ((((((((vec3(1.0) - (f46 * (CB0[26].w * f7))) * 1.0) * CB0[10].xyz) * f39) * f36) + min((f15.xyz * (f15.w * 120.0)).xyz + (CB0[8].xyz + (CB0[9].xyz * f16.x)), vec3(CB0[16].w))) + vec3((f9.z * 2.0) * f7)) * (f6 * f6).xyz) + ((((((f46 * ((f47 + (f47 * f47)) / (((f48 * f48) * ((f42 * 3.0) + 0.5)) * ((f41 * 0.75) + 0.25)))) * CB0[10].xyz) * f39) * f36) * f7) * VARYING0.w);
+    vec4 f50 = vec4(f49.x, f49.y, f49.z, vec4(0.0).w);
+    f50.w = 1.0;
+    vec3 f51 = mix(CB0[14].xyz, sqrt(clamp(f50.xyz * CB0[15].y, vec3(0.0), vec3(1.0))).xyz, vec3(clamp(VARYING5.w, 0.0, 1.0)));
+    _entryPointOutput = vec4(f51.x, f51.y, f51.z, f50.w);
 }
 
 //$$ShadowAtlasTexture=s1

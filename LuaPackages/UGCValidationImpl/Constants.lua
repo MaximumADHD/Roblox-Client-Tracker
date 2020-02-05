@@ -89,7 +89,8 @@ Constants.ASSET_TYPE_INFO = {
 	},
 	[Enum.AssetType.HairAccessory] = {
 		attachmentNames = { "HairAttachment" },
-		boundsSize = Vector3.new(3, 4, 3),
+		boundsSize = game:GetFastFlag("UGCHairV2") and Vector3.new(3, 5, 3.5) or Vector3.new(3, 4, 3),
+		boundsOffset = game:GetFastFlag("UGCHairV2") and Vector3.new(0, 0.5, 0.25) or nil,
 	},
 	[Enum.AssetType.FaceAccessory] = {
 		attachmentNames = { "FaceFrontAttachment" },
