@@ -13,7 +13,11 @@ TestEnum.TestStatus = {
 TestEnum.NodeType = {
 	Try = "Try",
 	Describe = "Describe",
-	It = "It"
+	It = "It",
+	BeforeAll = "BeforeAll",
+	AfterAll = "AfterAll",
+	BeforeEach = "BeforeEach",
+	AfterEach = "AfterEach"
 }
 
 TestEnum.NodeModifier = {

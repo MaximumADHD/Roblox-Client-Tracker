@@ -82,7 +82,7 @@ function TestResults:visualize(root, level)
 				child.planNode.phrase
 			)
 
-			if #child.messages > 0 then
+			if child.messages and #child.messages > 0 then
 				str = str .. "\n " .. (" "):rep(3 * level) .. table.concat(child.messages, "\n " .. (" "):rep(3 * level))
 			end
 
@@ -90,7 +90,7 @@ function TestResults:visualize(root, level)
 		else
 			local str = ("%s%s"):format(
 				(" "):rep(3 * level),
-				child.planNode.phrase
+				child.planNode.phrase or ""
 			)
 
 			if child.status then
