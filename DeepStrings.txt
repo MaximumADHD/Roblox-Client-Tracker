@@ -3710,7 +3710,6 @@ BC0DB1AAF011E38B9D871882A8E559
 BC0DB2AAF011E38B9D871882A8E559
 BC0DB5AAF011E38B9D871882A8E559
 BC0DB6AAF011E38B9D871882A8E559
-Bc21cGWmw8g23C2j
 BC32CAAED11E38B9D871882A8E559
 BC32DAAED11E38B9D871882A8E559
 BC330AAED11E38B9D871882A8E559
@@ -4162,7 +4161,7 @@ BytesReceivedAndIgnoredPerSec
 BytesReceivedPerSec
 BytesRecvAndIgnored
 BytesWritten
-ByVersion_0.418.0.379407
+ByVersion_0.418.1.380321
 ByVersionForPlatform_
 C_specific_handler
 CA_NPEAVQObject
@@ -7302,6 +7301,7 @@ Distribution
 DistributionPoint
 DistributionPoints
 DistToShowBufferCountSqr
+DjDUUZCMWEEB2eKc
 DKECCAK1600_ASM
 DlcVersion
 DListenerAttributes
@@ -8250,6 +8250,7 @@ EVRConfig_ForceBob
 EVRConfig_ForceHalfInterlace
 EVRConfig_ForceScaling
 EVRConfig_ForceThrottle
+Ew9KwECxVe
 ExactMatch
 ExceptionAddress
 ExceptionCode
@@ -11210,7 +11211,6 @@ IPluginElementHost
 IPTypeAndDataCenter
 IPublishedGamesStore
 IPV6RobloxStudioCleanUp
-Iqkc7n5iTnX
 IRobloxDoc
 Is30FpsThrottleEnabled
 IsActivated
@@ -11365,7 +11365,6 @@ IVRScreenshots_001
 IVRSettings_002
 IVRSystem_017
 IVRTrackedCamera_003
-IVYuZfgKe3HY1S3
 IWorldStage
 IXMLHTTPRequest2
 J_Key_dn.png
@@ -12196,8 +12195,6 @@ LuauWarnOnUtf8
 LuauWatchdog
 LuaWebService
 LVvuOx39]O
-LVW9vCoYe1d1AEDTYtz
-LZP3IUuVtBZUF8ruOQqlWzMEOWm3nz5j
 M_NVWeakFunctionRef
 MachineAddress
 MachineConfig
@@ -12232,7 +12229,6 @@ ManualFocusReleaseDisablesSinking
 ManualGlue
 ManualSurfaceJointInstance
 ManualWeld
-MaoneovLRlOKTPSs
 MapBufferRange
 MapMouseButton
 MappingScheme
@@ -12816,7 +12812,7 @@ MigrateTriangleMeshData3
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsI9zRp2OSccqdFx2
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAupANB3EbN9hFHHUj0eA
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzjPRQo9jc
-MIICCgKCAgEAur5w16HTAb0qglJFyIdMMzeb406ExrwimRHyAMdAyC3c0DOdwNFD
+MIICCgKCAgEAzQVLvyfnMSWtZ
 MillisecondsBeforeHandlingReconnect
 MimeDataFromSelection
 MinDelta[nLog]
@@ -13487,7 +13483,7 @@ NVWorkspace
 NW4FileSystemDir
 NW4PenStyle
 NW4UserInputType
-NXdKPKFdO1Y0b1HBat2L9d
+Nx3d3BIv9KXmwR2ZzA4gwpaMOoOlgkT2ZAgNn3yCTbjz9RJtkdpnL8po
 Oacutesmall
 OAEPEncryptionSET
 OAUTHBEARER
@@ -13878,7 +13874,6 @@ OverrideStarterScript
 OverrideToMyBranch
 OverwriteMode
 OwnProperty
-OyfMeOyh7xm0A9I3tGCUYwtEPZCbx9nXo0LfSzf7muaTf
 Ozs8xYCf2Q05p4gHyX
 PA^A]A\_^]
 PA^A]A\_^][
@@ -15713,8 +15708,6 @@ PVAdornment
 PVInstance
 PVK_header
 PyJlf7IHZQpFHohBe
-PyksFVIQX16HZQQqvC2UQiunRfbbuCRUtW4Tp7LLVsFmo1X6c5pPK5BvL4YSwyYI
-PYTw7p7HwkZmGEaiGspn3ZK4tOpWzEgjmVGoKM4aglqJHuI4f84s7bckfuflrV4
 QAbstractAnimation
 QAbstractButton
 QAbstractConcatenable
@@ -16427,7 +16420,6 @@ QueuePresentKHR
 QueueSubmit
 QueueUserAPC
 QueueWaitIdle
-Qui1tVXIcRbcD33wv22fHGhLsGddfDb
 Quick_Access_Button
 QuickAccess
 QuickAccess_
@@ -17557,8 +17549,6 @@ RigidityEnabled
 RiizHfdp66XieruPcmwPPo93k9DFO59O
 RiseVelocity
 Rj0isQcnqX
-RjCCVLM4aHiKXifNaGRWOMNq2UylY3DZ1Zh3THNp22BRudUMJMCAwEAAQ
-Ro55FdSxI6S37OSbdex1uGZ3RdrXJmRluhTs0c9DADokxO3Lp0dGqGyJPZr3
 Roact.createElement
 RoactPurchasePromptAllowBundles
 ROBLOSECURITY
@@ -22475,7 +22465,6 @@ TS_TST_INFO_set_serial
 TS_TST_INFO_set_time
 TS_TST_INFO_set_tsa
 TS_VERIFY_CTX_new
-TSjnEZ2E4dIKpdN2xE1G22ZLVVbW
 TSMk2ThrottleStreamJob
 TTUUEDDsss
 TurboBuildersClub
@@ -22516,7 +22505,6 @@ TwoStepVerificationWidgetShown
 TxtArray.length
 TxtArray[j]
 TXtComment
-TYaO1RLztYQ
 TypeArray.length
 TypeArray.push
 TypeArray[glob
@@ -24568,7 +24556,6 @@ WithSHA224
 WithSHA256
 WithSHA384
 WithSHA512
-Wk3TGygVlOTgVxoGwloAsEe
 WM_ATLGETCONTROL
 WM_ATLGETHOST
 WMCreateProfileManager
@@ -24843,6 +24830,7 @@ YffYZefYDNNDCOO
 YieldEvent
 YieldFuncDesc
 YieldFunction
+YM18KYh6AcXkqgrt1Tq7aeeRAhcCA0ePEIPU1XZr2nFrxh9Js1
 YQByteArray
 YResolution
 YwBBvY55YvBBwY5
