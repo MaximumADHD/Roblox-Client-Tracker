@@ -76,9 +76,22 @@ local Constants = {
         Enum.KeyCode.Backquote,
     },
 
-    -- Remove EmoteMenuOpenKey and EmoteMenuOpenButton when removing FFlagEmotesMenuRemoveOpenKeybinds
-    EmoteMenuOpenKey = Enum.KeyCode.B,
-    EmoteMenuOpenButton = Enum.KeyCode.DPadDown,
+    EmoteSlotKeys = {
+        Enum.KeyCode.One,
+        Enum.KeyCode.Two,
+        Enum.KeyCode.Three,
+        Enum.KeyCode.Four,
+        Enum.KeyCode.Five,
+        Enum.KeyCode.Six,
+        Enum.KeyCode.Seven,
+        Enum.KeyCode.Eight,
+    },
+
+    EmoteMenuOpenKey = Enum.KeyCode.Period,
+
+    -- Remove when removing FFlagEmotesMenuNewKeybinds
+    EmoteMenuOpenKey_OLD = Enum.KeyCode.B,
+    EmoteMenuOpenButton_OLD = Enum.KeyCode.DPadDown,
 
     EmoteMenuCloseKey = Enum.KeyCode.Escape,
     EmoteMenuCloseButton = Enum.KeyCode.ButtonB,
@@ -89,12 +102,10 @@ local Constants = {
 
     PlayEmoteButton = Enum.KeyCode.ButtonA,
 
-    HighPriorityActions = Enum.ContextActionPriority.High.Value,
-
-    -- Remove ToggleMenuAction when removing FFlagEmotesMenuRemoveOpenKeybinds
     ToggleMenuAction = "EmotesMenuToggleAction",
     CloseMenuAction = "EmotesMenuCloseAction",
     EmoteSelectionAction = "EmotesMenuSelectionAction",
+    ActivateEmoteSlotAction = "EmotesMenuActivateEmoteSlotAction",
     PlaySelectedAction = "EmotesMenuPlaySelectedAction",
     LeaveMenuDontSinkInputAction = "EmotesMenuLeaveMenuDontSinkInputAction",
 

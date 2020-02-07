@@ -16,6 +16,7 @@ local ContextActionService = game:GetService("ContextActionService")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local GuiService = game:GetService("GuiService")
 local RunService = game:GetService("RunService")
+local AnalyticsService = game:GetService("RbxAnalyticsService")
 
 ----------- UTILITIES --------------
 local utility = require(RobloxGui.Modules.Settings.Utility)
@@ -27,6 +28,12 @@ RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
 local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
 
 local FFlagUpdateSettingsHubGameText = require(RobloxGui.Modules.Flags.FFlagUpdateSettingsHubGameText)
+local FFlagCollectAnalyticsForSystemMenu = settings():GetFFlag("CollectAnalyticsForSystemMenu")
+
+local Constants
+if FFlagCollectAnalyticsForSystemMenu then
+  Constants = require(RobloxGui.Modules:WaitForChild("InGameMenu"):WaitForChild("Resources"):WaitForChild("Constants"))
+end
 
 ----------- CLASS DECLARATION --------------
 
@@ -36,6 +43,11 @@ local function Initialize()
 
 	this.LeaveFunc = function()
 		GuiService.SelectedCoreObject = nil -- deselects the button and prevents spamming the popup to save in studio when using gamepad
+
+		if FFlagCollectAnalyticsForSystemMenu then
+			AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, Constants.AnalyticsInGameMenuName,
+												Constants.AnalyticsLeaveGameName, {confirmed = Constants.AnalyticsConfirmedName})
+		end
 
 		-- need to wait for render frames so on slower devices the leave button highlight will update
 		-- otherwise, since on slow devices it takes so long to leave you are left wondering if you pressed the button
@@ -48,6 +60,11 @@ local function Initialize()
 	this.DontLeaveFunc = function(isUsingGamepad)
 		if this.HubRef then
 			this.HubRef:PopMenu(isUsingGamepad, true)
+		end
+
+		if FFlagCollectAnalyticsForSystemMenu then
+			AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, Constants.AnalyticsInGameMenuName,
+												Constants.AnalyticsLeaveGameName, {confirmed = Constants.AnalyticsCancelledName})
 		end
 	end
 	this.DontLeaveFromHotkey = function(name, state, input)

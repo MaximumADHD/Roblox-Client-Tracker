@@ -369,7 +369,7 @@ function ToolboxTheme:_recalculateTheme()
 			},
 
 			actionBar = {
-				background = isDark and Color3.fromRGB(46,46,46) or Color3.fromRGB(70,70,70),
+				background = isDark and Color3.fromRGB(46,46,46) or Color3.fromRGB(255,255,255),
 				buttonBG = Colors.BLUE_PRIMARY,
 				buttonBGDisabled = isDark and Colors.BUTTON_CTA_BG_DISABLED_DARK or Colors.BLUE_DISABLED,
 
@@ -433,6 +433,7 @@ function ToolboxTheme:_recalculateTheme()
 		font = Enum.Font.SourceSans,
 
 		backgroundColor = color(c.InputFieldBackground),
+		liveBackgroundColor = color(c.InputFieldBackground),
 		textColor = color(c.MainText),
 		subTextColor = color(c.SubText),
 		dimmerTextColor = color(c.DimmedText),
@@ -454,6 +455,11 @@ function ToolboxTheme:_recalculateTheme()
 
 	local overrides = {
 		assetPreview = {
+			fontBold = Enum.Font.GothamBold,
+			textSizeMedium = 16,
+			textSizeLarge = 18,
+			backgroundColor = isDark and Color3.fromRGB(46, 46, 46) or Color3.fromRGB(255, 255, 255),
+
 			modelPreview = {
 				background = isDark and Color3.fromRGB(37, 37, 37) or Color3.fromRGB(227, 227, 227)
 			},
@@ -495,7 +501,52 @@ function ToolboxTheme:_recalculateTheme()
 			treeViewButton = {
 				backgroundColor = isDark and Color3.fromRGB(102, 102, 102) or Color3.fromRGB(158, 158, 158),
 				backgroundDisabledColor = isDark and Color3.fromRGB(50, 50, 50) or Color3.fromRGB(100, 100, 100),
-			}
+			},
+
+			actionBar = {
+				background = isDark and Color3.fromRGB(46,46,46) or Color3.fromRGB(255,255,255),
+
+				button = {
+					backgroundColor = Colors.BLUE_PRIMARY,
+					backgroundDisabledColor = isDark and Colors.BUTTON_CTA_BG_DISABLED_DARK or Colors.BLUE_DISABLED,
+				},
+
+				showMore = {
+					backgroundColor = isDark and Color3.fromRGB(109, 109, 109) or Color3.fromRGB(168,168,168),
+					borderColor = isDark and Color3.fromRGB(109, 109, 109) or Color3.fromRGB(207, 207, 207),
+				},
+
+				text = {
+					color = Colors.WHITE,
+					colorDisabled = isDark and Colors.DARK_DIMMER_TEXT_COLOR or Colors.WHITE,
+				},
+
+				padding = 12,
+				centerPadding = 10,
+
+				robuxSize = UDim2.fromOffset(16,16),
+
+				images = {
+					showMore = "rbxasset://textures/StudioToolbox/AssetPreview/more.png",
+					robuxSmall = "rbxasset://textures/ui/common/robux_small.png",
+					colorWhite = Color3.fromRGB(255, 255, 255),
+				}
+			},
+
+			description = {
+				background = color(c.MainBackground),
+				leftTextColor = isDark and Color3.fromRGB(170, 170, 170) or Color3.fromRGB(117, 117, 117),
+				rightTextColor = isDark and Color3.fromRGB(204, 204, 204) or color(c.MainText),
+				lineColor = isDark and Color3.fromRGB(34, 34, 34) or Color3.fromRGB(227, 227, 227),
+			},
+		},
+
+		loadingBar = {
+			text = color(c.MainText),
+			bar = {
+				foregroundColor = color(c.CurrentMarker),
+				backgroundColor = color(c.Midlight),
+			},
 		},
 
 		instanceTreeView = {
@@ -528,6 +579,15 @@ function ToolboxTheme:_recalculateTheme()
 		tooltip = {
 			textSize = Constants.FONT_SIZE_SMALL,
 		},
+
+		searchBar = {
+			backgroundColor = color(c.Dropdown),
+			border = {
+				selected = {
+					color = Colors.BLUE_PRIMARY,
+				},
+			},
+		}
 	}
 
 	self:_updateUILibrary(styleGuide, overrides)

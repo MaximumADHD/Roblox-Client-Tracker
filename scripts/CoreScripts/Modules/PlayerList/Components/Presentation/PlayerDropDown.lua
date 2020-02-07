@@ -31,11 +31,7 @@ local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
 
 local FFlagFixInspectMenuAnalytics = settings():GetFFlag("FixInspectMenuAnalytics")
 local FFlagPlayerListDesignUpdate = settings():GetFFlag("PlayerListDesignUpdate")
-
-local InGameMenu
-if isNewInGameMenuEnabled() then
-	InGameMenu = require(RobloxGui.Modules.InGameMenu)
-end
+local FFlagPlayerListBetterDropDownPositioning = require(RobloxGui.Modules.Flags.FFlagPlayerListBetterDropDownPositioning)
 
 local PlayerList = Components.Parent
 
@@ -97,6 +93,10 @@ function PlayerDropDown:init()
 			innerFrame.Position = UDim2.new(value, 0, 0, 0)
 		end
 	end)
+
+	if FFlagPlayerListBetterDropDownPositioning then
+		self.dropDownPosition = 0
+	end
 end
 
 -- Remove with FFlagPlayerListDesignUpdate
@@ -248,6 +248,8 @@ function PlayerDropDown:createReportButton()
 			forceShowOptions = false,
 			onActivated = function()
 				if isNewInGameMenuEnabled() then
+					-- todo: move InGameMenu to a script global when removing isNewInGameMenuEnabled
+					local InGameMenu = require(RobloxGui.Modules.InGameMenu)
 					InGameMenu.openReportDialog(selectedPlayer)
 				else
 					-- This module has to be required here or it yields on initalization which breaks the unit tests.
@@ -265,6 +267,8 @@ function PlayerDropDown:createReportButton()
 			text = "Report Abuse",
 			onActivated = function()
 				if isNewInGameMenuEnabled() then
+					-- todo: move InGameMenu to a script global when removing isNewInGameMenuEnabled
+					local InGameMenu = require(RobloxGui.Modules.InGameMenu)
 					InGameMenu.openReportDialog(selectedPlayer)
 				else
 					-- This module has to be required here or it yields on initalization which breaks the unit tests.
@@ -388,7 +392,12 @@ function PlayerDropDown:render()
 
 		dropDownHeight = dropDownHeight - layoutValues.DropDownButtonPadding
 
-		local dropDownPosition = self.props.positionY
+		local dropDownPosition
+		if FFlagPlayerListBetterDropDownPositioning then
+			dropDownPosition = self.dropDownPosition
+		else
+			dropDownPosition = self.props.positionY
+		end
 		if FFlagPlayerListDesignUpdate then
 			dropDownPosition = dropDownPosition + (layoutValues.DropDownHeaderBackgroundSize - layoutValues.DropDownHeaderSizeY)
 			if dropDownPosition + dropDownHeight > self.props.maxPositionBoundY then
@@ -441,6 +450,14 @@ function PlayerDropDown:didMount()
 	self.motor:setGoal(Otter.spring(targetPosition, self.motorOptions))
 end
 
+if FFlagPlayerListBetterDropDownPositioning then
+	function PlayerDropDown:willUpdate(nextProps, nextState)
+		if nextProps.selectedPlayer ~= self.props.selectedPlayer then
+			self.dropDownPosition = nextProps.positionY
+		end
+	end
+end
+
 function PlayerDropDown:didUpdate(previousProps, previousState)
 	if previousProps.selectedPlayer ~= self.props.selectedPlayer then
 		self.motor:setGoal(Otter.instant(1))
@@ -458,7 +475,7 @@ end
 local function mapStateToProps(state)
 	local selectedPlayer = state.playerDropDown.selectedPlayer
 	return {
-		selectedPlayer = selectedPlayer,
+		selectedPlayer = (not FFlagPlayerListBetterDropDownPositioning) and selectedPlayer or nil,
 		isVisible = state.playerDropDown.isVisible,
 		playerRelationship = selectedPlayer and state.playerRelationship[selectedPlayer.UserId],
 		inspectMenuEnabled = state.displayOptions.inspectMenuEnabled,

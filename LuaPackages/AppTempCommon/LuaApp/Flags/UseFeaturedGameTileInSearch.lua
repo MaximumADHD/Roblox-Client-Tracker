@@ -1,15 +1,18 @@
-game:DefineFastInt("LuaAppPercentRolloutFeaturedGameTileInSearch", 0) -- GAMEDISC-238
-game:DefineFastFlag("LuaAppABTestFeaturedGameTileInSearch", false) -- GAMEDISC-307
-
+local CoreGui = game:GetService("CoreGui")
 local Players = game:GetService("Players")
 local ABTestService = game:GetService("ABTestService")
+local Modules = CoreGui.RobloxGui.Modules
+local GetFFlagLuaAppInitializeABTests = require(Modules.LuaApp.Flags.GetFFlagLuaAppInitializeABTests)
+
+game:DefineFastInt("LuaAppPercentRolloutFeaturedGameTileInSearch", 0) -- GAMEDISC-238
+game:DefineFastFlag("LuaAppABTestFeaturedGameTileInSearch", false) -- GAMEDISC-307
 
 return function()
 	if not Players.LocalPlayer then
 		return false
 	end
 
-	local FFlagLuaAppInitializeABTests = game:GetFastFlag("LuaAppInitializeABTests")
+	local FFlagLuaAppInitializeABTests = GetFFlagLuaAppInitializeABTests()
 	local FFlagLuaAppABTestFeaturedGameTileInSearch = game:GetFastFlag("LuaAppABTestFeaturedGameTileInSearch")
 	if FFlagLuaAppInitializeABTests and FFlagLuaAppABTestFeaturedGameTileInSearch then
 		--[[

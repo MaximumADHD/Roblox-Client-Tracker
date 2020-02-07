@@ -1537,10 +1537,6 @@ Class LoginService : Instance [NotCreatable] [Service]
 	Event LoginService.LoginSucceeded(string username) {RobloxSecurity}
 Class LuaSettings : Instance [NotCreatable] [Settings]
 	Property bool LuaSettings.AreScriptStartsReported
-	Property int LuaSettings.GcFrequency
-	Property int LuaSettings.GcLimit
-	Property int LuaSettings.GcPause
-	Property int LuaSettings.GcStepMul
 	Property double LuaSettings.DefaultWaitTime
 	Property float LuaSettings.WaitingThreadsBudget
 Class LuaSourceContainer : Instance [NotCreatable] [NotBrowsable]
@@ -1666,7 +1662,6 @@ Class NetworkClient : NetworkPeer [NotCreatable] [Service] [NotReplicated]
 	Event NetworkClient.ConnectionRejected(string peer)
 Class NetworkServer : NetworkPeer [NotCreatable] [Service] [NotReplicated]
 	Property int NetworkServer.Port [<💾> SaveOnly] [ReadOnly] [NotReplicated]
-	Function int NetworkServer:GetClientCount() {LocalUserSecurity}
 Class NetworkReplicator : Instance [NotCreatable] [NotReplicated]
 	Function void NetworkReplicator:CloseConnection() {LocalUserSecurity}
 	Function Instance NetworkReplicator:GetPlayer()
@@ -1684,30 +1679,20 @@ Class NetworkSettings : Instance [NotCreatable] [Service] [NotBrowsable]
 	Property Enum<PacketPriority> NetworkSettings.DataSendPriority  [Hidden] [NotReplicated]
 	Property int NetworkSettings.ExtraMemoryUsed {PluginSecurity} [Hidden] [NotReplicated]
 	Property float NetworkSettings.FreeMemoryMBytes {PluginSecurity} [Hidden] [ReadOnly] [NotReplicated]
-	Property bool NetworkSettings.ArePhysicsRejectionsReported
 	Property double NetworkSettings.IncommingReplicationLag
-	Property bool NetworkSettings.PrintBits
-	Property bool NetworkSettings.PrintEvents
 	Property bool NetworkSettings.PrintFilters
 	Property bool NetworkSettings.PrintInstances
 	Property bool NetworkSettings.PrintJoinSizeBreakdown
 	Property bool NetworkSettings.PrintPhysicsErrors
-	Property bool NetworkSettings.PrintProperties
 	Property bool NetworkSettings.PrintSplitMessage
 	Property bool NetworkSettings.PrintStreamInstanceQuota
 	Property bool NetworkSettings.PrintTouches
 	Property bool NetworkSettings.TrackDataTypes
 	Property bool NetworkSettings.TrackPhysicsDetails
-	Property float NetworkSettings.ClientPhysicsSendRate
-	Property float NetworkSettings.DataGCRate
 	Property float NetworkSettings.DataSendRate
-	Property bool NetworkSettings.IsQueueErrorComputed
-	Property float NetworkSettings.NetworkOwnerRate
-	Property float NetworkSettings.PhysicsSendRate
 	Property int NetworkSettings.PreferredClientPort
 	Property double NetworkSettings.ReceiveRate
 	Property float NetworkSettings.TouchSendRate
-	Property bool NetworkSettings.UsePhysicsPacketCache
 	Property int NetworkSettings.PhysicsMtuAdjust
 	Property Enum<PacketPriority> NetworkSettings.PhysicsSendPriority  [Hidden] [NotReplicated]
 	Property bool NetworkSettings.HttpProxyEnabled {✏️RobloxScriptSecurity}
@@ -2753,7 +2738,6 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool Studio.OverrideCoreScripts {✏️RobloxScriptSecurity}
 	Property QDir Studio.OverrideCoreScriptsDir {✏️RobloxScriptSecurity}
 	Property QDir Studio.PluginsDir
-	Property QDir Studio.RecentSavesDir
 	Property bool Studio.Show Core GUI in Explorer while Playing
 	Property bool Studio.Show Hidden Objects in Explorer
 	Property bool Studio.Show Plugin GUI Service in Explorer
@@ -2806,6 +2790,7 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Array Studio:GetAvailableThemes() {PluginSecurity}
 	Event Studio.ThemeChanged() {PluginSecurity}
 Class StudioData : Instance [NotCreatable] [Service]
+	Property bool StudioData.EnableScriptCollabByDefaultOnLoad {PluginSecurity} [Hidden]
 	Property bool StudioData.EnableScriptCollabOnLoad {PluginSecurity} [Hidden]
 	Property int64 StudioData.SrcPlaceId {RobloxSecurity} [Hidden] [NotReplicated]
 	Property int64 StudioData.SrcUniverseId {RobloxSecurity} [Hidden] [NotReplicated]
@@ -2825,7 +2810,7 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function int64 StudioService:GetUserId() {PluginSecurity}
 	Function bool StudioService:IsPluginInstalled(int64 assetId) {RobloxScriptSecurity}
 	Function bool StudioService:IsPluginUpToDate(int64 assetId, int64 currentAssetVersion) {RobloxScriptSecurity}
-	Function int StudioService:LaunchBulkImport(int assetTypeToImport) {RobloxScriptSecurity} [Yields]
+	Function void StudioService:LaunchBulkImport(int assetTypeToImport) {RobloxScriptSecurity}
 	Function void StudioService:OpenInBrowser_DONOTUSE(string url) {RobloxScriptSecurity}
 	Function void StudioService:OpenPluginInsertPage(int64 assetId) {RobloxScriptSecurity}
 	Function Instance StudioService:PromptImportFile(Array fileTypeFilter = {}) {PluginSecurity} [Yields]
@@ -2841,6 +2826,7 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void StudioService:TryInstallPlugin(int64 assetId, int64 assetVersionId) {RobloxScriptSecurity} [Yields]
 	Function void StudioService:UninstallPlugin(int64 assetId) {RobloxScriptSecurity}
 	Function void StudioService:UpdatePluginManagement() {RobloxScriptSecurity}
+	Event StudioService.BulkImportFinished(int state) {RobloxScriptSecurity}
 	Event StudioService.GamePublishFinished(bool success) {RobloxScriptSecurity}
 	Event StudioService.OnConvertToPackageResult(bool isSuccessful, string errorMessage) {RobloxScriptSecurity}
 	Event StudioService.OnOpenConvertToPackagePlugin(Objects instances, string name) {RobloxScriptSecurity}

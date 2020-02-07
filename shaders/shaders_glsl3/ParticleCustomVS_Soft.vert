@@ -91,18 +91,19 @@ void main()
     vec4 v18 = (v12 + (CB0[6] * CB1[1].x)) * v13;
     vec4 v19 = v14;
     v19.z = (v18.z * v16) / v18.w;
-    vec2 v20 = (vec2(0.5) * (v19.xy / vec2(v16)).xy) + vec2(0.5);
-    vec3 v21 = vec3(v20.x, v20.y, vec3(0.0).z);
-    v21.z = min(v16 - CB1[1].x, 495.0);
-    vec4 v22 = vec4(v21.x, v21.y, v21.z, vec4(0.0).w);
-    v22.w = 1.0 / v6;
-    vec2 v23 = (TEXCOORD3 + ((TEXCOORD1 * (CB1[2].z - 1.0)) + vec2(0.5))) * CB1[2].xy;
-    vec2 v24 = v23;
-    v24.y = 1.0 - v23.y;
+    float v20 = v14.w;
+    vec2 v21 = (vec2(0.5) * (v19.xy / vec2(v20)).xy) + vec2(0.5);
+    vec3 v22 = vec3(v21.x, v21.y, vec3(0.0).z);
+    v22.z = min(v20 - CB1[1].x, 495.0);
+    vec4 v23 = vec4(v22.x, v22.y, v22.z, vec4(0.0).w);
+    v23.w = 1.0 / v6;
+    vec2 v24 = (TEXCOORD3 + ((TEXCOORD1 * (CB1[2].z - 1.0)) + vec2(0.5))) * CB1[2].xy;
+    vec2 v25 = v24;
+    v25.y = 1.0 - v24.y;
     gl_Position = v19;
     VARYING0 = v17;
     VARYING1 = TEXCOORD2 * 0.0039215688593685626983642578125;
-    VARYING2 = v24;
-    VARYING3 = v22;
+    VARYING2 = v25;
+    VARYING3 = v23;
 }
 

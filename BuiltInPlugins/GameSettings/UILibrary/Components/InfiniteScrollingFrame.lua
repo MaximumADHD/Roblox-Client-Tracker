@@ -90,7 +90,7 @@ function InfiniteScrollingFrame:render()
 	
 	local nextPageFunc = self.props.NextPageFunc
 	
-	assert(nextPageFunc ~= nil and type(NextPageFunc) == "function",
+	assert(nextPageFunc ~= nil and type(nextPageFunc) == "function",
 		"InfiniteScrollingFrame requires a NextPageFunc function.")
 
     local position = props.Position

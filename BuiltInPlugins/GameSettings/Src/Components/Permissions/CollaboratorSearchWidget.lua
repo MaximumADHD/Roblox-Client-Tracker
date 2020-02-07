@@ -4,6 +4,7 @@
 
 local FFlagStudioGameSettingsRestrictPermissions = game:GetFastFlag("StudioGameSettingsRestrictPermissions")
 local FFlagStudioGameSettingsPermisisonUpdateWarning = game:DefineFastFlag("StudioGameSettingsPermissionUpdateWarning", false)
+local FFlagStudioGameSettingsFixUserSearch = game:DefineFastFlag("StudioGameSettingsFixUserSearch", false)
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -110,7 +111,12 @@ local function getMatches(searchData, permissions, groupMetadata)
 		end
 
 		-- Insert friends after exact match (if it exists), but before the rest of the web results (if they exist)
-		local firstUserIsExactMatch = #matchedUsers > 0 and matchedUsers[1][PermissionsConstants.SubjectNameKey]:lower() == searchTerm:lower()
+		local firstUserIsExactMatch
+		if FFlagStudioGameSettingsFixUserSearch then
+			firstUserIsExactMatch = #userMatches > 0 and userMatches[1][PermissionsConstants.SubjectNameKey]:lower() == searchTerm:lower()
+		else
+			firstUserIsExactMatch = #matchedUsers > 0 and matchedUsers[1][PermissionsConstants.SubjectNameKey]:lower() == searchTerm:lower()
+		end
 		local position = math.min(firstUserIsExactMatch and 1 or 2, #userMatches + 1)
 		for _,v in pairs(rawFriendMatches) do
 			local subjectId = v[PermissionsConstants.SubjectIdKey]

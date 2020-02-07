@@ -30,12 +30,6 @@ local isNewInGameMenuEnabled = require(GuiRoot.Modules.isNewInGameMenuEnabled)
 local tenFootInterface = require(GuiRoot.Modules.TenFootInterface)
 local utility = require(GuiRoot.Modules.Settings.Utility)
 local RobloxTranslator = require(GuiRoot.Modules.RobloxTranslator)
-
---Remove with FIntNewInGameMenuPercentRollout
-local recordPage = nil
-if not isNewInGameMenuEnabled() then
-	recordPage = require(GuiRoot.Modules.Settings.Pages.Record)
-end
 local businessLogic = require(GuiRoot.Modules.BusinessLogic)
 local Panel3D = require(GuiRoot.Modules.VR.Panel3D)
 local EmotesModule
@@ -47,11 +41,6 @@ if FFlagEmotesMenuEnabled2 then
 end
 
 local FFlagUpdateSettingsHubGameText = require(GuiRoot.Modules.Flags.FFlagUpdateSettingsHubGameText)
-
-local InGameMenu
-if isNewInGameMenuEnabled() then
-	InGameMenu = require(GuiRoot.Modules.InGameMenu)
-end
 
 --[[ VARIABLES ]]
 local gamepadSettingsFrame = nil
@@ -748,6 +737,8 @@ local function createGamepadMenuGui()
 	local function settingsFunc()
 		toggleCoreGuiRadial(true)
 		if isNewInGameMenuEnabled() then
+			-- todo: move InGameMenu to a script global when removing isNewInGameMenuEnabled
+			local InGameMenu = require(GuiRoot.Modules.InGameMenu)
 			InGameMenu.openGameSettingsPage()
 		else
 			local MenuModule = require(GuiRoot.Modules.Settings.SettingsHub)
@@ -763,6 +754,8 @@ local function createGamepadMenuGui()
 		if VRService.VREnabled then
 			toggleCoreGuiRadial(true)
 			if isNewInGameMenuEnabled() then
+				-- todo: move InGameMenu to a script global when removing isNewInGameMenuEnabled
+				local InGameMenu = require(GuiRoot.Modules.InGameMenu)
 				InGameMenu.openPlayersPage()
 			else
 				local MenuModule = require(GuiRoot.Modules.Settings.SettingsHub)

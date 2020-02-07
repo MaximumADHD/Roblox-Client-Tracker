@@ -1,0 +1,8 @@
+Key,Source,Context,en-us
+Studio.AssetManager.Main.Title, , ,Asset Manager
+Studio.AssetManager.Main.ToolbarButton, , ,Asset Manager
+Studio.AssetManager.Main.Tooltip, , ,"Add, remove, and modify assets"
+Studio.AssetManager.Meta.PluginButtonTooltip, , ,"Add, remove, and modify assets"
+Studio.AssetManager.Meta.PluginDescription, , ,"Add, remove, and modify assets"
+Studio.AssetManager.Meta.PluginName, , ,AssetManager
+Studio.AssetManager.Meta.ToolbarName, , ,Asset Manager

@@ -59,11 +59,6 @@ if FFlagEmotesMenuEnabled2 then
 	FFlagEmotesMenuShowUiOnlyWhenAvailable = game:GetFastFlag("EmotesMenuShowUiOnlyWhenAvailable", false)
 end
 
-local InGameMenu
-if isNewInGameMenuEnabled() then
-	InGameMenu = require(GuiRoot.Modules.InGameMenu)
-end
-
 --[[ END OF MODULES ]]
 
 local settingsActive = false
@@ -874,6 +869,8 @@ end
 
 --- SETTINGS ---
 local function mountInGameMenu()
+	-- todo: move InGameMenu to a script global when removing isNewInGameMenuEnabled
+	local InGameMenu = require(GuiRoot.Modules.InGameMenu)
 	local menuButton = InGameMenu.mountInGameMenu()
 	return CreateMenuItem(menuButton)
 end

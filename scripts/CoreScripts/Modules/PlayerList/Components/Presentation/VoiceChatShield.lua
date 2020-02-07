@@ -10,10 +10,17 @@ local Connection = Components.Connection
 local LayoutValues = require(Connection.LayoutValues)
 local WithLayoutValues = LayoutValues.WithLayoutValues
 
-local VoiceChatShield = Roact.Component:extend("VoiceChatShield")
-
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
+
+local FFlagPlayerListPerformanceImprovements = require(RobloxGui.Modules.Flags.FFlagPlayerListPerformanceImprovements)
+
+local VoiceChatShield
+if FFlagPlayerListPerformanceImprovements then
+	VoiceChatShield = Roact.PureComponent:extend("VoiceChatShield")
+else
+	VoiceChatShield = Roact.Component:extend("VoiceChatShield")
+end
 
 function VoiceChatShield:getVoiceEnabledString()
 	if self.state.xboxMuteAllState then

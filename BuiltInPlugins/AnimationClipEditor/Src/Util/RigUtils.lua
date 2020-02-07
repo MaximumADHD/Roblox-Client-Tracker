@@ -19,6 +19,7 @@ local FixRigUtils = require(Plugin.LuaFlags.GetFFlagFixRigUtils)
 local FixExportSpeed = require(Plugin.LuaFlags.GetFFlagFixExportSpeed)
 local FindNestedParts = require(Plugin.LuaFlags.GetFFlagFindNestedParts)
 local FixDuplicateChildNames = require(Plugin.LuaFlags.GetFFlagFixDuplicateChildNames)
+local AllowDuplicateNamesOnNonAnimatedParts = require(Plugin.LuaFlags.GetFFlagAllowDuplicateNamesOnNonAnimatedParts)
 
 local RigUtils = {}
 
@@ -193,7 +194,7 @@ function RigUtils.rigHasErrors(rig)
 		end
 	end
 
-	if FixDuplicateChildNames() then
+	if FixDuplicateChildNames() and not AllowDuplicateNamesOnNonAnimatedParts() then
 		local descendants = {}
 		getDescendants(descendants, rig)
 		local names = {}

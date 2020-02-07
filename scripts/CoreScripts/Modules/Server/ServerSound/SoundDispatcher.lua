@@ -1,4 +1,8 @@
 --[[
+    Server-side network glue for the legacy avatar sound system.
+    The legacy system supported by this script has known bugs and performance issues!
+    Switch to the new system by deleting StarterPlayer.StarterCharacterScripts.Sound.
+
 	The sound dispatcher will fire sound events to properly loaded characters. This script manages a list of
 	characters currently loaded in the game. When a character fires a sound event, this dispatcher will
 	check to make sure the event only fires on characters who have loaded in.

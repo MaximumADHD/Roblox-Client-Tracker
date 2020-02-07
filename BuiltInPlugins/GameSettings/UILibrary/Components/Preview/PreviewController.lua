@@ -17,6 +17,7 @@
 
 	LayoutOrder = number,
 ]]
+local FFlagStudioMinorFixesForAssetPreview = settings():GetFFlag("StudioMinorFixesForAssetPreview")
 
 local Library = script.Parent.Parent.Parent
 
@@ -49,6 +50,12 @@ local MODAL_MIN_WIDTH = 235
 local PreviewController = Roact.PureComponent:extend("PreviewController")
 
 local function getImage(instance)
+	if FFlagStudioMinorFixesForAssetPreview then
+		if typeof(instance) ~= "Instance" then
+			return nil
+		end
+	end
+
 	if instance:IsA("Decal") or instance:IsA("Texture") then
 		return instance.Texture
 	elseif instance:IsA("Sky") then
@@ -59,6 +66,11 @@ local function getImage(instance)
 end
 
 local function getImageScaleType(instance)
+	if FFlagStudioMinorFixesForAssetPreview then
+		if typeof(instance) ~= "Instance" then
+			return Enum.ScaleType.Fit
+		end
+	end
 	if instance:IsA("Sky") then
 		return Enum.ScaleType.Crop
 	else

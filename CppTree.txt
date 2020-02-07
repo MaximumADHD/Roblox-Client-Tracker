@@ -73,6 +73,10 @@ RBX
 		GenericJob
 		SerializationException
 	}
+	DataStoreService
+	{
+		DSServiceLRUCache
+	}
 	DS
 	{
 		CAudioStream
@@ -136,6 +140,7 @@ RBX
 		FramebufferGL
 		FramebufferVulkan
 		FrameRateManagerStatsItem
+		FrameRateManagerStatsStringItem
 		Geometry
 		GeometryD3D11
 		GeometryD3D9
@@ -240,6 +245,16 @@ RBX
 		ICombinedSignalData
 		OutfitChangedSignalData
 		PropertyChangedSignalData
+	}
+	JsonRpc
+	{
+		AbstractSocketMessageStream
+		ClientServerDemultiplexStream
+		Exception
+		MessageStream
+		MessageStreamDecorator
+		TcpClientMessageStream
+		TcpServerMessageStream
 	}
 	Localization
 	{
@@ -498,7 +513,6 @@ RBX
 		ForceLinear
 		InteractingPair
 		LDLPGSSolverMT
-		PGSSolver
 		SolverInterface
 	}
 	Soundscape
@@ -700,7 +714,6 @@ RBX
 	DataStore
 	DataStoreJob
 	DataStorePages
-	DataStoreService
 	DateHandler
 	DatetimeHandler
 	DebrisService
@@ -1033,6 +1046,7 @@ RBX
 	QWidgetPluginGui
 	RbxAnalyticsService
 	RelativePanel
+	RemoteDebugConnectionManager
 	RemoteEvent
 	RemoteFunction
 	RenderingTest
@@ -1098,6 +1112,7 @@ RBX
 	Skin
 	Sky
 	SleepStage
+	SleepStageNew
 	Smoke
 	SmoothClusterGeometry
 	SmoothNoOutlinesTool

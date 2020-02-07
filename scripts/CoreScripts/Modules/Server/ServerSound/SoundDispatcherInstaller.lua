@@ -6,8 +6,6 @@ local OLD_SOUND_SCRIPT_NAME = "Sound"
 local ServerScriptService = game:GetService("ServerScriptService")
 local StarterPlayer = game:GetService("StarterPlayer")
 
-local FFlagNewCharacterSoundScript = settings():GetFFlag("NewCharacterSoundScript")
-
 local function HasOldSoundScripts()
 	if ServerScriptService:FindFirstChild(SOUND_DISPATCHER_NAME) then
 		return true
@@ -31,7 +29,7 @@ local function LoadScript(name, parent)
 end
 
 local function TryInstall()
-	if FFlagNewCharacterSoundScript and not HasOldSoundScripts() then
+	if not HasOldSoundScripts() then
 		-- use the new system
 		return
 	end

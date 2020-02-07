@@ -43,6 +43,7 @@ local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList3")
 local FFlagLocalizeVersionLabels = settings():GetFFlag("LocalizeVersionLabels")
 
 local FFlagUpdateSettingsHubGameText = require(RobloxGui.Modules.Flags.FFlagUpdateSettingsHubGameText)
+local FFlagCollectAnalyticsForSystemMenu = settings():GetFFlag("CollectAnalyticsForSystemMenu")
 
 
 --[[ SERVICES ]]
@@ -84,6 +85,11 @@ local connectedServerVersion = nil
 
 local ShareGameDirectory = CoreGui.RobloxGui.Modules.Settings.Pages.ShareGame
 local InviteToGameAnalytics = require(ShareGameDirectory.Analytics.InviteToGameAnalytics)
+
+local Constants
+if FFlagCollectAnalyticsForSystemMenu then
+  Constants = require(RobloxGui.Modules:WaitForChild("InGameMenu"):WaitForChild("Resources"):WaitForChild("Constants"))
+end
 
 local shouldLocalize = FFlagChinaLicensingApp
 if PolicyService:IsEnabled() then
@@ -1285,6 +1291,14 @@ local function CreateSettingsHub()
 		if this.MenuStack[#this.MenuStack] ~= this.Pages.CurrentPage and not ignoreStack then
 			this.MenuStack[#this.MenuStack + 1] = this.Pages.CurrentPage
 		end
+
+		if FFlagCollectAnalyticsForSystemMenu then
+			if pageToSwitchTo then
+				AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, Constants.AnalyticsMenuActionName, "open_" .. pageToSwitchTo.Page.Name .. "_tab", {})
+			else
+				AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, Constants.AnalyticsMenuActionName, "open_unknown_tab", {})
+			end
+		end
 	end
 
 	function this:SetActive(active)
@@ -1311,6 +1325,17 @@ local function CreateSettingsHub()
 
 	function setVisibilityInternal(visible, noAnimation, customStartPage, switchedFromGamepadInput)
 		this.OpenStateChangedCount = this.OpenStateChangedCount + 1
+
+		if FFlagCollectAnalyticsForSystemMenu then
+			if this.Visible ~= visible then
+				if visible then
+					AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, Constants.AnalyticsMenuActionName, Constants.AnalyticsMenuOpenName, {})
+				else
+					AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, Constants.AnalyticsMenuActionName, Constants.AnalyticsMenuCloseName, {})
+				end
+			end
+		end
+
 		this.Visible = visible
 
 		if this.ResizedConnection then

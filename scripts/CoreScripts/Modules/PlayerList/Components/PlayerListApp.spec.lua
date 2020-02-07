@@ -30,6 +30,10 @@ return function()
 	FollowRelationshipChanged.Name = "FollowRelationshipChanged"
 	FollowRelationshipChanged.Parent = RobloxReplicatedStorage
 
+	local GetFollowRelationships = Instance.new("RemoteFunction")
+	GetFollowRelationships.Name = "GetFollowRelationships"
+	GetFollowRelationships.Parent = RobloxReplicatedStorage
+
 	local NewFollower = Instance.new("RemoteEvent")
 	NewFollower.Name = "NewFollower"
 	NewFollower.Parent = RobloxReplicatedStorage
@@ -51,7 +55,9 @@ return function()
 
 	it("should create and destroy without errors", function()
 		local element = Roact.createElement(RoactRodux.StoreProvider, {
-			store = Rodux.Store.new(Reducer)
+			store = Rodux.Store.new(Reducer, nil, {
+				Rodux.thunkMiddleware,
+			})
 		}, {
 			LayoutValuesProvider = Roact.createElement(LayoutValuesProvider, {
 				layoutValues = CreateLayoutValues(false, false)
@@ -69,7 +75,9 @@ return function()
 	end)
 
 	it("should create and destroy without errors tenfoot", function()
-		local store = Rodux.Store.new(Reducer)
+		local store = Rodux.Store.new(Reducer, nil, {
+			Rodux.thunkMiddleware,
+		})
 		store:dispatch(SetTenFootInterface(true))
 
 		local element = Roact.createElement(RoactRodux.StoreProvider, {

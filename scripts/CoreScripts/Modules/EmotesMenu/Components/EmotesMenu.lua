@@ -12,6 +12,7 @@ local RoactRodux = require(CorePackages.RoactRodux)
 
 local Components = script.Parent
 local EmotesModules = Components.Parent
+local Modules = EmotesModules.Parent
 local Actions = EmotesModules.Actions
 local Thunks = EmotesModules.Thunks
 
@@ -25,9 +26,10 @@ local ErrorMessage = require(Components.ErrorMessage)
 
 local Constants = require(EmotesModules.Constants)
 
+local FFlagEmotesMenuNewKeybinds = require(Modules.Flags.FFlagEmotesMenuNewKeybinds)
+
 local EmotesMenu = Roact.PureComponent:extend("EmotesMenu")
 
--- Remove this funtion when removing FFlagEmotesMenuRemoveOpenKeybinds
 function EmotesMenu:bindActions()
     local function toggleMenuFunc(actionName, inputState, inputObj)
         if GuiService.MenuIsOpen then
@@ -45,11 +47,15 @@ function EmotesMenu:bindActions()
         return nil
     end
 
-    ContextActionService:BindAction(Constants.ToggleMenuAction, toggleMenuFunc, --[[createTouchButton = ]] false,
-                                    Constants.EmoteMenuOpenKey, Constants.EmoteMenuOpenButton)
+    if FFlagEmotesMenuNewKeybinds then
+        ContextActionService:BindAction(Constants.ToggleMenuAction, toggleMenuFunc, --[[createTouchButton = ]] false,
+                                        Constants.EmoteMenuOpenKey)
+    else
+        ContextActionService:BindAction(Constants.ToggleMenuAction, toggleMenuFunc, --[[createTouchButton = ]] false,
+                                        Constants.EmoteMenuOpenKey_OLD, Constants.EmoteMenuOpenButton_OLD)
+    end
 end
 
--- Remove this funtion when removing FFlagEmotesMenuRemoveOpenKeybinds
 function EmotesMenu:unbindActions()
     ContextActionService:UnbindAction(Constants.ToggleMenuAction)
 end
@@ -125,7 +131,7 @@ function EmotesMenu:didMount()
         end)
     end
 
-    if not FFlagEmotesMenuRemoveOpenKeybinds then
+    if FFlagEmotesMenuNewKeybinds or not FFlagEmotesMenuRemoveOpenKeybinds then
         self:bindActions()
     end
 end
@@ -147,7 +153,7 @@ function EmotesMenu:willUnmount()
         self.inputOutsideMenuConn = nil
     end
 
-    if not FFlagEmotesMenuRemoveOpenKeybinds then
+    if FFlagEmotesMenuNewKeybinds or not FFlagEmotesMenuRemoveOpenKeybinds then
         self:unbindActions()
     end
 end

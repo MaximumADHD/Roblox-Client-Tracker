@@ -7,6 +7,8 @@ local Constants = require(Plugin.Src.Util.Constants)
 
 local makeTerrainGenerator = require(script.Parent.makeTerrainGenerator)
 
+local DEBUG_LOG_WORK_TIME = false
+
 local TerrainGeneration = {}
 TerrainGeneration.__index = TerrainGeneration
 
@@ -61,7 +63,14 @@ function TerrainGeneration.new(options)
 
 	self._onGeneratorFinished = function()
 		local endTime = tick()
-		print(self._localization:getText("Generate", "GenerationFinished", endTime - self._generateStartTime))
+		local totalTime = endTime - self._generateStartTime
+		print(self._localization:getText("Generate", "GenerationFinished", totalTime))
+
+		if DEBUG_LOG_WORK_TIME then
+			local yieldTime = self._generator.getYieldTime()
+			local workTime = totalTime - yieldTime
+			print(("Yielded for %.2f seconds; Did work for %.2f"):format(yieldTime, workTime))
+		end
 
 		-- Update our subscribers first
 		self._generatingFinishedSignal:fire()

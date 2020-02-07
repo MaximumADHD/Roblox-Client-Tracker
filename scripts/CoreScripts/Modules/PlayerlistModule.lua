@@ -46,10 +46,7 @@ local PlayerPermissionsModule = require(RobloxGui.Modules.PlayerPermissionsModul
 
 local GameTranslator = require(RobloxGui.Modules.GameTranslator)
 
-local InGameMenu
-if isNewInGameMenuEnabled() then
-	InGameMenu = require(RobloxGui.Modules.InGameMenu)
-end
+
 
 local RemoveEvent_OnFollowRelationshipChanged = nil
 local RemoteFunc_GetFollowRelationships = nil
@@ -958,6 +955,8 @@ local function createPlayerSideBarOption(player)
           setVisible(false)
           GuiService.SelectedCoreObject = nil
           if isNewInGameMenuEnabled() then
+            -- todo: move InGameMenu to a script global when removing isNewInGameMenuEnabled
+            local InGameMenu = require(RobloxGui.Modules.InGameMenu)
             InGameMenu.openReportDialog(player)
           else
             reportAbuseMenu:ReportPlayer(player)

@@ -4,6 +4,8 @@ local Packages = Plugin.Packages
 local MainReducer = require(script.Parent.MainReducer)
 local Rodux = require(Packages.Rodux)
 
+local FFlagTerrainToolsConvertPartTool = game:GetFastFlag("TerrainToolsConvertPartTool")
+
 return function()
 	it("should combine all of its reducers", function()
 		local r = Rodux.Store.new(MainReducer)
@@ -14,19 +16,28 @@ return function()
 
 		local expectedKeys = {
 			"Tools",
+
 			"GenerateTool",
 			"ImportTool",
-			"SeaLevelTool",
+
 			"RegionTool",
 			"FillTool",
+
 			"AddTool",
 			"SubtractTool",
 			"GrowTool",
 			"ErodeTool",
 			"SmoothTool",
 			"FlattenTool",
+			"SeaLevelTool",
+
 			"PaintTool",
 		}
+
+		if FFlagTerrainToolsConvertPartTool then
+			table.insert(expectedKeys, "ConvertPartTool")
+		end
+
 		for _, childReducerName in ipairs(expectedKeys) do
 			expect(state[childReducerName]).to.be.ok()
 		end

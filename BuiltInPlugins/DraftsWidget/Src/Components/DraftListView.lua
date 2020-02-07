@@ -28,6 +28,8 @@ local CommitState = require(Plugin.Src.Symbols.CommitState)
 
 local ITEM_HEIGHT = 32
 
+local DisableContextMenuDuringCommit = game:DefineFastFlag("DisableContextMenuDuringCommit", false)
+
 local DraftListView = Roact.Component:extend("DraftListView")
 
 function DraftListView:init()
@@ -89,74 +91,91 @@ function DraftListView:init()
     end
 
     self.makeMenuActions = function(localization, selectedDrafts)
-        local canRestoreSelection = true
-        local canUpdateSelection = true
-        local canCommitSelection = true
-        local canDiffSelection = true
-        local canDiscardSelection = true
+        local updateActionVisible = true
+        local restoreActionVisible = true
+
+        local openActionEnabled = true
+        local diffActionEnabled = true
+        local updateActionEnabled = (not game:GetFastFlag("StudioDraftsUseMultiselect2")) or #selectedDrafts == 1
+        local commitActionEnabled = true
+        local restoreActionEnabled = true
+        local revertActionEnabled = true
+
         for _,draft in ipairs(selectedDrafts) do
             local draftState = self.props.Drafts[draft]
 
             if draftState[DraftState.Deleted] then
-                canDiffSelection = false
-                canCommitSelection = false
-                canUpdateSelection = false
+                diffActionEnabled = false
+                commitActionEnabled = false
+                updateActionVisible = false
             elseif draftState[DraftState.Outdated] then
-                canCommitSelection = false
+                commitActionEnabled = false
             else
-                canUpdateSelection = false
+                updateActionVisible = false
             end
 
             if not draftState[DraftState.Deleted] then
-                canRestoreSelection = false
+                restoreActionVisible = false
+            end
+
+            if DisableContextMenuDuringCommit and draftState[DraftState.Committed] == CommitState.Committing then
+                openActionEnabled = false
+                restoreActionEnabled = false
+                updateActionEnabled = false
+                commitActionEnabled = false
+                diffActionEnabled = false
+                revertActionEnabled = false
             end
         end
 
         if not RunService:IsEdit() then
-            canRestoreSelection = false
-            canUpdateSelection = false
-            canCommitSelection = false
-            canDiffSelection = false
-            canDiscardSelection = false
+            restoreActionVisible = false
+            updateActionVisible = false
+
+            commitActionEnabled = false
+            diffActionEnabled = false
+            revertActionEnabled = false
         end
 
         local contextMenuItems = {
             {
-				Text = localization:getText("ContextMenu", "OpenScript"),
+                Text = localization:getText("ContextMenu", "OpenScript"),
+                Enabled = openActionEnabled,
 				ItemSelected = function()
 					self.openScripts(selectedDrafts)
 				end,
             },
             {
                 Text = localization:getText("ContextMenu", "ShowDiff"),
-                Enabled = canDiffSelection,
+                Enabled = diffActionEnabled,
 				ItemSelected = function()
 					self.diffChanges(selectedDrafts)
 				end,
             },
-            canUpdateSelection and {
+            updateActionVisible and {
                 Text = localization:getText("ContextMenu", "Update"),
-                Enabled = (not game:GetFastFlag("StudioDraftsUseMultiselect2")) or #selectedDrafts == 1,
+                Enabled = updateActionEnabled,
                 ItemSelected = function()
                     self.updateSource(selectedDrafts)
                 end,
             },
-            not canUpdateSelection and {
+            (not updateActionVisible) and {
                 Text = localization:getText("ContextMenu", "Commit"),
-                Enabled = canCommitSelection,
+                Enabled = commitActionEnabled,
 				ItemSelected = function()
 					self.commitChanges(selectedDrafts)
 				end,
             },
-            canRestoreSelection and {
+            restoreActionVisible and {
                 Text = localization:getText("ContextMenu", "Restore"),
+                Enabled = restoreActionEnabled,
                 ItemSelected = function()
                     self.restoreScripts(selectedDrafts)
                 end,
             },
             {
                 Text = localization:getText("ContextMenu", "Revert"),
-                Enabled = canDiscardSelection,
+                Enabled = revertActionEnabled,
                 ItemSelected = function()
                     self.promptDiscardEdits(selectedDrafts)
                 end,

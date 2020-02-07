@@ -1,36 +1,39 @@
 local Plugin = script.Parent.Parent.Parent
-local Rodux = require(Plugin.Packages.Rodux)
 local Cryo = require(Plugin.Packages.Cryo)
 
 local Reducers = Plugin.Src.Reducers
 local Tools = require(Reducers.Tools)
 
 local AddTool = require(Reducers.AddTool)
+local ConvertPart = require(Reducers.ConvertPart)
 local ErodeTool = require(Reducers.ErodeTool)
 local FillTool = require(Reducers.FillTool)
+local FlattenTool = require(Reducers.FlattenTool)
 local GenerateTool = require(Reducers.GenerateTool)
 local GrowTool = require(Reducers.GrowTool)
 local ImportTool = require(Reducers.ImportTool)
+local PaintTool = require(Reducers.PaintTool)
 local RegionTool = require(Reducers.RegionTool)
+local SeaLevelTool = require(Reducers.SeaLevelTool)
 local SmoothTool = require(Reducers.SmoothTool)
 local SubtractTool = require(Reducers.SubtractTool)
-local FlattenTool = require(Reducers.FlattenTool)
-local PaintTool = require(Reducers.PaintTool)
-local SeaLevelTool = require(Reducers.SeaLevelTool)
+
+local FFlagTerrainToolsConvertPartTool = game:GetFastFlag("TerrainToolsConvertPartTool")
 
 local toolReducerTable = {
 	GenerateTool = GenerateTool,
 	ImportTool = ImportTool,
-	SeaLevelTool = SeaLevelTool,
+	ConvertPartTool = FFlagTerrainToolsConvertPartTool and ConvertPart or nil,
+	RegionTool = RegionTool,
+	FillTool = FillTool,
 	AddTool = AddTool,
 	SubtractTool = SubtractTool,
 	GrowTool = GrowTool,
 	ErodeTool = ErodeTool,
 	SmoothTool = SmoothTool,
-	FillTool = FillTool,
-	RegionTool = RegionTool,
-	PaintTool = PaintTool,
 	FlattenTool = FlattenTool,
+	SeaLevelTool = SeaLevelTool,
+	PaintTool = PaintTool,
 }
 
 local Actions = Plugin.Src.Actions
@@ -42,7 +45,8 @@ local MainReducer = function(state, action)
 
 		GenerateTool = GenerateTool(state, action),
 		ImportTool = ImportTool(state, action),
-		SeaLevelTool = SeaLevelTool(state, action),
+
+		ConvertPartTool = FFlagTerrainToolsConvertPartTool and ConvertPart(state, action) or nil,
 
 		RegionTool = RegionTool(state, action),
 		FillTool = FillTool(state, action),
@@ -54,28 +58,30 @@ local MainReducer = function(state, action)
 		ErodeTool = ErodeTool(state, action),
 		SmoothTool = SmoothTool(state, action),
 		FlattenTool = FlattenTool(state, action),
+		SeaLevelTool = SeaLevelTool(state, action),
 
 		-- special cased reducer, is used by a tab since
 		-- there's no other paint tools under the paint category
 		PaintTool = PaintTool(state, action),
 	}
 
-	-- ApplyToolAction is used to direct the same action across mutliple reducers
+	-- ApplyToolAction is used to direct the same action across multiple reducers
 	-- This means actions that affect tool reducers must go through the
 	-- ApplyToolAction in order to make changes to those reducers
-	-- as a benifit, these reducers can share values keys.
+	-- as a benefit, these reducers can share values keys.
 	-- for example, brush size is used across all the brushes
 	if action.type == ApplyToolAction.Name then
 		local toolName = action.toolName
-
 		reducer = Cryo.Dictionary.join(reducer, {
 			[toolName] = toolReducerTable[toolName](reducer[toolName], action.toolAction),
 		})
+
 	else
 		reducer = Cryo.Dictionary.join(reducer, {
 			Tools = Tools(reducer.Tools, action),
 		})
 	end
+
 	return reducer
 end
 

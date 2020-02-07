@@ -41,6 +41,12 @@ Constants.INITIAL_PLANE_POSITION_Y = 30
 -- Each voxel in Roblox smooth terrain is 4x4x4
 Constants.VOXEL_RESOLUTION = 4
 
+Constants.MIN_BIOME_SIZE = 16
+Constants.MAX_BIOME_SIZE = 4096
+Constants.BIOME_SNAP_INCREMENT = 4
+
+Constants.FLATTEN_PLANE_TOLERANCE = game:GetFastFlag("TerrainToolsRefactorSculptOperations") and 0.05 or 0.1
+
 Constants.ToolActivatesPlugin = {
 	[ToolId.Select] = true,
 	[ToolId.Move] = true,

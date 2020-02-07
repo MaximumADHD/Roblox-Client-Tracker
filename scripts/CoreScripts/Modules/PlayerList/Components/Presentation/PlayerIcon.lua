@@ -1,4 +1,5 @@
 local CorePackages = game:GetService("CorePackages")
+local CoreGui = game:GetService("CoreGui")
 
 local Roact = require(CorePackages.Roact)
 local t = require(CorePackages.Packages.t)
@@ -10,7 +11,15 @@ local WithLayoutValues = LayoutValues.WithLayoutValues
 
 local FFlagUpdateLeaderboardIconPriority = game:GetFastFlag("UpdateLeaderboardIconPriority")
 
-local PlayerIcon = Roact.Component:extend("PlayerIcon")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local FFlagPlayerListPerformanceImprovements = require(RobloxGui.Modules.Flags.FFlagPlayerListPerformanceImprovements)
+
+local PlayerIcon
+if FFlagPlayerListPerformanceImprovements then
+	PlayerIcon = Roact.PureComponent:extend("PlayerIcon")
+else
+	PlayerIcon = Roact.Component:extend("PlayerIcon")
+end
 
 PlayerIcon.validateProps = t.strictInterface({
 	player = t.instanceIsA("Player"),

@@ -1,9 +1,11 @@
-game:DefineFastInt("LuaAppPercentRolloutGameDetailsPeekViewV1p5", 0) -- GAMEDISC-195
-
+local CoreGui = game:GetService("CoreGui")
 local Players = game:GetService("Players")
 local ABTestService = game:GetService("ABTestService")
+local Modules = CoreGui.RobloxGui.Modules
+local GetFFlagLuaAppInitializeABTests = require(Modules.LuaApp.Flags.GetFFlagLuaAppInitializeABTests)
 
-local FFlagLuaAppDeepLinkEventReceiver = settings():GetFFlag("LuaAppDeepLinkEventReceiver")
+game:DefineFastInt("LuaAppPercentRolloutGameDetailsPeekViewV1p5", 0) -- GAMEDISC-195
+
 local FFlagLuaAppABTestGameDetailsPeekView = settings():GetFFlag("LuaAppABTestGameDetailsPeekView")
 
 return function()
@@ -11,11 +13,7 @@ return function()
 		return false
 	end
 
-	if not FFlagLuaAppDeepLinkEventReceiver then
-		return false
-	end
-
-	local FFlagLuaAppInitializeABTests = game:GetFastFlag("LuaAppInitializeABTests")
+	local FFlagLuaAppInitializeABTests = GetFFlagLuaAppInitializeABTests()
 
 	if FFlagLuaAppInitializeABTests and FFlagLuaAppABTestGameDetailsPeekView then
 		--[[

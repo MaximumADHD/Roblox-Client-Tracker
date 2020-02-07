@@ -80,7 +80,7 @@ void main()
     float v7 = v0.y + (((sin(((v5 - v6) * CB3[0].x) - CB3[0].y) + sin(((v5 + v6) * CB3[0].x) + CB3[0].y)) * CB3[0].z) * (v4 * clamp(1.0 - (dot(v0 - CB0[7].xyz, -CB0[6].xyz) * CB0[23].y), 0.0, 1.0)));
     vec3 v8 = v0;
     v8.y = v7;
-    vec4 v9 = vec4(v6, v7, v5, 1.0) * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
+    vec4 v9 = vec4(v0.x, v7, v0.z, 1.0) * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
     vec4 v10 = v9;
     v10.z = v9.z - (float(POSITION.w < 0.0) * 0.00200000009499490261077880859375);
     vec3 v11 = CB0[7].xyz - v8;

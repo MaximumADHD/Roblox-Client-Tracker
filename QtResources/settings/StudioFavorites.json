@@ -32,6 +32,7 @@
         , "SoundGroup": ["ChorusSoundEffect","DistortionSoundEffect","PitchShiftSoundEffect","ReverbSoundEffect","EchoSoundEffect","EqualizerSoundEffect","Script"]
         ,"SoundService":["SoundGroup","Sound"]
         ,"SpawnLocation":["ClickDetector","Texture","Decal","Script"]
+        ,"StandalonePluginScripts":["Script","LocalScript"]
         ,"StarterCharacterScripts":["LocalScript","Script"]
         ,"StarterGui":["ScreenGui","LocalScript","Script","Folder"]
         ,"StarterPack":["Tool","LocalScript","Script","Animation"]

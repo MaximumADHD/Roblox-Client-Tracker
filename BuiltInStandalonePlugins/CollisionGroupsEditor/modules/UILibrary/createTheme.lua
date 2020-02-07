@@ -253,6 +253,16 @@ return function(style, overrides)
 		},
 	}
 
+	local loadingBar = {
+		font = style.font,
+		fontSize = 16,
+		text = style.textColor,
+		bar = {
+			foregroundColor = style.dimmerTextColor,
+			backgroundColor = style.backgroundColor,
+		},
+	}
+
 	local loadingIndicator = {
 		baseColor = style.hoveredItemColor,
 		endColor = style.dimmerTextColor,
@@ -278,6 +288,69 @@ return function(style, overrides)
 		textSize = 14,
 		textSizeMedium = 16,
 		textSizeLarge = 18,
+		textSizeTitle= 22,
+		fontBold = style.font,
+		background = style.backgroundColor,
+
+		padding = 12,
+
+		assetNameColor = style.textColor,
+		descriptionTextColor = style.textColor,
+
+		actionBar = {
+			background = style.backgroundColor,
+
+			button = {
+				backgroundColor = style.primaryItemColor,
+				backgroundDisabledColor = style.disabledColor,
+				backgroundHoveredColor = style.primaryHoveredItemColor
+			},
+
+			showMore = {
+				backgroundColor = style.backgroundColor,
+				borderColor = style.borderColor
+			},
+
+			text = {
+				color = style.textColor,
+				colorDisabled = style.disabledColor,
+			},
+
+			padding = 12,
+			centerPadding = 10,
+
+			robuxSize = UDim2.fromOffset(16,16),
+
+			images = {
+				showMore = "rbxasset://textures/StudioToolbox/AssetPreview/more.png",
+				robuxSmall = "rbxasset://textures/ui/common/robux_small.png",
+				colorWhite = Color3.fromRGB(255, 255, 255),
+			}
+		},
+
+		description = {
+			height = 28,
+
+			searchBarIconSize = 14,
+			padding = 8,
+
+			backgroundColor = style.backgroundColor,
+			leftTextColor = style.textColor,
+			rightTextColor = style.textColor,
+			lineColor = style.borderColor,
+
+			images = {
+				searchIcon = "rbxasset://textures/StudioToolbox/Search.png",
+			},
+		},
+
+		images = {
+			deleteButton = "rbxasset://textures/StudioToolbox/DeleteButton.png",
+			scrollbarTopImage = "rbxasset://textures/StudioToolbox/ScrollBarTop.png",
+			scrollbarMiddleImage = "rbxasset://textures/StudioToolbox/ScrollBarMiddle.png",
+			scrollbarBottomImage = "rbxasset://textures/StudioToolbox/ScrollBarBottom.png",
+			thumbUpSmall = "rbxasset://textures/StudioToolbox/AssetPreview/rating_small.png",
+		},
 
 		favorites = {
 			contentColor = Color3.fromRGB(246, 183, 2),
@@ -342,6 +415,63 @@ return function(style, overrides)
 		},
 	}
 
+	local searchBar = {
+		backgroundColor = style.backgroundColor,
+		liveBackgroundColor = style.liveBackgroundColor,
+
+		text = {
+			placeholder = {
+				color = style.dimmerTextColor,
+			},
+			font = style.font,
+			size = 16,
+			color = style.textColor,
+		},
+
+		divideLine = {
+			color = style.borderColor,
+		},
+
+		border = {
+			hovered = {
+				color = style.hoverColor,
+			},
+			selected = {
+				color = style.selectionBorderColor,
+			},
+			color = style.borderColor,
+		},
+
+		buttons = {
+			iconSize = 14,
+			size = 28,
+			inset = 2,
+			clear = {
+				color = Color3.fromRGB(184, 184, 184),
+			},
+
+			search = {
+				hovered = {
+					color = Color3.fromRGB(0, 162, 255),
+				},
+				color = Color3.fromRGB(184, 184, 184),
+			},
+		},
+
+		images = {
+			clear = {
+				hovered = {
+					image = "rbxasset://textures/StudioSharedUI/clear-hover.png",
+				},
+				image = "rbxasset://textures/StudioSharedUI/clear.png",
+			},
+
+			search = {
+				image = "rbxasset://textures/StudioSharedUI/search.png",
+			},
+		},
+	}
+
 	local instanceTreeView = {
 		font = style.font,
 		textSize = 14,
@@ -392,6 +522,7 @@ return function(style, overrides)
 		dialog = dialog,
 		button = button,
 		scrubber = scrubber,
+		loadingBar = loadingBar,
 		loadingIndicator = loadingIndicator,
 		bulletPoint = bulletPoint,
 		toggleButton = toggleButton,
@@ -399,5 +530,6 @@ return function(style, overrides)
 		treeView = treeView,
 		hyperlink = hyperlink,
 		instanceTreeView = instanceTreeView,
+		searchBar = searchBar,
 	}, overrides)
 end

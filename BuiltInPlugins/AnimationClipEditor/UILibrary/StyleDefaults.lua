@@ -11,6 +11,7 @@ Style.Defaults = {
 	font = Enum.Font.SourceSans,
 
 	backgroundColor = Color3.new(),
+	liveBackgroundColor = Color3.new(),
 	textColor = Color3.new(),
 	subTextColor = Color3.new(),
 	dimmerTextColor = Color3.new(),

@@ -32,6 +32,8 @@ TerrainEnums.ToolId = {
 
 	Paint = "Paint",
 
+	ConvertPart = "ConvertPart",
+
 	None = "None",
 }
 
@@ -75,6 +77,11 @@ TerrainEnums.Biome = {
 	Hills = "Hills",
 	Canyons = "Canyons",
 	Lavascape = "Lavascape",
+}
+
+TerrainEnums.ConvertMode = {
+	Biome = "Biome",
+	Material = "Material",
 }
 
 return TerrainEnums

@@ -9,12 +9,15 @@ local ToolId = TerrainEnums.ToolId
 local applyPivot = require(Plugin.Src.Util.applyPivot)
 
 local OperationHelper = require(script.Parent.OperationHelper)
+local SculptOperations = require(script.Parent.SculptOperations)
+
+local FFlagTerrainToolsRefactorSculptOperations = game:GetFastFlag("TerrainToolsRefactorSculptOperations")
 
 local materialAir = Enum.Material.Air
 local materialWater = Enum.Material.Water
 
 --[[
-	Brush for grow, erode and flatten
+	Brush for grow, erode, flatten and smooth
 	Performs a floodfill from the center point to find "surface" voxels that a brush operation could be applied too
 	For large brush sizes, this can be more efficient because we'll consider a lot less voxels
 	However the floodfill algorithm adds some overhead that makes this less efficient for smaller brushes
@@ -94,10 +97,37 @@ return function(opSet, minBounds, maxBounds, readMaterials, readOccupancies, wri
 		end
 	end
 
-	-- Erode and grow decide whether to flood into a voxel differently
-	-- We don't want to use the erode logic when in the grow tool etc.
+	-- Each sculpt tool floods slightly differently
+	-- We only want to use the flood logic for the correct tool
 	local considerErode = tool == ToolId.Erode or tool == ToolId.Flatten
 	local considerGrow = tool == ToolId.Grow or tool == ToolId.Flatten
+	local considerSmooth = tool == ToolId.Smooth
+
+	local planeNormal = opSet.planeNormal
+	local planeNormalX = planeNormal.x
+	local planeNormalY = planeNormal.y
+	local planeNormalZ = planeNormal.z
+
+	local planePoint = opSet.planePoint
+	local planePointX = planePoint.x
+	local planePointY = planePoint.y
+	local planePointZ = planePoint.z
+
+	local sculptSettings = {
+		readMaterials = readMaterials,
+		readOccupancies = readOccupancies,
+		writeMaterials = writeMaterials,
+		writeOccupancies = writeOccupancies,
+		sizeX = sizeX,
+		sizeY = sizeY,
+		sizeZ = sizeZ,
+		strength  = strength,
+		ignoreWater = ignoreWater,
+		desiredMaterial = desiredMaterial,
+		autoMaterial = autoMaterial,
+		filterSize = 1,
+		maxOccupancy = 1
+	}
 
 	-- Continuously pop from the to-consider list until it's empty
 	while #voxelsToConsider > 0 do
@@ -109,27 +139,47 @@ return function(opSet, minBounds, maxBounds, readMaterials, readOccupancies, wri
 
 		local treatCurrentVoxelAsEmptyFromWater = ignoreWater and myMaterial == materialWater
 
-		local differenceY = minBoundsY + (voxelY - 0.5) * Constants.VOXEL_RESOLUTION - planePositionY
+		local worldVectorX = minBoundsX + ((voxelX - 0.5) * Constants.VOXEL_RESOLUTION)
+		local cellVectorX = worldVectorX - centerX
+		local planeDifferenceX = (worldVectorX - planePointX) * planeNormalX
 
-		-- Grow or erode the current voxel
+		local worldVectorY = minBoundsY + (voxelY - 0.5) * Constants.VOXEL_RESOLUTION
+		local cellVectorY = worldVectorY - centerY
+		local planeDifferenceXY = planeDifferenceX + ((worldVectorY - planePointY) * planeNormalY)
+
+		local worldVectorZ = minBoundsZ + (voxelZ - 0.5) * Constants.VOXEL_RESOLUTION
+		local cellVectorZ = worldVectorZ - centerZ
+		local planeDifference = planeDifferenceXY + ((worldVectorZ - planePointZ) * planeNormalZ)
+
+		if FFlagTerrainToolsRefactorSculptOperations then
+			planeDifference = minBoundsY + (voxelY - 0.5) * Constants.VOXEL_RESOLUTION - planePositionY
+		end
+
+		-- Sculpt the current voxel
 		do
-			-- Whether we erode or grow a voxel depends on which tool we're using, or whether we're above/below the target plane
+			-- Choose which sculpt function to use
 			local attemptToErodeVoxel = tool == ToolId.Erode
 			local attemptToGrowVoxel = tool == ToolId.Grow
+			local attemptToSmoothVoxel = tool == ToolId.Smooth
 
 			-- Flatten tool does either a grow or erode depending on voxel position and flatten mode
 			if tool == ToolId.Flatten then
+				sculptSettings.maxOccupancy = math.abs(planeDifference)
+
 				-- Do an erode if the voxel is above the target plane, and we're not growing up
-				if differenceY > 0.1 and flattenMode ~= FlattenMode.Grow then
+				if planeDifference > Constants.FLATTEN_PLANE_TOLERANCE and flattenMode ~= FlattenMode.Grow then
 					attemptToErodeVoxel = true
 
 				-- Do a grow if the voxel is below the target plane, and we're not eroding down
-				elseif differenceY < -0.1 and flattenMode ~= FlattenMode.Erode then
+				elseif planeDifference < -Constants.FLATTEN_PLANE_TOLERANCE and flattenMode ~= FlattenMode.Erode then
 					attemptToGrowVoxel = true
 				end
 			end
 
-			assert(not (attemptToErodeVoxel and attemptToGrowVoxel), "Can't erode and grow the same voxel")
+			assert((attemptToGrowVoxel and not (attemptToErodeVoxel or attemptToSmoothVoxel)
+				or (attemptToErodeVoxel and not (attemptToGrowVoxel or attemptToSmoothVoxel))
+				or (attemptToSmoothVoxel and not (attemptToGrowVoxel or attemptToErodeVoxel))),
+				"Can only perform 1 sculpt operation to a voxel")
 
 			-- If the voxel we're looking at can erode
 			if attemptToErodeVoxel and (myOccupancy > 0 and not treatCurrentVoxelAsEmptyFromWater) then
@@ -137,12 +187,15 @@ return function(opSet, minBounds, maxBounds, readMaterials, readOccupancies, wri
 				local cellMaterial = myMaterial
 
 				-- Below code in this block is the same as the original erode tool
-				local cellVectorX = minBoundsX + ((voxelX - 0.5) * Constants.VOXEL_RESOLUTION) - centerX
-				local cellVectorY = minBoundsY + ((voxelY - 0.5) * Constants.VOXEL_RESOLUTION) - centerY
-				local cellVectorZ = minBoundsZ + ((voxelZ - 0.5) * Constants.VOXEL_RESOLUTION) - centerZ
 
-				local magnitudePercent = 1
-				local brushOccupancy = 1
+				local brushOccupancy, magnitudePercent
+				if FFlagTerrainToolsRefactorSculptOperations then
+				brushOccupancy, magnitudePercent = OperationHelper.calculateBrushPowerForCell(
+					cellVectorX, cellVectorY, cellVectorZ,
+					selectionSize, brushShape, radiusOfRegion, true)
+				else
+				magnitudePercent = 1
+				brushOccupancy = 1
 
 				if selectionSize > 2 then
 					if brushShape == BrushShape.Sphere then
@@ -158,6 +211,7 @@ return function(opSet, minBounds, maxBounds, readMaterials, readOccupancies, wri
 						brushOccupancy = math.max(0, math.min(1, (radiusOfRegion - distance) / Constants.VOXEL_RESOLUTION))
 					end
 				end
+				end
 
 				if ignoreWater and cellMaterial == materialWater then
 					cellOccupancy = 0
@@ -165,6 +219,18 @@ return function(opSet, minBounds, maxBounds, readMaterials, readOccupancies, wri
 
 				airFillerMaterial = waterHeight >= voxelY and airFillerMaterial or materialAir
 
+				if FFlagTerrainToolsRefactorSculptOperations then
+				sculptSettings.x = voxelX
+				sculptSettings.y = voxelY
+				sculptSettings.z = voxelZ
+				sculptSettings.brushOccupancy = brushOccupancy
+				sculptSettings.magnitudePercent = magnitudePercent
+				sculptSettings.cellOccupancy = cellOccupancy
+				sculptSettings.cellMaterial = cellMaterial
+				sculptSettings.airFillerMaterial = airFillerMaterial
+
+				SculptOperations.erode(sculptSettings)
+				else
 				local desiredOccupancy = cellOccupancy
 				local emptyNeighbor = false
 				local neighborOccupancies = 6
@@ -200,6 +266,7 @@ return function(opSet, minBounds, maxBounds, readMaterials, readOccupancies, wri
 				else
 					writeOccupancies[voxelX][voxelY][voxelZ] = desiredOccupancy
 				end
+				end
 			end
 
 			-- If the voxel we're looking at can grow
@@ -208,12 +275,15 @@ return function(opSet, minBounds, maxBounds, readMaterials, readOccupancies, wri
 				local cellMaterial = myMaterial
 
 				-- Below code in this block is the same as the original grow tool
-				local cellVectorX = minBoundsX + ((voxelX - 0.5) * Constants.VOXEL_RESOLUTION) - centerX
-				local cellVectorY = minBoundsY + ((voxelY - 0.5) * Constants.VOXEL_RESOLUTION) - centerY
-				local cellVectorZ = minBoundsZ + ((voxelZ - 0.5) * Constants.VOXEL_RESOLUTION) - centerZ
 
-				local magnitudePercent = 1
-				local brushOccupancy = 1
+				local brushOccupancy, magnitudePercent
+				if FFlagTerrainToolsRefactorSculptOperations then
+				brushOccupancy, magnitudePercent = OperationHelper.calculateBrushPowerForCell(
+					cellVectorX, cellVectorY, cellVectorZ,
+					selectionSize, brushShape, radiusOfRegion, true)
+				else
+				magnitudePercent = 1
+				brushOccupancy = 1
 
 				if selectionSize > 2 then
 					if brushShape == BrushShape.Sphere then
@@ -229,12 +299,15 @@ return function(opSet, minBounds, maxBounds, readMaterials, readOccupancies, wri
 						brushOccupancy = math.max(0, math.min(1, (radiusOfRegion - distance) / Constants.VOXEL_RESOLUTION))
 					end
 				end
+				end
 
+				if not FFlagTerrainToolsRefactorSculptOperations then
 				if cellMaterial ~= materialAir and cellMaterial ~= materialWater and cellMaterial ~= nearMaterial then
 					nearMaterial = cellMaterial
 					if autoMaterial then
 						desiredMaterial = nearMaterial
 					end
+				end
 				end
 
 				if ignoreWater and cellMaterial == materialWater then
@@ -242,6 +315,18 @@ return function(opSet, minBounds, maxBounds, readMaterials, readOccupancies, wri
 					cellOccupancy = 0
 				end
 
+				if FFlagTerrainToolsRefactorSculptOperations then
+				sculptSettings.x = voxelX
+				sculptSettings.y = voxelY
+				sculptSettings.z = voxelZ
+				sculptSettings.brushOccupancy = brushOccupancy
+				sculptSettings.magnitudePercent = magnitudePercent
+				sculptSettings.cellOccupancy = cellOccupancy
+				sculptSettings.cellMaterial = cellMaterial
+				sculptSettings.desiredMaterial = desiredMaterial
+
+				SculptOperations.grow(sculptSettings)
+				else
 				local desiredOccupancy = cellOccupancy
 				local fullNeighbor = false
 				local totalNeighbors = 0
@@ -280,6 +365,31 @@ return function(opSet, minBounds, maxBounds, readMaterials, readOccupancies, wri
 
 				if desiredOccupancy ~= cellOccupancy then
 					writeOccupancies[voxelX][voxelY][voxelZ] = desiredOccupancy
+				end
+				end
+			end
+
+			if attemptToSmoothVoxel then
+				local cellOccupancy = myOccupancy
+				local cellMaterial = myMaterial
+
+				local brushOccupancy, magnitudePercent = OperationHelper.calculateBrushPowerForCell(
+					cellVectorX, cellVectorY, cellVectorZ,
+					selectionSize, brushShape, radiusOfRegion, false)
+
+				if brushOccupancy >= 0.5 then
+					if ignoreWater and cellMaterial == materialWater then
+						cellOccupancy = 0
+					end
+
+					sculptSettings.x = voxelX
+					sculptSettings.y = voxelY
+					sculptSettings.z = voxelZ
+					sculptSettings.brushOccupancy = brushOccupancy
+					sculptSettings.magnitudePercent = magnitudePercent
+					sculptSettings.cellOccupancy = cellOccupancy
+					sculptSettings.cellMaterial = cellMaterial
+					SculptOperations.smooth(sculptSettings)
 				end
 			end
 		end
@@ -343,26 +453,41 @@ return function(opSet, minBounds, maxBounds, readMaterials, readOccupancies, wri
 		-- Floodfill into neighbours
 		do
 			-- Use a different stop condition for this flood path depending on tool
+			local stopCondition = true
+
 			-- For erode, stop when all neighbours are empty (can't erode empty voxels)
 			-- Or me and all my neighbours are completely full (gone too deep into the terrain from the surface)
 			-- For grow, stop when all my neighbours are full (can't grow full voxels)
 			-- Or me and all my neighbours are completely empty (gone too far into air from the surface)
 			-- Flatten uses either erode or grow depending on if we're above or below the plane
-			local stopCondition = true
-			if tool == ToolId.Erode or (tool == ToolId.Flatten and differenceY > 0.1) then
+			if tool == ToolId.Erode or (tool == ToolId.Flatten and planeDifference > Constants.FLATTEN_PLANE_TOLERANCE) then
 				stopCondition = allMyNeighboursEmpty
 					or ((myOccupancy == 1 and not treatCurrentVoxelAsEmptyFromWater) and allMyNeighboursFull)
 
-			elseif tool == ToolId.Grow or (tool == ToolId.Flatten and differenceY < -0.1) then
+			elseif tool == ToolId.Grow or (tool == ToolId.Flatten and planeDifference < -Constants.FLATTEN_PLANE_TOLERANCE) then
 				stopCondition = allMyNeighboursFull
 					or ((myOccupancy == 0 or treatCurrentVoxelAsEmptyFromWater) and allMyNeighboursEmpty)
 
-			elseif tool == ToolId.Flatten and differenceY > -0.1 and differenceY < 0.1 then
+			elseif tool == ToolId.Flatten
+				and planeDifference > -Constants.FLATTEN_PLANE_TOLERANCE
+				and planeDifference < Constants.FLATTEN_PLANE_TOLERANCE then
 				stopCondition = false
+
+			elseif tool == ToolId.Smooth then
+				-- Stop when either I and all my neighbours are empty
+				-- Or I and all my neighbours are full
+				-- Either case implies we've gone too deep away from or too high above the surface
+				if myOccupancy == 0 and allMyNeighboursEmpty then
+					stopCondition = true
+				elseif myOccupancy == 1 and allMyNeighboursFull then
+					stopCondition = true
+				else
+					stopCondition = false
+				end
 			end
 
 			if not stopCondition then
-				-- Erode or grow into the 3x3x3 neighbours
+				-- Sculpt the 3x3x3 neighbours
 				for xo = -1, 1, 1 do
 					for yo = -1, 1, 1 do
 						for zo = -1, 1, 1 do
@@ -383,6 +508,8 @@ return function(opSet, minBounds, maxBounds, readMaterials, readOccupancies, wri
 
 								local canErodeInto = false
 								local canGrowInto = false
+								-- Smooth modifies every voxel around it until stopCondition is true
+								local canSmoothInto = considerSmooth
 
 								if considerErode then
 									-- Can only erode voxels that are not completely empty
@@ -406,7 +533,8 @@ return function(opSet, minBounds, maxBounds, readMaterials, readOccupancies, wri
 									end
 								end
 
-								if (canErodeInto or canGrowInto) and not seenVoxels[nx + REGION_SIZE*(ny + REGION_SIZE*nz)] then
+								if (canErodeInto or canGrowInto or canSmoothInto)
+									and not seenVoxels[nx + REGION_SIZE*(ny + REGION_SIZE*nz)] then
 									seenVoxels[nx + REGION_SIZE*(ny + REGION_SIZE*nz)] = true
 									table.insert(voxelsToConsider, {nx, ny, nz})
 								end
