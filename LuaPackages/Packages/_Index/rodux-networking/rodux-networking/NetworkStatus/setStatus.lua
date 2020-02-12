@@ -33,9 +33,9 @@ return function(options)
 			store:dispatch(actionCreator(filteredIds, keymapper, EnumNetworkStatus.Done))
 			return result
 		end,
-		function(err)
+		function(errorString)
 			store:dispatch(actionCreator(filteredIds, keymapper, EnumNetworkStatus.Failed))
-			return err
+			error(errorString)
 		end)
 	end
 end

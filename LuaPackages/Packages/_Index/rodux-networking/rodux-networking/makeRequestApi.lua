@@ -26,9 +26,10 @@ return function(options)
 							store:dispatch(self.Succeeded(filteredIds, payload.responseBody, userRequestBuilder:getNamedIds()))
 							return payload
 						end,
-						function(error)
+						function(errorString)
 							store:dispatch(self.Failed(filteredIds, error, userRequestBuilder:getNamedIds()))
-							return error
+							-- Throw again so we can catch it outside of library
+							error(errorString)
 						end
 					)
 				end)

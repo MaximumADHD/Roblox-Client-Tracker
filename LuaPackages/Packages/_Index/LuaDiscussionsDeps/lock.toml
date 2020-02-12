@@ -7,5 +7,5 @@ dependencies = [
     "InfiniteScroll roblox/infinite-scroller 0.3.3 registry+https://github.rbx.com/roblox/rotriever-index",
     "RoactFitComponents roblox/roact-fit-components 1.0.0 registry+https://github.rbx.com/roblox/rotriever-index",
     "RoactNavigation roact-navigation 9887d065 git+https://github.rbx.com/roblox/roact-navigation#v0.1.1b",
-    "RoduxNetworking rodux-networking 1f998bb4 git+https://github.rbx.com/roblox/rodux-networking#master",
+    "RoduxNetworking rodux-networking b3747078 git+https://github.rbx.com/roblox/rodux-networking#master",
 ]
