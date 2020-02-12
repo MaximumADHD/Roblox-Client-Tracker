@@ -3,10 +3,9 @@ if not plugin then
 end
 
 -- Fast flags
-local FastFlags = require(script.parent.defineLuaFlags)
 local OverrideLocaleId = settings():GetFVariable("StudioForceLocale")
 
-local FFlagAssetManagerLuaPlugin = FastFlags.AssetManagerLuaPlugin
+local FFlagAssetManagerLuaPlugin = settings():GetFFlag("AssetManagerLuaPlugin")
 
 if not FFlagAssetManagerLuaPlugin then
 	return
@@ -21,8 +20,8 @@ local Rodux = require(Plugin.Packages.Rodux)
 
 -- context services
 local ContextServices = require(Plugin.Packages.Framework.ContextServices)
+local ServiceWrapper = require(Plugin.Src.Components.ServiceWrapper)
 local UILibraryWrapper = require(Plugin.Packages.Framework.ContextServices.UILibraryWrapper)
-local Networking = require(Plugin.Packages.Framework.Http.Networking)
 
 -- data
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
@@ -37,6 +36,8 @@ local PluginTheme = require(Plugin.Src.Resources.PluginTheme)
 local TranslationDevelopmentTable = Plugin.Src.Resources.TranslationDevelopmentTable
 local TranslationReferenceTable = Plugin.Src.Resources.TranslationReferenceTable
 
+local MainView = require(Plugin.Src.Components.MainView)
+
 local Asset_Manager_META_NAME = "Asset Manager"
 local PLUGIN_NAME = "AssetManager"
 local TOOLBAR_NAME = "Assets"
@@ -44,7 +45,7 @@ local DOCK_WIDGET_PLUGIN_NAME = "AssetManager_PluginGui"
 
 -- Plugin Specific Globals
 local store = Rodux.Store.new(MainReducer, {}, MainMiddleware)
-local theme = PluginTheme.makePluginTheme()
+local theme = PluginTheme:makePluginTheme()
 local localization = ContextServices.Localization.new({
 	pluginName = PLUGIN_NAME,
 	stringResourceTable = TranslationDevelopmentTable,
@@ -71,21 +72,19 @@ local function openPluginWindow()
 	end
 
 	-- create the roact tree
-	local MainProvider = ContextServices.provide({
-		ContextServices.Plugin.new(plugin),
-		ContextServices.Focus.new(pluginGui),
-		localization,
-		ContextServices.Theme.new(theme),
-		UILibraryWrapper.new(),
-		ContextServices.Store.new(store),
-		ContextServices.Mouse.new(plugin:getMouse()),
-		ContextServices.Networking.new(Networking.new())
+	local pluginElement = Roact.createElement(ServiceWrapper, {
+		plugin = plugin,
+		focusGui = pluginGui,
+		localization = localization,
+		theme = theme,
+		uiLibWrapper = UILibraryWrapper.new(),
+		store = store,
+		mouse = plugin:getMouse(),
 	}, {
-		-- Replace with main view
-		MainView = Roact.createElement("Frame", {  }),
+		MainView = Roact.createElement(MainView, {}),
 	})
 
-	pluginHandle = Roact.mount(MainProvider, pluginGui)
+	pluginHandle = Roact.mount(pluginElement, pluginGui)
 end
 
 --Closes and unmounts the plugin popup window

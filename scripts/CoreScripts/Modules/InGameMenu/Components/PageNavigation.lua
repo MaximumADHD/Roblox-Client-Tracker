@@ -21,6 +21,9 @@ local withLocalization = require(InGameMenu.Localization.withLocalization)
 
 local divideTransparency = require(InGameMenu.Utility.divideTransparency)
 
+local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
+local Constants = require(InGameMenu.Resources.Constants)
+
 local NAV_BUTTON_HEIGHT = 70
 -- The left indent on divider lines
 local DIVIDER_INDENT = 24
@@ -219,6 +222,7 @@ end, function(dispatch)
 	return {
 		setCurrentPage = function(pageKey)
 			dispatch(SetCurrentPage(pageKey))
+			SendAnalytics(Constants.AnalyticsMenuActionName, "open_" .. pageKey .. "_tab", {})
 		end,
 	}
 end)(PageNavigation)

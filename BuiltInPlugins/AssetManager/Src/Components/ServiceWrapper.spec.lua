@@ -1,35 +1,35 @@
 local ServiceWrapper = require(script.Parent.ServiceWrapper)
 
 local Plugin = script.Parent.Parent.Parent
-local Networking = require(Plugin.Packages.Framework.Http.Networking)
 local Roact = require(Plugin.Packages.Roact)
 local Rodux = require(Plugin.Packages.Rodux)
-local UILibrary = require(Plugin.Packages.UILibrary)
+
+local ContextServices = Plugin.Packages.Framework.ContextServices
+local UILibraryWrapper = require(ContextServices.UILibraryWrapper)
+local Localization = require(ContextServices).Localization
 
 local MockPlugin = require(Plugin.Src.TestHelpers.MockPlugin)
 local PluginTheme = require(Plugin.Src.Resources.PluginTheme)
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 
-local Localization = UILibrary.Studio.Localization
-
 return function()
 	it("should construct and destroy without errors", function()
-		local api = Networking.mock()
-		local focusGui = {}
+		local focusGui = Instance.new("ScreenGui")
 		local localization = Localization.mock()
 		local pluginInstance = MockPlugin.new()
 		local mouse = pluginInstance:GetMouse()
 		local store = Rodux.Store.new(MainReducer, {}, { Rodux.thunkMiddleware })
 		local theme = PluginTheme.mock()
+		local uiLibWrapper = UILibraryWrapper.new()
 
 		local element = Roact.createElement(ServiceWrapper, {
-			api = api,
 			focusGui = focusGui,
-			localization = localization,
-			mouse = mouse,
 			plugin = pluginInstance,
-			store = store,
+			localization = localization,
 			theme = theme,
+			uiLibWrapper = uiLibWrapper,
+			mouse = mouse,
+			store = store,
 		}, {
 			testFrame = Roact.createElement("Frame")
 		})

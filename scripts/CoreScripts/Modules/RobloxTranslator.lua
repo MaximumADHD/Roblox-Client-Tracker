@@ -2,13 +2,9 @@ local LocalizationService = game:GetService("LocalizationService")
 local CoreGui = game:GetService('CoreGui')
 local Players = game:GetService("Players")
 
-local FFlagCoreScriptEnableRobloxTranslatorFallback = settings():GetFFlag("CoreScriptEnableRobloxTranslatorFallback")
 local CJVNotFallbackToEnglishForCoreGuiEnabled = settings():GetFFlag("CJVNotFallbackToEnglishForCoreGuiEnabled")
 
-local FALLBACK_ENGLISH_TRANSLATOR
-if FFlagCoreScriptEnableRobloxTranslatorFallback then
-    FALLBACK_ENGLISH_TRANSLATOR = CoreGui.CoreScriptLocalization:GetTranslator("en-us")
-end
+local FALLBACK_ENGLISH_TRANSLATOR = CoreGui.CoreScriptLocalization:GetTranslator("en-us")
 
 -- Waiting for the player ensures that the RobloxLocaleId has been set.
 if Players.LocalPlayer == nil then
@@ -55,19 +51,11 @@ end
 local RobloxTranslator = {}
 
 function RobloxTranslator:FormatByKey(key, args)
-    if FFlagCoreScriptEnableRobloxTranslatorFallback then
-        return formatByKeyWithFallback(key, args, getTranslator())
-    else
-        return getTranslator():FormatByKey(key, args)
-    end
+    return formatByKeyWithFallback(key, args, getTranslator())
 end
 
 function RobloxTranslator:FormatByKeyForLocale(key, locale, args)
-    if FFlagCoreScriptEnableRobloxTranslatorFallback then
-        return formatByKeyWithFallback(key, args, getTranslatorForLocale(locale))
-    else
-        return getTranslatorForLocale(locale):FormatByKey(key, args)
-    end
+    return formatByKeyWithFallback(key, args, getTranslatorForLocale(locale))
 end
 
 return RobloxTranslator

@@ -1,6 +1,7 @@
 local Players = game:GetService("Players")
 local CorePackages = game:GetService("CorePackages")
 local GuiService = game:GetService("GuiService")
+local AnalyticsService = game:GetService("RbxAnalyticsService")
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
@@ -25,6 +26,9 @@ local OpenReportDialog = require(InGameMenu.Actions.OpenReportDialog)
 local CloseMenu = require(InGameMenu.Thunks.CloseMenu)
 
 local Assets = require(InGameMenu.Resources.Assets)
+
+local Constants = require(InGameMenu.Resources.Constants)
+local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
 
 local DIVIDER_INDENT = 80
 local PLAYER_LABEL_HEIGHT = 70
@@ -162,6 +166,8 @@ function PlayersPage:getMoreActions()
 						Players.LocalPlayer:RevokeFriendship(player)
 					else
 						Players.LocalPlayer:RequestFriendship(player)
+						AnalyticsService:ReportCounter("PlayersMenu-RequestFriendship")
+						SendAnalytics(Constants.AnalyticsMenuActionName, Constants.AnalyticsRequestFriendName,{})
 					end
 					self:setState({
 						selectedPlayer = Roact.None,
@@ -179,6 +185,7 @@ function PlayersPage:getMoreActions()
 					selectedPlayer = Roact.None,
 				})
 				self.props.closeMenu()
+				SendAnalytics(Constants.AnalyticsMenuActionName, Constants.AnalyticsExamineAvatarName,{})
 			end,
 		})
 

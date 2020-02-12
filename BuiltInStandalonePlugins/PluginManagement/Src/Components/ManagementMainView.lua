@@ -29,6 +29,7 @@ local FFlagEnableStudioServiceOpenBrowser = game:GetFastFlag("EnableStudioServic
 local FFlagPluginManagementAllowLotsOfPlugins2 = settings():GetFFlag("PluginManagementAllowLotsOfPlugins2")
 local FFlagEnablePluginPermissionsPage = game:GetFastFlag("EnablePluginPermissionsPage")
 local FFlagFixFindPluginsMessage = game:DefineFastFlag("FixFindPluginsMessage", false)
+local FFlagPluginManagementPrettifyDesign = game:GetFastFlag("PluginManagementPrettifyDesign")
 
 local ManagementMainView = Roact.Component:extend("ManagementMainView")
 
@@ -130,7 +131,7 @@ function ManagementMainView:render()
 	local state = self.state
 
 	local plugin
-	if FFlagEnablePluginPermissionsPage then
+	if FFlagEnablePluginPermissionsPage and props.Plugin then
 		plugin = props.Plugin:get()
 	else
 		plugin = props.plugin
@@ -157,7 +158,7 @@ function ManagementMainView:render()
 			Size = UDim2.new(0,Constants.HEADER_TITLE_WIDTH,0,Constants.HEADER_BUTTON_SIZE),
 			Position = UDim2.new(0,Constants.HEADER_LEFT_PADDING,0,Constants.HEADER_TOP_PADDING),
 			Text = localization:getText("Main", "Title"),
-			TextSize = 24,
+			TextSize = FFlagPluginManagementPrettifyDesign and 18 or 24,
 			TextColor3 = theme.TextColor,
 			Font = Enum.Font.SourceSansSemibold,
 			BackgroundTransparency = 1,
@@ -177,7 +178,7 @@ function ManagementMainView:render()
 						Text = localization:getText("Main", "UpdateAllButton"),
 						TextColor3 = updateDisabled and theme.DisabledColor or theme.TextColor,
 						Font = Enum.Font.SourceSans,
-						TextSize = 18,
+						TextSize = FFlagPluginManagementPrettifyDesign and 16 or 18,
 						BackgroundTransparency = 1,
 					})
 				}

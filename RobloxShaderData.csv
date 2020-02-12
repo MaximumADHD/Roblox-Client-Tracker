@@ -26,8 +26,6 @@ DefaultForceFieldHQFS,Fragment,✔,✔,✔,❌,✔,✔,✔
 DefaultForceFieldHQFSShadowed,Fragment,✔,✔,✔,❌,❌,✔,✔
 DefaultForceFieldSHQFS,Fragment,✔,✔,✔,❌,✔,✔,✔
 DefaultForceFieldSHQFSShadowed,Fragment,✔,✔,✔,❌,❌,✔,✔
-DefaultGlassFFlagUseSkylightHQFSShadowed,Fragment,✔,✔,✔,❌,❌,✔,✔
-DefaultGlassFFlagUseSkylightSuperHQFSShadowed,Fragment,✔,✔,✔,❌,❌,✔,✔
 DefaultGlassHQFS,Fragment,✔,✔,✔,❌,✔,✔,✔
 DefaultGlassHQFSShadowed,Fragment,✔,✔,✔,❌,❌,✔,✔
 DefaultGlassSuperHQFS,Fragment,✔,✔,✔,❌,✔,✔,✔
@@ -38,6 +36,7 @@ DefaultInstancedForceFieldVS,Vertex,✔,✔,✔,❌,❌,✔,✔
 DefaultInstancedHQVS,Vertex,✔,✔,✔,❌,❌,✔,✔
 DefaultInstancedHQVSShadowed,Vertex,✔,✔,✔,❌,❌,✔,✔
 DefaultInstancedReflectionVS,Vertex,✔,✔,✔,❌,❌,✔,✔
+DefaultInstancedReflectionVSShadowed,Vertex,✔,✔,✔,❌,❌,✔,✔
 DefaultInstancedSurfaceHQVS,Vertex,✔,✔,✔,❌,❌,✔,✔
 DefaultInstancedSurfaceHQVSShadowed,Vertex,✔,✔,✔,❌,❌,✔,✔
 DefaultInstancedVS,Vertex,✔,✔,✔,❌,❌,✔,✔
@@ -73,13 +72,10 @@ DefaultPlasticFS,Fragment,✔,✔,✔,✔,✔,✔,✔
 DefaultPlasticHQFS,Fragment,✔,✔,✔,❌,✔,✔,✔
 DefaultPlasticHQFSShadowed,Fragment,✔,✔,✔,❌,❌,✔,✔
 DefaultPlasticReflectionFS,Fragment,✔,✔,✔,✔,✔,✔,✔
-DefaultShadowFS,Fragment,✔,✔,✔,✔,✔,✔,✔
 DefaultShadowGeomInstancedVS,Vertex,✔,✔,✔,❌,❌,✔,✔
 DefaultShadowGeomSkinnedVS,Vertex,✔,✔,✔,✔,✔,✔,✔
 DefaultShadowGeomStaticVS,Vertex,✔,✔,✔,✔,✔,✔,✔
 DefaultShadowInstancedVS,Vertex,✔,✔,✔,❌,❌,✔,✔
-DefaultShadowSkinnedVS,Vertex,✔,✔,✔,✔,✔,✔,✔
-DefaultShadowStaticVS,Vertex,✔,✔,✔,✔,✔,✔,✔
 DefaultSkinnedForceFieldHQVS,Vertex,✔,✔,✔,❌,✔,✔,✔
 DefaultSkinnedForceFieldHQVSShadowed,Vertex,✔,✔,✔,❌,❌,✔,✔
 DefaultSkinnedForceFieldVS,Vertex,✔,✔,✔,✔,✔,✔,✔

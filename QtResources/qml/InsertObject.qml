@@ -28,6 +28,7 @@ Rectangle {
     Connections {
         target: insertObjectWindow
         onForceTextFocusEvent: {
+            toggleSettingsMenu(false)
             if(focusEvent) {
                 tryFocusText()
             }
@@ -46,6 +47,17 @@ Rectangle {
     function showExpandedView(state) {
         expandedView = state
         showExpandedViewToggled(state)
+    }
+
+    function toggleSettingsMenu(state) {
+        if(insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView()) {
+            if(state) {
+                selectedCheckBox.checked = insertObjectWindow.qmlGetSelectAfterInsertSetting()
+            }
+            settingsDropDown.visible = state
+            settingsMenuBackground.enabled = state
+            settingsMenuBackground.visible = state
+        }
     }
 
     function getCurrentView() {
@@ -98,9 +110,21 @@ Rectangle {
 		height: insertObjectWindow.getFFlagStudioInsertObjectStreamlining_InsertWidget() ? undefined : 456;
 		anchors.fill: insertObjectWindow.getFFlagStudioInsertObjectStreamlining_InsertWidget() ? parent : undefined;
         anchors.margins: (insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView() && isWindow) ? 2 : 0
-	    color: userPreferences.theme.style("CommonStyle mainBackground")
+	    color: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView() ? 
+                        userPreferences.theme.style("InsertObjectWindow mainBackground") :
+                        userPreferences.theme.style("CommonStyle mainBackground")
 		x: 5
 		y: 5
+
+        MouseArea {
+			id: settingsMenuBackground
+            z: 19  //should be below SettingsMenu but above everything else
+    		enabled: false
+            visible: false
+            hoverEnabled: true
+    		anchors.fill: parent
+            onClicked: toggleSettingsMenu(false)
+        }
 
         // Manually defining a search box. Cannot use ListView header, as it puts the scroll bar in the wrong place.
 		Rectangle {
@@ -110,7 +134,9 @@ Rectangle {
 			anchors.top: insertObjectWindow.getFFlagStudioInsertObjectStreamlining_InsertWidget() ? dialog.top : undefined;
             anchors.margins: insertObjectWindow.getFFlagStudioInsertObjectStreamlining_InsertWidget() ? 6 : 0
 			height:insertObjectWindow.getFFlagStudioInsertObjectStreamlining_InsertWidget() ? 28 : 36
-			color: userPreferences.theme.style("CommonStyle mainBackground")
+			color: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView() ? 
+                        "transparent" :
+                        userPreferences.theme.style("CommonStyle mainBackground")
 			z: 1 // Stay on top of list when scrolling
             RobloxButton {
                 id: expandButton
@@ -125,6 +151,19 @@ Rectangle {
                     source: "/16x16/images/Studio 2.0 icons/16x16/resize.png"
                 }
             }
+             RobloxButton {
+                id: settingsButton
+                color: "transparent"
+                visible: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView()
+                anchors.right: parent.right
+                anchors.verticalCenter: searchBoxText.verticalCenter
+                width: 20; height: 20
+                onClicked: toggleSettingsMenu(true)
+                Image {
+                    anchors.centerIn: parent
+                    source: userPreferences.theme.style("InsertObjectWindow dropdownIcon")
+                }
+            }
 			TextField {
 				id: searchBoxText
                 objectName: "qmlInsertObjectTextFilter"
@@ -132,7 +171,8 @@ Rectangle {
 				anchors.left: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView() ? expandButton.right : parent.left
                 anchors.margins: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView() ? 0 : 6
                 anchors.leftMargin: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView() ? 3 : 0
-                anchors.right: parent.right
+                anchors.rightMargin: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView() ? 3 : 0
+                anchors.right: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView() ? settingsButton.left : parent.right
                 anchors.top: parent.top
 				focus: true
 				style: TextFieldStyle {
@@ -288,6 +328,8 @@ Rectangle {
                 Row {
                     spacing: 3
                     leftPadding: 13
+                    anchors.verticalCenter: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView() ? parent.verticalCenter : undefined
+
     			    Image {
                         objectName: "qmlInsertObjectImage" + mName
     				    id: icon
@@ -318,11 +360,15 @@ Rectangle {
         Component {
 	        id: categoryDelegate
 	        Rectangle {
-		        color: userPreferences.theme.style("CommonStyle mainBackground")
+		        color: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView() ? 
+                            "transparent" :
+                            userPreferences.theme.style("CommonStyle mainBackground")
+                height: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView() ? 25 : undefined
 		        PlainText {
 			        id: categoryText
 			        leftPadding : 9
 			        font.pixelSize: 14
+                    anchors.verticalCenter: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView() ?  parent.verticalCenter : undefined
 			        color: userPreferences.theme.style("InsertObjectWindow categoryText")
 			        text: mCategory
 		        }
@@ -330,7 +376,7 @@ Rectangle {
 			        id: divider
                     anchors.left: categoryText.right
 			        anchors.leftMargin: 6
-			        anchors.verticalCenter: categoryText.verticalCenter 
+			        anchors.verticalCenter: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView() ? parent.verticalCenter : categoryText.verticalCenter 
                     anchors.verticalCenterOffset: -1
                     anchors.right: parent.right
 			        height: 1
@@ -382,8 +428,9 @@ Rectangle {
 			}
 		}
 
+        // remove with FFlagStudioInsertObjectStreamliningv2_ExpandedView
         RobloxCheckBox {
-			id: showRecommendedOnlyCheckBox
+			id: _DEPRECATED_showRecommendedOnlyCheckBox
             text: qsTr("Studio.App.InsertObjectWidget.ShowRecommendedOnly")
 
             checked: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ShowRecommendedObjectsOnly() ? showRecommendedObjects : true
@@ -423,14 +470,15 @@ Rectangle {
 			}
 		}
 
+        // remove with FFlagStudioInsertObjectStreamliningv2_ExpandedView
 		RobloxCheckBox {
-			id: selectedCheckBox
+			id: _DEPRECATED_selectedCheckBox
             text: qsTr("Studio.App.InsertObjectWidget.SelectInsertedObject")
 
 			checked: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamlining_SelectAfterInsert() ? selectAfterInsert : true
 			onClicked: rootWindow.selectAfterInsertChecked(checked)
 			anchors.left: parent.left
-			anchors.top: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ShowRecommendedObjectsOnly() ? showRecommendedOnlyCheckBox.bottom : searchBox.bottom
+			anchors.top: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ShowRecommendedObjectsOnly() ? _DEPRECATED_showRecommendedOnlyCheckBox.bottom : searchBox.bottom
 			anchors.leftMargin: 6
 	        visible: {
 			    if(insertObjectWindow.getFFlagStudioInsertObjectStreamlining_InsertWidget() && insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamlining_SelectAfterInsert()){
@@ -461,6 +509,101 @@ Rectangle {
 				}		
 			}
 		}
+
+
+        Rectangle {
+        	id: settingsDropDown
+            visible: false
+            z: 20
+			color: userPreferences.theme.style("CommonStyle mainBackground")
+            border.color:  userPreferences.theme.style("InsertObjectWindow settingsBorder")
+            border.width: 1
+			anchors.right: parent.right
+			anchors.top: searchBox.bottom
+            height: settingContents.height
+            width: settingContents.width
+            Column {
+                id: settingContents
+                padding: 8
+                PlainText {
+                    text: qsTr("Studio.App.RobloxRibbonMainWindow.Settings")
+                    font.pixelSize: 14
+                    color: userPreferences.theme.style("CommonStyle mainText")
+                }
+                RobloxCheckBox {
+			        id: showRecommendedOnlyCheckBox
+                    text: qsTr("Studio.App.InsertObjectWidget.ShowRecommendedOnly")
+
+                    checked: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ShowRecommendedObjectsOnly() ? showRecommendedObjects : true
+			        onClicked: rootWindow.showRecommendedOnlyChecked(checked)
+
+			        visible: {
+			            if(insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ShowRecommendedObjectsOnly()){
+                            if(insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView) {
+                                return true
+                            }
+                            else {
+                                return !isWindow;
+                            }
+				        }
+				        else
+				        {
+				            return false;
+				        }
+			        }			
+			        height: {
+				        if(insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ShowRecommendedObjectsOnly()){
+                            if(insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView) {
+                                return 30
+                            }
+                            else {
+                                return isWindow ? 0 : 30
+                            }
+				        }
+				        else
+				        {
+				            return 0;
+				        }		
+			        }
+		        }
+
+		        RobloxCheckBox {
+			        id: selectedCheckBox
+                    text: qsTr("Studio.App.InsertObjectWidget.SelectInsertedObject")
+
+			        checked: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamlining_SelectAfterInsert() ? selectAfterInsert : true
+			        onClicked: rootWindow.selectAfterInsertChecked(checked)
+	                visible: {
+			            if(insertObjectWindow.getFFlagStudioInsertObjectStreamlining_InsertWidget() && insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamlining_SelectAfterInsert()){
+                            if(insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView) {
+                                return true
+                            }
+                            else {
+                                return !isWindow;
+                            }
+				        }
+				        else
+				        {
+				            return false;
+				        }
+			        }			
+			        height: {
+				        if(insertObjectWindow.getFFlagStudioInsertObjectStreamlining_InsertWidget() && insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamlining_SelectAfterInsert()){
+                            if(insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView) {
+                                return 30
+                            }
+                            else {
+                                return isWindow ? 0 : 30
+                            }
+				        }
+				        else
+				        {
+				            return 0;
+				        }		
+			        }
+		        }
+            }
+        }
 
 		Rectangle
 		{
@@ -507,12 +650,16 @@ Rectangle {
         Rectangle
         {
             id: scrollViewContainer
-        	anchors.top: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamlining_SelectAfterInsert() ? selectedCheckBox.bottom : searchBox.bottom	  
+        	anchors.top: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamlining_SelectAfterInsert() && !insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView() 
+                ? _DEPRECATED_selectedCheckBox.bottom
+                : searchBox.bottom  
             anchors.topMargin: 5
 		    anchors.left: parent.left
 		    anchors.right: parent.right
 			anchors.bottom: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamlining_InsertMenuTuning() ? seeAllSection.top : parent.bottom
-            color: userPreferences.theme.style("CommonStyle mainBackground")
+            color: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView() ? 
+                        userPreferences.theme.style("InsertObjectWindow scrollViewBackground") :
+                        userPreferences.theme.style("CommonStyle mainBackground")
 
             Text {
                 anchors.fill: parent
@@ -545,12 +692,19 @@ Rectangle {
                     currentIndex: defaultCurrentIndex
                     delegate: Component {
                                 Loader {
-                                    property int mIndex: index
-                                    property int mImageIndex: imageIndex
-                                    property string mName: name
-                                    property string mCategory: category
-                                    property string mDescription: description
-                                    property bool mIsUnpreferred: insertObjectWindow.getFFlagStudioInsertObjectStreamlining_Filtering() ? isUnpreferred : false
+                                    property int mIndex: typeof(index) !== "undefined" ? index : -1
+                                    property int mImageIndex: typeof(imageIndex) !== "undefined" ? imageIndex : -1
+                                    property string mName: typeof(name) !== "undefined" ? name : ""
+                                    property string mCategory: typeof(category) !== "undefined" ? category : ""
+                                    property string mDescription: typeof(description) !== "undefined" ? description : ""
+                                    property bool mIsUnpreferred: {
+                                        if(insertObjectWindow.getFFlagStudioInsertObjectStreamlining_Filtering()) {
+                                            typeof(isUnpreferred) !== "undefined" ? isUnpreferred : false
+                                        }
+                                        else {
+                                            return false;
+                                        }
+                                    }
 
                                     anchors.left: parent ? parent.left : undefined
                                     anchors.right: parent ? parent.right : undefined
@@ -602,12 +756,19 @@ Rectangle {
                     currentIndex: defaultCurrentIndex
                     delegate: Component {
                                 Loader {
-                                    property int mIndex: index
-                                    property int mImageIndex: imageIndex
-                                    property string mName: name
-                                    property string mCategory: category
-                                    property string mDescription: description
-                                    property bool mIsUnpreferred: insertObjectWindow.getFFlagStudioInsertObjectStreamlining_Filtering() ? isUnpreferred : false
+                                    property int mIndex: typeof(index) !== "undefined" ? index : -1
+                                    property int mImageIndex: typeof(imageIndex) !== "undefined" ? imageIndex : -1
+                                    property string mName: typeof(name) !== "undefined" ? name : ""
+                                    property string mCategory: typeof(category) !== "undefined" ? category : ""
+                                    property string mDescription: typeof(description) !== "undefined" ? description : ""
+                                    property bool mIsUnpreferred: {
+                                        if(insertObjectWindow.getFFlagStudioInsertObjectStreamlining_Filtering()) {
+                                            typeof(isUnpreferred) !== "undefined" ? isUnpreferred : false
+                                        }
+                                        else {
+                                            return false;
+                                        }
+                                    }
 
                                     anchors.left: parent ? parent.left : undefined
                                     anchors.right: parent ? parent.right : undefined
@@ -657,12 +818,19 @@ Rectangle {
                     currentIndex: defaultCurrentIndex
                     delegate: Component {
                                 Loader {
-                                    property int mIndex: index
-                                    property int mImageIndex: imageIndex
-                                    property string mName: name
-                                    property string mCategory: category
-                                    property string mDescription: description
-                                    property bool mIsUnpreferred: insertObjectWindow.getFFlagStudioInsertObjectStreamlining_Filtering() ? isUnpreferred : false
+                                    property int mIndex: typeof(index) !== "undefined" ? index : -1
+                                    property int mImageIndex: typeof(imageIndex) !== "undefined" ? imageIndex : -1
+                                    property string mName: typeof(name) !== "undefined" ? name : ""
+                                    property string mCategory: typeof(category) !== "undefined" ? category : ""
+                                    property string mDescription: typeof(description) !== "undefined" ? description : ""
+                                    property bool mIsUnpreferred: {
+                                        if(insertObjectWindow.getFFlagStudioInsertObjectStreamlining_Filtering()) {
+                                            typeof(isUnpreferred) !== "undefined" ? isUnpreferred : false
+                                        }
+                                        else {
+                                            return false;
+                                        }
+                                    }
 
                                     height: 25
                                     width: 185

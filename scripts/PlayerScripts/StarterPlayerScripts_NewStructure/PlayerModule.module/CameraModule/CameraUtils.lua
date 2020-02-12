@@ -16,6 +16,42 @@ local function round(num)
 	return math.floor(num + 0.5)
 end
 
+-- Critically damped spring class for fluid motion effects
+local Spring = {} do
+	Spring.__index = Spring
+
+	-- Initialize to a given undamped frequency and default position
+	function Spring.new(freq, pos)
+		return setmetatable({
+			freq = freq,
+			goal = pos,
+			pos = pos,
+			vel = 0,
+		}, Spring)
+	end
+
+	-- Advance the spring simulation by `dt` seconds
+	function Spring:step(dt)
+		local f = self.freq*2*math.pi
+		local g = self.goal
+		local p0 = self.pos
+		local v0 = self.vel
+
+		local offset = p0 - g
+		local decay = math.exp(-f*dt)
+
+		local p1 = (offset*(1 + f*dt) + v0*dt)*decay + g
+		local v1 = (v0*(1 - f*dt) - offset*(f*f*dt))*decay
+
+		self.pos = p1
+		self.vel = v1
+
+		return p1
+	end
+end
+
+CameraUtils.Spring = Spring
+
 -- map a value from one range to another
 function CameraUtils.map(x, inMin, inMax, outMin, outMax)
 	return (x - inMin)*(outMax - outMin)/(inMax - inMin) + outMin

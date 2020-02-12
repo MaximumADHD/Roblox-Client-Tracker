@@ -21,7 +21,6 @@ while not LocalPlayer do
 end
 
 local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp") --todo: remove with FFlagUsePolicyServiceForCoreScripts
-local FFlagFixInspectMenuAnalytics = settings():GetFFlag("FixInspectMenuAnalytics")
 local FFlagUseNewFriendsDomainCoreScripts = settings():GetFFlag("UseNewFriendsDomainCoreScripts")
 
 local recentApiRequests = -- stores requests for target players by userId
@@ -51,17 +50,9 @@ local reportAbuseMenu = require(RobloxGui.Modules.Settings.Pages.ReportAbuseMenu
 local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
-local FlagSettings = require(RobloxGui.Modules.FlagSettings)
-local InspectMenuAnalytics = require(RobloxGui.Modules.InspectAndBuy.Services.Analytics)
-
 local PolicyService = require(RobloxGui.Modules.Common.PolicyService)
 
-local inspectMenuEnabled = false
-local inspectMenuAnalytics = nil
-if FlagSettings.IsInspectAndBuyEnabled() then
-  inspectMenuAnalytics = InspectMenuAnalytics.new()
-  inspectMenuEnabled = GuiService:GetInspectMenuEnabled()
-end
+local inspectMenuEnabled = GuiService:GetInspectMenuEnabled()
 
 local BindableEvent_SendNotificationInfo = nil
 spawn(function()
@@ -566,25 +557,17 @@ function createPlayerDropDown()
 		if not playerDropDown.Player or not inspectMenuEnabled then
 			return
 		end
-		if FFlagFixInspectMenuAnalytics then
-			GuiService:InspectPlayerFromUserIdWithCtx(playerDropDown.Player.UserId, "leaderBoard")
-		else
-			inspectMenuAnalytics.reportOpenInspectMenu("leaderBoard")
-			GuiService:InspectPlayerFromUserId(playerDropDown.Player.UserId)
-		end
+
+		GuiService:InspectPlayerFromUserIdWithCtx(playerDropDown.Player.UserId, "leaderBoard")
 		playerDropDown:Hide()
 	end
 
 	-- Checks if a player has at least one option for the player drop down list.
 	function playerDropDown:HasOptions(selectedPlayer)
-		if not FlagSettings.IsInspectAndBuyEnabled() then
-			return selectedPlayer ~= LocalPlayer and selectedPlayer.UserId > 0 and LocalPlayer.UserId > 0
-		else
-			local hasOptions =
-				(selectedPlayer ~= LocalPlayer and selectedPlayer.UserId > 0 and LocalPlayer.UserId > 0) or
-				(selectedPlayer == LocalPlayer and inspectMenuEnabled)
-			return hasOptions
-		end
+		local hasOptions =
+			(selectedPlayer ~= LocalPlayer and selectedPlayer.UserId > 0 and LocalPlayer.UserId > 0) or
+			(selectedPlayer == LocalPlayer and inspectMenuEnabled)
+		return hasOptions
 	end
 
 	function playerDropDown:Hide()
@@ -753,11 +736,10 @@ LocalPlayer.FriendStatusChanged:connect(function(player, friendStatus)
 	end
 end)
 
-if FlagSettings.IsInspectAndBuyEnabled() then
-	GuiService.InspectMenuEnabledChangedSignal:Connect(function(enabled)
-		inspectMenuEnabled = enabled
-	end)
-end
+GuiService.InspectMenuEnabledChangedSignal:Connect(function(enabled)
+	inspectMenuEnabled = enabled
+end)
+
 
 StarterGui:RegisterGetCore("PlayerBlockedEvent", function() return PlayerBlockedEvent end)
 StarterGui:RegisterGetCore("PlayerUnblockedEvent", function() return PlayerUnblockedEvent end)

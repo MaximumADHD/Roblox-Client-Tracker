@@ -16,9 +16,14 @@ local GlobalConfig = require(InGameMenu.GlobalConfig)
 
 local ConfirmationDialog = require(script.Parent.ConfirmationDialog)
 
+local Constants = require(InGameMenu.Resources.Constants)
+
+local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
+
 local validateProps = t.strictInterface({
 	isLeavingGame  = t.boolean,
 	onCancel = t.callback,
+	sendAnalytics = t.callback,
 })
 
 local function LeaveGameDialog(props)
@@ -42,6 +47,8 @@ local function LeaveGameDialog(props)
 
 			onCancel = props.onCancel,
 			onConfirm = function()
+				SendAnalytics(Constants.AnalyticsInGameMenuName, Constants.AnalyticsLeaveGameName,
+								{confirmed = Constants.AnalyticsConfirmedName})
 				RunService.Heartbeat:Wait()
 				game:Shutdown()
 			end,
@@ -61,6 +68,7 @@ end, function(dispatch)
 	return {
 		onCancel = function()
 			dispatch(CancelLeavingGame())
+			SendAnalytics(Constants.AnalyticsInGameMenuName, Constants.AnalyticsLeaveGameName, {confirmed = Constants.AnalyticsCancelledName})
 		end,
 	}
 end)(LeaveGameDialog)

@@ -5,7 +5,7 @@ local Reducers = Plugin.Src.Reducers
 local Tools = require(Reducers.Tools)
 
 local AddTool = require(Reducers.AddTool)
-local ConvertPart = require(Reducers.ConvertPart)
+local ConvertPartTool = require(Reducers.ConvertPartTool)
 local ErodeTool = require(Reducers.ErodeTool)
 local FillTool = require(Reducers.FillTool)
 local FlattenTool = require(Reducers.FlattenTool)
@@ -23,7 +23,7 @@ local FFlagTerrainToolsConvertPartTool = game:GetFastFlag("TerrainToolsConvertPa
 local toolReducerTable = {
 	GenerateTool = GenerateTool,
 	ImportTool = ImportTool,
-	ConvertPartTool = FFlagTerrainToolsConvertPartTool and ConvertPart or nil,
+	ConvertPartTool = FFlagTerrainToolsConvertPartTool and ConvertPartTool or nil,
 	RegionTool = RegionTool,
 	FillTool = FillTool,
 	AddTool = AddTool,
@@ -46,7 +46,7 @@ local MainReducer = function(state, action)
 		GenerateTool = GenerateTool(state, action),
 		ImportTool = ImportTool(state, action),
 
-		ConvertPartTool = FFlagTerrainToolsConvertPartTool and ConvertPart(state, action) or nil,
+		ConvertPartTool = FFlagTerrainToolsConvertPartTool and ConvertPartTool(state, action) or nil,
 
 		RegionTool = RegionTool(state, action),
 		FillTool = FillTool(state, action),

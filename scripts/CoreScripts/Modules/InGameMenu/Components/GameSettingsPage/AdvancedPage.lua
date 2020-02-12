@@ -31,6 +31,9 @@ local ImageSetButton = UIBlox.Core.ImageSet.Button
 
 local withLocalization = require(InGameMenu.Localization.withLocalization)
 
+local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
+local Constants = require(InGameMenu.Resources.Constants)
+
 local AdvancedPage = Roact.PureComponent:extend("AdvancedPage")
 AdvancedPage.validateProps = t.strictInterface({
 	-- position may be either a bare UDim2 or a binding; for lack of a more
@@ -82,6 +85,7 @@ function AdvancedPage:render()
 				checked = self.state.performanceStatsEnabled,
 				onToggled = function()
 					UserGameSettings.PerformanceStatsVisible = not UserGameSettings.PerformanceStatsVisible
+					SendAnalytics(Constants.AnalyticsSettingsChangeName, nil, {}, true)
 				end,
 			}),
 			MicroProfiler = Roact.createElement(ToggleEntry, {
@@ -90,6 +94,7 @@ function AdvancedPage:render()
 				checked = self.state.microProfilerEnabled,
 				onToggled = function()
 					UserGameSettings.OnScreenProfilerEnabled = not UserGameSettings.OnScreenProfilerEnabled
+					SendAnalytics(Constants.AnalyticsSettingsChangeName, nil, {}, true)
 				end,
 			}),
 			DeveloperConsole = withLocalization({

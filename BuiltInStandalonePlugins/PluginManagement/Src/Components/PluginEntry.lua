@@ -2,7 +2,7 @@ local FFlagEnableStudioServiceOpenBrowser = game:GetFastFlag("EnableStudioServic
 local FFlagPluginManagementNewLoadingBar = game:DefineFastFlag("PluginManagementNewLoadingBar", false)
 local FFlagShowModeratedPluginInfo = game:DefineFastFlag("ShowModeratedPluginInfo", false)
 local FFlagEnablePluginPermissionsPage = game:DefineFastFlag("EnablePluginPermissionsPage", false)
-
+local FFlagPluginManagementPrettifyDesign = game:GetFastFlag("PluginManagementPrettifyDesign")
 local StudioService = game:getService("StudioService")
 local ContentProvider = game:getService("ContentProvider")
 local GuiService = game:getService("GuiService")
@@ -193,8 +193,8 @@ function PluginEntry:render()
 		Size = UDim2.new(1, Constants.SCROLLBAR_WIDTH_ADJUSTMENT, 0, Constants.PLUGIN_ENTRY_HEIGHT),
 	}, {
 		Padding = Roact.createElement("UIPadding", {
-			PaddingTop = UDim.new(0, 12),
-			PaddingBottom = UDim.new(0, 12),
+			PaddingTop = UDim.new(0, FFlagPluginManagementPrettifyDesign and Constants.PLUGIN_ENTRY_PADDING or 12),
+			PaddingBottom = UDim.new(0, FFlagPluginManagementPrettifyDesign and Constants.PLUGIN_ENTRY_PADDING or 12),
 		}),
 
 		Thumbnail = Roact.createElement("ImageLabel", {
@@ -218,13 +218,13 @@ function PluginEntry:render()
 			Name = Roact.createElement("TextLabel", {
 				LayoutOrder = 0,
 				TextWrapped = true,
-				TextSize = 22,
+				TextSize = FFlagPluginManagementPrettifyDesign and 18 or 22,
 				Size = UDim2.new(1, 0, 0, 20),
 				BackgroundTransparency = 1,
 				TextXAlignment = Enum.TextXAlignment.Left,
 				Text = name,
-				TextColor3 = theme.TextColor,
-				Font = Enum.Font.SourceSansSemibold,
+				TextColor3 = FFlagPluginManagementPrettifyDesign and theme.EmphasisTextColor or theme.TextColor,
+				Font = FFlagPluginManagementPrettifyDesign and Enum.Font.SourceSans or Enum.Font.SourceSansSemibold,
 			}),
 
 			Creator = Roact.createElement("TextButton", {
@@ -234,9 +234,9 @@ function PluginEntry:render()
 				BackgroundTransparency = 1,
 				TextXAlignment = Enum.TextXAlignment.Left,
 				Text = creator,
-				Font = Enum.Font.SourceSans,
+				Font = FFlagPluginManagementPrettifyDesign and Enum.Font.SourceSansLight or Enum.Font.SourceSans,
 				TextColor3 = theme.LinkColor,
-				TextSize = 16,
+				TextSize = FFlagPluginManagementPrettifyDesign and 14 or 16,
 				BorderSizePixel = 1,
 				[Roact.Event.Activated] = self.openCreatorProfile,
 			}),
@@ -251,10 +251,10 @@ function PluginEntry:render()
 				TextXAlignment = Enum.TextXAlignment.Left,
 				TextYAlignment = Enum.TextYAlignment.Top,
 				Text = description,
-				TextColor3 = theme.TextColor,
+				TextColor3 = FFlagPluginManagementPrettifyDesign and theme.TextColor or theme.TextColor,
 				TextTruncate = Enum.TextTruncate.AtEnd,
-				Font = Enum.Font.SourceSansLight,
-				TextSize = 16,
+				Font = FFlagPluginManagementPrettifyDesign and Enum.Font.SourceSans or Enum.Font.SourceSansLight,
+				TextSize = FFlagPluginManagementPrettifyDesign and 14 or 16,
 			}),
 
 			HttpRequestOverview = FFlagEnablePluginPermissionsPage and hasHttpPermissions
@@ -292,7 +292,7 @@ function PluginEntry:render()
 						Text = localization:getText("Entry", "UpdateButton"),
 						TextColor3 = theme.TextColor,
 						Font = Enum.Font.SourceSans,
-						TextSize = 18,
+						TextSize = FFlagPluginManagementPrettifyDesign and 16 or 18,
 						BackgroundTransparency = 1,
 					}),
 
@@ -300,10 +300,10 @@ function PluginEntry:render()
 						BackgroundTransparency = 1,
 						Size = UDim2.new(1, 0, 0, 14),
 						Position = UDim2.new(0, 0, 1, 3),
-						TextSize = 14,
+						TextSize = FFlagPluginManagementPrettifyDesign and 12 or 14,
 						Font = Enum.Font.SourceSans,
 						TextColor3 = theme.TextColor,
-						TextTransparency = 0.6,
+						TextTransparency = FFlagPluginManagementPrettifyDesign and 0 or 0.6,
 						Text = localization:getText("Entry", "LastUpdatedDate", {
 							date = data.updated,
 						}),

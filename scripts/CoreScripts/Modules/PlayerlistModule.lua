@@ -46,6 +46,7 @@ local PlayerPermissionsModule = require(RobloxGui.Modules.PlayerPermissionsModul
 
 local GameTranslator = require(RobloxGui.Modules.GameTranslator)
 
+local FFlagXboxReportPlayerLocFix = require(RobloxGui.Modules.Flags.FFlagXboxReportPlayerLocFix)
 
 
 local RemoveEvent_OnFollowRelationshipChanged = nil
@@ -949,7 +950,10 @@ local function createPlayerSideBarOption(player)
 
       --We can't report guests/localplayer
       if addReportItem then
-        SideBar:AddItem(Strings:LocalizedString("Report Player"), function()
+        local loc_text = FFlagXboxReportPlayerLocFix
+          and Strings:LocalizedString("ReportPlayer")
+          or Strings:LocalizedString("Report Player")
+        SideBar:AddItem(loc_text, function()
           --Force closing player list before open the report tab
           isOpen = false
           setVisible(false)

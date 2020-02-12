@@ -13,6 +13,9 @@ local RespawnPlayer = require(InGameMenu.Thunks.RespawnPlayer)
 
 local ConfirmationDialog = require(script.Parent.ConfirmationDialog)
 
+local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
+local Constants = require(InGameMenu.Resources.Constants)
+
 local function RespawnDialog(props)
 	return withLocalization({
 		titleText = "CoreScripts.InGameMenu.RespawnCharacterDialogTitle",
@@ -43,6 +46,7 @@ end, function(dispatch)
 	return {
 		onCancel = function()
 			dispatch(SetRespawning(false))
+			SendAnalytics(Constants.AnalyticsInGameMenuName, Constants.AnalyticsRespawnCharacterName, {confirmed = Constants.AnalyticsCancelledName})
 		end,
 		onConfirm = function()
 			dispatch(RespawnPlayer)

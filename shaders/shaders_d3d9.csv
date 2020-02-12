@@ -26,11 +26,8 @@ DefaultNeonInGuiFS,Fragment
 DefaultOpaqueFS,Fragment
 DefaultPlasticFS,Fragment
 DefaultPlasticReflectionFS,Fragment
-DefaultShadowFS,Fragment
 DefaultShadowGeomSkinnedVS,Vertex
 DefaultShadowGeomStaticVS,Vertex
-DefaultShadowSkinnedVS,Vertex
-DefaultShadowStaticVS,Vertex
 DefaultSkinnedForceFieldVS,Vertex
 DefaultSkinnedReflectionVS,Vertex
 DefaultSkinnedVS,Vertex

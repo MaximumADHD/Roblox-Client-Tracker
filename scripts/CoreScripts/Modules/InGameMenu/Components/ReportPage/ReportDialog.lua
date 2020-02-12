@@ -22,6 +22,8 @@ local SystemPrimaryButton = require(InGameMenu.Components.SystemPrimaryButton)
 local SystemSecondaryButton = require(InGameMenu.Components.SystemSecondaryButton)
 local TextEntryField = require(script.Parent.TextEntryField)
 local DropDownSelection = require(InGameMenu.Components.DropDownSelection)
+local Constants = require(InGameMenu.Resources.Constants)
+local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
 
 local SendReport = require(InGameMenu.Thunks.SendReport)
 
@@ -403,6 +405,20 @@ return RoactRodux.UNSTABLE_connect2(
 			end,
 			dispatchSendReport = function(abuseReason, abuseDescription, userId)
 				dispatch(SendReport(abuseReason, abuseDescription, userId))
+
+				local stringTable = {}
+				if GAME_TYPE_OF_ABUSE == abuseReason then
+					table.insert(stringTable, "report_type=game")
+					table.insert(stringTable, "reported_entity_id=" .. tostring(game.GameId))
+				else
+					table.insert(stringTable, "report_type=user")
+					table.insert(stringTable, "reported_entity_id=" .. tostring(userId))
+				end
+
+				table.insert(stringTable, "report_source=ingame")
+				local infoString = table.concat(stringTable,"&")
+
+				SendAnalytics(Constants.AnalyticsReportSubmittedName, infoString, {})
 			end
 		}
 	end

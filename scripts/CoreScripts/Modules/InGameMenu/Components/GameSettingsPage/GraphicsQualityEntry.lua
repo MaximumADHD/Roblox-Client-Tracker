@@ -19,6 +19,9 @@ local ToggleEntry = require(script.Parent.ToggleEntry)
 local ExternalEventConnection = require(InGameMenu.Utility.ExternalEventConnection)
 local SliderEntry = require(script.Parent.SliderEntry)
 
+local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
+local Constants = require(InGameMenu.Resources.Constants)
+
 local SAVED_QUALITY_LEVELS = #Enum.SavedQualitySetting:GetEnumItems() - 1
 
 local function mapInteger(x, xMin, xMax, yMin, yMax)
@@ -92,6 +95,7 @@ function GraphicsQualityEntry:render()
 				else
 					self:setAutomaticQualityLevel()
 				end
+				SendAnalytics(Constants.AnalyticsSettingsChangeName, nil, {}, true)
 			end,
 		}),
 		Slider = Roact.createElement(SliderEntry, {
@@ -104,6 +108,7 @@ function GraphicsQualityEntry:render()
 			disabled = self.state.automatic,
 			valueChanged = function(newValue)
 				self:setManualQualityLevel(newValue)
+				SendAnalytics(Constants.AnalyticsSettingsChangeName, nil, {}, true)
 			end,
 		}),
 		QualityListener = Roact.createElement(ExternalEventConnection, {

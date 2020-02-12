@@ -4,7 +4,7 @@ return function()
 
 	local MockWrapper = require(Library.MockWrapper)
 
-	local SearchBarButtons = require(Library.Components.SearchBar.SearchBarButtons)
+	local SearchBarButtons = require(script.Parent.SearchBarButtons)
 
 	it("should create and destroy without errors", function()
 		local element = Roact.createElement(MockWrapper, {}, {

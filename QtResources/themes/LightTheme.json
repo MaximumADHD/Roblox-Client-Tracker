@@ -747,10 +747,14 @@
         "disabledIconOpacity": 1.0
     },
     "InsertObjectWindow": {
-        "categoryText": "#808080",
-        "separator": "#D3D3D3",
-        "searchBoxBorder": "#1E90FF",
-        "dropShadow": "#80000000"
+      "mainBackground": "#e3e3e3",
+      "scrollViewBackground": "#ffffff",
+      "categoryText": "#808080",
+      "separator": "#D3D3D3",
+      "searchBoxBorder": "#1E90FF",
+      "settingsBorder":  "#B6B6B6",
+      "dropShadow": "#80000000",
+      "dropdownIcon": "qrc:/images/BulkImport/collapse.png"
     },
     "Scrollbar": {
         "background": "#F9F9F9",

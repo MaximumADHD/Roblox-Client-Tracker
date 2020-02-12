@@ -13,9 +13,6 @@ local GetEconomyProductInfo = require(InspectAndBuyFolder.Thunks.GetEconomyProdu
 local Colors = require(InspectAndBuyFolder.Colors)
 local UtilityFunctions = require(InspectAndBuyFolder.UtilityFunctions)
 
-local FFlagInspectMenuProgressiveLoading = settings():GetFFlag("InspectMenuProgressiveLoading")
-local FFlagFixInspectMenuAnalytics = settings():GetFFlag("FixInspectMenuAnalytics")
-
 local AssetDetails = Roact.PureComponent:extend("AssetDetails")
 
 function AssetDetails:setScrollingEnabled(enabled)
@@ -70,8 +67,7 @@ function AssetDetails:didUpdate(prevProps)
 	local obtainedBundlesInfo = prevAssetInfo and not prevAssetInfo.bundlesAssetIsIn
 		and assetInfo and assetInfo.bundlesAssetIsIn
 
-	if FFlagFixInspectMenuAnalytics and ((assetInfo and assetInfo.bundlesAssetIsIn and startedViewingDetails)
-		or obtainedBundlesInfo) then
+	if ((assetInfo and assetInfo.bundlesAssetIsIn and startedViewingDetails) or obtainedBundlesInfo) then
 		reportOpenDetailsPage(assetInfo)
 	end
 end
@@ -106,8 +102,7 @@ function AssetDetails:render()
 				Padding = UDim.new(0, 10),
 			}),
 			DetailsThumbnail = Roact.createElement(DetailsThumbnail),
-			TryOnViewport = (not FFlagInspectMenuProgressiveLoading or localPlayerModel)
-				and Roact.createElement(TryOnViewport, {
+			TryOnViewport = localPlayerModel and Roact.createElement(TryOnViewport, {
 				localPlayerModel = localPlayerModel,
 				setScrollingEnabled = function(enabled)
 					self:setScrollingEnabled(enabled)

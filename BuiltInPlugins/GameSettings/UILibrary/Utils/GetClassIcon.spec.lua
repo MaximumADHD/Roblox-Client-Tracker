@@ -30,5 +30,14 @@ return function()
             expect(classIconTable.ImageRectOffset).to.equal(ICON_SCRIPT)
             expect(classIconTable.ImageRectOffset).never.to.equal(ICON_NOTFOUND)
         end)
+
+        it("should support non-instance objects that have a ClassName member", function()
+            local notAnInstance = {
+                ClassName = "Folder"
+            }
+
+            local classIconTable = GetClassIcon(notAnInstance)
+            expect(classIconTable).to.be.ok()
+        end)
     end)
 end

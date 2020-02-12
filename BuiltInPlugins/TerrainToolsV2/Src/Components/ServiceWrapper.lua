@@ -14,6 +14,7 @@ local TerrainInterface = require(Plugin.Src.ContextServices.TerrainInterface)
 
 local FFlagTerrainToolsSeaLevel = game:GetFastFlag("TerrainToolsSeaLevel")
 local FFlagTerrainToolsFixGettingTerrain = game:GetFastFlag("TerrainToolsFixGettingTerrain")
+local FFlagTerrainToolsConvertPartTool = game:GetFastFlag("TerrainToolsConvertPartTool")
 
 -- props.localization : (UILibary.Localization) an object for fetching translated strings
 -- props.plugin : (plugin instance) the instance of plugin defined in main.server.lua
@@ -44,6 +45,9 @@ function ServiceWrapper:init()
 	if FFlagTerrainToolsSeaLevel then
 		assert(self.props.seaLevel ~= nil, "Expected a SeaLevel object")
 	end
+	if FFlagTerrainToolsConvertPartTool then
+		assert(self.props.partConverter ~= nil, "Expected a PartConveter object")
+	end
 end
 
 local function addProvider(provider, props, rootElement)
@@ -62,6 +66,7 @@ function ServiceWrapper:render()
 	local terrainImporter = self.props.terrainImporter
 	local terrainGeneration = self.props.terrainGeneration
 	local seaLevel = self.props.seaLevel
+	local partConverter = self.props.partConverter
 
 	-- the order of these providers should be read as bottom up,
 	-- things most likely to change or trigger updates should be near the top of the list
@@ -79,6 +84,7 @@ function ServiceWrapper:render()
 		terrainImporter = terrainImporter,
 		terrainGeneration = terrainGeneration,
 		seaLevel = seaLevel,
+		partConverter = partConverter,
 	}, root)
 
 	return root

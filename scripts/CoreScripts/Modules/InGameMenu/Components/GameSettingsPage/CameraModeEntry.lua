@@ -22,6 +22,9 @@ local DeveloperLockLabel = require(script.Parent.DeveloperLockLabel)
 
 local withLocalization = require(InGameMenu.Localization.withLocalization)
 
+local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
+local Constants = require(InGameMenu.Resources.Constants)
+
 local CAMERA_MODE_LOCALIZATION_KEYS = {
 	[Enum.ComputerCameraMovementMode.Classic] = "CoreScripts.InGameMenu.GameSettings.CameraModeClassic",
 	[Enum.ComputerCameraMovementMode.Follow] = "CoreScripts.InGameMenu.GameSettings.CameraModeFollow",
@@ -119,6 +122,7 @@ function CameraModeEntry:render()
 				localize = true,
 				selectionChanged = function(newSelection)
 					UserGameSettings.ComputerCameraMovementMode = self.state.computerOptions[newSelection]
+					SendAnalytics(Constants.AnalyticsSettingsChangeName, nil, {}, true)
 				end,
 			})
 		end),

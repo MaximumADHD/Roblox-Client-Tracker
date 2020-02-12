@@ -5,13 +5,15 @@ local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
 local Rodux = require(Plugin.Packages.Rodux)
-local UILibrary = require(Plugin.Packages.UILibrary)
-local Networking = require(Plugin.Packages.Framework.Http.Networking)
+local Framework = Plugin.Packages.Framework
+local ContextServices = require(Framework.ContextServices)
+
 local MockPlugin = require(Plugin.Src.TestHelpers.MockPlugin)
 local ServiceWrapper = require(Plugin.Src.Components.ServiceWrapper)
 local PluginTheme = require(Plugin.Src.Resources.PluginTheme)
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
-local Localization = UILibrary.Studio.Localization
+local UILibraryWrapper = require(Plugin.Packages.Framework.ContextServices.UILibraryWrapper)
+local Localization = ContextServices.Localization
 
 local MockServiceWrapper = Roact.Component:extend("MockServiceWrapper")
 
@@ -21,11 +23,6 @@ function MockServiceWrapper.getMockGlobals(props)
 		props = {}
 	end
 
-	local api = props.api
-	if not api then
-		api = Networking.mock()
-	end
-
 	local localization = props.localization
 	if not localization then
 		localization = Localization.mock()
@@ -33,7 +30,7 @@ function MockServiceWrapper.getMockGlobals(props)
 
 	local focusGui = props.focusGui
 	if not focusGui then
-		focusGui = {}
+		focusGui = Instance.new("ScreenGui")
 	end
 
 	local pluginInstance = props.plugin
@@ -57,13 +54,13 @@ function MockServiceWrapper.getMockGlobals(props)
 	end
 
 	return {
-		api = api,
 		focusGui = focusGui,
-		localization = localization,
-		mouse = mouse,
 		plugin = pluginInstance,
-		store = store,
+		localization = localization,
 		theme = theme,
+		uiLibWrapper = UILibraryWrapper.new(),
+		mouse = mouse,
+		store = store,
 	}
 end
 

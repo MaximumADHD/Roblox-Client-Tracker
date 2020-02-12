@@ -433,6 +433,7 @@
       <Group name="Tools" text="Studio.App.RobloxRibbonMainWindow.Tools">
         <addaction name="managePluginsAction" text="Studio.App.RBXMainWindow.ManagePlugins" style="textundericon" height="32" width="32" tooltip="Studio.App.RobloxRibbonMainWindow.ManageCloudPlugins" icon=":/RibbonBar/images/RibbonIcons/AddOns/Manage-Plugins.png"/>
         <addaction name="openPluginsFolderAction" text="Studio.App.RobloxRibbonMainWindow.PluginsFolder" style="textundericon" height="32" width="32" tooltip="Studio.App.RobloxRibbonMainWindow.OpenTheLocalPluginsFolder" icon=":/RibbonBar/images/RibbonIcons/AddOns/Plugins-folder.png"/>
+        <addaction fflag="ImplementDebugAsPlugin" name="addDebugPluginAction" text="Studio.App.RobloxRibbonMainWindow.AddDebugPlugin" style="textundericon" height="32" width="32" tooltip="Studio.App.RobloxRibbonMainWindow.OpenTheLocalPluginsFolder" icon=":/RibbonBar/images/RibbonIcons/AddOns/Plugins-folder.png"/>
       </Group>
     </TabPage>
     <!--

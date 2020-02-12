@@ -1,17 +1,17 @@
 local Plugin = script.Parent.Parent.Parent
-local ContextServices = require(Plugin.Packages.Framework.ContextServices)
-local StudioUI = require(Plugin.Packages.Framework.StudioUI)
-local Util = require(Plugin.Packages.Framework.Util)
+
+local Framework = Plugin.Packages.Framework
+local ContextServices = require(Framework.ContextServices)
 local Theme = ContextServices.Theme
-local StyleValue = Util.StyleValue
+local StudioUI = require(Framework.StudioUI)
 local StudioFrameworkStyles = StudioUI.StudioFrameworkStyles
+local Style = require(Framework.Util).Style
 
 local UILibrary = require(Plugin.Packages.UILibrary)
-local StudioTheme = UILibrary.Studio.Theme
 local createTheme = UILibrary.createTheme
 local StudioStyle = UILibrary.Studio.Style
 
-local function createValues(theme, getColor)
+local function createStyles(theme, getColor)
 	local c = Enum.StudioStyleGuideColor
 	local m = Enum.StudioStyleGuideModifier
 
@@ -33,10 +33,59 @@ local function createValues(theme, getColor)
 			ScrollbarTransparency = 0.7,
 			ScrollbarSize = 8,
 			Font = Enum.Font.SourceSans,
-            FontBold = Enum.Font.SourceSansSemibold
+			FontBold = Enum.Font.SourceSansSemibold,
+
+			Overlay = {
+				Background = {
+					WidthScale = -0.25,
+					Transparency = 0.75,
+				},
+
+				Foreground = {
+					WidthScale = 0.75,
+				},
+
+				CloseButton = {
+					Size = 16,
+
+					Images = {
+						Close = "rbxasset://textures/StudioSharedUI/close.png",
+					},
+				},
+
+				Padding = {
+					Right = 11,
+				}
+			},
+
+			TopBar = {
+				Height = 53,
+
+				BorderColor = Color3.fromRGB(75, 75, 75),
+
+				Button = {
+					Size = 24,
+				},
+
+				Padding = {
+					Left = 15,
+					Right = 20,
+				},
+			},
 		},
 
-		Framework = StudioFrameworkStyles.new(theme, getColor),
+		Framework = Style.extend(StudioFrameworkStyles.new(theme, getColor), {
+			RoundBox = {
+				AssetManagerMenu = {
+					BackgroundImage = "rbxasset://textures/ui/Settings/Radial/Menu.png",
+					BorderColor = Color3.fromRGB(151, 151, 151),
+					BorderImage = "rbxasset://textures/StudioToolbox/RoundedBorder.png",
+					BorderTransparency = 0,
+					SliceCenter = Rect.new(3, 3, 13, 13),
+					Transparency = 0,
+				},
+			}
+		}),
 	}
 end
 
@@ -57,19 +106,14 @@ local function getUILibraryTheme()
 	return createTheme(UILibraryPalette, UILibraryOverrides)
 end
 
-
-local function createDummyValues(getColor, c, m)
-	return {
-		PluginTheme = {},
-		UILibraryStylePalette = {},
-		UILibraryOverrides = {},
-	}
+local function getTheme()
+	return settings().Studio.Theme
 end
 
 local PluginTheme = {}
 
 function PluginTheme.makePluginTheme()
-	local theme = Theme.new(createValues)
+	local theme = Theme.new(createStyles)
 	function theme:getUILibraryTheme()
 		return getUILibraryTheme()
 	end
@@ -78,7 +122,11 @@ function PluginTheme.makePluginTheme()
 end
 
 function PluginTheme.mock()
-	return StudioTheme.newDummyTheme(createDummyValues)
+	local theme = Theme.mock(createStyles, getTheme)
+	function theme:getUILibraryTheme()
+		return getUILibraryTheme()
+	end
+	return theme
 end
 
 return PluginTheme

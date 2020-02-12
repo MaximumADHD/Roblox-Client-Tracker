@@ -21,10 +21,8 @@ local GameTranslator = require(RobloxGui.Modules.GameTranslator)
 local AvatarMenuModules = CoreGuiModules:WaitForChild("AvatarContextMenu")
 local ContextMenuUtil = require(AvatarMenuModules:WaitForChild("ContextMenuUtil"))
 local ThemeHandler = require(AvatarMenuModules.ThemeHandler)
-local InspectMenuAnalytics = require(RobloxGui.Modules.InspectAndBuy.Services.Analytics)
 
 local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList3")
-local FFlagFixInspectMenuAnalytics = settings():GetFFlag("FixInspectMenuAnalytics")
 
 local BlockingUtility
 if FFlagUseRoactPlayerList then
@@ -33,8 +31,6 @@ else
 	local PlayerDropDownModule = require(CoreGuiModules:WaitForChild("PlayerDropDown"))
 	BlockingUtility = PlayerDropDownModule:CreateBlockingUtility()
 end
-
-local FlagSettings = require(CoreGuiModules.FlagSettings)
 
 -- VARIABLES
 
@@ -52,17 +48,13 @@ local EnabledContextMenuItems = {
 }
 local CustomContextMenuItems = {}
 local CustomItemAddedOrder = 0
-local inspectMenuAnalytics = nil
-if FlagSettings.IsInspectAndBuyEnabled then
-	inspectMenuAnalytics = InspectMenuAnalytics.new()
-end
 
 -- CONSTANTS
 -- If Custom buttons exist these layout orders are offset by highest custom button layout order.
 local FRIEND_LAYOUT_ORDER = 1
 local CHAT_LAYOUT_ORDER = 3
 local INSPECT_AND_BUY_LAYOUT_ORDER = 4
-local WAVE_LAYOUT_ORDER = FlagSettings.IsInspectAndBuyEnabled() and 5 or 4
+local WAVE_LAYOUT_ORDER = 5
 
 local MENU_ITEM_SIZE_X = 0.96
 local MENU_ITEM_SIZE_Y = 0
@@ -271,12 +263,7 @@ function ContextMenuItems:CreateInspectAndBuyButton()
 			return
 		end
 
-		if FFlagFixInspectMenuAnalytics then
-			GuiService:InspectPlayerFromUserIdWithCtx(self.SelectedPlayer.UserId, "avatarContextMenu")
-		else
-			inspectMenuAnalytics.reportOpenInspectMenu("avatarContextMenu")
-			GuiService:InspectPlayerFromUserId(self.SelectedPlayer.UserId)
-		end
+		GuiService:InspectPlayerFromUserIdWithCtx(self.SelectedPlayer.UserId, "avatarContextMenu")
 	end
 	local browseItemsButton = ContextMenuUtil:MakeStyledButton(
 		"View",
@@ -402,7 +389,7 @@ function ContextMenuItems:BuildContextMenuItems(player)
 		self:CreateEmoteButton()
 	end
 
-	if FlagSettings.IsInspectAndBuyEnabled() and EnabledContextMenuItems[Enum.AvatarContextMenuOption.InspectMenu] then
+	if EnabledContextMenuItems[Enum.AvatarContextMenuOption.InspectMenu] then
 		self:CreateInspectAndBuyButton()
 	end
 	self:CreateCustomMenuItems()
@@ -426,22 +413,18 @@ function ContextMenuItems.new(menuItemFrame)
 
 	obj:RegisterCoreMethods()
 
-	if FlagSettings.IsInspectAndBuyEnabled() then
-		-- If disabled in a script, sometimes it registers before we can receive the signal.
-		ContextMenuItems:UpdateInspectMenuEnabled()
-	end
+	-- If disabled in a script, sometimes it registers before we can receive the signal.
+	ContextMenuItems:UpdateInspectMenuEnabled()
 
 	return obj
 end
 
-if FlagSettings.IsInspectAndBuyEnabled() then
-	GuiService.InspectMenuEnabledChangedSignal:Connect(function(enabled)
-		if not enabled then
-			ContextMenuItems:RemoveDefaultMenuItem(Enum.AvatarContextMenuOption.InspectMenu)
-		else
-			ContextMenuItems:EnableDefaultMenuItem(Enum.AvatarContextMenuOption.InspectMenu)
-		end
-	end)
-end
+GuiService.InspectMenuEnabledChangedSignal:Connect(function(enabled)
+	if not enabled then
+		ContextMenuItems:RemoveDefaultMenuItem(Enum.AvatarContextMenuOption.InspectMenu)
+	else
+		ContextMenuItems:EnableDefaultMenuItem(Enum.AvatarContextMenuOption.InspectMenu)
+	end
+end)
 
 return ContextMenuItems

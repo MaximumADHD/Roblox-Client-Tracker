@@ -6,12 +6,20 @@ return function()
 	local Cryo = require(CorePackages.Cryo)
 	local tutils = require(CorePackages.tutils)
 
+	local GetFFlagLuaAppSendLogsToBacktrace = require(CorePackages.AppTempCommon.LuaApp.Flags.GetFFlagLuaAppSendLogsToBacktrace)
+
 	local requestsSent = 0
 	local requestBody = nil
 
 	local mockHttpRequestObj = {}
-	function mockHttpRequestObj:Start()
+	function mockHttpRequestObj:Start(onComplete)
 		requestsSent = requestsSent + 1
+		onComplete(true, {
+			StatusCode = 200,
+			Body = {
+				_rxid = 12345,
+			}
+		})
 	end
 
 	local mockHttpService = {}
@@ -20,6 +28,9 @@ return function()
 		return mockHttpRequestObj
 	end
 	function mockHttpService:JSONEncode(data)
+		return data
+	end
+	function mockHttpService:JSONDecode(data)
 		return data
 	end
 
@@ -432,4 +443,75 @@ return function()
 			reporter:stop()
 		end)
 	end)
+
+	if GetFFlagLuaAppSendLogsToBacktrace() then
+		describe("Logging", function()
+			it("should send logs if provided generateLogMethod and error report is successful", function()
+				requestsSent = 0
+				requestBody = nil
+
+				local logText = "test log text"
+
+				local reporter = BacktraceReporter.new({
+					httpService = mockHttpService,
+					token = "12345",
+					generateLogMethod = function()
+						return logText
+					end,
+				})
+
+				reporter:reportErrorImmediately(mockErrorMessage, mockErrorStack)
+
+				expect(requestsSent).to.equal(2) -- one for error, one for log
+				expect(requestBody).to.equal(logText)
+
+				reporter:stop()
+			end)
+
+			it("should not send log if generateLogMethod did not return a string", function()
+				requestsSent = 0
+				requestBody = nil
+
+				local reporter = BacktraceReporter.new({
+					httpService = mockHttpService,
+					token = "12345",
+					generateLogMethod = function()
+						return 123
+					end,
+				})
+
+				reporter:reportErrorImmediately(mockErrorMessage, mockErrorStack)
+
+				expect(requestsSent).to.equal(1)
+
+				reporter:stop()
+			end)
+
+			it("should not send more than 1 log in logIntervalInSeconds provided", function()
+				requestsSent = 0
+				requestBody = nil
+
+				local logText = "test log text"
+
+				local reporter = BacktraceReporter.new({
+					httpService = mockHttpService,
+					token = "12345",
+					generateLogMethod = function()
+						return logText
+					end,
+					logIntervalInSeconds = 2,
+				})
+
+				reporter:reportErrorImmediately(mockErrorMessage, mockErrorStack)
+
+				expect(requestsSent).to.equal(2) -- one for error, one for log
+				expect(requestBody).to.equal(logText)
+
+				reporter:reportErrorImmediately(mockErrorMessage, mockErrorStack)
+				expect(requestsSent).to.equal(3) -- only one more, the error report
+
+				reporter:stop()
+			end)
+		end)
+	end
 end

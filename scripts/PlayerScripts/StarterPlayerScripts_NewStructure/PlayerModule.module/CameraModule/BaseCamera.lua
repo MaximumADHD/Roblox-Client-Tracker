@@ -83,6 +83,8 @@ local ContextActionService = game:GetService("ContextActionService")
 local VRService = game:GetService("VRService")
 local UserGameSettings = UserSettings():GetService("UserGameSettings")
 
+local player = Players.LocalPlayer 
+
 --[[ The Module ]]--
 local BaseCamera = {}
 BaseCamera.__index = BaseCamera
@@ -96,7 +98,6 @@ function BaseCamera.new()
 	self.cameraType = nil
 	self.cameraMovementMode = nil
 
-	local player = Players.LocalPlayer
 	self.lastCameraTransform = nil
 	self.rotateInput = ZERO_VECTOR2
 	self.userPanningCamera = false
@@ -261,7 +262,7 @@ function BaseCamera:OnCharacterAdded(char)
 	self.resetCameraAngle = self.resetCameraAngle or self:GetEnabled()
 	self.humanoidRootPart = nil
 	if UserInputService.TouchEnabled then
-		self.PlayerGui = Players.LocalPlayer:WaitForChild("PlayerGui")
+		self.PlayerGui = player:WaitForChild("PlayerGui")
 		for _, child in ipairs(char:GetChildren()) do
 			if child:IsA("Tool") then
 				self.isAToolEquipped = true
@@ -282,7 +283,6 @@ end
 
 function BaseCamera:GetHumanoidRootPart()
 	if not self.humanoidRootPart then
-		local player = Players.LocalPlayer
 		if player.Character then
 			local humanoid = player.Character:FindFirstChildOfClass("Humanoid")
 			if humanoid then
@@ -383,7 +383,6 @@ function BaseCamera:GetSubjectPosition()
 end
 
 function BaseCamera:UpdateDefaultSubjectDistance()
-	local player = Players.LocalPlayer
 	if self.portraitMode then
 		self.defaultSubjectDistance = Util.Clamp(player.CameraMinZoomDistance, player.CameraMaxZoomDistance, PORTRAIT_DEFAULT_DISTANCE)
 	else
@@ -444,7 +443,7 @@ function BaseCamera:OnDynamicThumbstickDisabled()
 end
 
 function BaseCamera:OnGameSettingsTouchMovementModeChanged()
-	if Players.LocalPlayer.DevTouchMovementMode == Enum.DevTouchMovementMode.UserChoice then
+	if player.DevTouchMovementMode == Enum.DevTouchMovementMode.UserChoice then
 		if (UserGameSettings.TouchMovementMode == Enum.TouchMovementMode.DynamicThumbstick
 			or UserGameSettings.TouchMovementMode == Enum.TouchMovementMode.Default) then
 			self:OnDynamicThumbstickEnabled()
@@ -455,7 +454,7 @@ function BaseCamera:OnGameSettingsTouchMovementModeChanged()
 end
 
 function BaseCamera:OnDevTouchMovementModeChanged()
-	if Players.LocalPlayer.DevTouchMovementMode.Name == "DynamicThumbstick" then
+	if player.DevTouchMovementMode.Name == "DynamicThumbstick" then
 		self:OnDynamicThumbstickEnabled()
 	else
 		self:OnGameSettingsTouchMovementModeChanged()
@@ -492,7 +491,7 @@ function BaseCamera:Enable(enable)
 			self:ConnectInputEvents()
 			self:BindContextActions()
 
-			if Players.LocalPlayer.CameraMode == Enum.CameraMode.LockFirstPerson then
+			if player.CameraMode == Enum.CameraMode.LockFirstPerson then
 				self.currentSubjectDistance = 0.5
 				if not self.inFirstPerson then
 					self:EnterFirstPerson()
@@ -599,7 +598,9 @@ function BaseCamera:ConnectInputEvents()
 	end)
 
 	self:AssignActivateGamepad()
-	self:UpdateMouseBehavior()
+	if not FFlagUserCameraToggle then
+		self:UpdateMouseBehavior()
+	end
 end
 
 function BaseCamera:BindContextActions()
@@ -843,7 +844,7 @@ function BaseCamera:DoKeyboardZoom(name, state, input)
 		return Enum.ContextActionResult.Pass
 	end
 
-	if self.distanceChangeEnabled and Players.LocalPlayer.CameraMode ~= Enum.CameraMode.LockFirstPerson then
+	if self.distanceChangeEnabled and player.CameraMode ~= Enum.CameraMode.LockFirstPerson then
 		if input.KeyCode == Enum.KeyCode.I then
 			self:SetCameraToSubjectDistance( self.currentSubjectDistance - 5 )
 		elseif input.KeyCode == Enum.KeyCode.O then
@@ -875,7 +876,7 @@ function BaseCamera:BindKeyboardInputActions()
 end
 
 local function isInDynamicThumbstickArea(input)
-	local playerGui = Players.LocalPlayer:FindFirstChildOfClass("PlayerGui")
+	local playerGui = player:FindFirstChildOfClass("PlayerGui")
 	local touchGui = playerGui and playerGui:FindFirstChild("TouchGui")
 	local touchFrame = touchGui and touchGui:FindFirstChild("TouchControlFrame")
 	local thumbstickFrame = touchFrame and touchFrame:FindFirstChild("DynamicThumbstickFrame")
@@ -1057,8 +1058,12 @@ function BaseCamera:OnMouseMoved(input, processed)
 	local inputDelta = input.Delta
 	inputDelta = Vector2.new(inputDelta.X, inputDelta.Y * UserGameSettings:GetCameraYInvertValue())
 
-	if self.panEnabled and ((self.startPos and self.lastPos and self.panBeginLook) or self.inFirstPerson or self.inMouseLockedMode) then
-		local desiredXYVector = self:InputTranslationToCameraAngleChange(inputDelta,MOUSE_SENSITIVITY)
+	local isInputPanning = FFlagUserCameraToggle and CameraInput.getPanning()
+	local isBeginLook = self.startPos and self.lastPos and self.panBeginLook
+	local isPanning = isBeginLook or self.inFirstPerson or self.inMouseLockedMode or isInputPanning
+
+	if self.panEnabled and isPanning then
+		local desiredXYVector = self:InputTranslationToCameraAngleChange(inputDelta, MOUSE_SENSITIVITY)
 		self.rotateInput = self.rotateInput + desiredXYVector
 	end
 
@@ -1069,7 +1074,9 @@ end
 
 function BaseCamera:OnMousePanButtonPressed(input, processed)
 	if processed then return end
-	self:UpdateMouseBehavior()
+	if not FFlagUserCameraToggle then
+		self:UpdateMouseBehavior()
+	end
 	self.panBeginLook = self.panBeginLook or self:GetCameraLookVector()
 	self.startPos = self.startPos or input.Position
 	self.lastPos = self.lastPos or self.startPos
@@ -1077,7 +1084,9 @@ function BaseCamera:OnMousePanButtonPressed(input, processed)
 end
 
 function BaseCamera:OnMousePanButtonReleased(input, processed)
-	self:UpdateMouseBehavior()
+	if not FFlagUserCameraToggle then
+		self:UpdateMouseBehavior()
+	end
 	if not (self.isRightMouseDown or self.isMiddleMouseDown) then
 		self.panBeginLook = nil
 		self.startPos = nil
@@ -1118,8 +1127,6 @@ function BaseCamera:UpdateForDistancePropertyChange()
 end
 
 function BaseCamera:SetCameraToSubjectDistance(desiredSubjectDistance)
-	local player = Players.LocalPlayer
-
 	local lastSubjectDistance = self.currentSubjectDistance
 
 	-- By default, camera modules will respect LockFirstPerson and override the currentSubjectDistance with 0
@@ -1173,7 +1180,9 @@ end
 
 function BaseCamera:SetIsMouseLocked(mouseLocked)
 	self.inMouseLockedMode = mouseLocked
-	self:UpdateMouseBehavior()
+	if not FFlagUserCameraToggle then
+		self:UpdateMouseBehavior()
+	end
 end
 
 function BaseCamera:GetIsMouseLocked()
@@ -1247,7 +1256,6 @@ function BaseCamera:CalculateNewLookVectorVR()
 end
 
 function BaseCamera:GetHumanoid()
-	local player = Players.LocalPlayer
 	local character = player and player.Character
 	if character then
 		local resultHumanoid = self.humanoidCache[player]

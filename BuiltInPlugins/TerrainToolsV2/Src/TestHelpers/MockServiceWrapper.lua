@@ -17,6 +17,7 @@ local TerrainBrush = require(Plugin.Src.TerrainInterfaces.TerrainBrushInstance)
 local TerrainGeneration = require(Plugin.Src.TerrainInterfaces.TerrainGenerationInstance)
 local TerrainImporter = require(Plugin.Src.TerrainInterfaces.TerrainImporterInstance)
 local TerrainSeaLevel = require(Plugin.Src.TerrainInterfaces.TerrainSeaLevel)
+local PartConverter = require(Plugin.Src.TerrainInterfaces.PartConverter)
 
 local TestHelpers = Plugin.Src.TestHelpers
 local MockPlugin = require(TestHelpers.MockPlugin)
@@ -87,6 +88,13 @@ function MockServiceWrapper:render()
 		}) or TerrainSeaLevel.new()
 	end
 
+	local partConverter = self.props.partConverter
+	if not partConverter then
+		partConverter = PartConverter.new({
+			terrain = terrain,
+		})
+	end
+
 	return Roact.createElement(ServiceWrapper, {
 		localization = localization,
 		plugin = pluginInstance,
@@ -98,6 +106,7 @@ function MockServiceWrapper:render()
 		terrainGeneration = terrainGeneration,
 		terrainImporter = terrainImporter,
 		seaLevel = seaLevel,
+		partConverter = partConverter,
 	}, self.props[Roact.Children])
 end
 

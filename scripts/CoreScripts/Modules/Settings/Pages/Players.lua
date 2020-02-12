@@ -27,8 +27,6 @@ local ShareGameIcons = require(ShareGameDirectory.Spritesheets.ShareGameIcons)
 local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 local InviteToGameAnalytics = require(ShareGameDirectory.Analytics.InviteToGameAnalytics)
-local FlagSettings = require(RobloxGui.Modules.FlagSettings)
-local InspectMenuAnalytics = require(RobloxGui.Modules.InspectAndBuy.Services.Analytics)
 local PolicyService = require(RobloxGui.Modules.Common.PolicyService)
 
 ------------ Constants -------------------
@@ -51,16 +49,11 @@ while not localPlayer do
 	PlayersService.ChildAdded:wait()
 	localPlayer = PlayersService.LocalPlayer
 end
-local inspectMenuAnalytics = nil
-if FlagSettings.IsInspectAndBuyEnabled() then
-	inspectMenuAnalytics = InspectMenuAnalytics.new()
-end
 
 ------------ FAST FLAGS -------------------
 local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
 local FFlagUseNotificationsLocalization = success and result
 local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp") --todo: remove with FFlagUsePolicyServiceForCoreScripts
-local FFlagFixInspectMenuAnalytics = settings():GetFFlag("FixInspectMenuAnalytics")
 local FFlagUpdateSettingsHubGameText = require(RobloxGui.Modules.Flags.FFlagUpdateSettingsHubGameText)
 
 ----------- CLASS DECLARATION --------------
@@ -219,38 +212,6 @@ local function Initialize()
 					item:Destroy()
 				end
 			end
-
-			-- create new friend status label
-			local status = nil
-			if showRightSideButtons(player) then
-				status = getFriendStatus(player)
-			end
-
-			local friendLabel = nil
-			local wasIsPortrait = nil
-			if not FlagSettings.IsInspectAndBuyEnabled() then
-				utility:OnResized(playerLabel, function(newSize, isPortrait)
-					if friendLabel and isPortrait == wasIsPortrait then
-						return
-					end
-					wasIsPortrait = isPortrait
-					if friendLabel then
-						friendLabel:Destroy()
-					end
-					if isPortrait then
-						friendLabel = createFriendStatusImageLabel(status, player)
-					else
-						friendLabel = createFriendStatusTextLabel(status, player)
-					end
-
-					if friendLabel then
-						friendLabel.Name = "FriendStatus"
-						friendLabel.LayoutOrder = 2
-						friendLabel.Selectable = true
-						friendLabel.Parent = friendLabelParent
-					end
-				end)
-			end
 		end
 	end
 
@@ -278,7 +239,7 @@ local function Initialize()
 
 		if friendLabel then
 			friendLabel.Name = "FriendStatus"
-			friendLabel.LayoutOrder = FlagSettings.IsInspectAndBuyEnabled() and 3 or 2
+			friendLabel.LayoutOrder = 3
 			friendLabel.Selectable = true
 			friendLabel.Parent = parent
 		end
@@ -486,12 +447,7 @@ local function Initialize()
 		end
 
 		local activateInspectAndBuyMenu = function()
-			if FFlagFixInspectMenuAnalytics then
-				GuiService:InspectPlayerFromUserIdWithCtx(player.UserId, "escapeMenu")
-			else
-				inspectMenuAnalytics.reportOpenInspectMenu("escapeMenu")
-				GuiService:InspectPlayerFromUserId(player.UserId)
-			end
+			GuiService:InspectPlayerFromUserIdWithCtx(player.UserId, "escapeMenu")
 			this.HubRef:SetVisibility(false)
 		end
 
@@ -646,10 +602,8 @@ local function Initialize()
 			shareGameButton.Parent = this.Page
 		end
 
-		local inspectMenuEnabled = false
-		if FlagSettings.IsInspectAndBuyEnabled() then
-			inspectMenuEnabled = GuiService:GetInspectMenuEnabled()
-		end
+		local inspectMenuEnabled = GuiService:GetInspectMenuEnabled()
+
 		-- iterate through players to reuse or create labels for players
 		for index=1, #sortedPlayers do
 			local player = sortedPlayers[index]
@@ -686,18 +640,16 @@ local function Initialize()
 				friendStatusCreate(frame, player)
 
 				local wasIsPortrait = nil
-				if FlagSettings.IsInspectAndBuyEnabled() then
-					utility:OnResized(frame, function(newSize, isPortrait)
-						local parent = frame:FindFirstChild("RightSideButtons")
-						if parent then
-							resizeFriendButton(parent, player, isPortrait, wasIsPortrait)
-							if inspectMenuEnabled then
-								resizeInspectButton(parent, player, isPortrait, wasIsPortrait)
-							end
-							wasIsPortrait = isPortrait
+				utility:OnResized(frame, function(newSize, isPortrait)
+					local parent = frame:FindFirstChild("RightSideButtons")
+					if parent then
+						resizeFriendButton(parent, player, isPortrait, wasIsPortrait)
+						if inspectMenuEnabled then
+							resizeInspectButton(parent, player, isPortrait, wasIsPortrait)
 						end
-					end)
-				end
+						wasIsPortrait = isPortrait
+					end
+				end)
 
 				local showReportAbuse = not FFlagChinaLicensingApp
 				if PolicyService:IsEnabled() then
@@ -772,7 +724,7 @@ local function Initialize()
 			reportPlayer:Destroy()
 		end
 
-		local inspectButton = FlagSettings.IsInspectAndBuyEnabled() and buttons:FindFirstChild("Inspect")
+		local inspectButton = buttons:FindFirstChild("Inspect")
 		if inspectButton then
 			if GuiService.SelectedCoreObject == inspectButton then
 				GuiService.SelectedCoreObject = nil
@@ -782,25 +734,23 @@ local function Initialize()
 	end)
 
 	-- If the developer disables the Inspect Menu, remove the button from the escape menu.
-	if FlagSettings.IsInspectAndBuyEnabled() then
-		GuiService.InspectMenuEnabledChangedSignal:Connect(function(enabled)
-			if not enabled then
-				for _, frame in pairs(existingPlayerLabels) do
-					local buttons = frame:FindFirstChild("RightSideButtons")
+	GuiService.InspectMenuEnabledChangedSignal:Connect(function(enabled)
+		if not enabled then
+			for _, frame in pairs(existingPlayerLabels) do
+				local buttons = frame:FindFirstChild("RightSideButtons")
 
-					if buttons then
-						local inspectButton = buttons:FindFirstChild("Inspect")
-						if inspectButton then
-							if GuiService.SelectedCoreObject == inspectButton then
-								GuiService.SelectedCoreObject = nil
-							end
-							inspectButton:Destroy()
+				if buttons then
+					local inspectButton = buttons:FindFirstChild("Inspect")
+					if inspectButton then
+						if GuiService.SelectedCoreObject == inspectButton then
+							GuiService.SelectedCoreObject = nil
 						end
+						inspectButton:Destroy()
 					end
 				end
 			end
-		end)
-	end
+		end
+	end)
 
 	return this
 end

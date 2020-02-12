@@ -9,7 +9,7 @@
 	activated as-needed, they are no longer all instantiated up front as they were in
 	the previous generation of PlayerScripts.
 
-	2018 PlayerScripts Update - AllYourBlox	
+	2018 PlayerScripts Update - AllYourBlox
 --]]
 
 local CameraModule = {}
@@ -160,10 +160,6 @@ function CameraModule.new()
 
 	return self
 end
-
-
-
-
 
 function CameraModule:GetCameraMovementModeFromSettings()
 	local cameraMode = Players.LocalPlayer.CameraMode
@@ -464,6 +460,10 @@ end
 --]]
 function CameraModule:Update(dt)
 	if self.activeCameraController then
+		if FFlagUserCameraToggle then
+			self.activeCameraController:UpdateMouseBehavior()
+		end
+
 		local newCameraCFrame, newCameraFocus = self.activeCameraController:Update(dt)
 		self.activeCameraController:ApplyVRTransform()
 		if self.activeOcclusionModule then

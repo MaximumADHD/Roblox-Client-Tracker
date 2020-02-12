@@ -1,5 +1,8 @@
 local paths = require(script.Parent.Parent.Paths)
 local FFlagWorldAvatarLocalization = game:GetFastFlag("WorldAvatarLocalization")
+local FFlagAvatarSizeFixForReorganizeHeaders =
+	game:GetFastFlag("AvatarSizeFixForReorganizeHeaders") and
+	settings():GetFFlag("GameSettingsReorganizeHeaders")
 
 local AssetsPanel = paths.Roact.Component:extend("ComponentAssetsPanel")
 
@@ -33,7 +36,12 @@ function AssetsPanel:render()
 			Size = UDim2.new(1, 0, 1, 0),
 			BorderSizePixel = 0,
 			BackgroundColor3 = paths.StateInterfaceTheme.getBackgroundColor(self.props),
-			LayoutOrder = layoutOrder:getNextOrder(),
+			LayoutOrder = (function()
+				if FFlagAvatarSizeFixForReorganizeHeaders then
+					return self.props.LayoutOrder
+				end
+				return layoutOrder:getNextOrder()
+			end)(),
 
 			[paths.Roact.Ref] = self.frameRef,
 		},

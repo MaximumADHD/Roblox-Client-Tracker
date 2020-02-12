@@ -22,14 +22,12 @@ local LocalPlayer = Players.LocalPlayer
 local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp") --todo: remove with FFlagUsePolicyServiceForCoreScripts
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local InspectMenuAnalytics = require(RobloxGui.Modules.InspectAndBuy.Services.Analytics).new()
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
 local PolicyService = require(RobloxGui.Modules.Common.PolicyService)
 
 local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
 
-local FFlagFixInspectMenuAnalytics = settings():GetFFlag("FixInspectMenuAnalytics")
 local FFlagPlayerListDesignUpdate = settings():GetFFlag("PlayerListDesignUpdate")
 local FFlagPlayerListBetterDropDownPositioning = require(RobloxGui.Modules.Flags.FFlagPlayerListBetterDropDownPositioning)
 
@@ -292,12 +290,7 @@ function PlayerDropDown:createInspectButton()
 			lastButton = selectedPlayer == LocalPlayer,
 			forceShowOptions = false,
 			onActivated = function()
-				if FFlagFixInspectMenuAnalytics then
-					GuiService:InspectPlayerFromUserIdWithCtx(selectedPlayer.UserId, "leaderBoard")
-				else
-					InspectMenuAnalytics.reportOpenInspectMenu("leaderBoard")
-					GuiService:InspectPlayerFromUserId(selectedPlayer.UserId)
-				end
+				GuiService:InspectPlayerFromUserIdWithCtx(selectedPlayer.UserId, "leaderBoard")
 				self.props.closeDropDown()
 			end,
 		})
@@ -307,12 +300,7 @@ function PlayerDropDown:createInspectButton()
 			layoutOrder = 6,
 			text = "View",
 			onActivated = function()
-				if FFlagFixInspectMenuAnalytics then
-					GuiService:InspectPlayerFromUserIdWithCtx(selectedPlayer.UserId, "leaderBoard")
-				else
-					InspectMenuAnalytics.reportOpenInspectMenu("leaderBoard")
-					GuiService:InspectPlayerFromUserId(selectedPlayer.UserId)
-				end
+				GuiService:InspectPlayerFromUserIdWithCtx(selectedPlayer.UserId, "leaderBoard")
 				self.props.closeDropDown()
 			end,
 		})
