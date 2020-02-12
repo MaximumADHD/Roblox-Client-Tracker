@@ -1,3 +1,5 @@
+assert(not game:GetFastFlag("TerrainToolsRefactorSculptOperations"),
+	"smartLargeSmoothBrush.lua is deprecated behind FFlagTerrainToolsRefactorSculptOperations")
 local Plugin = script.Parent.Parent.Parent
 
 local Constants = require(Plugin.Src.Util.Constants)

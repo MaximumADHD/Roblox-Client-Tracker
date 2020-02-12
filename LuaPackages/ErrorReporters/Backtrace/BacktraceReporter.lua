@@ -104,23 +104,29 @@ function BacktraceReporter:sendErrorReport(report)
 	return success
 end
 
-function BacktraceReporter:_generateErrorReport(errorMessage, errorStack)
+function BacktraceReporter:_generateErrorReport(errorMessage, errorStack, details)
 	local report = BacktraceReport.fromMessageAndStack(errorMessage, errorStack)
 
 	report:addAttributes(self._sharedAttributes)
 	report:addAnnotations(self._sharedAnnotations)
+
+	if type(details) == "string" and details ~= "" then
+		report:addAnnotations({
+			["stackDetails"] = details,
+		})
+	end
 
 	return report
 end
 
 -- Immediate reports
 -- You most likely should not use this. Use reportErrorDeferred instead.
-function BacktraceReporter:reportErrorImmediately(errorMessage, errorStack)
+function BacktraceReporter:reportErrorImmediately(errorMessage, errorStack, details)
 	if not self._isEnabled then
 		return
 	end
 
-	local newReport = self:_generateErrorReport(errorMessage, errorStack)
+	local newReport = self:_generateErrorReport(errorMessage, errorStack, details)
 
 	if self._processErrorReportMethod ~= nil then
 		newReport = self._processErrorReportMethod(newReport)
@@ -130,7 +136,7 @@ function BacktraceReporter:reportErrorImmediately(errorMessage, errorStack)
 end
 
 -- Deferred reports using an error queue
-function BacktraceReporter:reportErrorDeferred(errorMessage, errorStack)
+function BacktraceReporter:reportErrorDeferred(errorMessage, errorStack, details)
 	if not self._isEnabled then
 		return
 	end
@@ -142,7 +148,7 @@ function BacktraceReporter:reportErrorDeferred(errorMessage, errorStack)
 	-- Similar errors following this one will be squashed in the queue and share report with this one
 	-- before they're flushed out and reported.
 	if not self._errorQueue:hasError(errorKey) then
-		local newReport = self:_generateErrorReport(errorMessage, errorStack)
+		local newReport = self:_generateErrorReport(errorMessage, errorStack, details)
 
 		if self._processErrorReportMethod ~= nil then
 			newReport = self._processErrorReportMethod(newReport)

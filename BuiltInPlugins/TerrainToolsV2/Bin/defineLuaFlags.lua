@@ -11,11 +11,29 @@ game:DefineFastFlag("TerrainToolsFixPlanePositionErrorMessage", false)
 game:DefineFastFlag("TerrainToolsFixGettingTerrain", false)
 game:DefineFastFlag("TerrainToolsRefactor", false)
 game:DefineFastFlag("TerrainToolsFlattenUseBaseBrush", false)
+game:DefineFastFlag("TerrainToolsRefactorSculptOperations", false)
+game:DefineFastFlag("TerrainToolsMaterialGenerateFragments", false)
+game:DefineFastFlag("TerrainToolsConvertPartTool", false)
 
-if game:GetFastFlag("TerrainToolsFlattenUseBaseBrush") then
-	assert(game:GetFastFlag("TerrainToolsRefactor"),
-		"FFlagTerrainToolsFlattenUseBaseBrush requires FFlagTerrainToolsRefactor to be on")
+local function handleFlagDependencies(flag, requiredFlags)
+	if not game:GetFastFlag(flag) then
+		return
+	end
+
+	for _, requiredFlag in ipairs(requiredFlags) do
+		assert(game:GetFastFlag(requiredFlag),
+			("FFlag%s requires FFlag%s to be on"):format(flag, requiredFlag))
+	end
 end
+
+handleFlagDependencies("TerrainToolsFlattenUseBaseBrush", {"TerrainToolsRefactor"})
+handleFlagDependencies("TerrainToolsRefactorSculptOperations", {"TerrainToolsFlattenUseBaseBrush"})
+handleFlagDependencies("TerrainToolsMaterialGenerateFragments", {"TerrainToolsRefactor"})
+handleFlagDependencies("TerrainToolsConvertPartTool", {
+	"TerrainToolsUseFragmentsForToolPanel",
+	"TerrainToolsRefactor",
+	"TerrainToolsMaterialGenerateFragments",
+})
 
 -- Need to explicitly return something from a module
 -- Else you get an error "Module code did not return exactly one value"

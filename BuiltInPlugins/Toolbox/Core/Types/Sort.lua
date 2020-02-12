@@ -1,4 +1,5 @@
 local FFlagLuaPackagePermissions =  settings():GetFFlag("LuaPackagePermissions")
+local FFlagEnableDefaultSortFix = game:GetFastFlag("EnableDefaultSortFix")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -34,7 +35,7 @@ end
 ]]
 function Sort.getDefaultSortForGroups(pageInfo)
 	if FFlagLuaPackagePermissions then
-		return Sort.getDefaultSortForCategory(pageInfo.categoryIndex, nil)
+		return Sort.getDefaultSortForCategory(pageInfo.categoryIndex, FFlagEnableDefaultSortFix and pageInfo.currentTab or nil)
 	else
 		return RELEVANCE_INDEX
 	end

@@ -47,14 +47,21 @@ local ToggleWorldSpace = require(Plugin.Src.Actions.ToggleWorldSpace)
 local FixManipulators = require(Plugin.LuaFlags.GetFFlagFixAnimEditorManipulators)
 local FindNestedParts = require(Plugin.LuaFlags.GetFFlagFindNestedParts)
 local FixDuplicateChildNames = require(Plugin.LuaFlags.GetFFlagFixDuplicateChildNames)
+local AllowDuplicateNamesOnNonAnimatedParts = require(Plugin.LuaFlags.GetFFlagAllowDuplicateNamesOnNonAnimatedParts)
 
 local JointSelector = Roact.PureComponent:extend("JointSelector")
 
 function JointSelector:init()
-	self.state = {
-		CurrentParts = nil,
-		HoverPart = nil,
-	}
+	if AllowDuplicateNamesOnNonAnimatedParts() then
+		self.state = {
+			HoverPart = nil,
+		}
+	else
+		self.state = {
+			CurrentParts = nil,
+			HoverPart = nil,
+		}
+	end
 
 	local rootInstance = self.props.RootInstance
 	self.CurrentRoot = rootInstance
@@ -133,39 +140,41 @@ function JointSelector:willUpdate()
 	end
 end
 
-function JointSelector.getDerivedStateFromProps(nextProps, lastState)
-	local selectedTracks = nextProps.SelectedTracks
-	local rootInstance = nextProps.RootInstance
+if not AllowDuplicateNamesOnNonAnimatedParts() then
+	function JointSelector.getDerivedStateFromProps(nextProps, lastState)
+		local selectedTracks = nextProps.SelectedTracks
+		local rootInstance = nextProps.RootInstance
 
-	local currentParts = {}
-	if selectedTracks and rootInstance then
-		for _, track in ipairs(selectedTracks) do
-			if FixDuplicateChildNames() then
-				local descendants = {}
-				RigUtils.getDescendants(descendants, rootInstance)
-				for _, child in ipairs(descendants) do
-					if child.Name == track and child:IsA("BasePart") then
-						table.insert(currentParts, child)
-						break
+		local currentParts = {}
+		if selectedTracks and rootInstance then
+			for _, track in ipairs(selectedTracks) do
+				if FixDuplicateChildNames() then
+					local descendants = {}
+					RigUtils.getDescendants(descendants, rootInstance)
+					for _, child in ipairs(descendants) do
+						if child.Name == track and child:IsA("BasePart") then
+							table.insert(currentParts, child)
+							break
+						end
 					end
-				end
-			elseif FindNestedParts() then
-				local part = RigUtils.getPartByName(rootInstance, track)
-				if part then
-					table.insert(currentParts, part)
-				end
-			else
-				local part = rootInstance:FindFirstChild(track, true)
-				if part and part:IsA("BasePart") then
-					table.insert(currentParts, part)
+				elseif FindNestedParts() then
+					local part = RigUtils.getPartByName(rootInstance, track)
+					if part then
+						table.insert(currentParts, part)
+					end
+				else
+					local part = rootInstance:FindFirstChild(track, true)
+					if part and part:IsA("BasePart") then
+						table.insert(currentParts, part)
+					end
 				end
 			end
 		end
-	end
 
-	return {
-		CurrentParts = #currentParts > 0 and currentParts or Roact.None,
-	}
+		return {
+			CurrentParts = #currentParts > 0 and currentParts or Roact.None,
+		}
+	end
 end
 
 function JointSelector:getJoints()
@@ -190,10 +199,35 @@ function JointSelector:getJoints()
 	return joints
 end
 
+function JointSelector:findCurrentParts(selectedTracks, rootInstance)
+	local currentParts = {}
+	if selectedTracks and rootInstance and self.KinematicParts and #self.KinematicParts > 0 then
+		for _, track in ipairs(selectedTracks) do
+			for _, part in ipairs(self.KinematicParts) do
+				if part.Name == track then
+					table.insert(currentParts, part)
+					break
+				end
+			end
+		end
+	end
+
+	return (#currentParts > 0) and currentParts or nil
+end
+
 function JointSelector:render()
 	local state = self.state
 	local props = self.props
-	local currentParts = state.CurrentParts
+
+	local currentParts = nil
+	if AllowDuplicateNamesOnNonAnimatedParts() then
+		local selectedTracks = props.SelectedTracks
+		local rootInstance = props.RootInstance
+		currentParts = self:findCurrentParts(selectedTracks, rootInstance)
+	else
+		currentParts = state.CurrentParts
+	end
+
 	local hoverPart = state.HoverPart
 	local container = props.Container or CoreGui
 

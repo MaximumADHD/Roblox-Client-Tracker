@@ -14,7 +14,7 @@ Rectangle {
 
     readonly property int defaultCurrentIndex: -1 // See Qt documentation
     property bool showBelow: false
-    property bool expandedView: false
+    property bool expandedView: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView() ? initialExpandedValue : false
 	property bool isTextFocused: false
 	property int mouseHighlightedIndex: -1
 
@@ -53,7 +53,12 @@ Rectangle {
             return gridView
         }
         else {
-            return listView
+            if(insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView()) {
+                return listView
+            }
+            else {
+                return _DEPRECATED_listView
+            }
         }
     }
 
@@ -158,10 +163,10 @@ Rectangle {
 		    		rootWindow.filterTextChanged(text);
 					if (!insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView() && insertObjectWindow.getFFlagStudioInsertObjectStreamlining_FlattenedFiltering()){
 						if (!text){
-							listView.section.delegate = _DEPRECATED_categoryDelegate;
+							_DEPRECATED_listView.section.delegate = _DEPRECATED_categoryDelegate;
 						}
 						else{
-							listView.section.delegate = _DEPRECATED_hiddenCategoryDelegate;
+							_DEPRECATED_listView.section.delegate = _DEPRECATED_hiddenCategoryDelegate;
 						}
 					}
 
@@ -390,7 +395,12 @@ Rectangle {
 
 			visible: {
 			    if(insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ShowRecommendedObjectsOnly()){
-				    return !isWindow;
+                    if(insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView) {
+                        return true
+                    }
+                    else {
+                        return !isWindow;
+                    }
 				}
 				else
 				{
@@ -399,7 +409,12 @@ Rectangle {
 			}			
 			height: {
 				if(insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ShowRecommendedObjectsOnly()){
-				    return isWindow ? 0 : 30
+                    if(insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView) {
+                        return 30
+                    }
+                    else {
+                        return isWindow ? 0 : 30
+                    }
 				}
 				else
 				{
@@ -417,9 +432,14 @@ Rectangle {
 			anchors.left: parent.left
 			anchors.top: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ShowRecommendedObjectsOnly() ? showRecommendedOnlyCheckBox.bottom : searchBox.bottom
 			anchors.leftMargin: 6
-			visible: {
+	        visible: {
 			    if(insertObjectWindow.getFFlagStudioInsertObjectStreamlining_InsertWidget() && insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamlining_SelectAfterInsert()){
-				    return !isWindow;
+                    if(insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView) {
+                        return true
+                    }
+                    else {
+                        return !isWindow;
+                    }
 				}
 				else
 				{
@@ -428,7 +448,12 @@ Rectangle {
 			}			
 			height: {
 				if(insertObjectWindow.getFFlagStudioInsertObjectStreamlining_InsertWidget() && insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamlining_SelectAfterInsert()){
-				    return isWindow ? 0 : 30
+                    if(insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView) {
+                        return 30
+                    }
+                    else {
+                        return isWindow ? 0 : 30
+                    }
 				}
 				else
 				{
@@ -479,7 +504,6 @@ Rectangle {
 					onClicked: openInsertObjectWidget()
 			}
 		}
-
         Rectangle
         {
             id: scrollViewContainer
@@ -502,16 +526,78 @@ Rectangle {
                 }
                 wrapMode: Text.WordWrap
 			    color: userPreferences.theme.style("CommonStyle dimmedText")
-                visible: insertObjectWindow.getFFlagStudioInsertObjectStreamlining_InsertWidget() && listView.count == 0 && isWindow
+                visible: insertObjectWindow.getFFlagStudioInsertObjectStreamlining_InsertWidget() && getCurrentView().count == 0 && isWindow
             }
-            ScrollView {
-                id: listScrollView
-                visible: !expandedView || !insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView()
+
+
+             ScrollView {
+                // FIXME(rmendelsohn)
+                // 2020/01/31
+                // remove with FFlag StudioInsertObjectStreamliningv2_ExpandedView
+                id: _DEPRECATED_listScrollView
+                visible: !insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView()
                 objectName: "qmlInsertObjectListScrollView"
 			    anchors.fill: parent
                 ListView {
-		    	    id: listView
+		    	    id: _DEPRECATED_listView
 		    	    anchors.fill: parent
+		    	    model: insertObjectListModel
+                    currentIndex: defaultCurrentIndex
+                    delegate: Component {
+                                Loader {
+                                    property int mIndex: index
+                                    property int mImageIndex: imageIndex
+                                    property string mName: name
+                                    property string mCategory: category
+                                    property string mDescription: description
+                                    property bool mIsUnpreferred: insertObjectWindow.getFFlagStudioInsertObjectStreamlining_Filtering() ? isUnpreferred : false
+
+                                    anchors.left: parent ? parent.left : undefined
+                                    anchors.right: parent ? parent.right : undefined
+                                    height: 28
+                                    sourceComponent: (insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView() && isPlaceholder) ? categoryDelegate : nameDelegate
+                                }
+                            }
+                    highlightFollowsCurrentItem: true
+				    highlightMoveDuration: 50 // Speed up highlight follow
+				    highlightMoveVelocity: 1000
+				    highlight: Rectangle {
+					    id: highlightBar
+		    		    color: userPreferences.theme.style("Menu itemHover")
+		    		    width: _DEPRECATED_listView.width
+		    		    height: 28
+		    		    Rectangle {
+		    		        width: 4
+		    		        anchors.top: parent.top
+		    		        anchors.bottom: parent.bottom
+		    		        color: userPreferences.theme.style("CommonStyle currentItemMarker")
+                            visible: true
+		    		    }
+		    	    }
+                    // FIXME(rmendelsohn)
+                    // 2020/01/27
+                    // remove with FFlag StudioInsertObjectStreamliningv2_ExpandedView
+                    section {
+                        id: _DEPRECATED_section
+		    		    property: "category"
+		    		    criteria: ViewSection.FullString
+		    		    delegate:  insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView() ? _DEPRECATED_hiddenCategoryDelegate : _DEPRECATED_categoryDelegate
+		    	    }
+                }
+            }
+
+            Rectangle {
+                id: listViewContainer
+                visible: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView() && !expandedView
+                objectName: "qmlInsertObjectListViewContainer"
+			    anchors.fill: parent
+                color: "transparent"
+
+                ListView {
+		    	    id: listView
+                    clip: true
+		    	    anchors.fill: parent
+                    anchors.rightMargin: 20
 		    	    model: insertObjectListModel
                     currentIndex: defaultCurrentIndex
                     delegate: Component {
@@ -545,26 +631,26 @@ Rectangle {
                             visible: true
 		    		    }
 		    	    }
-                    // FIXME(rmendelsohn)
-                    // 2020/01/27
-                    // remove with FFlag StudioInsertObjectStreamliningv2_ExpandedView
-                    section {
-                        id: _DEPRECATED_section
-		    		    property: "category"
-		    		    criteria: ViewSection.FullString
-		    		    delegate:  insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView() ? _DEPRECATED_hiddenCategoryDelegate : _DEPRECATED_categoryDelegate
-		    	    }
                 }
+                RobloxVerticalScrollBar {
+			        id: listVerticalScrollBar
+			        window: listViewContainer
+			        flickable: listView
+                }
+
             }
-            ScrollView {
-                id: gridScrollView
+            Rectangle {
+                id: gridViewContainer
                 visible: expandedView
-                objectName: "qmlInsertObjectGridScrollView"
+                objectName: "qmlInsertObjectGridViewContainer"
+                color: "transparent"
 			    anchors.fill: parent
 		        GridView {
 		    	    id: gridView
 		    	    anchors.fill: parent
                     anchors.topMargin: 5
+                    anchors.bottomMargin: 20
+					clip: true
                     cellWidth: 185; cellHeight: 25
                     flow: GridView.TopToBottom
 		    	    model: insertObjectListModel
@@ -599,9 +685,14 @@ Rectangle {
                         }
 		    	    }
 		        }
+                RobloxHorizontalScrollBar {
+			        id: gridHorizontalScrollBar
+			        window: gridViewContainer
+			        flickable: gridView
+                }
+
 		    }
-        }
-		
+        }		
 	}
 
 	// Adds a drop shadow around the window.

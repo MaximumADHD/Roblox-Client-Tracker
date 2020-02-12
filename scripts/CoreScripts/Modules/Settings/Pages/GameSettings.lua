@@ -54,6 +54,7 @@ local CAMERA_MODE_DEFAULT_STRING = UserInputService.TouchEnabled and "Default (F
 local FFlagGroupEditDevConsoleButton = settings():GetFFlag("GroupEditDevConsoleButton")
 local FFlagMicroProfilerSessionAnalytics = settings():GetFFlag("MicroProfilerSessionAnalytics")
 local FFlagDevConsoleFixMicroprofilerSyncIssues = settings():GetFFlag("DevConsoleFixMicroprofilerSyncIssues")
+local FFlagCollectAnalyticsForSystemMenu = settings():GetFFlag("CollectAnalyticsForSystemMenu")
 
 local MICROPROFILER_SETTINGS_PRESSED = "MicroprofilerSettingsPressed"
 
@@ -64,6 +65,10 @@ local MOVEMENT_MODE_DYNAMICTHUMBSTICK_STRING = "Dynamic Thumbstick"
 
 ----------- UTILITIES --------------
 local utility = require(RobloxGui.Modules.Settings.Utility)
+local Constants
+if FFlagCollectAnalyticsForSystemMenu then
+  Constants = require(RobloxGui:WaitForChild("Modules"):WaitForChild("InGameMenu"):WaitForChild("Resources"):WaitForChild("Constants"))
+end
 
 ------------ Variables -------------------
 RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
@@ -93,6 +98,49 @@ end
 local isDesktopClient = (platform == Enum.Platform.Windows) or (platform == Enum.Platform.OSX) or (platform == Enum.Platform.UWP)
 local isMobileClient = (platform == Enum.Platform.IOS) or (platform == Enum.Platform.Android)
 local UseMicroProfiler = (isMobileClient or isDesktopClient) and canUseMicroProfiler
+
+local function reportSettingsForAnalytics()
+  if not FFlagCollectAnalyticsForSystemMenu then return end
+
+  local stringTable = {}
+  if UserInputService.TouchEnabled then
+    table.insert(stringTable, "camera_mode_touch=" .. tostring(GameSettings.TouchCameraMovementMode))
+  else
+    table.insert(stringTable, "camera_mode_desktop=" .. tostring(GameSettings.ComputerCameraMovementMode))
+  end
+
+  if UserInputService.TouchEnabled then
+    table.insert(stringTable, "movement_mode_touch=" .. tostring(GameSettings.TouchMovementMode))
+  else
+    table.insert(stringTable, "movement_mode_desktop=" .. tostring(GameSettings.ComputerMovementMode))
+  end
+
+  if UserInputService.MouseEnabled then
+    table.insert(stringTable, "shift_lock_enabled=" .. tostring(GameSettings.ControlMode == Enum.ControlMode.MouseLockSwitch))
+  end
+
+  if UserInputService.GamepadEnabled and GameSettings.IsUsingGamepadCameraSensitivity then
+    local sensitivity = GameSettings.GamepadCameraSensitivity
+    local formattedSensitivity = tonumber(string.format("%.2f", sensitivity))
+    table.insert(stringTable, "camera_sensitivity_gamepad=" .. formattedSensitivity)
+  end
+  if UserInputService.MouseEnabled then
+    local sensitivity = GameSettings.MouseSensitivityFirstPerson.X
+    local formattedSensitivity = tonumber(string.format("%.2f", sensitivity))
+    table.insert(stringTable, "camera_sensitivity_mouse=" .. formattedSensitivity)
+  end
+
+  table.insert(stringTable, "camera_y_inverted=" .. tostring(GameSettings.CameraYInverted))
+  table.insert(stringTable, "show_performance_stats=" .. tostring(GameSettings.PerformanceStatsVisible))
+  table.insert(stringTable, "volume=" .. tostring( math.floor((GameSettings.MasterVolume * 10) + 0.5) ))
+  table.insert(stringTable, "gfx_quality_level=" .. tostring(settings().Rendering.QualityLevel))
+  table.insert(stringTable, "fullscreen_enabled=" .. tostring(GameSettings:InFullScreen()))
+  table.insert(stringTable, "microprofiler_enabled=" .. tostring(GameSettings.OnScreenProfilerEnabled))
+  table.insert(stringTable, "microprofiler_webserver_enabled=" .. tostring(GameSettings.MicroProfilerWebServerEnabled))
+
+  local settingsString = table.concat(stringTable,"&")
+  AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, Constants.AnalyticsSettingsChangeName, settingsString, {})
+end
 
 --------------- FLAGS ----------------
 
@@ -149,6 +197,9 @@ local function Initialize()
             this.FullscreenEnabler:SetSelectionIndex(2)
           end
         end
+        spawn(function() --fullscreen setting takes a frame to update so need to wait before reporting
+          reportSettingsForAnalytics()
+        end)
       end
     )
 
@@ -242,9 +293,14 @@ local function Initialize()
       end
     )
 
+    local initializedGfxLvl = false
     this.GraphicsQualitySlider.ValueChanged:connect(
       function(newValue)
         SetGraphicsQuality(newValue)
+        if initializedGfxLvl == true then
+          reportSettingsForAnalytics()
+        end
+        initializedGfxLvl = true
       end
     )
 
@@ -255,6 +311,7 @@ local function Initialize()
         elseif newIndex == 2 then
           setGraphicsToManual(this.GraphicsQualitySlider:GetValue())
         end
+        reportSettingsForAnalytics()
       end
     )
 
@@ -328,6 +385,7 @@ local function Initialize()
         else
           GameSettings.PerformanceStatsVisible = false
         end
+        reportSettingsForAnalytics()
       end
     )
 
@@ -429,6 +487,7 @@ local function Initialize()
       if FFlagMicroProfilerSessionAnalytics then
         AnalyticsService:ReportCounter(MICROPROFILER_SETTINGS_PRESSED)
       end
+      reportSettingsForAnalytics()
     end
 
     -- This should be off default.
@@ -528,6 +587,7 @@ local function Initialize()
             else
               GameSettings.ControlMode = Enum.ControlMode.Classic
             end
+            reportSettingsForAnalytics()
           end
         )
       end
@@ -560,14 +620,20 @@ local function Initialize()
           end
         )
         if not success or newEnumSetting == nil then
-          return
+          return false
         end
 
+        local actuallyUpdated
+
         if UserInputService.TouchEnabled then
+          actuallyUpdated = GameSettings.TouchCameraMovementMode.Value ~= newEnumSetting
           GameSettings.TouchCameraMovementMode = newEnumSetting
         else
+          actuallyUpdated = GameSettings.ComputerCameraMovementMode.Value ~= newEnumSetting
           GameSettings.ComputerCameraMovementMode = newEnumSetting
         end
+
+        return actuallyUpdated
       end
 
       local function updateCameraMovementModes()
@@ -662,9 +728,15 @@ local function Initialize()
         end
       )
 
+      local hasInitialized = false
       this.CameraMode.IndexChanged:connect(
         function(newIndex)
-          updateCurrentCameraMovementIndex(newIndex)
+          if updateCurrentCameraMovementIndex(newIndex) then
+            if hasInitialized then
+              reportSettingsForAnalytics()
+            end
+            hasInitialized = true
+          end
         end
       )
 
@@ -861,6 +933,7 @@ local function Initialize()
       this.MovementMode.IndexChanged:connect(
         function(newIndex)
           setMovementModeToIndex(newIndex)
+          reportSettingsForAnalytics()
         end
       )
     end
@@ -974,6 +1047,7 @@ local function Initialize()
         volumeSound.Volume = soundPercent
         volumeSound:Play()
         GameSettings.MasterVolume = soundPercent
+        reportSettingsForAnalytics()
       end
     )
   end
@@ -1005,6 +1079,7 @@ local function Initialize()
         else
           GameSettings.CameraYInverted = false
         end
+        reportSettingsForAnalytics()
       end
     )
   end
@@ -1023,6 +1098,7 @@ local function Initialize()
         GameSettings.MouseSensitivityThirdPerson = newVectorValue
       end
     end
+    reportSettingsForAnalytics()
   end
 
   local function createMouseOptions()

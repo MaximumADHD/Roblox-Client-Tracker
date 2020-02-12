@@ -2,11 +2,18 @@ return function()
 	local Library = script.Parent.Parent
 	local Roact = require(Library.Parent.Roact)
 
+	local join = require(Library.join)
 	local MockWrapper = require(Library.MockWrapper)
 
 	local InfiniteScrollingFrame = require(script.Parent.InfiniteScrollingFrame)
 
 	local function createTestScrollingFrame(props, children)
+		props = join(props or {}, {
+			NextPageFunc = function()
+				return "foo"
+			end
+		})
+
 		return Roact.createElement(MockWrapper, {}, {
 			ScrollingFrame = Roact.createElement(InfiniteScrollingFrame, props, children)
 		})

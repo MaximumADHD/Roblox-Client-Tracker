@@ -1,6 +1,7 @@
 local CorePackages = game:GetService("CorePackages")
 local GuiService = game:GetService("GuiService")
 local UserInputService = game:GetService("UserInputService")
+local CoreGui = game:GetService("CoreGui")
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
@@ -19,13 +20,23 @@ local TeamEntry = require(script.Parent.TeamEntry)
 local PlayerDropDown = require(script.Parent.PlayerDropDown)
 local TitleBar = require(script.Parent.TitleBar)
 
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+
 local FAKE_NEUTRAL_TEAM = Instance.new("Team")
 
 local FFlagPlayerListDontSortTeamsByScore = game:DefineFastFlag("PlayerListDontSortTeamsByScore", false)
 local FFlagPlayerListDontSinkTouchUnnecessarily = game:DefineFastFlag("PlayerListDontSinkTouchUnnecessarily", false)
 local FFlagPlayerListDesignUpdate = settings():GetFFlag("PlayerListDesignUpdate")
+local FFlagPlayerListBetterDropDownPositioning = require(RobloxGui.Modules.Flags.FFlagPlayerListBetterDropDownPositioning)
 
-local PlayerScrollList = Roact.Component:extend("PlayerScrollList")
+local FFlagPlayerListPerformanceImprovements = require(RobloxGui.Modules.Flags.FFlagPlayerListPerformanceImprovements)
+
+local PlayerScrollList
+if FFlagPlayerListPerformanceImprovements then
+	PlayerScrollList = Roact.PureComponent:extend("PlayerScrollList")
+else
+	PlayerScrollList = Roact.Component:extend("PlayerScrollList")
+end
 
 local function playerInTeam(player, team)
 	if team == nil then
@@ -420,6 +431,7 @@ function PlayerScrollList:render()
 							end,
 						}, {
 							PlayerDropDown = Roact.createElement(PlayerDropDown, {
+								selectedPlayer = FFlagPlayerListBetterDropDownPositioning and self.props.dropDownPlayer or nil,
 								positionY = absDropDownPosition,
 								minPositionBoundY = -self.state.scrollingFramePositionY + layoutValues.DropDownScreenSidePadding,
 								maxPositionBoundY = (self.props.screenSizeY -

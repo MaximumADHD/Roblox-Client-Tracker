@@ -45,23 +45,27 @@ Studio.TerrainToolsV2.BrushSettings.BaseSize, , ,Base Size
 Studio.TerrainToolsV2.BrushSettings.BottomPivot, , ,Bot
 Studio.TerrainToolsV2.BrushSettings.BrushSettings, , ,Brush Settings
 Studio.TerrainToolsV2.BrushSettings.CenterPivot, , ,Cen
+Studio.TerrainToolsV2.BrushSettings.FixedPlane, , ,Fixed Plane
 Studio.TerrainToolsV2.BrushSettings.FlattenMode, , ,Flatten Mode
 Studio.TerrainToolsV2.BrushSettings.Height, , ,Height
 Studio.TerrainToolsV2.BrushSettings.IgnoreWater, , ,Ignore Water
 Studio.TerrainToolsV2.BrushSettings.Material, , ,Material
 Studio.TerrainToolsV2.BrushSettings.PivotPosition, , ,Pivot Position
 Studio.TerrainToolsV2.BrushSettings.PlaneLock, , ,Plane Lock
-Studio.TerrainToolsV2.BrushSettings.FixedPlane, , ,Fixed Plane
 Studio.TerrainToolsV2.BrushSettings.PlanePosition, , ,Plane Position
 Studio.TerrainToolsV2.BrushSettings.Shape, , ,Shape
 Studio.TerrainToolsV2.BrushSettings.Size, , ,Size
 Studio.TerrainToolsV2.BrushSettings.SnapToGrid, , ,Snap to Grid
 Studio.TerrainToolsV2.BrushSettings.Strength, , ,Strength
 Studio.TerrainToolsV2.BrushSettings.TopPivot, , ,Top
-Studio.TerrainToolsV2.ClearTool.ConfirmationTitle, , ,Clear Terrain
 Studio.TerrainToolsV2.ClearTool.ConfirmationMessage, , ,Do you want to clear all terrain?
-Studio.TerrainToolsV2.Confirmation.Yes, , ,Yes
+Studio.TerrainToolsV2.ClearTool.ConfirmationTitle, , ,Clear Terrain
 Studio.TerrainToolsV2.Confirmation.No, , ,No
+Studio.TerrainToolsV2.Confirmation.Yes, , ,Yes
+Studio.TerrainToolsV2.ConvertMode.Biome, , ,Biome
+Studio.TerrainToolsV2.ConvertMode.ConvertMode, , ,Fill
+Studio.TerrainToolsV2.ConvertMode.Material, , ,Material
+Studio.TerrainToolsV2.ConvertPart.Convert, , ,Convert
 Studio.TerrainToolsV2.EditSettings.EditSettings, , ,Edit Settings
 Studio.TerrainToolsV2.EditSettings.MergeEmpty, , ,Merge Empty
 Studio.TerrainToolsV2.Example.ErrorAnUnexpectedThing, , ,"An unexpected thing happened, try again"
@@ -133,9 +137,15 @@ Studio.TerrainToolsV2.Meta.PluginButtonEditorTooltip, , ,"Add, remove, and modif
 Studio.TerrainToolsV2.Meta.PluginDescription, , ,"Add, remove, and modify terrain"
 Studio.TerrainToolsV2.Meta.PluginName, , ,TerrainToolsV2
 Studio.TerrainToolsV2.Meta.ToolbarName, , ,Terrain
+Studio.TerrainToolsV2.PartToBiome.PartToBiome, , ,Part to Biome
+Studio.TerrainToolsV2.PartToTerrain.PartToTerrain, , ,Part to Terrain
 Studio.TerrainToolsV2.Regions.EditTools, , ,Edit Tools
 Studio.TerrainToolsV2.Regions.FillSelection, , ,Fill Selection
 Studio.TerrainToolsV2.Regions.Tools, , ,Tools
+Studio.TerrainToolsV2.SeaLevel.Create, , ,Create
+Studio.TerrainToolsV2.SeaLevel.End,{1:int}, ,Sea Level Complete: {1:int} seconds.
+Studio.TerrainToolsV2.SeaLevel.Evaporate, , ,Evaporate
+Studio.TerrainToolsV2.SeaLevel.Start, , ,Starting Sea Level
 Studio.TerrainToolsV2.Tab.Build, , ,Build
 Studio.TerrainToolsV2.Tab.Create, , ,Create
 Studio.TerrainToolsV2.Tab.Edit, , ,Edit
@@ -144,6 +154,7 @@ Studio.TerrainToolsV2.Tab.Region, , ,Region
 Studio.TerrainToolsV2.Tab.Sculpt, , ,Sculpt
 Studio.TerrainToolsV2.ToolName.Add, , ,Add
 Studio.TerrainToolsV2.ToolName.Clear, , ,Clear
+Studio.TerrainToolsV2.ToolName.ConvertPart, , ,Convert
 Studio.TerrainToolsV2.ToolName.Copy, , ,Copy
 Studio.TerrainToolsV2.ToolName.Delete, , ,Delete
 Studio.TerrainToolsV2.ToolName.Erode, , ,Erode
@@ -179,7 +190,3 @@ Studio.TerrainToolsV2.Warning.RegionTooLarge, , ,Region size is too large.
 Studio.TerrainToolsV2.Warning.RegionTooSmall, , ,Region size is too small.
 Studio.TerrainToolsV2.Warning.RequirePublishedForImport, , ,Game must be published before importing terrain.
 Studio.TerrainToolsV2.Warning.ValidHeightMapImport, , ,Valid HeightMap required to begin importing Terrain.
-Studio.TerrainToolsV2.SeaLevel.Start, , ,Starting Sea Level
-Studio.TerrainToolsV2.SeaLevel.End,{1:int}, ,Sea Level Complete: {1:int} seconds.
-Studio.TerrainToolsV2.SeaLevel.Create, , ,Create
-Studio.TerrainToolsV2.SeaLevel.Evaporate, , ,Evaporate

@@ -20,7 +20,9 @@ local Plugin = script.Parent.Parent.Parent.Parent.Parent
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 local RoactRodux = require(Libs.RoactRodux)
-local Cryo = require(Libs.Cryo)
+
+local UILibrary = require(Libs.UILibrary)
+local AssetPreview = UILibrary.Component.AssetPreview
 
 local Util = Plugin.Core.Util
 local Constants = require(Util.Constants)
@@ -38,7 +40,7 @@ local withLocalization = ContextHelper.withLocalization
 
 local ClearPreview = require(Plugin.Core.Actions.ClearPreview)
 
-local AssetPreview = require(Plugin.Core.Components.Asset.Preview.AssetPreview)
+local DEPRECATED_AssetPreview = require(Plugin.Core.Components.Asset.Preview.AssetPreview)
 
 local PluginPurchaseFlow = require(Plugin.Core.Components.PurchaseFlow.PluginPurchaseFlow)
 local PurchaseSuccessDialog = require(Plugin.Core.Components.PurchaseFlow.PurchaseSuccessDialog)
@@ -489,23 +491,48 @@ function AssetPreviewWrapper:render()
 					tryCreateContextMenu = self.tryCreateContextMenu,
 					searchByCreator = self.searchByCreator,
 
+					TryInsert = purchaseFlow.TryInsert,
+
 					OnVoteUp = self.onVoteUpButtonActivated,
 					OnVoteDown = self.onVoteDownButtonActivated,
 				}
 
 				if FFlagStudioRefactorAssetPreview then
-					assetPreviewProps = Cryo.Dictionary.join(assetPreviewProps,{
+					assetPreviewProps = {
+						Position = UDim2.new(0.5, 0, 0.5, 0),
+						AnchorPoint = Vector2.new(0.5, 0.5),
+						MaxPreviewWidth = maxPreviewWidth,
+						MaxPreviewHeight = maxPreviewHeight,
+
+						AssetData = assetData,
+						CurrentPreview = currentPreview,
+
+						ActionBarText = purchaseFlow.ActionBarText,
+						TryInsert = purchaseFlow.TryInsert,
+
+						OnFavoritedActivated = self.onFavoritedActivated,
+						FavoriteCounts = self.props.favoriteCounts,
+						Favorited = self.props.favorited,
+
+						TryCreateContextMenu = self.tryCreateContextMenu,
+						OnTreeItemClicked = self.onTreeItemClicked,
+
 						InstallDisabled = purchaseFlow.InstallDisabled,
 						PurchaseFlow = purchaseFlow.PurchaseFlow,
 						SuccessDialog = purchaseFlow.SuccessDialog,
 						ShowRobuxIcon = purchaseFlow.ShowRobuxIcon,
-						ActionBarText = purchaseFlow.ActionBarText,
 						ShowInstallationBar = purchaseFlow.ShowInstallationBar,
-						TryInsert = purchaseFlow.TryInsert,
-						OnFavoritedActivated = self.onFavoritedActivated,
-						FavoriteCounts = self.props.favoriteCounts,
-						Favorited = self.props.favorited,
-					})
+						LoadingBarText = localizedContent.AssetConfig.Installing,
+
+						HasRating = purchaseFlow.HasRating,
+						Voting = self.props.voting,
+						OnVoteUp = self.onVoteUpButtonActivated,
+						OnVoteDown = self.onVoteDownButtonActivated,
+
+						SearchByCreator = self.searchByCreator,
+
+						ZIndex = 2,
+					}
 				end
 
 				return modalTarget and Roact.createElement(Roact.Portal, {
@@ -527,7 +554,9 @@ function AssetPreviewWrapper:render()
 						[Roact.Change.AbsoluteSize] = self.onDetectorABSSizeChange,
 					}),
 
-					AssetPreview = Roact.createElement(AssetPreview, assetPreviewProps)
+					DEPRECATED_AssetPreview = not FFlagStudioRefactorAssetPreview and Roact.createElement(DEPRECATED_AssetPreview, assetPreviewProps),
+
+					AssetPreview = FFlagStudioRefactorAssetPreview and Roact.createElement(AssetPreview, assetPreviewProps),
 				})
 			end)
 		end)
@@ -558,6 +587,8 @@ local function mapStateToProps(state, props)
 	local assetIdToCountsMap = favorite.assetIdToCountsMap or {}
 	local assetIdToFavoritedMap = favorite.assetIdToFavoritedMap or {}
 
+	local voting = state.voting or {}
+
 	local stateToProps = {
 		previewModel = previewModel or nil,
 		currentTab = pageInfo.currentTab or Category.MARKETPLACE_KEY,
@@ -566,7 +597,8 @@ local function mapStateToProps(state, props)
 		previewPluginData = assets.previewPluginData,
 		assetId = assetId,
 		favoriteCounts = assetIdToCountsMap[assetId] or 0,
-		favorited = assetIdToFavoritedMap[assetId] or false
+		favorited = assetIdToFavoritedMap[assetId] or false,
+		voting = voting[assetId] or {},
 	}
 
 	if FFlagStudioToolboxPluginPurchaseFlow then

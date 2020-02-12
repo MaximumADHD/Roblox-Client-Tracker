@@ -9,6 +9,8 @@ local Sort = require(Plugin.Core.Types.Sort)
 local Settings = {}
 Settings.__index = Settings
 
+local FFlagEnableDefaultSortFix = game:GetFastFlag("EnableDefaultSortFix")
+
 -- Built in plugins share the same namespace for settings, so mark this as from the toolbox
 local SETTING_PREFIX = "Toolbox_"
 local SELECTED_BACKGROUND_INDEX_KEY = SETTING_PREFIX .. "SelectedBackgroundIndex"
@@ -134,11 +136,13 @@ function Settings:loadInitialSettings()
 		initSettings.searchTerm = game.DefaultToolboxSearch.Value
 		-- Also set the initial category to free models and relevant sort
 		initSettings.categoryIndex = 1
-		initSettings.sortIndex = Sort.getDefaultSortForCategory(initSettings.categoryIndex)
+		local currentTab = FFlagEnableDefaultSortFix and Category.MARKETPLACE_KEY or nil
+		initSettings.sortIndex = Sort.getDefaultSortForCategory(initSettings.categoryIndex, currentTab)
 	end
 
 	if not Sort.canSort(initSettings.searchTerm, initSettings.categoryIndex) then
-		initSettings.sortIndex = Sort.getDefaultSortForCategory(initSettings.categoryIndex)
+		local currentTab = FFlagEnableDefaultSortFix and Category.MARKETPLACE_KEY or nil
+		initSettings.sortIndex = Sort.getDefaultSortForCategory(initSettings.categoryIndex, currentTab)
 	end
 
 	return initSettings

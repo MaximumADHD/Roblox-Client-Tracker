@@ -8,7 +8,7 @@ local Cryo = require(CorePackages.Cryo)
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
-local FFlagPlayerListDontCreateUIWhenDisabled = require(RobloxGui.Modules.Flags.FFlagPlayerListDontCreateUIWhenDisabled)
+local FFlagPlayerListPerformanceImprovements = require(RobloxGui.Modules.Flags.FFlagPlayerListPerformanceImprovements)
 
 local Actions = script.Parent.Parent.Actions
 local SetPlayerListVisibility = require(Actions.SetPlayerListVisibility)
@@ -30,7 +30,7 @@ local initialDisplayOptions = {
 	vrEnabled = VRService.VREnabled,
 	inspectMenuEnabled = GuiService:GetInspectMenuEnabled(),
 	playerlistCoreGuiEnabled = true,
-	topbarEnabled = true, -- Remove with FFlagPlayerListDontCreateUIWhenDisabled
+	topbarEnabled = true, -- Remove with FFlagPlayerListPerformanceImprovements
 	isTenFootInterface = false,
 	isUsingGamepad = false,
 	hasPermissionToVoiceChat = false,
@@ -41,7 +41,7 @@ local function updateIsVisible(state)
 	state.isVisible = state.setVisible
 	-- Leaderboard visiblity is independent of coreGui options on console.
 	if not state.isTenFootInterface then
-		if FFlagPlayerListDontCreateUIWhenDisabled then
+		if FFlagPlayerListPerformanceImprovements then
 			state.isVisible = state.isVisible
 				and (not state.isSmallTouchDevice) and (not state.vrEnabled)
 		else
@@ -67,7 +67,7 @@ local DisplayOptions = Rodux.createReducer(initialDisplayOptions, {
 		}))
 	end,
 
-	[SetTopBarEnabled.name] = (not FFlagPlayerListDontCreateUIWhenDisabled) and function(state, action)
+	[SetTopBarEnabled.name] = (not FFlagPlayerListPerformanceImprovements) and function(state, action)
 		return updateIsVisible(Cryo.Dictionary.join(state, {
 			topbarEnabled = action.isEnabled,
 		}))

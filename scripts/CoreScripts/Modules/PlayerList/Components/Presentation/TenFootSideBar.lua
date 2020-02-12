@@ -14,13 +14,14 @@ local SetPlayerListVisibility = require(PlayerList.Actions.SetPlayerListVisibili
 
 local isNewInGameMenuEnabled = require(CoreGui.RobloxGui.Modules.isNewInGameMenuEnabled)
 
-local TenFootSideBar = Roact.Component:extend("TenFootSideBar")
-
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local FFlagPlayerListPerformanceImprovements = require(RobloxGui.Modules.Flags.FFlagPlayerListPerformanceImprovements)
 
-local InGameMenu
-if isNewInGameMenuEnabled() then
-	InGameMenu = require(RobloxGui.Modules.InGameMenu)
+local TenFootSideBar
+if FFlagPlayerListPerformanceImprovements then
+	TenFootSideBar = Roact.PureComponent:extend("TenFootSideBar")
+else
+	TenFootSideBar = Roact.Component:extend("TenFootSideBar")
 end
 
 local function openPlatformProfileUI(platformId)
@@ -94,6 +95,8 @@ function TenFootSideBar:openSidebar(player)
 			self.props.closePlayerList()
 			GuiService.SelectedCoreObject = nil
 			if isNewInGameMenuEnabled() then
+				-- todo: move InGameMenu to a script global when removing isNewInGameMenuEnabled
+				local InGameMenu = require(RobloxGui.Modules.InGameMenu)
 				InGameMenu.openReportDialog(player)
 			else
 				ReportAbuseMenu:ReportPlayer(player)

@@ -56,6 +56,7 @@ local GetRobuxBalance = require(Requests.GetRobuxBalance)
 
 local FFlagFixToolboxInitLoad = settings():GetFFlag("FixToolboxInitLoad")
 local FFlagStudioToolboxPluginPurchaseFlow = game:GetFastFlag("StudioToolboxPluginPurchaseFlow")
+local FFlagEnableDefaultSortFix = game:GetFastFlag("EnableDefaultSortFix")
 
 local Toolbox = Roact.PureComponent:extend("Toolbox")
 
@@ -88,7 +89,8 @@ function Toolbox:handleInitialSettings(categories)
 
 		initialSelectedSortIndex = initialSettings.sortIndex or 1
 		if initialSelectedSortIndex < 1 or initialSelectedSortIndex > #self.props.sorts then
-			initialSelectedSortIndex = Sort.getDefaultSortForCategory(initialSelectedCategoryIndex)
+			local initialTab = FFlagEnableDefaultSortFix and initialTab or nil
+			initialSelectedSortIndex = Sort.getDefaultSortForCategory(initialSelectedCategoryIndex, initialTab)
 		end
 
 		 initialSelectedBackgroundIndex = initialSettings.backgroundIndex or 1

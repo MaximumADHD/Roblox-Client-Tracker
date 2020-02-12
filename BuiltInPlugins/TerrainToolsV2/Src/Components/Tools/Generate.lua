@@ -12,6 +12,7 @@ local withTheme = Theme.withTheme
 
 local FFlagTerrainToolsUseFragmentsForToolPanel = game:GetFastFlag("TerrainToolsUseFragmentsForToolPanel")
 local FFlagTerrainToolsRefactor = game:GetFastFlag("TerrainToolsRefactor")
+local FFlagTerrainToolsMaterialGenerateFragments = game:GetFastFlag("TerrainToolsMaterialGenerateFragments")
 
 local TerrainInterface = require(Plugin.Src.ContextServices.TerrainInterface)
 
@@ -19,12 +20,14 @@ local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 
 local ToolParts = script.Parent.ToolParts
 local BiomeSelector = require(ToolParts.BiomeSelector)
+local BiomeSettingsFragment = require(ToolParts.BiomeSettingsFragment)
 local Panel = require(ToolParts.Panel)
 local LabeledElementPair = require(ToolParts.LabeledElementPair)
 local LabeledSlider = require(ToolParts.LabeledSlider)
 local LabeledTextInput = require(ToolParts.LabeledTextInput)
 local LabeledToggle = require(ToolParts.LabeledToggle)
 local MapSettings = require(ToolParts.MapSettings)
+local OtherGenerateSettings = require(ToolParts.OtherGenerateSettings)
 local Slider = require(ToolParts.Slider)
 local GenerateProgressFrame = require(Plugin.Src.Components.GenerateProgressFrame)
 local ButtonGroup = require(ToolParts.ButtonGroup)
@@ -288,7 +291,20 @@ function Generate:render()
 					IsMapSettingsValid = self.setMapSettingsValidated,
 				}),
 
-				MaterialSettings = Roact.createElement(Panel, {
+				MaterialSettings = FFlagTerrainToolsMaterialGenerateFragments and Roact.createElement(Panel, {
+					Title = localization:getText("MaterialSettings", "MaterialSettings"),
+					LayoutOrder = 2,
+				}, {
+					BiomeSettingsFragment = Roact.createElement(BiomeSettingsFragment, {
+						LayoutOrder = 1,
+						biomeSelection = biomeSelection,
+						selectBiome = selectBiome,
+						biomeSize = biomeSize,
+						setBiomeSize = self.props.dispatchSetBiomeSize,
+						haveCaves = haveCaves,
+						setHaveCaves = self.props.dispatchSetHaveCaves,
+					}),
+				}) or Roact.createElement(Panel, {
 					Title = localization:getText("MaterialSettings", "MaterialSettings"),
 					LayoutOrder = 2,
 				}, {
@@ -366,7 +382,11 @@ function Generate:render()
 					}),
 				}),
 
-				OtherSettings = Roact.createElement(Panel, {
+				OtherSettings = FFlagTerrainToolsMaterialGenerateFragments and Roact.createElement(OtherGenerateSettings, {
+					LayoutOrder = 3,
+					seed = seed,
+					setSeed = self.props.dispatchSetSeed,
+				}) or Roact.createElement(Panel, {
 					Title = localization:getText("Generate", "OtherSettings"),
 					LayoutOrder = 3,
 				}, {

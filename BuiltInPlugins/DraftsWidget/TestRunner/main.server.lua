@@ -12,7 +12,7 @@ if not settings():GetFFlag("StudioVersionControlAlpha") and
    return
 end
 
-local FFlagVersionControlServiceBatchCommit = game:DefineFastFlag("VersionControlServiceBatchCommit2", false)
+local FFlagVersionControlServiceBatchCommit = game:GetFastFlag("VersionControlServiceBatchCommit")
 
 local OverrideLocaleId = settings():GetFVariable("StudioForceLocale")
 local MockDraftsService = require(Plugin.Src.TestHelpers.MockDraftsService)
@@ -195,7 +195,7 @@ local function connectToDraftsService()
 		end)
 
 		draftsService.DraftStatusChanged:connect(function(draft)
-		    local draftStatus = draftsService:GetDraftStatus(draft)
+			local draftStatus = draftsService:GetDraftStatus(draft)
             handleStatus(draft, draftStatus)
 		end)
 

@@ -24,6 +24,12 @@ local PageInstance = nil
 RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
 local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
 
+local FFlagCollectAnalyticsForSystemMenu = settings():GetFFlag("CollectAnalyticsForSystemMenu")
+local Constants
+if FFlagCollectAnalyticsForSystemMenu then
+  Constants = require(RobloxGui.Modules:WaitForChild("InGameMenu"):WaitForChild("Resources"):WaitForChild("Constants"))
+end
+
 ----------- CLASS DECLARATION --------------
 
 local function Initialize()
@@ -31,6 +37,11 @@ local function Initialize()
 	local this = settingsPageFactory:CreateNewPage()
 
 	this.DontResetCharFunc = function(isUsingGamepad)
+		if FFlagCollectAnalyticsForSystemMenu then
+			AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, Constants.AnalyticsInGameMenuName,
+												Constants.AnalyticsRespawnCharacterName, {confirmed = Constants.AnalyticsCancelledName})
+		end
+
 		if this.HubRef then
 			this.HubRef:PopMenu(isUsingGamepad, true)
 		end
@@ -109,6 +120,11 @@ local function Initialize()
 					humanoid.Health = 0
 				end
 			end
+		end
+
+		if FFlagCollectAnalyticsForSystemMenu then
+			AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, Constants.AnalyticsInGameMenuName,
+												Constants.AnalyticsRespawnCharacterName, {confirmed = Constants.AnalyticsConfirmedName})
 		end
 		AnalyticsService:ReportCounter("InGameMenu-ResetCharacter")
 	end

@@ -18,12 +18,20 @@
 			logic should be handled outside of this component.
 ]]
 
+local FFlagToolboxReplaceSearchBar = game:GetFastFlag("ToolboxReplaceSearchBar")
+
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 
-local SearchBar = require(Plugin.Core.Components.SearchBar.SearchBar)
+local ContextHelper = require(Plugin.Core.Util.ContextHelper)
+local withLocalization = ContextHelper.withLocalization
+
+local UILibrary = require(Libs.UILibrary)
+local SearchBar = UILibrary.Component.SearchBar
+
+local DEPRECATED_SearchBar = require(Plugin.Core.Components.SearchBar.SearchBar)
 local LiveSearchDropdown = require(Plugin.Core.Components.SearchOptions.LiveSearchDropdown)
 
 local LiveSearchBar = Roact.PureComponent:extend("LiveSearchBar")
@@ -76,52 +84,66 @@ function LiveSearchBar:didUpdate()
 end
 
 function LiveSearchBar:render()
-	local width = self.props.width
-	local searchTerm = self.props.searchTerm
-	local layoutOrder = self.props.LayoutOrder
-	local currentText = self.state.currentText
-	local showDropdown = self.state.showDropdown
-	local results = self.props.results
-	local defaultTextKey = self.props.defaultTextKey
+	return withLocalization(function(localization, localizedContent)
+		local width = self.props.width
+		local searchTerm = self.props.searchTerm
+		local layoutOrder = self.props.LayoutOrder
+		local currentText = self.state.currentText
+		local showDropdown = self.state.showDropdown
+		local results = self.props.results
+		local defaultTextKey = self.props.defaultTextKey
 
-	local frame = self.frameRef and self.frameRef.current
-	local position
-	if frame then
-		position = UDim2.new(0, frame.AbsolutePosition.X, 0, frame.AbsolutePosition.Y + DROPDOWN_OFFSET)
-	else
-		position = UDim2.new()
-	end
+		local frame = self.frameRef and self.frameRef.current
+		local position
+		if frame then
+			position = UDim2.new(0, frame.AbsolutePosition.X, 0, frame.AbsolutePosition.Y + DROPDOWN_OFFSET)
+		else
+			position = UDim2.new()
+		end
 
-	local shouldShowDropdown = showDropdown
-		and searchTerm == currentText
-		and #currentText >= 3
+		local shouldShowDropdown = showDropdown
+			and searchTerm == currentText
+			and #currentText >= 3
 
-	return Roact.createElement("Frame", {
-		BackgroundTransparency = 1,
-		LayoutOrder = layoutOrder,
-		Size = UDim2.new(1, 0, 0, 25),
+		return Roact.createElement("Frame", {
+			BackgroundTransparency = 1,
+			LayoutOrder = layoutOrder,
+			Size = UDim2.new(1, 0, 0, 25),
 
-		[Roact.Ref] = self.frameRef,
-	}, {
-		SearchBar = Roact.createElement(SearchBar, {
-			width = width,
-			onTextChanged = self.onTextChanged,
-			onSearchRequested = self.onTextChanged,
-			defaultTextKey = defaultTextKey,
-			searchTerm = currentText,
-			onDeleteTag = self.onDeleteTag,
-			IsLive = true,
-		}),
+			[Roact.Ref] = self.frameRef,
+		}, {
 
-		Dropdown = shouldShowDropdown and Roact.createElement(LiveSearchDropdown, {
-			Size = UDim2.new(0, width, 0, 0),
-			Position = position,
-			Items = results,
-			SearchTerm = currentText,
-			onItemClicked = self.onTextChanged,
-			closeDropdown = self.closeDropdown,
-		}),
-	})
+			SearchBar = FFlagToolboxReplaceSearchBar and Roact.createElement(SearchBar, {
+				Width = width,
+
+				SearchTerm = searchTerm,
+				DefaultText = localizedContent["SearchBarDefaultText"],
+				ShowSearchButton = true,
+				OnSearchRequested = self.onTextChanged,
+				OnTextChanged = self.onTextChanged,
+				IsLive = true,
+			}),
+
+			DEPRECATED_SearchBar = not FFlagToolboxReplaceSearchBar and Roact.createElement(DEPRECATED_SearchBar, {
+				width = width,
+				onTextChanged = self.onTextChanged,
+				onSearchRequested = self.onTextChanged,
+				defaultTextKey = defaultTextKey,
+				searchTerm = currentText,
+				onDeleteTag = self.onDeleteTag,
+				IsLive = true,
+			}),
+
+			Dropdown = shouldShowDropdown and Roact.createElement(LiveSearchDropdown, {
+				Size = UDim2.new(0, width, 0, 0),
+				Position = position,
+				Items = results,
+				SearchTerm = currentText,
+				onItemClicked = self.onTextChanged,
+				closeDropdown = self.closeDropdown,
+			}),
+		})
+	end)
 end
 
 return LiveSearchBar

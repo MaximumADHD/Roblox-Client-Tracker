@@ -14,7 +14,7 @@ local TOGGLE_CONTEXT_ACTION_NAME = "RbxPlayerListToggle"
 local GAMEPAD_CLOSE_CONTEXT_ACTION_NAME = "RbxPlayerListGamepadClose"
 local GAMEPAD_STOP_MOVEMENT_ACTION_NAME = "RbxPlayerListStopMovement"
 
-local FFlagPlayerListDontCreateUIWhenDisabled = require(RobloxGui.Modules.Flags.FFlagPlayerListDontCreateUIWhenDisabled)
+local FFlagPlayerListPerformanceImprovements = require(RobloxGui.Modules.Flags.FFlagPlayerListPerformanceImprovements)
 
 local SetPlayerListVisibility = require(PlayerList.Actions.SetPlayerListVisibility)
 
@@ -84,7 +84,7 @@ function ContextActionsBinder:unbindActions()
 	self.boundPlayerListActions = false
 end
 
-if not FFlagPlayerListDontCreateUIWhenDisabled then
+if not FFlagPlayerListPerformanceImprovements then
 	function ContextActionsBinder:canBindActions()
 		if self.props.displayOptions.isTenFootInterface then
 			return true
@@ -94,12 +94,12 @@ if not FFlagPlayerListDontCreateUIWhenDisabled then
 end
 
 function ContextActionsBinder:didMount()
-	if FFlagPlayerListDontCreateUIWhenDisabled or self:canBindActions() then
+	if FFlagPlayerListPerformanceImprovements or self:canBindActions() then
 		self:bindActions()
 	end
 end
 
-if not FFlagPlayerListDontCreateUIWhenDisabled then
+if not FFlagPlayerListPerformanceImprovements then
 	function ContextActionsBinder:didUpdate()
 		if self:canBindActions() then
 			if not self.boundPlayerListActions then

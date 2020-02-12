@@ -1,3 +1,6 @@
+local FFlagFixGetAssetTypeErrorHandling = game:GetFastFlag("FixGetAssetTypeErrorHandling")
+
+
 local Plugin = script.Parent.Parent.Parent
 
 local Promise = require(Plugin.Libs.Http.Promise)
@@ -21,7 +24,14 @@ AssetType.TYPES = {
 -- probably improve this in the future)
 -- For BaseScript, show only names while for all other type show assetName and type
 function AssetType:getAssetType(assetInstance)
-	if not assetInstance then
+	local notInstance
+	if FFlagFixGetAssetTypeErrorHandling then
+		notInstance = not assetInstance or typeof(assetInstance) ~= "Instance"
+	else
+		notInstance = not assetInstance
+	end
+
+	if notInstance then
 		return self.TYPES.LoadingType
 	elseif assetInstance:IsA("BasePart")
 		or assetInstance:IsA("Model")

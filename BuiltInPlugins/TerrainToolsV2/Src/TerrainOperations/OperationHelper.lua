@@ -1,6 +1,8 @@
 local Plugin = script.Parent.Parent.Parent
 
 local Constants = require(Plugin.Src.Util.Constants)
+local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
+local BrushShape = TerrainEnums.BrushShape
 
 local materialAir = Enum.Material.Air
 local materialWater = Enum.Material.Water
@@ -41,6 +43,71 @@ function OperationHelper.getWaterHeightAndAirFillerMaterial(readMaterials)
 	end
 
 	return waterHeight, airFillerMaterial
+end
+
+function OperationHelper.calculateBrushPowerForCell(cellVectorX, cellVectorY, cellVectorZ,
+	selectionSize, brushShape, radiusOfRegion, scaleMagnitudePercent)
+	local brushOccupancy = 1
+	local magnitudePercent = 1
+
+	if selectionSize > 2 then
+		if brushShape == BrushShape.Sphere then
+			local distance = math.sqrt(cellVectorX * cellVectorX
+				+ cellVectorY * cellVectorY
+				+ cellVectorZ * cellVectorZ)
+			magnitudePercent = math.cos(math.min(1, distance / radiusOfRegion) * math.pi * 0.5)
+			brushOccupancy = math.max(0, math.min(1, (radiusOfRegion - distance) / Constants.VOXEL_RESOLUTION))
+		elseif brushShape == BrushShape.Cylinder then
+			local distance = math.sqrt(cellVectorX * cellVectorX
+				+ cellVectorZ * cellVectorZ)
+			magnitudePercent = math.cos(math.min(1, distance / radiusOfRegion) * math.pi * 0.5)
+			brushOccupancy = math.max(0, math.min(1, (radiusOfRegion - distance) / Constants.VOXEL_RESOLUTION))
+		end
+	end
+
+	if scaleMagnitudePercent then
+		magnitudePercent = magnitudePercent * math.max(1, selectionSize / 5)
+	end
+
+	return brushOccupancy, magnitudePercent
+end
+
+function OperationHelper.getMaterialForAutoMaterial(readMaterials,
+	voxelX, voxelY, voxelZ,
+	sizeX, sizeY, sizeZ, initialMaterial)
+	local materialsAroundCell = {}
+	for x = -1, 1, 1 do
+		for y = -1, 1, 1 do
+			for z = -1, 1, 1 do
+				local nx = voxelX + x
+				local ny = voxelY + y
+				local nz = voxelZ + z
+				if nx > 0 and nx <= sizeX
+					and ny > 0 and ny <= sizeY
+					and nz > 0 and nz <= sizeZ then
+					local m = readMaterials[nx][ny][nz]
+					if m ~= materialAir then
+						materialsAroundCell[m] = (materialsAroundCell[m] or 0) + 1
+					end
+				end
+			end
+		end
+	end
+
+	local cellDesiredMaterial = initialMaterial
+	local mostCommonNum = 0
+	for mat, freq in pairs(materialsAroundCell) do
+		if freq > mostCommonNum then
+			mostCommonNum = freq
+			cellDesiredMaterial = mat
+		end
+	end
+
+	if cellDesiredMaterial ~= materialAir then
+		return cellDesiredMaterial
+	end
+
+	return initialMaterial
 end
 
 return OperationHelper

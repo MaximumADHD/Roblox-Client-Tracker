@@ -119,7 +119,7 @@ void main()
     vec3 f46 = vec3(f45) + (vec3(0.039999999105930328369140625) * (1.0 - f45));
     float f47 = f40 * f40;
     float f48 = (((f41 * f47) - f41) * f41) + 1.0;
-    vec3 f49 = ((((((((vec3(1.0) - (f46 * (CB0[26].w * f7))) * 1.0) * CB0[10].xyz) * f39) * f36) + min((f15.xyz * (f15.w * 120.0)).xyz + (CB0[8].xyz + (CB0[9].xyz * f16.x)), vec3(CB0[16].w))) + vec3((f9.z * 2.0) * f7)) * (f6 * f6).xyz) + ((((((f46 * ((f47 + (f47 * f47)) / (((f48 * f48) * ((f42 * 3.0) + 0.5)) * ((f41 * 0.75) + 0.25)))) * CB0[10].xyz) * f39) * f36) * f7) * VARYING0.w);
+    vec3 f49 = (((((((vec3(1.0) - (f46 * (CB0[26].w * f7))) * CB0[10].xyz) * f39) * f36) + min((f15.xyz * (f15.w * 120.0)).xyz + (CB0[8].xyz + (CB0[9].xyz * f16.x)), vec3(CB0[16].w))) + vec3((f9.z * 2.0) * f7)) * (f6 * f6).xyz) + (((((f46 * (((f47 + (f47 * f47)) / (((f48 * f48) * ((f42 * 3.0) + 0.5)) * ((f41 * 0.75) + 0.25))) * f39)) * CB0[10].xyz) * f36) * f7) * VARYING0.w);
     vec4 f50 = vec4(f49.x, f49.y, f49.z, vec4(0.0).w);
     f50.w = 1.0;
     vec3 f51 = mix(CB0[14].xyz, sqrt(clamp(f50.xyz * CB0[15].y, vec3(0.0), vec3(1.0))).xyz, vec3(clamp(VARYING5.w, 0.0, 1.0)));

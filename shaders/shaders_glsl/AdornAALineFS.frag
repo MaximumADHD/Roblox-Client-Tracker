@@ -71,9 +71,12 @@ void main()
     vec4 f5 = vec4(1.0);
     f5.w = clamp(((CB1[5].w * 0.5) + 0.5) - ((abs(dot(vec2(f2.y, -f2.x), f4)) * 0.5) * CB1[5].y), 0.0, 1.0);
     vec4 f6 = f5 * CB1[4];
-    vec4 f7 = f6;
-    f7.w = 1.0 - pow(clamp(1.0 - f6.w, 0.0, 1.0), 0.4545454680919647216796875);
-    vec3 f8 = mix(CB0[14].xyz, sqrt(clamp((f7.xyz * f7.xyz) * CB0[15].y, vec3(0.0), vec3(1.0))).xyz, vec3(clamp((CB0[13].x * length(VARYING1)) + CB0[13].y, 0.0, 1.0)));
-    gl_FragData[0] = vec4(f8.x, f8.y, f8.z, f7.w);
+    float f7 = pow(clamp(1.0 - f6.w, 0.0, 1.0), 0.4545454680919647216796875);
+    vec4 f8 = f6;
+    f8.w = f7;
+    vec4 f9 = f8;
+    f9.w = 1.0 - f7;
+    vec3 f10 = mix(CB0[14].xyz, sqrt(clamp((f9.xyz * f9.xyz) * CB0[15].y, vec3(0.0), vec3(1.0))).xyz, vec3(clamp((CB0[13].x * length(VARYING1)) + CB0[13].y, 0.0, 1.0)));
+    gl_FragData[0] = vec4(f10.x, f10.y, f10.z, f9.w);
 }
 

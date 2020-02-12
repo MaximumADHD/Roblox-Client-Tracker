@@ -8,7 +8,7 @@ local UserInputService = game:GetService("UserInputService")
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
-local FFlagPlayerListDontCreateUIWhenDisabled = require(RobloxGui.Modules.Flags.FFlagPlayerListDontCreateUIWhenDisabled)
+local FFlagPlayerListPerformanceImprovements = require(RobloxGui.Modules.Flags.FFlagPlayerListPerformanceImprovements)
 
 local AppDarkTheme = require(CorePackages.AppTempCommon.LuaApp.Style.Themes.DarkTheme)
 local AppFont = require(CorePackages.AppTempCommon.LuaApp.Style.Fonts.Gotham)
@@ -96,10 +96,12 @@ function PlayerListMaster.new()
 	local isGamepad = lastInputType.Name:find("Gamepad")
 	self.store:dispatch(SetIsUsingGamepad(isGamepad ~= nil))
 
-	self:_initalizePlayers()
-	self:_initalizeTeams()
-	self:_initalizeFollowingInfo()
-	if FFlagPlayerListDontCreateUIWhenDisabled then
+	if not FFlagPlayerListPerformanceImprovements then
+		self:_initalizePlayers()
+		self:_initalizeTeams()
+		self:_initalizeFollowingInfo()
+	end
+	if FFlagPlayerListPerformanceImprovements then
 		self:_trackEnabled()
 	end
 
@@ -127,7 +129,7 @@ function PlayerListMaster.new()
 
 	self.element = Roact.mount(self.root, RobloxGui, "PlayerListMaster")
 
-	if FFlagPlayerListDontCreateUIWhenDisabled then
+	if FFlagPlayerListPerformanceImprovements then
 		self.mounted = true
 		self.coreGuiEnabled = StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.PlayerList)
 		self:_updateMounted()
@@ -136,7 +138,7 @@ function PlayerListMaster.new()
 	return self
 end
 
-if FFlagPlayerListDontCreateUIWhenDisabled then
+if FFlagPlayerListPerformanceImprovements then
 	function PlayerListMaster:_updateMounted()
 		if not TenFootInterface:IsEnabled() then
 			local shouldMount = self.coreGuiEnabled and self.topBarEnabled
@@ -161,39 +163,41 @@ if FFlagPlayerListDontCreateUIWhenDisabled then
 	end
 end
 
-function PlayerListMaster:_initalizePlayers()
-	local players = Players:GetPlayers()
-	for _, player in ipairs(players) do
-		self.store:dispatch(AddPlayer(player))
-		self.store:dispatch(MakePlayerInfoRequests(player))
-	end
-end
-
-function PlayerListMaster:_initalizeTeams()
-	for _, team in ipairs(Teams:GetTeams()) do
-		self.store:dispatch(AddTeam(team))
-		for _, player in ipairs(team:GetPlayers()) do
-			self.store:dispatch(AddPlayerToTeam(player, team))
+if not FFlagPlayerListPerformanceImprovements then
+	function PlayerListMaster:_initalizePlayers()
+		local players = Players:GetPlayers()
+		for _, player in ipairs(players) do
+			self.store:dispatch(AddPlayer(player))
+			self.store:dispatch(MakePlayerInfoRequests(player))
 		end
 	end
-end
 
-function PlayerListMaster:_initalizeFollowingInfo()
-	if not TenFootInterface:IsEnabled() then
-		coroutine.wrap(function()
-			local getFollowRelationships = RobloxReplicatedStorage:WaitForChild("GetFollowRelationships", 300) or
-				RobloxReplicatedStorage:WaitForChild("GetFollowRelationships")
-
-			local followingInfo = getFollowRelationships:InvokeServer()
-			for userIdStr, relationship in pairs(followingInfo) do
-				local player = Players:GetPlayerByUserId(tonumber(userIdStr))
-				if player then
-					local isFollower = relationship.IsMutual or relationship.IsFollower
-					local isFollowing = relationship.IsMutual or relationship.IsFollowing
-					self.store:dispatch(SetPlayerFollowRelationship(player, isFollower, isFollowing))
-				end
+	function PlayerListMaster:_initalizeTeams()
+		for _, team in ipairs(Teams:GetTeams()) do
+			self.store:dispatch(AddTeam(team))
+			for _, player in ipairs(team:GetPlayers()) do
+				self.store:dispatch(AddPlayerToTeam(player, team))
 			end
-		end)()
+		end
+	end
+
+	function PlayerListMaster:_initalizeFollowingInfo()
+		if not TenFootInterface:IsEnabled() then
+			coroutine.wrap(function()
+				local getFollowRelationships = RobloxReplicatedStorage:WaitForChild("GetFollowRelationships", 300) or
+					RobloxReplicatedStorage:WaitForChild("GetFollowRelationships")
+
+				local followingInfo = getFollowRelationships:InvokeServer()
+				for userIdStr, relationship in pairs(followingInfo) do
+					local player = Players:GetPlayerByUserId(tonumber(userIdStr))
+					if player then
+						local isFollower = relationship.IsMutual or relationship.IsFollower
+						local isFollowing = relationship.IsMutual or relationship.IsFollowing
+						self.store:dispatch(SetPlayerFollowRelationship(player, isFollower, isFollowing))
+					end
+				end
+			end)()
+		end
 	end
 end
 
@@ -213,7 +217,7 @@ function PlayerListMaster:HideTemp(requester, hidden)
 end
 
 function PlayerListMaster:SetTopBarEnabled(value)
-	if FFlagPlayerListDontCreateUIWhenDisabled then
+	if FFlagPlayerListPerformanceImprovements then
 		self.topBarEnabled = value
 		self:_updateMounted()
 	else

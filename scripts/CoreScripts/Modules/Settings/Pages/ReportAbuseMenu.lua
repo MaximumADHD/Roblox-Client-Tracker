@@ -10,6 +10,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local GuiService = game:GetService("GuiService")
 local PlayersService = game:GetService("Players")
 local MarketplaceService = game:GetService("MarketplaceService")
+local AnalyticsService = game:GetService("RbxAnalyticsService")
 
 local utility = require(RobloxGui.Modules.Settings.Utility)
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
@@ -48,6 +49,12 @@ local success, result = pcall(function() return settings():GetFFlag('UseNotifica
 local FFlagUseNotificationsLocalization = success and result
 
 local FFlagDontSubmitBlankGameReports = game:DefineFastFlag("DontSubmitBlankGameReports", false)
+local FFlagCollectAnalyticsForSystemMenu = settings():GetFFlag("CollectAnalyticsForSystemMenu")
+
+local Constants
+if FFlagCollectAnalyticsForSystemMenu then
+  Constants = require(RobloxGui.Modules:WaitForChild("InGameMenu"):WaitForChild("Resources"):WaitForChild("Constants"))
+end
 
 local MIN_GAME_REPORT_TEXT_LENGTH = 5
 
@@ -274,6 +281,18 @@ local function Initialize()
 			this.HubRef:SetVisibility(false, true)
 		end
 
+		local function reportAnalytics(reportType, id)
+			if not FFlagCollectAnalyticsForSystemMenu then return end
+
+			local stringTable = {}
+			stringTable[#stringTable + 1] = "report_type=" .. tostring(reportType)
+			stringTable[#stringTable + 1] = "report_source=ingame"
+			stringTable[#stringTable + 1] = "reported_entity_id=" .. tostring(id)
+
+			local infoString = table.concat(stringTable,"&")
+			AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, Constants.AnalyticsReportSubmittedName, infoString, {})
+		end
+
 		local function onReportSubmitted()
 			local abuseReason = nil
 			local reportSucceeded = false
@@ -285,6 +304,7 @@ local function Initialize()
 					reportSucceeded = true
 					spawn(function()
 						PlayersService:ReportAbuse(currentAbusingPlayer, abuseReason, this.AbuseDescription.Selection.Text)
+						reportAnalytics("user", currentAbusingPlayer.UserId)
 					end)
 				end
 			else
@@ -302,6 +322,7 @@ local function Initialize()
 						local formattedText = string.format("User Report: \n    %s \n".."Place Title: \n    %s \n".."PlaceId: \n    %s \n".."Place Description: \n    %s \n",abuseDescription, placeName, placeId, placeDescription)
 
 						PlayersService:ReportAbuse(nil, abuseReason, formattedText)
+						reportAnalytics("game", game.GameId)
 					end)
 				end
 			end

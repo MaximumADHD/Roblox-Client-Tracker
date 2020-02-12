@@ -8,12 +8,17 @@ local ToolId = TerrainEnums.ToolId
 
 local applyPivot = require(Plugin.Src.Util.applyPivot)
 
+local FFlagTerrainToolsFixSmoothDesiredMaterial = game:GetFastFlag("TerrainToolsFixSmoothDesiredMaterial")
+local FFlagTerrainToolsRefactorSculptOperations = game:GetFastFlag("TerrainToolsRefactorSculptOperations")
+
 local OperationHelper = require(script.Parent.OperationHelper)
 local smartLargeSculptBrush = require(script.Parent.smartLargeSculptBrush)
-local smartLargeSmoothBrush = require(script.Parent.smartLargeSmoothBrush)
-local smoothBrush = require(script.Parent.smoothBrush)
-
-local FFlagTerrainToolsFixSmoothDesiredMaterial = game:GetFastFlag("TerrainToolsFixSmoothDesiredMaterial")
+local smartLargeSmoothBrush = not FFlagTerrainToolsRefactorSculptOperations
+	and require(script.Parent.smartLargeSmoothBrush)
+local smoothBrush = not FFlagTerrainToolsRefactorSculptOperations
+	and require(script.Parent.smoothBrush)
+local SculptOperations = FFlagTerrainToolsRefactorSculptOperations
+	and require(script.Parent.SculptOperations)
 
 -- Air and water materials are frequently referenced in terrain brush
 local materialAir = Enum.Material.Air
@@ -32,15 +37,20 @@ dict opSet =
 	FlattenMode flattenMode
 	PivotType pivot
 
+	Vector3 centerPoint
+	Vector3 planePoint
+	Vector3 planeNormal
+
 	number cursorSize
 	number cursorHeight
-	Vector3 centerPoint
 	number strength
 
 	bool autoMaterial
 	Material material
 
 	bool ignoreWater
+
+	-- TODO: Remove planePositionY when removing FFlagTerrainToolsRefactorSculptOperations
 	number planePositionY
 ]]
 local function performOperation(terrain, opSet)
@@ -105,14 +115,15 @@ local function performOperation(terrain, opSet)
 	local writeMaterials, writeOccupancies = terrain:ReadVoxels(region, Constants.VOXEL_RESOLUTION)
 
 	if selectionSize > USE_LARGE_BRUSH_MIN_SIZE
-		and (tool == ToolId.Grow or tool == ToolId.Erode or tool == ToolId.Flatten) then
+		and (tool == ToolId.Grow or tool == ToolId.Erode or tool == ToolId.Flatten
+			or (FFlagTerrainToolsRefactorSculptOperations and tool == ToolId.Smooth)) then
 		smartLargeSculptBrush(opSet, minBounds, maxBounds,
 			readMaterials, readOccupancies, writeMaterials, writeOccupancies)
 		terrain:WriteVoxels(region, Constants.VOXEL_RESOLUTION, writeMaterials, writeOccupancies)
 		return
 	end
 
-	if tool == ToolId.Smooth then
+	if not FFlagTerrainToolsRefactorSculptOperations and tool == ToolId.Smooth then
 		-- TODO: Remove desiredMaterial property from smoothBrush and smartLargeSmoothBrush
 		-- when removing FFlagTerrainToolsFixSmoothDesiredMaterial
 		if not FFlagTerrainToolsFixSmoothDesiredMaterial then
@@ -178,6 +189,132 @@ local function performOperation(terrain, opSet)
 	local sizeZ = table.getn(readOccupancies[1][1])
 
 	local radiusOfRegion = (maxBoundsX - minBoundsX) * 0.5
+
+	if FFlagTerrainToolsRefactorSculptOperations then
+	local planeNormal = opSet.planeNormal
+	local planeNormalX = planeNormal.x
+	local planeNormalY = planeNormal.y
+	local planeNormalZ = planeNormal.z
+
+	local planePoint = opSet.planePoint
+	local planePointX = planePoint.x
+	local planePointY = planePoint.y
+	local planePointZ = planePoint.z
+
+	-- Many of the sculpt settings are the same for each voxel, so precreate the table
+	-- Then for each voxel, set the voxel-specific properties
+	local sculptSettings = {
+		readMaterials = readMaterials,
+		readOccupancies = readOccupancies,
+		writeMaterials = writeMaterials,
+		writeOccupancies = writeOccupancies,
+		sizeX = sizeX,
+		sizeY = sizeY,
+		sizeZ = sizeZ,
+		strength = strength,
+		ignoreWater = ignoreWater,
+		desiredMaterial = desiredMaterial,
+		autoMaterial = autoMaterial,
+		filterSize = 1,
+		maxOccupancy = 1,
+	}
+
+	-- "planeDifference" is the distance from the voxel to the plane defined by planePoint and planeNormal
+	-- Calculated as (voxelPosition - planePoint):Dot(planeNormal)
+	for voxelX, occupanciesX in ipairs(readOccupancies) do
+		local worldVectorX = minBoundsX + ((voxelX - 0.5) * Constants.VOXEL_RESOLUTION)
+		local cellVectorX = worldVectorX - centerX
+		local planeDifferenceX = (worldVectorX - planePointX) * planeNormalX
+
+		for voxelY, occupanciesY in ipairs(occupanciesX) do
+			local worldVectorY = minBoundsY + (voxelY - 0.5) * Constants.VOXEL_RESOLUTION
+			local cellVectorY = worldVectorY - centerY
+			local planeDifferenceXY = planeDifferenceX + ((worldVectorY - planePointY) * planeNormalY)
+
+			for voxelZ, occupancy in ipairs(occupanciesY) do
+				local worldVectorZ = minBoundsZ + (voxelZ - 0.5) * Constants.VOXEL_RESOLUTION
+				local cellVectorZ = worldVectorZ - centerZ
+				local planeDifference = planeDifferenceXY + ((worldVectorZ - planePointZ) * planeNormalZ)
+
+				local brushOccupancy, magnitudePercent = OperationHelper.calculateBrushPowerForCell(
+					cellVectorX, cellVectorY, cellVectorZ,
+					selectionSize, brushShape, radiusOfRegion, not (tool == ToolId.Smooth))
+
+				local cellOccupancy = occupancy
+				local cellMaterial = readMaterials[voxelX][voxelY][voxelZ]
+
+				if ignoreWater and cellMaterial == materialWater then
+					cellMaterial = materialAir
+					cellOccupancy = 0
+				end
+
+				airFillerMaterial = waterHeight >= voxelY and airFillerMaterial or materialAir
+
+				sculptSettings.x = voxelX
+				sculptSettings.y = voxelY
+				sculptSettings.z = voxelZ
+				sculptSettings.brushOccupancy = brushOccupancy
+				sculptSettings.magnitudePercent = magnitudePercent
+				sculptSettings.cellOccupancy = cellOccupancy
+				sculptSettings.cellMaterial = cellMaterial
+				sculptSettings.airFillerMaterial = airFillerMaterial
+
+				if tool == ToolId.Add then
+					if brushOccupancy > cellOccupancy then
+						writeOccupancies[voxelX][voxelY][voxelZ] = brushOccupancy
+					end
+					if brushOccupancy >= 0.5 and cellMaterial == materialAir then
+						local targetMaterial = desiredMaterial
+						if autoMaterial then
+							targetMaterial = OperationHelper.getMaterialForAutoMaterial(readMaterials,
+								voxelX, voxelY, voxelZ,
+								sizeX, sizeY, sizeZ,
+								cellMaterial)
+						end
+						writeMaterials[voxelX][voxelY][voxelZ] = targetMaterial
+					end
+
+				elseif tool == ToolId.Subtract then
+					if cellMaterial ~= materialAir then
+						local desiredOccupancy = 1 - brushOccupancy
+						if desiredOccupancy < cellOccupancy then
+							if desiredOccupancy <= OperationHelper.one256th then
+								writeOccupancies[voxelX][voxelY][voxelZ] = airFillerMaterial == materialWater and 1 or 0
+								writeMaterials[voxelX][voxelY][voxelZ] = airFillerMaterial
+							else
+								writeOccupancies[voxelX][voxelY][voxelZ] = desiredOccupancy
+							end
+						end
+					end
+
+				elseif tool == ToolId.Grow then
+					SculptOperations.grow(sculptSettings)
+
+				elseif tool == ToolId.Erode then
+					SculptOperations.erode(sculptSettings)
+
+				elseif tool == ToolId.Flatten then
+					sculptSettings.maxOccupancy = math.abs(planeDifference)
+					if planeDifference > Constants.FLATTEN_PLANE_TOLERANCE and flattenMode ~= FlattenMode.Grow then
+						SculptOperations.erode(sculptSettings)
+
+					elseif planeDifference < -Constants.FLATTEN_PLANE_TOLERANCE and flattenMode ~= FlattenMode.Erode then
+						SculptOperations.grow(sculptSettings)
+					end
+
+				elseif tool == ToolId.Paint then
+					if brushOccupancy > 0 and cellOccupancy > 0 then
+						writeMaterials[voxelX][voxelY][voxelZ] = desiredMaterial
+					end
+
+				elseif FFlagTerrainToolsRefactorSculptOperations and tool == ToolId.Smooth then
+					SculptOperations.smooth(sculptSettings)
+				end
+			end
+		end
+	end
+
+	else
 
 	-- These are calculated for each cell in the nested for loop
 	-- Brought up to this level so that erode and grow can use them
@@ -353,6 +490,7 @@ local function performOperation(terrain, opSet)
 				end
 			end
 		end
+	end
 	end
 
 	terrain:WriteVoxels(region, Constants.VOXEL_RESOLUTION, writeMaterials, writeOccupancies)

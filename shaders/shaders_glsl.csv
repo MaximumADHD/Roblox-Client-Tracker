@@ -153,8 +153,6 @@ SmoothWaterHQFS,Fragment
 SmoothWaterHQVS,Vertex
 SmoothWaterSuperHQFS,Fragment
 SmoothWaterVS,Vertex
-SpecularConvFS,Fragment
-SpecularConvVS,Vertex
 SRGBToLinearFS,Fragment
 SSAOBlurXFS,Fragment
 SSAOBlurYFS,Fragment

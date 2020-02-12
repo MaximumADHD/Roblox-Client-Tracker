@@ -16,19 +16,20 @@ local withTheme = Theme.withTheme
 local StudioPlugin = require(Plugin.Src.ContextServices.StudioPlugin)
 
 local Tools = script.Parent.Tools
-local Generate = require(Tools.Generate)
-local Import = require(Tools.Import)
-local SeaLevel = require(Tools.SeaLevel)
-local Clear = require(Tools.Clear)
-local Region = require(Tools.Region)
-local Fill = require(Tools.Fill)
 local Add = require(Tools.Add)
-local Subtract = require(Tools.Subtract)
-local Grow = require(Tools.Grow)
+local Clear = require(Tools.Clear)
+local ConvertPart = require(Tools.ConvertPart)
 local Erode = require(Tools.Erode)
-local Smooth = require(Tools.Smooth)
+local Fill = require(Tools.Fill)
 local Flatten = require(Tools.Flatten)
+local Generate = require(Tools.Generate)
+local Grow = require(Tools.Grow)
+local Import = require(Tools.Import)
 local Paint = require(Tools.Paint)
+local Region = require(Tools.Region)
+local SeaLevel = require(Tools.SeaLevel)
+local Smooth = require(Tools.Smooth)
+local Subtract = require(Tools.Subtract)
 
 local Actions = Plugin.Src.Actions
 local ChangeTool = require(Actions.ChangeTool)
@@ -55,7 +56,7 @@ local toolToScript = {
 local toolComponent = {
 	[ToolId.Generate] = Generate,
 	[ToolId.Import] = Import,
-	[ToolId.SeaLevel] = SeaLevel,
+	[ToolId.ConvertPart] = ConvertPart,
 	[ToolId.Clear] = Clear,
 
 	[ToolId.Select] = Region,
@@ -74,6 +75,8 @@ local toolComponent = {
 	[ToolId.Erode] = Erode,
 	[ToolId.Smooth] = Smooth,
 	[ToolId.Flatten] = Flatten,
+
+	[ToolId.SeaLevel] = SeaLevel,
 
 	[ToolId.Paint] = Paint,
 }

@@ -23,7 +23,7 @@ Promise = { git = "https://github.rbx.com/Roblox/lua-promise" }
 Result = { git = "https://github.rbx.com/Roblox/lua-result" }
 tutils = { git = "https://github.rbx.com/Roblox/tutils" }
 
-PurchasePrompt = { git = "https://github.rbx.com/esauer/purchase-prompt-migration", rev = "master"}
+PurchasePrompt = { git = "https://github.com/Roblox/PurchasePromptScript-Roact", rev = "master" }
 
 InGameMenuDependencies = { git = "https://github.rbx.com/Roblox/in-game-menu-dependencies", rev = "master" }
 

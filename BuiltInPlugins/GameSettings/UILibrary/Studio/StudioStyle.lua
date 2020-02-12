@@ -5,8 +5,6 @@
 local StudioStyle = {}
 StudioStyle.__index = StudioStyle
 
-game:DefineFastString("StudioBuiltinPluginDefaultFont", "Gotham")
-
 -- c : StudioStyleGuideColor
 -- m : StudioStyleGuideModifier
 function StudioStyle.new(getColor, c, m)

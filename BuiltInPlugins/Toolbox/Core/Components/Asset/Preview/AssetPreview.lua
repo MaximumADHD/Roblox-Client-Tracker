@@ -47,16 +47,21 @@ local UILibrary = require(Libs.UILibrary)
 local Favorites = UILibrary.Component.Favorites
 local PreviewController = UILibrary.Component.PreviewController
 local Vote = UILibrary.Component.Vote
+local ActionBar = UILibrary.Component.ActionBar
+local AssetDescription = UILibrary.Component.AssetDescription
+local LoadingBar = UILibrary.Component.LoadingBar
 
+local LayoutOrderIterator = UILibrary.Util.LayoutOrderIterator
+
+-- mwang, 1/22/2020, remove with FFlagStudioRefactorAssetPreview
 local Preview = Plugin.Core.Components.Asset.Preview
-local AssetDescription = require(Preview.AssetDescription)
 local DEPRECATED_Vote = require(Preview.Vote)
 local DEPRECATED_PreviewController = require(Preview.PreviewController)
-local ActionBar = require(Preview.ActionBar)
 local DEPRECATED_Favorites = require(Preview.Favorites)
 local SearchLinkText = require(Preview.SearchLinkText)
-local LoadingBar = require(Plugin.Core.Components.AssetConfiguration.LoadingBar)
-local LayoutOrderIterator = UILibrary.Util.LayoutOrderIterator
+local DEPRECATED_ActionBar = require(Preview.ActionBar)
+local DEPRECATED_AssetDescription = require(Preview.AssetDescription)
+local DEPRECATED_LoadingBar = require(Plugin.Core.Components.AssetConfiguration.LoadingBar)
 
 local Util = Plugin.Core.Util
 local Constants = require(Util.Constants)
@@ -457,9 +462,9 @@ function AssetPreview:render()
 			local tryInsert
 			if FFlagStudioToolboxShowPluginInstallationProgress and not FFlagStudioToolboxPluginPurchaseFlow then
 				-- This is a workaround to support progress indicators if the purchase flow is disabled.
-				tryInsert = isPluginAsset and self.tryInstallWithProgress or props.tryInsert
+				tryInsert = isPluginAsset and self.tryInstallWithProgress or props.TryInsert
 			else
-				tryInsert = isPluginAsset and self.tryInstall or props.tryInsert
+				tryInsert = isPluginAsset and self.tryInstall or props.TryInsert
 			end
 
 
@@ -620,12 +625,20 @@ function AssetPreview:render()
 							PaddingRight = UDim.new(0, INSTALLATION_BAR_SECTION_PADDING),
 							PaddingTop = UDim.new(0, (INSTALLATION_BAR_SECTION_HEIGHT * 0.5) + 10),
 						}),
-						LoadingBar = Roact.createElement(LoadingBar, {
+						DEPRECATED_LoadingBar = not FFlagStudioRefactorAssetPreview and Roact.createElement(DEPRECATED_LoadingBar, {
 							loadingText = localizedContent.AssetConfig.Installing,
 							Size = UDim2.new(1, 0, 0, INSTALLATION_BAR_HEIGHT),
 							holdPercent = 0.92,
 							loadingTime = INSTALLATION_ANIMATION_TIME,
 							onFinish = isPluginInstalled and function() end or nil,
+						}),
+
+						LoadingBar = FFlagStudioRefactorAssetPreview and Roact.createElement(LoadingBar, {
+							LoadingText = localizedContent.AssetConfig.Installing,
+							Size = UDim2.new(1, 0, 0, INSTALLATION_BAR_HEIGHT),
+							HoldPercent = 0.92,
+							LoadingTime = INSTALLATION_ANIMATION_TIME,
+							InstallationFinished = isPluginInstalled,
 						}),
 					}),
 
@@ -683,7 +696,7 @@ function AssetPreview:render()
 						LayoutOrder = layoutIndex:getNextOrder(),
 					}),
 
-					Developer = Roact.createElement(AssetDescription, {
+					DEPRECATED_Developer = not FFlagStudioRefactorAssetPreview and Roact.createElement(DEPRECATED_AssetDescription, {
 						leftContent = "Creator",
 						rightContent = "",
 
@@ -697,32 +710,84 @@ function AssetPreview:render()
 						})
 					}),
 
-					Category = Roact.createElement(AssetDescription, {
+					Developer = FFlagStudioRefactorAssetPreview and Roact.createElement(AssetDescription, {
+						LeftContent = "Creator",
+						RightContent = "",
+
+						LayoutOrder = layoutIndex:getNextOrder(),
+					}, {
+						LinkText = Roact.createElement(SearchLinkText, {
+							Text = creatorName,
+							Position = UDim2.fromScale(1, 0.5),
+							AnchorPoint = Vector2.new(1, 0.5),
+							OnClick = self.searchByCreator,
+						})
+					}),
+
+					DEPRECATED_Category = not FFlagStudioRefactorAssetPreview and Roact.createElement(DEPRECATED_AssetDescription, {
 						leftContent = "Type",
 						rightContent = getGenreString(assetGenres),
 
 						layoutOrder = layoutIndex:getNextOrder(),
 					}),
 
+					Category = FFlagStudioRefactorAssetPreview and Roact.createElement(AssetDescription, {
+						LeftContent = "Type",
+						RightContent = getGenreString(assetGenres),
+
+						LayoutOrder = layoutIndex:getNextOrder(),
+					}),
+
 					-- For the format of the time, we need only a generic function to handle that.
 					-- A separate component is not needed.
-					Created = Roact.createElement(AssetDescription, {
+					DEPRECATED_Created = not FFlagStudioRefactorAssetPreview and Roact.createElement(DEPRECATED_AssetDescription, {
 						leftContent = "Created",
 						rightContent = created,
 
 						layoutOrder = layoutIndex:getNextOrder(),
 					}),
 
-					Updated = Roact.createElement(AssetDescription, {
+					Created = FFlagStudioRefactorAssetPreview and Roact.createElement(AssetDescription, {
+						LeftContent = "Created",
+						RightContent = created,
+
+						LayoutOrder = layoutIndex:getNextOrder(),
+					}),
+
+					DEPRECATED_Updated = not FFlagStudioRefactorAssetPreview and Roact.createElement(DEPRECATED_AssetDescription, {
 						leftContent = "Last Updated",
 						rightContent = updated,
 						hideSeparator = true,
 
 						layoutOrder = layoutIndex:getNextOrder(),
+					}),
+
+					Updated = FFlagStudioRefactorAssetPreview and Roact.createElement(AssetDescription, {
+						LeftContent = "Last Updated",
+						RightContent = updated,
+						HideSeparator = true,
+
+						LayoutOrder = layoutIndex:getNextOrder(),
 					})
 				}),
 
-				ActionBar = Roact.createElement(ActionBar, {
+				DEPRECATED_ActionBar = not FFlagStudioRefactorAssetPreview and Roact.createElement(DEPRECATED_ActionBar, {
+					Text = pluginButtonText,
+					Size = UDim2.new(1, 0, 0, ACTION_BAR_HEIGHT),
+					Position = UDim2.new(0, 0, 1, 0),
+					AnchorPoint = Vector2.new(0, 1),
+					AssetId = assetId,
+					AssetVersionId = assetVersionId,
+
+					Asset = Asset,
+					CanInsertAsset = canInsertAsset,
+					TryInsert = tryInsert,
+					TryCreateContextMenu = tryCreateContextMenu,
+					InstallDisabled = isPluginAsset and (isPluginLoading or isPluginUpToDate),
+					ShowRobuxIcon = showRobuxIcon,
+				}),
+
+				ActionBar = FFlagStudioRefactorAssetPreview and Roact.createElement(ActionBar, {
 					Text = pluginButtonText,
 					Size = UDim2.new(1, 0, 0, ACTION_BAR_HEIGHT),
 					Position = UDim2.new(0, 0, 1, 0),

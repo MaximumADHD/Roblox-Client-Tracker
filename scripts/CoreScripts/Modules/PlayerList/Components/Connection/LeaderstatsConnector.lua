@@ -35,6 +35,7 @@ local LeaderstatsConnector = Roact.PureComponent:extend("LeaderstatsConnector")
 
 local FFlagNewPlayerListFixBackpackMemoryLeak = game:DefineFastFlag("NewPlayerListFixBackpackMemoryLeak", false)
 local FFlagPlayerListMorePermissiveLeaderstatsCheck = game:DefineFastFlag("PlayerListMorePermissiveLeaderstatsCheck", false)
+local FFlagPlayerListFixUnexpectedLeaderstatsTypes = game:DefineFastFlag("PlayerListFixUnexpectedLeaderstatsTypes", false)
 
 local function isValidStat(obj)
 	return obj:IsA("StringValue") or obj:IsA("IntValue") or obj:IsA("BoolValue") or obj:IsA("NumberValue") or
@@ -88,13 +89,28 @@ function LeaderstatsConnector:addGameStat(statObject)
 	local isPrimary = false
 	local priority = 0
 
-	local isPrimaryVal = statObject:FindFirstChild("IsPrimary")
-	if isPrimaryVal then
-		isPrimary = isPrimaryVal.Value
-	end
-	local priorityVal = statObject:FindFirstChild("Priority")
-	if priorityVal then
-		priority = priorityVal.Value
+	if FFlagPlayerListFixUnexpectedLeaderstatsTypes then
+		local isPrimaryVal = statObject:FindFirstChild("IsPrimary")
+		if isPrimaryVal then
+			if isPrimaryVal:IsA("BoolValue") then
+				isPrimary = isPrimaryVal.Value
+			else
+				isPrimary = true
+			end
+		end
+		local priorityVal = statObject:FindFirstChild("Priority")
+		if priorityVal and (priorityVal:IsA("IntValue") or priorityVal:IsA("NumberValue")) then
+			priority = priorityVal.Value
+		end
+	else
+		local isPrimaryVal = statObject:FindFirstChild("IsPrimary")
+		if isPrimaryVal then
+			isPrimary = isPrimaryVal.Value
+		end
+		local priorityVal = statObject:FindFirstChild("Priority")
+		if priorityVal then
+			priority = priorityVal.Value
+		end
 	end
 
 	self.props.addGameStat(statObject.Name, isPrimary, priority)

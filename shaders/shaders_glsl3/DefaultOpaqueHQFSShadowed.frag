@@ -111,11 +111,12 @@ void main()
     vec3 f41 = vec3(f40) + (mix(vec3(0.039999999105930328369140625), f29, vec3(f32)) * (1.0 - f40));
     float f42 = f35 * f35;
     float f43 = (((f36 * f42) - f36) * f36) + 1.0;
-    vec3 f44 = (((((((vec3(1.0) - (f41 * f30)) * (1.0 - f32)) * CB0[10].xyz) * f34) * f28) + min((f7.xyz * (f7.w * 120.0)).xyz + (CB0[8].xyz + (CB0[9].xyz * f8.x)), vec3(CB0[16].w))) * f29) + ((((f41 * ((f42 + (f42 * f42)) / (((f43 * f43) * ((f37 * 3.0) + 0.5)) * ((f36 * 0.75) + 0.25)))) * CB0[10].xyz) * f34) * f28);
-    vec4 f45 = vec4(f44.x, f44.y, f44.z, vec4(0.0).w);
-    f45.w = 1.0;
-    vec3 f46 = mix(CB0[14].xyz, (sqrt(clamp(f45.xyz * CB0[15].y, vec3(0.0), vec3(1.0))) + vec3((-0.00048828125) + (0.0009765625 * fract(52.98291778564453125 * fract(dot(gl_FragCoord.xy, vec2(0.067110560834407806396484375, 0.005837149918079376220703125))))))).xyz, vec3(clamp((CB0[13].x * length(VARYING4.xyz)) + CB0[13].y, 0.0, 1.0)));
-    _entryPointOutput = vec4(f46.x, f46.y, f46.z, f45.w);
+    float f44 = 1.0 - f32;
+    vec3 f45 = ((((((vec3(f44) - (f41 * (f30 * f44))) * CB0[10].xyz) * f34) * f28) + min((f7.xyz * (f7.w * 120.0)).xyz + (CB0[8].xyz + (CB0[9].xyz * f8.x)), vec3(CB0[16].w))) * f29) + (((f41 * (((f42 + (f42 * f42)) / (((f43 * f43) * ((f37 * 3.0) + 0.5)) * ((f36 * 0.75) + 0.25))) * f34)) * CB0[10].xyz) * f28);
+    vec4 f46 = vec4(f45.x, f45.y, f45.z, vec4(0.0).w);
+    f46.w = 1.0;
+    vec3 f47 = mix(CB0[14].xyz, (sqrt(clamp(f46.xyz * CB0[15].y, vec3(0.0), vec3(1.0))) + vec3((-0.00048828125) + (0.0009765625 * fract(52.98291778564453125 * fract(dot(gl_FragCoord.xy, vec2(0.067110560834407806396484375, 0.005837149918079376220703125))))))).xyz, vec3(clamp((CB0[13].x * length(VARYING4.xyz)) + CB0[13].y, 0.0, 1.0)));
+    _entryPointOutput = vec4(f47.x, f47.y, f47.z, f46.w);
 }
 
 //$$ShadowAtlasTexture=s1

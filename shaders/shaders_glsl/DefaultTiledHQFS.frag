@@ -46,12 +46,8 @@ struct Globals
 struct MaterialParams
 {
     float textureTiling;
-    float specularScale;
-    float glossScale;
-    float reflectionScale;
+    float plasticRoughness;
     float normalShadowScale;
-    float specularLod;
-    float glossLod;
     float normalDetailTiling;
     float normalDetailScale;
     float farTilingDiffuse;
@@ -68,7 +64,7 @@ struct MaterialParams
 };
 
 uniform vec4 CB0[47];
-uniform vec4 CB2[5];
+uniform vec4 CB2[4];
 uniform sampler2D ShadowMapTexture;
 uniform sampler3D LightMapTexture;
 uniform sampler3D LightGridSkylightTexture;
@@ -99,11 +95,11 @@ void main()
     vec2 f5 = texture2D(NormalMapTexture, f3).wy * 2.0;
     vec2 f6 = f5 - vec2(1.0);
     float f7 = sqrt(clamp(1.0 + dot(vec2(1.0) - f5, f6), 0.0, 1.0));
-    vec2 f8 = (vec3(f6, f7).xy + (vec3((texture2D(NormalDetailMapTexture, f3 * CB2[1].w).wy * 2.0) - vec2(1.0), 0.0).xy * CB2[2].x)).xy * f2;
+    vec2 f8 = (vec3(f6, f7).xy + (vec3((texture2D(NormalDetailMapTexture, f3 * CB2[0].w).wy * 2.0) - vec2(1.0), 0.0).xy * CB2[1].x)).xy * f2;
     float f9 = f8.x;
     vec4 f10 = texture2D(SpecularMapTexture, f3);
     vec3 f11 = normalize(((VARYING6.xyz * f9) + (cross(VARYING5.xyz, VARYING6.xyz) * f8.y)) + (VARYING5.xyz * f7));
-    vec3 f12 = vec4(((mix(vec3(1.0), VARYING2.xyz, vec3(clamp(f4.w + CB2[3].w, 0.0, 1.0))) * f4.xyz) * (1.0 + (f9 * CB2[1].x))) * (texture2D(StudsMapTexture, f0).x * 2.0), VARYING2.w).xyz;
+    vec3 f12 = vec4(((mix(vec3(1.0), VARYING2.xyz, vec3(clamp(f4.w + CB2[2].w, 0.0, 1.0))) * f4.xyz) * (1.0 + (f9 * CB2[0].z))) * (texture2D(StudsMapTexture, f0).x * 2.0), VARYING2.w).xyz;
     float f13 = clamp(dot(step(CB0[19].xyz, abs(VARYING3 - CB0[18].xyz)), vec3(1.0)), 0.0, 1.0);
     vec3 f14 = VARYING3.yzx - (VARYING3.yzx * f13);
     vec4 f15 = vec4(clamp(f13, 0.0, 1.0));
@@ -112,7 +108,7 @@ void main()
     vec4 f18 = texture2D(ShadowMapTexture, VARYING7.xy);
     float f19 = (1.0 - ((step(f18.x, VARYING7.z) * clamp(CB0[24].z + (CB0[24].w * abs(VARYING7.z - 0.5)), 0.0, 1.0)) * f18.y)) * f17.y;
     vec3 f20 = (f12 * f12).xyz;
-    float f21 = max(CB0[26].w, CB2[0].w) * f2;
+    float f21 = CB0[26].w * f2;
     float f22 = max(f10.y, 0.04500000178813934326171875);
     float f23 = f10.x * f21;
     vec3 f24 = -CB0[11].xyz;
@@ -129,7 +125,7 @@ void main()
     float f35 = f28 * f28;
     float f36 = (((f29 * f35) - f29) * f29) + 1.0;
     float f37 = 1.0 - f23;
-    vec3 f38 = ((((((((vec3(1.0) - (f34 * f21)) * f37) * CB0[10].xyz) * f27) + ((CB0[12].xyz * f37) * clamp(-f26, 0.0, 1.0))) * f19) + min((f16.xyz * (f16.w * 120.0)).xyz + (CB0[8].xyz + (CB0[9].xyz * f17.x)), vec3(CB0[16].w))) * f20) + ((((f34 * ((f35 + (f35 * f35)) / (((f36 * f36) * ((f30 * 3.0) + 0.5)) * ((f29 * 0.75) + 0.25)))) * CB0[10].xyz) * f27) * f19);
+    vec3 f38 = (((((((vec3(f37) - (f34 * (f21 * f37))) * CB0[10].xyz) * f27) + (CB0[12].xyz * (f37 * clamp(-f26, 0.0, 1.0)))) * f19) + min((f16.xyz * (f16.w * 120.0)).xyz + (CB0[8].xyz + (CB0[9].xyz * f17.x)), vec3(CB0[16].w))) * f20) + (((f34 * (((f35 + (f35 * f35)) / (((f36 * f36) * ((f30 * 3.0) + 0.5)) * ((f29 * 0.75) + 0.25))) * f27)) * CB0[10].xyz) * f19);
     vec4 f39 = vec4(f38.x, f38.y, f38.z, vec4(0.0).w);
     f39.w = VARYING2.w;
     vec2 f40 = min(VARYING0.wz, VARYING1.wz);

@@ -1,3 +1,5 @@
+local FFlagFixGetAssetTypeErrorHandling = game:DefineFastFlag("FixGetAssetTypeErrorHandling", false)
+
 local AssetType = {}
 
 AssetType.TYPES = {
@@ -34,7 +36,14 @@ local classTypeMap = {
 -- probably improve this in the future)
 -- For BaseScript, show only names while for all other type show assetName and type
 function AssetType:getAssetType(assetInstance)
-	if not assetInstance then
+	local notInstance
+	if FFlagFixGetAssetTypeErrorHandling then
+		notInstance = not assetInstance or typeof(assetInstance) ~= "Instance"
+	else
+		notInstance = not assetInstance
+	end
+
+	if notInstance then
 		return self.TYPES.LoadingType
 	end
 

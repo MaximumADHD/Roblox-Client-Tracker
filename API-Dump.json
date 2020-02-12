@@ -26639,74 +26639,6 @@
                     }
                 },
                 {
-                    "Category": "Garbage Collection",
-                    "MemberType": "Property",
-                    "Name": "GcFrequency",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "int"
-                    }
-                },
-                {
-                    "Category": "Garbage Collection",
-                    "MemberType": "Property",
-                    "Name": "GcLimit",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "int"
-                    }
-                },
-                {
-                    "Category": "Garbage Collection",
-                    "MemberType": "Property",
-                    "Name": "GcPause",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "int"
-                    }
-                },
-                {
-                    "Category": "Garbage Collection",
-                    "MemberType": "Property",
-                    "Name": "GcStepMul",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "int"
-                    }
-                },
-                {
                     "Category": "Settings",
                     "MemberType": "Property",
                     "Name": "WaitingThreadsBudget",
@@ -29164,17 +29096,6 @@
                         "Category": "Primitive",
                         "Name": "int"
                     }
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "GetClientCount",
-                    "Parameters": [
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "int"
-                    },
-                    "Security": "LocalUserSecurity"
                 }
             ],
             "MemoryCategory": "Instances",
@@ -29341,57 +29262,6 @@
         {
             "Members": [
                 {
-                    "Category": "Diagnostics",
-                    "MemberType": "Property",
-                    "Name": "ArePhysicsRejectionsReported",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    }
-                },
-                {
-                    "Category": "Network",
-                    "MemberType": "Property",
-                    "Name": "ClientPhysicsSendRate",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "float"
-                    }
-                },
-                {
-                    "Category": "Network",
-                    "MemberType": "Property",
-                    "Name": "DataGCRate",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "float"
-                    }
-                },
-                {
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "DataMtuAdjust",
@@ -29541,40 +29411,6 @@
                     }
                 },
                 {
-                    "Category": "Network",
-                    "MemberType": "Property",
-                    "Name": "IsQueueErrorComputed",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    }
-                },
-                {
-                    "Category": "Network",
-                    "MemberType": "Property",
-                    "Name": "NetworkOwnerRate",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "float"
-                    }
-                },
-                {
                     "Category": "Physics",
                     "MemberType": "Property",
                     "Name": "PhysicsMtuAdjust",
@@ -29615,23 +29451,6 @@
                 {
                     "Category": "Network",
                     "MemberType": "Property",
-                    "Name": "PhysicsSendRate",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "float"
-                    }
-                },
-                {
-                    "Category": "Network",
-                    "MemberType": "Property",
                     "Name": "PreferredClientPort",
                     "Security": {
                         "Read": "None",
@@ -29644,40 +29463,6 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "int"
-                    }
-                },
-                {
-                    "Category": "Diagnostics",
-                    "MemberType": "Property",
-                    "Name": "PrintBits",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    }
-                },
-                {
-                    "Category": "Diagnostics",
-                    "MemberType": "Property",
-                    "Name": "PrintEvents",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
                     }
                 },
                 {
@@ -29735,23 +29520,6 @@
                     "Category": "Diagnostics",
                     "MemberType": "Property",
                     "Name": "PrintPhysicsErrors",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    }
-                },
-                {
-                    "Category": "Diagnostics",
-                    "MemberType": "Property",
-                    "Name": "PrintProperties",
                     "Security": {
                         "Read": "None",
                         "Write": "None"
@@ -29905,23 +29673,6 @@
                     "Category": "Diagnostics",
                     "MemberType": "Property",
                     "Name": "TrackPhysicsDetails",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    }
-                },
-                {
-                    "Category": "Network",
-                    "MemberType": "Property",
-                    "Name": "UsePhysicsPacketCache",
                     "Security": {
                         "Read": "None",
                         "Write": "None"
@@ -49415,23 +49166,6 @@
                     }
                 },
                 {
-                    "Category": "Directories",
-                    "MemberType": "Property",
-                    "Name": "RecentSavesDir",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "DataType",
-                        "Name": "QDir"
-                    }
-                },
-                {
                     "Category": "General",
                     "MemberType": "Property",
                     "Name": "Render Throttle Percentage",
@@ -49895,6 +49629,26 @@
                 {
                     "Category": "Data",
                     "MemberType": "Property",
+                    "Name": "EnableScriptCollabByDefaultOnLoad",
+                    "Security": {
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "Hidden"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
                     "Name": "EnableScriptCollabOnLoad",
                     "Security": {
                         "Read": "PluginSecurity",
@@ -50240,6 +49994,24 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "LaunchBulkImport",
+                    "Parameters": [
+                        {
+                            "Name": "assetTypeToImport",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "OpenInBrowser_DONOTUSE",
                     "Parameters": [
                         {
@@ -50413,27 +50185,6 @@
                 },
                 {
                     "MemberType": "Function",
-                    "Name": "LaunchBulkImport",
-                    "Parameters": [
-                        {
-                            "Name": "assetTypeToImport",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "int"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "int"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "Tags": [
-                        "Yields"
-                    ]
-                },
-                {
-                    "MemberType": "Function",
                     "Name": "PromptImportFile",
                     "Parameters": [
                         {
@@ -50563,6 +50314,20 @@
                     "Tags": [
                         "Yields"
                     ]
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "BulkImportFinished",
+                    "Parameters": [
+                        {
+                            "Name": "state",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity"
                 },
                 {
                     "MemberType": "Event",

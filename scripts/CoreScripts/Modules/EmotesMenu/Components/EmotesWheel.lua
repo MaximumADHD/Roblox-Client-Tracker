@@ -11,6 +11,7 @@ local MouseIconOverrideService = require(CorePackages.InGameServices.MouseIconOv
 
 local Components = script.Parent
 local EmotesMenu = Components.Parent
+local Modules = EmotesMenu.Parent
 
 local Actions = EmotesMenu.Actions
 local Thunks = EmotesMenu.Thunks
@@ -27,6 +28,10 @@ local WheelBackground = require(Components.WheelBackground)
 local FocusSegment = require(Actions.FocusSegment)
 local HideMenu = require(Actions.HideMenu)
 local PlayEmote = require(Thunks.PlayEmote)
+
+local FFlagEmotesMenuNewKeybinds = require(Modules.Flags.FFlagEmotesMenuNewKeybinds)
+
+local KEYBINDS_PRIORITY = Enum.ContextActionPriority.High.Value
 
 local EmotesWheel = Roact.PureComponent:extend("EmotesWheel")
 
@@ -64,7 +69,7 @@ function EmotesWheel:bindActions()
     end
 
     ContextActionService:BindActionAtPriority(Constants.EmoteSelectionAction, selectEmote,
-        --[[createTouchButton = ]] false, Constants.HighPriorityActions, Constants.SelectionThumbstick)
+        --[[createTouchButton = ]] false, KEYBINDS_PRIORITY, Constants.SelectionThumbstick)
 
 
     local function playSelected(actionName, inputState, inputObj)
@@ -87,7 +92,7 @@ function EmotesWheel:bindActions()
     end
 
     ContextActionService:BindActionAtPriority(Constants.PlaySelectedAction, playSelected,
-        --[[createTouchButton = ]] false, Constants.HighPriorityActions, Constants.PlayEmoteButton)
+        --[[createTouchButton = ]] false, KEYBINDS_PRIORITY, Constants.PlayEmoteButton)
 
 
     local function closeMenu(actionName, inputState, inputObj)
@@ -103,7 +108,7 @@ function EmotesWheel:bindActions()
     }
 
     ContextActionService:BindActionAtPriority(Constants.CloseMenuAction, closeMenu, --[[createTouchButton = ]] false,
-        Constants.HighPriorityActions, unpack(closeButtons))
+        KEYBINDS_PRIORITY, unpack(closeButtons))
 
 
     local function closeMenuNoSink(actionName, inputState, inputObj)
@@ -113,7 +118,45 @@ function EmotesWheel:bindActions()
     end
 
     ContextActionService:BindActionAtPriority(Constants.LeaveMenuDontSinkInputAction, closeMenuNoSink,
-        --[[createTouchButton = ]] false, Constants.HighPriorityActions, unpack(Constants.LeaveMenuNoSinkInputs))
+        --[[createTouchButton = ]] false, KEYBINDS_PRIORITY, unpack(Constants.LeaveMenuNoSinkInputs))
+
+
+    local function activateEmoteByNumber(actionName, inputState, inputObj)
+        if inputState ~= Enum.UserInputState.Begin then
+            return
+        end
+
+        local pressedSlot
+
+        for slot, key in ipairs(Constants.EmoteSlotKeys) do
+            if key == inputObj.KeyCode then
+                pressedSlot = slot
+                break
+            end
+        end
+
+        if not pressedSlot then
+            return
+        end
+
+        local emoteName = self.props.emotesPage.currentEmotes[pressedSlot]
+        if not emoteName then
+            return
+        end
+
+        local emoteAssetIds = self.props.emotesPage.emotesInfo[emoteName]
+        if not emoteAssetIds then
+            return
+        end
+
+        local assetId = getRandomAssetId(emoteAssetIds)
+        self.props.playEmote(emoteName, pressedSlot, assetId)
+    end
+
+    if FFlagEmotesMenuNewKeybinds then
+        ContextActionService:BindActionAtPriority(Constants.ActivateEmoteSlotAction, activateEmoteByNumber,
+            --[[ createTouchButton = ]] false, KEYBINDS_PRIORITY, unpack(Constants.EmoteSlotKeys))
+    end
 
     self.actionsBound = true
 end
@@ -124,6 +167,10 @@ function EmotesWheel:unbindActions()
         ContextActionService:UnbindAction(Constants.EmoteSelectionAction)
         ContextActionService:UnbindAction(Constants.PlaySelectedAction)
         ContextActionService:UnbindAction(Constants.LeaveMenuDontSinkInputAction)
+
+        if FFlagEmotesMenuNewKeybinds then
+            ContextActionService:UnbindAction(Constants.ActivateEmoteSlotAction)
+        end
 
         self.actionsBound = false
     end

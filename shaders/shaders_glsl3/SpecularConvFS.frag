@@ -19,41 +19,36 @@ out vec4 _entryPointOutput;
 void main()
 {
     vec3 f1 = normalize(VARYING1);
-    vec3 f2;
-    float f3;
-    f3 = 0.0;
-    f2 = vec3(0.0);
-    vec3 f4;
-    float f5;
-    for (int f6 = 0; f6 < 32; f3 = f5, f2 = f4, f6++)
+    float f2 = (CB2[3].x * 5.0) - 1.0;
+    vec3 f3;
+    float f4;
+    f4 = 0.0;
+    f3 = vec3(0.0);
+    vec3 f5;
+    float f6;
+    for (int f7 = 0; f7 < 32; f4 = f6, f3 = f5, f7++)
     {
-        float f7 = float(f6);
-        float f8 = f0[f6];
-        float f9 = CB2[3].x * CB2[3].x;
-        float f10 = sqrt((1.0 - f8) / (1.0 + (((f9 * f9) - 1.0) * f8)));
-        float f11 = sqrt(1.0 - (f10 * f10));
-        float f12 = f7 * 0.19634954631328582763671875;
-        bvec3 f13 = bvec3(abs(f1.z) < 0.999000012874603271484375);
-        vec3 f14 = normalize(cross(vec3(f13.x ? vec3(0.0, 0.0, 1.0).x : vec3(1.0, 0.0, 0.0).x, f13.y ? vec3(0.0, 0.0, 1.0).y : vec3(1.0, 0.0, 0.0).y, f13.z ? vec3(0.0, 0.0, 1.0).z : vec3(1.0, 0.0, 0.0).z), f1));
-        vec3 f15 = ((f14 * (f11 * cos(f12))) + (cross(f1, f14) * (f11 * sin(f12)))) + (f1 * f10);
-        vec3 f16 = (f15 * (2.0 * dot(f1, f15))) - f1;
-        float f17 = clamp(dot(f1, f16), 0.0, 1.0);
-        if (f17 > 0.0)
+        float f8 = CB2[3].x * CB2[3].x;
+        float f9 = sqrt((1.0 - f0[f7]) / (1.0 + (((f8 * f8) - 1.0) * f0[f7])));
+        float f10 = sqrt(1.0 - (f9 * f9));
+        float f11 = float(f7) * 0.19634954631328582763671875;
+        bvec3 f12 = bvec3(abs(f1.z) < 0.999000012874603271484375);
+        vec3 f13 = normalize(cross(vec3(f12.x ? vec3(0.0, 0.0, 1.0).x : vec3(1.0, 0.0, 0.0).x, f12.y ? vec3(0.0, 0.0, 1.0).y : vec3(1.0, 0.0, 0.0).y, f12.z ? vec3(0.0, 0.0, 1.0).z : vec3(1.0, 0.0, 0.0).z), f1));
+        vec3 f14 = ((f13 * (f10 * cos(f11))) + (cross(f1, f13) * (f10 * sin(f11)))) + (f1 * f9);
+        vec3 f15 = (f14 * (2.0 * dot(f1, f14))) - f1;
+        float f16 = clamp(dot(f1, f15), 0.0, 1.0);
+        if (f16 > 0.0)
         {
-            float f18 = (CB2[3].x * 5.0) - 1.0;
-            f5 = f3 + f17;
-            f4 = f2 + (textureLod(envMapTexture, vec4(f16, f18).xyz, f18).xyz * f17);
-            continue;
+            f6 = f4 + f16;
+            f5 = f3 + (textureLod(envMapTexture, vec4(f15, f2).xyz, f2).xyz * f16);
         }
         else
         {
+            f6 = f4;
             f5 = f3;
-            f4 = f2;
-            continue;
         }
-        continue;
     }
-    _entryPointOutput = vec4(f2 / vec3(f3), 0.0);
+    _entryPointOutput = vec4(f3 / vec3(f4), 0.0);
 }
 
 //$$envMapTexture=s0

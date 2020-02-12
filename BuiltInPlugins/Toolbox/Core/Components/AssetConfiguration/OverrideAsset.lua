@@ -58,29 +58,30 @@ function OverrideAsset:init(props)
 
 	self.state = {
 		selectIndex = 1,
-		selectItem = self.dropdownContent,
+		selectItem = FFlagEnablePurchasePluginFromLua2 and self.dropdownContent[1] or self.dropdownContent,
 	}
 
 	self.onDropDownSelect = function(index)
 		local item = self.dropdownContent[index]
+		-- We supported override plugin only after this change.
+		local overrideCursor = FFlagEnableOverrideAssetCursorFix and "" or PagedRequestCursor.createDefaultCursor()
+		if FFlagEnablePurchasePluginFromLua2 then
+			self.props.updateStore({
+				fetchedAll = false,
+				loadingPage = 0,
+				overrideCursor = overrideCursor,
+			})
+		end
+
 		self.props.getOverrideAssets(getNetwork(self), self.props.assetTypeEnum, item.creatorType, item.creatorId, 1)
 		self:setState({
 			selectIndex = index,
 			selectItem = item,
 		})
-
-		-- We supported override plugin only after this change.
-		if FFlagEnablePurchasePluginFromLua2 then
-			self.props.updateStore({
-				fetchedAll = false,
-				loadingPage = 0,
-				overrideCursor = PagedRequestCursor.createDefaultCursor(),
-			})
-		end
 	end
 
 	self.getOverrideAssetsFunc = function(targetPage)
-		local selectItem = FFlagEnableOverrideAssetCursorFix and self.state.selectItem[1] or {}
+		local selectItem = FFlagEnableOverrideAssetCursorFix and self.state.selectItem or {}
 		self.props.getOverrideAssets(getNetwork(self), self.props.assetTypeEnum, selectItem.creatorType, selectItem.creatorId, targetPage)
 	end
 end
@@ -88,7 +89,18 @@ end
 function OverrideAsset:didMount()
 	local userId = getUserId()
 	-- Initial request
-	self.props.getOverrideAssets(getNetwork(self), self.props.assetTypeEnum, "User", userId, 1)
+	if FFlagEnableOverrideAssetCursorFix then
+		local defaultSelect = self.dropdownContent[1]
+		self.props.getOverrideAssets(
+			getNetwork(self),
+			self.props.assetTypeEnum,
+			defaultSelect.creatorType,
+			defaultSelect.creatorId,
+			1
+		)
+	else
+		self.props.getOverrideAssets(getNetwork(self), self.props.assetTypeEnum, "User", userId, 1)
+	end
 	if game:GetFastFlag("FixAssetConfigManageableGroups") then
 		self.props.getManageableGroups(getNetwork(self))
 	else

@@ -10,9 +10,13 @@ local Biome = TerrainEnums.Biome
 local quickWait = require(Plugin.Src.Util.quickWait)
 
 game:DefineFastFlag("TerrainToolsOffsetGenerationNoise", false)
+game:DefineFastFlag("TerrainToolsFixOffsetGenerationNoise", false)
+game:DefineFastFlag("TerrainToolsGeneratorSkipAir", false)
 
 local FFlagTerrainToolMetrics = settings():GetFFlag("TerrainToolMetrics")
 local FFlagTerrainToolsOffsetGenerationNoise = game:GetFastFlag("TerrainToolsOffsetGenerationNoise")
+local FFlagTerrainToolsFixOffsetGenerationNoise = game:GetFastFlag("TerrainToolsFixOffsetGenerationNoise")
+local FFlagTerrainToolsGeneratorSkipAir = game:GetFastFlag("TerrainToolsGeneratorSkipAir")
 
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 local ChangeHistoryService = game:GetService("ChangeHistoryService")
@@ -25,6 +29,11 @@ local surfaceThickness = 0.018
 
 local canyonBandingMaterial = {mat.Rock, mat.Mud, mat.Sand, mat.Sand,
 	mat.Sandstone, mat.Sandstone, mat.Sandstone, mat.Sandstone, mat.Sandstone, mat.Sandstone,}
+
+-- Default values to use for a biome if it's not in BiomeInfoFuncs below
+local defaultBiomeValue = 0.5
+local defaultBiomeSurface = mat.Grass
+local defaultBiomeFill = mat.Rock
 
 local seedArray
 do
@@ -150,14 +159,16 @@ return function(terrain, generateSettings)
 	local voxelExtents = voxelSize / 2
 	mapPosition = mapRegion.CFrame.Position
 
-	-- Default values to use for a biome if it's not in BiomeInfoFuncs below
-	local defaultBiomeValue = 0.5
-	local defaultBiomeSurface = mat.Grass
-	local defaultBiomeFill = mat.Rock
-
+	local cornerWorldVoxelX = 0
+	local cornerWorldVoxelZ = 0
 	local noiseOffsetX = 0
 	local noiseOffsetZ = 0
-	if FFlagTerrainToolsOffsetGenerationNoise then
+	if FFlagTerrainToolsFixOffsetGenerationNoise then
+		local mapPositionVoxel = mapPosition / Constants.VOXEL_RESOLUTION
+		cornerWorldVoxelX = mapPositionVoxel.x - (voxelSize.x / 2)
+		cornerWorldVoxelZ = mapPositionVoxel.z - (voxelSize.z / 2)
+
+	elseif FFlagTerrainToolsOffsetGenerationNoise then
 		noiseOffsetX = mapPosition.x / Constants.VOXEL_RESOLUTION
 		noiseOffsetZ = mapPosition.z / Constants.VOXEL_RESOLUTION
 	end
@@ -168,6 +179,7 @@ return function(terrain, generateSettings)
 	local getPerlin
 	local getNoise
 	local BiomeInfoFuncs
+	local processVoxel
 	do
 		getPerlin = function (x, y, z, perlinSeed, scale, raw)
 			perlinSeed = perlinSeed or 0
@@ -430,6 +442,108 @@ return function(terrain, generateSettings)
 				return choiceBiomeValue, choiceBiomeSurface, choiceBiomeFill
 			end,
 		}
+
+		--  Returns (Material material, number occupancy, bool hasHitAirAboveSurface)
+		processVoxel = FFlagTerrainToolsGeneratorSkipAir and function (x, y, z,
+			sliceY, worldVoxelX, worldVoxelZ,
+			weightPoints, biomeNoCave)
+			local verticalGradient = 1 - ((y - 1) / (sliceY - 1))
+			local verticalGradientTurbulence = (verticalGradient * 0.9) + (0.1 * getPerlin(worldVoxelX, y, worldVoxelZ, 107, 15))
+
+			local choiceValue = 0
+			local choiceSurface = mat.CrackedLava
+			local choiceFill = mat.Rock
+
+			if verticalGradient > 0.65 or verticalGradient < 0.1 then
+				-- Under surface of every biome, don't get biome data
+				choiceValue = 0.5
+
+			elseif #biomes == 1 then
+				-- No need to do averaging if there's only 1 biome
+				local biomeFunc = BiomeInfoFuncs[biomes[1]]
+				if biomeFunc then
+					choiceValue, choiceSurface, choiceFill = biomeFunc(worldVoxelX, y, worldVoxelZ, verticalGradientTurbulence)
+				else
+					choiceValue, choiceSurface, choiceFill = defaultBiomeValue, defaultBiomeSurface, defaultBiomeFill
+				end
+			else
+				local averageValue = 0
+
+				for biome, info in pairs(weightPoints) do
+					local biomeFunc = BiomeInfoFuncs[biome]
+					if biomeFunc then
+						local biomeValue, biomeSurface, biomeFill = biomeFunc(worldVoxelX, y, worldVoxelZ, verticalGradientTurbulence)
+						info.biomeValue = biomeValue
+						info.biomeSurface = biomeSurface
+						info.biomeFill = biomeFill
+					else
+						info.biomeValue = defaultBiomeValue
+						info.biomeSurface = defaultBiomeSurface
+						info.biomeFill = defaultBiomeFill
+					end
+
+					averageValue = averageValue + (info.biomeValue * info.weight)
+				end
+
+				for biome, info in pairs(weightPoints) do
+					local value = findBiomeTransitionValue(biome, info.weight, info.biomeValue, averageValue)
+					if value > choiceValue then
+						choiceValue = value
+						choiceSurface = info.biomeSurface
+						choiceFill = info.biomeFill
+					end
+				end
+			end
+
+			local preCaveComp = (verticalGradient * 0.5) + (choiceValue * 0.5)
+			local surface = preCaveComp > 0.5 - surfaceThickness and preCaveComp < 0.5 + surfaceThickness
+			local caves = 0
+
+			if haveCaves                                                                  -- User wants caves
+				and (not biomeNoCave or verticalGradient > 0.65)                      -- Biome allows caves or we're deep enough
+				and not (surface and (1 - verticalGradient) < waterLevel + 0.005)     -- Caves only breach surface above sea level
+				and not (surface and (1 - verticalGradient) > waterLevel + 0.58) then -- Caves don't go too high through mountains
+
+				local ridged2 = ridgedFilter(getPerlin(worldVoxelX, y, worldVoxelZ, 4, 30))
+				local caves2 = thresholdFilter(ridged2, 0.84, 0.01)
+
+				local ridged3 = ridgedFilter(getPerlin(worldVoxelX, y, worldVoxelZ, 5, 30))
+				local caves3 = thresholdFilter(ridged3, 0.84, 0.01)
+
+				local ridged4 = ridgedFilter(getPerlin(worldVoxelX, y, worldVoxelZ, 6, 30))
+				local caves4 = thresholdFilter(ridged4, 0.84, 0.01)
+
+				local caveOpenings = surface and thresholdFilter(getPerlin(worldVoxelX, 0, worldVoxelZ, 143, 62), 0.35, 0)
+					or 0
+
+				caves = caves2 * caves3 * caves4 - caveOpenings
+				caves = caves < 0 and 0 or caves > 1 and 1 or caves
+			end
+
+			local comp = preCaveComp - caves
+			local smoothedResult = thresholdFilter(comp, 0.5, mapHeight)
+
+			if 1 - verticalGradient < waterLevel -- Below water level
+				and preCaveComp <= 0.5       -- Above surface
+				and smoothedResult <= 0 then -- No terrain
+				smoothedResult = 1
+				choiceSurface = mat.Water
+				choiceFill = mat.Water
+				surface = true
+			end
+
+			local finalOccupancy = y == 1 and 1
+				or smoothedResult
+
+			local finalMaterial = y == 1 and mat.CrackedLava
+				or smoothedResult <= 0 and mat.Air
+				or surface and choiceSurface
+				or choiceFill
+
+			local hasHitAirAboveSurface = surface and (finalOccupancy <= 0 or finalMaterial == mat.Air)
+
+			return finalMaterial, finalOccupancy, hasHitAirAboveSurface
+		end
 	end
 
 	-- Pause/resume/cancel/finish control
@@ -447,6 +561,10 @@ return function(terrain, generateSettings)
 
 	local cancelled = false
 	local cancel
+
+	-- Counts in seconds how long we've spent yielding
+	-- So we can get a more accurate calculation of the actual time spent doing work for the generator
+	local yieldTime = 0
 
 	-- Implementation of pause/resume/cancel/finish functions
 	do
@@ -537,7 +655,6 @@ return function(terrain, generateSettings)
 		local sliceY = sliceRegion.Size.Y / Constants.VOXEL_RESOLUTION
 		local sliceZ = sliceRegion.Size.Z / Constants.VOXEL_RESOLUTION
 
-
 		-- Preallocate the tables we're going to write into
 		-- And then because we touch every voxel, we don't need to destroy or clear them each iteration
 		local occupancyMap = table.create(1)
@@ -551,6 +668,13 @@ return function(terrain, generateSettings)
 			end
 		end
 
+		-- Once we've hit an air voxel (and aren't in a cave) we don't need to keep running the biome functions
+		-- Because we know the rest of the column will just be air, so we can ignore it
+		-- But because we reuse the occupancy and material maps, we need to clear the previous slice's data
+		-- i.e. if one slice is 10 voxels high, and the next is only 7, then we don't want those 3 voxels to carry over
+		-- But once we've hit 10, we can ignore the rest
+		local previousColumnHeights = FFlagTerrainToolsGeneratorSkipAir and table.create(sliceZ, 0) or nil
+
 		for x = 1, voxelSize.X, 1 do
 			local regionOffsetX = x - voxelExtents.X
 			-- Translate our voxel coordinates into world coordinates, offsetted by target position
@@ -560,17 +684,19 @@ return function(terrain, generateSettings)
 				+ mapPosition
 			sliceRegion = Region3.new(regionStart, regionEnd):ExpandToGrid(Constants.VOXEL_RESOLUTION)
 
-			local offsetX = regionOffsetX + noiseOffsetX
+			local worldVoxelX = FFlagTerrainToolsFixOffsetGenerationNoise and (cornerWorldVoxelX + x - 1)
+				or (regionOffsetX + noiseOffsetX)
 
 			for z = 1, sliceZ, 1 do
-				local offsetZ = z + noiseOffsetZ
+				local worldVoxelZ = FFlagTerrainToolsFixOffsetGenerationNoise and (cornerWorldVoxelZ + z - 1)
+					or (z + noiseOffsetZ)
 
-				local cellToBiomeX = (offsetX / biomeSize)
-					+ (getPerlin(offsetX, 0, offsetZ, 233, biomeSize * 0.3) * 0.25)
-					+ (getPerlin(offsetX, 0, offsetZ, 235, biomeSize * 0.05) * 0.075)
-				local cellToBiomeZ = (offsetZ / biomeSize)
-					+ (getPerlin(offsetX, 0, offsetZ, 234, biomeSize * 0.3) * 0.25)
-					+ (getPerlin(offsetX, 0, offsetZ, 236, biomeSize * 0.05) * 0.075)
+				local cellToBiomeX = (worldVoxelX / biomeSize)
+					+ (getPerlin(worldVoxelX, 0, worldVoxelZ, 233, biomeSize * 0.3) * 0.25)
+					+ (getPerlin(worldVoxelX, 0, worldVoxelZ, 235, biomeSize * 0.05) * 0.075)
+				local cellToBiomeZ = (worldVoxelZ / biomeSize)
+					+ (getPerlin(worldVoxelX, 0, worldVoxelZ, 234, biomeSize * 0.3) * 0.25)
+					+ (getPerlin(worldVoxelX, 0, worldVoxelZ, 236, biomeSize * 0.05) * 0.075)
 
 				local closestDistanceSquared = 10000000
 
@@ -628,106 +754,140 @@ return function(terrain, generateSettings)
 					end
 				end
 
+				local prevColumnHeight = FFlagTerrainToolsGeneratorSkipAir and (previousColumnHeights[z] or sliceY) or 0
+				local hasHitAir = false
+				local columnHeight = 0
 				for y = 1, sliceY, 1 do
-					local verticalGradient = 1 - ((y - 1) / (sliceY - 1))
-					local verticalGradientTurbulence = (verticalGradient * 0.9) + (0.1 * getPerlin(offsetX, y, offsetZ, 107, 15))
+					if FFlagTerrainToolsGeneratorSkipAir then
+						-- Keep calculating voxels until we hit the surface
+						if not hasHitAir then
+							local material, occupancy, hasHitAirAboveSurface = processVoxel(x, y, z,
+								sliceY, worldVoxelX, worldVoxelZ, weightPoints, biomeNoCave)
 
-					local choiceValue = 0
-					local choiceSurface = mat.CrackedLava
-					local choiceFill = mat.Rock
+							materialMap[1][y][z] = material
+							occupancyMap[1][y][z] = occupancy
+							columnHeight = y
 
-					if verticalGradient > 0.65 or verticalGradient < 0.1 then
-						-- Under surface of every biome, don't get biome data
-						choiceValue = 0.5
-
-					elseif #biomes == 1 then
-						-- No need to do averaging if there's only 1 biome
-						local biomeFunc = BiomeInfoFuncs[biomes[1]]
-						if biomeFunc then
-							choiceValue, choiceSurface, choiceFill = biomeFunc(offsetX, y, offsetZ, verticalGradientTurbulence)
-						else
-							choiceValue, choiceSurface, choiceFill = defaultBiomeValue, defaultBiomeSurface, defaultBiomeFill
+							hasHitAir = hasHitAirAboveSurface
 						end
+
+						-- Once we've hit the surface, set every voxel to air til we can move to the next column
+						if hasHitAir then
+							occupancyMap[1][y][z] = 0
+							materialMap[1][y][z] = mat.Air
+							if y > prevColumnHeight then
+								-- If we've passed the height of this column in the previous slice
+								-- Then we know there isn't any data above that we need to wipe
+								-- So let's move to the next column
+								break
+							end
+						end
+
 					else
-						local averageValue = 0
 
-						for biome, info in pairs(weightPoints) do
-							local biomeFunc = BiomeInfoFuncs[biome]
+						local verticalGradient = 1 - ((y - 1) / (sliceY - 1))
+						local verticalGradientTurbulence = (verticalGradient * 0.9) + (0.1 * getPerlin(worldVoxelX, y, worldVoxelZ, 107, 15))
+
+						local choiceValue = 0
+						local choiceSurface = mat.CrackedLava
+						local choiceFill = mat.Rock
+
+						if verticalGradient > 0.65 or verticalGradient < 0.1 then
+							-- Under surface of every biome, don't get biome data
+							choiceValue = 0.5
+
+						elseif #biomes == 1 then
+							-- No need to do averaging if there's only 1 biome
+							local biomeFunc = BiomeInfoFuncs[biomes[1]]
 							if biomeFunc then
-								local biomeValue, biomeSurface, biomeFill = biomeFunc(offsetX, y, offsetZ, verticalGradientTurbulence)
-								info.biomeValue = biomeValue
-								info.biomeSurface = biomeSurface
-								info.biomeFill = biomeFill
+								choiceValue, choiceSurface, choiceFill = biomeFunc(worldVoxelX, y, worldVoxelZ, verticalGradientTurbulence)
 							else
-								info.biomeValue = defaultBiomeValue
-								info.biomeSurface = defaultBiomeSurface
-								info.biomeFill = defaultBiomeFill
+								choiceValue, choiceSurface, choiceFill = defaultBiomeValue, defaultBiomeSurface, defaultBiomeFill
+							end
+						else
+							local averageValue = 0
+
+							for biome, info in pairs(weightPoints) do
+								local biomeFunc = BiomeInfoFuncs[biome]
+								if biomeFunc then
+									local biomeValue, biomeSurface, biomeFill = biomeFunc(worldVoxelX, y, worldVoxelZ, verticalGradientTurbulence)
+									info.biomeValue = biomeValue
+									info.biomeSurface = biomeSurface
+									info.biomeFill = biomeFill
+								else
+									info.biomeValue = defaultBiomeValue
+									info.biomeSurface = defaultBiomeSurface
+									info.biomeFill = defaultBiomeFill
+								end
+
+								averageValue = averageValue + (info.biomeValue * info.weight)
 							end
 
-							averageValue = averageValue + (info.biomeValue * info.weight)
-						end
-
-						for biome, info in pairs(weightPoints) do
-							local value = findBiomeTransitionValue(biome, info.weight, info.biomeValue, averageValue)
-							if value > choiceValue then
-								choiceValue = value
-								choiceSurface = info.biomeSurface
-								choiceFill = info.biomeFill
+							for biome, info in pairs(weightPoints) do
+								local value = findBiomeTransitionValue(biome, info.weight, info.biomeValue, averageValue)
+								if value > choiceValue then
+									choiceValue = value
+									choiceSurface = info.biomeSurface
+									choiceFill = info.biomeFill
+								end
 							end
 						end
+
+						local preCaveComp = (verticalGradient * 0.5) + (choiceValue * 0.5)
+						local surface = preCaveComp > 0.5 - surfaceThickness and preCaveComp < 0.5 + surfaceThickness
+						local caves = 0
+
+						if haveCaves                                                                  -- User wants caves
+							and (not biomeNoCave or verticalGradient > 0.65)                      -- Biome allows caves or we're deep enough
+							and not (surface and (1 - verticalGradient) < waterLevel + 0.005)     -- Caves only breach surface above sea level
+							and not (surface and (1 - verticalGradient) > waterLevel + 0.58) then -- Caves don't go too high through mountains
+
+							local ridged2 = ridgedFilter(getPerlin(worldVoxelX, y, worldVoxelZ, 4, 30))
+							local caves2 = thresholdFilter(ridged2, 0.84, 0.01)
+
+							local ridged3 = ridgedFilter(getPerlin(worldVoxelX, y, worldVoxelZ, 5, 30))
+							local caves3 = thresholdFilter(ridged3, 0.84, 0.01)
+
+							local ridged4 = ridgedFilter(getPerlin(worldVoxelX, y, worldVoxelZ, 6, 30))
+							local caves4 = thresholdFilter(ridged4, 0.84, 0.01)
+
+							local caveOpenings = surface and thresholdFilter(getPerlin(worldVoxelX, 0, worldVoxelZ, 143, 62), 0.35, 0)
+								or 0
+
+							caves = caves2 * caves3 * caves4 - caveOpenings
+							caves = caves < 0 and 0 or caves > 1 and 1 or caves
+						end
+
+						local comp = preCaveComp - caves
+						local smoothedResult = thresholdFilter(comp, 0.5, mapHeight)
+
+						if 1 - verticalGradient < waterLevel -- Below water level
+							and preCaveComp <= 0.5       -- Above surface
+							and smoothedResult <= 0 then -- No terrain
+							smoothedResult = 1
+							choiceSurface = mat.Water
+							choiceFill = mat.Water
+							surface = true
+						end
+
+						occupancyMap[1][y][z] = y == 1 and 1
+							or smoothedResult
+						materialMap[1][y][z] = y == 1 and mat.CrackedLava
+							or smoothedResult <= 0 and mat.Air
+							or surface and choiceSurface
+							or choiceFill
 					end
+				end
 
-					local preCaveComp = (verticalGradient * 0.5) + (choiceValue * 0.5)
-					local surface = preCaveComp > 0.5 - surfaceThickness and preCaveComp < 0.5 + surfaceThickness
-					local caves = 0
-
-					if haveCaves                                                                  -- User wants caves
-						and (not biomeNoCave or verticalGradient > 0.65)                      -- Biome allows caves or we're deep enough
-						and not (surface and (1 - verticalGradient) < waterLevel + 0.005)     -- Caves only breach surface above sea level
-						and not (surface and (1 - verticalGradient) > waterLevel + 0.58) then -- Caves don't go too high through mountains
-
-						local ridged2 = ridgedFilter(getPerlin(offsetX, y, offsetZ, 4, 30))
-						local caves2 = thresholdFilter(ridged2, 0.84, 0.01)
-
-						local ridged3 = ridgedFilter(getPerlin(offsetX, y, offsetZ, 5, 30))
-						local caves3 = thresholdFilter(ridged3, 0.84, 0.01)
-
-						local ridged4 = ridgedFilter(getPerlin(offsetX, y, offsetZ, 6, 30))
-						local caves4 = thresholdFilter(ridged4, 0.84, 0.01)
-
-						local caveOpenings = surface and thresholdFilter(getPerlin(offsetX, 0, offsetZ, 143, 62), 0.35, 0)
-							or 0
-
-						caves = caves2 * caves3 * caves4 - caveOpenings
-						caves = caves < 0 and 0 or caves > 1 and 1 or caves
-					end
-
-					local comp = preCaveComp - caves
-					local smoothedResult = thresholdFilter(comp, 0.5, mapHeight)
-
-					if 1 - verticalGradient < waterLevel -- Below water level
-						and preCaveComp <= 0.5       -- Above surface
-						and smoothedResult <= 0 then -- No terrain
-						smoothedResult = 1
-						choiceSurface = mat.Water
-						choiceFill = mat.Water
-						surface = true
-					end
-
-					occupancyMap[1][y][z] = y == 1 and 1
-						or smoothedResult
-					materialMap[1][y][z] = y == 1 and mat.CrackedLava
-						or smoothedResult <= 0 and mat.Air
-						or surface and choiceSurface
-						or choiceFill
+				if FFlagTerrainToolsGeneratorSkipAir then
+					previousColumnHeights[z] = columnHeight
 				end
 			end
 
 			-- Apply our changes to the terrain
-
 			local success, msg = pcall(function()
 				terrain:WriteVoxels(sliceRegion, Constants.VOXEL_RESOLUTION, materialMap, occupancyMap)
- 			end)
+			end)
 
 			if not success then
 				cancelled = true
@@ -739,10 +899,14 @@ return function(terrain, generateSettings)
 
 			-- Pause until the next frame
 			-- If we're paused then keep waiting until either we're not paused, or we're cancelled
+			local startWaitTime = tick()
 			quickWait()
 			while isPaused and not cancelled do
 				quickWait()
 			end
+			local endWaitTime = tick()
+			yieldTime = yieldTime + (endWaitTime - startWaitTime)
+
 			if cancelled or finished then
 				-- Stop the generation
 				break
@@ -772,6 +936,10 @@ return function(terrain, generateSettings)
 		finishSignal = finishSignal,
 		isFinished = function()
 			return finished
+		end,
+
+		getYieldTime = function()
+			return yieldTime
 		end,
 	}
 end

@@ -591,7 +591,7 @@ Item {
                             anchors.right: searchClearButton.left
                             anchors.leftMargin: 21 - 8
                             anchors.rightMargin: 0
-                            placeholderText: "Search for friends"
+                            placeholderText: qsTr("Studio.App.ShareModal.SearchPlaceholderText");
                             font.pixelSize: 18
                             font.family: RobloxStyle.fontSourceSansProLight
                             font.weight: userPreferences.theme.style("CommonStyle fontWeight")

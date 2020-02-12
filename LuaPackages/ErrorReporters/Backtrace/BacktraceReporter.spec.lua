@@ -92,6 +92,7 @@ return function()
 	describe(":reportErrorImmediately", function()
 		it("should send error report through provided httpService", function()
 			requestsSent = 0
+
 			local reporter = BacktraceReporter.new({
 				httpService = mockHttpService,
 				token = "12345",
@@ -104,6 +105,24 @@ return function()
 			reporter:reportErrorImmediately(mockErrorMessage, mockErrorStack)
 
 			expect(requestsSent).to.equal(2)
+
+			reporter:stop()
+		end)
+
+		it("should set details in the report if it's not nil", function()
+			requestsSent = 0
+			requestBody = nil
+
+			local reporter = BacktraceReporter.new({
+				httpService = mockHttpService,
+				token = "12345",
+			})
+
+			reporter:reportErrorImmediately(mockErrorMessage, mockErrorStack, "SomeDetails")
+
+			expect(requestsSent).to.equal(1)
+
+			expect(requestBody.annotations.stackDetails).to.equal("SomeDetails")
 
 			reporter:stop()
 		end)
@@ -132,6 +151,28 @@ return function()
 			-- These 2 errors would be squashed together
 			expect(requestsSent).to.equal(1)
 			expect(requestBody.attributes.ErrorCount).to.equal(2)
+
+			reporter:stop()
+		end)
+
+		it("should set details in the report if it's not nil", function()
+			local reporter = BacktraceReporter.new({
+				httpService = mockHttpService,
+				token = "12345",
+				queueOptions = {
+					-- The queue should flush when there are 2 or more than 2 errors.
+					queueErrorLimit = 2,
+				},
+			})
+
+			requestsSent = 0
+			requestBody = nil
+			reporter:reportErrorDeferred(mockErrorMessage, mockErrorStack, "SomeDetails")
+			reporter:reportErrorDeferred(mockErrorMessage, mockErrorStack, "SomeDetails")
+
+			expect(requestsSent).to.equal(1)
+
+			expect(requestBody.annotations.stackDetails).to.equal("SomeDetails")
 
 			reporter:stop()
 		end)

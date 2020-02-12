@@ -4,6 +4,7 @@ local FFlagFixToolboxInitLoad = settings():GetFFlag("FixToolboxInitLoad")
 local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 local FFlagToolboxShowGroupCreations = game:DefineFastFlag("ToolboxShowGroupCreations", false)
 local FFlagFixToolboxPluginScaling = game:DefineFastFlag("FixToolboxPluginScaling", false)
+local FFlagEnableDefaultSortFix = game:GetFastFlag("EnableDefaultSortFix")
 
 local Plugin = script.Parent.Parent.Parent
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
@@ -284,11 +285,19 @@ local function checkBounds(index)
 end
 
 function Category.categoryIsPackage(index, currentTab)
-	if FFlagFixToolboxInitLoad then
-		return checkBounds(index) and currentTab == Category.MARKETPLACE_KEY and Category.INVENTORY_WITH_GROUPS[index].assetType == Category.AssetType.PACKAGE
+	if FFlagEnableDefaultSortFix then
+		local categoryCheck = currentTab == Category.INVENTORY_KEY
+		local assetypeCheck = Category.INVENTORY_WITH_GROUPS[index].assetType == Category.AssetType.PACKAGE
+		return checkBounds(index) and categoryCheck and assetypeCheck
 	else
-		return checkBounds(index) and Category.INVENTORY_WITH_GROUPS[index].assetType == Category.AssetType.PACKAGE
+		-- TODO: Remove me
+		if FFlagFixToolboxInitLoad then
+			return checkBounds(index) and currentTab == Category.MARKETPLACE_KEY and Category.INVENTORY_WITH_GROUPS[index].assetType == Category.AssetType.PACKAGE
+		else
+			return checkBounds(index) and Category.INVENTORY_WITH_GROUPS[index].assetType == Category.AssetType.PACKAGE
+		end
 	end
+
 end
 
 function Category.categoryIsFreeAsset(index)
