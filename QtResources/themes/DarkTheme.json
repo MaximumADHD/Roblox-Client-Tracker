@@ -725,15 +725,18 @@
         "overrideBackground": "#802a2a"
     },
     "CommonStyle": {
-        "mainBackground": "#353535",
-        "inputFieldBackground": "#252525",
-        "currentItemMarker": "#424242",
-        "mainText": "#CCCCCC",
-        "mutedText": "#000000",
-        "dimmedText": "#666666",
-        "linkText": "#35B5FF",
-        "textRenderType": 0,
-        "fontWeight": 50
+      "mainBackground": "#353535",
+      "inputFieldBackground": "#252525",
+      "currentItemMarker": "#424242",
+      "tooltip": "#353535",
+      "tooltipBorder": "#222222",
+      "tooltipText": "#CCCCCC",
+      "mainText": "#CCCCCC",
+      "mutedText": "#000000",
+      "dimmedText": "#666666",
+      "linkText": "#35B5FF",
+      "textRenderType": 0,
+      "fontWeight": 50
     },
     "Ribbon": {
         "background": "#2E2E2E",

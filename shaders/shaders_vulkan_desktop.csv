@@ -72,10 +72,10 @@ DefaultPlasticFS,Fragment
 DefaultPlasticHQFS,Fragment
 DefaultPlasticHQFSShadowed,Fragment
 DefaultPlasticReflectionFS,Fragment
+DefaultShadowFS,Fragment
 DefaultShadowGeomInstancedVS,Vertex
 DefaultShadowGeomSkinnedVS,Vertex
 DefaultShadowGeomStaticVS,Vertex
-DefaultShadowInstancedVS,Vertex
 DefaultSkinnedForceFieldHQVS,Vertex
 DefaultSkinnedForceFieldHQVSShadowed,Vertex
 DefaultSkinnedForceFieldVS,Vertex

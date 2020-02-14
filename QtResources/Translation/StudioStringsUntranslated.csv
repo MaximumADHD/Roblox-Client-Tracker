@@ -378,6 +378,7 @@ This will shutdown all running servers.","Are you sure you want to make this gam
 This will shutdown all running servers."
 Studio.App.GamesPageController.RemoveTeamCreateGame,,Remove Team Create Game,Remove Team Create Game
 Studio.App.GamesPageController.Restored,,Restored,Restored
+Studio.App.GenericResourceController.RemovingGameAsset,,Removing game asset(s),Removing game asset(s)
 Studio.App.GoToLineDialog.LineNumber,,Line number:,Line number:
 Studio.App.GradientEditor.Time,,Time,Time
 Studio.App.IDEGameSettingsLinkDefinition.GameSettingsNotAvailable,,Game Settings not available,Game Settings not available
@@ -1044,6 +1045,7 @@ Studio.App.PropertyEnum.VeryFast,,Very Fast,Very Fast
 Studio.App.PropertyEnum.VerySlow,,Very Slow,Very Slow
 Studio.App.PropertyEnum.Vulkan,,Vulkan,Vulkan
 Studio.App.PropertyItems.DefaultTheme,,Default,Default
+Studio.App.PropertyItems.ImportingMesh,,Importing mesh...,Importing mesh...
 Studio.App.PropertyItems.InvertMeshFaces,,The mesh you are importing contains odd number negative scales. Would you like to invert mesh faces?,The mesh you are importing contains odd number negative scales. Would you like to invert mesh faces?
 Studio.App.PropertyItems.LoadStringEnbledWarning,,Activating the <b>%1</b> property might make your game vulnerable to exploits. Are you sure you want to enable this?,Activating the <b>%1</b> property might make your game vulnerable to exploits. Are you sure you want to enable this?
 Studio.App.PropertyItems.MoveTheMesh,,Your mesh contains location data. Would you like to move your mesh to the given location?,Your mesh contains location data. Would you like to move your mesh to the given location?
@@ -1052,7 +1054,7 @@ Please enter an asset ID or a correctly formatted asset url.","""%1"" is not a v
 Please enter an asset ID or a correctly formatted asset url."
 Studio.App.PropertyItems.PackageVersionFailedMessage,,Unable to perform this action.,Unable to perform this action.
 Studio.App.PropertyItems.ResizeTheMesh,,The mesh you are importing is very large. Would you like to resize the mesh?,The mesh you are importing is very large. Would you like to resize the mesh?
-Studio.App.PropertyItems.RevertPackageConfirmation,,Are you sure you want to revert this package to version % 1 ?,Are you sure you want to revert this package to version % 1 ?
+Studio.App.PropertyItems.RevertPackageConfirmation,,Are you sure you want to revert this package to version %1 ?,Are you sure you want to revert this package to version %1 ?
 Studio.App.QDebuggerClient.Breakpoint,,Breakpoint,Breakpoint
 Studio.App.QDebuggerClient.BreakpointLocationFmt2,,"Location: %1, line %2","Location: %1, line %2"
 Studio.App.QDebuggerClient.ConditionText,,Condition,Condition
@@ -1812,6 +1814,7 @@ Studio.App.RobloxStudioVerbs.SavingTo,,Saving to Roblox...,Saving to Roblox...
 Studio.App.RobloxStudioVerbs.SeparateFailed,,Separate failed,Separate failed
 Studio.App.RobloxStudioVerbs.StartServer,,Start server,Start server
 Studio.App.RobloxStudioVerbs.StartServerSaveFailure,,Start server - save failure,Start server - save failure
+Studio.App.RobloxStudioVerbs.StartingPlayers,,Starting players,Starting players
 Studio.App.RobloxStudioVerbs.Undo1,,Undo %s,Undo %s
 Studio.App.RobloxStudioVerbs.UnionFailed,,Union failed,Union failed
 Studio.App.RobloxTaskScheduler.HeaderLabelActivity,In task scheduler,Activity,Activity

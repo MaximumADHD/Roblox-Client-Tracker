@@ -22,6 +22,13 @@ local FFlagUserCameraToggle do
 	FFlagUserCameraToggle = success and result
 end
 
+local FFlagUserRemoveTheCameraApi do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserRemoveTheCameraApi")
+	end)
+	FFlagUserRemoveTheCameraApi = success and result
+end
+
 -- NOTICE: Player property names do not all match their StarterPlayer equivalents,
 -- with the differences noted in the comments on the right
 local PLAYER_CAMERA_PROPERTIES =
@@ -538,4 +545,11 @@ function CameraModule:OnMouseLockToggled()
 	end
 end
 
-return CameraModule.new()
+local cameraModuleObject = CameraModule.new()
+local cameraApi = {}
+
+if FFlagUserRemoveTheCameraApi then
+	return cameraApi
+else
+	return cameraModuleObject
+end

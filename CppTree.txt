@@ -261,6 +261,20 @@ RBX
 		MyNumPunct
 		ParameterTranslator
 	}
+	LSP
+	{
+		IConnection
+		IHostAppServices
+		ILanguageClient
+		ILanguageServer
+		LanguageClientBase
+		LanguageServerBase
+		LSPConnection
+		LSPManager
+		LuauLanguageServer
+		LuauLanguageServerExt
+		ScriptContentsProvider
+	}
 	Lua
 	{
 		EventSignalWrapperBase
@@ -458,6 +472,16 @@ RBX
 	ScriptAnalyzer
 	{
 		AutocompleteResult
+	}
+	ScriptEditor
+	{
+		CmdGotoPosition
+		CmdInsertText
+		GotoLineDialog
+		ScriptEditorConnection
+		ScriptingCmdBase
+		ScriptingCommands
+		ScriptingManager
 	}
 	Scripting
 	{

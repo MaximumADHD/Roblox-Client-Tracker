@@ -43,6 +43,12 @@ Rectangle {
            showExpandedView(state)
         }
     }
+    Connections {
+        target: insertObjectWindow
+        onWindowClosedEvent: {
+           clearWindowState()
+        }
+    }
 
     function showExpandedView(state) {
         expandedView = state
@@ -57,6 +63,16 @@ Rectangle {
             settingsDropDown.visible = state
             settingsMenuBackground.enabled = state
             settingsMenuBackground.visible = state
+        }
+    }
+
+    function clearWindowState()
+    {
+        if (insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView()) {
+            toggleSettingsMenu(false)
+            classToolTip.hide();
+            searchBoxText.text = "";
+		    getCurrentView().currentIndex = defaultCurrentIndex;
         }
     }
 
@@ -85,7 +101,10 @@ Rectangle {
     }
 
     function insertObject() {
-		if(insertObjectWindow.getFFlagStudioInsertObjectStreamlining_InsertWidget()) {
+        if(insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView() && isWindow) {
+			clearWindowState()
+		}
+		else if(insertObjectWindow.getFFlagStudioInsertObjectStreamlining_InsertWidget()) {
 			classToolTip.hide();
 		}
         var currentView = getCurrentView();
@@ -97,10 +116,12 @@ Rectangle {
 
         // Emit classClicked signal
         rootWindow.itemClicked(currentView.currentIndex);
-		if (!insertObjectWindow.getFFlagStudioInsertObjectStreamlining_InsertWidget() || isWindow){
-			searchBoxText.text = "";
-			currentView.currentIndex = defaultCurrentIndex;
-		}
+        if(!insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView()) {
+            if (!insertObjectWindow.getFFlagStudioInsertObjectStreamlining_InsertWidget() || isWindow){
+			    searchBoxText.text = "";
+			    currentView.currentIndex = defaultCurrentIndex;
+		    }
+        }
     }
 
 	// The dialog rectangle was added so we can add a drop shadow to it.
@@ -235,7 +256,10 @@ Rectangle {
                 Keys.onEnterPressed: insertObject()
                 Keys.onReturnPressed: insertObject()
                 Keys.onEscapePressed: {
-					if(insertObjectWindow.getFFlagStudioInsertObjectStreamlining_InsertWidget()) {
+                	if(insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView()) {
+					    clearWindowState()
+					}
+					else if(insertObjectWindow.getFFlagStudioInsertObjectStreamlining_InsertWidget()) {
 						classToolTip.hide();
 					}
                     Qt.quit();
