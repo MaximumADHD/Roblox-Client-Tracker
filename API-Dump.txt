@@ -688,11 +688,6 @@ Class File : Instance [NotCreatable] [NotReplicated]
 	Function string File:GetBinaryContents() {PluginSecurity}
 	Function string File:GetFileContentsBinary() {PluginSecurity} [Deprecated]
 	Function Content File:GetTemporaryId() {PluginSecurity}
-Class FileSyncItem : Instance [NotReplicated]
-	Property bool FileSyncItem.Enabled {LocalUserSecurity} [NotReplicated]
-	Property string FileSyncItem.FileSystemPath {LocalUserSecurity} [NotReplicated]
-	Property Instance FileSyncItem.Target {LocalUserSecurity} [<📁> LoadOnly] [NotReplicated]
-Class FileSyncService : Instance [NotCreatable] [Service] [NotReplicated]
 Class Fire : Instance
 	Property Color3 Fire.Color
 	Property bool Fire.Enabled

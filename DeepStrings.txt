@@ -1962,14 +1962,9 @@ AVFeaturePolyContact
 AVFFlagSetting
 AVFileMesh
 AVFileNotFoundException
-AVFileSyncItem
-AVFileSyncManagerListener
-AVFileSyncService
-AVFileSyncServiceManager
 AVfilesystem_error
 AVFileWatcher
 AVFileWatcherImpl
-AVFileWatcherSingleton
 AVFileWatcherWin32
 AVFillTool
 AVFilterDescendents
@@ -4062,6 +4057,7 @@ BoxSelectCommand
 BPEAUIUnknown
 BPuVfD9B`uOfD9BpuH
 BQByteArray
+BQjqwR6KhqvkwPiWibih8tpMREoaER9FqbW7E0JDqnRYFPPH
 BQJsonValueRef
 BQPersistentModelIndex
 BranchIcon
@@ -4241,7 +4237,7 @@ BytesReceivedAndIgnoredPerSec
 BytesReceivedPerSec
 BytesRecvAndIgnored
 BytesWritten
-ByVersion_0.420.0.383621
+ByVersion_0.420.0.383960
 ByVersionForPlatform_
 C_specific_handler
 CA_NPEAVQObject
@@ -4552,7 +4548,6 @@ CertSequence
 CF44BCFD011E7A825A924D6937B0F
 CF44CCFD011E7A825A924D6937B0F
 CF583B11E29A3DBD856014A660
-Cf7Xe00xQYRR6EkX
 CFB42AF5B120681192B0FA7C02778D61
 CFF056DD11E2898E9FB8E4A9E79B
 CFF156DD11E2898E9FB8E4A9E79B
@@ -6452,6 +6447,7 @@ CustomSort
 CustomStatusAdded
 CustomStatusRemoved
 CustomToolButton
+CuwzODsHPHQnhgoRkPjPNi3wBqq4dsscGbsIgtZ
 CWindowImpl
 CWindowImplBaseT
 CWindowImplRoot
@@ -6616,7 +6612,6 @@ DB33D7AAF011E38B9D871882A8E559
 DBD856014A660
 DBSAES_ASM
 Dconst_iterator
-DCZivEFnm9JIK5BYri55xzd4DQCiWRIJym
 DD11E2898E9FB8E4A9E79B
 DD4669DB402E11E3A29DA4266180AE0C
 DD4669DC402E11E3A29DA4266180AE0C
@@ -7433,6 +7428,7 @@ DocumentID
 DocumentMargin
 DocumentMode
 DocumentsFolderLocation
+DOFJ4OyhG49O39myvYIbt6Eq
 DomainPolicy
 DominantAxis
 DOMMouseScroll
@@ -7895,7 +7891,6 @@ EE374A91111E2B410EF351327957B
 EE375A91111E2B410EF351327957B
 EE42889BE20681180838E23F0DC6224
 EE8E2D320681192B0FA7C02778D61
-Ee9rzIJUL3KA2yC2vEWFYUhqIVZBOEuANme0sXB9X2tmf7MlbnkOlUCAwEAAQ
 EEAAXPEAVQAbstractItemModel
 EEBA_NAEBVQModelIndex
 EEBAHAEBVQModelIndex
@@ -8013,7 +8008,6 @@ EnabledBetaFeaturesAsCommaSepString
 EnableDebugging
 EnableDiscussionsApiService
 EnabledSignal
-EnabledState
 EnableExtendedDomains
 EnableExtension
 EnableFFlagParentWeldToOtherPartForBeta
@@ -8620,7 +8614,6 @@ FieldOfView
 Figueiredo
 FIGURE_WIDTH
 FiiiJOOWFF
-FileAction
 FileButtonLabel
 FileChanged
 FileChangeTimerFinished
@@ -8632,24 +8625,15 @@ FilePathBase
 Files.size
 FilesChanged
 FileSelector
-FileSyncItem
-FileSyncItemClient
-FileSyncItems
-FileSyncManagerListener
-FileSyncService
-FileSyncServiceManager
-FileSyncStateDecorators
 FileSystem
 FileSystemCheckReadSize
 FileSystemGetCacheDirectoryLikeAndroid
-FileSystemPath
 FileSystemService
 FileTemplate
 FileTimeToSystemTime
 FileVersion
 FileWatcher
 FileWatcherDebugLog
-FileWatcherSingleton
 FillActionAsTool
 FillColorPickerToolButton
 FillCursor
@@ -8894,7 +8878,6 @@ FlushInstructionCache
 FlushMappedBufferRange
 FlushMappedMemoryRanges
 FlushModifiedScripts
-FlushModifiedScriptsRetry
 FlyweightService
 FlyweightServiceDataRecievedCallbackCrashFixEnabled
 FMOD_CREATECOMPRESSEDSAMPLE
@@ -8923,7 +8906,6 @@ FocusProxy
 FogCoorddv
 FogCoordfv
 FogCoordPointer
-FolderAndScriptDM
 FollowUserId
 FollowUserIdReplicated
 Font.DemiBold
@@ -10037,6 +10019,7 @@ GetWindowLongPtrA
 GetWindowTextA
 GetWindowTextLengthA
 GetWindowThreadProcessId
+GF0zCVmw0ca26NX2XAT3wQPJx501HtUPiaMCv7Bcj0uLAALPFX3fxi7LvbaYiyAk
 GF2m_montgomery_point_multiply
 GF2m_simple_field_inv
 GF2m_simple_group_check_discriminant
@@ -10117,6 +10100,7 @@ GLSL.std.450
 Glsles3Mediump1
 GlslesMediump1
 GlueCursor
+Gnszihof7CknspqxyvD3b4yZDoia2AXGWNtXJXGVhFS2vmFb3Y
 GoldenHashes
 GoodbyeChoiceActive
 GoodbyeChoiceActiveProperty
@@ -11351,7 +11335,6 @@ IsBaseFont
 IsBestFriendsWith
 IsCategory
 IsCategoryActive
-ISchODYS5cuYWaj7WYHv5QWDhHfjSiTuwiUKFrbC5myvnCKziDdaW
 IsCloudEditSessionChanged
 IsContentLoaded
 IsCurrentEditor
@@ -11568,7 +11551,6 @@ JointsService
 JointTime_TextureCooldown
 JointToolHelpDialogVerb
 JPEBUSG_INDEX_TRIANGLE
-JSDw1q3AuasSnjZi4FfYadXDu6vXTE589NfT6dv0Y3aWmamZmNOJYWMwP
 JSON.parse
 JSON.stringify
 JSON_Parser
@@ -11654,6 +11636,7 @@ KickByDatacenter_
 KiDszBCYB0gyp03Pc
 KillPtClicked
 KillSurfaceJointsPart1
+KMBUlhCp7gg20CAwEAAQ
 KnownHeaders
 KodchiangUPC
 KPEIBX_K_KPEIAU_iobuf
@@ -12146,8 +12129,6 @@ LogCancelTask
 LogClientLoadToAvatarLoad
 LogDumpAction
 LogFile.ashx
-LogFileSyncItem
-LogFileSyncManager
 LoggedInUser
 LoggingOut
 LogGroupTeleportInfluxPerTenThousand
@@ -12949,7 +12930,7 @@ MigrateTriangleMeshData3
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsI9zRp2OSccqdFx2
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAupANB3EbN9hFHHUj0eA
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzjPRQo9jc
-MIICCgKCAgEA0RBlUhZegln6vYaVpbaV0FL6Uq2ron9So94doS
+MIICCgKCAgEAx4oGhSlGxKaRSbgBs3LFudX0FArmmjsJrLWqab11SojfVwGgML2B
 MillisecondsBeforeHandlingReconnect
 MimeDataFromSelection
 MinDelta[nLog]
@@ -12986,7 +12967,7 @@ MirrorMode
 Miscellaneous
 Mismatched
 MissingDumpFile
-MKz9h5f8NHc4IM2lLnDArUf
+MMl3JPjaK1CevZO8AkU0OyRXtbZRlH2vdRQrMBRMIyHsPK9G9
 MMW4IkDragCollisionsMode
 MMW4PartMaterial
 MMW4UserInputState
@@ -13178,7 +13159,6 @@ MovingPrimitivesCount
 MP8PartInstance
 MpCehiHzreSzNTczkc9d
 MPEAVAdorn
-MpjKBzz1f1Jh2lgViP
 MpsRateLimit
 MpsRateLimitCapacity
 MpsRateLimitDuration
@@ -13565,8 +13545,8 @@ NPCUnequipTools
 NPEAVInstance
 NPEAVQString
 NPEAVQWidget
-NpmBFisHPipdd6T9PN7vW4
 Ntildesmall
+NTsvwHNHIIj7N
 NullPassword
 NUMBER_OF_ORDERED_STREAMS
 NumberAnimation
@@ -13891,8 +13871,6 @@ OptionState
 OPUS_ARCHMASK
 OpusCustomMode
 OrCharacter
-OrCreateFileInfo
-OrCreateFileSyncItemClient
 OrCreateInstanceInfo
 OrderArray
 OrderArray.push
@@ -14448,10 +14426,6 @@ PEAVFbxManager
 PEAVFbxNode
 PEAVFbxObject
 PEAVFileMesh
-PEAVFileSyncItem
-PEAVFileSyncItemClient
-PEAVFileSyncService
-PEAVFileSyncServiceManager
 PEAVFillTool
 PEAVFindListModel
 PEAVFlagStand
@@ -15485,6 +15459,7 @@ PluginWidgetRelay
 PluginWidgetRelayForPluginGui
 PluginWriteTemp
 PlusButtonPressed
+PMm4eFN5odfa3tWKJcw
 POINT_SIZE
 PointBalanceCacheInvalidateTimeMs
 PointDataChanged
@@ -15889,6 +15864,7 @@ QAuthenticator
 QAWNcgRdAzOKj8pi5wAlnsdoumgAtB1J7d
 QBoxLayout
 QButtonGroup
+QBYPDYPiLF5vFv70hJQTxPWzkjsI
 QByteArray
 QChildEvent
 QClipboard
@@ -16327,7 +16303,6 @@ QEBAXPEAVFbxScene
 QEBAXPEAVQPainter
 QEBAXPEBDZZ
 QEBVQStyleOptionGraphicsItem
-QelaJWtSaNs0U
 QElapsedTimer
 QEntityIconInternal
 QEntityIconLoaded
@@ -16539,7 +16514,6 @@ QtUtilities
 QtWebkitAuthenticationDone
 QtWebkitSession
 QTypedArrayData
-QTZjKcRdCvT
 QUAD_WIDTH
 QualityLevel
 QualityLevel1
@@ -16769,6 +16743,7 @@ RawJoinData
 RaycastFilterType
 RaycastParams
 RaycastResult
+RBlS5dfyeeSb
 RBX_CHECK_EQUAL
 RBX_CHECK_GE
 RBX_CHECK_GT
@@ -21664,7 +21639,6 @@ TargetStreamingRadius
 TargetSurface
 TargetTimeDelayFacctorTenths
 TargetVelocity
-TargetXmlId
 Task_completion_event_impl
 TaskEventLogger
 TaskQueueJob
@@ -22214,7 +22188,6 @@ TipTimer.stop
 TitleBarProgress
 TitlebarText
 TitleBarVisible
-TJCoebNCgfgOrvwm63kwE94ZXV7mvaQdSDtDdxfvgKw2I5AYzJelssOByuQiD
 TJNLerU][Wr
 TLS_AES_128_CCM_8_SHA256
 TLS_AES_128_CCM_SHA256
@@ -23580,7 +23553,6 @@ VBatchThumbnailFetcher
 VBetaFeaturesController
 VBetaFeatureStruct
 VBevelMesh
-VbhFhq3u2mscKxmMaFuWiWjm81otDZGbvWXv9HWHKgN
 VBillboardGui
 VBinaryString
 VBindableEvent
@@ -23900,12 +23872,6 @@ VFbxClassId
 VFbxStringListItem
 VfE9M2uOfE9MBuHfE9MRuAfE9Mbu
 VFFlagSetting
-VFileSyncItem
-VFileSyncItemClient
-VFileSyncManagerListener
-VFileSyncService
-VFileSyncServiceManager
-VFileWatcherSingleton
 VFlagStand
 VFlagStandService
 VFlangeSoundEffect
@@ -23951,7 +23917,6 @@ VGetLatestPlacePersistanceLocationForVersionRequest
 VGlobalAdvancedSettings
 VGlobalBasicSettings
 VGlyphRenderer
-VGntuuaAqmFgO9teNWopsSD
 VGoogleAnalyticsConfiguration
 VGroupService
 VGuiBase2d
@@ -24671,9 +24636,9 @@ WaterViscosityDragFudgeFactor
 WaterWaveSize
 WaterWaveSpeed
 WaypointIdx
-WCFbTjsnWQ9bJf3VGLKa
 WCharArray
 Wcircumflex
+WD5GjhMhri4vq9
 WDU_Mbstatet
 WeakFunctionRef
 WeakThreadRef
@@ -24888,7 +24853,7 @@ WithSHA224
 WithSHA256
 WithSHA384
 WithSHA512
-WjMEvshDf36VHy1jbSLaBfabL6u8gh2PCO
+WkZbUAfN4aXVni
 WM_ATLGETCONTROL
 WM_ATLGETHOST
 WMCreateProfileManager
@@ -24992,15 +24957,17 @@ XboxSaleAvatarPackageIds
 XboxUseCuratedGameSort2
 XboxUseNewBundleEndpoints
 XboxUseNewValidUsernameCheck2
-XeS0jpmI97rwkdCRSll
 XFbxAMatrix
 XFREE86_GLYPH_RANGES
 XGetLastError
+XheocFXsi3BFEToQk4BIkXSpybvYVg
 XInputGetBatteryInformation
 XInputGetCapabilities
 XInputGetState
 XInputSetState
 Xinvalid_argument
+XJDai4tS8yT05oCBHiR6Y9MWvfFssekHXAEIZ2EDn541a09YigkNM0s
+Xjq398qjw7O7QJBv08bE
 Xlength_error
 Xout_of_range
 XP6AXAEBUTextFilterResult
@@ -25023,7 +24990,6 @@ XP6AXVWeakFunctionRef
 XP6AXVWeakThreadRef
 XP6AXW4HttpRequestResult
 XP6AXXZVlist0
-XPEAVFileSyncItem
 XPEAVInstance
 XPEAVQNetworkReply
 XQColorDialog
@@ -25162,9 +25128,9 @@ YffYZefYDNNDCOO
 YieldEvent
 YieldFuncDesc
 YieldFunction
+YIHQSkyV8mtJ9
 YQByteArray
 YResolution
-YvngO9rQ6KlrXPUtcc5
 YwBBvY55YvBBwY5
 Z_KPEIBX_K_KPEIAU1
 Zcaronsmall
@@ -25181,7 +25147,6 @@ ZoomToHighlight
 ZP6APEAX1PEBX
 ZP6AX1PEAX
 ZPEAVRBXMessageBox
-ZRocwcWpHyhSsdPKNZXMuQFLtIpj9qMfmWmbREBZSEZ3mevixp8EijjwvUXMksAF
 ZRZZZbZt[.[
 ZVspecial_equipped_signal
 ZVTouchedSignal

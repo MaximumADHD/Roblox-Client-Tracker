@@ -773,8 +773,6 @@ RBX
 	Feature
 	File
 	FileMesh
-	FileSyncItem
-	FileSyncService
 	FillTool
 	FilterDescendents
 	FilterDescendentsList
