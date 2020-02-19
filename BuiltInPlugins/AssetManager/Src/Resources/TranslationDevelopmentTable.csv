@@ -5,7 +5,10 @@ Studio.AssetManager.Main.Tooltip, , ,"Add, remove, and modify assets"
 Studio.AssetManager.Meta.PluginButtonTooltip, , ,"Add, remove, and modify assets"
 Studio.AssetManager.Meta.PluginDescription, , ,"Add, remove, and modify assets"
 Studio.AssetManager.Meta.PluginName, , ,AssetManager
-Studio.AssetManager.Meta.ToolbarName, , ,Asset Manager\
+Studio.AssetManager.Meta.ToolbarName, , ,Asset Manager
+Studio.AssetManager.BulkImport.BulkImportRunning, , ,You can import other files after the current import is finished.
+Studio.AssetManager.BulkImport.BulkImportShowLink, , ,Check current status
+Studio.AssetManager.SearchBar.PlaceholderText, , ,Filter
 Studio.AssetManager.Folders.IMAGES, , ,Images
 Studio.AssetManager.Folders.MESHES, , ,Meshes
 Studio.AssetManager.Folders.PACKAGES, , ,Packages

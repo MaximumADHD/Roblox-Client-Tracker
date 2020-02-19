@@ -17,6 +17,7 @@ Rectangle {
     property bool expandedView: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView() ? initialExpandedValue : false
 	property bool isTextFocused: false
 	property int mouseHighlightedIndex: -1
+    property url toggleExpandButtonIcon: userPreferences.theme.style("InsertObjectWindow expandIcon")
 
     signal itemClicked(int index)
     signal filterTextChanged(string filterText)
@@ -53,6 +54,12 @@ Rectangle {
     function showExpandedView(state) {
         expandedView = state
         showExpandedViewToggled(state)
+        if(state) {
+            toggleExpandButtonIcon = userPreferences.theme.style("InsertObjectWindow collapseIcon")
+        }
+        else {
+            toggleExpandButtonIcon = userPreferences.theme.style("InsertObjectWindow expandIcon")
+        }     
     }
 
     function toggleSettingsMenu(state) {
@@ -101,10 +108,7 @@ Rectangle {
     }
 
     function insertObject() {
-        if(insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView() && isWindow) {
-			clearWindowState()
-		}
-		else if(insertObjectWindow.getFFlagStudioInsertObjectStreamlining_InsertWidget()) {
+		if(insertObjectWindow.getFFlagStudioInsertObjectStreamlining_InsertWidget()) {
 			classToolTip.hide();
 		}
         var currentView = getCurrentView();
@@ -116,7 +120,10 @@ Rectangle {
 
         // Emit classClicked signal
         rootWindow.itemClicked(currentView.currentIndex);
-        if(!insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView()) {
+        if(insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView() && isWindow) {
+			clearWindowState()
+		}
+        else if(!insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView()) {
             if (!insertObjectWindow.getFFlagStudioInsertObjectStreamlining_InsertWidget() || isWindow){
 			    searchBoxText.text = "";
 			    currentView.currentIndex = defaultCurrentIndex;
@@ -162,19 +169,22 @@ Rectangle {
             RobloxButton {
                 id: expandButton
                 visible: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView()
-                anchors.left: parent.left
+                color: "transparent"
+                hoverColor: userPreferences.theme.style("Menu itemHover")
+                anchors.right: settingsButton.left
                 anchors.verticalCenter: searchBoxText.verticalCenter
                 width: 20; height: 20
                 tooltip: qsTr("Studio.App.InsertObjectWidget.ExpandTooltip")
                 onClicked: showExpandedView(!expandedView)
                 Image {
                     anchors.centerIn: parent
-                    source: "/16x16/images/Studio 2.0 icons/16x16/resize.png"
+                    source: toggleExpandButtonIcon
                 }
             }
              RobloxButton {
                 id: settingsButton
                 color: "transparent"
+                hoverColor: userPreferences.theme.style("Menu itemHover")
                 visible: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView()
                 anchors.right: parent.right
                 anchors.verticalCenter: searchBoxText.verticalCenter
@@ -189,11 +199,11 @@ Rectangle {
 				id: searchBoxText
                 objectName: "qmlInsertObjectTextFilter"
                 placeholderText: qsTr("Studio.App.InsertObject.SearchObject1").arg(insertObjectConfiguration.searchShortcut)
-				anchors.left: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView() ? expandButton.right : parent.left
+				anchors.left: parent.left
                 anchors.margins: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView() ? 0 : 6
                 anchors.leftMargin: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView() ? 3 : 0
                 anchors.rightMargin: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView() ? 3 : 0
-                anchors.right: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView() ? settingsButton.left : parent.right
+                anchors.right: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView() ? expandButton.left : parent.right
                 anchors.top: parent.top
 				focus: true
 				style: TextFieldStyle {
@@ -339,7 +349,16 @@ Rectangle {
 						}
 						classToolTip.hide();
 					}
-    				onClicked: insertObject()
+    				onClicked: {
+                        if(!insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView() || isWindow) {
+                            insertObject()
+                        }
+                    }
+                    onDoubleClicked: {
+                        if(insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView() && !isWindow) {
+                            insertObject()
+                        }
+                    }
 
 					onWheel: {
 						// When scrolling, sets highlighted object to moused over class TODO: still lags and fix cursor

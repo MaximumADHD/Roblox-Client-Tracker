@@ -11,6 +11,7 @@ return function()
 		expect(state).to.be.ok()
 
 		local expectedKeys = {
+			"AssetManagerReducer",
 			"Screen",
 		}
 		for _, childReducerName in ipairs(expectedKeys) do

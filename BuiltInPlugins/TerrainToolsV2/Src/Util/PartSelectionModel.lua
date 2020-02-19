@@ -8,6 +8,7 @@ local PartSelectionModel = {}
 PartSelectionModel.__index = PartSelectionModel
 
 function PartSelectionModel.new(options)
+	assert(type(options) == "table", "PartSelectionModel needs an options table")
 	local self = setmetatable({
 		_getSelection = options.getSelection,
 		_selectionChanged = options.selectionChanged,

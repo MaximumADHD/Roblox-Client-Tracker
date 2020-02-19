@@ -757,7 +757,9 @@
       "searchBoxBorder": "#1E90FF",
       "settingsBorder":  "#B6B6B6",
       "dropShadow": "#80000000",
-      "dropdownIcon": "qrc:/images/BulkImport/collapse.png"
+      "dropdownIcon": "qrc:/images/BulkImport/collapse.png",
+      "collapseIcon": "qrc:/images/InsertObject/single_light.png",
+      "expandIcon":  "qrc:/images/InsertObject/multi_light.png"
     },
     "Scrollbar": {
         "background": "#F9F9F9",

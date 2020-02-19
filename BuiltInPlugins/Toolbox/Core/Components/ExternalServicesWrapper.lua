@@ -11,8 +11,12 @@ local SettingsProvider = require(Plugin.Core.Providers.SettingsProvider)
 local ThemeProvider = require(Plugin.Core.Providers.ThemeProvider)
 local LocalizationProvider = require(Plugin.Core.Providers.LocalizationProvider)
 local CameraProvider = require(Plugin.Core.Providers.CameraProvider)
+local UILibraryProvider = require(Plugin.Core.Providers.UILibraryProvider)
 
 local UILibraryWrapper = require(Libs.UILibrary.UILibraryWrapper)
+
+local FFlagToolboxFixThemeIssues = game:DefineFastFlag("ToolboxFixThemeIssues", false)
+
 
 local ExternalServicesWrapper = Roact.Component:extend("ExternalServicesWrapper")
 
@@ -43,8 +47,8 @@ function ExternalServicesWrapper:render()
 				Roact.createElement(ThemeProvider, {
 					theme = theme,
 				}, {
-					Roact.createElement(UILibraryWrapper, {
-						theme = theme:getUILibraryTheme(),
+					Roact.createElement(FFlagToolboxFixThemeIssues and UILibraryProvider or UILibraryWrapper, {
+						theme = FFlagToolboxFixThemeIssues and theme or theme:getUILibraryTheme(),
 						focusGui = pluginGui,
 						plugin = plugin,
 					}, {

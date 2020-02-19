@@ -49,6 +49,7 @@ return function()
 		}) or TerrainSeaLevel.new()
 		local partConverter = PartConverter.new({
 			terrain = terrain,
+			localization = localization,
 		})
 
 		local element = Roact.createElement(ServiceWrapper, {

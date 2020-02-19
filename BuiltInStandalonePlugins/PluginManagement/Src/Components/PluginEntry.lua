@@ -1,7 +1,6 @@
 local FFlagEnableStudioServiceOpenBrowser = game:GetFastFlag("EnableStudioServiceOpenBrowser")
 local FFlagPluginManagementNewLoadingBar = game:DefineFastFlag("PluginManagementNewLoadingBar", false)
 local FFlagShowModeratedPluginInfo = game:DefineFastFlag("ShowModeratedPluginInfo", false)
-local FFlagEnablePluginPermissionsPage = game:DefineFastFlag("EnablePluginPermissionsPage", false)
 local FFlagPluginManagementPrettifyDesign = game:GetFastFlag("PluginManagementPrettifyDesign")
 local StudioService = game:getService("StudioService")
 local ContentProvider = game:getService("ContentProvider")
@@ -12,6 +11,14 @@ local TextService = game:GetService("TextService")
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
+
+local Flags = require(Plugin.Packages.Framework.Util.Flags)
+local FlagsList = Flags.new({
+	FFlagEnablePluginPermissionsPage = {
+		"EnablePluginPermissionsPage2",
+		"StudioPermissionsServiceEnabled",
+	},
+})
 
 local Constants = require(Plugin.Src.Util.Constants)
 local UILibrary = require(Plugin.Packages.UILibrary)
@@ -182,7 +189,7 @@ function PluginEntry:render()
 		- Constants.PLUGIN_CONTEXT_WIDTH,.5,0)
 
 	local hasHttpPermissions = false
-	if FFlagEnablePluginPermissionsPage then
+	if FlagsList:get("FFlagEnablePluginPermissionsPage") then
 		hasHttpPermissions = (allowedHttpCount > 0) or (deniedHttpCount > 0)
 	end
 
@@ -244,7 +251,7 @@ function PluginEntry:render()
 			Description = Roact.createElement("TextLabel", {
 				LayoutOrder = 2,
 				TextWrapped = true,
-				Size = FFlagEnablePluginPermissionsPage
+				Size = FlagsList:get("FFlagEnablePluginPermissionsPage")
 					and UDim2.new(1, 0, 0, ONE_LINE_TEXT_HEIGHT * 2)
 					or UDim2.new(1, 0, 1, -42 - Constants.PLUGIN_VERTICAL_PADDING * 2),
 				BackgroundTransparency = 1,
@@ -257,7 +264,7 @@ function PluginEntry:render()
 				TextSize = FFlagPluginManagementPrettifyDesign and 14 or 16,
 			}),
 
-			HttpRequestOverview = FFlagEnablePluginPermissionsPage and hasHttpPermissions
+			HttpRequestOverview = FlagsList:get("FFlagEnablePluginPermissionsPage") and hasHttpPermissions
 				and Roact.createElement(HttpRequestOverview, {
 				assetId = data.assetId,
 				LayoutOrder = 3,
@@ -398,7 +405,7 @@ function PluginEntry:render()
 	})
 end
 
-if FFlagEnablePluginPermissionsPage then
+if FlagsList:get("FFlagEnablePluginPermissionsPage") then
 	ContextServices.mapToProps(PluginEntry, {
 		Navigation = Navigation,
 		Localization = ContextServices.Localization,
@@ -414,7 +421,7 @@ else
 end
 
 local mapStateToProps
-if FFlagEnablePluginPermissionsPage then
+if FlagsList:get("FFlagEnablePluginPermissionsPage") then
 	mapStateToProps = function(state, props)
 		local pluginPermissions = state.PluginPermissions[props.data.assetId]
 		return {

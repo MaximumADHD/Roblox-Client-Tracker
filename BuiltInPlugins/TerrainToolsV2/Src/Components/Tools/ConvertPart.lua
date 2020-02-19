@@ -29,9 +29,21 @@ local ApplyToolAction = require(Actions.ApplyToolAction)
 local SetConvertMode = require(Actions.SetConvertMode)
 local SetMaterial = require(Actions.SetMaterial)
 
+local SetBiomeSelection = require(Actions.SetBiomeSelection)
+local SetBiomeSize = require(Actions.SetBiomeSize)
+local SetHeightPicker = require(Actions.SetHeightPicker)
+local ChangePlanePositionY = require(Actions.ChangePlanePositionY)
+local SetHaveCaves = require(Actions.SetHaveCaves)
+local SetSeed = require(Actions.SetSeed)
+
 local SelectionService = game:GetService("Selection")
 
 local CONVERT_PART_REDUCER_KEY = "ConvertPartTool"
+
+-- this key should match the key used in Components/Tools/Generate
+-- we may want to move the keys to a enum later since we now have a
+-- case where multiple tools use access the same tool reducers
+local GENERATE_REDUCER_KEY = "GenerateTool"
 
 local ConvertPart = Roact.PureComponent:extend(script.Name)
 
@@ -52,8 +64,29 @@ function ConvertPart:init()
 		convertState = self.partConverter:getConvertState(),
 	}
 
+	self.selectBiome = function(biome)
+		local biomes = self.props.biomeSelection
+		local value = not biomes[biome]
+
+		self.props.dispatchSetBiomeSelection(biome, value)
+	end
+
+	self.setPlanePositionY = function(...)
+		print("fill out setPlanePositionY ->", ...)
+	end
+
+	self.setHeightPicker = function( ... )
+		print("fill out setHeightPicker ->", ...)
+	end
+
 	self.onConvertBiomeClicked = function()
-		warn("TODO ConvertPart convert to biome implementation")
+		self.partConverter:convertInstancesToBiome(self.partSelectionModel:getSelection(), {
+			biomeSelection = self.props.biomeSelection,
+			biomeSize = self.props.biomeSize,
+			haveCaves = self.props.haveCaves,
+
+			seed = self.props.seed,
+		})
 	end
 
 	self.onConvertMaterialClicked = function()
@@ -156,6 +189,14 @@ function ConvertPart:render()
 		local convertButtonActive = self.state.selectionIsConvertible and not isRunning
 		local convertMode = self.props.convertMode
 
+		local planePositionY = self.props.planePositionY
+		local heightPicker = self.props.heightPicker
+
+		local biomeSelection = self.props.biomeSelection
+		local biomeSize = self.props.biomeSize
+		local haveCaves = self.props.haveCaves
+		local seed = self.props.seed
+
 		local localizedConvertState = ""
 		if self.state.convertState ~= PartConverter.NOT_RUNNING_CONVERT_STATE then
 			localizedConvertState = localization:getText("ConvertPart", self.state.convertState)
@@ -188,15 +229,18 @@ function ConvertPart:render()
 					}),
 				}),
 
-				-- TODO: Connect this to Rodux store
 				BiomeSettingsFragment = convertMode == ConvertMode.Biome and Roact.createElement(BiomeSettingsFragment, {
 					LayoutOrder = 2,
-					biomeSelection = {},
-					selectBiome = function() warn("TODO ConvertPart selectBiome") end,
-					biomeSize = 100,
-					setBiomeSize = function() warn("TODO ConvertPart setBiomeSize") end,
-					haveCaves = true,
-					setHaveCaves = function() warn("TODO ConvertPart setHaveCaves") end,
+					biomeSelection = biomeSelection,
+					selectBiome = self.selectBiome,
+					biomeSize = biomeSize,
+					setBiomeSize = self.props.dispatchSetBiomeSize,
+					planePositionY = planePositionY,
+					setPlanePositionY = self.setPlanePositionY,
+					heightPicker = heightPicker,
+					setHeightPicker = self.setHeightPicker,
+					haveCaves = haveCaves,
+					setHaveCaves = self.props.dispatchSetHaveCaves,
 				}),
 
 				MaterialSettingsFragment = convertMode == ConvertMode.Material and Roact.createElement(MaterialSettingsFragment, {
@@ -206,11 +250,10 @@ function ConvertPart:render()
 				}),
 			}),
 
-			-- TODO: Connect this to Rodux store
 			OtherGenerateSettings = convertMode == ConvertMode.Biome and Roact.createElement(OtherGenerateSettings, {
 				LayoutOrder = 2,
-				seed = "",
-				setSeed = function() warn("TODO ConvertPart setSeed") end,
+				seed = seed,
+				setSeed = self.props.dispatchSetSeed,
 			}),
 
 			ButtonGroup = Roact.createElement(ButtonGroup, {
@@ -242,8 +285,15 @@ local function mapStateToProps(state, props)
 		toolName = TerrainEnums.ToolId.ConvertPart,
 
 		convertMode = state[CONVERT_PART_REDUCER_KEY].convertMode,
-
 		convertMaterial = state[CONVERT_PART_REDUCER_KEY].material,
+
+		biomeSelection = state[GENERATE_REDUCER_KEY].biomeSelection,
+		biomeSize = state[GENERATE_REDUCER_KEY].biomeSize,
+		planePositionY = state[GENERATE_REDUCER_KEY].planePositionY,
+		heightPicker = state[GENERATE_REDUCER_KEY].heightPicker,
+		haveCaves = state[GENERATE_REDUCER_KEY].haveCaves,
+
+		seed = state[GENERATE_REDUCER_KEY].seed,
 	}
 end
 
@@ -252,13 +302,36 @@ local function mapDispatchToProps(dispatch)
 		dispatch(ApplyToolAction(CONVERT_PART_REDUCER_KEY, action))
 	end
 
+	local dispatchToGenerate = function(action)
+		dispatch(ApplyToolAction(GENERATE_REDUCER_KEY, action))
+	end
+
 	return {
 		dispatchSetConvertMode = function(convertMode)
 			dispatchToConvertPart(SetConvertMode(convertMode))
 		end,
-
 		dispatchSetConvertMaterial = function(convertMaterial)
 			dispatchToConvertPart(SetMaterial(convertMaterial))
+		end,
+
+
+		dispatchSetBiomeSelection = function (biome, value)
+			dispatchToGenerate(SetBiomeSelection(biome, value))
+		end,
+		dispatchSetBiomeSize = function(size)
+			dispatchToGenerate(SetBiomeSize(size))
+		end,
+		dispatchSetHeightPicker = function(heightPicker)
+			dispatchToGenerate(SetHeightPicker(heightPicker))
+		end,
+		dispatchChangePlanePositionY = function (planePositionY)
+			dispatchToGenerate(ChangePlanePositionY(planePositionY))
+		end,
+		dispatchSetHaveCaves = function (haveCaves)
+			dispatchToGenerate(SetHaveCaves(haveCaves))
+		end,
+		dispatchSetSeed = function(seed)
+			dispatchToGenerate(SetSeed(seed))
 		end,
 	}
 end

@@ -106,6 +106,7 @@ local partConverter
 if FFlagTerrainToolsConvertPartTool then
 	partConverter = PartConverter.new({
 		terrain = terrain,
+		localization = localization,
 	})
 end
 

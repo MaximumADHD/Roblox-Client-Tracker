@@ -2,9 +2,16 @@ return function()
 	local Plugin = script.Parent.Parent.Parent.Parent
 	local Roact = require(Plugin.Packages.Roact)
 	local MockManagement = require(Plugin.Src.Components.MockManagement)
-	local FFlagEnablePluginPermissionsPage = game:DefineFastFlag("EnablePluginPermissionsPage", false)
 
-	if not FFlagEnablePluginPermissionsPage then
+	local Flags = require(Plugin.Packages.Framework.Util.Flags)
+	local FlagsList = Flags.new({
+		FFlagEnablePluginPermissionsPage = {
+			"EnablePluginPermissionsPage2",
+			"StudioPermissionsServiceEnabled",
+		},
+	})
+
+	if not FlagsList:get("FFlagEnablePluginPermissionsPage") then
 		return
 	end
 

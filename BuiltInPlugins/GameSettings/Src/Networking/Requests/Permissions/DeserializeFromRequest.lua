@@ -47,7 +47,7 @@ local function getInternalAction(webKey)
 		return PermissionsConstants.EditKey
 	elseif webKey == webKeys.AdminAction then
 		if FFlagStudioGameSettingsRestrictPermissions then
-			return PermissionConstants.EditKey
+			return PermissionsConstants.EditKey
 		else
 			return PermissionsConstants.AdminKey
 		end

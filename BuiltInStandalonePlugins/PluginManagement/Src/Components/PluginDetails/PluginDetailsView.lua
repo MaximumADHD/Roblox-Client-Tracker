@@ -135,6 +135,7 @@ function PluginDetailsView:render()
 					LayoutOrder = 3,
 					renderContent = function()
 						return Roact.createElement(HttpRequestHolder, {
+							assetId = assetId,
 							httpPermissions = httpPermissions,
 						})
 					end,

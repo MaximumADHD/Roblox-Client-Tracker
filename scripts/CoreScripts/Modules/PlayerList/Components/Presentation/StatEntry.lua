@@ -20,6 +20,7 @@ local PlayerList = Components.Parent
 local FormatStatString = require(PlayerList.FormatStatString)
 
 local FFlagPlayerListDesignUpdate = settings():GetFFlag("PlayerListDesignUpdate")
+local FFlagPlayerListFixStatFlickering = game:GetFastFlag("PlayerListFixStatFlickering")
 
 local StatEntry = Roact.PureComponent:extend("StatEntry")
 
@@ -93,11 +94,16 @@ function StatEntry:render()
 				end
 			end
 
-			local statText = FormatStatString(self.props.statValue, --[[abbreviate = ]] false)
-			if FFlagPlayerListDesignUpdate and type(self.props.statValue) == "number" then
-				local textArea = TextService:GetTextSize(statText, textSize, font, Vector2.new(1000, 1000))
-				if textArea.X > layoutValues.StatEntrySizeX - layoutValues.StatTextPadding then
-					statText = FormatStatString(self.props.statValue, --[[abbreviate = ]] true)
+			local statText
+			if FFlagPlayerListFixStatFlickering then
+				statText = FormatStatString(self.props.statValue)
+			else
+				statText = FormatStatString(self.props.statValue, --[[abbreviate = ]] false)
+				if FFlagPlayerListDesignUpdate and type(self.props.statValue) == "number" then
+					local textArea = TextService:GetTextSize(statText, textSize, font, Vector2.new(1000, 1000))
+					if textArea.X > layoutValues.StatEntrySizeX - layoutValues.StatTextPadding then
+						statText = FormatStatString(self.props.statValue, --[[abbreviate = ]] true)
+					end
 				end
 			end
 
@@ -160,6 +166,7 @@ function StatEntry:render()
 					BorderSizePixel = 0,
 					AutoLocalize = false,
 					AutoButtonColor = false,
+					Selectable = false,
 
 					[Roact.Event.Activated] = self.props.onActivated,
 					[Roact.Event.SelectionGained] = self.props.onSelectionGained,

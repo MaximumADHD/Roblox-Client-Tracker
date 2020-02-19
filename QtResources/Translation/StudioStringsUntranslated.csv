@@ -1,8 +1,14 @@
 Key,Context,Source,en-us
 Studio.App.AddEmulationDeviceDialog.AddNewDevice,,Add New Device,Add New Device
+Studio.App.AddEmulationDeviceDialog.DeviceForm,,Device Form:,Device Form:
 Studio.App.AddEmulationDeviceDialog.DeviceName,,Device Name,Device Name
+Studio.App.AddEmulationDeviceDialog.GuiInsets,,GuiInsets:,GuiInsets:
+Studio.App.AddEmulationDeviceDialog.KeyboardAnimationDuration,,Keyboard Animation Duration (s):,Keyboard Animation Duration (s):
+Studio.App.AddEmulationDeviceDialog.KeyboardSettings,,Keyboard Settings,Keyboard Settings
+Studio.App.AddEmulationDeviceDialog.LandscapeKeyboardHeight,,Keyboard Height (Landscape):,Keyboard Height (Landscape):
 Studio.App.AddEmulationDeviceDialog.NameInUse1,,"<nobr><font color=""#ff0000"">The name ""%1"" is already in use.</font></nobr>","<nobr><font color=""#ff0000"">The name ""%1"" is already in use.</font></nobr>"
 Studio.App.AddEmulationDeviceDialog.Platform,,Platform:,Platform:
+Studio.App.AddEmulationDeviceDialog.PortraitKeyboardHeight,,Keyboard Height (Portrait):,Keyboard Height (Portrait):
 Studio.App.AddEmulationDeviceDialog.ResolutionDpi,,Resolution (DPI):,Resolution (DPI):
 Studio.App.AddImageDialog.ChooseFile,,Choose File,Choose File
 Studio.App.AddImageDialog.ChooseImageUpload,,Choose image to upload,Choose image to upload
@@ -43,6 +49,8 @@ Studio.App.BetaFeatures.AvatarLoadingBetaTitle,,New Avatar Loading Signal Orderi
 Studio.App.BetaFeatures.BetaFeatures,title for Beta Features feature,Beta Features,Beta Features
 Studio.App.BetaFeatures.CloudLoadFailedFmt1,error fetching BF from cloud,Failed to load beta features from cloud: %1,Failed to load beta features from cloud: %1
 Studio.App.BetaFeatures.CloudReloadPrompt,reload because BFs loaded from cloud,Beta features enabled for this account differ from those saved locally. Updated Beta features will not be available until you restart Studio.,Beta features enabled for this account differ from those saved locally. Updated Beta features will not be available until you restart Studio.
+Studio.App.BetaFeatures.ConvertToTerrainDescription,,Enables the Convert TerrainTool which can convert Parts into Terrain materials and biomes.,Enables the Convert TerrainTool which can convert Parts into Terrain materials and biomes.
+Studio.App.BetaFeatures.ConvertToTerrainTitle,,TerrainTools: ConvertTool Beta,TerrainTools: ConvertTool Beta
 Studio.App.BetaFeatures.CouldBeUnstable,,Note: Beta features could be unstable resulting in data loss or game corruption,Note: Beta features could be unstable resulting in data loss or game corruption
 Studio.App.BetaFeatures.Details,,Details,Details
 Studio.App.BetaFeatures.EnableLuauTypeCheckingDescription,,Enables new script analysis features,Enables new script analysis features
@@ -70,8 +78,6 @@ Studio.App.BetaFeatures.SetInstanceDefaultsWindowTitle,,Set Instance as Default,
 Studio.App.BetaFeatures.SomethingChangedPrompt,,Would you like to restart Studio now?,Would you like to restart Studio now?
 Studio.App.BetaFeatures.SurfaceJoinChangesDescription,,"Remove the 'Surface' Join Mode, all surfaces create ManualWelds.","Remove the 'Surface' Join Mode, all surfaces create ManualWelds."
 Studio.App.BetaFeatures.SurfaceJoinChangesTitle,,Surface Join Behavior Change,Surface Join Behavior Change
-Studio.App.BetaFeatures.TerrainEditorDescription,,Enables the new Beta version of the Terrain Editor.,Enables the new Beta version of the Terrain Editor.
-Studio.App.BetaFeatures.TerrainEditorTitle,,Terrain Editor Beta,Terrain Editor Beta
 Studio.App.BetaFeatures.TryCoolFeatures,,Try out cool new Studio features! Your feedback is invaluable to us as we move forward towards building a powerful imagination platform.,Try out cool new Studio features! Your feedback is invaluable to us as we move forward towards building a powerful imagination platform.
 Studio.App.BetaFeatures.TryCoolFeaturesWithWarning,,Try out cool new Studio features before they are released to everyone! Please be aware that Beta features could be unstable. Your feedback is invaluable to us as we move towards building the imagination platform.,Try out cool new Studio features before they are released to everyone! Please be aware that Beta features could be unstable. Your feedback is invaluable to us as we move towards building the imagination platform.
 Studio.App.BetaFeatures.WhatsNewWindowDescription,,Open up a scrolling window that shows all of the recent updates to Roblox Studio,Open up a scrolling window that shows all of the recent updates to Roblox Studio
@@ -265,9 +271,14 @@ Studio.App.EmbeddedFindReplaceWidget.RegularExpression,,Regular Expression,Regul
 Studio.App.EmbeddedFindReplaceWidget.ReplaceAll,,Replace All,Replace All
 Studio.App.EmbeddedFindReplaceWidget.ReplaceNext,,Replace Next,Replace Next
 Studio.App.EmulatorMainWidget.ActualResolution,,Actual Resolution,Actual Resolution
+Studio.App.EmulatorMainWidget.Android,,Android,Android
+Studio.App.EmulatorMainWidget.AndroidTV,,AndroidTV,AndroidTV
+Studio.App.EmulatorMainWidget.BeOS,,BeOS,BeOS
 Studio.App.EmulatorMainWidget.CalibratePhysicalScaling,,Calibrate Physical Scaling,Calibrate Physical Scaling
+Studio.App.EmulatorMainWidget.Chromecast,,Chromecast,Chromecast
 Studio.App.EmulatorMainWidget.ConsoleSectionName,,Console,Console
 Studio.App.EmulatorMainWidget.CustomDeviceSectionName,,Custom Device,Custom Device
+Studio.App.EmulatorMainWidget.DOS,,DOS,DOS
 Studio.App.EmulatorMainWidget.DesktopSectionName,,Desktop,Desktop
 Studio.App.EmulatorMainWidget.FitToWindow,,Fit to Window,Fit to Window
 Studio.App.EmulatorMainWidget.Landscape,,Landscape,Landscape
@@ -276,12 +287,19 @@ Studio.App.EmulatorMainWidget.LandscapeLeftSpace,,Landscape Left,Landscape Left
 Studio.App.EmulatorMainWidget.LandscapeRight,,LandscapeRight,LandscapeRight
 Studio.App.EmulatorMainWidget.LandscapeRightSpace,,Landscape Right,Landscape Right
 Studio.App.EmulatorMainWidget.LandscapeSensor,,LandscapeSensor,LandscapeSensor
+Studio.App.EmulatorMainWidget.Linux,,Linux,Linux
 Studio.App.EmulatorMainWidget.ManageDevices,,Manage Devices,Manage Devices
 Studio.App.EmulatorMainWidget.MockAndroidBackButton,,Simulate a click on the Android Back button,Simulate a click on the Android Back button
 Studio.App.EmulatorMainWidget.ModeNotEnabledMessage1,,"%1 mode is not enabled for your game. To enable it, %2 set the ","%1 mode is not enabled for your game. To enable it, %2 set the "
 Studio.App.EmulatorMainWidget.ModeNotEnabledMessage2,,setting of StarterGui to,setting of StarterGui to
 Studio.App.EmulatorMainWidget.ModeNotEnabledMessageOr,,or,or
 Studio.App.EmulatorMainWidget.ModeNotEnabledTitle,,%1 Not Enabled,%1 Not Enabled
+Studio.App.EmulatorMainWidget.NX,,NX,NX
+Studio.App.EmulatorMainWidget.None,,None,None
+Studio.App.EmulatorMainWidget.OSX,,OSX,OSX
+Studio.App.EmulatorMainWidget.Ouya,,Ouya,Ouya
+Studio.App.EmulatorMainWidget.PS3,,PS3,PS3
+Studio.App.EmulatorMainWidget.PS4,,PS4,PS4
 Studio.App.EmulatorMainWidget.PhoneSectionName,,Phone,Phone
 Studio.App.EmulatorMainWidget.PhysicalSize,,Physical Size,Physical Size
 Studio.App.EmulatorMainWidget.Portrait,,Portrait,Portrait
@@ -289,7 +307,15 @@ Studio.App.EmulatorMainWidget.RotateMobileDeviceOrientation,,Rotate mobile devic
 Studio.App.EmulatorMainWidget.RotatePhonesTablets,,You can only rotate phones and tablets,You can only rotate phones and tablets
 Studio.App.EmulatorMainWidget.ScreenOrientation,,ScreenOrientation,ScreenOrientation
 Studio.App.EmulatorMainWidget.Sensor,,Sensor,Sensor
+Studio.App.EmulatorMainWidget.SteamOS,,SteamOS,SteamOS
 Studio.App.EmulatorMainWidget.TabletSectionName,,Tablet,Tablet
+Studio.App.EmulatorMainWidget.UWP,,UWP,UWP
+Studio.App.EmulatorMainWidget.WebOS,,WebOS,WebOS
+Studio.App.EmulatorMainWidget.WiiU,,WiiU,WiiU
+Studio.App.EmulatorMainWidget.Windows,,Windows,Windows
+Studio.App.EmulatorMainWidget.XBox360,,XBox360,XBox360
+Studio.App.EmulatorMainWidget.XBoxOne,,XBoxOne,XBoxOne
+Studio.App.EmulatorMainWidget.iOS,,iOS,iOS
 Studio.App.EntityProperties.NetworkFailedOperation,,"Operation failed. Please check your network connection and try again. If the error persists, contact Customer Support","Operation failed. Please check your network connection and try again. If the error persists, contact Customer Support"
 Studio.App.FBXRigBuilder.CantFindDataModel,,Failed to import animations for rig: Unable to find DataModel,Failed to import animations for rig: Unable to find DataModel
 Studio.App.FBXRigBuilder.CantFindWorkspace,,Unable to find Workspace,Unable to find Workspace
@@ -631,7 +657,6 @@ Studio.App.MainWindow.UnableToCreateAutoSaveFile1,Main Window,"Could not create 
 Studio.App.MainWindow.UnableToFetchUniversePermissions1,Main Window,Unable to fetch universe permissions: %1,Unable to fetch universe permissions: %1
 Studio.App.MainWindow.UnableToLockFileForOpen,Main Window,This file is currently in use by another Studio instance or is read-only. You will need to pick a different name in order to save changes.,This file is currently in use by another Studio instance or is read-only. You will need to pick a different name in order to save changes.
 Studio.App.MainWindow.UnableToOpenDeletedFile1,Main Window,"Could not open the file ""%1"" because it no longer exists.","Could not open the file ""%1"" because it no longer exists."
-Studio.App.MainWindow.UnableToOpenGameOrPlaceRestartApplication,Main Window,"Unable to open the game or place. Please restart your application and try again. If you continue to encounter this error, please contact customer service.","Unable to open the game or place. Please restart your application and try again. If you continue to encounter this error, please contact customer service."
 Studio.App.MainWindow.UnableToOpenPlace2,Main Window,"Could not open the place ""%1"" with exception: ""%2"".","Could not open the place ""%1"" with exception: ""%2""."
 Studio.App.MainWindow.UploadingImageQuitAnyway,Main Window,Roblox is uploading an image. Quit anyway?,Roblox is uploading an image. Quit anyway?
 Studio.App.MainWindow.UploadingPlaceQuitPublishAuto,Main Window,Publishing in progress. Studio will close automatically when complete.,Publishing in progress. Studio will close automatically when complete.
@@ -1801,6 +1826,7 @@ Studio.App.RobloxStudioVerbs.PackageLinkCut,,Cannot cut selection(s) with Packag
 Studio.App.RobloxStudioVerbs.PackageLinkDuplicate,,Cannot duplicate selection(s) with PackageLink included!,Cannot duplicate selection(s) with PackageLink included!
 Studio.App.RobloxStudioVerbs.PlaySolo,,Play Solo,Play Solo
 Studio.App.RobloxStudioVerbs.PlaySoloSaveFailure,,Play solo - save failure,Play solo - save failure
+Studio.App.RobloxStudioVerbs.Publishing,,Publishing,Publishing
 Studio.App.RobloxStudioVerbs.QuickOpen,,Quick Open,Quick Open
 Studio.App.RobloxStudioVerbs.Redo1,,Redo %s,Redo %s
 Studio.App.RobloxStudioVerbs.RemoteDebug,,Remote Debug,Remote Debug
@@ -1811,6 +1837,7 @@ Studio.App.RobloxStudioVerbs.RobloxModelFiles,,Roblox Model Files (*.rbxm),Roblo
 Studio.App.RobloxStudioVerbs.RobloxXmlModelFiles,,Roblox XML Model Files (*.rbxmx),Roblox XML Model Files (*.rbxmx)
 Studio.App.RobloxStudioVerbs.SaveAsPlugin,,Save As Plugin,Save As Plugin
 Studio.App.RobloxStudioVerbs.SavingTo,,Saving to Roblox...,Saving to Roblox...
+Studio.App.RobloxStudioVerbs.ScreenshotSaved,,Screenshot saved! Click here to open screenshot folder.,Screenshot saved! Click here to open screenshot folder.
 Studio.App.RobloxStudioVerbs.SeparateFailed,,Separate failed,Separate failed
 Studio.App.RobloxStudioVerbs.StartServer,,Start server,Start server
 Studio.App.RobloxStudioVerbs.StartServerSaveFailure,,Start server - save failure,Start server - save failure
@@ -1859,6 +1886,9 @@ Studio.App.ScriptRecoveryWidget.ViewDiff,,View Diff,View Diff
 Studio.App.ScriptResourceController.ConfirmPublishChanges,,Are you sure you want to publish your changes?,Are you sure you want to publish your changes?
 Studio.App.ScriptResourceController.ConfirmWillDestroyChanges,,This will destroy all local changes you have made. Are you sure?,This will destroy all local changes you have made. Are you sure?
 Studio.App.ScriptTextEditor.FilterText,,  Type to filter functions. Tab or Enter to go to selected function,  Type to filter functions. Tab or Enter to go to selected function
+Studio.App.ScriptsInBatchDialog.ScriptSectionHeader,,Script,Script
+Studio.App.ScriptsInBatchDialog.Title,,Scripts In Batch,Scripts In Batch
+Studio.App.ScriptsInBatchDialog.VersionSectionHeader,,Version,Version
 Studio.App.Settings.FolderSelectionDialogTitle,,Select folder to save Roblox documents,Select folder to save Roblox documents
 Studio.App.Settings.SelectFolderMessageBoxText,,"Need a location to store local files.
 Do you want to pick a file path now?","Need a location to store local files.
@@ -2049,6 +2079,8 @@ Studio.App.VersionHistoryDialog.ShowBatchContentsLink,,Show,Show
 Studio.App.VersionHistoryDialog.Title1,Title of dialog to view history for a script. Example: MyScriptName - Version History,%1 - Version History,%1 - Version History
 Studio.App.VersionHistoryDialog.VersionColumnTitle,,Version,Version
 Studio.App.VersionHistoryDialog.ViewButtonText,,View,View
+Studio.App.VideoControl.RecordingStarted,,Video recording started,Video recording started
+Studio.App.VideoControl.RecordingStopped,,Video recording stopped,Video recording stopped
 Studio.App.WatchTreeWidget.DeleteAll,,Delete All,Delete All
 Studio.App.WatchTreeWidget.DeleteWatch,,Delete Watch,Delete Watch
 Studio.App.WatchWidget.Expression,,Expression,Expression

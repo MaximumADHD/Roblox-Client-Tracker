@@ -1,19 +1,15 @@
 --[[
 	Search Bar Component
 
-	Implements a search bar component with a text box that dynamically moves as you type, and a button to request a search.
+	Implements a search bar component with a text box that dynamically moves as you type, and searches after a delay.
 
 	Props:
-		number Width : how wide the search bar is
+		UDim2 Size: size of the searchBar
 		number LayoutOrder = 0 : optional layout order for UI layouts
-		bool ShowSearchButton : show the search bar button at the end of the bar.
 		string DefaultText = default text to show in the empty search bar.
-		string SearchTerm
-		bool IsLive = Should this search bar be styled as a live search bar?
 
 		callback OnSearchRequested(string searchTerm) : callback for when the user presses the enter key
 			or clicks the search button or types if search is live
-		callback OnTextChanged(string text) : callback for when the text was changed
 ]]
 
 local Library = script.Parent.Parent
@@ -21,8 +17,7 @@ local Roact = require(Library.Parent.Roact)
 local Theming = require(Library.Theming)
 local withTheme = Theming.withTheme
 
-local RoundFrame = require(Library.Components.RoundFrame)
-local SearchBarButtons = require(Library.Components.SearchBarButtons)
+local LayoutOrderIterator = require(Library.Utils.LayoutOrderIterator)
 
 local TextService = game:GetService("TextService")
 
@@ -38,10 +33,10 @@ end
 function SearchBar:init()
 	self.state = {
 		text = "",
-		lastSearchTermAsProp = "",
 
 		isFocused = false,
 		isContainerHovered = false,
+		isClearButtonHovered = false,
 	}
 
 	self.textBoxRef = Roact.createRef()
@@ -62,38 +57,25 @@ function SearchBar:init()
 		})
 	end
 
-	self.onBackgroundClicked = function()
-		-- Check if the search button was clicked or not
-		-- If it was clicked, we don't want to focus on the text box
-		if self.textBoxRef and self.textBoxRef.current then
-			self.textBoxRef.current:CaptureFocus()
-		end
-	end
-
-	self.onBackgroundFocusLost = function(rbx, input)
-		if input.UserInputType == Enum.UserInputType.Focus then
-			self:onFocusLost(false)
-		end
-	end
-
 	self.onTextChanged = function(rbx)
 		local text = stripSearchTerm(rbx.Text)
+		local textBox = self.textBoxRef.current
 		if self.state.text ~= text then
 			self:setState({
 				text = text,
 			})
-			if self.props.OnTextChanged then
-				self.props.OnTextChanged(text)
-			end
 
-			if self.props.IsLive then
-				local thisDelay = {}
-				self.state.lastDelay = thisDelay
-				delay(TEXT_SEARCH_THRESHOLD / 1000, function()
-					if thisDelay == self.state.lastDelay and text ~= "" then
-						self.requestSearch()
-					end
-				end)
+			delay(TEXT_SEARCH_THRESHOLD / 1000, function()
+				if text ~= "" then
+					self.requestSearch()
+				end
+			end)
+
+			local textBound = TextService:GetTextSize(text, textBox.TextSize, textBox.Font, Vector2.new(math.huge, math.huge))
+			if textBound.x > textBox.AbsoluteSize.x then
+				textBox.TextXAlignment = Enum.TextXAlignment.Right
+			else
+				textBox.TextXAlignment = Enum.TextXAlignment.Left
 			end
 		end
 	end
@@ -105,49 +87,34 @@ function SearchBar:init()
 	end
 
 	self.onTextBoxFocusLost = function(rbx, enterPressed, inputObject)
-		self:onFocusLost(enterPressed)
+		self:setState({
+			isFocused = false,
+			isContainerHovered = false,
+		})
+	end
+
+	self.onClearButtonHovered = function()
+		self:setState({
+			isClearButtonHovered = true,
+		})
+	end
+
+	self.onClearButtonHoverEnded = function()
+		self:setState({
+			isClearButtonHovered = false,
+		})
 	end
 
 	self.onClearButtonClicked = function()
+		local textBox = self.textBoxRef.current
 		self:setState({
-			text = "",
 			isFocused = true,
+			isClearButtonHovered = false,
 		})
-		self.textBoxRef.current:CaptureFocus()
 
-		self.requestSearch()
-	end
-end
-
-function SearchBar.getDerivedStateFromProps(nextProps, lastState)
-	-- Check if the search term passed in as a prop is different to the last
-	-- one passed in. If it is, then that means the user searched for
-	-- something externally (e.g. clicking on a suggestion) or the search
-	-- was cleared because the category changed. In that case, we should
-	-- override our own text value with what was passed in. The check is so
-	-- that it only happens once, rather than every time the search bar is
-	-- rerendered.
-	local searchTerm = stripSearchTerm(nextProps.searchTerm)
-	local lastSearchTermAsProp = lastState.lastSearchTermAsProp or ""
-
-	if (searchTerm ~= lastSearchTermAsProp) then
-		return {
-			text = searchTerm,
-			lastSearchTermAsProp = searchTerm
-		}
-	end
-
-	return {}
-end
-
-function SearchBar:onFocusLost(enterPressed)
-	self:setState({
-		isFocused = false,
-		isContainerHovered = false,
-	})
-
-	if (enterPressed) then
-		self.requestSearch()
+		textBox.Text = ""
+		textBox:CaptureFocus()
+		textBox.TextXAlignment = Enum.TextXAlignment.Left
 	end
 end
 
@@ -156,18 +123,21 @@ function SearchBar:render()
 		local props = self.props
 		local state = self.state
 
-		local containerWidth = props.Width
+		local size = props.Size
 		local layoutOrder = props.LayoutOrder or 0
+		local onSearchRequested = props.OnSearchRequested
+
+		assert(size ~= nil, "Searchbar requires a size.")
+		assert(onSearchRequested ~= nil and type(onSearchRequested) == "function",
+			"Searchbar requires a OnSearchRequested function.")
 
 		local text = state.text
 
 		local isFocused = state.isFocused
 		local isContainerHovered = state.isContainerHovered
+		local isClearButtonHovered = state.isClearButtonHovered
 
 		local showClearButton = #text > 0
-		local showSearchButton = self.props.ShowSearchButton
-
-		local isLive = props.IsLive
 
 		--[[
 		By default, TextBoxes let you keep typing infinitely and it will just go out of the bounds
@@ -186,21 +156,11 @@ function SearchBar:render()
 			- Anchor the text label to the right side of the parent
 			- Sets its width = text width (with AnchorPoint = (1, 0), this grows to the left)
 		]]
-
-		local innerPadding = 10
-
 		local searchBarTheme = theme.searchBar
 
-		local buttonsWidth = showSearchButton and (2 * searchBarTheme.buttons.size) + 1
-			or searchBarTheme.buttons.size
-		-- Let the text box get closer to the buttons
-		local adjustedButtonsWidth = buttonsWidth - 6
+		local buttonSize = searchBarTheme.buttons.size
 
-		local parentWidth = containerWidth - adjustedButtonsWidth - (2 * innerPadding)
-
-		local textWidth = TextService:GetTextSize(text, searchBarTheme.text.size,
-			searchBarTheme.text.font, Vector2.new(math.huge, math.huge)).x
-		local isShorterThanParent = textWidth < parentWidth
+		local textBoxOffset = #text > 0 and -buttonSize * 2 or -buttonSize
 
 		local borderColor
 		if isFocused then
@@ -211,65 +171,95 @@ function SearchBar:render()
 			borderColor = searchBarTheme.border.color
 		end
 
+		local clearButtonImage = isClearButtonHovered and searchBarTheme.images.clear.hovered.image or searchBarTheme.images.clear.image
+
 		local defaultText = self.props.DefaultText
 
+		local layoutIndex = LayoutOrderIterator.new()
+
 		return Roact.createElement("Frame", {
-			Size = UDim2.new(0, containerWidth, 1, 0),
-			BackgroundTransparency = 1,
+			Size = size,
+			BackgroundColor3 = searchBarTheme.backgroundColor,
+			BorderColor3 = borderColor,
+			BorderSizePixel = 1,
 			LayoutOrder = layoutOrder,
+
+			[Roact.Event.MouseEnter] = self.onContainerHovered,
+			[Roact.Event.MouseLeave] = self.onContainerHoverEnded,
 		}, {
-			Background = Roact.createElement(RoundFrame, {
-				Position = UDim2.new(0, -1, 0, -1),
-				Size = UDim2.new(1, 2, 1, 2),
-
-				BorderColor3 = borderColor,
-				ClipsDescendants = true,
-
-				BackgroundColor3 = isLive and searchBarTheme.liveBackgroundColor or searchBarTheme.backgroundColor,
-
-				OnMouseEnter = self.onContainerHovered,
-				OnMouseLeave = self.onContainerHoverEnded,
-				OnActivated = self.onBackgroundClicked,
-				[Roact.Event.InputEnded] = self.onBackgroundFocusLost,
+			Background = Roact.createElement("Frame", {
+				Size = UDim2.new(1, 0, 1, 0),
+				BackgroundTransparency = 1,
+				BorderSizePixel = 0,
 			}, {
-				-- Parent the text box to another frame to make the logic for calculating position with the padding easier
-				TextContainer = Roact.createElement("Frame", {
-					Position = UDim2.new(0, innerPadding, 0, 0),
-					Size = UDim2.new(1, -(adjustedButtonsWidth + (innerPadding * 2)), 1, 0),
+				SearchBarLayout = Roact.createElement("UIListLayout", {
+					SortOrder = Enum.SortOrder.LayoutOrder,
+					Padding = UDim.new(0, 0),
+					FillDirection = Enum.FillDirection.Horizontal,
+				}),
+
+				SearchImageFrame = Roact.createElement("Frame", {
 					BackgroundTransparency = 1,
-					ZIndex = 2,
-				}, {
-					TextBox = Roact.createElement("TextBox", {
-						LayoutOrder = 1,
-						Size = UDim2.new(1, 0, 1, 0),
+					Size = UDim2.new(0, buttonSize, 0, buttonSize),
+					LayoutOrder = layoutIndex:getNextOrder(),
+				} , {
+					SearchImage = Roact.createElement("ImageLabel", {
+						AnchorPoint = Vector2.new(0.5, 0.5),
+						Position = UDim2.new(0.5, 0, 0.5, 0),
+						Size = UDim2.new(0, searchBarTheme.buttons.iconSize,
+							0, searchBarTheme.buttons.iconSize),
 						BackgroundTransparency = 1,
-						ClipsDescendants = true,
-
-						ClearTextOnFocus = false,
-						Font = searchBarTheme.font,
-						TextSize = searchBarTheme.textSize,
-						TextXAlignment = isShorterThanParent and Enum.TextXAlignment.Left or Enum.TextXAlignment.Right,
-						TextColor3 = searchBarTheme.text.color,
-						Text = text,
-
-						PlaceholderText = defaultText,
-						PlaceholderColor3 = searchBarTheme.text.placeholder.color,
-
-						-- Get a reference to the text box so that clicking on the container can call :CaptureFocus()
-						[Roact.Ref] = self.textBoxRef,
-
-						[Roact.Change.Text] = self.onTextChanged,
-						[Roact.Event.Focused] = self.onTextBoxFocused,
-						[Roact.Event.FocusLost] = self.onTextBoxFocusLost,
+						Image = searchBarTheme.images.search.image,
+						ImageColor3 = searchBarTheme.buttons.search.color,
 					}),
 				}),
 
-				Buttons = Roact.createElement(SearchBarButtons, {
-					showClearButton = showClearButton,
-					showSearchButton = showSearchButton,
-					onClearButtonClicked = self.onClearButtonClicked,
-					onSearchButtonClicked = self.requestSearch,
-				})
+				TextBox = Roact.createElement("TextBox", {
+					Size = UDim2.new(1, textBoxOffset, 0, buttonSize),
+					LayoutOrder = layoutIndex:getNextOrder(),
+
+					BackgroundTransparency = 1,
+					ClipsDescendants = true,
+
+					ClearTextOnFocus = false,
+					Font = searchBarTheme.font,
+					TextSize = searchBarTheme.textSize,
+					TextXAlignment = Enum.TextXAlignment.Left,
+					TextColor3 = searchBarTheme.text.color,
+					Text = text,
+					TextEditable = true,
+
+					PlaceholderText = defaultText,
+					PlaceholderColor3 = searchBarTheme.text.placeholder.color,
+
+					-- Get a reference to the text box so that clicking on the container can call :CaptureFocus()
+					[Roact.Ref] = self.textBoxRef,
+
+					[Roact.Change.Text] = self.onTextChanged,
+					[Roact.Event.Focused] = self.onTextBoxFocused,
+					[Roact.Event.FocusLost] = self.onTextBoxFocusLost,
+				}),
+
+				ClearButton = showClearButton and Roact.createElement("ImageButton", {
+					Size = UDim2.new(0, buttonSize, 0, buttonSize),
+					LayoutOrder = layoutIndex:getNextOrder(),
+
+					BackgroundTransparency = 1,
+
+					[Roact.Event.MouseEnter] = self.onClearButtonHovered,
+					[Roact.Event.MouseLeave] = self.onClearButtonHoverEnded,
+					[Roact.Event.MouseButton1Down] = self.onClearButtonClicked,
+				}, {
+					ClearImage = Roact.createElement("ImageLabel", {
+						AnchorPoint = Vector2.new(0.5, 0.5),
+						Position = UDim2.new(0.5, 0, 0.5, 0),
+						Size = UDim2.new(0, searchBarTheme.buttons.iconSize,
+							0, searchBarTheme.buttons.iconSize),
+						BackgroundTransparency = 1,
+						Image = clearButtonImage,
+						ImageColor3 = searchBarTheme.buttons.clear.color,
+					}),
+				}),
 			}),
 		})
 	end)

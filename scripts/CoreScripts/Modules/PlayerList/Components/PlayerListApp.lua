@@ -142,6 +142,7 @@ function PlayerListApp:render()
 						titlePlayerEntry = true,
 						hasDivider = false,
 						gameStats = self.props.gameStats,
+						entrySize = entrySize,
 					})
 					break
 				end

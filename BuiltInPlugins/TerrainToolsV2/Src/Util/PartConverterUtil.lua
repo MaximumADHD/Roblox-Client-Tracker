@@ -1,31 +1,129 @@
+local Plugin = script.Parent.Parent.Parent
+
+local Constants = require(Plugin.Src.Util.Constants)
 local TerrainEnums = require(script.Parent.TerrainEnums)
 local Shape = TerrainEnums.Shape
+
+local isProtectedInstance = require(script.Parent.isProtectedInstance)
 
 local DFFlagEnableFillWedge = settings():GetFFlag("EnableFillWedge")
 local FIntSmoothTerrainMaxCppRegion = tonumber(settings():GetFVariable("SmoothTerrainMaxCppRegion")) or 4*1024*1024
 
--- Maps to keys in the localization table
+-- Maps to keys in the localization table under the Warning group
 local ConvertPartError = {
 	RegionTooLarge = "RegionTooLarge",
 	UnknownShape = "UnknownShape",
-	TerrainNil = "TerrainIsNil",
+	InvalidSize = "InvalidSize",
 }
 
 local function isConvertibleToTerrain(instance)
-	return instance and instance.Parent and instance:IsA("BasePart")
+	if not instance then
+		return false
+	end
+
+	if isProtectedInstance(instance) then
+		return false
+	end
+
+	if not instance.Parent then
+		return false
+	end
+
+	if instance:IsA("Terrain") then
+		return false
+	end
+
+	if not instance:IsA("BasePart") then
+		return false
+	end
+
+	return true
 end
 
 local function hasInstancesConvertibleToTerrain(instances)
 	for _, obj in ipairs(instances) do
-		if isConvertibleToTerrain(obj) then
-			return true
+		if not isProtectedInstance(obj) then
+			if isConvertibleToTerrain(obj) then
+				return true
 
-		elseif (obj:IsA("Model") or obj:IsA("Folder")) and hasInstancesConvertibleToTerrain(obj:GetChildren()) then
-			return true
+			elseif (obj:IsA("Model") or obj:IsA("Folder")) and hasInstancesConvertibleToTerrain(obj:GetChildren()) then
+				return true
+			end
 		end
 	end
 
 	return false
+end
+
+-- NOTE:
+-- 		size and cframe is in studs
+-- 		voxelPos is in voxel
+-- so these functions make some assumptions based on voxels being 4,4,4 studs
+local ShapeOccupancyFunc = {
+	[Shape.Block] = function(voxelPos, cFrame, size)
+		local reorientedpoint = cFrame:VectorToObjectSpace(voxelPos)
+
+		local occupancy = math.min(
+			size.x - math.abs(reorientedpoint.x),
+			size.y - math.abs(reorientedpoint.y),
+			size.z - math.abs(reorientedpoint.z),
+			1)
+
+		return occupancy
+	end,
+
+	[Shape.Ball] = function(voxelPos, cFrame, size)
+		local reorientedpoint = cFrame:VectorToObjectSpace(voxelPos)
+
+		local sphereOccupancy = math.min(size.x, size.y, size.z) - reorientedpoint.Magnitude
+		return math.min(
+			size.x - math.abs(reorientedpoint.x),
+			sphereOccupancy,
+			1)
+	end,
+
+	-- roller shaped cylinder
+	[Shape.CylinderRotate] = function(voxelPos, cFrame, size)
+		local reorientedpoint = cFrame:VectorToObjectSpace(voxelPos)
+
+		local minRadius = math.min(size.y, size.z) -- size converted to voxel radius
+		local tubeOccupancy = minRadius - math.sqrt(reorientedpoint.y*reorientedpoint.y + reorientedpoint.z*reorientedpoint.z)
+
+		return math.min(
+			size.x - math.abs(reorientedpoint.x),
+			tubeOccupancy,
+			1)
+	end,
+
+	-- can-shaped cylinder
+	[Shape.Cylinder] = function(voxelPos, cFrame, size)
+		local reorientedpoint = cFrame:VectorToObjectSpace(voxelPos)
+
+		local minRadius = math.min(size.x, size.z) -- size converted to voxel radius
+		local tubeOccupancy = minRadius - math.sqrt(reorientedpoint.x*reorientedpoint.x + reorientedpoint.z*reorientedpoint.z)
+
+		return math.min(
+			size.y - math.abs(reorientedpoint.y),
+			tubeOccupancy,
+			1)
+	end,
+
+	-- ClassName for Wedge
+	[Shape.Wedge] = function(voxelPos, cFrame, size)
+		local reorientedpoint = cFrame:VectorToObjectSpace(voxelPos)
+		local ratio = size.y / size.z
+
+		local occupancy = math.min(
+			size.x - math.abs(reorientedpoint.x),
+			size.y - math.abs(reorientedpoint.y),
+			size.z - math.abs(reorientedpoint.z),
+			1)
+
+		return reorientedpoint.z * ratio - reorientedpoint.y > 1 and occupancy or 0
+	end,
+}
+local function getShapeFunction(targetShape)
+	return ShapeOccupancyFunc[targetShape]
 end
 
 local function getPartRenderedShape(part)
@@ -35,7 +133,7 @@ local function getPartRenderedShape(part)
 	-- If the part has a child that is a mesh, then use that shape instead
 	for _, obj in ipairs(part:GetChildren()) do
 		if obj:IsA("DataModelMesh") then
-			local cframe = part.CFrame + obj.Offset
+			local cframe = part.CFrame + part.CFrame:VectorToWorldSpace(obj.Offset)
 			local size = part.Size * obj.Scale
 
 			if obj:IsA("SpecialMesh") then
@@ -74,6 +172,28 @@ local function getPartRenderedShape(part)
 	return Shape.Block, cframe, size
 end
 
+-- this assumes shape is a block, but at least keeps the center position of the AABB
+-- at teh same postion as the part
+local function getAABBRegion(cFrame, size)
+	local pos = cFrame.Position
+	local halfSize = size * 0.5
+	local cFrameComps = {cFrame:GetComponents()}
+
+	-- used to finded the size of the AABB of the oriented part
+	local orientedHalfSize = Vector3.new(
+		math.abs(cFrameComps[4]) * halfSize.x
+			+ math.abs(cFrameComps[5]) * halfSize.y
+			+ math.abs(cFrameComps[6]) * halfSize.z,
+		math.abs(cFrameComps[7]) * halfSize.x
+			+ math.abs(cFrameComps[8]) * halfSize.y
+			+ math.abs(cFrameComps[9]) * halfSize.z,
+		math.abs(cFrameComps[10]) * halfSize.x
+			+ math.abs(cFrameComps[11]) * halfSize.y
+			+ math.abs(cFrameComps[12]) * halfSize.z)
+
+	return Region3.new(pos - orientedHalfSize, pos + orientedHalfSize):ExpandToGrid(Constants.VOXEL_RESOLUTION)
+end
+
 local function getAABBVolume(cframe, size)
 	local inv = cframe:inverse()
 	local x = size * inv.rightVector
@@ -97,6 +217,12 @@ end
 -- For most instances small enough to fit within FIntSmoothTerrainMaxCppRegion, fill calls = 1
 -- For large instances that have to be split up, fill calls will likely be > 1
 local function fillShapeWithTerrain(terrain, material, shape, cframe, size)
+	assert(terrain, "fillShapeWithTerrain requires terrain to be non-nil")
+
+	if size.x <= 0 or size.y <= 0 or size.z <= 0 then
+		return 0, ConvertPartError.InvalidSize
+	end
+
 	local regionTooLarge = isRegionTooLarge(cframe, size)
 
 	if shape == Shape.Block then
@@ -173,4 +299,7 @@ return {
 	hasInstancesConvertibleToTerrain = hasInstancesConvertibleToTerrain,
 	getPartRenderedShape = getPartRenderedShape,
 	fillShapeWithTerrain = fillShapeWithTerrain,
+
+	getAABBRegion = getAABBRegion,
+	getShapeFunction = getShapeFunction,
 }

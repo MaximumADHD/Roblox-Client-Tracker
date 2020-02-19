@@ -4,9 +4,15 @@ return function()
 	local MockManagement = require(Plugin.Src.Components.MockManagement)
 	local PermissionInfo = require(Plugin.Src.Models.PermissionInfo)
 	local Constants = require(Plugin.Src.Util.Constants)
-	local FFlagEnablePluginPermissionsPage = game:GetFastFlag("EnablePluginPermissionsPage")
+	local Flags = require(Plugin.Packages.Framework.Util.Flags)
+	local FlagsList = Flags.new({
+		FFlagEnablePluginPermissionsPage = {
+			"EnablePluginPermissionsPage2",
+			"StudioPermissionsServiceEnabled",
+		},
+	})
 
-	if not FFlagEnablePluginPermissionsPage then
+	if not FlagsList:get("FFlagEnablePluginPermissionsPage") then
 		return
 	end
 
@@ -19,14 +25,14 @@ return function()
 
 		for _=1,allowedHttpCount do
 			local mockPermission = PermissionInfo.mock()
-			mockPermission.type = Constants.PERMISSION_TYPES.HttpPermission
+			mockPermission.type = Constants.PERMISSION_TYPES.HttpService
 			mockPermission.enabled = true
 			table.insert(mockHttpPermissions, mockPermission)
 		end
 
 		for _=1,deniedHttpCount do
 			local mockPermission = PermissionInfo.mock()
-			mockPermission.type = Constants.PERMISSION_TYPES.HttpPermission
+			mockPermission.type = Constants.PERMISSION_TYPES.HttpService
 			mockPermission.enabled = false
 			table.insert(mockHttpPermissions, mockPermission)
 		end

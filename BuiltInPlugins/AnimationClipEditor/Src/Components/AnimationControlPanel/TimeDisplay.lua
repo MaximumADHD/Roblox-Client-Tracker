@@ -103,7 +103,7 @@ function TimeDisplay:render()
 
 			CurrentFrameBox = Roact.createElement(TextBox, {
 				Size = UDim2.new(0, 40, 1, -6),
-				Text = showAsTime and StringUtils.formatTime(playhead, frameRate) or tostring(playhead),
+				Text = showAsTime and StringUtils.formatTime(playhead, frameRate) or tostring(math.floor(playhead)),
 				TextXAlignment = Enum.TextXAlignment.Center,
 				LayoutOrder = 0,
 				ClearTextOnFocus = false,

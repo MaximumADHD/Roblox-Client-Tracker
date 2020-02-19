@@ -35,6 +35,7 @@ local LongOperationQueue = {}
 LongOperationQueue.__index = LongOperationQueue
 
 function LongOperationQueue.new(options)
+	options = options or {}
 	local self = setmetatable({
 		_timeBetweenOperations = options.timeBetweenOperations or 0,
 

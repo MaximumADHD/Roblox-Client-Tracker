@@ -10003,8 +10003,8 @@
                     "MemberType": "Property",
                     "Name": "CurrentDataModelType",
                     "Security": {
-                        "Read": "RobloxScriptSecurity",
-                        "Write": "RobloxScriptSecurity"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
@@ -10024,8 +10024,8 @@
                     "MemberType": "Property",
                     "Name": "SessionId",
                     "Security": {
-                        "Read": "RobloxScriptSecurity",
-                        "Write": "RobloxScriptSecurity"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
@@ -10052,14 +10052,14 @@
                             }
                         }
                     ],
-                    "Security": "RobloxScriptSecurity"
+                    "Security": "PluginSecurity"
                 },
                 {
                     "MemberType": "Event",
                     "Name": "CurrentDataModelTypeChanged",
                     "Parameters": [
                     ],
-                    "Security": "RobloxScriptSecurity"
+                    "Security": "PluginSecurity"
                 },
                 {
                     "MemberType": "Event",
@@ -10073,7 +10073,7 @@
                             }
                         }
                     ],
-                    "Security": "RobloxScriptSecurity"
+                    "Security": "PluginSecurity"
                 },
                 {
                     "MemberType": "Event",
@@ -10087,7 +10087,7 @@
                             }
                         }
                     ],
-                    "Security": "RobloxScriptSecurity"
+                    "Security": "PluginSecurity"
                 }
             ],
             "MemoryCategory": "Instances",
@@ -20464,6 +20464,51 @@
                     "Tags": [
                         "Yields"
                     ]
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "RequestLimitedAsync",
+                    "Parameters": [
+                        {
+                            "Name": "requestOptions",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
+                        },
+                        {
+                            "Default": "Default",
+                            "Name": "priority",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "ThrottlingPriority"
+                            }
+                        },
+                        {
+                            "Default": "ApplicationJson",
+                            "Name": "content_type",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "HttpContentType"
+                            }
+                        },
+                        {
+                            "Default": "Default",
+                            "Name": "httpRequestType",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "HttpRequestType"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields"
+                    ]
                 }
             ],
             "MemoryCategory": "Instances",
@@ -28903,8 +28948,8 @@
                     "MemberType": "Property",
                     "Name": "FocusedDataModelSession",
                     "Security": {
-                        "Read": "RobloxScriptSecurity",
-                        "Write": "RobloxScriptSecurity"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
@@ -28931,7 +28976,7 @@
                             }
                         }
                     ],
-                    "Security": "RobloxScriptSecurity"
+                    "Security": "PluginSecurity"
                 },
                 {
                     "MemberType": "Event",
@@ -28945,7 +28990,7 @@
                             }
                         }
                     ],
-                    "Security": "RobloxScriptSecurity"
+                    "Security": "PluginSecurity"
                 }
             ],
             "MemoryCategory": "Instances",
@@ -34272,7 +34317,7 @@
                     "Name": "StreamingEnabled",
                     "Security": {
                         "Read": "None",
-                        "Write": "None"
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -39394,8 +39439,8 @@
                     "MemberType": "Property",
                     "Name": "HostDataModelType",
                     "Security": {
-                        "Read": "RobloxScriptSecurity",
-                        "Write": "RobloxScriptSecurity"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
@@ -39415,8 +39460,8 @@
                     "MemberType": "Property",
                     "Name": "HostDataModelTypeIsCurrent",
                     "Security": {
-                        "Read": "RobloxScriptSecurity",
-                        "Write": "RobloxScriptSecurity"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
@@ -39436,8 +39481,8 @@
                     "MemberType": "Property",
                     "Name": "MultipleDocumentInterfaceInstance",
                     "Security": {
-                        "Read": "RobloxScriptSecurity",
-                        "Write": "RobloxScriptSecurity"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
@@ -39624,7 +39669,7 @@
                         "Category": "Group",
                         "Name": "Variant"
                     },
-                    "Security": "RobloxScriptSecurity"
+                    "Security": "PluginSecurity"
                 },
                 {
                     "MemberType": "Function",
@@ -39714,7 +39759,7 @@
                         "Category": "Primitive",
                         "Name": "void"
                     },
-                    "Security": "RobloxScriptSecurity"
+                    "Security": "PluginSecurity"
                 },
                 {
                     "MemberType": "Function",
@@ -39779,7 +39824,7 @@
                         "Category": "Class",
                         "Name": "Instance"
                     },
-                    "Security": "RobloxScriptSecurity"
+                    "Security": "PluginSecurity"
                 },
                 {
                     "MemberType": "Function",
@@ -39804,7 +39849,7 @@
                         "Category": "Class",
                         "Name": "Instance"
                     },
-                    "Security": "RobloxScriptSecurity"
+                    "Security": "PluginSecurity"
                 },
                 {
                     "MemberType": "Function",
@@ -39981,7 +40026,7 @@
                         "Category": "Primitive",
                         "Name": "void"
                     },
-                    "Security": "RobloxScriptSecurity"
+                    "Security": "PluginSecurity"
                 },
                 {
                     "MemberType": "Function",
@@ -59820,19 +59865,6 @@
                 }
             ],
             "Name": "DataStoreRequestType"
-        },
-        {
-            "Items": [
-                {
-                    "Name": "Utc",
-                    "Value": 0
-                },
-                {
-                    "Name": "Local",
-                    "Value": 1
-                }
-            ],
-            "Name": "DateTimeKind"
         },
         {
             "Items": [

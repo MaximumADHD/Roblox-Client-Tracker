@@ -84,10 +84,17 @@ local function createStyles(theme, getColor)
 			}))
 		})
 
+		local BulkImporterButton = Style.extend(TopBarButton, {
+			ForegroundStyle = Style.extend(TopBarButton.ForegroundStyle, {
+				Image = "rbxasset://textures/StudioSharedUI/import.png",
+			})
+		})
+
 		return {
 			OverlayButton = OverlayButton,
 			PreviousButton = PreviousButton,
 			NextButton = NextButton,
+			BulkImporterButton = BulkImporterButton,
 		}
 	end)
 
@@ -164,7 +171,21 @@ local function getUILibraryTheme()
 	end, c, m)
 
 	local UILibraryOverrides = {
-
+		searchBar = {
+			backgroundColor = theme:GetColor(c.InputFieldBackground),
+			border = {
+				hover = {
+					color = theme:GetColor(c.MainText),
+				},
+				selected = {
+					color = theme:GetColor(c.Button, m.Selected),
+				},
+				color = Color3.fromRGB(0, 0, 0),
+			},
+			buttons = {
+				size = 24,
+			}
+		}
 	}
 
 	return createTheme(UILibraryPalette, UILibraryOverrides)

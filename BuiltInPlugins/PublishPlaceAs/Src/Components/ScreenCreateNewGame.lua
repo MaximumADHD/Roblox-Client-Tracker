@@ -35,6 +35,8 @@ local MENU_ENTRIES = {
 	"BasicInfo",
 }
 
+local FFlagStudioFixPublishSuccessNameIcon = game:GetFastFlag("StudioFixPublishSuccessNameIcon")
+
 local ScreenCreateNewGame = Roact.PureComponent:extend("ScreenCreateNewGame")
 
 function ScreenCreateNewGame:init()
@@ -54,9 +56,17 @@ end
 function ScreenCreateNewGame:didMount()
 	self.finishedConnection = StudioService.GamePublishFinished:connect(function(success)
 		if success then
-			self.props.OpenPublishSuccessfulPage(game, self.props.Changed)
+			if FFlagStudioFixPublishSuccessNameIcon then
+				self.props.OpenPublishSuccessfulPage(self.props.Changed)
+			else
+				self.props.DEPRECATED_OpenPublishSuccessfulPage(game, self.props.Changed)
+			end
 		else
-			self.props.OpenPublishFailPage(game, self.props.Changed)
+			if FFlagStudioFixPublishSuccessNameIcon then
+				self.props.OpenPublishFailPage(self.props.Changed)
+			else
+				self.props.DEPRECATED_OpenPublishFailPage(game, self.props.Changed)
+			end
 		end
 	end)
 end
@@ -77,8 +87,6 @@ function ScreenCreateNewGame:render(props)
 			local changed = props.Changed
 
 			local selected = self.state.selected
-
-			local openPublishSuccessfulPage = props.OpenPublishSuccessfulPage
 
 			return Roact.createElement("Frame", {
 				Size = UDim2.new(1, 0, 1, 0),
@@ -132,12 +140,20 @@ end
 
 local function useDispatchForProps(dispatch)
 	return {
-		OpenPublishSuccessfulPage = function(place, game)
+		DEPRECATED_OpenPublishSuccessfulPage = function(place, game)
 			dispatch(SetPublishInfo({ id = place.GameId, name = place.Name, parentGameName = game.name, }))
 			dispatch(SetScreen(Constants.SCREENS.PUBLISH_SUCCESSFUL))
 		end,
-		OpenPublishFailPage = function(place, game)
+		DEPRECATED_OpenPublishFailPage = function(place, game)
 			dispatch(SetPublishInfo({ id = place.GameId, name = place.name, parentGameName = game.name, parentGameId = 0, settings = game, }))
+			dispatch(SetScreen(Constants.SCREENS.PUBLISH_FAIL))
+		end,
+		OpenPublishSuccessfulPage = function(settings)
+			dispatch(SetPublishInfo({ id = game.GameId, name = settings.name, parentGameName = settings.name }))
+			dispatch(SetScreen(Constants.SCREENS.PUBLISH_SUCCESSFUL))
+		end,
+		OpenPublishFailPage = function(settings)
+			dispatch(SetPublishInfo({ id = game.GameId, name = settings.name, parentGameName = settings.name, parentGameId = 0, settings = settings }))
 			dispatch(SetScreen(Constants.SCREENS.PUBLISH_FAIL))
 		end,
 	}

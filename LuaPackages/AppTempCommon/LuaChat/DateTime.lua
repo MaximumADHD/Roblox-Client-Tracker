@@ -166,43 +166,24 @@ local function getTimeZoneOffset()
 	end
 end
 
-if GetFFlagUseDateTimeType() then
-	--[[
-		Get DateTime userdata with tz provided
-	]]
-	function LuaDateTime:getDateTime(tz)
-		tz = tz or TimeZone.Current
-
-		local dateTime
-		if tz == TimeZone.UTC then
-			dateTime = self.dateTime:ToUniversalTime()
-		elseif tz == TimeZone.Current then
-			dateTime = self.dateTime:ToLocalTime()
-		else
-			error(("Invalid TimeZone \"%s\""):format(tostring(tz)), 2)
-		end
-		return dateTime
-	end
-end
+-- Remove all above functions and tables when clean up GetFFlagUseDateTimeType()
 
 --[[
-	Create a DateTime with the given values in UTC when GetFFlagUseDateTimeType() is off.
-	When GetFFlagUseDateTimeType() is on, "kind" is used to specify if the DateTime is UTC or local time.
+	Create a DateTime with the given values in UTC.
 
 	All values are optional!
 ]]
-function LuaDateTime.new(year, month, day, hour, minute, seconds, kind)
+function LuaDateTime.new(year, month, day, hour, minute, seconds, milliseconds)
 	if GetFFlagUseDateTimeType() then
 		local self = {}
-		self.dateTime = DateTime.new(
+		self.dateTime = DateTime.fromUniversalTime(
 			year or 1970,
 			month or 1,
 			day or 1,
 			hour or 0,
 			minute or 0,
 			seconds or 0,
-			kind or Enum.DateTimeKind.Utc)
-		self.value = self.dateTime.UnixTimestamp
+			milliseconds or 0)
 		setmetatable(self, LuaDateTime)
 		return self
 	end
@@ -232,11 +213,10 @@ end
 --[[
 	Create a DateTime representing now.
 ]]
-function LuaDateTime.now(kind)
+function LuaDateTime.now()
 	if GetFFlagUseDateTimeType() then
 		local self = {}
-		self.dateTime = DateTime.now(kind)
-		self.value = self.dateTime.UnixTimestamp
+		self.dateTime = DateTime.now()
 		setmetatable(self, LuaDateTime)
 		return self
 	end
@@ -249,15 +229,16 @@ end
 
 	Limited to the range [0, 2^32) when GetFFlagUseDateTimeType() is off, which lets us represent
 	dates out to about 2038.
-	When GetFFlagUseDateTimeType() is on max year is 3000, and max timestamps is the last second of year 3000.
+
+	When GetFFlagUseDateTimeType() is on, year range is 1400-9999, and timestamp range is between
+	first second of year 1400 to the last second of year 9999.
 ]]
-function LuaDateTime.fromUnixTimestamp(timestamp, kind)
+function LuaDateTime.fromUnixTimestamp(timestamp)
 	assert(type(timestamp) == "number", "Invalid argument #1 to fromUnixTimestamp, expected number.")
 
 	if GetFFlagUseDateTimeType() then
 		local self = {}
-		self.dateTime = DateTime.fromUnixTimestamp(timestamp, kind)
-		self.value = self.dateTime.UnixTimestamp
+		self.dateTime = DateTime.fromUnixTimestampMillis(timestamp*1000)
 		setmetatable(self, LuaDateTime)
 		return self
 	end
@@ -284,7 +265,6 @@ function LuaDateTime.fromIsoDate(isoDate)
 	if GetFFlagUseDateTimeType() then
 		local self = {}
 		self.dateTime = DateTime.fromIsoDate(isoDate)
-		self.value = self.dateTime.UnixTimestamp
 		setmetatable(self, LuaDateTime)
 		return self
 	end
@@ -349,10 +329,16 @@ function LuaDateTime:Format(formatString, tz, localeId)
 	assert(type(formatString) == "string", "Invalid argument #1 to Format, expected string.")
 
 	if GetFFlagUseDateTimeType() then
-		local dateTime = self:getDateTime(tz)
+		tz = tz or TimeZone.Current
 		localeId = localeId or LocalizationService.RobloxLocaleId
 
-		return dateTime:ToString(formatString, localeId)
+		if tz == TimeZone.UTC then
+			return self.dateTime:FormatUniversalTime(formatString, localeId)
+		elseif tz == TimeZone.Current then
+			return self.dateTime:FormatLocalTime(formatString, localeId)
+		else
+			error(("Invalid TimeZone \"%s\""):format(tostring(tz)), 2)
+		end
 	end
 
 	tz = tz or TimeZone.Current
@@ -398,20 +384,21 @@ end
 
 	The time zone parameter is optional and defaults to the current zime zone,
 	TimeZone.Current.
+
+	When GetFFlagUseDateTimeType() is true, table would include
+	{Year, Month, Day, Hour, Minute, Second, Millisecond}
 ]]
 function LuaDateTime:GetValues(tz)
 	if GetFFlagUseDateTimeType() then
-		local dateTime = self:getDateTime(tz)
+		tz = tz or TimeZone.Current
 
-		return {
-			Year = dateTime.Year,
-			Month = dateTime.Month,
-			Day = dateTime.Day,
-			Hour = dateTime.Hour,
-			Minute = dateTime.Minute,
-			Seconds = dateTime.Second,
-			WeekDay = dateTime.WeekDay
-		}
+		if tz == TimeZone.UTC then
+			return self.dateTime:ToUniversalTime()
+		elseif tz == TimeZone.Current then
+			return self.dateTime:ToLocalTime()
+		else
+			error(("Invalid TimeZone \"%s\""):format(tostring(tz)), 2)
+		end
 	end
 
 	tz = tz or TimeZone.Current
@@ -444,7 +431,11 @@ end
 ]]
 function LuaDateTime:GetUnixTimestamp()
 	if GetFFlagUseDateTimeType() then
-		return self.dateTime.UnixTimestamp
+		if self.dateTime:ToUniversalTime().Millisecond > 0 then
+			return self.dateTime.UnixTimestamp + (self.dateTime.UnixTimestampMillis % 1000)/1000
+		else
+			return self.dateTime.UnixTimestamp
+		end
 	end
 
 	return self.value
@@ -465,6 +456,7 @@ function LuaDateTime:GetIsoDate()
 end
 
 -- Used by IsSame
+-- Remove when clean up GetFFlagUseDateTimeType()
 local descendingGranularityUnits = {
 	{
 		unit = TimeUnit.Years,
@@ -498,6 +490,8 @@ local descendingGranularityUnits = {
 
 	Granularity defaults to seconds and time zone defaults to the current local
 	time zone.
+
+	Remove when clean up GetFFlagUseDateTimeType()
 ]]
 function LuaDateTime:IsSame(other, granularity, timezone)
 	granularity = granularity or TimeUnit.Seconds
@@ -556,14 +550,11 @@ end
 function LuaDateTime:GetLongRelativeTime(epoch, timezone, localeId)
 	if GetFFlagUseDateTimeType() then
 		-- Not relative time format for now, will do that later in DateTime v2
-		local dateTime = self:getDateTime(timezone)
-		localeId = localeId or LocalizationService.RobloxLocaleId
-
-		return dateTime:ToString("lll", localeId)
+		return self:Format("lll", timezone, localeId)
 	end
 
-	epoch = epoch or LuaDateTime.now()
 	timezone = timezone or TimeZone.Current
+	epoch = epoch or LuaDateTime.now()
 
 	if FFlagChinaLicensingApp then
 		if self:IsSame(epoch, TimeUnit.Days, timezone) then
@@ -593,16 +584,14 @@ end
 	to now. The format of the time is contextual to how far away the times are.
 ]]
 function LuaDateTime:GetShortRelativeTime(epoch, timezone, localeId)
+	timezone = timezone or TimeZone.Current
+
 	if GetFFlagUseDateTimeType() then
 		-- Not relative time format for now, will do that later in DateTime v2
-		local dateTime = self:getDateTime(timezone)
-		localeId = localeId or LocalizationService.RobloxLocaleId
-
-		return dateTime:ToString("ll", localeId)
+		return self:Format("ll", timezone, localeId)
 	end
 
 	epoch = epoch or LuaDateTime.now()
-	timezone = timezone or TimeZone.Current
 
 	if FFlagChinaLicensingApp then
 		if self:IsSame(epoch, TimeUnit.Days, timezone) then
