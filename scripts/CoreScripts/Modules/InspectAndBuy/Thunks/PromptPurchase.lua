@@ -6,8 +6,6 @@ local Analytics = require(InspectAndBuyFolder.Services.Analytics)
 local Constants = require(InspectAndBuyFolder.Constants)
 local SetItemBeingPurchased = require(InspectAndBuyFolder.Actions.SetItemBeingPurchased)
 
-local FFlagRoactPurchasePromptAllowBundles = settings():GetFFlag("RoactPurchasePromptAllowBundles")
-
 local requiredServices = {
 	Analytics,
 }
@@ -21,7 +19,7 @@ local function PromptPurchase(itemId, itemType)
 
 		store:dispatch(SetItemBeingPurchased(itemId, itemType))
 
-		if itemType == Constants.ItemType.Bundle and FFlagRoactPurchasePromptAllowBundles then
+		if itemType == Constants.ItemType.Bundle then
 			MarketplaceService:PromptBundlePurchase(Players.LocalPlayer, itemId)
 		elseif itemType == Constants.ItemType.Asset then
 			MarketplaceService:PromptPurchase(Players.LocalPlayer, itemId)

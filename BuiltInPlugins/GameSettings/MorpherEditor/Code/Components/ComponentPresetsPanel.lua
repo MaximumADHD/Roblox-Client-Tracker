@@ -1,5 +1,8 @@
 local paths = require(script.Parent.Parent.Paths)
 local FFlagWorldAvatarLocalization = game:GetFastFlag("WorldAvatarLocalization")
+local FFlagAvatarSizeFixForReorganizeHeaders =
+	game:GetFastFlag("AvatarSizeFixForReorganizeHeaders") and
+	settings():GetFFlag("GameSettingsReorganizeHeaders")
 
 local PresetsPanel = paths.Roact.Component:extend("ComponentPresetsPanel")
 
@@ -25,7 +28,8 @@ function PresetsPanel:render()
 		ButtonClicked = function(functionToCall)
 			self.props.clobberTemplate(self.props.template, functionToCall(self.props.boundaries))
 		end,
-		ShowPressed = true
+		ShowPressed = true,
+		LayoutOrder = FFlagAvatarSizeFixForReorganizeHeaders and self.props.LayoutOrder or nil,
 	})
 end
 

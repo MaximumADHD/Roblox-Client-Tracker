@@ -16,10 +16,18 @@ local TIME_BEFORE_AUTO_ROTATE = 2.0 		--Seconds, used when auto-aligning camera 
 
 local INITIAL_CAMERA_ANGLE = CFrame.fromOrientation(math.rad(-15), 0, 0)
 
+local FFlagUserCameraToggle do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserCameraToggle")
+	end)
+	FFlagUserCameraToggle = success and result
+end
+
 --[[ Services ]]--
 local PlayersService = game:GetService('Players')
 local VRService = game:GetService("VRService")
 
+local CameraInput = require(script.Parent:WaitForChild("CameraInput"))
 local Util = require(script.Parent:WaitForChild("CameraUtils"))
 
 --[[ The Module ]]--
@@ -31,32 +39,48 @@ function ClassicCamera.new()
 	local self = setmetatable(BaseCamera.new(), ClassicCamera)
 
 	self.isFollowCamera = false
+	self.isCameraToggle = false
 	self.lastUpdate = tick()
+	self.cameraToggleSpring = Util.Spring.new(5, 0)
 
 	return self
 end
 
-function ClassicCamera:GetModuleName()
-	return "ClassicCamera"
+function ClassicCamera:GetCameraToggleOffset(dt)
+	assert(FFlagUserCameraToggle)
+
+	if self.isCameraToggle then
+		local zoom = self.currentSubjectDistance
+
+		if CameraInput.getTogglePan() then
+			self.cameraToggleSpring.goal = math.clamp(Util.map(zoom, 0.5, self.FIRST_PERSON_DISTANCE_THRESHOLD, 0, 1), 0, 1)
+		else
+			self.cameraToggleSpring.goal = 0
+		end
+
+		local distanceOffset = math.clamp(Util.map(zoom, 0.5, 64, 0, 1), 0, 1) + 1
+		return Vector3.new(0, self.cameraToggleSpring:step(dt)*distanceOffset, 0)
+	end
+
+	return Vector3.new()
 end
 
 -- Movement mode standardized to Enum.ComputerCameraMovementMode values
-function ClassicCamera:SetCameraMovementMode( cameraMovementMode )
-	BaseCamera.SetCameraMovementMode(self,cameraMovementMode)
-	self.isFollowCamera = cameraMovementMode == Enum.ComputerCameraMovementMode.Follow
-end
+function ClassicCamera:SetCameraMovementMode(cameraMovementMode)
+	BaseCamera.SetCameraMovementMode(self, cameraMovementMode)
 
-function ClassicCamera:Test()
-	print("ClassicCamera:Test()")
+	self.isFollowCamera = cameraMovementMode == Enum.ComputerCameraMovementMode.Follow
+	self.isCameraToggle = cameraMovementMode == Enum.ComputerCameraMovementMode.CameraToggle
 end
 
 function ClassicCamera:Update()
 	local now = tick()
-	local timeDelta = (now - self.lastUpdate)
+	local timeDelta = now - self.lastUpdate
 
-	local camera = 	workspace.CurrentCamera
+	local camera = workspace.CurrentCamera
 	local newCameraCFrame = camera.CFrame
 	local newCameraFocus = camera.Focus
+
 	local overrideCameraLookVector = nil
 	if self.resetCameraAngle then
 		local rootPart = self:GetHumanoidRootPart()
@@ -103,6 +127,8 @@ function ClassicCamera:Update()
 			end
 		end
 	end
+
+	local cameraHeight = self:GetCameraHeight()
 
 	-- Reset tween speed if user is panning
 	if self.userPanningTheCamera then
@@ -194,7 +220,6 @@ function ClassicCamera:Update()
 
 			local cameraFocusP = newCameraFocus.p
 			if VREnabled and not self:IsInFirstPerson() then
-				local cameraHeight = self:GetCameraHeight()
 				local vecToSubject = (subjectPosition - camera.CFrame.p)
 				local distToSubject = vecToSubject.magnitude
 
@@ -226,7 +251,13 @@ function ClassicCamera:Update()
 			else
 				newCameraFocus = CFrame.new(subjectPosition)
 			end
-			newCameraCFrame = CFrame.new(newCameraFocus.p - (zoom * newLookVector), newCameraFocus.p) + Vector3.new(0, self:GetCameraHeight(), 0)
+			newCameraCFrame = CFrame.new(newCameraFocus.p - (zoom * newLookVector), newCameraFocus.p) + Vector3.new(0, cameraHeight, 0)
+		end
+
+		if FFlagUserCameraToggle then
+			local toggleOffset = self:GetCameraToggleOffset(timeDelta)
+			newCameraFocus = newCameraFocus + toggleOffset
+			newCameraCFrame = newCameraCFrame + toggleOffset
 		end
 
 		self.lastCameraTransform = newCameraCFrame

@@ -399,10 +399,12 @@ Class AlignPosition : Constraint
 Class AngularVelocity : Constraint
 	Property Vector3 AngularVelocity.AngularVelocity
 	Property float AngularVelocity.MaxTorque
+	Property bool AngularVelocity.ReactionTorqueEnabled
 	Property Enum<ActuatorRelativeTo> AngularVelocity.RelativeTo
 Class BallSocketConstraint : Constraint
 	Property float BallSocketConstraint.Radius
 	Property bool BallSocketConstraint.LimitsEnabled
+	Property float BallSocketConstraint.MaxFrictionTorque
 	Property float BallSocketConstraint.Restitution
 	Property bool BallSocketConstraint.TwistLimitsEnabled
 	Property float BallSocketConstraint.UpperAngle
@@ -1157,7 +1159,6 @@ Class GuiService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event GuiService.ErrorMessageChanged(string newErrorMessage) {RobloxScriptSecurity} [Deprecated]
 	Event GuiService.InspectMenuEnabledChangedSignal(bool enabled) {RobloxScriptSecurity}
 	Event GuiService.InspectPlayerFromHumanoidDescriptionRequest(Instance humanoidDescription, string name) {RobloxScriptSecurity}
-	Event GuiService.InspectPlayerFromUserIdRequest(int64 userId) {RobloxScriptSecurity}
 	Event GuiService.InspectPlayerFromUserIdWithCtxRequest(int64 userId, string ctx) {RobloxScriptSecurity}
 	Event GuiService.KeyPressed(string key, string modifiers) {RobloxScriptSecurity}
 	Event GuiService.MenuClosed()
@@ -1913,6 +1914,7 @@ Class WorldRoot : Model [NotCreatable]
 	Function void WorldRoot:IkMoveTo(Instance part, CFrame target, float translateStiffness = 1, float rotateStiffness = 1, Enum<CollisionsMode> collisionsMode = "OtherMechanismsAnchored") {RobloxScriptSecurity}
 	Function bool WorldRoot:IsRegion3Empty(Region3 region, Instance ignoreDescendentsInstance = nil)
 	Function bool WorldRoot:IsRegion3EmptyWithIgnoreList(Region3 region, Objects ignoreDescendentsTable)
+	Function Tuple WorldRoot:Raycast(Vector3 origin, Vector3 direction, RaycastParams raycastParams = RaycastParams{IgnoreWater=false, FilterDescendantsInstances={}})
 Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property bool Workspace.AllowThirdPartySales  [NotReplicated]
 	Property float Workspace.FallenPartsDestroyHeight {✏️PluginSecurity}
@@ -1991,6 +1993,9 @@ Class PathfindingService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Instance PathfindingService:ComputeSmoothPathAsync(Vector3 start, Vector3 finish, float maxDistance) [Yields] [Deprecated]
 	Function Instance PathfindingService:CreatePath(Dictionary agentParameters = nil)
 	Function Instance PathfindingService:FindPathAsync(Vector3 start, Vector3 finish) [Yields]
+Class PermissionsService : Instance [NotCreatable] [Service]
+	Function Array PermissionsService:GetPermissions(string assetId) {RobloxScriptSecurity}
+	Function void PermissionsService:SetPermissions(string assetId, Array permissions) {RobloxScriptSecurity}
 Class PhysicsService : Instance [NotCreatable] [Service]
 	Function bool PhysicsService:CollisionGroupContainsPart(string name, Instance part)
 	Function void PhysicsService:CollisionGroupSetCollidable(string name1, string name2, bool collidable)
@@ -2229,6 +2234,7 @@ Class Plugin : Instance [NotCreatable]
 	Function Instance Plugin:Union(Objects objects) {PluginSecurity}
 	Event Plugin.Deactivation() {PluginSecurity}
 	Event Plugin.Unloading() {PluginSecurity}
+Class DebuggablePlugin : Plugin
 Class PluginAction : Instance [NotReplicated]
 	Property string PluginAction.ActionId  [ReadOnly] [NotReplicated]
 	Property bool PluginAction.AllowBinding  [ReadOnly] [NotReplicated]
@@ -2238,6 +2244,7 @@ Class PluginAction : Instance [NotReplicated]
 	Property string PluginAction.StatusTip  [ReadOnly] [NotReplicated]
 	Property string PluginAction.Text  [ReadOnly] [NotReplicated]
 	Event PluginAction.Triggered() {PluginSecurity}
+Class PluginDebugService : Instance [NotCreatable] [Service]
 Class PluginDragEvent : Instance [NotCreatable] [NotReplicated]
 	Property string PluginDragEvent.Data  [ReadOnly] [NotReplicated]
 	Property string PluginDragEvent.MimeType  [ReadOnly] [NotReplicated]
@@ -2808,6 +2815,7 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Dictionary StudioService:GetResourceByCategory(string category) {RobloxScriptSecurity}
 	Function string StudioService:GetStartupPluginId() {RobloxScriptSecurity}
 	Function int64 StudioService:GetUserId() {PluginSecurity}
+	Function Tuple StudioService:GizmoRaycast(Vector3 origin, Vector3 direction, RaycastParams raycastParams = RaycastParams{IgnoreWater=false, FilterDescendantsInstances={}}) {PluginSecurity}
 	Function bool StudioService:IsPluginInstalled(int64 assetId) {RobloxScriptSecurity}
 	Function bool StudioService:IsPluginUpToDate(int64 assetId, int64 currentAssetVersion) {RobloxScriptSecurity}
 	Function void StudioService:LaunchBulkImport(int assetTypeToImport) {RobloxScriptSecurity}
@@ -4412,6 +4420,9 @@ Enum QualityLevel
 Enum R15CollisionType
 	EnumItem R15CollisionType.OuterBox : 0
 	EnumItem R15CollisionType.InnerBox : 1
+Enum RaycastFilterType
+	EnumItem RaycastFilterType.Blacklist : 0
+	EnumItem RaycastFilterType.Whitelist : 1
 Enum RenderFidelity
 	EnumItem RenderFidelity.Automatic : 0
 	EnumItem RenderFidelity.Precise : 1

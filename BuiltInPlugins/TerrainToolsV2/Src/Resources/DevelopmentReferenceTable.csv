@@ -66,6 +66,8 @@ Studio.TerrainToolsV2.ConvertMode.Biome, , ,Biome
 Studio.TerrainToolsV2.ConvertMode.ConvertMode, , ,Fill
 Studio.TerrainToolsV2.ConvertMode.Material, , ,Material
 Studio.TerrainToolsV2.ConvertPart.Convert, , ,Convert
+Studio.TerrainToolsV2.ConvertPart.ConvertShapesToMaterial, , ,Converting parts
+Studio.TerrainToolsV2.ConvertPart.GetConvertibleShapes, , ,Finding parts
 Studio.TerrainToolsV2.EditSettings.EditSettings, , ,Edit Settings
 Studio.TerrainToolsV2.EditSettings.MergeEmpty, , ,Merge Empty
 Studio.TerrainToolsV2.Example.ErrorAnUnexpectedThing, , ,"An unexpected thing happened, try again"

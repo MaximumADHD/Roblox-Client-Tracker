@@ -10,7 +10,6 @@ local VRService = game:GetService("VRService")
 
 local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
 local CoreGuiModules = RobloxGui:WaitForChild("Modules")
-local FlagSettings = require(CoreGuiModules.FlagSettings)
 
 local PolicyService = require(CoreGuiModules:WaitForChild("Common"):WaitForChild("PolicyService"))
 local initify = require(CorePackages.initify)
@@ -123,9 +122,7 @@ if UserInputService.TouchEnabled then -- touch devices don't use same control fr
 	RobloxGui.ControlFrame.BottomLeftControl.Visible = false
 end
 
-if FlagSettings.IsInspectAndBuyEnabled() then
-	ScriptContext:AddCoreScriptLocal("CoreScripts/InspectAndBuy", RobloxGui)
-end
+ScriptContext:AddCoreScriptLocal("CoreScripts/InspectAndBuy", RobloxGui)
 
 coroutine.wrap(function()
 	if not VRService.VREnabled then

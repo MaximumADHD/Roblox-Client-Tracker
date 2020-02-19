@@ -6,7 +6,6 @@ local SetAssets = require(InspectAndBuyFolder.Actions.SetAssets)
 local SetEquippedAssets = require(InspectAndBuyFolder.Actions.SetEquippedAssets)
 local Constants = require(InspectAndBuyFolder.Constants)
 
-local FFlagInspectMenuEnableEmotes = settings():GetFFlag("InspectMenuEnableEmotes")
 
 local requiredServices = {}
 
@@ -22,13 +21,11 @@ local function getAssetIds(humanoidDescription)
 		end
 	end
 
-	if FFlagInspectMenuEnableEmotes then
-		local emotes = humanoidDescription:GetEmotes()
+	local emotes = humanoidDescription:GetEmotes()
 
-		for _, emote in pairs(emotes) do
-			for _, assetId in pairs(emote) do
-				assets[#assets + 1] = AssetInfo.fromHumanoidDescription(assetId)
-			end
+	for _, emote in pairs(emotes) do
+		for _, assetId in pairs(emote) do
+			assets[#assets + 1] = AssetInfo.fromHumanoidDescription(assetId)
 		end
 	end
 

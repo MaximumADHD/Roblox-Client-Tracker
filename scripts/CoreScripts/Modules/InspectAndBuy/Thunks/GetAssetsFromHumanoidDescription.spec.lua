@@ -8,9 +8,6 @@ return function()
 	local Thunk = require(InspectAndBuyFolder.Thunk)
 	local GetAssetsFromHumanoidDescription = require(script.Parent.GetAssetsFromHumanoidDescription)
 
-	local FFlagInspectMenuProgressiveLoading = settings():GetFFlag("InspectMenuProgressiveLoading")
-	local FFlagInspectMenuEnableEmotes = settings():GetFFlag("InspectMenuEnableEmotes")
-
 	local function countKeys(t)
 		local count = 0
 		for _ in pairs(t) do
@@ -65,21 +62,19 @@ return function()
 		expect(countKeys(state.assets)).to.equal(0)
 	end)
 
-	if FFlagInspectMenuProgressiveLoading and FFlagInspectMenuEnableEmotes then
-		it("should correctly add emotes from a humanoid description", function()
-			local store = Rodux.Store.new(Reducer)
-			local mockHumanoidDescription = MockNetwork.GetMockHumanoidDescriptionEmotes()
-			local thunk = GetAssetsFromHumanoidDescription(mockHumanoidDescription)
+	it("should correctly add emotes from a humanoid description", function()
+		local store = Rodux.Store.new(Reducer)
+		local mockHumanoidDescription = MockNetwork.GetMockHumanoidDescriptionEmotes()
+		local thunk = GetAssetsFromHumanoidDescription(mockHumanoidDescription)
 
-			Thunk.test(thunk, store, {
-				[Network] = MockNetwork.new(),
-			})
+		Thunk.test(thunk, store, {
+			[Network] = MockNetwork.new(),
+		})
 
-			local state = store:getState()
+		local state = store:getState()
 
-			expect(countKeys(state.assets)).to.equal(3)
-		end)
-	end
+		expect(countKeys(state.assets)).to.equal(3)
+	end)
 
 	it("should catch network errors that happen and still run", function()
 		local store = Rodux.Store.new(Reducer)

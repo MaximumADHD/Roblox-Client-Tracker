@@ -40,6 +40,7 @@ local Tooltip = require(Components.Tooltip)
 local ToggleButton = require(Components.ToggleButton)
 local TreeView = require(Components.TreeView)
 local TreeViewButton = require(Components.Preview.TreeViewButton)
+local TreeViewItem = require(Components.Preview.InstanceTreeViewItem)
 local Vote = require(Components.Preview.Vote)
 
 local Spritesheet = require(Utils.Spritesheet)
@@ -88,6 +89,7 @@ local UILibrary = {
 		ToggleButton = ToggleButton,
 		TreeView = TreeView,
 		TreeViewButton = TreeViewButton,
+		TreeViewItem = TreeViewItem,
 		Vote = Vote,
 	},
 

@@ -12,8 +12,10 @@ require(script.Parent.defineLuaFlags)
 
 local FFlagTerrainToolsSeaLevel = game:GetFastFlag("TerrainToolsSeaLevel")
 local FFlagTerrainToolsFixGettingTerrain = game:GetFastFlag("TerrainToolsFixGettingTerrain")
+local FFlagTerrainToolsConvertPartTool = game:GetFastFlag("TerrainToolsConvertPartTool")
 
 -- services
+local SelectionService = game:GetService("Selection")
 local Workspace = game:GetService("Workspace")
 
 -- libraries
@@ -27,10 +29,13 @@ local TerrainBrush = require(Plugin.Src.TerrainInterfaces.TerrainBrushInstance)
 local ToolSelectionListener = require(Plugin.Src.Components.ToolSelectionListener)
 local TerrainImporter = require(Plugin.Src.TerrainInterfaces.TerrainImporterInstance)
 local TerrainGeneration = require(Plugin.Src.TerrainInterfaces.TerrainGenerationInstance)
-
 local TerrainSeaLevel
 if FFlagTerrainToolsSeaLevel then
 	TerrainSeaLevel = require(Plugin.Src.TerrainInterfaces.TerrainSeaLevel)
+end
+local PartConverter
+if FFlagTerrainToolsConvertPartTool then
+	PartConverter = require(Plugin.Src.TerrainInterfaces.PartConverter)
 end
 
 -- components
@@ -97,6 +102,12 @@ if FFlagTerrainToolsSeaLevel then
 		seaLevel = TerrainSeaLevel.new(localization)
 	end
 end
+local partConverter
+if FFlagTerrainToolsConvertPartTool then
+	partConverter = PartConverter.new({
+		terrain = terrain,
+	})
+end
 
 -- Widget Gui Elements
 local pluginHandle
@@ -122,6 +133,7 @@ local function openPluginWindow()
 		terrainImporter = terrainImporter,
 		terrainGeneration = terrainGeneration,
 		seaLevel = seaLevel,
+		partConverter = partConverter,
 	}, {
 		TerrainTools = Roact.createFragment({
 			UIManager = Roact.createElement(Manager, {
@@ -189,11 +201,15 @@ local function onPluginUnloading()
 		seaLevel:destroy()
 		seaLevel = nil
 	end
+
+	if partConverter then
+		partConverter:destroy()
+		partConverter = nil
+	end
 end
 
 --Binds a toolbar button
 local function main()
-	local pluginTitle = localization:getText("Meta", "PluginName")
 	plugin.Name = "Terrain Editor"
 	local toolbar = plugin:CreateToolbar(TOOLBAR_NAME)
 	local exampleButton = toolbar:CreateButton(

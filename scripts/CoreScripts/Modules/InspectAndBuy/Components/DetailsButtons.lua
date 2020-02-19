@@ -13,8 +13,6 @@ local BuyButton = require(InspectAndBuyFolder.Components.BuyButton)
 
 local DetailsButtons = Roact.PureComponent:extend("DetailsButtons")
 
-local FFlagRoactPurchasePromptAllowBundles = settings():GetFFlag("RoactPurchasePromptAllowBundles")
-
 local OFFSALE_KEY = "InGame.InspectMenu.Label.Offsale"
 local LIMITED_KEY = "InGame.InspectMenu.Label.Limited"
 local OWNED_KEY = "InGame.InspectMenu.Label.Owned"
@@ -91,7 +89,7 @@ function DetailsButtons:render()
 			itemId = bundleId
 			if bundleInfo[bundleId] then
 				buyText = getBuyText(bundleInfo[bundleId], locale)
-				forSale = bundleInfo[bundleId].isForSale and not bundleInfo[bundleId].owned and FFlagRoactPurchasePromptAllowBundles
+				forSale = bundleInfo[bundleId].isForSale and not bundleInfo[bundleId].owned
 				showRobuxIcon = bundleInfo[bundleId].price ~= nil and not bundleInfo[bundleId].owned and forSale
 			end
 		else

@@ -84,7 +84,7 @@ function HttpRequestOverview:render()
             TextSize = 14,
             Text = localization:getText("PluginEntry", "HttpRequest"),
             TextXAlignment = Enum.TextXAlignment.Left,
-            TextColor3 = theme.TextColor,
+            TextColor3 = theme.HttpOverviewTextColor,
             width = FitTextLabel.Width.FitToText,
         }),
 
@@ -94,7 +94,8 @@ function HttpRequestOverview:render()
             imageTopPadding = 1,
             LayoutOrder = 1,
             Text = acceptedRequestsCount,
-            textSize = 14,
+            TextColor3 = theme.HttpOverviewTextColor,
+            TextSize = 14,
         }),
 
         Denied = (deniedRequestsCount > 0) and Roact.createElement(IconWithText, {
@@ -103,7 +104,8 @@ function HttpRequestOverview:render()
             imageTopPadding = 1,
             LayoutOrder = 2,
             Text = deniedRequestsCount,
-            textSize = 14,
+            TextColor3 = theme.HttpOverviewTextColor,
+            TextSize = 14,
         }),
 
         Border = Roact.createElement("Frame", {
@@ -116,7 +118,7 @@ function HttpRequestOverview:render()
 		EditButton = Roact.createElement("ImageLabel", {
             BackgroundTransparency = 1,
             Image = EDIT_ICON,
-			ImageColor3 = theme.TextColor,
+			ImageColor3 = theme.HttpOverviewTextColor,
             LayoutOrder = 4,
 			Size = UDim2.new(0, Constants.HTTP_OVERVIEW_ICON_SIZE, 0, Constants.HTTP_OVERVIEW_ICON_SIZE),
 		}),

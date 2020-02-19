@@ -32,13 +32,9 @@ local UpdateOwnedStatus = require(InspectAndBuyFolder.Thunks.UpdateOwnedStatus)
 local GetCharacterModelFromUserId = require(InspectAndBuyFolder.Thunks.GetCharacterModelFromUserId)
 local GetPlayerName = require(InspectAndBuyFolder.Thunks.GetPlayerName)
 
-local FFlagFixInspectMenuAnalytics = settings():GetFFlag("FixInspectMenuAnalytics")
-
 local COMPACT_VIEW_MAX_WIDTH = 600
 local CURSOR_OVERRIDE_KEY = "OverrideCursorInspectMenu"
 local BACK_BUTTON_KEY = "BackButtonInspectMenu"
-
-local FFlagInspectMenuProgressiveLoading = settings():GetFFlag("InspectMenuProgressiveLoading")
 
 local InspectAndBuy = Roact.PureComponent:extend("InspectAndBuy")
 
@@ -82,7 +78,6 @@ function InspectAndBuy:updateView()
 end
 
 function InspectAndBuy:init()
-	local localPlayerModel = self.props.localPlayerModel
 	local playerId = self.props.playerId
 	local playerName = self.props.playerName
 	local ctx = self.props.ctx
@@ -90,13 +85,8 @@ function InspectAndBuy:init()
 	self.network = Network.new()
 	self.analytics = Analytics.new(playerId, ctx)
 	self.humanoidDescription = self.props.humanoidDescription
-	if (not FFlagInspectMenuProgressiveLoading or localPlayerModel) then
-		self.humanoidDescriptionForLocalPlayer = localPlayerModel.Humanoid.HumanoidDescription
-	end
 
-	if FFlagFixInspectMenuAnalytics then
-		self.analytics.reportOpenInspectMenu()
-	end
+	self.analytics.reportOpenInspectMenu()
 
 	self.state = {
 		store = Rodux.Store.new(InspectAndBuyReducer, {}, {
@@ -120,10 +110,6 @@ function InspectAndBuy:init()
 
 	if self.humanoidDescription then
 		self.state.store:dispatch(GetAssetsFromHumanoidDescription(self.humanoidDescription, false))
-	end
-
-	if self.humanoidDescriptionForLocalPlayer then
-		self.state.store:dispatch(GetAssetsFromHumanoidDescription(self.humanoidDescriptionForLocalPlayer, true))
 	end
 end
 
@@ -181,41 +167,39 @@ function InspectAndBuy:didMount()
 	table.insert(self.connections, marketplaceServicePurchaseFinishedListener)
 	table.insert(self.connections, storeChangedConnection)
 
-	if FFlagInspectMenuProgressiveLoading then
-		local localUserId = Players.LocalPlayer.UserId
-		self.state.store:dispatch(GetCharacterModelFromUserId(localUserId, true, function(localPlayerModel)
-			if self and self.isMounted then
-				self.localPlayerModel = localPlayerModel
-				local humanoidDescriptionForLocalPlayer = localPlayerModel.Humanoid.HumanoidDescription
+	local localUserId = Players.LocalPlayer.UserId
+	self.state.store:dispatch(GetCharacterModelFromUserId(localUserId, true, function(localPlayerModel)
+		if self and self.isMounted then
+			self.localPlayerModel = localPlayerModel
+			local humanoidDescriptionForLocalPlayer = localPlayerModel.Humanoid.HumanoidDescription
 
-				if humanoidDescriptionForLocalPlayer then
-					self.state.store:dispatch(GetAssetsFromHumanoidDescription(humanoidDescriptionForLocalPlayer, true))
+			if humanoidDescriptionForLocalPlayer then
+				self.state.store:dispatch(GetAssetsFromHumanoidDescription(humanoidDescriptionForLocalPlayer, true))
+			end
+
+			self:setState({
+				obtainedLocalPlayerModel = true,
+			})
+		end
+	end))
+
+	if playerId then
+		self.state.store:dispatch(GetCharacterModelFromUserId(playerId, false, function(playerModel)
+			if self and self.isMounted then
+				self.playerModel = playerModel
+				local humanoidDescription = self.playerModel.Humanoid.HumanoidDescription
+
+				if humanoidDescription then
+					self.state.store:dispatch(GetAssetsFromHumanoidDescription(humanoidDescription, false))
 				end
 
 				self:setState({
-					obtainedLocalPlayerModel = true,
+					obtainedPlayerModel = true,
 				})
 			end
 		end))
 
-		if playerId then
-			self.state.store:dispatch(GetCharacterModelFromUserId(playerId, false, function(playerModel)
-				if self and self.isMounted then
-					self.playerModel = playerModel
-					local humanoidDescription = self.playerModel.Humanoid.HumanoidDescription
-
-					if humanoidDescription then
-						self.state.store:dispatch(GetAssetsFromHumanoidDescription(humanoidDescription, false))
-					end
-
-					self:setState({
-						obtainedPlayerModel = true,
-					})
-				end
-			end))
-
-			self.state.store:dispatch(GetPlayerName(playerId))
-		end
+		self.state.store:dispatch(GetPlayerName(playerId))
 	end
 end
 
@@ -238,10 +222,7 @@ function InspectAndBuy:willUnmount()
 end
 
 function InspectAndBuy:render()
-	local localPlayerModel = self.props.localPlayerModel
-	if FFlagInspectMenuProgressiveLoading then
-		localPlayerModel = self.localPlayerModel
-	end
+	local localPlayerModel = self.localPlayerModel
 
 	return Roact.createElement(RoactRodux.StoreProvider, {
 		store = self.state.store,

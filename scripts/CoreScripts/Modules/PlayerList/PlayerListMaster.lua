@@ -130,6 +130,7 @@ function PlayerListMaster.new()
 	self.element = Roact.mount(self.root, RobloxGui, "PlayerListMaster")
 
 	if FFlagPlayerListPerformanceImprovements then
+		self.topBarEnabled = true
 		self.mounted = true
 		self.coreGuiEnabled = StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.PlayerList)
 		self:_updateMounted()

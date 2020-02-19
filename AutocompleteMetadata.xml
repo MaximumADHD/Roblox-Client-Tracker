@@ -2162,6 +2162,46 @@
       </Enum.PathWaypointAction>
     </Properties>
   </ItemStruct>
+  <ItemStruct name="RaycastParams">
+    <Function name="new" static="true">
+      <returns>
+        <RaycastParams></RaycastParams>
+      </returns>
+      <parameters>
+      </parameters>
+      <description>Creates a new RaycastParams object.</description>
+    </Function>
+    <Properties>
+      <Instances name="FilterDescendantsInstances">
+        Instances to ignore or whitelist while doing a raycast
+      </Instances>
+      <Enum.RaycastFilterType name="FilterType">
+        Whether to use the filters fields of the RaycastParams as a blacklist or as a whitelist
+      </Enum.RaycastFilterType>
+      <bool name="IgnoreWater">
+        Should a raycast ignore Terrain water
+      </bool>
+    </Properties>
+  </ItemStruct>
+  <ItemStruct name="RaycastResult">
+    <Properties>
+      <Instance name="Instance">
+        The Instance the raycast hit
+      </Instance>
+      <number name="Distance">
+        The distance from the raycast origin to the hit
+      </number>
+      <Vector3 name="Position">
+        The position the raycast hit
+      </Vector3>
+      <Vector3 name="Normal">
+        The surface normal at the hit position
+      </Vector3>
+      <Enum.PartMaterial name="Material">
+        The material of the hit surface
+      </Enum.PartMaterial>
+    </Properties>
+  </ItemStruct>
 
   <ItemStruct name="EventInstance">
     <Function name="Connect">

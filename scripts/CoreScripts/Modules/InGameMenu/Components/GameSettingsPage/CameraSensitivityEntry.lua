@@ -22,6 +22,9 @@ local InGameMenu = script.Parent.Parent.Parent
 local ExternalEventConnection = require(InGameMenu.Utility.ExternalEventConnection)
 local SliderEntry = require(script.Parent.SliderEntry)
 
+local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
+local Constants = require(InGameMenu.Resources.Constants)
+
 local function guiToEngineSensitivity(guiSensitivity)
 	local engineSensitivity
 	if guiSensitivity <= 5 then
@@ -83,6 +86,7 @@ function CameraSensitivityEntry:render()
 				local engineSensitivityVector = Vector2.new(newEngineSensitivity, newEngineSensitivity)
 				UserGameSettings.MouseSensitivityFirstPerson = engineSensitivityVector
 				UserGameSettings.MouseSensitivityThirdPerson = engineSensitivityVector
+				SendAnalytics(Constants.AnalyticsSettingsChangeName, nil, {}, true)
 			end,
 		})
 	}

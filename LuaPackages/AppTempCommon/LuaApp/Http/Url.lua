@@ -75,6 +75,7 @@ local _baseApisRcsUrl = string.format("https://apis.rcs.%s", _baseDomain)
 local _baseDiscussionsUrl = string.format("https://discussions.%s", _baseDomain)
 local _baseContactsUrl = string.format("https://contacts.%s", _baseDomain)
 local _baseSearchUrl = string.format("https://search.%s", _baseDomain)
+local _baseStaticUrl = string.format("https://static.%s", _baseDomain)
 local _baseGameSearchUITreatments = string.format("https://gamesearchuitreatments.api.%s", _baseDomain)
 local _baseUrlSecure = string.gsub(_baseUrl, "http://", "https://")
 
@@ -115,6 +116,7 @@ local Url = {
 	APIS_RCS_URL = _baseApisRcsUrl,
 	DISCUSSIONS_URL = _baseDiscussionsUrl,
 	CONTACTS_URL = _baseContactsUrl,
+	STATIC_URL = _baseStaticUrl,
 	BLOG_URL = "https://blog.roblox.com/",
 	CORP_URL = "https://corp.roblox.com/",
 }

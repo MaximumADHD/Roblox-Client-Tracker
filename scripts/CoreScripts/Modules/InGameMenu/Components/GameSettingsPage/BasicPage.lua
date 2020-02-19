@@ -32,6 +32,9 @@ local MovementModeEntry = require(script.Parent.MovementModeEntry)
 local ToggleEntry = require(script.Parent.ToggleEntry)
 local VolumeEntry = require(script.Parent.VolumeEntry)
 
+local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
+local Constants = require(InGameMenu.Resources.Constants)
+
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
 
 local BasicPage = Roact.PureComponent:extend("BasicPage")
@@ -130,6 +133,7 @@ function BasicPage:render()
 				checked = self.state.fullScreenEnabled,
 				onToggled = function()
 					GuiService:ToggleFullscreen()
+					SendAnalytics(Constants.AnalyticsSettingsChangeName, nil, {}, true)
 				end,
 			}),
 			GraphicsDivider = Roact.createElement(Divider, {

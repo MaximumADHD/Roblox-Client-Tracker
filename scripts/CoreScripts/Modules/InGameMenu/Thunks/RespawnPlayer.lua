@@ -4,6 +4,8 @@ local InGameMenu = script.Parent.Parent
 
 local CloseMenu = require(InGameMenu.Thunks.CloseMenu)
 local SetRespawning = require(InGameMenu.Actions.SetRespawning)
+local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
+local Constants = require(InGameMenu.Resources.Constants)
 
 return function(store)
 	local state = store:getState()
@@ -25,4 +27,5 @@ return function(store)
 
 	store:dispatch(SetRespawning(false))
 	store:dispatch(CloseMenu)
+	SendAnalytics(Constants.AnalyticsInGameMenuName, Constants.AnalyticsRespawnCharacterName, {confirmed = Constants.AnalyticsConfirmedName})
 end

@@ -94,11 +94,13 @@
     </Item>
 
     <Item class="ReflectionMetadataClass">
-      <Properties>
-        <string name="Name">Plugin</string>
-
-      </Properties>
+        <Properties>
+            <string name="Name">Plugin</string>
+            <string name="ExplorerOrder">30</string>
+            <string name="ExplorerImageIndex">86</string>
+        </Properties>
     </Item>
+
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">PluginMouse</string>
@@ -2564,6 +2566,13 @@
         </Properties>
     </Item>
 
+    <Item class="ReflectionMetadataClass">
+        <Properties>
+            <string name="Name">PluginDebugService</string>
+            <string name="ExplorerOrder">30</string>
+            <string name="ExplorerImageIndex">46</string>
+        </Properties>
+    </Item>
 
     <Item class="ReflectionMetadataClass">
         <Properties>

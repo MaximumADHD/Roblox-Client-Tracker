@@ -1,3 +1,5 @@
+local FFlagPluginManagementPrettifyDesign = game:GetFastFlag("PluginManagementPrettifyDesign")
+
 local Plugin = script.Parent.Parent.Parent
 local ContextServices = require(Plugin.Packages.Framework.ContextServices)
 local StudioUI = require(Plugin.Packages.Framework.StudioUI)
@@ -33,20 +35,38 @@ local function createValues(theme, getColor)
 	})
 
 	local toggle = {
-		On = ToggleOn:get(themeName),
+		On = FFlagPluginManagementPrettifyDesign and "rbxasset://textures/RoactStudioWidgets/toggle_on_light.png" or ToggleOn:get(themeName),
 		Off = ToggleOff:get(themeName),
 	}
+
+	local HttpOverviewTextColor = StyleValue.new("TextColor", {
+		Light = Color3.fromRGB(46, 46, 46),
+		Dark = Color3.fromRGB(136, 136, 136),
+	})
+
+	local EmphasisTextColor = StyleValue.new("EmphasisTextColor", {
+		Light = Color3.fromRGB(0, 0, 0),
+		Dark = Color3.fromRGB(255, 255, 255),
+	})
+
+	local SubTitleTextColor = StyleValue.new("EmphasisTextColor", {
+		Light = Color3.fromRGB(0, 0, 0),
+		Dark = Color3.fromRGB(170, 170, 170),
+	})
 
 	return {
 		Plugin = {
 			Toggle = toggle,
 			BackgroundColor = theme:GetColor(c.MainBackground),
 			ButtonColor = theme:GetColor(c.Button),
+			HttpOverviewTextColor = HttpOverviewTextColor:get(themeName),
 			ProgressBarColor = theme:GetColor(c.DialogMainButton, m.Selected),
 			HoverColor = theme:GetColor(c.Button, m.Hover),
 			BorderColor = theme:GetColor(c.Border),
 			SubTextColor = theme:GetColor(c.SubText),
 			InfoTextColor = theme:GetColor(c.DimmedText),
+			SubTitleTextColor = SubTitleTextColor:get(themeName),
+			EmphasisTextColor = EmphasisTextColor:get(themeName),
 			TextColor = theme:GetColor(c.MainText),
 			ErrorColor = theme:GetColor(c.ErrorText),
 			LinkColor = theme:GetColor(c.LinkText),
@@ -90,6 +110,11 @@ local function getUILibraryTheme()
 		Dark = "rbxasset://textures/PluginManagement/checked_dark.png",
 	})
 
+	local BorderImage = StyleValue.new("BorderImage", {
+		Light = "rbxasset://textures/StudioToolbox/RoundedBorder.png",
+		Dark = "",
+	})
+
 	local CheckboxBackgroundColor = StyleValue.new("CheckboxBackgroundColor", {
 		Light = Color3.fromRGB(255, 255, 255),
 		Dark = Color3.fromRGB(37, 37, 37),
@@ -121,6 +146,9 @@ local function getUILibraryTheme()
 			backgroundColor = CheckboxBackgroundColor:get(themeName),
 			selectedImage = SelectedCheckboxImage:get(themeName),
 		},
+		roundFrame = {
+			borderImage = BorderImage:get(themeName),
+		}
 	}
 
 	return createTheme(UILibraryPalette, UILibraryOverrides)

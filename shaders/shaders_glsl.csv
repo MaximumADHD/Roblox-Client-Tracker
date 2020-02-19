@@ -37,8 +37,6 @@ DefaultPlasticReflectionFS,Fragment
 DefaultShadowFS,Fragment
 DefaultShadowGeomSkinnedVS,Vertex
 DefaultShadowGeomStaticVS,Vertex
-DefaultShadowSkinnedVS,Vertex
-DefaultShadowStaticVS,Vertex
 DefaultSkinnedForceFieldHQVS,Vertex
 DefaultSkinnedForceFieldVS,Vertex
 DefaultSkinnedHQVS,Vertex

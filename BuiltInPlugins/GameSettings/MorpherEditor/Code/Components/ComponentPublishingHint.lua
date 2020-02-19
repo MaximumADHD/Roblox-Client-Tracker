@@ -2,6 +2,9 @@ local StudioService = game:GetService("StudioService")
 
 local paths = require(script.Parent.Parent.Paths)
 local FFlagWorldAvatarLocalization = game:GetFastFlag("WorldAvatarLocalization")
+local FFlagAvatarSizeFixForReorganizeHeaders =
+	game:GetFastFlag("AvatarSizeFixForReorganizeHeaders") and
+	settings():GetFFlag("GameSettingsReorganizeHeaders")
 
 local function PublishingHint(props)
 	if props.IsEnabled then
@@ -18,6 +21,7 @@ local function PublishingHint(props)
 	return paths.Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 0, hyperLinkTextSize.Y),
 		BackgroundTransparency = 1,
+		LayoutOrder = FFlagAvatarSizeFixForReorganizeHeaders and props.LayoutOrder or nil
 	}, {
 		HyperLink = paths.Roact.createElement(paths.StudioWidgetHyperlink, {
 			Text = FFlagWorldAvatarLocalization and linkText or "Publishing the game to Roblox",

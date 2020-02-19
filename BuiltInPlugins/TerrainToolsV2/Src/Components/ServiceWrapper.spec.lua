@@ -14,6 +14,7 @@ local TerrainBrush = require(Plugin.Src.TerrainInterfaces.TerrainBrushInstance)
 local TerrainGeneration = require(Plugin.Src.TerrainInterfaces.TerrainGenerationInstance)
 local TerrainImporter = require(Plugin.Src.TerrainInterfaces.TerrainImporterInstance)
 local TerrainSeaLevel = require(Plugin.Src.TerrainInterfaces.TerrainSeaLevel)
+local PartConverter = require(Plugin.Src.TerrainInterfaces.PartConverter)
 
 local TestHelpers = Plugin.Src.TestHelpers
 local MockPlugin = require(TestHelpers.MockPlugin)
@@ -46,6 +47,9 @@ return function()
 		local seaLevel = FFlagTerrainToolsFixGettingTerrain and TerrainSeaLevel.new({
 			terrain = terrain,
 		}) or TerrainSeaLevel.new()
+		local partConverter = PartConverter.new({
+			terrain = terrain,
+		})
 
 		local element = Roact.createElement(ServiceWrapper, {
 			localization = localization,
@@ -58,6 +62,7 @@ return function()
 			terrainGeneration = terrainGeneration,
 			terrainImporter = terrainImporter,
 			seaLevel = seaLevel,
+			partConverter = partConverter,
 		}, {
 			testFrame = Roact.createElement("Frame")
 		})

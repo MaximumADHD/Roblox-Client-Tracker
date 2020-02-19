@@ -84,4 +84,18 @@ TerrainEnums.ConvertMode = {
 	Material = "Material",
 }
 
+TerrainEnums.Shape = {
+	Block = "Block",
+
+	-- Cylinder has its height along the up vector of a CFrame
+	-- CylinderRotate has its height along the right vector of a CFrame
+	-- Both types are used in the engine, so we need to be able to handle both for part conversion
+	-- Here we treat them as separate shapes entirely
+	Cylinder = "Cylinder",
+	CylinderRotate = "CylinderRotate",
+
+	Ball = "Ball",
+	Wedge = "Wedge",
+}
+
 return TerrainEnums

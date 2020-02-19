@@ -32,15 +32,19 @@ if FFlagPlayerListPerformanceImprovements then
 	SocialConnector = Roact.PureComponent:extend("SocialConnector")
 
 	function SocialConnector:didMount()
+		self.mounted = true
+
 		if not TenFootInterface:IsEnabled() then
 			coroutine.wrap(function()
 				local followingInfo = GetFollowRelationships:InvokeServer()
-				for userIdStr, relationship in pairs(followingInfo) do
-					local player = Players:GetPlayerByUserId(tonumber(userIdStr))
-					if player then
-						local isFollower = relationship.IsMutual or relationship.IsFollower
-						local isFollowing = relationship.IsMutual or relationship.IsFollowing
-						self.props.setPlayerFollowRelationship(player, isFollower, isFollowing)
+				if self.mounted then
+					for userIdStr, relationship in pairs(followingInfo) do
+						local player = Players:GetPlayerByUserId(tonumber(userIdStr))
+						if player then
+							local isFollower = relationship.IsMutual or relationship.IsFollower
+							local isFollowing = relationship.IsMutual or relationship.IsFollowing
+							self.props.setPlayerFollowRelationship(player, isFollower, isFollowing)
+						end
 					end
 				end
 			end)()
@@ -70,6 +74,10 @@ if FFlagPlayerListPerformanceImprovements then
 				end,
 			}),
 		})
+	end
+
+	function SocialConnector:willUnmount()
+		self.mounted = false
 	end
 else
 	function SocialConnector(props)

@@ -13,6 +13,9 @@ local InGameMenu = script.Parent.Parent.Parent
 local ExternalEventConnection = require(InGameMenu.Utility.ExternalEventConnection)
 local SliderEntry = require(script.Parent.SliderEntry)
 
+local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
+local Constants = require(InGameMenu.Resources.Constants)
+
 if CoreGui.RobloxGui:FindFirstChild("Sounds") == nil then
 	local folder = Instance.new("Folder")
 	folder.Name = "Sounds"
@@ -51,6 +54,7 @@ function VolumeEntry:render()
 			valueChanged = function(newValue)
 				UserGameSettings.MasterVolume = newValue / 10
 				volumeTest:Play()
+				SendAnalytics(Constants.AnalyticsSettingsChangeName, nil, {}, true)
 			end,
 		}),
 		VolumeListener = Roact.createElement(ExternalEventConnection, {

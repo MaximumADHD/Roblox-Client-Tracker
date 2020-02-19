@@ -1,7 +1,16 @@
 local paths = require(script.Parent.Parent.Paths)
 local FFlagWorldAvatarLocalization = game:GetFastFlag("WorldAvatarLocalization")
+local FFlagAvatarSizeFixForReorganizeHeaders =
+	game:GetFastFlag("AvatarSizeFixForReorganizeHeaders") and
+	settings():GetFFlag("GameSettingsReorganizeHeaders")
 
 local MorpherTemplate = paths.Roact.Component:extend("ComponentMorpherTemplate")
+
+if FFlagAvatarSizeFixForReorganizeHeaders then
+	function MorpherTemplate:init()
+		self.frameRef = paths.Roact.createRef()
+	end
+end
 
 function MorpherTemplate:render()
 	local layoutOrder = paths.UtilityClassLayoutOrder.new()
@@ -39,7 +48,9 @@ function MorpherTemplate:render()
 	return paths.Roact.createElement("Frame", {
 			Size = UDim2.new(1, 0, 1, 0),
 			BorderSizePixel = 0,
-			BackgroundColor3 = paths.StateInterfaceTheme.getBackgroundColor(self.props)
+			BackgroundColor3 = paths.StateInterfaceTheme.getBackgroundColor(self.props),
+
+			[paths.Roact.Ref] = FFlagAvatarSizeFixForReorganizeHeaders and self.frameRef or nil,
 		}, {
 			UIListLayoutVertical = paths.Roact.createElement("UIListLayout", {
 				SortOrder = Enum.SortOrder.LayoutOrder,
@@ -48,8 +59,12 @@ function MorpherTemplate:render()
 				Padding = paths.ConstantLayout.VirticalPadding,
 
 				[paths.Roact.Change.AbsoluteContentSize] = function(rbx)
-					self.props.ContentHeightChanged(rbx.AbsoluteContentSize.y)
-				end
+					if FFlagAvatarSizeFixForReorganizeHeaders then
+						self.frameRef.current.Size = UDim2.new(1, 0, 0, rbx.AbsoluteContentSize.y)
+					else
+						self.props.ContentHeightChanged(rbx.AbsoluteContentSize.y)
+					end
+				end,
 			}),
 
 			ComponentPublishHint = paths.Roact.createElement(paths.ComponentPublishingHint, getPropsForPublishingHint()),

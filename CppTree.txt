@@ -261,6 +261,20 @@ RBX
 		MyNumPunct
 		ParameterTranslator
 	}
+	LSP
+	{
+		IConnection
+		IHostAppServices
+		ILanguageClient
+		ILanguageServer
+		LanguageClientBase
+		LanguageServerBase
+		LSPConnection
+		LSPManager
+		LuauLanguageServer
+		LuauLanguageServerExt
+		ScriptContentsProvider
+	}
 	Lua
 	{
 		EventSignalWrapperBase
@@ -458,6 +472,16 @@ RBX
 	ScriptAnalyzer
 	{
 		AutocompleteResult
+	}
+	ScriptEditor
+	{
+		CmdGotoPosition
+		CmdInsertText
+		GotoLineDialog
+		ScriptEditorConnection
+		ScriptingCmdBase
+		ScriptingCommands
+		ScriptingManager
 	}
 	Scripting
 	{
@@ -717,6 +741,7 @@ RBX
 	DateHandler
 	DatetimeHandler
 	DebrisService
+	DebuggablePlugin
 	DebugSettings
 	Decal
 	DecalTexture
@@ -879,6 +904,7 @@ RBX
 	InventoryPages
 	IPipelined
 	IPluginElementHost
+	IPluginInstancesSource
 	IReferenceBinder
 	IScriptFilter
 	ISelectionBase
@@ -1007,6 +1033,7 @@ RBX
 	PartTool
 	Path
 	PathfindingService
+	PermissionsService
 	physics_receiver_exception
 	PhysicsJob
 	PhysicsService
@@ -1024,6 +1051,7 @@ RBX
 	PlayerScripts
 	Plugin
 	PluginAction
+	PluginDebugService
 	PluginDragEvent
 	PluginGui
 	PluginGuiService
@@ -1079,6 +1107,7 @@ RBX
 	ScriptContext
 	ScriptMouseCommand
 	ScriptService
+	Scrollable
 	ScrollingFrame
 	Seat
 	SecurePlayerGame
@@ -1182,7 +1211,6 @@ RBX
 	ToolMouseCommand
 	TopMenuBar
 	TouchInputService
-	TouchScrollable
 	TouchTransmitter
 	Trail
 	TranslatorInstance

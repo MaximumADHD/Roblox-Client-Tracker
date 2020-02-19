@@ -7090,6 +7090,23 @@
                 {
                     "Category": "Torque",
                     "MemberType": "Property",
+                    "Name": "ReactionTorqueEnabled",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Torque",
+                    "MemberType": "Property",
                     "Name": "RelativeTo",
                     "Security": {
                         "Read": "None",
@@ -7126,6 +7143,23 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Friction",
+                    "MemberType": "Property",
+                    "Name": "MaxFrictionTorque",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
                     }
                 },
                 {
@@ -19887,20 +19921,6 @@
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "string"
-                            }
-                        }
-                    ],
-                    "Security": "RobloxScriptSecurity"
-                },
-                {
-                    "MemberType": "Event",
-                    "Name": "InspectPlayerFromUserIdRequest",
-                    "Parameters": [
-                        {
-                            "Name": "userId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
                             }
                         }
                     ],
@@ -34012,6 +34032,39 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "Raycast",
+                    "Parameters": [
+                        {
+                            "Name": "origin",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Vector3"
+                            }
+                        },
+                        {
+                            "Name": "direction",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Vector3"
+                            }
+                        },
+                        {
+                            "Default": "RaycastParams{IgnoreWater=false, FilterDescendantsInstances={}}",
+                            "Name": "raycastParams",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "RaycastParams"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Tuple"
+                    },
+                    "Security": "None"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "findPartOnRay",
                     "Parameters": [
                         {
@@ -35411,6 +35464,60 @@
                 "NotCreatable",
                 "Service",
                 "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "MemberType": "Function",
+                    "Name": "GetPermissions",
+                    "Parameters": [
+                        {
+                            "Name": "assetId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SetPermissions",
+                    "Parameters": [
+                        {
+                            "Name": "assetId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "permissions",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Array"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "PermissionsService",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service"
             ]
         },
         {
@@ -40140,6 +40247,13 @@
         },
         {
             "Members": [
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "DebuggablePlugin",
+            "Superclass": "Plugin"
+        },
+        {
+            "Members": [
                 {
                     "Category": "Data",
                     "MemberType": "Property",
@@ -40297,6 +40411,17 @@
             "Superclass": "Instance",
             "Tags": [
                 "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "PluginDebugService",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service"
             ]
         },
         {
@@ -49946,6 +50071,39 @@
                     "ReturnType": {
                         "Category": "Primitive",
                         "Name": "int64"
+                    },
+                    "Security": "PluginSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GizmoRaycast",
+                    "Parameters": [
+                        {
+                            "Name": "origin",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Vector3"
+                            }
+                        },
+                        {
+                            "Name": "direction",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Vector3"
+                            }
+                        },
+                        {
+                            "Default": "RaycastParams{IgnoreWater=false, FilterDescendantsInstances={}}",
+                            "Name": "raycastParams",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "RaycastParams"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Tuple"
                     },
                     "Security": "PluginSecurity"
                 },
@@ -63166,6 +63324,19 @@
                 }
             ],
             "Name": "R15CollisionType"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Blacklist",
+                    "Value": 0
+                },
+                {
+                    "Name": "Whitelist",
+                    "Value": 1
+                }
+            ],
+            "Name": "RaycastFilterType"
         },
         {
             "Items": [

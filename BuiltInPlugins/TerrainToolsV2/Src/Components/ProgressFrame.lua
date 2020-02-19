@@ -35,6 +35,9 @@ function ProgressFrame:render()
 	local pausable = type(onPauseButtonClicked) == "function"
 	local cancelable = type(onCancelButtonClicked) == "function"
 
+	local defaultTitle = "Progress" -- TODO: Localize this
+	local title = self.props.Title or defaultTitle
+
 	return Roact.createElement("Frame", {
 		AnchorPoint = anchorPoint,
 		Position = position,
@@ -52,9 +55,7 @@ function ProgressFrame:render()
 			Font = Enum.Font.SourceSansBold,
 			TextColor3 = Color3.fromRGB(255, 255, 255),
 			TextSize = 18,
-
-			-- TODO: Localization
-			Text = "Progress",
+			Text = title,
 		}),
 
 		Bar = Roact.createElement("Frame", {

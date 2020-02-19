@@ -225,6 +225,9 @@ Studio.App.DeclarationView.Summary,,Summary:,Summary:
 Studio.App.DraftsServiceHost.CommitRejected,,"Some of the scripts cannot be committed.
 Please check their status first.","Some of the scripts cannot be committed.
 Please check their status first."
+Studio.App.DraftsServiceHost.CommitRejectedInProgress,,"Server rejected commit.
+Someone else is committing changes.","Server rejected commit.
+Someone else is committing changes."
 Studio.App.DraftsServiceHost.CommitRejectedInternalError,,"Server rejected commit due to internal error.
 Please try again later","Server rejected commit due to internal error.
 Please try again later"
@@ -267,12 +270,25 @@ Studio.App.EmulatorMainWidget.ConsoleSectionName,,Console,Console
 Studio.App.EmulatorMainWidget.CustomDeviceSectionName,,Custom Device,Custom Device
 Studio.App.EmulatorMainWidget.DesktopSectionName,,Desktop,Desktop
 Studio.App.EmulatorMainWidget.FitToWindow,,Fit to Window,Fit to Window
+Studio.App.EmulatorMainWidget.Landscape,,Landscape,Landscape
+Studio.App.EmulatorMainWidget.LandscapeLeft,,LandscapeLeft,LandscapeLeft
+Studio.App.EmulatorMainWidget.LandscapeLeftSpace,,Landscape Left,Landscape Left
+Studio.App.EmulatorMainWidget.LandscapeRight,,LandscapeRight,LandscapeRight
+Studio.App.EmulatorMainWidget.LandscapeRightSpace,,Landscape Right,Landscape Right
+Studio.App.EmulatorMainWidget.LandscapeSensor,,LandscapeSensor,LandscapeSensor
 Studio.App.EmulatorMainWidget.ManageDevices,,Manage Devices,Manage Devices
 Studio.App.EmulatorMainWidget.MockAndroidBackButton,,Simulate a click on the Android Back button,Simulate a click on the Android Back button
+Studio.App.EmulatorMainWidget.ModeNotEnabledMessage1,,"%1 mode is not enabled for your game. To enable it, %2 set the ","%1 mode is not enabled for your game. To enable it, %2 set the "
+Studio.App.EmulatorMainWidget.ModeNotEnabledMessage2,,setting of StarterGui to,setting of StarterGui to
+Studio.App.EmulatorMainWidget.ModeNotEnabledMessageOr,,or,or
+Studio.App.EmulatorMainWidget.ModeNotEnabledTitle,,%1 Not Enabled,%1 Not Enabled
 Studio.App.EmulatorMainWidget.PhoneSectionName,,Phone,Phone
 Studio.App.EmulatorMainWidget.PhysicalSize,,Physical Size,Physical Size
+Studio.App.EmulatorMainWidget.Portrait,,Portrait,Portrait
 Studio.App.EmulatorMainWidget.RotateMobileDeviceOrientation,,Rotate mobile device orientation,Rotate mobile device orientation
 Studio.App.EmulatorMainWidget.RotatePhonesTablets,,You can only rotate phones and tablets,You can only rotate phones and tablets
+Studio.App.EmulatorMainWidget.ScreenOrientation,,ScreenOrientation,ScreenOrientation
+Studio.App.EmulatorMainWidget.Sensor,,Sensor,Sensor
 Studio.App.EmulatorMainWidget.TabletSectionName,,Tablet,Tablet
 Studio.App.EntityProperties.NetworkFailedOperation,,"Operation failed. Please check your network connection and try again. If the error persists, contact Customer Support","Operation failed. Please check your network connection and try again. If the error persists, contact Customer Support"
 Studio.App.FBXRigBuilder.CantFindDataModel,,Failed to import animations for rig: Unable to find DataModel,Failed to import animations for rig: Unable to find DataModel
@@ -362,6 +378,7 @@ This will shutdown all running servers.","Are you sure you want to make this gam
 This will shutdown all running servers."
 Studio.App.GamesPageController.RemoveTeamCreateGame,,Remove Team Create Game,Remove Team Create Game
 Studio.App.GamesPageController.Restored,,Restored,Restored
+Studio.App.GenericResourceController.RemovingGameAsset,,Removing game asset(s),Removing game asset(s)
 Studio.App.GoToLineDialog.LineNumber,,Line number:,Line number:
 Studio.App.GradientEditor.Time,,Time,Time
 Studio.App.IDEGameSettingsLinkDefinition.GameSettingsNotAvailable,,Game Settings not available,Game Settings not available
@@ -1028,6 +1045,7 @@ Studio.App.PropertyEnum.VeryFast,,Very Fast,Very Fast
 Studio.App.PropertyEnum.VerySlow,,Very Slow,Very Slow
 Studio.App.PropertyEnum.Vulkan,,Vulkan,Vulkan
 Studio.App.PropertyItems.DefaultTheme,,Default,Default
+Studio.App.PropertyItems.ImportingMesh,,Importing mesh...,Importing mesh...
 Studio.App.PropertyItems.InvertMeshFaces,,The mesh you are importing contains odd number negative scales. Would you like to invert mesh faces?,The mesh you are importing contains odd number negative scales. Would you like to invert mesh faces?
 Studio.App.PropertyItems.LoadStringEnbledWarning,,Activating the <b>%1</b> property might make your game vulnerable to exploits. Are you sure you want to enable this?,Activating the <b>%1</b> property might make your game vulnerable to exploits. Are you sure you want to enable this?
 Studio.App.PropertyItems.MoveTheMesh,,Your mesh contains location data. Would you like to move your mesh to the given location?,Your mesh contains location data. Would you like to move your mesh to the given location?
@@ -1036,7 +1054,7 @@ Please enter an asset ID or a correctly formatted asset url.","""%1"" is not a v
 Please enter an asset ID or a correctly formatted asset url."
 Studio.App.PropertyItems.PackageVersionFailedMessage,,Unable to perform this action.,Unable to perform this action.
 Studio.App.PropertyItems.ResizeTheMesh,,The mesh you are importing is very large. Would you like to resize the mesh?,The mesh you are importing is very large. Would you like to resize the mesh?
-Studio.App.PropertyItems.RevertPackageConfirmation,,Are you sure you want to revert this package to version % 1 ?,Are you sure you want to revert this package to version % 1 ?
+Studio.App.PropertyItems.RevertPackageConfirmation,,Are you sure you want to revert this package to version %1 ?,Are you sure you want to revert this package to version %1 ?
 Studio.App.QDebuggerClient.Breakpoint,,Breakpoint,Breakpoint
 Studio.App.QDebuggerClient.BreakpointLocationFmt2,,"Location: %1, line %2","Location: %1, line %2"
 Studio.App.QDebuggerClient.ConditionText,,Condition,Condition
@@ -1100,6 +1118,8 @@ Studio.App.RBXMainWindow.CustomizeElps,,Customize...,Customize...
 Studio.App.RBXMainWindow.CustomizeQuickAccess,,Customize Quick Access,Customize Quick Access
 Studio.App.RBXMainWindow.CustomizeShortcutsElps,,Customize Shortcuts...,Customize Shortcuts...
 Studio.App.RBXMainWindow.CutSelectionToClipboard,,Cut the selection and put it on the Clipboard,Cut the selection and put it on the Clipboard
+Studio.App.RBXMainWindow.DebugAsBuiltinPlugin,,Debug as Built-in Plugin,Debug as Built-in Plugin
+Studio.App.RBXMainWindow.DebugAsPlugin,,Debug as Plugin,Debug as Plugin
 Studio.App.RBXMainWindow.Debugger,,Debugger,Debugger
 Studio.App.RBXMainWindow.DeleteBreakpoint,,Delete Breakpoint,Delete Breakpoint
 Studio.App.RBXMainWindow.DiffNext,,Diff Next,Diff Next
@@ -1414,9 +1434,12 @@ Studio.App.RenderScheduler.FailedToBindToWorkspace,,Failed to Bind to Workspace.
 Studio.App.Restart.RestartLater,restart studio later,Restart Later,Restart Later
 Studio.App.Restart.RestartNow,restart studio right now,Restart,Restart
 Studio.App.RobloxChatWidget.ChatOptions,,Chat Options,Chat Options
+Studio.App.RobloxChatWidget.ChattingWith,,Chatting with %1,Chatting with %1
 Studio.App.RobloxChatWidget.ConnectingToChatElps,,Connecting to chat...,Connecting to chat...
 Studio.App.RobloxChatWidget.ContentModerated,,Content was moderated. Message not sent.,Content was moderated. Message not sent.
+Studio.App.RobloxChatWidget.DisabledChatMessage,,%1 Turn on chat in your %2 Privacy Settings %3 to chat with friends! %4,%1 Turn on chat in your %2 Privacy Settings %3 to chat with friends! %4
 Studio.App.RobloxChatWidget.FailedSendAMessage,,Failed to send message: ,Failed to send message: 
+Studio.App.RobloxChatWidget.NotFriendErrorMessage,,Individual chat is available only for friends. Please friend '%1' or use group chat to talk.,Individual chat is available only for friends. Please friend '%1' or use group chat to talk.
 Studio.App.RobloxChatWidget.SendAMessage,,Send a message,Send a message
 Studio.App.RobloxCustomWidgets.Loading,,(Loading...),(Loading...)
 Studio.App.RobloxCustomWidgets.Url,,URL:,URL:
@@ -1458,6 +1481,10 @@ Studio.App.RobloxMainWindow.OpenScriptsPattern,,Scripts (*.rbxs *.lua *.txt),Scr
 Studio.App.RobloxMainWindow.PluginInstallation,,Plugin Installation,Plugin Installation
 Studio.App.RobloxMainWindow.SaveAs,,Save As,Save As
 Studio.App.RobloxMouseConfig.ContextMenu,,Context Menu,Context Menu
+Studio.App.RobloxMouseConfig.RightClick,,Right Click,Right Click
+Studio.App.RobloxMouseConfig.RightClickAlt,,Right Click + Alt,Right Click + Alt
+Studio.App.RobloxMouseConfig.RightClickCtrl,,Right Click + Ctrl,Right Click + Ctrl
+Studio.App.RobloxMouseConfig.RightClickShift,,Right Click + Shift,Right Click + Shift
 Studio.App.RobloxPropertiesWidget.FilterPlaceholder1,,Filter Properties %1,Filter Properties %1
 Studio.App.RobloxPropertiesWidget.ItemCount1,,%1 items,%1 items
 Studio.App.RobloxPropertiesWidget.ItemsCount2,,%1 - %2 items,%1 - %2 items
@@ -1495,6 +1522,7 @@ Studio.App.RobloxRibbonMainWindow.ATextEntryBox,,A text entry box,A text entry b
 Studio.App.RobloxRibbonMainWindow.Actions,,Actions,Actions
 Studio.App.RobloxRibbonMainWindow.ActionsAsTools,,Actions as Tools,Actions as Tools
 Studio.App.RobloxRibbonMainWindow.AddASpawnPoint,,Click here to add a spawn point into your game,Click here to add a spawn point into your game
+Studio.App.RobloxRibbonMainWindow.AddDebugPlugin,,Add Debug Plugin,Add Debug Plugin
 Studio.App.RobloxRibbonMainWindow.AddWeld,,Add Weld,Add Weld
 Studio.App.RobloxRibbonMainWindow.Advanced,,Advanced,Advanced
 Studio.App.RobloxRibbonMainWindow.AdvancedObjects,,Advanced Objects,Advanced Objects
@@ -1786,6 +1814,7 @@ Studio.App.RobloxStudioVerbs.SavingTo,,Saving to Roblox...,Saving to Roblox...
 Studio.App.RobloxStudioVerbs.SeparateFailed,,Separate failed,Separate failed
 Studio.App.RobloxStudioVerbs.StartServer,,Start server,Start server
 Studio.App.RobloxStudioVerbs.StartServerSaveFailure,,Start server - save failure,Start server - save failure
+Studio.App.RobloxStudioVerbs.StartingPlayers,,Starting players,Starting players
 Studio.App.RobloxStudioVerbs.Undo1,,Undo %s,Undo %s
 Studio.App.RobloxStudioVerbs.UnionFailed,,Union failed,Union failed
 Studio.App.RobloxTaskScheduler.HeaderLabelActivity,In task scheduler,Activity,Activity
@@ -1793,6 +1822,7 @@ Studio.App.RobloxTaskScheduler.HeaderLabelName,In task scheduler,Name,Name
 Studio.App.RobloxTaskScheduler.HeaderLabelRate,In task scheduler,Rate,Rate
 Studio.App.RobloxTaskScheduler.HeaderLabelTime,In task scheduler,Time,Time
 Studio.App.RobloxTeamCreateWidget.DeleteUser,,Delete User,Delete User
+Studio.App.RobloxTeamCreateWidget.GroupOwnedPlace,,Group owned place,Group owned place
 Studio.App.RobloxTeamCreateWidget.TeamCreateDisabled,,Team Create in this game is disabled. Please enable Team Create to add editors to your place.,Team Create in this game is disabled. Please enable Team Create to add editors to your place.
 Studio.App.RobloxTeamCreateWidget.TeamCreateOptions,,Team Create Options,Team Create Options
 Studio.App.RobloxTeamCreateWidget.TurnOffTeamCreate,,Turn OFF Team Create,Turn OFF Team Create
@@ -1828,6 +1858,7 @@ Studio.App.ScriptRecoveryWidget.SelectAndOpenScript,,Select and open script,Sele
 Studio.App.ScriptRecoveryWidget.ViewDiff,,View Diff,View Diff
 Studio.App.ScriptResourceController.ConfirmPublishChanges,,Are you sure you want to publish your changes?,Are you sure you want to publish your changes?
 Studio.App.ScriptResourceController.ConfirmWillDestroyChanges,,This will destroy all local changes you have made. Are you sure?,This will destroy all local changes you have made. Are you sure?
+Studio.App.ScriptTextEditor.FilterText,,  Type to filter functions. Tab or Enter to go to selected function,  Type to filter functions. Tab or Enter to go to selected function
 Studio.App.Settings.FolderSelectionDialogTitle,,Select folder to save Roblox documents,Select folder to save Roblox documents
 Studio.App.Settings.SelectFolderMessageBoxText,,"Need a location to store local files.
 Do you want to pick a file path now?","Need a location to store local files.

@@ -10,6 +10,9 @@ local ExternalEventConnection = require(InGameMenu.Utility.ExternalEventConnecti
 
 local ToggleEntry = require(script.Parent.ToggleEntry)
 
+local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
+local Constants = require(InGameMenu.Resources.Constants)
+
 local AutoPropertyToggleEntry = Roact.PureComponent:extend("AutoPropertyToggleEntry")
 AutoPropertyToggleEntry.validateProps = t.strictInterface({
 	instance = t.Instance,
@@ -54,6 +57,8 @@ function AutoPropertyToggleEntry:init(props)
 		else
 			props.instance[props.key] = props.onValue
 		end
+
+		SendAnalytics(Constants.AnalyticsSettingsChangeName, nil, {}, true)
 	end
 end
 

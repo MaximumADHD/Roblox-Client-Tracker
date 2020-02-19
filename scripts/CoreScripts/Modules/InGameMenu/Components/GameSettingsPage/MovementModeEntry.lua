@@ -22,6 +22,9 @@ local DeveloperLockLabel = require(script.Parent.DeveloperLockLabel)
 
 local withLocalization = require(InGameMenu.Localization.withLocalization)
 
+local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
+local Constants = require(InGameMenu.Resources.Constants)
+
 local MOVEMENT_MODE_LOCALIZATION_KEYS = {
 	[Enum.ComputerMovementMode.KeyboardMouse] = "CoreScripts.InGameMenu.GameSettings.ComputerMoveModeKeyboardMouse",
 	[Enum.ComputerMovementMode.ClickToMove] = "CoreScripts.InGameMenu.GameSettings.ComputerMoveModeClickToMove",
@@ -124,6 +127,7 @@ function MovementModeEntry:render()
 				localize = true,
 				selectionChanged = function(newSelection)
 					UserGameSettings.ComputerMovementMode = self.state.computerOptions[newSelection]
+					SendAnalytics(Constants.AnalyticsSettingsChangeName, nil, {}, true)
 				end,
 			})
 		end),

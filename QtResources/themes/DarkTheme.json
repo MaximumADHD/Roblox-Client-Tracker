@@ -725,15 +725,18 @@
         "overrideBackground": "#802a2a"
     },
     "CommonStyle": {
-        "mainBackground": "#353535",
-        "inputFieldBackground": "#252525",
-        "currentItemMarker": "#424242",
-        "mainText": "#CCCCCC",
-        "mutedText": "#000000",
-        "dimmedText": "#666666",
-        "linkText": "#35B5FF",
-        "textRenderType": 0,
-        "fontWeight": 50
+      "mainBackground": "#353535",
+      "inputFieldBackground": "#252525",
+      "currentItemMarker": "#424242",
+      "tooltip": "#353535",
+      "tooltipBorder": "#222222",
+      "tooltipText": "#CCCCCC",
+      "mainText": "#CCCCCC",
+      "mutedText": "#000000",
+      "dimmedText": "#666666",
+      "linkText": "#35B5FF",
+      "textRenderType": 0,
+      "fontWeight": 50
     },
     "Ribbon": {
         "background": "#2E2E2E",
@@ -754,10 +757,14 @@
         "disabledIconOpacity": 0.3
     },
     "InsertObjectWindow": {
-        "categoryText": "#666666",
-        "separator": "#222222",
-        "searchBoxBorder": "#222222",
-        "dropShadow": "#4D000000"
+      "mainBackground": "#353535",
+      "scrollViewBackground": "#2e2e2e",
+      "categoryText": "#666666",
+      "separator": "#222222",
+      "searchBoxBorder": "#222222",
+      "settingsBorder":  "#222222",
+      "dropShadow": "#4D000000",
+      "dropdownIcon": "qrc:/images/BulkImport/DarkTheme/collapse-dark.png"
     },
     "Scrollbar": {
         "background": "#292929",

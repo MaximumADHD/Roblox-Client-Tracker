@@ -13,6 +13,8 @@
 	(optional)
 		sortChildren : (function<bool>(DataNode, DataNode)) a comparator function passed to table.sort()
 		onSelectionChanged : (function<void>(list<DataNode>)) a callback for observing when items are selected
+		expandAll: (bool) a check to determine if the entire tree should be initially expanded.
+		expandRoot: (bool) a check to determine if the root of the tree should be initially expanded.
 
 	Elements rendered by the TreeView are given the following props :
 		-- data information
@@ -50,6 +52,7 @@ function TreeView:init()
 	local getChildrenFunc = self.props.getChildren
 	local sortChildrenFunc = self.props.sortChildren
 	local expandAll = self.props.expandAll
+	local expandRoot = self.props.expandRoot
 
 	self.layoutRef = Roact.createRef()
 	self.contentRef = Roact.createRef()
@@ -298,6 +301,12 @@ function TreeView:init()
 		})
 
 		self.state.expandedItems = expandedItems
+	end
+
+	if expandRoot then
+		self.state.expandedItems = {
+			[dataTreeRoot] = true,
+		}
 	end
 end
 

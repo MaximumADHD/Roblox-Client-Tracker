@@ -14,6 +14,9 @@
 local PageName = "Avatar"
 
 local FFlagGameSettingsReorganizeHeaders = settings():GetFFlag("GameSettingsReorganizeHeaders")
+local FFlagAvatarSizeFixForReorganizeHeaders =
+	game:GetFastFlag("AvatarSizeFixForReorganizeHeaders") and
+	FFlagGameSettingsReorganizeHeaders
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -93,11 +96,11 @@ local function displayContents(page, localized)
 	local props = page.props
 
 	return {
-		PageLayout = FFlagGameSettingsReorganizeHeaders and
+		PageLayout = FFlagGameSettingsReorganizeHeaders and (not FFlagAvatarSizeFixForReorganizeHeaders and
 		Roact.createElement("UIListLayout", {
 			Padding = UDim.new(0, 25),
 			SortOrder = Enum.SortOrder.LayoutOrder,
-		}),
+		}) or nil),
 
 		Header = FFlagGameSettingsReorganizeHeaders and
 		Roact.createElement(Header, {
@@ -137,7 +140,8 @@ local function displayContents(page, localized)
 			OnAvatarAssetOverridesChanged = props.AvatarAssetOverridesChanged,
 			OnAvatarScalingMinChanged = props.AvatarScalingMinChanged,
 			OnAvatarScalingMaxChanged = props.AvatarScalingMaxChanged,
-			ContentHeightChanged = props.ContentHeightChanged
+			ContentHeightChanged = (not FFlagAvatarSizeFixForReorganizeHeaders) and
+				props.ContentHeightChanged or nil
 		})
 	}
 end
@@ -151,7 +155,7 @@ local function Avatar(props)
 		LayoutOrder = props.LayoutOrder,
 		Content = displayContents,
 
-		AddLayout = false,
+		AddLayout = FFlagAvatarSizeFixForReorganizeHeaders,
 	})
 end
 

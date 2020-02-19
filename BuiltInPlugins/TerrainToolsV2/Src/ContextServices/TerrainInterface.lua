@@ -10,9 +10,11 @@ local TerrainBrushKey = Symbol.named("TerrainBrush")
 local SeaLevelKey = Symbol.named("SeaLevelKey")
 local TerrainImporterKey = Symbol.named("TerrainImporter")
 local TerrainGenerationKey = Symbol.named("TerrainGeneration")
+local PartConverterKey = Symbol.named("PartConverter")
 
 local FFlagTerrainToolsSeaLevel = game:GetFastFlag("TerrainToolsSeaLevel")
 local FFlagTerrainToolsFixGettingTerrain = game:GetFastFlag("TerrainToolsFixGettingTerrain")
+local FFlagTerrainToolsConvertPartTool = game:GetFastFlag("TerrainToolsConvertPartTool")
 
 local TerrainInterfaceProvider = Roact.PureComponent:extend("TerrainInterfaceProvider")
 
@@ -44,6 +46,12 @@ function TerrainInterfaceProvider:init()
 		assert(seaLevel, "TerrainInterfaceProvider expects a TerrainSeaLevel Instance")
 		self._context[SeaLevelKey] = seaLevel
 	end
+
+	if FFlagTerrainToolsConvertPartTool then
+		local partConverter = self.props.partConverter
+		assert(partConverter, "TerrainInterfaceProvider expects a PartConverter instance")
+		self._context[PartConverterKey] = partConverter
+	end
 end
 
 function TerrainInterfaceProvider:render()
@@ -74,6 +82,10 @@ local function getTerrainGeneration(component)
 	return component._context[TerrainGenerationKey]
 end
 
+local function getPartConverter(component)
+	return component._context[PartConverterKey]
+end
+
 return {
 	Provider = TerrainInterfaceProvider,
 	getTerrain = getTerrain,
@@ -82,4 +94,5 @@ return {
 	getSeaLevel = getSeaLevel,
 	getTerrainImporter = getTerrainImporter,
 	getTerrainGeneration = getTerrainGeneration,
+	getPartConverter = getPartConverter,
 }

@@ -14,6 +14,7 @@ function StudioStyle.new(getColor, c, m)
 		font = Enum.Font[FStringMainFont],
 
 		backgroundColor = getColor(c.MainBackground),
+		liveBackgroundColor = Color3.new(),
 		textColor = getColor(c.MainText),
 		subTextColor = getColor(c.SubText),
 		dimmerTextColor = getColor(c.DimmedText),

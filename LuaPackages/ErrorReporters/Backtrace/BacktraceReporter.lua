@@ -11,7 +11,11 @@ local t = require(CorePackages.Packages.t)
 local BacktraceReport = require(script.Parent.BacktraceReport)
 local ErrorQueue = require(script.Parent.Parent.ErrorQueue)
 
+local GetFFlagLuaAppSendLogsToBacktrace = require(CorePackages.AppTempCommon.LuaApp.Flags.GetFFlagLuaAppSendLogsToBacktrace)
+
 local DEVELOPMENT_IN_STUDIO = game:GetService("RunService"):IsStudio()
+
+local DEFAULT_LOG_INTERVAL = 60 -- seconds
 
 local BacktraceReporter = {}
 BacktraceReporter.__index = BacktraceReporter
@@ -19,11 +23,14 @@ BacktraceReporter.__index = BacktraceReporter
 local IBacktraceReporter = t.strictInterface({
 	httpService = t.some(t.instanceOf("HttpService"), t.interface({
 		JSONEncode = t.callback,
+		JSONDecode = t.callback,
 		RequestInternal = t.callback,
 	})),
 	token = t.string,
 	processErrorReportMethod = t.optional(t.callback),
 	queueOptions = t.optional(t.table),
+	generateLogMethod = t.optional(t.callback),
+	logIntervalInSeconds = t.optional(t.numberPositive),
 })
 
 function BacktraceReporter.new(arguments)
@@ -35,11 +42,14 @@ function BacktraceReporter.new(arguments)
 			_isEnabled = true,
 			_httpService = arguments.httpService,
 			_errorQueue = nil,
-			_reportUrl = game:GetFastString("ErrorUploadToBacktraceBaseUrl") .. "token=" .. arguments.token .. "&format=json",
+			_reportUrl = game:GetFastString("ErrorUploadToBacktraceBaseUrl") .. "token=" .. arguments.token,
 			_processErrorReportMethod = arguments.processErrorReportMethod,
 
 			_sharedAttributes = {},
 			_sharedAnnotations = {},
+			_generateLogMethod = arguments.generateLogMethod,
+			_logIntervalInSeconds = arguments.logIntervalInSeconds or DEFAULT_LOG_INTERVAL,
+			_lastLogTime = 0,
 		}
 	elseif (DEVELOPMENT_IN_STUDIO or _G.__TESTEZ_RUNNING_TEST__) then
 		error("invalid arguments for BacktraceReporter: " .. message)
@@ -63,9 +73,9 @@ function BacktraceReporter.new(arguments)
 	return self
 end
 
-function BacktraceReporter:sendErrorReport(report)
+function BacktraceReporter:sendErrorReport(report, log)
 	if not self._isEnabled then
-		return false
+		return
 	end
 
 	-- Validating the report can be slow;
@@ -81,12 +91,12 @@ function BacktraceReporter:sendErrorReport(report)
 
 	if not encodeSuccess then
 		warn("Cannot convert report to Json")
-		return false
+		return
 	end
 
-	local success = pcall(function()
+	pcall(function()
 		local httpRequest = self._httpService:RequestInternal({
-			Url = self._reportUrl,
+			Url = self._reportUrl .. "&format=json",
 			Method = "POST",
 			Headers = {
 				["Content-Type"] = "application/json",
@@ -95,13 +105,67 @@ function BacktraceReporter:sendErrorReport(report)
 		})
 
 		httpRequest:Start(function(success, response)
-			-- To inspect http call result you can add code here.
-			-- However, be aware that even when a response is 200, the report
+			-- Be aware that even when a response is 200, the report
 			-- might still be rejected/deleted by Backtrace after it is received.
+			if GetFFlagLuaAppSendLogsToBacktrace() and response.StatusCode == 200 and
+				log ~= nil then
+
+				local decodeSuccesss, decodedBody = pcall(function()
+					return self._httpService:JSONDecode(response.Body)
+				end)
+
+				if decodeSuccesss and decodedBody._rxid ~= nil then
+					self:_sendLogToReport(decodedBody._rxid, log)
+				end
+			end
 		end)
 	end)
+end
 
-	return success
+function BacktraceReporter:_sendLogToReport(reportRxid, log)
+	if not GetFFlagLuaAppSendLogsToBacktrace() then
+		return
+	end
+
+	if type(log) ~= "string" or #log == 0 then
+		return
+	end
+
+	pcall(function()
+		local httpRequest = self._httpService:RequestInternal({
+			Url = self._reportUrl .. "&object=" .. reportRxid .. "&attachment_name=log.txt",
+			Method = "POST",
+			Headers = {
+				["Content-Type"] = "text/plain",
+			},
+			Body = log,
+		})
+
+		httpRequest:Start(function(reqSuccess, response)
+			-- We have no use for the result of this request right now.
+		end)
+	end)
+end
+
+function BacktraceReporter:_generateLog()
+	if not GetFFlagLuaAppSendLogsToBacktrace() then
+		return
+	end
+
+	if self._generateLogMethod ~= nil and
+		tick() - self._lastLogTime > self._logIntervalInSeconds then
+		self._lastLogTime = tick()
+
+		local success, log = pcall(function()
+			return self._generateLogMethod()
+		end)
+
+		if success and type(log) == "string" and #log > 0 then
+			return log
+		end
+	end
+
+	return nil
 end
 
 function BacktraceReporter:_generateErrorReport(errorMessage, errorStack, details)
@@ -132,7 +196,12 @@ function BacktraceReporter:reportErrorImmediately(errorMessage, errorStack, deta
 		newReport = self._processErrorReportMethod(newReport)
 	end
 
-	return self:sendErrorReport(newReport)
+	local log
+	if GetFFlagLuaAppSendLogsToBacktrace() then
+		log = self:_generateLog()
+	end
+
+	self:sendErrorReport(newReport, log)
 end
 
 -- Deferred reports using an error queue
@@ -154,20 +223,34 @@ function BacktraceReporter:reportErrorDeferred(errorMessage, errorStack, details
 			newReport = self._processErrorReportMethod(newReport)
 		end
 
-		errorData = newReport
+		if GetFFlagLuaAppSendLogsToBacktrace() then
+			errorData = {
+				backtraceReport = newReport,
+				log = self:_generateLog(),
+			}
+		else
+			errorData = newReport
+		end
 	end
 
 	self._errorQueue:addError(errorKey, errorData)
 end
 
 function BacktraceReporter:_reportErrorFromErrorQueue(errorKey, errorData, errorCount)
-	local errorReport = errorData
+	local errorReport
+	local log
+	if GetFFlagLuaAppSendLogsToBacktrace() then
+		errorReport = errorData.backtraceReport
+		log = errorData.log
+	else
+		errorReport = errorData
+	end
 
 	errorReport:addAttributes({
 		ErrorCount = errorCount,
 	})
 
-	self:sendErrorReport(errorReport)
+	self:sendErrorReport(errorReport, log)
 end
 
 -- API for updating shared attributes/annotations

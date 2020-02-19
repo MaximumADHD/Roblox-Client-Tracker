@@ -1,6 +1,5 @@
 local CorePackages = game:GetService("CorePackages")
 local TextService = game:GetService("TextService")
-local ABTestService = game:GetService("ABTestService")
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
 local InspectAndBuyFolder = script.Parent.Parent
@@ -10,14 +9,11 @@ local getSelectionImageObjectRounded = require(InspectAndBuyFolder.getSelectionI
 
 local TEXT_SIZE = 16
 local MIN_SIZE = 32
--- Restore this after AB test
---local ROBUX_ICON_SIZE = FFlagEnableRobuxHexIcon and 16 or 18
+local ROBUX_ICON_SIZE = 16
 local BUTTON_PADDING = 10
 local ROBLOX_CREATOR_ID = "1"
 
 local BuyButton = Roact.PureComponent:extend("BuyButton")
-
-local FFlagInspectMenuUpdateDisabledColor = game:DefineFastFlag("InspectMenuUpdateDisabledColor", false)
 
 function BuyButton:init()
 	self.selectedImage = getSelectionImageObjectRounded()
@@ -37,17 +33,7 @@ function BuyButton:render()
 	local sizeXAdjustment = creatorId == ROBLOX_CREATOR_ID and -32 or -BUTTON_PADDING / 2
 	local transparencyOverride = 0
 
-	local FFlagEnableRobuxHexIconV2 = game:GetFastFlag("EnableRobuxHexIconV2")
-	local EnrolledInRobuxIconABTest = false
-	if game:GetFastFlag("EnableRobuxABTest") then
-		local RobuxIconABTestVariant = nil;
-		pcall(function() RobuxIconABTestVariant = ABTestService:GetVariant("RobuxHexIconABTestName") end)
-		EnrolledInRobuxIconABTest = RobuxIconABTestVariant == "Variation1"
- 	end
-	local enableNewRobuxIcon = FFlagEnableRobuxHexIconV2 or EnrolledInRobuxIconABTest
-	local ROBUX_ICON_SIZE = enableNewRobuxIcon and 16 or 18
-
-	if FFlagInspectMenuUpdateDisabledColor and not forSale then
+	if not forSale then
 		transparencyOverride = 0.5
 	end
 
@@ -56,7 +42,7 @@ function BuyButton:render()
 		BackgroundTransparency = 1,
 		Size = UDim2.new(0.5, sizeXAdjustment, 0, 44),
 		Image = "rbxasset://textures/ui/InspectMenu/Button_white.png",
-		ImageColor3 = (forSale or FFlagInspectMenuUpdateDisabledColor) and Colors.Green or Colors.DisabledGreen,
+		ImageColor3 = Colors.Green,
 		SelectionImageObject = self.selectedImage,
 		LayoutOrder = 3,
 		ImageTransparency = transparencyOverride,
@@ -76,9 +62,7 @@ function BuyButton:render()
 		RobuxIcon = Roact.createElement("ImageLabel", {
 			BackgroundTransparency = 1,
 			Size = UDim2.new(0, ROBUX_ICON_SIZE, 0, ROBUX_ICON_SIZE),
-			Image = enableNewRobuxIcon
-				and "rbxasset://textures/ui/common/robux_small.png"
-				or "rbxasset://textures/ui/InspectMenu/ico_robux.png",
+			Image =  "rbxasset://textures/ui/common/robux_small.png",
 			ImageTransparency = transparencyOverride,
 			ImageColor3 = Colors.White,
 			LayoutOrder = 1,

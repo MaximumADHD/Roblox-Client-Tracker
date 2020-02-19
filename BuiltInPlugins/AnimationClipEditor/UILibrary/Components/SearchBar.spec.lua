@@ -4,12 +4,12 @@ return function()
 
 	local MockWrapper = require(Library.MockWrapper)
 
-	local SearchBar = require(Library.Components.SearchBar.SearchBar)
+	local SearchBar = require(script.Parent.SearchBar)
 
 	it("should create and destroy without errors", function()
 		local element = Roact.createElement(MockWrapper, {}, {
 			SearchBar = Roact.createElement(SearchBar, {
-				width = 100,
+				Width = 100,
 				onSearchRequested = function() end,
 			}),
 		})
@@ -22,7 +22,7 @@ return function()
 			local width = 200
 			local element = Roact.createElement(MockWrapper, {}, {
 				SearchBar = Roact.createElement(SearchBar, {
-					width = width,
+					Width = width,
 				}),
 			})
 			local container = Instance.new("Folder")

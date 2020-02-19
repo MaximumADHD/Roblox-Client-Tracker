@@ -27,7 +27,7 @@ local create = require(CoreGuiModules.Common.Create)
 
 -- VARIABLES
 -- Skip showing UI on first pause to avoid displaying during loading process.
-local isFirstPauseChange = settings():GetFFlag("StreamingUISkipFirstPause")
+local isFirstPauseChange = true
 
 local Notification = NetworkPauseNotification.new()
 

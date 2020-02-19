@@ -27,5 +27,7 @@ return {
 	AnalyticsLeaveGameName = "leave_game",
 	AnalyticsConfirmedName = "confirmed",
 	AnalyticsCancelledName = "cancelled",
-	AnalyticsReportSubmittedName = "ingame_menu_report_submitted"
+	AnalyticsReportSubmittedName = "ingame_menu_report_submitted",
+	AnalyticsRequestFriendName = "RequestFriendship",
+	AnalyticsExamineAvatarName = "examine_avatar"
 }

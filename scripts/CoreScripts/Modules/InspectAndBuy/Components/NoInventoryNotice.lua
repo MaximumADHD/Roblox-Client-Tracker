@@ -8,8 +8,6 @@ local RobloxTranslator = require(CoreGui.RobloxGui.Modules.RobloxTranslator)
 
 local NO_INVENTORY_KEY = "InGame.InspectMenu.Description.NoInventoryNotice"
 
-local FFlagInspectMenuProgressiveLoading = settings():GetFFlag("InspectMenuProgressiveLoading")
-
 local NoInventoryNotice = Roact.PureComponent:extend("NoInventoryNotice")
 
 function NoInventoryNotice:render()
@@ -20,7 +18,7 @@ function NoInventoryNotice:render()
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 1, 0),
 		BackgroundTransparency = 1,
-		Visible = next(assets) == nil and (not FFlagInspectMenuProgressiveLoading or isLoaded),
+		Visible = next(assets) == nil and isLoaded,
 	}, {
 		UIListLayout = Roact.createElement("UIListLayout", {
 			Padding = UDim.new(0, 15),

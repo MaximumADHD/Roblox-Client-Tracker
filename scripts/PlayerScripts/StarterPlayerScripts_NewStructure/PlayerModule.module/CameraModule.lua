@@ -9,7 +9,7 @@
 	activated as-needed, they are no longer all instantiated up front as they were in
 	the previous generation of PlayerScripts.
 
-	2018 PlayerScripts Update - AllYourBlox	
+	2018 PlayerScripts Update - AllYourBlox
 --]]
 
 local CameraModule = {}
@@ -20,6 +20,13 @@ local FFlagUserCameraToggle do
 		return UserSettings():IsUserFeatureEnabled("UserCameraToggle")
 	end)
 	FFlagUserCameraToggle = success and result
+end
+
+local FFlagUserRemoveTheCameraApi do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserRemoveTheCameraApi")
+	end)
+	FFlagUserRemoveTheCameraApi = success and result
 end
 
 -- NOTICE: Player property names do not all match their StarterPlayer equivalents,
@@ -160,10 +167,6 @@ function CameraModule.new()
 
 	return self
 end
-
-
-
-
 
 function CameraModule:GetCameraMovementModeFromSettings()
 	local cameraMode = Players.LocalPlayer.CameraMode
@@ -464,6 +467,10 @@ end
 --]]
 function CameraModule:Update(dt)
 	if self.activeCameraController then
+		if FFlagUserCameraToggle then
+			self.activeCameraController:UpdateMouseBehavior()
+		end
+
 		local newCameraCFrame, newCameraFocus = self.activeCameraController:Update(dt)
 		self.activeCameraController:ApplyVRTransform()
 		if self.activeOcclusionModule then
@@ -538,4 +545,11 @@ function CameraModule:OnMouseLockToggled()
 	end
 end
 
-return CameraModule.new()
+local cameraModuleObject = CameraModule.new()
+local cameraApi = {}
+
+if FFlagUserRemoveTheCameraApi then
+	return cameraApi
+else
+	return cameraModuleObject
+end

@@ -141,17 +141,19 @@ return function(opSet, minBounds, maxBounds, readMaterials, readOccupancies, wri
 
 		local worldVectorX = minBoundsX + ((voxelX - 0.5) * Constants.VOXEL_RESOLUTION)
 		local cellVectorX = worldVectorX - centerX
-		local planeDifferenceX = (worldVectorX - planePointX) * planeNormalX
 
 		local worldVectorY = minBoundsY + (voxelY - 0.5) * Constants.VOXEL_RESOLUTION
 		local cellVectorY = worldVectorY - centerY
-		local planeDifferenceXY = planeDifferenceX + ((worldVectorY - planePointY) * planeNormalY)
 
 		local worldVectorZ = minBoundsZ + (voxelZ - 0.5) * Constants.VOXEL_RESOLUTION
 		local cellVectorZ = worldVectorZ - centerZ
-		local planeDifference = planeDifferenceXY + ((worldVectorZ - planePointZ) * planeNormalZ)
+		local planeDifference
 
 		if FFlagTerrainToolsRefactorSculptOperations then
+			local planeDifferenceX = (worldVectorX - planePointX) * planeNormalX
+			local planeDifferenceXY = planeDifferenceX + ((worldVectorY - planePointY) * planeNormalY)
+			planeDifference = planeDifferenceXY + ((worldVectorZ - planePointZ) * planeNormalZ)
+		else
 			planeDifference = minBoundsY + (voxelY - 0.5) * Constants.VOXEL_RESOLUTION - planePositionY
 		end
 
@@ -175,11 +177,6 @@ return function(opSet, minBounds, maxBounds, readMaterials, readOccupancies, wri
 					attemptToGrowVoxel = true
 				end
 			end
-
-			assert((attemptToGrowVoxel and not (attemptToErodeVoxel or attemptToSmoothVoxel)
-				or (attemptToErodeVoxel and not (attemptToGrowVoxel or attemptToSmoothVoxel))
-				or (attemptToSmoothVoxel and not (attemptToGrowVoxel or attemptToErodeVoxel))),
-				"Can only perform 1 sculpt operation to a voxel")
 
 			-- If the voxel we're looking at can erode
 			if attemptToErodeVoxel and (myOccupancy > 0 and not treatCurrentVoxelAsEmptyFromWater) then

@@ -7,8 +7,6 @@ local Analytics = {}
 
 local INSPECT_TAG = "inspectAndBuy"
 
-local FFlagFixInspectMenuAnalytics = settings():GetFFlag("FixInspectMenuAnalytics")
-
 function Analytics.new(inspecteeUid, ctx)
 	Analytics.eventStream = EventStream.new()
 	Analytics.pid = tostring(game.PlaceId)
@@ -103,12 +101,7 @@ function Analytics:report(eventName, additionalFields)
 	}
 
 	local fields = Cryo.Dictionary.join(requiredFields, additionalFields)
-
-	if FFlagFixInspectMenuAnalytics then
-		Analytics.eventStream:setRBXEventStream(Analytics.ctx, eventName, fields)
-	else
-		Analytics.eventStream:setRBXEventStream(INSPECT_TAG, eventName, fields)
-	end
+	Analytics.eventStream:setRBXEventStream(Analytics.ctx, eventName, fields)
 end
 
 return Analytics

@@ -5,4 +5,9 @@ Studio.AssetManager.Main.Tooltip, , ,"Add, remove, and modify assets"
 Studio.AssetManager.Meta.PluginButtonTooltip, , ,"Add, remove, and modify assets"
 Studio.AssetManager.Meta.PluginDescription, , ,"Add, remove, and modify assets"
 Studio.AssetManager.Meta.PluginName, , ,AssetManager
-Studio.AssetManager.Meta.ToolbarName, , ,Asset Manager
+Studio.AssetManager.Meta.ToolbarName, , ,Asset Manager\
+Studio.AssetManager.Folders.IMAGES, , ,Images
+Studio.AssetManager.Folders.MESHES, , ,Meshes
+Studio.AssetManager.Folders.PACKAGES, , ,Packages
+Studio.AssetManager.Folders.PLACES, , ,Places
+Studio.AssetManager.Folders.SCRIPTS, , ,Scripts

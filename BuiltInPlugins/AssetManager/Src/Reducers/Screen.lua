@@ -9,38 +9,34 @@ return Rodux.createReducer({
 	nextScreens = {},
 }, {
 	SetScreen = function(state, action)
-		local previousScreens = state.previousScreens
-		table.insert(previousScreens, state.currentScreen)
 		return Cryo.Dictionary.join(state, {
 			currentScreen = action.screen,
-			previousScreens = previousScreens,
+			previousScreens = Cryo.Dictionary.join(state.previousScreens, {
+                [#state.previousScreens + 1] = state.currentScreen,
+            }),
 			nextScreens = {},
 		})
 	end,
 
 	SetToPreviousScreen = function(state, action)
 		assert(#state.previousScreens > 0, "previousScreens should not be empty")
-		local previousScreens = state.previousScreens
-		local nextScreens = state.nextScreens
-		local screen = table.remove(previousScreens)
-		table.insert(nextScreens, state.currentScreen)
 		return Cryo.Dictionary.join(state, {
-			currentScreen = screen,
-			previousScreens = previousScreens,
-			nextScreens = nextScreens,
+			currentScreen = state.previousScreens[#state.previousScreens],
+			previousScreens = {unpack(state.previousScreens, 1, #state.previousScreens-1)},
+			nextScreens = Cryo.Dictionary.join(state.nextScreens, {
+                [#state.nextScreens + 1] = state.currentScreen,
+            }),
 		})
 	end,
 
 	SetToNextScreen = function(state, action)
 		assert(#state.nextScreens > 0, "nextScreens should not be empty")
-		local previousScreens = state.previousScreens
-		local nextScreens = state.nextScreens
-		local screen = table.remove(nextScreens)
-		table.insert(previousScreens, state.currentScreen)
 		return Cryo.Dictionary.join(state, {
-			currentScreen = screen,
-			previousScreens = previousScreens,
-			nextScreens = nextScreens,
+			currentScreen = state.nextScreens[#state.nextScreens],
+			previousScreens = Cryo.Dictionary.join(state.previousScreens, {
+                [#state.previousScreens + 1] = state.currentScreen,
+			}),
+			nextScreens = {unpack(state.nextScreens, 1, #state.nextScreens-1)},
 		})
 	end,
 })
