@@ -2,12 +2,14 @@ local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 local HttpRbxApiService = game:GetService("HttpRbxApiService")
 local Players = game:GetService("Players")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local AppTempCommon = CorePackages.AppTempCommon
 local Modules = CoreGui.RobloxGui.Modules
 local ShareGame = Modules.Settings.Pages.ShareGame
 
 local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabledV384")
+local FFlagDisableAutoTranslateForKeyTranslatedContent = require(RobloxGui.Modules.Flags.FFlagDisableAutoTranslateForKeyTranslatedContent)
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
@@ -71,6 +73,7 @@ function ShareGamePageFrame:render()
 		Size = UDim2.new(1, 0, 1, 0),
 		Position = UDim2.new(0, 0, 0, 0),
 		ZIndex = zIndex,
+		AutoLocalize = not FFlagDisableAutoTranslateForKeyTranslatedContent,
 	}, {
 		toasterPortal = Roact.createElement(Roact.Portal, {
 			target = CoreGui,

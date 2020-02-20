@@ -713,3 +713,22 @@ Studio.ReflectionMetadata.ReflectionMetadata.DebrisLCaddItem,,,Use AddItem() ins
 Studio.ReflectionMetadata.ReflectionMetadata.PlayerLCplayerFromCharacter,,,Use GetPlayerFromCharacter() instead,Use GetPlayerFromCharacter() instead,GetPlayerFromCharacter()를 대신 사용하세요.,Вместо этого используйте GetPlayerFromCharacter(),请改用 GetPlayerFromCharacter()
 Studio.ReflectionMetadata.ReflectionMetadata.BasePartLCmakeJoints,,,Use MakeJoints() instead,Use MakeJoints() instead,MakeJoints()를 대신 사용하세요.,Вместо этого используйте MakeJoints(),请改用 MakeJoints()
 Studio.ReflectionMetadata.ReflectionMetadata.BasePartLCgetMass,,,Use GetMass() instead,Use GetMass() instead,GetMass()를 대신 사용하세요.,Вместо этого используйте GetMass(),请改用 GetMass()
+Studio.ReflectionMetadata.ReflectionMetadata.SphereHandleAdornment,,,The SphereHandleAdornment is a sphere that can be adorned to a BasePart.,The SphereHandleAdornment is a sphere that can be adorned to a BasePart.,,,
+Studio.ReflectionMetadata.ReflectionMetadata.FileSyncItemFileSystemPath,,,Path of file system,Path of file system,,,
+Studio.ReflectionMetadata.ReflectionMetadata.UIGradientRotation,,,Clockwise rotation in degrees.,Clockwise rotation in degrees.,,,
+Studio.ReflectionMetadata.ReflectionMetadata.TerrainDecoration,,,Enables terrain materials decoration,Enables terrain materials decoration,,,
+Studio.ReflectionMetadata.ReflectionMetadata.WorldModel,,,"An object that contains a World. Supports rigid joints. Unlike Workspace, WorldModels do not support dynamics simulation.","An object that contains a World. Supports rigid joints. Unlike Workspace, WorldModels do not support dynamics simulation.",,,
+Studio.ReflectionMetadata.ReflectionMetadata.LineHandleAdornment,,,The LineHandleAdornment is a line that can be adorned to a BasePart.,The LineHandleAdornment is a line that can be adorned to a BasePart.,,,
+Studio.ReflectionMetadata.ReflectionMetadata.UIGradientColor,,,The (sequence of) color3 of the gradient.,The (sequence of) color3 of the gradient.,,,
+Studio.ReflectionMetadata.ReflectionMetadata.LightingEnvironmentSpecularScale,,,Sets scale [0-1] of Specular Environment Lighting to add to Ambient.,Sets scale [0-1] of Specular Environment Lighting to add to Ambient.,,,
+Studio.ReflectionMetadata.ReflectionMetadata.FileSyncItemTarget,,,Target Instance in DataModel,Target Instance in DataModel,,,
+Studio.ReflectionMetadata.ReflectionMetadata.ConeHandleAdornment,,,A ConeHandleAdornment is a cone that can be adorned to a BasePart.,A ConeHandleAdornment is a cone that can be adorned to a BasePart.,,,
+Studio.ReflectionMetadata.ReflectionMetadata.ImageHandleAdornment,,,The ImageHandleAdornment is an image that can be adorned to a BasePart.,The ImageHandleAdornment is an image that can be adorned to a BasePart.,,,
+Studio.ReflectionMetadata.ReflectionMetadata.Motor6D,,,The Motor6D object is used to make movable joints between two Parts.,The Motor6D object is used to make movable joints between two Parts.,,,
+Studio.ReflectionMetadata.ReflectionMetadata.BoxHandleAdornment,,,The BoxHandleAdornment is a rectangular prism that can be adorned to a BasePart.,The BoxHandleAdornment is a rectangular prism that can be adorned to a BasePart.,,,
+Studio.ReflectionMetadata.ReflectionMetadata.UIGradient,,,Apply a gradient to the parent GuiObject.,Apply a gradient to the parent GuiObject.,,,
+Studio.ReflectionMetadata.ReflectionMetadata.FileSyncItemEnabled,,,Enabling File Sync,Enabling File Sync,,,
+Studio.ReflectionMetadata.ReflectionMetadata.CylinderHandleAdornment,,,The CylinderHandleAdornment is a cylinder that can be adorned to a BasePart.,The CylinderHandleAdornment is a cylinder that can be adorned to a BasePart.,,,
+Studio.ReflectionMetadata.ReflectionMetadata.LightingEnvironmentDiffuseScale,,,Sets scale [0-1] of Diffuse Environment Lighting to add to Ambient.,Sets scale [0-1] of Diffuse Environment Lighting to add to Ambient.,,,
+Studio.ReflectionMetadata.ReflectionMetadata.UIGradientOffset,,,Offset of gradient center in scale.,Offset of gradient center in scale.,,,
+Studio.ReflectionMetadata.ReflectionMetadata.UIGradientTransparency,,,The (sequence of) transparency of the gradient.,The (sequence of) transparency of the gradient.,,,

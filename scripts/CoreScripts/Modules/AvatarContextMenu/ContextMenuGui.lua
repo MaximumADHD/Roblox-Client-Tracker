@@ -20,6 +20,9 @@ local AvatarMenuModules = CoreGuiModules:WaitForChild("AvatarContextMenu")
 local PlayerCarousel = nil
 local PlayerChangedEvent = Instance.new("BindableEvent")
 
+--- FLAGS
+local FFlagDisableAutoTranslateForKeyTranslatedContent = require(RobloxGui.Modules.Flags.FFlagDisableAutoTranslateForKeyTranslatedContent)
+
 --- Modules
 local ContextMenuUtil = require(AvatarMenuModules:WaitForChild("ContextMenuUtil"))
 local Utility = require(SettingsModules:WaitForChild("Utility"))
@@ -36,6 +39,7 @@ function ContextMenuGui:CreateContextMenuHolder(player)
 	contextMenuHolder.Size = UDim2.new(1, 0, 1, 0)
 	contextMenuHolder.BackgroundTransparency = 1
 	contextMenuHolder.Parent = RobloxGui
+	contextMenuHolder.AutoLocalize = not FFlagDisableAutoTranslateForKeyTranslatedContent
 	return contextMenuHolder
 end
 

@@ -2,6 +2,7 @@ local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 local LocalizationService = game:GetService("LocalizationService")
 local GuiService = game:GetService("GuiService")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
@@ -32,6 +33,8 @@ local SetCurrentPage = require(script.Actions.SetCurrentPage)
 local OpenMenu = require(script.Thunks.OpenMenu)
 
 local GlobalConfig = require(script.GlobalConfig)
+
+local FFlagDisableAutoTranslateForKeyTranslatedContent = require(RobloxGui.Modules.Flags.FFlagDisableAutoTranslateForKeyTranslatedContent)
 
 local menuStore = createStore()
 
@@ -81,6 +84,7 @@ return {
 			IgnoreGuiInset = true,
 			DisplayOrder = 1,
 			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
+			AutoLocalize = not FFlagDisableAutoTranslateForKeyTranslatedContent,
 
 		}, {
 			StoreProvider = Roact.createElement(RoactRodux.StoreProvider, {

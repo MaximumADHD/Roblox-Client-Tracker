@@ -39,27 +39,4 @@ return function()
 			expect(frames).to.equal(67)
 		end)
 	end)
-
-	describe("getMaxTextWidth", function()
-		it("should find maximum width", function()
-			local list = {
-				{Name = "name"},
-				{Name = "longestName"},
-				{Name = "longName"},
-				{Name = "longerName"},
-			}
-			local max = StringUtils.getMaxTextWidth(list, 16, Enum.Font.SourceSans)
-			local actualMax = StringUtils.getTextWidth(list[2].Name, 16, Enum.Font.SourceSans)
-			expect(max).to.equal(actualMax)
-		end)
-	end)
-
-	describe("getTextWidth", function()
-		it("should return a nonzero number", function()
-			local width = StringUtils.getTextWidth("Text", 16, Enum.Font.SourceSans)
-			expect(width).to.be.ok()
-			expect(type(width)).to.equal("number")
-			expect(width > 0).to.equal(true)
-		end)
-	end)
 end

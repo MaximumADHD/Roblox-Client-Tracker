@@ -13,7 +13,7 @@ dependencies = [
     "LuaSocialLibrariesDeps LuaSocialLibrariesDeps 1f18f7ae git+https://github.rbx.com/roblox/lua-social-libraries-deps#master",
     "Otter roblox/otter 0.1.0 registry+https://github.rbx.com/roblox/rotriever-index",
     "Promise lua-promise bbb9e162 git+https://github.rbx.com/roblox/lua-promise#master",
-    "PurchasePrompt roblox/purchase-prompt b8aef18f git+https://github.com/roblox/purchasepromptscript-roact#master",
+    "PurchasePrompt roblox/purchase-prompt d3a8b09e git+https://github.com/roblox/purchasepromptscript-roact#master",
     "Result lua-Result 4c69dedd git+https://github.rbx.com/roblox/lua-result#master",
     "Roact roblox/roact 1.2.0 registry+https://github.rbx.com/roblox/rotriever-index",
     "RoactNavigation roblox/roact-navigation 0.2.4 registry+https://github.rbx.com/roblox/rotriever-index",
@@ -205,7 +205,7 @@ source = "registry+https://github.rbx.com/roblox/rotriever-index"
 name = "roblox/purchase-prompt"
 version = "0.1.5"
 source = "git+https://github.com/roblox/purchasepromptscript-roact#master"
-commit = "b8aef18f891767524d6db1cdae5660e02a9b154b"
+commit = "d3a8b09ef922fd8b13ab364c46c789df90caaa74"
 dependencies = [
     "Cryo roblox/cryo 1.0.0 registry+https://github.rbx.com/roblox/rotriever-index",
     "FitFrame roblox/roact-fit-components 1.0.0 registry+https://github.rbx.com/roblox/rotriever-index",

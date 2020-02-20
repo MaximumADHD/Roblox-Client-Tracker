@@ -57,13 +57,6 @@ function CameraUtils.map(x, inMin, inMax, outMin, outMax)
 	return (x - inMin)*(outMax - outMin)/(inMax - inMin) + outMin
 end
 
--- Note, arguments do not match the new math.clamp
--- Eventually we will replace these calls with math.clamp, but right now
--- this is safer as math.clamp is not tolerant of min>max
-function CameraUtils.Clamp(low, high, val)
-	return math.min(math.max(val, low), high)
-end
-
 -- From TransparencyController
 function CameraUtils.Round(num, places)
 	local decimalPivot = 10^places
@@ -98,7 +91,7 @@ end
 local k = 0.35
 local lowerK = 0.8
 local function SCurveTranform(t)
-	t = CameraUtils.Clamp(-1,1,t)
+	t = math.clamp(t, -1, 1)
 	if t >= 0 then
 		return (k*t) / (k - t + 1)
 	end
@@ -122,7 +115,7 @@ function CameraUtils.GamepadLinearToCurve(thumbstickPosition)
 		end
 		local point = fromSCurveSpace(SCurveTranform(toSCurveSpace(math.abs(axisValue))))
 		point = point * sign
-		return CameraUtils.Clamp(-1, 1, point)
+		return math.clamp(point, -1, 1)
 	end
 	return Vector2.new(onAxis(thumbstickPosition.x), onAxis(thumbstickPosition.y))
 end

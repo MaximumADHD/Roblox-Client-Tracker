@@ -201,7 +201,7 @@ function OrbitalCamera:SetCameraToSubjectDistance(desiredSubjectDistance)
 	print("OrbitalCamera SetCameraToSubjectDistance ",desiredSubjectDistance)
 	local player = PlayersService.LocalPlayer
 	if player then
-		self.currentSubjectDistance = Util.Clamp(self.minDistance, self.maxDistance, desiredSubjectDistance)
+		self.currentSubjectDistance = math.clamp(desiredSubjectDistance, self.minDistance, self.maxDistance)
 
 		-- OrbitalCamera is not allowed to go into the first-person range
 		self.currentSubjectDistance = math.max(self.currentSubjectDistance, self.FIRST_PERSON_DISTANCE_THRESHOLD)
@@ -214,7 +214,7 @@ end
 function OrbitalCamera:CalculateNewLookVector(suppliedLookVector, xyRotateVector)
 	local currLookVector = suppliedLookVector or self:GetCameraLookVector()
 	local currPitchAngle = math.asin(currLookVector.y)
-	local yTheta = Util.Clamp(currPitchAngle - math.rad(MAX_ALLOWED_ELEVATION_DEG), currPitchAngle - math.rad(MIN_ALLOWED_ELEVATION_DEG), xyRotateVector.y)
+	local yTheta = math.clamp(xyRotateVector.y, currPitchAngle - math.rad(MAX_ALLOWED_ELEVATION_DEG), currPitchAngle - math.rad(MIN_ALLOWED_ELEVATION_DEG))
 	local constrainedRotateInput = Vector2.new(xyRotateVector.x, yTheta)
 	local startCFrame = CFrame.new(ZERO_VECTOR3, currLookVector)
 	local newLookVector = (CFrame.Angles(0, -constrainedRotateInput.x, 0) * startCFrame * CFrame.Angles(-constrainedRotateInput.y,0,0)).lookVector
@@ -368,12 +368,12 @@ function OrbitalCamera:Update(dt)
 			self.curAzimuthRad = self.curAzimuthRad - self.rotateInput.x
 
 			if self.useAzimuthLimits then
-				self.curAzimuthRad = Util.Clamp(self.minAzimuthAbsoluteRad, self.maxAzimuthAbsoluteRad, self.curAzimuthRad)
+				self.curAzimuthRad = math.clamp(self.curAzimuthRad, self.minAzimuthAbsoluteRad, self.maxAzimuthAbsoluteRad)
 			else
 				self.curAzimuthRad = (self.curAzimuthRad ~= 0) and (math.sign(self.curAzimuthRad) * (math.abs(self.curAzimuthRad) % TAU)) or 0
 			end
 
-			self.curElevationRad = Util.Clamp(self.minElevationRad, self.maxElevationRad, self.curElevationRad + self.rotateInput.y)
+			self.curElevationRad = math.clamp(self.curElevationRad + self.rotateInput.y, self.minElevationRad, self.maxElevationRad)
 
 			local cameraPosVector = self.currentSubjectDistance * ( CFrame.fromEulerAnglesYXZ( -self.curElevationRad, self.curAzimuthRad, 0 ) * UNIT_Z )
 			local camPos = subjectPosition + cameraPosVector

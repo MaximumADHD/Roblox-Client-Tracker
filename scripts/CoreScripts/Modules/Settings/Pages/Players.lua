@@ -55,6 +55,7 @@ local success, result = pcall(function() return settings():GetFFlag('UseNotifica
 local FFlagUseNotificationsLocalization = success and result
 local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp") --todo: remove with FFlagUsePolicyServiceForCoreScripts
 local FFlagUpdateSettingsHubGameText = require(RobloxGui.Modules.Flags.FFlagUpdateSettingsHubGameText)
+local FFlagDisableAutoTranslateForKeyTranslatedContent = require(RobloxGui.Modules.Flags.FFlagDisableAutoTranslateForKeyTranslatedContent)
 
 ----------- CLASS DECLARATION --------------
 local function Initialize()
@@ -393,6 +394,7 @@ local function Initialize()
 		local icon = frame.Icon
 
 		textLabel.Font = Enum.Font.SourceSansSemibold
+		textLabel.AutoLocalize = not FFlagDisableAutoTranslateForKeyTranslatedContent
 		textLabel.Text = RobloxTranslator:FormatByKey("Feature.SettingsHub.Action.InviteFriendsToPlay")
 
 		icon.Size = UDim2.new(0, 24, 0, 24)
@@ -433,6 +435,7 @@ local function Initialize()
 	local function createInspectButtonText(activateInspectAndBuyMenu)
 		local inspectButton = utility:MakeStyledButton(
 			"InspectButton", RobloxTranslator:FormatByKey(INSPECT_KEY), UDim2.new(0, 130, 0, 46), activateInspectAndBuyMenu)
+		inspectButton.AutoLocalize = not FFlagDisableAutoTranslateForKeyTranslatedContent
 		return inspectButton
 	end
 

@@ -26,6 +26,7 @@ local WithLayoutValues = LayoutValues.WithLayoutValues
 
 local FFlagPlayerListDesignUpdate = settings():GetFFlag("PlayerListDesignUpdate")
 local FFlagPlayerListAdjustHeightToMatchLegacy = game:DefineFastFlag("PlayerListAdjustHeightToMatchLegacy", false)
+local FFlagDisableAutoTranslateForKeyTranslatedContent = require(RobloxGui.Modules.Flags.FFlagDisableAutoTranslateForKeyTranslatedContent)
 
 local MOTOR_OPTIONS = {
     dampingRatio = 1,
@@ -180,6 +181,7 @@ function PlayerListApp:render()
 				Visible = self.state.visible,
 				---Increase ZIndex on TenFootInferface to put this on front of the VoiceChatShield.
 				ZIndex = layoutValues.IsTenFoot and 2 or 1,
+				AutoLocalize = not FFlagDisableAutoTranslateForKeyTranslatedContent,
 
 				[Roact.Ref] = self.rootRef,
 			}, {

@@ -22,6 +22,8 @@
 	return Theme
 ]]
 
+game:DefineFastFlag("FixMockStudioTheme", false)
+
 local Library = script.Parent.Parent
 local join = require(Library.join)
 local Signal = require(Library.Utils.Signal)
@@ -114,7 +116,16 @@ function StudioTheme.newDummyTheme(createValues)
 	}
 
 	setmetatable(self, StudioTheme)
-	self:recalculateTheme()
+
+	if game:GetFastFlag("FixMockStudioTheme") then
+		local newValues = self.createValues(function()
+			return self.getTheme():GetColor()
+		end, {}, {})
+
+		self:update(newValues)
+	else
+		self:recalculateTheme()
+	end
 
 	return self
 end

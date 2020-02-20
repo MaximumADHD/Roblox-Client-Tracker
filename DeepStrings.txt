@@ -1295,6 +1295,7 @@ AVAstUnionTypeAnnotation
 AVAstVisitor
 AVAsyncCallbackDescriptor
 AVAsyncHttpQueue
+Avatar.Experience.Landing.Page
 AvatarAssetOverrides
 AvatarAssetsLoadTime
 AvatarBust
@@ -3973,7 +3974,7 @@ BlueValues
 BlurAxisXYZScratch
 BlurEffect
 BlurRadius
-BMeshLODDetails
+BMAEK9PyapcbIu
 BN_BLINDING_convert_ex
 BN_BLINDING_create_param
 BN_BLINDING_invert_ex
@@ -4246,7 +4247,7 @@ BytesReceivedAndIgnoredPerSec
 BytesReceivedPerSec
 BytesRecvAndIgnored
 BytesWritten
-ByVersion_0.421.0.384701
+ByVersion_0.421.0.385201
 ByVersionForPlatform_
 C_specific_handler
 CA_NPEAVQObject
@@ -4498,6 +4499,7 @@ CComObject
 CComObjectRootEx
 CComPolyObject
 CCPPhotoshop
+Ccrypto\comp\comp_lib.c
 CCx[66[xCCx[6L
 CD583B11E29A3DBD856014A660
 CDA22142068118C14FDE5E01E7934
@@ -4566,7 +4568,7 @@ CFrame.new
 CFrameDecal
 CFrameOnly
 CFrameValue
-CGO6pt7rgE
+CFrameVectors
 ChainCAFile
 ChainCAPath
 Chalkboard
@@ -4701,7 +4703,6 @@ ChestTOffset
 ChestTOffsetX
 ChestTOffsetY
 ChestTOffsetZ
-CHFAAsNij9r2GKoLCCDn4oy
 ChildAdded
 ChildAddedHelper
 ChildElement
@@ -6236,6 +6237,7 @@ CSObject.Cpu
 CSObject.In
 CSObject.Out
 CSObject.Size
+CStudioGamePresence
 CSwitchCache
 CSwitchCache[ThreadId]
 CSwitchColors
@@ -6466,6 +6468,7 @@ CWindowImplRoot
 CWinTraits
 CxxFrameHandler3
 CxxThrowException
+Cy6ltMNPX7X3D5Ga5c
 CycleOffset
 CycleStartToAfterBufferedHandlingMs
 CycleStartToAfterDisconnectChecksMs
@@ -7918,7 +7921,6 @@ EffectiveRetryCount
 EFrontVector
 Egravesmall
 EHERE\EfEpEzE
-EiyH4BiM7Io8HdOOmPFvhE3oInWPTj5lFfhIF8uYTuwuNF48CAwEAAQ
 EJTU\^bcfguw
 ElapsedTime
 ElasticBehavior
@@ -8250,7 +8252,6 @@ EucrosiaUPC
 EulerAnglesXYZ
 EulerAnglesYXZ
 EvaluateGlobalTransform
-EvenMorePhysicsSenderStats
 Event.button
 Event.clientX
 Event.clientY
@@ -8830,6 +8831,7 @@ FixOverZealousTextWrapping
 FixParallelCoarseMovementCallbacks
 FixPerSecDivideStats
 FixPhysSenderParallelSimDistanceUpdateValue
+FixPlayerGetTeamNeutral
 FixPreferredSoundDeviceVR
 FixPreloadAsyncCallbackCrash
 FixPVSpaceTransform
@@ -9024,6 +9026,7 @@ FoundItems
 FoundThread
 FpFramebuffer
 FpsVariance
+FQHMA8yxoQx0igvSsmnQTZbjhx
 Fractional
 Frame_.frameend
 Frame_.frameendgpu
@@ -9111,7 +9114,6 @@ FreeMemoryKB
 FreeMemoryMBytes
 FreeMemoryNV
 FreesiaUPC
-FRenderRequest
 Frequently
 FrictionWeight
 FriendPages
@@ -10082,6 +10084,7 @@ GImpactCollisionAlgorithm
 GImpactCompound
 GImpactCompoundShape
 GizmoRaycast
+GkruhxO7fCns741cvHfszff1Pf
 GL_ARB_texture_storage
 GL_EXT_texture_compression_s3tc
 GlassTintFS
@@ -10325,9 +10328,7 @@ GunWaitCursor.png
 GvEphfEUiHHoD6hYFI4xWGpAnIHcklKQCxrf46kAhDGeZnqIgeGszlGdWafunGE8
 GVKUTS[BXIWH\KbHi
 GXGfGkGpGuG
-GxmNwPjikF9v8gUjh11vvu6Vs21rnsPk8sAraCsxqI2OYdY6MzvEDJ
 GyroscopeEnabled
-GzefdBvsInV2VLrbaxU2Oa
 H_Key_dn.png
 H_NAEBVQString
 H`CeIkHq7v4
@@ -10809,7 +10810,6 @@ HW4Orientation
 HW4PacketPriority
 HwngSmldAskhBcraMaweNegsOgnaT
 HWYGOTH.ttf
-HyAKMyYt7sdBdjE9d2XgCdAqSz1zkAFCcFBTfzZ6YCmjpmYOnk2
 HybridEvent
 Iacutesmall
 IAutocompleter
@@ -11503,7 +11503,6 @@ JasmineUPC
 Javascript
 JavaScript
 JavaScriptCallback
-Jb0nc6gVmSDKe9oME7t8GuyixIysfPVsD59
 Jba5qWkYU5nARYZm1gQVP
 Jcircumflex
 JDJNJXJbJlJvJ
@@ -11589,6 +11588,7 @@ JumpRequest
 JumpScares
 JumpScaresP2
 JumpToIndex
+JUqZeQ7gH2vzGyhCss2gn5WyOy8
 JustEndedBusy
 JW4FriendService_FriendStatus
 JW4HttpRequestResult
@@ -11600,6 +11600,7 @@ K_Key_dn.png
 KaiTi_GB2312
 KAXPEBDHAEAPEAVQChar
 KBytesPerSec
+KDDyHP7604Km4sGH7iDa3u5H3
 KeepAliveTimeout
 KeepPositionOnInsert
 KERNEL32.dll
@@ -11660,6 +11661,8 @@ KnownHeaders
 KodchiangUPC
 KPEIBX_K_KPEIAU_iobuf
 KVScriptContext
+KxMc45qvgQYAluQhYVG3QOX7
+KxRrRFYY0dJFwH5MQrqFISbhHZoriBXMTAwFZDRCeE8BOE1sTvXv5aB4BCyiG6Zk
 KYULPhCBFoD3mw5mygYqAeFlHdSL2k3MnDG
 LabelArray
 LabelArray.push
@@ -11719,6 +11722,7 @@ LayoutInfo
 LayoutNode
 LayoutOrder
 LazySubmitTask
+LBSliFjHTmA6SeKT60lXa
 LC_MESSAGES
 LCMapStringW
 LDLBuildProgramTimeReportEnabled
@@ -11980,9 +11984,8 @@ LiveCoding
 LiveScript
 LiveThreadRef
 LivingRoom
-LKTLNo4hp8
+LJoseeTJTeila07NjxAR9z
 LLEo6Soxvx2
-LNc6I0bfTt4
 LOAD_CERT_CTRL
 LoadAnimation
 LoadAssetVersion
@@ -12789,7 +12792,6 @@ MegaClusters
 MegaPhysics
 MegaReplicationDataForReplicator
 MegaReplicatorWorldExtentsRefreshTime
-MEJlnCZHSfSS1puVq6Jm
 MeleeWeapons
 MemberSelected
 Membership
@@ -12854,6 +12856,7 @@ MeshesResourceMenu
 MeshIdPropertyItem
 MeshImporter
 MeshImporterImpl
+MeshLODDetails
 MeshLODUseAsyncHttpPost
 MeshLODZoom
 MeshManager
@@ -12950,7 +12953,7 @@ MigrateTriangleMeshData3
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsI9zRp2OSccqdFx2
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAupANB3EbN9hFHHUj0eA
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzjPRQo9jc
-MIICCgKCAgEA2B8INI4lvsShRv
+MIICCgKCAgEAsltLldNR2HLxuKQvH
 Millisecond
 MillisecondsBeforeHandlingReconnect
 MimeDataFromSelection
@@ -13263,7 +13266,6 @@ MusicalInstruments
 MutexLifetime
 MW4PartMaterial
 MyModelsAction
-MZ3L0aFTKeK9rn5Romj5ifSARFc
 NAEAVHttpResponse
 NAEBUPlaceLauncherRequestInfo
 NAEBVFbxTime
@@ -13446,6 +13448,7 @@ NewGameClicked
 NewIncomingConnection
 NewInstanceItem
 NewInstanceMode
+NewIrradianceCalculation
 NewMemoryLevelCheck
 NewMessage
 NewMessageBySelf
@@ -13481,6 +13484,7 @@ NextTabPage
 NfXf`fhfzf
 NHVVariant
 NinjaMask.mesh
+NnHMGCnDw7EYIHTMR
 NNW4SizeMode
 NoCacheForLocalContent
 NoCollisionConstraint
@@ -13607,6 +13611,7 @@ NumRegions
 NumRegionsToGC
 NumRigidJointsNotInWorld
 NumTickets
+Nv6D436QlUMUhTgXon9cliyRAnI6D
 NVAuthenticationHelper
 Nvb5JjRCUQ
 NVLuaWebService
@@ -13657,7 +13662,8 @@ ObjectModelMatcher
 ObjectName
 ObjectPosition
 ObjectSpace
-ObjectsShowRecommendedOnly
+ObjectsShowRecommendedOnlyEmbedded
+ObjectsShowRecommendedOnlyMenu
 ObjectToBitArray
 ObjectType
 ObjectValue
@@ -13700,6 +13706,7 @@ OCSP_SINGLERESP
 OCSPResponse
 OCSPSigning
 OCTETSTRING
+ODGFupFav8K8fVwxGVpAyjTS4wyBRQoBSxl6R24x4NSljvGtMhrGcl1uLtGEF9S0
 Odieresissmall
 OfA9HPuHfA9H`uAfA9Hpu
 OfAdmissions
@@ -13886,6 +13893,7 @@ OptionButtonVisible
 OptionChanged
 OptionsMenu
 OptionState
+OptOYiix8GXgU34Af5z1
 OPUS_ARCHMASK
 OpusCustomMode
 OrCharacter
@@ -14012,7 +14020,6 @@ OverrideStarterScript
 OverrideToMyBranch
 OverwriteMode
 OwnProperty
-OxHR6jOh0GHFI1c9Cf
 Ozs8xYCf2Q05p4gHyX
 PA^A]A\_^]
 PA^A]A\_^][
@@ -14249,6 +14256,7 @@ PEAUBulkIngestionInfo
 PEAUCachedBitstream
 PEAUCacheEntry
 PEAUCharacterAppearanceAssetInfo
+PEAUColorBlock
 PEAUContext
 PEAUCurl_easy
 PEAUDecompConvexExtents
@@ -15578,6 +15586,7 @@ PreloadLinkedScriptsTiming
 PreloadTexture
 PreloadTextureItemsOption
 PreloadTextureTimeBuget
+PremiumGameIdFix
 PremiumPriceChangeEnabled
 PremiumPriceChangeRolloutFlag
 PremiumUpsellEnabledV2
@@ -16393,6 +16402,7 @@ QNetworkReply
 QNetworkReplyAsQJsonObject
 QNetworkReplyImplPrivate
 QNetworkRequest
+QNuOIHDAQYFX83ynelQYT6uEJZYdQtFYH8MXNiR3MCAwEAAQ
 QObjectData
 QObjectShared
 QOgreWidget
@@ -17188,6 +17198,7 @@ RemoveVertex
 RENAME_ABTEST_AllUsers_LuaApp_FeaturedGameTileInSearch
 RENAME_ABTEST_AllUsers_LuaApp_GameDetailsPeekView
 RENAME_ABTEST_Android_Authentication_LuaLoginAndSignup3
+RENAME_ABTEST_Avatar_Experience_Landing_Page
 RENAME_ABTEST_GlobalUsers_GameSorts_GameGrid
 RENAME_ABTEST_InGameMenuABTestName
 RENAME_ABTEST_iOS_Authentication_LuaLoginAndSignup3
@@ -17249,6 +17260,7 @@ RenderPresent_
 RenderPriority
 RenderQualitySetting
 RenderQueue
+RenderRequest
 RenderScheduler
 RenderScreenshotFB
 RenderSettings
@@ -17387,7 +17399,6 @@ ReportInterpolationPerformanceMinSampleCount
 ReportInterpolationPerformanceNumBuckets
 ReportInterpolationPerformanceNWideBuckets
 ReportJoinAllCount
-ReportJoinTimeImpactStats
 ReportLegacySolverRccJoinAllUnthrottled
 ReportLightingTechnology
 ReportLocalizationDataLoadingException
@@ -17871,6 +17882,7 @@ RowCheckBoxClicked
 RowsInserted
 RowsToContents
 RowStretch
+RPAYOWv3B7m56GzWW
 RPCServers
 RRReceiptFail
 RRReceiptTotal
@@ -18971,6 +18983,7 @@ SmoothFpsForStreamingEnabledGames
 SmoothFpsForStreamingEnabledGames_
 SmoothGrid
 SmoothHeartbeatRate
+SmoothMouseSpringFrequencyTenths
 SmoothNoOutlines
 SmoothPlastic
 SmoothTerrain
@@ -20949,7 +20962,6 @@ StudioAllowCoreScriptReloads
 StudioAllowDuplicateWatchVariables
 StudioAlwaysPermitTypeAnnotations
 StudioAlwaysSaveLocalPluginAsRbxm
-StudioAlwaysSendActiveSessionAnalytics
 StudioAnalytics
 StudioAnalyticsForScriptSizeThrottlePercent
 StudioAnalyticsIdeDocCheck
@@ -21039,6 +21051,7 @@ StudioClose.Continue
 StudioClose.End
 StudioClose.Paused
 StudioClose.Start
+StudioCloseOnMiddleButtonRelease
 StudioCloseScriptsOnUiThread
 StudioCloudEditController_Dtor_CrashFix
 StudioCloudEditLoadCreatorId
@@ -21136,6 +21149,7 @@ StudioFixStringHighlightingWithBackslashZ
 StudioFixStripedTableSelectionHover
 StudioFixUILibDropdownStyle
 StudioFixWidgetMinimumSize
+StudioFoldSafeLexer
 StudioForceDraftsUsageOnRCCSetting
 StudioForceLocale
 StudioFreezeScriptResourceController
@@ -21517,6 +21531,7 @@ SUPERSCRIPT_SIZE
 SUPERSCRIPT_X
 SUPERSCRIPT_Y
 Superseded
+SuperSmoothMouseWheelScrolling
 Supplement
 SupportJoinDataItemV2
 SupportJoinDataItemV2i
@@ -22629,6 +22644,7 @@ TrackStencilBufferSupport
 TrackTeamCreateSaveMD5HashOutput
 TrackWindowsVideoRecording
 Traditional
+TrailClearCrashFix
 TrailFSLight
 TrailFSLightShadow
 TrailFSQuad
@@ -22830,6 +22846,7 @@ UChapterDisplay
 UCharacterAppearanceAssetInfo
 Ucircumflex
 Ucircumflexsmall
+UColorBlock
 UContentEncAesSettings
 UContentEncoding
 UContentEncodings
@@ -22938,6 +22955,7 @@ UHttpResult
 UHttpTarget
 UHttpTargetHasher
 Uhungarumlaut
+UHwwES3XRce8L0hptZTkTke7RRFkNrGDRJEdki
 UI_construct_prompt
 UI_create_method
 UI_dup_error_string
@@ -24119,7 +24137,6 @@ VKeyboardService
 VKeyframeMarker
 VKeyframeSequence
 VKeyframeSequenceProvider
-VkF9N1t9CBDTrvTFi1KpzXJtzbseeIVTcnMJZH
 VLayoutDefault
 VLayoutGrid
 VLayoutInline
@@ -24222,6 +24239,7 @@ VOscillateMotorTool
 Vout_of_range
 Voverflow_error
 VOverridePropertyItem
+VoyBcTqJfTtGUYjH29j
 VPackageLink
 VPackageListener
 VPackagePermissionsManager
@@ -24292,7 +24310,6 @@ VPropertyInterface
 VProtectedString
 VPVAdornment
 VPVInstance
-Vq1xCBLR1PxMf7ijj3mqgkEDHGTyLZRh
 VQAssociativeIterableImpl
 VQByteArray
 VQFileInfo
@@ -24307,6 +24324,7 @@ VQNetworkAddressEntry
 VQNetworkCookie
 VQNetworkInterface
 VQNetworkReply
+VQP74vDMInVfMKi9DZlkr
 VQPersistentModelIndex
 VQRegularExpression
 VQSequentialIterableImpl
@@ -24575,6 +24593,7 @@ VVirtualBlockParser
 VVirtualInputManager
 VVirtualUser
 VVRService
+VvucBazTmV
 VWaitingScriptsJob
 VWaitScriptSlot
 VWATAUAVAW
@@ -25113,8 +25132,6 @@ XW4CanManageStatus
 XW4HttpErrorCode
 XW4websocket_close_status
 XwhvcEikuIaqb7nHhEJ
-Xz1Q4Rlsyv
-Xz9ICzCcplu2zTzXmLy6lLi7ca1QJ2vtiZ2Zj0IShoVm8q7bxM5L8JIuvwGtPtr
 XZP8CoreGuiService
 XZP8CRenderSettingsItem
 XZP8GuiObject
@@ -25161,7 +25178,6 @@ YieldFunction
 YQByteArray
 YResolution
 YwBBvY55YvBBwY5
-Yym5JD2fvdPW0GFq3S3A0rjSgzedeqJ6E2YYUn
 Z_KPEIBX_K_KPEIAU1
 Zcaronsmall
 Zdotaccent
@@ -25177,7 +25193,6 @@ ZoomToHighlight
 ZP6APEAX1PEBX
 ZP6AX1PEAX
 ZPEAVRBXMessageBox
-ZRkjOobvoobW0NtsXMWiU2LgkrDnT8dER0Zz4n2hfTYwRpKXiuWKG6JmbPj29
 ZRZZZbZt[.[
 ZVspecial_equipped_signal
 ZVTouchedSignal

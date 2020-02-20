@@ -30,6 +30,7 @@ local CorePackages = game:GetService('CorePackages')
 --[[ END OF SERVICES ]]
 
 local isNewInGameMenuEnabled = require(CoreGuiService.RobloxGui.Modules.isNewInGameMenuEnabled)
+local FFlagDisableAutoTranslateForKeyTranslatedContent = require(CoreGuiService.RobloxGui.Modules.Flags.FFlagDisableAutoTranslateForKeyTranslatedContent)
 
 local topbarEnabled = true
 local topbarEnabledChangedEvent = Instance.new('BindableEvent')
@@ -165,6 +166,7 @@ local function CreateTopBar()
 		BorderSizePixel = 0;
 		Active = true;
 		Parent = GuiRoot;
+		AutoLocalize = not FFlagDisableAutoTranslateForKeyTranslatedContent;
 	};
 
 	local topbarShadow = Util.Create'ImageLabel'{

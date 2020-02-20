@@ -579,15 +579,6 @@ function ToolboxTheme:_recalculateTheme()
 		tooltip = {
 			textSize = Constants.FONT_SIZE_SMALL,
 		},
-
-		searchBar = {
-			backgroundColor = color(c.Dropdown),
-			border = {
-				selected = {
-					color = Colors.BLUE_PRIMARY,
-				},
-			},
-		}
 	}
 
 	self:_updateUILibrary(styleGuide, overrides)

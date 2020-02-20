@@ -21,13 +21,14 @@ local PolicyService = require(RobloxGui.Modules.Common:WaitForChild("PolicyServi
 local FFlagLoadTheLoadingScreenFasterSuccess, FFlagLoadTheLoadingScreenFasterValue = pcall(function() return settings():GetFFlag("LoadTheLoadingScreenFaster") end)
 local FFlagLoadTheLoadingScreenFaster = FFlagLoadTheLoadingScreenFasterSuccess and FFlagLoadTheLoadingScreenFasterValue
 local FFlagLoadTheLoadingScreenEvenFaster = game:DefineFastFlag("LoadTheLoadingScreenEvenFaster", false)
+local FFlagDoNotGetAntiAddictionPolicyInRenderStep = game:DefineFastFlag("DoNotGetAntiAddictionPolicyInRenderStep", false)
 
 local FFlagShowConnectionErrorCode = settings():GetFFlag("ShowConnectionErrorCode")
 local FFlagConnectionScriptEnabled = settings():GetFFlag("ConnectionScriptEnabled")
 
 local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp") --todo: remove with FFlagUsePolicyServiceForCoreScripts
 local antiAddictionNoticeStringEn = "Boycott bad games, refuse pirated games. Be aware of self-defense and being deceived. Playing games is good for your brain, but too much game play can harm your health. Manage your time well and enjoy a healthy lifestyle."
-
+local FFlagDisableAutoTranslateForKeyTranslatedContent = require(RobloxGui.Modules.Flags.FFlagDisableAutoTranslateForKeyTranslatedContent)
 
 local debugMode = false
 
@@ -590,6 +591,7 @@ local function GenerateGui()
 		infoFrameList:ApplyLayout()
 
 		placeLabel.TextXAlignment = Enum.TextXAlignment.Center
+		placeLabel.AutoLocalize = not FFlagDisableAutoTranslateForKeyTranslatedContent
 	end
 	onResized()
 	screenGui:GetPropertyChangedSignal("AbsoluteSize"):connect(onResized)
@@ -618,59 +620,117 @@ local function spinnerEasingFunc(a, b, t)
 	end
 end
 
-renderSteppedConnection = RunService.RenderStepped:connect(function(dt)
-	if not currScreenGui then return end
-	if not currScreenGui:FindFirstChild("BlackFrame") then return end
-
-	local infoFrame = currScreenGui.BlackFrame:FindFirstChild('InfoFrame')
-	if infoFrame then
-		-- set place name
-		if placeLabel and placeLabel.Text == "" then
-			placeLabel.Text = InfoProvider:GetGameName()
-		end
-
+if FFlagDoNotGetAntiAddictionPolicyInRenderStep then
+	coroutine.wrap(function()
 		local showAntiAddictionNoticeStringEn = FFlagChinaLicensingApp
 		if PolicyService:IsEnabled() then
 			showAntiAddictionNoticeStringEn = PolicyService:IsSubjectToChinaPolicies()
 		end
 
-		-- set creator name
-		if creatorLabel and creatorLabel.Text == "" then
-			if showAntiAddictionNoticeStringEn then
-				creatorLabel.Text = antiAddictionNoticeStringEn
-			else
-				local creatorName = InfoProvider:GetCreatorName()
-				if creatorName ~= "" then
-					if isTenFootInterface then
-						creatorLabel.Text = creatorName
-						creatorLabel.Size = UDim2.new(0, creatorLabel.TextBounds.X, 1, 0)
+		renderSteppedConnection = RunService.RenderStepped:connect(function(dt)
+			if not currScreenGui then return end
+			if not currScreenGui:FindFirstChild("BlackFrame") then return end
+
+			local infoFrame = currScreenGui.BlackFrame:FindFirstChild('InfoFrame')
+			if infoFrame then
+				-- set place name
+				if placeLabel and placeLabel.Text == "" then
+					placeLabel.Text = InfoProvider:GetGameName()
+				end
+
+				-- set creator name
+				if creatorLabel and creatorLabel.Text == "" then
+					if showAntiAddictionNoticeStringEn then
+						creatorLabel.Text = antiAddictionNoticeStringEn
 					else
-						creatorLabel.Text = "By ".. creatorName
+						local creatorName = InfoProvider:GetCreatorName()
+						if creatorName ~= "" then
+							if isTenFootInterface then
+								creatorLabel.Text = creatorName
+								creatorLabel.Size = UDim2.new(0, creatorLabel.TextBounds.X, 1, 0)
+							else
+								creatorLabel.Text = "By ".. creatorName
+							end
+						end
+					end
+				end
+			end
+
+			local currentTime = tick()
+			local fadeAmount = dt * fadeCycleTime
+
+			local spinnerImage = currScreenGui.BlackFrame.GraphicsFrame.LoadingImage
+			local timeInCycle = currentTime % turnCycleTime
+			local cycleAlpha = spinnerEasingFunc(0, 1, timeInCycle / turnCycleTime)
+			spinnerImage.Rotation = cycleAlpha * 360
+
+
+			if not isTenFootInterface then
+				if currentTime - startTime > 5 and currScreenGui.BlackFrame.CloseButton.ImageTransparency > 0 then
+					currScreenGui.BlackFrame.CloseButton.ImageTransparency = currScreenGui.BlackFrame.CloseButton.ImageTransparency - fadeAmount
+
+					if currScreenGui.BlackFrame.CloseButton.ImageTransparency <= 0 then
+						currScreenGui.BlackFrame.CloseButton.Active = true
+					end
+				end
+			end
+		end)
+	end)()
+else
+	renderSteppedConnection = RunService.RenderStepped:connect(function(dt)
+		if not currScreenGui then return end
+		if not currScreenGui:FindFirstChild("BlackFrame") then return end
+
+		local infoFrame = currScreenGui.BlackFrame:FindFirstChild('InfoFrame')
+		if infoFrame then
+			-- set place name
+			if placeLabel and placeLabel.Text == "" then
+				placeLabel.Text = InfoProvider:GetGameName()
+			end
+
+			local showAntiAddictionNoticeStringEn = FFlagChinaLicensingApp
+			if PolicyService:IsEnabled() then
+				showAntiAddictionNoticeStringEn = PolicyService:IsSubjectToChinaPolicies()
+			end
+
+			-- set creator name
+			if creatorLabel and creatorLabel.Text == "" then
+				if showAntiAddictionNoticeStringEn then
+					creatorLabel.Text = antiAddictionNoticeStringEn
+				else
+					local creatorName = InfoProvider:GetCreatorName()
+					if creatorName ~= "" then
+						if isTenFootInterface then
+							creatorLabel.Text = creatorName
+							creatorLabel.Size = UDim2.new(0, creatorLabel.TextBounds.X, 1, 0)
+						else
+							creatorLabel.Text = "By ".. creatorName
+						end
 					end
 				end
 			end
 		end
-	end
 
-	local currentTime = tick()
-	local fadeAmount = dt * fadeCycleTime
+		local currentTime = tick()
+		local fadeAmount = dt * fadeCycleTime
 
-	local spinnerImage = currScreenGui.BlackFrame.GraphicsFrame.LoadingImage
-	local timeInCycle = currentTime % turnCycleTime
-	local cycleAlpha = spinnerEasingFunc(0, 1, timeInCycle / turnCycleTime)
-	spinnerImage.Rotation = cycleAlpha * 360
+		local spinnerImage = currScreenGui.BlackFrame.GraphicsFrame.LoadingImage
+		local timeInCycle = currentTime % turnCycleTime
+		local cycleAlpha = spinnerEasingFunc(0, 1, timeInCycle / turnCycleTime)
+		spinnerImage.Rotation = cycleAlpha * 360
 
 
-	if not isTenFootInterface then
-		if currentTime - startTime > 5 and currScreenGui.BlackFrame.CloseButton.ImageTransparency > 0 then
-			currScreenGui.BlackFrame.CloseButton.ImageTransparency = currScreenGui.BlackFrame.CloseButton.ImageTransparency - fadeAmount
+		if not isTenFootInterface then
+			if currentTime - startTime > 5 and currScreenGui.BlackFrame.CloseButton.ImageTransparency > 0 then
+				currScreenGui.BlackFrame.CloseButton.ImageTransparency = currScreenGui.BlackFrame.CloseButton.ImageTransparency - fadeAmount
 
-			if currScreenGui.BlackFrame.CloseButton.ImageTransparency <= 0 then
-				currScreenGui.BlackFrame.CloseButton.Active = true
+				if currScreenGui.BlackFrame.CloseButton.ImageTransparency <= 0 then
+					currScreenGui.BlackFrame.CloseButton.Active = true
+				end
 			end
 		end
-	end
-end)
+	end)
+end
 
 -- use the old error frame when on XBox
 if not FFlagConnectionScriptEnabled or isTenFootInterface then

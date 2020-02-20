@@ -7,6 +7,17 @@ local Theme = {}
 
 function Theme.createValues(getColor, c, m)
 	local theme = settings().Studio.Theme
+	return Theme.createValuesInternal(theme, getColor, c, m)
+end
+
+function Theme.createValuesMock(getColor, c, m)
+	local theme = {
+		Name = "Dark",
+	}
+	return Theme.createValuesInternal(theme, getColor, c, m)
+end
+
+function Theme.createValuesInternal(theme, getColor, c, m)
 	local function defineTheme(defaults, overrides)
 		local override = overrides and overrides[theme.Name]
 		if override then
@@ -452,7 +463,7 @@ function Theme.new()
 end
 
 function Theme.mock()
-	return StudioTheme.newDummyTheme(Theme.createValues)
+	return StudioTheme.newDummyTheme(Theme.createValuesMock)
 end
 
 return Theme

@@ -13,6 +13,7 @@ local GuiService = game:GetService("GuiService")
 
 local RobloxGui = CoreGuiService:WaitForChild("RobloxGui")
 local CoreGuiModules = RobloxGui:WaitForChild("Modules")
+local FFlagDisableAutoTranslateForKeyTranslatedContent = require(RobloxGui.Modules.Flags.FFlagDisableAutoTranslateForKeyTranslatedContent)
 
 local Player = PlayerService.LocalPlayer
 
@@ -37,7 +38,8 @@ local NetworkPauseGui = create "ScreenGui" {
 	Name = "RobloxNetworkPauseNotification",
 	OnTopOfCoreBlur = true,
 	DisplayOrder = 8,
-	Parent = CoreGuiService
+	Parent = CoreGuiService,
+	AutoLocalize = not FFlagDisableAutoTranslateForKeyTranslatedContent
 
 }
 

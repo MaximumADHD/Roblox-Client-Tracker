@@ -44,24 +44,45 @@ function Test:createTestStore()
 	return store
 end
 
+local function mockConnection()
+	local mockConnection = {}
+	function mockConnection:Connect()
+		local mockDisconnection = {}
+		function mockDisconnection:Disconnect()
+		end
+		return mockDisconnection
+	end
+	return mockConnection
+end
+
 function Test:createMockPlugin(plugin)
+	local createScreenGui = function()
+		local screen = Instance.new("ScreenGui", game.CoreGui)
+		screen.Name = "PluginMockGui"
+		screen.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+		return screen
+	end
 	return {
 		Activate = function(_, ...)
-			return plugin:Activate(...)
 		end,
+
 		Deactivate = function()
-			return plugin:Deactivate()
 		end,
+
 		GetMouse = function()
-			return plugin:GetMouse()
+			local mouse = {}
+			mouse.Button1Down = mockConnection()
+			return mouse
 		end,
+
 		CreateDockWidgetPluginGui = function(_, ...)
-			local gui = plugin:CreateDockWidgetPluginGui(...)
+			local gui = createScreenGui()
 			table.insert(self.subWindows, gui)
 			return gui
 		end,
+
 		CreateQWidgetPluginGui = function(_, ...)
-			local gui = plugin:CreateQWidgetPluginGui(...)
+			local gui = createScreenGui()
 			table.insert(self.subWindows, gui)
 			return gui
 		end,
@@ -70,20 +91,15 @@ end
 
 function Test:makeContainer()
 	local widgetSize = Constants.MAIN_FLOATING_SIZE
-	local plugin = self.plugin
-	local container = plugin:CreateDockWidgetPluginGui("Test_" .. self:nextTestId(),
-		DockWidgetPluginGuiInfo.new(
-			Enum.InitialDockState.Float,
-			false,
-			true,
-			widgetSize.X,
-			widgetSize.Y
-		)
-	)
-	container.Enabled = true
-	container.Title = "AnimationClipEditor Rhodium Test"
+
+	local screen = Instance.new("ScreenGui", game.CoreGui)
+	screen.Name = "PluginMockGui"
+	screen.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+	local container = Instance.new("Frame", screen)
 	container.Name = "RhodiumTest"
-	container.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+	container.BackgroundTransparency = 1
+	container.Size = UDim2.new(0, widgetSize.X, 0, widgetSize.Y)
 
 	return container
 end
@@ -111,7 +127,7 @@ end
 function Test.new(plugin)
 	local self = {
 		localization = Localization.mock(),
-		theme = Theme.new(),
+		theme = Theme.mock(),
 		plugin = plugin,
 		subWindows = {},
 	}
@@ -144,13 +160,14 @@ function Test:run(testRunner)
 	end)
 
 	wait()
+
 	Roact.unmount(handle)
 
 	return success, result
 end
 
 function Test:destroy()
-	self.container:Destroy()
+	self.container.Parent:Destroy()
 	self.theme:destroy()
 	self.store:destruct()
 	self.localization:destroy()

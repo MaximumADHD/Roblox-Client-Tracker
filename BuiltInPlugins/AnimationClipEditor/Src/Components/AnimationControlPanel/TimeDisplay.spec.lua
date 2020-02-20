@@ -8,9 +8,9 @@ return function()
 	local function createTestTimeDisplay()
 		return Roact.createElement(MockWrapper, {}, {
 			TimeDisplay = Roact.createElement(TimeDisplay, {
-				endFrame = 30,
-				playhead = 15,
-				editingLength = 30,
+				EndFrame = 30,
+				Playhead = 15,
+				EditingLength = 30,
 			})
 		})
 	end

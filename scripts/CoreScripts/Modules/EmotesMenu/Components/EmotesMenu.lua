@@ -4,6 +4,10 @@ local GuiService = game:GetService("GuiService")
 local UserInputService = game:GetService("UserInputService")
 local Workspace = game:GetService("Workspace")
 
+local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+
+local FFlagDisableAutoTranslateForKeyTranslatedContent = require(RobloxGui.Modules.Flags.FFlagDisableAutoTranslateForKeyTranslatedContent)
 local FFlagCoreScriptEmotesMenuBetterMouseBehavior = settings():GetFFlag("CoreScriptEmotesMenuBetterMouseBehavior")
 local FFlagEmotesMenuRemoveOpenKeybinds = settings():GetFFlag("EmotesMenuRemoveOpenKeybinds")
 
@@ -168,6 +172,7 @@ function EmotesMenu:render()
         Position = UDim2.new(0, 0, 0, -guiInset),
         Size = UDim2.new(1, 0, 1, guiInset),
         ZIndex = Constants.EmotesMenuZIndex,
+        AutoLocalize = not FFlagDisableAutoTranslateForKeyTranslatedContent,
     }, {
         Main = Roact.createElement("Frame", {
             AnchorPoint = Vector2.new(0.5, 0.5),

@@ -11,6 +11,7 @@ local Roact = require(Plugin.Packages.Roact)
 
 local Math = require(DraggerFramework.Utility.Math)
 local PartMover = require(DraggerFramework.Utility.PartMover)
+local AttachmentMover = require(DraggerFramework.Utility.AttachmentMover)
 local StudioSettings = require(DraggerFramework.Utility.StudioSettings)
 local Colors = require(DraggerFramework.Utility.Colors)
 
@@ -76,6 +77,7 @@ function MoveToolImpl.new()
     local self = {}
     self._handles = {}
     self._partMover = PartMover.new()
+    self._attachmentMover = AttachmentMover.new()
     return setmetatable(self, MoveToolImpl)
 end
 
@@ -88,6 +90,7 @@ function MoveToolImpl:update(draggerToolState)
             Size = draggerToolState.boundingBoxSize,
             CFrame = draggerToolState.mainCFrame * CFrame.new(draggerToolState.boundingBoxOffset),
         }
+        self._attachmentsToMove = draggerToolState.attachmentsToMove
         self._partsToMove = draggerToolState.partsToMove
         self._originalCFrameMap = draggerToolState.originalCFrameMap
         self._scale = draggerToolState.scale
@@ -138,11 +141,14 @@ function MoveToolImpl:mouseDown(mouseRay, handleId)
     self._draggingHandleId = handleId
     self._draggingLastGoodGeometricDelta = 0
     self._draggingOriginalBoundingBoxCFrame = self._boundingBox.CFrame
-    self._partMover:setDragged(
-        self._partsToMove,
+
+    local breakJoints = not areConstraintsEnabled()
+    self._partMover:setDragged(self._partsToMove,
         self._originalCFrameMap,
-        not areConstraintsEnabled(), -- keep joints when constraints are enabled
+        breakJoints,
         self._boundingBox.CFrame.Position)
+    self._attachmentMover:setDragged(
+        self._attachmentsToMove)
     self:_setupMoveAtCurrentBoundingBox(mouseRay)
 end
 
@@ -169,7 +175,7 @@ function MoveToolImpl:mouseDrag(mouseRay)
     -- implemented as snapping with grid size = 0.001.
     local snappedDelta = snapToGridSize(delta)
 
-    if areConstraintsEnabled() then
+    if areConstraintsEnabled() and #self._partsToMove > 0 then
         self:_mouseDragWithInverseKinematics(mouseRay, snappedDelta)
     else
         self:_mouseDragWithGeometricMovement(mouseRay, snappedDelta)
@@ -185,8 +191,8 @@ function MoveToolImpl:_mouseDragWithGeometricMovement(mouseRay, snappedDelta)
         return
     end
 
-    local globalTransform = CFrame.new(self._axis * snappedDelta)
-    self._partMover:transformTo(globalTransform)
+    local candidateGlobalTransform = CFrame.new(self._axis * snappedDelta)
+    self._partMover:transformTo(candidateGlobalTransform)
     if areCollisionsEnabled() and self._partMover:isIntersectingOthers() then
         self._draggingLastGoodGeometricDelta = self:_findAndMoveToGoodDelta(snappedDelta)
     else
@@ -196,9 +202,11 @@ function MoveToolImpl:_mouseDragWithGeometricMovement(mouseRay, snappedDelta)
     self._boundingBox.CFrame =
         self._draggingOriginalBoundingBoxCFrame + self._axis * self._draggingLastGoodGeometricDelta
 
+    local appliedGlobalTransform = CFrame.new(self._axis * self._draggingLastGoodGeometricDelta)
+    self._attachmentMover:transformTo(appliedGlobalTransform)
+
     if areJointsEnabled() then
-        local goodTransform = CFrame.new(self._axis * self._draggingLastGoodGeometricDelta)
-        self._partMover:computeJointPairs(goodTransform)
+        self._partMover:computeJointPairs(appliedGlobalTransform)
     end
 end
 
@@ -221,6 +229,7 @@ function MoveToolImpl:_mouseDragWithInverseKinematics(mouseRay, snappedDelta)
         targetNewBoundingBox * self._draggingOriginalBoundingBoxCFrame:Inverse()
     local actualGlobalTransformUsed =
         self._partMover:transformToWithIk(globalTransformNeeded, collisionsMode)
+    self._attachmentMover:transformTo(actualGlobalTransformUsed)
 
     -- Update the bounding box by the actual transform that the IK solver was
     -- able to find.
@@ -240,6 +249,7 @@ function MoveToolImpl:mouseUp(mouseRay)
         self._partMover:createJointPairs()
     end
     self._partMover:commit()
+    self._attachmentMover:commit()
     ChangeHistoryService:SetWaypoint("Move Parts")
 end
 
@@ -291,7 +301,7 @@ function MoveToolImpl:_getDistanceAlongAxis(mouseRay)
 end
 
 function MoveToolImpl:_updateHandles()
-    if #self._partsToMove == 0 then
+    if #self._partsToMove == 0 and #self._attachmentsToMove == 0 then
         self._handles = {}
     else
         for handleId, handleDef in pairs(MoveHandleDefinitions) do

@@ -1915,7 +1915,7 @@ Class WorldRoot : Model [NotCreatable]
 	Function void WorldRoot:IkMoveTo(Instance part, CFrame target, float translateStiffness = 1, float rotateStiffness = 1, Enum<CollisionsMode> collisionsMode = "OtherMechanismsAnchored") {RobloxScriptSecurity}
 	Function bool WorldRoot:IsRegion3Empty(Region3 region, Instance ignoreDescendentsInstance = nil)
 	Function bool WorldRoot:IsRegion3EmptyWithIgnoreList(Region3 region, Objects ignoreDescendentsTable)
-	Function Tuple WorldRoot:Raycast(Vector3 origin, Vector3 direction, RaycastParams raycastParams = RaycastParams{IgnoreWater=false, FilterDescendantsInstances={}})
+	Function Tuple WorldRoot:Raycast(Vector3 origin, Vector3 direction, RaycastParams raycastParams = RaycastParams.new())
 Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property bool Workspace.AllowThirdPartySales  [NotReplicated]
 	Property float Workspace.FallenPartsDestroyHeight {✏️PluginSecurity}
@@ -2816,7 +2816,7 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Dictionary StudioService:GetResourceByCategory(string category) {RobloxScriptSecurity}
 	Function string StudioService:GetStartupPluginId() {RobloxScriptSecurity}
 	Function int64 StudioService:GetUserId() {PluginSecurity}
-	Function Tuple StudioService:GizmoRaycast(Vector3 origin, Vector3 direction, RaycastParams raycastParams = RaycastParams{IgnoreWater=false, FilterDescendantsInstances={}}) {PluginSecurity}
+	Function Tuple StudioService:GizmoRaycast(Vector3 origin, Vector3 direction, RaycastParams raycastParams = RaycastParams.new()) {PluginSecurity}
 	Function bool StudioService:IsPluginInstalled(int64 assetId) {RobloxScriptSecurity}
 	Function bool StudioService:IsPluginUpToDate(int64 assetId, int64 currentAssetVersion) {RobloxScriptSecurity}
 	Function void StudioService:LaunchBulkImport(int assetTypeToImport) {RobloxScriptSecurity}
@@ -3250,14 +3250,14 @@ Class VirtualInputManager : Instance [Service]
 	Event VirtualInputManager.PlaybackCompleted(string additionalLuaState) {RobloxScriptSecurity}
 	Event VirtualInputManager.RecordingCompleted(string result) {RobloxScriptSecurity}
 Class VirtualUser : Instance [NotCreatable] [Service] [NotReplicated]
-	Function void VirtualUser:Button1Down(Vector2 position, CFrame camera = Identity) {LocalUserSecurity}
-	Function void VirtualUser:Button1Up(Vector2 position, CFrame camera = Identity) {LocalUserSecurity}
-	Function void VirtualUser:Button2Down(Vector2 position, CFrame camera = Identity) {LocalUserSecurity}
-	Function void VirtualUser:Button2Up(Vector2 position, CFrame camera = Identity) {LocalUserSecurity}
+	Function void VirtualUser:Button1Down(Vector2 position, CFrame camera = CFrame.new()) {LocalUserSecurity}
+	Function void VirtualUser:Button1Up(Vector2 position, CFrame camera = CFrame.new()) {LocalUserSecurity}
+	Function void VirtualUser:Button2Down(Vector2 position, CFrame camera = CFrame.new()) {LocalUserSecurity}
+	Function void VirtualUser:Button2Up(Vector2 position, CFrame camera = CFrame.new()) {LocalUserSecurity}
 	Function void VirtualUser:CaptureController() {LocalUserSecurity}
-	Function void VirtualUser:ClickButton1(Vector2 position, CFrame camera = Identity) {LocalUserSecurity}
-	Function void VirtualUser:ClickButton2(Vector2 position, CFrame camera = Identity) {LocalUserSecurity}
-	Function void VirtualUser:MoveMouse(Vector2 position, CFrame camera = Identity) {LocalUserSecurity}
+	Function void VirtualUser:ClickButton1(Vector2 position, CFrame camera = CFrame.new()) {LocalUserSecurity}
+	Function void VirtualUser:ClickButton2(Vector2 position, CFrame camera = CFrame.new()) {LocalUserSecurity}
+	Function void VirtualUser:MoveMouse(Vector2 position, CFrame camera = CFrame.new()) {LocalUserSecurity}
 	Function void VirtualUser:SetKeyDown(string key) {LocalUserSecurity}
 	Function void VirtualUser:SetKeyUp(string key) {LocalUserSecurity}
 	Function void VirtualUser:StartRecording() {LocalUserSecurity}
