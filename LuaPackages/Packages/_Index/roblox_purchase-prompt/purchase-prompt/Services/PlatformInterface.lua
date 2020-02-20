@@ -1,3 +1,4 @@
+local Root = script.Parent.Parent
 local ContentProvider = game:GetService("ContentProvider")
 local GuiService = game:GetService("GuiService")
 local MarketplaceService = game:GetService("MarketplaceService")
@@ -5,6 +6,8 @@ local PlatformService = nil
 pcall(function()
 	PlatformService = game:GetService("PlatformService")
 end)
+
+local GetFFlagUpsellDirectToPackage = require(Root.Flags.GetFFlagUpsellDirectToPackage)
 
 local BASE_URL = string.gsub(ContentProvider.BaseUrl:lower(), "/m.", "/www.")
 
@@ -23,8 +26,13 @@ function PlatformInterface.new()
 		MarketplaceService:SignalMockPurchasePremium()
 	end
 
-	function service.startPremiumUpsell()
-		local url = ("%spremium/membership"):format(BASE_URL)
+	function service.startPremiumUpsell(productId)
+		local url = nil
+		if GetFFlagUpsellDirectToPackage() then
+			url = ("%supgrades/paymentmethods?ap=%d"):format(BASE_URL, productId)
+		else
+			url = ("%spremium/membership"):format(BASE_URL)
+		end
 
 		GuiService:OpenBrowserWindow(url)
 	end

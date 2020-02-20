@@ -12,12 +12,13 @@
 
 return{
 	["CoreScripts.PremiumModal.Title.PremiumRequired"] = [[Требуется премиум-подписка]],
-	["CoreScripts.PremiumModal.Body.Description"] = [[Другие преимущества премиум-подписки Roblox:]],
+	["CoreScripts.PremiumModal.Body.Description"] = [[Преимущества премиум-подписки Roblox:]],
 	["CoreScripts.PremiumModal.Body.RobuxMonthly"] = [[450 Robux в месяц;]],
-	["CoreScripts.PremiumModal.Body.PremiumOnlyAreas"] = [[доступ к возможностям только для премиум-подписчиков;]],
+	["CoreScripts.PremiumModal.Body.PremiumOnlyAreas"] = [[Доступ к возможностям только для премиум-подписчиков]],
 	["CoreScripts.PremiumModal.Body.RobuxDiscount"] = [[бонус в 10% при покупке Robux.]],
 	["CoreScripts.PremiumModal.Action.PricePerMonth"] = [[{price}/месяц]],
-	["CoreScripts.PremiumModal.Error.AlreadyPremium"] = [[Вы уже оформили премиум-подписку!]],
-	["CoreScripts.PremiumModal.Error.Unavailable"] = [[В настоящий момент премиум-подписка недоступна. Попробуйте позже!]],
+	["CoreScripts.PremiumModal.Error.PlatformUnavailable"] = [[Покупка премиум-подписки Roblox не поддерживается на вашей платформе. Используйте ПК для покупки.]],
+	["CoreScripts.PremiumModal.Error.AlreadyPremium"] = [[У вас уже есть премиум-подписка Roblox! Повторите попытку.]],
+	["CoreScripts.PremiumModal.Error.Unavailable"] = [[В настоящий момент премиум-подписка недоступна. Повторите попытку позже!]],
 	["CoreScripts.PremiumModal.Body.RobuxMonthlyV2"] = [[{robux} Robux в месяц;]],
 }

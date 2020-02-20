@@ -2,7 +2,7 @@
 name = "roblox/purchase-prompt"
 version = "0.1.5"
 source = "git+https://github.com/roblox/purchasepromptscript-roact#master"
-commit = "b8aef18f891767524d6db1cdae5660e02a9b154b"
+commit = "d3a8b09ef922fd8b13ab364c46c789df90caaa74"
 dependencies = [
     "Cryo roblox/cryo 1.0.0 registry+https://github.rbx.com/roblox/rotriever-index",
     "FitFrame roblox/roact-fit-components 1.0.0 registry+https://github.rbx.com/roblox/rotriever-index",
