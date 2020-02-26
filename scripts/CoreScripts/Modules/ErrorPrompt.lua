@@ -10,6 +10,7 @@ local create = require(RobloxGui.Modules.Common.Create)
 local MouseIconOverrideService = require(CorePackages.InGameServices.MouseIconOverrideService)
 local Constants = require(RobloxGui.Modules.Common.Constants)
 local Shimmer = require(RobloxGui.Modules.Shimmer)
+local FFlagDisableAutoTranslateForKeyTranslatedContent = require(RobloxGui.Modules.Flags.FFlagDisableAutoTranslateForKeyTranslatedContent)
 
 local fflagLocalizeErrorCodeString = settings():GetFFlag("LocalizeErrorCodeString")
 
@@ -51,6 +52,7 @@ local styledFrame = {
 			Position = UDim2.new(0.5, 0, 0.5, 0),
 			Size = UDim2.new(0, Constants.ERROR_PROMPT_MAX_WIDTH.Default, 0, Constants.ERROR_PROMPT_HEIGHT.Default),
 			Visible = false,
+			AutoLocalize = not FFlagDisableAutoTranslateForKeyTranslatedContent,
 			ZIndex = 8,
 			create 'UIListLayout' {
 				Name = "PromptLayout",

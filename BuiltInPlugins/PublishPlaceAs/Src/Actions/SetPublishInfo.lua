@@ -4,6 +4,8 @@ local AssertType = require(Plugin.Src.Util.AssertType)
 
 local Action = require(script.Parent.Action)
 
+local FFlagStudioFixPublishSuccessNameIcon = game:DefineFastFlag("StudioFixPublishSuccessNameIcon", false)
+
 return Action(script.Name, function(publishInfoArg)
 	AssertType.assertNullableType(publishInfoArg, "table", "SetPublishInfo arg")
 	local publishInfo = publishInfoArg or {}
@@ -11,10 +13,13 @@ return Action(script.Name, function(publishInfoArg)
     local id = publishInfo.id
 	local name = publishInfo.name
 	local parentGameId = publishInfo.parentGameId
-	local parentGameName = publishInfo.parentGameName 
+	local parentGameName = publishInfo.parentGameName
 	local settings = publishInfo.settings
-	
+
 	AssertType.assertType(id, "number", "SetPublishInfo.id")
+	if FFlagStudioFixPublishSuccessNameIcon then
+		assert(game.GameId ~= 0, "Game ID should not be 0")
+	end
 	AssertType.assertType(name, "string", "SetPublishInfo.name")
 	AssertType.assertType(parentGameName, "string", "SetPublishInfo.parentGameName")
 	AssertType.assertNullableType(parentGameId, "number", "SetPublishInfo.parentGameId")
@@ -25,7 +30,7 @@ return Action(script.Name, function(publishInfoArg)
 		AssertType.assertType(settings.description, "string", "settings.description")
 		AssertType.assertType(settings.genre, "string", "settings.genre")
 		AssertType.assertType(settings.playableDevices, "table", "settings.playableDevices")
-		
+
 		assert(next(settings.playableDevices) ~= nil, "Empty platform table")
 	end
 

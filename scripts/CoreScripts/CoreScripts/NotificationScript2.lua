@@ -33,7 +33,7 @@ local success, result = pcall(function() return settings():GetFFlag('UseNotifica
 local FFlagUseNotificationsLocalization = success and result
 
 local FFlagNewAwardBadgeEndpoint = settings():GetFFlag('NewAwardBadgeEndpoint2')
-
+local FFlagFixNotificationScriptError = game:DefineFastFlag("FixNotificationScriptError", false)
 
 local RobloxTranslator = require(RobloxGui:WaitForChild("Modules"):WaitForChild("RobloxTranslator"))
 
@@ -375,11 +375,17 @@ removeNotification = function(notification)
 
 			-- Tween out now, or set up to tween out immediately after current tween is finished, but don't interrupt.
 			local function doTweenOut()
-				return frame:TweenPosition(UDim2.new(1, 0, 1, frame.Position.Y.Offset), EASE_DIR, EASE_STYLE, TWEEN_TIME, false,
-				function()
-					frame:Destroy()
-					notification = nil
-				end)
+				if (not FFlagFixNotificationScriptError) or frame:IsDescendantOf(game) then
+					return frame:TweenPosition(
+						UDim2.new(1, 0, 1, frame.Position.Y.Offset), EASE_DIR, EASE_STYLE, TWEEN_TIME, false,
+						function()
+							frame:Destroy()
+							notification = nil
+						end
+					)
+				else
+					return false
+				end
 			end
 
 			if (not doTweenOut()) then

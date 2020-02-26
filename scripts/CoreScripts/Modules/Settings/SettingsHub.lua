@@ -43,6 +43,7 @@ local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList3")
 local FFlagLocalizeVersionLabels = settings():GetFFlag("LocalizeVersionLabels")
 
 local FFlagUpdateSettingsHubGameText = require(RobloxGui.Modules.Flags.FFlagUpdateSettingsHubGameText)
+local FFlagDisableAutoTranslateForKeyTranslatedContent = require(RobloxGui.Modules.Flags.FFlagDisableAutoTranslateForKeyTranslatedContent)
 local FFlagCollectAnalyticsForSystemMenu = settings():GetFFlag("CollectAnalyticsForSystemMenu")
 
 
@@ -418,6 +419,7 @@ local function CreateSettingsHub()
 			Size = UDim2.new(1, 0, 0, VERSION_BAR_HEIGHT),
 			AnchorPoint = Vector2.new(0,1),
 			BorderSizePixel = 0,
+			AutoLocalize = not FFlagDisableAutoTranslateForKeyTranslatedContent,
 
 			ZIndex = 5,
 

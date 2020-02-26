@@ -9,8 +9,8 @@ return function()
 	it("should create and destroy without errors", function()
 		local element = Roact.createElement(MockWrapper, {}, {
 			SearchBar = Roact.createElement(SearchBar, {
-				Width = 100,
-				onSearchRequested = function() end,
+				Size = UDim2.new(0, 100, 0, 20),
+				OnSearchRequested = function() end,
 			}),
 		})
 		local instance = Roact.mount(element)
@@ -22,13 +22,14 @@ return function()
 			local width = 200
 			local element = Roact.createElement(MockWrapper, {}, {
 				SearchBar = Roact.createElement(SearchBar, {
-					Width = width,
+					Size = UDim2.new(0, width, 0, 20),
+					OnSearchRequested = function() end,
 				}),
 			})
 			local container = Instance.new("Folder")
 			local instance = Roact.mount(element, container, "SearchBar")
 			local searchBar = container.SearchBar
-			local textBox = searchBar.Background.Border.TextContainer.TextBox
+			local textBox = searchBar.Background.TextBox
 
 			local str = ("abcdefghijklmnopqrstuvwxyz"):rep(2)
 

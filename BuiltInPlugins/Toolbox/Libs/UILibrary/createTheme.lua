@@ -417,7 +417,6 @@ return function(style, overrides)
 
 	local searchBar = {
 		backgroundColor = style.backgroundColor,
-		liveBackgroundColor = style.liveBackgroundColor,
 
 		text = {
 			placeholder = {

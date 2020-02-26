@@ -6,6 +6,8 @@ local StudioService = game:GetService("StudioService")
 local GuiService = game:GetService("GuiService")
 local MarketplaceService = game:GetService("MarketplaceService")
 
+local PermissionsService = game:GetService("PermissionsService")
+
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
@@ -24,13 +26,18 @@ local RefreshPlugins = require(Plugin.Src.Thunks.RefreshPlugins)
 local Button = UILibrary.Component.Button
 local LoadingIndicator = UILibrary.Component.LoadingIndicator
 
+local Flags = require(Plugin.Packages.Framework.Util.Flags)
+local FlagsList = Flags.new({
+	FFlagEnablePluginPermissionsPage = {
+		"EnablePluginPermissionsPage2",
+		"StudioPermissionsServiceEnabled",
+	},
+})
 local FFlagEnablePurchasePluginFromLua2 = game:GetFastFlag("EnablePurchasePluginFromLua2")
 local FFlagEnableStudioServiceOpenBrowser = game:GetFastFlag("EnableStudioServiceOpenBrowser")
 local FFlagPluginManagementAllowLotsOfPlugins2 = settings():GetFFlag("PluginManagementAllowLotsOfPlugins2")
-local FFlagEnablePluginPermissionsPage = game:GetFastFlag("EnablePluginPermissionsPage")
 local FFlagFixFindPluginsMessage = game:DefineFastFlag("FixFindPluginsMessage", false)
 local FFlagPluginManagementPrettifyDesign = game:GetFastFlag("PluginManagementPrettifyDesign")
-
 local ManagementMainView = Roact.Component:extend("ManagementMainView")
 
 function ManagementMainView:init()
@@ -55,6 +62,10 @@ function ManagementMainView:init()
 		local apiImpl = self.props.API:get()
 		local refreshPluginCallback = self.props.dispatchRefreshPlugins
 		refreshPluginCallback(apiImpl)
+
+		if FlagsList:get("FFlagEnablePluginPermissionsPage") then
+			self.getAllPluginPermissions()
+		end
 	end
 
 	self.getAllPluginPermissions = function()
@@ -113,10 +124,6 @@ function ManagementMainView:didMount()
 	self.refreshPlugins()
 	local changedToken = StudioService:GetPropertyChangedSignal("InstalledPluginData"):Connect(self.refreshPlugins)
 	table.insert(self.tokens, changedToken)
-
-	if FFlagEnablePluginPermissionsPage then
-		self.getAllPluginPermissions()
-	end
 end
 
 function ManagementMainView:willUnmount()
@@ -131,7 +138,7 @@ function ManagementMainView:render()
 	local state = self.state
 
 	local plugin
-	if FFlagEnablePluginPermissionsPage and props.Plugin then
+	if FlagsList:get("FFlagEnablePluginPermissionsPage") and props.Plugin then
 		plugin = props.Plugin:get()
 	else
 		plugin = props.plugin
@@ -320,7 +327,7 @@ local function mapDispatchToProps(dispatch)
 		end,
 
 		getAllPluginPermissions = function(apiImpl)
-			dispatch(GetAllPluginPermissions(apiImpl))
+			dispatch(GetAllPluginPermissions(PermissionsService, apiImpl))
 		end,
 	}
 end

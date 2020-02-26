@@ -21,8 +21,13 @@ local makeTheme = require(Plugin.Src.Resources.makeTheme)
 local PluginAPI2 = require(Plugin.Src.ContextServices.PluginAPI2)
 local Navigation = require(Plugin.Src.ContextServices.Navigation)
 
-local FFlagEnablePluginPermissionsPage = game:DefineFastFlag("EnablePluginPermissionsPage", false)
-
+local Flags = require(Plugin.Packages.Framework.Util.Flags)
+local FlagsList = Flags.new({
+	FFlagEnablePluginPermissionsPage = {
+		"EnablePluginPermissionsPage2",
+		"StudioPermissionsServiceEnabled",
+	},
+})
 local MockManagement = Roact.PureComponent:extend("MockManagement")
 
 local function mockFocus()
@@ -59,7 +64,7 @@ function MockManagement:init(props)
 end
 
 function MockManagement:render()
-	if FFlagEnablePluginPermissionsPage then
+	if FlagsList:get("FFlagEnablePluginPermissionsPage") then
 		return ContextServices.provide({
 			ContextServices.Plugin.new(self.plugin),
 			PluginAPI2.new(self.api),

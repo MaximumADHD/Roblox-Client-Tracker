@@ -197,14 +197,16 @@ function IKTreeView:render()
 
 					local isSelected = selectedTrack == elementProps.element
 
-					return Roact.createElement("Frame", {
+					return Roact.createElement("ImageButton", {
 						Size = UDim2.new(1, -8, 0, Constants.TRACK_HEIGHT),
+						ImageTransparency = 1,
+						AutoButtonColor = false,
 						BackgroundColor3 = isSelected and theme.ikTheme.selected or theme.backgroundColor,
 						BorderSizePixel = 0,
 						ZIndex = 1,
 						LayoutOrder = iterator:getNextOrder(),
-						[Roact.Event.InputBegan] = function(rbx, input) 
-							self.onInputBegan(input, elementProps.element) 
+						[Roact.Event.InputBegan] = function(rbx, input)
+							self.onInputBegan(input, elementProps.element)
 						end,
 					}, {
 						Pin = ikMode == Constants.IK_MODE.FullBody and self:renderPinButton(theme, elementProps, isSelected),

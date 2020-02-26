@@ -24,6 +24,7 @@ local InGameMenu = script.Parent.Parent.Parent
 
 local Divider = require(InGameMenu.Components.Divider)
 local ThemedTextLabel = require(InGameMenu.Components.ThemedTextLabel)
+local ExternalEventConnection = require(InGameMenu.Utility.ExternalEventConnection)
 
 local withLocalization = require(InGameMenu.Localization.withLocalization)
 
@@ -161,6 +162,14 @@ function VersionReporter:render()
 				LayoutOrder = 6,
 				Size = UDim2.new(1, -24, 0, 14),
 			}),
+			VersionWatcher = Roact.createElement(ExternalEventConnection, {
+				event = game:GetPropertyChangedSignal("PlaceVersion"),
+				callback = function()
+					self:setState({
+						placeVersion = game.PlaceVersion,
+					})
+				end,
+			})
 		})
 	end)
 end

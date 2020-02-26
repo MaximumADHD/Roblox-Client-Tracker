@@ -1,12 +1,14 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 
+local PermissionsService = game:GetService("PermissionsService")
+
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local UILibrary = require(Plugin.Packages.UILibrary)
 local FitFrame = require(Plugin.Packages.FitFrame)
 local ContextServices = require(Plugin.Packages.Framework.ContextServices)
 
-local UpdatePluginPermission = require(Plugin.Src.Thunks.UpdatePluginPermission)
+local SetPluginPermission = require(Plugin.Src.Thunks.SetPluginPermission)
 local FluidFitTextLabel = require(Plugin.Src.Components.FluidFitTextLabel)
 
 local PluginAPI2 = require(Plugin.Src.ContextServices.PluginAPI2)
@@ -24,9 +26,10 @@ HttpRequestHolder.defaultProps = {
 }
 
 function HttpRequestHolder:init()
-	self.onCheckboxActivated = function()
+	self.onCheckboxActivated = function(permission)
 		local apiImpl = self.props.API:get()
-		return self.props.updatePluginPermission(apiImpl)
+		local assetId = self.props.assetId
+		return self.props.setPluginPermission(apiImpl, assetId, permission)
 	end
 end
 
@@ -47,11 +50,11 @@ function HttpRequestHolder:render()
 			Id = index,
 			LayoutOrder = index,
 			Title = permission.data and permission.data.domain or "",
-			Selected = true,
-			Enabled = permission.enabled,
+			Selected = permission.allowed,
+			Enabled = true,
 			Height = 14,
 			TextSize = 14,
-			OnActivated = self.onCheckboxActivated,
+			OnActivated = function() return self.onCheckboxActivated(permission) end,
 			titlePadding = 8,
 		})
 		table.insert(checkboxItems, elem)
@@ -90,8 +93,8 @@ ContextServices.mapToProps(HttpRequestHolder, {
 
 local function mapDispatchToProps(dispatch)
 	return {
-		updatePluginPermission = function(apiImpl)
-			dispatch(UpdatePluginPermission(apiImpl))
+		setPluginPermission = function(apiImpl, assetId, permission)
+			dispatch(SetPluginPermission(PermissionsService, apiImpl, assetId, permission))
 		end,
 	}
 end

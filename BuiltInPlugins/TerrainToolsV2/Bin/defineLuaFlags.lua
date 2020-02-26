@@ -13,7 +13,6 @@ game:DefineFastFlag("TerrainToolsRefactor", false)
 game:DefineFastFlag("TerrainToolsFlattenUseBaseBrush", false)
 game:DefineFastFlag("TerrainToolsRefactorSculptOperations", false)
 game:DefineFastFlag("TerrainToolsMaterialGenerateFragments", false)
-game:DefineFastFlag("TerrainToolsConvertPartTool", false)
 
 local function handleFlagDependencies(flag, requiredFlags)
 	if not game:GetFastFlag(flag) then

@@ -6,6 +6,30 @@ return function()
 	local LuaDateTime = require(script.Parent.DateTime)
 	local TimeZone = require(script.Parent.TimeZone)
 	local TimeUnit = require(script.Parent.TimeUnit)
+	local localeIds = {
+		"en-us",
+		"en-gb",
+		"en-au",
+		"en-ca",
+		"en-nz",
+		"de-de",
+		"es-es",
+		"es-mx",
+		"fr-fr",
+		"fr-ca",
+		"it-it",
+		"pt-pt",
+		"pt-br",
+		"ru-ru",
+		"ja-jp",
+		"ko-kr",
+		"zh-cn",
+		"zh-hk",
+		"zh-tw",
+		"zh-hans",
+		"zh-hant",
+		"zh-cjv",
+	}
 
 	describe("Constructors", function()
 		it("should construct with 'new'", function()
@@ -18,16 +42,12 @@ return function()
 			expect(LuaDateTime.new(2017, 5, 3, 12, 34, 51)).to.be.ok()
 
 			if GetFFlagUseDateTimeType() then
-				expect(LuaDateTime.new(2017, 5, 3, 12, 34, 51, Enum.DateTimeKind.Local)).to.be.ok()
+				expect(LuaDateTime.new(2017, 5, 3, 12, 34, 51, 999)).to.be.ok()
 			end
 		end)
 
 		it("should construct with 'now'", function()
 			expect(LuaDateTime.now()).to.be.ok()
-
-			if GetFFlagUseDateTimeType() then
-				expect(LuaDateTime.now(Enum.DateTimeKind.Local)).to.be.ok()
-			end
 		end)
 
 		it("should construct from a Unix timestamp", function()
@@ -41,64 +61,69 @@ return function()
 				do
 					local date = LuaDateTime.fromIsoDate("1988-03-17")
 					expect(date).to.be.ok()
-					expect(date.dateTime.Year).to.equal(1988)
-					expect(date.dateTime.Month).to.equal(3)
-					expect(date.dateTime.Day).to.equal(17)
-					expect(date.dateTime.Hour).to.equal(0)
-					expect(date.dateTime.Minute).to.equal(0)
-					expect(date.dateTime.Second).to.equal(0)
+					expect(date.dateTime:ToUniversalTime().Year).to.equal(1988)
+					expect(date.dateTime:ToUniversalTime().Month).to.equal(3)
+					expect(date.dateTime:ToUniversalTime().Day).to.equal(17)
+					expect(date.dateTime:ToUniversalTime().Hour).to.equal(0)
+					expect(date.dateTime:ToUniversalTime().Minute).to.equal(0)
+					expect(date.dateTime:ToUniversalTime().Second).to.equal(0)
+					expect(date.dateTime:ToUniversalTime().Millisecond).to.equal(0)
 				end
 
 				-- Date and time
 				do
-					local date = LuaDateTime.fromIsoDate("2017-04-10T20:40:16Z")
+					local date = LuaDateTime.fromIsoDate("2017-04-10T20:40:16.999Z")
 					expect(date).to.be.ok()
-					expect(date:GetUnixTimestamp()).to.equal(1491856816)
-					expect(date.dateTime.Year).to.equal(2017)
-					expect(date.dateTime.Month).to.equal(4)
-					expect(date.dateTime.Day).to.equal(10)
-					expect(date.dateTime.Hour).to.equal(20)
-					expect(date.dateTime.Minute).to.equal(40)
-					expect(date.dateTime.Second).to.equal(16)
+					expect(date:GetUnixTimestamp()).to.equal(1491856816.999)
+					expect(date.dateTime:ToUniversalTime().Year).to.equal(2017)
+					expect(date.dateTime:ToUniversalTime().Month).to.equal(4)
+					expect(date.dateTime:ToUniversalTime().Day).to.equal(10)
+					expect(date.dateTime:ToUniversalTime().Hour).to.equal(20)
+					expect(date.dateTime:ToUniversalTime().Minute).to.equal(40)
+					expect(date.dateTime:ToUniversalTime().Second).to.equal(16)
+					expect(date.dateTime:ToUniversalTime().Millisecond).to.equal(999)
 				end
 
 				-- Date and time with no time zone
 				do
-					local date = LuaDateTime.fromIsoDate("2017-04-10T20:40:16")
+					local date = LuaDateTime.fromIsoDate("2017-04-10T20:40:16.1")
 					expect(date).to.be.ok()
-					expect(date:GetUnixTimestamp()).to.equal(1491856816)
-					expect(date.dateTime.Year).to.equal(2017)
-					expect(date.dateTime.Month).to.equal(4)
-					expect(date.dateTime.Day).to.equal(10)
-					expect(date.dateTime.Hour).to.equal(20)
-					expect(date.dateTime.Minute).to.equal(40)
-					expect(date.dateTime.Second).to.equal(16)
+					expect(date:GetUnixTimestamp()).to.equal(1491856816.1)
+					expect(date.dateTime:ToUniversalTime().Year).to.equal(2017)
+					expect(date.dateTime:ToUniversalTime().Month).to.equal(4)
+					expect(date.dateTime:ToUniversalTime().Day).to.equal(10)
+					expect(date.dateTime:ToUniversalTime().Hour).to.equal(20)
+					expect(date.dateTime:ToUniversalTime().Minute).to.equal(40)
+					expect(date.dateTime:ToUniversalTime().Second).to.equal(16)
+					expect(date.dateTime:ToUniversalTime().Millisecond).to.equal(100)
 				end
 
 				-- Date, time, and time zone offset
 				do
 					local date = LuaDateTime.fromIsoDate("2017-04-10T20:40:16+01:00")
 					expect(date).to.be.ok()
-					expect(date:GetUnixTimestamp()).to.equal(1491856816)
-					expect(date.dateTime.Year).to.equal(2017)
-					expect(date.dateTime.Month).to.equal(4)
-					expect(date.dateTime.Day).to.equal(10)
-					expect(date.dateTime.Hour).to.equal(21)
-					expect(date.dateTime.Minute).to.equal(40)
-					expect(date.dateTime.Second).to.equal(16)
+					expect(date:GetUnixTimestamp()).to.equal(1491856816 - 3600)
+					expect(date.dateTime:ToUniversalTime().Year).to.equal(2017)
+					expect(date.dateTime:ToUniversalTime().Month).to.equal(4)
+					expect(date.dateTime:ToUniversalTime().Day).to.equal(10)
+					expect(date.dateTime:ToUniversalTime().Hour).to.equal(19)
+					expect(date.dateTime:ToUniversalTime().Minute).to.equal(40)
+					expect(date.dateTime:ToUniversalTime().Second).to.equal(16)
+					expect(date.dateTime:ToUniversalTime().Millisecond).to.equal(0)
 				end
 
 				-- Date, time, and negative time zone offset
 				do
 					local date = LuaDateTime.fromIsoDate("2017-04-10T20:40:16-01:00")
 					expect(date).to.be.ok()
-					expect(date:GetUnixTimestamp()).to.equal(1491856816)
-					expect(date.dateTime.Year).to.equal(2017)
-					expect(date.dateTime.Month).to.equal(4)
-					expect(date.dateTime.Day).to.equal(10)
-					expect(date.dateTime.Hour).to.equal(19)
-					expect(date.dateTime.Minute).to.equal(40)
-					expect(date.dateTime.Second).to.equal(16)
+					expect(date:GetUnixTimestamp()).to.equal(1491856816 + 3600)
+					expect(date.dateTime:ToUniversalTime().Year).to.equal(2017)
+					expect(date.dateTime:ToUniversalTime().Month).to.equal(4)
+					expect(date.dateTime:ToUniversalTime().Day).to.equal(10)
+					expect(date.dateTime:ToUniversalTime().Hour).to.equal(21)
+					expect(date.dateTime:ToUniversalTime().Minute).to.equal(40)
+					expect(date.dateTime:ToUniversalTime().Second).to.equal(16)
+					expect(date.dateTime:ToUniversalTime().Millisecond).to.equal(0)
 				end
 			else
 				-- Basic date
@@ -148,10 +173,16 @@ return function()
 			expect(values.Day).to.be.a("number")
 			expect(values.Hour).to.be.a("number")
 			expect(values.Minute).to.be.a("number")
-			expect(values.Seconds).to.be.a("number")
 
-			-- Locale specific!
-			expect(values.WeekDay).to.be.a("number")
+			if GetFFlagUseDateTimeType() then
+				expect(values.Second).to.be.a("number")
+				expect(values.Millisecond).to.be.a("number")
+			else
+				expect(values.Seconds).to.be.a("number")
+
+				-- Locale specific!
+				expect(values.WeekDay).to.be.a("number")
+			end
 		end)
 
 		it("should get values in local time", function()
@@ -164,10 +195,16 @@ return function()
 			expect(values.Day).to.be.a("number")
 			expect(values.Hour).to.be.a("number")
 			expect(values.Minute).to.be.a("number")
-			expect(values.Seconds).to.be.a("number")
 
-			-- Locale specific!
-			expect(values.WeekDay).to.be.a("number")
+			if GetFFlagUseDateTimeType() then
+				expect(values.Second).to.be.a("number")
+				expect(values.Millisecond).to.be.a("number")
+			else
+				expect(values.Seconds).to.be.a("number")
+
+				-- Locale specific!
+				expect(values.WeekDay).to.be.a("number")
+			end
 		end)
 
 		it("should preserve values from 'new' constructor", function()
@@ -179,7 +216,13 @@ return function()
 			expect(values.Day).to.equal(3)
 			expect(values.Hour).to.equal(12)
 			expect(values.Minute).to.equal(34)
-			expect(values.Seconds).to.equal(51)
+
+			if GetFFlagUseDateTimeType() then
+				expect(values.Second).to.equal(51)
+				expect(values.Millisecond).to.equal(0)
+			else
+				expect(values.Seconds).to.equal(51)
+			end
 		end)
 
 		it("should preserve Unix timestamp values", function()
@@ -236,6 +279,9 @@ return function()
 
 			-- Locale-specific tests!
 			if GetFFlagUseDateTimeType() then
+				expect(format("SSS")).to.equal("000")
+				expect(format("SS")).to.equal("00")
+				expect(format("S")).to.equal("0")
 				expect(format("MMM", "en-us")).to.equal("Jan")
 				expect(format("MMMM", "en-us")).to.equal("January")
 				expect(format("MMM", "zh-cn")).to.equal("1月")
@@ -303,10 +349,6 @@ return function()
 		end)
 
 		it("should return correct 24-hour clock sequences", function()
-			local date = LuaDateTime.new(2017, 9, 13, 0, 0, 0)
-
-			local formatString = "YYYY-MM-DD HH:mm:ss"
-
 			local expected = {
 				"2017-09-13 00:00:00",
 				"2017-09-13 01:00:00",
@@ -336,12 +378,18 @@ return function()
 				"2017-09-14 01:00:00",
 			}
 
-			for i = 1, #expected do
-				local result = date:Format(formatString, TimeZone.UTC)
-				expect(result).to.equal(expected[i])
+			local formatString = "YYYY-MM-DD HH:mm:ss"
+			local date
 
-				-- Advance once hour
-				date = date.fromUnixTimestamp(date:GetUnixTimestamp() + 3600)
+			for _, localeId in ipairs(localeIds) do
+				date = LuaDateTime.new(2017, 9, 13, 0, 0, 0)
+				for i = 1, #expected do
+					local result = date:Format(formatString, TimeZone.UTC, localeId)
+					expect(result).to.equal(expected[i])
+
+					-- Advance once hour
+					date = date.fromUnixTimestamp(date:GetUnixTimestamp() + 3600)
+				end
 			end
 		end)
 
@@ -495,19 +543,17 @@ return function()
 			if GetFFlagUseDateTimeType() then
 				it("SHOULD handle UTC time correctly with different locales", function()
 					local date = LuaDateTime.new(2015, 4, 20, 13, 0, 0)
-					local localeId = {"en-us", "en-gb", "zh-cn"}
-					for i = 1, #localeId do
-						local longRelativeTime = date:GetLongRelativeTime(date, TimeZone.UTC, localeId[i])
-						expect(longRelativeTime).to.equal(date.dateTime:ToString("lll", localeId[i]))
+					for _, localeId in ipairs(localeIds) do
+						local longRelativeTime = date:GetLongRelativeTime(date, TimeZone.UTC, localeId)
+						expect(longRelativeTime).to.equal(date.dateTime:FormatUniversalTime("lll", localeId))
 					end
 				end)
 
 				it("SHOULD handle Local time correctly with different locales", function()
-					local date = LuaDateTime.new(2015, 4, 20, 13, 0, 0, Enum.DateTimeKind.Local)
-					local localeId = {"en-us", "en-gb", "zh-cn"}
-					for i = 1, #localeId do
-						local longRelativeTime = date:GetLongRelativeTime(date, TimeZone.Current, localeId[i])
-						expect(longRelativeTime).to.equal(date.dateTime:ToString("lll", localeId[i]))
+					local date = LuaDateTime.fromUnixTimestamp(DateTime.fromLocalTime(2015, 4, 20, 13, 0, 0).UnixTimestamp)
+					for _, localeId in ipairs(localeIds) do
+						local longRelativeTime = date:GetLongRelativeTime(date, TimeZone.Current, localeId)
+						expect(longRelativeTime).to.equal(date.dateTime:FormatLocalTime("lll", localeId))
 					end
 				end)
 			else
@@ -558,19 +604,17 @@ return function()
 			if GetFFlagUseDateTimeType() then
 				it("SHOULD handle UTC time correctly with different locales", function()
 					local date = LuaDateTime.new(2015, 4, 20, 13, 0, 0)
-					local localeId = {"en-us", "en-gb", "zh-cn"}
-					for i = 1, #localeId do
-						local shortRelativeTime = date:GetShortRelativeTime(date, TimeZone.UTC, localeId[i])
-						expect(shortRelativeTime).to.equal(date.dateTime:ToString("ll", localeId[i]))
+					for _, localeId in ipairs(localeIds) do
+						local shortRelativeTime = date:GetShortRelativeTime(date, TimeZone.UTC, localeId)
+						expect(shortRelativeTime).to.equal(date.dateTime:FormatUniversalTime("ll", localeId))
 					end
 				end)
 
 				it("SHOULD handle Local time correctly with different locales", function()
-					local date = LuaDateTime.new(2015, 4, 20, 13, 0, 0, Enum.DateTimeKind.Local)
-					local localeId = {"en-us", "en-gb", "zh-cn"}
-					for i = 1, #localeId do
-						local shortRelativeTime = date:GetShortRelativeTime(date, TimeZone.Current, localeId[i])
-						expect(shortRelativeTime).to.equal(date.dateTime:ToString("ll", localeId[i]))
+					local date = LuaDateTime.fromUnixTimestamp(DateTime.fromLocalTime(2015, 4, 20, 13, 0, 0).UnixTimestamp)
+					for _, localeId in ipairs(localeIds) do
+						local shortRelativeTime = date:GetShortRelativeTime(date, TimeZone.Current, localeId)
+						expect(shortRelativeTime).to.equal(date.dateTime:FormatLocalTime("ll", localeId))
 					end
 				end)
 			else

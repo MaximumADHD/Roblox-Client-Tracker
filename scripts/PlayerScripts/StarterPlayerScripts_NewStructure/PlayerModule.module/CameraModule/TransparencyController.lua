@@ -165,14 +165,14 @@ function TransparencyController:Update()
 				-- Don't tween transparency if it is instant or your character was fully invisible last frame
 				if not instant and transparency < 1 and self.lastTransparency < 0.95 then
 					local maxDelta = MAX_TWEEN_RATE * (now - self.lastUpdate)
-					deltaTransparency = Util.Clamp(-maxDelta, maxDelta, deltaTransparency)
+					deltaTransparency = math.clamp(deltaTransparency, -maxDelta, maxDelta)
 				end
 				transparency = self.lastTransparency + deltaTransparency
 			else
 				self.transparencyDirty = true
 			end
 
-			transparency = Util.Clamp(0, 1, Util.Round(transparency, 2))
+			transparency = math.clamp(Util.Round(transparency, 2), 0, 1)
 		end
 
 		if self.transparencyDirty or self.lastTransparency ~= transparency then

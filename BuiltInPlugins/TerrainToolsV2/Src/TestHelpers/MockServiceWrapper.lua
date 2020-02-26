@@ -92,6 +92,7 @@ function MockServiceWrapper:render()
 	if not partConverter then
 		partConverter = PartConverter.new({
 			terrain = terrain,
+			localization = localization,
 		})
 	end
 

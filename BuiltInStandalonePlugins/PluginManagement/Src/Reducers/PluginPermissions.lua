@@ -26,14 +26,14 @@ return Rodux.createReducer({}, {
 
         for id, entry in pairs(action.permissions) do
 			local assetId = tonumber(id)
-			if entry.PluginPermissions then
+			if entry.Permissions then
 				local pluginPermissionsList = {}
 				local allowedHttpCount = 0
 				local deniedHttpCount = 0
-				for _,permission in pairs(entry.PluginPermissions) do
-					if permission.PermissionType == Constants.PERMISSION_TYPES.HttpPermission then
-						local permissionInfo = PermissionInfo.fromUserData(permission)
-						if permissionInfo.enabled then
+				for permissionIndex,permission in pairs(entry.Permissions) do
+					if permission.Type == Constants.PERMISSION_TYPES.HttpService then
+						local permissionInfo = PermissionInfo.fromUserData(permission, permissionIndex)
+						if permissionInfo.allowed then
 							allowedHttpCount = allowedHttpCount + 1
 						else
 							deniedHttpCount = deniedHttpCount + 1

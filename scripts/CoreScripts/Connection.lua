@@ -39,6 +39,7 @@ local reconnectDisabled = settings():GetFFlag("ReconnectDisabled")
 local reconnectDisabledReason = safeGetFString("ReconnectDisabledReason", "We're sorry, Roblox is temporarily unavailable.  Please try again later.")
 
 local fflagChinaLicensingBuild = settings():GetFFlag("ChinaLicensingApp") --todo: remove with UsePolicyServiceForCoreScripts
+local FFlagDisableAutoTranslateForKeyTranslatedContent = require(RobloxGui.Modules.Flags.FFlagDisableAutoTranslateForKeyTranslatedContent)
 
 local lastErrorTimeStamp = tick()
 
@@ -106,7 +107,8 @@ local screenGui = create 'ScreenGui' {
 	Parent = CoreGui,
 	Name = "RobloxPromptGui",
 	OnTopOfCoreBlur = true,
-	DisplayOrder = 9
+	DisplayOrder = 9,
+	AutoLocalize = not FFlagDisableAutoTranslateForKeyTranslatedContent,
 }
 
 -- semi-transparent frame overlay

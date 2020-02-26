@@ -16,22 +16,32 @@ local ContextServices = require(Framework.ContextServices)
 
 local UI = require(Framework.UI)
 local Button = UI.Button
+local LinkText = UI.LinkText
 
 local Util = require(Framework.Util)
 local StyleModifier = Util.StyleModifier
 
 local UILibrary = require(Plugin.Packages.UILibrary)
-local createFitToContent = UILibrary.Component.createFitToContent
+local SearchBar = UILibrary.Component.SearchBar
 local LayoutOrderIterator = UILibrary.Util.LayoutOrderIterator
 
+local SetSearchTerm = require(Plugin.Src.Actions.SetSearchTerm)
 local SetToPreviousScreen = require(Plugin.Src.Actions.SetToPreviousScreen)
 local SetToNextScreen = require(Plugin.Src.Actions.SetToNextScreen)
 
+local LaunchBulkImport = require(Plugin.Src.Thunks.LaunchBulkImport)
+
+local Screens = require(Plugin.Src.Util.Screens)
+
 local TopBar = Roact.PureComponent:extend("TopBar")
 
-function TopBar:init()
+function TopBar:init(props)
     self.OnTreeViewButtonActivated = function()
-        self.props.OnOverlayActivated()
+        props.OnOverlayActivated()
+    end
+
+    self.OnSearchRequested = function(searchTerm)
+        props.dispatchSetSearchTerm(searchTerm)
     end
 end
 
@@ -39,7 +49,9 @@ function TopBar:render()
     local props = self.props
     local theme = props.Theme:get("Plugin")
     local topBarTheme = theme.TopBar
+    local localization = props.Localization
 
+    local currentScreen = props.CurrentScreen
     local previousScreens = props.PreviousScreens
     local nextScreens = props.NextScreens
     local dispatchSetToPreviousScreen = props.dispatchSetToPreviousScreen
@@ -47,15 +59,19 @@ function TopBar:render()
     local previousButtonEnabled = #previousScreens > 0
     local nextButtonEnabled = #nextScreens > 0
 
+    local bulkImporterRunning = props.BulkImporterRunning
+    local dispatchLaunchBulkImporter = props.dispatchLaunchBulkImporter
+
+    local searchBarOffset = topBarTheme.Button.Size * 4 + topBarTheme.Padding * 4
+
+    local defaultText = localization:getText("SearchBar", "PlaceholderText")
+        .. " " .. localization:getText("Folders", currentScreen)
+
     local layoutIndex = LayoutOrderIterator.new()
 
-    return Roact.createElement(createFitToContent("Frame", "UIListLayout", {
-        Padding = UDim.new(0, topBarTheme.Padding),
-        FillDirection = Enum.FillDirection.Horizontal,
-        VerticalAlignment = Enum.VerticalAlignment.Center,
-        SortOrder = Enum.SortOrder.LayoutOrder,
-    }), {
+    return Roact.createElement("Frame", {
         Position = UDim2.new(0, 0, 0, 0),
+        Size = UDim2.new(1, 0, 0, topBarTheme.Button.Size),
 
         BackgroundColor3 = theme.BackgroundColor,
         BackgroundTransparency = 0,
@@ -65,11 +81,18 @@ function TopBar:render()
 
         ZIndex = 1,
     }, {
-        Padding = Roact.createElement("UIPadding", {
+        TopBarLayout = Roact.createElement("UIListLayout", {
+            Padding = UDim.new(0, topBarTheme.Padding),
+            FillDirection = Enum.FillDirection.Horizontal,
+            VerticalAlignment = Enum.VerticalAlignment.Center,
+            SortOrder = Enum.SortOrder.LayoutOrder,
+        }),
+
+        BeginPadding = Roact.createElement("UIPadding", {
             PaddingLeft = UDim.new(0, topBarTheme.Padding),
         }),
 
-        ExplorerOverlayFrame = self.props.Enabled and Roact.createElement(Button, {
+        ExplorerOverlayButton = self.props.Enabled and Roact.createElement(Button, {
             Size = UDim2.new(0, topBarTheme.Button.Size, 0, topBarTheme.Button.Size),
             AnchorPoint = Vector2.new(0.5, 0.5),
             LayoutOrder = layoutIndex:getNextOrder(),
@@ -79,14 +102,17 @@ function TopBar:render()
             OnClick = self.OnTreeViewButtonActivated,
         }),
 
-        NavigationButtonsFrame = Roact.createElement(createFitToContent("Frame", "UIListLayout", {
-            Padding = UDim.new(0, 0),
-            FillDirection = Enum.FillDirection.Horizontal,
-            SortOrder = Enum.SortOrder.LayoutOrder,
-        }), {
+        NavigationButtonsFrame = Roact.createElement("Frame", {
+            Size = UDim2.new(0, 2 * topBarTheme.Button.Size, 0, topBarTheme.Button.Size),
             BackgroundTransparency = 1,
             LayoutOrder = layoutIndex:getNextOrder(),
         }, {
+            ButtonLayout = Roact.createElement("UIListLayout", {
+                Padding = UDim.new(0, 0),
+                FillDirection = Enum.FillDirection.Horizontal,
+                SortOrder = Enum.SortOrder.LayoutOrder,
+            }),
+
             PreviousButton = Roact.createElement(Button, {
                 Size = UDim2.new(0, topBarTheme.Button.Size, 0, topBarTheme.Button.Size),
                 AnchorPoint = Vector2.new(0.5, 0.5),
@@ -117,11 +143,39 @@ function TopBar:render()
                 end,
             }),
         }),
+
+        BulkImporterButton = Roact.createElement(Button, {
+            Size = UDim2.new(0, topBarTheme.Button.Size, 0, topBarTheme.Button.Size),
+            AnchorPoint = Vector2.new(0.5, 0.5),
+            LayoutOrder = layoutIndex:getNextOrder(),
+
+            Style = "BulkImporterButton",
+            StyleModifier = bulkImporterRunning and StyleModifier.Disabled,
+
+            OnClick = function()
+                if not bulkImporterRunning then
+                    dispatchLaunchBulkImporter(0)
+                end
+            end,
+        }),
+
+        SearchBar = currentScreen ~= Screens.MAIN and Roact.createElement(SearchBar, {
+            Size = UDim2.new(1, -searchBarOffset, 1, 0),
+            LayoutOrder = layoutIndex:getNextOrder(),
+
+            DefaultText = defaultText,
+            OnSearchRequested = self.OnSearchRequested,
+        }),
+
+        EndPadding = Roact.createElement("UIPadding", {
+            PaddingLeft = UDim.new(0, topBarTheme.Padding),
+        }),
     })
 end
 
 ContextServices.mapToProps(TopBar,{
     Theme = ContextServices.Theme,
+    Localization = ContextServices.Localization,
 })
 
 local function mapStateToProps(state, props)
@@ -129,6 +183,8 @@ local function mapStateToProps(state, props)
     local nextScreens = state.Screen.nextScreens
 
 	return {
+        BulkImporterRunning = state.AssetManagerReducer.bulkImporterRunning,
+        CurrentScreen = state.Screen.currentScreen,
         PreviousScreens = previousScreens,
         NextScreens = nextScreens,
 	}
@@ -136,6 +192,12 @@ end
 
 local function useDispatchForProps(dispatch)
 	return {
+        dispatchLaunchBulkImporter = function(assetType)
+            dispatch(LaunchBulkImport(assetType))
+        end,
+        dispatchSetSearchTerm = function(searchTerm)
+            dispatch(SetSearchTerm(searchTerm))
+        end,
         dispatchSetToPreviousScreen = function(enabled)
             if enabled then
                 dispatch(SetToPreviousScreen())

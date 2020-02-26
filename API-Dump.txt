@@ -567,12 +567,12 @@ Class FileMesh : DataModelMesh
 Class SpecialMesh : FileMesh
 	Property Enum<MeshType> SpecialMesh.MeshType
 Class DataModelSession : Instance [NotCreatable]
-	Property Enum<StudioDataModelType> DataModelSession.CurrentDataModelType {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
-	Property string DataModelSession.SessionId {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
-	Event DataModelSession.CurrentDataModelTypeAboutToChange(Enum<StudioDataModelType> dataModelType) {RobloxScriptSecurity}
-	Event DataModelSession.CurrentDataModelTypeChanged() {RobloxScriptSecurity}
-	Event DataModelSession.DataModelCreated(Enum<StudioDataModelType> gameStateType) {RobloxScriptSecurity}
-	Event DataModelSession.DataModelWillBeDestroyed(Enum<StudioDataModelType> gameStateType) {RobloxScriptSecurity}
+	Property Enum<StudioDataModelType> DataModelSession.CurrentDataModelType {PluginSecurity} [ReadOnly] [NotReplicated]
+	Property string DataModelSession.SessionId {PluginSecurity} [ReadOnly] [NotReplicated]
+	Event DataModelSession.CurrentDataModelTypeAboutToChange(Enum<StudioDataModelType> dataModelType) {PluginSecurity}
+	Event DataModelSession.CurrentDataModelTypeChanged() {PluginSecurity}
+	Event DataModelSession.DataModelCreated(Enum<StudioDataModelType> gameStateType) {PluginSecurity}
+	Event DataModelSession.DataModelWillBeDestroyed(Enum<StudioDataModelType> gameStateType) {PluginSecurity}
 Class DataStoreService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool DataStoreService.AutomaticRetry {LocalUserSecurity} [NotReplicated]
 	Property bool DataStoreService.LegacyNamingScheme {LocalUserSecurity} [Deprecated]
@@ -1183,6 +1183,7 @@ Class HttpRbxApiService : Instance [NotCreatable] [Service]
 	Function string HttpRbxApiService:PostAsync(string apiUrlPath, string data, Enum<ThrottlingPriority> priority = "Default", Enum<HttpContentType> content_type = "ApplicationJson", Enum<HttpRequestType> httpRequestType = "Default") {RobloxScriptSecurity} [Yields]
 	Function string HttpRbxApiService:PostAsyncFullUrl(string apiUrl, string data, Enum<ThrottlingPriority> priority = "Default", Enum<HttpContentType> content_type = "ApplicationJson", Enum<HttpRequestType> httpRequestType = "Default") {RobloxScriptSecurity} [Yields]
 	Function string HttpRbxApiService:RequestAsync(Dictionary requestOptions, Enum<ThrottlingPriority> priority = "Default", Enum<HttpContentType> content_type = "ApplicationJson", Enum<HttpRequestType> httpRequestType = "Default") {RobloxScriptSecurity} [Yields]
+	Function string HttpRbxApiService:RequestLimitedAsync(Dictionary requestOptions, Enum<ThrottlingPriority> priority = "Default", Enum<HttpContentType> content_type = "ApplicationJson", Enum<HttpRequestType> httpRequestType = "Default") [Yields]
 Class HttpRequest : Instance [NotCreatable]
 	Function void HttpRequest:Cancel() {RobloxScriptSecurity}
 	Function void HttpRequest:Start(Function callback) {RobloxScriptSecurity}
@@ -1649,9 +1650,9 @@ Class PluginMouse : Mouse [NotCreatable]
 	Event PluginMouse.DragEnter(Objects instances) {PluginSecurity}
 Class MouseService : Instance [NotCreatable] [Service] [NotReplicated]
 Class MultipleDocumentInterfaceInstance : Instance [NotCreatable]
-	Property Instance MultipleDocumentInterfaceInstance.FocusedDataModelSession {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
-	Event MultipleDocumentInterfaceInstance.DataModelSessionEnded(Instance dataModelSession) {RobloxScriptSecurity}
-	Event MultipleDocumentInterfaceInstance.DataModelSessionStarted(Instance dataModelSession) {RobloxScriptSecurity}
+	Property Instance MultipleDocumentInterfaceInstance.FocusedDataModelSession {PluginSecurity} [ReadOnly] [NotReplicated]
+	Event MultipleDocumentInterfaceInstance.DataModelSessionEnded(Instance dataModelSession) {PluginSecurity}
+	Event MultipleDocumentInterfaceInstance.DataModelSessionStarted(Instance dataModelSession) {PluginSecurity}
 Class NetworkMarker : Instance [NotCreatable] [NotBrowsable]
 	Event NetworkMarker.Received()
 Class NetworkPeer : Instance [NotCreatable] [NotBrowsable]
@@ -1914,13 +1915,13 @@ Class WorldRoot : Model [NotCreatable]
 	Function void WorldRoot:IkMoveTo(Instance part, CFrame target, float translateStiffness = 1, float rotateStiffness = 1, Enum<CollisionsMode> collisionsMode = "OtherMechanismsAnchored") {RobloxScriptSecurity}
 	Function bool WorldRoot:IsRegion3Empty(Region3 region, Instance ignoreDescendentsInstance = nil)
 	Function bool WorldRoot:IsRegion3EmptyWithIgnoreList(Region3 region, Objects ignoreDescendentsTable)
-	Function Tuple WorldRoot:Raycast(Vector3 origin, Vector3 direction, RaycastParams raycastParams = RaycastParams{IgnoreWater=false, FilterDescendantsInstances={}})
+	Function Tuple WorldRoot:Raycast(Vector3 origin, Vector3 direction, RaycastParams raycastParams = RaycastParams.new())
 Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property bool Workspace.AllowThirdPartySales  [NotReplicated]
 	Property float Workspace.FallenPartsDestroyHeight {✏️PluginSecurity}
 	Property bool Workspace.FilteringEnabled {✏️PluginSecurity}
 	Property float Workspace.Gravity
-	Property bool Workspace.StreamingEnabled
+	Property bool Workspace.StreamingEnabled {✏️PluginSecurity}
 	Property int Workspace.StreamingMinRadius  [NotScriptable]
 	Property Enum<StreamingPauseMode> Workspace.StreamingPauseMode  [NotScriptable]
 	Property int Workspace.StreamingTargetRadius  [NotScriptable]
@@ -2192,9 +2193,9 @@ Class Plugin : Instance [NotCreatable]
 	Property bool Plugin.UsesAssetInsertionDrag {RobloxScriptSecurity} [<📁> LoadOnly] [NotReplicated]
 	Property bool Plugin.CollisionEnabled  [ReadOnly] [NotReplicated]
 	Property float Plugin.GridSize  [ReadOnly] [NotReplicated]
-	Property Enum<StudioDataModelType> Plugin.HostDataModelType {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
-	Property bool Plugin.HostDataModelTypeIsCurrent {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
-	Property Class<MultipleDocumentInterfaceInstance> Plugin.MultipleDocumentInterfaceInstance {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
+	Property Enum<StudioDataModelType> Plugin.HostDataModelType {PluginSecurity} [ReadOnly] [NotReplicated]
+	Property bool Plugin.HostDataModelTypeIsCurrent {PluginSecurity} [ReadOnly] [NotReplicated]
+	Property Class<MultipleDocumentInterfaceInstance> Plugin.MultipleDocumentInterfaceInstance {PluginSecurity} [ReadOnly] [NotReplicated]
 	Function void Plugin:Activate(bool exclusiveMouse) {PluginSecurity}
 	Function Instance Plugin:CreateDockWidgetPluginGui(string pluginGuiId, DockWidgetPluginGuiInfo dockWidgetPluginGuiInfo) {PluginSecurity} [Yields]
 	Function Instance Plugin:CreatePluginAction(string actionId, string text, string statusTip, string iconName = "", bool allowBinding = true) {PluginSecurity}
@@ -2202,7 +2203,7 @@ Class Plugin : Instance [NotCreatable]
 	Function Instance Plugin:CreateQWidgetPluginGui(string pluginGuiId, Dictionary pluginGuiOptions) {RobloxScriptSecurity} [Yields]
 	Function Instance Plugin:CreateToolbar(string name) {PluginSecurity}
 	Function void Plugin:Deactivate() {PluginSecurity}
-	Function Variant Plugin:GetItem(string key, Variant defaultValue) {RobloxScriptSecurity}
+	Function Variant Plugin:GetItem(string key, Variant defaultValue) {PluginSecurity}
 	Function Enum<JointCreationMode> Plugin:GetJoinMode() {PluginSecurity}
 	Function Instance Plugin:GetMouse() {PluginSecurity}
 	Function Enum<RibbonTool> Plugin:GetSelectedRibbonTool() {PluginSecurity}
@@ -2210,12 +2211,12 @@ Class Plugin : Instance [NotCreatable]
 	Function int64 Plugin:GetStudioUserId() {PluginSecurity} [Deprecated]
 	Function Instance Plugin:ImportFbxAnimation(Instance rigModel, bool isR15 = true) {PluginSecurity} [Yields]
 	Function Instance Plugin:ImportFbxRig(bool isR15 = true) {PluginSecurity} [Yields]
-	Function void Plugin:Invoke(string key, Tuple arguments) {RobloxScriptSecurity}
+	Function void Plugin:Invoke(string key, Tuple arguments) {PluginSecurity}
 	Function bool Plugin:IsActivated() {PluginSecurity}
 	Function bool Plugin:IsActivatedWithExclusiveMouse() {PluginSecurity}
 	Function Objects Plugin:Negate(Objects objects) {PluginSecurity}
-	Function Instance Plugin:OnInvoke(string key, Function callback) {RobloxScriptSecurity}
-	Function Instance Plugin:OnSetItem(string key, Function callback) {RobloxScriptSecurity}
+	Function Instance Plugin:OnInvoke(string key, Function callback) {PluginSecurity}
+	Function Instance Plugin:OnSetItem(string key, Function callback) {PluginSecurity}
 	Function void Plugin:OpenScript(Instance script, int lineNumber = 1) {PluginSecurity}
 	Function void Plugin:OpenWikiPage(string url) {PluginSecurity}
 	Function void Plugin:PauseSound(Instance soundChannel) {RobloxScriptSecurity}
@@ -2226,7 +2227,7 @@ Class Plugin : Instance [NotCreatable]
 	Function void Plugin:SaveSelectedToRoblox() {PluginSecurity}
 	Function void Plugin:SelectRibbonTool(Enum<RibbonTool> tool, UDim2 position) {PluginSecurity}
 	Function Objects Plugin:Separate(Objects objects) {PluginSecurity}
-	Function void Plugin:SetItem(string key, Variant value) {RobloxScriptSecurity}
+	Function void Plugin:SetItem(string key, Variant value) {PluginSecurity}
 	Function void Plugin:SetSetting(string key, Variant value) {PluginSecurity}
 	Function void Plugin:StartDecalDrag(Instance decal) {RobloxScriptSecurity}
 	Function void Plugin:StartDrag(Dictionary dragData) {PluginSecurity}
@@ -2815,7 +2816,7 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Dictionary StudioService:GetResourceByCategory(string category) {RobloxScriptSecurity}
 	Function string StudioService:GetStartupPluginId() {RobloxScriptSecurity}
 	Function int64 StudioService:GetUserId() {PluginSecurity}
-	Function Tuple StudioService:GizmoRaycast(Vector3 origin, Vector3 direction, RaycastParams raycastParams = RaycastParams{IgnoreWater=false, FilterDescendantsInstances={}}) {PluginSecurity}
+	Function Tuple StudioService:GizmoRaycast(Vector3 origin, Vector3 direction, RaycastParams raycastParams = RaycastParams.new()) {PluginSecurity}
 	Function bool StudioService:IsPluginInstalled(int64 assetId) {RobloxScriptSecurity}
 	Function bool StudioService:IsPluginUpToDate(int64 assetId, int64 currentAssetVersion) {RobloxScriptSecurity}
 	Function void StudioService:LaunchBulkImport(int assetTypeToImport) {RobloxScriptSecurity}
@@ -3249,14 +3250,14 @@ Class VirtualInputManager : Instance [Service]
 	Event VirtualInputManager.PlaybackCompleted(string additionalLuaState) {RobloxScriptSecurity}
 	Event VirtualInputManager.RecordingCompleted(string result) {RobloxScriptSecurity}
 Class VirtualUser : Instance [NotCreatable] [Service] [NotReplicated]
-	Function void VirtualUser:Button1Down(Vector2 position, CFrame camera = Identity) {LocalUserSecurity}
-	Function void VirtualUser:Button1Up(Vector2 position, CFrame camera = Identity) {LocalUserSecurity}
-	Function void VirtualUser:Button2Down(Vector2 position, CFrame camera = Identity) {LocalUserSecurity}
-	Function void VirtualUser:Button2Up(Vector2 position, CFrame camera = Identity) {LocalUserSecurity}
+	Function void VirtualUser:Button1Down(Vector2 position, CFrame camera = CFrame.new()) {LocalUserSecurity}
+	Function void VirtualUser:Button1Up(Vector2 position, CFrame camera = CFrame.new()) {LocalUserSecurity}
+	Function void VirtualUser:Button2Down(Vector2 position, CFrame camera = CFrame.new()) {LocalUserSecurity}
+	Function void VirtualUser:Button2Up(Vector2 position, CFrame camera = CFrame.new()) {LocalUserSecurity}
 	Function void VirtualUser:CaptureController() {LocalUserSecurity}
-	Function void VirtualUser:ClickButton1(Vector2 position, CFrame camera = Identity) {LocalUserSecurity}
-	Function void VirtualUser:ClickButton2(Vector2 position, CFrame camera = Identity) {LocalUserSecurity}
-	Function void VirtualUser:MoveMouse(Vector2 position, CFrame camera = Identity) {LocalUserSecurity}
+	Function void VirtualUser:ClickButton1(Vector2 position, CFrame camera = CFrame.new()) {LocalUserSecurity}
+	Function void VirtualUser:ClickButton2(Vector2 position, CFrame camera = CFrame.new()) {LocalUserSecurity}
+	Function void VirtualUser:MoveMouse(Vector2 position, CFrame camera = CFrame.new()) {LocalUserSecurity}
 	Function void VirtualUser:SetKeyDown(string key) {LocalUserSecurity}
 	Function void VirtualUser:SetKeyUp(string key) {LocalUserSecurity}
 	Function void VirtualUser:StartRecording() {LocalUserSecurity}
@@ -3595,9 +3596,6 @@ Enum DataStoreRequestType
 	EnumItem DataStoreRequestType.GetSortedAsync : 3
 	EnumItem DataStoreRequestType.SetIncrementSortedAsync : 4
 	EnumItem DataStoreRequestType.OnUpdate : 5
-Enum DateTimeKind
-	EnumItem DateTimeKind.Utc : 0
-	EnumItem DateTimeKind.Local : 1
 Enum DevCameraOcclusionMode
 	EnumItem DevCameraOcclusionMode.Zoom : 0
 	EnumItem DevCameraOcclusionMode.Invisicam : 1

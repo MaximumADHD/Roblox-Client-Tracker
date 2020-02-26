@@ -210,7 +210,7 @@ Details: ""%1""","죄송합니다. 게시된 해당 플레이스를 불러올 �
 
 세부 사항: ""%1""","Это место не может быть загружено. 
 
-Подробнее: ""%1""","很抱歉，无法加载这个已发布的地点。
+Подробнее: ""%1""","很抱歉，无法加载这个已发布的场景。
 
 详情: “%1”"
 Studio.App.IdeDoc.Start,,,Start,Start,시작,Запустить,开始
@@ -319,8 +319,8 @@ Studio.App.MainWindow.Reconnect,,,Reconnect,Reconnect,재연결,Повторит
 Studio.App.MainWindow.RemovedAsTeamCreateContributor,,,You have been removed as a Team Create contributor.,You have been removed as a Team Create contributor.,팀 만들기 참가자에서 제거되었습니다.,Вы были удалены из списка участников совместной разработки.,已将你从组队创作贡献者名单中删除。
 Studio.App.MainWindow.RobloxStudio,,,Roblox Studio,Roblox Studio,Roblox Studio,Roblox Studio,Roblox Studio
 Studio.App.MainWindow.RobloxStudioSpace,,,Roblox Studio ,Roblox Studio ,Roblox Studio ,Roblox Studio,Roblox Studio 
-Studio.App.MainWindow.SaveActiveLocalFile,,,Save the active local file,Save the active local file,활성 로컬 파일 저장,Сохранить открытый локальный файл,保存活跃本地文件
-Studio.App.MainWindow.SaveActiveLocalFileNewName,,,Save the active local file with a new name,Save the active local file with a new name,새 이름으로 활성 로컬 파일 저장,Сохранить открытый локальный файл с новым именем,以新名称保存活跃本地文件
+Studio.App.MainWindow.SaveActiveLocalFile,,,Save the active local file,Save the active local file,활성 로컬 파일 저장,Сохранить открытый локальный файл,保存使用中的本地文件
+Studio.App.MainWindow.SaveActiveLocalFileNewName,,,Save the active local file with a new name,Save the active local file with a new name,새 이름으로 활성 로컬 파일 저장,Сохранить открытый локальный файл с новым именем,以新名称保存使用中的本地文件
 Studio.App.MainWindow.SaveChangesTo1,,,Save changes to %1?,Save changes to %1?,%1에 변경 사항을 저장할까요?,%1: сохранить изменения?,要将更改保存到 %1 吗?
 Studio.App.MainWindow.SaveToFile,,,Save to File,Save to File,파일에 저장,Сохранить в файл,保存到文件...
 Studio.App.MainWindow.SaveToFileAsPrompt,,,Save to File As...,Save to File As...,다른 이름으로 저장...,Сохранить в файл как....,文件另存为...
@@ -595,13 +595,13 @@ Studio.App.RBXMainWindow.SaveActiveDocumentToRoblox,,,Save Active Document to Ro
 Studio.App.RBXMainWindow.SaveAsCSVElps,,,Save as CSV...,Save as CSV...,CSV로 저장...,Сохранить как CSV...,另存为 CSV...
 Studio.App.RBXMainWindow.SaveAsElps,,,Save As...,Save As...,다음으로 저장...,Сохранить как...,另存为...
 Studio.App.RBXMainWindow.SaveAsLocalPluginElps,,,Save as Local Plugin...,Save as Local Plugin...,로컬 플러그인으로 저장...,Сохранить как локальный плагин...,另存为本地插件...
-Studio.App.RBXMainWindow.SaveDocToRoblox,,,Save the Active Document to Roblox Website,Save the Active Document to Roblox Website,활성 문서를 Roblox 웹사이트에 저장,Сохранить активный документ на сайте Roblox,将活跃文档保存至 Roblox 网站
-Studio.App.RBXMainWindow.SaveDocWithNewName,,,Save the active document with a new name,Save the active document with a new name,새 이름으로 활성 문서 저장,Сохранить активный документ с новым именем,用新名称保存活跃文档
+Studio.App.RBXMainWindow.SaveDocToRoblox,,,Save the Active Document to Roblox Website,Save the Active Document to Roblox Website,활성 문서를 Roblox 웹사이트에 저장,Сохранить активный документ на сайте Roblox,将使用中的文档保存至 Roblox 网站
+Studio.App.RBXMainWindow.SaveDocWithNewName,,,Save the active document with a new name,Save the active document with a new name,새 이름으로 활성 문서 저장,Сохранить активный документ с новым именем,用新名称保存使用中的文档
 Studio.App.RBXMainWindow.SaveLocalizationTable,,,Save the selected LocalizationTable to a CSV file,Save the selected LocalizationTable to a CSV file,선택 LocalizationTable을 CSV 파일로 저장,Сохранить выбранную таблицу локализации в CSV-файл,将选中的本地化表格保存至 CSV 文件
 Studio.App.RBXMainWindow.SaveLocalizationTableElps,,,Save LocalizationTable to CSV file...,Save LocalizationTable to CSV file...,LocalizationTable을 CSV 파일로 저장...,Сохранить таблицу локализации в CSV-файл...,保存本地化表格至 CSV 文件...
 Studio.App.RBXMainWindow.SaveSelectionAsModel,,,Save the selection as a Model to a file,Save the selection as a Model to a file,선택 항목을 모델로 파일에 저장,Сохранить выбранное в виде модели в файле,将选中内容作为模型保存至文件
 Studio.App.RBXMainWindow.SaveSelectionToFileElps,,,Save selection to file...,Save selection to file...,선택 항목을 파일에 저장...,Сохранить выбранное в файл...,将选中内容保存至文件...
-Studio.App.RBXMainWindow.SaveTheActiveDocument,,,Save the active document,Save the active document,활성 문서 저장,Сохранить активный документ,保存活跃文档
+Studio.App.RBXMainWindow.SaveTheActiveDocument,,,Save the active document,Save the active document,활성 문서 저장,Сохранить активный документ,保存使用中的文档
 Studio.App.RBXMainWindow.SaveToFileElps,,,Save to File...,Save to File...,파일에 저장...,Сохранить в файл...,保存到文件...
 Studio.App.RBXMainWindow.SaveToRoblox,,,Save to Roblox,Save to Roblox,Roblox에 저장,Сохранить в Roblox,保存至 Roblox
 Studio.App.RBXMainWindow.SaveToRobloxElps,,,Save to Roblox...,Save to Roblox...,Roblox에 저장...,Сохранить в Roblox...,保存至 Roblox...
@@ -743,7 +743,7 @@ Studio.App.RobloxRibbonMainWindow.Always,,,Always,Always,항상,Всегда,总
 Studio.App.RobloxRibbonMainWindow.AlwaysJoinAdjacentParts,,,Always join adjacent parts,Always join adjacent parts,인접 파트 항상 이음,Всегда соединять соседние детали,总是与相邻部件结合
 Studio.App.RobloxRibbonMainWindow.Anchor,,,Anchor ,Anchor ,앵커 ,Закрепление,锚固 
 Studio.App.RobloxRibbonMainWindow.AngularVelocity,,,Angular Velocity,Angular Velocity,각속도,Угловая скорость,角速度
-Studio.App.RobloxRibbonMainWindow.AssetIdOfTexture,,,Specifies the asset id of the texture to display,Specifies the asset id of the texture to display,표시할 텍스처의 애셋 ID 지정,"Указывает идентификатор ресурса для текстуры, которую необходимо отобразить",指定要显示的纹理的资产 ID
+Studio.App.RobloxRibbonMainWindow.AssetIdOfTexture,,,Specifies the asset id of the texture to display,Specifies the asset id of the texture to display,표시할 텍스처의 애셋 ID 지정,"Указывает идентификатор ресурса для текстуры, которую необходимо отобразить",指定要显示的纹理资源 ID
 Studio.App.RobloxRibbonMainWindow.AttachAHingeToAPart,,,Attach a hinge to a part,Attach a hinge to a part,파트에 힌지 첨부,Присоедините петлю к детали,将铰链连接至部件
 Studio.App.RobloxRibbonMainWindow.AttachAMotorToAPart,,,Attach a motor to a part,Attach a motor to a part,파트에 모터 첨부,Присоедините двигатель к детали,将转子连接至部件
 Studio.App.RobloxRibbonMainWindow.Attachment,,,Attachment,Attachment,첨부,Оснастка,附件
@@ -861,7 +861,7 @@ Studio.App.RobloxRibbonMainWindow.Network,,,Network,Network,네트워크,Сет�
 Studio.App.RobloxRibbonMainWindow.None,,,None,None,없음,Нет,无
 Studio.App.RobloxRibbonMainWindow.OpenSaveManageDoc,,,"Click here to open, save or publish, and to see everything else you can do with the document","Click here to open, save or publish, and to see everything else you can do with the document","여기를 클릭해 열고, 저장하거나 게시하고, 문서로 무엇을 할 수 있는지 확인하세요","Щелкните здесь, чтобы открыть, сохранить или опубликовать документ, а также узнать о других действиях с документом",单击这里打开、保存或发布文档，以及查看可以对文档进行的其他操作
 Studio.App.RobloxRibbonMainWindow.OpenTheLocalPluginsFolder,,,Open the local plugins folder,Open the local plugins folder,로컬 플러그인 폴더 열기,Откройте папку локальных плагинов,打开本地插件文件夹
-Studio.App.RobloxRibbonMainWindow.OutputFeedOfScripts,,,See the output feed of your scripts,See the output feed of your scripts,스크립트의 출력 피드 보기,Посмотреть скорость вывода ваших скриптов,查看脚本的输出 Feed 流
+Studio.App.RobloxRibbonMainWindow.OutputFeedOfScripts,,,See the output feed of your scripts,See the output feed of your scripts,스크립트의 출력 피드 보기,Посмотреть скорость вывода ваших скриптов,查看脚本的输出摘要
 Studio.App.RobloxRibbonMainWindow.Part,,,Part,Part,파트,Деталь,部件
 Studio.App.RobloxRibbonMainWindow.Parts,,,Parts,Parts,파트,Детали,部件
 Studio.App.RobloxRibbonMainWindow.PasteItemInClipboard,,,Paste item in clipboard,Paste item in clipboard,클립보드에 아이템 붙여넣기,Вставить элемент из буфера обмена,粘贴剪贴板中的项目
@@ -1177,7 +1177,7 @@ Studio.App.PackageMassUpdate.Cancelling,,,Cancelling...,Cancelling...,취소 중
 Studio.App.PackageMassUpdate.Current,,,Current,Current,현재,Текущая,当前
 Studio.App.PackageMassUpdate.MassUpdate,,,Mass Update,Mass Update,대량 업데이트,Массовое обновление,批量更新
 Studio.App.PackageMassUpdate.PublishedOn,,,Published on,Published on,게시,Опубликовано на,发布日期
-Studio.App.PackageMassUpdate.UpdateDescription1,,,Update all <b>%1</b> copies in the following places of this game to,Update all <b>%1</b> copies in the following places of this game to,이 게임의 다음 플레이스에 있는 <b>%1</b>개 사본 다음으로 업데이트,Обновите все копии <b>%1</b> в следующих местах этой игры:,更新以下游戏场景的所有 <b>%1</b> 个副本
+Studio.App.PackageMassUpdate.UpdateDescription1,,,Update all <b>%1</b> copies in the following places of this game to,Update all <b>%1</b> copies in the following places of this game to,이 게임의 다음 플레이스에 있는 <b>%1</b>개 사본 다음으로 업데이트,Обновите все копии <b>%1</b> в следующих местах этой игры:,更新以下游戏场景的所有 <b>%1</b> 副本
 Studio.App.PackageMassUpdate.UpdateFailed,,,Update Failed,Update Failed,업데이트 실패,Не удалось выполнить обновление,更新失败
 Studio.App.PackageMassUpdate.Updated,,,Updated,Updated,업데이트됨,Обновление выполнено,已更新
 Studio.App.PackageMassUpdate.UpdatingProgress1,,,Updating (%1%),Updating (%1%),업데이트 중(%1%),Идет обновление (%1%),正在更新 (%1%)
@@ -1575,7 +1575,7 @@ Studio.App.DebuggerClientManager.Disable,,,Disable,Disable,비활성화,Откл
 Studio.App.DebuggerClientManager.KeepBreakingOnError,,,Keep breaking on error,Keep breaking on error,오류로 인한 지속적인 장애 발생,Останавливать при появлении ошибки,持续错误
 Studio.App.EmbeddedFindReplaceWidget.Close,,,Close,Close,닫기,Закрыть,关闭
 Studio.App.EmulatorMainWidget.ConsoleSectionName,,,Console,Console,콘솔,Консоль,游戏主机
-Studio.App.EmulatorMainWidget.CustomDeviceSectionName,,,Custom Device,Custom Device,사용자 정의 기기,Пользовательское устройство,自定义装置
+Studio.App.EmulatorMainWidget.CustomDeviceSectionName,,,Custom Device,Custom Device,사용자 정의 기기,Пользовательское устройство,自定义设备
 Studio.App.EmulatorMainWidget.DesktopSectionName,,,Desktop,Desktop,데스크톱,Рабочий стол,桌机
 Studio.App.EmulatorMainWidget.ManageDevices,,,Manage Devices,Manage Devices,기기 관리,Управление устройствами,管理设备
 Studio.App.EmulatorMainWidget.PhoneSectionName,,,Phone,Phone,휴대폰,Телефон,手机
@@ -1761,7 +1761,7 @@ Studio.App.RobloxStudioVerbs.InsertOpenModel,,,Open Roblox Model,Open Roblox Mod
 Studio.App.RobloxStudioVerbs.LinkedSource,,,"Unable to create LinkedSource, see output for details.","Unable to create LinkedSource, see output for details.",LinkedSource를 생성할 수 없습니다. 자세한 내용은 출력에서 확인하세요.,"Невозможно создать LinkedSource, подробности см. в выводе.",无法创建 LinkedSource，请查看输出以了解更多信息。
 Studio.App.RobloxStudioVerbs.LoadCSVExt,,,LocalizationTable CSV (*.csv),LocalizationTable CSV (*.csv),LocalizationTable CSV (*.csv),CSV с LocalizationTable (*.csv),LocalizationTable CSV（*.csv）
 Studio.App.RobloxStudioVerbs.LoadCSVFile,,,Open LocalizationTable CSV,Open LocalizationTable CSV,LocalizationTable CSV 열기,Открыть CSV LocalizationTable,打开 LocalizationTable CSV
-Studio.App.RobloxStudioVerbs.PackageLinkCopy,,,Cannot copy selection(s) with PackageLink included!,Cannot copy selection(s) with PackageLink included!,PackageLink가 포함된 선택 항목은 복사할 수 없습니다!,Невозможно скопировать выбор(ы) вместе с PackageLink!,无法复制包括 PackageLink 的选项
+Studio.App.RobloxStudioVerbs.PackageLinkCopy,,,Cannot copy selection(s) with PackageLink included!,Cannot copy selection(s) with PackageLink included!,PackageLink가 포함된 선택 항목은 복사할 수 없습니다!,Невозможно скопировать выбор(ы) вместе с PackageLink!,无法复制包含 PackageLink 的选项
 Studio.App.RobloxStudioVerbs.PackageLinkCut,,,Cannot cut selection(s) with PackageLink included!,Cannot cut selection(s) with PackageLink included!,PackageLink가 포함된 선택 항목은 잘라낼 수 없습니다!,Невозможно вырезать выбор(ы) вместе с PackageLink!,无法剪切包括 PackageLink 的选项
 Studio.App.RobloxStudioVerbs.PackageLinkDuplicate,,,Cannot duplicate selection(s) with PackageLink included!,Cannot duplicate selection(s) with PackageLink included!,PackageLink가 포함된 선택 항목은 복제할 수 없습니다!,Невозможно дублировать выбор(ы) вместе с PackageLink!,无法重复包括 PackageLink 的选项！
 Studio.App.RobloxStudioVerbs.Redo1,,,Redo %s,Redo %s,%s 다시 실행,Вернуть %s,重做 %s
@@ -2036,7 +2036,7 @@ Studio.App.OpenIDEDocErr.CloudEditConnectCancelledByUser,,,User cancelled cloud 
 Studio.App.OpenIDEDocErr.HTTPCallFailed,,,"User unable to open the place. Please check that you are connected to the internet and try again. If you continue to encounter this error, please contact customer service.","User unable to open the place. Please check that you are connected to the internet and try again. If you continue to encounter this error, please contact customer service.",사용자가 장소를 열 수 없습니다. 인터넷에 연결되었는지 확인하고 다시 시도하세요. 이 오류가 계속 발생하면 고객 서비스팀에 문의하시기 바랍니다.,"Невозможно открыть место. Убедитесь, что вы подключены к Интернету, и повторите попытку. Если ошибка повторяется, пожалуйста, свяжитесь со службой поддержки.",用户无法打开该场景。请检查你是否已连接到互联网，然后重试。如果持续遇到此错误，请联系客户服务。
 Studio.App.OpenIDEDocErr.Others,,,"Unable to open the place. Please restart your application and try again. If you continue to encounter this error, please contact customer service.","Unable to open the place. Please restart your application and try again. If you continue to encounter this error, please contact customer service.",장소를 열 수 없습니다. 응용 프로그램을 재시작하고 다시 시도하세요. 이 오류가 계속 발생하면 고객 서비스팀에 문의하세요.,"Невозможно открыть место. Перезапустите приложение и попробуйте снова. Если ошибка сохраняется, пожалуйста, обратитесь в службу поддержки пользователей.",无法打开场景。请重新启动你的应用程序，然后重试。如果持续遇到此错误，请联系客户服务。
 Studio.App.PackageResourceController.ManagePackage,,,Manage Package,Manage Package,패키지 관리,Управление пакетом,管理软件包
-Studio.App.PackageUtilities.ModifiedPackagesInDMError,,,Error: Cannot publish place to Roblox while there are packages with unpublished changes.,Error: Cannot publish place to Roblox while there are packages with unpublished changes.,오류: 변경 사항이 게시되지 않은 패키지가 있으면 장소를 Roblox에 게시할 수 없어요.,"Ошибка: место не может быть опубликовано в Roblox, пока есть пакеты с неопубликованными изменениями.",错误: 存在未发布更改的软件包时，无法将场景发布到 Roblox。
+Studio.App.PackageUtilities.ModifiedPackagesInDMError,,,Error: Cannot publish place to Roblox while there are packages with unpublished changes.,Error: Cannot publish place to Roblox while there are packages with unpublished changes.,오류: 변경 사항이 게시되지 않은 패키지가 있으면 장소를 Roblox에 게시할 수 없어요.,"Ошибка: место не может быть опубликовано в Roblox, пока есть пакеты с неопубликованными изменениями.",错误：由于某些包存在未发布的更改，无法将场景发布至 Roblox。
 Studio.App.PackageUtilities.PendingPackagesInDMError,,,Unable to publish this place as there may be modified packages. Please try again later.,Unable to publish this place as there may be modified packages. Please try again later.,수정된 패키지가 있을 수 있으므로 이 장소를 게시할 수 없습니다. 나중에 다시 시도하세요.,Невозможно опубликовать место: возможно наличие измененных пакетов. Повторите попытку позже.,由于可能已修改套装，因此无法发布此场景。请稍后再试。
 Studio.App.PluginLoader.CloudLoadFailedFmt1,,,Failed to load installed plugins from cloud: %1,Failed to load installed plugins from cloud: %1,설치된 플러그인을 클라우드에서 불러오지 못했습니다. %1,Не удалось загрузить установленные плагины из облака: %1,无法从云加载已安装的插件: %1
 Studio.App.PluginLoader.CloudWriteFailedFmt1,,,Failed to write installed plugins to cloud: %1,Failed to write installed plugins to cloud: %1,설치된 플러그인을 클라우드에 쓰지 못했습니다. %1,Не удалось записать установленные плагины в облако: %1,无法将已安装的插件写入云: %1
@@ -2135,8 +2135,8 @@ Studio.App.RobloxRibbonMainWindow.DeviceEmulator,,,Device,Device,기기,Устр
 Studio.App.RobloxRibbonMainWindow.PlayerEmulator,,,Player,Player,플레이어,Игрок,玩家
 Studio.App.RobloxStudioVerbs.RevealInExplorer,,,Reveal In Explorer/Finder,Reveal In Explorer/Finder,탐색기/Finder에 표시,Открыть в проводнике/поисковике,在资源管理器/查找器中显示
 Studio.App.StartPageLogin.TwoStepVerificationEmailInstruction,,,Enter the code we just sent to you via email,Enter the code we just sent to you via email,이메일로 방금 전송한 코드를 입력하세요.,"Введите код, отправленный вам по email",请输入我们刚通过电子邮件发送给你的验证码
-Studio.App.StartPageLogin.TwoStepVerificationSmsInstruction,,,Enter the code we just sent to you via sms,Enter the code we just sent to you via sms,SMS로 방금 전송한 코드를 입력하세요.,"Введите код, отправленный вам по sms",输入我们刚通过短信发送给你的代码
-Studio.App.StartPageLogin.TwoStepVerificationTitle,,,2-Step Verification,2-Step Verification,2단계 인증,Двухэтапная проверка,双重验证
+Studio.App.StartPageLogin.TwoStepVerificationSmsInstruction,,,Enter the code we just sent to you via sms,Enter the code we just sent to you via sms,SMS로 방금 전송한 코드를 입력하세요.,"Введите код, отправленный вам по sms",输入我们刚通过短信发送给你的验证码
+Studio.App.StartPageLogin.TwoStepVerificationTitle,,,2-Step Verification,2-Step Verification,2단계 인증,Двухэтапная проверка,两步验证
 Studio.App.BetaFeatures.InsertObjectStreamliningDescription,,,Enables a new unified workflow for inserting objects.,Enables a new unified workflow for inserting objects.,개체 삽입을 위한 새로운 통합 워크플로를 활성화합니다.,Включает новый унифицированный рабочий процесс для вставки объектов.,启用用于插入对象的新的统一工作流程。
 Studio.App.BetaFeatures.InsertObjectStreamliningTitle,,,Insert Object Streamlining,Insert Object Streamlining,개체 삽입 간소화,Вставить обтекаемую форму объекта,插入对象精简
 Studio.App.BetaFeatures.NewScriptFoldStateDescription,,,Enables new improved behavior for code folding in the Script Editor.,Enables new improved behavior for code folding in the Script Editor.,스크립트 편집기의 코드 폴드에 대한 새로운 개선된 동작을 활성화합니다.,Включает новое улучшенное поведение для сворачивания кода в Редакторе скриптов.,为脚本编辑器中的代码折叠启用新的改进行为。
@@ -2166,7 +2166,7 @@ Studio.App.Property.HttpProxyURL,,,Proxy URL,Proxy URL,프록시 URL,URL про�
 Studio.App.RBXMainWindow.OpenAutoSaves,,,Open Auto Saves,Open Auto Saves,자동 저장 항목 열기,Открыть автосохранения,打开自动存档
 Studio.App.RBXMainWindow.OpenAutoSavesFolder,,,Open Auto Saves Folder,Open Auto Saves Folder,자동 저장 폴더 열기,Открыть папку с автосохранениями,打开自动存档文件夹
 Studio.App.RenderScheduler.FailedToBindToWorkspace,,,Failed to Bind to Workspace. Please restart Studio in order to resolve the issue.,Failed to Bind to Workspace. Please restart Studio in order to resolve the issue.,작업 공간에 바인딩하지 못했습니다. 문제를 해결하려면 Studio를 다시 시작하세요.,Не удалась привязка к рабочей области. Для устранения ошибки перезапустите программу.,绑定至工作区失败。请重新启动 Studio 以解决此问题。
-Studio.App.RobloxChatWidget.ContentModerated,,,Content was moderated. Message not sent.,Content was moderated. Message not sent.,콘텐츠가 검열되었습니다. 메시지가 전송되지 않습니다.,Конекст прошел модерацию. Сообщение не отправлено.,内容已审核，信息未发送。
+Studio.App.RobloxChatWidget.ContentModerated,,,Content was moderated. Message not sent.,Content was moderated. Message not sent.,콘텐츠가 검열되었습니다. 메시지가 전송되지 않습니다.,Конекст прошел модерацию. Сообщение не отправлено.,内容已被过滤，信息未发送。
 Studio.App.RobloxChatWidget.SendAMessage,,,Send a message,Send a message,메시지 전송,Отправить сообщение,发送信息
 Studio.App.RobloxMainWindow.OpenMeshFile,,,Open Mesh File,Open Mesh File,메시 파일 열기,Открыть файл сетки,打开网格文件
 Studio.App.RobloxMainWindow.OpenMeshFilesPattern,,,Mesh Files (*.fbx *.obj),Mesh Files (*.fbx *.obj),메시 파일(*.fbx *.obj),Файлы сетки (*.fbx *.obj),网格文件 (*.fbx *.obj)
@@ -2183,8 +2183,161 @@ Studio.App.RobloxStudioVerbs.UnionFailed,,,Union failed,Union failed,결합 실�
 Studio.App.RobloxViewStudio.UseLocalSpace,,,Use Local Space,Use Local Space,로컬 공간 사용,Использовать локальное место,使用本地空间
 Studio.App.RobloxViewStudio.UseWorldSpace,,,Use World Space,Use World Space,월드 공간 사용,Использовать место в мировом пространстве,使用世界空间
 Studio.App.UserPlaceCreatorsListWidget.Offline,,,Offline,Offline,오프라인,Не в сети,离线
-Studio.App.UserPlaceCreatorsListWidget.PlaceOwner,,,Place Owner,Place Owner,플레이스 소유자,Владелец места,空间所有者
-Studio.App.UserPlaceCreatorsListWidget.PlaceOwnerOffline,,,Place Owner (Offline),Place Owner (Offline),플레이스 소유자(오프라인),Владелец места (не в сети),空间所有者 (离线)
+Studio.App.UserPlaceCreatorsListWidget.PlaceOwner,,,Place Owner,Place Owner,플레이스 소유자,Владелец места,场景所有者
+Studio.App.UserPlaceCreatorsListWidget.PlaceOwnerOffline,,,Place Owner (Offline),Place Owner (Offline),플레이스 소유자(오프라인),Владелец места (не в сети),场景所有者 (离线)
+Studio.App.BulkImportController.ImagesSupportedTypes1,,,Images (%1),Images (%1),,,
+Studio.App.BulkImportController.MeshesSupportedTypes1,,,Meshes (%1),Meshes (%1),,,
+Studio.App.BulkImport.ClearWindow,,,Clear Window,Clear Window,,,
+Studio.App.DraftsServiceHost.ConfirmScriptDeleteButton,,,Delete,Delete,,,
+Studio.App.InsertObjectWidget.NoResultsFound,,,No Results Found,No Results Found,,,
+Studio.App.MainWindow.AmongRegisteredTrademarks2,,,"<i>Roblox</i>, the Roblox <i>logo</i> and <i>Powering Imagination</i> are among our registered and unregistered trademarks in the U.S. and other countries.</p><p>Contact us at <a href='%1'>%2</a></p></div>","<i>Roblox</i>, the Roblox <i>logo</i> and <i>Powering Imagination</i> are among our registered and unregistered trademarks in the U.S. and other countries.</p><p>Contact us at <a href='%1'>%2</a></p></div>",,,
+Studio.App.Merge.DialogTitle1,,,Merge Server with Draft - %1,Merge Server with Draft - %1,,,
+Studio.App.QuickOpenDialog.Instance,,,Instance,Instance,,,
+Studio.App.QuickOpenDialog.Recent,,,Recent,Recent,,,
+Studio.App.QuickOpenDialog.ScriptOnly,,,Script Only,Script Only,,,
+Studio.App.QuickOpenDialog.ShowMore,,,Show More,Show More,,,
+Studio.App.QuickOpenDialog.SpaceAsWildcard,,,Space as Wildcard,Space as Wildcard,,,
+Studio.App.RBXMainWindow.BulkImport,,,Bulk Import,Bulk Import,,,
+Studio.App.RobloxRibbonMainWindow.ViewBulkImport,,,View Bulk Import,View Bulk Import,,,
+Studio.App.RobloxStudioVerbs.QuickOpen,,,Quick Open,Quick Open,,,
+Studio.App.Updates.BetaFeatureDescription,,,"Instead of blocking the opening of new Studio windows and test sessions when an update is available, cancellable prompts will periodically appear offering to update Studio","Instead of blocking the opening of new Studio windows and test sessions when an update is available, cancellable prompts will periodically appear offering to update Studio",,,
+Studio.App.Updates.BetaFeatureName,,,Safe Studio Updates,Safe Studio Updates,,,
+Studio.App.Updates.ShutdownConfirmationText,,,There is a new Studio update available. Shutdown to update?,There is a new Studio update available. Shutdown to update?,,,
+Studio.App.Updates.ShutdownPromptButton,,,Shutdown,Shutdown,,,
+Studio.App.Updates.UpdateAvailableToast,,,A new version of Studio is available,A new version of Studio is available,,,
+Studio.App.AddEmulationDeviceDialog.DeviceForm,,,Device Form:,Device Form:,,,
+Studio.App.AddEmulationDeviceDialog.GuiInsets,,,GuiInsets:,GuiInsets:,,,
+Studio.App.AddEmulationDeviceDialog.KeyboardAnimationDuration,,,Keyboard Animation Duration (s):,Keyboard Animation Duration (s):,,,
+Studio.App.AddEmulationDeviceDialog.KeyboardSettings,,,Keyboard Settings,Keyboard Settings,,,
+Studio.App.AddEmulationDeviceDialog.LandscapeKeyboardHeight,,,Keyboard Height (Landscape):,Keyboard Height (Landscape):,,,
+Studio.App.AddEmulationDeviceDialog.PortraitKeyboardHeight,,,Keyboard Height (Portrait):,Keyboard Height (Portrait):,,,
+Studio.App.BetaFeatures.PhysicsSleepImprovementsDescription,,,Set of changes that should make simulated parts awake and fall asleep more reliably.,Set of changes that should make simulated parts awake and fall asleep more reliably.,,,
+Studio.App.BetaFeatures.PhysicsSleepImprovementsTitle,,,Physics Sleep Behavior Improvements.,Physics Sleep Behavior Improvements.,,,
+Studio.App.BreakpointsTreeWidget.HeaderLabelCondition,,,Condition,Condition,,,
+Studio.App.BreakpointsTreeWidget.HeaderLabelEnabled,,,Enabled,Enabled,,,
+Studio.App.BreakpointsTreeWidget.HeaderLabelLine,,,Line,Line,,,
+Studio.App.BreakpointsTreeWidget.HeaderLabelScriptName,,,Script Name,Script Name,,,
+Studio.App.BreakpointsTreeWidget.HeaderLabelSourceLine,,,Source Line,Source Line,,,
+Studio.App.CommitScriptsDialog.CommitButtonText,,,Commit,Commit,,,
+Studio.App.CommitScriptsDialog.CommitMessagePlaceHolderText,,,Add a comment to describe what changed,Add a comment to describe what changed,,,
+Studio.App.CommitScriptsDialog.ScriptSectionHeader,,,Script,Script,,,
+Studio.App.CommitScriptsDialog.Title,,,Commit Scripts,Commit Scripts,,,
+Studio.App.DraftsServiceHost.CommitRejected,,,"Some of the scripts cannot be committed.
+Please check their status first.","Some of the scripts cannot be committed.
+Please check their status first.",,,
+Studio.App.DraftsServiceHost.CommitRejectedInProgress,,,"Server rejected commit.
+Someone else is committing changes.","Server rejected commit.
+Someone else is committing changes.",,,
+Studio.App.DraftsServiceHost.CommitRejectedInternalError,,,"Server rejected commit due to internal error.
+Please try again later","Server rejected commit due to internal error.
+Please try again later",,,
+Studio.App.DraftsServiceHost.ServerCompareRemoved1,,,Unable to compare draft '%1' with server version because script has been removed from Workspace,Unable to compare draft '%1' with server version because script has been removed from Workspace,,,
+Studio.App.DraftsServiceHost.UpdateCacheMissing1,,,Unable to update draft '%1' because local cache missing data,Unable to update draft '%1' because local cache missing data,,,
+Studio.App.DraftsServiceHost.UpdateRemoved1,,,Unable to update draft '%1' because script has been removed from Workspace,Unable to update draft '%1' because script has been removed from Workspace,,,
+Studio.App.EmulatorMainWidget.Android,,,Android,Android,,,
+Studio.App.EmulatorMainWidget.AndroidTV,,,AndroidTV,AndroidTV,,,
+Studio.App.EmulatorMainWidget.BeOS,,,BeOS,BeOS,,,
+Studio.App.EmulatorMainWidget.Chromecast,,,Chromecast,Chromecast,,,
+Studio.App.EmulatorMainWidget.DOS,,,DOS,DOS,,,
+Studio.App.EmulatorMainWidget.Landscape,,,Landscape,Landscape,,,
+Studio.App.EmulatorMainWidget.LandscapeLeft,,,LandscapeLeft,LandscapeLeft,,,
+Studio.App.EmulatorMainWidget.LandscapeLeftSpace,,,Landscape Left,Landscape Left,,,
+Studio.App.EmulatorMainWidget.LandscapeRight,,,LandscapeRight,LandscapeRight,,,
+Studio.App.EmulatorMainWidget.LandscapeRightSpace,,,Landscape Right,Landscape Right,,,
+Studio.App.EmulatorMainWidget.LandscapeSensor,,,LandscapeSensor,LandscapeSensor,,,
+Studio.App.EmulatorMainWidget.Linux,,,Linux,Linux,,,
+Studio.App.EmulatorMainWidget.MockAndroidBackButton,,,Simulate a click on the Android Back button,Simulate a click on the Android Back button,,,
+Studio.App.EmulatorMainWidget.ModeNotEnabledMessage1,,,"%1 mode is not enabled for your game. To enable it, %2 set the ","%1 mode is not enabled for your game. To enable it, %2 set the ",,,
+Studio.App.EmulatorMainWidget.ModeNotEnabledMessage2,,,setting of StarterGui to,setting of StarterGui to,,,
+Studio.App.EmulatorMainWidget.ModeNotEnabledMessageOr,,,or,or,,,
+Studio.App.EmulatorMainWidget.ModeNotEnabledTitle,,,%1 Not Enabled,%1 Not Enabled,,,
+Studio.App.EmulatorMainWidget.NX,,,NX,NX,,,
+Studio.App.EmulatorMainWidget.None,,,None,None,,,
+Studio.App.EmulatorMainWidget.OSX,,,OSX,OSX,,,
+Studio.App.EmulatorMainWidget.Ouya,,,Ouya,Ouya,,,
+Studio.App.EmulatorMainWidget.PS3,,,PS3,PS3,,,
+Studio.App.EmulatorMainWidget.PS4,,,PS4,PS4,,,
+Studio.App.EmulatorMainWidget.Portrait,,,Portrait,Portrait,,,
+Studio.App.EmulatorMainWidget.ScreenOrientation,,,ScreenOrientation,ScreenOrientation,,,
+Studio.App.EmulatorMainWidget.Sensor,,,Sensor,Sensor,,,
+Studio.App.EmulatorMainWidget.SteamOS,,,SteamOS,SteamOS,,,
+Studio.App.EmulatorMainWidget.UWP,,,UWP,UWP,,,
+Studio.App.EmulatorMainWidget.WebOS,,,WebOS,WebOS,,,
+Studio.App.EmulatorMainWidget.WiiU,,,WiiU,WiiU,,,
+Studio.App.EmulatorMainWidget.Windows,,,Windows,Windows,,,
+Studio.App.EmulatorMainWidget.XBox360,,,XBox360,XBox360,,,
+Studio.App.EmulatorMainWidget.XBoxOne,,,XBoxOne,XBoxOne,,,
+Studio.App.EmulatorMainWidget.iOS,,,iOS,iOS,,,
+Studio.App.EntityProperties.NetworkFailedOperation,,,"Operation failed. Please check your network connection and try again. If the error persists, contact Customer Support","Operation failed. Please check your network connection and try again. If the error persists, contact Customer Support",,,
+Studio.App.GenericResourceController.RemovingGameAsset,,,Removing game asset(s),Removing game asset(s),,,
+Studio.App.IdeDoc.UnableToDeterminePlaceUniverse,,,"Unable to determine place/universe, proceeding with Edit alone","Unable to determine place/universe, proceeding with Edit alone",,,
+Studio.App.InsertObjectUtils.CannotBeChildOf,,,%s cannot be a child of %s,%s cannot be a child of %s,,,
+Studio.App.InsertObjectWidget.ExpandTooltip,,,Toggle expanded view,Toggle expanded view,,,
+Studio.App.InsertObject.MultipleSelectionError,,,InsertObject: Cannot do insert object when there are multiple selections. Please make sure you select a valid target object.,InsertObject: Cannot do insert object when there are multiple selections. Please make sure you select a valid target object.,,,
+Studio.App.LocalPlacePublishRequestMediator.ErrorWhileSaving1,,,Error while publishing: %1,Error while publishing: %1,,,
+Studio.App.PropertyItems.ImportingMesh,,,Importing mesh...,Importing mesh...,,,
+Studio.App.PropertyItems.LoadStringEnbledWarning,,,Activating the <b>%1</b> property might make your game vulnerable to exploits. Are you sure you want to enable this?,Activating the <b>%1</b> property might make your game vulnerable to exploits. Are you sure you want to enable this?,,,
+Studio.App.PropertyItems.PackageVersionFailedMessage,,,Unable to perform this action.,Unable to perform this action.,,,
+Studio.App.PropertyItems.RevertPackageConfirmation,,,Are you sure you want to revert this package to version %1 ?,Are you sure you want to revert this package to version %1 ?,,,
+Studio.App.Property.LocalAssetsFolder,,,Local Assets Folder,Local Assets Folder,,,
+Studio.App.QtUtilities.DisabledDuringTesting,,,Disabled during testing,Disabled during testing,,,
+Studio.App.RBXMainWindow.DebugAsBuiltinPlugin,,,Debug as Built-in Plugin,Debug as Built-in Plugin,,,
+Studio.App.RBXMainWindow.DebugAsPlugin,,,Debug as Plugin,Debug as Plugin,,,
+Studio.App.RBXMainWindow.InsertObjectsWidgetMenu,,,Open insert object menu,Open insert object menu,,,
+Studio.App.RBXMainWindow.QuickFindScriptUseCtrlP,,,"This Dialog is deprecated, please use Quick Open (Ctrl+P) instead","This Dialog is deprecated, please use Quick Open (Ctrl+P) instead",,,
+Studio.App.RBXMainWindow.StartRemoteDebug,,,Start Remote Debug,Start Remote Debug,,,
+Studio.App.RobloxChatWidget.ChattingWith,,,Chatting with %1,Chatting with %1,,,
+Studio.App.RobloxChatWidget.DisabledChatMessage,,,%1 Turn on chat in your %2 Privacy Settings %3 to chat with friends! %4,%1 Turn on chat in your %2 Privacy Settings %3 to chat with friends! %4,,,
+Studio.App.RobloxChatWidget.FailedSendAMessage,,,Failed to send message: ,Failed to send message: ,,,
+Studio.App.RobloxChatWidget.NotFriendErrorMessage,,,Individual chat is available only for friends. Please friend '%1' or use group chat to talk.,Individual chat is available only for friends. Please friend '%1' or use group chat to talk.,,,
+Studio.App.RobloxDiagnosticsView.HeaderLabelName,,,Name,Name,,,
+Studio.App.RobloxDiagnosticsView.HeaderLabelValue,,,Value,Value,,,
+Studio.App.RobloxMouseConfig.RightClick,,,Right Click,Right Click,,,
+Studio.App.RobloxMouseConfig.RightClickAlt,,,Right Click + Alt,Right Click + Alt,,,
+Studio.App.RobloxMouseConfig.RightClickCtrl,,,Right Click + Ctrl,Right Click + Ctrl,,,
+Studio.App.RobloxMouseConfig.RightClickShift,,,Right Click + Shift,Right Click + Shift,,,
+Studio.App.RobloxRibbonMainWindow.AddDebugPlugin,,,Add Debug Plugin,Add Debug Plugin,,,
+Studio.App.RobloxScriptDiffDoc.DiffResult,,,Diff Result,Diff Result,,,
+Studio.App.RobloxScriptReview.HeaderLabelActivity,,,Activity,Activity,,,
+Studio.App.RobloxScriptReview.HeaderLabelCount,,,Count,Count,,,
+Studio.App.RobloxScriptReview.HeaderLabelName,,,Name,Name,,,
+Studio.App.RobloxScriptReview.HeaderLabelRate,,,Rate,Rate,,,
+Studio.App.RobloxStudioVerbs.Publishing,,,Publishing,Publishing,,,
+Studio.App.RobloxStudioVerbs.RemoteDebug,,,Remote Debug,Remote Debug,,,
+Studio.App.RobloxStudioVerbs.RemoteDebugSaveFailure,,,Remote Debug - save failure,Remote Debug - save failure,,,
+Studio.App.RobloxStudioVerbs.SavingTo,,,Saving to Roblox...,Saving to Roblox...,,,
+Studio.App.RobloxStudioVerbs.ScreenshotSaved,,,Screenshot saved! Click here to open screenshot folder.,Screenshot saved! Click here to open screenshot folder.,,,
+Studio.App.RobloxStudioVerbs.StartingPlayers,,,Starting players,Starting players,,,
+Studio.App.RobloxTaskScheduler.HeaderLabelActivity,,,Activity,Activity,,,
+Studio.App.RobloxTaskScheduler.HeaderLabelName,,,Name,Name,,,
+Studio.App.RobloxTaskScheduler.HeaderLabelRate,,,Rate,Rate,,,
+Studio.App.RobloxTaskScheduler.HeaderLabelTime,,,Time,Time,,,
+Studio.App.RobloxTeamCreateWidget.GroupOwnedPlace,,,Group owned place,Group owned place,,,
+Studio.App.ScriptTextEditor.FilterText,,,  Type to filter functions. Tab or Enter to go to selected function,  Type to filter functions. Tab or Enter to go to selected function,,,
+Studio.App.ScriptsInBatchDialog.ScriptSectionHeader,,,Script,Script,,,
+Studio.App.ScriptsInBatchDialog.Title,,,Scripts In Batch,Scripts In Batch,,,
+Studio.App.ScriptsInBatchDialog.VersionSectionHeader,,,Version,Version,,,
+Studio.App.ShareModal.SearchPlaceholderText,,,Search for friends,Search for friends,,,
+Studio.App.Tooltip.GoToSource,,,Go to source,Go to source,,,
+Studio.App.VersionHistoryDialog.BatchColumnTitle,,,Scripts in Batch,Scripts in Batch,,,
+Studio.App.VersionHistoryDialog.CommentColumnTitle,,,Comment,Comment,,,
+Studio.App.VersionHistoryDialog.CommittedColumnTitle,,,Committed,Committed,,,
+Studio.App.VersionHistoryDialog.CommitterColumnTitle,,,Changed By,Changed By,,,
+Studio.App.VersionHistoryDialog.CompareButtonText,,,Compare selected versions,Compare selected versions,,,
+Studio.App.VersionHistoryDialog.CompareWithPreviousButtonText,,,Compare with previous version,Compare with previous version,,,
+Studio.App.VersionHistoryDialog.CurrentVersionLabel1,,,%1 (Current),%1 (Current),,,
+Studio.App.VersionHistoryDialog.EditAllButtonText,,,Edit all scripts from the batch,Edit all scripts from the batch,,,
+Studio.App.VersionHistoryDialog.EditThisButtonText,,,Edit this script,Edit this script,,,
+Studio.App.VersionHistoryDialog.NoScriptHistoryWarning,,,There is no saved history for this script,There is no saved history for this script,,,
+Studio.App.VersionHistoryDialog.OpenDialog,,,View Script History,View Script History,,,
+Studio.App.VersionHistoryDialog.PlaceVersionColumnTitle,,,Place Version,Place Version,,,
+Studio.App.VersionHistoryDialog.PlaceVersionLabel1,,,Place V%1,Place V%1,,,
+Studio.App.VersionHistoryDialog.ShowBatchContentsLink,,,Show,Show,,,
+Studio.App.VersionHistoryDialog.Title1,,,%1 - Version History,%1 - Version History,,,
+Studio.App.VersionHistoryDialog.VersionColumnTitle,,,Version,Version,,,
+Studio.App.VersionHistoryDialog.ViewButtonText,,,View,View,,,
+Studio.App.VideoControl.RecordingStarted,,,Video recording started,Video recording started,,,
+Studio.App.VideoControl.RecordingStopped,,,Video recording stopped,Video recording stopped,,,
 Studio.Common.Action.Apply,,,Apply,Apply,적용,Применить,应用
 Studio.Common.Action.Back,,,Back,Back,뒤로,Назад,返回
 Studio.Common.Action.Cancel,,,Cancel,Cancel,취소,Отмена,取消

@@ -2,6 +2,7 @@ local CorePackages = game:GetService("CorePackages")
 local Players = game:GetService("Players")
 
 local MockId = require(CorePackages.AppTempCommon.LuaApp.MockId)
+local isDisplayNamesEnabled = require(CorePackages.AppTempCommon.LuaApp.Flags.isDisplayNamesEnabled)
 
 local User = {}
 
@@ -36,6 +37,10 @@ function User.mock()
 	self.thumbnails = nil
 	self.lastOnline = nil
 
+	if isDisplayNamesEnabled() then
+		self.displayName = "🦗" .. self.name
+	end
+
 	return self
 end
 
@@ -56,6 +61,10 @@ function User.fromData(id, name, isFriend)
 	self.presence = (self.id == tostring(Players.LocalPlayer.UserId)) and User.PresenceType.ONLINE or nil
 	self.thumbnails = nil
 	self.lastOnline = nil
+
+	if isDisplayNamesEnabled() then
+		self.displayName = "🦗" .. self.name
+	end
 
 	return self
 end

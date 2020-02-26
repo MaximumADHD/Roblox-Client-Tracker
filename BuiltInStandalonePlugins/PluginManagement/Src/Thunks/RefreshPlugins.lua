@@ -7,28 +7,34 @@ local SetPluginInfo = require(Plugin.Src.Actions.SetPluginInfo)
 local ClearAllPluginData = require(Plugin.Src.Actions.ClearAllPluginData)
 
 local FFlagPluginManagementAllowLotsOfPlugins2 = settings():GetFFlag("PluginManagementAllowLotsOfPlugins2")
+local FFlagEnablePluginPermissionsPage = settings():GetFFlag("EnablePluginPermissionsPage2")
 
-local function extractPluginsFromJsonString(json)
-	local success, decoded = xpcall(
-		function()
-			return HttpService:JSONDecode(json)
-		end,
-		function(_)
-			return {}
+local extractPluginsFromJsonString
+if FFlagEnablePluginPermissionsPage then
+	extractPluginsFromJsonString = require(Plugin.Src.Util.extractPluginsFromJsonString)
+else
+	extractPluginsFromJsonString = function(json)
+		local success, decoded = xpcall(
+			function()
+				return HttpService:JSONDecode(json)
+			end,
+			function(_)
+				return {}
+			end
+		)
+		if not success then return {} end
+
+		local result = {}
+		for id, data in pairs(decoded) do
+			local newEntry = {}
+			newEntry.assetId = id
+			newEntry.enabled = data.Enabled
+			newEntry.installedVersion = data.AssetVersion
+			newEntry.isModerated = data.Moderated
+			result[#result+1] = newEntry
 		end
-	)
-	if not success then return {} end
-
-	local result = {}
-	for id, data in pairs(decoded) do
-		local newEntry = {}
-		newEntry.assetId = id
-		newEntry.enabled = data.Enabled
-		newEntry.installedVersion = data.AssetVersion
-		newEntry.isModerated = data.Moderated
-		result[#result+1] = newEntry
+		return result
 	end
-	return result
 end
 
 return function(apiImpl, marketplaceService)

@@ -18,7 +18,6 @@
 
 local FFlagToolboxShowGroupCreations = game:GetFastFlag("ToolboxShowGroupCreations")
 local FFlagToolboxHideSearchForMyPlugins = game:DefineFastFlag("ToolboxHideSearchForMyPlugins", false)
-local FFlagToolboxReplaceSearchBar = game:DefineFastFlag("ToolboxReplaceSearchBar", false)
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -41,15 +40,13 @@ local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
 
 local DropdownMenu = require(Plugin.Core.Components.DropdownMenu)
-local DEPRECATED_SearchBar = require(Plugin.Core.Components.SearchBar.SearchBar)
+local SearchBar = require(Plugin.Core.Components.SearchBar.SearchBar)
 local SearchOptionsButton = require(Plugin.Core.Components.SearchOptions.SearchOptionsButton)
 
 local RequestSearchRequest = require(Plugin.Core.Networking.Requests.RequestSearchRequest)
 local SelectCategoryRequest = require(Plugin.Core.Networking.Requests.SelectCategoryRequest)
 local SelectGroupRequest = require(Plugin.Core.Networking.Requests.SelectGroupRequest)
 
-local UILibrary = require(Libs.UILibrary)
-local SearchBar = UILibrary.Component.SearchBar
 
 local Header = Roact.PureComponent:extend("Header")
 
@@ -190,17 +187,7 @@ function Header:render()
 					onItemClicked = onCategorySelected,
 				}),
 
-				SearchBar = FFlagToolboxReplaceSearchBar and showSearchBar and Roact.createElement(SearchBar, {
-					Width = searchBarWidth,
-					LayoutOrder = 1,
-
-					SearchTerm = searchTerm,
-					DefaultText = localizedContent["SearchBarDefaultText"],
-					ShowSearchButton = true,
-					OnSearchRequested = onSearchRequested,
-				}),
-
-				DEPRECATED_SearchBar = not FFlagToolboxReplaceSearchBar and showSearchBar and Roact.createElement(DEPRECATED_SearchBar, {
+				SearchBar = showSearchBar and Roact.createElement(SearchBar, {
 					width = searchBarWidth,
 					LayoutOrder = 1,
 

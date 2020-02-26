@@ -42,7 +42,7 @@ Constants.HTTP_OVERVIEW_ICON_SIZE = 16
 Constants.DETAILS_THUMBNAIL_SIZE = 32
 Constants.LIST_ITEM_TITLE_WIDTH = 170
 Constants.PERMISSION_TYPES = {
-    HttpPermission = "HttpPermission",
+    HttpService = "HttpService",
 }
 
 -- Workaround because the ScrollbarInset does not work.

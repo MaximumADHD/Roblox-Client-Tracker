@@ -18,8 +18,6 @@
 			logic should be handled outside of this component.
 ]]
 
-local FFlagToolboxReplaceSearchBar = game:GetFastFlag("ToolboxReplaceSearchBar")
-
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
@@ -28,10 +26,7 @@ local Roact = require(Libs.Roact)
 local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 local withLocalization = ContextHelper.withLocalization
 
-local UILibrary = require(Libs.UILibrary)
-local SearchBar = UILibrary.Component.SearchBar
-
-local DEPRECATED_SearchBar = require(Plugin.Core.Components.SearchBar.SearchBar)
+local SearchBar = require(Plugin.Core.Components.SearchBar.SearchBar)
 local LiveSearchDropdown = require(Plugin.Core.Components.SearchOptions.LiveSearchDropdown)
 
 local LiveSearchBar = Roact.PureComponent:extend("LiveSearchBar")
@@ -112,19 +107,7 @@ function LiveSearchBar:render()
 
 			[Roact.Ref] = self.frameRef,
 		}, {
-
-			SearchBar = FFlagToolboxReplaceSearchBar and Roact.createElement(SearchBar, {
-				Width = width,
-
-				SearchTerm = searchTerm,
-				DefaultText = localizedContent["SearchBarDefaultText"],
-				ShowSearchButton = true,
-				OnSearchRequested = self.onTextChanged,
-				OnTextChanged = self.onTextChanged,
-				IsLive = true,
-			}),
-
-			DEPRECATED_SearchBar = not FFlagToolboxReplaceSearchBar and Roact.createElement(DEPRECATED_SearchBar, {
+			SearchBar = Roact.createElement(SearchBar, {
 				width = width,
 				onTextChanged = self.onTextChanged,
 				onSearchRequested = self.onTextChanged,

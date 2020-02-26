@@ -114,8 +114,8 @@ function BaseCamera.new()
 	-- is trying to maintain, not the actual measured value.
 	-- The default is updated when screen orientation or the min/max distances change,
 	-- to be sure the default is always in range and appropriate for the orientation.
-	self.defaultSubjectDistance = Util.Clamp(player.CameraMinZoomDistance, player.CameraMaxZoomDistance, DEFAULT_DISTANCE)
-	self.currentSubjectDistance = Util.Clamp(player.CameraMinZoomDistance, player.CameraMaxZoomDistance, DEFAULT_DISTANCE)
+	self.defaultSubjectDistance = math.clamp(DEFAULT_DISTANCE, player.CameraMinZoomDistance, player.CameraMaxZoomDistance)
+	self.currentSubjectDistance = math.clamp(DEFAULT_DISTANCE, player.CameraMinZoomDistance, player.CameraMaxZoomDistance)
 
 	self.inFirstPerson = false
 	self.inMouseLockedMode = false
@@ -384,9 +384,9 @@ end
 
 function BaseCamera:UpdateDefaultSubjectDistance()
 	if self.portraitMode then
-		self.defaultSubjectDistance = Util.Clamp(player.CameraMinZoomDistance, player.CameraMaxZoomDistance, PORTRAIT_DEFAULT_DISTANCE)
+		self.defaultSubjectDistance = math.clamp(PORTRAIT_DEFAULT_DISTANCE, player.CameraMinZoomDistance, player.CameraMaxZoomDistance)
 	else
-		self.defaultSubjectDistance = Util.Clamp(player.CameraMinZoomDistance, player.CameraMaxZoomDistance, DEFAULT_DISTANCE)
+		self.defaultSubjectDistance = math.clamp(DEFAULT_DISTANCE, player.CameraMinZoomDistance, player.CameraMaxZoomDistance)
 	end
 end
 
@@ -985,7 +985,7 @@ function BaseCamera:OnTouchChanged(input, processed)
 			local difference = (unsunkTouches[1].Position - unsunkTouches[2].Position).magnitude
 			if self.startingDiff and self.pinchBeginZoom then
 				local scale = difference / math.max(0.01, self.startingDiff)
-				local clampedScale = Util.Clamp(0.1, 10, scale)
+				local clampedScale = math.clamp(scale, 0.1, 10)
 				if self.distanceChangeEnabled then
 					self:SetCameraToSubjectDistance(self.pinchBeginZoom / clampedScale)
 				end
@@ -1139,7 +1139,7 @@ function BaseCamera:SetCameraToSubjectDistance(desiredSubjectDistance)
 			self:EnterFirstPerson()
 		end
 	else
-		local newSubjectDistance = Util.Clamp(player.CameraMinZoomDistance, player.CameraMaxZoomDistance, desiredSubjectDistance)
+		local newSubjectDistance = math.clamp(desiredSubjectDistance, player.CameraMinZoomDistance, player.CameraMaxZoomDistance)
 		if newSubjectDistance < FIRST_PERSON_DISTANCE_THRESHOLD then
 			self.currentSubjectDistance = 0.5
 			if not self.inFirstPerson then
@@ -1234,7 +1234,7 @@ end
 function BaseCamera:CalculateNewLookCFrame(suppliedLookVector)
 	local currLookVector = suppliedLookVector or self:GetCameraLookVector()
 	local currPitchAngle = math.asin(currLookVector.y)
-	local yTheta = Util.Clamp(-MAX_Y + currPitchAngle, -MIN_Y + currPitchAngle, self.rotateInput.y)
+	local yTheta = math.clamp(self.rotateInput.y, -MAX_Y + currPitchAngle, -MIN_Y + currPitchAngle)
 	local constrainedRotateInput = Vector2.new(self.rotateInput.x, yTheta)
 	local startCFrame = CFrame.new(ZERO_VECTOR3, currLookVector)
 	local newLookCFrame = CFrame.Angles(0, -constrainedRotateInput.x, 0) * startCFrame * CFrame.Angles(-constrainedRotateInput.y,0,0)

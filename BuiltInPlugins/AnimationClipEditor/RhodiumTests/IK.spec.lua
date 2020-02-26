@@ -19,6 +19,7 @@ return function()
 	local Constants = require(Plugin.Src.Util.Constants)
 	local SetMotorData = require(Plugin.Src.Actions.SetMotorData)
 	local SetAnimationData = require(Plugin.Src.Actions.SetAnimationData)
+	local SetSelectedTracks = require(Plugin.Src.Actions.SetSelectedTracks)
 	local SetIKMode = require(Plugin.Src.Actions.SetIKMode)
 
 	local MathUtil = require(UILibrary.Utils.MathUtils)
@@ -120,7 +121,7 @@ return function()
 			local ikDockWidget = openIKWindow(test)
 
 			local ikWindow = TestPaths.getIKWindow(ikDockWidget)
-			local ikModeControl = ikWindow.IKModeControls
+			local ikModeControl = ikWindow:WaitForChild("IKModeControls")
 			expect(ikModeControl).to.be.ok()
 
 			closeIKWindow(test)
@@ -224,15 +225,20 @@ return function()
 			store:dispatch(SetIKMode(Constants.IK_MODE.BodyPart))
 			TestHelpers:delay()
 
+			store:dispatch(SetSelectedTracks({"LeftHand"}))
+			TestHelpers:delay()
+
 			store:dispatch(SetMotorData(RigUtils.ikDragStart(dummy, dummy.LeftHand, true)))
 			TestHelpers:delay()
+
+			expect(game:GetService("CoreGui"):FindFirstChild("Adornee")).to.be.ok()
 
 			local status = store:getState().Status
 			local motorData = status.MotorData
 
 			for _, child in ipairs(dummy:GetChildren()) do
 				if child:IsA("Part") then
-					if child.Name == "UpperTorso" or child.Name == "LowerTorso" then
+					if child.Name == "HumanoidRootPart" or child.Name == "UpperTorso" or child.Name == "LowerTorso" then
 						expect(child.Anchored).to.equal(true)
 					else
 						expect(child.Anchored).to.equal(false)
@@ -244,6 +250,9 @@ return function()
 			TestHelpers:delay()
 
 			RigUtils.ikDragEnd(dummy, motorData)
+			TestHelpers:delay()
+
+			store:dispatch(SetSelectedTracks({"LowerTorso"}))
 			TestHelpers:delay()
 
 			store:dispatch(SetMotorData(RigUtils.ikDragStart(dummy, dummy.LowerTorso, true)))

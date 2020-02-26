@@ -130,6 +130,8 @@ GrassHQVSShadowed,Vertex
 GrassVS,Vertex
 GridFS,Fragment
 GridFSShadowed,Fragment
+IBLDebugFS,Fragment
+IBLDebugVS,Vertex
 ImageProcessAlphaFS,Fragment
 ImageProcessBloomFS,Fragment
 ImageProcessBloomLinearFS,Fragment

@@ -6756,7 +6756,7 @@
         <string name="ClassCategory">Animations</string>
         <string name="summary">The Motor6D object is used to make movable joints between two Parts.</string>
         <string name="ExplorerOrder">200</string>
-        <string name="ExplorerImageIndex">0</string>
+        <string name="ExplorerImageIndex">106</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -6765,7 +6765,7 @@
         <string name="ClassCategory">Adornments</string>
         <string name="summary">The BoxHandleAdornment is a rectangular prism that can be adorned to a BasePart.</string>
         <string name="ExplorerOrder">205</string>
-        <string name="ExplorerImageIndex">0</string>
+        <string name="ExplorerImageIndex">111</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -6774,7 +6774,7 @@
         <string name="ClassCategory">Adornments</string>
         <string name="summary">A ConeHandleAdornment is a cone that can be adorned to a BasePart.</string>
         <string name="ExplorerOrder">205</string>
-        <string name="ExplorerImageIndex">0</string>
+        <string name="ExplorerImageIndex">110</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -6783,7 +6783,7 @@
         <string name="ClassCategory">Adornments</string>
         <string name="summary">The CylinderHandleAdornment is a cylinder that can be adorned to a BasePart.</string>
         <string name="ExplorerOrder">205</string>
-        <string name="ExplorerImageIndex">0</string>
+        <string name="ExplorerImageIndex">109</string>
       </Properties>
     </Item>
         <Item class="ReflectionMetadataClass">
@@ -6792,7 +6792,7 @@
         <string name="ClassCategory">Adornments</string>
         <string name="summary">The SphereHandleAdornment is a sphere that can be adorned to a BasePart.</string>
         <string name="ExplorerOrder">205</string>
-        <string name="ExplorerImageIndex">0</string>
+        <string name="ExplorerImageIndex">112</string>
       </Properties>
     </Item>
         <Item class="ReflectionMetadataClass">
@@ -6801,7 +6801,7 @@
         <string name="ClassCategory">Adornments</string>
         <string name="summary">The LineHandleAdornment is a line that can be adorned to a BasePart.</string>
         <string name="ExplorerOrder">205</string>
-        <string name="ExplorerImageIndex">0</string>
+        <string name="ExplorerImageIndex">107</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -6810,7 +6810,7 @@
         <string name="ClassCategory">Adornments</string>
         <string name="summary">The ImageHandleAdornment is an image that can be adorned to a BasePart.</string>
         <string name="ExplorerOrder">205</string>
-        <string name="ExplorerImageIndex">0</string>
+        <string name="ExplorerImageIndex">108</string>
       </Properties>
       </Item>
     <Item class="ReflectionMetadataClass">

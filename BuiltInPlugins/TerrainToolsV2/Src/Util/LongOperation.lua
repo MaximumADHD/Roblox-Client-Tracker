@@ -137,6 +137,8 @@ local LongOperation = {}
 LongOperation.__index = LongOperation
 
 function LongOperation.new(options)
+	assert(type(options) == "table", "LongOperation needs an options table")
+
 	local self = setmetatable({
 		Started = Signal.new(),
 		Paused = Signal.new(),
@@ -173,7 +175,8 @@ function LongOperation.new(options)
 		_yieldTime = 0,
 	}, LongOperation)
 
-	assert(self._onStepFunc, "LongOperation.new() requires an onStep callback")
+	assert(self._onStepFunc and type(self._onStepFunc) == "function",
+		"LongOperation.new() requires an onStep callback")
 
 	return self
 end

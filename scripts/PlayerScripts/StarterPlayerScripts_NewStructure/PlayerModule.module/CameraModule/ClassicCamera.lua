@@ -176,9 +176,9 @@ function ClassicCamera:Update()
 							forwardVector = cameraSubject.CFrame.lookVector
 						end
 
-						tweenSpeed = Util.Clamp(0, tweenMaxSpeed, tweenSpeed + tweenAcceleration * timeDelta)
+						tweenSpeed = math.clamp(tweenSpeed + tweenAcceleration * timeDelta, 0, tweenMaxSpeed)
 
-						local percent = Util.Clamp(0, 1, tweenSpeed * timeDelta)
+						local percent = math.clamp(tweenSpeed * timeDelta, 0, 1)
 						if self:IsInFirstPerson() and not (self.isFollowCamera and self.isClimbing) then
 							percent = 1
 						end

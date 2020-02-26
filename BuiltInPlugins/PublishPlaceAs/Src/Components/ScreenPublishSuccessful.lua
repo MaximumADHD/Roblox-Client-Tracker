@@ -5,7 +5,6 @@ local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
-local Cryo = require(Plugin.Packages.Cryo)
 local UILibrary = require(Plugin.Packages.UILibrary)
 
 local Constants = require(Plugin.Src.Resources.Constants)
@@ -15,23 +14,30 @@ local Theming = require(Plugin.Src.ContextServices.Theming)
 local Localizing = UILibrary.Localizing
 local RoundTextButton = UILibrary.Component.RoundTextButton
 
-local StudioService = game:GetService("StudioService")
 local ContentProvider = game:GetService("ContentProvider")
 
 local ICON_SIZE = 150
 local BUTTON_WIDTH = 150
 local BUTTON_HEIGHT = 30
 
+local FFlagStudioFixPublishSuccessNameIcon = game:GetFastFlag("StudioFixPublishSuccessNameIcon")
+
 local ScreenPublishSuccessful = Roact.PureComponent:extend("ScreenPublishSuccessful")
 
 function ScreenPublishSuccessful:init()
 	self.state = {
-		assetFetchStatus = nil,		
+		assetFetchStatus = nil,
 	}
 
 	self.isMounted = false
 
-	self.thumbnailUrl = string.format("rbxthumb://type=Asset&id=%i&w=%i&h=%i", self.props.Id, ICON_SIZE, ICON_SIZE)
+	local gameId = self.props.Id
+	-- new place publish
+	if FFlagStudioFixPublishSuccessNameIcon and gameId == 0 then
+		gameId = game.GameId
+	end
+	self.thumbnailUrl = FFlagStudioFixPublishSuccessNameIcon and string.format("rbxthumb://type=GameIcon&id=%i&w=%i&h=%i", gameId, ICON_SIZE, ICON_SIZE) 
+		or string.format("rbxthumb://type=Asset&id=%i&w=%i&h=%i", gameId, ICON_SIZE, ICON_SIZE)
 end
 
 function ScreenPublishSuccessful:didMount()
@@ -64,7 +70,7 @@ function ScreenPublishSuccessful:render()
 			local parentGameName = props.ParentGameName
 
 			local findText = localization:getText("PublishSuccess", "FindInGame", parentGameName)
-			
+
 			return Roact.createElement("Frame", {
 				Size = UDim2.new(1, 0, 1, 0),
 				BackgroundColor3 = theme.backgroundColor,
@@ -74,13 +80,14 @@ function ScreenPublishSuccessful:render()
 					Position = UDim2.new(0.5, 0, 0.2, 0),
 					AnchorPoint = Vector2.new(0.5, 0.5),
 					Size = UDim2.new(0, ICON_SIZE, 0, ICON_SIZE),
-					Image = self.state.assetFetchStatus == Enum.AssetFetchStatus.Success and self.thumbnailUrl or theme.icons.thumbnailPlaceHolder,
+					Image = self.state.assetFetchStatus == Enum.AssetFetchStatus.Success and self.thumbnailUrl 
+						or theme.icons.thumbnailPlaceHolder,
 					BorderSizePixel = 0,
 				}),
 
 				Name = Roact.createElement("TextLabel", {
 					Text = name,
-					Position = UDim2.new(0.5, 0, 0.35, 0),					
+					Position = UDim2.new(0.5, 0, 0.35, 0),
 					TextSize = 20,
 					BackgroundTransparency = 1,
 					TextColor3 = theme.header.text,
@@ -93,7 +100,6 @@ function ScreenPublishSuccessful:render()
 					Position = UDim2.new(0.5, 0, 0.4, 0),
 					TextSize = 24,
 					BackgroundTransparency = 1,
-					TextColor3 = theme.header.text,
 					TextXAlignment = Enum.TextXAlignment.Center,
 					TextColor3 = theme.successText.text,
 					Font = theme.successText.font,
@@ -137,4 +143,4 @@ local function mapStateToProps(state, props)
 	}
 end
 
-return RoactRodux.connect(mapStateToProps, useDispatchForProps)(ScreenPublishSuccessful)
+return RoactRodux.connect(mapStateToProps)(ScreenPublishSuccessful)

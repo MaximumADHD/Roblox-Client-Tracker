@@ -77,6 +77,11 @@ function Analytics:reportCounter(counterName, num)
 	self.senders:ReportCounter(counterName, num or 1)
 end
 
+function Analytics:reportStats(statName, num)
+	self:logStats(statName, num)
+	self.senders:ReportStats(statName, num)
+end
+
 function Analytics:logEvent(eventName, tab)
 	if self.logEvents then
 		local readableTable = HttpService:JSONEncode(tab)
@@ -90,12 +95,20 @@ function Analytics:logCounter(counterName, value)
 	end
 end
 
+function Analytics:logStats(statName, value)
+	if self.logEvents then
+		print(string.format("Analytics: reportStats: \"%s\", %s", statName, value))
+	end
+end
+
 function Analytics.mock(props)
 	return Analytics.new(join(props, {
 		Senders = {
 			SendEventDeferred = function()
 			end,
 			ReportCounter = function()
+			end,
+			ReportStats = function()
 			end,
 			GetSessionId = function()
 				return 0

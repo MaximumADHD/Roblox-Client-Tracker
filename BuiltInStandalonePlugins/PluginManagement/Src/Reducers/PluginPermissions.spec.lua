@@ -4,12 +4,12 @@ local PluginPermissions = require(script.Parent.PluginPermissions)
 local SetAllPluginPermissions = require(Plugin.Src.Actions.SetAllPluginPermissions)
 local Constants = require(Plugin.Src.Util.Constants)
 
-local function createFakeRequestPermissionData(type, domainName, isEnabled)
+local function createFakeRequestPermissionData(type, domainName, isAllowed)
 	return {
-		PermissionType = type,
-		PermissionData = {
-			domain = domainName,
-			enabled = isEnabled,
+		Type = type,
+		Data = {
+			Domain = domainName,
+			Allowed = isAllowed,
 		},
 	}
 end
@@ -24,16 +24,16 @@ return function()
 		it("should set the PluginPermissions info", function()
 			local assetId = 165687726
 			local domainName = "hello"
-			local type = Constants.PERMISSION_TYPES.HttpPermission
-			local isEnabled = true
+			local type = Constants.PERMISSION_TYPES.HttpService
+			local isAllowed = true
 
 			local state = PluginPermissions(nil, SetAllPluginPermissions({
 				[assetId] = {
 					AssetVersion = 5339764524,
 					Enabled = false,
 					Moderated = false,
-					PluginPermissions = {
-						createFakeRequestPermissionData(type, domainName, isEnabled),
+					Permissions = {
+						createFakeRequestPermissionData(type, domainName, isAllowed),
 					},
 				},
 			}))
@@ -42,21 +42,21 @@ return function()
 			expect(entry.httpPermissions).to.be.ok()
 			expect(entry.httpPermissions[1]).to.be.ok()
 			expect(entry.httpPermissions[1].data.domain).to.equal(domainName)
-			expect(entry.httpPermissions[1].enabled).to.equal(isEnabled)
+			expect(entry.httpPermissions[1].allowed).to.equal(isAllowed)
 			expect(entry.httpPermissions[1].type).to.equal(type)
 		end)
 
-		it("should update the sllowe/denied http counts", function()
+		it("should update the allowed/denied http counts", function()
 			local assetId = 165687726
 			local domainName = "hello"
-			local type = Constants.PERMISSION_TYPES.HttpPermission
+			local type = Constants.PERMISSION_TYPES.HttpService
 
 			local state = PluginPermissions(nil, SetAllPluginPermissions({
 				[assetId] = {
 					AssetVersion = 5339764524,
 					Enabled = false,
 					Moderated = false,
-					PluginPermissions = {
+					Permissions = {
 						createFakeRequestPermissionData(type, domainName, true),
 						createFakeRequestPermissionData(type, domainName, true),
 						createFakeRequestPermissionData(type, domainName, true),

@@ -8,6 +8,8 @@
 	debug flag boolean in the workspace.
 ]]
 
+game:DefineFastFlag("AddStatCounters", false)
+
 local TARGET = "studio"
 local CONTEXT = "animationEditor"
 
@@ -48,6 +50,10 @@ function Analytics.mock()
 	return self
 end
 
+local function makeStatName(name)
+	return TARGET .."." ..CONTEXT .."." ..name
+end
+
 function Analytics:update()
 	self.Senders.logEvents = DebugFlags.LogAnalytics()
 end
@@ -60,6 +66,9 @@ function Analytics:onEditorOpened(timelineUnit, keyframeSnap)
 		timelineUnit = timelineUnit,
 		keyframeSnap = keyframeSnap,
 	})
+	if game:GetFastFlag("AddStatCounters") then
+		self.Senders:reportCounter(makeStatName("EditorOpened"))
+	end
 end
 
 function Analytics:onEditorClosed()
@@ -81,6 +90,9 @@ end
 function Analytics:onImportFbxAnimation()
 	self:update()
 	self.Senders:sendEventDeferred("importFbxAnimation", {})
+	if game:GetFastFlag("AddStatCounters") then
+		self.Senders:reportCounter(makeStatName("FBXAnimationImported"))
+	end
 end
 
 function Analytics:onExportAnimation()
@@ -106,6 +118,11 @@ function Analytics:onSaveAnimation(name, numKeyframes, numPoses, numEvents)
 		numPoses = numPoses,
 		numEvents = numEvents,
 	})
+	if game:GetFastFlag("AddStatCounters") then
+		self.Senders:reportStats(makeStatName("ExportedKeyframes"), numKeyframes)
+		self.Senders:reportStats(makeStatName("ExportedPoses"), numPoses)
+		self.Senders:reportStats(makeStatName("ExportedEvents"), numEvents)
+	end
 end
 
 function Analytics:onCreateNewAnimation(name)
@@ -147,6 +164,9 @@ function Analytics:onIkEnabled()
 	self:update()
 	self.ikOpenedTimestamp = os.time()
 	self.Senders:sendEventDeferred("ikEnabled", {})
+	if game:GetFastFlag("AddStatCounters") then
+		self.Senders:reportCounter(makeStatName("IKEnabled"))
+	end
 end
 
 function Analytics:onIkDisabled()
@@ -200,6 +220,9 @@ function Analytics:onAddEvent(name, parameter)
 		name = name,
 		parameter = parameter,
 	})
+	if game:GetFastFlag("AddStatCounters") then
+		self.Senders:reportCounter(makeStatName("EventAdded"))
+	end
 end
 
 function Analytics:onAddKeyframe(trackName, frame)
@@ -208,6 +231,9 @@ function Analytics:onAddKeyframe(trackName, frame)
 		trackName = trackName,
 		frame = frame,
 	})
+	if game:GetFastFlag("AddStatCounters") then
+		self.Senders:reportCounter(makeStatName("KeyframeAdded"))
+	end
 end
 
 function Analytics:onDeleteKeyframe(trackName, frame)

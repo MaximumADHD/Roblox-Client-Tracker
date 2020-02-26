@@ -11,6 +11,7 @@ local Constants = {}
 Constants.ToolIcons = {
 	[ToolId.Generate] = TexturePath .. "mt_generate.png",
 	[ToolId.Import] = TexturePath .. "mt_terrain_import.png",
+	[ToolId.ConvertPart] = TexturePath .. "mt_convert_part.png",
 	[ToolId.SeaLevel] = TexturePath .. "mt_sea_level.png",
 	[ToolId.Clear] = TexturePath .. "mt_terrain_clear.png",
 	[ToolId.Select] = TexturePath .. "icon_regions_select.png",

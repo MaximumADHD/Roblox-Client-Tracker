@@ -13,12 +13,19 @@ local BiomeSelector = require(ToolParts.BiomeSelector)
 local LabeledSlider = require(ToolParts.LabeledSlider)
 local LabeledToggle = require(ToolParts.LabeledToggle)
 
+local BrushProperties = ToolParts.BrushProperties
+local HeightSelectionToggle = require(BrushProperties.HeightSelectionToggle)
+
+local FFlagTerrainToolsConvertPartTool = game:GetFastFlag("TerrainToolsConvertPartTool")
+
 local Constants = require(Plugin.Src.Util.Constants)
 
 local function BiomeSettingsFragment(props)
 	return withLocalization(function(localization)
 		return withTheme(function(theme)
 			local layoutOrder = props.LayoutOrder or 1
+
+			local useHeightPicker = props.setPlanePositionY and props.setHeightPicker
 
 			return Roact.createFragment({
 				BiomeSelect = Roact.createElement(BiomeSelector, {
@@ -39,8 +46,17 @@ local function BiomeSettingsFragment(props)
 					SetValue = props.setBiomeSize,
 				}),
 
-				CavesToggle = Roact.createElement(LabeledToggle, {
+				HeightSelection = FFlagTerrainToolsConvertPartTool and useHeightPicker and Roact.createElement(HeightSelectionToggle, {
 					LayoutOrder = layoutOrder + 2,
+					Label = localization:getText("Generate", "BaseLevel"),
+					heightPicker = props.heightPicker,
+					setHeightPicker = props.setHeightPicker,
+					planePositionY = props.planePositionY,
+					setPlanePositionY = props.setPlanePositionY,
+				}),
+
+				CavesToggle = Roact.createElement(LabeledToggle, {
+					LayoutOrder = layoutOrder + 3,
 					Text = localization:getText("Generate", "Caves"),
 					IsOn = props.haveCaves,
 					SetIsOn = props.setHaveCaves,
