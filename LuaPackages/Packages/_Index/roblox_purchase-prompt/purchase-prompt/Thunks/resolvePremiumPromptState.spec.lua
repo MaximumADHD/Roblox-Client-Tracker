@@ -6,10 +6,12 @@ return function()
 
 	local PromptState = require(Root.Enums.PromptState)
 	local Reducer = require(Root.Reducers.Reducer)
+	local Analytics = require(Root.Services.Analytics)
 	local ExternalSettings = require(Root.Services.ExternalSettings)
-	local PlatformInterface = require(Root.Services.PlatformInterface)
+	local Network = require(Root.Services.Network)
+	local MockAnalytics = require(Root.Test.MockAnalytics)
 	local MockExternalSettings = require(Root.Test.MockExternalSettings)
-	local MockPlatformInterface = require(Root.Test.MockPlatformInterface)
+	local MockNetwork = require(Root.Test.MockNetwork)
 	local Thunk = require(Root.Thunk)
 
 	local resolvePremiumPromptState = require(script.Parent.resolvePremiumPromptState)
@@ -37,8 +39,9 @@ return function()
 		local thunk = resolvePremiumPromptState(accountInfo, productInfo)
 
 		Thunk.test(thunk, store, {
+			[Analytics] = MockAnalytics.new().mockService,
 			[ExternalSettings] = MockExternalSettings.new(false, false, {}),
-			[PlatformInterface] = MockPlatformInterface.new().mockService,
+			[Network] = MockNetwork.new(),
 		})
 
 		local state = store:getState()
@@ -58,8 +61,9 @@ return function()
 		local thunk = resolvePremiumPromptState(accountInfo, productInfo)
 
 		Thunk.test(thunk, store, {
+			[Analytics] = MockAnalytics.new().mockService,
 			[ExternalSettings] = MockExternalSettings.new(false, false, {}),
-			[PlatformInterface] = MockPlatformInterface.new().mockService,
+			[Network] = MockNetwork.new(),
 		})
 
 		local state = store:getState()
@@ -78,8 +82,9 @@ return function()
 		local thunk = resolvePremiumPromptState(accountInfo, productInfo)
 
 		Thunk.test(thunk, store, {
+			[Analytics] = MockAnalytics.new().mockService,
 			[ExternalSettings] = MockExternalSettings.new(false, false, {}),
-			[PlatformInterface] = MockPlatformInterface.new().mockService,
+			[Network] = MockNetwork.new(),
 		})
 
 		local state = store:getState()

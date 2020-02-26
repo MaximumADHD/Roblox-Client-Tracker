@@ -31,6 +31,14 @@ function Analytics.new()
 		end
 	end
 
+	function service.signalPremiumUpsellShownPremium()
+		AnalyticsService:SetRBXEvent("client", "InGamePrompt", "PremiumUpsellShownPremium", { gameID = game.GameId })
+	end
+
+	function service.signalPremiumUpsellShownNonPremium()
+		AnalyticsService:SetRBXEvent("client", "InGamePrompt", "PremiumUpsellShownNonPremium", { gameID = game.GameId })
+	end
+
 	return service
 end
 

@@ -11,6 +11,7 @@ local t = require(LuaPackages.t)
 local strict = require(Root.strict)
 
 local checkJson = t.interface({
+	productId = t.number,
 	mobileProductId = t.string,
 	robuxAmount = t.number,
 	isSubscriptionOnly = t.boolean,
@@ -31,6 +32,7 @@ return function(jsonData)
 	end
 
 	return {
+		productId = jsonData.productId,
 		mobileProductId = jsonData.mobileProductId,
 		robuxAmount = jsonData.robuxAmount,
 		isSubscriptionOnly = jsonData.isSubscriptionOnly,

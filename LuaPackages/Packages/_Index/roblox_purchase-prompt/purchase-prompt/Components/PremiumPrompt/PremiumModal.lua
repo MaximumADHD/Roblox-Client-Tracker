@@ -37,7 +37,9 @@ local CONDENSED_ICON_SIZE = 48
 
 function PremiumModal:init()
 	self.isCondensed = false
-	self.contentSize = Vector2.new(0, 0)
+	-- Hack :( The modal should tell you what the width is, this just prevents having to render
+	-- 540 (Max modal width) - 24 * 2 (Side paddings)
+	self.contentSize = Vector2.new(self.props.screenSize.X > 492 and 492 or self.props.screenSize.X, 0)
 	self.contentSizes, self.changeContentSizes = Roact.createBinding({
 		padding = UDim.new(0, CONTENT_PADDING),
 		iconSize = UDim2.new(1, 0, 0, ICON_SIZE)

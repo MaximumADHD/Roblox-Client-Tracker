@@ -17,10 +17,14 @@ local DEFAULT_FLAG_STATES = {
 
 local MockExternalSettings = {}
 
-function MockExternalSettings.new(isStudio, isTenFoot, flags)
+function MockExternalSettings.new(isStudio, isTenFoot, flags, platform)
 	local service = {}
 
 	flags = Cryo.Dictionary.join(DEFAULT_FLAG_STATES, flags)
+
+	function service.getPlatform()
+		return platform
+	end
 
 	function service.isStudio()
 		return isStudio

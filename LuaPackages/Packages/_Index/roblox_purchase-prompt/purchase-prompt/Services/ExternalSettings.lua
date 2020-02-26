@@ -1,5 +1,6 @@
 local RunService = game:GetService("RunService")
 local GuiService = game:GetService("GuiService")
+local UserInputService = game:GetService("UserInputService")
 
 local ExternalSettings = {}
 
@@ -11,6 +12,10 @@ function ExternalSettings.new()
 			return "Service(ExternalSettings)"
 		end,
 	})
+
+	function service.getPlatform()
+		return UserInputService:GetPlatform()
+	end
 
 	function service.isStudio()
 		return RunService:IsStudio()

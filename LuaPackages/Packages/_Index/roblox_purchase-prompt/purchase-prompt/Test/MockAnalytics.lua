@@ -9,15 +9,21 @@ local MockAnalytics = {}
 function MockAnalytics.new()
 	local reportRobuxUpsellStarted = createSpy()
 	local signalPurchaseSuccess = createSpy()
+	local signalPremiumUpsellShownPremium = createSpy()
+	local signalPremiumUpsellShownNonPremium = createSpy()
 
 	local mockService = {
 		reportRobuxUpsellStarted = reportRobuxUpsellStarted.value,
 		signalPurchaseSuccess = signalPurchaseSuccess.value,
+		signalPremiumUpsellShownPremium = signalPremiumUpsellShownPremium.value,
+		signalPremiumUpsellShownNonPremium = signalPremiumUpsellShownNonPremium.value
 	}
 
 	local spies = {
 		reportRobuxUpsellStarted = reportRobuxUpsellStarted,
 		signalPurchaseSuccess = signalPurchaseSuccess,
+		signalPremiumUpsellShownPremium = signalPremiumUpsellShownPremium,
+		signalPremiumUpsellShownNonPremium = signalPremiumUpsellShownNonPremium
 	}
 
 	setmetatable(mockService, {

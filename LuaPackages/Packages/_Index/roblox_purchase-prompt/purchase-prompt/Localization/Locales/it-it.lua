@@ -12,12 +12,13 @@
 
 return{
 	["CoreScripts.PremiumModal.Title.PremiumRequired"] = [[Premium necessario]],
-	["CoreScripts.PremiumModal.Body.Description"] = [[Con Roblox Premium ottieni anche:]],
+	["CoreScripts.PremiumModal.Body.Description"] = [[Con Roblox Premium otterrai:]],
 	["CoreScripts.PremiumModal.Body.RobuxMonthly"] = [[450 Robux al mese]],
-	["CoreScripts.PremiumModal.Body.PremiumOnlyAreas"] = [[Accesso a vantaggi esclusivi Premium nei giochi]],
+	["CoreScripts.PremiumModal.Body.PremiumOnlyAreas"] = [[Accesso a vantaggi esclusivi Premium]],
 	["CoreScripts.PremiumModal.Body.RobuxDiscount"] = [[Bonus del 10% quando acquisti Robux]],
 	["CoreScripts.PremiumModal.Action.PricePerMonth"] = [[{price}/mese]],
-	["CoreScripts.PremiumModal.Error.AlreadyPremium"] = [[Sei già Premium!]],
+	["CoreScripts.PremiumModal.Error.PlatformUnavailable"] = [[Non è possibile acquistare Roblox Premium sulla tua piattaforma. Acquista la versione Premium da un computer desktop.]],
+	["CoreScripts.PremiumModal.Error.AlreadyPremium"] = [[Sei già iscritto a Roblox Premium. Riprova.]],
 	["CoreScripts.PremiumModal.Error.Unavailable"] = [[Premium non è al momento disponibile. Riprova più tardi!]],
 	["CoreScripts.PremiumModal.Body.RobuxMonthlyV2"] = [[{robux} Robux al mese]],
 }

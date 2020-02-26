@@ -17,6 +17,7 @@ local AB_TEST_URL = string.gsub(BASE_URL, "https://www", "https://abtesting")
 local BASE_CATALOG_URL = string.gsub(BASE_URL, "https://www.", "https://catalog.")
 local BASE_ECONOMY_URL = string.gsub(BASE_URL, "https://www.", "https://economy.")
 local PREMIUM_FEATURES_URL = string.gsub(BASE_URL, "https://www.", "https://premiumfeatures.")
+local ECONOMY_CREATOR_STATS_URL = string.gsub(BASE_URL, "https://www.", "https://economycreatorstats.")
 
 local function request(options, resolve, reject)
 	return HttpService:RequestInternal(options):Start(function(success, response)
@@ -163,6 +164,31 @@ local function getProductPurchasableDetails(productId)
 	end)
 end
 
+local function postPremiumImpression()
+	local url = ECONOMY_CREATOR_STATS_URL.."v1/universes/" ..tostring(game.GameId) .."/premium-impressions/increment"
+	local options = {
+		Url = url,
+		Method = "POST",
+		Body = HttpService:JSONEncode("{}"),
+		Headers = {
+			["Content-Type"] = "application/json",
+			["Accept"] = "application/json",
+		}
+	}
+
+	warn(url)
+
+	return Promise.new(function(resolve, reject)
+		spawn(function()
+			return HttpService:RequestInternal(options):Start(function(success, response)
+				warn(response.Body)
+				-- Ignore all responses, don't need to do anything
+			end)
+		end)
+	end)
+end
+
+
 local Network = {}
 
 -- TODO: "Promisify" is not strictly necessary with the new `request` structure,
@@ -179,6 +205,7 @@ function Network.new()
 		getBundleDetails = getBundleDetails,
 		getProductPurchasableDetails = getProductPurchasableDetails,
 		getPremiumProductInfo = Promise.promisify(getPremiumProductInfo),
+		postPremiumImpression = Promise.promisify(postPremiumImpression),
 	}
 
 	setmetatable(networkService, {

@@ -1,6 +1,5 @@
 local Root = script.Parent.Parent
 local Players = game:GetService("Players")
-local UserInputService = game:GetService("UserInputService")
 
 local ErrorOccurred = require(Root.Actions.ErrorOccurred)
 local PurchaseCompleteRecieved = require(Root.Actions.PurchaseCompleteRecieved)
@@ -12,19 +11,23 @@ local PurchaseError = require(Root.Enums.PurchaseError)
 local WindowState = require(Root.Enums.WindowState)
 local getUpsellFlow = require(Root.NativeUpsell.getUpsellFlow)
 local PlatformInterface = require(Root.Services.PlatformInterface)
+local ExternalSettings = require(Root.Services.ExternalSettings)
 local hideWindow = require(Root.Thunks.hideWindow)
 local Thunk = require(Root.Thunk)
-local isMockingPurchases = require(Root.Utils.isMockingPurchases)
 
 local requiredServices = {
 	PlatformInterface,
+	ExternalSettings,
 }
 
 local function launchPremiumUpsell()
 	return Thunk.new(script.Name, requiredServices, function(store, services)
 		local platformInterface = services[PlatformInterface]
+		local externalSettings = services[ExternalSettings]
+		local state = store:getState()
+		local premiumProductInfo = state.premiumProductInfo
 
-		if isMockingPurchases() then
+		if externalSettings.isStudio() then
 			-- Signal back end that they clicked yes
 			-- waits for SignalPromptPremiumPurchaseFinished to report membership changed
 			platformInterface.signalMockPurchasePremium()
@@ -32,15 +35,17 @@ local function launchPremiumUpsell()
 			return store:dispatch(SetWindowState(WindowState.Hidden))
 		end
 
-		local upsellFlow = getUpsellFlow(UserInputService:GetPlatform())
+		local upsellFlow = getUpsellFlow(externalSettings.getPlatform())
 
 		if upsellFlow == UpsellFlow.Web then
-			platformInterface.startPremiumUpsell()
+			local productId = premiumProductInfo.productId
+
+			platformInterface.startPremiumUpsell(productId)
 			store:dispatch(SetPromptState(PromptState.UpsellInProgress))
 			store:dispatch(hideWindow())
 
 		elseif upsellFlow == UpsellFlow.Mobile then
-			local nativeProductId = store:getState().premiumProductInfo.mobileProductId
+			local nativeProductId = premiumProductInfo.mobileProductId
 
 			platformInterface.promptNativePurchase(Players.LocalPlayer, nativeProductId)
 			store:dispatch(SetPromptState(PromptState.UpsellInProgress))
