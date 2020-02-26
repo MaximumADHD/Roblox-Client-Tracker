@@ -5,13 +5,14 @@ local CoreGui = game:GetService("CoreGui")
 
 local Plugin = script.Parent.Parent
 local Framework = Plugin.Packages.DraggerFramework
+local Colors = require(Framework.Utility.Colors)
 local Math = require(Framework.Utility.Math)
 local Roact = require(Plugin.Packages.Roact)
 
 local MoveHandleView = Roact.PureComponent:extend("MoveHandleView")
 
 local BASE_HANDLE_RADIUS = 0.07
-local BASE_HANDLE_HITTEST_RADIUS = 0.22 -- Handle hittests bigger than it looks
+local BASE_HANDLE_HITTEST_RADIUS = BASE_HANDLE_RADIUS * 3 -- Handle hittests bigger than it looks
 local BASE_HANDLE_OFFSET = 0.60
 local BASE_HANDLE_LENGTH = 3.00
 local BASE_TIP_OFFSET = 0.20
@@ -37,11 +38,6 @@ function MoveHandleView:render()
     local tipOffset = scale * BASE_TIP_OFFSET
     local tipLength = length * BASE_TIP_LENGTH
 
-    local color = self.props.Color
-    if not self.props.Hovered then
-        color = color:Lerp(Color3.new(0, 0, 0), 0.3)
-    end
-
     local coneAtCFrame = self.props.Axis * CFrame.new(0, 0, -(offset + length))
     local tipAt = coneAtCFrame * Vector3.new(0, 0, -tipOffset)
     local tipAtScreen, tipVisible = Workspace.CurrentCamera:WorldToScreenPoint(tipAt)
@@ -53,7 +49,7 @@ function MoveHandleView:render()
         Radius = radius,
         Height = length,
         CFrame = self.props.Axis * CFrame.new(0, 0, -(offset + length * 0.5)),
-        Color3 = color,
+        Color3 = self.props.Color,
         AlwaysOnTop = self.props.AlwaysOnTop,
     })
     children.Head = Roact.createElement("ConeHandleAdornment", {
@@ -62,7 +58,7 @@ function MoveHandleView:render()
         Radius = 3 * radius,
         Height = tipLength,
         CFrame = coneAtCFrame,
-        Color3 = color,
+        Color3 = self.props.Color,
         AlwaysOnTop = self.props.AlwaysOnTop,
     })
     if not self.props.AlwaysOnTop then

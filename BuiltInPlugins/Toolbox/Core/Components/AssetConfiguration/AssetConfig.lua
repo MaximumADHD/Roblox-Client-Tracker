@@ -13,6 +13,7 @@ local FFlagCanPublishDefaultAsset = game:DefineFastFlag("CanPublishDefaultAsset"
 local FFlagShowAssetConfigReasons = game:GetFastFlag("ShowAssetConfigReasons")
 local FFlagEnableAssetConfigFreeFix2 = game:GetFastFlag("EnableAssetConfigFreeFix2")
 local FFlagEnableNonWhitelistedToggle = game:GetFastFlag("EnableNonWhitelistedToggle")
+local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -78,6 +79,8 @@ local GetUsername = require(Plugin.Core.Thunks.GetUsername)
 local withTheme = ContextHelper.withTheme
 local withModal = ContextHelper.withModal
 local withLocalization = ContextHelper.withLocalization
+
+local ContextServices = require(Libs.Framework.ContextServices)
 
 local AssetConfig = Roact.PureComponent:extend("AssetConfig")
 
@@ -291,7 +294,12 @@ function AssetConfig:init(props)
 	self.tryCloseAssetConfig = function(index, action)
 		if action == "yes" then
 			-- Close the assetConfig
-			local _, pluginGui = getPlugin(self)
+			local _, pluginGui
+			if FFlagStudioToolboxEnabledDevFramework then
+				pluginGui = self.props.Focus:getTarget()
+			else
+				_, pluginGui = getPlugin(self)
+			end
 			-- And we will let AssetConfigWrapper to handle the onClose and unMount.
 			pluginGui.Enabled = false
 		else
@@ -907,6 +915,12 @@ function AssetConfig:render()
 			end)
 		end)
 	end)
+end
+
+if FFlagStudioToolboxEnabledDevFramework then
+	ContextServices.mapToProps(AssetConfig, {
+		Focus = ContextServices.Focus,
+	})
 end
 
 local function mapStateToProps(state, props)

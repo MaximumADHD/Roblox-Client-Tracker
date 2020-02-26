@@ -464,6 +464,7 @@ function Localization:recalculateContent()
 
 			Searchbar = {
 				DefaultText = self:getText("Studio.GameSettings.AccessPermissions.CollaboratorSearchbarDefaultText"),
+				DEPRECATED_DefaultText = self:getText("Studio.GameSettings.AccessPermissions.DEPRECATED_CollaboratorSearchbarDefaultText"),
 				TooManyCollaboratorsText = self:getFormatTextFunc("Studio.GameSettings.AccessPermissions.CollaboratorSearchbarTooManyText1"),
 				NoResultsText = self:getText("Studio.GameSettings.AccessPermissions.CollaboratorSearchbarNoResultsText"),
 			},

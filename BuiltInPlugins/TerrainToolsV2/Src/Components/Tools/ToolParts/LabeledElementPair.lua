@@ -17,8 +17,7 @@ local Roact = require(Plugin.Packages.Roact)
 local Theme = require(Plugin.Src.ContextServices.Theming)
 local withTheme = Theme.withTheme
 
-local FIRST_COLUMN_WIDTH = 110
-local SIDE_PADDING = 20
+local Constants = require(Plugin.Src.Util.Constants)
 
 local FFlagTerrainToolsFixPlanePositionErrorMessage = game:GetFastFlag("TerrainToolsFixPlanePositionErrorMessage")
 local FFlagTerrainToolsRefactor = game:GetFastFlag("TerrainToolsRefactor")
@@ -35,8 +34,10 @@ function LabeledElementPair:init()
 		local contentFrame = self.contentFrameRef.current
 		local layout = self.layoutRef.current
 		if mainFrame and contentFrame and layout then
-			mainFrame.Size = UDim2.new(mainFrame.Size.X.Scale, mainFrame.Size.X.Offset, 0, layout.AbsoluteContentSize.Y)
-			contentFrame.Size = UDim2.new(1, -FIRST_COLUMN_WIDTH - SIDE_PADDING, 0, layout.AbsoluteContentSize.Y)
+			mainFrame.Size = UDim2.new(mainFrame.Size.X.Scale, mainFrame.Size.X.Offset,
+				0, layout.AbsoluteContentSize.Y)
+			contentFrame.Size = UDim2.new(1, -Constants.SECOND_COLUMN_START,
+				0, layout.AbsoluteContentSize.Y)
 		end
 	end
 
@@ -81,15 +82,15 @@ function LabeledElementPair:render()
 				TextColor3 = theme.textColor,
 				TextXAlignment = Enum.TextXAlignment.Left,
 				TextYAlignment = FFlagTerrainToolsRefactor and Enum.TextYAlignment.Bottom or Enum.TextYAlignment.Center,
-				Size = UDim2.new(0, FIRST_COLUMN_WIDTH - SIDE_PADDING, 0, 15),
-				Position = UDim2.new(0, SIDE_PADDING, 0, 2),
+				Size = UDim2.new(0, Constants.FIRST_COLUMN_WIDTH, 0, 15),
+				Position = UDim2.new(0, Constants.SIDE_PADDING, 0, 2),
 				BackgroundTransparency = 1,
 			}),
 
 			-- Right Side
 			Content = Roact.createElement("Frame", {
-				Position = UDim2.new(0, FIRST_COLUMN_WIDTH, 0, 0),
-				Size = UDim2.new(1, -FIRST_COLUMN_WIDTH - SIDE_PADDING, 1, 0),
+				Position = UDim2.new(0, Constants.SECOND_COLUMN_START, 0, 0),
+				Size = UDim2.new(1, -Constants.SECOND_COLUMN_START, 1, 0),
 				BackgroundTransparency = 1,
 
 				[Roact.Ref] = self.contentFrameRef,

@@ -1,5 +1,3 @@
-local LocalizationToolsPluginV2Enabled = settings():GetFFlag("LocalizationToolsPluginV2Enabled")
-
 local GuiService = game:GetService("GuiService")
 local BaseUrl = game:GetService("ContentProvider").BaseUrl:lower()
 
@@ -10,12 +8,8 @@ local LabeledButton = require(script.Parent.LabeledButton)
 local UploadDialogContent = require(script.Parent.UploadDialogContent)
 local UploadDownloadFlow = require(script.Parent.Parent.GameTable.UploadDownloadFlow)
 local LinkText = require(script.Parent.LinkText)
-local Collapsible
-if LocalizationToolsPluginV2Enabled then
-	Collapsible = require(script.Parent.Collapsible)
-else
-	Collapsible = require(script.Parent.Collapsible_DEPRECATED)
-end
+local Collapsible = require(script.Parent.Collapsible)
+local SourceStrings = require(script.Parent.Parent.SourceStrings)
 
 local GameTableSection = Roact.Component:extend("GameTableSection")
 
@@ -154,14 +148,11 @@ function GameTableSection:render()
 				})
 			end
 
-			local linkText
-			if LocalizationToolsPluginV2Enabled then
-				linkText = Roact.createElement(LinkText, {
-					Text = "Click here to configure your cloud localization table",
-					OnActivated = openCloudTableConfigInBrowser,
-					LayoutOrder = 4,
-				})
-			end
+			local linkText = Roact.createElement(LinkText, {
+				Text = SourceStrings.GameTableSection.CloudTablePageLinkText,
+				OnActivated = openCloudTableConfigInBrowser,
+				LayoutOrder = 4,
+			})
 
 			content = Roact.createElement("Frame", {
 				Size = UDim2.new(1, 0, 0, 200),
@@ -203,8 +194,8 @@ function GameTableSection:render()
 							ButtonWidth = 100,
 							Padding = 5,
 							Height = 35,
-							LabelText = "Download table as CSV",
-							ButtonText = "Download",
+							LabelText = SourceStrings.GameTableSection.DownloadTableLabelText,
+							ButtonText = SourceStrings.GameTableSection.DownloadButtonText,
 							LayoutOrder = 1,
 							TextColor3 = theme.BrightText,
 							Disabled = self.state.NonInteractive,
@@ -216,8 +207,8 @@ function GameTableSection:render()
 							ButtonWidth = 100,
 							Padding = 5,
 							Height = 35,
-							LabelText = "Update with new content from CSV",
-							ButtonText = "Update",
+							LabelText = SourceStrings.GameTableSection.UpdateTableLabelText,
+							ButtonText = SourceStrings.GameTableSection.UpdateButtonText,
 							LayoutOrder = 2,
 							TextColor3 = theme.BrightText,
 							Disabled = self.state.NonInteractive,
@@ -226,7 +217,7 @@ function GameTableSection:render()
 
 						AdvancedContainer = Roact.createElement(Collapsible, {
 							Size = UDim2.new(0, 205, 0, 40),
-							Title = "Advanced",
+							Title = SourceStrings.GameTableSection.AdvancedButtonText,
 							LayoutOrder = 3,
 							RenderContent = function()
 								return Roact.createElement(LabeledButton, {
@@ -234,8 +225,8 @@ function GameTableSection:render()
 									ButtonWidth = 100,
 									Padding = 5,
 									Height = 35,
-									LabelText = "Replace entire cloud table with CSV",
-									ButtonText = "Replace",
+									LabelText = SourceStrings.GameTableSection.ReplaceTableLabelText,
+									ButtonText = SourceStrings.GameTableSection.ReplaceButtonText,
 									LayoutOrder = 2,
 									Disabled = self.state.NonInteractive,
 									OnClick = self._OnReplace,
@@ -267,7 +258,7 @@ function GameTableSection:render()
 				}),
 
 				TextLabel = Roact.createElement("TextLabel", {
-					Text = "Publish this place to upload a table",
+					Text = SourceStrings.GameTableSection.PublishPlaceMessage,
 					BorderColor3 = theme.Border,
 					BackgroundColor3 = theme.MainBackground,
 					TextColor3 = theme.BrightText,
@@ -296,7 +287,7 @@ function GameTableSection:render()
 				}),
 
 				SectionLabel = Roact.createElement("TextLabel", {
-					Text = "Cloud Localization Table",
+					Text = SourceStrings.GameTableSection.CloudTableSectionLabel,
 					Size = UDim2.new(1, 0, 0, 20),
 					BorderSizePixel = 0,
 					BackgroundTransparency = 1,

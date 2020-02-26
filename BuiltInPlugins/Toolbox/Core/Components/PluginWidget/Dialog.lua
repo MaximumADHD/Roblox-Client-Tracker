@@ -14,6 +14,7 @@
 		Modal = bool, do you want to enable modal or not.
 		InitialEnabled = boo, is the pluginGui enabled on start.
 ]]
+local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -25,7 +26,7 @@ local PluginWidget = require(Plugin.Core.Components.PluginWidget.PluginWidget)
 
 return PluginWidget("Dialog", function(self, id)
 	local props = self.props
-	local plugin = props.plugin or getPlugin(self)
+	local plugin = props.plugin or (not FFlagStudioToolboxEnabledDevFramework and getPlugin(self))
 
 	local initialEnabled
 	if props.InitialEnabled then

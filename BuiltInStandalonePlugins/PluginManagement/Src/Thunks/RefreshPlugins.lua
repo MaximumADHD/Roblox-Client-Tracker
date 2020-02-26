@@ -9,6 +9,11 @@ local ClearAllPluginData = require(Plugin.Src.Actions.ClearAllPluginData)
 local FFlagPluginManagementAllowLotsOfPlugins2 = settings():GetFFlag("PluginManagementAllowLotsOfPlugins2")
 local FFlagEnablePluginPermissionsPage = settings():GetFFlag("EnablePluginPermissionsPage2")
 
+local Flags = require(Plugin.Packages.Framework.Util.Flags)
+local FlagsList = Flags.new({
+	FFlagPluginManagementFixRemovePlugins = { "PluginManagementFixRemovePlugins" },
+})
+
 local extractPluginsFromJsonString
 if FFlagEnablePluginPermissionsPage then
 	extractPluginsFromJsonString = require(Plugin.Src.Util.extractPluginsFromJsonString)
@@ -47,7 +52,9 @@ return function(apiImpl, marketplaceService)
 		end
 
 		if FFlagPluginManagementAllowLotsOfPlugins2 then
-			store:dispatch(ClearAllPluginData())
+			if not FlagsList:get("FFlagPluginManagementFixRemovePlugins") then
+				store:dispatch(ClearAllPluginData())
+			end
 			if #assetIds > 0 then
 				store:dispatch(MultiGetPluginInfoRequest(apiImpl, marketplaceService, assetIds, plugins))
 			end

@@ -31,29 +31,82 @@ return function()
 		end)
 	end)
 
-	describe("hasInstancesConvertibleToTerrain", function()
-		local hictt = PartConverterUtil.hasInstancesConvertibleToTerrain
+	describe("isConvertibleContainerToTerrain", function()
+		local icctt = PartConverterUtil.isConvertibleContainerToTerrain
 
-		it("should be true if any instance is a part", function()
-			expect(hictt({})).to.equal(false)
-			expect(hictt({Instance.new("IntValue")})).to.equal(false)
+		it("should handle nil and protected instances", function()
+			expect(icctt(nil)).to.equal(false)
+			expect(icctt(game:GetService("CSGDictionaryService"))).to.equal(false)
+		end)
 
+		it("should find parts inside models", function()
+			local m = Instance.new("Model")
+			expect(icctt(m)).to.equal(false)
+
+			local p = Instance.new("Part")
+			p.Parent = m
+			expect(icctt(p)).to.equal(false)
+			expect(icctt(m)).to.equal(true)
+
+			p.Parent = nil
+			expect(icctt(m)).to.equal(false)
+		end)
+
+		it("should find parts nested deep in models", function()
+			local m = Instance.new("Model")
+			expect(icctt(m)).to.equal(false)
+
+			local m2 = Instance.new("Model", m)
+			local m3 = Instance.new("Model", m2)
+
+			expect(icctt(m2)).to.equal(false)
+			expect(icctt(m3)).to.equal(false)
+
+			local p = Instance.new("Part")
+			p.Parent = m3
+
+			expect(icctt(m)).to.equal(true)
+			expect(icctt(m2)).to.equal(true)
+			expect(icctt(m3)).to.equal(true)
+		end)
+	end)
+
+	describe("validInstanceFilter", function()
+		local vif = PartConverterUtil.validInstanceFilter
+
+		it("should handle nil and protected instances", function()
+			expect(vif(nil)).to.equal(false)
+			expect(vif(game:GetService("CSGDictionaryService"))).to.equal(false)
+		end)
+
+		it("should not allow terrain", function()
+			expect(vif(getTerrain())).to.equal(false)
+		end)
+
+		it("should allow valid parts", function()
+			expect(vif(Instance.new("Part"))).to.equal(false)
 			local parent = Instance.new("Model")
 			local part = Instance.new("Part")
 			part.Parent = parent
-			expect(hictt({part})).to.equal(true)
+			expect(vif(part)).to.equal(true)
 		end)
 
-		it("should find parts inside models and folders", function()
-			local model = Instance.new("Model")
-			local part = Instance.new("Part")
-			part.Parent = model
-			expect(hictt({model})).to.equal(true)
+		it("should allow valid models", function()
+			local m = Instance.new("Model")
+			expect(vif(m)).to.equal(false)
 
+			local m2 = Instance.new("Model", m)
+			local m3 = Instance.new("Model", m2)
 
-			local folder = Instance.new("Folder")
-			part.Parent = folder
-			expect(hictt({folder})).to.equal(true)
+			expect(vif(m2)).to.equal(false)
+			expect(vif(m3)).to.equal(false)
+
+			local p = Instance.new("Part")
+			p.Parent = m3
+
+			expect(vif(m)).to.equal(true)
+			expect(vif(m2)).to.equal(true)
+			expect(vif(m3)).to.equal(true)
 		end)
 	end)
 
@@ -209,6 +262,66 @@ return function()
 			local s = Vector3.new(1, 1, 1)
 
 			expect(fswt(t, m, "Foo", c, s)).to.equal(0)
+		end)
+	end)
+
+	describe("applyVisualsToInstance", function()
+		local avti = PartConverterUtil.applyVisualsToInstance
+
+		it("should work", function()
+			local part = Instance.new("Part")
+			part.Transparency = 0
+			part.Color = Color3.new(0, 0, 0)
+
+			local originalVisuals = avti(part)
+
+			expect(originalVisuals).to.be.ok()
+
+			expect(part.Archivable).to.equal(false)
+			expect(part.Transparency).to.never.equal(0)
+			expect(part.Color).to.never.equal(Color3.new(0, 0, 0))
+
+			expect(originalVisuals.Archivable).to.equal(true)
+			expect(originalVisuals.Transparency).to.equal(0)
+			expect(originalVisuals.Color).to.equal(Color3.new(0, 0, 0))
+		end)
+
+		it("should not throw with non-BaseParts", function()
+			expect(function()
+				avti(nil)
+			end).to.never.throw()
+			expect(function()
+				avti(Instance.new("Model"))
+			end).to.never.throw()
+		end)
+	end)
+
+	describe("resetVisualsOnInstance", function()
+		local avti = PartConverterUtil.applyVisualsToInstance
+		local rvio = PartConverterUtil.resetVisualsOnInstance
+
+		it("should work", function()
+			local part = Instance.new("Part")
+			part.Transparency = 0
+			part.Color = Color3.new(0, 0, 0)
+
+			-- See applyVisualsToInstance test
+			local originalVisuals = avti(part)
+
+			rvio(originalVisuals, part)
+
+			expect(part.Archivable).to.equal(true)
+			expect(part.Transparency).to.equal(0)
+			expect(part.Color).to.equal(Color3.new(0, 0, 0))
+		end)
+
+		it("should not throw with non-BaseParts", function()
+			expect(function()
+				rvio({}, nil)
+			end).to.never.throw()
+			expect(function()
+				rvio({}, Instance.new("Model"))
+			end).to.never.throw()
 		end)
 	end)
 end

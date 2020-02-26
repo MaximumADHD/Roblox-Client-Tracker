@@ -18,21 +18,38 @@ local PlayabilityWidget = Roact.PureComponent:extend("PlayabilityWidget")
 function PlayabilityWidget:render()
 	return withTheme(function(theme)
 		return withLocalization(function(localized)
-			local buttons = {{
-					Id = true,
-					Title = localized.Playability.Public.Title,
-					Description = localized.Playability.Public.Description,
-				}, {
-					Id = "Friends",
-					Title = self.props.Group and localized.Playability.Group.Title or localized.Playability.Friends.Title,
-					Description = self.props.Group and localized.Playability.Group.Description({group = self.props.Group})
-						or localized.Playability.Friends.Description,
-				}, {
-					Id = false,
-					Title = localized.Playability.Private.Title,
-					Description = localized.Playability.Private.Description,
-				},
-			}
+			local isGroupGame = self.props.IsGroupGame
+			local buttons
+			if isGroupGame then
+				buttons = {
+					{
+						Id = true,
+						Title = localized.Playability.Public.Title,
+						Description = localized.Playability.Public.Description,
+					}, {
+						Id = false,
+						Title = localized.Playability.Private.Title,
+						Description = localized.Playability.Private.Description,
+					},
+				}
+			else
+				buttons = {
+					{
+						Id = true,
+						Title = localized.Playability.Public.Title,
+						Description = localized.Playability.Public.Description,
+					}, {
+						Id = "Friends",
+						Title = self.props.Group and localized.Playability.Group.Title or localized.Playability.Friends.Title,
+						Description = self.props.Group and localized.Playability.Group.Description({group = self.props.Group})
+							or localized.Playability.Friends.Description,
+					}, {
+						Id = false,
+						Title = localized.Playability.Private.Title,
+						Description = localized.Playability.Private.Description,
+					},
+				}
+			end
 
 			local selected
 			if self.props.Selected ~= nil then

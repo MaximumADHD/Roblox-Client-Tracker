@@ -71,3 +71,5 @@ local function main()
 end
 
 main()
+
+openPlugin()

@@ -281,19 +281,19 @@ Class Camera : Instance [NotReplicated]
 	Property float Camera.HeadScale
 	Property float Camera.NearPlaneZ [<💾> SaveOnly] [ReadOnly] [NotReplicated]
 	Property Vector2 Camera.ViewportSize [<💾> SaveOnly] [ReadOnly] [NotReplicated]
-	Function float Camera:GetLargestCutoffDistance(Objects ignoreList)
+	Function float Camera:GetLargestCutoffDistance(Objects ignoreList) [Deprecated]
 	Function float Camera:GetPanSpeed()
 	Function Objects Camera:GetPartsObscuringTarget(Array castPoints, Objects ignoreList)
 	Function CFrame Camera:GetRenderCFrame()
 	Function float Camera:GetRoll()
 	Function float Camera:GetTiltSpeed()
-	Function void Camera:Interpolate(CFrame endPos, CFrame endFocus, float duration)
-	Function void Camera:PanUnits(int units)
+	Function void Camera:Interpolate(CFrame endPos, CFrame endFocus, float duration) [Deprecated]
+	Function void Camera:PanUnits(int units) [Deprecated]
 	Function Ray Camera:ScreenPointToRay(float x, float y, float depth = 0)
 	Function void Camera:SetCameraPanMode(Enum<CameraPanMode> mode = "Classic")
 	Function void Camera:SetImageServerView(CFrame modelCoord) {RobloxScriptSecurity}
 	Function void Camera:SetRoll(float rollAngle)
-	Function bool Camera:TiltUnits(int units)
+	Function bool Camera:TiltUnits(int units) [Deprecated]
 	Function Ray Camera:ViewportPointToRay(float x, float y, float depth = 0)
 	Function Tuple Camera:WorldToScreenPoint(Vector3 worldPoint)
 	Function Tuple Camera:WorldToViewportPoint(Vector3 worldPoint)
@@ -1360,6 +1360,11 @@ Class InsertService : Instance [NotCreatable] [Service]
 	Function Instance InsertService:LoadAssetVersion(int64 assetVersionId) [Yields]
 	Function Instance InsertService:LoadLocalAsset(string assetPath) {RobloxScriptSecurity}
 	Function Objects InsertService:LoadPackageAsset(Content url) {RobloxScriptSecurity}
+Class InternalSyncItem : Instance [NotReplicated]
+	Property bool InternalSyncItem.Enabled {RobloxScriptSecurity} [NotReplicated]
+	Property string InternalSyncItem.Path {RobloxScriptSecurity} [NotReplicated]
+	Property Instance InternalSyncItem.Target {RobloxScriptSecurity} [<📁> LoadOnly] [NotReplicated]
+Class InternalSyncService : Instance [NotCreatable] [Service] [NotReplicated]
 Class JointInstance : Instance [NotCreatable]
 	Property bool JointInstance.Active  [ReadOnly] [NotReplicated]
 	Property bool JointInstance.Enabled  [Hidden]
@@ -1426,6 +1431,7 @@ Class KeyframeSequenceProvider : Instance [NotCreatable] [Service] [NotReplicate
 	Function Dictionary KeyframeSequenceProvider:GetMemStats() {RobloxScriptSecurity}
 	Function Content KeyframeSequenceProvider:RegisterActiveKeyframeSequence(Instance keyframeSequence)
 	Function Content KeyframeSequenceProvider:RegisterKeyframeSequence(Instance keyframeSequence)
+Class LanguageService : Instance [NotCreatable] [Service] [NotReplicated]
 Class Light : Instance [NotCreatable]
 	Property float Light.Brightness
 	Property Color3 Light.Color
@@ -1915,7 +1921,7 @@ Class WorldRoot : Model [NotCreatable]
 	Function void WorldRoot:IkMoveTo(Instance part, CFrame target, float translateStiffness = 1, float rotateStiffness = 1, Enum<CollisionsMode> collisionsMode = "OtherMechanismsAnchored") {RobloxScriptSecurity}
 	Function bool WorldRoot:IsRegion3Empty(Region3 region, Instance ignoreDescendentsInstance = nil)
 	Function bool WorldRoot:IsRegion3EmptyWithIgnoreList(Region3 region, Objects ignoreDescendentsTable)
-	Function Tuple WorldRoot:Raycast(Vector3 origin, Vector3 direction, RaycastParams raycastParams = RaycastParams.new())
+	Function RaycastResult WorldRoot:Raycast(Vector3 origin, Vector3 direction, RaycastParams raycastParams = RaycastParams.new())
 Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property bool Workspace.AllowThirdPartySales  [NotReplicated]
 	Property float Workspace.FallenPartsDestroyHeight {✏️PluginSecurity}
@@ -2235,7 +2241,6 @@ Class Plugin : Instance [NotCreatable]
 	Function Instance Plugin:Union(Objects objects) {PluginSecurity}
 	Event Plugin.Deactivation() {PluginSecurity}
 	Event Plugin.Unloading() {PluginSecurity}
-Class DebuggablePlugin : Plugin
 Class PluginAction : Instance [NotReplicated]
 	Property string PluginAction.ActionId  [ReadOnly] [NotReplicated]
 	Property bool PluginAction.AllowBinding  [ReadOnly] [NotReplicated]
@@ -2245,7 +2250,7 @@ Class PluginAction : Instance [NotReplicated]
 	Property string PluginAction.StatusTip  [ReadOnly] [NotReplicated]
 	Property string PluginAction.Text  [ReadOnly] [NotReplicated]
 	Event PluginAction.Triggered() {PluginSecurity}
-Class PluginDebugService : Instance [NotCreatable] [Service]
+Class PluginDebugService : Instance [NotCreatable] [Service] [NotReplicated]
 Class PluginDragEvent : Instance [NotCreatable] [NotReplicated]
 	Property string PluginDragEvent.Data  [ReadOnly] [NotReplicated]
 	Property string PluginDragEvent.MimeType  [ReadOnly] [NotReplicated]
@@ -2758,6 +2763,7 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property Enum<UITheme> Studio.UI Theme [<💾> SaveOnly] [Hidden] [ReadOnly] [NotReplicated] [Deprecated]
 	Property bool Studio.LuaDebuggerEnabled
 	Property bool Studio.LuaDebuggerEnabledAtStartup  [Hidden] [ReadOnly] [NotReplicated]
+	Property bool Studio.PluginDebuggingEnabled
 	Property int Studio.ScriptTimeoutLength
 	Property bool Studio.Clear Output On Start
 	Property int Studio.Maximum Output Lines
@@ -2803,9 +2809,11 @@ Class StudioData : Instance [NotCreatable] [Service]
 	Property int64 StudioData.SrcPlaceId {RobloxSecurity} [Hidden] [NotReplicated]
 	Property int64 StudioData.SrcUniverseId {RobloxSecurity} [Hidden] [NotReplicated]
 Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
+	Property bool StudioService.DraggerSolveConstraints  [ReadOnly] [NotReplicated]
 	Property float StudioService.GridSize  [ReadOnly] [NotReplicated]
 	Property string StudioService.InstalledPluginData {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
 	Property float StudioService.RotateIncrement  [ReadOnly] [NotReplicated]
+	Property bool StudioService.ShowConstraintDetails  [ReadOnly] [NotReplicated]
 	Property bool StudioService.UseLocalSpace [<📁> LoadOnly] [NotReplicated]
 	Property Instance StudioService.ActiveScript  [ReadOnly] [NotReplicated]
 	Property string StudioService.StudioLocaleId  [ReadOnly] [NotReplicated]
@@ -2816,7 +2824,7 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Dictionary StudioService:GetResourceByCategory(string category) {RobloxScriptSecurity}
 	Function string StudioService:GetStartupPluginId() {RobloxScriptSecurity}
 	Function int64 StudioService:GetUserId() {PluginSecurity}
-	Function Tuple StudioService:GizmoRaycast(Vector3 origin, Vector3 direction, RaycastParams raycastParams = RaycastParams.new()) {PluginSecurity}
+	Function RaycastResult StudioService:GizmoRaycast(Vector3 origin, Vector3 direction, RaycastParams raycastParams = RaycastParams.new()) {PluginSecurity}
 	Function bool StudioService:IsPluginInstalled(int64 assetId) {RobloxScriptSecurity}
 	Function bool StudioService:IsPluginUpToDate(int64 assetId, int64 currentAssetVersion) {RobloxScriptSecurity}
 	Function void StudioService:LaunchBulkImport(int assetTypeToImport) {RobloxScriptSecurity}

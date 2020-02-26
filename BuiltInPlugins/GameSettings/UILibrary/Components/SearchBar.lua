@@ -11,6 +11,7 @@
 		callback OnSearchRequested(string searchTerm) : callback for when the user presses the enter key
 			or clicks the search button or types if search is live
 ]]
+local FFlagAssetManagerLuaCleanup1 = settings():GetFFlag("AssetManagerLuaCleanup1")
 
 local Library = script.Parent.Parent
 local Roact = require(Library.Parent.Roact)
@@ -177,7 +178,7 @@ function SearchBar:render()
 
 		local layoutIndex = LayoutOrderIterator.new()
 
-		return Roact.createElement("Frame", {
+		local Contents = Roact.createElement("Frame", {
 			Size = size,
 			BackgroundColor3 = searchBarTheme.backgroundColor,
 			BorderColor3 = borderColor,
@@ -262,6 +263,90 @@ function SearchBar:render()
 				}),
 			}),
 		})
+
+		if FFlagAssetManagerLuaCleanup1 then
+			Contents = Roact.createElement("Frame", {
+				Size = size,
+				BackgroundColor3 = searchBarTheme.backgroundColor,
+				BorderColor3 = borderColor,
+				BorderSizePixel = 1,
+				LayoutOrder = layoutOrder,
+
+				[Roact.Event.MouseEnter] = self.onContainerHovered,
+				[Roact.Event.MouseLeave] = self.onContainerHoverEnded,
+			},  {
+				SearchBarLayout = Roact.createElement("UIListLayout", {
+					SortOrder = Enum.SortOrder.LayoutOrder,
+					Padding = UDim.new(0, 0),
+					FillDirection = Enum.FillDirection.Horizontal,
+				}),
+
+				SearchImageFrame = Roact.createElement("Frame", {
+					BackgroundTransparency = 1,
+					Size = UDim2.new(0, buttonSize, 0, buttonSize),
+					LayoutOrder = layoutIndex:getNextOrder(),
+				} , {
+					SearchImage = Roact.createElement("ImageLabel", {
+						AnchorPoint = Vector2.new(0.5, 0.5),
+						Position = UDim2.new(0.5, 0, 0.5, 0),
+						Size = UDim2.new(0, searchBarTheme.buttons.iconSize,
+							0, searchBarTheme.buttons.iconSize),
+						BackgroundTransparency = 1,
+						Image = searchBarTheme.images.search.image,
+						ImageColor3 = searchBarTheme.buttons.search.color,
+					}),
+				}),
+
+				TextBox = Roact.createElement("TextBox", {
+					Size = UDim2.new(1, textBoxOffset, 0, buttonSize),
+					LayoutOrder = layoutIndex:getNextOrder(),
+
+					BackgroundTransparency = 1,
+					ClipsDescendants = true,
+
+					ClearTextOnFocus = false,
+					Font = searchBarTheme.font,
+					TextSize = searchBarTheme.textSize,
+					TextXAlignment = Enum.TextXAlignment.Left,
+					TextColor3 = searchBarTheme.text.color,
+					Text = text,
+					TextEditable = true,
+
+					PlaceholderText = defaultText,
+					PlaceholderColor3 = searchBarTheme.text.placeholder.color,
+
+					-- Get a reference to the text box so that clicking on the container can call :CaptureFocus()
+					[Roact.Ref] = self.textBoxRef,
+
+					[Roact.Change.Text] = self.onTextChanged,
+					[Roact.Event.Focused] = self.onTextBoxFocused,
+					[Roact.Event.FocusLost] = self.onTextBoxFocusLost,
+				}),
+
+				ClearButton = showClearButton and Roact.createElement("ImageButton", {
+					Size = UDim2.new(0, buttonSize, 0, buttonSize),
+					LayoutOrder = layoutIndex:getNextOrder(),
+
+					BackgroundTransparency = 1,
+
+					[Roact.Event.MouseEnter] = self.onClearButtonHovered,
+					[Roact.Event.MouseLeave] = self.onClearButtonHoverEnded,
+					[Roact.Event.MouseButton1Down] = self.onClearButtonClicked,
+				}, {
+					ClearImage = Roact.createElement("ImageLabel", {
+						AnchorPoint = Vector2.new(0.5, 0.5),
+						Position = UDim2.new(0.5, 0, 0.5, 0),
+						Size = UDim2.new(0, searchBarTheme.buttons.iconSize,
+							0, searchBarTheme.buttons.iconSize),
+						BackgroundTransparency = 1,
+						Image = clearButtonImage,
+						ImageColor3 = searchBarTheme.buttons.clear.color,
+					}),
+				}),
+			})
+		end
+
+		return Contents
 	end)
 end
 

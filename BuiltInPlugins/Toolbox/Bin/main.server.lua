@@ -7,6 +7,7 @@ end
 -- Fast flags
 require(script.Parent.defineLuaFlags)
 local FFlagEnableOverrideAssetCursorFix = game:GetFastFlag("EnableOverrideAssetCursorFix")
+local FFlagStudioToolboxEnabledDevFramework = game:DefineFastFlag("StudioToolboxEnabledDevFramework", false)
 local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 
 local Plugin = script.Parent.Parent
@@ -39,9 +40,23 @@ local AssetConfigWrapper = require(Plugin.Core.Components.AssetConfiguration.Ass
 
 local GetRolesRequest = require(Plugin.Core.Networking.Requests.GetRolesRequest)
 
+local ContextServices = require(Libs.Framework.ContextServices)
+local SettingsContext = require(Plugin.Core.ContextServices.Settings)
+
+local TranslationStringsTable = Plugin.LocalizationSource.ToolboxTranslationReferenceTable
+local makeTheme = require(Util.makeTheme)
+
 local StudioService = game:GetService("StudioService")
 local RobloxPluginGuiService = game:GetService("RobloxPluginGuiService")
 
+local localization2
+if FFlagStudioToolboxEnabledDevFramework then
+	localization2 = ContextServices.Localization.new({
+		stringResourceTable = TranslationStringsTable,
+		translationResourceTable = TranslationStringsTable,
+		pluginName = "Toolbox",
+	})
+end
 
 local function createTheme()
 	return ToolboxTheme.new({
@@ -187,8 +202,20 @@ local function createAssetConfig(assetId, flowType, instances, assetTypeEnum)
 
 		onAssetConfigDestroy = onAssetConfigDestroy
 	})
-
-	assetConfigHandle = Roact.mount(assetConfigComponent)
+	if FFlagStudioToolboxEnabledDevFramework then
+		local assetConfigWithServices = ContextServices.provide({
+			ContextServices.Plugin.new(plugin),
+			localization2,
+			makeTheme(theme:getUILibraryTheme()),
+			ContextServices.Store.new(assetConfigStore),
+			SettingsContext.new(settings),
+		}, {
+			assetConfigComponent
+		})
+		assetConfigHandle = Roact.mount(assetConfigWithServices)
+	else
+		assetConfigHandle = Roact.mount(assetConfigComponent)
+	end
 
 	return assetConfigHandle
 end
@@ -234,8 +261,20 @@ local function main()
 			toolboxStore:dispatch(GetRolesRequest(networkInterface)):andThen(proceedToEdit, proceedToEdit)
 		end,
 	})
-
-	toolboxHandle = Roact.mount(toolboxComponent)
+	if FFlagStudioToolboxEnabledDevFramework then
+		local toolboxWithServices = ContextServices.provide({
+			ContextServices.Plugin.new(plugin),
+			localization2,
+			makeTheme(theme:getUILibraryTheme()),
+			ContextServices.Store.new(toolboxStore),
+			SettingsContext.new(settings),
+		}, {
+			toolboxComponent
+		})
+		toolboxHandle = Roact.mount(toolboxWithServices)
+	else
+		toolboxHandle = Roact.mount(toolboxComponent)
+	end
 
 	-- Create publish new asset page.
 	StudioService.OnSaveToRoblox:connect(function(instances)

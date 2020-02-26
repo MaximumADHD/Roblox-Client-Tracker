@@ -3,6 +3,7 @@
 ]]
 
 local FFlagStudioGameSettingsRestrictPermissions = game:GetFastFlag("StudioGameSettingsRestrictPermissions")
+local FFlagStudioGameSettingsGroupGamePermissionChanges = game:GetFastFlag("StudioGameSettingsGroupGamePermissionChanges")
 local FFlagStudioGameSettingsPermisisonUpdateWarning = game:DefineFastFlag("StudioGameSettingsPermissionUpdateWarning", false)
 local FFlagStudioGameSettingsFixUserSearch = game:DefineFastFlag("StudioGameSettingsFixUserSearch", false)
 
@@ -355,7 +356,8 @@ function CollaboratorSearchWidget:render()
 					ItemHeight = 50,
 
 					ErrorText = tooManyCollaborators and tooManyCollaboratorsText or nil,
-					DefaultText = localized.AccessPermissions.Searchbar.DefaultText,
+					DefaultText = FFlagStudioGameSettingsGroupGamePermissionChanges and localized.AccessPermissions.Searchbar.DefaultText
+						or localized.AccessPermissions.Searchbar.DEPRECATED_DefaultText,
 					NoResultsText = localized.AccessPermissions.Searchbar.NoResultsText,
 					LoadingMore = isLoading,
 

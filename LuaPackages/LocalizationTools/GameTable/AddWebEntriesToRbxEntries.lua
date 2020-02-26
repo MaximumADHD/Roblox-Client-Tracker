@@ -1,3 +1,5 @@
+local SourceStrings = require(script.Parent.Parent.SourceStrings)
+
 --[[
 	Takes a list webEntries (as returned in the web-based localization table api get request).
 	Also takes a table called 'rbxEntries'.
@@ -7,11 +9,11 @@
 ]]
 return function(webEntries, rbxEntries)
 	if type(webEntries) ~= "table" then
-		return {errorMessage = "Wrongly formatted web table."}
+		return {errorMessage = SourceStrings.AddWebEntriesToRbxEntries.WrongFormatedWebTableMessage}
 	end
 
 	if type(rbxEntries) ~= "table" then
-		return {errorMessage = "Expected table type."}
+		return {errorMessage = SourceStrings.AddWebEntriesToRbxEntries.ExpectedTableTypeMessage}
 	end
 
 	for _, datum in ipairs(webEntries) do
@@ -22,7 +24,7 @@ return function(webEntries, rbxEntries)
 			entry.Source = datum.identifier.source or ""
 			entry.Context = datum.identifier.context or ""
 		else
-			return {errorMessage = "Wrongly formatted web table."}
+			return {errorMessage = SourceStrings.AddWebEntriesToRbxEntries.WrongFormatedWebTableMessage}
 		end
 
 		entry.Example = datum.metadata and datum.metadata.example or ""
@@ -32,7 +34,7 @@ return function(webEntries, rbxEntries)
 				if type(translationInfo.locale) == "string" then
 					entry.Values[translationInfo.locale] = translationInfo.translationText or ""
 				else
-					return {errorMessage = "Web table contained translation with no locale"}
+					return {errorMessage = SourceStrings.AddWebEntriesToRbxEntries.NoLocaleMessage}
 				end
 			end
 		end

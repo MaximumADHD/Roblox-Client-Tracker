@@ -263,14 +263,18 @@ RBX
 	}
 	LSP
 	{
-		IConnection
+		IClientConnection
+		IClientConnectionDelegate
 		IHostAppServices
 		ILanguageClient
 		ILanguageServer
+		ISocket
+		ISocketDelegate
 		LanguageClientBase
 		LanguageServerBase
-		LSPConnection
+		LSPClientConnection
 		LSPManager
+		LSPSocket
 		LuauLanguageServer
 		LuauLanguageServerExt
 		ScriptContentsProvider
@@ -478,7 +482,6 @@ RBX
 		CmdGotoPosition
 		CmdInsertText
 		GotoLineDialog
-		ScriptEditorConnection
 		ScriptingCmdBase
 		ScriptingCommands
 		ScriptingManager
@@ -577,6 +580,11 @@ RBX
 		TypedMemItem
 		TypedPercentItem
 		UntrackedMemoryStatsItem
+	}
+	Studio
+	{
+		InfoBarBanner
+		InfoBarManager
 	}
 	TaskScheduler
 	{
@@ -741,7 +749,6 @@ RBX
 	DateHandler
 	DatetimeHandler
 	DebrisService
-	DebuggablePlugin
 	DebugSettings
 	Decal
 	DecalTexture
@@ -773,6 +780,8 @@ RBX
 	Feature
 	File
 	FileMesh
+	FileSyncItem
+	FileSyncService
 	FillTool
 	FilterDescendents
 	FilterDescendentsList
@@ -928,6 +937,7 @@ RBX
 	KeyframeMarker
 	KeyframeSequence
 	KeyframeSequenceProvider
+	LanguageService
 	LatchedSignalBase
 	LayoutDefault
 	LayoutGrid

@@ -12,15 +12,25 @@
 local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
-
 local ContextServices = require(Plugin.Packages.Framework.ContextServices)
+
+local UILibrary = require(Plugin.Packages.UILibrary)
+local createFitToContent = UILibrary.Component.createFitToContent
+local LayoutOrderIterator = UILibrary.Util.LayoutOrderIterator
 
 local TopBar = require(Plugin.Src.Components.TopBar)
 local ExplorerOverlay = require(Plugin.Src.Components.ExplorerOverlay)
+local NavBar = require(Plugin.Src.Components.NavBar)
 
 local Screens = require(Plugin.Src.Util.Screens)
 
 local MainView = Roact.PureComponent:extend("MainView")
+
+local FitTocontent = createFitToContent("Frame", "UIListLayout", {
+    FillDirection = Enum.FillDirection.Vertical,
+    SortOrder = Enum.SortOrder.LayoutOrder,
+    VerticalAlignment = Enum.VerticalAlignment.Top,
+})
 
 local defaultFoldersLoaded = false
 local function createDefaultFileOverlayFolders(category, parent, localization)
@@ -29,6 +39,7 @@ local function createDefaultFileOverlayFolders(category, parent, localization)
         Name = localization:getText("Folders", category),
         Screen = category,
         Children = {},
+        Parent = parent,
     }
 
     if parent then
@@ -42,14 +53,14 @@ function MainView:init()
         fileExplorerData = {
             Name = "Game 1",
             ClassName = "Folder",
-            Screen = Screens.MAIN,
+            Screen = Screens.MAIN.Key,
             Children = {},
         },
     }
 
-    self.onOverlayButtonActivated = function()
+    self.openOverlay = function()
         self:setState({
-            showOverlay = not self.state.showOverlay,
+            showOverlay = true,
         })
     end
 
@@ -66,30 +77,37 @@ function MainView:render()
 
     local localization = props.Localization
 
+    local layoutIndex = LayoutOrderIterator.new()
+
     if not defaultFoldersLoaded then
-        for _,category in pairs(Screens) do
-            if category ~= Screens.MAIN then
-                createDefaultFileOverlayFolders(category, self.state.fileExplorerData, localization)
+        for _, screen in pairs(Screens) do
+            if screen.Key ~= Screens.MAIN.Key then
+                createDefaultFileOverlayFolders(screen.Key, self.state.fileExplorerData, localization)
             end
         end
         defaultFoldersLoaded = true
     end
 
-    return Roact.createElement("Frame", {
+    return Roact.createElement(FitTocontent, {
         Position = UDim2.new(0, 0, 0, 0),
-        Size = UDim2.new(1, 0, 1, 0),
         BackgroundTransparency = 0,
         BackgroundColor3 = theme.BackgroundColor,
     }, {
         TopBar = Roact.createElement(TopBar, {
-            OnOverlayActivated = self.onOverlayButtonActivated,
+            OnOverlayActivated = self.openOverlay,
             Enabled = not self.state.showOverlay,
+            LayoutOrder = layoutIndex:getNextOrder(),
+        }),
+
+        NavBar = Roact.createElement(NavBar, {
+            Size = UDim2.new(1, 0, 0, theme.NavBar.Height),
+            LayoutOrder = layoutIndex:getNextOrder(),
         }),
 
         ExplorerOverlay = self.state.showOverlay and Roact.createElement(ExplorerOverlay, {
             FileExplorerData = self.state.fileExplorerData,
             CloseOverlay = self.closeOverlay,
-        })
+        }),
     })
 end
 

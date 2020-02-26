@@ -640,3 +640,65 @@ CoreScripts.PremiumModal.Error.PlatformUnavailable,,,Purchasing Roblox Premium i
 CoreScripts.PremiumModal.Error.AlreadyPremium,,,You are already subscribed to Roblox Premium! Please try again.,Du hast Roblox Premium bereits abonniert! Bitte versuche es erneut.,You are already subscribed to Roblox Premium! Please try again.,¡Ya tienes una suscripción a Roblox Premium! Inténtalo de nuevo.,¡Ya tienes una suscripción a Roblox Premium! Inténtalo de nuevo.,Vous avez déjà un abonnement Roblox Premium ! Veuillez réessayer.,Sei già iscritto a Roblox Premium. Riprova.,すでにRoblox Premiumのサブスクリプション契約をしています！もう一度お試しください。,이미 Roblox Premium에 가입되어 있어요! 다시 시도하세요.,Você já se inscreveu no Roblox Premium! Tente de novo.,Você já se inscreveu no Roblox Premium! Tente de novo.,У вас уже есть премиум-подписка Roblox! Повторите попытку.,你已订阅至 Roblox Premium！请再试一次。,您已經訂閱 Roblox Premium 了！請重新嘗試。,你已订阅至 Roblox Premium！请再试一次。
 CoreScripts.PremiumModal.Error.Unavailable,,,Premium is unavailable at the moment. Please again try later!,Premium ist derzeit nicht verfügbar. Bitte versuche es später wieder!,Premium is unavailable at the moment. Please again try later!,Premium no está disponible en este momento. Inténtalo más tarde.,Premium no está disponible en este momento. Inténtalo más tarde.,Le niveau Premium n'est pas disponible pour le moment. Réessayez plus tard !,Premium non è al momento disponibile. Riprova più tardi!,現在、Premiumが利用できません。あとでお試しください！,Premium이 일시적으로 이용 불가능합니다. 나중에 다시 시도하세요!,O Roblox Premium não está disponível no momento. Tente mais tarde!,O Roblox Premium não está disponível no momento. Tente mais tarde!,В настоящий момент премиум-подписка недоступна. Повторите попытку позже!,Premium 当前无法购买。请稍后再试！,目前無法購買 Premium，請稍後再試！,Premium 当前无法购买。请稍后再试！
 CoreScripts.PremiumModal.Body.RobuxMonthlyV2,,,{robux} Robux per month,{robux} Robux im Monat,{robux} Robux per month,{robux} Robux al mes,{robux} Robux al mes,{robux} Robux par mois,{robux} Robux al mese,1ヶ月につき{robux} Robux,매월 {robux} Robux 지급,{robux} Robux por mês,{robux} Robux por mês,{robux} Robux в месяц;,每月 {robux} Robux,每月 {robux} Robux,每月 {robux} Robux
+LocalizationTools.Main.RibbonBarButton,,,Tools,,Tools,,,,,,,,,,工具,,工具
+LocalizationTools.Main.WindowTitle,,,Localization Tools,,Localization Tools,,,,,,,,,,本地化工具,,本地化工具
+LocalizationTools.Main.ToolbarLabel,,,Localization,,Localization,,,,,,,,,,本地化,,本地化
+LocalizationTools.Main.ToolTipMessage,,,Hide/show the Localization Tools View,,Hide/show the Localization Tools View,,,,,,,,,,隐藏/显示本地化工具视图,,隐藏/显示本地化工具视图
+LocalizationTools.EmbeddedTableSection.TextCaptureStartText,,,Start untranslated text capture,,Start untranslated text capture,,,,,,,,,,开始抓取未翻译的文本,,开始抓取未翻译的文本
+LocalizationTools.EmbeddedTableSection.TextCaptureStopText,,,Stop untranslated text capture,,Stop untranslated text capture,,,,,,,,,,停止抓取未翻译的文本,,停止抓取未翻译的文本
+LocalizationTools.EmbeddedTableSection.SectionLabel,,,Embedded Localization Table,,Embedded Localization Table,,,,,,,,,,嵌入本地化表格,,嵌入本地化表格
+LocalizationTools.EmbeddedTableSection.TextCaptureButton,,,Text Capture,,Text Capture,,,,,,,,,,文本抓取,,文本抓取
+LocalizationTools.EmbeddedTableSection.ExportButton,,,Export,,Export,,,,,,,,,,导出,,导出
+LocalizationTools.EmbeddedTableSection.ImportButton,,,Import,,Import,,,,,,,,,,导入,,导入
+LocalizationTools.EmbeddedTableSection.ExportTextLabel,,,Export LocalizationTables under LocalizationService to CSV files,,Export LocalizationTables under LocalizationService to CSV files,,,,,,,,,,在 LocalizationService 下导出 LocalizationTables 至 CSV 文件,,在 LocalizationService 下导出 LocalizationTables 至 CSV 文件
+LocalizationTools.EmbeddedTableSection.ImportTextLabel,,,Import CSV files to LocalizationTables under LocalizationService,,Import CSV files to LocalizationTables under LocalizationService,,,,,,,,,,在 LocalizationService 下导入 LocalizationTables 至 CSV 文件,,在 LocalizationService 下导入 LocalizationTables 至 CSV 文件
+LocalizationTools.GameTableSection.CloudTablePageLinkText,,,Click here to configure your cloud localization table,,Click here to configure your cloud localization table,,,,,,,,,,点按这里来配置你的云本地化表格,,点按这里来配置你的云本地化表格
+LocalizationTools.GameTableSection.DownloadButton,,,Download,,Download,,,,,,,,,,下载,,下载
+LocalizationTools.GameTableSection.DownloadTableLabel,,,Download table as CSV,,Download table as CSV,,,,,,,,,,下载表格并保存至 CSV 格式,,下载表格并保存至 CSV 格式
+LocalizationTools.GameTableSection.UpdateButton,,,Update,,Update,,,,,,,,,,更新,,更新
+LocalizationTools.GameTableSection.UpdateTableLabel,,,Update with new content from CSV,,Update with new content from CSV,,,,,,,,,,更新 CSV 中的新内容,,更新 CSV 中的新内容
+LocalizationTools.GameTableSection.AdvancedButton,,,Advanced,,Advanced,,,,,,,,,,高级,,高级
+LocalizationTools.GameTableSection.ReplaceButton,,,Replace,,Replace,,,,,,,,,,替换,,替换
+LocalizationTools.GameTableSection.ReplaceTableLabel,,,Replace entire cloud table with CSV,,Replace entire cloud table with CSV,,,,,,,,,,将整个云表格替换为 CSV,,将整个云表格替换为 CSV
+LocalizationTools.GameTableSection.PublishPlaceMessage,,,Publish this place to upload a table,,Publish this place to upload a table,,,,,,,,,,发布此场景来上传表格,,发布此场景来上传表格
+LocalizationTools.GameTableSection.SectionLabel,,,Cloud Localization Table,,Cloud Localization Table,,,,,,,,,,云本地化表格,,云本地化表格
+LocalizationTools.UploadDialogContent.PatchEmptyMessage,,,Patch empty. Upload anyway?,,Patch empty. Upload anyway?,,,,,,,,,,空补丁，仍要上传？,,空补丁，仍要上传？
+LocalizationTools.UploadDialogContent.UploadPatchMessage,,,Upload patch?,,Upload patch?,,,,,,,,,,上传补丁？,,上传补丁？
+LocalizationTools.UploadDialogContent.AddEntriesPreText,,,Add entries: ,,Add entries: ,,,,,,,,,,添加条目：,,添加条目：
+LocalizationTools.UploadDialogContent.AddTranslationsPretext,,,Add translations: ,,Add translations: ,,,,,,,,,,添加翻译：,,添加翻译：
+LocalizationTools.UploadDialogContent.ChangeTranslationsPretext,,,Change translations: ,,Change translations: ,,,,,,,,,,更改翻译：,,更改翻译：
+LocalizationTools.UploadDialogContent.DeleteEntriesPretext,,,Delete entries: ,,Delete entries: ,,,,,,,,,,删除条目：,,删除条目：
+LocalizationTools.UploadDialogContent.DeleteTranslationsPretext,,,Delete translations: ,,Delete translations: ,,,,,,,,,,删除翻译：,,删除翻译：
+LocalizationTools.UploadDialogContent.AddLanguagesPretext,,,Add languages: ,,Add languages: ,,,,,,,,,,添加语言：,,添加语言：
+LocalizationTools.UploadDialogContent.PatchTotalRowsLabel,,,Total rows: ,,Total rows: ,,,,,,,,,,总条数：,,总条数：
+LocalizationTools.UploadDialogContent.PatchTotalTranslationsLabel,,,Total translations: ,,Total translations: ,,,,,,,,,,总翻译数：,,总翻译数：
+LocalizationTools.UploadDialogContent.PatchLanguagesLabel,,,Languages: ,,Languages: ,,,,,,,,,,语言：,,语言：
+LocalizationTools.UploadDialogContent.PatchInvalidLanguagesLabel,,,Invalid columns: ,,Invalid columns: ,,,,,,,,,,无效的列：,,无效的列：
+LocalizationTools.UploadDialogContent.CancelButton,,,Cancel,,Cancel,,,,,,,,,,取消,,取消
+LocalizationTools.UploadDialogContent.ConfirmButton,,,Confirm,,Confirm,,,,,,,,,,确认,,确认
+LocalizationTools.AddWebEntriesToRbxEntries.WrongFormatWebTableMessage,,,Wrongly formatted web table.,,Wrongly formatted web table.,,,,,,,,,,本地化表格格式有误。,,本地化表格格式有误。
+LocalizationTools.AddWebEntriesToRbxEntries.ExpectedTableTypeMessage,,,Expected table type.,,Expected table type.,,,,,,,,,,表格类型缺失。,,表格类型缺失。
+LocalizationTools.AddWebEntriesToRbxEntries.NoLocaleMessage,,,Web table contained translation with no locale,,Web table contained translation with no locale,,,,,,,,,,本地化表格包含未标明语言的翻译,,本地化表格包含未标明语言的翻译
+LocalizationTools.PageDownloader.DecodeFailedMessage,,,Downloaded table failed to decode,,Downloaded table failed to decode,,,,,,,,,,下载的表格解码失败,,下载的表格解码失败
+LocalizationTools.PageDownloader.FailedWithStatusCodeMessage,,,"Uploading table failed with status code: {1}, and response: {2}",,"Uploading table failed with status code: {1}, and response: {2}",,,,,,,,,,上传表格失败，状态码：{1}，响应码：{2},,上传表格失败，状态码：{1}，响应码：{2}
+LocalizationTools.PageDownloader.DownloadFailedMessage,,,Download failed,,Download failed,,,,,,,,,,下载失败,,下载失败
+LocalizationTools.UploadDownloadFlow.UnexpectedErrorMessage,,,Unexpected error,,Unexpected error,,,,,,,,,,未知错误,,未知错误
+LocalizationTools.UploadDownloadFlow.CSVReadFailedMessage,,,CSV read failed,,CSV read failed,,,,,,,,,,CSV 读取失败,,CSV 读取失败
+LocalizationTools.UploadDownloadFlow.OpenCSVCanceledMessage,,,Open CSV canceled,,Open CSV canceled,,,,,,,,,,打开 CSV 失败,,打开 CSV 失败
+LocalizationTools.UploadDownloadFlow.CSVWriteFailedMessage,,,CSV write failed,,CSV write failed,,,,,,,,,,CSV 写入失败,,CSV 写入失败
+LocalizationTools.UploadDownloadFlow.SaveCSVCanceledMessage,,,Save CSV canceled,,Save CSV canceled,,,,,,,,,,取消保存 CSV ,,取消保存 CSV 
+LocalizationTools.UploadDownloadFlow.BusyMessage,,,busy,,busy,,,,,,,,,,系统繁忙,,系统繁忙
+LocalizationTools.UploadDownloadFlow.OpenCSVFileMessage,,,Open CSV file...,,Open CSV file...,,,,,,,,,,打开 CSV 文件...,,打开 CSV 文件...
+LocalizationTools.UploadDownloadFlow.ComputingPatchMessage,,,Computing patch...,,Computing patch...,,,,,,,,,,正在计算补丁...,,正在计算补丁...
+LocalizationTools.UploadDownloadFlow.ConfirmUploadMessage,,,Confirm upload...,,Confirm upload...,,,,,,,,,,确定上传...,,确定上传...
+LocalizationTools.UploadDownloadFlow.ConfirmUploadDialogTitle,,,Comfirm Upload,,Comfirm Upload,,,,,,,,,,确认上传,,确认上传
+LocalizationTools.UploadDownloadFlow.UploadingPatchMessage,,,Uploading patch...,,Uploading patch...,,,,,,,,,,正在上传补丁...,,正在上传补丁...
+LocalizationTools.UploadDownloadFlow.UploadCompleteMessage,,,Upload complete,,Upload complete,,,,,,,,,,上传完成,,上传完成
+LocalizationTools.UploadDownloadFlow.UploadFailedMessage,,,Upload failed,,Upload failed,,,,,,,,,,上传失败,,上传失败
+LocalizationTools.UploadDownloadFlow.UploadCanceledMessage,,,Upload canceled,,Upload canceled,,,,,,,,,,上传已取消,,上传已取消
+LocalizationTools.UploadDownloadFlow.ComputePatchFailedMessage,,,Compute patch failed,,Compute patch failed,,,,,,,,,,计算补丁失败,,计算补丁失败
+LocalizationTools.UploadDownloadFlow.DownloadingTableMessage,,,Downloading table...,,Downloading table...,,,,,,,,,,正在下载表格...,,正在下载表格...
+LocalizationTools.UploadDownloadFlow.SelectCSVFileMessage,,,Select CSV file...,,Select CSV file...,,,,,,,,,,选择 CSV 文件...,,选择 CSV 文件...
+LocalizationTools.UploadDownloadFlow.TableWrittenToFileMessage,,,Table written to file,,Table written to file,,,,,,,,,,表格已写入文件,,表格已写入文件
+LocalizationTools.UploadDialogContent.PatchContainsLabel,,,This patch contains: ,,This patch contains: ,,,,,,,,,,此补丁包括：,,此补丁包括：
+LocalizationTools.UploadDialogContent.PatchWillLabel,,,This patch will: ,,This patch will: ,,,,,,,,,,此补丁将：,,此补丁将：

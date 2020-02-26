@@ -4,6 +4,7 @@
 	Props:
 		Backgrounds backgrounds
 ]]
+local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -19,6 +20,9 @@ local getSettings = ContextGetter.getSettings
 local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
 
+local ContextServices = require(Libs.Framework.ContextServices)
+local Settings = require(Plugin.Core.ContextServices.Settings)
+
 local FooterButton = require(Plugin.Core.Components.Footer.FooterButton)
 
 local ChangeBackground = require(Plugin.Core.Actions.ChangeBackground)
@@ -26,23 +30,38 @@ local ChangeBackground = require(Plugin.Core.Actions.ChangeBackground)
 local Footer = Roact.PureComponent:extend("Footer")
 
 function Footer:init(props)
-	local settings = getSettings(self)
+	local settings
+	if not FFlagStudioToolboxEnabledDevFramework then
+		settings = getSettings(self) -- TOOD: Remove when FFlagStudioToolboxEnabledDevFramework is removed
+	end
 
 	self.inputEnded = function(rbx, input)
+		if FFlagStudioToolboxEnabledDevFramework then
+			settings = self.props.Settings:get("Plugin")
+		end
 		if input.UserInputType == Enum.UserInputType.Focus then
 			props.onBackgroundSelectorHoverEnded(settings, 0)
 		end
 	end
 
 	self.onHoverStarted = function(index)
+		if FFlagStudioToolboxEnabledDevFramework then
+			settings = self.props.Settings:get("Plugin")
+		end
 		props.onBackgroundSelectorHovered(settings, index)
 	end
 
 	self.onHoverEnded = function(index)
+		if FFlagStudioToolboxEnabledDevFramework then
+			settings = self.props.Settings:get("Plugin")
+		end
 		props.onBackgroundSelectorHoverEnded(settings, index)
 	end
 
 	self.onClick = function(index)
+		if FFlagStudioToolboxEnabledDevFramework then
+			settings = self.props.Settings:get("Plugin")
+		end
 		props.onBackgroundSelectorClicked(settings, index)
 	end
 end
@@ -146,6 +165,12 @@ function Footer:render()
 			})
 		end)
 	end)
+end
+
+if FFlagStudioToolboxEnabledDevFramework then
+	ContextServices.mapToProps(Footer, {
+		Settings = Settings,
+	})
 end
 
 local function mapStateToProps(state, props)

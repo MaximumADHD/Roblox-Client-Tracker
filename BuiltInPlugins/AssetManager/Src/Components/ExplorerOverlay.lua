@@ -4,6 +4,10 @@
 
     Necessary Properties:
         CloseOverlay = callback, that closes the overlay.
+
+    Dispatch Properties:
+        dispatchSetScreen = callback, sets the screen to the one that was clicked in the folder.
+
     Optional Properties:
 ]]
 
@@ -20,6 +24,8 @@ local Button = UILibrary.Component.RoundFrame
 local TreeView = UILibrary.Component.TreeView
 local TreeViewItem = UILibrary.Component.TreeViewItem
 
+local Screens = require(Plugin.Src.Util.Screens)
+
 local SetScreen = require(Plugin.Src.Actions.SetScreen)
 
 local ExplorerOverlay = Roact.PureComponent:extend("ExplorerOverlay")
@@ -29,22 +35,19 @@ function ExplorerOverlay:render()
     local theme = props.Theme:get("Plugin")
     local overlayTheme = theme.Overlay
 
-    local onFolderClicked = self.props.setScreen
-
+    local onFolderClicked = self.props.dispatchSetScreen
+    local closeOverlay = self.props.CloseOverlay
     local content = {}
 
-    content.TreeViewOverlay = Roact.createElement(ShowOnTop, {
-        Priority = 1,
-    }, {
+    content.TreeViewOverlay = Roact.createElement(ShowOnTop, {}, {
         Background = Roact.createElement(Button, {
             Position = UDim2.new(1, 0, 0, 0),
             Size = UDim2.new(overlayTheme.Background.WidthScale, 0, 1, 0),
             BorderSizePixel = 0,
             BackgroundTransparency = overlayTheme.Background.Transparency,
             BackgroundColor3 = Color3.new(0,0,0),
-            ZIndex = 1,
 
-            OnActivated = self.props.CloseOverlay,
+            OnActivated = closeOverlay,
         }),
 
         Overlay = Roact.createElement("Frame", {
@@ -53,6 +56,7 @@ function ExplorerOverlay:render()
             BackgroundTransparency = 0,
             BackgroundColor3 = theme.BackgroundColor,
             BorderSizePixel = 0,
+            LayoutOrder = 2,
         }, {
             UILayout = Roact.createElement("UIListLayout", {
                 SortOrder = Enum.SortOrder.LayoutOrder,
@@ -83,11 +87,11 @@ function ExplorerOverlay:render()
                     BackgroundTransparency = 1,
                     Image = overlayTheme.CloseButton.Images.Close,
 
-                    [Roact.Event.Activated] = self.props.CloseOverlay,
+                    [Roact.Event.Activated] = closeOverlay,
                 })
             }),
 
-            TreeView = Roact.createElement(TreeView, {
+            FolderTree = Roact.createElement(TreeView, {
                 dataTree = self.props.FileExplorerData,
                 getChildren = function(instance)
                     return instance.Children
@@ -99,9 +103,10 @@ function ExplorerOverlay:render()
 
                 onSelectionChanged = function(instances)
                     if instances[1] then
-                        local screen = instances[1].Screen
+                        local screen = Screens[instances[1].Screen]
                         onFolderClicked(screen)
                     end
+                    closeOverlay()
                 end,
 
                 expandRoot = true,
@@ -119,7 +124,7 @@ end
 
 local function mapDispatchToProps(dispatch)
     return {
-        setScreen = function(screen)
+        dispatchSetScreen = function(screen)
             dispatch(SetScreen(screen))
         end,
     }

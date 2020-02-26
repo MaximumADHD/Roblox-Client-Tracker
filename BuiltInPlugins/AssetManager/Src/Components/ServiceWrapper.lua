@@ -43,6 +43,7 @@ function ServiceWrapper:render()
 		theme,
 		uiLibraryWrapper,
 		ContextServices.Store.new(store),
+		ContextServices.API.new(),
 		ContextServices.Mouse.new(mouse),
 	}, children)
 end

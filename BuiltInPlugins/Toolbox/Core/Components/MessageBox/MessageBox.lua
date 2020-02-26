@@ -1,3 +1,5 @@
+local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
+
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
@@ -5,6 +7,8 @@ local Roact = require(Libs.Roact)
 
 local Constants = require(Plugin.Core.Util.Constants)
 local ContextHelper = require(Plugin.Core.Util.ContextHelper)
+
+local ContextServices = require(Libs.Framework.ContextServices)
 
 local withTheme = ContextHelper.withTheme
 
@@ -158,6 +162,7 @@ function MessageBox:render()
 			Size = Vector2.new(boxWidth, boxHeight),
 			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 			Modal = true,
+			plugin = FFlagStudioToolboxEnabledDevFramework and self.props.Plugin:get() or nil,
 
 			[Roact.Change.Enabled] = self.onEnabledChanged,
 			[Roact.Event.AncestryChanged] = self.onAncestryChanged,
@@ -253,6 +258,12 @@ function MessageBox:render()
 			})
 		})
 	end)
+end
+
+if FFlagStudioToolboxEnabledDevFramework then
+	ContextServices.mapToProps(MessageBox, {
+		Plugin = ContextServices.Plugin,
+	})
 end
 
 return MessageBox

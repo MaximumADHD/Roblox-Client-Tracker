@@ -26,6 +26,7 @@
 ]]
 
 local FFlagFixToolboxEmptyRender = game:DefineFastFlag("FixToolboxEmptyRender", false)
+local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -43,6 +44,9 @@ local getNetwork = ContextGetter.getNetwork
 local getSettings = ContextGetter.getSettings
 local getModal = ContextGetter.getModal
 local withLocalization = ContextHelper.withLocalization
+
+local ContextServices = require(Libs.Framework.ContextServices)
+local Settings = require(Plugin.Core.ContextServices.Settings)
 
 local AssetGridContainer = require(Plugin.Core.Components.AssetGridContainer)
 local InfoBanner = require(Plugin.Core.Components.InfoBanner)
@@ -62,7 +66,10 @@ local MainView = Roact.PureComponent:extend("MainView")
 
 function MainView:init(props)
 	local networkInterface = getNetwork(self)
-	local settings = getSettings(self)
+	local settings
+	if not FFlagStudioToolboxEnabledDevFramework then
+		settings = getSettings(self)
+	end
 
 	self.state = {
 		lowerIndexToRender = 0,
@@ -105,6 +112,9 @@ function MainView:init(props)
 	end
 
 	self.requestNextPage = function()
+		if FFlagStudioToolboxEnabledDevFramework then
+			settings = self.props.Settings:get("Plugin")
+		end
 		self.props.nextPage(networkInterface, settings)
 	end
 
@@ -116,6 +126,9 @@ function MainView:init(props)
 
 	self.onSearchOptionsClosed = function(options)
 		if options then
+			if FFlagStudioToolboxEnabledDevFramework then
+				settings = self.props.Settings:get("Plugin")
+			end
 			self.props.searchWithOptions(networkInterface, settings, options)
 		end
 		if self.props.onSearchOptionsToggled then
@@ -124,6 +137,9 @@ function MainView:init(props)
 	end
 
 	self.onTagsCleared = function()
+		if FFlagStudioToolboxEnabledDevFramework then
+			settings = self.props.Settings:get("Plugin")
+		end
 		self.props.searchWithOptions(networkInterface, settings, {
 			Creator = "",
 		})
@@ -332,6 +348,12 @@ function MainView:render()
 			}),
 		})
 	end)
+end
+
+if FFlagStudioToolboxEnabledDevFramework then
+	ContextServices.mapToProps(MainView, {
+		Settings = Settings,
+	})
 end
 
 local function mapStateToProps(state, props)

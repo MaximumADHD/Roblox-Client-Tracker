@@ -12,6 +12,7 @@ dependencies = [
     "LuaDiscussionsDeps LuaDiscussionsDeps f61ab8c8 git+https://github.rbx.com/roblox/lua-discussions-deps#master",
     "LuaSocialLibrariesDeps LuaSocialLibrariesDeps 1f18f7ae git+https://github.rbx.com/roblox/lua-social-libraries-deps#master",
     "Otter roblox/otter 0.1.0 registry+https://github.rbx.com/roblox/rotriever-index",
+    "PolicyProvider roblox/policy-provider 75d0bed6 git+https://github.rbx.com/roblox/lua-roact-policy-provider#master",
     "Promise lua-promise bbb9e162 git+https://github.rbx.com/roblox/lua-promise#master",
     "PurchasePrompt roblox/purchase-prompt d3a8b09e git+https://github.com/roblox/purchasepromptscript-roact#master",
     "Result lua-Result 4c69dedd git+https://github.rbx.com/roblox/lua-result#master",
@@ -119,6 +120,12 @@ commit = "f18cf7e585681f3c4d301ac7a67451088d8545e8"
 dependencies = ["Cryo <patched> roblox/cryo 1.0.0 registry+https://github.rbx.com/roblox/rotriever-index"]
 
 [[package]]
+name = "jtaylor/mock"
+version = "0.1.0"
+source = "git+https://github.rbx.com/roblox/mock#master"
+commit = "d2c4005c863fd2f9fa74b7391ada64906d242847"
+
+[[package]]
 name = "lua-Result"
 version = "0.1.0"
 source = "git+https://github.rbx.com/roblox/lua-result#master"
@@ -192,6 +199,19 @@ dependencies = [
 ]
 
 [[package]]
+name = "roblox/lua-symbol"
+version = "0.1.0"
+source = "git+https://github.rbx.com/roblox/lua-symbol#master"
+commit = "139fdfe6e4d4eca690887d3beb80e1514af501bf"
+
+[[package]]
+name = "roblox/lumberyak"
+version = "0.1.0"
+source = "git+https://github.rbx.com/roblox/lumberyak#master"
+commit = "8122b3f3d272a6d4cb140ddd133b8f386a6ba677"
+dependencies = ["Cryo <patched> roblox/cryo 1.0.0 registry+https://github.rbx.com/roblox/rotriever-index"]
+
+[[package]]
 name = "roblox/otter"
 version = "0.0.1"
 source = "registry+https://github.rbx.com/roblox/rotriever-index"
@@ -200,6 +220,21 @@ source = "registry+https://github.rbx.com/roblox/rotriever-index"
 name = "roblox/otter"
 version = "0.1.0"
 source = "registry+https://github.rbx.com/roblox/rotriever-index"
+
+[[package]]
+name = "roblox/policy-provider"
+version = "0.1.0"
+source = "git+https://github.rbx.com/roblox/lua-roact-policy-provider#master"
+commit = "75d0bed6b669067f0374dac3996620971b9e5241"
+dependencies = [
+    "Cryo roblox/cryo 1.0.0 registry+https://github.rbx.com/roblox/rotriever-index",
+    "Lumberyak roblox/lumberyak 8122b3f3 git+https://github.rbx.com/roblox/lumberyak#master",
+    "Mock jtaylor/mock d2c4005c git+https://github.rbx.com/roblox/mock#master",
+    "Promise lua-promise bbb9e162 git+https://github.rbx.com/roblox/lua-promise#master",
+    "Roact roblox/roact 1.2.0 registry+https://github.rbx.com/roblox/rotriever-index",
+    "Symbol roblox/lua-symbol 139fdfe6 git+https://github.rbx.com/roblox/lua-symbol#master",
+    "tutils tutils 74574fde git+https://github.rbx.com/roblox/tutils#master",
+]
 
 [[package]]
 name = "roblox/purchase-prompt"

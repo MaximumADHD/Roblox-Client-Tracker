@@ -26,12 +26,7 @@ local getMouse = require(Plugin.Src.Consumers.getMouse)
 local Constants = require(Plugin.Src.Util.Constants)
 
 local Http = require(Plugin.Src.Networking.Http)
-local TUTORIAL_URL
-if settings():GetFFlag("UseNewDocumentationUrls") then
-	TUTORIAL_URL = HttpRbxApiService:GetDocumentationUrl("articles/Game-Icons-Tips")
-else
-	TUTORIAL_URL = Http.BuildRobloxUrl("developer", "articles/Game-Icons-Tips")
-end
+local TUTORIAL_URL = HttpRbxApiService:GetDocumentationUrl("articles/Game-Icons-Tips")
 
 local TitledFrame = require(Plugin.UILibrary.Components.TitledFrame)
 local BulletPoint = require(Plugin.UILibrary.Components.BulletPoint)

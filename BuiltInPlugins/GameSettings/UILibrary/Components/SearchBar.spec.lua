@@ -1,3 +1,5 @@
+local FFlagAssetManagerLuaCleanup1 = settings():GetFFlag("AssetManagerLuaCleanup1")
+
 return function()
 	local Library = script.Parent.Parent
 	local Roact = require(Library.Parent.Roact)
@@ -29,7 +31,12 @@ return function()
 			local container = Instance.new("Folder")
 			local instance = Roact.mount(element, container, "SearchBar")
 			local searchBar = container.SearchBar
-			local textBox = searchBar.Background.TextBox
+			local textBox
+			if FFlagAssetManagerLuaCleanup1 then
+				textBox =searchBar.TextBox
+			else
+				textBox = searchBar.Background.TextBox
+			end
 
 			local str = ("abcdefghijklmnopqrstuvwxyz"):rep(2)
 

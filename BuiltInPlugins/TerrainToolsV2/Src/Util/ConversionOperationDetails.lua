@@ -1,9 +1,8 @@
 local Plugin = script.Parent.Parent.Parent
 
+local Constants = require(Plugin.Src.Util.Constants)
 local isProtectedInstance = require(Plugin.Src.Util.isProtectedInstance)
 local PartConverterUtil = require(Plugin.Src.Util.PartConverterUtil)
-
-local Constants = require(Plugin.Src.Util.Constants)
 
 local TerrainGenerator = require(Plugin.Src.TerrainInterfaces.TerrainGenerator)
 
@@ -17,48 +16,100 @@ local CONVERT_BIOME_WAYPOINT = "ConvertPart_Biome"
 
 local DEBUG_LOG_WORK_TIME = false
 
--- Expects data.instances to be a table of instances to search through
-local GetConvertibleShapesOperationDetails = {
-	name = "GetConvertibleShapes",
+--[[
+Expects
+	data.instances : { [number]: Instance }
+	data.targetInstances : { [Instance]: true } optional - Set of instances
+		If one is provided, it will be mutated, else new one is added
+Outputs
+	data.targetInstances - See above
+]]
+local GetTargetInstances = {
+	name = "GetTargetInstances",
 
 	onStep = function(data)
-		local shapes = {}
-		local function getConvertibleShapes(array)
+		if not data.targetInstances then
+			data.targetInstances = {}
+		end
+		local targetInstances = data.targetInstances
+
+		local function getTargetInstances(array)
 			for _, obj in ipairs(array) do
 				if not isProtectedInstance(obj) then
 					if PartConverterUtil.isConvertibleToTerrain(obj) then
-						-- Get the necessary details about the part and save it for later
-						-- This means we don't have to do these checks when actually calling :FillBlock() etc.
-						-- And protects against the target part being destroyed whilst the fill is running
-						local shape, cframe, size = PartConverterUtil.getPartRenderedShape(obj)
-
-						table.insert(shapes, {
-							shape, cframe, size, obj
-						})
+						targetInstances[obj] = true
 
 					elseif obj:IsA("Model") or obj:IsA("Folder") then
-						getConvertibleShapes(obj:GetChildren())
+						getTargetInstances(obj:GetChildren())
 					end
 				end
 			end
 		end
-		getConvertibleShapes(data.instances)
+		getTargetInstances(data.instances)
+	end,
+}
+
+--[[
+Expects
+	data.targetInstances : { [Instance]: true } - Set of instances
+Outputs
+	data.shapes : { {Shape, CFrame center, Vector3 size, Instance} } - Array of shapes to fill
+	data.totalShapes : number - Same as #data.shapes
+]]
+local GetTargetShapes = {
+	name = "GetTargetShapes",
+
+	onStep = function(data)
+		local shapes = {}
+
+		for instance in pairs(data.targetInstances) do
+			local shape, cframe, size = PartConverterUtil.getPartRenderedShape(instance)
+			local shapeStruct = {
+				shape, cframe, size, instance
+			}
+			table.insert(shapes, shapeStruct)
+		end
 
 		data.shapes = shapes
-		data.totalShapes = #data.shapes
+		data.totalShapes = #shapes
+	end,
+}
 
-		return false, 1
-	end
+--[[
+Expects
+	data.targetInstances : { [Instance]: any }
+	data.originalVisualsPerInstance : { [Instance]: { [string]: any } } optional
+		- Map of instances to map of properties to values
+		  If one is provided, it will be mutated, else new one is added
+Outputs
+	data.originalValues - See above
+]]
+local UpdateInstanceVisuals = {
+	name = "UpdateInstanceVisuals",
+
+	onStep = function(data)
+		if not data.originalVisualsPerInstance then
+			data.originalVisualsPerInstance = {}
+		end
+
+		for instance in pairs(data.targetInstances) do
+			-- Check we haven't already applied visuals to this instance as we don't want to overwrite our saved originalVisuals
+			if not data.originalVisualsPerInstance[instance] then
+				data.originalVisualsPerInstance[instance] = PartConverterUtil.applyVisualsToInstance(instance)
+			end
+		end
+	end,
 }
 
 --[[
 Expects:
 	data.terrain : Terrain - terrain object to call :FillBlock() etc. on
+	data.localization : Localization
 	data.shapes : { {Shape, CFrame center, Vector3 size, Instance} } - Array of shapes to fill
-	data.totalShapes : number - Length of data.shapes
+	data.totalShapes : number - Same as #data.shapes
 	data.material : Material - Material to fill the given shapes with
 ]]
-local ConvertShapesToMaterialOperationDetails = {
+local ConvertShapesToMaterial = {
 	name = "ConvertShapesToMaterial",
 	timeBetweenSteps = 0.1,
 
@@ -135,15 +186,20 @@ local ConvertShapesToMaterialOperationDetails = {
 	end,
 }
 
---ConvertShapesToBiome expects a table of data in the following format
 --[[
-	biomeSelection = self.props.biomeSelection,
-	biomeSize = self.props.biomeSize,
-	haveCaves = self.props.haveCaves,
-
-	seed = self.props.seed,
+Expects:
+	data.terrain : Terrain - terrain object to call :WriteVoxels() on
+	data.localization : Localization
+	data.shapes : { {Shape, CFrame center, Vector3 size, Instance} } - Array of shapes to fill
+	data.totalShapes : number - Same as #data.shapes
+	data.generateSettings : {
+		biomeSelection : {[string]: boolean},
+		biomeSize : number,
+		haveCaves : boolean,
+		seed : string,
+	}
 ]]
-local ConvertShapesToBiomesOperationDetails = {
+local ConvertShapesToBiomes = {
 	name = "ConvertShapesToBiome",
 	timeBetweenSteps = 0.01,
 
@@ -286,7 +342,9 @@ local ConvertShapesToBiomesOperationDetails = {
 }
 
 return {
-	GetConvertibleShapes = GetConvertibleShapesOperationDetails,
-	ConvertShapesToMaterial = ConvertShapesToMaterialOperationDetails,
-	ConvertShapesToBiomes = ConvertShapesToBiomesOperationDetails,
+	GetTargetInstances = GetTargetInstances,
+	GetTargetShapes = GetTargetShapes,
+	UpdateInstanceVisuals = UpdateInstanceVisuals,
+	ConvertShapesToMaterial = ConvertShapesToMaterial,
+	ConvertShapesToBiomes = ConvertShapesToBiomes,
 }

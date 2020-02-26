@@ -1,6 +1,7 @@
 local Roact = require(game:GetService("CorePackages").Roact)
 local Theming = require(script.Parent.Parent.Theming)
 local NumTranslationsLine = require(script.Parent.NumTranslationsLine)
+local SourceStrings = require(script.Parent.Parent.SourceStrings)
 
 local UploadDialogContent = Roact.PureComponent:extend("UploadDialogContent")
 
@@ -55,13 +56,13 @@ function UploadDialogContent:render()
 			self.props.PatchInfo.numAddedEntries +
 			self.props.PatchInfo.numRemovedEntries == 0
 		then
-			PromptText = "Patch empty. Upload anyway?"
+			PromptText = SourceStrings.UploadDialogContent.PatchEmptyMessage
 		else
-			PromptText = "Upload patch?"
+			PromptText = SourceStrings.UploadDialogContent.UploadPatchMessage
 		end
 
 		local AddEntriesLine = Roact.createElement(NumTranslationsLine, {
-			PreText = "Add entries: ",
+			PreText = SourceStrings.UploadDialogContent.AddEntriesPretext,
 			NumTranslations = self.props.PatchInfo.numAddedEntries,
 			EnabledColor = theme.BrightText,
 			DisabledColor = theme.DimmedText,
@@ -75,7 +76,7 @@ function UploadDialogContent:render()
 		})
 
 		local AddLine = Roact.createElement(NumTranslationsLine, {
-			PreText = "Add translations: ",
+			PreText = SourceStrings.UploadDialogContent.AddTranslationsPretext,
 			NumTranslations = self.props.PatchInfo.numAddedTranslations,
 			EnabledColor = theme.BrightText,
 			DisabledColor = theme.DimmedText,
@@ -89,7 +90,7 @@ function UploadDialogContent:render()
 		})
 
 		local ChangeLine = Roact.createElement(NumTranslationsLine, {
-			PreText = "Change translations: ",
+			PreText = SourceStrings.UploadDialogContent.ChangeTranslationsPretext,
 			NumTranslations = self.props.PatchInfo.numChangedTranslations,
 			EnabledColor = theme.WarningText,
 			DisabledColor = theme.DimmedText,
@@ -105,7 +106,7 @@ function UploadDialogContent:render()
 		local DeleteEntriesLine
 		if self.props.PatchInfo.includeDeletes then
 			DeleteEntriesLine = Roact.createElement(NumTranslationsLine, {
-				PreText = "Delete entries: ",
+				PreText = SourceStrings.UploadDialogContent.DeleteEntriesPretext,
 				NumTranslations = self.props.PatchInfo.numRemovedEntries,
 				EnabledColor = theme.ErrorText,
 				DisabledColor = theme.DimmedText,
@@ -122,7 +123,7 @@ function UploadDialogContent:render()
 		local DeleteLine
 		if self.props.PatchInfo.includeDeletes then
 			DeleteLine = Roact.createElement(NumTranslationsLine, {
-				PreText = "Delete translations: ",
+				PreText = SourceStrings.UploadDialogContent.DeleteTranslationsPretext,
 				NumTranslations = self.props.PatchInfo.numRemovedTranslations,
 				EnabledColor = theme.ErrorText,
 				DisabledColor = theme.DimmedText,
@@ -140,7 +141,7 @@ function UploadDialogContent:render()
 		if self.props.PatchInfo.newLanguages ~= nil and 
 			self.props.PatchInfo.newLanguages ~= "" then
 			AddLanguagesLine = Roact.createElement(Line, {
-				Text = "Add languages: " .. self.props.PatchInfo.newLanguages,
+				Text = SourceStrings.UploadDialogContent.AddLanguagesPretext .. self.props.PatchInfo.newLanguages,
 				Color = theme.BrightText,
 				LayoutOrder = 6
 			})
@@ -178,7 +179,7 @@ function UploadDialogContent:render()
 				}),
 
 				TableContentsTitle = Roact.createElement(Line, {
-					Text = "This patch contains:",
+					Text = SourceStrings.UploadDialogContent.PatchContainsLabelText,
 					Color = theme.BrightText,
 					LayoutOrder = 1}),
 
@@ -200,35 +201,35 @@ function UploadDialogContent:render()
 					}),
 
 					TotalRowsLine = Roact.createElement(StringContentLine, {
-						PreText = "Total rows: ",
+						PreText = SourceStrings.UploadDialogContent.PatchTotalRowsLabelText,
 						Content = self.props.PatchInfo.totalRows,
 						ColorA = theme.BrightText,
 						ColorB = theme.ErrorText,
 						LayoutOrder = 1}),
 
 					TranslationsLine = Roact.createElement(StringContentLine, {
-						PreText = "Total translations: ",
+						PreText = SourceStrings.UploadDialogContent.PatchTotalTranslationsLabelText,
 						Content = self.props.PatchInfo.totalTranslations,
 						ColorA = theme.BrightText,
 						ColorB = theme.ErrorText,
 						LayoutOrder = 2}),
 
 					SupportedLocales = Roact.createElement(StringContentLine, {
-						PreText = "Languages: ",
+						PreText = SourceStrings.UploadDialogContent.PatchLanguagesLabelText,
 						Content = self.props.PatchInfo.supportedLocales,
 						ColorA = theme.BrightText,
 						ColorB = theme.DimmedText,
 						LayoutOrder = 3}),
 
 					UnsupportedLocales = Roact.createElement(UnsupportedLocalesLine, {
-						PreText = "Invalid columns: ",
+						PreText = SourceStrings.UploadDialogContent.PatchInvalidLanguagesLabelText,
 						Content = self.props.PatchInfo.unsupportedLocales,
 						Color = theme.WarningText,
 						LayoutOrder = 4}),
 				}),
 
 				ThisPatchWill = Roact.createElement(Line, {
-					Text = "This patch will:",
+					Text = SourceStrings.UploadDialogContent.PatchWillLabelText,
 					Color = theme.BrightText,
 					LayoutOrder = 3}),
 
@@ -276,7 +277,7 @@ function UploadDialogContent:render()
 				}),
 
 				Cancel = Roact.createElement("TextButton", {
-					Text = "Cancel",
+					Text = SourceStrings.UploadDialogContent.CancelButtonText,
 					Size = UDim2.new(0, 100, 0, 35),
 					BorderSizePixel = 1,
 					BorderColor3 = theme.Border,
@@ -292,7 +293,7 @@ function UploadDialogContent:render()
 				}),
 
 				Confirm = Roact.createElement("TextButton", {
-					Text = "Confirm",
+					Text = SourceStrings.UploadDialogContent.ConfirmButtonText,
 					Size = UDim2.new(0, 100, 0, 35),
 					BorderSizePixel = 1,
 					BorderColor3 = theme.Border,

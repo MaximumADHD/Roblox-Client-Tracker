@@ -89,15 +89,10 @@ end
 function ComponentList:addComponents(children)
 	local props = self.props
 	local components = props.Components
-	local decorationList = {}
 	local UIList = {}
 	local studioUIList = {}
 
-	if components and components.Decoration and components.UI and components.StudioUI then
-		for name, _ in pairs(components.Decoration) do
-			table.insert(decorationList, name)
-		end
-
+	if components and components.UI and components.StudioUI then
 		for name, _ in pairs(components.UI) do
 			table.insert(UIList, name)
 		end
@@ -107,7 +102,6 @@ function ComponentList:addComponents(children)
 		end
 	end
 
-	table.sort(decorationList)
 	table.sort(UIList)
 	table.sort(studioUIList)
 
@@ -115,10 +109,6 @@ function ComponentList:addComponents(children)
 	local function nextOrder()
 		order = order + 1
 		return order
-	end
-	children.__Decoration = self:renderHeader("Decoration", nextOrder())
-	for _, component in ipairs(decorationList) do
-		children[component] = self:renderEntry(component, nextOrder())
 	end
 	children.__UI = self:renderHeader("UI", nextOrder())
 	for _, component in ipairs(UIList) do

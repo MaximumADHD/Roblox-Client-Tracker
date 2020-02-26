@@ -5274,46 +5274,6 @@
 
       </Properties>
     </Item>
-
-    <Item class="ReflectionMetadataClass">
-      <Properties>
-        <string name="Name">FileSyncService</string>
-        <string name="ExplorerOrder">1100</string>
-        <string name="ExplorerImageIndex">17</string>
-      </Properties>
-    </Item>
-
-    <Item class="ReflectionMetadataClass">
-      <Properties>
-        <string name="Name">FileSyncItem</string>
-        <string name="ExplorerOrder">1101</string>
-        <string name="ExplorerImageIndex">20</string>
-        <string name="PreferredParent">FileSyncService</string>
-      </Properties>
-      <Item class="ReflectionMetadataProperties">
-        <Item class="ReflectionMetadataMember">
-          <Properties>
-            <string name="Name">Enabled</string>
-            <bool name="Browsable">true</bool>
-            <string name="summary">Enabling File Sync</string>
-          </Properties>
-        </Item>
-        <Item class="ReflectionMetadataMember">
-          <Properties>
-            <string name="Name">FileSystemPath</string>
-            <bool name="Browsable">true</bool>
-            <string name="summary">Path of file system</string>
-          </Properties>
-        </Item>
-        <Item class="ReflectionMetadataMember">
-          <Properties>
-            <string name="Name">Target</string>
-            <bool name="Browsable">true</bool>
-            <string name="summary">Target Instance in DataModel</string>
-          </Properties>
-        </Item>
-      </Item>
-    </Item>
     
     <Item class="ReflectionMetadataClass">
       <Properties>

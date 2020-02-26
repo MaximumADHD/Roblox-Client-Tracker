@@ -18,6 +18,7 @@
 local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 local FFlagLuaPackagePermissions = settings():GetFFlag("LuaPackagePermissions")
 local FFlagHideNoAccessGroupPackages = settings():GetFFlag("HideNoAccessGroupPackages")
+local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -58,6 +59,8 @@ local GetPackageHighestPermission = require(Plugin.Core.Networking.Requests.GetP
 local Analytics = require(Plugin.Core.Util.Analytics.Analytics)
 
 local withLocalization = ContextHelper.withLocalization
+
+local ContextServices = require(Libs.Framework.ContextServices)
 
 local AssetGridContainer = Roact.PureComponent:extend("AssetGridContainer")
 
@@ -187,7 +190,12 @@ function AssetGridContainer:init(props)
 		local asset = assetData.Asset
 		local assetId = asset.Id
 		local assetTypeId = asset.TypeId
-		local plugin = getPlugin(self)
+		local plugin
+		if FFlagStudioToolboxEnabledDevFramework then
+			plugin = self.props.Plugin:get()
+		else
+			plugin = getPlugin(self)
+		end
 
 		local isPackageAsset = FFlagLuaPackagePermissions and Category.categoryIsPackage(self.props.categoryIndex, self.props.currentTab)
 		if isPackageAsset then
@@ -211,7 +219,12 @@ function AssetGridContainer:init(props)
 		local assetIndex = currentProps.assetIndex
 		local categories = currentProps.categories
 
-		local plugin = getPlugin(self)
+		local plugin
+		if FFlagStudioToolboxEnabledDevFramework then
+			plugin = self.props.Plugin:get()
+		else
+			plugin = getPlugin(self)
+		end
 		InsertAsset.tryInsert({
 				plugin = plugin,
 				assetId = assetId,
@@ -398,6 +411,12 @@ function AssetGridContainer:render()
 			}, assetElements)
 		end)
 	end)
+end
+
+if FFlagStudioToolboxEnabledDevFramework then
+	ContextServices.mapToProps(AssetGridContainer, {
+		Plugin = ContextServices.Plugin,
+	})
 end
 
 local function mapStateToProps(state, props)

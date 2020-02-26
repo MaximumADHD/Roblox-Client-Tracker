@@ -18,6 +18,7 @@
 
 local FFlagToolboxShowGroupCreations = game:GetFastFlag("ToolboxShowGroupCreations")
 local FFlagToolboxHideSearchForMyPlugins = game:DefineFastFlag("ToolboxHideSearchForMyPlugins", false)
+local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -39,6 +40,9 @@ local getSettings = ContextGetter.getSettings
 local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
 
+local ContextServices = require(Libs.Framework.ContextServices)
+local Settings = require(Plugin.Core.ContextServices.Settings)
+
 local DropdownMenu = require(Plugin.Core.Components.DropdownMenu)
 local SearchBar = require(Plugin.Core.Components.SearchBar.SearchBar)
 local SearchOptionsButton = require(Plugin.Core.Components.SearchOptions.SearchOptionsButton)
@@ -52,10 +56,16 @@ local Header = Roact.PureComponent:extend("Header")
 
 function Header:init()
 	local networkInterface = getNetwork(self)
-	local settings = getSettings(self)
+	local settings
+	if not FFlagStudioToolboxEnabledDevFramework then
+		settings = getSettings(self) -- TOOD: Remove when FFlagStudioToolboxEnabledDevFramework is removed
+	end
 
 	self.onCategorySelected = function(index)
 		if self.props.categoryIndex ~= index then
+			if FFlagStudioToolboxEnabledDevFramework then
+				settings = self.props.Settings:get("Plugin")
+			end
 			local newCategory = PageInfoHelper.getCategory(self.props.categories, index)
 			local currentCategory = PageInfoHelper.getCategory(self.props.categories, self.props.categoryIndex)
 
@@ -75,6 +85,9 @@ function Header:init()
 	end
 
 	self.onSearchRequested = function(searchTerm)
+		if FFlagStudioToolboxEnabledDevFramework then
+			settings = self.props.Settings:get("Plugin")
+		end
 		if type(searchTerm) ~= "string" and DebugFlags.shouldDebugWarnings() then
 			warn(("Toolbox onSearchRequested searchTerm = %s is not a string"):format(tostring(searchTerm)))
 		end
@@ -247,7 +260,12 @@ function Header:addTabRefreshCallback()
 	if not self.tabRefreshConnection then
 		local theEvent = getOrCreateTabRefreshEvent(self.props.pluginGui)
 		self.tabRefreshConnection = theEvent.Event:connect(function()
-			self.props.selectCategory(getNetwork(self), getSettings(self), self.props.categoryIndex)
+			if FFlagStudioToolboxEnabledDevFramework then
+				local settings = self.props.Settings:get("Plugin")
+				self.props.selectCategory(getNetwork(self), settings, self.props.categoryIndex)
+			else
+				self.props.selectCategory(getNetwork(self), getSettings(self), self.props.categoryIndex)
+			end
 		end)
 	end
 end
@@ -267,6 +285,12 @@ end
 function Header:willUnmount()
 	self:removeTabRefreshCallback()
 	destroyTabRefreshEvent(self.props.pluginGui)
+end
+
+if FFlagStudioToolboxEnabledDevFramework then
+	ContextServices.mapToProps(Header, {
+		Settings = Settings,
+	})
 end
 
 local function mapStateToProps(state, props)

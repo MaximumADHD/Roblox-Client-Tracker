@@ -1,3 +1,4 @@
+local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
 local Plugin = script.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
@@ -11,14 +12,22 @@ local getPlugin = ContextGetter.getPlugin
 
 local StopPreviewSound = require(Plugin.Core.Actions.StopPreviewSound)
 
+local ContextServices = require(Libs.Framework.ContextServices)
+
 local SoundPreviewComponent = Roact.Component:extend("SoundPreviewComponent")
 
 function SoundPreviewComponent:init(props)
 	self.ref = Roact.createRef()
 
-	local plugin = getPlugin(self)
+	local plugin
+	if not FFlagStudioToolboxEnabledDevFramework then
+		plugin = getPlugin(self)
+	end
 
 	self.updateSound = function()
+		if FFlagStudioToolboxEnabledDevFramework then
+			plugin = self.props.Plugin:get()
+		end
 		local soundObj = self.ref.current
 		local props = self.props
 		local currentSoundId = props.currentSoundId
@@ -63,6 +72,12 @@ end
 
 function SoundPreviewComponent:didUpdate()
 	self.updateSound()
+end
+
+if FFlagStudioToolboxEnabledDevFramework then
+	ContextServices.mapToProps(SoundPreviewComponent, {
+		Plugin = ContextServices.Plugin,
+	})
 end
 
 local function mapStateToProps(state, props)

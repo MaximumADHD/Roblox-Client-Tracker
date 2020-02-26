@@ -54,15 +54,22 @@ local ChangeMarketplaceTab = require(Requests.ChangeMarketplaceTab)
 local GetRolesRequest = require(Requests.GetRolesRequest)
 local GetRobuxBalance = require(Requests.GetRobuxBalance)
 
+local ContextServices = require(Libs.Framework.ContextServices)
+local Settings = require(Plugin.Core.ContextServices.Settings)
+
 local FFlagFixToolboxInitLoad = settings():GetFFlag("FixToolboxInitLoad")
 local FFlagStudioToolboxPluginPurchaseFlow = game:GetFastFlag("StudioToolboxPluginPurchaseFlow")
 local FFlagEnableDefaultSortFix = game:GetFastFlag("EnableDefaultSortFix")
+local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
 
 local Toolbox = Roact.PureComponent:extend("Toolbox")
 
 function Toolbox:handleInitialSettings(categories)
 	local networkInterface = getNetwork(self)
-	local settings = getSettings(self)
+	if FFlagStudioToolboxEnabledDevFramework and not self.props.Settings then
+		return
+	end
+	local settings = FFlagStudioToolboxEnabledDevFramework and self.props.Settings:get("Plugin") or getSettings(self)
 	local initialSettings = settings:loadInitialSettings()
 
 	local initialTab = Category.MARKETPLACE_KEY
@@ -147,7 +154,11 @@ function Toolbox:init(props)
 	end
 
 	local networkInterface = getNetwork(self)
-	local settings = getSettings(self)
+
+	local settings
+	if not FFlagStudioToolboxEnabledDevFramework then
+		settings = getSettings(self)
+	end
 
 	local function determineCategoryIndexOnTabChange(tabName, newCategories)
 		if Category.CREATIONS_KEY == tabName then
@@ -172,8 +183,12 @@ function Toolbox:init(props)
 			groupIndex = 0,
 			selectedBackgroundIndex = 0,
 		}
-		self.props.changeMarketplaceTab(networkInterface, tabName, newCategories, settings, options)
-
+		if FFlagStudioToolboxEnabledDevFramework then
+			local mySettings = self.props.Settings:get("Plugin")
+			self.props.changeMarketplaceTab(networkInterface, tabName, newCategories, mySettings, options)
+		else
+			self.props.changeMarketplaceTab(networkInterface, tabName, newCategories, settings, options)
+		end
 		local currentCategory = PageInfoHelper.getCategory(self.props.categories, self.props.categoryIndex)
 		local newCategory = Category.CREATIONS_KEY == tabName and "" or PageInfoHelper.getCategory(newCategories, newCategoryIndex)
 
@@ -199,70 +214,93 @@ function Toolbox:didMount()
 end
 
 function Toolbox:render()
-	return withTheme(function(theme)
-		return withLocalization(function(_, localizedContent)
-			local props = self.props
-			local state = self.state
-
-			local toolboxWidth = state.toolboxWidth
-			local showSearchOptions = state.showSearchOptions
-
-			local backgrounds = props.backgrounds
-			local suggestions = props.suggestions or {}
-			local currentTab = props.currentTab
-			local tryOpenAssetConfig = props.tryOpenAssetConfig
-			local pluginGui = props.pluginGui
-
-			local toolboxTheme = theme.toolbox
-
-			local onAbsoluteSizeChange = self.onAbsoluteSizeChange
-
-			local tabHeight = Constants.TAB_WIDGET_HEIGHT
-			local headerOffset = tabHeight
-
-			return Roact.createElement("Frame", {
-				Position = UDim2.new(0, 0, 0, 0),
-				Size = UDim2.new(1, 0, 1, 0),
-
-				BorderSizePixel = 0,
-				BackgroundColor3 = toolboxTheme.backgroundColor,
-
-				[Roact.Ref] = self.toolboxRef,
-				[Roact.Change.AbsoluteSize] = onAbsoluteSizeChange,
-			}, {
-				Tabs = Roact.createElement(TabSet, {
-					Size = UDim2.new(1, 0, 0, Constants.TAB_WIDGET_HEIGHT),
-					Tabs = getTabs(localizedContent),
-					CurrentTab = currentTab,
-					onTabSelected = self.changeMarketplaceTab,
-				}),
-
-				Header = Roact.createElement(Header, {
-					Position = UDim2.new(0, 0, 0, headerOffset),
-					maxWidth = toolboxWidth,
-					onSearchOptionsToggled = self.toggleSearchOptions,
-					pluginGui = pluginGui,
-				}),
-
-				MainView = Roact.createElement(MainView, {
-					Position = UDim2.new(0, 0, 0, headerOffset + Constants.HEADER_HEIGHT + 1),
-					Size = UDim2.new(1, 0, 1, -(Constants.HEADER_HEIGHT + Constants.FOOTER_HEIGHT + headerOffset + 2)),
-
-					maxWidth = toolboxWidth,
-					suggestions = suggestions,
-					showSearchOptions = showSearchOptions,
-					onSearchOptionsToggled = self.toggleSearchOptions,
-					tryOpenAssetConfig = tryOpenAssetConfig,
-				}),
-
-				Footer = Roact.createElement(Footer, {
-					backgrounds = backgrounds,
-				}),
-
-				AudioPreview = Roact.createElement(SoundPreviewComponent),
-			})
+	if FFlagStudioToolboxEnabledDevFramework then
+		return self:renderContent()
+	else
+		return withTheme(function(theme)
+			return withLocalization(function(_, localizedContent)
+				return self:renderContent(theme, localizedContent)
+			end)
 		end)
-	end)
+	end
+end
+
+-- TODO: When FFlagStudioToolboxEnabledDevFramework is on, remove the "theme" and "localizedContent" params.
+function Toolbox:renderContent(theme, localizedContent)
+	local props = self.props
+	local state = self.state
+
+	local toolboxWidth = state.toolboxWidth
+	local showSearchOptions = state.showSearchOptions
+
+	local backgrounds = props.backgrounds
+	local suggestions = props.suggestions or {}
+	local currentTab = props.currentTab
+	local tryOpenAssetConfig = props.tryOpenAssetConfig
+	local pluginGui = props.pluginGui
+
+	local toolboxTheme
+	if FFlagStudioToolboxEnabledDevFramework then
+		toolboxTheme = props.Theme:get("Plugin")
+		localizedContent = props.Localization
+	else
+		toolboxTheme = theme.toolbox
+	end
+
+	local onAbsoluteSizeChange = self.onAbsoluteSizeChange
+
+	local tabHeight = Constants.TAB_WIDGET_HEIGHT
+	local headerOffset = tabHeight
+
+	return Roact.createElement("Frame", {
+		Position = UDim2.new(0, 0, 0, 0),
+		Size = UDim2.new(1, 0, 1, 0),
+
+		BorderSizePixel = 0,
+		BackgroundColor3 = toolboxTheme.backgroundColor,
+
+		[Roact.Ref] = self.toolboxRef,
+		[Roact.Change.AbsoluteSize] = onAbsoluteSizeChange,
+	}, {
+		Tabs = Roact.createElement(TabSet, {
+			Size = UDim2.new(1, 0, 0, Constants.TAB_WIDGET_HEIGHT),
+			Tabs = getTabs(localizedContent),
+			CurrentTab = currentTab,
+			onTabSelected = self.changeMarketplaceTab,
+		}),
+
+		Header = Roact.createElement(Header, {
+			Position = UDim2.new(0, 0, 0, headerOffset),
+			maxWidth = toolboxWidth,
+			onSearchOptionsToggled = self.toggleSearchOptions,
+			pluginGui = pluginGui,
+		}),
+
+		MainView = Roact.createElement(MainView, {
+			Position = UDim2.new(0, 0, 0, headerOffset + Constants.HEADER_HEIGHT + 1),
+			Size = UDim2.new(1, 0, 1, -(Constants.HEADER_HEIGHT + Constants.FOOTER_HEIGHT + headerOffset + 2)),
+
+			maxWidth = toolboxWidth,
+			suggestions = suggestions,
+			showSearchOptions = showSearchOptions,
+			onSearchOptionsToggled = self.toggleSearchOptions,
+			tryOpenAssetConfig = tryOpenAssetConfig,
+		}),
+
+		Footer = Roact.createElement(Footer, {
+			backgrounds = backgrounds,
+		}),
+
+		AudioPreview = Roact.createElement(SoundPreviewComponent),
+	})
+end
+
+if FFlagStudioToolboxEnabledDevFramework then
+	ContextServices.mapToProps(Toolbox, {
+		Theme = ContextServices.Theme,
+		Localization = ContextServices.Localization,
+		Settings = Settings,
+	})
 end
 
 local function mapStateToProps(state, props)

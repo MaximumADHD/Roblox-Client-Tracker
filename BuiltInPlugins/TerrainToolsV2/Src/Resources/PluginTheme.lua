@@ -180,6 +180,7 @@ function Theme.createValues(getColor, c, m)
 		brushSettingsTheme = brushSettingsTheme,
 		panelTheme = panelTheme,
 		errorColor = Color3.fromRGB(216, 104, 104),
+		warningColor = Color3.fromRGB(255, 128, 0),
 		selectionBorderColor = Color3.fromRGB(0, 162, 255),
 		roundTextButtonTheme = roundTextButtonTheme,
 		singleSelectButtonGroupTheme = singleSelectButtonGroupTheme,

@@ -8,6 +8,7 @@ local FFlagGameSettingsReorganizeHeaders = settings():GetFFlag("GameSettingsReor
 local FFlagStudioGameSettingsDisablePlayabilityForDrafts = settings():GetFFlag("StudioGameSettingsDisablePlayabilityForDrafts")
 
 local FFlagStudioGameSettingsRestrictPermissions = game:DefineFastFlag("StudioGameSettingsRestrictPermissions", false)
+local FFlagStudioGameSettingsGroupGamePermissionChanges = game:DefineFastFlag("StudioGameSettingsGroupGamePermissionChanges", false)
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -87,7 +88,41 @@ local function displayContents(page, localized, theme)
 	-- to check it with a hack. In non-TC games you are running both client/server in Edit, but in
 	-- TC you are only running the client. The server is run by RCC
 	local isTeamCreate = runService:IsEdit() and not runService:IsServer()
-	local accessPermissionsEnabled = isTeamCreate
+	local isGroupGame = FFlagStudioGameSettingsGroupGamePermissionChanges and props.OwnerType == Enum.CreatorType.Group
+	local accessPermissionsEnabled = isTeamCreate or isGroupGame
+	local accessPermissionsWidgetsVisible = isTeamCreate and not isGroupGame
+
+	local playabilityButtons
+	if isGroupGame then
+		playabilityButtons = {
+			{
+				Id = true,
+				Title = localized.Playability.Public.Title,
+				Description = localized.Playability.Public.Description,
+			},  {
+				Id = false,
+				Title = localized.Playability.Private.Title,
+				Description = localized.Playability.Private.Description,
+			},
+		}
+	else
+		playabilityButtons = {
+			{
+				Id = true,
+				Title = localized.Playability.Public.Title,
+				Description = localized.Playability.Public.Description,
+			}, {
+				Id = "Friends",
+				Title = props.Group and localized.Playability.Group.Title or localized.Playability.Friends.Title,
+				Description = props.Group and localized.Playability.Group.Description({group = props.Group})
+					or localized.Playability.Friends.Description,
+			}, {
+				Id = false,
+				Title = localized.Playability.Private.Title,
+				Description = localized.Playability.Private.Description,
+			},
+		}
+	end
 	
 	return {
 		Header = FFlagGameSettingsReorganizeHeaders and Roact.createElement(Header, {
@@ -98,6 +133,7 @@ local function displayContents(page, localized, theme)
 		Playability = FFlagStudioGameSettingsDisablePlayabilityForDrafts and Roact.createElement(PlayabilityWidget, {
 			LayoutOrder = 10,
 			Group = props.Group,
+			IsGroupGame = isGroupGame,
 			Enabled = (props.PrivacyType ~= nil and props.PrivacyType ~= "Draft"),
 			Selected = props.IsFriendsOnly and "Friends" or props.IsActive,
 			SelectionChanged = function(button)
@@ -118,21 +154,7 @@ local function displayContents(page, localized, theme)
 			Title = localized.Title.Playability,
 			Description = localized.Playability.Header,
 			LayoutOrder = 10,
-			Buttons = {{
-					Id = true,
-					Title = localized.Playability.Public.Title,
-					Description = localized.Playability.Public.Description,
-				}, {
-					Id = "Friends",
-					Title = props.Group and localized.Playability.Group.Title or localized.Playability.Friends.Title,
-					Description = props.Group and localized.Playability.Group.Description({group = props.Group})
-						or localized.Playability.Friends.Description,
-				}, {
-					Id = false,
-					Title = localized.Playability.Private.Title,
-					Description = localized.Playability.Private.Description,
-				},
-			},
+			Buttons = playabilityButtons,
 			Enabled = props.IsActive ~= nil and props.CanManage,
 			--Functionality
 			Selected = props.IsFriendsOnly and "Friends" or props.IsActive,
@@ -173,12 +195,12 @@ local function displayContents(page, localized, theme)
 			Thumbnails = props.Thumbnails,
 		}),
 
-		Separator2 = Roact.createElement(Separator, {
+		Separator2 = accessPermissionsWidgetsVisible and Roact.createElement(Separator, {
 			LayoutOrder = 40,
 			Size = UDim2.new(1, 0, 0, 1),
 		}),
 
-		TeamCreateWarning = (not accessPermissionsEnabled) and Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Subtitle, {
+		TeamCreateWarning = not accessPermissionsEnabled and Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Subtitle, {
 			Text = localized.AccessPermissions.TeamCreateWarning,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			TextColor3 = theme.warningColor,
@@ -187,7 +209,7 @@ local function displayContents(page, localized, theme)
 			LayoutOrder = 50,
 		})),
 		
-		SearchbarWidget = accessPermissionsEnabled and props.CanManage and Roact.createElement(SearchbarWidget, {
+		SearchbarWidget = accessPermissionsWidgetsVisible and props.CanManage and Roact.createElement(SearchbarWidget, {
 			LayoutOrder = 50,
 			Enabled = props.IsActive ~= nil,
 
@@ -200,7 +222,7 @@ local function displayContents(page, localized, theme)
 			PermissionsChanged = props.PermissionsChanged,
 		}),
 		
-		CollaboratorListWidget = accessPermissionsEnabled and props.CanManage and Roact.createElement(CollaboratorsWidget, {
+		CollaboratorListWidget = accessPermissionsWidgetsVisible and props.CanManage and Roact.createElement(CollaboratorsWidget, {
 			LayoutOrder = 60,
 			Enabled = props.IsActive ~= nil,
 

@@ -1,3 +1,4 @@
+local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
 local Plugin = script.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
@@ -12,7 +13,13 @@ local ModalProvider = Roact.PureComponent:extend("ModalProvider")
 
 function ModalProvider:init(props)
 	-- Must be created under PluginProvider
-	local _, pluginGui = getPlugin(self)
+	local _, pluginGui
+	if FFlagStudioToolboxEnabledDevFramework then
+		pluginGui = self.props.pluginGui
+	else
+		_, pluginGui = getPlugin(self)
+	end
+
 	self._context.modalTarget = pluginGui
 
 	local modalStatus = ModalStatus.new()

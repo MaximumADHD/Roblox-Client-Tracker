@@ -1,11 +1,8 @@
-local LocalizationToolsPluginV2Enabled = settings():GetFFlag("LocalizationToolsPluginV2Enabled")
-
 local Roact = require(game:GetService("CorePackages").Roact)
 local Theming = require(script.Parent.Parent.Theming)
 local StudioThemeProvider = require(script.Parent.StudioThemeProvider)
 local GameTableSection = require(script.Parent.GameTableSection)
 local EmbeddedTableSection = require(script.Parent.EmbeddedTableSection)
-local TestLanguageSection = require(script.Parent.TestLanguageSection)
 
 local LocalizationTools = Roact.Component:extend("LocalizationTools")
 
@@ -23,29 +20,10 @@ end
 
 function LocalizationTools:render()
 	local ribbonBorder = 1
-
 	return Roact.createElement(StudioThemeProvider, {
 		StudioSettings = self.props.StudioSettings,
 	}, {
 		Content = Theming.withTheme(function(theme)
-			local testLanguageSection
-			local embeddedTableSection
-			local canvasHight = 320
-
-			if LocalizationToolsPluginV2Enabled then
-				embeddedTableSection = Roact.createElement(EmbeddedTableSection, {
-					LayoutOrder = 3,
-				})
-
-				canvasHight = 420
-			else
-				testLanguageSection = Roact.createElement(TestLanguageSection, {
-					AllLanguagesInfo = self.props.AllLanguagesInfo,
-					Window = self.props.Window,
-					LayoutOrder = 1,
-				})
-			end
-
 			return Roact.createElement("Frame", {
 				Size = UDim2.new(1, 0, 1, 0),
 				BackgroundTransparency = 1,
@@ -83,7 +61,7 @@ function LocalizationTools:render()
 					BackgroundColor3 = theme.ScrollBarBackground,
 					BorderColor3 = theme.Border,
 					ClipsDescendants = true,
-					CanvasSize = UDim2.new(0, 320, 0, canvasHight),
+					CanvasSize = UDim2.new(0, 320, 0, 420),
 				}, {
 					Container = Roact.createElement("Frame", {
 						Size = UDim2.new(1, 0, 1, 0),
@@ -101,8 +79,6 @@ function LocalizationTools:render()
 							FillDirection = Enum.FillDirection.Vertical,
 							Padding = UDim.new(0, 5),
 						}),
-
-						TestLanguageSection = testLanguageSection,
 
 						GameTableSection = Roact.createElement(GameTableSection, {
 							Window = self.props.Window,
@@ -122,7 +98,9 @@ function LocalizationTools:render()
 							LayoutOrder = 2,
 						}),
 
-						EmbeddedTableSection = embeddedTableSection,
+						EmbeddedTableSection = Roact.createElement(EmbeddedTableSection, {
+							LayoutOrder = 3,
+						}),
 					})
 				})
 			})

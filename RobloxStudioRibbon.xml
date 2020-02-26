@@ -149,6 +149,7 @@
             icon=":/RibbonBar/images/RibbonIcons/Test/gst_client_light.png"
             width="32"
             height="32"/>
+        <addaction name="simulationResumeAction" fflag="StudioEnableResume" style="textundericon" text="Studio.Common.Action.Resume" icon=":/RibbonBar/images/RibbonIcons/Test/Resume.png" width="32" height="32"/>
         <addaction name="simulationResetAction" style="textundericon" text="Studio.Common.Action.Stop" icon=":/RibbonBar/images/RibbonIcons/Test/Stop.png" width="32" height="32"/>
       </Group>
       <Group name="Settings" text="Studio.App.RobloxRibbonMainWindow.Settings">
@@ -301,8 +302,8 @@
         </ActionGroup>
       </Group>
       <Group name="Advanced" text="Studio.App.RobloxRibbonMainWindow.Advanced">
-        <addaction fflag="!StudioInsertObjectStreamlining_InsertWidget" name="actionInsertAdvancedObject" iscommonslot="true" text="Studio.App.RobloxRibbonMainWindow.AdvancedObjects" tooltip="Studio.App.RobloxRibbonMainWindow.InsertScriptsAndOtherAdvance" ischeckable="true" icon=":/RibbonBar/images/RibbonIcons/Insert/Advanced-Objects.png" style="textundericon" width="32" height="32"/>
-        <addaction fflag="StudioInsertObjectStreamlining_InsertWidget" name="actionInsertAdvancedObject" iscommonslot="true" text="Studio.App.RBXMainWindow.InsertObject" tooltip="Studio.App.RobloxRibbonMainWindow.InsertObjectToolTip" ischeckable="true" icon=":/RibbonBar/images/RibbonIcons/Insert/Advanced-Objects.png" style="textundericon" width="32" height="32"/>
+        <addaction fflag="!StudioInsertObjectStreamliningv0_Consolidated" name="actionInsertAdvancedObject" iscommonslot="true" text="Studio.App.RobloxRibbonMainWindow.AdvancedObjects" tooltip="Studio.App.RobloxRibbonMainWindow.InsertScriptsAndOtherAdvance" ischeckable="true" icon=":/RibbonBar/images/RibbonIcons/Insert/Advanced-Objects.png" style="textundericon" width="32" height="32"/>
+        <addaction fflag="StudioInsertObjectStreamliningv0_Consolidated" name="actionInsertAdvancedObject" iscommonslot="true" text="Studio.App.RBXMainWindow.InsertObject" tooltip="Studio.App.RobloxRibbonMainWindow.InsertObjectToolTip" ischeckable="true" icon=":/RibbonBar/images/RibbonIcons/Insert/Advanced-Objects.png" style="textundericon" width="32" height="32"/>
         <addaction name="insertModelAction" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.Model" tooltip="Studio.App.RobloxRibbonMainWindow.InsertAModelFromLocalFiles" icon=":/RibbonBar/images/RibbonIcons/Insert/Import-Model.png" width="32" height="32"/>
         <addaction name="insertServiceAction" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.Service" tooltip="Studio.App.RobloxRibbonMainWindow.InsertFromServiceSelection" icon=":/RibbonBar/images/RibbonIcons/Insert/Service.png" width="32" height="32"/>
         <addaction name="collisionGroupsEditorAction" type="plugin" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.CollisionGroups" tooltip="Studio.App.RobloxRibbonMainWindow.EditCollisionGroups"/>
@@ -330,7 +331,8 @@
             icon=":/RibbonBar/images/RibbonIcons/Test/gst_client_light.png"
             width="32"
             height="32"/>
-        <addaction name="simulationStopAction" style="textundericon" text="Studio.Common.Action.Pause" icon=":/RibbonBar/images/RibbonIcons/Test/Pause.png" width="32" height="32" />
+        <addaction name="simulationPauseAction" style="textundericon" text="Studio.Common.Action.Pause" icon=":/RibbonBar/images/RibbonIcons/Test/Pause.png" width="32" height="32" />
+        <addaction name="simulationResumeAction" fflag="StudioEnableResume" style="textundericon" text="Studio.Common.Action.Resume" icon=":/RibbonBar/images/RibbonIcons/Test/Resume.png" width="32" height="32"/>
         <addaction name="simulationResetAction" style="textundericon" text="Studio.Common.Action.Stop" icon=":/RibbonBar/images/RibbonIcons/Test/Stop.png" width="32" height="32"/>
       </Group>
       <Group name="Clients and Servers" text="Studio.App.RobloxRibbonMainWindow.ClientsAndServers">
@@ -376,7 +378,7 @@
         <addaction name="toggleGameExplorerDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Explorer.png" tooltip="Studio.App.RobloxRibbonMainWindow.ViewGameExplorer" height="32" width="32"/>
         <addaction fflag="StudioAddBulkImportView" name="toggleBulkImportDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Explorer.png" tooltip="Studio.App.RobloxRibbonMainWindow.ViewBulkImport" height="32" width="32"/>
         <addaction name="luaToolboxAction" style="textbesideicon" icon=":/images/ToolboxIcon.png" height="32" width="32"/>
-        <addaction fflag="StudioShowTutorialsByDefault" name="toggleTutorialsDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Tutorials.png" tooltip="Studio.App.RobloxRibbonMainWindow.ViewTutorials" height="32" width="32"/>
+        <addaction name="toggleTutorialsDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Tutorials.png" tooltip="Studio.App.RobloxRibbonMainWindow.ViewTutorials" height="32" width="32"/>
         <addaction name="objectBrowserAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Object-Browser.png"  tooltip="Studio.App.RobloxRibbonMainWindow.ViewLuaAPIObjects" height="32" width="32"/>
         <addaction name="toggleOutputWindowDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Output.png" tooltip="Studio.App.RobloxRibbonMainWindow.OutputFeedOfScripts" text="Studio.App.RBXMainWindow.Output" height="32" width="32"/>
         <addaction name="toggleScriptAnalysisDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Output.png" tooltip="Studio.App.RobloxRibbonMainWindow.ViewScriptAnalysis" height="32" width="32"/>
@@ -433,7 +435,6 @@
       <Group name="Tools" text="Studio.App.RobloxRibbonMainWindow.Tools">
         <addaction name="managePluginsAction" text="Studio.App.RBXMainWindow.ManagePlugins" style="textundericon" height="32" width="32" tooltip="Studio.App.RobloxRibbonMainWindow.ManageCloudPlugins" icon=":/RibbonBar/images/RibbonIcons/AddOns/Manage-Plugins.png"/>
         <addaction name="openPluginsFolderAction" text="Studio.App.RobloxRibbonMainWindow.PluginsFolder" style="textundericon" height="32" width="32" tooltip="Studio.App.RobloxRibbonMainWindow.OpenTheLocalPluginsFolder" icon=":/RibbonBar/images/RibbonIcons/AddOns/Plugins-folder.png"/>
-        <addaction fflag="ImplementDebugAsPlugin" name="addDebugPluginAction" text="Studio.App.RobloxRibbonMainWindow.AddDebugPlugin" style="textundericon" height="32" width="32" tooltip="Studio.App.RobloxRibbonMainWindow.OpenTheLocalPluginsFolder" icon=":/RibbonBar/images/RibbonIcons/AddOns/Plugins-folder.png"/>
       </Group>
     </TabPage>
     <!--
@@ -501,7 +502,8 @@
             icon=":/RibbonBar/images/RibbonIcons/Test/gst_client_light.png"
             width="32"
             height="32"/>
-        <addaction name="simulationStopAction" style="textundericon" text="Studio.Common.Action.Pause" icon=":/RibbonBar/images/RibbonIcons/Test/Pause.png" width="32" height="32" />
+        <addaction name="simulationPauseAction" style="textundericon" text="Studio.Common.Action.Pause" icon=":/RibbonBar/images/RibbonIcons/Test/Pause.png" width="32" height="32" />
+        <addaction name="simulationResumeAction" fflag="StudioEnableResume" style="textundericon" text="Studio.Common.Action.Resume" icon=":/RibbonBar/images/RibbonIcons/Test/Resume.png" width="32" height="32"/>
         <addaction name="simulationResetAction" style="textundericon" text="Studio.Common.Action.Stop" icon=":/RibbonBar/images/RibbonIcons/Test/Stop.png" width="32" height="32"/>
       </Group>
       <Group name="Debugger" text="Studio.App.RBXMainWindow.Debugger" debugOnly="true">
