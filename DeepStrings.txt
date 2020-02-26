@@ -399,6 +399,7 @@ AHPEAU_iobuf
 AHPEAX1PEAPEAX
 AHW4DataStoreRequestType
 AHW4UserInputType
+AIlH4frt2inKNUs7u0TY6WB
 ALayoutErrors
 Algorithms
 AliasRequestResult
@@ -2281,6 +2282,7 @@ AVKeyframeMarker
 AVKeyframeSequence
 AVKeyframeSequenceProvider
 AVKeySequenceEdit
+AvKfQ1DTudahgY6m0FHvOQa0IHJXsE7B2PjfhMaqj5fJchFsionhIa
 AVLanguageClientBase
 AVLanguageServerBase
 AVLatchedSignalBase
@@ -7408,6 +7410,7 @@ Distribution
 DistributionPoint
 DistributionPoints
 DistToShowBufferCountSqr
+DIwYoF05QH3t
 DKECCAK1600_ASM
 DlcVersion
 DListenerAttributes
@@ -8209,12 +8212,14 @@ Environment
 EnvironmentDiffuseScale
 EnvironmentSpecularScale
 EnviroSpeed
+EOgfLp2dJJl2G1pEoZhg3krqQSzO
 EoOoZoaozo
 EphemeralCounter
 EqualizerSoundEffect
 EquippedEmotes
 EquippedEmotesChanged
 EquippedEmotesDataInternal
+ERGRlh392M9k454
 ErrDontRetry
 ErrorColor
 ErrorCount
@@ -9186,6 +9191,7 @@ FunctionUnused
 FunctionVar
 FutureIsBrightPhase2GL3
 FutureIsBrightPhase2GLES3
+FWjwYLO8PR5y4ccohCK34JZjjYGcWXbzmVTyco7ciJmq9CBiJAQeH
 FXCompositing
 FXCompositingFS
 FXCompositingLinearFS
@@ -10152,6 +10158,7 @@ GrabRotateCursor.png
 GradientEditor
 GradientEditorAdapter
 GradientEditorCanvas
+GRakNetResendMaxThresholdTimeInUs
 GraphicsD3D11PerFrameQuery
 GraphicsD3D9TextureDL
 GraphicsEffect
@@ -10461,6 +10468,7 @@ HelpForSelectionAction
 HelpWindow
 HelpWindow.style[
 HFbxVector4
+HGoWbCIwBv
 HHAEBVQModelIndex
 HHHHHAEBVQString
 HHTT\AKKKKTYWAH
@@ -10839,6 +10847,7 @@ Id_Terrain
 Id_Transparent
 Id_TransparentCasters
 ID3D11Texture2D
+Id4WZGZp0ls1E
 IDATHKETYSZ[
 IDebuggerCloneTracker
 IDebuggerDataSource
@@ -11506,12 +11515,14 @@ JavaScriptCallback
 Jba5qWkYU5nARYZm1gQVP
 Jcircumflex
 JDJNJXJbJlJvJ
+JE2go5zquGv7MeNw1Dt
 JHJRJ\JfJpJxJ
 JHW4MembershipType
 JIRA_RIDE_184
 JJJBBB\\\xx
 JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ
 JKLMNOPQRSTU
+JlhjHkFQnYK1HPquRrkObaJQ1aHmqo7yk30yty8dWa4nF0m6TzLDEfkCAwEAAQ
 JoinBlobInvalidateThresholdPercent
 JoinCommand
 JoinDataCacheChecksClientOwnedParts
@@ -12208,6 +12219,7 @@ LowQMaterialFS
 LowQMaterialWangFallbackFS
 LowQMaterialWangFS
 LowResolution
+LpetnM5KPzmPpEMR7Ni5
 Lslashsmall
 LSPConnection
 LSPManager
@@ -12334,6 +12346,7 @@ LuauWarnOnUtf8
 LuauWatchdog
 LuaWebService
 LVvuOx39]O
+LYQSDYX5CDer8dgN26YxvbxEH2juZWCjOG9WnX0JidCRxMcI6YT7abeTvKtjZC
 M_NVWeakFunctionRef
 MachineAddress
 MachineConfig
@@ -15006,6 +15019,7 @@ PersistentEditor
 PersistentFifoComboBox
 PerThreadTimer
 PerThreadTimerTotal
+Pgm5KsqZCC
 PGSAdaptiveCollisionMarginFixEnabled
 PGSAlign2AxesCorrectionDamping
 PGSAlign2AxesPStageFrictionConstant
@@ -16660,7 +16674,6 @@ RakNetPasswordAccepted
 RakNetPasswordRejected
 RakNetPing
 RakNetResendBufferArrayLength
-RakNetResendMaxThresholdTimeInUs
 RakNetResendMsgLen_Platform_
 RakNetResendScaleBackFactorHundredthsPercent
 RakNetResentPercent_Platform_
@@ -17723,6 +17736,7 @@ RigidBodyLazyUpdating
 RigidityEnabled
 RiseVelocity
 Rj0isQcnqX
+RmbD4QVqAhoEQ5fIdMDM4ep
 Roact.createElement
 ROBLOSECURITY
 Roblox.Hybrid
@@ -18715,6 +18729,7 @@ SetWindowLongPtrA
 SetWindowPos
 SetWindowsHookExA
 SetWindowTextA
+SFuUPSeBA7c3zjwtnLFmAGus
 ShaderSource
 ShadingLanguage
 Shadow.visible
@@ -21533,6 +21548,7 @@ SUPERSCRIPT_Y
 Superseded
 SuperSmoothMouseWheelScrolling
 Supplement
+SupportEncryptedAssets
 SupportJoinDataItemV2
 SupportJoinDataItemV2i
 SupportMeshLOD
@@ -22080,6 +22096,7 @@ TickCountPreciseOverride
 TickCountSampleMethod
 TickPosition
 TighterCylinderBoundingSpheres
+TIIdtqTUD5DKajZbtt3
 Tildesmall
 TiledHideAllRep
 TiledHideDiffuseRep
@@ -23526,6 +23543,7 @@ UWATAUAVAWH
 Uweb_response
 UWhiteList
 UWindowInputState
+Uxn2kj3RWTBt6Dyw
 V_http_request
 V_http_response
 VABTestService
@@ -24018,11 +24036,10 @@ VIConnection
 VIdElementParser
 VIdentityInterface
 VideoAdClosed
-VideoAddAudioDataMutex
-VideoAddLatestFrameMutex
 VideoAdFinishedTime
 VideoAdShown
 VideoAllowNonNativeResolutions
+VideoAudioBufferHeadroomFactor
 VideoBetterCleanupOnOpenFailure
 VideoBetterHandlingOfUnsupportedCodecs
 VideoCapture
@@ -24035,6 +24052,8 @@ VideoFrameAction
 VideoFrameTrace
 VideoLibraries
 VideoManager
+VideoMaxPacketsPerStep
+VideoModifyMutexes
 VideoPreRollWaitTimeSeconds
 VideoQuality
 VideoQualitySettings
@@ -24045,7 +24064,6 @@ VideoRecordFix
 VideoRecordFix2
 VideoRecording
 VideoRecordingChangeRequest
-VideoRemoveVideoMutex
 VideoRenderPtsDebugSpew
 VideoService
 VideoStream
