@@ -8,8 +8,6 @@ local BrushShape = TerrainEnums.BrushShape
 
 local materialAir = Enum.Material.Air
 
-local FFlagTerrainToolsFixSmoothDesiredMaterial = game:GetFastFlag("TerrainToolsFixSmoothDesiredMaterial")
-
 --[[
 	Perform a smooth operation for the given brush options
 
@@ -105,7 +103,7 @@ return function(options, minBounds, maxBounds, readMaterials, readOccupancies, w
 
 									-- Later on, if the occupancy for this cell becomes non-zero, then we need to give it a material
 									-- So whilst we're looking at its neighbours, make a note of the frequency of their materials
-									if FFlagTerrainToolsFixSmoothDesiredMaterial and cellStartsEmpty then
+									if cellStartsEmpty then
 										local m = readMaterials[checkX][checkY][checkZ]
 										if m ~= materialAir then
 											materialsAroundCell[m] = (materialsAroundCell[m] or 0) + 1
@@ -131,40 +129,30 @@ return function(options, minBounds, maxBounds, readMaterials, readOccupancies, w
 						difference = 0
 					end
 
-					if FFlagTerrainToolsFixSmoothDesiredMaterial then
-						-- If this voxel won't be be changing occupancy, then we don't need to try to change its occupancy or material
-						local targetOccupancy = math.max(0, math.min(1, cellOccupancy + difference))
-						if targetOccupancy ~= cellOccupancy then
-							if cellStartsEmpty and targetOccupancy > 0 then
-								-- If the cell is becoming non-empty, then we need to give it a material
-								-- Use the most common non-air material around this cell
-								local cellDesiredMaterial = cellStartMaterial
-								local mostCommonNum = 0
-								for mat, freq in pairs(materialsAroundCell) do
-									if freq > mostCommonNum then
-										mostCommonNum = freq
-										cellDesiredMaterial = mat
-									end
+					-- If this voxel won't be be changing occupancy, then we don't need to try to change its occupancy or material
+					local targetOccupancy = math.max(0, math.min(1, cellOccupancy + difference))
+					if targetOccupancy ~= cellOccupancy then
+						if cellStartsEmpty and targetOccupancy > 0 then
+							-- If the cell is becoming non-empty, then we need to give it a material
+							-- Use the most common non-air material around this cell
+							local cellDesiredMaterial = cellStartMaterial
+							local mostCommonNum = 0
+							for mat, freq in pairs(materialsAroundCell) do
+								if freq > mostCommonNum then
+									mostCommonNum = freq
+									cellDesiredMaterial = mat
 								end
-
-								writeMaterials[voxelX][voxelY][voxelZ] = cellDesiredMaterial
-
-							elseif targetOccupancy <= 0 then
-								-- Cell is becoming empty, set it to air
-								writeMaterials[voxelX][voxelY][voxelZ] = materialAir
 							end
-							-- Else oldOccupancy > 0 and targetOccupancy > 0, leave its material unchanged
 
-							writeOccupancies[voxelX][voxelY][voxelZ] = targetOccupancy
-						end
-					else
-						if readMaterials[voxelX][voxelY][voxelZ] == materialAir or cellOccupancy <= 0 and difference > 0 then
-							writeMaterials[voxelX][voxelY][voxelZ] = desiredMaterial
-						end
+							writeMaterials[voxelX][voxelY][voxelZ] = cellDesiredMaterial
 
-						if difference ~= 0 then
-							writeOccupancies[voxelX][voxelY][voxelZ] = math.max(0, math.min(1, cellOccupancy + difference))
+						elseif targetOccupancy <= 0 then
+							-- Cell is becoming empty, set it to air
+							writeMaterials[voxelX][voxelY][voxelZ] = materialAir
 						end
+						-- Else oldOccupancy > 0 and targetOccupancy > 0, leave its material unchanged
+
+						writeOccupancies[voxelX][voxelY][voxelZ] = targetOccupancy
 					end
 				end
 			end

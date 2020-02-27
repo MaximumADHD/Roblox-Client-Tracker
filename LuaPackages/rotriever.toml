@@ -18,6 +18,7 @@ Otter = "roblox/otter@0.1"
 t = "osyris/t@1.0"
 enumerate = "roblox/enumerate@1.0.0"
 PolicyProvider = { git = "https://github.rbx.com/Roblox/lua-roact-policy-provider" }
+Lumberyak = { git = "https://github.rbx.com/Roblox/lumberyak" }
 
 # The following packages were ported from AppTempCommon
 Promise = { git = "https://github.rbx.com/Roblox/lua-promise" }

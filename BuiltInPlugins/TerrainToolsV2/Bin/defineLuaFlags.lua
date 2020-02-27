@@ -3,12 +3,7 @@
 -- And then error when trying to use flags that aren't yet defined
 
 game:DefineFastFlag("TerrainToolsFixScrollBarResize", false)
-game:DefineFastFlag("TerrainToolsFixSmoothDesiredMaterial", false)
-game:DefineFastFlag("TerrainToolsClearConfirmationDialog", false)
 game:DefineFastFlag("TerrainToolsAutoFormatNum", false)
-game:DefineFastFlag("TerrainToolsUseFragmentsForToolPanel", false)
-game:DefineFastFlag("TerrainToolsFixPlanePositionErrorMessage", false)
-game:DefineFastFlag("TerrainToolsFixGettingTerrain", false)
 game:DefineFastFlag("TerrainToolsRefactor", false)
 game:DefineFastFlag("TerrainToolsFlattenUseBaseBrush", false)
 game:DefineFastFlag("TerrainToolsRefactorSculptOperations", false)
@@ -29,7 +24,6 @@ handleFlagDependencies("TerrainToolsFlattenUseBaseBrush", {"TerrainToolsRefactor
 handleFlagDependencies("TerrainToolsRefactorSculptOperations", {"TerrainToolsFlattenUseBaseBrush"})
 handleFlagDependencies("TerrainToolsMaterialGenerateFragments", {"TerrainToolsRefactor"})
 handleFlagDependencies("TerrainToolsConvertPartTool", {
-	"TerrainToolsUseFragmentsForToolPanel",
 	"TerrainToolsRefactor",
 	"TerrainToolsMaterialGenerateFragments",
 })

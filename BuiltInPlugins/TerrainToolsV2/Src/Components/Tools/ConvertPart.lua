@@ -282,6 +282,7 @@ function ConvertPart:render()
 
 				MaterialSettingsFragment = convertMode == ConvertMode.Material and Roact.createElement(MaterialSettingsFragment, {
 					LayoutOrder = 2,
+					AllowAir = true,
 					material = self.props.convertMaterial,
 					setMaterial = self.props.dispatchSetConvertMaterial,
 				}),

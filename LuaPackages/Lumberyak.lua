@@ -1,6 +1,6 @@
 local CorePackages = game:GetService("CorePackages")
 
 local initify = require(CorePackages.initify)
-initify(CorePackages.LumberyakImpl)
+initify(CorePackages.Packages)
 
-return require(CorePackages.LumberyakImpl)
+return require(CorePackages.Packages.Lumberyak)

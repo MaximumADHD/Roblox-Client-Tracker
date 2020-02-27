@@ -1,10 +1,13 @@
 local CorePackages = game:GetService("CorePackages")
+local CoreGui = game:GetService("CoreGui")
 
 local Roact = require(CorePackages.Roact)
 local t = require(CorePackages.Packages.t)
 
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+
 local FFlagPlayerListDesignUpdate = settings():GetFFlag("PlayerListDesignUpdate")
-local FFlagPlayerListFixTouchInputState = game:DefineFastFlag("PlayerListFixTouchInputState", false)
+local FFlagPlayerListFixTouchInputState = require(RobloxGui.Modules.Flags.FFlagPlayerListFixTouchInputState)
 
 local EntryFrame = Roact.PureComponent:extend("EntryFrame")
 
@@ -20,7 +23,7 @@ if FFlagPlayerListDesignUpdate then
 		onMouseEnter = t.optional(t.callback),
 		onMouseLeave = t.optional(t.callback),
 		onMouseDown = t.optional(t.callback),
-		onMouseUp = t.optional(t.callback),
+		onInputEnded = t.optional(t.callback),
 
 		backgroundStyle = t.strictInterface({
 			Color = t.Color3,
@@ -84,11 +87,15 @@ function EntryFrame:render()
 			[Roact.Event.MouseEnter] = self.props.onMouseEnter,
 			[Roact.Event.MouseLeave] = self.props.onMouseLeave,
 			[Roact.Event.MouseButton1Down] = self.props.onMouseDown,
-			[Roact.Event.MouseButton1Up] = self.props.onMouseUp,
+			[Roact.Event.MouseButton1Up] = self.props.onInputEnded,
 			[Roact.Event.InputEnded] = FFlagPlayerListFixTouchInputState and function(rbx, input)
 				if input.UserInputType == Enum.UserInputType.Touch then
-					self.props.onMouseLeave()
-					self.props.onMouseUp()
+					if self.props.onMouseLeave then
+						self.props.onMouseLeave()
+					end
+					if self.props.onInputEnded then
+						self.props.onInputEnded()
+					end
 				end
 			end or nil,
 

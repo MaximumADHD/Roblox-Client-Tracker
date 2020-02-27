@@ -6,7 +6,6 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 
-local FFlagTerrainToolsUseFragmentsForToolPanel = game:GetFastFlag("TerrainToolsUseFragmentsForToolPanel")
 local FFlagTerrainToolsRefactor = game:GetFastFlag("TerrainToolsRefactor")
 
 local ToolParts = Plugin.Src.Components.Tools.ToolParts
@@ -98,8 +97,7 @@ function Fill:render()
 
 	return withLocalization(function(localization)
 		return withTheme(function(theme)
-			local children = {
-
+			return Roact.createFragment({
 				EditSettings = Roact.createElement(EditSettings, {
 					LayoutOrder = 1,
 					mergeEmpty = mergeEmpty,
@@ -146,20 +144,7 @@ function Fill:render()
 						end,
 					}),
 				}),
-			}
-
-			if FFlagTerrainToolsUseFragmentsForToolPanel then
-				return Roact.createFragment(children)
-			else
-				children.UIListLayout = Roact.createElement("UIListLayout", {
-					SortOrder = Enum.SortOrder.LayoutOrder,
-				})
-
-				return Roact.createElement("Frame", {
-					Size = UDim2.new(1, 0, 1, 0),
-					BackgroundTransparency = 1,
-				}, children)
-			end
+			})
 		end)
 	end)
 

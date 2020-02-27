@@ -1,4 +1,9 @@
 return {
+	[Enum.Material.Air] = {
+		enum = Enum.Material.Air,
+		image = "mtrl_air.png",
+	},
+
 	[Enum.Material.Grass] = {
 		enum = Enum.Material.Grass,
 		image = "mtrl_grass.png",

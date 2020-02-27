@@ -2,6 +2,9 @@
 	Contents which appear inside a BlockingDialog for error popups.
 
 	Props:
+		string ErrorHeader = used for header in dialog window.
+		string ErrorKey = category of error. Currnetly either "EditorErrors" or
+			"Rig Errors" (default). Used to index into localization table
 		string ErrorType = The type of error which triggered this dialog. This
 			is used to index into the Localization table to display a message.
 		table Entries = A list of strings to format into the error message.
@@ -14,6 +17,7 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local UILibrary = require(Plugin.UILibrary)
 
+local Constants = require(Plugin.Src.Util.Constants)
 local Theme = require(Plugin.Src.Context.Theme)
 local withTheme = Theme.withTheme
 
@@ -35,6 +39,8 @@ function ErrorDialogContents:render()
 		local props = self.props
 		local entries = props.Entries
 		local errorType = props.ErrorType
+		local errorKey = props.ErrorKey or Constants.RIG_ERRORS_KEY
+		local errorHeader = props.ErrorHeader or Constants.RIG_ERRORS_HEADER_KEY
 		local entryList
 		if entries then
 			entryList = table.concat(entries, "; ")
@@ -69,7 +75,7 @@ function ErrorDialogContents:render()
 					TextColor3 = dialogTheme.textColor,
 					Font = dialogTheme.headerFont,
 					TextXAlignment = Enum.TextXAlignment.Left,
-					Text = localization:getText("Dialog", "ErrorsHeader"),
+					Text = localization:getText(Constants.DIALOG_KEY, errorHeader),
 				}),
 			}),
 
@@ -84,7 +90,7 @@ function ErrorDialogContents:render()
 				TextYAlignment = Enum.TextYAlignment.Top,
 				TextWrapped = true,
 				TextTruncate = Enum.TextTruncate.AtEnd,
-				Text = localization:getText("RigErrors", errorType, entryList),
+				Text = localization:getText(errorKey, errorType, entryList),
 			}),
 		})
 	end)

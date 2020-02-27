@@ -11,11 +11,9 @@ end
 require(script.Parent.defineLuaFlags)
 
 local FFlagTerrainToolsSeaLevel = game:GetFastFlag("TerrainToolsSeaLevel")
-local FFlagTerrainToolsFixGettingTerrain = game:GetFastFlag("TerrainToolsFixGettingTerrain")
 local FFlagTerrainToolsConvertPartTool = game:GetFastFlag("TerrainToolsConvertPartTool")
 
 -- services
-local SelectionService = game:GetService("Selection")
 local Workspace = game:GetService("Workspace")
 
 -- libraries
@@ -75,8 +73,7 @@ local localization = Localization.new({
 	translationResourceTable = TranslationReferenceTable,
 })
 
-local terrain = FFlagTerrainToolsFixGettingTerrain and require(Plugin.Src.Util.getTerrain)()
-	or Workspace:WaitForChild("Terrain")
+local terrain = require(Plugin.Src.Util.getTerrain)()
 local pluginActivationController = PluginActivationController.new(plugin)
 local terrainBrush = TerrainBrush.new({
 	terrain = terrain,
@@ -93,14 +90,10 @@ local terrainGeneration = TerrainGeneration.new({
 
 local seaLevel
 if FFlagTerrainToolsSeaLevel then
-	if FFlagTerrainToolsFixGettingTerrain then
-		seaLevel = TerrainSeaLevel.new({
-			terrain = terrain,
-			localization = localization,
-		})
-	else
-		seaLevel = TerrainSeaLevel.new(localization)
-	end
+	seaLevel = TerrainSeaLevel.new({
+		terrain = terrain,
+		localization = localization,
+	})
 end
 local partConverter
 if FFlagTerrainToolsConvertPartTool then

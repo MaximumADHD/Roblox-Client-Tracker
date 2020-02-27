@@ -12,6 +12,7 @@ RBX
 			TimerEventHandler
 		}
 		GoogleAnalyticsConfiguration
+		IEventIngest
 	}
 	AutoMemPool
 	{
@@ -263,6 +264,7 @@ RBX
 	}
 	LSP
 	{
+		DraftStore
 		IClientConnection
 		IClientConnectionDelegate
 		IHostAppServices
@@ -277,7 +279,6 @@ RBX
 		LSPSocket
 		LuauLanguageServer
 		LuauLanguageServerExt
-		ScriptContentsProvider
 	}
 	Lua
 	{
@@ -772,6 +773,7 @@ RBX
 	EmotesPages
 	EngineStatsCommand
 	EquationDisplay
+	EventIngestService
 	ExplicitWeldJoint
 	Explosion
 	ExtrudedPartInstance
@@ -917,6 +919,8 @@ RBX
 	IReferenceBinder
 	IScriptFilter
 	ISelectionBase
+	ISessionManager
+	ISessionProvider
 	IStage
 	IStepped
 	IStudioPluginHost
@@ -1135,6 +1139,9 @@ RBX
 	Service
 	ServiceInstance
 	ServiceProvider
+	SessionManager
+	SessionNode
+	SessionService
 	SetDragGridToOff
 	SetDragGridToOne
 	SetDragGridToOneFifth
@@ -1173,6 +1180,7 @@ RBX
 	SphereHandleAdornment
 	SpotLight
 	StandalonePluginScripts
+	StandardEventIngest
 	StandardPages
 	StarterCharacterScripts
 	StarterGear
@@ -1191,6 +1199,7 @@ RBX
 	StudsTool
 	SummaryStatsCommand
 	SunRaysEffect
+	SurfaceAppearance
 	SurfaceGui
 	SurfaceLight
 	SurfaceSelection

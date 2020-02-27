@@ -21,6 +21,7 @@ local FormatStatString = require(PlayerList.FormatStatString)
 
 local FFlagPlayerListDesignUpdate = settings():GetFFlag("PlayerListDesignUpdate")
 local FFlagPlayerListFixStatFlickering = game:GetFastFlag("PlayerListFixStatFlickering")
+local FFlagPlayerListFixTouchInputState = require(RobloxGui.Modules.Flags.FFlagPlayerListFixTouchInputState)
 
 local StatEntry = Roact.PureComponent:extend("StatEntry")
 
@@ -54,7 +55,7 @@ if FFlagPlayerListDesignUpdate then
 		onMouseEnter = t.optional(t.callback),
 		onMouseLeave = t.optional(t.callback),
 		onMouseDown = t.optional(t.callback),
-		onMouseUp = t.optional(t.callback),
+		onInputEnded = t.optional(t.callback),
 	})
 else
 	StatEntry.validateProps = t.strictInterface({
@@ -174,7 +175,18 @@ function StatEntry:render()
 					[Roact.Event.MouseEnter] = self.props.onMouseEnter,
 					[Roact.Event.MouseLeave] = self.props.onMouseLeave,
 					[Roact.Event.MouseButton1Down] = self.props.onMouseDown,
-					[Roact.Event.MouseButton1Up] = self.props.onMouseUp,
+					[Roact.Event.MouseButton1Up] = self.props.onInputEnded,
+
+					[Roact.Event.InputEnded] = FFlagPlayerListFixTouchInputState and function(rbx, input)
+						if input.UserInputType == Enum.UserInputType.Touch then
+							if self.props.onMouseLeave then
+								self.props.onMouseLeave()
+							end
+							if self.props.onInputEnded then
+								self.props.onInputEnded()
+							end
+						end
+					end or nil,
 				}, {
 					DoubleOverLay = Roact.createElement("Frame", {
 						ZIndex = 1,

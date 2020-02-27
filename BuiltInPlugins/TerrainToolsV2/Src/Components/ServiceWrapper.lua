@@ -13,7 +13,6 @@ local Localizing = UILibrary.Localizing
 local TerrainInterface = require(Plugin.Src.ContextServices.TerrainInterface)
 
 local FFlagTerrainToolsSeaLevel = game:GetFastFlag("TerrainToolsSeaLevel")
-local FFlagTerrainToolsFixGettingTerrain = game:GetFastFlag("TerrainToolsFixGettingTerrain")
 local FFlagTerrainToolsConvertPartTool = game:GetFastFlag("TerrainToolsConvertPartTool")
 
 -- props.localization : (UILibary.Localization) an object for fetching translated strings
@@ -35,9 +34,7 @@ function ServiceWrapper:init()
 	assert(self.props.store ~= nil, "Expected a Rodux Store object")
 	assert(self.props.theme ~= nil, "Expected a PluginTheme object")
 
-	if FFlagTerrainToolsFixGettingTerrain then
-		assert(self.props.terrain ~= nil, "Expected a Terrain instance")
-	end
+	assert(self.props.terrain ~= nil, "Expected a Terrain instance")
 	assert(self.props.terrainBrush ~= nil, "Expected a TerrainBrush object")
 	assert(self.props.pluginActivationController ~= nil, "Expected a PluginActivationController object")
 	assert(self.props.terrainImporter ~= nil, "Expected a TerrainImporter object")

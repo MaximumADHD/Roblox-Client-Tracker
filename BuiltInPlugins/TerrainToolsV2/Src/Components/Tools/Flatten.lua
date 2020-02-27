@@ -7,7 +7,6 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 
-local FFlagTerrainToolsUseFragmentsForToolPanel = game:GetFastFlag("TerrainToolsUseFragmentsForToolPanel")
 local FFlagTerrainToolsRefactor = game:GetFastFlag("TerrainToolsRefactor")
 local FFlagTerrainToolsFlattenUseBaseBrush = game:GetFastFlag("TerrainToolsFlattenUseBaseBrush")
 
@@ -120,11 +119,6 @@ function Flatten:init(initialProps)
 	self.terrainBrush = TerrainInterface.getTerrainBrush(self)
 	assert(self.terrainBrush, "Flatten requires a TerrainBrush from context")
 
-	if not FFlagTerrainToolsUseFragmentsForToolPanel then
-		self.layoutRef = Roact.createRef()
-		self.mainFrameRef = Roact.createRef()
-	end
-
 	self.toggleButtonFn = function(container)
 		if FFlagTerrainToolsRefactor then
 			warn("Flatten.toggleButtonFn() should not be used when FFlagTerrainToolsRefactor is true")
@@ -207,16 +201,6 @@ function Flatten:init(initialProps)
 			if brushShape == BrushShape.Sphere and not self.props.baseSizeHeightLocked then
 				self.props.dispatchSetBaseSizeHeightLocked(true)
 				self.props.dispatchChangeHeight(self.props.baseSize)
-			end
-		end
-	end
-
-	if not FFlagTerrainToolsUseFragmentsForToolPanel then
-		self.onContentSizeChanged = function()
-			local mainFrame = self.mainFrameRef.current
-			local layout = self.layoutRef.current
-			if mainFrame and layout then
-				mainFrame.Size = UDim2.new(1, 0, 0, layout.AbsoluteContentSize.Y)
 			end
 		end
 	end
@@ -305,7 +289,7 @@ function Flatten:render()
 	local planePositionY = self.props.planePositionY or Constants.INITIAL_PLANE_POSITION_Y
 	local heightPicker = self.props.heightPicker or false
 
-	local children = {
+	return Roact.createFragment({
 		BrushSettings = Roact.createElement(BrushSettings, {
 			LayoutOrder = 1,
 			currentTool = script.Name,
@@ -346,23 +330,7 @@ function Flatten:render()
 			setSnapToGrid = self.props.dispatchSetSnapToGrid,
 			setIgnoreWater = self.props.dispatchSetIgnoreWater,
 		}),
-	}
-
-	if FFlagTerrainToolsUseFragmentsForToolPanel then
-		return Roact.createFragment(children)
-	else
-		children.Layout = Roact.createElement("UIListLayout", {
-			SortOrder = Enum.SortOrder.LayoutOrder,
-			[Roact.Ref] = self.layoutRef,
-			[Roact.Change.AbsoluteContentSize] = self.onContentSizeChanged,
-		})
-
-		return Roact.createElement("Frame", {
-			Size = UDim2.new(1, 0, 1, 0),
-			BackgroundTransparency = 1,
-			[Roact.Ref] = self.mainFrameRef,
-		}, children)
-	end
+	})
 end
 
 function Flatten:willUnmount()

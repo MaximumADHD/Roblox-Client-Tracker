@@ -29,8 +29,6 @@ local MockServiceWrapper = Roact.Component:extend("MockSkeletonEditorServiceWrap
 local terrain = MockTerrain.new()
 local mouse = MockMouse.new()
 
-local FFlagTerrainToolsFixGettingTerrain = game:GetFastFlag("TerrainToolsFixGettingTerrain")
-
 -- props.localization : (optional, UILibrary.Localization)
 -- props.plugin : (optional, plugin)
 -- props.storeState : (optional, table) a default state for the MainReducer
@@ -83,9 +81,9 @@ function MockServiceWrapper:render()
 
 	local seaLevel = self.props.seaLevel
 	if not seaLevel then
-		seaLevel = FFlagTerrainToolsFixGettingTerrain and TerrainSeaLevel.new({
+		seaLevel = TerrainSeaLevel.new({
 			terrain = terrain,
-		}) or TerrainSeaLevel.new()
+		})
 	end
 
 	local partConverter = self.props.partConverter

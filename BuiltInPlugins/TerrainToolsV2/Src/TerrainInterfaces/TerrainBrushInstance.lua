@@ -24,15 +24,9 @@ local StudioService = game:GetService("StudioService")
 local UserInputService = game:GetService("UserInputService")
 local Workspace = game:GetService("Workspace")
 
-game:DefineFastFlag("TerrainToolsBrushOnlyUndoWhenDirty", false)
-game:DefineFastFlag("TerrainToolsFixAutoMaterial", false)
-game:DefineFastFlag("TerrainToolsFixFlattenToolPlanePosition", false)
 game:DefineFastFlag("TerrainToolsBrushUseIsKeyDown", false)
 
 local FFlagTerrainToolMetrics = settings():GetFFlag("TerrainToolMetrics")
-local FFlagTerrainToolsBrushOnlyUndoWhenDirty = game:GetFastFlag("TerrainToolsBrushOnlyUndoWhenDirty")
-local FFlagTerrainToolsFixAutoMaterial = game:GetFastFlag("TerrainToolsFixAutoMaterial")
-local FFlagTerrainToolsFixFlattenToolPlanePosition = game:GetFastFlag("TerrainToolsFixFlattenToolPlanePosition")
 local FFlagTerrainToolsBrushUseIsKeyDown = game:GetFastFlag("TerrainToolsBrushUseIsKeyDown")
 local FFlagTerrainToolsFlattenUseBaseBrush = game:GetFastFlag("TerrainToolsFlattenUseBaseBrush")
 
@@ -207,7 +201,7 @@ function TerrainBrush:startWithTool(newTool)
 		self:updateSettings({
 			currentTool = newTool,
 		})
-	elseif FFlagTerrainToolsFixAutoMaterial then
+	else
 		self:updateSettings({
 			currentTool = newTool,
 
@@ -215,11 +209,6 @@ function TerrainBrush:startWithTool(newTool)
 			-- Else just use what's already there
 			autoMaterial = newTool == ToolId.Flatten
 				or self._operationSettings.autoMaterial,
-		})
-	else
-		self:updateSettings({
-			currentTool = newTool,
-			autoMaterial = newTool == ToolId.Flatten,
 		})
 	end
 
@@ -238,9 +227,7 @@ function TerrainBrush:startWithTool(newTool)
 end
 
 function TerrainBrush:stop()
-	if FFlagTerrainToolsBrushOnlyUndoWhenDirty then
-		self:_saveChanges()
-	end
+	self:_saveChanges()
 	if not self._isRunning then
 		return
 	end
@@ -351,12 +338,7 @@ function TerrainBrush:_connectInput()
 
 		if event.UserInputType == Enum.UserInputType.MouseButton1 and self._mouseDown then
 			self._mouseDown = false
-
-			if FFlagTerrainToolsBrushOnlyUndoWhenDirty then
-				self:_saveChanges()
-			else
-				ChangeHistoryService:SetWaypoint("Terrain " .. self._operationSettings.currentTool)
-			end
+			self:_saveChanges()
 		end
 	end)
 
@@ -469,29 +451,17 @@ function TerrainBrush:_run()
 		local rayHit, mainPoint, _, hitMaterial = Workspace:FindPartOnRayWithIgnoreList(mouseRay, ignoreList,
 			false, ignoreWater)
 
-		if not FFlagTerrainToolsFixFlattenToolPlanePosition then
-			if heightPicker then
-				if FFlagTerrainToolsFlattenUseBaseBrush then
-					self._planePositionYChanged:fire(snapToGrid and snapToVoxelGrid(mainPoint, radius).y or (mainPoint.y - 1))
-				else
-					self._planePositionYChanged:fire(mainPoint.y - 1)
-				end
-			end
-		end
-
 		if currentTool == ToolId.Add then
 			mainPoint = mainPoint - unitRay * 0.05
 		elseif currentTool == ToolId.Subtract or currentTool == ToolId.Paint or currentTool == ToolId.Grow then
 			mainPoint = mainPoint + unitRay * 0.05
 		end
 
-		if FFlagTerrainToolsFixFlattenToolPlanePosition then
-			if heightPicker or (currentTool == ToolId.Flatten and self._mouseClick and not fixedPlane and not planeLock) then
-				if FFlagTerrainToolsFlattenUseBaseBrush then
-					self._planePositionYChanged:fire(snapToGrid and snapToVoxelGrid(mainPoint, radius).y or (mainPoint.y - 1))
-				else
-					self._planePositionYChanged:fire(mainPoint.y - 1)
-				end
+		if heightPicker or (currentTool == ToolId.Flatten and self._mouseClick and not fixedPlane and not planeLock) then
+			if FFlagTerrainToolsFlattenUseBaseBrush then
+				self._planePositionYChanged:fire(snapToGrid and snapToVoxelGrid(mainPoint, radius).y or (mainPoint.y - 1))
+			else
+				self._planePositionYChanged:fire(mainPoint.y - 1)
 			end
 		end
 

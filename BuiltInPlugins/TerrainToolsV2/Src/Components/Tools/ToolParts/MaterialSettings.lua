@@ -42,6 +42,7 @@ if FFlagTerrainToolsMaterialGenerateFragments then
 					setAutoMaterial = props.setAutoMaterial,
 					material = props.material,
 					setMaterial = props.setMaterial,
+					AllowAir = props.AllowAir,
 				}),
 			})
 		end)

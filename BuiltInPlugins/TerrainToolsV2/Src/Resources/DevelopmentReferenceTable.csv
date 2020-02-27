@@ -117,6 +117,7 @@ Studio.TerrainToolsV2.MapSettings.HeightMap, , ,Height Map
 Studio.TerrainToolsV2.MapSettings.MapSettings, , ,Map Settings
 Studio.TerrainToolsV2.MapSettings.Position, , ,Position
 Studio.TerrainToolsV2.MapSettings.Size, , ,Size
+Studio.TerrainToolsV2.Materials.Air, , ,Air
 Studio.TerrainToolsV2.Materials.Asphalt, , ,Asphalt
 Studio.TerrainToolsV2.Materials.Basalt, , ,Basalt
 Studio.TerrainToolsV2.Materials.Brick, , ,Brick

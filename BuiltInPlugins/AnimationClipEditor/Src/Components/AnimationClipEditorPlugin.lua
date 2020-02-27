@@ -5,6 +5,8 @@
 	Also creates the external services which are provided to context.
 ]]
 
+game:DefineFastFlag("StopAnimationEditorWhileGameRunning", false)
+
 local Selection = game:GetService("Selection")
 local RunService = game:GetService("RunService")
 
@@ -15,6 +17,7 @@ local isEmpty = require(Plugin.Src.Util.isEmpty)
 
 local AnimationClipEditor = require(Plugin.Src.Components.AnimationClipEditor)
 local DockWidget = require(Plugin.Src.Components.PluginWidget.DockWidget)
+local ErrorDialogContents = require(Plugin.Src.Components.BlockingDialog.ErrorDialogContents)
 
 local MainProvider = require(Plugin.Src.Context.MainProvider)
 local Theme = require(Plugin.Src.Util.Theme)
@@ -26,6 +29,7 @@ local TranslationReferenceTable = Plugin.Src.Resources.TranslationReferenceTable
 local Constants = require(Plugin.Src.Util.Constants)
 local DebugFlags = require(Plugin.Src.Util.DebugFlags)
 local MakePluginActions = require(Plugin.Src.Util.MakePluginActions)
+local showBlockingDialog = require(Plugin.Src.Util.showBlockingDialog)
 
 local ReleaseEditor = require(Plugin.Src.Thunks.ReleaseEditor)
 local SetSnapToKeys = require(Plugin.Src.Actions.SetSnapToKeys)
@@ -71,11 +75,19 @@ function AnimationClipEditorPlugin:init(initialProps)
 	self.mainButton:SetActive(self.state.enabled)
 
 	self.mainButton.Click:connect(function()
-		self:setState(function(state)
-			return {
-				enabled = not state.enabled,
-			}
-		end)
+		if game:GetFastFlag("StopAnimationEditorWhileGameRunning") and RunService:IsRunning() then
+			showBlockingDialog(initialProps.plugin, Roact.createElement(ErrorDialogContents, {
+				ErrorType = Constants.EDITOR_ERRORS.OpenedWhileRunning,
+				ErrorKey = Constants.EDITOR_ERRORS_KEY,
+				ErrorHeader = Constants.EDITOR_ERRORS_HEADER_KEY,
+			}))
+		else
+			self:setState(function(state)
+				return {
+					enabled = not state.enabled,
+				}
+			end)
+		end
 	end)
 
 	self.onDockWidgetEnabledChanged = function(enabled)

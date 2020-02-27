@@ -4,8 +4,6 @@ local Signal = require(UILibrary.Utils.Signal)
 
 local Constants = require(Plugin.Src.Util.Constants)
 
-local FFlagTerrainToolsFixGettingTerrain = game:GetFastFlag("TerrainToolsFixGettingTerrain")
-
 local ChangeHistoryService = game:GetService('ChangeHistoryService')
 local Workspace = game:GetService("Workspace")
 
@@ -15,14 +13,11 @@ local TerrainSeaLevel = {}
 TerrainSeaLevel.__index = TerrainSeaLevel
 
 function TerrainSeaLevel.new(options)
-	if FFlagTerrainToolsFixGettingTerrain then
-		assert(options and type(options) == "table", "TerrainSeaLevel.new() requires an options table")
-	end
+	assert(options and type(options) == "table", "TerrainSeaLevel.new() requires an options table")
 
 	local self = setmetatable({
-		-- In flag-off case, "options" dictionary is just a localization instance
-		_localization = FFlagTerrainToolsFixGettingTerrain and options.localization or options,
-		_terrain = FFlagTerrainToolsFixGettingTerrain and options.terrain or nil,
+		_localization = options.localization,
+		_terrain = options.terrain,
 
 		_replacing = false,
 		_replacingProgress = 0,
@@ -31,9 +26,7 @@ function TerrainSeaLevel.new(options)
 		_stateChange = Signal.new(),
 	}, TerrainSeaLevel)
 
-	if FFlagTerrainToolsFixGettingTerrain then
-		assert(self._terrain, "TerrainSeaLevel.new() requires a terrain instance")
-	end
+	assert(self._terrain, "TerrainSeaLevel.new() requires a terrain instance")
 
 	self._setReplacing = function(state)
 		if state ~= self._replacing then
@@ -109,7 +102,7 @@ function TerrainSeaLevel:replaceMaterial(position, size, sourceMaterial, targetM
 	self:localizedPrint("SeaLevel", "Start")
 
 	local startTime = tick()
-	local terrain = FFlagTerrainToolsFixGettingTerrain and self._terrain or Workspace.terrain
+	local terrain = self._terrain
 	if not terrain then
 		self:localizedWarn("Warning", "MissingTerrain")
 		return

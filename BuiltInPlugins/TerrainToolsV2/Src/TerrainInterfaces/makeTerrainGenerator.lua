@@ -9,12 +9,10 @@ local Biome = TerrainEnums.Biome
 
 local quickWait = require(Plugin.Src.Util.quickWait)
 
-game:DefineFastFlag("TerrainToolsOffsetGenerationNoise", false)
 game:DefineFastFlag("TerrainToolsFixOffsetGenerationNoise", false)
 game:DefineFastFlag("TerrainToolsGeneratorSkipAir", false)
 
 local FFlagTerrainToolMetrics = settings():GetFFlag("TerrainToolMetrics")
-local FFlagTerrainToolsOffsetGenerationNoise = game:GetFastFlag("TerrainToolsOffsetGenerationNoise")
 local FFlagTerrainToolsFixOffsetGenerationNoise = game:GetFastFlag("TerrainToolsFixOffsetGenerationNoise")
 local FFlagTerrainToolsGeneratorSkipAir = game:GetFastFlag("TerrainToolsGeneratorSkipAir")
 
@@ -168,7 +166,7 @@ return function(terrain, generateSettings)
 		cornerWorldVoxelX = mapPositionVoxel.x - (voxelSize.x / 2)
 		cornerWorldVoxelZ = mapPositionVoxel.z - (voxelSize.z / 2)
 
-	elseif FFlagTerrainToolsOffsetGenerationNoise then
+	else
 		noiseOffsetX = mapPosition.x / Constants.VOXEL_RESOLUTION
 		noiseOffsetZ = mapPosition.z / Constants.VOXEL_RESOLUTION
 	end

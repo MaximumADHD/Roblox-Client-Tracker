@@ -19,7 +19,6 @@ local withTheme = Theme.withTheme
 
 local Constants = require(Plugin.Src.Util.Constants)
 
-local FFlagTerrainToolsFixPlanePositionErrorMessage = game:GetFastFlag("TerrainToolsFixPlanePositionErrorMessage")
 local FFlagTerrainToolsRefactor = game:GetFastFlag("TerrainToolsRefactor")
 
 local LabeledElementPair = Roact.PureComponent:extend(script.Name)
@@ -48,10 +47,8 @@ function LabeledElementPair:render()
 	local text = self.props.Text or ""
 	local size = self.props.Size
 	local layoutOrder = self.props.LayoutOrder
-	local fillDirection
-	if FFlagTerrainToolsFixPlanePositionErrorMessage then
-		fillDirection = self.props.ContentDirection or Enum.FillDirection.Vertical
-	end
+	local fillDirection = self.props.ContentDirection or Enum.FillDirection.Vertical
+
 	-- this prop enables auto resizing the content's size changes
 	local sizeToContent = self.props.SizeToContent
 
@@ -62,7 +59,7 @@ function LabeledElementPair:render()
 		children["UIListLayout"] = Roact.createElement("UIListLayout", {
 			Padding = padding,
 			FillDirection = fillDirection,
-			SortOrder = FFlagTerrainToolsFixPlanePositionErrorMessage and Enum.SortOrder.LayoutOrder or Enum.SortOrder.Name,
+			SortOrder = Enum.SortOrder.LayoutOrder,
 			[Roact.Change.AbsoluteContentSize] = self.resizeToContent,
 			[Roact.Ref] = self.layoutRef,
 		})

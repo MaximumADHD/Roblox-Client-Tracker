@@ -103,8 +103,8 @@ void main()
     vec4 f10 = mix(texture2D(SpecularMapTexture, f2 * CB2[1].w), texture2D(SpecularMapTexture, f2), vec4(clamp((f1 * CB2[3].z) - (CB2[2].z * CB2[3].z), 0.0, 1.0)));
     float f11 = f10.y;
     float f12 = VARYING2.w * 2.0;
-    float f13 = clamp(f12, 0.0, 1.0);
-    float f14 = clamp((f12 - 1.0) + f8, 0.0, 1.0);
+    float f13 = clamp((f12 - 1.0) + f8, 0.0, 1.0);
+    float f14 = clamp(f12, 0.0, 1.0);
     vec3 f15 = normalize(((VARYING6.xyz * f7.x) + (cross(VARYING5.xyz, VARYING6.xyz) * f7.y)) + (VARYING5.xyz * (f6 * 10.0)));
     float f16 = clamp(dot(step(CB0[19].xyz, abs(VARYING3 - CB0[18].xyz)), vec3(1.0)), 0.0, 1.0);
     vec3 f17 = VARYING3.yzx - (VARYING3.yzx * f16);
@@ -148,10 +148,10 @@ void main()
     vec4 f55 = texture2D(GBufferColorTexture, f49 + (f53 * clamp(min(texture2D(GBufferDepthTexture, f51 + f54).x * 500.0, texture2D(GBufferDepthTexture, f51 - f54).x * 500.0) - f48, 0.0, 1.0)));
     vec3 f56 = f55.xyz;
     vec3 f57 = ((f56 * f56) * CB0[15].x).xyz;
-    vec3 f58 = f57 * mix(vec3(1.0), VARYING2.xyz, vec3(f13));
+    vec3 f58 = f57 * mix(vec3(1.0), VARYING2.xyz, vec3(f14));
     vec4 f59 = vec4(f58.x, f58.y, f58.z, vec4(0.0).w);
     f59.w = mix(1.0, f55.w, dot(f58.xyz, vec3(1.0)) / (dot(f57, vec3(1.0)) + 0.00999999977648258209228515625));
-    vec4 f60 = mix(mix(f59, vec4(mix(((((((vec3(1.0) - (f39 * (CB0[26].w * f1))) * CB0[10].xyz) * f32) + (CB0[12].xyz * clamp(-f31, 0.0, 1.0))) * f24) + min(f21 + (CB0[8].xyz + (CB0[9].xyz * f22)), vec3(CB0[16].w))) * (f25 * f14), f28, vec3(VARYING7.w)), 1.0), vec4(f14)), vec4(f28, 1.0), vec4(((f42 * f42) * 0.800000011920928955078125) * f13)) + vec4(((f39 * (((f40 + (f40 * f40)) / (((f41 * f41) * ((f35 * 3.0) + 0.5)) * ((f34 * 0.75) + 0.25))) * f32)) * CB0[10].xyz) * f24, 0.0);
+    vec4 f60 = mix(mix(f59, vec4(mix(((((((vec3(1.0) - (f39 * (CB0[26].w * f1))) * CB0[10].xyz) * f32) + (CB0[12].xyz * clamp(-f31, 0.0, 1.0))) * f24) + min(f21 + (CB0[8].xyz + (CB0[9].xyz * f22)), vec3(CB0[16].w))) * (f25 * f13), f28, vec3(VARYING7.w)), 1.0), vec4(f13)), vec4(f28, 1.0), vec4(((f42 * f42) * 0.800000011920928955078125) * f14)) + vec4(((f39 * (((f40 + (f40 * f40)) / (((f41 * f41) * ((f35 * 3.0) + 0.5)) * ((f34 * 0.75) + 0.25))) * f32)) * CB0[10].xyz) * f24, 0.0);
     float f61 = clamp((CB0[13].x * length(VARYING4.xyz)) + CB0[13].y, 0.0, 1.0);
     vec3 f62 = mix(CB0[14].xyz, sqrt(clamp(f60.xyz * CB0[15].y, vec3(0.0), vec3(1.0))).xyz, vec3(f61));
     vec4 f63 = vec4(f62.x, f62.y, f62.z, f60.w);

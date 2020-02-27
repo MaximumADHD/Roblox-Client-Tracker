@@ -110,8 +110,8 @@ void main()
     vec4 f10 = mix(texture(SpecularMapTexture, f2 * CB2[1].w), texture(SpecularMapTexture, f2), vec4(clamp((f1 * CB2[3].z) - (CB2[2].z * CB2[3].z), 0.0, 1.0)));
     float f11 = f10.y;
     float f12 = VARYING2.w * 2.0;
-    float f13 = clamp(f12, 0.0, 1.0);
-    float f14 = clamp((f12 - 1.0) + f8, 0.0, 1.0);
+    float f13 = clamp((f12 - 1.0) + f8, 0.0, 1.0);
+    float f14 = clamp(f12, 0.0, 1.0);
     vec3 f15 = normalize(((VARYING6.xyz * f7.x) + (cross(VARYING5.xyz, VARYING6.xyz) * f7.y)) + (VARYING5.xyz * (f6 * 10.0)));
     vec3 f16 = -CB0[11].xyz;
     float f17 = dot(f15, f16);
@@ -175,10 +175,10 @@ void main()
     vec4 f73 = texture(GBufferColorTexture, f67 + (f71 * clamp(min(texture(GBufferDepthTexture, f69 + f72).x * 500.0, texture(GBufferDepthTexture, f69 - f72).x * 500.0) - f66, 0.0, 1.0)));
     vec3 f74 = f73.xyz;
     vec3 f75 = ((f74 * f74) * CB0[15].x).xyz;
-    vec3 f76 = f75 * mix(vec3(1.0), VARYING2.xyz, vec3(f13));
+    vec3 f76 = f75 * mix(vec3(1.0), VARYING2.xyz, vec3(f14));
     vec4 f77 = vec4(f76.x, f76.y, f76.z, vec4(0.0).w);
     f77.w = mix(1.0, f73.w, dot(f76.xyz, vec3(1.0)) / (dot(f75, vec3(1.0)) + 0.00999999977648258209228515625));
-    vec4 f78 = mix(mix(f77, vec4(mix((((((vec3(1.0) - (f57 * (CB0[26].w * f1))) * CB0[10].xyz) * f50) * f44) + min(f23 + (CB0[8].xyz + (CB0[9].xyz * f24)), vec3(CB0[16].w))) * (f45 * f14), f48, vec3(VARYING7.w)), 1.0), vec4(f14)), vec4(f48, 1.0), vec4(((f60 * f60) * 0.800000011920928955078125) * f13)) + vec4(((f57 * (((f58 + (f58 * f58)) / (((f59 * f59) * ((f53 * 3.0) + 0.5)) * ((f52 * 0.75) + 0.25))) * f50)) * CB0[10].xyz) * f44, 0.0);
+    vec4 f78 = mix(mix(f77, vec4(mix((((((vec3(1.0) - (f57 * (CB0[26].w * f1))) * CB0[10].xyz) * f50) * f44) + min(f23 + (CB0[8].xyz + (CB0[9].xyz * f24)), vec3(CB0[16].w))) * (f45 * f13), f48, vec3(VARYING7.w)), 1.0), vec4(f13)), vec4(f48, 1.0), vec4(((f60 * f60) * 0.800000011920928955078125) * f14)) + vec4(((f57 * (((f58 + (f58 * f58)) / (((f59 * f59) * ((f53 * 3.0) + 0.5)) * ((f52 * 0.75) + 0.25))) * f50)) * CB0[10].xyz) * f44, 0.0);
     float f79 = clamp((CB0[13].x * length(VARYING4.xyz)) + CB0[13].y, 0.0, 1.0);
     vec3 f80 = mix(CB0[14].xyz, sqrt(clamp(f78.xyz * CB0[15].y, vec3(0.0), vec3(1.0))).xyz, vec3(f79));
     vec4 f81 = vec4(f80.x, f80.y, f80.z, f78.w);
