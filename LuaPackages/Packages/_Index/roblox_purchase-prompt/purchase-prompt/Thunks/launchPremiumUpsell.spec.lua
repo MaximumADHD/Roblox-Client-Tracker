@@ -57,6 +57,8 @@ return function()
 
 		local state = store:getState()
 
+		-- expect(platformInterface.spies.startPremiumUpsell.callCount).to.equal(1)
+		-- expect(state.promptState).to.equal(PromptState.UpsellInProgress)
 	end)
 
 	it("should run without errors on Mobile", function()
@@ -77,6 +79,8 @@ return function()
 
 		local state = store:getState()
 
+		-- expect(platformInterface.spies.promptNativePurchase.callCount).to.equal(1)
+		-- expect(state.promptState).to.equal(PromptState.UpsellInProgress)
 	end)
 
 	it("should run into error on unsupported platforms", function()
@@ -97,5 +101,7 @@ return function()
 
 		local state = store:getState()
 
+		-- expect(platformInterface.spies.startPremiumUpsell.callCount).to.equal(0)
+		-- expect(state.purchaseError).to.equal(PurchaseError.PremiumUnavailablePlatform)
 	end)
 end

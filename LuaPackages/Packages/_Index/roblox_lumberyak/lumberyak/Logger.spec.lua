@@ -159,6 +159,186 @@ return function()
 				expect(#sink.seen).to.equal(count)
 			end)
 		end
+
+		describe("should treat invalid log levels as disabled", function()
+			it("should log to no levels when given a bad maxLevel", function()
+				local log = Logger.new()
+				local sink = newSink("not-a-level")
+				log:addSink(sink)
+
+				log:error("error")
+				log:warning("warning")
+				log:info("info")
+				log:debug("debug")
+				log:trace("trace")
+
+				expect(#sink.seen).to.equal(0)
+			end)
+
+			it("should log to no levels when given nil", function()
+				local log = Logger.new()
+				local sink = newSink(nil)
+				log:addSink(sink)
+
+				log:error("error")
+				log:warning("warning")
+				log:info("info")
+				log:debug("debug")
+				log:trace("trace")
+
+				expect(#sink.seen).to.equal(0)
+			end)
+
+			it("should handle multiple sinks when some are disabled", function()
+				local log = Logger.new()
+				local sink1 = newSink(nil)
+				local sink2 = newSink(Logger.Levels.Trace)
+				log:addSink(sink1)
+				log:addSink(sink2)
+
+				log:error("error")
+				log:warning("warning")
+				log:info("info")
+				log:debug("debug")
+				log:trace("trace")
+
+				expect(#sink1.seen).to.equal(0)
+				expect(#sink2.seen).to.equal(5)
+			end)
+		end)
+	end)
+
+	describe("When logging different levels using fromString", function()
+		local cases = {
+			["error"] = 1,
+			["Warning"] = 2,
+			["INFO"] = 3,
+			["dEBUG"] = 4,
+			["TrAcE"] = 5,
+			["invalid"] = 0,
+		}
+
+		for level, count in pairs(cases) do
+			it("fromString should handle " .. level, function()
+				local log = Logger.new()
+				local sink = newSink(Logger.Levels.fromString(level))
+				log:addSink(sink)
+
+				log:error("error")
+				log:warning("warning")
+				log:info("info")
+				log:debug("debug")
+				log:trace("trace")
+
+				expect(#sink.seen).to.equal(count)
+			end)
+		end
+	end)
+
+	describe("sinks", function()
+		it("should be disabled without error when maxLevel isn't set", function()
+			local log = Logger.new()
+			local seen = 0
+			log:addSink({
+				log = function()
+					seen = seen + 1
+				end,
+			})
+
+			log:error("error")
+			log:warning("warning")
+			log:info("info")
+			log:debug("debug")
+			log:trace("trace")
+
+			expect(seen).to.equal(0)
+		end)
+
+		it("should be disabled without error when maxLevel is set incorrectly", function()
+			local log = Logger.new()
+			local seen = 0
+			log:addSink({
+				maxLevel = "foo",
+				log = function()
+					seen = seen + 1
+				end,
+			})
+
+			log:error("error")
+			log:warning("warning")
+			log:info("info")
+			log:debug("debug")
+			log:trace("trace")
+
+			expect(seen).to.equal(0)
+		end)
+
+		it("should not cause problems with parenting when not set", function()
+			local log1 = Logger.new()
+			local seen = 0
+			log1:addSink({
+				log = function()
+					seen = seen + 1
+				end,
+			})
+
+			local log2 = log1:new()
+
+			log2:error("error")
+			log2:warning("warning")
+			log2:info("info")
+			log2:debug("debug")
+			log2:trace("trace")
+
+			expect(seen).to.equal(0)
+		end)
+	end)
+
+	describe("should treat invalid log levels as disabled", function()
+		it("should log to no levels when given a bad maxLevel", function()
+			local log = Logger.new()
+			local sink = newSink("not-a-level")
+			log:addSink(sink)
+
+			log:error("error")
+			log:warning("warning")
+			log:info("info")
+			log:debug("debug")
+			log:trace("trace")
+
+			expect(#sink.seen).to.equal(0)
+		end)
+
+		it("should log to no levels when given nil", function()
+			local log = Logger.new()
+			local sink = newSink(nil)
+			log:addSink(sink)
+
+			log:error("error")
+			log:warning("warning")
+			log:info("info")
+			log:debug("debug")
+			log:trace("trace")
+
+			expect(#sink.seen).to.equal(0)
+		end)
+
+		it("should handle multiple sinks when some are disabled", function()
+			local log = Logger.new()
+			local sink1 = newSink(nil)
+			local sink2 = newSink(Logger.Levels.Trace)
+			log:addSink(sink1)
+			log:addSink(sink2)
+
+			log:error("error")
+			log:warning("warning")
+			log:info("info")
+			log:debug("debug")
+			log:trace("trace")
+
+			expect(#sink1.seen).to.equal(0)
+			expect(#sink2.seen).to.equal(5)
+		end)
 	end)
 
 	describe("with positional arguments", function()
@@ -184,24 +364,26 @@ return function()
 			expect(sink.seen[1].message).to.equal("foo bar baz")
 		end)
 
-		it("should error with too many arguments", function()
+		it("should output a warning with too many arguments", function()
 			local log = Logger.new()
 			local sink = newSink(Logger.Levels.Info)
 			log:addSink(sink)
 
-			expect(function()
-				log:info("foo {}", "bar", "baz")
-			end).to.throw()
+			log:info("foo {}", "bar", "baz")
+
+			assert(string.find(sink.seen[1].message, "LUMBERYAK INTERNAL"),
+				"Expected an internal warning, got [[\n" .. sink.seen[1].message .. "\n]]")
 		end)
 
-		it("should error with too few arguments", function()
+		it("should output a warning with too few arguments", function()
 			local log = Logger.new()
 			local sink = newSink(Logger.Levels.Info)
 			log:addSink(sink)
 
-			expect(function()
-				log:info("foo {} {}", "bar")
-			end).to.throw()
+			log:info("foo {} {}", "bar")
+
+			assert(string.find(sink.seen[1].message, "LUMBERYAK INTERNAL"),
+				"Expected an internal warning, got [[\n" .. sink.seen[1].message .. "\n]]")
 		end)
 	end)
 

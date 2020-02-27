@@ -1,21 +1,15 @@
 local Logger = require(Workspace.LoadedCode.Packages.Lumberyak.Logger)
 
-local runs = 200000
-local repeats = 20
+local runs = 2000000
 
 local function timeit(makeLogger, callLogger)
     local log = makeLogger()
 
-    local total = 0
-    for _ = 1, repeats do
-        local t = tick()
-        for _ = 1, runs do
-            callLogger(log)
-        end
-        total = (tick() - t) + total
-        wait()
+    local t = tick()
+    for _ = 1, runs do
+        callLogger(log)
     end
-    return total / (runs * repeats)
+    return (tick() - t) / runs
 end
 
 local function callSimple(log)

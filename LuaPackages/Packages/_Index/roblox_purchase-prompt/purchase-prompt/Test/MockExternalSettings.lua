@@ -7,6 +7,8 @@ local Root = script.Parent.Parent
 local LuaPackages = Root.Parent
 local Cryo = require(LuaPackages.Cryo)
 
+local GetFFlagPremiumUpsellPrecheck = require(Root.Flags.GetFFlagPremiumUpsellPrecheck)
+
 local DEFAULT_FLAG_STATES = {
 	-- Allow restriction of third-party sales. Was never properly turned on in
 	-- the old prompt. We should change this if it defaults to on.
@@ -22,6 +24,13 @@ function MockExternalSettings.new(isStudio, isTenFoot, flags, platform)
 
 	flags = Cryo.Dictionary.join(DEFAULT_FLAG_STATES, flags)
 
+	local function getMockFlag(mockFlag, systemFlag)
+		if mockFlag ~= nil then
+			return mockFlag
+		end
+		return systemFlag
+	end
+
 	function service.getPlatform()
 		return platform
 	end
@@ -36,6 +45,10 @@ function MockExternalSettings.new(isStudio, isTenFoot, flags, platform)
 
 	function service.getFlagOrder66()
 		return flags.Order66
+	end
+
+	function service.getFFlagPremiumUpsellPrecheck()
+		return getMockFlag(flags.PremiumUpsellPrecheck, GetFFlagPremiumUpsellPrecheck())
 	end
 
 	function service.isTenFootInterface()

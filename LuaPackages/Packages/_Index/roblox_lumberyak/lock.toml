@@ -2,5 +2,5 @@
 name = "roblox/lumberyak"
 version = "0.1.0"
 source = "git+https://github.rbx.com/roblox/lumberyak#master"
-commit = "8122b3f3d272a6d4cb140ddd133b8f386a6ba677"
+commit = "4c383367585db0c21d8bf46c622210e2e849ed2b"
 dependencies = ["Cryo <patched> roblox/cryo 1.0.0 registry+https://github.rbx.com/roblox/rotriever-index"]

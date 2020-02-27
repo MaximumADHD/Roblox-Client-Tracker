@@ -106,7 +106,7 @@ function PremiumPrompt:RenderError()
 	return Roact.createElement(MultiTextLocalizer, {
 		keys = {
 			titleLocalizedText = {
-				key = PREMIUM_MODAL_LOC_KEY:format("Title.PremiumRequired"),
+				key = PREMIUM_MODAL_LOC_KEY:format("Title.Error"),
 			},
 			errorLocalizedText = {
 				key = PREMIUM_MODAL_LOC_KEY:format(errorKey),

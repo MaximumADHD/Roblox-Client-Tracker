@@ -1,4 +1,4 @@
-local Logger = require(script.Parent.Logger)
+local Logger = require(script.Parent.Parent.Parent.Logger)
 
 local PrintSink = {}
 

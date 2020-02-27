@@ -4,6 +4,7 @@ local ContentProvider = game:GetService("ContentProvider")
 local MarketplaceService = game:GetService("MarketplaceService")
 local InsertService = game:GetService("InsertService")
 local UserInputService = game:GetService("UserInputService")
+local Players = game:GetService("Players")
 
 local Promise = require(Root.Promise)
 local PremiumProduct = require(Root.Models.PremiumProduct)
@@ -176,18 +177,34 @@ local function postPremiumImpression()
 		}
 	}
 
-	warn(url)
-
 	return Promise.new(function(resolve, reject)
 		spawn(function()
 			return HttpService:RequestInternal(options):Start(function(success, response)
-				warn(response.Body)
 				-- Ignore all responses, don't need to do anything
 			end)
 		end)
 	end)
 end
 
+local function getPremiumUpsellPrecheck()
+	local options = {
+		Url = string.format("%sv1/users/%d/premium-upsell-precheck?universeId=%d&placeId=%d",
+			PREMIUM_FEATURES_URL, Players.LocalPlayer.UserId, game.GameId, game.PlaceId),
+		Method = "GET",
+	}
+
+	return Promise.new(function(resolve, reject)
+		spawn(function()
+			return HttpService:RequestInternal(options):Start(function(success, response)
+				if success and response.StatusCode == 200 then
+					resolve()
+				else
+					reject()
+				end
+			end)
+		end)
+	end)
+end
 
 local Network = {}
 
@@ -206,6 +223,7 @@ function Network.new()
 		getProductPurchasableDetails = getProductPurchasableDetails,
 		getPremiumProductInfo = Promise.promisify(getPremiumProductInfo),
 		postPremiumImpression = Promise.promisify(postPremiumImpression),
+		getPremiumUpsellPrecheck = Promise.promisify(getPremiumUpsellPrecheck),
 	}
 
 	setmetatable(networkService, {

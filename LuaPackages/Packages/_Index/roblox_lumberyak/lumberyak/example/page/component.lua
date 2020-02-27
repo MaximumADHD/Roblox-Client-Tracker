@@ -1,4 +1,4 @@
-local log = require(script.parent.fooLogger):new()
+local log = require(script.Parent.pageLogger):new()
 log:setContext({bar = "bar"})
 
 return function()

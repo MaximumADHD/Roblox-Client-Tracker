@@ -20,13 +20,22 @@ local levelOrder = {
 	Logger.Levels.Trace,
 }
 
-local levelRank = {
-	[Logger.Levels.Error] = 1,
-	[Logger.Levels.Warning] = 2,
-	[Logger.Levels.Info] = 3,
-	[Logger.Levels.Debug] = 4,
-	[Logger.Levels.Trace] = 5,
-}
+local levelRank = {}
+for k, v in pairs(levelOrder) do
+	levelRank[v] = k
+end
+
+function Logger.Levels.fromString(str)
+	if type(str) ~= "string" then
+		return nil
+	end
+	for _, k in pairs(levelOrder) do
+		if string.lower(k) == string.lower(str) then
+			return k
+		end
+	end
+	return nil
+end
 
 function Logger.new(parent, name)
 	local logger = {
@@ -61,14 +70,14 @@ end
 
 -- Activate `level` and above logging levels.
 local function setActive(level, node)
-	for _, k in ipairs(levelOrder) do
-		node.active[k] = true
-		if k == level then
-			break
+	local maxLevel = levelRank[level]
+	if maxLevel then
+		for n = 1,maxLevel do
+			node.active[levelOrder[n]] = true
 		end
-	end
-	for k, _ in pairs(node.children) do
-		setActive(level, k)
+		for k, _ in pairs(node.children) do
+			setActive(level, k)
+		end
 	end
 end
 
@@ -111,15 +120,21 @@ function Logger:setParent(parent)
 	end
 
 	updateCache(parent)
-	local maxLevel = levelRank[Logger.Levels.Error]
-	for _, sink in pairs(parent.cache.sinks) do
-		maxLevel = math.max(maxLevel, levelRank[sink.maxLevel])
-	end
-
 	self.parent = parent
 	self.parent.children[self] = true
 
-	setActive(levelOrder[maxLevel], self)
+	local maxLevel = -1
+	for _, sink in pairs(parent.cache.sinks) do
+		local sinkLevel = levelRank[sink.maxLevel]
+		if sinkLevel then
+			maxLevel = math.max(maxLevel, levelRank[sink.maxLevel])
+		end
+	end
+
+	if maxLevel > -1 then
+		setActive(levelOrder[maxLevel], self)
+	end
+
 	setDirty(self)
 end
 
@@ -135,10 +150,6 @@ function Logger:setContext(context)
 end
 
 local function log(level, node, args)
-	if args.n == 0 then
-		error("No log message given")
-	end
-
 	if node.dirty then
 		updateCache(node)
 	end
@@ -160,10 +171,16 @@ local function log(level, node, args)
 	end
 
 	-- Interpolate the log message.
-	local interpMsg = args[1]
+	local interpMsg
+	if args.n == 0 then
+		interpMsg = "LUMBERYAK INTERNAL: No log message given"
+	else
+		interpMsg = args[1]
+	end
 	if fullContext.prefix then
 		interpMsg = fullContext.prefix .. interpMsg
 	end
+
 	if interpMsg:find("{") then
 		local i = 1
 		interpMsg = (interpMsg:gsub("{(.-)}", function(w)
@@ -175,18 +192,18 @@ local function log(level, node, args)
 			return fullContext[w] or w
 		end))
 		if i < args.n then
-			error("Too many arguments given for format string", 4)
+			interpMsg = interpMsg .. "\nLUMBERYAK INTERNAL: Too many arguments given for format string"
 		elseif i > args.n then
-			error("Too few arguments given for format string", 4)
+			interpMsg = interpMsg .. "\nLUMBERYAK INTERNAL: Too few arguments given for format string"
 		end
 	elseif args.n > 1 then
-		error("Too many arguments given for format string", 4)
+		interpMsg = interpMsg .. "\nLUMBERYAK INTERNAL: Too many arguments given for format string"
 	end
 
 	-- Send the message to any sinks that are listening to the right level.
 	local rank = levelRank[level]
 	for _, k in pairs(node.cache.sinks) do
-		if levelRank[k.maxLevel] >= rank then
+		if levelRank[k.maxLevel] and levelRank[k.maxLevel] >= rank then
 			k:log(interpMsg, fullContext)
 		end
 	end

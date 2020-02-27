@@ -1,6 +1,6 @@
 return function()
-    local root = require(script.Parent.root)
-    local log = require(script.Parent.rootLogger)
+    local app = require(script.Parent.app.app)
+    local log = require(script.Parent.app.appLogger)
 
 	local function newSink(level)
 		return {
@@ -16,7 +16,7 @@ return function()
         local sink = newSink(log.Levels.Info)
         log:addSink(sink)
 
-        local result = root()
+        local result = app()
         expect(result).to.equal("done")
         expect(#sink.seen).to.equal(3)
         expect(sink.seen[1].message).to.equal("calling root")

@@ -94,6 +94,7 @@ return{
 	["CoreScripts.PremiumModal.Error.AlreadyPremium"] = [[你已订阅至 Roblox Premium！请再试一次。]],
 	["CoreScripts.PremiumModal.Error.Unavailable"] = [[Premium 当前无法购买。请稍后再试！]],
 	["CoreScripts.PremiumModal.Body.RobuxMonthlyV2"] = [[每月 {robux} Robux]],
+	["CoreScripts.PremiumModal.Error.FailedNativePurchase"] = [[购买未完成，请重试。]],
 	["CoreScripts.PurchasePrompt.ConfirmPurchase.TakeFree"] = [[免费领取]],
 	["CoreScripts.PurchasePrompt.ConfirmPurchase.UpgradeBuildersClub"] = [[升级]],
 	["CoreScripts.PurchasePrompt.ConfirmPurchase.BuyNow"] = [[立即购买]],
