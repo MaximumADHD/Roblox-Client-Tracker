@@ -6,6 +6,7 @@ local PurchaseError = require(Root.Enums.PurchaseError)
 
 local RequestPremiumPurchase = require(Root.Actions.RequestPremiumPurchase)
 local ErrorOccurred = require(Root.Actions.ErrorOccurred)
+local getPremiumUpsellPrecheck = require(Root.Network.getPremiumUpsellPrecheck)
 local getPremiumProductInfo = require(Root.Network.getPremiumProductInfo)
 local getAccountInfo = require(Root.Network.getAccountInfo)
 local Network = require(Root.Services.Network)
@@ -33,15 +34,16 @@ local function initiatePremiumPurchase(id, infoType, equipIfPurchased)
 			return nil
 		end
 
+		local shouldPrecheck = externalSettings.getFFlagPremiumUpsellPrecheck() and not externalSettings.isStudio()
 		return Promise.all({
+			canShowUpsell = shouldPrecheck and getPremiumUpsellPrecheck(network) or Promise.resolve(true),
 			premiumProductInfo = getPremiumProductInfo(network),
 			accountInfo = getAccountInfo(network, externalSettings),
 		})
 			:andThen(function(results)
-				store:dispatch(resolvePremiumPromptState(results.accountInfo, results.premiumProductInfo))
+				store:dispatch(resolvePremiumPromptState(results.accountInfo, results.premiumProductInfo, results.canShowUpsell))
 			end)
 			:catch(function(errorReason)
-				warn(errorReason)
 				store:dispatch(ErrorOccurred(errorReason))
 			end)
 	end)

@@ -2,8 +2,9 @@
 name = "LuaSocialLibrariesDeps"
 version = "0.1.1"
 source = "git+https://github.rbx.com/roblox/lua-social-libraries-deps#master"
-commit = "1f18f7aec11319b50f3b6120b427736cc5db83ae"
+commit = "3e3d8fd8aa27536614b05ed87912b48357c64215"
 dependencies = [
     "GenericPagination roblox/genericpagination cf641eb5 git+https://github.rbx.com/roblox/genericpagination#master",
+    "Mock jtaylor/mock d2c4005c git+https://github.rbx.com/roblox/mock#master",
     "RoactFitComponents roblox/roact-fit-components 1.0.0 registry+https://github.rbx.com/roblox/rotriever-index",
 ]

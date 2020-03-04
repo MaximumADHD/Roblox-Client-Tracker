@@ -93,6 +93,10 @@ local function postPremiumImpression()
 	return Promise.resolve()
 end
 
+local function getPremiumUpsellPrecheck()
+	return Promise.resolve(true)
+end
+
 local function networkFailure(id, infoType)
 	return Promise.reject("Failed to access network service")
 end
@@ -114,6 +118,7 @@ function MockNetwork.new(shouldFail)
 			getBundleDetails = networkFailure,
 			getProductPurchasableDetails = networkFailure,
 			postPremiumImpression = networkFailure,
+			getPremiumUpsellPrecheck = networkFailure,
 		}
 	else
 		mockNetworkService = {
@@ -126,6 +131,7 @@ function MockNetwork.new(shouldFail)
 			getBundleDetails = getBundleDetails,
 			getProductPurchasableDetails = getProductPurchasableDetails,
 			postPremiumImpression = postPremiumImpression,
+			getPremiumUpsellPrecheck = getPremiumUpsellPrecheck,
 		}
 	end
 

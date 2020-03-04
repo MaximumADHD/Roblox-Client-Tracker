@@ -12,7 +12,9 @@ local Analytics = require(Root.Services.Analytics)
 local ExternalSettings = require(Root.Services.ExternalSettings)
 local Network = require(Root.Services.Network)
 local postPremiumImpression = require(Root.Network.postPremiumImpression)
+local completeRequest = require(Root.Thunks.completeRequest)
 local Thunk = require(Root.Thunk)
+
 
 local requiredServices = {
 	Network,
@@ -20,7 +22,7 @@ local requiredServices = {
 	Analytics,
 }
 
-local function resolvePremiumPromptState(accountInfo, premiumProduct)
+local function resolvePremiumPromptState(accountInfo, premiumProduct, canShowUpsell)
 	return Thunk.new(script.Name, requiredServices, function(store, services)
 		local network = services[Network]
 		local externalSettings = services[ExternalSettings]
@@ -29,6 +31,10 @@ local function resolvePremiumPromptState(accountInfo, premiumProduct)
 
 		store:dispatch(PremiumInfoRecieved(premiumProduct))
 		store:dispatch(AccountInfoReceived(accountInfo))
+
+		if externalSettings.getFFlagPremiumUpsellPrecheck() and canShowUpsell == false then
+			return store:dispatch(completeRequest())
+		end
 
 		if externalSettings.isStudio() then
 			if Players.LocalPlayer.MembershipType == Enum.MembershipType.Premium then
