@@ -463,6 +463,7 @@ AllUsers.LuaApp.GameDetailsPeekView
 AllUsers.Studio.PaidPlugins
 AllWatches
 AllWindows
+ALNFQMz5ia5
 AlphaBufferSize
 AlreadyReset
 AlternateName
@@ -8298,6 +8299,7 @@ ESGamePerfMonitorUseRandomSelection
 EstimateEmitterBBox
 Estrangelo
 EThrottleType
+EUAg2jKHjObNdjFwVF7QTTwU2NZE1XKA4RzRwmPEIG
 EucrosiaUPC
 EulerAnglesXYZ
 EulerAnglesYXZ
@@ -8570,6 +8572,7 @@ FastFlagsLoadTime
 FastLogValueChanged
 FAtlAxWin140
 FavorIPV4Connections
+FB4HRX7mtGWGMo0ncjqqjCaZ3Bwg
 FB642AAED11E38B9D871882A8E559
 FB645AAED11E38B9D871882A8E559
 FB646AAED11E38B9D871882A8E559
@@ -10173,6 +10176,7 @@ GLSL.std.450
 Glsles3Mediump1
 GlslesMediump1
 GlueCursor
+GM294U7q0pmkcNoknxLoUakLuHhg4epFJHPtcZrv73EO
 GoldenHashes
 GoodbyeChoiceActive
 GoodbyeChoiceActiveProperty
@@ -10865,6 +10869,7 @@ HW4Orientation
 HW4PacketPriority
 HwngSmldAskhBcraMaweNegsOgnaT
 HWYGOTH.ttf
+HxJpTsuQFU
 HybridEvent
 Iacutesmall
 IAmISSQuBFCKXuOZIEhni
@@ -11559,6 +11564,7 @@ IVRSystem_017
 IVRTrackedCamera_003
 IWorldStage
 IXMLHTTPRequest2
+IYFq5A2j4Wr0Rdscn
 J_Key_dn.png
 J_NW4CurrencyType
 JasmineUPC
@@ -11630,6 +11636,7 @@ JointsService
 JointTime_TextureCooldown
 JointToolHelpDialogVerb
 JPEBUSG_INDEX_TRIANGLE
+JQbVvxMpjav2uxx5B1QrX36Jww9g9ErleeEIqFLClGFuZK2XanXd9fMj4aCTTZML
 JSON.parse
 JSON.stringify
 JSON_Parser
@@ -11720,6 +11727,8 @@ KickByDatacenter_
 KiDszBCYB0gyp03Pc
 KillPtClicked
 KillSurfaceJointsPart1
+KJGTOmVysFn
+KM6tHgx51vO640
 KnownHeaders
 KodchiangUPC
 KPEIBX_K_KPEIAU_iobuf
@@ -13551,6 +13560,7 @@ NfXf`fhfzf
 NHDHVQChar
 NHVVariant
 NinjaMask.mesh
+NjNdzjUaIRn9IJycA2o7C24qFtRUSXJdhgA6OL5JQTvYj
 NNW4SizeMode
 NoCacheForLocalContent
 NoCollisionConstraint
@@ -13693,6 +13703,7 @@ NVWorkspace
 NW4FileSystemDir
 NW4PenStyle
 NW4UserInputType
+NWspEBpgeKNltPjA3
 Oacutesmall
 OAEPEncryptionSET
 OAUTHBEARER
@@ -16445,12 +16456,14 @@ QItemDelegate
 QItemSelection
 QItemSelectionModel
 QItemSelectionRange
+QJ2VRogvpW6tKelvze
 QJsonArray
 QJsonDocument
 QJsonObject
 QJsonValue
 QJsonValueRef
 QKeySequence
+QlaVn8ii5cGdeDUUaFtY9yx3GIHcNeR
 QLayoutItem
 QLinearGradient
 QListWidget
@@ -18044,6 +18057,7 @@ RunUpdateCycle.
 RVideoInternal
 RVideoMemLogging
 RVideoTrace
+RxK4xfgb7s38CAwEAAQ
 RxRlReport
 S_Key_dn.png
 SA_KPEAPEBV123
@@ -21314,6 +21328,14 @@ StudioLoadLesserQtTranslationFiles
 StudioLocalContentReload
 StudioLocaleId
 StudioLocalSaveMD5HashOutput
+StudioLogin.Continue
+StudioLogin.Continue.TwoStepVerification
+StudioLogin.End.Failure.
+StudioLogin.End.Success
+StudioLogin.Paused.NativeCaptcha
+StudioLogin.Paused.TwoStepVerification
+StudioLogin.Start.Auto
+StudioLogin.Start.Manual
 StudioLogPlaceIdOnPlaceOpen
 StudioLogTestUsage
 StudioLongCacheRecoveryTime
@@ -21353,7 +21375,18 @@ StudioOpenLocation
 StudioOpenModuleScriptIfNotFoundWhileDebugging
 StudioOpenPlace
 StudioOpenPlace.End.Failure
+StudioOpenPlace.End.Failure.CloudEdit
+StudioOpenPlace.End.Failure.CloudEdit.CreateAndShowIDEDoc
+StudioOpenPlace.End.Failure.NA.GamePage
+StudioOpenPlace.End.Failure.NonCloudEdit
+StudioOpenPlace.End.Failure.NonCloudEdit.CreateAndShowIDEDoc
+StudioOpenPlace.End.Failure.NonCloudEdit.FileMenuNew
+StudioOpenPlace.End.Failure.NonCloudEdit.FileMenuOpen
+StudioOpenPlace.End.Failure.NonCloudEdit.FileMenuOpenRecent
+StudioOpenPlace.End.Failure.NonCloudEdit.TemplatePage
 StudioOpenPlace.End.Success
+StudioOpenPlace.End.Success.CloudEdit
+StudioOpenPlace.End.Success.NonCloudEdit
 StudioOpenPlace.Start.FileMenuNew
 StudioOpenPlace.Start.FileMenuOpen
 StudioOpenPlace.Start.FileMenuOpenRecent
@@ -21691,6 +21724,7 @@ SUWATAUAVH
 SUWATAUAWH
 SUWATAVAWH
 SUWAUAVAWH
+SV1h8lxvIlxzCqgNBNu2dxVJIkIx7juzn19zh
 SVATAUAVAWH
 SVWATAUAVAW
 SVWATAUAVAWH
@@ -22914,6 +22948,7 @@ Typesetter
 TypeString
 TypeToImport
 Typewriter
+Tys8sP2FqdGKpElv
 U_ContinuationTaskHandleBase
 U_ExceptionHolder
 U_Key_dn.png
@@ -23058,6 +23093,7 @@ Uforwarding_posix_time_traits
 UGameIconDescription
 UGCValidationService
 UGeometryBatch
+UgFuHZRzX0xociCcm49Vhy9d0MWfp0CdpBTwuRq6eU
 UGlobalResult
 Ugravesmall
 UGroupRolesResult
@@ -24925,6 +24961,7 @@ WGL_NV_vertex_array_range
 WGL_NV_video_capture
 WGL_NV_video_output
 WGL_OML_sync_control
+WGqWOUMxNgv
 WhatsNewAction
 WhatsNewFirstTimePopup.qml
 WhatsNewNumEntries
@@ -25149,6 +25186,7 @@ XboxUseCuratedGameSort2
 XboxUseNewValidUsernameCheck2
 XFbxAMatrix
 XFREE86_GLYPH_RANGES
+XG6zDEaVoNEoFqh2kMmvYKz9f7mnPVHjQpCxALOyGEF6BAQ
 XGetLastError
 XhvUfMuvSmZJKchT
 XInputGetBatteryInformation
@@ -25327,6 +25365,7 @@ ZEXjiD7Cawk
 ZgnhKhWhci
 ZIndexBehavior
 ZLcJhLcGhM
+ZMlkYmfaQq5
 ZNjlXiODrHUcaGRYt
 ZntaLkerGlryCnmrArbeHbarAcrySaahTaveDgneBuruGrjuGayrOlmaTuleTadnKmylMhniSiahTooaLtbiTrmyMroeGgnaHihtErehCsnaCmagOrnuRrmhKgnoMariHanaKopoBinaHiiiYlatIhtoGtrsDhniZglgTonaHdhuBbgaTbmiLelaTbniLragUwahSamsOtrpCiarBiguBtpoCulaTgalGgnfTolySoepXrahKilaBxusXxnhPgahPoo
 ZoomActive
