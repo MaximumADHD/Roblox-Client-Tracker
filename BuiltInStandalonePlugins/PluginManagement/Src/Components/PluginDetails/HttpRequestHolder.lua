@@ -40,20 +40,18 @@ function HttpRequestHolder:render()
 
 	local theme = self.props.Theme:get("Plugin")
 
-	table.sort(httpPermissions, function(first, second)
-		return string.lower(first.data.domain) < string.lower(second.data.domain)
-	end)
-
 	local checkboxItems = {}
 	for index, permission in pairs(httpPermissions) do
+		local url = permission.data and permission.data.domain or ""
+
 		local elem = Roact.createElement(CheckBox, {
 			Id = index,
 			LayoutOrder = index,
-			Title = permission.data and permission.data.domain or "",
+			Title = url,
 			Selected = permission.allowed,
 			Enabled = true,
-			Height = 14,
-			TextSize = 14,
+			Height = 16,
+			TextSize = 16,
 			OnActivated = function() return self.onCheckboxActivated(permission) end,
 			titlePadding = 8,
 		})
@@ -77,7 +75,7 @@ function HttpRequestHolder:render()
 			BackgroundTransparency = 1,
             Font = theme.Font,
 			LayoutOrder = 1,
-			TextSize = 14,
+			TextSize = 16,
 			Text = localization:getText("Details", "HttpRequestInfo"),
 			TextXAlignment = Enum.TextXAlignment.Left,
 			TextColor3 = theme.InfoTextColor,

@@ -7,16 +7,9 @@ local MakeShowDialog = require(script.Parent.ShowDialog)
 local MakeGameTableMain = require(script.Parent.GameTable.GameTableMain)
 local RbxEntriesToWebEntries = require(script.Parent.GameTable.RbxEntriesToWebEntries)
 local Roact = require(game:GetService("CorePackages").Roact)
+local SourceStrings = require(script.Parent.SourceStrings)
 
 local UseStudioLocaleForForceLocale = settings():GetFFlag("UseStudioLocaleForForceLocale")
-
-local LocalizationToolsPluginV2Enabled = settings():GetFFlag("LocalizationToolsPluginV2Enabled")
-
-local function getTextScraperButtonIconAsset()
-	return LocalizationService.IsTextScraperRunning
-		and "rbxasset://textures/localizationUIScrapingOn.png"
-		or "rbxasset://textures/localizationUIScrapingOff.png"
-end
 
 local function reportButtonPress(plugin, btnName, status)
 	local target = "studio"
@@ -34,100 +27,10 @@ local function reportButtonPress(plugin, btnName, status)
 	AnalyticsService:SendEventDeferred(target, context, eventName, args)
 end
 
-
-local function createTextScraperPluginButtons(toolbar)
-	local captureButton = toolbar:CreateButton(
-		"Text Capture",
-		"Start untranslated text capture",
-		getTextScraperButtonIconAsset()
-	)
-
-	local exportButton = toolbar:CreateButton(
-		"Export",
-		"Export LocalizationTables under LocalizationService to CSV files",
-		"rbxasset://textures/localizationExport.png"
-	)
-
-	local importButton = toolbar:CreateButton(
-		"Import",
-		"Import CSV files to LocalizationTables under LocalizationService",
-		"rbxasset://textures/localizationImport.png"
-	)
-
-	return {
-		captureButton = captureButton,
-		exportButton = exportButton,
-		importButton = importButton,
-	}
-end
-
--- deprecate with LocalizationToolsPluginV2Enabled
-local function createTextScraperControlsEnabled_deprecated(toolbar, plugin)
-	local buttons = createTextScraperPluginButtons(toolbar)
-
-	buttons.captureButton.Enabled = true
-	buttons.captureButton.Click:Connect(function()
-		if not LocalizationService.IsTextScraperRunning then
-			LocalizationService:StartTextScraper()
-			reportButtonPress(plugin, "textCapture", "start")
-		else
-			LocalizationService:StopTextScraper()
-			reportButtonPress(plugin, "textCapture", "stop")
-		end
-		buttons.captureButton.Icon = getTextScraperButtonIconAsset()
-	end)
-
-	buttons.exportButton.Enabled = true
-	buttons.exportButton.Click:Connect(function()
-		local success, message = pcall(
-			function()
-				return LocalizationService:PromptExportToCSVs()
-			end
-		)
-		if success then
-			reportButtonPress(plugin, "export", "success")
-		else
-			if message == "No file selected" then
-				reportButtonPress(plugin, "export", "canceled")
-			else
-				reportButtonPress(plugin, "export", "error")
-			end
-		end
-	end)
-
-	buttons.importButton.Enabled = true
-	buttons.importButton.Click:Connect(function()
-		local success, message = pcall(
-			function()
-				return LocalizationService:PromptImportFromCSVs()
-			end
-		)
-		if success then
-			reportButtonPress(plugin, "import", "success")
-		else
-			if message == "No file selected" then
-				reportButtonPress(plugin, "import", "canceled")
-			else
-				reportButtonPress(plugin, "import", "error")
-			end
-		end
-	end)
-end
-
--- deprecate with LocalizationToolsPluginV2Enabled
-local function createTextScraperControlsDisabled_deprecated(toolbar)
-	local buttons = createTextScraperPluginButtons(toolbar)
-
-	buttons.captureButton.Enabled = false
-	buttons.exportButton.Enabled = false
-	buttons.importButton.Enabled = false
-end
-
-
 local function createLocalizationToolsPluginButton(toolbar)
 	return toolbar:CreateButton(
-		"Tools",
-		"Hide/show the Localization Testing view",
+		SourceStrings.Main.RibbonBarButtonText,
+		SourceStrings.Main.TooltipText,
 		"rbxasset://textures/localizationTestingIcon.png")
 end
 
@@ -223,7 +126,7 @@ local function createLocalizationToolsEnabled(toolbar, plugin, studioSettings)
 	local GameTableMain = MakeGameTableMain(plugin:GetStudioUserId())
 	local Window = plugin:CreateDockWidgetPluginGui("Localization",
 		DockWidgetPluginGuiInfo.new(Enum.InitialDockState.Left))
-	Window.Title = "Localization Tools"
+	Window.Title = SourceStrings.Main.WindowTitleText
 	Window.Name = "Localization"
 
 	GameTableMain.GetAllSupportedLanguages():andThen(function(languageTable)
@@ -290,16 +193,10 @@ return function(plugin, studioSettings)
 		LocalizationService.RobloxForcePlayModeRobloxLocaleId = StudioService.StudioLocaleId
 	end
 
-	local toolbar = plugin:CreateToolbar("Localization")
+	local toolbar = plugin:CreateToolbar(SourceStrings.Main.ToolbarLabelText)
 	if IsEdit() then
-		if not LocalizationToolsPluginV2Enabled then
-			createTextScraperControlsEnabled_deprecated(toolbar, plugin)
-		end
 		createLocalizationToolsEnabled(toolbar, plugin, studioSettings)
 	else
-		if not LocalizationToolsPluginV2Enabled then
-			createTextScraperControlsDisabled_deprecated(toolbar)
-		end
 		createLocalizationToolsDisabled(toolbar)
 	end
 end

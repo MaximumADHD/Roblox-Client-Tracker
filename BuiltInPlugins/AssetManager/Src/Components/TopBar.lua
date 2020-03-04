@@ -24,6 +24,8 @@ local StyleModifier = Util.StyleModifier
 local UILibrary = require(Plugin.Packages.UILibrary)
 local SearchBar = UILibrary.Component.SearchBar
 local LayoutOrderIterator = UILibrary.Util.LayoutOrderIterator
+local StyledTooltip = UILibrary.Component.StyledTooltip
+local GetTextSize = UILibrary.Util.GetTextSize
 
 local SetSearchTerm = require(Plugin.Src.Actions.SetSearchTerm)
 local SetToPreviousScreen = require(Plugin.Src.Actions.SetToPreviousScreen)
@@ -32,6 +34,8 @@ local SetToNextScreen = require(Plugin.Src.Actions.SetToNextScreen)
 local LaunchBulkImport = require(Plugin.Src.Thunks.LaunchBulkImport)
 
 local Screens = require(Plugin.Src.Util.Screens)
+
+local StudioService = game:GetService("StudioService")
 
 local TopBar = Roact.PureComponent:extend("TopBar")
 
@@ -61,11 +65,18 @@ function TopBar:render()
 
     local bulkImporterRunning = props.BulkImporterRunning
     local dispatchLaunchBulkImporter = props.dispatchLaunchBulkImporter
+    local bulkImporterTooltipText = localization:getText("BulkImport", "BulkImportRunning")
+    local bulkImporterLinkText = localization:getText("BulkImport", "BulkImportShowLink")
+    local tooltipTextExtents = GetTextSize(bulkImporterTooltipText, topBarTheme.Tooltip.TextSize,
+        theme.Font, Vector2.new(topBarTheme.Tooltip.Width, math.huge))
+    local linkTextExtents = GetTextSize(bulkImporterLinkText, topBarTheme.Tooltip.TextSize,
+        theme.Font, Vector2.new(topBarTheme.Tooltip.Width, math.huge))
+    local tooltipHeight = tooltipTextExtents.Y + 3 * topBarTheme.Tooltip.Padding + linkTextExtents.Y
 
     local searchBarOffset = topBarTheme.Button.Size * 4 + topBarTheme.Padding * 4
 
     local defaultText = localization:getText("SearchBar", "PlaceholderText")
-        .. " " .. localization:getText("Folders", currentScreen)
+        .. " " .. localization:getText("Folders", currentScreen.Key)
 
     local layoutIndex = LayoutOrderIterator.new()
 
@@ -78,8 +89,6 @@ function TopBar:render()
 
         BorderColor3 = topBarTheme.BorderColor,
         BorderSizePixel = 1,
-
-        ZIndex = 1,
     }, {
         TopBarLayout = Roact.createElement("UIListLayout", {
             Padding = UDim.new(0, topBarTheme.Padding),
@@ -88,11 +97,12 @@ function TopBar:render()
             SortOrder = Enum.SortOrder.LayoutOrder,
         }),
 
-        BeginPadding = Roact.createElement("UIPadding", {
+        Padding = Roact.createElement("UIPadding", {
             PaddingLeft = UDim.new(0, topBarTheme.Padding),
+            PaddingRight = UDim.new(0, topBarTheme.Padding),
         }),
 
-        ExplorerOverlayButton = self.props.Enabled and Roact.createElement(Button, {
+		ExplorerOverlayButton = Roact.createElement(Button, {
             Size = UDim2.new(0, topBarTheme.Button.Size, 0, topBarTheme.Button.Size),
             AnchorPoint = Vector2.new(0.5, 0.5),
             LayoutOrder = layoutIndex:getNextOrder(),
@@ -157,18 +167,59 @@ function TopBar:render()
                     dispatchLaunchBulkImporter(0)
                 end
             end,
+        }, {
+            Tooltip = Roact.createElement(StyledTooltip, {
+                Elements = {
+                    Roact.createElement("UIListLayout", {
+                        Padding = UDim.new(0, topBarTheme.Tooltip.Padding),
+                        FillDirection = Enum.FillDirection.Vertical,
+                        VerticalAlignment = Enum.VerticalAlignment.Center,
+                        SortOrder = Enum.SortOrder.LayoutOrder,
+                    }),
+
+                    Padding = Roact.createElement("UIPadding", {
+                        PaddingTop = UDim.new(0, topBarTheme.Tooltip.Padding),
+                        PaddingBottom = UDim.new(0, topBarTheme.Tooltip.Padding),
+                    }),
+
+                    Text = Roact.createElement("TextLabel", {
+                        Size = UDim2.new(0, tooltipTextExtents.X, 0, tooltipTextExtents.Y),
+
+                        BackgroundTransparency = 1,
+
+                        Font = theme.Font,
+                        Text = bulkImporterTooltipText,
+                        TextColor3 = theme.TextColor,
+                        TextSize = topBarTheme.Tooltip.TextSize,
+                        TextXAlignment = Enum.TextXAlignment.Left,
+                        TextWrapped = true,
+
+                        LayoutOrder = 1,
+                    }),
+
+                    LinkText = Roact.createElement(LinkText, {
+                        Text = bulkImporterLinkText,
+                        Style = "BulkImporterTooltip",
+
+                        LayoutOrder = 2,
+
+                        OnClick = function()
+                            StudioService:ShowBulkImportView()
+                        end,
+                    }),
+                },
+
+                TooltipExtents = Vector2.new(topBarTheme.Tooltip.Width, tooltipHeight),
+                Enabled = bulkImporterRunning,
+            })
         }),
 
-        SearchBar = currentScreen ~= Screens.MAIN and Roact.createElement(SearchBar, {
+        SearchBar = currentScreen.Key ~= Screens.MAIN.Key and Roact.createElement(SearchBar, {
             Size = UDim2.new(1, -searchBarOffset, 1, 0),
             LayoutOrder = layoutIndex:getNextOrder(),
 
             DefaultText = defaultText,
             OnSearchRequested = self.OnSearchRequested,
-        }),
-
-        EndPadding = Roact.createElement("UIPadding", {
-            PaddingLeft = UDim.new(0, topBarTheme.Padding),
         }),
     })
 end

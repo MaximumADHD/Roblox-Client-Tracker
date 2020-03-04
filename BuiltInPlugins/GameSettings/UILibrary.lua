@@ -34,6 +34,7 @@ local Separator = require(Components.Separator)
 local StyledDialog = require(Components.StyledDialog)
 local StyledDropdown = require(Components.StyledDropdown)
 local StyledScrollingFrame = require(Components.StyledScrollingFrame)
+local StyledTooltip = require(Components.StyledTooltip)
 local ThumbnailIconPreview = require(Components.Preview.ThumbnailIconPreview)
 local TitledFrame = require(Components.TitledFrame)
 local Tooltip = require(Components.Tooltip)
@@ -47,7 +48,7 @@ local Spritesheet = require(Utils.Spritesheet)
 local LayoutOrderIterator = require(Utils.LayoutOrderIterator)
 local GetClassIcon = require(Utils.GetClassIcon)
 local InsertAsset = require(Utils.InsertAsset)
-local Symbol = require(Utils.Symbol)
+local GetTextSize = require(Utils.GetTextSize)
 
 local Focus = require(Src.Focus)
 
@@ -83,6 +84,7 @@ local UILibrary = {
 		StyledDialog = StyledDialog,
 		StyledDropdown = StyledDropdown,
 		StyledScrollingFrame = StyledScrollingFrame,
+		StyledTooltip = StyledTooltip,
 		ThumbnailIconPreview = ThumbnailIconPreview,
 		TitledFrame = TitledFrame,
 		Tooltip = Tooltip,
@@ -115,6 +117,7 @@ local UILibrary = {
 		deepJoin = deepJoin,
 		GetClassIcon = GetClassIcon,
 		InsertAsset = InsertAsset,
+		GetTextSize = GetTextSize,
 	},
 
 	Plugin = require(Src.Plugin),

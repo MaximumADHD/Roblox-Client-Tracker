@@ -1,3 +1,13 @@
+--[[
+	Materials grid
+
+Props:
+	LayoutOrder : number = 1
+	material : Enum.Material - Which material is currently selected
+	setMaterial : (Enum.Material) => void - Callback to select a material
+	AllowAir : boolean = false - Whether to show Air in the materials grid
+]]
+
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 
@@ -15,14 +25,33 @@ local TerrainInterface = require(Plugin.Src.ContextServices.TerrainInterface)
 
 local MaterialDetails = require(Plugin.Src.Util.MaterialDetails)
 
-local materialsOrder = {
-	Enum.Material.Grass,      Enum.Material.Sand,        Enum.Material.Rock,      Enum.Material.Water,
-	Enum.Material.Ground,     Enum.Material.Sandstone,   Enum.Material.Slate,     Enum.Material.Snow,
-	Enum.Material.Mud,        Enum.Material.Brick,       Enum.Material.Concrete,  Enum.Material.Glacier,
-	Enum.Material.WoodPlanks, Enum.Material.CrackedLava, Enum.Material.Basalt,    Enum.Material.Ice,
-	Enum.Material.Salt,       Enum.Material.Cobblestone, Enum.Material.Limestone, Enum.Material.Asphalt,
-	Enum.Material.LeafyGrass, Enum.Material.Pavement,
-}
+local FFlagTerrainToolsConvertPartTool = game:GetFastFlag("TerrainToolsConvertPartTool")
+
+local materialsOrder
+if FFlagTerrainToolsConvertPartTool then
+	--[[
+		Materials are sorted in alphabetical order, but air is last
+		Enum.SortOrder.Name would put air first
+		So instead we sort this list with air explicitly last, and use Enum.SortOrder.LayoutOrder
+	]]
+	materialsOrder = {
+		Enum.Material.Asphalt,  Enum.Material.Basalt,      Enum.Material.Brick,      Enum.Material.Cobblestone,
+		Enum.Material.Concrete, Enum.Material.CrackedLava, Enum.Material.Glacier,    Enum.Material.Grass,
+		Enum.Material.Ground,   Enum.Material.Ice,         Enum.Material.LeafyGrass, Enum.Material.Limestone,
+		Enum.Material.Mud,      Enum.Material.Pavement,    Enum.Material.Rock,       Enum.Material.Salt,
+		Enum.Material.Sand,     Enum.Material.Sandstone,   Enum.Material.Slate,      Enum.Material.Snow,
+		Enum.Material.Water,    Enum.Material.WoodPlanks,
+	}
+else
+	materialsOrder = {
+		Enum.Material.Grass,      Enum.Material.Sand,        Enum.Material.Rock,      Enum.Material.Water,
+		Enum.Material.Ground,     Enum.Material.Sandstone,   Enum.Material.Slate,     Enum.Material.Snow,
+		Enum.Material.Mud,        Enum.Material.Brick,       Enum.Material.Concrete,  Enum.Material.Glacier,
+		Enum.Material.WoodPlanks, Enum.Material.CrackedLava, Enum.Material.Basalt,    Enum.Material.Ice,
+		Enum.Material.Salt,       Enum.Material.Cobblestone, Enum.Material.Limestone, Enum.Material.Asphalt,
+		Enum.Material.LeafyGrass, Enum.Material.Pavement,
+	}
+end
 
 local MaterialSelector = Roact.PureComponent:extend(script.Name)
 local MaterialTooltip = Roact.PureComponent:extend("MaterialTooltip")
@@ -171,14 +200,17 @@ end
 function MaterialSelector:render()
 	return withLocalization(function(localization)
 		return withTheme(function(theme)
-			local layoutOrder = self.props.LayoutOrder
+			local layoutOrder = self.props.LayoutOrder or 1
 			local material = self.props.material
+
+			local allowAir = self.props.AllowAir
 
 			local materialsTable = {
 				UIGridLayout = Roact.createElement("UIGridLayout", {
 					CellSize = UDim2.new(0, 32, 0, 32),
 					CellPadding = UDim2.new(0, 9, 0, 9),
 					HorizontalAlignment = Enum.HorizontalAlignment.Center,
+					SortOrder = FFlagTerrainToolsConvertPartTool and Enum.SortOrder.LayoutOrder or nil,
 				}),
 
 				LayoutPadding = Roact.createElement("UIPadding", {
@@ -189,7 +221,7 @@ function MaterialSelector:render()
 				}),
 			}
 
-			for index, materialEnum in ipairs(materialsOrder) do
+			local function createMaterialButton(index, materialEnum)
 				materialsTable[materialEnum.Name] = Roact.createElement(MaterialButton, {
 					LayoutOrder = index,
 					Material = materialEnum,
@@ -200,6 +232,27 @@ function MaterialSelector:render()
 					OnMouseLeave = self.onMouseLeaveMaterial,
 					SelectMaterial = self.selectMaterial,
 				})
+			end
+
+			for index, materialEnum in ipairs(materialsOrder) do
+				if FFlagTerrainToolsConvertPartTool then
+					createMaterialButton(index, materialEnum)
+				else
+					materialsTable[materialEnum.Name] = Roact.createElement(MaterialButton, {
+						LayoutOrder = index,
+						Material = materialEnum,
+						IsHovered = materialEnum == self.state.hoverMaterial,
+						IsSelected = material == materialEnum,
+
+						OnMouseEnter = self.onMouseEnterMaterial,
+						OnMouseLeave = self.onMouseLeaveMaterial,
+						SelectMaterial = self.selectMaterial,
+					})
+				end
+			end
+
+			if FFlagTerrainToolsConvertPartTool and allowAir then
+				createMaterialButton(#materialsOrder + 1, Enum.Material.Air)
 			end
 
 			return Roact.createElement("Frame", {

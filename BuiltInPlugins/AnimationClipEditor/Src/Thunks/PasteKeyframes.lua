@@ -12,6 +12,9 @@ local Plugin = script.Parent.Parent.Parent
 local deepCopy = require(Plugin.Src.Util.deepCopy)
 local AnimationData = require(Plugin.Src.Util.AnimationData)
 local UpdateAnimationData = require(Plugin.Src.Thunks.UpdateAnimationData)
+local AddTrack = require(Plugin.Src.Thunks.AddTrack)
+
+local allowPasteKeysBetweenAnimations = require(Plugin.LuaFlags.GetFFlagAllowPasteKeysBetweenAnimations)
 
 return function(frame)
 	return function(store)
@@ -40,6 +43,10 @@ return function(frame)
 				if dataTrack == nil then
 					AnimationData.addTrack(dataInstance.Tracks, trackName)
 					dataTrack = dataInstance.Tracks[trackName]
+
+					if allowPasteKeysBetweenAnimations() then
+						store:dispatch(AddTrack(instanceName, trackName))
+					end
 				end
 
 				for keyframe, data in pairs(track) do

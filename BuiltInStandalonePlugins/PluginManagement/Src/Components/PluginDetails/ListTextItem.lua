@@ -30,7 +30,7 @@ function ListTextItem:render()
                 BackgroundTransparency = 1,
                 Font = theme.Font,
                 LayoutOrder = 1,
-                TextSize = 14,
+                TextSize = 16,
                 Text = description,
                 TextXAlignment = Enum.TextXAlignment.Left,
                 TextColor3 = theme.TextColor,

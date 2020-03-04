@@ -8,17 +8,7 @@ local TerrainRegionEditor = {}
 local coreGui = game:GetService('CoreGui')
 local changeHistory = game:GetService('ChangeHistoryService')
 
-local FFlagTerrainToolMetrics = settings():GetFFlag("TerrainToolMetrics")
-local FFlagTerrainClearButtonMove = settings():GetFFlag("TerrainClearButtonMove")
-local FFlagTerrainToolsFixGettingTerrain = game:GetFastFlag("TerrainToolsFixGettingTerrain")
-
-local AnalyticsService = game:GetService("RbxAnalyticsService")
-local StudioService = game:GetService("StudioService")
-
-local getTerrain
-if FFlagTerrainToolsFixGettingTerrain then
-	getTerrain = require(Plugin.Src.Util.getTerrain)
-end
+local getTerrain = require(Plugin.Src.Util.getTerrain)
 
 local on = false
 local mouse

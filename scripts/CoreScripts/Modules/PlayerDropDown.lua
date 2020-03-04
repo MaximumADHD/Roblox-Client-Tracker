@@ -21,7 +21,6 @@ while not LocalPlayer do
 end
 
 local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp") --todo: remove with FFlagUsePolicyServiceForCoreScripts
-local FFlagUseNewFriendsDomainCoreScripts = settings():GetFFlag("UseNewFriendsDomainCoreScripts")
 
 local recentApiRequests = -- stores requests for target players by userId
 {
@@ -127,44 +126,22 @@ end
 local function getFriendCountAsync(userId)
 	local friendCount = nil
 
-	local wasSuccess, result 
-	if FFlagUseNewFriendsDomainCoreScripts then
-		wasSuccess, result = pcall(function()
-			if userId == nil then
-				userId = LocalPlayer.UserId
-			end
-			local url = string.gsub(FriendCountUrl,"{userId}",tostring(userId))
-			return HttpRbxApiService:GetAsyncFullUrl(url)
-		end)
-		if not wasSuccess then
-			print(FriendCountUrl,"failed because", result)
-			return nil
+	local wasSuccess, result = pcall(function()
+		if userId == nil then
+			userId = LocalPlayer.UserId
 		end
-	else
-		wasSuccess, result = pcall(function()
-			local str = 'user/get-friendship-count'
-			if userId then
-				str = str..'?userId='..tostring(userId)
-			end
-			return HttpRbxApiService:GetAsync(str, Enum.ThrottlingPriority.Default,
-				Enum.HttpRequestType.Players)
-		end)
-		if not wasSuccess then
-			print("getFriendCountAsync() failed because", result)
-			return nil
-		end
+		local url = string.gsub(FriendCountUrl,"{userId}",tostring(userId))
+		return HttpRbxApiService:GetAsyncFullUrl(url)
+	end)
+	if not wasSuccess then
+		print(FriendCountUrl,"failed because", result)
+		return nil
 	end
-	
+
 	result = HttpService:JSONDecode(result)
 
-	if FFlagUseNewFriendsDomainCoreScripts then
-		if result["count"] then
-			friendCount = result["count"]
-		end
-	else
-		if result["success"] and result["count"] then
-			friendCount = result["count"]
-		end
+	if result["count"] then
+		friendCount = result["count"]
 	end
 
 	return friendCount

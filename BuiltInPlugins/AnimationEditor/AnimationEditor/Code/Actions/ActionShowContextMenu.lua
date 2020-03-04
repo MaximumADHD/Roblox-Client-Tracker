@@ -12,11 +12,7 @@ ShowContextMenu.Type = {
 }
 
 function ShowContextMenu:execute(Paths, helpType)
-    if settings():GetFFlag("UseNewDocumentationUrls") then
-        GuiService:OpenBrowserWindow(HttpRbxApiService:GetDocumentationUrl(helpType))
-    else
-        Paths.Globals.Plugin:OpenWikiPage(helpType)
-    end
+    GuiService:OpenBrowserWindow(HttpRbxApiService:GetDocumentationUrl(helpType))
 end
 
 return ShowContextMenu

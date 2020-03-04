@@ -1,6 +1,5 @@
 local Plugin = script.Parent.Parent.Parent
 
-local Roact = require(Plugin.Packages.Roact)
 local Cryo = require(Plugin.Packages.Cryo)
 
 local Framework = Plugin.Packages.Framework
@@ -98,6 +97,42 @@ local function createStyles(theme, getColor)
 		}
 	end)
 
+	local linkText = StyleTable.new("LinkText", function()
+		local AssetManagerDefault = Style.new({
+			Font = Enum.Font.SourceSans,
+			TextSize = 14,
+			EnableHover = true,
+		})
+		local BulkImporterTooltip = Style.extend(AssetManagerDefault, {
+			TextColor = theme:GetColor(c.LinkText),
+		})
+
+		local NavBar = Style.extend(AssetManagerDefault, {
+			TextColor = theme:GetColor(c.DialogButtonText),
+			ShowUnderline = false,
+			[StyleModifier.Disabled] = {
+				EnableHover = false,
+			},
+		})
+
+		return {
+			BulkImporterTooltip = BulkImporterTooltip,
+			NavBar = NavBar,
+		}
+	end)
+
+	local image = StyleTable.new("Image", function()
+		local NavBarPathSeparator = Style.new(Cryo.Dictionary.join(rightArrowProps, {
+			Size = UDim2.new(0, 10, 0, 10),
+			AnchorPoint = Vector2.new(0.5, 0.5),
+			Position = UDim2.new(0.5, 0, 0.5, 0),
+		}))
+
+		return {
+			NavBarPathSeparator = NavBarPathSeparator,
+		}
+	end)
+
 	return {
 		Plugin = {
 			BackgroundColor = theme:GetColor(c.MainBackground),
@@ -117,6 +152,14 @@ local function createStyles(theme, getColor)
 			ScrollbarSize = 8,
 			Font = Enum.Font.SourceSans,
 			FontBold = Enum.Font.SourceSansSemibold,
+			FontSizeSmall = 14,
+
+			NavBar = {
+				TextColor = theme:GetColor(c.DialogButtonText),
+				TextColorDisabled = theme:GetColor(c.DialogButtonText, m.Disabled),
+				Padding = 12,
+				Height = 38,
+			},
 
 			Overlay = {
 				Background = {
@@ -151,11 +194,19 @@ local function createStyles(theme, getColor)
 				},
 
 				Padding = 15,
+
+				Tooltip = {
+					TextSize = 14,
+					Width = 210,
+					Padding = 5,
+				}
 			},
 		},
 
 		Framework = Style.extend(studioStyles, {
 				Button = button,
+				Image = image,
+				LinkText = linkText,
 		}),
 	}
 end
@@ -185,6 +236,10 @@ local function getUILibraryTheme()
 			buttons = {
 				size = 24,
 			}
+		},
+		instanceTreeView = {
+			hover = theme:GetColor(c.Item, m.Hover),
+			selected = theme:GetColor(c.Item, m.Selected),
 		}
 	}
 

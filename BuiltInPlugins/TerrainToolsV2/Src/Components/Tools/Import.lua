@@ -7,7 +7,6 @@ local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Cryo = require(Plugin.Packages.Cryo)
 
-local FFlagTerrainToolsUseFragmentsForToolPanel = game:GetFastFlag("TerrainToolsUseFragmentsForToolPanel")
 local FFlagTerrainToolsRefactor = game:GetFastFlag("TerrainToolsRefactor")
 
 local UILibrary = Plugin.Packages.UILibrary
@@ -39,11 +38,6 @@ local REDUCER_KEY = "ImportTool"
 local Import = Roact.PureComponent:extend(script.Name)
 
 function Import:init()
-	if not FFlagTerrainToolsUseFragmentsForToolPanel then
-		self.mainFrameRef = Roact.createRef()
-		self.layoutRef	= Roact.createRef()
-	end
-
 	self.terrainImporter = TerrainInterface.getTerrainImporter(self)
 	assert(self.terrainImporter, "Import component requires a TerrainImporter from context")
 
@@ -105,16 +99,6 @@ function Import:init()
 			self.props.dispatchChangePosition({X = x, Y = y, Z = z})
 		elseif fieldName == "Size" then
 			self.props.dispatchChangeSize({X = x, Y = y, Z = z})
-		end
-	end
-
-	if not FFlagTerrainToolsUseFragmentsForToolPanel then
-		self.onContentSizeChanged = function()
-			local mainFrame = self.mainFrameRef.current
-			local layout = self.layoutRef.current
-			if mainFrame and layout then
-				mainFrame.Size = UDim2.new(1, 0, 0, layout.AbsoluteContentSize.Y)
-			end
 		end
 	end
 
@@ -207,7 +191,7 @@ function Import:render()
 			local toggleOn = theme.toggleTheme.toggleOnImage
 			local toggleOff = theme.toggleTheme.toggleOffImage
 
-			local children = {
+			return Roact.createFragment({
 				MapSettings = Roact.createElement(MapSettings, {
 					LayoutOrder = 1,
 
@@ -282,23 +266,7 @@ function Import:render()
 				ImportProgressFrame = importInProgress and Roact.createElement(ImportProgressFrame, {
 					ImportProgress = importProgress,
 				}),
-			}
-
-			if FFlagTerrainToolsUseFragmentsForToolPanel then
-				return Roact.createFragment(children)
-			else
-				children.UIListLayout = Roact.createElement("UIListLayout", {
-					SortOrder = Enum.SortOrder.LayoutOrder,
-					[Roact.Ref] = self.layoutRef,
-					[Roact.Change.AbsoluteContentSize] = self.onContentSizeChanged,
-				})
-
-				return Roact.createElement("Frame", {
-					Size = UDim2.new(1, 0, 1, 0),
-					BackgroundTransparency = 1,
-					[Roact.Ref] = self.mainFrameRef,
-				}, children)
-			end
+			})
 		end)
 	end)
 end

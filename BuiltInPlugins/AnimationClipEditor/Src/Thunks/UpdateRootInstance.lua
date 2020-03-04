@@ -10,12 +10,15 @@ local SetIKMode = require(Plugin.Src.Actions.SetIKMode)
 local SetShowTree = require(Plugin.Src.Actions.SetShowTree)
 local SetPinnedParts = require(Plugin.Src.Actions.SetPinnedParts)
 
+local SetClipboard = require(Plugin.Src.Actions.SetClipboard)
 local ReleaseEditor = require(Plugin.Src.Thunks.ReleaseEditor)
 local AttachEditor = require(Plugin.Src.Thunks.AttachEditor)
 local SetRootInstance = require(Plugin.Src.Actions.SetRootInstance)
 local SetAnimationData = require(Plugin.Src.Actions.SetAnimationData)
 local SetStartingPose = require(Plugin.Src.Actions.SetStartingPose)
 local LoadKeyframeSequence = require(Plugin.Src.Thunks.Exporting.LoadKeyframeSequence)
+
+local allowPasteKeysBetweenAnimations = require(Plugin.LuaFlags.GetFFlagAllowPasteKeysBetweenAnimations)
 
 return function(rootInstance)
 	return function(store)
@@ -60,6 +63,10 @@ return function(rootInstance)
 			store:dispatch(LoadKeyframeSequence(animSaves[1].Name))
 		else
 			store:dispatch(SetAnimationData(nil))
+		end
+
+		if allowPasteKeysBetweenAnimations() then
+			store:dispatch(SetClipboard({}))
 		end
 
 		store:dispatch(AttachEditor())

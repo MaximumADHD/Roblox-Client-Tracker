@@ -58,9 +58,9 @@ local function areCollisionsEnabled()
 end
 
 local function areConstraintsEnabled()
-    if Workspace:FindFirstChild("ConstraintsEnabled") then
-        return Workspace.ConstraintsEnabled.Value
-    end
+	if settings():GetFFlag("StudioServiceDraggerSolveConstraints") then
+		return StudioService.DraggerSolveConstraints
+	end
     return false
 end
 
@@ -122,15 +122,21 @@ function MoveToolImpl:render(hoveredHandleId)
     local children = {}
     if self._draggingHandleId then
         local handleProps = self._handles[self._draggingHandleId]
-        handleProps.Hovered = false
+		handleProps.Hovered = false
+		handleProps.Color = handleProps.ActiveColor
         children[self._draggingHandleId] = Roact.createElement(MoveHandleView, handleProps)
 
         if areJointsEnabled() then
             children.JointDisplay = self._partMover:renderJointPairs(self._scale)
         end
     else
-        for handleId, handleProps in pairs(self._handles) do
-            handleProps.Hovered = (handleId == hoveredHandleId)
+		for handleId, handleProps in pairs(self._handles) do
+			handleProps.Hovered = (handleId == hoveredHandleId)
+			local color = handleProps.ActiveColor
+			if not handleProps.Hovered then
+				color = Colors.makeDimmed(color)
+			end
+			handleProps.Color = color
             children[handleId] = Roact.createElement(MoveHandleView, handleProps)
         end
     end
@@ -315,7 +321,7 @@ function MoveToolImpl:_updateHandles()
             self._handles[handleId] = {
                 Axis = handleBaseCFrame,
                 Scale = self._scale,
-                Color = handleDef.Color,
+                ActiveColor = handleDef.Color,
                 AlwaysOnTop = ALWAYS_ON_TOP,
             }
         end

@@ -6,10 +6,6 @@ local Plugin = script.Parent.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
 
-game:DefineFastFlag("TerrainToolsFixNilBrushProperties", false)
-
-local FFlagTerrainToolsFixNilBrushProperties = game:GetFastFlag("TerrainToolsFixNilBrushProperties")
-local FFlagTerrainToolsUseFragmentsForToolPanel = game:GetFastFlag("TerrainToolsUseFragmentsForToolPanel")
 local FFlagTerrainToolsRefactor = game:GetFastFlag("TerrainToolsRefactor")
 local FFlagTerrainToolsFlattenUseBaseBrush = game:GetFastFlag("TerrainToolsFlattenUseBaseBrush")
 
@@ -38,11 +34,6 @@ function BaseBrush:init(initialProps)
 	-- Ordered array of connections to signals
 	-- Disconnected in willUnmount() in reverse order of connection
 	self.connections = {}
-
-	if not FFlagTerrainToolsUseFragmentsForToolPanel then
-		self.layoutRef = Roact.createRef()
-		self.mainFrameRef = Roact.createRef()
-	end
 
 	-- TODO: refactor into dispatch functions to work more directly with buttons
 	self.toggleButtonFn = function(container)
@@ -141,16 +132,6 @@ function BaseBrush:init(initialProps)
 		end
 	end
 
-	if not FFlagTerrainToolsUseFragmentsForToolPanel then
-		self.onContentSizeChanged = function()
-			local mainFrame = self.mainFrameRef.current
-			local layout = self.layoutRef.current
-			if mainFrame and layout then
-				mainFrame.Size = UDim2.new(1, 0, 0, layout.AbsoluteContentSize.Y)
-			end
-		end
-	end
-
 	if not FFlagTerrainToolsFlattenUseBaseBrush then
 		self.brushSizeCallback = function(baseSize, height)
 			if self.props.dispatchChangeBaseSize then
@@ -178,23 +159,15 @@ function BaseBrush:init(initialProps)
 		if self.props.dispatchSetPlaneLock then
 			planeLockState = self.props.planeLock
 		end
-		if FFlagTerrainToolsFixNilBrushProperties then
-			if self.props.dispatchSetAutoMaterial then
-				autoMaterial = self.props.autoMaterial
-			end
-			if self.props.dispatchSetIgnoreWater then
-				ignoreWater = self.props.ignoreWater
-			end
-			if self.props.dispatchSetSnapToGrid then
-				snapToGrid = self.props.snapToGrid
-			end
-		else
+		if self.props.dispatchSetAutoMaterial then
 			autoMaterial = self.props.autoMaterial
+		end
+		if self.props.dispatchSetIgnoreWater then
 			ignoreWater = self.props.ignoreWater
+		end
+		if self.props.dispatchSetSnapToGrid then
 			snapToGrid = self.props.snapToGrid
 		end
-
-		local height = self.props.height
 
 		if FFlagTerrainToolsFlattenUseBaseBrush then
 			if self.props.dispatchSetFixedPlane then
@@ -208,7 +181,7 @@ function BaseBrush:init(initialProps)
 				currentTool = self.props.toolName,
 				brushShape = self.props.brushShape or BrushShape.Sphere,
 				cursorSize = self.props.baseSize or Constants.INITIAL_BRUSH_SIZE,
-				cursorHeight = height or Constants.INITIAL_BRUSH_SIZE,
+				cursorHeight = self.props.height or Constants.INITIAL_BRUSH_SIZE,
 				pivot = self.props.pivot or PivotType.Center,
 				strength = self.props.strength or Constants.INITIAL_BRUSH_STRENGTH,
 				planeLock = planeLockState,
@@ -226,7 +199,7 @@ function BaseBrush:init(initialProps)
 				currentTool = self.props.toolName,
 				brushShape = self.props.brushShape or BrushShape.Sphere,
 				cursorSize = self.props.baseSize or Constants.INITIAL_BRUSH_SIZE,
-				cursorHeight = height or Constants.INITIAL_BRUSH_SIZE,
+				cursorHeight = self.props.height or Constants.INITIAL_BRUSH_SIZE,
 				pivot = self.props.pivot or PivotType.Center,
 				strength = self.props.strength or Constants.INITIAL_BRUSH_STRENGTH,
 				planeLock = planeLockState,
@@ -380,7 +353,7 @@ function BaseBrush:render()
 	local heightPicker = self.props.heightPicker
 	local fixedPlane = self.props.fixedPlane
 
-	local children = {
+	return Roact.createFragment({
 		BrushSettings = Roact.createElement(BrushSettings, {
 			currentTool = self.props.toolName,
 			LayoutOrder = 1,
@@ -427,23 +400,7 @@ function BaseBrush:render()
 			setAutoMaterial = self.props.dispatchSetAutoMaterial,
 			setMaterial = self.props.dispatchSetMaterial,
 		}),
-	}
-
-	if FFlagTerrainToolsUseFragmentsForToolPanel then
-		return Roact.createFragment(children)
-	else
-		children.UILayout = Roact.createElement("UIListLayout", {
-			SortOrder = Enum.SortOrder.LayoutOrder,
-			[Roact.Ref] = self.layoutRef,
-			[Roact.Change.AbsoluteContentSize] = self.onContentSizeChanged,
-		})
-
-		return Roact.createElement("Frame", {
-			Size = UDim2.new(1, 0, 1, 0),
-			BackgroundTransparency = 1,
-			[Roact.Ref] = self.mainFrameRef,
-		}, children)
-	end
+	})
 end
 
 return BaseBrush

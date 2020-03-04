@@ -35,6 +35,7 @@ DefaultSkinnedVS,Vertex
 DefaultStaticForceFieldVS,Vertex
 DefaultStaticReflectionVS,Vertex
 DefaultStaticVS,Vertex
+DefaultSurfaceAppearanceFS,Fragment
 DefaultTransparentFS,Fragment
 DownSample4x4AvgFS,Fragment
 DownSample4x4MaxFS,Fragment

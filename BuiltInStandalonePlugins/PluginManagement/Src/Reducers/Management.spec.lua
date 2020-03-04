@@ -1,15 +1,67 @@
 local Plugin = script.Parent.Parent.Parent
 
 local Management = require(script.Parent.Management)
+local ClearAllPluginData = require(Plugin.Src.Actions.ClearAllPluginData)
+local RemovePluginData = require(Plugin.Src.Actions.RemovePluginData)
 local SetPluginEnabledState = require(Plugin.Src.Actions.SetPluginEnabledState)
 local SetPluginUpdateStatus = require(Plugin.Src.Actions.SetPluginUpdateStatus)
 local SetPluginInfo = require(Plugin.Src.Actions.SetPluginInfo)
+
+local Flags = require(Plugin.Packages.Framework.Util.Flags)
+local FlagsList = Flags.new({
+	FFlagPluginManagementFixRemovePlugins = { "PluginManagementFixRemovePlugins" },
+})
 
 return function()
 	it("should return a table with the correct members", function()
 		local state = Management(nil, {})
 		expect(type(state)).to.equal("table")
 	end)
+
+	if FlagsList:get("FFlagPluginManagementFixRemovePlugins") then
+		describe("ClearAllPluginData action", function()
+			it("should clear all plugin data", function()
+				local state = Management({
+					plugins = {
+						[0] = {
+							enabled = false,
+						},
+					},
+				}, ClearAllPluginData())
+				expect(state.plugins).to.equal(nil)
+			end)
+		end)
+
+		describe("RemovePluginData action", function()
+			it("should clear the plugin data", function()
+				local assetIdToRemove = 123
+				local state = Management({
+					plugins = {
+						[assetIdToRemove] = {
+							enabled = false,
+						},
+					},
+				}, RemovePluginData(assetIdToRemove))
+				expect(state.plugins[assetIdToRemove]).to.equal(nil)
+			end)
+
+			it("should not clear any other plugin data", function()
+				local assetIdToRemove = 123
+				local state = Management({
+					plugins = {
+						[0] = {
+							enabled = true,
+						},
+						[assetIdToRemove] = {
+							enabled = false,
+						},
+					},
+				}, RemovePluginData(assetIdToRemove))
+				expect(state.plugins[assetIdToRemove]).to.equal(nil)
+				expect(state.plugins[0].enabled).to.equal(true)
+			end)
+		end)
+	end
 
 	describe("SetPluginInfo action", function()
 		it("should set the plugin info", function()

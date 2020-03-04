@@ -1,9 +1,11 @@
 local Plugin = script.Parent.Parent.Parent
+local Cryo = require(Plugin.Packages.Cryo)
 local Rodux = require(Plugin.Packages.Rodux)
 
 local AssetManagerReducer = require(script.parent.AssetManagerReducer)
 
 local SetBulkImporterRunning = require(Plugin.Src.Actions.SetBulkImporterRunning)
+local SetAssets = require(Plugin.Src.Actions.SetAssets)
 local SetSearchTerm = require(Plugin.Src.Actions.SetSearchTerm)
 
 local testImmutability = require(Plugin.Src.TestHelpers.testImmutability)
@@ -15,6 +17,8 @@ return function()
 		expect(type(state)).to.equal("table")
 		expect(state.bulkImporterRunning).to.be.ok()
 		expect(state.searchTerm).to.be.ok()
+		expect(state.assetsTable).to.ok()
+		expect(state.assetsTable.assets).to.ok()
 	end)
 
 	describe("SetBulkImporterRunning action", function()
@@ -45,7 +49,75 @@ return function()
             state = AssetManagerReducer(state, SetBulkImporterRunning(true))
             expect(state.bulkImporterRunning).to.equal(true)
 		end)
-    end)
+	end)
+
+	describe("SetAssets action", function()
+		it("should validate its inputs", function()
+			expect(function()
+				SetAssets("yeet")
+			end).to.throw()
+
+			expect(function()
+				SetAssets(Cryo.None)
+			end).to.throw()
+
+			expect(function()
+				SetAssets({ places = true, })
+			end).to.throw()
+
+			expect(function()
+				SetAssets({ previousPageCursor = {}, })
+			end).to.throw()
+
+			expect(function()
+				SetAssets({ nextPageCursor = {}, })
+			end).to.throw()
+		end)
+
+		it("should not mutate the state", function()
+			local immutabilityPreserved = testImmutability(AssetManagerReducer, SetAssets({
+				assets = { {name = "yeet1"}, { name = "yeet2", }},
+				nextPageCursor = "yeetnextcursor",
+				previousPageCursor = "yeetpreviouscursor",
+			}))
+			expect(immutabilityPreserved).to.equal(true)
+		end)
+
+		it("should set places", function()
+			local r = Rodux.Store.new(AssetManagerReducer)
+			local state = r:getState()
+			expect(Cryo.isEmpty(state.assetsTable.assets)).to.equal(true)
+
+			state = AssetManagerReducer(state, SetAssets({
+				assets = { { name = "yeet", }},
+			}))
+			expect(#state.assetsTable.assets).to.equal(1)
+			expect(state.assetsTable.assets[1].name == "yeet").to.equal(true)
+
+			state = AssetManagerReducer(state, SetAssets({ assets = {} }))
+			expect(Cryo.isEmpty(state.assetsTable.assets)).to.equal(true)
+		end)
+
+		it("should set the cursors", function()
+			local r = Rodux.Store.new(AssetManagerReducer)
+			local state = r:getState()
+			expect(Cryo.isEmpty(state.assetsTable.assets)).to.equal(true)
+
+			local a = tostring(math.random())
+			local b = tostring(math.random())
+			state = AssetManagerReducer(state, SetAssets({
+				assets = { "yeet" },
+				nextPageCursor = a,
+				previousPageCursor = b,
+			}))
+			expect(state.assetsTable.nextPageCursor).to.equal(a)
+			expect(state.assetsTable.previousPageCursor).to.equal(b)
+
+			state = AssetManagerReducer(state, SetAssets({assets = { "some yeet value", },}))
+			expect(state.assetsTable.nextPageCursor).to.equal(nil)
+			expect(state.assetsTable.previousPageCursor).to.equal(nil)
+		end)
+	end)
 
     describe("SetSearchTerm action", function()
 		it("should validate its inputs", function()
@@ -75,5 +147,5 @@ return function()
             state = AssetManagerReducer(state, SetSearchTerm("yeet"))
             expect(state.searchTerm).to.equal("yeet")
 		end)
-    end)
+	end)
 end

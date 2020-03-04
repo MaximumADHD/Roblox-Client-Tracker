@@ -9,6 +9,7 @@ local withLocalization = Localizing.withLocalization
 local ToolParts = Plugin.Src.Components.Tools.ToolParts
 local BiomeSettingsFragment = require(ToolParts.BiomeSettingsFragment)
 local ButtonGroup = require(ToolParts.ButtonGroup)
+local InfoLabel = require(ToolParts.InfoLabel)
 local LabeledElementPair = require(ToolParts.LabeledElementPair)
 local MaterialSettingsFragment = require(ToolParts.MaterialSettingsFragment)
 local OtherGenerateSettings = require(ToolParts.OtherGenerateSettings)
@@ -22,6 +23,7 @@ local ConvertMode = TerrainEnums.ConvertMode
 
 local TerrainInterface = require(Plugin.Src.ContextServices.TerrainInterface)
 local PartConverter = require(Plugin.Src.TerrainInterfaces.PartConverter)
+local PartConverterUtil = require(Plugin.Src.Util.PartConverterUtil)
 local PartSelectionModel = require(Plugin.Src.Util.PartSelectionModel)
 
 local Actions = Plugin.Src.Actions
@@ -54,10 +56,15 @@ function ConvertPart:init()
 			return SelectionService:Get()
 		end,
 		selectionChanged = SelectionService.SelectionChanged,
+		validFilter = PartConverterUtil.validInstanceFilter,
 	})
 
+	self.connections = {}
+
 	self.state = {
-		selectionIsConvertible = self.partSelectionModel:isSelectionConvertible(),
+		hasValidInstances = self.partSelectionModel:hasValidInstances(),
+		hasInvalidInstances = self.partSelectionModel:hasInvalidInstances(),
+
 		progress = self.partConverter:getProgress(),
 		isRunning = self.partConverter:isRunning(),
 		isPaused = self.partConverter:isPaused(),
@@ -90,7 +97,10 @@ function ConvertPart:init()
 	end
 
 	self.onConvertMaterialClicked = function()
-		self.partConverter:convertInstancesToMaterial(self.partSelectionModel:getSelection(), self.props.convertMaterial)
+		self.partConverter:convertInstancesToMaterial(
+			self.partSelectionModel:getSelection(),
+			self.props.convertMaterial
+		)
 	end
 
 	self.onConvertClicked = function()
@@ -111,20 +121,14 @@ function ConvertPart:init()
 end
 
 function ConvertPart:didMount()
-	self.selectionIsConvertibleChangedChannged = self.partSelectionModel:subscribeToSelectionIsConvertibleChanged(
-		function(sic)
-		self:setState({
-			selectionIsConvertible = sic,
-		})
-	end)
-
-	self.convertStateChangedConnection = self.partConverter:subscribeToConvertStateChanged(function(convertState)
+	self.connections.convertStateChangedConnection = self.partConverter:subscribeToConvertStateChanged(
+		function(convertState)
 		self:setState({
 			convertState = convertState,
 		})
 	end)
 
-	self.runningChangedConnection = self.partConverter:subscribeToRunningChanged(function(running)
+	self.connections.runningChangedConnection = self.partConverter:subscribeToRunningChanged(function(running)
 		if not running then
 			self:setState({
 				isRunning = running,
@@ -138,44 +142,35 @@ function ConvertPart:didMount()
 		end
 	end)
 
-	self.progressChangedConnection = self.partConverter:subscribeToProgressChanged(function(progress)
+	self.connections.progressChangedConnection = self.partConverter:subscribeToProgressChanged(function(progress)
 		self:setState({
 			progress = progress,
 		})
 	end)
 
-	self.pausedChangedConnection = self.partConverter:subscribeToPausedChanged(function(paused)
+	self.connections.pausedChangedConnection = self.partConverter:subscribeToPausedChanged(function(paused)
 		self:setState({
 			isPaused = paused,
 		})
 	end)
+
+	self.connections.selectionStateChangedConnection = self.partSelectionModel:subscribeToSelectionStateChanged(function()
+		self:setState({
+			hasValidInstances = self.partSelectionModel:hasValidInstances(),
+			hasInvalidInstances = self.partSelectionModel:hasInvalidInstances(),
+		})
+	end)
+
+	self.partConverter:setSelectionModel(self.partSelectionModel)
 end
 
 function ConvertPart:willUnmount()
-	if self.selectionIsConvertibleChangedChannged then
-		self.selectionIsConvertibleChangedChannged:disconnect()
-		self.selectionIsConvertibleChangedChannged = nil
-	end
+	self.partConverter:setSelectionModel(nil)
 
-	if self.convertStateChangedConnection then
-		self.convertStateChangedConnection:disconnect()
-		self.convertStateChangedConnection = nil
+	for _, connection in pairs(self.connections) do
+		connection:disconnect()
 	end
-
-	if self.runningChangedConnection then
-		self.runningChangedConnection:disconnect()
-		self.runningChangedConnection = nil
-	end
-
-	if self.progressChangedConnection then
-		self.progressChangedConnection:disconnect()
-		self.progressChangedConnection = nil
-	end
-
-	if self.pausedChangedConnection then
-		self.pausedChangedConnection:disconnect()
-		self.pausedChangedConnection = nil
-	end
+	self.connections = {}
 
 	if self.partSelectionModel then
 		self.partSelectionModel:destroy()
@@ -186,8 +181,50 @@ end
 function ConvertPart:render()
 	return withLocalization(function(localization)
 		local isRunning = self.state.isRunning
-		local convertButtonActive = self.state.selectionIsConvertible and not isRunning
 		local convertMode = self.props.convertMode
+		local convertButtonActive = false
+
+		local infoLabelText = ""
+		local infoLabelType = InfoLabel.Info
+		local showInfoLabel = true
+		if not isRunning then
+			local hasValid = self.state.hasValidInstances
+			local hasInvalid = self.state.hasInvalidInstances
+			--[[
+				No valid + No invalid
+					"Select some parts!" info
+					Disable button
+
+				Some valid + no invalid
+					No text
+					Enable button
+
+				No valid + some invalid
+					"Need to select a part" error
+					Disable button
+
+				Some valid + some invalid
+					"Only parts will work" warning
+					Enable button
+			]]
+
+			if hasValid and hasInvalid then
+				infoLabelText = localization:getText("ConvertPart", "SelectionOnlyParts")
+				infoLabelType = InfoLabel.Warning
+				convertButtonActive = true
+
+			elseif hasValid and not hasInvalid then
+				showInfoLabel = false
+				convertButtonActive = true
+
+			elseif not hasValid and hasInvalid then
+				infoLabelText = localization:getText("ConvertPart", "SelectionNeedPart")
+				infoLabelType = InfoLabel.Error
+
+			else -- not hasValid and not hasInvalid
+				infoLabelText = localization:getText("ConvertPart", "SelectionHelp")
+			end
+		end
 
 		local planePositionY = self.props.planePositionY
 		local heightPicker = self.props.heightPicker
@@ -245,6 +282,7 @@ function ConvertPart:render()
 
 				MaterialSettingsFragment = convertMode == ConvertMode.Material and Roact.createElement(MaterialSettingsFragment, {
 					LayoutOrder = 2,
+					AllowAir = true,
 					material = self.props.convertMaterial,
 					setMaterial = self.props.dispatchSetConvertMaterial,
 				}),
@@ -256,8 +294,14 @@ function ConvertPart:render()
 				setSeed = self.props.dispatchSetSeed,
 			}),
 
-			ButtonGroup = Roact.createElement(ButtonGroup, {
+			Label = showInfoLabel and Roact.createElement(InfoLabel, {
 				LayoutOrder = 3,
+				Text = infoLabelText,
+				Type = infoLabelType,
+			}),
+
+			ButtonGroup = Roact.createElement(ButtonGroup, {
+				LayoutOrder = 4,
 				Buttons = {
 					{
 						Key = "Convert",

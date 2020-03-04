@@ -122,6 +122,17 @@ local Constants = {
 		NoAnimationController = "NoAnimationController",
 	},
 
+	EDITOR_ERRORS = {
+		OpenedWhileRunning = "OpenedWhileRunning",
+	},
+
+	EDITOR_ERRORS_HEADER_KEY = "EditorErrorsHeader",
+	EDITOR_ERRORS_KEY = "EditorErrors",
+	RIG_ERRORS_HEADER_KEY = "ErrorsHeader",
+	RIG_ERRORS_KEY = "RigErrors",
+	DIALOG_KEY = "Dialog",
+
+
 	TIMELINE_UNITS = {
 		Seconds = "Seconds",
 		Frames = "Frames",

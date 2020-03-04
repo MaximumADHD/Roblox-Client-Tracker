@@ -4,7 +4,9 @@ local Signal = require(UILibrary.Utils.Signal)
 
 local LongOperation = require(Plugin.Src.Util.LongOperation)
 local LongOperationQueue = require(Plugin.Src.Util.LongOperationQueue)
+
 local ConversionOperationDetails = require(Plugin.Src.Util.ConversionOperationDetails)
+local PartConverterVisuals = require(Plugin.Src.Util.PartConverterVisuals)
 
 local PartConverter = {}
 PartConverter.__index = PartConverter
@@ -23,12 +25,18 @@ function PartConverter.new(options)
 
 		_convertState = PartConverter.NOT_RUNNING_CONVERT_STATE,
 		_convertStateChanged = Signal.new(),
+
+		-- We only have a selectionModel when the convert tool is active
+		_selectionModel = nil,
+		-- We only have a visuals object after a conversion has started
+		_visuals = nil,
+		_visualsFinishedConnection = nil,
 	}, PartConverter)
 
 	assert(self._terrain, "PartConverter needs a terrain instance")
 	assert(self._localization, "PartConverter needs a localization instance")
 
-	-- When a new operation starts (e.g. transitioning from GetConvertibleShapes->ConvertShapesToMaterial)
+	-- When a new operation starts (e.g. transitioning from GetTargetShapes->ConvertShapesToMaterial)
 	-- Store this data so that the progress bar can show what's happening
 	self._operationStartedConnection = self._operationQueue.NextOperationStarted:connect(function(operation)
 		self:_setConvertState(operation:getName())
@@ -37,14 +45,32 @@ function PartConverter.new(options)
 	-- When the queue finishes, reset our own state
 	self._queueRunningChangedConnection = self._operationQueue.QueueRunningChanged:connect(function(running)
 		if not running then
+			if self._visuals then
+				self._visuals:enterCleanupMode()
+			end
 			self:_setConvertState(PartConverter.NOT_RUNNING_CONVERT_STATE)
 		end
 	end)
 
+	self._onVisualsFinished = function()
+		self:_destroyVisuals()
+	end
+
 	return self
 end
 
+-- selectionModel can be nil, meaning we should clear our reference
+function PartConverter:setSelectionModel(selectionModel)
+	self._selectionModel = selectionModel
+	if self._visuals then
+		self._visuals:setSelectionModel(selectionModel)
+	end
+end
+
 function PartConverter:destroy()
+	self:setSelectionModel(nil)
+	self:_destroyVisuals()
+
 	if self._operationStartedConnection then
 		self._operationStartedConnection:disconnect()
 		self._operationStartedConnection = nil
@@ -66,13 +92,21 @@ function PartConverter:convertInstancesToMaterial(instances, material)
 		return
 	end
 
+	self:_createNewVisuals()
+
 	self._operationQueue
 		:reset()
-		:addToQueue(LongOperation.new(ConversionOperationDetails.GetConvertibleShapes))
+		:addToQueue(LongOperation.new(ConversionOperationDetails.GetTargetInstances))
+		:addToQueue(LongOperation.new(ConversionOperationDetails.UpdateInstanceVisuals))
+		:addToQueue(LongOperation.new(ConversionOperationDetails.GetTargetShapes))
 		:addToQueue(LongOperation.new(ConversionOperationDetails.ConvertShapesToMaterial))
 		:start({
 			terrain = self._terrain,
 			localization = self._localization,
+
+			targetInstances = self._visuals:getTargetInstancesRef(),
+			originalVisualsPerInstance = self._visuals:getOriginalVisualsPerInstanceRef(),
+
 			instances = instances,
 			material = material,
 		})
@@ -83,13 +117,21 @@ function PartConverter:convertInstancesToBiome(instances, generateSettings)
 		return
 	end
 
+	self:_createNewVisuals()
+
 	self._operationQueue
 		:reset()
-		:addToQueue(LongOperation.new(ConversionOperationDetails.GetConvertibleShapes))
+		:addToQueue(LongOperation.new(ConversionOperationDetails.GetTargetInstances))
+		:addToQueue(LongOperation.new(ConversionOperationDetails.UpdateInstanceVisuals))
+		:addToQueue(LongOperation.new(ConversionOperationDetails.GetTargetShapes))
 		:addToQueue(LongOperation.new(ConversionOperationDetails.ConvertShapesToBiomes))
 		:start({
 			terrain = self._terrain,
 			localization = self._localization,
+
+			targetInstances = self._visuals:getTargetInstancesRef(),
+			originalVisualsPerInstance = self._visuals:getOriginalVisualsPerInstanceRef(),
+
 			instances = instances,
 			generateSettings = generateSettings,
 		})
@@ -107,6 +149,31 @@ function PartConverter:_setConvertState(convertState)
 	if self._convertState ~= convertState then
 		self._convertState = convertState
 		self._convertStateChanged:fire(convertState)
+	end
+end
+
+function PartConverter:_destroyVisuals()
+	if self._visualsFinishedConnection then
+		self._visualsFinishedConnection:disconnect()
+		self._visualsFinishedConnection = nil
+	end
+
+	if self._visuals then
+		self._visuals:destroy()
+		self._visuals = nil
+	end
+end
+
+-- Create "new" visuals because we destroy any that we already have
+function PartConverter:_createNewVisuals()
+	if self._visuals then
+		self:_destroyVisuals()
+	end
+
+	self._visuals = PartConverterVisuals.new()
+	self._visualsFinishedConnection = self._visuals:subscribeToVisualsFinished(self._onVisualsFinished)
+	if self._selectionModel then
+		self._visuals:setSelectionModel(self._selectionModel)
 	end
 end
 

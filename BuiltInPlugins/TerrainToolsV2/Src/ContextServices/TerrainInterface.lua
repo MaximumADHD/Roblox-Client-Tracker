@@ -13,17 +13,14 @@ local TerrainGenerationKey = Symbol.named("TerrainGeneration")
 local PartConverterKey = Symbol.named("PartConverter")
 
 local FFlagTerrainToolsSeaLevel = game:GetFastFlag("TerrainToolsSeaLevel")
-local FFlagTerrainToolsFixGettingTerrain = game:GetFastFlag("TerrainToolsFixGettingTerrain")
 local FFlagTerrainToolsConvertPartTool = game:GetFastFlag("TerrainToolsConvertPartTool")
 
 local TerrainInterfaceProvider = Roact.PureComponent:extend("TerrainInterfaceProvider")
 
 function TerrainInterfaceProvider:init()
-	if FFlagTerrainToolsFixGettingTerrain then
-		local terrain = self.props.terrain
-		assert(terrain, "TerrainInterfaceProvider expects a Terrain instance")
-		self._context[TerrainKey] = terrain
-	end
+	local terrain = self.props.terrain
+	assert(terrain, "TerrainInterfaceProvider expects a Terrain instance")
+	self._context[TerrainKey] = terrain
 
 	local pluginActivationController = self.props.pluginActivationController
 	assert(pluginActivationController, "TerrainInterfaceProvider expects a PluginActivationController")

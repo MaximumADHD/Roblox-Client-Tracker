@@ -503,6 +503,13 @@ return function(style, overrides)
 		hover = style.hoverColor,
 	}
 
+	local styledTooltip = {
+		backgroundColor = style.itemColor,
+		shadowColor = style.shadowColor,
+		shadowTransparency = style.shadowTransparency,
+		shadowOffset = Vector2.new(1, 1),
+	}
+
 	return replaceDefaults({
 		assetPreview = assetPreview,
 		checkBox = checkBox,
@@ -530,5 +537,6 @@ return function(style, overrides)
 		hyperlink = hyperlink,
 		instanceTreeView = instanceTreeView,
 		searchBar = searchBar,
+		styledTooltip = styledTooltip,
 	}, overrides)
 end

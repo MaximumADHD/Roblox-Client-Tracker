@@ -1,7 +1,6 @@
 local Plugin = script.Parent.Parent.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 
-local FFlagTerrainToolsFixPlanePositionErrorMessage = game:GetFastFlag("TerrainToolsFixPlanePositionErrorMessage")
 local FFlagTerrainToolsFlattenUseBaseBrush = game:GetFastFlag("TerrainToolsFlattenUseBaseBrush")
 
 local Theme = require(Plugin.Src.ContextServices.Theming)
@@ -59,8 +58,7 @@ function HeightSelectionToggle:render()
 		local heightPicker = props.heightPicker
 		local setHeightPicker = props.setHeightPicker
 
-		return (FFlagTerrainToolsFixPlanePositionErrorMessage
-		and Roact.createElement(LabeledElementPair, {
+		return Roact.createElement(LabeledElementPair, {
 			LayoutOrder = layoutOrder,
 			Size = UDim2.new(1, 0, 0, 22),
 			Text = label,
@@ -92,38 +90,7 @@ function HeightSelectionToggle:render()
 					SetIsOn = setHeightPicker,
 				}),
 			}),
-
-		}) or Roact.createElement(LabeledElementPair, {
-			LayoutOrder = layoutOrder,
-			Text = label,
-			Size = UDim2.new(1, 0, 0, 22),
-			Padding = UDim.new(0, 4),
-			SizeToContent = true,
-		}, {
-			HeightPicker = Roact.createElement("Frame", {
-				Size = UDim2.new(1, 0, 0, 22),
-				BackgroundTransparency = 1,
-			}, {
-				Input = Roact.createElement(NumberTextInput, {
-					LayoutOrder = 1,
-					Width = UDim.new(0, 116),
-					Key = "Y",
-					Label = "Y",
-					Value = planePositionY,
-					Precision = 3,
-					OnFocused = FFlagTerrainToolsFlattenUseBaseBrush and self.onFocused,
-					OnFocusLost = self.onFocusLost,
-					OnValueChanged = self.onValueChanged,
-				}),
-
-				HeightPicker = Roact.createElement(PickerButton, {
-					LayoutOrder = 2,
-					Position = UDim2.new(0, 116 + 3, 0, 3),
-					IsOn = heightPicker,
-					SetIsOn = setHeightPicker,
-				}),
-			})
-		}))
+		})
 	end)
 end
 

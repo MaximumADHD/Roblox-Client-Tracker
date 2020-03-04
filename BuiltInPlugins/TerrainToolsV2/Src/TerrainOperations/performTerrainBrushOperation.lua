@@ -8,7 +8,6 @@ local ToolId = TerrainEnums.ToolId
 
 local applyPivot = require(Plugin.Src.Util.applyPivot)
 
-local FFlagTerrainToolsFixSmoothDesiredMaterial = game:GetFastFlag("TerrainToolsFixSmoothDesiredMaterial")
 local FFlagTerrainToolsRefactorSculptOperations = game:GetFastFlag("TerrainToolsRefactorSculptOperations")
 
 local OperationHelper = require(script.Parent.OperationHelper)
@@ -124,30 +123,11 @@ local function performOperation(terrain, opSet)
 	end
 
 	if not FFlagTerrainToolsRefactorSculptOperations and tool == ToolId.Smooth then
-		-- TODO: Remove desiredMaterial property from smoothBrush and smartLargeSmoothBrush
-		-- when removing FFlagTerrainToolsFixSmoothDesiredMaterial
-		if not FFlagTerrainToolsFixSmoothDesiredMaterial then
-			if autoMaterial then
-				local middle = readMaterials[math.ceil(#readMaterials * 0.5)]
-				if middle then
-					middle = middle[math.ceil(#middle * 0.5)]
-					if middle then
-						middle = middle[math.ceil(#middle * 0.5)]
-						if middle and middle ~= materialAir and middle ~= materialWater then
-							nearMaterial = middle
-							desiredMaterial = autoMaterial and nearMaterial or desiredMaterial
-						end
-					end
-				end
-			end
-		end
-
 		if selectionSize > USE_LARGE_BRUSH_MIN_SIZE then
 			smartLargeSmoothBrush({
 				centerPoint = centerPoint,
 				selectionSize = selectionSize,
 				strength = strength,
-				desiredMaterial = not FFlagTerrainToolsFixSmoothDesiredMaterial and desiredMaterial or nil,
 				brushShape = brushShape,
 			}, minBounds, maxBounds, readMaterials, readOccupancies, writeMaterials, writeOccupancies)
 		else
@@ -155,7 +135,6 @@ local function performOperation(terrain, opSet)
 				centerPoint = centerPoint,
 				selectionSize = selectionSize,
 				strength = strength,
-				desiredMaterial = not FFlagTerrainToolsFixSmoothDesiredMaterial and desiredMaterial or nil,
 				brushShape = brushShape,
 			}, minBounds, maxBounds, readMaterials, readOccupancies, writeMaterials, writeOccupancies)
 		end

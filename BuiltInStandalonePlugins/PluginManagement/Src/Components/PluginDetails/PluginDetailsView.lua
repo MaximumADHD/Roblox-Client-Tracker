@@ -50,7 +50,7 @@ function PluginDetailsView:render()
 
 	local theme = self.props.Theme:get("Plugin")
 
-	local topAreaHeight = Constants.PLUGIN_ENTRY_HEIGHT + (CONTENT_PADDING * 2) + Constants.DETAILS_THUMBNAIL_SIZE
+	local topAreaHeight = (CONTENT_PADDING * 2) + Constants.DETAILS_THUMBNAIL_SIZE
 
 	return Roact.createElement("Frame", {
 		BackgroundColor3 = theme.BackgroundColor,

@@ -40,7 +40,7 @@ function ListItem:render()
 			Text = title,
             TextColor3 = theme.SubTextColor,
 			TextXAlignment = Enum.TextXAlignment.Left,
-            TextSize = 16,
+            TextSize = 18,
 			width = UDim.new(0, titleWidth),
         }),
 

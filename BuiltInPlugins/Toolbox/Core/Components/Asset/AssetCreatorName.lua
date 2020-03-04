@@ -28,15 +28,23 @@ local withModal = ContextHelper.withModal
 local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
 
+local ContextServices = require(Libs.Framework.ContextServices)
+local Settings = require(Plugin.Core.ContextServices.Settings)
+
 local SearchWithOptions = require(Plugin.Core.Networking.Requests.SearchWithOptions)
 
 local TooltipWrapper = require(Plugin.Core.Components.TooltipWrapper)
+
+local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
 
 local AssetCreatorName = Roact.PureComponent:extend("AssetCreatorName")
 
 function AssetCreatorName:init(props)
 	local networkInterface = getNetwork(self)
-	local settings = getSettings(self)
+	local settings
+	if not FFlagStudioToolboxEnabledDevFramework then
+		settings = getSettings(self)
+	end
 
 	self.state = {
 		isHovered = false
@@ -65,7 +73,12 @@ function AssetCreatorName:init(props)
 			local options = {
 				Creator = props.creatorName,
 			}
-			props.searchWithOptions(networkInterface, settings, options)
+			if FFlagStudioToolboxEnabledDevFramework then
+				local mySettings = self.props.Settings:get("Plugin")
+				props.searchWithOptions(networkInterface, mySettings, options)
+			else
+				props.searchWithOptions(networkInterface, settings, options)
+			end
 		end
 	end
 end
@@ -129,6 +142,12 @@ function AssetCreatorName:render()
 			end)
 		end)
 	end)
+end
+
+if FFlagStudioToolboxEnabledDevFramework then
+	ContextServices.mapToProps(AssetCreatorName, {
+		Settings = Settings,
+	})
 end
 
 local function mapDispatchToProps(dispatch)

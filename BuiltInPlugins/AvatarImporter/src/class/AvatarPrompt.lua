@@ -344,11 +344,7 @@ function AvatarPrompt:_constructUI(screenGui)
 	})
 
 	infoLink.MouseButton1Click:Connect(function()
-        if settings():GetFFlag("UseNewDocumentationUrls") then
-            GuiService:OpenBrowserWindow(HttpRbxApiService:GetDocumentationUrl(Globals.requirementsUrl))
-        else
-            Globals.plugin:OpenWikiPage(Globals.requirementsUrl)
-        end
+        GuiService:OpenBrowserWindow(HttpRbxApiService:GetDocumentationUrl(Globals.requirementsUrl))
 	end)
 	rthroButton.MouseButton1Click:Connect(function()
 		self.selected:Fire("Rthro")

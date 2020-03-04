@@ -1,15 +1,21 @@
 Key,Context,Source,en-us
 Studio.App.AddEmulationDeviceDialog.AddNewDevice,,Add New Device,Add New Device
+Studio.App.AddEmulationDeviceDialog.BottomSafeZoneOffset,,Bottom:,Bottom:
 Studio.App.AddEmulationDeviceDialog.DeviceForm,,Device Form:,Device Form:
 Studio.App.AddEmulationDeviceDialog.DeviceName,,Device Name,Device Name
 Studio.App.AddEmulationDeviceDialog.GuiInsets,,GuiInsets:,GuiInsets:
 Studio.App.AddEmulationDeviceDialog.KeyboardAnimationDuration,,Keyboard Animation Duration (s):,Keyboard Animation Duration (s):
 Studio.App.AddEmulationDeviceDialog.KeyboardSettings,,Keyboard Settings,Keyboard Settings
 Studio.App.AddEmulationDeviceDialog.LandscapeKeyboardHeight,,Keyboard Height (Landscape):,Keyboard Height (Landscape):
+Studio.App.AddEmulationDeviceDialog.LandscapeSafeZoneOffsets,,SafeZoneOffsets (Landscape):,SafeZoneOffsets (Landscape):
+Studio.App.AddEmulationDeviceDialog.LeftSafeZoneOffset,,Left:,Left:
 Studio.App.AddEmulationDeviceDialog.NameInUse1,,"<nobr><font color=""#ff0000"">The name ""%1"" is already in use.</font></nobr>","<nobr><font color=""#ff0000"">The name ""%1"" is already in use.</font></nobr>"
 Studio.App.AddEmulationDeviceDialog.Platform,,Platform:,Platform:
 Studio.App.AddEmulationDeviceDialog.PortraitKeyboardHeight,,Keyboard Height (Portrait):,Keyboard Height (Portrait):
+Studio.App.AddEmulationDeviceDialog.PortraitSafeZoneOffsets,,SafeZoneOffsets (Portrait):,SafeZoneOffsets (Portrait):
 Studio.App.AddEmulationDeviceDialog.ResolutionDpi,,Resolution (DPI):,Resolution (DPI):
+Studio.App.AddEmulationDeviceDialog.RightSafeZoneOffset,,Right:,Right:
+Studio.App.AddEmulationDeviceDialog.TopSafeZoneOffset,,Top:,Top:
 Studio.App.AddImageDialog.ChooseFile,,Choose File,Choose File
 Studio.App.AddImageDialog.ChooseImageUpload,,Choose image to upload,Choose image to upload
 Studio.App.AddImageDialog.CreateAssetName,,Creating asset name...,Creating asset name...
@@ -258,6 +264,7 @@ Studio.App.DraftsServiceHost.NoDataModel,,The DataModel is not available,The Dat
 Studio.App.DraftsServiceHost.NoDraftsService,,DraftsService is not available,DraftsService is not available
 Studio.App.DraftsServiceHost.NotTeamCreate,,Enable Team Create to use Drafts,Enable Team Create to use Drafts
 Studio.App.DraftsServiceHost.ServerCompareRemoved1,,Unable to compare draft '%1' with server version because script has been removed from Workspace,Unable to compare draft '%1' with server version because script has been removed from Workspace
+Studio.App.DraftsServiceHost.UncommittedDraftsWarning1,,Script changes are local and are not published until committed. <a href=%1>Learn More</a>,Script changes are local and are not published until committed. <a href=%1>Learn More</a>
 Studio.App.DraftsServiceHost.UpdateCacheMissing1,,Unable to update draft '%1' because local cache missing data,Unable to update draft '%1' because local cache missing data
 Studio.App.DraftsServiceHost.UpdateRemoved1,,Unable to update draft '%1' because script has been removed from Workspace,Unable to update draft '%1' because script has been removed from Workspace
 Studio.App.EmbeddedFindReplaceWidget.Close,,Close,Close
@@ -388,7 +395,6 @@ Studio.App.GameWidget.TemplateHasInstruction,,This template contains instruction
 Studio.App.GamesPageController.Alphabetical,,Alphabetical,Alphabetical
 Studio.App.GamesPageController.ArchiveGame,,Archive Game,Archive Game
 Studio.App.GamesPageController.Archived,,Archived,Archived
-Studio.App.GamesPageController.ArchivingAGameMakesItPrivate,,<p>Archiving a game makes it private so only <br>you can play. Any running servers will be <br>shutdown. <a href='https://wiki.roblox.com/'>Learn more</a><br><br>Are you sure you want to archive this game?</p>,<p>Archiving a game makes it private so only <br>you can play. Any running servers will be <br>shutdown. <a href='https://wiki.roblox.com/'>Learn more</a><br><br>Are you sure you want to archive this game?</p>
 Studio.App.GamesPageController.ArchivingAGameMakesItPrivate1,,<p>Archiving a game makes it private so only <br>you can play. Any running servers will be <br>shutdown. <a href='%1'>Learn more</a><br><br>Are you sure you want to archive this game?</p>,<p>Archiving a game makes it private so only <br>you can play. Any running servers will be <br>shutdown. <a href='%1'>Learn more</a><br><br>Are you sure you want to archive this game?</p>
 Studio.App.GamesPageController.CantOpenArchivedGame,,You cannot open archived games. You must restore the game to open it.,You cannot open archived games. You must restore the game to open it.
 Studio.App.GamesPageController.ConfirmRemoveSelf,,Are you sure you want to remove yourself from this game? You will no longer be able to edit it.,Are you sure you want to remove yourself from this game? You will no longer be able to edit it.
@@ -409,6 +415,7 @@ Studio.App.GoToLineDialog.LineNumber,,Line number:,Line number:
 Studio.App.GradientEditor.Time,,Time,Time
 Studio.App.IDEGameSettingsLinkDefinition.GameSettingsNotAvailable,,Game Settings not available,Game Settings not available
 Studio.App.IDEGameSettingsLinkDefinition.OpenGameSettings,,Open Game Settings,Open Game Settings
+Studio.App.IdeDoc.AllRobloxFilesFileFilter,Roblox IDE Doc,All Roblox Files(*rbxl *rbxlx *%1);; Roblox Place Files(*.rbxl);; Roblox XML Place Files(*.rbxlx);; Roblox Project File(*.%1),All Roblox Files(*rbxl *rbxlx *%1);; Roblox Place Files(*.rbxl);; Roblox XML Place Files(*.rbxlx);; Roblox Project File(*.%1)
 Studio.App.IdeDoc.AllRobloxPlaceFilesFileFilter,Roblox IDE Doc,All Roblox Place Files(*rbxl *rbxlx);; Roblox Place Files(*.rbxl);; Roblox XML Place Files(*.rbxlx),All Roblox Place Files(*rbxl *rbxlx);; Roblox Place Files(*.rbxl);; Roblox XML Place Files(*.rbxlx)
 Studio.App.IdeDoc.AnimationFilesFBX,Roblox IDE Doc,Animation Files (*fbx),Animation Files (*fbx)
 Studio.App.IdeDoc.AudioDisabledGoToServerAudioBehaviorToChange,Roblox IDE Doc,Audio has been disabled. Please go to File->Settings->Studio and then Server Audio Behavior to change this.,Audio has been disabled. Please go to File->Settings->Studio and then Server Audio Behavior to change this.
@@ -477,6 +484,7 @@ Studio.App.IdeDoc.PublishedSuccessfully1,Roblox IDE Doc,%1 was published success
 Studio.App.IdeDoc.RequestedAssetTypeNotSupported,Roblox IDE Doc,Requested asset type is not supported.,Requested asset type is not supported.
 Studio.App.IdeDoc.RequestingAccess,Roblox IDE Doc,Requesting access...,Requesting access...
 Studio.App.IdeDoc.RobloxPlaceFilesAndXMLPlaceFiles,Roblox IDE Doc,Roblox Place Files (*.rbxl);;Roblox XML Place Files (*.rbxlx),Roblox Place Files (*.rbxl);;Roblox XML Place Files (*.rbxlx)
+Studio.App.IdeDoc.RobloxPlaceSaveFileFilter,Roblox IDE Doc,Roblox Place Files(*.rbxl);; Roblox XML Place Files(*.rbxlx),Roblox Place Files(*.rbxl);; Roblox XML Place Files(*.rbxlx)
 Studio.App.IdeDoc.SaveFailed1,Roblox IDE Doc,%1 save failed.,%1 save failed.
 Studio.App.IdeDoc.SaveFileFailure,Roblox IDE Doc,Save File Failure,Save File Failure
 Studio.App.IdeDoc.SavedSuccessfully1,Roblox IDE Doc,%1 was saved successfully.,%1 was saved successfully.
@@ -920,6 +928,7 @@ Studio.App.Property.PhysicsEnvironmentalThrottle,,Physics Environmental Throttle
 Studio.App.Property.PhysicsMtuAdjust,,Physics Mtu Adjust,Physics Mtu Adjust
 Studio.App.Property.PhysicsSendRate,,Physics Send Rate,Physics Send Rate
 Studio.App.Property.PlayerCount,,Player Count,Player Count
+Studio.App.Property.PluginDebuggingEnabled,,Plugin Debugging Enabled,Plugin Debugging Enabled
 Studio.App.Property.PluginsDir,,Plugins Dir,Plugins Dir
 Studio.App.Property.PreferredClientPort,,Preferred Client Port,Preferred Client Port
 Studio.App.Property.PreprocessorColor,,Preprocessor Color,Preprocessor Color
@@ -1143,8 +1152,6 @@ Studio.App.RBXMainWindow.CustomizeElps,,Customize...,Customize...
 Studio.App.RBXMainWindow.CustomizeQuickAccess,,Customize Quick Access,Customize Quick Access
 Studio.App.RBXMainWindow.CustomizeShortcutsElps,,Customize Shortcuts...,Customize Shortcuts...
 Studio.App.RBXMainWindow.CutSelectionToClipboard,,Cut the selection and put it on the Clipboard,Cut the selection and put it on the Clipboard
-Studio.App.RBXMainWindow.DebugAsBuiltinPlugin,,Debug as Built-in Plugin,Debug as Built-in Plugin
-Studio.App.RBXMainWindow.DebugAsPlugin,,Debug as Plugin,Debug as Plugin
 Studio.App.RBXMainWindow.Debugger,,Debugger,Debugger
 Studio.App.RBXMainWindow.DeleteBreakpoint,,Delete Breakpoint,Delete Breakpoint
 Studio.App.RBXMainWindow.DiffNext,,Diff Next,Diff Next
@@ -1317,6 +1324,7 @@ Studio.App.RBXMainWindow.ResetsFontSize,,Resets font size,Resets font size
 Studio.App.RBXMainWindow.ResizeCustomIncrement,,Sets the resize grid to a custom increment,Sets the resize grid to a custom increment
 Studio.App.RBXMainWindow.ResizeObject,,Resize Object,Resize Object
 Studio.App.RBXMainWindow.ResizeTool,,Resize Tool,Resize Tool
+Studio.App.RBXMainWindow.ResumesExection,,Resumes execution after pausing,Resumes execution after pausing
 Studio.App.RBXMainWindow.RightMotor,,Right Motor,Right Motor
 Studio.App.RBXMainWindow.RobloxStudio,,Roblox Studio,Roblox Studio
 Studio.App.RBXMainWindow.Rotate,,Rotate,Rotate
@@ -1813,6 +1821,7 @@ Studio.App.RobloxSettingsDialog.RestartForSettingsChanges,,Some setting changes 
 Studio.App.RobloxSettingsDialog.SaveChanges,,Save Changes,Save Changes
 Studio.App.RobloxSettingsDialog.SettingsModificationWarning,,<p>Changing settings may make Roblox unstable.</p><p>We recommend that you don't change any non-Studio settings unless instructed to do so by a Roblox engineer.</p>,<p>Changing settings may make Roblox unstable.</p><p>We recommend that you don't change any non-Studio settings unless instructed to do so by a Roblox engineer.</p>
 Studio.App.RobloxSettingsDialog.SettingsSearch,,Search...,Search...
+Studio.App.RobloxStudioVerbs.DirtyPublishWarning1,,There are uncommitted script changes that will not be published with the place. Do you want to publish anyway? <a href=%1>Learn more</a>,There are uncommitted script changes that will not be published with the place. Do you want to publish anyway? <a href=%1>Learn more</a>
 Studio.App.RobloxStudioVerbs.InsertModelExtFile,,Roblox Model Files (*.rbxm *.rbxmx),Roblox Model Files (*.rbxm *.rbxmx)
 Studio.App.RobloxStudioVerbs.InsertModelExtScript,,Roblox Model Files (*.rbxm *.rbxmx);;Scripts (*.rbxs *.lua *.txt),Roblox Model Files (*.rbxm *.rbxmx);;Scripts (*.rbxs *.lua *.txt)
 Studio.App.RobloxStudioVerbs.InsertOpenFile,,Open file to Insert,Open file to Insert
@@ -1826,6 +1835,8 @@ Studio.App.RobloxStudioVerbs.PackageLinkCut,,Cannot cut selection(s) with Packag
 Studio.App.RobloxStudioVerbs.PackageLinkDuplicate,,Cannot duplicate selection(s) with PackageLink included!,Cannot duplicate selection(s) with PackageLink included!
 Studio.App.RobloxStudioVerbs.PlaySolo,,Play Solo,Play Solo
 Studio.App.RobloxStudioVerbs.PlaySoloSaveFailure,,Play solo - save failure,Play solo - save failure
+Studio.App.RobloxStudioVerbs.PublishConfirm,,Publish,Publish
+Studio.App.RobloxStudioVerbs.PublishConfirmTitle,,Uncommitted changes,Uncommitted changes
 Studio.App.RobloxStudioVerbs.Publishing,,Publishing,Publishing
 Studio.App.RobloxStudioVerbs.QuickOpen,,Quick Open,Quick Open
 Studio.App.RobloxStudioVerbs.Redo1,,Redo %s,Redo %s
@@ -2071,6 +2082,7 @@ Studio.App.VersionHistoryDialog.CompareWithPreviousButtonText,,Compare with prev
 Studio.App.VersionHistoryDialog.CurrentVersionLabel1,,%1 (Current),%1 (Current)
 Studio.App.VersionHistoryDialog.EditAllButtonText,,Edit all scripts from the batch,Edit all scripts from the batch
 Studio.App.VersionHistoryDialog.EditThisButtonText,,Edit this script,Edit this script
+Studio.App.VersionHistoryDialog.FailedToLoad,,Failed to load,Failed to load
 Studio.App.VersionHistoryDialog.NoScriptHistoryWarning,,There is no saved history for this script,There is no saved history for this script
 Studio.App.VersionHistoryDialog.OpenDialog,,View Script History,View Script History
 Studio.App.VersionHistoryDialog.PlaceVersionColumnTitle,,Place Version,Place Version
@@ -2133,6 +2145,7 @@ Studio.Common.Action.Rename,,Rename,Rename
 Studio.Common.Action.Replace,,Replace,Replace
 Studio.Common.Action.Reset,,Reset,Reset
 Studio.Common.Action.Resize,,Resize,Resize
+Studio.Common.Action.Resume,,Resume,Resume
 Studio.Common.Action.Retry,,Retry,Retry
 Studio.Common.Action.Save,,Save,Save
 Studio.Common.Action.Search,,Search,Search

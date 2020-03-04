@@ -6,8 +6,6 @@ local StudioStyle = UILibrary.Studio.Style
 local deepJoin = require(Plugin.Src.Util.deepJoin)
 local Cryo = require(Plugin.Packages.Cryo)
 
-local FFlagTerrainToolsClearConfirmationDialog = game:GetFastFlag("TerrainToolsClearConfirmationDialog")
-
 local Theme = {}
 
 local ColorSheet = {
@@ -180,11 +178,12 @@ function Theme.createValues(getColor, c, m)
 		brushSettingsTheme = brushSettingsTheme,
 		panelTheme = panelTheme,
 		errorColor = Color3.fromRGB(216, 104, 104),
+		warningColor = Color3.fromRGB(255, 128, 0),
 		selectionBorderColor = Color3.fromRGB(0, 162, 255),
 		roundTextButtonTheme = roundTextButtonTheme,
 		singleSelectButtonGroupTheme = singleSelectButtonGroupTheme,
 		propertyLockTheme = propertyLockTheme,
-		textSize = FFlagTerrainToolsClearConfirmationDialog and 14 or 10,
+		textSize = 14,
 		padding = 4,
 		font = Enum.Font.SourceSans,
 	},{

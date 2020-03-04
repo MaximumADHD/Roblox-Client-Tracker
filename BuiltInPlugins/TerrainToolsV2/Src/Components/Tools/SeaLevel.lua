@@ -7,7 +7,6 @@ local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Cryo = require(Plugin.Packages.Cryo)
 
-local FFlagTerrainToolsUseFragmentsForToolPanel = game:GetFastFlag("TerrainToolsUseFragmentsForToolPanel")
 local FFlagTerrainToolsRefactor = game:GetFastFlag("TerrainToolsRefactor")
 
 local CoreGui = game:GetService("CoreGui")
@@ -43,20 +42,13 @@ local getSeaLevel = TerrainInterface.getSeaLevel
 
 local REDUCER_KEY = "SeaLevelTool"
 
-local FFlagTerrainToolsFixGettingTerrain = game:GetFastFlag("TerrainToolsFixGettingTerrain")
-
 local SeaLevel = Roact.PureComponent:extend(script.Name)
 
 function SeaLevel:init(initialProps)
 	local plugin = StudioPlugin.getPlugin(self)
 	local mouse = plugin:GetMouse()
 
-	if FFlagTerrainToolsFixGettingTerrain then
-		self.preview = LargeVoxelRegionPreview.new(mouse, TerrainInterface.getTerrain(self))
-	else
-		self.preview = LargeVoxelRegionPreview.new(mouse)
-	end
-
+	self.preview = LargeVoxelRegionPreview.new(mouse, TerrainInterface.getTerrain(self))
 	self.pluginActivationController = TerrainInterface.getPluginActivationController(self)
 	self.seaLevel = getSeaLevel(self)
 
@@ -223,7 +215,7 @@ function SeaLevel:render()
 			-- same as if the sealevel is currently active
 			local isReplacing = self.state.isReplacing
 
-			local children = {
+			return Roact.createFragment({
 				MapSettings = Roact.createElement(MapSettings, {
 					LayoutOrder = 1,
 
@@ -298,23 +290,7 @@ function SeaLevel:render()
 						})
 					})
 				}),
-			}
-
-			if FFlagTerrainToolsUseFragmentsForToolPanel then
-				return Roact.createFragment(children)
-			else
-				children.UIListLayout = Roact.createElement("UIListLayout", {
-					SortOrder = Enum.SortOrder.LayoutOrder,
-					[Roact.Ref] = self.layoutRef,
-					[Roact.Change.AbsoluteContentSize] = self.onContentSizeChanged,
-				})
-
-				return Roact.createElement("Frame", {
-					Size = UDim2.new(1, 0, 1, 0),
-					BackgroundTransparency = 1,
-					[Roact.Ref] = self.mainFrameRef,
-				}, children)
-			end
+			})
 		end)
 	end)
 end

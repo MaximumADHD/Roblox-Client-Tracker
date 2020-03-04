@@ -29,7 +29,7 @@ Item {
 
     // FIXME(rmendelsohn)
     // 2019/11/13
-    // Remove with StudioInsertObjectStreamlining_InsertWidget
+    // Remove with StudioInsertObjectStreamliningv0_Consolidated
     function deprecated_show(text, x, y) {
         hide(); // Resets the state
         container.x = x;

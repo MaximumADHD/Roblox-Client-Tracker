@@ -18,6 +18,7 @@ local FlagsList = Flags.new({
 		"EnablePluginPermissionsPage2",
 		"StudioPermissionsServiceEnabled",
 	},
+	FFlagPluginManagementFixRemovePlugins = { "PluginManagementFixRemovePlugins" },
 })
 
 local Constants = require(Plugin.Src.Util.Constants)
@@ -29,6 +30,8 @@ local Navigation = require(Plugin.Src.ContextServices.Navigation)
 local SetPluginEnabledState = require(Plugin.Src.Thunks.SetPluginEnabledState)
 local UpdatePlugin = require(Plugin.Src.Thunks.UpdatePlugin)
 local Button = UILibrary.Component.Button
+
+local RemovePluginData = require(Plugin.Src.Actions.RemovePluginData)
 
 local MoreDropdown = require(Plugin.Src.Components.MoreDropdown)
 local HttpRequestOverview = require(Plugin.Src.Components.HttpRequestOverview)
@@ -89,6 +92,9 @@ function PluginEntry:init()
 	end
 
 	self.uninstallPlugin = function()
+		if FlagsList:get("FFlagPluginManagementFixRemovePlugins") then
+			self.props.removePluginData(self.props.data.assetId)
+		end
 		StudioService:UninstallPlugin(self.props.data.assetId)
 		wait()
 		self.props.onPluginUninstalled()
@@ -433,6 +439,10 @@ end
 
 local function mapDispatchToProps(dispatch)
 	return {
+		removePluginData = function(assetId)
+			dispatch(RemovePluginData(assetId))
+		end,
+
 		onPluginSetEnabledState = function(plugin, enabled)
 			dispatch(SetPluginEnabledState(plugin, enabled))
 		end,

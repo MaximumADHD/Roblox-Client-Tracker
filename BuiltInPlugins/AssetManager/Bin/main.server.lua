@@ -144,7 +144,7 @@ local function main()
 	pluginGui.Name = localization:getText("Meta", "PluginName")
 	pluginGui.Title = localization:getText("Main", "Title")
 
-	pluginGui.ZIndexBehavior = Enum.ZIndexBehavior.Global
+	pluginGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 	pluginGui:GetPropertyChangedSignal("Enabled"):connect(showIfEnabled)
 
 	-- configure the widget and button if its visible

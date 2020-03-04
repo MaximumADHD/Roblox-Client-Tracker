@@ -12,7 +12,7 @@ local IconWithText = require(Plugin.Src.Components.IconWithText)
 
 local FitTextLabel = FitFrame.FitTextLabel
 
-local HttpRequestOverview = Roact.Component:extend("HttpRequestOverview")
+local HttpRequestOverview = Roact.PureComponent:extend("HttpRequestOverview")
 
 local ALLOWED_ICON = "rbxasset://textures/PluginManagement/allowed.png"
 local DENIED_ICON = "rbxasset://textures/PluginManagement/declined.png"
@@ -28,13 +28,13 @@ function HttpRequestOverview:init()
     self.frameRef = Roact.createRef()
 	self.layoutRef = Roact.createRef()
 
-	self.resizeFrame = function(rbx)
+    self.resizeFrame = function()
 		local layoutRef = self.layoutRef.current
 		local frameRef = self.frameRef.current
 		if not frameRef or not layoutRef then
 			return
 		end
-		local height = UDim.new(0, layoutRef.AbsoluteContentSize.Y)
+        local height = UDim.new(0, layoutRef.AbsoluteContentSize.Y)
 		frameRef.Size = UDim2.new(frameRef.Size.X, height)
     end
 
@@ -62,7 +62,7 @@ function HttpRequestOverview:render()
 	return Roact.createElement("TextButton", {
         BackgroundTransparency = 1,
 		LayoutOrder = layoutOrder,
-        Size = UDim2.new(1, 0, 0, 0),
+        Size = UDim2.new(1, 0, 0, 16),
         Text = "",
         [Roact.Ref] = self.frameRef,
         [Roact.Event.Activated] = self.openPluginDetails,
@@ -81,7 +81,7 @@ function HttpRequestOverview:render()
             Font = theme.Font,
             LayoutOrder = 0,
             Size = UDim2.new(1, 0, 0, 16),
-            TextSize = 14,
+            TextSize = 16,
             Text = localization:getText("PluginEntry", "HttpRequest"),
             TextXAlignment = Enum.TextXAlignment.Left,
             TextColor3 = theme.HttpOverviewTextColor,
@@ -95,7 +95,7 @@ function HttpRequestOverview:render()
             LayoutOrder = 1,
             Text = acceptedRequestsCount,
             TextColor3 = theme.HttpOverviewTextColor,
-            TextSize = 14,
+            TextSize = 16,
         }),
 
         Denied = (deniedRequestsCount > 0) and Roact.createElement(IconWithText, {
@@ -105,7 +105,7 @@ function HttpRequestOverview:render()
             LayoutOrder = 2,
             Text = deniedRequestsCount,
             TextColor3 = theme.HttpOverviewTextColor,
-            TextSize = 14,
+            TextSize = 16,
         }),
 
         Border = Roact.createElement("Frame", {

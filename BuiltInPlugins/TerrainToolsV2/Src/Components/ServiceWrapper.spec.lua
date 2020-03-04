@@ -21,8 +21,6 @@ local MockPlugin = require(TestHelpers.MockPlugin)
 local MockMouse = require(TestHelpers.MockMouse)
 local MockTerrain = require(TestHelpers.MockTerrain)
 
-local FFlagTerrainToolsFixGettingTerrain = game:GetFastFlag("TerrainToolsFixGettingTerrain")
-
 return function()
 	it("should construct and destroy without errors", function()
 		local terrain = MockTerrain.new()
@@ -44,9 +42,9 @@ return function()
 		local terrainImporter = TerrainImporter.new({
 			terrain = terrain,
 		})
-		local seaLevel = FFlagTerrainToolsFixGettingTerrain and TerrainSeaLevel.new({
+		local seaLevel = TerrainSeaLevel.new({
 			terrain = terrain,
-		}) or TerrainSeaLevel.new()
+		})
 		local partConverter = PartConverter.new({
 			terrain = terrain,
 			localization = localization,

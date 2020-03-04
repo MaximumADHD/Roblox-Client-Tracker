@@ -40,8 +40,6 @@ local TerrainRegionEditor = require(Functions.TerrainRegionEditor)
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 local ToolId = TerrainEnums.ToolId
 
-local FFlagTerrainToolsUseFragmentsForToolPanel = game:GetFastFlag("TerrainToolsUseFragmentsForToolPanel")
-
 local toolToScript = {
 	[ToolId.Select] = TerrainRegionEditor,
 	[ToolId.Move] = TerrainRegionEditor,
@@ -168,7 +166,7 @@ function ToolRenderer:render()
 				UIListLayout = Roact.createElement("UIListLayout", {
 					[Roact.Ref] = self.layoutRef,
 					[Roact.Change.AbsoluteContentSize] = self.onContentSizeChanged,
-					SortOrder = FFlagTerrainToolsUseFragmentsForToolPanel and Enum.SortOrder.LayoutOrder or nil,
+					SortOrder = Enum.SortOrder.LayoutOrder,
 				}),
 				Tool = roactElement and Roact.createElement(roactElement),
 			})

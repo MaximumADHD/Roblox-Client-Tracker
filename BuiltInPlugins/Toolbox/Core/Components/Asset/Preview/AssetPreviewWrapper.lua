@@ -34,6 +34,9 @@ local getUserId = require(Util.getUserId)
 local getNetwork = ContextGetter.getNetwork
 local getSettings = ContextGetter.getSettings
 
+local ContextServices = require(Libs.Framework.ContextServices)
+local Settings = require(Plugin.Core.ContextServices.Settings)
+
 local withModal = ContextHelper.withModal
 local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
@@ -71,6 +74,8 @@ local FFlagStudioHideSuccessDialogWhenFree = game:GetFastFlag("StudioHideSuccess
 local FFlagPluginAccessAndInstallationInStudio = settings():GetFFlag("PluginAccessAndInstallationInStudio")
 local FFlagStudioToolboxShowPluginInstallationProgress = game:GetFastFlag("StudioToolboxShowPluginInstallationProgress")
 local FFlagStudioRefactorAssetPreview = settings():GetFFlag("StudioRefactorAssetPreview")
+local FFlagStudioFixAssetPreviewTreeView = settings():GetFFlag("StudioFixAssetPreviewTreeView")
+local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
 
 local PADDING = 20
 local INSTALLATION_ANIMATION_TIME = 1.0 --seconds
@@ -265,7 +270,7 @@ function AssetPreviewWrapper:init(props)
 	end
 
 	self.searchByCreator = function(creatorName)
-		local settings = getSettings(self)
+		local settings = FFlagStudioToolboxEnabledDevFramework and self.props.Settings:get("Plugin") or getSettings(self)
 		self.props.searchWithOptions(networkInterface, settings, {
 			Creator = creatorName,
 		})
@@ -535,6 +540,10 @@ function AssetPreviewWrapper:render()
 					}
 				end
 
+				if FFlagStudioFixAssetPreviewTreeView then
+					assetPreviewProps.PreviewModel = previewModel
+				end
+
 				return modalTarget and Roact.createElement(Roact.Portal, {
 					target = modalTarget
 				}, {
@@ -662,6 +671,12 @@ local function mapDispatchToProps(dispatch)
 			dispatch(ToggleFavoriteStatusRequest(networkInterface, userId, assetId, favorited))
 		end,
 	}
+end
+
+if FFlagStudioToolboxEnabledDevFramework then
+	ContextServices.mapToProps(AssetPreviewWrapper, {
+		Settings = Settings,
+	})
 end
 
 return RoactRodux.UNSTABLE_connect2(mapStateToProps, mapDispatchToProps)(AssetPreviewWrapper)

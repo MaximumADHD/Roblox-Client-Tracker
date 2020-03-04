@@ -86,6 +86,9 @@ DefaultStaticReflectionVSShadowed,Vertex
 DefaultStaticSurfaceHQVS,Vertex
 DefaultStaticSurfaceHQVSShadowed,Vertex
 DefaultStaticVS,Vertex
+DefaultSurfaceAppearanceFS,Fragment
+DefaultSurfaceAppearanceHQFS,Fragment
+DefaultSurfaceAppearanceHQFSShadowed,Fragment
 DefaultTiledHideAllRepHQFS,Fragment
 DefaultTiledHideAllRepHQFSShadowed,Fragment
 DefaultTiledHideDiffuseRepHQFS,Fragment

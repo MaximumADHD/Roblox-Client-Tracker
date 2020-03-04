@@ -1,4 +1,5 @@
 local Promise = require(script.Parent.Parent.Promise)
+local SourceStrings = require(script.Parent.Parent.SourceStrings)
 
 local UploadDownloadFlow = {}
 UploadDownloadFlow.__index = UploadDownloadFlow
@@ -55,11 +56,11 @@ function ErrorInfo.new(ribbonMessage, warningMessage)
 	end
 
 	function info:getRibbonMessage()
-		return ribbonMessage or "Unexpected error"
+		return ribbonMessage or SourceStrings.UploadDownloadFlow.UnexpectedErrorMessage
 	end
 
 	function info:getWarningMessage()
-		return warningMessage or "Unexpected error"
+		return warningMessage or SourceStrings.UploadDownloadFlow.UnexpectedErrorMessage
 	end
 
 	return info
@@ -83,8 +84,8 @@ function OpenCSVErrorInfo.new(openCSVErrorMessage)
 		CSVErrorType.UserCanceled or CSVErrorType.ReadFailed
 
 	local ribbonMessageMap = {
-		[CSVErrorType.ReadFailed] = "CSV read failed",
-		[CSVErrorType.UserCanceled] = "Open CSV canceled",
+		[CSVErrorType.ReadFailed] = SourceStrings.UploadDownloadFlow.CSVReadFailedMessage,
+		[CSVErrorType.UserCanceled] = SourceStrings.UploadDownloadFlow.OpenCSVCanceledMessage,
 	}
 
 	local warningMessageMap = {
@@ -104,8 +105,8 @@ function SaveCSVErrorInfo.new(saveCSVErrorMessage)
 		CSVErrorType.UserCanceled or CSVErrorType.WriteFailed
 
 	local ribbonMessageMap = {
-		[CSVErrorType.WriteFailed] = "CSV write failed",
-		[CSVErrorType.UserCanceled] = "Save CSV canceled",
+		[CSVErrorType.WriteFailed] = SourceStrings.UploadDownloadFlow.CSVWriteFailedMessage,
+		[CSVErrorType.UserCanceled] = SourceStrings.UploadDownloadFlow.SaveCSVCanceledMessage,
 	}
 
 	local warningMessageMap = {
@@ -129,48 +130,48 @@ end
 
 function UploadDownloadFlow:OnUpload(ComputePatchFunc, gameId)
 	if self:_getBusy() then
-		return Promise.reject("busy")
+		return Promise.reject(SourceStrings.UploadDownloadFlow.BusyMessage)
 	end
 
 	self:_setMode(GETTING_USER_INPUT)
 
-	self.props.SetMessage("Open CSV file...")
+	self.props.SetMessage(SourceStrings.UploadDownloadFlow.OpenCSVFileMessage)
 
 	return Promise.new(function(resolve, reject)
 		self.props.OpenCSV():andThen(
 			function(localizationTable)
-				self.props.SetMessage("Computing patch...")
+				self.props.SetMessage(SourceStrings.UploadDownloadFlow.ComputingPatchMessage)
 				self:_setMode(COMPUTING)
 
 				ComputePatchFunc(gameId, localizationTable):andThen(
 					function(patchInfo)
-						self.props.SetMessage("Confirm upload...")
+						self.props.SetMessage(SourceStrings.UploadDownloadFlow.ConfirmUploadMessage)
 						self:_setMode(GETTING_USER_INPUT)
 
-						self.props.ShowDialog("Confirm Upload", 300, 370,
+						self.props.ShowDialog(SourceStrings.UploadDownloadFlow.ConfirmUploadDialogTitle, 300, 370,
 							self.props.MakeRenderDialogContent(patchInfo)):andThen(
 							function()
-								self.props.SetMessage("Uploading patch...")
+								self.props.SetMessage(SourceStrings.UploadDownloadFlow.UploadingPatchMessage)
 								self:_setMode(COMPUTING)
 
 								self.props.UploadPatch(gameId, patchInfo):andThen(
 									function()
-										self.props.SetMessage("Upload complete")
+										self.props.SetMessage(SourceStrings.UploadDownloadFlow.UploadCompleteMessage)
 										self:_setMode(NOT_BUSY)
 										resolve(patchInfo)
 										self.props.RequestAssetGeneration(gameId)
 									end,
 									function()
-										reject(ErrorInfo.new("Upload failed"))
+										reject(ErrorInfo.new(SourceStrings.UploadDownloadFlow.UploadFailedMessage))
 									end
 								)
 							end,
 							function()
-								reject(ErrorInfo.new("Upload canceled"))
+								reject(ErrorInfo.new(SourceStrings.UploadDownloadFlow.UploadCanceledMessage))
 							end)
 					end,
 					function()
-						reject(ErrorInfo.new("Compute patch failed"))
+						reject(ErrorInfo.new(SourceStrings.UploadDownloadFlow.ComputePatchFailedMessage))
 					end
 				)
 			end,
@@ -187,21 +188,21 @@ end
 
 function UploadDownloadFlow:OnDownload(gameId)
 	if self:_getBusy() then
-		return Promise.reject("busy")
+		return Promise.reject(SourceStrings.UploadDownloadFlow.BusyMessage)
 	end
 
 	self:_setMode(COMPUTING)
-	self.props.SetMessage("Downloading table...")
+	self.props.SetMessage(SourceStrings.UploadDownloadFlow.DownloadingTableMessage)
 
 	return Promise.new(function(resolve, reject)
 		self.props.DownloadGameTable(gameId):andThen(
 			function(localizationTable)
-				self.props.SetMessage("Select CSV file...")
+				self.props.SetMessage(SourceStrings.UploadDownloadFlow.SelectCSVFileMessage)
 				self:_setMode(GETTING_USER_INPUT)
 
 				self.props.SaveCSV(localizationTable):andThen(
 					function()
-						self.props.SetMessage("Table written to file")
+						self.props.SetMessage(SourceStrings.UploadDownloadFlow.TableWrittenToFileMessage)
 						self:_setMode(NOT_BUSY)
 						resolve(localizationTable)
 					end,

@@ -15,7 +15,7 @@ return function()
 	it("should return a table with the correct members", function()
 		local state = Screen(nil, {})
 
-		expect(type(state)).to.equal("table")
+		expect(typeof(state)).to.equal("table")
 		expect(state.currentScreen).to.be.ok()
 		expect(state.previousScreens).to.be.ok()
 		expect(state.nextScreens).to.be.ok()
@@ -49,7 +49,7 @@ return function()
 			expect(#state.nextScreens).to.equal(0)
 
 			for k,v in pairs(Screens) do
-				state = Screen(state, SetScreen(k))
+				state = Screen(state, SetScreen(v))
 				expect(state.currentScreen).to.equal(v)
 			end
 		end)

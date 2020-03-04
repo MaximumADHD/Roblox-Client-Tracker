@@ -13,6 +13,7 @@
 	localization = A localization object to be used by a LocalizationProvider.
 	plugin = A plugin object to be used by a PluginProvider.
 ]]
+local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -31,7 +32,14 @@ local ThemeProvider = require(Providers.ThemeProvider)
 local LocalizationProvider = require(Providers.LocalizationProvider)
 local PluginProvider = require(Providers.PluginProvider)
 
-local UILibraryWrapper = require(Libs.UILibrary.UILibraryWrapper)
+local UILibraryWrapper
+if FFlagStudioToolboxEnabledDevFramework then
+	UILibraryWrapper = require(Libs.Framework.ContextServices.UILibraryWrapper)
+else
+	UILibraryWrapper = require(Libs.UILibrary.UILibraryWrapper)
+end
+
+local ContextServices = require(Libs.Framework.ContextServices)
 
 local AssetConfigWrapper = Roact.PureComponent:extend("AssetConfigWrapper")
 
@@ -73,50 +81,97 @@ function AssetConfigWrapper:render()
 	local localization = props.localization
 	local plugin = props.plugin
 
-	return Roact.createElement(Dialog, {
-		Name = "AssetConfig",
-		Title = "Asset Configuration",
+	if FFlagStudioToolboxEnabledDevFramework then
+		return Roact.createElement(Dialog, {
+			Name = "AssetConfig",
+			Title = "Asset Configuration",
 
-		Size = Vector2.new(ASSET_CONFIG_WIDTH, ASSET_CONFIG_HEIGHT),
-		ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
-		Modal = true,
-		InitialEnabled = true,
-		plugin = plugin,
+			Size = Vector2.new(ASSET_CONFIG_WIDTH, ASSET_CONFIG_HEIGHT),
+			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
+			Modal = true,
+			InitialEnabled = true,
+			plugin = plugin,
 
-		[Roact.Change.Enabled] = self.onClose,
-		[Roact.Ref] = self.popUpRefFunc,
-		[Roact.Event.AncestryChanged] = self.onAncestryChanged,
-	}, {
-		StoreProvider = Roact.createElement(RoactRodux.StoreProvider, {
-			store = store,
+			[Roact.Change.Enabled] = self.onClose,
+			[Roact.Ref] = self.popUpRefFunc,
+			[Roact.Event.AncestryChanged] = self.onAncestryChanged,
 		}, {
-			PluginProvider = state.popUpGui and Roact.createElement(PluginProvider, {
-				plugin = plugin,
-				pluginGui = state.popUpGui,
+			ContextServices = state.popUpGui and ContextServices.provide({
+				ContextServices.Focus.new(state.popUpGui),
+				UILibraryWrapper.new(),
 			}, {
 				ThemeProvider = Roact.createElement(ThemeProvider, {
 					theme = theme,
 				}, {
-					UILibraryWrapper = Roact.createElement(UILibraryWrapper, {
-						theme = theme:getUILibraryTheme(),
-						focusGui = state.popUpGui,
+					LocalizationProvider = Roact.createElement(LocalizationProvider, {
+						localization = localization
 					}, {
-						LocalizationProvider = Roact.createElement(LocalizationProvider, {
-							localization = localization
+						NetworkProvider = Roact.createElement(NetworkProvider, {
+							networkInterface = networkInterface
 						}, {
-							NetworkProvider = Roact.createElement(NetworkProvider, {
-								networkInterface = networkInterface
+							ModalProvider = Roact.createElement(ModalProvider, {
+								pluginGui = state.popUpGui,
 							}, {
-								ModalProvider = Roact.createElement(ModalProvider, {
-									overrideModalTarget = state.popUpGui,
+								ScreenSelect = Roact.createElement(ScreenSelect, {
+									assetId = assetId,
+									assetTypeEnum = assetTypeEnum,
+
+									onClose = self.onClose,
+
+									pluginGui = state.popUpGui,
+								})
+							})
+						})
+					})
+				})
+			})
+		})
+	else
+		return Roact.createElement(Dialog, {
+			Name = "AssetConfig",
+			Title = "Asset Configuration",
+
+			Size = Vector2.new(ASSET_CONFIG_WIDTH, ASSET_CONFIG_HEIGHT),
+			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
+			Modal = true,
+			InitialEnabled = true,
+			plugin = plugin,
+
+			[Roact.Change.Enabled] = self.onClose,
+			[Roact.Ref] = self.popUpRefFunc,
+			[Roact.Event.AncestryChanged] = self.onAncestryChanged,
+		}, {
+			StoreProvider = Roact.createElement(RoactRodux.StoreProvider, {
+				store = store,
+			}, {
+				PluginProvider = state.popUpGui and Roact.createElement(PluginProvider, {
+					plugin = plugin,
+					pluginGui = state.popUpGui,
+				}, {
+					ThemeProvider = Roact.createElement(ThemeProvider, {
+						theme = theme,
+					}, {
+						UILibraryWrapper = Roact.createElement(UILibraryWrapper, {
+							theme = theme:getUILibraryTheme(),
+							focusGui = state.popUpGui,
+						}, {
+							LocalizationProvider = Roact.createElement(LocalizationProvider, {
+								localization = localization
+							}, {
+								NetworkProvider = Roact.createElement(NetworkProvider, {
+									networkInterface = networkInterface
 								}, {
-									ScreenSelect = Roact.createElement(ScreenSelect, {
-										assetId = assetId,
-										assetTypeEnum = assetTypeEnum,
+									ModalProvider = Roact.createElement(ModalProvider, {
+										overrideModalTarget = state.popUpGui,
+									}, {
+										ScreenSelect = Roact.createElement(ScreenSelect, {
+											assetId = assetId,
+											assetTypeEnum = assetTypeEnum,
 
-										onClose = self.onClose,
+											onClose = self.onClose,
 
-										pluginGui = state.popUpGui,
+											pluginGui = state.popUpGui,
+										})
 									})
 								})
 							})
@@ -125,7 +180,7 @@ function AssetConfigWrapper:render()
 				})
 			})
 		})
-	})
+	end
 end
 
 return AssetConfigWrapper

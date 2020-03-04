@@ -2,6 +2,7 @@ local Plugin = script.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
+local Util = Plugin.Core.Util
 
 local Constants = require(Plugin.Core.Util.Constants)
 local Images = require(Plugin.Core.Util.Images)
@@ -10,11 +11,19 @@ local ExternalServicesWrapper = require(Plugin.Core.Components.ExternalServicesW
 local DockWidget = require(Plugin.Core.Components.PluginWidget.DockWidget)
 local Toolbox = require(Plugin.Core.Components.Toolbox)
 
+local makeTheme = require(Util.makeTheme)
+
+local ContextServices = require(Libs.Framework.ContextServices)
+local UILibraryWrapper = require(Libs.Framework.ContextServices.UILibraryWrapper)
+
 local ToolboxPlugin = Roact.PureComponent:extend("ToolboxPlugin")
 
 local FFlagUpdateToolboxButtonFix = game:DefineFastFlag("UpdateToolboxButtonFix", false)
+local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
 
 function ToolboxPlugin:init(props)
+	self.theme = makeTheme()
+
 	self.localization = props.localization
 
 	self.plugin = props.plugin
@@ -29,8 +38,8 @@ function ToolboxPlugin:init(props)
 		-- trigger a rerender
 		pluginGui = nil,
 
-		toolboxTitle = self.localization and self.localization:getLocalizedContent().ToolboxToolbarName
-			or "Toolbox",
+		toolboxTitle = not FFlagStudioToolboxEnabledDevFramework
+			and (self.localization and self.localization:getLocalizedContent().ToolboxToolbarName or "Toolbox"),
 	}
 
 	self.toolbar = self.plugin:CreateToolbar("luaToolboxToolbar")
@@ -65,7 +74,7 @@ function ToolboxPlugin:init(props)
 			if self.state.enabled == rbx.Enabled then
 				return
 			end
-	
+
 			self:setState({
 				enabled = rbx.Enabled,
 			})
@@ -90,7 +99,7 @@ end
 function ToolboxPlugin:didMount()
 	self.onDockWidgetEnabledChanged(self.dockWidget)
 
-	if self.localization then
+	if not FFlagStudioToolboxEnabledDevFramework and self.localization then
 		self.disconnectLocalizationListener = self.localization:subscribe(function(localizedContent)
 			self:setState({
 				toolboxTitle = localizedContent.ToolboxToolbarName
@@ -134,7 +143,7 @@ function ToolboxPlugin:render()
 	local enabled = state.enabled
 	local pluginGui = state.pluginGui
 	local initialWidth = pluginGui and pluginGui.AbsoluteSize.x or Constants.TOOLBOX_MIN_WIDTH
-	local toolboxTitle = state.toolboxTitle
+	local toolboxTitle = state.toolboxTitle -- TODO: Remove when FFlagStudioToolboxEnabledDevFramework is removed
 
 	local pluginGuiLoaded = pluginGui ~= nil
 
@@ -145,10 +154,17 @@ function ToolboxPlugin:render()
 		InitialEnabled = false
 	end
 
+	local title
+	if FFlagStudioToolboxEnabledDevFramework then
+		title = self.props.Localization:getText("General", "ToolboxToolbarName")
+	else
+		title = toolboxTitle
+	end
+
 	return Roact.createElement(DockWidget, {
 		plugin = plugin,
 
-		Title = toolboxTitle,
+		Title = title,
 		Name = "Toolbox",
 		ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 
@@ -166,7 +182,26 @@ function ToolboxPlugin:render()
 		[Roact.Change.Enabled] = self.onDockWidgetEnabledChanged,
 		[Roact.Event.AncestryChanged] = self.onAncestryChanged,
 	}, {
-		Toolbox = pluginGuiLoaded and Roact.createElement(ExternalServicesWrapper, {
+		Toolbox = FFlagStudioToolboxEnabledDevFramework and pluginGuiLoaded and ContextServices.provide({
+			ContextServices.Focus.new(self.state.pluginGui),
+			UILibraryWrapper.new(),
+		}, {
+			Roact.createElement(ExternalServicesWrapper, {
+				plugin = plugin,
+				pluginGui = pluginGui,
+				theme = theme,
+				networkInterface = networkInterface,
+				localization = localization,
+			}, {
+				Roact.createElement(Toolbox, {
+					initialWidth = initialWidth,
+					backgrounds = backgrounds,
+					suggestions = suggestions,
+					tryOpenAssetConfig = tryOpenAssetConfig,
+					pluginGui = pluginGui,
+				})
+			})
+		}) or (pluginGuiLoaded and Roact.createElement(ExternalServicesWrapper, {
 			store = store,
 			plugin = plugin,
 			pluginGui = pluginGui,
@@ -182,7 +217,13 @@ function ToolboxPlugin:render()
 				tryOpenAssetConfig = tryOpenAssetConfig,
 				pluginGui = pluginGui,
 			})
-		})
+		}))
+	})
+end
+
+if FFlagStudioToolboxEnabledDevFramework then
+	ContextServices.mapToProps(ToolboxPlugin, {
+		Localization = ContextServices.Localization,
 	})
 end
 

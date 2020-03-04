@@ -4,6 +4,14 @@ local Cryo = require(Plugin.Packages.Cryo)
 local Screens = require(Plugin.Src.Util.Screens)
 
 return Rodux.createReducer({
+	--[[
+		members of the screen table should have the structure of 
+		SCREENNAME = {
+			Parent = <SCREENNAME of parent>,
+			Key = "ScreenName",
+		}
+	]]
+	screensTable = {},
 	currentScreen = Screens.MAIN,
 	previousScreens = {},
 	nextScreens = {},

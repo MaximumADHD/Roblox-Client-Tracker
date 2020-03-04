@@ -28,6 +28,7 @@ function ContextHelper.withModal(callback)
 end
 
 function ContextHelper.withTheme(callback)
+	-- TODO: Remove when FFlagStudioToolboxEnabledDevFramework is removed
 	return Roact.createElement(ThemeConsumer, {
 		render = callback,
 	})

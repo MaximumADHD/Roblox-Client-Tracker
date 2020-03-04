@@ -71,6 +71,8 @@ local withTheme = Theming.withTheme
 
 local AssetType = require(Library.Components.Preview.AssetType)
 
+local FFlagStudioFixAssetPreviewTreeView = settings():GetFFlag("StudioFixAssetPreviewTreeView")
+
 local AssetPreview = Roact.PureComponent:extend("AssetPreview")
 
 -- TODO: Later, I will need to move all the unchanged numbers
@@ -223,6 +225,7 @@ function AssetPreview:render()
 		local typeId = assetData.Asset.TypeId or Enum.AssetType.Model.Value
 
 		local currentPreview = props.CurrentPreview
+		local previewModel = props.PreviewModel
 
 		local assetPreviewType
 		if (typeId == Enum.AssetType.Plugin.Value) then
@@ -377,7 +380,7 @@ function AssetPreview:render()
 					Width = assetPreviewTheme.padding * 2,
 
 					CurrentPreview = currentPreview,
-					PreviewModel = currentPreview,
+					PreviewModel = FFlagStudioFixAssetPreviewTreeView and previewModel or currentPreview,
 					AssetPreviewType = assetPreviewType,
 					AssetId = assetId,
 					PutTreeviewOnBottom = putTreeviewOnBottom,

@@ -22,7 +22,6 @@ return function()
 		local frame = main.Contents.ScrollingFrame
 		expect(frame.__Layout).to.be.ok()
 		expect(frame.__Padding).to.be.ok()
-		expect(frame.__Decoration).to.be.ok()
 		expect(frame.__UI).to.be.ok()
 		expect(frame.__StudioUI).to.be.ok()
 		Roact.unmount(instance)

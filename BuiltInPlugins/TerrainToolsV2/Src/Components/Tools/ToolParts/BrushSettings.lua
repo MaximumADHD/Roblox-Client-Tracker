@@ -6,7 +6,6 @@ local Plugin = script.Parent.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 
 local FFlagTerrainToolsRefactor = game:GetFastFlag("TerrainToolsRefactor")
-local FFlagTerrainToolsFixPlanePositionErrorMessage = game:GetFastFlag("TerrainToolsFixPlanePositionErrorMessage")
 local FFlagTerrainToolsFlattenUseBaseBrush = game:GetFastFlag("TerrainToolsFlattenUseBaseBrush")
 
 local Localizing = require(Plugin.Packages.UILibrary.Localizing)
@@ -447,8 +446,7 @@ function BrushSettings:render()
 					}),
 				}),
 
-				HeightSelectionToggle = fixedPlane and isFlatten and (FFlagTerrainToolsFixPlanePositionErrorMessage
-				and Roact.createElement(LabeledElementPair, {
+				HeightSelectionToggle = fixedPlane and isFlatten and Roact.createElement(LabeledElementPair, {
 					Size = UDim2.new(1, 0, 0, 22),
 					Text = localization:getText("BrushSettings", "PlanePosition"),
 					Padding = UDim.new(0, 4),
@@ -487,50 +485,7 @@ function BrushSettings:render()
 							self.props.toggleButton("HeightPicker")
 						end,
 					})
-				}) or Roact.createElement(LabeledElementPair, {
-					Size = UDim2.new(1, 0, 0, 22),
-					Text = localization:getText("BrushSettings", "PlanePosition"),
-					Padding = UDim.new(0, 4),
-					SizeToContent = true,
-					LayoutOrder = 9,
-				}, {
-					HeightPicker = Roact.createElement("Frame", {
-						Size = UDim2.new(1, 0, 0, 22),
-						BackgroundTransparency = 1,
-					}, {
-						Input = Roact.createElement(LabeledTextInput, {
-							Size = UDim2.new(0, 116, 0, 22),
-							Width = UDim.new(0, 116),
-							Label = "Y",
-							Text = planePositionY,
-							MaxGraphemes = MAX_GRAPHEMES,
-							LayoutOrder = 1,
-
-							OnFocusLost = function(enterPressed, text)
-								setText(text, "PlanePositionY")
-							end,
-
-							ValidateText = function(text)
-								local number = tonumber(text)
-								if number then
-									return text
-								else
-									return text, localization:getText("Warning", "InvalidNumber")
-								end
-							end,
-						}),
-						HeightPicker = Roact.createElement("ImageButton", {
-							Position = UDim2.new(0, 116 + 3, 0, 3),
-							Size = UDim2.new(0, 18, 0, 18),
-							Image = heightPicker and pickerOnImage or pickerOffImage,
-							BackgroundTransparency = 1,
-							LayoutOrder = 2,
-							[Roact.Event.Activated] = function()
-								self.props.toggleButton("HeightPicker")
-							end,
-						})
-					})
-				})),
+				}),
 
 				SnapToGridToggle = snapToGrid ~= nil and Roact.createElement(LabeledElementPair, {
 					Size = UDim2.new(1, 0, 0, 18),

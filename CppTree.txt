@@ -12,6 +12,7 @@ RBX
 			TimerEventHandler
 		}
 		GoogleAnalyticsConfiguration
+		IEventIngest
 	}
 	AutoMemPool
 	{
@@ -263,17 +264,21 @@ RBX
 	}
 	LSP
 	{
-		IConnection
+		DraftStore
+		IClientConnection
+		IClientConnectionDelegate
 		IHostAppServices
 		ILanguageClient
 		ILanguageServer
+		ISocket
+		ISocketDelegate
 		LanguageClientBase
 		LanguageServerBase
-		LSPConnection
+		LSPClientConnection
 		LSPManager
+		LSPSocket
 		LuauLanguageServer
 		LuauLanguageServerExt
-		ScriptContentsProvider
 	}
 	Lua
 	{
@@ -478,7 +483,6 @@ RBX
 		CmdGotoPosition
 		CmdInsertText
 		GotoLineDialog
-		ScriptEditorConnection
 		ScriptingCmdBase
 		ScriptingCommands
 		ScriptingManager
@@ -577,6 +581,11 @@ RBX
 		TypedMemItem
 		TypedPercentItem
 		UntrackedMemoryStatsItem
+	}
+	Studio
+	{
+		InfoBarBanner
+		InfoBarManager
 	}
 	TaskScheduler
 	{
@@ -741,7 +750,6 @@ RBX
 	DateHandler
 	DatetimeHandler
 	DebrisService
-	DebuggablePlugin
 	DebugSettings
 	Decal
 	DecalTexture
@@ -765,6 +773,7 @@ RBX
 	EmotesPages
 	EngineStatsCommand
 	EquationDisplay
+	EventIngestService
 	ExplicitWeldJoint
 	Explosion
 	ExtrudedPartInstance
@@ -773,6 +782,8 @@ RBX
 	Feature
 	File
 	FileMesh
+	FileSyncItem
+	FileSyncService
 	FillTool
 	FilterDescendents
 	FilterDescendentsList
@@ -908,6 +919,8 @@ RBX
 	IReferenceBinder
 	IScriptFilter
 	ISelectionBase
+	ISessionManager
+	ISessionProvider
 	IStage
 	IStepped
 	IStudioPluginHost
@@ -928,6 +941,7 @@ RBX
 	KeyframeMarker
 	KeyframeSequence
 	KeyframeSequenceProvider
+	LanguageService
 	LatchedSignalBase
 	LayoutDefault
 	LayoutGrid
@@ -1125,6 +1139,9 @@ RBX
 	Service
 	ServiceInstance
 	ServiceProvider
+	SessionManager
+	SessionNode
+	SessionService
 	SetDragGridToOff
 	SetDragGridToOne
 	SetDragGridToOneFifth
@@ -1163,6 +1180,7 @@ RBX
 	SphereHandleAdornment
 	SpotLight
 	StandalonePluginScripts
+	StandardEventIngest
 	StandardPages
 	StarterCharacterScripts
 	StarterGear
@@ -1181,6 +1199,7 @@ RBX
 	StudsTool
 	SummaryStatsCommand
 	SunRaysEffect
+	SurfaceAppearance
 	SurfaceGui
 	SurfaceLight
 	SurfaceSelection

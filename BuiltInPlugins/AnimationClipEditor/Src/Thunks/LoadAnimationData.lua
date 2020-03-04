@@ -19,6 +19,8 @@ local SetNotification = require(Plugin.Src.Actions.SetNotification)
 local UpdateEditingLength = require(Plugin.Src.Thunks.UpdateEditingLength)
 local SetShowEvents = require(Plugin.Src.Actions.SetShowEvents)
 
+local allowPasteKeysBetweenAnimations = require(Plugin.LuaFlags.GetFFlagAllowPasteKeysBetweenAnimations)
+
 return function(animationData)
 	return function(store)
 		-- Remove potential change history waypoints
@@ -27,7 +29,9 @@ return function(animationData)
 
 		-- Reset all hanging data
 		store:dispatch(SetSelectedKeyframes({}))
-		store:dispatch(SetClipboard({}))
+		if not allowPasteKeysBetweenAnimations() then
+			store:dispatch(SetClipboard({}))
+		end
 		store:dispatch(SortAndSetTracks({}))
 
 		for instanceName, instance in pairs(animationData.Instances) do

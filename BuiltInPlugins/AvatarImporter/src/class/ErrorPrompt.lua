@@ -201,11 +201,7 @@ function ErrorPrompt:_constructUI(screenGui)
 	retryButtonObj.LayoutOrder = 1
 
 	infoLink.MouseButton1Click:Connect(function()
-        if settings():GetFFlag("UseNewDocumentationUrls") then
-            GuiService:OpenBrowserWindow(HttpRbxApiService:GetDocumentationUrl(Globals.requirementsUrl))
-        else
-		    Globals.plugin:OpenWikiPage(Globals.requirementsUrl)
-        end
+        GuiService:OpenBrowserWindow(HttpRbxApiService:GetDocumentationUrl(Globals.requirementsUrl))
 	end)
 	cancelButtonObj.MouseButton1Click:Connect(function()
 		self.closed:Fire()

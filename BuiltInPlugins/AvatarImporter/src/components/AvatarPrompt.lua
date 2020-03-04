@@ -149,11 +149,7 @@ function AvatarPrompt:render()
 						Dark = Color3.fromRGB(255, 255, 255),
 					}),
 					[Roact.Event.Activated] = function()
-						if settings():GetFFlag("UseNewDocumentationUrls") then
-							GuiService:OpenBrowserWindow(HttpRbxApiService:GetDocumentationUrl(Constants.AVATAR_IMPORTER_DEVHUB))
-						else
-							GuiService:OpenBrowserWindow(Constants.AVATAR_IMPORTER_DEVHUB_URL)
-						end
+						GuiService:OpenBrowserWindow(HttpRbxApiService:GetDocumentationUrl(Constants.AVATAR_IMPORTER_DEVHUB))
 					end,
 				})
 			}),

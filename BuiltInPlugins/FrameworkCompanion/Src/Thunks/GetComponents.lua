@@ -33,7 +33,7 @@ local function getComponentsFromDirectory(directory, scripts, tests)
 					end
 					components[name] = docs
 					scripts[name] = componentScript
-					tests[name] = componentScript.Parent:FindFirstChild(name .. ".spec")
+					tests[name] = componentScript:FindFirstChild("test.spec")
 				end
 			end
 		end
@@ -50,7 +50,6 @@ return function()
 		local scripts = {}
 		local tests = {}
 		components.UI = getComponentsFromDirectory(Framework.UI, scripts, tests)
-		components.Decoration = getComponentsFromDirectory(Framework.UI.Decoration, scripts, tests)
 		components.StudioUI = getComponentsFromDirectory(Framework.StudioUI, scripts, tests)
 
 		store:dispatch(SetComponents(components, scripts, tests))

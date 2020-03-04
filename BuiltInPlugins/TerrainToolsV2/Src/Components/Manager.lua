@@ -14,7 +14,6 @@ local Theme = require(Plugin.Src.ContextServices.Theming)
 local withTheme = Theme.withTheme
 
 local Localizing = require(Plugin.Packages.UILibrary.Localizing)
-local withLocalization = Localizing.withLocalization
 
 local Components = Plugin.Src.Components
 local Tab = require(Components.Tab)

@@ -10,11 +10,9 @@ local FitToContent = createFitToContent("Frame", "UIListLayout", {
 })
 local LabeledImageButton = require(script.Parent.LabeledImageButton)
 local EmbeddedTableInterface = require(script.Parent.Parent.GameTable.EmbeddedTableInterface)
+local SourceStrings = require(script.Parent.Parent.SourceStrings)
 
 local EmbeddedTableSection = Roact.Component:extend("EmbeddedTableSection")
-
-local TextCaptureStartText = "Start untranslated text capture"
-local TextCaptureStopText = "Stop untranslated text capture"
 
 function EmbeddedTableSection:init()
 	self.toggleTextScraperEnabled = function()
@@ -34,7 +32,7 @@ function EmbeddedTableSection:render()
 			LayoutOrder = self.props.LayoutOrder,
 		}, {
 			SectionLabel = Roact.createElement("TextLabel", {
-				Text = "Embedded Localization Table",
+				Text = SourceStrings.EmbeddedTableSection.EmbeddedTableSectionLabelText,
 				Size = UDim2.new(1, 0, 0, 20),
 				BackgroundTransparency = 1,
 				TextXAlignment = Enum.TextXAlignment.Left,
@@ -53,24 +51,25 @@ function EmbeddedTableSection:render()
 				}),
 
 				TextCapture = Roact.createElement(LabeledImageButton, {
-					LabelText = isTextScraperRunning and TextCaptureStopText or TextCaptureStartText,
-					ButtonText = "Text Capture",
+					LabelText = isTextScraperRunning and SourceStrings.EmbeddedTableSection.TextCaptureStopText
+						or SourceStrings.EmbeddedTableSection.TextCaptureStartText,
+					ButtonText = SourceStrings.EmbeddedTableSection.TextCaptureButtonText,
 					ButtonImage = textCaptureButtonImage,
 					OnActivated = self.toggleTextScraperEnabled,
 					Activated = isTextScraperRunning,
 				}),
 
 				Export = Roact.createElement(LabeledImageButton, {
-					LabelText = "Export LocalizationTables under LocalizationService to CSV files",
-					ButtonText = "Export",
+					LabelText = SourceStrings.EmbeddedTableSection.ExportLabelText,
+					ButtonText = SourceStrings.EmbeddedTableSection.ExportButtonText,
 					ButtonImage = theme.ExportButtonImage,
 					OnActivated = EmbeddedTableInterface.PromptExportToCSVs,
 					LayoutOrder = 2,
 				}),
 
 				Import = Roact.createElement(LabeledImageButton, {
-					LabelText = "Import CSV files to LocalizationTables under LocalizationService",
-					ButtonText = "Import",
+					LabelText = SourceStrings.EmbeddedTableSection.ImportLabelText,
+					ButtonText = SourceStrings.EmbeddedTableSection.ImportButtonText,
 					ButtonImage = theme.ImportButtonImage,
 					OnActivated = EmbeddedTableInterface.PromptImportFromCSVs,
 					LayoutOrder = 3,

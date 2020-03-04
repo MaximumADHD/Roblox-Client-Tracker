@@ -11,11 +11,11 @@ local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 local PageInfoHelper = require(Plugin.Core.Util.PageInfoHelper)
 
-
 local getNetwork = ContextGetter.getNetwork
 local getSettings = ContextGetter.getSettings
 local withLocalization = ContextHelper.withLocalization
 
+local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
 
 local RequestSearchRequest = require(Plugin.Core.Networking.Requests.RequestSearchRequest)
 
@@ -25,29 +25,32 @@ local SearchTags = require(Plugin.Core.Components.SearchOptions.SearchTags)
 
 function MainViewHeader:init()
 	local networkInterface = getNetwork(self)
-	local settings = getSettings(self)
 
-	self.onSearchRequested = function(searchTerm)
-		if type(searchTerm) ~= "string" and DebugFlags.shouldDebugWarnings() then
-			warn(("Toolbox onSearchRequested searchTerm = %s is not a string"):format(tostring(searchTerm)))
+	if not FFlagStudioToolboxEnabledDevFramework then -- Everything in this block of code isn't being used...
+		local settings = getSettings(self)
+
+		self.onSearchRequested = function(searchTerm)
+			if type(searchTerm) ~= "string" and DebugFlags.shouldDebugWarnings() then
+				warn(("Toolbox onSearchRequested searchTerm = %s is not a string"):format(tostring(searchTerm)))
+			end
+
+			local creator = self.props.creatorFilter
+			local creatorId = creator and creator.Id or nil
+
+			Analytics.onTermSearched(
+				PageInfoHelper.getCategory(self.props.categories, self.props.categoryIndex),
+				searchTerm,
+				creatorId
+			)
+
+			Analytics.onTermSearched(PageInfoHelper.getCategory(self.props.categories, self.props.categoryIndex), searchTerm)
+
+			self.props.requestSearch(networkInterface, settings, searchTerm)
 		end
 
-		local creator = self.props.creatorFilter
-		local creatorId = creator and creator.Id or nil
-
-		Analytics.onTermSearched(
-			PageInfoHelper.getCategory(self.props.categories, self.props.categoryIndex),
-			searchTerm,
-			creatorId
-		)
-
-		Analytics.onTermSearched(PageInfoHelper.getCategory(self.props.categories, self.props.categoryIndex), searchTerm)
-
-		self.props.requestSearch(networkInterface, settings, searchTerm)
-	end
-
-	self.onSuggestionSelected = function(index)
-		self.onSearchRequested(self.props.suggestions[index].search)
+		self.onSuggestionSelected = function(index)
+			self.onSearchRequested(self.props.suggestions[index].search)
+		end
 	end
 
 	self.onTagsCleared = function()

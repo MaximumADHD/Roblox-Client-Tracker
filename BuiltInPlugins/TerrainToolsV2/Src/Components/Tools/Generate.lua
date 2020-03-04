@@ -10,7 +10,6 @@ local withLocalization = Localizing.withLocalization
 local Theme = require(Plugin.Src.ContextServices.Theming)
 local withTheme = Theme.withTheme
 
-local FFlagTerrainToolsUseFragmentsForToolPanel = game:GetFastFlag("TerrainToolsUseFragmentsForToolPanel")
 local FFlagTerrainToolsRefactor = game:GetFastFlag("TerrainToolsRefactor")
 local FFlagTerrainToolsMaterialGenerateFragments = game:GetFastFlag("TerrainToolsMaterialGenerateFragments")
 
@@ -49,11 +48,6 @@ local REDUCER_KEY = "GenerateTool"
 local Generate = Roact.PureComponent:extend(script.Name)
 
 function Generate:init(initialProps)
-	if not FFlagTerrainToolsUseFragmentsForToolPanel then
-		self.layoutRef = Roact.createRef()
-		self.mainFrameRef = Roact.createRef()
-	end
-
 	self.warnings = {}
 
 	self.terrainGeneration = TerrainInterface.getTerrainGeneration(self)
@@ -143,16 +137,6 @@ function Generate:init(initialProps)
 		local biomeSize = tonumber(text)
 		if biomeSize and biomeSize > 0 then
 			self.props.dispatchSetBiomeSize(text)
-		end
-	end
-
-	if not FFlagTerrainToolsUseFragmentsForToolPanel then
-		self.onContentSizeChanged = function()
-			local mainFrame = self.mainFrameRef.current
-			local layout = self.layoutRef.current
-			if mainFrame and layout then
-				mainFrame.Size = UDim2.new(1, 0, 0, layout.AbsoluteContentSize.Y)
-			end
 		end
 	end
 
@@ -276,7 +260,7 @@ function Generate:render()
 		local toggleOn = theme.toggleTheme.toggleOnImage
 		local toggleOff = theme.toggleTheme.toggleOffImage
 		return withLocalization(function(localization)
-			local children = {
+			return Roact.createFragment({
 				MapSettings = Roact.createElement(MapSettings, {
 					LayoutOrder = 1,
 
@@ -444,23 +428,7 @@ function Generate:render()
 					OnPauseRequested = self.onGenerationPauseRequested,
 					OnCancelRequested = self.onGenerationCancelRequested,
 				}),
-			}
-
-			if FFlagTerrainToolsUseFragmentsForToolPanel then
-				return Roact.createFragment(children)
-			else
-				children.UIListLayout = Roact.createElement("UIListLayout", {
-					SortOrder = Enum.SortOrder.LayoutOrder,
-					[Roact.Ref] = self.layoutRef,
-					[Roact.Change.AbsoluteContentSize] = self.onContentSizeChanged,
-				})
-
-				return Roact.createElement("Frame", {
-					Size = UDim2.new(1, 0, 1, 0),
-					BackgroundTransparency = 1,
-					[Roact.Ref] = self.mainFrameRef,
-				}, children)
-			end
+			})
 		end)
 	end)
 end

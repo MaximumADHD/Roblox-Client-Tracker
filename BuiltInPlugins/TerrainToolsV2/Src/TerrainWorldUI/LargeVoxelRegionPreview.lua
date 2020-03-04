@@ -4,8 +4,6 @@ local Signal = require(UILibrary.Utils.Signal)
 
 local AxisLockedDragger = require(script.Parent.AxisLockedDragger)
 
-local FFlagTerrainToolsFixGettingTerrain = game:GetFastFlag("TerrainToolsFixGettingTerrain")
-
 local MAX_DRAG = 16000
 local MIN_DRAG = 4
 
@@ -21,14 +19,11 @@ LargeVoxelRegionPreview.__index = LargeVoxelRegionPreview
 function LargeVoxelRegionPreview.new(mouse, target)
 	local self = setmetatable({
 		_mouse = mouse,
+		_target = target,
 		_position = Vector3.new(),
 		_size = Vector3.new(4, 4, 4),
 		_onSizeChanged = Signal.new(),
 	}, LargeVoxelRegionPreview)
-
-	if FFlagTerrainToolsFixGettingTerrain then
-		self._target = target
-	end
 
 	assert(self._mouse, "Mouse missing in LargeVoxelRegionPreview")
 
@@ -161,10 +156,7 @@ function LargeVoxelRegionPreview:updateBlockMesh(isVisible)
 	end
 
 	self._rootPart.Position = self._position
-
-
-	--TODO: change to core gui later?
-	self._rootPart.Parent = FFlagTerrainToolsFixGettingTerrain and self._target or Workspace.Terrain
+	self._rootPart.Parent = self._target
 	self._blockMesh.Scale = self._size
 end
 

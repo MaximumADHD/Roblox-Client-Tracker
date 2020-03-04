@@ -1,5 +1,8 @@
 local CorePackages = game:GetService("CorePackages")
+local CoreGui = game:GetService("CoreGui")
 local Players = game:GetService("Players")
+
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
@@ -24,6 +27,7 @@ local ClosePlayerDropDown = require(PlayerList.Actions.ClosePlayerDropDown)
 local OpenPlayerDropDown = require(PlayerList.Actions.OpenPlayerDropDown)
 
 local FFlagPlayerListDesignUpdate = settings():GetFFlag("PlayerListDesignUpdate")
+local FFlagPlayerListFixTouchInputState = require(RobloxGui.Modules.Flags.FFlagPlayerListFixTouchInputState)
 
 local PlayerEntry = Roact.PureComponent:extend("PlayerEntry")
 
@@ -236,7 +240,7 @@ function PlayerEntry:render()
 				else
 					self.props.openDropDown(self.props.player)
 				end
-				if FFlagPlayerListDesignUpdate then
+				if not FFlagPlayerListFixTouchInputState and FFlagPlayerListDesignUpdate then
 					coroutine.wrap(function()
 						-- Need to wait here as the state is updated before the props
 						-- Without the wait it briefly flashes to hover and then selected.
@@ -279,6 +283,15 @@ function PlayerEntry:render()
 				})
 			end
 
+			local onInputEnded
+			if FFlagPlayerListFixTouchInputState then
+				onInputEnded = function()
+					self:setState({
+						isPressed = false,
+					})
+				end
+			end
+
 			local doubleOverlay = nil
 			if FFlagPlayerListDesignUpdate then
 				doubleOverlay = self.state.isPressed
@@ -315,6 +328,7 @@ function PlayerEntry:render()
 					onMouseLeave = onMouseLeave,
 
 					onMouseDown = FFlagPlayerListDesignUpdate and onMouseDown or nil,
+					onInputEnded = FFlagPlayerListFixTouchInputState and onInputEnded or nil,
 
 					[Roact.Ref] = self.props[Roact.Ref]
 				}, {
@@ -372,6 +386,7 @@ function PlayerEntry:render()
 					onMouseLeave = FFlagPlayerListDesignUpdate and onMouseLeave or nil,
 
 					onMouseDown = FFlagPlayerListDesignUpdate and onMouseDown or nil,
+					onInputEnded = FFlagPlayerListFixTouchInputState and onInputEnded or nil,
 				})
 			end
 

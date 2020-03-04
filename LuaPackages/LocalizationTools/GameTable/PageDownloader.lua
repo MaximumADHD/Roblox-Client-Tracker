@@ -1,4 +1,5 @@
 local Promise = require(script.Parent.Parent.Promise)
+local SourceStrings = require(script.Parent.Parent.SourceStrings)
 
 --[[
 	Object for downloading a table page-by-page.  Constructor takes:
@@ -19,18 +20,18 @@ return function(MakeDownloadRequest, DecodeReponseBody, HandleTableDataPage, add
 					local responseBodyObject = DecodeReponseBody(response.Body)
 
 					if responseBodyObject == nil then
-						reject("Downloaded table failed to decode")
+						reject(SourceStrings.PageDownloader.DecodeFailedMessage)
 						return
 					end
 
 					resolve(responseBodyObject)
 				else
 					if additionalErrorCallback then
-						additionalErrorCallback(string.format(
-							"Uploading table failed with status code: %s, and response: %s",
-							tostring(response.StatusCode), tostring(response.Body)))
+						additionalErrorCallback(
+							SourceStrings.PageDownloader.FormatFailedWithStatusCodeMessage(
+								tostring(response.StatusCode), tostring(response.Body)))
 					end
-					reject("Download failed")
+					reject(SourceStrings.PageDownloader.DownloadFailedMessage)
 				end
 			end)
 		end)

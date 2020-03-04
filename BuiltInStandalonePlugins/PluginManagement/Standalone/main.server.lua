@@ -17,6 +17,17 @@ local InstallPluginFromWeb = require(Plugin.Src.Thunks.InstallPluginFromWeb)
 local RefreshPlugins = require(Plugin.Src.Thunks.RefreshPlugins)
 local ManagementApp = require(Plugin.Src.Components.ManagementApp)
 
+local Flags = require(Plugin.Packages.Framework.Util.Flags)
+local FlagsList = Flags.new({
+	FFlagPluginManagementUseFractalDevFrameworkLayout = {
+		"PluginManagementUseFractalDevFrameworkLayout",
+	},
+})
+
+if not FlagsList:get("FFlagPluginManagementUseFractalDevFrameworkLayout") then
+	return
+end
+
 -- initialize all globals
 local globals = getPluginGlobals(plugin)
 local tokens = {}

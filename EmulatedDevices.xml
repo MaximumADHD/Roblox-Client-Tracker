@@ -21,6 +21,8 @@
         native_edit_box_height="28"
         landscape_keyboard_image_filename="keyboard_tablet_landscape.png"
         portrait_keyboard_image_filename="keyboard_tablet_portrait.png"
+        safezone_portrait="20,0,0,0"
+        safezone_landscape="20,0,0,0"
         ></Device>
     <Device name="iPad Mini"
         device_id="ipad_mini"
@@ -37,6 +39,8 @@
         native_edit_box_height="28"
         landscape_keyboard_image_filename="keyboard_tablet_landscape.png"
         portrait_keyboard_image_filename="keyboard_tablet_portrait.png"
+        safezone_portrait="20,0,0,0"
+        safezone_landscape="20,0,0,0"
         ></Device>
     <Device name="iPad Pro"
         device_id="ipad_pro"
@@ -53,6 +57,8 @@
         native_edit_box_height="28"
         landscape_keyboard_image_filename="keyboard_tablet_landscape.png"
         portrait_keyboard_image_filename="keyboard_tablet_portrait.png"
+        safezone_portrait="24,20,0,0"
+        safezone_landscape="24,20,0,0"
         ></Device>
     <Device name="iPhone 4S"
         device_id="iphone_4s"
@@ -69,6 +75,8 @@
         native_edit_box_height="28"
         landscape_keyboard_image_filename="keyboard_phone_landscape.png"
         portrait_keyboard_image_filename="keyboard_phone_portrait.png"
+        safezone_portrait="20,0,0,0"
+        safezone_landscape="20,0,0,0"
         ></Device>
     <Device name="iPhone 5"
         device_id="iphone_5"
@@ -85,6 +93,8 @@
         native_edit_box_height="28"
         landscape_keyboard_image_filename="keyboard_phone_landscape.png"
         portrait_keyboard_image_filename="keyboard_phone_portrait.png"
+        safezone_portrait="20,0,0,0"
+        safezone_landscape="20,0,0,0"
         ></Device>
     <Device name="iPhone 6"
         device_id="iphone_6"
@@ -101,6 +111,8 @@
         native_edit_box_height="28"
         landscape_keyboard_image_filename="keyboard_phone_landscape.png"
         portrait_keyboard_image_filename="keyboard_phone_portrait.png"
+        safezone_portrait="20,0,0,0"
+        safezone_landscape="20,0,0,0"
         ></Device>
     <Device name="iPhone 6 Plus"
         device_id="iphone_6_Plus"
@@ -117,6 +129,8 @@
         native_edit_box_height="28"
         landscape_keyboard_image_filename="keyboard_phone_landscape.png"
         portrait_keyboard_image_filename="keyboard_phone_portrait.png"
+        safezone_portrait="20,0,0,0"
+        safezone_landscape="20,0,0,0"
         ></Device>
     <Device name="iPhone 7"
         device_id="iphone_7"
@@ -133,6 +147,8 @@
         native_edit_box_height="28"
         landscape_keyboard_image_filename="keyboard_phone_landscape.png"
         portrait_keyboard_image_filename="keyboard_phone_portrait.png"
+        safezone_portrait="20,0,0,0"
+        safezone_landscape="20,0,0,0"
         ></Device>
     <Device name="iPhone 7 Plus"
         device_id="iphone_7_Plus"
@@ -149,6 +165,8 @@
         native_edit_box_height="28"
         landscape_keyboard_image_filename="keyboard_phone_landscape.png"
         portrait_keyboard_image_filename="keyboard_phone_portrait.png"
+        safezone_portrait="20,0,0,0"
+        safezone_landscape="20,0,0,0"
         ></Device>
   <Device name ="iPhone X"
         device_id="iphone_X"
@@ -172,6 +190,8 @@
         wireframe_screen_y_special_landscape="23"
         landscape_mask_image_filename="iPhoneXMaskLandscape.png"
         portrait_mask_image_filename="iPhoneXMaskPortrait.png"
+        safezone_portrait="44,34,0,0"
+        safezone_landscape="0,21,44,44"
         ></Device>
     <Device name="iPod Touch 6th Generation"
         device_id="iPod_Touch_6th_Generation"
@@ -188,6 +208,8 @@
         native_edit_box_height="28"
         landscape_keyboard_image_filename="keyboard_phone_landscape.png"
         portrait_keyboard_image_filename="keyboard_phone_portrait.png"
+        safezone_portrait="20,0,0,0"
+        safezone_landscape="20,0,0,0"
         ></Device>
     <Device name="Samsung Tab A"
         device_id="samsung_tab_a"
@@ -204,6 +226,8 @@
         native_edit_box_height="25"
         landscape_keyboard_image_filename="keyboard_tablet_landscape.png"
         portrait_keyboard_image_filename="keyboard_tablet_portrait.png"
+        safezone_portrait="24,48,0,0"
+        safezone_landscape="24,48,0,0"
         ></Device>
     <Device name="Samsung GT-N5110"
         device_id="samsung_gt_N5110"
@@ -220,6 +244,8 @@
         native_edit_box_height="33"
         landscape_keyboard_image_filename="keyboard_tablet_landscape.png"
         portrait_keyboard_image_filename="keyboard_tablet_portrait.png"
+        safezone_portrait="24,0,0,0"
+        safezone_landscape="24,0,0,0"
         ></Device>
     <Device name="Samsung Galaxy S3"
         device_id="samsung_galaxy_s3"
@@ -236,6 +262,8 @@
         native_edit_box_height="48"
         landscape_keyboard_image_filename="keyboard_phone_landscape.png"
         portrait_keyboard_image_filename="keyboard_phone_portrait.png"
+        safezone_portrait="25,0,0,0"
+        safezone_landscape="25,0,0,0"
         ></Device>
     <Device name="Samsung Galaxy S7"
         device_id="samsung_galaxy_s7"
@@ -252,6 +280,8 @@
         native_edit_box_height="58"
         landscape_keyboard_image_filename="keyboard_phone_landscape.png"
         portrait_keyboard_image_filename="keyboard_phone_portrait.png"
+        safezone_portrait="24,0,0,0"
+        safezone_landscape="24,0,0,0"
         ></Device>
     <Device name="Xbox One"
         device_id="xbox"

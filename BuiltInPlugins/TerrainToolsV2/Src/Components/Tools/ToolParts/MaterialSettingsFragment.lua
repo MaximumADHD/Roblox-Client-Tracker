@@ -30,6 +30,7 @@ local function MaterialSettingsFragment(props)
 					LayoutOrder = layoutOrder + 1,
 					material = props.material,
 					setMaterial = props.setMaterial,
+					AllowAir = props.AllowAir,
 				}),
 			})
 		end)

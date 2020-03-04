@@ -17,10 +17,8 @@ local Roact = require(Plugin.Packages.Roact)
 local Theme = require(Plugin.Src.ContextServices.Theming)
 local withTheme = Theme.withTheme
 
-local FIRST_COLUMN_WIDTH = 110
-local SIDE_PADDING = 20
+local Constants = require(Plugin.Src.Util.Constants)
 
-local FFlagTerrainToolsFixPlanePositionErrorMessage = game:GetFastFlag("TerrainToolsFixPlanePositionErrorMessage")
 local FFlagTerrainToolsRefactor = game:GetFastFlag("TerrainToolsRefactor")
 
 local LabeledElementPair = Roact.PureComponent:extend(script.Name)
@@ -35,8 +33,10 @@ function LabeledElementPair:init()
 		local contentFrame = self.contentFrameRef.current
 		local layout = self.layoutRef.current
 		if mainFrame and contentFrame and layout then
-			mainFrame.Size = UDim2.new(mainFrame.Size.X.Scale, mainFrame.Size.X.Offset, 0, layout.AbsoluteContentSize.Y)
-			contentFrame.Size = UDim2.new(1, -FIRST_COLUMN_WIDTH - SIDE_PADDING, 0, layout.AbsoluteContentSize.Y)
+			mainFrame.Size = UDim2.new(mainFrame.Size.X.Scale, mainFrame.Size.X.Offset,
+				0, layout.AbsoluteContentSize.Y)
+			contentFrame.Size = UDim2.new(1, -Constants.SECOND_COLUMN_START,
+				0, layout.AbsoluteContentSize.Y)
 		end
 	end
 
@@ -47,10 +47,8 @@ function LabeledElementPair:render()
 	local text = self.props.Text or ""
 	local size = self.props.Size
 	local layoutOrder = self.props.LayoutOrder
-	local fillDirection
-	if FFlagTerrainToolsFixPlanePositionErrorMessage then
-		fillDirection = self.props.ContentDirection or Enum.FillDirection.Vertical
-	end
+	local fillDirection = self.props.ContentDirection or Enum.FillDirection.Vertical
+
 	-- this prop enables auto resizing the content's size changes
 	local sizeToContent = self.props.SizeToContent
 
@@ -61,7 +59,7 @@ function LabeledElementPair:render()
 		children["UIListLayout"] = Roact.createElement("UIListLayout", {
 			Padding = padding,
 			FillDirection = fillDirection,
-			SortOrder = FFlagTerrainToolsFixPlanePositionErrorMessage and Enum.SortOrder.LayoutOrder or Enum.SortOrder.Name,
+			SortOrder = Enum.SortOrder.LayoutOrder,
 			[Roact.Change.AbsoluteContentSize] = self.resizeToContent,
 			[Roact.Ref] = self.layoutRef,
 		})
@@ -81,15 +79,15 @@ function LabeledElementPair:render()
 				TextColor3 = theme.textColor,
 				TextXAlignment = Enum.TextXAlignment.Left,
 				TextYAlignment = FFlagTerrainToolsRefactor and Enum.TextYAlignment.Bottom or Enum.TextYAlignment.Center,
-				Size = UDim2.new(0, FIRST_COLUMN_WIDTH - SIDE_PADDING, 0, 15),
-				Position = UDim2.new(0, SIDE_PADDING, 0, 2),
+				Size = UDim2.new(0, Constants.FIRST_COLUMN_WIDTH, 0, 15),
+				Position = UDim2.new(0, Constants.SIDE_PADDING, 0, 2),
 				BackgroundTransparency = 1,
 			}),
 
 			-- Right Side
 			Content = Roact.createElement("Frame", {
-				Position = UDim2.new(0, FIRST_COLUMN_WIDTH, 0, 0),
-				Size = UDim2.new(1, -FIRST_COLUMN_WIDTH - SIDE_PADDING, 1, 0),
+				Position = UDim2.new(0, Constants.SECOND_COLUMN_START, 0, 0),
+				Size = UDim2.new(1, -Constants.SECOND_COLUMN_START, 1, 0),
 				BackgroundTransparency = 1,
 
 				[Roact.Ref] = self.contentFrameRef,
