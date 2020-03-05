@@ -11,6 +11,9 @@ return function()
 
         local element = Roact.createElement(MockServiceWrapper, {}, {
             TopBar = Roact.createElement(TopBar, {
+                Size = UDim2.new(1, 0, 0, 24),
+                LayoutOrder = 1,
+
                 OnOverlayActivated = function() end,
                 Enabled = true,
             })

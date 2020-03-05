@@ -16,8 +16,6 @@ local ConvertPartError = {
 	InvalidSize = "InvalidSize",
 }
 
-local validInstanceFilter
-
 local function isConvertibleToTerrain(instance)
 	if not instance or isProtectedInstance(instance) or not instance.Parent then
 		return false
@@ -33,44 +31,45 @@ local function isConvertibleToTerrain(instance)
 		return false
 	end
 
+	-- Don't allow Meshes or CSG parts as we can't fill them accurately
+	if instance:IsA("MeshPart") or instance:IsA("PartOperation") then
+		return false
+	end
+
 	return true
 end
 
--- A convertible container is a Model or Folder that contains at least 1 instance that is convertible
--- The convertible instance can be nested any level of containers down
--- e.g. Model -> Model -> Model -> Folder -> Model -> Part
--- Is valid
-local function isConvertibleContainerToTerrain(instance)
-	if not instance or isProtectedInstance(instance) then
-		return false
-	end
+-- Takes array : { [number] : Instance }
+-- Returns set of convertible instances { [Instance] : boolean }
+-- And a boolean of whether any invalid instances were found
+-- Throws if param array is not an array
+local function getValidInvalidInfo(array)
+	assert(type(array) == "table", "getValidInvalidInfo() expects an array")
+	local valid = {}
+	local hasInvalid = false
 
-	if not instance:IsA("Model") and not instance:IsA("Folder") then
-		return false
-	end
+	local function recurse(arr)
+		for _, obj in pairs(arr) do
+			if obj then
+				if isProtectedInstance(obj) then
+					hasInvalid = true
 
-	for _, obj in ipairs(instance:GetChildren()) do
-		if validInstanceFilter(obj) then
-			return true
+				elseif isConvertibleToTerrain(obj) then
+					valid[obj] = true
+
+				elseif obj:IsA("Model") or obj:IsA("Folder") then
+					recurse(obj:GetChildren())
+
+				else
+					hasInvalid = true
+				end
+			end
 		end
 	end
 
-	-- Found no convertible descendants
-	return false
-end
+	recurse(array)
 
--- Returns true if the instance itself can be converted to terrain
--- Or if the instance contains other instances that can be converted to terrain
-validInstanceFilter = function(obj)
-	if not obj or isProtectedInstance(obj) then
-		return false
-	end
-
-	if isConvertibleToTerrain(obj) or isConvertibleContainerToTerrain(obj) then
-		return true
-	end
-
-	return false
+	return valid, hasInvalid
 end
 
 local ShapeOccupancyFunc do
@@ -236,6 +235,38 @@ local function getAABBVolume(cframe, size)
 	return w * h * d
 end
 
+local function getInstanceSetAABBExtents(instances)
+	local minX = math.huge
+	local minY = math.huge
+	local minZ = math.huge
+	local maxX = -math.huge
+	local maxY = -math.huge
+	local maxZ = -math.huge
+
+	for instance,_ in pairs(instances) do
+		local region = getAABBRegion(instance.CFrame, instance.Size)
+
+		local partPos = region.CFrame.Position
+		local halfSize = region.Size * 0.5
+
+		local minExtent = partPos - halfSize
+		local maxExtents = partPos + halfSize
+		minX = math.min(minExtent.x, minX)
+		maxX = math.max(maxExtents.x, maxX)
+
+		minY = math.min(minExtent.y, minY)
+		maxY = math.max(maxExtents.y, maxY)
+
+		minZ = math.min(minExtent.z, minZ)
+		maxZ = math.max(maxExtents.z, maxZ)
+	end
+
+	local minExtent = Vector3.new(minX, minY, minZ)
+	local maxExtent = Vector3.new(maxX, maxY, maxZ)
+
+	return minExtent, maxExtent
+end
+
 local function isRegionTooLarge(cframe, size)
 	local regionVolumeStuds = getAABBVolume(cframe, size)
 	local regionVolumeVoxels = regionVolumeStuds / (4 * 4 * 4)
@@ -371,8 +402,7 @@ return {
 	ConvertPartError = ConvertPartError,
 
 	isConvertibleToTerrain = isConvertibleToTerrain,
-	isConvertibleContainerToTerrain = isConvertibleContainerToTerrain,
-	validInstanceFilter = validInstanceFilter,
+	getValidInvalidInfo = getValidInvalidInfo,
 
 	getPartRenderedShape = getPartRenderedShape,
 
@@ -382,5 +412,6 @@ return {
 	fillShapeWithTerrain = fillShapeWithTerrain,
 
 	getAABBRegion = getAABBRegion,
+	getInstanceSetAABBExtents = getInstanceSetAABBExtents,
 	getShapeFunction = getShapeFunction,
 }

@@ -76,6 +76,7 @@ local FFlagStudioToolboxShowPluginInstallationProgress = game:GetFastFlag("Studi
 local FFlagStudioRefactorAssetPreview = settings():GetFFlag("StudioRefactorAssetPreview")
 local FFlagStudioFixAssetPreviewTreeView = settings():GetFFlag("StudioFixAssetPreviewTreeView")
 local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
+local FFlagEnableAudioPreview = settings():GetFFlag("EnableAudioPreview")
 
 local PADDING = 20
 local INSTALLATION_ANIMATION_TIME = 1.0 --seconds
@@ -104,6 +105,8 @@ function AssetPreviewWrapper:createPurchaseFlow(localizedContent)
 	end
 
 	local assetPreviewType
+	-- We shouldn't be change asset preview type here. AssetPreveiew wrapper are used to load the content for asset
+	-- preview. So, that's where we can change the assetPreviewType.
 	if FFlagPluginAccessAndInstallationInStudio and (typeId == Enum.AssetType.Plugin.Value) then
 		assetPreviewType = AssetType:markAsPlugin()
 	else
@@ -425,7 +428,7 @@ function AssetPreviewWrapper:init(props)
 end
 
 function AssetPreviewWrapper:didMount()
-	self.props.getPreviewInstance(self.props.assetData.Asset.Id)
+	self.props.getPreviewInstance(self.props.assetData.Asset.Id, self.props.assetData.Asset.TypeId)
 	if self.props.assetData.Asset.TypeId == Enum.AssetType.Plugin.Value then
 		if FFlagUseDevelopFetchPluginVersionId then
 			self.props.getPluginInfo(getNetwork(self), self.props.assetData.Asset.Id)
@@ -510,6 +513,7 @@ function AssetPreviewWrapper:render()
 						MaxPreviewHeight = maxPreviewHeight,
 
 						AssetData = assetData,
+						PreviewModel = FFlagEnableAudioPreview and previewModel or nil,
 						CurrentPreview = currentPreview,
 
 						ActionBarText = purchaseFlow.ActionBarText,
@@ -621,8 +625,8 @@ end
 
 local function mapDispatchToProps(dispatch)
 	return {
-		getPreviewInstance = function(assetId)
-			dispatch(GetPreviewInstanceRequest(assetId))
+		getPreviewInstance = function(assetId, assetTypeId)
+			dispatch(GetPreviewInstanceRequest(assetId, assetTypeId))
 		end,
 
 		clearPreview = function()

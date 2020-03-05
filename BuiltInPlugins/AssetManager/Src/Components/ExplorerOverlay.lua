@@ -15,28 +15,30 @@ local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
-local UILibrary = require(Plugin.Packages.UILibrary)
 local ContextServices = require(Plugin.Packages.Framework.ContextServices)
 
+local UILibrary = require(Plugin.Packages.UILibrary)
 local ShowOnTop = UILibrary.Focus.ShowOnTop
-
 local Button = UILibrary.Component.RoundFrame
 local TreeView = UILibrary.Component.TreeView
-local TreeViewItem = UILibrary.Component.TreeViewItem
+local FolderTreeItem = require(Plugin.Src.Components.FolderTreeItem)
 
 local Screens = require(Plugin.Src.Util.Screens)
 
 local SetScreen = require(Plugin.Src.Actions.SetScreen)
 
+local OnScreenChange = require(Plugin.Src.Thunks.OnScreenChange)
+
 local ExplorerOverlay = Roact.PureComponent:extend("ExplorerOverlay")
 
 function ExplorerOverlay:render()
     local props = self.props
+    local apiImpl = props.API:get()
     local theme = props.Theme:get("Plugin")
     local overlayTheme = theme.Overlay
 
-    local onFolderClicked = self.props.dispatchSetScreen
-    local closeOverlay = self.props.CloseOverlay
+    local dispatchSetScreen = props.dispatchSetScreen
+    local closeOverlay = props.CloseOverlay
     local content = {}
 
     content.TreeViewOverlay = Roact.createElement(ShowOnTop, {}, {
@@ -98,13 +100,13 @@ function ExplorerOverlay:render()
                 end,
 
                 renderElement = function(properties)
-                    return Roact.createElement(TreeViewItem, properties)
+                    return Roact.createElement(FolderTreeItem, properties)
                 end,
 
                 onSelectionChanged = function(instances)
                     if instances[1] then
                         local screen = Screens[instances[1].Screen]
-                        onFolderClicked(screen)
+                        dispatchSetScreen(screen, apiImpl)
                     end
                     closeOverlay()
                 end,
@@ -122,17 +124,19 @@ function ExplorerOverlay:render()
     }, content)
 end
 
-local function mapDispatchToProps(dispatch)
-    return {
-        dispatchSetScreen = function(screen)
-            dispatch(SetScreen(screen))
-        end,
-    }
-end
-
 ContextServices.mapToProps(ExplorerOverlay, {
+    API = ContextServices.API,
     Theme = ContextServices.Theme,
     Localization = ContextServices.Localization,
 })
+
+local function mapDispatchToProps(dispatch)
+    return {
+        dispatchSetScreen = function(screen, apiImpl)
+            dispatch(SetScreen(screen))
+            dispatch(OnScreenChange(apiImpl, screen))
+        end,
+    }
+end
 
 return RoactRodux.connect(nil, mapDispatchToProps)(ExplorerOverlay)

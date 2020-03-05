@@ -1366,14 +1366,9 @@ Class InsertService : Instance [NotCreatable] [Service]
 	Function Instance InsertService:LoadAssetVersion(int64 assetVersionId) [Yields]
 	Function Instance InsertService:LoadLocalAsset(string assetPath) {RobloxScriptSecurity}
 	Function Objects InsertService:LoadPackageAsset(Content url) {RobloxScriptSecurity}
-Class InternalSyncItem : Instance [NotReplicated]
-	Property bool InternalSyncItem.Enabled {RobloxScriptSecurity} [NotReplicated]
-	Property string InternalSyncItem.Path {RobloxScriptSecurity} [NotReplicated]
-	Property Instance InternalSyncItem.Target {RobloxScriptSecurity} [<📁> LoadOnly] [NotReplicated]
-Class InternalSyncService : Instance [NotCreatable] [Service] [NotReplicated]
 Class JointInstance : Instance [NotCreatable]
 	Property bool JointInstance.Active  [ReadOnly] [NotReplicated]
-	Property bool JointInstance.Enabled  [Hidden]
+	Property bool JointInstance.Enabled
 	Property CFrame JointInstance.C0
 	Property CFrame JointInstance.C1
 	Property Class<BasePart> JointInstance.Part0
@@ -2849,7 +2844,7 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Objects StudioService:PromptImportFiles(Array fileTypeFilter = {}) {PluginSecurity} [Yields]
 	Function Instance StudioService:PromptImportLocalAsset(string prompt, Array fileTypeFilter = {}) {PluginSecurity} [Yields] [Deprecated]
 	Function Objects StudioService:PromptImportLocalAssets(string prompt, Array fileTypeFilter = {}) {PluginSecurity} [Yields] [Deprecated]
-	Function void StudioService:PublishAs(int64 universeId, int64 placeId) {RobloxScriptSecurity}
+	Function void StudioService:PublishAs(int64 universeId, int64 placeId, int64 groupId) {RobloxScriptSecurity}
 	Function string StudioService:SerializeInstances(Objects instances) {RobloxScriptSecurity}
 	Function void StudioService:SetPluginEnabled(int64 assetId, bool state) {RobloxScriptSecurity}
 	Function void StudioService:SetUniverseDisplayName(string newName) {RobloxScriptSecurity}
@@ -3015,6 +3010,7 @@ Class UITextSizeConstraint : UIConstraint
 	Property int UITextSizeConstraint.MinTextSize
 Class UIGradient : UIComponent
 	Property ColorSequence UIGradient.Color
+	Property bool UIGradient.Enabled
 	Property Vector2 UIGradient.Offset
 	Property float UIGradient.Rotation
 	Property NumberSequence UIGradient.Transparency

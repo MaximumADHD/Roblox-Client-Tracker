@@ -25,7 +25,7 @@ local function BiomeSettingsFragment(props)
 		return withTheme(function(theme)
 			local layoutOrder = props.LayoutOrder or 1
 
-			local useHeightPicker = props.setPlanePositionY and props.setHeightPicker
+			local useHeightPicker = props.showHeightPicker
 
 			return Roact.createFragment({
 				BiomeSelect = Roact.createElement(BiomeSelector, {

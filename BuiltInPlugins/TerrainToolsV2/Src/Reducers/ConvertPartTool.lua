@@ -6,7 +6,7 @@ local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 local ConvertMode = TerrainEnums.ConvertMode
 
 local ConvertPartToMaterial = Rodux.createReducer({
-	convertMode = ConvertMode.Biome,
+	convertMode = ConvertMode.Material,
 	material = Enum.Material.Grass,
 }, {
 	SetConvertMode = function(state, action)

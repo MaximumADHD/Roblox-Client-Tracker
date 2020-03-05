@@ -5,6 +5,7 @@ local CorePackages = game:GetService("CorePackages")
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
+local RoactRodux = InGameMenuDependencies.RoactRodux
 local t = InGameMenuDependencies.t
 local UIBlox = InGameMenuDependencies.UIBlox
 
@@ -23,6 +24,8 @@ local ThemedTextLabel = require(InGameMenu.Components.ThemedTextLabel)
 local withLocalization = require(InGameMenu.Localization.withLocalization)
 local Assets = require(InGameMenu.Resources.Assets)
 
+local SetCurrentPage = require(InGameMenu.Actions.SetCurrentPage)
+
 local AutoPropertyToggleEntry = require(script.Parent.AutoPropertyToggleEntry)
 local CameraModeEntry = require(script.Parent.CameraModeEntry)
 local CameraSensitivityEntry = require(script.Parent.CameraSensitivityEntry)
@@ -36,6 +39,9 @@ local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
 local Constants = require(InGameMenu.Resources.Constants)
 
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
+
+local getFFlagInGameMenuSinglePaneDesign = require(InGameMenu.Flags.GetFFlagInGameMenuSinglePaneDesign)
+local fflagInGameMenuSinglePaneDesign = getFFlagInGameMenuSinglePaneDesign()
 
 local BasicPage = Roact.PureComponent:extend("BasicPage")
 BasicPage.validateProps = t.strictInterface({
@@ -201,4 +207,14 @@ function BasicPage:render()
 	})
 end
 
-return BasicPage
+if fflagInGameMenuSinglePaneDesign then
+	return RoactRodux.UNSTABLE_connect2(nil, function(dispatch)
+		return {
+			switchToAdvancedPage = function()
+				dispatch(SetCurrentPage(Constants.advancedSettingsPageKey))
+			end,
+		}
+	end)(BasicPage)
+else
+	return BasicPage
+end

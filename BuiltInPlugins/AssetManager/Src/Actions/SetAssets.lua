@@ -9,6 +9,7 @@ return Action(script.Name, function(assetsTable)
 	local assets = assetsTable.assets
 	local nextPageCursor = assetsTable.nextPageCursor
 	local previousPageCursor = assetsTable.previousPageCursor
+	local pageNumber = assetsTable.pageNumber
 
     assert(type(assets) == "table",
 		string.format("SetPlaceAssets requires a places table, not %s", type(assets)))
@@ -20,12 +21,17 @@ return Action(script.Name, function(assetsTable)
 		assert(type(previousPageCursor) == "string",
 			string.format("SetPlaceAssets requires a string, not %s", type(previousPageCursor)))
 	end
+	if pageNumber then
+		assert(type(pageNumber) == "number",
+			string.format("SetPlaceAssets requires a number, not %s", type(pageNumber)))
+	end
 
 	return {
 		assetsTable = {
 			assets = assets,
 			nextPageCursor = nextPageCursor or Cryo.None,
 			previousPageCursor = previousPageCursor or Cryo.None,
+			pageNumber = pageNumber or Cryo.None,
 		}
 	}
 end)

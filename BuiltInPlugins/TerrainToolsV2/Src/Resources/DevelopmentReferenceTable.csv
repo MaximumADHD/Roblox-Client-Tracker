@@ -70,7 +70,6 @@ Studio.TerrainToolsV2.ConvertPart.ConvertFailed, , ,Convert failed for instance 
 Studio.TerrainToolsV2.ConvertPart.ConvertShapesToBiome, , ,Converting parts to Biome
 Studio.TerrainToolsV2.ConvertPart.ConvertShapesToMaterial, , ,Converting parts
 Studio.TerrainToolsV2.ConvertPart.ConvertFinished, , ,Convert finished: {1} seconds for {2:int} instance(s)
-Studio.TerrainToolsV2.ConvertPart.GetTargetInstances, , ,Finding parts
 Studio.TerrainToolsV2.ConvertPart.GetTargetShapes, , ,Calculating shapes
 Studio.TerrainToolsV2.ConvertPart.SelectionHelp, , ,Select Parts or Models containing Parts to convert to terrain
 Studio.TerrainToolsV2.ConvertPart.SelectionNeedPart, , ,Invalid selection

@@ -1,7 +1,6 @@
 local Plugin = script.Parent.Parent.Parent
 
 local Constants = require(Plugin.Src.Util.Constants)
-local isProtectedInstance = require(Plugin.Src.Util.isProtectedInstance)
 local PartConverterUtil = require(Plugin.Src.Util.PartConverterUtil)
 
 local TerrainGenerator = require(Plugin.Src.TerrainInterfaces.TerrainGenerator)
@@ -15,39 +14,6 @@ local CONVERT_MATERIAL_WAYPOINT = "ConvertPart_Material"
 local CONVERT_BIOME_WAYPOINT = "ConvertPart_Biome"
 
 local DEBUG_LOG_WORK_TIME = false
-
---[[
-Expects
-	data.instances : { [number]: Instance }
-	data.targetInstances : { [Instance]: true } optional - Set of instances
-		If one is provided, it will be mutated, else new one is added
-Outputs
-	data.targetInstances - See above
-]]
-local GetTargetInstances = {
-	name = "GetTargetInstances",
-
-	onStep = function(data)
-		if not data.targetInstances then
-			data.targetInstances = {}
-		end
-		local targetInstances = data.targetInstances
-
-		local function getTargetInstances(array)
-			for _, obj in ipairs(array) do
-				if not isProtectedInstance(obj) then
-					if PartConverterUtil.isConvertibleToTerrain(obj) then
-						targetInstances[obj] = true
-
-					elseif obj:IsA("Model") or obj:IsA("Folder") then
-						getTargetInstances(obj:GetChildren())
-					end
-				end
-			end
-		end
-		getTargetInstances(data.instances)
-	end,
-}
 
 --[[
 Expects
@@ -203,6 +169,11 @@ local ConvertShapesToBiomes = {
 	name = "ConvertShapesToBiome",
 	timeBetweenSteps = 0.01,
 
+	-- onStart should be refactored to utilize 
+	-- getInstanceSetAABBExtents but this will require
+	-- changing the long operation to support it. 
+	-- Once we know where PartToBiome will exist, we can
+	-- handle the refactor there.
 	onStart = function(data)
 		data.currentIndex = 0
 		data.totalFillCalls = 0
@@ -264,7 +235,9 @@ local ConvertShapesToBiomes = {
 
 		data.generateSettings.genMinY = minY
 		data.generateSettings.genMaxY = maxY
-		data.generateSettings.baseLevel = (minY + maxY) * 0.5
+		if not data.generateSettings.baseLevel then
+			data.generateSettings.baseLevel = (minY + maxY) * 0.5
+		end
 	end,
 
 	onStep = function(data)
@@ -342,7 +315,6 @@ local ConvertShapesToBiomes = {
 }
 
 return {
-	GetTargetInstances = GetTargetInstances,
 	GetTargetShapes = GetTargetShapes,
 	UpdateInstanceVisuals = UpdateInstanceVisuals,
 	ConvertShapesToMaterial = ConvertShapesToMaterial,

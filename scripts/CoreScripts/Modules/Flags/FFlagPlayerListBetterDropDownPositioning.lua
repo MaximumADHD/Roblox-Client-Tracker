@@ -1,1 +1,1 @@
-return game:DefineFastFlag("PlayerListBetterDropDownPositioning", "False")
+return game:DefineFastFlag("PlayerListBetterDropDownPositioning2", false)

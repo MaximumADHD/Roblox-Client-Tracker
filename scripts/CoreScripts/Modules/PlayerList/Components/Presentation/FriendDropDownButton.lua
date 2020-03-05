@@ -5,13 +5,18 @@ local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
 
 local Roact = require(CorePackages.Roact)
 local t = require(CorePackages.Packages.t)
+local UIBlox = require(CorePackages.UIBlox)
 
 local DropDownButtonAnimator = require(script.Parent.DropDownButtonAnimator)
+
+local Images = UIBlox.App.ImageSet.Images
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
 local LocalPlayer = Players.LocalPlayer
+
+local FFlagPlayerListUseUIBloxIcons = require(CoreGui.RobloxGui.Modules.Flags.FFlagPlayerListUseUIBloxIcons)
 
 local FriendDropDownButton = Roact.PureComponent:extend("FriendDropDownButton")
 
@@ -29,16 +34,26 @@ FriendDropDownButton.validateProps = t.strictInterface({
 })
 
 local function getFriendTextAndIcon(friendStatus)
-	if friendStatus == Enum.FriendStatus.Friend then
-		return RobloxTranslator:FormatByKey("PlayerDropDown.Unfriend"), "rbxasset://textures/ui/PlayerList/UnFriend.png"
-	elseif friendStatus == Enum.FriendStatus.Unknown or friendStatus == Enum.FriendStatus.NotFriend then
-		return RobloxTranslator:FormatByKey("PlayerDropDown.FriendRequest"), "rbxasset://textures/ui/PlayerList/AddFriend.png"
-	elseif friendStatus == Enum.FriendStatus.FriendRequestSent then
-		return RobloxTranslator:FormatByKey("PlayerDropDown.CancelRequest"), "rbxasset://textures/ui/PlayerList/AddFriend.png"
-	elseif friendStatus == Enum.FriendStatus.FriendRequestReceived then
-		return RobloxTranslator:FormatByKey("PlayerDropDown.Accept"), "rbxasset://textures/ui/PlayerList/AddFriend.png"
+	local addFriendIcon
+	local unfriendIcon
+	if FFlagPlayerListUseUIBloxIcons then
+		addFriendIcon = Images["icons/actions/friends/friendAdd"]
+		unfriendIcon = Images["icons/actions/friends/friendRemove"]
+	else
+		addFriendIcon = "rbxasset://textures/ui/PlayerList/AddFriend.png"
+		unfriendIcon = "rbxasset://textures/ui/PlayerList/UnFriend.png"
 	end
-	return RobloxTranslator:FormatByKey("PlayerDropDown.Friend Request"), "rbxasset://textures/ui/PlayerList/AddFriend.png"
+
+	if friendStatus == Enum.FriendStatus.Friend then
+		return RobloxTranslator:FormatByKey("PlayerDropDown.Unfriend"), unfriendIcon
+	elseif friendStatus == Enum.FriendStatus.Unknown or friendStatus == Enum.FriendStatus.NotFriend then
+		return RobloxTranslator:FormatByKey("PlayerDropDown.FriendRequest"), addFriendIcon
+	elseif friendStatus == Enum.FriendStatus.FriendRequestSent then
+		return RobloxTranslator:FormatByKey("PlayerDropDown.CancelRequest"), addFriendIcon
+	elseif friendStatus == Enum.FriendStatus.FriendRequestReceived then
+		return RobloxTranslator:FormatByKey("PlayerDropDown.Accept"), addFriendIcon
+	end
+	return RobloxTranslator:FormatByKey("PlayerDropDown.Friend Request"), addFriendIcon
 end
 
 function FriendDropDownButton:init()
@@ -86,7 +101,6 @@ function FriendDropDownButton:render()
 	local onDismiss
 	if self.state.unfriendConfirm then
 		onDismiss = function()
-			print("unfriendConfirm called")
 			self:setState({
 				unfriendConfirm = false,
 			})

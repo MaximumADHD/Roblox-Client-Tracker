@@ -49,6 +49,8 @@ local Theming = require(Plugin.Src.ContextServices.Theming)
 
 local createMenuPage = require(Plugin.Src.Components.createMenuPage)
 
+local FFlagStudioCreateGameGroupOwner = game:DefineFastFlag("StudioCreateGameGroupOwner", false)
+
 --Uses props to display current settings values
 local function displayContents(props, localization)
 	local description = props.Description
@@ -62,10 +64,28 @@ local function displayContents(props, localization)
 	local name = props.Name
 	local nameChanged = props.NameChanged
 	local nameError = props.NameError
+	local creatorId = props.CreatorId
+	local groups = props.Groups
+	local creatorChanged = props.CreatorChanged
 
 	local genres = Cryo.List.map(Constants.GENRE_IDS, function(name)
 		return {Key = name, Text = localization:getText("Genre", name)}
 	end)
+
+	local dropdownItems = { { Type = Constants.SUBJECT_TYPE.USER, Key = 0, Text = localization:getText("GroupDropdown", "Me"), }, }
+
+	if groups and next(groups) ~= nil then
+		for _, group in pairs(groups) do
+			table.insert(dropdownItems, { Type = Constants.SUBJECT_TYPE.GROUP, Key = group.groupId, Text = group.name, })
+		end
+	end
+
+	local creatorItem
+	for _, item in ipairs(dropdownItems) do
+		if creatorId == item.Key then
+			creatorItem = item
+		end
+	end
 
 	return {
 		Header = Roact.createElement(Header, {
@@ -107,8 +127,36 @@ local function displayContents(props, localization)
 			}),
 		}),
 
-		Separator = Roact.createElement(Separator, {
+		Separator1 = FFlagStudioCreateGameGroupOwner and Roact.createElement(Separator, {
 			LayoutOrder = 3,
+		}),
+
+		Creator = FFlagStudioCreateGameGroupOwner and Roact.createElement(TitledFrame, {
+			Title = localization:getText("PageTitle", "Creator"),
+			MaxHeight = 38,
+			TextSize = Constants.TEXT_SIZE,
+			ZIndex = 2,
+			LayoutOrder = 4,
+		}, {
+			Selector = Theming.withTheme(function(theme)
+				return Roact.createElement(StyledDropDown, {
+					Size = UDim2.new(0, 330, 0, 38),
+					Position = UDim2.new(0, 0, 0, 0),
+					ItemHeight = 38,
+					ButtonText = creatorItem.Text,
+					Items = dropdownItems,
+					MaxItems = 4,
+					TextSize = Constants.TEXT_SIZE,
+					SelectedItem = creatorItem.Key,
+					ShowRibbon = not theme.isDarkerTheme,
+					OnItemClicked = function(item) creatorChanged(item.Key) end,
+					ListWidth = 330,
+				})
+			end),
+		}),
+
+		Separator2 = Roact.createElement(Separator, {
+			LayoutOrder = 5,
 		}),
 
 		Genre = Roact.createElement(TitledFrame, {
@@ -116,7 +164,7 @@ local function displayContents(props, localization)
 			MaxHeight = 38,
 			TextSize = Constants.TEXT_SIZE,
 			ZIndex = 2,
-			LayoutOrder = 4,
+			LayoutOrder = 6,
 		}, {
 			Selector = Theming.withTheme(function(theme)
 				return Roact.createElement(StyledDropDown, {
@@ -135,12 +183,12 @@ local function displayContents(props, localization)
 			end),
 		}),
 
-		Separator2 = Roact.createElement(Separator, {
-			LayoutOrder = 5,
+		Separator3 = Roact.createElement(Separator, {
+			LayoutOrder = 7,
 		}),
 
 		Devices = Roact.createElement(PlatformSelect, {
-			LayoutOrder = 6,
+			LayoutOrder = 8,
 			Devices = devices,
 			DevicesError = devicesError,
 			DeviceSelected = function(id, selected)
@@ -157,11 +205,13 @@ end
 local function loadValuesToProps(getValue, state)
 	-- Set in settings reducer.
 	local errors = state.NewGameSettings.errors
+	local groupInfo = state.GroupsHavePermission.groupInfo
 	return {
 		NameError = errors.name,
 		DescriptionError = errors.description,
 		DevicesError = errors.playableDevices,
 		IsCurrentlyActive = state.NewGameSettings.current.isActive,
+		Groups = groupInfo.groups,
 
 		Name = getValue("name"),
 		Description = getValue("description"),
@@ -170,12 +220,15 @@ local function loadValuesToProps(getValue, state)
 		RootPlaceId = getValue("rootPlaceId"),
 		IsActive = getValue("isActive"),
 		IsFriendsOnly = getValue("isFriendsOnly"),
+		CreatorId = getValue("creatorId"),
 	}
 end
 
 --Implements dispatch functions for when the user changes values
 local function dispatchForProps(setValue, dispatch)
 	return {
+		CreatorChanged = setValue("creatorId"),
+
 		GenreChanged = setValue("genre"),
 
 		NameChanged = function(text)

@@ -5,9 +5,9 @@ local PreviewModelGetter = require(Util.PreviewModelGetter)
 
 local SetPreviewModel = require(Plugin.Core.Actions.SetPreviewModel)
 
-return function(assetId)
+return function(assetId, assetTypeId)
 	return function(store)
-		return PreviewModelGetter(assetId):andThen(function(result)
+		return PreviewModelGetter(assetId, assetTypeId):andThen(function(result)
 			if type(result) == "String" then
 				-- failed to get the object
 				store:dispatch(SetPreviewModel(nil))

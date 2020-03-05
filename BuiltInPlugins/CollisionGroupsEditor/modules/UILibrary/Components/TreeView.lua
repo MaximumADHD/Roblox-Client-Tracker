@@ -32,6 +32,7 @@
 		toggleExpanded : (function<void>()) a function that tells the treeview to expand or collapse this row
 		toggleSelected : (function<void>(bool)) a function that tells the treeview to select this row
 ]]
+local FFlagStudioFixTreeViewForSquish = settings():GetFFlag("StudioFixTreeViewForSquish")
 
 local Library = script.Parent.Parent
 
@@ -70,6 +71,10 @@ function TreeView:init()
 		resizeScrollContent : a callback for when the content in the treeview resizes. Ensures that all content can be seen
 	]]
 	self.resizeScrollContent = function()
+		if not FFlagStudioFixTreeViewForSquish then
+			return
+		end
+
 		-- keep the canvas size equal to the size of the content in it
 		local absoluteContentSize = self.layoutRef.current.AbsoluteContentSize
 		self.contentRef.current.CanvasSize = UDim2.new(0, absoluteContentSize.X, 0, absoluteContentSize.Y)
@@ -182,7 +187,8 @@ function TreeView:init()
 			rowIndex : (int) the current row of the element
 			indent : (int) the current depth of the element
 	]]
-	self.createNode = function(element, parent, rowIndex, indent)
+	-- Remove with FFlagStudioFixTreeViewForSquish
+	self.DEPRECATED_createNode = function(element, parent, rowIndex, indent)
 		local expandedItems = self.state.expandedItems
 		local selectedItems = self.state.selectedItems
 		local renderElement = self.props.renderElement
@@ -210,6 +216,35 @@ function TreeView:init()
 		return renderElement(props)
 	end
 
+	self.createNode = function(element, rowIndex, indent, children)
+		local expandedItems = self.state.expandedItems
+		local selectedItems = self.state.selectedItems
+		local renderElement = self.props.renderElement
+		local getChildren = self.props.getChildren
+
+		local canExpand = next(getChildren(element)) ~= nil
+
+		local props = {
+			-- data information
+			element = element,
+
+			-- styling information
+			rowIndex = rowIndex,
+			indent = indent,
+			canExpand = canExpand,
+			isExpanded = expandedItems[element] == true,
+			isSelected = selectedItems[element] == true,
+
+			-- function callbacks
+			toggleExpanded = self.toggleExpandedElement(canExpand and element or nil),
+			toggleSelected = self.toggleSelectedElement(element),
+
+			children = children,
+		}
+
+		return renderElement(props)
+	end
+
 	--[[
 		traverseDepthFirst : visits all of the children in a tree structure, assuming they have been expanded
 
@@ -222,7 +257,9 @@ function TreeView:init()
 			 - getChildrenOfElement : (function<list<DataNode>>(DataNode)) gets a list of children from a parent
 			 - sortChildren : (optional, function<bool>(DataNode, DataNode) a comparator function to sort the children
 	]]
-	self.traverseDepthFirst = function(parent, depth, handlers)
+
+	-- Remove with FFlagStudioFixTreeViewForSquish
+	self.DEPRECATED_traverseDepthFirst = function(parent, depth, handlers)
 		local children = handlers.getChildrenOfElement(parent)
 
 		if handlers.sortChildren then
@@ -236,11 +273,31 @@ function TreeView:init()
 			-- check if there are any children of this node we should traverse
 			local shouldContinue = handlers.decideShouldContinue(child, depth + 1, parent)
 			if shouldContinue then
-				self.traverseDepthFirst(child, depth + 1, handlers)
+				self.DEPRECATED_traverseDepthFirst(child, depth + 1, handlers)
 			end
 		end
 	end
 
+	self.traverseDepthFirst = function(current, depth, handlers)
+		if not handlers.decideShouldContinue(current) then
+			return handlers.onNodeVisited(current, depth, {})
+		end
+
+		local children = handlers.getChildrenOfElement(current)
+
+		local childComponents = {}
+
+		if handlers.sortChildren then
+			table.sort(children, handlers.sortChildren)
+		end
+
+		for _, child in pairs(children) do
+			local childComponent = self.traverseDepthFirst(child, depth + 1, handlers)
+			table.insert(childComponents, childComponent)
+		end
+
+		return handlers.onNodeVisited(current, depth, childComponents)
+	end
 	--[[
 		getVisibleNodes : returns a map of the elements to render into the tree, including the root
 	]]
@@ -255,29 +312,55 @@ function TreeView:init()
 		local sortChildren = self.props.sortChildren
 
 		local numNodes = 1
-		local treeNodes = {
-			Root = self.createNode(root, nil, 0, 0),
-		}
+		local treeNodes
+		if not FFlagStudioFixTreeViewForSquish then
+			treeNodes = {
+				Root = self.DEPRECATED_createNode(root, nil, 0, 0),
+			}
+		else
+			treeNodes = {}
+		end
 
 		if expandedItems[root] then
-			self.traverseDepthFirst(root, 0, {
-				-- upon visiting a node, add it to the map of elements to display
-				onNodeVisited = function(child, depth, parent)
-					local nodeName = string.format("Node-%d", numNodes)
-					treeNodes[nodeName] = self.createNode(child, parent, numNodes, depth)
+			if FFlagStudioFixTreeViewForSquish then
+				treeNodes.Root = self.traverseDepthFirst(root, 0, {
+					-- upon visiting a node, add it to the map of elements to display
+					onNodeVisited = function(child, depth, children)
+						local node = self.createNode(child, numNodes, depth, children)
+						numNodes = numNodes + 1
+						return node
+					end,
 
-					numNodes = numNodes + 1
-					table.insert(self.nodesArray, child)
-				end,
+					-- when deciding whether to continue traversing the child elements, check if it is expanded
+					decideShouldContinue = function(child)
+						return expandedItems[child] == true
+					end,
 
-				-- when deciding whether to continue traversing the child elements, check if it is expanded
-				decideShouldContinue = function(child, depth, parent)
-					return expandedItems[child] == true
-				end,
+					-- allow the consumer to figure out how to get the children of each element
+					getChildrenOfElement = getChildren,
+					sortChildren = sortChildren })
+			else
+				self.DEPRECATED_traverseDepthFirst(root, 0, {
+					-- upon visiting a node, add it to the map of elements to display
+					onNodeVisited = function(child, depth, parent)
+						local nodeName = string.format("Node-%d", numNodes)
+						treeNodes[nodeName] = self.DEPRECATED_createNode(child, parent, numNodes, depth)
 
-				-- allow the consumer to figure out how to get the children of each element
-				getChildrenOfElement = getChildren,
-				sortChildren = sortChildren })
+						numNodes = numNodes + 1
+						table.insert(self.nodesArray, child)
+					end,
+
+					-- when deciding whether to continue traversing the child elements, check if it is expanded
+					decideShouldContinue = function(child, depth, parent)
+						return expandedItems[child] == true
+					end,
+
+					-- allow the consumer to figure out how to get the children of each element
+					getChildrenOfElement = getChildren,
+					sortChildren = sortChildren })
+			end
+		elseif FFlagStudioFixTreeViewForSquish then
+			treeNodes.Root = self.createNode(root, 0 , 0, {})
 		end
 
 		return treeNodes
@@ -288,18 +371,29 @@ function TreeView:init()
 		local expandedItems = {
 			[dataTreeRoot] = true,
 		}
-
-		self.traverseDepthFirst(dataTreeRoot, 0, {
-			onNodeVisited = function(child)
-				expandedItems[child] = true
-			end,
-			decideShouldContinue = function()
-				return true
-			end,
-			getChildrenOfElement = getChildrenFunc,
-			sortChildren = sortChildrenFunc,
-		})
-
+		if FFlagStudioFixTreeViewForSquish then
+			self.traverseDepthFirst(dataTreeRoot, 0, {
+				onNodeVisited = function(child)
+					expandedItems[child] = true
+				end,
+				decideShouldContinue = function()
+					return true
+				end,
+				getChildrenOfElement = getChildrenFunc,
+				sortChildren = sortChildrenFunc,
+			})
+		else
+			self.DEPRECATED_traverseDepthFirst(dataTreeRoot, 0, {
+				onNodeVisited = function(child)
+					expandedItems[child] = true
+				end,
+				decideShouldContinue = function()
+					return true
+				end,
+				getChildrenOfElement = getChildrenFunc,
+				sortChildren = sortChildrenFunc,
+			})
+		end
 		self.state.expandedItems = expandedItems
 	end
 
@@ -314,26 +408,32 @@ function TreeView:render()
 	return withTheme(function(theme)
 		local props = self.props
 
+		local padding = theme.treeView.scrollbar.scrollbarPadding
+
+		local size = FFlagStudioFixTreeViewForSquish and props.Size or UDim2.new(1, -2*padding, 1, -2*padding)
+
 		local layoutOrder = props.LayoutOrder
+
+		local childrenPadding = not FFlagStudioFixTreeViewForSquish and UDim.new(0, theme.treeView.elementPadding) or nil
 
 		local treeViewChildren = {
 			Layout = Roact.createElement("UIListLayout", {
 				SortOrder = Enum.SortOrder.LayoutOrder,
 				FillDirection = Enum.FillDirection.Vertical,
-				Padding = UDim.new(0, theme.treeView.elementPadding),
+				Padding = childrenPadding,
 				[Roact.Ref] = self.layoutRef,
+				[Roact.Change.AbsoluteContentSize] = self.resizeScrollContent,
 			})
 		}
+
 		for name, node in pairs(self.getVisibleNodes()) do
 			-- each of these children will be rendered by the consumer
 			treeViewChildren[name] = node
 		end
 
-		local padding = theme.treeView.scrollbar.scrollbarPadding
-
 		return Roact.createElement("ScrollingFrame", {
 			Position = UDim2.new(0, padding, 0, padding),
-			Size = UDim2.new(1, -2*padding, 1, -2*padding),
+			Size = size,
 			BorderSizePixel = 0,
 			BackgroundTransparency = 1,
 			ScrollBarThickness = theme.treeView.scrollbar.scrollbarThickness,
@@ -359,8 +459,10 @@ function TreeView:didUpdate()
 end
 
 function TreeView:didMount()
-	local resizeSignal = self.layoutRef.current:GetPropertyChangedSignal("AbsoluteContentSize")
-	self.scrollbarResizeSignalToken = resizeSignal:Connect(self.resizeScrollContent)
+	if not FFlagStudioFixTreeViewForSquish then
+		local resizeSignal = self.layoutRef.current:GetPropertyChangedSignal("AbsoluteContentSize")
+		self.scrollbarResizeSignalToken = resizeSignal:Connect(self.resizeScrollContent)
+	end
 
 	self.onTreeUpdated()
 end

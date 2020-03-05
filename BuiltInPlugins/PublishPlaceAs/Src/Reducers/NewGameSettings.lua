@@ -41,6 +41,7 @@ local initial = {
 	current = {},
 	changed = {
 		name = "Untitled Game",
+		creatorId = 0,
 		description = "",
 		genre = Constants.GENRE_IDS[1],
 		playableDevices = {Computer = true},

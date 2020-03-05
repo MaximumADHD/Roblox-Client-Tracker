@@ -2,6 +2,7 @@ local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 
 local Roact = require(CorePackages.Roact)
+local UIBlox = require(CorePackages.UIBlox)
 local t = require(CorePackages.Packages.t)
 
 local Components = script.Parent.Parent
@@ -9,7 +10,10 @@ local Connection = Components.Connection
 local LayoutValues = require(Connection.LayoutValues)
 local WithLayoutValues = LayoutValues.WithLayoutValues
 
+local ImageSetLabel = UIBlox.Core.ImageSet.Label
+
 local FFlagUpdateLeaderboardIconPriority = game:GetFastFlag("UpdateLeaderboardIconPriority")
+local FFlagPlayerListUseUIBloxIcons = require(CoreGui.RobloxGui.Modules.Flags.FFlagPlayerListUseUIBloxIcons)
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local FFlagPlayerListPerformanceImprovements = require(RobloxGui.Modules.Flags.FFlagPlayerListPerformanceImprovements)
@@ -111,7 +115,7 @@ function PlayerIcon:render()
 				})
 			})
 		else
-			return Roact.createElement("ImageLabel", {
+			return Roact.createElement(FFlagPlayerListUseUIBloxIcons and ImageSetLabel or "ImageLabel", {
 				LayoutOrder = self.props.layoutOrder,
 				Size = layoutValues.PlayerIconSize,
 				BackgroundTransparency = 1,

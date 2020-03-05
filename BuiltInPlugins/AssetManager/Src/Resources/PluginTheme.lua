@@ -34,14 +34,15 @@ local function createStyles(theme, getColor)
 	})
 	local rightArrowProps = arrowSpritesheet[2]
 	local leftArrowProps = arrowSpritesheet[4]
+	local downArrowProps = arrowSpritesheet[3]
 
 	local button = StyleTable.new("Button", function()
 		-- Defining a new button style that uses images
-		local TopBarButton = Style.new({
+		local AssetManagerButton = Style.new({
 			Background = Decoration.Box,
 			BackgroundStyle = {
 				Color = theme:GetColor(c.MainBackground),
-				BorderColor = Color3.fromRGB(0, 0, 0),
+				BorderColor = theme:GetColor(c.Border),
 				BorderSize = 1,
 			},
 			Foreground = Decoration.Image,
@@ -61,32 +62,44 @@ local function createStyles(theme, getColor)
 			},
 		})
 
-		local OverlayButton = Style.extend(TopBarButton, {
-			ForegroundStyle = Style.extend(TopBarButton.ForegroundStyle, {
+		local OverlayButton = Style.extend(AssetManagerButton, {
+			ForegroundStyle = Style.extend(AssetManagerButton.ForegroundStyle, {
 				Image = "rbxasset://textures/StudioSharedUI/menu.png",
 			})
 		})
 
-		local PreviousButton = Style.extend(TopBarButton, {
-			ForegroundStyle = Style.extend(TopBarButton.ForegroundStyle, Cryo.Dictionary.join(leftArrowProps, {
+		local PreviousButton = Style.extend(AssetManagerButton, {
+			ForegroundStyle = Style.extend(AssetManagerButton.ForegroundStyle, Cryo.Dictionary.join(leftArrowProps, {
 				Size = UDim2.new(0, 10, 0, 10),
 				AnchorPoint = Vector2.new(0.5, 0.5),
 				Position = UDim2.new(0.5, 0, 0.5, 0),
 			}))
 		})
 
-		local NextButton = Style.extend(TopBarButton, {
-			ForegroundStyle = Style.extend(TopBarButton.ForegroundStyle, Cryo.Dictionary.join(rightArrowProps, {
+		local NextButton = Style.extend(AssetManagerButton, {
+			ForegroundStyle = Style.extend(AssetManagerButton.ForegroundStyle, Cryo.Dictionary.join(rightArrowProps, {
 				Size = UDim2.new(0, 10, 0, 10),
 				AnchorPoint = Vector2.new(0.5, 0.5),
 				Position = UDim2.new(0.5, 0, 0.5, 0),
 			}))
 		})
 
-		local BulkImporterButton = Style.extend(TopBarButton, {
-			ForegroundStyle = Style.extend(TopBarButton.ForegroundStyle, {
+		local BulkImporterButton = Style.extend(AssetManagerButton, {
+			ForegroundStyle = Style.extend(AssetManagerButton.ForegroundStyle, {
 				Image = "rbxasset://textures/StudioSharedUI/import.png",
 			})
+		})
+
+		local TreeItemButton = Style.extend(AssetManagerButton, {
+			TextSize = 14,
+			TextColor = theme:GetColor(c.MainText),
+			Font = Enum.Font.SourceSans,
+			TextXAlignment = Enum.TextXAlignment.Left,
+			TextYAlignment = Enum.TextYAlignment.Bottom,
+
+			BackgroundStyle = Style.extend(AssetManagerButton.BackgroundStyle, {
+				BorderSize = 0,
+			}),
 		})
 
 		return {
@@ -94,6 +107,7 @@ local function createStyles(theme, getColor)
 			PreviousButton = PreviousButton,
 			NextButton = NextButton,
 			BulkImporterButton = BulkImporterButton,
+			TreeItemButton = TreeItemButton,
 		}
 	end)
 
@@ -155,8 +169,8 @@ local function createStyles(theme, getColor)
 			FontSizeSmall = 14,
 
 			NavBar = {
-				TextColor = theme:GetColor(c.DialogButtonText),
-				TextColorDisabled = theme:GetColor(c.DialogButtonText, m.Disabled),
+				BackgroundColor = theme:GetColor(c.Titlebar),
+				ImageSize = 24,
 				Padding = 12,
 				Height = 38,
 			},
@@ -187,8 +201,6 @@ local function createStyles(theme, getColor)
 			TopBar = {
 				Height = 53,
 
-				BorderColor = Color3.fromRGB(0, 0, 0),
-
 				Button = {
 					Size = 24,
 				},
@@ -200,6 +212,20 @@ local function createStyles(theme, getColor)
 					Width = 210,
 					Padding = 5,
 				}
+			},
+
+			TreeViewItem = {
+				Height = 16,
+				Indent = 20,
+				Offset = 3,
+				Padding = 5,
+
+				Arrow = {
+					Expanded = downArrowProps,
+					Collapsed = rightArrowProps,
+					Color = theme:GetColor(c.MainText),
+					Size = 9,
+				},
 			},
 		},
 
@@ -237,10 +263,6 @@ local function getUILibraryTheme()
 				size = 24,
 			}
 		},
-		instanceTreeView = {
-			hover = theme:GetColor(c.Item, m.Hover),
-			selected = theme:GetColor(c.Item, m.Selected),
-		}
 	}
 
 	return createTheme(UILibraryPalette, UILibraryOverrides)

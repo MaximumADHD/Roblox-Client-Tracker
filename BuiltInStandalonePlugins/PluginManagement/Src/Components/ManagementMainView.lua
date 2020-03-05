@@ -37,7 +37,6 @@ local FFlagEnablePurchasePluginFromLua2 = game:GetFastFlag("EnablePurchasePlugin
 local FFlagEnableStudioServiceOpenBrowser = game:GetFastFlag("EnableStudioServiceOpenBrowser")
 local FFlagPluginManagementAllowLotsOfPlugins2 = settings():GetFFlag("PluginManagementAllowLotsOfPlugins2")
 local FFlagFixFindPluginsMessage = game:DefineFastFlag("FixFindPluginsMessage", false)
-local FFlagPluginManagementPrettifyDesign = game:GetFastFlag("PluginManagementPrettifyDesign")
 local ManagementMainView = Roact.Component:extend("ManagementMainView")
 
 function ManagementMainView:init()
@@ -165,7 +164,7 @@ function ManagementMainView:render()
 			Size = UDim2.new(0,Constants.HEADER_TITLE_WIDTH,0,Constants.HEADER_BUTTON_SIZE),
 			Position = UDim2.new(0,Constants.HEADER_LEFT_PADDING,0,Constants.HEADER_TOP_PADDING),
 			Text = localization:getText("Main", "Title"),
-			TextSize = FFlagPluginManagementPrettifyDesign and 18 or 24,
+			TextSize = 24,
 			TextColor3 = theme.TextColor,
 			Font = Enum.Font.SourceSansSemibold,
 			BackgroundTransparency = 1,
@@ -185,7 +184,7 @@ function ManagementMainView:render()
 						Text = localization:getText("Main", "UpdateAllButton"),
 						TextColor3 = updateDisabled and theme.DisabledColor or theme.TextColor,
 						Font = Enum.Font.SourceSans,
-						TextSize = FFlagPluginManagementPrettifyDesign and 16 or 18,
+						TextSize = 18,
 						BackgroundTransparency = 1,
 					})
 				}

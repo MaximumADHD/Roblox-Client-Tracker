@@ -1,3 +1,4 @@
+local FFlagEnableToolboxAssetNameColorChange = game:GetFastFlag("EnableToolboxAssetNameColorChange")
 local Plugin = script.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
@@ -201,7 +202,7 @@ function ToolboxTheme:_recalculateTheme()
 			},
 
 			assetName = {
-				textColor = color(c.LinkText),
+				textColor = FFlagEnableToolboxAssetNameColorChange and color(c.MainText) or color(c.LinkText),
 			},
 
 			status = {
@@ -221,6 +222,10 @@ function ToolboxTheme:_recalculateTheme()
 				votedUpThumb = Color3.fromRGB(0, 178, 89),
 				votedDownThumb = Color3.fromRGB(216, 104, 104),
 				voteThumb = Color3.fromRGB(117, 117, 117),
+			},
+
+			assetIcon = {
+				buttonColor = isDark and Color3.fromRGB(178, 178, 178) or color(c.SubText),
 			},
 		},
 
@@ -539,6 +544,14 @@ function ToolboxTheme:_recalculateTheme()
 				rightTextColor = isDark and Color3.fromRGB(204, 204, 204) or color(c.MainText),
 				lineColor = isDark and Color3.fromRGB(34, 34, 34) or Color3.fromRGB(227, 227, 227),
 			},
+
+			audioPreview = {
+				background = color(c.MainBackground),
+				textColor = styleGuide.textColor,
+				button_Color = isDark and Color3.fromRGB(204, 204, 204) or Color3.fromRGB(117, 117, 117),
+				audioPlay_BG_Color = isDark and Color3.fromRGB(102, 102, 102) or Color3.fromRGB(204, 204, 204),
+				progressBar_BG_Color = isDark and Color3.fromRGB(37, 37, 37) or Color3.fromRGB(219, 219, 219),
+			},
 		},
 
 		loadingBar = {
@@ -578,6 +591,15 @@ function ToolboxTheme:_recalculateTheme()
 
 		tooltip = {
 			textSize = Constants.FONT_SIZE_SMALL,
+		},
+
+		searchBar = {
+			backgroundColor = color(c.Dropdown),
+			border = {
+				selected = {
+					color = Colors.BLUE_PRIMARY,
+				},
+			},
 		},
 	}
 

@@ -16,21 +16,21 @@ local Math = require(DraggerFramework.Utility.Math)
 local RotateHandleView = Roact.PureComponent:extend("RotateHandleView")
 
 local HANDLE_SEGMENTS = 64
-local HANDLE_RADIUS = 6
-local HANDLE_THICKNESS = 0.2
+local HANDLE_RADIUS = 4.5
+local HANDLE_THICKNESS = 0.15
 local HANDLE_HITTEST_THICKNESS = HANDLE_THICKNESS * 2.5
 
 function RotateHandleView:render()
 	-- DEBUG: Allow designers to play with handle settings.
 	-- Remove before shipping!
 	if Workspace:FindFirstChild("RotateHandleRadius") and Workspace.RotateHandleRadius.Value ~= 0 then
-        HANDLE_RADIUS = 6 * Workspace.RotateHandleRadius.Value
+        HANDLE_RADIUS = 4.5 * Workspace.RotateHandleRadius.Value
     end
 	if Workspace:FindFirstChild("RotateHandleSegments") and Workspace.RotateHandleSegments.Value ~= 0 then
         HANDLE_SEGMENTS = 64 * Workspace.RotateHandleSegments.Value
 	end
 	if Workspace:FindFirstChild("RotateHandleThickness") and Workspace.RotateHandleThickness.Value ~= 0 then
-		HANDLE_THICKNESS = 0.2 * Workspace.RotateHandleThickness.Value
+		HANDLE_THICKNESS = 0.15 * Workspace.RotateHandleThickness.Value
 		HANDLE_HITTEST_THICKNESS = HANDLE_THICKNESS * 2.5
     end
 

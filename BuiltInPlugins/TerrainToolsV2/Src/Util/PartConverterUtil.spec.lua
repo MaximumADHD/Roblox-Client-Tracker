@@ -1,9 +1,14 @@
+local Plugin = script.Parent.Parent.Parent
+local TestHelpers = Plugin.Src.TestHelpers
+
 local PartConverterUtil = require(script.Parent.PartConverterUtil)
 
 local TerrainEnums = require(script.Parent.TerrainEnums)
 local Shape = TerrainEnums.Shape
 
 local getTerrain = require(script.Parent.getTerrain)
+
+local setEquals = require(TestHelpers.setEquals)
 
 return function()
 	describe("isConvertibleToTerrain", function()
@@ -29,84 +34,96 @@ return function()
 		it("should not allow protected instances", function()
 			expect(ictt(game:GetService("CSGDictionaryService"))).to.equal(false)
 		end)
-	end)
 
-	describe("isConvertibleContainerToTerrain", function()
-		local icctt = PartConverterUtil.isConvertibleContainerToTerrain
-
-		it("should handle nil and protected instances", function()
-			expect(icctt(nil)).to.equal(false)
-			expect(icctt(game:GetService("CSGDictionaryService"))).to.equal(false)
-		end)
-
-		it("should find parts inside models", function()
-			local m = Instance.new("Model")
-			expect(icctt(m)).to.equal(false)
-
-			local p = Instance.new("Part")
-			p.Parent = m
-			expect(icctt(p)).to.equal(false)
-			expect(icctt(m)).to.equal(true)
-
-			p.Parent = nil
-			expect(icctt(m)).to.equal(false)
-		end)
-
-		it("should find parts nested deep in models", function()
-			local m = Instance.new("Model")
-			expect(icctt(m)).to.equal(false)
-
-			local m2 = Instance.new("Model", m)
-			local m3 = Instance.new("Model", m2)
-
-			expect(icctt(m2)).to.equal(false)
-			expect(icctt(m3)).to.equal(false)
-
-			local p = Instance.new("Part")
-			p.Parent = m3
-
-			expect(icctt(m)).to.equal(true)
-			expect(icctt(m2)).to.equal(true)
-			expect(icctt(m3)).to.equal(true)
-		end)
-	end)
-
-	describe("validInstanceFilter", function()
-		local vif = PartConverterUtil.validInstanceFilter
-
-		it("should handle nil and protected instances", function()
-			expect(vif(nil)).to.equal(false)
-			expect(vif(game:GetService("CSGDictionaryService"))).to.equal(false)
-		end)
-
-		it("should not allow terrain", function()
-			expect(vif(getTerrain())).to.equal(false)
-		end)
-
-		it("should allow valid parts", function()
-			expect(vif(Instance.new("Part"))).to.equal(false)
+		it("should not allow mesh parts and union operations", function()
 			local parent = Instance.new("Model")
-			local part = Instance.new("Part")
-			part.Parent = parent
-			expect(vif(part)).to.equal(true)
+			local meshPart = Instance.new("MeshPart", parent)
+			local union = Instance.new("UnionOperation", parent)
+			local negate = Instance.new("NegateOperation", parent)
+
+			expect(ictt(meshPart)).to.equal(false)
+			expect(ictt(union)).to.equal(false)
+			expect(ictt(negate)).to.equal(false)
+		end)
+	end)
+
+	describe("getValidInvalidInfo", function()
+		local gvii = PartConverterUtil.getValidInvalidInfo
+
+		it("should handle selecting parts", function()
+			local m = Instance.new("Model")
+			local p1 = Instance.new("Part", m)
+			local p2 = Instance.new("Part", m)
+
+			local valid, hasInvalid
+			valid, hasInvalid = gvii({})
+			expect(setEquals(valid, {})).to.equal(true)
+			expect(hasInvalid).to.equal(false)
+
+			valid, hasInvalid = gvii({p1, p2})
+			expect(setEquals(valid, {[p1] = true, [p2] = true})).to.equal(true)
+			expect(hasInvalid).to.equal(false)
 		end)
 
-		it("should allow valid models", function()
+		it("should handle invalid instances", function()
+			local invalidInstance = Instance.new("IntValue")
+
+			local valid, hasInvalid = gvii({invalidInstance})
+			expect(setEquals(valid, {})).to.equal(true)
+			expect(hasInvalid).to.equal(true)
+		end)
+
+		it("should handle protected instances", function()
+			local valid, hasInvalid = gvii({game:GetService("CSGDictionaryService")})
+			expect(setEquals(valid, {})).to.equal(true)
+			expect(hasInvalid).to.equal(true)
+		end)
+
+		it("should handle models", function()
 			local m = Instance.new("Model")
-			expect(vif(m)).to.equal(false)
 
-			local m2 = Instance.new("Model", m)
+			local valid, hasInvalid
+			valid, hasInvalid = gvii({m})
+			expect(setEquals(valid, {})).to.equal(true)
+			expect(hasInvalid).to.equal(false)
+
+			local p1 = Instance.new("Part", m)
+			valid, hasInvalid = gvii({m})
+			expect(setEquals(valid, {[p1] = true})).to.equal(true)
+			expect(hasInvalid).to.equal(false)
+
+			local p2 = Instance.new("Part", m)
+			valid, hasInvalid = gvii({m})
+			expect(setEquals(valid, {[p1] = true, [p2] = true})).to.equal(true)
+			expect(hasInvalid).to.equal(false)
+
+			Instance.new("IntValue", m)
+			valid, hasInvalid = gvii({m})
+			expect(setEquals(valid, {[p1] = true, [p2] = true})).to.equal(true)
+			expect(hasInvalid).to.equal(true)
+		end)
+
+		it("should handle nested models", function()
+			local m1 = Instance.new("Model")
+			local m2 = Instance.new("Model", m1)
 			local m3 = Instance.new("Model", m2)
+			local m4 = Instance.new("Model", m3)
 
-			expect(vif(m2)).to.equal(false)
-			expect(vif(m3)).to.equal(false)
+			local valid, hasInvalid
+			valid, hasInvalid = gvii({m1})
+			expect(setEquals(valid, {})).to.equal(true)
+			expect(hasInvalid).to.equal(false)
 
-			local p = Instance.new("Part")
-			p.Parent = m3
+			local p1 = Instance.new("Part", m3)
+			local p2 = Instance.new("Part", m4)
+			valid, hasInvalid = gvii({m1})
+			expect(setEquals(valid, {[p1] = true, [p2] = true})).to.equal(true)
+			expect(hasInvalid).to.equal(false)
 
-			expect(vif(m)).to.equal(true)
-			expect(vif(m2)).to.equal(true)
-			expect(vif(m3)).to.equal(true)
+			Instance.new("IntValue", m2)
+			valid, hasInvalid = gvii({m1})
+			expect(setEquals(valid, {[p1] = true, [p2] = true})).to.equal(true)
+			expect(hasInvalid).to.equal(true)
 		end)
 	end)
 

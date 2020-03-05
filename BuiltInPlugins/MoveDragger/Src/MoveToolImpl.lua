@@ -14,6 +14,7 @@ local PartMover = require(DraggerFramework.Utility.PartMover)
 local AttachmentMover = require(DraggerFramework.Utility.AttachmentMover)
 local StudioSettings = require(DraggerFramework.Utility.StudioSettings)
 local Colors = require(DraggerFramework.Utility.Colors)
+local getHandleScale = require(DraggerFramework.Utility.getHandleScale)
 
 local MoveHandleView = require(Plugin.Src.MoveHandleView)
 
@@ -86,9 +87,10 @@ function MoveToolImpl:update(draggerToolState)
         -- Don't clobber these fields while we're dragging because we're
         -- updating the bounding box in a smart way given how we're moving the
         -- parts.
+        self._boundingBoxOffsetCFrame = CFrame.new(draggerToolState.boundingBoxOffset)
         self._boundingBox = {
             Size = draggerToolState.boundingBoxSize,
-            CFrame = draggerToolState.mainCFrame * CFrame.new(draggerToolState.boundingBoxOffset),
+            CFrame = draggerToolState.mainCFrame * self._boundingBoxOffsetCFrame,
         }
         self._attachmentsToMove = draggerToolState.attachmentsToMove
         self._partsToMove = draggerToolState.partsToMove
@@ -156,6 +158,12 @@ function MoveToolImpl:mouseDown(mouseRay, handleId)
     self._attachmentMover:setDragged(
         self._attachmentsToMove)
     self:_setupMoveAtCurrentBoundingBox(mouseRay)
+
+    -- Calculate fraction of the way along the handle to "stick" the cursor to
+    local handleOffset, handleLength = MoveHandleView.getHandleDimensionForScale(self._scale)
+    local offsetDueToBoundingBox = self._handles[handleId].AxisOffset
+    self._draggingHandleFrac =
+        (self._startDistance - handleOffset - offsetDueToBoundingBox) / handleLength
 end
 
 function MoveToolImpl:_setupMoveAtCurrentBoundingBox(mouseRay)
@@ -170,12 +178,95 @@ function MoveToolImpl:_setupMoveAtCurrentBoundingBox(mouseRay)
     self._startDistance = distance
 end
 
+--[[
+    We want to keep the mouse cursor snapped to a point a constant fraction of
+    the way down the handle length over the whole duration of a move. This is
+    non-trivial, as the distance along the handle depends on the scale of the
+    handle, but the scale of the handle depends on how far it has been moved
+    relative to the camera.
+
+    We must solve a non-linear equation satisfying the constraint:
+        fraction of distance along handle at new location
+        equals
+        fraction of distance along handle at start location
+
+    Do this using a binary search over the potential solution space.
+]]
+function MoveToolImpl:_solveForAdjustedDistance(unadjustedDistance)
+    -- Only try to adjust the movement for a geometric move
+    if areConstraintsEnabled() then
+        return unadjustedDistance
+    end
+
+    local offsetDueToBoundingBox = self._handles[self._draggingHandleId].AxisOffset
+
+    local function getScaleForDistance(distance)
+        local boundingBoxCFrameAtDistance =
+            self._draggingOriginalBoundingBoxCFrame + self._axis * distance
+        local focusPointAtDistance =
+            boundingBoxCFrameAtDistance * self._boundingBoxOffsetCFrame:Inverse()
+        return getHandleScale(focusPointAtDistance.Position)
+    end
+
+    local function getHandleFracForDistance(distance)
+        local scale = getScaleForDistance(distance)
+        local handleOffset, handleLength = MoveHandleView.getHandleDimensionForScale(scale)
+        local intoDist = unadjustedDistance - distance + self._startDistance
+        return (intoDist - handleOffset - offsetDueToBoundingBox) / handleLength
+    end
+
+    local function getHandleLengthForDistance(distance)
+        local handleOffset, handleLength =
+            MoveHandleView.getHandleDimensionForScale(getScaleForDistance(distance))
+        return handleLength
+    end
+
+    -- Establish the bounds on the binary search for a good distance. Using
+    -- max(originalLength, newLength) is a bit of a hack.
+    -- abs(originalLength - newLength) is the more mathematically appropriate
+    -- expression for how much unadjustedDistance might be off by, but it's too
+    -- "sharp", and slightly misses including the solution we're looking for
+    -- sometimes. Using the larger interval with max works too, it's just doing
+    -- slightly more work than it should really have to.
+    local originalHandleLength = getHandleLengthForDistance(0)
+    local currentHandleLength = getHandleLengthForDistance(unadjustedDistance)
+    local handleSizeDifference = math.max(originalHandleLength, currentHandleLength)
+    local minPossibleDistance = unadjustedDistance - handleSizeDifference
+    local maxPossibleDistance = unadjustedDistance + handleSizeDifference
+    local fracAtMin = getHandleFracForDistance(minPossibleDistance)
+    local fracAtMax = getHandleFracForDistance(maxPossibleDistance)
+
+    -- Do the binary search
+    local iterationCount = 0
+    while math.abs(minPossibleDistance - maxPossibleDistance) > 0.0001 and iterationCount < 32 do
+        local mid = 0.5 * (minPossibleDistance + maxPossibleDistance)
+        local fracAtMid = getHandleFracForDistance(mid)
+        if (self._draggingHandleFrac - fracAtMid) * (fracAtMax - fracAtMin) > 0 then
+            minPossibleDistance = mid
+            fracAtMin = fracAtMid
+        else
+            maxPossibleDistance = mid
+            fracAtMax = fracAtMid
+        end
+    end
+
+    if math.abs(fracAtMin - self._draggingHandleFrac) > 0.001 then
+        -- TODO: If you see this, I still got something wrong in this solution,
+        -- remove before shipping.
+        warn("Failed to solve for movement amount! Wanted:", self._draggingHandleFrac,
+            "Got:", fracAtMin)
+    end
+
+    return minPossibleDistance
+end
+
 function MoveToolImpl:mouseDrag(mouseRay)
     local hasDistance, distance = self:_getDistanceAlongAxis(mouseRay)
     if not hasDistance then
         return
     end
-    local delta = distance - self._startDistance
+
+    local delta = self:_solveForAdjustedDistance(distance) - self._startDistance
 
     -- Apply snapping unconditionally because free axis movement in studio is
     -- implemented as snapping with grid size = 0.001.
@@ -205,8 +296,8 @@ function MoveToolImpl:_mouseDragWithGeometricMovement(mouseRay, snappedDelta)
         self._draggingLastGoodGeometricDelta = snappedDelta
     end
 
-    self._boundingBox.CFrame =
-        self._draggingOriginalBoundingBoxCFrame + self._axis * self._draggingLastGoodGeometricDelta
+    self:_setMidMoveBoundingBox(
+        self._draggingOriginalBoundingBoxCFrame + self._axis * self._draggingLastGoodGeometricDelta)
 
     local appliedGlobalTransform = CFrame.new(self._axis * self._draggingLastGoodGeometricDelta)
     self._attachmentMover:transformTo(appliedGlobalTransform)
@@ -234,12 +325,12 @@ function MoveToolImpl:_mouseDragWithInverseKinematics(mouseRay, snappedDelta)
     local globalTransformNeeded =
         targetNewBoundingBox * self._draggingOriginalBoundingBoxCFrame:Inverse()
     local actualGlobalTransformUsed =
-        self._partMover:transformToWithIk(globalTransformNeeded, collisionsMode)
+        self._partMover:moveToWithIk(globalTransformNeeded, collisionsMode)
     self._attachmentMover:transformTo(actualGlobalTransformUsed)
 
     -- Update the bounding box by the actual transform that the IK solver was
     -- able to find.
-    self._boundingBox.CFrame = actualGlobalTransformUsed * self._draggingOriginalBoundingBoxCFrame
+    self:_setMidMoveBoundingBox(actualGlobalTransformUsed * self._draggingOriginalBoundingBoxCFrame)
 
     -- Since we updated the bounding box we have to call this again
     self:_setupMoveAtCurrentBoundingBox(mouseRay)
@@ -247,6 +338,13 @@ function MoveToolImpl:_mouseDragWithInverseKinematics(mouseRay, snappedDelta)
     if areJointsEnabled() then
         self._partMover:computeJointPairs(actualGlobalTransformUsed)
     end
+end
+
+function MoveToolImpl:_setMidMoveBoundingBox(newBoundingBoxCFrame)
+    local focusPoint =
+        (self._boundingBox.CFrame * self._boundingBoxOffsetCFrame:Inverse()).Position
+    self._boundingBox.CFrame = newBoundingBoxCFrame
+    self._scale = getHandleScale(focusPoint)
 end
 
 function MoveToolImpl:mouseUp(mouseRay)
@@ -314,11 +412,13 @@ function MoveToolImpl:_updateHandles()
             -- This is code to offset the handle's base position by the size
             -- of the bounding box on that handle's axis.
             local localSize = handleDef.Offset:Inverse():VectorToWorldSpace(self._boundingBox.Size)
+            local offsetDueToBoundingBox = 0.5 * math.abs(localSize.Z)
             local handleBaseCFrame =
                 self._boundingBox.CFrame *
                 handleDef.Offset *
-                CFrame.new(0, 0, -0.5 * math.abs(localSize.Z))
+                CFrame.new(0, 0, -offsetDueToBoundingBox)
             self._handles[handleId] = {
+                AxisOffset = offsetDueToBoundingBox,
                 Axis = handleBaseCFrame,
                 Scale = self._scale,
                 ActiveColor = handleDef.Color,
@@ -327,5 +427,6 @@ function MoveToolImpl:_updateHandles()
         end
     end
 end
+
 
 return MoveToolImpl

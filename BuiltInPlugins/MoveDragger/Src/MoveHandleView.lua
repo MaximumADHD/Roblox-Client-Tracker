@@ -127,4 +127,16 @@ function MoveHandleView.hitTest(props, mouseRay)
     end
 end
 
+--[[
+    Returns:
+        float Offset - From base CFrame
+        float Size - Extending from CFrame + Offset
+]]
+function MoveHandleView.getHandleDimensionForScale(scale)
+    local length = scale * BASE_HANDLE_LENGTH
+    local offset = scale * BASE_HANDLE_OFFSET
+    local tipLength = length * BASE_TIP_LENGTH
+    return offset, length + tipLength
+end
+
 return MoveHandleView

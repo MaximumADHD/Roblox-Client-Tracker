@@ -32,6 +32,7 @@ local SetToPreviousScreen = require(Plugin.Src.Actions.SetToPreviousScreen)
 local SetToNextScreen = require(Plugin.Src.Actions.SetToNextScreen)
 
 local LaunchBulkImport = require(Plugin.Src.Thunks.LaunchBulkImport)
+local OnScreenChange = require(Plugin.Src.Thunks.OnScreenChange)
 
 local Screens = require(Plugin.Src.Util.Screens)
 
@@ -53,11 +54,16 @@ function TopBar:render()
     local props = self.props
     local theme = props.Theme:get("Plugin")
     local topBarTheme = theme.TopBar
+    local apiImpl = props.API:get()
     local localization = props.Localization
+
+    local size = props.Size
+    local layoutOrder = props.LayoutOrder
 
     local currentScreen = props.CurrentScreen
     local previousScreens = props.PreviousScreens
     local nextScreens = props.NextScreens
+    local dispatchOnScreenChange = props.dispatchOnScreenChange
     local dispatchSetToPreviousScreen = props.dispatchSetToPreviousScreen
     local dispatchSetToNextScreen = props.dispatchSetToNextScreen
     local previousButtonEnabled = #previousScreens > 0
@@ -81,13 +87,11 @@ function TopBar:render()
     local layoutIndex = LayoutOrderIterator.new()
 
     return Roact.createElement("Frame", {
-        Position = UDim2.new(0, 0, 0, 0),
-        Size = UDim2.new(1, 0, 0, topBarTheme.Button.Size),
+        Size = size,
+        LayoutOrder = layoutOrder,
 
         BackgroundColor3 = theme.BackgroundColor,
-        BackgroundTransparency = 0,
-
-        BorderColor3 = topBarTheme.BorderColor,
+        BorderColor3 = theme.BorderColor,
         BorderSizePixel = 1,
     }, {
         TopBarLayout = Roact.createElement("UIListLayout", {
@@ -134,6 +138,7 @@ function TopBar:render()
                 OnClick = function()
                     if previousButtonEnabled then
                         dispatchSetToPreviousScreen(previousButtonEnabled)
+                        dispatchOnScreenChange(apiImpl, currentScreen)
                     end
                 end,
             }),
@@ -149,6 +154,7 @@ function TopBar:render()
                 OnClick = function()
                     if nextButtonEnabled then
                         dispatchSetToNextScreen(nextButtonEnabled)
+                        dispatchOnScreenChange(apiImpl, currentScreen)
                     end
                 end,
             }),
@@ -225,6 +231,7 @@ function TopBar:render()
 end
 
 ContextServices.mapToProps(TopBar,{
+    API = ContextServices.API,
     Theme = ContextServices.Theme,
     Localization = ContextServices.Localization,
 })
@@ -258,6 +265,9 @@ local function useDispatchForProps(dispatch)
             if enabled then
                 dispatch(SetToNextScreen())
             end
+        end,
+        dispatchOnScreenChange = function(apiImpl, screen)
+            dispatch(OnScreenChange(apiImpl, screen))
         end,
 	}
 end

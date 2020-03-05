@@ -39,6 +39,8 @@ local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEna
 
 local AssetCreatorName = Roact.PureComponent:extend("AssetCreatorName")
 
+local FFlagEnableAudioPreview = settings():GetFFlag("EnableAudioPreview")
+
 function AssetCreatorName:init(props)
 	local networkInterface = getNetwork(self)
 	local settings
@@ -116,7 +118,7 @@ function AssetCreatorName:render()
 					TextColor3 = creatorNameTheme.textColor,
 					Font = Constants.FONT,
 					TextSize = Constants.ASSET_CREATOR_NAME_FONT_SIZE,
-					TextXAlignment = Enum.TextXAlignment.Center,
+					TextXAlignment = FFlagEnableAudioPreview and Enum.TextXAlignment.Left or Enum.TextXAlignment.Center ,
 					TextYAlignment = Enum.TextYAlignment.Top,
 					ClipsDescendants = false,
 					TextTruncate = Enum.TextTruncate.AtEnd,
@@ -136,7 +138,8 @@ function AssetCreatorName:render()
 					UnderLine = isHovered and (nil == props.clickable or props.clickable) and Roact.createElement("Frame", {
 						AnchorPoint = Vector2.new(0.5, 0.5),
 						Position = UDim2.new(0.5, 0, 1, 1),
-						Size = UDim2.new(0, self.underLineWidth, 0, 1)
+						Size = UDim2.new(0, self.underLineWidth, 0, 1),
+						BorderSizePixel = FFlagEnableAudioPreview and 0 or nil,
 					})
 				})
 			end)

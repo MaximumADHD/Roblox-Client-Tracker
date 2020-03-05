@@ -30,6 +30,7 @@ local SetLocaleId = require(script.Actions.SetLocaleId)
 local OpenReportDialog = require(script.Actions.OpenReportDialog)
 local SetInspectMenuEnabled = require(script.Actions.SetInspectMenuEnabled)
 local SetCurrentPage = require(script.Actions.SetCurrentPage)
+local SetScreenSize = require(script.Actions.SetScreenSize)
 local OpenMenu = require(script.Thunks.OpenMenu)
 
 local GlobalConfig = require(script.GlobalConfig)
@@ -85,7 +86,9 @@ return {
 			DisplayOrder = 1,
 			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 			AutoLocalize = not FFlagDisableAutoTranslateForKeyTranslatedContent,
-
+			[Roact.Change.AbsoluteSize] = function(rbx)
+				menuStore:dispatch(SetScreenSize(rbx.AbsoluteSize))
+			end
 		}, {
 			StoreProvider = Roact.createElement(RoactRodux.StoreProvider, {
 				store = menuStore,

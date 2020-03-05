@@ -2,6 +2,7 @@
 
 local CoreGui = game:GetService("CoreGui")
 local Players = game:GetService("Players")
+local CorePackages = game:GetService("CorePackages")
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
@@ -10,17 +11,31 @@ local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
 
 local BlockingUtility = require(RobloxGui.Modules.BlockingUtility)
 
+local UIBlox = require(CorePackages.UIBlox)
+local Images = UIBlox.App.ImageSet.Images
+
 local PlayerList = script.Parent.Parent
 
 local FFlagPlayerListBetterGroupCheck = game:DefineFastFlag("PlayerListBetterGroupCheck", false)
 local FFlagUpdateLeaderboardIconPriority = game:GetFastFlag("UpdateLeaderboardIconPriority")
 local FFlagPlayerListFixLeaderboardDisabledError = game:DefineFastFlag("PlayerListFixLeaderboardDisabledError", false)
 
-local SPECIAL_PLAYER_ICONS = {
-	Admin = "rbxasset://textures/ui/icon_admin-16.png",
-	Intern = "rbxasset://textures/ui/icon_intern-16.png",
-	Star = "rbxasset://textures/ui/icon_star-16.png",
-}
+local FFlagPlayerListUseUIBloxIcons = require(CoreGui.RobloxGui.Modules.Flags.FFlagPlayerListUseUIBloxIcons)
+
+local SPECIAL_PLAYER_ICONS
+if FFlagPlayerListUseUIBloxIcons then
+	SPECIAL_PLAYER_ICONS = {
+		Admin = Images["icons/status/player/admin"],
+		Intern = "rbxasset://textures/ui/icon_intern-16.png", --TODO: Update this
+		Star = Images["icons/status/player/videostar"],
+	}
+else
+	SPECIAL_PLAYER_ICONS = {
+		Admin = "rbxasset://textures/ui/icon_admin-16.png",
+		Intern = "rbxasset://textures/ui/icon_intern-16.png",
+		Star = "rbxasset://textures/ui/icon_star-16.png",
+	}
+end
 
 -- Actions
 local SetPlayerSpecialGroupIcon = require(PlayerList.Actions.SetPlayerSpecialGroupIcon)

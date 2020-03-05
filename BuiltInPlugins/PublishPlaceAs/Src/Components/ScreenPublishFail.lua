@@ -5,11 +5,11 @@ local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
-local Cryo = require(Plugin.Packages.Cryo)
 local UILibrary = require(Plugin.Packages.UILibrary)
 
 local SetPublishInfo = require(Plugin.Src.Actions.SetPublishInfo)
 local SetScreen = require(Plugin.Src.Actions.SetScreen)
+local SetIsPublishing = require(Plugin.Src.Actions.SetIsPublishing)
 
 local Constants = require(Plugin.Src.Resources.Constants)
 
@@ -27,13 +27,15 @@ local ICON_SIZE = 150
 local BUTTON_WIDTH = 150
 local BUTTON_HEIGHT = 40
 
+local FFlagStudioDisablePublishButtonsInProgress = game:GetFastFlag("StudioDisablePublishButtonsInProgress")
+
 local ScreenPublishFail = Roact.PureComponent:extend("ScreenPublishFail")
 
 function ScreenPublishFail:init()
 	self.state = {
-		assetFetchStatus = nil,		
+		assetFetchStatus = nil,
 	}
-	
+
 	self.finishedConnection = nil
 
 	self.isMounted = false
@@ -56,6 +58,9 @@ function ScreenPublishFail:didMount()
 	end)
 
 	self.finishedConnection = StudioService.GamePublishFinished:connect(function(success)
+		if FFlagStudioDisablePublishButtonsInProgress then
+			self.props.dispatchSetIsPublishing(false)
+		end
 		if success then
 			self.props.OpenPublishSuccessfulPage(self.props.Id, self.props.Name, self.props.ParentGameName)
 		end
@@ -74,17 +79,14 @@ function ScreenPublishFail:render()
 		return Localizing.withLocalization(function(localization)
             local props = self.props
 
-			local onClose = props.OnClose
-
             local id = props.Id
 			local name = props.Name
-            local parentGameName = props.ParentGameName
             local parentGameId = props.ParentGameId
 			local settings = props.Settings
-			
-			local openPublishSuccessfulPage = props.OpenPublishSuccessfulPage
+			local isPublishing = props.IsPublishing
 
-			
+			local dispatchSetIsPublishing = props.dispatchSetIsPublishing
+
 			return Roact.createElement("Frame", {
 				Size = UDim2.new(1, 0, 1, 0),
 				BackgroundColor3 = theme.backgroundColor,
@@ -100,7 +102,7 @@ function ScreenPublishFail:render()
 
 				Name = Roact.createElement("TextLabel", {
 					Text = name,
-					Position = UDim2.new(0.5, 0, 0.35, 0),					
+					Position = UDim2.new(0.5, 0, 0.35, 0),
 					TextSize = 20,
 					BackgroundTransparency = 1,
 					TextColor3 = theme.header.text,
@@ -113,7 +115,6 @@ function ScreenPublishFail:render()
 					Position = UDim2.new(0.5, 0, 0.5, 0),
 					TextSize = 24,
 					BackgroundTransparency = 1,
-					TextColor3 = theme.header.text,
 					TextXAlignment = Enum.TextXAlignment.Center,
 					TextColor3 = theme.failText.text,
 					Font = theme.failText.font,
@@ -125,15 +126,20 @@ function ScreenPublishFail:render()
 					AnchorPoint = Vector2.new(0.5, 0.5),
 					Style = theme.defaultButton,
 					Size = UDim2.new(0, BUTTON_WIDTH, 0, BUTTON_HEIGHT),
-					Active = true,
+					Active = not isPublishing,
 					Name = localization:getText("Button", "Retry"),
 					TextSize = Constants.TEXT_SIZE,
-                    OnClicked = function()
-                        if parentGameId == 0 then
-                            SettingsImpl.saveAll(settings, localization)
-                        else
-                            StudioService:publishAs(parentGameId, id)
-						end                       
+					OnClicked = function()
+						if not isPublishing then
+							if parentGameId == 0 then
+								SettingsImpl.saveAll(settings, localization)
+							else
+								StudioService:publishAs(parentGameId, id)
+							end
+						end
+						if FFlagStudioDisablePublishButtonsInProgress then
+							dispatchSetIsPublishing(true)
+						end
 					end,
 				})
 			})
@@ -148,7 +154,8 @@ local function mapStateToProps(state, props)
         Name = publishInfo.name,
         ParentGameName = publishInfo.parentGameName,
         ParentGameId = publishInfo.parentGameId,
-        Settings = publishInfo.settings,
+		Settings = publishInfo.settings,
+		IsPublishing = state.PublishedPlace.isPublishing,
 	}
 end
 
@@ -157,6 +164,10 @@ local function useDispatchForProps(dispatch)
 		OpenPublishSuccessfulPage = function(id, name, parentGameName)
 			dispatch(SetPublishInfo({ id = id, name = name, parentGameName = parentGameName, }))
 			dispatch(SetScreen(Constants.SCREENS.PUBLISH_SUCCESSFUL))
+		end,
+
+		dispatchSetIsPublishing = function(isPublishing)
+			dispatch(SetIsPublishing(isPublishing))
 		end,
 	}
 end

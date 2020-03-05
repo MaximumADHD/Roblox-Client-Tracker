@@ -4,6 +4,7 @@ local TestHelpers = Plugin.Src.TestHelpers
 local PartConverterVisuals = require(script.Parent.PartConverterVisuals)
 
 local PartSelectionModel = require(script.Parent.PartSelectionModel)
+local PartConverterUtil = require(script.Parent.PartConverterUtil)
 local makeSettableValue = require(TestHelpers.makeSettableValue)
 
 return function()
@@ -12,6 +13,7 @@ return function()
 			local psm = PartSelectionModel.new({
 				getSelection = selection.get,
 				selectionChanged = selection.changed,
+				getValidInvalid = PartConverterUtil.getValidInvalidInfo,
 			})
 		return selection, psm
 	end

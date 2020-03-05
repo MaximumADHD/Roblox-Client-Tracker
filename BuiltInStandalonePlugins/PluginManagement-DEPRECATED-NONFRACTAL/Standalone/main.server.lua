@@ -23,7 +23,7 @@ local FlagsList = Flags.new({
 		"PluginManagementUseFractalDevFrameworkLayout",
 	},
 	FFlagRefactorPluginLoading = {
-		"RefactorPluginLoading"
+		"RefactorPluginLoading2"
 	},
 })
 

@@ -3,6 +3,7 @@
 	imports the KeyframeSequence from the Roblox asset id.
 ]]
 
+game:DefineFastFlag("UseGetKeyframeSequenceIgnoreCache", false)
 local KeyframeSequenceProvider = game:GetService("KeyframeSequenceProvider")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -23,7 +24,12 @@ return function(plugin)
 
 		local id = plugin:PromptForExistingAssetId("Animation")
 		if id and tonumber(id) > 0 then
-			local anim = KeyframeSequenceProvider:GetKeyframeSequenceAsync("rbxassetid://" .. id)
+			local anim
+			if game:GetFastFlag("UseGetKeyframeSequenceIgnoreCache") then
+				anim = KeyframeSequenceProvider:GetKeyframeSequenceById(id, false)
+			else
+				anim = KeyframeSequenceProvider:GetKeyframeSequenceAsync("rbxassetid://" .. id)
+			end
 			local newData
 			if UseCustomFPS() then
 				local frameRate = RigUtils.calculateFrameRate(anim)

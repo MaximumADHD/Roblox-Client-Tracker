@@ -37,6 +37,9 @@ local NAV_ICON_TEXT_PADDING = 16
 local NAV_TEXT_RIGHT_PADDING = 24
 local TEXT_SIZE_INSET = NAV_ICON_LEFT_PADDING + NAV_ICON_SIZE + NAV_ICON_TEXT_PADDING + NAV_TEXT_RIGHT_PADDING
 
+local getFFlagInGameMenuSinglePaneDesign = require(InGameMenu.Flags.GetFFlagInGameMenuSinglePaneDesign)
+local fflagInGameMenuSinglePaneDesign = getFFlagInGameMenuSinglePaneDesign()
+
 local NavigationButton = Roact.PureComponent:extend("NavigationButton")
 
 function NavigationButton:init(props)
@@ -184,25 +187,27 @@ local function PageNavigation(props)
 
 	local layoutOrder = 1
 	for index, page in ipairs(Pages.pagesByIndex) do
-		frameChildren["Page" .. page.key] = Roact.createElement(NavigationButton, {
-			image = page.icon,
-			LayoutOrder = layoutOrder,
-			selected = props.currentPage == page.key,
-			text = page.title,
-			onActivated = function()
-				props.setCurrentPage(page.key)
-			end,
-		})
-
-		layoutOrder = layoutOrder + 1
-
-		if index < pageCount then
-			frameChildren["Divider" .. layoutOrder] = Roact.createElement(Divider, {
+		if page.navigationDepth == 2 or not fflagInGameMenuSinglePaneDesign then
+			frameChildren["Page" .. page.key] = Roact.createElement(NavigationButton, {
+				image = page.icon,
 				LayoutOrder = layoutOrder,
-				Size = UDim2.new(1, -DIVIDER_INDENT, 0, 1)
+				selected = props.currentPage == page.key,
+				text = page.title,
+				onActivated = function()
+					props.setCurrentPage(page.key)
+				end,
 			})
 
 			layoutOrder = layoutOrder + 1
+
+			if index < pageCount then
+				frameChildren["Divider" .. layoutOrder] = Roact.createElement(Divider, {
+					LayoutOrder = layoutOrder,
+					Size = UDim2.new(1, -DIVIDER_INDENT, 0, 1)
+				})
+
+				layoutOrder = layoutOrder + 1
+			end
 		end
 	end
 
