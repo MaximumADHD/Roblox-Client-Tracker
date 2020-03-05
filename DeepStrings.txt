@@ -400,7 +400,6 @@ AHPEAU_iobuf
 AHPEAX1PEAPEAX
 AHW4DataStoreRequestType
 AHW4UserInputType
-AHzhyNDL4Wk
 Algorithms
 AliasRequestResult
 ALIGN_TYPE
@@ -4295,7 +4294,7 @@ BytesReceivedAndIgnoredPerSec
 BytesReceivedPerSec
 BytesRecvAndIgnored
 BytesWritten
-ByVersion_0.422.0.387564
+ByVersion_0.422.0.388145
 ByVersionForPlatform_
 C_specific_handler
 CA_NPEAVQObject
@@ -5110,7 +5109,6 @@ CloudTablesAccountAgeMinimum
 CloudTablesPhase2_MissingSourceTextScraperFix
 CloudTablesPhase2_TrackAndTimeoutHangingThreads
 CloudTablesPhase2_TrackHangingThreadsTimeout
-CloUQYOzctroex6rs0lb
 CLSID_ACMWrapper
 CLSID_ActiveMovieCategories
 CLSID_AllocPresenter
@@ -5970,7 +5968,6 @@ CountryRegionCode
 CountryRegionCodeReplicate
 CountShifted
 CountWidth
-CqWQdKzK0kVgSgar94F3A7zqKbtIKo4
 CrackedLava
 CrashDumpFileName
 CrashEvent
@@ -8266,7 +8263,6 @@ EqualizerSoundEffect
 EquippedEmotes
 EquippedEmotesChanged
 EquippedEmotesDataInternal
-ERHYm73HBy
 ErrDontRetry
 ErrorColor
 ErrorCount
@@ -8523,7 +8519,6 @@ ExtraSelectionStore
 ExtrudedPartInstance
 EXtSoftware
 EyeAccessory
-Ezei7IYSNwzSETIWsKxAYduEd0vTXhU5nK6
 F_ObjectHasComponents
 F`JXKXWJYB[Cd
 FA6256811994CD24F935527E2
@@ -9228,7 +9223,6 @@ FrontSurface
 FrontSurfaceInput
 FrustumOrdered
 FrustumRenderQueue
-FTIRE8VSH4VjVu3pCZ2guLJYGOtuBhzZzJnUl9sR2evLWZYa844Z
 FullRenderObjects
 Fullscreen
 FullScreen
@@ -10872,7 +10866,6 @@ HWYGOTH.ttf
 HxJpTsuQFU
 HybridEvent
 Iacutesmall
-IAmISSQuBFCKXuOZIEhni
 IAutocompleter
 IBusyStateModel
 ICCProfile
@@ -11667,7 +11660,6 @@ K\7IxU..UxI7\K
 K_Key_dn.png
 KaiTi_GB2312
 KAXPEBDHAEAPEAVQChar
-KBpsXL3a6d6G9
 KBytesPerSec
 KeepAliveTimeout
 KeepPositionOnInsert
@@ -11732,8 +11724,6 @@ KM6tHgx51vO640
 KnownHeaders
 KodchiangUPC
 KPEIBX_K_KPEIAU_iobuf
-KSBzvVK7n7eo3fP5ZPD15lO
-KtOep8NEmRjdWhwZyDJwVdxkAiPfvXz4y9nbNgfdONKD9hUO523csZLWhODF1DL
 KVScriptContext
 KYULPhCBFoD3mw5mygYqAeFlHdSL2k3MnDG
 LabelArray
@@ -12408,6 +12398,7 @@ LuauWarnOnUtf8
 LuauWatchdog
 LuaWebService
 LVvuOx39]O
+Ly9M83FeFTY
 M_NVWeakFunctionRef
 MachineAddress
 MachineConfig
@@ -13030,7 +13021,7 @@ MigrateTriangleMeshData3
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsI9zRp2OSccqdFx2
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAupANB3EbN9hFHHUj0eA
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzjPRQo9jc
-MIICCgKCAgEArT25Vk1EDV18HHc9DI64opz65h4IGl7JJ1p4l
+MIICCgKCAgEAqWpaXA
 Millisecond
 MillisecondsBeforeHandlingReconnect
 MimeDataFromSelection
@@ -13855,7 +13846,6 @@ OnDisconnectHTTPTimeout
 OnEmitRequested
 OneToOneConversation
 OneWeldToRuleThemAll2
-ONFby1rRNIYoG
 OnGotPacket
 OnHttpResultApproved
 OnlineGame
@@ -15508,7 +15498,6 @@ PlaySoloVerb
 PlayStockSound
 PLC_PITCH_LAG_MAX
 PLC_PITCH_LAG_MIN
-PLL5QMpQkdnCbklOw7k
 Plugin.rbxm
 PluginAccessAndInstallationInStudio
 PluginAction
@@ -16629,7 +16618,6 @@ QTStudioWinCrashHangRecorded
 QTStudioWinOtherCrashRecorded
 QTStudioWinRegistryErrorCrashRecorded
 QtUtilities
-QtvXu2lNakZf8i4PkPntcaBJVG1cIW
 QtWebkitAuthenticationDone
 QtWebkitSession
 QTypedArrayData
@@ -18136,7 +18124,6 @@ SAXPEAUData
 SAXPEAVQObject
 SAXPEAVQStyle
 SAXPEBDP6AXAEAVQDataStream
-SB1LcJu4loOxUIHGJAzDLJLqoBPBCsnYNpYqEmY9fs3GX12GEFXY2vBPYvLJr4Ig
 ScaleButton.png
 ScaleButton_dn.png
 ScaleCompensation
@@ -18352,7 +18339,6 @@ SDL_TIMER_RESOLUTION
 SDL_XINPUT_ENABLED
 SDL_XINPUT_USE_OLD_JOYSTICK_MAPPING
 SDLXInputDev
-SdMvLaixvssL
 SealedTables
 SEARCH_GAMES
 SearchAction
@@ -21461,6 +21447,8 @@ StudioReplaceAllSquish
 StudioReplaceDMLockWithTask
 StudioReport64bitTagForCrashDumpAttributeFile
 StudioReportBaseUrl
+StudioReportLoginAnalytics
+StudioReportOpenPlace
 StudioReportOSVersionDiag
 StudioResendDisconnectNotificationInterval
 StudioResourceId
@@ -21852,7 +21840,6 @@ TattletaleShuffleCount
 TattletaleUseNewWordListFeatures
 TattletaleUseOriginalWordList
 TattletaleUseStrstr
-TBcUW1E00Cp8HtDCESO8pmycv7x5DHIXnnXu31qxxDxAUvRhdKZVTaP9toe3rJg
 Tcommaaccent
 TCP_NODELAY
 TeamCreate
@@ -22900,7 +22887,6 @@ TutorialId
 TutorialsDockAction
 TutorialWidgetBackground.png
 TVijpW8m8aLsreZebWfEl5y9RFS7x6WZ555Z6MtZy
-TvYEbzDJtdDRUyKORc0rT7
 TweenEasingDirection
 TweenEasingStyle
 TweenInfo.new
@@ -25188,7 +25174,6 @@ XFbxAMatrix
 XFREE86_GLYPH_RANGES
 XG6zDEaVoNEoFqh2kMmvYKz9f7mnPVHjQpCxALOyGEF6BAQ
 XGetLastError
-XhvUfMuvSmZJKchT
 XInputGetBatteryInformation
 XInputGetCapabilities
 XInputGetState
@@ -25354,14 +25339,12 @@ YffYZefYDNNDCOO
 YieldEvent
 YieldFuncDesc
 YieldFunction
-YOmaGMJCrlH
 YQByteArray
 YResolution
 YwBBvY55YvBBwY5
 Z_KPEIBX_K_KPEIAU1
 Zcaronsmall
 Zdotaccent
-ZEXjiD7Cawk
 ZgnhKhWhci
 ZIndexBehavior
 ZLcJhLcGhM
