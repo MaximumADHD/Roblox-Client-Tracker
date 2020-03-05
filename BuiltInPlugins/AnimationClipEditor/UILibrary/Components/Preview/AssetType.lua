@@ -3,13 +3,25 @@ local FFlagFixGetAssetTypeErrorHandling = game:DefineFastFlag("FixGetAssetTypeEr
 local AssetType = {}
 
 AssetType.TYPES = {
-	ModelType = 1, -- Part, Mesh, Model
+	ModelType = 1, -- MeshPart, Mesh, Model
 	ImageType = 2,
-	SoundType = 3,
+	SoundType = 3,  -- Sound comes with the model or mesh.
 	ScriptType = 4, -- Server, local, module
 	PluginType = 5,
 	OtherType = 6,
 	LoadingType = 7,
+}
+
+-- For check if we show preview button or not.
+AssetType.AssetTypesPreviewEnabled = {
+	[Enum.AssetType.Mesh.Value] = true,
+	[Enum.AssetType.MeshPart.Value] = true,
+	[Enum.AssetType.Model.Value] = true,
+	[Enum.AssetType.Decal.Value] = true,
+	[Enum.AssetType.Image.Value] = true,
+	[Enum.AssetType.Audio.Value] = true,
+	[Enum.AssetType.Lua.Value] = true,
+	[Enum.AssetType.Plugin.Value] = true,
 }
 
 local classTypeMap = {
@@ -77,8 +89,6 @@ function AssetType:isPlugin(currentType)
 	return currentType == self.TYPES.PluginType
 end
 
--- Since you can't tell if an asset is a plugin based purely on its derived class,
--- plugin assets need to be directly given the plugin type
 function AssetType:markAsPlugin()
 	return self.TYPES.PluginType
 end
@@ -89,6 +99,11 @@ end
 
 function AssetType:isLoading(currentType)
 	return currentType == self.TYPES.LoadingType
+end
+
+function AssetType:isPreviewAvailable(typeId)
+	assert(typeId ~= nil, "AssetPreviewType can't be nil")
+	return AssetType.AssetTypesPreviewEnabled[typeId] ~= nil
 end
 
 return AssetType

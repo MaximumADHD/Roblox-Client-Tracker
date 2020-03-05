@@ -384,6 +384,20 @@ return function(style, overrides)
 			hierarchy = "rbxasset://textures/StudioToolbox/AssetPreview/hierarchy.png"
 		},
 
+		audioPreview = {
+			backgroundColor = style.backgroundColor,
+			textColor = style.textColor,
+			playButton = "rbxasset://textures/StudioToolbox/AssetPreview/play_button.png",
+			pauseButton = "rbxasset://textures/StudioToolbox/AssetPreview/pause_button.png",
+			button_Color = Color3.fromRGB(204, 204, 204),
+			audioPlay_BG = "rbxasset://textures/StudioToolbox/AssetPreview/audioPlay_BG.png",
+			progressBar_BG = "rbxasset://textures/StudioToolbox/RoundedBorder.png",
+			audioPlay_BG_Color = Color3.fromRGB(204, 204, 204),
+			progressBar = Color3.fromRGB(0, 162, 255),
+			font = style.font,
+			fontSize = 16,
+		},
+
 		vote = {
 			backgroundTrans = 0.9,
 			background = style.backgroundColor,

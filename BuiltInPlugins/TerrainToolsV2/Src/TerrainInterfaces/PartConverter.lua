@@ -1,4 +1,6 @@
 local Plugin = script.Parent.Parent.Parent
+local Cryo = require(Plugin.Packages.Cryo)
+
 local UILibrary = Plugin.Packages.UILibrary
 local Signal = require(UILibrary.Utils.Signal)
 
@@ -92,7 +94,9 @@ function PartConverter:convertInstancesToMaterial(instances, material)
 		return
 	end
 
-	self:_createNewVisuals(instances)
+	local targetInstances = Cryo.Dictionary.join(instances, {})
+
+	self:_createNewVisuals(targetInstances)
 
 	self._operationQueue
 		:reset()
@@ -106,7 +110,6 @@ function PartConverter:convertInstancesToMaterial(instances, material)
 			targetInstances = self._visuals:getTargetInstancesRef(),
 			originalVisualsPerInstance = self._visuals:getOriginalVisualsPerInstanceRef(),
 
-			instances = instances,
 			material = material,
 		})
 end
@@ -116,7 +119,9 @@ function PartConverter:convertInstancesToBiome(instances, generateSettings)
 		return
 	end
 
-	self:_createNewVisuals(instances)
+	local targetInstances = Cryo.Dictionary.join(instances, {})
+
+	self:_createNewVisuals(targetInstances)
 
 	self._operationQueue
 		:reset()
@@ -130,7 +135,6 @@ function PartConverter:convertInstancesToBiome(instances, generateSettings)
 			targetInstances = self._visuals:getTargetInstancesRef(),
 			originalVisualsPerInstance = self._visuals:getOriginalVisualsPerInstanceRef(),
 
-			instances = instances,
 			generateSettings = generateSettings,
 		})
 end

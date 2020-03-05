@@ -1,6 +1,8 @@
 --[[
 	This component is used to render both mainPreview and TreeView.
-	MainView can be modelPreview, soundPreview, scriptPreview, imagePreview and otherPreview.
+	MainView can be modelPreview, soundPreview, scriptPreview, imagePreview, otherPreview and audioPlay.
+	Note soundPreview and audioPlay are different here. Sound preview is uesed to preview sound object comes with
+	the model, audioPlay is the audioPlayer we made for the audio asset. Which actually supports play, pause.
 
 	Required Props:
 	Width = number,
@@ -18,6 +20,7 @@
 	LayoutOrder = number,
 ]]
 local FFlagStudioMinorFixesForAssetPreview = settings():GetFFlag("StudioMinorFixesForAssetPreview")
+local FFlagEnableAudioPreview = game:GetFastFlag("EnableAudioPreview")
 
 local Library = script.Parent.Parent.Parent
 
@@ -28,6 +31,7 @@ local ImagePreview = require(Library.Components.Preview.ImagePreview)
 local ThumbnailIconPreview = require(Library.Components.Preview.ThumbnailIconPreview)
 local TreeViewButton =  require(Library.Components.Preview.TreeViewButton)
 local AssetType = require(Library.Components.Preview.AssetType)
+local AudioPreview = require(Library.Components.Preview.AudioPreview)
 
 local TreeViewItem = require(Library.Components.Preview.InstanceTreeViewItem)
 local TreeView = require(Library.Components.TreeView)
@@ -185,13 +189,8 @@ function PreviewController:render()
 	local assetPreviewType = props.AssetPreviewType
 	local assetId = props.AssetId
 	local putTreeviewOnBottom = props.PutTreeviewOnBottom
-
-	local layoutOrder = props.LayoutOrder
-
-	local onModelPreviewFrameEntered = self.onModelPreviewFrameEntered
-	local onModelPreviewFrameLeft = self.onModelPreviewFrameLeft
-
 	local width = props.Width
+	local layoutOrder = props.LayoutOrder
 
 	local showTreeView = state.showTreeView
 	local previewSize
@@ -209,7 +208,25 @@ function PreviewController:render()
 		treeViewSize = UDim2.new()
 	end
 
+	local onModelPreviewFrameEntered = self.onModelPreviewFrameEntered
+	local onModelPreviewFrameLeft = self.onModelPreviewFrameLeft
+
 	local THUMBNAIL_HEIGHT = PREVIEW_HEIGHT < MODAL_MIN_WIDTH and PREVIEW_HEIGHT or MODAL_MIN_WIDTH
+	local showThumbnail
+	if FFlagEnableAudioPreview then
+		showThumbnail = AssetType:isScript(assetPreviewType) or AssetType:isOtherType(assetPreviewType)
+	else
+		showThumbnail = AssetType:isScript(assetPreviewType) or AssetType:isOtherType(assetPreviewType) or AssetType:isAudio(assetPreviewType)
+	end
+
+	local soundId
+	if FFlagEnableAudioPreview and AssetType:isAudio(assetPreviewType) and currentPreview then
+		-- It's wrong to get SoundId from currenttPreview, it should be previewModel.
+		soundId = currentPreview.SoundId
+	end
+
+	local reportPlay = props.reportPlay
+	local reportPause = props.reportPause
 
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(1, width, 0, height),
@@ -251,6 +268,14 @@ function PreviewController:render()
 				ScaleType = getImageScaleType(currentPreview),
 			}),
 
+			AudioPreview = FFlagEnableAudioPreview and AssetType:isAudio(assetPreviewType) and Roact.createElement(AudioPreview, {
+				SoundId = soundId or Urls.constructAssetIdString(assetId),
+				AssetId = assetId,
+				ShowTreeView = showTreeView,
+				ReportPlay = reportPlay,
+				ReportPause = reportPause,
+			}) or nil,
+
 			PluginPreview = AssetType:isPlugin(assetPreviewType) and Roact.createElement("ImageLabel", {
 				Image = Urls.constructAssetThumbnailUrl(assetId, 420, 420),
 				Size = UDim2.new(0,THUMBNAIL_HEIGHT,0,THUMBNAIL_HEIGHT),
@@ -259,14 +284,13 @@ function PreviewController:render()
 			}),
 
 			-- Let the script and other share the same component for now
-			ThumbnailIconPreview = (AssetType:isScript(assetPreviewType) or AssetType:isOtherType(assetPreviewType)
-				or AssetType:isAudio(assetPreviewType)) and Roact.createElement(ThumbnailIconPreview, {
+			ThumbnailIconPreview = showThumbnail and Roact.createElement(ThumbnailIconPreview, {
 				TargetInstance = currentPreview,
 				AssetId = assetId,
 				ElementName = currentPreview.Name,
 			}),
 
-			TreeViewButton = not AssetType:isPlugin(assetPreviewType) and Roact.createElement(TreeViewButton, {
+			TreeViewButton = (not AssetType:isPlugin(assetPreviewType)) and Roact.createElement(TreeViewButton, {
 				Position = UDim2.new(1, MAINVIEW_BUTTONS_X_OFFSET, 1, MAINVIEW_BUTTONS_Y_OFFSET),
 				ZIndex = 2,
 

@@ -1580,6 +1580,24 @@
             "Members": [
                 {
                     "MemberType": "Function",
+                    "Name": "ApplyJointVelocities",
+                    "Parameters": [
+                        {
+                            "Name": "motors",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Variant"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "None"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "GetPlayingAnimationTracks",
                     "Parameters": [
                     ],
@@ -14449,6 +14467,13 @@
                             "Type": {
                                 "Category": "Class",
                                 "Name": "Instance"
+                            }
+                        },
+                        {
+                            "Name": "clickCount",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
                             }
                         }
                     ],
@@ -37064,6 +37089,23 @@
                 {
                     "Category": "Data",
                     "MemberType": "Property",
+                    "Name": "PlatformName",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
                     "Name": "ReplicationFocus",
                     "Security": {
                         "Read": "None",
@@ -52833,6 +52875,17 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "GetUserPlatformName",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "HaveActiveUser",
                     "Parameters": [
                     ],
@@ -58449,6 +58502,13 @@
                             "Type": {
                                 "Category": "Class",
                                 "Name": "Instance"
+                            }
+                        },
+                        {
+                            "Name": "repeatCount",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
                             }
                         }
                     ],

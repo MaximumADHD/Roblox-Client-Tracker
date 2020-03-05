@@ -12,51 +12,50 @@ return function(eventContext, eventName, eventTable, replaceEventNameWithGameSet
 		local stringTable = {}
 
 		if UserInputService.TouchEnabled then
-		  table.insert(stringTable, "camera_mode_touch=" .. tostring(GameSettings.TouchCameraMovementMode))
+			stringTable["camera_mode_touch"] = tostring(GameSettings.TouchCameraMovementMode)
 		else
-		  table.insert(stringTable, "camera_mode_desktop=" .. tostring(GameSettings.ComputerCameraMovementMode))
+			stringTable["camera_mode_desktop"] = tostring(GameSettings.ComputerCameraMovementMode)
 		end
 
 		if UserInputService.TouchEnabled then
-		  table.insert(stringTable, "movement_mode_touch=" .. tostring(GameSettings.TouchMovementMode))
+			stringTable["movement_mode_touch"] = tostring(GameSettings.TouchMovementMode)
 		else
-		  table.insert(stringTable, "movement_mode_desktop=" .. tostring(GameSettings.ComputerMovementMode))
+			stringTable["movement_mode_desktop"] = tostring(GameSettings.ComputerMovementMode)
 		end
 
 		if UserInputService.MouseEnabled then
-		  table.insert(stringTable, "shift_lock_enabled=" .. tostring(GameSettings.ControlMode == Enum.ControlMode.MouseLockSwitch))
+			stringTable["shift_lock_enabled"] = tostring(GameSettings.ControlMode == Enum.ControlMode.MouseLockSwitch)
 		end
 
 		if UserInputService.GamepadEnabled and GameSettings.IsUsingGamepadCameraSensitivity then
-		  local sensitivity = GameSettings.GamepadCameraSensitivity
-		  local formattedSensitivity = tonumber(string.format("%.2f", sensitivity))
-		  table.insert(stringTable, "camera_sensitivity_gamepad=" .. formattedSensitivity)
+			stringTable["camera_sensitivity_gamepad"] = string.format("%.2f", GameSettings.GamepadCameraSensitivity)
 		end
 		if UserInputService.MouseEnabled then
-		  local sensitivity = GameSettings.MouseSensitivityFirstPerson.X
-		  local formattedSensitivity = tonumber(string.format("%.2f", sensitivity))
-		  table.insert(stringTable, "camera_sensitivity_mouse=" .. formattedSensitivity)
+			stringTable["camera_sensitivity_mouse"] = string.format("%.2f", GameSettings.MouseSensitivityFirstPerson.X)
 		end
 
-		table.insert(stringTable, "camera_y_inverted=" .. tostring(GameSettings.CameraYInverted))
-		table.insert(stringTable, "show_performance_stats=" .. tostring(GameSettings.PerformanceStatsVisible))
-		table.insert(stringTable, "volume=" .. tostring( math.floor((GameSettings.MasterVolume * 10) + 0.5) ))
-		table.insert(stringTable, "gfx_quality_level=" .. tostring(settings().Rendering.QualityLevel))
-		table.insert(stringTable, "fullscreen_enabled=" .. tostring(GameSettings:InFullScreen()))
-		table.insert(stringTable, "microprofiler_enabled=" .. tostring(GameSettings.OnScreenProfilerEnabled))
-		table.insert(stringTable, "microprofiler_webserver_enabled=" .. tostring(GameSettings.MicroProfilerWebServerEnabled))
+		stringTable["camera_y_inverted"] = tostring(GameSettings.CameraYInverted)
+		stringTable["show_performance_stats"] = tostring(GameSettings.PerformanceStatsVisible)
+		stringTable["volume"] = tostring( math.floor((GameSettings.MasterVolume * 10) + 0.5) )
+		stringTable["gfx_quality_level"] = tostring(settings().Rendering.QualityLevel)
+		stringTable["fullscreen_enabled"] = tostring(GameSettings:InFullScreen())
+		stringTable["microprofiler_enabled"] = tostring(GameSettings.OnScreenProfilerEnabled)
+		stringTable["microprofiler_webserver_enabled"] = tostring(GameSettings.MicroProfilerWebServerEnabled)
 
-		return table.concat(stringTable,"&")
+		return stringTable
 	end
 
 	if FFlagCollectAnalyticsForSystemMenu then
-		if eventTable == nil then
-			eventTable = {}
+		if replaceEventNameWithGameSettings == true then
+			eventTable = reportSettingsForAnalytics()
+			eventName = Constants.AnalyticsSettingsChangeName
+			eventContext = Constants.AnalyticsInGameMenuName
 		end
 
-		if replaceEventNameWithGameSettings == true then
-			eventName = reportSettingsForAnalytics()
+		if not eventTable then
+			eventTable = {}
 		end
+		eventTable["universeid"] = tostring(game.GameId)
 
 		AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, eventContext, eventName, eventTable)
 	end

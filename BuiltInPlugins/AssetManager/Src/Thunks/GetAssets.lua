@@ -1,6 +1,35 @@
 local Plugin = script.Parent.Parent.Parent
 
+local Cryo = require(Plugin.Packages.Cryo)
+
 local SetAssets = require(Plugin.Src.Actions.SetAssets)
+
+local FFlagStudioAssetManagerFilterPackagePermissions = game:DefineFastFlag("StudioAssetManagerFilterPackagePermissions", false)
+
+local function checkIfPackageHasPermission(apiImpl, packageIds, newAssetsTable, assetBody, assetType)
+    apiImpl.Develop.V1.Packages.getHighestPermissions(packageIds):makeRequest()
+    :andThen(function(response)
+        local body = response.responseBody
+        if not body then
+            return
+        end
+        for _, permission in pairs(body.permissions) do
+            for _, asset in pairs(assetBody.data) do
+                if permission.hasPermission and permission.assetId == asset.assetId then
+                    local newAsset = asset
+                    newAsset.assetType = assetType
+                    newAsset.name = asset.assetName
+                    newAsset.id = asset.assetId
+                    newAsset.assetName = Cryo.None
+                    newAsset.assetId = Cryo.None
+                    table.insert(newAssetsTable, newAsset)
+                end
+            end
+        end
+    end, function()
+        error("Failed to load package permissions")
+    end)
+end
 
 return function(apiImpl, assetType, pageCursor, pageNumber)
     return function(store)
@@ -24,7 +53,7 @@ return function(apiImpl, assetType, pageCursor, pageNumber)
             :andThen(function(response)
                 return response
             end, function()
-                error("Failed to load packges")
+                error("Failed to load packages")
             end)
         elseif assetType == Enum.AssetType.Image
         or assetType == Enum.AssetType.MeshPart
@@ -80,9 +109,29 @@ return function(apiImpl, assetType, pageCursor, pageNumber)
                 if body.nextPageCursor then
                     newAssets.nextPageCursor = response.nextPageCursor
                 end
+                -- Remove with FFlagStudioAssetManagerFilterPackagePermissions
+                local packageIds = {}
                 for _, asset in pairs(body.data) do
-                    asset.assetType = assetType
-                    table.insert(newAssets.assets, asset)
+                    local newAsset = asset
+                    newAsset.assetType = assetType
+                    -- make sure packages have similar keys in table
+                    if assetType == Enum.AssetType.Package then
+                        if not FFlagStudioAssetManagerFilterPackagePermissions then
+                            newAsset.name = asset.assetName
+                            newAsset.id = asset.assetId
+                            newAsset.assetName = Cryo.None
+                            newAsset.assetId = Cryo.None
+                            table.insert(newAssets.assets, newAsset)
+                        else
+                            table.insert(packageIds, asset.assetId)
+                        end
+                    else
+                        table.insert(newAssets.assets, newAsset)
+                    end
+                end
+                if FFlagStudioAssetManagerFilterPackagePermissions
+                and #packageIds ~= 0 then
+                    checkIfPackageHasPermission(apiImpl, packageIds, newAssets.assets,body.data, assetType)
                 end
                 store:dispatch(SetAssets(newAssets))
             end)

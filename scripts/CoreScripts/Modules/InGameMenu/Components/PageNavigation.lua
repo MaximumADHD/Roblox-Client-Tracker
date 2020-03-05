@@ -227,7 +227,7 @@ end, function(dispatch)
 	return {
 		setCurrentPage = function(pageKey)
 			dispatch(SetCurrentPage(pageKey))
-			SendAnalytics(Constants.AnalyticsMenuActionName, "open_" .. pageKey .. "_tab", {})
+			SendAnalytics( "open_" .. pageKey .. "_tab", Constants.AnalyticsMenuActionName, {})
 		end,
 	}
 end)(PageNavigation)

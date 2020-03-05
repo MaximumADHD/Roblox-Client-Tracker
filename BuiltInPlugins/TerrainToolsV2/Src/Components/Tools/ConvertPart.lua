@@ -246,7 +246,9 @@ function ConvertPart:render()
 		local infoLabelText = ""
 		local infoLabelType = InfoLabel.Info
 		local showInfoLabel = true
-		if not isRunning then
+		if isRunning then
+			showInfoLabel = false
+		else
 			local hasValid = self.state.hasValidInstances
 			local hasInvalid = self.state.hasInvalidInstances
 			--[[
@@ -348,6 +350,7 @@ function ConvertPart:render()
 
 				MaterialSettingsFragment = convertMode == ConvertMode.Material and Roact.createElement(MaterialSettingsFragment, {
 					LayoutOrder = 2,
+					AllowAir = true,
 					material = self.props.convertMaterial,
 					setMaterial = self.props.dispatchSetConvertMaterial,
 				}),

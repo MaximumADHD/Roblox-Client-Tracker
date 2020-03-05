@@ -29,6 +29,7 @@ local Constants = require(Util.Constants)
 local ContextHelper = require(Util.ContextHelper)
 local ContextGetter = require(Util.ContextGetter)
 local InsertAsset = require(Util.InsertAsset)
+local Analytics = require(Util.Analytics.Analytics)
 
 local getUserId = require(Util.getUserId)
 local getNetwork = ContextGetter.getNetwork
@@ -425,6 +426,14 @@ function AssetPreviewWrapper:init(props)
 	if FFlagStudioToolboxPluginPurchaseFlow then
 		self.props.clearPurchaseFlow(props.assetData.Asset.Id)
 	end
+
+	self.reportPlay = function()
+		Analytics.onSoundPlayed()
+	end
+
+	self.reportPause = function()
+		Analytics.onSoundPaused()
+	end
 end
 
 function AssetPreviewWrapper:didMount()
@@ -539,6 +548,9 @@ function AssetPreviewWrapper:render()
 						OnVoteDown = self.onVoteDownButtonActivated,
 
 						SearchByCreator = self.searchByCreator,
+
+						reportPlay = self.reportPlay,
+						reportPause = self.reportPause,
 
 						ZIndex = 2,
 					}

@@ -9,6 +9,7 @@ local LayoutValues = require(Connection.LayoutValues)
 local WithLayoutValues = LayoutValues.WithLayoutValues
 
 local FFlagPlayerListDesignUpdate = settings():GetFFlag("PlayerListDesignUpdate")
+local FFlagRenameDisplayNameToPlatformName = settings():GetFFlag("RenameDisplayNameToPlatformName")
 
 local PlayerNameTag = Roact.PureComponent:extend("PlayerNameTag")
 
@@ -70,8 +71,14 @@ function PlayerNameTag:render()
 		end
 
 		local playerNameChildren = {}
+		local platformName
+		if FFlagRenameDisplayNameToPlatformName then
+			platformName = self.props.player.PlatformName
+		else
+			platformName = self.props.player.DisplayName
+		end
 
-		if layoutValues.IsTenFoot and self.props.player.DisplayName ~= "" then
+		if layoutValues.IsTenFoot and platformName ~= "" then
 			playerNameChildren["VerticalLayout"] = Roact.createElement("UIListLayout", {
 				SortOrder = Enum.SortOrder.LayoutOrder,
 				FillDirection = Enum.FillDirection.Vertical,
@@ -90,7 +97,7 @@ function PlayerNameTag:render()
 				TextStrokeColor3 = self.props.textStyle.StrokeColor,
 				TextStrokeTransparency = self.props.textStyle.StrokeTransparency,
 				BackgroundTransparency = 1,
-				Text = self.props.player.DisplayName,
+				Text = platformName,
 				LayoutOrder = 2,
 			})
 

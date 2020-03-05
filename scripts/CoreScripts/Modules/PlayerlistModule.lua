@@ -20,6 +20,8 @@ local FFlagRobloxGuiSiblingZindexs = settings():GetFFlag("RobloxGuiSiblingZindex
 
 local FFlagPlayerListNewIcons = settings():GetFFlag("PlayerListNewIcons")
 
+local FFlagRenameDisplayNameToPlatformName = settings():GetFFlag("RenameDisplayNameToPlatformName")
+
 while not PlayersService.LocalPlayer do
   -- This does not follow the usual pattern of PlayersService:PlayerAdded:Wait()
   -- because it caused a bug where the local players name would show as Player in game.
@@ -1494,7 +1496,8 @@ if isTenFootInterface then offsetSize = 32 end
 local function createPlayerEntry(player, isTopStat)
   local playerEntry = {}
   local name = player.Name
-  local hasXboxGamertag = isTenFootInterface and player.DisplayName ~= ""
+  local platformName = FFlagRenameDisplayNameToPlatformName and player.PlatformName or player.DisplayName
+  local hasXboxGamertag = isTenFootInterface and platformName ~= ""
 
   local containerFrame, entryFrame = createEntryFrame(name, PlayerEntrySizeY, isTopStat)
   entryFrame.Active = true
@@ -1552,14 +1555,12 @@ local function createPlayerEntry(player, isTopStat)
   local playerPlatformName
   local robloxIcon
 
-  -- Only show new layout if...
-  -- 1) It's TenFootInterface
-  -- 2) Our client has a DisplayName (this implies we have a gamertag and backend cross play is enabled)
-  if game:GetService('UserInputService'):GetPlatform() == Enum.Platform.XBoxOne and Player.DisplayName ~= "" then
+  -- Only show new layout if our client has a PlatformName (this implies we have a gamertag and backend cross play is enabled)
+  if game:GetService('UserInputService'):GetPlatform() == Enum.Platform.XBoxOne and platformName ~= "" then
     local playerNameXSize = entryFrame.Size.X.Offset - currentXOffset
 
     if hasXboxGamertag then
-      playerPlatformName = createEntryNameText("PlayerPlatformName", player.DisplayName,
+		playerPlatformName = createEntryNameText("PlayerPlatformName", platformName,
         UDim2.new(0.01, currentXOffset, -0.20, 0),
         UDim2.new(-0.01, playerNameXSize, 1, 0))
       playerPlatformName.Parent = entryFrame

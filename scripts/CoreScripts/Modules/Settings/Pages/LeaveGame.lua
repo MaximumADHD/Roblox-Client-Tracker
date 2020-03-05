@@ -46,7 +46,7 @@ local function Initialize()
 
 		if FFlagCollectAnalyticsForSystemMenu then
 			AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, Constants.AnalyticsInGameMenuName,
-												Constants.AnalyticsLeaveGameName, {confirmed = Constants.AnalyticsConfirmedName})
+												Constants.AnalyticsLeaveGameName, {confirmed = Constants.AnalyticsConfirmedName, universeid = tostring(game.GameId)})
 		end
 
 		-- need to wait for render frames so on slower devices the leave button highlight will update
@@ -64,7 +64,7 @@ local function Initialize()
 
 		if FFlagCollectAnalyticsForSystemMenu then
 			AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, Constants.AnalyticsInGameMenuName,
-												Constants.AnalyticsLeaveGameName, {confirmed = Constants.AnalyticsCancelledName})
+												Constants.AnalyticsLeaveGameName, {confirmed = Constants.AnalyticsCancelledName, universeid = tostring(game.GameId)})
 		end
 	end
 	this.DontLeaveFromHotkey = function(name, state, input)

@@ -15,6 +15,8 @@
 
 local FFlagStudioGameSettingsRestrictPermissions = game:GetFastFlag("StudioGameSettingsRestrictPermissions")
 
+local FFlagStudioGameSettingsUserGameEditPermissionsRestriction = game:GetFastFlag("StudioGameSettingsUserGameEditPermissionsRestriction")
+
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
@@ -231,7 +233,7 @@ function CollaboratorsWidget:render()
 						Items = lockedPermission and {} or userAssignablePermissions,
 						Action = getLabelForAction(localized, user.Action),
 
-						Removable = true,
+						Removable = FFlagStudioGameSettingsUserGameEditPermissionsRestriction and props.CanManage or true,
 						Removed = function() userRemoved(user.Id) end,
 						PermissionChanged = function(newPermission) userPermissionChanged(user.Id, newPermission) end,
 						HideLastSeparator = i ~= #users,
@@ -260,7 +262,7 @@ function CollaboratorsWidget:render()
 						RolePermissionChanged = rolePermissionChanged,
 						GroupPermissionChanged = groupPermissionChanged,
 						
-						Removable = true,
+						Removable = FFlagStudioGameSettingsUserGameEditPermissionsRestriction and props.CanManage or true,
 						Removed = function() groupRemoved(group.Id) end,
 						HideLastSeparator = i ~= #groups,
 						Thumbnails = props.Thumbnails,

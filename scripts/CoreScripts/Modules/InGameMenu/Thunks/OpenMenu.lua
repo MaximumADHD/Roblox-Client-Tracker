@@ -11,8 +11,8 @@ local fflagInGameMenuSinglePaneDesign = getFFlagInGameMenuSinglePaneDesign()
 return function(store)
 	GuiService:SetMenuIsOpen(true, "InGameMenu")
 	store:dispatch(SetMenuOpenAction(true))
-	SendAnalytics(Constants.AnalyticsMenuActionName, Constants.AnalyticsMenuOpenName, {})
 	if fflagInGameMenuSinglePaneDesign then
 		store:dispatch(SetCurrentPage(Constants.defaultPageKey))
 	end
+	SendAnalytics(Constants.AnalyticsMenuOpenName, Constants.AnalyticsMenuActionName, {})
 end

@@ -290,7 +290,11 @@ local function Initialize()
 			stringTable[#stringTable + 1] = "reported_entity_id=" .. tostring(id)
 
 			local infoString = table.concat(stringTable,"&")
-			AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, Constants.AnalyticsReportSubmittedName, infoString, {})
+			
+			local eventTable = {}
+			eventTable["universeid"] = tostring(game.GameId)
+
+			AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, Constants.AnalyticsReportSubmittedName, infoString, eventTable)
 		end
 
 		local function onReportSubmitted()
