@@ -7,6 +7,7 @@ local InGameMenu = script.Parent
 
 local SetMenuOpen = require(InGameMenu.Actions.SetMenuOpen)
 local SetCurrentPage = require(InGameMenu.Actions.SetCurrentPage)
+local SetScreenSize = require(InGameMenu.Actions.SetScreenSize)
 local StartLeavingGame = require(InGameMenu.Actions.StartLeavingGame)
 local CancelLeavingGame = require(InGameMenu.Actions.CancelLeavingGame)
 local SetControlLayout = require(InGameMenu.Actions.SetControlLayout)
@@ -48,7 +49,12 @@ local topLevelHandlers = {
 		return Cryo.Dictionary.join(state, {
 			controlLayout = controlLayout,
 		})
-	end
+	end,
+	[SetScreenSize.name] = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			screenSize = action.newScreenSize,
+		})
+	end,
 }
 
 local function reducer(state, action)
@@ -63,6 +69,7 @@ local function reducer(state, action)
 			localization = localization(nil, action),
 			friends = friends(nil, action),
 			displayOptions = displayOptions(nil, action),
+			screenSize = Vector2.new(0, 0),
 		}
 	end
 

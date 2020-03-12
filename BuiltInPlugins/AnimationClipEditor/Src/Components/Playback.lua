@@ -1,3 +1,5 @@
+game:DefineFastFlag("FixPlaybackWithEndFrameAtZero", false)
+
 local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Roact)
@@ -16,25 +18,29 @@ function Playback:didMount()
 		local playhead = props.Playhead
 		if props.IsPlaying and props.AnimationData ~= nil then
 			local metadata = props.AnimationData.Metadata
-			local now = tick()
-			if not self.StartTime then
-				self.StartTime = now
-				self.PlayheadStart = playhead
-				if self.PlayheadStart >= math.floor(metadata.EndFrame) then
-					self.PlayheadStart = 0
+			if not game:GetFastFlag("FixPlaybackWithEndFrameAtZero") or metadata.EndFrame > 0 then
+				local now = tick()
+				if not self.StartTime then
+					self.StartTime = now
+					self.PlayheadStart = playhead
+					if self.PlayheadStart >= math.floor(metadata.EndFrame) then
+						self.PlayheadStart = 0
+					end
 				end
-			end
-			local elapsed = now - self.StartTime
-			local newFrame = self.PlayheadStart + elapsed * metadata.FrameRate
-			if metadata.Looping then
-				newFrame = newFrame % metadata.EndFrame
+				local elapsed = now - self.StartTime
+				local newFrame = self.PlayheadStart + elapsed * metadata.FrameRate
+				if metadata.Looping then
+					newFrame = newFrame % metadata.EndFrame
+				else
+					newFrame = math.clamp(newFrame, 0, metadata.EndFrame)
+					if newFrame == metadata.EndFrame then
+						props.SetIsPlaying(false)
+					end
+				end
+				props.StepAnimation(newFrame)
 			else
-				newFrame = math.clamp(newFrame, 0, metadata.EndFrame)
-				if newFrame == metadata.EndFrame then
-					props.SetIsPlaying(false)
-				end
+				props.SetIsPlaying(false)
 			end
-			props.StepAnimation(newFrame)
 		elseif self.StartTime ~= nil then
 			self.StartTime = nil
 		end

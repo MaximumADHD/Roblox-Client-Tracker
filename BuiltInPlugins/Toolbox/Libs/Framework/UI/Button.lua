@@ -27,6 +27,7 @@
 		Color3 TextColor: The color of the text in this button.
 ]]
 local FFlagAssetManagerLuaCleanup1 = settings():GetFFlag("AssetManagerLuaCleanup1")
+local FFlagStudioFixTreeViewForSquish = settings():GetFFlag("StudioFixTreeViewForSquish")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -106,6 +107,8 @@ function Button:render()
 			Font = style.Font,
 			TextSize = style.TextSize,
 			TextColor3 = style.TextColor,
+			TextXAlignment = FFlagStudioFixTreeViewForSquish and style.TextXAlignment,
+			TextYAlignment = FFlagStudioFixTreeViewForSquish and style.TextYAlignment,
 			Text = text,
 			ZIndex = 2,
 

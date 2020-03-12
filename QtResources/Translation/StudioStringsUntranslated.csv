@@ -66,6 +66,8 @@ Studio.App.BetaFeatures.EnableNewLuaVMTitle,,Enable New Lua VM,Enable New Lua VM
 Studio.App.BetaFeatures.InsertObjectStreamliningDescription,,Enables a new unified workflow for inserting objects.,Enables a new unified workflow for inserting objects.
 Studio.App.BetaFeatures.InsertObjectStreamliningTitle,,Insert Object Streamlining,Insert Object Streamlining
 Studio.App.BetaFeatures.LearnMoreTooltip,,Learn More,Learn More
+Studio.App.BetaFeatures.LuaDraggersDescription,,Migrates the Select/Move/Rotate/Scale tools to a Lua BuiltInPlugin implementation and makes some minor improvements to their functionality.,Migrates the Select/Move/Rotate/Scale tools to a Lua BuiltInPlugin implementation and makes some minor improvements to their functionality.
+Studio.App.BetaFeatures.LuaDraggersTitle,,Lua Draggers Beta,Lua Draggers Beta
 Studio.App.BetaFeatures.LuaPublishWorkflowDescription,,Uses the new lua-based publish workflow,Uses the new lua-based publish workflow
 Studio.App.BetaFeatures.LuaPublishWorkflowTitle,,Lua Publish Workflow,Lua Publish Workflow
 Studio.App.BetaFeatures.NewScriptFoldStateDescription,,Enables new improved behavior for code folding in the Script Editor.,Enables new improved behavior for code folding in the Script Editor.
@@ -534,6 +536,7 @@ Studio.App.InsertServiceDialog.InsertService,,Insert Service,Insert Service
 Studio.App.InstanceSelectionEditor.ClearValue,,Clear Value,Clear Value
 Studio.App.InstanceSelectionEditor.SelectValue,,Select Value,Select Value
 Studio.App.LocalPlacePublishRequestMediator.ErrorWhileSaving1,,Error while publishing: %1,Error while publishing: %1
+Studio.App.LocalPlacePublishRequestMediator.PublishInProgress,,A Place Publish / Save is already in progress,A Place Publish / Save is already in progress
 Studio.App.LocalPlacePublishRequestMediator.Saving,,saving,saving
 Studio.App.LocalSaveHelper.DataModelError,,Failed to save the DataModel.,Failed to save the DataModel.
 Studio.App.LocalSaveHelper.FailedToLock1,,"Failed to obtain a file lock on '%1'.
@@ -1099,8 +1102,12 @@ Studio.App.QDebuggerClient.WatchExpression,,Watch Expression:,Watch Expression:
 Studio.App.QDebuggerClient.WatchWindowTitle,,Watch,Watch
 Studio.App.QtUtilities.DisabledDuringTesting,,Disabled during testing,Disabled during testing
 Studio.App.QtUtilities.DontAskMeAgain,,Don't ask me again,Don't ask me again
+Studio.App.QuickOpenDialog.Actions,,Actions,Actions
 Studio.App.QuickOpenDialog.Instance,,Instance,Instance
+Studio.App.QuickOpenDialog.MatchCase,,Match Case,Match Case
+Studio.App.QuickOpenDialog.MoreSettings,,More Settings,More Settings
 Studio.App.QuickOpenDialog.Recent,,Recent,Recent
+Studio.App.QuickOpenDialog.RegularExpr,,Regular Expression,Regular Expression
 Studio.App.QuickOpenDialog.ScriptOnly,,Script Only,Script Only
 Studio.App.QuickOpenDialog.ShowMore,,Show More,Show More
 Studio.App.QuickOpenDialog.SpaceAsWildcard,,Space as Wildcard,Space as Wildcard
@@ -1839,6 +1846,7 @@ Studio.App.RobloxStudioVerbs.PublishConfirm,,Publish,Publish
 Studio.App.RobloxStudioVerbs.PublishConfirmTitle,,Uncommitted changes,Uncommitted changes
 Studio.App.RobloxStudioVerbs.Publishing,,Publishing,Publishing
 Studio.App.RobloxStudioVerbs.QuickOpen,,Quick Open,Quick Open
+Studio.App.RobloxStudioVerbs.QuickOpenActions,,Quick Open Actions,Quick Open Actions
 Studio.App.RobloxStudioVerbs.Redo1,,Redo %s,Redo %s
 Studio.App.RobloxStudioVerbs.RemoteDebug,,Remote Debug,Remote Debug
 Studio.App.RobloxStudioVerbs.RemoteDebugSaveFailure,,Remote Debug - save failure,Remote Debug - save failure
@@ -2083,6 +2091,7 @@ Studio.App.VersionHistoryDialog.CurrentVersionLabel1,,%1 (Current),%1 (Current)
 Studio.App.VersionHistoryDialog.EditAllButtonText,,Edit all scripts from the batch,Edit all scripts from the batch
 Studio.App.VersionHistoryDialog.EditThisButtonText,,Edit this script,Edit this script
 Studio.App.VersionHistoryDialog.FailedToLoad,,Failed to load,Failed to load
+Studio.App.VersionHistoryDialog.NoScriptChanges,,No script changes,No script changes
 Studio.App.VersionHistoryDialog.NoScriptHistoryWarning,,There is no saved history for this script,There is no saved history for this script
 Studio.App.VersionHistoryDialog.OpenDialog,,View Script History,View Script History
 Studio.App.VersionHistoryDialog.PlaceVersionColumnTitle,,Place Version,Place Version
@@ -2090,6 +2099,7 @@ Studio.App.VersionHistoryDialog.PlaceVersionLabel1,,Place V%1,Place V%1
 Studio.App.VersionHistoryDialog.ShowBatchContentsLink,,Show,Show
 Studio.App.VersionHistoryDialog.Title1,Title of dialog to view history for a script. Example: MyScriptName - Version History,%1 - Version History,%1 - Version History
 Studio.App.VersionHistoryDialog.VersionColumnTitle,,Version,Version
+Studio.App.VersionHistoryDialog.VersionComparedWithFmt2,,Version %1 compared with %2,Version %1 compared with %2
 Studio.App.VersionHistoryDialog.ViewButtonText,,View,View
 Studio.App.VideoControl.RecordingStarted,,Video recording started,Video recording started
 Studio.App.VideoControl.RecordingStopped,,Video recording stopped,Video recording stopped

@@ -2,8 +2,8 @@
 	Square image with customizable background and optional endorsed badge
 
 	Props:
-		number assetId
-		number typeId
+		number assetId, used to mark selected asset.
+		number typeId, used to check the assetType.
 		boolean isEndorsed
 		number LayoutOrder = 0
 		number curentSoundId
@@ -14,6 +14,8 @@
 		callback onMouseLeave()
 		callback onPreviewAudioButtonClicked()
 ]]
+
+local FFlagEnableAudioPreview = settings():GetFFlag("EnableAudioPreview")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -28,7 +30,9 @@ local ContextGetter = require(Util.ContextGetter)
 local ContextHelper = require(Util.ContextHelper)
 local Urls = require(Util.Urls)
 
-local Category = require(Plugin.Core.Types.Category)
+local Types = Plugin.Core.Types
+local Category = require(Types.Category)
+local AssetType = require(Types.AssetType)
 
 local getModal = ContextGetter.getModal
 local withModal = ContextHelper.withModal
@@ -98,10 +102,16 @@ function AssetIcon:render()
 
 		local assetStatusImage = status and Images.AssetStatus[status]
 
-		local showAssetPreview = typeId == Enum.AssetType.Model.Value
-			or typeId == Enum.AssetType.MeshPart.Value
-			or typeId == Enum.AssetType.Decal.Value
-			or typeId == Enum.AssetType.Plugin.Value
+		local showAssetPreview
+		if FFlagEnableAudioPreview then
+			showAssetPreview = AssetType:isPreviewAvailable(typeId)
+		else
+			showAssetPreview = typeId == Enum.AssetType.Model.Value
+				or typeId == Enum.AssetType.MeshPart.Value
+				or typeId == Enum.AssetType.Decal.Value
+				or typeId == Enum.AssetType.Plugin.Value
+		end
+		local previewButtonSize = UDim2.new(0, Constants.ASSET_PLAY_AUDIO_ICON_SIZE, 0, Constants.ASSET_PLAY_AUDIO_ICON_SIZE)
 
 		-- Asset Data is missing for AssetPreview in the creation tab.
 		showAssetPreview = showAssetPreview and props.currentTab ~= Category.CREATIONS_KEY
@@ -125,8 +135,8 @@ function AssetIcon:render()
 			}),
 
 			PreviewAudioButton = isAudioAsset and Roact.createElement(AudioPreviewButton, {
-				Position = UDim2.new(0.65, 0, 0.75, 0),
-				Size = UDim2.new(0, Constants.ASSET_PLAY_AUDIO_ICON_SIZE, 0, Constants.ASSET_PLAY_AUDIO_ICON_SIZE),
+				Position = FFlagEnableAudioPreview and nil or UDim2.new(0.65, 0, 0.75, 0),
+				Size = FFlagEnableAudioPreview and nil or previewButtonSize,
 				ZIndex = 3,
 
 				assetId = assetId,

@@ -12,12 +12,12 @@ function PartSelectionModel.new(options)
 	local self = setmetatable({
 		_getSelection = options.getSelection,
 		_selectionChanged = options.selectionChanged,
-		_validFilter = options.validFilter,
+		_getValidInvalid = options.getValidInvalid,
 
 		_selection = {},
 		_selectionSet = {},
 		_validInstancesSet = {},
-		_invalidInstancesSet = {},
+		_hasInvalidInstances = false,
 
 		_selectionStateChanged = Signal.new(),
 		_instanceSelected = Signal.new(),
@@ -26,7 +26,7 @@ function PartSelectionModel.new(options)
 
 	assert(self._getSelection, "PartSelectionModel requires a getSelection function")
 	assert(self._selectionChanged, "PartSelectionModel requires a selectionChanged event")
-	assert(self._validFilter, "PartSelectionModel requires a validFilter predicate")
+	assert(self._getValidInvalid, "PartSelectionModel requires a getValidInvalid function")
 
 	self._selectionChangedConnection = self._selectionChanged:Connect(function()
 		self:_updateSelection()
@@ -68,10 +68,6 @@ function PartSelectionModel:getValidInstancesSet()
 	return self._validInstancesSet
 end
 
-function PartSelectionModel:getInvalidInstancesSet()
-	return self._invalidInstancesSet
-end
-
 function PartSelectionModel:hasValidInstances()
 	-- _validInstances is a set so # will return 0
 	-- Instead use next to check if there's something in the set
@@ -79,7 +75,7 @@ function PartSelectionModel:hasValidInstances()
 end
 
 function PartSelectionModel:hasInvalidInstances()
-	return next(self._invalidInstancesSet) ~= nil
+	return self._hasInvalidInstances
 end
 
 function PartSelectionModel:isInstanceOrAncestorsSelected(instance)
@@ -88,8 +84,7 @@ end
 
 function PartSelectionModel:_updateSelection()
 	self._selection = self._getSelection()
-	self._validInstancesSet, self._invalidInstancesSet = SetHelper.splitArrayIntoValidSets(self._selection,
-		self._validFilter)
+	self._validInstancesSet, self._hasInvalidInstances = self._getValidInvalid(self._selection)
 
 	local oldSelectionSet = self._selectionSet
 	local newSelectionSet = SetHelper.arrayToSet(self._selection)

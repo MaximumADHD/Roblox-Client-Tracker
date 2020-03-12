@@ -22,4 +22,8 @@ game:DefineFastFlag("EnableDefaultSortFix", false)
 game:DefineFastFlag("EnableOverrideAssetCursorFix", false)
 -- Need to explicitly return something from a module
 -- Else you get an error "Module code did not return exactly one value"
+
+game:DefineFastFlag("EnableToolboxAssetNameColorChange", false)
+game:DefineFastFlag("RemoveAudioEndorsedIcon", false)
+
 return nil

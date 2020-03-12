@@ -1,5 +1,5 @@
 --[[
-	Returns a list of packages given a universe ID and asset type
+	Returns a list of packages given a universe ID
 
 	Example
 	https://develop.roblox.com/v2/universes/1552514118/symbolic-links

@@ -8,12 +8,6 @@ return function()
 		end)
 	end)
 
-	describe("GetTargetInstances", function()
-		it("should have an onStep callback", function()
-			expect(type(ConversionOperationDetails.GetTargetInstances.onStep)).to.equal("function")
-		end)
-	end)
-
 	describe("GetTargetShapes", function()
 		it("should have an onStep callback", function()
 			expect(type(ConversionOperationDetails.GetTargetShapes.onStep)).to.equal("function")

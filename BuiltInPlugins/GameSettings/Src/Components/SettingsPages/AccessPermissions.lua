@@ -9,6 +9,7 @@ local FFlagStudioGameSettingsDisablePlayabilityForDrafts = settings():GetFFlag("
 
 local FFlagStudioGameSettingsRestrictPermissions = game:DefineFastFlag("StudioGameSettingsRestrictPermissions", false)
 local FFlagStudioGameSettingsGroupGamePermissionChanges = game:DefineFastFlag("StudioGameSettingsGroupGamePermissionChanges", false)
+local FFlagStudioGameSettingsUserGameEditPermissionsRestriction = game:DefineFastFlag("StudioGameSettingsUserGameEditPermissionsRestriction", false)
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -90,6 +91,12 @@ local function displayContents(page, localized, theme)
 	local isTeamCreate = runService:IsEdit() and not runService:IsServer()
 	local isGroupGame = FFlagStudioGameSettingsGroupGamePermissionChanges and props.OwnerType == Enum.CreatorType.Group
 	local accessPermissionsEnabled = isTeamCreate or isGroupGame
+	local canUserEditPermissions
+	if FFlagStudioGameSettingsUserGameEditPermissionsRestriction then
+		canUserEditPermissions = props.OwnerType == Enum.CreatorType.User and props.OwnerId == props.StudioUserId
+	else
+		canUserEditPermissions = props.CanManage
+	end
 	local accessPermissionsWidgetsVisible = isTeamCreate and not isGroupGame
 
 	local playabilityButtons
@@ -209,7 +216,8 @@ local function displayContents(page, localized, theme)
 			LayoutOrder = 50,
 		})),
 		
-		SearchbarWidget = accessPermissionsWidgetsVisible and props.CanManage and Roact.createElement(SearchbarWidget, {
+		-- remove props.CanManage when removing flag
+		SearchbarWidget = accessPermissionsWidgetsVisible and canUserEditPermissions and Roact.createElement(SearchbarWidget, {
 			LayoutOrder = 50,
 			Enabled = props.IsActive ~= nil,
 
@@ -230,7 +238,7 @@ local function displayContents(page, localized, theme)
 			GroupOwnerUserId = props.GroupOwnerUserId,
 			OwnerId = props.OwnerId,
 			OwnerType = props.OwnerType,
-			CanManage = props.CanManage,
+			CanManage = canUserEditPermissions,
 
 			GroupMetadata = props.GroupMetadata,
 			Permissions = props.Permissions,

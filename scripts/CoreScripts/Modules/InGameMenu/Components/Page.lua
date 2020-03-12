@@ -2,9 +2,15 @@ local CorePackages = game:GetService("CorePackages")
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
+local RoactRodux = InGameMenuDependencies.RoactRodux
 local UIBlox = InGameMenuDependencies.UIBlox
 
 local withStyle = UIBlox.Core.Style.withStyle
+local InGameMenu = script.Parent.Parent
+local NavigateUp = require(InGameMenu.Thunks.NavigateUp)
+local Assets = require(InGameMenu.Resources.Assets)
+
+local ImageSetButton = UIBlox.Core.ImageSet.Button
 
 local TITLE_HEIGHT = 28
 local TITLE_TOP_PADDING = 28
@@ -13,8 +19,24 @@ local TOTAL_TITLE_SPACE = TITLE_TOP_PADDING + TITLE_HEIGHT + TITLE_BOTTOM_PADDIN
 
 local ThemedTextLabel = require(script.Parent.ThemedTextLabel)
 
+local getFFlagInGameMenuSinglePaneDesign = require(InGameMenu.Flags.GetFFlagInGameMenuSinglePaneDesign)
+local fflagInGameMenuSinglePaneDesign = getFFlagInGameMenuSinglePaneDesign()
+
 local function Page(props)
 	return withStyle(function(style)
+		local titleChildren = fflagInGameMenuSinglePaneDesign and {
+			BackButton = Roact.createElement(ImageSetButton, {
+				BackgroundTransparency = 1,
+				Image = Assets.Images.NavigateBack,
+				AnchorPoint = Vector2.new(0, 0.5),
+				ImageColor3 = style.Theme.IconEmphasis.Color,
+				ImageTransparency = style.Theme.IconEmphasis.Transparency,
+				Position = UDim2.new(0, 4, 0.5, 0),
+				Size = UDim2.new(0, 36, 0, 36),
+				[Roact.Event.Activated] = props.navigateUp,
+			}),
+		} or props.titleChildren
+
 		return Roact.createElement("TextButton", {
 			AutoButtonColor = false,
 			Text = "",
@@ -34,7 +56,7 @@ local function Page(props)
 				Position = UDim2.new(0.5, 0, 0, TITLE_TOP_PADDING),
 				Size = UDim2.new(1, -48, 0, TITLE_HEIGHT),
 				Text = props.pageTitle,
-			}, props.titleChildren),
+			}, titleChildren),
 			PageContainer = Roact.createElement("Frame", {
 				AnchorPoint = Vector2.new(0, 1),
 				BackgroundTransparency = 1,
@@ -45,4 +67,10 @@ local function Page(props)
 	end)
 end
 
-return Page
+return RoactRodux.UNSTABLE_connect2(nil, function(dispatch)
+	return {
+		navigateUp = function()
+			dispatch(NavigateUp)
+		end,
+	}
+end)(Page)

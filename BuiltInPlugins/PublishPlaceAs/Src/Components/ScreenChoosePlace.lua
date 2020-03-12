@@ -21,8 +21,8 @@ local Localizing = UILibrary.Localizing
 local Spritesheet = UILibrary.Util.Spritesheet
 local createFitToContent = UILibrary.Component.createFitToContent
 local Separator = UILibrary.Component.Separator
-local RoundTextButton = UILibrary.Component.RoundTextButton
 
+local SetIsPublishing = require(Plugin.Src.Actions.SetIsPublishing)
 local SetScreen = require(Plugin.Src.Actions.SetScreen)
 local SetPlaceInfo = require(Plugin.Src.Actions.SetPlaceInfo)
 local SetPublishInfo = require(Plugin.Src.Actions.SetPublishInfo)
@@ -32,7 +32,6 @@ local Footer = require(Plugin.Src.Components.Footer)
 local TilePlace = require(Plugin.Src.Components.TilePlace)
 
 local HALF_SCREEN = 5
-local BUTTON_WIDTH = 90
 local FRAME_BUTTON_SIZE = 32
 local ARROW_SIZE = 12
 local PAGE_PADDING = 115
@@ -46,13 +45,14 @@ local rightArrowProps = arrowSpritesheet[2]
 local leftArrowProps = arrowSpritesheet[4]
 
 local HorizontalContentFit = createFitToContent("Frame", "UIListLayout", {
-	SortOrder = Enum.SortOrder.LayoutOrder,
 	Padding = UDim.new(0, 0),
 	FillDirection = Enum.FillDirection.Horizontal,
 	SortOrder = Enum.SortOrder.LayoutOrder,
 })
 
 local FFlagMakePublishAsync = settings():GetFFlag("StudioMakePublishingAsync")
+
+local FFlagStudioDisablePublishButtonsInProgress = game:GetFastFlag("StudioDisablePublishButtonsInProgress")
 
 local ScreenChoosePlace = Roact.PureComponent:extend("ScreenChoosePlace")
 
@@ -67,7 +67,7 @@ function ScreenChoosePlace:init()
 		isPreviousButtonHovered = false,
 		isNextButtonHovered = false,
 	}
-	
+
 	self.finishedConnection = nil
 
 	self.onPreviousPageButtonPress = function()
@@ -109,6 +109,9 @@ end
 
 function ScreenChoosePlace:didMount()
 		self.finishedConnection = StudioService.GamePublishFinished:connect(function(success)
+			if FFlagStudioDisablePublishButtonsInProgress then
+				self.props.dispatchSetIsPublishing(false)
+			end
 			if self.state.selectedPlace.placeId == 0 then
 				if success then
 					self.props.OpenPublishSuccessfulPage(self.state.selectedPlace, self.props.ParentGame)
@@ -136,8 +139,10 @@ function ScreenChoosePlace:render()
 			local previousPageCursor = props.PreviousPageCursor
 			local places = props.Places
 			local parentGame = props.ParentGame
+			local isPublishing = props.IsPublishing
 
 			local dispatchLoadExistingPlaces = props.DispatchLoadExistingPlaces
+			local dispatchSetIsPublishing = props.dispatchSetIsPublishing
 			local openChooseGamePage = props.OpenChooseGamePage
 
 
@@ -156,7 +161,7 @@ function ScreenChoosePlace:render()
 				if self.state.isPreviousButtonHovered then
 					previousButtonColor = theme.pageButton.hovered.ButtonColor
 				end
-			else 
+			else
 				previousButtonColor = theme.pageButton.disabled.ButtonColor
 			end
 
@@ -166,7 +171,7 @@ function ScreenChoosePlace:render()
 				if self.state.isNextButtonHovered then
 					nextButtonColor = theme.pageButton.hovered.ButtonColor
 				end
-			else 
+			else
 				nextButtonColor = theme.pageButton.disabled.ButtonColor
 			end
 
@@ -189,7 +194,7 @@ function ScreenChoosePlace:render()
 						Selected = self.state.selectedPlace and self.state.selectedPlace.placeId == v.placeId,
 						LastItem = false,
 						OnActivated = function()
-							self:setState({ 
+							self:setState({
 								selectedPlace = v
 							})
 						end,
@@ -204,7 +209,7 @@ function ScreenChoosePlace:render()
 					Selected = newPlaceSelected,
 					LastItem = true,
 					OnActivated = function()
-						self:setState({ 
+						self:setState({
 							selectedPlace = { placeId = 0 , name = "Untitled Place"}
 						})
 					end,
@@ -285,7 +290,7 @@ function ScreenChoosePlace:render()
 							Position = UDim2.new(0.5, 0, 0.5, 0),
 							Size = UDim2.new(0, ARROW_SIZE, 0, ARROW_SIZE),
 							BackgroundTransparency = 1,
-							ImageColor3 = previousButtonActive and theme.pageButton.ImageColor or theme.pageButton.disabled.ImageColor,														
+							ImageColor3 = previousButtonActive and theme.pageButton.ImageColor or theme.pageButton.disabled.ImageColor,
 						})),
 					}),
 
@@ -305,7 +310,7 @@ function ScreenChoosePlace:render()
 						Size = UDim2.new(0, FRAME_BUTTON_SIZE, 0, FRAME_BUTTON_SIZE),
 						BackgroundColor3 = nextButtonColor,
 						BorderColor3 = theme.pageButton.BorderColor,
-						Active = nextButtonActive,	
+						Active = nextButtonActive,
 						TextTransparency = 1,
 						LayoutOrder = 3,
 
@@ -327,17 +332,22 @@ function ScreenChoosePlace:render()
 							Position = UDim2.new(0.5, 0, 0.5, 0),
 							Size = UDim2.new(0, ARROW_SIZE, 0, ARROW_SIZE),
 							BackgroundTransparency = 1,
-							ImageColor3 = nextButtonActive and theme.pageButton.ImageColor or theme.pageButton.disabled.ImageColor,	
+							ImageColor3 = nextButtonActive and theme.pageButton.ImageColor or theme.pageButton.disabled.ImageColor,
 						})),
 					}),
 				}),
 
 				Footer = Roact.createElement(Footer, {
 					MainButton = {
-						Name = newPlaceSelected and localization:getText("FooterButton", "Create") or localization:getText("FooterButton", "Overwrite"),
-						Active = parentGame and self.state.selectedPlace ~= nil,
+						Name = newPlaceSelected and localization:getText("FooterButton", "Create")
+							or localization:getText("FooterButton", "Overwrite"),
+						Active = parentGame and self.state.selectedPlace ~= nil and not isPublishing,
 						OnActivated = function()
-							StudioService:publishAs(parentGame.universeId, self.state.selectedPlace.placeId)
+							-- groupId is unused
+							StudioService:publishAs(parentGame.universeId, self.state.selectedPlace.placeId, 0)
+							if FFlagStudioDisablePublishButtonsInProgress then
+								dispatchSetIsPublishing(true)
+							end
 							if FFlagMakePublishAsync and self.state.selectedPlace.placeId ~= 0 then
 								onClose()
 							end
@@ -358,6 +368,7 @@ local function mapStateToProps(state, props)
 		PreviousPageCursor = placeInfo.previousPageCursor,
 		Places = placeInfo.places,
 		ParentGame = placeInfo.parentGame,
+		IsPublishing = state.PublishedPlace.isPublishing,
 	}
 end
 
@@ -365,6 +376,9 @@ local function useDispatchForProps(dispatch)
 	return {
 		DispatchLoadExistingPlaces = function(parentGame, cursor)
 			dispatch(LoadExistingPlaces(parentGame, cursor))
+		end,
+		dispatchSetIsPublishing = function(isPublishing)
+			dispatch(SetIsPublishing(isPublishing))
 		end,
 		OpenChooseGamePage = function()
 			dispatch(SetPlaceInfo({ places = {} }))

@@ -1,7 +1,7 @@
 local FFlagEnableStudioServiceOpenBrowser = game:GetFastFlag("EnableStudioServiceOpenBrowser")
 local FFlagPluginManagementNewLoadingBar = game:DefineFastFlag("PluginManagementNewLoadingBar", false)
 local FFlagShowModeratedPluginInfo = game:DefineFastFlag("ShowModeratedPluginInfo", false)
-local FFlagPluginManagementPrettifyDesign = game:GetFastFlag("PluginManagementPrettifyDesign")
+local FFlagPluginManagementPrettifyDesign = game:GetFastFlag("PluginManagementPrettifyDesign2")
 local StudioService = game:getService("StudioService")
 local ContentProvider = game:getService("ContentProvider")
 local GuiService = game:getService("GuiService")
@@ -231,7 +231,7 @@ function PluginEntry:render()
 			Name = Roact.createElement("TextLabel", {
 				LayoutOrder = 0,
 				TextWrapped = true,
-				TextSize = FFlagPluginManagementPrettifyDesign and 18 or 22,
+				TextSize = 22,
 				Size = UDim2.new(1, 0, 0, 20),
 				BackgroundTransparency = 1,
 				TextXAlignment = Enum.TextXAlignment.Left,
@@ -249,7 +249,7 @@ function PluginEntry:render()
 				Text = creator,
 				Font = FFlagPluginManagementPrettifyDesign and Enum.Font.SourceSansLight or Enum.Font.SourceSans,
 				TextColor3 = theme.LinkColor,
-				TextSize = FFlagPluginManagementPrettifyDesign and 14 or 16,
+				TextSize = 16,
 				BorderSizePixel = 1,
 				[Roact.Event.Activated] = self.openCreatorProfile,
 			}),
@@ -267,7 +267,7 @@ function PluginEntry:render()
 				TextColor3 = FFlagPluginManagementPrettifyDesign and theme.TextColor or theme.TextColor,
 				TextTruncate = Enum.TextTruncate.AtEnd,
 				Font = FFlagPluginManagementPrettifyDesign and Enum.Font.SourceSans or Enum.Font.SourceSansLight,
-				TextSize = FFlagPluginManagementPrettifyDesign and 14 or 16,
+				TextSize = 16,
 			}),
 
 			HttpRequestOverview = FlagsList:get("FFlagEnablePluginPermissionsPage") and hasHttpPermissions
@@ -305,7 +305,7 @@ function PluginEntry:render()
 						Text = localization:getText("Entry", "UpdateButton"),
 						TextColor3 = theme.TextColor,
 						Font = Enum.Font.SourceSans,
-						TextSize = FFlagPluginManagementPrettifyDesign and 16 or 18,
+						TextSize = 18,
 						BackgroundTransparency = 1,
 					}),
 
@@ -313,7 +313,7 @@ function PluginEntry:render()
 						BackgroundTransparency = 1,
 						Size = UDim2.new(1, 0, 0, 14),
 						Position = UDim2.new(0, 0, 1, 3),
-						TextSize = FFlagPluginManagementPrettifyDesign and 12 or 14,
+						TextSize = 14,
 						Font = Enum.Font.SourceSans,
 						TextColor3 = theme.TextColor,
 						TextTransparency = FFlagPluginManagementPrettifyDesign and 0 or 0.6,

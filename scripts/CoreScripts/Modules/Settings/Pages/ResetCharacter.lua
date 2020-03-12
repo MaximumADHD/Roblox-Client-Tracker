@@ -39,7 +39,7 @@ local function Initialize()
 	this.DontResetCharFunc = function(isUsingGamepad)
 		if FFlagCollectAnalyticsForSystemMenu then
 			AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, Constants.AnalyticsInGameMenuName,
-												Constants.AnalyticsRespawnCharacterName, {confirmed = Constants.AnalyticsCancelledName})
+												Constants.AnalyticsRespawnCharacterName, {confirmed = Constants.AnalyticsCancelledName, universeid = tostring(game.GameId)})
 		end
 
 		if this.HubRef then
@@ -124,7 +124,7 @@ local function Initialize()
 
 		if FFlagCollectAnalyticsForSystemMenu then
 			AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, Constants.AnalyticsInGameMenuName,
-												Constants.AnalyticsRespawnCharacterName, {confirmed = Constants.AnalyticsConfirmedName})
+												Constants.AnalyticsRespawnCharacterName, {confirmed = Constants.AnalyticsConfirmedName, universeid = tostring(game.GameId)})
 		end
 		AnalyticsService:ReportCounter("InGameMenu-ResetCharacter")
 	end

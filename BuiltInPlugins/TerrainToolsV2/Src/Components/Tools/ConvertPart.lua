@@ -5,6 +5,7 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 local UILibrary = Plugin.Packages.UILibrary
 local Localizing = require(UILibrary.Localizing)
 local withLocalization = Localizing.withLocalization
+local StudioPlugin = require(Plugin.Src.ContextServices.StudioPlugin)
 
 local ToolParts = Plugin.Src.Components.Tools.ToolParts
 local BiomeSettingsFragment = require(ToolParts.BiomeSettingsFragment)
@@ -25,6 +26,8 @@ local TerrainInterface = require(Plugin.Src.ContextServices.TerrainInterface)
 local PartConverter = require(Plugin.Src.TerrainInterfaces.PartConverter)
 local PartConverterUtil = require(Plugin.Src.Util.PartConverterUtil)
 local PartSelectionModel = require(Plugin.Src.Util.PartSelectionModel)
+
+local MidPlanePreview = require(Plugin.Src.TerrainWorldUI.MidPlanePreview)
 
 local Actions = Plugin.Src.Actions
 local ApplyToolAction = require(Actions.ApplyToolAction)
@@ -56,7 +59,7 @@ function ConvertPart:init()
 			return SelectionService:Get()
 		end,
 		selectionChanged = SelectionService.SelectionChanged,
-		validFilter = PartConverterUtil.validInstanceFilter,
+		getValidInvalid = PartConverterUtil.getValidInvalidInfo,
 	})
 
 	self.connections = {}
@@ -79,26 +82,39 @@ function ConvertPart:init()
 	end
 
 	self.setPlanePositionY = function(...)
-		print("fill out setPlanePositionY ->", ...)
+		self.props.dispatchChangePlanePositionY(...)
+		if self.midPlanePreview then
+			self.midPlanePreview:setY(...)
+		end
 	end
 
-	self.setHeightPicker = function( ... )
-		print("fill out setHeightPicker ->", ...)
+	self.setHeightPicker = function(picking)
+		if self.midPlanePreview and picking then
+			self.midPlanePreview:startSelectHeight(function()
+				self.props.dispatchSetHeightPicker(false)
+				local pos = self.midPlanePreview:getPosition()
+				self.props.dispatchChangePlanePositionY(pos.y)
+			end, function(...)
+				self.props.dispatchChangePlanePositionY(...)
+			end)
+		else
+			self.props.dispatchSetHeightPicker(picking)
+		end
 	end
 
 	self.onConvertBiomeClicked = function()
-		self.partConverter:convertInstancesToBiome(self.partSelectionModel:getSelection(), {
+		self.partConverter:convertInstancesToBiome(self.partSelectionModel:getValidInstancesSet(), {
 			biomeSelection = self.props.biomeSelection,
 			biomeSize = self.props.biomeSize,
 			haveCaves = self.props.haveCaves,
-
+			baseLevel = self.props.planePositionY,
 			seed = self.props.seed,
 		})
 	end
 
 	self.onConvertMaterialClicked = function()
 		self.partConverter:convertInstancesToMaterial(
-			self.partSelectionModel:getSelection(),
+			self.partSelectionModel:getValidInstancesSet(),
 			self.props.convertMaterial
 		)
 	end
@@ -117,6 +133,38 @@ function ConvertPart:init()
 
 	self.onCancelClicked = function()
 		self.partConverter:cancel()
+	end
+
+	self.onSelectionChanged = function()
+		-- remove enableBiome if we want to enable biome convert
+		if not self.props.enableBiome then
+			return
+		end
+
+		if self.props.convertMode == ConvertMode.Biome then
+			if self.partSelectionModel:hasValidInstances() then
+				local validInstances = self.partSelectionModel:getValidInstancesSet()
+
+				local success, msg = xpcall(function()
+					local min, max = PartConverterUtil.getInstanceSetAABBExtents(validInstances)
+					if self.midPlanePreview then
+						self.midPlanePreview:updatePlaneScaling(min,max)
+					else
+						local plugin = StudioPlugin.getPlugin(self)
+						self.midPlanePreview = MidPlanePreview.new(plugin, workspace, min, max)
+						local mid = (min + max) * 0.5
+						self.setPlanePositionY(mid.y)
+					end
+					self.midPlanePreview:updateVisibility(true)
+				end, function()
+					-- silence
+				end)
+			else
+				if self.midPlanePreview then
+					self.midPlanePreview:updateVisibility(false)
+				end
+			end
+		end
 	end
 end
 
@@ -155,6 +203,8 @@ function ConvertPart:didMount()
 	end)
 
 	self.connections.selectionStateChangedConnection = self.partSelectionModel:subscribeToSelectionStateChanged(function()
+		self:onSelectionChanged()
+
 		self:setState({
 			hasValidInstances = self.partSelectionModel:hasValidInstances(),
 			hasInvalidInstances = self.partSelectionModel:hasInvalidInstances(),
@@ -162,6 +212,11 @@ function ConvertPart:didMount()
 	end)
 
 	self.partConverter:setSelectionModel(self.partSelectionModel)
+	self.onSelectionChanged()
+end
+
+function ConvertPart:didUpdate()
+	self.onSelectionChanged()
 end
 
 function ConvertPart:willUnmount()
@@ -176,6 +231,10 @@ function ConvertPart:willUnmount()
 		self.partSelectionModel:destroy()
 		self.partSelectionModel = nil
 	end
+
+	if self.midPlanePreview then
+		self.midPlanePreview:destroy()
+	end
 end
 
 function ConvertPart:render()
@@ -187,7 +246,9 @@ function ConvertPart:render()
 		local infoLabelText = ""
 		local infoLabelType = InfoLabel.Info
 		local showInfoLabel = true
-		if not isRunning then
+		if isRunning then
+			showInfoLabel = false
+		else
 			local hasValid = self.state.hasValidInstances
 			local hasInvalid = self.state.hasInvalidInstances
 			--[[
@@ -226,6 +287,7 @@ function ConvertPart:render()
 			end
 		end
 
+		local showHeightPicker = self.midPlanePreview ~= nil
 		local planePositionY = self.props.planePositionY
 		local heightPicker = self.props.heightPicker
 
@@ -239,12 +301,17 @@ function ConvertPart:render()
 			localizedConvertState = localization:getText("ConvertPart", self.state.convertState)
 		end
 
+		-- remove if we want to enable biome convert
+		if not self.props.enableBiome then
+			convertMode = ConvertMode.Material
+		end
+
 		return Roact.createFragment({
 			MapSettings = Roact.createElement(Panel, {
 				Title = localization:getText("MapSettings", "MapSettings"),
 				LayoutOrder = 1,
 			}, {
-				ConvertModeSelector = Roact.createElement(LabeledElementPair, {
+				ConvertModeSelector = self.props.enableBiome and Roact.createElement(LabeledElementPair, {
 					Size = UDim2.new(1, 0, 0, 22),
 					Text = localization:getText("ConvertMode", "ConvertMode"),
 					LayoutOrder = 1,
@@ -272,6 +339,7 @@ function ConvertPart:render()
 					selectBiome = self.selectBiome,
 					biomeSize = biomeSize,
 					setBiomeSize = self.props.dispatchSetBiomeSize,
+					showHeightPicker = showHeightPicker,
 					planePositionY = planePositionY,
 					setPlanePositionY = self.setPlanePositionY,
 					heightPicker = heightPicker,

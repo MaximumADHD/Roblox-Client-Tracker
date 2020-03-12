@@ -1295,10 +1295,16 @@ local function CreateSettingsHub()
 		end
 
 		if FFlagCollectAnalyticsForSystemMenu then
+			local eventTable = {}
+			eventTable["universeid"] = tostring(game.GameId)
 			if pageToSwitchTo then
-				AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, Constants.AnalyticsMenuActionName, "open_" .. pageToSwitchTo.Page.Name .. "_tab", {})
+				if this.GameSettingsPage == pageToSwitchTo then
+					AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, "open_GameSettings_tab", Constants.AnalyticsMenuActionName, eventTable)
+				else
+					AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, "open_" .. pageToSwitchTo.Page.Name .. "_tab", Constants.AnalyticsMenuActionName, eventTable)
+				end
 			else
-				AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, Constants.AnalyticsMenuActionName, "open_unknown_tab", {})
+				AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, "open_unknown_tab", Constants.AnalyticsMenuActionName, eventTable)
 			end
 		end
 	end
@@ -1331,9 +1337,9 @@ local function CreateSettingsHub()
 		if FFlagCollectAnalyticsForSystemMenu then
 			if this.Visible ~= visible then
 				if visible then
-					AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, Constants.AnalyticsMenuActionName, Constants.AnalyticsMenuOpenName, {})
+					AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, Constants.AnalyticsMenuOpenName, Constants.AnalyticsMenuActionName, {})
 				else
-					AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, Constants.AnalyticsMenuActionName, Constants.AnalyticsMenuCloseName, {})
+					AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, Constants.AnalyticsMenuCloseName, Constants.AnalyticsMenuActionName, {})
 				end
 			end
 		end

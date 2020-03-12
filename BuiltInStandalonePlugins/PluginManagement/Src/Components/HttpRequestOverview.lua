@@ -25,19 +25,6 @@ HttpRequestOverview.defaultProps = {
 }
 
 function HttpRequestOverview:init()
-    self.frameRef = Roact.createRef()
-	self.layoutRef = Roact.createRef()
-
-    self.resizeFrame = function()
-		local layoutRef = self.layoutRef.current
-		local frameRef = self.frameRef.current
-		if not frameRef or not layoutRef then
-			return
-		end
-        local height = UDim.new(0, layoutRef.AbsoluteContentSize.Y)
-		frameRef.Size = UDim2.new(frameRef.Size.X, height)
-    end
-
     self.openPluginDetails = function()
 		local rn = self.props.Navigation:get()
 		rn.navigation.navigate({
@@ -45,10 +32,6 @@ function HttpRequestOverview:init()
 			params = { assetId = self.props.assetId },
 		})
     end
-end
-
-function HttpRequestOverview:didMount()
-	self.resizeFrame()
 end
 
 function HttpRequestOverview:render()
@@ -61,10 +44,10 @@ function HttpRequestOverview:render()
 
 	return Roact.createElement("TextButton", {
         BackgroundTransparency = 1,
-		LayoutOrder = layoutOrder,
+        LayoutOrder = layoutOrder,
+        -- TODO? Consider dynamically resizing this frame based on the checkbox/text height
         Size = UDim2.new(1, 0, 0, 16),
         Text = "",
-        [Roact.Ref] = self.frameRef,
         [Roact.Event.Activated] = self.openPluginDetails,
     }, {
         Layout = Roact.createElement("UIListLayout", {
@@ -72,8 +55,6 @@ function HttpRequestOverview:render()
             Padding = UDim.new(0, 8),
             SortOrder = Enum.SortOrder.LayoutOrder,
             VerticalAlignment = Enum.VerticalAlignment.Top,
-            [Roact.Change.AbsoluteContentSize] = self.resizeFrame,
-            [Roact.Ref] = self.layoutRef,
         }),
 
         Label = Roact.createElement(FitTextLabel, {

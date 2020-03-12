@@ -12,27 +12,26 @@
 local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
+local RoactRodux = require(Plugin.Packages.RoactRodux)
+
 local ContextServices = require(Plugin.Packages.Framework.ContextServices)
 
 local UILibrary = require(Plugin.Packages.UILibrary)
-local createFitToContent = UILibrary.Component.createFitToContent
 local LayoutOrderIterator = UILibrary.Util.LayoutOrderIterator
 
-local TopBar = require(Plugin.Src.Components.TopBar)
+local AssetGridContainer = require(Plugin.Src.Components.AssetGridContainer)
 local ExplorerOverlay = require(Plugin.Src.Components.ExplorerOverlay)
 local NavBar = require(Plugin.Src.Components.NavBar)
+local TopBar = require(Plugin.Src.Components.TopBar)
 
 local Screens = require(Plugin.Src.Util.Screens)
 
+local GetUniverseConfiguration = require(Plugin.Src.Thunks.GetUniverseConfiguration)
+
 local MainView = Roact.PureComponent:extend("MainView")
 
-local FitTocontent = createFitToContent("Frame", "UIListLayout", {
-    FillDirection = Enum.FillDirection.Vertical,
-    SortOrder = Enum.SortOrder.LayoutOrder,
-    VerticalAlignment = Enum.VerticalAlignment.Top,
-})
-
 local defaultFoldersLoaded = false
+local universeNameSet = false
 local function createDefaultFileOverlayFolders(category, parent, localization)
     local node = {
         ClassName = "Folder",
@@ -71,11 +70,17 @@ function MainView:init()
     end
 end
 
+function MainView:didMount()
+    self.props.dispatchGetUniverseConfiguration(self.props.API:get())
+end
+
 function MainView:render()
     local props = self.props
     local theme = props.Theme:get("Plugin")
 
     local localization = props.Localization
+
+    local universeName = props.UniverseName
 
     local layoutIndex = LayoutOrderIterator.new()
 
@@ -88,15 +93,29 @@ function MainView:render()
         defaultFoldersLoaded = true
     end
 
-    return Roact.createElement(FitTocontent, {
+    if universeName ~= "" and not universeNameSet then
+        self.state.fileExplorerData.Name = universeName
+        universeNameSet = true
+    end
+
+    return Roact.createElement("Frame", {
+        Size = UDim2.new(1, 0, 1, 0),
         Position = UDim2.new(0, 0, 0, 0),
         BackgroundTransparency = 0,
         BackgroundColor3 = theme.BackgroundColor,
     }, {
+        MainViewLayout = Roact.createElement("UIListLayout", {
+            FillDirection = Enum.FillDirection.Vertical,
+            SortOrder = Enum.SortOrder.LayoutOrder,
+            VerticalAlignment = Enum.VerticalAlignment.Top,
+        }),
+
         TopBar = Roact.createElement(TopBar, {
+            Size = UDim2.new(1, 0, 0, theme.TopBar.Button.Size),
+            LayoutOrder = layoutIndex:getNextOrder(),
+
             OnOverlayActivated = self.openOverlay,
             Enabled = not self.state.showOverlay,
-            LayoutOrder = layoutIndex:getNextOrder(),
         }),
 
         NavBar = Roact.createElement(NavBar, {
@@ -108,12 +127,32 @@ function MainView:render()
             FileExplorerData = self.state.fileExplorerData,
             CloseOverlay = self.closeOverlay,
         }),
+
+        AssetGridView = Roact.createElement(AssetGridContainer, {
+            Size = UDim2.new(1, 0, 1, -theme.TopBar.Button.Size - theme.NavBar.Height),
+            LayoutOrder = layoutIndex:getNextOrder(),
+        }),
     })
 end
 
 ContextServices.mapToProps(MainView,{
+    API = ContextServices.API,
     Theme = ContextServices.Theme,
     Localization = ContextServices.Localization,
 })
 
-return MainView
+local function mapStateToProps(state, props)
+    return {
+        UniverseName = state.AssetManagerReducer.universeName,
+    }
+end
+
+local function useDispatchForProps(dispatch)
+    return {
+        dispatchGetUniverseConfiguration = function(apiImpl)
+            dispatch(GetUniverseConfiguration(apiImpl))
+        end,
+    }
+end
+
+return RoactRodux.connect(mapStateToProps, useDispatchForProps)(MainView)

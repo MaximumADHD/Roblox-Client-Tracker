@@ -1,21 +1,35 @@
 local FFlagFixGetAssetTypeErrorHandling = game:GetFastFlag("FixGetAssetTypeErrorHandling")
-
+local FFlagEnableAudioPreview = settings():GetFFlag("EnableAudioPreview")
 
 local Plugin = script.Parent.Parent.Parent
 
-local Promise = require(Plugin.Libs.Http.Promise)
+local Util = Plugin.Core.Util
+local convertArrayToTable = require(Util.convertArrayToTable)
 
 local AssetType = {}
 
+-- For asset preview panel, where we don't have asset typeId.
 AssetType.TYPES = {
-	ModelType = 1, -- Part, Mesh, Model
+	ModelType = 1, -- MeshPart, Mesh, Model
 	ImageType = 2,
-	SoundType = 3,
+	SoundType = 3,	-- Sound comes with the model or mesh.
 	ScriptType = 4, -- Server, local, module
 	PluginType = 5,
 	OtherType = 6,
 	LoadingType = 7,
 }
+
+-- For check if we show preview button or not.
+AssetType.AssetTypesPreviewEnabled = convertArrayToTable({
+	Enum.AssetType.Mesh.Value,
+	Enum.AssetType.MeshPart.Value,
+	Enum.AssetType.Model.Value,
+	Enum.AssetType.Decal.Value,
+	Enum.AssetType.Image.Value,
+	Enum.AssetType.Audio.Value,
+	Enum.AssetType.Lua.Value,
+	Enum.AssetType.Plugin.Value,
+})
 
 -- For AssetPreview, we devide assets into four categories.
 -- For any parts or meshes, we will need to do a model preview.
@@ -73,8 +87,6 @@ function AssetType:isPlugin(currentType)
 	return currentType == self.TYPES.PluginType
 end
 
--- Since you can't tell if an asset is a plugin based purely on its derived class,
--- plugin assets need to be directly given the plugin type
 function AssetType:markAsPlugin()
 	return self.TYPES.PluginType
 end
@@ -85,6 +97,10 @@ end
 
 function AssetType:isLoading(currentType)
 	return currentType == self.TYPES.LoadingType
+end
+
+function AssetType:isPreviewAvailable(typeId)
+	return AssetType.AssetTypesPreviewEnabled[typeId]
 end
 
 return AssetType

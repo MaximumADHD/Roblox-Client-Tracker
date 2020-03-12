@@ -34,7 +34,7 @@ local function saveAll(state, localization)
 		end
 	end
 
-	StudioService:publishAs(0, 0)
+	StudioService:publishAs(0, 0, state.creatorId)
 
 	spawn(function()
 		-- Failure handled in ScreenCreateNewGame

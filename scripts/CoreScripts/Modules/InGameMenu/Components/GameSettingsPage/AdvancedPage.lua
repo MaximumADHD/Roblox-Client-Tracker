@@ -33,8 +33,11 @@ local withLocalization = require(InGameMenu.Localization.withLocalization)
 
 local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
 local Constants = require(InGameMenu.Resources.Constants)
+local getFFlagInGameMenuSinglePaneDesign = require(InGameMenu.Flags.GetFFlagInGameMenuSinglePaneDesign)
+local fflagInGameMenuSinglePaneDesign = getFFlagInGameMenuSinglePaneDesign()
 
 local AdvancedPage = Roact.PureComponent:extend("AdvancedPage")
+
 AdvancedPage.validateProps = t.strictInterface({
 	-- position may be either a bare UDim2 or a binding; for lack of a more
 	-- specific validator we use table.
@@ -57,7 +60,7 @@ function AdvancedPage:render()
 			pageTitle = self.props.pageTitle,
 			zIndex = 2,
 			position = self.props.position,
-			titleChildren = {
+			titleChildren = not fflagInGameMenuSinglePaneDesign and {
 				BackButton = Roact.createElement(ImageSetButton, {
 					BackgroundTransparency = 1,
 					Image = Assets.Images.NavigateBack,

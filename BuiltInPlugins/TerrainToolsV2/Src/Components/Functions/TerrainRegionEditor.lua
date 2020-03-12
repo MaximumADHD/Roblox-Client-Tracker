@@ -771,11 +771,7 @@ toolSelect = {
 }
 
 function TerrainRegionEditor.Init (toolName, theMouse)
-	if FFlagTerrainToolsFixGettingTerrain then
-		terrain = getTerrain()
-	else
-		terrain = workspace.Terrain
-	end
+	terrain = getTerrain()
 	mouse = theMouse
 	kCurrentTool = toolName
 

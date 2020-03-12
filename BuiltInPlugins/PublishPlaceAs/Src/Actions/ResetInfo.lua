@@ -20,6 +20,7 @@ return Action(script.Name, function()
         },
         errors = {},
         publishInfo = { id = 0, name = "", parentGameName = "", parentGameId = 0, settings = {}, },
+        isPublishing = false,
         screen = Constants.SCREENS.CREATE_NEW_GAME,
 	}
 end)

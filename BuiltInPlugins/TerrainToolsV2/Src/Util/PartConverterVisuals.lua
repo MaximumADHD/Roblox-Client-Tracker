@@ -36,7 +36,7 @@ local PartConverterUtil = require(Plugin.Src.Util.PartConverterUtil)
 local PartConverterVisuals = {}
 PartConverterVisuals.__index = PartConverterVisuals
 
-function PartConverterVisuals.new()
+function PartConverterVisuals.new(instances)
 	local self = setmetatable({
 		_selectionModel = nil,
 
@@ -45,7 +45,7 @@ function PartConverterVisuals.new()
 		-- Only modify them with targetInstances[foo] = bar etc.
 
 		-- Store the instances being used in the conversion so we can correctly update their transparencies
-		_targetInstances = {},
+		_targetInstances = instances or {},
 		-- Map of instances to maps of property names to values
 		-- { [Instance]: { [string]: any } }
 		_originalVisualsPerInstance = {},

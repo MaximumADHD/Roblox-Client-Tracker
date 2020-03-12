@@ -8,6 +8,7 @@ local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
 local t = require(CorePackages.Packages.t)
 local Otter = require(CorePackages.Packages.Otter)
+local UIBlox = require(CorePackages.UIBlox)
 
 local Components = script.Parent.Parent
 local Connection = Components.Connection
@@ -26,10 +27,14 @@ local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
 local PolicyService = require(RobloxGui.Modules.Common.PolicyService)
 
+local Images = UIBlox.App.ImageSet.Images
+
 local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
 
 local FFlagPlayerListDesignUpdate = settings():GetFFlag("PlayerListDesignUpdate")
+
 local FFlagPlayerListBetterDropDownPositioning = require(RobloxGui.Modules.Flags.FFlagPlayerListBetterDropDownPositioning)
+local FFlagPlayerListUseUIBloxIcons = require(CoreGui.RobloxGui.Modules.Flags.FFlagPlayerListUseUIBloxIcons)
 
 local PlayerList = Components.Parent
 
@@ -164,8 +169,14 @@ function PlayerDropDown:createFollowButton(playerRelationship)
 		local selectedPlayer = self.props.selectedPlayer
 		local unfollowText = RobloxTranslator:FormatByKey("PlayerDropDown.UnFollow")
 		local followText = RobloxTranslator:FormatByKey("PlayerDropDown.Follow")
-		local followerIcon = playerRelationship.isFollowing and "rbxasset://textures/ui/PlayerList/NotificationOn.png"
-			or "rbxasset://textures/ui/PlayerList/NotificationOff.png"
+		local followerIcon
+		if FFlagPlayerListUseUIBloxIcons then
+			followerIcon = playerRelationship.isFollowing and Images["icons/common/notificationOn"]
+				or Images["icons/common/notificationOff"]
+		else
+			followerIcon = playerRelationship.isFollowing and "rbxasset://textures/ui/PlayerList/NotificationOn.png"
+				or "rbxasset://textures/ui/PlayerList/NotificationOff.png"
+		end
 		return Roact.createElement(DropDownButton, {
 			layoutOrder = 2,
 			text = playerRelationship.isFollowing and unfollowText or followText,
@@ -203,10 +214,16 @@ function PlayerDropDown:createBlockButton(playerRelationship)
 		local selectedPlayer = self.props.selectedPlayer
 		local blockedText = RobloxTranslator:FormatByKey("PlayerDropDown.Block")
 		local unblockText = RobloxTranslator:FormatByKey("PlayerDropDown.UnBlock")
+		local blockIcon
+		if FFlagPlayerListUseUIBloxIcons then
+			blockIcon = Images["icons/actions/block"]
+		else
+			blockIcon = "rbxasset://textures/ui/PlayerList/Block.png"
+		end
 		return Roact.createElement(DropDownButton, {
 			layoutOrder = 4,
 			text = playerRelationship.isBlocked and unblockText or blockedText,
-			icon = "rbxasset://textures/ui/PlayerList/Block.png",
+			icon = blockIcon,
 			lastButton = false,
 			forceShowOptions = false,
 			onActivated = function()
@@ -238,10 +255,16 @@ end
 function PlayerDropDown:createReportButton()
 	if FFlagPlayerListDesignUpdate then
 		local selectedPlayer = self.props.selectedPlayer
+		local reportIcon
+		if FFlagPlayerListUseUIBloxIcons then
+			reportIcon = Images["icons/actions/feedback"]
+		else
+			reportIcon = "rbxasset://textures/ui/PlayerList/Report.png"
+		end
 		return Roact.createElement(DropDownButton, {
 			layoutOrder = 5,
 			text = RobloxTranslator:FormatByKey("PlayerDropDown.Report"),
-			icon = "rbxasset://textures/ui/PlayerList/Report.png",
+			icon = reportIcon,
 			lastButton = true,
 			forceShowOptions = false,
 			onActivated = function()
@@ -283,10 +306,16 @@ end
 function PlayerDropDown:createInspectButton()
 	if FFlagPlayerListDesignUpdate then
 		local selectedPlayer = self.props.selectedPlayer
+		local inspectIcon
+		if FFlagPlayerListUseUIBloxIcons then
+			inspectIcon = Images["icons/actions/zoomIn"]
+		else
+			inspectIcon = "rbxasset://textures/ui/PlayerList/ViewAvatar.png"
+		end
 		return Roact.createElement(DropDownButton, {
 			layoutOrder = 3,
 			text = RobloxTranslator:FormatByKey("PlayerDropDown.Examine"),
-			icon = "rbxasset://textures/ui/PlayerList/ViewAvatar.png",
+			icon = inspectIcon,
 			lastButton = selectedPlayer == LocalPlayer,
 			forceShowOptions = false,
 			onActivated = function()

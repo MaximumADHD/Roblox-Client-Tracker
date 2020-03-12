@@ -10,6 +10,7 @@ local Urls = require(Plugin.Core.Util.Urls)
 
 local FFlagEnableDataModelFetchAssetAsync = settings():GetFFlag("EnableDataModelFetchAssetAsync")
 local FFlagEnableToolboxInsertWithJoin = settings():GetFFlag("EnableToolboxInsertWithJoin")
+local FFlagEnableAudioPreview = settings():GetFFlag("EnableAudioPreview")
 
 local function disableScripts(previewModel)
 	for _, item in pairs(previewModel:GetDescendants()) do
@@ -19,18 +20,24 @@ local function disableScripts(previewModel)
 	end
 end
 
+-- This method would always return a instance to root.
+-- For audio asset, we will to handle that ourselves.
 local function getPreviewModel(assetId)
 	local assetInstances = nil
 	local success, errorMessage = pcall(function()
 		local url = Urls.constructAssetIdString(assetId)
 		if FFlagEnableDataModelFetchAssetAsync then
 			if FFlagEnableToolboxInsertWithJoin then
-				assetInstances = game:InsertObjectsAndJoinIfLegacyAsync(url)
+				assetInstances = game:InsertObjectsAndJoinIfLegacy(url)
 			else
 				assetInstances = game:GetObjectsAsync(url)
 			end
 		else
-			assetInstances = game:GetObjects(url)
+			if FFlagEnableToolboxInsertWithJoin then
+				assetInstances = game:InsertObjectsAndJoinIfLegacy(url)
+			else
+				assetInstances = game:GetObjects(url)
+			end
 		end
 	end)
 
@@ -57,15 +64,23 @@ local function getPreviewModel(assetId)
 	end
 
 	disableScripts(model)
-
 	return model
 end
 
 -- This function returns models containing the assetInstances with all scripts disabled.
-return function(assetId)
+return function(assetId, assetTypeId)
 	local getObjectPromise = Promise.new(function(resolve, reject)
 		spawn(function()
-			local results = getPreviewModel(assetId)
+			local results
+			if assetTypeId == Enum.AssetType.Audio.Value then
+				local soundInstance = Instance.new("Sound")
+				local soundId = ("rbxassetid://%d"):format(assetId)
+				soundInstance.SoundId = soundId
+				results = soundInstance
+			else
+				results = getPreviewModel(assetId)
+			end
+
 			if type(results) == "String" then
 				reject(results)
 			else

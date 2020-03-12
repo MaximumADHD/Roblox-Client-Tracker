@@ -2277,5 +2277,6 @@
     <Keyword name ="true" />
     <Keyword name ="until" />
     <Keyword name ="while" />
+    <Keyword name ="continue" />
   </ReservedWords>
 </StudioAutocomplete>

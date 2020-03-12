@@ -1,4 +1,5 @@
 local CorePackages = game:GetService("CorePackages")
+local CoreGui = game:GetService("CoreGui")
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
@@ -16,7 +17,11 @@ local IconButton = require(script.Parent.IconButton)
 
 local Colors = require(CorePackages.AppTempCommon.LuaApp.Style.Colors)
 
+local ImageSetLabel = UIBlox.Core.ImageSet.Label
+local Images = UIBlox.App.ImageSet.Images
+
 local FFlagPlayerListDesignUpdate = settings():GetFFlag("PlayerListDesignUpdate")
+local FFlagPlayerListUseUIBloxIcons = require(CoreGui.RobloxGui.Modules.Flags.FFlagPlayerListUseUIBloxIcons)
 
 local DropDownButton = Roact.PureComponent:extend("DropDownButton")
 
@@ -224,7 +229,7 @@ function DropDownButton:render()
 							Padding = UDim.new(0, layoutValues.DropDownPadding),
 						}),
 
-						Icon = Roact.createElement("ImageLabel", {
+						Icon = Roact.createElement(FFlagPlayerListUseUIBloxIcons and ImageSetLabel or "ImageLabel", {
 							LayoutOrder = 1,
 							Size = UDim2.new(0, layoutValues.DropDownIconSize, 0, layoutValues.DropDownIconSize),
 							ImageColor3 = style.Theme.IconEmphasis.Color,
@@ -255,7 +260,8 @@ function DropDownButton:render()
 								size = UDim2.new(0.5, 0, 1, 0),
 								position = UDim2.new(0.5, 0, 0, 0),
 								backgroundColor = self.props.onDecline and Colors.Green or Colors.White,
-								icon = "rbxasset://textures/ui/PlayerList/Accept.png",
+								icon = FFlagPlayerListUseUIBloxIcons and Images["icons/actions/accept"]
+									or "rbxasset://textures/ui/PlayerList/Accept.png",
 								showBackground = self.props.animatingPercentage == nil,
 								onActivated = self.props.onActivated,
 							}) or nil,
@@ -264,7 +270,8 @@ function DropDownButton:render()
 								size = UDim2.new(0.5, 0, 1, 0),
 								position = UDim2.new(0, 0, 0, 0),
 								backgroundColor = Colors.Red,
-								icon = "rbxasset://textures/ui/PlayerList/Clear.png",
+								icon = FFlagPlayerListUseUIBloxIcons and Images["icons/actions/reject"]
+									or "rbxasset://textures/ui/PlayerList/Clear.png",
 								showBackground = self.props.animatingPercentage == nil,
 								onActivated = self.props.onDecline,
 							}) or nil,

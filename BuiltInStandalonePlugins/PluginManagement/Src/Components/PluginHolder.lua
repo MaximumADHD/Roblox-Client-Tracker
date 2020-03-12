@@ -1,5 +1,5 @@
 local FFlagPluginManagementScrollbarDesign = game:DefineFastFlag("PluginManagementScrollbarDesign", false)
-local FFlagPluginManagementPrettifyDesign = game:GetFastFlag("PluginManagementPrettifyDesign")
+local FFlagPluginManagementPrettifyDesign = game:GetFastFlag("PluginManagementPrettifyDesign2")
 
 local StudioService = game:GetService("StudioService")
 
@@ -39,7 +39,7 @@ function PluginHolder:createLabel(theme, displayText)
 		Size = UDim2.new(1, 0, 0, FFlagPluginManagementPrettifyDesign and
 			Constants.SUBTITLE_PADDING + 16	+ (Constants.SUBTITLE_PADDING - Constants.PLUGIN_ENTRY_PADDING)
 			or 60),
-		TextSize = FFlagPluginManagementPrettifyDesign and 16 or 20,
+		TextSize = 20,
 		TextXAlignment = Enum.TextXAlignment.Left,
 		Text = displayText,
 		LayoutOrder = self.order:getNextOrder(),

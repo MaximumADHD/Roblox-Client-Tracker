@@ -22,7 +22,7 @@ dependencies = [
     "RoactRodux roblox/roact-rodux 0.2.0 registry+https://github.rbx.com/roblox/rotriever-index",
     "Rodux roblox/rodux 1.0.0 registry+https://github.rbx.com/roblox/rotriever-index",
     "TestEZ roblox/testez 0.1.1 registry+https://github.rbx.com/roblox/rotriever-index",
-    "UIBlox UIBlox 757dc5cb git+https://github.rbx.com/roblox/uiblox#master",
+    "UIBlox UIBlox e05b20d6 git+https://github.rbx.com/roblox/uiblox#master",
     "enumerate roblox/enumerate 1.0.0 registry+https://github.rbx.com/roblox/rotriever-index",
     "t osyris/t 1.2.5 registry+https://github.rbx.com/roblox/rotriever-index",
     "tutils tutils 74574fde git+https://github.rbx.com/roblox/tutils#master",
@@ -39,7 +39,7 @@ dependencies = [
     "Roact roblox/roact 1.2.0 registry+https://github.rbx.com/roblox/rotriever-index",
     "RoactRodux roblox/roact-rodux 0.2.0 registry+https://github.rbx.com/roblox/rotriever-index",
     "Rodux roblox/rodux 1.0.0 registry+https://github.rbx.com/roblox/rotriever-index",
-    "UIBlox UIBlox 757dc5cb git+https://github.rbx.com/roblox/uiblox#master",
+    "UIBlox UIBlox e05b20d6 git+https://github.rbx.com/roblox/uiblox#master",
     "t osyris/t 1.2.5 registry+https://github.rbx.com/roblox/rotriever-index",
 ]
 
@@ -103,7 +103,7 @@ dependencies = [
 name = "UIBlox"
 version = "0.1.0"
 source = "git+https://github.rbx.com/roblox/uiblox#master"
-commit = "757dc5cb74add85bc299752bd7487e2e5f686693"
+commit = "e05b20d602a8db8a3e43b578a1f6ec051d7af51c"
 dependencies = [
     "Cryo roblox/cryo 1.0.0 registry+https://github.rbx.com/roblox/rotriever-index",
     "FitFrame roblox/roact-fit-components 1.0.0 registry+https://github.rbx.com/roblox/rotriever-index",
@@ -250,7 +250,7 @@ dependencies = [
     "Roact roblox/roact 1.2.0 registry+https://github.rbx.com/roblox/rotriever-index",
     "RoactRodux roblox/roact-rodux 0.2.0 registry+https://github.rbx.com/roblox/rotriever-index",
     "Rodux roblox/rodux 1.0.0 registry+https://github.rbx.com/roblox/rotriever-index",
-    "UIBlox UIBlox 757dc5cb git+https://github.rbx.com/roblox/uiblox#master",
+    "UIBlox UIBlox e05b20d6 git+https://github.rbx.com/roblox/uiblox#master",
     "t osyris/t 1.2.5 registry+https://github.rbx.com/roblox/rotriever-index",
 ]
 

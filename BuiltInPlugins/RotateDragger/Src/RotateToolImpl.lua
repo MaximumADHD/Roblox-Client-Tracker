@@ -23,17 +23,20 @@ local RotateHandleView = require(Plugin.Src.RotateHandleView)
 local RotateToolImpl = {}
 RotateToolImpl.__index = RotateToolImpl
 
+--[[
+	Axis of rotation is the CFrame right vector.
+]]
 local RotateHandleDefinitions = {
     XAxis = {
-        Orientation = CFrame.fromMatrix(Vector3.new(), Vector3.new(1, 0, 0), Vector3.new(0, 1, 0), Vector3.new(0, 0, 1)),
+        Offset = CFrame.fromMatrix(Vector3.new(), Vector3.new(1, 0, 0), Vector3.new(0, 1, 0), Vector3.new(0, 0, 1)),
 		Color = Colors.X_AXIS,
 	},
 	YAxis = {
-        Orientation = CFrame.fromMatrix(Vector3.new(), Vector3.new(0, 1, 0), Vector3.new(0, 0, 1), Vector3.new(1, 0, 0)),
+        Offset = CFrame.fromMatrix(Vector3.new(), Vector3.new(0, 1, 0), Vector3.new(0, 0, 1), Vector3.new(1, 0, 0)),
 		Color = Colors.Y_AXIS,
 	},
 	ZAxis = {
-		Orientation = CFrame.fromMatrix(Vector3.new(), Vector3.new(0, 0, 1), Vector3.new(0, 1, 0), Vector3.new(-1, 0, 0)),
+		Offset = CFrame.fromMatrix(Vector3.new(), Vector3.new(0, 0, 1), Vector3.new(0, 1, 0), Vector3.new(-1, 0, 0)),
 		Color = Colors.Z_AXIS,
     },
 }
@@ -51,6 +54,11 @@ local function areConstraintsEnabled()
 		return StudioService.DraggerSolveConstraints
 	end
 	return false
+end
+
+local function getRotationTransform(mainCFrame, axisVector, delta)
+	local localAxis = mainCFrame:VectorToObjectSpace(axisVector)
+	return mainCFrame * CFrame.fromAxisAngle(localAxis, delta) * mainCFrame:Inverse()
 end
 
 --[[
@@ -87,12 +95,17 @@ function RotateToolImpl.new()
 end
 
 function RotateToolImpl:update(draggerToolState)
-	self._mainCFrame = draggerToolState.mainCFrame * CFrame.new(draggerToolState.boundingBoxOffset)
-	self._attachmentsToMove = draggerToolState.attachmentsToMove
-	self._partsToMove = draggerToolState.partsToMove
-	self._originalCFrameMap = draggerToolState.originalCFrameMap
-	self._scale = draggerToolState.scale
+	if not self._draggingHandleId then
+		self._boundingBox = {
+            Size = draggerToolState.boundingBoxSize,
+            CFrame = draggerToolState.mainCFrame * CFrame.new(draggerToolState.boundingBoxOffset),
+		}
 
+		self._attachmentsToMove = draggerToolState.attachmentsToMove
+		self._partsToMove = draggerToolState.partsToMove
+		self._originalCFrameMap = draggerToolState.originalCFrameMap
+		self._scale = draggerToolState.scale
+	end
 	self:_updateHandles()
 end
 
@@ -110,7 +123,7 @@ end
 
 function RotateToolImpl:render(hoveredHandleId)
 	-- TODO: DEVTOOLS-3884 [Modeling] Enhancements to rotated parts
-	-- Show the selection's original unrotated AABB for comparison when dragging.
+	-- Show the selection's rotated AABB when dragging.
 
 	local children = {}
 	if self._draggingHandleId then
@@ -145,13 +158,19 @@ function RotateToolImpl:mouseDown(mouseRay, handleId)
 
 	self._draggingHandleId = handleId
 	self._draggingLastGoodDelta = 0
-	self._handleCFrame = handleProps.HandleCFrame
+	self._draggingOriginalBoundingBoxCFrame = self._boundingBox.CFrame
+
+	self:_setupRotateAtCurrentBoundingBox(mouseRay)
 
 	local angle = rotationAngleFromRay(self._handleCFrame, mouseRay.Unit)
+	if not angle then
+		return
+	end
+
 	self._startAngle = snapToRotateIncrementIfNeeded(angle)
 
 	local breakJoints = not areConstraintsEnabled()
-	local center = self._handleCFrame.Position
+	local center = self._boundingBox.CFrame.Position
     self._partMover:setDragged(self._partsToMove, self._originalCFrameMap, breakJoints, center)
 	self._attachmentMover:setDragged(self._attachmentsToMove)
 end
@@ -160,14 +179,37 @@ function RotateToolImpl:mouseDrag(mouseRay)
 	assert(self._draggingHandleId, "Missing dragging handle ID.")
 
 	local angle = rotationAngleFromRay(self._handleCFrame, mouseRay.Unit)
-	local delta = snapToRotateIncrementIfNeeded(angle) - self._startAngle
+	if not angle then
+		return
+	end
 
-	-- TODO: DEVTOOLS-3883: [Modeling] Integrate IK dragging into Rotate dragger
+	local snappedDelta = snapToRotateIncrementIfNeeded(angle) - self._startAngle
 
-	local axis = self._handleCFrame.RightVector
-	local localAxis = self._mainCFrame:VectorToObjectSpace(axis)
-	local rotatedBase = self._mainCFrame * CFrame.fromAxisAngle(localAxis, delta)
-	self._partMover:transformTo(rotatedBase * self._mainCFrame:Inverse())
+	if areConstraintsEnabled() and #self._partsToMove > 0 then
+		self:_mouseDragWithInverseKinematics(mouseRay, snappedDelta)
+	else
+	    self:_mouseDragWithGeometricMovement(mouseRay, snappedDelta)
+	end
+end
+
+function RotateToolImpl:_setupRotateAtCurrentBoundingBox(mouseRay)
+	assert(self._draggingHandleId, "Missing dragging handle ID.")
+
+	local offset = RotateHandleDefinitions[self._draggingHandleId].Offset
+	self._handleCFrame = self._boundingBox.CFrame * offset
+end
+
+--[[
+	For direct dragging, rotate as a delta from the start angle determined at
+	mouse down to reduce floating point error.
+]]
+function RotateToolImpl:_mouseDragWithGeometricMovement(mouseRay, delta)
+	if delta == self._draggingLastGoodDelta then
+        return
+    end
+
+	local candidateTransform = getRotationTransform(self._boundingBox.CFrame, self._handleCFrame.RightVector, delta)
+	self._partMover:transformTo(candidateTransform)
 
 	if areCollisionsEnabled() and self._partMover:isIntersectingOthers() then
 		self._draggingLastGoodDelta = self:_findAndRotateToGoodDelta(delta)
@@ -175,10 +217,45 @@ function RotateToolImpl:mouseDrag(mouseRay)
 		self._draggingLastGoodDelta = delta
 	end
 
-	if areJointsEnabled() then
-		local rotatedBase = self._mainCFrame * CFrame.fromAxisAngle(localAxis, self._draggingLastGoodDelta)
-		local goodTransform = rotatedBase * self._mainCFrame:Inverse()
-        self._partMover:computeJointPairs(goodTransform)
+	local appliedTransform = getRotationTransform(self._boundingBox.CFrame, self._handleCFrame.RightVector, self._draggingLastGoodDelta)
+	self._attachmentMover:transformTo(appliedGlobalTransform)
+
+    if areJointsEnabled() then
+        self._partMover:computeJointPairs(appliedTransform)
+    end
+end
+
+--[[
+	For inverse kinematics dragging, adjust handle for translation caused by
+	the IK solver, and compute the amount of rotation applied from the resulting
+	transformation, so that the RotateHandleView can show the correct angle.
+]]
+function RotateToolImpl:_mouseDragWithInverseKinematics(mouseRay, delta)
+	if snappedDelta == 0 then
+        return
+	end
+
+    local collisionsMode = areCollisionsEnabled() and
+        Enum.CollisionsMode.OtherMechanismsAnchored or
+		Enum.CollisionsMode.NoCollisions
+
+	local candidateTransform = getRotationTransform(self._boundingBox.CFrame, self._handleCFrame.RightVector, delta)
+	local appliedTransform = self._partMover:rotateToWithIk(candidateTransform, collisionsMode)
+
+	self._attachmentMover:transformTo(appliedTransform)
+
+	-- Adjust the bounding box for any translation caused by the IK solver.
+	local translation = (appliedTransform * self._draggingOriginalBoundingBoxCFrame).Position - self._boundingBox.CFrame.Position
+	self._boundingBox.CFrame = self._boundingBox.CFrame + translation
+
+	-- Derive the last good delta from the appliedTransform returned from IK.
+	local rotatedAxis = appliedTransform:VectorToObjectSpace(self._handleCFrame.LookVector)
+	local ry = self._handleCFrame.UpVector:Dot(rotatedAxis)
+	local rx = self._handleCFrame.LookVector:Dot(rotatedAxis)
+	self._draggingLastGoodDelta = -math.atan2(ry, rx)
+
+    if areJointsEnabled() then
+        self._partMover:computeJointPairs(appliedTransform)
     end
 end
 
@@ -197,7 +274,7 @@ end
 
 --[[
 	Resolve collisions via a binary search between the last good rotation delta
-	and the currently desired delta.
+
 
 	Assume that the last good delta is free of collions, the desired delta is blocked,
 	and there exists an angle between the two where it switches from blocked to free.
@@ -205,20 +282,13 @@ end
     Return the good delta that we moved the parts to.
 ]]
 function RotateToolImpl:_findAndRotateToGoodDelta(desiredDelta)
-	local axis = self._handleCFrame.RightVector
-	local localAxis = self._mainCFrame:VectorToObjectSpace(axis)
-
-	local function rotateParts(delta)
-		local transform = self._mainCFrame * CFrame.fromAxisAngle(localAxis, delta)
-		self._partMover:transformTo(transform * self._mainCFrame:Inverse())
-	end
-
     local start = self._draggingLastGoodDelta
     local goal = desiredDelta
     local isIntersecting = true
     while math.abs(goal - start) > 0.0001 do
 		local mid = (goal + start) / 2
-		rotateParts(mid)
+		local candidateTransform = getRotationTransform(self._boundingBox.CFrame, self._handleCFrame.RightVector, mid)
+		self._partMover:transformTo(candidateTransform)
 
         isIntersecting = self._partMover:isIntersectingOthers()
         if isIntersecting then
@@ -231,7 +301,8 @@ function RotateToolImpl:_findAndRotateToGoodDelta(desiredDelta)
     -- Have to make sure that we end on a non-intersection. The invariant is
     -- that start is the best safe position we've found, so we can move it.
     if isIntersecting then
-        rotateParts(start)
+        local transform = getRotationTransform(self._boundingBox.CFrame, self._handleCFrame.RightVector, start)
+		self._partMover:transformTo(transform)
     end
 
     -- Either we ended the loop on an intersection, and the above code moved us
@@ -249,11 +320,11 @@ function RotateToolImpl:_updateHandles()
         self._handles = {}
 	else
 		for handleId, handleDefinition in pairs(RotateHandleDefinitions) do
-			local orientation = handleDefinition.Orientation
 			self._handles[handleId] = {
 				ActiveColor = handleDefinition.Color,
-				HandleCFrame = CFrame.new(self._mainCFrame.Position) * orientation,
+				HandleCFrame = self._boundingBox.CFrame * handleDefinition.Offset,
 				HandleID = handleId,
+				Offset = handleDefinition.Offset,
 				Scale = self._scale,
 			}
         end

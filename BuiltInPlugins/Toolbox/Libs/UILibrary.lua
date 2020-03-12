@@ -19,6 +19,8 @@ local DropShadow = require(Components.DropShadow)
 local ExpandableList = require(Components.ExpandableList)
 local Favorites = require(Components.Preview.Favorites)
 local ImagePreview = require(Components.Preview.ImagePreview)
+local AudioPreview = require(Components.Preview.AudioPreview)
+local AudioControl = require(Components.Preview.AudioControl)
 local Keyframe = require(Components.Timeline.Keyframe)
 local InfiniteScrollingFrame = require(Components.InfiniteScrollingFrame)
 local LoadingBar = require(Components.LoadingBar)
@@ -49,6 +51,7 @@ local LayoutOrderIterator = require(Utils.LayoutOrderIterator)
 local GetClassIcon = require(Utils.GetClassIcon)
 local InsertAsset = require(Utils.InsertAsset)
 local GetTextSize = require(Utils.GetTextSize)
+local getTimeString = require(Utils.getTimeString)
 
 local Focus = require(Src.Focus)
 
@@ -69,6 +72,8 @@ local UILibrary = {
 		ExpandableList = ExpandableList,
 		Favorites = Favorites,
 		ImagePreview = ImagePreview,
+		AudioPreview = AudioPreview,
+		AudioControl = AudioControl,
 		InfiniteScrollingFrame = InfiniteScrollingFrame,
 		Keyframe = Keyframe,
 		LoadingBar = LoadingBar,
@@ -118,6 +123,7 @@ local UILibrary = {
 		GetClassIcon = GetClassIcon,
 		InsertAsset = InsertAsset,
 		GetTextSize = GetTextSize,
+		getTimeString = getTimeString,
 	},
 
 	Plugin = require(Src.Plugin),

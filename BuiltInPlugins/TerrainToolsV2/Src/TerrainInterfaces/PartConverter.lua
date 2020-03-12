@@ -1,4 +1,6 @@
 local Plugin = script.Parent.Parent.Parent
+local Cryo = require(Plugin.Packages.Cryo)
+
 local UILibrary = Plugin.Packages.UILibrary
 local Signal = require(UILibrary.Utils.Signal)
 
@@ -92,11 +94,12 @@ function PartConverter:convertInstancesToMaterial(instances, material)
 		return
 	end
 
-	self:_createNewVisuals()
+	local targetInstances = Cryo.Dictionary.join(instances, {})
+
+	self:_createNewVisuals(targetInstances)
 
 	self._operationQueue
 		:reset()
-		:addToQueue(LongOperation.new(ConversionOperationDetails.GetTargetInstances))
 		:addToQueue(LongOperation.new(ConversionOperationDetails.UpdateInstanceVisuals))
 		:addToQueue(LongOperation.new(ConversionOperationDetails.GetTargetShapes))
 		:addToQueue(LongOperation.new(ConversionOperationDetails.ConvertShapesToMaterial))
@@ -107,7 +110,6 @@ function PartConverter:convertInstancesToMaterial(instances, material)
 			targetInstances = self._visuals:getTargetInstancesRef(),
 			originalVisualsPerInstance = self._visuals:getOriginalVisualsPerInstanceRef(),
 
-			instances = instances,
 			material = material,
 		})
 end
@@ -117,11 +119,12 @@ function PartConverter:convertInstancesToBiome(instances, generateSettings)
 		return
 	end
 
-	self:_createNewVisuals()
+	local targetInstances = Cryo.Dictionary.join(instances, {})
+
+	self:_createNewVisuals(targetInstances)
 
 	self._operationQueue
 		:reset()
-		:addToQueue(LongOperation.new(ConversionOperationDetails.GetTargetInstances))
 		:addToQueue(LongOperation.new(ConversionOperationDetails.UpdateInstanceVisuals))
 		:addToQueue(LongOperation.new(ConversionOperationDetails.GetTargetShapes))
 		:addToQueue(LongOperation.new(ConversionOperationDetails.ConvertShapesToBiomes))
@@ -132,7 +135,6 @@ function PartConverter:convertInstancesToBiome(instances, generateSettings)
 			targetInstances = self._visuals:getTargetInstancesRef(),
 			originalVisualsPerInstance = self._visuals:getOriginalVisualsPerInstanceRef(),
 
-			instances = instances,
 			generateSettings = generateSettings,
 		})
 end
@@ -165,12 +167,12 @@ function PartConverter:_destroyVisuals()
 end
 
 -- Create "new" visuals because we destroy any that we already have
-function PartConverter:_createNewVisuals()
+function PartConverter:_createNewVisuals(instances)
 	if self._visuals then
 		self:_destroyVisuals()
 	end
 
-	self._visuals = PartConverterVisuals.new()
+	self._visuals = PartConverterVisuals.new(instances)
 	self._visualsFinishedConnection = self._visuals:subscribeToVisualsFinished(self._onVisualsFinished)
 	if self._selectionModel then
 		self._visuals:setSelectionModel(self._selectionModel)

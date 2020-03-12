@@ -459,11 +459,12 @@ local function create(generateSettings)
 
 		--  Returns (Material material, number occupancy, bool hasHitAirAboveSurface)
 		processVoxel = function (x, y, z, sliceHeight, worldVoxelX, worldVoxelZ, weightPoints, biomeNoCave)
-			local totalOffsetY = ((y -1) * Constants.VOXEL_RESOLUTION) + mapPosition.Y - (mapSize.Y * 0.5) + baseLevelOffset
-			local total = genMaxY - genMinY
+			local totalOffsetY = ((y -1) * Constants.VOXEL_RESOLUTION) + mapPosition.Y - (sliceHeight * Constants.VOXEL_RESOLUTION * 0.5) + baseLevelOffset
+
+			local totalRegionHeight = genMaxY - genMinY
 			local lower =  totalOffsetY - genMinY
 
-			local verticalGradient = 1 - (lower / total)
+			local verticalGradient = 1 - (lower / totalRegionHeight)
 			local verticalGradientTurbulence = (verticalGradient * 0.9) + (0.1 * getPerlin(worldVoxelX, y, worldVoxelZ, 107, 15))
 
 			local choiceValue = 0
@@ -746,24 +747,19 @@ local function generateSlice(state, terrainInstance)
 		for y = 1, sliceHeight, 1 do
 			-- Keep calculating voxels until we hit the surface
 			local regionPos = Vector3.new(x, y, z) - voxelExtents
+
 			local targetOccupancy = shapeFunc(regionPos, mapCFrame, mapVoxelExtent)
 
 			if targetOccupancy > 0 then
-				if not hasHitAir then
-					local material, occupancy, hasHitAirAboveSurface = processVoxel(x, y, z,
-						sliceHeight, worldVoxelX, worldVoxelZ, weightPoints, biomeNoCave)
-
-					materialMap[1][y][z] = material
-					occupancyMap[1][y][z] = math.min(occupancy, targetOccupancy)
-
-					hasHitAir = hasHitAirAboveSurface
+				local material, occupancy, hasHitAirAboveSurface = processVoxel(x, y, z,
+					sliceHeight, worldVoxelX, worldVoxelZ, weightPoints, biomeNoCave)
+				if hasHitAirAboveSurface then
+					break
 				end
+				targetOccupancy = targetOccupancy == 1 and occupancy or targetOccupancy
 
-				-- Once we've hit the surface, set every voxel to air til we can move to the next column
-				if not terrainInstance and hasHitAir then
-					occupancyMap[1][y][z] = 0
-					materialMap[1][y][z] = Enum.Material.Air
-				end
+				materialMap[1][y][z] = material
+				occupancyMap[1][y][z] = math.max(targetOccupancy, occupancyMap[1][y][z])
 			end
 		end
 	end

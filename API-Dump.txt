@@ -83,6 +83,7 @@ Class AnimationTrack : Instance [NotCreatable]
 	Event AnimationTrack.KeyframeReached(string keyframeName)
 	Event AnimationTrack.Stopped()
 Class Animator : Instance
+	Function void Animator:ApplyJointVelocities(Variant motors)
 	Function Array Animator:GetPlayingAnimationTracks()
 	Function Instance Animator:LoadAnimation(Instance animation)
 	Function void Animator:StepAnimations(float deltaTime) {PluginSecurity}
@@ -813,7 +814,7 @@ Class GuiButton : GuiObject [NotCreatable] [NotBrowsable]
 	Property bool GuiButton.Modal
 	Property bool GuiButton.Selected
 	Property Enum<ButtonStyle> GuiButton.Style
-	Event GuiButton.Activated(Instance inputObject)
+	Event GuiButton.Activated(Instance inputObject, int clickCount)
 	Event GuiButton.MouseButton1Click()
 	Event GuiButton.MouseButton1Down(int x, int y)
 	Event GuiButton.MouseButton1Up(int x, int y)
@@ -1366,14 +1367,9 @@ Class InsertService : Instance [NotCreatable] [Service]
 	Function Instance InsertService:LoadAssetVersion(int64 assetVersionId) [Yields]
 	Function Instance InsertService:LoadLocalAsset(string assetPath) {RobloxScriptSecurity}
 	Function Objects InsertService:LoadPackageAsset(Content url) {RobloxScriptSecurity}
-Class InternalSyncItem : Instance [NotReplicated]
-	Property bool InternalSyncItem.Enabled {RobloxScriptSecurity} [NotReplicated]
-	Property string InternalSyncItem.Path {RobloxScriptSecurity} [NotReplicated]
-	Property Instance InternalSyncItem.Target {RobloxScriptSecurity} [<📁> LoadOnly] [NotReplicated]
-Class InternalSyncService : Instance [NotCreatable] [Service] [NotReplicated]
 Class JointInstance : Instance [NotCreatable]
 	Property bool JointInstance.Active  [ReadOnly] [NotReplicated]
-	Property bool JointInstance.Enabled  [Hidden]
+	Property bool JointInstance.Enabled
 	Property CFrame JointInstance.C0
 	Property CFrame JointInstance.C1
 	Property Class<BasePart> JointInstance.Part0
@@ -2078,6 +2074,7 @@ Class Player : Instance
 	Property float Player.MaximumSimulationRadius {LocalUserSecurity} [<📁> LoadOnly] [NotReplicated]
 	Property Enum<MembershipType> Player.MembershipType  [ReadOnly] [NotReplicated]
 	Property string Player.OsPlatform {RobloxScriptSecurity}
+	Property string Player.PlatformName {RobloxScriptSecurity}
 	Property Instance Player.ReplicationFocus
 	Property Class<SpawnLocation> Player.RespawnLocation
 	Property float Player.SimulationRadius {LocalUserSecurity}
@@ -2849,7 +2846,7 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Objects StudioService:PromptImportFiles(Array fileTypeFilter = {}) {PluginSecurity} [Yields]
 	Function Instance StudioService:PromptImportLocalAsset(string prompt, Array fileTypeFilter = {}) {PluginSecurity} [Yields] [Deprecated]
 	Function Objects StudioService:PromptImportLocalAssets(string prompt, Array fileTypeFilter = {}) {PluginSecurity} [Yields] [Deprecated]
-	Function void StudioService:PublishAs(int64 universeId, int64 placeId) {RobloxScriptSecurity}
+	Function void StudioService:PublishAs(int64 universeId, int64 placeId, int64 groupId) {RobloxScriptSecurity}
 	Function string StudioService:SerializeInstances(Objects instances) {RobloxScriptSecurity}
 	Function void StudioService:SetPluginEnabled(int64 assetId, bool state) {RobloxScriptSecurity}
 	Function void StudioService:SetUniverseDisplayName(string newName) {RobloxScriptSecurity}
@@ -2949,6 +2946,7 @@ Class TextService : Instance [NotCreatable] [Service] [NotReplicated]
 Class ThirdPartyUserService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function string ThirdPartyUserService:GetUserDisplayName() {RobloxScriptSecurity}
 	Function string ThirdPartyUserService:GetUserPlatformId() {RobloxScriptSecurity}
+	Function string ThirdPartyUserService:GetUserPlatformName() {RobloxScriptSecurity}
 	Function bool ThirdPartyUserService:HaveActiveUser() {RobloxScriptSecurity}
 	Function int ThirdPartyUserService:RegisterActiveUser(Enum<UserInputType> gamepadId) {RobloxScriptSecurity} [Yields]
 	Function void ThirdPartyUserService:ReturnToEngagement() {RobloxScriptSecurity}
@@ -3015,6 +3013,7 @@ Class UITextSizeConstraint : UIConstraint
 	Property int UITextSizeConstraint.MinTextSize
 Class UIGradient : UIComponent
 	Property ColorSequence UIGradient.Color
+	Property bool UIGradient.Enabled
 	Property Vector2 UIGradient.Offset
 	Property float UIGradient.Rotation
 	Property NumberSequence UIGradient.Transparency
@@ -3267,7 +3266,7 @@ Class VirtualInputManager : Instance [Service]
 	Function void VirtualInputManager:SendGravityEvent(float x, float y, float z) {RobloxScriptSecurity}
 	Function void VirtualInputManager:SendGyroscopeEvent(float quatX, float quatY, float quatZ, float quatW) {RobloxScriptSecurity}
 	Function void VirtualInputManager:SendKeyEvent(bool isPressed, Enum<KeyCode> keyCode, bool isRepeatedKey, Instance pluginGui) {RobloxScriptSecurity}
-	Function void VirtualInputManager:SendMouseButtonEvent(int x, int y, int mouseButton, bool isDown, Instance pluginGui) {RobloxScriptSecurity}
+	Function void VirtualInputManager:SendMouseButtonEvent(int x, int y, int mouseButton, bool isDown, Instance pluginGui, int repeatCount) {RobloxScriptSecurity}
 	Function void VirtualInputManager:SendMouseMoveEvent(float x, float y, Instance pluginGui) {RobloxScriptSecurity}
 	Function void VirtualInputManager:SendMouseWheelEvent(float x, float y, bool isForwardScroll, Instance pluginGui) {RobloxScriptSecurity}
 	Function void VirtualInputManager:SendTextInputCharacterEvent(string str, Instance pluginGui) {RobloxScriptSecurity}

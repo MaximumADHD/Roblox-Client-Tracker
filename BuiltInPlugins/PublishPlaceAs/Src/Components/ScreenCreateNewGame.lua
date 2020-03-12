@@ -28,14 +28,19 @@ local MenuBar = require(Plugin.Src.Components.Menu.MenuBar)
 local Footer = require(Plugin.Src.Components.Footer)
 local BasicInfo = require(Plugin.Src.Components.BasicInfo)
 
+local SetIsPublishing = require(Plugin.Src.Actions.SetIsPublishing)
 local SetScreen = require(Plugin.Src.Actions.SetScreen)
 local SetPublishInfo = require(Plugin.Src.Actions.SetPublishInfo)
+
+local LoadGroups = require(Plugin.Src.Thunks.LoadGroups)
 
 local MENU_ENTRIES = {
 	"BasicInfo",
 }
 
 local FFlagStudioFixPublishSuccessNameIcon = game:GetFastFlag("StudioFixPublishSuccessNameIcon")
+local FFlagStudioDisablePublishButtonsInProgress = game:DefineFastFlag("StudioDisablePublishButtonsInProgress", false)
+local FFlagStudioCreateGameGroupOwner = game:GetFastFlag("StudioCreateGameGroupOwner")
 
 local ScreenCreateNewGame = Roact.PureComponent:extend("ScreenCreateNewGame")
 
@@ -51,10 +56,17 @@ function ScreenCreateNewGame:init()
 			selected = index,
 		})
 	end
+
+	if FFlagStudioCreateGameGroupOwner then
+		self.props.DispatchLoadGroups()
+	end
 end
 
 function ScreenCreateNewGame:didMount()
 	self.finishedConnection = StudioService.GamePublishFinished:connect(function(success)
+		if FFlagStudioDisablePublishButtonsInProgress then
+			self.props.dispatchSetIsPublishing(false)
+		end
 		if success then
 			if FFlagStudioFixPublishSuccessNameIcon then
 				self.props.OpenPublishSuccessfulPage(self.props.Changed)
@@ -84,7 +96,10 @@ function ScreenCreateNewGame:render(props)
 
 			local onClose = props.OnClose
 			local readyToSave = props.ReadyToSave
+			local isPublishing = props.IsPublishing
 			local changed = props.Changed
+
+			local dispatchSetIsPublishing = props.dispatchSetIsPublishing
 
 			local selected = self.state.selected
 
@@ -115,9 +130,12 @@ function ScreenCreateNewGame:render(props)
 				Footer = Roact.createElement(Footer, {
 					MainButton = {
 						Name = "Create",
-						Active = readyToSave,
+						Active = readyToSave and not isPublishing,
 						OnActivated = function()
 							SettingsImpl.saveAll(changed, localization)
+							if FFlagStudioDisablePublishButtonsInProgress then
+								dispatchSetIsPublishing(true)
+							end
 						end,
 					},
 					OnClose = onClose,
@@ -134,6 +152,7 @@ local function mapStateToProps(state, props)
 	return {
 		Changed = settings.changed,
 		ReadyToSave = next(settings.errors) == nil,
+		IsPublishing = state.PublishedPlace.isPublishing,
 	}
 end
 
@@ -155,6 +174,12 @@ local function useDispatchForProps(dispatch)
 		OpenPublishFailPage = function(settings)
 			dispatch(SetPublishInfo({ id = game.GameId, name = settings.name, parentGameName = settings.name, parentGameId = 0, settings = settings }))
 			dispatch(SetScreen(Constants.SCREENS.PUBLISH_FAIL))
+		end,
+		DispatchLoadGroups = function()
+			dispatch(LoadGroups())
+		end,
+		dispatchSetIsPublishing = function(isPublishing)
+			dispatch(SetIsPublishing(isPublishing))
 		end,
 	}
 end

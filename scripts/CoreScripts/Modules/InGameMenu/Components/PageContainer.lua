@@ -10,6 +10,10 @@ local InGameMenu = script.Parent.Parent
 
 local BlurredModalPortal = require(script.Parent.BlurredModalPortal)
 local Pages = require(script.Parent.Pages)
+local pageComponents = {}
+for key, pageInfo in pairs(Pages.pagesByKey) do
+	pageComponents[key] = require(pageInfo.component)
+end
 
 local withLocalization = require(InGameMenu.Localization.withLocalization)
 
@@ -64,7 +68,7 @@ function PageContainer:render()
 					BackgroundTransparency = 1,
 					ZIndex = key == self.props.currentPage and 2 or 1,
 				}, {
-					Page = Roact.createElement(pageInfo.component, {
+					Page = Roact.createElement(pageComponents[key], {
 						pageTitle = localized.title,
 					}),
 				})
@@ -72,7 +76,7 @@ function PageContainer:render()
 				return Roact.createElement(BlurredModalPortal, {
 					Enabled = self.props.currentPage == key,
 				}, {
-					ModalPageContent = Roact.createElement(pageInfo.component, {
+					ModalPageContent = Roact.createElement(pageComponents[key], {
 						pageTitle = localized.title,
 					}),
 				})

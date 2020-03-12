@@ -1580,6 +1580,24 @@
             "Members": [
                 {
                     "MemberType": "Function",
+                    "Name": "ApplyJointVelocities",
+                    "Parameters": [
+                        {
+                            "Name": "motors",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Variant"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "None"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "GetPlayingAnimationTracks",
                     "Parameters": [
                     ],
@@ -14450,6 +14468,13 @@
                                 "Category": "Class",
                                 "Name": "Instance"
                             }
+                        },
+                        {
+                            "Name": "clickCount",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
                         }
                     ],
                     "Security": "None"
@@ -23898,88 +23923,6 @@
         {
             "Members": [
                 {
-                    "Category": "Data",
-                    "MemberType": "Property",
-                    "Name": "Enabled",
-                    "Security": {
-                        "Read": "RobloxScriptSecurity",
-                        "Write": "RobloxScriptSecurity"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "Tags": [
-                        "NotReplicated"
-                    ],
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    }
-                },
-                {
-                    "Category": "Data",
-                    "MemberType": "Property",
-                    "Name": "Path",
-                    "Security": {
-                        "Read": "RobloxScriptSecurity",
-                        "Write": "RobloxScriptSecurity"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "Tags": [
-                        "NotReplicated"
-                    ],
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "string"
-                    }
-                },
-                {
-                    "Category": "Data",
-                    "MemberType": "Property",
-                    "Name": "Target",
-                    "Security": {
-                        "Read": "RobloxScriptSecurity",
-                        "Write": "RobloxScriptSecurity"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": false
-                    },
-                    "Tags": [
-                        "NotReplicated"
-                    ],
-                    "ValueType": {
-                        "Category": "Class",
-                        "Name": "Instance"
-                    }
-                }
-            ],
-            "MemoryCategory": "Instances",
-            "Name": "InternalSyncItem",
-            "Superclass": "Instance",
-            "Tags": [
-                "NotReplicated"
-            ]
-        },
-        {
-            "Members": [
-            ],
-            "MemoryCategory": "Instances",
-            "Name": "InternalSyncService",
-            "Superclass": "Instance",
-            "Tags": [
-                "NotCreatable",
-                "Service",
-                "NotReplicated"
-            ]
-        },
-        {
-            "Members": [
-                {
                     "Category": "Behavior",
                     "MemberType": "Property",
                     "Name": "Active",
@@ -24046,9 +23989,6 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "Tags": [
-                        "Hidden"
-                    ],
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "bool"
@@ -37133,6 +37073,23 @@
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "OsPlatform",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "PlatformName",
                     "Security": {
                         "Read": "RobloxScriptSecurity",
                         "Write": "RobloxScriptSecurity"
@@ -50800,6 +50757,13 @@
                                 "Category": "Primitive",
                                 "Name": "int64"
                             }
+                        },
+                        {
+                            "Name": "groupId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
                         }
                     ],
                     "ReturnType": {
@@ -52911,6 +52875,17 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "GetUserPlatformName",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "HaveActiveUser",
                     "Parameters": [
                     ],
@@ -53933,6 +53908,23 @@
                     "ValueType": {
                         "Category": "DataType",
                         "Name": "ColorSequence"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "Enabled",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
                     }
                 },
                 {
@@ -58510,6 +58502,13 @@
                             "Type": {
                                 "Category": "Class",
                                 "Name": "Instance"
+                            }
+                        },
+                        {
+                            "Name": "repeatCount",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
                             }
                         }
                     ],

@@ -17,6 +17,7 @@ Studio.PublishPlaceAs.FooterButton.CreateNewGame, , ,Create new game...
 Studio.PublishPlaceAs.FooterButton.Create, , ,Create
 Studio.PublishPlaceAs.FooterButton.Overwrite, , ,Overwrite
 Studio.PublishPlaceAs.FooterButton.Cancel, , ,Cancel
+Studio.PublishPlaceAs.GroupDropdown.Me, , ,Me
 Studio.PublishPlaceAs.GroupDropdown.MyGames, , ,My Games
 Studio.PublishPlaceAs.MenuItem.BasicInfo, , ,Basic Info
 Studio.PublishPlaceAs.Devices.Header, , ,Devices
@@ -26,6 +27,7 @@ Studio.PublishPlaceAs.Devices.Tablet, , ,Tablet
 Studio.PublishPlaceAs.Devices.Console, , ,Console
 Studio.PublishPlaceAs.PageTitle.Name, , ,Name
 Studio.PublishPlaceAs.PageTitle.Description, , ,Description
+Studio.PublishPlaceAs.PageTitle.Creator, , ,Creator
 Studio.PublishPlaceAs.PageTitle.Genre, , ,Genre
 Studio.PublishPlaceAs.PageTitle.Devices, , ,Devices
 Studio.PublishPlaceAs.Genre.All, , ,All

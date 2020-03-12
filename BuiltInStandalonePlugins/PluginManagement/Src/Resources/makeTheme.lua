@@ -1,4 +1,4 @@
-local FFlagPluginManagementPrettifyDesign = game:GetFastFlag("PluginManagementPrettifyDesign")
+local FFlagPluginManagementPrettifyDesign = game:GetFastFlag("PluginManagementPrettifyDesign2")
 
 local Plugin = script.Parent.Parent.Parent
 local ContextServices = require(Plugin.Packages.Framework.ContextServices)

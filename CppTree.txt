@@ -78,6 +78,11 @@ RBX
 	{
 		DSServiceLRUCache
 	}
+	DigitalSignature
+	{
+		Verifier
+		VerifierSodium
+	}
 	DS
 	{
 		CAudioStream
@@ -264,9 +269,7 @@ RBX
 	}
 	LSP
 	{
-		DraftStore
-		IClientConnection
-		IClientConnectionDelegate
+		DocumentManager
 		IHostAppServices
 		ILanguageClient
 		ILanguageServer
@@ -274,7 +277,6 @@ RBX
 		ISocketDelegate
 		LanguageClientBase
 		LanguageServerBase
-		LSPClientConnection
 		LSPManager
 		LSPSocket
 		LuauLanguageServer
@@ -765,7 +767,6 @@ RBX
 	DSVideoCaptureEngine
 	DynamicRotate
 	DynamicRotateJoint
-	Edge
 	EdgeBuffer
 	EdgeStage
 	EditSelectionVerb
@@ -905,7 +906,6 @@ RBX
 	IMetric
 	IModelModifier
 	IMoving
-	IMovingManager
 	IndexBox
 	IndexedMesh
 	IndexedTree
@@ -928,6 +928,7 @@ RBX
 	IValue
 	IVersionControlService
 	IVideoCapture
+	IVisuallyMovingManager
 	IWorldStage
 	JoinCommand
 	Joint

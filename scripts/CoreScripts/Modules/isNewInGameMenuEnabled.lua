@@ -19,7 +19,7 @@ return function()
 		end
 	end
 
-	if game:GetFastFlag("NewInGameMenuABTestEnabled") and game:GetFastFlag("ABTestMultipleWaitsFix") then
+	if game:GetFastFlag("NewInGameMenuABTestEnabled") then
 		ABTestService:WaitUntilUserABTestsInitialized()
 		local InGameMenuTestVariant = nil
 		pcall(function() InGameMenuTestVariant = ABTestService:GetVariant("AllUsers.GameExperience.InGameMenu") end)

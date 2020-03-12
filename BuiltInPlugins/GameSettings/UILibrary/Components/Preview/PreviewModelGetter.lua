@@ -9,6 +9,7 @@ local Urls = require(Library.Utils.Urls)
 
 local FFlagEnableDataModelFetchAssetAsync = settings():GetFFlag("EnableDataModelFetchAssetAsync")
 local FFlagEnableToolboxInsertWithJoin = settings():GetFFlag("EnableToolboxInsertWithJoin")
+local FFlagEnableAudioPreview = settings():GetFFlag("EnableAudioPreview")
 
 local function disableScripts(previewModel)
 	for _, item in pairs(previewModel:GetDescendants()) do
@@ -18,6 +19,8 @@ local function disableScripts(previewModel)
 	end
 end
 
+-- This method would always return a instance to root.
+-- For audio asset, we will to handle that ourselve.
 local function getPreviewModel(assetId)
 	local assetInstances = nil
 	local success, errorMessage = pcall(function()
@@ -65,10 +68,19 @@ local function getPreviewModel(assetId)
 end
 
 -- This function returns models containing the assetInstances with all scripts disabled.
-return function(assetId)
+return function(assetId, assetTypeId)
 	local getObjectPromise = Promise.new(function(resolve, reject)
 		spawn(function()
-			local results = getPreviewModel(assetId)
+			local results
+			if assetTypeId == Enum.AssetType.Audio.Value then
+				local soundInstance = Instance.new("Sound")
+				local soundId = ("rbxassetid://%d"):format(assetId)
+				soundInstance.SoundId = soundId
+				results = soundInstance
+			else
+				results = getPreviewModel(assetId)
+			end
+
 			if type(results) == "String" then
 				reject(results)
 			else

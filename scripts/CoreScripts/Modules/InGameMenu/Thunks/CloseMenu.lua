@@ -8,5 +8,5 @@ local Constants = require(InGameMenu.Resources.Constants)
 return function(store)
 	GuiService:SetMenuIsOpen(false, "InGameMenu")
 	store:dispatch(SetMenuOpenAction(false))
-	SendAnalytics(Constants.AnalyticsMenuActionName, Constants.AnalyticsMenuCloseName, {})
+	SendAnalytics(Constants.AnalyticsMenuCloseName, Constants.AnalyticsMenuActionName, {})
 end

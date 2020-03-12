@@ -19,6 +19,8 @@ return function(theme, getColor)
 
 	local Default = Style.extend(common.MainText, {
 		Padding = 0,
+		TextXAlignment = Enum.TextXAlignment.Center,
+		TextYAlignment = Enum.TextYAlignment.Center,
 	})
 
 	local Round = Style.extend(Default, {

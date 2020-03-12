@@ -32,6 +32,8 @@ local StyleModifier = Util.StyleModifier
 
 local SetScreen = require(Plugin.Src.Actions.SetScreen)
 
+local OnScreenChange = require(Plugin.Src.Thunks.OnScreenChange)
+
 local Screens = require(Plugin.Src.Util.Screens)
 
 local NavBar = Roact.PureComponent:extend("NavBar")
@@ -47,8 +49,12 @@ local function getCurrentPath(currentScreen)
     return path
 end
 
-local function buildPathComponents(currentScreen, theme, localization, dispatch)
+local function buildPathComponents(props, theme, localization, dispatch)
     local pathComponents = {}
+
+    local apiImpl = props.API:get()
+
+    local currentScreen = props.CurrentScreen
 
     local path = getCurrentPath(currentScreen)
 
@@ -60,7 +66,9 @@ local function buildPathComponents(currentScreen, theme, localization, dispatch)
         local isStartingElement = screen.Key == startingScreenKey
         local isTopLevel = screen.Key == Screens.MAIN.Key
 
-        local pathPartText = isTopLevel and "Game Name" or localization:getText("Folders", screen.Key)
+        local gameName = props.UniverseName ~= "" and props.UniverseName
+        or localization:getText("NavBar", "GamePlaceholderName")
+        local pathPartText = isTopLevel and gameName or localization:getText("Folders", screen.Key)
 
         pathComponents[screen.Key] = Roact.createElement(LinkText, {
             Text = pathPartText,
@@ -70,7 +78,7 @@ local function buildPathComponents(currentScreen, theme, localization, dispatch)
 
             OnClick = function()
                 if not isStartingElement then
-                    dispatch(true, screen)
+                    dispatch(true, apiImpl, screen)
                 end
             end,
 
@@ -79,7 +87,7 @@ local function buildPathComponents(currentScreen, theme, localization, dispatch)
 
         if index ~= #path then
             pathComponents["PathSeparator-" .. count] = Roact.createElement(Image, {
-                Size = UDim2.new(0, theme.TopBar.Button.Size, 0, theme.TopBar.Button.Size),
+                Size = UDim2.new(0, theme.NavBar.ImageSize, 0, theme.NavBar.ImageSize),
 
                 Style = "NavBarPathSeparator",
                 LayoutOrder = layoutIndex:getNextOrder(),
@@ -96,7 +104,7 @@ local function buildPathComponents(currentScreen, theme, localization, dispatch)
                 Size = textDimensions,
                 BackgroundTransparency = 1,
                 Text = gameIDText,
-                TextColor3 = theme.NavBar.TextColorDisabled,
+                TextColor3 = theme.DisabledColor,
                 TextSize = theme.FontSizeSmall,
                 Font = theme.Font,
                 LayoutOrder = layoutIndex:getNextOrder(),
@@ -117,9 +125,9 @@ function NavBar:render()
     local size = props.Size
     local layoutOrder = props.LayoutOrder
 
-    local dispatchSetScreen = props.DispatchSetScreen
+    local dispatchSetScreen = props.dispatchSetScreen
 
-    local navPathComponents = buildPathComponents(self.props.CurrentScreen, theme, localization, dispatchSetScreen)
+    local navPathComponents = buildPathComponents(props, theme, localization, dispatchSetScreen)
 
     local NavBarChildren = {
         GameBarLayout = Roact.createElement("UIListLayout",{
@@ -139,14 +147,17 @@ function NavBar:render()
 
     local NavBarContents = Roact.createElement("Frame", {
             Size = size,
-            BackgroundTransparency = 1,
             LayoutOrder = layoutOrder,
+
+            BackgroundColor3 = theme.NavBar.BackgroundColor,
+            BorderSizePixel = 0,
         }, NavBarChildren)
 
     return NavBarContents
 end
 
 ContextServices.mapToProps(NavBar,{
+    API = ContextServices.API,
     Theme = ContextServices.Theme,
     Localization = ContextServices.Localization,
 })
@@ -156,15 +167,17 @@ local function mapStateToProps(state, props)
     local currentScreen = screen.currentScreen
 
     return {
+        UniverseName = state.AssetManagerReducer.universeName,
         CurrentScreen = currentScreen,
     }
 end
 
 local function useDispatchForProps(dispatch)
     return {
-        DispatchSetScreen = function(enabled, screen)
+        dispatchSetScreen = function(enabled, apiImpl, screen)
             if enabled then
                 dispatch(SetScreen(screen))
+                dispatch(OnScreenChange(apiImpl, screen))
             end
         end,
     }

@@ -23,6 +23,8 @@
 local FFlagPluginAccessAndInstallationInStudio = settings():GetFFlag("PluginAccessAndInstallationInStudio")
 local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 local FFlagFixAssetTextTruncation = game:DefineFastFlag("FixAssetTextTruncation", false)
+local FFlagRemoveAudioEndorsedIcon = game:GetFastFlag("RemoveAudioEndorsedIcon")
+local FFlagEnableAudioPreview = settings():GetFFlag("EnableAudioPreview")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -36,7 +38,7 @@ local Images = require(Util.Images)
 local ContextHelper = require(Util.ContextHelper)
 local ContextGetter = require(Util.ContextGetter)
 local DebugFlags = require(Util.DebugFlags)
-local AssetType = require(Plugin.Core.Types.AssetType)
+local getTimeString = require(Util.getTimeString)
 
 local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
@@ -152,6 +154,14 @@ function Asset:render()
 			local assetId = asset.Id
 			local assetTypeId = asset.TypeId
 			local isEndorsed = asset.IsEndorsed
+			local showAudioLength = false
+			if FFlagEnableAudioPreview and assetTypeId == Enum.AssetType.Audio.Value then
+				if FFlagRemoveAudioEndorsedIcon then
+					isEndorsed = false
+				end
+				showAudioLength = true
+			end
+
 			local assetName = asset.Name
 			local status = asset.Status
 
@@ -171,6 +181,10 @@ function Asset:render()
 			if isCurrentlyCreationsTab then
 				showVotes = false
 			end
+			if FFlagEnableAudioPreview and showAudioLength then
+				showVotes = false
+			end
+
 			local showStatus = isCurrentlyCreationsTab
 
 			local layoutOrder = props.LayoutOrder
@@ -183,14 +197,30 @@ function Asset:render()
 			if showStatus then
 				assetOutlineHeight = assetOutlineHeight + Constants.ASSET_CREATOR_NAME_HEIGHT
 			end
-			if showPrices then
-				assetOutlineHeight = assetOutlineHeight + Constants.ASSET_INNER_PADDING
+
+			if FFlagEnableAudioPreview then
+				-- At current stage, price and audio length won't exist together.
+				if showPrices or showAudioLength then
+					assetOutlineHeight = assetOutlineHeight + Constants.ASSET_INNER_PADDING
+				end
+			else
+				if showPrices then
+					assetOutlineHeight = assetOutlineHeight + Constants.ASSET_INNER_PADDING
+				end
 			end
 
 			local isDarkerTheme = theme.isDarkerTheme
 			local outlineTheme = theme.asset.outline
 			local dropShadowSize = Constants.DROP_SHADOW_SIZE
 			local innerFrameHeight = isHovered and assetOutlineHeight - (2 * Constants.ASSET_OUTLINE_PADDING) or 0
+			local innerFramePadding = Constants.ASSET_INNER_PADDING
+			if FFlagEnableAudioPreview and showAudioLength then
+				-- For now, only audio asset requires extra space.
+				innerFramePadding = 0
+			end
+
+			-- TODO: Pass the duration in from the Toolbox endpoint.
+			local duration = 800
 
 			return Roact.createElement("Frame", {
 				Position = UDim2.new(0, 0, 0, 0),
@@ -239,7 +269,7 @@ function Asset:render()
 					onClick = self.onClick,
 				}, {
 					UIListLayout = Roact.createElement("UIListLayout", {
-						Padding = UDim.new(0, Constants.ASSET_INNER_PADDING),
+						Padding = UDim.new(0, innerFramePadding),
 						SortOrder = Enum.SortOrder.LayoutOrder,
 						HorizontalAlignment = Enum.HorizontalAlignment.Center,
 						VerticalAlignment = Enum.VerticalAlignment.Top,
@@ -329,6 +359,19 @@ function Asset:render()
 						LayoutOrder = 4,
 						assetId = assetId,
 						voting = votingProps,
+					}),
+
+					-- showAudioLength is already gated by FFlagEnableAudioPreview
+					AudioLength = isHovered and showAudioLength and Roact.createElement("TextLabel", {
+						Size = UDim2.new(1, 0, 0, Constants.AUDIO_LENGTH_HEIGHT),
+						LayoutOrder = 4,
+						Text = getTimeString(duration),
+						BackgroundTransparency = 1,
+						BorderSizePixel = 0,
+						TextXAlignment = Enum.TextXAlignment.Left,
+						Font = Constants.FONT,
+						TextSize = Constants.FONT_SIZE_SMALL,
+						TextColor3 = theme.asset.status.textColor,
 					}),
 
 					Status = isHovered and showStatus and Roact.createElement("TextLabel", {

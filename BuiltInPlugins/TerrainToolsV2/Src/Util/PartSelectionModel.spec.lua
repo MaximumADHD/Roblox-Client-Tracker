@@ -14,7 +14,7 @@ return function()
 			local psm = PartSelectionModel.new({
 				getSelection = selection.get,
 				selectionChanged = selection.changed,
-				validFilter = PartConverterUtil.validInstanceFilter,
+				getValidInvalid = PartConverterUtil.getValidInvalidInfo,
 			})
 		return selection, psm
 	end
@@ -27,7 +27,7 @@ return function()
 					return mockSelectionService:Get()
 				end,
 				selectionChanged = mockSelectionService.SelectionChanged,
-				validFilter = PartConverterUtil.validInstanceFilter,
+				getValidInvalid = PartConverterUtil.getValidInvalidInfo,
 			})
 			expect(psm).to.be.ok()
 			psm:destroy()
@@ -41,7 +41,7 @@ return function()
 			expect(function()
 				PartSelectionModel.new({
 					selectionChanged = MockSelectionService.new().SelectionChanged,
-					validFilter = PartConverterUtil.validInstanceFilter,
+					getValidInvalid = PartConverterUtil.getValidInvalidInfo,
 				})
 			end).to.throw()
 		end)
@@ -50,12 +50,12 @@ return function()
 			expect(function()
 				PartSelectionModel.new({
 					getSelection = function() end,
-					validFilter = PartConverterUtil.validInstanceFilter,
+					getValidInvalid = PartConverterUtil.getValidInvalidInfo,
 				})
 			end).to.throw()
 		end)
 
-		it("should require a validFilter predicate", function()
+		it("should require a getValidInvalid callback", function()
 			expect(function()
 				PartSelectionModel.new({
 					getSelection = function() end,
@@ -88,7 +88,6 @@ return function()
 			expect(psm:hasValidInstances()).to.equal(false)
 			expect(setEquals(psm:getValidInstancesSet(), {})).to.equal(true)
 			expect(psm:hasInvalidInstances()).to.equal(false)
-			expect(setEquals(psm:getInvalidInstancesSet(), {})).to.equal(true)
 
 			local m = Instance.new("Model")
 			local p = Instance.new("Part")
@@ -99,7 +98,6 @@ return function()
 			expect(psm:hasValidInstances()).to.equal(true)
 			expect(setEquals(psm:getValidInstancesSet(), {[p] = true})).to.equal(true)
 			expect(psm:hasInvalidInstances()).to.equal(false)
-			expect(setEquals(psm:getInvalidInstancesSet(), {})).to.equal(true)
 
 			local v = Instance.new("IntValue")
 			selection.set({p, v})
@@ -107,14 +105,12 @@ return function()
 			expect(psm:hasValidInstances()).to.equal(true)
 			expect(setEquals(psm:getValidInstancesSet(), {[p] = true})).to.equal(true)
 			expect(psm:hasInvalidInstances()).to.equal(true)
-			expect(setEquals(psm:getInvalidInstancesSet(), {[v] = true})).to.equal(true)
 
 			selection.set({v})
 
 			expect(psm:hasValidInstances()).to.equal(false)
 			expect(setEquals(psm:getValidInstancesSet(), {})).to.equal(true)
 			expect(psm:hasInvalidInstances()).to.equal(true)
-			expect(setEquals(psm:getInvalidInstancesSet(), {[v] = true})).to.equal(true)
 
 			psm:destroy()
 		end)
@@ -175,7 +171,7 @@ return function()
 			local p = Instance.new("Part")
 			p.Parent = m
 
-			selection:set({})
+			selection.set({})
 			expect(psm:isInstanceOrAncestorsSelected(p)).to.equal(false)
 			expect(psm:isInstanceOrAncestorsSelected(m)).to.equal(false)
 
