@@ -10,6 +10,6 @@ dependencies = [
     "Roact roblox/roact 1.2.0 registry+https://github.rbx.com/roblox/rotriever-index",
     "RoactRodux roblox/roact-rodux 0.2.0 registry+https://github.rbx.com/roblox/rotriever-index",
     "Rodux roblox/rodux 1.0.0 registry+https://github.rbx.com/roblox/rotriever-index",
-    "UIBlox UIBlox 757dc5cb git+https://github.rbx.com/roblox/uiblox#master",
+    "UIBlox UIBlox e05b20d6 git+https://github.rbx.com/roblox/uiblox#master",
     "t osyris/t 1.2.5 registry+https://github.rbx.com/roblox/rotriever-index",
 ]
