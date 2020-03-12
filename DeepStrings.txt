@@ -396,6 +396,7 @@ AHPEAU_iobuf
 AHPEAX1PEAPEAX
 AHW4DataStoreRequestType
 AHW4UserInputType
+AjM7iVcGbugouhXnDiwefV5vzJ
 Algorithms
 AliasRequestResult
 ALIGN_TYPE
@@ -4116,6 +4117,7 @@ BoxContainer
 BoxHandleAdornment
 BoxMappedMeshLODFix_v2
 BoxSelectCommand
+BPA3AV6E6ec2P839pFLQpkAk3IN
 BPEAUIUnknown
 BPuVfD9B`uOfD9BpuH
 BQByteArray
@@ -4624,6 +4626,7 @@ CFrameDecal
 CFrameOnly
 CFrameValue
 CFrameVectors
+CgcZA8Vd1bCAQqE1zmQTlt03
 ChainCAFile
 ChainCAPath
 Chalkboard
@@ -8306,6 +8309,7 @@ EnvironmentSpecularScale
 EnviroSpeed
 EoOoZoaozo
 EphemeralCounter
+Epo8Ud3kONYb2EsjpcL
 EqualizerSoundEffect
 EquippedEmotes
 EquippedEmotesChanged
@@ -8637,6 +8641,7 @@ FB64AAAED11E38B9D871882A8E559
 FB6CE584711E29A3DBD856014A660
 FB6CF584711E29A3DBD856014A660
 FB8E4A9E79B
+FBNwfvy3OuF6eugXUzEHFdIP0CKDNcra78UkTpjwcIL
 FbPnXNTBBz2CM47ldc6zPnp04Gg1Ch1zQNrS9Q0fLcTp94XeqG0DjA42Iq0M3ZDg
 FbxAMatrix
 FbxAnimation
@@ -9458,6 +9463,7 @@ GatherHoverMetaCounters
 GAThrottlingEventThresholdHundredthCat1
 GAThrottlingEventThresholdHundredthCat2
 GAThrottlingEventThresholdHundredthCat3
+GAxSF2bnBKI2FwGlmDgtAPK
 GazeSelectionEnabled
 GCDistance
 GCHappened
@@ -10440,6 +10446,7 @@ GvEphfEUiHHoD6hYFI4xWGpAnIHcklKQCxrf46kAhDGeZnqIgeGszlGdWafunGE8
 GVKUTS[BXIWH\KbHi
 GXGfGkGpGuG
 GyroscopeEnabled
+GZGgkP3S0VFPaSHn8WhjNmcRRe1gXoIYeHCM6kKK6F6QF21vY0yInWkXjzvIG
 H_Key_dn.png
 H_NAEBVQString
 H`CeIkHq7v4
@@ -10571,6 +10578,7 @@ HelpForSelectionAction
 HelpWindow
 HelpWindow.style[
 HFbxVector4
+HFMlnDMg4H2
 HHAEBVQModelIndex
 HHHHHAEBVQString
 HHPEAVQObject
@@ -11782,6 +11790,7 @@ KillSurfaceJointsPart1
 KnownHeaders
 KodchiangUPC
 KPEIBX_K_KPEIAU_iobuf
+KpIPWI6eDOjEhi4DIfjZesOqqmlE1q73XfDDOYMRiq9ocLWIxaRS89XfhXEvsVYz
 KVScriptContext
 KYULPhCBFoD3mw5mygYqAeFlHdSL2k3MnDG
 LabelArray
@@ -12319,6 +12328,7 @@ LookVector
 LostConnection
 LostReliableConnection
 LostUniverse
+Louwa5t7gXjxgm3PsT
 LOW_PRIORITY
 LowerAngle
 LowerLimit
@@ -13127,6 +13137,7 @@ Miscellaneous
 Mismatched
 MissingCoreScript
 MissingDumpFile
+MLotPW3LpyDm8hjzyLtU
 MMW4IkDragCollisionsMode
 MMW4PartMaterial
 MMW4UserInputState
@@ -13757,6 +13768,7 @@ NVAuthenticationHelper
 Nvb5JjRCUQ
 NVLuaWebService
 NvOptimusEnablement
+NvQT7wmkVFEnIEMDMX6QHjz2OrkrDduVo
 NVReplicator
 NVRobloxApplicationManager
 NVRobloxIDEDoc
@@ -22861,6 +22873,7 @@ TouchTransmitter
 ToUniversalTime
 TownAndCity
 ToWorldSpace
+ToXLabMwAIuPNFohSyX4OEN7c6B7R2lVPTptpLRoK
 TraceMessage
 Track2Data
 TrackCountryRegionAPIHundredthsPercent
@@ -23748,6 +23761,7 @@ UTextDocumentFoldingRangeResponse
 UTextFilterResult
 UTF8String
 UTF8STRING
+UtGghhsOIK0d494S20LYCputl76
 UThumbnailFetchJob
 UThumbnailRequestRecord
 Utime_label_invalid
@@ -24402,6 +24416,7 @@ VISIBLESTRING
 VIStudioHTTPRequest
 VisualDesign
 VisualEngineInit
+VisualEngineTrackHeadless
 Visualization
 VisuallyMoved
 VisuallySleeping
@@ -24952,6 +24967,7 @@ WarningColor
 WarningIcon
 WarningText
 WarnOnNoCoreFunction
+WarnTupleExpansionFailed
 WarnTypeCheckOnRequire
 WARRANTIES
 WATAUAVAWD
@@ -25192,11 +25208,13 @@ WithSHA224
 WithSHA256
 WithSHA384
 WithSHA512
+WkOs73UdakIEbUlsYKimk98R
 WM_ATLGETCONTROL
 WM_ATLGETHOST
 WMCreateProfileManager
 WMCreateSyncReader
 Wmvcore.dll
+WneDmLuWHFF7Jn
 WoodPlanks
 WorkersNeeded
 Workspace.
