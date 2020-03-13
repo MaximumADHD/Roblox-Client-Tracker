@@ -13,6 +13,8 @@ local Analytics = require(Root.Services.Analytics)
 local Thunk = require(Root.Thunk)
 local Promise = require(Root.Promise)
 
+local GetFFlagPromptRobloxPurchaseEnabled = require(Root.Flags.GetFFlagPromptRobloxPurchaseEnabled)
+
 local completePurchase = require(script.Parent.completePurchase)
 
 -- Only tools can be equipped on purchase
@@ -37,6 +39,7 @@ local function purchaseItem()
 		local id = state.promptRequest.id
 		local infoType = state.promptRequest.infoType
 		local equipIfPurchased = state.promptRequest.equipIfPurchased
+		local isRobloxPurchase = GetFFlagPromptRobloxPurchaseEnabled() and state.promptRequest.isRobloxPurchase or false
 
 		local salePrice = state.productInfo.price
 		local assetTypeId = state.productInfo.assetTypeId
@@ -44,7 +47,7 @@ local function purchaseItem()
 
 		local itemType = state.productInfo.itemType
 
-		return performPurchase(network, infoType, productId, salePrice, requestId)
+		return performPurchase(network, infoType, productId, salePrice, requestId, isRobloxPurchase)
 			:andThen(function(result)
 				--[[
 					If the purchase was successful, we signal success,

@@ -22,7 +22,7 @@ local requiredServices = {
 	ExternalSettings,
 }
 
-local function initiatePurchase(id, infoType, equipIfPurchased)
+local function initiatePurchase(id, infoType, equipIfPurchased, isRobloxPurchase)
 	return Thunk.new(script.Name, requiredServices, function(store, services)
 		local network = services[Network]
 		local externalSettings = services[ExternalSettings]
@@ -32,7 +32,7 @@ local function initiatePurchase(id, infoType, equipIfPurchased)
 		end
 
 		if infoType == Enum.InfoType.Asset then
-			store:dispatch(RequestAssetPurchase(id, equipIfPurchased))
+			store:dispatch(RequestAssetPurchase(id, equipIfPurchased, isRobloxPurchase))
 		elseif infoType == Enum.InfoType.GamePass then
 			store:dispatch(RequestGamepassPurchase(id))
 		elseif infoType == Enum.InfoType.Product then

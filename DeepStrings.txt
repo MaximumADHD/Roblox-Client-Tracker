@@ -3659,7 +3659,6 @@ AW4ZIndexBehavior
 AwardBadge
 AwardPoints
 AwareCompare
-AWrg4svace3qJGIvGx
 AX_J0W4FriendService_FriendEventType
 AX_J0W4FriendService_FriendStatus
 AX_JW4FriendService_FriendEventType
@@ -3908,7 +3907,6 @@ BFConvertTerrainRoleSet
 BFD701C11E3B075CBAD925AA50F
 BFE701C11E3B075CBAD925AA50F
 BFLuaDraggersRoleSet
-BGTDVjru53uyi
 BgUpdateRedirectsDisable
 BgUpdateRedirectsHttpErrInfluxHundredthsPercentage
 BgUpdateRedirectsRejectInfluxHundredthsPercentage
@@ -4304,7 +4302,7 @@ BytesReceivedAndIgnoredPerSec
 BytesReceivedPerSec
 BytesRecvAndIgnored
 BytesWritten
-ByVersion_0.423.0.389823
+ByVersion_0.423.0.391560
 ByVersionForPlatform_
 C_specific_handler
 CA_NPEAVQObject
@@ -7691,7 +7689,6 @@ Dst.YBegin
 DSVideoCaptureEngine
 DTLS_RECORD_LAYER_new
 DTLSv1_listen
-DtUaSCSBk3qk2Wa1AqkKBkh
 DumbSpatialHash
 DumpAction
 DumpFileCount
@@ -8007,8 +8004,6 @@ EffectBoundings
 EffectiveRetryCount
 EFrontVector
 Egravesmall
-EGsW0veKtNgj22h79X5sNOf2OdxhRitiVd6rXEVqP9XIqscCoFOL4SxwaGkVk1
-EHaKMTiDMkl04
 EHERE\EfEpEzE
 EJTU\^bcfguw
 ElapsedTime
@@ -11039,7 +11034,6 @@ IID_IVPVBIConfig
 IID_IVPVBINotify
 IID_IVPVBIObject
 IIMAEBVInstanceIdentifier
-IK9TLgbSOThJjeUtzgaEOM04K1vzKelmDw2BNOAcOLVdYZfwj9krAySbhQcSvw
 IkDragCollisionsMode
 IkDraggerAnchorMode
 IkDraggerSolveIterations
@@ -12339,7 +12333,6 @@ LowQMaterialFS
 LowQMaterialWangFallbackFS
 LowQMaterialWangFS
 LowResolution
-LsDgN3wNbnDXLAX4tRunPdSEqq1HmilqJV7vq4ihd637
 Lslashsmall
 LSPClientConnection
 LSPManager
@@ -12637,7 +12630,6 @@ MaxViscousForceGravityTimesMult
 MaxVisibleItems
 MaxWaitTimeBeforeForcePacketProcessMS
 MdiControls
-MdiI193kzo4mA
 MDIManagerHost
 MEAA_JPEA_W_J
 MEAA_JPEAD_J
@@ -13098,7 +13090,7 @@ MigrateTriangleMeshData3
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsI9zRp2OSccqdFx2
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAupANB3EbN9hFHHUj0eA
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzjPRQo9jc
-MIICCgKCAgEApcY3uItHDrJerk
+MIICCgKCAgEApq6H9KzVDYo3tnfNoONLzQTS9ORX5KVInvl5kCpcOLYGzjrFO9rc
 Millisecond
 MillisecondsBeforeHandlingReconnect
 MimeDataFromSelection
@@ -13629,7 +13621,6 @@ NextTabPage
 NfXf`fhfzf
 NHDHVQChar
 NHVVariant
-NhZhCt4fF3IDU8lQ2UCTB
 NinjaMask.mesh
 NNW4SizeMode
 NoCacheForLocalContent
@@ -14390,7 +14381,6 @@ PatternOptions
 PatternSyntax
 PauseAction
 PauseSound
-PB7cFplEuROfah0RZaEXlkXUEnyEq2MRNLdAq5bdAnIuU4vZLTHtUgho
 PBKDF2PARAM
 PCDesktopClient
 PCertReqData
@@ -16551,7 +16541,6 @@ QJsonValue
 QJsonValueRef
 QKeySequence
 QLayoutItem
-QlCqW4kMAjWn2Jydo3
 QLinearGradient
 QListWidget
 QListWidgetItem
@@ -16560,7 +16549,6 @@ QLocalSocket
 QMainWindow
 QMapDataBase
 QMapNodeBase
-QmEFpHTCd4X8CWtROInMdaiRTSUc0v
 QMessageBox
 QMessageLogger
 QMetaMethod
@@ -19369,7 +19357,6 @@ SpringConstraint
 SpringConstraintAction
 SquishRelay
 SQUIshRobloxReflectionExtensionLibrary
-SQzan9iBaybltfbkIPaSCmF8sOhSXjyDSbDHfK
 Src.Thread
 Src.YBegin
 SrcPlaceId
@@ -25482,13 +25469,10 @@ YffYZefYDNNDCOO
 YieldEvent
 YieldFuncDesc
 YieldFunction
-YkeDaxqBaD4TNppDiAMct36HoAxiP7yCECAwEAAQ
 YQByteArray
 YResolution
 YwBBvY55YvBBwY5
-YWlApExFJK1P2hjR3iqANhxQhhN9X8Jq3Ab2ES
 Z_KPEIBX_K_KPEIAU1
-ZBA3yO9nfZrj11gWNwD1HiIpCm20yHWdTOrTqFd5rNJ8aokGl8lI
 Zcaronsmall
 Zdotaccent
 ZgnhKhWhci
@@ -25504,6 +25488,7 @@ ZP6APEAX1PEBX
 ZP6AX1PEAX
 ZPEAVRBXMessageBox
 ZRZZZbZt[.[
-ZSe9tMTWjsqZVFyZ4Sdw
+ZStwd34tFPxi
+ZUjY80gMo5og46RFLBSnjJWIoVwFkTHDIOE4wOOASCJkgxX9E
 ZVspecial_equipped_signal
 ZVTouchedSignal

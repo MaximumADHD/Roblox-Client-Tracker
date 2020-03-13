@@ -5,8 +5,8 @@ local Promise = require(Root.Promise)
 
 local FFlagPerformPurchaseNewBundleInfoTypeEnabled = settings():GetFFlag("PerformPurchaseNewBundleInfoTypeEnabled")
 
-local function performPurchase(network, infoType, productId, expectedPrice, requestId)
-	return network.performPurchase(infoType, productId, expectedPrice, requestId)
+local function performPurchase(network, infoType, productId, expectedPrice, requestId, isRobloxPurchase)
+	return network.performPurchase(infoType, productId, expectedPrice, requestId, isRobloxPurchase)
 		:andThen(function(result)
 			--[[
 				User might purchase the product through the web after having

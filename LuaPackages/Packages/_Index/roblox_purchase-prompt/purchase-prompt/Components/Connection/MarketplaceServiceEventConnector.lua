@@ -17,6 +17,7 @@ local initiatePremiumPurchase = require(Root.Thunks.initiatePremiumPurchase)
 local connectToStore = require(Root.connectToStore)
 
 game:DefineFastFlag("PremiumLuaUpsellEnabledV2", false)
+local GetFFlagPromptRobloxPurchaseEnabled = require(Root.Flags.GetFFlagPromptRobloxPurchaseEnabled)
 
 local ExternalEventConnection = require(script.Parent.ExternalEventConnection)
 
@@ -27,11 +28,16 @@ local function MarketplaceServiceEventConnector(props)
 	local onServerPurchaseVerification = props.onServerPurchaseVerification
 	local onBundlePurchaseRequest = props.onBundlePurchaseRequest
 	local onPremiumPurchaseRequest = props.onPremiumPurchaseRequest
+	local onRobloxPurchaseRequest = props.onRobloxPurchaseRequest
 
 	return Roact.createFragment({
 		Roact.createElement(ExternalEventConnection, {
 			event = MarketplaceService.PromptPurchaseRequested,
 			callback = onPurchaseRequest,
+		}),
+		RobloxPurchase = GetFFlagPromptRobloxPurchaseEnabled() and Roact.createElement(ExternalEventConnection, {
+			event = MarketplaceService.PromptRobloxPurchaseRequested,
+			callback = onRobloxPurchaseRequest,
 		}),
 		Roact.createElement(ExternalEventConnection, {
 			event = MarketplaceService.PromptProductPurchaseRequested,
@@ -60,8 +66,12 @@ MarketplaceServiceEventConnector = connectToStore(nil,
 function(dispatch)
 	local function onPurchaseRequest(player, assetId, equipIfPurchased, currencyType)
 		if player == Players.LocalPlayer then
-			dispatch(initiatePurchase(assetId, Enum.InfoType.Asset, equipIfPurchased))
+			dispatch(initiatePurchase(assetId, Enum.InfoType.Asset, equipIfPurchased, false))
 		end
+	end
+
+	local function onRobloxPurchaseRequest(assetId, equipIfPurchased)
+		dispatch(initiatePurchase(assetId, Enum.InfoType.Asset, equipIfPurchased, true))
 	end
 
 	local function onProductPurchaseRequest(player, productId, equipIfPurchased, currencyType)
@@ -105,6 +115,7 @@ function(dispatch)
 
 	return {
 		onPurchaseRequest = onPurchaseRequest,
+		onRobloxPurchaseRequest = onRobloxPurchaseRequest,
 		onProductPurchaseRequest = onProductPurchaseRequest,
 		onPurchaseGamePassRequest = onPurchaseGamePassRequest,
 		onServerPurchaseVerification = onServerPurchaseVerification,

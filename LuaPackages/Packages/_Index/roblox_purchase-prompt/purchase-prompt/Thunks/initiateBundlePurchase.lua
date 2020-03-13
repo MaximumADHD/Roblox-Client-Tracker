@@ -35,7 +35,7 @@ local function initiateBundlePurchase(bundleId)
 		if FFlagPerformPurchaseNewBundleInfoTypeEnabled then
 			store:dispatch(RequestBundlePurchase(bundleId))
 		else
-			store:dispatch(RequestAssetPurchase(bundleId, false))
+			store:dispatch(RequestAssetPurchase(bundleId, false, true))
 		end
 
 		local isStudio = externalSettings.isStudio()
