@@ -147,8 +147,70 @@ local function createStyles(theme, getColor)
 		}
 	end)
 
+	local tile = StyleTable.new("Tile", function()
+		local Default = Style.new({
+			Size = UDim2.new(0, 85, 0, 121),
+			BackgroundTransparency = 1,
+			BorderSizePixel = 0,
+
+			AssetPreview = {
+				Button = {
+					Size = 32,
+					XOffset = 36,
+				},
+				Image = "rbxasset://textures/StudioToolbox/AssetPreview/MAGNIFIER_PH.png",
+			},
+
+			Image = {
+				Size = UDim2.new(0, 69, 0, 69),
+				Position = UDim2.new(0, 8, 0, 8),
+				BackgroundTransparency = 1,
+				RBXThumbSize = 150,
+				PlaceHolder = "rbxasset://textures/PublishPlaceAs/TransparentWhiteImagePlaceholder.png",
+				Folder = "rbxasset://textures/StudioSharedUI/folder_32.png",
+
+				StartingPlace = {
+					Size = 24,
+					Icon = "rbxasset://textures/StudioSharedUI/spawn_withbg_24.png",
+					XOffset = 8,
+					YOffset = 37,
+				},
+			},
+
+			Text = {
+				Color = theme:GetColor(c.DialogMainButtonText),
+				Size = 14,
+				TextTruncate = Enum.TextTruncate.AtEnd,
+
+				XAlignment = Enum.TextXAlignment.Left,
+				YAlignment = Enum.TextYAlignment.Top,
+
+				BackgroundTransparency = 1,
+
+				Frame = {
+					Size = UDim2.new(0, 69, 0, 32),
+					Position = UDim2.new(0, 8, 0, 81),
+				},
+			},
+
+			[StyleModifier.Hover] = {
+				BackgroundTransparency = 0,
+				BackgroundColor = theme:getColor(c.CheckedFieldBackground, m.Hover),
+			},
+
+			[StyleModifier.Selected] = {
+				BackgroundTransparency = 0,
+				BackgroundColor = theme:getColor(c.Item, m.Selected),
+			}
+		})
+
+		return {
+			Default = Default,
+		}
+	end)
+
 	return {
-		Plugin = {
+		Plugin = Style.extend({
 			BackgroundColor = theme:GetColor(c.MainBackground),
 			ButtonColor = theme:GetColor(c.Button),
 			ProgressBarColor = theme:GetColor(c.DialogMainButton, m.Selected),
@@ -167,6 +229,10 @@ local function createStyles(theme, getColor)
 			Font = Enum.Font.SourceSans,
 			FontBold = Enum.Font.SourceSansSemibold,
 			FontSizeSmall = 14,
+
+			AssetGridContainer = {
+				CellPadding = UDim2.new(0, 4, 0, 6),
+			},
 
 			NavBar = {
 				BackgroundColor = theme:GetColor(c.Titlebar),
@@ -227,7 +293,9 @@ local function createStyles(theme, getColor)
 					Size = 9,
 				},
 			},
-		},
+		}, {
+			Tile = tile,
+		}),
 
 		Framework = Style.extend(studioStyles, {
 				Button = button,
@@ -257,12 +325,16 @@ local function getUILibraryTheme()
 				selected = {
 					color = theme:GetColor(c.Button, m.Selected),
 				},
-				color = Color3.fromRGB(0, 0, 0),
+				color = theme:GetColor(c.Border),
 			},
 			buttons = {
 				size = 24,
 			}
 		},
+
+		loadingIndicator = {
+			endColor = theme:GetColor(c.Button, m.Selected),
+		}
 	}
 
 	return createTheme(UILibraryPalette, UILibraryOverrides)

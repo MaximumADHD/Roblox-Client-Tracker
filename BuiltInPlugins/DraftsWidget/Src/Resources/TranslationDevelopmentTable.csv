@@ -19,5 +19,6 @@ Studio.Drafts.Tooltip.ScriptDeleted, , ,The original script has been deleted fro
 Studio.Drafts.Tooltip.DraftCommitted, , ,Draft successfully committed
 Studio.Drafts.StatusText.Saved, , ,Saved
 Studio.Drafts.StatusText.Saving, , ,Saving...
+Studio.Drafts.StatusText.Uncommitted, , ,Uncommitted
 Studio.Drafts.StatusText.Committing, , ,Committing...
 Studio.Drafts.DraftItem.CommittedLabel, , ,{1} committed

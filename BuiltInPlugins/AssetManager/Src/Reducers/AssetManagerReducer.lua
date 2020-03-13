@@ -6,6 +6,7 @@ local Rodux = require(Plugin.Packages.Rodux)
 return Rodux.createReducer({
 	assetsTable = { assets = {}, },
 	bulkImporterRunning = false,
+	isFetchingAssets = false,
 	searchTerm = "",
 	universeName = "",
 }, {
@@ -18,6 +19,12 @@ return Rodux.createReducer({
     SetBulkImporterRunning = function(state, action)
         return Cryo.Dictionary.join(state, {
 			bulkImporterRunning = action.bulkImporterRunning,
+		})
+	end,
+
+	SetIsFetchingAssets = function(state, action)
+        return Cryo.Dictionary.join(state, {
+			isFetchingAssets = action.isFetchingAssets,
 		})
 	end,
 

@@ -98,19 +98,70 @@ end
 function RotateHandleView.hitTest(props, mouseRay)
 	local cframe = props.HandleCFrame
 	local unitRay = mouseRay.Unit
-	local t = Math.intersectRayPlane(unitRay.Origin, unitRay.Direction, cframe.Position, cframe.RightVector)
 
-	if t >= 0 then
+	local radius = HANDLE_RADIUS * props.Scale
+	local thickness = HANDLE_HITTEST_THICKNESS * props.Scale
+	local normal = cframe.RightVector
+	local point = cframe.Position
+
+	local smallestDistance = math.huge
+	local foundHit = false
+
+	-- Top ring
+	local topPoint = point + normal * 0.5 * thickness
+	local t = Math.intersectRayPlane(unitRay.Origin, unitRay.Direction, topPoint, normal)
+	if t >= 0 and t < smallestDistance then
 		local mouseWorld = unitRay.Origin + unitRay.Direction * t
-		hitRadius = (mouseWorld - cframe.Position).Magnitude
+		hitRadius = (mouseWorld - topPoint).Magnitude
 
-		local distance = math.abs(hitRadius - (HANDLE_RADIUS * props.Scale))
-		if distance < HANDLE_HITTEST_THICKNESS then
-			return distance
+		local distance = math.abs(hitRadius - radius)
+		if distance < 0.5 * thickness then
+			foundHit = true
+			smallestDistance = t
 		end
 	end
 
-	return nil
+	-- Bottom ring
+	local bottomPoint = point - normal * 0.5 * thickness
+	local t = Math.intersectRayPlane(unitRay.Origin, unitRay.Direction, bottomPoint, -normal)
+	if t >= 0 and t < smallestDistance then
+		local mouseWorld = unitRay.Origin + unitRay.Direction * t
+		hitRadius = (mouseWorld - bottomPoint).Magnitude
+
+		local distance = math.abs(hitRadius - radius)
+		if distance < 0.5 * thickness then
+			foundHit = true
+			smallestDistance = t
+		end
+	end
+
+	-- Get the ray in local space, so that we can use the intersectRayCylinder
+	-- call for the intersection. The canonical normal of the cylinder is
+	-- (1, 0, 0) which is what that call expects.
+	local o = cframe:PointToObjectSpace(unitRay.Origin)
+	local d = cframe:VectorToObjectSpace(unitRay.Direction)
+
+	-- Inner Cylinder
+	local innerRadius = radius - 0.5 * thickness
+	local hit, t = Math.intersectRayCylinder(o, d, innerRadius, thickness)
+	if hit and t < smallestDistance then
+		foundHit = true
+		smallestDistance = t
+	end
+
+	-- Outer Cylinder
+	local outerRadius = radius + 0.5 * thickness
+	local hit, t = Math.intersectRayCylinder(o, d, outerRadius, thickness)
+	if hit and t < smallestDistance then
+		foundHit = true
+		smallestDistance = t
+	end
+
+	if foundHit then
+		return smallestDistance
+	else
+		return nil
+	end
 end
 
 return RotateHandleView

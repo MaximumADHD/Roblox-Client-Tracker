@@ -18,14 +18,23 @@ local ChangePivot = require(Actions.ChangePivot)
 local SetPlaneLock = require(Actions.SetPlaneLock)
 local SetSnapToGrid = require(Actions.SetSnapToGrid)
 local SetBaseSizeHeightLocked = require(Actions.SetBaseSizeHeightLocked)
+local SetIgnoreWater = require(Actions.SetIgnoreWater)
 
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 
+game:DefineFastFlag("TerrainToolsSmoothToolIgnoreWater", false)
+
 local FFlagTerrainToolsRefactor = game:GetFastFlag("TerrainToolsRefactor")
+local FFlagTerrainToolsSmoothToolIgnoreWater = game:GetFastFlag("TerrainToolsSmoothToolIgnoreWater")
 
 local REDUCER_KEY = "SmoothTool"
 
 local function mapStateToProps(state, props)
+	local ignoreWater
+	if FFlagTerrainToolsSmoothToolIgnoreWater then
+		ignoreWater = state[REDUCER_KEY].ignoreWater
+	end
+
 	if FFlagTerrainToolsRefactor then
 		return {
 			toolName = TerrainEnums.ToolId.Smooth,
@@ -38,6 +47,7 @@ local function mapStateToProps(state, props)
 			pivot = state[REDUCER_KEY].pivot,
 			planeLock = state[REDUCER_KEY].planeLock,
 			snapToGrid = state[REDUCER_KEY].snapToGrid,
+			ignoreWater = ignoreWater,
 		}
 	else
 		return {
@@ -53,6 +63,7 @@ local function mapStateToProps(state, props)
 			snapToGrid = state[REDUCER_KEY].snapToGrid,
 			autoMaterial = state[REDUCER_KEY].autoMaterial,
 			material = state[REDUCER_KEY].material,
+			ignoreWater = ignoreWater,
 		}
 	end
 end
@@ -87,6 +98,9 @@ local function mapDispatchToProps(dispatch)
 		dispatchSetBaseSizeHeightLocked = function (locked)
 			dispatchToSmooth(SetBaseSizeHeightLocked(locked))
 		end,
+		dispatchSetIgnoreWater = FFlagTerrainToolsSmoothToolIgnoreWater and function (ignoreWater)
+			dispatchToSmooth(SetIgnoreWater(ignoreWater))
+		end or nil,
 	}
 end
 

@@ -8,6 +8,8 @@ game:DefineFastFlag("TerrainToolsRefactor", false)
 game:DefineFastFlag("TerrainToolsFlattenUseBaseBrush", false)
 game:DefineFastFlag("TerrainToolsRefactorSculptOperations", false)
 game:DefineFastFlag("TerrainToolsMaterialGenerateFragments", false)
+game:DefineFastFlag("TerrainToolsRefactorAssetIdSelector", false)
+game:DefineFastFlag("TerrainToolsImportImproveColorMapToggle", false)
 
 local function handleFlagDependencies(flag, requiredFlags)
 	if not game:GetFastFlag(flag) then
@@ -27,6 +29,7 @@ handleFlagDependencies("TerrainToolsConvertPartTool", {
 	"TerrainToolsRefactor",
 	"TerrainToolsMaterialGenerateFragments",
 })
+handleFlagDependencies("TerrainToolsRefactorAssetIdSelector", {"TerrainToolsRefactor"})
 
 -- Need to explicitly return something from a module
 -- Else you get an error "Module code did not return exactly one value"

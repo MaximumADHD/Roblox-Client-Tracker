@@ -6,8 +6,9 @@ local AssetManagerReducer = require(script.parent.AssetManagerReducer)
 
 local SetAssets = require(Plugin.Src.Actions.SetAssets)
 local SetBulkImporterRunning = require(Plugin.Src.Actions.SetBulkImporterRunning)
-local SetUniverseName = require(Plugin.Src.Actions.SetUniverseName)
+local SetIsFetchingAssets = require(Plugin.Src.Actions.SetIsFetchingAssets)
 local SetSearchTerm = require(Plugin.Src.Actions.SetSearchTerm)
+local SetUniverseName = require(Plugin.Src.Actions.SetUniverseName)
 
 local testImmutability = require(Plugin.Src.TestHelpers.testImmutability)
 
@@ -19,6 +20,7 @@ return function()
 		expect(state.assetsTable).to.ok()
 		expect(state.assetsTable.assets).to.ok()
 		expect(state.bulkImporterRunning).to.be.ok()
+		expect(state.isFetchingAssets).to.be.ok()
 		expect(state.searchTerm).to.be.ok()
 		expect(state.universeName).to.be.ok()
 	end)
@@ -118,6 +120,36 @@ return function()
 
             state = AssetManagerReducer(state, SetBulkImporterRunning(true))
             expect(state.bulkImporterRunning).to.equal(true)
+		end)
+	end)
+
+	describe("SetIsFetchingAssets action", function()
+		it("should validate its inputs", function()
+			expect(function()
+				SetIsFetchingAssets(nil)
+			end).to.throw()
+
+			expect(function()
+				SetIsFetchingAssets({ key = "value", })
+			end).to.throw()
+
+			expect(function()
+				SetIsFetchingAssets(1)
+			end).to.throw()
+		end)
+
+		it("should preserve immutability", function()
+			local immutabilityPreserved = testImmutability(AssetManagerReducer, SetIsFetchingAssets(true))
+			expect(immutabilityPreserved).to.equal(true)
+		end)
+
+		it("should set screen", function()
+			local r = Rodux.Store.new(AssetManagerReducer)
+			local state = r:getState()
+			expect(state.isFetchingAssets).to.equal(false)
+
+            state = AssetManagerReducer(state, SetIsFetchingAssets(true))
+            expect(state.isFetchingAssets).to.equal(true)
 		end)
 	end)
 

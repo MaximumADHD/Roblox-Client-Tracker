@@ -27,8 +27,6 @@ local Screens = require(Plugin.Src.Util.Screens)
 
 local SetScreen = require(Plugin.Src.Actions.SetScreen)
 
-local OnScreenChange = require(Plugin.Src.Thunks.OnScreenChange)
-
 local ExplorerOverlay = Roact.PureComponent:extend("ExplorerOverlay")
 
 function ExplorerOverlay:render()
@@ -39,9 +37,8 @@ function ExplorerOverlay:render()
 
     local dispatchSetScreen = props.dispatchSetScreen
     local closeOverlay = props.CloseOverlay
-    local content = {}
 
-    content.TreeViewOverlay = Roact.createElement(ShowOnTop, {}, {
+    return Roact.createElement(ShowOnTop, {}, {
         Background = Roact.createElement(Button, {
             Position = UDim2.new(1, 0, 0, 0),
             Size = UDim2.new(overlayTheme.Background.WidthScale, 0, 1, 0),
@@ -117,11 +114,6 @@ function ExplorerOverlay:render()
             })
         })
     })
-
-    return Roact.createElement("Frame", {
-        Size = UDim2.new(1, 0, 1, 0),
-        BackgroundTransparency = 1,
-    }, content)
 end
 
 ContextServices.mapToProps(ExplorerOverlay, {
@@ -134,7 +126,6 @@ local function mapDispatchToProps(dispatch)
     return {
         dispatchSetScreen = function(screen, apiImpl)
             dispatch(SetScreen(screen))
-            dispatch(OnScreenChange(apiImpl, screen))
         end,
     }
 end

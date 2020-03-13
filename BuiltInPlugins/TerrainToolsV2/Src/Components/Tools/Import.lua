@@ -35,6 +35,8 @@ local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 
 local REDUCER_KEY = "ImportTool"
 
+local FFlagTerrainToolsImportImproveColorMapToggle = game:GetFastFlag("TerrainToolsImportImproveColorMapToggle")
+
 local Import = Roact.PureComponent:extend(script.Name)
 
 function Import:init()
@@ -182,9 +184,26 @@ function Import:render()
 	local importInProgress = self.state.isImporting
 	local importProgress = self.state.importProgress
 
-	local importIsActive = (not importInProgress)
-		and self.state.validatedHeightMap
-		and self.state.validatedMapSettings
+	local importIsActive
+
+	if FFlagTerrainToolsImportImproveColorMapToggle then
+		importIsActive =
+			    not importInProgress
+			and self.state.validatedMapSettings
+			and self.state.validatedHeightMap
+			-- Either don't care about color map being validated cause we're not using it
+			-- Or we are using it and it has to be valid
+			and (not useColorMap or self.state.validatedColorMap)
+	else
+		importIsActive = (not importInProgress)
+			and self.state.validatedHeightMap
+			and self.state.validatedMapSettings
+	end
+
+	local hideColorMapAssetSelector
+	if FFlagTerrainToolsImportImproveColorMapToggle then
+		hideColorMapAssetSelector = not useColorMap
+	end
 
 	return withTheme(function(theme)
 		return withLocalization(function(localization)
@@ -224,12 +243,14 @@ function Import:render()
 							[Roact.Event.Activated] = self.toggleUseColorMap,
 						}),
 					}),
-					AssetIdField = Roact.createElement(AssetIdSelector, {
+
+					ColorMapAssetSelector = Roact.createElement(AssetIdSelector, {
 						Size = UDim2.new(1, 0, 0, 60),
 						LayoutOrder = 2,
 						Label = "",
 
 						OnAssetIdValidated = self.colorMapValidated,
+						Disabled = hideColorMapAssetSelector,
 					}),
 				}),
 

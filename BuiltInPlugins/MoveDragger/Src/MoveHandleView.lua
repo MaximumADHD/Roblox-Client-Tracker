@@ -18,6 +18,7 @@ local BASE_HANDLE_LENGTH = 3.00
 local BASE_TIP_OFFSET = 0.20
 local BASE_TIP_LENGTH = 0.25
 local SCREENSPACE_HANDLE_SIZE = 6
+local HANDLE_DIM_TRANSPARENCY = 0.7
 
 function MoveHandleView:render()
     local scale = self.props.Scale
@@ -30,6 +31,9 @@ function MoveHandleView:render()
     end
     if Workspace:FindFirstChild("MoveHandleLength") and Workspace.MoveHandleLength.Value ~= 0 then
         BASE_HANDLE_LENGTH = 3.00 * Workspace.MoveHandleLength.Value
+    end
+    if Workspace:FindFirstChild("MoveHandleTransparency") and Workspace.MoveHandleTransparency.Value ~= 0 then
+        HANDLE_DIM_TRANSPARENCY = 0.7 * Workspace.MoveHandleTransparency.Value
     end
 
     local length = scale * BASE_HANDLE_LENGTH
@@ -50,7 +54,7 @@ function MoveHandleView:render()
         Height = length,
         CFrame = self.props.Axis * CFrame.new(0, 0, -(offset + length * 0.5)),
         Color3 = self.props.Color,
-        AlwaysOnTop = self.props.AlwaysOnTop,
+        AlwaysOnTop = false,
     })
     children.Head = Roact.createElement("ConeHandleAdornment", {
         Adornee = Workspace.Terrain,
@@ -59,9 +63,31 @@ function MoveHandleView:render()
         Height = tipLength,
         CFrame = coneAtCFrame,
         Color3 = self.props.Color,
-        AlwaysOnTop = self.props.AlwaysOnTop,
+        AlwaysOnTop = false,
     })
-    if not self.props.AlwaysOnTop then
+
+    if self.props.AlwaysOnTop then
+        children.DimmedShaft = Roact.createElement("CylinderHandleAdornment", {
+            Adornee = Workspace.Terrain, -- Just a neutral anchor point
+            ZIndex = 0,
+            Radius = radius,
+            Height = length,
+            CFrame = self.props.Axis * CFrame.new(0, 0, -(offset + length * 0.5)),
+            Color3 = self.props.Color,
+            AlwaysOnTop = true,
+            Transparency = HANDLE_DIM_TRANSPARENCY,
+        })
+        children.DimmedHead = Roact.createElement("ConeHandleAdornment", {
+            Adornee = Workspace.Terrain,
+            ZIndex = 0,
+            Radius = 3 * radius,
+            Height = tipLength,
+            CFrame = coneAtCFrame,
+            Color3 = self.props.Color,
+            AlwaysOnTop = true,
+            Transparency = HANDLE_DIM_TRANSPARENCY,
+        })
+    else
         children.ScreenBox = Roact.createElement(Roact.Portal, {
             target = CoreGui,
         }, {

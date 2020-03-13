@@ -2,6 +2,9 @@ local Screens = {
     MAIN = {
 		Key = "MAIN",
 	},
+	PLACES = {
+		Key = "PLACES",
+	},
     MESHES = {
 		Key = "MESHES",
 	},
@@ -10,9 +13,6 @@ local Screens = {
 	},
 	PACKAGES = {
 		Key = "PACKAGES",
-	},
-	PLACES = {
-		Key = "PLACES",
 	},
 	SCRIPTS = {
 		Key = "SCRIPTS",
@@ -30,5 +30,11 @@ Screens.IMAGES.AssetType = Enum.AssetType.Image
 Screens.PACKAGES.AssetType = Enum.AssetType.Package
 Screens.PLACES.AssetType = Enum.AssetType.Place
 Screens.SCRIPTS.AssetType = Enum.AssetType.Lua
+
+Screens.PLACES.LayoutOrder = 1
+Screens.IMAGES.LayoutOrder = 2
+Screens.MESHES.LayoutOrder = 3
+Screens.PACKAGES.LayoutOrder = 4
+Screens.SCRIPTS.LayoutOrder = 5
 
 return Screens

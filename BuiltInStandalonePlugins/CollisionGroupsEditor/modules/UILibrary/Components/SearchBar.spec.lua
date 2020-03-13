@@ -25,6 +25,7 @@ return function()
 			local element = Roact.createElement(MockWrapper, {}, {
 				SearchBar = Roact.createElement(SearchBar, {
 					Size = UDim2.new(0, width, 0, 20),
+					Enabled = true,
 					OnSearchRequested = function() end,
 				}),
 			})

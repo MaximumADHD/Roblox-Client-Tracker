@@ -2,6 +2,8 @@ if not settings():GetFFlag("EnableLuaDraggers") then
 	return
 end
 
+local RunService = game:GetService("RunService")
+
 -- Libraries
 local Plugin = script.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -72,4 +74,10 @@ end
 
 main()
 
-openPlugin()
+-- * In Studio IsRunning() is false (at least at startup when this code runs...
+-- the user can manually call Run(), which will Run the Edit datamodel)
+-- * In Run mode, IsRunMode() is true
+-- Those are the two conditions in which the tool should be selected by default
+if not RunService:IsRunning() or RunService:IsRunMode() then
+	openPlugin()
+end

@@ -32,17 +32,17 @@ local MainView = Roact.PureComponent:extend("MainView")
 
 local defaultFoldersLoaded = false
 local universeNameSet = false
-local function createDefaultFileOverlayFolders(category, parent, localization)
+local function createDefaultFileOverlayFolders(screen, parent, localization)
     local node = {
         ClassName = "Folder",
-        Name = localization:getText("Folders", category),
-        Screen = category,
+        Name = localization:getText("Folders", screen.Key),
+        Screen = screen.Key,
         Children = {},
         Parent = parent,
     }
 
     if parent then
-        table.insert(parent.Children, node)
+        parent.Children[screen.LayoutOrder] = node
     end
 end
 
@@ -87,7 +87,7 @@ function MainView:render()
     if not defaultFoldersLoaded then
         for _, screen in pairs(Screens) do
             if screen.Key ~= Screens.MAIN.Key then
-                createDefaultFileOverlayFolders(screen.Key, self.state.fileExplorerData, localization)
+                createDefaultFileOverlayFolders(screen, self.state.fileExplorerData, localization)
             end
         end
         defaultFoldersLoaded = true
@@ -110,6 +110,11 @@ function MainView:render()
             VerticalAlignment = Enum.VerticalAlignment.Top,
         }),
 
+        ExplorerOverlay = self.state.showOverlay and Roact.createElement(ExplorerOverlay, {
+            FileExplorerData = self.state.fileExplorerData,
+            CloseOverlay = self.closeOverlay,
+        }),
+
         TopBar = Roact.createElement(TopBar, {
             Size = UDim2.new(1, 0, 0, theme.TopBar.Button.Size),
             LayoutOrder = layoutIndex:getNextOrder(),
@@ -121,11 +126,6 @@ function MainView:render()
         NavBar = Roact.createElement(NavBar, {
             Size = UDim2.new(1, 0, 0, theme.NavBar.Height),
             LayoutOrder = layoutIndex:getNextOrder(),
-        }),
-
-        ExplorerOverlay = self.state.showOverlay and Roact.createElement(ExplorerOverlay, {
-            FileExplorerData = self.state.fileExplorerData,
-            CloseOverlay = self.closeOverlay,
         }),
 
         AssetGridView = Roact.createElement(AssetGridContainer, {

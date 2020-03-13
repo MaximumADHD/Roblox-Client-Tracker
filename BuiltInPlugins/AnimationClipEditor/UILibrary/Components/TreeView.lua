@@ -15,6 +15,7 @@
 		onSelectionChanged : (function<void>(list<DataNode>)) a callback for observing when items are selected
 		expandAll: (bool) a check to determine if the entire tree should be initially expanded.
 		expandRoot: (bool) a check to determine if the root of the tree should be initially expanded.
+		createFlatList: (bool) a check to determine if a flat list or node/child structure should be used.
 
 	Elements rendered by the TreeView are given the following props :
 		-- data information
@@ -33,6 +34,8 @@
 		toggleSelected : (function<void>(bool)) a function that tells the treeview to select this row
 ]]
 local FFlagStudioFixTreeViewForSquish = settings():GetFFlag("StudioFixTreeViewForSquish")
+-- Related Ticket https://jira.rbx.com/browse/CLISTUDIO-21831
+local FFlagStudioFixTreeViewForFlatList = settings():GetFFlag("StudioFixTreeViewForFlatList")
 
 local Library = script.Parent.Parent
 
@@ -291,12 +294,19 @@ function TreeView:init()
 			table.sort(children, handlers.sortChildren)
 		end
 
-		for _, child in pairs(children) do
-			local childComponent = self.traverseDepthFirst(child, depth + 1, handlers)
-			table.insert(childComponents, childComponent)
-		end
+		if FFlagStudioFixTreeViewForFlatList and self.props.createFlatList then
+			handlers.onNodeVisited(current, depth, {})
+			for _, child in pairs(children) do
+				self.traverseDepthFirst(child, depth + 1, handlers)
+			end
+		else
+			for _, child in pairs(children) do
+				local childComponent = self.traverseDepthFirst(child, depth + 1, handlers)
+				table.insert(childComponents, childComponent)
+			end
 
-		return handlers.onNodeVisited(current, depth, childComponents)
+			return handlers.onNodeVisited(current, depth, childComponents)
+		end
 	end
 	--[[
 		getVisibleNodes : returns a map of the elements to render into the tree, including the root
@@ -310,6 +320,7 @@ function TreeView:init()
 		local root = self.props.dataTree
 		local getChildren = self.props.getChildren
 		local sortChildren = self.props.sortChildren
+		local createFlatList = self.props.createFlatList
 
 		local numNodes = 1
 		local treeNodes
@@ -328,7 +339,12 @@ function TreeView:init()
 					onNodeVisited = function(child, depth, children)
 						local node = self.createNode(child, numNodes, depth, children)
 						numNodes = numNodes + 1
-						return node
+						if createFlatList then
+							local nodeName = string.format("Node-%d", numNodes)
+							treeNodes[nodeName] = node
+						else
+							return node
+						end
 					end,
 
 					-- when deciding whether to continue traversing the child elements, check if it is expanded

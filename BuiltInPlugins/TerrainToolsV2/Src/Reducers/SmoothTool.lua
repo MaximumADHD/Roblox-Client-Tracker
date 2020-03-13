@@ -20,6 +20,7 @@ local SmoothTool = Rodux.createReducer({
 	pivot = PivotType.Center,
 	planeLock = false,
 	snapToGrid = false,
+	ignoreWater = false,
 }, {
 	ChooseBrushShape = function(state, action)
 		local brushShape = action.brushShape
@@ -74,6 +75,13 @@ local SmoothTool = Rodux.createReducer({
 		local locked = action.locked
 		return Cryo.Dictionary.join(state, {
 			baseSizeHeightLocked = locked,
+		})
+	end,
+	SetIgnoreWater = function(state, action)
+		local ignoreWater = action.ignoreWater
+
+		return Cryo.Dictionary.join(state, {
+			ignoreWater = ignoreWater,
 		})
 	end,
 })

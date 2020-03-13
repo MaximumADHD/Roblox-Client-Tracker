@@ -38,40 +38,38 @@ return Rodux.createReducer({}, {
 	SetAllPluginPermissions = function(state, action)
 		local updatedPluginsList = {}
 
-        for id, entry in pairs(action.permissions) do
+		for id, entry in pairs(action.permissions) do
 			local assetId = tonumber(id)
-			if entry then
-				local pluginPermissionsList = {}
-				local allowedHttpCount = 0
-				local deniedHttpCount = 0
-				for permissionIndex,permission in pairs(entry) do
-					if permission.Type == Constants.PERMISSION_TYPES.HttpService then
-						local permissionInfo = PermissionInfo.fromUserData(permission, permissionIndex)
-						if permissionInfo.allowed then
-							allowedHttpCount = allowedHttpCount + 1
-						else
-							deniedHttpCount = deniedHttpCount + 1
-						end
-						table.insert(pluginPermissionsList, permissionInfo)
+			local pluginPermissionsList = {}
+			local allowedHttpCount = 0
+			local deniedHttpCount = 0
+			for permissionIndex, permission in ipairs(entry) do
+				if permission.Type == Constants.PERMISSION_TYPES.HttpService then
+					local permissionInfo = PermissionInfo.fromUserData(permission, permissionIndex)
+					if permissionInfo.allowed then
+						allowedHttpCount = allowedHttpCount + 1
+					else
+						deniedHttpCount = deniedHttpCount + 1
 					end
+					table.insert(pluginPermissionsList, permissionInfo)
 				end
-
-				table.sort(pluginPermissionsList, function(first, second)
-					if not first.data.domain or not second.data.domain then
-						return false
-					end
-					-- Sort by domain
-					local firstReversedDomain = table.concat(reverse(string.split(first.data.domain, "."), true), ".")
-					local secondReversedDomain = table.concat(reverse(string.split(second.data.domain, "."), true), ".")
-					return firstReversedDomain < secondReversedDomain
-				end)
-
-				updatedPluginsList[assetId] = {
-					allowedHttpCount = allowedHttpCount,
-					deniedHttpCount = deniedHttpCount,
-					httpPermissions = pluginPermissionsList,
-				}
 			end
+
+			table.sort(pluginPermissionsList, function(first, second)
+				if not first.data.domain or not second.data.domain then
+					return false
+				end
+				-- Sort by domain
+				local firstReversedDomain = table.concat(reverse(string.split(first.data.domain, "."), true), ".")
+				local secondReversedDomain = table.concat(reverse(string.split(second.data.domain, "."), true), ".")
+				return firstReversedDomain < secondReversedDomain
+			end)
+
+			updatedPluginsList[assetId] = {
+				allowedHttpCount = allowedHttpCount,
+				deniedHttpCount = deniedHttpCount,
+				httpPermissions = pluginPermissionsList,
+			}
 		end
 
         return Cryo.Dictionary.join(state, updatedPluginsList)

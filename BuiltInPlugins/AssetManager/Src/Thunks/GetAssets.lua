@@ -3,10 +3,11 @@ local Plugin = script.Parent.Parent.Parent
 local Cryo = require(Plugin.Packages.Cryo)
 
 local SetAssets = require(Plugin.Src.Actions.SetAssets)
+local SetIsFetchingAssets = require(Plugin.Src.Actions.SetIsFetchingAssets)
 
 local FFlagStudioAssetManagerFilterPackagePermissions = game:DefineFastFlag("StudioAssetManagerFilterPackagePermissions", false)
 
-local function checkIfPackageHasPermission(apiImpl, packageIds, newAssetsTable, assetBody, assetType)
+local function checkIfPackageHasPermission(store, apiImpl, packageIds, newAssetsTable, assetBody, assetType)
     apiImpl.Develop.V1.Packages.getHighestPermissions(packageIds):makeRequest()
     :andThen(function(response)
         local body = response.responseBody
@@ -20,13 +21,14 @@ local function checkIfPackageHasPermission(apiImpl, packageIds, newAssetsTable, 
                     newAsset.assetType = assetType
                     newAsset.name = asset.assetName
                     newAsset.id = asset.assetId
-                    newAsset.assetName = Cryo.None
-                    newAsset.assetId = Cryo.None
+                    newAsset.assetName = nil
+                    newAsset.assetId = nil
                     table.insert(newAssetsTable, newAsset)
                 end
             end
         end
     end, function()
+        store:dispatch(SetIsFetchingAssets(false))
         error("Failed to load package permissions")
     end)
 end
@@ -41,11 +43,13 @@ return function(apiImpl, assetType, pageCursor, pageNumber)
         if pageCursor or (pageNumber and pageNumber ~= 1) then
             newAssets = state.AssetManagerReducer.assetsTable
         end
+        store:dispatch(SetIsFetchingAssets(true))
         if assetType == Enum.AssetType.Place then
             requestPromise = apiImpl.Develop.V2.Universes.getPlaces(game.GameId, pageCursor):makeRequest()
             :andThen(function(response)
                 return response
             end, function()
+                store:dispatch(SetIsFetchingAssets(false))
                 error("Failed to load places")
             end)
         elseif assetType == Enum.AssetType.Package then
@@ -53,6 +57,7 @@ return function(apiImpl, assetType, pageCursor, pageNumber)
             :andThen(function(response)
                 return response
             end, function()
+                store:dispatch(SetIsFetchingAssets(false))
                 error("Failed to load packages")
             end)
         elseif assetType == Enum.AssetType.Image
@@ -92,8 +97,10 @@ return function(apiImpl, assetType, pageCursor, pageNumber)
                         table.insert(newAssets.assets, assetAlias)
                     end
                 end
+                store:dispatch(SetIsFetchingAssets(false))
                 store:dispatch(SetAssets(newAssets))
             end, function()
+                store:dispatch(SetIsFetchingAssets(false))
                 error("Failed to load aliases")
             end)
         end
@@ -119,8 +126,8 @@ return function(apiImpl, assetType, pageCursor, pageNumber)
                         if not FFlagStudioAssetManagerFilterPackagePermissions then
                             newAsset.name = asset.assetName
                             newAsset.id = asset.assetId
-                            newAsset.assetName = Cryo.None
-                            newAsset.assetId = Cryo.None
+                            newAsset.assetName = nil
+                            newAsset.assetId = nil
                             table.insert(newAssets.assets, newAsset)
                         else
                             table.insert(packageIds, asset.assetId)
@@ -131,8 +138,9 @@ return function(apiImpl, assetType, pageCursor, pageNumber)
                 end
                 if FFlagStudioAssetManagerFilterPackagePermissions
                 and #packageIds ~= 0 then
-                    checkIfPackageHasPermission(apiImpl, packageIds, newAssets.assets,body.data, assetType)
+                    checkIfPackageHasPermission(store, apiImpl, packageIds, newAssets.assets,body.data, assetType)
                 end
+                store:dispatch(SetIsFetchingAssets(false))
                 store:dispatch(SetAssets(newAssets))
             end)
         end

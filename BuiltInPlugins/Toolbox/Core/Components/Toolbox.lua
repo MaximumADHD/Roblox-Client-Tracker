@@ -61,6 +61,7 @@ local FFlagFixToolboxInitLoad = settings():GetFFlag("FixToolboxInitLoad")
 local FFlagStudioToolboxPluginPurchaseFlow = game:GetFastFlag("StudioToolboxPluginPurchaseFlow")
 local FFlagEnableDefaultSortFix = game:GetFastFlag("EnableDefaultSortFix")
 local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
+local FFlagStudioToolboxPersistBackgroundColor = game:DefineFastFlag("StudioToolboxPersistsBackgroundColor", false)
 
 local Toolbox = Roact.PureComponent:extend("Toolbox")
 
@@ -181,7 +182,7 @@ function Toolbox:init(props)
 			searchTerm = "",
 			sortIndex = 1,
 			groupIndex = 0,
-			selectedBackgroundIndex = 0,
+			selectedBackgroundIndex = (not FFlagStudioToolboxPersistBackgroundColor) and 0 or nil,
 		}
 		if FFlagStudioToolboxEnabledDevFramework then
 			local mySettings = self.props.Settings:get("Plugin")

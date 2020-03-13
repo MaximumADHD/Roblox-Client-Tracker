@@ -4,9 +4,9 @@ local PluginPermissions = require(script.Parent.PluginPermissions)
 local SetAllPluginPermissions = require(Plugin.Src.Actions.SetAllPluginPermissions)
 local Constants = require(Plugin.Src.Util.Constants)
 
-local function createFakeRequestPermissionData(type, domainName, isAllowed)
+local function createFakeRequestPermissionData(permissionType, domainName, isAllowed)
 	return {
-		Type = type,
+		Type = permissionType,
 		Data = {
 			Domain = domainName,
 			Allowed = isAllowed,
@@ -24,17 +24,12 @@ return function()
 		it("should set the PluginPermissions info", function()
 			local assetId = 165687726
 			local domainName = "hello"
-			local type = Constants.PERMISSION_TYPES.HttpService
+			local permissionType = Constants.PERMISSION_TYPES.HttpService
 			local isAllowed = true
 
 			local state = PluginPermissions(nil, SetAllPluginPermissions({
 				[assetId] = {
-					AssetVersion = 5339764524,
-					Enabled = false,
-					Moderated = false,
-					Permissions = {
-						createFakeRequestPermissionData(type, domainName, isAllowed),
-					},
+					createFakeRequestPermissionData(permissionType, domainName, isAllowed),
 				},
 			}))
 
@@ -43,26 +38,21 @@ return function()
 			expect(entry.httpPermissions[1]).to.be.ok()
 			expect(entry.httpPermissions[1].data.domain).to.equal(domainName)
 			expect(entry.httpPermissions[1].allowed).to.equal(isAllowed)
-			expect(entry.httpPermissions[1].type).to.equal(type)
+			expect(entry.httpPermissions[1].type).to.equal(permissionType)
 		end)
 
 		it("should update the allowed/denied http counts", function()
 			local assetId = 165687726
 			local domainName = "hello"
-			local type = Constants.PERMISSION_TYPES.HttpService
+			local permissionType = Constants.PERMISSION_TYPES.HttpService
 
 			local state = PluginPermissions(nil, SetAllPluginPermissions({
 				[assetId] = {
-					AssetVersion = 5339764524,
-					Enabled = false,
-					Moderated = false,
-					Permissions = {
-						createFakeRequestPermissionData(type, domainName, true),
-						createFakeRequestPermissionData(type, domainName, true),
-						createFakeRequestPermissionData(type, domainName, true),
-						createFakeRequestPermissionData(type, domainName, false),
-						createFakeRequestPermissionData(type, domainName, false),
-					},
+					createFakeRequestPermissionData(permissionType, domainName, true),
+					createFakeRequestPermissionData(permissionType, domainName, true),
+					createFakeRequestPermissionData(permissionType, domainName, true),
+					createFakeRequestPermissionData(permissionType, domainName, false),
+					createFakeRequestPermissionData(permissionType, domainName, false),
 				},
 			}))
 

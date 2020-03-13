@@ -19,6 +19,8 @@ local StudioService = game:GetService("StudioService")
 local HttpService = game:GetService("HttpService")
 
 local FFlagTerrainToolsRefactor = game:GetFastFlag("TerrainToolsRefactor")
+local FFlagTerrainToolsRefactorAssetIdSelector = game:GetFastFlag("TerrainToolsRefactorAssetIdSelector")
+local FFlagTerrainToolsImportImproveColorMapToggle = game:GetFastFlag("TerrainToolsImportImproveColorMapToggle")
 
 -- Constants
 local PADDING = 4
@@ -40,11 +42,89 @@ local APPROVED_REVIEWED_STATUSES = {
 	"OffSale",
 	"DelayedRelease",
 }
+local AWAITING_MODERATION_STATUS = "ReviewPending"
 local MODERATED_STATUS = "Moderated"
 
--- move to thunk for cleaner code
+local AssetStatus = {
+	Fetching = "Fetching",
+	AwaitingModeration = "AwaitingModeration",
+	Moderated = "Moderated",
+	UnknownAssetStatusError = "UnknownAssetStatusError",
+	Valid = "Valid",
+}
+
 local getAssetCreationDetailsEndpoint
+if FFlagTerrainToolsRefactorAssetIdSelector then
+	getAssetCreationDetailsEndpoint = (function()
+		local ContentProvider = game:GetService("ContentProvider")
+		local baseUrl = ContentProvider.BaseUrl
+		if baseUrl:sub(#baseUrl) ~= "/" then
+			baseUrl = baseUrl .. "/"
+		end
+
+		-- parse out scheme (http, https)
+		local _, schemeEnd = baseUrl:find("://")
+
+		-- parse out the prefix (www)
+		local _, prefixEnd = baseUrl:find("%.", schemeEnd + 1)
+
+		-- parse out the domain
+		local baseDomain = baseUrl:sub(prefixEnd + 1)
+
+		local baseConfigUrl = string.format(BASE_CONFIG_URL, baseDomain)
+
+		return baseConfigUrl .. GET_ASSETS_CREATION_DETAILS
+	end)()
+end
+
+local function getIsAssetValid(assetId, resolve)
+	spawn(function()
+		local success, response = pcall(function()
+			local payload = HttpService:JSONEncode({
+				assetIds = {assetId},
+			})
+			return game:HttpPostAsync(getAssetCreationDetailsEndpoint, payload, "application/json")
+		end)
+
+		if not success then
+			return resolve(assetId, false, AssetStatus.UnknownAssetStatusError)
+		end
+
+		-- creationDetailsResult should be { [number] : { [string] : Variant } }
+		-- Array of structs for each asset in the request
+		-- We only requested one asset so just use creationDetailsResult[1]
+		local creationDetailsResult
+		success, creationDetailsResult = pcall(function()
+			return HttpService:JSONDecode(response)
+		end)
+
+		if not success or type(creationDetailsResult) ~= "table" or type(creationDetailsResult[1]) ~= "table" then
+			return resolve(assetId, false, AssetStatus.UnknownAssetStatusError)
+		end
+
+		local status = creationDetailsResult[1].status
+
+		if status == AWAITING_MODERATION_STATUS then
+			return resolve(assetId, false, AssetStatus.AwaitingModeration)
+		end
+
+		if status == MODERATED_STATUS then
+			return resolve(assetId, false, AssetStatus.Moderated)
+		end
+
+		for _, approval in ipairs(APPROVED_REVIEWED_STATUSES) do
+			if status == approval then
+				return resolve(assetId, true, AssetStatus.Valid)
+			end
+		end
+
+		return resolve(assetId, false, AssetStatus.UnknownAssetStatusError)
+	end)
+end
+
 local function isAssetModerated(assetId, localization)
+	assert(not FFlagTerrainToolsRefactorAssetIdSelector,
+		"AssetIdSelector isAssetModerated() should not be used when FFlagTerrainToolsRefactorAssetIdSelector is on")
 	if not getAssetCreationDetailsEndpoint then
 		local ContentProvider = game:GetService("ContentProvider")
 		local baseUrl = ContentProvider.BaseUrl
@@ -55,10 +135,10 @@ local function isAssetModerated(assetId, localization)
 		-- parse out scheme (http, https)
 		local _, schemeEnd = baseUrl:find("://")
 
-		-- parse out the prefix (www, kyle, ying, etc.)
+		-- parse out the prefix (www)
 		local _, prefixEnd = baseUrl:find("%.", schemeEnd + 1)
 
-		-- parse out the domain (roblox.com/, sitetest1.robloxlabs.com/, etc.)
+		-- parse out the domain
 		local baseDomain = baseUrl:sub(prefixEnd + 1)
 
 		local baseConfigUrl = string.format(BASE_CONFIG_URL, baseDomain)
@@ -142,37 +222,125 @@ function AssetIdSelector:init()
 
 	self.gameImages = {}
 
-	self.state = {
-		showImageSelection = false,
-		assetId = nil,
-		assetValidated = false,
-	}
+	if FFlagTerrainToolsRefactorAssetIdSelector then
+		self.assetStatusCache = {}
 
-	self.onContentSizeChanged = function()
-		local mainFrame = self.mainFrameRef.current
-		local layout = self.layoutRef.current
-		if mainFrame and layout then
-			mainFrame.Size = UDim2.new(1, 0, 0, layout.AbsoluteContentSize.Y)
-		end
-	end
+		self.state = {
+			showImageSelection = false,
 
-	-- TODO: Remove when removing FFlagTerrainToolsRefactor
-	self.getLocalizedOnFocused = function(localization)
-		if FFlagTerrainToolsRefactor then
-			warn("AssetIdSelector.getLocalizedOnFocused should not be used when FFlagTerrainToolsRefactor is on")
+			assetId = nil,
+			assetStatus = nil,
+		}
+
+		self.updateGameImages = function()
+			self.gameImages =  StudioService:GetResourceByCategory("Image")
 		end
-		return function()
+
+		self.handleGetIsAssetValidResponse = function(assetId, valid, status)
+			self.assetStatusCache[assetId] = status
+
+			if self.props.OnAssetIdValidated and valid then
+				local assetUrl = ASSET_URL_TEXT:format(assetId)
+				self.props.OnAssetIdValidated(assetUrl)
+			end
+
+			-- If the response we're handling is for the current asset we're displaying
+			-- Then we want to rerender with the newly fetched status
+			if self.state.assetId == assetId then
+				self:setState({
+					assetStatus = status,
+				})
+			end
+		end
+
+		self.maybeGetAssetStatus = function(assetId)
+			local currentStatus = self.assetStatusCache[assetId]
+			-- Already getting the asset, or we've already validated the asset so no need to do it again
+			if currentStatus == AssetStatus.Fetching or currentStatus == AssetStatus.Valid then
+				return
+			end
+
+			self.assetStatusCache[assetId] = AssetStatus.Fetching
+			getIsAssetValid(assetId, self.handleGetIsAssetValidResponse)
+		end
+
+		self.onFocused = function()
+			if self.state.showImageSelection then
+				return
+			end
+
+			if tonumber(game.GameId) == 0 then
+				warn(getLocalization(self):getText("Warning", "RequirePublishedForImport"))
+				return
+			end
+
+			self.updateGameImages()
+
+			self:setState({
+				showImageSelection = true,
+			})
+		end
+
+		self.onAssetSelected = function(assetId)
+			self.maybeGetAssetStatus(assetId)
+			self:setState({
+				showImageSelection = false,
+				assetId = assetId,
+				-- assetStatusCache[assetId] could be nil if we currently have no info for the asset
+				-- It's unlikely as maybeGetAssetStatus() should set the state to Fetching
+				-- But as a fallback, set assetStatus to nil as well
+				assetStatus = self.assetStatusCache[assetId] or Roact.None,
+			})
+		end
+	else
+		self.state = {
+			showImageSelection = false,
+			assetId = nil,
+			assetValidated = false,
+		}
+
+		-- TODO: Remove when removing FFlagTerrainToolsRefactor
+		self.getLocalizedOnFocused = function(localization)
+			if FFlagTerrainToolsRefactor then
+				warn("AssetIdSelector.getLocalizedOnFocused should not be used when FFlagTerrainToolsRefactor is on")
+			end
+			return function()
+				-- must reset textvalidation on use input to prevent unmoderated images
+				-- from being used
+				if not self.state.showImageSelection then
+					if tonumber(game.GameId) == 0 then
+						warn(localization:getText("Warning", "RequirePublishedForImport"))
+						return
+					end
+
+					local gameAssetList = StudioService:GetResourceByCategory("Image")
+
+					for i,v in pairs(gameAssetList) do
+						if not self.gameImages[i] then
+							self.gameImages[i] = v
+						end
+					end
+
+					self:setState({
+						showImageSelection = true,
+						warningMessage = "",
+					})
+				end
+			end
+		end
+
+		self.onFocused = function()
 			-- must reset textvalidation on use input to prevent unmoderated images
 			-- from being used
 			if not self.state.showImageSelection then
 				if tonumber(game.GameId) == 0 then
-					warn(localization:getText("Warning", "RequirePublishedForImport"))
+					warn(getLocalization(self):getText("Warning", "RequirePublishedForImport"))
 					return
 				end
 
 				local gameAssetList = StudioService:GetResourceByCategory("Image")
 
-				for i,v in pairs(gameAssetList) do
+				for i, v in pairs(gameAssetList) do
 					if not self.gameImages[i] then
 						self.gameImages[i] = v
 					end
@@ -184,38 +352,43 @@ function AssetIdSelector:init()
 				})
 			end
 		end
-	end
 
-	self.onFocused = function()
-		-- must reset textvalidation on use input to prevent unmoderated images
-		-- from being used
-		if not self.state.showImageSelection then
-			if tonumber(game.GameId) == 0 then
-				warn(getLocalization(self):getText("Warning", "RequirePublishedForImport"))
-				return
+		-- TODO: Remove when removing FFlagTerrainToolsRefactor
+		self.getAssetSelectedFunc = function(localization)
+			if FFlagTerrainToolsRefactor then
+				warn("AssetIdSelector.getAssetSelectedFunc should not be used when FFlagTerrainToolsRefactor is on")
 			end
+			return function(assetId)
+				if self.state.assetId == assetId then
+					self:setState({
+						showImageSelection = false,
+					})
+					return
+				end
+				self.textValidated = false
+				self:setState({
+					showImageSelection = false,
+					assetId = assetId,
+				})
 
-			local gameAssetList = StudioService:GetResourceByCategory("Image")
+				if not self.textValidated then
+					local valid, msg = isAssetModerated(assetId, localization)
+					self.textValidated = valid
+					if self.props.OnAssetIdValidated and valid then
+						local assetUrl = string.format(ASSET_URL_TEXT, assetId)
+						self.props.OnAssetIdValidated(assetUrl)
+					end
 
-			for i, v in pairs(gameAssetList) do
-				if not self.gameImages[i] then
-					self.gameImages[i] = v
+					if msg then
+						self:setState({
+							warningMessage = msg
+						})
+					end
 				end
 			end
-
-			self:setState({
-				showImageSelection = true,
-				warningMessage = "",
-			})
 		end
-	end
 
-	-- TODO: Remove when removing FFlagTerrainToolsRefactor
-	self.getAssetSelectedFunc = function(localization)
-		if FFlagTerrainToolsRefactor then
-			warn("AssetIdSelector.getAssetSelectedFunc should not be used when FFlagTerrainToolsRefactor is on")
-		end
-		return function(assetId)
+		self.onAssetSelected = function(assetId)
 			if self.state.assetId == assetId then
 				self:setState({
 					showImageSelection = false,
@@ -229,7 +402,7 @@ function AssetIdSelector:init()
 			})
 
 			if not self.textValidated then
-				local valid, msg = isAssetModerated(assetId, localization)
+				local valid, msg = isAssetModerated(assetId, getLocalization(self))
 				self.textValidated = valid
 				if self.props.OnAssetIdValidated and valid then
 					local assetUrl = string.format(ASSET_URL_TEXT, assetId)
@@ -245,32 +418,11 @@ function AssetIdSelector:init()
 		end
 	end
 
-	self.onAssetSelected = function(assetId)
-		if self.state.assetId == assetId then
-			self:setState({
-				showImageSelection = false,
-			})
-			return
-		end
-		self.textValidated = false
-		self:setState({
-			showImageSelection = false,
-			assetId = assetId,
-		})
-
-		if not self.textValidated then
-			local valid, msg = isAssetModerated(assetId, getLocalization(self))
-			self.textValidated = valid
-			if self.props.OnAssetIdValidated and valid then
-				local assetUrl = string.format(ASSET_URL_TEXT, assetId)
-				self.props.OnAssetIdValidated(assetUrl)
-			end
-
-			if msg then
-				self:setState({
-					warningMessage = msg
-				})
-			end
+	self.onContentSizeChanged = function()
+		local mainFrame = self.mainFrameRef.current
+		local layout = self.layoutRef.current
+		if mainFrame and layout then
+			mainFrame.Size = UDim2.new(1, 0, 0, layout.AbsoluteContentSize.Y)
 		end
 	end
 
@@ -295,6 +447,12 @@ function AssetIdSelector:init()
 	end
 end
 
+if FFlagTerrainToolsRefactorAssetIdSelector then
+	function AssetIdSelector:didMount()
+		self.updateGameImages()
+	end
+end
+
 function AssetIdSelector:render()
 	return withLocalization(function(localization)
 		return withTheme(function(theme)
@@ -302,11 +460,27 @@ function AssetIdSelector:render()
 			local label = self.props.Label
 			local layoutOrder = self.props.LayoutOrder
 
+			local isVisible
+			if FFlagTerrainToolsImportImproveColorMapToggle then
+				isVisible = not self.props.Disabled
+			else
+				isVisible = true
+			end
+
 			local showImageSelection = self.state.showImageSelection
 			local showImagePreview = not showImageSelection and self.state.assetId
 
 			local text = self.state.assetId and string.format(ASSET_URL_TEXT, self.state.assetId)
-			local warningMessage = self.state.warningMessage
+
+			local warningMessageToDisplay
+			if FFlagTerrainToolsRefactorAssetIdSelector then
+				local assetStatus = self.state.assetStatus
+				if assetStatus and assetStatus ~= AssetStatus.Fetching and assetStatus ~= AssetStatus.Valid then
+					warningMessageToDisplay = localization:getText("Warning", assetStatus)
+				end
+			else
+				warningMessageToDisplay = self.state.warningMessage
+			end
 
 			local imageAssets = {}
 			local assetCount = 0
@@ -363,6 +537,7 @@ function AssetIdSelector:render()
 				BackgroundTransparency = 1,
 				LayoutOrder = layoutOrder,
 				[Roact.Ref] = self.mainFrameRef,
+				Visible = isVisible,
 			}, {
 				UIListLayout = Roact.createElement("UIListLayout", {
 					SortOrder = Enum.SortOrder.LayoutOrder,
@@ -380,8 +555,8 @@ function AssetIdSelector:render()
 					Input = Roact.createElement(LabeledTextInput, {
 						Width = UDim.new(0, 136),
 						Text = text,
-						PlaceholderText = localization:getText("AssetIdSelector","PlaceHolderText"),
-						WarningOverride = warningMessage,
+						PlaceholderText = localization:getText("AssetIdSelector", "PlaceHolderText"),
+						WarningOverride = warningMessageToDisplay,
 						EditingDisabled = FFlagTerrainToolsRefactor and true or false,
 
 						OnFocused = FFlagTerrainToolsRefactor and self.onFocused

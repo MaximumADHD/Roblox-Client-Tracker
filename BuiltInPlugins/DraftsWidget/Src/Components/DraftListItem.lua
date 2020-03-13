@@ -73,7 +73,7 @@ function DraftListItem:init()
         elseif draftState[DraftState.Committed] == CommitState.Committing then
             return localization:getText("StatusText", "Committing")
         elseif draftState[DraftState.Autosaved] == AutosaveState.Saved then
-            return localization:getText("StatusText", "Saved")
+            return localization:getText("StatusText", "Uncommitted")
         elseif draftState[DraftState.Autosaved] == AutosaveState.Saving then
             return localization:getText("StatusText", "Saving")
         end

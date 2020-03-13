@@ -21,6 +21,7 @@
 ]]
 local FFlagStudioMinorFixesForAssetPreview = settings():GetFFlag("StudioMinorFixesForAssetPreview")
 local FFlagEnableAudioPreview = game:GetFastFlag("EnableAudioPreview")
+local FFlagStudioFixTreeViewForFlatList = settings():GetFFlag("StudioFixTreeViewForFlatList")
 
 local Library = script.Parent.Parent.Parent
 
@@ -101,8 +102,10 @@ function PreviewController:createTreeView(previewModel, size)
 			LayoutOrder = 2
 		},{
 			TreeViewFrame = Roact.createElement(TreeView, {
-				dataTree = previewModel,
+				dataTree = FFlagStudioFixTreeViewForFlatList and self.props.CurrentPreview or previewModel,
 				onSelectionChanged = self.onTreeItemClicked,
+
+				createFlatList = FFlagStudioFixTreeViewForFlatList and true or false,
 
 				getChildren = function(instance)
 					return instance:GetChildren()
