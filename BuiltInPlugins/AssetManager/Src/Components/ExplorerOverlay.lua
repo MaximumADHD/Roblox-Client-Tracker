@@ -31,7 +31,6 @@ local ExplorerOverlay = Roact.PureComponent:extend("ExplorerOverlay")
 
 function ExplorerOverlay:render()
     local props = self.props
-    local apiImpl = props.API:get()
     local theme = props.Theme:get("Plugin")
     local overlayTheme = theme.Overlay
 
@@ -103,7 +102,7 @@ function ExplorerOverlay:render()
                 onSelectionChanged = function(instances)
                     if instances[1] then
                         local screen = Screens[instances[1].Screen]
-                        dispatchSetScreen(screen, apiImpl)
+                        dispatchSetScreen(screen)
                     end
                     closeOverlay()
                 end,
@@ -117,14 +116,13 @@ function ExplorerOverlay:render()
 end
 
 ContextServices.mapToProps(ExplorerOverlay, {
-    API = ContextServices.API,
     Theme = ContextServices.Theme,
     Localization = ContextServices.Localization,
 })
 
 local function mapDispatchToProps(dispatch)
     return {
-        dispatchSetScreen = function(screen, apiImpl)
+        dispatchSetScreen = function(screen)
             dispatch(SetScreen(screen))
         end,
     }

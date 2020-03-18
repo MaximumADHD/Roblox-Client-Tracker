@@ -1251,6 +1251,7 @@ Studio.App.RBXMainWindow.InsertBasicObjects,,Insert Basic Objects,Insert Basic O
 Studio.App.RBXMainWindow.InsertBreakpoint,,Insert Breakpoint,Insert Breakpoint
 Studio.App.RBXMainWindow.InsertClipboardContents,,Insert Clipboard contents,Insert Clipboard contents
 Studio.App.RBXMainWindow.InsertFromFileElps,,Insert from File...,Insert from File...
+Studio.App.RBXMainWindow.InsertLocalBreakpoint,,Insert Local Breakpoint,Insert Local Breakpoint
 Studio.App.RBXMainWindow.InsertModels,,Insert Models,Insert Models
 Studio.App.RBXMainWindow.InsertObject,,Insert Object,Insert Object
 Studio.App.RBXMainWindow.InsertObjectAction,,Insert Object...,Insert Object...
@@ -2105,6 +2106,7 @@ Studio.App.UploadTextureRequest.CouldNotReadTexture1FromTheDisk,,"Could not read
 Studio.App.UserPlaceCreatorsListWidget.Offline,User is offline,Offline,Offline
 Studio.App.UserPlaceCreatorsListWidget.PlaceOwner,User is owner of place,Place Owner,Place Owner
 Studio.App.UserPlaceCreatorsListWidget.PlaceOwnerOffline,User is owner of place and is offline,Place Owner (Offline),Place Owner (Offline)
+Studio.App.VersionHistoryController.ReadOnlyScriptDocMessageFmt3,,This version is read-only. <a href='%1://%2_%3'>Click here to edit.</a>,This version is read-only. <a href='%1://%2_%3'>Click here to edit.</a>
 Studio.App.VersionHistoryDialog.BatchColumnTitle,,Scripts in Batch,Scripts in Batch
 Studio.App.VersionHistoryDialog.CommentColumnTitle,,Comment,Comment
 Studio.App.VersionHistoryDialog.CommittedColumnTitle,,Committed,Committed

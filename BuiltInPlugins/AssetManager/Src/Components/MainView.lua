@@ -20,6 +20,7 @@ local UILibrary = require(Plugin.Packages.UILibrary)
 local LayoutOrderIterator = UILibrary.Util.LayoutOrderIterator
 
 local AssetGridContainer = require(Plugin.Src.Components.AssetGridContainer)
+local AssetPreviewWrapper = require(Plugin.Src.Components.AssetPreviewWrapper)
 local ExplorerOverlay = require(Plugin.Src.Components.ExplorerOverlay)
 local NavBar = require(Plugin.Src.Components.NavBar)
 local TopBar = require(Plugin.Src.Components.TopBar)
@@ -48,6 +49,7 @@ end
 
 function MainView:init()
     self.state = {
+        showAssetPreview = false,
         showOverlay = false,
         fileExplorerData = {
             Name = "Game 1",
@@ -66,6 +68,25 @@ function MainView:init()
     self.closeOverlay = function()
         self:setState({
             showOverlay = false,
+        })
+    end
+
+    self.closeAssetPreview = function()
+        self:setState({
+            showAssetPreview = false,
+            assetPreview = nil,
+        })
+    end
+
+    self.openAssetPreview = function(assetPreviewData)
+        local assetPreviewWrapper = Roact.createElement(AssetPreviewWrapper, {
+            AssetData = assetPreviewData,
+            OnAssetPreviewClose = self.closeAssetPreview,
+        })
+
+        self:setState({
+            showAssetPreview = true,
+            assetPreview = assetPreviewWrapper,
         })
     end
 end
@@ -115,6 +136,8 @@ function MainView:render()
             CloseOverlay = self.closeOverlay,
         }),
 
+        AssetPreview = self.state.showAssetPreview and self.state.assetPreview,
+
         TopBar = Roact.createElement(TopBar, {
             Size = UDim2.new(1, 0, 0, theme.TopBar.Button.Size),
             LayoutOrder = layoutIndex:getNextOrder(),
@@ -131,6 +154,8 @@ function MainView:render()
         AssetGridView = Roact.createElement(AssetGridContainer, {
             Size = UDim2.new(1, 0, 1, -theme.TopBar.Button.Size - theme.NavBar.Height),
             LayoutOrder = layoutIndex:getNextOrder(),
+
+            OnOpenAssetPreview = self.openAssetPreview,
         }),
     })
 end
@@ -147,7 +172,7 @@ local function mapStateToProps(state, props)
     }
 end
 
-local function useDispatchForProps(dispatch)
+local function mapDispatchToProps(dispatch)
     return {
         dispatchGetUniverseConfiguration = function(apiImpl)
             dispatch(GetUniverseConfiguration(apiImpl))
@@ -155,4 +180,4 @@ local function useDispatchForProps(dispatch)
     }
 end
 
-return RoactRodux.connect(mapStateToProps, useDispatchForProps)(MainView)
+return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(MainView)

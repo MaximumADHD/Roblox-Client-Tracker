@@ -19,6 +19,7 @@ local PlayerList = script.Parent.Parent
 local FFlagPlayerListBetterGroupCheck = game:DefineFastFlag("PlayerListBetterGroupCheck", false)
 local FFlagUpdateLeaderboardIconPriority = game:GetFastFlag("UpdateLeaderboardIconPriority")
 local FFlagPlayerListFixLeaderboardDisabledError = game:DefineFastFlag("PlayerListFixLeaderboardDisabledError", false)
+local FFlagUseCanManageForDeveloperIconClient = game:GetFastFlag("UseCanManageForDeveloperIconClient")
 
 local FFlagPlayerListUseUIBloxIcons = require(CoreGui.RobloxGui.Modules.Flags.FFlagPlayerListUseUIBloxIcons)
 
@@ -95,8 +96,14 @@ local function getGameCreator(store, player)
 
 	if FFlagPlayerListBetterGroupCheck then
 		if FFlagPlayerListFixLeaderboardDisabledError then
-			if PlayerPermissionsModule.IsPlayerPlaceOwnerAsync(player) then
-				dispatchIfPlayerExists(store, player, SetPlayerIsCreator(player, true))
+			if FFlagUseCanManageForDeveloperIconClient then
+				if PlayerPermissionsModule.CanPlayerManagePlaceAsync(player) then
+					dispatchIfPlayerExists(store, player, SetPlayerIsCreator(player, true))
+				end
+			else
+				if PlayerPermissionsModule.IsPlayerPlaceOwnerAsync(player) then
+					dispatchIfPlayerExists(store, player, SetPlayerIsCreator(player, true))
+				end
 			end
 		else
 			if PlayerPermissionsModule.IsPlayerPlaceOwnerAsync(player) then

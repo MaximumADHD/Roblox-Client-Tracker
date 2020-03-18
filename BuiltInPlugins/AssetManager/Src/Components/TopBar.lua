@@ -252,7 +252,9 @@ function TopBar:render()
 
             Enabled = enabled,
 
+            TextSearchDelay = 0,
             DefaultText = defaultText,
+
             OnSearchRequested = self.OnSearchRequested,
         }),
     })
@@ -275,7 +277,7 @@ local function mapStateToProps(state, props)
 	}
 end
 
-local function useDispatchForProps(dispatch)
+local function mapDispatchToProps(dispatch)
 	return {
         dispatchLaunchBulkImporter = function(assetType)
             dispatch(LaunchBulkImport(assetType))
@@ -296,4 +298,4 @@ local function useDispatchForProps(dispatch)
 	}
 end
 
-return RoactRodux.connect(mapStateToProps, useDispatchForProps)(TopBar)
+return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(TopBar)

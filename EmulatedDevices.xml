@@ -168,8 +168,9 @@
         safezone_portrait="20,0,0,0"
         safezone_landscape="20,0,0,0"
         ></Device>
-  <Device name ="iPhone X"
-        device_id="iphone_X"
+  <!--TODO: remove with flag FFlagStudioRewriteEmulatorWithMask-->
+  <Device name="iPhone X"
+        device_id="iphone_X_deprecated"
         dpi="163"
         width="768"
         height="375"
@@ -190,6 +191,50 @@
         wireframe_screen_y_special_landscape="23"
         landscape_mask_image_filename="iPhoneXMaskLandscape.png"
         portrait_mask_image_filename="iPhoneXMaskPortrait.png"
+        safezone_portrait="44,34,0,0"
+        safezone_landscape="0,21,44,44"
+        ></Device>
+  <Device name ="iPhone X"
+        device_id="iphone_X_new"
+        dpi="163"
+        width="768"
+        height="375"
+        device_form="phone"
+        wireframe_image_filename="iPhoneX_new.png"
+        wireframe_screen_x="70"
+        wireframe_screen_y="28"
+        platform="IOS"
+        landscape_keyboard_height="162"
+        portrait_keyboard_height="226"
+        native_edit_box_height="28"
+        landscape_keyboard_image_filename="keyboard_phone_landscape.png"
+        portrait_keyboard_image_filename="keyboard_phone_portrait.png"
+        special_corners="true"
+        safezone_portrait="0,34,0,0"
+        safezone_landscape="0,21,0,0"
+        ></Device>
+  <!-- When UniversalApp is run on an iPhone X, iOS native gives special treatments,
+   and makes it possible for the App to render in fullscreen mode. The app can draw
+   on the entire 812*375 screen area, including the part of screen next to the iPhone
+   notches. This treatment however is not availabe for game developers. So we made this
+   special device iPhoneX Fullscreen to emulate the UA behavior, but only for internal access.-->
+  <Device name ="iPhone X Fullscreen"
+        device_id="iphone_X_Fullscreen"
+        internal_only="true"
+        dpi="163"
+        width="812"
+        height="375"
+        device_form="phone"
+        wireframe_image_filename="iPhoneX_new.png"
+        wireframe_screen_x="26"
+        wireframe_screen_y="28"
+        platform="IOS"
+        landscape_keyboard_height="162"
+        portrait_keyboard_height="226"
+        native_edit_box_height="28"
+        landscape_keyboard_image_filename="keyboard_phone_landscape.png"
+        portrait_keyboard_image_filename="keyboard_phone_portrait.png"
+        special_corners="true"
         safezone_portrait="44,34,0,0"
         safezone_landscape="0,21,44,44"
         ></Device>

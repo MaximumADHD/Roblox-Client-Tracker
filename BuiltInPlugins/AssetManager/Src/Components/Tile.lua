@@ -1,13 +1,16 @@
 local Plugin = script.Parent.Parent.Parent
 
-local Cryo = require(Plugin.Packages.Cryo)
 local Roact = require(Plugin.Packages.Roact)
+local RoactRodux = require(Plugin.Packages.RoactRodux)
 
 local Framework = Plugin.Packages.Framework
 local ContextServices = require(Framework.ContextServices)
-
 local Util = require(Framework.Util)
 local StyleModifier = Util.StyleModifier
+
+local OnAssetDoubleClick = require(Plugin.Src.Thunks.OnAssetDoubleClick)
+local OnAssetRightClick = require(Plugin.Src.Thunks.OnAssetRightClick)
+local OnAssetSingleClick = require(Plugin.Src.Thunks.OnAssetSingleClick)
 
 local ContentProvider = game:GetService("ContentProvider")
 
@@ -24,8 +27,8 @@ function Tile:init()
     }
 
     self.onMouseEnter = function()
+        local props = self.props
         if self.state.StyleModifier == nil then
-            local props = self.props
             props.Mouse:__pushCursor("PointingHand")
             self:setState({
                 StyleModifier = StyleModifier.Hover,
@@ -37,8 +40,8 @@ function Tile:init()
     end
 
     self.onMouseLeave = function()
+        local props = self.props
         if self.state.StyleModifier == StyleModifier.Hover then
-            local props = self.props
             props.Mouse:__popCursor()
             self:setState({
                 StyleModifier = Roact.None,
@@ -50,26 +53,40 @@ function Tile:init()
     end
 
     self.onMouseActivated = function(rbx, obj, clickCount)
+        local props = self.props
+        local assetData = props.AssetData
         if clickCount == 0 then
-            if self.state.StyleModifier ~= StyleModifier.Selected then
-                self:setState({
-                    StyleModifier = StyleModifier.Selected
-                })
+            if obj:IsModifierKeyDown(Enum.ModifierKey.Ctrl) then
+                props.dispatchOnAssetSingleClick(true, assetData)
             else
-                self.props.OnClick()
+                props.dispatchOnAssetSingleClick(false, assetData)
             end
         elseif clickCount == 1 then
-            self.props.OnClick()
+            props.dispatchOnAssetDoubleClick(assetData)
         end
 
-        local props = self.props
         props.Mouse:__popCursor()
     end
 
-    self.openAssetPreview = function()
-        -- TODO mwang, hook up opening asset preview
+    self.onMouseButton2Click = function(rbx, x, y)
+        local props = self.props
+        local assetData = props.AssetData
+        local isFolder = assetData.ClassName == "Folder"
+        if isFolder then
+            if not props.SelectedAssets[assetData.Screen.Key] then
+                props.dispatchOnAssetSingleClick(false, assetData)
+            end
+        else
+            if not props.SelectedAssets[assetData.key] then
+                props.dispatchOnAssetSingleClick(false, assetData)
+            end
+        end
+        props.dispatchOnAssetRightClick(props.API:get(), assetData, props.Localization, props.Plugin:get())
     end
 
+    self.openAssetPreview = function()
+        self.props.OnOpenAssetPreview(self.props.AssetData.id)
+    end
 
     local props = self.props
     local assetData = props.AssetData
@@ -123,16 +140,12 @@ function Tile:render()
     local isFolder = assetData.ClassName == "Folder"
     local isPlace = assetData.assetType == Enum.AssetType.Place
 
-    local imageProps
+    local image
     if isFolder then
-        imageProps = {
-            Image = tileStyle.Image.Folder
-        }
+        image = tileStyle.Image.Folder
     else
-        imageProps = {
-            Image = self.state.assetFetchStatus == Enum.AssetFetchStatus.Success and self.thumbnailUrl
-                or tileStyle.Image.PlaceHolder
-        }
+        image = self.state.assetFetchStatus == Enum.AssetFetchStatus.Success and self.thumbnailUrl
+            or tileStyle.Image.PlaceHolder
     end
 
     local imageSize = tileStyle.Image.Size
@@ -154,25 +167,27 @@ function Tile:render()
 
     local layoutOrder = props.LayoutOrder
 
-    return Roact.createElement("TextButton", {
+    return Roact.createElement("ImageButton", {
         Size = size,
         BackgroundColor3 = backgroundColor,
         BackgroundTransparency = backgroundTransparency,
         BorderSizePixel = borderSizePixel,
 
-        Text = "",
         LayoutOrder = layoutOrder,
 
         [Roact.Event.Activated] = self.onMouseActivated,
+        [Roact.Event.MouseButton2Click] = self.onMouseButton2Click,
         [Roact.Event.MouseEnter] = self.onMouseEnter,
         [Roact.Event.MouseLeave] = self.onMouseLeave,
     }, {
-        Thumbnail = Roact.createElement("ImageLabel", Cryo.Dictionary.join(imageProps, {
+        Thumbnail = Roact.createElement("ImageLabel", {
             Size = imageSize,
             Position = imagePos,
 
+            Image = image,
+
             BackgroundTransparency = imageBGTransparency,
-        }), {
+        }, {
             AssetPreviewButton = createAssetPreviewButton and Roact.createElement("ImageButton", {
                 Position = UDim2.new(0, assetPerviewButtonPos, 0, 0),
                 Size = UDim2.new(0, assetPreviewButtonSize, 0, assetPreviewButtonSize),
@@ -211,8 +226,31 @@ function Tile:render()
 end
 
 ContextServices.mapToProps(Tile, {
-    Theme = ContextServices.Theme,
+    API = ContextServices.API,
+    Localization = ContextServices.Localization,
     Mouse = ContextServices.Mouse,
+    Plugin = ContextServices.Plugin,
+    Theme = ContextServices.Theme,
 })
 
-return Tile
+local function mapStateToProps(state, props)
+	return {
+        SelectedAssets = state.AssetManagerReducer.selectedAssets,
+	}
+end
+
+local function mapDispatchToProps(dispatch)
+	return {
+        dispatchOnAssetDoubleClick = function(assetData)
+            dispatch(OnAssetDoubleClick(assetData))
+        end,
+        dispatchOnAssetRightClick = function(apiImpl, assetData, localization, plugin)
+            dispatch(OnAssetRightClick(apiImpl, assetData, localization, plugin))
+        end,
+        dispatchOnAssetSingleClick = function(isCtrlKeyDown, assetData)
+            dispatch(OnAssetSingleClick(isCtrlKeyDown, assetData))
+        end,
+    }
+end
+
+return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(Tile)

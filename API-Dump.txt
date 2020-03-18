@@ -1055,6 +1055,13 @@ Class FloorWire : GuiBase3d [Deprecated]
 	Property Class<BasePart> FloorWire.To  [Deprecated]
 	Property float FloorWire.Velocity  [Deprecated]
 	Property float FloorWire.WireRadius  [Deprecated]
+Class InstanceAdornment : GuiBase3d [NotCreatable]
+	Property Instance InstanceAdornment.Adornee
+Class SelectionBox : InstanceAdornment
+	Property float SelectionBox.LineThickness
+	Property BrickColor SelectionBox.SurfaceColor [<📁> LoadOnly] [Hidden] [NotReplicated] [Deprecated]
+	Property Color3 SelectionBox.SurfaceColor3
+	Property float SelectionBox.SurfaceTransparency
 Class PVAdornment : GuiBase3d [NotCreatable]
 	Property Class<PVInstance> PVAdornment.Adornee
 Class HandleAdornment : PVAdornment [NotCreatable]
@@ -1089,11 +1096,6 @@ Class ParabolaAdornment : PVAdornment
 	Property float ParabolaAdornment.Range {RobloxScriptSecurity}
 	Property float ParabolaAdornment.Thickness {RobloxScriptSecurity}
 	Function Tuple ParabolaAdornment:FindPartOnParabola(Objects ignoreDescendentsTable) {RobloxScriptSecurity}
-Class SelectionBox : PVAdornment
-	Property float SelectionBox.LineThickness
-	Property BrickColor SelectionBox.SurfaceColor [<📁> LoadOnly] [Hidden] [NotReplicated] [Deprecated]
-	Property Color3 SelectionBox.SurfaceColor3
-	Property float SelectionBox.SurfaceTransparency
 Class SelectionSphere : PVAdornment
 	Property BrickColor SelectionSphere.SurfaceColor [<📁> LoadOnly] [Hidden] [NotReplicated] [Deprecated]
 	Property Color3 SelectionSphere.SurfaceColor3
@@ -1229,6 +1231,7 @@ Class HttpService : Instance [NotCreatable] [Service]
 Class Humanoid : Instance
 	Property bool Humanoid.BreakJointsOnDeath
 	Property Enum<HumanoidCollisionType> Humanoid.CollisionType {✏️PluginSecurity}
+	Property bool Humanoid.RequiresNeck
 	Property bool Humanoid.AutoRotate
 	Property Enum<Material> Humanoid.FloorMaterial  [ReadOnly] [NotReplicated]
 	Property bool Humanoid.Jump [<📁> LoadOnly] [NotReplicated]
@@ -1241,6 +1244,7 @@ Class Humanoid : Instance
 	Property Vector3 Humanoid.WalkToPoint
 	Property Vector3 Humanoid.CameraOffset
 	Property Enum<HumanoidDisplayDistanceType> Humanoid.DisplayDistanceType
+	Property string Humanoid.DisplayName
 	Property float Humanoid.HealthDisplayDistance
 	Property Enum<HumanoidHealthDisplayType> Humanoid.HealthDisplayType
 	Property Class<BasePart> Humanoid.LeftLeg [<📁> LoadOnly] [Hidden] [NotReplicated] [Deprecated]
@@ -1742,6 +1746,8 @@ Class NotificationService : Instance [NotCreatable] [Service]
 	Function void NotificationService:CancelNotification(int64 userId, int alertId) {LocalUserSecurity}
 	Function Array NotificationService:GetScheduledNotifications(int64 userId) {LocalUserSecurity} [Yields]
 	Function void NotificationService:ScheduleNotification(int64 userId, int alertId, string alertMsg, int minutesToFire) {LocalUserSecurity}
+	Event NotificationService.Roblox17sConnectionChanged(string connectionName, Enum<ConnectionState> connectionState, string namespaceSequenceNumbers)
+	Event NotificationService.Roblox17sEventReceived(Map eventData)
 	Event NotificationService.RobloxConnectionChanged(string connectionName, Enum<ConnectionState> connectionState, string sequenceNumber, string namespaceSequenceNumbers) {RobloxScriptSecurity}
 	Event NotificationService.RobloxEventReceived(Map eventData) {RobloxScriptSecurity}
 Class PVInstance : Instance [NotCreatable] [NotBrowsable]
@@ -2471,14 +2477,10 @@ Class ScriptDebugger : Instance [NotCreatable]
 	Function Map ScriptDebugger:GetUpvalues(int stackFrame = 0)
 	Function Variant ScriptDebugger:GetWatchValue(Instance watch)
 	Function Objects ScriptDebugger:GetWatches()
-	Function void ScriptDebugger:Resume() [Deprecated]
 	Function Instance ScriptDebugger:SetBreakpoint(int line)
 	Function void ScriptDebugger:SetGlobal(string name, Variant value)
 	Function void ScriptDebugger:SetLocal(string name, Variant value, int stackFrame = 0)
 	Function void ScriptDebugger:SetUpvalue(string name, Variant value, int stackFrame = 0)
-	Function void ScriptDebugger:StepIn() [Deprecated]
-	Function void ScriptDebugger:StepOut() [Deprecated]
-	Function void ScriptDebugger:StepOver() [Deprecated]
 	Event ScriptDebugger.BreakpointAdded(Instance breakpoint)
 	Event ScriptDebugger.BreakpointRemoved(Instance breakpoint)
 	Event ScriptDebugger.EncounteredBreak(int line, Enum<BreakReason> breakReason)
@@ -2845,6 +2847,7 @@ Class StudioData : Instance [NotCreatable] [Service]
 	Property int64 StudioData.SrcUniverseId {RobloxSecurity} [Hidden] [NotReplicated]
 Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool StudioService.DraggerSolveConstraints  [ReadOnly] [NotReplicated]
+	Property bool StudioService.DrawConstraintsOnTop  [ReadOnly] [NotReplicated]
 	Property float StudioService.GridSize  [ReadOnly] [NotReplicated]
 	Property string StudioService.InstalledPluginData {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
 	Property float StudioService.RotateIncrement  [ReadOnly] [NotReplicated]

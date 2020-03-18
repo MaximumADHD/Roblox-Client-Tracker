@@ -17,7 +17,7 @@ return function()
 	it("should return its expected default state", function()
 		local r = Rodux.Store.new(ConvertPartTool)
 		expect(r:getState()).to.be.ok()
-		expect(r:getState().convertMode).to.equal(ConvertMode.Biome)
+		expect(r:getState().convertMode).to.equal(ConvertMode.Material)
 		expect(r:getState().material).to.equal(Enum.Material.Grass)
 	end)
 

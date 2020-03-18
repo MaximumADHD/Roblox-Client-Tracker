@@ -3,6 +3,7 @@
 ]]
 
 local ChangeHistoryService = game:GetService("ChangeHistoryService")
+local CoreGui = game:GetService("CoreGui")
 local StudioService = game:GetService("StudioService")
 
 -- Libraries
@@ -17,6 +18,7 @@ local Colors = require(DraggerFramework.Utility.Colors)
 local Math = require(DraggerFramework.Utility.Math)
 local PartMover = require(DraggerFramework.Utility.PartMover)
 local StudioSettings = require(DraggerFramework.Utility.StudioSettings)
+local StandaloneSelectionBox = require(DraggerFramework.Components.StandaloneSelectionBox)
 
 local RotateHandleView = require(Plugin.Src.RotateHandleView)
 
@@ -123,20 +125,28 @@ function RotateToolImpl:hitTest(mouseRay)
 end
 
 function RotateToolImpl:render(hoveredHandleId)
-	-- TODO: DEVTOOLS-3884 [Modeling] Enhancements to rotated parts
-	-- Show the selection's rotated AABB when dragging.
-
 	local children = {}
 	if self._draggingHandleId then
 		local handleProps = self._handles[self._draggingHandleId]
 		handleProps.Color = handleProps.ActiveColor
 		handleProps.Hovered = true
-		handleProps.StartAngle = self._startAngle
-		handleProps.EndAngle = self._startAngle + self._draggingLastGoodDelta
+		handleProps.StartAngle = self._startAngle - self._draggingLastGoodDelta
+		handleProps.EndAngle = self._startAngle
 		children[self._draggingHandleId] = Roact.createElement(RotateHandleView, handleProps)
 
-		if areJointsEnabled() then
-            children.JointDisplay = self._partMover:renderJointPairs(self._scale)
+		-- Show the other handles, but thinner
+		for handleId, handleProps in pairs(self._handles) do
+			if handleId ~= self._draggingHandleId then
+				local offset = RotateHandleDefinitions[handleId].Offset
+				handleProps.HandleCFrame = self._boundingBox.CFrame * offset
+				handleProps.Thin = true
+				handleProps.Color = Colors.makeDimmed(handleProps.ActiveColor)
+				children[handleId] = Roact.createElement(RotateHandleView, handleProps)
+			end
+		end
+
+		if areJointsEnabled() and self._jointPairs then
+            children.JointDisplay = self._jointPairs:renderJoints(self._scale)
         end
 	else
 		for handleId, handleProps in pairs(self._handles) do
@@ -146,20 +156,27 @@ function RotateToolImpl:render(hoveredHandleId)
 				color = Colors.makeDimmed(color)
 			end
 			handleProps.Color = color
+			handleProps.Thin = false
 			children[handleId] = Roact.createElement(RotateHandleView, handleProps)
 		end
 	end
+
+	if #self._partsToMove > 1 then
+		children.SelectionBoundingBox = Roact.createElement(StandaloneSelectionBox, {
+			CFrame = self._boundingBox.CFrame,
+			Size = self._boundingBox.Size,
+		})
+	end
+
 	return Roact.createFragment(children)
 end
 
 function RotateToolImpl:mouseDown(mouseRay, handleId)
-	-- TODO: DEVTOOLS-3884 [Modeling] Enhancements to rotated parts
-	-- Make dragged parts semi-transparent while dragging.
 	local handleProps = self._handles[handleId]
 
 	self._draggingHandleId = handleId
 	self._draggingLastGoodDelta = 0
-	self._draggingOriginalBoundingBoxCFrame = self._boundingBox.CFrame
+	self._originalBoundingBoxCFrame = self._boundingBox.CFrame
 
 	self:_setupRotateAtCurrentBoundingBox(mouseRay)
 
@@ -185,11 +202,18 @@ function RotateToolImpl:mouseDrag(mouseRay)
 	end
 
 	local snappedDelta = snapToRotateIncrementIfNeeded(angle) - self._startAngle
+	local appliedGlobalTransform = nil
 
 	if areConstraintsEnabled() and #self._partsToMove > 0 then
-		self:_mouseDragWithInverseKinematics(mouseRay, snappedDelta)
+		appliedGlobalTransform = self:_mouseDragWithInverseKinematics(mouseRay, snappedDelta)
 	else
-	    self:_mouseDragWithGeometricMovement(mouseRay, snappedDelta)
+	    appliedGlobalTransform = self:_mouseDragWithGeometricMovement(mouseRay, snappedDelta)
+	end
+
+	if appliedGlobalTransform then
+		if areJointsEnabled() then
+			self._jointPairs = self._partMover:computeJointPairs(appliedGlobalTransform)
+		end
 	end
 end
 
@@ -206,11 +230,11 @@ end
 ]]
 function RotateToolImpl:_mouseDragWithGeometricMovement(mouseRay, delta)
 	if delta == self._draggingLastGoodDelta then
-        return
+        return nil
     end
 
-	local candidateTransform = getRotationTransform(self._boundingBox.CFrame, self._handleCFrame.RightVector, delta)
-	self._partMover:transformTo(candidateTransform)
+	local candidateGlobalTransform = getRotationTransform(self._originalBoundingBoxCFrame, self._handleCFrame.RightVector, delta)
+	self._partMover:transformTo(candidateGlobalTransform)
 
 	if areCollisionsEnabled() and self._partMover:isIntersectingOthers() then
 		self._draggingLastGoodDelta = self:_findAndRotateToGoodDelta(delta)
@@ -218,12 +242,11 @@ function RotateToolImpl:_mouseDragWithGeometricMovement(mouseRay, delta)
 		self._draggingLastGoodDelta = delta
 	end
 
-	local appliedTransform = getRotationTransform(self._boundingBox.CFrame, self._handleCFrame.RightVector, self._draggingLastGoodDelta)
+	local appliedGlobalTransform = getRotationTransform(self._originalBoundingBoxCFrame, self._handleCFrame.RightVector, self._draggingLastGoodDelta)
 	self._attachmentMover:transformTo(appliedGlobalTransform)
+	self._boundingBox.CFrame = appliedGlobalTransform * self._originalBoundingBoxCFrame
 
-    if areJointsEnabled() then
-        self._partMover:computeJointPairs(appliedTransform)
-    end
+	return appliedGlobalTransform
 end
 
 --[[
@@ -233,7 +256,7 @@ end
 ]]
 function RotateToolImpl:_mouseDragWithInverseKinematics(mouseRay, delta)
 	if snappedDelta == 0 then
-        return
+        return nil
 	end
 
     local collisionsMode = areCollisionsEnabled() and
@@ -246,7 +269,7 @@ function RotateToolImpl:_mouseDragWithInverseKinematics(mouseRay, delta)
 	self._attachmentMover:transformTo(appliedTransform)
 
 	-- Adjust the bounding box for any translation caused by the IK solver.
-	local translation = (appliedTransform * self._draggingOriginalBoundingBoxCFrame).Position - self._boundingBox.CFrame.Position
+	local translation = (appliedTransform * self._originalBoundingBoxCFrame).Position - self._boundingBox.CFrame.Position
 	self._boundingBox.CFrame = self._boundingBox.CFrame + translation
 
 	-- Derive the last good delta from the appliedTransform returned from IK.
@@ -255,19 +278,19 @@ function RotateToolImpl:_mouseDragWithInverseKinematics(mouseRay, delta)
 	local rx = self._handleCFrame.LookVector:Dot(rotatedAxis)
 	self._draggingLastGoodDelta = -math.atan2(ry, rx)
 
-    if areJointsEnabled() then
-        self._partMover:computeJointPairs(appliedTransform)
-    end
+    return appliedTransform
 end
 
 function RotateToolImpl:mouseUp(mouseRay)
 	self._draggingHandleId = nil
 	self._draggingLastGoodDelta = 0
 	self._startAngle = nil
+	self._originalBoundingBoxCFrame = nil
 
-	if areJointsEnabled() then
-        self._partMover:createJointPairs()
-    end
+	if areJointsEnabled() and self._jointPairs then
+		self._jointPairs:createJoints()
+	end
+	self._jointPairs = nil
 	self._partMover:commit()
 
 	ChangeHistoryService:SetWaypoint("Rotate Parts")

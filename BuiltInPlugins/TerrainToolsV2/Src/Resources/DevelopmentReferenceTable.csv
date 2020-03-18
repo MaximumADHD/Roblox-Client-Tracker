@@ -71,9 +71,10 @@ Studio.TerrainToolsV2.ConvertPart.ConvertShapesToBiome, , ,Converting parts to B
 Studio.TerrainToolsV2.ConvertPart.ConvertShapesToMaterial, , ,Converting parts
 Studio.TerrainToolsV2.ConvertPart.ConvertFinished, , ,Convert finished: {1} seconds for {2:int} instance(s)
 Studio.TerrainToolsV2.ConvertPart.GetTargetShapes, , ,Calculating shapes
+Studio.TerrainToolsV2.ConvertPart.HasOtherInstance, , ,"Only Parts can be converted, other objects will be skipped"
+Studio.TerrainToolsV2.ConvertPart.HasProtected, , ,Only Parts or Models containing Parts can be converted
+Studio.TerrainToolsV2.ConvertPart.HasTooSmall, , ,Parts with size dimensions below 4 studs may produce incorrect results
 Studio.TerrainToolsV2.ConvertPart.SelectionHelp, , ,Select Parts or Models containing Parts to convert to terrain
-Studio.TerrainToolsV2.ConvertPart.SelectionNeedPart, , ,Invalid selection
-Studio.TerrainToolsV2.ConvertPart.SelectionOnlyParts, , ,"Only parts are valid, other instances will be skipped"
 Studio.TerrainToolsV2.ConvertPart.UpdateInstanceVisuals, , ,Hiding parts
 Studio.TerrainToolsV2.EditSettings.EditSettings, , ,Edit Settings
 Studio.TerrainToolsV2.EditSettings.MergeEmpty, , ,Merge Empty

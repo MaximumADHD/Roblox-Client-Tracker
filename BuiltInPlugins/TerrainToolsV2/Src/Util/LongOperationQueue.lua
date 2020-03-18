@@ -47,6 +47,7 @@ function LongOperationQueue.new(options)
 
 		-- Used to pass the result from one operation to the next
 		_lastOperationData = {},
+		_lastOperationErrorMessage = nil,
 
 		_queueRunning = false,
 		QueueRunningChanged = Signal.new(),
@@ -81,9 +82,9 @@ function LongOperationQueue.new(options)
 	self._operationFinished = function()
 		self:_cleanupCurrentOperation()
 
-		-- If we were canceled, then just stop
-		-- Don't try to run the next in the queue
-		if self._wasCanceled then
+		if self._wasCanceled or self:didError() then
+			-- If we were canceled or an operation threw an error then just stop
+			-- Don't try to run the next in the queue
 			self:_setQueueRunning(false)
 
 		else
@@ -175,6 +176,14 @@ function LongOperationQueue:isPaused()
 	return self._paused
 end
 
+function LongOperationQueue:didError()
+	return not not self._lastOperationErrorMessage
+end
+
+function LongOperationQueue:getErrorMessage()
+	return self._lastOperationErrorMessage
+end
+
 function LongOperationQueue:_setQueueRunning(queueRunning)
 	if self._queueRunning ~= queueRunning then
 		self._queueRunning = queueRunning
@@ -217,6 +226,7 @@ function LongOperationQueue:_cleanupCurrentOperation()
 	assert(self._currentOperation, "LongOperationQueue has no operation to clean up")
 
 	self._lastOperationData = self._currentOperation:getOperationData()
+	self._lastOperationErrorMessage = self._currentOperation:getErrorMessage()
 
 	for _, connection in pairs(self._currentOperationConnections) do
 		connection:disconnect()

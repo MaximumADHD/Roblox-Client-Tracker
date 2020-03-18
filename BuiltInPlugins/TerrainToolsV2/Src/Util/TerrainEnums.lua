@@ -105,4 +105,10 @@ TerrainEnums.ConvertPartError = {
 	InvalidSize = "InvalidSize",
 }
 
+TerrainEnums.ConvertPartWarning = {
+	HasProtected = "HasProtected",
+	HasTooSmall = "HasTooSmall",
+	HasOtherInstance = "HasOtherInstance",
+}
+
 return TerrainEnums

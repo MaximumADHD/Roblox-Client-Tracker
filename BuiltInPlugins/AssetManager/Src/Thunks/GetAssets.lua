@@ -7,7 +7,7 @@ local SetIsFetchingAssets = require(Plugin.Src.Actions.SetIsFetchingAssets)
 
 local FFlagStudioAssetManagerFilterPackagePermissions = game:DefineFastFlag("StudioAssetManagerFilterPackagePermissions", false)
 
-local function checkIfPackageHasPermission(store, apiImpl, packageIds, newAssetsTable, assetBody, assetType)
+local function checkIfPackageHasPermission(store, apiImpl, packageIds, newAssetsTable, assetBody, assetType, index)
     apiImpl.Develop.V1.Packages.getHighestPermissions(packageIds):makeRequest()
     :andThen(function(response)
         local body = response.responseBody
@@ -23,7 +23,10 @@ local function checkIfPackageHasPermission(store, apiImpl, packageIds, newAssets
                     newAsset.id = asset.assetId
                     newAsset.assetName = nil
                     newAsset.assetId = nil
-                    table.insert(newAssetsTable, newAsset)
+                    newAssetsTable = Cryo.Dictionary.join(newAssetsTable, {
+                        [index] = newAsset,
+                    })
+                    index = index + 1
                 end
             end
         end
@@ -39,10 +42,12 @@ return function(apiImpl, assetType, pageCursor, pageNumber)
         local requestPromise
         local newAssets = {}
         newAssets.assets = {}
-        -- fetching next page of assets
+        local index = 1
         if pageCursor or (pageNumber and pageNumber ~= 1) then
             newAssets = state.AssetManagerReducer.assetsTable
+            index = #newAssets.assets + 1
         end
+        -- fetching next page of assets
         store:dispatch(SetIsFetchingAssets(true))
         if assetType == Enum.AssetType.Place then
             requestPromise = apiImpl.Develop.V2.Universes.getPlaces(game.GameId, pageCursor):makeRequest()
@@ -94,7 +99,10 @@ return function(apiImpl, assetType, pageCursor, pageNumber)
                         elseif assetType == Enum.AssetType.Lua and string.find(alias.Name, "Scripts/") then
                             assetAlias.name = string.gsub(alias.Name, "Scripts/", "")
                         end
-                        table.insert(newAssets.assets, assetAlias)
+                        newAssets.assets = Cryo.Dictionary.join(newAssets.assets, {
+                            [index] = assetAlias,
+                        })
+                        index = index + 1
                     end
                 end
                 store:dispatch(SetIsFetchingAssets(false))
@@ -118,6 +126,7 @@ return function(apiImpl, assetType, pageCursor, pageNumber)
                 end
                 -- Remove with FFlagStudioAssetManagerFilterPackagePermissions
                 local packageIds = {}
+
                 for _, asset in pairs(body.data) do
                     local newAsset = asset
                     newAsset.assetType = assetType
@@ -128,17 +137,23 @@ return function(apiImpl, assetType, pageCursor, pageNumber)
                             newAsset.id = asset.assetId
                             newAsset.assetName = nil
                             newAsset.assetId = nil
-                            table.insert(newAssets.assets, newAsset)
+                            newAssets.assets = Cryo.Dictionary.join(newAssets.assets, {
+                                [index] = newAsset,
+                            })
+                            index = index + 1
                         else
                             table.insert(packageIds, asset.assetId)
                         end
                     else
-                        table.insert(newAssets.assets, newAsset)
+                        newAssets.assets = Cryo.Dictionary.join(newAssets.assets, {
+                            [index] = newAsset,
+                        })
+                        index = index + 1
                     end
                 end
                 if FFlagStudioAssetManagerFilterPackagePermissions
                 and #packageIds ~= 0 then
-                    checkIfPackageHasPermission(store, apiImpl, packageIds, newAssets.assets,body.data, assetType)
+                    checkIfPackageHasPermission(store, apiImpl, packageIds, newAssets.assets,body.data, assetType, index)
                 end
                 store:dispatch(SetIsFetchingAssets(false))
                 store:dispatch(SetAssets(newAssets))

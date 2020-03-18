@@ -27,29 +27,42 @@ local NetworkPauseNotification = require(CoreGuiModules.NetworkPauseNotification
 local create = require(CoreGuiModules.Common.Create)
 
 -- VARIABLES
--- Skip showing UI on first pause to avoid displaying during loading process.
-local isFirstPauseChange = true
+local FFlagGameplayPausePausesInteraction = game:DefineFastFlag("GameplayPausePausesInteraction", false)
+local isFirstPauseChange = true -- Skip showing UI on first pause to avoid displaying during loading process.
 
 local Notification = NetworkPauseNotification.new()
 
 -- container for the notification
+local NetworkPauseContainer = FFlagGameplayPausePausesInteraction and create "Frame" {
+	Name = "Container",
+	Size = UDim2.new(1, 0, 1, 0),
+	BackgroundTransparency = 1,
+	Active = false
+}
+
 local NetworkPauseGui = create "ScreenGui" {
 
 	Name = "RobloxNetworkPauseNotification",
 	OnTopOfCoreBlur = true,
 	DisplayOrder = 8,
 	Parent = CoreGuiService,
-	AutoLocalize = not FFlagDisableAutoTranslateForKeyTranslatedContent
+	IgnoreGuiInset = FFlagGameplayPausePausesInteraction,
+	AutoLocalize = not FFlagDisableAutoTranslateForKeyTranslatedContent,
+
+	NetworkPauseContainer
 
 }
 
 local function togglePauseState()
 	local paused = Player.GameplayPaused and NetworkPauseGui.Enabled and not isFirstPauseChange
-    isFirstPauseChange = false
+	isFirstPauseChange = false
 	if paused then
 		Notification:Show()
 	else
 		Notification:Hide()
+	end
+	if FFlagGameplayPausePausesInteraction then
+		NetworkPauseContainer.Active = paused
 	end
 	RunService:SetRobloxGuiFocused(paused)
 end
@@ -63,5 +76,10 @@ local function enableNotification(enabled)
 	togglePauseState()
 end
 
-Notification:SetParent(NetworkPauseGui)
+if FFlagGameplayPausePausesInteraction then
+	Notification:SetParent(NetworkPauseContainer)
+else
+	Notification:SetParent(NetworkPauseGui)
+end
+
 GuiService.NetworkPausedEnabledChanged:Connect(enableNotification)

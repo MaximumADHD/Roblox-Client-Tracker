@@ -5,6 +5,10 @@ local PlayersService = game:GetService("Players")
 local PlayerGroupInfoMap = {}
 local PlayerGroupInfoMapChanged = Instance.new("BindableEvent")
 
+local PlayerCanManageInfoMap = {}
+local PlayerCanManageInfoMapChanged = Instance.new("BindableEvent")
+
+local FFlagUseCanManageForDeveloperIconClient = game:DefineFastFlag("UseCanManageForDeveloperIconClient", false)
 
 spawn(function()
 	local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
@@ -17,6 +21,20 @@ spawn(function()
 		end
 	end)
 end)
+
+if FFlagUseCanManageForDeveloperIconClient then
+	coroutine.wrap(function()
+		local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
+		local RemoveEvent_NewPlayerCanManageDetails = RobloxReplicatedStorage:WaitForChild("NewPlayerCanManageDetails")
+		RemoveEvent_NewPlayerCanManageDetails.OnClientEvent:Connect(function(userIdStr, canManage)
+			local player = PlayersService:GetPlayerByUserId(tonumber(userIdStr))
+			if player then
+				PlayerCanManageInfoMap[player] = canManage
+				PlayerCanManageInfoMapChanged:Fire()
+			end
+		end)
+	end)()
+end
 
 PlayersService.PlayerRemoving:Connect(function(player)
 	PlayerGroupInfoMap[player] = nil
@@ -62,10 +80,23 @@ local function IsPlaceOwnerFunctionFactory()
 	end
 end
 
+local function CanPlayerManagePlace(player)
+	while not PlayerCanManageInfoMap[player] and player.Parent do
+		PlayerCanManageInfoMapChanged.Event:Wait()
+	end
+	if PlayerCanManageInfoMap[player] ~= nil then
+		return PlayerCanManageInfoMap[player]
+	end
+	return false
+end
+
 PlayerPermissionsModule.IsPlayerAdminAsync = NewInGroupFunctionFactory("Admin")
 PlayerPermissionsModule.IsPlayerInternAsync = NewInGroupFunctionFactory("Intern")
 PlayerPermissionsModule.IsPlayerStarAsync = NewInGroupFunctionFactory("Star")
 PlayerPermissionsModule.IsPlayerLocalizationExpertAsync = NewIsLocalizationExpertFunctionFactory()
 PlayerPermissionsModule.IsPlayerPlaceOwnerAsync = IsPlaceOwnerFunctionFactory()
+if FFlagUseCanManageForDeveloperIconClient then
+	PlayerPermissionsModule.CanPlayerManagePlaceAsync = CanPlayerManagePlace
+end
 
 return PlayerPermissionsModule

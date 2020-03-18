@@ -6,6 +6,7 @@
 	Props:
 		UDim2 Size: size of the searchBar
 		number LayoutOrder = 0 : optional layout order for UI layouts
+		number TextSearchDelay : optional delay when text changes before requesting search, in ms
 		string DefaultText = default text to show in the empty search bar.
 		bool Enabled : searchbar is enabled or not
 
@@ -23,8 +24,7 @@ local LayoutOrderIterator = require(Library.Utils.LayoutOrderIterator)
 
 local TextService = game:GetService("TextService")
 
--- in ms
-local TEXT_SEARCH_THRESHOLD = 500
+local TEXT_SEARCH_DELAY = 500
 
 local SearchBar = Roact.PureComponent:extend("SearchBar")
 
@@ -74,10 +74,9 @@ function SearchBar:init()
 					text = text,
 				})
 
-				delay(TEXT_SEARCH_THRESHOLD / 1000, function()
-					if text ~= "" then
-						self.requestSearch()
-					end
+				local textSearchDelay = self.props.TextSearchDelay or TEXT_SEARCH_DELAY
+				delay(textSearchDelay / 1000, function()
+					self.requestSearch()
 				end)
 
 				local textBound = TextService:GetTextSize(text, textBox.TextSize, textBox.Font, Vector2.new(math.huge, math.huge))

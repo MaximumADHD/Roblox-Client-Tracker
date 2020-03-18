@@ -1,10 +1,11 @@
 local Plugin = script.Parent.Parent.Parent
 
+local SetAssets = require(Plugin.Src.Actions.SetAssets)
 local SetIsFetchingAssets = require(Plugin.Src.Actions.SetIsFetchingAssets)
+local SetSelectedAssets = require(Plugin.Src.Actions.SetSelectedAssets)
 local SetSearchTerm = require(Plugin.Src.Actions.SetSearchTerm)
 
 local GetAssets = require(Plugin.Src.Thunks.GetAssets)
-local SetAssets = require(Plugin.Src.Actions.SetAssets)
 
 local Screens = require(Plugin.Src.Util.Screens)
 
@@ -14,6 +15,7 @@ return function(apiImpl, screen)
             assets = {},
         }))
         store:dispatch(SetIsFetchingAssets(false))
+        store:dispatch(SetSelectedAssets({}))
         store:dispatch(SetSearchTerm(""))
         if screen.Key ~= Screens.MAIN.Key then
             store:dispatch(GetAssets(apiImpl, screen.AssetType))

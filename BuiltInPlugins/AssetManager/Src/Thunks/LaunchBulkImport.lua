@@ -1,5 +1,3 @@
-local Plugin = script.Parent.Parent.Parent
-
 local BulkImportService = game:GetService("BulkImportService")
 
 --assetType: Enum.AssetType.Unknown - all file types, Enum.AssetType.Image - images, Enum.AssetType.MeshPart - meshes

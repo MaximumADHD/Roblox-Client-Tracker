@@ -87,10 +87,10 @@ function MoveToolImpl:update(draggerToolState)
         -- Don't clobber these fields while we're dragging because we're
         -- updating the bounding box in a smart way given how we're moving the
         -- parts.
-        self._boundingBoxOffsetCFrame = CFrame.new(draggerToolState.boundingBoxOffset)
+        local boundingBoxOffsetCFrame = CFrame.new(draggerToolState.boundingBoxOffset)
         self._boundingBox = {
             Size = draggerToolState.boundingBoxSize,
-            CFrame = draggerToolState.mainCFrame * self._boundingBoxOffsetCFrame,
+            CFrame = draggerToolState.mainCFrame * boundingBoxOffsetCFrame,
         }
         self._attachmentsToMove = draggerToolState.attachmentsToMove
         self._partsToMove = draggerToolState.partsToMove
@@ -128,8 +128,8 @@ function MoveToolImpl:render(hoveredHandleId)
 		handleProps.Color = handleProps.ActiveColor
         children[self._draggingHandleId] = Roact.createElement(MoveHandleView, handleProps)
 
-        if areJointsEnabled() then
-            children.JointDisplay = self._partMover:renderJointPairs(self._scale)
+        if areJointsEnabled() and self._jointPairs then
+            children.JointDisplay = self._jointPairs:renderJoints(self._scale)
         end
     else
 		for handleId, handleProps in pairs(self._handles) do
@@ -201,11 +201,10 @@ function MoveToolImpl:_solveForAdjustedDistance(unadjustedDistance)
     local offsetDueToBoundingBox = self._handles[self._draggingHandleId].AxisOffset
 
     local function getScaleForDistance(distance)
-        local boundingBoxCFrameAtDistance =
-            self._draggingOriginalBoundingBoxCFrame + self._axis * distance
-        local focusPointAtDistance =
-            boundingBoxCFrameAtDistance * self._boundingBoxOffsetCFrame:Inverse()
-        return getHandleScale(focusPointAtDistance.Position)
+        local boundingBoxCenterAtDistance =
+            self._draggingOriginalBoundingBoxCFrame.Position +
+            self._axis * (distance - self._startDistance)
+        return getHandleScale(boundingBoxCenterAtDistance)
     end
 
     local function getHandleFracForDistance(distance)
@@ -303,7 +302,7 @@ function MoveToolImpl:_mouseDragWithGeometricMovement(mouseRay, snappedDelta)
     self._attachmentMover:transformTo(appliedGlobalTransform)
 
     if areJointsEnabled() then
-        self._partMover:computeJointPairs(appliedGlobalTransform)
+        self._jointPairs = self._partMover:computeJointPairs(appliedGlobalTransform)
     end
 end
 
@@ -342,16 +341,17 @@ end
 
 function MoveToolImpl:_setMidMoveBoundingBox(newBoundingBoxCFrame)
     local focusPoint =
-        (self._boundingBox.CFrame * self._boundingBoxOffsetCFrame:Inverse()).Position
+        (self._boundingBox.CFrame).Position
     self._boundingBox.CFrame = newBoundingBoxCFrame
     self._scale = getHandleScale(focusPoint)
 end
 
 function MoveToolImpl:mouseUp(mouseRay)
     self._draggingHandleId = nil
-    if areJointsEnabled() then
-        self._partMover:createJointPairs()
+    if areJointsEnabled() and self._jointPairs then
+        self._jointPairs:createJoints()
     end
+    self._jointPairs = nil
     self._partMover:commit()
     self._attachmentMover:commit()
     ChangeHistoryService:SetWaypoint("Move Parts")

@@ -19,6 +19,7 @@ local HANDLE_SEGMENTS = 64
 local HANDLE_RADIUS = 4.5
 local HANDLE_THICKNESS = 0.15
 local HANDLE_HITTEST_THICKNESS = HANDLE_THICKNESS * 2.5
+local HANDLE_THIN_BY_FRAC = 0.34
 
 function RotateHandleView:render()
 	-- DEBUG: Allow designers to play with handle settings.
@@ -45,6 +46,11 @@ function RotateHandleView:render()
 	local offset = radius * math.cos(angleStep / 2)
 
 	local children = {}
+
+	-- Thinning for drag
+	if self.props.Thin then
+		thickness = HANDLE_THIN_BY_FRAC * thickness
+	end
 
 	-- Draw main rotation gimbal.
 	for i = 0, HANDLE_SEGMENTS - 1 do

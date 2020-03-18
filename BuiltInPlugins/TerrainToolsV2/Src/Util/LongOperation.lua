@@ -121,6 +121,10 @@
 		callback onFinish(data : table, self : LongOperation) optional
 			Fired when the operation is finished
 
+		callback onError(data : table, self : LongOperation) optional
+			Fired if any callback errors. Use self:getErorrMessage() to get the error that was thrown.
+			If an error does occur, then onFinish() will still be fired. Use self:didError() to check for that case.
+
 		number timeBetweenSteps = 0 seconds
 			How long to wait between each step. Defaults to 0 which is the shortest time a wait() call can yield
 
@@ -157,6 +161,7 @@ function LongOperation.new(options)
 		_onResumeFunc = options.onResume,
 		_onCancelFunc = options.onCancel,
 		_onFinishFunc = options.onFinish,
+		_onErrorFunc = options.onError,
 
 		_timeBetweenSteps = options.timeBetweenSteps or 0,
 		_timeBetweenPauseChecks = options.timeBetweenPauseChecks or 0.1,
@@ -169,6 +174,10 @@ function LongOperation.new(options)
 		_hasFinished = false,
 		_isRunning = false,
 		_operationProgress = 0,
+
+		-- If errorMessage is nil, then no callback has errored
+		-- If it is non-nil (i.e. a string), then a callback did error
+		_errorMessage = nil,
 
 		_startTime = 0,
 		_endTime = 0,
@@ -276,6 +285,14 @@ function LongOperation:isRunning()
 	return self._isRunning
 end
 
+function LongOperation:didError()
+	return not not self._errorMessage
+end
+
+function LongOperation:getErrorMessage()
+	return self._errorMessage
+end
+
 function LongOperation:getProgress()
 	return self._operationProgress
 end
@@ -312,29 +329,66 @@ function LongOperation:_yield(...)
 	self._yieldTime = self._yieldTime + (endYieldTime - startYieldTime)
 end
 
+function LongOperation:_handleError(errorMessage)
+	-- We've already thrown an error
+	-- This case implies either the onError callback or onFinish callback after an onError threw an error
+	-- At that point, we don't care about further errors, and don't want to get into an infinite loop
+	-- So just ignore it
+	if self:didError() then
+		return
+	end
+
+	-- Explicitly don't allow errorMessage to be nil
+	-- We check if we have errored by checking if errorMessage is not nil
+	self._errorMessage = tostring(errorMessage) or ""
+
+	-- Safely call the onError callback
+	-- This could itself throw another error, but we ignore it
+	self:_runCallback(self._onErrorFunc)
+end
+
+-- Safely runs the given callback
+-- If it throws an error, then we use self:_handleError() to resolve it, and this method returns false
+-- Else returns true and any values returned from the callback
+function LongOperation:_runCallback(callback)
+	if not callback then
+		return false
+	end
+
+	local ret
+	local success = xpcall(function()
+		ret = {callback(self._operationData, self)}
+	end, function(errorMessage)
+		self:_handleError(errorMessage)
+	end)
+
+	if success then
+		return true, unpack(ret)
+	end
+	return false
+end
+
 -- Assume it's running on a new thread so it won't block
 function LongOperation:_runOperation()
 	-- Tell the world we're starting
-	if self._onStartFunc then
-		self._onStartFunc(self._operationData, self)
-		self:_yield(self._timeBetweenSteps)
-	end
+	self:_runCallback(self._onStartFunc)
+	self:_yield(self._timeBetweenSteps)
 
 	local wasPaused = false
-	repeat
+
+	-- Loop until we either throw an error, or break is explicitly used in the loop
+	while not self:didError() do
 		if self._wasCanceled then
 			-- Operation was cancelled so tell the world and stop the loop
-			if self._onCancelFunc then
-				self._onCancelFunc(self._operationData, self)
-			end
+			self:_runCallback(self._onCancelFunc)
 			break
 		end
 
 		if self._isPaused then
 			-- We've gone from not-paused to paused, so tell the world about the change
 			if not wasPaused then
-				if self._onPauseFunc then
-					self._onPauseFunc(self._operationData, self)
+				if not self:_runCallback(self._onPauseFunc) then
+					break
 				end
 			end
 			wasPaused = true
@@ -345,14 +399,17 @@ function LongOperation:_runOperation()
 		else
 			-- We've gone from paused to not-paused, so tell the world about the change
 			if wasPaused then
-				if self._onResumeFunc then
-					self._onResumeFunc(self._operationData, self)
+				if not self:_runCallback(self._onResumeFunc) then
+					break
 				end
 			end
 			wasPaused = false
 
 			-- Do a step of the operation and update the progress
-			local continue, progress = self._onStepFunc(self._operationData, self)
+			local success, continue, progress = self:_runCallback(self._onStepFunc)
+			if not success then
+				break
+			end
 			self:_setProgress(progress)
 
 			-- Operation said it's finished so stop the loop
@@ -363,16 +420,15 @@ function LongOperation:_runOperation()
 			-- Yield a bit between each step
 			self:_yield(self._timeBetweenSteps)
 		end
-	until false
+	end
 
 	-- Tell the world we've finished
 	self._hasFinished = true
 	self._isRunning = false
 	self._endTime = tick()
+
 	self.RunningChanged:fire(false)
-	if self._onFinishFunc then
-		self._onFinishFunc(self._operationData, self)
-	end
+	self:_runCallback(self._onFinishFunc)
 	self.Finished:fire()
 end
 

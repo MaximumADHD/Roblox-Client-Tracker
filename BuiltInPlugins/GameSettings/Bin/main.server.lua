@@ -10,6 +10,8 @@ local FFlagDebugGameSettingsLocalizationKeysOnly = settings():GetFFlag("DebugGam
 local OverrideLocaleId = settings():GetFVariable("StudioForceLocale")
 local DFFlagDeveloperSubscriptionsEnabled = settings():GetFFlag("DeveloperSubscriptionsEnabled")
 local FFlagStudioGameSettingsAccessPermissions = settings():GetFFlag("StudioGameSettingsAccessPermissions")
+local FFlagGameSettingsPreventClosingDialogWhileSaveInProgress = game:DefineFastFlag("GameSettingsPreventClosingDialogWhileSaveInProgress", false)
+
 
 --Turn this on when debugging the store and actions
 local LOG_STORE_STATE_AND_EVENTS = false
@@ -163,6 +165,13 @@ end
 local function closeGameSettings(userPressedSave)
 	local state = settingsStore:getState()
 	local currentStatus = state.Status
+
+	if FFlagGameSettingsPreventClosingDialogWhileSaveInProgress then
+		if currentStatus == CurrentStatus.Working and not userPressedSave then
+			return
+		end
+	end
+
 	if currentStatus ~= CurrentStatus.Closed then
 		if currentStatus == CurrentStatus.Error and userPressedSave then
 			settingsStore:dispatch(SetCurrentStatus(CurrentStatus.Open))

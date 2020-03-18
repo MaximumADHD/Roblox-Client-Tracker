@@ -16,6 +16,32 @@ local CONVERT_BIOME_WAYPOINT = "ConvertPart_Biome"
 
 local DEBUG_LOG_WORK_TIME = false
 
+local function logConversionFinished(data, operation)
+	local totalTime = operation:getTimeTaken()
+	local totalInstances = data.currentIndex or 0
+
+	print(data.localization:getText("ConvertPart", "ConvertFinished",
+		totalTime, totalInstances))
+
+	if DEBUG_LOG_WORK_TIME then
+		local totalFillCalls = data.totalFillCalls
+		local yieldTime = operation:getYieldTime()
+		local workTime = operation:getWorkTime()
+		print(("Yielded for %.2f seconds; Did work for %.2f; Total fill calls: %i"):format(
+			yieldTime, workTime, totalFillCalls))
+	end
+end
+
+local function logError(data, operation)
+	local errorMessage = operation:getErrorMessage()
+	warn(("Convert failed: %s"):format(tostring(errorMessage)))
+end
+
+local function onOperationError(data, operation)
+	logError(data, operation)
+	logConversionFinished(data, operation)
+end
+
 --[[
 Expects
 	data.targetInstances : { [Instance]: true } - Set of instances
@@ -40,6 +66,8 @@ local GetTargetShapes = {
 		data.shapes = shapes
 		data.totalShapes = #shapes
 	end,
+
+	onError = onOperationError,
 }
 
 --[[
@@ -66,6 +94,8 @@ local UpdateInstanceVisuals = {
 			end
 		end
 	end,
+
+	onError = onOperationError,
 }
 
 --[[
@@ -136,21 +166,11 @@ local ConvertShapesToMaterial = {
 
 	onFinish = function(data, operation)
 		ChangeHistoryService:SetWaypoint(CONVERT_MATERIAL_WAYPOINT)
-
-		local totalTime = operation:getTimeTaken()
-		local totalInstances = data.currentIndex
-
-		print(data.localization:getText("ConvertPart", "ConvertFinished",
-			totalTime, totalInstances))
-
-		if DEBUG_LOG_WORK_TIME then
-			local totalFillCalls = data.totalFillCalls
-			local yieldTime = operation:getYieldTime()
-			local workTime = operation:getWorkTime()
-			print(("Yielded for %.2f seconds; Did work for %.2f; Total fill calls: %i"):format(
-				yieldTime, workTime, totalFillCalls))
-		end
+		logConversionFinished(data, operation)
 	end,
+
+	-- Just log the error without clean up because onFinish() does that
+	onError = logError,
 }
 
 --[[
@@ -283,21 +303,11 @@ local ConvertShapesToBiomes = {
 
 	onFinish = function(data, operation)
 		ChangeHistoryService:SetWaypoint(CONVERT_BIOME_WAYPOINT)
-
-		local totalTime = operation:getTimeTaken()
-		local totalInstances = data.currentIndex
-
-		print(data.localization:getText("ConvertPart", "ConvertFinished",
-			totalTime, totalInstances))
-
-		if DEBUG_LOG_WORK_TIME then
-			local totalFillCalls = data.totalFillCalls
-			local yieldTime = operation:getYieldTime()
-			local workTime = operation:getWorkTime()
-			print(("Yielded for %.2f seconds; Did work for %.2f; Total fill calls: %i"):format(
-				yieldTime, workTime, totalFillCalls))
-		end
+		logConversionFinished(data, operation)
 	end,
+
+	-- Just log the error without clean up because onFinish() does that
+	onError = logError,
 }
 
 return {

@@ -11,10 +11,10 @@ local Roact = require(Plugin.Packages.Roact)
 
 local MoveHandleView = Roact.PureComponent:extend("MoveHandleView")
 
-local BASE_HANDLE_RADIUS = 0.07
+local BASE_HANDLE_RADIUS = 0.13
 local BASE_HANDLE_HITTEST_RADIUS = BASE_HANDLE_RADIUS * 3 -- Handle hittests bigger than it looks
 local BASE_HANDLE_OFFSET = 0.60
-local BASE_HANDLE_LENGTH = 3.00
+local BASE_HANDLE_LENGTH = 4.50
 local BASE_TIP_OFFSET = 0.20
 local BASE_TIP_LENGTH = 0.25
 local SCREENSPACE_HANDLE_SIZE = 6
