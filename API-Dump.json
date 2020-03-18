@@ -50750,6 +50750,26 @@
                 {
                     "Category": "Data",
                     "MemberType": "Property",
+                    "Name": "EnableScriptCollabVersionHistoryOnLoad",
+                    "Security": {
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "Hidden"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
                     "Name": "SrcPlaceId",
                     "Security": {
                         "Read": "RobloxSecurity",

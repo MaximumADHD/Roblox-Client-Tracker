@@ -396,6 +396,7 @@ AHPEAU_iobuf
 AHPEAX1PEAPEAX
 AHW4DataStoreRequestType
 AHW4UserInputType
+AiiUhsCAwEAAQ
 Algorithms
 AliasRequestResult
 ALIGN_TYPE
@@ -2473,6 +2474,7 @@ AVMessagingService
 AVMessagingServiceAnalysisJob
 AVMetadataParseException
 AVmisc_category
+AvmNo85ezGBFn6PcwH6uTtXuDywmlnMqk904cvZTl3X
 AVMobileDevelopmentDeployer
 AVMockGestureGenerator
 AVMockLongPressGestureGenerator
@@ -3766,6 +3768,7 @@ BAA91211E2B410EF351327957B
 BAAEB11E38B9D871882A8E559
 BAAED11E38B9D871882A8E559
 BAAF011E38B9D871882A8E559
+BABNmXBTqZY4dCw
 BACK_BUTTON_NOT_CONSUMED
 BackAccessory
 BackColorOffset
@@ -4183,7 +4186,6 @@ BreakpointStateAction
 BreakpointsWidget
 BreakpointToolTip
 BreakReason
-BRenderFixTerrainAtlas
 Brevesmall
 BrickColor
 BrickColorChanged
@@ -4224,6 +4226,7 @@ BrowserWindow
 BrowserWindowClosed
 BrowserWindowWillNavigate
 BrushStyle
+BRvzzj1ggn6MEczgU5OKwI
 BtYovqVKoHMDMoDd0u9Mc5CIyRqyu0IGS99A0jeEXRj7aofQ
 BU_Simplex1to4
 BubbleChat
@@ -4330,7 +4333,7 @@ BytesReceivedAndIgnoredPerSec
 BytesReceivedPerSec
 BytesRecvAndIgnored
 BytesWritten
-ByVersion_0.425.0.393893
+ByVersion_0.425.0.393892
 ByVersionForPlatform_
 C_specific_handler
 CA_NPEAVQObject
@@ -4816,6 +4819,7 @@ CIOSW[^adfikosvy
 CipherString
 Ciphersuites
 Circumflexsmall
+CjP9kj5lszriFi6Yj
 CJVNotFallbackToEnglishForCoreGuiEnabled
 CJVNotFallbackToEnglishForUGCEnabled
 ClampColor
@@ -5307,6 +5311,7 @@ ClusterGridV2
 ClusterGridV3
 ClusterPacket
 ClusterPacketCache
+ClWO7RZzyJVqZQs0eq2jYq8MEoWFP6KzDEPfm
 CLzV..VzLM
 CMAC_CTX_new
 CmdBeginDebugUtilsLabelEXT
@@ -5472,6 +5477,8 @@ CoGetClassObject
 CoInitialize
 CoInitializeEx
 CollabEdit
+CollabEditVersionHistory
+CollabEditVersionHistoryEnabled
 CollapseIcon
 Collapsible
 CollarReduction
@@ -6657,6 +6664,7 @@ DataSendPriority
 DataSendRate
 DataStore.
 DataStore429MinReponseTimeMSec
+DataStoreAdditionalMetricsEnabled
 DataStoreAnalyticsReportEveryNSeconds
 DataStoreAutoHttpRetry
 DataStoreBudget
@@ -7545,6 +7553,7 @@ DistToShowBufferCountSqr
 DKECCAK1600_ASM
 DlcVersion
 DListenerAttributes
+Dln7plNIy2aBTyF
 DMinMaxDistance
 DnsResolve
 DNSResponseMS
@@ -8234,6 +8243,7 @@ EnableSafeUpdateBeta
 EnableScaleIndependentBulletCollision5
 EnableScriptCollabByDefaultOnLoad
 EnableScriptCollabOnLoad
+EnableScriptCollabVersionHistoryOnLoad
 EnableSetInstanceDefaults
 EnableStudioServiceGetUserId
 EnableStudioServiceOpenBrowser
@@ -8521,7 +8531,6 @@ EVRConfig_ForceBob
 EVRConfig_ForceHalfInterlace
 EVRConfig_ForceScaling
 EVRConfig_ForceThrottle
-EW6znEDCqotGObKBq
 ExactMatch
 ExceptionAddress
 ExceptionCode
@@ -8990,6 +8999,7 @@ FixModelPreviewSelection
 FixModuleScriptBreakpointNotHitWhenParentScriptNotOpened2
 FixNoTimeHudOnTeleport
 FixOutOfBoundsMouseLocation
+FixOverriddenDragAssert
 FixOverZealousTextWrapping
 FixParallelCoarseMovementCallbacks
 FixPerSecDivideStats
@@ -9509,6 +9519,7 @@ GAThrottlingEventThresholdHundredthCat1
 GAThrottlingEventThresholdHundredthCat2
 GAThrottlingEventThresholdHundredthCat3
 GazeSelectionEnabled
+GCaFvBQyiOxJTarkaf7p866N
 GCDistance
 GCHappened
 GCincremental
@@ -10307,7 +10318,6 @@ GrabRotateCursor.png
 GradientEditor
 GradientEditorAdapter
 GradientEditorCanvas
-GRakNetResendMaxThresholdTimeInUs
 GraphicsD3D11PerFrameQuery
 GraphicsD3D9TextureDL
 GraphicsEffect
@@ -10457,6 +10467,7 @@ GroupTime.Sum.toFixed
 GSSolverActive
 GSSS466FSSS455
 GTInfluxDB
+GU75nqCIQIW4TriTTxl4H4dOBDwGwGEr
 Guaranteed
 GuestFriendCheckFailImmediate
 GuiCluster
@@ -10616,7 +10627,7 @@ HelpForSelectionAction
 HelpWindow
 HelpWindow.style[
 HFbxVector4
-HGSuTRP7fSlHOngGdcCAwEAAQ
+HFgu0wIA1CUgE9rXkmlCW8cUtOTeT
 HHAEBVQModelIndex
 HHHHHAEBVQString
 HHPEAVQObject
@@ -10736,6 +10747,7 @@ HPEAVQAction
 HPEBDHW4CaseSensitivity
 HPEBDPEBDV
 HPEBVQMimeData
+Hq86B3y72CB7
 HQEAPEAVQGraphicsItem
 HQFSShadowed
 HQVSShadowed
@@ -10964,7 +10976,6 @@ HW4Initialization
 HW4MatchType
 HW4Orientation
 HW4PacketPriority
-HWneAwHBiYEZ4x7JB82ddYCqzQ7FAAIPhNbjWdKhMMulZhNOLDnvJ4ubD
 HwngSmldAskhBcraMaweNegsOgnaT
 HWYGOTH.ttf
 HybridEvent
@@ -11078,6 +11089,7 @@ IID_IVPVBIConfig
 IID_IVPVBINotify
 IID_IVPVBIObject
 IIMAEBVInstanceIdentifier
+IjcO3B8Y8dYM7yM06Sm67YE1GPYjqL
 IkDragCollisionsMode
 IkDraggerAnchorMode
 IkDraggerSolveIterations
@@ -11668,10 +11680,8 @@ IVRScreenshots_001
 IVRSettings_002
 IVRSystem_017
 IVRTrackedCamera_003
-IvvWPuFutrOWNhLZq0bnka4rFNHLM4O
 IWorldStage
 IXMLHTTPRequest2
-IYvXlZG7xjqFMGj8iSsBrYrs
 J_Key_dn.png
 J_NW4CurrencyType
 JasmineUPC
@@ -11681,7 +11691,6 @@ JavaScriptCallback
 Jba5qWkYU5nARYZm1gQVP
 Jcircumflex
 JDJNJXJbJlJvJ
-JG7UyEgB0AoFjFdC6hDjID1XV4afB2g
 JHJRJ\JfJpJxJ
 JHW4MembershipType
 JIRA_RIDE_184_V2
@@ -11772,6 +11781,7 @@ JW4HttpRequestResult
 JW4InfoType
 JW4TextFilterContext
 JW4ThumbnailType
+JwevnNJq6F31PjOYHGxOd7kzk3
 K\7IxU..UxI7\K
 K_Key_dn.png
 KaiTi_GB2312
@@ -12163,6 +12173,7 @@ LiveScript
 LiveThreadRef
 LivingRoom
 LLEo6Soxvx2
+LNhHsZCCJcmyRc
 LOAD_CERT_CTRL
 LoadAnimation
 LoadAssetVersion
@@ -12523,6 +12534,7 @@ LuauWatchdog
 LuauYieldablePcall
 LuauYieldableXpcall
 LuaWebService
+LVkHpZ3iPFGwYi2meJ62ABSz
 LVvuOx39]O
 M_NVWeakFunctionRef
 MachineAddress
@@ -12607,6 +12619,7 @@ MaterialTool
 MaterialVerb
 Math.floor
 MatrixCoefficients
+MaWa60DSUFFto
 MAX_ALLOC_CHUNK
 MAX_FRAME_LENGTH
 MAX_NB_SUBFR
@@ -13148,7 +13161,7 @@ MigrateTriangleMeshData3
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsI9zRp2OSccqdFx2
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAupANB3EbN9hFHHUj0eA
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzjPRQo9jc
-MIICCgKCAgEA62pDeKCrozEkrXUHrzZmZkTfScY7jGeMmmZrTTlwb2jwr
+MIICCgKCAgEAuVCHWb1NFXTmb
 Millisecond
 MillisecondsBeforeHandlingReconnect
 MimeDataFromSelection
@@ -13463,7 +13476,6 @@ MusicalInstruments
 MutexLifetime
 MW4PartMaterial
 MyModelsAction
-MZO6rPFlT6UKBFUp3PD2hcnqOWV0oVi5UfXN7
 NAEAVHttpResponse
 NAEBUPlaceLauncherRequestInfo
 NAEBVFbxTime
@@ -13815,6 +13827,7 @@ NumRigidJointsNotInWorld
 NumTickets
 NVAuthenticationHelper
 Nvb5JjRCUQ
+Nvfq569DBEJSy8bo
 NVLuaWebService
 NvOptimusEnablement
 NVReplicator
@@ -13950,6 +13963,7 @@ OgreWidgetShowEvent
 Oh44\h44\Q
 Ohungarumlaut
 OiCCPPhotoshop
+OK69isWa44J5
 OKButtonClicked
 OldActiveElement
 OldMessagesFetched
@@ -14094,7 +14108,7 @@ OptionsMenu
 OptionState
 OPUS_ARCHMASK
 OpusCustomMode
-Oqmhb0yMDGNr6sVmncrSk2M7BUH
+OQzhqWVrZLJWI62GM55
 OrCharacter
 OrCreateFileInfo
 OrCreateFileSyncItemClient
@@ -14220,9 +14234,7 @@ OverrideSendRakNetStatsThrottleCountries
 OverrideStarterScript
 OverrideToMyBranch
 OverwriteMode
-OvHeDWKCQVQryJ1GJBYgI6ts2i6kwbBMDiNQU
 OwnProperty
-OyULHtdupib
 Ozs8xYCf2Q05p4gHyX
 PA^A]A\_^]
 PA^A]A\_^][
@@ -15887,7 +15899,6 @@ PrivateServerId
 PrivateServerOwnerId
 Privileges
 PrivilegeType
-PRLsupog0HmaF3Ti8JmYVDtlUQ
 ProbeHttpRequestsPerMinuteLimit
 ProbeHttpRequestsPerMinuteLimitMult
 ProbeHttpRequestsPerMinuteLimitZero
@@ -16634,7 +16645,6 @@ QNetworkRequest
 QObjectData
 QObjectShared
 QOgreWidget
-QoJFa4h1vrC6KGztkqyulp9godj9NceRupJoR3vvPRWwzUNyznCKpe
 QPaintDevice
 QPainterPath
 QParallelAnimationGroup
@@ -16895,6 +16905,7 @@ RakNetPasswordAccepted
 RakNetPasswordRejected
 RakNetPing
 RakNetResendBufferArrayLength
+RakNetResendMaxThresholdTimeInUs
 RakNetResendMsgLen_Platform_
 RakNetResendScaleBackFactorHundredthsPercent
 RakNetResentPercent_Platform_
@@ -17466,6 +17477,7 @@ RenderFidelity
 RenderFixEmojiPadding
 RenderFixEvsmFiltering
 RenderFixSun3TimesRender
+RenderFixTerrainAtlas
 RenderFlag
 RenderForceContext
 RenderGatherMsFrame2
@@ -17478,6 +17490,7 @@ RenderHalfresShadowsGlsles
 RenderHalfresShadowsVulkan
 RenderHint
 RenderHints
+RenderImproveStreaming
 RenderingTest
 RenderingTestComparisonMethod
 RenderingThrottleDelayInMS
@@ -18231,6 +18244,7 @@ SampleRate
 SandboxedSource
 SandboxLocalCache
 SandboxLocalCacheInitialized
+SandboxUser
 SAPEAUNode
 SAPEAVQClipboard
 SAPEAVQDesktopWidget
@@ -18340,6 +18354,7 @@ ScriptBatchCommit
 ScriptBuiltInFunction
 ScriptChangesSubmitted
 ScriptCollabEnabled
+ScriptCollabVersionHistoryEnabled
 ScriptColorPropertyChanged
 ScriptComboBox
 ScriptComment
@@ -21225,6 +21240,7 @@ Studio.ShareGameFromRibbon
 Studio.ShareGameFromStartPage
 Studio.TeamCreate.Active.
 Studio.TeamCreate.CollabEdit.
+Studio.TeamCreate.CollabEditVersionHistory.
 Studio.TeamCreate.Failure
 Studio.TeamCreate.Heartbeat.
 Studio.TeamCreate.Inactive.
@@ -22545,7 +22561,6 @@ TitleBarProgress
 TitlebarText
 TitleBarVisible
 TJNLerU][Wr
-TJRkeXY2jI7bOF
 TLS_AES_128_CCM_8_SHA256
 TLS_AES_128_CCM_SHA256
 TLS_AES_128_GCM_SHA256
@@ -23091,6 +23106,7 @@ TweenService
 TweenServiceOnStepped
 TweenSizeAndPosition
 TweenStatus
+TwEpHrIUaLslJDEny3TWmE0Qz1
 TwistLimits
 TwistLimitsEnabled
 TwistLowerAngle
@@ -23896,7 +23912,6 @@ VAnimation
 VAnimationController
 VAnimationId
 VAnimationTrack
-VAOjo8Czw1ZACPZtsg5sZ5j6hQynu6rU7df
 VAppConfiguration
 VAppStorage
 VAppStorageService
@@ -24103,6 +24118,7 @@ VDeserializedTouchItemS2
 VDeserializePacketsJob
 VDetachedSoundPlayback
 VDeveloperProductResourceController
+VdHO0WMOky10F5JEga
 VDialogChoice
 VDialogRoot
 VDiffProcessor
@@ -24381,7 +24397,6 @@ VideoAudioBufferHeadroomFactor
 VideoBetterCleanupOnOpenFailure
 VideoCapture
 VideoCaptureEnabled
-VideoCircularBufferFix
 VideoDocumentationPluginEnabled
 VideoEnableDeviceTuning
 VideoEnableGetInfo
@@ -24399,7 +24414,6 @@ VideoImageReductionFactor
 VideoLibraries
 VideoManager
 VideoMaxPacketsPerStep
-VideoModifyMutexes
 VideoPreRollWaitTimeSeconds
 VideoQuality
 VideoQualitySettings
@@ -24425,7 +24439,6 @@ VIDEOTEXSTRING
 VideoTimeOffsetToVideoPTSMs
 VideoTrace
 VideoUISupport
-VideoUseAudioAsMasterClock
 VIdSerializer
 VIEW_GAME_DETAILS
 VIEW_GAME_DETAILS_ANIMATED
@@ -24818,7 +24831,6 @@ VShaderProgramVulkan
 VShaderVulkan
 VSharedString
 VShirtGraphic
-VSIAhUn4EOEA88uhCEvsN1N82p3T84cZjCAAdyqzQkTRKv8P7sntwgev5Ir08DJw
 VSignalRConnection
 VSimpleTagParser
 VSimulateStage
@@ -25295,6 +25307,7 @@ WM_ATLGETHOST
 WMCreateProfileManager
 WMCreateSyncReader
 Wmvcore.dll
+WOGyENJih6zC
 WoodPlanks
 WorkersNeeded
 Workspace.
@@ -25404,7 +25417,6 @@ XInputGetState
 XInputSetState
 Xinvalid_argument
 Xlength_error
-XnwkwjL6M84C6jte70oMQA5ef7IXQmyPqWo2eREinOfqM0S9U4tKpOAfIkv
 Xout_of_range
 XP6AXAEBUTextFilterResult
 XP6AXAEBVQString
@@ -25557,12 +25569,15 @@ YAXPEAXPEBX
 YAXPEAXPEBX1
 YAXPEBVQObject
 YAXW4error_type
+Yba1Doqw0na8sZrd8NrP2VMCK5gBEDbCcNp85
 Ycircumflex
 Ydieresissmall
 YffYZefYDNNDCOO
 YieldEvent
 YieldFuncDesc
 YieldFunction
+YjaYcW6TglLFoTg3c7nC1cxbeZQNvKGnsY95B3pO
+YjQ1r7bsXKe5X2rBWvJ2bWrhTgX2E
 YQByteArray
 YResolution
 YwBBvY55YvBBwY5
