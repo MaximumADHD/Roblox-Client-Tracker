@@ -12,7 +12,6 @@ local UILibraryProvider = require(Plugin.Src.ContextServices.UILibraryProvider)
 local Localizing = UILibrary.Localizing
 local TerrainInterface = require(Plugin.Src.ContextServices.TerrainInterface)
 
-local FFlagTerrainToolsSeaLevel = game:GetFastFlag("TerrainToolsSeaLevel")
 local FFlagTerrainToolsConvertPartTool = game:GetFastFlag("TerrainToolsConvertPartTool")
 
 -- props.localization : (UILibary.Localization) an object for fetching translated strings
@@ -39,9 +38,8 @@ function ServiceWrapper:init()
 	assert(self.props.pluginActivationController ~= nil, "Expected a PluginActivationController object")
 	assert(self.props.terrainImporter ~= nil, "Expected a TerrainImporter object")
 	assert(self.props.terrainGeneration ~= nil, "Expected a TerrainGeneration object")
-	if FFlagTerrainToolsSeaLevel then
-		assert(self.props.seaLevel ~= nil, "Expected a SeaLevel object")
-	end
+	assert(self.props.seaLevel ~= nil, "Expected a SeaLevel object")
+
 	if FFlagTerrainToolsConvertPartTool then
 		assert(self.props.partConverter ~= nil, "Expected a PartConveter object")
 	end

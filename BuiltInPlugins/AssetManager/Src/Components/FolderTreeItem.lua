@@ -34,19 +34,25 @@ function FolderTreeItem:init()
 		Hovering = false,
 	}
 
-	self.mouseEnter = function()
+    self.mouseEnter = function()
+        local props = self.props
+        props.Mouse:__pushCursor("PointingHand")
 		self:setState({
 			Hovering = true,
 		})
 	end
 
-	self.mouseLeave = function()
+    self.mouseLeave = function()
+        local props = self.props
+        props.Mouse:__popCursor()
 		self:setState({
 			Hovering = false,
 		})
 	end
 
-	self.onClick = function()
+    self.onClick = function()
+        local props = self.props
+        props.Mouse:__popCursor()
 		self.props.toggleSelected()
 	end
 
@@ -104,6 +110,9 @@ function FolderTreeItem:render()
         BackgroundTransparency = 1,
         [Roact.Ref] = self.parentContentRef,
         LayoutOrder = layoutOrder,
+
+        [Roact.Event.MouseEnter] = self.mouseEnter,
+        [Roact.Event.mouseLeave] = self.mouseLeave,
     }, {
         Contents = Roact.createElement(Button, {
             Size = UDim2.new(1, 0, 0, height),
@@ -157,6 +166,7 @@ end
 
 ContextServices.mapToProps(FolderTreeItem,{
     Theme = ContextServices.Theme,
+    Mouse = ContextServices.Mouse,
 })
 
 return FolderTreeItem

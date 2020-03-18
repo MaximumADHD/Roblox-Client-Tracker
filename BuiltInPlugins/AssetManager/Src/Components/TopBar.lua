@@ -16,6 +16,7 @@ local ContextServices = require(Framework.ContextServices)
 
 local UI = require(Framework.UI)
 local Button = UI.Button
+local HoverArea = UI.HoverArea
 local LinkText = UI.LinkText
 
 local Util = require(Framework.Util)
@@ -32,11 +33,10 @@ local SetToPreviousScreen = require(Plugin.Src.Actions.SetToPreviousScreen)
 local SetToNextScreen = require(Plugin.Src.Actions.SetToNextScreen)
 
 local LaunchBulkImport = require(Plugin.Src.Thunks.LaunchBulkImport)
-local OnScreenChange = require(Plugin.Src.Thunks.OnScreenChange)
 
 local Screens = require(Plugin.Src.Util.Screens)
 
-local StudioService = game:GetService("StudioService")
+local BulkImportService = game:GetService("BulkImportService")
 
 local TopBar = Roact.PureComponent:extend("TopBar")
 
@@ -54,16 +54,16 @@ function TopBar:render()
     local props = self.props
     local theme = props.Theme:get("Plugin")
     local topBarTheme = theme.TopBar
-    local apiImpl = props.API:get()
     local localization = props.Localization
 
     local size = props.Size
     local layoutOrder = props.LayoutOrder
 
+    local enabled = props.Enabled
+
     local currentScreen = props.CurrentScreen
     local previousScreens = props.PreviousScreens
     local nextScreens = props.NextScreens
-    local dispatchOnScreenChange = props.dispatchOnScreenChange
     local dispatchSetToPreviousScreen = props.dispatchSetToPreviousScreen
     local dispatchSetToNextScreen = props.dispatchSetToNextScreen
     local previousButtonEnabled = #previousScreens > 0
@@ -113,7 +113,17 @@ function TopBar:render()
 
             Style = "OverlayButton",
 
-            OnClick = self.OnTreeViewButtonActivated,
+            OnClick = function()
+                if enabled then
+                    self.OnTreeViewButtonActivated()
+                end
+            end,
+        }, {
+            HoverArea = enabled and Roact.createElement(HoverArea, {
+                Cursor = "PointingHand",
+                MouseEnter = self.mouseEnter,
+                MouseLeave = self.mouseLeave,
+            }),
         }),
 
         NavigationButtonsFrame = Roact.createElement("Frame", {
@@ -136,11 +146,16 @@ function TopBar:render()
                 StyleModifier = not previousButtonEnabled and StyleModifier.Disabled,
 
                 OnClick = function()
-                    if previousButtonEnabled then
+                    if previousButtonEnabled and enabled then
                         dispatchSetToPreviousScreen(previousButtonEnabled)
-                        dispatchOnScreenChange(apiImpl, currentScreen)
                     end
                 end,
+            }, {
+                HoverArea = previousButtonEnabled and enabled and Roact.createElement(HoverArea, {
+                    Cursor = "PointingHand",
+                    MouseEnter = self.mouseEnter,
+                    MouseLeave = self.mouseLeave,
+                }),
             }),
 
             NextButton = Roact.createElement(Button, {
@@ -152,11 +167,16 @@ function TopBar:render()
                 StyleModifier = not nextButtonEnabled and StyleModifier.Disabled,
 
                 OnClick = function()
-                    if nextButtonEnabled then
+                    if nextButtonEnabled and enabled then
                         dispatchSetToNextScreen(nextButtonEnabled)
-                        dispatchOnScreenChange(apiImpl, currentScreen)
                     end
                 end,
+            }, {
+                HoverArea = nextButtonEnabled and enabled and Roact.createElement(HoverArea, {
+                    Cursor = "PointingHand",
+                    MouseEnter = self.mouseEnter,
+                    MouseLeave = self.mouseLeave,
+                }),
             }),
         }),
 
@@ -169,7 +189,7 @@ function TopBar:render()
             StyleModifier = bulkImporterRunning and StyleModifier.Disabled,
 
             OnClick = function()
-                if not bulkImporterRunning then
+                if not bulkImporterRunning and enabled then
                     dispatchLaunchBulkImporter(0)
                 end
             end,
@@ -210,19 +230,27 @@ function TopBar:render()
                         LayoutOrder = 2,
 
                         OnClick = function()
-                            StudioService:ShowBulkImportView()
+                            BulkImportService:ShowBulkImportView()
                         end,
                     }),
                 },
 
                 TooltipExtents = Vector2.new(topBarTheme.Tooltip.Width, tooltipHeight),
                 Enabled = bulkImporterRunning,
-            })
+            }),
+
+            HoverArea = not bulkImporterRunning and enabled and Roact.createElement(HoverArea, {
+                Cursor = "PointingHand",
+                MouseEnter = self.mouseEnter,
+                MouseLeave = self.mouseLeave,
+            }),
         }),
 
         SearchBar = currentScreen.Key ~= Screens.MAIN.Key and Roact.createElement(SearchBar, {
             Size = UDim2.new(1, -searchBarOffset, 1, 0),
             LayoutOrder = layoutIndex:getNextOrder(),
+
+            Enabled = enabled,
 
             DefaultText = defaultText,
             OnSearchRequested = self.OnSearchRequested,
@@ -231,7 +259,6 @@ function TopBar:render()
 end
 
 ContextServices.mapToProps(TopBar,{
-    API = ContextServices.API,
     Theme = ContextServices.Theme,
     Localization = ContextServices.Localization,
 })
@@ -265,9 +292,6 @@ local function useDispatchForProps(dispatch)
             if enabled then
                 dispatch(SetToNextScreen())
             end
-        end,
-        dispatchOnScreenChange = function(apiImpl, screen)
-            dispatch(OnScreenChange(apiImpl, screen))
         end,
 	}
 end

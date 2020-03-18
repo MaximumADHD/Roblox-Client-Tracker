@@ -88,6 +88,20 @@ Class Animator : Instance
 	Function Instance Animator:LoadAnimation(Instance animation)
 	Function void Animator:StepAnimations(float deltaTime) {PluginSecurity}
 	Event Animator.AnimationPlayed(Instance animationTrack)
+Class AssetManagerService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function int64 AssetManagerService:AddNewPlace() {RobloxScriptSecurity} [Yields]
+	Function void AssetManagerService:DeleteAlias(string aliasName) {RobloxScriptSecurity} [Yields]
+	Function int64 AssetManagerService:GetMeshId(string aliasName) {RobloxScriptSecurity}
+	Function int64 AssetManagerService:GetTextureId(string aliasName) {RobloxScriptSecurity}
+	Function void AssetManagerService:InsertImage(int64 assetId) {RobloxScriptSecurity}
+	Function void AssetManagerService:InsertMesh(string aliasName, bool insertWithLocation) {RobloxScriptSecurity}
+	Function void AssetManagerService:InsertPackage(int64 packageId) {RobloxScriptSecurity}
+	Function void AssetManagerService:OpenPlace(int64 placeId) {RobloxScriptSecurity}
+	Function void AssetManagerService:RemovePlace(int64 placeId) {RobloxScriptSecurity} [Yields]
+	Function void AssetManagerService:RenamePlace(int64 placeId, string newName) {RobloxScriptSecurity} [Yields]
+	Function void AssetManagerService:ShowPackageDetails(int64 packageId) {RobloxScriptSecurity}
+	Function void AssetManagerService:UpdateAllPackages(int64 packageId) {RobloxScriptSecurity}
+	Function void AssetManagerService:ViewPackageOnWebsite(int64 packageId) {RobloxScriptSecurity}
 Class AssetService : Instance [NotCreatable] [Service]
 	Function int64 AssetService:CreatePlaceAsync(string placeName, int64 templatePlaceID, string description = "") [Yields]
 	Function int64 AssetService:CreatePlaceInPlayerInventoryAsync(Instance player, string placeName, int64 templatePlaceID, string description = "") [Yields]
@@ -267,6 +281,11 @@ Class BrowserService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event BrowserService.BrowserWindowClosed() {RobloxScriptSecurity}
 	Event BrowserService.BrowserWindowWillNavigate(string url) {RobloxScriptSecurity}
 	Event BrowserService.JavaScriptCallback(string content) {RobloxScriptSecurity}
+Class BulkImportService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function void BulkImportService:LaunchBulkImport(int assetTypeToImport) {RobloxScriptSecurity}
+	Function void BulkImportService:ShowBulkImportView() {RobloxScriptSecurity}
+	Event BulkImportService.BulkImportFinished(int state) {RobloxScriptSecurity}
+	Event BulkImportService.BulkImportStarted() {RobloxScriptSecurity}
 Class CacheableContentProvider : Instance [NotCreatable] [Service] [NotReplicated]
 Class MeshContentProvider : CacheableContentProvider [NotCreatable] [Service] [NotReplicated]
 	Function Dictionary MeshContentProvider:GetContentMemoryData() {RobloxScriptSecurity}
@@ -1569,7 +1588,7 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Function Dictionary MarketplaceService:GetProductInfo(int64 assetId, Enum<InfoType> infoType = "Asset") [Yields]
 	Function int MarketplaceService:GetRobuxBalance() {RobloxScriptSecurity} [Yields]
 	Function bool MarketplaceService:IsPlayerSubscribed(Instance player, int64 subscriptionId) [Yields]
-	Function Dictionary MarketplaceService:PerformPurchase(Enum<InfoType> infoType, int64 productId, int expectedPrice, string requestId) {RobloxScriptSecurity} [Yields]
+	Function Dictionary MarketplaceService:PerformPurchase(Enum<InfoType> infoType, int64 productId, int expectedPrice, string requestId, bool isRobloxPurchase) {RobloxScriptSecurity} [Yields]
 	Function bool MarketplaceService:PlayerCanMakePurchases(Instance player) {RobloxScriptSecurity}
 	Function bool MarketplaceService:PlayerOwnsAsset(Instance player, int64 assetId) [Yields]
 	Function void MarketplaceService:PromptBundlePurchase(Instance player, int64 bundleId) {RobloxScriptSecurity}
@@ -1578,6 +1597,7 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Function void MarketplaceService:PromptPremiumPurchase(Instance player)
 	Function void MarketplaceService:PromptProductPurchase(Instance player, int64 productId, bool equipIfPurchased = true, Enum<CurrencyType> currencyType = "Default")
 	Function void MarketplaceService:PromptPurchase(Instance player, int64 assetId, bool equipIfPurchased = true, Enum<CurrencyType> currencyType = "Default")
+	Function void MarketplaceService:PromptRobloxPurchase(int64 assetId, bool equipIfPurchased) {RobloxScriptSecurity}
 	Function void MarketplaceService:PromptSubscriptionCancellation(Instance player, int64 subscriptionId)
 	Function void MarketplaceService:PromptSubscriptionPurchase(Instance player, int64 subscriptionId)
 	Function void MarketplaceService:PromptThirdPartyPurchase(Instance player, string productId) {LocalUserSecurity}
@@ -1608,6 +1628,7 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Event MarketplaceService.PromptProductPurchaseRequested(Instance player, int64 productId, bool equipIfPurchased, Enum<CurrencyType> currencyType) {RobloxScriptSecurity}
 	Event MarketplaceService.PromptPurchaseFinished(Instance player, int64 assetId, bool isPurchased)
 	Event MarketplaceService.PromptPurchaseRequested(Instance player, int64 assetId, bool equipIfPurchased, Enum<CurrencyType> currencyType) {RobloxScriptSecurity}
+	Event MarketplaceService.PromptRobloxPurchaseRequested(int64 assetId, bool equipIfPurchased) {RobloxScriptSecurity}
 	Event MarketplaceService.PromptSubscriptionCancellationFinished(Instance player, int64 subscriptionId, bool wasCanceled)
 	Event MarketplaceService.PromptSubscriptionCancellationRequested(Instance player, int64 subscriptionId) {RobloxScriptSecurity}
 	Event MarketplaceService.PromptSubscriptionPurchaseFinished(Instance player, int64 subscriptionId, bool wasPurchased)
@@ -1741,6 +1762,7 @@ Class BasePart : PVInstance [NotCreatable] [NotBrowsable]
 	Property CFrame BasePart.CFrame
 	Property Vector3 BasePart.CenterOfMass  [ReadOnly] [NotReplicated]
 	Property float BasePart.LocalTransparencyModifier  [Hidden] [NotReplicated]
+	Property float BasePart.Mass  [ReadOnly] [NotReplicated]
 	Property Vector3 BasePart.Orientation [<📁> LoadOnly] [NotReplicated]
 	Property Vector3 BasePart.Position [<📁> LoadOnly] [NotReplicated]
 	Property Vector3 BasePart.RotVelocity
@@ -1782,7 +1804,7 @@ Class BasePart : PVInstance [NotCreatable] [NotBrowsable]
 	Function Tuple BasePart:CanSetNetworkOwnership()
 	Function Objects BasePart:GetConnectedParts(bool recursive = false)
 	Function Objects BasePart:GetJoints()
-	Function float BasePart:GetMass() [CustomLuaState]
+	Function float BasePart:GetMass()
 	Function Instance BasePart:GetNetworkOwner()
 	Function bool BasePart:GetNetworkOwnershipAuto()
 	Function CFrame BasePart:GetRenderCFrame() [Deprecated]
@@ -2548,6 +2570,7 @@ Class SessionService : Instance [NotCreatable] [Service]
 	Function void SessionService:RemoveMetadata(string sid, string key) {RobloxScriptSecurity}
 	Function void SessionService:RemoveSession(string sid) {RobloxScriptSecurity}
 	Function void SessionService:ReplaceSession(string sid, string tag) {RobloxScriptSecurity}
+	Function bool SessionService:SessionExists(string sid) {RobloxScriptSecurity}
 	Function void SessionService:SetMetadata(string sid, string key, Variant value) {RobloxScriptSecurity}
 	Function void SessionService:SetSession(string parentSid, string childSid, string tag) {RobloxScriptSecurity}
 Class Sky : Instance
@@ -2839,7 +2862,6 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function RaycastResult StudioService:GizmoRaycast(Vector3 origin, Vector3 direction, RaycastParams raycastParams = RaycastParams.new()) {PluginSecurity}
 	Function bool StudioService:IsPluginInstalled(int64 assetId) {RobloxScriptSecurity}
 	Function bool StudioService:IsPluginUpToDate(int64 assetId, int64 currentAssetVersion) {RobloxScriptSecurity}
-	Function void StudioService:LaunchBulkImport(int assetTypeToImport) {RobloxScriptSecurity}
 	Function void StudioService:OpenInBrowser_DONOTUSE(string url) {RobloxScriptSecurity}
 	Function void StudioService:OpenPluginInsertPage(int64 assetId) {RobloxScriptSecurity}
 	Function Instance StudioService:PromptImportFile(Array fileTypeFilter = {}) {PluginSecurity} [Yields]
@@ -2850,12 +2872,10 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function string StudioService:SerializeInstances(Objects instances) {RobloxScriptSecurity}
 	Function void StudioService:SetPluginEnabled(int64 assetId, bool state) {RobloxScriptSecurity}
 	Function void StudioService:SetUniverseDisplayName(string newName) {RobloxScriptSecurity}
-	Function void StudioService:ShowBulkImportView() {RobloxScriptSecurity}
 	Function void StudioService:ShowPublishToRoblox() {RobloxScriptSecurity}
 	Function void StudioService:TryInstallPlugin(int64 assetId, int64 assetVersionId) {RobloxScriptSecurity} [Yields]
 	Function void StudioService:UninstallPlugin(int64 assetId) {RobloxScriptSecurity}
 	Function void StudioService:UpdatePluginManagement() {RobloxScriptSecurity}
-	Event StudioService.BulkImportFinished(int state) {RobloxScriptSecurity}
 	Event StudioService.GamePublishFinished(bool success) {RobloxScriptSecurity}
 	Event StudioService.OnConvertToPackageResult(bool isSuccessful, string errorMessage) {RobloxScriptSecurity}
 	Event StudioService.OnOpenConvertToPackagePlugin(Objects instances, string name) {RobloxScriptSecurity}

@@ -253,14 +253,54 @@ Rectangle {
 		    	}
 
                 Keys.onUpPressed: {
-                    var currentView = getCurrentView();
-                    currentView.currentIndex = Math.max(0, currentView.currentIndex-1);
-					classToolTip.hide();
+                    if (insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView()) {
+                        classToolTip.hide();
+                        
+                        var currentView = getCurrentView();
+                        if(currentView.currentIndex <= 0) {
+                            currentView.currentIndex = 0;
+                        }
+
+                        var originalIndex = currentView.currentIndex;
+                        currentView.currentIndex--;
+                        while(currentView.currentIndex > -1 && currentView.currentItem.mIsPlaceholder) {
+                            if(currentView.currentIndex == 0) {
+                                currentView.currentIndex = originalIndex;
+                                break;                            
+                            }
+                            currentView.currentIndex--;
+                        }
+                    }
+                    else {
+                        var currentView = getCurrentView();
+                        currentView.currentIndex = Math.max(0, currentView.currentIndex-1);
+					    classToolTip.hide();
+                    }
                 }
                 Keys.onDownPressed: {
-                    var currentView = getCurrentView();
-                    currentView.currentIndex = Math.min(currentView.count-1, currentView.currentIndex+1);
-					classToolTip.hide();
+                    if (insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView()) {
+                        classToolTip.hide();
+                        
+                        var currentView = getCurrentView();
+                        if(currentView.currentIndex == currentView.count - 1) {
+                            return;
+                        }
+
+                        var originalIndex = currentView.currentIndex;
+                        currentView.currentIndex++;
+                        while(currentView.currentIndex < currentView.count && currentView.currentItem.mIsPlaceholder) {
+                            if(currentView.currentIndex == currentView.count - 1) {
+                                currentView.currentIndex = originalIndex;
+                                break;
+                            }
+                            currentView.currentIndex++;
+                        }
+                    }
+                    else {
+                        var currentView = getCurrentView();
+                        currentView.currentIndex = Math.min(currentView.count-1, currentView.currentIndex+1);
+					    classToolTip.hide();
+                    }
                 }
                 Keys.onEnterPressed: insertObject()
                 Keys.onReturnPressed: insertObject()
@@ -363,8 +403,14 @@ Rectangle {
 						// When scrolling, sets highlighted object to moused over class TODO: still lags and fix cursor
 						wheel.accepted = false;
 						mouseArea.exited();
-						classToolTip.hide();
-						mouseArea.entered();				
+                        if(!insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_ExpandedView()){
+                            classToolTip.hide();
+						    mouseArea.entered();		
+                        }
+                        else {
+                            var currentView = getCurrentView();
+                            currentView.currentIndex = -1
+                        }
 					}
     			}
                 Row {
@@ -697,6 +743,7 @@ Rectangle {
                                     property string mName: typeof(name) !== "undefined" ? name : ""
                                     property string mCategory: typeof(category) !== "undefined" ? category : ""
                                     property string mDescription: typeof(description) !== "undefined" ? description : ""
+                                    property bool mIsPlaceholder: typeof(isPlaceholder) !== "undefined" ? isPlaceholder : false
                                     property bool mIsUnpreferred: {
                                         if(insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv0_Consolidated()) {
                                             typeof(isUnpreferred) !== "undefined" ? isUnpreferred : false
@@ -761,6 +808,7 @@ Rectangle {
                                     property string mName: typeof(name) !== "undefined" ? name : ""
                                     property string mCategory: typeof(category) !== "undefined" ? category : ""
                                     property string mDescription: typeof(description) !== "undefined" ? description : ""
+                                    property bool mIsPlaceholder: typeof(isPlaceholder) !== "undefined" ? isPlaceholder : false
                                     property bool mIsUnpreferred: {
                                         if(insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv0_Consolidated()) {
                                             typeof(isUnpreferred) !== "undefined" ? isUnpreferred : false
@@ -823,6 +871,7 @@ Rectangle {
                                     property string mName: typeof(name) !== "undefined" ? name : ""
                                     property string mCategory: typeof(category) !== "undefined" ? category : ""
                                     property string mDescription: typeof(description) !== "undefined" ? description : ""
+                                    property bool mIsPlaceholder: typeof(isPlaceholder) !== "undefined" ? isPlaceholder : false
                                     property bool mIsUnpreferred: {
                                         if(insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv0_Consolidated()) {
                                             typeof(isUnpreferred) !== "undefined" ? isUnpreferred : false

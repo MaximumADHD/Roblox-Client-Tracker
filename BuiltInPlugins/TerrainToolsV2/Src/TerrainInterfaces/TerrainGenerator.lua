@@ -5,8 +5,8 @@ local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 local Shape = TerrainEnums.Shape
 local Biome = TerrainEnums.Biome
 
-local PartConverterUtil = require(Plugin.Src.Util.PartConverterUtil)
-local getAABBRegion = PartConverterUtil.getAABBRegion
+local getAABBRegion = require(Plugin.Src.Util.getAABBRegion)
+local getShapeFunction = require(Plugin.Src.Util.getShapeFunction)
 
 local FFlagTerrainToolMetrics = settings():GetFFlag("TerrainToolMetrics")
 
@@ -87,7 +87,6 @@ local function create(generateSettings)
 		"createGeneratorState requires a generate settings table")
 
 	local mapCFrame = generateSettings.cframe
-	local mapPosition = mapCFrame.Position
 	local mapSize = generateSettings.size
 	local biomeSelection = generateSettings.biomeSelection
 	local biomeSize = generateSettings.biomeSize
@@ -95,7 +94,7 @@ local function create(generateSettings)
 	local seed = generateSettings.seed
 
 	local shape = generateSettings.shape or Shape.Block
-	local shapeFunc = PartConverterUtil.getShapeFunction(shape)
+	local shapeFunc = getShapeFunction(shape)
 
 	-- Turn given position and size into a region to work in
 	-- but also allow precalc for region where applicable
@@ -151,7 +150,7 @@ local function create(generateSettings)
 	-- Turn the region back into voxel coordinates
 	local voxelSize = mapRegion.Size / Constants.VOXEL_RESOLUTION
 	local voxelExtents = voxelSize / 2
-	mapPosition = mapRegion.CFrame.Position
+	local mapPosition = mapRegion.CFrame.Position
 
 	local mapPositionVoxel = mapPosition / Constants.VOXEL_RESOLUTION
 	local cornerWorldVoxel = mapPositionVoxel - (voxelSize / 2)
@@ -649,14 +648,12 @@ local function generateSlice(state, terrainInstance)
 	end
 
 	local mapCFrame = state.mapCFrame
-	local mapPosition = state.mapPosition
 	local mapSize = state.mapSize
 	local mapVoxelExtent = mapSize / Constants.VOXEL_RESOLUTION / 2
 
 	local voxelExtents = state.voxelExtents
 	local cornerWorldVoxel = state.cornerWorldVoxel
 	local cornerWorldVoxelX = cornerWorldVoxel.X
-	local cornerWorldVoxelY = cornerWorldVoxel.Y
 	local cornerWorldVoxelZ = cornerWorldVoxel.Z
 
 	local sliceHeight = state.sliceHeight

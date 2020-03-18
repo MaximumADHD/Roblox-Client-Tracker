@@ -200,5 +200,6 @@ Studio.TerrainToolsV2.Warning.RegionSizeUndefined, , ,Size of region must be def
 Studio.TerrainToolsV2.Warning.RegionTooLarge, , ,Region size is too large.
 Studio.TerrainToolsV2.Warning.RegionTooSmall, , ,Region size is too small.
 Studio.TerrainToolsV2.Warning.RequirePublishedForImport, , ,Game must be published before importing terrain.
+Studio.TerrainToolsV2.Warning.UnknownAssetStatusError, , ,Unable to verify asset.
 Studio.TerrainToolsV2.Warning.UnknownShape, , ,Instance shape is unknown
 Studio.TerrainToolsV2.Warning.ValidHeightMapImport, , ,Valid HeightMap required to begin importing Terrain.

@@ -35,14 +35,9 @@ local tabLookup = {
 	[TabId.Edit] = {
 		ToolId.Add, ToolId.Subtract,
 		ToolId.Grow, ToolId.Erode, ToolId.Smooth, ToolId.Flatten,
-		ToolId.Paint
+		ToolId.Paint, ToolId.SeaLevel
 	},
 }
-
-if settings():GetFFlag("TerrainToolsSeaLevel") then
-	-- When removing flag, put this straight into the tabLookup table
-	table.insert(tabLookup[TabId.Edit], ToolId.SeaLevel)
-end
 
 if FFlagTerrainToolsConvertPartTool then
 	-- Put between import and clear

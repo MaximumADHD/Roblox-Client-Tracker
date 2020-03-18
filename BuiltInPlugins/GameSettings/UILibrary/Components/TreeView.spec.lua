@@ -4,6 +4,7 @@ local Library = script.Parent.Parent
 local Roact = require(Library.Parent.Roact)
 local MockWrapper = require(Library.MockWrapper)
 
+local FFlagStudioFixTreeViewForSquish = settings():GetFFlag("StudioFixTreeViewForSquish")
 
 local function mockDataNode(value, parent)
 	local Node = {
@@ -42,7 +43,6 @@ end
 local function mockSortChildren(nodeA, nodeB)
 	return nodeA.Value > nodeB.Value
 end
-
 
 return function()
 	describe("TreeView", function()
@@ -130,7 +130,21 @@ return function()
 				-- create an element
 				return Roact.createElement("TextLabel", {
 					Text = props.element.Value
-				})
+				}, props.children)
+			end
+
+			local count = 0
+			local function dfCount(root)
+				local children = root:GetChildren()
+				count = count + 1
+
+				if #children == 0 then
+					return
+				end
+
+				for _, child in ipairs(children) do
+					dfCount(child)
+				end
 			end
 
 			-- render the tree
@@ -144,9 +158,18 @@ return function()
 			local container = Instance.new("Folder")
 			local instance = Roact.mount(element, container)
 			local treeView = container:FindFirstChildOfClass("ScrollingFrame")
-			local renderedChildren = treeView:GetChildren()
+
+			-- Remove with FFlagStudioFixTreeViewForSquish
+			local renderedChildren
+			renderedChildren = treeView:GetChildren()
+
+			if FFlagStudioFixTreeViewForSquish then
+				dfCount(treeView)
+				expect(count).to.equal(nodesRenderedCount + 2)-- should equal number of nodes + 1 UIListLayout + 1 for RoactTree
+			else
+				expect(#renderedChildren).to.equal(nodesRenderedCount + 1)-- should equal number of nodes + 1 UIListLayout
+			end
 			expect(nodesRenderedCount).to.equal(1)
-			expect(#renderedChildren).to.equal(nodesRenderedCount + 1)-- should equal number of nodes + 1 UIListLayout
 
 			-- expand the root node, it should re-render the root node and its three children
 			nodesRenderedCount = 0
@@ -155,25 +178,59 @@ return function()
 			-- it should have rendered the children
 			treeView = container:FindFirstChildOfClass("ScrollingFrame")
 			renderedChildren = treeView:GetChildren()
-			expect(nodesRenderedCount).to.equal(4)
-			expect(#renderedChildren).to.equal(nodesRenderedCount + 1)
+			if FFlagStudioFixTreeViewForSquish then
+				count = 0
+				dfCount(treeView)
+				expect(count).to.equal(nodesRenderedCount + 2)-- should equal number of nodes + 1 UIListLayout + 1 for RoactTree
+			else
+				expect(#renderedChildren).to.equal(nodesRenderedCount + 1)-- should equal number of nodes + 1 UIListLayout
+			end
 
 			local foundChildNodes = 0
 			local foundRoot = false
 			local foundChild1 = false
 			local foundChild2 = false
 			local foundChild3 = false
-			for _, childNode in ipairs(renderedChildren) do
-				if childNode:IsA("TextLabel") then
-					foundChildNodes = foundChildNodes + 1
-					if childNode.Text == "Players" then
-						foundRoot = true
-					elseif childNode.Text == "John Doe" then
-						foundChild1 = true
-					elseif childNode.Text == "Jane Doe" then
-						foundChild2 = true
-					elseif childNode.Text == "Builderman" then
-						foundChild3 = true
+			if FFlagStudioFixTreeViewForSquish then
+				local function dfs(node)
+					local children = node:GetChildren()
+
+					if node:IsA("TextLabel") then
+						foundChildNodes = foundChildNodes + 1
+						if node.Text == "Players" then
+							foundRoot = true
+						elseif node.Text == "John Doe" then
+							foundChild1 = true
+						elseif node.Text == "Jane Doe" then
+							foundChild2 = true
+						elseif node.Text == "Builderman" then
+							foundChild3 = true
+						end
+					end
+
+					if #children == 0 then
+						return
+					end
+
+					for _, child in ipairs(children) do
+						dfs(child)
+					end
+				end
+
+				dfs(treeView)
+			else
+				for _, childNode in ipairs(renderedChildren) do
+					if childNode:IsA("TextLabel") then
+						foundChildNodes = foundChildNodes + 1
+						if childNode.Text == "Players" then
+							foundRoot = true
+						elseif childNode.Text == "John Doe" then
+							foundChild1 = true
+						elseif childNode.Text == "Jane Doe" then
+							foundChild2 = true
+						elseif childNode.Text == "Builderman" then
+							foundChild3 = true
+						end
 					end
 				end
 			end
@@ -220,7 +277,7 @@ return function()
 			local nodeCount = 0
 			local renderElement = function(props)
 				nodeCount = nodeCount + 1
-				return Roact.createElement("Frame", {})
+				return Roact.createElement("Frame", {}, props.children)
 			end
 
 			local element = Roact.createElement(MockWrapper, {}, {
@@ -237,10 +294,29 @@ return function()
 			local treeView = container:FindFirstChildOfClass("ScrollingFrame")
 			local treeViewChildren = treeView:GetChildren()
 
+			local count = 0
+			local function dfCount(root)
+				local children = root:GetChildren()
+				count = count + 1
+
+				if #children == 0 then
+					return
+				end
+
+				for _, child in ipairs(children) do
+					dfCount(child)
+				end
+			end
+
 			-- mockDataTree has 8 nodes
 			expect(nodeCount).to.equal(8)
-			-- there should be 8 nodes + 1 UIListLayout
-			expect(#treeViewChildren).to.equal(nodeCount + 1)
+			if FFlagStudioFixTreeViewForSquish then
+				dfCount(treeView)
+				expect(count).to.equal(nodeCount + 2)
+			else
+				-- there should be 8 nodes + 1 UIListLayout
+				expect(#treeViewChildren).to.equal(nodeCount + 1)
+			end
 
 			Roact.unmount(instance)
 		end)

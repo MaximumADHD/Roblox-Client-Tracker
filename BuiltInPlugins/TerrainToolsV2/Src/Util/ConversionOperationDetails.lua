@@ -2,6 +2,7 @@ local Plugin = script.Parent.Parent.Parent
 
 local Constants = require(Plugin.Src.Util.Constants)
 local PartConverterUtil = require(Plugin.Src.Util.PartConverterUtil)
+local getAABBRegion = require(Plugin.Src.Util.getAABBRegion)
 
 local TerrainGenerator = require(Plugin.Src.TerrainInterfaces.TerrainGenerator)
 
@@ -169,9 +170,9 @@ local ConvertShapesToBiomes = {
 	name = "ConvertShapesToBiome",
 	timeBetweenSteps = 0.01,
 
-	-- onStart should be refactored to utilize 
+	-- onStart should be refactored to utilize
 	-- getInstanceSetAABBExtents but this will require
-	-- changing the long operation to support it. 
+	-- changing the long operation to support it.
 	-- Once we know where PartToBiome will exist, we can
 	-- handle the refactor there.
 	onStart = function(data)
@@ -188,25 +189,10 @@ local ConvertShapesToBiomes = {
 		]]--
 		for ind = 1, data.totalShapes do
 			local shape = data.shapes[ind]
-			local partPos = shape[2].Position
-			local oldHalfSize = shape[3] * 0.5
-			local cFrameComps = {shape[2]:GetComponents()}
-
-			-- used to finded the size of the AABB of the oriented part
-			local orientedHalfSize = Vector3.new(
-				math.abs(cFrameComps[4]) * oldHalfSize.x
-					+ math.abs(cFrameComps[5]) * oldHalfSize.y
-					+ math.abs(cFrameComps[6]) * oldHalfSize.z,
-				math.abs(cFrameComps[7]) * oldHalfSize.x
-					+ math.abs(cFrameComps[8]) * oldHalfSize.y
-					+ math.abs(cFrameComps[9]) * oldHalfSize.z,
-				math.abs(cFrameComps[10]) * oldHalfSize.x
-					+ math.abs(cFrameComps[11]) * oldHalfSize.y
-					+ math.abs(cFrameComps[12]) * oldHalfSize.z)
-
-			-- insert calculated aabb into shape data
-			data.shapes[ind][5] = Region3.new(partPos - orientedHalfSize, partPos + orientedHalfSize)
-				:ExpandToGrid(Constants.VOXEL_RESOLUTION)
+			local cframe = shape[2]
+			local size = shape[3]
+			local region = getAABBRegion(cframe, size)
+			shape[5] = region
 		end
 
 		local maxLimits = 99999999

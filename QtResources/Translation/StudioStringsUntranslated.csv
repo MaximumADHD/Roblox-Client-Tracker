@@ -22,6 +22,16 @@ Studio.App.AddImageDialog.CreateAssetName,,Creating asset name...,Creating asset
 Studio.App.AddImageDialog.FileDoesNotExist,,File does not exist,File does not exist
 Studio.App.AddImageDialog.Image,,Image:,Image:
 Studio.App.AddImageDialog.ImageFileRequired,,Image file is required,Image file is required
+Studio.App.AssetManagerService.AssetIdInvalid,,AssetId is invalid,AssetId is invalid
+Studio.App.AssetManagerService.DataModelInvalid,,DataModel is invalid,DataModel is invalid
+Studio.App.AssetManagerService.InsertInstanceExceptionArg1,,Exception while inserting instance into datamodel: %1,Exception while inserting instance into datamodel: %1
+Studio.App.AssetManagerService.InvalidArgumentExceptionArg1,,Exception while converting string to id: %1,Exception while converting string to id: %1
+Studio.App.AssetManagerService.MessageFieldNotFound,,"'success' is false, 'message' field not found","'success' is false, 'message' field not found"
+Studio.App.AssetManagerService.PackageIdInvalid,,PackageId is invalid,PackageId is invalid
+Studio.App.AssetManagerService.PackageInsertErrorArg1,,Error while inserting package: %1,Error while inserting package: %1
+Studio.App.AssetManagerService.PlaceIdInvalid,,PlaceId is invalid,PlaceId is invalid
+Studio.App.AssetManagerService.ResponseInvalid,,Http response is invalid,Http response is invalid
+Studio.App.AssetManagerService.ReturnedIdMalformed,,Id returned for mesh part is malformed,Id returned for mesh part is malformed
 Studio.App.AuthenticationHelper.AuthFailedTimeout,,Could not authenticate user. Request timed out.,Could not authenticate user. Request timed out.
 Studio.App.AuthenticationHelper.AuthFailedTryAgain,,Authentication failed. Please try again or contact support if the problem persists.,Authentication failed. Please try again or contact support if the problem persists.
 Studio.App.AutoSave.AutoSaveRecovery,,Auto-Save Recovery,Auto-Save Recovery
@@ -46,6 +56,8 @@ Studio.App.BetaFeatures.AccessPermissionsDescription,,"Add any group, user, or r
 Studio.App.BetaFeatures.AccessPermissionsTitle,,Game Access Permissions,Game Access Permissions
 Studio.App.BetaFeatures.AnimationEditorDescription,,Enables the new Beta version of the Animation Editor.,Enables the new Beta version of the Animation Editor.
 Studio.App.BetaFeatures.AnimationEditorTitle,,Animation Editor Beta,Animation Editor Beta
+Studio.App.BetaFeatures.AssetManagerDescription,,Uses the new lua-based Asset Manager,Uses the new lua-based Asset Manager
+Studio.App.BetaFeatures.AssetManageritle,,Asset Manager,Asset Manager
 Studio.App.BetaFeatures.AsyncPublishDescription,,Keep working in Studio as we publish in the background,Keep working in Studio as we publish in the background
 Studio.App.BetaFeatures.AsyncPublishTitle,,Async Publish Beta,Async Publish Beta
 Studio.App.BetaFeatures.AutoUpdateDescription,,Adds an option to automatically update a package when a newer package is available,Adds an option to automatically update a package when a newer package is available
@@ -126,6 +138,8 @@ Studio.App.BulkImportController.TooManyToSplit,,You cannot split more than %1 fi
 Studio.App.BulkImportController.TryAgain,,Did not get a result. Please try again or contact support if the problem persists.,Did not get a result. Please try again or contact support if the problem persists.
 Studio.App.BulkImportController.UnknownError,,An unknown error occurred. Please try again or contact support if the problem persists.,An unknown error occurred. Please try again or contact support if the problem persists.
 Studio.App.BulkImportController.UnsupportedAsset,,List of files contains unsupported asset type. Please try again or contact support if the problem persists.,List of files contains unsupported asset type. Please try again or contact support if the problem persists.
+Studio.App.BulkImportService.UniverseNotValid,,Universe is not valid,Universe is not valid
+Studio.App.BulkImportService.UniverseResourcesNotLoaded,,Universe resources are not loaded yet,Universe resources are not loaded yet
 Studio.App.BulkImportWidget.CancelImport,,Cancel Import,Cancel Import
 Studio.App.BulkImportWidget.ContinueImport,,Continue Import,Continue Import
 Studio.App.BulkImportWidget.ImportNotComplete,,Your import is not complete. Closing the widget will cancel the entire import process. Would you like to cancel it?,Your import is not complete. Closing the widget will cancel the entire import process. Would you like to cancel it?
@@ -678,6 +692,8 @@ Studio.App.MainWindow.UploadingVideoQuitAnyway,Main Window,Roblox is uploading a
 Studio.App.MainWindow.Version1,Main Window,Version %1,Version %1
 Studio.App.MainWindow.VersionLatest,About Dialog,Latest version available %1,Latest version available %1
 Studio.App.MainWindow.WaitingForShutdown,Main Window,Waiting for Shutdown,Waiting for Shutdown
+Studio.App.ManageEmulationDeviceDialog.CloneDevice,,Clone Device,Clone Device
+Studio.App.ManageEmulationDeviceDialog.EmulationDeviceManager,,Emulation Device Manager,Emulation Device Manager
 Studio.App.Materials.Concrete,,Concrete,Concrete
 Studio.App.Materials.Fabric,,Fabric,Fabric
 Studio.App.Materials.Foil,,Foil,Foil
@@ -822,6 +838,10 @@ Studio.App.PluginLoader.CloudWriteFailedFmt1,error writing installed plugins to 
 Studio.App.PluginLoader.DownloadFailedFmt1,error downloading plugin,Failed to download plugin: %1,Failed to download plugin: %1
 Studio.App.PluginLoader.RefreshingPluginElps,,Refreshing plugin...,Refreshing plugin...
 Studio.App.PluginLoader.RefreshingPluginsElps,,Refreshing plugins...,Refreshing plugins...
+Studio.App.PluginPermissionsDialog.Allow,,Allow,Allow
+Studio.App.PluginPermissionsDialog.Deny,,Deny,Deny
+Studio.App.PluginPermissionsDialog.HttpDomainPermission,,Allow plugin %1 to access %2?,Allow plugin %1 to access %2?
+Studio.App.PluginPermissionsDialog.Warning,,You can always revoke this permission from Plugins > Plugin Management.,You can always revoke this permission from Plugins > Plugin Management.
 Studio.App.Properties.TitleFmt1,title of properties widget,Properties - %1,Properties - %1
 Studio.App.Property.AdditionalCoreIncludeDirs,,Additional Core Include Dirs,Additional Core Include Dirs
 Studio.App.Property.AllowSleep,,Allow Sleep,Allow Sleep
@@ -1131,6 +1151,8 @@ Studio.App.RBXMainWindow.BreakAllExceptionsDebugger,,Break all exceptions into d
 Studio.App.RBXMainWindow.BulkImport,,Bulk Import,Bulk Import
 Studio.App.RBXMainWindow.CalibratePhysicalSizeScaling,,Calibrate Physical Size scaling for your screen,Calibrate Physical Size scaling for your screen
 Studio.App.RBXMainWindow.CalibrateScalingElps,,Calibrate scaling...,Calibrate scaling...
+Studio.App.RBXMainWindow.CantSaveAndReloadLua,,The original plugin was a .lua file.  The plugin in its current form cannot be saved out as a single lua file.,The original plugin was a .lua file.  The plugin in its current form cannot be saved out as a single lua file.
+Studio.App.RBXMainWindow.CantSaveAndReloadLuaTitle,,Cannot Save And Reload,Cannot Save And Reload
 Studio.App.RBXMainWindow.CheckNetworkAndUserAuthentication,,"Feature not available in offline mode.
 Please check internet connection and restart Roblox.","Feature not available in offline mode.
 Please check internet connection and restart Roblox."
@@ -1344,6 +1366,8 @@ Studio.App.RBXMainWindow.RotateTool,,Rotate Tool,Rotate Tool
 Studio.App.RBXMainWindow.Run,,Run,Run
 Studio.App.RBXMainWindow.SaveActiveDocumentToRoblox,,Save Active Document to Roblox,Save Active Document to Roblox
 Studio.App.RBXMainWindow.SaveActiveDocumentToRobloxAs,,Save Active Document to Roblox As,Save Active Document to Roblox As
+Studio.App.RBXMainWindow.SaveAndReloadPlugin,,Save and Reload Plugin,Save and Reload Plugin
+Studio.App.RBXMainWindow.SaveAndReloadPluginTooltip,,Save Plugin back to disk. Stop plugin exection. Reload from disk.,Save Plugin back to disk. Stop plugin exection. Reload from disk.
 Studio.App.RBXMainWindow.SaveAsCSVElps,,Save as CSV...,Save as CSV...
 Studio.App.RBXMainWindow.SaveAsElps,,Save As...,Save As...
 Studio.App.RBXMainWindow.SaveAsLocalPluginElps,,Save as Local Plugin...,Save as Local Plugin...
@@ -2087,6 +2111,9 @@ Studio.App.VersionHistoryDialog.CommittedColumnTitle,,Committed,Committed
 Studio.App.VersionHistoryDialog.CommitterColumnTitle,,Changed By,Changed By
 Studio.App.VersionHistoryDialog.CompareButtonText,,Compare selected versions,Compare selected versions
 Studio.App.VersionHistoryDialog.CompareWithPreviousButtonText,,Compare with previous version,Compare with previous version
+Studio.App.VersionHistoryDialog.ConflictDialogMessage,,Unable to edit the following script(s) as they have uncommitted changes that'll be lost. Please commit or discard local changes and retry the operation.,Unable to edit the following script(s) as they have uncommitted changes that'll be lost. Please commit or discard local changes and retry the operation.
+Studio.App.VersionHistoryDialog.ConflictDialogTitle,,Unable To Edit Script(s),Unable To Edit Script(s)
+Studio.App.VersionHistoryDialog.ConflictingScripts,,Conflicting Script(s),Conflicting Script(s)
 Studio.App.VersionHistoryDialog.CurrentVersionLabel1,,%1 (Current),%1 (Current)
 Studio.App.VersionHistoryDialog.EditAllButtonText,,Edit all scripts from the batch,Edit all scripts from the batch
 Studio.App.VersionHistoryDialog.EditThisButtonText,,Edit this script,Edit this script

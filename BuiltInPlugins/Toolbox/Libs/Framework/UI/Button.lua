@@ -107,8 +107,8 @@ function Button:render()
 			Font = style.Font,
 			TextSize = style.TextSize,
 			TextColor3 = style.TextColor,
-			TextXAlignment = FFlagStudioFixTreeViewForSquish and style.TextXAlignment,
-			TextYAlignment = FFlagStudioFixTreeViewForSquish and style.TextYAlignment,
+			TextXAlignment = FFlagStudioFixTreeViewForSquish and style.TextXAlignment or nil,
+			TextYAlignment = FFlagStudioFixTreeViewForSquish and style.TextYAlignment or nil,
 			Text = text,
 			ZIndex = 2,
 

@@ -98,4 +98,11 @@ TerrainEnums.Shape = {
 	Wedge = "Wedge",
 }
 
+-- Maps to keys in the localization table under the Warning group
+TerrainEnums.ConvertPartError = {
+	RegionTooLarge = "RegionTooLarge",
+	UnknownShape = "UnknownShape",
+	InvalidSize = "InvalidSize",
+}
+
 return TerrainEnums

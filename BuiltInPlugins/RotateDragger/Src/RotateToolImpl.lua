@@ -118,7 +118,8 @@ function RotateToolImpl:hitTest(mouseRay)
             closestHandleId = handleId
         end
 	end
-    return closestHandleId, closestHandleDistance
+	-- Return 0 distance to have the handles hittest as always on top of parts
+    return closestHandleId, 0
 end
 
 function RotateToolImpl:render(hoveredHandleId)

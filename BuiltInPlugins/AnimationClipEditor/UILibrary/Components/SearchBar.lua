@@ -7,6 +7,7 @@
 		UDim2 Size: size of the searchBar
 		number LayoutOrder = 0 : optional layout order for UI layouts
 		string DefaultText = default text to show in the empty search bar.
+		bool Enabled : searchbar is enabled or not
 
 		callback OnSearchRequested(string searchTerm) : callback for when the user presses the enter key
 			or clicks the search button or types if search is live
@@ -43,79 +44,98 @@ function SearchBar:init()
 	self.textBoxRef = Roact.createRef()
 
 	self.requestSearch = function()
-		self.props.OnSearchRequested(self.state.text)
+		if self.props.Enabled then
+			self.props.OnSearchRequested(self.state.text)
+		end
 	end
 
 	self.onContainerHovered = function()
-		self:setState({
-			isContainerHovered = true,
-		})
+		if self.props.Enabled then
+			self:setState({
+				isContainerHovered = true,
+			})
+		end
 	end
 
 	self.onContainerHoverEnded = function()
-		self:setState({
-			isContainerHovered = false,
-		})
+		if self.props.Enabled then
+			self:setState({
+				isContainerHovered = false,
+			})
+		end
 	end
 
 	self.onTextChanged = function(rbx)
-		local text = stripSearchTerm(rbx.Text)
-		local textBox = self.textBoxRef.current
-		if self.state.text ~= text then
-			self:setState({
-				text = text,
-			})
+		if self.props.Enabled then
+			local text = stripSearchTerm(rbx.Text)
+			local textBox = self.textBoxRef.current
+			if self.state.text ~= text then
+				self:setState({
+					text = text,
+				})
 
-			delay(TEXT_SEARCH_THRESHOLD / 1000, function()
-				if text ~= "" then
-					self.requestSearch()
+				delay(TEXT_SEARCH_THRESHOLD / 1000, function()
+					if text ~= "" then
+						self.requestSearch()
+					end
+				end)
+
+				local textBound = TextService:GetTextSize(text, textBox.TextSize, textBox.Font, Vector2.new(math.huge, math.huge))
+				if textBound.x > textBox.AbsoluteSize.x then
+					textBox.TextXAlignment = Enum.TextXAlignment.Right
+				else
+					textBox.TextXAlignment = Enum.TextXAlignment.Left
 				end
-			end)
-
-			local textBound = TextService:GetTextSize(text, textBox.TextSize, textBox.Font, Vector2.new(math.huge, math.huge))
-			if textBound.x > textBox.AbsoluteSize.x then
-				textBox.TextXAlignment = Enum.TextXAlignment.Right
-			else
-				textBox.TextXAlignment = Enum.TextXAlignment.Left
 			end
 		end
 	end
 
 	self.onTextBoxFocused = function(rbx)
-		self:setState({
-			isFocused = true,
-		})
+		if self.props.Enabled then
+			self:setState({
+				isFocused = true,
+			})
+		end
 	end
 
 	self.onTextBoxFocusLost = function(rbx, enterPressed, inputObject)
-		self:setState({
-			isFocused = false,
-			isContainerHovered = false,
-		})
+		if self.props.Enabled then
+			self:setState({
+				isFocused = false,
+				isContainerHovered = false,
+			})
+		end
 	end
 
 	self.onClearButtonHovered = function()
-		self:setState({
-			isClearButtonHovered = true,
-		})
+		if self.props.Enabled then
+			self:setState({
+				isClearButtonHovered = true,
+			})
+		end
 	end
 
 	self.onClearButtonHoverEnded = function()
-		self:setState({
-			isClearButtonHovered = false,
-		})
+		if self.props.Enabled then
+			self:setState({
+				isClearButtonHovered = false,
+			})
+		end
 	end
 
 	self.onClearButtonClicked = function()
-		local textBox = self.textBoxRef.current
-		self:setState({
-			isFocused = true,
-			isClearButtonHovered = false,
-		})
+		if self.props.Enabled then
+			local textBox = self.textBoxRef.current
+			self:setState({
+				isFocused = true,
+				isClearButtonHovered = false,
+			})
 
-		textBox.Text = ""
-		textBox:CaptureFocus()
-		textBox.TextXAlignment = Enum.TextXAlignment.Left
+			textBox.Text = ""
+			self.props.OnSearchRequested("")
+			textBox:CaptureFocus()
+			textBox.TextXAlignment = Enum.TextXAlignment.Left
+		end
 	end
 end
 
@@ -126,6 +146,9 @@ function SearchBar:render()
 
 		local size = props.Size
 		local layoutOrder = props.LayoutOrder or 0
+		local defaultText = props.DefaultText
+		local enabled = props.Enabled
+
 		local onSearchRequested = props.OnSearchRequested
 
 		assert(size ~= nil, "Searchbar requires a size.")
@@ -173,8 +196,6 @@ function SearchBar:render()
 		end
 
 		local clearButtonImage = isClearButtonHovered and searchBarTheme.images.clear.hovered.image or searchBarTheme.images.clear.image
-
-		local defaultText = self.props.DefaultText
 
 		local layoutIndex = LayoutOrderIterator.new()
 
@@ -228,7 +249,7 @@ function SearchBar:render()
 					TextXAlignment = Enum.TextXAlignment.Left,
 					TextColor3 = searchBarTheme.text.color,
 					Text = text,
-					TextEditable = true,
+					TextEditable = enabled,
 
 					PlaceholderText = defaultText,
 					PlaceholderColor3 = searchBarTheme.text.placeholder.color,
@@ -310,7 +331,7 @@ function SearchBar:render()
 					TextXAlignment = Enum.TextXAlignment.Left,
 					TextColor3 = searchBarTheme.text.color,
 					Text = text,
-					TextEditable = true,
+					TextEditable = enabled,
 
 					PlaceholderText = defaultText,
 					PlaceholderColor3 = searchBarTheme.text.placeholder.color,

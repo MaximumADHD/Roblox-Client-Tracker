@@ -1,16 +1,9 @@
-local FFlagTerrainToolsUIUpdate = settings():GetFFlag("TerrainToolsUIUpdate")
-if not FFlagTerrainToolsUIUpdate then
-	return
-end
-
 if not plugin then
 	return
 end
 
 -- Fast flags
 require(script.Parent.defineLuaFlags)
-
-local FFlagTerrainToolsSeaLevel = game:GetFastFlag("TerrainToolsSeaLevel")
 local FFlagTerrainToolsConvertPartTool = game:GetFastFlag("TerrainToolsConvertPartTool")
 
 -- services
@@ -27,10 +20,8 @@ local TerrainBrush = require(Plugin.Src.TerrainInterfaces.TerrainBrushInstance)
 local ToolSelectionListener = require(Plugin.Src.Components.ToolSelectionListener)
 local TerrainImporter = require(Plugin.Src.TerrainInterfaces.TerrainImporterInstance)
 local TerrainGeneration = require(Plugin.Src.TerrainInterfaces.TerrainGenerationInstance)
-local TerrainSeaLevel
-if FFlagTerrainToolsSeaLevel then
-	TerrainSeaLevel = require(Plugin.Src.TerrainInterfaces.TerrainSeaLevel)
-end
+local TerrainSeaLevel = require(Plugin.Src.TerrainInterfaces.TerrainSeaLevel)
+
 local PartConverter
 if FFlagTerrainToolsConvertPartTool then
 	PartConverter = require(Plugin.Src.TerrainInterfaces.PartConverter)
@@ -88,13 +79,11 @@ local terrainGeneration = TerrainGeneration.new({
 	localization = localization,
 })
 
-local seaLevel
-if FFlagTerrainToolsSeaLevel then
-	seaLevel = TerrainSeaLevel.new({
+local seaLevel = TerrainSeaLevel.new({
 		terrain = terrain,
 		localization = localization,
 	})
-end
+
 local partConverter
 if FFlagTerrainToolsConvertPartTool then
 	partConverter = PartConverter.new({

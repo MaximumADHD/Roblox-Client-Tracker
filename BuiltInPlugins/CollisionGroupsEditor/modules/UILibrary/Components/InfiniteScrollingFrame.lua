@@ -37,13 +37,13 @@ function InfiniteScrollingFrame:init(props)
 
 	self.scrollingFrameRef = Roact.createRef()
 
-	self.checkCanvasAndRequest = function(self)
+	self.checkCanvasAndRequest = function()
 		local scrollingFrame = self.scrollingFrameRef.current
 		if not scrollingFrame then return end
 		local canvasY = scrollingFrame.CanvasPosition.Y
 		local windowHeight = scrollingFrame.AbsoluteWindowSize.Y
         local canvasHeight = scrollingFrame.CanvasSize.Y.Offset
-        
+
         local requestDistance = self.props.NextPageRequestDistance or DEFAULT_REQUEST_DISTANCE
 
 		-- Where the bottom of the scrolling frame is relative to canvas size
@@ -87,9 +87,9 @@ end
 
 function InfiniteScrollingFrame:render()
 	local props = self.props
-	
+
 	local nextPageFunc = self.props.NextPageFunc
-	
+
 	assert(nextPageFunc ~= nil and type(nextPageFunc) == "function",
 		"InfiniteScrollingFrame requires a NextPageFunc function.")
 
@@ -97,25 +97,26 @@ function InfiniteScrollingFrame:render()
     local size = props.Size
     local layoutOrder = props.LayoutOrder
 
-    local layoutRef = props.LayoutRef and props.LayoutRef.current
+    local layout= props.LayoutRef and props.LayoutRef.current
 	local canvasHeight = DEFAULT_CANVAS_HEIGHT
-	if layoutRef then
-		canvasHeight = layoutRef.AbsoluteContentSize.Y 
+	if layout then
+		canvasHeight = layout.AbsoluteContentSize.Y
 	elseif props.CanvasHeight then
 		canvasHeight = props.CanvasHeight
 	end
 
     return Roact.createElement(StyledScrollingFrame, {
         Position = position,
-        Size = size,
-		CanvasSize = UDim2.new(1, 0, 0, canvasHeight),
+		Size = size,
 		LayoutOrder = layoutOrder,
+		CanvasSize = UDim2.new(1, 0, 0, canvasHeight),
         ZIndex = 1,
 
-        ScrollingEnabled = true,
+		ScrollingEnabled = true,
+
+		onScroll = self.onScroll,
 
         [Roact.Ref] = self.scrollingFrameRef,
-        onScroll = self.onScroll,
     }, props[Roact.Children])
 end
 

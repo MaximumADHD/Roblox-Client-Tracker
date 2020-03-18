@@ -32,8 +32,6 @@ local StyleModifier = Util.StyleModifier
 
 local SetScreen = require(Plugin.Src.Actions.SetScreen)
 
-local OnScreenChange = require(Plugin.Src.Thunks.OnScreenChange)
-
 local Screens = require(Plugin.Src.Util.Screens)
 
 local NavBar = Roact.PureComponent:extend("NavBar")
@@ -95,12 +93,12 @@ local function buildPathComponents(props, theme, localization, dispatch)
         end
 
         if startingScreenKey == Screens.MAIN.Key then
-            local gameIDText = string.format(localization:getText("NavBar", "ID"), game.GameId)
+            local gameIDText = localization:getText("NavBar", "ID", {gameId = game.GameId})
 
             local textExtents = GetTextSize(gameIDText, theme.FontSizeSmall, theme.Font)
             local textDimensions = UDim2.fromOffset(textExtents.X, textExtents.Y)
 
-            pathComponents["GameId"] = Roact.createElement("TextLabel", {
+            pathComponents["UniverseId"] = Roact.createElement("TextLabel", {
                 Size = textDimensions,
                 BackgroundTransparency = 1,
                 Text = gameIDText,
@@ -177,7 +175,6 @@ local function useDispatchForProps(dispatch)
         dispatchSetScreen = function(enabled, apiImpl, screen)
             if enabled then
                 dispatch(SetScreen(screen))
-                dispatch(OnScreenChange(apiImpl, screen))
             end
         end,
     }

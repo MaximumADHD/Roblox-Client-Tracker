@@ -12,6 +12,7 @@ if not FFlagAssetManagerLuaPlugin then
 end
 
 local StudioService = game:GetService("StudioService")
+local BulkImportService = game:GetService("BulkImportService")
 
 -- libraries
 local Plugin = script.Parent.Parent
@@ -38,7 +39,9 @@ local TranslationReferenceTable = Plugin.Src.Resources.TranslationReferenceTable
 
 local MainView = require(Plugin.Src.Components.MainView)
 
-local Asset_Manager_META_NAME = "Asset Manager"
+local SetBulkImporterRunning = require(Plugin.Src.Actions.SetBulkImporterRunning)
+
+local ASSET_MANAGER_META_NAME = "Asset Manager"
 local PLUGIN_NAME = "AssetManager"
 local TOOLBAR_NAME = "Assets"
 local DOCK_WIDGET_PLUGIN_NAME = "AssetManager_PluginGui"
@@ -99,11 +102,17 @@ local function toggleWidget()
 	pluginGui.Enabled = not pluginGui.Enabled
 end
 
-local function onWidgetFocused()
-end
-
 local function onPluginUnloading()
 	closePluginWindow()
+end
+
+local function connectBulkImporterSignals()
+	BulkImportService.BulkImportStarted:connect(function()
+		store:dispatch(SetBulkImporterRunning(true))
+	end)
+	BulkImportService.BulkImportFinished:connect(function(state)
+		store:dispatch(SetBulkImporterRunning(false))
+	end)
 end
 
 --Binds a toolbar button
@@ -111,8 +120,8 @@ local function main()
 	plugin.Name = "Asset Manager"
 	local toolbar = plugin:CreateToolbar(TOOLBAR_NAME)
 	local toolbarButton = toolbar:CreateButton(
-		Asset_Manager_META_NAME,
-		localization:getText("Main", "PluginButtonTooltip"),
+		ASSET_MANAGER_META_NAME,
+		localization:getText("Main", "Tooltip"),
 		"rbxasset://textures/TerrainTools/icon_terrain_big.png",
 		localization:getText("Main", "ToolbarButton")
 	)
@@ -150,8 +159,8 @@ local function main()
 	-- configure the widget and button if its visible
 	showIfEnabled()
 
-	pluginGui.WindowFocused:Connect(onWidgetFocused)
 	plugin.Unloading:Connect(onPluginUnloading)
+	connectBulkImporterSignals()
 end
 
 main()

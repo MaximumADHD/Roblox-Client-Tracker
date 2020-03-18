@@ -1,4 +1,5 @@
 local Plugin = script.Parent.Parent.Parent.Parent
+local TextService = game:GetService("TextService")
 
 local PermissionsService = game:GetService("PermissionsService")
 
@@ -15,10 +16,15 @@ local PluginAPI2 = require(Plugin.Src.ContextServices.PluginAPI2)
 
 local FitFrameVertical = FitFrame.FitFrameVertical
 local CheckBox = UILibrary.Component.CheckBox
+local Tooltip = UILibrary.Component.Tooltip
+local Constants = require(Plugin.Src.Util.Constants)
+
+local truncateMiddleText = require(Plugin.Src.Util.truncateMiddleText)
 
 local HttpRequestHolder = Roact.Component:extend("HttpRequestHolder")
 
 local CHECKBOX_PADDING = 8
+local CHECKBOX_WIDTH = 16
 local CONTENT_PADDING = 20
 
 HttpRequestHolder.defaultProps = {
@@ -26,11 +32,51 @@ HttpRequestHolder.defaultProps = {
 }
 
 function HttpRequestHolder:init()
+	self.frameRef = Roact.createRef()
+
+	self.state = {
+		frameWidth = 0,
+	}
+
 	self.onCheckboxActivated = function(permission)
 		local apiImpl = self.props.API:get()
 		local assetId = self.props.assetId
 		return self.props.setPluginPermission(apiImpl, assetId, permission)
 	end
+
+	self.resizeFrame = function()
+		local frameRef = self.frameRef.current
+		if not frameRef then
+			return
+		end
+		if self.state.frameWidth ~= frameRef.AbsoluteSize.X then
+			self:setState({
+				frameWidth = frameRef.AbsoluteSize.X,
+			})
+		end
+	end
+
+	self.getTruncatedText = function(urlText, theme)
+		local result = ""
+		local titleSize = TextService:GetTextSize(
+			urlText,
+			16, -- textSize
+			theme.Font,
+			Vector2.new()
+		)
+
+		local maxFrameWidth = self.state.frameWidth - CHECKBOX_WIDTH - Constants.SCROLLBAR_WIDTH_ADJUSTMENT
+		if (maxFrameWidth > 0) and (titleSize.X > maxFrameWidth) then
+			result = truncateMiddleText(urlText, 16, theme.Font, maxFrameWidth)
+		else
+			result = urlText
+		end
+		return result
+	end
+end
+
+function HttpRequestHolder:didMount()
+	self.resizeFrame()
 end
 
 function HttpRequestHolder:render()
@@ -42,18 +88,24 @@ function HttpRequestHolder:render()
 
 	local checkboxItems = {}
 	for index, permission in pairs(httpPermissions) do
-		local url = permission.data and permission.data.domain or ""
+		local fullUrlText = permission.data and permission.data.domain or ""
+		local urlText = self.getTruncatedText(fullUrlText, theme)
 
-		local elem = Roact.createElement(CheckBox, {
-			Id = index,
-			LayoutOrder = index,
-			Title = url,
-			Selected = permission.allowed,
-			Enabled = true,
-			Height = 16,
-			TextSize = 16,
-			OnActivated = function() return self.onCheckboxActivated(permission) end,
-			titlePadding = 8,
+		local elem = Roact.createElement("Frame", {
+			BackgroundTransparency = 1,
+			Size = UDim2.new(1, 0, 0, CHECKBOX_WIDTH)
+		}, {
+			CheckBox = Roact.createElement(CheckBox, {
+				Id = index,
+				Enabled = true,
+				Height = CHECKBOX_WIDTH,
+				LayoutOrder = index,
+				TextSize = 16,
+				Title = urlText,
+				titlePadding = 8,
+				Selected = permission.allowed,
+				OnActivated = function() return self.onCheckboxActivated(permission) end,
+			}),
 		})
 		table.insert(checkboxItems, elem)
 	end
@@ -62,7 +114,9 @@ function HttpRequestHolder:render()
 		BackgroundTransparency = 1,
         contentPadding = UDim.new(0, CONTENT_PADDING),
 		LayoutOrder = layoutOrder,
-        width = UDim.new(1, 0)
+		width = UDim.new(1, 0),
+		[Roact.Ref] = self.frameRef,
+		[Roact.Change.AbsoluteSize] = self.resizeFrame,
 	}, {
 		Checkboxes = Roact.createElement(FitFrameVertical, {
 			BackgroundTransparency = 1,
