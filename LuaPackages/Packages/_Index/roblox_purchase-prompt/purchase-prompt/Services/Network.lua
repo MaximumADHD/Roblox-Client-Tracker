@@ -103,9 +103,9 @@ local function getPlayerOwns(player, id, infoType)
 	return false
 end
 
-local function performPurchase(infoType, productId, expectedPrice, requestId)
+local function performPurchase(infoType, productId, expectedPrice, requestId, isRobloxPurchase)
 	local success, result = pcall(function()
-		return MarketplaceService:PerformPurchase(infoType, productId, expectedPrice, requestId)
+		return MarketplaceService:PerformPurchase(infoType, productId, expectedPrice, requestId, isRobloxPurchase)
 	end)
 
 	if success then

@@ -57,6 +57,7 @@ return function()
 
 		local state = store:getState()
 
+		-- https://jira.rbx.com/browse/EC-46
 		-- expect(platformInterface.spies.startPremiumUpsell.callCount).to.equal(1)
 		-- expect(state.promptState).to.equal(PromptState.UpsellInProgress)
 	end)
@@ -79,6 +80,7 @@ return function()
 
 		local state = store:getState()
 
+		-- https://jira.rbx.com/browse/EC-46
 		-- expect(platformInterface.spies.promptNativePurchase.callCount).to.equal(1)
 		-- expect(state.promptState).to.equal(PromptState.UpsellInProgress)
 	end)
@@ -101,6 +103,7 @@ return function()
 
 		local state = store:getState()
 
+		-- https://jira.rbx.com/browse/EC-46
 		-- expect(platformInterface.spies.startPremiumUpsell.callCount).to.equal(0)
 		-- expect(state.purchaseError).to.equal(PurchaseError.PremiumUnavailablePlatform)
 	end)

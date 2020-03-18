@@ -20,6 +20,7 @@ local RequestReducer = Rodux.createReducer(EMPTY_STATE, {
 			infoType = Enum.InfoType.Asset,
 			requestType = RequestType.Asset,
 			equipIfPurchased = action.equipIfPurchased,
+			isRobloxPurchase = action.isRobloxPurchase,
 		}
 	end,
 	[RequestGamepassPurchase.name] = function(state, action)
@@ -27,6 +28,7 @@ local RequestReducer = Rodux.createReducer(EMPTY_STATE, {
 			id = action.id,
 			infoType = Enum.InfoType.GamePass,
 			requestType = RequestType.GamePass,
+			isRobloxPurchase = false,
 		}
 	end,
 	[RequestProductPurchase.name] = function(state, action)
@@ -34,6 +36,7 @@ local RequestReducer = Rodux.createReducer(EMPTY_STATE, {
 			id = action.id,
 			infoType = Enum.InfoType.Product,
 			requestType = RequestType.Product,
+			isRobloxPurchase = false,
 		}
 	end,
 	[RequestBundlePurchase.name] = function(state, action)
@@ -41,6 +44,7 @@ local RequestReducer = Rodux.createReducer(EMPTY_STATE, {
 			id = action.id,
 			infoType = Enum.InfoType.Bundle,
 			requestType = RequestType.Bundle,
+			isRobloxPurchase = true,
 		}
 	end,
 	[RequestPremiumPurchase.name] = function(state, action)
