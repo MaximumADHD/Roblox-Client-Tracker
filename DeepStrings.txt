@@ -396,7 +396,6 @@ AHPEAU_iobuf
 AHPEAX1PEAPEAX
 AHW4DataStoreRequestType
 AHW4UserInputType
-AiiUhsCAwEAAQ
 Algorithms
 AliasRequestResult
 ALIGN_TYPE
@@ -2474,7 +2473,6 @@ AVMessagingService
 AVMessagingServiceAnalysisJob
 AVMetadataParseException
 AVmisc_category
-AvmNo85ezGBFn6PcwH6uTtXuDywmlnMqk904cvZTl3X
 AVMobileDevelopmentDeployer
 AVMockGestureGenerator
 AVMockLongPressGestureGenerator
@@ -3768,7 +3766,6 @@ BAA91211E2B410EF351327957B
 BAAEB11E38B9D871882A8E559
 BAAED11E38B9D871882A8E559
 BAAF011E38B9D871882A8E559
-BABNmXBTqZY4dCw
 BACK_BUTTON_NOT_CONSUMED
 BackAccessory
 BackColorOffset
@@ -4226,7 +4223,6 @@ BrowserWindow
 BrowserWindowClosed
 BrowserWindowWillNavigate
 BrushStyle
-BRvzzj1ggn6MEczgU5OKwI
 BtYovqVKoHMDMoDd0u9Mc5CIyRqyu0IGS99A0jeEXRj7aofQ
 BU_Simplex1to4
 BubbleChat
@@ -4333,7 +4329,7 @@ BytesReceivedAndIgnoredPerSec
 BytesReceivedPerSec
 BytesRecvAndIgnored
 BytesWritten
-ByVersion_0.425.0.393892
+ByVersion_0.425.0.393916
 ByVersionForPlatform_
 C_specific_handler
 CA_NPEAVQObject
@@ -4561,6 +4557,7 @@ CB27CB58AAF011E38B9D871882A8E559
 CB27CB59AAF011E38B9D871882A8E559
 CB27CB5CAAF011E38B9D871882A8E559
 CB583B11E29A3DBD856014A660
+CbBqbplPSMoORCSYtk4
 CBUGroupRolesResult
 CBUHttpTarget
 CBUPathData
@@ -4819,7 +4816,6 @@ CIOSW[^adfikosvy
 CipherString
 Ciphersuites
 Circumflexsmall
-CjP9kj5lszriFi6Yj
 CJVNotFallbackToEnglishForCoreGuiEnabled
 CJVNotFallbackToEnglishForUGCEnabled
 ClampColor
@@ -5311,7 +5307,6 @@ ClusterGridV2
 ClusterGridV3
 ClusterPacket
 ClusterPacketCache
-ClWO7RZzyJVqZQs0eq2jYq8MEoWFP6KzDEPfm
 CLzV..VzLM
 CMAC_CTX_new
 CmdBeginDebugUtilsLabelEXT
@@ -7553,7 +7548,6 @@ DistToShowBufferCountSqr
 DKECCAK1600_ASM
 DlcVersion
 DListenerAttributes
-Dln7plNIy2aBTyF
 DMinMaxDistance
 DnsResolve
 DNSResponseMS
@@ -8373,6 +8367,7 @@ EqualizerSoundEffect
 EquippedEmotes
 EquippedEmotesChanged
 EquippedEmotesDataInternal
+EQzeLvsCL2niIIWS32c7QzJQ6FWV4jaI5xTP7ZkrPJIHPPM
 ErrDontRetry
 Error_AlreadyConnected
 Error_ConnectionAttemptFailed
@@ -9198,6 +9193,7 @@ FoundItems
 FoundThread
 FpFramebuffer
 FpsVariance
+FQdQiFBk1t
 Fractional
 Frame_.frameend
 Frame_.frameendgpu
@@ -9519,7 +9515,6 @@ GAThrottlingEventThresholdHundredthCat1
 GAThrottlingEventThresholdHundredthCat2
 GAThrottlingEventThresholdHundredthCat3
 GazeSelectionEnabled
-GCaFvBQyiOxJTarkaf7p866N
 GCDistance
 GCHappened
 GCincremental
@@ -10467,7 +10462,6 @@ GroupTime.Sum.toFixed
 GSSolverActive
 GSSS466FSSS455
 GTInfluxDB
-GU75nqCIQIW4TriTTxl4H4dOBDwGwGEr
 Guaranteed
 GuestFriendCheckFailImmediate
 GuiCluster
@@ -10627,7 +10621,6 @@ HelpForSelectionAction
 HelpWindow
 HelpWindow.style[
 HFbxVector4
-HFgu0wIA1CUgE9rXkmlCW8cUtOTeT
 HHAEBVQModelIndex
 HHHHHAEBVQString
 HHPEAVQObject
@@ -10747,7 +10740,6 @@ HPEAVQAction
 HPEBDHW4CaseSensitivity
 HPEBDPEBDV
 HPEBVQMimeData
-Hq86B3y72CB7
 HQEAPEAVQGraphicsItem
 HQFSShadowed
 HQVSShadowed
@@ -10979,6 +10971,7 @@ HW4PacketPriority
 HwngSmldAskhBcraMaweNegsOgnaT
 HWYGOTH.ttf
 HybridEvent
+HZA0V81lLpaM
 Iacutesmall
 IAutocompleter
 IBusyStateModel
@@ -11025,6 +11018,7 @@ IdleAnimation
 IDocHostUIHandlerDispatch
 Idotaccent
 Idotaccent.a
+IDpEtxXQk2PT5V7E4I5049UXgb8vGqFk
 IDraftsServiceHost
 IdsOrRanges
 IdToClientMap.end
@@ -11089,7 +11083,6 @@ IID_IVPVBIConfig
 IID_IVPVBINotify
 IID_IVPVBIObject
 IIMAEBVInstanceIdentifier
-IjcO3B8Y8dYM7yM06Sm67YE1GPYjqL
 IkDragCollisionsMode
 IkDraggerAnchorMode
 IkDraggerSolveIterations
@@ -11526,6 +11519,7 @@ IPluginElementHost
 IPTypeAndDataCenter
 IPublishedGamesStore
 IPV6RobloxStudioCleanUp
+IpyDtEeghQnCsS86K3Rke58
 IRobloxDoc
 Is30FpsThrottleEnabled
 IsActivated
@@ -11680,6 +11674,7 @@ IVRScreenshots_001
 IVRSettings_002
 IVRSystem_017
 IVRTrackedCamera_003
+Iwd985EHcSiO9tIOGO6LI98aX6R4vXMqhdA9X
 IWorldStage
 IXMLHTTPRequest2
 J_Key_dn.png
@@ -11781,7 +11776,7 @@ JW4HttpRequestResult
 JW4InfoType
 JW4TextFilterContext
 JW4ThumbnailType
-JwevnNJq6F31PjOYHGxOd7kzk3
+JwIBDBO5RkKoAuH
 K\7IxU..UxI7\K
 K_Key_dn.png
 KaiTi_GB2312
@@ -11848,6 +11843,7 @@ KillSurfaceJointsPart1
 KnownHeaders
 KodchiangUPC
 KPEIBX_K_KPEIAU_iobuf
+KUclMSqd3QXwyAhdGqLLOTT7vmdVooDCRVlOHqz7g3cF3O
 KVScriptContext
 KYULPhCBFoD3mw5mygYqAeFlHdSL2k3MnDG
 LabelArray
@@ -12172,8 +12168,8 @@ LiveCoding
 LiveScript
 LiveThreadRef
 LivingRoom
+LkWkUdSEhTV7TshpSCQ721Xrt3Uzs5
 LLEo6Soxvx2
-LNhHsZCCJcmyRc
 LOAD_CERT_CTRL
 LoadAnimation
 LoadAssetVersion
@@ -12534,8 +12530,8 @@ LuauWatchdog
 LuauYieldablePcall
 LuauYieldableXpcall
 LuaWebService
-LVkHpZ3iPFGwYi2meJ62ABSz
 LVvuOx39]O
+LWw8MRpPqf9lxipzpE
 M_NVWeakFunctionRef
 MachineAddress
 MachineConfig
@@ -12619,7 +12615,6 @@ MaterialTool
 MaterialVerb
 Math.floor
 MatrixCoefficients
-MaWa60DSUFFto
 MAX_ALLOC_CHUNK
 MAX_FRAME_LENGTH
 MAX_NB_SUBFR
@@ -13161,7 +13156,7 @@ MigrateTriangleMeshData3
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsI9zRp2OSccqdFx2
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAupANB3EbN9hFHHUj0eA
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzjPRQo9jc
-MIICCgKCAgEAuVCHWb1NFXTmb
+MIICCgKCAgEAwHnSSjSPCj1Qb4WoI
 Millisecond
 MillisecondsBeforeHandlingReconnect
 MimeDataFromSelection
@@ -13827,7 +13822,6 @@ NumRigidJointsNotInWorld
 NumTickets
 NVAuthenticationHelper
 Nvb5JjRCUQ
-Nvfq569DBEJSy8bo
 NVLuaWebService
 NvOptimusEnablement
 NVReplicator
@@ -13963,8 +13957,8 @@ OgreWidgetShowEvent
 Oh44\h44\Q
 Ohungarumlaut
 OiCCPPhotoshop
-OK69isWa44J5
 OKButtonClicked
+OLA7KN7mfwRZU5aMCtgL3mUH28
 OldActiveElement
 OldMessagesFetched
 OldServers
@@ -14108,7 +14102,6 @@ OptionsMenu
 OptionState
 OPUS_ARCHMASK
 OpusCustomMode
-OQzhqWVrZLJWI62GM55
 OrCharacter
 OrCreateFileInfo
 OrCreateFileSyncItemClient
@@ -19138,6 +19131,7 @@ SHUseNewComputeLevelUsesOBB
 ShutdownClient
 ShutdownClientAndSave
 ShutdownPolicy
+SHwcd2UPIbWtxRm9S1m1rufr1
 SiblingElement
 SigDigest_add1
 SigEd25519
@@ -19462,6 +19456,7 @@ SSAOCompositFS
 SSAOCompositVS
 SSAODepthDownFS
 SSAOMipLevels
+SsbWOhB179G0nX
 SSL_add_dir_cert_subjects_to_stack
 SSL_add_file_cert_subjects_to_stack
 SSL_bytes_to_cipher_list
@@ -23106,7 +23101,6 @@ TweenService
 TweenServiceOnStepped
 TweenSizeAndPosition
 TweenStatus
-TwEpHrIUaLslJDEny3TWmE0Qz1
 TwistLimits
 TwistLimitsEnabled
 TwistLowerAngle
@@ -23292,6 +23286,7 @@ UGlobalResult
 Ugravesmall
 UGroupRolesResult
 UGuiClusterRT
+UHPoaDq1AYtGgr116k4FcnIGAM45sCk2kcplObJ4MqfnG
 UHttpApiRequest
 UHttpRequest
 UHttpResult
@@ -23374,6 +23369,7 @@ UIViewportFrameWorkspace
 ULinkedScriptLoadData
 ULoadedImage
 ULuaCallbacks
+UM3J3p8CAwEAAQ
 UMasteringMetadata
 UMeshResource
 UMessageAndSenderId
@@ -24118,7 +24114,6 @@ VDeserializedTouchItemS2
 VDeserializePacketsJob
 VDetachedSoundPlayback
 VDeveloperProductResourceController
-VdHO0WMOky10F5JEga
 VDialogChoice
 VDialogRoot
 VDiffProcessor
@@ -24536,6 +24531,7 @@ VLayoutPage
 VLayoutTable
 VLayoutTableMajor
 VLazyTable
+VlbwZzfmY3jXGggaDhHkp
 VLDLComponent
 VLeftMotorTool
 VLegacyCharacterAppearance
@@ -25307,7 +25303,7 @@ WM_ATLGETHOST
 WMCreateProfileManager
 WMCreateSyncReader
 Wmvcore.dll
-WOGyENJih6zC
+WomHgmBzeM
 WoodPlanks
 WorkersNeeded
 Workspace.
@@ -25445,6 +25441,7 @@ XPEAVRobloxScriptDoc
 XQColorDialog
 Xregex_error
 XResolution
+Xt8EHyGfzpYYSc
 Xtime_get_ticks
 XUnegotiation_response
 XvAAuY44YuAAvX4
@@ -25532,6 +25529,7 @@ XW4CanManageStatus
 XW4HttpErrorCode
 XW4websocket_close_status
 XwhvcEikuIaqb7nHhEJ
+XXCh5z2DoUoyK4sZt
 XZP8CoreGuiService
 XZP8CRenderSettingsItem
 XZP8GuiObject
@@ -25569,15 +25567,12 @@ YAXPEAXPEBX
 YAXPEAXPEBX1
 YAXPEBVQObject
 YAXW4error_type
-Yba1Doqw0na8sZrd8NrP2VMCK5gBEDbCcNp85
 Ycircumflex
 Ydieresissmall
 YffYZefYDNNDCOO
 YieldEvent
 YieldFuncDesc
 YieldFunction
-YjaYcW6TglLFoTg3c7nC1cxbeZQNvKGnsY95B3pO
-YjQ1r7bsXKe5X2rBWvJ2bWrhTgX2E
 YQByteArray
 YResolution
 YwBBvY55YvBBwY5
@@ -25589,6 +25584,7 @@ ZIndexBehavior
 ZLcJhLcGhM
 ZNjlXiODrHUcaGRYt
 ZntaLkerGlryCnmrArbeHbarAcrySaahTaveDgneBuruGrjuGayrOlmaTuleTadnKmylMhniSiahTooaLtbiTrmyMroeGgnaHihtErehCsnaCmagOrnuRrmhKgnoMariHanaKopoBinaHiiiYlatIhtoGtrsDhniZglgTonaHdhuBbgaTbmiLelaTbniLragUwahSamsOtrpCiarBiguBtpoCulaTgalGgnfTolySoepXrahKilaBxusXxnhPgahPoo
+ZoNNFTLvzn4tTIxzWx2R9
 ZoomActive
 ZoomOutDistance
 ZoomToExtents
@@ -25597,5 +25593,6 @@ ZP6APEAX1PEBX
 ZP6AX1PEAX
 ZPEAVRBXMessageBox
 ZRZZZbZt[.[
+ZvMoR5Jt97qFXuAac6nWf2iBh5F3JRcuZS
 ZVspecial_equipped_signal
 ZVTouchedSignal

@@ -1,9 +1,9 @@
 File Name,MD5 Signature,Compressed Size (bytes),Size (bytes)
-BuiltInPlugins.zip,26ee1c3b06b7fc7724d1f42bafcc6f03,4777712,5788199
-BuiltInStandalonePlugins.zip,be1cc3ad131ba125dd9a3fb5227b3e14,1790212,2162046
+BuiltInPlugins.zip,20f0ca4d8793ba30497ae8e800e0545d,4778091,5788411
+BuiltInStandalonePlugins.zip,28805dcbc569d1932d9b293572243f53,1787404,2159284
 Plugins.zip,a21e03dff91ede3102ff4186fd4b6c44,694396,1479168
 Qml.zip,ae16d3bf2dac1345fedded48047f378f,1587037,4422016
-RobloxStudio.zip,f29e799f5607cbce8ae4ecf7c41f0a20,22660071,51791194
+RobloxStudio.zip,5a9d2e26efc4d78b2f423a615185dd46,22660079,51791194
 Libraries.zip,142cc8d33fc1ac659ddf266d769b489a,9176818,23426624
 LibrariesQt5.zip,5203eedb97fadc4c17cb47991eca3d68,31755327,79163904
 content-avatar.zip,cb9bd565796161dc09cfc9157cf2a54b,186323,927170
@@ -19,7 +19,7 @@ content-textures2.zip,a326cebe797607cf3889cb23a786d4ef,10781107,11671177
 content-textures3.zip,1ba2b27dc2e1e4549bfc27f2fe33435b,27654959,45488932
 content-terrain.zip,0195ff57f5a0e76e992b9d51fd51bb51,39358283,54535781
 content-platform-fonts.zip,00b01849ef94f80c58907832d1a145c7,13681295,16427228
-extracontent-scripts.zip,9a49c4ac79dd944b3d21ea6cfc4d6a10,1288065,4132183
+extracontent-scripts.zip,61d8dabc9e775798826fd72e18b5da1a,1288316,4135606
 extracontent-luapackages.zip,e9c1de36415fdfd1137eb53fa8a34cb1,3098099,5469468
 extracontent-translations.zip,aba8b8d6cfdd30c91d5316f481674ba7,98744,378096
 extracontent-models.zip,45c0dba730abb824024f0f24258201be,3509,5220
