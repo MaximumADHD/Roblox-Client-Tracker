@@ -199,6 +199,7 @@ ACTUAL_BYTES_RECEIVED
 ActuatorRelativeTo
 ActuatorType
 Acutesmall
+AD99SToaK4stQFYrL
 AdapterDesc
 ADD_STYLE_NAME
 AddAccessory
@@ -379,6 +380,7 @@ AfterRequestConnection
 AfterRequested
 AfterSeconds
 AfterUpdateContentFromSource
+AFzGUN0S9w
 AgainstLatestPackageAction
 Age13OrOver
 AgeBracket
@@ -3833,6 +3835,7 @@ BatchAssetApi
 BatchAssetApiLog
 BatchAssetApiNoFallbackOnFail
 BatchAssetApiState
+BatchBuffers
 Batches.length
 Batches[i]
 Batches[index].push
@@ -3847,6 +3850,7 @@ BatchesTxtPos[i]
 BatchesTxtPos[txtidx].push
 BatchGeometry
 BatchIncrement
+BatchTasks
 BatchThumbnailExperiationTimeSeconds
 BatchThumbnailFetcher
 BatchThumbnailJobRunsPerSecond
@@ -3862,7 +3866,6 @@ BB0BF11E395B6E5DB6211F344
 BB11E2B957D88B167DEF15
 BB285C520681180838E23F0DC6224
 BB886F11E18561866242201959
-BB97R12XSXLRJJWuIihaflvq3pm3qDkNS52dQP88mcWAd1KM8izFGtszrKKSo
 BBA91211E2B410EF351327957B
 BBBA91111E2B410EF351327957B
 BBCA91111E2B410EF351327957B
@@ -3891,7 +3894,6 @@ BCFB4827B1F11E4A86BBBBE005A3BAD
 BCIDistributionTBS
 BConnection
 BCryptGenRandom
-BCvrkQ8h004v8DSSsNPpweKAqyhbHZ
 BE20681180838E23F0DC6224
 BE42889BE20681180838E23F0DC6224
 BEA91211E2B410EF351327957B
@@ -4111,6 +4113,7 @@ BodyWidthScale
 BoldItalic
 BoldSource
 BoldVersion
+BOp6s3Q9yOtLLy6VDXuiOebtB4jq3lblaQ
 BorderColor
 BorderColor3
 BorderMode
@@ -4332,7 +4335,7 @@ BytesReceivedAndIgnoredPerSec
 BytesReceivedPerSec
 BytesRecvAndIgnored
 BytesWritten
-ByVersion_0.425.0.394083
+ByVersion_0.425.0.394131
 ByVersionForPlatform_
 C_specific_handler
 CA_NPEAVQObject
@@ -4645,7 +4648,6 @@ CF44BCFD011E7A825A924D6937B0F
 CF44CCFD011E7A825A924D6937B0F
 CF583B11E29A3DBD856014A660
 CFB42AF5B120681192B0FA7C02778D61
-CfcRpyjb2avDRWbgnmzRaMuHz
 CFF056DD11E2898E9FB8E4A9E79B
 CFF156DD11E2898E9FB8E4A9E79B
 CFF456DD11E2898E9FB8E4A9E79B
@@ -8057,6 +8059,7 @@ EEAAXPEAVQAbstractItemModel
 EEBA_NAEBVQModelIndex
 EEBAHAEBVQModelIndex
 EEBAPEAVQPlatformSurface
+Eetrt2wcJD0nMdGOcncrNkW4QsOAzz
 EF351327957B
 EF65B11E38470F846885BB6FB
 EFAAAF011E38B9D871882A8E559
@@ -8759,6 +8762,7 @@ FDA6D1EA211E49FA6F7D125AE5309
 FDA6E1EA211E49FA6F7D125AE5309
 FDA6F1EA211E49FA6F7D125AE5309
 FDE5E01E7934
+FdmgrVF49ZIhqYezT9URZxGGjD
 Fdossl_static.pdb
 Feature_AppBridgeRewrite
 Feature_UniversalStartup
@@ -9342,7 +9346,6 @@ FrontSurface
 FrontSurfaceInput
 FrustumOrdered
 FrustumRenderQueue
-Fu8rjdAd8KY0HO
 FullRenderObjects
 Fullscreen
 FullScreen
@@ -10284,7 +10287,6 @@ GLSL.std.450
 Glsles3Mediump1
 GlslesMediump1
 GlueCursor
-GMqLZhuSi6ErmCQt64av3Xxr2br4wpJfB7YsbX5MDguKMtFH9poc7TbRswSYeOdl
 GoldenHashes
 GoodbyeChoiceActive
 GoodbyeChoiceActiveProperty
@@ -10749,7 +10751,7 @@ HPEBVQMimeData
 HQEAPEAVQGraphicsItem
 HQFSShadowed
 HQVSShadowed
-HtHfXuWPrWg3
+Hr9jqj90xyFyG8jDH3Rmbhnp55fbFet6NTL
 HtmlEscaped
 HTTPAccumulatedBytes
 HttpAdditionalBandwidthMetrics
@@ -11088,6 +11090,7 @@ IID_IVPVBIConfig
 IID_IVPVBINotify
 IID_IVPVBIObject
 IIMAEBVInstanceIdentifier
+IiQZWP7O5aVi9aKofKh9sTWa18
 IkDragCollisionsMode
 IkDraggerAnchorMode
 IkDraggerSolveIterations
@@ -11689,9 +11692,9 @@ JavaScriptCallback
 Jba5qWkYU5nARYZm1gQVP
 Jcircumflex
 JDJNJXJbJlJvJ
-JGver03jsOR87hzxXczArUrm1WJbpX4wtALUCEyNNgmku3nXuOxIFSrEUd2
 JHJRJ\JfJpJxJ
 JHW4MembershipType
+JI9MLUYm3UOLGD4xMaCV
 JIRA_RIDE_184_V2
 JJJBBB\\\xx
 JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ
@@ -11846,6 +11849,7 @@ KillSurfaceJointsPart1
 KnownHeaders
 KodchiangUPC
 KPEIBX_K_KPEIAU_iobuf
+KsaIJDncmMJh8zMZC5AlkwwmOI99daGCwPmyDVRBR1a8eA
 KVScriptContext
 KYULPhCBFoD3mw5mygYqAeFlHdSL2k3MnDG
 LabelArray
@@ -12532,7 +12536,7 @@ LuauYieldablePcall
 LuauYieldableXpcall
 LuaWebService
 LVvuOx39]O
-LXTWXyvKlVxFehZUSbrReDEZfOvM1wkxBS62TTeKlGA3Pl9CkAVNJy8CAArVF4B
+LWtLENJSgdbcHGoWl
 M_NVWeakFunctionRef
 MachineAddress
 MachineConfig
@@ -13157,7 +13161,7 @@ MigrateTriangleMeshData3
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsI9zRp2OSccqdFx2
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAupANB3EbN9hFHHUj0eA
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzjPRQo9jc
-MIICCgKCAgEApCwie5fPzHh6udZsDB
+MIICCgKCAgEAxRG6T7A3r2HrsdJ3ll57NU6tJK
 Millisecond
 MillisecondsBeforeHandlingReconnect
 MimeDataFromSelection
@@ -13397,7 +13401,6 @@ MQModelIndex
 MQStandardItem
 MQTableWidgetItem
 MQTreeWidgetItem
-MrJLukOOXMmNNUWKlIfCn5gv
 MRSMessageSize
 MRSTopicNameLength
 MRULocalFilesChanged
@@ -13835,6 +13838,7 @@ NVWorkspace
 NW4FileSystemDir
 NW4PenStyle
 NW4UserInputType
+Ny0Ti8c9HWZXpgi5
 Oacutesmall
 OAEPEncryptionSET
 OAUTHBEARER
@@ -14023,7 +14027,6 @@ OnTeleport
 OnTeleportInternal
 OnTopOfCoreBlur
 OnUnhandledScriptErrorsAction
-Ooiq9Otnr8KQ32y0ef6G8LtP11
 OpacityMask
 OpaqueUseMaterialAndDistanceSort
 OPEN_BUILDERS_CLUB
@@ -16873,6 +16876,7 @@ QWheelEvent
 QWidgetAction
 QWidgetPluginGui
 QWidgetWindow
+QZWCPSJfiX6xZCmYkls
 RadialBlurFS
 RagdollDefaultTimerTenthSecond
 RagdollEarlyExitTimeTenthSecond
@@ -19180,6 +19184,7 @@ SimDontResetContactsOnNotifyAssemblyPrimitiveMoved
 SimEnableTouchEventManager
 SimilarHipHeightPercentage
 SimLDLComponentMemoryUseComputationFix
+SimLDLPGSStatsBufferBreakdownReporting
 SimLDLProgramForceUnroll
 SimLDLProgramMemoryOptimization
 SimLDLProgramNewStatsEnabled2
@@ -19459,6 +19464,7 @@ SRTP_AEAD_AES_128_GCM
 SRTP_AEAD_AES_256_GCM
 SRTP_AES128_CM_SHA1_32
 SRTP_AES128_CM_SHA1_80
+Ss6qnPWkIgb90748qFmbDZrxnSDXWVhETeSTlHOjWcs8Qo34Sc3g
 SSAOBlurXFS
 SSAOBlurYFS
 SSAOCompositFS
@@ -23193,7 +23199,6 @@ UChangedInstance
 UChapterAtom
 UChapterDisplay
 UCharacterAppearanceAssetInfo
-UChSH5ItvFbXJajgBaUoMtBA5jwRfG3dpi2
 Ucircumflex
 Ucircumflexsmall
 UColorBlock
@@ -23287,7 +23292,6 @@ UEBAXW4PrimitiveElement
 UEditionEntry
 UEventInstance
 UEventSlot
-UEvwNTu71hGLqpx0hRB8yEbkKuDcOwOZ6IzZ5Sh09
 UExtraSelection
 UFileMeshData
 UFMODSystemRelease
@@ -24363,7 +24367,6 @@ VGuiObject
 VGUIObject
 VGuiService
 VGuiTextButton
-VH3J90lHZmNk2aanONq
 VHammerTool
 VHandleAdornment
 VHandlesBase
@@ -25028,6 +25031,7 @@ VXmlElement
 VYieldFunctions
 VYieldFunctionStateObject
 W_Key_dn.png
+WAGGN5nlop8ddMJZJ1aP7QdXw
 WaistAccessory
 WaistBack_Att
 WaistBackAttachment
@@ -25202,6 +25206,7 @@ WheelBackward
 WheelForward
 WhenLoaded
 WhenScrollable
+WhhHza5GhDcS3qarmWATSVkX8Zo2IXW
 WhisperChat
 WhiteGlow.png
 WhitelistFeaturedSearchAPI
@@ -25375,7 +25380,6 @@ WSAStartup
 WSAStringToAddressW
 WTHelperGetProvSignerFromChain
 WTHelperProvDataFromStateData
-WVVWZv0TDeRnoNfJfj0S669LVNuMbujm372INY6NqrcgML
 X_deprecated
 X_Fullscreen
 X_JW4AssetType
@@ -25421,11 +25425,14 @@ XboxUseNewValidUsernameCheck2
 XFbxAMatrix
 XFREE86_GLYPH_RANGES
 XGetLastError
+XheLZL3kGSVyWp4Fo
 XInputGetBatteryInformation
 XInputGetCapabilities
 XInputGetState
 XInputSetState
 Xinvalid_argument
+XkQmgihgfnCT8MS
+XlBOsubr2XYyKg4jBvcul
 Xlength_error
 Xout_of_range
 XP6AXAEBUTextFilterResult
@@ -25588,10 +25595,11 @@ YieldFunction
 YQByteArray
 YResolution
 YwBBvY55YvBBwY5
-YWbmX5zK5qtiFS8XJxPKUyKW4U0GddbebMZpX7l5lR1a6Ax7biO7D6uhlA9d2
+YZC3GncwHKekIC3d0
 Z_KPEIBX_K_KPEIAU1
 Zcaronsmall
 Zdotaccent
+ZFKjYs72GTanu3VsQziF
 ZgnhKhWhci
 ZIndexBehavior
 ZLcJhLcGhM

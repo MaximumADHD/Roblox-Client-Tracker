@@ -3,7 +3,6 @@
 ]]
 
 local ChangeHistoryService = game:GetService("ChangeHistoryService")
-local CoreGui = game:GetService("CoreGui")
 local StudioService = game:GetService("StudioService")
 
 -- Libraries
@@ -17,7 +16,6 @@ local AttachmentMover = require(DraggerFramework.Utility.AttachmentMover)
 local Colors = require(DraggerFramework.Utility.Colors)
 local Math = require(DraggerFramework.Utility.Math)
 local PartMover = require(DraggerFramework.Utility.PartMover)
-local StudioSettings = require(DraggerFramework.Utility.StudioSettings)
 local StandaloneSelectionBox = require(DraggerFramework.Components.StandaloneSelectionBox)
 
 local RotateHandleView = require(Plugin.Src.RotateHandleView)
@@ -172,8 +170,6 @@ function RotateToolImpl:render(hoveredHandleId)
 end
 
 function RotateToolImpl:mouseDown(mouseRay, handleId)
-	local handleProps = self._handles[handleId]
-
 	self._draggingHandleId = handleId
 	self._draggingLastGoodDelta = 0
 	self._originalBoundingBoxCFrame = self._boundingBox.CFrame
@@ -202,7 +198,7 @@ function RotateToolImpl:mouseDrag(mouseRay)
 	end
 
 	local snappedDelta = snapToRotateIncrementIfNeeded(angle) - self._startAngle
-	local appliedGlobalTransform = nil
+	local appliedGlobalTransform
 
 	if areConstraintsEnabled() and #self._partsToMove > 0 then
 		appliedGlobalTransform = self:_mouseDragWithInverseKinematics(mouseRay, snappedDelta)
@@ -233,7 +229,10 @@ function RotateToolImpl:_mouseDragWithGeometricMovement(mouseRay, delta)
         return nil
     end
 
-	local candidateGlobalTransform = getRotationTransform(self._originalBoundingBoxCFrame, self._handleCFrame.RightVector, delta)
+	local candidateGlobalTransform = getRotationTransform(
+		self._originalBoundingBoxCFrame,
+		self._handleCFrame.RightVector,
+		delta)
 	self._partMover:transformTo(candidateGlobalTransform)
 
 	if areCollisionsEnabled() and self._partMover:isIntersectingOthers() then
@@ -242,7 +241,10 @@ function RotateToolImpl:_mouseDragWithGeometricMovement(mouseRay, delta)
 		self._draggingLastGoodDelta = delta
 	end
 
-	local appliedGlobalTransform = getRotationTransform(self._originalBoundingBoxCFrame, self._handleCFrame.RightVector, self._draggingLastGoodDelta)
+	local appliedGlobalTransform = getRotationTransform(
+		self._originalBoundingBoxCFrame,
+		self._handleCFrame.RightVector,
+		self._draggingLastGoodDelta)
 	self._attachmentMover:transformTo(appliedGlobalTransform)
 	self._boundingBox.CFrame = appliedGlobalTransform * self._originalBoundingBoxCFrame
 
@@ -255,7 +257,7 @@ end
 	transformation, so that the RotateHandleView can show the correct angle.
 ]]
 function RotateToolImpl:_mouseDragWithInverseKinematics(mouseRay, delta)
-	if snappedDelta == 0 then
+	if delta == 0 then
         return nil
 	end
 

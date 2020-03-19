@@ -17,9 +17,6 @@ local Roact = require(Plugin.Packages.Roact)
 local Framework = Plugin.Packages.DraggerFramework
 local Colors = require(Framework.Utility.Colors)
 local Math = require(Framework.Utility.Math)
-local PartMover = require(Framework.Utility.PartMover)
-local SelectionWrapper = require(Framework.Utility.SelectionWrapper)
-local StudioSettings = require(Framework.Utility.StudioSettings)
 local JointMaker = require(Framework.Utility.JointMaker)
 
 local StandaloneSelectionBox = require(Framework.Components.StandaloneSelectionBox)
@@ -98,13 +95,6 @@ end
 
 local function areJointsEnabled()
 	return plugin:GetJoinMode() ~= Enum.JointCreationMode.None
-end
-
-local function areConstraintsEnabled()
-	if settings():GetFFlag("StudioServiceDraggerSolveConstraints") then
-		return StudioService.DraggerSolveConstraints
-	end
-	return false
 end
 
 local function isCtrlKeyDown()
