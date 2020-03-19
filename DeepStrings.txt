@@ -1797,6 +1797,7 @@ AVCuesParser
 AVCueTrackPositionsParser
 AVCullableSceneNode
 AVCUnknown
+AVCustomDevicePreviewWidget
 AVCustomEmitter
 AVCustomEvent
 AVCustomEventReceiver
@@ -3861,6 +3862,7 @@ BB0BF11E395B6E5DB6211F344
 BB11E2B957D88B167DEF15
 BB285C520681180838E23F0DC6224
 BB886F11E18561866242201959
+BB97R12XSXLRJJWuIihaflvq3pm3qDkNS52dQP88mcWAd1KM8izFGtszrKKSo
 BBA91211E2B410EF351327957B
 BBBA91111E2B410EF351327957B
 BBCA91111E2B410EF351327957B
@@ -3889,6 +3891,7 @@ BCFB4827B1F11E4A86BBBBE005A3BAD
 BCIDistributionTBS
 BConnection
 BCryptGenRandom
+BCvrkQ8h004v8DSSsNPpweKAqyhbHZ
 BE20681180838E23F0DC6224
 BE42889BE20681180838E23F0DC6224
 BEA91211E2B410EF351327957B
@@ -4329,7 +4332,7 @@ BytesReceivedAndIgnoredPerSec
 BytesReceivedPerSec
 BytesRecvAndIgnored
 BytesWritten
-ByVersion_0.425.0.393916
+ByVersion_0.425.0.394083
 ByVersionForPlatform_
 C_specific_handler
 CA_NPEAVQObject
@@ -4557,7 +4560,6 @@ CB27CB58AAF011E38B9D871882A8E559
 CB27CB59AAF011E38B9D871882A8E559
 CB27CB5CAAF011E38B9D871882A8E559
 CB583B11E29A3DBD856014A660
-CbBqbplPSMoORCSYtk4
 CBUGroupRolesResult
 CBUHttpTarget
 CBUPathData
@@ -4643,6 +4645,7 @@ CF44BCFD011E7A825A924D6937B0F
 CF44CCFD011E7A825A924D6937B0F
 CF583B11E29A3DBD856014A660
 CFB42AF5B120681192B0FA7C02778D61
+CfcRpyjb2avDRWbgnmzRaMuHz
 CFF056DD11E2898E9FB8E4A9E79B
 CFF156DD11E2898E9FB8E4A9E79B
 CFF456DD11E2898E9FB8E4A9E79B
@@ -5054,6 +5057,8 @@ ClientReplicatorStats
 ClientReportLuaConnectionSignalsInfluxHundrethsPercentage
 ClientReportLuaTicketInfluxHundrethsPercentage
 ClientScraperJob
+ClientSendEventStringDataLimitBytes
+ClientSendEventVariantCountLimit
 ClientServerToggle.png
 ClientServerToggleFTUE
 ClientSettingDataViaHttps
@@ -6546,6 +6551,7 @@ CustomCameraModeFollow
 CustomColor
 CustomContextMenuHide
 CustomContextMenuShow
+CustomDevicePreviewWidget
 CustomEvent
 CustomEventReceiver
 CustomizeButton
@@ -8367,7 +8373,6 @@ EqualizerSoundEffect
 EquippedEmotes
 EquippedEmotesChanged
 EquippedEmotesDataInternal
-EQzeLvsCL2niIIWS32c7QzJQ6FWV4jaI5xTP7ZkrPJIHPPM
 ErrDontRetry
 Error_AlreadyConnected
 Error_ConnectionAttemptFailed
@@ -9193,7 +9198,6 @@ FoundItems
 FoundThread
 FpFramebuffer
 FpsVariance
-FQdQiFBk1t
 Fractional
 Frame_.frameend
 Frame_.frameendgpu
@@ -9338,6 +9342,7 @@ FrontSurface
 FrontSurfaceInput
 FrustumOrdered
 FrustumRenderQueue
+Fu8rjdAd8KY0HO
 FullRenderObjects
 Fullscreen
 FullScreen
@@ -10279,6 +10284,7 @@ GLSL.std.450
 Glsles3Mediump1
 GlslesMediump1
 GlueCursor
+GMqLZhuSi6ErmCQt64av3Xxr2br4wpJfB7YsbX5MDguKMtFH9poc7TbRswSYeOdl
 GoldenHashes
 GoodbyeChoiceActive
 GoodbyeChoiceActiveProperty
@@ -10743,6 +10749,7 @@ HPEBVQMimeData
 HQEAPEAVQGraphicsItem
 HQFSShadowed
 HQVSShadowed
+HtHfXuWPrWg3
 HtmlEscaped
 HTTPAccumulatedBytes
 HttpAdditionalBandwidthMetrics
@@ -10971,7 +10978,6 @@ HW4PacketPriority
 HwngSmldAskhBcraMaweNegsOgnaT
 HWYGOTH.ttf
 HybridEvent
-HZA0V81lLpaM
 Iacutesmall
 IAutocompleter
 IBusyStateModel
@@ -11018,7 +11024,6 @@ IdleAnimation
 IDocHostUIHandlerDispatch
 Idotaccent
 Idotaccent.a
-IDpEtxXQk2PT5V7E4I5049UXgb8vGqFk
 IDraftsServiceHost
 IdsOrRanges
 IdToClientMap.end
@@ -11519,7 +11524,6 @@ IPluginElementHost
 IPTypeAndDataCenter
 IPublishedGamesStore
 IPV6RobloxStudioCleanUp
-IpyDtEeghQnCsS86K3Rke58
 IRobloxDoc
 Is30FpsThrottleEnabled
 IsActivated
@@ -11674,7 +11678,6 @@ IVRScreenshots_001
 IVRSettings_002
 IVRSystem_017
 IVRTrackedCamera_003
-Iwd985EHcSiO9tIOGO6LI98aX6R4vXMqhdA9X
 IWorldStage
 IXMLHTTPRequest2
 J_Key_dn.png
@@ -11686,6 +11689,7 @@ JavaScriptCallback
 Jba5qWkYU5nARYZm1gQVP
 Jcircumflex
 JDJNJXJbJlJvJ
+JGver03jsOR87hzxXczArUrm1WJbpX4wtALUCEyNNgmku3nXuOxIFSrEUd2
 JHJRJ\JfJpJxJ
 JHW4MembershipType
 JIRA_RIDE_184_V2
@@ -11776,7 +11780,6 @@ JW4HttpRequestResult
 JW4InfoType
 JW4TextFilterContext
 JW4ThumbnailType
-JwIBDBO5RkKoAuH
 K\7IxU..UxI7\K
 K_Key_dn.png
 KaiTi_GB2312
@@ -11843,7 +11846,6 @@ KillSurfaceJointsPart1
 KnownHeaders
 KodchiangUPC
 KPEIBX_K_KPEIAU_iobuf
-KUclMSqd3QXwyAhdGqLLOTT7vmdVooDCRVlOHqz7g3cF3O
 KVScriptContext
 KYULPhCBFoD3mw5mygYqAeFlHdSL2k3MnDG
 LabelArray
@@ -12168,7 +12170,6 @@ LiveCoding
 LiveScript
 LiveThreadRef
 LivingRoom
-LkWkUdSEhTV7TshpSCQ721Xrt3Uzs5
 LLEo6Soxvx2
 LOAD_CERT_CTRL
 LoadAnimation
@@ -12531,7 +12532,7 @@ LuauYieldablePcall
 LuauYieldableXpcall
 LuaWebService
 LVvuOx39]O
-LWw8MRpPqf9lxipzpE
+LXTWXyvKlVxFehZUSbrReDEZfOvM1wkxBS62TTeKlGA3Pl9CkAVNJy8CAArVF4B
 M_NVWeakFunctionRef
 MachineAddress
 MachineConfig
@@ -13156,7 +13157,7 @@ MigrateTriangleMeshData3
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsI9zRp2OSccqdFx2
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAupANB3EbN9hFHHUj0eA
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzjPRQo9jc
-MIICCgKCAgEAwHnSSjSPCj1Qb4WoI
+MIICCgKCAgEApCwie5fPzHh6udZsDB
 Millisecond
 MillisecondsBeforeHandlingReconnect
 MimeDataFromSelection
@@ -13396,6 +13397,7 @@ MQModelIndex
 MQStandardItem
 MQTableWidgetItem
 MQTreeWidgetItem
+MrJLukOOXMmNNUWKlIfCn5gv
 MRSMessageSize
 MRSTopicNameLength
 MRULocalFilesChanged
@@ -13958,7 +13960,6 @@ Oh44\h44\Q
 Ohungarumlaut
 OiCCPPhotoshop
 OKButtonClicked
-OLA7KN7mfwRZU5aMCtgL3mUH28
 OldActiveElement
 OldMessagesFetched
 OldServers
@@ -14022,6 +14023,7 @@ OnTeleport
 OnTeleportInternal
 OnTopOfCoreBlur
 OnUnhandledScriptErrorsAction
+Ooiq9Otnr8KQ32y0ef6G8LtP11
 OpacityMask
 OpaqueUseMaterialAndDistanceSort
 OPEN_BUILDERS_CLUB
@@ -17095,6 +17097,8 @@ RCCPhysicsUnthrottledRealTimePercStat
 RCCProfilerDataComplete
 RCCProfilerRecordFrameRate
 RCCProfilerRecordTimeFrame
+RCCReceiveEventStringDataLimitBytes
+RCCReceiveEventVariantCountLimit
 RCCService
 RCCStepContactsDtAverage
 RCCStepContactsDtAverage_Datacenter_
@@ -17587,6 +17591,7 @@ ReplicationDataCache
 ReplicationDataCaching
 ReplicationDataLifetime
 ReplicationFocus
+ReplicationVariantLimitHundredthPercent
 Replicator
 ReplicatorAdded
 ReplicatorAnimationTrackLimitPerAnimator
@@ -17600,12 +17605,16 @@ ReplicatorJoinDiagnosticLargeInstancesToKeep
 ReplicatorJoinSnapInfluxHundrethsPercentage
 ReplicatorJoinTimeSnapShotTime
 ReplicatorJoinTimeSnapShotTimeTeamCreate
+ReplicatorKickReadEventStringDataAndVariantLimit
+ReplicatorKickWriteEventStringDataAndVariantLimit
 ReplicatorLabelItemTypesProcessed
 ReplicatorMaxPacketBytesSentToInfluxOnError
+ReplicatorReadVariantLimit
 ReplicatorStreamingReportGCStepPercentage
 ReplicatorTopContainerCountLimit
 ReplicatorVariantContainerCountLimit
 ReplicatorVariantCountLimit
+ReplicatorWriteVariantLimit
 ReplyFinished
 REPORT_ABUSE
 ReportAbuse
@@ -17664,6 +17673,7 @@ ReportPhysicsSolverStatsPlaceSpecific
 ReportPhysicsStatsToHUD
 ReportRCCStat
 ReportRejectCount
+ReportReplicationVariantLimitHit
 ReportReplicatorJoinDataItemStatsToInflux
 ReportReplicatorStatsToInflux
 ReportReplicatorStatsToInfluxHundredthsPercent
@@ -19131,7 +19141,6 @@ SHUseNewComputeLevelUsesOBB
 ShutdownClient
 ShutdownClientAndSave
 ShutdownPolicy
-SHwcd2UPIbWtxRm9S1m1rufr1
 SiblingElement
 SigDigest_add1
 SigEd25519
@@ -19456,7 +19465,6 @@ SSAOCompositFS
 SSAOCompositVS
 SSAODepthDownFS
 SSAOMipLevels
-SsbWOhB179G0nX
 SSL_add_dir_cert_subjects_to_stack
 SSL_add_file_cert_subjects_to_stack
 SSL_bytes_to_cipher_list
@@ -21404,6 +21412,7 @@ StudioDeprecateUIThemeProperty
 StudioDevForumUpdateCategoryId
 StudioDeviceEmulator
 StudioDeviceEmulatorSetSafeZone
+StudioDeviceManagerAddPreview
 StudioDisableAutoSaveToCloud
 StudioDisabledIconWorksForAllInstances
 StudioDisplayNameCrashFixEnabled
@@ -21446,6 +21455,7 @@ StudioEnableScriptHistoryDialog
 StudioEnableSQUIshRobloxReflectionExtensionLibrary
 StudioEnableSurfaceJoinChangeBeta
 StudioEnableUrlLinkForEmergencyMessage
+StudioEnableVirtualKeyboardAnimation
 StudioEnhanceEmulationDeviceManager
 StudioError
 StudioExplorerEraseAfterDeleteCrashFix
@@ -21956,6 +21966,7 @@ SXNET_get_id_asc
 SXNET_get_id_ulong
 SymantecPKI
 SymbolicLink
+SymbolicLinkForPlace
 SymbolValue
 SyncHttpGet
 SyncronizePlaybackDSPS
@@ -22900,6 +22911,7 @@ TotalRakIOStats
 TotalRakOut
 TotalRequests
 TotalRowPixels
+TotalStringDataSize
 TouchButton
 TouchCameraMove
 TouchCameraMovementChanged
@@ -23181,6 +23193,7 @@ UChangedInstance
 UChapterAtom
 UChapterDisplay
 UCharacterAppearanceAssetInfo
+UChSH5ItvFbXJajgBaUoMtBA5jwRfG3dpi2
 Ucircumflex
 Ucircumflexsmall
 UColorBlock
@@ -23274,6 +23287,7 @@ UEBAXW4PrimitiveElement
 UEditionEntry
 UEventInstance
 UEventSlot
+UEvwNTu71hGLqpx0hRB8yEbkKuDcOwOZ6IzZ5Sh09
 UExtraSelection
 UFileMeshData
 UFMODSystemRelease
@@ -23286,7 +23300,6 @@ UGlobalResult
 Ugravesmall
 UGroupRolesResult
 UGuiClusterRT
-UHPoaDq1AYtGgr116k4FcnIGAM45sCk2kcplObJ4MqfnG
 UHttpApiRequest
 UHttpRequest
 UHttpResult
@@ -23369,7 +23382,6 @@ UIViewportFrameWorkspace
 ULinkedScriptLoadData
 ULoadedImage
 ULuaCallbacks
-UM3J3p8CAwEAAQ
 UMasteringMetadata
 UMeshResource
 UMessageAndSenderId
@@ -23497,6 +23509,7 @@ UnknownType
 UnlockCursor
 UnlockedTopbarTransparency
 UnlockMouseIfKicked
+UnlockOnlyCountTheRecentGamesOnce
 UnmapBuffer
 UnmapMemory
 UnmapViewOfFile
@@ -23914,6 +23927,7 @@ VAppStorageService
 VArcHandles
 VArchiveGameRequest
 VarFileInfo\Translation
+VariantCount
 VariantList
 VariantValueAndCommitModification
 Variation1
@@ -24349,6 +24363,7 @@ VGuiObject
 VGUIObject
 VGuiService
 VGuiTextButton
+VH3J90lHZmNk2aanONq
 VHammerTool
 VHandleAdornment
 VHandlesBase
@@ -24531,7 +24546,6 @@ VLayoutPage
 VLayoutTable
 VLayoutTableMajor
 VLazyTable
-VlbwZzfmY3jXGggaDhHkp
 VLDLComponent
 VLeftMotorTool
 VLegacyCharacterAppearance
@@ -25303,7 +25317,6 @@ WM_ATLGETHOST
 WMCreateProfileManager
 WMCreateSyncReader
 Wmvcore.dll
-WomHgmBzeM
 WoodPlanks
 WorkersNeeded
 Workspace.
@@ -25362,6 +25375,7 @@ WSAStartup
 WSAStringToAddressW
 WTHelperGetProvSignerFromChain
 WTHelperProvDataFromStateData
+WVVWZv0TDeRnoNfJfj0S669LVNuMbujm372INY6NqrcgML
 X_deprecated
 X_Fullscreen
 X_JW4AssetType
@@ -25441,7 +25455,6 @@ XPEAVRobloxScriptDoc
 XQColorDialog
 Xregex_error
 XResolution
-Xt8EHyGfzpYYSc
 Xtime_get_ticks
 XUnegotiation_response
 XvAAuY44YuAAvX4
@@ -25529,7 +25542,6 @@ XW4CanManageStatus
 XW4HttpErrorCode
 XW4websocket_close_status
 XwhvcEikuIaqb7nHhEJ
-XXCh5z2DoUoyK4sZt
 XZP8CoreGuiService
 XZP8CRenderSettingsItem
 XZP8GuiObject
@@ -25576,6 +25588,7 @@ YieldFunction
 YQByteArray
 YResolution
 YwBBvY55YvBBwY5
+YWbmX5zK5qtiFS8XJxPKUyKW4U0GddbebMZpX7l5lR1a6Ax7biO7D6uhlA9d2
 Z_KPEIBX_K_KPEIAU1
 Zcaronsmall
 Zdotaccent
@@ -25584,7 +25597,6 @@ ZIndexBehavior
 ZLcJhLcGhM
 ZNjlXiODrHUcaGRYt
 ZntaLkerGlryCnmrArbeHbarAcrySaahTaveDgneBuruGrjuGayrOlmaTuleTadnKmylMhniSiahTooaLtbiTrmyMroeGgnaHihtErehCsnaCmagOrnuRrmhKgnoMariHanaKopoBinaHiiiYlatIhtoGtrsDhniZglgTonaHdhuBbgaTbmiLelaTbniLragUwahSamsOtrpCiarBiguBtpoCulaTgalGgnfTolySoepXrahKilaBxusXxnhPgahPoo
-ZoNNFTLvzn4tTIxzWx2R9
 ZoomActive
 ZoomOutDistance
 ZoomToExtents
@@ -25593,6 +25605,5 @@ ZP6APEAX1PEBX
 ZP6AX1PEAX
 ZPEAVRBXMessageBox
 ZRZZZbZt[.[
-ZvMoR5Jt97qFXuAac6nWf2iBh5F3JRcuZS
 ZVspecial_equipped_signal
 ZVTouchedSignal

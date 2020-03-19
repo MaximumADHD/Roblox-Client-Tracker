@@ -76,7 +76,8 @@ local function displayContents(props, localization)
 
 	local dropdownItems = { { Type = Constants.SUBJECT_TYPE.USER, Key = 0, Text = localization:getText("GroupDropdown", "Me"), }, }
 
-	local creatorItem = nil
+	local creatorItem = FFlagStudioDefaultGroupInDropdownPublish and dropdownItems[1] or nil
+
 	if groups and next(groups) ~= nil then
 		for _, group in pairs(groups) do
 			table.insert(dropdownItems, { Type = Constants.SUBJECT_TYPE.GROUP, Key = group.groupId, Text = group.name, })
@@ -85,14 +86,14 @@ local function displayContents(props, localization)
 			groupsLoaded = true
 			for _, item in ipairs(dropdownItems) do
 				if game.CreatorId == item.Key and game.CreatorType == Enum.CreatorType.Group then
-					creatorItem = item
+					creatorChanged(item.Key)
 				end
 			end
 		end
 	end
 
 	for _, item in ipairs(dropdownItems) do
-		if creatorId == item.Key and not creatorItem then
+		if creatorId == item.Key then
 			creatorItem = item
 		end
 	end
