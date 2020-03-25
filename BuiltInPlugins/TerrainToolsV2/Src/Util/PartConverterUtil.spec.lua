@@ -5,6 +5,7 @@ local PartConverterUtil = require(script.Parent.PartConverterUtil)
 
 local TerrainEnums = require(script.Parent.TerrainEnums)
 local Shape = TerrainEnums.Shape
+local ConvertPartWarning = TerrainEnums.ConvertPartWarning
 
 local getTerrain = require(script.Parent.getTerrain)
 
@@ -23,6 +24,7 @@ return function()
 			expect(ictt(Instance.new("Part"))).to.equal(false)
 			local parent = Instance.new("Model")
 			local part = Instance.new("Part")
+			part.Size = Vector3.new(10, 10, 10)
 			part.Parent = parent
 			expect(ictt(part)).to.equal(true)
 		end)
@@ -45,62 +47,74 @@ return function()
 			expect(ictt(union)).to.equal(false)
 			expect(ictt(negate)).to.equal(false)
 		end)
+
+		it("should not allow small parts", function()
+			local parent = Instance.new("Model")
+			local part = Instance.new("Part")
+			part.Size = Vector3.new(1, 1, 1)
+			part.Parent = parent
+			expect(ictt(part)).to.equal(false)
+		end)
 	end)
 
-	describe("getValidInvalidInfo", function()
-		local gvii = PartConverterUtil.getValidInvalidInfo
+	describe("getValidInstancesAndWarnings", function()
+		local gviaw = PartConverterUtil.getValidInstancesAndWarnings
 
 		it("should handle selecting parts", function()
 			local m = Instance.new("Model")
 			local p1 = Instance.new("Part", m)
 			local p2 = Instance.new("Part", m)
+			p1.Size = Vector3.new(10, 10, 10)
+			p2.Size = Vector3.new(10, 10, 10)
 
-			local valid, hasInvalid
-			valid, hasInvalid = gvii({})
+			local valid, warnings
+			valid, warnings = gviaw({})
 			expect(setEquals(valid, {})).to.equal(true)
-			expect(hasInvalid).to.equal(false)
+			expect(setEquals(warnings, {})).to.equal(true)
 
-			valid, hasInvalid = gvii({p1, p2})
+			valid, warnings = gviaw({p1, p2})
 			expect(setEquals(valid, {[p1] = true, [p2] = true})).to.equal(true)
-			expect(hasInvalid).to.equal(false)
+			expect(setEquals(warnings, {})).to.equal(true)
 		end)
 
 		it("should handle invalid instances", function()
 			local invalidInstance = Instance.new("IntValue")
 
-			local valid, hasInvalid = gvii({invalidInstance})
+			local valid, warnings = gviaw({invalidInstance})
 			expect(setEquals(valid, {})).to.equal(true)
-			expect(hasInvalid).to.equal(true)
+			expect(setEquals(warnings, {[ConvertPartWarning.HasOtherInstance] = true})).to.equal(true)
 		end)
 
 		it("should handle protected instances", function()
-			local valid, hasInvalid = gvii({game:GetService("CSGDictionaryService")})
+			local valid, warnings = gviaw({game:GetService("CSGDictionaryService")})
 			expect(setEquals(valid, {})).to.equal(true)
-			expect(hasInvalid).to.equal(true)
+			expect(setEquals(warnings, {[ConvertPartWarning.HasProtected] = true})).to.equal(true)
 		end)
 
 		it("should handle models", function()
 			local m = Instance.new("Model")
 
-			local valid, hasInvalid
-			valid, hasInvalid = gvii({m})
+			local valid, warnings
+			valid, warnings = gviaw({m})
 			expect(setEquals(valid, {})).to.equal(true)
-			expect(hasInvalid).to.equal(false)
+			expect(setEquals(warnings, {})).to.equal(true)
 
 			local p1 = Instance.new("Part", m)
-			valid, hasInvalid = gvii({m})
+			p1.Size = Vector3.new(10, 10, 10)
+			valid, warnings = gviaw({m})
 			expect(setEquals(valid, {[p1] = true})).to.equal(true)
-			expect(hasInvalid).to.equal(false)
+			expect(setEquals(warnings, {})).to.equal(true)
 
 			local p2 = Instance.new("Part", m)
-			valid, hasInvalid = gvii({m})
+			p2.Size = Vector3.new(10, 10, 10)
+			valid, warnings = gviaw({m})
 			expect(setEquals(valid, {[p1] = true, [p2] = true})).to.equal(true)
-			expect(hasInvalid).to.equal(false)
+			expect(setEquals(warnings, {})).to.equal(true)
 
 			Instance.new("IntValue", m)
-			valid, hasInvalid = gvii({m})
+			valid, warnings = gviaw({m})
 			expect(setEquals(valid, {[p1] = true, [p2] = true})).to.equal(true)
-			expect(hasInvalid).to.equal(true)
+			expect(setEquals(warnings, {[ConvertPartWarning.HasOtherInstance] = true})).to.equal(true)
 		end)
 
 		it("should handle nested models", function()
@@ -109,21 +123,23 @@ return function()
 			local m3 = Instance.new("Model", m2)
 			local m4 = Instance.new("Model", m3)
 
-			local valid, hasInvalid
-			valid, hasInvalid = gvii({m1})
+			local valid, warnings
+			valid, warnings = gviaw({m1})
 			expect(setEquals(valid, {})).to.equal(true)
-			expect(hasInvalid).to.equal(false)
+			expect(setEquals(warnings, {})).to.equal(true)
 
 			local p1 = Instance.new("Part", m3)
 			local p2 = Instance.new("Part", m4)
-			valid, hasInvalid = gvii({m1})
+			p1.Size = Vector3.new(10, 10, 10)
+			p2.Size = Vector3.new(10, 10, 10)
+			valid, warnings = gviaw({m1})
 			expect(setEquals(valid, {[p1] = true, [p2] = true})).to.equal(true)
-			expect(hasInvalid).to.equal(false)
+			expect(setEquals(warnings, {})).to.equal(true)
 
 			Instance.new("IntValue", m2)
-			valid, hasInvalid = gvii({m1})
+			valid, warnings = gviaw({m1})
 			expect(setEquals(valid, {[p1] = true, [p2] = true})).to.equal(true)
-			expect(hasInvalid).to.equal(true)
+			expect(setEquals(warnings, {[ConvertPartWarning.HasOtherInstance] = true})).to.equal(true)
 		end)
 	end)
 

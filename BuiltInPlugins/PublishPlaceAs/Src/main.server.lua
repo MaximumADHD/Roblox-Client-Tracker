@@ -4,6 +4,7 @@ end
 
 -- Fast flags
 local FFlagPublishPlaceToRobloxLuaPlugin = settings():GetFFlag("PublishPlaceToRobloxLuaPlugin")
+local FFlagStudioDisablePublishButtonsInProgress = game:DefineFastFlag("StudioDisablePublishButtonsInProgress", false)
 
 if not FFlagPublishPlaceToRobloxLuaPlugin then
 	return
@@ -45,6 +46,8 @@ local localization = Localization.new({
 -- Widget Gui Elements
 local pluginHandle
 local pluginGui
+
+local SetIsPublishing = require(Plugin.Src.Actions.SetIsPublishing)
 
 local function closePlugin()
 	if pluginHandle then
@@ -101,6 +104,12 @@ local function main()
 
 	StudioService.OnPublishPlaceToRoblox:Connect(function()
 		openPluginWindow()
+	end)
+
+	StudioService.GamePublishFinished:connect(function(success)
+		if FFlagStudioDisablePublishButtonsInProgress then
+			dataStore:dispatch(SetIsPublishing(false))
+		end
 	end)
 end
 

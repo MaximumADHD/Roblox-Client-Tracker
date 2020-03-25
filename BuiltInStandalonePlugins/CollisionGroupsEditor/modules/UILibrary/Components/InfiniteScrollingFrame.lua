@@ -40,6 +40,7 @@ function InfiniteScrollingFrame:init(props)
 	self.checkCanvasAndRequest = function()
 		local scrollingFrame = self.scrollingFrameRef.current
 		if not scrollingFrame then return end
+
 		local canvasY = scrollingFrame.CanvasPosition.Y
 		local windowHeight = scrollingFrame.AbsoluteWindowSize.Y
         local canvasHeight = scrollingFrame.CanvasSize.Y.Offset
@@ -114,7 +115,7 @@ function InfiniteScrollingFrame:render()
 
 		ScrollingEnabled = true,
 
-		onScroll = self.onScroll,
+		OnScroll = self.onScroll,
 
         [Roact.Ref] = self.scrollingFrameRef,
     }, props[Roact.Children])

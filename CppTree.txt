@@ -915,6 +915,7 @@ RBX
 	InletTool
 	InputObject
 	InsertService
+	InstanceAdornment
 	InventoryPages
 	IPipelined
 	IPluginElementHost

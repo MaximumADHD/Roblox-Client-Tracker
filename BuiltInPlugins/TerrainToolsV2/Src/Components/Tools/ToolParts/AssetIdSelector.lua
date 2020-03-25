@@ -19,7 +19,7 @@ local StudioService = game:GetService("StudioService")
 local HttpService = game:GetService("HttpService")
 
 local FFlagTerrainToolsRefactor = game:GetFastFlag("TerrainToolsRefactor")
-local FFlagTerrainToolsRefactorAssetIdSelector = game:GetFastFlag("TerrainToolsRefactorAssetIdSelector")
+local FFlagTerrainToolsRefactorAssetIdSelector2 = game:GetFastFlag("TerrainToolsRefactorAssetIdSelector2")
 local FFlagTerrainToolsImportImproveColorMapToggle = game:GetFastFlag("TerrainToolsImportImproveColorMapToggle")
 
 -- Constants
@@ -54,7 +54,7 @@ local AssetStatus = {
 }
 
 local getAssetCreationDetailsEndpoint
-if FFlagTerrainToolsRefactorAssetIdSelector then
+if FFlagTerrainToolsRefactorAssetIdSelector2 then
 	getAssetCreationDetailsEndpoint = (function()
 		local ContentProvider = game:GetService("ContentProvider")
 		local baseUrl = ContentProvider.BaseUrl
@@ -123,8 +123,8 @@ local function getIsAssetValid(assetId, resolve)
 end
 
 local function isAssetModerated(assetId, localization)
-	assert(not FFlagTerrainToolsRefactorAssetIdSelector,
-		"AssetIdSelector isAssetModerated() should not be used when FFlagTerrainToolsRefactorAssetIdSelector is on")
+	assert(not FFlagTerrainToolsRefactorAssetIdSelector2,
+		"AssetIdSelector isAssetModerated() should not be used when FFlagTerrainToolsRefactorAssetIdSelector2 is on")
 	if not getAssetCreationDetailsEndpoint then
 		local ContentProvider = game:GetService("ContentProvider")
 		local baseUrl = ContentProvider.BaseUrl
@@ -175,6 +175,10 @@ local function isAssetModerated(assetId, localization)
 	return false, localization:getText("Warning", "AwaitingModeration")
 end
 
+local function isPlacePublished()
+	return tonumber(game.GameId) > 0
+end
+
 local ImageAsset
 if FFlagTerrainToolsRefactor then
 ImageAsset = Roact.PureComponent:extend("ImageAsset")
@@ -222,7 +226,7 @@ function AssetIdSelector:init()
 
 	self.gameImages = {}
 
-	if FFlagTerrainToolsRefactorAssetIdSelector then
+	if FFlagTerrainToolsRefactorAssetIdSelector2 then
 		self.assetStatusCache = {}
 
 		self.state = {
@@ -269,7 +273,7 @@ function AssetIdSelector:init()
 				return
 			end
 
-			if tonumber(game.GameId) == 0 then
+			if not isPlacePublished() then
 				warn(getLocalization(self):getText("Warning", "RequirePublishedForImport"))
 				return
 			end
@@ -447,9 +451,11 @@ function AssetIdSelector:init()
 	end
 end
 
-if FFlagTerrainToolsRefactorAssetIdSelector then
+if FFlagTerrainToolsRefactorAssetIdSelector2 then
 	function AssetIdSelector:didMount()
-		self.updateGameImages()
+		if isPlacePublished() then
+			self.updateGameImages()
+		end
 	end
 end
 
@@ -473,7 +479,7 @@ function AssetIdSelector:render()
 			local text = self.state.assetId and string.format(ASSET_URL_TEXT, self.state.assetId)
 
 			local warningMessageToDisplay
-			if FFlagTerrainToolsRefactorAssetIdSelector then
+			if FFlagTerrainToolsRefactorAssetIdSelector2 then
 				local assetStatus = self.state.assetStatus
 				if assetStatus and assetStatus ~= AssetStatus.Fetching and assetStatus ~= AssetStatus.Valid then
 					warningMessageToDisplay = localization:getText("Warning", assetStatus)

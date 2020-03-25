@@ -39,7 +39,7 @@ local MENU_ENTRIES = {
 }
 
 local FFlagStudioFixPublishSuccessNameIcon = game:GetFastFlag("StudioFixPublishSuccessNameIcon")
-local FFlagStudioDisablePublishButtonsInProgress = game:DefineFastFlag("StudioDisablePublishButtonsInProgress", false)
+local FFlagStudioDisablePublishButtonsInProgress = game:GetFastFlag("StudioDisablePublishButtonsInProgress")
 local FFlagStudioCreateGameGroupOwner = game:GetFastFlag("StudioCreateGameGroupOwner")
 
 local ScreenCreateNewGame = Roact.PureComponent:extend("ScreenCreateNewGame")
@@ -64,9 +64,6 @@ end
 
 function ScreenCreateNewGame:didMount()
 	self.finishedConnection = StudioService.GamePublishFinished:connect(function(success)
-		if FFlagStudioDisablePublishButtonsInProgress then
-			self.props.dispatchSetIsPublishing(false)
-		end
 		if success then
 			if FFlagStudioFixPublishSuccessNameIcon then
 				self.props.OpenPublishSuccessfulPage(self.props.Changed)

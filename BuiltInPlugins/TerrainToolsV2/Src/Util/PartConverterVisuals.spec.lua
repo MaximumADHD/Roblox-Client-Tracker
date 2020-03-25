@@ -13,7 +13,7 @@ return function()
 			local psm = PartSelectionModel.new({
 				getSelection = selection.get,
 				selectionChanged = selection.changed,
-				getValidInvalid = PartConverterUtil.getValidInvalidInfo,
+				getValidAndWarnings = PartConverterUtil.getValidInstancesAndWarnings,
 			})
 		return selection, psm
 	end

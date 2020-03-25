@@ -4,7 +4,7 @@ local SetUniverseName = require(Plugin.Src.Actions.SetUniverseName)
 
 return function(apiImpl)
     return function(store)
-        apiImpl.Develop.V2.Universes.getConfiguration(game.GameId):makeRequest()
+        apiImpl.Develop.V2.Universes.configuration(game.GameId):makeRequest()
         :andThen(function(response)
             local body = response.responseBody
             if not body then

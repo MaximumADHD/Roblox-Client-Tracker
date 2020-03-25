@@ -50,7 +50,9 @@ local Theming = require(Plugin.Src.ContextServices.Theming)
 local createMenuPage = require(Plugin.Src.Components.createMenuPage)
 
 local FFlagStudioCreateGameGroupOwner = game:DefineFastFlag("StudioCreateGameGroupOwner", false)
+local FFlagStudioDefaultGroupInDropdownPublish = game:DefineFastFlag("StudioDefaultGroupInDropdownPublish", false)
 
+local groupsLoaded = false
 --Uses props to display current settings values
 local function displayContents(props, localization)
 	local description = props.Description
@@ -74,13 +76,22 @@ local function displayContents(props, localization)
 
 	local dropdownItems = { { Type = Constants.SUBJECT_TYPE.USER, Key = 0, Text = localization:getText("GroupDropdown", "Me"), }, }
 
+	local creatorItem = FFlagStudioDefaultGroupInDropdownPublish and dropdownItems[1] or nil
+
 	if groups and next(groups) ~= nil then
 		for _, group in pairs(groups) do
 			table.insert(dropdownItems, { Type = Constants.SUBJECT_TYPE.GROUP, Key = group.groupId, Text = group.name, })
 		end
+		if not groupsLoaded and FFlagStudioDefaultGroupInDropdownPublish then
+			groupsLoaded = true
+			for _, item in ipairs(dropdownItems) do
+				if game.CreatorId == item.Key and game.CreatorType == Enum.CreatorType.Group then
+					creatorChanged(item.Key)
+				end
+			end
+		end
 	end
 
-	local creatorItem
 	for _, item in ipairs(dropdownItems) do
 		if creatorId == item.Key then
 			creatorItem = item

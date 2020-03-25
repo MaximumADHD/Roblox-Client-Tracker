@@ -12,12 +12,12 @@ function PartSelectionModel.new(options)
 	local self = setmetatable({
 		_getSelection = options.getSelection,
 		_selectionChanged = options.selectionChanged,
-		_getValidInvalid = options.getValidInvalid,
+		_getValidAndWarnings = options.getValidAndWarnings,
 
 		_selection = {},
 		_selectionSet = {},
 		_validInstancesSet = {},
-		_hasInvalidInstances = false,
+		_warnings = {},
 
 		_selectionStateChanged = Signal.new(),
 		_instanceSelected = Signal.new(),
@@ -26,7 +26,7 @@ function PartSelectionModel.new(options)
 
 	assert(self._getSelection, "PartSelectionModel requires a getSelection function")
 	assert(self._selectionChanged, "PartSelectionModel requires a selectionChanged event")
-	assert(self._getValidInvalid, "PartSelectionModel requires a getValidInvalid function")
+	assert(self._getValidAndWarnings, "PartSelectionModel requires a getValidAndWarnings function")
 
 	self._selectionChangedConnection = self._selectionChanged:Connect(function()
 		self:_updateSelection()
@@ -74,8 +74,12 @@ function PartSelectionModel:hasValidInstances()
 	return next(self._validInstancesSet) ~= nil
 end
 
-function PartSelectionModel:hasInvalidInstances()
-	return self._hasInvalidInstances
+function PartSelectionModel:hasWarnings()
+	return next(self._warnings) ~= nil
+end
+
+function PartSelectionModel:getWarnings()
+	return self._warnings
 end
 
 function PartSelectionModel:isInstanceOrAncestorsSelected(instance)
@@ -84,7 +88,7 @@ end
 
 function PartSelectionModel:_updateSelection()
 	self._selection = self._getSelection()
-	self._validInstancesSet, self._hasInvalidInstances = self._getValidInvalid(self._selection)
+	self._validInstancesSet, self._warnings = self._getValidAndWarnings(self._selection)
 
 	local oldSelectionSet = self._selectionSet
 	local newSelectionSet = SetHelper.arrayToSet(self._selection)

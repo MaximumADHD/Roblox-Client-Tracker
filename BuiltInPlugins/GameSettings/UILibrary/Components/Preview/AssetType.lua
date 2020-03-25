@@ -1,4 +1,5 @@
 local FFlagFixGetAssetTypeErrorHandling = game:DefineFastFlag("FixGetAssetTypeErrorHandling", false)
+local FFlagStudioUILibFixAssetTypeMap = game:DefineFastFlag("StudioUILibFixAssetTypeMap", false)
 
 local AssetType = {}
 
@@ -40,6 +41,10 @@ local classTypeMap = {
 
 	BaseScript = AssetType.TYPES.ScriptType,
 }
+
+if FFlagStudioUILibFixAssetTypeMap then
+	classTypeMap.Part =  AssetType.TYPES.ModelType
+end
 
 -- For AssetPreview, we devide assets into four categories.
 -- For any parts or meshes, we will need to do a model preview.

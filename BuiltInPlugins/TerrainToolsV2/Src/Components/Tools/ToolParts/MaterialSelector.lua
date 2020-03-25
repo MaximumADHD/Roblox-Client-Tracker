@@ -146,7 +146,7 @@ do
 				return Roact.createElement("ImageButton", {
 					LayoutOrder = layoutOrder,
 					Image = TexturePath .. image,
-					BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+					BackgroundColor3 = FFlagTerrainToolsConvertPartTool and theme.backgroundColor or Color3.fromRGB(255, 255, 255),
 					BorderSizePixel = isSelected and 2 or 0,
 					BorderColor3 = isSelected and theme.selectionBorderColor or theme.borderColor,
 

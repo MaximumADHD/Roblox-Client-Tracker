@@ -18439,6 +18439,113 @@
                     },
                     "ValueType": {
                         "Category": "Class",
+                        "Name": "Instance"
+                    }
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "InstanceAdornment",
+            "Superclass": "GuiBase3d",
+            "Tags": [
+                "NotCreatable"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "LineThickness",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "SurfaceColor",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "NotReplicated",
+                        "Deprecated"
+                    ],
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "BrickColor"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "SurfaceColor3",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Color3"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "SurfaceTransparency",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "SelectionBox",
+            "Superclass": "InstanceAdornment"
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "Adornee",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Class",
                         "Name": "PVInstance"
                     }
                 }
@@ -18876,86 +18983,6 @@
             ],
             "MemoryCategory": "Instances",
             "Name": "ParabolaAdornment",
-            "Superclass": "PVAdornment"
-        },
-        {
-            "Members": [
-                {
-                    "Category": "Appearance",
-                    "MemberType": "Property",
-                    "Name": "LineThickness",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "float"
-                    }
-                },
-                {
-                    "Category": "Appearance",
-                    "MemberType": "Property",
-                    "Name": "SurfaceColor",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": false
-                    },
-                    "Tags": [
-                        "Hidden",
-                        "NotReplicated",
-                        "Deprecated"
-                    ],
-                    "ValueType": {
-                        "Category": "DataType",
-                        "Name": "BrickColor"
-                    }
-                },
-                {
-                    "Category": "Appearance",
-                    "MemberType": "Property",
-                    "Name": "SurfaceColor3",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "DataType",
-                        "Name": "Color3"
-                    }
-                },
-                {
-                    "Category": "Appearance",
-                    "MemberType": "Property",
-                    "Name": "SurfaceTransparency",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "float"
-                    }
-                }
-            ],
-            "MemoryCategory": "Instances",
-            "Name": "SelectionBox",
             "Superclass": "PVAdornment"
         },
         {
@@ -21489,6 +21516,23 @@
                     }
                 },
                 {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "DisplayName",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                },
+                {
                     "Category": "Control",
                     "MemberType": "Property",
                     "Name": "FloorMaterial",
@@ -21756,6 +21800,23 @@
                     "Serialization": {
                         "CanLoad": false,
                         "CanSave": false
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "RequiresNeck",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
                     },
                     "ValueType": {
                         "Category": "Primitive",
@@ -30625,6 +30686,48 @@
                     "Tags": [
                         "Yields"
                     ]
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "Roblox17sConnectionChanged",
+                    "Parameters": [
+                        {
+                            "Name": "connectionName",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "connectionState",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "ConnectionState"
+                            }
+                        },
+                        {
+                            "Name": "namespaceSequenceNumbers",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "Security": "None"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "Roblox17sEventReceived",
+                    "Parameters": [
+                        {
+                            "Name": "eventData",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Map"
+                            }
+                        }
+                    ],
+                    "Security": "None"
                 },
                 {
                     "MemberType": "Event",
@@ -44327,20 +44430,6 @@
                 },
                 {
                     "MemberType": "Function",
-                    "Name": "Resume",
-                    "Parameters": [
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "void"
-                    },
-                    "Security": "None",
-                    "Tags": [
-                        "Deprecated"
-                    ]
-                },
-                {
-                    "MemberType": "Function",
                     "Name": "SetBreakpoint",
                     "Parameters": [
                         {
@@ -44447,48 +44536,6 @@
                         "Name": "void"
                     },
                     "Security": "None"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "StepIn",
-                    "Parameters": [
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "void"
-                    },
-                    "Security": "None",
-                    "Tags": [
-                        "Deprecated"
-                    ]
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "StepOut",
-                    "Parameters": [
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "void"
-                    },
-                    "Security": "None",
-                    "Tags": [
-                        "Deprecated"
-                    ]
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "StepOver",
-                    "Parameters": [
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "void"
-                    },
-                    "Security": "None",
-                    "Tags": [
-                        "Deprecated"
-                    ]
                 },
                 {
                     "MemberType": "Event",
@@ -50703,6 +50750,26 @@
                 {
                     "Category": "Data",
                     "MemberType": "Property",
+                    "Name": "EnableScriptCollabVersionHistoryOnLoad",
+                    "Security": {
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "Hidden"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
                     "Name": "SrcPlaceId",
                     "Security": {
                         "Read": "RobloxSecurity",
@@ -50778,6 +50845,27 @@
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "DraggerSolveConstraints",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "DrawConstraintsOnTop",
                     "Security": {
                         "Read": "None",
                         "Write": "None"

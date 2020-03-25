@@ -1,11 +1,21 @@
 local ShapeFiller = require(script.Parent.ShapeFiller)
 
+local Constants = require(script.Parent.Constants)
 local TerrainEnums = require(script.Parent.TerrainEnums)
 local ConvertPartError = TerrainEnums.ConvertPartError
+local ConvertPartWarning = TerrainEnums.ConvertPartWarning
 local Shape = TerrainEnums.Shape
 
 local getAABBRegion = require(script.Parent.getAABBRegion)
 local isProtectedInstance = require(script.Parent.isProtectedInstance)
+
+-- BasePart => boolean
+-- Throws error on protected instances or non-baseparts
+local function isTooSmallToConvert(instance)
+	return instance.Size.x < Constants.VOXEL_RESOLUTION
+	    or instance.Size.y < Constants.VOXEL_RESOLUTION
+	    or instance.Size.z < Constants.VOXEL_RESOLUTION
+end
 
 local function isConvertibleToTerrain(instance)
 	if not instance or isProtectedInstance(instance) or not instance.Parent then
@@ -27,23 +37,27 @@ local function isConvertibleToTerrain(instance)
 		return false
 	end
 
+	if isTooSmallToConvert(instance) then
+		return false
+	end
+
 	return true
 end
 
 -- Takes array : { [number] : Instance }
 -- Returns set of convertible instances { [Instance] : boolean }
--- And a boolean of whether any invalid instances were found
+-- And a set of warning messages
 -- Throws if param array is not an array
-local function getValidInvalidInfo(array)
-	assert(type(array) == "table", "getValidInvalidInfo() expects an array")
+local function getValidInstancesAndWarnings(array)
+	assert(type(array) == "table", "getValidInstancesAndWarnings() expects an array")
 	local valid = {}
-	local hasInvalid = false
+	local warnings = {}
 
 	local function recurse(arr)
 		for _, obj in pairs(arr) do
 			if obj then
 				if isProtectedInstance(obj) then
-					hasInvalid = true
+					warnings[ConvertPartWarning.HasProtected] = true
 
 				elseif isConvertibleToTerrain(obj) then
 					valid[obj] = true
@@ -51,8 +65,11 @@ local function getValidInvalidInfo(array)
 				elseif obj:IsA("Model") or obj:IsA("Folder") then
 					recurse(obj:GetChildren())
 
+				elseif obj:IsA("BasePart") and isTooSmallToConvert(obj) then
+					warnings[ConvertPartWarning.HasTooSmall] = true
+
 				else
-					hasInvalid = true
+					warnings[ConvertPartWarning.HasOtherInstance] = true
 				end
 			end
 		end
@@ -60,7 +77,7 @@ local function getValidInvalidInfo(array)
 
 	recurse(array)
 
-	return valid, hasInvalid
+	return valid, warnings
 end
 
 local function getPartRenderedShape(part)
@@ -239,10 +256,8 @@ local function resetVisualsOnInstance(originalVisuals, instance)
 end
 
 return {
-	ConvertPartError = ConvertPartError,
-
 	isConvertibleToTerrain = isConvertibleToTerrain,
-	getValidInvalidInfo = getValidInvalidInfo,
+	getValidInstancesAndWarnings = getValidInstancesAndWarnings,
 
 	getPartRenderedShape = getPartRenderedShape,
 

@@ -14,6 +14,8 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 
 local Framework = Plugin.Packages.Framework
 local ContextServices = require(Framework.ContextServices)
+local Util = require(Framework.Util)
+local StyleModifier = Util.StyleModifier
 
 local UILibrary = require(Plugin.Packages.UILibrary)
 local InfiniteScrollingFrame = UILibrary.Component.InfiniteScrollingFrame
@@ -24,21 +26,33 @@ local Screens = require(Plugin.Src.Util.Screens)
 
 local Tile = require(Plugin.Src.Components.Tile)
 
-local SetScreen = require(Plugin.Src.Actions.SetScreen)
+local SetSelectedAssets = require(Plugin.Src.Actions.SetSelectedAssets)
 
 local GetAssets = require(Plugin.Src.Thunks.GetAssets)
+local GetAssetPreviewData = require(Plugin.Src.Thunks.GetAssetPreviewData)
 local OnScreenChange = require(Plugin.Src.Thunks.OnScreenChange)
 
-local AssetGridContainer = Roact.PureComponent:extend("AssetGridContainer")
+local AssetGridContainer = Roact.Component:extend("AssetGridContainer")
 
 function AssetGridContainer:init()
-    self.currentScreen = ""
+    self.state = {
+        currentScreen = "",
+    }
 
     self.layoutRef = Roact.createRef()
+
+    self.onClearSelection = function()
+        self.props.dispatchSetSelectedAssets({})
+    end
+
+    self.onOpenAssetPreview = function(assetId)
+        local assetPreviewData = self.props.AssetsTable.assetPreviewData[assetId]
+        self.props.OnOpenAssetPreview(assetPreviewData)
+    end
 end
 
 function AssetGridContainer:createTiles(apiImpl, localization, theme,
-    dispatchSetScreen, assets, currentScreen, searchTerm)
+    assets, currentScreen, searchTerm, selectedAssets)
 
     local numberAssets = 0
     local assetsToDisplay = {
@@ -58,31 +72,24 @@ function AssetGridContainer:createTiles(apiImpl, localization, theme,
                     AssetData = {
                         name = localization:getText("Folders", screen.Key),
                         ClassName = "Folder",
+                        Screen = screen,
                     },
-                    OnClick = function()
-                        dispatchSetScreen(screen, apiImpl)
-                    end,
 
                     LayoutOrder = screen.LayoutOrder,
+                    StyleModifier = selectedAssets[screen.Key] and StyleModifier.Selected or nil
                 })
                 assetsToDisplay[screen.Key] = folderTile
             end
         end
     else
         for i, asset in ipairs(assets) do
-            if searchTerm ~= "" then
-                if string.find(asset.name, searchTerm) then
-                    local assetTile = Roact.createElement(Tile, {
-                        AssetData = asset,
-                        LayoutOrder = i,
-                    })
-                    assetsToDisplay[i] = assetTile
-                    numberAssets = numberAssets + 1
-                end
-            else
+            if string.find(asset.name, searchTerm) then
+                asset.key = i
                 local assetTile = Roact.createElement(Tile, {
                     AssetData = asset,
                     LayoutOrder = i,
+                    StyleModifier = selectedAssets[i] and StyleModifier.Selected or nil,
+                    OnOpenAssetPreview = self.onOpenAssetPreview,
                 })
                 assetsToDisplay[i] = assetTile
                 numberAssets = numberAssets + 1
@@ -91,6 +98,18 @@ function AssetGridContainer:createTiles(apiImpl, localization, theme,
     end
 
     return assetsToDisplay, numberAssets
+end
+
+function AssetGridContainer:didUpdate(lastProps, lastState)
+    local props = self.props
+    local screen = props.CurrentScreen
+    local apiImpl = props.API:get()
+    if screen ~= self.state.currentScreen then
+        props.dispatchOnScreenChange(apiImpl, screen)
+        self:setState({
+            currentScreen = screen,
+        })
+    end
 end
 
 function AssetGridContainer:render()
@@ -109,21 +128,31 @@ function AssetGridContainer:render()
     local currentScreen = props.CurrentScreen
     local isFetchingAssets = props.IsFetchingAssets
     local searchTerm = props.SearchTerm
+    local selectedAssets = props.SelectedAssets
+    local assetPreviewData = assetsTable.assetPreviewData
 
     local dispatchGetAssets = props.dispatchGetAssets
-    local dispatchOnScreenChange = props.dispatchOnScreenChange
-    local dispatchSetScreen = props.dispatchSetScreen
-
-    -- need to keep track and dispatch screen change here to properly handle prev/next buttons setting screen
-    if self.currentScreen ~= currentScreen.Key then
-        dispatchOnScreenChange(apiImpl, currentScreen)
-        self.currentScreen = currentScreen.Key
-    end
+    local dispatchGetAssetPreviewData = props.dispatchGetAssetPreviewData
 
     local contents, assetCount = self:createTiles(apiImpl, localization, theme,
-        dispatchSetScreen, assets, currentScreen, searchTerm)
+        assets, currentScreen, searchTerm, selectedAssets)
 
     local hasAssetsToDisplay = currentScreen.Key == Screens.MAIN.Key or assetCount ~= 0
+
+    if hasAssetsToDisplay then
+        if #assets ~= 0 and #assets ~= #assetPreviewData then
+            local assetIds = {}
+            for _, asset in ipairs(assets) do
+                if assetPreviewData[asset.id] == nil then
+                    table.insert(assetIds, asset.id)
+                end
+            end
+
+            if #assetIds ~= 0 then
+                dispatchGetAssetPreviewData(apiImpl, assetIds)
+            end
+        end
+    end
 
     local assetTypeText = localization:getText("Folders", currentScreen.Key)
     local noResultsText = localization:getText("AssetGrid", "NoResults", {assetType = assetTypeText})
@@ -142,6 +171,7 @@ function AssetGridContainer:render()
 
             LayoutRef = self.layoutRef,
 
+            NextPageRequestDistance = 100,
             NextPageFunc = function()
                 if nextPageCursor then
                     dispatchGetAssets(apiImpl, currentScreen.AssetType, nextPageCursor)
@@ -150,6 +180,14 @@ function AssetGridContainer:render()
                 end
             end,
         }, contents),
+
+        DeselectButton = hasAssetsToDisplay and Roact.createElement("ImageButton", {
+            Size = UDim2.new(1, 0, 1, 0),
+
+            BackgroundTransparency = 1,
+
+            [Roact.Event.Activated] = self.onClearSelection,
+        }),
 
         NoResultsText = not hasAssetsToDisplay and not isFetchingAssets and Roact.createElement("TextLabel", {
             Size = UDim2.new(0, noResultsTextExtents.X, 0, noResultsTextExtents.Y),
@@ -167,6 +205,7 @@ function AssetGridContainer:render()
         LoadingIndicator = isFetchingAssets and Roact.createElement(LoadingIndicator, {
             Position = UDim2.new(0.5, 0, 0.5, 0),
             AnchorPoint = Vector2.new(0.5, 0.5),
+            ZIndex = 2,
         }),
     })
 end
@@ -179,15 +218,17 @@ ContextServices.mapToProps(AssetGridContainer,{
 
 local function mapStateToProps(state, props)
     local assetManagerReducer = state.AssetManagerReducer
+
 	return {
         AssetsTable = assetManagerReducer.assetsTable,
+        CurrentScreen = state.Screen.currentScreen,
         IsFetchingAssets = assetManagerReducer.isFetchingAssets,
         SearchTerm = assetManagerReducer.searchTerm,
-        CurrentScreen = state.Screen.currentScreen,
+        SelectedAssets = assetManagerReducer.selectedAssets,
 	}
 end
 
-local function useDispatchForProps(dispatch)
+local function mapDispatchToProps(dispatch)
 	return {
         dispatchGetAssets = function(apiImpl, assetType, pageCursor, pageNumber)
             dispatch(GetAssets(apiImpl, assetType, pageCursor, pageNumber))
@@ -195,10 +236,13 @@ local function useDispatchForProps(dispatch)
         dispatchOnScreenChange = function(apiImpl, screen)
             dispatch(OnScreenChange(apiImpl, screen))
         end,
-        dispatchSetScreen = function(screen)
-            dispatch(SetScreen(screen))
+        dispatchSetSelectedAssets = function(selectedAssets)
+            dispatch(SetSelectedAssets(selectedAssets))
+        end,
+        dispatchGetAssetPreviewData = function(apiImpl, assetIds)
+            dispatch(GetAssetPreviewData(apiImpl, assetIds))
         end,
 	}
 end
 
-return RoactRodux.connect(mapStateToProps, useDispatchForProps)(AssetGridContainer)
+return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(AssetGridContainer)

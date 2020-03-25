@@ -1800,14 +1800,24 @@
     </Function>
     <Function name="toHSV" static="true">
       <returns>
-        <number>R</number>
-        <number>G</number>
-        <number>B</number>
+        <number>H</number>
+        <number>S</number>
+        <number>V</number>
       </returns>
       <parameters>
         <Color3 name="color"></Color3>
       </parameters>
       <description>Returns the hue, saturation, and value of a Color3.</description>
+    </Function>
+    <Function name="ToHSV">
+        <returns>
+            <number>H</number>
+            <number>S</number>
+            <number>V</number>
+        </returns>
+        <parameters>
+        </parameters>
+        <description>Returns the hue, saturation, and value of a Color3.</description>
     </Function>
     <Function name="Lerp">
       <returns>

@@ -21,6 +21,7 @@ local ConvertProgressFrame = require(Plugin.Src.Components.ConvertProgressFrame)
 
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 local ConvertMode = TerrainEnums.ConvertMode
+local ConvertPartWarning = TerrainEnums.ConvertPartWarning
 
 local TerrainInterface = require(Plugin.Src.ContextServices.TerrainInterface)
 local PartConverter = require(Plugin.Src.TerrainInterfaces.PartConverter)
@@ -42,6 +43,7 @@ local SetHaveCaves = require(Actions.SetHaveCaves)
 local SetSeed = require(Actions.SetSeed)
 
 local SelectionService = game:GetService("Selection")
+local Workspace = game:GetService("Workspace")
 
 local CONVERT_PART_REDUCER_KEY = "ConvertPartTool"
 
@@ -49,6 +51,13 @@ local CONVERT_PART_REDUCER_KEY = "ConvertPartTool"
 -- we may want to move the keys to a enum later since we now have a
 -- case where multiple tools use access the same tool reducers
 local GENERATE_REDUCER_KEY = "GenerateTool"
+
+-- Consistent order to show warnings in if there is more than 1
+local WARNING_ORDER = {
+	ConvertPartWarning.HasTooSmall,
+	ConvertPartWarning.HasOtherInstance,
+	ConvertPartWarning.HasProtected,
+}
 
 local ConvertPart = Roact.PureComponent:extend(script.Name)
 
@@ -59,14 +68,14 @@ function ConvertPart:init()
 			return SelectionService:Get()
 		end,
 		selectionChanged = SelectionService.SelectionChanged,
-		getValidInvalid = PartConverterUtil.getValidInvalidInfo,
+		getValidAndWarnings = PartConverterUtil.getValidInstancesAndWarnings,
 	})
 
 	self.connections = {}
 
 	self.state = {
 		hasValidInstances = self.partSelectionModel:hasValidInstances(),
-		hasInvalidInstances = self.partSelectionModel:hasInvalidInstances(),
+		warnings = self.partSelectionModel:getWarnings(),
 
 		progress = self.partConverter:getProgress(),
 		isRunning = self.partConverter:isRunning(),
@@ -145,13 +154,13 @@ function ConvertPart:init()
 			if self.partSelectionModel:hasValidInstances() then
 				local validInstances = self.partSelectionModel:getValidInstancesSet()
 
-				local success, msg = xpcall(function()
+				xpcall(function()
 					local min, max = PartConverterUtil.getInstanceSetAABBExtents(validInstances)
 					if self.midPlanePreview then
 						self.midPlanePreview:updatePlaneScaling(min,max)
 					else
 						local plugin = StudioPlugin.getPlugin(self)
-						self.midPlanePreview = MidPlanePreview.new(plugin, workspace, min, max)
+						self.midPlanePreview = MidPlanePreview.new(plugin, Workspace, min, max)
 						local mid = (min + max) * 0.5
 						self.setPlanePositionY(mid.y)
 					end
@@ -207,7 +216,7 @@ function ConvertPart:didMount()
 
 		self:setState({
 			hasValidInstances = self.partSelectionModel:hasValidInstances(),
-			hasInvalidInstances = self.partSelectionModel:hasInvalidInstances(),
+			warnings = self.partSelectionModel:getWarnings(),
 		})
 	end)
 
@@ -241,49 +250,46 @@ function ConvertPart:render()
 	return withLocalization(function(localization)
 		local isRunning = self.state.isRunning
 		local convertMode = self.props.convertMode
-		local convertButtonActive = false
 
 		local infoLabelText = ""
 		local infoLabelType = InfoLabel.Info
-		local showInfoLabel = true
+		local showInfoLabel = false
+		local convertButtonActive = false
+
 		if isRunning then
 			showInfoLabel = false
+
 		else
 			local hasValid = self.state.hasValidInstances
-			local hasInvalid = self.state.hasInvalidInstances
-			--[[
-				No valid + No invalid
-					"Select some parts!" info
-					Disable button
+			local warnings = self.state.warnings
+			local hasWarnings = not not next(warnings)
 
-				Some valid + no invalid
-					No text
-					Enable button
+			if hasWarnings then
+				local orderedWarningsToShow = {}
+				for _, warning in ipairs(WARNING_ORDER) do
+					if warnings[warning] then
+						table.insert(orderedWarningsToShow, localization:getText("ConvertPart", warning))
+					end
+				end
+				infoLabelText = table.concat(orderedWarningsToShow, "\n")
+				showInfoLabel = true
 
-				No valid + some invalid
-					"Need to select a part" error
-					Disable button
+				if hasValid then
+					infoLabelType = InfoLabel.Warning
+					convertButtonActive = true
+				else
+					infoLabelType = InfoLabel.Error
+					convertButtonActive = false
+				end
 
-				Some valid + some invalid
-					"Only parts will work" warning
-					Enable button
-			]]
-
-			if hasValid and hasInvalid then
-				infoLabelText = localization:getText("ConvertPart", "SelectionOnlyParts")
-				infoLabelType = InfoLabel.Warning
-				convertButtonActive = true
-
-			elseif hasValid and not hasInvalid then
-				showInfoLabel = false
-				convertButtonActive = true
-
-			elseif not hasValid and hasInvalid then
-				infoLabelText = localization:getText("ConvertPart", "SelectionNeedPart")
-				infoLabelType = InfoLabel.Error
-
-			else -- not hasValid and not hasInvalid
-				infoLabelText = localization:getText("ConvertPart", "SelectionHelp")
+			else
+				if hasValid then
+					convertButtonActive = true
+				else
+					infoLabelText = localization:getText("ConvertPart", "SelectionHelp")
+					showInfoLabel = true
+					convertButtonActive = false
+				end
 			end
 		end
 

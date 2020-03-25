@@ -15,7 +15,8 @@ return function(searchArguments)
 	local id = searchArguments.id
 	local type = searchArguments.type
 	local limit = searchArguments.limit or 10
-	local sortOrder = searchArguments.sortOrder or "-LastUpdated"
+	local sort = searchArguments.sort or "-LastUpdated"
+	local sortOrder = searchArguments.sortOrder or "Asc"
 	local cursor = searchArguments.cursor
 
 	local query = ""
@@ -30,8 +31,9 @@ return function(searchArguments)
 		Method = "GET",
 		Params = {
 			q = query,
-			limit = limit,
+			sort = sort,
 			sortOrder = sortOrder,
+			limit = limit,
 			cursor = cursor,
 		},
 	}

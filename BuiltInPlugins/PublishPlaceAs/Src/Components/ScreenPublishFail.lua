@@ -58,9 +58,6 @@ function ScreenPublishFail:didMount()
 	end)
 
 	self.finishedConnection = StudioService.GamePublishFinished:connect(function(success)
-		if FFlagStudioDisablePublishButtonsInProgress then
-			self.props.dispatchSetIsPublishing(false)
-		end
 		if success then
 			self.props.OpenPublishSuccessfulPage(self.props.Id, self.props.Name, self.props.ParentGameName)
 		end

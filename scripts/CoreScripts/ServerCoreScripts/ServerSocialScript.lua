@@ -41,6 +41,9 @@ end
 -- Map of which special groups a player is in.
 local PlayerToGroupDetailsMap = {}
 
+-- Map of player to if they can manage the current place.
+local PlayerToCanManageMap = {}
+
 --[[ Remotes ]]--
 local RemoteEvent_FollowRelationshipChanged = Instance.new('RemoteEvent')
 RemoteEvent_FollowRelationshipChanged.Name = "FollowRelationshipChanged"
@@ -69,6 +72,12 @@ RemoteEvent_UpdatePlayerBlockList.Parent = RobloxReplicatedStorage
 local RemoteEvent_PlayerGroupDetails = Instance.new('RemoteEvent')
 RemoteEvent_PlayerGroupDetails.Name = 'NewPlayerGroupDetails'
 RemoteEvent_PlayerGroupDetails.Parent = RobloxReplicatedStorage
+
+local RemoveEvent_NewPlayerCanManageDetails = Instance.new('RemoteEvent')
+RemoveEvent_NewPlayerCanManageDetails.Name = 'NewPlayerCanManageDetails'
+RemoveEvent_NewPlayerCanManageDetails.Parent = RobloxReplicatedStorage
+
+game:DefineFastFlag("UseCanManageForDeveloperIconServer", false)
 
 --[[ Helper Functions ]]--
 local function decodeJSON(json)
@@ -288,11 +297,50 @@ local function sendCanChatWith(newPlayer)
 	end
 end
 
+local function sendPlayerAllCanManage(player)
+	for userId, canManage in pairs(PlayerToCanManageMap) do
+		RemoveEvent_NewPlayerCanManageDetails:FireClient(player, userId, canManage)
+	end
+end
+
+local function getPlayerCanManage(player)
+	local canManage = false
+	if player.UserId > 0 then
+		local canManageSuccess, canManageResult = pcall(function()
+			local url = string.format("/users/%d/canmanage/%d", player.UserId, game.PlaceId)
+			return HttpRbxApiService:GetAsync(url, Enum.ThrottlingPriority.Default, Enum.HttpRequestType.Default, true)
+		end)
+		if canManageSuccess and type(canManageResult) == "string" then
+			-- API returns: {"Success":BOOLEAN,"CanManage":BOOLEAN}
+			-- Convert from JSON to a table
+			-- pcall in case of invalid JSON
+			local success, result = pcall(function()
+				return HttpService:JSONDecode(canManageResult)
+			end)
+			if success and result.CanManage == true then
+				canManage = true
+			end
+		end
+	end
+
+	if player.Parent then
+		local uidStr = tostring(player.UserId)
+		PlayerToCanManageMap[uidStr] = canManage
+		RemoveEvent_NewPlayerCanManageDetails:FireAllClients(uidStr, canManage)
+	end
+end
+
 local function onPlayerAdded(newPlayer)
 	sendPlayerAllGroupDetails(newPlayer)
 	if newPlayer.UserId > 0 then
 		coroutine.wrap(getPlayerGroupDetails)(newPlayer)
 	end
+
+	if game:GetFastFlag("UseCanManageForDeveloperIconServer") then
+		sendPlayerAllCanManage(newPlayer)
+		coroutine.wrap(getPlayerCanManage)(newPlayer)
+	end
+
 	sendCanChatWith(newPlayer)
 	local uid = newPlayer.UserId
 	if uid > 0 then
@@ -326,5 +374,10 @@ Players.PlayerRemoving:connect(function(prevPlayer)
 	end
 	if PlayerToGroupDetailsMap[uid] then
 		PlayerToGroupDetailsMap[uid] = nil
+	end
+	if game:GetFastFlag("UseCanManageForDeveloperIconServer") then
+		if PlayerToCanManageMap[uid] then
+			PlayerToCanManageMap[uid] = nil
+		end
 	end
 end)

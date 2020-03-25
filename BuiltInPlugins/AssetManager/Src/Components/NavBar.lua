@@ -50,8 +50,6 @@ end
 local function buildPathComponents(props, theme, localization, dispatch)
     local pathComponents = {}
 
-    local apiImpl = props.API:get()
-
     local currentScreen = props.CurrentScreen
 
     local path = getCurrentPath(currentScreen)
@@ -76,7 +74,7 @@ local function buildPathComponents(props, theme, localization, dispatch)
 
             OnClick = function()
                 if not isStartingElement then
-                    dispatch(true, apiImpl, screen)
+                    dispatch(true, screen)
                 end
             end,
 
@@ -155,7 +153,6 @@ function NavBar:render()
 end
 
 ContextServices.mapToProps(NavBar,{
-    API = ContextServices.API,
     Theme = ContextServices.Theme,
     Localization = ContextServices.Localization,
 })
@@ -170,9 +167,9 @@ local function mapStateToProps(state, props)
     }
 end
 
-local function useDispatchForProps(dispatch)
+local function mapDispatchToProps(dispatch)
     return {
-        dispatchSetScreen = function(enabled, apiImpl, screen)
+        dispatchSetScreen = function(enabled, screen)
             if enabled then
                 dispatch(SetScreen(screen))
             end
@@ -180,4 +177,4 @@ local function useDispatchForProps(dispatch)
     }
 end
 
-return RoactRodux.connect(mapStateToProps, useDispatchForProps)(NavBar)
+return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(NavBar)

@@ -30,6 +30,7 @@ local function openPlugin()
 	toolButton:SetActive(true)
 
 	pluginHandle = Roact.mount(Roact.createElement(DraggerTool, {
+		AnalyticsName = "Move",
 		Mouse = plugin:GetMouse(),
 		AllowDragSelect = true,
 		AllowFreeformDrag = true,

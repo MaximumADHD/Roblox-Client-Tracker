@@ -11,10 +11,6 @@
 --   a) Stop listening for events from key value store and from asset DM.  We are 
 --      essentially hibernating.
 
-if not settings():GetFFlag("StudioUseStandaloneCollisionEditor2") then
-	return
-end
-
 local PhysicsService = game:GetService("PhysicsService")
 local ChangeHistoryService = game:GetService("ChangeHistoryService")
 local HttpService = game:GetService("HttpService")

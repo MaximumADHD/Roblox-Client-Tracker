@@ -1,6 +1,3 @@
-if not settings():GetFFlag("StudioUseStandaloneCollisionEditor2") then
-	return
-end
 
 local Roact = require(script.Parent.Parent.modules.Roact)
 local Gui = require(script.Parent.Parent.Plugin.Components.Gui)

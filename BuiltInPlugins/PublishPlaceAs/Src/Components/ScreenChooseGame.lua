@@ -28,9 +28,10 @@ local TileGame = require(Plugin.Src.Components.TileGame)
 
 local Localizing = UILibrary.Localizing
 local Spritesheet = UILibrary.Util.Spritesheet
-local RoundTextButton = UILibrary.Component.RoundTextButton
 local createFitToContent = UILibrary.Component.createFitToContent
 local StyledDropDown = UILibrary.Component.StyledDropdown
+
+local FFlagStudioDefaultGroupInDropdownPublish = game:GetFastFlag("StudioDefaultGroupInDropdownPublish")
 
 local FRAME_BUTTON_SIZE = 32
 local ARROW_SIZE = 12
@@ -45,13 +46,11 @@ local rightArrowProps = arrowSpritesheet[2]
 local leftArrowProps = arrowSpritesheet[4]
 
 local HorizontalContentFit = createFitToContent("Frame", "UIListLayout", {
-	SortOrder = Enum.SortOrder.LayoutOrder,
 	Padding = UDim.new(0, 0),
 	FillDirection = Enum.FillDirection.Horizontal,
 	SortOrder = Enum.SortOrder.LayoutOrder,
 })
-
-local StudioService = game:GetService("StudioService")
+local groupsLoaded = false
 
 local ScreenChooseGame = Roact.PureComponent:extend("ScreenChooseGame")
 
@@ -124,7 +123,7 @@ function ScreenChooseGame:render()
 				if self.state.isPreviousButtonHovered then
 					previousButtonColor = theme.pageButton.hovered.ButtonColor
 				end
-			else 
+			else
 				previousButtonColor = theme.pageButton.disabled.ButtonColor
 			end
 
@@ -137,18 +136,28 @@ function ScreenChooseGame:render()
 
 			local dropdownItems = { { Type = Constants.SUBJECT_TYPE.USER, Key = 0, Text = myGamesText, }, }
 
-			if groups and next(groups) ~= nil then
-				for _, group in pairs(groups) do
-					table.insert(dropdownItems, { Type = Constants.SUBJECT_TYPE.GROUP, Key = group.groupId, Text = group.name, })
-				end
-			end
-
 			if not self.state.selectedItem then
 				self:setState({
 					selectedItem = dropdownItems[1],
 				})
 			end
-			 
+
+			if groups and next(groups) ~= nil then
+				for _, group in pairs(groups) do
+					table.insert(dropdownItems, { Type = Constants.SUBJECT_TYPE.GROUP, Key = group.groupId, Text = group.name, })
+				end
+				if not groupsLoaded and FFlagStudioDefaultGroupInDropdownPublish then
+					groupsLoaded = true
+					for _, item in ipairs(dropdownItems) do
+						if game.CreatorId == item.Key and game.CreatorType == Enum.CreatorType.Group then
+							self:setState({
+								selectedItem = item,
+							})
+						end
+					end
+				end
+			end
+
 			local dropdownDisplayText = (self.state.selectedItem and self.state.selectedItem or dropdownItems[1]).Text
 
 			-- TODO (kstephan) 2019/07/29 Use infinite scroller. componentsTop and Bottom
@@ -177,8 +186,8 @@ function ScreenChooseGame:render()
 						Id = v.universeId,
 						State = v.privacyType,
 						LayoutOrder = i,
-						OnActivated = function() 
-							openChoosePlacePage(v) 
+						OnActivated = function()
+							openChoosePlacePage(v)
 						end,
 					})
 				else
@@ -187,8 +196,8 @@ function ScreenChooseGame:render()
 						Id = v.universeId,
 						State = v.privacyType,
 						LayoutOrder = i - 5,
-						OnActivated = function() 
-							openChoosePlacePage(v) 
+						OnActivated = function()
+							openChoosePlacePage(v)
 						end,
 					})
 				end
@@ -218,7 +227,7 @@ function ScreenChooseGame:render()
 					TextSize = 18,
 					SelectedItem = (self.state.selectedItem and self.state.selectedItem or dropdownItems[1]).Key,
 					ShowRibbon = not theme.isDarkerTheme,
-					OnItemClicked = function(item) 
+					OnItemClicked = function(item)
 						self:setState({
 							pageNumber = 1,
 							selectedItem = item,
@@ -227,7 +236,7 @@ function ScreenChooseGame:render()
 					end,
 					ListWidth = 330,
 				}),
-				
+
 				GamesList = Roact.createElement("Frame", {
 					Size = UDim2.new(1, 0, 0.5, Constants.FOOTER_HEIGHT),
 					Position = UDim2.new(0, 0, 0.5, -Constants.FOOTER_HEIGHT * 2),
@@ -240,7 +249,7 @@ function ScreenChooseGame:render()
 						AnchorPoint = Vector2.new(0, 0.5),
 						BackgroundTransparency = 1,
 					}, componentsTop),
-					
+
 					BottomRow = Roact.createElement("Frame", {
 						Size = UDim2.new(1, 0, 0.5, 0),
 						Position = UDim2.new(0, 30, 0.5, 20),
@@ -276,7 +285,7 @@ function ScreenChooseGame:render()
 							Position = UDim2.new(0.5, 0, 0.5, 0),
 							Size = UDim2.new(0, ARROW_SIZE, 0, ARROW_SIZE),
 							BackgroundTransparency = 1,
-							ImageColor3 = previousButtonActive and theme.pageButton.ImageColor or theme.pageButton.disabled.ImageColor,							
+							ImageColor3 = previousButtonActive and theme.pageButton.ImageColor or theme.pageButton.disabled.ImageColor,
 						})),
 					}),
 
@@ -296,7 +305,7 @@ function ScreenChooseGame:render()
 						Size = UDim2.new(0, FRAME_BUTTON_SIZE, 0, FRAME_BUTTON_SIZE),
 						BackgroundColor3 = nextButtonColor,
 						BorderColor3 = theme.pageButton.BorderColor,
-						Active = nextPageCursor ~= nil,	
+						Active = nextPageCursor ~= nil,
 						TextTransparency = 1,
 						LayoutOrder = 3,
 
@@ -314,11 +323,10 @@ function ScreenChooseGame:render()
 							Position = UDim2.new(0.5, 0, 0.5, 0),
 							Size = UDim2.new(0, ARROW_SIZE, 0, ARROW_SIZE),
 							BackgroundTransparency = 1,
-							ImageColor3 = theme.pageButton.ImageColor,								
+							ImageColor3 = theme.pageButton.ImageColor,
 						})),
 					}),
 				}),
-			
 
 				Footer = Roact.createElement(Footer, {
 					MainButton = {

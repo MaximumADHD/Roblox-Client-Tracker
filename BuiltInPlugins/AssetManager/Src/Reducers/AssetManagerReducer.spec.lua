@@ -5,9 +5,13 @@ local Rodux = require(Plugin.Packages.Rodux)
 local AssetManagerReducer = require(script.parent.AssetManagerReducer)
 
 local SetAssets = require(Plugin.Src.Actions.SetAssets)
+local SetAssetOwnerName = require(Plugin.Src.Actions.SetAssetOwnerName)
+local SetAssetPreviewData = require(Plugin.Src.Actions.SetAssetPreviewData)
 local SetBulkImporterRunning = require(Plugin.Src.Actions.SetBulkImporterRunning)
 local SetIsFetchingAssets = require(Plugin.Src.Actions.SetIsFetchingAssets)
+local SetRootTreeViewInstance = require(Plugin.Src.Actions.SetRootTreeViewInstance)
 local SetSearchTerm = require(Plugin.Src.Actions.SetSearchTerm)
+local SetSelectedAssets = require(Plugin.Src.Actions.SetSelectedAssets)
 local SetUniverseName = require(Plugin.Src.Actions.SetUniverseName)
 
 local testImmutability = require(Plugin.Src.TestHelpers.testImmutability)
@@ -22,6 +26,7 @@ return function()
 		expect(state.bulkImporterRunning).to.be.ok()
 		expect(state.isFetchingAssets).to.be.ok()
 		expect(state.searchTerm).to.be.ok()
+		expect(state.selectedAssets).to.be.ok()
 		expect(state.universeName).to.be.ok()
 	end)
 
@@ -183,6 +188,36 @@ return function()
 		end)
 	end)
 
+	describe("SetSelectedAssets action", function()
+		it("should validate its inputs", function()
+			expect(function()
+				SetSelectedAssets(nil)
+			end).to.throw()
+
+			expect(function()
+				SetSelectedAssets(true)
+			end).to.throw()
+
+			expect(function()
+				SetSelectedAssets(1)
+			end).to.throw()
+		end)
+
+		it("should preserve immutability", function()
+			local immutabilityPreserved = testImmutability(AssetManagerReducer, SetSelectedAssets({yeet = "yee yee"}))
+			expect(immutabilityPreserved).to.equal(true)
+		end)
+
+		it("should set screen", function()
+			local r = Rodux.Store.new(AssetManagerReducer)
+			local state = r:getState()
+			expect(#state.selectedAssets).to.equal(0)
+
+            state = AssetManagerReducer(state, SetSelectedAssets({yeet = "yee yee"}))
+            expect(state.selectedAssets.yeet).to.equal("yee yee")
+		end)
+	end)
+
 	describe("SetUniverseName action", function()
 		it("should validate its inputs", function()
 			expect(function()
@@ -210,6 +245,182 @@ return function()
 
             state = AssetManagerReducer(state, SetUniverseName("yeet"))
             expect(state.universeName).to.equal("yeet")
+		end)
+	end)
+
+	describe("SetAssetPreviewData action", function()
+		it("should validate its inputs", function()
+			expect(function()
+				SetAssetPreviewData(nil)
+			end).to.throw()
+
+			expect(function()
+				SetAssetPreviewData("fruit")
+			end).to.throw()
+
+			expect(function()
+				SetAssetPreviewData(100)
+			end).to.throw()
+
+			expect(function()
+				SetAssetPreviewData({ key = "value"})
+			end).to.be.ok()
+		end)
+
+		it("should preserve immutability", function()
+			local immutabilityPreserved = testImmutability(AssetManagerReducer, SetAssetPreviewData({
+				key = "value",
+			}))
+			expect(immutabilityPreserved).to.equal(true)
+		end)
+
+		it("should set asset preview data", function()
+			local r = Rodux.Store.new(AssetManagerReducer)
+			local state = r:getState()
+			expect(#state.assetsTable.assetPreviewData).to.equal(0)
+
+			local assetId = 1234567890
+
+			state = AssetManagerReducer(state, SetAssetPreviewData({
+				[assetId] = {
+					Asset = {
+						Id = assetId,
+						Type = "Model",
+						TypeId = 10,
+						Name = "Test Model Please Ignore",
+						Description = "Lorem Ipsum",
+						AssetGenres = {
+							"All"
+						},
+						Created = "Today",
+						Updated = "Yesterday",
+					},
+					Creator = {
+						Type = 1,
+						TypeId = 1,
+						TargetId = 9876543210,
+					},
+				}
+			}))
+
+			expect(state.assetsTable.assetPreviewData[assetId].Asset.Id).to.equal(1234567890)
+			expect(state.assetsTable.assetPreviewData[assetId].Asset.Type).to.equal("Model")
+			expect(state.assetsTable.assetPreviewData[assetId].Asset.TypeId).to.equal(10)
+			expect(state.assetsTable.assetPreviewData[assetId].Asset.Name).to.equal("Test Model Please Ignore")
+			expect(state.assetsTable.assetPreviewData[assetId].Asset.Description).to.equal("Lorem Ipsum")
+			expect(state.assetsTable.assetPreviewData[assetId].Asset.AssetGenres[1]).to.equal("All")
+			expect(state.assetsTable.assetPreviewData[assetId].Asset.Created).to.equal("Today")
+			expect(state.assetsTable.assetPreviewData[assetId].Asset.Updated).to.equal("Yesterday")
+			expect(state.assetsTable.assetPreviewData[assetId].Creator.Type).to.equal(1)
+			expect(state.assetsTable.assetPreviewData[assetId].Creator.TypeId).to.equal(1)
+			expect(state.assetsTable.assetPreviewData[assetId].Creator.TargetId).to.equal(9876543210)
+		end)
+	end)
+
+	describe("SetAssetOwnerName", function()
+		it("should validate its inputs", function()
+			expect(function()
+				SetAssetOwnerName(nil, nil)
+			end).to.throw()
+
+			expect(function()
+				SetAssetOwnerName(123, "fruit")
+			end).to.be.ok()
+
+			expect(function()
+				SetAssetOwnerName("string", 100)
+			end).to.throw()
+
+			expect(function()
+				SetAssetOwnerName(nil, { key = "value"})
+			end).to.throw()
+		end)
+
+		it("should set the asset's owner name", function()
+			local r = Rodux.Store.new(AssetManagerReducer)
+			local state = r:getState()
+
+			local assetId = 1234
+
+			expect(state.assetsTable.assetPreviewData[assetId]).to.equal(nil)
+			state = AssetManagerReducer(state, SetAssetPreviewData({
+				[assetId] = {
+					Asset = {
+						Id = assetId,
+						Type = "Model",
+						TypeId = 10,
+						Name = "Test Model Please Ignore",
+						Description = "Lorem Ipsum",
+						AssetGenres = {
+							"All"
+						},
+						Created = "Today",
+						Updated = "Yesterday",
+					},
+					Creator = {
+						Type = 1,
+						TypeId = 1,
+						TargetId = 9876543210,
+					},
+				}
+			}))
+
+			state = AssetManagerReducer(state, SetAssetOwnerName(assetId, "Bub"))
+
+			expect(state.assetsTable.assetPreviewData[assetId].Creator.Name).to.equal("Bub")
+		end)
+	end)
+
+	describe("SetRootTreeViewInstance", function()
+		local assetId = 1234
+		it("should validate its inputs", function()
+			expect(function()
+				SetAssetOwnerName(nil, nil)
+			end).to.throw()
+
+			expect(function()
+				SetAssetOwnerName(assetId, Instance.new("Model"))
+			end).to.be.ok()
+
+			expect(function()
+				SetAssetOwnerName("string", 100)
+			end).to.throw()
+
+			expect(function()
+				SetAssetOwnerName(nil, { key = "value"})
+			end).to.throw()
+		end)
+
+		it("should set the asset's root tree view instance", function()
+			local r = Rodux.Store.new(AssetManagerReducer)
+			local state = r:getState()
+
+			expect(state.assetsTable.assetPreviewData[assetId]).to.equal(nil)
+			state = AssetManagerReducer(state, SetAssetPreviewData({
+				[assetId] = {
+					Asset = {
+						Id = assetId,
+						Type = "Model",
+						TypeId = 10,
+						Name = "Test Model Please Ignore",
+						Description = "Lorem Ipsum",
+						AssetGenres = {
+							"All"
+						},
+						Created = "Today",
+						Updated = "Yesterday",
+					},
+					Creator = {
+						Type = 1,
+						TypeId = 1,
+						TargetId = 9876543210,
+						Name = "Hello",
+					},
+				}
+			}))
+
+			state = AssetManagerReducer(state, SetRootTreeViewInstance(assetId, Instance.new("Model")))
+			expect(typeof(state.assetsTable.assetPreviewData[assetId].rootTreeViewInstance)).to.equal("Instance")
 		end)
 	end)
 end
