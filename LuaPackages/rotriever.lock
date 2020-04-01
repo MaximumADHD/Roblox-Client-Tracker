@@ -22,7 +22,7 @@ dependencies = [
     "RoactRodux roblox/roact-rodux 0.2.0 registry+https://github.rbx.com/roblox/rotriever-index",
     "Rodux roblox/rodux 1.0.0 registry+https://github.rbx.com/roblox/rotriever-index",
     "TestEZ roblox/testez 0.1.1 registry+https://github.rbx.com/roblox/rotriever-index",
-    "UIBlox UIBlox def2274f git+https://github.rbx.com/roblox/uiblox#master",
+    "UIBlox UIBlox 767b0b0f git+https://github.rbx.com/roblox/uiblox#master",
     "enumerate roblox/enumerate 1.0.0 registry+https://github.rbx.com/roblox/rotriever-index",
     "t osyris/t 1.2.5 registry+https://github.rbx.com/roblox/rotriever-index",
     "tutils tutils 74574fde git+https://github.rbx.com/roblox/tutils#master",
@@ -39,7 +39,7 @@ dependencies = [
     "Roact roblox/roact 1.2.0 registry+https://github.rbx.com/roblox/rotriever-index",
     "RoactRodux roblox/roact-rodux 0.2.0 registry+https://github.rbx.com/roblox/rotriever-index",
     "Rodux roblox/rodux 1.0.0 registry+https://github.rbx.com/roblox/rotriever-index",
-    "UIBlox UIBlox def2274f git+https://github.rbx.com/roblox/uiblox#master",
+    "UIBlox UIBlox 767b0b0f git+https://github.rbx.com/roblox/uiblox#master",
     "t osyris/t 1.2.5 registry+https://github.rbx.com/roblox/rotriever-index",
 ]
 
@@ -103,7 +103,7 @@ dependencies = [
 name = "UIBlox"
 version = "0.1.1"
 source = "git+https://github.rbx.com/roblox/uiblox#master"
-commit = "def2274ff37a7c122daaa7ecb7ca9f8a943884b6"
+commit = "767b0b0f19827a0e089e25e50bb8d32b2649721e"
 dependencies = [
     "Cryo roblox/cryo 1.0.0 registry+https://github.rbx.com/roblox/rotriever-index",
     "FitFrame roblox/roact-fit-components 1.0.0 registry+https://github.rbx.com/roblox/rotriever-index",
@@ -111,7 +111,7 @@ dependencies = [
     "Otter roblox/otter 0.1.0 registry+https://github.rbx.com/roblox/rotriever-index",
     "Roact roblox/roact 1.2.0 registry+https://github.rbx.com/roblox/rotriever-index",
     "enumerate roblox/enumerate 1.0.0 registry+https://github.rbx.com/roblox/rotriever-index",
-    "t osyris/t 1.2.5 registry+https://github.rbx.com/roblox/rotriever-index",
+    "t roblox/t 1.2.5 registry+https://github.rbx.com/roblox/rotriever-index",
 ]
 
 [[package]]
@@ -250,7 +250,7 @@ dependencies = [
     "Roact roblox/roact 1.2.0 registry+https://github.rbx.com/roblox/rotriever-index",
     "RoactRodux roblox/roact-rodux 0.2.0 registry+https://github.rbx.com/roblox/rotriever-index",
     "Rodux roblox/rodux 1.0.0 registry+https://github.rbx.com/roblox/rotriever-index",
-    "UIBlox UIBlox def2274f git+https://github.rbx.com/roblox/uiblox#master",
+    "UIBlox UIBlox 767b0b0f git+https://github.rbx.com/roblox/uiblox#master",
     "t osyris/t 1.2.5 registry+https://github.rbx.com/roblox/rotriever-index",
 ]
 
@@ -296,6 +296,11 @@ source = "registry+https://github.rbx.com/roblox/rotriever-index"
 [[package]]
 name = "roblox/state-table"
 version = "0.1.0"
+source = "registry+https://github.rbx.com/roblox/rotriever-index"
+
+[[package]]
+name = "roblox/t"
+version = "1.2.5"
 source = "registry+https://github.rbx.com/roblox/rotriever-index"
 
 [[package]]

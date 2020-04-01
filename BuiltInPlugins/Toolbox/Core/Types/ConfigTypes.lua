@@ -1,4 +1,3 @@
-local FFlagLuaPackagePermissions =  settings():GetFFlag("LuaPackagePermissions")
 local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 
 local Plugin = script.Parent.Parent.Parent
@@ -65,10 +64,8 @@ function ConfigTypes:getAssetconfigContent(screenFlowType, assetTypeEnum, isMark
 		GENERAL,
 	}
 
-	if FFlagLuaPackagePermissions then
-		if isPackage then
-			result[#result + 1] = PERMISSIONS
-		end
+	if isPackage then
+		result[#result + 1] = PERMISSIONS
 	end
 
 	-- Versions History is only accessible to models and plugins, so we only try to show the Versions if it's a model.

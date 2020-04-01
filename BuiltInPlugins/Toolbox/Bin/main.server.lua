@@ -1,5 +1,3 @@
-local FFlagLuaPackagePermissions =  settings():GetFFlag("LuaPackagePermissions")
-
 if not plugin then
 	return
 end
@@ -9,6 +7,7 @@ require(script.Parent.defineLuaFlags)
 local FFlagEnableOverrideAssetCursorFix = game:GetFastFlag("EnableOverrideAssetCursorFix")
 local FFlagStudioToolboxEnabledDevFramework = game:DefineFastFlag("StudioToolboxEnabledDevFramework", false)
 local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
+local FFlagAssetManagerLuaPlugin = game:GetFastFlag("AssetManagerLuaPlugin")
 
 local Plugin = script.Parent.Parent
 local Libs = Plugin.Libs
@@ -46,8 +45,10 @@ local SettingsContext = require(Plugin.Core.ContextServices.Settings)
 local TranslationStringsTable = Plugin.LocalizationSource.ToolboxTranslationReferenceTable
 local makeTheme = require(Util.makeTheme)
 
-local StudioService = game:GetService("StudioService")
+local HttpService = game:GetService("HttpService")
+local MemStorageService = game:GetService("MemStorageService")
 local RobloxPluginGuiService = game:GetService("RobloxPluginGuiService")
+local StudioService = game:GetService("StudioService")
 
 local localization2
 if FFlagStudioToolboxEnabledDevFramework then
@@ -284,11 +285,9 @@ local function main()
 		toolboxStore:dispatch(GetRolesRequest(networkInterface)):andThen(proceedToUpload, proceedToUpload)
 	end)
 
-	if FFlagLuaPackagePermissions then
-		StudioService.OnOpenManagePackagePlugin:connect(function(userId, assetId)
-			createAssetConfig(assetId, AssetConfigConstants.FLOW_TYPE.EDIT_FLOW, nil, Enum.AssetType.Model)
-		end)
-	end
+	StudioService.OnOpenManagePackagePlugin:connect(function(userId, assetId)
+		createAssetConfig(assetId, AssetConfigConstants.FLOW_TYPE.EDIT_FLOW, nil, Enum.AssetType.Model)
+	end)
 
 	-- Create publish new plugin page.
 	StudioService.OnPublishAsPlugin:connect(function(instances)
@@ -301,6 +300,28 @@ local function main()
 			)
 		end
 	end)
+
+	if FFlagAssetManagerLuaPlugin then
+	-- Listen to MemStorageService
+		local EVENT_ID_OPENASSETCONFIG = "OpenAssetConfiguration"
+		MemStorageService:Bind(EVENT_ID_OPENASSETCONFIG,
+			function(params)
+				local asset = HttpService:JSONDecode(params)
+				if asset.assetType == Enum.AssetType.Image then
+					createAssetConfig(
+						asset.id,
+						AssetConfigConstants.FLOW_TYPE.EDIT_FLOW,
+						nil,
+						Enum.AssetType.Image)
+				else
+					createAssetConfig(
+						asset.id,
+						AssetConfigConstants.FLOW_TYPE.EDIT_FLOW,
+						nil,
+						Enum.AssetType.MeshPart)
+				end
+			end)
+	end
 end
 
 main()

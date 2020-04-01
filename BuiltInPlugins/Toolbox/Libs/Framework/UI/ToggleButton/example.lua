@@ -24,35 +24,8 @@ return function(plugin)
 	local StyleModifier = Util.StyleModifier
 
 	local theme = Theme.new(function(theme, getColor)
-		local studioStyles = StudioFrameworkStyles.new(theme, getColor)
-
-		local toggleButton = StyleTable.new("ToggleButton", function()
-			local checkboxToggle = Style.new({
-				Background = Decoration.Image,
-				BackgroundStyle = {
-					Image = "rbxasset://textures/GameSettings/UncheckedBox.png",
-				},
-				[StyleModifier.Selected] = {
-					BackgroundStyle = {
-						Image = "rbxasset://textures/GameSettings/CheckedBoxLight.png",
-					},
-				},
-				[StyleModifier.Disabled] = {
-					BackgroundStyle = {
-						Image = "rbxasset://textures/GameSettings/UncheckedBox.png",
-					},
-				},
-			})
-
-			return {
-				CheckboxToggle = checkboxToggle,
-			}
-		end)
-
 		return {
-			Framework = StyleTable.extend(studioStyles, {
-				ToggleButton = toggleButton,
-			})
+			Framework = StudioFrameworkStyles.new(theme, getColor)
 		}
 	end)
 
@@ -127,7 +100,7 @@ return function(plugin)
 						LayoutOrder = 2,
 						OnClick = self.onToggle2,
 						Size = UDim2.fromOffset(20, 20),
-						Style = "CheckboxToggle",
+						Style = "Checkbox",
 					}),
 				}),
 			})

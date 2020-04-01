@@ -13,8 +13,6 @@
 	onOwnerSelected, function, callback when owner changes.
 	toggleComment, function, callback when comment changes.
 ]]
-local FFlagLuaPackagePermissions = settings():GetFFlag("LuaPackagePermissions")
-
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Packages = Plugin.Packages
@@ -67,7 +65,6 @@ function PublishAsset:render()
 		local onOwnerSelected = props.onOwnerSelected
 		local toggleComment = props.toggleComment
 
-		local displayOwnership = props.displayOwnership or FFlagLuaPackagePermissions
 		local orderIterator = LayoutOrderIterator.new()
 
 		local publishAssetTheme = theme.publishAsset
@@ -123,7 +120,7 @@ function PublishAsset:render()
 				LayoutOrder = orderIterator:getNextOrder()
 			}),
 
-			Ownership = displayOwnership and Roact.createElement(ConfigAccess, {
+			Ownership = Roact.createElement(ConfigAccess, {
 				Title = localization:getText("General", "Ownership"),
 				owner = owner,
 

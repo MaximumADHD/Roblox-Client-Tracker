@@ -1,5 +1,4 @@
 local VirtualInput = require(script.Parent.VirtualInput)
-local GuiService = game:GetService("GuiService")
 local XPath = require(script.Parent.XPath)
 
 local Element = {}
@@ -30,8 +29,7 @@ function Element:getAttribute(name)
 end
 
 function Element:getLocation()
-	local guiOffset, _ = GuiService:GetGuiInset()
-	return self:getRbxInstance().AbsolutePosition + guiOffset
+	return self:getRbxInstance().AbsolutePosition
 end
 
 function Element:getRect()
@@ -53,7 +51,7 @@ function Element:getText()
 end
 
 function Element:isDisplayed()
-	return self:getRbxInstance().Visiable
+	return self:getRbxInstance().Visible
 end
 
 function Element:isSelected()
@@ -196,7 +194,6 @@ end
 
 function Element:setPluginWindow()
 	local window = self.rbxInstance:FindFirstAncestorOfClass("DockWidgetPluginGui")
-		or self.rbxInstance:FindFirstAncestorOfClass("QWidgetPluginGui")
 	VirtualInput.setCurrentWindow(window)
 end
 

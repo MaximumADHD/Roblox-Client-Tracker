@@ -15,6 +15,10 @@ local function runRhodiumTests()
 	local RigCreator = require(Plugin.RigCreator)
 	local TestHelpers = require(Plugin.RhodiumTests.TestHelpers)
 
+	local DummyRig = RigCreator.BuildAnthroRig("AnthroNormal")
+	DummyRig.Name = "Dummy"
+	DummyRig.HumanoidRootPart.Anchored = true
+
 	local TestEZ = Plugin.TestEZ
 	local tests = Plugin.RhodiumTests
 
@@ -23,8 +27,8 @@ local function runRhodiumTests()
 
 	TestHelpers.init(plugin)
 	TestBootstrap:run(tests, TextReporter, false, true)
+	DummyRig:Destroy()
 end
-
 
 -- Do not check in as true!
 local SHOULD_RUN_TESTS = DebugFlags.RunTests()

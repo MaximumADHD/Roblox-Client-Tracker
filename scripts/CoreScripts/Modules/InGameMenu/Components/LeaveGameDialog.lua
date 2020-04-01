@@ -1,5 +1,6 @@
 local RunService = game:GetService("RunService")
 local CorePackages = game:GetService("CorePackages")
+local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
@@ -19,6 +20,9 @@ local ConfirmationDialog = require(script.Parent.ConfirmationDialog)
 local Constants = require(InGameMenu.Resources.Constants)
 
 local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
+
+local GetFFlagAppUsesAutomaticQualityLevel = require(RobloxGui.Modules.Flags.GetFFlagAppUsesAutomaticQualityLevel)
+local GetDefaultQualityLevel = require(RobloxGui.Modules.Common.GetDefaultQualityLevel)
 
 local validateProps = t.strictInterface({
 	isLeavingGame  = t.boolean,
@@ -51,6 +55,9 @@ local function LeaveGameDialog(props)
 								{confirmed = Constants.AnalyticsConfirmedName})
 				RunService.Heartbeat:Wait()
 				game:Shutdown()
+				if GetFFlagAppUsesAutomaticQualityLevel() then
+					settings().Rendering.QualityLevel = GetDefaultQualityLevel()
+				end
 			end,
 
 			blurBackground = true,

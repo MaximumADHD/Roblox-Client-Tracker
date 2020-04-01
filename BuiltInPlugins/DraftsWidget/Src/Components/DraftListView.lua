@@ -4,7 +4,6 @@
 --]]
 
 local RunService = game:GetService("RunService")
-local Selection = game:GetService("Selection")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -20,15 +19,20 @@ local withLocalization = UILibrary.Localizing.withLocalization
 
 local DraftDiscardDialog = require(Plugin.Src.Components.DraftDiscardDialog)
 local DraftListItem = require(Plugin.Src.Components.DraftListItem)
+local GetTextSize = UILibrary.Util.GetTextSize
 local ListItemView = require(Plugin.Src.Components.ListItemView)
+local RoundTextButton = UILibrary.Component.RoundTextButton
 
 local DraftStateChangedAction = require(Plugin.Src.Actions.DraftStateChangedAction)
 local DraftState = require(Plugin.Src.Symbols.DraftState)
 local CommitState = require(Plugin.Src.Symbols.CommitState)
 
 local ITEM_HEIGHT = 32
+local TOOLBAR_HEIGHT = 28
+local PADDING = 4
 
 local DisableContextMenuDuringCommit = game:DefineFastFlag("DisableContextMenuDuringCommit", false)
+local fflagCommitButton = game:GetFastFlag("StudioDraftsWidgetCommitButton")
 
 local DraftListView = Roact.Component:extend("DraftListView")
 
@@ -37,6 +41,18 @@ function DraftListView:init()
     self:setState({
         draftsPendingDiscard = nil,
     })
+
+    self.GetCurrentSelection = fflagCommitButton and Instance.new("BindableFunction") or nil
+
+    self.commitSelectedScripts = fflagCommitButton and function()
+        local drafts = self.props.Drafts
+        local noDrafts = next(drafts) == nil
+        if noDrafts then return end
+
+        local selectedScripts = self.GetCurrentSelection:Invoke()
+        if #selectedScripts == 0 then return end
+        self.commitChanges(selectedScripts)
+    end
 
     self.openScripts = function(selection)
         local plugin = getPlugin(self)
@@ -208,44 +224,83 @@ function DraftListView:render()
 
     return withTheme(function(theme)
         return withLocalization(function(localization)
+            local commitButtonText = localization:getText("Toolbar", "CommitButton")
+
             return Roact.createElement("Frame", {
                 BackgroundTransparency = 1,
                 Size = UDim2.new(1, 0, 1, 0),
             }, {
-                ListItemView = (not noDrafts) and Roact.createElement(ListItemView, {
-                    ButtonStyle = "tableItemButton",
-                    Items = sortedDraftList,
-                    ItemHeight = ITEM_HEIGHT,
-
-                    OnDoubleClicked = self.onDoubleClicked,
-                    MakeMenuActions = self.makeMenuActions,
-
-                    RenderItem = function(draft, buttonTheme, hovered)
-                        return Roact.createElement(DraftListItem, {
-                            Draft = draft,
-                            PrimaryTextColor = buttonTheme.textColor,
-                            StatusTextColor = buttonTheme.dimmedTextColor,
-                            Font = buttonTheme.font,
-                            TextSize = buttonTheme.textSize,
-
-                            IndicatorMargin = draftStatusSidebarEnabled and ITEM_HEIGHT or 0,
-                        })
-                    end,
+                UIListLayout = fflagCommitButton and Roact.createElement("UIListLayout", {
+                    FillDirection = Enum.FillDirection.Vertical,
+                    SortOrder = Enum.SortOrder.LayoutOrder,
                 }),
-
-                EmptyLabel = noDrafts and Roact.createElement("TextLabel", {
+                Toolbar = fflagCommitButton and Roact.createElement("Frame", {
                     BackgroundTransparency = 1,
-                    Size = UDim2.new(1, -16, 1, -16),
-                    Position = UDim2.new(0.5, 0, 0.5, 0),
-                    AnchorPoint = Vector2.new(0.5, 0.5),
+                    Size = UDim2.new(1, 0, 0, TOOLBAR_HEIGHT),
+                    LayoutOrder = 0,
+                }, {
+                    UIPadding = Roact.createElement("UIPadding", {
+                        PaddingTop = UDim.new(0, PADDING),
+                        PaddingRight = UDim.new(0, PADDING),
+                        PaddingBottom = UDim.new(0, PADDING),
+                        PaddingLeft = UDim.new(0, PADDING),
+                    }),
+                    UIListLayout = Roact.createElement("UIListLayout", {
+                        FillDirection = Enum.FillDirection.Horizontal,
+                        HorizontalAlignment = Enum.HorizontalAlignment.Right,
+                        VerticalAlignment = Enum.VerticalAlignment.Center,
+                    }),
+                    CommitButton = Roact.createElement(RoundTextButton, {
+                        Active = true,
+                        Size = UDim2.new(0, GetTextSize(commitButtonText).X+PADDING*2, 1, 0),
+                        Style = theme.defaultButton,
+                        Name = commitButtonText,
+                        OnClicked = self.commitSelectedScripts,
+                        TextSize = theme.defaultButton.TextSize,
+                        BorderMatchesBackground = true,
+                    })
+                }),
+                Container = Roact.createElement("Frame", {
+                    BackgroundTransparency = 1,
+                    Size = fflagCommitButton and UDim2.new(1, 0, 1, -TOOLBAR_HEIGHT) or UDim2.new(1, 0, 1, 0),
+                    LayoutOrder = fflagCommitButton and 1 or nil,
+                }, {
+                    ListItemView = (not noDrafts) and Roact.createElement(ListItemView, {
+                        ButtonStyle = "tableItemButton",
+                        Items = sortedDraftList,
+                        ItemHeight = ITEM_HEIGHT,
 
-                    Text = localization:getText("Main", "NoDrafts"),
-                    TextColor3 = theme.Labels.MainText,
-                    TextSize = 22,
-                    Font = theme.Labels.MainFont,
+                        GetCurrentSelection = fflagCommitButton and self.GetCurrentSelection or nil,
+                        OnDoubleClicked = self.onDoubleClicked,
+                        MakeMenuActions = self.makeMenuActions,
 
-                    TextXAlignment = Enum.TextXAlignment.Left,
-                    TextYAlignment = Enum.TextYAlignment.Top,
+                        RenderItem = function(draft, buttonTheme, hovered)
+                            return Roact.createElement(DraftListItem, {
+                                Draft = draft,
+                                PrimaryTextColor = buttonTheme.textColor,
+                                StatusTextColor = buttonTheme.dimmedTextColor,
+                                Font = buttonTheme.font,
+                                TextSize = buttonTheme.textSize,
+
+                                IndicatorMargin = draftStatusSidebarEnabled and ITEM_HEIGHT or 0,
+                            })
+                        end,
+                    }),
+
+                    EmptyLabel = noDrafts and Roact.createElement("TextLabel", {
+                        BackgroundTransparency = 1,
+                        Size = UDim2.new(1, -16, 1, -16),
+                        Position = UDim2.new(0.5, 0, 0.5, 0),
+                        AnchorPoint = Vector2.new(0.5, 0.5),
+
+                        Text = localization:getText("Main", "NoDrafts"),
+                        TextColor3 = theme.Labels.MainText,
+                        TextSize = 22,
+                        Font = theme.Labels.MainFont,
+
+                        TextXAlignment = Enum.TextXAlignment.Left,
+                        TextYAlignment = Enum.TextYAlignment.Top,
+                    }),
                 }),
 
                 DiscardDialog = showDiscardDialog and Roact.createElement(DraftDiscardDialog, {

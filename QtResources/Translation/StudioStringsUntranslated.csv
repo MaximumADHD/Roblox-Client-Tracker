@@ -27,6 +27,7 @@ Studio.App.AssetManagerService.DataModelInvalid,,DataModel is invalid,DataModel 
 Studio.App.AssetManagerService.InsertInstanceExceptionArg1,,Exception while inserting instance into datamodel: %1,Exception while inserting instance into datamodel: %1
 Studio.App.AssetManagerService.InvalidArgumentExceptionArg1,,Exception while converting string to id: %1,Exception while converting string to id: %1
 Studio.App.AssetManagerService.MessageFieldNotFound,,"'success' is false, 'message' field not found","'success' is false, 'message' field not found"
+Studio.App.AssetManagerService.NoModificationsForPublish,,No modifications available for Publish,No modifications available for Publish
 Studio.App.AssetManagerService.PackageIdInvalid,,PackageId is invalid,PackageId is invalid
 Studio.App.AssetManagerService.PackageInsertErrorArg1,,Error while inserting package: %1,Error while inserting package: %1
 Studio.App.AssetManagerService.PlaceIdInvalid,,PlaceId is invalid,PlaceId is invalid
@@ -86,6 +87,8 @@ Studio.App.BetaFeatures.NewScriptFoldStateDescription,,Enables new improved beha
 Studio.App.BetaFeatures.NewScriptFoldStateTitle,,Script Editor Folds Behavior Beta,Script Editor Folds Behavior Beta
 Studio.App.BetaFeatures.PackagePermissionsDescription,,"Add any group, user, or role as a user or editor for your packages through the Package Management action in Game Explorer","Add any group, user, or role as a user or editor for your packages through the Package Management action in Game Explorer"
 Studio.App.BetaFeatures.PackagePermissionsTitle,,Packages Permissions,Packages Permissions
+Studio.App.BetaFeatures.PhysicsNewConvexDecompositionDescription,,"Enable the new CollisionFidelity, which uses a method called HACD to generate collision geometry with precise surfaces.","Enable the new CollisionFidelity, which uses a method called HACD to generate collision geometry with precise surfaces."
+Studio.App.BetaFeatures.PhysicsNewConvexDecompositionTitle,,Enable CollisionFidelity.PreciseConvexDecomposition.,Enable CollisionFidelity.PreciseConvexDecomposition.
 Studio.App.BetaFeatures.PhysicsSleepImprovementsDescription,,Set of changes that should make simulated parts awake and fall asleep more reliably.,Set of changes that should make simulated parts awake and fall asleep more reliably.
 Studio.App.BetaFeatures.PhysicsSleepImprovementsTitle,,Physics Sleep Behavior Improvements.,Physics Sleep Behavior Improvements.
 Studio.App.BetaFeatures.RestartStudioTitle,,Restart Studio,Restart Studio
@@ -250,6 +253,14 @@ Studio.App.DeclarationView.BackEnd,,<b>Back-end: </b>This item can only be used 
 Studio.App.DeclarationView.Deprecated,,<b>Deprecated: </b>This item is deprecated. Do not use it for new work.,<b>Deprecated: </b>This item is deprecated. Do not use it for new work.
 Studio.App.DeclarationView.MemberOf1,,"Member of <label style=""font-weight: bold"">%1</label>","Member of <label style=""font-weight: bold"">%1</label>"
 Studio.App.DeclarationView.Summary,,Summary:,Summary:
+Studio.App.DirtyPublishWarningDialog.FailedToGetOpenDrafts1,,Failed to load draft list: %1,Failed to load draft list: %1
+Studio.App.DirtyPublishWarningDialog.LearnMoreLink,,Learn More,Learn More
+Studio.App.DirtyPublishWarningDialog.PublishButton,,Publish,Publish
+Studio.App.DirtyPublishWarningDialog.ScriptNameColumn,,Script Name,Script Name
+Studio.App.DirtyPublishWarningDialog.ScriptStatusColumn,,Status,Status
+Studio.App.DirtyPublishWarningDialog.Title,,Uncommitted Scripts,Uncommitted Scripts
+Studio.App.DirtyPublishWarningDialog.UncommittedStatus,,Uncommitted,Uncommitted
+Studio.App.DirtyPublishWarningDialog.WarningText,,The following scripts are uncommitted and will not be published with the place. The Drafts widget can be used to commit them. Do you want publish without these script changes?,The following scripts are uncommitted and will not be published with the place. The Drafts widget can be used to commit them. Do you want publish without these script changes?
 Studio.App.DraftsServiceHost.CommitRejected,,"Some of the scripts cannot be committed.
 Please check their status first.","Some of the scripts cannot be committed.
 Please check their status first."
@@ -1911,6 +1922,13 @@ Studio.App.RobloxViewStudio.UseWorldSpace,,Use World Space,Use World Space
 Studio.App.RobloxWebDocWidget.Address,,Address,Address
 Studio.App.RobloxWebDocWidget.GoBack,,Go Back,Go Back
 Studio.App.RobloxWebDocWidget.GoForward,,Go Forward,Go Forward
+Studio.App.SandboxLocalCache.DialogTitle,,Drafts Local Cache,Drafts Local Cache
+Studio.App.SandboxLocalCache.MetaDataCorruptedMessage,,"Can't restore drafts information, metadata corrupted","Can't restore drafts information, metadata corrupted"
+Studio.App.SandboxLocalCache.SourcesMissingCorruptedMessage,,"Unable to restore some of the drafts.
+
+Files are missing or corrupted:","Unable to restore some of the drafts.
+
+Files are missing or corrupted:"
 Studio.App.ScriptAnalysisWidget.DisplayOnlyCurrentScript,,Display only current script,Display only current script
 Studio.App.ScriptAnalysisWidget.NumErrorsTextFmt2,,%1 of %2 Errors,%1 of %2 Errors
 Studio.App.ScriptAnalysisWidget.NumWarningsTextFmt2,,%1 of %2 Warnings,%1 of %2 Warnings
@@ -1930,6 +1948,7 @@ Studio.App.ScriptRecoveryWidget.ViewDiff,,View Diff,View Diff
 Studio.App.ScriptResourceController.ConfirmPublishChanges,,Are you sure you want to publish your changes?,Are you sure you want to publish your changes?
 Studio.App.ScriptResourceController.ConfirmWillDestroyChanges,,This will destroy all local changes you have made. Are you sure?,This will destroy all local changes you have made. Are you sure?
 Studio.App.ScriptTextEditor.FilterText,,  Type to filter functions. Tab or Enter to go to selected function,  Type to filter functions. Tab or Enter to go to selected function
+Studio.App.ScriptsInBatchDialog.FailedToLoadDataErrorMessage,,Failed to load data. Please close this dialog and try again.,Failed to load data. Please close this dialog and try again.
 Studio.App.ScriptsInBatchDialog.ScriptSectionHeader,,Script,Script
 Studio.App.ScriptsInBatchDialog.Title,,Scripts In Batch,Scripts In Batch
 Studio.App.ScriptsInBatchDialog.VersionSectionHeader,,Version,Version
@@ -2120,6 +2139,7 @@ Studio.App.VersionHistoryDialog.CurrentVersionLabel1,,%1 (Current),%1 (Current)
 Studio.App.VersionHistoryDialog.EditAllButtonText,,Edit all scripts from the batch,Edit all scripts from the batch
 Studio.App.VersionHistoryDialog.EditThisButtonText,,Edit this script,Edit this script
 Studio.App.VersionHistoryDialog.FailedToLoad,,Failed to load,Failed to load
+Studio.App.VersionHistoryDialog.FailedToLoadDataErrorMessage,,Failed to load data. Please close this dialog and try again.,Failed to load data. Please close this dialog and try again.
 Studio.App.VersionHistoryDialog.NoScriptChanges,,No script changes,No script changes
 Studio.App.VersionHistoryDialog.NoScriptHistoryWarning,,There is no saved history for this script,There is no saved history for this script
 Studio.App.VersionHistoryDialog.OpenDialog,,View Script History,View Script History

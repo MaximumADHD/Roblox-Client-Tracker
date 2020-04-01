@@ -487,6 +487,7 @@ RBX
 		CmdGotoPosition
 		CmdInsertText
 		CmdRepeat
+		CmdSelect
 		CmdUnfoldAll
 		GotoLineDialog
 		ScriptingCmdBase
@@ -590,6 +591,7 @@ RBX
 	}
 	Studio
 	{
+		DirtyPublishWarningDialog
 		InfoBarBanner
 		InfoBarManager
 	}
@@ -1273,6 +1275,7 @@ RBX
 	UserInputBase
 	UserInputService
 	UsernameHandler
+	UserService
 	UserStorage
 	ValueBase
 	VehicleController

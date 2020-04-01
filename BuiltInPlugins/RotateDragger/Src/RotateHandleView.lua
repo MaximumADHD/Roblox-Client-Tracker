@@ -17,9 +17,10 @@ local RotateHandleView = Roact.PureComponent:extend("RotateHandleView")
 
 local HANDLE_SEGMENTS = 64
 local HANDLE_RADIUS = 4.5
-local HANDLE_THICKNESS = 0.15
+local HANDLE_THICKNESS = 0.10
 local HANDLE_HITTEST_THICKNESS = HANDLE_THICKNESS * 2.5
 local HANDLE_THIN_BY_FRAC = 0.34
+local HANDLE_DIM_TRANSPARENCY = 0.7
 
 function RotateHandleView:render()
 	-- DEBUG: Allow designers to play with handle settings.
@@ -56,15 +57,27 @@ function RotateHandleView:render()
 	for i = 0, HANDLE_SEGMENTS - 1 do
 		local angle = angleStep * i
 		local cframe = self.props.HandleCFrame * CFrame.Angles(angle, 0, 0) * CFrame.new(0, 0, offset)
-		local propertyName = "HandleSegment" .. tostring(i)
-		children[propertyName] = Roact.createElement("BoxHandleAdornment", {
+		local alwaysOnTopName = "OnTopHandleSegment" .. tostring(i)
+		children[alwaysOnTopName] = Roact.createElement("BoxHandleAdornment", {
 			Adornee = Workspace.Terrain,
 			AlwaysOnTop = true,
 			CFrame = cframe,
 			Color3 = self.props.Color,
 			Size = Vector3.new(thickness, segmentLength, thickness),
+			Transparency = self.props.Hovered and 0.0 or HANDLE_DIM_TRANSPARENCY,
 			ZIndex = 0,
 		})
+		if not self.props.Hovered then
+			local brightName = "BrightHandleSegment" .. tostring(i)
+			children[brightName] = Roact.createElement("BoxHandleAdornment", {
+				Adornee = Workspace.Terrain,
+				AlwaysOnTop = false,
+				CFrame = cframe,
+				Color3 = self.props.Color,
+				Size = Vector3.new(thickness, segmentLength, thickness),
+				ZIndex = 0,
+			})
+		end
 	end
 
 	local function createRadiusElement(angle, thickness)
@@ -84,7 +97,7 @@ function RotateHandleView:render()
 
 	-- Draw radii for contral angle start and end.
 	if self.props.StartAngle ~= nil then
-		children.StartAngleElement = createRadiusElement(self.props.StartAngle, thickness / 2)
+		children.StartAngleElement = createRadiusElement(self.props.StartAngle, thickness)
 	end
 	if self.props.EndAngle ~= nil then
 		children.EndAngleElement = createRadiusElement(self.props.EndAngle, thickness)

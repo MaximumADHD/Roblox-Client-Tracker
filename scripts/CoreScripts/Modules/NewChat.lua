@@ -9,6 +9,7 @@ local RobloxGui = CoreGuiService:WaitForChild("RobloxGui")
 local StarterGui = game:GetService("StarterGui")
 local GuiService = game:GetService("GuiService")
 local PlayersService = game:GetService("Players")
+local RunService = game:GetService("RunService")
 
 local ChatTypesSet = false
 local ClassicChatEnabled = PlayersService.ClassicChat
@@ -56,12 +57,15 @@ do
 		end
 
 		local function DoConnectGetCore(connectionName)
-			StarterGui:RegisterGetCore(connectionName, function(data)
-				local func = FindInCollectionByKeyAndType(communicationsConnections.GetCore, connectionName, "BindableFunction")
-				local rVal = nil
-				if (func) then rVal = func:Invoke(data) end
-				return rVal
-			end)
+			if RunService:IsClient() and not RunService:IsServer() then
+				--Registering these during unit testing causes errors.
+				StarterGui:RegisterGetCore(connectionName, function(data)
+					local func = FindInCollectionByKeyAndType(communicationsConnections.GetCore, connectionName, "BindableFunction")
+					local rVal = nil
+					if (func) then rVal = func:Invoke(data) end
+					return rVal
+				end)
+			end
 		end
 
 		function moduleApiTable:ToggleVisibility()
@@ -176,17 +180,20 @@ do
 		end)
 
 		function DoConnectSetCore(setCoreName)
-			StarterGui:RegisterSetCore(setCoreName, function(data)
-				local event = FindInCollectionByKeyAndType(communicationsConnections.SetCore, setCoreName, "BindableEvent")
-				if (event) then
-					event:Fire(data)
-				else
-					if SetCoreCache[setCoreName] == nil then
-						SetCoreCache[setCoreName] = {}
+			if RunService:IsClient() and not RunService:IsServer() then
+				--Registering these during unit testing causes errors.
+				StarterGui:RegisterSetCore(setCoreName, function(data)
+					local event = FindInCollectionByKeyAndType(communicationsConnections.SetCore, setCoreName, "BindableEvent")
+					if (event) then
+						event:Fire(data)
+					else
+						if SetCoreCache[setCoreName] == nil then
+							SetCoreCache[setCoreName] = {}
+						end
+						table.insert(SetCoreCache[setCoreName], data)
 					end
-					table.insert(SetCoreCache[setCoreName], data)
-				end
-			end)
+				end)
+			end
 		end
 
 		DoConnectSetCore("ChatMakeSystemMessage")
@@ -292,8 +299,10 @@ do
 			end
 		end
 
-		StarterGui:RegisterSetCore("CoreGuiChatConnections", RegisterCoreGuiConnections)
-
+		if RunService:IsClient() and not RunService:IsServer() then
+			--Registering these during unit testing causes errors.
+			StarterGui:RegisterSetCore("CoreGuiChatConnections", RegisterCoreGuiConnections)
+		end
 end
 
 return moduleApiTable

@@ -94,24 +94,26 @@ function RotateToolImpl.new()
 	return setmetatable(self, RotateToolImpl)
 end
 
-function RotateToolImpl:update(draggerToolState)
+function RotateToolImpl:update(draggerToolState, derivedWorldState)
 	if not self._draggingHandleId then
+		local cframe, offset, size = derivedWorldState:getBoundingBox()
 		self._boundingBox = {
-            Size = draggerToolState.boundingBoxSize,
-            CFrame = draggerToolState.mainCFrame * CFrame.new(draggerToolState.boundingBoxOffset),
+            Size = size,
+            CFrame = cframe * CFrame.new(offset),
 		}
 
-		self._attachmentsToMove = draggerToolState.attachmentsToMove
-		self._partsToMove = draggerToolState.partsToMove
-		self._originalCFrameMap = draggerToolState.originalCFrameMap
-		self._scale = draggerToolState.scale
+		self._partsToMove, self._attachmentsToMove =
+			derivedWorldState:getObjectsToTransform()
+		self._originalCFrameMap = derivedWorldState:getOriginalCFrameMap()
+		self._scale = derivedWorldState:getHandleScale()
 	end
 	self:_updateHandles()
 end
 
-function RotateToolImpl:hitTest(mouseRay)
+function RotateToolImpl:hitTest(mouseRay, handleScale)
     local closestHandleId, closestHandleDistance = nil, math.huge
-    for handleId, handleProps in pairs(self._handles) do
+	for handleId, handleProps in pairs(self._handles) do
+		handleProps.Scale = handleScale
         local distance = RotateHandleView.hitTest(handleProps, mouseRay)
         if distance and distance < closestHandleDistance then
             closestHandleDistance = distance
@@ -123,23 +125,35 @@ function RotateToolImpl:hitTest(mouseRay)
 end
 
 function RotateToolImpl:render(hoveredHandleId)
+    -- The scale tool's handles show on top when hovered, but that behavior
+    -- doesn't feel as good for the move / rotate tools, so disable it.
+    local forceHoveredHandlesOnTop = false
+    if Workspace:FindFirstChild("RotateHandleHoveredOnTop") then
+        forceHoveredHandlesOnTop = Workspace.MoveHandleHoveredOnTop.Value
+    end
+
 	local children = {}
 	if self._draggingHandleId then
 		local handleProps = self._handles[self._draggingHandleId]
-		handleProps.Color = handleProps.ActiveColor
-		handleProps.Hovered = true
-		handleProps.StartAngle = self._startAngle - self._draggingLastGoodDelta
-		handleProps.EndAngle = self._startAngle
-		children[self._draggingHandleId] = Roact.createElement(RotateHandleView, handleProps)
+		children[self._draggingHandleId] = Roact.createElement(RotateHandleView, {
+			HandleCFrame = handleProps.HandleCFrame,
+			Color = handleProps.Color,
+			StartAngle = self._startAngle - self._draggingLastGoodDelta,
+			EndAngle = self._startAngle,
+			Scale = self._scale,
+			Hovered = forceHoveredHandlesOnTop and true,
+		})
 
 		-- Show the other handles, but thinner
-		for handleId, handleProps in pairs(self._handles) do
+		for handleId, otherHandleProps in pairs(self._handles) do
 			if handleId ~= self._draggingHandleId then
 				local offset = RotateHandleDefinitions[handleId].Offset
-				handleProps.HandleCFrame = self._boundingBox.CFrame * offset
-				handleProps.Thin = true
-				handleProps.Color = Colors.makeDimmed(handleProps.ActiveColor)
-				children[handleId] = Roact.createElement(RotateHandleView, handleProps)
+				children[handleId] = Roact.createElement(RotateHandleView, {
+					HandleCFrame = self._boundingBox.CFrame * offset,
+					Color = Colors.makeDimmed(otherHandleProps.Color),
+					Scale = self._scale,
+					Thin = true,
+				})
 			end
 		end
 
@@ -148,14 +162,17 @@ function RotateToolImpl:render(hoveredHandleId)
         end
 	else
 		for handleId, handleProps in pairs(self._handles) do
-			handleProps.Hovered = handleId == hoveredHandleId
-			local color = handleProps.ActiveColor
-			if not handleProps.Hovered then
+			local color = handleProps.Color
+			local hovered = (handleId == hoveredHandleId)
+			if not hovered then
 				color = Colors.makeDimmed(color)
 			end
-			handleProps.Color = color
-			handleProps.Thin = false
-			children[handleId] = Roact.createElement(RotateHandleView, handleProps)
+			children[handleId] = Roact.createElement(RotateHandleView, {
+				HandleCFrame = handleProps.HandleCFrame,
+				Color = color,
+				Scale = self._scale,
+				Hovered = forceHoveredHandlesOnTop and hovered,
+			})
 		end
 	end
 
@@ -271,8 +288,7 @@ function RotateToolImpl:_mouseDragWithInverseKinematics(mouseRay, delta)
 	self._attachmentMover:transformTo(appliedTransform)
 
 	-- Adjust the bounding box for any translation caused by the IK solver.
-	local translation = (appliedTransform * self._originalBoundingBoxCFrame).Position - self._boundingBox.CFrame.Position
-	self._boundingBox.CFrame = self._boundingBox.CFrame + translation
+	self._boundingBox.CFrame = appliedTransform * self._originalBoundingBoxCFrame
 
 	-- Derive the last good delta from the appliedTransform returned from IK.
 	local rotatedAxis = appliedTransform:VectorToObjectSpace(self._handleCFrame.LookVector)
@@ -347,11 +363,8 @@ function RotateToolImpl:_updateHandles()
 	else
 		for handleId, handleDefinition in pairs(RotateHandleDefinitions) do
 			self._handles[handleId] = {
-				ActiveColor = handleDefinition.Color,
 				HandleCFrame = self._boundingBox.CFrame * handleDefinition.Offset,
-				HandleID = handleId,
-				Offset = handleDefinition.Offset,
-				Scale = self._scale,
+				Color = handleDefinition.Color,
 			}
         end
     end

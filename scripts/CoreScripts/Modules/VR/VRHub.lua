@@ -27,15 +27,18 @@ VRHub.ControllerModelsEnabled = false
 VRHub.LeftControllerModel = nil
 VRHub.RightControllerModel = nil
 
-StarterGui:RegisterSetCore("VRLaserPointerMode", function(mode)
-	if not VRHub.LaserPointer then
-		return
-	end
-	if not mode or not tostring(mode) then
-		return
-	end
-	VRHub.LaserPointer:setMode(LaserPointer.Mode[tostring(mode)] or LaserPointer.Mode.Disabled)
-end)
+if RunService:IsClient() and not RunService:IsServer() then
+	--Registering these during unit testing causes errors.
+	StarterGui:RegisterSetCore("VRLaserPointerMode", function(mode)
+		if not VRHub.LaserPointer then
+			return
+		end
+		if not mode or not tostring(mode) then
+			return
+		end
+		VRHub.LaserPointer:setMode(LaserPointer.Mode[tostring(mode)] or LaserPointer.Mode.Disabled)
+	end)
+end
 
 local function enableControllerModels(enabled)
 	if enabled ~= VRHub.ControllerModelsEnabled then
@@ -62,10 +65,13 @@ local function enableControllerModels(enabled)
 	end
 end
 local enableControllerModelsSetByDeveloper = false
-StarterGui:RegisterSetCore("VREnableControllerModels", function(enabled)
-	enableControllerModelsSetByDeveloper = true
-	enableControllerModels(enabled)
-end)
+if RunService:IsClient() and not RunService:IsServer() then
+	--Registering these during unit testing causes errors.
+	StarterGui:RegisterSetCore("VREnableControllerModels", function(enabled)
+		enableControllerModelsSetByDeveloper = true
+		enableControllerModels(enabled)
+	end)
+end
 
 local start = tick()
 local function onRenderSteppedLast()
@@ -89,7 +95,7 @@ local function onVREnabled(property)
 	if property ~= "VREnabled" then
 		return
 	end
-	
+
 	if VRService.VREnabled then
 		UserInputService.MouseBehavior = Enum.MouseBehavior.LockCenter
 		UserInputService.OverrideMouseIconBehavior = Enum.OverrideMouseIconBehavior.ForceHide

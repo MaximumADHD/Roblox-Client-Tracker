@@ -21,6 +21,7 @@
 		Color3 TextColor: The color of the text and underline in this link.
 ]]
 local FFlagAssetManagerLuaCleanup1 = settings():GetFFlag("AssetManagerLuaCleanup1")
+local FFlagTruncateDevFrameworkHyperlinkText = game:GetFastFlag("TruncateDevFrameworkHyperlinkText")
 
 local TextService = game:GetService("TextService")
 
@@ -39,6 +40,10 @@ Typecheck.wrap(LinkText, script)
 
 function LinkText:init(props)
 	assert(type(props.OnClick) == "function", "LinkText expects an 'OnClick' function.")
+
+	if FFlagTruncateDevFrameworkHyperlinkText and props.TextTruncate then
+		assert(props.Size ~= nil and typeof(props.Size) == "UDim2", "LinkText expects a UDim2 'Size' if the 'TextTruncate' prop passed in.")
+	end
 
 	self.state = {
 		StyleModifier = nil
@@ -64,17 +69,24 @@ function LinkText:render()
 	local styleModifier = state.StyleModifier
 	local style = theme:getStyle("Framework", self)
 
+	local size = props.Size
+
 	local font = style.Font
 	local textSize = style.TextSize
 	local textColor = style.TextColor
 	local text = props.Text or ""
+	local textTruncate = FFlagTruncateDevFrameworkHyperlinkText and props.TextTruncate or nil
 
 	local textDimensions
-	if font then
-		local textExtents = TextService:GetTextSize(text, textSize, font, Vector2.new())
-		textDimensions = UDim2.fromOffset(textExtents.X, textExtents.Y)
+	if FFlagTruncateDevFrameworkHyperlinkText and textTruncate then
+		textDimensions = size
 	else
-		textDimensions = UDim2.new()
+		if font then
+			local textExtents = TextService:GetTextSize(text, textSize, font, Vector2.new())
+			textDimensions = UDim2.fromOffset(textExtents.X, textExtents.Y)
+		else
+			textDimensions = UDim2.new()
+		end
 	end
 
 	local onClick = props.OnClick
@@ -97,6 +109,7 @@ function LinkText:render()
 			Font = font,
 			TextSize = textSize,
 			TextColor = textColor,
+			TextTruncate = textTruncate,
 		},
 		Size = textDimensions,
 		Position = position,

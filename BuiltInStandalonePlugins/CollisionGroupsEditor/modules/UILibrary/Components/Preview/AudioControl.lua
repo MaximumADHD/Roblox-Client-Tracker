@@ -9,7 +9,7 @@
 	number audioControlOffset, used to control the position of the audio control depending if we show tree view.
 	number timeLength, length got from the sound instance.
 	bool isPlaying, come from audio preview, used to change the button control.
-	number timeRemaining, audio preview know's the time length, is suited to calculate this.
+	number timePassed, audio preview know's the time length, is suited to calculate this.
 
 	function onResume, accept an assetId.
 	function onPause, pause
@@ -17,6 +17,7 @@
 
 	the sound object inside the Toolbox plugin to play. We don't want to too many sound source.
 ]]
+local FFlagEnableAudioPreview = game:GetFastFlag("EnableAudioPreview")
 
 local Library = script.Parent.Parent.Parent
 local Roact = require(Library.Parent.Roact)
@@ -62,10 +63,16 @@ function AudioControl:render()
 		local timeLength = props.timeLength
 		local audioPreviewTheme = theme.assetPreview.audioPreview
 		local audioControlOffset = props.audioControlOffset
-		local timeRemaining = props.timeRemaining
 		local isPlaying = props.isPlaying
 
-		local timeString = getTimeString(timeRemaining) .. '/' .. getTimeString(timeLength)
+		local timeString
+		if FFlagEnableAudioPreview then
+			local timePassed = props.timePassed
+			timeString = getTimeString(timePassed) .. '/' .. getTimeString(timeLength)
+		else
+			local timeRemaining = props.timeRemaining
+			timeString = getTimeString(timeRemaining) .. '/' .. getTimeString(timeLength)
+		end
 
 		return Roact.createElement("Frame", {
 			AnchorPoint = anchorPoint,

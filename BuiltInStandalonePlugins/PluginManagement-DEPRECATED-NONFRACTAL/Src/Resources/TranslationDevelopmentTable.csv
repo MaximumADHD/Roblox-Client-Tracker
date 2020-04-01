@@ -1,5 +1,4 @@
 Key,Source,Context,en-us
-Studio.PluginInstallation.Entry.LastUpdatedDate,{date}, ,Updated: {date:shortdate}
 Studio.PluginInstallation.Details.HttpRequestInfo, , ,"By allowing http requests, 3rd party developers are able to gather information on your machine. These might be harmless (such as crash logs) or malicious (such as gathering information on your game's scripts). Disabling http requests might result in an non-working plugin."
 Studio.PluginInstallation.Details.HttpRequests, , ,Http Requests
 Studio.PluginInstallation.Dialog.Ok, , ,OK
@@ -38,3 +37,4 @@ Studio.PluginInstallation.Progress.Unavailable, , ,Could not fetch information a
 Studio.PluginInstallation.Toolbar.ManageButtonDescription, , ,Manage plugins installed from roblox.com
 Studio.PluginInstallation.Toolbar.ManageButtonTitle, , ,Manage Plugins
 Studio.PluginInstallation.Toolbar.ToolbarTitle, , ,Tools
+Studio.PluginInstallation.Entry.LastUpdatedDate,{date}, ,Updated: {date:shortdate}

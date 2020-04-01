@@ -1,10 +1,15 @@
 local Plugin = script.Parent.Parent
 local Roact = require(Plugin.Roact)
+local DebugFlags = require(Plugin.Src.Util.DebugFlags)
 local AnimationClipEditorPlugin = require(Plugin.Src.Components.AnimationClipEditorPlugin)
 
 local isEnableRoactAnimationEditorOn = settings():GetFFlag("EnableRoactAnimationEditor2")
 
 if not isEnableRoactAnimationEditorOn then
+	return
+end
+
+if DebugFlags.RunTests() or DebugFlags.RunRhodiumTests() then
 	return
 end
 

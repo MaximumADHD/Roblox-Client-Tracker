@@ -79,6 +79,7 @@ function OverrideAssetView:init(props)
 	end
 
 	self.requestOverrideAsset = function()
+		-- TODO: FFlagToolboxUseInfinteScroller and FFlagEnableOverrideAssetCursorFix do not work together.
 		props.getOverrideAssets(self.state.pageIndex)
 		self:setState({
 			pageIndex = (FFlagEnableOverrideAssetCursorFix and self.state.pageIndex or pageIndex) + 1,
@@ -87,6 +88,11 @@ function OverrideAssetView:init(props)
 
 	self.DEPRECATED_requestOverrideAsset = function(targetPage)
 		props.getOverrideAssets(targetPage)
+		if FFlagEnableOverrideAssetCursorFix and self.state.pageIndex ~= targetPage then
+			self:setState({
+				pageIndex = targetPage
+			})
+		end
 	end
 end
 

@@ -8,10 +8,16 @@ local ContextServices = require(Framework.ContextServices)
 local Util = require(Framework.Util)
 local StyleModifier = Util.StyleModifier
 
+local UILibrary = require(Plugin.Packages.UILibrary)
+local GetTextSize = UILibrary.Util.GetTextSize
+
+local SetEditingAssets = require(Plugin.Src.Actions.SetEditingAssets)
+
 local OnAssetDoubleClick = require(Plugin.Src.Thunks.OnAssetDoubleClick)
 local OnAssetRightClick = require(Plugin.Src.Thunks.OnAssetRightClick)
 local OnAssetSingleClick = require(Plugin.Src.Thunks.OnAssetSingleClick)
 
+local AssetManagerService = game:GetService("AssetManagerService")
 local ContentProvider = game:GetService("ContentProvider")
 
 local Tile = Roact.PureComponent:extend("Tile")
@@ -24,7 +30,10 @@ function Tile:init()
         StyleModifier = nil,
         assetFetchStatus = nil,
         assetPreviewButtonHovered = false,
+        editText = "",
     }
+
+    self.textBoxRef = Roact.createRef()
 
     self.onMouseEnter = function()
         local props = self.props
@@ -85,8 +94,49 @@ function Tile:init()
     end
 
     self.openAssetPreview = function()
-        self.props.OnOpenAssetPreview(self.props.AssetData.id)
+        self.props.OnOpenAssetPreview(self.props.AssetData)
     end
+
+    self.onTextChanged = function(rbx)
+        local text = rbx.Text
+        if text ~= self.props.AssetData.name then
+            self:setState({
+                editText = text,
+            })
+        end
+	end
+
+	self.onTextBoxFocusLost = function(rbx, enterPressed, inputObject)
+        local props = self.props
+        local assetData = props.AssetData
+        props.dispatchSetEditingAssets({})
+        local newName = self.state.editText
+        if assetData.assetType == Enum.AssetType.Place then
+            AssetManagerService:RenamePlace(assetData.id, newName)
+        elseif assetData.assetType == Enum.AssetType.Image
+        or assetData.assetType == Enum.AssetType.MeshPart
+        or assetData.assetType == Enum.AssetType.Image then
+            local assetType
+            local prefix
+            -- Setting asset type to same value as Enum.AssetType since it cannot be passed into function
+            if assetData.assetType == Enum.AssetType.Image then
+                assetType = 1
+                prefix = "Images/"
+            elseif assetData.assetType == Enum.AssetType.MeshPart then
+                assetType = 40
+                prefix = "Meshes/"
+            elseif assetData.assetType == Enum.AssetType.Lua then
+                assetType = 5
+                prefix = "Scripts/"
+            end
+            AssetManagerService:RenameAlias(assetType, assetData.id, prefix .. assetData.name, prefix .. newName)
+        end
+        props.AssetData.name = newName
+        -- force re-render to show updated name
+        self:setState({
+            editText = props.AssetData.name,
+        })
+	end
 
     local props = self.props
     local assetData = props.AssetData
@@ -105,6 +155,12 @@ function Tile:init()
             ContentProvider:PreloadAsync(asset, setStatus)
         end)
     end
+end
+
+function Tile:didMount()
+    self:setState({
+        editText = self.props.AssetData.name
+    })
 end
 
 function Tile:render()
@@ -128,12 +184,27 @@ function Tile:render()
     local textSize = tileStyle.Text.Size
     local textBGTransparency = tileStyle.Text.BackgroundTransparency
     local textTruncate = tileStyle.Text.TextTruncate
+    local textXAlignment = tileStyle.Text.XAlignment
+    local textYAlignment = tileStyle.Text.YAlignment
 
     local textFrameSize = tileStyle.Text.Frame.Size
     local textFramePos = tileStyle.Text.Frame.Position
 
-    local textXAlignment = tileStyle.Text.XAlignment
-    local textYAlignment = tileStyle.Text.YAlignment
+    local editText = self.state.editText
+    local isEditingAsset = props.EditingAssets[assetData.id]
+    if isEditingAsset then
+        if self.textBoxRef and self.textBoxRef.current then
+            self.textBoxRef.current:CaptureFocus()
+        end
+    end
+    local editTextWrapped = tileStyle.EditText.TextWrapped
+    local editTextClearOnFocus = tileStyle.EditText.ClearTextOnFocus
+    local editTextXAlignment = tileStyle.Text.XAlignment
+
+    local editTextFrameBackgroundColor = tileStyle.EditText.Frame.BackgroundColor
+    local editTextFrameBorderColor = tileStyle.EditText.Frame.BorderColor
+
+    local editTextSize = GetTextSize(editText, textSize, textFont, Vector2.new(tileStyle.Size.X.Offset, math.huge))
 
     local name = assetData.name
 
@@ -208,7 +279,7 @@ function Tile:render()
             })
         }),
 
-        Name = Roact.createElement("TextLabel", {
+        Name = not isEditingAsset and Roact.createElement("TextLabel", {
             Size = textFrameSize,
             Position = textFramePos,
 
@@ -221,6 +292,29 @@ function Tile:render()
             TextXAlignment = textXAlignment,
             TextYAlignment = textYAlignment,
             TextTruncate = textTruncate,
+        }),
+
+        RenameTextBox = isEditingAsset and Roact.createElement("TextBox",{
+            Size = UDim2.new(0, editTextSize.X, 0, editTextSize.Y),
+            Position = textFramePos,
+
+            BackgroundColor3 = editTextFrameBackgroundColor,
+            BorderColor3 = editTextFrameBorderColor,
+
+            Text = editText,
+            TextColor3 = textColor,
+            Font = textFont,
+            TextSize = textSize,
+
+            TextXAlignment = editTextXAlignment,
+            TextTruncate = textTruncate,
+            TextWrapped = editTextWrapped,
+            ClearTextOnFocus = editTextClearOnFocus,
+
+            [Roact.Ref] = self.textBoxRef,
+
+            [Roact.Change.Text] = self.onTextChanged,
+            [Roact.Event.FocusLost] = self.onTextBoxFocusLost,
         })
     })
 end
@@ -234,8 +328,10 @@ ContextServices.mapToProps(Tile, {
 })
 
 local function mapStateToProps(state, props)
+    local assetManagerReducer = state.AssetManagerReducer
 	return {
-        SelectedAssets = state.AssetManagerReducer.selectedAssets,
+        EditingAssets = assetManagerReducer.editingAssets,
+        SelectedAssets = assetManagerReducer.selectedAssets,
 	}
 end
 
@@ -249,6 +345,9 @@ local function mapDispatchToProps(dispatch)
         end,
         dispatchOnAssetSingleClick = function(isCtrlKeyDown, assetData)
             dispatch(OnAssetSingleClick(isCtrlKeyDown, assetData))
+        end,
+        dispatchSetEditingAssets = function(editingAssets)
+            dispatch(SetEditingAssets(editingAssets))
         end,
     }
 end

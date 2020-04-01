@@ -36,6 +36,7 @@
 local FFlagStudioFixTreeViewForSquish = settings():GetFFlag("StudioFixTreeViewForSquish")
 -- Related Ticket https://jira.rbx.com/browse/CLISTUDIO-21831
 local FFlagStudioFixTreeViewForFlatList = settings():GetFFlag("StudioFixTreeViewForFlatList")
+local FFlagFixTreeViewFlatListDefault = game:DefineFastFlag("FixTreeViewFlatListDefault", false)
 
 local Library = script.Parent.Parent
 
@@ -290,11 +291,17 @@ function TreeView:init()
 
 		local childComponents = {}
 
+		local createFlatList
+		if FFlagFixTreeViewFlatListDefault then
+			createFlatList = FFlagStudioFixTreeViewForFlatList and (self.props.createFlatList and self.props.createFlatList or true)
+		else
+			createFlatList = FFlagStudioFixTreeViewForFlatList and self.props.createFlatList
+		end
 		if handlers.sortChildren then
 			table.sort(children, handlers.sortChildren)
 		end
 
-		if FFlagStudioFixTreeViewForFlatList and self.props.createFlatList then
+		if createFlatList then
 			handlers.onNodeVisited(current, depth, {})
 			for _, child in pairs(children) do
 				self.traverseDepthFirst(child, depth + 1, handlers)
@@ -320,7 +327,12 @@ function TreeView:init()
 		local root = self.props.dataTree
 		local getChildren = self.props.getChildren
 		local sortChildren = self.props.sortChildren
-		local createFlatList = self.props.createFlatList
+		local createFlatList
+		if FFlagFixTreeViewFlatListDefault then
+			createFlatList = FFlagStudioFixTreeViewForFlatList and (self.props.createFlatList and self.props.createFlatList or true)
+		else
+			createFlatList = FFlagStudioFixTreeViewForFlatList and self.props.createFlatList
+		end
 
 		local numNodes = 1
 		local treeNodes
@@ -342,6 +354,9 @@ function TreeView:init()
 						if createFlatList then
 							local nodeName = string.format("Node-%d", numNodes)
 							treeNodes[nodeName] = node
+							if FFlagFixTreeViewFlatListDefault then
+								table.insert(self.nodesArray, child)
+							end
 						else
 							return node
 						end

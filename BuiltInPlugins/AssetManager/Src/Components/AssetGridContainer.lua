@@ -32,6 +32,8 @@ local GetAssets = require(Plugin.Src.Thunks.GetAssets)
 local GetAssetPreviewData = require(Plugin.Src.Thunks.GetAssetPreviewData)
 local OnScreenChange = require(Plugin.Src.Thunks.OnScreenChange)
 
+local BulkImportService = game:GetService("BulkImportService")
+
 local AssetGridContainer = Roact.Component:extend("AssetGridContainer")
 
 function AssetGridContainer:init()
@@ -41,13 +43,35 @@ function AssetGridContainer:init()
 
     self.layoutRef = Roact.createRef()
 
+    self.bulkImportFinishedConnection = nil
+
     self.onClearSelection = function()
         self.props.dispatchSetSelectedAssets({})
     end
 
-    self.onOpenAssetPreview = function(assetId)
-        local assetPreviewData = self.props.AssetsTable.assetPreviewData[assetId]
-        self.props.OnOpenAssetPreview(assetPreviewData)
+    self.onOpenAssetPreview = function(assetData)
+        local assetPreviewData = self.props.AssetsTable.assetPreviewData[assetData.id]
+        self.props.OnOpenAssetPreview(assetData, assetPreviewData)
+    end
+end
+
+function AssetGridContainer:didMount()
+    local props = self.props
+    local screen = props.CurrentScreen
+    if screen ~= Screens.MAIN.Key then
+        self.bulkImportFinishedConnection = BulkImportService.BulkImportFinished:connect(function(state)
+            -- state is 1 for success
+            if state == 1 then
+                local apiImpl = props.API:get()
+                props.dispatchGetAssets(apiImpl, screen.AssetType)
+            end
+        end)
+    end
+end
+
+function AssetGridContainer:willUnmount()
+    if self.bulkImportFinishedConnection then
+        self.bulkImportFinishedConnection:disconnect()
     end
 end
 
@@ -102,8 +126,8 @@ end
 
 function AssetGridContainer:didUpdate(lastProps, lastState)
     local props = self.props
-    local screen = props.CurrentScreen
     local apiImpl = props.API:get()
+    local screen = props.CurrentScreen
     if screen ~= self.state.currentScreen then
         props.dispatchOnScreenChange(apiImpl, screen)
         self:setState({
@@ -143,7 +167,8 @@ function AssetGridContainer:render()
         if #assets ~= 0 and #assets ~= #assetPreviewData then
             local assetIds = {}
             for _, asset in ipairs(assets) do
-                if assetPreviewData[asset.id] == nil then
+                local isPlace = asset.assetType == Enum.AssetType.Place
+                if not isPlace and assetPreviewData[asset.id] == nil then
                     table.insert(assetIds, asset.id)
                 end
             end

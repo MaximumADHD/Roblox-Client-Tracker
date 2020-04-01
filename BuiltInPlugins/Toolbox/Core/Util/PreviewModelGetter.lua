@@ -28,13 +28,13 @@ local function getPreviewModel(assetId)
 		local url = Urls.constructAssetIdString(assetId)
 		if FFlagEnableDataModelFetchAssetAsync then
 			if FFlagEnableToolboxInsertWithJoin then
-				assetInstances = game:InsertObjectsAndJoinIfLegacy(url)
+				assetInstances = game:InsertObjectsAndJoinIfLegacyAsync(url)
 			else
 				assetInstances = game:GetObjectsAsync(url)
 			end
 		else
 			if FFlagEnableToolboxInsertWithJoin then
-				assetInstances = game:InsertObjectsAndJoinIfLegacy(url)
+				assetInstances = game:InsertObjectsAndJoinIfLegacyAsync(url)
 			else
 				assetInstances = game:GetObjects(url)
 			end

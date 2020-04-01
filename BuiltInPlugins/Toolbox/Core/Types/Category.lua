@@ -1,4 +1,3 @@
-local FFlagLuaPackagePermissions =  settings():GetFFlag("LuaPackagePermissions")
 local FFlagOnlyWhitelistedPluginsInStudio = settings():GetFFlag("OnlyWhitelistedPluginsInStudio")
 local FFlagFixToolboxInitLoad = settings():GetFFlag("FixToolboxInitLoad")
 local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
@@ -263,9 +262,7 @@ local TABS = {
 	}
 }
 
-if FFlagLuaPackagePermissions then
-	table.insert(Category.INVENTORY_WITH_GROUPS, Category.GROUP_PACKAGES)
-end
+table.insert(Category.INVENTORY_WITH_GROUPS, Category.GROUP_PACKAGES)
 
 if FFlagEnablePurchasePluginFromLua2 then
 	table.insert(Category.INVENTORY, Category.MY_PLUGINS)

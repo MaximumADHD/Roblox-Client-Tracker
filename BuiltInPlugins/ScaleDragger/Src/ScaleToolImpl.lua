@@ -121,28 +121,29 @@ function ScaleToolImpl.new()
 	return setmetatable(self, ScaleToolImpl)
 end
 
-function ScaleToolImpl:update(draggerToolState)
+function ScaleToolImpl:update(draggerToolState, derivedWorldState)
 	if not self._draggingHandleId then
         -- Don't clobber these fields while we're dragging because we're
         -- updating the bounding box in a smart way given how we're moving the
-        -- parts.
-		self._boundingBoxOffsetCFrame = CFrame.new(draggerToolState.boundingBoxOffset)
+		-- parts.
+		local cframe, offset, size = derivedWorldState:getBoundingBox()
 		self._boundingBox = {
-			Size = draggerToolState.boundingBoxSize,
-			CFrame = draggerToolState.mainCFrame * self._boundingBoxOffsetCFrame,
+			Size = size,
+			CFrame = cframe * CFrame.new(offset),
 		}
 
-		self._attachmentsToMove = draggerToolState.attachmentsToMove
-		self._partsToResize = draggerToolState.partsToMove
-		self._originalCFrameMap = draggerToolState.originalCFrameMap
-		self._scale = draggerToolState.scale
+		self._partsToResize, self._attachmentsToMove =
+			derivedWorldState:getObjectsToTransform()
+		self._originalCFrameMap = derivedWorldState:getOriginalCFrameMap()
+		self._scale = derivedWorldState:getHandleScale()
 	end
 	self:_updateHandles()
 end
 
-function ScaleToolImpl:hitTest(mouseRay)
+function ScaleToolImpl:hitTest(mouseRay, handleScale)
 	local closestHandleId, closestHandleDistance = nil, math.huge
 	for handleId, handleProps in pairs(self._handles) do
+		handleProps.Scale = handleScale
 		local distance = ScaleHandleView.hitTest(handleProps, mouseRay)
 		if distance and distance < closestHandleDistance then
 			closestHandleDistance = distance
@@ -176,21 +177,40 @@ function ScaleToolImpl:render(hoveredHandleId)
 	local children = {}
 	if self._draggingHandleId then
 		local handleProps = self._handles[self._draggingHandleId]
-		handleProps.Color = handleProps.ActiveColor
-		handleProps.Hovered = true
-		children[self._draggingHandleId] = Roact.createElement(ScaleHandleView, handleProps)
+		children[self._draggingHandleId] = Roact.createElement(ScaleHandleView, {
+			HandleCFrame = handleProps.HandleCFrame,
+			Color = handleProps.Color,
+			Scale = self._scale,
+			Hovered = true,
+		})
+
+        for otherHandleId, otherHandleProps in pairs(self._handles) do
+            if otherHandleId ~= self._draggingHandleId then
+                children[otherHandleId] = Roact.createElement(ScaleHandleView, {
+					HandleCFrame = otherHandleProps.HandleCFrame,
+					Color = Colors.makeDimmed(otherHandleProps.Color),
+					Scale = self._scale,
+					Thin = true,
+				})
+            end
+        end
 
 		if areJointsEnabled() and self._jointPairs then
 			children.JointDisplay = self._jointPairs:renderJoints(self._scale)
 		end
 	else
 		for handleId, handleProps in pairs(self._handles) do
-			handleProps.Hovered = handleId == hoveredHandleId
-			handleProps.Color = handleProps.ActiveColor
-			if not handleProps.Hovered then
-				handleProps.Color = Colors.makeDimmed(handleProps.Color)
+			local color = handleProps.Color
+			local hovered = (handleId == hoveredHandleId)
+			if not hovered then
+				color = Colors.makeDimmed(handleProps.Color)
 			end
-			children[handleId] = Roact.createElement(ScaleHandleView, handleProps)
+			children[handleId] = Roact.createElement(ScaleHandleView, {
+				HandleCFrame = handleProps.HandleCFrame,
+				Color = color,
+				Scale = self._scale,
+				Hovered = hovered,
+			})
 		end
 	end
 
@@ -539,8 +559,7 @@ function ScaleToolImpl:_updateHandles()
 			local handleBaseCFrame = self._boundingBox.CFrame * offset * CFrame.new(0, 0, -boundingBoxOffset)
 
 			self._handles[handleId] = {
-				ActiveColor = handleDefinition.Color,
-				AlwaysOnTop = false,
+				Color = handleDefinition.Color,
 				Axis = offset.LookVector,
 				HandleCFrame = handleBaseCFrame,
 				NormalId = handleDefinition.NormalId,

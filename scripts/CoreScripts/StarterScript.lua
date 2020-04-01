@@ -7,6 +7,8 @@ local ScriptContext = game:GetService("ScriptContext")
 local UserInputService = game:GetService("UserInputService")
 local GuiService = game:GetService("GuiService")
 local VRService = game:GetService("VRService")
+local Players = game:GetService("Players")
+local ABTestService = game:GetService("ABTestService")
 
 local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
 local CoreGuiModules = RobloxGui:WaitForChild("Modules")
@@ -21,6 +23,9 @@ local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp") --todo: 
 local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList3")
 local FFlagEmotesMenuEnabled2 = settings():GetFFlag("CoreScriptEmotesMenuEnabled2")
 
+local FFlagCoreScriptTopBarStartup = require(RobloxGui.Modules.Flags.FFlagCoreScriptTopBarStartup)
+local isNewTopBarEnabled = require(RobloxGui.Modules.TopBar.isNewTopBarEnabled)
+
 -- The Rotriever index, as well as the in-game menu code itself, relies on
 -- the init.lua convention, so we have to run initify over the module.
 -- We do this explicitly because the LocalPlayer hasn't been created at this
@@ -30,6 +35,22 @@ initify(CoreGuiModules.InGameMenu)
 local UIBlox = require(CorePackages.UIBlox)
 local uiBloxConfig = require(CoreGuiModules.UIBloxInGameConfig)
 UIBlox.init(uiBloxConfig)
+
+if FFlagCoreScriptTopBarStartup then
+	local localPlayer = Players.LocalPlayer
+	while not localPlayer do
+		Players:GetPropertyChangedSignal("LocalPlayer"):Wait()
+		localPlayer = Players.LocalPlayer
+	end
+
+	ABTestService:InitializeForUserId(localPlayer.UserId)
+
+	local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
+	local InGameMenuUIBlox = InGameMenuDependencies.UIBlox
+	if InGameMenuUIBlox ~= UIBlox then
+		InGameMenuUIBlox.init(uiBloxConfig)
+	end
+end
 
 local soundFolder = Instance.new("Folder")
 soundFolder.Name = "Sounds"
@@ -50,7 +71,12 @@ if FFlagConnectionScriptEnabled and not GuiService:IsTenFootInterface() then
 end
 
 -- TopBar
-ScriptContext:AddCoreScriptLocal("CoreScripts/Topbar", RobloxGui)
+if isNewTopBarEnabled() then
+	initify(CoreGuiModules.TopBar)
+	coroutine.wrap(safeRequire)(CoreGuiModules.TopBar)
+else
+	ScriptContext:AddCoreScriptLocal("CoreScripts/Topbar", RobloxGui)
+end
 
 -- MainBotChatScript (the Lua part of Dialogs)
 ScriptContext:AddCoreScriptLocal("CoreScripts/MainBotChatScript2", RobloxGui)

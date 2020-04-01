@@ -2,7 +2,6 @@ local VirtualInputManager = game:GetService("VirtualInputManager")
 local InputVisualizer = require(script.Parent.InputVisualizer):new()
 local RunService = game:GetService("RunService")
 local GuiService = game:GetService("GuiService")
-local guiOffset, _ = GuiService:GetGuiInset()
 
 local defaultTouchId = 123456
 
@@ -56,8 +55,14 @@ function VirtualInput.setCurrentWindow(window)
 	return old
 end
 
-function VirtualInput.sendMouseButtonEvent(x, y, button, isDown)
-	VirtualInputManager:SendMouseButtonEvent(x, y, button, isDown, currentWindow)
+local function handleGuiInset(x, y)
+	local guiOffset, _ = GuiService:GetGuiInset()
+	return x + guiOffset.X, y + guiOffset.Y
+end
+
+function VirtualInput.sendMouseButtonEvent(x, y, button, isDown, repeatCount)
+	x, y = handleGuiInset(x, y)
+	VirtualInputManager:SendMouseButtonEvent(x, y, button, isDown, currentWindow, repeatCount or 0)
 end
 
 function VirtualInput.SendKeyEvent(isPressed, keyCode, isRepeated)
@@ -65,6 +70,7 @@ function VirtualInput.SendKeyEvent(isPressed, keyCode, isRepeated)
 end
 
 function VirtualInput.SendMouseMoveEvent(x, y)
+	x, y = handleGuiInset(x, y)
 	VirtualInputManager:SendMouseMoveEvent(x, y, currentWindow)
 end
 
@@ -73,10 +79,12 @@ function VirtualInput.sendTextInputCharacterEvent(str)
 end
 
 function VirtualInput.SendMouseWheelEvent(x, y, isForwardScroll)
+	x, y = handleGuiInset(x, y)
 	VirtualInputManager:SendMouseWheelEvent(x, y, isForwardScroll, currentWindow)
 end
 
 function VirtualInput.SendTouchEvent(touchId, state, x, y)
+	x, y = handleGuiInset(x, y)
 	VirtualInputManager:SendTouchEvent(touchId, state, x, y)
 end
 
@@ -139,10 +147,38 @@ function VirtualInput.tap(vec2)
 	VirtualInput.touchStop(vec2)
 end
 
-function VirtualInput.click(vec2)
-	InputVisualizer:click(vec2 - guiOffset, currentWindow)
-	VirtualInput.sendMouseButtonEvent(vec2.x, vec2.y, 0, true)
-	VirtualInput.sendMouseButtonEvent(vec2.x, vec2.y, 0, false)
+function VirtualInput.click(vec2, repeatCount)
+	InputVisualizer:click(vec2, currentWindow)
+	VirtualInput.sendMouseButtonEvent(vec2.x, vec2.y, 0, true, repeatCount)
+	VirtualInput.sendMouseButtonEvent(vec2.x, vec2.y, 0, false, repeatCount)
+end
+
+local function multiClick(vec2, count)
+	local waiting = false
+	local repeatCount = 0
+	return function()
+		if waiting then
+			waiting = false
+			return false
+		elseif count > 1 then
+			VirtualInput.click(vec2, repeatCount)
+			count = count - 1
+			repeatCount = repeatCount + 1
+			waiting = true
+			return false
+		elseif count == 1 then
+			VirtualInput.click(vec2, repeatCount)
+			return true
+		end
+	end
+end
+
+function VirtualInput.multiClick(vec2, count, async)
+	if async == true then
+		asyncRun(multiClick(vec2, count))
+	else
+		syncRun(multiClick(vec2, count))
+	end
 end
 
 function VirtualInput.rightClick(vec2)
@@ -151,12 +187,10 @@ function VirtualInput.rightClick(vec2)
 end
 
 function VirtualInput.mouseLeftDown(vec2)
-	InputVisualizer:click(vec2 - guiOffset, currentWindow)
 	VirtualInput.sendMouseButtonEvent(vec2.x, vec2.y, 0, true)
 end
 
 function VirtualInput.mouseLeftUp(vec2)
-	InputVisualizer:click(vec2 - guiOffset, currentWindow)
 	VirtualInput.sendMouseButtonEvent(vec2.x, vec2.y, 0, false)
 end
 

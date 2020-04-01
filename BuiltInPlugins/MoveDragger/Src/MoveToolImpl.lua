@@ -59,10 +59,7 @@ local function areCollisionsEnabled()
 end
 
 local function areConstraintsEnabled()
-	if settings():GetFFlag("StudioServiceDraggerSolveConstraints") then
-		return StudioService.DraggerSolveConstraints
-	end
-    return false
+	return StudioService.DraggerSolveConstraints
 end
 
 local function useLocalSpace()
@@ -82,27 +79,28 @@ function MoveToolImpl.new()
     return setmetatable(self, MoveToolImpl)
 end
 
-function MoveToolImpl:update(draggerToolState)
+function MoveToolImpl:update(draggerToolState, derivedWorldState)
     if not self._draggingHandleId then
         -- Don't clobber these fields while we're dragging because we're
         -- updating the bounding box in a smart way given how we're moving the
         -- parts.
-        local boundingBoxOffsetCFrame = CFrame.new(draggerToolState.boundingBoxOffset)
+        local cframe, offset, size = derivedWorldState:getBoundingBox()
         self._boundingBox = {
-            Size = draggerToolState.boundingBoxSize,
-            CFrame = draggerToolState.mainCFrame * boundingBoxOffsetCFrame,
+            Size = size,
+            CFrame = cframe * CFrame.new(offset),
         }
-        self._attachmentsToMove = draggerToolState.attachmentsToMove
-        self._partsToMove = draggerToolState.partsToMove
-        self._originalCFrameMap = draggerToolState.originalCFrameMap
-        self._scale = draggerToolState.scale
+        self._partsToMove, self._attachmentsToMove =
+            derivedWorldState:getObjectsToTransform()
+        self._originalCFrameMap = derivedWorldState:getOriginalCFrameMap()
+        self._scale = derivedWorldState:getHandleScale()
     end
     self:_updateHandles()
 end
 
-function MoveToolImpl:hitTest(mouseRay)
+function MoveToolImpl:hitTest(mouseRay, handleScale)
     local closestHandleId, closestHandleDistance = nil, math.huge
     for handleId, handleProps in pairs(self._handles) do
+        handleProps.Scale = handleScale
         local distance = MoveHandleView.hitTest(handleProps, mouseRay)
         if distance and distance <= closestHandleDistance then
             -- The EQUAL in the condition is here to make sure that the last
@@ -121,25 +119,56 @@ function MoveToolImpl:hitTest(mouseRay)
 end
 
 function MoveToolImpl:render(hoveredHandleId)
+    -- The scale tool's handles show on top when hovered, but that behavior
+    -- doesn't feel as good for the move / rotate tools, so disable it.
+    local forceHoveredHandlesOnTop = false
+    if Workspace:FindFirstChild("MoveHandleHoveredOnTop") then
+        forceHoveredHandlesOnTop = Workspace.MoveHandleHoveredOnTop.Value
+    end
+
     local children = {}
     if self._draggingHandleId then
         local handleProps = self._handles[self._draggingHandleId]
-		handleProps.Hovered = false
-		handleProps.Color = handleProps.ActiveColor
-        children[self._draggingHandleId] = Roact.createElement(MoveHandleView, handleProps)
+        children[self._draggingHandleId] = Roact.createElement(MoveHandleView, {
+            Axis = handleProps.Axis,
+            AxisOffset = handleProps.AxisOffset,
+            Color = handleProps.Color,
+            Scale = self._scale,
+            AlwaysOnTop = ALWAYS_ON_TOP,
+            Hovered = forceHoveredHandlesOnTop and true,
+        })
+
+        for otherHandleId, otherHandleProps in pairs(self._handles) do
+            if otherHandleId ~= self._draggingHandleId then
+                children[otherHandleId] = Roact.createElement(MoveHandleView, {
+                    Axis = otherHandleProps.Axis,
+                    AxisOffset = otherHandleProps.AxisOffset,
+                    Color = Colors.makeDimmed(otherHandleProps.Color),
+                    Scale = self._scale,
+                    AlwaysOnTop = ALWAYS_ON_TOP,
+                    Thin = true,
+                })
+            end
+        end
 
         if areJointsEnabled() and self._jointPairs then
             children.JointDisplay = self._jointPairs:renderJoints(self._scale)
         end
     else
-		for handleId, handleProps in pairs(self._handles) do
-			handleProps.Hovered = (handleId == hoveredHandleId)
-			local color = handleProps.ActiveColor
-			if not handleProps.Hovered then
+        for handleId, handleProps in pairs(self._handles) do
+            local color = handleProps.Color
+            local hovered = (handleId == hoveredHandleId)
+			if not hovered then
 				color = Colors.makeDimmed(color)
-			end
-			handleProps.Color = color
-            children[handleId] = Roact.createElement(MoveHandleView, handleProps)
+            end
+            children[handleId] = Roact.createElement(MoveHandleView, {
+                Axis = handleProps.Axis,
+                AxisOffset = handleProps.AxisOffset,
+                Color = color,
+                Scale = self._scale,
+                AlwaysOnTop = ALWAYS_ON_TOP,
+                Hovered = forceHoveredHandlesOnTop and hovered,
+            })
         end
     end
     return Roact.createFragment(children)
@@ -420,9 +449,7 @@ function MoveToolImpl:_updateHandles()
             self._handles[handleId] = {
                 AxisOffset = offsetDueToBoundingBox,
                 Axis = handleBaseCFrame,
-                Scale = self._scale,
-                ActiveColor = handleDef.Color,
-                AlwaysOnTop = ALWAYS_ON_TOP,
+                Color = handleDef.Color,
             }
         end
     end

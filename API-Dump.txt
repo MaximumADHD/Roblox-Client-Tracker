@@ -93,15 +93,25 @@ Class AssetManagerService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void AssetManagerService:DeleteAlias(string aliasName) {RobloxScriptSecurity} [Yields]
 	Function int64 AssetManagerService:GetMeshId(string aliasName) {RobloxScriptSecurity}
 	Function int64 AssetManagerService:GetTextureId(string aliasName) {RobloxScriptSecurity}
+	Function bool AssetManagerService:HasUnpublishedChangesForLinkedSource(string aliasName) {RobloxScriptSecurity}
 	Function void AssetManagerService:InsertImage(int64 assetId) {RobloxScriptSecurity}
+	Function void AssetManagerService:InsertLinkedSourceAsLocalScript(string aliasName) {RobloxScriptSecurity}
+	Function void AssetManagerService:InsertLinkedSourceAsModuleScript(string aliasName) {RobloxScriptSecurity}
+	Function void AssetManagerService:InsertLinkedSourceAsScript(string aliasName) {RobloxScriptSecurity}
 	Function void AssetManagerService:InsertMesh(string aliasName, bool insertWithLocation) {RobloxScriptSecurity}
 	Function void AssetManagerService:InsertPackage(int64 packageId) {RobloxScriptSecurity}
+	Function void AssetManagerService:OpenLinkedSource(string aliasName) {RobloxScriptSecurity}
 	Function void AssetManagerService:OpenPlace(int64 placeId) {RobloxScriptSecurity}
+	Function void AssetManagerService:PublishLinkedSource(int64 assetId, string aliasName) {RobloxScriptSecurity} [Yields]
+	Function void AssetManagerService:RefreshLinkedSource(string aliasName) {RobloxScriptSecurity}
 	Function void AssetManagerService:RemovePlace(int64 placeId) {RobloxScriptSecurity} [Yields]
+	Function void AssetManagerService:RenameAlias(int assetType, int64 assetId, string oldAliasName, string newAliasName) {RobloxScriptSecurity} [Yields]
 	Function void AssetManagerService:RenamePlace(int64 placeId, string newName) {RobloxScriptSecurity} [Yields]
+	Function void AssetManagerService:RevertLinkedSourceToLastPublishedVersion(string aliasName) {RobloxScriptSecurity}
 	Function void AssetManagerService:ShowPackageDetails(int64 packageId) {RobloxScriptSecurity}
 	Function void AssetManagerService:UpdateAllPackages(int64 packageId) {RobloxScriptSecurity}
 	Function void AssetManagerService:ViewPackageOnWebsite(int64 packageId) {RobloxScriptSecurity}
+	Event AssetManagerService.MayBeLinkedSourceModified(string aliasName) {RobloxScriptSecurity}
 Class AssetService : Instance [NotCreatable] [Service]
 	Function int64 AssetService:CreatePlaceAsync(string placeName, int64 templatePlaceID, string description = "") [Yields]
 	Function int64 AssetService:CreatePlaceInPlayerInventoryAsync(Instance player, string placeName, int64 templatePlaceID, string description = "") [Yields]
@@ -2880,7 +2890,7 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void StudioService:TryInstallPlugin(int64 assetId, int64 assetVersionId) {RobloxScriptSecurity} [Yields]
 	Function void StudioService:UninstallPlugin(int64 assetId) {RobloxScriptSecurity}
 	Function void StudioService:UpdatePluginManagement() {RobloxScriptSecurity}
-	Event StudioService.GamePublishFinished(bool success) {RobloxScriptSecurity}
+	Event StudioService.GamePublishFinished(bool success, int64 gameId) {RobloxScriptSecurity}
 	Event StudioService.OnConvertToPackageResult(bool isSuccessful, string errorMessage) {RobloxScriptSecurity}
 	Event StudioService.OnOpenConvertToPackagePlugin(Objects instances, string name) {RobloxScriptSecurity}
 	Event StudioService.OnOpenManagePackagePlugin(int64 userId, int64 assetId) {RobloxScriptSecurity}
@@ -3219,6 +3229,8 @@ Class UserInputService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event UserInputService.UserCFrameChanged(Enum<UserCFrame> type, CFrame value)
 	Event UserInputService.WindowFocusReleased()
 	Event UserInputService.WindowFocused()
+Class UserService : Instance [NotCreatable] [Service]
+	Function Array UserService:GetUserInfosByUserIdsAsync(Array userIds) [Yields]
 Class VRService : Instance [NotCreatable] [Service]
 	Property Enum<UserCFrame> VRService.GuiInputUserCFrame
 	Property string VRService.VRDeviceName {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
@@ -3546,6 +3558,7 @@ Enum CollisionFidelity
 	EnumItem CollisionFidelity.Default : 0
 	EnumItem CollisionFidelity.Hull : 1
 	EnumItem CollisionFidelity.Box : 2
+	EnumItem CollisionFidelity.PreciseConvexDecomposition : 3
 Enum CollisionsMode
 	EnumItem CollisionsMode.NoCollisions : 0
 	EnumItem CollisionsMode.OtherMechanismsAnchored : 1

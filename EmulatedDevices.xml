@@ -168,7 +168,7 @@
         safezone_portrait="20,0,0,0"
         safezone_landscape="20,0,0,0"
         ></Device>
-  <!--TODO: remove with flag FFlagStudioRewriteEmulatorWithMask-->
+  <!--TODO: remove with flag FFlagStudioRewriteEmulatorWithMask2-->
   <Device name="iPhone X"
         device_id="iphone_X_deprecated"
         dpi="163"
@@ -225,7 +225,7 @@
         width="812"
         height="375"
         device_form="phone"
-        wireframe_image_filename="iPhoneX_new.png"
+        wireframe_image_filename="iPhoneX_Fullscreen.png"
         wireframe_screen_x="26"
         wireframe_screen_y="28"
         platform="IOS"

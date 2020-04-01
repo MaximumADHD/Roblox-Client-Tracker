@@ -45,6 +45,7 @@ local FFlagLocalizeVersionLabels = settings():GetFFlag("LocalizeVersionLabels")
 local FFlagUpdateSettingsHubGameText = require(RobloxGui.Modules.Flags.FFlagUpdateSettingsHubGameText)
 local FFlagDisableAutoTranslateForKeyTranslatedContent = require(RobloxGui.Modules.Flags.FFlagDisableAutoTranslateForKeyTranslatedContent)
 local FFlagCollectAnalyticsForSystemMenu = settings():GetFFlag("CollectAnalyticsForSystemMenu")
+local isNewTopBarEnabled = require(RobloxGui.Modules.TopBar.isNewTopBarEnabled)
 
 
 --[[ SERVICES ]]
@@ -115,9 +116,20 @@ end
 --[[ CORE MODULES ]]
 local chat = require(RobloxGui.Modules.ChatSelector)
 
-if utility:IsSmallTouchScreen() or isTenFootInterface then
-	SETTINGS_SHIELD_ACTIVE_POSITION = UDim2.new(0,0,0,0)
-	SETTINGS_SHIELD_SIZE = UDim2.new(1,0,1,0)
+if isNewTopBarEnabled() then
+	if isTenFootInterface then
+		SETTINGS_SHIELD_ACTIVE_POSITION = UDim2.new(0,0,0,0)
+		SETTINGS_SHIELD_SIZE = UDim2.new(1,0,1,0)
+	else
+		local topCornerInset, _ = GuiService:GetGuiInset()
+		SETTINGS_SHIELD_ACTIVE_POSITION = UDim2.new(0,0,0,-topCornerInset.Y)
+		SETTINGS_SHIELD_SIZE = UDim2.new(1,0,1,topCornerInset.Y)
+	end
+else
+	if utility:IsSmallTouchScreen() or isTenFootInterface then
+		SETTINGS_SHIELD_ACTIVE_POSITION = UDim2.new(0,0,0,0)
+		SETTINGS_SHIELD_SIZE = UDim2.new(1,0,1,0)
+	end
 end
 
 local function GetCorePackagesLoaded(packageList)
@@ -350,19 +362,22 @@ local function CreateSettingsHub()
 		end
 	end
 
-	StarterGui:RegisterSetCore("ResetButtonCallback", function(callback)
-		local isBindableEvent = typeof(callback) == "Instance" and callback:IsA("BindableEvent")
-		if isBindableEvent or type(callback) == "boolean" then
-			this.ResetCharacterPage:SetResetCallback(callback)
-		else
-			warn("ResetButtonCallback must be set to a BindableEvent or a boolean")
-		end
-		if callback == false then
-			setResetEnabled(false)
-		elseif not resetEnabled and (isBindableEvent or callback == true) then
-			setResetEnabled(true)
-		end
-	end)
+	if RunService:IsClient() and not RunService:IsServer() then
+		--Registering these during unit testing causes errors.
+		StarterGui:RegisterSetCore("ResetButtonCallback", function(callback)
+			local isBindableEvent = typeof(callback) == "Instance" and callback:IsA("BindableEvent")
+			if isBindableEvent or type(callback) == "boolean" then
+				this.ResetCharacterPage:SetResetCallback(callback)
+			else
+				warn("ResetButtonCallback must be set to a BindableEvent or a boolean")
+			end
+			if callback == false then
+				setResetEnabled(false)
+			elseif not resetEnabled and (isBindableEvent or callback == true) then
+				setResetEnabled(true)
+			end
+		end)
+	end
 
 	local function createGui()
 		local PageViewSizeReducer = 0
@@ -1378,9 +1393,15 @@ local function CreateSettingsHub()
 			GuiService:SetMenuIsOpen(true, SETTINGS_HUB_MENU_KEY)
 			this.Shield.Visible = this.Visible
 			if noAnimation or not this.Shield:IsDescendantOf(game) then
-				this.Shield.Position = SETTINGS_SHIELD_ACTIVE_POSITION
+				this.Shield.Position = isNewTopBarEnabled() and UDim2.new(0, 0, 0, 0) or SETTINGS_SHIELD_ACTIVE_POSITION
 			else
-				this.Shield:TweenPosition(SETTINGS_SHIELD_ACTIVE_POSITION, Enum.EasingDirection.InOut, Enum.EasingStyle.Quart, 0.5, true)
+				this.Shield:TweenPosition(
+					isNewTopBarEnabled() and UDim2.new(0, 0, 0, 0) or SETTINGS_SHIELD_ACTIVE_POSITION,
+					Enum.EasingDirection.InOut,
+					Enum.EasingStyle.Quart,
+					0.5,
+					true
+				)
 			end
 
 			local noOpFunc = function() end
@@ -1779,6 +1800,12 @@ function moduleApiTable:HideShield()
 end
 
 moduleApiTable.SettingsShowSignal = SettingsHubInstance.SettingsShowSignal
+
+moduleApiTable.SettingsShowEvent = Instance.new("BindableEvent")
+
+SettingsHubInstance.SettingsShowSignal:connect(function(open)
+	moduleApiTable.SettingsShowEvent:Fire(open)
+end)
 
 moduleApiTable.Instance = SettingsHubInstance
 

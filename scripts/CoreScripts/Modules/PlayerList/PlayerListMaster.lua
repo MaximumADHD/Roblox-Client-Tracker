@@ -56,6 +56,8 @@ local XPRIVILEGE_COMMUNICATION_VOICE_INGAME = 205
 
 local FFlagPlayerListDesignUpdate = settings():GetFFlag("PlayerListDesignUpdate")
 
+local isNewTopBarEnabled = require(RobloxGui.Modules.TopBar.isNewTopBarEnabled)
+
 local PlayerListMaster = {}
 PlayerListMaster.__index = PlayerListMaster
 
@@ -136,6 +138,16 @@ function PlayerListMaster.new()
 		self:_updateMounted()
 	end
 
+	if isNewTopBarEnabled() then
+		self.SetVisibleChangedEvent = Instance.new("BindableEvent")
+
+		self.store.changed:connect(function(newState, oldState)
+			if newState.displayOptions.setVisible ~= oldState.displayOptions.setVisible then
+				self.SetVisibleChangedEvent:Fire(newState.displayOptions.setVisible)
+			end
+		end)
+	end
+
 	return self
 end
 
@@ -204,6 +216,16 @@ end
 
 function PlayerListMaster:GetVisibility()
 	return self.store:getState().displayOptions.isVisible
+end
+
+if isNewTopBarEnabled() then
+	function PlayerListMaster:GetSetVisible()
+		return self.store:getState().displayOptions.setVisible
+	end
+
+	function PlayerListMaster:GetSetVisibleChangedEvent()
+		return self.SetVisibleChangedEvent
+	end
 end
 
 function PlayerListMaster:SetVisibility(value)

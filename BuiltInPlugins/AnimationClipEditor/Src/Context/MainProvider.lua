@@ -29,6 +29,7 @@ local ActionProvider = ActionContext.Provider
 local MouseContext = require(Plugin.Src.Context.Mouse)
 local MouseProvider = MouseContext.Provider
 local Analytics = require(Plugin.Src.Util.Analytics)
+local DebugFlags = require(Plugin.Src.Util.DebugFlags)
 
 local SetAnalytics = require(Plugin.Src.Actions.SetAnalytics)
 
@@ -104,7 +105,7 @@ function MainProvider:render()
 end
 
 function MainProvider:didMount()
-	if not Constants.USE_MOCK_ANALYTICS and self.props.store then
+	if not Constants.USE_MOCK_ANALYTICS and self.props.store and not DebugFlags.RunTests() and not DebugFlags.RunRhodiumTests() then
 		self.props.store:dispatch(SetAnalytics(Analytics.new()))
 	end
 end

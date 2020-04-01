@@ -363,12 +363,6 @@ end
 function EmotesMenuMaster.new()
     local self = setmetatable({}, EmotesMenuMaster)
 
-    -- If not running in the correct context return early and don't mount the Gui
-    -- This is necessary for non-networked DataModels where CoreScripts can still run
-    if not isClient() then
-        return self
-    end
-
     if FFlagEmotesMenuShowUiOnlyWhenAvailable then
         self.canPlayEmotes = CanPlayEmotes.Value
     end
@@ -390,6 +384,12 @@ function EmotesMenuMaster.new()
     self.store = Rodux.Store.new(EmotesMenuReducer, {}, {
         Rodux.thunkMiddleware,
     })
+
+    -- If not running in the correct context return early and don't mount the Gui
+    -- This is necessary for non-networked DataModels where CoreScripts can still run
+    if not isClient() then
+        return self
+    end
 
     self.store.changed:connect(function(newState, oldState)
         self:_onStateChanged(newState, oldState)

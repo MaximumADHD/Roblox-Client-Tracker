@@ -1,5 +1,6 @@
 local Plugin = script.Parent.Parent.Parent
 
+local SetEditingAssets = require(Plugin.Src.Actions.SetEditingAssets)
 local SetSelectedAssets = require(Plugin.Src.Actions.SetSelectedAssets)
 
 local GetAssets = require(Plugin.Src.Thunks.GetAssets)
@@ -8,7 +9,11 @@ local LaunchBulkImport = require(Plugin.Src.Thunks.LaunchBulkImport)
 local Screens = require(Plugin.Src.Util.Screens)
 
 local AssetManagerService = game:GetService("AssetManagerService")
+local HttpService = game:GetService("HttpService")
+local MemStorageService = game:GetService("MemStorageService")
 local StudioService = game:GetService("StudioService")
+
+local EVENT_ID_OPENASSETCONFIG = "OpenAssetConfiguration"
 
 local function removeAssets(apiImpl, assetData, assets, selectedAssets, store)
     for i, asset in ipairs(assets) do
@@ -19,6 +24,8 @@ local function removeAssets(apiImpl, assetData, assets, selectedAssets, store)
                 AssetManagerService:DeleteAlias("Images/".. asset.name)
             elseif asset.assetType == Enum.AssetType.MeshPart then
                 AssetManagerService:DeleteAlias("Meshes/".. asset.name)
+            elseif asset.assetType == Enum.AssetType.Lua then
+                AssetManagerService:DeleteAlias("Scripts/".. asset.name)
             end
         end
     end
@@ -55,7 +62,10 @@ local function createPlaceContextMenu(apiImpl, assetData, contextMenu, localizat
         removeAssets(apiImpl, assetData, assets, selectedAssets, store)
     end)
     contextMenu:AddNewAction("Rename", localization:getText("ContextMenu", "Rename")).Triggered:connect(function()
-        --TODO: Rename Place
+        local assetToEdit = {
+            [assetData.id] = true,
+        }
+        store:dispatch(SetEditingAssets(assetToEdit))
     end)
     contextMenu:AddNewAction("CopyIdToClipboard", localization:getText("ContextMenu", "CopyIdToClipboard")).Triggered:connect(function()
         StudioService:CopyToClipboard(assetData.id)
@@ -94,7 +104,14 @@ local function createImageContextMenu(apiImpl, assetData, contextMenu, localizat
         removeAssets(apiImpl, assetData, assets, selectedAssets, store)
     end)
     contextMenu:AddNewAction("EditAsset", localization:getText("ContextMenu", "EditAsset")).Triggered:connect(function()
-        --TODO: launch asset config
+        MemStorageService:Fire(EVENT_ID_OPENASSETCONFIG,
+            HttpService:JSONEncode({ id = assetData.id, assetType = 1, }))
+    end)
+    contextMenu:AddNewAction("RenameAlias", localization:getText("ContextMenu", "RenameAlias")).Triggered:connect(function()
+        local assetToEdit = {
+            [assetData.id] = true,
+        }
+        store:dispatch(SetEditingAssets(assetToEdit))
     end)
     contextMenu:AddNewAction("Insert", localization:getText("ContextMenu", "Insert")).Triggered:connect(function()
         AssetManagerService:InsertImage(assetData.id)
@@ -120,7 +137,14 @@ local function createMeshPartContextMenu(apiImpl, assetData, contextMenu, locali
         removeAssets(apiImpl, assetData, assets, selectedAssets, store)
     end)
     contextMenu:AddNewAction("EditAsset", localization:getText("ContextMenu", "EditAsset")).Triggered:connect(function()
-        --TODO: launch asset config
+        MemStorageService:Fire(EVENT_ID_OPENASSETCONFIG,
+            HttpService:JSONEncode({ id = assetData.id, assetType = 40, }))
+    end)
+    contextMenu:AddNewAction("RenameAlias", localization:getText("ContextMenu", "RenameAlias")).Triggered:connect(function()
+        local assetToEdit = {
+            [assetData.id] = true,
+        }
+        store:dispatch(SetEditingAssets(assetToEdit))
     end)
     if count == 1 then
         contextMenu:AddNewAction("Insert", localization:getText("ContextMenu", "Insert")).Triggered:connect(function()
@@ -147,6 +171,47 @@ local function createMeshPartContextMenu(apiImpl, assetData, contextMenu, locali
     contextMenu:Destroy()
 end
 
+local function createLinkedScriptContextMenu(apiImpl, assetData, contextMenu, localization, store)
+    local state = store:getState()
+    local assets = state.AssetManagerReducer.assetsTable.assets
+    local selectedAssets = state.AssetManagerReducer.selectedAssets
+    local hasUnpublishedChanges = AssetManagerService:HasUnpublishedChangesForLinkedSource("Scripts/".. assetData.name)
+    contextMenu:AddNewAction("RemoveFromGame", localization:getText("ContextMenu", "RemoveFromGame")).Triggered:connect(function()
+        removeAssets(apiImpl, assetData, assets, selectedAssets, store)
+    end)
+    contextMenu:AddNewAction("RenameAlias", localization:getText("ContextMenu", "RenameAlias")).Triggered:connect(function()
+        local assetToEdit = {
+            [assetData.id] = true,
+        }
+        store:dispatch(SetEditingAssets(assetToEdit))
+    end)
+    contextMenu:AddNewAction("InsertAsScript", localization:getText("ContextMenu", "InsertAsScript")).Triggered:connect(function()
+        AssetManagerService:InsertLinkedSourceAsScript("Scripts/".. assetData.name)
+    end)
+    contextMenu:AddNewAction("InsertAsLocalScript", localization:getText("ContextMenu", "InsertAsLocalScript")).Triggered:connect(function()
+        AssetManagerService:InsertLinkedSourceAsLocalScript("Scripts/".. assetData.name)
+    end)
+    contextMenu:AddNewAction("InsertAsModuleScript", localization:getText("ContextMenu", "InsertAsModuleScript")).Triggered:connect(function()
+        AssetManagerService:InsertLinkedSourceAsModuleScript("Scripts/".. assetData.name)
+    end)
+    if hasUnpublishedChanges then
+        contextMenu:AddNewAction("PublishedLinkedSource", localization:getText("ContextMenu", "PublishLinkedSource")).Triggered:connect(function()
+            AssetManagerService:PublishLinkedSource(assetData.id, "Scripts/".. assetData.name)
+        end)
+    end
+    if hasUnpublishedChanges then
+        contextMenu:AddNewAction("RevertToLastPublishedVersion", localization:getText("ContextMenu", "RevertToLastPublishedVersion")).Triggered:connect(function()
+            AssetManagerService:RevertLinkedSourceToLastPublishedVersion("Scripts/".. assetData.name)
+        end)
+    end
+    contextMenu:AddNewAction("RefreshScript", localization:getText("ContextMenu", "RefreshScript")).Triggered:connect(function()
+        AssetManagerService:RefreshLinkedSource("Scripts/".. assetData.name)
+    end)
+
+    contextMenu:ShowAsync()
+    contextMenu:Destroy()
+end
+
 local function createAssetContextMenu(apiImpl, assetData, contextMenu, localization, store)
     local assetType = assetData.assetType
     if assetType == Enum.AssetType.Place then
@@ -157,6 +222,8 @@ local function createAssetContextMenu(apiImpl, assetData, contextMenu, localizat
         createImageContextMenu(apiImpl, assetData, contextMenu, localization, store)
     elseif assetType == Enum.AssetType.MeshPart then
         createMeshPartContextMenu(apiImpl, assetData, contextMenu, localization, store)
+    elseif assetType == Enum.AssetType.Lua then
+        createLinkedScriptContextMenu(apiImpl, assetData, contextMenu, localization, store)
     end
 end
 

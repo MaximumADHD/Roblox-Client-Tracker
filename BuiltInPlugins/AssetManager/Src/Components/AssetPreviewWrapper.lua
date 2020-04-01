@@ -1,12 +1,16 @@
 local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
+local RoactRodux = require(Plugin.Packages.RoactRodux)
 
 local UILibrary = require(Plugin.Packages.UILibrary)
 local AssetPreview = UILibrary.Component.AssetPreview
 
 local Framework = Plugin.Packages.Framework
 local ContextServices = require(Framework.ContextServices)
+
+local OnAssetDoubleClick = require(Plugin.Src.Thunks.OnAssetDoubleClick)
+local OnAssetRightClick = require(Plugin.Src.Thunks.OnAssetRightClick)
 
 local AssetPreviewWrapper = Roact.PureComponent:extend("AssetPreviewWrapper")
 
@@ -28,11 +32,21 @@ function AssetPreviewWrapper:init()
     end
 
     self.tryInsert = function()
-        --TODO mwang hook up insert functionality
+        local props = self.props
+        local assetData = props.AssetData
+
+        props.dispatchOnAssetDoubleClick(assetData)
     end
 
     self.onFavoritedActivated = function()
         --TODO mwang hook up favoriting
+    end
+
+    self.tryCreateContextMenu = function()
+        local props = self.props
+        local assetData = props.AssetData
+
+        props.dispatchOnAssetRightClick(props.API:get(), assetData, props.Localization, props.Plugin:get())
     end
 
     self.ClickDetectorRef = Roact.createRef()
@@ -62,7 +76,7 @@ function AssetPreviewWrapper:render()
     local localization = props.Localization
     local theme = props.Theme:get("Plugin")
 
-    local assetData = props.AssetData
+    local assetData = props.AssetPreviewData
     local rootTreeViewInstance = assetData.rootTreeViewInstance
     local selectedInstance = self.state.selectedPreviewInstance or assetData.rootTreeViewInstance
 
@@ -124,9 +138,22 @@ function AssetPreviewWrapper:render()
 end
 
 ContextServices.mapToProps(AssetPreviewWrapper, {
+    API = ContextServices.API,
     Focus = ContextServices.Focus,
     Localization = ContextServices.Localization,
+    Plugin = ContextServices.Plugin,
     Theme = ContextServices.Theme,
 })
 
-return AssetPreviewWrapper
+local function mapDispatchToProps(dispatch)
+	return {
+        dispatchOnAssetDoubleClick = function(assetData)
+            dispatch(OnAssetDoubleClick(assetData))
+        end,
+        dispatchOnAssetRightClick = function(apiImpl, assetData, localization, plugin)
+            dispatch(OnAssetRightClick(apiImpl, assetData, localization, plugin))
+        end,
+    }
+end
+
+return RoactRodux.connect(nil, mapDispatchToProps)(AssetPreviewWrapper)

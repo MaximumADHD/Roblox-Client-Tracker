@@ -47,7 +47,25 @@ return function(theme, getColor)
 		},
 	})
 
+	local Checkbox = Style.new({
+		Background = Decoration.Image,
+		BackgroundStyle = {
+			Image = "rbxasset://textures/GameSettings/UncheckedBox.png",
+		},
+		[StyleModifier.Selected] = {
+			BackgroundStyle = {
+				Image = "rbxasset://textures/GameSettings/CheckedBoxLight.png",
+			},
+		},
+		[StyleModifier.Disabled] = {
+			BackgroundStyle = {
+				Image = "rbxasset://textures/GameSettings/UncheckedBox.png",
+			},
+		},
+	})
+
 	return {
 		Default = Default,
+		Checkbox = Checkbox,
 	}
 end

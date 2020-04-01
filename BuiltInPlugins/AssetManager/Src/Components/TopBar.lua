@@ -79,7 +79,7 @@ function TopBar:render()
         theme.Font, Vector2.new(topBarTheme.Tooltip.Width, math.huge))
     local tooltipHeight = tooltipTextExtents.Y + 3 * topBarTheme.Tooltip.Padding + linkTextExtents.Y
 
-    local searchBarOffset = topBarTheme.Button.Size * 4 + topBarTheme.Padding * 4
+    local searchBarOffset = topBarTheme.Button.Size * 4 + topBarTheme.Padding * 3
 
     local defaultText = localization:getText("SearchBar", "PlaceholderText")
         .. " " .. localization:getText("Folders", currentScreen.Key)

@@ -30,10 +30,20 @@
 	TODO (awarwick) 7/28/2019 This should live in MyFeaturesListItem
 	ButtonStyle
 		UILibrary style the item buttons should be rendered in.
+
+	[GetCurrentSelection]
+		BindableFunction that allows fetching the AbstractItemView's selection. Kind of a hack given that Roact is intended
+		to isolate components & the only interaction components have is arbitrarting props to their children, but that
+		doesn't hold up to snuff in the real world. We already have a precedent for working around this by passing around
+		callbacks that allow children to call back into their parents to do stuff, so this BindableFunction is just the
+		other way around and allows parents to read from the children (not mutate! Use props if you want to do this). The
+		alternative is to create a global reducer for _every_ AbstractItemView (list/grid view) which is absolutely awful.
+		Example use cases: on PluginAction keybind invoke, delete the selection; on button click, commit the selection
 --]]
 
 local fflagUseMultiselect = game:DefineFastFlag("StudioDraftsUseMultiselect2", false)
 local fflagRemoveCommittedDraftsFromSelection = game:DefineFastFlag("RemoveCommittedDraftsFromSelection", false)
+local fflagCommitButton = game:DefineFastFlag("StudioDraftsWidgetCommitButton", false)
 
 local Plugin = script.Parent.Parent.Parent
 local UILibrary = require(Plugin.Packages.UILibrary)
@@ -193,6 +203,34 @@ function AbstractItemView:init()
 		end
 
 		return makeMenuActions(localization, selectedIds)
+	end
+
+	self.getSelectedIds = fflagCommitButton and function()
+		local selectedIds = {}
+		for _,id in ipairs(self.props.Items) do
+			if self.state.selection[id] then
+				table.insert(selectedIds, id)
+			end
+		end
+
+		return selectedIds
+	end
+
+	if fflagCommitButton and self.props.GetCurrentSelection then
+		self.props.GetCurrentSelection.OnInvoke = self.getSelectedIds
+	end
+end
+
+function AbstractItemView:didUpdate(previousProps, previousState)
+	if not fflagCommitButton then return end
+
+	if previousProps.GetCurrentSelection ~= self.props.GetCurrentSelection then
+		if previousProps.GetCurrentSelection then
+			previousProps.GetCurrentSelection.OnInvoke = nil
+		end
+		if self.props.GetCurrentSelection then
+			self.props.GetCurrentSelection.OnInvoke = self.getSelectedIds
+		end
 	end
 end
 

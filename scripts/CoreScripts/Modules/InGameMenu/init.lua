@@ -36,6 +36,9 @@ local OpenMenu = require(script.Thunks.OpenMenu)
 local GlobalConfig = require(script.GlobalConfig)
 
 local FFlagDisableAutoTranslateForKeyTranslatedContent = require(RobloxGui.Modules.Flags.FFlagDisableAutoTranslateForKeyTranslatedContent)
+local isNewTopBarEnabled = require(RobloxGui.Modules.TopBar.isNewTopBarEnabled)
+
+local OpenChangedEvent = Instance.new("BindableEvent")
 
 local menuStore = createStore()
 
@@ -52,16 +55,25 @@ return {
 			elementTracing = GlobalConfig.elementTracing,
 		})
 
-		local topbarButtonContainer = Instance.new("Frame")
-		topbarButtonContainer.BackgroundTransparency = 1
-		topbarButtonContainer.Size = UDim2.new(0, 50 + 16 + 8, 1, 0)
+		menuStore.changed:connect(function(newState, oldState)
+			if newState.isMenuOpen ~= oldState.isMenuOpen then
+				OpenChangedEvent:Fire(newState.isMenuOpen)
+			end
+		end)
 
-		local buttonTree = Roact.createElement(OpenMenuButton, {
-			onClick = function()
-				menuStore:dispatch(OpenMenu)
-			end,
-		})
-		Roact.mount(buttonTree, topbarButtonContainer, "OpenInGameMenu")
+		local topbarButtonContainer
+		if not isNewTopBarEnabled() then
+			topbarButtonContainer = Instance.new("Frame")
+			topbarButtonContainer.BackgroundTransparency = 1
+			topbarButtonContainer.Size = UDim2.new(0, 50 + 16 + 8, 1, 0)
+
+			local buttonTree = Roact.createElement(OpenMenuButton, {
+				onClick = function()
+					menuStore:dispatch(OpenMenu)
+				end,
+			})
+			Roact.mount(buttonTree, topbarButtonContainer, "OpenInGameMenu")
+		end
 
 		local appStyle = {
 			Theme = AppDarkTheme,
@@ -107,7 +119,14 @@ return {
 
 		Roact.mount(menuTree, CoreGui, "InGameMenu")
 
-		return topbarButtonContainer
+		if not isNewTopBarEnabled() then
+			return topbarButtonContainer
+		end
+		return
+	end,
+
+	openInGameMenu = function()
+		menuStore:dispatch(OpenMenu)
 	end,
 
 	openReportDialog = function(player)
@@ -123,5 +142,9 @@ return {
 	openPlayersPage = function()
 		menuStore:dispatch(OpenMenu)
 		menuStore:dispatch(SetCurrentPage("Players"))
+	end,
+
+	getOpenChangedEvent = function()
+		return OpenChangedEvent
 	end,
 }

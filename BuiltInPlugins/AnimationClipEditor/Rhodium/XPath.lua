@@ -83,10 +83,13 @@ function XPath.new(obj, root)
 	elseif type(obj) == "userdata" then
 		local current = obj
 		while current do
-			table.insert(self.data, 1, {name = current.Name})
+			local name = current.Name
+			if current.ClassName == "DataModel" then
+				name = "game"
+			end
+			table.insert(self.data, 1, {name = name})
 			current = current.Parent
 		end
-		self.data[1] = {name = "game"}
 	elseif getmetatable(obj).__type == XPath.__type then
 		return obj:copy()
 	else
@@ -353,8 +356,21 @@ end
 
 function XPath:getInstances()
 	if self:size() <1 then error("instance " .. self:toString() .. " does not exist") end
-	if self.root == nil and self.data[1].name ~= "game" then error("instance " .. self:toString() .. " does not exist") end
-	local instances = {self.root or game}
+
+	local rootInstance = nil
+	local rootName = self.data[1].name
+
+	if rootName == "game" then
+		rootInstance = game
+	elseif rootName == "PluginGuiService" then
+		rootInstance = game:GetService("PluginGuiService")
+	end
+
+	if self.root == nil and rootInstance == nil then
+		error("instance " .. self:toString() .. " does not exist")
+	end
+
+	local instances = {self.root or rootInstance}
 	local i = self.root and 1 or 2
 	while i <= self:size() do
 		local name = self.data[i].name

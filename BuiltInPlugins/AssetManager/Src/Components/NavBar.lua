@@ -36,23 +36,47 @@ local Screens = require(Plugin.Src.Util.Screens)
 
 local NavBar = Roact.PureComponent:extend("NavBar")
 
-local function getCurrentPath(currentScreen)
+local previousShouldTruncate = nil
+local shouldTruncate = false
+local isTruncated = false
+
+local preTruncContentWidth = 0
+
+local previousScreen = nil
+
+local truncatedPathParts = {}
+
+local NavBarPadding = 12
+
+function NavBar:getCurrentPath(currentScreen)
     local path = {}
+    local continueTruncating = shouldTruncate
+    local startingScreen = currentScreen
+
+    local isFolderScreen = currentScreen.Key == Screens.MAIN.Key
 
     while currentScreen ~= nil do
+        if continueTruncating then
+            if (currentScreen.Key ~= startingScreen.Key or isFolderScreen) and not truncatedPathParts[currentScreen.Key] then
+                truncatedPathParts[currentScreen.Key] = true
+                continueTruncating = false
+                isTruncated = true
+            end
+        end
         table.insert(path, 1, currentScreen)
+
         currentScreen = Screens[currentScreen.Parent]
     end
 
     return path
 end
 
-local function buildPathComponents(props, theme, localization, dispatch)
+function NavBar:buildPathComponents(props, theme, localization, dispatch)
     local pathComponents = {}
 
     local currentScreen = props.CurrentScreen
 
-    local path = getCurrentPath(currentScreen)
+    local path = self:getCurrentPath(currentScreen)
 
     local count = 1
     local layoutIndex = LayoutOrderIterator.new()
@@ -66,7 +90,16 @@ local function buildPathComponents(props, theme, localization, dispatch)
         or localization:getText("NavBar", "GamePlaceholderName")
         local pathPartText = isTopLevel and gameName or localization:getText("Folders", screen.Key)
 
+        local textTruncate = truncatedPathParts[screen.Key] and Enum.TextTruncate.AtEnd or nil
+
+        local size = nil
+
+        if truncatedPathParts[screen.Key] then
+            size = UDim2.new(theme.NavBar.TruncatedTextScale, 0, 1, 0)
+        end
+
         pathComponents[screen.Key] = Roact.createElement(LinkText, {
+            Size = size,
             Text = pathPartText,
 
             Style = "NavBar",
@@ -78,15 +111,25 @@ local function buildPathComponents(props, theme, localization, dispatch)
                 end
             end,
 
+            TextTruncate = textTruncate,
+
             LayoutOrder = layoutIndex:getNextOrder(),
         })
 
         if index ~= #path then
-            pathComponents["PathSeparator-" .. count] = Roact.createElement(Image, {
-                Size = UDim2.new(0, theme.NavBar.ImageSize, 0, theme.NavBar.ImageSize),
+            local textExtents = GetTextSize(">", theme.FontSizeLarge, theme.Font)
+            local textDimensions = UDim2.fromOffset(textExtents.X, textExtents.Y)
 
-                Style = "NavBarPathSeparator",
+            pathComponents["PathSeparator-" .. count] = Roact.createElement("TextLabel", {
+                Size = textDimensions,
+                BackgroundTransparency = 1,
+                Text = ">",
+                TextColor3 = theme.TextColor,
+                TextSize = theme.FontSizeLarge,
+                Font = theme.Font,
                 LayoutOrder = layoutIndex:getNextOrder(),
+                TextXAlignment = Enum.TextXAlignment.Center,
+                TextYAlignment = Enum.TextYAlignment.Bottom,
             })
         end
 
@@ -113,6 +156,45 @@ local function buildPathComponents(props, theme, localization, dispatch)
     return pathComponents
 end
 
+function NavBar:init()
+    self.Layout = Roact.createRef()
+    self.NavBar = Roact.createRef()
+
+    self.recalculateTextTruncation = function()
+        if not previousScreen then
+            return
+        end
+
+        previousShouldTruncate = shouldTruncate
+
+        local shouldRerender = false
+
+        local contentWidth = self.Layout.current.AbsoluteContentSize.X
+        local navBarWidth = self.NavBar.current.AbsoluteSize.X
+
+        -- content doesn't fit on screen
+        if contentWidth + NavBarPadding > navBarWidth then
+            preTruncContentWidth = contentWidth
+            shouldTruncate = true
+        -- screen is now wide enough to fit pre-truncated content
+        elseif isTruncated and preTruncContentWidth <= navBarWidth then
+            shouldTruncate = false
+            shouldRerender = true
+            isTruncated = false
+            truncatedPathParts = {}
+        end
+
+        if previousScreen.Key ~= self.props.CurrentScreen.Key then
+            truncatedPathParts = {}
+            shouldRerender = true
+        end
+
+        if previousShouldTruncate ~= shouldTruncate or shouldRerender then
+            self:setState({})
+        end
+    end
+end
+
 function NavBar:render()
     local props = self.props
     local localization = self.props.Localization
@@ -123,7 +205,8 @@ function NavBar:render()
 
     local dispatchSetScreen = props.dispatchSetScreen
 
-    local navPathComponents = buildPathComponents(props, theme, localization, dispatchSetScreen)
+    self:recalculateTextTruncation()
+    local navPathComponents = self:buildPathComponents(props, theme, localization, dispatchSetScreen)
 
     local NavBarChildren = {
         GameBarLayout = Roact.createElement("UIListLayout",{
@@ -132,6 +215,8 @@ function NavBar:render()
             HorizontalAlignment = Enum.HorizontalAlignment.Left,
             VerticalAlignment = Enum.VerticalAlignment.Center,
             SortOrder = Enum.SortOrder.LayoutOrder,
+
+            [Roact.Ref] = self.Layout,
         }),
 
         GameBarPadding = Roact.createElement("UIPadding", {
@@ -147,7 +232,12 @@ function NavBar:render()
 
             BackgroundColor3 = theme.NavBar.BackgroundColor,
             BorderSizePixel = 0,
+
+            [Roact.Change.AbsoluteSize] = self.recalculateTextTruncation,
+            [Roact.Ref] = self.NavBar,
         }, NavBarChildren)
+
+    previousScreen = props.CurrentScreen
 
     return NavBarContents
 end

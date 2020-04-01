@@ -9,7 +9,6 @@ local Roact = require(Plugin.Packages.Roact)
 
 -- Dragger Framework
 local Framework = Plugin.Packages.DraggerFramework
-local Colors = require(Framework.Utility.Colors)
 local Math = require(Framework.Utility.Math)
 
 local ScaleHandleView = Roact.PureComponent:extend("ScaleHandleView")
@@ -21,6 +20,8 @@ local HANDLE_HITTEST_RADIUS_SCALE = 2.5 -- Radius scale for hit testing
 local HANDLE_TRANSPARENCY_START = 0.75
 local HANDLE_TRANSPARENCY_END = 0.2
 local HANDLE_OFFSET = 1.5
+
+local HANDLE_THIN_BY_FRAC = 0.34
 
 function getDebugSettingValue(name, defaultValue)
 	local setting = Workspace:FindFirstChild(name, true)
@@ -38,8 +39,12 @@ function ScaleHandleView:render()
 	local children = {}
 
 	local color = self.props.Color
-	local cframe = self.props.HandleCFrame * CFrame.new(0, 0, -HANDLE_OFFSET)
+	local cframe = self.props.HandleCFrame * CFrame.new(0, 0, -HANDLE_OFFSET * self.props.Scale)
 	local radius = HANDLE_RADIUS * self.props.Scale
+
+	if self.props.Thin then
+		radius = radius * HANDLE_THIN_BY_FRAC
+	end
 
 	if not self.props.Hovered then
 		children.HiddenHandle = Roact.createElement("SphereHandleAdornment", {
@@ -84,7 +89,7 @@ function ScaleHandleView.hitTest(props, mouseRay)
 	local radius = HANDLE_RADIUS * props.Scale
 
 	local unitRay = mouseRay.Unit
-	local worldPosition = props.HandleCFrame * Vector3.new(0, 0, -HANDLE_OFFSET)
+	local worldPosition = props.HandleCFrame * Vector3.new(0, 0, -HANDLE_OFFSET * props.Scale)
 	local result, t = Math.intersectRaySphere(unitRay.Origin, unitRay.Direction, worldPosition, radius)
 
 	if result then
@@ -96,7 +101,7 @@ end
 
 function ScaleHandleView.distanceFromHandle(props, mouseRay)
 	local hitTestRadius = HANDLE_RADIUS * props.Scale * HANDLE_HITTEST_RADIUS_SCALE
-	local worldPosition = props.HandleCFrame * Vector3.new(0, 0, -HANDLE_OFFSET)
+	local worldPosition = props.HandleCFrame * Vector3.new(0, 0, -HANDLE_OFFSET * props.Scale)
 
 	local rayDir = mouseRay.Direction.Unit
 	local projectedLength = (worldPosition - mouseRay.Origin):Dot(rayDir)

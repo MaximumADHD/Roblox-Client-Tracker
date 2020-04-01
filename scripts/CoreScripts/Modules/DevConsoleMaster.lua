@@ -6,6 +6,7 @@ local HttpRbxApiService = game:GetService('HttpRbxApiService')
 local HttpService = game:GetService('HttpService')
 local RunService = game:GetService('RunService')
 local CorePackages = game:GetService("CorePackages")
+local Players = game:GetService("Players")
 
 local Roact = require(CorePackages.Roact)
 local Rodux = require(CorePackages.Rodux)
@@ -40,12 +41,14 @@ local MiddleWare = DevConsole.MiddleWare
 local DevConsoleAnalytics = require(MiddleWare.DevConsoleAnalytics)
 
 local PolicyService = require(CoreGui.RobloxGui.Modules.Common.PolicyService)
+local PlayerPermissionsModule = require(CoreGui.RobloxGui.Modules.PlayerPermissionsModule)
 
 local DFFlagEnableRemoteProfilingForDevConsole = settings():GetFFlag("EnableRemoteProfilingForDevConsole")
 local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp") --todo: remove with FFlagUsePolicyServiceForCoreScripts
 local FFlagRespectDisplayOrderForOnTopOfCoreBlur = settings():GetFFlag("RespectDisplayOrderForOnTopOfCoreBlur")
 local FFlagDevConsoleAnalyticsIncludeOwner = settings():GetFFlag("DevConsoleAnalyticsIncludeOwner")
 
+local FFlagUseCanManageForDeveloperIconClient = game:GetFastFlag("UseCanManageForDeveloperIconClient")
 
 local DEV_TAB_LIST = {
 	Log = {
@@ -135,19 +138,25 @@ local function isDeveloper()
 		return true
 	end
 
-	local canManageSuccess, canManageResult = pcall(function()
-		local url = string.format("/users/%d/canmanage/%d", game:GetService("Players").LocalPlayer.UserId, game.PlaceId)
-		return HttpRbxApiService:GetAsync(url, Enum.ThrottlingPriority.Default, Enum.HttpRequestType.Default, true)
-	end)
-	if canManageSuccess and type(canManageResult) == "string" then
-		-- API returns: {"Success":BOOLEAN,"CanManage":BOOLEAN}
-		-- Convert from JSON to a table
-		-- pcall in case of invalid JSON
-		local success, result = pcall(function()
-			return HttpService:JSONDecode(canManageResult)
-		end)
-		if success and result.CanManage == true then
+	if FFlagUseCanManageForDeveloperIconClient then
+		if PlayerPermissionsModule.CanPlayerManagePlaceAsync(Players.LocalPlayer) then
 			return true
+		end
+	else
+		local canManageSuccess, canManageResult = pcall(function()
+			local url = string.format("/users/%d/canmanage/%d", game:GetService("Players").LocalPlayer.UserId, game.PlaceId)
+			return HttpRbxApiService:GetAsync(url, Enum.ThrottlingPriority.Default, Enum.HttpRequestType.Default, true)
+		end)
+		if canManageSuccess and type(canManageResult) == "string" then
+			-- API returns: {"Success":BOOLEAN,"CanManage":BOOLEAN}
+			-- Convert from JSON to a table
+			-- pcall in case of invalid JSON
+			local success, result = pcall(function()
+				return HttpService:JSONDecode(canManageResult)
+			end)
+			if success and result.CanManage == true then
+				return true
+			end
 		end
 	end
 	return false

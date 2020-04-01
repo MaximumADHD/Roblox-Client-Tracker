@@ -44,7 +44,17 @@ function Theme.createValues(getColor, StyleColor, StyleModifier)
 		Dialog = {
 			HeaderFont = Enum.Font.SourceSans,
 			HeaderTextColor = getColor(StyleColor.MainText, StyleModifier.Default),
-		}
+		},
+
+		defaultButton = {
+			ButtonColor = isDark and getColor(StyleColor.MainButton) or getColor(StyleColor.CurrentMarker),
+			ButtonColor_Hover = getColor(StyleColor.LinkText),
+			ButtonColor_Disabled = isDark and getColor(StyleColor.Button, StyleModifier.Disabled) or Color3.fromRGB(153, 218, 255),
+			TextColor = Color3.new(1, 1, 1),
+			TextColor_Disabled = isDark and getColor(StyleColor.ButtonText, StyleModifier.Disabled) or Color3.new(1, 1, 1),
+			BorderColor = getColor(StyleColor.Light),
+			TextSize = 12,
+		},
 	})
 
 

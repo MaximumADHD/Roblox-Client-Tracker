@@ -4,8 +4,6 @@
 	Props:
 	onDropDownSelect, function, will return current selected item if selected.
 ]]
-local FFlagLuaPackagePermissions =  settings():GetFFlag("LuaPackagePermissions")
-
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
@@ -23,7 +21,6 @@ local AssetConfigUtil = require(Util.AssetConfigUtil)
 local DropdownMenu = require(Plugin.Core.Components.DropdownMenu)
 
 local Requests = Plugin.Core.Networking.Requests
-local GetAssetConfigGroupDataRequest = require(Requests.GetAssetConfigGroupDataRequest)
 local GetAssetConfigManageableGroupsRequest = require(Requests.GetAssetConfigManageableGroupsRequest)
 local GetGroupMetadata = require(Plugin.Core.Thunks.GetGroupMetadata)
 
@@ -79,23 +76,15 @@ function ConfigAccess:render()
 			local ownerName = ""
 			if (not self.allowOwnerEdit) and owner.typeId then
 				if owner.typeId == ConfigTypes.OWNER_TYPES.User then
-					if FFlagLuaPackagePermissions and owner.targetId ~= getUserId() then
+					if owner.targetId ~= getUserId() then
 						ownerName = owner.username
 					else
 						ownerName = localizedContent.AssetConfig.PublishAsset.Me
 					end
 				else -- If not owned by Me, then it's owned by a group.
 					-- Load the groupName
-					if FFlagLuaPackagePermissions then
-						if props.assetGroupData then
-							ownerName = props.assetGroupData.Name
-						end
-					else
-						if props.assetGroupData then
-							ownerName = props.assetGroupData.name
-						else
-							self.props.DEPRECATED_getGroupsData(getNetwork(self), owner.typeId)
-						end
+					if props.assetGroupData then
+						ownerName = props.assetGroupData.Name
 					end
 				end
 			end
@@ -169,8 +158,8 @@ end
 local function mapStateToProps(state, props)
 	state = state or {}
 
-	local assetGroupData = (FFlagLuaPackagePermissions and props.owner and state[props.owner.targetId] and state[props.owner.targetId].groupMetadata) or props.assetGroupData 
-	local owner = (FFlagLuaPackagePermissions and state.assetConfigData and state.assetConfigData.Creator) or props.owner
+	local assetGroupData = (props.owner and state[props.owner.targetId] and state[props.owner.targetId].groupMetadata) or props.assetGroupData
+	local owner = (state.assetConfigData and state.assetConfigData.Creator) or props.owner
 
 	return {
 		screenFlowType = state.screenFlowType,
@@ -184,10 +173,6 @@ end
 
 local function mapDispatchToProps(dispatch)
 	return {
-		DEPRECATED_getGroupsData = function(networkInterface, groupId)
-			dispatch(GetAssetConfigGroupDataRequest(networkInterface, groupId))
-		end,
-
 		getManageableGroups = function(networkInterface, DEPRECATED_userId)
 			dispatch(GetAssetConfigManageableGroupsRequest(networkInterface, DEPRECATED_userId))
 		end,

@@ -9,6 +9,7 @@ return {
 	FitFrame = require(script.FitFrame),
 	Flags = require(script.Flags),
 	Immutable = require(script.Immutable),
+	LayoutOrderIterator = require(script.LayoutOrderIterator),
 	Promise = require(script.Promise),
 	Signal = require(script.Signal),
 	Symbol = require(script.Symbol),

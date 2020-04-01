@@ -16,8 +16,6 @@
 ]]
 
 local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
-local FFlagLuaPackagePermissions = settings():GetFFlag("LuaPackagePermissions")
-local FFlagHideNoAccessGroupPackages = settings():GetFFlag("HideNoAccessGroupPackages")
 local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
 
 local Plugin = script.Parent.Parent.Parent
@@ -197,7 +195,7 @@ function AssetGridContainer:init(props)
 			plugin = getPlugin(self)
 		end
 
-		local isPackageAsset = FFlagLuaPackagePermissions and Category.categoryIsPackage(self.props.categoryIndex, self.props.currentTab)
+		local isPackageAsset = Category.categoryIsPackage(self.props.categoryIndex, self.props.currentTab)
 		if isPackageAsset then
 			local canEditPackage = (self.props.currentUserPackagePermissions[assetId] == PermissionsConstants.EditKey or
 			self.props.currentUserPackagePermissions[assetId] == PermissionsConstants.OwnKey)
@@ -308,21 +306,19 @@ function AssetGridContainer:render()
 					[Roact.Event.Changed] = self.onAssetGridContainerChanged,
 				})
 			}
-			if FFlagLuaPackagePermissions then
-				if isPackages and #assetIds ~= 0 then
-					local assetIdList = {}
-					local index = 1
-					while index < PermissionsConstants.MaxPackageAssetIdsForHighestPermissionsRequest and assetIds[index] ~= nil do
-						local assetId = assetIds[index][1]
-						if not self.props.currentUserPackagePermissions[assetId] then
-							table.insert(assetIdList, assetId)
-						end
-						index = index + 1
+			if isPackages and #assetIds ~= 0 then
+				local assetIdList = {}
+				local index = 1
+				while index < PermissionsConstants.MaxPackageAssetIdsForHighestPermissionsRequest and assetIds[index] ~= nil do
+					local assetId = assetIds[index][1]
+					if not self.props.currentUserPackagePermissions[assetId] then
+						table.insert(assetIdList, assetId)
 					end
+					index = index + 1
+				end
 
-					if #assetIdList ~= 0 then
-						self.props.dispatchGetPackageHighestPermission(getNetwork(self), assetIdList)
-					end
+				if #assetIdList ~= 0 then
+					self.props.dispatchGetPackageHighestPermission(getNetwork(self), assetIdList)
 				end
 			end
 
@@ -330,21 +326,18 @@ function AssetGridContainer:render()
 				self.tryCreateContextMenu(assetData, showEditOption, localizedContent)
 			end
 
-			local isGroupPackageAsset = FFlagLuaPackagePermissions and self.props.categories[self.props.categoryIndex] == Category.GROUP_PACKAGES
+			local isGroupPackageAsset = self.props.categories[self.props.categoryIndex] == Category.GROUP_PACKAGES
 
 			for index, asset in ipairs(assetIds) do
 				local assetId = asset[1]
 				local assetIndex = asset[2]
 
-				local canEditPackage = (self.props.currentUserPackagePermissions[assetId] == PermissionsConstants.EditKey or 
+				local canEditPackage = (self.props.currentUserPackagePermissions[assetId] == PermissionsConstants.EditKey or
 				self.props.currentUserPackagePermissions[assetId] == PermissionsConstants.OwnKey)
 
 				-- If the asset is a group packages, then we want to check only want to show it if we have permission.
 				-- if the category is not group packages, then we always want to show.
-				local showAsset = true
-				if FFlagHideNoAccessGroupPackages then
-					showAsset = (isGroupPackageAsset and canEditPackage) or not isGroupPackageAsset
-				end
+				local showAsset = (isGroupPackageAsset and canEditPackage) or not isGroupPackageAsset
 
 				assetElements[tostring(assetId)] = showAsset and Roact.createElement(Asset, {
 					assetId = assetId,

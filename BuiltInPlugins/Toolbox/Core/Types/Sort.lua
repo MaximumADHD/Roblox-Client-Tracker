@@ -1,4 +1,3 @@
-local FFlagLuaPackagePermissions =  settings():GetFFlag("LuaPackagePermissions")
 local FFlagEnableDefaultSortFix = game:GetFastFlag("EnableDefaultSortFix")
 
 local Plugin = script.Parent.Parent.Parent
@@ -29,16 +28,12 @@ function Sort.getDefaultSortForCategory(categoryIndex, currentTab)
 	return RELEVANCE_INDEX
 end
 
---[[ 
+--[[
 	Use the category index to determine the sort because Group Packages are sorted by "updated"
 	but other Group Categories (Audio, Meshes, Models, etc) are sorted by Relevance.
 ]]
 function Sort.getDefaultSortForGroups(pageInfo)
-	if FFlagLuaPackagePermissions then
-		return Sort.getDefaultSortForCategory(pageInfo.categoryIndex, FFlagEnableDefaultSortFix and pageInfo.currentTab or nil)
-	else
-		return RELEVANCE_INDEX
-	end
+	return Sort.getDefaultSortForCategory(pageInfo.categoryIndex, FFlagEnableDefaultSortFix and pageInfo.currentTab or nil)
 end
 
 return Sort

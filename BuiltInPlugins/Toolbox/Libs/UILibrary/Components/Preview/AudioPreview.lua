@@ -15,13 +15,12 @@
 	callBack ReportPlay, analytics events.
 	callback ReportPause,
 ]]
+local FFlagEnableAudioPreview = game:GetFastFlag("EnableAudioPreview")
 
 local RunService = game:GetService("RunService")
 
 local Library = script.Parent.Parent.Parent
 local Roact = require(Library.Parent.Roact)
-
-local Urls = require(Library.Utils.Urls)
 
 local Theming = require(Library.Theming)
 local withTheme = Theming.withTheme
@@ -117,12 +116,21 @@ function AudioPreview:init(props)
 	self.getAudioLength = function()
 		local soundObj = self.soundRef.current
 		if soundObj then
-			return soundObj.TimeLength
+			if FFlagEnableAudioPreview then
+				return math.max(soundObj.TimeLength, 1)
+			else
+				return soundObj.TimeLength
+			end
 		end
 	end
 end
 
 function AudioPreview:didMount()
+	local soundObj = self.soundRef.current
+	if FFlagEnableAudioPreview and soundObj then
+		soundObj.SoundId = self.props.SoundId
+	end
+
 	self.runServiceConnection = RunService.RenderStepped:Connect(function(step)
 		if (not self.state.isPlaying) then
 			return
@@ -243,7 +251,8 @@ function AudioPreview:render()
 					audioControlOffset = audioControlOffset,
 					timeLength = timeLength,
 					isPlaying = isPlaying,
-					timeRemaining = timeRemaining,
+					timeRemaining = not FFlagEnableAudioPreview and timeRemaining or nil,
+					timePassed = FFlagEnableAudioPreview and state.currentTime or nil,
 					onResume = self.resumeSound,
 					onPause = self.pauseSound,
 					onPlay = self.playSound,

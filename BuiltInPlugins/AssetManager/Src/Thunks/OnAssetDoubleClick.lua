@@ -19,6 +19,8 @@ return function(assetData)
                 AssetManagerService:InsertImage(assetData.id)
             elseif assetType == Enum.AssetType.MeshPart then
                 AssetManagerService:InsertMesh("Meshes/".. assetData.name, false)
+            elseif assetType == Enum.AssetType.Lua then
+                AssetManagerService:OpenLinkedSource("Scripts/" .. assetData.name)
             end
         end
     end

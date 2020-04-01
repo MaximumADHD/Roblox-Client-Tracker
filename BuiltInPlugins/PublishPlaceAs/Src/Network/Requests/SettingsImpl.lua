@@ -16,6 +16,8 @@ local Promise = require(Plugin.Packages.Promise)
 local Configuration = require(Plugin.Src.Network.Requests.Configuration)
 local RootPlaceInfo = require(Plugin.Src.Network.Requests.RootPlaceInfo)
 
+local FFlagStudioCreateNewGameRewritesName = game:DefineFastFlag("StudioCreateNewGameRewritesName", false)
+
 --[[
 	Used to save the chosen state of all game settings by saving to web
 	endpoints or setting properties in the datamodel.
@@ -38,11 +40,17 @@ local function saveAll(state, localization)
 
 	spawn(function()
 		-- Failure handled in ScreenCreateNewGame
-		local success = StudioService.GamePublishFinished:wait()
+		local success, gameId = StudioService.GamePublishFinished:wait()
 		if success then
+			local id
+			if FFlagStudioCreateNewGameRewritesName then
+				id = gameId
+			else
+				id = game.GameId
+			end
 			local setRequests = {
-				Configuration.Set(game.GameId, configuration),
-				RootPlaceInfo.Set(game.GameId, rootPlaceInfo),
+				Configuration.Set(id, configuration),
+				RootPlaceInfo.Set(id, rootPlaceInfo),
 			}
 			Promise.all(setRequests):andThen(function()
 				StudioService:SetUniverseDisplayName(configuration.name)

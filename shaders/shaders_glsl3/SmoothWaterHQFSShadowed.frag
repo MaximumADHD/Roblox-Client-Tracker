@@ -115,7 +115,7 @@ void main()
     vec2 f33 = f32 - vec2(1.0);
     float f34 = f31.x;
     vec3 f35 = vec3(dot(VARYING1, VARYING0.xyz));
-    vec3 f36 = vec4(normalize(((mix(vec3(VARYING6.z, 0.0, f30), vec3(VARYING6.y, f30, 0.0), f35) * f33.x) + (mix(vec3(0.0, -1.0, 0.0), vec3(0.0, -VARYING6.z, VARYING6.y), f35) * f33.y)) + (VARYING6.xyz * sqrt(clamp(1.0 + dot(vec2(1.0) - f32, f33), 0.0, 1.0)))), f34).xyz;
+    vec3 f36 = vec4(normalize(((mix(vec3(VARYING6.z, 0.0, f30), vec3(VARYING6.y, f30, 0.0), f35) * f33.x) + (mix(vec3(0.0, 1.0, 0.0), vec3(0.0, VARYING6.z, -VARYING6.y), f35) * f33.y)) + (VARYING6.xyz * sqrt(clamp(1.0 + dot(vec2(1.0) - f32, f33), 0.0, 1.0)))), f34).xyz;
     vec3 f37 = mix(VARYING6.xyz, f36, vec3(0.25));
     vec3 f38 = normalize(VARYING7.xyz);
     vec3 f39 = f36 * f36;

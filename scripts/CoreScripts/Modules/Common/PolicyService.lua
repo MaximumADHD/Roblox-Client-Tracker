@@ -24,6 +24,11 @@ function PolicyService:IsEnabled()
 end
 
 function PolicyService:InitAsync()
+	if _G.__TESTEZ_RUNNING_TEST__ then
+		-- Return here in the case of unit tests
+		return
+	end
+
 	if initialized then return end
 	if initAsyncCalledOnce then
 		initializedEvent.Event:Wait()

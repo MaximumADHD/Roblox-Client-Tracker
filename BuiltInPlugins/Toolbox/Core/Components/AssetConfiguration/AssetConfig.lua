@@ -6,7 +6,6 @@
 	assetId, numeber, will be used to request assetData on didMount.
 ]]
 
-local FFlagLuaPackagePermissions = settings():GetFFlag("LuaPackagePermissions")
 local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 local FFlagAssetConfigOverrideFromAnyScreen = game:DefineFastFlag("AssetConfigOverrideFromAnyScreen", false)
 local FFlagCanPublishDefaultAsset = game:DefineFastFlag("CanPublishDefaultAsset", false)
@@ -250,7 +249,7 @@ function AssetConfig:init(props)
 		-- If the asset was modified, publish versions and permissions
 		if changed then
 			tryPublishVersions(changeTable)
-			if FFlagLuaPackagePermissions and self.props.isPackageAsset then
+			if self.props.isPackageAsset then
 				tryPublishPermissions(changeTable)
 			end
 		end
@@ -435,27 +434,26 @@ function AssetConfig:detachXButtonCallback()
 end
 
 function AssetConfig:didUpdate(previousProps, previousState)
-	if FFlagLuaPackagePermissions then
-		if self.props.screenFlowType == AssetConfigConstants.FLOW_TYPE.EDIT_FLOW then
-			local assetConfigData = self.props.assetConfigData
-			if next(assetConfigData) and (not self.state.dispatchGetFunction) then
-				local creator = assetConfigData.Creator or {}
-				local groupMetadataMissing = not self.state.groupMetadata or next(self.state.groupMetadata) == nil
-				if creator.typeId == ConfigTypes.OWNER_TYPES.User and not creator.username then
-					self.props.dispatchGetUsername(creator.targetId)
-					self:setState({
-						dispatchGetFunction = true,
-					})
-				elseif creator.typeId == ConfigTypes.OWNER_TYPES.Group and groupMetadataMissing then
-					self.props.dispatchGetGroupMetadata(creator.targetId)
-					self.props.dispatchGetGroupRoleInfo(getNetwork(self), creator.targetId)
-					self:setState({
-						dispatchGetFunction = true,
-					})
-				end
+	if self.props.screenFlowType == AssetConfigConstants.FLOW_TYPE.EDIT_FLOW then
+		local assetConfigData = self.props.assetConfigData
+		if next(assetConfigData) and (not self.state.dispatchGetFunction) then
+			local creator = assetConfigData.Creator or {}
+			local groupMetadataMissing = not self.state.groupMetadata or next(self.state.groupMetadata) == nil
+			if creator.typeId == ConfigTypes.OWNER_TYPES.User and not creator.username then
+				self.props.dispatchGetUsername(creator.targetId)
+				self:setState({
+					dispatchGetFunction = true,
+				})
+			elseif creator.typeId == ConfigTypes.OWNER_TYPES.Group and groupMetadataMissing then
+				self.props.dispatchGetGroupMetadata(creator.targetId)
+				self.props.dispatchGetGroupRoleInfo(getNetwork(self), creator.targetId)
+				self:setState({
+					dispatchGetFunction = true,
+				})
 			end
 		end
 	end
+
 	if  FFlagEnablePurchasePluginFromLua2 then
 		-- If we have assetConfigData and state is nil(defualt state),
 		-- then we will use the data retrived from the assetConfigData to trigger a re-render.
@@ -550,16 +548,14 @@ function AssetConfig:didMount()
 					end
 				end
 
-				if FFlagLuaPackagePermissions then
-					if self.props.isPackageAsset == nil then
-						self.props.dispatchPostPackageMetadataRequest(getNetwork(self), self.props.assetId)
-					end
-					self.props.dispatchGetPackageCollaboratorsRequest(getNetwork(self), self.props.assetId)
-					-- Current user's package permissions is not known when Asset Config is opened from Game Explorer,
-					-- so a call needs to be made to query for it.
-					if not self.props.hasPackagePermission then
-						self.props.dispatchGetPackageHighestPermission(getNetwork(self), { self.props.assetId })
-					end
+				if self.props.isPackageAsset == nil then
+					self.props.dispatchPostPackageMetadataRequest(getNetwork(self), self.props.assetId)
+				end
+				self.props.dispatchGetPackageCollaboratorsRequest(getNetwork(self), self.props.assetId)
+				-- Current user's package permissions is not known when Asset Config is opened from Game Explorer,
+				-- so a call needs to be made to query for it.
+				if not self.props.hasPackagePermission then
+					self.props.dispatchGetPackageHighestPermission(getNetwork(self), { self.props.assetId })
 				end
 			end
 		end
@@ -731,7 +727,7 @@ function AssetConfig:render()
 				local showOwnership = ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_OWNERSHIP)
 				local showGenre = ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_GENRE)
 				local showCopy = ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_COPY)
-				if FFlagLuaPackagePermissions and props.isPackageAsset then
+				if props.isPackageAsset then
 					showCopy = false
 				end
 				local showComment = ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_COMMENT)
@@ -750,7 +746,7 @@ function AssetConfig:render()
 					screenFlowType,
 					assetTypeEnum,
 					isMarketBuyAndNonWhiteList,
-					FFlagLuaPackagePermissions and self.props.isPackageAsset or false,
+					self.props.isPackageAsset,
 					owner
 				)
 
@@ -892,7 +888,7 @@ function AssetConfig:render()
 							LayoutOrder = 3,
 						}),
 
-						PackagePermissions = FFlagLuaPackagePermissions and ConfigTypes:isPermissions(currentTab) and Roact.createElement(Permissions, {
+						PackagePermissions = ConfigTypes:isPermissions(currentTab) and Roact.createElement(Permissions, {
 							Size = UDim2.new(1, -PREVIEW_WIDTH, 1, 0),
 
 							Owner = owner,

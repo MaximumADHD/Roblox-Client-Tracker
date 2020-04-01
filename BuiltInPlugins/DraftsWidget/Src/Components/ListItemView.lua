@@ -22,6 +22,9 @@
 	TODO (awarwick) 7/28/2019 This should live in MyFeaturesListItem
 	ButtonStyle
 		UILibrary style the item buttons should be rendered in.
+
+	[GetCurrentSelection]
+		Passthrough BindableFunction to AbstractItemView
 --]]
 
 local Plugin = script.Parent.Parent.Parent
@@ -37,6 +40,8 @@ local FitToContent = createFitToContent("Frame", "UIListLayout", {
     SortOrder = Enum.SortOrder.LayoutOrder,
     FillDirection = Enum.FillDirection.Vertical,
 })
+
+local fflagCommitButton = game:GetFastFlag("StudioDraftsWidgetCommitButton")
 
 local ListItemView = Roact.Component:extend("ListItemView")
 
@@ -59,6 +64,7 @@ function ListItemView:render()
 	local makeMenuActions = self.props.MakeMenuActions
 	local onDoubleClicked = self.props.OnDoubleClicked
 	local buttonStyle = self.props.ButtonStyle
+	local getCurrentSelection = fflagCommitButton and self.props.GetCurrentSelection or nil
 
 	local verticalAlignment = self.props.VerticalAlignment
 	local padding = self.props.Padding
@@ -66,6 +72,7 @@ function ListItemView:render()
     return Roact.createElement(AbstractItemView, {
 		Size = UDim2.new(1,0,1,0),
 
+		GetCurrentSelection = getCurrentSelection,
 		OnDoubleClicked = onDoubleClicked,
 		MakeMenuActions = makeMenuActions,
 		ButtonStyle = buttonStyle,

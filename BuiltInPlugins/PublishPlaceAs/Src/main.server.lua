@@ -5,6 +5,7 @@ end
 -- Fast flags
 local FFlagPublishPlaceToRobloxLuaPlugin = settings():GetFFlag("PublishPlaceToRobloxLuaPlugin")
 local FFlagStudioDisablePublishButtonsInProgress = game:DefineFastFlag("StudioDisablePublishButtonsInProgress", false)
+local FFlagStudioChangeMinimumSizeOfWindow = game:DefineFastFlag("StudioChangeMinimumSizeOfPublishWindow", false)
 
 if not FFlagPublishPlaceToRobloxLuaPlugin then
 	return
@@ -60,8 +61,9 @@ end
 local function makePluginGui()
 	pluginGui = plugin:CreateQWidgetPluginGui(plugin.Name, {
 		Size = Vector2.new(960, 650),
-		MinSize = Vector2.new(960, 650),
-		Resizable = false,
+		MinSize = FFlagStudioChangeMinimumSizeOfWindow and Vector2.new(890, 550) or Vector2.new(960, 650),
+		MaxSize = FFlagStudioChangeMinimumSizeOfWindow and Vector2.new(960, 650) or nil,
+		Resizable = FFlagStudioChangeMinimumSizeOfWindow and true or false,
 		Modal = true,
 		InitialEnabled = false,
 	})

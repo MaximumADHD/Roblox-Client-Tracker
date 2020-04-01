@@ -9,6 +9,8 @@ local Opened = false
 
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 
+FFlagSupportPluginDebugging = settings():GetFFlag("SupportPluginDebugging")
+
 local function reportOpening()
 	if Opened then return end
 	AnalyticsService:ReportCounter("cgeOpenings", 1)
@@ -41,8 +43,8 @@ local Info = DockWidgetPluginGuiInfo.new(
 
 local Window = nil
 local RoactHandle = nil
--- Wait until we've created a place session before we create the GUI.
-plugin.MultipleDocumentInterfaceInstance.DataModelSessionStarted:connect(function(dmSession)
+
+local function handleDMSession(dmSession)
 	if (Window == nil) then 
 		Window = plugin:CreateDockWidgetPluginGui("CollisionGroupsEditorWindow", Info)
 		Window.Title = "Collision Groups Editor"
@@ -71,7 +73,24 @@ plugin.MultipleDocumentInterfaceInstance.DataModelSessionStarted:connect(functio
 	if Window.Enabled then
 		reportOpening()
 	end
+end
+
+-- Lurk: wait until we create DM session before creating UI.
+plugin.MultipleDocumentInterfaceInstance.DataModelSessionStarted:connect(function(dmSession)
+	handleDMSession(dmSession)
 end)
+
+if (FFlagSupportPluginDebugging) then 	
+	-- Usually standalone plugin scripts are loaded before we've created any place session, 
+	-- so listening for "new place session" from MultipleDocumentInterfaceInstance is sufficient.
+	-- With the advent of plugin debugging, we load standalone plugins again each time we open 
+	-- a place.  So we have a situation where MultipleDocumentInterfaceInstance already has a 
+	-- place session before plugin is loaded -> DataModelSessionStarted will never hit.
+	-- So we have to explicitly check if we already have a DM session.
+	if (plugin.MultipleDocumentInterfaceInstance.FocusedDataModelSession) then 
+		handleDMSession(plugin.MultipleDocumentInterfaceInstance.FocusedDataModelSession)
+	end
+end
 
 -- If place session ends and we have a gui, destroy it.
 plugin.MultipleDocumentInterfaceInstance.DataModelSessionEnded:connect(function(dmSession)

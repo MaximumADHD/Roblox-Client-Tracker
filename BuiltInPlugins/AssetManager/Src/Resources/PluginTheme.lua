@@ -178,7 +178,7 @@ local function createStyles(theme, getColor)
 			},
 
 			Text = {
-				Color = theme:GetColor(c.DialogMainButtonText),
+				Color = theme:GetColor(c.MainText),
 				Size = 14,
 				TextTruncate = Enum.TextTruncate.AtEnd,
 
@@ -190,6 +190,18 @@ local function createStyles(theme, getColor)
 				Frame = {
 					Size = UDim2.new(0, 69, 0, 32),
 					Position = UDim2.new(0, 8, 0, 81),
+				},
+			},
+
+			EditText = {
+				TextWrapped = true,
+				ClearTextOnFocus = false,
+
+				XAlignment = Enum.TextXAlignment.Center,
+
+				Frame = {
+					BackgroundColor = theme:GetColor(c.InputFieldBackground),
+					BorderColor = theme:GetColor(c.Button, m.Selected),
 				},
 			},
 
@@ -229,6 +241,7 @@ local function createStyles(theme, getColor)
 			Font = Enum.Font.SourceSans,
 			FontBold = Enum.Font.SourceSansSemibold,
 			FontSizeSmall = 14,
+			FontSizeLarge = 16,
 
 			AssetGridContainer = {
 				CellPadding = UDim2.new(0, 4, 0, 6),
@@ -239,6 +252,7 @@ local function createStyles(theme, getColor)
 				ImageSize = 24,
 				Padding = 12,
 				Height = 38,
+				TruncatedTextScale = 0.4,
 			},
 
 			Overlay = {

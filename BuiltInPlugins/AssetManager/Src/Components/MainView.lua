@@ -78,10 +78,15 @@ function MainView:init()
         })
     end
 
-    self.openAssetPreview = function(assetPreviewData)
+    self.openAssetPreview = function(assetData, assetPreviewData)
+        if not assetPreviewData then
+            return
+        end
+
         local assetPreviewWrapper = Roact.createElement(AssetPreviewWrapper, {
-            AssetData = assetPreviewData,
+            AssetPreviewData = assetPreviewData,
             OnAssetPreviewClose = self.closeAssetPreview,
+            AssetData = assetData,
         })
 
         self:setState({

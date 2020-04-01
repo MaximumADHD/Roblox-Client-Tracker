@@ -1,3 +1,3 @@
 return function()
-	return settings():GetFFlag("UseDateTimeType2")
+	return settings():GetFFlag("UseDateTimeType3")
 end

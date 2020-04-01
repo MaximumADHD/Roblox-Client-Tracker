@@ -211,6 +211,11 @@ local function CreateSignal()
 end
 
 local function getViewportSize()
+	if _G.__TESTEZ_RUNNING_TEST__ then
+		--Return fake value here for unit tests
+		return Vector2.new(1024, 1024)
+	end
+
 	while not workspace.CurrentCamera do
 		workspace.Changed:wait()
 	end

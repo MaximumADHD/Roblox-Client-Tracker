@@ -125,21 +125,24 @@ local function MakeSystemMessageQueueingFunction(data)
 end
 
 local function NonFunc() end
-StarterGui:RegisterSetCore("ChatMakeSystemMessage", MakeSystemMessageQueueingFunction)
-StarterGui:RegisterSetCore("ChatWindowPosition", NonFunc)
-StarterGui:RegisterGetCore("ChatWindowPosition", NonFunc)
-StarterGui:RegisterSetCore("ChatWindowSize", NonFunc)
-StarterGui:RegisterGetCore("ChatWindowSize", NonFunc)
-StarterGui:RegisterSetCore("ChatBarDisabled", NonFunc)
-StarterGui:RegisterGetCore("ChatBarDisabled", NonFunc)
+if RunService:IsClient() and not RunService:IsServer() then
+	--Registering these during unit testing causes errors.
+	StarterGui:RegisterSetCore("ChatMakeSystemMessage", MakeSystemMessageQueueingFunction)
+	StarterGui:RegisterSetCore("ChatWindowPosition", NonFunc)
+	StarterGui:RegisterGetCore("ChatWindowPosition", NonFunc)
+	StarterGui:RegisterSetCore("ChatWindowSize", NonFunc)
+	StarterGui:RegisterGetCore("ChatWindowSize", NonFunc)
+	StarterGui:RegisterSetCore("ChatBarDisabled", NonFunc)
+	StarterGui:RegisterGetCore("ChatBarDisabled", NonFunc)
 
 
-StarterGui:RegisterGetCore("ChatActive", function()
-	return interface:GetVisibility()
-end)
-StarterGui:RegisterSetCore("ChatActive", function(visible)
-	return interface:SetVisible(visible)
-end)
+	StarterGui:RegisterGetCore("ChatActive", function()
+		return interface:GetVisibility()
+	end)
+	StarterGui:RegisterSetCore("ChatActive", function(visible)
+		return interface:SetVisible(visible)
+	end)
+end
 
 
 local function ConnectSignals(useModule, interface, sigName)
@@ -166,7 +169,10 @@ if ( not isConsole and not isVR ) then
 
 		ConnectSignals(useModule, interface, "MessagesChanged")
 		-- Retained for legacy reasons, no longer used by the chat scripts.
-		StarterGui:RegisterGetCore("UseNewLuaChat", function() return true end)
+		if RunService:IsClient() and not RunService:IsServer() then
+				--Registering these during unit testing causes errors.
+			StarterGui:RegisterGetCore("UseNewLuaChat", function() return true end)
+		end
 
 		useModule:SetVisible(state.Visible)
 		StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Chat, StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.Chat))

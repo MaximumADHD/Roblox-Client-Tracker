@@ -4,13 +4,17 @@ local Cryo = require(Plugin.Packages.Cryo)
 local Rodux = require(Plugin.Packages.Rodux)
 
 return Rodux.createReducer({
+	-- Contains table of assets, associated preview data, and next page/cursor
 	assetsTable = {
 		assets = {},
 		assetPreviewData = {},
 	},
 	bulkImporterRunning = false,
+	-- Contains list of assets that are currently editing keyed by id
+	editingAssets = {},
 	isFetchingAssets = false,
 	searchTerm = "",
+	-- Contains list of selected keyed by id
 	selectedAssets = {},
 	universeName = "",
 }, {
@@ -23,6 +27,12 @@ return Rodux.createReducer({
     SetBulkImporterRunning = function(state, action)
         return Cryo.Dictionary.join(state, {
 			bulkImporterRunning = action.bulkImporterRunning,
+		})
+	end,
+
+	SetEditingAssets = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			editingAssets = action.editingAssets,
 		})
 	end,
 
