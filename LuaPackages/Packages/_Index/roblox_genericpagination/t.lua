@@ -3,7 +3,7 @@
 ]]
 local PackageIndex = script.Parent.Parent
 
-local package = PackageIndex["osyris_t"]["t"]
+local package = PackageIndex["roblox_t"]["t"]
 
 if package.ClassName == "ModuleScript" then
 	return require(package)

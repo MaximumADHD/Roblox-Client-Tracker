@@ -3,7 +3,7 @@
 ]]
 local PackageIndex = script.Parent.Parent
 
-local package = PackageIndex["roblox_infinite-scroller-078ebdb3-0.4.2"]["infinite-scroller"]
+local package = PackageIndex["roblox_infinite-scroller-98304e77-0.4.3"]["infinite-scroller"]
 
 if package.ClassName == "ModuleScript" then
 	return require(package)
