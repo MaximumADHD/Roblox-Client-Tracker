@@ -16,6 +16,8 @@ local CloseMenu = require(InGameMenu.Thunks.CloseMenu)
 
 local CloseMenuButton = require(script.CloseMenuButton)
 
+local FFlagInGameMenuSmallerSideBar = require(InGameMenu.Flags.FFlagInGameMenuSmallerSideBar)
+
 local validateProps = t.strictInterface({
 	open = t.boolean,
 	closeMenu = t.callback,
@@ -33,7 +35,7 @@ local function SideNavigation(props)
 			BackgroundColor3 = style.Theme.BackgroundUIContrast.Color,
 			BackgroundTransparency = style.Theme.BackgroundUIContrast.Transparency,
 			BorderSizePixel = 0,
-			Size = UDim2.new(0, 100, 1, 0),
+			Size = UDim2.new(0, FFlagInGameMenuSmallerSideBar and 64 or 100, 1, 0),
 			Visible = props.open,
 		}, {
 			CloseMenuButton = Roact.createElement(CloseMenuButton, {

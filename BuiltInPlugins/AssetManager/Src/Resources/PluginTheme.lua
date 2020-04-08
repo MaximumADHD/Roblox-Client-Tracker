@@ -22,6 +22,10 @@ local createTheme = UILibrary.createTheme
 local StudioStyle = UILibrary.Studio.Style
 local Spritesheet = UILibrary.Util.Spritesheet
 
+local FONT_SIZE_SMALL = 14
+local FONT_SIZE_MEDIUM = 16
+local FONT_SIZE_LARGE = 18
+
 local function createStyles(theme, getColor)
 	local c = Enum.StudioStyleGuideColor
 	local m = Enum.StudioStyleGuideModifier
@@ -91,9 +95,10 @@ local function createStyles(theme, getColor)
 		})
 
 		local TreeItemButton = Style.extend(AssetManagerButton, {
-			TextSize = 14,
+			TextSize = FONT_SIZE_MEDIUM,
 			TextColor = theme:GetColor(c.MainText),
 			Font = Enum.Font.SourceSans,
+			TextTruncate = Enum.TextTruncate.AtEnd,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			TextYAlignment = Enum.TextYAlignment.Bottom,
 
@@ -114,11 +119,16 @@ local function createStyles(theme, getColor)
 	local linkText = StyleTable.new("LinkText", function()
 		local AssetManagerDefault = Style.new({
 			Font = Enum.Font.SourceSans,
-			TextSize = 14,
+			TextSize = FONT_SIZE_MEDIUM,
 			EnableHover = true,
 		})
 		local BulkImporterTooltip = Style.extend(AssetManagerDefault, {
 			TextColor = theme:GetColor(c.LinkText),
+		})
+
+		local MainViewTooltip = Style.extend(AssetManagerDefault, {
+			TextColor = theme:GetColor(c.LinkText),
+			ShowUnderline = false,
 		})
 
 		local NavBar = Style.extend(AssetManagerDefault, {
@@ -131,6 +141,7 @@ local function createStyles(theme, getColor)
 
 		return {
 			BulkImporterTooltip = BulkImporterTooltip,
+			MainViewTooltip = MainViewTooltip,
 			NavBar = NavBar,
 		}
 	end)
@@ -155,19 +166,21 @@ local function createStyles(theme, getColor)
 
 			AssetPreview = {
 				Button = {
-					Size = 32,
-					XOffset = 36,
+					Offset = 14,
 				},
 				Image = "rbxasset://textures/StudioToolbox/AssetPreview/MAGNIFIER_PH.png",
 			},
 
 			Image = {
-				Size = UDim2.new(0, 69, 0, 69),
+				FrameSize = UDim2.new(0, 69, 0, 69),
+				ImageSize = UDim2.new(0, 32, 0, 32),
 				Position = UDim2.new(0, 8, 0, 8),
-				BackgroundTransparency = 1,
+				FolderPosition = UDim2.new(0.5, 0, 0.5, 0),
+				FolderAnchorPosition = Vector2.new(0.5, 0.5),
+				BackgroundColor = theme:GetColor(c.ScrollBarBackground),
 				RBXThumbSize = 150,
 				PlaceHolder = "rbxasset://textures/PublishPlaceAs/TransparentWhiteImagePlaceholder.png",
-				Folder = "rbxasset://textures/StudioSharedUI/folder_32.png",
+				Folder = "rbxasset://textures/StudioSharedUI/folder.png",
 
 				StartingPlace = {
 					Size = 24,
@@ -179,7 +192,7 @@ local function createStyles(theme, getColor)
 
 			Text = {
 				Color = theme:GetColor(c.MainText),
-				Size = 14,
+				Size = FONT_SIZE_MEDIUM,
 				TextTruncate = Enum.TextTruncate.AtEnd,
 
 				XAlignment = Enum.TextXAlignment.Left,
@@ -208,6 +221,12 @@ local function createStyles(theme, getColor)
 			[StyleModifier.Hover] = {
 				BackgroundTransparency = 0,
 				BackgroundColor = theme:getColor(c.CheckedFieldBackground, m.Hover),
+				AssetPreview = {
+					Button = {
+						Offset = 14,
+					},
+					Image = "rbxasset://textures/StudioToolbox/AssetPreview/MAGNIFIER_PH.png",
+				},
 			},
 
 			[StyleModifier.Selected] = {
@@ -240,11 +259,24 @@ local function createStyles(theme, getColor)
 			ScrollbarSize = 8,
 			Font = Enum.Font.SourceSans,
 			FontBold = Enum.Font.SourceSansSemibold,
-			FontSizeSmall = 14,
-			FontSizeLarge = 16,
+			FontSizeSmall = FONT_SIZE_SMALL,
+			FontSizeMedium = FONT_SIZE_MEDIUM,
+			FontSizeLarge = FONT_SIZE_LARGE,
 
 			AssetGridContainer = {
 				CellPadding = UDim2.new(0, 4, 0, 6),
+			},
+
+			MainView = {
+				PublishText = {
+					Offset = 70,
+					Width = 250,
+				},
+				PublishButton = {
+					Offset = 125,
+					PaddingX = 75,
+					PaddingY = 15,
+				},
 			},
 
 			NavBar = {
@@ -288,7 +320,7 @@ local function createStyles(theme, getColor)
 				Padding = 15,
 
 				Tooltip = {
-					TextSize = 14,
+					TextSize = FONT_SIZE_SMALL,
 					Width = 210,
 					Padding = 5,
 				}
@@ -299,6 +331,7 @@ local function createStyles(theme, getColor)
 				Indent = 20,
 				Offset = 3,
 				Padding = 5,
+				Folder = "rbxasset://textures/StudioSharedUI/folder.png",
 
 				Arrow = {
 					Expanded = downArrowProps,
@@ -312,9 +345,9 @@ local function createStyles(theme, getColor)
 		}),
 
 		Framework = Style.extend(studioStyles, {
-				Button = button,
-				Image = image,
-				LinkText = linkText,
+				Button = Style.extend(studioStyles.Button, button),
+				Image = Style.extend(studioStyles.Image, image),
+				LinkText = Style.extend(studioStyles.LinkText, linkText),
 		}),
 	}
 end

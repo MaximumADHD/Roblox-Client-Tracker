@@ -1,4 +1,5 @@
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
+
 local Roact = require(Plugin.Packages.Roact)
 
 local TTCheckBox = require(script.Parent.TTCheckBox)
@@ -6,8 +7,6 @@ local TTCheckBox = require(script.Parent.TTCheckBox)
 local Constants = require(Plugin.Src.Util.Constants)
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 local Biome = TerrainEnums.Biome
-
-local FFlagTerrainToolsMaterialGenerateFragments = game:GetFastFlag("TerrainToolsMaterialGenerateFragments")
 
 local BiomeOrder = {
 	Biome.Water,
@@ -26,7 +25,7 @@ return function (props)
 	local localization = props.localization
 	local selectBiome = props.selectBiome
 	local biomeSelection = props.biomeSelection
-	local layoutOrder = FFlagTerrainToolsMaterialGenerateFragments and props.LayoutOrder or 2
+	local layoutOrder = props.LayoutOrder
 
 	local content = {
 		LayoutPadding = Roact.createElement("UIPadding", {
@@ -54,11 +53,11 @@ return function (props)
 	end
 
 	return Roact.createElement("Frame", {
-		Size = UDim2.new(1, 0, 0, FFlagTerrainToolsMaterialGenerateFragments and 148 or 128),
+		Size = UDim2.new(1, 0, 0, 148),
 		BackgroundTransparency = 1,
 		LayoutOrder = layoutOrder,
 	}, {
-		Label = FFlagTerrainToolsMaterialGenerateFragments and Roact.createElement("TextLabel", {
+		Label = Roact.createElement("TextLabel", {
 			Text = localization:getText("MaterialSettings", "ChooseBiome"),
 			TextColor3 = theme.textColor,
 			Size = UDim2.new(1, 0, 0, 16),
@@ -69,7 +68,7 @@ return function (props)
 
 		Border = Roact.createElement("Frame", {
 			Size = UDim2.new(0, 229, 0, 128),
-			Position = UDim2.new(0, 20, 0, FFlagTerrainToolsMaterialGenerateFragments and 20 or 0),
+			Position = UDim2.new(0, 20, 0, 20),
 			BackgroundColor3 = theme.backgroundColor,
 			BorderColor3 = theme.borderColor,
 		}, content),

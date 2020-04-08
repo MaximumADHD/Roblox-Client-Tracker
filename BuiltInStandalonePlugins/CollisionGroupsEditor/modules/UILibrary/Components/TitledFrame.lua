@@ -19,6 +19,7 @@ local CENTER_GUTTER = 180
 local function TitledFrame(props)
 	return withTheme(function(theme)
 		local textSize = props.TextSize
+		local centerGutter = props.CenterGutter or CENTER_GUTTER
 
 		return Roact.createElement("Frame", {
 			BackgroundTransparency = 1,
@@ -30,7 +31,7 @@ local function TitledFrame(props)
 			Title = Roact.createElement("TextLabel", {
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
-				Size = UDim2.new(0, CENTER_GUTTER, 1, 0),
+				Size = UDim2.new(0, centerGutter, 1, 0),
 
 				TextColor3 = theme.titledFrame.text,
 				Font = theme.titledFrame.font,
@@ -45,7 +46,7 @@ local function TitledFrame(props)
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
 
-				Size = UDim2.new(1, -CENTER_GUTTER, 1, 0),
+				Size = UDim2.new(1, -centerGutter, 1, 0),
 				AnchorPoint = Vector2.new(1, 0),
 				Position = UDim2.new(1, 0, 0, 0),
 			}, props[Roact.Children]),

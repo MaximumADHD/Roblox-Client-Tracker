@@ -12,94 +12,53 @@ return function()
 
 	local EntryFrame = require(script.Parent.EntryFrame)
 
-	local FFlagPlayerListDesignUpdate = settings():GetFFlag("PlayerListDesignUpdate")
+	it("should create and destroy without errors", function()
+		local layoutValues = CreateLayoutValues(false, false)
 
-	if FFlagPlayerListDesignUpdate then
-		it("should create and destroy without errors", function()
-			local layoutValues = CreateLayoutValues(false, false)
+		local element = Roact.createElement(LayoutValuesProvider, {
+			layoutValues = layoutValues
+		}, {
+			EntryFrame = Roact.createElement(EntryFrame, {
+				sizeX = 50,
+				sizeY = 50,
+				isTeamFrame = false,
 
-			local element = Roact.createElement(LayoutValuesProvider, {
-				layoutValues = layoutValues
-			}, {
-				EntryFrame = Roact.createElement(EntryFrame, {
-					sizeX = 50,
-					sizeY = 50,
-					isTeamFrame = false,
-
-					backgroundStyle = {
-						Color = Color3.new(1, 1, 1),
-						Transparency = 1,
-					},
-					overlayStyle = {
-						Color = Color3.new(1, 1, 1),
-						Transparency = 0.5,
-					},
-					doubleOverlay = true,
-				})
+				backgroundStyle = {
+					Color = Color3.new(1, 1, 1),
+					Transparency = 1,
+				},
+				overlayStyle = {
+					Color = Color3.new(1, 1, 1),
+					Transparency = 0.5,
+				},
+				doubleOverlay = true,
 			})
-			local instance = Roact.mount(element)
-			Roact.unmount(instance)
-		end)
+		})
+		local instance = Roact.mount(element)
+		Roact.unmount(instance)
+	end)
 
-		it("should create and destroy without errors while tenfoot", function()
-			local element = Roact.createElement(LayoutValuesProvider, {
-				layoutValues = CreateLayoutValues(true, false)
-			}, {
-				EntryFrame = Roact.createElement(EntryFrame, {
-					sizeX = 50,
-					sizeY = 50,
-					isTeamFrame = true,
+	it("should create and destroy without errors while tenfoot", function()
+		local element = Roact.createElement(LayoutValuesProvider, {
+			layoutValues = CreateLayoutValues(true, false)
+		}, {
+			EntryFrame = Roact.createElement(EntryFrame, {
+				sizeX = 50,
+				sizeY = 50,
+				isTeamFrame = true,
 
-					backgroundStyle = {
-						Color = Color3.fromRGB(255, 0, 0),
-						Transparency = 0.5,
-					},
-					overlayStyle = {
-						Color = Color3.new(1, 1, 1),
-						Transparency = 1,
-					},
-					doubleOverlay = false,
-				})
+				backgroundStyle = {
+					Color = Color3.fromRGB(255, 0, 0),
+					Transparency = 0.5,
+				},
+				overlayStyle = {
+					Color = Color3.new(1, 1, 1),
+					Transparency = 1,
+				},
+				doubleOverlay = false,
 			})
-			local instance = Roact.mount(element)
-			Roact.unmount(instance)
-		end)
-	else
-		it("should create and destroy without errors", function()
-			local layoutValues = CreateLayoutValues(false, false)
-
-			local element = Roact.createElement(LayoutValuesProvider, {
-				layoutValues = layoutValues
-			}, {
-				EntryFrame = Roact.createElement(EntryFrame, {
-					sizeX = 50,
-					sizeY = 50,
-					isTeamFrame = false,
-
-					backgroundStyle = layoutValues.BackgroundStyle.Default,
-				})
-			})
-			local instance = Roact.mount(element)
-			Roact.unmount(instance)
-		end)
-
-		it("should create and destroy without errors while tenfoot", function()
-			local element = Roact.createElement(LayoutValuesProvider, {
-				layoutValues = CreateLayoutValues(true, false)
-			}, {
-				EntryFrame = Roact.createElement(EntryFrame, {
-					sizeX = 50,
-					sizeY = 50,
-					isTeamFrame = true,
-
-					backgroundStyle = {
-						Color = Color3.fromRGB(255, 0, 0),
-						Transparency = 0.5,
-					},
-				})
-			})
-			local instance = Roact.mount(element)
-			Roact.unmount(instance)
-		end)
-	end
+		})
+		local instance = Roact.mount(element)
+		Roact.unmount(instance)
+	end)
 end

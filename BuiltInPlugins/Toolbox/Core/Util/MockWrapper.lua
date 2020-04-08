@@ -3,6 +3,8 @@ local Plugin = script.Parent.Parent.Parent
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 local Rodux = require(Libs.Rodux)
+local TestHelpers = require(Libs.Framework.TestHelpers)
+local provideMockContext = TestHelpers.provideMockContext
 
 local Localization = require(Plugin.Core.Util.Localization)
 local Settings = require(Plugin.Core.Util.Settings)
@@ -11,6 +13,12 @@ local ToolboxReducerMock = require(Plugin.Core.Reducers.ToolboxReducerMock)
 local NetworkInterfaceMock = require(Plugin.Core.Networking.NetworkInterfaceMock)
 
 local ExternalServicesWrapper = require(Plugin.Core.Components.ExternalServicesWrapper)
+local UILibraryWrapper = require(Libs.Framework.ContextServices.UILibraryWrapper)
+local makeTheme = require(Plugin.Core.Util.makeTheme)
+
+local ContextServices = require(Libs.Framework.ContextServices)
+local Mouse = ContextServices.Mouse
+local SettingsContext = require(Plugin.Core.ContextServices.Settings)
 
 local function MockWrapper(props)
 	local store = props.store or Rodux.Store.new(ToolboxReducerMock, nil, {
@@ -23,6 +31,16 @@ local function MockWrapper(props)
 	local networkInterface = props.networkInterface or NetworkInterfaceMock.new()
 	local localization = props.localization or Localization.createDummyLocalization()
 
+	local mouse = Mouse.new({
+		Icon = "rbxasset://SystemCursors/Arrow",
+	})
+
+	local focus = ContextServices.Focus.new(Instance.new("ScreenGui"))
+	local pluginContext = ContextServices.Plugin.new(plugin)
+	local settingsContext = SettingsContext.new(settings)
+	local themeContext = makeTheme(theme:getUILibraryTheme())
+	local uiLibraryWrapper = UILibraryWrapper.new()
+
 	return Roact.createElement(ExternalServicesWrapper, {
 		store = store,
 		plugin = plugin,
@@ -31,7 +49,17 @@ local function MockWrapper(props)
 		theme = theme,
 		networkInterface = networkInterface,
 		localization = localization,
-	}, props[Roact.Children])
+	}, {
+		provideMockContext({
+			focus,
+			mouse,
+			pluginContext,
+			settingsContext,
+			themeContext,
+			uiLibraryWrapper,
+		},
+			props[Roact.Children])
+	})
 end
 
 return MockWrapper

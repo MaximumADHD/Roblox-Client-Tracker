@@ -51,14 +51,15 @@ local imageErrors = {
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
+local UILibrary = require(Plugin.UILibrary)
 
 local showDialog = require(Plugin.Src.Consumers.showDialog)
 local getMouse = require(Plugin.Src.Consumers.getMouse)
 
-local TitledFrame = require(Plugin.UILibrary.Components.TitledFrame)
+local TitledFrame = UILibrary.Component.TitledFrame
 local RadioButtonSet = require(Plugin.Src.Components.RadioButtonSet)
 local CheckBoxSet = require(Plugin.Src.Components.CheckBoxSet)
-local RoundTextBox = require(Plugin.UILibrary.Components.RoundTextBox)
+local RoundTextBox = UILibrary.Component.RoundTextBox
 local Dropdown = require(Plugin.Src.Components.Dropdown)
 local Separator = require(Plugin.Src.Components.Separator)
 local ThumbnailController = require(Plugin.Src.Components.Thumbnails.ThumbnailController)
@@ -76,7 +77,7 @@ local DiscardWarning = require(Plugin.Src.Actions.DiscardWarning)
 
 local BrowserUtils = require(Plugin.Src.Util.BrowserUtils)
 local FileUtils = require(Plugin.Src.Util.FileUtils)
-local Constants = require(Plugin.Src.Util.Constants)
+local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 
 local createSettingsPage = require(Plugin.Src.Components.SettingsPages.createSettingsPage)
 
@@ -173,14 +174,14 @@ local function dispatchChanges(setValue, dispatch)
 		dispatch(AddChange("thumbnails", thumbnails))
 		dispatch(AddChange("thumbnailOrder", order))
 
-		if #order > Constants.MAX_THUMBNAILS then
+		if #order > DEPRECATED_Constants.MAX_THUMBNAILS then
 			dispatch(AddErrors({thumbnails = "TooMany"}))
 		end
 	end
 
 	dispatchFuncs.ThumbnailOrderChanged = function(order)
 		dispatch(AddChange("thumbnailOrder", order))
-		if #order > Constants.MAX_THUMBNAILS then
+		if #order > DEPRECATED_Constants.MAX_THUMBNAILS then
 			dispatch(AddErrors({thumbnails = "TooMany"}))
 		end
 	end
@@ -204,14 +205,14 @@ local function displayContents(page, localized)
 			Title = localized.Title.Name,
 			MaxHeight = 60,
 			LayoutOrder = 10,
-			TextSize = Constants.TEXT_SIZE,
+			TextSize = DEPRECATED_Constants.TEXT_SIZE,
 		}, {
 			TextBox = Roact.createElement(RoundTextBox, {
 				Active = props.Name ~= nil,
 				ErrorMessage = localized.Errors[nameErrors[props.NameError]],
 				MaxLength = MAX_NAME_LENGTH,
 				Text = props.Name or "",
-				TextSize = Constants.TEXT_SIZE,
+				TextSize = DEPRECATED_Constants.TEXT_SIZE,
 
 				SetText = props.NameChanged,
 			}),
@@ -221,7 +222,7 @@ local function displayContents(page, localized)
 			Title = localized.Title.Description,
 			MaxHeight = 150,
 			LayoutOrder = 20,
-			TextSize = Constants.TEXT_SIZE,
+			TextSize = DEPRECATED_Constants.TEXT_SIZE,
 		}, {
 			TextBox = Roact.createElement(RoundTextBox, {
 				Height = 130,
@@ -231,7 +232,7 @@ local function displayContents(page, localized)
 				ErrorMessage = localized.Errors[descriptionErrors[props.DescriptionError]],
 				MaxLength = MAX_DESCRIPTION_LENGTH,
 				Text = props.Description or "",
-				TextSize = Constants.TEXT_SIZE,
+				TextSize = DEPRECATED_Constants.TEXT_SIZE,
 
 				SetText = props.DescriptionChanged,
 
@@ -350,7 +351,7 @@ local function displayContents(page, localized)
 			Title = localized.Title.Genre,
 			MaxHeight = 38,
 			LayoutOrder = 100,
-			TextSize = Constants.TEXT_SIZE,
+			TextSize = DEPRECATED_Constants.TEXT_SIZE,
 			ZIndex = 3,
 		}, {
 			Selector = Roact.createElement(Dropdown, {

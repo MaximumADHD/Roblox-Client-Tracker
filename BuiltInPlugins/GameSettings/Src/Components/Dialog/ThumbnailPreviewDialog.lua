@@ -16,7 +16,7 @@ local BUTTON_PADDING = UDim.new(0, 20)
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
-local Constants = require(Plugin.Src.Util.Constants)
+local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
 local withLocalization = require(Plugin.Src.Consumers.withLocalization)
 local BrowserUtils = require(Plugin.Src.Util.BrowserUtils)
@@ -106,7 +106,7 @@ function ThumbnailPreviewDialog:render()
 
 				Preview = Roact.createElement("ImageLabel", {
 					BackgroundTransparency = 1,
-					Image = videoHash ~= nil and Constants.VIDEO_PLACEHOLDER or fullImageId,
+					Image = videoHash ~= nil and DEPRECATED_Constants.VIDEO_PLACEHOLDER or fullImageId,
 					ImageColor3 = videoHash ~= nil and theme.thumbnail.background or nil,
 					ScaleType = Enum.ScaleType.Fit,
 

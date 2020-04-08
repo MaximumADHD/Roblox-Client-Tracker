@@ -3,6 +3,7 @@
 ]]
 
 local Plugin = script.Parent.Parent.Parent.Parent
+
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 
@@ -17,17 +18,9 @@ local TerrainRegionEditor = require(Plugin.Src.Components.Functions.TerrainRegio
 
 local REDUCER_KEY = "RegionTool"
 
-local FFlagTerrainToolsRefactor = game:GetFastFlag("TerrainToolsRefactor")
-
 local Region = Roact.PureComponent:extend(script.Name)
 
-function Region:init(initialProps)
-	self.toggleButton = function(containter)
-		assert(not FFlagTerrainToolsRefactor,
-			"Region.toggleButton() should not be used when FFlagTerrainToolsRefactor is true")
-		self.props.dispatchSetMergeEmpty(not self.props.mergeEmpty)
-	end
-
+function Region:init()
 	self.updateProperties = function()
 		TerrainRegionEditor.ChangeProperties({
 			mergeEmpty = self.props.mergeEmpty,
@@ -36,23 +29,11 @@ function Region:init(initialProps)
 end
 
 function Region:didUpdate()
-	if FFlagTerrainToolsRefactor then
-		self.updateProperties()
-	else
-		TerrainRegionEditor.ChangeProperties({
-			mergeEmpty = self.props.mergeEmpty,
-		})
-	end
+	self.updateProperties()
 end
 
 function Region:didMount()
-	if FFlagTerrainToolsRefactor then
-		self.updateProperties()
-	else
-		TerrainRegionEditor.ChangeProperties({
-			mergeEmpty = self.props.mergeEmpty,
-		})
-	end
+	self.updateProperties()
 end
 
 function Region:render()
@@ -61,7 +42,6 @@ function Region:render()
 	return Roact.createElement(EditSettings, {
 		LayoutOrder = 1,
 		mergeEmpty = mergeEmpty,
-		toggleButton = self.toggleButton,
 		setMergeEmpty = self.props.dispatchSetMergeEmpty,
 	})
 end

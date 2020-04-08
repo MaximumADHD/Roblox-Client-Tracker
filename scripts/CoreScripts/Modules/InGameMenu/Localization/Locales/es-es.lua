@@ -120,4 +120,5 @@ return{
 	["CoreScripts.InGameMenu.Label.MicroProfiler"] = [[Micro Profiler]],
 	["CoreScripts.InGameMenu.InviteFriends.Loading"] = [[Cargando.]],
 	["CoreScripts.InGameMenu.RespawnCharacter"] = [[Regenerar personaje]],
+	["CoreScripts.InGameMenu.GameSettings.CameraModeCameraToggle"] = [[CameraToggle]],
 }

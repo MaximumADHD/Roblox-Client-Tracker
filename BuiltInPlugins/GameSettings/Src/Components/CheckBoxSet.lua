@@ -14,17 +14,18 @@ local FFlagGameSettingsUseUILibraryCheckBox = settings():GetFFlag("GameSettingsU
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
-local Constants = require(Plugin.Src.Util.Constants)
+local UILibrary = require(Plugin.UILibrary)
+local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
 
 local CheckBox
 if FFlagGameSettingsUseUILibraryCheckBox then
-	CheckBox = require(Plugin.UILibrary.Components.CheckBox)
+	CheckBox = UILibrary.Component.CheckBox
 else
 	CheckBox = require(Plugin.Src.Components.CheckBox)
 end
 
-local TitledFrame = require(Plugin.UILibrary.Components.TitledFrame)
+local TitledFrame = UILibrary.Component.TitledFrame
 
 local function CheckBoxSet(props)
 	return withTheme(function(theme)
@@ -34,7 +35,7 @@ local function CheckBoxSet(props)
 
 		local children = {
 			Layout = Roact.createElement("UIListLayout", {
-				Padding = UDim.new(0, Constants.CHECKBOX_PADDING),
+				Padding = UDim.new(0, DEPRECATED_Constants.CHECKBOX_PADDING),
 				SortOrder = Enum.SortOrder.LayoutOrder,
 			})
 		}
@@ -43,7 +44,7 @@ local function CheckBoxSet(props)
 			table.insert(children, Roact.createElement(CheckBox, {
 				Title = box.Title,
 				Id = box.Id,
-				Height = Constants.CHECKBOX_SIZE,
+				Height = DEPRECATED_Constants.CHECKBOX_SIZE,
 				TextSize = theme.fontStyle.Smaller.TextSize,
 				Description = box.Description,
 				Selected = box.Selected,
@@ -64,7 +65,7 @@ local function CheckBoxSet(props)
 		if errorState then
 			children.Error = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.SmallError, {
 				LayoutOrder = numBoxes + 1,
-				Size = UDim2.new(1, 0, 0, Constants.CHECKBOX_SIZE),
+				Size = UDim2.new(1, 0, 0, DEPRECATED_Constants.CHECKBOX_SIZE),
 				BackgroundTransparency = 1,
 				Text = props.ErrorMessage,
 				TextXAlignment = Enum.TextXAlignment.Left,
@@ -72,8 +73,8 @@ local function CheckBoxSet(props)
 			}))
 		end
 
-		local maxHeight = numBoxes * Constants.CHECKBOX_SIZE
-			+ numBoxes * Constants.CHECKBOX_PADDING
+		local maxHeight = numBoxes * DEPRECATED_Constants.CHECKBOX_SIZE
+			+ numBoxes * DEPRECATED_Constants.CHECKBOX_PADDING
 
 		return Roact.createElement(TitledFrame, {
 			Title = props.Title,

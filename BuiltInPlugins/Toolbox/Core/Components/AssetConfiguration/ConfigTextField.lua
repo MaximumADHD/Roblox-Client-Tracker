@@ -17,13 +17,14 @@ local Plugin = script.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
+local UILibrary = require(Libs.UILibrary)
 
 local Util = Plugin.Core.Util
 local ContextHelper = require(Util.ContextHelper)
 local Constants = require(Util.Constants)
 local AssetConfigConstants = require(Util.AssetConfigConstants)
 
-local RoundTextBox = require(Libs.UILibrary.Components.RoundTextBox)
+local RoundTextBox = UILibrary.Component.RoundTextBox
 
 local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization

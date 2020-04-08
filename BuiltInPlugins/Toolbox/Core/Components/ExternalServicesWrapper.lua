@@ -13,7 +13,8 @@ local LocalizationProvider = require(Plugin.Core.Providers.LocalizationProvider)
 local CameraProvider = require(Plugin.Core.Providers.CameraProvider)
 local UILibraryProvider = require(Plugin.Core.Providers.UILibraryProvider)
 
-local UILibraryWrapper = require(Libs.UILibrary.UILibraryWrapper)
+local UILibrary = require(Libs.UILibrary)
+local UILibraryWrapper = UILibrary.Wrapper
 
 local FFlagToolboxFixThemeIssues = game:DefineFastFlag("ToolboxFixThemeIssues", false)
 local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")

@@ -50,8 +50,17 @@ local function validateMeshBounds(isAsync, instance, assetTypeEnum)
 		return false, { "Failed to read mesh" }
 	end
 
-	local boundsSize = assetInfo.boundsSize
-	local boundsOffset = assetInfo.boundsOffset or DEFAULT_OFFSET
+	local boundsSize
+	local boundsOffset
+	if game:GetFastFlag("UGCUseNewAssetTypeInfoSchema") then
+		local boundsInfo = assert(assetInfo.bounds[attachment.Name], "Could not find bounds for " .. attachment.Name)
+		boundsSize = boundsInfo.size
+		boundsOffset = boundsInfo.offset or DEFAULT_OFFSET
+	else
+		boundsSize = assetInfo.boundsSize
+		boundsOffset = assetInfo.boundsOffset or DEFAULT_OFFSET
+	end
+
 	local boundsCF = handle.CFrame * attachment.CFrame * CFrame.new(boundsOffset)
 
 	for _, vertPos in pairs(verts) do

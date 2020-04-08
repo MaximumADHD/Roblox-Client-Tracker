@@ -20,11 +20,12 @@ local PADDING = UDim.new(0, 10)
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
-local Constants = require(Plugin.Src.Util.Constants)
+local UILibrary = require(Plugin.UILibrary)
+local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
 local getMouse = require(Plugin.Src.Consumers.getMouse)
 
-local TextEntry = require(Plugin.UILibrary.Components.TextEntry)
+local TextEntry = UILibrary.Component.TextEntry
 
 local RoundNumberBox = Roact.PureComponent:extend("RoundNumberBox")
 
@@ -84,14 +85,14 @@ function RoundNumberBox:render()
 		local backgroundProps = {
 			-- Necessary to make the rounded background
 			BackgroundTransparency = 1,
-			Image = Constants.ROUNDED_BACKGROUND_IMAGE,
+			Image = DEPRECATED_Constants.ROUNDED_BACKGROUND_IMAGE,
 			ImageTransparency = 0,
 			ImageColor3 = active and theme.textBox.background or theme.textBox.disabled,
 			ScaleType = Enum.ScaleType.Slice,
-			SliceCenter = Constants.ROUNDED_FRAME_SLICE,
+			SliceCenter = DEPRECATED_Constants.ROUNDED_FRAME_SLICE,
 
 			Position = UDim2.new(0, 0, 0, 0),
-			Size = UDim2.new(1, 0, 0, self.props.Height or Constants.ROUND_TEXT_BOX_DEFAULT_HEIGHT),
+			Size = UDim2.new(1, 0, 0, self.props.Height or DEPRECATED_Constants.ROUND_TEXT_BOX_DEFAULT_HEIGHT),
 
 			LayoutOrder = self.props.LayoutOrder or 1,
 		}
@@ -99,7 +100,7 @@ function RoundNumberBox:render()
 		local borderColor
 		if active then
 			if errorState then
-				borderColor = Constants.ERROR_COLOR
+				borderColor = DEPRECATED_Constants.ERROR_COLOR
 			elseif focused then
 				borderColor = theme.textBox.borderHover
 			else
@@ -113,10 +114,10 @@ function RoundNumberBox:render()
 			Border = Roact.createElement("ImageLabel", {
 				Size = UDim2.new(1, 0, 1, 0),
 				BackgroundTransparency = 1,
-				Image = Constants.ROUNDED_BORDER_IMAGE,
+				Image = DEPRECATED_Constants.ROUNDED_BORDER_IMAGE,
 				ImageColor3 = borderColor,
 				ScaleType = Enum.ScaleType.Slice,
-				SliceCenter = Constants.ROUNDED_FRAME_SLICE,
+				SliceCenter = DEPRECATED_Constants.ROUNDED_FRAME_SLICE,
 			}, {
 				Padding = Roact.createElement("UIPadding", {
 					PaddingLeft = PADDING,

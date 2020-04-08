@@ -58,6 +58,7 @@
 --]]
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
+
 local Roact = require(Plugin.Packages.Roact)
 
 local Theme = require(Plugin.Src.ContextServices.Theming)
@@ -80,40 +81,11 @@ local ROUNDED_FRAME_SLICE = Rect.new(3, 3, 13, 13)
 
 local LabeledTextInput = Roact.PureComponent:extend(script.Name)
 
-local FFlagTerrainToolsAutoFormatNum = game:GetFastFlag("TerrainToolsAutoFormatNum")
-local FFlagTerrainToolsRefactor = game:GetFastFlag("TerrainToolsRefactor")
-
-local function textToSigFig(textNum)
-	local num = tonumber(textNum)
-	if num then
-		return string.format("%.3f", num)
-	end
-	return textNum
-end
-
 function LabeledTextInput:init()
-	if FFlagTerrainToolsRefactor then
-		self.state = {
-			warningMessage = "",
-		}
-	else
-		local label = self.props.Label
-		local labelWidth
+	self.state = {
+		warningMessage = "",
+	}
 
-		if label then
-			labelWidth = TextService:GetTextSize(label, FONT_SIZE, FONT, Vector2.new()).X + (2 * PADDING)
-		else
-			labelWidth = 0
-		end
-
-		self.state = {
-			labelWidth = labelWidth,
-			warningMessage = "",
-		}
-	end
-
-	-- TODO: Remove textInputBorderRef when removing FFlagTerrainToolsRefactor
-	self.textInputBorderRef = Roact.createRef()
 	self.textClipperFrameRef = Roact.createRef()
 	self.textBoxRef = Roact.createRef()
 
@@ -170,7 +142,7 @@ function LabeledTextInput:init()
 			if utf8.len(currText) > 0 then
 				updatedText, warningMessage = self.props.ValidateText(currText)
 
-				local textBoxText = FFlagTerrainToolsRefactor and textBox.Text or textBox.text
+				local textBoxText = textBox.Text
 				if textBoxText ~= updatedText then
 					--used to keep the cursor in place if text was not changed
 					textBox.CursorPosition = textBox.CursorPosition - 1
@@ -201,8 +173,7 @@ function LabeledTextInput:init()
 
 	-- updates the border color to "selected" highlight
 	self.onFocus = function()
-		local textInputBorder = self.textInputBorderRef.current
-		if (FFlagTerrainToolsRefactor or textInputBorder) and utf8.len(self.state.warningMessage) == 0 then
+		if utf8.len(self.state.warningMessage) == 0 then
 			self:setState({
 				focused = true,
 			})
@@ -221,36 +192,17 @@ function LabeledTextInput:init()
 			currTextBox.Position = UDim2.new(0, PADDING, 0, 0)
 		end
 
-		local textInputBorder = self.textInputBorderRef.current
-		if (FFlagTerrainToolsRefactor or textInputBorder) and utf8.len(self.state.warningMessage) == 0 then
+		if utf8.len(self.state.warningMessage) == 0 then
 			self:setState({
 				focused = false,
 			})
 		end
 
-		if FFlagTerrainToolsRefactor then
-			local textBox = self.textBoxRef.current
-			if self.props.OnFocusLost and textBox and utf8.len(textBox.Text) > 0 then
-				local textOverride = self.props.OnFocusLost(enterPressed, textBox.Text)
-				if textOverride then
-					textBox.Text = textOverride
-				end
-			end
-		else
-			if self.props.OnFocusLost then
-				local textBox = self.textBoxRef.current
-				if textBox then
-					if utf8.len(textBox.Text) > 0 then
-						if FFlagTerrainToolsAutoFormatNum and not self.props.IgnoreNumFormatting then
-							textBox.Text = textToSigFig(textBox.Text)
-						end
-
-						local textOverride = self.props.OnFocusLost(enterPressed, textBox.Text)
-						if textOverride then
-							textBox.Text = textOverride
-						end
-					end
-				end
+		local textBox = self.textBoxRef.current
+		if self.props.OnFocusLost and textBox and utf8.len(textBox.Text) > 0 then
+			local textOverride = self.props.OnFocusLost(enterPressed, textBox.Text)
+			if textOverride then
+				textBox.Text = textOverride
 			end
 		end
 	end
@@ -263,28 +215,15 @@ function LabeledTextInput:render()
 	local label = self.props.Label or ""
 	local text = self.props.Text or ""
 
-	local editingDisabled
-	if FFlagTerrainToolsRefactor then
-		editingDisabled = self.props.EditingDisabled
-	end
-
-	if not FFlagTerrainToolsRefactor then
-		if FFlagTerrainToolsAutoFormatNum and not self.props.IgnoreNumFormatting then
-			text = textToSigFig(text)
-		end
-	end
+	local editingDisabled = self.props.EditingDisabled
 
 	local placeholderText = self.props.PlaceholderText or text
 	local clearTextOnFocus = self.props.ClearTextOnFocus or false
 	local layoutOrder = self.props.LayoutOrder
 
 	local labelWidth = 0
-	if FFlagTerrainToolsRefactor then
-		if utf8.len(label) > 0 then
-			labelWidth = TextService:GetTextSize(label, FONT_SIZE, FONT, Vector2.new()).X + (2 * PADDING)
-		end
-	else
-		labelWidth = self.state.labelWidth
+	if utf8.len(label) > 0 then
+		labelWidth = TextService:GetTextSize(label, FONT_SIZE, FONT, Vector2.new()).X + (2 * PADDING)
 	end
 	local warningMessage = self.state.warningMessage
 
@@ -297,7 +236,7 @@ function LabeledTextInput:render()
 	local borderSize = UDim2.new(1, 0, 0, BORDERFRAME_HEIGHT)
 
 	return withTheme(function(theme)
-		if FFlagTerrainToolsRefactor and (not hasWarningMessage) or (#warningMessage == 0) then
+		if not hasWarningMessage then
 			size = UDim2.new(width.Scale, width.Offset, 0, BORDERFRAME_HEIGHT)
 			if self.state.focused then
 				borderColor = theme.hoveredItemColor
@@ -308,6 +247,7 @@ function LabeledTextInput:render()
 			size = UDim2.new(width.Scale, width.Offset, 0, 2 * BORDERFRAME_HEIGHT)
 			borderColor = theme.errorColor
 		end
+
 		return Roact.createElement("Frame", {
 			Position = position,
 			Size = size,
@@ -373,8 +313,7 @@ function LabeledTextInput:render()
 				}),
 			}),
 
-			Warning = (FFlagTerrainToolsRefactor and hasWarningMessage or utf8.len(warningMessage) > 0)
-			and Roact.createElement("TextLabel", {
+			Warning = hasWarningMessage and Roact.createElement("TextLabel", {
 				Size = UDim2.new(1, 0, 0, TEXTBOX_HEIGHT),
 				Position = UDim2.new(0, 0, 0, TEXTBOX_HEIGHT),
 

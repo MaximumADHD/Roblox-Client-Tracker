@@ -14,7 +14,7 @@ local DELETE_IMAGE = "rbxasset://textures/GameSettings/delete.png"
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
-local Constants = require(Plugin.Src.Util.Constants)
+local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 
 local HoverBarButton = require(Plugin.Src.Components.Thumbnails.HoverBarButton)
 
@@ -25,7 +25,7 @@ local function ThumbnailHoverBar(props)
 		Visible = active,
 		BackgroundTransparency = 0.3,
 		BorderSizePixel = 0,
-		BackgroundColor3 = Constants.BLACK,
+		BackgroundColor3 = DEPRECATED_Constants.BLACK,
 		Size = UDim2.new(1, 0, 0, 40),
 		Position = UDim2.new(0, 0, 1, 0),
 		AnchorPoint = Vector2.new(0, 1),

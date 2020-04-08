@@ -10,7 +10,7 @@ return function()
 
 	local function createTestWrapper()
 		local element = Roact.createElement(MockWrapper, {}, {
-			Roact.createElement(AssetPreviewWrapper, {
+			AssetPreviewWrapper = Roact.createElement(AssetPreviewWrapper, {
 				assetData = {
 					Asset = {
 						Id = 1,

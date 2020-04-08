@@ -9,12 +9,12 @@ local Plugin = script.Parent.Parent.Parent.Parent
 
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
+local UILibrary = require(Packages.UILibrary)
 
 local Util = Plugin.Src.Util
 local Constants = require(Util.Constants)
 
-local UILibrary = Packages.UILibrary
-local ToggleButton = require(UILibrary.Components.ToggleButton)
+local ToggleButton = UILibrary.Component.ToggleButton
 local withTheme = require(Plugin.Src.ContextServices.Theming).withTheme
 
 local ConfigComment = Roact.PureComponent:extend("ConfigComment")

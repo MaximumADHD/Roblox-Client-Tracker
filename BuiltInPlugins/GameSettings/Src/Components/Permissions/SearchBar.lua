@@ -42,15 +42,16 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
+local UILibrary = require(Plugin.UILibrary)
 
-local Constants = require(Plugin.Src.Util.Constants)
+local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 
 local withTheme = require(Plugin.Src.Consumers.withTheme)
 local getMouse = require(Plugin.Src.Consumers.getMouse)
 
-local createFitToContent = require(Plugin.UILibrary.Components.createFitToContent)
-local DropdownMenu = require(Plugin.UILibrary.Components.DropdownMenu)
-local LoadingIndicator = require(Plugin.UILibrary.Components.LoadingIndicator)
+local createFitToContent = UILibrary.Component.createFitToContent
+local DropdownMenu = UILibrary.Component.DropdownMenu
+local LoadingIndicator = UILibrary.Component.LoadingIndicator
 
 local TextService = game:GetService("TextService")
 
@@ -378,10 +379,10 @@ function SearchBar:render()
 		}, {
 			Background =  Roact.createElement(SearchBarContentFit, {
 				BackgroundTransparency = 1,
-				Image = Constants.ROUNDED_BORDER_IMAGE,
+				Image = DEPRECATED_Constants.ROUNDED_BORDER_IMAGE,
 				ImageColor3 = borderColor,
 				ScaleType = Enum.ScaleType.Slice,
-				SliceCenter = Constants.ROUNDED_FRAME_SLICE,
+				SliceCenter = DEPRECATED_Constants.ROUNDED_FRAME_SLICE,
 
 				[Roact.Event.MouseEnter] = self.onContainerHovered,
 				[Roact.Event.MouseMoved] = self.onContainerHovered,

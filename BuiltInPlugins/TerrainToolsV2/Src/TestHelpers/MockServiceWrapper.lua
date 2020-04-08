@@ -24,10 +24,15 @@ local MockPlugin = require(TestHelpers.MockPlugin)
 local MockMouse = require(TestHelpers.MockMouse)
 local MockTerrain = require(TestHelpers.MockTerrain)
 
+local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
+local ToolId = TerrainEnums.ToolId
+
 local MockServiceWrapper = Roact.Component:extend("MockSkeletonEditorServiceWrapper")
 
 local terrain = MockTerrain.new()
 local mouse = MockMouse.new()
+
+local FFlagTerrainToolsTerrainBrushNotSingleton = game:GetFastFlag("TerrainToolsTerrainBrushNotSingleton")
 
 -- props.localization : (optional, UILibrary.Localization)
 -- props.plugin : (optional, plugin)
@@ -57,12 +62,16 @@ function MockServiceWrapper:render()
 		pluginActivationController = PluginActivationController.new(pluginInstance)
 	end
 
-	local terrainBrush = self.props.terrainBrush
-	if not terrainBrush then
-		terrainBrush = TerrainBrush.new({
-			terrain = terrain,
-			mouse = mouse
-		})
+	local terrainBrush
+	if not FFlagTerrainToolsTerrainBrushNotSingleton then
+		terrainBrush = self.props.terrainBrush
+		if not terrainBrush then
+			terrainBrush = TerrainBrush.new({
+				terrain = terrain,
+				mouse = mouse,
+				tool = ToolId.Add,
+			})
+		end
 	end
 
 	local terrainGeneration = self.props.terrainGeneration
@@ -101,6 +110,7 @@ function MockServiceWrapper:render()
 		theme = theme,
 		terrain = terrain,
 		pluginActivationController = pluginActivationController,
+		-- TODO: Remove terrainBrush when removing FFlagTerrainToolsTerrainBrushNotSingleton
 		terrainBrush = terrainBrush,
 		terrainGeneration = terrainGeneration,
 		terrainImporter = terrainImporter,

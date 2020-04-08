@@ -11,9 +11,9 @@
 --------------------------------------------------------------------------------------------------------]]
 
 return{
-	["CoreScripts.InGameMenu.LeaveGame"] = [[离开游戏]],
-	["CoreScripts.InGameMenu.ConfirmLeaveGame"] = [[如果你离开游戏，你将丢失所有未保存的进度。]],
-	["CoreScripts.InGameMenu.LeaveGameQuestion"] = [[离开游戏？]],
+	["CoreScripts.InGameMenu.LeaveGame"] = [[离开]],
+	["CoreScripts.InGameMenu.ConfirmLeaveGame"] = [[是否确定要离开？]],
+	["CoreScripts.InGameMenu.LeaveGameQuestion"] = [[要离开吗？]],
 	["CoreScripts.InGameMenu.Leave"] = [[离开]],
 	["CoreScripts.InGameMenu.RespawnCharacterDialogTitle"] = [[重置人物？]],
 	["CoreScripts.InGameMenu.RespawnCharacterDialogBody"] = [[你的人物将在重生点重置。]],
@@ -58,7 +58,7 @@ return{
 	["CoreScripts.InGameMenu.Controls.Playerlist"] = [[玩家名单]],
 	["CoreScripts.InGameMenu.Controls.Chat"] = [[聊天]],
 	["CoreScripts.InGameMenu.Controls.RespawnCharacter"] = [[重新生成角色]],
-	["CoreScripts.InGameMenu.Controls.LeaveGame"] = [[离开游戏]],
+	["CoreScripts.InGameMenu.Controls.LeaveGame"] = [[离开]],
 	["CoreScripts.InGameMenu.Controls.MiscellaneousTitle"] = [[其他]],
 	["CoreScripts.InGameMenu.Controls.Screenshot"] = [[屏幕截图]],
 	["CoreScripts.InGameMenu.Controls.DevConsole"] = [[开发人员控制台]],
@@ -119,5 +119,8 @@ return{
 	["CoreScripts.InGameMenu.GameSettings.PlaceVersionWithLatest"] = [[场景版本：{PLACE_VERSION}（最新版本：{LATEST_PLACE_VERSION}）]],
 	["CoreScripts.InGameMenu.Label.MicroProfiler"] = [[微观性能分析器]],
 	["CoreScripts.InGameMenu.InviteFriends.Loading"] = [[正在载入！]],
-	["CoreScripts.InGameMenu.RespawnCharacter"] = [[]],
+	["CoreScripts.InGameMenu.RespawnCharacter"] = [[重新生成角色]],
+	["CoreScripts.InGameMenu.GameSettings.CameraModeCameraToggle"] = [[]],
+	["CoreScripts.InGameMenu.Record.StartRecording"] = [[]],
+	["CoreScripts.InGameMenu.Record.Duration"] = [[]],
 }

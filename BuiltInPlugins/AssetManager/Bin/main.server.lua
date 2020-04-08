@@ -41,9 +41,9 @@ local MainView = require(Plugin.Src.Components.MainView)
 
 local SetBulkImporterRunning = require(Plugin.Src.Actions.SetBulkImporterRunning)
 
-local ASSET_MANAGER_META_NAME = "Asset Manager"
 local PLUGIN_NAME = "AssetManager"
-local TOOLBAR_NAME = "Assets"
+local TOOLBAR_NAME = "assetManagerToolbar"
+local TOOLBAR_BUTTON_NAME = "assetManagerToolButton"
 local DOCK_WIDGET_PLUGIN_NAME = "AssetManager_PluginGui"
 
 -- Plugin Specific Globals
@@ -117,12 +117,12 @@ end
 
 --Binds a toolbar button
 local function main()
-	plugin.Name = "Asset Manager"
+	plugin.Name = PLUGIN_NAME
 	local toolbar = plugin:CreateToolbar(TOOLBAR_NAME)
 	local toolbarButton = toolbar:CreateButton(
-		ASSET_MANAGER_META_NAME,
+		TOOLBAR_BUTTON_NAME,
 		localization:getText("Main", "Tooltip"),
-		"rbxasset://textures/TerrainTools/icon_terrain_big.png",
+		"rbxasset://textures/AssetManager/explorer.png",
 		localization:getText("Main", "ToolbarButton")
 	)
 

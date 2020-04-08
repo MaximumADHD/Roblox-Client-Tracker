@@ -13,94 +13,52 @@ return function()
 
 	local PlayerNameTag = require(script.Parent.PlayerNameTag)
 
-	local FFlagPlayerListDesignUpdate = settings():GetFFlag("PlayerListDesignUpdate")
+	it("should create and destroy without errors", function()
+		local layoutValues = CreateLayoutValues(false, false)
 
-	if FFlagPlayerListDesignUpdate then
-		it("should create and destroy without errors", function()
-			local layoutValues = CreateLayoutValues(false, false)
+		local element = Roact.createElement(LayoutValuesProvider, {
+			layoutValues = layoutValues
+		}, {
+			PlayerNameTag = Roact.createElement(PlayerNameTag, {
+				player = Players.LocalPlayer,
+				isTitleEntry = false,
+				isHovered = false,
+				layoutOrder = 2,
 
-			local element = Roact.createElement(LayoutValuesProvider, {
-				layoutValues = layoutValues
-			}, {
-				PlayerNameTag = Roact.createElement(PlayerNameTag, {
-					player = Players.LocalPlayer,
-					isTitleEntry = false,
-					isHovered = false,
-					layoutOrder = 2,
-
-					textStyle = {
-						Color = Color3.new(1, 1, 1),
-						Transparency = 1,
-					},
-					textFont = {
-						Size = 20,
-						Font = Enum.Font.Gotham,
-					},
-				})
+				textStyle = {
+					Color = Color3.new(1, 1, 1),
+					Transparency = 1,
+				},
+				textFont = {
+					Size = 20,
+					Font = Enum.Font.Gotham,
+				},
 			})
-			local instance = Roact.mount(element)
-			Roact.unmount(instance)
-		end)
+		})
+		local instance = Roact.mount(element)
+		Roact.unmount(instance)
+	end)
 
-		it("should create and destroy without errors tenfoot", function()
-			local layoutValues = CreateLayoutValues(true, false)
+	it("should create and destroy without errors tenfoot", function()
+		local layoutValues = CreateLayoutValues(true, false)
 
-			local element = Roact.createElement(LayoutValuesProvider, {
-				layoutValues = layoutValues
-			}, {
-				PlayerNameTag = Roact.createElement(PlayerNameTag, {
-					player = Players.LocalPlayer,
-					isTitleEntry = true,
-					isHovered = true,
-					layoutOrder = 1,
+		local element = Roact.createElement(LayoutValuesProvider, {
+			layoutValues = layoutValues
+		}, {
+			PlayerNameTag = Roact.createElement(PlayerNameTag, {
+				player = Players.LocalPlayer,
+				isTitleEntry = true,
+				isHovered = true,
+				layoutOrder = 1,
 
-					textStyle = layoutValues.DefaultTextStyle,
-					textFont = {
-						Size = 32,
-						Font = Enum.Font.Gotham,
-					},
-				})
+				textStyle = layoutValues.DefaultTextStyle,
+				textFont = {
+					Size = 32,
+					Font = Enum.Font.Gotham,
+				},
 			})
-			local instance = Roact.mount(element)
-			Roact.unmount(instance)
-		end)
-	else
-		it("should create and destroy without errors", function()
-			local layoutValues = CreateLayoutValues(false, false)
-
-			local element = Roact.createElement(LayoutValuesProvider, {
-				layoutValues = layoutValues
-			}, {
-				PlayerNameTag = Roact.createElement(PlayerNameTag, {
-					player = Players.LocalPlayer,
-					isTitleEntry = false,
-					isHovered = false,
-					layoutOrder = 2,
-
-					textStyle = layoutValues.TextStyle.Default,
-				})
-			})
-			local instance = Roact.mount(element)
-			Roact.unmount(instance)
-		end)
-
-		it("should create and destroy without errors tenfoot", function()
-			local layoutValues = CreateLayoutValues(true, false)
-
-			local element = Roact.createElement(LayoutValuesProvider, {
-				layoutValues = layoutValues
-			}, {
-				PlayerNameTag = Roact.createElement(PlayerNameTag, {
-					player = Players.LocalPlayer,
-					isTitleEntry = true,
-					isHovered = true,
-					layoutOrder = 1,
-
-					textStyle = layoutValues.TextStyle.Default,
-				})
-			})
-			local instance = Roact.mount(element)
-			Roact.unmount(instance)
-		end)
-	end
+		})
+		local instance = Roact.mount(element)
+		Roact.unmount(instance)
+	end)
 end

@@ -25,7 +25,7 @@ local DropDownAnimator = Roact.PureComponent:extend("DropDownAnimator")
 
 DropDownAnimator.validateProps = t.strictInterface({
 	text = t.string,
-	icon = t.string,
+	icon = t.union(t.string, t.table),
 	lastButton = t.boolean,
 	layoutOrder = t.integer,
 	onActivated = t.callback,

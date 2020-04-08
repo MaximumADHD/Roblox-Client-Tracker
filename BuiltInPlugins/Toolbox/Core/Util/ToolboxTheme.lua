@@ -227,6 +227,8 @@ function ToolboxTheme:_recalculateTheme()
 			assetIcon = {
 				buttonColor = isDark and Color3.fromRGB(178, 178, 178) or color(c.SubText),
 			},
+
+			progressBarColor = Colors.BLUE_PRIMARY,
 		},
 
 		infoBanner = {
@@ -399,6 +401,18 @@ function ToolboxTheme:_recalculateTheme()
 			imageSelectedColor = Colors.BLUE_PRIMARY,
 			border = color(c.Border),
 			separator = isDark and color(c.Border) or Color3.fromRGB(213, 213, 213),
+
+			audioSearch = {
+				textColor = color(c.MainText),
+			},
+
+			timeTextBox = {
+				borderColor = color(c.Border),
+				backgroundColor = color(c.InputFieldBackground),
+				selectedBorderColor = Colors.BLUE_PRIMARY,
+				textColor = color(c.MainText),
+				placeholderTextColor = color(c.DimmedText),
+			},
 
 			applyButton = {
 				textColor = Colors.WHITE,

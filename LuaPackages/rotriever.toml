@@ -3,20 +3,21 @@ name = "CorePackages"
 author = "Roblox"
 license = ""
 version = "0.1.0"
+proxy = "https://github.com/roblox/rotriever-proxy-index"
 
 [dependencies]
-Roact = "roblox/roact@1.2"
-Rodux = "roblox/rodux@1.0"
-RoactRodux = "roblox/roact-rodux@0.2"
-RoactNavigation = "roblox/roact-navigation@0.2"
-Cryo = "roblox/cryo@1.0"
+Roact = "github.com/roblox/roact@1.2"
+Rodux = "github.com/roblox/rodux@1.0"
+RoactRodux = "github.com/roblox/roact-rodux@0.2"
+RoactNavigation = "github.com/roblox/roact-navigation@0.2"
+Cryo = "github.com/roblox/cryo@1.0"
 LuaChatDeps = { git = "https://github.rbx.com/Roblox/lua-chat-deps" }
 LuaDiscussionsDeps = { git = "https://github.rbx.com/Roblox/lua-discussions-deps" }
 LuaSocialLibrariesDeps = { git = "https://github.rbx.com/Roblox/lua-social-libraries-deps" }
 UIBlox = { git = "https://github.rbx.com/Roblox/uiblox", rev = "master" }
-Otter = "roblox/otter@0.1"
-t = "osyris/t@1.0"
-enumerate = "roblox/enumerate@1.0.0"
+Otter = "github.com/roblox/otter@0.1"
+t = "github.com/roblox/t@1.0"
+enumerate = "github.com/roblox/enumerate@1.0.0"
 PolicyProvider = { git = "https://github.rbx.com/Roblox/lua-roact-policy-provider" }
 Lumberyak = { git = "https://github.rbx.com/Roblox/lumberyak" }
 
@@ -30,28 +31,24 @@ PurchasePrompt = { git = "https://github.com/Roblox/PurchasePromptScript-Roact",
 InGameMenuDependencies = { git = "https://github.rbx.com/Roblox/in-game-menu-dependencies", rev = "master" }
 
 [dev_dependencies]
-TestEZ = "roblox/testez@0.1.1"
+TestEZ = "github.com/roblox/testez@0.1.1"
 
 [patch."https://github.com/roblox/roact"]
-name = "roblox/roact"
+target = "github.com/roblox/roact"
 version = "1.2"
 
 [patch."https://github.com/roblox/cryo"]
-name = "roblox/cryo"
+target = "github.com/roblox/cryo"
 version = "1.0"
 
 [patch."https://github.com/roblox/t"]
-name = "osyris/t"
+target = "github.com/roblox/t"
 version = "1.0"
 
 [patch."https://github.com/roblox/rodux"]
-name = "roblox/rodux"
+target = "github.com/roblox/rodux"
 version = "1.0"
 
-[patch."https://github.com/roblox/roact-rodux"]
-name = "roblox/roact-rodux"
-version = "0.2"
-
 [patch."https://github.com/roblox/otter"]
-name = "roblox/otter"
+target = "github.com/roblox/otter"
 version = "0.1"

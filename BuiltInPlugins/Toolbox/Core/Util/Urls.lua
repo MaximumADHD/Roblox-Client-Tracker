@@ -85,8 +85,15 @@ local GET_ITEM_TAGS = Url.ITEM_CONFIGURATION_URL .. "v1/item-tags?"
 local ADD_ASSET_TAG = Url.ITEM_CONFIGURATION_URL .. "v1/item-tags"
 local DELETE_ITEM_TAG = Url.ITEM_CONFIGURATION_URL .. "v1/item-tags/%s"
 
+local GET_TOOLBOX_ITEMS = Url.APIS_URL .. "toolbox-service/v1/%s?"
+local GET_ITEM_DETAILS = Url.APIS_URL .. "toolbox-service/v1/items/details"
+
 local DEFAULT_ASSET_SIZE = 100
 local DEFAULT_SEARCH_ROWS = 3
+
+function Urls.constructPostGetItemDetails()
+	return GET_ITEM_DETAILS
+end
 
 function Urls.constructGetAssetsUrl(category, searchTerm, pageSize, page, sortType, groupId, creatorId)
 	return GET_ASSETS .. Url.makeQueryString({
@@ -100,6 +107,20 @@ function Urls.constructGetAssetsUrl(category, searchTerm, pageSize, page, sortTy
 	})
 end
 
+function Urls.constructGetToolboxItemsUrl(category, sortType, creatorType, minDuration, maxDuration, creatorTargetId,
+keyword, cursor, limit)
+	local targetUrl = string.format(GET_TOOLBOX_ITEMS, category)
+	return targetUrl .. Url.makeQueryString({
+		sortType = sortType,
+		creatorType = creatorType,
+		minDuration = minDuration,
+		maxDuration = maxDuration,
+		creatorTargetId = creatorTargetId,
+		keyword = keyword,
+		cursor = cursor,
+		limit = limit,
+	})
+end
 -- category, string, neccesary parameter.
 -- keyword, string, used for searching.
 -- sort, string, default to relevence.

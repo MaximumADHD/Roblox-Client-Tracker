@@ -14,7 +14,6 @@ local Modules = RobloxGui:WaitForChild("Modules")
 local StarterGui = game:GetService("StarterGui")
 local UserInputService = game:GetService("UserInputService")
 local GuiService = game:GetService("GuiService")
-local RunService = game:GetService("RunService")
 
 local Players = game:GetService("Players")
 
@@ -125,24 +124,21 @@ local function MakeSystemMessageQueueingFunction(data)
 end
 
 local function NonFunc() end
-if RunService:IsClient() and not RunService:IsServer() then
-	--Registering these during unit testing causes errors.
-	StarterGui:RegisterSetCore("ChatMakeSystemMessage", MakeSystemMessageQueueingFunction)
-	StarterGui:RegisterSetCore("ChatWindowPosition", NonFunc)
-	StarterGui:RegisterGetCore("ChatWindowPosition", NonFunc)
-	StarterGui:RegisterSetCore("ChatWindowSize", NonFunc)
-	StarterGui:RegisterGetCore("ChatWindowSize", NonFunc)
-	StarterGui:RegisterSetCore("ChatBarDisabled", NonFunc)
-	StarterGui:RegisterGetCore("ChatBarDisabled", NonFunc)
+StarterGui:RegisterSetCore("ChatMakeSystemMessage", MakeSystemMessageQueueingFunction)
+StarterGui:RegisterSetCore("ChatWindowPosition", NonFunc)
+StarterGui:RegisterGetCore("ChatWindowPosition", NonFunc)
+StarterGui:RegisterSetCore("ChatWindowSize", NonFunc)
+StarterGui:RegisterGetCore("ChatWindowSize", NonFunc)
+StarterGui:RegisterSetCore("ChatBarDisabled", NonFunc)
+StarterGui:RegisterGetCore("ChatBarDisabled", NonFunc)
 
 
-	StarterGui:RegisterGetCore("ChatActive", function()
-		return interface:GetVisibility()
-	end)
-	StarterGui:RegisterSetCore("ChatActive", function(visible)
-		return interface:SetVisible(visible)
-	end)
-end
+StarterGui:RegisterGetCore("ChatActive", function()
+	return interface:GetVisibility()
+end)
+StarterGui:RegisterSetCore("ChatActive", function(visible)
+	return interface:SetVisible(visible)
+end)
 
 
 local function ConnectSignals(useModule, interface, sigName)
@@ -169,10 +165,7 @@ if ( not isConsole and not isVR ) then
 
 		ConnectSignals(useModule, interface, "MessagesChanged")
 		-- Retained for legacy reasons, no longer used by the chat scripts.
-		if RunService:IsClient() and not RunService:IsServer() then
-				--Registering these during unit testing causes errors.
-			StarterGui:RegisterGetCore("UseNewLuaChat", function() return true end)
-		end
+		StarterGui:RegisterGetCore("UseNewLuaChat", function() return true end)
 
 		useModule:SetVisible(state.Visible)
 		StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Chat, StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.Chat))

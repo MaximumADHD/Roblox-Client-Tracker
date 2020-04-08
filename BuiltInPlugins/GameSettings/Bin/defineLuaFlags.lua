@@ -4,5 +4,6 @@
 
 game:DefineFastFlag("WorldAvatarLocalization", false)
 game:DefineFastFlag("AvatarSizeFixForReorganizeHeaders", false)
+game:DefineFastFlag("StudioLocalizationInGameSettingsEnabled", false)
 
 return nil

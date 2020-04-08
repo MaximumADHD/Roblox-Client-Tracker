@@ -362,22 +362,19 @@ local function CreateSettingsHub()
 		end
 	end
 
-	if RunService:IsClient() and not RunService:IsServer() then
-		--Registering these during unit testing causes errors.
-		StarterGui:RegisterSetCore("ResetButtonCallback", function(callback)
-			local isBindableEvent = typeof(callback) == "Instance" and callback:IsA("BindableEvent")
-			if isBindableEvent or type(callback) == "boolean" then
-				this.ResetCharacterPage:SetResetCallback(callback)
-			else
-				warn("ResetButtonCallback must be set to a BindableEvent or a boolean")
-			end
-			if callback == false then
-				setResetEnabled(false)
-			elseif not resetEnabled and (isBindableEvent or callback == true) then
-				setResetEnabled(true)
-			end
-		end)
-	end
+	StarterGui:RegisterSetCore("ResetButtonCallback", function(callback)
+		local isBindableEvent = typeof(callback) == "Instance" and callback:IsA("BindableEvent")
+		if isBindableEvent or type(callback) == "boolean" then
+			this.ResetCharacterPage:SetResetCallback(callback)
+		else
+			warn("ResetButtonCallback must be set to a BindableEvent or a boolean")
+		end
+		if callback == false then
+			setResetEnabled(false)
+		elseif not resetEnabled and (isBindableEvent or callback == true) then
+			setResetEnabled(true)
+		end
+	end)
 
 	local function createGui()
 		local PageViewSizeReducer = 0

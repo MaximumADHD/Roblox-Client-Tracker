@@ -10,9 +10,10 @@
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Rodux = require(Plugin.Rodux)
+local UILibrary = require(Plugin.UILibrary)
 
 local Theme = require(Plugin.Src.Util.Theme)
-local Localization = require(Plugin.UILibrary.Studio.Localization)
+local Localization = UILibrary.Studio.Localization
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 
 local MainProvider = require(Plugin.Src.Context.MainProvider)

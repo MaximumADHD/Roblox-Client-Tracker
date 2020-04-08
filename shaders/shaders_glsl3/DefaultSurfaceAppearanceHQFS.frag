@@ -14,7 +14,7 @@ struct Globals
     vec3 Lamp1Color;
     vec4 FogParams;
     vec4 FogColor_GlobalForceFieldTime;
-    vec3 Exposure;
+    vec4 Exposure_DoFDistance;
     vec4 LightConfig0;
     vec4 LightConfig1;
     vec4 LightConfig2;
@@ -141,12 +141,15 @@ void main()
     float f63 = f56.z;
     vec3 f64 = (mix(textureLod(PrefilteredEnvIndoorTexture, f30, f29).xyz * f20, textureLod(PrefilteredEnvTexture, f30, f29).xyz * mix(CB0[26].xyz, CB0[25].xyz, vec3(clamp(f28.y * 1.58823525905609130859375, 0.0, 1.0))), vec3(f21)) * f52) * f26;
     vec3 f65 = (((((((((f49 - (f44 * f48)) * CB0[10].xyz) * f37) + (CB0[12].xyz * (f47 * clamp(-f36, 0.0, 1.0)))) * f23) + (f53 * (((((((CB0[35].xyz * f58) + (CB0[37].xyz * f59)) + (CB0[39].xyz * f60)) + (CB0[36].xyz * f61)) + (CB0[38].xyz * f62)) + (CB0[40].xyz * f63)) + (((((((CB0[29].xyz * f58) + (CB0[31].xyz * f59)) + (CB0[33].xyz * f60)) + (CB0[30].xyz * f61)) + (CB0[32].xyz * f62)) + (CB0[34].xyz * f63)) * f21)))) + (CB0[27].xyz + (CB0[28].xyz * f21))) * f25) + ((((f44 * (((f45 + (f45 * f45)) / (((f46 * f46) * ((f40 * 3.0) + 0.5)) * ((f39 * 0.75) + 0.25))) * f37)) * CB0[10].xyz) * f23) + f64)) + (f20 * mix(f25, f64 * (1.0 / (max(max(f64.x, f64.y), f64.z) + 0.00999999977648258209228515625)), (vec3(1.0) - f53) * (f26 * (1.0 - f21))));
-    vec4 f66 = vec4(f65.x, f65.y, f65.z, vec4(0.0).w);
-    f66.w = f7.w;
-    vec2 f67 = min(VARYING0.wz, VARYING1.wz);
-    float f68 = min(f67.x, f67.y) / f0;
-    vec3 f69 = mix(CB0[14].xyz, (sqrt(clamp((f66.xyz * clamp((clamp((f0 * CB0[24].x) + CB0[24].y, 0.0, 1.0) * (1.5 - f68)) + f68, 0.0, 1.0)).xyz * CB0[15].y, vec3(0.0), vec3(1.0))) + vec3((-0.00048828125) + (0.0009765625 * fract(52.98291778564453125 * fract(dot(gl_FragCoord.xy, vec2(0.067110560834407806396484375, 0.005837149918079376220703125))))))).xyz, vec3(clamp((CB0[13].x * length(VARYING4.xyz)) + CB0[13].y, 0.0, 1.0)));
-    _entryPointOutput = vec4(f69.x, f69.y, f69.z, f66.w);
+    float f66 = f7.w;
+    vec4 f67 = vec4(f65.x, f65.y, f65.z, vec4(0.0).w);
+    f67.w = f66;
+    vec2 f68 = min(VARYING0.wz, VARYING1.wz);
+    float f69 = min(f68.x, f68.y) / f0;
+    vec3 f70 = mix(CB0[14].xyz, (sqrt(clamp((f67.xyz * clamp((clamp((f0 * CB0[24].x) + CB0[24].y, 0.0, 1.0) * (1.5 - f69)) + f69, 0.0, 1.0)).xyz * CB0[15].y, vec3(0.0), vec3(1.0))) + vec3((-0.00048828125) + (0.0009765625 * fract(52.98291778564453125 * fract(dot(gl_FragCoord.xy, vec2(0.067110560834407806396484375, 0.005837149918079376220703125))))))).xyz, vec3(clamp((CB0[13].x * length(VARYING4.xyz)) + CB0[13].y, 0.0, 1.0)));
+    vec4 f71 = vec4(f70.x, f70.y, f70.z, f67.w);
+    f71.w = f66;
+    _entryPointOutput = f71;
 }
 
 //$$ShadowMapTexture=s1

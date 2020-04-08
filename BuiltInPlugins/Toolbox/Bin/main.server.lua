@@ -5,9 +5,10 @@ end
 -- Fast flags
 require(script.Parent.defineLuaFlags)
 local FFlagEnableOverrideAssetCursorFix = game:GetFastFlag("EnableOverrideAssetCursorFix")
-local FFlagStudioToolboxEnabledDevFramework = game:DefineFastFlag("StudioToolboxEnabledDevFramework", false)
+local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
 local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 local FFlagAssetManagerLuaPlugin = game:GetFastFlag("AssetManagerLuaPlugin")
+local FFlagEnableAudioPreview = settings():GetFFlag("EnableAudioPreview")
 
 local Plugin = script.Parent.Parent
 local Libs = Plugin.Libs
@@ -36,6 +37,7 @@ local AssetConfigReducer = require(Plugin.Core.Reducers.AssetConfigReducer)
 local NetworkInterface = require(Plugin.Core.Networking.NetworkInterface)
 
 local AssetConfigWrapper = require(Plugin.Core.Components.AssetConfiguration.AssetConfigWrapper)
+local ToolboxServiceWrapper =  require(Plugin.Core.Components.ToolboxServiceWrapper)
 
 local GetRolesRequest = require(Plugin.Core.Networking.Requests.GetRolesRequest)
 
@@ -204,15 +206,28 @@ local function createAssetConfig(assetId, flowType, instances, assetTypeEnum)
 		onAssetConfigDestroy = onAssetConfigDestroy
 	})
 	if FFlagStudioToolboxEnabledDevFramework then
-		local assetConfigWithServices = ContextServices.provide({
-			ContextServices.Plugin.new(plugin),
-			localization2,
-			makeTheme(theme:getUILibraryTheme()),
-			ContextServices.Store.new(assetConfigStore),
-			SettingsContext.new(settings),
-		}, {
-			assetConfigComponent
-		})
+		local assetConfigWithServices
+		if FFlagEnableAudioPreview then
+			assetConfigWithServices = Roact.createElement(ToolboxServiceWrapper, {
+				localization = localization2,
+				plugin = plugin,
+				theme = theme,
+				store = assetConfigStore,
+				settings = settings,
+			}, {
+				assetConfigComponent
+			})
+		else
+			assetConfigWithServices = ContextServices.provide({
+				ContextServices.Plugin.new(plugin),
+				localization2,
+				makeTheme(theme:getUILibraryTheme()),
+				ContextServices.Store.new(assetConfigStore),
+				SettingsContext.new(settings),
+			}, {
+				assetConfigComponent
+			})
+		end
 		assetConfigHandle = Roact.mount(assetConfigWithServices)
 	else
 		assetConfigHandle = Roact.mount(assetConfigComponent)
@@ -263,15 +278,28 @@ local function main()
 		end,
 	})
 	if FFlagStudioToolboxEnabledDevFramework then
-		local toolboxWithServices = ContextServices.provide({
-			ContextServices.Plugin.new(plugin),
-			localization2,
-			makeTheme(theme:getUILibraryTheme()),
-			ContextServices.Store.new(toolboxStore),
-			SettingsContext.new(settings),
-		}, {
-			toolboxComponent
-		})
+		local toolboxWithServices
+		if FFlagEnableAudioPreview then
+			toolboxWithServices = Roact.createElement(ToolboxServiceWrapper, {
+				localization = localization2,
+				plugin = plugin,
+				theme = theme,
+				store = toolboxStore,
+				settings = settings,
+			}, {
+				toolboxComponent
+			})
+		else
+			toolboxWithServices = ContextServices.provide({
+				ContextServices.Plugin.new(plugin),
+				localization2,
+				makeTheme(theme:getUILibraryTheme()),
+				ContextServices.Store.new(toolboxStore),
+				SettingsContext.new(settings),
+			}, {
+				toolboxComponent
+			})
+		end
 		toolboxHandle = Roact.mount(toolboxWithServices)
 	else
 		toolboxHandle = Roact.mount(toolboxComponent)

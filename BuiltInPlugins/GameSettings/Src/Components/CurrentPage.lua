@@ -14,14 +14,15 @@ local FFlagGameSettingsReorganizeHeaders = settings():GetFFlag("GameSettingsReor
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
-local Constants = require(Plugin.Src.Util.Constants)
+local UILibrary = require(Plugin.UILibrary)
+local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 local Analytics = require(Plugin.Src.Util.Analytics)
 
 local Header = require(Plugin.Src.Components.Header)
 local SettingsPages = require(Plugin.Src.Components.SettingsPages.SettingsPages)
 local withLocalization = require(Plugin.Src.Consumers.withLocalization)
 
-local StyledScrollingFrame = require(Plugin.UILibrary.Components.StyledScrollingFrame)
+local StyledScrollingFrame = UILibrary.Component.StyledScrollingFrame
 
 local CurrentPage = Roact.PureComponent:extend("CurrentPage")
 
@@ -32,10 +33,10 @@ function CurrentPage:init()
 		if canvas then
 			local contentSize
 			if FFlagGameSettingsReorganizeHeaders then
-				contentSize = UDim2.new(1, 0, 0, newheight + Constants.ELEMENT_PADDING)
+				contentSize = UDim2.new(1, 0, 0, newheight + DEPRECATED_Constants.ELEMENT_PADDING)
 			else
 				contentSize = UDim2.new(1, 0, 0, newheight
-					+ Constants.ELEMENT_PADDING + Constants.HEADER_HEIGHT + Constants.ELEMENT_PADDING)
+					+ DEPRECATED_Constants.ELEMENT_PADDING + DEPRECATED_Constants.HEADER_HEIGHT + DEPRECATED_Constants.ELEMENT_PADDING)
 			end
 			canvas.CanvasSize = contentSize
 		end
@@ -67,8 +68,8 @@ function CurrentPage:render()
 		local page = SettingsPages[self.props.Page]
 
 		return Roact.createElement(StyledScrollingFrame, {
-			Position = UDim2.new(0, Constants.MENU_BAR_WIDTH, 0, 0),
-			Size = UDim2.new(1, -Constants.MENU_BAR_WIDTH, 1, -Constants.FOOTER_HEIGHT),
+			Position = UDim2.new(0, DEPRECATED_Constants.MENU_BAR_WIDTH, 0, 0),
+			Size = UDim2.new(1, -DEPRECATED_Constants.MENU_BAR_WIDTH, 1, -DEPRECATED_Constants.FOOTER_HEIGHT),
 
 			[Roact.Ref] = self.canvasRef,
 		}, {

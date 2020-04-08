@@ -14,6 +14,7 @@
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
+local UILibrary = require(Plugin.UILibrary)
 local Constants = require(Plugin.Src.Util.Constants)
 
 local ContextMenu = require(Plugin.Src.Components.ContextMenu)
@@ -22,7 +23,7 @@ local Tooltip = require(Plugin.Src.Components.Tooltip)
 local Theme = require(Plugin.Src.Context.Theme)
 local withTheme = Theme.withTheme
 
-local Localizing = require(Plugin.UILibrary.Localizing)
+local Localizing = UILibrary.Localizing
 local withLocalization = Localizing.withLocalization
 
 local Mouse = require(Plugin.Src.Context.Mouse)

@@ -12,7 +12,7 @@ local RoactRodux = require(Plugin.RoactRodux)
 
 local withTheme = require(Plugin.Src.Consumers.withTheme)
 local withLocalization = require(Plugin.Src.Consumers.withLocalization)
-local Constants = require(Plugin.Src.Util.Constants)
+local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 local MenuEntry = require(Plugin.Src.Components.MenuEntry)
 
 local errorsFromPage = {
@@ -97,7 +97,7 @@ local function MenuBar(props)
 			end
 
 			return Roact.createElement("Frame", {
-				Size = UDim2.new(0, Constants.MENU_BAR_WIDTH, 1, 0),
+				Size = UDim2.new(0, DEPRECATED_Constants.MENU_BAR_WIDTH, 1, 0),
 				BackgroundColor3 = theme.menuBar.backgroundColor,
 				BorderSizePixel = 0,
 			}, menuEntries)

@@ -10,14 +10,14 @@
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
+local UILibrary = require(Plugin.UILibrary)
 
-local Localizing = require(Plugin.UILibrary.Localizing)
+local Localizing = UILibrary.Localizing
 local withLocalization = Localizing.withLocalization
 
 local Theme = require(Plugin.Src.Context.Theme)
 local withTheme = Theme.withTheme
 
-local UILibrary = require(Plugin.UILibrary)
 local CaptureFocus = UILibrary.Focus.CaptureFocus
 
 local InactiveCover = Roact.PureComponent:extend("InactiveCover")

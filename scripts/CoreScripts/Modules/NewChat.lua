@@ -3,13 +3,22 @@
 	// Written by: Xsitsu
 	// Description: Bridges the topbar in corescripts to any chat system running in the non-corescripts environment.
 ]]
+
+local FFlagUserHandleChatHotKeyWithContextActionService = false do
+	local ok, value = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserHandleChatHotKeyWithContextActionService")
+	end)
+	if ok then
+		FFlagUserHandleChatHotKeyWithContextActionService = value
+	end
+end
+
 local CoreGuiService = game:GetService("CoreGui")
 local RobloxGui = CoreGuiService:WaitForChild("RobloxGui")
 
 local StarterGui = game:GetService("StarterGui")
 local GuiService = game:GetService("GuiService")
 local PlayersService = game:GetService("Players")
-local RunService = game:GetService("RunService")
 
 local ChatTypesSet = false
 local ClassicChatEnabled = PlayersService.ClassicChat
@@ -57,15 +66,12 @@ do
 		end
 
 		local function DoConnectGetCore(connectionName)
-			if RunService:IsClient() and not RunService:IsServer() then
-				--Registering these during unit testing causes errors.
-				StarterGui:RegisterGetCore(connectionName, function(data)
-					local func = FindInCollectionByKeyAndType(communicationsConnections.GetCore, connectionName, "BindableFunction")
-					local rVal = nil
-					if (func) then rVal = func:Invoke(data) end
-					return rVal
-				end)
-			end
+			StarterGui:RegisterGetCore(connectionName, function(data)
+				local func = FindInCollectionByKeyAndType(communicationsConnections.GetCore, connectionName, "BindableFunction")
+				local rVal = nil
+				if (func) then rVal = func:Invoke(data) end
+				return rVal
+			end)
 		end
 
 		function moduleApiTable:ToggleVisibility()
@@ -174,26 +180,25 @@ do
 			end
 		end)
 
-		GuiService:AddSpecialKey(Enum.SpecialKey.ChatHotkey)
-		GuiService.SpecialKeyPressed:connect(function(key, modifiers)
-			DispatchEvent("SpecialKeyPressed", key, modifiers)
-		end)
+        if not FFlagUserHandleChatHotKeyWithContextActionService then    
+            GuiService:AddSpecialKey(Enum.SpecialKey.ChatHotkey)
+            GuiService.SpecialKeyPressed:connect(function(key, modifiers)
+                DispatchEvent("SpecialKeyPressed", key, modifiers)
+            end)
+        end
 
 		function DoConnectSetCore(setCoreName)
-			if RunService:IsClient() and not RunService:IsServer() then
-				--Registering these during unit testing causes errors.
-				StarterGui:RegisterSetCore(setCoreName, function(data)
-					local event = FindInCollectionByKeyAndType(communicationsConnections.SetCore, setCoreName, "BindableEvent")
-					if (event) then
-						event:Fire(data)
-					else
-						if SetCoreCache[setCoreName] == nil then
-							SetCoreCache[setCoreName] = {}
-						end
-						table.insert(SetCoreCache[setCoreName], data)
+			StarterGui:RegisterSetCore(setCoreName, function(data)
+				local event = FindInCollectionByKeyAndType(communicationsConnections.SetCore, setCoreName, "BindableEvent")
+				if (event) then
+					event:Fire(data)
+				else
+					if SetCoreCache[setCoreName] == nil then
+						SetCoreCache[setCoreName] = {}
 					end
-				end)
-			end
+					table.insert(SetCoreCache[setCoreName], data)
+				end
+			end)
 		end
 
 		DoConnectSetCore("ChatMakeSystemMessage")
@@ -229,8 +234,10 @@ do
 					communicationsConnections.ChatWindow.EnterWhisperState = FindInCollectionByKeyAndType(chatWindowCollection, "EnterWhisperState", "BindableEvent")
 					communicationsConnections.ChatWindow.TopbarEnabledChanged = FindInCollectionByKeyAndType(chatWindowCollection, "TopbarEnabledChanged", "BindableEvent")
 					communicationsConnections.ChatWindow.IsFocused = FindInCollectionByKeyAndType(chatWindowCollection, "IsFocused", "BindableFunction")
-					communicationsConnections.ChatWindow.SpecialKeyPressed = FindInCollectionByKeyAndType(chatWindowCollection, "SpecialKeyPressed", "BindableEvent")
-
+                    if not FFlagUserHandleChatHotKeyWithContextActionService then    
+                        -- TODO: remove this connector when FFlagUserHandleChatHotKeyWithContextActionService is removed
+                        communicationsConnections.ChatWindow.SpecialKeyPressed = FindInCollectionByKeyAndType(chatWindowCollection, "SpecialKeyPressed", "BindableEvent")
+                    end
 
 					local function DoConnect(index)
 						communicationsConnections.ChatWindow[index] = FindInCollectionByKeyAndType(chatWindowCollection, index, "BindableEvent")
@@ -299,10 +306,7 @@ do
 			end
 		end
 
-		if RunService:IsClient() and not RunService:IsServer() then
-			--Registering these during unit testing causes errors.
-			StarterGui:RegisterSetCore("CoreGuiChatConnections", RegisterCoreGuiConnections)
-		end
+		StarterGui:RegisterSetCore("CoreGuiChatConnections", RegisterCoreGuiConnections)
 end
 
 return moduleApiTable

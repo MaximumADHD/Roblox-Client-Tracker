@@ -11,10 +11,10 @@
 --------------------------------------------------------------------------------------------------------]]
 
 return{
-	["CoreScripts.InGameMenu.LeaveGame"] = [[게임 종료]],
-	["CoreScripts.InGameMenu.ConfirmLeaveGame"] = [[게임을 종료하면 저장하지 않은 항목이 모두 사라집니다.]],
-	["CoreScripts.InGameMenu.LeaveGameQuestion"] = [[종료할까요?]],
-	["CoreScripts.InGameMenu.Leave"] = [[게임 종료]],
+	["CoreScripts.InGameMenu.LeaveGame"] = [[나가기]],
+	["CoreScripts.InGameMenu.ConfirmLeaveGame"] = [[정말로 나갈까요?]],
+	["CoreScripts.InGameMenu.LeaveGameQuestion"] = [[나갈까요?]],
+	["CoreScripts.InGameMenu.Leave"] = [[종료하기]],
 	["CoreScripts.InGameMenu.RespawnCharacterDialogTitle"] = [[캐릭터를 리스폰할까요?]],
 	["CoreScripts.InGameMenu.RespawnCharacterDialogBody"] = [[캐릭터가 스폰 지점에서 리스폰됩니다.]],
 	["CoreScripts.InGameMenu.RespawnCharacterDialogConfirm"] = [[리스폰]],
@@ -58,9 +58,9 @@ return{
 	["CoreScripts.InGameMenu.Controls.Playerlist"] = [[플레이어 목록]],
 	["CoreScripts.InGameMenu.Controls.Chat"] = [[채팅]],
 	["CoreScripts.InGameMenu.Controls.RespawnCharacter"] = [[캐릭터 리스폰]],
-	["CoreScripts.InGameMenu.Controls.LeaveGame"] = [[게임 종료]],
+	["CoreScripts.InGameMenu.Controls.LeaveGame"] = [[나가기]],
 	["CoreScripts.InGameMenu.Controls.MiscellaneousTitle"] = [[기타]],
-	["CoreScripts.InGameMenu.Controls.Screenshot"] = [[스크린샷]],
+	["CoreScripts.InGameMenu.Controls.Screenshot"] = [[스크린숏]],
 	["CoreScripts.InGameMenu.Controls.DevConsole"] = [[개발자 콘솔]],
 	["CoreScripts.InGameMenu.Controls.GraphicsLevelUp"] = [[그래픽 레벨 높이기]],
 	["CoreScripts.InGameMenu.Controls.GraphicsLevelDown"] = [[그래픽 레벨 낮추기]],
@@ -120,4 +120,5 @@ return{
 	["CoreScripts.InGameMenu.Label.MicroProfiler"] = [[마이크로 프로파일러]],
 	["CoreScripts.InGameMenu.InviteFriends.Loading"] = [[불러오는 중!]],
 	["CoreScripts.InGameMenu.RespawnCharacter"] = [[캐릭터 리스폰]],
+	["CoreScripts.InGameMenu.GameSettings.CameraModeCameraToggle"] = [[카메라 전환]],
 }

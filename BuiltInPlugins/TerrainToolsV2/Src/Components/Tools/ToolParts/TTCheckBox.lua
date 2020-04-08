@@ -3,9 +3,9 @@
 ]]
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
+local UILibrary = require(Plugin.Packages.UILibrary)
 
-local UILibrary = Plugin.Packages.UILibrary
-local CheckBox = require(UILibrary.Components.CheckBox)
+local CheckBox = UILibrary.Component.CheckBox
 
 local TTCheckBox = Roact.PureComponent:extend(script.Name)
 

@@ -4,7 +4,6 @@ local CorePackages = game:GetService("CorePackages")
 local UIBlox = require(CorePackages.UIBlox)
 local Images = UIBlox.App.ImageSet.Images
 
-local FFlagPlayerListDesignUpdate = settings():GetFFlag("PlayerListDesignUpdate")
 local FFlagPlayerListUseUIBloxIcons = require(CoreGui.RobloxGui.Modules.Flags.FFlagPlayerListUseUIBloxIcons)
 
 local SCREEN_SIDE_PADDING = 4
@@ -59,185 +58,80 @@ return function(isTenFoot, isSmallTouchScreen)
 			Selected = nil,
 		}
 
-		if FFlagPlayerListDesignUpdate then
-			LayoutValues.TeamEntryBackgroundTransparency = 0.25
-		end
+		LayoutValues.TeamEntryBackgroundTransparency = 0.25
 
-		if FFlagPlayerListDesignUpdate then
-			LayoutValues.DefaultTextStyle = {
-				Color = Color3.fromRGB(255, 255, 243),
-				Transparency = 0,
-				StrokeTransparency = 0.75,
-				StrokeColor = Color3.fromRGB(34, 34, 34),
-			}
-			LayoutValues.HoveredTextStyle = {
-				Color = Color3.fromRGB(19, 19, 19),
-				Transparency = 0,
-				StrokeTransparency = 0.75,
-				StrokeColor = Color3.fromRGB(34, 34, 34),
-			}
-		else
-			LayoutValues.TextStyle = {
-				Default = {
-					Color = Color3.fromRGB(255, 255, 243),
-					StrokeTransparency = 0.75,
-					StrokeColor = Color3.fromRGB(34, 34, 34),
-				},
-				Selected = nil,
-				Hovered = {
-					Color = Color3.fromRGB(19, 19, 19),
-					StrokeTransparency = 0.75,
-					StrokeColor = Color3.fromRGB(34, 34, 34),
-				},
-				LocalPlayer = nil,
-				LocalPlayerSelected = nil
-			}
-		end
+		LayoutValues.DefaultTextStyle = {
+			Color = Color3.fromRGB(255, 255, 243),
+			Transparency = 0,
+			StrokeTransparency = 0.75,
+			StrokeColor = Color3.fromRGB(34, 34, 34),
+		}
+		LayoutValues.HoveredTextStyle = {
+			Color = Color3.fromRGB(19, 19, 19),
+			Transparency = 0,
+			StrokeTransparency = 0.75,
+			StrokeColor = Color3.fromRGB(34, 34, 34),
+		}
 
 		LayoutValues.PlayerIconSize = UDim2.new(0, 64, 0, 64)
 		LayoutValues.InitalPlayerEntryPadding = 18
 		LayoutValues.PlayerEntryPadding = 8
-		if FFlagPlayerListDesignUpdate then
-			LayoutValues.TeamEntryTextPadding = 5
-			LayoutValues.StatTextPadding =0
-		end
+		LayoutValues.TeamEntryTextPadding = 5
+		LayoutValues.StatTextPadding =0
 
 		LayoutValues.PlayerNameSize = UDim2.new(1, -88, 1, 0)
 		LayoutValues.PlayerNameTextSize = 32
 		LayoutValues.StatTextSize = 32
 
-		if FFlagPlayerListDesignUpdate then
-			LayoutValues.ScrollImageColor = Color3.fromRGB(31, 31, 31)
-			LayoutValues.ScrollImageTransparency = 0.5
-		end
+		LayoutValues.ScrollImageColor = Color3.fromRGB(31, 31, 31)
+		LayoutValues.ScrollImageTransparency = 0.5
 	else
-		if FFlagPlayerListDesignUpdate then
-			LayoutValues.ContainerPadding = SCREEN_SIDE_PADDING
-			LayoutValues.ContainerPosition = UDim2.new(1, -SCREEN_SIDE_PADDING, 0, SCREEN_SIDE_PADDING)
-			LayoutValues.ContainerSize = UDim2.new(0, 0, 0.5, 0)
-			LayoutValues.ExtraContainerPadding = 16
-		else
-			LayoutValues.ContainerPosition = UDim2.new(1, 0, 0, 2)
-			LayoutValues.ContainerSize = UDim2.new(0, 170, 0.5, 0)
-		end
+		LayoutValues.ContainerPadding = SCREEN_SIDE_PADDING
+		LayoutValues.ContainerPosition = UDim2.new(1, -SCREEN_SIDE_PADDING, 0, SCREEN_SIDE_PADDING)
+		LayoutValues.ContainerSize = UDim2.new(0, 0, 0.5, 0)
+		LayoutValues.ExtraContainerPadding = 16
 		LayoutValues.AnchorPoint = Vector2.new(1, 0)
 
-		if FFlagPlayerListDesignUpdate then
-			LayoutValues.PlayerDropDownSizeX = 300
-		else
-			LayoutValues.PlayerDropDownSizeX = 150
-		end
+		LayoutValues.PlayerDropDownSizeX = 300
 		LayoutValues.PlayerDropDownOffset = 4
 
 		LayoutValues.PlayerScrollListPosition = UDim2.new(0, 0, 0, 0)
 		LayoutValues.PlayerScrollListSize = UDim2.new(1, -1, 1, 0)
 
-		if FFlagPlayerListDesignUpdate then
-			LayoutValues.EntryBaseSizeX = 150
-			LayoutValues.EntrySizeIncreasePerStat = 11
-			LayoutValues.PlayerEntrySizeY = 40
-			LayoutValues.EntryPadding = 0
-			LayoutValues.TeamEntrySizeY = 24
-			LayoutValues.StatEntrySizeX = 66
-			LayoutValues.TitleBarSizeY = 20
-		else
-			LayoutValues.EntrySizeX = 170
-			LayoutValues.PlayerEntrySizeY = 24
-			LayoutValues.EntryPadding = 2
-			LayoutValues.TeamEntrySizeY = 18
-			LayoutValues.StatEntrySizeX = 75
-		end
+		LayoutValues.EntryBaseSizeX = 150
+		LayoutValues.EntrySizeIncreasePerStat = 11
+		LayoutValues.PlayerEntrySizeY = 40
+		LayoutValues.EntryPadding = 0
+		LayoutValues.TeamEntrySizeY = 24
+		LayoutValues.StatEntrySizeX = 66
+		LayoutValues.TitleBarSizeY = 20
 		LayoutValues.EntryXOffset = 0
 
-		if FFlagPlayerListDesignUpdate then
-			LayoutValues.TeamEntryBackgroundTransparency = 0.5
-			LayoutValues.IconButtonBackgroundTransparency = 0.3
-			LayoutValues.DropDownHeaderBackgroundTransparency = 0.1
-			LayoutValues.OverrideBackgroundTransparency = 0.3
-		else
-			LayoutValues.BackgroundStyle = {
-				Default = {
-					Color = Color3.fromRGB(31, 31, 31),
-					Transparency = 0.5,
-				},
-				Hovered = {
-					Color = Color3.fromRGB(49, 49, 49),
-					Transparency = 0.25,
-				},
-				HoveredTitle = nil,
-				Title = {
-					Color = Color3.fromRGB(106, 106, 106),
-					Transparency = 0,
-				},
-				Selected = {
-					Color = Color3.fromRGB(255, 255, 255),
-					Transparency = 0.25,
-				},
-			}
-		end
-
-		if not FFlagPlayerListDesignUpdate then
-			LayoutValues.TextStyle = {
-				Default = {
-					Color = Color3.fromRGB(255, 255, 243),
-					StrokeTransparency = 0.75,
-					StrokeColor = Color3.fromRGB(34, 34, 34),
-				},
-				Selected = {
-					Color = Color3.fromRGB(0, 0, 0),
-					StrokeTransparency = 1,
-					StrokeColor = Color3.fromRGB(255, 255, 243),
-				},
-				Hovered = nil,
-				LocalPlayer = {
-					Color = Color3.fromRGB(255, 213, 0),
-					StrokeTransparency = 1,
-					StrokeColor = Color3.fromRGB(0, 0, 0),
-				},
-				LocalPlayerSelected = {
-					Color = Color3.fromRGB(164, 137, 0),
-					StrokeTransparency = 1,
-					StrokeColor = Color3.fromRGB(0, 0, 0),
-				}
-			}
-		end
+		LayoutValues.TeamEntryBackgroundTransparency = 0.5
+		LayoutValues.IconButtonBackgroundTransparency = 0.3
+		LayoutValues.DropDownHeaderBackgroundTransparency = 0.1
+		LayoutValues.OverrideBackgroundTransparency = 0.3
 
 		LayoutValues.PlayerIconSize = UDim2.new(0, 16, 0, 16)
-		if FFlagPlayerListDesignUpdate then
-			LayoutValues.InitalPlayerEntryPadding = 12
-			LayoutValues.PlayerEntryPadding = 12
-			LayoutValues.TeamEntryTextPadding = 15
-			LayoutValues.StatTextPadding = 4
-		else
-			LayoutValues.InitalPlayerEntryPadding = 4
-			LayoutValues.PlayerEntryPadding = 4
-		end
+		LayoutValues.InitalPlayerEntryPadding = 12
+		LayoutValues.PlayerEntryPadding = 12
+		LayoutValues.TeamEntryTextPadding = 15
+		LayoutValues.StatTextPadding = 4
 
-		if FFlagPlayerListDesignUpdate then
-			LayoutValues.PlayerNameSize = UDim2.new(1, -34, 1, 0)
-		else
-			LayoutValues.PlayerNameSize = UDim2.new(1, -36, 1, 0)
-		end
+		LayoutValues.PlayerNameSize = UDim2.new(1, -34, 1, 0)
 		LayoutValues.PlayerNameTextSize = 14
 		LayoutValues.StatTextSize = 14
 
-		if FFlagPlayerListDesignUpdate then
-			LayoutValues.ScrollImageColor = Color3.fromRGB(216, 216, 216)
-			LayoutValues.ScrollImageTransparency = 0.5
-			LayoutValues.ScrollBarOffset = 4
-			LayoutValues.ScrollBarSize = 8
-		end
+		LayoutValues.ScrollImageColor = Color3.fromRGB(216, 216, 216)
+		LayoutValues.ScrollImageTransparency = 0.5
+		LayoutValues.ScrollBarOffset = 4
+		LayoutValues.ScrollBarSize = 8
 	end
 
 	if isSmallTouchScreen then
 		LayoutValues.MaxLeaderstats = 1
 	else
 		LayoutValues.MaxLeaderstats = 4
-	end
-
-	if not FFlagPlayerListDesignUpdate then
-		LayoutValues.ScrollImageColor = Color3.fromRGB(31, 31, 31)
-		LayoutValues.ScrollImageTransparency = 0.5
 	end
 
 	LayoutValues.PlayerEntryFont = Enum.Font.SourceSans
@@ -282,23 +176,15 @@ return function(isTenFoot, isSmallTouchScreen)
 		}
 	end
 
-	if FFlagPlayerListDesignUpdate then
-		if FFlagPlayerListUseUIBloxIcons then
-			LayoutValues.FollowingIcon = Images["icons/status/player/following"]
-		else
-			LayoutValues.FollowingIcon = "rbxasset://textures/ui/PlayerList/NewFollowing.png"
-		end
+	if FFlagPlayerListUseUIBloxIcons then
+		LayoutValues.FollowingIcon = Images["icons/status/player/following"]
 	else
-		LayoutValues.FollowingIcon = "rbxasset://textures/ui/icon_following-16.png"
+		LayoutValues.FollowingIcon = "rbxasset://textures/ui/PlayerList/NewFollowing.png"
 	end
-	if FFlagPlayerListDesignUpdate then
-		if FFlagPlayerListUseUIBloxIcons then
-			LayoutValues.PlaceOwnerIcon = Images["icons/status/player/developer"]
-		else
-			LayoutValues.PlaceOwnerIcon = "rbxasset://textures/ui/PlayerList/developer.png"
-		end
+	if FFlagPlayerListUseUIBloxIcons then
+		LayoutValues.PlaceOwnerIcon = Images["icons/status/player/developer"]
 	else
-		LayoutValues.PlaceOwnerIcon = "rbxasset://textures/ui/icon_placeowner.png"
+		LayoutValues.PlaceOwnerIcon = "rbxasset://textures/ui/PlayerList/developer.png"
 	end
 
 	local premiumIcon
@@ -323,20 +209,14 @@ return function(isTenFoot, isSmallTouchScreen)
 	LayoutValues.NeutralTeamColor = BrickColor.new("White")
 	LayoutValues.NeutralTeamName = "Neutral"
 
-	if FFlagPlayerListDesignUpdate then
-		LayoutValues.DropDownButtonSizeY = 56
-		LayoutValues.DropDownButtonPadding = 0
-		LayoutValues.DropDownPadding = 10
-		LayoutValues.DropDownRightOptionSize = 55
-		LayoutValues.DropDownIconSize = 36
-		LayoutValues.DropDownHeaderSizeY = 80
-		LayoutValues.DropDownHeaderBackgroundSize = 65
-		LayoutValues.DropDownScreenSidePadding = SCREEN_SIDE_PADDING
-	else
-		LayoutValues.DropDownButtonSizeY = 24
-		LayoutValues.DropDownButtonPadding = 2
-		LayoutValues.DropDownTextPadding = 12
-	end
+	LayoutValues.DropDownButtonSizeY = 56
+	LayoutValues.DropDownButtonPadding = 0
+	LayoutValues.DropDownPadding = 10
+	LayoutValues.DropDownRightOptionSize = 55
+	LayoutValues.DropDownIconSize = 36
+	LayoutValues.DropDownHeaderSizeY = 80
+	LayoutValues.DropDownHeaderBackgroundSize = 65
+	LayoutValues.DropDownScreenSidePadding = SCREEN_SIDE_PADDING
 
 	LayoutValues.VoiceChatShieldColor = Color3.fromRGB(41, 41, 41)
 	LayoutValues.VoiceChatShieldTransparency = 0.2

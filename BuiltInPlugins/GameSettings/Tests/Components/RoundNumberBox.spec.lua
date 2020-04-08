@@ -2,7 +2,7 @@ return function()
 	SKIP()
 	
 	local Plugin = script.Parent.Parent.Parent
-	local Constants = require(Plugin.Src.Util.Constants)
+	local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 	local Roact = require(Plugin.Roact)
 
 	local Theme = require(Plugin.Src.Util.Theme)
@@ -49,6 +49,6 @@ return function()
 
 		instance.Border.Text.Text.Text = "This is not a number."
 
-		expect(instance.Border.ImageColor3).to.equal(Constants.ERROR_COLOR)
+		expect(instance.Border.ImageColor3).to.equal(DEPRECATED_Constants.ERROR_COLOR)
 	end)
 end

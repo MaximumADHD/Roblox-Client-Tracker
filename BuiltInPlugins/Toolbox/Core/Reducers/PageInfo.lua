@@ -72,6 +72,7 @@ local function warnIfUpdatePageInfoChangesInvalid(state, changes)
 end
 
 return Rodux.createReducer({
+	audioSearchInfo = nil,
 	categories = defaultCategories,
 	categoryIndex = 1,
 

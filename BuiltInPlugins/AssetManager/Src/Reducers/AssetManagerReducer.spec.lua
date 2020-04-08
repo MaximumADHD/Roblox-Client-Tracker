@@ -9,6 +9,7 @@ local SetAssetOwnerName = require(Plugin.Src.Actions.SetAssetOwnerName)
 local SetAssetPreviewData = require(Plugin.Src.Actions.SetAssetPreviewData)
 local SetBulkImporterRunning = require(Plugin.Src.Actions.SetBulkImporterRunning)
 local SetEditingAssets = require(Plugin.Src.Actions.SetEditingAssets)
+local SetHasLinkedScripts = require(Plugin.Src.Actions.SetHasLinkedScripts)
 local SetIsFetchingAssets = require(Plugin.Src.Actions.SetIsFetchingAssets)
 local SetRootTreeViewInstance = require(Plugin.Src.Actions.SetRootTreeViewInstance)
 local SetSearchTerm = require(Plugin.Src.Actions.SetSearchTerm)
@@ -452,6 +453,44 @@ return function()
 
 			state = AssetManagerReducer(state, SetRootTreeViewInstance(assetId, Instance.new("Model")))
 			expect(typeof(state.assetsTable.assetPreviewData[assetId].rootTreeViewInstance)).to.equal("Instance")
+		end)
+	end)
+
+	describe("SetHasLinkedScripts", function()
+		it("should validate its inputs", function()
+			expect(function()
+				SetHasLinkedScripts(nil)
+			end).to.throw()
+
+			expect(function()
+				SetHasLinkedScripts(true)
+			end).to.be.ok()
+
+			expect(function()
+				SetHasLinkedScripts(123)
+			end).to.be.throw()
+
+			expect(function()
+				SetHasLinkedScripts("string")
+			end).to.throw()
+
+			expect(function()
+				SetHasLinkedScripts({ key = "value"})
+			end).to.throw()
+		end)
+
+		it("should preserve immutability", function()
+			local immutabilityPreserved = testImmutability(AssetManagerReducer, SetHasLinkedScripts(true))
+			expect(immutabilityPreserved).to.equal(true)
+		end)
+
+		it("should set the hasLinkedScripts in the store", function()
+			local r = Rodux.Store.new(AssetManagerReducer)
+			local state = r:getState()
+
+			expect(state.hasLinkedScripts).to.equal(false)
+			state = AssetManagerReducer(state, SetHasLinkedScripts(true))
+			expect(state.hasLinkedScripts).to.equal(true)
 		end)
 	end)
 end

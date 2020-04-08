@@ -20,7 +20,7 @@ local Plugin = script.Parent.Parent.Parent
 local showDialog = require(Plugin.Src.Consumers.showDialog)
 local SimpleDialog = require(Plugin.Src.Components.Dialog.SimpleDialog)
 local ListDialog = require(Plugin.Src.Components.Dialog.ListDialog)
-local Constants = require(Plugin.Src.Util.Constants)
+local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 local getLocalizedContent = require(Plugin.Src.Consumers.getLocalizedContent)
 
 local FileUtils = {}
@@ -56,7 +56,7 @@ end
 
 function FileUtils.PromptForGameIcon(page)
 	local localized = getLocalizedContent(page)
-	local icon = StudioService:PromptImportFile(Constants.IMAGE_TYPES)
+	local icon = StudioService:PromptImportFile(DEPRECATED_Constants.IMAGE_TYPES)
 
 	if icon then
 		if icon.Size > DFIntFileMaxSizeBytes then
@@ -69,7 +69,7 @@ end
 
 function FileUtils.PromptForThumbnails(page)
 	local localized = getLocalizedContent(page)
-	local thumbnails = StudioService:PromptImportFiles(Constants.IMAGE_TYPES)
+	local thumbnails = StudioService:PromptImportFiles(DEPRECATED_Constants.IMAGE_TYPES)
 
 	local rejectedThumbnailNames = {}
 	local acceptedThumbnails = {}

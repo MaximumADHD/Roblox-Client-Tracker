@@ -14,7 +14,7 @@ struct Globals
     vec3 Lamp1Color;
     vec4 FogParams;
     vec4 FogColor_GlobalForceFieldTime;
-    vec3 Exposure;
+    vec4 Exposure_DoFDistance;
     vec4 LightConfig0;
     vec4 LightConfig1;
     vec4 LightConfig2;
@@ -111,12 +111,15 @@ void main()
     float f37 = (((f30 * f36) - f30) * f30) + 1.0;
     float f38 = 1.0 - f25;
     vec3 f39 = ((((((vec3(f38) - (f35 * (f23 * f38))) * CB0[10].xyz) * f28) * f21) + min((f18.xyz * (f18.w * 120.0)).xyz + (CB0[8].xyz + (CB0[9].xyz * f19.x)), vec3(CB0[16].w))) * f22) + (((f35 * (((f36 + (f36 * f36)) / (((f37 * f37) * ((f31 * 3.0) + 0.5)) * ((f30 * 0.75) + 0.25))) * f28)) * CB0[10].xyz) * f21);
-    vec4 f40 = vec4(f39.x, f39.y, f39.z, vec4(0.0).w);
-    f40.w = f7.w;
-    vec2 f41 = min(VARYING0.wz, VARYING1.wz);
-    float f42 = min(f41.x, f41.y) / f0;
-    vec3 f43 = mix(CB0[14].xyz, (sqrt(clamp((f40.xyz * clamp((clamp((f0 * CB0[24].x) + CB0[24].y, 0.0, 1.0) * (1.5 - f42)) + f42, 0.0, 1.0)).xyz * CB0[15].y, vec3(0.0), vec3(1.0))) + vec3((-0.00048828125) + (0.0009765625 * fract(52.98291778564453125 * fract(dot(gl_FragCoord.xy, vec2(0.067110560834407806396484375, 0.005837149918079376220703125))))))).xyz, vec3(clamp((CB0[13].x * length(VARYING4.xyz)) + CB0[13].y, 0.0, 1.0)));
-    gl_FragData[0] = vec4(f43.x, f43.y, f43.z, f40.w);
+    float f40 = f7.w;
+    vec4 f41 = vec4(f39.x, f39.y, f39.z, vec4(0.0).w);
+    f41.w = f40;
+    vec2 f42 = min(VARYING0.wz, VARYING1.wz);
+    float f43 = min(f42.x, f42.y) / f0;
+    vec3 f44 = mix(CB0[14].xyz, (sqrt(clamp((f41.xyz * clamp((clamp((f0 * CB0[24].x) + CB0[24].y, 0.0, 1.0) * (1.5 - f43)) + f43, 0.0, 1.0)).xyz * CB0[15].y, vec3(0.0), vec3(1.0))) + vec3((-0.00048828125) + (0.0009765625 * fract(52.98291778564453125 * fract(dot(gl_FragCoord.xy, vec2(0.067110560834407806396484375, 0.005837149918079376220703125))))))).xyz, vec3(clamp((CB0[13].x * length(VARYING4.xyz)) + CB0[13].y, 0.0, 1.0)));
+    vec4 f45 = vec4(f44.x, f44.y, f44.z, f41.w);
+    f45.w = f40;
+    gl_FragData[0] = f45;
 }
 
 //$$ShadowMapTexture=s1

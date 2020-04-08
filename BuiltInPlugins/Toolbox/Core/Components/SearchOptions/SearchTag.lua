@@ -6,9 +6,10 @@
 	Props:
 		string Name = The name of the search term.
 		int LayoutOrder = The order to display this in a SearchTags component.
-
 		function onDelete = A callback when the user wants to delete the tag.
+		string prefix = The text pre-appended before the Name
 ]]
+local FFlagEnableAudioPreview = settings():GetFFlag("EnableAudioPreview")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -28,13 +29,24 @@ local TEXT_PADDING = 4
 
 local SearchTag = Roact.PureComponent:extend("SearchTag")
 
+SearchTag.defaultProps = {
+	Name = "",
+	prefix = "",
+}
+
 function SearchTag:render()
 	return withTheme(function(theme)
 		return withLocalization(function(_, localizedContent)
+			local prefix = self.props.prefix
 			local name = self.props.Name
 			local onDelete = self.props.onDelete
 			local textWidth = Constants.getTextSize(name).X
-			local byTextWidth = Constants.getTextSize("by:", Constants.FONT_SIZE_MEDIUM, Constants.FONT_BOLD).X
+			local byTextWidth
+			if FFlagEnableAudioPreview then
+				byTextWidth = Constants.getTextSize((prefix), Constants.FONT_SIZE_MEDIUM, Constants.FONT_BOLD).X
+			else
+				byTextWidth = Constants.getTextSize("by:", Constants.FONT_SIZE_MEDIUM, Constants.FONT_BOLD).X
+			end
 
 			local frameWidth = byTextWidth
 				+ textWidth
@@ -61,7 +73,7 @@ function SearchTag:render()
 					Size = UDim2.new(0, byTextWidth, 1, 0),
 					BackgroundTransparency = 1,
 					ZIndex = 2,
-					Text = localizedContent.SearchTags.Creator,
+					Text = FFlagEnableAudioPreview and prefix or localizedContent.SearchTags.Creator,
 				}),
 
 				NameLabel = Roact.createElement("TextLabel", {

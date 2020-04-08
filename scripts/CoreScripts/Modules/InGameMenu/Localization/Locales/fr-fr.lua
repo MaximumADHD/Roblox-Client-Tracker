@@ -11,9 +11,9 @@
 --------------------------------------------------------------------------------------------------------]]
 
 return{
-	["CoreScripts.InGameMenu.LeaveGame"] = [[Quitter le jeu]],
-	["CoreScripts.InGameMenu.ConfirmLeaveGame"] = [[Si tu quittes le jeu, tout ce qui n'a pas été sauvegardé sera perdu.]],
-	["CoreScripts.InGameMenu.LeaveGameQuestion"] = [[Quitter le jeu?]],
+	["CoreScripts.InGameMenu.LeaveGame"] = [[Quitter]],
+	["CoreScripts.InGameMenu.ConfirmLeaveGame"] = [[Voulez-vous vraiment quitter ?]],
+	["CoreScripts.InGameMenu.LeaveGameQuestion"] = [[Quitter ?]],
 	["CoreScripts.InGameMenu.Leave"] = [[Quitter]],
 	["CoreScripts.InGameMenu.RespawnCharacterDialogTitle"] = [[Respawn le personnage?]],
 	["CoreScripts.InGameMenu.RespawnCharacterDialogBody"] = [[Ton personnage va respawn dans une zone de spawn.]],
@@ -58,7 +58,7 @@ return{
 	["CoreScripts.InGameMenu.Controls.Playerlist"] = [[Liste de joueurs]],
 	["CoreScripts.InGameMenu.Controls.Chat"] = [[Chat]],
 	["CoreScripts.InGameMenu.Controls.RespawnCharacter"] = [[Réapparition du personnage]],
-	["CoreScripts.InGameMenu.Controls.LeaveGame"] = [[Quitter le jeu]],
+	["CoreScripts.InGameMenu.Controls.LeaveGame"] = [[Quitter]],
 	["CoreScripts.InGameMenu.Controls.MiscellaneousTitle"] = [[DIVERS]],
 	["CoreScripts.InGameMenu.Controls.Screenshot"] = [[Capture d'écran]],
 	["CoreScripts.InGameMenu.Controls.DevConsole"] = [[Console de dév.]],
@@ -119,4 +119,6 @@ return{
 	["CoreScripts.InGameMenu.GameSettings.PlaceVersionWithLatest"] = [[Version de la location : {PLACE_VERSION} (dernière : {LATEST_PLACE_VERSION})]],
 	["CoreScripts.InGameMenu.Label.MicroProfiler"] = [[MicroProfiler]],
 	["CoreScripts.InGameMenu.InviteFriends.Loading"] = [[Chargement !]],
+	["CoreScripts.InGameMenu.RespawnCharacter"] = [[Réapparition du personnage]],
+	["CoreScripts.InGameMenu.GameSettings.CameraModeCameraToggle"] = [[CameraToggle]],
 }

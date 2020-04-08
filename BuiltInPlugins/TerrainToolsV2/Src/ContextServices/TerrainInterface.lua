@@ -13,6 +13,7 @@ local TerrainGenerationKey = Symbol.named("TerrainGeneration")
 local PartConverterKey = Symbol.named("PartConverter")
 
 local FFlagTerrainToolsConvertPartTool = game:GetFastFlag("TerrainToolsConvertPartTool")
+local FFlagTerrainToolsTerrainBrushNotSingleton = game:GetFastFlag("TerrainToolsTerrainBrushNotSingleton")
 
 local TerrainInterfaceProvider = Roact.PureComponent:extend("TerrainInterfaceProvider")
 
@@ -25,9 +26,11 @@ function TerrainInterfaceProvider:init()
 	assert(pluginActivationController, "TerrainInterfaceProvider expects a PluginActivationController")
 	self._context[PluginActivationControllerKey] = pluginActivationController
 
-	local terrainBrush = self.props.terrainBrush
-	assert(terrainBrush, "TerrainInterfaceProvider expects a TerrainBrush")
-	self._context[TerrainBrushKey] = terrainBrush
+	if not FFlagTerrainToolsTerrainBrushNotSingleton then
+		local terrainBrush = self.props.terrainBrush
+		assert(terrainBrush, "TerrainInterfaceProvider expects a TerrainBrush")
+		self._context[TerrainBrushKey] = terrainBrush
+	end
 
 	local terrainImporter = self.props.terrainImporter
 	assert(terrainImporter, "TerrainInterfaceProvider expects a TerrainImporter")
@@ -61,6 +64,9 @@ local function getPluginActivationController(component)
 end
 
 local function getTerrainBrush(component)
+	if FFlagTerrainToolsTerrainBrushNotSingleton then
+		warn("TerrainInterface.getTerrainBrush() should not be used when FFlagTerrainToolsTerrainBrushNotSingleton is true")
+	end
 	return component._context[TerrainBrushKey]
 end
 

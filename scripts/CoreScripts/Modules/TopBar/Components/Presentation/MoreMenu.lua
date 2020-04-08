@@ -191,7 +191,6 @@ function MoreMenu:render()
 			OverlayContextualMenu = Roact.createElement(OverlayContextualMenu, {
 				buttonProps = menuOptions,
 
-				zindex = 2,
 				open = self.props.moreMenuOpen,
 				menuDirection = MenuDirection.Down,
 				openPositionY = UDim.new(0, MORE_BUTTON_SIZE + MENU_GAP),

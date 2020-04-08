@@ -13393,6 +13393,26 @@
                     }
                 },
                 {
+                    "Category": "Video",
+                    "MemberType": "Property",
+                    "Name": "VideoRecording",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
                     "MemberType": "Event",
                     "Name": "VideoRecordingChangeRequest",
                     "Parameters": [
@@ -24881,6 +24901,50 @@
         {
             "Members": [
                 {
+                    "Category": "Animatable",
+                    "MemberType": "Property",
+                    "Name": "ChildName",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated",
+                        "NotScriptable"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                },
+                {
+                    "Category": "Animatable",
+                    "MemberType": "Property",
+                    "Name": "ParentName",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated",
+                        "NotScriptable"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                },
+                {
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "Transform",
@@ -34911,7 +34975,7 @@
                 },
                 {
                     "MemberType": "Function",
-                    "Name": "IkMoveTo",
+                    "Name": "IKMoveTo",
                     "Parameters": [
                         {
                             "Name": "part",
@@ -34928,7 +34992,7 @@
                             }
                         },
                         {
-                            "Default": "1",
+                            "Default": "0.5",
                             "Name": "translateStiffness",
                             "Type": {
                                 "Category": "Primitive",
@@ -34936,7 +35000,7 @@
                             }
                         },
                         {
-                            "Default": "1",
+                            "Default": "0.5",
                             "Name": "rotateStiffness",
                             "Type": {
                                 "Category": "Primitive",
@@ -34948,7 +35012,7 @@
                             "Name": "collisionsMode",
                             "Type": {
                                 "Category": "Enum",
-                                "Name": "CollisionsMode"
+                                "Name": "IKCollisionsMode"
                             }
                         }
                     ],
@@ -34956,7 +35020,7 @@
                         "Category": "Primitive",
                         "Name": "void"
                     },
-                    "Security": "RobloxScriptSecurity"
+                    "Security": "PluginSecurity"
                 },
                 {
                     "MemberType": "Function",
@@ -39807,6 +39871,13 @@
                             }
                         },
                         {
+                            "Name": "displayName",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
                             "Name": "membershipType",
                             "Type": {
                                 "Category": "Enum",
@@ -42376,6 +42447,81 @@
             ],
             "MemoryCategory": "Instances",
             "Name": "ColorCorrectionEffect",
+            "Superclass": "PostEffect"
+        },
+        {
+            "Members": [
+                {
+                    "Category": "State",
+                    "MemberType": "Property",
+                    "Name": "FarIntensity",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "State",
+                    "MemberType": "Property",
+                    "Name": "FocusDistance",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "State",
+                    "MemberType": "Property",
+                    "Name": "InFocusRadius",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "State",
+                    "MemberType": "Property",
+                    "Name": "NearIntensity",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "DepthOfFieldEffect",
             "Superclass": "PostEffect"
         },
         {
@@ -60790,23 +60936,6 @@
         {
             "Items": [
                 {
-                    "Name": "NoCollisions",
-                    "Value": 0
-                },
-                {
-                    "Name": "OtherMechanismsAnchored",
-                    "Value": 1
-                },
-                {
-                    "Name": "IncludeContactedMechanisms",
-                    "Value": 2
-                }
-            ],
-            "Name": "CollisionsMode"
-        },
-        {
-            "Items": [
-                {
                     "Name": "Default",
                     "Value": 0
                 },
@@ -62501,6 +62630,23 @@
                 }
             ],
             "Name": "HumanoidStateType"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "NoCollisions",
+                    "Value": 0
+                },
+                {
+                    "Name": "OtherMechanismsAnchored",
+                    "Value": 1
+                },
+                {
+                    "Name": "IncludeContactedMechanisms",
+                    "Value": 2
+                }
+            ],
+            "Name": "IKCollisionsMode"
         },
         {
             "Items": [

@@ -2,12 +2,13 @@ local Plugin = script.Parent.Parent.Parent.Parent
 
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
+local UILibrary = require(Packages.UILibrary)
 
 local Constants = require(Plugin.Src.Util.Constants)
 
 local withContext = require(Plugin.Src.ContextServices.withContext)
-local Dialog = require(Plugin.Packages.UILibrary.Components.PluginWidget.Dialog)
-local Button = require(Plugin.Packages.UILibrary.Components.Button)
+local Dialog = UILibrary.Component.Dialog
+local Button = UILibrary.Component.Button
 
 local MessageBox = Roact.PureComponent:extend("MessageBox")
 

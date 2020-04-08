@@ -27,18 +27,15 @@ VRHub.ControllerModelsEnabled = false
 VRHub.LeftControllerModel = nil
 VRHub.RightControllerModel = nil
 
-if RunService:IsClient() and not RunService:IsServer() then
-	--Registering these during unit testing causes errors.
-	StarterGui:RegisterSetCore("VRLaserPointerMode", function(mode)
-		if not VRHub.LaserPointer then
-			return
-		end
-		if not mode or not tostring(mode) then
-			return
-		end
-		VRHub.LaserPointer:setMode(LaserPointer.Mode[tostring(mode)] or LaserPointer.Mode.Disabled)
-	end)
-end
+StarterGui:RegisterSetCore("VRLaserPointerMode", function(mode)
+	if not VRHub.LaserPointer then
+		return
+	end
+	if not mode or not tostring(mode) then
+		return
+	end
+	VRHub.LaserPointer:setMode(LaserPointer.Mode[tostring(mode)] or LaserPointer.Mode.Disabled)
+end)
 
 local function enableControllerModels(enabled)
 	if enabled ~= VRHub.ControllerModelsEnabled then
@@ -65,13 +62,10 @@ local function enableControllerModels(enabled)
 	end
 end
 local enableControllerModelsSetByDeveloper = false
-if RunService:IsClient() and not RunService:IsServer() then
-	--Registering these during unit testing causes errors.
-	StarterGui:RegisterSetCore("VREnableControllerModels", function(enabled)
-		enableControllerModelsSetByDeveloper = true
-		enableControllerModels(enabled)
-	end)
-end
+StarterGui:RegisterSetCore("VREnableControllerModels", function(enabled)
+	enableControllerModelsSetByDeveloper = true
+	enableControllerModels(enabled)
+end)
 
 local start = tick()
 local function onRenderSteppedLast()

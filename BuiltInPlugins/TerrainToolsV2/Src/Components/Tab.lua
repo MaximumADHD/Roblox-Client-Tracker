@@ -3,11 +3,12 @@
 ]]
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
+local UILibrary = require(Plugin.Packages.UILibrary)
 
 local Theme = require(Plugin.Src.ContextServices.Theming)
 local withTheme = Theme.withTheme
 
-local Localizing = require(Plugin.Packages.UILibrary.Localizing)
+local Localizing = UILibrary.Localizing
 local withLocalization = Localizing.withLocalization
 
 local Tab = Roact.PureComponent:extend(script.Name)

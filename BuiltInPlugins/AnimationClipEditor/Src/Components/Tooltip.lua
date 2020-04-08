@@ -16,11 +16,11 @@
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
+local UILibrary = require(Plugin.UILibrary)
 
-local Localizing = require(Plugin.UILibrary.Localizing)
+local Localizing = UILibrary.Localizing
 local withLocalization = Localizing.withLocalization
 
-local UILibrary = require(Plugin.UILibrary)
 local LibraryTooltip = UILibrary.Component.Tooltip
 
 local Tooltip = Roact.PureComponent:extend("Tooltip")

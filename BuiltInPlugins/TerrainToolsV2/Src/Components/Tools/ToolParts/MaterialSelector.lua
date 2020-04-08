@@ -10,11 +10,11 @@ Props:
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
+local UILibrary = require(Plugin.Packages.UILibrary)
 
 local TextService = game:GetService("TextService")
 
-local UILibrary = Plugin.Packages.UILibrary
-local Localizing = require(UILibrary.Localizing)
+local Localizing = UILibrary.Localizing
 local withLocalization = Localizing.withLocalization
 local Theme = require(Plugin.Src.ContextServices.Theming)
 local withTheme = Theme.withTheme
@@ -26,6 +26,7 @@ local TerrainInterface = require(Plugin.Src.ContextServices.TerrainInterface)
 local MaterialDetails = require(Plugin.Src.Util.MaterialDetails)
 
 local FFlagTerrainToolsConvertPartTool = game:GetFastFlag("TerrainToolsConvertPartTool")
+local FFlagTerrainToolsTerrainBrushNotSingleton = game:GetFastFlag("TerrainToolsTerrainBrushNotSingleton")
 
 local materialsOrder
 if FFlagTerrainToolsConvertPartTool then
@@ -164,8 +165,10 @@ do
 end
 
 function MaterialSelector:init(props)
-	self.terrainBrush = TerrainInterface.getTerrainBrush(self)
-	assert(self.terrainBrush, "MaterialSettings requires a TerrainBrush from context")
+	if not FFlagTerrainToolsTerrainBrushNotSingleton then
+		self.terrainBrush = TerrainInterface.getTerrainBrush(self)
+		assert(self.terrainBrush, "MaterialSettings requires a TerrainBrush from context")
+	end
 
 	self.state = {
 		hoverMaterial = nil
@@ -187,13 +190,17 @@ function MaterialSelector:init(props)
 		self.props.setMaterial(material)
 	end
 
-	self.materialSelectedConnection = self.terrainBrush:subscribeToMaterialSelectRequested(self.selectMaterial)
+	if not FFlagTerrainToolsTerrainBrushNotSingleton then
+		self.materialSelectedConnection = self.terrainBrush:subscribeToMaterialSelectRequested(self.selectMaterial)
+	end
 end
 
 function MaterialSelector:willUnmount()
-	if self.materialSelectedConnection then
-		self.materialSelectedConnection:disconnect()
-		self.materialSelectedConnection = nil
+	if not FFlagTerrainToolsTerrainBrushNotSingleton then
+		if self.materialSelectedConnection then
+			self.materialSelectedConnection:disconnect()
+			self.materialSelectedConnection = nil
+		end
 	end
 end
 

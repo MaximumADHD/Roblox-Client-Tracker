@@ -219,8 +219,10 @@ function Asset:render()
 				innerFramePadding = 0
 			end
 
-			-- TODO: Pass the duration in from the Toolbox endpoint.
-			local duration = 800
+			local durationText = ""
+			if showAudioLength then
+				durationText = (asset.Duration ~= nil) and getTimeString(asset.Duration, 1) or ""
+			end
 
 			return Roact.createElement("Frame", {
 				Position = UDim2.new(0, 0, 0, 0),
@@ -285,6 +287,7 @@ function Asset:render()
 						typeId = assetTypeId,
 						currentSoundId = props.currentSoundId,
 						isPlaying = props.isPlaying,
+						isLoading = props.isLoading,
 
 						voting = votingProps,
 						isHovered = isHovered,
@@ -365,7 +368,7 @@ function Asset:render()
 					AudioLength = isHovered and showAudioLength and Roact.createElement("TextLabel", {
 						Size = UDim2.new(1, 0, 0, Constants.AUDIO_LENGTH_HEIGHT),
 						LayoutOrder = 4,
-						Text = getTimeString(duration),
+						Text = durationText,
 						BackgroundTransparency = 1,
 						BorderSizePixel = 0,
 						TextXAlignment = Enum.TextXAlignment.Left,
@@ -399,6 +402,7 @@ local function mapStateToProps(state, props)
 
 	local assets = state.assets or {}
 	local voting = state.voting or {}
+	local sound = state.sound or {}
 
 	local idToAssetMap = assets.idToAssetMap or {}
 
@@ -423,6 +427,7 @@ local function mapStateToProps(state, props)
 		currentTab = pageInfo.currentTab or Category.MARKETPLACE_KEY,
 		ownsAsset = ownsAsset,
 		canManage = canManage,
+		isLoading = FFlagEnableAudioPreview and ((sound.currentSoundId == assetId) and sound.isLoading or false) or nil,
 	}
 end
 

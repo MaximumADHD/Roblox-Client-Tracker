@@ -30,7 +30,7 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local RoactRodux = require(Plugin.RoactRodux)
 local Cryo = require(Plugin.Cryo)
-local Constants = require(Plugin.Src.Util.Constants)
+local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 
 local settingFromState = require(Plugin.Src.Networking.settingFromState)
 local AddChange = require(Plugin.Src.Actions.AddChange)
@@ -59,7 +59,7 @@ local function createSettingsPage(name, loadValuesToProps, dispatchChanges)
 						LayoutOrder = self.props.LayoutOrder,
 					}, Cryo.Dictionary.join(children, {
 						Layout = self.props.AddLayout and Roact.createElement("UIListLayout", {
-							Padding = UDim.new(0, Constants.ELEMENT_PADDING),
+							Padding = UDim.new(0, DEPRECATED_Constants.ELEMENT_PADDING),
 							SortOrder = Enum.SortOrder.LayoutOrder,
 
 							[Roact.Change.AbsoluteContentSize] = function(rbx)
@@ -80,7 +80,7 @@ local function createSettingsPage(name, loadValuesToProps, dispatchChanges)
 					LayoutOrder = self.props.LayoutOrder,
 				}, Cryo.Dictionary.join(children, {
 					Layout = self.props.AddLayout and Roact.createElement("UIListLayout", {
-						Padding = UDim.new(0, Constants.ELEMENT_PADDING),
+						Padding = UDim.new(0, DEPRECATED_Constants.ELEMENT_PADDING),
 						SortOrder = Enum.SortOrder.LayoutOrder,
 
 						[Roact.Change.AbsoluteContentSize] = function(rbx)

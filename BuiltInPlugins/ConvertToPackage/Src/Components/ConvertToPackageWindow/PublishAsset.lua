@@ -17,9 +17,9 @@ local Plugin = script.Parent.Parent.Parent.Parent
 
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
+local UILibrary = require(Packages.UILibrary)
 
-local UILibrary = Packages.UILibrary
-local StyledScrollingFrame = require(UILibrary.Components.StyledScrollingFrame)
+local StyledScrollingFrame = UILibrary.Component.StyledScrollingFrame
 
 local Util = Plugin.Src.Util
 local LayoutOrderIterator = require(Util.LayoutOrderIterator)

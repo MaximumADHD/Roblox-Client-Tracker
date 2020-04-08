@@ -19,7 +19,7 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
 local withLocalization = require(Plugin.Src.Consumers.withLocalization)
-local Constants = require(Plugin.Src.Util.Constants)
+local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 local numberWithCommas = require(Plugin.Src.Util.numberWithCommas)
 
 local DeveloperSubscriptionListItemText = require(script.Parent.DeveloperSubscriptionListItemText)
@@ -40,11 +40,11 @@ local function render(props, theme, localized)
 		LayoutOrder = layoutOrder,
 
 		BackgroundTransparency = 1,
-		Image = Constants.ROUNDED_BACKGROUND_IMAGE,
+		Image = DEPRECATED_Constants.ROUNDED_BACKGROUND_IMAGE,
 		ImageTransparency = 0,
 		ImageColor3 = theme.table.item.background,
 		ScaleType = Enum.ScaleType.Slice,
-		SliceCenter = Constants.ROUNDED_FRAME_SLICE,
+		SliceCenter = DEPRECATED_Constants.ROUNDED_FRAME_SLICE,
 	},
 	{
 		DetailsFrame = Roact.createElement("Frame", {
@@ -120,7 +120,7 @@ local function render(props, theme, localized)
 		}),
 		ErrorIcon = props.HasError and Roact.createElement("ImageButton", {
 			BackgroundTransparency = 1,
-			Image = Constants.ERROR_IMAGE,
+			Image = DEPRECATED_Constants.ERROR_IMAGE,
 			Size = UDim2.new(0, 16, 0, 16),
 			Position =  UDim2.new(1, -16, 0, 16),
 			AnchorPoint = Vector2.new(0.5, 0.5),

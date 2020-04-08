@@ -36,7 +36,7 @@ void main()
     vec2 f13 = f12 - f4;
     vec2 f14 = f13 - f4;
     vec2 f15 = f14 - f4;
-    gl_FragData[0] = vec4(((((((((((((vec3(0.0) + texture2D(Texture0Texture, f5).xyz) + texture2D(Texture0Texture, f6).xyz) + texture2D(Texture0Texture, f7).xyz) + texture2D(Texture0Texture, f8).xyz) + texture2D(Texture0Texture, f9).xyz) + texture2D(Texture0Texture, f10).xyz) + texture2D(Texture0Texture, f11).xyz) + texture2D(Texture0Texture, f12).xyz) + texture2D(Texture0Texture, f13).xyz) + texture2D(Texture0Texture, f14).xyz) + texture2D(Texture0Texture, f15).xyz) + texture2D(Texture0Texture, f15 - f4).xyz) * vec3(0.083333335816860198974609375), 1.0);
+    gl_FragData[0] = vec4((((((((((((texture2D(Texture0Texture, f5).xyz + texture2D(Texture0Texture, f6).xyz) + texture2D(Texture0Texture, f7).xyz) + texture2D(Texture0Texture, f8).xyz) + texture2D(Texture0Texture, f9).xyz) + texture2D(Texture0Texture, f10).xyz) + texture2D(Texture0Texture, f11).xyz) + texture2D(Texture0Texture, f12).xyz) + texture2D(Texture0Texture, f13).xyz) + texture2D(Texture0Texture, f14).xyz) + texture2D(Texture0Texture, f15).xyz) + texture2D(Texture0Texture, f15 - f4).xyz) * vec3(0.083333335816860198974609375), 1.0);
 }
 
 //$$Texture0Texture=s0

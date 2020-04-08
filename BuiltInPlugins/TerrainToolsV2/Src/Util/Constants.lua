@@ -46,7 +46,7 @@ Constants.MIN_BIOME_SIZE = 16
 Constants.MAX_BIOME_SIZE = 4096
 Constants.BIOME_SNAP_INCREMENT = 4
 
-Constants.FLATTEN_PLANE_TOLERANCE = game:GetFastFlag("TerrainToolsRefactorSculptOperations") and 0.05 or 0.1
+Constants.FLATTEN_PLANE_TOLERANCE = 0.05
 
 Constants.ToolActivatesPlugin = {
 	[ToolId.Select] = true,

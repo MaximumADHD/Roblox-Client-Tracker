@@ -13,11 +13,12 @@
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
-local Constants = require(Plugin.Src.Util.Constants)
+local UILibrary = require(Plugin.UILibrary)
+local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
 
 local RadioButton = require(Plugin.Src.Components.RadioButton)
-local TitledFrame = require(Plugin.UILibrary.Components.TitledFrame)
+local TitledFrame = UILibrary.Component.TitledFrame
 
 local function RadioButtonSet(props)
 	return withTheme(function(theme)
@@ -33,7 +34,7 @@ local function RadioButtonSet(props)
 
 		local children = {
 			Layout = Roact.createElement("UIListLayout", {
-				Padding = UDim.new(0, Constants.RADIO_BUTTON_PADDING),
+				Padding = UDim.new(0, DEPRECATED_Constants.RADIO_BUTTON_PADDING),
 				SortOrder = Enum.SortOrder.LayoutOrder,
 			})
 		}
@@ -42,7 +43,7 @@ local function RadioButtonSet(props)
 			table.insert(children, Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Normal, {
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
-				Size = UDim2.new(1, 0, 0, Constants.RADIO_BUTTON_SIZE + 5),
+				Size = UDim2.new(1, 0, 0, DEPRECATED_Constants.RADIO_BUTTON_SIZE + 5),
 				TextTransparency = props.Enabled and 0 or 0.5,
 				TextXAlignment = Enum.TextXAlignment.Left,
 				TextYAlignment = Enum.TextYAlignment.Top,
@@ -65,9 +66,9 @@ local function RadioButtonSet(props)
 			}))
 		end
 
-		local maxHeight = numButtons * Constants.RADIO_BUTTON_SIZE * 2
-			+ numButtons * Constants.RADIO_BUTTON_PADDING
-			+ (props.Description and Constants.RADIO_BUTTON_SIZE + 5 + Constants.RADIO_BUTTON_PADDING or 0)
+		local maxHeight = numButtons * DEPRECATED_Constants.RADIO_BUTTON_SIZE * 2
+			+ numButtons * DEPRECATED_Constants.RADIO_BUTTON_PADDING
+			+ (props.Description and DEPRECATED_Constants.RADIO_BUTTON_SIZE + 5 + DEPRECATED_Constants.RADIO_BUTTON_PADDING or 0)
 
 		return Roact.createElement(TitledFrame, {
 			Title = props.Title,

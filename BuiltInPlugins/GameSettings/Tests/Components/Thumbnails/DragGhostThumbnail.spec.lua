@@ -3,7 +3,7 @@ return function()
 	
 	local Plugin = script.Parent.Parent.Parent.Parent
 	local Roact = require(Plugin.Roact)
-	local Constants = require(Plugin.Src.Util.Constants)
+	local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 
 	local Theme = require(Plugin.Src.Util.Theme)
 	local ThemeProvider = require(Plugin.Src.Providers.ThemeProvider)
@@ -72,7 +72,7 @@ return function()
 		local instance = Roact.mount(createTestDragGhostThumbnail(), container)
 		local background = container.Frame
 
-		expect(background.Ghost.Image).to.equal(Constants.VIDEO_PLACEHOLDER)
+		expect(background.Ghost.Image).to.equal(DEPRECATED_Constants.VIDEO_PLACEHOLDER)
 
 		Roact.unmount(instance)
 	end)

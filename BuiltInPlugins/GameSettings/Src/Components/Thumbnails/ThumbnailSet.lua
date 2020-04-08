@@ -20,20 +20,21 @@ local THUMBNAIL_PADDING = UDim2.new(0, 30, 0, 30)
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
-local Constants = require(Plugin.Src.Util.Constants)
+local UILibrary = require(Plugin.UILibrary)
+local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
 
 local Thumbnail = require(Plugin.Src.Components.Thumbnails.Thumbnail)
 local DragDestination = require(Plugin.Src.Components.Thumbnails.DragDestination)
 local NewThumbnail = require(Plugin.Src.Components.Thumbnails.NewThumbnail)
 
-local createFitToContent = require(Plugin.UILibrary.Components.createFitToContent)
+local createFitToContent = UILibrary.Component.createFitToContent
 
 local ThumbnailSet = Roact.PureComponent:extend("ThumbnailSet")
 
 local FitToContent = createFitToContent("Frame", "UIGridLayout", {
 	CellPadding = THUMBNAIL_PADDING,
-	CellSize = Constants.THUMBNAIL_SIZE,
+	CellSize = DEPRECATED_Constants.THUMBNAIL_SIZE,
 	FillDirection = Enum.FillDirection.Horizontal,
 	SortOrder = Enum.SortOrder.LayoutOrder,
 })

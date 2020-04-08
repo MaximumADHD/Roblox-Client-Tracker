@@ -128,37 +128,20 @@ return function()
 		end)
 	end)
 
-	if game:GetFastFlag("TerrainToolsRefactor") then
-		describe("SetBiomeSize", function()
-			it("should set biomeSize", function()
-				local state = GenerateTool(nil, SetBiomeSize(9999999))
+	describe("SetBiomeSize", function()
+		it("should set biomeSize", function()
+			local state = GenerateTool(nil, SetBiomeSize(9999999))
 
-				expect(state).to.be.ok()
-				expect(state.biomeSize).to.be.ok()
-				expect(state.biomeSize).to.equal(9999999)
-			end)
-
-			it("should preserve immutability", function()
-				local immutabilityPreserved = testImmutability(GenerateTool, SetBiomeSize(1111111))
-				expect(immutabilityPreserved).to.equal(true)
-			end)
+			expect(state).to.be.ok()
+			expect(state.biomeSize).to.be.ok()
+			expect(state.biomeSize).to.equal(9999999)
 		end)
-	else
-		describe("SetBiomeSize", function()
-			it("should set biomeSize", function()
-				local state = GenerateTool(nil, SetBiomeSize("9999999"))
 
-				expect(state).to.be.ok()
-				expect(state.biomeSize).to.be.ok()
-				expect(state.biomeSize).to.equal("9999999")
-			end)
-
-			it("should preserve immutability", function()
-				local immutabilityPreserved = testImmutability(GenerateTool, SetBiomeSize("1111111"))
-				expect(immutabilityPreserved).to.equal(true)
-			end)
+		it("should preserve immutability", function()
+			local immutabilityPreserved = testImmutability(GenerateTool, SetBiomeSize(1111111))
+			expect(immutabilityPreserved).to.equal(true)
 		end)
-	end
+	end)
 
 	describe("SetHaveCaves", function()
 		it("should set haveCaves", function()

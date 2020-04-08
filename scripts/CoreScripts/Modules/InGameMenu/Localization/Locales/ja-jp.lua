@@ -12,7 +12,7 @@
 
 return{
 	["CoreScripts.InGameMenu.LeaveGame"] = [[終了]],
-	["CoreScripts.InGameMenu.ConfirmLeaveGame"] = [[ゲームを終了すると、未保存の内容が失われます。]],
+	["CoreScripts.InGameMenu.ConfirmLeaveGame"] = [[終了してよろしいですか？]],
 	["CoreScripts.InGameMenu.LeaveGameQuestion"] = [[終了しますか？]],
 	["CoreScripts.InGameMenu.Leave"] = [[終了]],
 	["CoreScripts.InGameMenu.RespawnCharacterDialogTitle"] = [[キャラクターをリスポーンしますか？]],
@@ -67,7 +67,7 @@ return{
 	["CoreScripts.InGameMenu.Controls.ToggleFullscreen"] = [[フルスクリーン]],
 	["CoreScripts.InGameMenu.Controls.PerformanceStats"] = [[パフォーマンス解析]],
 	["CoreScripts.InGameMenu.Controls.SwitchToolGamepad"] = [[ツールを交換]],
-	["CoreScripts.InGameMenu.Controls.GameMenuToggleGamepad"] = [[ゲームメニュー切り替え]],
+	["CoreScripts.InGameMenu.Controls.GameMenuToggleGamepad"] = [[ゲームメニュー切り換え]],
 	["CoreScripts.InGameMenu.Controls.MoveGamepad"] = [[移動]],
 	["CoreScripts.InGameMenu.Controls.MenuNavigationGamepad"] = [[メニューナビゲーション]],
 	["CoreScripts.InGameMenu.Controls.BackGamepad"] = [[戻る]],
@@ -120,4 +120,5 @@ return{
 	["CoreScripts.InGameMenu.Label.MicroProfiler"] = [[マイクロプロファイラー]],
 	["CoreScripts.InGameMenu.InviteFriends.Loading"] = [[読み込み中！]],
 	["CoreScripts.InGameMenu.RespawnCharacter"] = [[キャラクターをリスポーンする]],
+	["CoreScripts.InGameMenu.GameSettings.CameraModeCameraToggle"] = [[カメラ切り換え]],
 }

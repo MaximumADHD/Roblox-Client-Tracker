@@ -10,7 +10,7 @@ return function()
 	local SettingsImpl_mock = require(Plugin.Src.Networking.SettingsImpl_mock)
 	local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 	local Localization = require(Plugin.Src.Localization.Localization)
-	local Constants = require(Plugin.Src.Util.Constants)
+	local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 
 	local Footer = require(Plugin.Src.Components.Footer)
 
@@ -42,7 +42,7 @@ return function()
 		local c = Enum.StudioStyleGuideColor
 		local m = Enum.StudioStyleGuideModifier
 		local disabledColor = settings().Studio.Theme:GetColor(c.Button, m.Disabled)
-		return color == disabledColor or color == Constants.BLUE_DISABLED
+		return color == disabledColor or color == DEPRECATED_Constants.BLUE_DISABLED
 	end
 
 	local function textIsDisabled(color)

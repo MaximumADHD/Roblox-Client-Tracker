@@ -20,35 +20,26 @@ local Colors = require(CorePackages.AppTempCommon.LuaApp.Style.Colors)
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
 local Images = UIBlox.App.ImageSet.Images
 
-local FFlagPlayerListDesignUpdate = settings():GetFFlag("PlayerListDesignUpdate")
 local FFlagPlayerListUseUIBloxIcons = require(CoreGui.RobloxGui.Modules.Flags.FFlagPlayerListUseUIBloxIcons)
 
 local DropDownButton = Roact.PureComponent:extend("DropDownButton")
 
-if FFlagPlayerListDesignUpdate then
-	DropDownButton.validateProps = t.strictInterface({
-		text = t.string,
-		layoutOrder = t.optional(t.integer),
-		icon = t.string,
-		lastButton = t.boolean,
-		forceShowOptions = t.boolean,
-		screenSizeX = t.integer,
-		screenSizeY = t.integer,
+DropDownButton.validateProps = t.strictInterface({
+	text = t.string,
+	layoutOrder = t.optional(t.integer),
+	icon = t.union(t.string, t.table),
+	lastButton = t.boolean,
+	forceShowOptions = t.boolean,
+	screenSizeX = t.integer,
+	screenSizeY = t.integer,
 
-		onActivated = t.optional(t.callback),
-		onDecline = t.optional(t.callback),
-		onDismiss = t.optional(t.callback),
-		animatingAccept = t.optional(t.boolean),
-		animatingDecline = t.optional(t.boolean),
-		animatingPercentage = t.optional(t.number),
-	})
-else
-	DropDownButton.validateProps = t.strictInterface({
-		text = t.string,
-		layoutOrder = t.integer,
-		onActivated = t.callback,
-	})
-end
+	onActivated = t.optional(t.callback),
+	onDecline = t.optional(t.callback),
+	onDismiss = t.optional(t.callback),
+	animatingAccept = t.optional(t.boolean),
+	animatingDecline = t.optional(t.boolean),
+	animatingPercentage = t.optional(t.number),
+})
 
 function DropDownButton:init()
 	self.state = {
@@ -82,282 +73,230 @@ function DropDownButton:getColorBackgroundAnimation(layoutValues)
 end
 
 function DropDownButton:render()
-	if FFlagPlayerListDesignUpdate then
-		return WithLayoutValues(function(layoutValues)
-			return withStyle(function(style)
-				local backgroundStyle = {
-					Color = style.Theme.BackgroundContrast.Color,
-					Transparency = layoutValues.OverrideBackgroundTransparency,
-				}
-				local overlayStyle = {
-					Transparency = 1,
-					Color = Color3.new(1, 1, 1),
-				}
-				if self.state.isPressed then
-					overlayStyle = style.Theme.BackgroundOnPress
-				elseif self.state.isHovered then
-					overlayStyle = style.Theme.BackgroundOnHover
-				end
-
-				local image = ""
-				if self.props.lastButton then
-					image = "rbxasset://textures/ui/BottomRoundedRect8px.png"
-				end
-
-				local confirmButtonVisible = self.props.onActivated ~= nil or self.props.animatingAccept
-				local declineButtonVisible = self.props.onDecline ~= nil or self.props.animatingDecline
-				local rightButtonsVisible = self.props.onDecline ~= nil or self.props.animatingPercentage ~= nil
-					or self.props.forceShowOptions
-
-				local colorBackgroundPosition, colorBackgroundSize = self:getColorBackgroundAnimation(layoutValues)
-				local colorBackgroundColor = Colors.Green
-				if self.props.animatingDecline then
-					colorBackgroundColor = Colors.Red
-				elseif self.props.forceShowOptions then
-					colorBackgroundColor = Colors.White
-				end
-
-				local textLabelSizeOffset = layoutValues.DropDownPadding * 2 + layoutValues.DropDownIconSize
-				local rightButtonsSize = layoutValues.DropDownRightOptionSize * 2
-				if rightButtonsVisible then
-					textLabelSizeOffset = textLabelSizeOffset + rightButtonsSize
-				end
-
-				local function onMouseButton1Down()
-					if not rightButtonsVisible then
-						self:setState({
-							isPressed = true,
-						})
-					end
-				end
-
-				local function onMouseButton1Up()
-					self:setState({
-						isPressed = false,
-					})
-				end
-
-				return Roact.createElement("ImageButton", {
-					LayoutOrder = self.props.layoutOrder,
-					Image = image,
-					ScaleType = Enum.ScaleType.Slice,
-					SliceCenter = Rect.new(8, 8, 24, 16),
-					SliceScale = 0.5,
-					ImageTransparency = self.props.lastButton and backgroundStyle.Transparency or 1,
-					ImageColor3 = backgroundStyle.Color,
-
-					Size = UDim2.new(1, 0, 0, layoutValues.DropDownButtonSizeY),
-					BackgroundTransparency = self.props.lastButton and 1 or backgroundStyle.Transparency,
-					BackgroundColor3 = backgroundStyle.Color,
-					AutoButtonColor = false,
-					BorderSizePixel = 0,
-
-					[Roact.Event.Activated] = (not rightButtonsVisible) and self.props.onActivated or nil,
-
-					[Roact.Event.MouseEnter] = function()
-						if not rightButtonsVisible then
-							self:setState({
-								isHovered = true,
-							})
-						end
-					end,
-
-					[Roact.Event.MouseLeave] = function()
-						self:setState({
-							isHovered = false,
-							isPressed = false,
-						})
-					end,
-
-					[Roact.Change.AbsoluteSize] = function(rbx)
-						self:setState({
-							sizeX = rbx.AbsoluteSize.X,
-						})
-					end,
-
-					[Roact.Change.AbsolutePosition] = function(rbx)
-						self:setState({
-							absolutePosX = rbx.AbsolutePosition.X,
-							absolutePosY = rbx.AbsolutePosition.Y,
-						})
-					end,
-
-					[Roact.Event.MouseButton1Down] = onMouseButton1Down,
-					[Roact.Event.MouseButton1Up] = onMouseButton1Up,
-				}, {
-					ColorBackground = Roact.createElement("ImageLabel", {
-						Visible = self.props.animatingPercentage ~= nil,
-						ZIndex = 1,
-						Size = UDim2.new(0, colorBackgroundSize, 1, 0),
-						Position = UDim2.new(0, colorBackgroundPosition, 0, 0),
-
-						Image = image,
-						ScaleType = Enum.ScaleType.Slice,
-						SliceCenter = Rect.new(8, 8, 24, 16),
-						SliceScale = 0.5,
-						ImageTransparency = self.props.lastButton and layoutValues.IconButtonBackgroundTransparency or 1,
-						ImageColor3 = colorBackgroundColor,
-
-						BackgroundTransparency = self.props.lastButton and 1 or layoutValues.IconButtonBackgroundTransparency,
-						BackgroundColor3 = colorBackgroundColor,
-						BorderSizePixel = 0,
-					}),
-
-					HoverBackground = Roact.createElement("ImageLabel", {
-						ZIndex = 2,
-						Size = UDim2.new(1, 0, 1, 0),
-
-						Image = image,
-						ScaleType = Enum.ScaleType.Slice,
-						SliceCenter = Rect.new(8, 8, 24, 16),
-						SliceScale = 0.5,
-						ImageTransparency = self.props.lastButton and overlayStyle.Transparency or 1,
-						ImageColor3 = overlayStyle.Color,
-
-						BackgroundTransparency = self.props.lastButton and 1 or overlayStyle.Transparency,
-						BackgroundColor3 = overlayStyle.Color,
-						BorderSizePixel = 0,
-					}, {
-						InitalPadding = Roact.createElement("UIPadding", {
-							PaddingLeft = UDim.new(0, layoutValues.DropDownPadding),
-						}),
-
-						ListLayout = Roact.createElement("UIListLayout", {
-							SortOrder = Enum.SortOrder.LayoutOrder,
-							FillDirection = Enum.FillDirection.Horizontal,
-							VerticalAlignment = Enum.VerticalAlignment.Center,
-							Padding = UDim.new(0, layoutValues.DropDownPadding),
-						}),
-
-						Icon = Roact.createElement(FFlagPlayerListUseUIBloxIcons and ImageSetLabel or "ImageLabel", {
-							LayoutOrder = 1,
-							Size = UDim2.new(0, layoutValues.DropDownIconSize, 0, layoutValues.DropDownIconSize),
-							ImageColor3 = style.Theme.IconEmphasis.Color,
-							Image = self.props.icon,
-							BackgroundTransparency = 1,
-						}),
-
-						Text = Roact.createElement("TextLabel", {
-							LayoutOrder = 2,
-							Size = UDim2.new(1, -textLabelSizeOffset, 1, 0),
-							Text = self.props.text,
-							Font = style.Font.Header2.Font,
-							TextSize = style.Font.BaseSize * style.Font.Header2.RelativeSize,
-							TextColor3 = style.Theme.TextEmphasis.Color,
-							TextTransparency = style.Theme.TextEmphasis.Transparency,
-							TextXAlignment = Enum.TextXAlignment.Left,
-							TextTruncate = Enum.TextTruncate.AtEnd,
-							BackgroundTransparency = 1,
-						}),
-
-						ButtonContainer = Roact.createElement("Frame", {
-							LayoutOrder = 3,
-							Visible = rightButtonsVisible,
-							BackgroundTransparency = 1,
-							Size = UDim2.new(0, rightButtonsSize, 1, 0),
-						}, {
-							ConfirmButton = confirmButtonVisible and Roact.createElement(IconButton, {
-								size = UDim2.new(0.5, 0, 1, 0),
-								position = UDim2.new(0.5, 0, 0, 0),
-								backgroundColor = self.props.onDecline and Colors.Green or Colors.White,
-								icon = FFlagPlayerListUseUIBloxIcons and Images["icons/actions/accept"]
-									or "rbxasset://textures/ui/PlayerList/Accept.png",
-								showBackground = self.props.animatingPercentage == nil,
-								onActivated = self.props.onActivated,
-							}) or nil,
-
-							DeclineButton = declineButtonVisible and Roact.createElement(IconButton, {
-								size = UDim2.new(0.5, 0, 1, 0),
-								position = UDim2.new(0, 0, 0, 0),
-								backgroundColor = Colors.Red,
-								icon = FFlagPlayerListUseUIBloxIcons and Images["icons/actions/reject"]
-									or "rbxasset://textures/ui/PlayerList/Clear.png",
-								showBackground = self.props.animatingPercentage == nil,
-								onActivated = self.props.onDecline,
-							}) or nil,
-						})
-					}),
-
-					DismissInputHandler = Roact.createElement("ImageButton", {
-						Image = "",
-						BackgroundTransparency = 1,
-						Size = UDim2.new(0, self.props.screenSizeX, 0, self.props.screenSizeY),
-						Position = UDim2.new(0, -self.state.absolutePosX, 0, -self.state.absolutePosY),
-						Visible = self.props.onDismiss ~= nil,
-
-						[Roact.Event.Activated] = self.props.onDismiss,
-					}),
-
-					Divider = not self.props.lastButton and Roact.createElement("Frame", {
-						ZIndex = 3,
-						Size = UDim2.new(1, 0, 0, 1),
-						Position = UDim2.new(0, 0, 1, 0),
-						AnchorPoint = Vector2.new(0, 1),
-						BackgroundTransparency = style.Theme.Divider.Transparency,
-						BackgroundColor3 = style.Theme.Divider.Color,
-						BorderSizePixel = 0,
-					}),
-				})
-			end)
-		end)
-	else
-		return WithLayoutValues(function(layoutValues)
-			local layoutOrder = self.props.layoutOrder
-			local onActivated = self.props.onActivated
-			local text = self.props.text
-
-			local backgroundStyle = layoutValues.BackgroundStyle.Default
-			if self.state.isHovered and layoutValues.BackgroundStyle.Hovered then
-				backgroundStyle = layoutValues.BackgroundStyle.Hovered
+	return WithLayoutValues(function(layoutValues)
+		return withStyle(function(style)
+			local backgroundStyle = {
+				Color = style.Theme.BackgroundContrast.Color,
+				Transparency = layoutValues.OverrideBackgroundTransparency,
+			}
+			local overlayStyle = {
+				Transparency = 1,
+				Color = Color3.new(1, 1, 1),
+			}
+			if self.state.isPressed then
+				overlayStyle = style.Theme.BackgroundOnPress
+			elseif self.state.isHovered then
+				overlayStyle = style.Theme.BackgroundOnHover
 			end
 
-			return Roact.createElement("TextButton", {
-				LayoutOrder = layoutOrder,
+			local image = ""
+			if self.props.lastButton then
+				image = "rbxasset://textures/ui/BottomRoundedRect8px.png"
+			end
+
+			local confirmButtonVisible = self.props.onActivated ~= nil or self.props.animatingAccept
+			local declineButtonVisible = self.props.onDecline ~= nil or self.props.animatingDecline
+			local rightButtonsVisible = self.props.onDecline ~= nil or self.props.animatingPercentage ~= nil
+				or self.props.forceShowOptions
+
+			local colorBackgroundPosition, colorBackgroundSize = self:getColorBackgroundAnimation(layoutValues)
+			local colorBackgroundColor = Colors.Green
+			if self.props.animatingDecline then
+				colorBackgroundColor = Colors.Red
+			elseif self.props.forceShowOptions then
+				colorBackgroundColor = Colors.White
+			end
+
+			local textLabelSizeOffset = layoutValues.DropDownPadding * 2 + layoutValues.DropDownIconSize
+			local rightButtonsSize = layoutValues.DropDownRightOptionSize * 2
+			if rightButtonsVisible then
+				textLabelSizeOffset = textLabelSizeOffset + rightButtonsSize
+			end
+
+			local function onMouseButton1Down()
+				if not rightButtonsVisible then
+					self:setState({
+						isPressed = true,
+					})
+				end
+			end
+
+			local function onMouseButton1Up()
+				self:setState({
+					isPressed = false,
+				})
+			end
+
+			return Roact.createElement("ImageButton", {
+				LayoutOrder = self.props.layoutOrder,
+				Image = image,
+				ScaleType = Enum.ScaleType.Slice,
+				SliceCenter = Rect.new(8, 8, 24, 16),
+				SliceScale = 0.5,
+				ImageTransparency = self.props.lastButton and backgroundStyle.Transparency or 1,
+				ImageColor3 = backgroundStyle.Color,
+
 				Size = UDim2.new(1, 0, 0, layoutValues.DropDownButtonSizeY),
-				BackgroundTransparency = backgroundStyle.Transparency,
+				BackgroundTransparency = self.props.lastButton and 1 or backgroundStyle.Transparency,
 				BackgroundColor3 = backgroundStyle.Color,
 				AutoButtonColor = false,
 				BorderSizePixel = 0,
 
-				Text = text,
-				TextSize = layoutValues.PlayerNameTextSize,
-				TextColor3 = layoutValues.TextStyle.Default.Color,
-				TextStrokeTransparency = layoutValues.TextStyle.Default.StrokeTransparency,
-				TextStrokeColor3 = layoutValues.TextStyle.Default.StrokeColor,
-				TextXAlignment = Enum.TextXAlignment.Left,
-				Font = layoutValues.PlayerEntryFont,
-
-				[Roact.Event.Activated] = onActivated,
+				[Roact.Event.Activated] = (not rightButtonsVisible) and self.props.onActivated or nil,
 
 				[Roact.Event.MouseEnter] = function()
-					self:setState({
-						isHovered = true,
-					})
+					if not rightButtonsVisible then
+						self:setState({
+							isHovered = true,
+						})
+					end
 				end,
 
 				[Roact.Event.MouseLeave] = function()
 					self:setState({
 						isHovered = false,
+						isPressed = false,
 					})
 				end,
+
+				[Roact.Change.AbsoluteSize] = function(rbx)
+					self:setState({
+						sizeX = rbx.AbsoluteSize.X,
+					})
+				end,
+
+				[Roact.Change.AbsolutePosition] = function(rbx)
+					self:setState({
+						absolutePosX = rbx.AbsolutePosition.X,
+						absolutePosY = rbx.AbsolutePosition.Y,
+					})
+				end,
+
+				[Roact.Event.MouseButton1Down] = onMouseButton1Down,
+				[Roact.Event.MouseButton1Up] = onMouseButton1Up,
 			}, {
-				Padding = Roact.createElement("UIPadding", {
-					PaddingLeft = UDim.new(0, layoutValues.DropDownTextPadding),
+				ColorBackground = Roact.createElement("ImageLabel", {
+					Visible = self.props.animatingPercentage ~= nil,
+					ZIndex = 1,
+					Size = UDim2.new(0, colorBackgroundSize, 1, 0),
+					Position = UDim2.new(0, colorBackgroundPosition, 0, 0),
+
+					Image = image,
+					ScaleType = Enum.ScaleType.Slice,
+					SliceCenter = Rect.new(8, 8, 24, 16),
+					SliceScale = 0.5,
+					ImageTransparency = self.props.lastButton and layoutValues.IconButtonBackgroundTransparency or 1,
+					ImageColor3 = colorBackgroundColor,
+
+					BackgroundTransparency = self.props.lastButton and 1 or layoutValues.IconButtonBackgroundTransparency,
+					BackgroundColor3 = colorBackgroundColor,
+					BorderSizePixel = 0,
+				}),
+
+				HoverBackground = Roact.createElement("ImageLabel", {
+					ZIndex = 2,
+					Size = UDim2.new(1, 0, 1, 0),
+
+					Image = image,
+					ScaleType = Enum.ScaleType.Slice,
+					SliceCenter = Rect.new(8, 8, 24, 16),
+					SliceScale = 0.5,
+					ImageTransparency = self.props.lastButton and overlayStyle.Transparency or 1,
+					ImageColor3 = overlayStyle.Color,
+
+					BackgroundTransparency = self.props.lastButton and 1 or overlayStyle.Transparency,
+					BackgroundColor3 = overlayStyle.Color,
+					BorderSizePixel = 0,
+				}, {
+					InitalPadding = Roact.createElement("UIPadding", {
+						PaddingLeft = UDim.new(0, layoutValues.DropDownPadding),
+					}),
+
+					ListLayout = Roact.createElement("UIListLayout", {
+						SortOrder = Enum.SortOrder.LayoutOrder,
+						FillDirection = Enum.FillDirection.Horizontal,
+						VerticalAlignment = Enum.VerticalAlignment.Center,
+						Padding = UDim.new(0, layoutValues.DropDownPadding),
+					}),
+
+					Icon = Roact.createElement(FFlagPlayerListUseUIBloxIcons and ImageSetLabel or "ImageLabel", {
+						LayoutOrder = 1,
+						Size = UDim2.new(0, layoutValues.DropDownIconSize, 0, layoutValues.DropDownIconSize),
+						ImageColor3 = style.Theme.IconEmphasis.Color,
+						Image = self.props.icon,
+						BackgroundTransparency = 1,
+					}),
+
+					Text = Roact.createElement("TextLabel", {
+						LayoutOrder = 2,
+						Size = UDim2.new(1, -textLabelSizeOffset, 1, 0),
+						Text = self.props.text,
+						Font = style.Font.Header2.Font,
+						TextSize = style.Font.BaseSize * style.Font.Header2.RelativeSize,
+						TextColor3 = style.Theme.TextEmphasis.Color,
+						TextTransparency = style.Theme.TextEmphasis.Transparency,
+						TextXAlignment = Enum.TextXAlignment.Left,
+						TextTruncate = Enum.TextTruncate.AtEnd,
+						BackgroundTransparency = 1,
+					}),
+
+					ButtonContainer = Roact.createElement("Frame", {
+						LayoutOrder = 3,
+						Visible = rightButtonsVisible,
+						BackgroundTransparency = 1,
+						Size = UDim2.new(0, rightButtonsSize, 1, 0),
+					}, {
+						ConfirmButton = confirmButtonVisible and Roact.createElement(IconButton, {
+							size = UDim2.new(0.5, 0, 1, 0),
+							position = UDim2.new(0.5, 0, 0, 0),
+							backgroundColor = self.props.onDecline and Colors.Green or Colors.White,
+							icon = FFlagPlayerListUseUIBloxIcons and Images["icons/actions/accept"]
+								or "rbxasset://textures/ui/PlayerList/Accept.png",
+							showBackground = self.props.animatingPercentage == nil,
+							onActivated = self.props.onActivated,
+						}) or nil,
+
+						DeclineButton = declineButtonVisible and Roact.createElement(IconButton, {
+							size = UDim2.new(0.5, 0, 1, 0),
+							position = UDim2.new(0, 0, 0, 0),
+							backgroundColor = Colors.Red,
+							icon = FFlagPlayerListUseUIBloxIcons and Images["icons/actions/reject"]
+								or "rbxasset://textures/ui/PlayerList/Clear.png",
+							showBackground = self.props.animatingPercentage == nil,
+							onActivated = self.props.onDecline,
+						}) or nil,
+					})
+				}),
+
+				DismissInputHandler = Roact.createElement("ImageButton", {
+					Image = "",
+					BackgroundTransparency = 1,
+					Size = UDim2.new(0, self.props.screenSizeX, 0, self.props.screenSizeY),
+					Position = UDim2.new(0, -self.state.absolutePosX, 0, -self.state.absolutePosY),
+					Visible = self.props.onDismiss ~= nil,
+
+					[Roact.Event.Activated] = self.props.onDismiss,
+				}),
+
+				Divider = not self.props.lastButton and Roact.createElement("Frame", {
+					ZIndex = 3,
+					Size = UDim2.new(1, 0, 0, 1),
+					Position = UDim2.new(0, 0, 1, 0),
+					AnchorPoint = Vector2.new(0, 1),
+					BackgroundTransparency = style.Theme.Divider.Transparency,
+					BackgroundColor3 = style.Theme.Divider.Color,
+					BorderSizePixel = 0,
 				}),
 			})
 		end)
-	end
+	end)
 end
 
-if FFlagPlayerListDesignUpdate then
-	local function mapStateToProps(state)
-		return {
-			screenSizeX = state.screenSize.X,
-			screenSizeY = state.screenSize.Y,
-		}
-	end
-
-	return RoactRodux.UNSTABLE_connect2(mapStateToProps, nil)(DropDownButton)
+local function mapStateToProps(state)
+	return {
+		screenSizeX = state.screenSize.X,
+		screenSizeY = state.screenSize.Y,
+	}
 end
 
-return DropDownButton
+return RoactRodux.UNSTABLE_connect2(mapStateToProps, nil)(DropDownButton)

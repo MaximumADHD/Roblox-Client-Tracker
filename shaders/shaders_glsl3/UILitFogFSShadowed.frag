@@ -14,7 +14,7 @@ struct Globals
     vec3 Lamp1Color;
     vec4 FogParams;
     vec4 FogColor_GlobalForceFieldTime;
-    vec3 Exposure;
+    vec4 Exposure_DoFDistance;
     vec4 LightConfig0;
     vec4 LightConfig1;
     vec4 LightConfig2;
@@ -70,7 +70,8 @@ void main()
     vec4 f1 = vec4(1.0, 1.0, 1.0, f0.x);
     bvec4 f2 = bvec4(CB2[0].y > 0.5);
     vec4 f3 = VARYING1 * vec4(f2.x ? f1.x : f0.x, f2.y ? f1.y : f0.y, f2.z ? f1.z : f0.z, f2.w ? f1.w : f0.w);
-    vec3 f4 = f3.xyz;
+    vec4 f4 = f3;
+    f4.w = f3.w;
     float f5 = clamp(dot(step(CB0[19].xyz, abs(VARYING3 - CB0[18].xyz)), vec3(1.0)), 0.0, 1.0);
     vec3 f6 = VARYING3.yzx - (VARYING3.yzx * f5);
     vec4 f7 = vec4(clamp(f5, 0.0, 1.0));
@@ -97,9 +98,9 @@ void main()
     float f26 = f15.z;
     float f27 = max(f15.w - (f26 * f26), f22.y);
     float f28 = f20 - f26;
-    vec3 f29 = (f4 * f4).xyz;
+    vec3 f29 = (f4.xyz * f4.xyz).xyz;
     vec3 f30 = mix(CB0[14].xyz, sqrt(clamp(mix(f29, (min((f8.xyz * (f8.w * 120.0)).xyz + (CB0[8].xyz + (CB0[9].xyz * f9.x)), vec3(CB0[16].w)) + (VARYING2 * ((VARYING4.w > 0.0) ? mix(f10, mix(min((f19 <= f23) ? 1.0 : clamp(((f24 / (f24 + (f25 * f25))) - 0.20000000298023223876953125) * 1.25, 0.0, 1.0), (f20 <= f26) ? 1.0 : clamp(((f27 / (f27 + (f28 * f28))) - 0.20000000298023223876953125) * 1.25, 0.0, 1.0)), f10, clamp((length(VARYING4.xyz - CB0[7].xyz) * CB0[45].y) - (CB0[45].x * CB0[45].y), 0.0, 1.0)), CB0[46].x) : 0.0))) * f29, vec3(CB2[0].z)).xyz * CB0[15].y, vec3(0.0), vec3(1.0))).xyz, vec3(clamp((CB0[13].x * length(VARYING5)) + CB0[13].y, 0.0, 1.0)));
-    _entryPointOutput = vec4(f30.x, f30.y, f30.z, f3.w);
+    _entryPointOutput = vec4(f30.x, f30.y, f30.z, f4.w);
 }
 
 //$$ShadowAtlasTexture=s1

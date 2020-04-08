@@ -18,7 +18,7 @@ local Promise = require(Plugin.Promise)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
 local withLocalization = require(Plugin.Src.Consumers.withLocalization)
 local getMouse = require(Plugin.Src.Consumers.getMouse)
-local Constants = require(Plugin.Src.Util.Constants)
+local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 local isEmpty = require(Plugin.Src.Util.isEmpty)
 
 local ButtonBar = require(Plugin.Src.Components.ButtonBar)
@@ -37,7 +37,7 @@ function Footer:render()
 			return Roact.createElement("Frame", {
 				BackgroundColor3 = theme.backgroundColor,
 				BorderSizePixel = 0,
-				Size = UDim2.new(1, 0, 0, Constants.FOOTER_HEIGHT),
+				Size = UDim2.new(1, 0, 0, DEPRECATED_Constants.FOOTER_HEIGHT),
 				AnchorPoint = Vector2.new(0, 1),
 				Position = UDim2.new(0, 0, 1, 0),
 				ZIndex = 2,
@@ -45,8 +45,8 @@ function Footer:render()
 				Gradient = Roact.createElement("ImageLabel", {
 					Size = UDim2.new(1, 0, 0, FOOTER_GRADIENT_SIZE),
 					AnchorPoint = Vector2.new(0, 1),
-					Image = Constants.GRADIENT_IMAGE,
-					ImageRectSize = Constants.GRADIENT_RECT_SIZE,
+					Image = DEPRECATED_Constants.GRADIENT_IMAGE,
+					ImageRectSize = DEPRECATED_Constants.GRADIENT_RECT_SIZE,
 					BorderSizePixel = 0,
 					BackgroundTransparency = 1,
 					ImageColor3 = theme.footer.gradient,

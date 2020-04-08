@@ -5,6 +5,8 @@ local AssetConfigConstants = require(Plugin.Core.Util.AssetConfigConstants)
 
 local Images = {}
 
+local FFlagStudioFixAssetPreviewCloseButton = settings():GetFFlag("StudioFixAssetPreviewCloseButton")
+
 Images.ROUNDED_BACKGROUND_IMAGE = "rbxasset://textures/StudioToolbox/RoundedBackground.png"
 Images.ROUNDED_BORDER_IMAGE = "rbxasset://textures/StudioToolbox/RoundedBorder.png"
 
@@ -46,7 +48,7 @@ Images.INFO_ICON = "rbxasset://textures/DevConsole/Info.png"
 Images.ARROW_EXPANDED = "rbxasset://textures/StudioToolbox/ArrowExpanded.png"
 Images.ARROW_COLLAPSED = "rbxasset://textures/StudioToolbox/ArrowCollapsed.png"
 
-Images.DELETE_BUTTON = "rbxasset://textures/StudioToolbox/DeleteButton.png"
+Images.DELETE_BUTTON = FFlagStudioFixAssetPreviewCloseButton and "rbxasset://textures/StudioToolbox/DeleteButton.png" or "rbxasset://textures/StudioToolbox/DEPRECATED_DeleteButton.png"
 
 Images.ROBUX_SMALL = "rbxasset://textures/ui/common/robux_small.png"
 Images.RODUX_GREEN = "rbxasset://textures/ui/RobuxIcon.png"

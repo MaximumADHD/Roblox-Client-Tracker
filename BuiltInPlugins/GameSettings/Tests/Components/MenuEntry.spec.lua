@@ -9,7 +9,7 @@ return function()
 
 	local MenuEntry = require(Plugin.Src.Components.MenuEntry)
 
-	local Constants = require(Plugin.Src.Util.Constants)
+	local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 
 	local theme = Theme.newDummyTheme()
 
@@ -73,7 +73,7 @@ return function()
 		instance = Roact.reconcile(instance, newMenuEntry)
 
 		expect(menuEntry.Error.Visible).to.equal(true)
-		expect(menuEntry.Error.Image).to.equal(Constants.ERROR_IMAGE)
+		expect(menuEntry.Error.Image).to.equal(DEPRECATED_Constants.ERROR_IMAGE)
 
 		Roact.unmount(instance)
 	end)
@@ -90,7 +90,7 @@ return function()
 		instance = Roact.reconcile(instance, newMenuEntry)
 
 		expect(menuEntry.Error.Visible).to.equal(true)
-		expect(menuEntry.Error.Image).to.equal(Constants.WARNING_IMAGE)
+		expect(menuEntry.Error.Image).to.equal(DEPRECATED_Constants.WARNING_IMAGE)
 
 		Roact.unmount(instance)
 	end)

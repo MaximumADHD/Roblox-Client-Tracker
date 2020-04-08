@@ -6,8 +6,10 @@ local UpdatePageInfoAndSendRequest = require(Plugin.Core.Networking.Requests.Upd
 
 return function(networkInterface, settings)
 	return function(store)
+		local assetStore = store:getState().assets
+
 		-- This make sure we don't request more page when we are already requesting a new page.
-		if store:getState().assets.isLoading or store:getState().assets.hasReachedBottom then
+		if assetStore.isLoading or assetStore.hasReachedBottom then
 			return
 		end
 

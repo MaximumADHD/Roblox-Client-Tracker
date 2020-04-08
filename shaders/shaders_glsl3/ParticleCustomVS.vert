@@ -21,7 +21,7 @@ struct Globals
     vec3 Lamp1Color;
     vec4 FogParams;
     vec4 FogColor_GlobalForceFieldTime;
-    vec3 Exposure;
+    vec4 Exposure_DoFDistance;
     vec4 LightConfig0;
     vec4 LightConfig1;
     vec4 LightConfig2;
@@ -60,6 +60,7 @@ in vec2 TEXCOORD3;
 out vec3 VARYING0;
 out vec4 VARYING1;
 out vec2 VARYING2;
+out vec3 VARYING3;
 
 void main()
 {
@@ -97,5 +98,6 @@ void main()
     VARYING0 = v17;
     VARYING1 = TEXCOORD2 * 0.0039215688593685626983642578125;
     VARYING2 = v21;
+    VARYING3 = CB0[7].xyz - POSITION.xyz;
 }
 

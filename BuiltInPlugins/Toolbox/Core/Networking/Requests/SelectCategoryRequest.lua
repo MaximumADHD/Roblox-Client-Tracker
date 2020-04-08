@@ -2,6 +2,7 @@ local Plugin = script.Parent.Parent.Parent.Parent
 
 local Sort = require(Plugin.Core.Types.Sort)
 local RequestReason = require(Plugin.Core.Types.RequestReason)
+local Cryo = require(Plugin.Libs.Cryo)
 
 local UpdatePageInfoAndSendRequest = require(Plugin.Core.Networking.Requests.UpdatePageInfoAndSendRequest)
 local StopAllSounds = require(Plugin.Core.Actions.StopAllSounds)
@@ -15,6 +16,7 @@ return function(networkInterface, settings, categoryIndex)
 		local currentTab = store:getState().pageInfo.currentTab
 		local sortIndex = Sort.getDefaultSortForCategory(categoryIndex, FFlagEnableDefaultSortFix and currentTab or nil)
 		store:dispatch(UpdatePageInfoAndSendRequest(networkInterface, settings, {
+			audioSearchInfo = Cryo.None,
 			categoryIndex = categoryIndex,
 			searchTerm = "",
 			sortIndex = sortIndex,

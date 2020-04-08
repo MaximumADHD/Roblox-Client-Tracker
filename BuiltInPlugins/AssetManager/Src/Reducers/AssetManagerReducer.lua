@@ -17,6 +17,8 @@ return Rodux.createReducer({
 	-- Contains list of selected keyed by id
 	selectedAssets = {},
 	universeName = "",
+	-- only show the scripts folder if the place has linked scripts because linked scripts are deprecated.
+	hasLinkedScripts = false,
 }, {
 	SetAssets = function(state, action)
 		return Cryo.Dictionary.join(state, {
@@ -83,6 +85,12 @@ return Rodux.createReducer({
 					})
 				})
 			})
+		})
+	end,
+
+	SetHasLinkedScripts = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			hasLinkedScripts = action.hasLinkedScripts,
 		})
 	end,
 })

@@ -20,6 +20,7 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 local RoactRodux = require(Libs.RoactRodux)
+local UILibrary = require(Libs.UILibrary)
 
 local Components = Plugin.Core.Components
 local Dialog = require(Components.PluginWidget.Dialog)
@@ -36,7 +37,7 @@ local UILibraryWrapper
 if FFlagStudioToolboxEnabledDevFramework then
 	UILibraryWrapper = require(Libs.Framework.ContextServices.UILibraryWrapper)
 else
-	UILibraryWrapper = require(Libs.UILibrary.UILibraryWrapper)
+	UILibraryWrapper = UILibrary.Wrapper
 end
 
 local ContextServices = require(Libs.Framework.ContextServices)

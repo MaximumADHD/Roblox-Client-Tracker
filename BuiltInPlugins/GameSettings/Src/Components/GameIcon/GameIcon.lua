@@ -15,7 +15,7 @@ local FALLBACK_IMAGE = "rbxasset://textures/GameSettings/ModeratedAsset.jpg"
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
-local Constants = require(Plugin.Src.Util.Constants)
+local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
 local withLocalization = require(Plugin.Src.Consumers.withLocalization)
 local getMouse = require(Plugin.Src.Consumers.getMouse)
@@ -78,7 +78,7 @@ function GameIcon:render()
 					Visible = review or preview,
 					BackgroundTransparency = 0.3,
 					BorderSizePixel = 0,
-					BackgroundColor3 = Constants.BLACK,
+					BackgroundColor3 = DEPRECATED_Constants.BLACK,
 					Size = UDim2.new(1, 0, 0, 30),
 					Position = UDim2.new(0, 0, 1, 0),
 					AnchorPoint = Vector2.new(0, 1),
@@ -94,9 +94,9 @@ function GameIcon:render()
 					Size = UDim2.new(1, 0, 1.5, 0),
 					AnchorPoint = Vector2.new(0, 1),
 					Position = UDim2.new(0, 0, 1, 0),
-					Image = Constants.GRADIENT_IMAGE,
-					ImageRectSize = Constants.GRADIENT_RECT_SIZE,
-					ImageColor3 = Constants.BLACK,
+					Image = DEPRECATED_Constants.GRADIENT_IMAGE,
+					ImageRectSize = DEPRECATED_Constants.GRADIENT_RECT_SIZE,
+					ImageColor3 = DEPRECATED_Constants.BLACK,
 					ZIndex = 4,
 
 					[Roact.Event.Activated] = self.props.OnClick,

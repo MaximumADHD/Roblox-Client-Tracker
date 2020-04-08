@@ -1,4 +1,5 @@
 local FFlagToolboxShowGroupCreations = game:GetFastFlag("ToolboxShowGroupCreations")
+local FFlagEnableAudioPreview = settings():GetFFlag("EnableAudioPreview")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Cryo = require(Plugin.Libs.Cryo)
@@ -13,6 +14,7 @@ local Category = require(Plugin.Core.Types.Category)
 return function(networkInterface, tabName, newCategories,  settings, options)
 	return function(store)
 		store:dispatch(UpdatePageInfoAndSendRequest(networkInterface, settings, {
+			audioSearchInfo = FFlagEnableAudioPreview and Cryo.None or nil,
 			creator = Cryo.None,
 			currentTab = tabName,
 			categories = Category.getCategories(tabName, store:getState().roles),

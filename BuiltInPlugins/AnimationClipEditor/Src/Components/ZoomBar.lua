@@ -12,12 +12,13 @@
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
+local UILibrary = require(Plugin.UILibrary)
 local Constants = require(Plugin.Src.Util.Constants)
 
 local Theme = require(Plugin.Src.Context.Theme)
 local withTheme = Theme.withTheme
 
-local DragTarget = require(Plugin.UILibrary.Components.DragTarget)
+local DragTarget = UILibrary.Component.DragTarget
 local ArrowButton = require(Plugin.Src.Components.ArrowButton)
 
 local ZoomBar = Roact.PureComponent:extend("ZoomBar")

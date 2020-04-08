@@ -13,11 +13,12 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Roact = require(Plugin.Roact)
+local UILibrary = require(Plugin.UILibrary)
 
 local Theme = require(Plugin.Src.Context.Theme)
 local withTheme = Theme.withTheme
 
-local RoundFrame = require(Plugin.UILibrary.Components.RoundFrame)
+local RoundFrame = UILibrary.Component.RoundFrame
 
 local TimeTag = Roact.PureComponent:extend("TimeTag")
 

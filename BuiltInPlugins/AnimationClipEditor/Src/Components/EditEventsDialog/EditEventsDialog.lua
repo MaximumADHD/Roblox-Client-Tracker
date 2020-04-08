@@ -38,7 +38,7 @@ local deepCopy = require(Plugin.Src.Util.deepCopy)
 local UILibrary = require(Plugin.UILibrary)
 local StyledDialog = UILibrary.Component.StyledDialog
 
-local Localizing = require(Plugin.UILibrary.Localizing)
+local Localizing = UILibrary.Localizing
 local withLocalization = Localizing.withLocalization
 
 local Theme = require(Plugin.Src.Context.Theme)

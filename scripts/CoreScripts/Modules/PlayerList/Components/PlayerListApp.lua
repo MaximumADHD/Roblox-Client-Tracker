@@ -11,8 +11,8 @@ local Otter = require(CorePackages.Otter)
 local StatsUtils = require(RobloxGui.Modules.Stats.StatsUtils)
 
 local Presentation = script.Parent.Presentation
-local PlayerScrollList = require(Presentation.PlayerScrollList)
-local TopBarLeaderstats = require(Presentation.TopBarLeaderstats)
+local PlayerScrollList = require(Presentation.PlayerScrollList) --Remove with FFlagPlayerListMorePerfImprovements
+local PlayerListSorter = require(Presentation.PlayerListSorter)
 local PlayerEntry = require(Presentation.PlayerEntry)
 local VoiceChatShield = require(Presentation.VoiceChatShield)
 local TenFootSideBar = require(Presentation.TenFootSideBar)
@@ -24,9 +24,10 @@ local TopStatConnector = require(Connection.TopStatConnector)
 local LayoutValues = require(Connection.LayoutValues)
 local WithLayoutValues = LayoutValues.WithLayoutValues
 
-local FFlagPlayerListDesignUpdate = settings():GetFFlag("PlayerListDesignUpdate")
 local FFlagPlayerListAdjustHeightToMatchLegacy = game:DefineFastFlag("PlayerListAdjustHeightToMatchLegacy", false)
-local FFlagDisableAutoTranslateForKeyTranslatedContent = require(RobloxGui.Modules.Flags.FFlagDisableAutoTranslateForKeyTranslatedContent)
+local FFlagDisableAutoTranslateForKeyTranslatedContent = require(
+	RobloxGui.Modules.Flags.FFlagDisableAutoTranslateForKeyTranslatedContent)
+local FFlagPlayerListMorePerfImprovements = require(RobloxGui.Modules.Flags.FFlagPlayerListMorePerfImprovements)
 
 local MOTOR_OPTIONS = {
     dampingRatio = 1,
@@ -65,26 +66,24 @@ local function getTeamCount(teams, players)
 	return teamCount
 end
 
-if FFlagPlayerListDesignUpdate then
-	function PlayerListApp:init()
-		self.state = {
-			visible = true,
-		}
+function PlayerListApp:init()
+	self.state = {
+		visible = true,
+	}
 
-		self.positionOffset, self.updatePositionOffset = Roact.createBinding(UDim2.new(0, 0, 0, 0))
+	self.positionOffset, self.updatePositionOffset = Roact.createBinding(UDim2.new(0, 0, 0, 0))
 
-		self.positionMotor = Otter.createSingleMotor(0)
-		self.positionMotor:onStep(function(position)
-			self.updatePositionOffset(UDim2.new(position, 0, 0, 0))
-		end)
-		self.positionMotor:onComplete(function(position)
-			if not self.props.displayOptions.isVisible then
-				self:setState({
-					visible = false,
-				})
-			end
-		end)
-	end
+	self.positionMotor = Otter.createSingleMotor(0)
+	self.positionMotor:onStep(function(position)
+		self.updatePositionOffset(UDim2.new(position, 0, 0, 0))
+	end)
+	self.positionMotor:onComplete(function(position)
+		if not self.props.displayOptions.isVisible then
+			self:setState({
+				visible = false,
+			})
+		end
+	end)
 end
 
 function PlayerListApp:render()
@@ -102,23 +101,21 @@ function PlayerListApp:render()
 			containerSize = containerSize + UDim2.new(0, statOffsetX * leaderstatsCount, 0, 0)
 		end
 
-		local entrySize = nil
-		if FFlagPlayerListDesignUpdate then
-			if layoutValues.IsTenFoot then
-				entrySize = layoutValues.EntrySizeX
-			else
-				entrySize = layoutValues.EntryBaseSizeX + (math.min(4, leaderstatsCount) * layoutValues.EntrySizeIncreasePerStat)
+		local entrySize
+		if layoutValues.IsTenFoot then
+			entrySize = layoutValues.EntrySizeX
+		else
+			entrySize = layoutValues.EntryBaseSizeX + (math.min(4, leaderstatsCount) * layoutValues.EntrySizeIncreasePerStat)
 
-				containerSize = containerSize + UDim2.new(0, layoutValues.ExtraContainerPadding, 0, 0)
+			containerSize = containerSize + UDim2.new(0, layoutValues.ExtraContainerPadding, 0, 0)
 
-				local dropDownSpace = layoutValues.PlayerDropDownSizeX + layoutValues.PlayerDropDownOffset
-				local usedScreenSpace = containerSize.X.Offset + layoutValues.ContainerPadding * 2 + dropDownSpace
+			local dropDownSpace = layoutValues.PlayerDropDownSizeX + layoutValues.PlayerDropDownOffset
+			local usedScreenSpace = containerSize.X.Offset + layoutValues.ContainerPadding * 2 + dropDownSpace
 
-				if self.props.screenSizeX - usedScreenSpace < entrySize then
-					entrySize = self.props.screenSizeX - usedScreenSpace
-				end
-				containerSize = containerSize + UDim2.new(0, entrySize, 0, 0)
+			if self.props.screenSizeX - usedScreenSpace < entrySize then
+				entrySize = self.props.screenSizeX - usedScreenSpace
 			end
+			containerSize = containerSize + UDim2.new(0, entrySize, 0, 0)
 		end
 
 		local previousSizeBound = math.huge
@@ -148,19 +145,18 @@ function PlayerListApp:render()
 					break
 				end
 			end
-		else
-			if not FFlagPlayerListDesignUpdate then
-				childElements["TopBarLeaderstats"] = Roact.createElement(TopBarLeaderstats)
-			end
 		end
 
-		if FFlagPlayerListDesignUpdate then
-			childElements["PlayerScrollList"] = Roact.createElement(PlayerScrollList, {
+		if FFlagPlayerListMorePerfImprovements then
+			childElements["PlayerScrollList"] = Roact.createElement(PlayerListSorter, {
 				screenSizeY = self.props.screenSizeY,
 				entrySize = entrySize,
 			})
 		else
-			childElements["PlayerScrollList"] = Roact.createElement(PlayerScrollList)
+			childElements["PlayerScrollList"] = Roact.createElement(PlayerScrollList, {
+				screenSizeY = self.props.screenSizeY,
+				entrySize = entrySize,
+			})
 		end
 		childElements["EventConnections"] = Roact.createElement(EventConnections)
 		childElements["ContextActionsBindings"] = Roact.createElement(ContextActionsBinder)
@@ -172,111 +168,77 @@ function PlayerListApp:render()
 			childElements["TenFootSideBar"] = Roact.createElement(TenFootSideBar)
 		end
 
-		if FFlagPlayerListDesignUpdate then
-			return Roact.createElement("Frame", {
-				Position = containerPosition,
-				AnchorPoint = anchorPoint,
-				Size = containerSize,
-				BackgroundTransparency = 1,
-				Visible = self.state.visible,
-				---Increase ZIndex on TenFootInferface to put this on front of the VoiceChatShield.
-				ZIndex = layoutValues.IsTenFoot and 2 or 1,
-				AutoLocalize = not FFlagDisableAutoTranslateForKeyTranslatedContent,
+		return Roact.createElement("Frame", {
+			Position = containerPosition,
+			AnchorPoint = anchorPoint,
+			Size = containerSize,
+			BackgroundTransparency = 1,
+			Visible = self.state.visible,
+			---Increase ZIndex on TenFootInferface to put this on front of the VoiceChatShield.
+			ZIndex = layoutValues.IsTenFoot and 2 or 1,
+			AutoLocalize = not FFlagDisableAutoTranslateForKeyTranslatedContent,
 
-				[Roact.Ref] = self.rootRef,
-			}, {
-				OffsetFrame = Roact.createElement("Frame", {
-					Size = UDim2.new(1, 0, 1, 0),
-					Position = self.positionOffset,
-					BackgroundTransparency = 1,
-				}, childElements),
-
-				UISizeConstraint = FFlagPlayerListAdjustHeightToMatchLegacy and Roact.createElement("UISizeConstraint", {
-					MinSize = Vector2.new(0, 0),
-					MaxSize = Vector2.new(math.huge, previousSizeBound)
-				}) or nil,
-			})
-		else
-			return Roact.createElement("Frame", {
-				Position = containerPosition,
-				AnchorPoint = anchorPoint,
-				Size = containerSize,
+			[Roact.Ref] = self.rootRef,
+		}, {
+			OffsetFrame = Roact.createElement("Frame", {
+				Size = UDim2.new(1, 0, 1, 0),
+				Position = self.positionOffset,
 				BackgroundTransparency = 1,
-				Visible = self.props.displayOptions.isVisible,
-				---Increase ZIndex on TenFootInferface to put this on front of the VoiceChatShield.
-				ZIndex = layoutValues.IsTenFoot and 2 or 1,
-			}, childElements)
-		end
+			}, childElements),
+
+			UISizeConstraint = FFlagPlayerListAdjustHeightToMatchLegacy and Roact.createElement("UISizeConstraint", {
+				MinSize = Vector2.new(0, 0),
+				MaxSize = Vector2.new(math.huge, previousSizeBound)
+			}) or nil,
+		})
 	end)
 end
 
-if FFlagPlayerListDesignUpdate then
-	function PlayerListApp:didMount()
-		self:setState({
-			visible = self.props.displayOptions.isVisible,
-		})
-	end
+function PlayerListApp:didMount()
+	self:setState({
+		visible = self.props.displayOptions.isVisible,
+	})
 end
 
-if FFlagPlayerListDesignUpdate then
-	function PlayerListApp:didUpdate(previousProps, previousState)
-		if self.props.displayOptions.isVisible ~= previousProps.displayOptions.isVisible  then
-			if self.props.displayOptions.isTenFootInterface then
+function PlayerListApp:didUpdate(previousProps, previousState)
+	if self.props.displayOptions.isVisible ~= previousProps.displayOptions.isVisible  then
+		if self.props.displayOptions.isTenFootInterface then
+			self:setState({
+				visible = self.props.displayOptions.isVisible,
+			})
+		else
+			if self.props.displayOptions.isVisible then
 				self:setState({
-					visible = self.props.displayOptions.isVisible,
+					visible = true,
 				})
+				self.positionMotor:setGoal(Otter.instant(0.2))
+				self.positionMotor:step(0)
+				self.positionMotor:setGoal(Otter.spring(0, MOTOR_OPTIONS))
 			else
-				if self.props.displayOptions.isVisible then
-					self:setState({
-						visible = true,
-					})
-					self.positionMotor:setGoal(Otter.instant(0.2))
-					self.positionMotor:step(0)
-					self.positionMotor:setGoal(Otter.spring(0, MOTOR_OPTIONS))
-				else
-					self.positionMotor:setGoal(Otter.spring(1.1, MOTOR_OPTIONS))
-				end
+				self.positionMotor:setGoal(Otter.spring(1.1, MOTOR_OPTIONS))
 			end
 		end
 	end
 end
 
-if FFlagPlayerListDesignUpdate then
-	function PlayerListApp:willUnmount()
-		self.positionMotor:destroy()
-		self.positionMotor = nil
-	end
-end
-
-
-if FFlagPlayerListDesignUpdate then
-	local function mapStateToProps(state)
-		return {
-			screenSizeX = state.screenSize.X,
-			screenSizeY = state.screenSize.Y,
-
-			displayOptions = state.displayOptions,
-			players = state.players,
-			playerStats = state.playerStats,
-			playerIconInfo = state.playerIconInfo,
-			playerRelationship = state.playerRelationship,
-			gameStats = state.gameStats,
-
-			teams = state.teams,
-		}
-	end
-
-	return RoactRodux.UNSTABLE_connect2(mapStateToProps, nil)(PlayerListApp)
+function PlayerListApp:willUnmount()
+	self.positionMotor:destroy()
+	self.positionMotor = nil
 end
 
 local function mapStateToProps(state)
 	return {
+		screenSizeX = state.screenSize.X,
+		screenSizeY = state.screenSize.Y,
+
 		displayOptions = state.displayOptions,
 		players = state.players,
 		playerStats = state.playerStats,
 		playerIconInfo = state.playerIconInfo,
 		playerRelationship = state.playerRelationship,
 		gameStats = state.gameStats,
+
+		teams = state.teams,
 	}
 end
 

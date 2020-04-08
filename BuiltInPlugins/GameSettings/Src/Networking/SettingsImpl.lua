@@ -17,6 +17,7 @@ local FFlagStudioGameSettingsDisablePlayabilityForDrafts = settings():GetFFlag("
 local FFlagVersionControlServiceScriptCollabEnabled = settings():GetFFlag("VersionControlServiceScriptCollabEnabled")
 
 local DFFlagDeveloperSubscriptionsEnabled = settings():GetFFlag("DeveloperSubscriptionsEnabled")
+local FFlagStudioLocalizationInGameSettingsEnabled = game:GetFastFlag("StudioLocalizationInGameSettingsEnabled")
 
 local Plugin = script.Parent.Parent.Parent
 local Promise = require(Plugin.Promise)
@@ -37,6 +38,18 @@ local Requests = {
 	ScriptCollabEnabled = FFlagVersionControlServiceScriptCollabEnabled and require(RequestsFolder.ScriptCollabEnabled) or nil,
 	GamePermissions = FFlagStudioGameSettingsAccessPermissions and require(RequestsFolder.GamePermissions) or nil,
 	DeveloperSubscriptions = DFFlagDeveloperSubscriptionsEnabled and require(RequestsFolder.DevSubs.DeveloperSubscriptions) or nil,
+	SupportedLanguages = FFlagStudioLocalizationInGameSettingsEnabled and 
+		require(Plugin.Src.Networking.Requests.LocalizationSettings.SupportedLanguages) or nil,
+	AllLocales = FFlagStudioLocalizationInGameSettingsEnabled and
+		require(Plugin.Src.Networking.Requests.LocalizationSettings.AllLocales) or nil,
+	AutoTranslationFeatureStatus = FFlagStudioLocalizationInGameSettingsEnabled and
+		require(Plugin.Src.Networking.Requests.LocalizationSettings.AutoTranslationFeatureStatus) or nil,
+	SourceLanguage = FFlagStudioLocalizationInGameSettingsEnabled and
+		require(RequestsFolder.LocalizationSettings.SourceLanguage) or nil,
+	AutoLocalization = FFlagStudioLocalizationInGameSettingsEnabled and
+		require(RequestsFolder.LocalizationSettings.AutoLocalization) or nil,
+	AutoTranslationSettings = FFlagStudioLocalizationInGameSettingsEnabled and
+		require(RequestsFolder.LocalizationSettings.AutoTranslationSettings) or nil,
 }
 
 local SettingsImpl = {}
@@ -139,6 +152,16 @@ function SettingsImpl:GetSettings()
 					table.insert( getRequests, Requests.ScriptCollabEnabled.Get())
 				end
 
+				if FFlagStudioLocalizationInGameSettingsEnabled then
+					table.insert(getRequests, Requests.SupportedLanguages.Get())
+					table.insert(getRequests, Requests.AllLocales.Get())
+					table.insert(getRequests, Requests.AutoTranslationFeatureStatus.Get(gameId))
+					table.insert(getRequests, Requests.AutoLocalization.Get(gameId))
+					table.insert(getRequests, Requests.AutoLocalization.Get(gameId))
+					table.insert(getRequests, Requests.SourceLanguage.Get(gameId))
+					table.insert(getRequests, Requests.AutoTranslationSettings.Get(gameId))
+				end
+
 				local success,loaded = Promise.all(getRequests):await()
 				if not success then reject(loaded) return end
 				for _, values in ipairs(loaded) do
@@ -203,6 +226,17 @@ function SettingsImpl:SaveAll(state)
 					Current = {permissions=state.Current.permissions, groupMetadata=state.Current.groupMetadata},
 					Changed = {permissions=state.Changed.permissions, groupMetadata=state.Changed.groupMetadata or state.Current.groupMetadata},
 				}
+			elseif FFlagStudioLocalizationInGameSettingsEnabled then
+				if Requests.SourceLanguage.AcceptsValue(setting) then
+					saveInfo[setting] = value
+				elseif Requests.AutoLocalization.AcceptsValue(setting) then
+					saveInfo[setting] = value
+				elseif Requests.AutoTranslationSettings.AcceptsValue(setting) then
+					saveInfo[setting] = {
+						Current = state.Current.AutoTranslationSettings,
+						Changed = state.Changed.AutoTranslationSettings,
+					}
+				end
 			end
 		end
 
@@ -236,6 +270,21 @@ function SettingsImpl:SaveAll(state)
 
 		if FFlagVersionControlServiceScriptCollabEnabled and saveInfo.ScriptCollabEnabled ~= nil then
 			table.insert(setRequests, Requests.ScriptCollabEnabled.Set(saveInfo.ScriptCollabEnabled))
+		end
+
+		if FFlagStudioLocalizationInGameSettingsEnabled then
+			if saveInfo.SourceLanguage ~= nil then
+				table.insert(setRequests, Requests.SourceLanguage.Set(universeId, saveInfo.SourceLanguage))
+			end
+			if saveInfo.AutoTextCaptureEnabled ~= nil or saveInfo.UseTranslatedContentEnabled ~= nil then
+				table.insert(setRequests, Requests.AutoLocalization.Set(universeId, {
+					AutoTextCaptureEnabled = saveInfo.AutoTextCaptureEnabled,
+					UseTranslatedContentEnabled = saveInfo.UseTranslatedContentEnabled,
+				}))
+			end
+			if saveInfo.AutoTranslationSettings ~= nil then
+				table.insert(setRequests, Requests.AutoTranslationSettings.Set(universeId, saveInfo.AutoTranslationSettings))
+			end
 		end
 
 		return Promise.all(setRequests):andThen(function()

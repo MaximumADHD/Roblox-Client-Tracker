@@ -20,10 +20,11 @@
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
-local Constants = require(Plugin.Src.Util.Constants)
+local UILibrary = require(Plugin.UILibrary)
+local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
 
-local RoundTextButton = require(Plugin.UILibrary.Components.RoundTextButton)
+local RoundTextButton = UILibrary.Component.RoundTextButton
 
 local function HeaderWithButton(props)
 	local title = props.Title
@@ -35,7 +36,7 @@ local function HeaderWithButton(props)
 
 	return withTheme(function(theme)
 		return Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Title, {
-			Size = UDim2.new(1, 0, 0, Constants.HEADER_HEIGHT),
+			Size = UDim2.new(1, 0, 0, DEPRECATED_Constants.HEADER_HEIGHT),
 			Text = title,
 			BackgroundTransparency = 1,
 			BorderSizePixel = 0,

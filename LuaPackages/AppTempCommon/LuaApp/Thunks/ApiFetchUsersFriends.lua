@@ -13,6 +13,7 @@ local FetchUserFriendsFailed = require(CorePackages.AppTempCommon.LuaApp.Actions
 local FetchUserFriendsCompleted = require(CorePackages.AppTempCommon.LuaApp.Actions.FetchUserFriendsCompleted)
 local UserModel = require(CorePackages.AppTempCommon.LuaApp.Models.User)
 local UpdateUsers = require(CorePackages.AppTempCommon.LuaApp.Thunks.UpdateUsers)
+local isDisplayNamesEnabled = require(CorePackages.AppTempCommon.LuaApp.Flags.isDisplayNamesEnabled)
 
 local LuaAppRemoveGetFriendshipCountApiCalls = settings():GetFFlag("LuaAppRemoveGetFriendshipCountApiCalls")
 
@@ -34,7 +35,13 @@ return function(requestImpl, userId, thumbnailRequest, checkPoints)
 			local newUsers = {}
 			for _, userData in pairs(responseBody.data) do
 				local id = tostring(userData.id)
-				local newUser = UserModel.fromData(id, userData.name, true)
+				local newUser
+				if isDisplayNamesEnabled() then
+					userData.isFriend = true
+					newUser = UserModel.fromDataTable(userData)
+				else
+					newUser = UserModel.fromData(id, userData.name, true)
+				end
 
 				table.insert(fetchedUserIds, id)
 				newUsers[newUser.id] = newUser

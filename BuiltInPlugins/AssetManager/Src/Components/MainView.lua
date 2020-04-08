@@ -14,10 +14,17 @@ local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 
-local ContextServices = require(Plugin.Packages.Framework.ContextServices)
+local Framework = Plugin.Packages.Framework
+
+local ContextServices = require(Framework.ContextServices)
+
+local UI = require(Framework.UI)
+local Button = UI.Button
+local HoverArea = UI.HoverArea
 
 local UILibrary = require(Plugin.Packages.UILibrary)
 local LayoutOrderIterator = UILibrary.Util.LayoutOrderIterator
+local GetTextSize = UILibrary.Util.GetTextSize
 
 local AssetGridContainer = require(Plugin.Src.Components.AssetGridContainer)
 local AssetPreviewWrapper = require(Plugin.Src.Components.AssetPreviewWrapper)
@@ -27,7 +34,10 @@ local TopBar = require(Plugin.Src.Components.TopBar)
 
 local Screens = require(Plugin.Src.Util.Screens)
 
+local GetAssets = require(Plugin.Src.Thunks.GetAssets)
 local GetUniverseConfiguration = require(Plugin.Src.Thunks.GetUniverseConfiguration)
+
+local StudioService = game:GetService("StudioService")
 
 local MainView = Roact.PureComponent:extend("MainView")
 
@@ -58,6 +68,8 @@ function MainView:init()
             Children = {},
         },
     }
+
+    self.gamePublishedConnection = nil
 
     self.openOverlay = function()
         self:setState({
@@ -94,10 +106,30 @@ function MainView:init()
             assetPreview = assetPreviewWrapper,
         })
     end
+
+    self.getScripts = function()
+        local props = self.props
+        local apiImpl = props.API:get()
+
+        local dispatchGetAssets = props.dispatchGetAssets
+        dispatchGetAssets(apiImpl, Screens.SCRIPTS.AssetType, nil, nil, false)
+    end
 end
 
 function MainView:didMount()
-    self.props.dispatchGetUniverseConfiguration(self.props.API:get())
+    self.getScripts()
+    if game.GameId ~= 0 then
+        self.props.dispatchGetUniverseConfiguration(self.props.API:get())
+    end
+    self.gamePublishedConnection = StudioService.GamePublishFinished:connect(function()
+        self.props.dispatchGetUniverseConfiguration(self.props.API:get())
+    end)
+end
+
+function MainView:willUnmount()
+    if self.gamePublishedConnection then
+        self.gamePublishedConnection:disconnect()
+    end
 end
 
 function MainView:render()
@@ -107,13 +139,17 @@ function MainView:render()
     local localization = props.Localization
 
     local universeName = props.UniverseName
+    local hasLinkedScripts = props.HasLinkedScripts
 
     local layoutIndex = LayoutOrderIterator.new()
 
     if not defaultFoldersLoaded then
         for _, screen in pairs(Screens) do
             if screen.Key ~= Screens.MAIN.Key then
-                createDefaultFileOverlayFolders(screen, self.state.fileExplorerData, localization)
+                -- Only show the scripts folder if this universe has linked scripts because they're deprecated.
+                if (screen.Key == Screens.SCRIPTS.Key and hasLinkedScripts) or screen.Key ~= Screens.SCRIPTS.Key then
+                    createDefaultFileOverlayFolders(screen, self.state.fileExplorerData, localization)
+                end
             end
         end
         defaultFoldersLoaded = true
@@ -124,26 +160,66 @@ function MainView:render()
         universeNameSet = true
     end
 
+    local isPublishedGame = game.GameId ~= 0
+    local publishText = localization:getText("MainView", "PublishText")
+    local publishTextExtents = GetTextSize(publishText, theme.FontSizeLarge, theme.Font,
+        Vector2.new(theme.MainView.PublishText.Width, math.huge))
+    local buttonText = localization:getText("MainView", "ButtonText")
+    local buttonTextExtents = GetTextSize(buttonText, theme.FontSizeLarge, theme.Font)
+
     return Roact.createElement("Frame", {
         Size = UDim2.new(1, 0, 1, 0),
         Position = UDim2.new(0, 0, 0, 0),
         BackgroundTransparency = 0,
         BackgroundColor3 = theme.BackgroundColor,
     }, {
-        MainViewLayout = Roact.createElement("UIListLayout", {
+        UseText = not isPublishedGame and Roact.createElement("TextLabel", {
+            Size = UDim2.new(0, publishTextExtents.X, 0, publishTextExtents.Y),
+            Position = UDim2.new(0.5, 0, 0, theme.MainView.PublishText.Offset),
+            AnchorPoint = Vector2.new(0.5, 0.5),
+            LayoutOrder = layoutIndex:getNextOrder(),
+
+            BackgroundTransparency = 1,
+
+            Font = theme.Font,
+            Text = publishText,
+            TextColor3 = theme.TextColor,
+            TextSize = theme.FontSizeMedium,
+            TextXAlignment = Enum.TextXAlignment.Center,
+            TextWrapped = true,
+        }),
+
+        PublishButton = not isPublishedGame and Roact.createElement(Button, {
+            Style = "RoundPrimary",
+
+            Text = buttonText,
+            Size = UDim2.new(0, buttonTextExtents.X + theme.MainView.PublishButton.PaddingX,
+                0, buttonTextExtents.Y + theme.MainView.PublishButton.PaddingY),
+            Position = UDim2.new(0.5, 0, 0, theme.MainView.PublishButton.Offset),
+            AnchorPoint = Vector2.new(0.5, 0.5),
+            LayoutOrder = layoutIndex:getNextOrder(),
+
+            OnClick = function()
+                StudioService:ShowPublishToRoblox()
+            end,
+        }, {
+            Roact.createElement(HoverArea, {Cursor = "PointingHand"}),
+        }),
+
+        MainViewLayout = isPublishedGame and Roact.createElement("UIListLayout", {
             FillDirection = Enum.FillDirection.Vertical,
             SortOrder = Enum.SortOrder.LayoutOrder,
             VerticalAlignment = Enum.VerticalAlignment.Top,
         }),
 
-        ExplorerOverlay = self.state.showOverlay and Roact.createElement(ExplorerOverlay, {
+        ExplorerOverlay = isPublishedGame and self.state.showOverlay and Roact.createElement(ExplorerOverlay, {
             FileExplorerData = self.state.fileExplorerData,
             CloseOverlay = self.closeOverlay,
         }),
 
-        AssetPreview = self.state.showAssetPreview and self.state.assetPreview,
+        AssetPreview = isPublishedGame and self.state.showAssetPreview and self.state.assetPreview,
 
-        TopBar = Roact.createElement(TopBar, {
+        TopBar = isPublishedGame and Roact.createElement(TopBar, {
             Size = UDim2.new(1, 0, 0, theme.TopBar.Button.Size),
             LayoutOrder = layoutIndex:getNextOrder(),
 
@@ -151,12 +227,12 @@ function MainView:render()
             Enabled = not self.state.showOverlay,
         }),
 
-        NavBar = Roact.createElement(NavBar, {
+        NavBar = isPublishedGame and Roact.createElement(NavBar, {
             Size = UDim2.new(1, 0, 0, theme.NavBar.Height),
             LayoutOrder = layoutIndex:getNextOrder(),
         }),
 
-        AssetGridView = Roact.createElement(AssetGridContainer, {
+        AssetGridView = isPublishedGame and Roact.createElement(AssetGridContainer, {
             Size = UDim2.new(1, 0, 1, -theme.TopBar.Button.Size - theme.NavBar.Height),
             LayoutOrder = layoutIndex:getNextOrder(),
 
@@ -172,13 +248,21 @@ ContextServices.mapToProps(MainView,{
 })
 
 local function mapStateToProps(state, props)
-    return {
-        UniverseName = state.AssetManagerReducer.universeName,
+    local assetManagerReducer = state.AssetManagerReducer
+
+	return {
+        AssetsTable = assetManagerReducer.assetsTable,
+        UniverseName = assetManagerReducer.universeName,
+        HasLinkedScripts = assetManagerReducer.hasLinkedScripts,
     }
 end
 
 local function mapDispatchToProps(dispatch)
     return {
+        dispatchGetAssets = function(apiImpl, assetType, pageCursor, pageNumber, showLoadingIndicator)
+            dispatch(GetAssets(apiImpl, assetType, pageCursor, pageNumber, showLoadingIndicator))
+        end,
+
         dispatchGetUniverseConfiguration = function(apiImpl)
             dispatch(GetUniverseConfiguration(apiImpl))
         end,

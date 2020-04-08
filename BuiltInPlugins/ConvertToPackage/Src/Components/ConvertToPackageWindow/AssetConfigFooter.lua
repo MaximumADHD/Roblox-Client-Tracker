@@ -19,12 +19,12 @@ local Plugin = script.Parent.Parent.Parent.Parent
 
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
+local UILibrary = require(Packages.UILibrary)
 
 local Util = Plugin.Src.Util
 local Constants = require(Util.Constants)
 
-local UILibrary = Packages.UILibrary
-local RoundTextButton = require(UILibrary.Components.RoundTextButton)
+local RoundTextButton = UILibrary.Component.RoundTextButton
 local withContext = require(Plugin.Src.ContextServices.withContext)
 local AssetConfigFooter = Roact.PureComponent:extend("AssetConfigFooter")
 

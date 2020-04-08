@@ -239,6 +239,14 @@ function PreviewController:render()
 	local reportPlay = props.reportPlay
 	local reportPause = props.reportPause
 
+	local isShowAudioPreview = FFlagEnableAudioPreview and AssetType:isAudio(assetPreviewType)
+	local mainViewButtonYOffset
+	if isShowAudioPreview then
+		mainViewButtonYOffset = 3
+	else
+		mainViewButtonYOffset = MAINVIEW_BUTTONS_Y_OFFSET
+	end
+
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(1, width, 0, height),
 
@@ -279,7 +287,7 @@ function PreviewController:render()
 				ScaleType = getImageScaleType(currentPreview),
 			}),
 
-			AudioPreview = FFlagEnableAudioPreview and AssetType:isAudio(assetPreviewType) and Roact.createElement(AudioPreview, {
+			AudioPreview = isShowAudioPreview and Roact.createElement(AudioPreview, {
 				SoundId = soundId or Urls.constructAssetIdString(assetId),
 				AssetId = assetId,
 				ShowTreeView = showTreeView,
@@ -302,7 +310,7 @@ function PreviewController:render()
 			}),
 
 			TreeViewButton = (not AssetType:isPlugin(assetPreviewType)) and Roact.createElement(TreeViewButton, {
-				Position = UDim2.new(1, MAINVIEW_BUTTONS_X_OFFSET, 1, MAINVIEW_BUTTONS_Y_OFFSET),
+				Position = UDim2.new(1, MAINVIEW_BUTTONS_X_OFFSET, 1, mainViewButtonYOffset),
 				ZIndex = 2,
 
 				ShowTreeView = state.showTreeView,

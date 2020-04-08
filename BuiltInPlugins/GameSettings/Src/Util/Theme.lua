@@ -1,6 +1,6 @@
 local Plugin = script.Parent.Parent.Parent
 
-local Constants = require(Plugin.Src.Util.Constants)
+local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 local UILibrary = require(Plugin.UILibrary)
 local StudioTheme = UILibrary.Studio.Theme
 local StudioStyle = UILibrary.Studio.Style
@@ -209,7 +209,7 @@ function Theme.createValues(getColor, StyleColor, StyleModifier)
 		defaultButton = {
 			ButtonColor = isDark and getColor(StyleColor.MainButton) or getColor(StyleColor.CurrentMarker),
 			ButtonColor_Hover = getColor(StyleColor.LinkText),
-			ButtonColor_Disabled = isDark and getColor(StyleColor.Button, StyleModifier.Disabled) or Constants.BLUE_DISABLED,
+			ButtonColor_Disabled = isDark and getColor(StyleColor.Button, StyleModifier.Disabled) or DEPRECATED_Constants.BLUE_DISABLED,
 			TextColor = Color3.new(1, 1, 1),
 			TextColor_Disabled = isDark and getColor(StyleColor.ButtonText, StyleModifier.Disabled) or Color3.new(1, 1, 1),
 			BorderColor = getColor(StyleColor.Light),
@@ -229,6 +229,15 @@ function Theme.createValues(getColor, StyleColor, StyleModifier)
 		editButton = {
 			image = "rbxasset://textures/GameSettings/edit.png",
 			imageColor = isDark and Color3.fromRGB(255, 255, 255) or Color3.fromRGB(25, 25, 25)
+		},
+
+		toggleButton = {
+			width = 30,
+			height = 20,
+		},
+
+		uiListLayout = {
+			padding = 10,
 		}
 	}
 

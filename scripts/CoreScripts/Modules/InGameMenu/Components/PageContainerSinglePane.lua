@@ -11,6 +11,8 @@ local InGameMenu = script.Parent.Parent
 local BlurredModalPortal = require(script.Parent.BlurredModalPortal)
 local Pages = require(script.Parent.Pages)
 
+local FFlagInGameMenuSmallerSideBar = require(InGameMenu.Flags.FFlagInGameMenuSmallerSideBar)
+
 local pageComponents = {}
 for key, pageInfo in pairs(Pages.pagesByKey) do
 	pageComponents[key] = require(pageInfo.component)
@@ -78,7 +80,7 @@ function PageContainerSinglePane:render()
 
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(0, 400, 1, 0),
-		Position = UDim2.new(0, 100, 0, 0),
+		Position = UDim2.new(0, FFlagInGameMenuSmallerSideBar and 64 or 100, 0, 0),
 		BackgroundTransparency = 1,
 		Visible = self.props.visible,
 		ClipsDescendants = true,

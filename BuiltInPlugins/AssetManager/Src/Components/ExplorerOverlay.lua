@@ -63,7 +63,7 @@ function ExplorerOverlay:render()
             }),
 
             CloseButton = Roact.createElement(Button, {
-                Size = UDim2.new(1, 0, 0, 45),
+                Size = UDim2.new(1, 0, 0, 24),
                 BackgroundTransparency = 0,
                 BackgroundColor3 = theme.BackgroundColor,
                 BorderSizePixel = 0,
@@ -91,6 +91,7 @@ function ExplorerOverlay:render()
 
             FolderTree = Roact.createElement(TreeView, {
                 dataTree = self.props.FileExplorerData,
+                createFlatList = false,
                 getChildren = function(instance)
                     return instance.Children
                 end,

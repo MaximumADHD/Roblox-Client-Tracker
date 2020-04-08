@@ -15,9 +15,15 @@ local withStyle = UIBlox.Core.Style.withStyle
 
 local InGameMenu = script.Parent.Parent.Parent
 
+local getFFlagUseNewPlayerLabelDesign = require(InGameMenu.Flags.GetFFlagUseNewPlayerLabelDesign)
+local fflagUseNewPlayerLabelDesign = getFFlagUseNewPlayerLabelDesign()
+local PlayerLabel = fflagUseNewPlayerLabelDesign and require(InGameMenu.Components.PlayerLabelV2)
+	or require(InGameMenu.Components.PlayerLabel)
+
 local PageNavigationWatcher = require(InGameMenu.Components.PageNavigationWatcher)
-local PlayerLabel = require(InGameMenu.Components.PlayerLabel)
 local Divider = require(InGameMenu.Components.Divider)
+
+-- remove this when removing fflagUseNewPlayerLabelDesign
 local MoreButton = require(InGameMenu.Components.MoreButton)
 local MoreActionsMenu = require(InGameMenu.Components.MoreActionsMenu)
 local BarOnTopScrollingFrame = require(InGameMenu.Components.BarOnTopScrollingFrame)
@@ -33,8 +39,8 @@ local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
 
 local inGameGlobalGuiInset = settings():GetFVariable("InGameGlobalGuiInset")
 
-local DIVIDER_INDENT = 80
-local PLAYER_LABEL_HEIGHT = 70
+local DIVIDER_INDENT = fflagUseNewPlayerLabelDesign and 104 or 70
+local PLAYER_LABEL_HEIGHT = fflagUseNewPlayerLabelDesign and 71 or 70
 local PLAYER_LABEL_WIDTH = 400
 
 local ACTION_WIDTH = 352
@@ -100,7 +106,9 @@ function PlayersPage:renderListEntries(players)
 			end
 		end
 
+		-- remove this when removing fflagUseNewPlayerLabelDesign
 		local displayMoreButton = player ~= Players.LocalPlayer or self.props.inspectMenuEnabled
+		displayMoreButton = not fflagUseNewPlayerLabelDesign and displayMoreButton
 
 		local function toggleMoreActions()
 			if self.state.selectedPlayer == player then
@@ -116,6 +124,7 @@ function PlayersPage:renderListEntries(players)
 
 		listComponents["player_"..index] = Roact.createElement(PlayerLabel, {
 			username = player.Name,
+			displayName = fflagUseNewPlayerLabelDesign and player.DisplayName or nil,
 			userId = player.UserId,
 			isOnline = true,
 			isSelected = self.state.selectedPlayer == player,
@@ -125,7 +134,8 @@ function PlayersPage:renderListEntries(players)
 
 			[Roact.Change.AbsolutePosition] = self.state.selectedPlayer == player and positionChanged or nil,
 			[Roact.Ref] = self.state.selectedPlayer == player and refUpdatedFunction or nil,
-		}, {
+		},{
+			-- remove this when removing fflagUseNewPlayerLabelDesign
 			MoreActions = displayMoreButton and Roact.createElement(MoreButton, {
 				onActivated = toggleMoreActions,
 				LayoutOrder = 1,

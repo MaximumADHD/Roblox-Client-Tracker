@@ -23,6 +23,11 @@ local function createAccessorySchema(attachmentName)
 						ClassName = "TouchTransmitter",
 						_optional = true,
 					},
+					game:GetFastFlag("UGCAllowThumbnailCameraValue") and {
+						Name = "ThumbnailCameraValue",
+						ClassName = "CFrameValue",
+						_optional = true,
+					} or nil,
 				}
 			},
 		},

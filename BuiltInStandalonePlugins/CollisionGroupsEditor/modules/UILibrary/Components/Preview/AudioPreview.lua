@@ -44,6 +44,7 @@ function AudioPreview:init(props)
 	self.state = {
 		timeLength = 0,    -- Update each time we set the assetId.
 		isPlaying = false,
+		isLoaded = false,
 		currentTime = 0,
 	}
 
@@ -105,10 +106,20 @@ function AudioPreview:init(props)
 
 	self.onSoundChange = function(rbx, property)
 		local soundObj = self.soundRef.current
+		local isLoaded = soundObj and soundObj.IsLoaded
+		if not self.isMounted then
+			return
+		end
 		if property == "TimeLength" then
 			local timeLength = soundObj.TimeLength
 			self:setState({
 				timeLength = timeLength, -- unit: seconds
+				isLoaded = isLoaded,
+			})
+
+		elseif isLoaded ~= self.state.isLoaded then
+			self:setState({
+				isLoaded = isLoaded,
 			})
 		end
 	end
@@ -126,6 +137,7 @@ function AudioPreview:init(props)
 end
 
 function AudioPreview:didMount()
+	self.isMounted = true
 	local soundObj = self.soundRef.current
 	if FFlagEnableAudioPreview and soundObj then
 		soundObj.SoundId = self.props.SoundId
@@ -141,13 +153,16 @@ function AudioPreview:didMount()
 		if newTime >= state.timeLength then
 			newTime = state.timeLength
 		end
-		self:setState({
-			currentTime = newTime
-		})
+		if self.isMounted then
+			self:setState({
+				currentTime = newTime
+			})
+		end
 	end)
 end
 
 function AudioPreview:willUnmount()
+	self.isMounted = false
 	if self.runServiceConnection then
 		self.runServiceConnection:Disconnect()
 	end
@@ -169,8 +184,9 @@ function AudioPreview:render()
 			progress = 0
 		end
 		local showTreeView = props.ShowTreeView
-		local audioControlOffset = showTreeView and AUDIO_CONTROL_WIDTH_OFFSET_NO_TREE or AUDIO_CONTROL_WIDTH_OFFSET_WITH_TREE
+		local audioControlOffset = showTreeView and AUDIO_CONTROL_WIDTH_OFFSET_WITH_TREE or AUDIO_CONTROL_WIDTH_OFFSET_NO_TREE
 		local timeLength = self.getAudioLength() or 0
+		local isLoaded = state.isLoaded
 		local isPlaying = state.isPlaying
 		local timeRemaining = state.timeLength - state.currentTime
 
@@ -189,7 +205,7 @@ function AudioPreview:render()
 				HorizontalAlignment = Enum.HorizontalAlignment.Left,
 				VerticalAlignment = Enum.VerticalAlignment.Center,
 				SortOrder = Enum.SortOrder.LayoutOrder,
-				Padding = UDim.new(0, 0),
+				Padding = UDim.new(0, 10),
 			}),
 
 			UIPadding = Roact.createElement("UIPadding", {
@@ -227,15 +243,13 @@ function AudioPreview:render()
 
 				LayoutOrder = 2,
 			}, {
-				ProgressBar = Roact.createElement("ImageLabel", {
+				ProgressBar = Roact.createElement("Frame", {
 					AnchorPoint = Vector2.new(0, 0.5),
-					Position = UDim2.new(0, 0, 0.5, 0),
-					Size = UDim2.new(progress, 0, 0, PROGRESS_BAR_HEIGHT),
-
-					Image = audioPreviewTheme.progressBar_BG,
 					BackgroundColor3 = audioPreviewTheme.progressBar,
 					BackgroundTransparency = 0,
 					BorderSizePixel = 0,
+					Position = UDim2.new(0, 0, 0.5, 0),
+					Size = UDim2.new(progress, 0, 0, PROGRESS_BAR_HEIGHT),
 				})
 			}),
 
@@ -251,6 +265,7 @@ function AudioPreview:render()
 					audioControlOffset = audioControlOffset,
 					timeLength = timeLength,
 					isPlaying = isPlaying,
+					isLoaded = isLoaded,
 					timeRemaining = not FFlagEnableAudioPreview and timeRemaining or nil,
 					timePassed = FFlagEnableAudioPreview and state.currentTime or nil,
 					onResume = self.resumeSound,

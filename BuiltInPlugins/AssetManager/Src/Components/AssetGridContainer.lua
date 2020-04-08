@@ -26,15 +26,21 @@ local Screens = require(Plugin.Src.Util.Screens)
 
 local Tile = require(Plugin.Src.Components.Tile)
 
+local SetAssets = require(Plugin.Src.Actions.SetAssets)
 local SetSelectedAssets = require(Plugin.Src.Actions.SetSelectedAssets)
 
 local GetAssets = require(Plugin.Src.Thunks.GetAssets)
 local GetAssetPreviewData = require(Plugin.Src.Thunks.GetAssetPreviewData)
+local OnAssetRightClick = require(Plugin.Src.Thunks.OnAssetRightClick)
 local OnScreenChange = require(Plugin.Src.Thunks.OnScreenChange)
 
 local BulkImportService = game:GetService("BulkImportService")
 
 local AssetGridContainer = Roact.Component:extend("AssetGridContainer")
+
+local function isSupportedBulkImportAssetScreen(screen)
+    return screen.Key == Screens.IMAGES.Key or screen.Key == Screens.MESHES.Key
+end
 
 function AssetGridContainer:init()
     self.state = {
@@ -49,6 +55,20 @@ function AssetGridContainer:init()
         self.props.dispatchSetSelectedAssets({})
     end
 
+    self.onMouseButton2Click = function()
+        local props = self.props
+        props.dispatchSetSelectedAssets({})
+        local screen = props.CurrentScreen
+        if screen.Key == Screens.PLACES.Key then
+            -- pretend we are right clicking on folder to show add new place context menu
+            local placesFolder = {
+                ClassName = "Folder",
+                Screen = screen,
+            }
+            props.dispatchOnAssetRightClick(props.API:get(), placesFolder, props.Localization, props.Plugin:get())
+        end
+    end
+
     self.onOpenAssetPreview = function(assetData)
         local assetPreviewData = self.props.AssetsTable.assetPreviewData[assetData.id]
         self.props.OnOpenAssetPreview(assetData, assetPreviewData)
@@ -56,17 +76,16 @@ function AssetGridContainer:init()
 end
 
 function AssetGridContainer:didMount()
-    local props = self.props
-    local screen = props.CurrentScreen
-    if screen ~= Screens.MAIN.Key then
-        self.bulkImportFinishedConnection = BulkImportService.BulkImportFinished:connect(function(state)
-            -- state is 1 for success
-            if state == 1 then
-                local apiImpl = props.API:get()
-                props.dispatchGetAssets(apiImpl, screen.AssetType)
-            end
-        end)
-    end
+    self.bulkImportFinishedConnection = BulkImportService.BulkImportFinished:connect(function(state)
+        -- state is 1 for success
+        local props = self.props
+        local screen = props.CurrentScreen
+        if state == 1 and isSupportedBulkImportAssetScreen(screen) then
+            local apiImpl = props.API:get()
+            props.dispatchSetAssets({ assets = {} })
+            props.dispatchGetAssets(apiImpl, screen.AssetType)
+        end
+    end)
 end
 
 function AssetGridContainer:willUnmount()
@@ -76,7 +95,7 @@ function AssetGridContainer:willUnmount()
 end
 
 function AssetGridContainer:createTiles(apiImpl, localization, theme,
-    assets, currentScreen, searchTerm, selectedAssets)
+    assets, currentScreen, searchTerm, selectedAssets, hasLinkedScripts)
 
     local numberAssets = 0
     local assetsToDisplay = {
@@ -92,17 +111,19 @@ function AssetGridContainer:createTiles(apiImpl, localization, theme,
     if currentScreen.Key == Screens.MAIN.Key then
         for _, screen in pairs(Screens) do
             if screen.Key ~= Screens.MAIN.Key then
-                local folderTile = Roact.createElement(Tile, {
-                    AssetData = {
-                        name = localization:getText("Folders", screen.Key),
-                        ClassName = "Folder",
-                        Screen = screen,
-                    },
+                if (screen.Key == Screens.SCRIPTS.Key and hasLinkedScripts) or screen.Key ~= Screens.SCRIPTS.Key then
+                    local folderTile = Roact.createElement(Tile, {
+                        AssetData = {
+                            name = localization:getText("Folders", screen.Key),
+                            ClassName = "Folder",
+                            Screen = screen,
+                        },
 
-                    LayoutOrder = screen.LayoutOrder,
-                    StyleModifier = selectedAssets[screen.Key] and StyleModifier.Selected or nil
-                })
-                assetsToDisplay[screen.Key] = folderTile
+                        LayoutOrder = screen.LayoutOrder,
+                        StyleModifier = selectedAssets[screen.Key] and StyleModifier.Selected or nil
+                    })
+                    assetsToDisplay[screen.Key] = folderTile
+                end
             end
         end
     else
@@ -154,12 +175,13 @@ function AssetGridContainer:render()
     local searchTerm = props.SearchTerm
     local selectedAssets = props.SelectedAssets
     local assetPreviewData = assetsTable.assetPreviewData
+    local hasLinkedScripts = props.HasLinkedScripts
 
     local dispatchGetAssets = props.dispatchGetAssets
     local dispatchGetAssetPreviewData = props.dispatchGetAssetPreviewData
 
     local contents, assetCount = self:createTiles(apiImpl, localization, theme,
-        assets, currentScreen, searchTerm, selectedAssets)
+        assets, currentScreen, searchTerm, selectedAssets, hasLinkedScripts)
 
     local hasAssetsToDisplay = currentScreen.Key == Screens.MAIN.Key or assetCount ~= 0
 
@@ -181,7 +203,7 @@ function AssetGridContainer:render()
 
     local assetTypeText = localization:getText("Folders", currentScreen.Key)
     local noResultsText = localization:getText("AssetGrid", "NoResults", {assetType = assetTypeText})
-    local noResultsTextExtents = GetTextSize(noResultsText, theme.FontSizeSmall, theme.Font)
+    local noResultsTextExtents = GetTextSize(noResultsText, theme.FontSizeMedium, theme.Font)
 
     return Roact.createElement("Frame", {
         Size = size,
@@ -195,6 +217,7 @@ function AssetGridContainer:render()
             BackgroundTransparency = 1,
 
             LayoutRef = self.layoutRef,
+            CanvasHeight = 200,
 
             NextPageRequestDistance = 100,
             NextPageFunc = function()
@@ -206,12 +229,13 @@ function AssetGridContainer:render()
             end,
         }, contents),
 
-        DeselectButton = hasAssetsToDisplay and Roact.createElement("ImageButton", {
+        ActionButton = hasAssetsToDisplay and Roact.createElement("ImageButton", {
             Size = UDim2.new(1, 0, 1, 0),
 
             BackgroundTransparency = 1,
 
             [Roact.Event.Activated] = self.onClearSelection,
+            [Roact.Event.MouseButton2Click] = self.onMouseButton2Click,
         }),
 
         NoResultsText = not hasAssetsToDisplay and not isFetchingAssets and Roact.createElement("TextLabel", {
@@ -222,7 +246,7 @@ function AssetGridContainer:render()
             Text = noResultsText,
             TextColor3 = theme.DisabledColor,
             Font = theme.Font,
-            TextSize = theme.FontSizeSmall,
+            TextSize = theme.FontSizeMedium,
 
             BackgroundTransparency = 1,
         }),
@@ -237,8 +261,9 @@ end
 
 ContextServices.mapToProps(AssetGridContainer,{
     API = ContextServices.API,
-    Theme = ContextServices.Theme,
     Localization = ContextServices.Localization,
+    Plugin = ContextServices.Plugin,
+    Theme = ContextServices.Theme,
 })
 
 local function mapStateToProps(state, props)
@@ -258,8 +283,14 @@ local function mapDispatchToProps(dispatch)
         dispatchGetAssets = function(apiImpl, assetType, pageCursor, pageNumber)
             dispatch(GetAssets(apiImpl, assetType, pageCursor, pageNumber))
         end,
+        dispatchOnAssetRightClick = function(apiImpl, assetData, localization, plugin)
+            dispatch(OnAssetRightClick(apiImpl, assetData, localization, plugin))
+        end,
         dispatchOnScreenChange = function(apiImpl, screen)
             dispatch(OnScreenChange(apiImpl, screen))
+        end,
+        dispatchSetAssets = function(assets)
+            dispatch(SetAssets(assets))
         end,
         dispatchSetSelectedAssets = function(selectedAssets)
             dispatch(SetSelectedAssets(selectedAssets))

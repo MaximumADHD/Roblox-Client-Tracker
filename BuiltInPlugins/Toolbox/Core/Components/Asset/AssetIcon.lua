@@ -40,6 +40,7 @@ local withModal = ContextHelper.withModal
 local AssetIconBadge = require(Plugin.Core.Components.Asset.AssetIconBadge)
 local AssetBackground = require(Plugin.Core.Components.Asset.AssetBackground)
 local AudioPreviewButton = require(Plugin.Core.Components.AudioPreviewButton)
+local AudioProgressBar = require(Plugin.Core.Components.Asset.AudioProgressBar)
 local ImageWithDefault = require(Plugin.Core.Components.ImageWithDefault)
 local TooltipWrapper = require(Plugin.Core.Components.TooltipWrapper)
 local PopUpWrapperButton = require(Plugin.Core.Components.Asset.Preview.PopUpWrapperButton)
@@ -83,6 +84,7 @@ function AssetIcon:render()
 		local typeId = props.typeId
 		local currentSoundId = props.currentSoundId
 		local isPlaying = props.isPlaying
+		local isLoading = props.isLoading
 
 		local onMouseEnter = self.onMouseEnter
 		local onMouseLeave = self.onMouseLeave
@@ -142,7 +144,17 @@ function AssetIcon:render()
 				assetId = assetId,
 				currentSoundId = currentSoundId,
 				isPlaying = isPlaying,
+				isLoading = FFlagEnableAudioPreview and isLoading or nil,
 				onClick = onPreviewAudioButtonClicked,
+			}),
+
+			AudioProgressBar = FFlagEnableAudioPreview and isAudioAsset and Roact.createElement(AudioProgressBar, {
+				AnchorPoint = Vector2.new(0, 1),
+				assetId = assetId,
+				currentSoundId = currentSoundId,
+				BackgroundTransparency = 1,
+				Position = UDim2.new(0, 0, 1, 0),
+				Size = UDim2.new(1, 0, 0, 2),
 			}),
 
 			AssetPreviewTriggerButton = showAssetPreview and Roact.createElement(PopUpWrapperButton, {
@@ -183,13 +195,16 @@ end
 local function mapStateToProps(state, props)
 	state = state or {}
 
+	local sound = state.sound or {}
 	local pageInfo = state.pageInfo or {}
 	local selectedBackgroundIndex = pageInfo.selectedBackgroundIndex or 1
 	local hoveredBackgroundIndex = pageInfo.hoveredBackgroundIndex or 0
 
 	return {
 		backgroundIndex = hoveredBackgroundIndex ~= 0 and hoveredBackgroundIndex or selectedBackgroundIndex,
-		currentTab = pageInfo.currentTab or Category.MARKETPLACE_KEY
+		currentTab = pageInfo.currentTab or Category.MARKETPLACE_KEY,
+		elapsedTime = sound.elapsedTime or 0,
+		totalTime = sound.totalTime or 0,
 	}
 end
 

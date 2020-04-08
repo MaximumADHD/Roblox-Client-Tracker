@@ -1,10 +1,11 @@
 return function()
 	local Plugin = script.Parent.Parent.Parent
 	local Roact = require(Plugin.Roact)
+	local UILibrary = require(Plugin.UILibrary)
 
 	local Theme = require(Plugin.Src.Context.Theme)
 	local ThemeConsumer = Theme.Consumer
-	local Localizing = require(Plugin.UILibrary.Localizing)
+	local Localizing = UILibrary.Localizing
 	local LocalizationConsumer = Localizing.Consumer
 	local UILibraryProvider = require(Plugin.Src.Context.UILibraryProvider)
 	local PluginContext = require(Plugin.Src.Context.Plugin)

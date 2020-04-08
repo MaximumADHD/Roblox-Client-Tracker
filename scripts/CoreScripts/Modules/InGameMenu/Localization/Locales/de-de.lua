@@ -120,4 +120,5 @@ return{
 	["CoreScripts.InGameMenu.Label.MicroProfiler"] = [[Micro-Profiler]],
 	["CoreScripts.InGameMenu.InviteFriends.Loading"] = [[Wird geladen!]],
 	["CoreScripts.InGameMenu.RespawnCharacter"] = [[Charakter respawnen]],
+	["CoreScripts.InGameMenu.GameSettings.CameraModeCameraToggle"] = [[Kameraumschaltung]],
 }

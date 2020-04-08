@@ -10,13 +10,13 @@ local Plugin = script.Parent.Parent.Parent.Parent
 
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
-local UILibrary = Packages.UILibrary
+local UILibrary = require(Packages.UILibrary)
 local RoactRodux = require(Packages.RoactRodux)
 
 local Util = Plugin.Src.Util
 local Constants = require(Util.Constants)
 
-local StyledDropdownMenu = require(UILibrary.Components.StyledDropdown)
+local StyledDropdownMenu = UILibrary.Component.StyledDropdown
 
 local Thunks = Plugin.Src.Thunks
 local GetAssetConfigGroupDataRequest = require(Thunks.GetAssetConfigGroupDataRequest)

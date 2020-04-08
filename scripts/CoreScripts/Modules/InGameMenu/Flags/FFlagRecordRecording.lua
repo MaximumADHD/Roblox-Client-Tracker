@@ -1,0 +1,1 @@
+return game:GetFastFlag("RecordRecording") -- Defined in C++

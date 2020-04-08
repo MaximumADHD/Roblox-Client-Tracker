@@ -15,7 +15,7 @@ local IMPORT_KEY = newproxy(true)
 local IMPORT_FBX_KEY = newproxy(true)
 
 local Plugin = script.Parent.Parent.Parent.Parent
-local UILibrary = Plugin.UILibrary
+local UILibrary = require(Plugin.UILibrary)
 
 local Roact = require(Plugin.Roact)
 local RoactRodux = require(Plugin.RoactRodux)
@@ -26,7 +26,7 @@ local PADDING = UDim.new(0, Constants.INDENT_PADDING)
 local PluginContext = require(Plugin.Src.Context.Plugin)
 local getPlugin = PluginContext.getPlugin
 
-local Localizing = require(UILibrary.Localizing)
+local Localizing = UILibrary.Localizing
 local withLocalization = Localizing.withLocalization
 
 local Theme = require(Plugin.Src.Context.Theme)

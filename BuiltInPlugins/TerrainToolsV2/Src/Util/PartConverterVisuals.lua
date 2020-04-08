@@ -27,9 +27,9 @@
 ]]
 
 local Plugin = script.Parent.Parent.Parent
+local UILibrary = require(Plugin.Packages.UILibrary)
 
-local UILibrary = Plugin.Packages.UILibrary
-local Signal = require(UILibrary.Utils.Signal)
+local Signal = UILibrary.Util.Signal
 
 local PartConverterUtil = require(Plugin.Src.Util.PartConverterUtil)
 

@@ -15,8 +15,6 @@ local GuiServiceConnector = require(script.Parent.GuiServiceConnector)
 local UserInputServiceConnector = require(script.Parent.UserInputServiceConnector)
 local ScreenSizeConnector = require(script.Parent.ScreenSizeConnector)
 
-local FFlagPlayerListDesignUpdate = settings():GetFFlag("PlayerListDesignUpdate")
-
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local FFlagPlayerListPerformanceImprovements = require(RobloxGui.Modules.Flags.FFlagPlayerListPerformanceImprovements)
 
@@ -32,7 +30,7 @@ if FFlagPlayerListPerformanceImprovements then
 			SocialConnector = Roact.createElement(SocialConnector),
 			GuiServiceConnector = Roact.createElement(GuiServiceConnector),
 			UserInputServiceConnector = Roact.createElement(UserInputServiceConnector),
-			ScreenSizeConnector = FFlagPlayerListDesignUpdate and Roact.createElement(ScreenSizeConnector) or nil,
+			ScreenSizeConnector = Roact.createElement(ScreenSizeConnector),
 		})
 	end
 
@@ -48,7 +46,7 @@ else
 			SocialConnector = Roact.createElement(SocialConnector),
 			GuiServiceConnector = Roact.createElement(GuiServiceConnector),
 			UserInputServiceConnector = Roact.createElement(UserInputServiceConnector),
-			ScreenSizeConnector = FFlagPlayerListDesignUpdate and Roact.createElement(ScreenSizeConnector) or nil,
+			ScreenSizeConnector = Roact.createElement(ScreenSizeConnector),
 		})
 	end
 

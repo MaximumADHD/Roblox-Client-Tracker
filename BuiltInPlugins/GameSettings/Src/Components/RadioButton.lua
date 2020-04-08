@@ -20,7 +20,7 @@ local TextService = game:GetService("TextService")
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
-local Constants = require(Plugin.Src.Util.Constants)
+local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
 local getMouse = require(Plugin.Src.Consumers.getMouse)
 
@@ -68,12 +68,12 @@ function RadioButton:render()
 		local descriptionWidth = self.state.DescriptionWidth
 
 		return Roact.createElement("Frame", {
-			Size = UDim2.new(1, 0, 0, Constants.RADIO_BUTTON_SIZE * 2),
+			Size = UDim2.new(1, 0, 0, DEPRECATED_Constants.RADIO_BUTTON_SIZE * 2),
 			BackgroundTransparency = 1,
 			BorderSizePixel = 0,
 		}, {
 			Button = Roact.createElement("ImageButton", {
-				Size = UDim2.new(0, Constants.RADIO_BUTTON_SIZE, 0, Constants.RADIO_BUTTON_SIZE),
+				Size = UDim2.new(0, DEPRECATED_Constants.RADIO_BUTTON_SIZE, 0, DEPRECATED_Constants.RADIO_BUTTON_SIZE),
 				BackgroundTransparency = 1,
 				ImageTransparency = self.props.Enabled and 0 or 0.4,
 				Image = BACKGROUND_IMAGE,

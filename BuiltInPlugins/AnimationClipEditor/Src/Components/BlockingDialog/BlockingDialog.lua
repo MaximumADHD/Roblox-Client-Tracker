@@ -24,7 +24,7 @@ local StyledDialog = UILibrary.Component.StyledDialog
 
 local MainProvider = require(Plugin.Src.Context.MainProvider)
 local Theme = require(Plugin.Src.Util.Theme)
-local Localization = require(Plugin.UILibrary.Studio.Localization)
+local Localization = UILibrary.Studio.Localization
 local DevelopmentReferenceTable = Plugin.Src.Resources.DevelopmentReferenceTable
 local TranslationReferenceTable = Plugin.Src.Resources.TranslationReferenceTable
 

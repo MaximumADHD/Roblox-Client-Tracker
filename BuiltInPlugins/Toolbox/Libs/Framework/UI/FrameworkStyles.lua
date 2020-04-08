@@ -19,18 +19,19 @@ function FrameworkStyles.new()
 		Common = newDefaults(),
 
 		Box = newDefaults(),
-		Image = newDefaults(),
-		RoundBox = newDefaults(),
-
 		Button = newDefaults(),
+		Image = newDefaults(),
+
 		LoadingBar = newDefaults(),
 		LinkText = newDefaults(),
 
-		ToggleButton = newDefaults(),
 		RadioButton = newDefaults(),
 		RadioButtonList = newDefaults(),
+		RangeSlider = newDefaults(),
+		RoundBox = newDefaults(),
 
 		TextLabel = newDefaults(),
+		ToggleButton = newDefaults(),
 	}
 end
 

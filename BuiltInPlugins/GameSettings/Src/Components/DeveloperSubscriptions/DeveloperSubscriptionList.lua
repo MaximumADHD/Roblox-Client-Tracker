@@ -13,13 +13,13 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local withTheme = require(Plugin.Src.Consumers.withTheme)
 local withLocalization = require(Plugin.Src.Consumers.withLocalization)
 local Roact = require(Plugin.Roact)
+local UILibrary = require(Plugin.UILibrary)
 
 local DeveloperSubscriptionListItem = require(script.Parent.DeveloperSubscriptionListItem)
 local DeveloperSubscriptionListHeaderText = require(script.Parent.DeveloperSubscriptionListHeaderText)
-local RoundTextButton = require(Plugin.UILibrary.Components.RoundTextButton)
 local HeaderWithButton = require(Plugin.Src.Components.HeaderWithButton)
 
-local createFitToContent = require(Plugin.UILibrary.Components.createFitToContent)
+local createFitToContent = UILibrary.Component.createFitToContent
 local FitToContent = createFitToContent("Frame", "UIListLayout", {
 	SortOrder = Enum.SortOrder.LayoutOrder,
 	Padding = UDim.new(0, 10),

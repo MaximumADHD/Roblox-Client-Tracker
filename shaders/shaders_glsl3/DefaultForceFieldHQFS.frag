@@ -14,7 +14,7 @@ struct Globals
     vec3 Lamp1Color;
     vec4 FogParams;
     vec4 FogColor_GlobalForceFieldTime;
-    vec3 Exposure;
+    vec4 Exposure_DoFDistance;
     vec4 LightConfig0;
     vec4 LightConfig1;
     vec4 LightConfig2;
@@ -63,9 +63,12 @@ void main()
     vec4 f5 = vec4(VARYING2.xyz * VARYING2.xyz, f4);
     float f6 = clamp((CB0[13].x * length(VARYING4.xyz)) + CB0[13].y, 0.0, 1.0);
     vec3 f7 = mix(CB0[14].xyz, sqrt(clamp(f5.xyz * CB0[15].y, vec3(0.0), vec3(1.0))).xyz, vec3(f6));
-    vec4 f8 = vec4(f7.x, f7.y, f7.z, f5.w);
-    f8.w = mix(1.0, f4, f6);
-    _entryPointOutput = f8;
+    float f8 = mix(1.0, f4, f6);
+    vec4 f9 = vec4(f7.x, f7.y, f7.z, f5.w);
+    f9.w = f8;
+    vec4 f10 = f9;
+    f10.w = f8;
+    _entryPointOutput = f10;
 }
 
 //$$DiffuseMapTexture=s3

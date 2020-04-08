@@ -30,6 +30,7 @@ RBX
 		BlockBlockContact
 		BlockBlockContact_New
 		BulletCellContact
+		BulletCollisionConnector
 		BulletContact
 		BuoyancyBallContact
 		BuoyancyBoxContact
@@ -40,6 +41,7 @@ RBX
 		Contact
 		EdgeEdgePair
 		FaceFacePair
+		FeaturePolyCollisionConnector
 		FeaturePolyContact
 		PolyPair
 		PolyPolyContact
@@ -713,6 +715,7 @@ RBX
 	Clump
 	Clustering
 	CollectionService
+	CollisionConnector
 	ColorCorrectionEffect
 	ColorVerb
 	ConeHandleAdornment
@@ -763,6 +766,7 @@ RBX
 	DecalTool
 	DeleteBase
 	DeleteSelectionVerb
+	DepthOfFieldEffect
 	DialogChoice
 	DialogRoot
 	DisallowedJointSurfacePair

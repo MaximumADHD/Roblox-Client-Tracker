@@ -11,10 +11,11 @@ local Plugin = script.Parent.Parent.Parent.Parent
 
 local Roact = require(Plugin.Roact)
 local RoactRodux = require(Plugin.RoactRodux)
+local UILibrary = require(Plugin.UILibrary)
 
-local Button = require(Plugin.UILibrary.Components.Button)
+local Button = UILibrary.Component.Button
 
-local Localizing = require(Plugin.UILibrary.Localizing)
+local Localizing = UILibrary.Localizing
 local withLocalization = Localizing.withLocalization
 
 local Theme = require(Plugin.Src.Context.Theme)

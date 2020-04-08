@@ -4,7 +4,7 @@ return function()
 	local Plugin = script.Parent.Parent.Parent.Parent
 	local Roact = require(Plugin.Roact)
 
-	local Constants = require(Plugin.Src.Util.Constants)
+	local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 	local Theme = require(Plugin.Src.Util.Theme)
 	local ThemeProvider = require(Plugin.Src.Providers.ThemeProvider)
 	local Localization = require(Plugin.Src.Localization.Localization)
@@ -83,7 +83,7 @@ return function()
 			}), container)
 			local count = container.Frame.CountFolder.Count
 
-			expect(count.Text).to.equal("3/" .. Constants.MAX_THUMBNAILS)
+			expect(count.Text).to.equal("3/" .. DEPRECATED_Constants.MAX_THUMBNAILS)
 
 			Roact.unmount(instance)
 		end)
@@ -96,7 +96,7 @@ return function()
 			local count = container.Frame.CountFolder.Count
 
 			expect(count.Text).to.equal(localized.Thumbnails.Count({
-				maxThumbnails = Constants.MAX_THUMBNAILS,
+				maxThumbnails = DEPRECATED_Constants.MAX_THUMBNAILS,
 			}))
 
 			Roact.unmount(instance)

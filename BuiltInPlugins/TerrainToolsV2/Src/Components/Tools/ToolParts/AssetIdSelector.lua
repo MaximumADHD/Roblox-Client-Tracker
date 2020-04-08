@@ -2,14 +2,20 @@
 	used to select images for file import in the terrain editor
 ]]
 
+local FFlagTerrainToolsRefactorAssetIdSelector2 = game:GetFastFlag("TerrainToolsRefactorAssetIdSelector2")
+local FFlagTerrainToolsImportImproveColorMapToggle = game:GetFastFlag("TerrainToolsImportImproveColorMapToggle")
+
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
+
 local Roact = require(Plugin.Packages.Roact)
-local UILibrary = Plugin.Packages.UILibrary
-local Theming = require(Plugin.Src.ContextServices.Theming)
-local withTheme = Theming.withTheme
-local Localizing = require(UILibrary.Localizing)
+local UILibrary = require(Plugin.Packages.UILibrary)
+
+local Localizing = UILibrary.Localizing
 local getLocalization = Localizing.getLocalization
 local withLocalization = Localizing.withLocalization
+
+local Theming = require(Plugin.Src.ContextServices.Theming)
+local withTheme = Theming.withTheme
 
 local ToolParts = script.Parent
 local LabeledElementPair = require(ToolParts.LabeledElementPair)
@@ -17,10 +23,6 @@ local LabeledTextInput = require(ToolParts.LabeledTextInput)
 
 local StudioService = game:GetService("StudioService")
 local HttpService = game:GetService("HttpService")
-
-local FFlagTerrainToolsRefactor = game:GetFastFlag("TerrainToolsRefactor")
-local FFlagTerrainToolsRefactorAssetIdSelector2 = game:GetFastFlag("TerrainToolsRefactorAssetIdSelector2")
-local FFlagTerrainToolsImportImproveColorMapToggle = game:GetFastFlag("TerrainToolsImportImproveColorMapToggle")
 
 -- Constants
 local PADDING = 4
@@ -179,9 +181,7 @@ local function isPlacePublished()
 	return tonumber(game.GameId) > 0
 end
 
-local ImageAsset
-if FFlagTerrainToolsRefactor then
-ImageAsset = Roact.PureComponent:extend("ImageAsset")
+local ImageAsset = Roact.PureComponent:extend("ImageAsset")
 
 function ImageAsset:init()
 	self.onSelected = function()
@@ -215,7 +215,6 @@ function ImageAsset:render()
 			BackgroundTransparency = 1,
 		}),
 	})
-end
 end
 
 local AssetIdSelector = Roact.PureComponent:extend(script.Name)
@@ -303,36 +302,6 @@ function AssetIdSelector:init()
 			assetValidated = false,
 		}
 
-		-- TODO: Remove when removing FFlagTerrainToolsRefactor
-		self.getLocalizedOnFocused = function(localization)
-			if FFlagTerrainToolsRefactor then
-				warn("AssetIdSelector.getLocalizedOnFocused should not be used when FFlagTerrainToolsRefactor is on")
-			end
-			return function()
-				-- must reset textvalidation on use input to prevent unmoderated images
-				-- from being used
-				if not self.state.showImageSelection then
-					if tonumber(game.GameId) == 0 then
-						warn(localization:getText("Warning", "RequirePublishedForImport"))
-						return
-					end
-
-					local gameAssetList = StudioService:GetResourceByCategory("Image")
-
-					for i,v in pairs(gameAssetList) do
-						if not self.gameImages[i] then
-							self.gameImages[i] = v
-						end
-					end
-
-					self:setState({
-						showImageSelection = true,
-						warningMessage = "",
-					})
-				end
-			end
-		end
-
 		self.onFocused = function()
 			-- must reset textvalidation on use input to prevent unmoderated images
 			-- from being used
@@ -354,41 +323,6 @@ function AssetIdSelector:init()
 					showImageSelection = true,
 					warningMessage = "",
 				})
-			end
-		end
-
-		-- TODO: Remove when removing FFlagTerrainToolsRefactor
-		self.getAssetSelectedFunc = function(localization)
-			if FFlagTerrainToolsRefactor then
-				warn("AssetIdSelector.getAssetSelectedFunc should not be used when FFlagTerrainToolsRefactor is on")
-			end
-			return function(assetId)
-				if self.state.assetId == assetId then
-					self:setState({
-						showImageSelection = false,
-					})
-					return
-				end
-				self.textValidated = false
-				self:setState({
-					showImageSelection = false,
-					assetId = assetId,
-				})
-
-				if not self.textValidated then
-					local valid, msg = isAssetModerated(assetId, localization)
-					self.textValidated = valid
-					if self.props.OnAssetIdValidated and valid then
-						local assetUrl = string.format(ASSET_URL_TEXT, assetId)
-						self.props.OnAssetIdValidated(assetUrl)
-					end
-
-					if msg then
-						self:setState({
-							warningMessage = msg
-						})
-					end
-				end
 			end
 		end
 
@@ -491,50 +425,17 @@ function AssetIdSelector:render()
 			local imageAssets = {}
 			local assetCount = 0
 			if showImageSelection then
-				if FFlagTerrainToolsRefactor then
-					imageAssets.UIListLayout = Roact.createElement("UIListLayout", {
-						SortOrder = Enum.SortOrder.LayoutOrder,
+				imageAssets.UIListLayout = Roact.createElement("UIListLayout", {
+					SortOrder = Enum.SortOrder.LayoutOrder,
+				})
+
+				for id, assetName in pairs(self.gameImages) do
+					assetCount = assetCount + 1
+					imageAssets[assetCount] = Roact.createElement(ImageAsset, {
+						AssetId = id,
+						AssetName = assetName,
+						OnSelected = self.onAssetSelected,
 					})
-
-					for id, assetName in pairs(self.gameImages) do
-						assetCount = assetCount + 1
-						imageAssets[assetCount] = Roact.createElement(ImageAsset, {
-							AssetId = id,
-							AssetName = assetName,
-							OnSelected = self.onAssetSelected,
-						})
-					end
-				else
-					imageAssets["UIListLayout"] = Roact.createElement("UIListLayout")
-					local assetSelected = self.getAssetSelectedFunc(localization)
-					for id, assetName in pairs(self.gameImages) do
-						assetCount = assetCount + 1
-						local assetId = tostring(id)
-						imageAssets[assetId] = Roact.createElement("TextButton", {
-							Size = DROPDOWN_ELEMENT_SIZE,
-							Name = assetId,
-							Text = "",
-							ClipsDescendants = true,
-
-							[Roact.Event.Activated] = function()
-								assetSelected(assetId)
-							end,
-						}, {
-							PreviewImage = Roact.createElement("ImageLabel", {
-								Size = PREVIEW_SIZE,
-								Image = string.format(ASSET_URL_TEXT, tonumber(id)),
-								BorderSizePixel = 0,
-							}),
-							PreviewText = Roact.createElement("TextLabel",{
-								Position = DROPDOWN_ELEMENT_LABEL_POS,
-								Size = DROPDOWN_ELEMENT_LABEL_SIZE,
-								Text = assetName,
-								TextXAlignment = Enum.TextXAlignment.Left,
-								BorderSizePixel = 0,
-								BackgroundTransparency = 1,
-							}),
-						})
-					end
 				end
 			end
 
@@ -563,10 +464,8 @@ function AssetIdSelector:render()
 						Text = text,
 						PlaceholderText = localization:getText("AssetIdSelector", "PlaceHolderText"),
 						WarningOverride = warningMessageToDisplay,
-						EditingDisabled = FFlagTerrainToolsRefactor and true or false,
-
-						OnFocused = FFlagTerrainToolsRefactor and self.onFocused
-							or self.getLocalizedOnFocused(localization),
+						EditingDisabled = true,
+						OnFocused = self.onFocused,
 					})
 				}),
 
@@ -583,24 +482,8 @@ function AssetIdSelector:render()
 						BottomImage = theme.toolRenderTheme.scrollBotImage,
 						LayoutOrder = 2,
 
-						[Roact.Event.MouseEnter] = FFlagTerrainToolsRefactor and self.onMouseEnter or function ()
-							self._lastHoverTime = tick()
-						end,
-						[Roact.Event.MouseLeave] = FFlagTerrainToolsRefactor and self.onMouseLeave or function ()
-							self._lastHoverTime = tick()
-
-							self._hoverEndClose = coroutine.create(function()
-								wait(AUTOCLOSEDELAY)
-								local t = tick()
-								if self._lastHoverTime and t - self._lastHoverTime > AUTOCLOSEDELAY then
-									self:setState({
-										showImageSelection = false,
-									})
-								end
-							end)
-
-							coroutine.resume(self._hoverEndClose)
-						end,
+						[Roact.Event.MouseEnter] = self.onMouseEnter,
+						[Roact.Event.MouseLeave] = self.onMouseLeave,
 					}, imageAssets),
 				}),
 

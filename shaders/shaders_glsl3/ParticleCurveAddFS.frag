@@ -14,7 +14,7 @@ struct Globals
     vec3 Lamp1Color;
     vec4 FogParams;
     vec4 FogColor_GlobalForceFieldTime;
-    vec3 Exposure;
+    vec4 Exposure_DoFDistance;
     vec4 LightConfig0;
     vec4 LightConfig1;
     vec4 LightConfig2;
@@ -66,8 +66,10 @@ void main()
     float f3 = (f0.w * VARYING1.w) * clamp(VARYING0.z, 0.0, 1.0);
     vec4 f4 = vec4(f2.x, f2.y, f2.z, vec4(0.0).w);
     f4.w = f3;
-    vec3 f5 = f4.xyz * f3;
-    _entryPointOutput = vec4(f5.x, f5.y, f5.z, f4.w);
+    vec4 f5 = f4;
+    f5.w = f3;
+    vec3 f6 = f5.xyz * f3;
+    _entryPointOutput = vec4(f6.x, f6.y, f6.z, f5.w);
 }
 
 //$$texTexture=s0

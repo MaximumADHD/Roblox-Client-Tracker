@@ -20,32 +20,35 @@ local DragListener = require(Src.DragListener)
 local KeyboardListener = require(Src.KeyboardListener)
 local LinkText = require(Src.LinkText)
 local ToggleButton = require(Src.ToggleButton)
+local RangeSlider = require(Src.RangeSlider)
 local RadioButton = require(Src.RadioButton)
 local RadioButtonList = require(Src.RadioButtonList)
 local TextLabel = require(Src.TextLabel)
 
+-- NOTE: Please keep components in alphabetical order
 local UI = {
 	-- Empty default styles for Framework components
 	FrameworkStyles = FrameworkStyles,
 
 	-- UI Components
-	Container = Container,
 	Button = Button,
-	LoadingBar = LoadingBar,
+	CaptureFocus = CaptureFocus,
+	Container = Container,
+	DragListener = DragListener,
 	FakeLoadingBar = FakeLoadingBar,
 	HoverArea = HoverArea,
-	CaptureFocus = CaptureFocus,
-	ShowOnTop = ShowOnTop,
-	DragListener = DragListener,
 	KeyboardListener = KeyboardListener,
 	LinkText = LinkText,
-	ToggleButton = ToggleButton,
+	LoadingBar = LoadingBar,
 	RadioButton = RadioButton,
 	RadioButtonList = RadioButtonList,
+	RangeSlider = RangeSlider,
+	ShowOnTop = ShowOnTop,
+	ToggleButton = ToggleButton,
 
 	Decoration = {
-		Image = Image,
 		Box = Box,
+		Image = Image,
 		RoundBox = RoundBox,
 		TextLabel = TextLabel,
 	},

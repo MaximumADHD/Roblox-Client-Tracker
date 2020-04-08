@@ -18,7 +18,7 @@ local EntryFrame = require(script.Parent.EntryFrame)
 local StatEntry = require(script.Parent.StatEntry)
 local CellExtender = require(script.Parent.CellExtender)
 
-local FFlagPlayerListDesignUpdate = settings():GetFFlag("PlayerListDesignUpdate")
+local FFlagPlayerListMorePerfImprovements = require(RobloxGui.Modules.Flags.FFlagPlayerListMorePerfImprovements)
 
 local TeamEntry = Roact.PureComponent:extend("TeamEntry")
 
@@ -33,7 +33,7 @@ function TeamEntry:render()
 			end
 
 			local backgroundStyle
-			if FFlagPlayerListDesignUpdate and not layoutValues.IsTenFoot then
+			if not layoutValues.IsTenFoot then
 				if self.props.teamColor then
 					backgroundStyle = {
 						Color = self.props.teamColor.Color,
@@ -48,34 +48,22 @@ function TeamEntry:render()
 					Transparency = layoutValues.BackgroundStyle.Default.Transparency,
 				}
 			end
-			local overlayStyle
-			if FFlagPlayerListDesignUpdate then
-				overlayStyle = {
-					Transparency = 1,
-					Color = Color3.new(1, 1, 1),
-				}
-			end
+			local overlayStyle = {
+				Transparency = 1,
+				Color = Color3.new(1, 1, 1),
+			}
 
 			local textStyle
-			if FFlagPlayerListDesignUpdate then
-				if layoutValues.IsTenFoot then
-					textStyle = layoutValues.DefaultTextStyle
-				else
-					textStyle = style.Theme.TextEmphasis
-				end
+			if layoutValues.IsTenFoot then
+				textStyle = layoutValues.DefaultTextStyle
 			else
-				textStyle = layoutValues.TextStyle.Default
+				textStyle = style.Theme.TextEmphasis
 			end
 
-			local entrySizeX
-			if FFlagPlayerListDesignUpdate then
-				entrySizeX = self.props.entrySize
-			else
-				entrySizeX = layoutValues.EntrySizeX
-			end
+			local entrySizeX = self.props.entrySize
 
 			local textSize, textFont
-			if FFlagPlayerListDesignUpdate and not layoutValues.IsTenFoot then
+			if not layoutValues.IsTenFoot then
 				textSize = style.Font.CaptionHeader.RelativeSize * style.Font.BaseSize
 				textFont = style.Font.CaptionHeader.Font
 			else
@@ -85,7 +73,7 @@ function TeamEntry:render()
 
 			local teamEntryChildren = {}
 			local padding = nil
-			if not FFlagPlayerListDesignUpdate or layoutValues.IsTenFoot then
+			if layoutValues.IsTenFoot then
 				padding = UDim.new(0, layoutValues.PlayerEntryPadding)
 			end
 			teamEntryChildren["Layout"] = Roact.createElement("UIListLayout", {
@@ -94,11 +82,6 @@ function TeamEntry:render()
 				VerticalAlignment = Enum.VerticalAlignment.Center,
 				Padding = padding
 			})
-
-			local doubleOverlay = nil
-			if FFlagPlayerListDesignUpdate then
-				doubleOverlay = false
-			end
 
 			teamEntryChildren["NameFrame"] = Roact.createElement("Frame", {
 				LayoutOrder = 0,
@@ -122,11 +105,11 @@ function TeamEntry:render()
 
 					backgroundStyle = backgroundStyle,
 					overlayStyle = overlayStyle,
-					doubleOverlay = doubleOverlay,
+					doubleOverlay = false,
 				}, {
 					TeamName = Roact.createElement("TextLabel", {
-						Position = FFlagPlayerListDesignUpdate and UDim2.new(0, 0, 0, 0) or UDim2.new(0, 5, 0, 0),
-						Size = FFlagPlayerListDesignUpdate and UDim2.new(1, 0, 1, 0) or UDim2.new(1, -5, 1, 0),
+						Position = UDim2.new(0, 0, 0, 0),
+						Size = UDim2.new(1, 0, 1, 0),
 						TextXAlignment = Enum.TextXAlignment.Left,
 						Font = textFont,
 						TextSize = textSize,
@@ -137,9 +120,9 @@ function TeamEntry:render()
 						Text = teamName,
 						TextTruncate = Enum.TextTruncate.AtEnd,
 					}, {
-						FFlagPlayerListDesignUpdate and Roact.createElement("UIPadding", {
+						Roact.createElement("UIPadding", {
 							PaddingLeft = UDim.new(0, layoutValues.TeamEntryTextPadding),
-						}) or nil,
+						}),
 					})
 				})
 			})
@@ -157,31 +140,35 @@ function TeamEntry:render()
 
 					backgroundStyle = backgroundStyle,
 					overlayStyle = overlayStyle,
-					doubleOverlay = doubleOverlay,
+					doubleOverlay = false,
 					textStyle = textStyle
 				})
 			end
 
-			if FFlagPlayerListDesignUpdate and not layoutValues.IsTenFoot then
+			if not layoutValues.IsTenFoot then
 				teamEntryChildren["BackgroundExtender"] = Roact.createElement(CellExtender, {
 					layoutOrder = 100,
 					size = UDim2.new(0, layoutValues.ExtraContainerPadding, 1, 0),
 					backgroundStyle = backgroundStyle,
 					overlayStyle = overlayStyle,
-					doubleOverlay = doubleOverlay,
+					doubleOverlay = false,
 				})
 			end
 
-			return Roact.createElement("Frame", {
-				LayoutOrder = self.props.layoutOrder,
-				Size = UDim2.new(
-					1,
-					layoutValues.EntryXOffset,
-					0,
-					layoutValues.TeamEntrySizeY
-				),
-				BackgroundTransparency = 1,
-			}, teamEntryChildren)
+			if FFlagPlayerListMorePerfImprovements then
+				return Roact.createFragment(teamEntryChildren)
+			else
+				return Roact.createElement("Frame", {
+					LayoutOrder = self.props.layoutOrder,
+					Size = UDim2.new(
+						1,
+						layoutValues.EntryXOffset,
+						0,
+						layoutValues.TeamEntrySizeY
+					),
+					BackgroundTransparency = 1,
+				}, teamEntryChildren)
+			end
 		end)
 	end)
 end

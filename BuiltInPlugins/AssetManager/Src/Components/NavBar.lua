@@ -136,7 +136,7 @@ function NavBar:buildPathComponents(props, theme, localization, dispatch)
         if startingScreenKey == Screens.MAIN.Key then
             local gameIDText = localization:getText("NavBar", "ID", {gameId = game.GameId})
 
-            local textExtents = GetTextSize(gameIDText, theme.FontSizeSmall, theme.Font)
+            local textExtents = GetTextSize(gameIDText, theme.FontSizeMedium, theme.Font)
             local textDimensions = UDim2.fromOffset(textExtents.X, textExtents.Y)
 
             pathComponents["UniverseId"] = Roact.createElement("TextLabel", {
@@ -169,8 +169,8 @@ function NavBar:init()
 
         local shouldRerender = false
 
-        local contentWidth = self.Layout.current.AbsoluteContentSize.X
-        local navBarWidth = self.NavBar.current.AbsoluteSize.X
+        local contentWidth = self.Layout.current and self.Layout.current.AbsoluteContentSize.X or 0
+        local navBarWidth = self.NavBar.current and self.NavBar.current.AbsoluteSize.X or 0
 
         -- content doesn't fit on screen
         if contentWidth + NavBarPadding > navBarWidth then

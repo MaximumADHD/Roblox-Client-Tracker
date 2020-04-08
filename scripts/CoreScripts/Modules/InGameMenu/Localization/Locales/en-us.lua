@@ -113,7 +113,6 @@ return{
 	["CoreScripts.InGameMenu.GameSettings.Default"] = [[Default]],
 	["CoreScripts.InGameMenu.GameSettings.CameraModeClassic"] = [[Classic]],
 	["CoreScripts.InGameMenu.GameSettings.CameraModeFollow"] = [[Follow]],
-	["CoreScripts.InGameMenu.GameSettings.CameraModeCameraToggle"] = [[CameraToggle]],
 	["CoreScripts.InGameMenu.GameSettings.ClientVersion"] = [[Client Version: {CLIENT_VERSION}]],
 	["CoreScripts.InGameMenu.GameSettings.ServerVersion"] = [[Server Version: {SERVER_VERSION}]],
 	["CoreScripts.InGameMenu.GameSettings.PlaceVersion"] = [[Place Version: {PLACE_VERSION}]],
@@ -121,4 +120,7 @@ return{
 	["CoreScripts.InGameMenu.Label.MicroProfiler"] = [[Micro Profiler]],
 	["CoreScripts.InGameMenu.InviteFriends.Loading"] = [[Loading!]],
 	["CoreScripts.InGameMenu.RespawnCharacter"] = [[Respawn Character]],
+	["CoreScripts.InGameMenu.GameSettings.CameraModeCameraToggle"] = [[CameraToggle]],
+	["CoreScripts.InGameMenu.Record.StartRecording"] = [[Record Video]],
+	["CoreScripts.InGameMenu.Record.Duration"] = [[Recording - {DURATION}]],
 }

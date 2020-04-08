@@ -26,61 +26,116 @@ local PlayerList = Components.Parent
 local ClosePlayerDropDown = require(PlayerList.Actions.ClosePlayerDropDown)
 local OpenPlayerDropDown = require(PlayerList.Actions.OpenPlayerDropDown)
 
-local FFlagPlayerListDesignUpdate = settings():GetFFlag("PlayerListDesignUpdate")
 local FFlagPlayerListFixTouchInputState = require(RobloxGui.Modules.Flags.FFlagPlayerListFixTouchInputState)
+local FFlagPlayerListMorePerfImprovements = require(RobloxGui.Modules.Flags.FFlagPlayerListMorePerfImprovements)
 
 local PlayerEntry = Roact.PureComponent:extend("PlayerEntry")
 
-if FFlagPlayerListDesignUpdate then
-	PlayerEntry.validateProps = t.strictInterface({
-		player = t.instanceIsA("Player"),
-		layoutOrder = t.optional(t.integer),
-		titlePlayerEntry = t.boolean,
-		hasDivider = t.boolean,
-		entrySize = t.integer,
+PlayerEntry.validateProps = t.strictInterface({
+	player = t.instanceIsA("Player"),
+	layoutOrder = (not FFlagPlayerListMorePerfImprovements) and t.optional(t.integer) or nil,
+	titlePlayerEntry = t.boolean,
+	hasDivider = t.boolean,
+	entrySize = t.integer,
 
-		playerStats = t.map(t.string, t.any),
+	playerStats = t.map(t.string, t.any),
 
-		playerIconInfo = t.strictInterface({
-			isPlaceOwner = t.boolean,
-			avatarIcon = t.optional(t.string),
-			specialGroupIcon = t.optional(t.string),
-		}),
+	playerIconInfo = t.strictInterface({
+		isPlaceOwner = t.boolean,
+		avatarIcon = t.optional(t.string),
+		specialGroupIcon = t.optional(t.string),
+	}),
 
-		playerRelationship = t.strictInterface({
-			isBlocked = t.boolean,
-			friendStatus = t.enum(Enum.FriendStatus),
-			isFollowing = t.boolean,
-			isFollower = t.boolean,
-		}),
+	playerRelationship = t.strictInterface({
+		isBlocked = t.boolean,
+		friendStatus = t.enum(Enum.FriendStatus),
+		isFollowing = t.boolean,
+		isFollower = t.boolean,
+	}),
 
-		gameStats = t.array(t.strictInterface({
-			name = t.string,
-			text = t.string,
-			addId = t.integer,
-			isPrimary = t.boolean,
-			priority = t.number,
-		})),
+	gameStats = t.array(t.strictInterface({
+		name = t.string,
+		text = t.string,
+		addId = t.integer,
+		isPrimary = t.boolean,
+		priority = t.number,
+	})),
 
-		[Roact.Ref] = t.optional(t.table),
+	[Roact.Ref] = t.optional(t.table),
 
-		selectedPlayer = t.optional(t.instanceIsA("Player")),
-		dropDownOpen = t.boolean,
+	selectedPlayer = t.optional(t.instanceIsA("Player")),
+	dropDownOpen = t.boolean,
 
-		closeDropDown = t.callback,
-		openDropDown = t.callback,
-	})
-end
+	closeDropDown = t.callback,
+	openDropDown = t.callback,
+})
 
 function PlayerEntry:init()
 	self.state  = {
 		isHovered = false,
 		isPressed = false,
 	}
+
+	self.onActivated = function()
+		if self.props.selectedPlayer == self.props.player and self.props.dropDownOpen then
+			self.props.closeDropDown()
+		else
+			self.props.openDropDown(self.props.player)
+		end
+		if not FFlagPlayerListFixTouchInputState then
+			coroutine.wrap(function()
+				-- Need to wait here as the state is updated before the props
+				-- Without the wait it briefly flashes to hover and then selected.
+				wait(0)
+				self:setState({
+					isPressed = false,
+				})
+			end)()
+		end
+	end
+
+	self.onSelectionGained = function()
+		self:setState({
+			isHovered = true,
+		})
+	end
+
+	self.onSelectionLost = function()
+		self:setState({
+			isHovered = false,
+		})
+	end
+
+	self.onMouseEnter = function()
+		self:setState({
+			isHovered = true,
+		})
+	end
+
+	self.onMouseLeave = function()
+		self:setState({
+			isHovered = false,
+			isPressed = false,
+		})
+	end
+
+	self.onMouseDown = function()
+		self:setState({
+			isPressed = true,
+		})
+	end
+
+	if FFlagPlayerListFixTouchInputState then
+		self.onInputEnded = function()
+			self:setState({
+				isPressed = false,
+			})
+		end
+	end
 end
 
 function PlayerEntry:getBackgroundStyle(layoutValues, style)
-	if FFlagPlayerListDesignUpdate and not layoutValues.IsTenFoot then
+	if not layoutValues.IsTenFoot then
 		return {
 			Color = style.Theme.BackgroundContrast.Color,
 			Transparency = 1,
@@ -110,7 +165,7 @@ function PlayerEntry:getBackgroundStyle(layoutValues, style)
 end
 
 function PlayerEntry:getOverlayStyle(layoutValues, style)
-	if FFlagPlayerListDesignUpdate and not layoutValues.IsTenFoot then
+	if not layoutValues.IsTenFoot then
 		local isSelected = self.props.dropDownOpen and self.props.selectedPlayer == self.props.player
 		if self.state.isPressed then
 			return style.Theme.BackgroundOnPress
@@ -125,31 +180,6 @@ function PlayerEntry:getOverlayStyle(layoutValues, style)
 		Transparency = 1,
 		Color = Color3.new(1, 1, 1),
 	}
-end
-
---Remove with FFlagPlayerListDesignUpdate
-function PlayerEntry:getTextStyle_deprecated(layoutValues)
-	local isSelected = self.props.dropDownOpen and self.props.selectedPlayer == self.props.player
-	local isLocalPlayer = self.props.player == Players.LocalPlayer
-	local isHovered = self.state.isHovered
-
-	if isLocalPlayer then
-		if isSelected and layoutValues.TextStyle.LocalPlayerSelected then
-			return layoutValues.TextStyle.LocalPlayerSelected
-		elseif layoutValues.TextStyle.LocalPlayer then
-			return layoutValues.TextStyle.LocalPlayer
-		end
-	end
-
-	if isSelected and layoutValues.TextStyle.Selected then
-		return layoutValues.TextStyle.Selected
-	end
-
-	if isHovered and layoutValues.TextStyle.Hovered then
-		return layoutValues.TextStyle.Hovered
-	end
-
-	return layoutValues.TextStyle.Default
 end
 
 function PlayerEntry:getTextStyle(layoutValues, style)
@@ -200,30 +230,16 @@ function PlayerEntry:render()
 	return WithLayoutValues(function(layoutValues)
 		return withStyle(function(style)
 			local backgroundStyle = self:getBackgroundStyle(layoutValues, style)
-			local textStyle
-			local playerNameFont
-			if FFlagPlayerListDesignUpdate then
-				textStyle = self:getTextStyle(layoutValues, style)
-				playerNameFont = self:getPlayerNameFont(layoutValues, style)
-			else
-				textStyle = self:getTextStyle_deprecated(layoutValues)
-			end
-			local overlayStyle = nil
-			if FFlagPlayerListDesignUpdate then
-				overlayStyle = self:getOverlayStyle(layoutValues, style)
-			end
+			local textStyle = self:getTextStyle(layoutValues, style)
+			local playerNameFont = self:getPlayerNameFont(layoutValues, style)
+			local overlayStyle = self:getOverlayStyle(layoutValues, style)
 
-			local entrySizeX
-			if FFlagPlayerListDesignUpdate then
-				entrySizeX = self.props.entrySize
-			else
-				entrySizeX = layoutValues.EntrySizeX
-			end
+			local entrySizeX = self.props.entrySize
 
 			local playerEntryChildren = {}
 
 			local padding = nil
-			if not FFlagPlayerListDesignUpdate or layoutValues.IsTenFoot then
+			if layoutValues.IsTenFoot then
 				padding = UDim.new(0, layoutValues.PlayerEntryPadding)
 			end
 			playerEntryChildren["Layout"] = Roact.createElement("UIListLayout", {
@@ -233,69 +249,68 @@ function PlayerEntry:render()
 				Padding = padding,
 			})
 
+			local onActivated, onSelectionGained, onSelectionLost, onMouseEnter, onMouseLeave, onMouseDown, onInputEnded
 
-			local function onActivated()
-				if self.props.selectedPlayer == self.props.player and self.props.dropDownOpen then
-					self.props.closeDropDown()
-				else
-					self.props.openDropDown(self.props.player)
+			if not FFlagPlayerListMorePerfImprovements then
+				onActivated = function()
+					if self.props.selectedPlayer == self.props.player and self.props.dropDownOpen then
+						self.props.closeDropDown()
+					else
+						self.props.openDropDown(self.props.player)
+					end
+					if not FFlagPlayerListFixTouchInputState then
+						coroutine.wrap(function()
+							-- Need to wait here as the state is updated before the props
+							-- Without the wait it briefly flashes to hover and then selected.
+							wait(0)
+							self:setState({
+								isPressed = false,
+							})
+						end)()
+					end
 				end
-				if not FFlagPlayerListFixTouchInputState and FFlagPlayerListDesignUpdate then
-					coroutine.wrap(function()
-						-- Need to wait here as the state is updated before the props
-						-- Without the wait it briefly flashes to hover and then selected.
-						wait(0)
-						self:setState({
-							isPressed = false,
-						})
-					end)()
-				end
-			end
 
-			local function onSelectionGained()
-				self:setState({
-					isHovered = true,
-				})
-			end
-
-			local function onSelectionLost()
-				self:setState({
-					isHovered = false,
-				})
-			end
-
-			local function onMouseEnter()
-				self:setState({
-					isHovered = true,
-				})
-			end
-
-			local function onMouseLeave()
-				self:setState({
-					isHovered = false,
-					isPressed = false,
-				})
-			end
-
-			local function onMouseDown()
-				self:setState({
-					isPressed = true,
-				})
-			end
-
-			local onInputEnded
-			if FFlagPlayerListFixTouchInputState then
-				onInputEnded = function()
+				onSelectionGained = function()
 					self:setState({
+						isHovered = true,
+					})
+				end
+
+				onSelectionLost = function()
+					self:setState({
+						isHovered = false,
+					})
+				end
+
+				onMouseEnter = function()
+					self:setState({
+						isHovered = true,
+					})
+				end
+
+				onMouseLeave = function()
+					self:setState({
+						isHovered = false,
 						isPressed = false,
 					})
 				end
+
+				onMouseDown = function()
+					self:setState({
+						isPressed = true,
+					})
+				end
+
+				if FFlagPlayerListFixTouchInputState then
+					onInputEnded = function()
+						self:setState({
+							isPressed = false,
+						})
+					end
+				end
 			end
 
-			local doubleOverlay = nil
-			if FFlagPlayerListDesignUpdate then
-				doubleOverlay = self.state.isPressed
-			end
+			local doubleOverlay = self.state.isPressed
 
 			playerEntryChildren["NameFrame"] = Roact.createElement("Frame", {
 				LayoutOrder = 0,
@@ -320,15 +335,16 @@ function PlayerEntry:render()
 					overlayStyle = overlayStyle,
 					doubleOverlay = doubleOverlay,
 
-					onActivated = onActivated,
-					onSelectionGained = onSelectionGained,
-					onSelectionLost = onSelectionLost,
+					onActivated = FFlagPlayerListMorePerfImprovements and self.onActivated or onActivated,
+					onSelectionGained = FFlagPlayerListMorePerfImprovements and self.onSelectionGained or onSelectionGained,
+					onSelectionLost = FFlagPlayerListMorePerfImprovements and self.onSelectionLost or onSelectionLost,
 
-					onMouseEnter = onMouseEnter,
-					onMouseLeave = onMouseLeave,
+					onMouseEnter = FFlagPlayerListMorePerfImprovements and self.onMouseEnter or onMouseEnter,
+					onMouseLeave = FFlagPlayerListMorePerfImprovements and self.onMouseLeave or onMouseLeave,
 
-					onMouseDown = FFlagPlayerListDesignUpdate and onMouseDown or nil,
-					onInputEnded = FFlagPlayerListFixTouchInputState and onInputEnded or nil,
+					onMouseDown = FFlagPlayerListMorePerfImprovements and self.onMouseDown or onMouseDown,
+					onInputEnded = FFlagPlayerListMorePerfImprovements and self.onInputEnded
+						or (FFlagPlayerListFixTouchInputState and onInputEnded or nil),
 
 					[Roact.Ref] = self.props[Roact.Ref]
 				}, {
@@ -378,19 +394,20 @@ function PlayerEntry:render()
 					doubleOverlay = doubleOverlay,
 					textStyle = textStyle,
 
-					onActivated = FFlagPlayerListDesignUpdate and onActivated or nil,
-					onSelectionGained = FFlagPlayerListDesignUpdate and onSelectionGained or nil,
-					onSelectionLost = FFlagPlayerListDesignUpdate and onSelectionLost or nil,
+					onActivated = FFlagPlayerListMorePerfImprovements and self.onActivated or onActivated,
+					onSelectionGained = FFlagPlayerListMorePerfImprovements and self.onSelectionGained or onSelectionGained,
+					onSelectionLost = FFlagPlayerListMorePerfImprovements and self.onSelectionLost or onSelectionLost,
 
-					onMouseEnter = FFlagPlayerListDesignUpdate and onMouseEnter or nil,
-					onMouseLeave = FFlagPlayerListDesignUpdate and onMouseLeave or nil,
+					onMouseEnter = FFlagPlayerListMorePerfImprovements and self.onMouseEnter or onMouseEnter,
+					onMouseLeave = FFlagPlayerListMorePerfImprovements and self.onMouseLeave or onMouseLeave,
 
-					onMouseDown = FFlagPlayerListDesignUpdate and onMouseDown or nil,
-					onInputEnded = FFlagPlayerListFixTouchInputState and onInputEnded or nil,
+					onMouseDown = FFlagPlayerListMorePerfImprovements and self.onMouseDown or onMouseDown,
+					onInputEnded = FFlagPlayerListMorePerfImprovements and self.onInputEnded
+						or (FFlagPlayerListFixTouchInputState and onInputEnded or nil),
 				})
 			end
 
-			if FFlagPlayerListDesignUpdate and not layoutValues.IsTenFoot then
+			if not layoutValues.IsTenFoot then
 				playerEntryChildren["BackgroundExtender"] = Roact.createElement(CellExtender, {
 					layoutOrder = 100,
 					size = UDim2.new(0, layoutValues.ExtraContainerPadding, 1, 0),
@@ -400,17 +417,8 @@ function PlayerEntry:render()
 				})
 			end
 
-			if FFlagPlayerListDesignUpdate then
-				return Roact.createElement("Frame", {
-					LayoutOrder = self.props.layoutOrder,
-					Size = UDim2.new(
-						1,
-						layoutValues.EntryXOffset,
-						0,
-						layoutValues.PlayerEntrySizeY
-					),
-					BackgroundTransparency = 1,
-				}, {
+			if FFlagPlayerListMorePerfImprovements then
+				return Roact.createFragment({
 					ChildrenFrame = Roact.createElement("Frame", {
 						Size = UDim2.new(1, 0, 1, 0),
 						BackgroundTransparency = 1,
@@ -435,7 +443,21 @@ function PlayerEntry:render()
 						layoutValues.PlayerEntrySizeY
 					),
 					BackgroundTransparency = 1,
-				}, playerEntryChildren)
+				}, {
+					ChildrenFrame = Roact.createElement("Frame", {
+						Size = UDim2.new(1, 0, 1, 0),
+						BackgroundTransparency = 1,
+					}, playerEntryChildren),
+
+					Divider = not layoutValues.IsTenFoot and self.props.hasDivider and Roact.createElement("Frame", {
+						Size = UDim2.new(1, 0, 0, 1),
+						Position = UDim2.new(0, 0, 1, 0),
+						AnchorPoint = Vector2.new(0, 1),
+						BackgroundTransparency = style.Theme.Divider.Transparency,
+						BackgroundColor3 = style.Theme.Divider.Color,
+						BorderSizePixel = 0,
+					}),
+				})
 			end
 		end)
 	end)

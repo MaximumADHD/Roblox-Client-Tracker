@@ -11,7 +11,7 @@ return function()
 
 	local function createTestAsset(container, name)
 		local element = Roact.createElement(MockWrapper, {},{
-				Roact.createElement(ActionBar, {
+			ActionBar = Roact.createElement(ActionBar, {
 					size = UDim2.new(1, 0, 1, 0),
 					position = UDim2.new(0, 0, 0, 0),
 					anchorPoint = Vector2.new(0, 1),

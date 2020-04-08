@@ -2,27 +2,26 @@
 	Displays panels associated with the import tool
 ]]
 
+local FFlagTerrainToolsImportImproveColorMapToggle = game:GetFastFlag("TerrainToolsImportImproveColorMapToggle")
+
 local Plugin = script.Parent.Parent.Parent.Parent
+
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Cryo = require(Plugin.Packages.Cryo)
+local UILibrary = require(Plugin.Packages.UILibrary)
 
-local FFlagTerrainToolsRefactor = game:GetFastFlag("TerrainToolsRefactor")
-
-local UILibrary = Plugin.Packages.UILibrary
-local RoundTextButton = require(UILibrary.Components.RoundTextButton)
-local Localizing = require(UILibrary.Localizing)
-local withLocalization = Localizing.withLocalization
+local withLocalization = UILibrary.Localizing.withLocalization
 local Theme = require(Plugin.Src.ContextServices.Theming)
 local withTheme = Theme.withTheme
 
 local ToolParts = script.Parent.ToolParts
-local Panel = require(ToolParts.Panel)
+local AssetIdSelector = require(ToolParts.AssetIdSelector)
+local ButtonGroup = require(ToolParts.ButtonGroup)
+local ImportProgressFrame = require(Plugin.Src.Components.ImportProgressFrame)
 local LabeledElementPair = require(ToolParts.LabeledElementPair)
 local MapSettings = require(ToolParts.MapSettings)
-local AssetIdSelector = require(ToolParts.AssetIdSelector)
-local ImportProgressFrame = require(Plugin.Src.Components.ImportProgressFrame)
-local ButtonGroup = require(ToolParts.ButtonGroup)
+local Panel = require(ToolParts.Panel)
 
 local Actions = Plugin.Src.Actions
 local ApplyToolAction = require(Actions.ApplyToolAction)
@@ -34,8 +33,6 @@ local TerrainInterface = require(Plugin.Src.ContextServices.TerrainInterface)
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 
 local REDUCER_KEY = "ImportTool"
-
-local FFlagTerrainToolsImportImproveColorMapToggle = game:GetFastFlag("TerrainToolsImportImproveColorMapToggle")
 
 local Import = Roact.PureComponent:extend(script.Name)
 
@@ -67,40 +64,6 @@ function Import:init()
 			self.props.dispatchChangeSize(Cryo.Dictionary.join(self.props.Size, {
 				[axis] = text,
 			}))
-		end
-	end
-
-	-- this function is used to propagate changes back to rodux from the mapsettings
-	self.onTextEnter = function(text, container)
-		if FFlagTerrainToolsRefactor then
-			warn("Import.onTextEnter() should not be used when FFlagTerrainToolsRefactor is true")
-		end
-		-- warning should be displayed using the
-		-- validation funtion in the LabeledTextInput
-		if not tonumber(text) then
-			return
-		end
-
-		-- not a pattern we shoulf follow we should factor this into
-		-- functions that handle position and size separately rather
-		-- than matching keywords in an container-id.
-		local field, fieldName
-		if string.match(container, "Position") then
-			field = self.props.Position
-			fieldName = "Position"
-		elseif string.match(container, "Size") then
-			field = self.props.Size
-			fieldName = "Size"
-		end
-
-		local x = string.match(container, "X") and text or field.X
-		local y = string.match(container, "Y") and text or field.Y
-		local z = string.match(container, "Z") and text or field.Z
-
-		if fieldName == "Position" then
-			self.props.dispatchChangePosition({X = x, Y = y, Z = z})
-		elseif fieldName == "Size" then
-			self.props.dispatchChangeSize({X = x, Y = y, Z = z})
 		end
 	end
 
@@ -221,9 +184,6 @@ function Import:render()
 					OnSizeChanged = self.onSizeChanged,
 					SetMapSettingsValid = self.mapSettingsValidated,
 					HeightMapValidation = self.heightMapValidated,
-
-					OnTextEnter = self.onTextEnter,
-					IsMapSettingsValid = self.mapSettingsValidated,
 				}),
 
 				MaterialSettings = Roact.createElement(Panel, {
@@ -254,7 +214,7 @@ function Import:render()
 					}),
 				}),
 
-				ImportButtonFrame = FFlagTerrainToolsRefactor and Roact.createElement(ButtonGroup, {
+				ImportButtonFrame = Roact.createElement(ButtonGroup, {
 					LayoutOrder = 4,
 					Buttons = {
 						{
@@ -264,24 +224,6 @@ function Import:render()
 							OnClicked = self.onImportButtonClicked,
 						}
 					}
-				}) or Roact.createElement("Frame", {
-					Size = UDim2.new(1, 0 ,0, 28+24),
-					BackgroundTransparency = 1,
-					LayoutOrder = 4,
-				}, {
-					ImportButton = Roact.createElement(RoundTextButton, {
-						Size = UDim2.new(0, 200, 0, 28),
-						AnchorPoint = Vector2.new(0.5, 0.5),
-						Position = UDim2.new(0.5, 0, 0.5, 0),
-
-						Name = localization:getText("ToolName", "Import"),
-
-						Active = importIsActive,
-						Style = theme.roundTextButtonTheme.styleSheet,
-						TextSize = theme.roundTextButtonTheme.textSize,
-
-						OnClicked = self.onImportButtonClicked,
-					}),
 				}),
 
 				ImportProgressFrame = importInProgress and Roact.createElement(ImportProgressFrame, {
@@ -295,8 +237,8 @@ end
 local function mapStateToProps(state, props)
 	return {
 		toolName = TerrainEnums.ToolId.Import,
-		Size = state[REDUCER_KEY].size,
 		Position = state[REDUCER_KEY].position,
+		Size = state[REDUCER_KEY].size,
 		UseColorMap = state[REDUCER_KEY].useColorMap,
 	}
 end

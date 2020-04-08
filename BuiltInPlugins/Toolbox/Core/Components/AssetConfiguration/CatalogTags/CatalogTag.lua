@@ -13,13 +13,14 @@ local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
+local UILibrary = require(Libs.UILibrary)
 
 local Util = Plugin.Core.Util
 local ContextHelper = require(Util.ContextHelper)
 local Constants = require(Util.Constants)
 local Images = require(Util.Images)
 
-local RoundFrame = require(Libs.UILibrary.Components.RoundFrame)
+local RoundFrame = UILibrary.Component.RoundFrame
 
 local withTheme = ContextHelper.withTheme
 

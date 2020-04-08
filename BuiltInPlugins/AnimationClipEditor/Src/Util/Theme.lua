@@ -1,6 +1,8 @@
 local Plugin = script.Parent.Parent.Parent
-local StudioTheme = require(Plugin.UILibrary.Studio.StudioTheme)
-local StudioStyle = require(Plugin.UILibrary.Studio.StudioStyle)
+local UILibrary = require(Plugin.UILibrary)
+
+local StudioTheme = UILibrary.Studio.Theme
+local StudioStyle = UILibrary.Studio.Style
 local Cryo = require(Plugin.Cryo)
 
 local Theme = {}

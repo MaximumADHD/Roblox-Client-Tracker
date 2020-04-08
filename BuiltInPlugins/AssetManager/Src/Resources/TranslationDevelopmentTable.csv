@@ -18,6 +18,7 @@ Studio.AssetManager.AssetGrid.NoResults, , ,No {assetType} Found
 Studio.AssetManager.ContextMenu.AddImages, , ,Add Images
 Studio.AssetManager.ContextMenu.AddMeshes, , ,Add Meshes
 Studio.AssetManager.ContextMenu.AddNewPlace, , ,Add New Place
+Studio.AssetManager.ContextMenu.NewPlaceAdded, , ,New Place Added
 Studio.AssetManager.ContextMenu.EditAsset, , ,Edit Asset
 Studio.AssetManager.ContextMenu.Rename, , ,Rename
 Studio.AssetManager.ContextMenu.RenameAlias, , ,Rename Alias
@@ -36,3 +37,5 @@ Studio.AssetManager.ContextMenu.PublishLinkedSource, , ,Publish this LinkedSourc
 Studio.AssetManager.ContextMenu.RevertToLastPublishedVersion, , ,Revert To Last Published Version
 Studio.AssetManager.ContextMenu.RefreshScript, , ,Refresh Script
 Studio.AssetManager.AssetPreview.Insert, , ,Insert
+Studio.AssetManager.MainView.PublishText, , ,You need to publish the game to start using Asset Manager.
+Studio.AssetManager.MainView.ButtonText, , ,Publish

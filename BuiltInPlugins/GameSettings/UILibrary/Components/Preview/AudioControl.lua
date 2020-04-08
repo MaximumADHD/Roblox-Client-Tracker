@@ -17,8 +17,6 @@
 
 	the sound object inside the Toolbox plugin to play. We don't want to too many sound source.
 ]]
-local FFlagEnableAudioPreview = game:GetFastFlag("EnableAudioPreview")
-
 local Library = script.Parent.Parent.Parent
 local Roact = require(Library.Parent.Roact)
 
@@ -26,8 +24,11 @@ local Theming = require(Library.Theming)
 local withTheme = Theming.withTheme
 
 local getTimeString = require(Library.Utils.getTimeString)
+local RoundButton = require(Library.Components.RoundFrame)
 
+local LoadingIndicator = require(Library.Components.LoadingIndicator)
 local TIME_LABEL_HEIGHT = 15
+local BUTTON_SIZE = 28
 
 local AudioControl = Roact.PureComponent:extend("AudioControl")
 
@@ -35,6 +36,17 @@ function AudioControl:init(props)
 	self.state = {
 		init = false;
 	}
+
+	self.onActivated = function()
+		if not self.props.isLoaded then
+			return
+		end
+		if self.props.isPlaying then
+			self.pauseASound()
+		else
+			self.startPlaying()
+		end
+	end
 
 	self.startPlaying = function()
 		if self.state.init then
@@ -56,7 +68,6 @@ end
 function AudioControl:render()
 	return withTheme(function(theme)
 		local props = self.props
-		local state = self.state
 		local size = props.size
 		local anchorPoint = props.anchorPoint
 		local position = props.position
@@ -64,49 +75,40 @@ function AudioControl:render()
 		local audioPreviewTheme = theme.assetPreview.audioPreview
 		local audioControlOffset = props.audioControlOffset
 		local isPlaying = props.isPlaying
+		local isLoaded = props.isLoaded
 
-		local timeString
-		if FFlagEnableAudioPreview then
-			local timePassed = props.timePassed
-			timeString = getTimeString(timePassed) .. '/' .. getTimeString(timeLength)
-		else
-			local timeRemaining = props.timeRemaining
-			timeString = getTimeString(timeRemaining) .. '/' .. getTimeString(timeLength)
-		end
+		local timePassed = props.timePassed
+		local timeString = getTimeString(timePassed) .. '/' .. getTimeString(timeLength)
 
 		return Roact.createElement("Frame", {
 			AnchorPoint = anchorPoint,
+			BackgroundTransparency = 1,
 			Position = position,
 			Size = size,
-
-			BackgroundTransparency = 1,
-			BorderSizePixel = 0,
 		}, {
-			PlayButton = (not isPlaying) and Roact.createElement("ImageButton", {
-				AnchorPoint = Vector2.new(0.5, 0.5),
-				Position = UDim2.new(0, 24, 0.5, 0),
-				Size = UDim2.new(0, 26, 0, 26),
+			Button = Roact.createElement(RoundButton, {
+				AnchorPoint = Vector2.new(0.5, 0),
+				AutoButtonColor = false,
+				BackgroundColor3 = isLoaded and audioPreviewTheme.buttonBackgroundColor or audioPreviewTheme.buttonDisabledBackgroundColor,
+				BackgroundTransparency = isLoaded and 0 or audioPreviewTheme.buttonDisabledBackgroundTransparency,
+				BorderSizePixel = 0,
+				Position = UDim2.new(0, 24, 0, 0),
+				Size = UDim2.new(0, BUTTON_SIZE, 0, BUTTON_SIZE),
 
-				Image = audioPreviewTheme.playButton,
-				ImageColor3 = audioPreviewTheme.button_Color,
-				BackgroundTransparency = 1,
-
-				[Roact.Event.Activated] = self.startPlaying,
+				OnActivated = self.onActivated,
+			}, {
+				PlayOrPauseIcon = Roact.createElement("ImageLabel", {
+					AnchorPoint = Vector2.new(0.5, 0.5),
+					BackgroundTransparency = 1,
+					Image = isPlaying and audioPreviewTheme.pauseButton or audioPreviewTheme.playButton,
+					ImageColor3 = audioPreviewTheme.buttonColor,
+					ImageTransparency = isLoaded and 0 or audioPreviewTheme.buttonDisabledBackgroundTransparency,
+					Position = UDim2.new(0.5, 0, 0.5, 0),
+					Size = UDim2.new(1, 0, 1, 0),
+				}),
 			}),
 
-			PauseButton = isPlaying and Roact.createElement("ImageButton", {
-				AnchorPoint = Vector2.new(0.5, 0.5),
-				Position = UDim2.new(0, 24, 0.5, 0),
-				Size = UDim2.new(0, 26, 0, 26),
-
-				Image = audioPreviewTheme.pauseButton,
-				ImageColor3 = audioPreviewTheme.button_Color,
-				BackgroundTransparency = 1,
-
-				[Roact.Event.Activated] = self.pauseASound,
-			}),
-
-			TimeComponent = Roact.createElement("TextLabel", {
+			TimeComponent = isLoaded and Roact.createElement("TextLabel", {
 				AnchorPoint = Vector2.new(1, 0.5),
 				Position = UDim2.new(1, -audioControlOffset, 0.5, 0),
 				Size = UDim2.new(0, 204, 0, TIME_LABEL_HEIGHT),
@@ -117,6 +119,12 @@ function AudioControl:render()
 				TextSize = audioPreviewTheme.fontSize,
 				TextXAlignment = Enum.TextXAlignment.Right,
 				TextColor3 = audioPreviewTheme.textColor,
+			}),
+
+			LoadingIndicator = (not isLoaded) and Roact.createElement(LoadingIndicator, {
+				AnchorPoint = Vector2.new(1, 0.5),
+				Position = UDim2.new(1, -audioControlOffset, 0.5, 0),
+				Size = UDim2.new(0, 50, 0, TIME_LABEL_HEIGHT),
 			}),
 		})
 	end)

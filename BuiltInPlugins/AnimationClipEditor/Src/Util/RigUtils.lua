@@ -6,8 +6,9 @@ local DEFAULT_TOLERANCE = 0.0001
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
+local UILibrary = require(Plugin.UILibrary)
 
-local MathUtils = require(Plugin.UILibrary.Utils.MathUtils)
+local MathUtils = UILibrary.Util.MathUtils
 local buildHierarchy = require(Plugin.Src.Util.buildHierarchy)
 local AnimationData = require(Plugin.Src.Util.AnimationData)
 local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)

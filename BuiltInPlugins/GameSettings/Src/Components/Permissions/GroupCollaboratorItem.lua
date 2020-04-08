@@ -20,19 +20,20 @@ local FFlagStudioGameSettingsRestrictPermissions = game:GetFastFlag("StudioGameS
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
+local UILibrary = require(Plugin.UILibrary)
 local withLocalization = require(Plugin.Src.Consumers.withLocalization)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
 local getMouse = require(Plugin.Src.Consumers.getMouse)
 
 local PermissionsConstants = require(Plugin.Src.Components.Permissions.PermissionsConstants)
-local ExpandableList = require(Plugin.UILibrary.Components.ExpandableList)
-local Spritesheet = require(Plugin.UILibrary.Utils.Spritesheet)
+local ExpandableList = UILibrary.Component.ExpandableList
+local Spritesheet = UILibrary.Util.Spritesheet
 
 local getThumbnailLoader = require(Plugin.Src.Consumers.getThumbnailLoader)
 local CollaboratorItem = require(Plugin.Src.Components.Permissions.CollaboratorItem)
 local Separator = require(Plugin.Src.Components.Separator)
 
-local createFitToContent = require(Plugin.UILibrary.Components.createFitToContent)
+local createFitToContent = UILibrary.Component.createFitToContent
 
 local FitToContent = createFitToContent("Frame", "UIListLayout", {
 	SortOrder = Enum.SortOrder.LayoutOrder,

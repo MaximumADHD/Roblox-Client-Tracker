@@ -11,6 +11,8 @@ local StyleModifier = Util.StyleModifier
 local UILibrary = require(Plugin.Packages.UILibrary)
 local GetTextSize = UILibrary.Util.GetTextSize
 
+local PopUpButton = require(Plugin.Src.Components.PopUpButton)
+
 local SetEditingAssets = require(Plugin.Src.Actions.SetEditingAssets)
 
 local OnAssetDoubleClick = require(Plugin.Src.Thunks.OnAssetDoubleClick)
@@ -32,6 +34,8 @@ function Tile:init()
         assetPreviewButtonHovered = false,
         editText = "",
     }
+
+    self.editing = false
 
     self.textBoxRef = Roact.createRef()
 
@@ -116,22 +120,19 @@ function Tile:init()
         elseif assetData.assetType == Enum.AssetType.Image
         or assetData.assetType == Enum.AssetType.MeshPart
         or assetData.assetType == Enum.AssetType.Image then
-            local assetType
             local prefix
             -- Setting asset type to same value as Enum.AssetType since it cannot be passed into function
             if assetData.assetType == Enum.AssetType.Image then
-                assetType = 1
                 prefix = "Images/"
             elseif assetData.assetType == Enum.AssetType.MeshPart then
-                assetType = 40
                 prefix = "Meshes/"
             elseif assetData.assetType == Enum.AssetType.Lua then
-                assetType = 5
                 prefix = "Scripts/"
             end
-            AssetManagerService:RenameAlias(assetType, assetData.id, prefix .. assetData.name, prefix .. newName)
+            AssetManagerService:RenameAlias(assetData.assetType.Value, assetData.id, prefix .. assetData.name, prefix .. newName)
         end
         props.AssetData.name = newName
+        self.editing = false
         -- force re-render to show updated name
         self:setState({
             editText = props.AssetData.name,
@@ -163,6 +164,21 @@ function Tile:didMount()
     })
 end
 
+function Tile:didUpdate(lastProps, lastState)
+    local props = self.props
+    local assetData = props.AssetData
+    local isEditingAsset = props.EditingAssets[assetData.id]
+    if isEditingAsset then
+        if self.textBoxRef and self.textBoxRef.current and not self.editing then
+            local textBox = self.textBoxRef.current
+            textBox:CaptureFocus()
+            textBox.SelectionStart = 1
+            textBox.CursorPosition = #textBox.Text + 1
+            self.editing = true
+        end
+    end
+end
+
 function Tile:render()
     local props = self.props
     local pluginStyle = props.Theme:get("Plugin")
@@ -192,11 +208,6 @@ function Tile:render()
 
     local editText = self.state.editText
     local isEditingAsset = props.EditingAssets[assetData.id]
-    if isEditingAsset then
-        if self.textBoxRef and self.textBoxRef.current then
-            self.textBoxRef.current:CaptureFocus()
-        end
-    end
     local editTextWrapped = tileStyle.EditText.TextWrapped
     local editTextClearOnFocus = tileStyle.EditText.ClearTextOnFocus
     local editTextXAlignment = tileStyle.Text.XAlignment
@@ -219,15 +230,17 @@ function Tile:render()
             or tileStyle.Image.PlaceHolder
     end
 
-    local imageSize = tileStyle.Image.Size
+    local imageFrameSize = tileStyle.Image.FrameSize
+    local imageSize = tileStyle.Image.ImageSize
     local imagePos = tileStyle.Image.Position
-    local imageBGTransparency = tileStyle.Image.BackgroundTransparency
+    local imageFolderPos = tileStyle.Image.FolderPosition
+    local imageFolderAnchorPos = tileStyle.Image.FolderAnchorPosition
+    local imageBGColor = tileStyle.Image.BackgroundColor
 
     local createAssetPreviewButton = not isFolder and not isPlace
     local showAssetPreviewButton = self.state.assetPreviewButtonHovered
     local magnifyingGlass = tileStyle.AssetPreview.Image
-    local assetPreviewButtonSize = tileStyle.AssetPreview.Button.Size
-    local assetPerviewButtonPos = tileStyle.AssetPreview.Button.XOffset
+    local assetPreviewButtonOffset = tileStyle.AssetPreview.Button.Offset
 
     local isRootPlace = assetData.isRootPlace
     local rootPlaceImageSize = tileStyle.Image.StartingPlace.Size
@@ -235,8 +248,21 @@ function Tile:render()
     local rootPlaceIconXOffset = tileStyle.Image.StartingPlace.XOffset
     local rootPlaceIconYOffset = tileStyle.Image.StartingPlace.YOffset
 
-
     local layoutOrder = props.LayoutOrder
+
+    local thumbnailContainer = isFolder and "Frame" or "ImageLabel"
+    local thumbnailContainerProps = {
+        Size = imageFrameSize,
+        Position = imagePos,
+
+        BackgroundTransparency = 0,
+        BackgroundColor3 = imageBGColor,
+        BorderSizePixel = 0,
+    }
+
+    if not isFolder then
+        thumbnailContainerProps.Image = image
+    end
 
     return Roact.createElement("ImageButton", {
         Size = size,
@@ -251,23 +277,14 @@ function Tile:render()
         [Roact.Event.MouseEnter] = self.onMouseEnter,
         [Roact.Event.MouseLeave] = self.onMouseLeave,
     }, {
-        Thumbnail = Roact.createElement("ImageLabel", {
-            Size = imageSize,
-            Position = imagePos,
-
-            Image = image,
-
-            BackgroundTransparency = imageBGTransparency,
-        }, {
-            AssetPreviewButton = createAssetPreviewButton and Roact.createElement("ImageButton", {
-                Position = UDim2.new(0, assetPerviewButtonPos, 0, 0),
-                Size = UDim2.new(0, assetPreviewButtonSize, 0, assetPreviewButtonSize),
+        ThumbnailContainer = Roact.createElement(thumbnailContainer, thumbnailContainerProps, {
+            AssetPreviewButton = createAssetPreviewButton and Roact.createElement(PopUpButton, {
+                Position = UDim2.new(1, -assetPreviewButtonOffset, 0, assetPreviewButtonOffset),
 
                 Image = magnifyingGlass,
-                ImageTransparency = showAssetPreviewButton and 0 or 1,
-                BackgroundTransparency = 1,
-
-                [Roact.Event.Activated] = self.openAssetPreview,
+                ShowIcon = showAssetPreviewButton,
+                OnClick = self.openAssetPreview,
+                OnRightClick = self.onMouseButton2Click,
             }),
 
             RootPlaceImage = isRootPlace and Roact.createElement("ImageLabel", {
@@ -275,6 +292,15 @@ function Tile:render()
                 Position = UDim2.new(0, rootPlaceIconXOffset, 0, rootPlaceIconYOffset),
 
                 Image = rootPlaceIcon,
+                BackgroundTransparency = 1,
+            }),
+
+            FolderImage = isFolder and Roact.createElement("ImageLabel", {
+                Size = imageSize,
+                Image = image,
+                Position = imageFolderPos,
+                AnchorPoint = imageFolderAnchorPos,
+
                 BackgroundTransparency = 1,
             })
         }),
@@ -292,6 +318,7 @@ function Tile:render()
             TextXAlignment = textXAlignment,
             TextYAlignment = textYAlignment,
             TextTruncate = textTruncate,
+            TextWrapped = true,
         }),
 
         RenameTextBox = isEditingAsset and Roact.createElement("TextBox",{

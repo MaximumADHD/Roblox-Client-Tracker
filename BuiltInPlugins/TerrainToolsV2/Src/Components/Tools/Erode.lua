@@ -3,26 +3,24 @@
 ]]
 
 local Plugin = script.Parent.Parent.Parent.Parent
-local Roact = require(Plugin.Packages.Roact)
+
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 
 local BaseBrush = require(Plugin.Src.Components.Tools.BaseBrush)
 
 local Actions = Plugin.Src.Actions
 local ApplyToolAction = require(Actions.ApplyToolAction)
-local ChooseBrushShape = require(Actions.ChooseBrushShape)
 local ChangeBaseSize = require(Actions.ChangeBaseSize)
 local ChangeHeight = require(Actions.ChangeHeight)
-local ChangeStrength = require(Actions.ChangeStrength)
 local ChangePivot = require(Actions.ChangePivot)
+local ChangeStrength = require(Actions.ChangeStrength)
+local ChooseBrushShape = require(Actions.ChooseBrushShape)
+local SetBaseSizeHeightLocked = require(Actions.SetBaseSizeHeightLocked)
+local SetIgnoreWater = require(Actions.SetIgnoreWater)
 local SetPlaneLock = require(Actions.SetPlaneLock)
 local SetSnapToGrid = require(Actions.SetSnapToGrid)
-local SetIgnoreWater = require(Actions.SetIgnoreWater)
-local SetBaseSizeHeightLocked = require(Actions.SetBaseSizeHeightLocked)
 
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
-
-local FFlagTerrainToolsRefactor = game:GetFastFlag("TerrainToolsRefactor")
 
 local REDUCER_KEY = "ErodeTool"
 
@@ -30,15 +28,15 @@ local function mapStateToProps(state, props)
 	return {
 		toolName = TerrainEnums.ToolId.Erode,
 
-		brushShape = state[REDUCER_KEY].brushShape,
 		baseSize = state[REDUCER_KEY].baseSize,
-		height = state[REDUCER_KEY].height,
 		baseSizeHeightLocked = state[REDUCER_KEY].baseSizeHeightLocked,
-		strength = state[REDUCER_KEY].strength,
+		brushShape = state[REDUCER_KEY].brushShape,
+		height = state[REDUCER_KEY].height,
+		ignoreWater = state[REDUCER_KEY].ignoreWater,
 		pivot = state[REDUCER_KEY].pivot,
 		planeLock = state[REDUCER_KEY].planeLock,
 		snapToGrid = state[REDUCER_KEY].snapToGrid,
-		ignoreWater = state[REDUCER_KEY].ignoreWater,
+		strength = state[REDUCER_KEY].strength,
 	}
 end
 
@@ -48,9 +46,6 @@ local function mapDispatchToProps(dispatch)
 	end
 
 	return {
-		dispatchChooseBrushShape = function (shape)
-			dispatchToErode(ChooseBrushShape(shape))
-		end,
 		dispatchChangeBaseSize = function (size)
 			dispatchToErode(ChangeBaseSize(size))
 		end,
@@ -63,27 +58,22 @@ local function mapDispatchToProps(dispatch)
 		dispatchChangeStrength = function (strength)
 			dispatchToErode(ChangeStrength(strength))
 		end,
+		dispatchChooseBrushShape = function (shape)
+			dispatchToErode(ChooseBrushShape(shape))
+		end,
+		dispatchSetBaseSizeHeightLocked = function (locked)
+			dispatchToErode(SetBaseSizeHeightLocked(locked))
+		end,
+		dispatchSetIgnoreWater = function (ignoreWater)
+			dispatchToErode(SetIgnoreWater(ignoreWater))
+		end,
 		dispatchSetPlaneLock = function (planeLock)
 			dispatchToErode(SetPlaneLock(planeLock))
 		end,
 		dispatchSetSnapToGrid = function (snapToGrid)
 			dispatchToErode(SetSnapToGrid(snapToGrid))
 		end,
-		dispatchSetIgnoreWater = function (ignoreWater)
-			dispatchToErode(SetIgnoreWater(ignoreWater))
-		end,
-		dispatchSetBaseSizeHeightLocked = function (locked)
-			dispatchToErode(SetBaseSizeHeightLocked(locked))
-		end,
 	}
 end
 
-if FFlagTerrainToolsRefactor then
-	return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(BaseBrush)
-else
-	local ErodeTool = RoactRodux.connect(mapStateToProps, mapDispatchToProps)(BaseBrush)
-
-	return function(props)
-		return Roact.createElement(ErodeTool)
-	end
-end
+return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(BaseBrush)

@@ -4,7 +4,7 @@ local Cryo = require(Plugin.Packages.Cryo)
 local Action = require(Plugin.Packages.Framework.Util.Action)
 
 return Action(script.Name, function(assetsTable)
-	assert(type(assetsTable) == "table", string.format("SetPlaceAssets requires a table, not %s", type(assetsTable)))
+	assert(type(assetsTable) == "table", string.format("SetAssets requires a table, not %s", type(assetsTable)))
 
 	local assets = assetsTable.assets
 	local nextPageCursor = assetsTable.nextPageCursor
@@ -12,18 +12,18 @@ return Action(script.Name, function(assetsTable)
 	local pageNumber = assetsTable.pageNumber
 
     assert(type(assets) == "table",
-		string.format("SetPlaceAssets requires a places table, not %s", type(assets)))
+		string.format("SetAssets requires a places table, not %s", type(assets)))
 	if nextPageCursor then
 		assert(type(nextPageCursor) == "string",
-			string.format("SetPlaceAssets requires a string, not %s", type(nextPageCursor)))
+			string.format("SetAssets requires a string, not %s", type(nextPageCursor)))
 	end
 	if previousPageCursor then
 		assert(type(previousPageCursor) == "string",
-			string.format("SetPlaceAssets requires a string, not %s", type(previousPageCursor)))
+			string.format("SetAssets requires a string, not %s", type(previousPageCursor)))
 	end
 	if pageNumber then
 		assert(type(pageNumber) == "number",
-			string.format("SetPlaceAssets requires a number, not %s", type(pageNumber)))
+			string.format("SetAssets requires a number, not %s", type(pageNumber)))
 	end
 
 	return {

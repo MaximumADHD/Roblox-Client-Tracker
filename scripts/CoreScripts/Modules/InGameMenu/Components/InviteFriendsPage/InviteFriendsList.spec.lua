@@ -43,11 +43,13 @@ return function()
 								Id = 2231221,
 								IsOnline = true,
 								Username = "TheGamer101",
+								DisplayName = "TestDisplayName",
 							},
 							{
 								Id = 261,
 								IsOnline = false,
 								Username = "Shedletsky",
+								DisplayName = "TestDisplayName",
 							},
 						}
 					}),
@@ -77,11 +79,13 @@ return function()
 								Id = 2231221,
 								IsOnline = true,
 								Username = "TheGamer101",
+								DisplayName = "TestDisplayName",
 							},
 							{
 								Id = 261,
 								IsOnline = false,
 								Username = "Shedletsky",
+								DisplayName = "TestDisplayName",
 							},
 						}
 					}),

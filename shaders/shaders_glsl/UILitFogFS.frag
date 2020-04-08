@@ -14,7 +14,7 @@ struct Globals
     vec3 Lamp1Color;
     vec4 FogParams;
     vec4 FogColor_GlobalForceFieldTime;
-    vec3 Exposure;
+    vec4 Exposure_DoFDistance;
     vec4 LightConfig0;
     vec4 LightConfig1;
     vec4 LightConfig2;
@@ -63,16 +63,17 @@ void main()
     vec4 f1 = vec4(1.0, 1.0, 1.0, f0.x);
     bvec4 f2 = bvec4(CB2[0].y > 0.5);
     vec4 f3 = VARYING1 * vec4(f2.x ? f1.x : f0.x, f2.y ? f1.y : f0.y, f2.z ? f1.z : f0.z, f2.w ? f1.w : f0.w);
-    vec3 f4 = f3.xyz;
+    vec4 f4 = f3;
+    f4.w = f3.w;
     float f5 = clamp(dot(step(CB0[19].xyz, abs(VARYING3 - CB0[18].xyz)), vec3(1.0)), 0.0, 1.0);
     vec3 f6 = VARYING3.yzx - (VARYING3.yzx * f5);
     vec4 f7 = vec4(clamp(f5, 0.0, 1.0));
     vec4 f8 = mix(texture3D(LightMapTexture, f6), vec4(0.0), f7);
     vec4 f9 = mix(texture3D(LightGridSkylightTexture, f6), vec4(1.0), f7);
     vec4 f10 = texture2D(ShadowMapTexture, VARYING4.xy);
-    vec3 f11 = (f4 * f4).xyz;
+    vec3 f11 = (f4.xyz * f4.xyz).xyz;
     vec3 f12 = mix(CB0[14].xyz, sqrt(clamp(mix(f11, (min((f8.xyz * (f8.w * 120.0)).xyz + (CB0[8].xyz + (CB0[9].xyz * f9.x)), vec3(CB0[16].w)) + (VARYING2 * ((1.0 - ((step(f10.x, VARYING4.z) * clamp(CB0[24].z + (CB0[24].w * abs(VARYING4.z - 0.5)), 0.0, 1.0)) * f10.y)) * f9.y))) * f11, vec3(CB2[0].z)).xyz * CB0[15].y, vec3(0.0), vec3(1.0))).xyz, vec3(clamp((CB0[13].x * length(VARYING5)) + CB0[13].y, 0.0, 1.0)));
-    gl_FragData[0] = vec4(f12.x, f12.y, f12.z, f3.w);
+    gl_FragData[0] = vec4(f12.x, f12.y, f12.z, f4.w);
 }
 
 //$$ShadowMapTexture=s1

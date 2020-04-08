@@ -26,4 +26,6 @@ game:DefineFastFlag("EnableOverrideAssetCursorFix", false)
 game:DefineFastFlag("EnableToolboxAssetNameColorChange", false)
 game:DefineFastFlag("RemoveAudioEndorsedIcon", false)
 
+game:DefineFastFlag("StudioToolboxEnabledDevFramework", false)
+
 return nil

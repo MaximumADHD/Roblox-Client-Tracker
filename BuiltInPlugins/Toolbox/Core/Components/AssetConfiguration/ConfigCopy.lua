@@ -9,6 +9,7 @@ local Plugin = script.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
+local UILibrary = require(Libs.UILibrary)
 
 local Util = Plugin.Core.Util
 local ContextHelper = require(Util.ContextHelper)
@@ -18,8 +19,7 @@ local AssetConfigConstants = require(Util.AssetConfigConstants)
 local AssetConfiguration = Plugin.Core.Components.AssetConfiguration
 local LinkButton = require(AssetConfiguration.LinkButton)
 
-local UILibrary = Libs.UILibrary
-local ToggleButton = require(UILibrary.Components.ToggleButton)
+local ToggleButton = UILibrary.Component.ToggleButton
 
 local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization

@@ -21,6 +21,11 @@ local MockPlugin = require(TestHelpers.MockPlugin)
 local MockMouse = require(TestHelpers.MockMouse)
 local MockTerrain = require(TestHelpers.MockTerrain)
 
+local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
+local ToolId = TerrainEnums.ToolId
+
+local FFlagTerrainToolsTerrainBrushNotSingleton = game:GetFastFlag("TerrainToolsTerrainBrushNotSingleton")
+
 return function()
 	it("should construct and destroy without errors", function()
 		local terrain = MockTerrain.new()
@@ -32,10 +37,14 @@ return function()
 		local theme = PluginTheme.mock()
 
 		local pluginActivationController = PluginActivationController.new(pluginInstance)
-		local terrainBrush = TerrainBrush.new({
-			terrain = terrain,
-			mouse = mouse
-		})
+		local terrainBrush
+		if not FFlagTerrainToolsTerrainBrushNotSingleton then
+			terrainBrush = TerrainBrush.new({
+				terrain = terrain,
+				mouse = mouse,
+				tool = ToolId.Add,
+			})
+		end
 		local terrainGeneration = TerrainGeneration.new({
 			terrain = terrain,
 		})
@@ -57,6 +66,7 @@ return function()
 			theme = theme,
 			terrain = terrain,
 			pluginActivationController = pluginActivationController,
+			-- TODO: Remove terrainBrush when removing FFlagTerrainToolsTerrainBrushNotSingleton
 			terrainBrush = terrainBrush,
 			terrainGeneration = terrainGeneration,
 			terrainImporter = terrainImporter,

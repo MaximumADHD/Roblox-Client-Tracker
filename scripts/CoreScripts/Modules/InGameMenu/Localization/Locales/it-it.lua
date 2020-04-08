@@ -11,9 +11,9 @@
 --------------------------------------------------------------------------------------------------------]]
 
 return{
-	["CoreScripts.InGameMenu.LeaveGame"] = [[Esci dal gioco]],
-	["CoreScripts.InGameMenu.ConfirmLeaveGame"] = [[Se esci dal gioco, perderai i progressi non salvati.]],
-	["CoreScripts.InGameMenu.LeaveGameQuestion"] = [[Vuoi uscire dal gioco?]],
+	["CoreScripts.InGameMenu.LeaveGame"] = [[Esci]],
+	["CoreScripts.InGameMenu.ConfirmLeaveGame"] = [[Vuoi davvero uscire?]],
+	["CoreScripts.InGameMenu.LeaveGameQuestion"] = [[Vuoi uscire?]],
 	["CoreScripts.InGameMenu.Leave"] = [[Esci]],
 	["CoreScripts.InGameMenu.RespawnCharacterDialogTitle"] = [[Vuoi rigenerare il personaggio?]],
 	["CoreScripts.InGameMenu.RespawnCharacterDialogBody"] = [[Il tuo personaggio riapparirà nel luogo di rigenerazione.]],
@@ -58,7 +58,7 @@ return{
 	["CoreScripts.InGameMenu.Controls.Playerlist"] = [[Lista giocatori]],
 	["CoreScripts.InGameMenu.Controls.Chat"] = [[Chat]],
 	["CoreScripts.InGameMenu.Controls.RespawnCharacter"] = [[Rigenera il personaggio]],
-	["CoreScripts.InGameMenu.Controls.LeaveGame"] = [[Esci dal gioco]],
+	["CoreScripts.InGameMenu.Controls.LeaveGame"] = [[Esci]],
 	["CoreScripts.InGameMenu.Controls.MiscellaneousTitle"] = [[VARIE]],
 	["CoreScripts.InGameMenu.Controls.Screenshot"] = [[Screenshot]],
 	["CoreScripts.InGameMenu.Controls.DevConsole"] = [[Console sviluppatore]],
@@ -119,4 +119,6 @@ return{
 	["CoreScripts.InGameMenu.GameSettings.PlaceVersionWithLatest"] = [[Versione della località: {PLACE_VERSION} (più recente: {LATEST_PLACE_VERSION})]],
 	["CoreScripts.InGameMenu.Label.MicroProfiler"] = [[Microprofiler]],
 	["CoreScripts.InGameMenu.InviteFriends.Loading"] = [[Caricamento!]],
+	["CoreScripts.InGameMenu.RespawnCharacter"] = [[Rigenera il personaggio]],
+	["CoreScripts.InGameMenu.GameSettings.CameraModeCameraToggle"] = [[AttivaVisuale]],
 }

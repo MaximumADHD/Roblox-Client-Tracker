@@ -2,9 +2,9 @@
 	Manages calling plugin:Activate() and plugin:Deactivate() when we change tools, and listening to external plugin.Deactivation signals
 ]]
 local Plugin = script.Parent.Parent.Parent
+local UILibrary = require(Plugin.Packages.UILibrary)
 
-local UILibrary = Plugin.Packages.UILibrary
-local Signal = require(UILibrary.Utils.Signal)
+local Signal = UILibrary.Util.Signal
 
 local Constants = require(Plugin.Src.Util.Constants)
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)

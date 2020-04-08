@@ -20,8 +20,6 @@
 		function SetValue(value) = Callback to tell parent that value has changed.
 ]]
 
-local FFlagTerrainToolsRefactor = game:GetFastFlag("TerrainToolsRefactor")
-
 --TODO: FIX THE THEME
 local BACKGROUND_BAR_IMAGE_LIGHT = "rbxasset://textures/RoactStudioWidgets/slider_bar_background_light.png"
 local FOREGROUND_BAR_IMAGE_LIGHT = "rbxasset://textures/RoactStudioWidgets/slider_bar_light.png"
@@ -33,6 +31,7 @@ local SLIDER_HANDLE_IMAGE_DARK = "rbxasset://textures/RoactStudioWidgets/slider_
 --
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
+
 local Roact = require(Plugin.Packages.Roact)
 
 local ToolParts = script.Parent
@@ -183,20 +182,10 @@ function Slider:render()
 	local value = self.props.Value or MIN_VAL
 	local min = self.props.Min or MIN_VAL
 	local max = self.props.Max or MAX_VAL
-	local enabled
-	if FFlagTerrainToolsRefactor then
-		enabled = self.isEnabled()
-	else
-		enabled = self.props.Enabled or true
-	end
+	local enabled = self.isEnabled()
 	local showRange = self.props.ShowRange or false
-	local showInput
-	if FFlagTerrainToolsRefactor then
-		showInput = self.props.ShowInput
-		if showInput == nil then
-			showInput = true
-		end
-	else
+	local showInput = self.props.ShowInput
+	if showInput == nil then
 		showInput = true
 	end
 	local size = self.props.Size or SIZE
@@ -233,28 +222,9 @@ function Slider:render()
 				BackgroundTransparency = 1,
 				ZIndex = 4,
 
-				[Roact.Event.InputBegan] = FFlagTerrainToolsRefactor and self.onInputBegan or function(rbx, input)
-					if enabled and input.UserInputType == Enum.UserInputType.MouseButton1 then
-						self:setState({
-							pressed = true,
-						})
-						self.setValueFromInput(input)
-					end
-				end,
-
-				[Roact.Event.InputChanged] = FFlagTerrainToolsRefactor and self.onInputChanged or function(rbx, input)
-					if enabled and self.state.pressed and input.UserInputType == Enum.UserInputType.MouseMovement then
-						self.setValueFromInput(input)
-					end
-				end,
-
-				[Roact.Event.InputEnded] = FFlagTerrainToolsRefactor and self.onInputEnded or function(rbx, input)
-					if enabled and input.UserInputType == Enum.UserInputType.MouseButton1 then
-						self:setState({
-							pressed = false,
-						})
-					end
-				end,
+				[Roact.Event.InputBegan] = self.onInputBegan,
+				[Roact.Event.InputChanged] = self.onInputChanged,
+				[Roact.Event.InputEnded] = self.onInputEnded,
 			}),
 			HoverHandler = Roact.createElement("Frame", {
 				Size = UDim2.new(1, handleSize.Width.Offset, 1, 0),
@@ -298,31 +268,8 @@ function Slider:render()
 			Width = inputSize.Width,
 			Position = UDim2.new(0, inputBoxOffset, 0, 0),
 			Text = tostring(value),
-			OnFocusLost = FFlagTerrainToolsRefactor and self.onInputFocusLost or function(enterPressed, text)
-				-- we reverse first because we dont have a reverse match
-				-- This matching is used to restrict teh input that
-				-- can go into the textbox. When we make this a shared component
-				-- we will want to review if this is a pattern that we want.
-				local rev = string.reverse(text)
-				local revNum = string.match(rev,"[0-9]*[%.]?[0-9]*[%-]?")
-				local textNum = string.reverse(revNum)
-
-				local val = tonumber(textNum)
-				if val then
-					local newVal = self.getSnappedValue(val)
-					self.props.SetValue(newVal)
-					-- this is required for the case where the value
-					-- needs to be reset to the previous value
-					return newVal
-				else
-					return value
-				end
-			end,
-
-			ValidateText = FFlagTerrainToolsRefactor and self.validateInputText or function(text)
-				local filter = string.gsub(text, "[^0-9%-%.%+]*","")
-				return filter
-			end,
+			OnFocusLost = self.onInputFocusLost,
+			ValidateText = self.validateInputText,
 		}),
 
 		LowerLabel = showRange and Roact.createElement("TextLabel", {

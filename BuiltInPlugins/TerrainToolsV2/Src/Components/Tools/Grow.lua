@@ -3,28 +3,26 @@
 ]]
 
 local Plugin = script.Parent.Parent.Parent.Parent
-local Roact = require(Plugin.Packages.Roact)
+
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 
 local BaseBrush = require(Plugin.Src.Components.Tools.BaseBrush)
 
 local Actions = Plugin.Src.Actions
 local ApplyToolAction = require(Actions.ApplyToolAction)
-local ChooseBrushShape = require(Actions.ChooseBrushShape)
 local ChangeBaseSize = require(Actions.ChangeBaseSize)
 local ChangeHeight = require(Actions.ChangeHeight)
-local ChangeStrength = require(Actions.ChangeStrength)
 local ChangePivot = require(Actions.ChangePivot)
+local ChangeStrength = require(Actions.ChangeStrength)
+local ChooseBrushShape = require(Actions.ChooseBrushShape)
+local SetAutoMaterial = require(Actions.SetAutoMaterial)
+local SetBaseSizeHeightLocked = require(Actions.SetBaseSizeHeightLocked)
+local SetIgnoreWater = require(Actions.SetIgnoreWater)
+local SetMaterial = require(Actions.SetMaterial)
 local SetPlaneLock = require(Actions.SetPlaneLock)
 local SetSnapToGrid = require(Actions.SetSnapToGrid)
-local SetIgnoreWater = require(Actions.SetIgnoreWater)
-local SetAutoMaterial = require(Actions.SetAutoMaterial)
-local SetMaterial = require(Actions.SetMaterial)
-local SetBaseSizeHeightLocked = require(Actions.SetBaseSizeHeightLocked)
 
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
-
-local FFlagTerrainToolsRefactor = game:GetFastFlag("TerrainToolsRefactor")
 
 local REDUCER_KEY = "GrowTool"
 
@@ -32,18 +30,17 @@ local function mapStateToProps(state, props)
 	return {
 		toolName = TerrainEnums.ToolId.Grow,
 
-		brushShape = state[REDUCER_KEY].brushShape,
+		autoMaterial = state[REDUCER_KEY].autoMaterial,
 		baseSize = state[REDUCER_KEY].baseSize,
-		height = state[REDUCER_KEY].height,
 		baseSizeHeightLocked = state[REDUCER_KEY].baseSizeHeightLocked,
+		brushShape = state[REDUCER_KEY].brushShape,
+		height = state[REDUCER_KEY].height,
+		ignoreWater = state[REDUCER_KEY].ignoreWater,
+		material = state[REDUCER_KEY].material,
 		pivot = state[REDUCER_KEY].pivot,
-		strength = state[REDUCER_KEY].strength,
 		planeLock = state[REDUCER_KEY].planeLock,
 		snapToGrid = state[REDUCER_KEY].snapToGrid,
-		ignoreWater = state[REDUCER_KEY].ignoreWater,
-
-		autoMaterial = state[REDUCER_KEY].autoMaterial,
-		material = state[REDUCER_KEY].material,
+		strength = state[REDUCER_KEY].strength,
 	}
 end
 
@@ -53,9 +50,6 @@ local function mapDispatchToProps(dispatch)
 	end
 
 	return {
-		dispatchChooseBrushShape = function (shape)
-			dispatchToGrow(ChooseBrushShape(shape))
-		end,
 		dispatchChangeBaseSize = function (size)
 			dispatchToGrow(ChangeBaseSize(size))
 		end,
@@ -68,33 +62,28 @@ local function mapDispatchToProps(dispatch)
 		dispatchChangeStrength = function (strength)
 			dispatchToGrow(ChangeStrength(strength))
 		end,
+		dispatchChooseBrushShape = function (shape)
+			dispatchToGrow(ChooseBrushShape(shape))
+		end,
+		dispatchSetAutoMaterial = function (autoMaterial)
+			dispatchToGrow(SetAutoMaterial(autoMaterial))
+		end,
+		dispatchSetBaseSizeHeightLocked = function (locked)
+			dispatchToGrow(SetBaseSizeHeightLocked(locked))
+		end,
+		dispatchSetIgnoreWater = function (ignoreWater)
+			dispatchToGrow(SetIgnoreWater(ignoreWater))
+		end,
+		dispatchSetMaterial = function (material)
+			dispatchToGrow(SetMaterial(material))
+		end,
 		dispatchSetPlaneLock = function (planeLock)
 			dispatchToGrow(SetPlaneLock(planeLock))
 		end,
 		dispatchSetSnapToGrid = function (snapToGrid)
 			dispatchToGrow(SetSnapToGrid(snapToGrid))
 		end,
-		dispatchSetIgnoreWater = function (ignoreWater)
-			dispatchToGrow(SetIgnoreWater(ignoreWater))
-		end,
-		dispatchSetAutoMaterial = function (autoMaterial)
-			dispatchToGrow(SetAutoMaterial(autoMaterial))
-		end,
-		dispatchSetMaterial = function (material)
-			dispatchToGrow(SetMaterial(material))
-		end,
-		dispatchSetBaseSizeHeightLocked = function (locked)
-			dispatchToGrow(SetBaseSizeHeightLocked(locked))
-		end,
 	}
 end
 
-if FFlagTerrainToolsRefactor then
-	return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(BaseBrush)
-else
-	local GrowTool = RoactRodux.connect(mapStateToProps, mapDispatchToProps)(BaseBrush)
-
-	return function(props)
-		return Roact.createElement(GrowTool)
-	end
-end
+return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(BaseBrush)

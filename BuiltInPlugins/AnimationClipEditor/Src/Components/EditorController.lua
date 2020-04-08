@@ -14,12 +14,13 @@ local Plugin = script.Parent.Parent.Parent
 local Cryo = require(Plugin.Cryo)
 local Roact = require(Plugin.Roact)
 local RoactRodux = require(Plugin.RoactRodux)
+local UILibrary = require(Plugin.UILibrary)
 local Input = require(Plugin.Src.Util.Input)
 local Constants = require(Plugin.Src.Util.Constants)
 local TrackUtils = require(Plugin.Src.Util.TrackUtils)
 local AnimationData = require(Plugin.Src.Util.AnimationData)
 
-local KeyboardListener = require(Plugin.UILibrary.Focus).KeyboardListener
+local KeyboardListener = UILibrary.Focus.KeyboardListener
 local InactiveCover = require(Plugin.Src.Components.InactiveCover)
 
 local TrackEditor = require(Plugin.Src.Components.TrackEditor)

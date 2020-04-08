@@ -22,7 +22,7 @@ IconButton.validateProps = t.strictInterface({
 	size = t.UDim2,
 	position = t.UDim2,
 	backgroundColor = t.Color3,
-	icon = t.string,
+	icon = t.union(t.string, t.table),
 	showBackground = t.boolean,
 	onActivated = t.optional(t.callback),
 })

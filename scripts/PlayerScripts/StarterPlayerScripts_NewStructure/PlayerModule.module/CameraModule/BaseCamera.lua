@@ -68,6 +68,13 @@ local FFlagUserDontAdjustSensitvityForPortrait do
 	FFlagUserDontAdjustSensitvityForPortrait = success and result
 end
 
+local FFlagUserFixZoomInZoomOutDiscrepancy do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserFixZoomInZoomOutDiscrepancy")
+	end)
+	FFlagUserFixZoomInZoomOutDiscrepancy = success and result
+end
+
 local Util = require(script.Parent:WaitForChild("CameraUtils"))
 local ZoomController = require(script.Parent:WaitForChild("ZoomController"))
 local CameraToggleStateController = require(script.Parent:WaitForChild("CameraToggleStateController"))
@@ -557,7 +564,15 @@ function BaseCamera:OnPointerAction(wheel, pan, pinch, processed)
 		if self.inFirstPerson and zoomDelta > 0 then
 			newZoom = FIRST_PERSON_DISTANCE_THRESHOLD
 		else
-			newZoom = zoom + zoomDelta*(1 + zoom*ZOOM_SENSITIVITY_CURVATURE)
+			if FFlagUserFixZoomInZoomOutDiscrepancy then
+				if (zoomDelta > 0) then
+					newZoom = zoom + zoomDelta*(1 + zoom*ZOOM_SENSITIVITY_CURVATURE)
+				else
+					newZoom = (zoom + zoomDelta) / (1 - zoomDelta*ZOOM_SENSITIVITY_CURVATURE)
+				end
+			else
+				newZoom = zoom + zoomDelta*(1 + zoom*ZOOM_SENSITIVITY_CURVATURE)
+			end
 		end
 
 		self:SetCameraToSubjectDistance(newZoom)

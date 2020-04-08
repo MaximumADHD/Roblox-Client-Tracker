@@ -3,13 +3,14 @@ return function()
 	
 	local Plugin = script.Parent.Parent.Parent.Parent
 	local Roact = require(Plugin.Roact)
+	local UILibrary = require(Plugin.UILibrary)
 
 	local Theme = require(Plugin.Src.Util.Theme)
 	local ThemeProvider = require(Plugin.Src.Providers.ThemeProvider)
 
     local BaseDialog = require(Plugin.Src.Components.Permissions.SearchBar)
     
-    local MockWrapper = require(Plugin.UILibrary.MockWrapper)
+    local MockWrapper = UILibrary.MockWrapper
 
 	local theme = Theme.newDummyTheme()
 

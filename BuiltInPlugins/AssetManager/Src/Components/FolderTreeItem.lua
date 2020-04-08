@@ -60,9 +60,12 @@ function FolderTreeItem:init()
         local props = self.props
         local theme = props.Theme:get("Plugin")
         local themeHeight = theme.TreeViewItem.Height
-
-        local height = (self.layoutRef.current.AbsoluteContentSize.Y == 0) and themeHeight
-            or (self.layoutRef.current.AbsoluteContentSize.Y + themeHeight)
+        local height
+        if self.layoutRef.current then
+            height = self.layoutRef.current.AbsoluteContentSize.Y + themeHeight
+        else
+            height = themeHeight
+        end
 		self.parentContentRef.current.Size = UDim2.new(1, 0, 0, height)
 		self.childrenContentRef.current.Size = UDim2.new(1, 0, 0, height)
 	end
@@ -75,10 +78,6 @@ function FolderTreeItem:render()
     local treeViewTheme = theme.TreeViewItem
     local instance = props.element
     local name = instance.Name
-    local iconInfo = GetClassIcon(instance)
-    if typeof(instance) == "table" and instance.Icon then
-        iconInfo = instance.Icon
-    end
 
     local indent = props.indent
     local expandable = props.canExpand
@@ -149,15 +148,13 @@ function FolderTreeItem:render()
                 })),
             }),
 
-            Icon = iconInfo and Roact.createElement("ImageLabel", {
+            Icon = Roact.createElement("ImageLabel", {
                 ZIndex = 2,
                 LayoutOrder = 1,
                 Size = UDim2.new(0, height, 0, height),
                 Position = UDim2.new(0, -1 * height - treeViewTheme.Offset, 0, 0),
                 BackgroundTransparency = 1,
-                Image = iconInfo.Image,
-                ImageRectSize = iconInfo.ImageRectSize,
-                ImageRectOffset = iconInfo.ImageRectOffset,
+                Image = treeViewTheme.Folder,
             }),
         }),
         Children = children,

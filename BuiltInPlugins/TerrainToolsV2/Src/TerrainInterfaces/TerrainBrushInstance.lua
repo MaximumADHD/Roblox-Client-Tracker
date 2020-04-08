@@ -1,7 +1,17 @@
+game:DefineFastFlag("TerrainToolsBrushUseIsKeyDown", false)
+
+local FFlagTerrainToolMetrics = settings():GetFFlag("TerrainToolMetrics")
+local FFlagTerrainToolsBrushUseIsKeyDown = game:GetFastFlag("TerrainToolsBrushUseIsKeyDown")
+local FFlagTerrainToolsTerrainBrushNotSingleton = game:GetFastFlag("TerrainToolsTerrainBrushNotSingleton")
+
 local Plugin = script.Parent.Parent.Parent
-local UILibrary = Plugin.Packages.UILibrary
-local Signal = require(UILibrary.Utils.Signal)
+
+local UILibrary = require(Plugin.Packages.UILibrary)
+local Signal = UILibrary.Util.Signal
 local Cryo = require(Plugin.Packages.Cryo)
+local UILibrary = require(Plugin.Packages.UILibrary)
+
+local Signal = UILibrary.Util.Signal
 
 local Constants = require(Plugin.Src.Util.Constants)
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
@@ -23,12 +33,6 @@ local Players = game:GetService("Players")
 local StudioService = game:GetService("StudioService")
 local UserInputService = game:GetService("UserInputService")
 local Workspace = game:GetService("Workspace")
-
-game:DefineFastFlag("TerrainToolsBrushUseIsKeyDown", false)
-
-local FFlagTerrainToolMetrics = settings():GetFFlag("TerrainToolMetrics")
-local FFlagTerrainToolsBrushUseIsKeyDown = game:GetFastFlag("TerrainToolsBrushUseIsKeyDown")
-local FFlagTerrainToolsFlattenUseBaseBrush = game:GetFastFlag("TerrainToolsFlattenUseBaseBrush")
 
 local CLICK_THRESHOLD = 0.1
 
@@ -143,11 +147,6 @@ function TerrainBrush.new(options)
 		_cursor = TerrainBrushCursor.new(options.terrain),
 		_cursorGrid = TerrainBrushCursorGrid.new(),
 
-		-- TODO: Remove _cursorTargetLocation and _lastNormal when removing FFlagTerrainToolsFlattenUseBaseBrush
-		-- Set in :_run(), used for positioning cursor part and grid
-		_cursorTargetLocation = Vector3.new(0, 0, 0),
-		_lastNormal = Vector3.new(0, 1, 0),
-
 		_planePositionYChanged = Signal.new(),
 		_heightPickerSet = Signal.new(),
 		_requestBrushSizeChanged = Signal.new(),
@@ -159,6 +158,13 @@ function TerrainBrush.new(options)
 
 	assert(self._terrain, "TerrainBrush needs a terrain instance")
 	assert(self._mouse, "TerrainBrush needs a mouse instance")
+
+	if FFlagTerrainToolsTerrainBrushNotSingleton then
+		-- TODO: When removing FFlagTerrainToolsTerrainBrushNotSingleton, move this to the structure definition above
+		self._operationSettings.currentTool = options.tool
+		assert(self._operationSettings.currentTool ~= nil and self._operationSettings.currentTool ~= ToolId.None,
+			"TerrainBrush needs a tool passed to constructor")
+	end
 
 	return self
 end
@@ -188,29 +194,24 @@ function TerrainBrush:subscribeToMaterialSelectRequested(...)
 end
 
 function TerrainBrush:updateSettings(newSettings)
-	local settings = Cryo.Dictionary.join(self._operationSettings, newSettings)
-	if FFlagTerrainToolsFlattenUseBaseBrush then
-		settings = applyOverrideToSettings(settings)
+	if FFlagTerrainToolsTerrainBrushNotSingleton then
+		assert(newSettings.currentTool == nil, "Unable to change terrain brush tool")
+		newSettings.currentTool = nil
 	end
+	local settings = Cryo.Dictionary.join(self._operationSettings, newSettings)
+	settings = applyOverrideToSettings(settings)
 	self._operationSettings = settings
 	self:_updateCursor()
 end
 
 function TerrainBrush:startWithTool(newTool)
-	if FFlagTerrainToolsFlattenUseBaseBrush then
-		self:updateSettings({
-			currentTool = newTool,
-		})
-	else
-		self:updateSettings({
-			currentTool = newTool,
-
-			-- The flatten tool requires autoMaterial to be true
-			-- Else just use what's already there
-			autoMaterial = newTool == ToolId.Flatten
-				or self._operationSettings.autoMaterial,
-		})
+	if FFlagTerrainToolsTerrainBrushNotSingleton then
+		warn("TerrainBrush:startWithTool() should not be used when FFlagTerrainToolsTerrainBrushNotSingleton is true")
 	end
+
+	self:updateSettings({
+		currentTool = newTool,
+	})
 
 	if newTool == ToolId.None then
 		self:stop()
@@ -222,6 +223,15 @@ function TerrainBrush:startWithTool(newTool)
 	end
 	self._isRunning = true
 
+	self:_connectInput()
+	self:_run()
+end
+
+function TerrainBrush:start()
+	if self._isRunning then
+		return
+	end
+	self._isRunning = true
 	self:_connectInput()
 	self:_run()
 end
@@ -252,8 +262,7 @@ function TerrainBrush:_updateCursor()
 			size = self._operationSettings.cursorSize,
 			height = self._operationSettings.cursorHeight,
 			strength = self._operationSettings.strength,
-			location = FFlagTerrainToolsFlattenUseBaseBrush and self._operationSettings.targetPoint
-				or self._cursorTargetLocation,
+			location = self._operationSettings.targetPoint,
 			shape = self._operationSettings.brushShape,
 			pivot = self._operationSettings.pivot,
 			mouseDown = self._mouseDown,
@@ -264,29 +273,12 @@ function TerrainBrush:_updateCursor()
 
 	if TerrainBrushCursorGrid.isVisibleForOperation(self._operationSettings) then
 		self._cursorGrid:maybeCreate()
-		if FFlagTerrainToolsFlattenUseBaseBrush then
-			self._cursorGrid:update({
-				cursorSize = self._operationSettings.cursorSize,
-				planePoint = self._operationSettings.planePoint,
-				planeNormal = self._operationSettings.planeNormal,
-				mouseDown = self._mouseDown,
-			})
-		else
-			self._cursorGrid:DEPRECATED_update({
-				currentTool = self._operationSettings.currentTool,
-				cursorSize = self._operationSettings.cursorSize,
-
-				fixedPlane = self._operationSettings.fixedPlane,
-				planeLock = self._operationSettings.planeLock,
-				planePositionY = self._operationSettings.planePositionY,
-				heightPicker = self._operationSettings.heightPicker,
-
-				mouseDown = self._mouseDown,
-
-				mainPoint = self._cursorTargetLocation,
-				lastNormal = self._lastNormal,
-			})
-		end
+		self._cursorGrid:update({
+			cursorSize = self._operationSettings.cursorSize,
+			planePoint = self._operationSettings.planePoint,
+			planeNormal = self._operationSettings.planeNormal,
+			mouseDown = self._mouseDown,
+		})
 	else
 		self._cursorGrid:hide()
 	end
@@ -458,11 +450,7 @@ function TerrainBrush:_run()
 		end
 
 		if heightPicker or (currentTool == ToolId.Flatten and self._mouseClick and not fixedPlane and not planeLock) then
-			if FFlagTerrainToolsFlattenUseBaseBrush then
-				self._planePositionYChanged:fire(snapToGrid and snapToVoxelGrid(mainPoint, radius).y or (mainPoint.y - 1))
-			else
-				self._planePositionYChanged:fire(mainPoint.y - 1)
-			end
+			self._planePositionYChanged:fire(snapToGrid and snapToVoxelGrid(mainPoint, radius).y or (mainPoint.y - 1))
 		end
 
 		if not self._mouse.Target then
@@ -475,69 +463,48 @@ function TerrainBrush:_run()
 		else
 			shiftDown = self._downKeys[Enum.KeyCode.LeftShift] or self._downKeys[Enum.KeyCode.RightShift]
 		end
-		if FFlagTerrainToolsFlattenUseBaseBrush then
-			local usePlanePositionY = fixedPlane and not heightPicker and self._operationSettings.planePositionY ~= nil
 
-			local updatePlane = true
-			if planeLock and shiftDown then
-				-- Whilst the shift key is held we don't want to update the plane
-				-- Acts like a temporary fixed plane
-				updatePlane = false
+		local usePlanePositionY = fixedPlane and not heightPicker and self._operationSettings.planePositionY ~= nil
 
-			elseif self._mouseDown and not self._mouseClick then
-				updatePlane = false
-			end
+		local updatePlane = true
+		if planeLock and shiftDown then
+			-- Whilst the shift key is held we don't want to update the plane
+			-- Acts like a temporary fixed plane
+			updatePlane = false
 
-			if updatePlane then
-				lastPlanePoint = usePlanePositionY and self:putPlanePositionYIntoVector(mainPoint)
-					or mainPoint
-				lastNormal = currentTool == ToolId.Flatten and Vector3.new(0, 1, 0)
-					or getCameraLookSnappedForPlane()
-
-				reportClick = true
-			end
-
-			local mainPointOnPlane = lineToPlaneIntersection(cameraPos, unitRay, lastPlanePoint, lastNormal)
-
-			if snapToGrid then
-				mainPoint = snapToVoxelGrid(mainPoint, radius)
-				mainPointOnPlane = snapToVoxelGrid(mainPointOnPlane, radius)
-			end
-
-			if usePlanePositionY then
-				-- It's possible that the previous blocks could change the Y value of mainPointOnPlane
-				-- So if we're using planePositionY, then ensure that we keep using Y = planePositionY
-				mainPointOnPlane = self:putPlanePositionYIntoVector(mainPointOnPlane)
-			end
-
-			if planeLock then
-				mainPoint = mainPointOnPlane
-			end
-
-			self._operationSettings.targetPoint = mainPoint
-			self._operationSettings.planePoint = mainPointOnPlane
-			self._operationSettings.planeNormal = lastNormal
-		else
-			if not planeLock or not shiftDown then
-				if not self._mouseDown or self._mouseClick then
-					lastPlanePoint = mainPoint
-					lastNormal = currentTool == ToolId.Flatten and Vector3.new(0, 1, 0) or getCameraLookSnappedForPlane()
-					reportClick = true
-				end
-			end
-
-			if planeLock then
-				mainPoint = lineToPlaneIntersection(cameraPos, unitRay, lastPlanePoint, lastNormal)
-			end
-
-			if snapToGrid then
-				local snapOffset = Vector3.new(1, 1, 1) * (radius % Constants.VOXEL_RESOLUTION)
-				local tempMainPoint = ((mainPoint - snapOffset) / Constants.VOXEL_RESOLUTION) + Vector3.new(0.5, 0.5, 0.5)
-				mainPoint = (Vector3.new(math.floor(tempMainPoint.x),
-					math.floor(tempMainPoint.y),
-					math.floor(tempMainPoint.z)) * Constants.VOXEL_RESOLUTION) + snapOffset
-			end
+		elseif self._mouseDown and not self._mouseClick then
+			updatePlane = false
 		end
+
+		if updatePlane then
+			lastPlanePoint = usePlanePositionY and self:putPlanePositionYIntoVector(mainPoint)
+				or mainPoint
+			lastNormal = currentTool == ToolId.Flatten and Vector3.new(0, 1, 0)
+				or getCameraLookSnappedForPlane()
+
+			reportClick = true
+		end
+
+		local mainPointOnPlane = lineToPlaneIntersection(cameraPos, unitRay, lastPlanePoint, lastNormal)
+
+		if snapToGrid then
+			mainPoint = snapToVoxelGrid(mainPoint, radius)
+			mainPointOnPlane = snapToVoxelGrid(mainPointOnPlane, radius)
+		end
+
+		if usePlanePositionY then
+			-- It's possible that the previous blocks could change the Y value of mainPointOnPlane
+			-- So if we're using planePositionY, then ensure that we keep using Y = planePositionY
+			mainPointOnPlane = self:putPlanePositionYIntoVector(mainPointOnPlane)
+		end
+
+		if planeLock then
+			mainPoint = mainPointOnPlane
+		end
+
+		self._operationSettings.targetPoint = mainPoint
+		self._operationSettings.planePoint = mainPointOnPlane
+		self._operationSettings.planeNormal = lastNormal
 
 		if self._mouseDown then
 			if self._mouseClick then
@@ -599,11 +566,6 @@ function TerrainBrush:_run()
 			if currentTool == ToolId.Flatten and heightPicker then
 				self._heightPickerSet:fire(false)
 			end
-		end
-
-		if not FFlagTerrainToolsFlattenUseBaseBrush then
-			self._cursorTargetLocation = mainPoint
-			self._lastNormal = lastNormal
 		end
 
 		self:_updateCursor()

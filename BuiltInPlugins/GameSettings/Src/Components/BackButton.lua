@@ -4,10 +4,11 @@
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
+local UILibrary = require(Plugin.UILibrary)
 
 local Separator = require(Plugin.Src.Components.Separator)
 
-local createFitToContent = require(Plugin.UILibrary.Components.createFitToContent)
+local createFitToContent = UILibrary.Component.createFitToContent
 
 
 local FitToContent = createFitToContent("Frame", "UIListLayout", {

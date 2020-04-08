@@ -1,7 +1,8 @@
 local Plugin = script.Parent.Parent.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
+local UILibrary = require(Plugin.Packages.UILibrary)
 
-local Localizing = require(Plugin.Packages.UILibrary.Localizing)
+local Localizing = UILibrary.Localizing
 local withLocalization = Localizing.withLocalization
 
 local Constants = require(Plugin.Src.Util.Constants)

@@ -12,11 +12,14 @@
 			If cancelled, options will be nil. Else, it will contain the new options
 			that were set by the user.
 ]]
+local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
+local FFlagEnableAudioPreview = settings():GetFFlag("EnableAudioPreview")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
+local RoactRodux = require(Libs.RoactRodux)
 
 local ContextGetter = require(Plugin.Core.Util.ContextGetter)
 local ContextHelper = require(Plugin.Core.Util.ContextHelper)
@@ -28,9 +31,11 @@ local withModal = ContextHelper.withModal
 local createFitToContent = require(Plugin.Core.Components.createFitToContent)
 
 local Constants = require(Plugin.Core.Util.Constants)
+local ContextServices = require(Libs.Framework.ContextServices)
 
 local LiveSearchBar = require(Plugin.Core.Components.SearchOptions.LiveSearchBar)
 local RadioButtons = require(Plugin.Core.Components.SearchOptions.RadioButtons)
+local AudioSearch = require(Plugin.Core.Components.SearchOptions.AudioSearch)
 local SearchOptionsEntry = require(Plugin.Core.Components.SearchOptions.SearchOptionsEntry)
 local SearchOptionsFooter = require(Plugin.Core.Components.SearchOptions.SearchOptionsFooter)
 
@@ -49,8 +54,14 @@ function SearchOptions:init(initialProps)
 	self.currentLayout = 0
 	self.searchTerm = initialProps.LiveSearchData.searchTerm
 
-	local modal = getModal(self)
+	local audioSearchInfo = self.props.audioSearchInfo
+	self.state = {
+		minDuration = audioSearchInfo and audioSearchInfo.minDuration or Constants.MIN_AUDIO_SEARCH_DURATION,
+		maxDuration = audioSearchInfo and audioSearchInfo.maxDuration or Constants.MAX_AUDIO_SEARCH_DURATION,
+		SortIndex = nil,
+	}
 
+	local modal = getModal(self)
 	self.mouseEnter = function()
 		modal.onSearchOptionsMouse(true)
 	end
@@ -65,10 +76,6 @@ function SearchOptions:init(initialProps)
 			self.props.updateSearch(searchTerm)
 		end
 	end
-
-	self.state = {
-		SortIndex = nil,
-	}
 
 	self.selectSort = function(_, index)
 		self:setState({
@@ -93,14 +100,35 @@ function SearchOptions:init(initialProps)
 			SortIndex = self.state.SortIndex,
 			Creator = self.searchTerm,
 		}
+
+		if FFlagEnableAudioPreview
+			and (self.state.minDuration ~= Constants.MIN_AUDIO_SEARCH_DURATION
+				or self.state.maxDuration ~= Constants.MAX_AUDIO_SEARCH_DURATION)
+		then
+			options.AudioSearch = {
+				minDuration = self.state.minDuration,
+				maxDuration = self.state.maxDuration,
+			}
+		end
+
 		self:setState({
 			SortIndex = Roact.None,
 			Creator = Roact.None,
 		})
+
 		if button == "Cancel" then
 			self.cancel()
 		elseif button == "Apply" then
 			self.apply(options)
+		end
+	end
+
+	self.onDurationChange = function(min, max)
+		if min ~= self.state.minDuration or max ~= self.state.maxDuration then
+			self:setState({
+				minDuration = min,
+				maxDuration = max,
+			})
 		end
 	end
 end
@@ -127,8 +155,21 @@ function SearchOptions:render()
 	return withTheme(function(theme)
 		return withLocalization(function(_, localizedContent)
 			return withModal(function(modalTarget)
+				local state = self.state
+
 				local optionsTheme = theme.searchOptions
 				local liveSearchData = self.props.LiveSearchData
+				local minDuration = state.minDuration
+				local maxDuration = state.maxDuration
+
+				local audioSearchTitle
+				if FFlagStudioToolboxEnabledDevFramework then
+					audioSearchTitle = self.props.Localization:getText("General", "SearchOptionAudioLength")
+				else
+					audioSearchTitle = localizedContent.AudioSearch.Title
+				end
+
+				local showAudioSearch = self.props.showAudioSearch
 
 				local sorts = {
 					{Key = "Relevance", Text = localizedContent.Sort.Relevance},
@@ -175,6 +216,19 @@ function SearchOptions:render()
 
 							Separator1 = self:createSeparator(optionsTheme.separator),
 
+							AudioSearchHeader = FFlagEnableAudioPreview and showAudioSearch and Roact.createElement(SearchOptionsEntry, {
+								LayoutOrder = self:nextLayout(),
+								Header = audioSearchTitle,
+							}, {
+								AudioSearch = Roact.createElement(AudioSearch, {
+									minDuration = minDuration,
+									maxDuration = maxDuration,
+									onDurationChange = self.onDurationChange,
+								}),
+							}),
+
+							Separator2 = FFlagEnableAudioPreview and showAudioSearch and self:createSeparator(optionsTheme.separator),
+
 							SortBy = Roact.createElement(SearchOptionsEntry, {
 								LayoutOrder = self:nextLayout(),
 								Header = localizedContent.SearchOptions.Sort,
@@ -186,7 +240,7 @@ function SearchOptions:render()
 								}),
 							}),
 
-							Separator2 = self:createSeparator(optionsTheme.separator),
+							Separator3 = self:createSeparator(optionsTheme.separator),
 
 							Footer = Roact.createElement(SearchOptionsFooter, {
 								LayoutOrder = self:nextLayout(),
@@ -218,4 +272,21 @@ function SearchOptions:render()
 	end)
 end
 
-return SearchOptions
+if FFlagStudioToolboxEnabledDevFramework then
+	ContextServices.mapToProps(SearchOptions, {
+		Localization = ContextServices.Localization,
+	})
+
+	local function mapStateToProps(state, props)
+		state = state or {}
+		local pageInfo = state.pageInfo or {}
+		return {
+			audioSearchInfo = pageInfo.audioSearchInfo,
+		}
+	end
+
+	return RoactRodux.connect(mapStateToProps, nil)(SearchOptions)
+else
+
+	return SearchOptions
+end

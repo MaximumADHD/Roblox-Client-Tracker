@@ -20,10 +20,11 @@ local RunService = game:GetService("RunService")
 
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
+local UILibrary = require(Packages.UILibrary)
 
 local Util = Plugin.Src.Util
 local Constants = require(Util.Constants)
-local RoundFrame = require(Packages.UILibrary.Components.RoundFrame)
+local RoundFrame = UILibrary.Component.RoundFrame
 
 local LOADING_TITLE_HEIGHT = 20
 local LOADING_TITLE_PADDING = 10

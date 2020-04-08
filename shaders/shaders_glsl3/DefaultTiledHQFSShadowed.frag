@@ -14,7 +14,7 @@ struct Globals
     vec3 Lamp1Color;
     vec4 FogParams;
     vec4 FogColor_GlobalForceFieldTime;
-    vec3 Exposure;
+    vec4 Exposure_DoFDistance;
     vec4 LightConfig0;
     vec4 LightConfig1;
     vec4 LightConfig2;
@@ -186,7 +186,9 @@ void main()
     vec2 f83 = min(VARYING0.wz, VARYING1.wz);
     float f84 = min(f83.x, f83.y) / f1;
     vec3 f85 = mix(CB0[14].xyz, (sqrt(clamp((f82.xyz * clamp((clamp((f1 * CB0[24].x) + CB0[24].y, 0.0, 1.0) * (1.5 - f84)) + f84, 0.0, 1.0)).xyz * CB0[15].y, vec3(0.0), vec3(1.0))) + vec3((-0.00048828125) + (0.0009765625 * fract(52.98291778564453125 * fract(dot(gl_FragCoord.xy, vec2(0.067110560834407806396484375, 0.005837149918079376220703125))))))).xyz, vec3(clamp((CB0[13].x * length(VARYING4.xyz)) + CB0[13].y, 0.0, 1.0)));
-    _entryPointOutput = vec4(f85.x, f85.y, f85.z, f82.w);
+    vec4 f86 = vec4(f85.x, f85.y, f85.z, f82.w);
+    f86.w = VARYING2.w;
+    _entryPointOutput = f86;
 }
 
 //$$ShadowAtlasTexture=s1

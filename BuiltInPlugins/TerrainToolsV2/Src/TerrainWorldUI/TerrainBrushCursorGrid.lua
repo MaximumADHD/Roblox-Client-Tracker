@@ -101,44 +101,6 @@ function TerrainBrushCursorGrid:update(options)
 	self:_updateInternal(planePoint, planeNormal, cursorSize, mouseDown and 0.8 or 0.3)
 end
 
---[[
-Dict options =
-	ToolId currentTool
-	number cursorSize
-	bool fixedPlane
-	number planePositionY
-	bool heightPicker
-	bool mouseDown
-	Vector3 mainPoint
-	Vector3 lastNormal
-]]
--- TODO: Remove TerrainBrushCursorGrid:DEPRECATED_update when removing FFlagTerrainToolsFlattenUseBaseBrush
-function TerrainBrushCursorGrid:DEPRECATED_update(options)
-	local currentTool = options.currentTool
-	local cursorSize = options.cursorSize
-
-	local fixedPlane = options.fixedPlane
-	local planePositionY = options.planePositionY
-	local heightPicker = options.heightPicker
-
-	local mouseDown = options.mouseDown
-
-	local mainPoint = options.mainPoint
-	local lastNormal = options.lastNormal
-
-	local gridPoint = mainPoint
-	local gridNormal = lastNormal
-
-	if currentTool == ToolId.Flatten then
-		if fixedPlane or heightPicker then
-			gridPoint = Vector3.new(mainPoint.x, planePositionY, mainPoint.z)
-		end
-		gridNormal = Vector3.new(0, 1, 0)
-	end
-
-	self:_updateInternal(gridPoint, gridNormal, cursorSize, mouseDown and 0.8 or 0.3)
-end
-
 function TerrainBrushCursorGrid:_updateInternal(point, normal, cursorSize, transparency, color)
 	transparency = transparency or 0.95
 	color = BrickColor.new(color or "Institutional white")

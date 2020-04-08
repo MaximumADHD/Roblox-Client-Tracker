@@ -3,14 +3,15 @@ local StudioService = game:GetService("StudioService")
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
-local Constants = require(Plugin.Src.Util.Constants)
+local UILibrary = require(Plugin.UILibrary)
+local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 local getMouse = require(Plugin.Src.Consumers.getMouse)
 
 local withTheme = require(Plugin.Src.Consumers.withTheme)
 local withLocalization = require(Plugin.Src.Consumers.withLocalization)
 
 local RadioButton = require(Plugin.Src.Components.RadioButton)
-local TitledFrame = require(Plugin.UILibrary.Components.TitledFrame)
+local TitledFrame = UILibrary.Component.TitledFrame
 local PlayabilityPublishHint = require(Plugin.Src.Components.PlayabilityPublishHint)
 
 local PlayabilityWidget = Roact.PureComponent:extend("PlayabilityWidget")
@@ -62,7 +63,7 @@ function PlayabilityWidget:render()
 
 			local children = {
 				Layout = Roact.createElement("UIListLayout", {
-					Padding = UDim.new(0, Constants.RADIO_BUTTON_PADDING),
+					Padding = UDim.new(0, DEPRECATED_Constants.RADIO_BUTTON_PADDING),
 					SortOrder = Enum.SortOrder.LayoutOrder,
 				})
 			}
@@ -70,7 +71,7 @@ function PlayabilityWidget:render()
 			table.insert(children, Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Normal, {
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
-				Size = UDim2.new(1, 0, 0, Constants.RADIO_BUTTON_SIZE + 5),
+				Size = UDim2.new(1, 0, 0, DEPRECATED_Constants.RADIO_BUTTON_SIZE + 5),
 				TextTransparency = self.props.Enabled and 0 or 0.5,
 				TextXAlignment = Enum.TextXAlignment.Left,
 				TextYAlignment = Enum.TextYAlignment.Top,
@@ -99,9 +100,9 @@ function PlayabilityWidget:render()
 			end
 
 
-			local maxHeight = numButtons * Constants.RADIO_BUTTON_SIZE * 2
-				+ numButtons * Constants.RADIO_BUTTON_PADDING
-				+ (localized.Playability.Header and Constants.RADIO_BUTTON_SIZE + 5 + Constants.RADIO_BUTTON_PADDING or 0)
+			local maxHeight = numButtons * DEPRECATED_Constants.RADIO_BUTTON_SIZE * 2
+				+ numButtons * DEPRECATED_Constants.RADIO_BUTTON_PADDING
+				+ (localized.Playability.Header and DEPRECATED_Constants.RADIO_BUTTON_SIZE + 5 + DEPRECATED_Constants.RADIO_BUTTON_PADDING or 0)
 
 			return Roact.createElement(TitledFrame, {
 				Title = localized.Title.Playability,

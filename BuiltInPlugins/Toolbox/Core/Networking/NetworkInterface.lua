@@ -7,7 +7,6 @@
 local FFlagToolboxShowGroupCreations = game:GetFastFlag("ToolboxShowGroupCreations")
 
 local Plugin = script.Parent.Parent.Parent
-
 local Networking = require(Plugin.Libs.Http.Networking)
 local Promise = require(Plugin.Libs.Http.Promise)
 
@@ -48,7 +47,6 @@ local function sendRequestAndRetry(requestFunc, retryData)
 		maxRetries = 5
 	}
 	retryData.attempts = retryData.attempts + 1
-
 	return requestFunc():catch(function(result)
 		if retryData.attempts >= retryData.maxRetries then
 			-- Eventually give up
@@ -84,6 +82,39 @@ function NetworkInterface:getAssets(pageInfo)
 	end)
 end
 
+function NetworkInterface:getToolboxItems(category, sortType, creatorType, minDuration, maxDuration, creatorTargetId,
+keyword, cursor, limit)
+
+	local targetUrl = Urls.constructGetToolboxItemsUrl(
+		category,
+		sortType,
+		creatorType,
+		minDuration,
+		maxDuration,
+		creatorTargetId,
+		keyword,
+		cursor,
+		limit)
+
+	return sendRequestAndRetry(function()
+		printUrl("getToolboxItems", "GET", targetUrl)
+		return self._networkImp:httpGetJson(targetUrl)
+	end)
+end
+
+function NetworkInterface:getItemDetails(data)
+	local targetUrl = Urls.constructPostGetItemDetails()
+
+	local payload = self._networkImp:jsonEncode({
+		items = data,
+	})
+
+	return sendRequestAndRetry(function()
+		printUrl("getItemDetails", "POST", targetUrl, payload)
+		return self._networkImp:httpPostJson(targetUrl, payload)
+	end)
+end
+
 -- For now, only whitelistplugin uses this endpoint to fetch data.
 function NetworkInterface:getDevelopAsset(pageInfo)
 	local category = PageInfoHelper.getCategoryForPageInfo(pageInfo) or ""
@@ -106,7 +137,6 @@ end
 
 function NetworkInterface:getOverrideModels(category, numPerPage, page, sort, groupId)
 	local targetUrl = Urls.constructGetAssetsUrl(category, nil, numPerPage, page, sort, groupId)
-
 	return sendRequestAndRetry(function()
 		printUrl("getOverrideModelAssets", "GET", targetUrl)
 		return self._networkImp:httpGetJson(targetUrl)

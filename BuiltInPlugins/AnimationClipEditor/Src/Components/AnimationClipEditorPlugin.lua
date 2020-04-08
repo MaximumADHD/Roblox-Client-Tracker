@@ -13,6 +13,7 @@ local RunService = game:GetService("RunService")
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Rodux = require(Plugin.Rodux)
+local UILibrary = require(Plugin.UILibrary)
 local isEmpty = require(Plugin.Src.Util.isEmpty)
 
 local AnimationClipEditor = require(Plugin.Src.Components.AnimationClipEditor)
@@ -22,7 +23,7 @@ local ErrorDialogContents = require(Plugin.Src.Components.BlockingDialog.ErrorDi
 local MainProvider = require(Plugin.Src.Context.MainProvider)
 local Theme = require(Plugin.Src.Util.Theme)
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
-local Localization = require(Plugin.UILibrary.Studio.Localization)
+local Localization = UILibrary.Studio.Localization
 local DevelopmentReferenceTable = Plugin.Src.Resources.DevelopmentReferenceTable
 local TranslationReferenceTable = Plugin.Src.Resources.TranslationReferenceTable
 

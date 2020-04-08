@@ -12,14 +12,13 @@
 ]]
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
+
 local Roact = require(Plugin.Packages.Roact)
 
 local Theme = require(Plugin.Src.ContextServices.Theming)
 local withTheme = Theme.withTheme
 
 local Constants = require(Plugin.Src.Util.Constants)
-
-local FFlagTerrainToolsRefactor = game:GetFastFlag("TerrainToolsRefactor")
 
 local LabeledElementPair = Roact.PureComponent:extend(script.Name)
 
@@ -78,7 +77,7 @@ function LabeledElementPair:render()
 				Text = text,
 				TextColor3 = theme.textColor,
 				TextXAlignment = Enum.TextXAlignment.Left,
-				TextYAlignment = FFlagTerrainToolsRefactor and Enum.TextYAlignment.Bottom or Enum.TextYAlignment.Center,
+				TextYAlignment = Enum.TextYAlignment.Bottom,
 				Size = UDim2.new(0, Constants.FIRST_COLUMN_WIDTH, 0, 15),
 				Position = UDim2.new(0, Constants.SIDE_PADDING, 0, 2),
 				BackgroundTransparency = 1,

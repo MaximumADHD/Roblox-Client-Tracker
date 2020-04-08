@@ -23,6 +23,7 @@ local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 local RoactRodux = require(Libs.RoactRodux)
 local Cryo = require(Libs.Cryo)
+local UILibrary = require(Libs.UILibrary)
 
 local Util = Plugin.Core.Util
 local ContextGetter = require(Util.ContextGetter)
@@ -32,7 +33,7 @@ local AssetConfigConstants = require(Util.AssetConfigConstants)
 local trimString = require(Util.trimString)
 local TagsUtil = require(Util.TagsUtil)
 
-local RoundFrame = require(Libs.UILibrary.Components.RoundFrame)
+local RoundFrame = UILibrary.Component.RoundFrame
 
 local Components = Plugin.Core.Components
 local DropdownItemsList = require(Components.DropdownItemsList)

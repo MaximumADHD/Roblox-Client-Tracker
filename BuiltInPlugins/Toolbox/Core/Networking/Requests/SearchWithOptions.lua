@@ -6,11 +6,13 @@ local RequestReason = require(Plugin.Core.Types.RequestReason)
 local UpdatePageInfoAndSendRequest = require(Plugin.Core.Networking.Requests.UpdatePageInfoAndSendRequest)
 
 local ClearAssets = require(Plugin.Core.Actions.ClearAssets)
-
 local SetLiveSearch = require(Plugin.Core.Actions.SetLiveSearch)
 local SetLoading = require(Plugin.Core.Actions.SetLoading)
+local StopPreviewSound = require(Plugin.Core.Actions.StopPreviewSound)
 
 local Analytics = require(Plugin.Core.Util.Analytics.Analytics)
+
+local FFlagEnableAudioPreview = settings():GetFFlag("EnableAudioPreview")
 
 local function searchUsers(networkInterface, searchTerm, store)
 	return networkInterface:getUsers(searchTerm, 1):andThen(function(result)
@@ -38,10 +40,21 @@ return function(networkInterface, settings, options)
 		store:dispatch(SetLoading(true))
 		store:dispatch(ClearAssets())
 
+		local audioSearchInfo
+		if FFlagEnableAudioPreview then
+			audioSearchInfo = options.AudioSearch or Cryo.None
+
+			local sound = store:getState().sound
+			if sound ~= nil and sound.isPlaying then
+				store:dispatch(StopPreviewSound())
+			end
+		end
+
 		if options.Creator and options.Creator ~= "" then
 			searchUsers(networkInterface, options.Creator, store):andThen(function(results)
 				store:dispatch(SetLoading(false))
 				store:dispatch(UpdatePageInfoAndSendRequest(networkInterface, settings, {
+					audioSearchInfo = audioSearchInfo,
 					targetPage = 1,
 					currentPage = 0,
 					creator = results,
@@ -54,10 +67,12 @@ return function(networkInterface, settings, options)
 			function(err)
 				-- We should still handle the error if searchUser fails.
 			end)
+
 		else
 			store:dispatch(SetLoading(false))
 			store:dispatch(SetLiveSearch("", {}))
 			store:dispatch(UpdatePageInfoAndSendRequest(networkInterface, settings, {
+				audioSearchInfo = audioSearchInfo,
 				targetPage = 1,
 				currentPage = 0,
 				sortIndex = options.SortIndex or 1, -- defualt to 1

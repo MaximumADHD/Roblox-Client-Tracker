@@ -16,6 +16,7 @@ local Mouse = require(Src.Mouse)
 local Plugin = require(Src.Plugin)
 local Store = require(Src.Store)
 local Theme = require(Src.Theme)
+local UILibraryWrapper = require(Src.UILibraryWrapper)
 
 local ContextServices = {
 	-- Wrap a component to use context
@@ -34,6 +35,7 @@ local ContextServices = {
 	Plugin = Plugin,
 	Store = Store,
 	Theme = Theme,
+	UILibraryWrapper = UILibraryWrapper,
 }
 
 return ContextServices

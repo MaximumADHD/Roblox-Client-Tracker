@@ -11,6 +11,7 @@ local SetScreenSize = require(InGameMenu.Actions.SetScreenSize)
 local StartLeavingGame = require(InGameMenu.Actions.StartLeavingGame)
 local CancelLeavingGame = require(InGameMenu.Actions.CancelLeavingGame)
 local SetControlLayout = require(InGameMenu.Actions.SetControlLayout)
+local SetVideoRecording = require(InGameMenu.Actions.SetVideoRecording)
 
 local respawn = require(script.respawn)
 local invites = require(script.invites)
@@ -18,6 +19,8 @@ local localization = require(script.localization)
 local report = require(script.report)
 local friends = require(script.friends)
 local displayOptions = require(script.displayOptions)
+
+local FFlagRecordRecording = require(InGameMenu.Flags.FFlagRecordRecording)
 
 local Constants = require(InGameMenu.Resources.Constants)
 local Controls = require(InGameMenu.Resources.Controls)
@@ -55,6 +58,11 @@ local topLevelHandlers = {
 			screenSize = action.newScreenSize,
 		})
 	end,
+	[SetVideoRecording.name] = FFlagRecordRecording and function (state, action)
+		return Cryo.Dictionary.join(state, {
+			recording = action.recording,
+		})
+	end or nil
 }
 
 local function reducer(state, action)
@@ -70,6 +78,7 @@ local function reducer(state, action)
 			friends = friends(nil, action),
 			displayOptions = displayOptions(nil, action),
 			screenSize = Vector2.new(0, 0),
+			recording = false,
 		}
 	end
 

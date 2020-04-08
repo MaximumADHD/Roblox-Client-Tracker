@@ -21,7 +21,7 @@ struct Globals
     vec3 Lamp1Color;
     vec4 FogParams;
     vec4 FogColor_GlobalForceFieldTime;
-    vec3 Exposure;
+    vec4 Exposure_DoFDistance;
     vec4 LightConfig0;
     vec4 LightConfig1;
     vec4 LightConfig2;
@@ -60,6 +60,7 @@ attribute vec2 TEXCOORD3;
 varying vec3 VARYING0;
 varying vec4 VARYING1;
 varying vec2 VARYING2;
+varying vec3 VARYING3;
 
 void main()
 {
@@ -84,17 +85,19 @@ void main()
     vec4 v14 = v12 * v13;
     vec3 v15 = vec3(TEXCOORD1.x, TEXCOORD1.y, vec3(0.0).z);
     v15.y = 1.0 - TEXCOORD1.y;
-    vec3 v16 = v15;
-    v16.z = (CB0[13].x * length(CB0[7].xyz - POSITION.xyz)) + CB0[13].y;
-    vec4 v17 = (v12 + (CB0[6] * CB1[1].x)) * v13;
-    vec4 v18 = v14;
-    v18.z = (v17.z * v14.w) / v17.w;
-    vec2 v19 = (TEXCOORD3 + ((TEXCOORD1 * (CB1[2].z - 1.0)) + vec2(0.5))) * CB1[2].xy;
-    vec2 v20 = v19;
-    v20.y = 1.0 - v19.y;
-    gl_Position = v18;
-    VARYING0 = v16;
+    vec3 v16 = CB0[7].xyz - POSITION.xyz;
+    vec3 v17 = v15;
+    v17.z = (CB0[13].x * length(v16)) + CB0[13].y;
+    vec4 v18 = (v12 + (CB0[6] * CB1[1].x)) * v13;
+    vec4 v19 = v14;
+    v19.z = (v18.z * v14.w) / v18.w;
+    vec2 v20 = (TEXCOORD3 + ((TEXCOORD1 * (CB1[2].z - 1.0)) + vec2(0.5))) * CB1[2].xy;
+    vec2 v21 = v20;
+    v21.y = 1.0 - v20.y;
+    gl_Position = v19;
+    VARYING0 = v17;
     VARYING1 = TEXCOORD2 * 0.0039215688593685626983642578125;
-    VARYING2 = v20;
+    VARYING2 = v21;
+    VARYING3 = v16;
 }
 

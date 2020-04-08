@@ -11,9 +11,9 @@
 --------------------------------------------------------------------------------------------------------]]
 
 return{
-	["CoreScripts.InGameMenu.LeaveGame"] = [[Выйти из игры]],
-	["CoreScripts.InGameMenu.ConfirmLeaveGame"] = [[Если вы покинете игру, то потеряете весь несохраненный прогресс.]],
-	["CoreScripts.InGameMenu.LeaveGameQuestion"] = [[Выйти из игры?]],
+	["CoreScripts.InGameMenu.LeaveGame"] = [[Выйти]],
+	["CoreScripts.InGameMenu.ConfirmLeaveGame"] = [[Выйти из игры?]],
+	["CoreScripts.InGameMenu.LeaveGameQuestion"] = [[Выйти?]],
 	["CoreScripts.InGameMenu.Leave"] = [[Выйти]],
 	["CoreScripts.InGameMenu.RespawnCharacterDialogTitle"] = [[Возрождение персонажа?]],
 	["CoreScripts.InGameMenu.RespawnCharacterDialogBody"] = [[Ваш персонаж возродится снова в определенной локации.]],
@@ -58,7 +58,7 @@ return{
 	["CoreScripts.InGameMenu.Controls.Playerlist"] = [[Список игроков]],
 	["CoreScripts.InGameMenu.Controls.Chat"] = [[Чат]],
 	["CoreScripts.InGameMenu.Controls.RespawnCharacter"] = [[Возрождение персонажа]],
-	["CoreScripts.InGameMenu.Controls.LeaveGame"] = [[Выйти из игры]],
+	["CoreScripts.InGameMenu.Controls.LeaveGame"] = [[Выйти]],
 	["CoreScripts.InGameMenu.Controls.MiscellaneousTitle"] = [[РАЗНОЕ]],
 	["CoreScripts.InGameMenu.Controls.Screenshot"] = [[Снимок экрана]],
 	["CoreScripts.InGameMenu.Controls.DevConsole"] = [[Консоль разработчика]],
@@ -119,4 +119,6 @@ return{
 	["CoreScripts.InGameMenu.GameSettings.PlaceVersionWithLatest"] = [[Версия расположения: {PLACE_VERSION} (Посл.: {LATEST_PLACE_VERSION})]],
 	["CoreScripts.InGameMenu.Label.MicroProfiler"] = [[Micro Profiler]],
 	["CoreScripts.InGameMenu.InviteFriends.Loading"] = [[Загрузка!]],
+	["CoreScripts.InGameMenu.RespawnCharacter"] = [[Возрождение персонажа]],
+	["CoreScripts.InGameMenu.GameSettings.CameraModeCameraToggle"] = [[Переключение камеры]],
 }

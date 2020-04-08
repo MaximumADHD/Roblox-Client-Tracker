@@ -4,6 +4,5 @@ local BulkImportService = game:GetService("BulkImportService")
 return function(assetType)
     return function(store)
         BulkImportService:LaunchBulkImport(assetType)
-        BulkImportService:ShowBulkImportView()
 	end
 end

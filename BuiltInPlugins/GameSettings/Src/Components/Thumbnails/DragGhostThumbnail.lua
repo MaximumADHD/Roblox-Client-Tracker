@@ -16,7 +16,7 @@
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
-local Constants = require(Plugin.Src.Util.Constants)
+local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
 
 local DragGhostThumbnail = Roact.PureComponent:extend("DragGhostThumbnail")
@@ -59,12 +59,12 @@ function DragGhostThumbnail:render()
 			Ghost = Roact.createElement("ImageLabel", {
 				Visible = active,
 				BackgroundTransparency = 0.85,
-				BackgroundColor3 = Constants.BLUE,
-				BorderColor3 = Constants.BLUE,
+				BackgroundColor3 = DEPRECATED_Constants.BLUE,
+				BorderColor3 = DEPRECATED_Constants.BLUE,
 				BorderSizePixel = 3,
-				Size = Constants.THUMBNAIL_SIZE,
+				Size = DEPRECATED_Constants.THUMBNAIL_SIZE,
 				AnchorPoint = Vector2.new(0.5, 0.5),
-				Image = image or Constants.VIDEO_PLACEHOLDER,
+				Image = image or DEPRECATED_Constants.VIDEO_PLACEHOLDER,
 				ImageColor3 = (image == nil) and theme.thumbnail.background or nil,
 				ImageTransparency = 0.5,
 				ScaleType = Enum.ScaleType.Fit,

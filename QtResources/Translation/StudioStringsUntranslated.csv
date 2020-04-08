@@ -83,6 +83,8 @@ Studio.App.BetaFeatures.LuaDraggersDescription,,Migrates the Select/Move/Rotate/
 Studio.App.BetaFeatures.LuaDraggersTitle,,Lua Draggers Beta,Lua Draggers Beta
 Studio.App.BetaFeatures.LuaPublishWorkflowDescription,,Uses the new lua-based publish workflow,Uses the new lua-based publish workflow
 Studio.App.BetaFeatures.LuaPublishWorkflowTitle,,Lua Publish Workflow,Lua Publish Workflow
+Studio.App.BetaFeatures.Motor6DTransformFixDescription,,Fixes Motor6D.Transform to always position parts as if Part0 as the parent part so it will not rotate backwards if Part1 becomes the root internally.,Fixes Motor6D.Transform to always position parts as if Part0 as the parent part so it will not rotate backwards if Part1 becomes the root internally.
+Studio.App.BetaFeatures.Motor6DTransformFixTitle,,Motor6D.Transform Consistency Beta,Motor6D.Transform Consistency Beta
 Studio.App.BetaFeatures.NewScriptFoldStateDescription,,Enables new improved behavior for code folding in the Script Editor.,Enables new improved behavior for code folding in the Script Editor.
 Studio.App.BetaFeatures.NewScriptFoldStateTitle,,Script Editor Folds Behavior Beta,Script Editor Folds Behavior Beta
 Studio.App.BetaFeatures.PackagePermissionsDescription,,"Add any group, user, or role as a user or editor for your packages through the Package Management action in Game Explorer","Add any group, user, or role as a user or editor for your packages through the Package Management action in Game Explorer"
@@ -705,6 +707,7 @@ Studio.App.MainWindow.VersionLatest,About Dialog,Latest version available %1,Lat
 Studio.App.MainWindow.WaitingForShutdown,Main Window,Waiting for Shutdown,Waiting for Shutdown
 Studio.App.ManageEmulationDeviceDialog.CloneDevice,,Clone Device,Clone Device
 Studio.App.ManageEmulationDeviceDialog.EmulationDeviceManager,,Emulation Device Manager,Emulation Device Manager
+Studio.App.ManageEmulationDeviceDialog.NewDevicePrefix,,newDevice,newDevice
 Studio.App.Materials.Concrete,,Concrete,Concrete
 Studio.App.Materials.Fabric,,Fabric,Fabric
 Studio.App.Materials.Foil,,Foil,Foil
@@ -1154,6 +1157,7 @@ Studio.App.RBXMainWindow.AnchorObjects,,Anchor objects,Anchor objects
 Studio.App.RBXMainWindow.AnchorPreventMoving,,Anchor - prevent moving,Anchor - prevent moving
 Studio.App.RBXMainWindow.ApplyEdits,,Apply Edits,Apply Edits
 Studio.App.RBXMainWindow.ArrowTool,,Arrow Tool,Arrow Tool
+Studio.App.RBXMainWindow.AssetManager,,Asset Manager,Asset Manager
 Studio.App.RBXMainWindow.AutoCreateJoints,,Automatically create joints between parts...,Automatically create joints between parts...
 Studio.App.RBXMainWindow.AutomaticallyCreateJoints,,Automatically Create Joints,Automatically Create Joints
 Studio.App.RBXMainWindow.AxisWidget,,Axis Widget,Axis Widget
@@ -1825,6 +1829,7 @@ Studio.App.RobloxRibbonMainWindow.Universal,,Universal,Universal
 Studio.App.RobloxRibbonMainWindow.UpdateSettingsCurrentGame,,Update settings related to current game,Update settings related to current game
 Studio.App.RobloxRibbonMainWindow.VectorForce,,Vector Force,Vector Force
 Studio.App.RobloxRibbonMainWindow.View,,View,View
+Studio.App.RobloxRibbonMainWindow.ViewAssetManager,,View Asset Manager,View Asset Manager
 Studio.App.RobloxRibbonMainWindow.ViewBulkImport,,View Bulk Import,View Bulk Import
 Studio.App.RobloxRibbonMainWindow.ViewCurrentCallStack,,View current call stack,View current call stack
 Studio.App.RobloxRibbonMainWindow.ViewCurrentlyWatchedVariables,,View currently watched variables,View currently watched variables

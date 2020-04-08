@@ -9,7 +9,7 @@
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
-local Constants = require(Plugin.Src.Util.Constants)
+local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 local getMouse = require(Plugin.Src.Consumers.getMouse)
 
 local HoverBarButton = Roact.PureComponent:extend("HoverBarButton")
@@ -36,13 +36,13 @@ function HoverBarButton:render()
 	return Roact.createElement("ImageButton", {
 		BackgroundTransparency = 1,
 		ImageTransparency = hovering and 0.9 or 1,
-		Image = Constants.ROUNDED_BACKGROUND_IMAGE,
+		Image = DEPRECATED_Constants.ROUNDED_BACKGROUND_IMAGE,
 		Size = UDim2.new(0, 28, 0, 28),
 		Position = position,
 		AnchorPoint = anchorPoint,
 
 		ScaleType = Enum.ScaleType.Slice,
-		SliceCenter = Constants.ROUNDED_FRAME_SLICE,
+		SliceCenter = DEPRECATED_Constants.ROUNDED_FRAME_SLICE,
 
 		[Roact.Event.Activated] = self.props.ButtonPressed,
 

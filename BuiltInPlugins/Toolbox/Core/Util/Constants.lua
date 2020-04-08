@@ -250,4 +250,9 @@ Constants.Dialog = {
 	ROBUX_SIZE = UDim2.fromOffset(16, 16),
 }
 
+Constants.MIN_AUDIO_SEARCH_DURATION = 0
+Constants.MAX_AUDIO_SEARCH_DURATION = 420
+Constants.TOOLBOX_ITEM_SEARCH_LIMIT = 30
+Constants.AUDIO_SERACH_CATEGORY_NAME = "audio"
+
 return wrapStrictTable(Constants, "Constants")

@@ -38,10 +38,10 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 local RoactRodux = require(Libs.RoactRodux)
+local UILibrary = require(Libs.UILibrary)
 
-local UILibrary = Libs.UILibrary
-local StyledScrollingFrame = require(UILibrary.Components.StyledScrollingFrame)
-local TitledFrame = require(Libs.UILibrary.Components.TitledFrame)
+local StyledScrollingFrame = UILibrary.Component.StyledScrollingFrame
+local TitledFrame = UILibrary.Component.TitledFrame
 
 local Util = Plugin.Core.Util
 local ContextHelper = require(Util.ContextHelper)

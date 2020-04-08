@@ -11,6 +11,7 @@
 	localization will be automatic included in the Toolbox.
 	Here is the current path for LocalizationTable: Toolbox/LocalizationTable
 ]]
+local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -21,7 +22,6 @@ local createSignal = require(Plugin.Core.Util.createSignal)
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 local wrapStrictTable = require(Plugin.Core.Util.wrapStrictTable)
 local AssetConfigConstants = require(Plugin.Core.Util.AssetConfigConstants)
-local Constants = require(Plugin.Core.Util.Constants)
 local Localization = {}
 Localization.__index = Localization
 
@@ -445,9 +445,15 @@ function Localization:_recalculateContent()
 			Cancel = self:_safeLocalize("Studio.Toolbox.General.SearchOptionsCancel"),
 		},
 
-		SearchTags = {
+		AudioSearch = (not FFlagStudioToolboxEnabledDevFramework) and {
+			Title = self:_safeLocalize("Studio.Toolbox.General.SearchOptionAudioLength"),
+			ToString = self:_safeLocalize("Studio.Toolbox.General.SearchOptionAudioTo"),
+		} or nil,
+
+		SearchTags = (not FFlagStudioToolboxEnabledDevFramework) and {
 			Creator = self:_safeLocalize("Studio.Toolbox.General.SearchTagCreator"),
-		},
+			Length = self:_safeLocalize("Studio.Toolbox.General.SearchTagLength"),
+		} or nil,
 
 		Tabs = {
 			Marketplace = self:_safeLocalize("Studio.Toolbox.General.TabMarketplace"),

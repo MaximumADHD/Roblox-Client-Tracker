@@ -3,34 +3,26 @@
 ]]
 
 local Plugin = script.Parent.Parent.Parent.Parent
+
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Cryo = require(Plugin.Packages.Cryo)
+local UILibrary = require(Plugin.Packages.UILibrary)
 
-local FFlagTerrainToolsRefactor = game:GetFastFlag("TerrainToolsRefactor")
+local withLocalization = UILibrary.Localizing.withLocalization
 
-local CoreGui = game:GetService("CoreGui")
-
-local UILibrary = Plugin.Packages.UILibrary
-local RoundTextButton = require(UILibrary.Components.RoundTextButton)
-local Localizing = require(UILibrary.Localizing)
-local withLocalization = Localizing.withLocalization
-local Theme = require(Plugin.Src.ContextServices.Theming)
-local withTheme = Theme.withTheme
 local StudioPlugin = require(Plugin.Src.ContextServices.StudioPlugin)
 
 local Actions = Plugin.Src.Actions
 local ApplyToolAction = require(Actions.ApplyToolAction)
 local ChangePosition = require(Actions.ChangePosition)
 local ChangeSize = require(Actions.ChangeSize)
-local ChangePlanePositionY = require(Actions.ChangePlanePositionY)
-local SetHeightPicker = require(Actions.SetHeightPicker)
 
 local ProgressFrame = require(script.Parent.Parent.ProgressFrame)
 
 local ToolParts = script.Parent.ToolParts
-local MapSettings = require(ToolParts.MapSettings)
 local ButtonGroup = require(ToolParts.ButtonGroup)
+local MapSettings = require(ToolParts.MapSettings)
 
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 local ToolId = TerrainEnums.ToolId
@@ -38,19 +30,20 @@ local ToolId = TerrainEnums.ToolId
 local LargeVoxelRegionPreview = require(Plugin.Src.TerrainWorldUI.LargeVoxelRegionPreview)
 
 local TerrainInterface = require(Plugin.Src.ContextServices.TerrainInterface)
-local getSeaLevel = TerrainInterface.getSeaLevel
+
+local CoreGui = game:GetService("CoreGui")
 
 local REDUCER_KEY = "SeaLevelTool"
 
 local SeaLevel = Roact.PureComponent:extend(script.Name)
 
-function SeaLevel:init(initialProps)
+function SeaLevel:init()
 	local plugin = StudioPlugin.getPlugin(self)
 	local mouse = plugin:GetMouse()
 
 	self.preview = LargeVoxelRegionPreview.new(mouse, TerrainInterface.getTerrain(self))
 	self.pluginActivationController = TerrainInterface.getPluginActivationController(self)
-	self.seaLevel = getSeaLevel(self)
+	self.seaLevel = TerrainInterface.getSeaLevel(self)
 
 	self.state = {
 		isReplacing = self.seaLevel:isReplacing(),
@@ -77,39 +70,6 @@ function SeaLevel:init(initialProps)
 			self.props.dispatchChangeSize(Cryo.Dictionary.join(self.props.Size, {
 				[axis] = text,
 			}))
-		end
-	end
-
-	self.onTextEnter = function(text, container)
-		if FFlagTerrainToolsRefactor then
-			warn("SeaLevel.onTextEnter() should not be used when FFlagTerrainToolsRefactor is true")
-		end
-		-- warning should be displayed using the
-		-- validation funtion in the LabeledTextInput
-		if not tonumber(text) then
-			return
-		end
-
-		-- not a pattern we should follow we should factor this into
-		-- functions that handle position and size separately rather
-		-- than matching keywords in an container-id.
-		local field, fieldName
-		if string.match(container, "Position") then
-			field = self.props.Position
-			fieldName = "Position"
-		elseif string.match(container, "Size") then
-			field = self.props.Size
-			fieldName = "Size"
-		end
-
-		local x = string.match(container, "X") and text or field.X
-		local y = string.match(container, "Y") and text or field.Y
-		local z = string.match(container, "Z") and text or field.Z
-
-		if fieldName == "Position" then
-			self.props.dispatchChangePosition({X = x, Y = y, Z = z})
-		elseif fieldName == "Size" then
-			self.props.dispatchChangeSize({X = x, Y = y, Z = z})
 		end
 	end
 
@@ -197,6 +157,7 @@ function SeaLevel:willUnmount()
 		self.onProgressChanged:disconnect()
 		self.onProgressChanged = nil
 	end
+
 	if self.onStateChanged then
 		self.onStateChanged:disconnect()
 		self.onStateChanged = nil
@@ -210,88 +171,53 @@ function SeaLevel:render()
 	local position = self.props.Position
 	local size = self.props.Size
 	local progress = self.state.progress
+
 	return withLocalization(function(localization)
-		return withTheme(function(theme)
-			-- same as if the sealevel is currently active
-			local isReplacing = self.state.isReplacing
+		-- same as if the sealevel is currently active
+		local isReplacing = self.state.isReplacing
 
-			return Roact.createFragment({
-				MapSettings = Roact.createElement(MapSettings, {
-					LayoutOrder = 1,
+		return Roact.createFragment({
+			MapSettings = Roact.createElement(MapSettings, {
+				LayoutOrder = 1,
 
-					Position = position,
-					Size = size,
+				Position = position,
+				Size = size,
 
-					OnPositionChanged = self.onPositionChanged,
-					OnSizeChanged = self.onSizeChanged,
+				OnPositionChanged = self.onPositionChanged,
+				OnSizeChanged = self.onSizeChanged,
+			}),
 
-					OnTextEnter = self.onTextEnter,
-				}),
-
-				SeaLevelButtons = FFlagTerrainToolsRefactor and Roact.createElement(ButtonGroup, {
-					LayoutOrder = 2,
-					Buttons = {
-						{
-							Key = "Evaporate",
-							Name = localization:getText("SeaLevel", "Evaporate"),
-							Active = not isReplacing,
-							OnClicked = self.tryEvaporateSeaLevel
-						},
-						{
-							Key = "Create",
-							Name = localization:getText("SeaLevel", "Create"),
-							Active = not isReplacing,
-							OnClicked = self.tryGenerateSeaLevel
-						},
-					}
-				}) or Roact.createElement("Frame", {
-					Size = UDim2.new(1, 0 ,0, 28+24),
-					BackgroundTransparency = 1,
-					LayoutOrder = 2,
-				}, {
-					Evaporate = Roact.createElement(RoundTextButton, {
-						Size = UDim2.new(0, 100, 0, 28),
-						AnchorPoint = Vector2.new(1, 0.5),
-						Position = UDim2.new(0.5, -2, 0.5, 0),
-
+			SeaLevelButtons = Roact.createElement(ButtonGroup, {
+				LayoutOrder = 2,
+				Buttons = {
+					{
+						Key = "Evaporate",
 						Name = localization:getText("SeaLevel", "Evaporate"),
-
 						Active = not isReplacing,
-						Style = theme.roundTextButtonTheme.styleSheet,
-						TextSize = theme.roundTextButtonTheme.textSize,
-
 						OnClicked = self.tryEvaporateSeaLevel
-					}),
-
-					Create = Roact.createElement(RoundTextButton, {
-						Size = UDim2.new(0, 100, 0, 28),
-						AnchorPoint = Vector2.new(0, 0.5),
-						Position = UDim2.new(0.5, 2, 0.5, 0),
-
+					},
+					{
+						Key = "Create",
 						Name = localization:getText("SeaLevel", "Create"),
-
 						Active = not isReplacing,
-						Style = theme.roundTextButtonTheme.styleSheet,
-						TextSize = theme.roundTextButtonTheme.textSize,
-
 						OnClicked = self.tryGenerateSeaLevel
-					}),
-				}),
+					},
+				}
+			}),
 
-				ProgressBar = isReplacing and Roact.createElement(Roact.Portal, {
-					target = CoreGui,
-				}, {
-					SeaLevelProgressScreenGui = Roact.createElement("ScreenGui", {}, {
-						Roact.createElement(ProgressFrame, {
-							AnchorPoint = Vector2.new(0.5, 0),
-							Position = UDim2.new(0.5, 0, 0, 0),
-							Progress = progress,
-							OnCancelButtonClicked = self.cancel,
-						})
+			ProgressBar = isReplacing and Roact.createElement(Roact.Portal, {
+				target = CoreGui,
+			}, {
+				SeaLevelProgressScreenGui = Roact.createElement("ScreenGui", {}, {
+					Roact.createElement(ProgressFrame, {
+						AnchorPoint = Vector2.new(0.5, 0),
+						Position = UDim2.new(0.5, 0, 0, 0),
+						Progress = progress,
+						OnCancelButtonClicked = self.cancel,
 					})
-				}),
-			})
-		end)
+				})
+			}),
+		})
 	end)
 end
 
@@ -301,8 +227,6 @@ local function mapStateToProps(state, props)
 
 		Position = state[REDUCER_KEY].position,
 		Size = state[REDUCER_KEY].size,
-		PlanePositionY = state[REDUCER_KEY].PlanePositionY,
-		heightPicker = state[REDUCER_KEY].heightPicker,
 	}
 end
 
@@ -317,12 +241,6 @@ local function mapDispatchToProps(dispatch)
 		end,
 		dispatchChangeSize = function(size)
 			dispatchToSeaLevel(ChangeSize(size))
-		end,
-		dispatchChangePlanePositionY = function(planePositionY)
-			dispatchToSeaLevel(ChangePlanePositionY(planePositionY))
-		end,
-		dispatchSetHeightPicker = function (heightPicker)
-			dispatchToSeaLevel(SetHeightPicker(heightPicker))
 		end,
 	}
 end

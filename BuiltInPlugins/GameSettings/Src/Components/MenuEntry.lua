@@ -13,7 +13,7 @@ local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
-local Constants = require(Plugin.Src.Util.Constants)
+local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 local getMouse = require(Plugin.Src.Consumers.getMouse)
 
 local MenuEntry = Roact.PureComponent:extend("MenuEntry")
@@ -32,7 +32,7 @@ function MenuEntry:render()
 		local highlight = hovering or selected
 
 		return Roact.createElement("Frame", {
-			Size = UDim2.new(1, 0, 0, Constants.MENU_ENTRY_HEIGHT),
+			Size = UDim2.new(1, 0, 0, DEPRECATED_Constants.MENU_ENTRY_HEIGHT),
 			BackgroundColor3 = highlight and theme.menuEntry.hover or theme.menuBar.backgroundColor,
 			BorderSizePixel = 0,
 
@@ -79,7 +79,7 @@ function MenuEntry:render()
 				Position = UDim2.new(1, -12, 0.5, 0),
 				AnchorPoint = Vector2.new(1, 0.5),
 				BackgroundTransparency = 1,
-				Image = self.props.Error and Constants.ERROR_IMAGE or Constants.WARNING_IMAGE,
+				Image = self.props.Error and DEPRECATED_Constants.ERROR_IMAGE or DEPRECATED_Constants.WARNING_IMAGE,
 			}),
 		})
 	end)

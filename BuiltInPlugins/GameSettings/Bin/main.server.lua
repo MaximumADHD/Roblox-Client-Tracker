@@ -1,7 +1,6 @@
 if not plugin then
 	return
 end
-
 -- Define Fast flags
 require(script.Parent.defineLuaFlags)
 
@@ -11,7 +10,7 @@ local OverrideLocaleId = settings():GetFVariable("StudioForceLocale")
 local DFFlagDeveloperSubscriptionsEnabled = settings():GetFFlag("DeveloperSubscriptionsEnabled")
 local FFlagStudioGameSettingsAccessPermissions = settings():GetFFlag("StudioGameSettingsAccessPermissions")
 local FFlagGameSettingsPreventClosingDialogWhileSaveInProgress = game:DefineFastFlag("GameSettingsPreventClosingDialogWhileSaveInProgress", false)
-
+local FFlagStudioLocalizationInGameSettingsEnabled = game:GetFastFlag("StudioLocalizationInGameSettingsEnabled")
 
 --Turn this on when debugging the store and actions
 local LOG_STORE_STATE_AND_EVENTS = false
@@ -78,6 +77,10 @@ if DFFlagDeveloperSubscriptionsEnabled then
 end
 
 table.insert(settingsPages, "World")
+
+if FFlagStudioLocalizationInGameSettingsEnabled then
+	table.insert(settingsPages, "Localization")
+end
 
 local localization
 local localizationTable = Plugin.Src.Localization.GameSettingsTranslationReferenceTable

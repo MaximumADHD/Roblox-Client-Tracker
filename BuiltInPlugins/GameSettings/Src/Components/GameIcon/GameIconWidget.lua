@@ -20,16 +20,17 @@ local NOTES_SIZE = UDim2.new(1, -180, 0, 100)
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
+local UILibrary = require(Plugin.UILibrary)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
 local withLocalization = require(Plugin.Src.Consumers.withLocalization)
 local getMouse = require(Plugin.Src.Consumers.getMouse)
-local Constants = require(Plugin.Src.Util.Constants)
+local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 
 local Http = require(Plugin.Src.Networking.Http)
 local TUTORIAL_URL = HttpRbxApiService:GetDocumentationUrl("articles/Game-Icons-Tips")
 
-local TitledFrame = require(Plugin.UILibrary.Components.TitledFrame)
-local BulletPoint = require(Plugin.UILibrary.Components.BulletPoint)
+local TitledFrame = UILibrary.Component.TitledFrame
+local BulletPoint = UILibrary.Component.BulletPoint
 local GameIcon = require(Plugin.Src.Components.GameIcon.GameIcon)
 local NewGameIcon = require(Plugin.Src.Components.GameIcon.NewGameIcon)
 
@@ -101,7 +102,7 @@ function GameIconWidget:render()
 						LayoutOrder = 1,
 						TextWrapped = true,
 						Text = localized.GameIcon.Hint({
-							fileTypes = table.concat(Constants.IMAGE_TYPES, ", "),
+							fileTypes = table.concat(DEPRECATED_Constants.IMAGE_TYPES, ", "),
 							newline = "\n",
 						}),
 					}),

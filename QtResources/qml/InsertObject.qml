@@ -25,6 +25,13 @@ Rectangle {
     signal showRecommendedOnlyChecked(bool checked)
     signal showExpandedViewToggled(bool state)
 
+    signal scrollToTop
+    signal scrollToBottom
+    signal scrollPageUp
+    signal scrollPageDown
+    signal scrollUp
+    signal scrollDown
+
     Connections {
         target: insertObjectWindow
         onForceTextFocusEvent: {
@@ -314,20 +321,40 @@ Rectangle {
                     Qt.quit();
                 }
 
-                // Handle PageUp and PageDown separately. There are no special events for them,.
                 Keys.onPressed: {
-                    var itemsPerPage = 5;
-                    var currentView = getCurrentView();
-                    if (event.key == Qt.Key_PageUp) {
-                        currentView.currentIndex = Math.max(0, currentView.currentIndex-itemsPerPage);
-                        event.accepted = true;
+                    if(insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_Consolidated()) {
+                        var currentView = getCurrentView();
+                        if (event.key == Qt.Key_PageUp) {
+                            rootWindow.scrollPageUp();
+                            event.accepted = true;
+                        }
+                        else if (event.key == Qt.Key_PageDown) {
+                            rootWindow.scrollPageDown();
+                            event.accepted = true;
+                        }
+                        else if (event.key == Qt.Key_Home) {
+                            rootWindow.scrollToTop();
+                            event.accepted = true;
+                        }
+                        else if (event.key == Qt.Key_End) {
+                            rootWindow.scrollToBottom();
+                            event.accepted = true;
+                        }
                     }
-                    else if (event.key == Qt.Key_PageDown) {
-                        currentView.currentIndex = Math.min(currentView.count-1, currentView.currentIndex+itemsPerPage);
-                        event.accepted = true;
-                    }
-					else if (insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv0_Consolidated() && event.key == Qt.Key_Tab) {
-                        event.accepted = true;
+                    else {
+                        var itemsPerPage = 5;
+                        var currentView = getCurrentView();
+                        if (event.key == Qt.Key_PageUp) {
+                            currentView.currentIndex = Math.max(0, currentView.currentIndex-itemsPerPage);
+                            event.accepted = true;
+                        }
+                        else if (event.key == Qt.Key_PageDown) {
+                            currentView.currentIndex = Math.min(currentView.count-1, currentView.currentIndex+itemsPerPage);
+                            event.accepted = true;
+                        }
+					    else if (insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv0_Consolidated() && event.key == Qt.Key_Tab) {
+                            event.accepted = true;
+                        }
                     }
 
 					classToolTip.hide();
@@ -401,7 +428,7 @@ Rectangle {
 
 					onWheel: {
 						// When scrolling, sets highlighted object to moused over class TODO: still lags and fix cursor
-						wheel.accepted = false;
+						wheel.accepted = insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_FeedbackImprovements() ? true : false;
 						mouseArea.exited();
                         if(!insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_Consolidated()){
                             classToolTip.hide();
@@ -410,6 +437,15 @@ Rectangle {
                         else {
                             var currentView = getCurrentView();
                             currentView.currentIndex = -1
+                        }
+                        
+                        if(insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_FeedbackImprovements()) {
+                            if (wheel.angleDelta.y > 0) {
+                                rootWindow.scrollUp();
+                            }
+                            else {
+                                rootWindow.scrollDown();
+                            }
                         }
 					}
     			}
@@ -470,6 +506,23 @@ Rectangle {
 			        height: 1
 			        color:  userPreferences.theme.style("InsertObjectWindow separator")
 		        }
+                MouseArea {
+                    objectName: "qmlInsertObjectMouseAreaCategory" + mCategory
+					id: categoryMouseArea
+                    visible: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_FeedbackImprovements()
+    				hoverEnabled: true
+					cursorShape: Qt.ArrowCursor
+    				anchors.fill: parent
+					onWheel: {
+						wheel.accepted = true;
+                        if (wheel.angleDelta.y > 0) {
+                            rootWindow.scrollUp();
+                        }
+                        else {
+                            rootWindow.scrollDown();
+                        }
+					}
+    			}
 	        }
         }
 		// This component is responsible for rendering the category
@@ -777,10 +830,13 @@ Rectangle {
                 ListView {
 		    	    id: listView
                     clip: true
+                    boundsBehavior: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_FeedbackImprovements() ? Flickable.StopAtBounds : Flickable.DragAndOvershootBounds
+                    interactive: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_FeedbackImprovements() ? false : true
 		    	    anchors.fill: parent
                     anchors.rightMargin: 20
 		    	    model: insertObjectListModel
                     currentIndex: defaultCurrentIndex
+                    property var cellHeight: 28
                     delegate: Component {
                                 Loader {
                                     property int mIndex: typeof(index) !== "undefined" ? index : -1
@@ -805,8 +861,8 @@ Rectangle {
                                 }
                             }
                     highlightFollowsCurrentItem: true
-				    highlightMoveDuration: 50 // Speed up highlight follow
-				    highlightMoveVelocity: 1000
+				    highlightMoveDuration: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_FeedbackImprovements() ? 0 : 50
+				    highlightMoveVelocity: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_FeedbackImprovements() ? -1 : 1000
 				    highlight: Rectangle {
 					    id: highlightBar
 		    		    color: userPreferences.theme.style("Menu itemHover")
@@ -825,6 +881,9 @@ Rectangle {
 			        id: listVerticalScrollBar
 			        window: listViewContainer
 			        flickable: listView
+                    keyEventNotifier: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_FeedbackImprovements() ? rootWindow : null
+                    scrollWheelCount: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_FeedbackImprovements() ? scrollWheelLines : 1
+                    fflagStudioInsertObjectStreamliningv2_FeedbackImprovements: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_FeedbackImprovements()
                 }
 
             }
@@ -840,6 +899,8 @@ Rectangle {
                     anchors.topMargin: 5
                     anchors.bottomMargin: 20
 					clip: true
+                    boundsBehavior: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_FeedbackImprovements() ? Flickable.StopAtBounds : Flickable.DragAndOvershootBounds
+                    interactive: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_FeedbackImprovements() ? false : true
                     cellWidth: 185; cellHeight: 25
                     flow: GridView.TopToBottom
 		    	    model: insertObjectListModel

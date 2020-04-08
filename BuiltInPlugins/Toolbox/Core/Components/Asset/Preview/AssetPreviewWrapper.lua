@@ -78,8 +78,9 @@ local FFlagStudioRefactorAssetPreview = settings():GetFFlag("StudioRefactorAsset
 local FFlagStudioFixAssetPreviewTreeView = settings():GetFFlag("StudioFixAssetPreviewTreeView")
 local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
 local FFlagEnableAudioPreview = settings():GetFFlag("EnableAudioPreview")
+local FFlagStudioFixAssetPreviewCloseButton = settings():GetFFlag("StudioFixAssetPreviewCloseButton")
 
-local PADDING = 20
+local PADDING = FFlagStudioFixAssetPreviewCloseButton and 32 or 20
 local INSTALLATION_ANIMATION_TIME = 1.0 --seconds
 
 function AssetPreviewWrapper:createPurchaseFlow(localizedContent)

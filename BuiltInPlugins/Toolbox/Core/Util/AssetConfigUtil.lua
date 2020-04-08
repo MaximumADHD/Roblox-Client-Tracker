@@ -12,7 +12,8 @@ local FFlagRemoveNilInstances = game:GetFastFlag("RemoveNilInstances")
 
 local StudioService = game:GetService("StudioService")
 
-local MathUtils = require(Plugin.Libs.UILibrary.Utils.MathUtils)
+local UILibrary = require(Plugin.Libs.UILibrary)
+local MathUtils = UILibrary.Util.MathUtils
 
 local AssetConfigUtil = {}
 

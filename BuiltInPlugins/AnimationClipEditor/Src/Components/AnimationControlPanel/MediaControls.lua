@@ -20,13 +20,14 @@ local ACTIVE_STYLE = "ActiveControl"
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Roact = require(Plugin.Roact)
+local UILibrary = require(Plugin.UILibrary)
 
 local Theme = require(Plugin.Src.Context.Theme)
 local withTheme = Theme.withTheme
 
 local Constants = require(Plugin.Src.Util.Constants)
 local LayoutOrderIterator = require(Plugin.Src.Util.LayoutOrderIterator)
-local Button = require(Plugin.UILibrary.Components.Button)
+local Button = UILibrary.Component.Button
 local Tooltip = require(Plugin.Src.Components.Tooltip)
 
 local MediaControls = Roact.PureComponent:extend("MediaControls")

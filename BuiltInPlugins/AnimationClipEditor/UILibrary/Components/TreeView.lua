@@ -293,10 +293,15 @@ function TreeView:init()
 
 		local createFlatList
 		if FFlagFixTreeViewFlatListDefault then
-			createFlatList = FFlagStudioFixTreeViewForFlatList and (self.props.createFlatList and self.props.createFlatList or true)
+			if self.props.createFlatList == nil then
+				createFlatList = true
+			else
+				createFlatList = self.props.createFlatList
+			end
 		else
 			createFlatList = FFlagStudioFixTreeViewForFlatList and self.props.createFlatList
 		end
+
 		if handlers.sortChildren then
 			table.sort(children, handlers.sortChildren)
 		end
@@ -329,7 +334,11 @@ function TreeView:init()
 		local sortChildren = self.props.sortChildren
 		local createFlatList
 		if FFlagFixTreeViewFlatListDefault then
-			createFlatList = FFlagStudioFixTreeViewForFlatList and (self.props.createFlatList and self.props.createFlatList or true)
+			if self.props.createFlatList == nil then
+				createFlatList = true
+			else
+				createFlatList = self.props.createFlatList
+			end
 		else
 			createFlatList = FFlagStudioFixTreeViewForFlatList and self.props.createFlatList
 		end
@@ -350,14 +359,19 @@ function TreeView:init()
 					-- upon visiting a node, add it to the map of elements to display
 					onNodeVisited = function(child, depth, children)
 						local node = self.createNode(child, numNodes, depth, children)
-						numNodes = numNodes + 1
+
 						if createFlatList then
-							local nodeName = string.format("Node-%d", numNodes)
-							treeNodes[nodeName] = node
+							if node then
+								local nodeName = string.format("Node-%d", numNodes)
+								treeNodes[nodeName] = node
+								numNodes = numNodes + 1
+							end
+
 							if FFlagFixTreeViewFlatListDefault then
 								table.insert(self.nodesArray, child)
 							end
 						else
+							numNodes = numNodes + 1
 							return node
 						end
 					end,

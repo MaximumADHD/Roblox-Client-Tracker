@@ -279,8 +279,8 @@ function RotateToolImpl:_mouseDragWithInverseKinematics(mouseRay, delta)
 	end
 
     local collisionsMode = areCollisionsEnabled() and
-        Enum.CollisionsMode.OtherMechanismsAnchored or
-		Enum.CollisionsMode.NoCollisions
+        Enum.IKCollisionsMode.OtherMechanismsAnchored or
+		Enum.IKCollisionsMode.NoCollisions
 
 	local candidateTransform = getRotationTransform(self._boundingBox.CFrame, self._handleCFrame.RightVector, delta)
 	local appliedTransform = self._partMover:rotateToWithIk(candidateTransform, collisionsMode)

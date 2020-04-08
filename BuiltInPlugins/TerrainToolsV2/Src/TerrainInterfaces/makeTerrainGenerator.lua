@@ -1,20 +1,16 @@
+local FFlagTerrainToolMetrics = settings():GetFFlag("TerrainToolMetrics")
+
 local Plugin = script.Parent.Parent.Parent
 
-local UILibrary = Plugin.Packages.UILibrary
-local Signal = require(UILibrary.Utils.Signal)
+local UILibrary = require(Plugin.Packages.UILibrary)
+
+local Signal = UILibrary.Util.Signal
 
 local Constants = require(Plugin.Src.Util.Constants)
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 local Biome = TerrainEnums.Biome
 
 local quickWait = require(Plugin.Src.Util.quickWait)
-
-game:DefineFastFlag("TerrainToolsFixOffsetGenerationNoise", false)
-game:DefineFastFlag("TerrainToolsGeneratorSkipAir", false)
-
-local FFlagTerrainToolMetrics = settings():GetFFlag("TerrainToolMetrics")
-local FFlagTerrainToolsFixOffsetGenerationNoise = game:GetFastFlag("TerrainToolsFixOffsetGenerationNoise")
-local FFlagTerrainToolsGeneratorSkipAir = game:GetFastFlag("TerrainToolsGeneratorSkipAir")
 
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 local ChangeHistoryService = game:GetService("ChangeHistoryService")
@@ -157,19 +153,9 @@ return function(terrain, generateSettings)
 	local voxelExtents = voxelSize / 2
 	mapPosition = mapRegion.CFrame.Position
 
-	local cornerWorldVoxelX = 0
-	local cornerWorldVoxelZ = 0
-	local noiseOffsetX = 0
-	local noiseOffsetZ = 0
-	if FFlagTerrainToolsFixOffsetGenerationNoise then
-		local mapPositionVoxel = mapPosition / Constants.VOXEL_RESOLUTION
-		cornerWorldVoxelX = mapPositionVoxel.x - (voxelSize.x / 2)
-		cornerWorldVoxelZ = mapPositionVoxel.z - (voxelSize.z / 2)
-
-	else
-		noiseOffsetX = mapPosition.x / Constants.VOXEL_RESOLUTION
-		noiseOffsetZ = mapPosition.z / Constants.VOXEL_RESOLUTION
-	end
+	local mapPositionVoxel = mapPosition / Constants.VOXEL_RESOLUTION
+	local cornerWorldVoxelX = mapPositionVoxel.x - (voxelSize.x / 2)
+	local cornerWorldVoxelZ = mapPositionVoxel.z - (voxelSize.z / 2)
 
 	-- These functions depend on some part of generateSettings
 	-- So can't be declared outside this function (without using global state)
@@ -442,7 +428,7 @@ return function(terrain, generateSettings)
 		}
 
 		--  Returns (Material material, number occupancy, bool hasHitAirAboveSurface)
-		processVoxel = FFlagTerrainToolsGeneratorSkipAir and function (x, y, z,
+		processVoxel = function (x, y, z,
 			sliceY, worldVoxelX, worldVoxelZ,
 			weightPoints, biomeNoCave)
 			local verticalGradient = 1 - ((y - 1) / (sliceY - 1))
@@ -671,7 +657,7 @@ return function(terrain, generateSettings)
 		-- But because we reuse the occupancy and material maps, we need to clear the previous slice's data
 		-- i.e. if one slice is 10 voxels high, and the next is only 7, then we don't want those 3 voxels to carry over
 		-- But once we've hit 10, we can ignore the rest
-		local previousColumnHeights = FFlagTerrainToolsGeneratorSkipAir and table.create(sliceZ, 0) or nil
+		local previousColumnHeights = table.create(sliceZ, 0)
 
 		for x = 1, voxelSize.X, 1 do
 			local regionOffsetX = x - voxelExtents.X
@@ -682,12 +668,10 @@ return function(terrain, generateSettings)
 				+ mapPosition
 			sliceRegion = Region3.new(regionStart, regionEnd):ExpandToGrid(Constants.VOXEL_RESOLUTION)
 
-			local worldVoxelX = FFlagTerrainToolsFixOffsetGenerationNoise and (cornerWorldVoxelX + x - 1)
-				or (regionOffsetX + noiseOffsetX)
+			local worldVoxelX = cornerWorldVoxelX + x - 1
 
 			for z = 1, sliceZ, 1 do
-				local worldVoxelZ = FFlagTerrainToolsFixOffsetGenerationNoise and (cornerWorldVoxelZ + z - 1)
-					or (z + noiseOffsetZ)
+				local worldVoxelZ = cornerWorldVoxelZ + z - 1
 
 				local cellToBiomeX = (worldVoxelX / biomeSize)
 					+ (getPerlin(worldVoxelX, 0, worldVoxelZ, 233, biomeSize * 0.3) * 0.25)
@@ -752,134 +736,36 @@ return function(terrain, generateSettings)
 					end
 				end
 
-				local prevColumnHeight = FFlagTerrainToolsGeneratorSkipAir and (previousColumnHeights[z] or sliceY) or 0
+				local prevColumnHeight = previousColumnHeights[z] or sliceY
 				local hasHitAir = false
 				local columnHeight = 0
 				for y = 1, sliceY, 1 do
-					if FFlagTerrainToolsGeneratorSkipAir then
-						-- Keep calculating voxels until we hit the surface
-						if not hasHitAir then
-							local material, occupancy, hasHitAirAboveSurface = processVoxel(x, y, z,
-								sliceY, worldVoxelX, worldVoxelZ, weightPoints, biomeNoCave)
+					-- Keep calculating voxels until we hit the surface
+					if not hasHitAir then
+						local material, occupancy, hasHitAirAboveSurface = processVoxel(x, y, z,
+							sliceY, worldVoxelX, worldVoxelZ, weightPoints, biomeNoCave)
 
-							materialMap[1][y][z] = material
-							occupancyMap[1][y][z] = occupancy
-							columnHeight = y
+						materialMap[1][y][z] = material
+						occupancyMap[1][y][z] = occupancy
+						columnHeight = y
 
-							hasHitAir = hasHitAirAboveSurface
+						hasHitAir = hasHitAirAboveSurface
+					end
+
+					-- Once we've hit the surface, set every voxel to air til we can move to the next column
+					if hasHitAir then
+						occupancyMap[1][y][z] = 0
+						materialMap[1][y][z] = mat.Air
+						if y > prevColumnHeight then
+							-- If we've passed the height of this column in the previous slice
+							-- Then we know there isn't any data above that we need to wipe
+							-- So let's move to the next column
+							break
 						end
-
-						-- Once we've hit the surface, set every voxel to air til we can move to the next column
-						if hasHitAir then
-							occupancyMap[1][y][z] = 0
-							materialMap[1][y][z] = mat.Air
-							if y > prevColumnHeight then
-								-- If we've passed the height of this column in the previous slice
-								-- Then we know there isn't any data above that we need to wipe
-								-- So let's move to the next column
-								break
-							end
-						end
-
-					else
-
-						local verticalGradient = 1 - ((y - 1) / (sliceY - 1))
-						local verticalGradientTurbulence = (verticalGradient * 0.9) + (0.1 * getPerlin(worldVoxelX, y, worldVoxelZ, 107, 15))
-
-						local choiceValue = 0
-						local choiceSurface = mat.CrackedLava
-						local choiceFill = mat.Rock
-
-						if verticalGradient > 0.65 or verticalGradient < 0.1 then
-							-- Under surface of every biome, don't get biome data
-							choiceValue = 0.5
-
-						elseif #biomes == 1 then
-							-- No need to do averaging if there's only 1 biome
-							local biomeFunc = BiomeInfoFuncs[biomes[1]]
-							if biomeFunc then
-								choiceValue, choiceSurface, choiceFill = biomeFunc(worldVoxelX, y, worldVoxelZ, verticalGradientTurbulence)
-							else
-								choiceValue, choiceSurface, choiceFill = defaultBiomeValue, defaultBiomeSurface, defaultBiomeFill
-							end
-						else
-							local averageValue = 0
-
-							for biome, info in pairs(weightPoints) do
-								local biomeFunc = BiomeInfoFuncs[biome]
-								if biomeFunc then
-									local biomeValue, biomeSurface, biomeFill = biomeFunc(worldVoxelX, y, worldVoxelZ, verticalGradientTurbulence)
-									info.biomeValue = biomeValue
-									info.biomeSurface = biomeSurface
-									info.biomeFill = biomeFill
-								else
-									info.biomeValue = defaultBiomeValue
-									info.biomeSurface = defaultBiomeSurface
-									info.biomeFill = defaultBiomeFill
-								end
-
-								averageValue = averageValue + (info.biomeValue * info.weight)
-							end
-
-							for biome, info in pairs(weightPoints) do
-								local value = findBiomeTransitionValue(biome, info.weight, info.biomeValue, averageValue)
-								if value > choiceValue then
-									choiceValue = value
-									choiceSurface = info.biomeSurface
-									choiceFill = info.biomeFill
-								end
-							end
-						end
-
-						local preCaveComp = (verticalGradient * 0.5) + (choiceValue * 0.5)
-						local surface = preCaveComp > 0.5 - surfaceThickness and preCaveComp < 0.5 + surfaceThickness
-						local caves = 0
-
-						if haveCaves                                                                  -- User wants caves
-							and (not biomeNoCave or verticalGradient > 0.65)                      -- Biome allows caves or we're deep enough
-							and not (surface and (1 - verticalGradient) < waterLevel + 0.005)     -- Caves only breach surface above sea level
-							and not (surface and (1 - verticalGradient) > waterLevel + 0.58) then -- Caves don't go too high through mountains
-
-							local ridged2 = ridgedFilter(getPerlin(worldVoxelX, y, worldVoxelZ, 4, 30))
-							local caves2 = thresholdFilter(ridged2, 0.84, 0.01)
-
-							local ridged3 = ridgedFilter(getPerlin(worldVoxelX, y, worldVoxelZ, 5, 30))
-							local caves3 = thresholdFilter(ridged3, 0.84, 0.01)
-
-							local ridged4 = ridgedFilter(getPerlin(worldVoxelX, y, worldVoxelZ, 6, 30))
-							local caves4 = thresholdFilter(ridged4, 0.84, 0.01)
-
-							local caveOpenings = surface and thresholdFilter(getPerlin(worldVoxelX, 0, worldVoxelZ, 143, 62), 0.35, 0)
-								or 0
-
-							caves = caves2 * caves3 * caves4 - caveOpenings
-							caves = caves < 0 and 0 or caves > 1 and 1 or caves
-						end
-
-						local comp = preCaveComp - caves
-						local smoothedResult = thresholdFilter(comp, 0.5, mapHeight)
-
-						if 1 - verticalGradient < waterLevel -- Below water level
-							and preCaveComp <= 0.5       -- Above surface
-							and smoothedResult <= 0 then -- No terrain
-							smoothedResult = 1
-							choiceSurface = mat.Water
-							choiceFill = mat.Water
-							surface = true
-						end
-
-						occupancyMap[1][y][z] = y == 1 and 1
-							or smoothedResult
-						materialMap[1][y][z] = y == 1 and mat.CrackedLava
-							or smoothedResult <= 0 and mat.Air
-							or surface and choiceSurface
-							or choiceFill
 					end
 				end
 
-				if FFlagTerrainToolsGeneratorSkipAir then
-					previousColumnHeights[z] = columnHeight
-				end
+				previousColumnHeights[z] = columnHeight
 			end
 
 			-- Apply our changes to the terrain

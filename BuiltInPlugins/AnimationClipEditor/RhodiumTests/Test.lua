@@ -21,10 +21,11 @@ local HttpService = game:GetService("HttpService")
 local Plugin = script.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Rodux = require(Plugin.Rodux)
+local UILibrary = require(Plugin.UILibrary)
 local Constants = require(Plugin.Src.Util.Constants)
 
 local Theme = require(Plugin.Src.Util.Theme)
-local Localization = require(Plugin.UILibrary.Studio.Localization)
+local Localization = UILibrary.Studio.Localization
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 
 local AnimationClipEditor = require(Plugin.Src.Components.AnimationClipEditor)

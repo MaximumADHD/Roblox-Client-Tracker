@@ -65,4 +65,34 @@ return function()
 		expect(result).to.equal(false)
 	end)
 
+	describe("fromDataTable", function()
+		it("should properly set user data", function()
+			local data = {
+				id = 1,
+				name = "FooBar",
+				displayName = "FooBar+DN",
+				isFriend = false,
+			}
+			local user = User.fromDataTable(data)
+
+			expect(user.id).to.equal("1")
+			expect(user.name).to.equal("FooBar")
+			expect(user.displayName).to.equal("FooBar+DN")
+			expect(user.isFriend).to.equal(false)
+		end)
+
+		it("should still set user data without a displayName property", function()
+			local data = {
+				id = 1,
+				name = "FooBar",
+				isFriend = false,
+			}
+			local user = User.fromDataTable(data)
+
+			expect(user.id).to.equal("1")
+			expect(user.name).to.equal("FooBar")
+			expect(user.displayName).to.equal("FooBar")
+			expect(user.isFriend).to.equal(false)
+		end)
+	end)
 end

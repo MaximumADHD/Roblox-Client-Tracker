@@ -4,7 +4,7 @@ return function()
 	local Plugin = script.Parent.Parent.Parent.Parent
 	local Roact = require(Plugin.Roact)
 	local Rodux = require(Plugin.Rodux)
-	local Constants = require(Plugin.Src.Util.Constants)
+	local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 
 	local ExternalServicesWrapper = require(Plugin.Src.Components.ExternalServicesWrapper)
 	local Theme = require(Plugin.Src.Util.Theme)
@@ -19,7 +19,7 @@ return function()
 	local localization = Localization.newDummyLocalization()
 	local localized = localization.values
 
-	local ERROR_COLOR = Constants.ERROR_COLOR
+	local ERROR_COLOR = DEPRECATED_Constants.ERROR_COLOR
 
 	local nameErrors = {
 		Moderated = localized.Errors.ErrorNameModerated,

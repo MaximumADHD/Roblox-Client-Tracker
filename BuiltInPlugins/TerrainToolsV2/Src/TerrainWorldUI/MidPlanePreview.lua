@@ -1,8 +1,8 @@
 local Plugin = script.Parent.Parent.Parent
-local quickWait = require(Plugin.Src.Util.quickWait)
+local UILibrary = require(Plugin.Packages.UILibrary)
 
-local UILibrary = Plugin.Packages.UILibrary
-local Signal = require(UILibrary.Utils.Signal)
+local quickWait = require(Plugin.Src.Util.quickWait)
+local Signal = UILibrary.Util.Signal
 
 local CoreGui = game:GetService("CoreGui")
 local Workspace = game:GetService("Workspace")

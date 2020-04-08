@@ -4,6 +4,7 @@ local Cryo = require(Plugin.Packages.Cryo)
 
 local SetAssets = require(Plugin.Src.Actions.SetAssets)
 local SetIsFetchingAssets = require(Plugin.Src.Actions.SetIsFetchingAssets)
+local SetHasLinkedScripts = require(Plugin.Src.Actions.SetHasLinkedScripts)
 
 local FFlagStudioAssetManagerFilterPackagePermissions = game:DefineFastFlag("StudioAssetManagerFilterPackagePermissions", false)
 
@@ -36,9 +37,15 @@ local function checkIfPackageHasPermission(store, apiImpl, packageIds, newAssets
     end)
 end
 
-return function(apiImpl, assetType, pageCursor, pageNumber)
+return function(apiImpl, assetType, pageCursor, pageNumber, showLoadingIndicator)
     return function(store)
         local state = store:getState()
+        local showLoading
+        if showLoadingIndicator == nil then
+            showLoading = true
+        else
+            showLoading = showLoadingIndicator
+        end
         local requestPromise
         local newAssets = {}
         newAssets.assets = {}
@@ -47,8 +54,10 @@ return function(apiImpl, assetType, pageCursor, pageNumber)
             newAssets = state.AssetManagerReducer.assetsTable
             index = #newAssets.assets + 1
         end
-        -- fetching next page of assets
-        store:dispatch(SetIsFetchingAssets(true))
+        if showLoading then
+            -- fetching next page of assets
+            store:dispatch(SetIsFetchingAssets(true))
+        end
         if assetType == Enum.AssetType.Place then
             requestPromise = apiImpl.Develop.V2.Universes.places(game.GameId, pageCursor):makeRequest()
             :andThen(function(response)
@@ -80,6 +89,8 @@ return function(apiImpl, assetType, pageCursor, pageNumber)
                 if not body then
                     return
                 end
+
+                local hasLinkedScripts = state.AssetManagerReducer.hasLinkedScripts
                 if not body.FinalPage then
                     newAssets.pageNumber = page + 1
                 end
@@ -97,6 +108,7 @@ return function(apiImpl, assetType, pageCursor, pageNumber)
                         elseif assetType == Enum.AssetType.MeshPart and string.find(alias.Name, "Meshes/") then
                             assetAlias.name = string.gsub(alias.Name, "Meshes/", "")
                         elseif assetType == Enum.AssetType.Lua and string.find(alias.Name, "Scripts/") then
+                            hasLinkedScripts = true
                             assetAlias.name = string.gsub(alias.Name, "Scripts/", "")
                         end
                         newAssets.assets = Cryo.Dictionary.join(newAssets.assets, {
@@ -105,6 +117,7 @@ return function(apiImpl, assetType, pageCursor, pageNumber)
                         index = index + 1
                     end
                 end
+                store:dispatch(SetHasLinkedScripts(hasLinkedScripts))
                 store:dispatch(SetIsFetchingAssets(false))
                 store:dispatch(SetAssets(newAssets))
             end, function()

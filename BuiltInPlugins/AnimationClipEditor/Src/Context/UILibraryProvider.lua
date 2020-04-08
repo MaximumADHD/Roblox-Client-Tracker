@@ -8,10 +8,10 @@ local Roact = require(Plugin.Roact)
 local Theme = require(Plugin.Src.Context.Theme)
 local withTheme = Theme.withTheme
 
-local UILibrary = Plugin.UILibrary
-local UILibraryWrapper = require(UILibrary.UILibraryWrapper)
-local UILibraryCreateTheme = require(UILibrary.createTheme)
-local join = require(UILibrary.join)
+local UILibrary = require(Plugin.UILibrary)
+local UILibraryWrapper = UILibrary.Wrapper
+local UILibraryCreateTheme = UILibrary.createTheme
+local join = UILibrary.Util.join
 
 local UILibraryProvider = Roact.PureComponent:extend("ServicesWrapper")
 

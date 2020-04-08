@@ -8,13 +8,13 @@
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
-local Constants = require(Plugin.Src.Util.Constants)
+local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
 
 local function Header(props)
 	return withTheme(function(theme)
 		return Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Header, {
-			Size = UDim2.new(1, 0, 0, Constants.HEADER_HEIGHT),
+			Size = UDim2.new(1, 0, 0, DEPRECATED_Constants.HEADER_HEIGHT),
 			Text = props.Title,
 			BackgroundTransparency = 1,
 			BorderSizePixel = 0,

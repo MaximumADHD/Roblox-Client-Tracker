@@ -20,41 +20,29 @@ out vec4 _entryPointOutput;
 
 void main()
 {
-    float f0 = 1.0 / ((2.0 * CB1[1].z) * CB1[1].z);
-    float f1 = float((2 * 0) + 1);
-    float f2 = exp((((-1.0) - f1) * (f1 + 1.0)) * f0);
-    float f3 = exp(((-f1) * f1) * f0) + f2;
-    vec2 f4 = CB1[1].xy * (f1 + (f2 / f3));
-    int f5 = 0 + 1;
-    float f6 = float((2 * f5) + 1);
-    float f7 = exp((((-1.0) - f6) * (f6 + 1.0)) * f0);
-    float f8 = exp(((-f6) * f6) * f0) + f7;
-    vec2 f9 = CB1[1].xy * (f6 + (f7 / f8));
-    int f10 = f5 + 1;
-    float f11 = float((2 * f10) + 1);
-    float f12 = exp((((-1.0) - f11) * (f11 + 1.0)) * f0);
-    float f13 = exp(((-f11) * f11) * f0) + f12;
-    vec2 f14 = CB1[1].xy * (f11 + (f12 / f13));
-    int f15 = f10 + 1;
-    float f16 = float((2 * f15) + 1);
-    float f17 = exp((((-1.0) - f16) * (f16 + 1.0)) * f0);
-    float f18 = exp(((-f16) * f16) * f0) + f17;
-    vec2 f19 = CB1[1].xy * (f16 + (f17 / f18));
-    int f20 = f15 + 1;
-    float f21 = float((2 * f20) + 1);
-    float f22 = exp((((-1.0) - f21) * (f21 + 1.0)) * f0);
-    float f23 = exp(((-f21) * f21) * f0) + f22;
-    vec2 f24 = CB1[1].xy * (f21 + (f22 / f23));
-    int f25 = f20 + 1;
-    float f26 = float((2 * f25) + 1);
-    float f27 = exp((((-1.0) - f26) * (f26 + 1.0)) * f0);
-    float f28 = exp(((-f26) * f26) * f0) + f27;
-    vec2 f29 = CB1[1].xy * (f26 + (f27 / f28));
-    float f30 = float((2 * (f25 + 1)) + 1);
-    float f31 = exp((((-1.0) - f30) * (f30 + 1.0)) * f0);
-    float f32 = exp(((-f30) * f30) * f0) + f31;
-    vec2 f33 = CB1[1].xy * (f30 + (f31 / f32));
-    _entryPointOutput = (((((((texture(Texture0Texture, VARYING0) + ((texture(Texture0Texture, VARYING0 + f4) + texture(Texture0Texture, VARYING0 - f4)) * f3)) + ((texture(Texture0Texture, VARYING0 + f9) + texture(Texture0Texture, VARYING0 - f9)) * f8)) + ((texture(Texture0Texture, VARYING0 + f14) + texture(Texture0Texture, VARYING0 - f14)) * f13)) + ((texture(Texture0Texture, VARYING0 + f19) + texture(Texture0Texture, VARYING0 - f19)) * f18)) + ((texture(Texture0Texture, VARYING0 + f24) + texture(Texture0Texture, VARYING0 - f24)) * f23)) + ((texture(Texture0Texture, VARYING0 + f29) + texture(Texture0Texture, VARYING0 - f29)) * f28)) + ((texture(Texture0Texture, VARYING0 + f33) + texture(Texture0Texture, VARYING0 - f33)) * f32)) / vec4(((((((1.0 + (2.0 * f3)) + (2.0 * f8)) + (2.0 * f13)) + (2.0 * f18)) + (2.0 * f23)) + (2.0 * f28)) + (2.0 * f32));
+    float f0 = (2.0 * CB1[1].z) * CB1[1].z;
+    float f1 = exp((-4.0) / f0);
+    float f2 = exp((-1.0) / f0) + f1;
+    vec2 f3 = CB1[1].xy * (1.0 + (f1 / f2));
+    float f4 = exp((-16.0) / f0);
+    float f5 = exp((-9.0) / f0) + f4;
+    vec2 f6 = CB1[1].xy * (3.0 + (f4 / f5));
+    float f7 = exp((-36.0) / f0);
+    float f8 = exp((-25.0) / f0) + f7;
+    vec2 f9 = CB1[1].xy * (5.0 + (f7 / f8));
+    float f10 = exp((-64.0) / f0);
+    float f11 = exp((-49.0) / f0) + f10;
+    vec2 f12 = CB1[1].xy * (7.0 + (f10 / f11));
+    float f13 = exp((-100.0) / f0);
+    float f14 = exp((-81.0) / f0) + f13;
+    vec2 f15 = CB1[1].xy * (9.0 + (f13 / f14));
+    float f16 = exp((-144.0) / f0);
+    float f17 = exp((-121.0) / f0) + f16;
+    vec2 f18 = CB1[1].xy * (11.0 + (f16 / f17));
+    float f19 = exp((-196.0) / f0);
+    float f20 = exp((-169.0) / f0) + f19;
+    vec2 f21 = CB1[1].xy * (13.0 + (f19 / f20));
+    _entryPointOutput = (((((((texture(Texture0Texture, VARYING0) + ((texture(Texture0Texture, VARYING0 + f3) + texture(Texture0Texture, VARYING0 - f3)) * f2)) + ((texture(Texture0Texture, VARYING0 + f6) + texture(Texture0Texture, VARYING0 - f6)) * f5)) + ((texture(Texture0Texture, VARYING0 + f9) + texture(Texture0Texture, VARYING0 - f9)) * f8)) + ((texture(Texture0Texture, VARYING0 + f12) + texture(Texture0Texture, VARYING0 - f12)) * f11)) + ((texture(Texture0Texture, VARYING0 + f15) + texture(Texture0Texture, VARYING0 - f15)) * f14)) + ((texture(Texture0Texture, VARYING0 + f18) + texture(Texture0Texture, VARYING0 - f18)) * f17)) + ((texture(Texture0Texture, VARYING0 + f21) + texture(Texture0Texture, VARYING0 - f21)) * f20)) / vec4(((((((1.0 + (2.0 * f2)) + (2.0 * f5)) + (2.0 * f8)) + (2.0 * f11)) + (2.0 * f14)) + (2.0 * f17)) + (2.0 * f20));
 }
 
 //$$Texture0Texture=s0

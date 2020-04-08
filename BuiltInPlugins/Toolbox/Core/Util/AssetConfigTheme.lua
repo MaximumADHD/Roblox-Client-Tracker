@@ -2,8 +2,9 @@ local Plugin = script.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
 local Cryo = require(Libs.Cryo)
+local UILibrary = require(Libs.UILibrary)
 
-local createTheme = require(Libs.UILibrary.createTheme)
+local createTheme = UILibrary.createTheme
 
 local Util = Plugin.Core.Util
 local Colors = require(Util.Colors)

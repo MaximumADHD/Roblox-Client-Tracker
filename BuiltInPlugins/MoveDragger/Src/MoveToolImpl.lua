@@ -345,8 +345,8 @@ function MoveToolImpl:_mouseDragWithInverseKinematics(mouseRay, snappedDelta)
 
     local collisionsMode =
         areCollisionsEnabled() and
-        Enum.CollisionsMode.IncludeContactedMechanisms or
-        Enum.CollisionsMode.NoCollisions
+        Enum.IKCollisionsMode.IncludeContactedMechanisms or
+        Enum.IKCollisionsMode.NoCollisions
 
     local globalTransform = CFrame.new(self._axis * snappedDelta)
     local targetNewBoundingBox = globalTransform * self._boundingBox.CFrame

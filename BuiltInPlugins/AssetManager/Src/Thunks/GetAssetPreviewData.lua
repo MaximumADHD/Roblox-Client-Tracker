@@ -20,12 +20,24 @@ return function(apiImpl, assetIds)
             for _, assetData in ipairs(body.data) do
                 local assetId = assetData.id
                 local userId = assetData.creator.targetId
+
+                local assetName = assetData.name
+                local assetTypeId = assetData.typeId
+
+                if assetTypeId == Enum.AssetType.Image.Value and string.find(assetData.name, "Images/") then
+                    assetName = string.gsub(assetData.name, "Images/", "")
+                elseif assetTypeId == Enum.AssetType.MeshPart.Value and string.find(assetData.name, "Meshes/") then
+                    assetName = string.gsub(assetData.name, "Meshes/", "")
+                elseif assetTypeId == Enum.AssetType.Lua.Value and string.find(assetData.name, "Scripts/") then
+                    assetName = string.gsub(assetData.name, "Scripts/", "")
+                end
+
                 assetPreviewData[assetId] = {
                     Asset = {
                         Id = assetData.id,
                         Type = assetData.type,
-                        TypeId = assetData.typeId,
-                        Name = assetData.name,
+                        TypeId = assetTypeId,
+                        Name = assetName,
                         Description = assetData.description,
                         AssetGenres = assetData.genres,
                         Created = assetData.created,

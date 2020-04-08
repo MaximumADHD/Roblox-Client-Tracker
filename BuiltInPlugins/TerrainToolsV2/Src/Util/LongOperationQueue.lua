@@ -26,8 +26,8 @@
 ]]
 
 local Plugin = script.Parent.Parent.Parent
-local UILibrary = Plugin.Packages.UILibrary
-local Signal = require(UILibrary.Utils.Signal)
+local UILibrary = require(Plugin.Packages.UILibrary)
+local Signal = UILibrary.Util.Signal
 
 local quickWait = require(Plugin.Src.Util.quickWait)
 

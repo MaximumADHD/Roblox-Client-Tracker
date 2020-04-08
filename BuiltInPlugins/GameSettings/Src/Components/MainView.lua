@@ -10,7 +10,7 @@
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
-local Constants = require(Plugin.Src.Util.Constants)
+local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
 
 local MenuBar = require(Plugin.Src.Components.MenuBar)
@@ -55,7 +55,7 @@ function MainView:render(props)
 
 			Separator = Roact.createElement(Separator, {
 				Size = UDim2.new(0, 3, 1, 0),
-				Position = UDim2.new(0, Constants.MENU_BAR_WIDTH, 0, 0),
+				Position = UDim2.new(0, DEPRECATED_Constants.MENU_BAR_WIDTH, 0, 0),
 			}),
 
 			--Add the page we are currently on

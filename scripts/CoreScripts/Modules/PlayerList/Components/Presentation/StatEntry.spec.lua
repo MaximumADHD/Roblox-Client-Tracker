@@ -21,123 +21,69 @@ return function()
 		Font = AppFont,
 	}
 
-	local FFlagPlayerListDesignUpdate = settings():GetFFlag("PlayerListDesignUpdate")
+	it("should create and destroy without errors", function()
+		local layoutValues = CreateLayoutValues(false, false)
 
-	if FFlagPlayerListDesignUpdate then
-		it("should create and destroy without errors", function()
-			local layoutValues = CreateLayoutValues(false, false)
-
-			local element = Roact.createElement(LayoutValuesProvider, {
-				layoutValues = layoutValues
+		local element = Roact.createElement(LayoutValuesProvider, {
+			layoutValues = layoutValues
+		}, {
+			ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
+				style = appStyle,
 			}, {
-				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
-					style = appStyle,
-				}, {
-					StatEntry = Roact.createElement(StatEntry, {
-						statName = "Test Stat",
-						statValue = 50,
-						isTitleEntry = false,
-						isTeamEntry = false,
-						layoutOrder = 2,
+				StatEntry = Roact.createElement(StatEntry, {
+					statName = "Test Stat",
+					statValue = 50,
+					isTitleEntry = false,
+					isTeamEntry = false,
+					layoutOrder = 2,
 
-						backgroundStyle = {
-							Color = Color3.new(1, 1, 1),
-							Transparency = 1,
-						},
-						overlayStyle = {
-							Color = Color3.new(0.5, 0.5, 0.5),
-							Transparency = 0.5,
-						},
-						doubleOverlay = false,
-						textStyle = {
-							Color = Color3.new(1, 1, 1),
-							Transparency = 0,
-						},
-					})
+					backgroundStyle = {
+						Color = Color3.new(1, 1, 1),
+						Transparency = 1,
+					},
+					overlayStyle = {
+						Color = Color3.new(0.5, 0.5, 0.5),
+						Transparency = 0.5,
+					},
+					doubleOverlay = false,
+					textStyle = {
+						Color = Color3.new(1, 1, 1),
+						Transparency = 0,
+					},
 				})
 			})
-			local instance = Roact.mount(element)
-			Roact.unmount(instance)
-		end)
+		})
+		local instance = Roact.mount(element)
+		Roact.unmount(instance)
+	end)
 
-		it("should create and destroy without errors tenfoot", function()
-			local layoutValues = CreateLayoutValues(true, false)
+	it("should create and destroy without errors tenfoot", function()
+		local layoutValues = CreateLayoutValues(true, false)
 
-			local element = Roact.createElement(LayoutValuesProvider, {
-				layoutValues = layoutValues
+		local element = Roact.createElement(LayoutValuesProvider, {
+			layoutValues = layoutValues
+		}, {
+			ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
+				style = appStyle,
 			}, {
-				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
-					style = appStyle,
-				}, {
-					StatEntry = Roact.createElement(StatEntry, {
-						statName = "Test Stat",
-						statValue = 50,
-						isTitleEntry = true,
-						isTeamEntry = true,
-						layoutOrder = 2,
+				StatEntry = Roact.createElement(StatEntry, {
+					statName = "Test Stat",
+					statValue = 50,
+					isTitleEntry = true,
+					isTeamEntry = true,
+					layoutOrder = 2,
 
-						backgroundStyle = layoutValues.BackgroundStyle.Default,
-						overlayStyle = {
-							Color = Color3.new(1, 1, 1),
-							Transparency = 1,
-						},
-						doubleOverlay = false,
-						textStyle = layoutValues.DefaultTextStyle,
-					})
+					backgroundStyle = layoutValues.BackgroundStyle.Default,
+					overlayStyle = {
+						Color = Color3.new(1, 1, 1),
+						Transparency = 1,
+					},
+					doubleOverlay = false,
+					textStyle = layoutValues.DefaultTextStyle,
 				})
 			})
-			local instance = Roact.mount(element)
-			Roact.unmount(instance)
-		end)
-	else
-		it("should create and destroy without errors", function()
-			local layoutValues = CreateLayoutValues(false, false)
-
-			local element = Roact.createElement(LayoutValuesProvider, {
-				layoutValues = layoutValues
-			}, {
-				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
-					style = appStyle,
-				}, {
-					StatEntry = Roact.createElement(StatEntry, {
-						statName = "Test Stat",
-						statValue = 50,
-						isTitleEntry = false,
-						isTeamEntry = false,
-						layoutOrder = 2,
-
-						backgroundStyle = layoutValues.BackgroundStyle.Default,
-						textStyle = layoutValues.TextStyle.Default,
-					})
-				})
-			})
-			local instance = Roact.mount(element)
-			Roact.unmount(instance)
-		end)
-
-		it("should create and destroy without errors tenfoot", function()
-			local layoutValues = CreateLayoutValues(true, false)
-
-			local element = Roact.createElement(LayoutValuesProvider, {
-				layoutValues = layoutValues
-			}, {
-				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
-					style = appStyle,
-				}, {
-					StatEntry = Roact.createElement(StatEntry, {
-						statName = "Test Stat",
-						statValue = 50,
-						isTitleEntry = true,
-						isTeamEntry = true,
-						layoutOrder = 2,
-
-						backgroundStyle = layoutValues.BackgroundStyle.Default,
-						textStyle = layoutValues.TextStyle.Default,
-					})
-				})
-			})
-			local instance = Roact.mount(element)
-			Roact.unmount(instance)
-		end)
-	end
+		})
+		local instance = Roact.mount(element)
+		Roact.unmount(instance)
+	end)
 end

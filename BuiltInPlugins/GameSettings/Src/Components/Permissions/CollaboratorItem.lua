@@ -25,12 +25,13 @@ local DROPDOWN_WIDTH = 120
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
+local UILibrary = require(Plugin.UILibrary)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
 
-local DetailedDropdown = require(Plugin.UILibrary.Components.DetailedDropdown)
-local LoadingIndicator = require(Plugin.UILibrary.Components.LoadingIndicator)
+local DetailedDropdown = UILibrary.Component.DetailedDropdown
+local LoadingIndicator = UILibrary.Component.LoadingIndicator
 local CollaboratorThumbnail = require(Plugin.Src.Components.Permissions.CollaboratorThumbnail)
-local Button = require(Plugin.UILibrary.Components.Button)
+local Button = UILibrary.Component.Button
 
 local function DeleteButton(props)
 	return withTheme(function(theme)

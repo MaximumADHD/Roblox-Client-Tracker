@@ -11,7 +11,7 @@ return function()
 
         local element = Roact.createElement(MockServiceWrapper, {}, {
             AssetPreviewWrapper = Roact.createElement(AssetPreviewWrapper, {
-                AssetData = {
+                AssetPreviewData = {
 					Asset = {
 						Id = 1234,
 						Type = "Model",
@@ -30,6 +30,7 @@ return function()
                         TargetId = 9876543210,
                         Name = "helloworld",
 					},
+					rootTreeViewInstance = Instance.new("Model"),
 				},
                 OnAssetPreviewClose = function() end,
             })

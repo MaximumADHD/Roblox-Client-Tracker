@@ -14,7 +14,7 @@ struct Globals
     vec3 Lamp1Color;
     vec4 FogParams;
     vec4 FogColor_GlobalForceFieldTime;
-    vec3 Exposure;
+    vec4 Exposure_DoFDistance;
     vec4 LightConfig0;
     vec4 LightConfig1;
     vec4 LightConfig2;
@@ -131,7 +131,9 @@ void main()
     vec2 f40 = min(VARYING0.wz, VARYING1.wz);
     float f41 = min(f40.x, f40.y) / f1;
     vec3 f42 = mix(CB0[14].xyz, (sqrt(clamp((f39.xyz * clamp((clamp((f1 * CB0[24].x) + CB0[24].y, 0.0, 1.0) * (1.5 - f41)) + f41, 0.0, 1.0)).xyz * CB0[15].y, vec3(0.0), vec3(1.0))) + vec3((-0.00048828125) + (0.0009765625 * fract(52.98291778564453125 * fract(dot(gl_FragCoord.xy, vec2(0.067110560834407806396484375, 0.005837149918079376220703125))))))).xyz, vec3(clamp((CB0[13].x * length(VARYING4.xyz)) + CB0[13].y, 0.0, 1.0)));
-    gl_FragData[0] = vec4(f42.x, f42.y, f42.z, f39.w);
+    vec4 f43 = vec4(f42.x, f42.y, f42.z, f39.w);
+    f43.w = VARYING2.w;
+    gl_FragData[0] = f43;
 }
 
 //$$ShadowMapTexture=s1

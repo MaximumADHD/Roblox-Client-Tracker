@@ -14,6 +14,7 @@ local FFlagStudioGameSettingsRestrictPermissions = game:GetFastFlag("StudioGameS
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
+local UILibrary = require(Plugin.UILibrary)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
 local withLocalization = require(Plugin.Src.Consumers.withLocalization)
 
@@ -24,7 +25,7 @@ local CollaboratorItem = require(Plugin.Src.Components.Permissions.CollaboratorI
 local GroupCollaboratorItem = require(Plugin.Src.Components.Permissions.GroupCollaboratorItem)
 
 
-local createFitToContent = require(Plugin.UILibrary.Components.createFitToContent)
+local createFitToContent = UILibrary.Component.createFitToContent
 
 local FitToContent = createFitToContent("Frame", "UIListLayout", {
 	SortOrder = Enum.SortOrder.LayoutOrder,

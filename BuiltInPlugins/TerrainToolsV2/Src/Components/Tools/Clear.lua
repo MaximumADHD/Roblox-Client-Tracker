@@ -5,12 +5,12 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
+local UILibrary = require(Plugin.Packages.UILibrary)
 
 local Actions = Plugin.Src.Actions
 local ChangeTool = require(Actions.ChangeTool)
 
-local UILibrary = Plugin.Packages.UILibrary
-local Localizing = require(UILibrary.Localizing)
+local Localizing = UILibrary.Localizing
 local withLocalization = Localizing.withLocalization
 local Theme = require(Plugin.Src.ContextServices.Theming)
 local withTheme = Theme.withTheme
@@ -18,7 +18,7 @@ local withTheme = Theme.withTheme
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 local ToolId = TerrainEnums.ToolId
 
-local StyledDialog = require(UILibrary.Components.StyledDialog)
+local StyledDialog = UILibrary.Component.StyledDialog
 
 local TerrainInterface = require(Plugin.Src.ContextServices.TerrainInterface)
 

@@ -54,8 +54,6 @@ end
 
 local XPRIVILEGE_COMMUNICATION_VOICE_INGAME = 205
 
-local FFlagPlayerListDesignUpdate = settings():GetFFlag("PlayerListDesignUpdate")
-
 local isNewTopBarEnabled = require(RobloxGui.Modules.TopBar.isNewTopBarEnabled)
 
 local PlayerListMaster = {}
@@ -64,12 +62,10 @@ PlayerListMaster.__index = PlayerListMaster
 function PlayerListMaster.new()
 	local self = setmetatable({}, PlayerListMaster)
 
-	if FFlagPlayerListDesignUpdate then
-		Roact.setGlobalConfig({
-			propValidation = GlobalConfig.propValidation,
-			elementTracing = GlobalConfig.elementTracing,
-		})
-	end
+	Roact.setGlobalConfig({
+		propValidation = GlobalConfig.propValidation,
+		elementTracing = GlobalConfig.elementTracing,
+	})
 
 	self.store = Rodux.Store.new(Reducer, nil, {
 		Rodux.thunkMiddleware,

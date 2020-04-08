@@ -4,10 +4,13 @@
 	A collection of search tags, including a prompt and clear all button.
 
 	Props:
-		array Tags = An array of tag strings to display.
+		array Tags = An array of tags to display.
+			string Tags.prefix = the text re-appended before the text
+			string Tags.text = the main text to display
+			function Tags.onDelete(table tag) = A callback when the user wants to delete a tag.
 		function OnClearTags = A callback when the user wants to clear all tags.
-		function OnDeleteTag(string tag) = A callback when the user wants to delete a tag.
 ]]
+local FFlagEnableAudioPreview = settings():GetFFlag("EnableAudioPreview")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -26,14 +29,29 @@ local TEXT_PADDING = UDim.new(0, 3)
 local SearchTags = Roact.PureComponent:extend("SearchTags")
 
 function SearchTags:createTag(tag, index)
+	local name, prefix
+	if FFlagEnableAudioPreview then
+		name = tag.text
+		prefix = tag.prefix
+	else
+		name = tag
+	end
+
 	return Roact.createElement(SearchTag, {
-		Name = tag,
+		Name = name,
 		LayoutOrder = index,
 		onDelete = function()
-			if self.props.onDeleteTag then
-				self.props.onDeleteTag(tag)
+			if FFlagEnableAudioPreview then
+				if tag.onDelete then
+					tag.onDelete(tag)
+				end
+			else
+				if self.props.onDeleteTag then
+					self.props.onDeleteTag(tag)
+				end
 			end
 		end,
+		prefix = prefix,
 	})
 end
 

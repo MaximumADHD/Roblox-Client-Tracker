@@ -11,12 +11,12 @@
 		number currentSoundId
 		boolean isPlaying
 
-		callback onPreviewAudioButtonClicked()
 		callback tryOpenAssetConfig, invoke assetConfig page with an assetId.
 ]]
 
 local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
+local FFlagEnableAudioPreview = settings():GetFFlag("EnableAudioPreview")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -88,6 +88,10 @@ function AssetGridContainer:init(props)
 		self:setState({
 			previewAssetData = assetData,
 		})
+
+		if FFlagEnableAudioPreview and self.props.isPlaying then
+			self.props.pauseASound()
+		end
 	end
 
 	self.closeAssetPreview = function()
@@ -281,8 +285,6 @@ function AssetGridContainer:render()
 			local categoryIndex = props.categoryIndex
 			local isPackages = Category.categoryIsPackage(categoryIndex, categoryIsPackage)
 
-			local onPreviewAudioButtonClicked = self.onPreviewAudioButtonClicked
-
 			local hoveredAssetId = modalStatus:canHoverAsset() and state.hoveredAssetId or 0
 			local isShowingToolMessageBox = state.isShowingToolMessageBox
 
@@ -355,7 +357,7 @@ function AssetGridContainer:render()
 					onAssetHovered = self.onAssetHovered,
 					onAssetHoverEnded = self.onAssetHoverEnded,
 
-					onPreviewAudioButtonClicked = onPreviewAudioButtonClicked,
+					onPreviewAudioButtonClicked = self.onPreviewAudioButtonClicked,
 					onAssetPreviewButtonClicked = self.openAssetPreview,
 
 					onAssetInserted = self.onAssetInserted,

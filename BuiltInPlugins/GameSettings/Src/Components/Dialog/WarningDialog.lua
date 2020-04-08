@@ -12,7 +12,7 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
-local Constants = require(Plugin.Src.Util.Constants)
+local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 
 local BaseDialog = require(Plugin.Src.Components.Dialog.BaseDialog)
 
@@ -45,7 +45,7 @@ local function WarningDialog(props)
 			})),
 
 			Warning = Roact.createElement("ImageLabel", {
-				Image = Constants.WARNING_IMAGE,
+				Image = DEPRECATED_Constants.WARNING_IMAGE,
 				BackgroundTransparency = 1,
 				Size = UDim2.new(0, 16, 0, 16),
 				Position = UDim2.new(0, 30, 0, 68),

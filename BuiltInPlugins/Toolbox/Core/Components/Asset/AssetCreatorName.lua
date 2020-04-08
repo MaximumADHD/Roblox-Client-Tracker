@@ -72,9 +72,17 @@ function AssetCreatorName:init(props)
 	self.onActivated = function()
 		local props = self.props
 		if props.clickable then
-			local options = {
-				Creator = props.creatorName,
-			}
+			local options
+			if FFlagEnableAudioPreview then
+				options = {
+					Creator = props.creatorName,
+					AudioSearch = props.audioSearchInfo,
+				}
+			else
+				options = {
+					Creator = props.creatorName,
+				}
+			end
 			if FFlagStudioToolboxEnabledDevFramework then
 				local mySettings = self.props.Settings:get("Plugin")
 				props.searchWithOptions(networkInterface, mySettings, options)
@@ -153,6 +161,17 @@ if FFlagStudioToolboxEnabledDevFramework then
 	})
 end
 
+local mapStateToProps
+if FFlagEnableAudioPreview then
+	mapStateToProps = function(state, props)
+		state = state or {}
+		local pageInfo = state.pageInfo or {}
+		return {
+			audioSearchInfo = pageInfo.audioSearchInfo,
+		}
+	end
+end
+
 local function mapDispatchToProps(dispatch)
 	return {
 		searchWithOptions = function(networkInterface, settings, options)
@@ -161,4 +180,4 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-return RoactRodux.connect(nil, mapDispatchToProps)(AssetCreatorName)
+return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(AssetCreatorName)

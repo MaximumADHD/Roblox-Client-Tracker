@@ -14,11 +14,12 @@
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local RoactRodux = require(Plugin.RoactRodux)
+local UILibrary = require(Plugin.UILibrary)
 local Constants = require(Plugin.Src.Util.Constants)
 
 local Theme = require(Plugin.Src.Context.Theme)
 local ThemeProvider = Theme.Provider
-local Localizing = require(Plugin.UILibrary.Localizing)
+local Localizing = UILibrary.Localizing
 local LocalizationProvider = Localizing.Provider
 local UILibraryProvider = require(Plugin.Src.Context.UILibraryProvider)
 local StoreProvider = RoactRodux.StoreProvider

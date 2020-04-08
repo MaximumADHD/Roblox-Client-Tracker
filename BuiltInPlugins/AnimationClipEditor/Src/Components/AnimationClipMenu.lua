@@ -24,15 +24,16 @@
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local RoactRodux = require(Plugin.RoactRodux)
+local UILibrary = require(Plugin.UILibrary)
 local RigUtils = require(Plugin.Src.Util.RigUtils)
 
-local Localizing = require(Plugin.UILibrary.Localizing)
+local Localizing = UILibrary.Localizing
 local withLocalization = Localizing.withLocalization
 
 local PluginContext = require(Plugin.Src.Context.Plugin)
 local getPlugin = PluginContext.getPlugin
 
-local ContextMenus = require(Plugin.UILibrary.Studio.ContextMenus)
+local ContextMenus = UILibrary.Studio.ContextMenus
 local ContextMenu = ContextMenus.ContextMenu
 local Separator = ContextMenus.Separator
 

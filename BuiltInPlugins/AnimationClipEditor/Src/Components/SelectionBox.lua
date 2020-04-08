@@ -13,12 +13,12 @@
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
+local UILibrary = require(Plugin.UILibrary)
 
 local Theme = require(Plugin.Src.Context.Theme)
 local withTheme = Theme.withTheme
 
-local UILibrary = Plugin.UILibrary
-local DragTarget = require(UILibrary.Components.DragTarget)
+local DragTarget = UILibrary.Component.DragTarget
 
 local SelectionBox = Roact.PureComponent:extend("SelectionBox")
 

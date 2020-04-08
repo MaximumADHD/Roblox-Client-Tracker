@@ -30,7 +30,7 @@
 local Plugin = script.Parent.Parent.Parent
 local UILibrary = require(Plugin.Packages.UILibrary)
 local Roact = require(Plugin.Packages.Roact)
-local createFitToContent = require(Plugin.Packages.UILibrary.Components.createFitToContent)
+local createFitToContent = UILibrary.Component.createFitToContent
 
 local StyledScrollingFrame = UILibrary.Component.StyledScrollingFrame
 

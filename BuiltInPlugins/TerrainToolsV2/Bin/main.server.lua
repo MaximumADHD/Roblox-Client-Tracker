@@ -5,9 +5,7 @@ end
 -- Fast flags
 require(script.Parent.defineLuaFlags)
 local FFlagTerrainToolsConvertPartTool = game:GetFastFlag("TerrainToolsConvertPartTool")
-
--- services
-local Workspace = game:GetService("Workspace")
+local FFlagTerrainToolsTerrainBrushNotSingleton = game:GetFastFlag("TerrainToolsTerrainBrushNotSingleton")
 
 -- libraries
 local Plugin = script.Parent.Parent
@@ -16,12 +14,14 @@ local Rodux = require(Plugin.Packages.Rodux)
 local UILibrary = require(Plugin.Packages.UILibrary)
 local Manager = require(Plugin.Src.Components.Manager) -- top most ui component
 local PluginActivationController = require(Plugin.Src.Util.PluginActivationController)
-local TerrainBrush = require(Plugin.Src.TerrainInterfaces.TerrainBrushInstance)
+local TerrainBrush
+if not FFlagTerrainToolsTerrainBrushNotSingleton then
+	TerrainBrush = require(Plugin.Src.TerrainInterfaces.TerrainBrushInstance)
+end
 local ToolSelectionListener = require(Plugin.Src.Components.ToolSelectionListener)
 local TerrainImporter = require(Plugin.Src.TerrainInterfaces.TerrainImporterInstance)
 local TerrainGeneration = require(Plugin.Src.TerrainInterfaces.TerrainGenerationInstance)
 local TerrainSeaLevel = require(Plugin.Src.TerrainInterfaces.TerrainSeaLevel)
-
 local PartConverter
 if FFlagTerrainToolsConvertPartTool then
 	PartConverter = require(Plugin.Src.TerrainInterfaces.PartConverter)
@@ -66,10 +66,13 @@ local localization = Localization.new({
 
 local terrain = require(Plugin.Src.Util.getTerrain)()
 local pluginActivationController = PluginActivationController.new(plugin)
-local terrainBrush = TerrainBrush.new({
-	terrain = terrain,
-	mouse = plugin:GetMouse(),
-})
+local terrainBrush
+if not FFlagTerrainToolsTerrainBrushNotSingleton then
+	terrainBrush = TerrainBrush.new({
+		terrain = terrain,
+		mouse = plugin:GetMouse(),
+	})
+end
 local terrainImporter = TerrainImporter.new({
 	terrain = terrain,
 	localization = localization,
@@ -78,12 +81,10 @@ local terrainGeneration = TerrainGeneration.new({
 	terrain = terrain,
 	localization = localization,
 })
-
 local seaLevel = TerrainSeaLevel.new({
-		terrain = terrain,
-		localization = localization,
-	})
-
+	terrain = terrain,
+	localization = localization,
+})
 local partConverter
 if FFlagTerrainToolsConvertPartTool then
 	partConverter = PartConverter.new({
@@ -112,6 +113,7 @@ local function openPluginWindow()
 
 		terrain = terrain,
 		pluginActivationController = pluginActivationController,
+		-- TODO: Remove terrainBrush when removing FFlagTerrainToolsTerrainBrushNotSingleton
 		terrainBrush = terrainBrush,
 		terrainImporter = terrainImporter,
 		terrainGeneration = terrainGeneration,
@@ -165,9 +167,11 @@ local function onPluginUnloading()
 		pluginActivationController = nil
 	end
 
-	if terrainBrush then
-		terrainBrush:destroy()
-		terrainBrush = nil
+	if not FFlagTerrainToolsTerrainBrushNotSingleton then
+		if terrainBrush then
+			terrainBrush:destroy()
+			terrainBrush = nil
+		end
 	end
 
 	if terrainImporter then

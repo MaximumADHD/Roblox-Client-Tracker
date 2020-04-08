@@ -8,8 +8,6 @@ local ClosePlayerDropDown = require(Actions.ClosePlayerDropDown)
 local RemovePlayer = require(Actions.RemovePlayer)
 local SetPlayerListVisibility = require(Actions.SetPlayerListVisibility)
 
-local FFlagPlayerListDesignUpdate = settings():GetFFlag("PlayerListDesignUpdate")
-
 local defaultState = {
 	isVisible = false,
 	selectedPlayer = nil,
@@ -17,7 +15,7 @@ local defaultState = {
 
 local PlayerDropDown = Rodux.createReducer(defaultState, {
 	[SetPlayerListVisibility.name] = function(state, action)
-		if FFlagPlayerListDesignUpdate and not action.isVisible then
+		if not action.isVisible then
 			return {
 				isVisible = false,
 				selectedPlayer = state.selectedPlayer,

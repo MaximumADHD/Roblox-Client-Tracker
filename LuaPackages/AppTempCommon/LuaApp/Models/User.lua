@@ -44,6 +44,8 @@ function User.mock()
 	return self
 end
 
+-- Note: Going forward, leverage User.fromDataTable() instead.
+-- It accepts a more flexible parameter than User.fromData() and constructs the same User model
 function User.fromData(id, name, isFriend)
 	local self = User.new()
 
@@ -62,9 +64,25 @@ function User.fromData(id, name, isFriend)
 	self.thumbnails = nil
 	self.lastOnline = nil
 
-	if isDisplayNamesEnabled() then
-		self.displayName = "🦗" .. self.name
-	end
+	return self
+end
+
+function User.fromDataTable(data)
+	local self = User.new()
+
+	self.id = tostring(data.id)
+	self.isFriend = data.isFriend
+	self.presence = (self.id == tostring(Players.LocalPlayer.UserId)) and User.PresenceType.ONLINE or nil
+	self.isFetching = false
+	self.lastLocation = nil
+	self.name = data.name
+	self.displayName = data.displayName or data.name
+	self.universeId = nil
+	self.placeId = nil
+	self.rootPlaceId = nil
+	self.gameInstanceId = nil
+	self.thumbnails = nil
+	self.lastOnline = nil
 
 	return self
 end

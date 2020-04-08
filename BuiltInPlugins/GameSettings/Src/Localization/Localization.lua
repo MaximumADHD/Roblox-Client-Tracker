@@ -107,7 +107,8 @@ function Localization:recalculateContent()
 			Avatar = self:getText("Studio.GameSettings.General.CategoryAvatar"),
 			Options = self:getText("Studio.GameSettings.General.CategoryOptions"),
 			World = self:getText("Studio.GameSettings.General.CategoryWorld"),
-			["Access Permissions"] = self:getText("Studio.GameSettings.General.CategoryAccessPermissions")
+			["Access Permissions"] = self:getText("Studio.GameSettings.General.CategoryAccessPermissions"),
+			Localization = self:getText("Studio.GameSettings.General.CategoryLocalization"),
 		},
 
 		Footer = {
@@ -508,7 +509,29 @@ function Localization:recalculateContent()
 			MetersPerSecondSquared = self:getFormatTextFunc("Studio.GameSettings.General.UnitsMetersPerSecondSquared"),
 			Meters = self:getFormatTextFunc("Studio.GameSettings.General.UnitsMeters"),
 			MetersPerSecond = self:getFormatTextFunc("Studio.GameSettings.General.UnitsMetersPerSecond"),
-		} or nil
+		} or nil,
+
+		SourceLanguage = {
+			Title = self:getText("Studio.GameSettings.General.SourceLanguageTitle"),
+			Description = self:getText("Studio.GameSettings.General.SourceLanguageDesc")
+		},
+
+		AutoTextCapture = {
+			Title = self:getText("Studio.GameSettings.General.AutoTextCaptureTitle"),
+			Description = self:getText("Studio.GameSettings.General.AutoTextCaptureDesc"),
+		},
+
+		UseTranslatedContent = {
+			Title = self:getText("Studio.GameSettings.General.UseTranslatedContentTitle"),
+			Description = self:getText("Studio.GameSettings.General.UseTranslatedContentDesc"),
+		},
+
+		AutomaticTranslationTitle = self:getText("Studio.GameSettings.General.AutoTranslationTitle"),
+		AutoTranslationOnlyAvailableForEnMessage = self:getText("Studio.GameSettings.General.AutoTranslationOnlyAvailableForEnMessage"),
+		LocalizationSettingsLinkText = self:getText("Studio.GameSettings.General.LocalizationSettingsLinkText"),
+		LocalizationSettingsNonLinkText = self:getText("Studio.GameSettings.General.LocalizationSettingsNonLinkText"),
+		LocalizationSettingsPublishMessageLinkText = self:getText("Studio.GameSettings.General.LocalizationSettingsPublishMessageLinkText"),
+		LocalizationSettingsPublishMessageNonLinkText = self:getText("Studio.GameSettings.General.LocalizationSettingsPublishMessageNonLinkText"),
 	})
 end
 

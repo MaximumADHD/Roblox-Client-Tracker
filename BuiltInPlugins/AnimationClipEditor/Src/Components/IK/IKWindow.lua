@@ -29,15 +29,15 @@ local Plugin = script.Parent.Parent.Parent.Parent
 
 local Roact = require(Plugin.Roact)
 
-local UILibrary = Plugin.UILibrary
-local Button = require(UILibrary.Components.Button)
+local UILibrary = require(Plugin.UILibrary)
+local Button = UILibrary.Component.Button
 
 local DockWidget = require(Plugin.Src.Components.PluginWidget.DockWidget)
 
 local PluginContext = require(Plugin.Src.Context.Plugin)
 local getPlugin = PluginContext.getPlugin
 
-local Localizing = require(UILibrary.Localizing)
+local Localizing = UILibrary.Localizing
 local withLocalization = Localizing.withLocalization
 
 local Input = require(Plugin.Src.Util.Input)

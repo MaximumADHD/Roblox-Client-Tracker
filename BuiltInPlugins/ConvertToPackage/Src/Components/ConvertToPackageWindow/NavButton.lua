@@ -16,12 +16,13 @@ local Plugin = script.Parent.Parent.Parent.Parent
 
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
+local UILibrary = require(Packages.UILibrary)
 
 local Util = Plugin.Src.Util
 local Constants = require(Util.Constants)
 
 local withTheme = require(Plugin.Src.ContextServices.Theming).withTheme
-local RoundFrame = require(Packages.UILibrary.Components.RoundFrame)
+local RoundFrame = UILibrary.Component.RoundFrame
 
 local NavButton = Roact.Component:extend("NavButton")
 

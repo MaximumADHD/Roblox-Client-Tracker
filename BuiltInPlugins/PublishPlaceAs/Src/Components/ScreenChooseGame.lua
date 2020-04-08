@@ -153,6 +153,7 @@ function ScreenChooseGame:render()
 							self:setState({
 								selectedItem = item,
 							})
+							dispatchLoadExistingGames(item.Type, item.Key)
 						end
 					end
 				end

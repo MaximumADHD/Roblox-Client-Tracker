@@ -38,88 +38,46 @@ return function()
 		Font = AppFont,
 	}
 
-	local FFlagPlayerListDesignUpdate = settings():GetFFlag("PlayerListDesignUpdate")
-
-	if FFlagPlayerListDesignUpdate then
-		it("should create and destroy without errors", function()
-			local element = Roact.createElement(RoactRodux.StoreProvider, {
-				store = Rodux.Store.new(Reducer)
+	it("should create and destroy without errors", function()
+		local element = Roact.createElement(RoactRodux.StoreProvider, {
+			store = Rodux.Store.new(Reducer)
+		}, {
+			LayoutValuesProvider = Roact.createElement(LayoutValuesProvider, {
+				layoutValues = CreateLayoutValues(false, false)
 			}, {
-				LayoutValuesProvider = Roact.createElement(LayoutValuesProvider, {
-					layoutValues = CreateLayoutValues(false, false)
+				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
+					style = appStyle,
 				}, {
-					ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
-						style = appStyle,
-					}, {
-						PlayerScrollList = Roact.createElement(PlayerScrollList, {
-							screenSizeY = 1000,
-							entrySize = 200,
-						}),
-					})
+					PlayerScrollList = Roact.createElement(PlayerScrollList, {
+						screenSizeY = 1000,
+						entrySize = 200,
+					}),
 				})
 			})
+		})
 
-			local instance = Roact.mount(element)
-			Roact.unmount(instance)
-		end)
+		local instance = Roact.mount(element)
+		Roact.unmount(instance)
+	end)
 
-		it("should create and destroy without errors tenfoot", function()
-			local element = Roact.createElement(RoactRodux.StoreProvider, {
-				store = Rodux.Store.new(Reducer)
+	it("should create and destroy without errors tenfoot", function()
+		local element = Roact.createElement(RoactRodux.StoreProvider, {
+			store = Rodux.Store.new(Reducer)
+		}, {
+			LayoutValuesProvider = Roact.createElement(LayoutValuesProvider, {
+				layoutValues = CreateLayoutValues(true, false)
 			}, {
-				LayoutValuesProvider = Roact.createElement(LayoutValuesProvider, {
-					layoutValues = CreateLayoutValues(true, false)
+				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
+					style = appStyle,
 				}, {
-					ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
-						style = appStyle,
-					}, {
-						PlayerScrollList = Roact.createElement(PlayerScrollList, {
-							screenSizeY = 1000,
-						}),
-					})
+					PlayerScrollList = Roact.createElement(PlayerScrollList, {
+						screenSizeY = 1000,
+					}),
 				})
 			})
+		})
 
-			local instance = Roact.mount(element)
-			Roact.unmount(instance)
-		end)
-	else
-		it("should create and destroy without errors", function()
-			local element = Roact.createElement(RoactRodux.StoreProvider, {
-				store = Rodux.Store.new(Reducer)
-			}, {
-				LayoutValuesProvider = Roact.createElement(LayoutValuesProvider, {
-					layoutValues = CreateLayoutValues(false, false)
-				}, {
-					ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
-						style = appStyle,
-					}, {
-						PlayerScrollList = Roact.createElement(PlayerScrollList),
-					})
-				})
-			})
-
-			local instance = Roact.mount(element)
-			Roact.unmount(instance)
-		end)
-
-		it("should create and destroy without errors tenfoot", function()
-			local element = Roact.createElement(RoactRodux.StoreProvider, {
-				store = Rodux.Store.new(Reducer)
-			}, {
-				LayoutValuesProvider = Roact.createElement(LayoutValuesProvider, {
-					layoutValues = CreateLayoutValues(true, false)
-				}, {
-					ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
-						style = appStyle,
-					}, {
-						PlayerScrollList = Roact.createElement(PlayerScrollList),
-					})
-				})
-			})
-
-			local instance = Roact.mount(element)
-			Roact.unmount(instance)
-		end)
-	end
+		local instance = Roact.mount(element)
+		Roact.unmount(instance)
+	end)
 end

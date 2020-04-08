@@ -763,6 +763,7 @@ Class GameSettings : Instance [NotCreatable] [Settings] [NotBrowsable]
 	Property bool GameSettings.SoftwareSound
 	Property bool GameSettings.VideoCaptureEnabled
 	Property Enum<VideoQualitySettings> GameSettings.VideoQuality
+	Property bool GameSettings.VideoRecording {RobloxScriptSecurity} {✏️RobloxSecurity} [<📁> LoadOnly] [NotReplicated]
 	Event GameSettings.VideoRecordingChangeRequest(bool recording) {RobloxScriptSecurity}
 Class GamepadService : Instance [NotCreatable] [Service]
 Class Geometry : Instance [NotCreatable] [Service]
@@ -1425,6 +1426,8 @@ Class Motor : JointInstance
 	Property float Motor.MaxVelocity
 	Function void Motor:SetDesiredAngle(float value)
 Class Motor6D : Motor
+	Property string Motor6D.ChildName  [ReadOnly] [NotReplicated] [NotScriptable]
+	Property string Motor6D.ParentName  [ReadOnly] [NotReplicated] [NotScriptable]
 	Property CFrame Motor6D.Transform  [Hidden] [NotReplicated]
 Class Rotate : JointInstance
 Class Snap : JointInstance
@@ -1958,7 +1961,7 @@ Class WorldRoot : Model [NotCreatable]
 	Function Objects WorldRoot:FindPartsInRegion3(Region3 region, Instance ignoreDescendantsInstance = nil, int maxParts = 20)
 	Function Objects WorldRoot:FindPartsInRegion3WithIgnoreList(Region3 region, Objects ignoreDescendantsTable, int maxParts = 20)
 	Function Objects WorldRoot:FindPartsInRegion3WithWhiteList(Region3 region, Objects whitelistDescendantsTable, int maxParts = 20)
-	Function void WorldRoot:IkMoveTo(Instance part, CFrame target, float translateStiffness = 1, float rotateStiffness = 1, Enum<CollisionsMode> collisionsMode = "OtherMechanismsAnchored") {RobloxScriptSecurity}
+	Function void WorldRoot:IKMoveTo(Instance part, CFrame target, float translateStiffness = 0.5, float rotateStiffness = 0.5, Enum<IKCollisionsMode> collisionsMode = "OtherMechanismsAnchored") {PluginSecurity}
 	Function bool WorldRoot:IsRegion3Empty(Region3 region, Instance ignoreDescendentsInstance = nil)
 	Function bool WorldRoot:IsRegion3EmptyWithIgnoreList(Region3 region, Objects ignoreDescendentsTable)
 	Function RaycastResult WorldRoot:Raycast(Vector3 origin, Vector3 direction, RaycastParams raycastParams = RaycastParams.new())
@@ -2222,7 +2225,7 @@ Class Players : Instance [NotCreatable] [Service]
 	Function Tuple Players:GetUserThumbnailAsync(int64 userId, Enum<ThumbnailType> thumbnailType, Enum<ThumbnailSize> thumbnailSize) [Yields]
 	Function void Players:ReportAbuse(Instance player, string reason, string optionalMessage) {LocalUserSecurity}
 	Function void Players:SetChatStyle(Enum<ChatStyle> style = "Classic") {PluginSecurity}
-	Function void Players:SetLocalPlayerInfo(int64 userId, string userName, Enum<MembershipType> membershipType, bool isUnder13) {RobloxScriptSecurity}
+	Function void Players:SetLocalPlayerInfo(int64 userId, string userName, string displayName, Enum<MembershipType> membershipType, bool isUnder13) {RobloxScriptSecurity}
 	Function void Players:TeamChat(string message) {PluginSecurity}
 	Function void Players:WhisperChat(string message, Instance player) {LocalUserSecurity}
 	Function Instance Players:playerFromCharacter(Instance character) [Deprecated]
@@ -2349,6 +2352,11 @@ Class ColorCorrectionEffect : PostEffect
 	Property float ColorCorrectionEffect.Contrast
 	Property float ColorCorrectionEffect.Saturation
 	Property Color3 ColorCorrectionEffect.TintColor
+Class DepthOfFieldEffect : PostEffect
+	Property float DepthOfFieldEffect.FarIntensity
+	Property float DepthOfFieldEffect.FocusDistance
+	Property float DepthOfFieldEffect.InFocusRadius
+	Property float DepthOfFieldEffect.NearIntensity
 Class SunRaysEffect : PostEffect
 	Property float SunRaysEffect.Intensity
 	Property float SunRaysEffect.Spread
@@ -3559,10 +3567,6 @@ Enum CollisionFidelity
 	EnumItem CollisionFidelity.Hull : 1
 	EnumItem CollisionFidelity.Box : 2
 	EnumItem CollisionFidelity.PreciseConvexDecomposition : 3
-Enum CollisionsMode
-	EnumItem CollisionsMode.NoCollisions : 0
-	EnumItem CollisionsMode.OtherMechanismsAnchored : 1
-	EnumItem CollisionsMode.IncludeContactedMechanisms : 2
 Enum ComputerCameraMovementMode
 	EnumItem ComputerCameraMovementMode.Default : 0
 	EnumItem ComputerCameraMovementMode.Classic : 1
@@ -3963,6 +3967,10 @@ Enum HumanoidStateType
 	EnumItem HumanoidStateType.Dead : 15
 	EnumItem HumanoidStateType.Physics : 16
 	EnumItem HumanoidStateType.None : 18
+Enum IKCollisionsMode
+	EnumItem IKCollisionsMode.NoCollisions : 0
+	EnumItem IKCollisionsMode.OtherMechanismsAnchored : 1
+	EnumItem IKCollisionsMode.IncludeContactedMechanisms : 2
 Enum InOut
 	EnumItem InOut.Edge : 0
 	EnumItem InOut.Inset : 1

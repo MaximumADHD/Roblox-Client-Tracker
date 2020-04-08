@@ -8,7 +8,11 @@ local Cryo = InGameMenuDependencies.Cryo
 
 local InGameMenu = script.Parent.Parent.Parent
 
-local PlayerLabel = require(InGameMenu.Components.PlayerLabel)
+local getFFlagUseNewPlayerLabelDesign = require(InGameMenu.Flags.GetFFlagUseNewPlayerLabelDesign)
+local fflagUseNewPlayerLabelDesign = getFFlagUseNewPlayerLabelDesign()
+local PlayerLabel = fflagUseNewPlayerLabelDesign and require(InGameMenu.Components.PlayerLabelV2)
+	or require(InGameMenu.Components.PlayerLabel)
+
 local Divider = require(InGameMenu.Components.Divider)
 local SendInviteButton = require(script.Parent.SendInviteButton)
 local SearchBox = require(script.Parent.SearchBox)
@@ -19,8 +23,8 @@ local InviteStatus = Constants.InviteStatus
 
 local InviteUserToPlaceId = require(InGameMenu.Thunks.InviteUserToPlaceId)
 
-local DIVIDER_INDENT = 80
-local PLAYER_LABEL_HEIGHT = 70
+local DIVIDER_INDENT = fflagUseNewPlayerLabelDesign and 104 or 70
+local PLAYER_LABEL_HEIGHT = fflagUseNewPlayerLabelDesign and 71 or 70
 
 local SEARCHBOX_HEIGHT = 36
 local SEARCHBOX_TOP_PADDING = 8
@@ -34,7 +38,8 @@ InviteFriendsList.validateProps = t.strictInterface({
 	players = t.array(t.strictInterface({
 		IsOnline = t.boolean,
 		Id = t.integer,
-		Username = t.string
+		Username = t.string,
+		DisplayName = t.string,
 	})),
 	invitesState = t.table,
 	dispatchInviteUserToPlaceId = t.callback,
@@ -86,6 +91,7 @@ function InviteFriendsList:renderListEntries()
 
 		listComponents["friend_"..index] = Roact.createElement(PlayerLabel, {
 			username = playerInfo.Username,
+			displayName = fflagUseNewPlayerLabelDesign and playerInfo.DisplayName or nil,
 			userId = playerInfo.Id,
 			isOnline = playerInfo.IsOnline,
 			isSelected = false,

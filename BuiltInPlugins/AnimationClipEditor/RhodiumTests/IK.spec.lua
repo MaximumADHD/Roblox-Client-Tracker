@@ -1,6 +1,6 @@
 return function()
 	local Plugin = script.Parent.Parent
-	local UILibrary = Plugin.UILibrary
+	local UILibrary = require(Plugin.UILibrary)
 
 	local Workspace = game:GetService("Workspace")
 	local PhysicsService = game:GetService("PhysicsService")
@@ -22,7 +22,7 @@ return function()
 	local SetSelectedTracks = require(Plugin.Src.Actions.SetSelectedTracks)
 	local SetIKMode = require(Plugin.Src.Actions.SetIKMode)
 
-	local MathUtil = require(UILibrary.Utils.MathUtils)
+	local MathUtil = UILibrary.Util.MathUtils
 
 	local function setupInstance(store, instance)
 		expect(instance).to.be.ok()

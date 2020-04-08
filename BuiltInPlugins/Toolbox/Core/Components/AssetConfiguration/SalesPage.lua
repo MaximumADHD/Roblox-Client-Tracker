@@ -23,6 +23,7 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 local RoactRodux = require(Libs.RoactRodux)
+local UILibrary = require(Libs.UILibrary)
 
 local AssetConfiguration = Plugin.Core.Components.AssetConfiguration
 local SalesComponent = require(AssetConfiguration.SalesComponent)
@@ -30,8 +31,7 @@ local PriceComponent = require(AssetConfiguration.PriceComponent)
 
 local SetFieldError = require(Plugin.Core.Actions.SetFieldError)
 
-local UILibrary = Libs.UILibrary
-local Separator = require(UILibrary.Components.Separator)
+local Separator = UILibrary.Component.Separator
 
 local Util = Plugin.Core.Util
 local ContextHelper = require(Util.ContextHelper)

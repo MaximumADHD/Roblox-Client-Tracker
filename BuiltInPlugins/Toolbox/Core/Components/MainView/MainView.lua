@@ -27,6 +27,7 @@
 
 local FFlagFixToolboxEmptyRender = game:DefineFastFlag("FixToolboxEmptyRender", false)
 local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
+local FFlagEnableAudioPreview = settings():GetFFlag("EnableAudioPreview")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -136,13 +137,17 @@ function MainView:init(props)
 		end
 	end
 
-	self.onTagsCleared = function()
-		if FFlagStudioToolboxEnabledDevFramework then
-			settings = self.props.Settings:get("Plugin")
+	-- TODO: Remove self.onTagsCleared when FFlagEnableAudioPreview is on
+	self.onTagsCleared = nil
+	if not FFlagEnableAudioPreview then
+		self.onTagsCleared = function()
+			if FFlagStudioToolboxEnabledDevFramework then
+				settings = self.props.Settings:get("Plugin")
+			end
+			self.props.searchWithOptions(networkInterface, settings, {
+				Creator = "",
+			})
 		end
-		self.props.searchWithOptions(networkInterface, settings, {
-			Creator = "",
-		})
 	end
 end
 
@@ -217,6 +222,8 @@ function MainView:render()
 		local categoryIndex = props.categoryIndex or 0
 		local suggestions = localization:getLocalizedSuggestions(props.suggestions) or {}
 
+		local isCategoryAudio = Category.categoryIsAudio(props.currentTab, categoryIndex)
+
 		local isLoading = props.isLoading or false
 
 		local maxWidth = props.maxWidth or 0
@@ -247,7 +254,12 @@ function MainView:render()
 
 		local creatorName = props.creator and props.creator.Name
 		local searchTerm = props.searchTerm
-		local showTags = creatorName ~= nil or #searchTerm > 0
+		local showTags
+		if FFlagEnableAudioPreview then
+			showTags = (creatorName ~= nil) or (#searchTerm > 0) or (props.audioSearchInfo ~= nil)
+		else
+			showTags = (creatorName ~= nil) or (#searchTerm > 0)
+		end
 
 		local headerHeight, headerToBodyPadding = Layouter.calculateMainViewHeaderHeight(showTags,
 			suggestionIntro, suggestions, containerWidth, props.creator)
@@ -305,7 +317,7 @@ function MainView:render()
 				Header = Roact.createElement(MainViewHeader, {
 					suggestions = suggestions,
 					containerWidth = containerWidth,
-					creator = props.creator,
+					creator = (not FFlagEnableAudioPreview) and props.creator or nil,
 					showTags = showTags,
 					onTagsCleared = self.onTagsCleared,
 				}),
@@ -329,6 +341,7 @@ function MainView:render()
 				SortIndex = props.sortIndex,
 				updateSearch = self.updateSearch,
 				onClose = self.onSearchOptionsClosed,
+				showAudioSearch = FFlagEnableAudioPreview and isCategoryAudio or nil,
 			}),
 
 			InfoBanner = showInfoBanner and Roact.createElement(InfoBanner, {
@@ -379,6 +392,7 @@ local function mapStateToProps(state, props)
 
 		networkErrors = state.networkErrors or {},
 
+		audioSearchInfo = pageInfo.audioSearchInfo,
 		categoryIndex = pageInfo.categoryIndex or 1,
 		sortIndex = pageInfo.sortIndex or 1,
 		searchTerm = pageInfo.searchTerm or "",

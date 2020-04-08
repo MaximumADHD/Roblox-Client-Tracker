@@ -16,8 +16,6 @@ local Images = UIBlox.App.ImageSet.Images
 
 local PlayerList = script.Parent.Parent
 
-local FFlagPlayerListBetterGroupCheck = game:DefineFastFlag("PlayerListBetterGroupCheck", false)
-local FFlagUpdateLeaderboardIconPriority = game:GetFastFlag("UpdateLeaderboardIconPriority")
 local FFlagPlayerListFixLeaderboardDisabledError = game:DefineFastFlag("PlayerListFixLeaderboardDisabledError", false)
 local FFlagUseCanManageForDeveloperIconClient = game:GetFastFlag("UseCanManageForDeveloperIconClient")
 
@@ -60,31 +58,21 @@ local function dispatchIfPlayerExists(store, player, action)
 end
 
 local function getGroupsPermissionsInfo(store, player)
-	if FFlagUpdateLeaderboardIconPriority then
-		if FFlagPlayerListFixLeaderboardDisabledError then
-			if PlayerPermissionsModule.IsPlayerAdminAsync(player) then
-				dispatchIfPlayerExists(store, player, SetPlayerSpecialGroupIcon(player, SPECIAL_PLAYER_ICONS.Admin))
-			elseif PlayerPermissionsModule.IsPlayerStarAsync(player) then
-				dispatchIfPlayerExists(store, player, SetPlayerSpecialGroupIcon(player, SPECIAL_PLAYER_ICONS.Star))
-			elseif PlayerPermissionsModule.IsPlayerInternAsync(player) then
-				dispatchIfPlayerExists(store, player, SetPlayerSpecialGroupIcon(player, SPECIAL_PLAYER_ICONS.Intern))
-			end
-		else
-			if PlayerPermissionsModule.IsPlayerAdminAsync(player) then
-				store:dispatch(SetPlayerSpecialGroupIcon(player, SPECIAL_PLAYER_ICONS.Admin))
-			elseif PlayerPermissionsModule.IsPlayerStarAsync(player) then
-				store:dispatch(SetPlayerSpecialGroupIcon(player, SPECIAL_PLAYER_ICONS.Star))
-			elseif PlayerPermissionsModule.IsPlayerInternAsync(player) then
-				store:dispatch(SetPlayerSpecialGroupIcon(player, SPECIAL_PLAYER_ICONS.Intern))
-			end
+	if FFlagPlayerListFixLeaderboardDisabledError then
+		if PlayerPermissionsModule.IsPlayerAdminAsync(player) then
+			dispatchIfPlayerExists(store, player, SetPlayerSpecialGroupIcon(player, SPECIAL_PLAYER_ICONS.Admin))
+		elseif PlayerPermissionsModule.IsPlayerStarAsync(player) then
+			dispatchIfPlayerExists(store, player, SetPlayerSpecialGroupIcon(player, SPECIAL_PLAYER_ICONS.Star))
+		elseif PlayerPermissionsModule.IsPlayerInternAsync(player) then
+			dispatchIfPlayerExists(store, player, SetPlayerSpecialGroupIcon(player, SPECIAL_PLAYER_ICONS.Intern))
 		end
 	else
 		if PlayerPermissionsModule.IsPlayerAdminAsync(player) then
 			store:dispatch(SetPlayerSpecialGroupIcon(player, SPECIAL_PLAYER_ICONS.Admin))
-		elseif PlayerPermissionsModule.IsPlayerInternAsync(player) then
-			store:dispatch(SetPlayerSpecialGroupIcon(player, SPECIAL_PLAYER_ICONS.Intern))
 		elseif PlayerPermissionsModule.IsPlayerStarAsync(player) then
 			store:dispatch(SetPlayerSpecialGroupIcon(player, SPECIAL_PLAYER_ICONS.Star))
+		elseif PlayerPermissionsModule.IsPlayerInternAsync(player) then
+			store:dispatch(SetPlayerSpecialGroupIcon(player, SPECIAL_PLAYER_ICONS.Intern))
 		end
 	end
 end
@@ -94,27 +82,18 @@ local function getGameCreator(store, player)
 		return
 	end
 
-	if FFlagPlayerListBetterGroupCheck then
-		if FFlagPlayerListFixLeaderboardDisabledError then
-			if FFlagUseCanManageForDeveloperIconClient then
-				if PlayerPermissionsModule.CanPlayerManagePlaceAsync(player) then
-					dispatchIfPlayerExists(store, player, SetPlayerIsCreator(player, true))
-				end
-			else
-				if PlayerPermissionsModule.IsPlayerPlaceOwnerAsync(player) then
-					dispatchIfPlayerExists(store, player, SetPlayerIsCreator(player, true))
-				end
+	if FFlagPlayerListFixLeaderboardDisabledError then
+		if FFlagUseCanManageForDeveloperIconClient then
+			if PlayerPermissionsModule.CanPlayerManagePlaceAsync(player) then
+				dispatchIfPlayerExists(store, player, SetPlayerIsCreator(player, true))
 			end
 		else
 			if PlayerPermissionsModule.IsPlayerPlaceOwnerAsync(player) then
-				store:dispatch(SetPlayerIsCreator(player, true))
+				dispatchIfPlayerExists(store, player, SetPlayerIsCreator(player, true))
 			end
 		end
 	else
-		local success, result = pcall(function()
-			return player:GetRankInGroup(game.CreatorId) == 255
-		end)
-		if success and result then
+		if PlayerPermissionsModule.IsPlayerPlaceOwnerAsync(player) then
 			store:dispatch(SetPlayerIsCreator(player, true))
 		end
 	end

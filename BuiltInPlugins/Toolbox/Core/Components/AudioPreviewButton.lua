@@ -16,6 +16,7 @@ local Plugin = script.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
+local LoadingIndicator = require(Plugin.Core.Components.LoadingIndicator)
 
 local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 local Images = require(Plugin.Core.Util.Images)
@@ -26,21 +27,28 @@ local withTheme = ContextHelper.withTheme
 local AudioPreviewButton = Roact.PureComponent:extend("AudioPreviewButton")
 local FFlagEnableAudioPreview = settings():GetFFlag("EnableAudioPreview")
 
+local LOADING_HEIGHT = 10
+
 function AudioPreviewButton:init(props)
+	-- TODO: Remove state.isHovered when FFlagEnableAudioPreview is on
 	self.state = {
 		isHovered = false,
 	}
 
 	self.onMouseEnter = function()
-		self:setState({
-			isHovered = true,
-		})
+		if not FFlagEnableAudioPreview then
+			self:setState({
+				isHovered = true,
+			})
+		end
 	end
 
 	self.onMouseLeave = function()
-		self:setState({
-			isHovered = false,
-		})
+		if not FFlagEnableAudioPreview then
+			self:setState({
+				isHovered = false,
+			})
+		end
 	end
 end
 
@@ -54,19 +62,13 @@ function AudioPreviewButton:render()
 		local position = props.Position or UDim2.new(0, 0, 0, 0)
 		local size = props.Size or HOVERED_SIZE
 		if FFlagEnableAudioPreview then
-			if state.isHovered then
-				size = HOVERED_SIZE
-				-- With size changed from 28 into 32.
-				-- We need to offset the size with 2 pixel to make hover look good.
-				position = UDim2.new(1, 2, 1, 2)
-			else
-				size = UDim2.new(0, Constants.ASSET_PLAY_AUDIO_ICON_SIZE, 0, Constants.ASSET_PLAY_AUDIO_ICON_SIZE)
-				position = UDim2.new(1, 0, 1, 0)
-			end
+			size = UDim2.new(0, Constants.ASSET_PLAY_AUDIO_ICON_SIZE, 0, Constants.ASSET_PLAY_AUDIO_ICON_SIZE)
+			position = UDim2.new(1, 0, 1, 0)
 		end
 		local zIndex = props.ZIndex or 0
 
 		local assetId = props.assetId
+		local isLoading = props.isLoading
 
 		local currentSoundId = props.currentSoundId
 		local isPlaying = props.isPlaying
@@ -81,7 +83,7 @@ function AudioPreviewButton:render()
 		if FFlagEnableAudioPreview then
 			imagePauseAudio = Images.AUDIO_PREVIEW_PAUSE
 			imagePlayAudio = Images.AUDIO_PREVIEW_PLAY
-			image = showPauseIcon and (isHovered and imagePauseAudio) or imagePlayAudio
+			image = showPauseIcon and imagePauseAudio or imagePlayAudio
 		else
 			-- TODO: Remove me with FFlagEnableAudioPreview
 			imagePauseAudio = Images.PAUSE_AUDIO
@@ -93,22 +95,30 @@ function AudioPreviewButton:render()
 		end
 		local assetIconTheme = theme.asset.assetIcon
 
-		return Roact.createElement("ImageButton", {
-			AnchorPoint = FFlagEnableAudioPreview and Vector2.new(1, 1) or nil,
-			Position = position,
-			Size = size,
-			ZIndex = zIndex,
+		if FFlagEnableAudioPreview and isLoading then
+			return Roact.createElement(LoadingIndicator, {
+				AnchorPoint = Vector2.new(1, 1),
+				Position = UDim2.new(position.X, UDim.new(position.Y.Scale, position.Y.Offset - LOADING_HEIGHT/2)),
+				Size = UDim2.new(size.X, UDim.new(0, LOADING_HEIGHT)),
+			})
+		else
+			return Roact.createElement("ImageButton", {
+				AnchorPoint = FFlagEnableAudioPreview and Vector2.new(1, 1) or nil,
+				Position = position,
+				Size = size,
+				ZIndex = zIndex,
 
-			Image = image,
-			ImageColor3 = FFlagEnableAudioPreview and assetIconTheme.buttonColor or nil,
-			BackgroundTransparency = 1,
+				Image = image,
+				ImageColor3 = FFlagEnableAudioPreview and assetIconTheme.buttonColor or nil,
+				BackgroundTransparency = 1,
 
-			[Roact.Event.MouseEnter] = self.onMouseEnter,
-			[Roact.Event.MouseLeave] = self.onMouseLeave,
-			[Roact.Event.MouseButton1Click] = function(rbx)
-				props.onClick(assetId)
-			end,
-		})
+				[Roact.Event.MouseEnter] = self.onMouseEnter,
+				[Roact.Event.MouseLeave] = self.onMouseLeave,
+				[Roact.Event.MouseButton1Click] = function(rbx)
+					props.onClick(assetId)
+				end,
+			})
+		end
 	end)
 end
 

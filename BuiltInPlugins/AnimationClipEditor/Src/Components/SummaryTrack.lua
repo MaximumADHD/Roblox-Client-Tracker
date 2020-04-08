@@ -28,12 +28,13 @@
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
+local UILibrary = require(Plugin.UILibrary)
 
 local BaseTrack = require(Plugin.Src.Components.BaseTrack)
 
 local Constants = require(Plugin.Src.Util.Constants)
 local TrackUtils = require(Plugin.Src.Util.TrackUtils)
-local Keyframe = require(Plugin.UILibrary.Components.Timeline.Keyframe)
+local Keyframe = UILibrary.Component.Keyframe
 local KeyframeCluster = require(Plugin.Src.Components.KeyframeCluster)
 local Tooltip = require(Plugin.Src.Components.Tooltip)
 

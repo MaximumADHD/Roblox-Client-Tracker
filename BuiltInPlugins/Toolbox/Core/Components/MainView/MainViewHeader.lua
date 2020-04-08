@@ -10,14 +10,21 @@ local ContextGetter = require(Plugin.Core.Util.ContextGetter)
 local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 local PageInfoHelper = require(Plugin.Core.Util.PageInfoHelper)
+local getTimeString = require(Plugin.Core.Util.getTimeString)
+local Settings = require(Plugin.Core.ContextServices.Settings)
+
+local ContextServices = require(Libs.Framework.ContextServices)
+local Cryo = require(Libs.Cryo)
 
 local getNetwork = ContextGetter.getNetwork
 local getSettings = ContextGetter.getSettings
 local withLocalization = ContextHelper.withLocalization
 
 local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
+local FFlagEnableAudioPreview = game:GetFastFlag("EnableAudioPreview")
 
 local RequestSearchRequest = require(Plugin.Core.Networking.Requests.RequestSearchRequest)
+local SearchWithOptions = require(Plugin.Core.Networking.Requests.SearchWithOptions)
 
 local MainViewHeader = Roact.PureComponent:extend("MainViewHeader")
 
@@ -54,9 +61,53 @@ function MainViewHeader:init()
 	end
 
 	self.onTagsCleared = function()
-		if self.props.onTagsCleared then
-			self.props.onTagsCleared()
+		if FFlagEnableAudioPreview then
+			local settings
+			if FFlagStudioToolboxEnabledDevFramework then
+				settings = self.props.Settings:get("Plugin")
+			else
+				settings = getSettings(self)
+			end
+
+			self.props.searchWithOptions(networkInterface, settings, {
+				Creator = "",
+				AudioSearch = Cryo.None,
+			})
+		else
+			if self.props.onTagsCleared then
+				self.props.onTagsCleared()
+			end
 		end
+	end
+
+	self.onCreatorCleared = function()
+		local settings
+		if FFlagStudioToolboxEnabledDevFramework then
+			settings = self.props.Settings:get("Plugin")
+		else
+			settings = getSettings(self)
+		end
+
+		self.props.searchWithOptions(networkInterface, settings, {
+			Creator = "",
+			AudioSearch = self.props.audioSearchInfo,
+		})
+	end
+
+	self.onAudioSearchCleared = function()
+		local settings
+		if FFlagStudioToolboxEnabledDevFramework then
+			settings = self.props.Settings:get("Plugin")
+		else
+			settings = getSettings(self)
+		end
+
+		local creator = self.props.creator
+		local options = {
+			Creator = creator and creator.Name or "",
+			AudioSearch = Cryo.None,
+		}
+		self.props.searchWithOptions(networkInterface, settings, options)
 	end
 end
 
@@ -65,7 +116,18 @@ function MainViewHeader:render()
 		local props = self.props
 
 		local searchTerm = props.searchTerm or ""
-		local creatorName = props.creator and props.creator.Name
+		local creatorName
+		if FFlagEnableAudioPreview then
+			creatorName = props.creatorFilter.Name
+		else
+			creatorName = props.creator and props.creator.Name
+		end
+
+		local audioTime
+		local audioSearchInfo = props.audioSearchInfo
+		if audioSearchInfo and audioSearchInfo.maxDuration and audioSearchInfo.minDuration then
+			audioTime = (getTimeString(audioSearchInfo.minDuration, nil) .. " - " .. getTimeString(audioSearchInfo.maxDuration, nil))
+		end
 
 		local containerWidth = props.containerWidth or 0
 
@@ -77,10 +139,40 @@ function MainViewHeader:render()
 		if showTags then
 			headerHeight = headerHeight + Constants.SEARCH_TAGS_HEIGHT
 
+			local byPrefix
+			local lengthPrefix
+			if FFlagStudioToolboxEnabledDevFramework then
+				byPrefix = self.props.Localization:getText("General", "SearchTagCreator")
+				lengthPrefix = self.props.Localization:getText("General", "SearchTagLength")
+			else
+				byPrefix = localizedContent.SearchTags.Creator
+				lengthPrefix = localizedContent.SearchTags.Length
+			end
+
+			local tagsList = {}
+			if FFlagEnableAudioPreview then
+				if creatorName then
+					table.insert(tagsList, {
+						prefix = byPrefix,
+						text = creatorName,
+						onDelete = self.onCreatorCleared,
+					})
+				end
+				if audioTime then
+					table.insert(tagsList, {
+						prefix = lengthPrefix,
+						text = audioTime,
+						onDelete = self.onAudioSearchCleared,
+					})
+				end
+			else
+				tagsList = { creatorName }
+			end
+
 			headerChildren.SearchTags = Roact.createElement(SearchTags, {
-				Tags = {creatorName},
+				Tags = tagsList,
 				onClearTags = self.onTagsCleared,
-				onDeleteTag = self.onTagsCleared,
+				onDeleteTag = ((not FFlagEnableAudioPreview) and self.onTagsCleared) or nil,
 				searchTerm = searchTerm,
 			})
 		end
@@ -98,12 +190,21 @@ function MainViewHeader:render()
 	end)
 end
 
+if FFlagStudioToolboxEnabledDevFramework then
+	ContextServices.mapToProps(MainViewHeader, {
+		Localization = ContextServices.Localization,
+		Settings = Settings,
+	})
+end
+
 local function mapStateToProps(state, props)
 	state = state or {}
 
 	local pageInfo = state.pageInfo or {}
 
 	return {
+		audioSearchInfo = pageInfo.audioSearchInfo,
+		creator = pageInfo.creator,
 		categories = pageInfo.categories or {},
 		categoryIndex = pageInfo.categoryIndex or 1,
 
@@ -116,6 +217,10 @@ local function mapDispatchToProps(dispatch)
 	return {
 		requestSearch = function(networkInterface, settings, searchTerm)
 			dispatch(RequestSearchRequest(networkInterface, settings, searchTerm))
+		end,
+
+		searchWithOptions = function(networkInterface, settings, options)
+			dispatch(SearchWithOptions(networkInterface, settings, options))
 		end,
 	}
 end

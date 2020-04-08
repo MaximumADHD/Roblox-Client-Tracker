@@ -72,6 +72,7 @@ local withTheme = Theming.withTheme
 local AssetType = require(Library.Components.Preview.AssetType)
 
 local FFlagStudioFixAssetPreviewTreeView = settings():GetFFlag("StudioFixAssetPreviewTreeView")
+local FFlagStudioFixAssetPreviewCloseButton = settings():GetFFlag("StudioFixAssetPreviewCloseButton")
 
 local AssetPreview = Roact.PureComponent:extend("AssetPreview")
 
@@ -277,6 +278,8 @@ function AssetPreview:render()
 
 		local layoutIndex = LayoutOrderIterator.new()
 
+		local closeImageSize = FFlagStudioFixAssetPreviewCloseButton and UDim2.new(0, 28, 0, 28) or UDim2.new(0, 20, 0, 20)
+
 		return Roact.createElement("ImageButton", {
 			Position = position,
 			Size = assetSize,
@@ -293,7 +296,7 @@ function AssetPreview:render()
 		},{
 			CloseImage = Roact.createElement("ImageLabel", {
 				Position = UDim2.new(1, 0, 0, 0),
-				Size = UDim2.new(0, 20, 0, 20),
+				Size = closeImageSize,
 				AnchorPoint = Vector2.new(0, 1),
 
 				Image = assetPreviewTheme.images.deleteButton,

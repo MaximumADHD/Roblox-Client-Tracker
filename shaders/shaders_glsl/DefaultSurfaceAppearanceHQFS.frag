@@ -14,7 +14,7 @@ struct Globals
     vec3 Lamp1Color;
     vec4 FogParams;
     vec4 FogColor_GlobalForceFieldTime;
-    vec3 Exposure;
+    vec4 Exposure_DoFDistance;
     vec4 LightConfig0;
     vec4 LightConfig1;
     vec4 LightConfig2;
@@ -112,12 +112,15 @@ void main()
     float f38 = (((f31 * f37) - f31) * f31) + 1.0;
     float f39 = 1.0 - f25;
     vec3 f40 = (((((((vec3(f39) - (f36 * (f23 * f39))) * CB0[10].xyz) * f29) + (CB0[12].xyz * (f39 * clamp(-f28, 0.0, 1.0)))) * f21) + min((f18.xyz * (f18.w * 120.0)).xyz + (CB0[8].xyz + (CB0[9].xyz * f19.x)), vec3(CB0[16].w))) * f22) + (((f36 * (((f37 + (f37 * f37)) / (((f38 * f38) * ((f32 * 3.0) + 0.5)) * ((f31 * 0.75) + 0.25))) * f29)) * CB0[10].xyz) * f21);
-    vec4 f41 = vec4(f40.x, f40.y, f40.z, vec4(0.0).w);
-    f41.w = f7.w;
-    vec2 f42 = min(VARYING0.wz, VARYING1.wz);
-    float f43 = min(f42.x, f42.y) / f0;
-    vec3 f44 = mix(CB0[14].xyz, (sqrt(clamp((f41.xyz * clamp((clamp((f0 * CB0[24].x) + CB0[24].y, 0.0, 1.0) * (1.5 - f43)) + f43, 0.0, 1.0)).xyz * CB0[15].y, vec3(0.0), vec3(1.0))) + vec3((-0.00048828125) + (0.0009765625 * fract(52.98291778564453125 * fract(dot(gl_FragCoord.xy, vec2(0.067110560834407806396484375, 0.005837149918079376220703125))))))).xyz, vec3(clamp((CB0[13].x * length(VARYING4.xyz)) + CB0[13].y, 0.0, 1.0)));
-    gl_FragData[0] = vec4(f44.x, f44.y, f44.z, f41.w);
+    float f41 = f7.w;
+    vec4 f42 = vec4(f40.x, f40.y, f40.z, vec4(0.0).w);
+    f42.w = f41;
+    vec2 f43 = min(VARYING0.wz, VARYING1.wz);
+    float f44 = min(f43.x, f43.y) / f0;
+    vec3 f45 = mix(CB0[14].xyz, (sqrt(clamp((f42.xyz * clamp((clamp((f0 * CB0[24].x) + CB0[24].y, 0.0, 1.0) * (1.5 - f44)) + f44, 0.0, 1.0)).xyz * CB0[15].y, vec3(0.0), vec3(1.0))) + vec3((-0.00048828125) + (0.0009765625 * fract(52.98291778564453125 * fract(dot(gl_FragCoord.xy, vec2(0.067110560834407806396484375, 0.005837149918079376220703125))))))).xyz, vec3(clamp((CB0[13].x * length(VARYING4.xyz)) + CB0[13].y, 0.0, 1.0)));
+    vec4 f46 = vec4(f45.x, f45.y, f45.z, f42.w);
+    f46.w = f41;
+    gl_FragData[0] = f46;
 }
 
 //$$ShadowMapTexture=s1

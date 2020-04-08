@@ -1,8 +1,8 @@
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
+local UILibrary = require(Plugin.Packages.UILibrary)
 
-local UILibrary = Plugin.Packages.UILibrary
-local RoundTextButton = require(UILibrary.Components.RoundTextButton)
+local RoundTextButton = UILibrary.Component.RoundTextButton
 local Theme = require(Plugin.Src.ContextServices.Theming)
 local withTheme = Theme.withTheme
 

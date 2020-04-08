@@ -32,7 +32,7 @@ local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 
 local UILibrary = require(Libs.UILibrary)
-local DetailedDropdown = require(Plugin.Libs.UILibrary.Components.DetailedDropdown)
+local DetailedDropdown = UILibrary.Component.DetailedDropdown
 local LoadingIndicator = UILibrary.Component.LoadingIndicator
 local Button = UILibrary.Component.Button
 

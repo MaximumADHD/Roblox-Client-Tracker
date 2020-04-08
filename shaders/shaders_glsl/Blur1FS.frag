@@ -19,12 +19,11 @@ varying vec2 VARYING0;
 
 void main()
 {
-    float f0 = 1.0 / ((2.0 * CB1[1].z) * CB1[1].z);
-    float f1 = float((2 * 0) + 1);
-    float f2 = exp((((-1.0) - f1) * (f1 + 1.0)) * f0);
-    float f3 = exp(((-f1) * f1) * f0) + f2;
-    vec2 f4 = CB1[1].xy * (f1 + (f2 / f3));
-    gl_FragData[0] = (texture2D(Texture0Texture, VARYING0) + ((texture2D(Texture0Texture, VARYING0 + f4) + texture2D(Texture0Texture, VARYING0 - f4)) * f3)) / vec4(1.0 + (2.0 * f3));
+    float f0 = (2.0 * CB1[1].z) * CB1[1].z;
+    float f1 = exp((-4.0) / f0);
+    float f2 = exp((-1.0) / f0) + f1;
+    vec2 f3 = CB1[1].xy * (1.0 + (f1 / f2));
+    gl_FragData[0] = (texture2D(Texture0Texture, VARYING0) + ((texture2D(Texture0Texture, VARYING0 + f3) + texture2D(Texture0Texture, VARYING0 - f3)) * f2)) / vec4(1.0 + (2.0 * f2));
 }
 
 //$$Texture0Texture=s0

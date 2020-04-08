@@ -22,11 +22,14 @@ local PREVIEW_TITLE_HEIGHT = 24
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Packages = Plugin.Packages
+local Util = Plugin.Src.Util
+
 local Roact = require(Packages.Roact)
 local RoactRodux = require(Packages.RoactRodux)
-local RoundFrame = require(Packages.UILibrary.Components.RoundFrame)
-local Util = Plugin.Src.Util
+local UILibrary = require(Packages.UILibrary)
+
 local Constants = require(Util.Constants)
+local RoundFrame = UILibrary.Component.RoundFrame
 
 local withTheme = require(Plugin.Src.ContextServices.Theming).withTheme
 

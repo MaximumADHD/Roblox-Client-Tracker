@@ -55,11 +55,9 @@ return function(contextItemsList, children)
 	table.insert(contextItems, localization)
 
 	-- Mouse
-	local mouse = ContextServices.Mouse.new(function()
-		return {
-			Icon = "rbxasset://SystemCursors/Arrow",
-		}
-	end)
+	local mouse = ContextServices.Mouse.new({
+		Icon = "rbxasset://SystemCursors/Arrow",
+	})
 	table.insert(contextItems, mouse)
 
 	-- Plugin

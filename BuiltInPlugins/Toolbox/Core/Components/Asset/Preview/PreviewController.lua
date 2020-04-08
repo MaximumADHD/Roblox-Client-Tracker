@@ -3,6 +3,7 @@
 	MainView can be modelPreview, soundPreview, scriptPreview, imagePreview and otherPreview.
 ]]
 local FFlagStudioRefactorAssetPreview = settings():GetFFlag("StudioRefactorAssetPreview")
+local FFlagStudioFixUILibraryRequireForPreviewInToolbox = game:DefineFastFlag("StudioFixUILibraryRequireForPreviewInToolbox", false)
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
@@ -14,7 +15,13 @@ local ModelPreview = UILibrary.Component.ModelPreview
 local ImagePreview = UILibrary.Component.ImagePreview
 local ThumbnailIconPreview = UILibrary.Component.ThumbnailIconPreview
 local TreeViewButton =  UILibrary.Component.TreeViewButton
-local PreviewLoading = UILibrary.Component.PreviewLoading
+local PreviewLoading
+
+if FFlagStudioFixUILibraryRequireForPreviewInToolbox then
+	PreviewLoading = UILibrary.Component.LoadingIndicator
+else
+	PreviewLoading = UILibrary.Component.PreviewLoading
+end
 
 -- mwang, 1/16/2020, remove with FFlagStudioRefactorAssetPreview
 local Preview = Plugin.Core.Components.Asset.Preview
@@ -176,6 +183,16 @@ function PreviewController:render()
 
 	local THUMBNAIL_HEIGHT = PREVIEW_HEIGHT < MODAL_MIN_WIDTH and PREVIEW_HEIGHT or MODAL_MIN_WIDTH
 
+	local previewLoading
+	if FFlagStudioFixUILibraryRequireForPreviewInToolbox then
+		previewLoading = FFlagStudioRefactorAssetPreview and AssetType:isLoading(assetPreviewType) and Roact.createElement(PreviewLoading, {
+			AnchorPoint = Vector2.new(0.5, 0.5),
+			Position = UDim2.new(0.5, 0, 0.5, 0),
+		})
+	else
+		previewLoading = FFlagStudioRefactorAssetPreview and AssetType:isLoading(assetPreviewType) and Roact.createElement(PreviewLoading)
+	end
+
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(1, width, 0, height),
 
@@ -201,7 +218,7 @@ function PreviewController:render()
 		}, {
 			DEPRECATED_PreviewLoading = not FFlagStudioRefactorAssetPreview and AssetType:isLoading(assetPreviewType) and Roact.createElement(DEPRECATED_PreviewLoading),
 
-			PreviewLoading = FFlagStudioRefactorAssetPreview and AssetType:isLoading(assetPreviewType) and Roact.createElement(PreviewLoading),
+			PreviewLoading = previewLoading,
 
 			DEPRECATED_ModelPreview = not FFlagStudioRefactorAssetPreview and AssetType:isModel(assetPreviewType) and Roact.createElement(DEPRECATED_ModelPreview, {
 				currentPreview = currentPreview,

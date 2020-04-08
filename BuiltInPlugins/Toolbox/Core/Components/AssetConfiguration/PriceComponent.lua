@@ -21,10 +21,10 @@ local Plugin = script.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
+local UILibrary = require(Libs.UILibrary)
 
-local UILibrary = Libs.UILibrary
-local RoundTextBox = require(UILibrary.Components.RoundTextBox)
-local TitledFrame = require(UILibrary.Components.TitledFrame)
+local RoundTextBox = UILibrary.Component.RoundTextBox
+local TitledFrame = UILibrary.Component.TitledFrame
 
 local Util = Plugin.Core.Util
 local ContextHelper = require(Util.ContextHelper)

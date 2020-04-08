@@ -20,14 +20,14 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 local RoactRodux = require(Libs.RoactRodux)
+local UILibrary = require(Libs.UILibrary)
 
 local Util = Plugin.Core.Util
 local ContextHelper = require(Util.ContextHelper)
 local Constants = require(Util.Constants)
 local ScreenSetup = require(Util.ScreenSetup)
 
-local UILibrary = Libs.UILibrary
-local RoundTextButton = require(UILibrary.Components.RoundTextButton)
+local RoundTextButton = UILibrary.Component.RoundTextButton
 
 local ConfigTypes = require(Plugin.Core.Types.ConfigTypes)
 
@@ -41,6 +41,8 @@ local AssetConfiguration = Plugin.Core.Components.AssetConfiguration
 local LinkButton = require(AssetConfiguration.LinkButton)
 
 local AssetConfigFooter = Roact.PureComponent:extend("AssetConfigFooter")
+
+local FFlagEnableOverrideAssetCursorFix = game:GetFastFlag("EnableOverrideAssetCursorFix")
 
 local BUTTON_HEIGHT = 32
 local BUTTON_WIDTH = 120
@@ -71,11 +73,21 @@ function AssetConfigFooter:render()
 			local canSave = props.CanSave
 			local screenFlowType = props.screenFlowType
 			local assetTypeEnum = props.assetTypeEnum
+			local currentTab = props.currentTab
 
 			local showOverride = ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_OVERRIDE_BUTTON)
-			local overrideText = localizedContent.AssetConfig.Footer.Override
-			if ConfigTypes:isOverride(props.CurrentTab) then
-				overrideText = localizedContent.AssetConfig.Footer.NewAsset
+			local overrideText = nil
+			if FFlagEnableOverrideAssetCursorFix then
+				if ConfigTypes:isOverride(currentTab) then
+					overrideText = localizedContent.AssetConfig.Footer.Override
+				else
+					overrideText = localizedContent.AssetConfig.Footer.NewAsset
+				end
+			else
+				overrideText = localizedContent.AssetConfig.Footer.Override
+				if ConfigTypes:isOverride(currentTab) then
+					overrideText = localizedContent.AssetConfig.Footer.NewAsset
+				end
 			end
 
 			return Roact.createElement("Frame", {

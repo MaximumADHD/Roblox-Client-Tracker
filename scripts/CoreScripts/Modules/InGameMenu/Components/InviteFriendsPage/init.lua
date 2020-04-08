@@ -118,6 +118,7 @@ function InviteFriendsPage:loadFriends()
 						IsOnline = item.IsOnline,
 						Id = item.Id,
 						Username = item.Username,
+						DisplayName = item.DisplayName,
 					}
 				end
 

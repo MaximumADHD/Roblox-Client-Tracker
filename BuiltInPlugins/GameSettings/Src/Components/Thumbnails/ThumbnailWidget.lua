@@ -25,15 +25,16 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
-local Constants = require(Plugin.Src.Util.Constants)
+local UILibrary = require(Plugin.UILibrary)
+local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
 local withLocalization = require(Plugin.Src.Consumers.withLocalization)
 local getMouse = require(Plugin.Src.Consumers.getMouse)
 
 local ThumbnailSet = require(Plugin.Src.Components.Thumbnails.ThumbnailSet)
 local DragGhostThumbnail = require(Plugin.Src.Components.Thumbnails.DragGhostThumbnail)
-local BulletPoint = require(Plugin.UILibrary.Components.BulletPoint)
-local createFitToContent = require(Plugin.UILibrary.Components.createFitToContent)
+local BulletPoint = UILibrary.Component.BulletPoint
+local createFitToContent = UILibrary.Component.createFitToContent
 
 local ThumbnailWidget = Roact.PureComponent:extend("ThumbnailWidget")
 
@@ -52,8 +53,8 @@ function ThumbnailWidget:init()
 
 	self.heightChanged = function(newheight)
 		local frame = self.frameRef.current
-		frame.Size = UDim2.new(1, 0, 0, newheight + Constants.FRAME_PADDING
-			+ Constants.ELEMENT_PADDING + Constants.HEADER_HEIGHT + Constants.ELEMENT_PADDING)
+		frame.Size = UDim2.new(1, 0, 0, newheight + DEPRECATED_Constants.FRAME_PADDING
+			+ DEPRECATED_Constants.ELEMENT_PADDING + DEPRECATED_Constants.HEADER_HEIGHT + DEPRECATED_Constants.ELEMENT_PADDING)
 	end
 
 	self.startDragging = function(dragInfo)
@@ -138,8 +139,8 @@ function ThumbnailWidget:render()
 			end
 
 			local countTextColor
-			if errorMessage or numThumbnails > Constants.MAX_THUMBNAILS then
-				countTextColor = Constants.ERROR_COLOR
+			if errorMessage or numThumbnails > DEPRECATED_Constants.MAX_THUMBNAILS then
+				countTextColor = DEPRECATED_Constants.ERROR_COLOR
 			else
 				countTextColor = theme.thumbnail.count
 			end
@@ -183,13 +184,13 @@ function ThumbnailWidget:render()
 					LimitHint = Roact.createElement(BulletPoint, {
 						LayoutOrder = 1,
 						Text = localized.Thumbnails.Limit({
-							maxThumbnails = Constants.MAX_THUMBNAILS,
+							maxThumbnails = DEPRECATED_Constants.MAX_THUMBNAILS,
 						}),
 					}),
 					FileHint = Roact.createElement(BulletPoint, {
 						LayoutOrder = 2,
 						Text = localized.Thumbnails.Hint({
-							fileTypes = table.concat(Constants.IMAGE_TYPES, ", "),
+							fileTypes = table.concat(DEPRECATED_Constants.IMAGE_TYPES, ", "),
 						}),
 					}),
 					ModerationHint = Roact.createElement(BulletPoint, {
@@ -223,13 +224,13 @@ function ThumbnailWidget:render()
 					Count = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Smaller, {
 						Visible = active,
 						Size = UDim2.new(1, 0, 0, 20),
-						Position = UDim2.new(0, 0, 1, Constants.ELEMENT_PADDING),
+						Position = UDim2.new(0, 0, 1, DEPRECATED_Constants.ELEMENT_PADDING),
 						AnchorPoint = Vector2.new(0, 1),
 						BackgroundTransparency = 1,
 						TextColor3 = countTextColor,
 						Text = errorMessage
-							or numThumbnails > 0 and (numThumbnails .. "/" .. Constants.MAX_THUMBNAILS)
-							or localized.Thumbnails.Count({maxThumbnails = Constants.MAX_THUMBNAILS}),
+							or numThumbnails > 0 and (numThumbnails .. "/" .. DEPRECATED_Constants.MAX_THUMBNAILS)
+							or localized.Thumbnails.Count({maxThumbnails = DEPRECATED_Constants.MAX_THUMBNAILS}),
 						TextXAlignment = Enum.TextXAlignment.Left,
 						TextYAlignment = Enum.TextYAlignment.Center,
 					})),

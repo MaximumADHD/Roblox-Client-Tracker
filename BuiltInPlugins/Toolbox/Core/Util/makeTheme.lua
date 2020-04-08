@@ -26,6 +26,7 @@ local function createValues(theme, getColor)
 	return {
 		Plugin = {
 			backgroundColor = theme:GetColor(c.InputFieldBackground),
+			progressBarColor = Colors.BLUE_PRIMARY,
 		},
 		Framework = StudioFrameworkStyles.new(theme, getColor),
 	}

@@ -14,7 +14,7 @@ struct Globals
     vec3 Lamp1Color;
     vec4 FogParams;
     vec4 FogColor_GlobalForceFieldTime;
-    vec3 Exposure;
+    vec4 Exposure_DoFDistance;
     vec4 LightConfig0;
     vec4 LightConfig1;
     vec4 LightConfig2;
@@ -80,9 +80,12 @@ void main()
     f14.w = VARYING2.w;
     float f15 = clamp((CB0[13].x * length(VARYING4.xyz)) + CB0[13].y, 0.0, 1.0);
     vec3 f16 = mix(CB0[14].xyz, sqrt(clamp(f14.xyz * CB0[15].y, vec3(0.0), vec3(1.0))).xyz, vec3(f15));
-    vec4 f17 = vec4(f16.x, f16.y, f16.z, f14.w);
-    f17.w = mix(1.0, VARYING2.w, f15);
-    _entryPointOutput = f17;
+    float f17 = mix(1.0, VARYING2.w, f15);
+    vec4 f18 = vec4(f16.x, f16.y, f16.z, f14.w);
+    f18.w = f17;
+    vec4 f19 = f18;
+    f19.w = f17;
+    _entryPointOutput = f19;
 }
 
 //$$ShadowMapTexture=s1

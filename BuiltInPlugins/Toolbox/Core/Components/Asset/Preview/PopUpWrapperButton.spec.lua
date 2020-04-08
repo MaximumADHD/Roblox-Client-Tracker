@@ -10,7 +10,7 @@ return function()
 
 	local function createTestAsset(container, name)
 		local element = Roact.createElement(MockWrapper, {}, {
-			Roact.createElement(PopUpWrapperButton, {}, {
+			PopUpWrapperButton = Roact.createElement(PopUpWrapperButton, {}, {
 				position = UDim2.new(1, 0, 1, 0),
 			})
 		})

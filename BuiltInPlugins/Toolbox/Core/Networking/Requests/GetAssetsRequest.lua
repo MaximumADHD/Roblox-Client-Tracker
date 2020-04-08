@@ -1,5 +1,6 @@
 local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 local FFlagStudioUseDevelopAPIForPackages = settings():GetFFlag("StudioUseDevelopAPIForPackages")
+local FFlagEnableAudioPreview = settings():GetFFlag("EnableAudioPreview")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -17,6 +18,8 @@ local PageInfoHelper = require(Util.PageInfoHelper)
 local PagedRequestCursor = require(Util.PagedRequestCursor)
 local DebugFlags = require(Util.DebugFlags)
 
+local AssetInfo = require(Plugin.Core.Models.AssetInfo)
+
 local function extractAssetIdsFromGetAssetsResponse(data)
 	local result = {}
 	if data then
@@ -31,20 +34,25 @@ local function convertCreationsDetailsToResultsFormat(data, assetType, creatorNa
 	local result = {}
 	if data then
 		for _,value in pairs(data) do
-			local assetResultTable =  {
-				Asset = {
-					Description = value.description,
-					Id = value.assetId,
-					Name = value.name,
-					TypeId = assetType and assetType.Value,
-					AssetGenres = {},
-					Status = value.status
-				},
-				Creator = {
-					Id = value.creatorTargetId,
-					Name = creatorName
+			local assetResultTable
+			if FFlagEnableAudioPreview then
+				assetResultTable = AssetInfo.fromCreationsDetails(value, assetType, creatorName)
+			else
+				assetResultTable = {
+					Asset = {
+						Description = value.description,
+						Id = value.assetId,
+						Name = value.name,
+						TypeId = assetType and assetType.Value,
+						AssetGenres = {},
+						Status = value.status
+					},
+					Creator = {
+						Id = value.creatorTargetId,
+						Name = creatorName
+					}
 				}
-			}
+			end
 			result[#result + 1] = assetResultTable
 		end
 	end
@@ -149,15 +157,14 @@ return function(networkInterface, pageInfoOnStart)
 					end
 				end, errorFunc)
 			end
-		else -- Everything elase, change category, tabs, and getAsset
+		else -- Everything else, change category, tabs, and getAsset
 			-- We check if we are trying to access
 			local useDevelopAssetAPI = false
 
-			if FFlagEnablePurchasePluginFromLua2 and PageInfoHelper.isDeveloperCategory(pageInfoOnStart) then
-				useDevelopAssetAPI = true
-			end
-
-			if FFlagStudioUseDevelopAPIForPackages and PageInfoHelper.isPackagesCategory(pageInfoOnStart) then
+			if (FFlagEnablePurchasePluginFromLua2 and PageInfoHelper.isDeveloperCategory(pageInfoOnStart))
+				or (FFlagStudioUseDevelopAPIForPackages and PageInfoHelper.isPackagesCategory(pageInfoOnStart))
+				or (FFlagEnableAudioPreview and Category.categoryIsAudio(pageInfoOnStart.currentTab, pageInfoOnStart.categoryIndex or 1))
+			then
 				useDevelopAssetAPI = true
 			end
 

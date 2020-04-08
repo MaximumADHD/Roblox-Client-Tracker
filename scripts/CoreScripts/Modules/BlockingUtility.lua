@@ -6,7 +6,6 @@ local HttpService = game:GetService("HttpService")
 local PlayersService = game:GetService("Players")
 local StarterGui = game:GetService("StarterGui")
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
-local RunService = game:GetService("RunService")
 
 local BlockingUtility = {}
 BlockingUtility.__index = BlockingUtility
@@ -244,13 +243,10 @@ end
 
 MuteStatusChanged.Event:Connect(muteStatusChanged)
 
-if RunService:IsClient() and not RunService:IsServer() then
-	--Registering these during unit testing causes errors.
-	StarterGui:RegisterGetCore("PlayerBlockedEvent", function() return PlayerBlockedEvent end)
-	StarterGui:RegisterGetCore("PlayerUnblockedEvent", function() return PlayerUnblockedEvent end)
-	StarterGui:RegisterGetCore("PlayerMutedEvent", function() return PlayerMutedEvent end)
-	StarterGui:RegisterGetCore("PlayerUnmutedEvent", function() return PlayerUnMutedEvent end)
-end
+StarterGui:RegisterGetCore("PlayerBlockedEvent", function() return PlayerBlockedEvent end)
+StarterGui:RegisterGetCore("PlayerUnblockedEvent", function() return PlayerUnblockedEvent end)
+StarterGui:RegisterGetCore("PlayerMutedEvent", function() return PlayerMutedEvent end)
+StarterGui:RegisterGetCore("PlayerUnmutedEvent", function() return PlayerUnMutedEvent end)
 
 function BlockingUtility:InitBlockListAsync()
 	initializeBlockList()

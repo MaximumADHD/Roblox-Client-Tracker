@@ -22,9 +22,9 @@ local Constants = require(Plugin.Src.Util.Constants)
 local RigUtils = require(Plugin.Src.Util.RigUtils)
 
 local Roact = require(Plugin.Roact)
-local UILibrary = Plugin.UILibrary
-local TreeView = require(UILibrary.Components.TreeView)
-local Button = require(Plugin.UILibrary.Components.Button)
+local UILibrary = require(Plugin.UILibrary)
+local TreeView = UILibrary.Component.TreeView
+local Button = UILibrary.Component.Button
 
 local Theme = require(Plugin.Src.Context.Theme)
 local withTheme = Theme.withTheme

@@ -31,7 +31,7 @@ local SCROLL_BOTTOM = "rbxasset://textures/GameSettings/ScrollBarBottom.png"
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
-local Constants = require(Plugin.Src.Util.Constants)
+local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
 local getMouse = require(Plugin.Src.Consumers.getMouse)
 
@@ -107,10 +107,10 @@ function Dropdown:render()
 
 		local backgroundProps = {
 			BackgroundTransparency = 1,
-			Image = Constants.ROUNDED_BACKGROUND_IMAGE,
+			Image = DEPRECATED_Constants.ROUNDED_BACKGROUND_IMAGE,
 			ImageTransparency = 0,
 			ScaleType = Enum.ScaleType.Slice,
-			SliceCenter = Constants.ROUNDED_FRAME_SLICE,
+			SliceCenter = DEPRECATED_Constants.ROUNDED_FRAME_SLICE,
 
 			Position = UDim2.new(0, 0, 0, 0),
 			Size = DEFAULT_SIZE,
@@ -164,10 +164,10 @@ function Dropdown:render()
 			Border = Roact.createElement("ImageLabel", {
 				Size = UDim2.new(1, 0, 1, 0),
 				BackgroundTransparency = 1,
-				Image = Constants.ROUNDED_BORDER_IMAGE,
+				Image = DEPRECATED_Constants.ROUNDED_BORDER_IMAGE,
 				ImageColor3 = theme.dropDown.border,
 				ScaleType = Enum.ScaleType.Slice,
-				SliceCenter = Constants.ROUNDED_FRAME_SLICE,
+				SliceCenter = DEPRECATED_Constants.ROUNDED_FRAME_SLICE,
 			}, {
 				Padding = Roact.createElement("UIPadding", {
 					PaddingLeft = PADDING,

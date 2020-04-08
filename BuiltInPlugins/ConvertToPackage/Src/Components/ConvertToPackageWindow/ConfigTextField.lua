@@ -16,11 +16,12 @@ local Plugin = script.Parent.Parent.Parent.Parent
 
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
+local UILibrary = require(Packages.UILibrary)
 
 local Util = Plugin.Src.Util
 local Constants = require(Util.Constants)
 
-local RoundTextBox = require(Packages.UILibrary.Components.RoundTextBox)
+local RoundTextBox = UILibrary.Component.RoundTextBox
 
 local withTheme = require(Plugin.Src.ContextServices.Theming).withTheme
 local ConfigTextField = Roact.PureComponent:extend("ConfigTextField")

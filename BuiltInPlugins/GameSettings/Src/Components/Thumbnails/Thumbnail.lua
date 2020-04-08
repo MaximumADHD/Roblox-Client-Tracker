@@ -18,7 +18,7 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
-local Constants = require(Plugin.Src.Util.Constants)
+local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
 local withLocalization = require(Plugin.Src.Consumers.withLocalization)
 local getMouse = require(Plugin.Src.Consumers.getMouse)
@@ -65,7 +65,7 @@ function Thumbnail:render()
 			return Roact.createElement("ImageButton", {
 				BackgroundTransparency = 1,
 				LayoutOrder = index,
-				Image = videoHash ~= nil and Constants.VIDEO_PLACEHOLDER or image,
+				Image = videoHash ~= nil and DEPRECATED_Constants.VIDEO_PLACEHOLDER or image,
 				ImageColor3 = videoHash ~= nil and theme.thumbnail.background or nil,
 				ScaleType = Enum.ScaleType.Fit,
 
@@ -94,7 +94,7 @@ function Thumbnail:render()
 					Visible = (review or preview) and not (hoverBarEnabled and hover),
 					BackgroundTransparency = 0.3,
 					BorderSizePixel = 0,
-					BackgroundColor3 = Constants.BLACK,
+					BackgroundColor3 = DEPRECATED_Constants.BLACK,
 					Size = UDim2.new(1, 0, 0, 30),
 					Position = UDim2.new(0, 0, 1, 0),
 					AnchorPoint = Vector2.new(0, 1),
@@ -106,7 +106,7 @@ function Thumbnail:render()
 					Visible = videoTitle ~= nil,
 					BackgroundTransparency = 0.3,
 					BorderSizePixel = 0,
-					BackgroundColor3 = Constants.BLACK,
+					BackgroundColor3 = DEPRECATED_Constants.BLACK,
 					Size = UDim2.new(1, 0, 0, 30),
 				}, {
 					TitleText = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Normal, {

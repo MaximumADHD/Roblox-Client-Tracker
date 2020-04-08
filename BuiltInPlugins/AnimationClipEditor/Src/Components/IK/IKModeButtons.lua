@@ -11,10 +11,10 @@ local Plugin = script.Parent.Parent.Parent.Parent
 
 local Roact = require(Plugin.Roact)
 
-local UILibrary = Plugin.UILibrary
-local RadioButtons = require(UILibrary.Components.RadioButtons)
+local UILibrary = require(Plugin.UILibrary)
+local RadioButtons = UILibrary.Component.RadioButtons
 
-local Localizing = require(UILibrary.Localizing)
+local Localizing = UILibrary.Localizing
 local withLocalization = Localizing.withLocalization
 
 local Constants = require(Plugin.Src.Util.Constants)

@@ -58,6 +58,8 @@ Studio.Common.Action.Submit,Submit, ,Submit,提交
 Studio.Common.Action.Install,Install, ,Install,安装
 Studio.Common.Action.Installed,Installed, ,Installed,已安装
 Studio.Common.Action.Loading,Loading..., ,Loading...,正在加载...
+Studio.Toolbox.General.AbbreviatedSeconds,s, ,s, 
+Studio.Toolbox.General.AbbreviatedMinutes,m, ,m, 
 Studio.Toolbox.General.ToolboxToolbarName,Toolbox, ,Toolbox,工具箱
 Studio.Toolbox.General.CategoryModels,Models, ,Models,模型
 Studio.Toolbox.General.CategoryDecals,Images, ,Images,图片
@@ -108,9 +110,12 @@ Studio.Toolbox.General.SearchResultsKeyword,Search Results for, ,Search Results 
 Studio.Toolbox.General.SearchResultsClearAll,Clear, ,Clear,清除
 Studio.Toolbox.General.SearchOptionCreator,Creator, ,Creator,创建者
 Studio.Toolbox.General.SearchOptionSort,Sort By, ,Sort By,排序方式
+Studio.Toolbox.General.SearchOptionAudioTo,to, ,to, 
+Studio.Toolbox.General.SearchOptionAudioLength,Sound Length, ,Sound Length, 
 Studio.Toolbox.General.SearchOptionsApply,Apply, ,Apply,应用
 Studio.Toolbox.General.SearchOptionsCancel,Cancel, ,Cancel,取消
 Studio.Toolbox.General.SearchTagCreator,by:, ,by:,作者:
+Studio.Toolbox.General.SearchTagLength,length:, ,length:, 
 Studio.Toolbox.General.TabMarketplace,Marketplace, ,Marketplace,商店
 Studio.Toolbox.General.TabInventory,Inventory, ,Inventory,道具
 Studio.Toolbox.General.TabRecent,Recent, ,Recent,最近

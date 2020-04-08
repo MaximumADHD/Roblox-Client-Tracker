@@ -29,12 +29,22 @@ local FFlagFixMouseCapture = false do
 	end
 end
 
+local FFlagUserHandleChatHotKeyWithContextActionService = false do
+	local ok, value = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserHandleChatHotKeyWithContextActionService")
+	end)
+	if ok then
+		FFlagUserHandleChatHotKeyWithContextActionService = value
+	end
+end
+
 local FILTER_MESSAGE_TIMEOUT = 60
 
 local RunService = game:GetService("RunService")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Chat = game:GetService("Chat")
 local StarterGui = game:GetService("StarterGui")
+local ContextActionService = game:GetService("ContextActionService")
 
 local DefaultChatSystemChatEvents = ReplicatedStorage:WaitForChild("DefaultChatSystemChatEvents")
 local EventFolder = ReplicatedStorage:WaitForChild("DefaultChatSystemChatEvents")
@@ -520,15 +530,25 @@ do
 		return not ChatBar:GetEnabled()
 	end
 
+    if FFlagUserHandleChatHotKeyWithContextActionService then
+        local TOGGLE_CHAT_ACTION_NAME = "ToggleChat"
 
-
-	function moduleApiTable:SpecialKeyPressed(key, modifiers)
-		if (key == Enum.SpecialKey.ChatHotkey) then
-			if canChat then
-				DoChatBarFocus()
-			end
-		end
-	end
+        -- Callback when chat hotkey is pressed
+        local function handleAction(actionName, inputState, inputObject)
+            if actionName == TOGGLE_CHAT_ACTION_NAME and inputState == Enum.UserInputState.Begin and canChat and inputObject.UserInputType == Enum.UserInputType.Keyboard then
+                DoChatBarFocus()
+            end
+        end
+        ContextActionService:BindAction(TOGGLE_CHAT_ACTION_NAME, handleAction, true, Enum.KeyCode.Slash)
+    else
+        function moduleApiTable:SpecialKeyPressed(key, modifiers)
+            if (key == Enum.SpecialKey.ChatHotkey) then
+                if canChat then
+                    DoChatBarFocus()
+                end
+            end
+        end
+    end
 end
 
 moduleApiTable.CoreGuiEnabled:connect(function(enabled)

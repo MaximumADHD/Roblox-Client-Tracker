@@ -1,5 +1,6 @@
 local Plugin = script.Parent.Parent.Parent
 
+local SetAssets = require(Plugin.Src.Actions.SetAssets)
 local SetEditingAssets = require(Plugin.Src.Actions.SetEditingAssets)
 local SetSelectedAssets = require(Plugin.Src.Actions.SetSelectedAssets)
 
@@ -30,23 +31,28 @@ local function removeAssets(apiImpl, assetData, assets, selectedAssets, store)
         end
     end
     store:dispatch(SetSelectedAssets({}))
+    store:dispatch(SetAssets({
+        assets = {},
+    }))
     store:dispatch(GetAssets(apiImpl, assetData.assetType))
 end
 
-local function createFolderContextMenu(assetData, contextMenu, localization, store)
+local function createFolderContextMenu(apiImpl, assetData, contextMenu, localization, store)
     if assetData.Screen.Key == Screens.IMAGES.Key then
         contextMenu:AddNewAction("AddImages", localization:getText("ContextMenu", "AddImages")).Triggered:connect(function()
-            local imageFilter = 1 -- same as Enum.AssetType.Image
-            store:dispatch(LaunchBulkImport(imageFilter))
+            store:dispatch(LaunchBulkImport(Enum.AssetType.Image.Value))
         end)
     elseif assetData.Screen.Key == Screens.MESHES.Key then
         contextMenu:AddNewAction("AddMeshes", localization:getText("ContextMenu", "AddMeshes")).Triggered:connect(function()
-            local meshFilter = 40 -- same as Enum.AssetType.MeshPart
-            store:dispatch(LaunchBulkImport(meshFilter))
+            store:dispatch(LaunchBulkImport(Enum.AssetType.MeshPart.Value))
         end)
     elseif assetData.Screen.Key == Screens.PLACES.Key then
         contextMenu:AddNewAction("AddPlace", localization:getText("ContextMenu", "AddNewPlace")).Triggered:connect(function()
             AssetManagerService:AddNewPlace()
+            store:dispatch(SetAssets({
+                assets = {},
+            }))
+            store:dispatch(GetAssets(apiImpl, assetData.assetType))
         end)
     end
 
@@ -105,7 +111,7 @@ local function createImageContextMenu(apiImpl, assetData, contextMenu, localizat
     end)
     contextMenu:AddNewAction("EditAsset", localization:getText("ContextMenu", "EditAsset")).Triggered:connect(function()
         MemStorageService:Fire(EVENT_ID_OPENASSETCONFIG,
-            HttpService:JSONEncode({ id = assetData.id, assetType = 1, }))
+            HttpService:JSONEncode({ id = assetData.id, assetType = Enum.AssetType.Image.Value, }))
     end)
     contextMenu:AddNewAction("RenameAlias", localization:getText("ContextMenu", "RenameAlias")).Triggered:connect(function()
         local assetToEdit = {
@@ -138,7 +144,7 @@ local function createMeshPartContextMenu(apiImpl, assetData, contextMenu, locali
     end)
     contextMenu:AddNewAction("EditAsset", localization:getText("ContextMenu", "EditAsset")).Triggered:connect(function()
         MemStorageService:Fire(EVENT_ID_OPENASSETCONFIG,
-            HttpService:JSONEncode({ id = assetData.id, assetType = 40, }))
+            HttpService:JSONEncode({ id = assetData.id, assetType = Enum.AssetType.MeshPart.Value, }))
     end)
     contextMenu:AddNewAction("RenameAlias", localization:getText("ContextMenu", "RenameAlias")).Triggered:connect(function()
         local assetToEdit = {
@@ -232,7 +238,7 @@ return function(apiImpl, assetData, localization, plugin)
         local contextMenu = plugin:CreatePluginMenu("AssetManagerContextMenu")
         local isFolder = assetData.ClassName == "Folder"
         if isFolder then
-            createFolderContextMenu(assetData, contextMenu, localization, store)
+            createFolderContextMenu(apiImpl, assetData, contextMenu, localization, store)
         else
             createAssetContextMenu(apiImpl, assetData, contextMenu, localization, store)
         end

@@ -8,43 +8,27 @@ local Connection = Components.Connection
 local LayoutValues = require(Connection.LayoutValues)
 local WithLayoutValues = LayoutValues.WithLayoutValues
 
-local FFlagPlayerListDesignUpdate = settings():GetFFlag("PlayerListDesignUpdate")
 local FFlagRenameDisplayNameToPlatformName = settings():GetFFlag("RenameDisplayNameToPlatformName")
 
 local PlayerNameTag = Roact.PureComponent:extend("PlayerNameTag")
 
-if FFlagPlayerListDesignUpdate then
-	PlayerNameTag.validateProps = t.strictInterface({
-		player = t.instanceIsA("Player"),
-		isTitleEntry = t.boolean,
-		isHovered = t.boolean,
-		layoutOrder = t.integer,
+PlayerNameTag.validateProps = t.strictInterface({
+	player = t.instanceIsA("Player"),
+	isTitleEntry = t.boolean,
+	isHovered = t.boolean,
+	layoutOrder = t.integer,
 
-		textStyle = t.strictInterface({
-			Color = t.Color3,
-			Transparency = t.number,
-			StrokeColor = t.optional(t.Color3),
-			StrokeTransparency = t.optional(t.number),
-		}),
-		textFont = t.strictInterface({
-			Size = t.number,
-			Font = t.enum(Enum.Font),
-		}),
-	})
-else
-	PlayerNameTag.validateProps = t.strictInterface({
-		player = t.instanceIsA("Player"),
-		isTitleEntry = t.boolean,
-		isHovered = t.boolean,
-		layoutOrder = t.integer,
-
-		textStyle = t.strictInterface({
-			Color = t.Color3,
-			StrokeTransparency = t.number,
-			StrokeColor = t.Color3,
-		})
-	})
-end
+	textStyle = t.strictInterface({
+		Color = t.Color3,
+		Transparency = t.number,
+		StrokeColor = t.optional(t.Color3),
+		StrokeTransparency = t.optional(t.number),
+	}),
+	textFont = t.strictInterface({
+		Size = t.number,
+		Font = t.enum(Enum.Font),
+	}),
+})
 
 function PlayerNameTag:render()
 	return WithLayoutValues(function(layoutValues)
@@ -53,22 +37,8 @@ function PlayerNameTag:render()
 			iconColor = layoutValues.IconSelectedColor
 		end
 
-		local playerNameFont
-		if FFlagPlayerListDesignUpdate then
-			playerNameFont = self.props.textFont.Font
-		else
-			playerNameFont = layoutValues.PlayerEntryFont
-			if self.props.isTitleEntry then
-				playerNameFont = layoutValues.TitlePlayerEntryFont
-			end
-		end
-
-		local textSize
-		if FFlagPlayerListDesignUpdate then
-			textSize = self.props.textFont.Size
-		else
-			textSize = layoutValues.PlayerNameTextSize
-		end
+		local playerNameFont = self.props.textFont.Font
+		local textSize = self.props.textFont.Size
 
 		local playerNameChildren = {}
 		local platformName

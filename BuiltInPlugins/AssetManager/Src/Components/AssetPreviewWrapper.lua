@@ -16,7 +16,7 @@ local AssetPreviewWrapper = Roact.PureComponent:extend("AssetPreviewWrapper")
 
 local MAX_PREVIEW_WIDTH = 640
 
-local PADDING = 20
+local PADDING = 32
 
 function AssetPreviewWrapper:init()
     self.state = {

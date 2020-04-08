@@ -14,9 +14,10 @@
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local FileUtils = require(Plugin.Src.Util.FileUtils)
-local Constants = require(Plugin.Src.Util.Constants)
+local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 local Cryo = require(Plugin.Cryo)
 local Roact = require(Plugin.Roact)
+local UILibrary = require(Plugin.UILibrary)
 
 local GameIconWidget = require(Plugin.Src.Components.GameIcon.GameIconWidget)
 
@@ -35,13 +36,13 @@ local getLocalizedContent = require(Plugin.Src.Consumers.getLocalizedContent)
 
 local RoundTextBox = require(Plugin.RoactStudioWidgets.RoundTextBox)
 
-local TitledFrame = require(Plugin.UILibrary.Components.TitledFrame)
+local TitledFrame = UILibrary.Component.TitledFrame
 
-local createFitToContent = require(Plugin.UILibrary.Components.createFitToContent)
+local createFitToContent = UILibrary.Component.createFitToContent
 
 local FitToContent = createFitToContent("Frame", "UIListLayout", {
 	SortOrder = Enum.SortOrder.LayoutOrder,
-	Padding = UDim.new(0, Constants.ELEMENT_PADDING),
+	Padding = UDim.new(0, DEPRECATED_Constants.ELEMENT_PADDING),
 })
 
 local PRICE_ICON_IMAGE = "rbxasset://textures/ui/RobuxIcon.png"
@@ -269,7 +270,7 @@ function DeveloperSubscriptionDetails:renderConsolidated(theme, localized)
 		PriceFrame = Roact.createElement(TitledFrame, {
 			Title = localized.DevSubs.Price,
 			LayoutOrder = 4,
-			MaxHeight = Constants.ROUND_TEXT_BOX_DEFAULT_HEIGHT,
+			MaxHeight = DEPRECATED_Constants.ROUND_TEXT_BOX_DEFAULT_HEIGHT,
 			TextSize = theme.fontStyle.Normal.TextSize,
 		}, {
 			Layout = Roact.createElement("UIListLayout", {
@@ -287,7 +288,7 @@ function DeveloperSubscriptionDetails:renderConsolidated(theme, localized)
 
 			NumberBoxFrame = Roact.createElement("Frame", {
 				BackgroundTransparency = 1,
-				Size = UDim2.new(1, -(PRICE_ICON_SIZE + PRICE_ICON_PADDING), 0, Constants.ROUND_TEXT_BOX_DEFAULT_HEIGHT),
+				Size = UDim2.new(1, -(PRICE_ICON_SIZE + PRICE_ICON_PADDING), 0, DEPRECATED_Constants.ROUND_TEXT_BOX_DEFAULT_HEIGHT),
 			}, {
 				NumberBox = Roact.createElement(RoundTextBox, {
 					Enabled = developerSubscription.IsNew,

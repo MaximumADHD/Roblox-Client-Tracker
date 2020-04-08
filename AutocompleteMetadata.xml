@@ -1122,6 +1122,15 @@
       </parameters>
       <description>Constructs a new Vector3 in a particular direction.</description>
     </Function>
+    <Function name="fromNormalId" static="true">
+        <returns>
+            <Vector3></Vector3>
+        </returns>
+        <parameters>
+            <Enum.NormalId name="normal"></Enum.NormalId>
+        </parameters>
+        <description>Constructs a new Vector3 in a particular direction.</description>
+    </Function>
     <Function name="FromAxis" static="true">
       <returns>
         <Vector3></Vector3>
@@ -1130,6 +1139,15 @@
         <Enum.Axis name="axis"></Enum.Axis>
       </parameters>
       <description>Constructs a new Vector3 for a particular axis.</description>
+    </Function>
+    <Function name="fromAxis" static="true">
+        <returns>
+            <Vector3></Vector3>
+        </returns>
+        <parameters>
+            <Enum.Axis name="axis"></Enum.Axis>
+        </parameters>
+        <description>Constructs a new Vector3 for a particular axis.</description>
     </Function>
     <Properties>
       <number name="X">The x-coordinate</number>

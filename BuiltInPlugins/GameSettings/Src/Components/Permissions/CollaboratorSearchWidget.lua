@@ -9,6 +9,7 @@ local FFlagStudioGameSettingsPermisisonUpdateWarning = game:DefineFastFlag("Stud
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
+local UILibrary = require(Plugin.UILibrary)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
 local withLocalization = require(Plugin.Src.Consumers.withLocalization)
 local getThumbnailLoader = require(Plugin.Src.Consumers.getThumbnailLoader)
@@ -27,8 +28,8 @@ local MY_FRIENDS_KEY = "MyFriends"
 local Searchbar = require(Plugin.Src.Components.Permissions.SearchBar)
 local CollaboratorThumbnail = require(Plugin.Src.Components.Permissions.CollaboratorThumbnail)
 
-local createFitToContent = require(Plugin.UILibrary.Components.createFitToContent)
-local Hyperlink = require(Plugin.UILibrary.Studio.Hyperlink)
+local createFitToContent = UILibrary.Component.createFitToContent
+local Hyperlink = UILibrary.Studio.Hyperlink
 
 local FitToContent = createFitToContent("Frame", "UIListLayout", {
 	SortOrder = Enum.SortOrder.LayoutOrder,

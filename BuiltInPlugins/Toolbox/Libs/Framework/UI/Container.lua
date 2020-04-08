@@ -34,7 +34,7 @@ function Container:render()
 
 	local background = props.Background
 	local backgroundStyle = props.BackgroundStyle
-	local backgroundStyleModifier = props.BackgroundStyleModifer
+	local backgroundStyleModifier = props.BackgroundStyleModifier
 
 	local padding = props.Padding
 	local margin = props.Margin

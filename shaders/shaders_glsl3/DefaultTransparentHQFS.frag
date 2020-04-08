@@ -14,7 +14,7 @@ struct Globals
     vec3 Lamp1Color;
     vec4 FogParams;
     vec4 FogColor_GlobalForceFieldTime;
-    vec3 Exposure;
+    vec4 Exposure_DoFDistance;
     vec4 LightConfig0;
     vec4 LightConfig1;
     vec4 LightConfig2;
@@ -116,10 +116,13 @@ void main()
     float f51 = f44.z;
     vec3 f52 = (mix(textureLod(PrefilteredEnvIndoorTexture, f18, f17).xyz * f7, textureLod(PrefilteredEnvTexture, f18, f17).xyz * mix(CB0[26].xyz, CB0[25].xyz, vec3(clamp(f16.y * 1.58823525905609130859375, 0.0, 1.0))), vec3(f8)) * f40) * f13;
     vec3 f53 = (((((((((f37 - (f32 * f36)) * CB0[10].xyz) * f25) + (CB0[12].xyz * (f35 * clamp(-f24, 0.0, 1.0)))) * f10) + (f41 * (((((((CB0[35].xyz * f46) + (CB0[37].xyz * f47)) + (CB0[39].xyz * f48)) + (CB0[36].xyz * f49)) + (CB0[38].xyz * f50)) + (CB0[40].xyz * f51)) + (((((((CB0[29].xyz * f46) + (CB0[31].xyz * f47)) + (CB0[33].xyz * f48)) + (CB0[30].xyz * f49)) + (CB0[32].xyz * f50)) + (CB0[34].xyz * f51)) * f8)))) + (CB0[27].xyz + (CB0[28].xyz * f8))) * f12) + ((((f32 * (((f33 + (f33 * f33)) / (((f34 * f34) * ((f28 * 3.0) + 0.5)) * ((f27 * 0.75) + 0.25))) * f25)) * CB0[10].xyz) * f10) + f52)) + (f7 * mix(f12, f52 * (1.0 / (max(max(f52.x, f52.y), f52.z) + 0.00999999977648258209228515625)), (vec3(1.0) - f41) * (f13 * (1.0 - f8))));
-    vec4 f54 = vec4(f53.x, f53.y, f53.z, vec4(0.0).w);
-    f54.w = f0.w;
-    vec3 f55 = mix(CB0[14].xyz, (sqrt(clamp(f54.xyz * CB0[15].y, vec3(0.0), vec3(1.0))) + vec3((-0.00048828125) + (0.0009765625 * fract(52.98291778564453125 * fract(dot(gl_FragCoord.xy, vec2(0.067110560834407806396484375, 0.005837149918079376220703125))))))).xyz, vec3(clamp((CB0[13].x * length(VARYING4.xyz)) + CB0[13].y, 0.0, 1.0)));
-    _entryPointOutput = vec4(f55.x, f55.y, f55.z, f54.w);
+    float f54 = f0.w;
+    vec4 f55 = vec4(f53.x, f53.y, f53.z, vec4(0.0).w);
+    f55.w = f54;
+    vec3 f56 = mix(CB0[14].xyz, (sqrt(clamp(f55.xyz * CB0[15].y, vec3(0.0), vec3(1.0))) + vec3((-0.00048828125) + (0.0009765625 * fract(52.98291778564453125 * fract(dot(gl_FragCoord.xy, vec2(0.067110560834407806396484375, 0.005837149918079376220703125))))))).xyz, vec3(clamp((CB0[13].x * length(VARYING4.xyz)) + CB0[13].y, 0.0, 1.0)));
+    vec4 f57 = vec4(f56.x, f56.y, f56.z, f55.w);
+    f57.w = f54;
+    _entryPointOutput = f57;
 }
 
 //$$ShadowMapTexture=s1

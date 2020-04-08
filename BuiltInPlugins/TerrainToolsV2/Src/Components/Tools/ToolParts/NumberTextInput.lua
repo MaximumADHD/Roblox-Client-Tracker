@@ -17,9 +17,9 @@
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Cryo = require(Plugin.Packages.Cryo)
+local UILibrary = require(Plugin.Packages.UILibrary)
 
-local UILibrary = Plugin.Packages.UILibrary
-local Localizing = require(UILibrary.Localizing)
+local Localizing = UILibrary.Localizing
 local getLocalization = Localizing.getLocalization
 
 local ToolParts = script.Parent

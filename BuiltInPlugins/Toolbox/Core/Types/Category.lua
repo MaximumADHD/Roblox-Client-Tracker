@@ -317,6 +317,14 @@ function Category.categoryIsGroupAsset(currentTab, index)
 	return checkBounds(index) and Category.INVENTORY_WITH_GROUPS[index].ownershipType == Category.OwnershipType.GROUP
 end
 
+function Category.categoryIsAudio(currentTab, index)
+	if currentTab == Category.MARKETPLACE_KEY then
+		return checkBounds(index) and Category.MARKETPLACE[index].assetType == Category.AssetType.AUDIO
+	else
+		return checkBounds(index) and Category.INVENTORY_WITH_GROUPS[index].assetType == Category.AssetType.AUDIO
+	end
+end
+
 function Category.categoryIsPlugin(currentTab, index)
 	if currentTab == Category.MARKETPLACE_KEY then
 		return checkBounds(index) and Category.MARKETPLACE[index].assetType == Category.AssetType.PLUGIN

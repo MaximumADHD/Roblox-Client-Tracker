@@ -11,9 +11,9 @@
 --------------------------------------------------------------------------------------------------------]]
 
 return{
-	["CoreScripts.InGameMenu.LeaveGame"] = [[離開遊戲]],
-	["CoreScripts.InGameMenu.ConfirmLeaveGame"] = [[若您離開遊戲，未儲存的進度將會遺失。]],
-	["CoreScripts.InGameMenu.LeaveGameQuestion"] = [[離開遊戲？]],
+	["CoreScripts.InGameMenu.LeaveGame"] = [[離開]],
+	["CoreScripts.InGameMenu.ConfirmLeaveGame"] = [[確定離開？]],
+	["CoreScripts.InGameMenu.LeaveGameQuestion"] = [[離開？]],
 	["CoreScripts.InGameMenu.Leave"] = [[離開]],
 	["CoreScripts.InGameMenu.RespawnCharacterDialogTitle"] = [[重生角色？]],
 	["CoreScripts.InGameMenu.RespawnCharacterDialogBody"] = [[您的角色將會在生出點重生。]],
@@ -58,7 +58,7 @@ return{
 	["CoreScripts.InGameMenu.Controls.Playerlist"] = [[玩家名單]],
 	["CoreScripts.InGameMenu.Controls.Chat"] = [[聊天]],
 	["CoreScripts.InGameMenu.Controls.RespawnCharacter"] = [[重生角色]],
-	["CoreScripts.InGameMenu.Controls.LeaveGame"] = [[離開遊戲]],
+	["CoreScripts.InGameMenu.Controls.LeaveGame"] = [[離開]],
 	["CoreScripts.InGameMenu.Controls.MiscellaneousTitle"] = [[其它]],
 	["CoreScripts.InGameMenu.Controls.Screenshot"] = [[截圖]],
 	["CoreScripts.InGameMenu.Controls.DevConsole"] = [[開發人員控制台]],
@@ -119,4 +119,6 @@ return{
 	["CoreScripts.InGameMenu.GameSettings.PlaceVersionWithLatest"] = [[空間版本：{PLACE_VERSION}（最新：{LATEST_PLACE_VERSION}）]],
 	["CoreScripts.InGameMenu.Label.MicroProfiler"] = [[Micro Profiler]],
 	["CoreScripts.InGameMenu.InviteFriends.Loading"] = [[正在載入！]],
+	["CoreScripts.InGameMenu.RespawnCharacter"] = [[重生角色]],
+	["CoreScripts.InGameMenu.GameSettings.CameraModeCameraToggle"] = [[鎖定游標]],
 }

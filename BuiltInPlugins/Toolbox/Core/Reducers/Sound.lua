@@ -1,3 +1,5 @@
+local FFlagEnableAudioPreview = settings():GetFFlag("EnableAudioPreview")
+
 local Plugin = script.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
@@ -5,17 +7,22 @@ local Cryo = require(Libs.Cryo)
 local Rodux = require(Libs.Rodux)
 
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
-local Immutable = require(Plugin.Core.Util.Immutable)
 
 local PlayPreviewSound = require(Plugin.Core.Actions.PlayPreviewSound)
 local PausePreviewSound = require(Plugin.Core.Actions.PausePreviewSound)
 local StopPreviewSound = require(Plugin.Core.Actions.StopPreviewSound)
 local ResumePreviewSound = require(Plugin.Core.Actions.ResumePreviewSound)
 local StopAllSounds = require(Plugin.Core.Actions.StopAllSounds)
+local SetSoundLoading = require(Plugin.Core.Actions.SetSoundLoading)
+local SetSoundElapsedTime = require(Plugin.Core.Actions.SetSoundElapsedTime)
+local SetSoundTotalTime = require(Plugin.Core.Actions.SetSoundTotalTime)
 
 return Rodux.createReducer({
 	currentSoundId = 0,
+	elapsedTime = 0,
 	isPlaying = false,
+	isLoading = false,
+	totalTime = 0,
 }, {
 	[PlayPreviewSound.name] = function(state, action)
 		if state.currentSoundId == action.currentSoundId and DebugFlags.shouldDebugWarnings() then
@@ -45,7 +52,8 @@ return Rodux.createReducer({
 
 		return Cryo.Dictionary.join(state, {
 			currentSoundId = 0,
-			isPlaying = false
+			elapsedTime = FFlagEnableAudioPreview and 0 or nil,
+			isPlaying = false,
 		})
 	end,
 
@@ -63,6 +71,25 @@ return Rodux.createReducer({
 		return Cryo.Dictionary.join(state, {
 			currentSoundId = 0,
 			isPlaying = false
+		})
+	end,
+
+	[SetSoundLoading.name] = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			isLoading = action.isLoading,
+		})
+	end,
+
+	[SetSoundElapsedTime.name] = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			elapsedTime = action.elapsedTime,
+		})
+	end,
+
+	[SetSoundTotalTime.name] = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			elapsedTime = 0,
+			totalTime = action.totalTime,
 		})
 	end,
 })

@@ -3,8 +3,10 @@
 local CorePackages = game:GetService("CorePackages")
 local GetFFlagLuaAppUseUIBloxToasts = require(CorePackages.UIBloxFlags.GetFFlagLuaAppUseUIBloxToasts)
 local GetFFlagLuaCatalogRefactorSpawns = require(CorePackages.UIBloxFlags.GetFFlagLuaCatalogRefactorSpawns)
+local GetFFlagLuaUIBloxModalWindowAnchorPoint = require(CorePackages.UIBloxFlags.GetFFlagLuaUIBloxModalWindowAnchorPoint)
 
 return {
 	fixToastResizeConfig = GetFFlagLuaAppUseUIBloxToasts(),
 	expandableTextAutomaticResizeConfig = GetFFlagLuaCatalogRefactorSpawns(),
+	modalWindowAnchorPoint = GetFFlagLuaUIBloxModalWindowAnchorPoint(),
 }

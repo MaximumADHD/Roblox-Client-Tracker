@@ -14,7 +14,7 @@ local Toolbox = require(Plugin.Core.Components.Toolbox)
 local makeTheme = require(Util.makeTheme)
 
 local ContextServices = require(Libs.Framework.ContextServices)
-local UILibraryWrapper = require(Libs.Framework.ContextServices.UILibraryWrapper)
+local UILibraryWrapper = ContextServices.UILibraryWrapper
 
 local ToolboxPlugin = Roact.PureComponent:extend("ToolboxPlugin")
 

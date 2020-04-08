@@ -17,8 +17,9 @@
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local RoactRodux = require(Plugin.RoactRodux)
+local UILibrary = require(Plugin.UILibrary)
 
-local Separator = require(Plugin.UILibrary).Component.Separator
+local Separator = UILibrary.Component.Separator
 
 local Mouse = require(Plugin.Src.Context.Mouse)
 local getMouse = Mouse.getMouse
@@ -30,8 +31,8 @@ local Input = require(Plugin.Src.Util.Input)
 local DopeSheetController = require(Plugin.Src.Components.DopeSheetController)
 local TimelineContainer = require(Plugin.Src.Components.TimelineContainer)
 local ZoomBar = require(Plugin.Src.Components.ZoomBar)
-local Scrubber = require(Plugin.UILibrary.Components.Timeline.Scrubber)
-local KeyboardListener = require(Plugin.UILibrary.Focus).KeyboardListener
+local Scrubber = UILibrary.Component.Scrubber
+local KeyboardListener = UILibrary.Focus.KeyboardListener
 
 local SetScrollZoom = require(Plugin.Src.Actions.SetScrollZoom)
 local StepAnimation = require(Plugin.Src.Thunks.Playback.StepAnimation)

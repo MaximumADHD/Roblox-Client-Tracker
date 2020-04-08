@@ -2,7 +2,6 @@ local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 local Players = game:GetService("Players")
 local GuiService = game:GetService("GuiService")
-local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
@@ -31,8 +30,6 @@ local Images = UIBlox.App.ImageSet.Images
 
 local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
 
-local FFlagPlayerListDesignUpdate = settings():GetFFlag("PlayerListDesignUpdate")
-
 local FFlagPlayerListBetterDropDownPositioning = require(RobloxGui.Modules.Flags.FFlagPlayerListBetterDropDownPositioning)
 local FFlagPlayerListUseUIBloxIcons = require(CoreGui.RobloxGui.Modules.Flags.FFlagPlayerListUseUIBloxIcons)
 
@@ -48,31 +45,29 @@ local RequestFriendship = require(PlayerList.Thunks.RequestFriendship)
 
 local PlayerDropDown = Roact.PureComponent:extend("PlayerDropDown")
 
-if FFlagPlayerListDesignUpdate then
-	PlayerDropDown.validateProps = t.strictInterface({
-		positionY = t.number,
-		minPositionBoundY = t.number,
-		maxPositionBoundY = t.number,
+PlayerDropDown.validateProps = t.strictInterface({
+	positionY = t.number,
+	minPositionBoundY = t.number,
+	maxPositionBoundY = t.number,
 
-		selectedPlayer = t.optional(t.instanceIsA("Player")),
-		isVisible = t.boolean,
-		playerRelationship = t.optional(t.strictInterface({
-			isBlocked = t.boolean,
-			friendStatus = t.enum(Enum.FriendStatus),
-			isFollowing = t.boolean,
-			isFollower = t.boolean,
-		})),
-		inspectMenuEnabled = t.boolean,
-		isTenFootInterface = t.boolean,
+	selectedPlayer = t.optional(t.instanceIsA("Player")),
+	isVisible = t.boolean,
+	playerRelationship = t.optional(t.strictInterface({
+		isBlocked = t.boolean,
+		friendStatus = t.enum(Enum.FriendStatus),
+		isFollowing = t.boolean,
+		isFollower = t.boolean,
+	})),
+	inspectMenuEnabled = t.boolean,
+	isTenFootInterface = t.boolean,
 
-		closeDropDown = t.callback,
-		blockPlayer = t.callback,
-		unblockPlayer = t.callback,
-		unfollowPlayer = t.callback,
-		followPlayer = t.callback,
-		requestFriendship = t.callback,
-	})
-end
+	closeDropDown = t.callback,
+	blockPlayer = t.callback,
+	unblockPlayer = t.callback,
+	unfollowPlayer = t.callback,
+	followPlayer = t.callback,
+	requestFriendship = t.callback,
+})
 
 function PlayerDropDown:init()
 	self.innerFrameRef = Roact.createRef()
@@ -102,238 +97,120 @@ function PlayerDropDown:init()
 	end
 end
 
--- Remove with FFlagPlayerListDesignUpdate
-local function getFriendText(friendStatus)
-	if friendStatus == Enum.FriendStatus.Friend then
-		return "Unfriend Player"
-	elseif friendStatus == Enum.FriendStatus.Unknown or friendStatus == Enum.FriendStatus.NotFriend then
-		return "Send Friend Request"
-	elseif friendStatus == Enum.FriendStatus.FriendRequestSent then
-		return "Revoke Friend Request"
-	elseif friendStatus == Enum.FriendStatus.FriendRequestReceived then
-		return "Accept Friend Request"
-	end
-	return "Send Friend Request"
-end
-
 function PlayerDropDown:createFriendButton(playerRelationship)
 	local selectedPlayer = self.props.selectedPlayer
-	if FFlagPlayerListDesignUpdate then
-		return Roact.createElement(FriendDropDownButton, {
-			layoutOrder = 1,
-			playerRelationship = playerRelationship,
-			selectedPlayer = selectedPlayer,
-			dropDownOpen = self.props.isVisible,
-			requestFriendship = self.props.requestFriendship,
-		})
-	else
-		return Roact.createElement(DropDownButton, {
-			layoutOrder = 1,
-			text = getFriendText(playerRelationship.friendStatus),
-			onActivated = function()
-				if playerRelationship.friendStatus == Enum.FriendStatus.Friend then
-					LocalPlayer:RevokeFriendship(selectedPlayer)
-				elseif playerRelationship.friendStatus == Enum.FriendStatus.Unknown
-					or playerRelationship.friendStatus == Enum.FriendStatus.NotFriend then
-					self.props.requestFriendship(selectedPlayer, false)
-				elseif playerRelationship.friendStatus == Enum.FriendStatus.FriendRequestSent then
-					RbxAnalyticsService:ReportCounter("PlayerDropDown-RevokeFriendship")
-					RbxAnalyticsService:TrackEvent("Game", "RevokeFriendship", "PlayerDropDown")
-					LocalPlayer:RevokeFriendship(selectedPlayer)
-				elseif playerRelationship.friendStatus == Enum.FriendStatus.FriendRequestReceived then
-					RbxAnalyticsService:ReportCounter("PlayerDropDown-RequestFriendship")
-					RbxAnalyticsService:TrackEvent("Game", "RequestFriendship", "PlayerDropDown")
-					self.props.requestFriendship(selectedPlayer, true)
-				end
-				self.props.closeDropDown()
-			end,
-		})
-	end
-end
-
--- Remove with FFlagPlayerListDesignUpdate
-function PlayerDropDown:createDeclineFriendButton()
-	local selectedPlayer = self.props.selectedPlayer
-	return Roact.createElement(DropDownButton, {
-		layoutOrder = 2,
-		text = "Decline Friend Request",
-		onActivated = function()
-			LocalPlayer:RevokeFriendship(selectedPlayer)
-			self.props.closeDropDown()
-		end,
+	return Roact.createElement(FriendDropDownButton, {
+		layoutOrder = 1,
+		playerRelationship = playerRelationship,
+		selectedPlayer = selectedPlayer,
+		dropDownOpen = self.props.isVisible,
+		requestFriendship = self.props.requestFriendship,
 	})
 end
 
 function PlayerDropDown:createFollowButton(playerRelationship)
-	if FFlagPlayerListDesignUpdate then
-		local selectedPlayer = self.props.selectedPlayer
-		local unfollowText = RobloxTranslator:FormatByKey("PlayerDropDown.UnFollow")
-		local followText = RobloxTranslator:FormatByKey("PlayerDropDown.Follow")
-		local followerIcon
-		if FFlagPlayerListUseUIBloxIcons then
-			followerIcon = playerRelationship.isFollowing and Images["icons/common/notificationOn"]
-				or Images["icons/common/notificationOff"]
-		else
-			followerIcon = playerRelationship.isFollowing and "rbxasset://textures/ui/PlayerList/NotificationOn.png"
-				or "rbxasset://textures/ui/PlayerList/NotificationOff.png"
-		end
-		return Roact.createElement(DropDownButton, {
-			layoutOrder = 2,
-			text = playerRelationship.isFollowing and unfollowText or followText,
-			icon = followerIcon,
-			lastButton = false,
-			forceShowOptions = false,
-			onActivated = function()
-				if playerRelationship.isFollowing then
-					self.props.unfollowPlayer(selectedPlayer)
-				else
-					self.props.followPlayer(selectedPlayer)
-				end
-			end,
-		})
+	local selectedPlayer = self.props.selectedPlayer
+	local unfollowText = RobloxTranslator:FormatByKey("PlayerDropDown.UnFollow")
+	local followText = RobloxTranslator:FormatByKey("PlayerDropDown.Follow")
+	local followerIcon
+	if FFlagPlayerListUseUIBloxIcons then
+		followerIcon = playerRelationship.isFollowing and Images["icons/common/notificationOn"]
+			or Images["icons/common/notificationOff"]
 	else
-		local selectedPlayer = self.props.selectedPlayer
-		local followerText = playerRelationship.isFollowing and "Unfollow Player" or "Follow Player"
-		return Roact.createElement(DropDownButton, {
-			layoutOrder = 3,
-			text = followerText,
-			onActivated = function()
-				if playerRelationship.isFollowing then
-					self.props.unfollowPlayer(selectedPlayer)
-				else
-					self.props.followPlayer(selectedPlayer)
-				end
-				self.props.closeDropDown()
-			end,
-		})
+		followerIcon = playerRelationship.isFollowing and "rbxasset://textures/ui/PlayerList/NotificationOn.png"
+			or "rbxasset://textures/ui/PlayerList/NotificationOff.png"
 	end
+	return Roact.createElement(DropDownButton, {
+		layoutOrder = 2,
+		text = playerRelationship.isFollowing and unfollowText or followText,
+		icon = followerIcon,
+		lastButton = false,
+		forceShowOptions = false,
+		onActivated = function()
+			if playerRelationship.isFollowing then
+				self.props.unfollowPlayer(selectedPlayer)
+			else
+				self.props.followPlayer(selectedPlayer)
+			end
+		end,
+	})
 end
 
 function PlayerDropDown:createBlockButton(playerRelationship)
-	if FFlagPlayerListDesignUpdate then
-		local selectedPlayer = self.props.selectedPlayer
-		local blockedText = RobloxTranslator:FormatByKey("PlayerDropDown.Block")
-		local unblockText = RobloxTranslator:FormatByKey("PlayerDropDown.UnBlock")
-		local blockIcon
-		if FFlagPlayerListUseUIBloxIcons then
-			blockIcon = Images["icons/actions/block"]
-		else
-			blockIcon = "rbxasset://textures/ui/PlayerList/Block.png"
-		end
-		return Roact.createElement(DropDownButton, {
-			layoutOrder = 4,
-			text = playerRelationship.isBlocked and unblockText or blockedText,
-			icon = blockIcon,
-			lastButton = false,
-			forceShowOptions = false,
-			onActivated = function()
-				if playerRelationship.isBlocked then
-					self.props.unblockPlayer(selectedPlayer)
-				else
-					self.props.blockPlayer(selectedPlayer)
-				end
-			end,
-		})
+	local selectedPlayer = self.props.selectedPlayer
+	local blockedText = RobloxTranslator:FormatByKey("PlayerDropDown.Block")
+	local unblockText = RobloxTranslator:FormatByKey("PlayerDropDown.UnBlock")
+	local blockIcon
+	if FFlagPlayerListUseUIBloxIcons then
+		blockIcon = Images["icons/actions/block"]
 	else
-		local selectedPlayer = self.props.selectedPlayer
-		local blockedText = playerRelationship.isBlocked and "Unblock Player" or "Block Player"
-		return Roact.createElement(DropDownButton, {
-			layoutOrder = 4,
-			text = blockedText,
-			onActivated = function()
-				if playerRelationship.isBlocked then
-					self.props.unblockPlayer(selectedPlayer)
-				else
-					self.props.blockPlayer(selectedPlayer)
-				end
-				self.props.closeDropDown()
-			end,
-		})
+		blockIcon = "rbxasset://textures/ui/PlayerList/Block.png"
 	end
+	return Roact.createElement(DropDownButton, {
+		layoutOrder = 4,
+		text = playerRelationship.isBlocked and unblockText or blockedText,
+		icon = blockIcon,
+		lastButton = false,
+		forceShowOptions = false,
+		onActivated = function()
+			if playerRelationship.isBlocked then
+				self.props.unblockPlayer(selectedPlayer)
+			else
+				self.props.blockPlayer(selectedPlayer)
+			end
+		end,
+	})
 end
 
 function PlayerDropDown:createReportButton()
-	if FFlagPlayerListDesignUpdate then
-		local selectedPlayer = self.props.selectedPlayer
-		local reportIcon
-		if FFlagPlayerListUseUIBloxIcons then
-			reportIcon = Images["icons/actions/feedback"]
-		else
-			reportIcon = "rbxasset://textures/ui/PlayerList/Report.png"
-		end
-		return Roact.createElement(DropDownButton, {
-			layoutOrder = 5,
-			text = RobloxTranslator:FormatByKey("PlayerDropDown.Report"),
-			icon = reportIcon,
-			lastButton = true,
-			forceShowOptions = false,
-			onActivated = function()
-				if isNewInGameMenuEnabled() then
-					-- todo: move InGameMenu to a script global when removing isNewInGameMenuEnabled
-					local InGameMenu = require(RobloxGui.Modules.InGameMenu)
-					InGameMenu.openReportDialog(selectedPlayer)
-				else
-					-- This module has to be required here or it yields on initalization which breaks the unit tests.
-					-- TODO: Revist this with new in game menu.
-					local ReportAbuseMenu = require(RobloxGui.Modules.Settings.Pages.ReportAbuseMenu)
-					ReportAbuseMenu:ReportPlayer(selectedPlayer)
-					self.props.closeDropDown()
-				end
-			end,
-		})
+	local selectedPlayer = self.props.selectedPlayer
+	local reportIcon
+	if FFlagPlayerListUseUIBloxIcons then
+		reportIcon = Images["icons/actions/feedback"]
 	else
-		local selectedPlayer = self.props.selectedPlayer
-		return Roact.createElement(DropDownButton, {
-			layoutOrder = 5,
-			text = "Report Abuse",
-			onActivated = function()
-				if isNewInGameMenuEnabled() then
-					-- todo: move InGameMenu to a script global when removing isNewInGameMenuEnabled
-					local InGameMenu = require(RobloxGui.Modules.InGameMenu)
-					InGameMenu.openReportDialog(selectedPlayer)
-				else
-					-- This module has to be required here or it yields on initalization which breaks the unit tests.
-					-- TODO: Revist this with new in game menu.
-					local ReportAbuseMenu = require(RobloxGui.Modules.Settings.Pages.ReportAbuseMenu)
-					ReportAbuseMenu:ReportPlayer(selectedPlayer)
-					self.props.closeDropDown()
-				end
-			end,
-		})
+		reportIcon = "rbxasset://textures/ui/PlayerList/Report.png"
 	end
+	return Roact.createElement(DropDownButton, {
+		layoutOrder = 5,
+		text = RobloxTranslator:FormatByKey("PlayerDropDown.Report"),
+		icon = reportIcon,
+		lastButton = true,
+		forceShowOptions = false,
+		onActivated = function()
+			if isNewInGameMenuEnabled() then
+				-- todo: move InGameMenu to a script global when removing isNewInGameMenuEnabled
+				local InGameMenu = require(RobloxGui.Modules.InGameMenu)
+				InGameMenu.openReportDialog(selectedPlayer)
+			else
+				-- This module has to be required here or it yields on initalization which breaks the unit tests.
+				-- TODO: Revist this with new in game menu.
+				local ReportAbuseMenu = require(RobloxGui.Modules.Settings.Pages.ReportAbuseMenu)
+				ReportAbuseMenu:ReportPlayer(selectedPlayer)
+				self.props.closeDropDown()
+			end
+		end,
+	})
 end
 
 function PlayerDropDown:createInspectButton()
-	if FFlagPlayerListDesignUpdate then
-		local selectedPlayer = self.props.selectedPlayer
-		local inspectIcon
-		if FFlagPlayerListUseUIBloxIcons then
-			inspectIcon = Images["icons/actions/zoomIn"]
-		else
-			inspectIcon = "rbxasset://textures/ui/PlayerList/ViewAvatar.png"
-		end
-		return Roact.createElement(DropDownButton, {
-			layoutOrder = 3,
-			text = RobloxTranslator:FormatByKey("PlayerDropDown.Examine"),
-			icon = inspectIcon,
-			lastButton = selectedPlayer == LocalPlayer,
-			forceShowOptions = false,
-			onActivated = function()
-				GuiService:InspectPlayerFromUserIdWithCtx(selectedPlayer.UserId, "leaderBoard")
-				self.props.closeDropDown()
-			end,
-		})
+	local selectedPlayer = self.props.selectedPlayer
+	local inspectIcon
+	if FFlagPlayerListUseUIBloxIcons then
+		inspectIcon = Images["icons/actions/zoomIn"]
 	else
-		local selectedPlayer = self.props.selectedPlayer
-		return Roact.createElement(DropDownButton, {
-			layoutOrder = 6,
-			text = "View",
-			onActivated = function()
-				GuiService:InspectPlayerFromUserIdWithCtx(selectedPlayer.UserId, "leaderBoard")
-				self.props.closeDropDown()
-			end,
-		})
+		inspectIcon = "rbxasset://textures/ui/PlayerList/ViewAvatar.png"
 	end
+	return Roact.createElement(DropDownButton, {
+		layoutOrder = 3,
+		text = RobloxTranslator:FormatByKey("PlayerDropDown.Examine"),
+		icon = inspectIcon,
+		lastButton = selectedPlayer == LocalPlayer,
+		forceShowOptions = false,
+		onActivated = function()
+			GuiService:InspectPlayerFromUserIdWithCtx(selectedPlayer.UserId, "leaderBoard")
+			self.props.closeDropDown()
+		end,
+	})
 end
 
 function PlayerDropDown:render()
@@ -345,34 +222,23 @@ function PlayerDropDown:render()
 		end
 
 		local dropDownButtons = {}
-		local dropDownHeight = 0
-		local dropDownHeaderHeight = 0
 
 		dropDownButtons["UIListLayout"] = Roact.createElement("UIListLayout", {
 			Padding = UDim.new(0, layoutValues.DropDownButtonPadding),
 			SortOrder = Enum.SortOrder.LayoutOrder,
 		})
 
-		if FFlagPlayerListDesignUpdate then
-			dropDownButtons["PlayerHeader"] = Roact.createElement(DropDownPlayerHeader, {
-				player = self.props.selectedPlayer,
-			})
-			dropDownHeaderHeight = layoutValues.DropDownButtonPadding + layoutValues.DropDownHeaderSizeY
-			dropDownHeight = dropDownHeight + dropDownHeaderHeight
-		end
+		dropDownButtons["PlayerHeader"] = Roact.createElement(DropDownPlayerHeader, {
+			player = self.props.selectedPlayer,
+		})
+		local dropDownHeaderHeight = layoutValues.DropDownButtonPadding + layoutValues.DropDownHeaderSizeY
+		local dropDownHeight = dropDownHeaderHeight
 
 		local playerRelationship = self.props.playerRelationship
 		if selectedPlayer ~= LocalPlayer then
 			if not playerRelationship.isBlocked then
 				dropDownButtons["FriendButton"] = self:createFriendButton(playerRelationship)
 				dropDownHeight = dropDownHeight + layoutValues.DropDownButtonPadding + layoutValues.DropDownButtonSizeY
-
-				if not FFlagPlayerListDesignUpdate then
-					if playerRelationship.friendStatus == Enum.FriendStatus.FriendRequestReceived then
-						dropDownButtons["DeclineFriendButton"] = self:createDeclineFriendButton()
-						dropDownHeight = dropDownHeight + layoutValues.DropDownButtonPadding + layoutValues.DropDownButtonSizeY
-					end
-				end
 
 				dropDownButtons["FollowerButton"] = self:createFollowButton(playerRelationship)
 				dropDownHeight = dropDownHeight + layoutValues.DropDownButtonPadding + layoutValues.DropDownButtonSizeY
@@ -397,14 +263,8 @@ function PlayerDropDown:render()
 			dropDownHeight = dropDownHeight + layoutValues.DropDownButtonPadding + layoutValues.DropDownButtonSizeY
 		end
 
-		if FFlagPlayerListDesignUpdate then
-			if dropDownHeight <= dropDownHeaderHeight then
-				self.props.closeDropDown()
-			end
-		else
-			if dropDownHeight == 0 then
-				self.props.closeDropDown()
-			end
+		if dropDownHeight <= dropDownHeaderHeight then
+			self.props.closeDropDown()
 		end
 
 		dropDownHeight = dropDownHeight - layoutValues.DropDownButtonPadding
@@ -415,49 +275,29 @@ function PlayerDropDown:render()
 		else
 			dropDownPosition = self.props.positionY
 		end
-		if FFlagPlayerListDesignUpdate then
-			dropDownPosition = dropDownPosition + (layoutValues.DropDownHeaderBackgroundSize - layoutValues.DropDownHeaderSizeY)
-			if dropDownPosition + dropDownHeight > self.props.maxPositionBoundY then
-				dropDownPosition = dropDownPosition - (dropDownPosition + dropDownHeight - self.props.maxPositionBoundY)
-			elseif dropDownPosition < self.props.minPositionBoundY then
-				dropDownPosition = dropDownPosition + (self.props.minPositionBoundY - dropDownPosition)
-			end
+		dropDownPosition = dropDownPosition + (layoutValues.DropDownHeaderBackgroundSize - layoutValues.DropDownHeaderSizeY)
+		if dropDownPosition + dropDownHeight > self.props.maxPositionBoundY then
+			dropDownPosition = dropDownPosition - (dropDownPosition + dropDownHeight - self.props.maxPositionBoundY)
+		elseif dropDownPosition < self.props.minPositionBoundY then
+			dropDownPosition = dropDownPosition + (self.props.minPositionBoundY - dropDownPosition)
 		end
 
-		if FFlagPlayerListDesignUpdate then
-			return Roact.createElement("Frame", {
-				LayoutOrder = self.props.layoutOrder,
-				AnchorPoint = Vector2.new(1, 0),
-				Position = UDim2.new(0, 0, 0, dropDownPosition),
-				Size = UDim2.new(0, layoutValues.PlayerDropDownSizeX + layoutValues.PlayerDropDownOffset, 0, dropDownHeight),
+		return Roact.createElement("Frame", {
+			LayoutOrder = self.props.layoutOrder,
+			AnchorPoint = Vector2.new(1, 0),
+			Position = UDim2.new(0, 0, 0, dropDownPosition),
+			Size = UDim2.new(0, layoutValues.PlayerDropDownSizeX + layoutValues.PlayerDropDownOffset, 0, dropDownHeight),
+			BackgroundTransparency = 1,
+			ClipsDescendants = true,
+		}, {
+			InnerFrame = Roact.createElement("Frame", {
+				Size = UDim2.new(1, -layoutValues.PlayerDropDownOffset, 1, 0),
 				BackgroundTransparency = 1,
 				ClipsDescendants = true,
-			}, {
-				InnerFrame = Roact.createElement("Frame", {
-					Size = UDim2.new(1, -layoutValues.PlayerDropDownOffset, 1, 0),
-					BackgroundTransparency = 1,
-					ClipsDescendants = true,
 
-					[Roact.Ref] = self.innerFrameRef,
-				}, dropDownButtons)
-			})
-		else
-			return Roact.createElement("Frame", {
-				LayoutOrder = self.props.layoutOrder,
-				AnchorPoint = Vector2.new(1, 0),
-				Position = UDim2.new(0, 0, 0, self.props.positionY),
-				Size = UDim2.new(0, layoutValues.PlayerDropDownSizeX, 0, dropDownHeight),
-				BackgroundTransparency = 1,
-				ClipsDescendants = true,
-			}, {
-				InnerFrame = Roact.createElement("Frame", {
-					Size = UDim2.new(1, -4, 1, 0),
-					BackgroundTransparency = 1,
-
-					[Roact.Ref] = self.innerFrameRef,
-				}, dropDownButtons)
-			})
-		end
+				[Roact.Ref] = self.innerFrameRef,
+			}, dropDownButtons)
+		})
 	end)
 end
 

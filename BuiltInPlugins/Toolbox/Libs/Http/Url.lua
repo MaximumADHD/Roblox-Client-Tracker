@@ -35,6 +35,7 @@ local _baseUrl, _basePrefix, _baseDomain = parseBaseUrlInformation()
 
 -- construct urls once
 local _baseApiUrl = string.format("https://api.%s", _baseDomain)
+local _baseApisUrl = string.format("https://apis.%s", _baseDomain)
 local _baseAuthUrl = string.format("https://auth.%s", _baseDomain)
 local _baseChatUrl = string.format("https://chat.%sv2", _baseDomain)
 local _baseGameAssetUrl = string.format("https://assetgame.%s", _baseDomain)
@@ -58,6 +59,7 @@ local Url = {
 	PREFIX = _basePrefix,
 	BASE_URL = _baseUrl,
 	API_URL = _baseApiUrl,
+	APIS_URL = _baseApisUrl,
 	AUTH_URL = _baseAuthUrl,
 	GAME_URL = _baseGamesUrl,
 	GAME_ASSET_URL = _baseGameAssetUrl,
