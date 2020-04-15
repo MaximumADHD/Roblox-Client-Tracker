@@ -131,12 +131,8 @@ return function(apiImpl, assetType, pageCursor, pageNumber, showLoadingIndicator
                 if not body then
                     return
                 end
-                if body.previousPageCursor then
-                    newAssets.previousPageCursor = body.previousPageCursor
-                end
-                if body.nextPageCursor then
-                    newAssets.nextPageCursor = body.nextPageCursor
-                end
+                newAssets.previousPageCursor = body.previousPageCursor
+                newAssets.nextPageCursor = body.nextPageCursor
                 -- Remove with FFlagStudioAssetManagerFilterPackagePermissions
                 local packageIds = {}
 

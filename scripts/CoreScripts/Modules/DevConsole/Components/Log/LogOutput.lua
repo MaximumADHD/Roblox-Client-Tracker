@@ -13,6 +13,8 @@ local MAX_STR_MSG = " -- Could not display entire %d character message because m
 
 local FFlagDevConsoleLogNewLineFix = settings():GetFFlag("DevConsoleLogNewLineFix")
 
+game:DefineFastFlag("DevConsoleUseZeroCanvasWidthLogOutput", false)
+
 local LogOutput = Roact.Component:extend("LogOutput")
 
 function LogOutput:init(props)
@@ -247,12 +249,14 @@ function LogOutput:render()
 		})
 	end
 
+	local useZeroCanvasWidth = game:GetFastFlag("DevConsoleUseZeroCanvasWidthLogOutput")
+
 	return Roact.createElement("ScrollingFrame", {
 		Size = size,
 		BackgroundTransparency = 1,
 		VerticalScrollBarInset = 1,
 		ScrollBarThickness = 6,
-		CanvasSize = UDim2.new(1, 0, 0, scrollingFrameHeight),
+		CanvasSize = UDim2.new(useZeroCanvasWidth and 0 or 1, 0, 0, scrollingFrameHeight),
 		CanvasPosition = canvasPos,
 		LayoutOrder = layoutOrder,
 

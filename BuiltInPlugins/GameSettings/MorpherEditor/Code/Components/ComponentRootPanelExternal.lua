@@ -3,8 +3,7 @@ paths.requireAll(script.Parent.Parent.Parent.Parent, script.Parent.Parent.Parent
 
 local FFlagWorldAvatarLocalization = game:GetFastFlag("WorldAvatarLocalization")
 local FFlagAvatarSizeFixForReorganizeHeaders =
-	game:GetFastFlag("AvatarSizeFixForReorganizeHeaders") and
-	settings():GetFFlag("GameSettingsReorganizeHeaders")
+	game:GetFastFlag("AvatarSizeFixForReorganizeHeaders")
 
 local RootPanelExternal = paths.Roact.Component:extend("ComponentRootPanelExternal")
 

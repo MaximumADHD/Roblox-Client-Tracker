@@ -2,27 +2,18 @@
 	Public interface for StudioUI
 ]]
 
-local Src = script
-
-local StudioFrameworkStyles = require(Src.StudioFrameworkStyles)
-
-local DockWidget = require(Src.DockWidget)
-local Dialog = require(Src.Dialog)
-
-local PluginToolbar = require(Src.PluginToolbar)
-local PluginButton = require(Src.PluginButton)
-
 local StudioUI = {
 	-- Default styles for the Framework
-	StudioFrameworkStyles = StudioFrameworkStyles,
+	StudioFrameworkStyles = require(script.StudioFrameworkStyles),
 
 	-- PluginWidgets
-	DockWidget = DockWidget,
-	Dialog = Dialog,
+	DockWidget = require(script.DockWidget),
+	Dialog = require(script.Dialog),
+	StyledDialog = require(script.StyledDialog),
 
 	--PluginButton
-	PluginToolbar = PluginToolbar,
-	PluginButton = PluginButton,
+	PluginToolbar = require(script.PluginToolbar),
+	PluginButton = require(script.PluginButton),
 }
 
 return StudioUI

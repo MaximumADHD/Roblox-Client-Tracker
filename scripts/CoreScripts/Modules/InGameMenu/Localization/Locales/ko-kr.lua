@@ -80,7 +80,7 @@ return{
 	["CoreScripts.InGameMenu.PageTitle.Controls"] = [[컨트롤...]],
 	["CoreScripts.InGameMenu.PageTitle.Players"] = [[플레이어]],
 	["CoreScripts.InGameMenu.PageTitle.Report"] = [[신고]],
-	["CoreScripts.InGameMenu.PageTitle.GameSettings"] = [[게임 설정]],
+	["CoreScripts.InGameMenu.PageTitle.GameSettings"] = [[설정]],
 	["CoreScripts.InGameMenu.Actions.AddFriend"] = [[친구 추가]],
 	["CoreScripts.InGameMenu.Actions.Unfriend"] = [[친구 끊기]],
 	["CoreScripts.InGameMenu.Actions.CancelFriend"] = [[친구 요청 취소]],
@@ -121,4 +121,6 @@ return{
 	["CoreScripts.InGameMenu.InviteFriends.Loading"] = [[불러오는 중!]],
 	["CoreScripts.InGameMenu.RespawnCharacter"] = [[캐릭터 리스폰]],
 	["CoreScripts.InGameMenu.GameSettings.CameraModeCameraToggle"] = [[카메라 전환]],
+	["CoreScripts.InGameMenu.Record.StartRecording"] = [[비디오 녹화]],
+	["CoreScripts.InGameMenu.Record.Duration"] = [[녹화 중 - {DURATION}]],
 }

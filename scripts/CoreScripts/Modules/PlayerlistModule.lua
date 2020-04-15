@@ -20,8 +20,6 @@ local FFlagRobloxGuiSiblingZindexs = settings():GetFFlag("RobloxGuiSiblingZindex
 
 local FFlagPlayerListNewIcons = settings():GetFFlag("PlayerListNewIcons")
 
-local FFlagRenameDisplayNameToPlatformName = settings():GetFFlag("RenameDisplayNameToPlatformName")
-
 while not PlayersService.LocalPlayer do
   -- This does not follow the usual pattern of PlayersService:PlayerAdded:Wait()
   -- because it caused a bug where the local players name would show as Player in game.
@@ -1498,7 +1496,7 @@ if isTenFootInterface then offsetSize = 32 end
 local function createPlayerEntry(player, isTopStat)
   local playerEntry = {}
   local name = player.Name
-  local platformName = FFlagRenameDisplayNameToPlatformName and player.PlatformName or player.DisplayName
+  local platformName = player.PlatformName
   local hasXboxGamertag = isTenFootInterface and platformName ~= ""
 
   local containerFrame, entryFrame = createEntryFrame(name, PlayerEntrySizeY, isTopStat)

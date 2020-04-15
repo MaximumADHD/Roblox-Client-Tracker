@@ -12,11 +12,24 @@ local UpdateCoreGuiEnabled = require(TopBar.Actions.UpdateCoreGuiEnabled)
 
 local EventConnection = require(TopBar.Parent.Common.EventConnection)
 
+local FFlagTopBarBetterStateInit = require(TopBar.Parent.Flags.FFlagTopBarBetterStateInit)
+
 local CoreGuiConnector = Roact.PureComponent:extend("CoreGuiConnector")
 
 CoreGuiConnector.validateProps = t.strictInterface({
 	updateCoreGuiEnabled = t.callback,
 })
+
+if FFlagTopBarBetterStateInit then
+	function CoreGuiConnector:didMount()
+		local initalCoreGuiTypes = Enum.CoreGuiType:GetEnumItems()
+		for _, coreGuiType in ipairs(initalCoreGuiTypes) do
+			if coreGuiType ~= Enum.CoreGuiType.All then
+				self.props.updateCoreGuiEnabled(coreGuiType, StarterGui:GetCoreGuiEnabled(coreGuiType))
+			end
+		end
+	end
+end
 
 function CoreGuiConnector:render()
 	return Roact.createFragment({

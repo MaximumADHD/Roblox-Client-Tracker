@@ -478,6 +478,11 @@ local function getUILibraryTheme()
 
 		loadingIndicator = {
 			endColor = theme:GetColor(c.Button, m.Selected),
+		},
+
+		tooltip = {
+			textSize = FONT_SIZE_SMALL,
+			font = Enum.Font.SourceSans,
 		}
 	}
 

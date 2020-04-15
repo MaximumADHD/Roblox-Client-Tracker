@@ -10,6 +10,7 @@ local StyleModifier = Util.StyleModifier
 
 local UILibrary = require(Plugin.Packages.UILibrary)
 local GetTextSize = UILibrary.Util.GetTextSize
+local Tooltip = UILibrary.Component.Tooltip
 
 local PopUpButton = require(Plugin.Src.Components.PopUpButton)
 
@@ -342,6 +343,11 @@ function Tile:render()
 
             [Roact.Change.Text] = self.onTextChanged,
             [Roact.Event.FocusLost] = self.onTextBoxFocusLost,
+        }),
+
+        Tooltip = Roact.createElement(Tooltip, {
+            Text = name,
+            Enabled = true,
         })
     })
 end

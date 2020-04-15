@@ -11,6 +11,8 @@ local PlayerListDisplay = require(Presentation.PlayerListDisplay)
 local PlayerList = Presentation.Parent.Parent
 local FAKE_NEUTRAL_TEAM = require(PlayerList.GetFakeNeutralTeam)
 
+local isDisplayNameEnabled = require(PlayerList.isDisplayNameEnabled)
+
 local PlayerListSorter = Roact.PureComponent:extend("PlayerListSorter")
 
 local function playerInTeam(player, team)
@@ -91,13 +93,21 @@ local function buildSortedPlayers(primaryStat, players, playerStats)
 
 	table.sort(sortedPlayers, function(playerA, playerB)
 		if not primaryStat then
-			return playerA.Name:upper() < playerB.Name:upper()
+			if isDisplayNameEnabled() then
+				return playerA.DisplayName:upper() < playerB.DisplayName:upper()
+			else
+				return playerA.Name:upper() < playerB.Name:upper()
+			end
 		end
 
 		local statA = playerStats[playerA.UserId][primaryStat]
 		local statB = playerStats[playerB.UserId][primaryStat]
 		if statA == statB then
-			return playerA.Name:upper() < playerB.Name:upper()
+			if isDisplayNameEnabled() then
+				return playerA.DisplayName:upper() < playerB.DisplayName:upper()
+			else
+				return playerA.Name:upper() < playerB.Name:upper()
+			end
 		elseif statA == nil then
 			return false
 		elseif statB == nil then

@@ -12,9 +12,10 @@ local Roact = require(Plugin.Packages.Roact)
 local Math = require(DraggerFramework.Utility.Math)
 local PartMover = require(DraggerFramework.Utility.PartMover)
 local AttachmentMover = require(DraggerFramework.Utility.AttachmentMover)
-local StudioSettings = require(DraggerFramework.Utility.StudioSettings)
 local Colors = require(DraggerFramework.Utility.Colors)
 local getHandleScale = require(DraggerFramework.Utility.getHandleScale)
+
+local getFFlagSmoothAttachmentMovement = require(DraggerFramework.Flags.getFFlagSmoothAttachmentMovement)
 
 local MoveHandleView = require(Plugin.Src.MoveHandleView)
 
@@ -60,10 +61,6 @@ end
 
 local function areConstraintsEnabled()
 	return StudioService.DraggerSolveConstraints
-end
-
-local function useLocalSpace()
-    return StudioService.UseLocalSpace
 end
 
 local function snapToGridSize(distance)
@@ -179,7 +176,7 @@ function MoveToolImpl:mouseDown(mouseRay, handleId)
     self._draggingLastGoodGeometricDelta = 0
     self._draggingOriginalBoundingBoxCFrame = self._boundingBox.CFrame
 
-    local breakJoints = not areConstraintsEnabled()
+	local breakJoints = not self:_shouldSolveConstraints()
     self._partMover:setDragged(self._partsToMove,
         self._originalCFrameMap,
         breakJoints,
@@ -207,6 +204,14 @@ function MoveToolImpl:_setupMoveAtCurrentBoundingBox(mouseRay)
     self._startDistance = distance
 end
 
+function MoveToolImpl:_shouldSolveConstraints()
+	if getFFlagSmoothAttachmentMovement() then
+		return areConstraintsEnabled() and #self._partsToMove > 0
+	else
+		return areConstraintsEnabled()
+	end
+end
+
 --[[
     We want to keep the mouse cursor snapped to a point a constant fraction of
     the way down the handle length over the whole duration of a move. This is
@@ -222,8 +227,8 @@ end
     Do this using a binary search over the potential solution space.
 ]]
 function MoveToolImpl:_solveForAdjustedDistance(unadjustedDistance)
-    -- Only try to adjust the movement for a geometric move
-    if areConstraintsEnabled() then
+	-- Only try to adjust the movement for a geometric move
+    if self:_shouldSolveConstraints() then
         return unadjustedDistance
     end
 
@@ -244,7 +249,7 @@ function MoveToolImpl:_solveForAdjustedDistance(unadjustedDistance)
     end
 
     local function getHandleLengthForDistance(distance)
-        local handleOffset, handleLength =
+        local _, handleLength =
             MoveHandleView.getHandleDimensionForScale(getScaleForDistance(distance))
         return handleLength
     end
@@ -300,11 +305,19 @@ function MoveToolImpl:mouseDrag(mouseRay)
     -- implemented as snapping with grid size = 0.001.
     local snappedDelta = snapToGridSize(delta)
 
-    if areConstraintsEnabled() and #self._partsToMove > 0 then
-        self:_mouseDragWithInverseKinematics(mouseRay, snappedDelta)
-    else
-        self:_mouseDragWithGeometricMovement(mouseRay, snappedDelta)
-    end
+	if getFFlagSmoothAttachmentMovement() then
+		if self:_shouldSolveConstraints() then
+			self:_mouseDragWithInverseKinematics(mouseRay, snappedDelta)
+		else
+			self:_mouseDragWithGeometricMovement(mouseRay, snappedDelta)
+		end
+	else
+		if areConstraintsEnabled() and #self._partsToMove > 0 then
+			self:_mouseDragWithInverseKinematics(mouseRay, snappedDelta)
+		else
+			self:_mouseDragWithGeometricMovement(mouseRay, snappedDelta)
+		end
+	end
 end
 
 --[[
@@ -422,7 +435,7 @@ function MoveToolImpl:_findAndMoveToGoodDelta(desiredDelta)
 end
 
 function MoveToolImpl:_getDistanceAlongAxis(mouseRay)
-    if areConstraintsEnabled() then
+	if self:_shouldSolveConstraints() then
         return Math.intersectRayRay(
             self._boundingBox.CFrame.Position, self._axis,
             mouseRay.Origin, mouseRay.Direction.Unit)

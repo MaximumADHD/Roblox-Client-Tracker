@@ -1,11 +1,9 @@
 
 local Workspace = game:GetService("Workspace")
-local UserInputService = game:GetService("UserInputService")
 local CoreGui = game:GetService("CoreGui")
 
 local Plugin = script.Parent.Parent
 local Framework = Plugin.Packages.DraggerFramework
-local Colors = require(Framework.Utility.Colors)
 local Math = require(Framework.Utility.Math)
 local Roact = require(Plugin.Packages.Roact)
 
@@ -48,7 +46,7 @@ function MoveHandleView:render()
 
     local coneAtCFrame = self.props.Axis * CFrame.new(0, 0, -(offset + length))
     local tipAt = coneAtCFrame * Vector3.new(0, 0, -tipOffset)
-    local tipAtScreen, tipVisible = Workspace.CurrentCamera:WorldToScreenPoint(tipAt)
+    local tipAtScreen, _ = Workspace.CurrentCamera:WorldToScreenPoint(tipAt)
 
     local children = {}
     if not self.props.Hovered then
@@ -98,14 +96,16 @@ function MoveHandleView:render()
             })
         end
     elseif not self.props.Thin then
+		local halfHandleSize = 0.5 * SCREENSPACE_HANDLE_SIZE
+
         children.ScreenBox = Roact.createElement(Roact.Portal, {
             target = CoreGui,
         }, {
-            MoveToolScreenspaceHandle = Roact.createElement("ScreenGui", {}, {
+			MoveToolScreenspaceHandle = Roact.createElement("ScreenGui", {}, {
                 Frame = Roact.createElement("Frame", {
                     BorderSizePixel = 0,
                     BackgroundColor3 = self.props.Color,
-                    Position = UDim2.new(0, tipAtScreen.X - 0.5 * SCREENSPACE_HANDLE_SIZE, 0, tipAtScreen.Y - 0.5 * SCREENSPACE_HANDLE_SIZE),
+                    Position = UDim2.new(0, tipAtScreen.X - halfHandleSize, 0, tipAtScreen.Y - halfHandleSize),
                     Size = UDim2.new(0, SCREENSPACE_HANDLE_SIZE, 0, SCREENSPACE_HANDLE_SIZE),
                 })
             })
@@ -126,12 +126,13 @@ function MoveHandleView.hitTest(props, mouseRay)
     if not props.AlwaysOnTop then
         -- Check the always on top 2D element at the tip of the vector
         local tipAt = props.Axis * Vector3.new(0, 0, -(offset + length + tipOffset))
-        local tipAtScreen, tipVisible = Workspace.CurrentCamera:WorldToScreenPoint(tipAt)
-        local mouseAtScreen = Workspace.CurrentCamera:WorldToScreenPoint(mouseRay.Origin)
-        if mouseAtScreen.X > tipAtScreen.X - 0.5 * SCREENSPACE_HANDLE_SIZE and
-            mouseAtScreen.Y > tipAtScreen.Y - 0.5 * SCREENSPACE_HANDLE_SIZE and
-            mouseAtScreen.X < tipAtScreen.X + 0.5 * SCREENSPACE_HANDLE_SIZE and
-            mouseAtScreen.Y < tipAtScreen.Y + 0.5 * SCREENSPACE_HANDLE_SIZE
+        local tipAtScreen, _ = Workspace.CurrentCamera:WorldToScreenPoint(tipAt)
+		local mouseAtScreen = Workspace.CurrentCamera:WorldToScreenPoint(mouseRay.Origin)
+		local halfHandleSize = 0.5 * SCREENSPACE_HANDLE_SIZE
+        if mouseAtScreen.X > tipAtScreen.X - halfHandleSize and
+            mouseAtScreen.Y > tipAtScreen.Y - halfHandleSize and
+            mouseAtScreen.X < tipAtScreen.X + halfHandleSize and
+            mouseAtScreen.Y < tipAtScreen.Y + halfHandleSize
         then
             return 0
         end

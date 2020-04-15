@@ -31,12 +31,16 @@ local ChatSelector = require(RobloxGui.Modules.ChatSelector)
 local EmotesConstants = require(RobloxGui.Modules.EmotesMenu.Constants)
 local FFlagEmotesMenuNewKeybinds = require(RobloxGui.Modules.Flags.FFlagEmotesMenuNewKeybinds)
 local FFlagEmotesMenuRemoveOpenKeybinds = settings():GetFFlag("EmotesMenuRemoveOpenKeybinds")
+local FFlagTopBarMoreMenuDontCloseMenu = game:DefineFastFlag("TopBarMoreMenuDontCloseMenu", false)
+
+local FFlagTopBarUseNewIcons = require(RobloxGui.Modules.Flags.FFlagTopBarUseNewIcons)
 
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
 local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList3")
 
-local MORE_BUTTON_SIZE = 36
+local MORE_BUTTON_SIZE = FFlagTopBarUseNewIcons and 32 or 36
+local ICON_SIZE = 24
 local MENU_GAP = 12
 
 local MENU_DEFAULT_SIZE = 300
@@ -79,9 +83,17 @@ function MoreMenu:render()
 	local isUsingKeyBoard = self.props.inputType == InputType.MouseAndKeyBoard
 
 	if self.props.leaderboardEnabled and not self.props.isSmallTouchDevice then
-		local leaderboardIcon = Images["icons/controls/leaderboardOn"]
-		if not self.props.leaderboardOpen then
-			leaderboardIcon = Images["icons/controls/leaderboardOff"]
+		local leaderboardIcon
+		if FFlagTopBarUseNewIcons then
+			leaderboardIcon = "rbxasset://textures/ui/TopBar/leaderboardOn.png"
+			if not self.props.leaderboardOpen then
+				leaderboardIcon = "rbxasset://textures/ui/TopBar/leaderboardOff.png"
+			end
+		else
+			leaderboardIcon = Images["icons/controls/leaderboardOn"]
+			if not self.props.leaderboardOpen then
+				leaderboardIcon = Images["icons/controls/leaderboardOff"]
+			end
 		end
 
 		table.insert(menuOptions, {
@@ -97,16 +109,26 @@ function MoreMenu:render()
 					local PlayerlistModule = require(RobloxGui.Modules.PlayerlistModule)
 					PlayerlistModule.ToggleVisibility()
 				end
-				self.props.setMoreMenuOpen(false)
+				if not FFlagTopBarMoreMenuDontCloseMenu then
+					self.props.setMoreMenuOpen(false)
+				end
 			end,
 		})
 		hasOptions = true
 	end
 
 	if self.props.emotesEnabled then
-		local emotesIcon = Images["icons/controls/emoteOn"]
-		if not self.props.emotesOpen then
-			emotesIcon = Images["icons/controls/emoteOff"]
+		local emotesIcon
+		if FFlagTopBarUseNewIcons then
+			emotesIcon = "rbxasset://textures/ui/TopBar/emotesOn.png"
+			if not self.props.emotesOpen then
+				emotesIcon = "rbxasset://textures/ui/TopBar/emotesOff.png"
+			end
+		else
+			emotesIcon = Images["icons/controls/emoteOn"]
+			if not self.props.emotesOpen then
+				emotesIcon = Images["icons/controls/emoteOff"]
+			end
 		end
 
 		local emotesKeybind = (not FFlagEmotesMenuRemoveOpenKeybinds) and EmotesConstants.EmoteMenuOpenKey_OLD or nil
@@ -124,16 +146,26 @@ function MoreMenu:render()
 				else
 					EmotesMenuMaster:open()
 				end
-				self.props.setMoreMenuOpen(false)
+				if not FFlagTopBarMoreMenuDontCloseMenu then
+					self.props.setMoreMenuOpen(false)
+				end
 			end,
 		})
 		hasOptions = true
 	end
 
 	if self.props.backpackEnabled then
-		local backpackIcon = Images["icons/menu/inventoryOn"]
-		if not self.props.backpackOpen then
-			backpackIcon = Images["icons/menu/inventoryOff"]
+		local backpackIcon
+		if FFlagTopBarUseNewIcons then
+			backpackIcon =  "rbxasset://textures/ui/TopBar/inventoryOn.png"
+			if not self.props.backpackOpen then
+				backpackIcon = "rbxasset://textures/ui/TopBar/inventoryOff.png"
+			end
+		else
+			backpackIcon = Images["icons/menu/inventoryOn"]
+			if not self.props.backpackOpen then
+				backpackIcon = Images["icons/menu/inventoryOff"]
+			end
 		end
 
 		table.insert(menuOptions, {
@@ -142,7 +174,9 @@ function MoreMenu:render()
 			keyCodeLabel = isUsingKeyBoard and Enum.KeyCode.Backquote or nil,
 			onActivated = function()
 				BackpackModule:OpenClose()
-				self.props.setMoreMenuOpen(false)
+				if not FFlagTopBarMoreMenuDontCloseMenu then
+					self.props.setMoreMenuOpen(false)
+				end
 			end,
 		})
 		hasOptions = true
@@ -153,22 +187,47 @@ function MoreMenu:render()
 		moreMenuSize =  UDim2.new(0, self.props.screenSize.X - (MENU_EXTRA_PADDING * 2), 0, self.props.screenSize.Y)
 	end
 
+	local moreIcon = "rbxasset://textures/ui/TopBar/moreOn.png"
+	if not self.props.moreMenuOpen then
+		moreIcon = "rbxasset://textures/ui/TopBar/moreOff.png"
+	end
+
 	local moreButtonVisible = not TenFootInterface:IsEnabled() and self.props.topBarEnabled and hasOptions
 
 	return Roact.createElement("Frame", {
 		Visible = moreButtonVisible,
 		BackgroundTransparency = 1,
-		Size = UDim2.new(0, MORE_BUTTON_SIZE, 0, MORE_BUTTON_SIZE),
+		Size = FFlagTopBarUseNewIcons and UDim2.new(0, MORE_BUTTON_SIZE, 1, 0)
+			or UDim2.new(0, MORE_BUTTON_SIZE, 0, MORE_BUTTON_SIZE),
 		LayoutOrder = self.props.layoutOrder,
 	}, {
-		OpenButtonShadow = Roact.createElement(ImageSetLabel, {
+		OpenButtonShadow = (not FFlagTopBarUseNewIcons) and Roact.createElement(ImageSetLabel, {
 			ZIndex = 1,
 			Image = Images["component_assets/dropshadow_more"],
 			Size = UDim2.new(1, 0, 1, 0),
 			BackgroundTransparency = 1,
 		}),
 
-		OpenButton = Roact.createElement(ImageSetButton, {
+		OpenButton = FFlagTopBarUseNewIcons and Roact.createElement(ImageSetButton, {
+			ZIndex = 1,
+			BackgroundTransparency = 1,
+			Image = "rbxasset://textures/ui/TopBar/iconBase.png",
+			Size = UDim2.fromOffset(MORE_BUTTON_SIZE, MORE_BUTTON_SIZE),
+			Position = UDim2.fromScale(0, 1),
+			AnchorPoint = Vector2.new(0, 1),
+
+			[Roact.Event.Activated] = function()
+				self.props.setMoreMenuOpen(not self.props.moreMenuOpen)
+			end,
+		}, {
+			Icon = Roact.createElement(ImageSetLabel, {
+				BackgroundTransparency = 1,
+				Image = moreIcon,
+				AnchorPoint = Vector2.new(0.5, 0.5),
+				Position = UDim2.fromScale(0.5, 0.5),
+				Size = UDim2.fromOffset(ICON_SIZE, ICON_SIZE),
+			})
+		}) or Roact.createElement(ImageSetButton, {
 			ZIndex = 2,
 			Image = Images["icons/common/more"],
 			Size = UDim2.new(1, 0, 1, 0),
@@ -193,7 +252,8 @@ function MoreMenu:render()
 
 				open = self.props.moreMenuOpen,
 				menuDirection = MenuDirection.Down,
-				openPositionY = UDim.new(0, MORE_BUTTON_SIZE + MENU_GAP),
+				openPositionY = FFlagTopBarUseNewIcons and UDim.new(0, Constants.TopBarHeight + MENU_GAP)
+					or UDim.new(0, MORE_BUTTON_SIZE + MENU_GAP),
 
 				closeBackgroundVisible = false,
 				screenSize = self.props.screenSize,

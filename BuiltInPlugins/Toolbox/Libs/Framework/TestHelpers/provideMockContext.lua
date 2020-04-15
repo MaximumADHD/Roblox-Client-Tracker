@@ -26,7 +26,7 @@
 
 local DevFrameworkRoot = script.Parent.Parent
 local ContextServices = require(DevFrameworkRoot.ContextServices)
-local FrameworkStyles = require(DevFrameworkRoot.UI.FrameworkStyles)
+local StudioFrameworkStyles = require(DevFrameworkRoot.StudioUI).StudioFrameworkStyles
 local Util = require(DevFrameworkRoot.Util)
 local Rodux = require(DevFrameworkRoot.Parent.Rodux)
 
@@ -61,7 +61,12 @@ return function(contextItemsList, children)
 	table.insert(contextItems, mouse)
 
 	-- Plugin
-	local plugin = ContextServices.Plugin.new({})
+	local mockPlugin = {
+		CreateQWidgetPluginGui = function()
+			return Instance.new("ScreenGui")
+		end,
+	}
+	local plugin = ContextServices.Plugin.new(mockPlugin)
 	table.insert(contextItems, plugin)
 
 	-- Store
@@ -71,12 +76,18 @@ return function(contextItemsList, children)
 	table.insert(contextItems, store)
 
 	-- Theme
-	local theme = ContextServices.Theme.mock(function()
+	local theme = ContextServices.Theme.mock(function(theme, getColor)
 		return {
-			Framework = FrameworkStyles.new(),
+			Framework = StudioFrameworkStyles.new(theme, getColor),
 		}
 	end, function()
-		return Enum.UITheme.Light
+		return {
+			Name = Enum.UITheme.Light.Name,
+
+			GetColor = function(_, _)
+				return Color3.new()
+			end,
+		}
 	end)
 	table.insert(contextItems, theme)
 

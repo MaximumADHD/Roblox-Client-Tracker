@@ -18,8 +18,6 @@ local Constants = require(Plugin.Src.Resources.Constants)
 local Rodux = require(Plugin.Packages.Rodux)
 local Cryo = require(Plugin.Packages.Cryo)
 
-local FFlagStudioEnablePhoneAndTableDefault = game:DefineFastFlag("StudioEnablePhoneAndTableDefault", false)
-
 local function isEqualCheck(left, right)
 	left = left or {}
 	right = right or {}
@@ -46,8 +44,7 @@ local initial = {
 		creatorId = 0,
 		description = "",
 		genre = Constants.GENRE_IDS[1],
-		playableDevices = FFlagStudioEnablePhoneAndTableDefault and {Computer = true, Phone = true, Tablet = true,}
-		or { Computer = true }
+		playableDevices = {Computer = true, Phone = true, Tablet = true,},
 	},
 	errors = {},
 }

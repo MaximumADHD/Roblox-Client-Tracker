@@ -147,4 +147,8 @@ return {
 	getOpenChangedEvent = function()
 		return OpenChangedEvent
 	end,
+
+	getOpen = function()
+		return menuStore:getState().isMenuOpen
+	end,
 }

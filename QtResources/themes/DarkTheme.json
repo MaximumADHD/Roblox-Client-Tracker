@@ -699,7 +699,7 @@
         "HighlightOtherInactive": "#26CCCCCC",
         "HighlightResolvedActive": "#BBBBBBBB",
 
-        "Background": "#2D2D2D",
+        "Background": "#292929",
 
         "OtherTopLabelOverride": "#4CCCCCCC"
     },

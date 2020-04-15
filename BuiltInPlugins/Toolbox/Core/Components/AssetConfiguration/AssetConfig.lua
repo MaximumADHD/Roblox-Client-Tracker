@@ -7,12 +7,15 @@
 ]]
 
 local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
+local FFlagStudioUseNewAnimationImportExportFlow = settings():GetFFlag("StudioUseNewAnimationImportExportFlow")
 local FFlagAssetConfigOverrideFromAnyScreen = game:DefineFastFlag("AssetConfigOverrideFromAnyScreen", false)
 local FFlagCanPublishDefaultAsset = game:DefineFastFlag("CanPublishDefaultAsset", false)
 local FFlagShowAssetConfigReasons = game:GetFastFlag("ShowAssetConfigReasons")
 local FFlagEnableAssetConfigFreeFix2 = game:GetFastFlag("EnableAssetConfigFreeFix2")
 local FFlagEnableNonWhitelistedToggle = game:GetFastFlag("EnableNonWhitelistedToggle")
 local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
+
+local StudioService = game:GetService("StudioService")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -60,6 +63,8 @@ local PostRevertVersionRequest = require(Requests.PostRevertVersionRequest)
 local PatchAssetRequest = require(Requests.PatchAssetRequest)
 local PostUploadAssetRequest = require(Requests.PostUploadAssetRequest)
 local PostOverrideAssetRequest = require(Requests.PostOverrideAssetRequest)
+local PostUploadAnimationRequest = require(Requests.PostUploadAnimationRequest)
+local PostOverrideAnimationRequest = require(Requests.PostOverrideAnimationRequest)
 local GetIsVerifiedCreatorRequest = require(Requests.GetIsVerifiedCreatorRequest)
 local PostPackageMetadataRequest = require(Requests.PostPackageMetadataRequest)
 local GetPackageCollaboratorsRequest = require(Requests.GetPackageCollaboratorsRequest)
@@ -142,7 +147,11 @@ function AssetConfig:init(props)
 			local props = self.props
 			local state = self.state
 
-			if AssetConfigConstants.FLOW_TYPE.EDIT_FLOW == props.screenFlowType then
+			if FFlagStudioUseNewAnimationImportExportFlow and AssetConfigConstants.FLOW_TYPE.DOWNLOAD_FLOW == props.screenFlowType then
+				-- download flow should only be for animations currently
+				StudioService:AnimationIdSelected(state.overrideAssetId)
+				props.onClose()
+			elseif AssetConfigConstants.FLOW_TYPE.EDIT_FLOW == props.screenFlowType then
 				if AssetConfigUtil.isCatalogAsset(props.assetTypeEnum) then
 					if props.assetConfigData and props.assetConfigData.Status then
 						props.configureCatalogItem(
@@ -175,7 +184,24 @@ function AssetConfig:init(props)
 					})
 				end
 			elseif AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW == props.screenFlowType then
-				if AssetConfigUtil.isCatalogAsset(props.assetTypeEnum) then
+				if FFlagStudioUseNewAnimationImportExportFlow and props.assetTypeEnum == Enum.AssetType.Animation then
+					if ConfigTypes:isOverride(props.currentTab) then
+						props.overrideAnimationAsset(
+							getNetwork(self),
+							state.overrideAssetId,
+							props.instances
+						)
+					else
+						props.uploadAnimationAsset({
+							networkInterface = getNetwork(self),
+							assetId = 0, 								-- empyt or 0 for new asset
+							name = state.name,
+							description = state.description or "",
+							groupId = state.groupId,					-- Used only for upload group asset.
+							instance = props.instances,
+						})
+					end
+				elseif AssetConfigUtil.isCatalogAsset(props.assetTypeEnum) then
 					props.uploadCatalogItem(
 						getNetwork(self),
 						self.state.name,
@@ -947,7 +973,7 @@ local function mapStateToProps(state, props)
 end
 
 local function mapDispatchToProps(dispatch)
-	return {
+	local dispatchToProps = {
 		getAssetConfigData = function(networkInterface, assetId)
 			dispatch(GetAssetConfigDataRequest(networkInterface, assetId))
 		end,
@@ -1036,6 +1062,18 @@ local function mapDispatchToProps(dispatch)
 			dispatch(GetUsername(userId))
 		end,
 	}
+
+	if FFlagStudioUseNewAnimationImportExportFlow then
+		dispatchToProps["uploadAnimationAsset"] = function(requestInfo)
+			dispatch(PostUploadAnimationRequest(requestInfo))
+		end
+
+		dispatchToProps["overrideAnimationAsset"] = function(networkInterface, assetid, instance)
+			dispatch(PostOverrideAnimationRequest(networkInterface, assetid, instance))
+		end
+	end
+
+	return dispatchToProps
 end
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(AssetConfig)

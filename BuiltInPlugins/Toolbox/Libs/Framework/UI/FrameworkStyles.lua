@@ -18,6 +18,7 @@ function FrameworkStyles.new()
 	return {
 		Common = newDefaults(),
 
+		-- UI Styles
 		Box = newDefaults(),
 		Button = newDefaults(),
 		Image = newDefaults(),
@@ -32,6 +33,9 @@ function FrameworkStyles.new()
 
 		TextLabel = newDefaults(),
 		ToggleButton = newDefaults(),
+
+		-- StudioUI Styles
+		StyledDialog = newDefaults(),
 	}
 end
 

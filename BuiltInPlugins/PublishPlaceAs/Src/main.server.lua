@@ -3,13 +3,7 @@ if not plugin then
 end
 
 -- Fast flags
-local FFlagPublishPlaceToRobloxLuaPlugin = settings():GetFFlag("PublishPlaceToRobloxLuaPlugin")
-local FFlagStudioDisablePublishButtonsInProgress = game:DefineFastFlag("StudioDisablePublishButtonsInProgress", false)
 local FFlagStudioChangeMinimumSizeOfWindow = game:DefineFastFlag("StudioChangeMinimumSizeOfPublishWindow", false)
-
-if not FFlagPublishPlaceToRobloxLuaPlugin then
-	return
-end
 
 -- libraries
 local Plugin = script.Parent.Parent
@@ -109,9 +103,7 @@ local function main()
 	end)
 
 	StudioService.GamePublishFinished:connect(function(success)
-		if FFlagStudioDisablePublishButtonsInProgress then
-			dataStore:dispatch(SetIsPublishing(false))
-		end
+		dataStore:dispatch(SetIsPublishing(false))
 	end)
 end
 

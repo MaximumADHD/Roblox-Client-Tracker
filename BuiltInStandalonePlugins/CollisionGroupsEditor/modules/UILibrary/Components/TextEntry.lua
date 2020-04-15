@@ -4,6 +4,7 @@
 
 	Props:
 		string Text = The text to display
+		string PlaceholderText = text to display when box is empty/in default state
 		bool Visible = Whether to display this component
 		function SetText(text) = Callback to tell parent that text has changed
 		function FocusChanged(focus) = Callback to tell parent that this component has focus
@@ -56,6 +57,8 @@ function TextEntry:render()
 			BackgroundTransparency = 1,
 			BorderSizePixel = 0,
 
+			PlaceholderText  = self.props.PlaceholderText,
+			PlaceholderColor3 = self.props.TextColor3,
 			ClearTextOnFocus = false,
 			Font = font,
 			TextSize = textSize,

@@ -15,11 +15,25 @@ local EventConnection = require(TopBar.Parent.Common.EventConnection)
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
 
+local FFlagTopBarBetterStateInit = require(TopBar.Parent.Flags.FFlagTopBarBetterStateInit)
+
 local MenuConnector = Roact.PureComponent:extend("MenuConnector")
 
 MenuConnector.validateProps = t.strictInterface({
 	setMenuOpen = t.callback,
 })
+
+if FFlagTopBarBetterStateInit then
+	function MenuConnector:didMount()
+		if isNewInGameMenuEnabled() then
+			local InGameMenu = require(RobloxGui.Modules.InGameMenu)
+			self.props.setMenuOpen(InGameMenu.getOpen())
+		else
+			local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
+			self.props.setMenuOpen(SettingsHub:GetVisibility())
+		end
+	end
+end
 
 function MenuConnector:render()
 	if isNewInGameMenuEnabled() then

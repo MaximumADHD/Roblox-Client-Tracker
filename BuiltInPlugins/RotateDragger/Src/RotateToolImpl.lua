@@ -4,6 +4,7 @@
 
 local ChangeHistoryService = game:GetService("ChangeHistoryService")
 local StudioService = game:GetService("StudioService")
+local Workspace = game:GetService("Workspace")
 
 -- Libraries
 local Plugin = script.Parent.Parent
@@ -358,7 +359,7 @@ function RotateToolImpl:_updateHandles()
 		return
 	end
 
-    if #self._partsToMove == 0 then
+    if #self._partsToMove == 0 and #self._attachmentsToMove == 0 then
         self._handles = {}
 	else
 		for handleId, handleDefinition in pairs(RotateHandleDefinitions) do

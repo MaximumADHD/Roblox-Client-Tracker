@@ -5,10 +5,8 @@ end
 require(script.Parent.defineLuaFlags)
 
 -- Fast flags
-local FFlagDebugGameSettingsLocalizationKeysOnly = settings():GetFFlag("DebugGameSettingsLocalizationKeysOnly")
 local OverrideLocaleId = settings():GetFVariable("StudioForceLocale")
 local DFFlagDeveloperSubscriptionsEnabled = settings():GetFFlag("DeveloperSubscriptionsEnabled")
-local FFlagStudioGameSettingsAccessPermissions = settings():GetFFlag("StudioGameSettingsAccessPermissions")
 local FFlagGameSettingsPreventClosingDialogWhileSaveInProgress = game:DefineFastFlag("GameSettingsPreventClosingDialogWhileSaveInProgress", false)
 local FFlagStudioLocalizationInGameSettingsEnabled = game:GetFastFlag("StudioLocalizationInGameSettingsEnabled")
 
@@ -64,13 +62,10 @@ local settingsImpl = SettingsImpl.new(plugin:GetStudioUserId())
 --Add all settings pages in order
 local settingsPages = {
 	"Basic Info",
+	"Access Permissions",
 	"Avatar",
 	"Options",
 }
-
-if FFlagStudioGameSettingsAccessPermissions then
-	table.insert(settingsPages, 2, "Access Permissions")
-end
 
 if DFFlagDeveloperSubscriptionsEnabled then
 	table.insert(settingsPages, "Developer Subscriptions")
@@ -82,23 +77,18 @@ if FFlagStudioLocalizationInGameSettingsEnabled then
 	table.insert(settingsPages, "Localization")
 end
 
-local localization
 local localizationTable = Plugin.Src.Localization.GameSettingsTranslationReferenceTable
-if FFlagDebugGameSettingsLocalizationKeysOnly then
-	localization = Localization.newDummyLocalization()
-else
-    localization = Localization.new({
-        localizationTable = localizationTable,
-        getLocale = function()
-            if #OverrideLocaleId > 0 then
-                return OverrideLocaleId
-            else
-                return StudioService["StudioLocaleId"]
-            end
-        end,
-        localeChanged = StudioService:GetPropertyChangedSignal("StudioLocaleId")
-    })
-end
+local localization = Localization.new({
+	localizationTable = localizationTable,
+	getLocale = function()
+		if #OverrideLocaleId > 0 then
+			return OverrideLocaleId
+		else
+			return StudioService["StudioLocaleId"]
+		end
+	end,
+	localeChanged = StudioService:GetPropertyChangedSignal("StudioLocaleId")
+})
 
 -- Make sure that the main window elements cannot be interacted with
 -- when a second dialog is open over the Game Settings widget

@@ -15,6 +15,7 @@
 		string ErrorMessage = A general override message used to display an error. A non-nil ErrorMessage will border the TextBox in red.
 
 		string Text = The text to display in the TextBox
+		string PlaceholderText = text to display when TextBox is empty/in default state
 		boolean ShowToolTip = do we want to show anything beneath the rounded text box (defaults to true)
 		boolean ShowErrors = do we want to show any error text beneath the rounded text box, or change the border to indicate an error (defaults to true)
 		function SetText(text) = Callback to tell parent that text has changed
@@ -136,6 +137,7 @@ function RoundTextBox:render()
 		local textEntryProps = {
 			Visible = self.props.Active,
 			Text = self.props.Text,
+			PlaceholderText = self.props.PlaceholderText,
 			FocusChanged = self.focusChanged,
 			HoverChanged = self.mouseHoverChanged,
 			SetText = self.props.SetText,

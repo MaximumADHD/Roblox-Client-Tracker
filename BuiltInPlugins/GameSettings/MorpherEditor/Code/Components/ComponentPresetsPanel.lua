@@ -1,8 +1,7 @@
 local paths = require(script.Parent.Parent.Paths)
 local FFlagWorldAvatarLocalization = game:GetFastFlag("WorldAvatarLocalization")
 local FFlagAvatarSizeFixForReorganizeHeaders =
-	game:GetFastFlag("AvatarSizeFixForReorganizeHeaders") and
-	settings():GetFFlag("GameSettingsReorganizeHeaders")
+	game:GetFastFlag("AvatarSizeFixForReorganizeHeaders")
 
 local PresetsPanel = paths.Roact.Component:extend("ComponentPresetsPanel")
 

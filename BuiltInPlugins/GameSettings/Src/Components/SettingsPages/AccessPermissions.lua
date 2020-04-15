@@ -1,15 +1,10 @@
-if not settings():GetFFlag("StudioGameSettingsAccessPermissions") then return nil end
-
 local runService = game:GetService("RunService")
 
 local PageName = "Access Permissions"
 
-local FFlagGameSettingsReorganizeHeaders = settings():GetFFlag("GameSettingsReorganizeHeaders")
 local FFlagStudioGameSettingsDisablePlayabilityForDrafts = settings():GetFFlag("StudioGameSettingsDisablePlayabilityForDrafts")
 
 local FFlagStudioGameSettingsRestrictPermissions = game:DefineFastFlag("StudioGameSettingsRestrictPermissions", false)
-local FFlagStudioGameSettingsGroupGamePermissionChanges = game:DefineFastFlag("StudioGameSettingsGroupGamePermissionChanges", false)
-local FFlagStudioGameSettingsUserGameEditPermissionsRestriction = game:DefineFastFlag("StudioGameSettingsUserGameEditPermissionsRestriction", false)
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -89,14 +84,10 @@ local function displayContents(page, localized, theme)
 	-- to check it with a hack. In non-TC games you are running both client/server in Edit, but in
 	-- TC you are only running the client. The server is run by RCC
 	local isTeamCreate = runService:IsEdit() and not runService:IsServer()
-	local isGroupGame = FFlagStudioGameSettingsGroupGamePermissionChanges and props.OwnerType == Enum.CreatorType.Group
+	local isGroupGame = props.OwnerType == Enum.CreatorType.Group
 	local accessPermissionsEnabled = isTeamCreate or isGroupGame
-	local canUserEditPermissions
-	if FFlagStudioGameSettingsUserGameEditPermissionsRestriction then
-		canUserEditPermissions = props.OwnerType == Enum.CreatorType.User and props.OwnerId == props.StudioUserId
-	else
-		canUserEditPermissions = props.CanManage
-	end
+	local canUserEditPermissions = props.OwnerType == Enum.CreatorType.User and props.OwnerId == props.StudioUserId
+
 	local accessPermissionsWidgetsVisible = isTeamCreate and not isGroupGame
 
 	local playabilityButtons
@@ -132,7 +123,7 @@ local function displayContents(page, localized, theme)
 	end
 	
 	return {
-		Header = FFlagGameSettingsReorganizeHeaders and Roact.createElement(Header, {
+		Header = Roact.createElement(Header, {
 			Title = localized.Category[PageName],
 			LayoutOrder = 0,
 		}),

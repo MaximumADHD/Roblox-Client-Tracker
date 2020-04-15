@@ -11,6 +11,7 @@ local Plugin = script.Parent.Parent.Parent.Parent
 
 local FFlagAllowCatalogItemCreatorAssetConfig = game:DefineFastFlag("AllowCatalogItemCreatorAssetConfig", false)
 local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
+local FFlagStudioUseNewAnimationImportExportFlow = settings():GetFFlag("StudioUseNewAnimationImportExportFlow")
 
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
@@ -59,6 +60,10 @@ function AssetTypeSelection:getSelectorItems(localizedContent)
 		{ name = "Model", selectable = true, type = Enum.AssetType.Model },
 	}
 
+	if FFlagStudioUseNewAnimationImportExportFlow then
+		table.insert(items, { name = "Animation", selectable = true, type = Enum.AssetType.Animation })
+	end
+
 	-- only catalog item creators can upload hats
 	if FFlagAllowCatalogItemCreatorAssetConfig then
 		local allowedAssetTypes = AssetConfigUtil.getAllowedAssetTypeEnums(self.props.allowedAssetTypesForRelease)
@@ -95,7 +100,11 @@ function AssetTypeSelection:canSkip()
 				amtSelectable = amtSelectable + 1
 			end
 		end
-		return amtSelectable == 1
+		if FFlagStudioUseNewAnimationImportExportFlow then
+			return amtSelectable == 2
+		else
+			return amtSelectable == 1
+		end
 	end
 end
 

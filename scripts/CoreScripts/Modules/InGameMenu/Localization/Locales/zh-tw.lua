@@ -80,7 +80,7 @@ return{
 	["CoreScripts.InGameMenu.PageTitle.Controls"] = [[操作…]],
 	["CoreScripts.InGameMenu.PageTitle.Players"] = [[玩家]],
 	["CoreScripts.InGameMenu.PageTitle.Report"] = [[檢舉]],
-	["CoreScripts.InGameMenu.PageTitle.GameSettings"] = [[遊戲設定]],
+	["CoreScripts.InGameMenu.PageTitle.GameSettings"] = [[設定]],
 	["CoreScripts.InGameMenu.Actions.AddFriend"] = [[新增好友]],
 	["CoreScripts.InGameMenu.Actions.Unfriend"] = [[刪除好友]],
 	["CoreScripts.InGameMenu.Actions.CancelFriend"] = [[取消好友邀請]],
@@ -121,4 +121,6 @@ return{
 	["CoreScripts.InGameMenu.InviteFriends.Loading"] = [[正在載入！]],
 	["CoreScripts.InGameMenu.RespawnCharacter"] = [[重生角色]],
 	["CoreScripts.InGameMenu.GameSettings.CameraModeCameraToggle"] = [[鎖定游標]],
+	["CoreScripts.InGameMenu.Record.StartRecording"] = [[錄影]],
+	["CoreScripts.InGameMenu.Record.Duration"] = [[錄影 - {DURATION}]],
 }

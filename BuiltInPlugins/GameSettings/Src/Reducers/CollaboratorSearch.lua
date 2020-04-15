@@ -1,5 +1,3 @@
-if not settings():GetFFlag("StudioGameSettingsAccessPermissions") then return nil end
-
 --[[
 	Reducer for cached friends/groups of the local user and cached web queries
 ]]

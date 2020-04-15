@@ -5,6 +5,8 @@
 game:DefineFastFlag("TerrainToolsRefactorAssetIdSelector2", false)
 game:DefineFastFlag("TerrainToolsImportImproveColorMapToggle", false)
 game:DefineFastFlag("TerrainToolsTerrainBrushNotSingleton", false)
+game:DefineFastFlag("TerrainToolsFixMergeEmpty", false)
+game:DefineFastFlag("TerrainToolsFixRegionEditorCleanup", false)
 
 local function handleFlagDependencies(flag, requiredFlags)
 	if not game:GetFastFlag(flag) then

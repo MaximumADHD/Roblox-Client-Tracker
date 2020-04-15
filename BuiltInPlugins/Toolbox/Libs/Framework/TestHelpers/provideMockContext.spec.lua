@@ -120,7 +120,7 @@ return function()
 			function testComponent:render()
 				didRender = true
 				local mouse = self.props.Mouse:get()
-				local icon = mouse().Icon
+				local icon = mouse.Icon
 
 				expect(icon).to.equal(cursorTexture)
 				return Roact.createElement("Frame")
@@ -148,11 +148,9 @@ return function()
 		-- override the mouse cursor
 		didRender = false
 		element = provideMockContext({
-			ContextServices.Mouse.new(function()
-				return {
-					Icon = "rbxasset://explosion.png",
-				}
-			end)
+			ContextServices.Mouse.new({
+				Icon = "rbxasset://explosion.png",
+			})
 		}, {
 			frame = createElementWithExpectedCursor("rbxasset://explosion.png"),
 		})

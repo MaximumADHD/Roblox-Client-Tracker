@@ -1,5 +1,3 @@
-if not settings():GetFFlag("StudioGameSettingsAccessPermissions") then return nil end
-
 -- Adds a new loaded thumbnail
 
 local Plugin = script.Parent.Parent.Parent

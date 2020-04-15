@@ -4639,6 +4639,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">RenderingTest</string>
+        <string name="Insertable">false</string>
         <string name="ClassCategory">Scripting</string>
         <string name="ExplorerOrder">40</string>
         <string name="summary">dummy summary</string>

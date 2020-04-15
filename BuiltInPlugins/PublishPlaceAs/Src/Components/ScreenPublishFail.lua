@@ -27,8 +27,6 @@ local ICON_SIZE = 150
 local BUTTON_WIDTH = 150
 local BUTTON_HEIGHT = 40
 
-local FFlagStudioDisablePublishButtonsInProgress = game:GetFastFlag("StudioDisablePublishButtonsInProgress")
-
 local ScreenPublishFail = Roact.PureComponent:extend("ScreenPublishFail")
 
 function ScreenPublishFail:init()
@@ -134,9 +132,7 @@ function ScreenPublishFail:render()
 								StudioService:publishAs(parentGameId, id)
 							end
 						end
-						if FFlagStudioDisablePublishButtonsInProgress then
-							dispatchSetIsPublishing(true)
-						end
+						dispatchSetIsPublishing(true)
 					end,
 				})
 			})

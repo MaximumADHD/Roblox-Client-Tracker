@@ -17,8 +17,7 @@ local StudioService = game:GetService("StudioService")
 local Lighting = game:GetService("Lighting")
 
 local FFlagPluginAccessAndInstallationInStudio = settings():GetFFlag("PluginAccessAndInstallationInStudio")
-local FFlagEnableDataModelFetchAssetAsync = settings():GetFFlag("EnableDataModelFetchAssetAsync")
-local FFlagEnableToolboxInsertWithJoin = settings():GetFFlag("EnableToolboxInsertWithJoin")
+local FFlagEnableToolboxInsertWithJoin2 = settings():GetFFlag("EnableToolboxInsertWithJoin2")
 local FFlagStudioToolboxInsertAssetCategoryAnalytics = settings():GetFFlag("StudioToolboxInsertAssetCategoryAnalytics")
 
 local INSERT_MAX_SEARCH_DEPTH = 2048
@@ -65,14 +64,10 @@ local function insertAsset(assetId, assetName, insertToolPromise)
 			print(("Inserting asset %s"):format(url))
 		end
 
-		if FFlagEnableDataModelFetchAssetAsync then
-			if FFlagEnableToolboxInsertWithJoin then
-				assetInstance = game:InsertObjectsAndJoinIfLegacyAsync(url)
-			else
-				assetInstance = game:GetObjectsAsync(url)
-			end
+		if FFlagEnableToolboxInsertWithJoin2 then
+			assetInstance = game:InsertObjectsAndJoinIfLegacyAsync(url)
 		else
-			assetInstance = game:GetObjects(url)
+			assetInstance = game:GetObjectsAsync(url)
 		end
 	end)
 

@@ -454,6 +454,30 @@ return function()
 		end)
 	end)
 
+	describe("patch()", function()
+		it("should act as a preformatted version of Request", function()
+			local callCount = 0
+
+			local n = Networking.mock({
+				onRequest = function(requestOptions)
+					callCount = callCount + 1
+					expect(requestOptions.Url).to.equal("http://www.test.com")
+					expect(requestOptions.Method).to.equal("PATCH")
+					expect(requestOptions.Body).to.equal("bar")
+					return {
+						Body = "foo",
+						Success = true,
+						StatusMessage = "OK",
+						StatusCode = 200,
+					}
+				end,
+			})
+
+			n:patch("http://www.test.com", "bar")
+
+			expect(callCount).to.equal(1)
+		end)
+	end)
 
 	describe("delete()", function()
 		it("should act as a preformatted version of Request", function()

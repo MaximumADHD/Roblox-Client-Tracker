@@ -72,6 +72,11 @@ return Rodux.createReducer({
 
 	SetAssetOwnerName = function(state, action)
 		local newState = state
+		if newState.assetsTable.assetPreviewData[action.assetId] == nil then
+			newState.assetsTable.assetPreviewData[action.assetId] = {
+				Creator = {}
+			}
+		end
 		newState.assetsTable.assetPreviewData[action.assetId].Creator.Name = action.username
 		return newState
 	end,

@@ -21,6 +21,7 @@
 ]]
 local FFlagStudioMinorFixesForAssetPreview = settings():GetFFlag("StudioMinorFixesForAssetPreview")
 local FFlagEnableAudioPreview = game:GetFastFlag("EnableAudioPreview")
+local FFlagHideOneChildTreeviewButton = game:GetFastFlag("HideOneChildTreeviewButton")
 local FFlagStudioFixTreeViewForFlatList = settings():GetFFlag("StudioFixTreeViewForFlatList")
 local FFlagStudioAssetPreviewTreeFix2 = game:DefineFastFlag("StudioAssetPreviewTreeFix2", false)
 
@@ -219,6 +220,18 @@ function PreviewController:render()
 		treeViewSize = UDim2.new()
 	end
 
+	local showTreeViewButton = (not AssetType:isPlugin(assetPreviewType))
+	if FFlagHideOneChildTreeviewButton then
+		local dataTree
+		if FFlagStudioAssetPreviewTreeFix2 then
+			dataTree = previewModel
+		else
+			dataTree = FFlagStudioFixTreeViewForFlatList and self.props.CurrentPreview or previewModel
+		end
+		local hasMultiplechildren = dataTree and (#dataTree:GetChildren() > 0) or false
+		showTreeViewButton = showTreeViewButton and hasMultiplechildren
+	end
+
 	local onModelPreviewFrameEntered = self.onModelPreviewFrameEntered
 	local onModelPreviewFrameLeft = self.onModelPreviewFrameLeft
 
@@ -309,7 +322,7 @@ function PreviewController:render()
 				ElementName = currentPreview.Name,
 			}),
 
-			TreeViewButton = (not AssetType:isPlugin(assetPreviewType)) and Roact.createElement(TreeViewButton, {
+			TreeViewButton = showTreeViewButton and Roact.createElement(TreeViewButton, {
 				Position = UDim2.new(1, MAINVIEW_BUTTONS_X_OFFSET, 1, mainViewButtonYOffset),
 				ZIndex = 2,
 

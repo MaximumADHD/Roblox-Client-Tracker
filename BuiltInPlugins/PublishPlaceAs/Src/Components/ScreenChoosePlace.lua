@@ -50,8 +50,6 @@ local HorizontalContentFit = createFitToContent("Frame", "UIListLayout", {
 	SortOrder = Enum.SortOrder.LayoutOrder,
 })
 
-local FFlagStudioDisablePublishButtonsInProgress = game:GetFastFlag("StudioDisablePublishButtonsInProgress")
-
 local ScreenChoosePlace = Roact.PureComponent:extend("ScreenChoosePlace")
 
 function ScreenChoosePlace:init()
@@ -340,9 +338,7 @@ function ScreenChoosePlace:render()
 						OnActivated = function()
 							-- groupId is unused
 							StudioService:publishAs(parentGame.universeId, self.state.selectedPlace.placeId, 0)
-							if FFlagStudioDisablePublishButtonsInProgress then
-								dispatchSetIsPublishing(true)
-							end
+							dispatchSetIsPublishing(true)
 							if self.state.selectedPlace.placeId ~= 0 then
 								onClose()
 							end

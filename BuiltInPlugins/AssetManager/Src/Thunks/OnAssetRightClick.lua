@@ -52,7 +52,10 @@ local function createFolderContextMenu(apiImpl, assetData, contextMenu, localiza
             store:dispatch(SetAssets({
                 assets = {},
             }))
-            store:dispatch(GetAssets(apiImpl, assetData.assetType))
+            local state = store:getState()
+            if state.Screen.currentScreen.Key == Screens.PLACES.Key then
+                store:dispatch(GetAssets(apiImpl, Screens.PLACES.AssetType))
+            end
         end)
     end
 

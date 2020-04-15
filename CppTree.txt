@@ -504,11 +504,7 @@ RBX
 		IDebuggerCloneTracker
 		IDebuggerDataSource
 		IDebuggerSettingsSource
-		ISpecialBreakpoint
 		ScriptDebugger
-		StepInBreakpoint
-		StepOutBreakpoint
-		StepOverBreakpoint
 	}
 	Security
 	{

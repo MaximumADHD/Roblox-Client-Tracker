@@ -3,8 +3,7 @@ local StudioService = game:GetService("StudioService")
 local paths = require(script.Parent.Parent.Paths)
 local FFlagWorldAvatarLocalization = game:GetFastFlag("WorldAvatarLocalization")
 local FFlagAvatarSizeFixForReorganizeHeaders =
-	game:GetFastFlag("AvatarSizeFixForReorganizeHeaders") and
-	settings():GetFFlag("GameSettingsReorganizeHeaders")
+	game:GetFastFlag("AvatarSizeFixForReorganizeHeaders")
 
 local function PublishingHint(props)
 	if props.IsEnabled then

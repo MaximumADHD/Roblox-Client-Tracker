@@ -5,6 +5,7 @@ game:DefineFastFlag("UGCValidateHandleSize", false)
 game:DefineFastFlag("UGCValidateProperties", false)
 game:DefineFastFlag("UGCAllowThumbnailCameraValue", false)
 game:DefineFastFlag("UGCUseNewAssetTypeInfoSchema", false)
+game:DefineFastFlag("UGCFixModerationCheck", false)
 
 local root = script
 

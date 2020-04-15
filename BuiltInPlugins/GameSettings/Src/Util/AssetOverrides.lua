@@ -2,8 +2,6 @@
 	functionality associated with the asset overrides data structure
 ]]
 
-local FFlagWorldAvatarLocalization = game:GetFastFlag("WorldAvatarLocalization")
-
 local AssetOverrides = { }
 
 local function createTypeKeyedAssetOverridesTable(overrides)
@@ -56,7 +54,7 @@ function AssetOverrides.getErrors(assetOverridesData)
 			local isAssetIDSpecified = nil ~= subTab.assetID and 0 ~= subTab.assetID and "0" ~= subTab.assetID and string.len(string.gsub(subTab.assetID, " ", "")) > 0
 			if not isAssetIDSpecified then
 				result = result or {}
-				result[subTab.assetTypeID] = FFlagWorldAvatarLocalization and "OverrideEmpty" or "ID Number cannot be empty" -- OverrideEmpty is a key into a localization table
+				result[subTab.assetTypeID] = "OverrideEmpty" -- OverrideEmpty is a key into a localization table
 			end
 		end
 	end

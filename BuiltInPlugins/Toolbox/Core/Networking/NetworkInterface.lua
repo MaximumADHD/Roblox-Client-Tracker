@@ -167,6 +167,16 @@ function NetworkInterface:getAssetCreations(pageInfo, cursor, assetTypeOverride)
 	end)
 end
 
+function NetworkInterface:getGroupAnimations(cursor, groupId)
+	local targetUrl = Urls.constructGetAssetCreationsUrl("Animation", Constants.GET_ASSET_CREATIONS_PAGE_SIZE_LIMIT,
+		cursor, nil, groupId)
+
+	return sendRequestAndRetry(function()
+		printUrl("getGroupAnimations", "GET", targetUrl)
+		return self._networkImp:httpGetJson(targetUrl)
+	end)
+end
+
 function NetworkInterface:getAssetCreationDetails(assetIds)
 	if DebugFlags.shouldDebugWarnings() and assetIds and #assetIds > Constants.GET_ASSET_CREATIONS_DETAILS_LIMIT then
 		warn(("getAssetCreationDetails() does not support requests for more than %d assets at one time"):format(#assetIds))
@@ -482,6 +492,46 @@ function NetworkInterface:postOverrideAsset(assetid, type, instanceData)
 
 	printUrl("postOverrideAsset", "POST", targetUrl)
 	return self._networkImp:httpPost(targetUrl, instanceData)
+end
+
+function NetworkInterface:postUploadAnimation(assetid, name, description, groupId, instanceData)
+	local targetUrl = Urls.constructPostUploadAnimationUrl("Animation", name, description, groupId)
+
+	local requestInfo = {
+		Url = targetUrl,
+		Method = "POST",
+		Body = instanceData,
+		CachePolicy = Enum.HttpCachePolicy.None,
+		Headers = {
+			["Content-Type"] = "application/octet-stream",
+		},
+	}
+
+	printUrl("uploadAnimation", "POST", targetUrl, instanceData)
+	return self._networkImp:requestInternal(requestInfo)
+	:catch(function(err)
+		return Promise.reject(err)
+	end)
+end
+
+function NetworkInterface:postOverrideAnimation(assetid, instanceData)
+	local targetUrl = Urls.constructPostOverwriteAnimationUrl(assetid)
+
+	local requestInfo = {
+		Url = targetUrl,
+		Method = "POST",
+		Body = instanceData,
+		CachePolicy = Enum.HttpCachePolicy.None,
+		Headers = {
+			["Content-Type"] = "application/octet-stream",
+		},
+	}
+
+	printUrl("uploadAnimation", "POST", targetUrl, instanceData)
+	return self._networkImp:requestInternal(requestInfo)
+	:catch(function(err)
+		return Promise.reject(err)
+	end)
 end
 
 function NetworkInterface:getMyGroups(userId)

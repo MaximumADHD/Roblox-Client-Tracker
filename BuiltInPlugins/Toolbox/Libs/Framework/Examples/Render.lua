@@ -11,7 +11,7 @@ local StudioUIFolderData = require(Framework.StudioUI.StudioUIFolderData)
 local Render = {}
 
 local function addUIFolderExamples(folderData)
-	for _, folder in pairs(UIFolderData) do
+	for _, folder in pairs(folderData) do
 		local renderExample = folder.renderExample
 		if renderExample then
 			Render[folder.name] = require(renderExample)

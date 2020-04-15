@@ -8,7 +8,9 @@ local Connection = Components.Connection
 local LayoutValues = require(Connection.LayoutValues)
 local WithLayoutValues = LayoutValues.WithLayoutValues
 
-local FFlagRenameDisplayNameToPlatformName = settings():GetFFlag("RenameDisplayNameToPlatformName")
+local PlayerList = Components.Parent
+
+local isDisplayNameEnabled = require(PlayerList.isDisplayNameEnabled)
 
 local PlayerNameTag = Roact.PureComponent:extend("PlayerNameTag")
 
@@ -41,12 +43,7 @@ function PlayerNameTag:render()
 		local textSize = self.props.textFont.Size
 
 		local playerNameChildren = {}
-		local platformName
-		if FFlagRenameDisplayNameToPlatformName then
-			platformName = self.props.player.PlatformName
-		else
-			platformName = self.props.player.DisplayName
-		end
+		local platformName = self.props.player.PlatformName
 
 		if layoutValues.IsTenFoot and platformName ~= "" then
 			playerNameChildren["VerticalLayout"] = Roact.createElement("UIListLayout", {
@@ -108,6 +105,13 @@ function PlayerNameTag:render()
 				})
 			})
 		else
+			local playerName
+			if isDisplayNameEnabled() then
+				playerName = self.props.player.DisplayName
+			else
+				playerName = self.props.player.Name
+			end
+
 			playerNameChildren["PlayerName"] = Roact.createElement("TextLabel", {
 				Position = UDim2.new(0, 0, 0, 0),
 				Size = UDim2.new(1, 0, 1, 0),
@@ -119,7 +123,7 @@ function PlayerNameTag:render()
 				TextStrokeColor3 = self.props.textStyle.StrokeColor,
 				TextStrokeTransparency = self.props.textStyle.StrokeTransparency,
 				BackgroundTransparency = 1,
-				Text = self.props.player.Name,
+				Text = playerName,
 				TextTruncate = Enum.TextTruncate.AtEnd,
 			})
 		end

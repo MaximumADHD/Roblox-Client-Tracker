@@ -15,6 +15,7 @@
 
 local FFlagToolboxUseInfinteScroller = game:DefineFastFlag("ToolboxUseInfiniteScroller", false)
 local FFlagEnableOverrideAssetCursorFix = game:GetFastFlag("EnableOverrideAssetCursorFix")
+local FFlagStudioUseNewAnimationImportExportFlow = settings():GetFFlag("StudioUseNewAnimationImportExportFlow")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -121,6 +122,8 @@ function OverrideAssetView:createAssets(resultsArray, theme)
 		}),
 	}
 
+	local filterID = self.props.filterID
+
 	-- Basically, we need only Id and name
 	local selectedAssetId = self.state.selectedAssetId
 	for index, asset in pairs(resultsArray) do
@@ -130,7 +133,12 @@ function OverrideAssetView:createAssets(resultsArray, theme)
 			Constants.THUMBNAIL_SIZE_LARGE)
 		local selected = selectedAssetId == assetId
 
-		itemList[assetId] = Roact.createElement("TextButton", {
+		local inFilter = true
+		if FFlagStudioUseNewAnimationImportExportFlow then
+			inFilter = filterID == "" or tostring(assetId):find(filterID)
+		end
+
+		itemList[assetId] = inFilter and Roact.createElement("TextButton", {
 			Size = AssetConfigConstants.OverrideAssetItemSize,
 
 			BorderSizePixel = 0,

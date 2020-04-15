@@ -9,6 +9,7 @@ local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEna
 local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 local FFlagAssetManagerLuaPlugin = game:GetFastFlag("AssetManagerLuaPlugin")
 local FFlagEnableAudioPreview = settings():GetFFlag("EnableAudioPreview")
+local FFlagStudioUseNewAnimationImportExportFlow = settings():GetFFlag("StudioUseNewAnimationImportExportFlow")
 
 local Plugin = script.Parent.Parent
 local Libs = Plugin.Libs
@@ -151,6 +152,13 @@ local function createAssetConfig(assetId, flowType, instances, assetTypeEnum)
 
 	local startScreen = AssetConfigUtil.getFlowStartScreen(flowType)
 
+	local defaultTab = ConfigTypes:getDefualtTab()
+	if FFlagStudioUseNewAnimationImportExportFlow then
+		if flowType == AssetConfigConstants.FLOW_TYPE.DOWNLOAD_FLOW then
+			defaultTab = ConfigTypes:getOverrideTab()
+		end
+	end
+
 	-- If we don't have asset id, we will be publish an new asset.
 	-- Otherwise, we will be editing an asset.
 	local assetConfigStore = Rodux.Store.new(AssetConfigReducer, {
@@ -164,7 +172,7 @@ local function createAssetConfig(assetId, flowType, instances, assetTypeEnum)
 			enabledAssetTypesForItemTags = enabledAssetTypesForItemTags,
 			maximumItemTagsPerItem = maximumItemTagsPerItem,
 			assetTypeEnum = assetTypeEnum,
-			currentTab = ConfigTypes:getDefualtTab(),
+			currentTab = defaultTab,
 			packagePermissions = packagePermissions,
 			overrideCursor = FFlagEnableOverrideAssetCursorFix and {} or nil,
 		}, {
@@ -190,6 +198,10 @@ local function createAssetConfig(assetId, flowType, instances, assetTypeEnum)
 			fireTabRefreshEvent()
 			Roact.unmount(assetConfigHandle)
 			assetConfigHandle = nil
+			if FFlagStudioUseNewAnimationImportExportFlow then
+				-- this should no-opt if user already selected an animation id in download flow
+				StudioService:AnimationIdSelected(0)
+			end
 		end
 	end
 
@@ -308,10 +320,21 @@ local function main()
 	-- Create publish new asset page.
 	StudioService.OnSaveToRoblox:connect(function(instances)
 		local function proceedToUpload()
-			createAssetConfig(nil, AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW, AssetConfigUtil.getClonedInstances(instances))
+			local clonedInstances = AssetConfigUtil.getClonedInstances(instances)
+			if FFlagStudioUseNewAnimationImportExportFlow and #clonedInstances == 1 and clonedInstances[1]:IsA("KeyframeSequence") then
+				createAssetConfig(nil, AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW, clonedInstances, Enum.AssetType.Animation)
+			else
+				createAssetConfig(nil, AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW, clonedInstances)
+			end
 		end
 		toolboxStore:dispatch(GetRolesRequest(networkInterface)):andThen(proceedToUpload, proceedToUpload)
 	end)
+
+	if FFlagStudioUseNewAnimationImportExportFlow then
+		StudioService.OnImportFromRoblox:connect(function(callback)
+			createAssetConfig(nil, AssetConfigConstants.FLOW_TYPE.DOWNLOAD_FLOW, nil, Enum.AssetType.Animation)
+		end)
+	end
 
 	StudioService.OnOpenManagePackagePlugin:connect(function(userId, assetId)
 		createAssetConfig(assetId, AssetConfigConstants.FLOW_TYPE.EDIT_FLOW, nil, Enum.AssetType.Model)

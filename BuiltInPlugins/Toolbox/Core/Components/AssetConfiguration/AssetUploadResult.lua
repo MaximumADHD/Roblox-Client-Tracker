@@ -10,6 +10,7 @@ local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePlu
 local FFlagFixAssetConfigIcon = game:GetFastFlag("FixAssetConfigIcon")
 local FFlagShowAssetConfigReasons = game:GetFastFlag("ShowAssetConfigReasons")
 local FFlagFixAssetUploadSuccssMessage = game:DefineFastFlag("FixAssetUploadSuccssMessage", false)
+local FFlagAddCopyIDToResultPage = game:DefineFastFlag("AddCopyIDToResultPage", false)
 
 local ContentProvider = game:GetService("ContentProvider")
 local GuiService = game:GetService("GuiService")
@@ -36,6 +37,7 @@ local AssetConfiguration = Components.AssetConfiguration
 local AssetThumbnailPreview = require(AssetConfiguration.AssetThumbnailPreview)
 local ImagePicker = require(AssetConfiguration.ImagePicker)
 local ReasonFrame = require(AssetConfiguration.ReasonFrame)
+local CopyID = require(AssetConfiguration.CopyID)
 
 local TITLE_WIDTH = 400
 local TITLE_HEIGHT = 36
@@ -53,6 +55,8 @@ local FOOTER_HEIGHT = 62
 
 local BUTTON_WIDTH = 120
 local BUTTON_HEIGHT = 32
+
+local COPY_ID_Y_POS = 240
 
 local RESULT_Y_POS = 279
 
@@ -175,6 +179,11 @@ function AssetUploadResult:render()
 				Image = AssetConfigUtil.getResultThumbnail(props.assetId, props.iconFile),
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
+			}),
+
+			CopyID = FFlagAddCopyIDToResultPage and showSuccess and Roact.createElement(CopyID, {
+				YPos = COPY_ID_Y_POS,
+				AssetId = props.assetId,
 			}),
 
 			LoadingResultSuccess = showSuccess and Roact.createElement("Frame", {

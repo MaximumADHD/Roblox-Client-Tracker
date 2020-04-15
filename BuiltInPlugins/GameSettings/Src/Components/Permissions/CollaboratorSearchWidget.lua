@@ -3,8 +3,6 @@
 ]]
 
 local FFlagStudioGameSettingsRestrictPermissions = game:GetFastFlag("StudioGameSettingsRestrictPermissions")
-local FFlagStudioGameSettingsGroupGamePermissionChanges = game:GetFastFlag("StudioGameSettingsGroupGamePermissionChanges")
-local FFlagStudioGameSettingsPermisisonUpdateWarning = game:DefineFastFlag("StudioGameSettingsPermissionUpdateWarning", false)
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -15,7 +13,6 @@ local withLocalization = require(Plugin.Src.Consumers.withLocalization)
 local getThumbnailLoader = require(Plugin.Src.Consumers.getThumbnailLoader)
 local getMouse = require(Plugin.Src.Consumers.getMouse)
 
-local StudioService = game:GetService("StudioService")
 local TextService = game:GetService("TextService")
 --even though this is deprecated, the warning message will only be up for a while before being removed
 local GuiService = game:GetService("GuiService")
@@ -280,30 +277,18 @@ function CollaboratorSearchWidget:render()
 			local tooManyCollaboratorsText = localized.AccessPermissions.Searchbar.TooManyCollaboratorsText({
 				maxNumCollaborators = maxCollaborators,
 			})
-
-			local TitleTextSize = TextService:GetTextSize(localized.Title.Collaborators, theme.fontStyle.Subtitle.TextSize, 
-				theme.fontStyle.Subtitle.Font, Vector2.new(math.huge, math.huge))
 	
-			local WarningTextSize = TextService:GetTextSize(localized.AccessPermissions.Update.Text, theme.fontStyle.Smaller.TextSize, 
+			local WarningTextSize = TextService:GetTextSize(localized.AccessPermissions.Update.Text, theme.fontStyle.Smaller.TextSize,
 				theme.fontStyle.Smaller.Font, Vector2.new(math.huge, math.huge))
 
-			local HyperlinkTextSize = TextService:GetTextSize(localized.AccessPermissions.Update.HyperlinkText, theme.fontStyle.Smaller.TextSize, 
+			local HyperlinkTextSize = TextService:GetTextSize(localized.AccessPermissions.Update.HyperlinkText, theme.fontStyle.Smaller.TextSize,
 				theme.fontStyle.Smaller.Font, Vector2.new(math.huge, math.huge))
 	
 			return Roact.createElement(FitToContent, {
 				BackgroundTransparency = 1,
 				LayoutOrder = props.LayoutOrder,
 			}, {
-				Title = not FFlagStudioGameSettingsPermisisonUpdateWarning and Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Subtitle, {
-					LayoutOrder = 0,
-					
-					Text = localized.Title.Collaborators,
-					TextXAlignment = Enum.TextXAlignment.Left,
-					
-					BackgroundTransparency = 1,
-				})),
-
-				WarningLayout = FFlagStudioGameSettingsPermisisonUpdateWarning and Roact.createElement(TextFitToContent, {
+				WarningLayout = Roact.createElement(TextFitToContent, {
 					BackgroundTransparency = 1,
 					LayoutOrder = 0,
 				}, {
@@ -351,8 +336,7 @@ function CollaboratorSearchWidget:render()
 					ItemHeight = 50,
 
 					ErrorText = tooManyCollaborators and tooManyCollaboratorsText or nil,
-					DefaultText = FFlagStudioGameSettingsGroupGamePermissionChanges and localized.AccessPermissions.Searchbar.DefaultText
-						or localized.AccessPermissions.Searchbar.DEPRECATED_DefaultText,
+					DefaultText = localized.AccessPermissions.Searchbar.DefaultText,
 					NoResultsText = localized.AccessPermissions.Searchbar.NoResultsText,
 					LoadingMore = isLoading,
 

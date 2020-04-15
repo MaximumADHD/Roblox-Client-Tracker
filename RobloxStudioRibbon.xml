@@ -523,6 +523,7 @@
         <addaction name="goToScriptErrorAction" tooltip="Studio.App.RobloxRibbonMainWindow.FocusViewOnScriptError" style="textbesideicon"/>
         <addaction name="reloadScriptAction" tooltip="Studio.App.RobloxRibbonMainWindow.ReloadScriptAfterMod" style="textbesideicon"/>
         <addAction name="applyScriptEditsAction" tooltip="Studio.App.RobloxRibbonMainWindow.PushScriptTCServer" style="textbesideicon"/>
+        <addAction fflag="StudioReplaceApplyEditWithCommit" name="commitScriptAction" tooltip="Studio.App.RobloxRibbonMainWindow.PushScriptTCServer" style="textbesideicon"/>
         <addseparator />
         <addaction name="toggleCommentAction" tooltip="Studio.App.RobloxRibbonMainWindow.ToggleCommentSelectedLines" style="textbesideicon"/>
         <addaction name="expandAllFoldsAction" tooltip="Studio.App.RobloxRibbonMainWindow.ExpandAllCollapsedFolds" style="textbesideicon"/>

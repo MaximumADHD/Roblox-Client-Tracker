@@ -64,10 +64,7 @@ function ServiceWrapper:render()
 
 	if store then
 		root = addProvider(RoactRodux.StoreProvider, { store = store }, root)
-
-		if settings():GetFFlag("StudioGameSettingsAccessPermissions") then
-			root = addProvider(ThumbnailLoaderProvider, { store = store }, root)
-		end
+		root = addProvider(ThumbnailLoaderProvider, { store = store }, root)
 	end
 
 	if showDialog then

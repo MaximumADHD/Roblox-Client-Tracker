@@ -1201,7 +1201,7 @@ Studio.App.PropertyEnum.Direct3D9,,,Direct3D9,Direct3D9,Direct3D9,Direct3D9,Dire
 Studio.App.PropertyEnum.Disabled,,,Disabled,Disabled,비활성화됨,Отключено,已禁用
 Studio.App.PropertyEnum.DontReport,,,Don't Report,Don't Report,신고 안 함,Не сообщать,不报告
 Studio.App.PropertyEnum.Enabled,,,Enabled,Enabled,활성화됨,Включено,已启用
-Studio.App.PropertyEnum.English,,,English,English,영어,English,English
+Studio.App.PropertyEnum.English,,,English,English,English,English,English
 Studio.App.PropertyEnum.Fast,,,Fast,Fast,고속,Быстро,快
 Studio.App.PropertyEnum.French,,,français,français,français,français,français
 Studio.App.PropertyEnum.Game,,,Game,Game,게임,Игра,游戏

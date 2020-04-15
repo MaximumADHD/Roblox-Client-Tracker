@@ -1,3 +1,4 @@
+local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 local ContextActionService = game:GetService("ContextActionService")
 
@@ -26,6 +27,8 @@ local Constants = require(InGameMenu.Resources.Constants)
 local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
 
 local SendReport = require(InGameMenu.Thunks.SendReport)
+
+local FFlagInGameMenuUseUIBloxButtons = require(CoreGui.RobloxGui.Modules.Flags.FFlagInGameMenuUseUIBloxButtons)
 
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
 
@@ -117,6 +120,19 @@ function ReportDialog:renderButtons(style, localized, reportChildren)
 	local textInBounds = textLength >= MIN_DESCRIPTION_LENGTH and textLength <= MAX_DESCRIPTION_LENGTH
 	local abuseTypeSelected = self.state.typeOfAbuseIndex > 0 or self.props.userId == nil
 
+	local onConfirmActivated = function()
+		local typeOfAbuse = GAME_TYPE_OF_ABUSE
+		if self.props.userId ~= nil then
+			typeOfAbuse = ABUSE_TYPES_PLAYER[self.state.typeOfAbuseIndex]
+		end
+		self.props.dispatchSendReport(
+			typeOfAbuse,
+			self.state.abuseDescription,
+			self.props.userId
+		)
+		self.props.dispatchCloseReportDialog()
+	end
+
 	reportChildren.ButtonContainer = Roact.createElement("Frame", {
 		BackgroundTransparency = 1,
 		LayoutOrder = 6,
@@ -129,7 +145,12 @@ function ReportDialog:renderButtons(style, localized, reportChildren)
 			SortOrder = Enum.SortOrder.LayoutOrder,
 			VerticalAlignment = Enum.VerticalAlignment.Bottom,
 		}),
-		CancelButton = Roact.createElement(SystemSecondaryButton, {
+		CancelButton = FFlagInGameMenuUseUIBloxButtons and Roact.createElement(UIBlox.App.Button.SecondaryButton, {
+			layoutOrder = 1,
+			size = UDim2.fromOffset(144, 36),
+			text = localized.cancel,
+			onActivated = self.props.dispatchCloseReportDialog,
+		}) or Roact.createElement(SystemSecondaryButton, {
 			LayoutOrder = 1,
 			Size = UDim2.new(0, 144, 0, 36),
 			onActivated = function()
@@ -147,22 +168,17 @@ function ReportDialog:renderButtons(style, localized, reportChildren)
 				}
 			end,
 		}),
-		ConfirmButton = Roact.createElement(SystemPrimaryButton, {
+		ConfirmButton = FFlagInGameMenuUseUIBloxButtons and Roact.createElement(UIBlox.App.Button.PrimarySystemButton, {
+			layoutOrder = 2,
+			size = UDim2.fromOffset(144, 36),
+			isDisabled = not (textInBounds and abuseTypeSelected),
+			text = localized.report,
+			onActivated = onConfirmActivated,
+		}) or Roact.createElement(SystemPrimaryButton, {
 			LayoutOrder = 2,
 			Size = UDim2.new(0, 144, 0, 36),
 			enabled = textInBounds and abuseTypeSelected,
-			onActivated = function()
-				local typeOfAbuse = GAME_TYPE_OF_ABUSE
-				if self.props.userId ~= nil then
-					typeOfAbuse = ABUSE_TYPES_PLAYER[self.state.typeOfAbuseIndex]
-				end
-				self.props.dispatchSendReport(
-					typeOfAbuse,
-					self.state.abuseDescription,
-					self.props.userId
-				)
-				self.props.dispatchCloseReportDialog()
-			end,
+			onActivated = onConfirmActivated,
 			renderChildren = function(transparency)
 				return {
 					ButtonText = Roact.createElement(ThemedTextLabel, {

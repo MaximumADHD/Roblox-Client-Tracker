@@ -4,7 +4,6 @@ local Constants = require(Plugin.Src.Resources.Constants)
 
 local Action = require(script.Parent.Action)
 
-local FFlagStudioEnablePhoneAndTableDefault = game:GetFastFlag("StudioEnablePhoneAndTableDefault")
 
 return Action(script.Name, function()
 	return {
@@ -16,8 +15,7 @@ return Action(script.Name, function()
             name = "Untitled Game",
             description = "",
             genre = Constants.GENRE_IDS[1],
-            playableDevices = FFlagStudioEnablePhoneAndTableDefault and {Computer = true, Phone = true, Tablet = true,}
-            or { Computer = true },
+            playableDevices = {Computer = true, Phone = true, Tablet = true,},
         },
         errors = {},
         publishInfo = { id = 0, name = "", parentGameName = "", parentGameId = 0, settings = {}, },

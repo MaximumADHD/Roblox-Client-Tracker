@@ -53,8 +53,6 @@ Studio.App.AutoSaveDialog.Title,,Auto-Recovery,Auto-Recovery
 Studio.App.AutoSaveDialog.WantToLoad,,Do you want to load the auto-recovered file?,Do you want to load the auto-recovered file?
 Studio.App.AutocompleteMenu.MoreChildrenItemTextFmt1,,%1 more children...,%1 more children...
 Studio.App.AutocompleteTooltip.FunctionNumberLabelTextFmt2,,%1 of %2,%1 of %2
-Studio.App.BetaFeatures.AccessPermissionsDescription,,"Add any group, user, or role as a collaborator or tester for your game through Game Settings","Add any group, user, or role as a collaborator or tester for your game through Game Settings"
-Studio.App.BetaFeatures.AccessPermissionsTitle,,Game Access Permissions,Game Access Permissions
 Studio.App.BetaFeatures.AnimationEditorDescription,,Enables the new Beta version of the Animation Editor.,Enables the new Beta version of the Animation Editor.
 Studio.App.BetaFeatures.AnimationEditorTitle,,Animation Editor Beta,Animation Editor Beta
 Studio.App.BetaFeatures.AssetManagerDescription,,Uses the new lua-based Asset Manager,Uses the new lua-based Asset Manager
@@ -74,15 +72,11 @@ Studio.App.BetaFeatures.CouldBeUnstable,,Note: Beta features could be unstable r
 Studio.App.BetaFeatures.Details,,Details,Details
 Studio.App.BetaFeatures.EnableLuauTypeCheckingDescription,,Enables new script analysis features,Enables new script analysis features
 Studio.App.BetaFeatures.EnableLuauTypeCheckingTitle,,Enable New Lua Script Analysis,Enable New Lua Script Analysis
-Studio.App.BetaFeatures.EnableNewLuaVMDescription,,Switches to the new Lua VM,Switches to the new Lua VM
-Studio.App.BetaFeatures.EnableNewLuaVMTitle,,Enable New Lua VM,Enable New Lua VM
 Studio.App.BetaFeatures.InsertObjectStreamliningDescription,,Enables a new unified workflow for inserting objects.,Enables a new unified workflow for inserting objects.
 Studio.App.BetaFeatures.InsertObjectStreamliningTitle,,Insert Object Streamlining,Insert Object Streamlining
 Studio.App.BetaFeatures.LearnMoreTooltip,,Learn More,Learn More
 Studio.App.BetaFeatures.LuaDraggersDescription,,Migrates the Select/Move/Rotate/Scale tools to a Lua BuiltInPlugin implementation and makes some minor improvements to their functionality.,Migrates the Select/Move/Rotate/Scale tools to a Lua BuiltInPlugin implementation and makes some minor improvements to their functionality.
 Studio.App.BetaFeatures.LuaDraggersTitle,,Lua Draggers Beta,Lua Draggers Beta
-Studio.App.BetaFeatures.LuaPublishWorkflowDescription,,Uses the new lua-based publish workflow,Uses the new lua-based publish workflow
-Studio.App.BetaFeatures.LuaPublishWorkflowTitle,,Lua Publish Workflow,Lua Publish Workflow
 Studio.App.BetaFeatures.Motor6DTransformFixDescription,,Fixes Motor6D.Transform to always position parts as if Part0 as the parent part so it will not rotate backwards if Part1 becomes the root internally.,Fixes Motor6D.Transform to always position parts as if Part0 as the parent part so it will not rotate backwards if Part1 becomes the root internally.
 Studio.App.BetaFeatures.Motor6DTransformFixTitle,,Motor6D.Transform Consistency Beta,Motor6D.Transform Consistency Beta
 Studio.App.BetaFeatures.NewScriptFoldStateDescription,,Enables new improved behavior for code folding in the Script Editor.,Enables new improved behavior for code folding in the Script Editor.
@@ -272,6 +266,7 @@ Someone else is committing changes."
 Studio.App.DraftsServiceHost.CommitRejectedInternalError,,"Server rejected commit due to internal error.
 Please try again later","Server rejected commit due to internal error.
 Please try again later"
+Studio.App.DraftsServiceHost.CommitRejectedTitle,,Script Commit Failure,Script Commit Failure
 Studio.App.DraftsServiceHost.ConfirmScriptDeleteButton,,Delete,Delete
 Studio.App.DraftsServiceHost.ConfirmScriptDeleteMine1,,"Are you sure you want to delete %1 from the place?
 
@@ -610,8 +605,10 @@ Studio.App.Login.UnableToLogout,,Unable to log out. Please save modified places 
 Studio.App.LoginManager.CaptchaClosed,,Login requires Captcha. Please try again.,Login requires Captcha. Please try again.
 Studio.App.LoginManager.CaptchaError,,Error displaying captcha,Error displaying captcha
 Studio.App.LoginManager.ClosingDownAllOpenPlacesElps,,Closing down all open places...,Closing down all open places...
+Studio.App.LoginManager.LocaleFetchError1,,Failed to fetch account locale: %1,Failed to fetch account locale: %1
 Studio.App.LoginManager.LogOut,,Log Out,Log Out
 Studio.App.LoginManager.LoggedOut,,Logged Out,Logged Out
+Studio.App.LoginManager.MetadataFetchError1,,Failed to fetch account info: %1,Failed to fetch account info: %1
 Studio.App.LoginManager.ToSIAgree,,I Agree,I Agree
 Studio.App.LoginManager.ToSMessage3,,"By clicking ""%1"", you are agreeing to the <a href='%2'>Terms of Use</a> and <a href='%3'>Privacy Policy</a>.","By clicking ""%1"", you are agreeing to the <a href='%2'>Terms of Use</a> and <a href='%3'>Privacy Policy</a>."
 Studio.App.LoginManager.ToSTitle,,Roblox Terms of Service,Roblox Terms of Service
@@ -727,6 +724,7 @@ Studio.App.Materials.SmoothPlastic,,Smooth Plastic,Smooth Plastic
 Studio.App.Materials.Wood,,Wood,Wood
 Studio.App.Merge.Accept,,Accept,Accept
 Studio.App.Merge.AcceptServerChanges,,Accept server changes,Accept server changes
+Studio.App.Merge.AllConflictsResolved,,All conflicts resolved,All conflicts resolved
 Studio.App.Merge.CompareCurrentDraftWithThis,,Compare current draft with this,Compare current draft with this
 Studio.App.Merge.ConflictInstruction,,Which code do you want to keep for this conflict?,Which code do you want to keep for this conflict?
 Studio.App.Merge.ConflictOptionDraft,"You can select the Draft, Server, or Other version of code to keep",Draft,Draft
@@ -736,6 +734,7 @@ Studio.App.Merge.ConflictPosition2,Conflict 2 of 5,Conflict %1 of %2,Conflict %1
 Studio.App.Merge.ConflictsRemaining1,4 unresolved conflicts,%1 unresolved conflict(s),%1 unresolved conflict(s)
 Studio.App.Merge.DeletedCode,,DELETED CODE ,DELETED CODE 
 Studio.App.Merge.DialogTitle1,Merge Server with Draft - PlayerDataManagerScript,Merge Server with Draft - %1,Merge Server with Draft - %1
+Studio.App.Merge.Done,,Merge All,Merge All
 Studio.App.Merge.EditConflict,Button that prompts the user to edit the conflict,Edit,Edit
 Studio.App.Merge.EditScriptConflict2,Edit - Scriptname - Conflict 1,Edit - %1 - Conflict %2,Edit - %1 - Conflict %2
 Studio.App.Merge.Next,,Next >,Next >
@@ -754,7 +753,6 @@ Studio.App.Merge.Preview,,Preview Resolution,Preview Resolution
 Studio.App.Merge.Previous,,< Previous,< Previous
 Studio.App.Merge.Protip1,Pro-tip: Do x to work more efficiently!,Pro-tip: %1,Pro-tip: %1
 Studio.App.Merge.ProtipDiscovery,,"Use the ""Other"" option to edit the resolution or to add comments to locate this conflict after merging","Use the ""Other"" option to edit the resolution or to add comments to locate this conflict after merging"
-Studio.App.Merge.ReadyToSave,,Ready to save,Ready to save
 Studio.App.Merge.Save,,Save,Save
 Studio.App.Merge.UnresolvedConflict,,UNRESOLVED CONFLICT ,UNRESOLVED CONFLICT 
 Studio.App.MeshImportOptionsDialog.ApplyAll,,Apply All,Apply All
@@ -1902,6 +1900,7 @@ Studio.App.RobloxStudioVerbs.SeparateFailed,,Separate failed,Separate failed
 Studio.App.RobloxStudioVerbs.StartServer,,Start server,Start server
 Studio.App.RobloxStudioVerbs.StartServerSaveFailure,,Start server - save failure,Start server - save failure
 Studio.App.RobloxStudioVerbs.StartingPlayers,,Starting players,Starting players
+Studio.App.RobloxStudioVerbs.SyncInstanceToFs,,Sync Instance,Sync Instance
 Studio.App.RobloxStudioVerbs.Undo1,,Undo %s,Undo %s
 Studio.App.RobloxStudioVerbs.UnionFailed,,Union failed,Union failed
 Studio.App.RobloxTaskScheduler.HeaderLabelActivity,In task scheduler,Activity,Activity
@@ -2069,6 +2068,7 @@ Studio.App.TeamCreate.InviteAFriend,,Invite a friend,Invite a friend
 Studio.App.TeamCreate.LoadingGame,,Loading game,Loading game
 Studio.App.TeamCreate.LogInToEnableTeamCreateOptions,,Log in to enable Team Create options for your place.,Log in to enable Team Create options for your place.
 Studio.App.TeamCreate.MembersOfYourGroupCanWorkTogether,,"Members of your group can work together, see updates instantly. Contact your admin to enable Team Create.","Members of your group can work together, see updates instantly. Contact your admin to enable Team Create."
+Studio.App.TeamCreate.PermissionsMovedMessage1,,"We've moved permissions management to <a href=""%1"">Home &gt; Game Settings &gt; Permissions.</a>","We've moved permissions management to <a href=""%1"">Home &gt; Game Settings &gt; Permissions.</a>"
 Studio.App.TeamCreate.PublishAndEnableteamCreateToBuildTogether,,Publish and enable Team Create to build this place together with your friends.,Publish and enable Team Create to build this place together with your friends.
 Studio.App.TeamCreate.PublishingCurrentPlace,,Publishing current place...,Publishing current place...
 Studio.App.TeamCreate.RemovingThisUserWillPrevent,,Removing this user will prevent them from accessing this Team Create game. Are you sure you want to do this?,Removing this user will prevent them from accessing this Team Create game. Are you sure you want to do this?
@@ -2131,6 +2131,7 @@ Studio.App.UserPlaceCreatorsListWidget.Offline,User is offline,Offline,Offline
 Studio.App.UserPlaceCreatorsListWidget.PlaceOwner,User is owner of place,Place Owner,Place Owner
 Studio.App.UserPlaceCreatorsListWidget.PlaceOwnerOffline,User is owner of place and is offline,Place Owner (Offline),Place Owner (Offline)
 Studio.App.VersionHistoryController.ReadOnlyScriptDocMessageFmt3,,This version is read-only. <a href='%1://%2_%3'>Click here to edit.</a>,This version is read-only. <a href='%1://%2_%3'>Click here to edit.</a>
+Studio.App.VersionHistoryController.ScriptEditErrorMessage,,Unable to edit script. Please try again.,Unable to edit script. Please try again.
 Studio.App.VersionHistoryDialog.BatchColumnTitle,,Scripts in Batch,Scripts in Batch
 Studio.App.VersionHistoryDialog.CommentColumnTitle,,Comment,Comment
 Studio.App.VersionHistoryDialog.CommittedColumnTitle,,Committed,Committed

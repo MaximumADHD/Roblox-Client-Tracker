@@ -27636,6 +27636,27 @@
                         "Category": "Class",
                         "Name": "Instance"
                     }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "IsDifferentFromFileSystem",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "NotReplicated",
+                        "NotScriptable"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
                 }
             ],
             "MemoryCategory": "Instances",
@@ -27745,27 +27766,6 @@
         },
         {
             "Members": [
-                {
-                    "Category": "Data",
-                    "MemberType": "Property",
-                    "Name": "CoreScriptModified",
-                    "Security": {
-                        "Read": "RobloxSecurity",
-                        "Write": "RobloxSecurity"
-                    },
-                    "Serialization": {
-                        "CanLoad": false,
-                        "CanSave": false
-                    },
-                    "Tags": [
-                        "NotReplicated",
-                        "NotScriptable"
-                    ],
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    }
-                },
                 {
                     "Category": "Data",
                     "MemberType": "Property",
@@ -37658,8 +37658,8 @@
                     "MemberType": "Property",
                     "Name": "DisplayName",
                     "Security": {
-                        "Read": "RobloxScriptSecurity",
-                        "Write": "RobloxScriptSecurity"
+                        "Read": "None",
+                        "Write": "None"
                     },
                     "Serialization": {
                         "CanLoad": false,
@@ -44699,6 +44699,14 @@
                     "MemberType": "Function",
                     "Name": "GetGlobals",
                     "Parameters": [
+                        {
+                            "Default": "0",
+                            "Name": "stackFrame",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        }
                     ],
                     "ReturnType": {
                         "Category": "Group",
@@ -51366,6 +51374,24 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "AnimationIdSelected",
+                    "Parameters": [
+                        {
+                            "Name": "id",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "ConvertToPackageUpload",
                     "Parameters": [
                         {
@@ -51885,6 +51911,13 @@
                                 "Name": "string"
                             }
                         }
+                    ],
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "OnImportFromRoblox",
+                    "Parameters": [
                     ],
                     "Security": "RobloxScriptSecurity"
                 },
@@ -53674,17 +53707,6 @@
         },
         {
             "Members": [
-                {
-                    "MemberType": "Function",
-                    "Name": "GetUserDisplayName",
-                    "Parameters": [
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "string"
-                    },
-                    "Security": "RobloxScriptSecurity"
-                },
                 {
                     "MemberType": "Function",
                     "Name": "GetUserPlatformId",
@@ -63822,6 +63844,10 @@
                 {
                     "Name": "SimplifiedChinese",
                     "Value": 2
+                },
+                {
+                    "Name": "Korean",
+                    "Value": 3
                 }
             ],
             "Name": "LanguagePreference"

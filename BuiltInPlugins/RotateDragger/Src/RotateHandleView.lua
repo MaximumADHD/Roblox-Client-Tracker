@@ -10,7 +10,6 @@ local Roact = require(Plugin.Packages.Roact)
 
 -- Dragger Framework
 local DraggerFramework = Plugin.Packages.DraggerFramework
-local Colors = require(DraggerFramework.Utility.Colors)
 local Math = require(DraggerFramework.Utility.Math)
 
 local RotateHandleView = Roact.PureComponent:extend("RotateHandleView")
@@ -125,13 +124,14 @@ function RotateHandleView.hitTest(props, mouseRay)
 
 	local smallestDistance = math.huge
 	local foundHit = false
+	local hit, t
 
 	-- Top ring
 	local topPoint = point + normal * 0.5 * thickness
-	local t = Math.intersectRayPlane(unitRay.Origin, unitRay.Direction, topPoint, normal)
+	t = Math.intersectRayPlane(unitRay.Origin, unitRay.Direction, topPoint, normal)
 	if t >= 0 and t < smallestDistance then
 		local mouseWorld = unitRay.Origin + unitRay.Direction * t
-		hitRadius = (mouseWorld - topPoint).Magnitude
+		local hitRadius = (mouseWorld - topPoint).Magnitude
 
 		local distance = math.abs(hitRadius - radius)
 		if distance < 0.5 * thickness then
@@ -142,10 +142,10 @@ function RotateHandleView.hitTest(props, mouseRay)
 
 	-- Bottom ring
 	local bottomPoint = point - normal * 0.5 * thickness
-	local t = Math.intersectRayPlane(unitRay.Origin, unitRay.Direction, bottomPoint, -normal)
+	t = Math.intersectRayPlane(unitRay.Origin, unitRay.Direction, bottomPoint, -normal)
 	if t >= 0 and t < smallestDistance then
 		local mouseWorld = unitRay.Origin + unitRay.Direction * t
-		hitRadius = (mouseWorld - bottomPoint).Magnitude
+		local hitRadius = (mouseWorld - bottomPoint).Magnitude
 
 		local distance = math.abs(hitRadius - radius)
 		if distance < 0.5 * thickness then
@@ -162,7 +162,7 @@ function RotateHandleView.hitTest(props, mouseRay)
 
 	-- Inner Cylinder
 	local innerRadius = radius - 0.5 * thickness
-	local hit, t = Math.intersectRayCylinder(o, d, innerRadius, thickness)
+	hit, t = Math.intersectRayCylinder(o, d, innerRadius, thickness)
 	if hit and t < smallestDistance then
 		foundHit = true
 		smallestDistance = t
@@ -170,7 +170,7 @@ function RotateHandleView.hitTest(props, mouseRay)
 
 	-- Outer Cylinder
 	local outerRadius = radius + 0.5 * thickness
-	local hit, t = Math.intersectRayCylinder(o, d, outerRadius, thickness)
+	hit, t = Math.intersectRayCylinder(o, d, outerRadius, thickness)
 	if hit and t < smallestDistance then
 		foundHit = true
 		smallestDistance = t

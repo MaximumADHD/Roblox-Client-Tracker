@@ -9,8 +9,9 @@ return function()
 	local function createTestAsset(container, name)
 		local element = Roact.createElement(MockWrapper, {}, {
 			Roact.createElement(AudioPreview, {
-				duration = 60,
-				isPlaying = false,
+				SoundId = 123,
+				ReportPlay = function() end,
+				ReportPause = function() end,
 			})
 		})
 

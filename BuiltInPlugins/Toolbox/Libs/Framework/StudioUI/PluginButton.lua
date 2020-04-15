@@ -14,8 +14,11 @@
 			their mouse over the button.
 		boolean Active: Whether the button is currently highlighted to show
 			that it is in an active state.
+		boolean ClickableWhenViewportHidden: Whether the button is enabled
+			when the main window is not active
 ]]
 local FFlagAssetManagerLuaCleanup1 = settings():GetFFlag("AssetManagerLuaCleanup1")
+local FFlagMakePluginsActivatableInScripts = game:DefineFastFlag("MakePluginsActivatableInScripts", false)
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -32,11 +35,17 @@ function PluginButton:createButton()
 	local icon = props.Icon or ""
 	local onClick = props.OnClick
 
+
 	if FFlagAssetManagerLuaCleanup1 then
 		assert(typeof(title) == "string", string.format("PluginButton requires Title to be of type string not %s", typeof(title)))
 	end
 
 	self.button = toolbar:CreateButton(title, tooltip, icon)
+
+	if FFlagMakePluginsActivatableInScripts then
+		self.button.ClickableWhenViewportHidden = props.ClickableWhenViewportHidden == nil and true or props.ClickableWhenViewportHidden
+	end
+
 	self.button.Click:Connect(onClick)
 end
 

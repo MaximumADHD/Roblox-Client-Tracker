@@ -1,5 +1,3 @@
-if not settings():GetFFlag("StudioGameSettingsAccessPermissions") then return nil end
-
 local ContentProvider = game:GetService("ContentProvider")
 local GroupService = game:GetService("GroupService")
 local Players = game:GetService("Players")

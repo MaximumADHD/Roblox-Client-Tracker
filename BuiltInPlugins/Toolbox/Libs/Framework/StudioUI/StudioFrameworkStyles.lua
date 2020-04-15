@@ -32,6 +32,7 @@ local Framework = script.Parent.Parent
 
 local UI = require(Framework.UI)
 local UIFolderData = require(Framework.UI.UIFolderData)
+local StudioUIFolderData = require(Framework.StudioUI.StudioUIFolderData)
 local Util = require(Framework.Util)
 
 local FrameworkStyles = UI.FrameworkStyles
@@ -47,17 +48,31 @@ function StudioFrameworkStyles.new(theme, getColor)
 	local styles = {}
 	local styleScripts = script:GetChildren()
 
-	for _, styleScript in ipairs(styleScripts) do
-		local createStyle = require(styleScript)
-		styles[styleScript.Name] = createStyle(theme, getColor)
-	end
+	local function loadStyle(contents)
+		assert(styles[contents.name] == nil,
+			string.format("Style name collision with element named '%s'", contents.name))
 
-	for _, contents in pairs(UIFolderData) do
 		local styleScript = contents.style
 		if styleScript then
 			local createStyle = require(styleScript)
 			styles[contents.name] = createStyle(theme, getColor)
 		end
+	end
+
+	-- Common Styles
+	for _, styleScript in ipairs(styleScripts) do
+		local createStyle = require(styleScript)
+		styles[styleScript.Name] = createStyle(theme, getColor)
+	end
+
+	-- UI Styles
+	for _, contents in pairs(UIFolderData) do
+		loadStyle(contents)
+	end
+
+	-- Studio UI Styles
+	for _, contents in pairs(StudioUIFolderData) do
+		loadStyle(contents)
 	end
 
 	return StyleTable.extend(frameworkStyles, styles)

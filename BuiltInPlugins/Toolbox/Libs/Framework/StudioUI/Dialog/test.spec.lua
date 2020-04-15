@@ -17,7 +17,6 @@ return function()
 	it("should create and destroy without errors", function()
 		local element = ContextServices.provide({mockPlugin()}, {
 			Dialog = Roact.createElement(Dialog, {
-				Enabled = true,
 				Title = "Test",
 				Size = Vector2.new(),
 				OnClose = function()

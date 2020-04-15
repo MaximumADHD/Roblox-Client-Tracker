@@ -12,10 +12,9 @@ local HttpService = game:GetService("HttpService")
 local StudioService = game:GetService("StudioService")
 
 local FFlagGameSettingsUsesNewIconEndpoint = settings():GetFFlag("GameSettingsUsesNewIconEndpoint")
-local FFlagStudioGameSettingsAccessPermissions = settings():GetFFlag("StudioGameSettingsAccessPermissions")
-local FFlagStudioGameSettingsDisablePlayabilityForDrafts = settings():GetFFlag("StudioGameSettingsDisablePlayabilityForDrafts")
 local FFlagVersionControlServiceScriptCollabEnabled = settings():GetFFlag("VersionControlServiceScriptCollabEnabled")
-
+local FFlagsEnableVersionHistorySetting = settings():GetFFlag("CollabEditVersionHistoryEnabled") and
+	(settings():GetFFlag("StudioInternalScriptVersionHistorySetting") or settings():GetFFlag("StudioPlaceFilterScriptVersionHistorySetting"))
 local DFFlagDeveloperSubscriptionsEnabled = settings():GetFFlag("DeveloperSubscriptionsEnabled")
 local FFlagStudioLocalizationInGameSettingsEnabled = game:GetFastFlag("StudioLocalizationInGameSettingsEnabled")
 
@@ -36,9 +35,10 @@ local Requests = {
 	GameIcon = require(RequestsFolder.GameIcon),
 	Thumbnails = require(RequestsFolder.Thumbnails),
 	ScriptCollabEnabled = FFlagVersionControlServiceScriptCollabEnabled and require(RequestsFolder.ScriptCollabEnabled) or nil,
-	GamePermissions = FFlagStudioGameSettingsAccessPermissions and require(RequestsFolder.GamePermissions) or nil,
+	ScriptVersionHistoryEnabled = FFlagsEnableVersionHistorySetting and require(RequestsFolder.ScriptVersionHistoryEnabled) or nil,
+	GamePermissions = require(RequestsFolder.GamePermissions),
 	DeveloperSubscriptions = DFFlagDeveloperSubscriptionsEnabled and require(RequestsFolder.DevSubs.DeveloperSubscriptions) or nil,
-	SupportedLanguages = FFlagStudioLocalizationInGameSettingsEnabled and 
+	SupportedLanguages = FFlagStudioLocalizationInGameSettingsEnabled and
 		require(Plugin.Src.Networking.Requests.LocalizationSettings.SupportedLanguages) or nil,
 	AllLocales = FFlagStudioLocalizationInGameSettingsEnabled and
 		require(Plugin.Src.Networking.Requests.LocalizationSettings.AllLocales) or nil,
@@ -113,9 +113,7 @@ function SettingsImpl:GetSettings()
 
 				settings = Cryo.Dictionary.join(settings, WorkspaceSettings.getAvatarSettings(settings))
 
-				if FFlagStudioGameSettingsAccessPermissions then
-					table.insert(getRequests, Requests.GamePermissions.Get(gameId, creatorName, creatorId, creatorType))
-				end
+				table.insert(getRequests, Requests.GamePermissions.Get(gameId, creatorName, creatorId, creatorType))
 
 				local success,loaded = Promise.all(getRequests):await()
 				if not success then reject(loaded) return end
@@ -129,10 +127,8 @@ function SettingsImpl:GetSettings()
 					Requests.Configuration.Get(gameId),
 					Requests.Thumbnails.Get(gameId),
 				}
-
-				if FFlagStudioGameSettingsAccessPermissions then
-					table.insert(getRequests, Requests.GamePermissions.Get(gameId, creatorName, creatorId, creatorType))
-				end
+				
+				table.insert(getRequests, Requests.GamePermissions.Get(gameId, creatorName, creatorId, creatorType))
 
 				if FFlagGameSettingsUsesNewIconEndpoint then
 					table.insert(getRequests, Requests.RootPlaceInfo.Get(gameId))
@@ -149,7 +145,7 @@ function SettingsImpl:GetSettings()
 				end
 
 				if FFlagVersionControlServiceScriptCollabEnabled then
-					table.insert( getRequests, Requests.ScriptCollabEnabled.Get())
+					table.insert(getRequests, Requests.ScriptCollabEnabled.Get())
 				end
 
 				if FFlagStudioLocalizationInGameSettingsEnabled then
@@ -160,6 +156,10 @@ function SettingsImpl:GetSettings()
 					table.insert(getRequests, Requests.AutoLocalization.Get(gameId))
 					table.insert(getRequests, Requests.SourceLanguage.Get(gameId))
 					table.insert(getRequests, Requests.AutoTranslationSettings.Get(gameId))
+                end
+
+				if FFlagsEnableVersionHistorySetting then
+					table.insert(getRequests, Requests.ScriptVersionHistoryEnabled.Get())
 				end
 
 				local success,loaded = Promise.all(getRequests):await()
@@ -221,7 +221,7 @@ function SettingsImpl:SaveAll(state)
 					Current = state.Current.DeveloperSubscriptions,
 					Changed = state.Changed.DeveloperSubscriptions,
 				}
-			elseif FFlagStudioGameSettingsAccessPermissions and Requests.GamePermissions.AcceptsValue(setting) then
+			elseif Requests.GamePermissions.AcceptsValue(setting) then
 				saveInfo[setting] = {
 					Current = {permissions=state.Current.permissions, groupMetadata=state.Current.groupMetadata},
 					Changed = {permissions=state.Changed.permissions, groupMetadata=state.Changed.groupMetadata or state.Current.groupMetadata},
@@ -244,6 +244,10 @@ function SettingsImpl:SaveAll(state)
 			saveInfo.ScriptCollabEnabled = state.Changed.ScriptCollabEnabled
 		end
 
+		if FFlagsEnableVersionHistorySetting and  state.Changed.ScriptVersionHistoryEnabled ~= nil then
+			saveInfo.ScriptVersionHistoryEnabled = state.Changed.ScriptVersionHistoryEnabled
+		end
+
 		WorkspaceSettings.saveAllAvatarSettings(saveInfo)
 		local universeId = game.GameId
 
@@ -264,7 +268,7 @@ function SettingsImpl:SaveAll(state)
 			table.insert(setRequests, Requests.DeveloperSubscriptions.Set(universeId, saveInfo.DeveloperSubscriptions))
 		end
 
-		if FFlagStudioGameSettingsAccessPermissions and saveInfo.permissions then
+		if saveInfo.permissions then
 			table.insert(setRequests, Requests.GamePermissions.Set(universeId, saveInfo.permissions))
 		end
 
@@ -285,6 +289,10 @@ function SettingsImpl:SaveAll(state)
 			if saveInfo.AutoTranslationSettings ~= nil then
 				table.insert(setRequests, Requests.AutoTranslationSettings.Set(universeId, saveInfo.AutoTranslationSettings))
 			end
+        end
+
+		if FFlagsEnableVersionHistorySetting and  saveInfo.ScriptVersionHistoryEnabled ~= nil then
+			table.insert(setRequests, Requests.ScriptVersionHistoryEnabled.Set(saveInfo.ScriptVersionHistoryEnabled))
 		end
 
 		return Promise.all(setRequests):andThen(function()

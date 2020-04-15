@@ -80,7 +80,7 @@ return{
 	["CoreScripts.InGameMenu.PageTitle.Controls"] = [[コントロール...]],
 	["CoreScripts.InGameMenu.PageTitle.Players"] = [[プレイヤー]],
 	["CoreScripts.InGameMenu.PageTitle.Report"] = [[報告する]],
-	["CoreScripts.InGameMenu.PageTitle.GameSettings"] = [[ゲーム設定]],
+	["CoreScripts.InGameMenu.PageTitle.GameSettings"] = [[設定]],
 	["CoreScripts.InGameMenu.Actions.AddFriend"] = [[友達を追加]],
 	["CoreScripts.InGameMenu.Actions.Unfriend"] = [[プレイヤーを友達解除]],
 	["CoreScripts.InGameMenu.Actions.CancelFriend"] = [[友達リクエストをキャンセル]],
@@ -121,4 +121,6 @@ return{
 	["CoreScripts.InGameMenu.InviteFriends.Loading"] = [[読み込み中！]],
 	["CoreScripts.InGameMenu.RespawnCharacter"] = [[キャラクターをリスポーンする]],
 	["CoreScripts.InGameMenu.GameSettings.CameraModeCameraToggle"] = [[カメラ切り換え]],
+	["CoreScripts.InGameMenu.Record.StartRecording"] = [[ビデオ録画]],
+	["CoreScripts.InGameMenu.Record.Duration"] = [[録画中 - {DURATION}]],
 }

@@ -1,7 +1,6 @@
 return function()
 	local Library = script.Parent.Parent.Parent
 	local Roact = require(Library.Parent.Roact)
-	local FFlagEnableAudioPreview = game:GetFastFlag("EnableAudioPreview")
 
 	local MockWrapper = require(Library.MockWrapper)
 
@@ -17,10 +16,10 @@ return function()
 				size = UDim2.new(1, 0, 1, 0),
 				audioControlOffset = 30,
 				assetId = 0,
-				timeLength = 0,
+				timeLength = 1,
 				isPlaying = false,
-				timeRemaining = not FFlagEnableAudioPreview and 0 or nil,
-				timePassed = FFlagEnableAudioPreview and 0 or nil,
+				isLoaded = true,
+				timePassed = 0,
 				onResume = emptyFunc,
 				onPause = emptyFunc,
 				onPlay = emptyFunc,

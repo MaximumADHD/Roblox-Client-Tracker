@@ -18,6 +18,8 @@ local ContextUpImage = "https://www.roblox.com/asset/?id=97166444"
 
 local oldTouches = {}
 
+local FFlagCancelButtonTouchEventOnMouseDragOff = game:DefineFastFlag("CancelButtonTouchEventOnMouseDragOff", false)
+
 local buttonPositionTable = {
 								[1] = UDim2.new(0,123,0,70),
 								[2] = UDim2.new(0,30,0,60),
@@ -79,6 +81,7 @@ function setButtonSizeAndPosition(object)
 	object.Size = UDim2.new(0,buttonSize,0,buttonSize)
 end
 
+-- deprecated functions to be removed when FFlagCancelButtonTouchEventOnMouseDragOff is removed
 function contextButtonDown(button, inputObject, actionName)
 	if inputObject.UserInputType == Enum.UserInputType.Touch then
 		button.Image = ContextDownImage
@@ -100,6 +103,27 @@ function contextButtonUp(button, inputObject, actionName)
 	end
 end
 
+
+function contextActionButtonDown(button, inputObject, actionName)
+	button.Image = ContextDownImage
+	contextActionService:CallFunction(actionName, Enum.UserInputState.Begin, inputObject)
+end
+
+function contextActionButtonMoved(button, inputObject, actionName)
+	button.Image = ContextDownImage
+	contextActionService:CallFunction(actionName, Enum.UserInputState.Change, inputObject)
+end
+
+function contextActionButtonUp(button, inputObject, actionName)
+	button.Image = ContextUpImage
+	contextActionService:CallFunction(actionName, Enum.UserInputState.End, inputObject)
+end
+
+function contextActionButtonCancel(button, inputObject, actionName)
+	button.Image = ContextUpImage
+	contextActionService:CallFunction(actionName, Enum.UserInputState.Cancel, inputObject)
+end
+
 function isSmallScreenDevice()
 	return game:GetService("GuiService"):GetScreenResolution().y <= 320
 end
@@ -117,33 +141,116 @@ function createNewButton(actionName, functionInfoTable)
 	contextButton.Image = ContextUpImage
 	contextButton.Parent = buttonFrame
 
-	local currentButtonTouch = nil
+	if FFlagCancelButtonTouchEventOnMouseDragOff then
+		local currentButtonTouch = nil
+		local fingerIsTouchingAwayFromButton = false
 
-	userInputService.InputEnded:connect(function ( inputObject )
-		oldTouches[inputObject] = nil
-	end)
-	contextButton.InputBegan:connect(function(inputObject)
-		if oldTouches[inputObject] then return end
+		--[[
+		there are three states for a button:
+		OFF		currentButtonTouch == nil
+		ON		currentButtonTouch ~= nil and fingerIsTouchingAwayFromButton == false
+		AWAY		currentButtonTouch ~= nil and fingerIsTouchingAwayFromButton == true
+		AWAY is when the user begins a touch event on the button and drags off, but still maintains contact with the screen
 
-		if inputObject.UserInputState == Enum.UserInputState.Begin and currentButtonTouch == nil then
-			currentButtonTouch = inputObject
-			contextButtonDown(contextButton, inputObject, actionName)
-		end
-	end)
-	contextButton.InputChanged:connect(function(inputObject)
-		if oldTouches[inputObject] then return end
-		if currentButtonTouch ~= inputObject then return end
+		ContextActionService callbacks are generated for the following transitions between states:
+		OFF -> ON			Enum.UserInputState.Begin
+		ON -> OFF			Enum.UserInputState.End
+		AWAY -> OFF			Enum.UserInputState.Cancel
+		]]--
 
-		contextButtonMoved(contextButton, inputObject, actionName)
-	end)
-	contextButton.InputEnded:connect(function(inputObject)
-		if oldTouches[inputObject] then return end
-		if currentButtonTouch ~= inputObject then return end
+		userInputService.InputEnded:connect(function(inputObject)
+			if inputObject.UserInputType ~= Enum.UserInputType.Touch then
+				return
+			end
+			if currentButtonTouch ~= inputObject then
+				return
+			end
 
-		currentButtonTouch = nil
-		oldTouches[inputObject] = true
-		contextButtonUp(contextButton, inputObject, actionName)
-	end)
+			if inputObject.UserInputState == Enum.UserInputState.End and fingerIsTouchingAwayFromButton then
+				-- transition AWAY -> OFF
+				contextActionButtonCancel(contextButton, inputObject, actionName)
+			end
+			currentButtonTouch = nil
+			fingerIsTouchingAwayFromButton = false
+		end)
+
+		contextButton.InputBegan:connect(function(inputObject)
+			if inputObject.UserInputType ~= Enum.UserInputType.Touch then
+				return
+			end
+
+			if inputObject.UserInputState == Enum.UserInputState.Begin then
+				-- transition OFF -> ON
+				currentButtonTouch = inputObject
+				fingerIsTouchingAwayFromButton = false
+				contextActionButtonDown(contextButton, inputObject, actionName)
+			elseif inputObject.UserInputState == Enum.UserInputState.Change then
+				if currentButtonTouch ~= inputObject then
+					return
+				end
+				-- transition AWAY -> ON
+				fingerIsTouchingAwayFromButton = false
+			end
+		end)
+
+		contextButton.InputEnded:connect(function(inputObject)
+			if inputObject.UserInputType ~= Enum.UserInputType.Touch then
+				return
+			end
+			if currentButtonTouch ~= inputObject then
+				return
+			end
+
+			if inputObject.UserInputState == Enum.UserInputState.End then
+				-- transition ON -> OFF
+				currentButtonTouch = nil
+				fingerIsTouchingAwayFromButton = false
+				contextActionButtonUp(contextButton, inputObject, actionName)
+			elseif inputObject.UserInputState == Enum.UserInputState.Change then
+				-- transition ON -> AWAY
+				fingerIsTouchingAwayFromButton = true
+			end
+		end)
+
+		contextButton.InputChanged:connect(function(inputObject)
+			if inputObject.UserInputType ~= Enum.UserInputType.Touch then
+				return
+			end
+			if currentButtonTouch ~= inputObject then
+				return
+			end
+			contextActionButtonMoved(contextButton, inputObject, actionName)
+		end)
+	
+	else
+		local currentButtonTouch = nil
+
+		userInputService.InputEnded:connect(function ( inputObject )
+			oldTouches[inputObject] = nil
+		end)
+		contextButton.InputBegan:connect(function(inputObject)
+			if oldTouches[inputObject] then return end
+		
+			if inputObject.UserInputState == Enum.UserInputState.Begin and currentButtonTouch == nil then
+				currentButtonTouch = inputObject
+				contextButtonDown(contextButton, inputObject, actionName)
+			end
+		end)
+		contextButton.InputChanged:connect(function(inputObject)
+			if oldTouches[inputObject] then return end
+			if currentButtonTouch ~= inputObject then return end
+		
+			contextButtonMoved(contextButton, inputObject, actionName)
+		end)
+		contextButton.InputEnded:connect(function(inputObject)
+			if oldTouches[inputObject] then return end
+			if currentButtonTouch ~= inputObject then return end
+		
+			currentButtonTouch = nil
+			oldTouches[inputObject] = true
+			contextButtonUp(contextButton, inputObject, actionName)
+		end)
+	end
 
 	local actionIcon = Instance.new("ImageLabel")
 	actionIcon.Name = "ActionIcon"

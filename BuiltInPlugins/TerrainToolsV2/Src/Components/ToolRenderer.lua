@@ -3,6 +3,8 @@
 	Handles all the bindings between the ui and the tool functionality
 ]]
 
+local FFlagTerrainToolsFixRegionEditorCleanup = game:GetFastFlag("TerrainToolsFixRegionEditorCleanup")
+
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
@@ -95,7 +97,7 @@ local function ToggleTool(toolName, mouse, plugin, theme, localization)
 end
 
 local ToolRenderer = Roact.PureComponent:extend(script.Name)
-------------------------------
+
 function ToolRenderer:init(initialProps)
 	local plugin = StudioPlugin.getPlugin(self)
 	self.state = {
@@ -111,6 +113,15 @@ function ToolRenderer:init(initialProps)
 
 		if scrollingFrame and layout then
 			scrollingFrame.CanvasSize = UDim2.new(1, 0, 0, layout.AbsoluteContentSize.Y)
+		end
+	end
+end
+
+if FFlagTerrainToolsFixRegionEditorCleanup then
+	function ToolRenderer:willUnmount()
+		local currentToolScript = toolToScript[self.props.currentTool]
+		if currentToolScript == TerrainRegionEditor then
+			TerrainRegionEditor.Close()
 		end
 	end
 end

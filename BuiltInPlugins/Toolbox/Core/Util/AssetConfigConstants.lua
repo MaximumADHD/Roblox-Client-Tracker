@@ -60,7 +60,8 @@ AssetConfigConstants.GENRE_TYPE = {
 
 AssetConfigConstants.FLOW_TYPE = convertArrayToTable({
 	"EDIT_FLOW",
-	"UPLOAD_FLOW"
+	"UPLOAD_FLOW",
+	"DOWNLOAD_FLOW",
 })
 
 AssetConfigConstants.SCREENS = convertArrayToTable({
@@ -123,6 +124,7 @@ if game:GetFastFlag("CMSConsolidateAssetTypeInfo") then
 		marketplaceAssetInfo(Enum.AssetType.Mesh),
 		marketplaceAssetInfo(Enum.AssetType.MeshPart),
 		marketplaceAssetInfo(Enum.AssetType.Audio),
+		marketplaceAssetInfo(Enum.AssetType.Animation),
 		marketplaceAssetInfo(Enum.AssetType.Plugin, --[[ isBuyable = ]] true),
 	}
 

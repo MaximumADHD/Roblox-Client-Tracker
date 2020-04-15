@@ -1,4 +1,4 @@
-local CoreGuiService = game:GetService("CoreGui")
+local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
@@ -29,6 +29,7 @@ local fflagInGameMenuSinglePaneDesign = getFFlagInGameMenuSinglePaneDesign()
 
 local FFlagInGameMenuSmallerSideBar = require(InGameMenu.Flags.FFlagInGameMenuSmallerSideBar)
 local FFlagRecordRecording = require(InGameMenu.Flags.FFlagRecordRecording)
+local FFlagInGameMenuUseUIBloxButtons = require(CoreGui.RobloxGui.Modules.Flags.FFlagInGameMenuUseUIBloxButtons)
 local GameSettings = settings():FindFirstChild("Game Options") or error("Game Options does not exist", 0)
 
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
@@ -62,7 +63,7 @@ local function renderButtonModels(self, style, localized)
 			icon = Images["icons/controls/screenrecord"],
 			text = recordingText,
 			onActivated = function ()
-				CoreGuiService:ToggleRecording()
+				CoreGui:ToggleRecording()
 			end,
 			renderRightElement = function ()
 				return Roact.createElement(KeyLabel, {
@@ -119,6 +120,40 @@ function MainPage:render()
 			recordVideo = "CoreScripts.InGameMenu.Record.StartRecording",
 			recording = "CoreScripts.InGameMenu.Record.Duration",
 		})(function(localized)
+			local moreButton = FFlagInGameMenuUseUIBloxButtons and Roact.createElement(UIBlox.App.Button.SecondaryButton, {
+				size = UDim2.fromOffset(44, 44),
+				onActivated = function()
+					self:setState({
+						modalOpen = true,
+					})
+				end,
+				icon = Assets.Images.MoreActions,
+			}) or Roact.createElement(SystemSecondaryButton, {
+				Size = UDim2.new(0, 44, 0, 44),
+				onActivated = function()
+					self:setState({
+						modalOpen = true,
+					})
+				end,
+				renderChildren = function(transparency, isHovered, isPressed)
+					local iconColor = isHovered and style.Theme.IconOnHover or style.Theme.IconDefault
+					local iconColor3 = iconColor.Color
+					local iconTransparency = divideTransparency(iconColor.Transparency, isPressed and 2 or 1)
+		
+					return {
+						ButtonIcon = Roact.createElement(ImageSetLabel, {
+							BackgroundTransparency = 1,
+							Size = UDim2.new(0, 36, 0, 36),
+							Position = UDim2.new(0.5, 0, 0.5, 0),
+							AnchorPoint = Vector2.new(0.5, 0.5),
+							Image = Assets.Images.MoreActions,
+							ImageColor3 = iconColor3,
+							ImageTransparency = iconTransparency,
+						})
+					}
+				end,
+			})
+
 			return Roact.createElement("TextButton", {
 				Size = UDim2.new(0, MAIN_PAGE_WIDTH, 1, 0),
 				Position = UDim2.new(0, fflagInGameMenuSinglePaneDesign and 0 or pageOffset, 0, 0),
@@ -155,7 +190,26 @@ function MainPage:render()
 						PaddingLeft = UDim.new(0, 24),
 						PaddingRight = UDim.new(0, 24),
 					}),
-					LeaveGame = Roact.createElement(SystemPrimaryButton, {
+					LeaveGame = FFlagInGameMenuUseUIBloxButtons and Roact.createElement("Frame", {
+						BackgroundTransparency = 1,
+						Size = UDim2.new(1, leaveGameSizeOffset, 0, 44),
+						Position = UDim2.fromScale(1, 0),
+						AnchorPoint = Vector2.new(1, 0),
+					}, {
+						Button = Roact.createElement(UIBlox.App.Button.PrimarySystemButton, {
+							size = UDim2.fromScale(1, 1),
+							onActivated = self.props.startLeavingGame,
+							text = localized.leaveGame,
+						}),
+						KeyLabel = Roact.createElement(KeyLabel, {
+							input = Enum.KeyCode.L,
+							borderThemeKey = "UIDefault",
+							textThemeKey = "SystemPrimaryContent",
+							AnchorPoint = Vector2.new(1, 0.5),
+							Position = UDim2.new(1, -16, 0.5, 0),
+							ZIndex = 2,
+						})
+					}) or Roact.createElement(SystemPrimaryButton, {
 						Position = UDim2.new(1, 0, 0, 0),
 						AnchorPoint = Vector2.new(1, 0),
 						Size = UDim2.new(1, leaveGameSizeOffset, 0, 44),
@@ -179,32 +233,8 @@ function MainPage:render()
 							}
 						end,
 					}),
-					MoreButton = self.props.respawnButtonVisible and Roact.createElement(SystemSecondaryButton, {
-						Size = UDim2.new(0, 44, 0, 44),
-						onActivated = function()
-							self:setState({
-								modalOpen = true,
-							})
-						end,
-						renderChildren = function(transparency, isHovered, isPressed)
-							local iconColor = isHovered and style.Theme.IconOnHover or style.Theme.IconDefault
-							local iconColor3 = iconColor.Color
-							local iconTransparency = divideTransparency(iconColor.Transparency, isPressed and 2 or 1)
-
-							return {
-								ButtonIcon = Roact.createElement(ImageSetLabel, {
-									BackgroundTransparency = 1,
-									Size = UDim2.new(0, 36, 0, 36),
-									Position = UDim2.new(0.5, 0, 0.5, 0),
-									AnchorPoint = Vector2.new(0.5, 0.5),
-									Image = Assets.Images.MoreActions,
-									ImageColor3 = iconColor3,
-									ImageTransparency = iconTransparency,
-								})
-							}
-						end,
-					})
-				})
+					MoreButton = self.props.respawnButtonVisible and moreButton,
+				}),
 			})
 		end)
 	end)

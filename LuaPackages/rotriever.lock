@@ -19,11 +19,11 @@ dependencies = [
     "PurchasePrompt roblox/purchase-prompt 8ba294b0 git+https://github.com/roblox/purchasepromptscript-roact#master",
     "Result lua-Result 4c69dedd git+https://github.rbx.com/roblox/lua-result#master",
     "Roact roblox/roact 1.2.0 url+https://github.com/roblox/roact",
-    "RoactNavigation roblox/roact-navigation 0.2.5 url+https://github.com/roblox/roact-navigation",
+    "RoactNavigation roblox/roact-navigation 0.2.6 url+https://github.com/roblox/roact-navigation",
     "RoactRodux roblox/roact-rodux 0.2.1 url+https://github.com/roblox/roact-rodux",
     "Rodux roblox/rodux 1.0.0 url+https://github.com/roblox/rodux",
     "TestEZ roblox/testez 0.1.1 url+https://github.com/roblox/testez",
-    "UIBlox UIBlox 767b0b0f git+https://github.rbx.com/roblox/uiblox#master",
+    "UIBlox UIBlox a86ea972 git+https://github.rbx.com/roblox/uiblox#master",
     "enumerate roblox/enumerate 1.0.0 url+https://github.com/roblox/enumerate",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
     "tutils tutils 74574fde git+https://github.rbx.com/roblox/tutils#master",
@@ -40,7 +40,7 @@ dependencies = [
     "Roact roblox/roact 1.2.0 url+https://github.com/roblox/roact",
     "RoactRodux roblox/roact-rodux 0.2.1 url+https://github.com/roblox/roact-rodux",
     "Rodux roblox/rodux 1.0.0 url+https://github.com/roblox/rodux",
-    "UIBlox UIBlox 767b0b0f git+https://github.rbx.com/roblox/uiblox#master",
+    "UIBlox UIBlox a86ea972 git+https://github.rbx.com/roblox/uiblox#master",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
 
@@ -103,7 +103,7 @@ dependencies = [
 [[package]]
 name = "UIBlox"
 version = "0.1.1"
-commit = "767b0b0f19827a0e089e25e50bb8d32b2649721e"
+commit = "a86ea972e5f7116a1f5a3645c373bb9ac2ab27ec"
 source = "git+https://github.rbx.com/roblox/uiblox#master"
 dependencies = [
     "Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo",
@@ -252,7 +252,7 @@ dependencies = [
     "Roact roblox/roact 1.2.0 url+https://github.com/roblox/roact",
     "RoactRodux roblox/roact-rodux 0.2.1 url+https://github.com/roblox/roact-rodux",
     "Rodux roblox/rodux 1.0.0 url+https://github.com/roblox/rodux",
-    "UIBlox UIBlox 767b0b0f git+https://github.rbx.com/roblox/uiblox#master",
+    "UIBlox UIBlox a86ea972 git+https://github.rbx.com/roblox/uiblox#master",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
 
@@ -274,8 +274,8 @@ dependencies = [
 
 [[package]]
 name = "roblox/roact-navigation"
-version = "0.2.5"
-commit = "bd73dc77032ca0c1886042a80ecab7a897ce985c"
+version = "0.2.6"
+commit = "321ff0f63b0d4361d45a6f6f84eb24b6ddb81dc6"
 source = "url+https://github.com/roblox/roact-navigation"
 dependencies = [
     "Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo",

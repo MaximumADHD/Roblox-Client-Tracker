@@ -1,5 +1,3 @@
-if not settings():GetFFlag("StudioGameSettingsAccessPermissions") then return nil end
-
 --[[
 	Reducer for loaded thumbnails.
 	Stores a CurrentStatus defining what the current status of the app is.

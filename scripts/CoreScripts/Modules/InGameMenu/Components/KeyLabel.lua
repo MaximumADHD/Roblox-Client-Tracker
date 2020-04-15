@@ -64,6 +64,7 @@ local validateProps = t.strictInterface({
 	AnchorPoint = t.optional(t.Vector2),
 	Position = t.optional(t.UDim2),
 	LayoutOrder = t.optional(t.integer),
+	ZIndex = t.optional(t.integer),
 })
 
 local function getLabelWidthAndContent(input, style, textThemeKey)
@@ -176,6 +177,7 @@ local function KeyLabel(props)
 			AnchorPoint = props.AnchorPoint,
 
 			LayoutOrder = props.LayoutOrder,
+			ZIndex = props.ZIndex,
 		}, {
 			Padding = padding and Roact.createElement("UIPadding", {
 				PaddingLeft = UDim.new(0, padding),

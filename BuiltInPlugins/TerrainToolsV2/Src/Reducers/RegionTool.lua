@@ -2,7 +2,7 @@ local Plugin = script.Parent.Parent.Parent
 local Rodux = require(Plugin.Packages.Rodux)
 local Cryo = require(Plugin.Packages.Cryo)
 
-local SelectTool = Rodux.createReducer({
+local RegionTool = Rodux.createReducer({
 	mergeEmpty = false,
 }, {
 	SetMergeEmpty = function(state, action)
@@ -14,4 +14,4 @@ local SelectTool = Rodux.createReducer({
 	end,
 })
 
-return SelectTool
+return RegionTool

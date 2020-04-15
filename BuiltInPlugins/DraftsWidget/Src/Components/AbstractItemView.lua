@@ -41,8 +41,6 @@
 		Example use cases: on PluginAction keybind invoke, delete the selection; on button click, commit the selection
 --]]
 
-local fflagUseMultiselect = game:DefineFastFlag("StudioDraftsUseMultiselect2", false)
-local fflagRemoveCommittedDraftsFromSelection = game:DefineFastFlag("RemoveCommittedDraftsFromSelection", false)
 local fflagCommitButton = game:DefineFastFlag("StudioDraftsWidgetCommitButton", false)
 
 local Plugin = script.Parent.Parent.Parent
@@ -76,10 +74,6 @@ function AbstractItemView:init()
 	self.lastClickTime = 0
 
 	self.getPressedModifiers = function(inputObject)
-		if (not fflagUseMultiselect) then
-			return {}
-		end
-
 		return {
 			Toggle = inputObject:IsModifierKeyDown(Enum.ModifierKey.Ctrl),
 			Expand = inputObject:IsModifierKeyDown(Enum.ModifierKey.Shift),
@@ -244,9 +238,7 @@ function AbstractItemView:render()
     local itemList = {}
 	for i, id in ipairs(items) do
 		local selected = self.state.selection[id] == true
-		if fflagRemoveCommittedDraftsFromSelection then
-			existingIds[id] = true
-		end
+		existingIds[id] = true
 
 		local itemButton = Roact.createElement(Button, {
 			Size = UDim2.new(1, 0, 1, 0),
@@ -273,13 +265,11 @@ function AbstractItemView:render()
 		itemList[id] = { Button = itemButton, Index = i }
 	end
 
-	if fflagRemoveCommittedDraftsFromSelection then
-		-- Once a draft is removed from the drafts list, we need to remove it from the selection
-		-- or it will alread be selected if it is ever readded as a draft
-		for id,_ in pairs(self.state.selection) do
-			if not existingIds[id] then
-				self.state.selection[id] = nil
-			end
+	-- Once a draft is removed from the drafts list, we need to remove it from the selection
+	-- or it will alread be selected if it is ever readded as a draft
+	for id,_ in pairs(self.state.selection) do
+		if not existingIds[id] then
+			self.state.selection[id] = nil
 		end
 	end
 

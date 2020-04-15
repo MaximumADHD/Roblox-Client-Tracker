@@ -24,7 +24,7 @@
 	function Networking:get(string url, optional table headers):
 		A wrapper around request(), fires a GET request and returns a Promise.
 
-	function Networking:patch(string url, optional table headers):
+	function Networking:patch(string url, string payload, optional table headers):
 		A wrapper around request, fires a PATCH request and returns a Promise.
 
 	function Networking:post(string url, string payload, optional table headers):
@@ -196,7 +196,7 @@ function Networking:request(options)
 	if self:_isLoggingEnabled(LOGGING_CHANNELS.REQUESTS) then
 		local log = { "Outgoing Network Request :", }
 		for k, v in pairs(options) do
-			table.insert(log, string.format(" - %s : %s", k, v))
+			table.insert(log, string.format(" - %s : %s", k, tostring(v)))
 		end
 		print(table.concat(log, "\n"))
 	end
@@ -324,10 +324,12 @@ function Networking:get(url, headers)
 end
 
 -- url : (string)
+-- payload : (string)
 -- headers : (optional)
-function Networking:patch(url, headers)
+function Networking:patch(url, payload, headers)
 	local options = {
 		Url = url,
+		Body = payload,
 		Method = "PATCH",
 		Headers = headers,
 	}

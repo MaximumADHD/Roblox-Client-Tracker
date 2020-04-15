@@ -1,279 +1,298 @@
-Key,Source,Context,en-us,zh-cn
-Studio.Common.Action.Apply,Apply, ,Apply,应用
-Studio.Common.Action.Back,Back, ,Back,返回
-Studio.Common.Action.Cancel,Cancel, ,Cancel,取消
-Studio.Common.Action.Clear,Clear, ,Clear,清除
-Studio.Common.Action.Close,Close, ,Close,关闭
-Studio.Common.Action.Copy,Copy, ,Copy,复制
-Studio.Common.Action.Create,Create, ,Create,创建
-Studio.Common.Action.Cut,Cut, ,Cut,剪切
-Studio.Common.Action.Delete,Delete, ,Delete,删除
-Studio.Common.Action.Edit,Edit, ,Edit,编辑
-Studio.Common.Action.Exit,Exit, ,Exit,退出
-Studio.Common.Action.File,File, ,File,文件
-Studio.Common.Action.Find,Find, ,Find,查找
-Studio.Common.Action.Help,Help, ,Help,帮助
-Studio.Common.Action.Home,Home, ,Home,首页
-Studio.Common.Action.Ignore,Ignore, ,Ignore,忽略
-Studio.Common.Action.Insert,Insert, ,Insert,插入
-Studio.Common.Action.New,New, ,New,新增
-Studio.Common.Action.Next,Next, ,Next,下一个
-Studio.Common.Action.No,No, ,No,否
-Studio.Common.Action.OK,OK, ,OK,确认
-Studio.Common.Action.Okay,Okay, ,Okay,好的
-Studio.Common.Action.Open,Open, ,Open,打开
-Studio.Common.Action.Paste,Paste, ,Paste,粘贴
-Studio.Common.Action.Pause,Pause, ,Pause,暂停
-Studio.Common.Action.Play,Play, ,Play,播放
-Studio.Common.Action.Previous,Previous, ,Previous,上一个
-Studio.Common.Action.Reload,Reload, ,Reload,重新加载
-Studio.Common.Action.Remove,Remove, ,Remove,删除
-Studio.Common.Action.Rename,Rename, ,Rename,重命名
-Studio.Common.Action.Replace,Replace, ,Replace,替换
-Studio.Common.Action.Resize,Resize, ,Resize,缩放
-Studio.Common.Action.Retry,Retry, ,Retry,重试
-Studio.Common.Action.Save,Save, ,Save,保存
-Studio.Common.Action.Select,Select, ,Select,选择
-Studio.Common.Action.Share,Share, ,Share,分享
-Studio.Common.Action.Stop,Stop, ,Stop,停止
-Studio.Common.Action.Yes,Yes, ,Yes,是
-Studio.Common.Action.Continue,Continue, ,Continue,继续
-Studio.Common.Action.Redo,Redo, ,Redo,恢复
-Studio.Common.Action.Undo,Undo, ,Undo,撤消
-Studio.Common.Action.Update,Update, ,Update,更新
-Studio.Common.Action.Reset,Reset, ,Reset, 
-Studio.GameSettings.General.PluginName,Game Settings, ,Game Settings,游戏设置
-Studio.GameSettings.General.PluginDescription,Update settings related to current game, ,Update settings related to current game,更新当前游戏的相关设置
-Studio.GameSettings.General.SettingOn,On, ,On,开启
-Studio.GameSettings.General.SettingOff,Off, ,Off,关闭
-Studio.GameSettings.General.ReplyYes,Yes, ,Yes,是
-Studio.GameSettings.General.ReplyNo,No, ,No,否
-Studio.GameSettings.General.ReplyOK,OK, ,OK,确认
-Studio.GameSettings.General.ReplyAgree,Agree, ,Agree,同意
-Studio.GameSettings.General.ReplyDisagree,Disagree, ,Disagree,不同意
-Studio.GameSettings.General.ButtonSave,Save, ,Save,保存
-Studio.GameSettings.General.ButtonCancel,Cancel, ,Cancel,取消
-Studio.GameSettings.General.ButtonDiscard,Discard, ,Discard,丢弃
-Studio.GameSettings.General.CategoryBasicInfo,Basic Info, ,Basic Info,基础信息
-Studio.GameSettings.General.CategoryAvatar,Avatar, ,Avatar,虚拟形象
-Studio.GameSettings.General.CategoryWorld,World, ,World,世界
-Studio.GameSettings.General.CategoryOptions,Options, ,Options,选项
-Studio.GameSettings.General.TitleName,Name, ,Name,名称
-Studio.GameSettings.General.TitleDescription,Description, ,Description,描述
-Studio.GameSettings.General.TitlePlayability,Playability, ,Playability,可玩性
-Studio.GameSettings.General.TitleGameIcon,Game Icon, ,Game Icon,游戏图标
-Studio.GameSettings.General.TitleThumbnails,Screenshots & Videos, ,Screenshots & Videos,屏幕截图与视频
-Studio.GameSettings.General.TitleGenre,Genre, ,Genre,类别
-Studio.GameSettings.General.TitleDevices,Playable Devices, ,Playable Devices,可玩设备
-Studio.GameSettings.General.TitleHttp,Allow HTTP Requests, ,Allow HTTP Requests,允许HTTP请求
-Studio.GameSettings.General.TitleStudioApiServices,Enable Studio Access to API Services, ,Enable Studio Access to API Services,启用API服务的Studio访问功能
-Studio.GameSettings.General.TitleScriptCollab,Enable Collaborative Editing, , , 
-Studio.GameSettings.General.TitleWorldPresets,Presets, ,Presets,预设
-Studio.GameSettings.General.TitleGravity,Gravity, ,Gravity,Gravity
-Studio.GameSettings.General.TitleJump,Jump, ,Jump,Jump
-Studio.GameSettings.General.TitleWalk,Walk, ,Walk,Walk
-Studio.GameSettings.General.TitleSlope,Slope, ,Slope,Slope
-Studio.GameSettings.General.PlayabilityHeader,Who can play this game?, ,Who can play this game?,谁可以玩这个游戏？
-Studio.GameSettings.General.PlayabilityPublic,Public, ,Public,公开
-Studio.GameSettings.General.PlayabilityGroup,Group Members, ,Group Members,群组成员
-Studio.GameSettings.General.PlayabilityFriends,Friends, ,Friends,好友
-Studio.GameSettings.General.PlayabilityPrivate,Private, ,Private,私人
-Studio.GameSettings.General.PlayabilityPublicDesc,Anyone on Roblox, ,Anyone on Roblox,Roblox上的所有玩家
-Studio.GameSettings.General.PlayabilityGroupDesc,Members of {group}, ,Members of {group},{group}的成员
-Studio.GameSettings.General.PlayabilityFriendsDesc,Friends on Roblox, ,Friends on Roblox,Roblox上的好友
-Studio.GameSettings.General.PlayabilityPrivateDesc,Only developers of this game, ,Only developers of this game,仅开放给此游戏的开发人员
-Studio.GameSettings.General.GameIconHint,Acceptable files: {fileTypes}{newline}Recommended resolution: 512 x 512, ,Acceptable files: {fileTypes}{newline}Recommended resolution: 512 x 512,可接受的文件：{fileTypes}{newline}建议的分辨率：512 x 512
-Studio.GameSettings.General.GameIconModeration,Image will be reviewed by moderators before being made visible to other users, ,Image will be reviewed by moderators before being made visible to other users,图片将由协调员审查，然后再对其他用户开放显示
-Studio.GameSettings.General.GameIconTutorial,New to making icons? Check out the Icon Tutorial., ,New to making icons? Check out the Icon Tutorial.,不熟悉制作图标吗？来看看图标教程吧。
-Studio.GameSettings.General.GameIconChange,Change, ,Change,更改
-Studio.GameSettings.General.ThumbnailsLimit,You can set up to {maxThumbnails:int} screenshots and YouTube videos for a game., ,You can set up to {maxThumbnails:int} screenshots and YouTube videos for a game.,一个游戏最多可设置{maxThumbnails:int}组屏幕截图和YouTube视频。
-Studio.GameSettings.General.ThumbnailsHint,Acceptable image files: {fileTypes} | Recommended resolution: 1920 x 1080, ,Acceptable image files: {fileTypes} | Recommended resolution: 1920 x 1080,可接受的图片文件：{fileTypes} | 建议的分辨率：1920 x 1080
-Studio.GameSettings.General.ThumbnailsModeration,Items will be reviewed by moderators before being made visible to other users., ,Items will be reviewed by moderators before being made visible to other users.,项目会在协调员审查后，再对其他用户开放。
-Studio.GameSettings.General.ThumbnailsCount,Up to {maxThumbnails:int} items, ,Up to {maxThumbnails:int} items,最多{maxThumbnails:int}个项目
-Studio.GameSettings.General.ImagePreview,Preview, ,Preview,预览
-Studio.GameSettings.General.ImageReview,In Review, ,In Review,审阅中
-Studio.GameSettings.General.GenreAll,All, ,All,所有
-Studio.GameSettings.General.GenreAdventure,Adventure, ,Adventure,冒险
-Studio.GameSettings.General.GenreBuilding,Building, ,Building,建筑
-Studio.GameSettings.General.GenreComedy,Comedy, ,Comedy,喜剧
-Studio.GameSettings.General.GenreFighting,Fighting, ,Fighting,格斗
-Studio.GameSettings.General.GenreFPS,FPS, ,FPS,FPS
-Studio.GameSettings.General.GenreHorror,Horror, ,Horror,恐怖
-Studio.GameSettings.General.GenreMedieval,Medieval, ,Medieval,中世纪
-Studio.GameSettings.General.GenreMilitary,Military, ,Military,军事
-Studio.GameSettings.General.GenreNaval,Naval, ,Naval,海军
-Studio.GameSettings.General.GenreRPG,RPG, ,RPG,RPG
-Studio.GameSettings.General.GenreSciFi,Sci-Fi, ,Sci-Fi,科幻
-Studio.GameSettings.General.GenreSports,Sports, ,Sports,体育
-Studio.GameSettings.General.GenreTownAndCity,Town and City, ,Town and City,城市建设
-Studio.GameSettings.General.GenreWestern,Western, ,Western,西部
-Studio.GameSettings.General.DeviceComputer,Computer, ,Computer,计算机
-Studio.GameSettings.General.DevicePhone,Phone, ,Phone,手机
-Studio.GameSettings.General.DeviceTablet,Tablet, ,Tablet,平板
-Studio.GameSettings.General.DeviceConsole,Console, ,Console,游戏主机
-Studio.GameSettings.General.HttpDesc,Allow game server to issue requests to remote servers., ,Allow game server to issue requests to remote servers.,允许游戏服务器对远程服务器发出请求。
-Studio.GameSettings.General.StudioApiServicesDesc,Enables Studio access to game services such as Data Stores, ,Enables Studio access to game services such as Data Stores,允许Studio访问数据存储等游戏服务
-Studio.GameSettings.General.ScriptCollabDesc,Enable collaborative editing for scripts., , , 
-Studio.GameSettings.General.ContentDialogHeader,Content Agreement, ,Content Agreement,内容协议
-Studio.GameSettings.General.ContentDialogBody,Do you agree that your game is controller compatible and contains NONE of the following?, ,Do you agree that your game is controller compatible and contains NONE of the following?,你同意让游戏兼容控制器，并确认游戏不包含以下内容吗？
-Studio.GameSettings.General.ContentDialogItem1,Blood or Gore, ,Blood or Gore,血腥
-Studio.GameSettings.General.ContentDialogItem2,Intense Violence, ,Intense Violence,激烈暴力
-Studio.GameSettings.General.ContentDialogItem3,Strong Language (Swearing), ,Strong Language (Swearing),粗暴语言（脏话）
-Studio.GameSettings.General.ContentDialogItem4,Robux Gambling, ,Robux Gambling,以Robux进行赌博
-Studio.GameSettings.General.ContentDialogItem5,Drug Reference or Use, ,Drug Reference or Use,提及或使用药物
-Studio.GameSettings.General.PreviewDialogHeader,Preview, ,Preview,预览
-Studio.GameSettings.General.PreviewDialogBody,Studio doesn't currently support video playing, ,Studio doesn't currently support video playing,Studio当前不支持视频播放
-Studio.GameSettings.General.PreviewDialogLink,Go to YouTube and play the video, ,Go to YouTube and play the video,前往YouTube播放视频
-Studio.GameSettings.General.CancelDialogHeader,Discard Changes, ,Discard Changes,放弃更改
-Studio.GameSettings.General.CancelDialogBody,Would you like to discard all changes?, ,Would you like to discard all changes?,你要放弃所有更改吗？
-Studio.GameSettings.General.PrivateDialogHeader,Make Private, ,Make Private,设为私人
-Studio.GameSettings.General.PrivateDialogPrompt,Are you sure you want to make this game private?, ,Are you sure you want to make this game private?,确定要保存更改吗？
-Studio.GameSettings.General.PrivateDialogBody,Making this game private will shut down any running games., ,Making this game private will shut down any running games.,将此游戏设为私人将会关闭所有进行中的游戏。
-Studio.GameSettings.General.AvatarDialogHeader,Warning, ,Warning,警告
-Studio.GameSettings.General.AvatarDialogPrompt,Would you like to proceed?, ,Would you like to proceed?,你要继续吗？
-Studio.GameSettings.General.AvatarDialogBody,Changing the game's Avatar Type to this setting will shut down any running games., ,Changing the game's Avatar Type to this setting will shut down any running games.,更改游戏的虚拟形象类型将会关闭所有进行中的游戏。
-Studio.GameSettings.General.DeleteDialogHeader,Delete Thumbnail, ,Delete Thumbnail,删除缩略图
-Studio.GameSettings.General.DeleteDialogBody,Would you like to delete this thumbnail?, ,Would you like to delete this thumbnail?,你要删除此缩略图吗？
-Studio.GameSettings.General.ImageDialogHeader,No Image Loaded, ,No Image Loaded,未加载图片
-Studio.GameSettings.General.ImageDialogBody,Select a compatible image., ,Select a compatible image.,选择一张兼容的图片。
-Studio.GameSettings.General.ErrorsOnSaveHeader,Saving Errors, ,Saving Errors,保存错误
-Studio.GameSettings.General.ErrorsOnSaveBody,Could not save game settings., ,Could not save game settings.,无法保存游戏设置。
-Studio.GameSettings.General.ErrorNameEmpty,Name cannot be empty., ,Name cannot be empty.,名称不能为空。
-Studio.GameSettings.General.ErrorNameModerated,The name didn't go through our moderation. Please revise it and try again., ,The name didn't go through our moderation. Please revise it and try again.,此名称没有通过审核。请修改后再试一次。
-Studio.GameSettings.General.ErrorDevSubFiltered,Filtered to {filteredText},Used to explain what the developer subscription title and description was filtered to after going through moderation.,Filtered to {filteredText},Filtered to {filteredText}
-Studio.GameSettings.General.ErrorDevSubMaxPrice,Must be less than {maxRobuxAmount:int},Explains that the developer subscription robux per month is higher than our limit,Must be less than {maxRobuxAmount:int},Must be less than {maxRobuxAmount:int}
-Studio.GameSettings.General.ErrorDevSubInvalidPrice,Must be a valid positive integer, ,Must be a valid positive integer,Must be a valid positive integer
-Studio.GameSettings.General.ErrorDescModerated,The description didn't go through our moderation. Please revise it and try again., ,The description didn't go through our moderation. Please revise it and try again.,此描述没有通过审核。请修改后再试一次。
-Studio.GameSettings.General.ErrorImageLimit,"You're uploading too much, please wait and try again later.", ,"You're uploading too much, please wait and try again later.",你已上传过多文件。请稍候重试。
-Studio.GameSettings.General.ErrorImageNotRecognized,File uploaded does not match known image format. Try converting to png., ,File uploaded does not match known image format. Try converting to png.,上传的文件与已知图片格式不匹配。请将它转成PNG文件。
-Studio.GameSettings.General.ErrorImageRequired,You must provide an image, ,You must provide an image,You must provide an image
-Studio.GameSettings.General.ErrorNoDevices,You must select at least one playable device., ,You must select at least one playable device.,你必须选择至少一种可游玩设备。
-Studio.GameSettings.General.GameIconPrompt,Add Game Icon, ,Add Game Icon,添加游戏图标
-Studio.GameSettings.General.ThumbnailPrompt,Add Thumbnails, ,Add Thumbnails,添加缩略图
-Studio.GameSettings.General.TitlePresets,Presets, ,Presets,预设
-Studio.GameSettings.General.TitleAvatarType,Avatar Type, ,Avatar Type,虚拟形象类型
-Studio.GameSettings.General.TitleAnimation,Animation, ,Animation,动画
-Studio.GameSettings.General.TitleCollision,Collision, ,Collision,碰撞
-Studio.GameSettings.General.TitleScale,Scale, ,Scale,调整
-Studio.GameSettings.General.TitleBodyParts,Body Parts, ,Body Parts,身体部件
-Studio.GameSettings.General.TitleClothing,Clothing, ,Clothing,服装
-Studio.GameSettings.General.ScaleHeight,Height, ,Height,高度
-Studio.GameSettings.General.ScaleWidth,Width, ,Width,宽度
-Studio.GameSettings.General.ScaleHead,Head, ,Head,头部
-Studio.GameSettings.General.ScaleBodyType,Body Type, ,Body Type,身体类型
-Studio.GameSettings.General.ScaleProportions,Proportions, ,Proportions,比例
-Studio.GameSettings.General.ScaleSliderLabel,{number}%, ,{number}%,{number}%
-Studio.GameSettings.General.ScaleSliderUnits,%, ,%,%
-Studio.GameSettings.General.PartFace,Face, ,Face,脸部
-Studio.GameSettings.General.PartHead,Head, ,Head,头部
-Studio.GameSettings.General.PartTorso,Torso, ,Torso,躯干
-Studio.GameSettings.General.PartLeftArm,Left Arm, ,Left Arm,左臂
-Studio.GameSettings.General.PartRightArm,Right Arm, ,Right Arm,右臂
-Studio.GameSettings.General.PartLeftLeg,Left Leg, ,Left Leg,左腿
-Studio.GameSettings.General.PartRightLeg,Right Leg, ,Right Leg,右腿
-Studio.GameSettings.General.ClothingTShirt,T-Shirt ID, ,T-Shirt ID,T 恤ID
-Studio.GameSettings.General.ClothingShirt,Shirt ID, ,Shirt ID,上衣ID
-Studio.GameSettings.General.ClothingPants,Pants ID, ,Pants ID,裤子ID
-Studio.GameSettings.General.PresetDefault,Default, ,Default,默认
-Studio.GameSettings.General.PresetClassicScale,Classic Scale, ,Classic Scale,经典比例
-Studio.GameSettings.General.PresetFullClassic,Full Classic, ,Full Classic,全套经典
-Studio.GameSettings.General.PresetRthro,Rthro, ,Rthro,Rthro
-Studio.GameSettings.General.PresetPlayerChoice,Player Choice, ,Player Choice,玩家选择
-Studio.GameSettings.General.AvatarTypeR6,R6, ,R6,6岁以上
-Studio.GameSettings.General.AvatarTypeR15,R15, ,R15,15岁以上
-Studio.GameSettings.General.AvatarTypePlayerChoice,Player Choice, ,Player Choice,玩家选择
-Studio.GameSettings.General.AvatarTypeWarning,Change Avatar Type will shut down the running game when save settings, ,Change Avatar Type will shut down the running game when save settings,更改虚拟形象类型会在保存设置时关闭进行中的游戏
-Studio.GameSettings.General.AnimationStandard,Standard, ,Standard,标准
-Studio.GameSettings.General.AnimationPlayerChoice,Player Choice, ,Player Choice,玩家选择
-Studio.GameSettings.General.CollisionOuterBox,Outer Box, ,Outer Box,外范围
-Studio.GameSettings.General.CollisionInnerBox,Inner Box, ,Inner Box,内范围
-Studio.GameSettings.General.AvatarOverridePrompt,Override Player Choice?, ,Override Player Choice?,要覆盖玩家选择吗？
-Studio.GameSettings.General.AvatarOverrideItem,Custom Item, ,Custom Item,自定义项目
-Studio.GameSettings.General.AvatarOverrideId,ID Number, ,ID Number,ID码
-Studio.GameSettings.General.ErrorOverrideEmpty,ID Number cannot be empty, ,ID Number cannot be empty,ID码不能为空
-Studio.GameSettings.General.PublishingHintLink,Publishing the game to Roblox, ,Publishing the game to Roblox,Publishing the game to Roblox
-Studio.GameSettings.General.PublishingHintLinkExplanation, is required for changing Avatar game settings, , is required for changing Avatar game settings, is required for changing Avatar game settings
-Studio.GameSettings.General.CategoryDeveloperSubscriptions,Subscriptions, ,Subscriptions, 
-Studio.GameSettings.General.CategoryAccessPermissions,Permissions, ,Permissions, 
-Studio.GameSettings.General.TitleGameOwner,Game Owner, ,Game Owner, 
-Studio.GameSettings.General.TitleCollaborators,Collaborators, ,Collaborators, 
-Studio.GameSettings.General.SingleImageDialogHeader,No Image Loaded, ,No Image Loaded, 
-Studio.GameSettings.General.SingleImageDialogBody,Select a compatible image., ,Select a compatible image., 
-Studio.GameSettings.General.MultiImageDialogHeader,Images Failed, ,Images Failed, 
-Studio.GameSettings.General.MultiImageDialogBody,The following file(s) exceed {maxThumbnailSize:int} MB:, ,The following file(s) exceed {maxThumbnailSize:int} MB:, 
-Studio.GameSettings.General.DevSubsEditHeader,Edit Developer Subscription, ,Edit Developer Subscription, 
-Studio.GameSettings.General.DevSubsNewHeader,New Developer Subscription, ,New Developer Subscription, 
-Studio.GameSettings.General.DevSubsDiscontinuedHeader,Discontinued Developer Subscription, ,Discontinued Developer Subscription, 
-Studio.GameSettings.General.DevSubsListHeader,Developer Subscriptions, ,Developer Subscriptions, 
-Studio.GameSettings.General.DevSubsName,Name, ,Name, 
-Studio.GameSettings.General.DevSubsDescription,Description, ,Description, 
-Studio.GameSettings.General.DevSubsPrice,Price, ,Price, 
-Studio.GameSettings.General.DevSubsImage,Image, ,Image, 
-Studio.GameSettings.General.DevSubsDuration,Duration, ,Duration, 
-Studio.GameSettings.General.DevSubsId,Id, ,Id, 
-Studio.GameSettings.General.DevSubsSubscribers,Subscribers, ,Subscribers, 
-Studio.GameSettings.General.DevSubsActive,Active, ,Active, 
-Studio.GameSettings.General.DevSubsCreateAction,Create, ,Create, 
-Studio.GameSettings.General.DevSubsDiscontinueAction,Discontinue, ,Discontinue, 
-Studio.GameSettings.General.DevSubsDeleteAction,Delete, ,Delete, 
-Studio.GameSettings.General.DevSubsUnsaved,Unsaved, ,Unsaved, 
-Studio.GameSettings.General.DevSubsIsActive,Yes, ,Yes, 
-Studio.GameSettings.General.DevSubsIsNotActive,No, ,No, 
-Studio.GameSettings.General.DevSubsDiscontinueTitle,Discontinue Subscription, ,Discontinue Subscription, 
-Studio.GameSettings.General.DevSubsDiscontinueHeader,Would you like to discontinue this subscription?, ,Would you like to discontinue this subscription?, 
-Studio.GameSettings.General.DevSubsDiscontinueDescription,This will cancel all renewing payments. You must maintain benefits until no subscribers remain., ,This will cancel all renewing payments. You must maintain benefits until no subscribers remain., 
-Studio.GameSettings.General.DevSubsDiscontinueConfirm,Discontinue, ,Discontinue, 
-Studio.GameSettings.General.PublishIsRequiredHyperlink,Publishing the game to Roblox,Inserted into PublishIsRequiredSentence2 as {hyperlink},Publishing the game to Roblox, 
-Studio.GameSettings.General.PublishIsRequiredSentence1, is required for {requiredForWhat},Constructed as hyperlinkText+' is required for {requiredForWhat=adding collaborators}', is required for {requiredForWhat}, 
-Studio.GameSettings.General.WorldPresetsClassic,Classic, ,Classic,Classic
-Studio.GameSettings.General.WorldPresetsRealistic,Realistic, ,Realistic,Realistic
-Studio.GameSettings.General.WorldPresetsAction,Action, ,Action,Action
-Studio.GameSettings.General.WorldPresetsClassicToolTip,"Classic Roblox, heavier gravity, higher jump", ,"Classic Roblox, heavier gravity, higher jump","Classic Roblox, heavier gravity, higher jump"
-Studio.GameSettings.General.WorldPresetsRealisticToolTip,"Real world gravity, athletic human", ,"Real world gravity, athletic human","Real world gravity, athletic human"
-Studio.GameSettings.General.WorldPresetsActionToolTip,"Slightly heavier gravity, jump higher, walk faster", ,"Slightly heavier gravity, jump higher, walk faster","Slightly heavier gravity, jump higher, walk faster"
-Studio.GameSettings.General.GravityWorkspaceGravity,Workspace Gravity:, ,Workspace Gravity:,Workspace Gravity:
-Studio.GameSettings.General.JumpHeight,Jump Height:, ,Jump Height:,Jump Height:
-Studio.GameSettings.General.JumpPower,Jump Power:, ,Jump Power:,Jump Power:
-Studio.GameSettings.General.JumpDistance,Max Jump Distance:, ,Max Jump Distance:,Max Jump Distance:
-Studio.GameSettings.General.WalkSpeed,Walk Speed:, ,Walk Speed:,Walk Speed:
-Studio.GameSettings.General.SlopeAngle,Max Slope Angle:, ,Max Slope Angle:,Max Slope Angle:
-Studio.GameSettings.General.UnitsMetersPerSecondSquared,({number} meters/second^2), ,({number} meters/second^2),({number} meters/second^2)
-Studio.GameSettings.General.UnitsMeters,({number} meters), ,({number} meters),({number} meters)
-Studio.GameSettings.General.UnitsMetersPerSecond,({number} meters/second), ,({number} meters/second),({number} meters/second)
-Studio.GameSettings.General.PublishTheGameToRoblox,Publish the game to Roblox,Same as PublishIsRequiredHyperlink without -ing,Publish the game to Roblox, 
-Studio.GameSettings.AccessPermissions.NoAccessLabel,No Access, ,No Access, 
-Studio.GameSettings.AccessPermissions.PlayLabel,Play, ,Play, 
-Studio.GameSettings.AccessPermissions.EditLabel,Edit, ,Edit, 
-Studio.GameSettings.AccessPermissions.AdminLabel,Manage, ,Manage, 
-Studio.GameSettings.AccessPermissions.OwnerLabel,Owner, ,Owner, 
-Studio.GameSettings.AccessPermissions.MultipleLabel,(Multiple), ,(Multiple), 
-Studio.GameSettings.AccessPermissions.NoAccessDescription,Cannot play or edit this game, ,Cannot play or edit this game, 
-Studio.GameSettings.AccessPermissions.PlayDescription,Can play this game, ,Can play this game, 
-Studio.GameSettings.AccessPermissions.EditDescription,Can play and edit this game, ,Can play and edit this game, 
-Studio.GameSettings.AccessPermissions.AdminDescription,"Can play, edit, and manage this game", ,"Can play, edit, and manage this game", 
-Studio.GameSettings.AccessPermissions.FriendsCollaboratorType,Friends, ,Friends, 
-Studio.GameSettings.AccessPermissions.UsersCollaboratorType,Users, ,Users, 
-Studio.GameSettings.AccessPermissions.GroupsCollaboratorType,Groups, ,Groups, 
-Studio.GameSettings.AccessPermissions.MyFriendsCollaborator,My Friends, ,My Friends, 
-Studio.GameSettings.AccessPermissions.DEPRECATED_CollaboratorSearchbarDefaultText,Search by user or group name, ,Search by user or group name, 
-Studio.GameSettings.AccessPermissions.CollaboratorSearchbarDefaultText,Search by username, ,Search by username, 
-Studio.GameSettings.AccessPermissions.CollaboratorSearchbarTooManyText1,You cannot add more than {maxNumCollaborators:int} collaborators, ,You cannot add more than {maxNumCollaborators:int} collaborators, 
-Studio.GameSettings.AccessPermissions.CollaboratorSearchbarNoResultsText,There were no results, ,There were no results, 
-Studio.GameSettings.AccessPermissions.PublishRequiredForCollaborators,adding collaborators,Appended as argument to end of 'Publishing a game is required for ',adding collaborators, 
-Studio.GameSettings.AccessPermissions.TeamCreateWarning,"To add collaborators, turn on Team Create", ,"To add collaborators, turn on Team Create", 
-Studio.GameSettings.AccessPermissions.PermissionsUpdateMessage,We've updated our permission system!, , We've updated our permission system!, 
-Studio.GameSettings.AccessPermissions.UpdateHyperlinkText,Learn more, , Learn more, 
-Studio.GameSettings.DraftGames.PublishRequiredToActivatePlayability, to activate Playability options,Appended as argument to end of 'Publishing a game is required', to activate Playability options, 
-Studio.GameSettings.General.CategoryLocalization,Localization, ,Localization, 
-Studio.GameSettings.General.SourceLanguageTitle,Source Language, ,Source Language, 
-Studio.GameSettings.General.SourceLanguageDesc,The source language represents the language that the game has been written in., ,The source language represents the language that the game has been written in., 
-Studio.GameSettings.General.AutoTextCaptureTitle,Automatic Text Capture, ,Automatic Text Capture, 
-Studio.GameSettings.General.AutoTextCaptureDesc,Automatically capture text from game UI while players play., ,Automatically capture text from game UI while players play., 
-Studio.GameSettings.General.UseTranslatedContentTitle,Use Translated Content, ,Use Translated Content, 
-Studio.GameSettings.General.UseTranslatedContentDesc,Enable translated content in game., ,Enable translated content in game., 
-Studio.GameSettings.General.AutoTranslationTitle,Automatic Translation, ,Automatic Translation, 
-Studio.GameSettings.General.AutoTranslationOnlyAvailableForEnMessage,Automatic translation is unavailable for current source language., ,Automatic translation is unavailable for current source language., 
-Studio.GameSettings.General.LocalizationSettingsLinkText,Click here, ,Click here, 
-Studio.GameSettings.General.LocalizationSettingsNonLinkText, to further manage the cloud localization table for this game., , to further manage the cloud localization table for this game., 
-Studio.GameSettings.General.LocalizationSettingsPublishMessageLinkText,Publishing a game is required, ,Publishing a game is required, 
-Studio.GameSettings.General.LocalizationSettingsPublishMessageNonLinkText, to activate Localization options., , to activate Localization options., 
+Key,Source,Context,en-us,ko,zh-cn
+Studio.Common.Action.Apply,Apply, ,Apply,적용,应用
+Studio.Common.Action.Back,Back, ,Back,뒤로,返回
+Studio.Common.Action.Cancel,Cancel, ,Cancel,취소,取消
+Studio.Common.Action.Clear,Clear, ,Clear,지우기,清除
+Studio.Common.Action.Close,Close, ,Close,닫기,关闭
+Studio.Common.Action.Copy,Copy, ,Copy,복사,复制
+Studio.Common.Action.Create,Create, ,Create,만들기,创建
+Studio.Common.Action.Cut,Cut, ,Cut,잘라내기,剪切
+Studio.Common.Action.Delete,Delete, ,Delete,삭제,删除
+Studio.Common.Action.Edit,Edit, ,Edit,편집,编辑
+Studio.Common.Action.Exit,Exit, ,Exit,나가기,退出
+Studio.Common.Action.File,File, ,File,파일,文件
+Studio.Common.Action.Find,Find, ,Find,찾기,查找
+Studio.Common.Action.Help,Help, ,Help,도움말,帮助
+Studio.Common.Action.Home,Home, ,Home,홈,首页
+Studio.Common.Action.Ignore,Ignore, ,Ignore,무시,忽略
+Studio.Common.Action.Insert,Insert, ,Insert,삽입,插入
+Studio.Common.Action.New,New, ,New,새로 만들기,新增
+Studio.Common.Action.Next,Next, ,Next,다음,下一个
+Studio.Common.Action.No,No, ,No,아니요,否
+Studio.Common.Action.OK,OK, ,OK,확인,确认
+Studio.Common.Action.Okay,Okay, ,Okay,확인,好的
+Studio.Common.Action.Open,Open, ,Open,열기,打开
+Studio.Common.Action.Paste,Paste, ,Paste,붙여넣기,粘贴
+Studio.Common.Action.Pause,Pause, ,Pause,일시 중지,暂停
+Studio.Common.Action.Play,Play, ,Play,플레이,播放
+Studio.Common.Action.Previous,Previous, ,Previous,이전,上一个
+Studio.Common.Action.Reload,Reload, ,Reload,다시 불러오기,重新加载
+Studio.Common.Action.Remove,Remove, ,Remove,제거,删除
+Studio.Common.Action.Rename,Rename, ,Rename,이름 변경,重命名
+Studio.Common.Action.Replace,Replace, ,Replace,바꾸기,替换
+Studio.Common.Action.Resize,Resize, ,Resize,크기 조정,缩放
+Studio.Common.Action.Retry,Retry, ,Retry,다시 시도,重试
+Studio.Common.Action.Save,Save, ,Save,저장,保存
+Studio.Common.Action.Select,Select, ,Select,선택,选择
+Studio.Common.Action.Share,Share, ,Share,공유,分享
+Studio.Common.Action.Stop,Stop, ,Stop,중지,停止
+Studio.Common.Action.Yes,Yes, ,Yes,예,是
+Studio.Common.Action.Continue,Continue, ,Continue,계속,继续
+Studio.Common.Action.Redo,Redo, ,Redo,다시 실행,恢复
+Studio.Common.Action.Undo,Undo, ,Undo,실행 취소,撤消
+Studio.Common.Action.Update,Update, ,Update,업데이트,更新
+Studio.Common.Action.Reset,Reset, ,Reset,재설정,重置
+Studio.Common.Action.Fill,Fill, ,Fill,채우기,填充
+Studio.Common.Action.Goto,Goto, ,Goto,이동,前往
+Studio.Common.Action.Move,Move, ,Move,이동,移动
+Studio.Common.Action.Rotate,Rotate, ,Rotate,회전,旋转
+Studio.Common.Action.Error,Error, ,Error,오류,错误
+Studio.Common.Action.Height,Height, ,Height,높이,高度
+Studio.Common.Action.LabelWithColon1,%1:, ,%1:,%1:,%1
+Studio.Common.Action.Name,Name, ,Name,이름,名称
+Studio.Common.Action.Search,Search, ,Search,검색,搜索
+Studio.Common.Action.Value,Value, ,Value,값,值
+Studio.Common.Action.Warning,Warning, ,Warning,경고,警告
+Studio.Common.Action.Width,Width, ,Width,넓이,宽度
+Studio.Common.Action.Submit,Submit, ,Submit,제출,提交
+Studio.Common.Action.Install,Install, ,Install,설치,安装
+Studio.Common.Action.Installed,Installed, ,Installed,설치됨,已安装
+Studio.Common.Action.Loading,Loading..., ,Loading...,불러오는 중...,正在加载...
+Studio.GameSettings.General.PluginName,Game Settings, ,Game Settings,게임 설정,游戏设置
+Studio.GameSettings.General.PluginDescription,Update settings related to current game, ,Update settings related to current game,현재 게임과 관련된 설정 업데이트,更新当前游戏的相关设置
+Studio.GameSettings.General.SettingOn,On, ,On,켜기,开启
+Studio.GameSettings.General.SettingOff,Off, ,Off,끄기,关闭
+Studio.GameSettings.General.ReplyYes,Yes, ,Yes,예,是
+Studio.GameSettings.General.ReplyNo,No, ,No,아니요,否
+Studio.GameSettings.General.ReplyOK,OK, ,OK,확인,确认
+Studio.GameSettings.General.ReplyAgree,Agree, ,Agree,동의,同意
+Studio.GameSettings.General.ReplyDisagree,Disagree, ,Disagree,비동의,不同意
+Studio.GameSettings.General.ButtonSave,Save, ,Save,저장,保存
+Studio.GameSettings.General.ButtonCancel,Cancel, ,Cancel,취소,取消
+Studio.GameSettings.General.ButtonDiscard,Discard, ,Discard,제거,丢弃
+Studio.GameSettings.General.CategoryBasicInfo,Basic Info, ,Basic Info,기본 정보,基础信息
+Studio.GameSettings.General.CategoryAvatar,Avatar, ,Avatar,아바타,虚拟形象
+Studio.GameSettings.General.CategoryWorld,World, ,World,세계,世界
+Studio.GameSettings.General.CategoryOptions,Options, ,Options,옵션,选项
+Studio.GameSettings.General.TitleName,Name, ,Name,이름,名称
+Studio.GameSettings.General.TitleDescription,Description, ,Description,설명,描述
+Studio.GameSettings.General.TitlePlayability,Playability, ,Playability,플레이 가능 여부,可玩性
+Studio.GameSettings.General.TitleGameIcon,Game Icon, ,Game Icon,게임 아이콘,游戏图标
+Studio.GameSettings.General.TitleThumbnails,Screenshots & Videos, ,Screenshots & Videos,스크린샷 및 비디오,屏幕截图与视频
+Studio.GameSettings.General.TitleGenre,Genre, ,Genre,장르,类别
+Studio.GameSettings.General.TitleDevices,Playable Devices, ,Playable Devices,플레이 가능 기기,可玩设备
+Studio.GameSettings.General.TitleHttp,Allow HTTP Requests, ,Allow HTTP Requests,HTTP 요청 허용,允许 HTTP 请求
+Studio.GameSettings.General.TitleStudioApiServices,Enable Studio Access to API Services, ,Enable Studio Access to API Services,Studio의 API 서비스 접근 활성화,允许 Studio 访问 API 服务
+Studio.GameSettings.General.PlayabilityHeader,Who can play this game?, ,Who can play this game?,이 게임을 플레이할 수 있는 대상은 누구인가요?,谁可以玩这个游戏?
+Studio.GameSettings.General.PlayabilityPublic,Public, ,Public,공개,公开
+Studio.GameSettings.General.PlayabilityGroup,Group Members, ,Group Members,그룹 멤버,群组成员
+Studio.GameSettings.General.PlayabilityFriends,Friends, ,Friends,친구,好友
+Studio.GameSettings.General.PlayabilityPrivate,Private, ,Private,비공개,私人
+Studio.GameSettings.General.PlayabilityPublicDesc,Anyone on Roblox, ,Anyone on Roblox,Roblox의 누구든 가능,Roblox 上的所有玩家
+Studio.GameSettings.General.PlayabilityGroupDesc,Members of {group}, ,Members of {group},{group} 그룹 멤버,{group}的成员
+Studio.GameSettings.General.PlayabilityFriendsDesc,Friends on Roblox, ,Friends on Roblox,Roblox의 친구,Roblox 上的好友
+Studio.GameSettings.General.PlayabilityPrivateDesc,Only developers of this game, ,Only developers of this game,이 게임의 개발자만 가능,仅开放给此游戏的开发人员
+Studio.GameSettings.General.GameIconHint,Acceptable files: {fileTypes}{newline}Recommended resolution: 512 x 512, ,Acceptable files: {fileTypes}{newline}Recommended resolution: 512 x 512,허용 가능 파일: {fileTypes}{newline}권장 해상도: 512 x 512,可接受的文件: {fileTypes}{newline}建议的分辨率: 512 x 512
+Studio.GameSettings.General.GameIconModeration,Image will be reviewed by moderators before being made visible to other users, ,Image will be reviewed by moderators before being made visible to other users,이미지는 검열팀의 검토가 끝난 후에 다른 사용자들에게 공개됩니다,图片将由协调员审查，然后再对其他用户开放显示
+Studio.GameSettings.General.GameIconTutorial,New to making icons? Check out the Icon Tutorial., ,New to making icons? Check out the Icon Tutorial.,아이콘을 처음 만드시나요? 아이콘 튜토리얼을 확인하세요.,不熟悉制作图标吗? 来看看图标教程吧。
+Studio.GameSettings.General.GameIconChange,Change, ,Change,변경,更改
+Studio.GameSettings.General.ThumbnailsLimit,You can set up to {maxThumbnails:int} screenshots and YouTube videos for a game., ,You can set up to {maxThumbnails:int} screenshots and YouTube videos for a game.,게임에 대한 스크린샷과 YouTube 비디오 썸네일은 최대 {maxThumbnails:int}장까지 설정할 수 있습니다.,一个游戏最多可设置 {maxThumbnails:int} 组屏幕截图和 YouTube 视频。
+Studio.GameSettings.General.ThumbnailsHint,Acceptable image files: {fileTypes} | Recommended resolution: 1920 x 1080, ,Acceptable image files: {fileTypes} | Recommended resolution: 1920 x 1080,허용 가능한 이미지 파일: {fileTypes} | 권장 해상도: 1920 x 1080,可接受的图片文件: {fileTypes} | 建议的分辨率: 1920 x 1080
+Studio.GameSettings.General.ThumbnailsModeration,Items will be reviewed by moderators before being made visible to other users., ,Items will be reviewed by moderators before being made visible to other users.,아이템은 검열팀의 검토가 끝난 후에 다른 사용자들에게 공개됩니다.,项目会在协调员审查后，再对其他用户开放。
+Studio.GameSettings.General.ThumbnailsCount,Up to {maxThumbnails:int} items, ,Up to {maxThumbnails:int} items,최대 {maxThumbnails:int}개 아이템,最多 {maxThumbnails:int} 个项目
+Studio.GameSettings.General.ImagePreview,Preview, ,Preview,미리 보기,预览
+Studio.GameSettings.General.ImageReview,In Review, ,In Review,검토 중,审阅中
+Studio.GameSettings.General.GenreAll,All, ,All,모두,所有
+Studio.GameSettings.General.GenreAdventure,Adventure, ,Adventure,어드벤처,冒险
+Studio.GameSettings.General.GenreBuilding,Building, ,Building,건설,建筑
+Studio.GameSettings.General.GenreComedy,Comedy, ,Comedy,코미디,喜剧
+Studio.GameSettings.General.GenreFighting,Fighting, ,Fighting,격투,格斗
+Studio.GameSettings.General.GenreFPS,FPS, ,FPS,FPS,FPS
+Studio.GameSettings.General.GenreHorror,Horror, ,Horror,공포,恐怖
+Studio.GameSettings.General.GenreMedieval,Medieval, ,Medieval,중세,中世纪
+Studio.GameSettings.General.GenreMilitary,Military, ,Military,군사,军事
+Studio.GameSettings.General.GenreNaval,Naval, ,Naval,해군,海军
+Studio.GameSettings.General.GenreRPG,RPG, ,RPG,RPG,RPG
+Studio.GameSettings.General.GenreSciFi,Sci-Fi, ,Sci-Fi,SF,科幻
+Studio.GameSettings.General.GenreSports,Sports, ,Sports,스포츠,体育
+Studio.GameSettings.General.GenreTownAndCity,Town and City, ,Town and City,마을/도시,城市建设
+Studio.GameSettings.General.GenreWestern,Western, ,Western,서부극,西部
+Studio.GameSettings.General.DeviceComputer,Computer, ,Computer,컴퓨터,计算机
+Studio.GameSettings.General.DevicePhone,Phone, ,Phone,휴대폰,手机
+Studio.GameSettings.General.DeviceTablet,Tablet, ,Tablet,태블릿,平板
+Studio.GameSettings.General.DeviceConsole,Console, ,Console,콘솔,游戏主机
+Studio.GameSettings.General.HttpDesc,Allow game server to issue requests to remote servers., ,Allow game server to issue requests to remote servers.,게임 서버가 원격 서버로 요청을 발행할 수 있도록 허용합니다.,允许游戏服务器对远程服务器发出请求。
+Studio.GameSettings.General.StudioApiServicesDesc,Enables Studio access to game services such as Data Stores, ,Enables Studio access to game services such as Data Stores,Studio에서 Data Stores와 같은 게임 서비스로 접근할 수 있습니다,允许 Studio 访问数据存储等游戏服务
+Studio.GameSettings.General.ContentDialogHeader,Content Agreement, ,Content Agreement,콘텐츠 동의,内容协议
+Studio.GameSettings.General.ContentDialogBody,Do you agree that your game is controller compatible and contains NONE of the following?, ,Do you agree that your game is controller compatible and contains NONE of the following?,이 게임은 컨트롤러가 호환되며 다음과 같은 콘텐츠가 없음에 동의하십니까?,你同意让游戏兼容控制器，并确认游戏不包含以下内容吗?
+Studio.GameSettings.General.ContentDialogItem1,Blood or Gore, ,Blood or Gore,피 또는 잔인한 장면,血腥
+Studio.GameSettings.General.ContentDialogItem2,Intense Violence, ,Intense Violence,심각한 폭력,激烈暴力
+Studio.GameSettings.General.ContentDialogItem3,Strong Language (Swearing), ,Strong Language (Swearing),심한 말(욕설),粗暴语言 (脏话)
+Studio.GameSettings.General.ContentDialogItem4,Robux Gambling, ,Robux Gambling,Robux 도박,以 Robux 进行赌博
+Studio.GameSettings.General.ContentDialogItem5,Drug Reference or Use, ,Drug Reference or Use,마약 언급 또는 사용,提及或使用药物
+Studio.GameSettings.General.PreviewDialogHeader,Preview, ,Preview,미리 보기,预览
+Studio.GameSettings.General.PreviewDialogBody,Studio doesn't currently support video playing, ,Studio doesn't currently support video playing,Studio는 현재 비디오 재생을 지원하지 않습니다,Studio 当前不支持视频播放
+Studio.GameSettings.General.PreviewDialogLink,Go to YouTube and play the video, ,Go to YouTube and play the video,YouTube로 이동해 비디오 재생,前往 YouTube 并播放视频
+Studio.GameSettings.General.CancelDialogHeader,Discard Changes, ,Discard Changes,변경 사항 제거,放弃更改
+Studio.GameSettings.General.CancelDialogBody,Would you like to discard all changes?, ,Would you like to discard all changes?,모든 변경 사항을 제거할까요?,你要放弃所有更改吗?
+Studio.GameSettings.General.PrivateDialogHeader,Make Private, ,Make Private,비공개 설정,设为私人
+Studio.GameSettings.General.PrivateDialogPrompt,Are you sure you want to make this game private?, ,Are you sure you want to make this game private?,이 게임을 비공개로 설정할까요?,确定要将此游戏设为私人吗?
+Studio.GameSettings.General.PrivateDialogBody,Making this game private will shut down any running games., ,Making this game private will shut down any running games.,이 게임을 비공개로 설정하면 실행 중인 게임이 종료됩니다.,将此游戏设为私人将会关闭所有进行中的游戏。
+Studio.GameSettings.General.AvatarDialogHeader,Warning, ,Warning,경고,警告
+Studio.GameSettings.General.AvatarDialogPrompt,Would you like to proceed?, ,Would you like to proceed?,진행할까요?,你要继续吗?
+Studio.GameSettings.General.AvatarDialogBody,Changing the game's Avatar Type to this setting will shut down any running games., ,Changing the game's Avatar Type to this setting will shut down any running games.,게임의 아바타 유형을 이 설정으로 변경하면 실행 중인 게임이 종료됩니다.,将游戏的虚拟形象类型更改为此设定将会关闭所有运行中的游戏。
+Studio.GameSettings.General.DeleteDialogHeader,Delete Thumbnail, ,Delete Thumbnail,썸네일 삭제,删除缩略图
+Studio.GameSettings.General.DeleteDialogBody,Would you like to delete this thumbnail?, ,Would you like to delete this thumbnail?,이 썸네일을 삭제할까요?,你要删除此缩略图吗?
+Studio.GameSettings.General.ImageDialogHeader,No Image Loaded, ,No Image Loaded,로드된 이미지 없음,未加载图片
+Studio.GameSettings.General.ImageDialogBody,Select a compatible image., ,Select a compatible image.,호환 가능한 이미지를 선택하세요.,选择一张兼容的图片。
+Studio.GameSettings.General.ErrorsOnSaveHeader,Saving Errors, ,Saving Errors,저장 오류,保存错误
+Studio.GameSettings.General.ErrorsOnSaveBody,Could not save game settings., ,Could not save game settings.,게임 설정을 저장하지 못했습니다.,无法保存游戏设置。
+Studio.GameSettings.General.ErrorNameEmpty,Name cannot be empty., ,Name cannot be empty.,이름은 비워둘 수 없습니다.,名称不能为空。
+Studio.GameSettings.General.ErrorNameModerated,The name didn't go through our moderation. Please revise it and try again., ,The name didn't go through our moderation. Please revise it and try again.,이름이 검열을 통과하지 못했어요. 수정한 후 다시 시도하세요.,此名称没有通过审核。请修改后再试一次。
+Studio.GameSettings.General.ErrorDescModerated,The description didn't go through our moderation. Please revise it and try again., ,The description didn't go through our moderation. Please revise it and try again.,설명이 검열을 통과하지 못했어요. 수정한 후 다시 시도하세요.,此描述没有通过审核。请修改后再试一次。
+Studio.GameSettings.General.ErrorImageLimit,"You're uploading too much, please wait and try again later.", ,"You're uploading too much, please wait and try again later.",업로드가 너무 많습니다. 나중에 다시 시도하세요.,你已上传过多文件。请稍候重试。
+Studio.GameSettings.General.ErrorImageNotRecognized,File uploaded does not match known image format. Try converting to png., ,File uploaded does not match known image format. Try converting to png.,업로드된 파일이 알려진 이미지 형식과 일치하지 않습니다. PNG로 변환하세요.,上传的文件与已知图片格式不匹配。请将其转换为 png 格式。
+Studio.GameSettings.General.ErrorNoDevices,You must select at least one playable device., ,You must select at least one playable device.,플레이 가능한 기기를 최소 1개 선택해야 합니다.,你必须选择至少一种可玩设备。
+Studio.GameSettings.General.GameIconPrompt,Add Game Icon, ,Add Game Icon,게임 아이콘 추가,添加游戏图标
+Studio.GameSettings.General.ThumbnailPrompt,Add Thumbnails, ,Add Thumbnails,썸네일 추가,添加缩略图
+Studio.GameSettings.General.TitlePresets,Presets, ,Presets,기본 설정,预设
+Studio.GameSettings.General.TitleAvatarType,Avatar Type, ,Avatar Type,아바타 유형,虚拟形象类型
+Studio.GameSettings.General.TitleAnimation,Animation, ,Animation,애니메이션,动画
+Studio.GameSettings.General.TitleCollision,Collision, ,Collision,충돌,碰撞
+Studio.GameSettings.General.TitleScale,Scale, ,Scale,크기,调整
+Studio.GameSettings.General.TitleBodyParts,Body Parts, ,Body Parts,신체 부위,身体部件
+Studio.GameSettings.General.TitleClothing,Clothing, ,Clothing,복장,服装
+Studio.GameSettings.General.ScaleHeight,Height, ,Height,높이,高度
+Studio.GameSettings.General.ScaleWidth,Width, ,Width,넓이,宽度
+Studio.GameSettings.General.ScaleHead,Head, ,Head,머리,头部
+Studio.GameSettings.General.ScaleBodyType,Body Type, ,Body Type,체형,身体类型
+Studio.GameSettings.General.ScaleProportions,Proportions, ,Proportions,비율,比例
+Studio.GameSettings.General.PartFace,Face, ,Face,얼굴,脸部
+Studio.GameSettings.General.PartHead,Head, ,Head,머리,头部
+Studio.GameSettings.General.PartTorso,Torso, ,Torso,상체,躯干
+Studio.GameSettings.General.PartLeftArm,Left Arm, ,Left Arm,왼팔,左臂
+Studio.GameSettings.General.PartRightArm,Right Arm, ,Right Arm,오른팔,右臂
+Studio.GameSettings.General.PartLeftLeg,Left Leg, ,Left Leg,왼 다리,左腿
+Studio.GameSettings.General.PartRightLeg,Right Leg, ,Right Leg,오른 다리,右腿
+Studio.GameSettings.General.ClothingTShirt,T-Shirt ID, ,T-Shirt ID,티셔츠 ID,T 恤ID
+Studio.GameSettings.General.ClothingShirt,Shirt ID, ,Shirt ID,셔츠 ID,上衣ID
+Studio.GameSettings.General.ClothingPants,Pants ID, ,Pants ID,바지 ID,裤子ID
+Studio.GameSettings.General.PresetDefault,Default, ,Default,기본값,默认
+Studio.GameSettings.General.PresetClassicScale,Classic Scale, ,Classic Scale,클래식 크기,经典比例
+Studio.GameSettings.General.PresetFullClassic,Full Classic, ,Full Classic,풀 클래식,全套经典
+Studio.GameSettings.General.PresetRthro,Rthro, ,Rthro,Rthro,Rthro
+Studio.GameSettings.General.PresetPlayerChoice,Player Choice, ,Player Choice,플레이어의 선택,玩家选择
+Studio.GameSettings.General.AvatarTypeR6,R6, ,R6,R6,R6
+Studio.GameSettings.General.AvatarTypeR15,R15, ,R15,R15,R15
+Studio.GameSettings.General.AvatarTypePlayerChoice,Player Choice, ,Player Choice,플레이어의 선택,玩家选择
+Studio.GameSettings.General.AvatarTypeWarning,Change Avatar Type will shut down the running game when save settings, ,Change Avatar Type will shut down the running game when save settings,아바타 유형을 변경하면 설정 저장 시 실행 중인 게임이 종료됩니다,更改虚拟形象类型会在保存设置时关闭进行中的游戏
+Studio.GameSettings.General.AnimationStandard,Standard, ,Standard,표준,标准
+Studio.GameSettings.General.AnimationPlayerChoice,Player Choice, ,Player Choice,플레이어의 선택,玩家选择
+Studio.GameSettings.General.CollisionOuterBox,Outer Box, ,Outer Box,바깥 상자,外范围
+Studio.GameSettings.General.CollisionInnerBox,Inner Box, ,Inner Box,안쪽 상자,内范围
+Studio.GameSettings.General.AvatarOverridePrompt,Override Player Choice?, ,Override Player Choice?,플레이어의 선택을 재정의할까요?,要覆盖玩家选择吗?
+Studio.GameSettings.General.AvatarOverrideItem,Custom Item, ,Custom Item,커스텀 아이템,自定义项目
+Studio.GameSettings.General.AvatarOverrideId,ID Number, ,ID Number,ID 번호,ID码
+Studio.GameSettings.General.ErrorOverrideEmpty,ID Number cannot be empty, ,ID Number cannot be empty,ID 번호는 비워두면 안 돼요,ID码不能为空
+Studio.GameSettings.General.CategoryDeveloperSubscriptions,Subscriptions, ,Subscriptions,구독,订阅
+Studio.GameSettings.General.CategoryAccessPermissions,Permissions, ,Permissions,권한,许可
+Studio.GameSettings.General.TitleGameOwner,Game Owner, ,Game Owner,게임 소유자,游戏所有者
+Studio.GameSettings.General.SingleImageDialogHeader,No Image Loaded, ,No Image Loaded,불러온 이미지 없음,未加载图片
+Studio.GameSettings.General.SingleImageDialogBody,Select a compatible image., ,Select a compatible image.,호환 가능한 이미지를 선택하세요.,选择一张兼容的图片。
+Studio.GameSettings.General.MultiImageDialogHeader,Images Failed, ,Images Failed,이미지 실패,图片失败
+Studio.GameSettings.General.MultiImageDialogBody,The following file(s) exceed {maxThumbnailSize:int} MB:, ,The following file(s) exceed {maxThumbnailSize:int} MB:,다음 파일이 {maxThumbnailSize:int} MB를 초과합니다:,下列文件超过 {maxThumbnailSize:int} MB:
+Studio.GameSettings.General.DevSubsEditHeader,Edit Developer Subscription, ,Edit Developer Subscription,개발자 구독 수정,编辑开发者订阅
+Studio.GameSettings.General.DevSubsListHeader,Developer Subscriptions, ,Developer Subscriptions,개발자 구독,开发者订阅
+Studio.GameSettings.General.DevSubsName,Name, ,Name,이름,名称
+Studio.GameSettings.General.DevSubsTitle,Title, ,Title,제목,标题
+Studio.GameSettings.General.DevSubsPrice,Price, ,Price,가격,价格
+Studio.GameSettings.General.DevSubsImage,Image, ,Image,이미지,图片
+Studio.GameSettings.General.DevSubsDuration,Duration, ,Duration,기간,长度
+Studio.GameSettings.General.DevSubsId,Id, ,Id,ID,ID
+Studio.GameSettings.General.DevSubsSubscribers,Subscribers, ,Subscribers,구독자,订阅者
+Studio.GameSettings.General.DevSubsActive,Active, ,Active,활성,活跃
+Studio.GameSettings.General.DevSubsCreateAction,Create, ,Create,만들기,创建
+Studio.GameSettings.General.DevSubsDiscontinueAction,Discontinue, ,Discontinue,해지,取消
+Studio.GameSettings.General.DevSubsUnsaved,Unsaved, ,Unsaved,저장되지 않음,未保存
+Studio.GameSettings.General.DevSubsIsActive,Yes, ,Yes,예,是
+Studio.GameSettings.General.DevSubsIsNotActive,No, ,No,아니요,否
+Studio.GameSettings.General.DevSubsDiscontinueTitle,Discontinue Subscription, ,Discontinue Subscription,구독 해지,取消订阅
+Studio.GameSettings.General.DevSubsDiscontinueHeader,Would you like to discontinue this subscription?, ,Would you like to discontinue this subscription?,구독을 해지하시겠어요?,确定要取消此订阅吗?
+Studio.GameSettings.General.DevSubsDiscontinueDescription,This will cancel all renewing payments. You must maintain benefits until no subscribers remain., ,This will cancel all renewing payments. You must maintain benefits until no subscribers remain.,정기 결제가 모두 해지됩니다. 가입자가 없을 때까지 혜택을 유지해야 합니다.,所有例行付款将会取消，你必须维持福利，直到没有订阅者为止。
+Studio.GameSettings.General.DevSubsDiscontinueConfirm,Discontinue, ,Discontinue,해지,取消
+Studio.GameSettings.AccessPermissions.NoAccessLabel,No Access, ,No Access,접근할 수 없어요,无法访问
+Studio.GameSettings.AccessPermissions.PlayLabel,Play, ,Play,플레이,开始游戏
+Studio.GameSettings.AccessPermissions.EditLabel,Edit, ,Edit,편집,编辑
+Studio.GameSettings.AccessPermissions.AdminLabel,Manage, ,Manage,관리,管理
+Studio.GameSettings.AccessPermissions.OwnerLabel,Owner, ,Owner,소유자,所有者
+Studio.GameSettings.AccessPermissions.MultipleLabel,(Multiple), ,(Multiple),（여러 항목）,(多项)
+Studio.GameSettings.AccessPermissions.NoAccessDescription,Cannot play or edit this game, ,Cannot play or edit this game,이 게임을 플레이하거나 편집할 수 없음,无法玩此游戏，或对其进行编辑
+Studio.GameSettings.AccessPermissions.PlayDescription,Can play this game, ,Can play this game,이 게임을 플레이할 수 있음,可以玩此游戏
+Studio.GameSettings.AccessPermissions.EditDescription,Can play and edit this game, ,Can play and edit this game,이 게임을 플레이하거나 편집할 수 있음,可以玩此游戏，或对其进行编辑
+Studio.GameSettings.AccessPermissions.AdminDescription,"Can play, edit, and manage this game", ,"Can play, edit, and manage this game","이 게임을 플레이, 편집, 관리할 수 있음",可以玩此游戏，或对其进行编辑与管理
+Studio.GameSettings.General.DevSubsDescription,Description, ,Description,설명,描述
+Studio.GameSettings.General.ErrorNameDescModerated,Filtered to %s, ,Filtered to %s,다음과 같이 검열됨: %s,过滤为 %s
+Studio.GameSettings.General.ErrorNameDescHttp,An error has occurred with moderating the name and description. Please try again later!, ,An error has occurred with moderating the name and description. Please try again later!,이름과 설명을 검열하는 데 오류가 발생했어요. 잠시 후 다시 시도하세요!,过滤名称与描述时发生错误。请稍候重试!
+Studio.GameSettings.General.ErrorDevSubFiltered,Filtered to {filteredText}, ,Filtered to {filteredText},다음과 같이 검열됨: {filteredText},过滤为 {filteredText}
+Studio.GameSettings.General.TitleScriptCollab,Enable Collaborative Editing, ,Enable Collaborative Editing,공동 편집 활성화,启用协同编辑
+Studio.GameSettings.General.TitleWorldPresets,Presets, ,Presets,기본 설정,预设
+Studio.GameSettings.General.TitleGravity,Gravity, ,Gravity,중력,重力
+Studio.GameSettings.General.TitleJump,Jump, ,Jump,점프,跳跃
+Studio.GameSettings.General.TitleWalk,Walk, ,Walk,걷기,行走
+Studio.GameSettings.General.TitleSlope,Slope, ,Slope,경사,斜坡
+Studio.GameSettings.General.ScriptCollabDesc,Enable collaborative editing for scripts., ,Enable collaborative editing for scripts.,스크립트에 대한 공동 편집을 활성화합니다.,启用脚本的协作编辑。
+Studio.GameSettings.General.ErrorDevSubMaxPrice,Must be less than {maxRobuxAmount:int}, ,Must be less than {maxRobuxAmount:int},{maxRobuxAmount:int} 이하여야 합니다.,必须少于 {maxRobuxAmount:int}
+Studio.GameSettings.General.ErrorDevSubInvalidPrice,Must be a valid positive integer, ,Must be a valid positive integer,유효한 양수 정수여야 합니다,必须是有效的正整数
+Studio.GameSettings.General.ErrorImageRequired,You must provide an image, ,You must provide an image,이미지를 제공해야 합니다,必须提供一个图像
+Studio.GameSettings.General.ScaleSliderLabel,{number}%, ,{number}%,{number}%,{number}%
+Studio.GameSettings.General.ScaleSliderUnits,%, ,%,%,%
+Studio.GameSettings.General.PublishingHintLink,Publishing the game to Roblox, ,Publishing the game to Roblox,Roblox에 게임 게시,正在将游戏发布到 Roblox
+Studio.GameSettings.General.PublishingHintLinkExplanation, is required for changing Avatar game settings, , is required for changing Avatar game settings,은(는) 아바타 게임 설정을 변경하는 데 필요합니다,是更改虚拟形象游戏设置所必需的
+Studio.GameSettings.General.TitleCollaborators,Collaborators, ,Collaborators,협업자,协作者
+Studio.GameSettings.General.DevSubsNewHeader,New Developer Subscription, ,New Developer Subscription,새로운 개발자 구독,新的开发者订阅
+Studio.GameSettings.General.DevSubsDiscontinuedHeader,Discontinued Developer Subscription, ,Discontinued Developer Subscription,중단된 개발자 구독,取消的开发者订阅
+Studio.GameSettings.General.DevSubsDeleteAction,Delete, ,Delete,삭제,删除
+Studio.GameSettings.General.PublishIsRequiredHyperlink,Publishing the game to Roblox, ,Publishing the game to Roblox,Roblox에 게임 게시,正在将游戏发布到 Roblox
+Studio.GameSettings.General.PublishIsRequiredSentence1, is required for {requiredForWhat}, , is required for {requiredForWhat},은(는) {requiredForWhat}에 필요합니다,是 {requiredForWhat} 所必需的
+Studio.GameSettings.General.WorldPresetsClassic,Classic, ,Classic,클래식,经典
+Studio.GameSettings.General.WorldPresetsRealistic,Realistic, ,Realistic,현실적,现实
+Studio.GameSettings.General.WorldPresetsAction,Action, ,Action,액션,动作
+Studio.GameSettings.General.WorldPresetsClassicToolTip,"Classic Roblox, heavier gravity, higher jump", ,"Classic Roblox, heavier gravity, higher jump","클래식 Roblox, 무거운 중력, 높은 점프",经典 Roblox，更重的重力，更高的跳跃高度
+Studio.GameSettings.General.WorldPresetsRealisticToolTip,"Real world gravity, athletic human", ,"Real world gravity, athletic human","실제 중력, 근육질 사람",真实世界重力，人类运动员
+Studio.GameSettings.General.WorldPresetsActionToolTip,"Slightly heavier gravity, jump higher, walk faster", ,"Slightly heavier gravity, jump higher, walk faster","다소 무거운 중력, 높은 점프, 빠른 걸음걸이",重力稍重，跳得更高，走得更快
+Studio.GameSettings.General.GravityWorkspaceGravity,Workspace Gravity:, ,Workspace Gravity:,작업 공간 중력:,工作空间重力:
+Studio.GameSettings.General.JumpHeight,Jump Height:, ,Jump Height:,점프 높이:,跳跃高度:
+Studio.GameSettings.General.JumpPower,Jump Power:, ,Jump Power:,점프력:,跳跃力量:
+Studio.GameSettings.General.JumpDistance,Max Jump Distance:, ,Max Jump Distance:,최대 점프 거리:,最大跳跃距离:
+Studio.GameSettings.General.WalkSpeed,Walk Speed:, ,Walk Speed:,걷기 속도:,行走速度:
+Studio.GameSettings.General.SlopeAngle,Max Slope Angle:, ,Max Slope Angle:,최대 경사각:,最大斜坡角度:
+Studio.GameSettings.General.UnitsMetersPerSecondSquared,({number} meters/second^2), ,({number} meters/second^2),({number}미터/초^2),({number} 米/秒^2)
+Studio.GameSettings.General.UnitsMeters,({number} meters), ,({number} meters),({number}미터),({number} 米)
+Studio.GameSettings.General.UnitsMetersPerSecond,({number} meters/second), ,({number} meters/second),({number}미터/초),({number} 米/秒)
+Studio.GameSettings.General.PublishTheGameToRoblox,Publish the game to Roblox, ,Publish the game to Roblox,Roblox에 게임 게시,将游戏发布到 Roblox
+Studio.GameSettings.AccessPermissions.FriendsCollaboratorType,Friends, ,Friends,친구,好友
+Studio.GameSettings.AccessPermissions.UsersCollaboratorType,Users, ,Users,사용자,用户
+Studio.GameSettings.AccessPermissions.GroupsCollaboratorType,Groups, ,Groups,그룹,群组
+Studio.GameSettings.AccessPermissions.MyFriendsCollaborator,My Friends, ,My Friends,내 친구,我的好友
+Studio.GameSettings.AccessPermissions.CollaboratorSearchbarDefaultText,Search by username, ,Search by username,사용자 또는 그룹 이름으로 검색,按用户或群组名称搜索
+Studio.GameSettings.AccessPermissions.CollaboratorSearchbarTooManyText1,You cannot add more than {maxNumCollaborators:int} collaborators, ,You cannot add more than {maxNumCollaborators:int} collaborators,협업자는 최대 {maxNumCollaborators:int}명까지만 추가할 수 있습니다.,无法添加 {maxNumCollaborators:int} 位以上的协作者
+Studio.GameSettings.AccessPermissions.CollaboratorSearchbarNoResultsText,There were no results, ,There were no results,결과가 없습니다,没有结果
+Studio.GameSettings.AccessPermissions.PublishRequiredForCollaborators,adding collaborators, ,adding collaborators,협업자 추가,正在添加协作者
+Studio.GameSettings.AccessPermissions.TeamCreateWarning,"To add collaborators, turn on Team Create", ,"To add collaborators, turn on Team Create",협업자를 추가하려면 팀 만들기를 활성화하세요,要添加协作者，请打开“组队创作”
+Studio.GameSettings.DraftGames.PublishRequiredToActivatePlayability, to activate Playability options, , to activate Playability options, 플레이 가능 옵션 활성화,以激活“可玩性”选项
+Studio.GameSettings.AccessPermissions.DEPRECATED_CollaboratorSearchbarDefaultText,Search by user or group name, ,Search by user or group name, , 
+Studio.GameSettings.AccessPermissions.PermissionsUpdateMessage, We've updated our permission system!, , We've updated our permission system!, , 
+Studio.GameSettings.AccessPermissions.UpdateHyperlinkText, Learn more, , Learn more, , 
+Studio.GameSettings.General.CategoryLocalization,Localization, ,Localization, , 
+Studio.GameSettings.General.SourceLanguageTitle,Source Language, ,Source Language, , 
+Studio.GameSettings.General.SourceLanguageDesc,The source language represents the language that the game has been written in., ,The source language represents the language that the game has been written in., , 
+Studio.GameSettings.General.AutoTextCaptureTitle,Automatic Text Capture, ,Automatic Text Capture, , 
+Studio.GameSettings.General.AutoTextCaptureDesc,Automatically capture text from game UI while players play., ,Automatically capture text from game UI while players play., , 
+Studio.GameSettings.General.UseTranslatedContentTitle,Use Translated Content, ,Use Translated Content, , 
+Studio.GameSettings.General.UseTranslatedContentDesc,Enable translated content in game., ,Enable translated content in game., , 
+Studio.GameSettings.General.AutoTranslationTitle,Automatic Translation, ,Automatic Translation, , 
+Studio.GameSettings.General.AutoTranslationOnlyAvailableForEnMessage,Automatic translation is unavailable for current source language., ,Automatic translation is unavailable for current source language., , 
+Studio.GameSettings.General.LocalizationSettingsLinkText,Click here, ,Click here, , 
+Studio.GameSettings.General.LocalizationSettingsNonLinkText, to further manage the cloud localization table for this game., , to further manage the cloud localization table for this game., , 
+Studio.GameSettings.General.LocalizationSettingsPublishMessageLinkText,Publishing a game is required, ,Publishing a game is required, , 
+Studio.GameSettings.General.LocalizationSettingsPublishMessageNonLinkText, to activate Localization options., , to activate Localization options., , 

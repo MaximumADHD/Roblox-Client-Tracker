@@ -15,7 +15,7 @@
 	callBack ReportPlay, analytics events.
 	callback ReportPause,
 ]]
-local FFlagEnableAudioPreview = game:GetFastFlag("EnableAudioPreview")
+local FFlagHideOneChildTreeviewButton = game:GetFastFlag("HideOneChildTreeviewButton")
 
 local RunService = game:GetService("RunService")
 
@@ -32,6 +32,10 @@ local PROGRESS_BAR_HEIGHT = 6
 local AUDIO_CONTROL_HEIGHT = 35
 local AUDIO_CONTROL_WIDTH_OFFSET_WITH_TREE = 50
 local AUDIO_CONTROL_WIDTH_OFFSET_NO_TREE = 70
+
+if FFlagHideOneChildTreeviewButton then
+	AUDIO_CONTROL_WIDTH_OFFSET_NO_TREE = 10
+end
 
 local AudioControl = require(Library.Components.Preview.AudioControl)
 
@@ -127,11 +131,7 @@ function AudioPreview:init(props)
 	self.getAudioLength = function()
 		local soundObj = self.soundRef.current
 		if soundObj then
-			if FFlagEnableAudioPreview then
-				return math.max(soundObj.TimeLength, 1)
-			else
-				return soundObj.TimeLength
-			end
+			return math.max(soundObj.TimeLength, 1)
 		end
 	end
 end
@@ -139,7 +139,7 @@ end
 function AudioPreview:didMount()
 	self.isMounted = true
 	local soundObj = self.soundRef.current
-	if FFlagEnableAudioPreview and soundObj then
+	if soundObj then
 		soundObj.SoundId = self.props.SoundId
 	end
 
@@ -188,7 +188,6 @@ function AudioPreview:render()
 		local timeLength = self.getAudioLength() or 0
 		local isLoaded = state.isLoaded
 		local isPlaying = state.isPlaying
-		local timeRemaining = state.timeLength - state.currentTime
 
 		return Roact.createElement("Frame", {
 			Position = position,
@@ -266,8 +265,7 @@ function AudioPreview:render()
 					timeLength = timeLength,
 					isPlaying = isPlaying,
 					isLoaded = isLoaded,
-					timeRemaining = not FFlagEnableAudioPreview and timeRemaining or nil,
-					timePassed = FFlagEnableAudioPreview and state.currentTime or nil,
+					timePassed = state.currentTime,
 					onResume = self.resumeSound,
 					onPause = self.pauseSound,
 					onPlay = self.playSound,

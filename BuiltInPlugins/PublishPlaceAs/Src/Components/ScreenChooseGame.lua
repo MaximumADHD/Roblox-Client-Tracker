@@ -31,7 +31,6 @@ local Spritesheet = UILibrary.Util.Spritesheet
 local createFitToContent = UILibrary.Component.createFitToContent
 local StyledDropDown = UILibrary.Component.StyledDropdown
 
-local FFlagStudioDefaultGroupInDropdownPublish = game:GetFastFlag("StudioDefaultGroupInDropdownPublish")
 
 local FRAME_BUTTON_SIZE = 32
 local ARROW_SIZE = 12
@@ -146,7 +145,7 @@ function ScreenChooseGame:render()
 				for _, group in pairs(groups) do
 					table.insert(dropdownItems, { Type = Constants.SUBJECT_TYPE.GROUP, Key = group.groupId, Text = group.name, })
 				end
-				if not groupsLoaded and FFlagStudioDefaultGroupInDropdownPublish then
+				if not groupsLoaded then
 					groupsLoaded = true
 					for _, item in ipairs(dropdownItems) do
 						if game.CreatorId == item.Key and game.CreatorType == Enum.CreatorType.Group then

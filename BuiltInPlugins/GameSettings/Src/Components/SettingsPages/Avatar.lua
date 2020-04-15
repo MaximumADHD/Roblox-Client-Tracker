@@ -13,10 +13,9 @@
 
 local PageName = "Avatar"
 
-local FFlagGameSettingsReorganizeHeaders = settings():GetFFlag("GameSettingsReorganizeHeaders")
 local FFlagAvatarSizeFixForReorganizeHeaders =
-	game:GetFastFlag("AvatarSizeFixForReorganizeHeaders") and
-	FFlagGameSettingsReorganizeHeaders
+	game:GetFastFlag("AvatarSizeFixForReorganizeHeaders")
+local FFlagStudioMoveMorpherEditorInsideGameSettings = game:GetFastFlag("StudioMoveMorpherEditorInsideGameSettings")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -40,7 +39,8 @@ local getMouse = require(Plugin.Src.Consumers.getMouse)
 
 local createSettingsPage = require(Plugin.Src.Components.SettingsPages.createSettingsPage)
 
-local MorpherRootPanel = require(Plugin.MorpherEditor.Code.Components.ComponentRootPanelExternal)
+local MorpherRootPanel = (not FFlagStudioMoveMorpherEditorInsideGameSettings) and require(Plugin.MorpherEditor.Code.Components.ComponentRootPanelExternal) or nil
+local RootPanelExternal = require(Plugin.Src.Components.Avatar.RootPanelExternal)
 
 local isPlaceDataAvailable = function(props)
 	return game.GameId ~= 0
@@ -96,21 +96,20 @@ local function displayContents(page, localized)
 	local props = page.props
 
 	return {
-		PageLayout = FFlagGameSettingsReorganizeHeaders and (not FFlagAvatarSizeFixForReorganizeHeaders and
+		PageLayout = (not FFlagAvatarSizeFixForReorganizeHeaders and
 		Roact.createElement("UIListLayout", {
 			Padding = UDim.new(0, 25),
 			SortOrder = Enum.SortOrder.LayoutOrder,
 		}) or nil),
 
-		Header = FFlagGameSettingsReorganizeHeaders and
-		Roact.createElement(Header, {
+		Header = Roact.createElement(Header, {
 			Title = localized.Category[PageName],
 			LayoutOrder = -1,
 		}),
 
-		Morpher = Roact.createElement(MorpherRootPanel, {
+		Morpher = Roact.createElement(FFlagStudioMoveMorpherEditorInsideGameSettings and RootPanelExternal or MorpherRootPanel, {
 			ThemeData = getTheme(page),
-			LocalizedContent = localized.Morpher or nil,
+			LocalizedContent = (not FFlagStudioMoveMorpherEditorInsideGameSettings) and localized.Morpher or nil,
 			IsEnabled = true,
 
 			IsGameShutdownRequired = isShutdownRequired(props.CurrentAvatarType, props.AvatarType),

@@ -1,9 +1,15 @@
+local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+
 local Images = require(script.Parent.Images)
+
+local FFlagTopBarUseNewIcons = require(RobloxGui.Modules.Flags.FFlagTopBarUseNewIcons)
 
 return {
 	Images = {
 		RobloxLogo = Images["LuaApp/graphic/ic_logo"],
-		CloseButton = Images["InGameMenu/Graphic/CloseButton"],
+		CloseButton = FFlagTopBarUseNewIcons and
+			"rbxasset://textures/ui/TopBar/close.png" or Images["InGameMenu/Graphic/CloseButton"],
 		RespawnIcon = Images["InGameMenu/Icons/RespawnIcon"],
 		ReportIcon = Images["LuaApp/icons/GameDetails/feedback"],
 

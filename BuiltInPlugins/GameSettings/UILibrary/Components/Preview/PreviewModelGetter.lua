@@ -7,8 +7,6 @@ local Promise = require(Library.Parent.Http.Promise)
 
 local Urls = require(Library.Utils.Urls)
 
-local FFlagEnableDataModelFetchAssetAsync = settings():GetFFlag("EnableDataModelFetchAssetAsync")
-local FFlagEnableToolboxInsertWithJoin = settings():GetFFlag("EnableToolboxInsertWithJoin")
 local FFlagEnableAudioPreview = settings():GetFFlag("EnableAudioPreview")
 
 local function disableScripts(previewModel)
@@ -25,27 +23,11 @@ local function getPreviewModel(assetId)
 	local assetInstances = nil
 	local success, errorMessage = pcall(function()
 		local url = Urls.constructAssetIdString(assetId)
-		if FFlagEnableDataModelFetchAssetAsync then
-			if FFlagEnableToolboxInsertWithJoin then
-				assetInstances = game:InsertObjectsAndJoinIfLegacy(url)
-			else
-				assetInstances = game:GetObjectsAsync(url)
-			end
-		else
-			if FFlagEnableToolboxInsertWithJoin then
-				assetInstances = game:InsertObjectsAndJoinIfLegacy(url)
-			else
-				assetInstances = game:GetObjects(url)
-			end
-		end
+		assetInstances = game:GetObjectsAsync(url)
 	end)
 
 	if not success then
-		if FFlagEnableDataModelFetchAssetAsync then
-			return errorMessage
-		else
-			return Instance.new("Model")
-		end
+		return errorMessage
 	end
 
 	local model

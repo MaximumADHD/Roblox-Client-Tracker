@@ -947,6 +947,8 @@ Rectangle {
 			        id: gridHorizontalScrollBar
 			        window: gridViewContainer
 			        flickable: gridView
+                    keyEventNotifier: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_FeedbackImprovements() ? rootWindow : null
+                    fflagStudioInsertObjectStreamliningv2_FeedbackImprovements: insertObjectWindow.qmlGetFFlagStudioInsertObjectStreamliningv2_FeedbackImprovements()
                 }
 
 		    }

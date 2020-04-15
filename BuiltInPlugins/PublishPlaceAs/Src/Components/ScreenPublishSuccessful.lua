@@ -20,8 +20,6 @@ local ICON_SIZE = 150
 local BUTTON_WIDTH = 150
 local BUTTON_HEIGHT = 30
 
-local FFlagStudioFixPublishSuccessNameIcon = game:GetFastFlag("StudioFixPublishSuccessNameIcon")
-
 local ScreenPublishSuccessful = Roact.PureComponent:extend("ScreenPublishSuccessful")
 
 function ScreenPublishSuccessful:init()
@@ -33,11 +31,10 @@ function ScreenPublishSuccessful:init()
 
 	local gameId = self.props.Id
 	-- new place publish
-	if FFlagStudioFixPublishSuccessNameIcon and gameId == 0 then
+	if gameId == 0 then
 		gameId = game.GameId
 	end
-	self.thumbnailUrl = FFlagStudioFixPublishSuccessNameIcon and string.format("rbxthumb://type=GameIcon&id=%i&w=%i&h=%i", gameId, ICON_SIZE, ICON_SIZE) 
-		or string.format("rbxthumb://type=Asset&id=%i&w=%i&h=%i", gameId, ICON_SIZE, ICON_SIZE)
+	self.thumbnailUrl = string.format("rbxthumb://type=GameIcon&id=%i&w=%i&h=%i", gameId, ICON_SIZE, ICON_SIZE)
 end
 
 function ScreenPublishSuccessful:didMount()

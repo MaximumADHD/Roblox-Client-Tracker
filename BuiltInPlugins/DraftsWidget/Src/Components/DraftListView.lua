@@ -31,7 +31,6 @@ local ITEM_HEIGHT = 32
 local TOOLBAR_HEIGHT = 28
 local PADDING = 4
 
-local DisableContextMenuDuringCommit = game:DefineFastFlag("DisableContextMenuDuringCommit", false)
 local fflagCommitButton = game:GetFastFlag("StudioDraftsWidgetCommitButton")
 
 local DraftListView = Roact.Component:extend("DraftListView")
@@ -112,7 +111,7 @@ function DraftListView:init()
 
         local openActionEnabled = true
         local diffActionEnabled = true
-        local updateActionEnabled = (not game:GetFastFlag("StudioDraftsUseMultiselect2")) or #selectedDrafts == 1
+        local updateActionEnabled = game:GetFastFlag("StudioMultiMergeSupport") or #selectedDrafts == 1
         local commitActionEnabled = true
         local restoreActionEnabled = true
         local revertActionEnabled = true
@@ -134,7 +133,7 @@ function DraftListView:init()
                 restoreActionVisible = false
             end
 
-            if DisableContextMenuDuringCommit and draftState[DraftState.Committed] == CommitState.Committing then
+            if draftState[DraftState.Committed] == CommitState.Committing then
                 openActionEnabled = false
                 restoreActionEnabled = false
                 updateActionEnabled = false

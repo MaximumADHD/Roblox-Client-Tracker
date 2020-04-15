@@ -184,7 +184,7 @@ function MainView:render()
             Font = theme.Font,
             Text = publishText,
             TextColor3 = theme.TextColor,
-            TextSize = theme.FontSizeMedium,
+            TextSize = theme.FontSizeLarge,
             TextXAlignment = Enum.TextXAlignment.Center,
             TextWrapped = true,
         }),

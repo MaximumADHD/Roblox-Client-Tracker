@@ -58,6 +58,9 @@ local POST_REVERT_HISTORY_BASE = Url.DEVELOP_URL .. "v1/assets/%s/revert-version
 local GET_ASSET_CONFIG = Url.DEVELOP_URL .. "v1/assets?"
 local GET_ASSET_GROUP = Url.DEVELOP_URL .. "/v1/groups/%s"
 
+local POST_UPLOAD_ANIMATION_BASE = Url.BASE_URL .. "ide/publish/uploadnewanimation?"
+local POST_OVERWRITE_ANIMATION_BASE = Url.BASE_URL .. "ide/publish/uploadexistinganimation?"
+
 local PATCH_ASSET_BASE = Url.DEVELOP_URL .. "v1/assets/%s?"
 local POST_UPLOAD_ASSET_BASE = Url.DATA_URL .. "Data/Upload.ashx?"
 
@@ -336,6 +339,25 @@ function Urls.constructPostUploadAssetUrl(assetid, type, name, description, genr
 		ispublic = ispublic and "True" or "False",
 		allowComments = allowComments and "True" or "False",
 		groupId = groupId or ""
+	})
+end
+
+function Urls.constructPostUploadAnimationUrl(type, name, description, groupId)
+	return POST_UPLOAD_ANIMATION_BASE .. Url.makeQueryString({
+		assetTypeName = tostring(type),
+		name = tostring(name),
+		description = tostring(description),
+		AllID = tostring(1),
+		ispublic = "False",
+		allowComments = "True",
+		isGamesAsset = "False",
+		groupId = groupId or ""
+	})
+end
+
+function Urls.constructPostOverwriteAnimationUrl(assetid)
+	return POST_OVERWRITE_ANIMATION_BASE .. Url.makeQueryString({
+		assetID = assetid,
 	})
 end
 

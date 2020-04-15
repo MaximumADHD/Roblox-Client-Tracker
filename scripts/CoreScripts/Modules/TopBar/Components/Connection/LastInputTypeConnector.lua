@@ -12,6 +12,8 @@ local EventConnection = require(TopBar.Parent.Common.EventConnection)
 local SetInputType = require(TopBar.Actions.SetInputType)
 local Constants = require(TopBar.Constants)
 
+local FFlagTopBarBetterStateInit = require(TopBar.Parent.Flags.FFlagTopBarBetterStateInit)
+
 local InputType = Constants.InputType
 
 local LastInputTypeConnector = Roact.PureComponent:extend("LastInputTypeConnector")
@@ -35,10 +37,19 @@ local inputTypeMap = {
 	[Enum.UserInputType.Touch] = InputType.Touch,
 }
 
-function LastInputTypeConnector:init()
-	local initalInputType = inputTypeMap[UserInputService:GetLastInputType()]
-	if initalInputType then
-		self.props.setInputType(initalInputType)
+if FFlagTopBarBetterStateInit then
+	function LastInputTypeConnector:didMount()
+		local initalInputType = inputTypeMap[UserInputService:GetLastInputType()]
+		if initalInputType then
+			self.props.setInputType(initalInputType)
+		end
+	end
+else
+	function LastInputTypeConnector:init()
+		local initalInputType = inputTypeMap[UserInputService:GetLastInputType()]
+		if initalInputType then
+			self.props.setInputType(initalInputType)
+		end
 	end
 end
 

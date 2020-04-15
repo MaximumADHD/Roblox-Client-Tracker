@@ -48,30 +48,8 @@ local function createSettingsPage(name, loadValuesToProps, dispatchChanges)
 
 	function SettingsPage:render()
 		return withLocalization(function(localized)
-			if settings():GetFFlag("StudioGameSettingsAccessPermissions") then
-				return withTheme(function(theme)
-					local children = self.props.Content and self.props.Content(self, localized, theme) or {}
-
-					return Roact.createElement("Frame", {
-						BackgroundTransparency = 1,
-						BorderSizePixel = 0,
-						Size = UDim2.new(1, 0, 1, 0),
-						LayoutOrder = self.props.LayoutOrder,
-					}, Cryo.Dictionary.join(children, {
-						Layout = self.props.AddLayout and Roact.createElement("UIListLayout", {
-							Padding = UDim.new(0, DEPRECATED_Constants.ELEMENT_PADDING),
-							SortOrder = Enum.SortOrder.LayoutOrder,
-
-							[Roact.Change.AbsoluteContentSize] = function(rbx)
-								if self.props.ContentHeightChanged then
-									self.props.ContentHeightChanged(rbx.AbsoluteContentSize.y)
-								end
-							end,
-						})
-					}))
-				end)
-			else
-				local children = self.props.Content and self.props.Content(self, localized) or {}
+			return withTheme(function(theme)
+				local children = self.props.Content and self.props.Content(self, localized, theme) or {}
 
 				return Roact.createElement("Frame", {
 					BackgroundTransparency = 1,
@@ -90,7 +68,7 @@ local function createSettingsPage(name, loadValuesToProps, dispatchChanges)
 						end,
 					})
 				}))
-			end
+			end)
 		end)
 	end
 

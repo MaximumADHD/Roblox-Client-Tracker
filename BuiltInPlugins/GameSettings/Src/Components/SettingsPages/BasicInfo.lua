@@ -30,8 +30,6 @@ local PageName = "Basic Info"
 local MAX_NAME_LENGTH = 50
 local MAX_DESCRIPTION_LENGTH = 1000
 
-local FFlagGameSettingsReorganizeHeaders = settings():GetFFlag("GameSettingsReorganizeHeaders")
-local FFlagStudioGameSettingsAccessPermissions = settings():GetFFlag("StudioGameSettingsAccessPermissions")
 local FFlagStudioGameSettingsDisablePlayabilityForDrafts = settings():GetFFlag("StudioGameSettingsDisablePlayabilityForDrafts")
 
 local nameErrors = {
@@ -103,11 +101,6 @@ local function loadValuesToProps(getValue, state)
 		IsCurrentlyActive =  state.Settings.Current.isActive,
 	}
 
-	if not FFlagStudioGameSettingsAccessPermissions then
-		loadedProps.IsActive = getValue("isActive")
-		loadedProps.IsFriendsOnly = getValue("isFriendsOnly")
-	end
-
 	loadedProps.ThumbnailsError = errors.thumbnails
 	loadedProps.GameIconError = errors.gameIcon
 
@@ -146,18 +139,6 @@ local function dispatchChanges(setValue, dispatch)
 			dispatch(AddErrors({playableDevices = "NoDevices"}))
 		end,
 	}
-	
-	if not FFlagStudioGameSettingsAccessPermissions then
-		dispatchFuncs.IsFriendsOnlyChanged = setValue("isFriendsOnly")
-		dispatchFuncs.IsActiveChanged = function(button, willShutdown)
-			if willShutdown then
-				dispatch(AddWarning("isActive"))
-			else
-				dispatch(DiscardWarning("isActive"))
-			end
-			dispatch(AddChange("isActive", button.Id))
-		end
-	end
 
 	dispatchFuncs.GameIconChanged = setValue("gameIcon")
 	dispatchFuncs.AddThumbnails = function(newThumbnails, oldThumbnails, oldOrder)
@@ -195,8 +176,7 @@ local function displayContents(page, localized)
 	local devices = props.Devices
 
 	return {
-		Header = FFlagGameSettingsReorganizeHeaders and
-		Roact.createElement(Header, {
+		Header = Roact.createElement(Header, {
 			Title = localized.Category[PageName],
 			LayoutOrder = 0,
 		}),
@@ -243,65 +223,6 @@ local function displayContents(page, localized)
 
 		Separator = Roact.createElement(Separator, {
 			LayoutOrder = 30,
-		}),
-
-		Playability = (not FFlagStudioGameSettingsAccessPermissions and FFlagStudioGameSettingsDisablePlayabilityForDrafts) and Roact.createElement(PlayabilityWidget, {
-			LayoutOrder = 40,
-			Group = props.Group,
-			Enabled = (props.PrivacyType ~= nil and props.PrivacyType ~= "Draft"),
-			Selected = props.IsFriendsOnly and "Friends" or props.IsActive,
-			SelectionChanged = function(button)
-				if button.Id == "Friends" then
-					props.IsFriendsOnlyChanged(true)
-					props.IsActiveChanged({Id = true})
-				else
-					props.IsFriendsOnlyChanged(false)
-					local willShutdown = (function()
-						return props.IsCurrentlyActive and not button.Id
-					end)()
-					props.IsActiveChanged(button, willShutdown)
-				end
-			end,
-		}),
-
-		DEPRECATED_Playability = (not FFlagStudioGameSettingsAccessPermissions and not FFlagStudioGameSettingsDisablePlayabilityForDrafts) and Roact.createElement(RadioButtonSet, {
-			Title = localized.Title.Playability,
-			Description = localized.Playability.Header,
-			LayoutOrder = 40,
-			Buttons = {{
-					Id = true,
-					Title = localized.Playability.Public.Title,
-					Description = localized.Playability.Public.Description,
-				}, {
-					Id = "Friends",
-					Title = props.Group and localized.Playability.Group.Title or localized.Playability.Friends.Title,
-					Description = props.Group and localized.Playability.Group.Description({group = props.Group})
-						or localized.Playability.Friends.Description,
-				}, {
-					Id = false,
-					Title = localized.Playability.Private.Title,
-					Description = localized.Playability.Private.Description,
-				},
-			},
-			Enabled = props.IsActive ~= nil,
-			--Functionality
-			Selected = props.IsFriendsOnly and "Friends" or props.IsActive,
-			SelectionChanged = function(button)
-				if button.Id == "Friends" then
-					props.IsFriendsOnlyChanged(true)
-					props.IsActiveChanged({Id = true})
-				else
-					props.IsFriendsOnlyChanged(false)
-					local willShutdown = (function()
-						return props.IsCurrentlyActive and not button.Id
-					end)()
-					props.IsActiveChanged(button, willShutdown)
-				end
-			end,
-		}),
-
-		Separator2 = (not FFlagStudioGameSettingsAccessPermissions) and Roact.createElement(Separator, {
-			LayoutOrder = 50,
 		}),
 
 		Icon = Roact.createElement(GameIconWidget, {

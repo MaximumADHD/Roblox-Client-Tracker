@@ -2,8 +2,11 @@
 	used to select images for file import in the terrain editor
 ]]
 
+game:DefineFastFlag("TerrainToolsOnlyImportInEditMode", false)
+
 local FFlagTerrainToolsRefactorAssetIdSelector2 = game:GetFastFlag("TerrainToolsRefactorAssetIdSelector2")
 local FFlagTerrainToolsImportImproveColorMapToggle = game:GetFastFlag("TerrainToolsImportImproveColorMapToggle")
+local FFlagTerrainToolsOnlyImportInEditMode = game:GetFastFlag("TerrainToolsOnlyImportInEditMode")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
@@ -21,8 +24,9 @@ local ToolParts = script.Parent
 local LabeledElementPair = require(ToolParts.LabeledElementPair)
 local LabeledTextInput = require(ToolParts.LabeledTextInput)
 
-local StudioService = game:GetService("StudioService")
 local HttpService = game:GetService("HttpService")
+local RunService = game:GetService("RunService")
+local StudioService = game:GetService("StudioService")
 
 -- Constants
 local PADDING = 4
@@ -221,7 +225,7 @@ local AssetIdSelector = Roact.PureComponent:extend(script.Name)
 
 function AssetIdSelector:init()
 	self.mainFrameRef = Roact.createRef()
-	self.layoutRef	= Roact.createRef()
+	self.layoutRef = Roact.createRef()
 
 	self.gameImages = {}
 
@@ -236,7 +240,7 @@ function AssetIdSelector:init()
 		}
 
 		self.updateGameImages = function()
-			self.gameImages =  StudioService:GetResourceByCategory("Image")
+			self.gameImages = StudioService:GetResourceByCategory("Image")
 		end
 
 		self.handleGetIsAssetValidResponse = function(assetId, valid, status)
@@ -275,6 +279,13 @@ function AssetIdSelector:init()
 			if not isPlacePublished() then
 				warn(getLocalization(self):getText("Warning", "RequirePublishedForImport"))
 				return
+			end
+
+			if FFlagTerrainToolsOnlyImportInEditMode then
+				if not RunService:IsEdit() then
+					warn(getLocalization(self):getText("Warning", "RequireEditModeForImport"))
+					return
+				end
 			end
 
 			self.updateGameImages()
@@ -387,8 +398,14 @@ end
 
 if FFlagTerrainToolsRefactorAssetIdSelector2 then
 	function AssetIdSelector:didMount()
-		if isPlacePublished() then
-			self.updateGameImages()
+		if FFlagTerrainToolsOnlyImportInEditMode then
+			if isPlacePublished() and RunService:IsEdit() then
+				self.updateGameImages()
+			end
+		else
+			if isPlacePublished() then
+				self.updateGameImages()
+			end
 		end
 	end
 end

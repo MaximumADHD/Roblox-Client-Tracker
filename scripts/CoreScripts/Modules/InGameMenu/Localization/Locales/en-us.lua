@@ -80,7 +80,7 @@ return{
 	["CoreScripts.InGameMenu.PageTitle.Controls"] = [[Controls...]],
 	["CoreScripts.InGameMenu.PageTitle.Players"] = [[Players]],
 	["CoreScripts.InGameMenu.PageTitle.Report"] = [[Report]],
-	["CoreScripts.InGameMenu.PageTitle.GameSettings"] = [[Game Settings]],
+	["CoreScripts.InGameMenu.PageTitle.GameSettings"] = [[Settings]],
 	["CoreScripts.InGameMenu.Actions.AddFriend"] = [[Add Friend]],
 	["CoreScripts.InGameMenu.Actions.Unfriend"] = [[Unfriend Player]],
 	["CoreScripts.InGameMenu.Actions.CancelFriend"] = [[Cancel Friend Request]],

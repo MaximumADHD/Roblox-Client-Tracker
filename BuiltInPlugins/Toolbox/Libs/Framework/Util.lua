@@ -16,6 +16,7 @@ return {
 
 	-- Style and Theming Utilities
 	Palette = require(script.Palette),
+	prioritize = require(script.prioritize),
 	Style = require(script.Style),
 	StyleModifier = require(script.StyleModifier),
 	StyleTable = require(script.StyleTable),

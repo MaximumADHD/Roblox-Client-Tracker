@@ -318,6 +318,8 @@ function AssetConfigTheme:_recalculateTheme()
 			greenText = Color3.fromRGB(2, 183, 87),
 			redText = Color3.fromRGB(255, 68, 68),
 			text = color(c.MainText),
+			buttonColor = isDark and color(c.MainText) or color(c.DimmedText),
+			idText = color(c.DimmedText),
 			background = color(c.TableItem),
 			link = color(c.LinkText),
 		},

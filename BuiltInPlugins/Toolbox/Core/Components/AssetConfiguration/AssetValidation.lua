@@ -49,6 +49,7 @@ local AssetThumbnailPreview = require(Components.AssetConfiguration.AssetThumbna
 local NavButton = require(Components.NavButton)
 
 local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
+local FFlagStudioUseNewAnimationImportExportFlow = settings():GetFFlag("StudioUseNewAnimationImportExportFlow")
 
 local TITLE_WIDTH = 400
 local TITLE_HEIGHT = 36
@@ -189,7 +190,8 @@ function AssetValidation:init(props)
 
 	if FFlagEnablePurchasePluginFromLua2 and
 		AssetConfigUtil.isMarketplaceAsset(self.props.assetTypeEnum) or
-		self.props.assetTypeEnum == Enum.AssetType.Model then
+		self.props.assetTypeEnum == Enum.AssetType.Model or
+		(FFlagStudioUseNewAnimationImportExportFlow and self.props.assetTypeEnum == Enum.AssetType.Animation) then
 		self.props.nextScreen()
 	else
 		if game:GetFastFlag("CMSUseSharedUGCValidation") then

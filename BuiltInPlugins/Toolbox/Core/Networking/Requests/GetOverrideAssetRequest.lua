@@ -16,6 +16,7 @@ local FFlagUseCreationToFetchMyOverrideData2 = game:GetFastFlag("UseCreationToFe
 local FFlagEnableOverrideAssetCursorFix = game:GetFastFlag("EnableOverrideAssetCursorFix")
 
 local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
+local FFlagStudioUseNewAnimationImportExportFlow = settings():GetFFlag("StudioUseNewAnimationImportExportFlow")
 
 local function filterAssetByCreatorId(resultsArray, creatorId)
 	local results = {}
@@ -139,18 +140,34 @@ return function(networkInterface, assetTypeEnum, creatorType, creatorId, targetP
 				if creatorType == "Group" then
 					groupId = creatorId
 					category = assetTypeEnum == Enum.AssetType.Model and "GroupModels" or "GroupPlugins"
+					if FFlagStudioUseNewAnimationImportExportFlow then
+						category = assetTypeEnum == Enum.AssetType.Animation and "Animation" or category
+					end
 				else
 					if assetTypeEnum == Enum.AssetType.Plugin then
 						category = "Plugin"
+					elseif FFlagStudioUseNewAnimationImportExportFlow and assetTypeEnum == Enum.AssetType.Animation then
+						category = "Animation"
 					end
 				end
 
 				if creatorType == "Group" then
-					local numPerPage = AssetConfigConstants.GetOverrideAssetNumbersPerPage
-					return networkInterface:getOverrideModels(category, numPerPage, targetPage, "Relevance", groupId):andThen(
-						handleOverrideResult,
-						handleOverrideFailed
-					)
+					if FFlagStudioUseNewAnimationImportExportFlow and category == "Animation" then
+						if FFlagEnableOverrideAssetCursorFix then
+							local currentCursor = store:getState().overrideCursor
+							local targetCursor = currentCursor.nextPageCursor or ""
+							return networkInterface:getGroupAnimations(targetCursor, groupId):andThen(
+								handleGetCreationOverrideSuccss,
+								handleOverrideFailed
+							)
+						end
+					else
+						local numPerPage = AssetConfigConstants.GetOverrideAssetNumbersPerPage
+						return networkInterface:getOverrideModels(category, numPerPage, targetPage, "Relevance", groupId):andThen(
+							handleOverrideResult,
+							handleOverrideFailed
+						)
+					end
 				else
 					if FFlagEnableOverrideAssetCursorFix then
 						local currentCursor = store:getState().overrideCursor

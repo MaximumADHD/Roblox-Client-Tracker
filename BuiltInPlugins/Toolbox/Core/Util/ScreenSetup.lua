@@ -7,6 +7,7 @@ local AssetConfigUtil = require(Util.AssetConfigUtil)
 local ScreenSetup = {}
 
 local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
+local FFlagStudioUseNewAnimationImportExportFlow = settings():GetFFlag("StudioUseNewAnimationImportExportFlow")
 
 ScreenSetup.keys = convertArrayToTable({
 	"SHOW_SALES_TAB",
@@ -63,6 +64,31 @@ local params = {
 	}
 }
 
+if FFlagStudioUseNewAnimationImportExportFlow then
+	params[AssetConfigConstants.FLOW_TYPE.DOWNLOAD_FLOW] = {
+		[AssetCategory.Marketplace] = {
+			[keys.SHOW_COMMENT] = false,
+			[keys.SHOW_COPY] = false,
+			[keys.SHOW_GENRE] = false,
+			[keys.SHOW_OVERRIDE_BUTTON] = false,
+			[keys.SHOW_OWNERSHIP] = false,
+			[keys.SHOW_PRICE] = false,
+			[keys.SHOW_SALE] = false,
+			[keys.SHOW_VERSIONS_TAB] = false,
+		},
+		[AssetCategory.Catalog] = {
+			[keys.SHOW_COMMENT] = false,
+			[keys.SHOW_COPY] = false,
+			[keys.SHOW_GENRE] = false,
+			[keys.SHOW_OVERRIDE_BUTTON] = false,
+			[keys.SHOW_OWNERSHIP] = false,
+			[keys.SHOW_PRICE] = false,
+			[keys.SHOW_SALE] = false,
+			[keys.SHOW_VERSIONS_TAB] = false,
+		},
+	}
+end
+
 -- Some assets need to override the default setting for publishing and editing asset. In this case, plugin need to
 -- override those.
 -- We will first check if we have defined override behavior in this table. If it's defined here, we will be using those value first.
@@ -96,6 +122,22 @@ local assetTypeOverride = {
 		},
 	},
 }
+
+if FFlagStudioUseNewAnimationImportExportFlow then
+	assetTypeOverride[Enum.AssetType.Animation] = {
+		[AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW] = {
+			[keys.SHOW_OVERRIDE_BUTTON] = true,
+			[keys.SHOW_COMMENT] = false,
+			[keys.SHOW_COPY] = false,
+			[keys.SHOW_GENRE] = false,
+			[keys.SHOW_OWNERSHIP] = false,
+			[keys.SHOW_PRICE] = false,
+			[keys.SHOW_SALE] = false,
+			[keys.SHOW_VERSIONS_TAB] = false,
+			[keys.SHOW_SALES_TAB] = false,
+		},
+	}
+end
 
 function ScreenSetup.queryParam(flowType, assetTypeEnum, paramKey)
 	local assetCategoryType = AssetConfigUtil.isCatalogAsset(assetTypeEnum) and AssetCategory.Catalog or AssetCategory.Marketplace

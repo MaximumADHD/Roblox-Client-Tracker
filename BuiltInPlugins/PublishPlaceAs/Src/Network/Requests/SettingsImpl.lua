@@ -53,7 +53,11 @@ local function saveAll(state, localization)
 				RootPlaceInfo.Set(id, rootPlaceInfo),
 			}
 			Promise.all(setRequests):andThen(function()
-				StudioService:SetUniverseDisplayName(configuration.name)
+				if not FFlagStudioCreateNewGameRewritesName then
+					-- Don't call set universe display name since it updates old root place
+					StudioService:SetUniverseDisplayName(configuration.name)
+				end
+				-- This signal invokes a handler in RobloxIDEDoc::maybeUpdateDisplayContentIdWithPlaceNameAsync that should updated display content
 				StudioService:EmitPlacePublishedSignal()
 			end):catch(function(err)
 				warn(tostring(localization:getText("PublishFail", "FailConfiguration")))

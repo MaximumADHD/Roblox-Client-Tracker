@@ -1,3 +1,4 @@
+local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 local TextService = game:GetService("TextService")
 
@@ -20,6 +21,8 @@ local ThemedTextLabel = require(InGameMenu.Components.ThemedTextLabel)
 local SystemSecondaryButton = require(InGameMenu.Components.SystemSecondaryButton)
 
 local SetCurrentPage = require(InGameMenu.Actions.SetCurrentPage)
+
+local FFlagInGameMenuUseUIBloxButtons = require(CoreGui.RobloxGui.Modules.Flags.FFlagInGameMenuUseUIBloxButtons)
 
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
 
@@ -89,7 +92,12 @@ local function AddFriendsNow(props)
 					})
 				}),
 
-				MakeFriendsButton = Roact.createElement(SystemSecondaryButton, {
+				MakeFriendsButton = FFlagInGameMenuUseUIBloxButtons and Roact.createElement(UIBlox.App.Button.SecondaryButton, {
+					layoutOrder = 3,
+					size = UDim2.new(1, 0, 0, 48),
+					text = localized.makeFriendsNow,
+					onActivated = props.switchToPlayers,
+				}) or Roact.createElement(SystemSecondaryButton, {
 					LayoutOrder = 3,
 					Size = UDim2.new(1, 0, 0, 48),
 					onActivated = props.switchToPlayers,

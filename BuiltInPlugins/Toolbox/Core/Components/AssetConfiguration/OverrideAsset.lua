@@ -19,6 +19,7 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 local RoactRodux = require(Libs.RoactRodux)
+local UILibrary = require(Libs.UILibrary)
 
 local AssetConfiguration = Plugin.Core.Components.AssetConfiguration
 local OverrideAssetView = require(AssetConfiguration.OverrideAssetView)
@@ -31,6 +32,9 @@ local Constants = require(Util.Constants)
 local AssetConfigUtil = require(Util.AssetConfigUtil)
 local getUserId = require(Util.getUserId)
 local PagedRequestCursor = require(Util.PagedRequestCursor)
+local AssetConfigConstants = require(Util.AssetConfigConstants)
+
+local RoundTextBox = UILibrary.Component.RoundTextBox
 
 local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
@@ -44,11 +48,18 @@ local GetAssetConfigManageableGroupsRequest = require(Requests.GetAssetConfigMan
 local UpdateAssetConfigStore = require(Plugin.Core.Actions.UpdateAssetConfigStore)
 
 local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
+local FFlagStudioUseNewAnimationImportExportFlow = settings():GetFFlag("StudioUseNewAnimationImportExportFlow")
 local FFlagEnableOverrideAssetCursorFix = game:GetFastFlag("EnableOverrideAssetCursorFix")
 
 local OverrideAsset = Roact.PureComponent:extend("OverrideAsset")
 
 local TITLE_HEIGHT = 30
+local PADDING = 20
+local DROPDOWN_WIDTH = 336
+local DROPDOWN_HEIGHT = 40
+local FILTER_HEIGHT = 90
+local MAX_COUNT = 10
+local TOOL_TIP_HEIGHT = 20
 
 function OverrideAsset:init(props)
 	self.dropdownContent = {
@@ -59,7 +70,14 @@ function OverrideAsset:init(props)
 	self.state = {
 		selectIndex = 1,
 		selectItem = FFlagEnablePurchasePluginFromLua2 and self.dropdownContent[1] or self.dropdownContent,
+		filterID = "",
 	}
+
+	self.onFilterIDChanged = function(id)
+		self:setState({
+			filterID = id,
+		})
+	end
 
 	self.onDropDownSelect = function(index)
 		local item = self.dropdownContent[index]
@@ -130,6 +148,8 @@ function OverrideAsset:render()
 
 			self.dropdownContent = AssetConfigUtil.getOwnerDropDownContent(props.manageableGroups, localizedContent)
 
+			local useNewAnimFlow = FFlagStudioUseNewAnimationImportExportFlow and assetTypeEnum == Enum.AssetType.Animation
+
 			return Roact.createElement("Frame", {
 				Size = Size,
 
@@ -169,7 +189,53 @@ function OverrideAsset:render()
 					LayoutOrder = 1,
 				}),
 
-				DropdownMenu = Roact.createElement(DropdownMenu, {
+				DropdownAndAnimationIdContainer = useNewAnimFlow and Roact.createElement("Frame", {
+					LayoutOrder = 2,
+					BackgroundTransparency = 1,
+					Size = UDim2.new(1, -PADDING, 0, FILTER_HEIGHT),
+				}, {
+					UIListLayout = Roact.createElement("UIListLayout", {
+						FillDirection = Enum.FillDirection.Horizontal,
+						HorizontalAlignment = Enum.HorizontalAlignment.Left,
+						VerticalAlignment = Enum.VerticalAlignment.Top,
+						SortOrder = Enum.SortOrder.LayoutOrder,
+						Padding = UDim.new(0, PADDING),
+					}),
+
+					DropdownMenu = Roact.createElement(DropdownMenu, {
+						Size = UDim2.new(0, DROPDOWN_WIDTH, 0, DROPDOWN_HEIGHT),
+
+						selectedDropDownIndex = selectIndex,
+						rowHeight = DROPDOWN_HEIGHT,
+
+						items = self.dropdownContent,
+						onItemClicked = self.onDropDownSelect,
+
+						LayoutOrder = 1,
+					}),
+
+					AnimationIdFilter = Roact.createElement("Frame", {
+						Size = UDim2.new(1, -DROPDOWN_WIDTH, 0, FILTER_HEIGHT),
+						BackgroundTransparency = 1,
+						BorderSizePixel = 0,
+						LayoutOrder = 2,
+					}, {
+						TextField = Roact.createElement(RoundTextBox, {
+							Active = true,
+							ErrorMessage = nil,
+							MaxLength = MAX_COUNT,
+							Text = state.filterID,
+							PlaceholderText = localizedContent.AssetConfig.Override.FilterID,
+							Font = Constants.FONT,
+							TextSize = Constants.FONT_SIZE_LARGE,
+							Height = FILTER_HEIGHT - TITLE_HEIGHT - TOOL_TIP_HEIGHT,
+							WidthOffset = -AssetConfigConstants.TITLE_GUTTER_WIDTH,
+							SetText = self.onFilterIDChanged,
+						})
+					}),
+				}),
+
+				DropdownMenu = not useNewAnimFlow and Roact.createElement(DropdownMenu, {
 					Size = UDim2.new(0, 336, 0, 40),
 
 					selectedDropDownIndex = selectIndex,
@@ -189,6 +255,7 @@ function OverrideAsset:render()
 					resultsArray = filteredResultsArray,
 					onOverrideAssetSelected = onOverrideAssetSelected,
 					getOverrideAssets = self.getOverrideAssetsFunc,
+					filterID = state.filterID,
 
 					LayoutOrder = 3,
 				})

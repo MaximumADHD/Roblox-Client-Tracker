@@ -8,8 +8,9 @@
 
 local PageName = "Options"
 
-local FFlagGameSettingsReorganizeHeaders = settings():GetFFlag("GameSettingsReorganizeHeaders")
 local FFlagVersionControlServiceScriptCollabEnabled = settings():GetFFlag("VersionControlServiceScriptCollabEnabled")
+local FFlagsEnableVersionHistorySetting = settings():GetFFlag("CollabEditVersionHistoryEnabled") and 
+	(settings():GetFFlag("StudioInternalScriptVersionHistorySetting") or settings():GetFFlag("StudioPlaceFilterScriptVersionHistorySetting"))
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -25,8 +26,8 @@ local function loadValuesToProps(getValue)
 		HttpEnabled = getValue("HttpEnabled"),
 		studioAccessToApisAllowed = getValue("studioAccessToApisAllowed"),
 		ScriptCollabEnabled = FFlagVersionControlServiceScriptCollabEnabled and getValue("ScriptCollabEnabled"),
+		ScriptVersionHistoryEnabled = FFlagsEnableVersionHistorySetting and getValue("ScriptVersionHistoryEnabled")
 	}
-	
 	return loadedProps
 end
 
@@ -36,6 +37,7 @@ local function dispatchChanges(setValue, dispatch)
 		HttpEnabledChanged = setValue("HttpEnabled"),
 		StudioApiServicesChanged = setValue("studioAccessToApisAllowed"),
 		ScriptCollabEnabledChanged = FFlagVersionControlServiceScriptCollabEnabled and setValue("ScriptCollabEnabled"),
+		ScriptVersionHistoryEnabledChanged = FFlagsEnableVersionHistorySetting and setValue("ScriptVersionHistoryEnabled")
 	}
 	
 	return dispatchFuncs
@@ -45,8 +47,7 @@ end
 local function displayContents(page, localized)
 	local props = page.props
 	return {
-		Header = FFlagGameSettingsReorganizeHeaders and
-		Roact.createElement(Header, {
+		Header = Roact.createElement(Header, {
 			Title = localized.Category[PageName],
 			LayoutOrder = 0,
 		}),
@@ -101,11 +102,29 @@ local function displayContents(page, localized)
 					Title = localized.ScriptCollab.Off,
 				},
 			},
-			Enabled = props.ScriptCollabEnabled ~= nil,
+			Enabled = props.ScriptCollabEnabled ~= nil and (not FFlagsEnableVersionHistorySetting or props.ScriptVersionHistoryEnabled == false),
 			LayoutOrder = 5,
 			Selected = props.ScriptCollabEnabled,
 			SelectionChanged = function(button)
 				props.ScriptCollabEnabledChanged(button.Id)
+			end,
+		}),
+		EnableScriptVersionHistory = FFlagsEnableVersionHistorySetting and Roact.createElement(RadioButtonSet, { --Internal ONLY, no translation needed, should never be in production
+			Title = "Enable Script Version History", 
+			Buttons = {{
+					Id = true,
+					Title = localized.ScriptCollab.On,
+					Description = "Track version history for scripts"
+				}, {
+					Id = false,
+					Title = localized.ScriptCollab.Off,
+				},
+			},
+			Enabled = props.ScriptCollabEnabled,  --only enabled if enablescriptcollab is true
+			LayoutOrder = 6,
+			Selected = props.ScriptVersionHistoryEnabled,
+			SelectionChanged = function(button)
+				props.ScriptVersionHistoryEnabledChanged(button.Id)
 			end,
 		}),
 	}

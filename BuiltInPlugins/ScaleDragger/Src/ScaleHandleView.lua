@@ -23,8 +23,8 @@ local HANDLE_OFFSET = 1.5
 
 local HANDLE_THIN_BY_FRAC = 0.34
 
-function getDebugSettingValue(name, defaultValue)
-	local setting = Workspace:FindFirstChild(name, true)
+local function getDebugSettingValue(name, defaultValue)
+	local setting = Workspace:FindFirstChild(name)
 	return setting and setting.Value * defaultValue or defaultValue
 end
 

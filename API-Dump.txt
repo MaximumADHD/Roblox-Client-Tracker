@@ -1587,6 +1587,7 @@ Class LuaSettings : Instance [NotCreatable] [Settings]
 	Property float LuaSettings.WaitingThreadsBudget
 Class LuaSourceContainer : Instance [NotCreatable] [NotBrowsable]
 	Property Instance LuaSourceContainer.CurrentEditor  [NotScriptable]
+	Property bool LuaSourceContainer.IsDifferentFromFileSystem {RobloxSecurity} [NotReplicated] [NotScriptable]
 Class BaseScript : LuaSourceContainer [NotCreatable]
 	Property bool BaseScript.Disabled
 	Property Content BaseScript.LinkedSource
@@ -1596,7 +1597,6 @@ Class Script : BaseScript
 	Function string Script:GetHash() {LocalUserSecurity}
 Class LocalScript : Script
 Class ModuleScript : LuaSourceContainer
-	Property bool ModuleScript.CoreScriptModified {RobloxSecurity} [NotReplicated] [NotScriptable]
 	Property Content ModuleScript.LinkedSource
 	Property ProtectedString ModuleScript.Source {PluginSecurity}
 Class LuaWebService : Instance [NotCreatable] [Service]
@@ -2108,7 +2108,7 @@ Class Player : Instance
 	Property int Player.DataComplexity  [ReadOnly] [NotReplicated] [Deprecated]
 	Property int Player.DataComplexityLimit {LocalUserSecurity} [<📁> LoadOnly] [NotReplicated] [Deprecated]
 	Property bool Player.DataReady  [ReadOnly] [NotReplicated] [Deprecated]
-	Property string Player.DisplayName {RobloxScriptSecurity}
+	Property string Player.DisplayName
 	Property int64 Player.FollowUserId [<💾> SaveOnly] [ReadOnly] [NotReplicated]
 	Property bool Player.Guest {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
 	Property string Player.LocaleId  [Hidden] [ReadOnly] [NotReplicated]
@@ -2489,7 +2489,7 @@ Class ScriptDebugger : Instance [NotCreatable]
 	Property Instance ScriptDebugger.Script  [ReadOnly] [NotReplicated]
 	Function Instance ScriptDebugger:AddWatch(string expression)
 	Function Objects ScriptDebugger:GetBreakpoints()
-	Function Map ScriptDebugger:GetGlobals()
+	Function Map ScriptDebugger:GetGlobals(int stackFrame = 0)
 	Function Map ScriptDebugger:GetLocals(int stackFrame = 0)
 	Function Array ScriptDebugger:GetStack()
 	Function Map ScriptDebugger:GetUpvalues(int stackFrame = 0)
@@ -2874,6 +2874,7 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool StudioService.UseLocalSpace [<📁> LoadOnly] [NotReplicated]
 	Property Instance StudioService.ActiveScript  [ReadOnly] [NotReplicated]
 	Property string StudioService.StudioLocaleId  [ReadOnly] [NotReplicated]
+	Function void StudioService:AnimationIdSelected(int64 id) {RobloxScriptSecurity}
 	Function void StudioService:ConvertToPackageUpload(string uploadUrl) {RobloxScriptSecurity}
 	Function void StudioService:CopyToClipboard(string stringToCopy) {RobloxScriptSecurity}
 	Function void StudioService:EmitPlacePublishedSignal() {RobloxScriptSecurity}
@@ -2900,6 +2901,7 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void StudioService:UpdatePluginManagement() {RobloxScriptSecurity}
 	Event StudioService.GamePublishFinished(bool success, int64 gameId) {RobloxScriptSecurity}
 	Event StudioService.OnConvertToPackageResult(bool isSuccessful, string errorMessage) {RobloxScriptSecurity}
+	Event StudioService.OnImportFromRoblox() {RobloxScriptSecurity}
 	Event StudioService.OnOpenConvertToPackagePlugin(Objects instances, string name) {RobloxScriptSecurity}
 	Event StudioService.OnOpenManagePackagePlugin(int64 userId, int64 assetId) {RobloxScriptSecurity}
 	Event StudioService.OnPluginInstalledFromToolbox() {RobloxScriptSecurity}
@@ -2986,7 +2988,6 @@ Class TextService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Instance TextService:FilterStringAsync(string stringToFilter, int64 fromUserId, Enum<TextFilterContext> textContext = "PrivateChat") [Yields]
 	Function Vector2 TextService:GetTextSize(string string, int fontSize, Enum<Font> font, Vector2 frameSize)
 Class ThirdPartyUserService : Instance [NotCreatable] [Service] [NotReplicated]
-	Function string ThirdPartyUserService:GetUserDisplayName() {RobloxScriptSecurity}
 	Function string ThirdPartyUserService:GetUserPlatformId() {RobloxScriptSecurity}
 	Function string ThirdPartyUserService:GetUserPlatformName() {RobloxScriptSecurity}
 	Function bool ThirdPartyUserService:HaveActiveUser() {RobloxScriptSecurity}
@@ -4263,6 +4264,7 @@ Enum LanguagePreference
 	EnumItem LanguagePreference.SystemDefault : 0
 	EnumItem LanguagePreference.English : 1
 	EnumItem LanguagePreference.SimplifiedChinese : 2
+	EnumItem LanguagePreference.Korean : 3
 Enum LeftRight
 	EnumItem LeftRight.Left : 0
 	EnumItem LeftRight.Center : 1

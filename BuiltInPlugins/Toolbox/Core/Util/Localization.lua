@@ -580,7 +580,12 @@ function Localization:_recalculateContent()
 			},
 
 			Override = {
-				Title = self:_safeLocalize("Studio.Toolbox.AssetConfigFooter.OverrideTitle")
+				Title = self:_safeLocalize("Studio.Toolbox.AssetConfigFooter.OverrideTitle"),
+				FilterID = self:_safeLocalize("Studio.Toolbox.AssetConfigAnimation.FilterID"),
+			},
+
+			Upload = {
+				IDCopied = self:_safeLocalize("Studio.Toolbox.AssetConfigUpload.IDCopied")
 			},
 
 			VersionsHistory = {
