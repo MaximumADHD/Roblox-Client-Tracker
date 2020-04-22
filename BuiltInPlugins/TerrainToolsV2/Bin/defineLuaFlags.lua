@@ -7,6 +7,9 @@ game:DefineFastFlag("TerrainToolsImportImproveColorMapToggle", false)
 game:DefineFastFlag("TerrainToolsTerrainBrushNotSingleton", false)
 game:DefineFastFlag("TerrainToolsFixMergeEmpty", false)
 game:DefineFastFlag("TerrainToolsFixRegionEditorCleanup", false)
+game:DefineFastFlag("TerrainOpenCloseMetrics", false)
+game:DefineFastFlag("TerrainToolTabMetrics", false)
+game:DefineFastFlag("TerrainToolsUseDevFramework", false)
 
 local function handleFlagDependencies(flag, requiredFlags)
 	if not game:GetFastFlag(flag) then
@@ -18,6 +21,13 @@ local function handleFlagDependencies(flag, requiredFlags)
 			("FFlag%s requires FFlag%s to be on"):format(flag, requiredFlag))
 	end
 end
+
+handleFlagDependencies("TerrainToolsUseDevFramework", {
+	"TerrainToolsConvertPartTool",
+	"TerrainToolsTerrainBrushNotSingleton",
+	"TerrainToolsRefactorAssetIdSelector2",
+	"TerrainToolsImportImproveColorMapToggle",
+})
 
 -- Need to explicitly return something from a module
 -- Else you get an error "Module code did not return exactly one value"

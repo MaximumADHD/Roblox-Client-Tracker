@@ -6,6 +6,7 @@
         OnOverlayActivated = callback, to display the overlay when the overlay button is clicked.
     Optional Properties:
 ]]
+local FFlagDedupePackagesInAssetManager = game:DefineFastFlag("DedupePackagesInAssetManager", false)
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -36,6 +37,10 @@ local OnScreenChange = require(Plugin.Src.Thunks.OnScreenChange)
 
 local BulkImportService = game:GetService("BulkImportService")
 
+local FFlagStudioAssetManagerDisableTileOverlay = game:GetFastFlag("StudioAssetManagerDisableTileOverlay")
+
+local FFlagFixDisplayScriptsFolderInAssetManager = game:GetFastFlag("FixDisplayScriptsFolderInAssetManager")
+
 local AssetGridContainer = Roact.Component:extend("AssetGridContainer")
 
 local function isSupportedBulkImportAssetScreen(screen)
@@ -52,11 +57,17 @@ function AssetGridContainer:init()
     self.bulkImportFinishedConnection = nil
 
     self.onClearSelection = function()
+        if FFlagStudioAssetManagerDisableTileOverlay and not self.props.Enabled then
+            return
+        end
         self.props.dispatchSetSelectedAssets({})
     end
 
     self.onMouseButton2Click = function()
         local props = self.props
+        if FFlagStudioAssetManagerDisableTileOverlay and not props.Enabled then
+            return
+        end
         props.dispatchSetSelectedAssets({})
         local screen = props.CurrentScreen
         if screen.Key == Screens.PLACES.Key then
@@ -95,7 +106,7 @@ function AssetGridContainer:willUnmount()
 end
 
 function AssetGridContainer:createTiles(apiImpl, localization, theme,
-    assets, currentScreen, searchTerm, selectedAssets, hasLinkedScripts)
+    assets, currentScreen, searchTerm, selectedAssets, hasLinkedScripts, enabled)
 
     local numberAssets = 0
     local assetsToDisplay = {
@@ -120,24 +131,42 @@ function AssetGridContainer:createTiles(apiImpl, localization, theme,
                         },
 
                         LayoutOrder = screen.LayoutOrder,
-                        StyleModifier = selectedAssets[screen.Key] and StyleModifier.Selected or nil
+                        StyleModifier = selectedAssets[screen.Key] and StyleModifier.Selected or nil,
+                        Enabled = enabled,
                     })
                     assetsToDisplay[screen.Key] = folderTile
                 end
             end
         end
     else
-        for i, asset in ipairs(assets) do
-            if string.find(asset.name, searchTerm) then
-                asset.key = i
-                local assetTile = Roact.createElement(Tile, {
-                    AssetData = asset,
-                    LayoutOrder = i,
-                    StyleModifier = selectedAssets[i] and StyleModifier.Selected or nil,
-                    OnOpenAssetPreview = self.onOpenAssetPreview,
-                })
-                assetsToDisplay[i] = assetTile
-                numberAssets = numberAssets + 1
+        if FFlagDedupePackagesInAssetManager then
+            for _, asset in pairs(assets) do
+                if string.find(asset.name, searchTerm) then
+                    asset.key = asset.layoutOrder
+                    local assetTile = Roact.createElement(Tile, {
+                        AssetData = asset,
+                        LayoutOrder = asset.layoutOrder,
+                        StyleModifier = selectedAssets[asset.layoutOrder] and StyleModifier.Selected or nil,
+                        Enabled = enabled,
+                        OnOpenAssetPreview = self.onOpenAssetPreview,
+                    })
+                    assetsToDisplay[asset.layoutOrder] = assetTile
+                    numberAssets = numberAssets + 1
+                end
+            end
+        else
+            for i, asset in ipairs(assets) do
+                if string.find(asset.name, searchTerm) then
+                    asset.key = i
+                    local assetTile = Roact.createElement(Tile, {
+                        AssetData = asset,
+                        LayoutOrder = i,
+                        StyleModifier = selectedAssets[i] and StyleModifier.Selected or nil,
+                        OnOpenAssetPreview = self.onOpenAssetPreview,
+                    })
+                    assetsToDisplay[i] = assetTile
+                    numberAssets = numberAssets + 1
+                end
             end
         end
     end
@@ -145,7 +174,7 @@ function AssetGridContainer:createTiles(apiImpl, localization, theme,
     return assetsToDisplay, numberAssets
 end
 
-function AssetGridContainer:didUpdate(lastProps, lastState)
+function AssetGridContainer:didUpdate()
     local props = self.props
     local apiImpl = props.API:get()
     local screen = props.CurrentScreen
@@ -165,9 +194,11 @@ function AssetGridContainer:render()
 
     local size = props.Size
     local layoutOrder = props.LayoutOrder
+    local enabled = props.Enabled
 
     local assetsTable = props.AssetsTable
     local assets = assetsTable.assets
+    local numberOfAssets = assetsTable.index
     local nextPageCursor = assetsTable.nextPageCursor
     local nextPageNumber = assetsTable.pageNumber
     local currentScreen = props.CurrentScreen
@@ -181,22 +212,38 @@ function AssetGridContainer:render()
     local dispatchGetAssetPreviewData = props.dispatchGetAssetPreviewData
 
     local contents, assetCount = self:createTiles(apiImpl, localization, theme,
-        assets, currentScreen, searchTerm, selectedAssets, hasLinkedScripts)
+        assets, currentScreen, searchTerm, selectedAssets, hasLinkedScripts, enabled)
 
     local hasAssetsToDisplay = currentScreen.Key == Screens.MAIN.Key or assetCount ~= 0
 
     if hasAssetsToDisplay then
-        if #assets ~= 0 and #assets ~= #assetPreviewData then
-            local assetIds = {}
-            for _, asset in ipairs(assets) do
-                local isPlace = asset.assetType == Enum.AssetType.Place
-                if not isPlace and assetPreviewData[asset.id] == nil then
-                    table.insert(assetIds, asset.id)
+        if FFlagDedupePackagesInAssetManager then
+            if numberOfAssets ~= 0 then
+                local assetIds = {}
+                for assetId, asset in pairs(assets) do
+                    local isPlace = asset.assetType == Enum.AssetType.Place
+                    if not isPlace and assetPreviewData[assetId] == nil then
+                        table.insert(assetIds, assetId)
+                    end
+                end
+
+                if #assetIds ~= 0 then
+                    dispatchGetAssetPreviewData(apiImpl, assetIds)
                 end
             end
+        else
+            if #assets ~= 0 and #assets ~= #assetPreviewData then
+                local assetIds = {}
+                for _, asset in ipairs(assets) do
+                    local isPlace = asset.assetType == Enum.AssetType.Place
+                    if not isPlace and assetPreviewData[asset.id] == nil then
+                        table.insert(assetIds, asset.id)
+                    end
+                end
 
-            if #assetIds ~= 0 then
-                dispatchGetAssetPreviewData(apiImpl, assetIds)
+                if #assetIds ~= 0 then
+                    dispatchGetAssetPreviewData(apiImpl, assetIds)
+                end
             end
         end
     end
@@ -275,6 +322,7 @@ local function mapStateToProps(state, props)
         IsFetchingAssets = assetManagerReducer.isFetchingAssets,
         SearchTerm = assetManagerReducer.searchTerm,
         SelectedAssets = assetManagerReducer.selectedAssets,
+        HasLinkedScripts = FFlagFixDisplayScriptsFolderInAssetManager and assetManagerReducer.hasLinkedScripts or nil,
 	}
 end
 

@@ -1,6 +1,11 @@
+local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
+
 local Plugin = script.Parent.Parent.Parent
-local UILibrary = require(Plugin.Packages.UILibrary)
-local Signal = UILibrary.Util.Signal
+
+local Framework = Plugin.Packages.Framework
+
+local FrameworkUtil = FFlagTerrainToolsUseDevFramework and require(Framework.Util) or nil
+local Signal = FFlagTerrainToolsUseDevFramework and FrameworkUtil.Signal or require(Plugin.Src.Util.Signal)
 
 local MockMouse = {}
 MockMouse.__index = MockMouse

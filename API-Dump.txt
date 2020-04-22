@@ -122,6 +122,13 @@ Class AssetService : Instance [NotCreatable] [Service]
 	Function int64 AssetService:GetCreatorAssetID(int64 creationID) [Yields] [Deprecated]
 	Function Instance AssetService:GetGamePlacesAsync() [Yields]
 	Function void AssetService:SavePlaceAsync() [Yields]
+Class Atmosphere : Instance
+	Property float Atmosphere.Density
+	Property float Atmosphere.Offset
+	Property Color3 Atmosphere.Color
+	Property Color3 Atmosphere.Decay
+	Property float Atmosphere.Glare
+	Property float Atmosphere.Haze
 Class Attachment : Instance
 	Property bool Attachment.Visible
 	Property CFrame Attachment.CFrame
@@ -627,6 +634,7 @@ Class DebugSettings : Instance [NotCreatable] [Settings] [NotBrowsable]
 Class DebuggerBreakpoint : Instance [NotCreatable]
 	Property string DebuggerBreakpoint.Condition
 	Property bool DebuggerBreakpoint.IsEnabled
+	Property bool DebuggerBreakpoint.IsLocal
 	Property int DebuggerBreakpoint.Line  [ReadOnly] [NotReplicated]
 Class DebuggerManager : Instance [NotCreatable] [NotReplicated]
 	Property bool DebuggerManager.DebuggingEnabled [<💾> SaveOnly] [ReadOnly] [NotReplicated]
@@ -1511,7 +1519,7 @@ Class Lighting : Instance [NotCreatable] [Service]
 	Function float Lighting:GetMoonPhase()
 	Function Vector3 Lighting:GetSunDirection()
 	Function void Lighting:SetMinutesAfterMidnight(double minutes)
-	Event Lighting.LightingChanged(bool skyboxChanged)
+	Event Lighting.LightingChanged(bool skyChanged)
 Class LocalStorageService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void LocalStorageService:Flush() {RobloxScriptSecurity}
 	Function string LocalStorageService:GetItem(string key) {RobloxScriptSecurity}
@@ -2155,6 +2163,7 @@ Class Player : Instance
 	Function void Player:Move(Vector3 walkDirection, bool relativeToCamera = false)
 	Function void Player:RemoveCharacter() {LocalUserSecurity}
 	Function void Player:RequestFriendship(Instance player) {RobloxScriptSecurity}
+	Function void Player:RequestStreamAroundAsync(Vector3 position, double timeOut = 0) [Yields]
 	Function void Player:RevokeFriendship(Instance player) {RobloxScriptSecurity}
 	Function void Player:SaveBoolean(string key, bool value) [Deprecated]
 	Function void Player:SaveData() {LocalUserSecurity} [Deprecated]
@@ -2495,7 +2504,7 @@ Class ScriptDebugger : Instance [NotCreatable]
 	Function Map ScriptDebugger:GetUpvalues(int stackFrame = 0)
 	Function Variant ScriptDebugger:GetWatchValue(Instance watch)
 	Function Objects ScriptDebugger:GetWatches()
-	Function Instance ScriptDebugger:SetBreakpoint(int line)
+	Function Instance ScriptDebugger:SetBreakpoint(int line, bool isLocalBreakpoint)
 	Function void ScriptDebugger:SetGlobal(string name, Variant value)
 	Function void ScriptDebugger:SetLocal(string name, Variant value, int stackFrame = 0)
 	Function void ScriptDebugger:SetUpvalue(string name, Variant value, int stackFrame = 0)
@@ -2831,6 +2840,7 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool Studio.Auto Indent
 	Property bool Studio.Enable Autocomplete
 	Property QFont Studio.Font
+	Property bool Studio.Show Whitespace
 	Property bool Studio.Skip Closing Brackets and Quotes
 	Property int Studio.Tab Width
 	Property bool Studio.Text Wrapping
@@ -2849,6 +2859,7 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property Color3 Studio.String Color
 	Property Color3 Studio.Text Color
 	Property Color3 Studio.Warning Color
+	Property Color3 Studio.Whitespace Color
 	Property bool Studio.Animate Hover Over
 	Property Enum<HoverAnimateSpeed> Studio.Hover Animate Speed
 	Property Color3 Studio.Hover Over Color
@@ -4713,39 +4724,40 @@ Enum StudioStyleGuideColor
 	EnumItem StudioStyleGuideColor.ScriptBuiltInFunction : 53
 	EnumItem StudioStyleGuideColor.ScriptWarning : 54
 	EnumItem StudioStyleGuideColor.ScriptError : 55
-	EnumItem StudioStyleGuideColor.DebuggerCurrentLine : 56
-	EnumItem StudioStyleGuideColor.DebuggerErrorLine : 57
-	EnumItem StudioStyleGuideColor.DiffFilePathText : 58
-	EnumItem StudioStyleGuideColor.DiffTextHunkInfo : 59
-	EnumItem StudioStyleGuideColor.DiffTextNoChange : 60
-	EnumItem StudioStyleGuideColor.DiffTextAddition : 61
-	EnumItem StudioStyleGuideColor.DiffTextDeletion : 62
-	EnumItem StudioStyleGuideColor.DiffTextSeparatorBackground : 63
-	EnumItem StudioStyleGuideColor.DiffTextNoChangeBackground : 64
-	EnumItem StudioStyleGuideColor.DiffTextAdditionBackground : 65
-	EnumItem StudioStyleGuideColor.DiffTextDeletionBackground : 66
-	EnumItem StudioStyleGuideColor.DiffLineNum : 67
-	EnumItem StudioStyleGuideColor.DiffLineNumSeparatorBackground : 68
-	EnumItem StudioStyleGuideColor.DiffLineNumNoChangeBackground : 69
-	EnumItem StudioStyleGuideColor.DiffLineNumAdditionBackground : 70
-	EnumItem StudioStyleGuideColor.DiffLineNumDeletionBackground : 71
-	EnumItem StudioStyleGuideColor.DiffFilePathBackground : 72
-	EnumItem StudioStyleGuideColor.DiffFilePathBorder : 73
-	EnumItem StudioStyleGuideColor.Separator : 74
-	EnumItem StudioStyleGuideColor.ButtonBorder : 75
-	EnumItem StudioStyleGuideColor.ButtonText : 76
-	EnumItem StudioStyleGuideColor.InputFieldBorder : 77
-	EnumItem StudioStyleGuideColor.CheckedFieldBackground : 78
-	EnumItem StudioStyleGuideColor.CheckedFieldBorder : 79
-	EnumItem StudioStyleGuideColor.CheckedFieldIndicator : 80
-	EnumItem StudioStyleGuideColor.HeaderSection : 81
-	EnumItem StudioStyleGuideColor.Midlight : 82
-	EnumItem StudioStyleGuideColor.StatusBar : 83
-	EnumItem StudioStyleGuideColor.DialogButton : 84
-	EnumItem StudioStyleGuideColor.DialogButtonText : 85
-	EnumItem StudioStyleGuideColor.DialogButtonBorder : 86
-	EnumItem StudioStyleGuideColor.DialogMainButton : 87
-	EnumItem StudioStyleGuideColor.DialogMainButtonText : 88
+	EnumItem StudioStyleGuideColor.ScriptWhitespace : 56
+	EnumItem StudioStyleGuideColor.DebuggerCurrentLine : 57
+	EnumItem StudioStyleGuideColor.DebuggerErrorLine : 58
+	EnumItem StudioStyleGuideColor.DiffFilePathText : 59
+	EnumItem StudioStyleGuideColor.DiffTextHunkInfo : 60
+	EnumItem StudioStyleGuideColor.DiffTextNoChange : 61
+	EnumItem StudioStyleGuideColor.DiffTextAddition : 62
+	EnumItem StudioStyleGuideColor.DiffTextDeletion : 63
+	EnumItem StudioStyleGuideColor.DiffTextSeparatorBackground : 64
+	EnumItem StudioStyleGuideColor.DiffTextNoChangeBackground : 65
+	EnumItem StudioStyleGuideColor.DiffTextAdditionBackground : 66
+	EnumItem StudioStyleGuideColor.DiffTextDeletionBackground : 67
+	EnumItem StudioStyleGuideColor.DiffLineNum : 68
+	EnumItem StudioStyleGuideColor.DiffLineNumSeparatorBackground : 69
+	EnumItem StudioStyleGuideColor.DiffLineNumNoChangeBackground : 70
+	EnumItem StudioStyleGuideColor.DiffLineNumAdditionBackground : 71
+	EnumItem StudioStyleGuideColor.DiffLineNumDeletionBackground : 72
+	EnumItem StudioStyleGuideColor.DiffFilePathBackground : 73
+	EnumItem StudioStyleGuideColor.DiffFilePathBorder : 74
+	EnumItem StudioStyleGuideColor.Separator : 75
+	EnumItem StudioStyleGuideColor.ButtonBorder : 76
+	EnumItem StudioStyleGuideColor.ButtonText : 77
+	EnumItem StudioStyleGuideColor.InputFieldBorder : 78
+	EnumItem StudioStyleGuideColor.CheckedFieldBackground : 79
+	EnumItem StudioStyleGuideColor.CheckedFieldBorder : 80
+	EnumItem StudioStyleGuideColor.CheckedFieldIndicator : 81
+	EnumItem StudioStyleGuideColor.HeaderSection : 82
+	EnumItem StudioStyleGuideColor.Midlight : 83
+	EnumItem StudioStyleGuideColor.StatusBar : 84
+	EnumItem StudioStyleGuideColor.DialogButton : 85
+	EnumItem StudioStyleGuideColor.DialogButtonText : 86
+	EnumItem StudioStyleGuideColor.DialogButtonBorder : 87
+	EnumItem StudioStyleGuideColor.DialogMainButton : 88
+	EnumItem StudioStyleGuideColor.DialogMainButtonText : 89
 Enum StudioStyleGuideModifier
 	EnumItem StudioStyleGuideModifier.Default : 0
 	EnumItem StudioStyleGuideModifier.Selected : 1

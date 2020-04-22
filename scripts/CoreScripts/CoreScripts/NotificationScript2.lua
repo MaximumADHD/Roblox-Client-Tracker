@@ -35,6 +35,8 @@ local FFlagUseNotificationsLocalization = success and result
 local FFlagNewAwardBadgeEndpoint = settings():GetFFlag('NewAwardBadgeEndpoint2')
 local FFlagFixNotificationScriptError = game:DefineFastFlag("FixNotificationScriptError", false)
 
+local GetFFlagRemoveInGameFollowingEvents = require(RobloxGui.Modules.Flags.GetFFlagRemoveInGameFollowingEvents)
+
 local RobloxTranslator = require(RobloxGui:WaitForChild("Modules"):WaitForChild("RobloxTranslator"))
 
 local function LocalizedGetString(key, rtv)
@@ -503,7 +505,7 @@ BindableEvent_SendNotificationInfo.Event:connect(onSendNotificationInfo)
 
 -- New follower notification
 spawn(function()
-	if isTenFootInterface then
+	if isTenFootInterface or GetFFlagRemoveInGameFollowingEvents() then
 		--If on console, New follower notification should be blocked
 		return
 	end

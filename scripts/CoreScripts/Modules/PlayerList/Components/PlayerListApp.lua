@@ -24,7 +24,6 @@ local TopStatConnector = require(Connection.TopStatConnector)
 local LayoutValues = require(Connection.LayoutValues)
 local WithLayoutValues = LayoutValues.WithLayoutValues
 
-local FFlagPlayerListAdjustHeightToMatchLegacy = game:DefineFastFlag("PlayerListAdjustHeightToMatchLegacy", false)
 local FFlagDisableAutoTranslateForKeyTranslatedContent = require(
 	RobloxGui.Modules.Flags.FFlagDisableAutoTranslateForKeyTranslatedContent)
 local FFlagPlayerListMorePerfImprovements = require(RobloxGui.Modules.Flags.FFlagPlayerListMorePerfImprovements)
@@ -121,7 +120,7 @@ function PlayerListApp:render()
 		local previousSizeBound = math.huge
 		local doHeightAdjust = Players.MaxPlayers >= MIN_PLAYERS_HEIGHT_ADJUST
 			and Players.MaxPlayers <= MAX_PLAYERS_HEIGHT_ADJUST
-		if FFlagPlayerListAdjustHeightToMatchLegacy and doHeightAdjust then
+		if doHeightAdjust then
 			previousSizeBound = Players.MaxPlayers * OLD_PLAYERLIST_PLAYER_ENTRY_SIZE
 			local teamCount = getTeamCount(self.props.teams, self.props.players)
 			previousSizeBound = previousSizeBound + teamCount * OLD_PLAYERLIST_TEAM_ENTRY_SIZE
@@ -186,7 +185,7 @@ function PlayerListApp:render()
 				BackgroundTransparency = 1,
 			}, childElements),
 
-			UISizeConstraint = FFlagPlayerListAdjustHeightToMatchLegacy and Roact.createElement("UISizeConstraint", {
+			UISizeConstraint = Roact.createElement("UISizeConstraint", {
 				MinSize = Vector2.new(0, 0),
 				MaxSize = Vector2.new(math.huge, previousSizeBound)
 			}) or nil,

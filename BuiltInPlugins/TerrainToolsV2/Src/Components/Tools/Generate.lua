@@ -1,8 +1,8 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 
+local Cryo = require(Plugin.Packages.Cryo)
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
-local Cryo = require(Plugin.Packages.Cryo)
 local UILibrary = require(Plugin.Packages.UILibrary)
 
 local withLocalization = UILibrary.Localizing.withLocalization
@@ -168,17 +168,17 @@ end
 
 function Generate:willUnmount()
 	if self.onGenerateStartStopConnection then
-		self.onGenerateStartStopConnection:disconnect()
+		self.onGenerateStartStopConnection:Disconnect()
 		self.onGenerateStartStopConnection = nil
 	end
 
 	if self.onProgressChangedConnection then
-		self.onProgressChangedConnection:disconnect()
+		self.onProgressChangedConnection:Disconnect()
 		self.onProgressChangedConnection = nil
 	end
 
 	if self.onPausedChangedConnection then
-		self.onPausedChangedConnection:disconnect()
+		self.onPausedChangedConnection:Disconnect()
 		self.onPausedChangedConnection = nil
 	end
 end

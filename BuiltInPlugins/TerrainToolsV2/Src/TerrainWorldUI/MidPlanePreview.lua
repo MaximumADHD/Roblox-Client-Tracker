@@ -1,14 +1,20 @@
+local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
+
 local Plugin = script.Parent.Parent.Parent
-local UILibrary = require(Plugin.Packages.UILibrary)
+
+local Framework = Plugin.Packages.Framework
+local UILibrary = not FFlagTerrainToolsUseDevFramework and require(Plugin.Packages.UILibrary) or nil
+
+local FrameworkUtil = FFlagTerrainToolsUseDevFramework and require(Framework.Util) or nil
+local Signal = FFlagTerrainToolsUseDevFramework and FrameworkUtil.Signal or UILibrary.Util.Signal
 
 local quickWait = require(Plugin.Src.Util.quickWait)
-local Signal = UILibrary.Util.Signal
 
-local CoreGui = game:GetService("CoreGui")
 local Workspace = game:GetService("Workspace")
 local UserInputService = game:GetService("UserInputService")
 
 local Y_AXIS = Vector3.new(0, 1, 0)
+
 local MidPlanePreview = {}
 MidPlanePreview.__index = MidPlanePreview
 

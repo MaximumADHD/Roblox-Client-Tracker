@@ -59,7 +59,7 @@ local Settings = require(Plugin.Core.ContextServices.Settings)
 
 local FFlagFixToolboxInitLoad = settings():GetFFlag("FixToolboxInitLoad")
 local FFlagStudioToolboxPluginPurchaseFlow = game:GetFastFlag("StudioToolboxPluginPurchaseFlow")
-local FFlagEnableDefaultSortFix = game:GetFastFlag("EnableDefaultSortFix")
+local FFlagEnableDefaultSortFix = game:GetFastFlag("EnableDefaultSortFix2")
 local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
 local FFlagStudioToolboxPersistBackgroundColor = game:DefineFastFlag("StudioToolboxPersistsBackgroundColor", false)
 

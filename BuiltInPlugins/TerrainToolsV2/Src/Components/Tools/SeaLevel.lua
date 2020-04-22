@@ -4,9 +4,9 @@
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
+local Cryo = require(Plugin.Packages.Cryo)
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
-local Cryo = require(Plugin.Packages.Cryo)
 local UILibrary = require(Plugin.Packages.UILibrary)
 
 local withLocalization = UILibrary.Localizing.withLocalization
@@ -18,11 +18,10 @@ local ApplyToolAction = require(Actions.ApplyToolAction)
 local ChangePosition = require(Actions.ChangePosition)
 local ChangeSize = require(Actions.ChangeSize)
 
-local ProgressFrame = require(script.Parent.Parent.ProgressFrame)
-
 local ToolParts = script.Parent.ToolParts
 local ButtonGroup = require(ToolParts.ButtonGroup)
 local MapSettings = require(ToolParts.MapSettings)
+local ProgressFrame = require(script.Parent.Parent.ProgressFrame)
 
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 local ToolId = TerrainEnums.ToolId
@@ -116,7 +115,7 @@ function SeaLevel:didUpdate()
 end
 
 function SeaLevel:didMount()
-	self._onSizeChangeConnect = self.preview:getOnSizeChanged():connect(function(size, position)
+	self._onSizeChangeConnect = self.preview:getOnSizeChanged():Connect(function(size, position)
 		-- move values from preview to rodux
 		self.props.dispatchChangePosition({X = position.x, Y = position.y, Z = position.z})
 		self.props.dispatchChangeSize({X = size.x, Y = size.y, Z = size.z})
@@ -139,27 +138,27 @@ end
 
 function SeaLevel:willUnmount()
 	if self._onSizeChangeConnect then
-		self._onSizeChangeConnect:disconnect()
+		self._onSizeChangeConnect:Disconnect()
 		self._onSizeChangeConnect = nil
 	end
 
 	if self.onToolActivatedConnection then
-		self.onToolActivatedConnection:disconnect()
+		self.onToolActivatedConnection:Disconnect()
 		self.onToolActivatedConnection = nil
 	end
 
 	if self.onToolDeactivatedConnection then
-		self.onToolDeactivatedConnection:disconnect()
+		self.onToolDeactivatedConnection:Disconnect()
 		self.onToolDeactivatedConnection = nil
 	end
 
 	if self.onProgressChanged then
-		self.onProgressChanged:disconnect()
+		self.onProgressChanged:Disconnect()
 		self.onProgressChanged = nil
 	end
 
 	if self.onStateChanged then
-		self.onStateChanged:disconnect()
+		self.onStateChanged:Disconnect()
 		self.onStateChanged = nil
 	end
 

@@ -7,6 +7,7 @@ local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
 local UIBlox = require(CorePackages.UIBlox)
 local t = require(CorePackages.Packages.t)
+local Otter = require(CorePackages.Otter)
 
 local withStyle = UIBlox.Style.withStyle
 
@@ -26,13 +27,19 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local FAKE_NEUTRAL_TEAM = require(PlayerList.GetFakeNeutralTeam)
 
-local FFlagPlayerListBetterDropDownPositioning = require(
-	RobloxGui.Modules.Flags.FFlagPlayerListBetterDropDownPositioning)
+local MOTOR_OPTIONS = {
+    dampingRatio = 1,
+    frequency = 4,
+}
+
+local FFlagMinimizePlayerListWhenTopBarOpen
+	= require(RobloxGui.Modules.Flags.FFlagMinimizePlayerListWhenTopBarOpen)
 
 local PlayerListDisplay = Roact.PureComponent:extend("PlayerListDisplay")
 
 PlayerListDisplay.validateProps = t.strictInterface({
 	isVisible = t.boolean,
+	isMinimized = FFlagMinimizePlayerListWhenTopBarOpen and t.boolean or nil,
 	isTenFootInterface = t.boolean,
 	isUsingGamepad = t.boolean,
 
@@ -83,6 +90,7 @@ function PlayerListDisplay:init()
 		containerSizeY = 100,
 		scrollingFramePositionY = 0,
 		lastCanvasPosition = Vector2.new(0, 0),
+		contentsVisible = true,
 	}
 
 	self.absoluteSizeChanged = function(rbx)
@@ -102,10 +110,24 @@ function PlayerListDisplay:init()
 			scrollingFramePositionY = rbx.AbsolutePosition.Y,
 		})
 	end
+
+	if FFlagMinimizePlayerListWhenTopBarOpen then
+		self.minimizedBinding, self.updateMinimizedBinding = Roact.createBinding(0)
+
+		self.minimizedMotor = Otter.createSingleMotor(0)
+		self.minimizedMotor:onStep(self.updateMinimizedBinding)
+		self.minimizedMotor:onComplete(function(value)
+			if value == 0 then
+				self:setState({
+					contentsVisible = true,
+				})
+			end
+		end)
+	end
 end
 
 function PlayerListDisplay:inVerticalScrollWindow(position, size)
-	if position + size < self.state.scrollingFramePositionY then
+	if position + size < self.state.lastCanvasPosition.Y then
 		return false
 	end
 
@@ -271,100 +293,219 @@ function PlayerListDisplay:render()
 					scrollingFrameMaxSizeY = scrollingFrameMaxSizeY - layoutValues.TitleBarSizeY
 				end
 
-				return Roact.createElement("Frame", {
-					Position = layoutValues.PlayerScrollListPosition,
-					Size = layoutValues.PlayerScrollListSize,
-					BackgroundTransparency = 1,
+				if FFlagMinimizePlayerListWhenTopBarOpen then
+					local transparencyBinding = self.minimizedBinding:map(function(value)
+						local defaultTransparency = layoutValues.OverrideBackgroundTransparency
+						local fadedTransparency = layoutValues.FadedBackgroundTransparency
+						local delta = fadedTransparency - defaultTransparency
+						return defaultTransparency + (delta * value)
+					end)
 
-					[Roact.Change.AbsoluteSize] = self.absoluteSizeChanged,
-				}, {
-					UIListLayout = Roact.createElement("UIListLayout", {
-						SortOrder = Enum.SortOrder.LayoutOrder,
-						FillDirection = Enum.FillDirection.Vertical,
-						VerticalAlignment = Enum.VerticalAlignment.Top,
-						HorizontalAlignment = Enum.HorizontalAlignment.Left,
-					}),
-
-					TopRoundedRect = Roact.createElement("ImageLabel", {
-						LayoutOrder = 1,
+					return Roact.createElement("Frame", {
+						Position = layoutValues.PlayerScrollListPosition,
+						Size = layoutValues.PlayerScrollListSize,
 						BackgroundTransparency = 1,
-						Image = "rbxasset://textures/ui/TopRoundedRect8px.png",
-						ImageColor3 = style.Theme.BackgroundContrast.Color,
-						ImageTransparency = layoutValues.OverrideBackgroundTransparency,
-						ScaleType = Enum.ScaleType.Slice,
-						SliceCenter = Rect.new(8, 8, 24, 16),
-						SliceScale = 0.5,
-						Size = UDim2.new(1, 0, 0, 4),
-					}),
 
-					TitleBar = #self.props.gameStats > 0 and Roact.createElement(TitleBar, {
-						LayoutOrder = 2,
-						gameStats = self.props.gameStats,
-						Size = UDim2.new(1, 0, 0, layoutValues.TitleBarSizeY),
-						entrySize = self.props.entrySize,
-					}),
-
-					ScrollingFrameContainer = Roact.createElement("Frame", {
-						LayoutOrder = 3,
-						Position = UDim2.new(0, 0, 0, 0),
-						Size = UDim2.new(1, 0, 0, math.min(canvasSizeY, scrollingFrameMaxSizeY)),
-						BackgroundColor3 = style.Theme.BackgroundContrast.Color,
-						BackgroundTransparency = layoutValues.OverrideBackgroundTransparency,
-						BorderSizePixel = 0,
-
-						[Roact.Change.AbsolutePosition] = self.absolutePositionChanged,
+						[Roact.Change.AbsoluteSize] = self.absoluteSizeChanged,
 					}, {
-						PlayerDropDown = Roact.createElement(PlayerDropDown, {
-							selectedPlayer = FFlagPlayerListBetterDropDownPositioning and self.props.dropDownPlayer or nil,
-							positionY = absDropDownPosition,
-							minPositionBoundY = -self.state.scrollingFramePositionY + layoutValues.DropDownScreenSidePadding,
-							maxPositionBoundY = (self.props.screenSizeY -
-								self.state.scrollingFramePositionY - layoutValues.DropDownScreenSidePadding),
+						SizeOffsetFrame = Roact.createElement("Frame", {
+							BackgroundTransparency = 1,
+							Size = UDim2.fromScale(1, 1),
+							Position = UDim2.fromScale(0.5, 0.5),
+							AnchorPoint = Vector2.new(0.5, 0.5),
+						}, {
+							UIScale = Roact.createElement("UIScale", {
+								Scale = self.minimizedBinding:map(function(value)
+									return 1 - (layoutValues.FadedBackgroundScaleDelta * value)
+								end),
+							}),
+
+							UIListLayout = Roact.createElement("UIListLayout", {
+								SortOrder = Enum.SortOrder.LayoutOrder,
+								FillDirection = Enum.FillDirection.Vertical,
+								VerticalAlignment = Enum.VerticalAlignment.Top,
+								HorizontalAlignment = Enum.HorizontalAlignment.Left,
+							}),
+
+							TopRoundedRect = Roact.createElement("ImageLabel", {
+								LayoutOrder = 1,
+								BackgroundTransparency = 1,
+								Image = "rbxasset://textures/ui/TopRoundedRect8px.png",
+								ImageColor3 = style.Theme.BackgroundContrast.Color,
+								ImageTransparency = transparencyBinding,
+								ScaleType = Enum.ScaleType.Slice,
+								SliceCenter = Rect.new(8, 8, 24, 16),
+								SliceScale = 0.5,
+								Size = UDim2.new(1, 0, 0, 4),
+							}),
+
+							TitleBar = #self.props.gameStats > 0 and Roact.createElement(TitleBar, {
+								LayoutOrder = 2,
+								contentsVisible = self.state.contentsVisible,
+								gameStats = self.props.gameStats,
+								Size = UDim2.new(1, 0, 0, layoutValues.TitleBarSizeY),
+								entrySize = self.props.entrySize,
+							}),
+
+							ScrollingFrameContainer = Roact.createElement("Frame", {
+								LayoutOrder = 3,
+								Position = UDim2.new(0, 0, 0, 0),
+								Size = UDim2.new(1, 0, 0, math.min(canvasSizeY, scrollingFrameMaxSizeY)),
+								BackgroundColor3 = style.Theme.BackgroundContrast.Color,
+								BackgroundTransparency = transparencyBinding,
+								BorderSizePixel = 0,
+
+								[Roact.Change.AbsolutePosition] = self.absolutePositionChanged,
+							}, {
+								PlayerDropDown = self.state.contentsVisible and Roact.createElement(PlayerDropDown, {
+									selectedPlayer = self.props.dropDownPlayer,
+									positionY = absDropDownPosition,
+									minPositionBoundY = -self.state.scrollingFramePositionY + layoutValues.DropDownScreenSidePadding,
+									maxPositionBoundY = (self.props.screenSizeY -
+										self.state.scrollingFramePositionY - layoutValues.DropDownScreenSidePadding),
+								}),
+
+								ScrollingFrameClippingFrame = Roact.createElement("Frame", {
+									Visible = self.state.contentsVisible,
+									Size = UDim2.new(1, 0, 1, 0),
+									BackgroundTransparency = 1,
+									ClipsDescendants = true,
+								}, {
+									ScollingFrame = Roact.createElement("ScrollingFrame", {
+										Size = UDim2.new(1, -layoutValues.ScrollBarOffset, 1, 0),
+										CanvasSize = UDim2.new(0, 0, 0, canvasSizeY),
+										BackgroundTransparency = 1,
+										ScrollBarImageColor3 = layoutValues.ScrollImageColor,
+										ScrollBarImageTransparency = layoutValues.ScrollImageTransparency,
+										BorderSizePixel = 0,
+										ScrollBarThickness = layoutValues.ScrollBarSize,
+										VerticalScrollBarInset = Enum.ScrollBarInset.Always,
+										ClipsDescendants = false,
+										ScrollingEnabled = not self.props.dropDownVisible,
+										Selectable = false,
+										CanvasPosition = self.props.dropDownVisible and canvasPositionOverride or self.state.lastCanvasPosition,
+
+										[Roact.Change.CanvasPosition] = self.canvasPositionChanged,
+
+										[Roact.Ref] = self.scrollingFrameRef,
+									}, {
+										OffsetUndoFrame = Roact.createElement("Frame", {
+											Size = UDim2.new(1, layoutValues.ScrollBarOffset + layoutValues.ScrollBarSize, 0, canvasSizeY),
+											BackgroundTransparency = 1,
+										}, childElements)
+									}),
+								})
+							}),
+
+							BottomRoundedRect = Roact.createElement("ImageLabel", {
+								LayoutOrder = 4,
+								BackgroundTransparency = 1,
+								Image = "rbxasset://textures/ui/BottomRoundedRect8px.png",
+								ImageColor3 = style.Theme.BackgroundContrast.Color,
+								ImageTransparency = transparencyBinding,
+								ScaleType = Enum.ScaleType.Slice,
+								SliceCenter = Rect.new(8, 8, 24, 16),
+								SliceScale = 0.5,
+								Size = UDim2.new(1, 0, 0, 4),
+							}),
+						}),
+					})
+				else
+					return Roact.createElement("Frame", {
+						Position = layoutValues.PlayerScrollListPosition,
+						Size = layoutValues.PlayerScrollListSize,
+						BackgroundTransparency = 1,
+
+						[Roact.Change.AbsoluteSize] = self.absoluteSizeChanged,
+					}, {
+						UIListLayout = Roact.createElement("UIListLayout", {
+							SortOrder = Enum.SortOrder.LayoutOrder,
+							FillDirection = Enum.FillDirection.Vertical,
+							VerticalAlignment = Enum.VerticalAlignment.Top,
+							HorizontalAlignment = Enum.HorizontalAlignment.Left,
 						}),
 
-						ScrollingFrameClippingFrame = Roact.createElement("Frame", {
-							Size = UDim2.new(1, 0, 1, 0),
+						TopRoundedRect = Roact.createElement("ImageLabel", {
+							LayoutOrder = 1,
 							BackgroundTransparency = 1,
-							ClipsDescendants = true,
+							Image = "rbxasset://textures/ui/TopRoundedRect8px.png",
+							ImageColor3 = style.Theme.BackgroundContrast.Color,
+							ImageTransparency = layoutValues.OverrideBackgroundTransparency,
+							ScaleType = Enum.ScaleType.Slice,
+							SliceCenter = Rect.new(8, 8, 24, 16),
+							SliceScale = 0.5,
+							Size = UDim2.new(1, 0, 0, 4),
+						}),
+
+						TitleBar = #self.props.gameStats > 0 and Roact.createElement(TitleBar, {
+							LayoutOrder = 2,
+							gameStats = self.props.gameStats,
+							Size = UDim2.new(1, 0, 0, layoutValues.TitleBarSizeY),
+							entrySize = self.props.entrySize,
+						}),
+
+						ScrollingFrameContainer = Roact.createElement("Frame", {
+							LayoutOrder = 3,
+							Position = UDim2.new(0, 0, 0, 0),
+							Size = UDim2.new(1, 0, 0, math.min(canvasSizeY, scrollingFrameMaxSizeY)),
+							BackgroundColor3 = style.Theme.BackgroundContrast.Color,
+							BackgroundTransparency = layoutValues.OverrideBackgroundTransparency,
+							BorderSizePixel = 0,
+
+							[Roact.Change.AbsolutePosition] = self.absolutePositionChanged,
 						}, {
-							ScollingFrame = Roact.createElement("ScrollingFrame", {
-								Size = UDim2.new(1, -layoutValues.ScrollBarOffset, 1, 0),
-								CanvasSize = UDim2.new(0, 0, 0, canvasSizeY),
-								BackgroundTransparency = 1,
-								ScrollBarImageColor3 = layoutValues.ScrollImageColor,
-								ScrollBarImageTransparency = layoutValues.ScrollImageTransparency,
-								BorderSizePixel = 0,
-								ScrollBarThickness = layoutValues.ScrollBarSize,
-								VerticalScrollBarInset = Enum.ScrollBarInset.Always,
-								ClipsDescendants = false,
-								ScrollingEnabled = not self.props.dropDownVisible,
-								Selectable = false,
-								CanvasPosition = self.props.dropDownVisible and canvasPositionOverride or self.state.lastCanvasPosition,
-
-								[Roact.Change.CanvasPosition] = self.canvasPositionChanged,
-
-								[Roact.Ref] = self.scrollingFrameRef,
-							}, {
-								OffsetUndoFrame = Roact.createElement("Frame", {
-									Size = UDim2.new(1, layoutValues.ScrollBarOffset + layoutValues.ScrollBarSize, 0, canvasSizeY),
-									BackgroundTransparency = 1,
-								}, childElements)
+							PlayerDropDown = Roact.createElement(PlayerDropDown, {
+								selectedPlayer = self.props.dropDownPlayer,
+								positionY = absDropDownPosition,
+								minPositionBoundY = -self.state.scrollingFramePositionY + layoutValues.DropDownScreenSidePadding,
+								maxPositionBoundY = (self.props.screenSizeY -
+									self.state.scrollingFramePositionY - layoutValues.DropDownScreenSidePadding),
 							}),
-						})
-					}),
 
-					BottomRoundedRect = Roact.createElement("ImageLabel", {
-						LayoutOrder = 4,
-						BackgroundTransparency = 1,
-						Image = "rbxasset://textures/ui/BottomRoundedRect8px.png",
-						ImageColor3 = style.Theme.BackgroundContrast.Color,
-						ImageTransparency = layoutValues.OverrideBackgroundTransparency,
-						ScaleType = Enum.ScaleType.Slice,
-						SliceCenter = Rect.new(8, 8, 24, 16),
-						SliceScale = 0.5,
-						Size = UDim2.new(1, 0, 0, 4),
-					}),
-				})
+							ScrollingFrameClippingFrame = Roact.createElement("Frame", {
+								Size = UDim2.new(1, 0, 1, 0),
+								BackgroundTransparency = 1,
+								ClipsDescendants = true,
+							}, {
+								ScollingFrame = Roact.createElement("ScrollingFrame", {
+									Size = UDim2.new(1, -layoutValues.ScrollBarOffset, 1, 0),
+									CanvasSize = UDim2.new(0, 0, 0, canvasSizeY),
+									BackgroundTransparency = 1,
+									ScrollBarImageColor3 = layoutValues.ScrollImageColor,
+									ScrollBarImageTransparency = layoutValues.ScrollImageTransparency,
+									BorderSizePixel = 0,
+									ScrollBarThickness = layoutValues.ScrollBarSize,
+									VerticalScrollBarInset = Enum.ScrollBarInset.Always,
+									ClipsDescendants = false,
+									ScrollingEnabled = not self.props.dropDownVisible,
+									Selectable = false,
+									CanvasPosition = self.props.dropDownVisible and canvasPositionOverride or self.state.lastCanvasPosition,
+
+									[Roact.Change.CanvasPosition] = self.canvasPositionChanged,
+
+									[Roact.Ref] = self.scrollingFrameRef,
+								}, {
+									OffsetUndoFrame = Roact.createElement("Frame", {
+										Size = UDim2.new(1, layoutValues.ScrollBarOffset + layoutValues.ScrollBarSize, 0, canvasSizeY),
+										BackgroundTransparency = 1,
+									}, childElements)
+								}),
+							})
+						}),
+
+						BottomRoundedRect = Roact.createElement("ImageLabel", {
+							LayoutOrder = 4,
+							BackgroundTransparency = 1,
+							Image = "rbxasset://textures/ui/BottomRoundedRect8px.png",
+							ImageColor3 = style.Theme.BackgroundContrast.Color,
+							ImageTransparency = layoutValues.OverrideBackgroundTransparency,
+							ScaleType = Enum.ScaleType.Slice,
+							SliceCenter = Rect.new(8, 8, 24, 16),
+							SliceScale = 0.5,
+							Size = UDim2.new(1, 0, 0, 4),
+						}),
+					})
+				end
 			end
 		end)
 	end)
@@ -389,11 +530,23 @@ function PlayerListDisplay:didUpdate(prevProps)
 			GuiService:RemoveSelectionGroup("PlayerlistGuiSelection")
 		end
 	end
+
+	if FFlagMinimizePlayerListWhenTopBarOpen then
+		if self.props.isMinimized ~= prevProps.isMinimized then
+			self.minimizedMotor:setGoal(Otter.spring(self.props.isMinimized and 1 or 0, MOTOR_OPTIONS))
+			if self.props.isMinimized then
+				self:setState({
+					contentsVisible = false,
+				})
+			end
+		end
+	end
 end
 
 local function mapStateToProps(state)
 	return {
 		isVisible = state.displayOptions.isVisible,
+		isMinimized = FFlagMinimizePlayerListWhenTopBarOpen and state.displayOptions.isMinimized or nil,
 		isTenFootInterface = state.displayOptions.isTenFootInterface,
 		isUsingGamepad = state.displayOptions.isUsingGamepad,
 

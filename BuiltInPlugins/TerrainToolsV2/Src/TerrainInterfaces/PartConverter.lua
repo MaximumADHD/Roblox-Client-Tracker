@@ -1,13 +1,17 @@
+local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
+
 local Plugin = script.Parent.Parent.Parent
+
+local Framework = Plugin.Packages.Framework
 local Cryo = require(Plugin.Packages.Cryo)
-local UILibrary = require(Plugin.Packages.UILibrary)
+local UILibrary = not FFlagTerrainToolsUseDevFramework and require(Plugin.Packages.UILibrary) or nil
 
-local Signal = UILibrary.Util.Signal
-
-local LongOperation = require(Plugin.Src.Util.LongOperation)
-local LongOperationQueue = require(Plugin.Src.Util.LongOperationQueue)
+local FrameworkUtil = FFlagTerrainToolsUseDevFramework and require(Framework.Util) or nil
+local Signal = FFlagTerrainToolsUseDevFramework and FrameworkUtil.Signal or UILibrary.Util.Signal
 
 local ConversionOperationDetails = require(Plugin.Src.Util.ConversionOperationDetails)
+local LongOperation = require(Plugin.Src.Util.LongOperation)
+local LongOperationQueue = require(Plugin.Src.Util.LongOperationQueue)
 local PartConverterVisuals = require(Plugin.Src.Util.PartConverterVisuals)
 
 local PartConverter = {}
@@ -40,12 +44,12 @@ function PartConverter.new(options)
 
 	-- When a new operation starts (e.g. transitioning from GetTargetShapes->ConvertShapesToMaterial)
 	-- Store this data so that the progress bar can show what's happening
-	self._operationStartedConnection = self._operationQueue.NextOperationStarted:connect(function(operation)
+	self._operationStartedConnection = self._operationQueue.NextOperationStarted:Connect(function(operation)
 		self:_setConvertState(operation:getName())
 	end)
 
 	-- When the queue finishes, reset our own state
-	self._queueRunningChangedConnection = self._operationQueue.QueueRunningChanged:connect(function(running)
+	self._queueRunningChangedConnection = self._operationQueue.QueueRunningChanged:Connect(function(running)
 		if not running then
 			if self._visuals then
 				self._visuals:enterCleanupMode()
@@ -74,12 +78,12 @@ function PartConverter:destroy()
 	self:_destroyVisuals()
 
 	if self._operationStartedConnection then
-		self._operationStartedConnection:disconnect()
+		self._operationStartedConnection:Disconnect()
 		self._operationStartedConnection = nil
 	end
 
 	if self._queueRunningChangedConnection then
-		self._queueRunningChangedConnection:disconnect()
+		self._queueRunningChangedConnection:Disconnect()
 		self._queueRunningChangedConnection = nil
 	end
 
@@ -140,7 +144,7 @@ function PartConverter:convertInstancesToBiome(instances, generateSettings)
 end
 
 function PartConverter:subscribeToConvertStateChanged(...)
-	return self._convertStateChanged:connect(...)
+	return self._convertStateChanged:Connect(...)
 end
 
 function PartConverter:getConvertState()
@@ -150,13 +154,13 @@ end
 function PartConverter:_setConvertState(convertState)
 	if self._convertState ~= convertState then
 		self._convertState = convertState
-		self._convertStateChanged:fire(convertState)
+		self._convertStateChanged:Fire(convertState)
 	end
 end
 
 function PartConverter:_destroyVisuals()
 	if self._visualsFinishedConnection then
-		self._visualsFinishedConnection:disconnect()
+		self._visualsFinishedConnection:Disconnect()
 		self._visualsFinishedConnection = nil
 	end
 
@@ -183,15 +187,15 @@ end
 	Methods that pass through to our operation queue
 ]]
 function PartConverter:subscribeToRunningChanged(...)
-	return self._operationQueue.QueueRunningChanged:connect(...)
+	return self._operationQueue.QueueRunningChanged:Connect(...)
 end
 
 function PartConverter:subscribeToPausedChanged(...)
-	return self._operationQueue.PausedChanged:connect(...)
+	return self._operationQueue.PausedChanged:Connect(...)
 end
 
 function PartConverter:subscribeToProgressChanged(...)
-	return self._operationQueue.ProgressChanged:connect(...)
+	return self._operationQueue.ProgressChanged:Connect(...)
 end
 
 function PartConverter:pause()

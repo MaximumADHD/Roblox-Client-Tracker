@@ -23,6 +23,8 @@ local OnAssetSingleClick = require(Plugin.Src.Thunks.OnAssetSingleClick)
 local AssetManagerService = game:GetService("AssetManagerService")
 local ContentProvider = game:GetService("ContentProvider")
 
+local FFlagStudioAssetManagerDisableTileOverlay = game:DefineFastFlag("StudioAssetManagerDisableTileOverlay", false)
+
 local Tile = Roact.PureComponent:extend("Tile")
 
 local ICON_SIZE = 150
@@ -68,6 +70,9 @@ function Tile:init()
 
     self.onMouseActivated = function(rbx, obj, clickCount)
         local props = self.props
+        if FFlagStudioAssetManagerDisableTileOverlay and not props.Enabled then
+            return
+        end
         local assetData = props.AssetData
         if clickCount == 0 then
             if obj:IsModifierKeyDown(Enum.ModifierKey.Ctrl) then
@@ -84,6 +89,9 @@ function Tile:init()
 
     self.onMouseButton2Click = function(rbx, x, y)
         local props = self.props
+        if FFlagStudioAssetManagerDisableTileOverlay and not props.Enabled then
+            return
+        end
         local assetData = props.AssetData
         local isFolder = assetData.ClassName == "Folder"
         if isFolder then
@@ -187,6 +195,8 @@ function Tile:render()
     -- Must use getStyle(namespace, component) for StyleModifiers to work
     -- otherwise functionality equivalent to prop.Theme:get("Plugin").Tile.Default
     local tileStyle = props.Theme:getStyle("Plugin", self)
+
+    local enabled = props.Enabled
 
     local size = tileStyle.Size
 
@@ -345,10 +355,15 @@ function Tile:render()
             [Roact.Event.FocusLost] = self.onTextBoxFocusLost,
         }),
 
-        Tooltip = Roact.createElement(Tooltip, {
+        Tooltip = FFlagStudioAssetManagerDisableTileOverlay and enabled and Roact.createElement(Tooltip, {
             Text = name,
             Enabled = true,
-        })
+        }),
+
+        DEPRECATED_Tooltip = not FFlagStudioAssetManagerDisableTileOverlay and Roact.createElement(Tooltip, {
+            Text = name,
+            Enabled = true,
+        }),
     })
 end
 

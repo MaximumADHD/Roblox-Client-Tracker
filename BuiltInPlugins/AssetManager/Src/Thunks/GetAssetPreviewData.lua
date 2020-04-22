@@ -1,12 +1,16 @@
+local FFlagDedupePackagesInAssetManager = game:GetFastFlag("DedupePackagesInAssetManager")
+
 local Plugin = script.Parent.Parent.Parent
 
 local Players = game:GetService("Players")
+local GroupService = game:GetService("GroupService")
 
 local GetRootTreeViewInstance = require(Plugin.Src.Thunks.GetRootTreeViewInstance)
 
 local SetAssetPreviewData = require(Plugin.Src.Actions.SetAssetPreviewData)
 local SetAssetOwnerName = require(Plugin.Src.Actions.SetAssetOwnerName)
 
+local FFlagFixGettingAssetOwnerNameInAssetPreview = game:DefineFastFlag("FixGettingAssetOwnerNameInAssetPreview", false)
 
 --[[
     "Created": "2020-04-01T15:41:04.0992192-05:00", --> "Created": "4/1/2020 3:41:04 PM",
@@ -48,6 +52,14 @@ end
 
 return function(apiImpl, assetIds)
     return function(store)
+        if FFlagDedupePackagesInAssetManager then
+            local assetPreviewDataLoading = {}
+            for _, assetId in ipairs(assetIds) do
+                assetPreviewDataLoading[assetId] = true
+            end
+            store:dispatch(SetAssetPreviewData(assetPreviewDataLoading))
+        end
+
         apiImpl.Develop.V1.Assets.assets(assetIds):makeRequest()
         :andThen(function(response)
             local body = response.responseBody
@@ -58,7 +70,7 @@ return function(apiImpl, assetIds)
             local assetPreviewData = {}
             for _, assetData in ipairs(body.data) do
                 local assetId = assetData.id
-                local userId = assetData.creator.targetId
+                local ownerId = assetData.creator.targetId
 
                 local assetName = assetData.name
                 local assetTypeId = assetData.typeId
@@ -89,12 +101,28 @@ return function(apiImpl, assetIds)
                         Type = assetData.creator.type,
                         TypeId = assetData.creator.typeId,
                         TargetId = assetData.creator.targetId,
+                        Name = FFlagDedupePackagesInAssetManager and "" or nil,
                     },
                 }
                 spawn(function()
-                    local username = Players:GetNameFromUserIdAsync(userId)
-                    if username then
-                        store:dispatch(SetAssetOwnerName(assetId, username))
+                    if FFlagFixGettingAssetOwnerNameInAssetPreview then
+                        if assetData.creator.type == "Group" then
+                            local groupMetadata = GroupService:GetGroupInfoAsync(ownerId)
+                            local groupName = groupMetadata.Name
+                            if groupName then
+                                store:dispatch(SetAssetOwnerName(assetId, groupName))
+                            end
+                        elseif assetData.creator.type == "User" then
+                            local username = Players:GetNameFromUserIdAsync(ownerId)
+                            if username then
+                                store:dispatch(SetAssetOwnerName(assetId, username))
+                            end
+                        end
+                    else
+                        local username = Players:GetNameFromUserIdAsync(ownerId)
+                        if username then
+                            store:dispatch(SetAssetOwnerName(assetId, username))
+                        end
                     end
                 end)
 

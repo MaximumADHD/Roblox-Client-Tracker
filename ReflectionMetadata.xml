@@ -3621,7 +3621,77 @@
 
     <Item class="ReflectionMetadataClass">
       <Properties>
+        <string name="Name">Atmosphere</string>
+        <string name="ClassCategory">Environment</string>
+        <string name="ExplorerOrder">5</string>
+        <string name="ExplorerImageIndex">28</string>
+        <string name="PreferredParent">Lighting</string>
+      </Properties>
+      <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Density</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">1</double>
+            <double name="UINumTicks">1000</double>
+            <string name="summary">A value that controls the air particulates density. The proportion of airborne particles per unit of view depth between the camera and the sky.</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Offset</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">1</double>
+            <double name="UINumTicks">1000</double>
+            <string name="summary">A value that offsets the quantity of light scattering events among particles in the atmosphere between the camera and the sky.</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Height</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">3</double>
+            <double name="UINumTicks">1000</double>
+            <string name="summary">A value that controls the height of fog in the atmosphere above the horizon (not volumetric...yet...).</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Color</string>
+            <string name="summary">A Color3 value that changes the hue of the atmosphere, mixed with the sky color.</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Decay</string>
+            <string name="summary">A Color3 value for the the hue the atmosphere takes on away from the sun towards the horizon, mixed with the sky color (aka extinction).</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Haze</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">10</double>
+            <double name="UINumTicks">1000</double>
+            <string name="summary">A value that controls the haziness of the atmosphere between the camera and the sky (aka turbidity).</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Glare</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">10</double>
+            <double name="UINumTicks">1000</double>
+            <string name="summary">A value that increases the glow of the atmosphere around light the sun.</string>
+          </Properties>
+        </Item>
+      </Item>
+    </Item>
+  
+    <Item class="ReflectionMetadataClass">
+      <Properties>
         <string name="Name">Sky</string>
+        <string name="ClassCategory">Environment</string>
         <string name="ExplorerOrder">5</string>
         <string name="ExplorerImageIndex">28</string>
         <string name="PreferredParent">Lighting</string>
@@ -5252,24 +5322,6 @@
         </Item>
         <Item class="ReflectionMetadataMember">
           <Properties>
-            <string name="Name">FogColor</string>
-            <string name="summary">A Color3 value that changes the hue of distance fog.</string>
-          </Properties>
-        </Item>
-        <Item class="ReflectionMetadataMember">
-          <Properties>
-            <string name="Name">FogEnd</string>
-            <string name="summary">The distance at which fog completely blocks your vision. This distance is relative to the camera position. Units are in studs</string>
-          </Properties>
-        </Item>
-        <Item class="ReflectionMetadataMember">
-          <Properties>
-            <string name="Name">FogStart</string>
-            <string name="summary">The distance at which the fog gradient begins. This distance is relative to the camera position. Units are in studs.</string>
-          </Properties>
-        </Item>
-        <Item class="ReflectionMetadataMember">
-          <Properties>
             <string name="Name">GeographicLatitude</string>
             <string name="summary">The latitude position the level is placed at.  This affects sun position. &lt;a href='http://wiki.roblox.com/index.php/GeographicLatitude' target='_blank'&gt;More info&lt;/a&gt;</string>
             <double name="UIMinimum">0</double>
@@ -5315,12 +5367,30 @@
             <double name="UINumTicks">240</double>
           </Properties>
         </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">FogColor</string>
+            <string name="summary">A Color3 value that changes the hue of the atmosphere, mixed with the sky color.</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">FogEnd</string>
+            <string name="summary">The distance at which fog completely blocks your vision. This distance is relative to the camera position. Units are in studs</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">FogStart</string>
+            <string name="summary">The distance at which the fog gradient begins. This distance is relative to the camera position. Units are in studs.</string>
+          </Properties>
+        </Item>
       </Item>
       <Item class="ReflectionMetadataEvents">
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">LightingChanged</string>
-            <string name="summary">Fired whenever a property of Lighting is changed, or a skybox is added or removed. Skyboxes are of type 'Sky' and should be parented directly to lighting.</string>
+            <string name="summary">Fired whenever a property of Lighting is changed, or a skybox or atmosphere is added or removed. Skyboxes are of type 'Sky' these and 'Atmosphere' should be parented directly to lighting.</string>
           </Properties>
         </Item>
       </Item>

@@ -53,6 +53,7 @@ uniform vec4 CB3[1];
 uniform sampler2D ShadowMapTexture;
 uniform sampler3D LightMapTexture;
 uniform sampler3D LightGridSkylightTexture;
+uniform samplerCube PrefilteredEnvTexture;
 uniform sampler2D DiffuseMapTexture;
 
 in vec4 VARYING2;
@@ -101,13 +102,17 @@ void main()
     float f17 = f7.w;
     vec4 f18 = vec4(f16.x, f16.y, f16.z, vec4(0.0).w);
     f18.w = f17;
-    vec3 f19 = mix(CB0[14].xyz, sqrt(clamp(f18.xyz * CB0[15].y, vec3(0.0), vec3(1.0))).xyz, vec3(clamp((CB0[13].x * length(VARYING4.xyz)) + CB0[13].y, 0.0, 1.0)));
-    vec4 f20 = vec4(f19.x, f19.y, f19.z, f18.w);
-    f20.w = f17;
-    _entryPointOutput = f20;
+    float f19 = clamp(exp2((CB0[13].z * length(VARYING4.xyz)) + CB0[13].x) - CB0[13].w, 0.0, 1.0);
+    vec3 f20 = textureLod(PrefilteredEnvTexture, vec4(-VARYING4.xyz, 0.0).xyz, max(CB0[13].y, f19) * 5.0).xyz;
+    bvec3 f21 = bvec3(CB0[13].w != 0.0);
+    vec3 f22 = sqrt(clamp(mix(vec3(f21.x ? CB0[14].xyz.x : f20.x, f21.y ? CB0[14].xyz.y : f20.y, f21.z ? CB0[14].xyz.z : f20.z), f18.xyz, vec3(f19)).xyz * CB0[15].y, vec3(0.0), vec3(1.0)));
+    vec4 f23 = vec4(f22.x, f22.y, f22.z, f18.w);
+    f23.w = f17;
+    _entryPointOutput = f23;
 }
 
 //$$ShadowMapTexture=s1
 //$$LightMapTexture=s6
 //$$LightGridSkylightTexture=s7
+//$$PrefilteredEnvTexture=s15
 //$$DiffuseMapTexture=s3

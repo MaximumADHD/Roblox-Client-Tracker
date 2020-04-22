@@ -6,14 +6,13 @@ local FFlagTerrainToolsImportImproveColorMapToggle = game:GetFastFlag("TerrainTo
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
+local Cryo = require(Plugin.Packages.Cryo)
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
-local Cryo = require(Plugin.Packages.Cryo)
 local UILibrary = require(Plugin.Packages.UILibrary)
 
 local withLocalization = UILibrary.Localizing.withLocalization
-local Theme = require(Plugin.Src.ContextServices.Theming)
-local withTheme = Theme.withTheme
+local withTheme = require(Plugin.Src.ContextServices.Theming).withTheme
 
 local ToolParts = script.Parent.ToolParts
 local AssetIdSelector = require(ToolParts.AssetIdSelector)
@@ -129,12 +128,12 @@ end
 
 function Import:willUnmount()
 	if self.onImportingStateChangedConnnection then
-		self.onImportingStateChangedConnnection:disconnect()
+		self.onImportingStateChangedConnnection:Disconnect()
 		self.onImportingStateChangedConnnection = nil
 	end
 
 	if self.onImportProgressChangedConnection then
-		self.onImportProgressChangedConnection:disconnect()
+		self.onImportProgressChangedConnection:Disconnect()
 		self.onImportProgressChangedConnection = nil
 	end
 end

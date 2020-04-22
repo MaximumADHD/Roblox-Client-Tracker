@@ -7,6 +7,7 @@ local SetIsFetchingAssets = require(Plugin.Src.Actions.SetIsFetchingAssets)
 local SetHasLinkedScripts = require(Plugin.Src.Actions.SetHasLinkedScripts)
 
 local FFlagStudioAssetManagerFilterPackagePermissions = game:DefineFastFlag("StudioAssetManagerFilterPackagePermissions", false)
+local FFlagDedupePackagesInAssetManager = game:GetFastFlag("DedupePackagesInAssetManager")
 
 local function checkIfPackageHasPermission(store, apiImpl, packageIds, newAssetsTable, assetBody, assetType, index)
     apiImpl.Develop.V1.Packages.highestPermissions(packageIds):makeRequest()
@@ -52,7 +53,11 @@ return function(apiImpl, assetType, pageCursor, pageNumber, showLoadingIndicator
         local index = 1
         if pageCursor or (pageNumber and pageNumber ~= 1) then
             newAssets = state.AssetManagerReducer.assetsTable
-            index = #newAssets.assets + 1
+            if FFlagDedupePackagesInAssetManager then
+                index = newAssets.index + 1
+            else
+                index = #newAssets.assets + 1
+            end
         end
         if showLoading then
             -- fetching next page of assets
@@ -93,6 +98,8 @@ return function(apiImpl, assetType, pageCursor, pageNumber, showLoadingIndicator
                 local hasLinkedScripts = state.AssetManagerReducer.hasLinkedScripts
                 if not body.FinalPage then
                     newAssets.pageNumber = page + 1
+                else
+                    newAssets.pageNumber = nil
                 end
                 for _, alias in pairs(body.Aliases) do
                     if (assetType == Enum.AssetType.Image and string.find(alias.Name, "Images/"))
@@ -100,6 +107,7 @@ return function(apiImpl, assetType, pageCursor, pageNumber, showLoadingIndicator
                     or (assetType == Enum.AssetType.Lua and string.find(alias.Name, "Scripts/")) then
                         -- creating new table so keys across all assets are consistent
                         local assetAlias = {}
+                        local sAssetAliasId = tostring(alias.TargetId)
                         assetAlias.assetType = assetType
                         assetAlias.asset = alias.Asset
                         assetAlias.id = alias.TargetId
@@ -111,15 +119,22 @@ return function(apiImpl, assetType, pageCursor, pageNumber, showLoadingIndicator
                             hasLinkedScripts = true
                             assetAlias.name = string.gsub(alias.Name, "Scripts/", "")
                         end
-                        newAssets.assets = Cryo.Dictionary.join(newAssets.assets, {
-                            [index] = assetAlias,
-                        })
+                        if FFlagDedupePackagesInAssetManager then
+                            assetAlias.layoutOrder = index
+                            newAssets.assets = Cryo.Dictionary.join(newAssets.assets, {
+                                [sAssetAliasId] = assetAlias,
+                            })
+                        else
+                            newAssets.assets = Cryo.Dictionary.join(newAssets.assets, {
+                                [index] = assetAlias,
+                            })
+                        end
                         index = index + 1
                     end
                 end
                 store:dispatch(SetHasLinkedScripts(hasLinkedScripts))
                 store:dispatch(SetIsFetchingAssets(false))
-                store:dispatch(SetAssets(newAssets))
+                store:dispatch(SetAssets(newAssets, index))
             end, function()
                 store:dispatch(SetIsFetchingAssets(false))
                 error("Failed to load aliases")
@@ -142,21 +157,37 @@ return function(apiImpl, assetType, pageCursor, pageNumber, showLoadingIndicator
                     -- make sure packages have similar keys in table
                     if assetType == Enum.AssetType.Package then
                         if not FFlagStudioAssetManagerFilterPackagePermissions then
+                            local sAssetId = tostring(asset.assetId)
                             newAsset.name = asset.assetName
                             newAsset.id = asset.assetId
                             newAsset.assetName = nil
                             newAsset.assetId = nil
-                            newAssets.assets = Cryo.Dictionary.join(newAssets.assets, {
-                                [index] = newAsset,
-                            })
+                            if FFlagDedupePackagesInAssetManager then
+                                newAsset.layoutOrder = index
+                                newAssets.assets = Cryo.Dictionary.join(newAssets.assets, {
+                                    [sAssetId] = newAsset,
+                                })
+                            else
+                                newAssets.assets = Cryo.Dictionary.join(newAssets.assets, {
+                                    [index] = newAsset,
+                                })
+                            end
                             index = index + 1
                         else
                             table.insert(packageIds, asset.assetId)
                         end
                     else
-                        newAssets.assets = Cryo.Dictionary.join(newAssets.assets, {
-                            [index] = newAsset,
-                        })
+                        if FFlagDedupePackagesInAssetManager then
+                            local sAssetId = tostring(newAsset.id)
+                            newAsset.layoutOrder = index
+                            newAssets.assets = Cryo.Dictionary.join(newAssets.assets, {
+                                [sAssetId] = newAsset,
+                            })
+                        else
+                            newAssets.assets = Cryo.Dictionary.join(newAssets.assets, {
+                                [index] = newAsset,
+                            })
+                        end
                         index = index + 1
                     end
                 end
@@ -165,7 +196,7 @@ return function(apiImpl, assetType, pageCursor, pageNumber, showLoadingIndicator
                     checkIfPackageHasPermission(store, apiImpl, packageIds, newAssets.assets,body.data, assetType, index)
                 end
                 store:dispatch(SetIsFetchingAssets(false))
-                store:dispatch(SetAssets(newAssets))
+                store:dispatch(SetAssets(newAssets, index))
             end)
         end
     end

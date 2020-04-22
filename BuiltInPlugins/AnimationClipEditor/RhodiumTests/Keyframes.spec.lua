@@ -45,7 +45,7 @@ return function()
 		},
 	}
 
-	it("should be able to add a keyframe without a track", function()
+	itSKIP("should be able to add a keyframe without a track", function()
 		runTest(function(test)
 			local store = test:getStore()
 			local container = test:getContainer()
@@ -279,7 +279,7 @@ return function()
 		end)
 	end)
 
-	it("should be able to scale multiple selected keyframes", function()
+	itSKIP("should be able to scale multiple selected keyframes", function()
 		runTest(function(test)
 			local store = test:getStore()
 			local container = test:getContainer()

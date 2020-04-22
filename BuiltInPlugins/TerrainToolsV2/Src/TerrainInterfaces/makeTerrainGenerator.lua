@@ -1,10 +1,14 @@
+local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
+
 local FFlagTerrainToolMetrics = settings():GetFFlag("TerrainToolMetrics")
 
 local Plugin = script.Parent.Parent.Parent
 
-local UILibrary = require(Plugin.Packages.UILibrary)
+local Framework = Plugin.Packages.Framework
+local UILibrary = not FFlagTerrainToolsUseDevFramework and require(Plugin.Packages.UILibrary) or nil
 
-local Signal = UILibrary.Util.Signal
+local FrameworkUtil = FFlagTerrainToolsUseDevFramework and require(Framework.Util) or nil
+local Signal = FFlagTerrainToolsUseDevFramework and FrameworkUtil.Signal or UILibrary.Util.Signal
 
 local Constants = require(Plugin.Src.Util.Constants)
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
@@ -554,7 +558,7 @@ return function(terrain, generateSettings)
 	do
 		updateProgress = function(newProgress)
 			progress = newProgress
-			progressSignal:fire(progress)
+			progressSignal:Fire(progress)
 		end
 
 		finish = function()
@@ -568,20 +572,20 @@ return function(terrain, generateSettings)
 			finished = true
 
 			-- Tell subscribers we're done
-			finishSignal:fire()
+			finishSignal:Fire()
 		end
 
 		pause = function()
 			if not isPaused then
 				isPaused = true
-				pauseSignal:fire(isPaused)
+				pauseSignal:Fire(isPaused)
 			end
 		end
 
 		resume = function()
 			if isPaused then
 				isPaused = false
-				pauseSignal:fire(isPaused)
+				pauseSignal:Fire(isPaused)
 			end
 		end
 

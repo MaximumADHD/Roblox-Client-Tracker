@@ -33,9 +33,6 @@ local SetGameStatText = require(PlayerList.Actions.SetGameStatText)
 
 local LeaderstatsConnector = Roact.PureComponent:extend("LeaderstatsConnector")
 
-local FFlagPlayerListMorePermissiveLeaderstatsCheck = game:DefineFastFlag("PlayerListMorePermissiveLeaderstatsCheck", false)
-local FFlagPlayerListFixUnexpectedLeaderstatsTypes = game:DefineFastFlag("PlayerListFixUnexpectedLeaderstatsTypes", false)
-
 local function isValidStat(obj)
 	return obj:IsA("StringValue") or obj:IsA("IntValue") or obj:IsA("BoolValue") or obj:IsA("NumberValue") or
 		obj:IsA("DoubleConstrainedValue") or obj:IsA("IntConstrainedValue")
@@ -88,28 +85,17 @@ function LeaderstatsConnector:addGameStat(statObject)
 	local isPrimary = false
 	local priority = 0
 
-	if FFlagPlayerListFixUnexpectedLeaderstatsTypes then
-		local isPrimaryVal = statObject:FindFirstChild("IsPrimary")
-		if isPrimaryVal then
-			if isPrimaryVal:IsA("BoolValue") then
-				isPrimary = isPrimaryVal.Value
-			else
-				isPrimary = true
-			end
-		end
-		local priorityVal = statObject:FindFirstChild("Priority")
-		if priorityVal and (priorityVal:IsA("IntValue") or priorityVal:IsA("NumberValue")) then
-			priority = priorityVal.Value
-		end
-	else
-		local isPrimaryVal = statObject:FindFirstChild("IsPrimary")
-		if isPrimaryVal then
+	local isPrimaryVal = statObject:FindFirstChild("IsPrimary")
+	if isPrimaryVal then
+		if isPrimaryVal:IsA("BoolValue") then
 			isPrimary = isPrimaryVal.Value
+		else
+			isPrimary = true
 		end
-		local priorityVal = statObject:FindFirstChild("Priority")
-		if priorityVal then
-			priority = priorityVal.Value
-		end
+	end
+	local priorityVal = statObject:FindFirstChild("Priority")
+	if priorityVal and (priorityVal:IsA("IntValue") or priorityVal:IsA("NumberValue")) then
+		priority = priorityVal.Value
 	end
 
 	self.props.addGameStat(statObject.Name, isPrimary, priority)
@@ -167,16 +153,10 @@ function LeaderstatsConnector:leaderstatsAdded(player, leaderstats)
 end
 
 function LeaderstatsConnector:onPlayerChildAdded(player, child)
-	if FFlagPlayerListMorePermissiveLeaderstatsCheck then
-		local isLeaderStats = child.Name == "leaderstats"
-		local isPossibleLeaderstats = child:IsA("ValueBase") or child:IsA("Folder") or child:IsA("Model")
-		if not (isLeaderStats or isPossibleLeaderstats) then
-			return
-		end
-	else
-		if not (child:IsA("ValueBase") or child:IsA("Folder")) then
-			return
-		end
+	local isLeaderStats = child.Name == "leaderstats"
+	local isPossibleLeaderstats = child:IsA("ValueBase") or child:IsA("Folder") or child:IsA("Model")
+	if not (isLeaderStats or isPossibleLeaderstats) then
+		return
 	end
 
 	local childChangedConn = child.Changed:Connect(function(property)

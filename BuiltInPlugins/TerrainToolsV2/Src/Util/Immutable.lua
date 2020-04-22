@@ -1,3 +1,6 @@
+assert(not game:GetFastFlag("TerrainToolsUseDevFramework"),
+	"TerrainTools Immutable.lua should not be used when FFlagTerrainToolsUseDevFramework is on")
+
 --[[
 	Provides functions for manipulating immutable data structures.
 ]]

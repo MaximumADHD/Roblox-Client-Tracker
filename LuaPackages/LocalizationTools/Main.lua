@@ -1,3 +1,7 @@
+if game:DefineFastFlag("LuaAppsLocalizationToolsDeprecated", false) then
+	return function() end
+end
+
 local LocalizationService = game:GetService("LocalizationService")
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 local IsEdit = require(script.Parent.IsEdit)

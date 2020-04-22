@@ -16,8 +16,6 @@ local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
 local LocalPlayer = Players.LocalPlayer
 
-local FFlagPlayerListUseUIBloxIcons = require(CoreGui.RobloxGui.Modules.Flags.FFlagPlayerListUseUIBloxIcons)
-
 local FriendDropDownButton = Roact.PureComponent:extend("FriendDropDownButton")
 
 FriendDropDownButton.validateProps = t.strictInterface({
@@ -34,15 +32,8 @@ FriendDropDownButton.validateProps = t.strictInterface({
 })
 
 local function getFriendTextAndIcon(friendStatus)
-	local addFriendIcon
-	local unfriendIcon
-	if FFlagPlayerListUseUIBloxIcons then
-		addFriendIcon = Images["icons/actions/friends/friendAdd"]
-		unfriendIcon = Images["icons/actions/friends/friendRemove"]
-	else
-		addFriendIcon = "rbxasset://textures/ui/PlayerList/AddFriend.png"
-		unfriendIcon = "rbxasset://textures/ui/PlayerList/UnFriend.png"
-	end
+	local addFriendIcon = Images["icons/actions/friends/friendAdd"]
+	local unfriendIcon = Images["icons/actions/friends/friendRemove"]
 
 	if friendStatus == Enum.FriendStatus.Friend then
 		return RobloxTranslator:FormatByKey("PlayerDropDown.Unfriend"), unfriendIcon

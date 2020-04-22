@@ -3,7 +3,7 @@ game:DefineFastFlag("UGCValidateMeshBounds", false)
 game:DefineFastFlag("UGCValidateTextureSize", false)
 game:DefineFastFlag("UGCValidateHandleSize", false)
 game:DefineFastFlag("UGCValidateProperties", false)
-game:DefineFastFlag("UGCAllowThumbnailCameraValue", false)
+game:DefineFastFlag("UGCAllowThumbnailConfiguration", false)
 game:DefineFastFlag("UGCUseNewAssetTypeInfoSchema", false)
 game:DefineFastFlag("UGCFixModerationCheck", false)
 

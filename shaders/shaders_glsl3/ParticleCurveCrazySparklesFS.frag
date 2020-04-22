@@ -69,7 +69,7 @@ void main()
     bvec3 f6 = bvec3(f2 < 0.5);
     vec3 f7 = (vec3(f6.x ? f4.x : f5.x, f6.y ? f4.y : f5.y, f6.z ? f4.z : f5.z).xyz * VARYING1.w).xyz;
     vec3 f8 = sqrt(clamp((f7 * f7) * CB0[15].y, vec3(0.0), vec3(1.0)));
-    float f9 = min(1.0, clamp(VARYING0.z, 0.0, 1.0));
+    float f9 = clamp(exp2((CB0[13].z * VARYING0.z) + CB0[13].x) - CB0[13].w, 0.0, 1.0);
     vec4 f10 = vec4(f8.x, f8.y, f8.z, vec4(0.0).w);
     f10.w = (CB1[1].y * f2) * (VARYING1.w * f9);
     vec3 f11 = f10.xyz * f9;

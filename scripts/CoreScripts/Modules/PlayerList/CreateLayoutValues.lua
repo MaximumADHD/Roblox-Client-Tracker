@@ -1,10 +1,7 @@
-local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 
 local UIBlox = require(CorePackages.UIBlox)
 local Images = UIBlox.App.ImageSet.Images
-
-local FFlagPlayerListUseUIBloxIcons = require(CoreGui.RobloxGui.Modules.Flags.FFlagPlayerListUseUIBloxIcons)
 
 local SCREEN_SIDE_PADDING = 4
 
@@ -111,6 +108,8 @@ return function(isTenFoot, isSmallTouchScreen)
 		LayoutValues.IconButtonBackgroundTransparency = 0.3
 		LayoutValues.DropDownHeaderBackgroundTransparency = 0.1
 		LayoutValues.OverrideBackgroundTransparency = 0.3
+		LayoutValues.FadedBackgroundTransparency = 0.65
+		LayoutValues.FadedBackgroundScaleDelta = 0.05
 
 		LayoutValues.PlayerIconSize = UDim2.new(0, 16, 0, 16)
 		LayoutValues.InitalPlayerEntryPadding = 12
@@ -158,46 +157,21 @@ return function(isTenFoot, isSmallTouchScreen)
 
 	LayoutValues.DefaultThumbnail = "rbxasset://textures/ui/Shell/Icons/DefaultProfileIcon.png"
 
-	if FFlagPlayerListUseUIBloxIcons then
-		LayoutValues.BlockedIcon = Images["icons/status/unavailable_small"]
-	else
-		LayoutValues.BlockedIcon = "rbxasset://textures/ui/PlayerList/BlockedIcon.png"
-	end
+	LayoutValues.BlockedIcon = Images["icons/status/unavailable_small"]
 
-	if FFlagPlayerListUseUIBloxIcons then
-		LayoutValues.FriendIcons = {
-			[Enum.FriendStatus.Friend] = Images["icons/status/player/friend"],
-			[Enum.FriendStatus.FriendRequestReceived] = Images["icons/status/player/pending"],
-		}
-	else
-		LayoutValues.FriendIcons = {
-			[Enum.FriendStatus.Friend] = "rbxasset://textures/ui/icon_friends_16.png",
-			[Enum.FriendStatus.FriendRequestReceived] = "rbxasset://textures/ui/icon_friendrequestrecieved-16.png",
-		}
-	end
+	LayoutValues.FriendIcons = {
+		[Enum.FriendStatus.Friend] = Images["icons/status/player/friend"],
+		[Enum.FriendStatus.FriendRequestReceived] = Images["icons/status/player/pending"],
+	}
 
-	if FFlagPlayerListUseUIBloxIcons then
-		LayoutValues.FollowingIcon = Images["icons/status/player/following"]
-	else
-		LayoutValues.FollowingIcon = "rbxasset://textures/ui/PlayerList/NewFollowing.png"
-	end
-	if FFlagPlayerListUseUIBloxIcons then
-		LayoutValues.PlaceOwnerIcon = Images["icons/status/player/developer"]
-	else
-		LayoutValues.PlaceOwnerIcon = "rbxasset://textures/ui/PlayerList/developer.png"
-	end
+	LayoutValues.FollowingIcon = Images["icons/status/player/following"]
+	LayoutValues.PlaceOwnerIcon = Images["icons/status/player/developer"]
 
-	local premiumIcon
-	if FFlagPlayerListUseUIBloxIcons then
-		premiumIcon = Images["icons/status/premium_small"]
-	else
-		premiumIcon = "rbxasset://textures/ui/PlayerList/PremiumIcon.png"
-	end
 	LayoutValues.MembershipIcons = {
 		[Enum.MembershipType.BuildersClub] = "rbxasset://textures/ui/icon_BC-16.png",
 		[Enum.MembershipType.TurboBuildersClub] = "rbxasset://textures/ui/icon_TBC-16.png",
 		[Enum.MembershipType.OutrageousBuildersClub] = "rbxasset://textures/ui/icon_OBC-16.png",
-		[Enum.MembershipType.Premium] = premiumIcon,
+		[Enum.MembershipType.Premium] = Images["icons/status/premium_small"],
 	}
 
 	LayoutValues.CustomPlayerIcons = {	-- Admins with special icons

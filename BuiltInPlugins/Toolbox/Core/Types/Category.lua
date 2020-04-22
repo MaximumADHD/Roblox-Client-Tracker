@@ -3,7 +3,7 @@ local FFlagFixToolboxInitLoad = settings():GetFFlag("FixToolboxInitLoad")
 local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 local FFlagToolboxShowGroupCreations = game:DefineFastFlag("ToolboxShowGroupCreations", false)
 local FFlagFixToolboxPluginScaling = game:DefineFastFlag("FixToolboxPluginScaling", false)
-local FFlagEnableDefaultSortFix = game:GetFastFlag("EnableDefaultSortFix")
+local FFlagEnableDefaultSortFix = game:GetFastFlag("EnableDefaultSortFix2")
 
 local Plugin = script.Parent.Parent.Parent
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)

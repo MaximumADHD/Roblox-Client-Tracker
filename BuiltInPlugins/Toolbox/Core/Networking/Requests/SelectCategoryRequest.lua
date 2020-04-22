@@ -7,7 +7,7 @@ local Cryo = require(Plugin.Libs.Cryo)
 local UpdatePageInfoAndSendRequest = require(Plugin.Core.Networking.Requests.UpdatePageInfoAndSendRequest)
 local StopAllSounds = require(Plugin.Core.Actions.StopAllSounds)
 
-local FFlagEnableDefaultSortFix = game:GetFastFlag("EnableDefaultSortFix")
+local FFlagEnableDefaultSortFix = game:GetFastFlag("EnableDefaultSortFix2")
 
 return function(networkInterface, settings, categoryIndex)
 	return function(store)

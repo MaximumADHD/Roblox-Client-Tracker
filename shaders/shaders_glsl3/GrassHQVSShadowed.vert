@@ -101,7 +101,7 @@ void main()
     float v28 = dot(v26, v27);
     float v29 = exp2((-clamp(v1, 0.0, 1.0)) * CB2[2].x);
     bvec3 v30 = bvec3(v0);
-    vec3 v31 = normalize(v24);
+    vec3 v31 = v24 / vec3(v25);
     vec3 v32 = normalize(v27 + v31);
     float v33 = 1.0 - clamp(((v25 - CB2[2].y) + 40.0) * 0.02500000037252902984619140625, 0.0, 1.0);
     vec4 v34 = vec4(0.0);
@@ -113,7 +113,7 @@ void main()
     vec4 v37 = v36;
     v37.w = (pow(clamp(v32.y, 0.0, 1.0), 8.0) * v33) * v29;
     gl_Position = vec4(v21.x, v22, v21.z, 1.0) * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
-    VARYING0 = vec4(((v23 + vec3(0.0, 6.0, 0.0)).yxz * CB0[16].xyz) + CB0[17].xyz, (CB0[13].x * v25) + CB0[13].y);
+    VARYING0 = vec4(((v23 + vec3(0.0, 6.0, 0.0)).yxz * CB0[16].xyz) + CB0[17].xyz, clamp(exp2((CB0[13].z * v25) + CB0[13].x) - CB0[13].w, 0.0, 1.0));
     VARYING1 = v23;
     VARYING2 = (CB0[10].xyz * clamp((v28 + 0.89999997615814208984375) * 0.52631580829620361328125, 0.0, 1.0)) * v29;
     VARYING3 = v37;

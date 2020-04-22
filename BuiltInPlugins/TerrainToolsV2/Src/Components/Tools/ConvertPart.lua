@@ -1,10 +1,11 @@
 local Plugin = script.Parent.Parent.Parent.Parent
+
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local UILibrary = require(Plugin.Packages.UILibrary)
 
-local Localizing = UILibrary.Localizing
-local withLocalization = Localizing.withLocalization
+local withLocalization = UILibrary.Localizing.withLocalization
+
 local StudioPlugin = require(Plugin.Src.ContextServices.StudioPlugin)
 
 local ToolParts = Plugin.Src.Components.Tools.ToolParts
@@ -32,14 +33,13 @@ local MidPlanePreview = require(Plugin.Src.TerrainWorldUI.MidPlanePreview)
 
 local Actions = Plugin.Src.Actions
 local ApplyToolAction = require(Actions.ApplyToolAction)
-local SetConvertMode = require(Actions.SetConvertMode)
-local SetMaterial = require(Actions.SetMaterial)
-
+local ChangePlanePositionY = require(Actions.ChangePlanePositionY)
 local SetBiomeSelection = require(Actions.SetBiomeSelection)
 local SetBiomeSize = require(Actions.SetBiomeSize)
-local SetHeightPicker = require(Actions.SetHeightPicker)
-local ChangePlanePositionY = require(Actions.ChangePlanePositionY)
+local SetConvertMode = require(Actions.SetConvertMode)
 local SetHaveCaves = require(Actions.SetHaveCaves)
+local SetHeightPicker = require(Actions.SetHeightPicker)
+local SetMaterial = require(Actions.SetMaterial)
 local SetSeed = require(Actions.SetSeed)
 
 local SelectionService = game:GetService("Selection")
@@ -112,13 +112,16 @@ function ConvertPart:init()
 	end
 
 	self.onConvertBiomeClicked = function()
-		self.partConverter:convertInstancesToBiome(self.partSelectionModel:getValidInstancesSet(), {
-			biomeSelection = self.props.biomeSelection,
-			biomeSize = self.props.biomeSize,
-			haveCaves = self.props.haveCaves,
-			baseLevel = self.props.planePositionY,
-			seed = self.props.seed,
-		})
+		self.partConverter:convertInstancesToBiome(
+			self.partSelectionModel:getValidInstancesSet(),
+			{
+				biomeSelection = self.props.biomeSelection,
+				biomeSize = self.props.biomeSize,
+				haveCaves = self.props.haveCaves,
+				baseLevel = self.props.planePositionY,
+				seed = self.props.seed,
+			}
+		)
 	end
 
 	self.onConvertMaterialClicked = function()
@@ -232,7 +235,7 @@ function ConvertPart:willUnmount()
 	self.partConverter:setSelectionModel(nil)
 
 	for _, connection in pairs(self.connections) do
-		connection:disconnect()
+		connection:Disconnect()
 	end
 	self.connections = {}
 
@@ -403,14 +406,13 @@ local function mapStateToProps(state, props)
 		toolName = TerrainEnums.ToolId.ConvertPart,
 
 		convertMode = state[CONVERT_PART_REDUCER_KEY].convertMode,
-		convertMaterial = state[CONVERT_PART_REDUCER_KEY].material,
 
 		biomeSelection = state[GENERATE_REDUCER_KEY].biomeSelection,
 		biomeSize = state[GENERATE_REDUCER_KEY].biomeSize,
-		planePositionY = state[GENERATE_REDUCER_KEY].planePositionY,
-		heightPicker = state[GENERATE_REDUCER_KEY].heightPicker,
+		convertMaterial = state[CONVERT_PART_REDUCER_KEY].material,
 		haveCaves = state[GENERATE_REDUCER_KEY].haveCaves,
-
+		heightPicker = state[GENERATE_REDUCER_KEY].heightPicker,
+		planePositionY = state[GENERATE_REDUCER_KEY].planePositionY,
 		seed = state[GENERATE_REDUCER_KEY].seed,
 	}
 end
@@ -428,27 +430,26 @@ local function mapDispatchToProps(dispatch)
 		dispatchSetConvertMode = function(convertMode)
 			dispatchToConvertPart(SetConvertMode(convertMode))
 		end,
-		dispatchSetConvertMaterial = function(convertMaterial)
-			dispatchToConvertPart(SetMaterial(convertMaterial))
+
+		dispatchChangePlanePositionY = function (planePositionY)
+			dispatchToGenerate(ChangePlanePositionY(planePositionY))
 		end,
-
-
 		dispatchSetBiomeSelection = function (biome, value)
 			dispatchToGenerate(SetBiomeSelection(biome, value))
 		end,
-		dispatchSetBiomeSize = function(size)
+		dispatchSetBiomeSize = function (size)
 			dispatchToGenerate(SetBiomeSize(size))
 		end,
-		dispatchSetHeightPicker = function(heightPicker)
-			dispatchToGenerate(SetHeightPicker(heightPicker))
-		end,
-		dispatchChangePlanePositionY = function (planePositionY)
-			dispatchToGenerate(ChangePlanePositionY(planePositionY))
+		dispatchSetConvertMaterial = function (convertMaterial)
+			dispatchToConvertPart(SetMaterial(convertMaterial))
 		end,
 		dispatchSetHaveCaves = function (haveCaves)
 			dispatchToGenerate(SetHaveCaves(haveCaves))
 		end,
-		dispatchSetSeed = function(seed)
+		dispatchSetHeightPicker = function (heightPicker)
+			dispatchToGenerate(SetHeightPicker(heightPicker))
+		end,
+		dispatchSetSeed = function (seed)
 			dispatchToGenerate(SetSeed(seed))
 		end,
 	}

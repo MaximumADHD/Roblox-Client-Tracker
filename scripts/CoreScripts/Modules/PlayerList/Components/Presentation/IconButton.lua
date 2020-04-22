@@ -1,5 +1,4 @@
 local CorePackages = game:GetService("CorePackages")
-local CoreGui = game:GetService("CoreGui")
 
 local Roact = require(CorePackages.Roact)
 local t = require(CorePackages.Packages.t)
@@ -13,8 +12,6 @@ local LayoutValues = require(Connection.LayoutValues)
 local WithLayoutValues = LayoutValues.WithLayoutValues
 
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
-
-local FFlagPlayerListUseUIBloxIcons = require(CoreGui.RobloxGui.Modules.Flags.FFlagPlayerListUseUIBloxIcons)
 
 local IconButton = Roact.PureComponent:extend("IconButton")
 
@@ -93,7 +90,7 @@ function IconButton:render()
 					BorderSizePixel = 0,
 				}),
 
-				ImageButton = Roact.createElement(FFlagPlayerListUseUIBloxIcons and ImageSetLabel or "ImageLabel", {
+				ImageButton = Roact.createElement(ImageSetLabel, {
 					Position = UDim2.new(0.5, 0, 0.5, 0),
 					Size = UDim2.new(0, layoutValues.DropDownIconSize , 0, layoutValues.DropDownIconSize),
 					Image = self.props.icon,

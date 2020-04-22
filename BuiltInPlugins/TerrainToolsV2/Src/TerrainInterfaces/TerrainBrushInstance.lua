@@ -1,3 +1,5 @@
+local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
+
 game:DefineFastFlag("TerrainToolsBrushUseIsKeyDown", false)
 
 local FFlagTerrainToolMetrics = settings():GetFFlag("TerrainToolMetrics")
@@ -6,12 +8,12 @@ local FFlagTerrainToolsTerrainBrushNotSingleton = game:GetFastFlag("TerrainTools
 
 local Plugin = script.Parent.Parent.Parent
 
-local UILibrary = require(Plugin.Packages.UILibrary)
-local Signal = UILibrary.Util.Signal
+local Framework = Plugin.Packages.Framework
 local Cryo = require(Plugin.Packages.Cryo)
-local UILibrary = require(Plugin.Packages.UILibrary)
+local UILibrary = not FFlagTerrainToolsUseDevFramework and require(Plugin.Packages.UILibrary) or nil
 
-local Signal = UILibrary.Util.Signal
+local FrameworkUtil = FFlagTerrainToolsUseDevFramework and require(Framework.Util) or nil
+local Signal = FFlagTerrainToolsUseDevFramework and FrameworkUtil.Signal or UILibrary.Util.Signal
 
 local Constants = require(Plugin.Src.Util.Constants)
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
@@ -174,23 +176,23 @@ function TerrainBrush:destroy()
 end
 
 function TerrainBrush:subscribeToPlanePositionYChanged(...)
-	return self._planePositionYChanged:connect(...)
+	return self._planePositionYChanged:Connect(...)
 end
 
 function TerrainBrush:subscribeToHeightPickerSet(...)
-	return self._heightPickerSet:connect(...)
+	return self._heightPickerSet:Connect(...)
 end
 
 function TerrainBrush:subscribeToRequestBrushSizeChanged(...)
-	return self._requestBrushSizeChanged:connect(...)
+	return self._requestBrushSizeChanged:Connect(...)
 end
 
 function TerrainBrush:subscribeToRequestBrushStrengthChanged(...)
-	return self._requestBrushStrengthChanged:connect(...)
+	return self._requestBrushStrengthChanged:Connect(...)
 end
 
 function TerrainBrush:subscribeToMaterialSelectRequested(...)
-	return self._materialSelectRequested:connect(...)
+	return self._materialSelectRequested:Connect(...)
 end
 
 function TerrainBrush:updateSettings(newSettings)
@@ -370,7 +372,7 @@ function TerrainBrush:_connectInput()
 			local newSizeClamped = math.max(Constants.MIN_BRUSH_SIZE, math.min(Constants.MAX_BRUSH_SIZE, newSize))
 			local newHeightClamped = math.max(Constants.MIN_BRUSH_SIZE, math.min(Constants.MAX_BRUSH_SIZE, newHeight))
 
-			self._requestBrushSizeChanged:fire(newSizeClamped, newHeightClamped)
+			self._requestBrushSizeChanged:Fire(newSizeClamped, newHeightClamped)
 		end
 
 		local ctrlDown
@@ -382,7 +384,7 @@ function TerrainBrush:_connectInput()
 		if ctrlDown then
 			local newStrength = math.max(0.1, math.min(1, self._operationSettings.strength + (direction * 0.1)))
 
-			self._requestBrushStrengthChanged:fire(newStrength)
+			self._requestBrushStrengthChanged:Fire(newStrength)
 		end
 	end
 
@@ -450,7 +452,7 @@ function TerrainBrush:_run()
 		end
 
 		if heightPicker or (currentTool == ToolId.Flatten and self._mouseClick and not fixedPlane and not planeLock) then
-			self._planePositionYChanged:fire(snapToGrid and snapToVoxelGrid(mainPoint, radius).y or (mainPoint.y - 1))
+			self._planePositionYChanged:Fire(snapToGrid and snapToVoxelGrid(mainPoint, radius).y or (mainPoint.y - 1))
 		end
 
 		if not self._mouse.Target then
@@ -535,7 +537,7 @@ function TerrainBrush:_run()
 				end
 				if altDown then
 					if rayHit and rayHit:IsA("Terrain") then
-						self._materialSelectRequested:fire(hitMaterial)
+						self._materialSelectRequested:Fire(hitMaterial)
 					end
 				else
 					local difference = mainPoint - lastMainPoint
@@ -564,7 +566,7 @@ function TerrainBrush:_run()
 			end
 
 			if currentTool == ToolId.Flatten and heightPicker then
-				self._heightPickerSet:fire(false)
+				self._heightPickerSet:Fire(false)
 			end
 		end
 

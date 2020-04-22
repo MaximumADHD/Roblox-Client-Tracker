@@ -19,22 +19,11 @@ local PlayerList = script.Parent.Parent
 local FFlagPlayerListFixLeaderboardDisabledError = game:DefineFastFlag("PlayerListFixLeaderboardDisabledError", false)
 local FFlagUseCanManageForDeveloperIconClient = game:GetFastFlag("UseCanManageForDeveloperIconClient")
 
-local FFlagPlayerListUseUIBloxIcons = require(CoreGui.RobloxGui.Modules.Flags.FFlagPlayerListUseUIBloxIcons)
-
-local SPECIAL_PLAYER_ICONS
-if FFlagPlayerListUseUIBloxIcons then
-	SPECIAL_PLAYER_ICONS = {
-		Admin = Images["icons/status/player/admin"],
-		Intern = "rbxasset://textures/ui/icon_intern-16.png", --TODO: Update this
-		Star = Images["icons/status/player/videostar"],
-	}
-else
-	SPECIAL_PLAYER_ICONS = {
-		Admin = "rbxasset://textures/ui/icon_admin-16.png",
-		Intern = "rbxasset://textures/ui/icon_intern-16.png",
-		Star = "rbxasset://textures/ui/icon_star-16.png",
-	}
-end
+local SPECIAL_PLAYER_ICONS = {
+	Admin = Images["icons/status/player/admin"],
+	Intern = "rbxasset://textures/ui/icon_intern-16.png", --TODO: Update this
+	Star = Images["icons/status/player/videostar"],
+}
 
 -- Actions
 local SetPlayerSpecialGroupIcon = require(PlayerList.Actions.SetPlayerSpecialGroupIcon)

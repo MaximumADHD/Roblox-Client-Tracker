@@ -255,4 +255,25 @@ function Analytics.onTreeviewActivated(assetId)
 	})
 end
 
+function Analytics.onPluginButtonClickOpen()
+	AnalyticsSenders.sendEventDeferred("studio", "toolbox", "MarketplaceOpen", {
+		userId = getUserId(),
+		placeId = FFlagStudioToolboxEnablePlaceIDInAnalytics and getPlaceId() or nil,
+	})
+end
+
+function Analytics.onPluginButtonClickClose()
+	AnalyticsSenders.sendEventDeferred("studio", "toolbox", "MarketplaceClosed", {
+		userId = getUserId(),
+		placeId = FFlagStudioToolboxEnablePlaceIDInAnalytics and getPlaceId() or nil,
+	})
+end
+
+function Analytics.onToolboxDisplayed()
+	AnalyticsSenders.sendEventDeferred("studio", "toolbox", "MarketplaceImpression", {
+		userId = getUserId(),
+		placeId = FFlagStudioToolboxEnablePlaceIDInAnalytics and getPlaceId() or nil,
+	})
+end
+
 return Analytics

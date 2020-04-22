@@ -18,8 +18,11 @@ local UILibraryWrapper = ContextServices.UILibraryWrapper
 
 local ToolboxPlugin = Roact.PureComponent:extend("ToolboxPlugin")
 
+local Analytics = require(Util.Analytics.Analytics)
+
 local FFlagUpdateToolboxButtonFix = game:DefineFastFlag("UpdateToolboxButtonFix", false)
 local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
+local FFlagEnableToolboxImpressionAnalytics = game:GetFastFlag("EnableToolboxImpressionAnalytics")
 
 function ToolboxPlugin:init(props)
 	self.theme = makeTheme()
@@ -57,8 +60,22 @@ function ToolboxPlugin:init(props)
 		if FFlagUpdateToolboxButtonFix then
 			-- Toggle dock window, update button
 			self.dockWidget.Enabled = not self.dockWidget.Enabled
+			if FFlagEnableToolboxImpressionAnalytics then
+				if self.dockWidget.Enabled then
+					Analytics.onPluginButtonClickOpen()
+				else
+					Analytics.onPluginButtonClickClose()
+				end
+			end
 		else
 			self:setState(function(state)
+				if FFlagEnableToolboxImpressionAnalytics then
+					if not state.enabled then
+						Analytics.onPluginButtonClickOpen()
+					else
+						Analytics.onPluginButtonClickClose()
+					end
+				end
 				return {
 					enabled = not state.enabled,
 				}
@@ -70,9 +87,17 @@ function ToolboxPlugin:init(props)
 		if FFlagUpdateToolboxButtonFix then
 			-- Update Button to match DockWidget
 			self.toolboxButton:SetActive(self.dockWidget.Enabled)
+
+			if FFlagEnableToolboxImpressionAnalytics and self.dockWidget.Enabled then
+				Analytics.onToolboxDisplayed()
+			end
 		else
 			if self.state.enabled == rbx.Enabled then
 				return
+			end
+
+			if FFlagEnableToolboxImpressionAnalytics and rbx.Enabled then
+				Analytics.onToolboxDisplayed()
 			end
 
 			self:setState({

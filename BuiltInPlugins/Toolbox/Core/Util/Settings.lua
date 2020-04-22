@@ -9,7 +9,7 @@ local Sort = require(Plugin.Core.Types.Sort)
 local Settings = {}
 Settings.__index = Settings
 
-local FFlagEnableDefaultSortFix = game:GetFastFlag("EnableDefaultSortFix")
+local FFlagEnableDefaultSortFix = game:GetFastFlag("EnableDefaultSortFix2")
 
 -- Built in plugins share the same namespace for settings, so mark this as from the toolbox
 local SETTING_PREFIX = "Toolbox_"

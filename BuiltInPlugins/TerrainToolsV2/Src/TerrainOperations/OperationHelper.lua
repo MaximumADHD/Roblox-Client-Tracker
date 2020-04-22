@@ -1,3 +1,7 @@
+game:DefineFastFlag("TerrainToolsTweakBrushPower", false)
+
+local FFlagTerrainToolsTweakBrushPower = game:GetFastFlag("TerrainToolsTweakBrushPower")
+
 local Plugin = script.Parent.Parent.Parent
 
 local Constants = require(Plugin.Src.Util.Constants)
@@ -66,7 +70,18 @@ function OperationHelper.calculateBrushPowerForCell(cellVectorX, cellVectorY, ce
 	end
 
 	if scaleMagnitudePercent then
-		magnitudePercent = magnitudePercent * math.max(1, selectionSize / 5)
+		if FFlagTerrainToolsTweakBrushPower then
+			-- When brush size is less than this, we don't change brush power
+			-- If it's larger than this, then we scale brush power
+			local cutoffSize = 20
+			local denominator = 5
+
+			if selectionSize > cutoffSize then
+				magnitudePercent = magnitudePercent * ((selectionSize - cutoffSize) / denominator)
+			end
+		else
+			magnitudePercent = magnitudePercent * math.max(1, selectionSize / 5)
+		end
 	end
 
 	return brushOccupancy, magnitudePercent

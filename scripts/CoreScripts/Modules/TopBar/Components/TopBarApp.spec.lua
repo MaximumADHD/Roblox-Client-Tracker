@@ -28,17 +28,22 @@ return function()
 	NewPlayerGroupDetails.Name = "NewPlayerGroupDetails"
 	NewPlayerGroupDetails.Parent = RobloxReplicatedStorage
 
-	local FollowRelationshipChanged = Instance.new("RemoteEvent")
-	FollowRelationshipChanged.Name = "FollowRelationshipChanged"
-	FollowRelationshipChanged.Parent = RobloxReplicatedStorage
+	local FollowRelationshipChanged
+	local GetFollowRelationships
+	local NewFollower
+	if not game:GetFastFlag("RemoveInGameFollowingEvents") then
+		FollowRelationshipChanged = Instance.new("RemoteEvent")
+		FollowRelationshipChanged.Name = "FollowRelationshipChanged"
+		FollowRelationshipChanged.Parent = RobloxReplicatedStorage
 
-	local GetFollowRelationships = Instance.new("RemoteFunction")
-	GetFollowRelationships.Name = "GetFollowRelationships"
-	GetFollowRelationships.Parent = RobloxReplicatedStorage
+		GetFollowRelationships = Instance.new("RemoteFunction")
+		GetFollowRelationships.Name = "GetFollowRelationships"
+		GetFollowRelationships.Parent = RobloxReplicatedStorage
 
-	local NewFollower = Instance.new("RemoteEvent")
-	NewFollower.Name = "NewFollower"
-	NewFollower.Parent = RobloxReplicatedStorage
+		NewFollower = Instance.new("RemoteEvent")
+		NewFollower.Name = "NewFollower"
+		NewFollower.Parent = RobloxReplicatedStorage
+	end
 
 	local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 	local SendNotificationInfo = Instance.new("BindableEvent")

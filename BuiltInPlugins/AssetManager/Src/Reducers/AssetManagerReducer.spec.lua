@@ -53,6 +53,14 @@ return function()
 			expect(function()
 				SetAssets({ nextPageCursor = {}, })
 			end).to.throw()
+
+			expect(function()
+				SetAssets({}, "test string")
+			end).to.throw()
+
+			expect(function()
+				SetAssets({}, {})
+			end).to.throw()
 		end)
 
 		it("should not mutate the state", function()
@@ -62,6 +70,13 @@ return function()
 				previousPageCursor = "yeetpreviouscursor",
 			}))
 			expect(immutabilityPreserved).to.equal(true)
+
+			local immutabilityPreserved2 = testImmutability(AssetManagerReducer, SetAssets({
+				assets = { {name = "yeet3"}, { name = "yeet4", }},
+				nextPageCursor = "yeetnextcursor1",
+				previousPageCursor = "yeetpreviouscursor2",
+			}, 10))
+			expect(immutabilityPreserved2).to.equal(true)
 		end)
 
 		it("should set places", function()
@@ -97,6 +112,22 @@ return function()
 			state = AssetManagerReducer(state, SetAssets({assets = { "some yeet value", },}))
 			expect(state.assetsTable.nextPageCursor).to.equal(nil)
 			expect(state.assetsTable.previousPageCursor).to.equal(nil)
+		end)
+
+		it("should set the number of assets as index", function()
+			local r = Rodux.Store.new(AssetManagerReducer)
+			local state = r:getState()
+			expect(state.assetsTable.index).to.equal(0)
+
+			local a = tostring(math.random())
+			local b = tostring(math.random())
+			state = AssetManagerReducer(state, SetAssets({
+				assets = { "yeet" },
+				nextPageCursor = a,
+				previousPageCursor = b,
+			}, 1))
+
+			expect(state.assetsTable.index).to.equal(1)
 		end)
 	end)
 

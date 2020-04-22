@@ -5,6 +5,7 @@ local ContentProvider = game:GetService("ContentProvider")
 local UserInputService = game:GetService("UserInputService")
 local InsertService = game:GetService("InsertService")
 local StudioService = game:GetService("StudioService")
+local FFlagViewSelectorLightUpdate = game:DefineFastFlag("ViewSelectorLightUpdate", false)
 
 local DRAG_DELTA = 5
 local HALF_CUBE = 0.48
@@ -81,7 +82,11 @@ local function init()
 	for i = 1, #children do
 		local child = children[i]
 		if child.ClassName == "Part" or child.ClassName == "MeshPart" then
-			initialCFrames[child.Name] = model.CFrame:ToObjectSpace(child.CFrame)
+			if FFlagViewSelectorLightUpdate then
+				child.CFrame = model.CFrame:ToObjectSpace(child.CFrame) -- Move back to origin
+			else
+				initialCFrames[child.Name] = model.CFrame:ToObjectSpace(child.CFrame)
+			end
 		elseif child.ClassName == "Decal" then
 			local keyNormal = child.Name
 			local keyHover = child.Name .. "_hover"
@@ -95,6 +100,10 @@ local function init()
 			end
 			child.Texture = textureList.Normal[child.Name]
 		end
+	end
+
+	if FFlagViewSelectorLightUpdate then
+		model.CFrame = CFrame.new() -- Move back to origin
 	end
 
 	local dirToName = {"n", "0", "p"}
@@ -161,7 +170,9 @@ local function enableHighlight(obj)
 		obj.Texture = textureList.Hover[obj.Name]
 	else
 		obj.Transparency = 0.3
-		obj.CFrame = model.CFrame:ToWorldSpace(initialCFrames[obj.Name])
+		if not FFlagViewSelectorLightUpdate then
+			obj.CFrame = model.CFrame:ToWorldSpace(initialCFrames[obj.Name])
+		end
 	end
 end
 
@@ -214,6 +225,10 @@ local function onMouseMove(x, y)
 	local direction = cameraCFrame:VectorToWorldSpace(ray.Direction)
 	local origin = cameraCFrame:PointToWorldSpace(ray.Origin)
 	local point = getIntersectionPoint(origin, direction)
+
+	if FFlagViewSelectorLightUpdate then
+		point = getIntersectionPoint(ray.Origin, ray.Direction)
+	end
 
 	if point then
 		local name = getNameFromIntersectionPoint(point)
@@ -380,6 +395,17 @@ local function afterCamera(delta)
 		end
 	end
 
+	if FFlagViewSelectorLightUpdate then
+		local cf = currentCamera.CFrame
+		viewportCamera.CFrame = CFrame.fromMatrix(-cf.LookVector * CAMERA_DISTANCE, cf.RightVector, cf.UpVector, -cf.LookVector)
+		if viewportCamera.CFrame ~= cameraCFrame then
+			cameraCFrame = viewportCamera.CFrame
+			viewport.LightDirection = (cameraCFrame - cameraCFrame.Position):ToWorldSpace(CFrame.new(-1, -1, -1)).Position
+			updateXYZLabelPosition()
+			updateArrowButtons()
+		end
+		return
+	end
 	--[[
 		An ideal solution is to rotate the camera and light around the model
 		But currently ViewportFrame only supports fixed lighting

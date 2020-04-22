@@ -2376,6 +2376,115 @@
         {
             "Members": [
                 {
+                    "Category": "State",
+                    "MemberType": "Property",
+                    "Name": "Color",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Color3"
+                    }
+                },
+                {
+                    "Category": "State",
+                    "MemberType": "Property",
+                    "Name": "Decay",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Color3"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "Density",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "State",
+                    "MemberType": "Property",
+                    "Name": "Glare",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "State",
+                    "MemberType": "Property",
+                    "Name": "Haze",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "Offset",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "Atmosphere",
+            "Superclass": "Instance"
+        },
+        {
+            "Members": [
+                {
                     "Category": "Derived Data",
                     "MemberType": "Property",
                     "Name": "Axis",
@@ -11109,6 +11218,23 @@
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "IsEnabled",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "IsLocal",
                     "Security": {
                         "Read": "None",
                         "Write": "None"
@@ -26245,7 +26371,7 @@
                     "Name": "LightingChanged",
                     "Parameters": [
                         {
-                            "Name": "skyboxChanged",
+                            "Name": "skyChanged",
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "bool"
@@ -39004,6 +39130,35 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "RequestStreamAroundAsync",
+                    "Parameters": [
+                        {
+                            "Name": "position",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Vector3"
+                            }
+                        },
+                        {
+                            "Default": "0",
+                            "Name": "timeOut",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "double"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields"
+                    ]
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "WaitForDataReady",
                     "Parameters": [
                     ],
@@ -44801,6 +44956,13 @@
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "int"
+                            }
+                        },
+                        {
+                            "Name": "isLocalBreakpoint",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
                             }
                         }
                     ],
@@ -50883,6 +51045,23 @@
                     }
                 },
                 {
+                    "Category": "Script Editor",
+                    "MemberType": "Property",
+                    "Name": "Show Whitespace",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
                     "Category": "Explorer",
                     "MemberType": "Property",
                     "Name": "Show plus button on hover in Explorer",
@@ -51028,6 +51207,23 @@
                     "Category": "Script Editor Colors",
                     "MemberType": "Property",
                     "Name": "Warning Color",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Color3"
+                    }
+                },
+                {
+                    "Category": "Script Editor Colors",
+                    "MemberType": "Property",
+                    "Name": "Whitespace Color",
                     "Security": {
                         "Read": "None",
                         "Write": "None"
@@ -65790,136 +65986,140 @@
                     "Value": 55
                 },
                 {
-                    "Name": "DebuggerCurrentLine",
+                    "Name": "ScriptWhitespace",
                     "Value": 56
                 },
                 {
-                    "Name": "DebuggerErrorLine",
+                    "Name": "DebuggerCurrentLine",
                     "Value": 57
                 },
                 {
-                    "Name": "DiffFilePathText",
+                    "Name": "DebuggerErrorLine",
                     "Value": 58
                 },
                 {
-                    "Name": "DiffTextHunkInfo",
+                    "Name": "DiffFilePathText",
                     "Value": 59
                 },
                 {
-                    "Name": "DiffTextNoChange",
+                    "Name": "DiffTextHunkInfo",
                     "Value": 60
                 },
                 {
-                    "Name": "DiffTextAddition",
+                    "Name": "DiffTextNoChange",
                     "Value": 61
                 },
                 {
-                    "Name": "DiffTextDeletion",
+                    "Name": "DiffTextAddition",
                     "Value": 62
                 },
                 {
-                    "Name": "DiffTextSeparatorBackground",
+                    "Name": "DiffTextDeletion",
                     "Value": 63
                 },
                 {
-                    "Name": "DiffTextNoChangeBackground",
+                    "Name": "DiffTextSeparatorBackground",
                     "Value": 64
                 },
                 {
-                    "Name": "DiffTextAdditionBackground",
+                    "Name": "DiffTextNoChangeBackground",
                     "Value": 65
                 },
                 {
-                    "Name": "DiffTextDeletionBackground",
+                    "Name": "DiffTextAdditionBackground",
                     "Value": 66
                 },
                 {
-                    "Name": "DiffLineNum",
+                    "Name": "DiffTextDeletionBackground",
                     "Value": 67
                 },
                 {
-                    "Name": "DiffLineNumSeparatorBackground",
+                    "Name": "DiffLineNum",
                     "Value": 68
                 },
                 {
-                    "Name": "DiffLineNumNoChangeBackground",
+                    "Name": "DiffLineNumSeparatorBackground",
                     "Value": 69
                 },
                 {
-                    "Name": "DiffLineNumAdditionBackground",
+                    "Name": "DiffLineNumNoChangeBackground",
                     "Value": 70
                 },
                 {
-                    "Name": "DiffLineNumDeletionBackground",
+                    "Name": "DiffLineNumAdditionBackground",
                     "Value": 71
                 },
                 {
-                    "Name": "DiffFilePathBackground",
+                    "Name": "DiffLineNumDeletionBackground",
                     "Value": 72
                 },
                 {
-                    "Name": "DiffFilePathBorder",
+                    "Name": "DiffFilePathBackground",
                     "Value": 73
                 },
                 {
-                    "Name": "Separator",
+                    "Name": "DiffFilePathBorder",
                     "Value": 74
                 },
                 {
-                    "Name": "ButtonBorder",
+                    "Name": "Separator",
                     "Value": 75
                 },
                 {
-                    "Name": "ButtonText",
+                    "Name": "ButtonBorder",
                     "Value": 76
                 },
                 {
-                    "Name": "InputFieldBorder",
+                    "Name": "ButtonText",
                     "Value": 77
                 },
                 {
-                    "Name": "CheckedFieldBackground",
+                    "Name": "InputFieldBorder",
                     "Value": 78
                 },
                 {
-                    "Name": "CheckedFieldBorder",
+                    "Name": "CheckedFieldBackground",
                     "Value": 79
                 },
                 {
-                    "Name": "CheckedFieldIndicator",
+                    "Name": "CheckedFieldBorder",
                     "Value": 80
                 },
                 {
-                    "Name": "HeaderSection",
+                    "Name": "CheckedFieldIndicator",
                     "Value": 81
                 },
                 {
-                    "Name": "Midlight",
+                    "Name": "HeaderSection",
                     "Value": 82
                 },
                 {
-                    "Name": "StatusBar",
+                    "Name": "Midlight",
                     "Value": 83
                 },
                 {
-                    "Name": "DialogButton",
+                    "Name": "StatusBar",
                     "Value": 84
                 },
                 {
-                    "Name": "DialogButtonText",
+                    "Name": "DialogButton",
                     "Value": 85
                 },
                 {
-                    "Name": "DialogButtonBorder",
+                    "Name": "DialogButtonText",
                     "Value": 86
                 },
                 {
-                    "Name": "DialogMainButton",
+                    "Name": "DialogButtonBorder",
                     "Value": 87
                 },
                 {
-                    "Name": "DialogMainButtonText",
+                    "Name": "DialogMainButton",
                     "Value": 88
+                },
+                {
+                    "Name": "DialogMainButtonText",
+                    "Value": 89
                 }
             ],
             "Name": "StudioStyleGuideColor"

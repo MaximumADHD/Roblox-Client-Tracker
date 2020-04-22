@@ -34,6 +34,7 @@ local FFlagEmotesMenuRemoveOpenKeybinds = settings():GetFFlag("EmotesMenuRemoveO
 local FFlagTopBarMoreMenuDontCloseMenu = game:DefineFastFlag("TopBarMoreMenuDontCloseMenu", false)
 
 local FFlagTopBarUseNewIcons = require(RobloxGui.Modules.Flags.FFlagTopBarUseNewIcons)
+local FFlagMinimizePlayerListWhenTopBarOpen = require(RobloxGui.Modules.Flags.FFlagMinimizePlayerListWhenTopBarOpen)
 
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
@@ -260,6 +261,10 @@ function MoreMenu:render()
 
 				onDismiss = function()
 					self.props.setMoreMenuOpen(false)
+					if FFlagMinimizePlayerListWhenTopBarOpen then
+						local PlayerListMaster = require(RobloxGui.Modules.PlayerList.PlayerListManager)
+						PlayerListMaster:SetMinimized(false)
+					end
 				end,
 			}),
 		}),
@@ -271,7 +276,11 @@ function MoreMenu:didUpdate(prevProps, prevState)
 		if FFlagUseRoactPlayerList then
 			--TODO: Move to top of script when removing FFlagUseRoactPlayerList
 			local PlayerListMaster = require(RobloxGui.Modules.PlayerList.PlayerListManager)
-			PlayerListMaster:HideTemp("TopBar", self.props.moreMenuOpen)
+			if FFlagMinimizePlayerListWhenTopBarOpen then
+				PlayerListMaster:SetMinimized(self.props.moreMenuOpen)
+			else
+				PlayerListMaster:HideTemp("TopBar", self.props.moreMenuOpen)
+			end
 		else
 			local PlayerlistModule = require(RobloxGui.Modules.PlayerlistModule)
 			PlayerlistModule:HideTemp("TopBar", self.props.moreMenuOpen)

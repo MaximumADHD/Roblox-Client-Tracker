@@ -289,6 +289,10 @@
                 "Default": "#FF0000"
             }
         }, {
+            "ScriptWhitespace": {
+                "Default": "#383838"
+            }
+        }, {
             "DebuggerCurrentLine": {
                 "Default": "#2A3C4C"
             }

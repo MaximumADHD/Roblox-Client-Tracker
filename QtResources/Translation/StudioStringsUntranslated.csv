@@ -55,7 +55,7 @@ Studio.App.AutocompleteMenu.MoreChildrenItemTextFmt1,,%1 more children...,%1 mor
 Studio.App.AutocompleteTooltip.FunctionNumberLabelTextFmt2,,%1 of %2,%1 of %2
 Studio.App.BetaFeatures.AnimationEditorDescription,,Enables the new Beta version of the Animation Editor.,Enables the new Beta version of the Animation Editor.
 Studio.App.BetaFeatures.AnimationEditorTitle,,Animation Editor Beta,Animation Editor Beta
-Studio.App.BetaFeatures.AssetManagerDescription,,Uses the new lua-based Asset Manager,Uses the new lua-based Asset Manager
+Studio.App.BetaFeatures.AssetManagerDescription,,"Manage your assets in a brand new widget, with new features. This replaces the Game Explorer.","Manage your assets in a brand new widget, with new features. This replaces the Game Explorer."
 Studio.App.BetaFeatures.AssetManageritle,,Asset Manager,Asset Manager
 Studio.App.BetaFeatures.AsyncPublishDescription,,Keep working in Studio as we publish in the background,Keep working in Studio as we publish in the background
 Studio.App.BetaFeatures.AsyncPublishTitle,,Async Publish Beta,Async Publish Beta
@@ -243,6 +243,13 @@ Studio.App.DataModelPackageManager.UnexpectedPlacementNewVersions,,Changing the 
 Studio.App.Debugger.PausedForDebugging,,Rendering is paused for debugging...,Rendering is paused for debugging...
 Studio.App.DebuggerClientManager.Disable,,Disable,Disable
 Studio.App.DebuggerClientManager.KeepBreakingOnError,,Keep breaking on error,Keep breaking on error
+Studio.App.DebuggerClientManager.RobloxLuaDebuggerCaughtError,,"The Roblox Lua Debugger caught an error and will now take you to the exception in the script.
+
+ You can modify this behavior, when a script is open, by going to the Script Menu tab and changing the 'Break On Error' settings. 
+","The Roblox Lua Debugger caught an error and will now take you to the exception in the script.
+
+ You can modify this behavior, when a script is open, by going to the Script Menu tab and changing the 'Break On Error' settings. 
+"
 Studio.App.DebuggerViewsManager.Breakpoints,,Breakpoints,Breakpoints
 Studio.App.DebuggerViewsManager.Watch,,Watch,Watch
 Studio.App.DeclarationView.BackEnd,,<b>Back-end: </b>This item can only be used from game servers and solo games.,<b>Back-end: </b>This item can only be used from game servers and solo games.
@@ -1010,6 +1017,7 @@ Studio.App.Property.ShowPluginGUIServiceInExplorer,,Show Plugin GUI Service in E
 Studio.App.Property.ShowPlusButtonOnHoverInExplorer,,Show plus button on hover in Explorer,Show plus button on hover in Explorer
 Studio.App.Property.ShowQTWarningsInOutput,,Show QT warnings in output,Show QT warnings in output
 Studio.App.Property.ShowRobloxPluginGUIServiceInExplorer,,Show Roblox Plugin GUI Service in Explorer,Show Roblox Plugin GUI Service in Explorer
+Studio.App.Property.ShowWhitespace,,Show Whitespace,Show Whitespace
 Studio.App.Property.SkipClosingBracketsAndQuotes,,Skip Closing Brackets and Quotes,Skip Closing Brackets and Quotes
 Studio.App.Property.SoftwareSound,,Software Sound,Software Sound
 Studio.App.Property.StringColor,,String Color,String Color
@@ -1031,6 +1039,7 @@ Studio.App.Property.VideoMemory,,Video Memory,Video Memory
 Studio.App.Property.VideoQuality,,Video Quality,Video Quality
 Studio.App.Property.WaitingThreadsBudget,,Waiting Threads Budget,Waiting Threads Budget
 Studio.App.Property.WarningColor,,Warning Color,Warning Color
+Studio.App.Property.WhitespaceColor,,Whitespace Color,Whitespace Color
 Studio.App.PropertyEnum.Aggregate,,Aggregate,Aggregate
 Studio.App.PropertyEnum.Always,,Always,Always
 Studio.App.PropertyEnum.Auto,,Auto,Auto
@@ -1175,6 +1184,7 @@ Studio.App.RBXMainWindow.ClearSelection,,Clear selection,Clear selection
 Studio.App.RBXMainWindow.ClearStats,,Clear Stats,Clear Stats
 Studio.App.RBXMainWindow.ClearTheCurrentSelection,,Clear the current selection,Clear the current selection
 Studio.App.RBXMainWindow.CloseAllScripts,,Close All Scripts,Close All Scripts
+Studio.App.RBXMainWindow.CloseInstanceDefaultEditorTooltip,,Close the window.,Close the window.
 Studio.App.RBXMainWindow.CollapseAll,,Collapse All,Collapse All
 Studio.App.RBXMainWindow.CollapseAllDiffResults,,Collapse all diff results,Collapse all diff results
 Studio.App.RBXMainWindow.CollapseAllFolds,,Collapse All Folds,Collapse All Folds
@@ -1273,6 +1283,7 @@ Studio.App.RBXMainWindow.InsertObjectsWidgetExplorer,,Open insert objects widget
 Studio.App.RBXMainWindow.InsertObjectsWidgetMenu,,Open insert object menu,Open insert object menu
 Studio.App.RBXMainWindow.InsertPart,,Insert Part,Insert Part
 Studio.App.RBXMainWindow.InsertServices,,Insert Services.,Insert Services.
+Studio.App.RBXMainWindow.InstanceDefaultsEditor,,Instance Defaults Editor,Instance Defaults Editor
 Studio.App.RBXMainWindow.InstanceDump,,Instance Dump,Instance Dump
 Studio.App.RBXMainWindow.JoinSurfacesCheck,,Join Surfaces Check,Join Surfaces Check
 Studio.App.RBXMainWindow.JumpsToFunction,,Jumps to the function after filter,Jumps to the function after filter
@@ -1359,7 +1370,9 @@ Studio.App.RBXMainWindow.Rename,,Rename,Rename
 Studio.App.RBXMainWindow.RenamesSelectedObject,,Renames selected object,Renames selected object
 Studio.App.RBXMainWindow.RenderStats,,Render Stats,Render Stats
 Studio.App.RBXMainWindow.ReplaceElps,,Replace...,Replace...
-Studio.App.RBXMainWindow.ResetDefaultInstanceProperties,,Reset Default Instance Properties,Reset Default Instance Properties
+Studio.App.RBXMainWindow.ResetAllInstanceDefaults,,Rest all instance defaults,Rest all instance defaults
+Studio.App.RBXMainWindow.ResetAllInstanceDefaultsTooltip,,Rest all instance defaults,Rest all instance defaults
+Studio.App.RBXMainWindow.ResetDefaultInstanceProperties,,Reset Instance Defaults,Reset Instance Defaults
 Studio.App.RBXMainWindow.ResetScriptZoom,,Reset Script Zoom,Reset Script Zoom
 Studio.App.RBXMainWindow.ResetView,,Reset View,Reset View
 Studio.App.RBXMainWindow.ResetWidgetToolbarPos,,Resets Widget and Toolbar position,Resets Widget and Toolbar position
@@ -1367,7 +1380,7 @@ Studio.App.RBXMainWindow.ResetsFontSize,,Resets font size,Resets font size
 Studio.App.RBXMainWindow.ResizeCustomIncrement,,Sets the resize grid to a custom increment,Sets the resize grid to a custom increment
 Studio.App.RBXMainWindow.ResizeObject,,Resize Object,Resize Object
 Studio.App.RBXMainWindow.ResizeTool,,Resize Tool,Resize Tool
-Studio.App.RBXMainWindow.ResumesExection,,Resumes execution after pausing,Resumes execution after pausing
+Studio.App.RBXMainWindow.ResumesExecution,,Resumes execution after pausing,Resumes execution after pausing
 Studio.App.RBXMainWindow.RightMotor,,Right Motor,Right Motor
 Studio.App.RBXMainWindow.RobloxStudio,,Roblox Studio,Roblox Studio
 Studio.App.RBXMainWindow.Rotate,,Rotate,Rotate
@@ -1412,11 +1425,11 @@ Studio.App.RBXMainWindow.SelectTheEntireDocument,,Select the entire document,Sel
 Studio.App.RBXMainWindow.Separate,,Separate,Separate
 Studio.App.RBXMainWindow.SeparateFusedSelection,,Separate parts from a fused selection,Separate parts from a fused selection
 Studio.App.RBXMainWindow.ServiceElps,,Service...,Service...
-Studio.App.RBXMainWindow.SetAsDefaultInstance,,Set as Default...,Set as Default...
+Studio.App.RBXMainWindow.SetAsInstanceDefault,,Set as Instance Default...,Set as Instance Default...
 Studio.App.RBXMainWindow.SetGridSizeTo16Studs,,Set Grid Size to 16 Studs,Set Grid Size to 16 Studs
 Studio.App.RBXMainWindow.SetGridSizeTo2Studs,,Set Grid Size to 2 Studs,Set Grid Size to 2 Studs
 Studio.App.RBXMainWindow.SetGridSizeTo4Studs,,Set Grid Size to 4 Studs,Set Grid Size to 4 Studs
-Studio.App.RBXMainWindow.SetSelectionAsDefault,,Set the Selection as the default for future newly created instances,Set the Selection as the default for future newly created instances
+Studio.App.RBXMainWindow.SetSelectionAsInstanceDefault,,Set the selection as the default for future created instances,Set the selection as the default for future created instances
 Studio.App.RBXMainWindow.SettingsElps,,Settings...,Settings...
 Studio.App.RBXMainWindow.ShowHelpForSelectedObject,,Show help for selected object,Show help for selected object
 Studio.App.RBXMainWindow.ShowListOfShortcutCommands,,Show list of shortcut commands,Show list of shortcut commands
@@ -1914,6 +1927,7 @@ Studio.App.RobloxTeamCreateWidget.TeamCreateOptions,,Team Create Options,Team Cr
 Studio.App.RobloxTeamCreateWidget.TurnOffTeamCreate,,Turn OFF Team Create,Turn OFF Team Create
 Studio.App.RobloxTextOutputWidget.ClearOutput,,Clear Output,Clear Output
 Studio.App.RobloxTextOutputWidget.Copy,,Copy,Copy
+Studio.App.RobloxTextOutputWidget.MaxTableDepthReached,,Max table depth reached,Max table depth reached
 Studio.App.RobloxTextOutputWidget.OpenLink,,Open link,Open link
 Studio.App.RobloxTextOutputWidget.SelectAll,,Select All,Select All
 Studio.App.RobloxTutorials.CopyText,,Build amazing games with Roblox Studio. No experience necessary!,Build amazing games with Roblox Studio. No experience necessary!
@@ -2016,6 +2030,7 @@ Studio.App.StartPageLogin.Username,,Username,Username
 Studio.App.StudioDataModelLoadUtil.ErrorCannotOpenTCPlaceDueToCancellation,,Failed to open the team create place due to cancellation,Failed to open the team create place due to cancellation
 Studio.App.StudioDataModelLoadUtil.ErrorCannotOpenTCPlaceDueToTimeout,,Failed to open the team create place due to timeout,Failed to open the team create place due to timeout
 Studio.App.StudioDataModelLoadUtil.ErrorCannotOpenTCPlaceGeneral,,"Failed to open the team create place, please try again","Failed to open the team create place, please try again"
+Studio.App.StudioFlagEditor.AppliesOverridesImmediately,,Saves and immediately applies overrides to running studio instance (unsafe).,Saves and immediately applies overrides to running studio instance (unsafe).
 Studio.App.StudioFlagEditor.CantExportOverrides,,"Error: Could not export overrides.
 There was an error opening the json file for writing. Check Studio logs for more details.","Error: Could not export overrides.
 There was an error opening the json file for writing. Check Studio logs for more details."
@@ -2028,6 +2043,8 @@ Studio.App.StudioFlagEditor.ExportSuccess,,Export Success,Export Success
 Studio.App.StudioFlagEditor.ExportSuccess1,,Success! Overrides exported to %1.,Success! Overrides exported to %1.
 Studio.App.StudioFlagEditor.ExportsAllOverrides,,Exports all current overrides to a portable ClientAppSettings.json file.,Exports all current overrides to a portable ClientAppSettings.json file.
 Studio.App.StudioFlagEditor.FlagEditor,,Flag Editor,Flag Editor
+Studio.App.StudioFlagEditor.FlagsApplied,,Flag Overrides Applied,Flag Overrides Applied
+Studio.App.StudioFlagEditor.FlagsHaveBeenApplied,,"Flag overrides changes have been applied dynamically, studio behavior may be unstable until the next restart.","Flag overrides changes have been applied dynamically, studio behavior may be unstable until the next restart."
 Studio.App.StudioFlagEditor.JsonFile,,JSON file (*.json),JSON file (*.json)
 Studio.App.StudioFlagEditor.NoLocalOverrides,,No local overrides were found on load. All values shown match the server values.,No local overrides were found on load. All values shown match the server values.
 Studio.App.StudioFlagEditor.SaveChangesCurrentBuild,,Save changes to the current Studio build.,Save changes to the current Studio build.
@@ -2130,7 +2147,7 @@ Studio.App.UploadTextureRequest.CouldNotReadTexture1FromTheDisk,,"Could not read
 Studio.App.UserPlaceCreatorsListWidget.Offline,User is offline,Offline,Offline
 Studio.App.UserPlaceCreatorsListWidget.PlaceOwner,User is owner of place,Place Owner,Place Owner
 Studio.App.UserPlaceCreatorsListWidget.PlaceOwnerOffline,User is owner of place and is offline,Place Owner (Offline),Place Owner (Offline)
-Studio.App.VersionHistoryController.ReadOnlyScriptDocMessageFmt3,,This version is read-only. <a href='%1://%2_%3'>Click here to edit.</a>,This version is read-only. <a href='%1://%2_%3'>Click here to edit.</a>
+Studio.App.VersionHistoryController.ReadOnlyScriptDocMessageFmt4,,This version is read-only. <a href='%1://%2_%3_%4'>Click here to edit.</a>,This version is read-only. <a href='%1://%2_%3_%4'>Click here to edit.</a>
 Studio.App.VersionHistoryController.ScriptEditErrorMessage,,Unable to edit script. Please try again.,Unable to edit script. Please try again.
 Studio.App.VersionHistoryDialog.BatchColumnTitle,,Scripts in Batch,Scripts in Batch
 Studio.App.VersionHistoryDialog.CommentColumnTitle,,Comment,Comment
@@ -2144,8 +2161,12 @@ Studio.App.VersionHistoryDialog.ConflictingScripts,,Conflicting Script(s),Confli
 Studio.App.VersionHistoryDialog.CurrentVersionLabel1,,%1 (Current),%1 (Current)
 Studio.App.VersionHistoryDialog.EditAllButtonText,,Edit all scripts from the batch,Edit all scripts from the batch
 Studio.App.VersionHistoryDialog.EditThisButtonText,,Edit this script,Edit this script
+Studio.App.VersionHistoryDialog.FailedToCompareScriptErrorMessage,,Failed to compare selected script(s). Please try again.,Failed to compare selected script(s). Please try again.
+Studio.App.VersionHistoryDialog.FailedToEditBatchErrorMessage,,Failed to edit scripts from the selected batch. Please try again.,Failed to edit scripts from the selected batch. Please try again.
+Studio.App.VersionHistoryDialog.FailedToEditScriptErrorMessage,,Failed to edit selected script version. Please try again.,Failed to edit selected script version. Please try again.
 Studio.App.VersionHistoryDialog.FailedToLoad,,Failed to load,Failed to load
 Studio.App.VersionHistoryDialog.FailedToLoadDataErrorMessage,,Failed to load data. Please close this dialog and try again.,Failed to load data. Please close this dialog and try again.
+Studio.App.VersionHistoryDialog.FailedToOpenScriptErrorMessage,,Failed to open selected script version. Please try again.,Failed to open selected script version. Please try again.
 Studio.App.VersionHistoryDialog.NoScriptChanges,,No script changes,No script changes
 Studio.App.VersionHistoryDialog.NoScriptHistoryWarning,,There is no saved history for this script,There is no saved history for this script
 Studio.App.VersionHistoryDialog.OpenDialog,,View Script History,View Script History

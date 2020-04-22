@@ -23,7 +23,7 @@
       <addseparator />
       <addaction name="fileSaveAction"/>
       <addaction name="fileSaveAsAction"/>
-      <addaction name="saveGameToRobloxAction"/>
+      <addaction name="savePlaceToRobloxAction"/>
       <addaction name="savePlaceToRobloxAsAction"/>
       <addaction name="publishToRobloxAction"/>
       <addaction name="publishToRobloxAsAction"/>
@@ -143,13 +143,13 @@
           <addaction text="Studio.App.RBXMainWindow.PlayHere" name="simulationPlayFromCameraAction" style="textundericon"  value="simulationPlayFromCameraAction" icon=":/RibbonBar/images/RibbonIcons/Test/Play-Solo-Camera.png" width="32" height="32"/>
           <addaction text="Studio.App.RBXMainWindow.Run" name="simulationRunAction" style="textundericon" value="simulationRunAction" icon=":/RibbonBar/images/RibbonIcons/Test/Run.png" width="32" height="32"/>
         </MenuPopupButton>
+        <addaction fflag="StudioEnableResume3" text="Studio.Common.Action.Resume" name="simulationResumeAction" style="textundericon"  value="simulationResumeAction" icon=":/RibbonBar/images/RibbonIcons/Test/Resume.png" width="32" height="32"/>
         <addaction name="simulationToggleAccuratePlaySoloAction"
             style="textundericon"
             text="Studio.App.RobloxRibbonMainWindow.CurrentClient"
             icon=":/RibbonBar/images/RibbonIcons/Test/gst_client_light.png"
             width="32"
             height="32"/>
-        <addaction name="simulationResumeAction" fflag="StudioEnableResume2" style="textundericon" text="Studio.Common.Action.Resume" icon=":/RibbonBar/images/RibbonIcons/Test/Resume.png" width="32" height="32"/>
         <addaction name="simulationResetAction" style="textundericon" text="Studio.Common.Action.Stop" icon=":/RibbonBar/images/RibbonIcons/Test/Stop.png" width="32" height="32"/>
       </Group>
       <Group name="Settings" text="Studio.App.RobloxRibbonMainWindow.Settings">
@@ -325,6 +325,7 @@
           <addaction text="Studio.App.RBXMainWindow.PlayHere" name="simulationPlayFromCameraAction" style="textundericon"  value="simulationPlayFromCameraAction" icon=":/RibbonBar/images/RibbonIcons/Test/Play-Solo-Camera.png" width="32" height="32"/>
           <addaction text="Studio.App.RBXMainWindow.Run" name="simulationRunAction" style="textundericon" value="simulationRunAction" icon=":/RibbonBar/images/RibbonIcons/Test/Run.png" width="32" height="32"/>
         </MenuPopupButton>
+        <addaction fflag="StudioEnableResume3" text="Studio.Common.Action.Resume" name="simulationResumeAction" style="textundericon"  value="simulationResumeAction" icon=":/RibbonBar/images/RibbonIcons/Test/Resume.png" width="32" height="32"/>
         <addaction name="simulationToggleAccuratePlaySoloAction"
             style="textundericon"
             text="Studio.App.RobloxRibbonMainWindow.CurrentClient"
@@ -332,7 +333,6 @@
             width="32"
             height="32"/>
         <addaction name="simulationPauseAction" style="textundericon" text="Studio.Common.Action.Pause" icon=":/RibbonBar/images/RibbonIcons/Test/Pause.png" width="32" height="32" />
-        <addaction name="simulationResumeAction" fflag="StudioEnableResume2" style="textundericon" text="Studio.Common.Action.Resume" icon=":/RibbonBar/images/RibbonIcons/Test/Resume.png" width="32" height="32"/>
         <addaction name="simulationResetAction" style="textundericon" text="Studio.Common.Action.Stop" icon=":/RibbonBar/images/RibbonIcons/Test/Stop.png" width="32" height="32"/>
       </Group>
       <Group name="Clients and Servers" text="Studio.App.RobloxRibbonMainWindow.ClientsAndServers">
@@ -497,6 +497,7 @@
           <addaction text="Studio.App.RBXMainWindow.PlayHere" name="simulationPlayFromCameraAction" style="textundericon"  value="simulationPlayFromCameraAction" icon=":/RibbonBar/images/RibbonIcons/Test/DEPRECATED_Play-Solo-Camera.png" width="32" height="32"/>
           <addaction text="Studio.App.RBXMainWindow.Run" name="simulationRunAction" style="textundericon" value="simulationRunAction" icon=":/RibbonBar/images/RibbonIcons/Test/Run.png" width="32" height="32"/>
         </MenuPopupButton>
+        <addaction fflag="StudioEnableResume3" text="Studio.Common.Action.Resume" name="simulationResumeAction" style="textundericon"  value="simulationResumeAction" icon=":/RibbonBar/images/RibbonIcons/Test/Resume.png" width="32" height="32"/>
         <addaction name="simulationToggleAccuratePlaySoloAction"
             style="textundericon"
             text="Studio.App.RobloxRibbonMainWindow.CurrentClient"
@@ -504,7 +505,6 @@
             width="32"
             height="32"/>
         <addaction name="simulationPauseAction" style="textundericon" text="Studio.Common.Action.Pause" icon=":/RibbonBar/images/RibbonIcons/Test/Pause.png" width="32" height="32" />
-        <addaction name="simulationResumeAction" fflag="StudioEnableResume2" style="textundericon" text="Studio.Common.Action.Resume" icon=":/RibbonBar/images/RibbonIcons/Test/Resume.png" width="32" height="32"/>
         <addaction name="simulationResetAction" style="textundericon" text="Studio.Common.Action.Stop" icon=":/RibbonBar/images/RibbonIcons/Test/Stop.png" width="32" height="32"/>
       </Group>
       <Group name="Debugger" text="Studio.App.RBXMainWindow.Debugger" debugOnly="true">

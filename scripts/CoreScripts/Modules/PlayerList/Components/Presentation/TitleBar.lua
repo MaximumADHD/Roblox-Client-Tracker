@@ -16,12 +16,16 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local GameTranslator = require(RobloxGui.Modules.GameTranslator)
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
+local FFlagMinimizePlayerListWhenTopBarOpen
+	= require(RobloxGui.Modules.Flags.FFlagMinimizePlayerListWhenTopBarOpen)
+
 local TitleBar = Roact.PureComponent:extend("TitleBar")
 
 TitleBar.validateProps = t.strictInterface({
 	Size = t.UDim2,
 	LayoutOrder = t.integer,
 	entrySize = t.integer,
+	contentsVisible = FFlagMinimizePlayerListWhenTopBarOpen and t.boolean or nil,
 
 	gameStats = t.array(t.strictInterface({
 		name = t.string,
@@ -90,6 +94,7 @@ function TitleBar:render()
 				BorderSizePixel = 0,
 			}, {
 				Divider = Roact.createElement("Frame", {
+					Visible = (not FFlagMinimizePlayerListWhenTopBarOpen) or self.props.contentsVisible,
 					Size = UDim2.new(1, 0, 0, 1),
 					Position = UDim2.new(0, 0, 1, 0),
 					AnchorPoint = Vector2.new(0, 1),
@@ -99,6 +104,7 @@ function TitleBar:render()
 				}),
 
 				ChildrenFrame = Roact.createElement("Frame", {
+					Visible = (not FFlagMinimizePlayerListWhenTopBarOpen) or self.props.contentsVisible,
 					BackgroundTransparency = 1,
 					Position = UDim2.new(0, 0, 0, -2), -- 2 pixel text offset due to 4 pixel rounded top.
 					Size = UDim2.new(1, 0, 1, 0),

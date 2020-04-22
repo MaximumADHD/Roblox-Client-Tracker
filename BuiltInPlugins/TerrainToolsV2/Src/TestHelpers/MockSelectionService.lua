@@ -1,5 +1,11 @@
+local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
+
 local Plugin = script.Parent.Parent.Parent
-local Signal = require(Plugin.Src.Util.Signal)
+
+local Framework = Plugin.Packages.Framework
+
+local FrameworkUtil = FFlagTerrainToolsUseDevFramework and require(Framework.Util) or nil
+local Signal = FFlagTerrainToolsUseDevFramework and FrameworkUtil.Signal or require(Plugin.Src.Util.Signal)
 
 local MockSelectionService = {}
 MockSelectionService.__index = MockSelectionService
@@ -19,7 +25,7 @@ end
 
 function MockSelectionService:Set(selection)
 	self._selection = selection
-	self.SelectionChanged:fire()
+	self.SelectionChanged:Fire()
 end
 
 return MockSelectionService

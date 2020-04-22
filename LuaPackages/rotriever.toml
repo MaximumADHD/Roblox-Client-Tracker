@@ -14,7 +14,7 @@ Cryo = "github.com/roblox/cryo@1.0"
 LuaChatDeps = { git = "https://github.rbx.com/Roblox/lua-chat-deps" }
 LuaDiscussionsDeps = { git = "https://github.rbx.com/Roblox/lua-discussions-deps" }
 LuaSocialLibrariesDeps = { git = "https://github.rbx.com/Roblox/lua-social-libraries-deps" }
-UIBlox = { git = "https://github.rbx.com/Roblox/uiblox", rev = "master" }
+UIBlox = { git = "https://github.com/Roblox/uiblox", rev = "master" }
 Otter = "github.com/roblox/otter@0.1"
 t = "github.com/roblox/t@1.0"
 enumerate = "github.com/roblox/enumerate@1.0.0"
@@ -32,6 +32,10 @@ InGameMenuDependencies = { git = "https://github.rbx.com/Roblox/in-game-menu-dep
 
 [dev_dependencies]
 TestEZ = "github.com/roblox/testez@0.1.1"
+
+[patch."https://github.rbx.com/roblox/uiblox"]
+git = "https://github.com/roblox/uiblox"
+rev = "master"
 
 [patch."https://github.com/roblox/roact"]
 target = "github.com/roblox/roact"

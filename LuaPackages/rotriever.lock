@@ -13,7 +13,7 @@ dependencies = [
     "LuaDiscussionsDeps LuaDiscussionsDeps f61ab8c8 git+https://github.rbx.com/roblox/lua-discussions-deps#master",
     "LuaSocialLibrariesDeps LuaSocialLibrariesDeps 3e3d8fd8 git+https://github.rbx.com/roblox/lua-social-libraries-deps#master",
     "Lumberyak roblox/lumberyak 4c383367 git+https://github.rbx.com/roblox/lumberyak#master",
-    "Otter roblox/otter 0.1.0 url+https://github.com/roblox/otter",
+    "Otter roblox/otter 0.1.1 url+https://github.com/roblox/otter",
     "PolicyProvider roblox/policy-provider 75d0bed6 git+https://github.rbx.com/roblox/lua-roact-policy-provider#master",
     "Promise lua-promise bbb9e162 git+https://github.rbx.com/roblox/lua-promise#master",
     "PurchasePrompt roblox/purchase-prompt 8ba294b0 git+https://github.com/roblox/purchasepromptscript-roact#master",
@@ -23,7 +23,7 @@ dependencies = [
     "RoactRodux roblox/roact-rodux 0.2.1 url+https://github.com/roblox/roact-rodux",
     "Rodux roblox/rodux 1.0.0 url+https://github.com/roblox/rodux",
     "TestEZ roblox/testez 0.1.1 url+https://github.com/roblox/testez",
-    "UIBlox UIBlox a86ea972 git+https://github.rbx.com/roblox/uiblox#master",
+    "UIBlox UIBlox dc121201 git+https://github.com/roblox/uiblox#master",
     "enumerate roblox/enumerate 1.0.0 url+https://github.com/roblox/enumerate",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
     "tutils tutils 74574fde git+https://github.rbx.com/roblox/tutils#master",
@@ -36,11 +36,11 @@ commit = "418c3417db143400ba270c6817106428b9c71b05"
 source = "git+https://github.rbx.com/roblox/in-game-menu-dependencies#master"
 dependencies = [
     "Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo",
-    "Otter roblox/otter 0.1.0 url+https://github.com/roblox/otter",
+    "Otter roblox/otter 0.1.1 url+https://github.com/roblox/otter",
     "Roact roblox/roact 1.2.0 url+https://github.com/roblox/roact",
     "RoactRodux roblox/roact-rodux 0.2.1 url+https://github.com/roblox/roact-rodux",
     "Rodux roblox/rodux 1.0.0 url+https://github.com/roblox/rodux",
-    "UIBlox UIBlox a86ea972 git+https://github.rbx.com/roblox/uiblox#master",
+    "UIBlox <patched> UIBlox dc121201 git+https://github.com/roblox/uiblox#master",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
 
@@ -103,13 +103,13 @@ dependencies = [
 [[package]]
 name = "UIBlox"
 version = "0.1.1"
-commit = "a86ea972e5f7116a1f5a3645c373bb9ac2ab27ec"
-source = "git+https://github.rbx.com/roblox/uiblox#master"
+commit = "dc1212016f75f88f999f3f06b0162d261c9618d6"
+source = "git+https://github.com/roblox/uiblox#master"
 dependencies = [
     "Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo",
     "FitFrame roblox/roact-fit-components 1.0.1 url+https://github.com/roblox/roact-fit-components",
     "InfiniteScroller roblox/infinite-scroller 0.4.3 url+https://github.com/roblox/infinite-scroller",
-    "Otter roblox/otter 0.1.0 url+https://github.com/roblox/otter",
+    "Otter roblox/otter 0.1.1 url+https://github.com/roblox/otter",
     "Roact roblox/roact 1.2.0 url+https://github.com/roblox/roact",
     "enumerate roblox/enumerate 1.0.0 url+https://github.com/roblox/enumerate",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
@@ -148,7 +148,7 @@ commit = "9887d0656789576639c74f0ae4c650f95cd23b5a"
 source = "git+https://github.rbx.com/roblox/roact-navigation#v0.1.1b"
 dependencies = [
     "Cryo <patched> roblox/cryo 1.0.0 url+https://github.com/roblox/cryo",
-    "Otter <patched> roblox/otter 0.1.0 url+https://github.com/roblox/otter",
+    "Otter <patched> roblox/otter 0.1.1 url+https://github.com/roblox/otter",
     "Roact Roact1xMigration 9f19eb8d git+https://github.rbx.com/pdoyle/roact-1x-migration#master",
 ]
 
@@ -182,7 +182,7 @@ source = "url+https://github.com/roblox/infinite-scroller"
 dependencies = [
     "Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo",
     "FitFrame roblox/roact-fit-components 1.0.1 url+https://github.com/roblox/roact-fit-components",
-    "Otter roblox/otter 0.1.0 url+https://github.com/roblox/otter",
+    "Otter roblox/otter 0.1.1 url+https://github.com/roblox/otter",
     "Roact roblox/roact 1.2.0 url+https://github.com/roblox/roact",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
@@ -195,7 +195,7 @@ source = "url+https://github.com/roblox/infinite-scroller"
 dependencies = [
     "Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo",
     "FitFrame roblox/roact-fit-components 1.0.1 url+https://github.com/roblox/roact-fit-components",
-    "Otter roblox/otter 0.1.0 url+https://github.com/roblox/otter",
+    "Otter roblox/otter 0.1.1 url+https://github.com/roblox/otter",
     "Roact roblox/roact 1.2.0 url+https://github.com/roblox/roact",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
@@ -221,8 +221,8 @@ source = "url+https://github.com/roblox/otter"
 
 [[package]]
 name = "roblox/otter"
-version = "0.1.0"
-commit = "acc8b912c1fe84be1c43ac6123bea5cb96ee98c4"
+version = "0.1.1"
+commit = "755ed412f9e75922aa02ea3df44fb834c4dca24d"
 source = "url+https://github.com/roblox/otter"
 
 [[package]]
@@ -248,11 +248,11 @@ source = "git+https://github.com/roblox/purchasepromptscript-roact#master"
 dependencies = [
     "Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo",
     "FitFrame roblox/roact-fit-components 1.0.1 url+https://github.com/roblox/roact-fit-components",
-    "Otter roblox/otter 0.1.0 url+https://github.com/roblox/otter",
+    "Otter roblox/otter 0.1.1 url+https://github.com/roblox/otter",
     "Roact roblox/roact 1.2.0 url+https://github.com/roblox/roact",
     "RoactRodux roblox/roact-rodux 0.2.1 url+https://github.com/roblox/roact-rodux",
     "Rodux roblox/rodux 1.0.0 url+https://github.com/roblox/rodux",
-    "UIBlox UIBlox a86ea972 git+https://github.rbx.com/roblox/uiblox#master",
+    "UIBlox <patched> UIBlox dc121201 git+https://github.com/roblox/uiblox#master",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
 
@@ -279,7 +279,7 @@ commit = "321ff0f63b0d4361d45a6f6f84eb24b6ddb81dc6"
 source = "url+https://github.com/roblox/roact-navigation"
 dependencies = [
     "Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo",
-    "Otter roblox/otter 0.1.0 url+https://github.com/roblox/otter",
+    "Otter roblox/otter 0.1.1 url+https://github.com/roblox/otter",
     "Roact roblox/roact 1.2.0 url+https://github.com/roblox/roact",
     "StateTable roblox/state-table 0.1.0 url+https://github.com/roblox/state-table",
 ]

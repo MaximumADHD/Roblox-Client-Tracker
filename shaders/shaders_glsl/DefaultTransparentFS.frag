@@ -72,7 +72,7 @@ void main()
     float f11 = f0.w;
     vec4 f12 = vec4(f10.x, f10.y, f10.z, vec4(0.0).w);
     f12.w = f11;
-    vec3 f13 = mix(CB0[14].xyz, sqrt(clamp(f12.xyz * CB0[15].y, vec3(0.0), vec3(1.0))).xyz, vec3(clamp((CB0[13].x * length(VARYING4.xyz)) + CB0[13].y, 0.0, 1.0)));
+    vec3 f13 = sqrt(clamp(mix(CB0[14].xyz, f12.xyz, vec3(clamp(exp2((CB0[13].z * length(VARYING4.xyz)) + CB0[13].x) - CB0[13].w, 0.0, 1.0))).xyz * CB0[15].y, vec3(0.0), vec3(1.0)));
     vec4 f14 = vec4(f13.x, f13.y, f13.z, f12.w);
     f14.w = f11;
     gl_FragData[0] = f14;

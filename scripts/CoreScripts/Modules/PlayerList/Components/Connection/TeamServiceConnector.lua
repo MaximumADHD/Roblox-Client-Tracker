@@ -1,5 +1,4 @@
 local CorePackages = game:GetService("CorePackages")
-local CoreGui = game:GetService("CoreGui")
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
@@ -24,9 +23,6 @@ local RemoveTeam = require(PlayerList.Actions.RemoveTeam)
 
 local EventConnection = require(script.Parent.EventConnection)
 
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local FFlagPlayerListPerformanceImprovements = require(RobloxGui.Modules.Flags.FFlagPlayerListPerformanceImprovements)
-
 local TeamServiceConnector = Roact.PureComponent:extend("TeamServiceConnector")
 
 function TeamServiceConnector:init()
@@ -36,14 +32,12 @@ function TeamServiceConnector:init()
 	}
 end
 
-if FFlagPlayerListPerformanceImprovements then
-	function TeamServiceConnector:didMount()
-		if self.state.teams then
-			for _, team in ipairs(self.state.teams:GetTeams()) do
-				self.props.addTeam(team)
-				for _, player in ipairs(team:GetPlayers()) do
-					self.props.addPlayerToTeam(player, team)
-				end
+function TeamServiceConnector:didMount()
+	if self.state.teams then
+		for _, team in ipairs(self.state.teams:GetTeams()) do
+			self.props.addTeam(team)
+			for _, player in ipairs(team:GetPlayers()) do
+				self.props.addPlayerToTeam(player, team)
 			end
 		end
 	end
@@ -143,12 +137,10 @@ if FFlagPlayerListFixTeamUpdates then
 	end
 end
 
-if FFlagPlayerListPerformanceImprovements then
-	function TeamServiceConnector:willUnmount()
-		if self.state.teams then
-			for _, team in ipairs(self.state.teams:GetTeams()) do
-				self.props.removeTeam(team)
-			end
+function TeamServiceConnector:willUnmount()
+	if self.state.teams then
+		for _, team in ipairs(self.state.teams:GetTeams()) do
+			self.props.removeTeam(team)
 		end
 	end
 end

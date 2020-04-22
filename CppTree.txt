@@ -327,6 +327,7 @@ RBX
 			{
 				StreamDataInfoItem
 				StreamDataItem
+				StreamPrefetchDataInfoItem
 				StreamTerrainItem
 			}
 			ChangeAttributeItem
@@ -381,6 +382,7 @@ RBX
 		DeserializedStatsItem
 		DeserializedStreamDataInfoItem
 		DeserializedStreamDataItem
+		DeserializedStreamPrefetchDataInfoItem
 		DeserializedTagItem
 		DeserializedTimeoutInfoRequestItem
 		DeserializedTouchItemS2
@@ -642,6 +644,7 @@ RBX
 	AssetFetchMediator
 	AssetService
 	AsyncHttpQueue
+	Atmosphere
 	Attachment
 	AttachmentDraggerTool
 	AttachmentTool
@@ -696,6 +699,7 @@ RBX
 	CameraZoomOutCommand
 	CanCollideVerb
 	CanNotSelectCommand
+	CapturedMouseCommand
 	ChangeHistoryService
 	CharacterAppearance
 	CharacterMesh

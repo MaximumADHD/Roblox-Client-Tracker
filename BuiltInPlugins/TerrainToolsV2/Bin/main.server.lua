@@ -6,7 +6,11 @@ end
 require(script.Parent.defineLuaFlags)
 local FFlagTerrainToolsConvertPartTool = game:GetFastFlag("TerrainToolsConvertPartTool")
 local FFlagTerrainToolsTerrainBrushNotSingleton = game:GetFastFlag("TerrainToolsTerrainBrushNotSingleton")
+local FFlagTerrainOpenCloseMetrics = game:GetFastFlag("TerrainOpenCloseMetrics")
 
+-- Services
+local AnalyticsService = game:GetService("RbxAnalyticsService")
+local StudioService = game:GetService("StudioService")
 -- libraries
 local Plugin = script.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -49,11 +53,21 @@ local PLUGIN_NAME = "TerrainToolsV2"
 local TOOLBAR_NAME = "TerrainToolsLuaToolbarName"
 local DOCK_WIDGET_PLUGIN_NAME = "TerrainTools_PluginGui"
 
+local OPEN_COUNTER
+local CLOSE_COUNTER
+local TOGGLE_COUNTER
+
+if FFlagTerrainOpenCloseMetrics then
+	OPEN_COUNTER = "TerrainToolsOpenWidget"
+	CLOSE_COUNTER = "TerrainToolsCloseWidget"
+	TOGGLE_COUNTER = "TerrainToolsToggleButton"
+end
+
 -- Plugin Specific Globals
 local dataStore = Rodux.Store.new(MainReducer, nil, {
 	getReportTerrainToolMetrics({
-		AnalyticsService = game:GetService("RbxAnalyticsService"),
-		StudioService = game:GetService("StudioService")
+		AnalyticsService = AnalyticsService,
+		StudioService = StudioService,
 	}),
 })
 
@@ -148,6 +162,13 @@ end
 
 local function toggleWidget()
 	pluginGui.Enabled = not pluginGui.Enabled
+	if FFlagTerrainOpenCloseMetrics then
+		AnalyticsService:ReportCounter(TOGGLE_COUNTER, 1)
+		AnalyticsService:SendEventDeferred("studio", "TerrainEditorV2", "ToggleWidget", {
+			userId = StudioService:GetUserId(),
+			placeId = game.PlaceId,
+		})
+	end
 end
 
 local function onWidgetFocused()
@@ -206,13 +227,27 @@ local function main()
 		localization:getText("Main", "ToolbarButton")
 	)
 
-	exampleButton.Click:connect(toggleWidget)
+	exampleButton.Click:Connect(toggleWidget)
 
 	local function showIfEnabled()
 		if pluginGui.Enabled then
 			openPluginWindow()
+			if FFlagTerrainOpenCloseMetrics then
+				AnalyticsService:ReportCounter(OPEN_COUNTER, 1)
+				AnalyticsService:SendEventDeferred("studio", "TerrainEditorV2", "OpenWidget", {
+					userId = StudioService:GetUserId(),
+					placeId = game.PlaceId,
+				})
+			end
 		else
 			closePluginWindow()
+			if FFlagTerrainOpenCloseMetrics then
+				AnalyticsService:ReportCounter(CLOSE_COUNTER, 1)
+					AnalyticsService:SendEventDeferred("studio", "TerrainEditorV2", "CloseWidget", {
+					userId = StudioService:GetUserId(),
+					placeId = game.PlaceId,
+				})
+			end
 		end
 
 		-- toggle the plugin UI
@@ -234,7 +269,7 @@ local function main()
 	pluginGui.Title = localization:getText("Main", "Title")
 
 	pluginGui.ZIndexBehavior = Enum.ZIndexBehavior.Global
-	pluginGui:GetPropertyChangedSignal("Enabled"):connect(showIfEnabled)
+	pluginGui:GetPropertyChangedSignal("Enabled"):Connect(showIfEnabled)
 
 	-- configure the widget and button if its visible
 	showIfEnabled()

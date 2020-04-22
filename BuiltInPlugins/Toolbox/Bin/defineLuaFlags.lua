@@ -18,7 +18,7 @@ game:DefineFastFlag("EnableNonWhitelistedToggle",false)
 game:DefineFastFlag("CMSTabErrorIcon", false)
 game:DefineFastFlag("EnablePurchaseV2", false)
 game:DefineFastFlag("CMSConsolidateAssetTypeInfo", false)
-game:DefineFastFlag("EnableDefaultSortFix", false)
+game:DefineFastFlag("EnableDefaultSortFix2", false)
 game:DefineFastFlag("EnableOverrideAssetCursorFix", false)
 -- Need to explicitly return something from a module
 -- Else you get an error "Module code did not return exactly one value"
@@ -27,5 +27,8 @@ game:DefineFastFlag("EnableToolboxAssetNameColorChange", false)
 game:DefineFastFlag("RemoveAudioEndorsedIcon", false)
 
 game:DefineFastFlag("StudioToolboxEnabledDevFramework", false)
+game:DefineFastFlag("EnableToolboxImpressionAnalytics", false)
+
+game:DefineFastFlag("AssetConfigDarkerScrollBar", false)
 
 return nil

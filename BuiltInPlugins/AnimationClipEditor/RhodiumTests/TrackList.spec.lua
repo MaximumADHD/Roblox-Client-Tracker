@@ -32,7 +32,7 @@ return function()
 		},
 	}
 
-	it("should display an element for every track", function()
+	itSKIP("should display an element for every track", function()
 		runTest(function(test)
 			local store = test:getStore()
 			local container = test:getContainer()
@@ -93,7 +93,7 @@ return function()
 		end)
 	end)
 
-	it("should toggle a track expanded state when its arrow is clicked", function()
+	itSKIP("should toggle a track expanded state when its arrow is clicked", function()
 		runTest(function(test)
 			local store = test:getStore()
 			local container = test:getContainer()
@@ -111,7 +111,7 @@ return function()
 		end)
 	end)
 
-	it("should toggle the selected track expanded state with the arrow keys", function()
+	itSKIP("should toggle the selected track expanded state with the arrow keys", function()
 		runTest(function(test)
 			local store = test:getStore()
 			local container = test:getContainer()

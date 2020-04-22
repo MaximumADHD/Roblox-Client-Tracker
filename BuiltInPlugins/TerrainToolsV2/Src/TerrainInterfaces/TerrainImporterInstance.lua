@@ -1,14 +1,20 @@
+local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
+
+local FFlagTerrainToolMetrics = settings():GetFFlag("TerrainToolMetrics")
+
 local Plugin = script.Parent.Parent.Parent
-local UILibrary = require(Plugin.Packages.UILibrary)
-local Signal = UILibrary.Util.Signal
+
+local Framework = Plugin.Packages.Framework
 local Cryo = require(Plugin.Packages.Cryo)
+local UILibrary = not FFlagTerrainToolsUseDevFramework and require(Plugin.Packages.UILibrary) or nil
+
+local FrameworkUtil = FFlagTerrainToolsUseDevFramework and require(Framework.Util) or nil
+local Signal = FFlagTerrainToolsUseDevFramework and FrameworkUtil.Signal or UILibrary.Util.Signal
 
 local Constants = require(Plugin.Src.Util.Constants)
 
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 local StudioService = game:GetService("StudioService")
-
-local FFlagTerrainToolMetrics = settings():GetFFlag("TerrainToolMetrics")
 
 local function validateImportSettingsOrWarn(importSettings, localization)
 	if tonumber(game.GameId) == 0 then
@@ -55,7 +61,7 @@ function TerrainImporter.new(options)
 
 	self._updateImportProgress = function(completionPercent)
 		self._importProgress = completionPercent
-		self._importProgressChanged:fire(completionPercent)
+		self._importProgressChanged:Fire(completionPercent)
 		if completionPercent >= 1 then
 			self:_setImporting(false)
 		end
@@ -67,11 +73,11 @@ function TerrainImporter.new(options)
 end
 
 function TerrainImporter:subscribeToImportingStateChanged(...)
-	return self._importingStateChanged:connect(...)
+	return self._importingStateChanged:Connect(...)
 end
 
 function TerrainImporter:subscribeToImportProgressChanged(...)
-	return self._importProgressChanged:connect(...)
+	return self._importProgressChanged:Connect(...)
 end
 
 function TerrainImporter:getImportProgress()
@@ -98,7 +104,7 @@ end
 function TerrainImporter:_setImporting(importing)
 	if importing ~= self._importing then
 		self._importing = importing
-		self._importingStateChanged:fire(importing)
+		self._importingStateChanged:Fire(importing)
 	end
 end
 

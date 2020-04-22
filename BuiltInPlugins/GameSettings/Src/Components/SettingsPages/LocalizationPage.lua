@@ -76,7 +76,6 @@ local function getAutomaticTranslationEntries(props, theme)
 					TextSize = theme.fontStyle.Smaller.TextSize,
 				}, {
 					ToggleButton = Roact.createElement(ToggleButton, {
-						Size = UDim2.new(0, theme.toggleButton.width, 0, theme.toggleButton.height),
 						Enabled = true,
 						IsOn = props.AutoTranslationSettings[languageCode] or false,
 						onToggle = props.AutoTranslationSettingChanged(props.AutoTranslationSettings, languageCode),
@@ -216,7 +215,6 @@ local function displayContents(page, localized, theme)
 			}),
 			ToggleButton = Roact.createElement(ToggleButton, {
 				LayoutOrder = 1,
-				Size = UDim2.new(0, theme.toggleButton.width, 0, theme.toggleButton.height),
 				Enabled = props.AutoTextCaptureEnabled ~= nil,
 				IsOn = props.AutoTextCaptureEnabled,
 
@@ -248,7 +246,6 @@ local function displayContents(page, localized, theme)
 			}),
 			ToggleButton = Roact.createElement(ToggleButton, {
 				LayoutOrder = 1,
-				Size = UDim2.new(0, theme.toggleButton.width, 0, theme.toggleButton.height),
 				Enabled = props.UseTranslatedContentEnabled ~= nil,
 				IsOn = props.UseTranslatedContentEnabled,
 

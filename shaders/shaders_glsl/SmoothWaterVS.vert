@@ -82,7 +82,7 @@ void main()
     VARYING3 = (vec2(dot(v0, CB2[v8 * 1 + 0].xyz), dot(v0, CB2[(18 + v8) * 1 + 0].xyz)) * 0.0500000007450580596923828125) + (vec2(TEXCOORD0.w, floor(TEXCOORD0.w * 2.6651442050933837890625)) * 0.100000001490116119384765625);
     VARYING4 = (vec2(dot(v0, CB2[v9 * 1 + 0].xyz), dot(v0, CB2[(18 + v9) * 1 + 0].xyz)) * 0.0500000007450580596923828125) + (vec2(TEXCOORD1.w, floor(TEXCOORD1.w * 2.6651442050933837890625)) * 0.100000001490116119384765625);
     VARYING5 = ((v0 + (v1 * 6.0)).yxz * CB0[16].xyz) + CB0[17].xyz;
-    VARYING6 = vec4(v1, (CB0[13].x * length(v6)) + CB0[13].y);
+    VARYING6 = vec4(v1, clamp(exp2((CB0[13].z * length(v6)) + CB0[13].x) - CB0[13].w, 0.0, 1.0));
     VARYING7 = vec4(v6, v4.w);
 }
 

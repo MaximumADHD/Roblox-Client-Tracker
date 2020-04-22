@@ -1,8 +1,15 @@
 --[[
 	Provides a fake implementation of functions and objects exposed through the 'plugin' keyword
 ]]
+
+local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
+
 local Plugin = script.Parent.Parent.Parent
-local Signal = require(Plugin.Src.Util.Signal)
+
+local Framework = Plugin.Packages.Framework
+
+local FrameworkUtil = FFlagTerrainToolsUseDevFramework and require(Framework.Util) or nil
+local Signal = FFlagTerrainToolsUseDevFramework and FrameworkUtil.Signal or require(Plugin.Src.Util.Signal)
 
 local MockMouse = require(script.Parent.MockMouse)
 
@@ -68,7 +75,7 @@ do
 		mdwpg[key] = value
 
 		-- call the property change event
-		mdwpg._signals[key]:fire(value)
+		mdwpg._signals[key]:Fire(value)
 	end
 
 	function MockDockWidgetPluginGui.new(title, widgetInfo)
@@ -178,7 +185,7 @@ function MockPlugin:Deactivate()
 	end
 	self._activated = false
 	self._activatedWithExclusiveMouse = false
-	self.Deactivation:fire()
+	self.Deactivation:Fire()
 end
 
 return MockPlugin

@@ -20,6 +20,7 @@ local FriendDropDownButton = require(script.Parent.FriendDropDownButton)
 
 local LocalPlayer = Players.LocalPlayer
 local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp") --todo: remove with FFlagUsePolicyServiceForCoreScripts
+local FFlagDisableFollowInGameMenu = game:DefineFastFlag("DisableFollowInGameMenu", false)
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
@@ -29,9 +30,6 @@ local PolicyService = require(RobloxGui.Modules.Common.PolicyService)
 local Images = UIBlox.App.ImageSet.Images
 
 local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
-
-local FFlagPlayerListBetterDropDownPositioning = require(RobloxGui.Modules.Flags.FFlagPlayerListBetterDropDownPositioning)
-local FFlagPlayerListUseUIBloxIcons = require(CoreGui.RobloxGui.Modules.Flags.FFlagPlayerListUseUIBloxIcons)
 
 local PlayerList = Components.Parent
 
@@ -92,9 +90,7 @@ function PlayerDropDown:init()
 		end
 	end)
 
-	if FFlagPlayerListBetterDropDownPositioning then
-		self.dropDownPosition = 0
-	end
+	self.dropDownPosition = 0
 end
 
 function PlayerDropDown:createFriendButton(playerRelationship)
@@ -112,14 +108,8 @@ function PlayerDropDown:createFollowButton(playerRelationship)
 	local selectedPlayer = self.props.selectedPlayer
 	local unfollowText = RobloxTranslator:FormatByKey("PlayerDropDown.UnFollow")
 	local followText = RobloxTranslator:FormatByKey("PlayerDropDown.Follow")
-	local followerIcon
-	if FFlagPlayerListUseUIBloxIcons then
-		followerIcon = playerRelationship.isFollowing and Images["icons/common/notificationOn"]
-			or Images["icons/common/notificationOff"]
-	else
-		followerIcon = playerRelationship.isFollowing and "rbxasset://textures/ui/PlayerList/NotificationOn.png"
-			or "rbxasset://textures/ui/PlayerList/NotificationOff.png"
-	end
+	local followerIcon = playerRelationship.isFollowing and Images["icons/common/notificationOn"]
+		or Images["icons/common/notificationOff"]
 	return Roact.createElement(DropDownButton, {
 		layoutOrder = 2,
 		text = playerRelationship.isFollowing and unfollowText or followText,
@@ -140,12 +130,8 @@ function PlayerDropDown:createBlockButton(playerRelationship)
 	local selectedPlayer = self.props.selectedPlayer
 	local blockedText = RobloxTranslator:FormatByKey("PlayerDropDown.Block")
 	local unblockText = RobloxTranslator:FormatByKey("PlayerDropDown.UnBlock")
-	local blockIcon
-	if FFlagPlayerListUseUIBloxIcons then
-		blockIcon = Images["icons/actions/block"]
-	else
-		blockIcon = "rbxasset://textures/ui/PlayerList/Block.png"
-	end
+	local blockIcon = Images["icons/actions/block"]
+
 	return Roact.createElement(DropDownButton, {
 		layoutOrder = 4,
 		text = playerRelationship.isBlocked and unblockText or blockedText,
@@ -164,12 +150,8 @@ end
 
 function PlayerDropDown:createReportButton()
 	local selectedPlayer = self.props.selectedPlayer
-	local reportIcon
-	if FFlagPlayerListUseUIBloxIcons then
-		reportIcon = Images["icons/actions/feedback"]
-	else
-		reportIcon = "rbxasset://textures/ui/PlayerList/Report.png"
-	end
+	local reportIcon = Images["icons/actions/feedback"]
+
 	return Roact.createElement(DropDownButton, {
 		layoutOrder = 5,
 		text = RobloxTranslator:FormatByKey("PlayerDropDown.Report"),
@@ -194,12 +176,8 @@ end
 
 function PlayerDropDown:createInspectButton()
 	local selectedPlayer = self.props.selectedPlayer
-	local inspectIcon
-	if FFlagPlayerListUseUIBloxIcons then
-		inspectIcon = Images["icons/actions/zoomIn"]
-	else
-		inspectIcon = "rbxasset://textures/ui/PlayerList/ViewAvatar.png"
-	end
+	local inspectIcon = Images["icons/actions/zoomIn"]
+
 	return Roact.createElement(DropDownButton, {
 		layoutOrder = 3,
 		text = RobloxTranslator:FormatByKey("PlayerDropDown.Examine"),
@@ -240,8 +218,10 @@ function PlayerDropDown:render()
 				dropDownButtons["FriendButton"] = self:createFriendButton(playerRelationship)
 				dropDownHeight = dropDownHeight + layoutValues.DropDownButtonPadding + layoutValues.DropDownButtonSizeY
 
-				dropDownButtons["FollowerButton"] = self:createFollowButton(playerRelationship)
-				dropDownHeight = dropDownHeight + layoutValues.DropDownButtonPadding + layoutValues.DropDownButtonSizeY
+				if not FFlagDisableFollowInGameMenu then
+					dropDownButtons["FollowerButton"] = self:createFollowButton(playerRelationship)
+					dropDownHeight = dropDownHeight + layoutValues.DropDownButtonPadding + layoutValues.DropDownButtonSizeY
+				end
 			end
 
 			local showPlayerBlocking = not FFlagChinaLicensingApp
@@ -269,12 +249,7 @@ function PlayerDropDown:render()
 
 		dropDownHeight = dropDownHeight - layoutValues.DropDownButtonPadding
 
-		local dropDownPosition
-		if FFlagPlayerListBetterDropDownPositioning then
-			dropDownPosition = self.dropDownPosition
-		else
-			dropDownPosition = self.props.positionY
-		end
+		local dropDownPosition = self.dropDownPosition
 		dropDownPosition = dropDownPosition + (layoutValues.DropDownHeaderBackgroundSize - layoutValues.DropDownHeaderSizeY)
 		if dropDownPosition + dropDownHeight > self.props.maxPositionBoundY then
 			dropDownPosition = dropDownPosition - (dropDownPosition + dropDownHeight - self.props.maxPositionBoundY)
@@ -307,11 +282,9 @@ function PlayerDropDown:didMount()
 	self.motor:setGoal(Otter.spring(targetPosition, self.motorOptions))
 end
 
-if FFlagPlayerListBetterDropDownPositioning then
-	function PlayerDropDown:willUpdate(nextProps, nextState)
-		if nextProps.selectedPlayer ~= self.props.selectedPlayer then
-			self.dropDownPosition = nextProps.positionY
-		end
+function PlayerDropDown:willUpdate(nextProps, nextState)
+	if nextProps.selectedPlayer ~= self.props.selectedPlayer then
+		self.dropDownPosition = nextProps.positionY
 	end
 end
 
@@ -332,7 +305,7 @@ end
 local function mapStateToProps(state)
 	local selectedPlayer = state.playerDropDown.selectedPlayer
 	return {
-		selectedPlayer = (not FFlagPlayerListBetterDropDownPositioning) and selectedPlayer or nil,
+		selectedPlayer = selectedPlayer,
 		isVisible = state.playerDropDown.isVisible,
 		playerRelationship = selectedPlayer and state.playerRelationship[selectedPlayer.UserId],
 		inspectMenuEnabled = state.displayOptions.inspectMenuEnabled,

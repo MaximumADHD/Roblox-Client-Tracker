@@ -16,14 +16,8 @@ local isNewInGameMenuEnabled = require(CoreGui.RobloxGui.Modules.isNewInGameMenu
 local FFlagXboxReportPlayerLocFix = require(CoreGui.RobloxGui.Modules.Flags.FFlagXboxReportPlayerLocFix)
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local FFlagPlayerListPerformanceImprovements = require(RobloxGui.Modules.Flags.FFlagPlayerListPerformanceImprovements)
 
-local TenFootSideBar
-if FFlagPlayerListPerformanceImprovements then
-	TenFootSideBar = Roact.PureComponent:extend("TenFootSideBar")
-else
-	TenFootSideBar = Roact.Component:extend("TenFootSideBar")
-end
+local TenFootSideBar = Roact.PureComponent:extend("TenFootSideBar")
 
 local function openPlatformProfileUI(platformId)
 	pcall(function()

@@ -48,17 +48,17 @@
 		end
 
 		function FooComponent:didMount()
-			self.pauseChangedConnection = self.operation.PausedChanged:connect(function(newPaused)
+			self.pauseChangedConnection = self.operation.PausedChanged:Connect(function(newPaused)
 				self:setState({
 					paused = newPaused,
 				})
 			end
-			self.runningChangedConnection = self.operation.RunningChanged:connect(function(newRunning)
+			self.runningChangedConnection = self.operation.RunningChanged:Connect(function(newRunning)
 				self:setState({
 					running = newRunning,
 				})
 			end)
-			self.progressChangedConnection = self.operation.ProgressChanged:connect(function(progress)
+			self.progressChangedConnection = self.operation.ProgressChanged:Connect(function(progress)
 				self:setState({
 					progress = progress,
 				})
@@ -68,9 +68,9 @@
 		end
 
 		function FooComponent:willUnmount()
-			self.pauseChanged:disconnect()
-			self.runningChangedConnection:disconnect()
-			self.progressChangedConnection:disconnect()
+			self.pauseChanged:Disconnect()
+			self.runningChangedConnection:Disconnect()
+			self.progressChangedConnection:Disconnect()
 			self.operation:destroy()
 		end
 
@@ -132,9 +132,16 @@
 			How long to wait between checking if the operation has resumed. Defaults to 0.1 seconds
 ]]
 
+local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
+
 local Plugin = script.Parent.Parent.Parent
-local UILibrary = require(Plugin.Packages.UILibrary)
-local Signal = UILibrary.Util.Signal
+
+local Framework = Plugin.Packages.Framework
+local UILibrary = not FFlagTerrainToolsUseDevFramework and require(Plugin.Packages.UILibrary) or nil
+
+local FrameworkUtil = FFlagTerrainToolsUseDevFramework and require(Framework.Util) or nil
+local Signal = FFlagTerrainToolsUseDevFramework and FrameworkUtil.Signal or UILibrary.Util.Signal
+
 local quickWait = require(Plugin.Src.Util.quickWait)
 
 local LongOperation = {}
@@ -211,8 +218,8 @@ function LongOperation:start(initialData)
 	self._hasStarted = true
 	self._isRunning = true
 	self._startTime = tick()
-	self.Started:fire()
-	self.RunningChanged:fire(true)
+	self.Started:Fire()
+	self.RunningChanged:Fire(true)
 
 	spawn(function()
 		self:_runOperation()
@@ -224,8 +231,8 @@ function LongOperation:pause()
 		return
 	end
 	self._isPaused = true
-	self.Paused:fire()
-	self.PausedChanged:fire(true)
+	self.Paused:Fire()
+	self.PausedChanged:Fire(true)
 end
 
 function LongOperation:resume()
@@ -233,8 +240,8 @@ function LongOperation:resume()
 		return
 	end
 	self._isPaused = false
-	self.Resumed:fire()
-	self.PausedChanged:fire(false)
+	self.Resumed:Fire()
+	self.PausedChanged:Fire(false)
 end
 
 function LongOperation:togglePause()
@@ -254,7 +261,7 @@ function LongOperation:cancel()
 		return
 	end
 	self._wasCanceled = true
-	self.Canceled:fire()
+	self.Canceled:Fire()
 end
 
 function LongOperation:getName()
@@ -300,7 +307,7 @@ end
 function LongOperation:_setProgress(progress)
 	if self._operationProgress ~= progress then
 		self._operationProgress = progress
-		self.ProgressChanged:fire(progress)
+		self.ProgressChanged:Fire(progress)
 	end
 end
 
@@ -427,9 +434,9 @@ function LongOperation:_runOperation()
 	self._isRunning = false
 	self._endTime = tick()
 
-	self.RunningChanged:fire(false)
+	self.RunningChanged:Fire(false)
 	self:_runCallback(self._onFinishFunc)
-	self.Finished:fire()
+	self.Finished:Fire()
 end
 
 return LongOperation

@@ -15,6 +15,15 @@ AdornSelfLitHighlightVS,Vertex
 AdornSelfLitVS,Vertex
 AdornUnlitFS,Fragment
 AdornVS,Vertex
+AdvSkyEnvFS,Fragment
+AdvSkyFS,Fragment
+AdvSkyLinearEnvFS,Fragment
+AdvSkyLinearFS,Fragment
+AdvSkyVS,Vertex
+AdvStarsFS,Fragment
+AdvStarsVS,Vertex
+AdvSunFS,Fragment
+AdvSunVS,Vertex
 Blur1FS,Fragment
 Blur3FS,Fragment
 Blur5FS,Fragment
@@ -196,7 +205,7 @@ ShadowEvsmVBlurLFS_5,Fragment
 ShadowEvsmVBlurLFS_7,Fragment
 ShadowEvsmVBlurLFS_9,Fragment
 SkyFS,Fragment
-SkyFSLinear,Fragment
+SkyLinearFS,Fragment
 SkyVS,Vertex
 SmoothClusterColoredFS,Fragment
 SmoothClusterColoredHQFS,Fragment

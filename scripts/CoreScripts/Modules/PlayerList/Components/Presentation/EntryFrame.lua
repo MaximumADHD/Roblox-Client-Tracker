@@ -1,12 +1,7 @@
 local CorePackages = game:GetService("CorePackages")
-local CoreGui = game:GetService("CoreGui")
 
 local Roact = require(CorePackages.Roact)
 local t = require(CorePackages.Packages.t)
-
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-
-local FFlagPlayerListFixTouchInputState = require(RobloxGui.Modules.Flags.FFlagPlayerListFixTouchInputState)
 
 local EntryFrame = Roact.PureComponent:extend("EntryFrame")
 
@@ -56,7 +51,7 @@ function EntryFrame:render()
 		[Roact.Event.MouseLeave] = self.props.onMouseLeave,
 		[Roact.Event.MouseButton1Down] = self.props.onMouseDown,
 		[Roact.Event.MouseButton1Up] = self.props.onInputEnded,
-		[Roact.Event.InputEnded] = FFlagPlayerListFixTouchInputState and function(rbx, input)
+		[Roact.Event.InputEnded] = function(rbx, input)
 			if input.UserInputType == Enum.UserInputType.Touch then
 				if self.props.onMouseLeave then
 					self.props.onMouseLeave()

@@ -26,7 +26,6 @@ local PlayerList = Components.Parent
 local ClosePlayerDropDown = require(PlayerList.Actions.ClosePlayerDropDown)
 local OpenPlayerDropDown = require(PlayerList.Actions.OpenPlayerDropDown)
 
-local FFlagPlayerListFixTouchInputState = require(RobloxGui.Modules.Flags.FFlagPlayerListFixTouchInputState)
 local FFlagPlayerListMorePerfImprovements = require(RobloxGui.Modules.Flags.FFlagPlayerListMorePerfImprovements)
 
 local PlayerEntry = Roact.PureComponent:extend("PlayerEntry")
@@ -82,16 +81,6 @@ function PlayerEntry:init()
 		else
 			self.props.openDropDown(self.props.player)
 		end
-		if not FFlagPlayerListFixTouchInputState then
-			coroutine.wrap(function()
-				-- Need to wait here as the state is updated before the props
-				-- Without the wait it briefly flashes to hover and then selected.
-				wait(0)
-				self:setState({
-					isPressed = false,
-				})
-			end)()
-		end
 	end
 
 	self.onSelectionGained = function()
@@ -125,12 +114,10 @@ function PlayerEntry:init()
 		})
 	end
 
-	if FFlagPlayerListFixTouchInputState then
-		self.onInputEnded = function()
-			self:setState({
-				isPressed = false,
-			})
-		end
+	self.onInputEnded = function()
+		self:setState({
+			isPressed = false,
+		})
 	end
 end
 
@@ -258,16 +245,6 @@ function PlayerEntry:render()
 					else
 						self.props.openDropDown(self.props.player)
 					end
-					if not FFlagPlayerListFixTouchInputState then
-						coroutine.wrap(function()
-							-- Need to wait here as the state is updated before the props
-							-- Without the wait it briefly flashes to hover and then selected.
-							wait(0)
-							self:setState({
-								isPressed = false,
-							})
-						end)()
-					end
 				end
 
 				onSelectionGained = function()
@@ -301,12 +278,10 @@ function PlayerEntry:render()
 					})
 				end
 
-				if FFlagPlayerListFixTouchInputState then
-					onInputEnded = function()
-						self:setState({
-							isPressed = false,
-						})
-					end
+				onInputEnded = function()
+					self:setState({
+						isPressed = false,
+					})
 				end
 			end
 
@@ -343,8 +318,7 @@ function PlayerEntry:render()
 					onMouseLeave = FFlagPlayerListMorePerfImprovements and self.onMouseLeave or onMouseLeave,
 
 					onMouseDown = FFlagPlayerListMorePerfImprovements and self.onMouseDown or onMouseDown,
-					onInputEnded = FFlagPlayerListMorePerfImprovements and self.onInputEnded
-						or (FFlagPlayerListFixTouchInputState and onInputEnded or nil),
+					onInputEnded = FFlagPlayerListMorePerfImprovements and self.onInputEnded or onInputEnded,
 
 					[Roact.Ref] = self.props[Roact.Ref]
 				}, {
@@ -402,8 +376,7 @@ function PlayerEntry:render()
 					onMouseLeave = FFlagPlayerListMorePerfImprovements and self.onMouseLeave or onMouseLeave,
 
 					onMouseDown = FFlagPlayerListMorePerfImprovements and self.onMouseDown or onMouseDown,
-					onInputEnded = FFlagPlayerListMorePerfImprovements and self.onInputEnded
-						or (FFlagPlayerListFixTouchInputState and onInputEnded or nil),
+					onInputEnded = FFlagPlayerListMorePerfImprovements and self.onInputEnded or onInputEnded,
 				})
 			end
 

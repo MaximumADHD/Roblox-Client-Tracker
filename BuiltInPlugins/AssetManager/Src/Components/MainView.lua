@@ -8,6 +8,7 @@
 
     Optional Properties:
 ]]
+local FFlagFixDisplayScriptsFolderInAssetManager = game:DefineFastFlag("FixDisplayScriptsFolderInAssetManager", false)
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -43,6 +44,8 @@ local MainView = Roact.PureComponent:extend("MainView")
 
 local defaultFoldersLoaded = false
 local universeNameSet = false
+local initialHasLinkedScriptValue = false
+
 local function createDefaultFileOverlayFolders(screen, parent, localization)
     local node = {
         ClassName = "Folder",
@@ -132,6 +135,31 @@ function MainView:willUnmount()
     end
 end
 
+function MainView:didUpdate()
+    if not FFlagFixDisplayScriptsFolderInAssetManager then
+        return
+    end
+
+    local props = self.props
+    local localization = props.Localization
+    local hasLinkedScripts = props.HasLinkedScripts
+
+    if not defaultFoldersLoaded or initialHasLinkedScriptValue ~= hasLinkedScripts then
+        for _, screen in pairs(Screens) do
+            if screen.Key ~= Screens.MAIN.Key then
+                -- Only show the scripts folder if this universe has linked scripts because they're deprecated.
+                if (screen.Key == Screens.SCRIPTS.Key and hasLinkedScripts) or screen.Key ~= Screens.SCRIPTS.Key then
+                    createDefaultFileOverlayFolders(screen, self.state.fileExplorerData, localization)
+                end
+            end
+        end
+        if hasLinkedScripts then
+            initialHasLinkedScriptValue = hasLinkedScripts
+        end
+        defaultFoldersLoaded = true
+    end
+end
+
 function MainView:render()
     local props = self.props
     local theme = props.Theme:get("Plugin")
@@ -143,16 +171,18 @@ function MainView:render()
 
     local layoutIndex = LayoutOrderIterator.new()
 
-    if not defaultFoldersLoaded then
-        for _, screen in pairs(Screens) do
-            if screen.Key ~= Screens.MAIN.Key then
-                -- Only show the scripts folder if this universe has linked scripts because they're deprecated.
-                if (screen.Key == Screens.SCRIPTS.Key and hasLinkedScripts) or screen.Key ~= Screens.SCRIPTS.Key then
-                    createDefaultFileOverlayFolders(screen, self.state.fileExplorerData, localization)
+    if not FFlagFixDisplayScriptsFolderInAssetManager then
+        if not defaultFoldersLoaded then
+            for _, screen in pairs(Screens) do
+                if screen.Key ~= Screens.MAIN.Key then
+                    -- Only show the scripts folder if this universe has linked scripts because they're deprecated.
+                    if (screen.Key == Screens.SCRIPTS.Key and hasLinkedScripts) or screen.Key ~= Screens.SCRIPTS.Key then
+                        createDefaultFileOverlayFolders(screen, self.state.fileExplorerData, localization)
+                    end
                 end
             end
+            defaultFoldersLoaded = true
         end
-        defaultFoldersLoaded = true
     end
 
     if universeName ~= "" and not universeNameSet then
@@ -237,6 +267,7 @@ function MainView:render()
             LayoutOrder = layoutIndex:getNextOrder(),
 
             OnOpenAssetPreview = self.openAssetPreview,
+            Enabled = not self.state.showOverlay,
         }),
     })
 end

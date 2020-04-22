@@ -85,7 +85,7 @@ void main()
     vec3 f14 = mix((min(f5 + (CB0[8].xyz + (CB0[9].xyz * f6)), vec3(CB0[16].w)) + (CB0[10].xyz * f4.y)) * CB3[1].xyz, (((f13 * f13) * CB0[15].x) * f6) + (f5 * 0.100000001490116119384765625), vec3((clamp(0.7799999713897705078125 - (2.5 * abs(dot(f11, f12))), 0.0, 1.0) + 0.300000011920928955078125) * CB3[2].z));
     vec4 f15 = vec4(f14.x, f14.y, f14.z, vec4(0.0).w);
     f15.w = 1.0;
-    vec3 f16 = mix(CB0[14].xyz, sqrt(clamp(f15.xyz * CB0[15].y, vec3(0.0), vec3(1.0))).xyz, vec3(clamp(VARYING6.w, 0.0, 1.0)));
+    vec3 f16 = sqrt(clamp(mix(CB0[14].xyz, f15.xyz, vec3(VARYING6.w)).xyz * CB0[15].y, vec3(0.0), vec3(1.0)));
     gl_FragData[0] = vec4(f16.x, f16.y, f16.z, f15.w);
 }
 

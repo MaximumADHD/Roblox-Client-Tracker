@@ -1,6 +1,12 @@
+local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
+
 local Plugin = script.Parent.Parent.Parent
-local UILibrary = require(Plugin.Packages.UILibrary)
-local Signal = UILibrary.Util.Signal
+
+local Framework = Plugin.Packages.Framework
+local UILibrary = not FFlagTerrainToolsUseDevFramework and require(Plugin.Packages.UILibrary) or nil
+
+local FrameworkUtil = FFlagTerrainToolsUseDevFramework and require(Framework.Util) or nil
+local Signal = FFlagTerrainToolsUseDevFramework and FrameworkUtil.Signal or UILibrary.Util.Signal
 
 local AxisLockedDragger = require(script.Parent.AxisLockedDragger)
 
@@ -10,8 +16,6 @@ local MIN_DRAG = 4
 local BORDER_BLOCKMESH = "BorderMesh"
 local BORDER_THICKNESS = 8
 local NORMALS = Enum.NormalId:GetEnumItems()
-
-local Workspace = game:GetService("Workspace")
 
 local LargeVoxelRegionPreview = {}
 LargeVoxelRegionPreview.__index = LargeVoxelRegionPreview
@@ -54,7 +58,7 @@ function LargeVoxelRegionPreview.new(mouse, target)
 			local z = sizeDiff.z ~= 0 and magnitude or self._size.z
 			self._size = Vector3.new(x, y, z)
 
-			self._onSizeChanged:fire(self._size, self._position)
+			self._onSizeChanged:Fire(self._size, self._position)
 
 			self:updateBlockMesh()
 			self:updateAdorns()

@@ -3,6 +3,21 @@ local function createAccessorySchema(attachmentName)
 	return {
 		ClassName = "Accessory",
 		_children = {
+			game:GetFastFlag("UGCAllowThumbnailConfiguration") and {
+				Name = "ThumbnailConfiguration",
+				ClassName = "Configuration",
+				_optional = true,
+				_children = {
+					{
+						Name = "ThumbnailCameraTarget",
+						ClassName = "ObjectValue",
+					},
+					{
+						Name = "ThumbnailCameraValue",
+						ClassName = "CFrameValue",
+					},
+				},
+			} or nil,
 			{
 				Name = "Handle",
 				ClassName = "Part",
@@ -23,11 +38,6 @@ local function createAccessorySchema(attachmentName)
 						ClassName = "TouchTransmitter",
 						_optional = true,
 					},
-					game:GetFastFlag("UGCAllowThumbnailCameraValue") and {
-						Name = "ThumbnailCameraValue",
-						ClassName = "CFrameValue",
-						_optional = true,
-					} or nil,
 				}
 			},
 		},

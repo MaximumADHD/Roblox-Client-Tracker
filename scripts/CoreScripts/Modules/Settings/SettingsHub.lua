@@ -47,6 +47,7 @@ local FFlagDisableAutoTranslateForKeyTranslatedContent = require(RobloxGui.Modul
 local FFlagCollectAnalyticsForSystemMenu = settings():GetFFlag("CollectAnalyticsForSystemMenu")
 local isNewTopBarEnabled = require(RobloxGui.Modules.TopBar.isNewTopBarEnabled)
 
+local FFlagTopBarFixCloseButtonMobile = game:DefineFastFlag("TopBarFixCloseButtonMobile", false)
 
 --[[ SERVICES ]]
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
@@ -637,6 +638,15 @@ local function CreateSettingsHub()
 			AnchorPoint = Vector2.new(0.5, 0.5),
 			Parent = this.Shield
 		}
+		if isNewTopBarEnabled() and FFlagTopBarFixCloseButtonMobile and not isTenFootInterface then
+			local topCornerInset = GuiService:GetGuiInset()
+			this.MenuContainerPadding = utility:Create'UIPadding'
+			{
+				PaddingTop = UDim.new(0, topCornerInset.Y),
+				Parent = this.MenuContainer,
+			}
+		end
+
         this.MenuListLayout = utility:Create'UIListLayout'
         {
             Name = "MenuListLayout",

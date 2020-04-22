@@ -44,7 +44,7 @@ return function()
 		},
 	}
 
-	it("should be able to undo and redo adding a keyframe", function()
+	itSKIP("should be able to undo and redo adding a keyframe", function()
 		runTest(function(test)
 			local store = test:getStore()
 			local container = test:getContainer()
@@ -81,7 +81,7 @@ return function()
 		end)
 	end)
 
-	it("should be able to undo and redo modifying a keyframe's value", function()
+	itSKIP("should be able to undo and redo modifying a keyframe's value", function()
 		runTest(function(test)
 			local store = test:getStore()
 			local container = test:getContainer()
@@ -190,7 +190,7 @@ return function()
 		end)
 	end)
 
-	it("should be able to undo and redo scaling keyframes", function()
+	itSKIP("should be able to undo and redo scaling keyframes", function()
 		runTest(function(test)
 			local store = test:getStore()
 			local container = test:getContainer()

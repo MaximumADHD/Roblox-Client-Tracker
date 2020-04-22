@@ -19,6 +19,7 @@ local Lighting = game:GetService("Lighting")
 local FFlagPluginAccessAndInstallationInStudio = settings():GetFFlag("PluginAccessAndInstallationInStudio")
 local FFlagEnableToolboxInsertWithJoin2 = settings():GetFFlag("EnableToolboxInsertWithJoin2")
 local FFlagStudioToolboxInsertAssetCategoryAnalytics = settings():GetFFlag("StudioToolboxInsertAssetCategoryAnalytics")
+local FFlagToolboxFixDecalInsert = settings():GetFFlag("ToolboxFixDecalInsert")
 
 local INSERT_MAX_SEARCH_DEPTH = 2048
 local INSERT_MAX_DISTANCE_AWAY = 64
@@ -83,8 +84,8 @@ local function insertAsset(assetId, assetName, insertToolPromise)
 
 		local newSelection = {}
 		for _, o in ipairs(assetInstance) do
-			if o:IsA("Sky") then
-				-- If it's a sky object, we will parrent it to lighting.
+			if o:IsA("Sky") or o:IsA("Atmosphere") then
+				-- If it's a sky or atmosphere object, we will parrent it to lighting.
 				-- No promise needed here.
 				o.Parent = Lighting
 			else
@@ -157,12 +158,18 @@ local function insertDecal(plugin, assetId, assetName)
 		local decal = tbl[1]
 		decal.Name = assetName
 
-		local dragSuccess = pcall(function()
-			plugin:StartDecalDrag(decal)
-		end)
-		if not dragSuccess then
-			decal.Parent = (Selection:Get() or {})[1] or Workspace
+		if FFlagToolboxFixDecalInsert then
+			decal.Parent = Workspace
 			Selection:Set({decal})
+		else
+			local dragSuccess = pcall(function()
+				plugin:StartDecalDrag(decal)
+			end)
+
+			if not dragSuccess then
+				decal.Parent = (Selection:Get() or {})[1] or Workspace
+				Selection:Set({decal})
+			end
 		end
 
 		return decal

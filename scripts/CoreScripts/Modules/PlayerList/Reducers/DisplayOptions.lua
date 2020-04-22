@@ -1,19 +1,13 @@
 local CorePackages = game:GetService("CorePackages")
 local VRService = game:GetService("VRService")
 local GuiService = game:GetService("GuiService")
-local CoreGui = game:GetService("CoreGui")
 
 local Rodux = require(CorePackages.Rodux)
 local Cryo = require(CorePackages.Cryo)
 
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-
-local FFlagPlayerListPerformanceImprovements = require(RobloxGui.Modules.Flags.FFlagPlayerListPerformanceImprovements)
-
 local Actions = script.Parent.Parent.Actions
 local SetPlayerListVisibility = require(Actions.SetPlayerListVisibility)
 local SetPlayerListEnabled = require(Actions.SetPlayerListEnabled)
-local SetTopBarEnabled = require(Actions.SetTopBarEnabled)
 local SetTempHideKey = require(Actions.SetTempHideKey)
 local SetPerformanceStatsVisible = require(Actions.SetPerformanceStatsVisible)
 local SetSmallTouchDevice = require(Actions.SetSmallTouchDevice)
@@ -21,8 +15,10 @@ local SetTenFootInterface = require(Actions.SetTenFootInterface)
 local SetInspectMenuEnabled = require(Actions.SetInspectMenuEnabled)
 local SetIsUsingGamepad = require(Actions.SetIsUsingGamepad)
 local SetHasPermissionToVoiceChat = require(Actions.SetHasPermissionToVoiceChat)
+local SetMinimized = require(Actions.SetMinimized)
 
 local initialDisplayOptions = {
+	isMinimized = false,
 	setVisible = true, --If the user wants the leaderboard visible or not
 	isVisible = true, --Visiblity based on all other display options
 	isSmallTouchDevice = false,
@@ -30,7 +26,6 @@ local initialDisplayOptions = {
 	vrEnabled = VRService.VREnabled,
 	inspectMenuEnabled = GuiService:GetInspectMenuEnabled(),
 	playerlistCoreGuiEnabled = true,
-	topbarEnabled = true, -- Remove with FFlagPlayerListPerformanceImprovements
 	isTenFootInterface = false,
 	isUsingGamepad = false,
 	hasPermissionToVoiceChat = false,
@@ -41,14 +36,8 @@ local function updateIsVisible(state)
 	state.isVisible = state.setVisible
 	-- Leaderboard visiblity is independent of coreGui options on console.
 	if not state.isTenFootInterface then
-		if FFlagPlayerListPerformanceImprovements then
-			state.isVisible = state.isVisible
-				and (not state.isSmallTouchDevice) and (not state.vrEnabled)
-		else
-			local playerlistEnabled = state.playerlistCoreGuiEnabled and state.topbarEnabled
-			state.isVisible = state.isVisible and playerlistEnabled
-				and (not state.isSmallTouchDevice) and (not state.vrEnabled)
-		end
+		state.isVisible = state.isVisible
+			and (not state.isSmallTouchDevice) and (not state.vrEnabled)
 	end
 	state.isVisible = state.isVisible and Cryo.isEmpty(state.tempHideKeys)
 	return state
@@ -66,12 +55,6 @@ local DisplayOptions = Rodux.createReducer(initialDisplayOptions, {
 			playerlistCoreGuiEnabled = action.isEnabled,
 		}))
 	end,
-
-	[SetTopBarEnabled.name] = (not FFlagPlayerListPerformanceImprovements) and function(state, action)
-		return updateIsVisible(Cryo.Dictionary.join(state, {
-			topbarEnabled = action.isEnabled,
-		}))
-	end or nil,
 
 	[SetTempHideKey.name] = function(state, action)
 		local tempHideValue = action.tempHideValue
@@ -123,6 +106,12 @@ local DisplayOptions = Rodux.createReducer(initialDisplayOptions, {
 	[SetHasPermissionToVoiceChat.name] = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			hasPermissionToVoiceChat = action.hasPermissionToVoiceChat,
+		})
+	end,
+
+	[SetMinimized.name] = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			isMinimized = action.isMinimized,
 		})
 	end,
 })

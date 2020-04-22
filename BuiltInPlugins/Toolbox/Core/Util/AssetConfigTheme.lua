@@ -411,6 +411,10 @@ function AssetConfigTheme:_recalculateTheme()
 				displayText = color(c.MainText, m.Selected),
 			}
 		},
+
+		scrollingFrame = game:GetFastFlag("AssetConfigDarkerScrollBar") and {
+			scrollbarColor = isDark and Color3.fromRGB(85, 85, 85) or Color3.fromRGB(245, 245, 245),
+		} or nil,
 	}
 
 	self:_updateUILibrary(styleGuide, overrides)

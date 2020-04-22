@@ -33,12 +33,12 @@ function AxisLockedDragger.new(mouse, initialPos, axis, clampingFunc)
 
 	-- on click, Button1Down event will be used to start listening loop
 	-- Button1Up is used reset all connections once position evaluation is done
-	self._connection1 = draggerAdorn.MouseButton1Down:connect(function()
+	self._connection1 = draggerAdorn.MouseButton1Down:Connect(function()
 		if not self._planeNormal then
 			self:updateCollisionPlaneNormal()
 
 			self._prevPosition = self._position
-			self._mouseUpConnect = self._mouse.Button1Up:connect(function()
+			self._mouseUpConnect = self._mouse.Button1Up:Connect(function()
 				self._mouseDown = false
 				if self._planeNormal then
 					self._planeNormal = nil

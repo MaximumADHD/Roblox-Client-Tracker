@@ -8,25 +8,23 @@ Props:
 	AllowAir : boolean = false - Whether to show Air in the materials grid
 ]]
 
+local FFlagTerrainToolsConvertPartTool = game:GetFastFlag("TerrainToolsConvertPartTool")
+local FFlagTerrainToolsTerrainBrushNotSingleton = game:GetFastFlag("TerrainToolsTerrainBrushNotSingleton")
+
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
+
 local Roact = require(Plugin.Packages.Roact)
 local UILibrary = require(Plugin.Packages.UILibrary)
 
-local TextService = game:GetService("TextService")
-
-local Localizing = UILibrary.Localizing
-local withLocalization = Localizing.withLocalization
-local Theme = require(Plugin.Src.ContextServices.Theming)
-local withTheme = Theme.withTheme
-
-local TexturePath = "rbxasset://textures/TerrainTools/"
+local withLocalization = UILibrary.Localizing.withLocalization
+local withTheme = require(Plugin.Src.ContextServices.Theming).withTheme
 
 local TerrainInterface = require(Plugin.Src.ContextServices.TerrainInterface)
 
-local MaterialDetails = require(Plugin.Src.Util.MaterialDetails)
+local TextService = game:GetService("TextService")
 
-local FFlagTerrainToolsConvertPartTool = game:GetFastFlag("TerrainToolsConvertPartTool")
-local FFlagTerrainToolsTerrainBrushNotSingleton = game:GetFastFlag("TerrainToolsTerrainBrushNotSingleton")
+local TexturePath = "rbxasset://textures/TerrainTools/"
+local MaterialDetails = require(Plugin.Src.Util.MaterialDetails)
 
 local materialsOrder
 if FFlagTerrainToolsConvertPartTool then
@@ -198,7 +196,7 @@ end
 function MaterialSelector:willUnmount()
 	if not FFlagTerrainToolsTerrainBrushNotSingleton then
 		if self.materialSelectedConnection then
-			self.materialSelectedConnection:disconnect()
+			self.materialSelectedConnection:Disconnect()
 			self.materialSelectedConnection = nil
 		end
 	end

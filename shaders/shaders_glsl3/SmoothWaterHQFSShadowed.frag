@@ -61,9 +61,9 @@ uniform vec4 CB3[3];
 uniform sampler2D ShadowAtlasTexture;
 uniform sampler3D LightMapTexture;
 uniform sampler3D LightGridSkylightTexture;
+uniform samplerCube PrefilteredEnvTexture;
 uniform sampler2D NormalMap1Texture;
 uniform sampler2D NormalMap2Texture;
-uniform samplerCube PrefilteredEnvTexture;
 
 in vec4 VARYING0;
 in vec3 VARYING1;
@@ -128,26 +128,29 @@ void main()
     float f46 = f41.x;
     float f47 = f41.y;
     float f48 = f41.z;
-    vec3 f49 = reflect(-f38, f37);
-    vec3 f50 = normalize(f1 + f38);
-    float f51 = f34 * f34;
-    float f52 = max(0.001000000047497451305389404296875, dot(f36, f50));
-    float f53 = dot(f1, f50);
-    float f54 = 1.0 - f53;
-    float f55 = f54 * f54;
-    float f56 = (f55 * f55) * f54;
-    float f57 = f51 * f51;
-    float f58 = (((f52 * f57) - f52) * f52) + 1.0;
-    vec3 f59 = mix(((min(f7 + (CB0[27].xyz + (CB0[28].xyz * f8)), vec3(CB0[16].w)) + (((((((CB0[35].xyz * f43) + (CB0[37].xyz * f44)) + (CB0[39].xyz * f45)) + (CB0[36].xyz * f46)) + (CB0[38].xyz * f47)) + (CB0[40].xyz * f48)) + (((((((CB0[29].xyz * f43) + (CB0[31].xyz * f44)) + (CB0[33].xyz * f45)) + (CB0[30].xyz * f46)) + (CB0[32].xyz * f47)) + (CB0[34].xyz * f48)) * f8))) + (CB0[10].xyz * f28)) * CB3[1].xyz, ((textureLod(PrefilteredEnvTexture, vec4(f49, 0.0).xyz, 0.0).xyz * mix(CB0[26].xyz, CB0[25].xyz, vec3(clamp(f49.y * 1.58823525905609130859375, 0.0, 1.0)))) * f8) + (f7 * 0.100000001490116119384765625), vec3(((clamp(0.7799999713897705078125 - (2.5 * abs(dot(f37, f38))), 0.0, 1.0) + 0.300000011920928955078125) * VARYING0.w) * CB3[2].z)) + (((((vec3(f56) + (vec3(0.0199999995529651641845703125) * (1.0 - f56))) * (((f57 + (f57 * f57)) / (((f58 * f58) * ((f53 * 3.0) + 0.5)) * ((f52 * 0.75) + 0.25))) * clamp(dot(f36, f1), 0.0, 1.0))) * CB0[10].xyz) * f28) * clamp(1.0 - (VARYING7.w * CB0[23].y), 0.0, 1.0));
-    vec4 f60 = vec4(f59.x, f59.y, f59.z, vec4(0.0).w);
-    f60.w = 1.0;
-    vec3 f61 = mix(CB0[14].xyz, sqrt(clamp(f60.xyz * CB0[15].y, vec3(0.0), vec3(1.0))).xyz, vec3(clamp(VARYING6.w, 0.0, 1.0)));
-    _entryPointOutput = vec4(f61.x, f61.y, f61.z, f60.w);
+    vec3 f49 = -f38;
+    vec3 f50 = reflect(f49, f37);
+    vec3 f51 = normalize(f1 + f38);
+    float f52 = f34 * f34;
+    float f53 = max(0.001000000047497451305389404296875, dot(f36, f51));
+    float f54 = dot(f1, f51);
+    float f55 = 1.0 - f54;
+    float f56 = f55 * f55;
+    float f57 = (f56 * f56) * f55;
+    float f58 = f52 * f52;
+    float f59 = (((f53 * f58) - f53) * f53) + 1.0;
+    vec3 f60 = mix(((min(f7 + (CB0[27].xyz + (CB0[28].xyz * f8)), vec3(CB0[16].w)) + (((((((CB0[35].xyz * f43) + (CB0[37].xyz * f44)) + (CB0[39].xyz * f45)) + (CB0[36].xyz * f46)) + (CB0[38].xyz * f47)) + (CB0[40].xyz * f48)) + (((((((CB0[29].xyz * f43) + (CB0[31].xyz * f44)) + (CB0[33].xyz * f45)) + (CB0[30].xyz * f46)) + (CB0[32].xyz * f47)) + (CB0[34].xyz * f48)) * f8))) + (CB0[10].xyz * f28)) * CB3[1].xyz, ((textureLod(PrefilteredEnvTexture, vec4(f50, 0.0).xyz, 0.0).xyz * mix(CB0[26].xyz, CB0[25].xyz, vec3(clamp(f50.y * 1.58823525905609130859375, 0.0, 1.0)))) * f8) + (f7 * 0.100000001490116119384765625), vec3(((clamp(0.7799999713897705078125 - (2.5 * abs(dot(f37, f38))), 0.0, 1.0) + 0.300000011920928955078125) * VARYING0.w) * CB3[2].z)) + (((((vec3(f57) + (vec3(0.0199999995529651641845703125) * (1.0 - f57))) * (((f58 + (f58 * f58)) / (((f59 * f59) * ((f54 * 3.0) + 0.5)) * ((f53 * 0.75) + 0.25))) * clamp(dot(f36, f1), 0.0, 1.0))) * CB0[10].xyz) * f28) * clamp(1.0 - (VARYING7.w * CB0[23].y), 0.0, 1.0));
+    vec4 f61 = vec4(f60.x, f60.y, f60.z, vec4(0.0).w);
+    f61.w = 1.0;
+    vec3 f62 = textureLod(PrefilteredEnvTexture, vec4(f49, 0.0).xyz, max(CB0[13].y, VARYING6.w) * 5.0).xyz;
+    bvec3 f63 = bvec3(CB0[13].w != 0.0);
+    vec3 f64 = sqrt(clamp(mix(vec3(f63.x ? CB0[14].xyz.x : f62.x, f63.y ? CB0[14].xyz.y : f62.y, f63.z ? CB0[14].xyz.z : f62.z), f61.xyz, vec3(VARYING6.w)).xyz * CB0[15].y, vec3(0.0), vec3(1.0)));
+    _entryPointOutput = vec4(f64.x, f64.y, f64.z, f61.w);
 }
 
 //$$ShadowAtlasTexture=s1
 //$$LightMapTexture=s6
 //$$LightGridSkylightTexture=s7
+//$$PrefilteredEnvTexture=s15
 //$$NormalMap1Texture=s0
 //$$NormalMap2Texture=s2
-//$$PrefilteredEnvTexture=s15

@@ -12,6 +12,7 @@ local BlurredModalPortal = require(script.Parent.BlurredModalPortal)
 local Pages = require(script.Parent.Pages)
 
 local FFlagInGameMenuSmallerSideBar = require(InGameMenu.Flags.FFlagInGameMenuSmallerSideBar)
+local FFlagFixMakeFriendsNavCrash = require(InGameMenu.Flags.FFlagFixMakeFriendsNavCrash)
 
 local pageComponents = {}
 for key, pageInfo in pairs(Pages.pagesByKey) do
@@ -105,6 +106,12 @@ function PageContainerSinglePane:didUpdate(oldProps, oldState)
 					[lastPage] = Otter.spring(1.25, {frequency = 2.5}),
 				})
 			end
+
+		elseif FFlagFixMakeFriendsNavCrash and Pages.pagesByKey[lastPage].navigationDepth == Pages.pagesByKey[currentPage].navigationDepth then
+			-- this is added temporarily to fix crash that caused by nav from invite friends to players in "Make Friends"
+			self.pageMotor:setGoal({
+				[lastPage] = Otter.spring(0, {frequency = 2.5}),
+			})
 		else
 
 			-- nav up/ nav to top

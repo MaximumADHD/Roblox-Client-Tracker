@@ -1,11 +1,8 @@
 local CorePackages = game:GetService("CorePackages")
 local ContextActionService = game:GetService("ContextActionService")
-local CoreGui = game:GetService("CoreGui")
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
-
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local Components = script.Parent.Parent
 local PlayerList = Components.Parent
@@ -13,8 +10,6 @@ local PlayerList = Components.Parent
 local TOGGLE_CONTEXT_ACTION_NAME = "RbxPlayerListToggle"
 local GAMEPAD_CLOSE_CONTEXT_ACTION_NAME = "RbxPlayerListGamepadClose"
 local GAMEPAD_STOP_MOVEMENT_ACTION_NAME = "RbxPlayerListStopMovement"
-
-local FFlagPlayerListPerformanceImprovements = require(RobloxGui.Modules.Flags.FFlagPlayerListPerformanceImprovements)
 
 local SetPlayerListVisibility = require(PlayerList.Actions.SetPlayerListVisibility)
 
@@ -84,31 +79,8 @@ function ContextActionsBinder:unbindActions()
 	self.boundPlayerListActions = false
 end
 
-if not FFlagPlayerListPerformanceImprovements then
-	function ContextActionsBinder:canBindActions()
-		if self.props.displayOptions.isTenFootInterface then
-			return true
-		end
-		return self.props.displayOptions.playerlistCoreGuiEnabled and self.props.displayOptions.topbarEnabled
-	end
-end
-
 function ContextActionsBinder:didMount()
-	if FFlagPlayerListPerformanceImprovements or self:canBindActions() then
-		self:bindActions()
-	end
-end
-
-if not FFlagPlayerListPerformanceImprovements then
-	function ContextActionsBinder:didUpdate()
-		if self:canBindActions() then
-			if not self.boundPlayerListActions then
-				self:bindActions()
-			end
-		elseif self.boundPlayerListActions then
-			self:unbindActions()
-		end
-	end
+	self:bindActions()
 end
 
 function ContextActionsBinder:render()

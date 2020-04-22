@@ -1,9 +1,11 @@
+local FFlagDedupePackagesInAssetManager = game:GetFastFlag("DedupePackagesInAssetManager")
+
 local Plugin = script.Parent.Parent.Parent
 local Cryo = require(Plugin.Packages.Cryo)
 
 local Action = require(Plugin.Packages.Framework.Util.Action)
 
-return Action(script.Name, function(assetsTable)
+return Action(script.Name, function(assetsTable, index)
 	assert(type(assetsTable) == "table", string.format("SetAssets requires a table, not %s", type(assetsTable)))
 
 	local assets = assetsTable.assets
@@ -25,6 +27,10 @@ return Action(script.Name, function(assetsTable)
 		assert(type(pageNumber) == "number",
 			string.format("SetAssets requires a number, not %s", type(pageNumber)))
 	end
+	if index then
+		assert(type(index) == "number",
+			string.format("SetAssets requires index to be a number, not %s", type(index)))
+	end
 
 	return {
 		assetsTable = {
@@ -32,6 +38,7 @@ return Action(script.Name, function(assetsTable)
 			nextPageCursor = nextPageCursor or Cryo.None,
 			previousPageCursor = previousPageCursor or Cryo.None,
 			pageNumber = pageNumber or Cryo.None,
-		}
+			index = (FFlagDedupePackagesInAssetManager and index ~= nil) and index or nil,
+		},
 	}
 end)

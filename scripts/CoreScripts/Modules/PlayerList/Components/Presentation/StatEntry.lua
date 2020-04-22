@@ -1,6 +1,5 @@
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
-local TextService = game:GetService("TextService")
 
 local Roact = require(CorePackages.Roact)
 local t = require(CorePackages.Packages.t)
@@ -18,9 +17,6 @@ local WithLayoutValues = LayoutValues.WithLayoutValues
 
 local PlayerList = Components.Parent
 local FormatStatString = require(PlayerList.FormatStatString)
-
-local FFlagPlayerListFixStatFlickering = game:GetFastFlag("PlayerListFixStatFlickering")
-local FFlagPlayerListFixTouchInputState = require(RobloxGui.Modules.Flags.FFlagPlayerListFixTouchInputState)
 
 local StatEntry = Roact.PureComponent:extend("StatEntry")
 
@@ -74,18 +70,7 @@ function StatEntry:render()
 				end
 			end
 
-			local statText
-			if FFlagPlayerListFixStatFlickering then
-				statText = FormatStatString(self.props.statValue)
-			else
-				statText = FormatStatString(self.props.statValue, --[[abbreviate = ]] false)
-				if type(self.props.statValue) == "number" then
-					local textArea = TextService:GetTextSize(statText, textSize, font, Vector2.new(1000, 1000))
-					if textArea.X > layoutValues.StatEntrySizeX - layoutValues.StatTextPadding then
-						statText = FormatStatString(self.props.statValue, --[[abbreviate = ]] true)
-					end
-				end
-			end
+			local statText = FormatStatString(self.props.statValue)
 
 			local statChildren = {}
 
@@ -155,7 +140,7 @@ function StatEntry:render()
 				[Roact.Event.MouseButton1Down] = self.props.onMouseDown,
 				[Roact.Event.MouseButton1Up] = self.props.onInputEnded,
 
-				[Roact.Event.InputEnded] = FFlagPlayerListFixTouchInputState and function(rbx, input)
+				[Roact.Event.InputEnded] = function(rbx, input)
 					if input.UserInputType == Enum.UserInputType.Touch then
 						if self.props.onMouseLeave then
 							self.props.onMouseLeave()
@@ -164,7 +149,7 @@ function StatEntry:render()
 							self.props.onInputEnded()
 						end
 					end
-				end or nil,
+				end,
 			}, {
 				DoubleOverLay = Roact.createElement("Frame", {
 					ZIndex = 1,

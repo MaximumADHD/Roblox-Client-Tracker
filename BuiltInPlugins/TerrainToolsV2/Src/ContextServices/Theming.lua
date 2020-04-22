@@ -1,6 +1,7 @@
 local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
+
 local Symbol = require(Plugin.Src.Util.Symbol)
 
 local pluginThemeKey = Symbol.named("PluginTheme")
@@ -34,7 +35,7 @@ function PluginThemeConsumer:init()
 end
 
 function PluginThemeConsumer:didMount()
-	self.themeConnection = self.pluginTheme.valuesChanged:connect(function(newValues)
+	self.themeConnection = self.pluginTheme.valuesChanged:Connect(function(newValues)
 		self:setState({
 			themeValues = newValues,
 		})
@@ -48,7 +49,7 @@ end
 
 function PluginThemeConsumer:willUnmount()
 	if self.themeConnection then
-		self.themeConnection:disconnect()
+		self.themeConnection:Disconnect()
 		self.themeConnection = nil
 	end
 end

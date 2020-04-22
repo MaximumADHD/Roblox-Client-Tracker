@@ -131,8 +131,8 @@ function InsertAsset:insertAsset(assetId, assetName, targetParent, insertToolEve
 
 		local newSelection = {}
 		for _, o in ipairs(assetInstance) do
-			if o:IsA("Sky") then
-				-- If it's a sky object, we will parrent it to lighting.
+			if o:IsA("Sky") or o:IsA("Atmosphere") then
+				-- If it's a sky or atmosphere object, we will parrent it to lighting.
 				-- No promise needed here.
 				o.Parent = self.Lighting
 			else

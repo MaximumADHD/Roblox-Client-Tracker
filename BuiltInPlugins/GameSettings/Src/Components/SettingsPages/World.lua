@@ -381,7 +381,7 @@ local function displayContents(page, localized)
 			mouse,
 			localized.Units.MetersPerSecond),
 		JumpDistance = createJumpDistanceWidgets(incrementNextLayoutOrder, props, localized),
-		MaxSlopeAngle = createInputRow(Flocalized.Title.Slope,
+		MaxSlopeAngle = createInputRow(localized.Title.Slope,
 			localized.Slope.Angle,
 			props.WorkspaceMaxSlopeAngle,
 			0,

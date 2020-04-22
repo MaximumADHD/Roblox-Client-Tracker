@@ -8,6 +8,7 @@ return Rodux.createReducer({
 	assetsTable = {
 		assets = {},
 		assetPreviewData = {},
+		index = 0,
 	},
 	bulkImporterRunning = false,
 	-- Contains list of assets that are currently editing keyed by id

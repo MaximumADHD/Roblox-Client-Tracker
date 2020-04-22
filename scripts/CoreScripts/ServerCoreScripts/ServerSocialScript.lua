@@ -44,18 +44,25 @@ local PlayerToGroupDetailsMap = {}
 -- Map of player to if they can manage the current place.
 local PlayerToCanManageMap = {}
 
+game:DefineFastFlag("RemoveInGameFollowingServer", false)
+
 --[[ Remotes ]]--
-local RemoteEvent_FollowRelationshipChanged = Instance.new('RemoteEvent')
-RemoteEvent_FollowRelationshipChanged.Name = "FollowRelationshipChanged"
-RemoteEvent_FollowRelationshipChanged.Parent = RobloxReplicatedStorage
+local RemoteEvent_FollowRelationshipChanged
+local RemoteEvent_NewFollower
+local RemoteFunc_GetFollowRelationships
+if not game:GetFastFlag("RemoveInGameFollowingServer") then
+	RemoteEvent_FollowRelationshipChanged = Instance.new('RemoteEvent')
+	RemoteEvent_FollowRelationshipChanged.Name = "FollowRelationshipChanged"
+	RemoteEvent_FollowRelationshipChanged.Parent = RobloxReplicatedStorage
 
-local RemoteEvent_NewFollower = Instance.new("RemoteEvent")
-RemoteEvent_NewFollower.Name = "NewFollower"
-RemoteEvent_NewFollower.Parent = RobloxReplicatedStorage
+	RemoteEvent_NewFollower = Instance.new("RemoteEvent")
+	RemoteEvent_NewFollower.Name = "NewFollower"
+	RemoteEvent_NewFollower.Parent = RobloxReplicatedStorage
 
-local RemoteFunc_GetFollowRelationships = Instance.new('RemoteFunction')
-RemoteFunc_GetFollowRelationships.Name = "GetFollowRelationships"
-RemoteFunc_GetFollowRelationships.Parent = RobloxReplicatedStorage
+	RemoteFunc_GetFollowRelationships = Instance.new('RemoteFunction')
+	RemoteFunc_GetFollowRelationships.Name = "GetFollowRelationships"
+	RemoteFunc_GetFollowRelationships.Parent = RobloxReplicatedStorage
+end
 
 local RemoteEvent_CanChatWith = Instance.new("RemoteEvent")
 RemoteEvent_CanChatWith.Name = "CanChatWith"
@@ -191,13 +198,15 @@ local function updateAndNotifyClients(resultTable, newUserIdStr, newPlayer)
 end
 
 --[[ Connections ]]--
-function RemoteFunc_GetFollowRelationships.OnServerInvoke(player)
-	local uid = player.UserId
-	local uidStr = tostring(player.UserId)
-	if uid and uid > 0 and PlayerToRelationshipMap[uidStr] then
-		return PlayerToRelationshipMap[uidStr]
-	else
-		return {}
+if not game:GetFastFlag("RemoveInGameFollowingServer") then
+	function RemoteFunc_GetFollowRelationships.OnServerInvoke(player)
+		local uid = player.UserId
+		local uidStr = tostring(player.UserId)
+		if uid and uid > 0 and PlayerToRelationshipMap[uidStr] then
+			return PlayerToRelationshipMap[uidStr]
+		else
+			return {}
+		end
 	end
 end
 
@@ -209,59 +218,61 @@ local function isPlayer(value)
 end
 
 -- client fires event to server on new follow
-RemoteEvent_NewFollower.OnServerEvent:connect(function(player1, player2, player1FollowsPlayer2)
-	if not isPlayer(player1) or not isPlayer(player2) or type(player1FollowsPlayer2) ~= "boolean" then
-		return
-	end
-
-	local userId1 = tostring(player1.UserId)
-	local userId2 = tostring(player2.UserId)
-
-	local user1map = PlayerToRelationshipMap[userId1]
-	local user2map = PlayerToRelationshipMap[userId2]
-
-	local sentNotificationsMap = FollowNotificationsBetweenMap[userId1]
-	if sentNotificationsMap then
-		if sentNotificationsMap[userId2] then
-			sentNotificationsMap[userId2] = sentNotificationsMap[userId2] + 1
-			if sentNotificationsMap[userId2] > MAX_FOLLOW_NOTIFICATIONS_BETWEEN then
-				-- This player is likely trying to spam the other player with notifications.
-				-- We won't send any more.
-				return
-			end
-		else
-			sentNotificationsMap[userId2] = 1
+if not game:GetFastFlag("RemoveInGameFollowingServer") then
+	RemoteEvent_NewFollower.OnServerEvent:connect(function(player1, player2, player1FollowsPlayer2)
+		if not isPlayer(player1) or not isPlayer(player2) or type(player1FollowsPlayer2) ~= "boolean" then
+			return
 		end
-	end
 
-	if user1map then
-		local relationTable = user1map[userId2]
-		if relationTable then
-			relationTable.IsFollowing = player1FollowsPlayer2
-			relationTable.IsMutual = relationTable.IsFollowing and relationTable.IsFollower
+		local userId1 = tostring(player1.UserId)
+		local userId2 = tostring(player2.UserId)
 
-			local delta = {}
-			delta[userId2] = relationTable
-			RemoteEvent_FollowRelationshipChanged:FireClient(player1, delta)
-			-- this should be updated, but current NotificationScript listens to this
-			if player1FollowsPlayer2 then
-				RemoteEvent_NewFollower:FireClient(player2, player1)
+		local user1map = PlayerToRelationshipMap[userId1]
+		local user2map = PlayerToRelationshipMap[userId2]
+
+		local sentNotificationsMap = FollowNotificationsBetweenMap[userId1]
+		if sentNotificationsMap then
+			if sentNotificationsMap[userId2] then
+				sentNotificationsMap[userId2] = sentNotificationsMap[userId2] + 1
+				if sentNotificationsMap[userId2] > MAX_FOLLOW_NOTIFICATIONS_BETWEEN then
+					-- This player is likely trying to spam the other player with notifications.
+					-- We won't send any more.
+					return
+				end
+			else
+				sentNotificationsMap[userId2] = 1
 			end
 		end
-	end
 
-	if user2map then
-		local relationTable = user2map[userId1]
-		if relationTable then
-			relationTable.IsFollower = player1FollowsPlayer2
-			relationTable.IsMutual = relationTable.IsFollowing and relationTable.IsFollower
+		if user1map then
+			local relationTable = user1map[userId2]
+			if relationTable then
+				relationTable.IsFollowing = player1FollowsPlayer2
+				relationTable.IsMutual = relationTable.IsFollowing and relationTable.IsFollower
 
-			local delta = {}
-			delta[userId1] = relationTable
-			RemoteEvent_FollowRelationshipChanged:FireClient(player2, delta)
+				local delta = {}
+				delta[userId2] = relationTable
+				RemoteEvent_FollowRelationshipChanged:FireClient(player1, delta)
+				-- this should be updated, but current NotificationScript listens to this
+				if player1FollowsPlayer2 then
+					RemoteEvent_NewFollower:FireClient(player2, player1)
+				end
+			end
 		end
-	end
-end)
+
+		if user2map then
+			local relationTable = user2map[userId1]
+			if relationTable then
+				relationTable.IsFollower = player1FollowsPlayer2
+				relationTable.IsMutual = relationTable.IsFollowing and relationTable.IsFollower
+
+				local delta = {}
+				delta[userId1] = relationTable
+				RemoteEvent_FollowRelationshipChanged:FireClient(player2, delta)
+			end
+		end
+	end)
+end
 
 local function sendPlayerAllGroupDetails(player)
 	for userId, groupDetails in pairs(PlayerToGroupDetailsMap) do
@@ -342,13 +353,18 @@ local function onPlayerAdded(newPlayer)
 	end
 
 	sendCanChatWith(newPlayer)
-	local uid = newPlayer.UserId
-	if uid > 0 then
-		local uidStr = tostring(uid)
-		FollowNotificationsBetweenMap[uidStr] = {}
-		local result = getFollowRelationshipsAsync(uid)
-		if result then
-			updateAndNotifyClients(result, uidStr, newPlayer)
+
+	if not game:GetFastFlag("RemoveInGameFollowingServer") then
+		local uid = newPlayer.UserId
+		if uid > 0 then
+			local uidStr = tostring(uid)
+			FollowNotificationsBetweenMap[uidStr] = {}
+
+			local result = getFollowRelationshipsAsync(uid)
+
+			if result then
+				updateAndNotifyClients(result, uidStr, newPlayer)
+			end
 		end
 	end
 end

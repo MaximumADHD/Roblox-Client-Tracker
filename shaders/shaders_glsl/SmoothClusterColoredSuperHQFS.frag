@@ -61,7 +61,7 @@ varying vec4 VARYING3;
 varying vec3 VARYING4;
 varying vec4 VARYING5;
 varying vec3 VARYING6;
-varying vec4 VARYING7;
+varying vec3 VARYING7;
 varying vec3 VARYING8;
 varying vec4 VARYING9;
 
@@ -112,11 +112,11 @@ void main()
     float f33 = f32.x;
     float f34 = f33 - f32.z;
     vec3 f35 = vec4(vec3(f34, f33, f34) + (vec3(f32.yzy) * vec3(1.0, 1.0, -1.0)), 0.0).xyz;
-    float f36 = clamp(1.0 - (VARYING7.w * CB0[23].y), 0.0, 1.0);
+    float f36 = clamp(1.0 - (VARYING5.w * CB0[23].y), 0.0, 1.0);
     float f37 = -VARYING6.x;
     vec2 f38 = (((texture2DGradARB(NormalMapTexture, f4, dFdx(f5), dFdy(f5)) * VARYING0.x) + (texture2DGradARB(NormalMapTexture, f7, dFdx(f8), dFdy(f8)) * VARYING0.y)) + (texture2DGradARB(NormalMapTexture, f1, dFdx(f3), dFdy(f3)) * VARYING0.z)).wy * 2.0;
     vec2 f39 = f38 - vec2(1.0);
-    vec3 f40 = vec3(dot(VARYING8, VARYING0.xyz));
+    vec3 f40 = vec3(dot(VARYING7, VARYING0.xyz));
     vec3 f41 = vec4(normalize(((mix(vec3(VARYING6.z, 0.0, f37), vec3(VARYING6.y, f37, 0.0), f40) * f39.x) + (mix(vec3(0.0, 1.0, 0.0), vec3(0.0, VARYING6.z, -VARYING6.y), f40) * f39.y)) + (VARYING6 * sqrt(clamp(1.0 + dot(vec2(1.0) - f38, f39), 0.0, 1.0)))), 0.0).xyz;
     vec4 f42 = ((texture2DGradARB(SpecularMapTexture, f4, dFdx(f5), dFdy(f5)) * VARYING0.x) + (texture2DGradARB(SpecularMapTexture, f7, dFdx(f8), dFdy(f8)) * VARYING0.y)) + (texture2DGradARB(SpecularMapTexture, f1, dFdx(f3), dFdy(f3)) * VARYING0.z);
     float f43 = clamp(dot(step(CB0[19].xyz, abs(VARYING4 - CB0[18].xyz)), vec3(1.0)), 0.0, 1.0);
@@ -128,7 +128,7 @@ void main()
     float f49 = (1.0 - ((step(f48.x, VARYING5.z) * clamp(CB0[24].z + (CB0[24].w * abs(VARYING5.z - 0.5)), 0.0, 1.0)) * f48.y)) * f47.y;
     float f50 = f42.y;
     vec3 f51 = -CB0[11].xyz;
-    vec3 f52 = normalize(f51 + normalize(VARYING7.xyz));
+    vec3 f52 = normalize(f51 + normalize(VARYING8));
     float f53 = dot(f41, f51);
     float f54 = clamp(f53, 0.0, 1.0);
     float f55 = f50 * f50;
@@ -143,7 +143,7 @@ void main()
     vec3 f64 = ((((((((vec3(1.0) - (f61 * (CB0[26].w * f36))) * CB0[10].xyz) * f54) + (CB0[12].xyz * clamp(-f53, 0.0, 1.0))) * f49) + min((f46.xyz * (f46.w * 120.0)).xyz + (CB0[8].xyz + (CB0[9].xyz * f47.x)), vec3(CB0[16].w))) + vec3((f42.z * 2.0) * f36)) * (f35 * f35).xyz) + (((((f61 * (((f62 + (f62 * f62)) / (((f63 * f63) * ((f57 * 3.0) + 0.5)) * ((f56 * 0.75) + 0.25))) * f54)) * CB0[10].xyz) * f49) * f36) * VARYING0.w);
     vec4 f65 = vec4(f64.x, f64.y, f64.z, vec4(0.0).w);
     f65.w = 1.0;
-    vec3 f66 = mix(CB0[14].xyz, sqrt(clamp(f65.xyz * CB0[15].y, vec3(0.0), vec3(1.0))).xyz, vec3(clamp(VARYING5.w, 0.0, 1.0)));
+    vec3 f66 = sqrt(clamp(mix(CB0[14].xyz, f65.xyz, vec3(clamp(exp2((CB0[13].z * VARYING5.w) + CB0[13].x) - CB0[13].w, 0.0, 1.0))).xyz * CB0[15].y, vec3(0.0), vec3(1.0)));
     gl_FragData[0] = vec4(f66.x, f66.y, f66.z, f65.w);
 }
 

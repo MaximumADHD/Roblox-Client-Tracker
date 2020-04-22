@@ -1,12 +1,13 @@
 local Plugin = script.Parent.Parent.Parent
+
 local TestHelpers = Plugin.Src.TestHelpers
-
-local PartSelectionModel = require(script.Parent.PartSelectionModel)
-local PartConverterUtil = require(Plugin.Src.Util.PartConverterUtil)
-
+local makeSettableValue = require(TestHelpers.makeSettableValue)
 local MockSelectionService = require(TestHelpers.MockSelectionService)
 local setEquals = require(TestHelpers.setEquals)
-local makeSettableValue = require(TestHelpers.makeSettableValue)
+
+local PartConverterUtil = require(Plugin.Src.Util.PartConverterUtil)
+
+local PartSelectionModel = require(script.Parent.PartSelectionModel)
 
 return function()
 	local function createPartSelectionModel()
@@ -158,8 +159,8 @@ return function()
 			expect(setEquals(selectedSet, {[v] = true, [m] = true})).to.equal(true)
 			-- selectedSet = {}
 
-			selectionConnection:disconnect()
-			deselectionConnection:disconnect()
+			selectionConnection:Disconnect()
+			deselectionConnection:Disconnect()
 			psm:destroy()
 		end)
 	end)

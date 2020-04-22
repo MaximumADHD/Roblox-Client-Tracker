@@ -8,10 +8,14 @@ local PlayerList = script.Parent.Parent
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 local SendNotification = RobloxGui:WaitForChild("SendNotificationInfo")
+local GetFFlagRemoveInGameFollowingEvents = require(RobloxGui.Modules.Flags.GetFFlagRemoveInGameFollowingEvents)
 
 -- We do this to surpress warnings when a client is slow to load the game.
 -- We only wait 5 minutes because we want warnings/errors if the event actually doesn't exist.
-local NewFollower = RobloxReplicatedStorage:WaitForChild("NewFollower", 300)
+local NewFollower
+if not GetFFlagRemoveInGameFollowingEvents() then
+	NewFollower = RobloxReplicatedStorage:WaitForChild("NewFollower", 300)
+end
 
 -- Actions
 local SetPlayerIsFollowing = require(PlayerList.Actions.SetPlayerIsFollowing)
@@ -51,7 +55,10 @@ local function FollowPlayer(player)
 					Image = "https://www.roblox.com/thumbs/avatar.ashx?userId=" ..followedUserId.. "&x=48&y=48",
 					Duration = 5,
 				})
-				NewFollower:FireServer(player, true)
+
+				if NewFollower then
+					NewFollower:FireServer(player, true)
+				end
 			end
 		end)()
 	end

@@ -1,10 +1,17 @@
 --[[
-	Manages calling plugin:Activate() and plugin:Deactivate() when we change tools, and listening to external plugin.Deactivation signals
+	Manages calling plugin:Activate() and plugin:Deactivate() when we change tools,
+	and listening to external plugin.Deactivation signals
 ]]
-local Plugin = script.Parent.Parent.Parent
-local UILibrary = require(Plugin.Packages.UILibrary)
 
-local Signal = UILibrary.Util.Signal
+local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
+
+local Plugin = script.Parent.Parent.Parent
+
+local Framework = Plugin.Packages.Framework
+local UILibrary = not FFlagTerrainToolsUseDevFramework and require(Plugin.Packages.UILibrary) or nil
+
+local FrameworkUtil = FFlagTerrainToolsUseDevFramework and require(Framework.Util) or nil
+local Signal = FFlagTerrainToolsUseDevFramework and FrameworkUtil.Signal or UILibrary.Util.Signal
 
 local Constants = require(Plugin.Src.Util.Constants)
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
@@ -58,11 +65,11 @@ function PluginActivationController:restoreSelectedTool()
 end
 
 function PluginActivationController:subscribeToToolActivated(...)
-	return self._onToolActivated:connect(...)
+	return self._onToolActivated:Connect(...)
 end
 
 function PluginActivationController:subscribeToToolDeactivated(...)
-	return self._onToolDeactivated:connect(...)
+	return self._onToolDeactivated:Connect(...)
 end
 
 function PluginActivationController:getActiveTool()
@@ -95,7 +102,7 @@ function PluginActivationController:activateTool(toolId)
 	end
 	self._pluginDeactivationConnection = self._plugin.Deactivation:Connect(self.onPluginDeactivation)
 
-	self._onToolActivated:fire(toolId)
+	self._onToolActivated:Fire(toolId)
 end
 
 -- Deactivates the current tool and plugin
@@ -116,7 +123,7 @@ function PluginActivationController:deactivateTool()
 		self._plugin:Deactivate()
 	end
 
-	self._onToolDeactivated:fire(oldTool)
+	self._onToolDeactivated:Fire(oldTool)
 end
 
 -- Deactivates the current tool, and deselects it

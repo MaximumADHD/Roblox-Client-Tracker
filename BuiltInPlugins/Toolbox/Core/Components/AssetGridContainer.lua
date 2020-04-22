@@ -17,6 +17,7 @@
 local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
 local FFlagEnableAudioPreview = settings():GetFFlag("EnableAudioPreview")
+local FFlagEnableDefaultSortFix = game:GetFastFlag("EnableDefaultSortFix2")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -273,6 +274,7 @@ function AssetGridContainer:render()
 			local state = self.state
 
 			local assetIds = props.assetIds
+			local currentTab = props.currentTab
 
 			local position = props.Position or UDim2.new(0, 0, 0, 0)
 			local size = props.Size or UDim2.new(1, 0, 1, 0)
@@ -283,7 +285,12 @@ function AssetGridContainer:render()
 			local previewAssetData = state.previewAssetData
 
 			local categoryIndex = props.categoryIndex
-			local isPackages = Category.categoryIsPackage(categoryIndex, categoryIsPackage)
+			local isPackages
+			if FFlagEnableDefaultSortFix then
+				isPackages = Category.categoryIsPackage(categoryIndex, currentTab)
+			else
+				isPackages = Category.categoryIsPackage(categoryIndex, categoryIsPackage)
+			end
 
 			local hoveredAssetId = modalStatus:canHoverAsset() and state.hoveredAssetId or 0
 			local isShowingToolMessageBox = state.isShowingToolMessageBox

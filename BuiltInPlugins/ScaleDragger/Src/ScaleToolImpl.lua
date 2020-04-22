@@ -17,6 +17,7 @@ local Roact = require(Plugin.Packages.Roact)
 -- Flags
 local getFFlagSinglePartAlwaysLocalSpace = require(Flags.getFFlagSinglePartAlwaysLocalSpace)
 local getFFlagMinScaleSizeFix = require(Flags.getFFlagMinScaleSizeFix)
+local getFFlagScaleAlwaysAnchors = require(Flags.getFFlagScaleAlwaysAnchors)
 
 -- Dragger Framework
 local Framework = Plugin.Packages.DraggerFramework
@@ -295,8 +296,12 @@ function ScaleToolImpl:mouseDown(mouseRay, handleId)
 	self._lastDeltaSize = Vector3.new(0, 0, 0)
 	self._lastGoodScale = Vector3.new(1, 1, 1)
 	self._jointMaker:pickUpParts(self._partsToResize)
-	if RunService:IsRunning() then
+	if getFFlagScaleAlwaysAnchors() then
 		self._jointMaker:anchorParts()
+	else
+		if RunService:IsRunning() then
+			self._jointMaker:anchorParts()
+		end
 	end
 	self._jointMaker:breakJointsToOutsiders()
 	self._jointMaker:disconnectInternalJoints()

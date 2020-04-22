@@ -1,6 +1,12 @@
+local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
+
 local Plugin = script.Parent.Parent.Parent
-local UILibrary = require(Plugin.Packages.UILibrary)
-local Signal = UILibrary.Util.Signal
+
+local Framework = Plugin.Packages.Framework
+local UILibrary = not FFlagTerrainToolsUseDevFramework and require(Plugin.Packages.UILibrary) or nil
+
+local FrameworkUtil = FFlagTerrainToolsUseDevFramework and require(Framework.Util) or nil
+local Signal = FFlagTerrainToolsUseDevFramework and FrameworkUtil.Signal or UILibrary.Util.Signal
 
 local SetHelper = require(Plugin.Src.Util.SetHelper)
 
@@ -53,15 +59,15 @@ function PartSelectionModel:getSelectionSet()
 end
 
 function PartSelectionModel:subscribeToSelectionStateChanged(...)
-	return self._selectionStateChanged:connect(...)
+	return self._selectionStateChanged:Connect(...)
 end
 
 function PartSelectionModel:subscribeToInstanceSelected(...)
-	return self._instanceSelected:connect(...)
+	return self._instanceSelected:Connect(...)
 end
 
 function PartSelectionModel:subscribeToInstanceDeselected(...)
-	return self._instanceDeselected:connect(...)
+	return self._instanceDeselected:Connect(...)
 end
 
 function PartSelectionModel:getValidInstancesSet()
@@ -101,14 +107,14 @@ function PartSelectionModel:_updateSelection()
 	-- All of our state should be updated before firing signals as they might query our state
 
 	for inst in pairs(newlySelected) do
-		self._instanceSelected:fire(inst)
+		self._instanceSelected:Fire(inst)
 	end
 
 	for inst in pairs(wasSelected) do
-		self._instanceDeselected:fire(inst)
+		self._instanceDeselected:Fire(inst)
 	end
 
-	self._selectionStateChanged:fire()
+	self._selectionStateChanged:Fire()
 end
 
 return PartSelectionModel

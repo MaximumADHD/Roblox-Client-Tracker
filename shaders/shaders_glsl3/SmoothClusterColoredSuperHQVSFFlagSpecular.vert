@@ -57,7 +57,7 @@ out vec4 VARYING3;
 out vec3 VARYING4;
 out vec4 VARYING5;
 out vec3 VARYING6;
-out vec4 VARYING7;
+out vec3 VARYING7;
 out vec3 VARYING8;
 out vec4 VARYING9;
 
@@ -93,10 +93,10 @@ void main()
     VARYING2 = vec4(TEXCOORD0.x, 0.0, TEXCOORD0.y, 0.0);
     VARYING3 = vec4(((v16 * sqrt(1.0 - (v17 * v17))) + (v16.yx * vec2(v17, -v17))) + (vec2(TEXCOORD1.w, floor(TEXCOORD1.w * 2.6651442050933837890625)) * CB2[v15 * 1 + 0].y), TEXCOORD0.z, 0.0);
     VARYING4 = ((v0 + (v1 * 6.0)).yxz * CB0[16].xyz) + CB0[17].xyz;
-    VARYING5 = vec4(dot(CB0[20], v2), dot(CB0[21], v2), dot(CB0[22], v2), (CB0[13].x * length(v5)) + CB0[13].y);
+    VARYING5 = vec4(dot(CB0[20], v2), dot(CB0[21], v2), dot(CB0[22], v2), length(v5));
     VARYING6 = v1;
-    VARYING7 = vec4(v5, v3.w);
-    VARYING8 = vec3(v21.x ? vec3(1.0).x : vec3(0.0).x, v21.y ? vec3(1.0).y : vec3(0.0).y, v21.z ? vec3(1.0).z : vec3(0.0).z);
+    VARYING7 = vec3(v21.x ? vec3(1.0).x : vec3(0.0).x, v21.y ? vec3(1.0).y : vec3(0.0).y, v21.z ? vec3(1.0).z : vec3(0.0).z);
+    VARYING8 = v5;
     VARYING9 = vec4(TEXCOORD0.xyz, 0.0);
 }
 

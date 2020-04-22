@@ -2,7 +2,6 @@
 	Connects relevant Roblox engine events to the rodux store
 ]]
 local CorePackages = game:GetService("CorePackages")
-local CoreGui = game:GetService("CoreGui")
 
 local Roact = require(CorePackages.Roact)
 
@@ -15,40 +14,19 @@ local GuiServiceConnector = require(script.Parent.GuiServiceConnector)
 local UserInputServiceConnector = require(script.Parent.UserInputServiceConnector)
 local ScreenSizeConnector = require(script.Parent.ScreenSizeConnector)
 
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local FFlagPlayerListPerformanceImprovements = require(RobloxGui.Modules.Flags.FFlagPlayerListPerformanceImprovements)
+local EventConnections = Roact.PureComponent:extend("EventConnections")
 
-if FFlagPlayerListPerformanceImprovements then
-	local EventConnections = Roact.PureComponent:extend("EventConnections")
-
-	function EventConnections:render()
-		return Roact.createFragment({
-			PlayerServiceConnector = Roact.createElement(PlayerServiceConnector),
-			TeamServiceConnector = Roact.createElement(TeamServiceConnector),
-			LeaderstatsConnector = Roact.createElement(LeaderstatsConnector),
-			CoreGuiConnector = Roact.createElement(CoreGuiConnector),
-			SocialConnector = Roact.createElement(SocialConnector),
-			GuiServiceConnector = Roact.createElement(GuiServiceConnector),
-			UserInputServiceConnector = Roact.createElement(UserInputServiceConnector),
-			ScreenSizeConnector = Roact.createElement(ScreenSizeConnector),
-		})
-	end
-
-	return EventConnections
-else
-	local function EventConnections()
-		-- TODO: Clean this up when Fragments are released.
-		return Roact.createElement("Folder", {}, {
-			PlayerServiceConnector = Roact.createElement(PlayerServiceConnector),
-			TeamServiceConnector = Roact.createElement(TeamServiceConnector),
-			LeaderstatsConnector = Roact.createElement(LeaderstatsConnector),
-			CoreGuiConnector = Roact.createElement(CoreGuiConnector),
-			SocialConnector = Roact.createElement(SocialConnector),
-			GuiServiceConnector = Roact.createElement(GuiServiceConnector),
-			UserInputServiceConnector = Roact.createElement(UserInputServiceConnector),
-			ScreenSizeConnector = Roact.createElement(ScreenSizeConnector),
-		})
-	end
-
-	return EventConnections
+function EventConnections:render()
+	return Roact.createFragment({
+		PlayerServiceConnector = Roact.createElement(PlayerServiceConnector),
+		TeamServiceConnector = Roact.createElement(TeamServiceConnector),
+		LeaderstatsConnector = Roact.createElement(LeaderstatsConnector),
+		CoreGuiConnector = Roact.createElement(CoreGuiConnector),
+		SocialConnector = Roact.createElement(SocialConnector),
+		GuiServiceConnector = Roact.createElement(GuiServiceConnector),
+		UserInputServiceConnector = Roact.createElement(UserInputServiceConnector),
+		ScreenSizeConnector = Roact.createElement(ScreenSizeConnector),
+	})
 end
+
+return EventConnections

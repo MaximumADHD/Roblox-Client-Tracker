@@ -13,6 +13,8 @@
 		function onClose = A callback for when the user clicks outside of the
 			preview to close it.
 ]]
+local FFlagEnableDefaultSortFix = game:GetFastFlag("EnableDefaultSortFix2")
+
 local StudioService = game:GetService("StudioService")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
@@ -342,6 +344,8 @@ function AssetPreviewWrapper:init(props)
 		local assetName = asset.Name
 		local assetTypeId = asset.TypeId
 
+		local categoryIndex = self.props.categoryIndex
+
 		if FFlagStudioToolboxPluginPurchaseFlow then
 			local owned = self.props.Owned
 			if not owned then
@@ -364,6 +368,7 @@ function AssetPreviewWrapper:init(props)
 			assetName = assetName,
 			assetTypeId = assetTypeId,
 			currentTab = self.props.currentTab,
+			categoryIndex = FFlagEnableDefaultSortFix and categoryIndex or nil,
 		})
 		if success then
 			self:setState({
@@ -616,6 +621,7 @@ local function mapStateToProps(state, props)
 	local voting = state.voting or {}
 
 	local stateToProps = {
+		categoryIndex = FFlagEnableDefaultSortFix and (pageInfo.categoryIndex or 1) or nil,
 		previewModel = previewModel or nil,
 		currentTab = pageInfo.currentTab or Category.MARKETPLACE_KEY,
 		assetVersionId = assetVersionId,

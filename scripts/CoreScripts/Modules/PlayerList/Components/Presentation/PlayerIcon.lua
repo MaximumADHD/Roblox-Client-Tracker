@@ -1,5 +1,4 @@
 local CorePackages = game:GetService("CorePackages")
-local CoreGui = game:GetService("CoreGui")
 
 local Roact = require(CorePackages.Roact)
 local UIBlox = require(CorePackages.UIBlox)
@@ -12,17 +11,7 @@ local WithLayoutValues = LayoutValues.WithLayoutValues
 
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
 
-local FFlagPlayerListUseUIBloxIcons = require(CoreGui.RobloxGui.Modules.Flags.FFlagPlayerListUseUIBloxIcons)
-
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local FFlagPlayerListPerformanceImprovements = require(RobloxGui.Modules.Flags.FFlagPlayerListPerformanceImprovements)
-
-local PlayerIcon
-if FFlagPlayerListPerformanceImprovements then
-	PlayerIcon = Roact.PureComponent:extend("PlayerIcon")
-else
-	PlayerIcon = Roact.Component:extend("PlayerIcon")
-end
+local PlayerIcon = Roact.PureComponent:extend("PlayerIcon")
 
 PlayerIcon.validateProps = t.strictInterface({
 	player = t.instanceIsA("Player"),
@@ -97,7 +86,7 @@ function PlayerIcon:render()
 				})
 			})
 		else
-			return Roact.createElement(FFlagPlayerListUseUIBloxIcons and ImageSetLabel or "ImageLabel", {
+			return Roact.createElement(ImageSetLabel, {
 				LayoutOrder = self.props.layoutOrder,
 				Size = layoutValues.PlayerIconSize,
 				BackgroundTransparency = 1,

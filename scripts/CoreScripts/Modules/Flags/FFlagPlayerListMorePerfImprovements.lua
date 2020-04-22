@@ -1,1 +1,1 @@
-return game:DefineFastFlag("PlayerListMorePerfImprovements", false)
+return game:DefineFastFlag("PlayerListMorePerfImprovements2", false)

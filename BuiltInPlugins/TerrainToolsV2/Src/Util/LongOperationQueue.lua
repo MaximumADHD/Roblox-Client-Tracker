@@ -5,14 +5,14 @@
 
 	Example:
 		local loq = LongOperationQueue.new()
-		loq.QueueRunningChanged:connect(function(running)
+		loq.QueueRunningChanged:Connect(function(running)
 			if running then
 				print("Started running")
 			else
 				print("Finished!")
 			end
 		end)
-		loq.NextOperationStarted:connect(function(operation)
+		loq.NextOperationStarted:Connect(function(operation)
 			print("Now starting operation:", operation:getName())
 		end)
 		loq
@@ -25,9 +25,15 @@
 			})
 ]]
 
+local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
+
 local Plugin = script.Parent.Parent.Parent
-local UILibrary = require(Plugin.Packages.UILibrary)
-local Signal = UILibrary.Util.Signal
+
+local Framework = Plugin.Packages.Framework
+local UILibrary = not FFlagTerrainToolsUseDevFramework and require(Plugin.Packages.UILibrary) or nil
+
+local FrameworkUtil = FFlagTerrainToolsUseDevFramework and require(Framework.Util) or nil
+local Signal = FFlagTerrainToolsUseDevFramework and FrameworkUtil.Signal or UILibrary.Util.Signal
 
 local quickWait = require(Plugin.Src.Util.quickWait)
 
@@ -65,12 +71,12 @@ function LongOperationQueue.new(options)
 
 	self._updateProgress = function(newProgress)
 		self._progress = newProgress
-		self.ProgressChanged:fire(newProgress)
+		self.ProgressChanged:Fire(newProgress)
 	end
 
 	self._updatePaused = function(newPaused)
 		self._paused = newPaused
-		self.PausedChanged:fire(newPaused)
+		self.PausedChanged:Fire(newPaused)
 	end
 
 	self._updateRunning = function(newRunning)
@@ -187,7 +193,7 @@ end
 function LongOperationQueue:_setQueueRunning(queueRunning)
 	if self._queueRunning ~= queueRunning then
 		self._queueRunning = queueRunning
-		self.QueueRunningChanged:fire(queueRunning)
+		self.QueueRunningChanged:Fire(queueRunning)
 	end
 end
 
@@ -195,7 +201,7 @@ function LongOperationQueue:_startCurrentOperation()
 	local operation = self._currentOperation
 	assert(operation, "LongOperationQueue:_startCurrentOperation() has no operation to start)")
 	self._updateProgress(0)
-	self.NextOperationStarted:fire(operation)
+	self.NextOperationStarted:Fire(operation)
 	operation:start(self._lastOperationData or {})
 end
 
@@ -213,10 +219,10 @@ function LongOperationQueue:_moveToNextOperation()
 	self._currentOperationIndex = self._currentOperationIndex + 1
 	self._currentOperation = self._queue[self._currentOperationIndex]
 	self._currentOperationConnections = {
-		progressChanged = self._currentOperation.ProgressChanged:connect(self._updateProgress),
-		pausedChanged = self._currentOperation.PausedChanged:connect(self._updatePaused),
-		runningChanged = self._currentOperation.RunningChanged:connect(self._updateRunning),
-		finished = self._currentOperation.Finished:connect(self._operationFinished),
+		progressChanged = self._currentOperation.ProgressChanged:Connect(self._updateProgress),
+		pausedChanged = self._currentOperation.PausedChanged:Connect(self._updatePaused),
+		runningChanged = self._currentOperation.RunningChanged:Connect(self._updateRunning),
+		finished = self._currentOperation.Finished:Connect(self._operationFinished),
 	}
 
 	return true
@@ -229,7 +235,7 @@ function LongOperationQueue:_cleanupCurrentOperation()
 	self._lastOperationErrorMessage = self._currentOperation:getErrorMessage()
 
 	for _, connection in pairs(self._currentOperationConnections) do
-		connection:disconnect()
+		connection:Disconnect()
 	end
 	self._currentOperationConnections = nil
 

@@ -231,11 +231,6 @@ function Theme.createValues(getColor, StyleColor, StyleModifier)
 			imageColor = isDark and Color3.fromRGB(255, 255, 255) or Color3.fromRGB(25, 25, 25)
 		},
 
-		toggleButton = {
-			width = 30,
-			height = 20,
-		},
-
 		uiListLayout = {
 			padding = 10,
 		}
@@ -251,6 +246,16 @@ function Theme.createValues(getColor, StyleColor, StyleModifier)
 					backgroundColor = getColor(StyleColor.Button, StyleModifier.Hover),
 				},
 			},
+		},
+		toggleButton = {
+			defaultWidth = 40,
+			defaultHeight = 24,
+			onImage = isDark and "rbxasset://textures/RoactStudioWidgets/toggle_on_dark.png"
+				or "rbxasset://textures/RoactStudioWidgets/toggle_on_light.png",
+			offImage = isDark and "rbxasset://textures/RoactStudioWidgets/toggle_off_dark.png"
+				or "rbxasset://textures/RoactStudioWidgets/toggle_off_light.png",
+			disabledImage = isDark and "rbxasset://textures/RoactStudioWidgets/toggle_disable_dark.png"
+				or "rbxasset://textures/RoactStudioWidgets/toggle_disable_light.png",
 		}
 	}
 

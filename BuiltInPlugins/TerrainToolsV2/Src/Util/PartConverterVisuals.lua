@@ -26,10 +26,15 @@
 	Once we reach a point where we're no longer tracking any objects, this object is no longer needed.
 ]]
 
-local Plugin = script.Parent.Parent.Parent
-local UILibrary = require(Plugin.Packages.UILibrary)
+local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
 
-local Signal = UILibrary.Util.Signal
+local Plugin = script.Parent.Parent.Parent
+
+local Framework = Plugin.Packages.Framework
+local UILibrary = not FFlagTerrainToolsUseDevFramework and require(Plugin.Packages.UILibrary) or nil
+
+local FrameworkUtil = FFlagTerrainToolsUseDevFramework and require(Framework.Util) or nil
+local Signal = FFlagTerrainToolsUseDevFramework and FrameworkUtil.Signal or UILibrary.Util.Signal
 
 local PartConverterUtil = require(Plugin.Src.Util.PartConverterUtil)
 
@@ -105,7 +110,7 @@ function PartConverterVisuals:destroy()
 end
 
 function PartConverterVisuals:subscribeToVisualsFinished(...)
-	return self._visualsFinished:connect(...)
+	return self._visualsFinished:Connect(...)
 end
 
 function PartConverterVisuals:setSelectionModel(selectionModel)
@@ -132,12 +137,12 @@ end
 
 function PartConverterVisuals:_stopListeningToSelectionModel()
 	if self._instanceSelectedConnection then
-		self._instanceSelectedConnection:disconnect()
+		self._instanceSelectedConnection:Disconnect()
 		self._instanceSelectedConnection = nil
 	end
 
 	if self._instanceDeselectedConnection then
-		self._instanceDeselectedConnection:disconnect()
+		self._instanceDeselectedConnection:Disconnect()
 		self._instanceDeselectedConnection = nil
 	end
 
@@ -170,7 +175,7 @@ function PartConverterVisuals:_checkAndMaybeFireVisualsFinished()
 
 	-- All cases have been met, this object is no longer needed
 	self._hasVisualsFinished = true
-	self._visualsFinished:fire()
+	self._visualsFinished:Fire()
 end
 
 function PartConverterVisuals:_applyAllSelectedInstanceVisuals()

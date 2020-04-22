@@ -7,6 +7,9 @@
 	Signal uses Immutable to avoid invalidating the 'Fire' loop iteration.
 ]]
 
+assert(not game:GetFastFlag("TerrainToolsUseDevFramework"),
+	"TerrainTools Signal.lua should not be used when FFlagTerrainToolsUseDevFramework is on")
+
 local Immutable = require(script.Parent.Immutable)
 
 local Signal = {}

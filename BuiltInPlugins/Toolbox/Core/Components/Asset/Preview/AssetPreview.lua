@@ -34,6 +34,7 @@ local FFlagStudioToolboxShowPluginInstallationProgress = game:GetFastFlag("Studi
 local FFlagUseDevelopFetchPluginVersionId = game:GetFastFlag("UseDevelopFetchPluginVersionId")
 local FFlagStudioHideSuccessDialogWhenFree = game:GetFastFlag("StudioHideSuccessDialogWhenFree")
 local FFlagStudioRefactorAssetPreview = settings():GetFFlag("StudioRefactorAssetPreview")
+local FFlagEnableDefaultSortFix = game:GetFastFlag("EnableDefaultSortFix2")
 
 local RunService = game:GetService("RunService")
 local StudioService = game:GetService("StudioService")
@@ -237,6 +238,8 @@ function AssetPreview:init(props)
 		local assetName = asset.Name
 		local assetTypeId = asset.TypeId
 
+		local categoryIndex = self.props.categoryIndex
+
 		if FFlagStudioToolboxPluginPurchaseFlow then
 			local owned = self.props.Owned
 			if not owned then
@@ -259,6 +262,7 @@ function AssetPreview:init(props)
 			assetName = assetName,
 			assetTypeId = assetTypeId,
 			currentTab = self.props.currentTab,
+			categoryIndex = FFlagEnableDefaultSortFix and categoryIndex or nil,
 		})
 		if success then
 			self:setState({
@@ -837,6 +841,7 @@ local function mapStateToProps(state, props)
 
 	local stateToProps = {
 		asset = idToAssetMap[assetId],
+		categoryIndex = FFlagEnableDefaultSortFix and (pageInfo.categoryIndex or 1) or nil,
 		voting = voting[assetId] or {},
 		currentTab = pageInfo.currentTab,
 	}

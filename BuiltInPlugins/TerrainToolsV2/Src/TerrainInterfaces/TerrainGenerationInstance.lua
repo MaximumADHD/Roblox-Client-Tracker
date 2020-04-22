@@ -1,7 +1,13 @@
+local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
+
 local Plugin = script.Parent.Parent.Parent
-local UILibrary = require(Plugin.Packages.UILibrary)
-local Signal = UILibrary.Util.Signal
+
+local Framework = Plugin.Packages.Framework
 local Cryo = require(Plugin.Packages.Cryo)
+local UILibrary = not FFlagTerrainToolsUseDevFramework and require(Plugin.Packages.UILibrary) or nil
+
+local FrameworkUtil = FFlagTerrainToolsUseDevFramework and require(Framework.Util) or nil
+local Signal = FFlagTerrainToolsUseDevFramework and FrameworkUtil.Signal or UILibrary.Util.Signal
 
 local Constants = require(Plugin.Src.Util.Constants)
 
@@ -53,12 +59,12 @@ function TerrainGeneration.new(options)
 	-- These functions are connected to the signals from the generator
 	self._onGeneratorProgressUpdate = function(progress)
 		-- Pass the progress on to our subscribers
-		self._generatingProgressUpdateSignal:fire(progress)
+		self._generatingProgressUpdateSignal:Fire(progress)
 	end
 
 	self._onGeneratorPaused = function(paused)
 		-- Pass the paused update on to our subscribers
-		self._generatingPausedSignal:fire(paused)
+		self._generatingPausedSignal:Fire(paused)
 	end
 
 	self._onGeneratorFinished = function()
@@ -73,7 +79,7 @@ function TerrainGeneration.new(options)
 		end
 
 		-- Update our subscribers first
-		self._generatingFinishedSignal:fire()
+		self._generatingFinishedSignal:Fire()
 		-- Before killing our generator
 		self:_stopAndClearGenerator()
 	end
@@ -82,19 +88,19 @@ function TerrainGeneration.new(options)
 end
 
 function TerrainGeneration:subscribeToStartStopGeneratingChanged(...)
-	return self._generatingStateChangedSignal:connect(...)
+	return self._generatingStateChangedSignal:Connect(...)
 end
 
 function TerrainGeneration:subscribeToProgressUpdate(...)
-	return self._generatingProgressUpdateSignal:connect(...)
+	return self._generatingProgressUpdateSignal:Connect(...)
 end
 
 function TerrainGeneration:subscribeToPaused(...)
-	return self._generatingPausedSignal:connect(...)
+	return self._generatingPausedSignal:Connect(...)
 end
 
 function TerrainGeneration:subscribeToFinished(...)
-	return self._generatingFinishedSignal:connect(...)
+	return self._generatingFinishedSignal:Connect(...)
 end
 
 function TerrainGeneration:isGenerating()
@@ -166,9 +172,9 @@ function TerrainGeneration:startGeneration()
 	})
 
 	-- Start listening to what the generator is doing
-	self._generatorProgressConnection = self._generator.progressSignal:connect(self._onGeneratorProgressUpdate)
-	self._generatorPausedConnection = self._generator.pauseSignal:connect(self._onGeneratorPaused)
-	self._generatorFinishedConnection = self._generator.finishSignal:connect(self._onGeneratorFinished)
+	self._generatorProgressConnection = self._generator.progressSignal:Connect(self._onGeneratorProgressUpdate)
+	self._generatorPausedConnection = self._generator.pauseSignal:Connect(self._onGeneratorPaused)
+	self._generatorFinishedConnection = self._generator.finishSignal:Connect(self._onGeneratorFinished)
 
 	-- Record how long the generation takes
 	self._generateStartTime = tick()
@@ -200,23 +206,23 @@ end
 function TerrainGeneration:_setGenerating(generating)
 	if generating ~= self._generating then
 		self._generating = generating
-		self._generatingStateChangedSignal:fire(generating)
+		self._generatingStateChangedSignal:Fire(generating)
 	end
 end
 
 function TerrainGeneration:_stopAndClearGenerator()
 	if self._generatorProgressConnection then
-		self._generatorProgressConnection:disconnect()
+		self._generatorProgressConnection:Disconnect()
 		self._generatorProgressConnection = nil
 	end
 
 	if self._generatorPausedConnection then
-		self._generatorPausedConnection:disconnect()
+		self._generatorPausedConnection:Disconnect()
 		self._generatorPausedConnection = nil
 	end
 
 	if self._generatorFinishedConnection then
-		self._generatorFinishedConnection:disconnect()
+		self._generatorFinishedConnection:Disconnect()
 		self._generatorFinishedConnection = nil
 	end
 

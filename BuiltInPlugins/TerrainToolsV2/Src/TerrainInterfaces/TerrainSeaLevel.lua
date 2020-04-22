@@ -1,11 +1,16 @@
+local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
+
 local Plugin = script.Parent.Parent.Parent
-local UILibrary = require(Plugin.Packages.UILibrary)
-local Signal = UILibrary.Util.Signal
+
+local Framework = Plugin.Packages.Framework
+local UILibrary = not FFlagTerrainToolsUseDevFramework and require(Plugin.Packages.UILibrary) or nil
+
+local FrameworkUtil = FFlagTerrainToolsUseDevFramework and require(Framework.Util) or nil
+local Signal = FFlagTerrainToolsUseDevFramework and FrameworkUtil.Signal or UILibrary.Util.Signal
 
 local Constants = require(Plugin.Src.Util.Constants)
 
 local ChangeHistoryService = game:GetService('ChangeHistoryService')
-local Workspace = game:GetService("Workspace")
 
 local MAX_VOXELS_PER_SLICE = 4*1024*1024-1
 
@@ -31,7 +36,7 @@ function TerrainSeaLevel.new(options)
 	self._setReplacing = function(state)
 		if state ~= self._replacing then
 			self._replacing = state
-			self._stateChange:fire(state)
+			self._stateChange:Fire(state)
 		end
 
 		if state == false then
@@ -41,7 +46,7 @@ function TerrainSeaLevel.new(options)
 
 	self._updateReplaceProgress = function(completionPercent)
 		self._replaceProgress = completionPercent
-		self._progressChanged:fire(completionPercent)
+		self._progressChanged:Fire(completionPercent)
 		if completionPercent >= 1 then
 			self._setReplacing(false)
 		end
@@ -67,11 +72,11 @@ function TerrainSeaLevel:localizedPrint(...)
 end
 
 function TerrainSeaLevel:subscribeToProgressChange(...)
-	return self._progressChanged:connect(...)
+	return self._progressChanged:Connect(...)
 end
 
 function TerrainSeaLevel:subscribeToStateChange(...)
-	return self._stateChange:connect(...)
+	return self._stateChange:Connect(...)
 end
 
 function TerrainSeaLevel:isReplacing()

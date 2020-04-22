@@ -1,4 +1,4 @@
-local FFlagEnableDefaultSortFix = game:GetFastFlag("EnableDefaultSortFix")
+local FFlagEnableDefaultSortFix = game:GetFastFlag("EnableDefaultSortFix2")
 
 local Plugin = script.Parent.Parent.Parent
 

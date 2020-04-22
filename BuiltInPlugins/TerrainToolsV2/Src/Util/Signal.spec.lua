@@ -1,3 +1,9 @@
+-- TODO: Remove this file when removing FFlagTerrainToolsUseDevFramework
+if game:GetFastFlag("TerrainToolsUseDevFramework") then
+	return function()
+	end
+end
+
 return function()
 	local Signal = require(script.Parent.Signal)
 

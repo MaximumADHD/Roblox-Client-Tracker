@@ -52,6 +52,8 @@ struct AdornParams
 
 uniform vec4 CB0[47];
 uniform vec4 CB1[6];
+uniform samplerCube PrefilteredEnvTexture;
+
 in vec4 VARYING0;
 in vec3 VARYING1;
 in vec4 VARYING2;
@@ -77,7 +79,11 @@ void main()
     f8.w = f7;
     vec4 f9 = f8;
     f9.w = 1.0 - f7;
-    vec3 f10 = mix(CB0[14].xyz, sqrt(clamp((f9.xyz * f9.xyz) * CB0[15].y, vec3(0.0), vec3(1.0))).xyz, vec3(clamp((CB0[13].x * length(VARYING1)) + CB0[13].y, 0.0, 1.0)));
-    _entryPointOutput = vec4(f10.x, f10.y, f10.z, f9.w);
+    float f10 = clamp(exp2((CB0[13].z * length(VARYING1)) + CB0[13].x) - CB0[13].w, 0.0, 1.0);
+    vec3 f11 = textureLod(PrefilteredEnvTexture, vec4(-VARYING1, 0.0).xyz, max(CB0[13].y, f10) * 5.0).xyz;
+    bvec3 f12 = bvec3(CB0[13].w != 0.0);
+    vec3 f13 = sqrt(clamp(mix(vec3(f12.x ? CB0[14].xyz.x : f11.x, f12.y ? CB0[14].xyz.y : f11.y, f12.z ? CB0[14].xyz.z : f11.z), (f9.xyz * f9.xyz).xzy, vec3(f10)).xyz * CB0[15].y, vec3(0.0), vec3(1.0)));
+    _entryPointOutput = vec4(f13.x, f13.y, f13.z, f9.w);
 }
 
+//$$PrefilteredEnvTexture=s15

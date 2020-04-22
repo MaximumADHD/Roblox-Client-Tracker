@@ -1,5 +1,7 @@
 local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
+local RunService = game:GetService("RunService")
+local GameSettings = settings():FindFirstChild("Game Options") or error("Game Options does not exist", 0)
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
@@ -15,6 +17,7 @@ local withLocalization = require(InGameMenu.Localization.withLocalization)
 
 local SetRespawning = require(InGameMenu.Actions.SetRespawning)
 local StartLeavingGame = require(InGameMenu.Actions.StartLeavingGame)
+local SetMenuOpen = require(InGameMenu.Actions.SetMenuOpen)
 local Assets = require(InGameMenu.Resources.Assets)
 local divideTransparency = require(InGameMenu.Utility.divideTransparency)
 
@@ -24,13 +27,13 @@ local SystemSecondaryButton = require(script.Parent.SystemSecondaryButton)
 local KeyLabel = require(script.Parent.KeyLabel)
 local PageNavigation = require(script.Parent.PageNavigation)
 local GameIconHeader = require(script.Parent.GameIconHeader)
+
 local getFFlagInGameMenuSinglePaneDesign = require(InGameMenu.Flags.GetFFlagInGameMenuSinglePaneDesign)
 local fflagInGameMenuSinglePaneDesign = getFFlagInGameMenuSinglePaneDesign()
-
 local FFlagInGameMenuSmallerSideBar = require(InGameMenu.Flags.FFlagInGameMenuSmallerSideBar)
 local FFlagRecordRecording = require(InGameMenu.Flags.FFlagRecordRecording)
 local FFlagInGameMenuUseUIBloxButtons = require(CoreGui.RobloxGui.Modules.Flags.FFlagInGameMenuUseUIBloxButtons)
-local GameSettings = settings():FindFirstChild("Game Options") or error("Game Options does not exist", 0)
+local FFlagTakeAScreenshotOfThis = game:DefineFastFlag("TakeAScreenshotOfThis", false)
 
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
 local Images = UIBlox.App.ImageSet.Images
@@ -40,39 +43,62 @@ local RECORD_UPDATE_STEP = 0.2
 
 local MainPage = Roact.PureComponent:extend("MainPage")
 
+local function areCapturesAllowed()
+	if not FFlagTakeAScreenshotOfThis then
+		return true
+	end
+	local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+	local PolicyService = require(RobloxGui.Modules.Common:WaitForChild("PolicyService"))
+	return not PolicyService:IsSubjectToChinaPolicies()
+end
+
 local function renderButtonModels(self, style, localized)
 	local buttons = {}
 
 	-- Favorite Button
 	-- Follow Button
 	-- Report Button
-	-- Screenshot Button
 
-	-- Record Button
-	if GameSettings.VideoCaptureEnabled and FFlagRecordRecording then
+	if areCapturesAllowed() then
 
-		local recordingText = localized.recordVideo
-		
-		if self.props.recording then
-			local d = os.date("*t", self.state.recordingDuration)
-			local formattedTime = ("%d:%02d"):format(d.min, d.sec)
-			recordingText = localized.recording:gsub("{DURATION}", formattedTime)
+		-- Screenshot Button
+		if FFlagTakeAScreenshotOfThis then
+			table.insert(buttons, {
+				icon = Images["icons/controls/screenshot"],
+				text = localized.screenCapture,
+				onActivated = function()
+					self.props.closeMenu()
+					for i = 1, 2 do -- wait for top-bar to update
+						RunService.RenderStepped:Wait()
+					end
+					CoreGui:TakeScreenshot()
+				end,
+			})
 		end
 
-		table.insert(buttons, {
-			icon = Images["icons/controls/screenrecord"],
-			text = recordingText,
-			onActivated = function ()
-				CoreGui:ToggleRecording()
-			end,
-			renderRightElement = function ()
-				return Roact.createElement(KeyLabel, {
-					input = Enum.KeyCode.F12,
-					AnchorPoint = Vector2.new(0.5, 0.5),
-					Position = UDim2.new(0.5, 0, 0.5, 0),
-				})
-			end,
-		})
+		-- Record Button
+		if GameSettings.VideoCaptureEnabled and FFlagRecordRecording then
+			local recordingText = localized.recordVideo
+			if self.props.recording then
+				local d = os.date("*t", self.state.recordingDuration)
+				local formattedTime = ("%d:%02d"):format(d.min, d.sec)
+				recordingText = localized.recording:gsub("{DURATION}", formattedTime)
+			end
+			table.insert(buttons, {
+				icon = Images["icons/controls/screenrecord"],
+				text = recordingText,
+				onActivated = function()
+					CoreGui:ToggleRecording()
+				end,
+				renderRightElement = function()
+					return Roact.createElement(KeyLabel, {
+						input = Enum.KeyCode.F12,
+						AnchorPoint = Vector2.new(0.5, 0.5),
+						Position = UDim2.new(0.5, 0, 0.5, 0),
+					})
+				end,
+			})
+		end
 
 	end
 	
@@ -98,6 +124,7 @@ MainPage.validateProps = t.strictInterface({
 	respawnButtonVisible = t.boolean,
 	startLeavingGame = t.callback,
 	startRespawning = t.callback,
+	closeMenu = t.callback,
 	recording = t.boolean,
 })
 
@@ -119,6 +146,7 @@ function MainPage:render()
 			respawnCharacter = "CoreScripts.InGameMenu.RespawnCharacter",
 			recordVideo = "CoreScripts.InGameMenu.Record.StartRecording",
 			recording = "CoreScripts.InGameMenu.Record.Duration",
+			screenCapture = "CoreScripts.InGameMenu.Controls.Screenshot",
 		})(function(localized)
 			local moreButton = FFlagInGameMenuUseUIBloxButtons and Roact.createElement(UIBlox.App.Button.SecondaryButton, {
 				size = UDim2.fromOffset(44, 44),
@@ -287,6 +315,9 @@ end, function(dispatch)
 		end,
 		startRespawning = function()
 			dispatch(SetRespawning(true))
+		end,
+		closeMenu = function()
+			dispatch(SetMenuOpen(false))
 		end,
 	}
 end)(MainPage)

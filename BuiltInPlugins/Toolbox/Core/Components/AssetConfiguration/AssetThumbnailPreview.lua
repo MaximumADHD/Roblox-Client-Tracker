@@ -15,7 +15,7 @@
 
 ]]
 
-local FFlagEnableThumbnailCameraValueExists, FFlagEnableThumbnailCameraValueValue = pcall(function() return settings():GetFFlag("EnableThumbnailCameraValue") end)
+local FFlagEnableThumbnailConfigurationExists, FFlagEnableThumbnailConfigurationValue = pcall(function() return settings():GetFFlag("EnableThumbnailConfiguration") end)
 
 local PREVIEW_TITLE_PADDING = 12
 local PREVIEW_TITLE_HEIGHT = 24
@@ -89,10 +89,20 @@ function AssetThumbnailPreview:didMount()
 			end
 		end
 
-		if FFlagEnableThumbnailCameraValueExists and FFlagEnableThumbnailCameraValueValue then
-			local thumbnailCameraValue = model:FindFirstChild("ThumbnailCameraValue", true)
-			if thumbnailCameraValue and thumbnailCameraValue:IsA("CFrameValue") then
-				camera.CFrame = thumbnailCameraValue.Parent.CFrame:toWorldSpace(thumbnailCameraValue.Value)
+		if FFlagEnableThumbnailConfigurationExists and FFlagEnableThumbnailConfigurationValue then
+			local thumbnailConfiguration = model:FindFirstChild("ThumbnailConfiguration")
+			if thumbnailConfiguration and thumbnailConfiguration:IsA("Configuration") then
+				local thumbnailCameraTarget = thumbnailConfiguration:FindFirstChild("ThumbnailCameraTarget")
+				local thumbnailCameraValue = thumbnailConfiguration:FindFirstChild("ThumbnailCameraValue")
+				if thumbnailCameraTarget
+					and thumbnailCameraTarget:IsA("ObjectValue")
+					and thumbnailCameraValue
+					and thumbnailCameraValue:IsA("CFrameValue") then
+					local target = thumbnailCameraTarget.Value
+					if target and target:IsA("BasePart") then
+						camera.CFrame = target.CFrame:toWorldSpace(thumbnailCameraValue.Value)
+					end
+				end
 			else
 				setDefaultCameraView(camera, model)
 			end

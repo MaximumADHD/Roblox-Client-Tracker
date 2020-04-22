@@ -249,7 +249,7 @@ function BaseBrush:willUnmount()
 		-- Disconnect in the reverse order of connections
 		-- So last to connect is first to disconnect
 		for i = #self.connections, 1, -1 do
-			self.connections[i]:disconnect()
+			self.connections[i]:Disconnect()
 		end
 		self.connections = nil
 	end

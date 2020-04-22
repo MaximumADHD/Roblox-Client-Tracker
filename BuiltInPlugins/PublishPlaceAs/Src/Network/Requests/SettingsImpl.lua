@@ -16,7 +16,7 @@ local Promise = require(Plugin.Packages.Promise)
 local Configuration = require(Plugin.Src.Network.Requests.Configuration)
 local RootPlaceInfo = require(Plugin.Src.Network.Requests.RootPlaceInfo)
 
-local FFlagStudioCreateNewGameRewritesName = game:DefineFastFlag("StudioCreateNewGameRewritesName", false)
+local FFlagStudioCreateNewGameRewritesName = game:GetFastFlag("StudioCreateNewGameRewritesName2")
 
 --[[
 	Used to save the chosen state of all game settings by saving to web
@@ -53,11 +53,7 @@ local function saveAll(state, localization)
 				RootPlaceInfo.Set(id, rootPlaceInfo),
 			}
 			Promise.all(setRequests):andThen(function()
-				if not FFlagStudioCreateNewGameRewritesName then
-					-- Don't call set universe display name since it updates old root place
-					StudioService:SetUniverseDisplayName(configuration.name)
-				end
-				-- This signal invokes a handler in RobloxIDEDoc::maybeUpdateDisplayContentIdWithPlaceNameAsync that should updated display content
+				StudioService:SetUniverseDisplayName(configuration.name)
 				StudioService:EmitPlacePublishedSignal()
 			end):catch(function(err)
 				warn(tostring(localization:getText("PublishFail", "FailConfiguration")))
