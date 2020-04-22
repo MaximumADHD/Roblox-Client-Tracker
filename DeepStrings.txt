@@ -1208,6 +1208,7 @@ AutowedgeCell
 AutowedgeCells
 AUtss_cleanup_function
 AUUnconflictedMergeChunk
+AUUndefinedLocalVisitor
 AUUniformGrid
 AUutf8_codecvt_facet
 AUVersionedTextDocumentIdentifier
@@ -3919,6 +3920,7 @@ BCFB4827B1F11E4A86BBBBE005A3BAD
 BCIDistributionTBS
 BConnection
 BCryptGenRandom
+BDEsv15Z2Z6ob8wpTmRl
 BE20681180838E23F0DC6224
 BE42889BE20681180838E23F0DC6224
 BEA91211E2B410EF351327957B
@@ -4253,7 +4255,6 @@ BrowserWindow
 BrowserWindowClosed
 BrowserWindowWillNavigate
 BrushStyle
-BSQZwiFSX30vrF9AzN7Tv7hYHMT2
 BtYovqVKoHMDMoDd0u9Mc5CIyRqyu0IGS99A0jeEXRj7aofQ
 BU_Simplex1to4
 BubbleChat
@@ -4348,6 +4349,7 @@ BVSystemAddress
 BVTextureId
 BW4AlphaMode
 BWGradient.png
+Bx40ljrJ8hEh9Z84AERMQT
 ByCongestionControl
 ByDatacenter_
 ByIPForDatacenterId_
@@ -4359,8 +4361,9 @@ BytesReceivedAndIgnoredPerSec
 BytesReceivedPerSec
 BytesRecvAndIgnored
 BytesWritten
-ByVersion_0.428.1.402190
+ByVersion_0.428.3.403826
 ByVersionForPlatform_
+Bzy9sB1T1rWncyn7
 C_specific_handler
 CA_NPEAVQObject
 CA2168118C14FDE5E01E7934
@@ -6777,7 +6780,6 @@ DB33D7AAF011E38B9D871882A8E559
 DBD856014A660
 DBSAES_ASM
 Dconst_iterator
-Dd0OTwbgxJYt6awbczu8
 DD11E2898E9FB8E4A9E79B
 DD4669DB402E11E3A29DA4266180AE0C
 DD4669DC402E11E3A29DA4266180AE0C
@@ -8176,6 +8178,7 @@ EFEAAF011E38B9D871882A8E559
 EFEPEZEdEnExE
 EffectBoundings
 EffectiveRetryCount
+EFFrtV7BfC4
 EFrontVector
 Egravesmall
 EHERE\EfEpEzE
@@ -8479,7 +8482,6 @@ Environment
 EnvironmentDiffuseScale
 EnvironmentSpecularScale
 EnviroSpeed
-EogWZaIGLJQis1lmf2Xhh3WQvQqCSZoWl7Gd67Cs73TdjO8
 EoOoZoaozo
 EphemeralCounter
 EqualizerSoundEffect
@@ -9468,7 +9470,6 @@ FrontSurface
 FrontSurfaceInput
 FrustumOrdered
 FrustumRenderQueue
-FTME3tWnCG46EFx1rWb
 FullRenderObjects
 Fullscreen
 FullScreen
@@ -10599,6 +10600,7 @@ GroupTeleportLog
 GroupTeleportStarted
 GroupTeleportSuccess
 GroupTime.Sum.toFixed
+Gs2z6huHT70MnpBC8MedwB0YOvEUGUJBfWYe35WCMsc8A3BsHhQWoCpMOtpOjM
 GSSolverActive
 GSSS466FSSS455
 GTInfluxDB
@@ -10852,6 +10854,7 @@ HorizontalScrollBarPolicy
 HorizontalSpacing
 HorizontalStretch
 HorizontalWedge
+HoruJ63h1ovSlxrFumLgG0itni4zsAfDK9Buu
 HostAddress
 HostDataModelType
 HostDataModelTypeIsCurrent
@@ -11235,6 +11238,7 @@ IKCollisionsMode
 IkDragCollisionsMode
 IkDraggerAnchorMode
 IkDraggerSolveIterations
+Ildqtuu2ZUXYHumpDYAvkXwv0PhSampRL8tpRhfgdKIhVzuCzcuty
 IllegalTeleport
 ILoggedInUser
 Image.Loading
@@ -11910,7 +11914,7 @@ JointStepSingleArrayBroadphaseFix
 JointTime_TextureCooldown
 JointToolHelpDialogVerb
 JPEBUSG_INDEX_TRIANGLE
-Jpu75Ds2gjMB2i0IHr9sFYNLj7J1Ga1qbP
+Jr5i0rJialUtomXdy7zG3AScT1K9bLA27tZbIJW1gD2lvzCQkZpeTEUvHXh2
 JSON.parse
 JSON.stringify
 JSON_Parser
@@ -11942,7 +11946,6 @@ K_Key_dn.png
 KaiTi_GB2312
 KAXPEBDHAEAPEAVQChar
 KBytesPerSec
-KC7H7tGSa0
 KeepAliveTimeout
 KeepPositionOnInsert
 KERNEL32.dll
@@ -12327,7 +12330,6 @@ LiveScript
 LiveThreadRef
 LivingRoom
 LLEo6Soxvx2
-LO7WEArSEtg
 LOAD_CERT_CTRL
 LoadAnimation
 LoadAssetVersion
@@ -12673,6 +12675,7 @@ Luau.TypeChecking.ICE
 Luau.TypeChecking.W
 LuauCompileError
 LuauEnableAsKeyword
+LuauFixConditionRepeatUntil
 LuauFixSetMetatableType
 LuauLookupImportedTypeCorrectly
 LuauNewDebuggerSaneInspection
@@ -12683,7 +12686,6 @@ LuauWarnOnUtf8
 LuauWatchdog
 LuaWebService
 LVvuOx39]O
-LYE37nWJSXhGKen5DQkCAwEAAQ
 M_NVWeakFunctionRef
 MachineAddress
 MachineConfig
@@ -13311,7 +13313,7 @@ MigrateTriangleMeshData3
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsI9zRp2OSccqdFx2
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAupANB3EbN9hFHHUj0eA
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzjPRQo9jc
-MIICCgKCAgEAykHaiV2Vs
+MIICCgKCAgEA6VCixtC0bq72pUly8YHeNpoG89kW6utTpKBYUZkxhZsVjzIxXEfF
 Millisecond
 MillisecondsBeforeHandlingReconnect
 MimeDataFromSelection
@@ -13944,6 +13946,7 @@ NPCUnequipTools
 NPEAVInstance
 NPEAVQString
 NPEAVQWidget
+NrwIVDGG47BLcWzMuJbAssVf5CElh
 Ntildesmall
 NullPassword
 NUMBER_OF_ORDERED_STREAMS
@@ -13995,7 +13998,6 @@ NVRobloxIDEDoc
 NVRunService
 NVSoundService
 NVWorkspace
-NW3dYZgPzB5ptYOUgy2Z
 NW4FileSystemDir
 NW4PenStyle
 NW4UserInputType
@@ -15980,6 +15982,7 @@ PpjEtrFill
 PpjEtrThreshold
 PpjPmThreshold
 PPLTaskHandle
+PpYocH7u5xm2u5BA
 Prc.length
 Prc[MouseGraphX]
 Precertificate
@@ -16283,8 +16286,6 @@ PushPixels
 PVAdornment
 PVInstance
 PVK_header
-PW0x4RysXMLKYUPyioFsNDEJFn84eP
-PYEaELTrxDDJBJC17c0zfRaPWSsi
 PyJlf7IHZQpFHohBe
 QAbstractAnimation
 QAbstractButton
@@ -17298,6 +17299,7 @@ RCCUnthrottledWorldStepRealTimePerc_Datacenter_
 RCCUpdateBroadphaseDtAverage
 RCCUpdateBroadphaseDtAverage_Datacenter_
 RcpReferenceTime
+RDr4RP3zQNCIiMQxLG6WdsONfnZMWFHHMCAwEAAQ
 ReachActorChest
 ReachActorChestRotation
 ReachActorHead
@@ -18058,7 +18060,6 @@ RevocationList
 RevocationRefs
 RevocationUrl
 RevokeFriendship
-RgLwvohm2PI9nY6Pd1j
 RibbonButton
 RibbonButtonControl
 RibbonGallery
@@ -18170,6 +18171,7 @@ RigidBodyLazyUpdating
 RigidityEnabled
 RiseVelocity
 Rj0isQcnqX
+RlwdT8fxUces0O8
 Roact.createElement
 ROBLOSECURITY
 Roblox.Hybrid
@@ -18411,6 +18413,7 @@ RunUpdateCycle.
 RVideoInternal
 RVideoMemLogging
 RVideoTrace
+Rw4xNwmq4Z0kdrnJz8oKgRk6HWXa0GVvD
 RxRlReport
 S_Key_dn.png
 SA_KPEAPEBV123
@@ -18492,7 +18495,6 @@ SAXPEAUData
 SAXPEAVQObject
 SAXPEAVQStyle
 SAXPEBDP6AXAEAVQDataStream
-SbIitQ3yA598xCsN3iUEqQhh3iWS00
 ScaleButton.png
 ScaleButton_dn.png
 ScaleCompensation
@@ -18705,7 +18707,6 @@ SCT_set1_extensions
 SCT_set1_log_id
 SCT_set1_signature
 SCT_signature
-SdJQ58jootlhAgveTHivqNTbkzZ
 SDL_EVENT_QUEUE_STATISTICS
 SDL_GAMECONTROLLERCONFIG
 SDL_HAPTIC_GAIN_MAX
@@ -19662,7 +19663,6 @@ SRTP_AEAD_AES_128_GCM
 SRTP_AEAD_AES_256_GCM
 SRTP_AES128_CM_SHA1_32
 SRTP_AES128_CM_SHA1_80
-SRVCyseOCp
 SSAOBlurXFS
 SSAOBlurYFS
 SSAOCompositFS
@@ -21672,6 +21672,7 @@ StudioEnableSQUIshRobloxReflectionExtensionLibrary
 StudioEnableSurfaceJoinChangeBeta
 StudioEnableUrlLinkForEmergencyMessage
 StudioEnableVirtualKeyboardAnimation
+StudioEncodeEmergencyMessage
 StudioEnhanceEmulationDeviceManager
 StudioError
 StudioExplorerEraseAfterDeleteCrashFix
@@ -22393,7 +22394,6 @@ TeleportToSpawnByName_
 TeleportType
 TeleportUnauthorized
 TELETEXSTRING
-TElOv0ZHoreqB4q5Y0j9T6kbX4Z3MeZMmsywZeL8J05eLA
 Temp[i].index
 Temp[i].namezz
 TempCloudEditScript
@@ -22409,7 +22409,6 @@ TemporaryLegacyPhysicsSolverOverride
 TemporaryLegacyPhysicsSolverOverrideStreaming
 TemporaryMeshFiles
 TencentAuthPath
-TENhGsj2Dwogo4KuuQAx4rRL
 TentFilterFS
 TermChanged
 TerminalIdentifier
@@ -23379,6 +23378,7 @@ TwoStepVerificationRequestAuth
 TwoStepVerificationRequired
 TwoStepVerificationStartingOver
 TwoStepVerificationWidgetShown
+TX4d13IW2VebVkCJPv1GrEJoEc0
 TxtArray.length
 TxtArray[j]
 TXtComment
@@ -23400,7 +23400,6 @@ TypeOutboundSubtotal
 Typesetter
 TypeToImport
 Typewriter
-TZ7Rq3IcYZk
 U_ContinuationTaskHandleBase
 U_ExceptionHolder
 U_Key_dn.png
@@ -25686,7 +25685,6 @@ XboxSaleAvatarPackageIds
 XboxUseCuratedGameSort2
 XboxUseNewValidUsernameCheck2
 XFbxAMatrix
-XfIuyGaqrO8DZRmDU6p40TZSQtNml7TBYeyUC
 XFREE86_GLYPH_RANGES
 XGetLastError
 XInputGetBatteryInformation
@@ -25694,7 +25692,6 @@ XInputGetCapabilities
 XInputGetState
 XInputSetState
 Xinvalid_argument
-XjExzDSbpa7sheDxFEXbyOrhnyjrSsW2nLmNabFixS
 Xlength_error
 Xout_of_range
 XP6AXAEBUTextFilterResult
@@ -25850,11 +25847,12 @@ YAXPEBVQObject
 YAXW4error_type
 Ycircumflex
 Ydieresissmall
-Yeo6CXh77no2VWF0zDUqQjpDMUJpbmbb
 YffYZefYDNNDCOO
+Yi5To8F5c9HXbOZDeMBxYOvw
 YieldEvent
 YieldFuncDesc
 YieldFunction
+YpfImWuwcGa6yq8iNgUm8ZVp
 YQByteArray
 YResolution
 YwBBvY55YvBBwY5
@@ -25874,5 +25872,6 @@ ZP6APEAX1PEBX
 ZP6AX1PEAX
 ZPEAVRBXMessageBox
 ZRZZZbZt[.[
+ZUQQIXBPN1iguCxDyLxXq4JG5SC
 ZVspecial_equipped_signal
 ZVTouchedSignal

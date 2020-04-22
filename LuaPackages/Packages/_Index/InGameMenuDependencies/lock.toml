@@ -5,10 +5,10 @@ commit = "418c3417db143400ba270c6817106428b9c71b05"
 source = "git+https://github.rbx.com/roblox/in-game-menu-dependencies#master"
 dependencies = [
     "Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo",
-    "Otter roblox/otter 0.1.0 url+https://github.com/roblox/otter",
+    "Otter roblox/otter 0.1.1 url+https://github.com/roblox/otter",
     "Roact roblox/roact 1.2.0 url+https://github.com/roblox/roact",
     "RoactRodux roblox/roact-rodux 0.2.1 url+https://github.com/roblox/roact-rodux",
     "Rodux roblox/rodux 1.0.0 url+https://github.com/roblox/rodux",
-    "UIBlox UIBlox a86ea972 git+https://github.rbx.com/roblox/uiblox#master",
+    "UIBlox <patched> UIBlox dc121201 git+https://github.com/roblox/uiblox#master",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]

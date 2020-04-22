@@ -5,7 +5,7 @@ commit = "321ff0f63b0d4361d45a6f6f84eb24b6ddb81dc6"
 source = "url+https://github.com/roblox/roact-navigation"
 dependencies = [
     "Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo",
-    "Otter roblox/otter 0.1.0 url+https://github.com/roblox/otter",
+    "Otter roblox/otter 0.1.1 url+https://github.com/roblox/otter",
     "Roact roblox/roact 1.2.0 url+https://github.com/roblox/roact",
     "StateTable roblox/state-table 0.1.0 url+https://github.com/roblox/state-table",
 ]
