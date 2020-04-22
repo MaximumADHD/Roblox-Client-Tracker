@@ -1251,7 +1251,6 @@ AV_RefCounter
 AV_Root_node
 AV_System_error
 AV_System_error_category
-Av1qEXztdJfKWx1flkfZOcqaIcDekciCszKa
 AVabstract_variables_map
 AVAbstractBitStream
 AVAbstractSocketMessageStream
@@ -4056,6 +4055,7 @@ BIO_socket_nbio
 BIO_write_ex
 BitArrayToObject
 BitstreamList
+BJAKKgtCDWJIroaftLbAI69DCIngqkczcdVut0FZo8TS
 Bkg_round.png
 Bkg_square.png
 BL17qL9koPpyChCHbWVgSXbfxynzBupojeOEiuqDuGX0BFl
@@ -4379,7 +4379,7 @@ BytesReceivedAndIgnoredPerSec
 BytesReceivedPerSec
 BytesRecvAndIgnored
 BytesWritten
-ByVersion_0.429.0.403819
+ByVersion_0.429.1.403985
 ByVersionForPlatform_
 C_specific_handler
 CA_NPEAVQObject
@@ -5572,6 +5572,7 @@ CollisionSoundVolume
 CollisionToggleMode
 CollisionType
 CollisionTypeField
+COlokCf0eNxcz
 Color3.fromHSV
 Color3.toHSV
 Color3ToHSVMethod
@@ -7458,7 +7459,6 @@ DF41709311E28987EB530EBA4742
 DF42709311E28987EB530EBA4742
 DFbxAMatrix
 DfNfXfbftf
-DG1nq5rOEJtuCqKqEAKk
 DGHASH_ASM
 DgNg`ghgpgxg
 DgNgXgbglgvg
@@ -7922,7 +7922,6 @@ DurationReceiveResponse
 DurationSSLHandshake
 DurationWidth
 Durbanville1
-DV4WLXYI1IoxtgZH9psz9md7mTx17GraJBZ
 DVCSRequestData
 DVCSResponseData
 DVPAES_ASM
@@ -8916,7 +8915,6 @@ FDA6E1EA211E49FA6F7D125AE5309
 FDA6F1EA211E49FA6F7D125AE5309
 FDE5E01E7934
 Fdossl_static.pdb
-FDUNautpq7N
 Feature_AppBridgeRewrite
 Feature_NewGameJoinTeleport
 Feature_UniversalStartup
@@ -9361,7 +9359,6 @@ FoundItems
 FoundThread
 FpFramebuffer
 FpsVariance
-FptjZfq6AsfG3QXj9XUUUaFwGHk60NORh4N3FWMTMqY0nUjo5Bzc3
 Fractional
 Frame_.frameend
 Frame_.frameendgpu
@@ -9509,7 +9506,6 @@ FrontSurface
 FrontSurfaceInput
 FrustumOrdered
 FrustumRenderQueue
-FtF2zv3Nctot1hH
 FullRenderObjects
 Fullscreen
 FullScreen
@@ -10764,6 +10760,7 @@ HatAttachment
 HaveActiveUser
 HB_OPTIONS
 HB_SHAPER_LIST
+Hbja3FrtIOVZF9bSlwgnIhacFWbHe2CX2doaNPJyx5qKp1nXcMt
 Hcircumflex
 HDCacheLock
 HeadColor3
@@ -11163,6 +11160,7 @@ HwngSmldAskhBcraMaweNegsOgnaT
 HWYGOTH.ttf
 HybridEvent
 Iacutesmall
+IaE9QNZcBujLNcHVZxVHrTBKPk2v
 IAutocompleter
 IBusyStateModel
 ICCProfile
@@ -11229,7 +11227,6 @@ IEBAPEAVQTextBlockUserData
 IEBAPEAVQTreeWidgetItem
 IEBAXPEAVQStyleOptionComboBox
 IEBAXPEAVQStyleOptionSlider
-IENMUnzDTuw4RssyRwoiGWxgJ2EBIOZyXmYiqnC9fV
 Ierusalimschy
 IEventTarget
 IFindListener
@@ -11886,15 +11883,16 @@ Javascript
 JavaScript
 JavaScriptCallback
 Jba5qWkYU5nARYZm1gQVP
+JBHU1YngnkNsKtKFpnU8c8vs5hNh
 Jcircumflex
 JDJNJXJbJlJvJ
-JDJtjOhY9K3r7s
 JHJRJ\JfJpJxJ
 JHW4MembershipType
 JIRA_RIDE_184_V2
 JJJBBB\\\xx
 JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ
 JKLMNOPQRSTU
+JnuRBNemVb9u
 JoinBlobInvalidateThresholdPercent
 JoinCommand
 JoinDataCacheChecksClientOwnedParts
@@ -11964,7 +11962,6 @@ JsonFormat
 JSONObject
 JSONOverflowAbort
 JSONOverflowDepth
-Jtr5N6fehYFtXrriq
 JUGroupRolesRequestRecord
 JumpAnimation
 JumpHeight
@@ -12048,7 +12045,6 @@ KodchiangUPC
 KPEAVICHull
 KPEIBX_K_KPEIAU_iobuf
 KVScriptContext
-KxUIjujRbSMJHB9jNd
 KYULPhCBFoD3mw5mygYqAeFlHdSL2k3MnDG
 LabelArray
 LabelArray.push
@@ -12113,6 +12109,7 @@ LayoutOrder
 LazySubmitTask
 LC_MESSAGES
 LCMapStringW
+LDJ65pgxXzRTRhZhLaeXMFum91DqPBjQAjzwCD6lVfd2gshSaQs
 LDLBuildProgramTimeReportEnabled
 LDLBuildProgramTimeReportRate
 LDLComponents
@@ -12305,7 +12302,6 @@ LevelChanged
 LevelItemCount
 LevelOfDetailSetting
 LevelQuality
-LFks15IpNXjNUA4e
 Liberation
 LIBOVR_DLL_DIR
 LibsodiumDRG
@@ -13356,7 +13352,7 @@ MigrateTriangleMeshData3
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsI9zRp2OSccqdFx2
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAupANB3EbN9hFHHUj0eA
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzjPRQo9jc
-MIICCgKCAgEA2gT8hqkG6DcmaT
+MIICCgKCAgEAuf7kHkATEp3ODMG6PuQZRdxgQJF7c99brCOcFihOGbpHlZ3BP4ji
 Millisecond
 MillisecondsBeforeHandlingReconnect
 MimeDataFromSelection
@@ -14041,10 +14037,11 @@ NVWorkspace
 NW4FileSystemDir
 NW4PenStyle
 NW4UserInputType
-NX9zuaPewoZKqbNRyFhou4kkPdfsrwZ5daC2I
+NYF9QP7oPg9v19WlbB6NXXA8pzBaPptNn61fWE
 Oacutesmall
 OAEPEncryptionSET
 OAUTHBEARER
+OavvopOYrYnUwLXKmJ9CysKABl9l
 Obj.GroupColors
 Obj.GroupsActive
 Obj.GroupsAllActive
@@ -14339,7 +14336,6 @@ OS.Authentication.LuaLoginAndSignup3
 OscillateMotor
 Oscillator
 Oslashsmall
-OsOJI0hmIp5isdq3u5cbcfZBodHv2ja
 OsPlatform
 OSPlatform
 OSSL_STORE_expect
@@ -14368,6 +14364,7 @@ OtherMechanismsAnchored
 OtherTextChanged
 OtherTopLabelOverride
 Otildesmall
+Ou9qWazTV2RdfMB5IFXuE4AJnsJCV5Xs4
 OutboundTotal
 OutBufferHealth
 OutClusters
@@ -14416,7 +14413,6 @@ OutrageousBuildersClub
 OutsideStreamedArea
 OutTouches
 OutUnprepareHeader
-Ov03BbfggDLmfs
 OverAction
 OverallHitRate
 OverflowToken
@@ -16902,6 +16898,7 @@ QRadioButton
 QRegularExpression
 QRegularExpressionMatch
 QRegularExpressionMatchIterator
+QRjxZkZKVv
 QRubberBand
 QScopedPointer
 QScopedPointerDeleter
@@ -17245,6 +17242,7 @@ RawJoinData
 RaycastFilterType
 RaycastParams
 RaycastResult
+RbiJphXhUlGamgDwGAoDcCVqMsWkCWsUoBn9HRwGSgFYOLWA5Eb6ze4
 RBX_CHECK_EQUAL
 RBX_CHECK_GE
 RBX_CHECK_GT
@@ -18223,7 +18221,6 @@ RigidBodyLazyUpdating
 RigidityEnabled
 RiseVelocity
 Rj0isQcnqX
-RlXyh1miaIqqWO6J
 Roact.createElement
 ROBLOSECURITY
 Roblox.Hybrid
@@ -18391,7 +18388,6 @@ RowStretch
 RPCServers
 RRReceiptFail
 RRReceiptTotal
-RRVjtLp5SVew3WbHgEVxz88cM1FV9VQ4EL6nXYjK3jDptiMSm8p
 RSA_check_key
 RSA_check_key_ex
 RSA_meth_dup
@@ -19245,6 +19241,7 @@ SetWindowLongPtrA
 SetWindowPos
 SetWindowsHookExA
 SetWindowTextA
+SfT1sO32DUIk5rG8q3dqjKoRZYNf7hoQd
 ShaderSource
 ShadingLanguage
 Shadow.visible
@@ -19711,7 +19708,6 @@ SpringConstraint
 SpringConstraintAction
 SquishRelay
 SQUIshRobloxReflectionExtensionLibrary
-SR7NytqnIQ6hH6mChhwr1wLnhMD7ui3ORjyUfocMEBaCcDUgW
 Src.Thread
 Src.YBegin
 SrcPlaceId
@@ -23282,7 +23278,6 @@ TouchTransmitter
 ToUniversalTime
 TownAndCity
 ToWorldSpace
-Tpffr5pW9PeW
 TraceMessage
 Track2Data
 TrackCountryRegionAPIHundredthsPercent
@@ -23417,7 +23412,6 @@ TS_TST_INFO_set_time
 TS_TST_INFO_set_tsa
 TS_VERIFY_CTX_new
 TSMk2ThrottleStreamJob
-TtIx67eKM1F
 TTUUEDDsss
 TurboBuildersClub
 TurnOffAction
@@ -23527,7 +23521,6 @@ UContentEncodings
 UContentEncryption
 UConversionOptions
 UCueTrackPositions
-UCVD9DKawItZ6D
 UDecompConvexExtents
 UDefinition
 Udelete_data
@@ -23890,6 +23883,7 @@ UntranslatedStringsHeader
 UntranslatedStringsHeaderAction
 Unull_deleter
 Unverified
+UodePxf8tNNNy
 Up_key.png
 Up_key_dn.png
 UPackageAssetData
@@ -24925,6 +24919,7 @@ VLuaSourceBuffer
 VLuaSourceContainer
 VLuauLanguageServerExt
 VLuaWebService
+Vm7wLkbZykysDc
 VManualGlue
 VManualSurfaceJointInstance
 VManualWeld
@@ -25815,6 +25810,7 @@ XQColorDialog
 Xregex_error
 XResolution
 Xtime_get_ticks
+XTzo0Wj3loZCCj8OFQ
 XUnegotiation_response
 XvAAuY44YuAAvX4
 XVAddImageDialog
@@ -25940,11 +25936,13 @@ YAXPEBVQObject
 YAXW4error_type
 Ycircumflex
 Ydieresissmall
+YEGxfBT7FGJ
 YffYZefYDNNDCOO
 YieldEvent
 YieldFuncDesc
 YieldFunction
 YQByteArray
+YqLLwxJlQZb4PwaVuCsCAwEAAQ
 YResolution
 YwBBvY55YvBBwY5
 Z_KPEIBX_K_KPEIAU1
@@ -25954,13 +25952,11 @@ ZgnhKhWhci
 ZIndexBehavior
 ZLcJhLcGhM
 ZNjlXiODrHUcaGRYt
-ZNt7XOzAVRt
 ZntaLkerGlryCnmrArbeHbarAcrySaahTaveDgneBuruGrjuGayrOlmaTuleTadnKmylMhniSiahTooaLtbiTrmyMroeGgnaHihtErehCsnaCmagOrnuRrmhKgnoMariHanaKopoBinaHiiiYlatIhtoGtrsDhniZglgTonaHdhuBbgaTbmiLelaTbniLragUwahSamsOtrpCiarBiguBtpoCulaTgalGgnfTolySoepXrahKilaBxusXxnhPgahPoo
 ZoomActive
 ZoomOutDistance
 ZoomToExtents
 ZoomToHighlight
-Zp5008mry29aS
 ZP6APEAX1PEBX
 ZP6AX1PEAX
 ZPEAVRBXMessageBox
