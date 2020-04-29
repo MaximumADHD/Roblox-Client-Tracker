@@ -5,6 +5,8 @@ local Rodux = require(Plugin.Packages.Rodux)
 local AssetManagerReducer = require(script.parent.AssetManagerReducer)
 
 local SetAssets = require(Plugin.Src.Actions.SetAssets)
+local SetAssetFavoriteCount = require(Plugin.Src.Actions.SetAssetFavoriteCount)
+local SetAssetFavorited = require(Plugin.Src.Actions.SetAssetFavorited)
 local SetAssetOwnerName = require(Plugin.Src.Actions.SetAssetOwnerName)
 local SetAssetPreviewData = require(Plugin.Src.Actions.SetAssetPreviewData)
 local SetBulkImporterRunning = require(Plugin.Src.Actions.SetBulkImporterRunning)
@@ -522,6 +524,118 @@ return function()
 			expect(state.hasLinkedScripts).to.equal(false)
 			state = AssetManagerReducer(state, SetHasLinkedScripts(true))
 			expect(state.hasLinkedScripts).to.equal(true)
+		end)
+	end)
+
+	describe("SetAssetFavorited", function()
+		local assetId = 1234
+		it("should validate its inputs", function()
+			expect(function()
+				SetAssetFavorited(nil, nil)
+			end).to.throw()
+
+			expect(function()
+				SetAssetFavorited({}, {})
+			end).to.throw()
+
+			expect(function()
+				SetAssetFavorited(123, 123)
+			end).to.throw()
+
+			expect(function()
+				SetAssetFavorited("test", "test")
+			end).to.throw()
+
+			expect(function()
+				SetAssetFavorited(123, true)
+			end).to.be.ok()
+		end)
+
+		it("should set if an asset is favorited by the current user.", function()
+			local r = Rodux.Store.new(AssetManagerReducer)
+			local state = r:getState()
+
+			state = AssetManagerReducer(state, SetAssetPreviewData({
+				[assetId] = {
+					Asset = {
+						Id = assetId,
+						Type = "Model",
+						TypeId = 10,
+						Name = "Test Model Please Ignore",
+						Description = "Lorem Ipsum",
+						AssetGenres = {
+							"All"
+						},
+						Created = "Today",
+						Updated = "Yesterday",
+					},
+					Creator = {
+						Type = 1,
+						TypeId = 1,
+						TargetId = 9876543210,
+						Name = "Hello",
+					},
+				}
+			}))
+
+			state = AssetManagerReducer(state, SetAssetFavorited(assetId, true))
+			expect(state.assetsTable.assetPreviewData[assetId].favorited).to.equal(true)
+		end)
+	end)
+
+	describe("SetAssetFavoriteCount", function()
+		local assetId = 1234
+		it("should validate its inputs", function()
+			expect(function()
+				SetAssetFavoriteCount(nil, nil)
+			end).to.throw()
+
+			expect(function()
+				SetAssetFavoriteCount({}, {})
+			end).to.throw()
+
+			expect(function()
+				SetAssetFavoriteCount(123, 123)
+			end).to.throw()
+
+			expect(function()
+				SetAssetFavoriteCount("test", "test")
+			end).to.throw()
+
+			expect(function()
+				SetAssetFavoriteCount(123, "123")
+			end).to.be.ok()
+		end)
+
+		it("should set if an asset is favorited by the current user.", function()
+			local r = Rodux.Store.new(AssetManagerReducer)
+			local state = r:getState()
+
+			state = AssetManagerReducer(state, SetAssetPreviewData({
+				[assetId] = {
+					Asset = {
+						Id = assetId,
+						Type = "Model",
+						TypeId = 10,
+						Name = "Test Model Please Ignore",
+						Description = "Lorem Ipsum",
+						AssetGenres = {
+							"All"
+						},
+						Created = "Today",
+						Updated = "Yesterday",
+					},
+					Creator = {
+						Type = 1,
+						TypeId = 1,
+						TargetId = 9876543210,
+						Name = "Hello",
+					},
+				}
+			}))
+
+			state = AssetManagerReducer(state, SetAssetFavoriteCount(assetId, "123"))
+			expect(state.assetsTable.assetPreviewData[assetId].favoriteCount).to.equal("123")
 		end)
 	end)
 end

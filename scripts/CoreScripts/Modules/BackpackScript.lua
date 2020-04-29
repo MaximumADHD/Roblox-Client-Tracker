@@ -1,3 +1,5 @@
+--!nocheck
+
 -- Backpack Version 5.1
 -- OnlyTwentyCharacters, SolarCrane
 
@@ -89,6 +91,8 @@ local Utility = require(RobloxGui.Modules.Settings.Utility)
 local GameTranslator = require(RobloxGui.Modules.GameTranslator)
 
 local FFlagRobloxGuiSiblingZindexs = settings():GetFFlag("RobloxGuiSiblingZindexs")
+
+local FFlagTapAwayToCloseBackpack = game:DefineFastFlag("TapAwayToCloseBackpack", false)
 
 pcall(function()
 	local LocalizationService = game:GetService("LocalizationService")
@@ -1017,6 +1021,17 @@ local function OnInputBegan(input, isProcessed)
 		local hotkeyBehavior = HotkeyFns[input.KeyCode.Value]
 		if hotkeyBehavior then
 			hotkeyBehavior(isProcessed)
+		end
+	end
+
+	if FFlagTapAwayToCloseBackpack then
+		local inputType = input.UserInputType
+		if not isProcessed then
+			if inputType == Enum.UserInputType.MouseButton1 or inputType == Enum.UserInputType.Touch then
+				if InventoryFrame.Visible then
+					BackpackScript.OpenClose()
+				end
+			end
 		end
 	end
 end

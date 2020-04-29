@@ -100,6 +100,12 @@ ScriptContext:AddCoreScriptLocal("CoreScripts/NotificationScript2", RobloxGui)
 -- Performance Stats Management
 ScriptContext:AddCoreScriptLocal("CoreScripts/PerformanceStatsManagerScript", RobloxGui)
 
+-- Default Alternate Death Ragdoll (China only for now)
+local FFlagSupportDeathType = game:DefineFastFlag("SupportDeathTypeClient", false)
+if FFlagSupportDeathType then
+	ScriptContext:AddCoreScriptLocal("CoreScripts/PlayerRagdoll", RobloxGui)
+end
+
 -- Chat script
 coroutine.wrap(safeRequire)(RobloxGui.Modules.ChatSelector)
 if FFlagUseRoactPlayerList then

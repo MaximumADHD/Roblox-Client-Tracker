@@ -9,10 +9,13 @@ local DeveloperSubscriptions = require(script.Parent.DeveloperSubscriptions)
 local LocalizationPage = require(script.Parent.LocalizationPage)
 local DFFlagDeveloperSubscriptionsEnabled = settings():GetFFlag("DeveloperSubscriptionsEnabled")
 local FFlagStudioLocalizationInGameSettingsEnabled = game:GetFastFlag("StudioLocalizationInGameSettingsEnabled")
+local FFlagGameSettingsPlaceSettings = game:GetFastFlag("GameSettingsPlaceSettings")
 
 local World = require(script.Parent.World)
 
 local AccessPermissions = require(script.Parent.AccessPermissions)
+
+local Places = require(script.Parent.Places)
 
 local SettingsPages = {
 	["Access Permissions"] = AccessPermissions,
@@ -29,4 +32,9 @@ end
 if FFlagStudioLocalizationInGameSettingsEnabled then
 	SettingsPages["Localization"] = LocalizationPage
 end
+
+if FFlagGameSettingsPlaceSettings then
+	SettingsPages["Places"] = Places
+end
+
 return SettingsPages

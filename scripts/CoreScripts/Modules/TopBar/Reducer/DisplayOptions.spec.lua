@@ -1,3 +1,5 @@
+local CoreGui = game:GetService("CoreGui")
+
 return function()
 	local TopBar = script.Parent.Parent
 	local Actions = TopBar.Actions
@@ -7,6 +9,11 @@ return function()
 	local SetScreenSize = require(Actions.SetScreenSize)
 	local DisplayOptions = require(script.Parent.DisplayOptions)
 	local SetInputType = require(Actions.SetInputType)
+	local SetInspectMenuOpen = require(Actions.SetInspectMenuOpen)
+
+	local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+
+	local FFlagHideTopBarWhenInspectOpen = require(RobloxGui.Modules.Flags.FFlagHideTopBarWhenInspectOpen)
 
 	local Constants = require(TopBar.Constants)
 	local InputType = Constants.InputType
@@ -26,6 +33,9 @@ return function()
 		expect(defaultState.topbarEnabled).to.equal(true)
 		expect(defaultState.isSmallTouchDevice).to.equal(false)
 		expect(defaultState.inputType).to.equal(InputType.MouseAndKeyBoard)
+		if FFlagHideTopBarWhenInspectOpen then
+			expect(defaultState.inspectMenuOpen).to.equal(false)
+		end
 	end)
 
 	describe("SetMenuOpen", function()
@@ -128,4 +138,28 @@ return function()
 			end
 		end)
 	end)
+
+	if FFlagHideTopBarWhenInspectOpen then
+		describe("SetInspectMenuOpen", function()
+			it("should change the value of inspectMenuOpen", function()
+				local oldState = DisplayOptions(nil, {})
+				local newState = DisplayOptions(oldState, SetInspectMenuOpen(true))
+				expect(oldState).to.never.equal(newState)
+				expect(newState.inspectMenuOpen).to.equal(true)
+				newState = DisplayOptions(newState, SetInspectMenuOpen(false))
+				expect(newState.inspectMenuOpen).to.equal(false)
+			end)
+
+			it("should not change any other values", function()
+				local oldState = DisplayOptions(nil, {})
+				local newState = DisplayOptions(oldState, SetInspectMenuOpen(true))
+				expect(countValues(newState)).to.equal(countValues(oldState))
+				for key, value in pairs(newState) do
+					if key ~= "inspectMenuOpen" then
+						expect(value).to.equal(oldState[key])
+					end
+				end
+			end)
+		end)
+	end
 end

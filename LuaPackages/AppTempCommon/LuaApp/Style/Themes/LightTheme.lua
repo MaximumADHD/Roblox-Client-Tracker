@@ -1,6 +1,9 @@
 local ThemesRoot = script.Parent
 local StylesRoot = ThemesRoot.Parent
+local LuaAppRoot = StylesRoot.Parent
+
 local Colors = require(StylesRoot.Colors)
+local GetFFlagLuaAppFixLightTheme = require(LuaAppRoot.Flags.GetFFlagLuaAppFixLightTheme)
 
 local theme = {
 	BackgroundDefault = {
@@ -23,7 +26,10 @@ local theme = {
 		Color = Colors.White,
 		Transparency = 0.1, -- Alpha 0.9
 	},
-	BackgroundOnHover = {
+	BackgroundOnHover = GetFFlagLuaAppFixLightTheme() and {
+		Color = Colors.Black,
+		Transparency = 0.9, -- Alpha 0.1
+	} or {
 		Color = Colors.White,
 		Transparency = 0.7, -- Alpha 0.3
 	},

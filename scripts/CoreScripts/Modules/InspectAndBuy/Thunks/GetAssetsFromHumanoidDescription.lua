@@ -1,3 +1,5 @@
+--!nocheck
+
 local InspectAndBuyFolder = script.Parent.Parent
 local Thunk = require(InspectAndBuyFolder.Thunk)
 local GetProductInfo = require(InspectAndBuyFolder.Thunks.GetProductInfo)

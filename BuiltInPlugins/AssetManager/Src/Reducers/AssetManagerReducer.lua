@@ -99,4 +99,28 @@ return Rodux.createReducer({
 			hasLinkedScripts = action.hasLinkedScripts,
 		})
 	end,
+
+	SetAssetFavorited = function(state, action)
+		return Cryo.Dictionary.join(state,{
+			assetsTable = Cryo.Dictionary.join(state.assetsTable, {
+				assetPreviewData = Cryo.Dictionary.join(state.assetsTable.assetPreviewData, {
+					[action.assetId] = Cryo.Dictionary.join(state.assetsTable.assetPreviewData[action.assetId], {
+						favorited = action.isAssetFavorited,
+					})
+				})
+			})
+		})
+	end,
+
+	SetAssetFavoriteCount = function(state, action)
+		return Cryo.Dictionary.join(state,{
+			assetsTable = Cryo.Dictionary.join(state.assetsTable, {
+				assetPreviewData = Cryo.Dictionary.join(state.assetsTable.assetPreviewData, {
+					[action.assetId] = Cryo.Dictionary.join(state.assetsTable.assetPreviewData[action.assetId], {
+						favoriteCount = action.favoriteCount,
+					})
+				})
+			})
+		})
+	end,
 })

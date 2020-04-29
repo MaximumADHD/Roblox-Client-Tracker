@@ -8,6 +8,14 @@ local Roact = require(CorePackages.Roact)
 local InspectAndBuy = require(InspectAndBuyModules.Components.InspectAndBuy)
 local InspectAndBuyInstanceHandle = nil
 
+local isNewTopBarEnabled = require(RobloxGui.Modules.TopBar.isNewTopBarEnabled)
+local TopBar
+if isNewTopBarEnabled() then
+	TopBar = require(RobloxGui.Modules.TopBar)
+end
+
+local FFlagHideTopBarWhenInspectOpen = require(RobloxGui.Modules.Flags.FFlagHideTopBarWhenInspectOpen)
+
 local INSPECT_MENU_KEY = "InspectMenu"
 
 local function mount(humanoidDescription, playerName, userId, ctx)
@@ -29,6 +37,10 @@ local function mount(humanoidDescription, playerName, userId, ctx)
 	})
 	InspectAndBuyInstanceHandle = Roact.mount(inspectAndBuy, RobloxGui, "InspectAndBuy")
 	GuiService:SetMenuIsOpen(true, INSPECT_MENU_KEY)
+
+	if isNewTopBarEnabled() and FFlagHideTopBarWhenInspectOpen then
+		TopBar:setInspectMenuOpen(true)
+	end
 end
 
 local function unmountInspectAndBuy()
@@ -36,6 +48,10 @@ local function unmountInspectAndBuy()
 		Roact.unmount(InspectAndBuyInstanceHandle)
 		InspectAndBuyInstanceHandle = nil
 		GuiService:SetMenuIsOpen(false, INSPECT_MENU_KEY)
+
+		if isNewTopBarEnabled() and FFlagHideTopBarWhenInspectOpen then
+			TopBar:setInspectMenuOpen(false)
+		end
 	end
 end
 

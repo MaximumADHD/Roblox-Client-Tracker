@@ -1,7 +1,10 @@
 local Plugin = script.Parent.Parent.Parent
-local TestHelpers = Plugin.Src.TestHelpers
 
-local PartConverterUtil = require(script.Parent.PartConverterUtil)
+local DebugFlags = require(Plugin.Src.Util.DebugFlags)
+
+local TestHelpers = Plugin.Src.TestHelpers
+local MockTerrain = require(TestHelpers.MockTerrain)
+local setEquals = require(TestHelpers.setEquals)
 
 local TerrainEnums = require(script.Parent.TerrainEnums)
 local Shape = TerrainEnums.Shape
@@ -9,7 +12,9 @@ local ConvertPartWarning = TerrainEnums.ConvertPartWarning
 
 local getTerrain = require(script.Parent.getTerrain)
 
-local setEquals = require(TestHelpers.setEquals)
+local Workspace = game:GetService("Workspace")
+
+local PartConverterUtil = require(script.Parent.PartConverterUtil)
 
 return function()
 	describe("isConvertibleToTerrain", function()
@@ -30,7 +35,17 @@ return function()
 		end)
 
 		it("should not allow terrain", function()
-			expect(ictt(getTerrain())).to.equal(false)
+			-- Prefer to use the real terrain if available
+			-- But as it doesn't exist in CLI, use a mock
+			if DebugFlags.RunningUnderCLI() then
+				-- isConvertibleToTerrain returns false if the given instance's Parent is nil
+				-- So fake giving it a "Parent" as that's not what we're testing here
+				local t = MockTerrain.new()
+				t.Parent = Workspace
+				expect(ictt(t)).to.equal(false)
+			else
+				expect(ictt(getTerrain())).to.equal(false)
+			end
 		end)
 
 		it("should not allow protected instances", function()
@@ -279,7 +294,7 @@ return function()
 		end)
 
 		it("should not allow invalid size", function()
-			local t = getTerrain()
+			local t = MockTerrain.new()
 			local m = Enum.Material.Air
 			local s = Shape.Block
 			local c = CFrame.new()
@@ -289,7 +304,7 @@ return function()
 		end)
 
 		it("should not allow invalid shapes", function()
-			local t = getTerrain()
+			local t = MockTerrain.new()
 			local m = Enum.Material.Air
 			local c = CFrame.new()
 			local s = Vector3.new(1, 1, 1)

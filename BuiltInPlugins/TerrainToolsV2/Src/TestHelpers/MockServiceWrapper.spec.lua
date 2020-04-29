@@ -1,3 +1,9 @@
+-- This test fails under CLI, and will be removed with the dev framework migration
+if require(script.Parent.Parent.Parent.Src.Util.DebugFlags).RunningUnderCLI() then
+	return function()
+	end
+end
+
 local MockServiceWrapper = require(script.Parent.MockServiceWrapper)
 
 local Plugin = script.Parent.Parent.Parent

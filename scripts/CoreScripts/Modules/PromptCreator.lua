@@ -1,3 +1,5 @@
+--!nocheck
+
 --[[
 	// Filename: PromptCreator.lua
 	// Version 1.0

@@ -1,7 +1,10 @@
 local CorePackages = game:GetService("CorePackages")
+local CoreGui = game:GetService("CoreGui")
 
 local Rodux = require(CorePackages.Rodux)
 local Cryo = require(CorePackages.Cryo)
+
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local TopBar = script.Parent.Parent
 local Actions = TopBar.Actions
@@ -10,12 +13,21 @@ local SetTopBarEnabled = require(Actions.SetTopBarEnabled)
 local SetSmallTouchDevice = require(Actions.SetSmallTouchDevice)
 local SetScreenSize = require(Actions.SetScreenSize)
 local SetInputType = require(Actions.SetInputType)
+local SetInspectMenuOpen = require(Actions.SetInspectMenuOpen)
+
+local FFlagHideTopBarWhenInspectOpen = require(RobloxGui.Modules.Flags.FFlagHideTopBarWhenInspectOpen)
 
 local Constants = require(TopBar.Constants)
 local InputType = Constants.InputType
 
+local initalInspectOpen = nil
+if FFlagHideTopBarWhenInspectOpen then
+	initalInspectOpen = false
+end
+
 local initialDisplayOptions = {
 	menuOpen = false,
+	inspectMenuOpen = initalInspectOpen,
 	topbarEnabled = true, --If the top bar is enabled from the SetCore API
 	isSmallTouchDevice = false,
 	screenSize = Vector2.new(0, 0),
@@ -50,6 +62,12 @@ local DisplayOptions = Rodux.createReducer(initialDisplayOptions, {
 	[SetInputType.name] = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			inputType = action.inputType,
+		})
+	end,
+
+	[SetInspectMenuOpen.name] = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			inspectMenuOpen = action.inspectMenuOpen
 		})
 	end,
 })

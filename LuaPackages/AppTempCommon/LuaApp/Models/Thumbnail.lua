@@ -5,9 +5,6 @@
 		url : string,
 	}
 ]]
-local CorePackages = game:GetService("CorePackages")
-local UseNewThumbnailsAPI = require(CorePackages.AppTempCommon.LuaApp.Flags.UseNewThumbnailsAPI)
-local FFlagLuaAppNewThumbnailFinalState = settings():GetFFlag("LuaAppNewThumbnailFinalState")
 
 local Thumbnail = {}
 
@@ -29,29 +26,14 @@ function Thumbnail.fromThumbnailData(thumbnailData, size)
 end
 
 function Thumbnail.isCompleteThumbnailData(thumbnailData)
-	if UseNewThumbnailsAPI() then
-		return type(thumbnailData) == "table"
-			and type(thumbnailData.targetId) == "number"
-			and type(thumbnailData.state) == "string"
-			and (type(thumbnailData.imageUrl) == "string" or thumbnailData.imageUrl == nil)
-	end
-
 	return type(thumbnailData) == "table"
 		and type(thumbnailData.targetId) == "number"
 		and type(thumbnailData.state) == "string"
-		and type(thumbnailData.imageUrl) == "string"
+		and (type(thumbnailData.imageUrl) == "string" or thumbnailData.imageUrl == nil)
 end
 
 function Thumbnail.checkStateIsFinal(thumbnailState)
-	if UseNewThumbnailsAPI() then
-		if FFlagLuaAppNewThumbnailFinalState then
-			return thumbnailState ~= "Pending"
-		else
-			return thumbnailState == "Completed" or thumbnailState == "Blocked"
-		end
-	end
-
-	return thumbnailState == "Completed"
+	return thumbnailState ~= "Pending"
 end
 
 return Thumbnail

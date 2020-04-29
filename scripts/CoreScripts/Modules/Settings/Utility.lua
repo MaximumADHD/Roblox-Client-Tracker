@@ -1,3 +1,5 @@
+--!nocheck
+
 --[[
 		Filename: Utility.lua
 		Written by: jeditkacheff

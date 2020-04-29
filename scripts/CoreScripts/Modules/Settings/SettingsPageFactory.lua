@@ -1,3 +1,5 @@
+--!nocheck
+
 --[[
 		Filename: SettingsPageFactory.lua
 		Written by: jeditkacheff

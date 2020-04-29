@@ -1,3 +1,5 @@
+--!nocheck
+
 local UserInputService = game:GetService("UserInputService")
 
 return function()

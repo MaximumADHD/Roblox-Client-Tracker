@@ -21,6 +21,8 @@ local Reducer = require(script.Reducer)
 local Constants = require(script.Constants)
 
 local SetSmallTouchDevice = require(script.Actions.SetSmallTouchDevice)
+local SetInspectMenuOpen = require(script.Actions.SetInspectMenuOpen)
+
 local GetCanChat = require(script.Thunks.GetCanChat)
 
 local registerSetCores = require(script.registerSetCores)
@@ -82,6 +84,10 @@ function TopBar.new()
 	self.element = Roact.mount(self.root, CoreGui, "TopBar")
 
 	return self
+end
+
+function TopBar:setInspectMenuOpen(open)
+	self.store:dispatch(SetInspectMenuOpen(open))
 end
 
 return TopBar.new()

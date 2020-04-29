@@ -93,6 +93,7 @@ function RobloxAPI.new(props)
 
 		API = initDirectoryWithArgs(script.API, networkingImpl, baseUrl),
 		AssetGame = initDirectoryWithArgs(script.AssetGame, networkingImpl, baseUrl),
+		Catalog = initDirectoryWithArgs(script.Catalog, networkingImpl, baseUrl),
 		GameInternationalization = initDirectoryWithArgs(
 			script.GameInternationalization, networkingImpl, baseUrl),
 		Locale = initDirectoryWithArgs(script.Locale, networkingImpl, baseUrl),

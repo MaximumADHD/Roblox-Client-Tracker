@@ -1,3 +1,5 @@
+--!nocheck
+
 --[[
 	// FileName: Topbar.lua
 	// Written by: SolarCrane

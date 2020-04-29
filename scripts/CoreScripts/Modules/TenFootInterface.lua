@@ -1,3 +1,5 @@
+--!nocheck
+
 --[[
 		Filename: TenFootInterface.lua
 		Written by: jeditkacheff

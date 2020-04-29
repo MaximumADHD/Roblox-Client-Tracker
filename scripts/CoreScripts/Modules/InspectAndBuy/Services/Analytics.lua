@@ -1,3 +1,5 @@
+--!nocheck
+
 local CorePackages = game:GetService("CorePackages")
 local Players = game:GetService("Players")
 local Cryo = require(CorePackages.Cryo)

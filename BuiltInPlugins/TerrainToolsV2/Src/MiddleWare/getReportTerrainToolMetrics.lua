@@ -15,6 +15,9 @@ local FFlagTerrainToolMetrics = settings():GetFFlag("TerrainToolMetrics")
 local FFlagTerrainToolTabMetrics = game:GetFastFlag("TerrainToolTabMetrics")
 
 local Plugin = script.Parent.Parent.Parent
+
+local DebugFlags = require(Plugin.Src.Util.DebugFlags)
+
 local Actions = Plugin.Src.Actions
 local ChangeTool = require(Actions.ChangeTool)
 local ChangeTab = require(Actions.ChangeTab)
@@ -53,7 +56,7 @@ end
 return function(dependencies)
 	return function(nextDispatch, store)
 		return function(action)
-			if FFlagTerrainToolMetrics then
+			if FFlagTerrainToolMetrics or DebugFlags.RunTests() then
 				if reportAction[action.type] and
 					dependencies.AnalyticsService and
 					dependencies.StudioService then

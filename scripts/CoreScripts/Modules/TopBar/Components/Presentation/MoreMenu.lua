@@ -1,5 +1,6 @@
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
+local ContextActionService = game:GetService("ContextActionService")
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
@@ -31,7 +32,6 @@ local ChatSelector = require(RobloxGui.Modules.ChatSelector)
 local EmotesConstants = require(RobloxGui.Modules.EmotesMenu.Constants)
 local FFlagEmotesMenuNewKeybinds = require(RobloxGui.Modules.Flags.FFlagEmotesMenuNewKeybinds)
 local FFlagEmotesMenuRemoveOpenKeybinds = settings():GetFFlag("EmotesMenuRemoveOpenKeybinds")
-local FFlagTopBarMoreMenuDontCloseMenu = game:DefineFastFlag("TopBarMoreMenuDontCloseMenu", false)
 
 local FFlagTopBarUseNewIcons = require(RobloxGui.Modules.Flags.FFlagTopBarUseNewIcons)
 local FFlagMinimizePlayerListWhenTopBarOpen = require(RobloxGui.Modules.Flags.FFlagMinimizePlayerListWhenTopBarOpen)
@@ -39,6 +39,8 @@ local FFlagMinimizePlayerListWhenTopBarOpen = require(RobloxGui.Modules.Flags.FF
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
 local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList3")
+
+local FFlagTopBarEscapeCloseMenu = game:DefineFastFlag("TopBarEscapeCloseMenu", false)
 
 local MORE_BUTTON_SIZE = FFlagTopBarUseNewIcons and 32 or 36
 local ICON_SIZE = 24
@@ -50,6 +52,8 @@ local MENU_EXTRA_PADDING = 12
 local MENU_FULLSCREEN_THRESHOLD = 450
 
 local CHAT_HIDE_THRESHOLD = 600
+
+local ESCAPE_CLOSE_MENU_ACTION = "CloseMoreMenuAction"
 
 local MoreMenu = Roact.PureComponent:extend("MoreMenu")
 
@@ -75,6 +79,8 @@ MoreMenu.validateProps = t.strictInterface({
 
 function MoreMenu:init()
 	self.chatWasHidden = false
+
+	self.boundAction = false
 end
 
 function MoreMenu:render()
@@ -110,9 +116,7 @@ function MoreMenu:render()
 					local PlayerlistModule = require(RobloxGui.Modules.PlayerlistModule)
 					PlayerlistModule.ToggleVisibility()
 				end
-				if not FFlagTopBarMoreMenuDontCloseMenu then
-					self.props.setMoreMenuOpen(false)
-				end
+				self.props.setMoreMenuOpen(false)
 			end,
 		})
 		hasOptions = true
@@ -147,9 +151,7 @@ function MoreMenu:render()
 				else
 					EmotesMenuMaster:open()
 				end
-				if not FFlagTopBarMoreMenuDontCloseMenu then
-					self.props.setMoreMenuOpen(false)
-				end
+				self.props.setMoreMenuOpen(false)
 			end,
 		})
 		hasOptions = true
@@ -175,9 +177,7 @@ function MoreMenu:render()
 			keyCodeLabel = isUsingKeyBoard and Enum.KeyCode.Backquote or nil,
 			onActivated = function()
 				BackpackModule:OpenClose()
-				if not FFlagTopBarMoreMenuDontCloseMenu then
-					self.props.setMoreMenuOpen(false)
-				end
+				self.props.setMoreMenuOpen(false)
 			end,
 		})
 		hasOptions = true
@@ -271,6 +271,28 @@ function MoreMenu:render()
 	})
 end
 
+function MoreMenu:updateActionBound()
+	if self.props.moreMenuOpen then
+		ContextActionService:BindCoreAction(
+			ESCAPE_CLOSE_MENU_ACTION,
+			function(actionName, inputState, inputObj)
+				if inputState == Enum.UserInputState.Begin then
+					self.props.setMoreMenuOpen(false)
+					return Enum.ContextActionResult.Sink
+				end
+				return Enum.ContextActionResult.Pass
+			end,
+			false, Enum.KeyCode.Escape
+		)
+
+		self.boundAction = true
+	elseif self.boundAction then
+		ContextActionService:UnbindCoreAction(ESCAPE_CLOSE_MENU_ACTION)
+
+		self.boundAction = false
+	end
+end
+
 function MoreMenu:didUpdate(prevProps, prevState)
 	if self.props.moreMenuOpen ~= prevProps.moreMenuOpen then
 		if FFlagUseRoactPlayerList then
@@ -284,6 +306,10 @@ function MoreMenu:didUpdate(prevProps, prevState)
 		else
 			local PlayerlistModule = require(RobloxGui.Modules.PlayerlistModule)
 			PlayerlistModule:HideTemp("TopBar", self.props.moreMenuOpen)
+		end
+
+		if FFlagTopBarEscapeCloseMenu then
+			self:updateActionBound()
 		end
 
 		if self.props.screenSize.X < CHAT_HIDE_THRESHOLD then

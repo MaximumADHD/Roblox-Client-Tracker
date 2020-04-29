@@ -1,3 +1,5 @@
+--!nocheck
+
 local LocalizationService = game:GetService("LocalizationService")
 local ChatService = game:GetService("Chat")
 local success, userShouldLocalizeServerMessages = pcall(function() return UserSettings():IsUserFeatureEnabled("UserShouldLocalizeServerMessages") end)

@@ -107,6 +107,7 @@ function Localization:recalculateContent()
 			World = self:getText("Studio.GameSettings.General.CategoryWorld"),
 			["Access Permissions"] = self:getText("Studio.GameSettings.General.CategoryAccessPermissions"),
 			Localization = self:getText("Studio.GameSettings.General.CategoryLocalization"),
+			Places = self:getText("Studio.GameSettings.General.CategoryPlaces"),
 		},
 
 		Footer = {

@@ -1,3 +1,5 @@
+--!nocheck
+
 local CorePackages = game:GetService("CorePackages")
 local GameSettings = settings():WaitForChild("Game Options") -- TODO: we should migrate the APIs from here to CoreGui
 

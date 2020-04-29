@@ -1,3 +1,5 @@
+--!nocheck
+
 --[[
 				Filename: SettingsHub.lua
 				Written by: jeditkacheff

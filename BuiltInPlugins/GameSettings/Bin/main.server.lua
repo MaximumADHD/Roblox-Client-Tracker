@@ -9,6 +9,7 @@ local OverrideLocaleId = settings():GetFVariable("StudioForceLocale")
 local DFFlagDeveloperSubscriptionsEnabled = settings():GetFFlag("DeveloperSubscriptionsEnabled")
 local FFlagGameSettingsPreventClosingDialogWhileSaveInProgress = game:DefineFastFlag("GameSettingsPreventClosingDialogWhileSaveInProgress", false)
 local FFlagStudioLocalizationInGameSettingsEnabled = game:GetFastFlag("StudioLocalizationInGameSettingsEnabled")
+local FFlagGameSettingsPlaceSettings = game:GetFastFlag("GameSettingsPlaceSettings")
 
 --Turn this on when debugging the store and actions
 local LOG_STORE_STATE_AND_EVENTS = false
@@ -60,12 +61,24 @@ local lastObservedStatus = CurrentStatus.Open
 local settingsImpl = SettingsImpl.new(plugin:GetStudioUserId())
 
 --Add all settings pages in order
-local settingsPages = {
-	"Basic Info",
-	"Access Permissions",
-	"Avatar",
-	"Options",
-}
+local settingsPages
+
+if FFlagGameSettingsPlaceSettings then
+	settingsPages = {
+		"Basic Info",
+		"Access Permissions",
+		"Places",
+		"Avatar",
+		"Options",
+	}
+else
+	settingsPages = {
+		"Basic Info",
+		"Access Permissions",
+		"Avatar",
+		"Options",
+	}
+end
 
 if DFFlagDeveloperSubscriptionsEnabled then
 	table.insert(settingsPages, "Developer Subscriptions")

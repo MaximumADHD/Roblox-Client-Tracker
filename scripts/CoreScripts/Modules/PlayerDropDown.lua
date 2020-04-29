@@ -1,3 +1,5 @@
+--!nocheck
+
 --[[
 	// FileName: PlayerDropDown.lua
 	// Written by: TheGamer101

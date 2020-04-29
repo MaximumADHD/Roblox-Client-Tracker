@@ -1,3 +1,5 @@
+--!nocheck
+
 --[[
 		Filename: NotificationScript2.lua
 		Version 1.1

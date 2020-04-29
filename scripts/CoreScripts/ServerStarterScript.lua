@@ -18,6 +18,12 @@ local ScriptContext = game:GetService('ScriptContext')
 --[[ Add Server CoreScript ]]--
 ScriptContext:AddCoreScriptLocal("ServerCoreScripts/ServerSocialScript", script.Parent)
 
+-- Default Alternate Death Ragdoll (China only for now)
+local FFlagSupportDeathType = game:DefineFastFlag("SupportDeathTypeServer", false)
+if FFlagSupportDeathType then
+	ScriptContext:AddCoreScriptLocal("ServerCoreScripts/PlayerRagdollRigCreator", script.Parent)
+end
+
 --[[ Remote Events ]]--
 local RemoteEvent_SetDialogInUse = Instance.new("RemoteEvent")
 RemoteEvent_SetDialogInUse.Name = "SetDialogInUse"

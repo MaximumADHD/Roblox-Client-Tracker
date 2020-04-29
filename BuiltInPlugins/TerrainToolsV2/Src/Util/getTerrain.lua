@@ -1,3 +1,7 @@
+local Plugin = script.Parent.Parent.Parent
+
+local DebugFlags = require(Plugin.Src.Util.DebugFlags)
+
 local Workspace = game:GetService("Workspace")
 
 local terrain
@@ -16,6 +20,8 @@ local function findTerrainAsync()
 end
 
 return function()
+	assert(not DebugFlags.RunningUnderCLI(), "getTerrain() is disabled under CLI where Workspace.Terrain does not exist")
+
 	if not terrain then
 		findTerrainAsync()
 	end

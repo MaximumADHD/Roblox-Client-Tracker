@@ -9,9 +9,24 @@ return function()
     it("should construct and destroy without any errors", function()
         local container = Instance.new("Folder")
 
-        local element = Roact.createElement(MockServiceWrapper, {}, {
+        local element = Roact.createElement(MockServiceWrapper, {
+			storeState = {
+				AssetManagerReducer = {
+					assetsTable = {
+						assetPreviewData = {
+							[1234] = {
+								favorited = true,
+							}
+						}
+					}
+				}
+			}
+		}, {
             AssetPreviewWrapper = Roact.createElement(AssetPreviewWrapper, {
-                AssetPreviewData = {
+				AssetData = {
+					id = 1234,
+				},
+				AssetPreviewData = {
 					Asset = {
 						Id = 1234,
 						Type = "Model",

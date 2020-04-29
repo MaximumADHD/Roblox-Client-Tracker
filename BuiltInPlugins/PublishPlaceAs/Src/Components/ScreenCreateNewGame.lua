@@ -34,7 +34,7 @@ local SetPublishInfo = require(Plugin.Src.Actions.SetPublishInfo)
 
 local LoadGroups = require(Plugin.Src.Thunks.LoadGroups)
 
-local FFlagStudioPublishMediatorFailedConnection = game:GetFastFlag("StudioPublishMediatorFailedConnection")
+local FFlagStudioPublishMediatorFailedConnection = game:GetFastFlag("StudioPublishMediatorFailedConnection2")
 
 local MENU_ENTRIES = {
 	"BasicInfo",

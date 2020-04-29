@@ -1,3 +1,5 @@
+--!nocheck
+
 --LaserPointer.lua
 --Implements the visual part of the VR laser pointer
 --Written by Kyle, September 2016

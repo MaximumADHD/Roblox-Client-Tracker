@@ -1,3 +1,5 @@
+--!nocheck
+
 --[[
 		Filename: Help.lua
 		Written by: jeditkacheff

@@ -26,12 +26,16 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
 local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
 
+local FFlagHideTopBarWhenInspectOpen = require(RobloxGui.Modules.Flags.FFlagHideTopBarWhenInspectOpen)
+
 local CLOSE_MENU_ICON_SIZE = 30
 
 local TopBarApp = Roact.PureComponent:extend("TopBarApp")
 
 TopBarApp.validateProps = t.strictInterface({
 	menuOpen = t.boolean,
+	inspectMenuOpen = FFlagHideTopBarWhenInspectOpen and t.boolean or nil,
+
 	setScreenSize = t.callback,
 })
 
@@ -41,6 +45,11 @@ function TopBarApp:render()
 	if TenFootInterface:IsEnabled() then
 		screenSideOffset = Constants.ScreenSideOffsetTenFoot
 		topBarHeight = Constants.TopBarHeightTenFoot
+	end
+
+	local isTopBarVisible = not self.props.menuOpen
+	if FFlagHideTopBarWhenInspectOpen then
+		isTopBarVisible = not (self.props.menuOpen or self.props.inspectMenuOpen)
 	end
 
 	return Roact.createElement("ScreenGui", {
@@ -57,7 +66,7 @@ function TopBarApp:render()
 		FullScreenFrame = Roact.createElement("Frame", {
 			BackgroundTransparency = 1,
 			Size = UDim2.new(1, 0, 1, 0),
-			Visible = not self.props.menuOpen,
+			Visible = isTopBarVisible,
 		}, {
 			HurtOverlay = Roact.createElement(HurtOverlay),
 		}),
@@ -87,7 +96,7 @@ function TopBarApp:render()
 		TopBarFrame = Roact.createElement("Frame", {
 			BackgroundTransparency = 1,
 			Size = UDim2.new(1, 0, 0, topBarHeight),
-			Visible = not self.props.menuOpen,
+			Visible = isTopBarVisible,
 		}, {
 			LeftFrame = not TenFootInterface:IsEnabled() and Roact.createElement("Frame", {
 				BackgroundTransparency = 1,
@@ -140,6 +149,7 @@ end
 local function mapStateToProps(state)
 	return {
 		menuOpen = state.displayOptions.menuOpen,
+		inspectMenuOpen = FFlagHideTopBarWhenInspectOpen and state.displayOptions.inspectMenuOpen or nil,
 	}
 end
 

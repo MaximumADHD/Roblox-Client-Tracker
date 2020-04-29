@@ -1,3 +1,5 @@
+--!nocheck
+
 --[[
   // FileName: PlayerlistModule.lua
   // Version 1.3

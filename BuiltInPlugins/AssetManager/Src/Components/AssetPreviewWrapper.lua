@@ -1,3 +1,5 @@
+local FFlagEnableFavoritesForAssetPreviewInAssetManager = game:DefineFastFlag("EnableFavoritesForAssetPreviewInAssetManager", false)
+
 local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
@@ -12,6 +14,12 @@ local ContextServices = require(Framework.ContextServices)
 local OnAssetDoubleClick = require(Plugin.Src.Thunks.OnAssetDoubleClick)
 local OnAssetRightClick = require(Plugin.Src.Thunks.OnAssetRightClick)
 
+local GetAssetFavorited = require(Plugin.Src.Thunks.GetAssetFavorited)
+local GetAssetFavoriteCount = require(Plugin.Src.Thunks.GetAssetFavoriteCount)
+local ToggleFavoriteStatus = require(Plugin.Src.Thunks.ToggleFavoriteStatus)
+
+local StudioService = game:GetService("StudioService")
+
 local AssetPreviewWrapper = Roact.PureComponent:extend("AssetPreviewWrapper")
 
 local MAX_PREVIEW_WIDTH = 640
@@ -24,6 +32,8 @@ function AssetPreviewWrapper:init()
         maxPreviewHeight = 0,
         maxPreviewWidth = 0,
     }
+
+    local userId = StudioService:GetUserId()
 
     self.onTreeItemClicked = function(instance)
         self:setState({
@@ -38,9 +48,39 @@ function AssetPreviewWrapper:init()
         props.dispatchOnAssetDoubleClick(assetData)
     end
 
-    self.onFavoritedActivated = function()
-        --TODO mwang hook up favoriting
-    end
+    self.requestFavoriteCounts = function()
+        if not FFlagEnableFavoritesForAssetPreviewInAssetManager then
+            return
+        end
+
+        local props = self.props
+        local assetId = props.AssetData.id
+        local apiImpl = props.API:get()
+		props.dispatchGetAssetFavoriteCount(apiImpl, assetId)
+	end
+
+    self.checkFavorited = function()
+        if not FFlagEnableFavoritesForAssetPreviewInAssetManager then
+            return
+        end
+
+        local props = self.props
+        local assetId = props.AssetData.id
+        local apiImpl = props.API:get()
+		props.dispatchGetAssetFavorited(apiImpl, assetId, userId)
+	end
+
+    self.onFavoritedActivated = function(rbx)
+        if not FFlagEnableFavoritesForAssetPreviewInAssetManager then
+            return
+        end
+
+        local props = self.props
+        local assetId = props.AssetData.id
+        local apiImpl = props.API:get()
+		local favorited = props.Favorited
+		props.dispatchToggleFavoriteStatus(apiImpl, assetId, userId, favorited)
+	end
 
     self.tryCreateContextMenu = function()
         local props = self.props
@@ -65,7 +105,14 @@ function AssetPreviewWrapper:init()
 			maxPreviewWidth = detectorWidth - 2 * PADDING,
 			maxPreviewHeight = detectorHeight - 2 * PADDING,
 		})
-	end
+    end
+end
+
+function AssetPreviewWrapper:didMount()
+    if FFlagEnableFavoritesForAssetPreviewInAssetManager then
+        self.checkFavorited()
+        self.requestFavoriteCounts()
+    end
 end
 
 function AssetPreviewWrapper:render()
@@ -123,8 +170,8 @@ function AssetPreviewWrapper:render()
                 TryInsert = self.tryInsert,
 
                 OnFavoritedActivated = self.onFavoritedActivated,
-                FavoriteCounts = self.props.favoriteCounts,
-                Favorited = self.props.favorited,
+                FavoriteCounts = props.FavoriteCount,
+                Favorited = props.Favorited,
 
                 TryCreateContextMenu = self.tryCreateContextMenu,
                 OnTreeItemClicked = self.onTreeItemClicked,
@@ -135,6 +182,17 @@ function AssetPreviewWrapper:render()
             })
         })
     })
+end
+
+local function mapStateToProps(state, props)
+    local assetManagerReducer = state.AssetManagerReducer
+    local assetId = props.AssetData.id
+    local assetPreviewData = assetManagerReducer.assetsTable.assetPreviewData[assetId]
+
+	return {
+        Favorited = assetPreviewData.favorited,
+        FavoriteCount = assetPreviewData.favoriteCount
+	}
 end
 
 ContextServices.mapToProps(AssetPreviewWrapper, {
@@ -153,7 +211,16 @@ local function mapDispatchToProps(dispatch)
         dispatchOnAssetRightClick = function(apiImpl, assetData, localization, plugin)
             dispatch(OnAssetRightClick(apiImpl, assetData, localization, plugin))
         end,
+        dispatchGetAssetFavorited = function(apiImpl, assetId, userId)
+			dispatch(GetAssetFavorited(apiImpl, assetId, userId))
+		end,
+		dispatchGetAssetFavoriteCount = function(apiImpl, assetId)
+			dispatch(GetAssetFavoriteCount(apiImpl, assetId))
+		end,
+		dispatchToggleFavoriteStatus = function(apiImpl, userId, assetId, favorited)
+			dispatch(ToggleFavoriteStatus(apiImpl, userId, assetId, favorited))
+		end,
     }
 end
 
-return RoactRodux.connect(nil, mapDispatchToProps)(AssetPreviewWrapper)
+return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(AssetPreviewWrapper)

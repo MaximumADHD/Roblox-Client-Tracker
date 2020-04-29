@@ -1,3 +1,5 @@
+--!nocheck
+
 --[[
 		Filename: GamepadMenu.lua
 		Written by: jeditkacheff

@@ -1,3 +1,5 @@
+--!nocheck
+
 --	// FileName: WelcomeMessage.lua
 --	// Written by: TheGamer101
 --	// Description: Create a message label for a welcome message.

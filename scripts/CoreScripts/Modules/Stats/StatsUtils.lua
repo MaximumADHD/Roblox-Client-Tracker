@@ -1,3 +1,5 @@
+--!nocheck
+
 --[[
   Filename: StatsUtils.lua
   Written by: dbanks

@@ -16,6 +16,11 @@ function MockTerrain.new()
 	}, MockTerrain)
 end
 
+-- TODO: More robust "IsA" methods for our mock instances
+function MockTerrain:IsA(str)
+	return str == "Terrain"
+end
+
 function MockTerrain:WriteVoxels(region, resolution, materialMap, occupancyMap)
 end
 

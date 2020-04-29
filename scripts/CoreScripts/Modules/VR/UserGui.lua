@@ -1,3 +1,5 @@
+--!nocheck
+
 local VRService = game:GetService("VRService")
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui.RobloxGui

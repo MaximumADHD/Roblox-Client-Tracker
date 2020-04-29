@@ -1,3 +1,5 @@
+--!nocheck
+
 --[[
 	// FileName: NewChat.lua
 	// Written by: Xsitsu
