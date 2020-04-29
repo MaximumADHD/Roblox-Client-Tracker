@@ -40,7 +40,8 @@ function FitTextLabel:init()
 end
 
 function FitTextLabel:render()
-	return Roact.createElement("TextLabel", self:__getFilteredProps())
+	local instanceType = self.props.onActivated and "TextButton" or "TextLabel"
+	return Roact.createElement(instanceType, self:__getFilteredProps())
 end
 
 function FitTextLabel:didMount()
@@ -59,6 +60,7 @@ function FitTextLabel:__getFilteredProps()
 	local filteredProps = {
 		width = Cryo.None,
 		maximumWidth = Cryo.None,
+		onActivated = Cryo.None,
 		Size = UDim2.new(self.props.width, UDim.new(0, 0)),
 		[Roact.Ref] = self.frameRef,
 
@@ -66,7 +68,16 @@ function FitTextLabel:__getFilteredProps()
 			sizeConstraint = self.props.maximumWidth < math.huge and Roact.createElement("UISizeConstraint", {
 				MaxSize = Vector2.new(self.props.maximumWidth, math.huge),
 			})
-		})
+		}),
+
+		[Roact.Event.Activated] = self.props.onActivated,
+
+		[Roact.Change.AbsoluteSize] = function()
+			if self.props[Roact.Change.AbsoluteSize] then
+				self.props[Roact.Change.AbsoluteSize]()
+			end
+			self.onResize()
+		end,
 	}
 
 	return Cryo.Dictionary.join(self.props, filteredProps)

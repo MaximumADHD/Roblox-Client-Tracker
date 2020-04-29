@@ -5,7 +5,7 @@ commit = "8ba294b0da0e9267a4382ce9bbed74c0c7fcc0d3"
 source = "git+https://github.com/roblox/purchasepromptscript-roact#master"
 dependencies = [
     "Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo",
-    "FitFrame roblox/roact-fit-components 1.0.1 url+https://github.com/roblox/roact-fit-components",
+    "FitFrame roblox/roact-fit-components 1.2.3 url+https://github.com/roblox/roact-fit-components",
     "Otter roblox/otter 0.1.1 url+https://github.com/roblox/otter",
     "Roact roblox/roact 1.2.0 url+https://github.com/roblox/roact",
     "RoactRodux roblox/roact-rodux 0.2.1 url+https://github.com/roblox/roact-rodux",
