@@ -1051,6 +1051,7 @@ AUIServiceProvider
 AUIUnknown
 AUIValueGetSet
 AUIXMLHTTPRequest2Callback
+AukZxJgfXPIcHu8evM5UPAqq
 AULocalTriangleSphereCastCallback
 AULuaSyntaxError
 AUMergeChunk
@@ -4055,7 +4056,6 @@ BIO_socket_nbio
 BIO_write_ex
 BitArrayToObject
 BitstreamList
-BJAKKgtCDWJIroaftLbAI69DCIngqkczcdVut0FZo8TS
 Bkg_round.png
 Bkg_square.png
 BL17qL9koPpyChCHbWVgSXbfxynzBupojeOEiuqDuGX0BFl
@@ -4379,7 +4379,7 @@ BytesReceivedAndIgnoredPerSec
 BytesReceivedPerSec
 BytesRecvAndIgnored
 BytesWritten
-ByVersion_0.429.1.403985
+ByVersion_0.429.2.404265
 ByVersionForPlatform_
 C_specific_handler
 CA_NPEAVQObject
@@ -5572,7 +5572,6 @@ CollisionSoundVolume
 CollisionToggleMode
 CollisionType
 CollisionTypeField
-COlokCf0eNxcz
 Color3.fromHSV
 Color3.toHSV
 Color3ToHSVMethod
@@ -7883,6 +7882,7 @@ DSATTRIB_PicSampleSeq
 DSATTRIB_SAMPLE_LIVE_STREAM_TIME
 DSATTRIB_TRANSPORT_PROPERTIES
 DSATTRIB_UDCRTag
+DSEI8LZCQtLesqhgM0Z
 DsEVxozVjY
 DSHA256_ASM
 DSHA512_ASM
@@ -10760,7 +10760,6 @@ HatAttachment
 HaveActiveUser
 HB_OPTIONS
 HB_SHAPER_LIST
-Hbja3FrtIOVZF9bSlwgnIhacFWbHe2CX2doaNPJyx5qKp1nXcMt
 Hcircumflex
 HDCacheLock
 HeadColor3
@@ -11160,7 +11159,6 @@ HwngSmldAskhBcraMaweNegsOgnaT
 HWYGOTH.ttf
 HybridEvent
 Iacutesmall
-IaE9QNZcBujLNcHVZxVHrTBKPk2v
 IAutocompleter
 IBusyStateModel
 ICCProfile
@@ -11269,6 +11267,7 @@ IID_IVPVBIConfig
 IID_IVPVBINotify
 IID_IVPVBIObject
 IIMAEBVInstanceIdentifier
+Ik8tx2SvxjR8lIBkqqIZAAdaP1B
 IKCollisionsMode
 IkDragCollisionsMode
 IkDraggerAnchorMode
@@ -11883,7 +11882,6 @@ Javascript
 JavaScript
 JavaScriptCallback
 Jba5qWkYU5nARYZm1gQVP
-JBHU1YngnkNsKtKFpnU8c8vs5hNh
 Jcircumflex
 JDJNJXJbJlJvJ
 JHJRJ\JfJpJxJ
@@ -11892,7 +11890,6 @@ JIRA_RIDE_184_V2
 JJJBBB\\\xx
 JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ
 JKLMNOPQRSTU
-JnuRBNemVb9u
 JoinBlobInvalidateThresholdPercent
 JoinCommand
 JoinDataCacheChecksClientOwnedParts
@@ -12046,6 +12043,7 @@ KPEAVICHull
 KPEIBX_K_KPEIAU_iobuf
 KVScriptContext
 KYULPhCBFoD3mw5mygYqAeFlHdSL2k3MnDG
+KZ46AS6h8k6YHLG
 LabelArray
 LabelArray.push
 LabelArray[globstart]
@@ -12109,7 +12107,6 @@ LayoutOrder
 LazySubmitTask
 LC_MESSAGES
 LCMapStringW
-LDJ65pgxXzRTRhZhLaeXMFum91DqPBjQAjzwCD6lVfd2gshSaQs
 LDLBuildProgramTimeReportEnabled
 LDLBuildProgramTimeReportRate
 LDLComponents
@@ -12725,6 +12722,8 @@ LuauWarnOnUtf8
 LuauWatchdog
 LuaWebService
 LVvuOx39]O
+LWukZG3dLplMiVRTga
+LxJwFTkC4AnLzZ5n5MTvi7
 M_NVWeakFunctionRef
 MachineAddress
 MachineConfig
@@ -13336,6 +13335,7 @@ MethodQuery
 Metrics.width
 MetricsSets
 MetricType
+MFuinXHnx7xOXmRYaEgfU
 MHapV7R8MxA953
 MicroProfile
 MicroProfileFlip
@@ -13352,7 +13352,7 @@ MigrateTriangleMeshData3
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsI9zRp2OSccqdFx2
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAupANB3EbN9hFHHUj0eA
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzjPRQo9jc
-MIICCgKCAgEAuf7kHkATEp3ODMG6PuQZRdxgQJF7c99brCOcFihOGbpHlZ3BP4ji
+MIICCgKCAgEAp980UZ4QJvAWZpK6ZK4XXpIrpyn0ICVPZen2jboBE8kdn0I2TI1m
 Millisecond
 MillisecondsBeforeHandlingReconnect
 MimeDataFromSelection
@@ -13391,6 +13391,7 @@ Miscellaneous
 Mismatched
 MissingCoreScript
 MissingDumpFile
+MM2YHPOrMV7OAMLWNuziUIxkIsv73qf5PD42Ma8VKvFifVHlfl
 MMW4IkDragCollisionsMode
 MMW4PartMaterial
 MMW4UserInputState
@@ -13672,6 +13673,7 @@ MultTransposeMatrixf
 MusicalInstruments
 MutexLifetime
 MW4PartMaterial
+MXSMcXcsLby3Fi
 MyModelsAction
 NAEAVHttpResponse
 NAEBUPlaceLauncherRequestInfo
@@ -14037,11 +14039,9 @@ NVWorkspace
 NW4FileSystemDir
 NW4PenStyle
 NW4UserInputType
-NYF9QP7oPg9v19WlbB6NXXA8pzBaPptNn61fWE
 Oacutesmall
 OAEPEncryptionSET
 OAUTHBEARER
-OavvopOYrYnUwLXKmJ9CysKABl9l
 Obj.GroupColors
 Obj.GroupsActive
 Obj.GroupsAllActive
@@ -14364,7 +14364,6 @@ OtherMechanismsAnchored
 OtherTextChanged
 OtherTopLabelOverride
 Otildesmall
-Ou9qWazTV2RdfMB5IFXuE4AJnsJCV5Xs4
 OutboundTotal
 OutBufferHealth
 OutClusters
@@ -16823,6 +16822,7 @@ QGraphicsScene
 QGraphicsView
 QGridLayout
 QGuiApplication
+QhAHqNOFCiAPquTrfM1uuQUM
 QHBoxLayout
 QHeaderView
 QHostAddress
@@ -16898,7 +16898,6 @@ QRadioButton
 QRegularExpression
 QRegularExpressionMatch
 QRegularExpressionMatchIterator
-QRjxZkZKVv
 QRubberBand
 QScopedPointer
 QScopedPointerDeleter
@@ -17242,7 +17241,6 @@ RawJoinData
 RaycastFilterType
 RaycastParams
 RaycastResult
-RbiJphXhUlGamgDwGAoDcCVqMsWkCWsUoBn9HRwGSgFYOLWA5Eb6ze4
 RBX_CHECK_EQUAL
 RBX_CHECK_GE
 RBX_CHECK_GT
@@ -18221,6 +18219,8 @@ RigidBodyLazyUpdating
 RigidityEnabled
 RiseVelocity
 Rj0isQcnqX
+RKumf4dSxMX8Gy
+RKW3w03JQPtjGt9DJhg9qxqwC7C
 Roact.createElement
 ROBLOSECURITY
 Roblox.Hybrid
@@ -19241,7 +19241,6 @@ SetWindowLongPtrA
 SetWindowPos
 SetWindowsHookExA
 SetWindowTextA
-SfT1sO32DUIk5rG8q3dqjKoRZYNf7hoQd
 ShaderSource
 ShadingLanguage
 Shadow.visible
@@ -19706,6 +19705,7 @@ SplittingCanceled
 SpreadAngle
 SpringConstraint
 SpringConstraintAction
+Sq5byRMT5HFYJr7r8fVKZ1lM5I4LRCeTSGi0k68s5Ang8A14
 SquishRelay
 SQUIshRobloxReflectionExtensionLibrary
 Src.Thread
@@ -21668,6 +21668,7 @@ StudioBulkImportUploadWarning
 StudioCharacterLoadTime
 StudioChat
 StudioChatSessionHandlerCrashFix
+StudioCheckEmergencyMessageAtStart
 StudioCheckEmergencyMessageOnUserLogIn
 StudioCheckTeamServerExistsFrequency
 StudioCJVAlsoCheckLocale
@@ -21862,7 +21863,7 @@ StudioMeshSplittingPostPrecheckError
 StudioMeshSplittingPrecheckError
 StudioMeshSplittingRejectImport
 StudioMeshSplittingSuccess
-StudioMigrateGlobalToCJVInChina
+StudioMigrateGlobalToCJVInChina2
 StudioMinorFixesForAssetPreview
 StudioMode
 StudioModeChanged
@@ -23278,6 +23279,7 @@ TouchTransmitter
 ToUniversalTime
 TownAndCity
 ToWorldSpace
+TQTTnZa7bcDRNArFrN5d0RqaNy8bYWPb5MhRHqnZSHBjaV1zeqJzD2J
 TraceMessage
 Track2Data
 TrackCountryRegionAPIHundredthsPercent
@@ -23883,7 +23885,6 @@ UntranslatedStringsHeader
 UntranslatedStringsHeaderAction
 Unull_deleter
 Unverified
-UodePxf8tNNNy
 Up_key.png
 Up_key_dn.png
 UPackageAssetData
@@ -24919,7 +24920,6 @@ VLuaSourceBuffer
 VLuaSourceContainer
 VLuauLanguageServerExt
 VLuaWebService
-Vm7wLkbZykysDc
 VManualGlue
 VManualSurfaceJointInstance
 VManualWeld
@@ -25452,6 +25452,7 @@ WaterWaveSpeed
 WaypointIdx
 WCharArray
 Wcircumflex
+WdPbPRNx0v7suUlmDIpkFsvz54NIRD6C4BA0pAuHIoHwmYG7fit0y
 WDU_Mbstatet
 WeakFunctionRef
 WeakThreadRef
@@ -25490,6 +25491,7 @@ WeldCursor
 WeldPermyriad
 WeldReport
 WeldsAction
+WfmUbvpf5j71YDQpAkVuaS33nM
 WGL_3DFX_multisample
 WGL_3DL_stereo_control
 WGL_AMD_gpu_association
@@ -25781,6 +25783,7 @@ XInputGetState
 XInputSetState
 Xinvalid_argument
 Xlength_error
+Xn7z6RLQTNvVibJ0RA6didSxRR9
 Xout_of_range
 XP6AXAEBUTextFilterResult
 XP6AXAEBVQString
@@ -25810,7 +25813,6 @@ XQColorDialog
 Xregex_error
 XResolution
 Xtime_get_ticks
-XTzo0Wj3loZCCj8OFQ
 XUnegotiation_response
 XvAAuY44YuAAvX4
 XVAddImageDialog
@@ -25936,20 +25938,20 @@ YAXPEBVQObject
 YAXW4error_type
 Ycircumflex
 Ydieresissmall
-YEGxfBT7FGJ
 YffYZefYDNNDCOO
 YieldEvent
 YieldFuncDesc
 YieldFunction
 YQByteArray
-YqLLwxJlQZb4PwaVuCsCAwEAAQ
 YResolution
+YV0rpECAwEAAQ
 YwBBvY55YvBBwY5
 Z_KPEIBX_K_KPEIAU1
 Zcaronsmall
 Zdotaccent
 ZgnhKhWhci
 ZIndexBehavior
+Zkp82vJMYXlPpmM53NtkTsDdb
 ZLcJhLcGhM
 ZNjlXiODrHUcaGRYt
 ZntaLkerGlryCnmrArbeHbarAcrySaahTaveDgneBuruGrjuGayrOlmaTuleTadnKmylMhniSiahTooaLtbiTrmyMroeGgnaHihtErehCsnaCmagOrnuRrmhKgnoMariHanaKopoBinaHiiiYlatIhtoGtrsDhniZglgTonaHdhuBbgaTbmiLelaTbniLragUwahSamsOtrpCiarBiguBtpoCulaTgalGgnfTolySoepXrahKilaBxusXxnhPgahPoo
