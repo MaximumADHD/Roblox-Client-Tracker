@@ -74,6 +74,7 @@ Studio.GameSettings.General.CategoryBasicInfo,Basic Info, ,Basic Info,기본 정
 Studio.GameSettings.General.CategoryAvatar,Avatar, ,Avatar,아바타,虚拟形象
 Studio.GameSettings.General.CategoryWorld,World, ,World,세계,世界
 Studio.GameSettings.General.CategoryOptions,Options, ,Options,옵션,选项
+Studio.GameSettings.General.CategoryPlaces,Places, ,Places, , 
 Studio.GameSettings.General.TitleName,Name, ,Name,이름,名称
 Studio.GameSettings.General.TitleDescription,Description, ,Description,설명,描述
 Studio.GameSettings.General.TitlePlayability,Playability, ,Playability,플레이 가능 여부,可玩性

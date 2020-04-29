@@ -6,8 +6,5 @@
 		"ImportUnused": "fatal",
 		"LocalShadow": "fatal",
 		"ImplicitReturn": "fatal"
-	},
-	"language": {
-		//"mode": "nonstrict" // we can switch this on with CLIPLAYEREX-3783
 	}
 }

@@ -1,7 +1,4 @@
 {
-	"language": {
-		"mode": "nonstrict"
-	},
 	"lint": {
 		"SameLineStatement": "fatal",
 		"FunctionUnused": "fatal"

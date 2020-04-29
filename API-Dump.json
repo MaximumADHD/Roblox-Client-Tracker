@@ -11055,23 +11055,6 @@
                     }
                 },
                 {
-                    "Category": "Benchmarking",
-                    "MemberType": "Property",
-                    "Name": "IsFmodProfilingEnabled",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    }
-                },
-                {
                     "Category": "Errors",
                     "MemberType": "Property",
                     "Name": "IsScriptStackTracingEnabled",
@@ -34308,6 +34291,23 @@
                     }
                 },
                 {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "SmoothingAngle",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "PluginSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "TriangleCount",
@@ -35231,6 +35231,32 @@
                         "Name": "RaycastResult"
                     },
                     "Security": "None"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SetInsertPoint",
+                    "Parameters": [
+                        {
+                            "Name": "point",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Vector3"
+                            }
+                        },
+                        {
+                            "Default": "false",
+                            "Name": "ignoreGrid",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
                 },
                 {
                     "MemberType": "Function",
@@ -44244,6 +44270,17 @@
             ],
             "MemoryCategory": "Instances",
             "Name": "ReplicatedFirst",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service"
+            ]
+        },
+        {
+            "Members": [
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "ReplicatedScriptService",
             "Superclass": "Instance",
             "Tags": [
                 "NotCreatable",

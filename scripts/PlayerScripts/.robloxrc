@@ -1,7 +1,4 @@
 {
-	"language": {
-		"mode": "noinfer"
-	},
 	"lint": {
 		"MultiLineStatement": "disabled",
 		"DeprecatedGlobal": "fatal",

@@ -338,13 +338,11 @@ RBX
 			JoinDataItem
 			JoinDataItemV2
 			MarkerItem
-			NewInstanceItem
 			PingBackItem
 			PingItem
 			PingJob
 			ProcessPacketsJob
 			ReferencePropertyChangedItem
-			ResolveNewInstanceAtomicTreeItem
 			SendClusterJob
 			SendDataJob
 			SendStatsJob
@@ -395,14 +393,18 @@ RBX
 		NetworkPhysicsMegaJob
 		NetworkSendDataMegaJob
 		NetworkStream
+		NewInstanceItem
 		PacketReceiveJob
 		Peer
 		PeerStatsItem
 		PooledItem
 		RakStatsItem
 		ReplicatorJob
+		ResolveNewInstanceAtomicTreeItem
 		RomarkPhaseTrackingJob
 		Server
+		SharedEventInvocationItem
+		SharedQueueItem
 	}
 	PART
 	{
@@ -486,6 +488,7 @@ RBX
 	}
 	ScriptEditor
 	{
+		CmdConfig
 		CmdFoldAll
 		CmdFoldToggle
 		CmdGotoPosition
@@ -494,6 +497,7 @@ RBX
 		CmdSelect
 		CmdUnfoldAll
 		GotoLineDialog
+		QtLanguageClient
 		ScriptingCmdBase
 		ScriptingCommands
 		ScriptingManager
@@ -1105,6 +1109,7 @@ RBX
 	RenderingTest
 	RenderStatsCommand
 	ReplicatedFirst
+	ReplicatedScriptService
 	ReplicatedStorage
 	ResetCommand
 	RevoluteLink

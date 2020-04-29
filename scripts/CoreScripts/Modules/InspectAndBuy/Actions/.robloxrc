@@ -1,7 +1,4 @@
 {
-	"language": {
-		"mode": "nonstrict"
-	},
 	"lint": {
 		"ImplicitReturn": "fatal"
 	}

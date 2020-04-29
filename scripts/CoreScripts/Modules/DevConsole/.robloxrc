@@ -6,8 +6,5 @@
 		//"LocalUnused": "fatal",
 		"ImportUnused": "fatal",
 		"ImplicitReturn": "fatal"
-	},
-	"language": {
-		"mode": "nonstrict"
 	}
 }

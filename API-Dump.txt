@@ -622,7 +622,6 @@ Class Debris : Instance [NotCreatable] [Service]
 	Function void Debris:AddItem(Instance item, double lifetime = 10)
 	Function void Debris:SetLegacyMaxItems(bool enabled) {LocalUserSecurity}
 Class DebugSettings : Instance [NotCreatable] [Settings] [NotBrowsable]
-	Property bool DebugSettings.IsFmodProfilingEnabled
 	Property Enum<TickCountSampleMethod> DebugSettings.TickCountPreciseOverride
 	Property bool DebugSettings.IsScriptStackTracingEnabled
 	Property bool DebugSettings.ReportSoundWarnings
@@ -1927,6 +1926,7 @@ Class MeshPart : TriangleMeshPart
 	Property Content MeshPart.TextureID
 Class PartOperation : TriangleMeshPart
 	Property Enum<RenderFidelity> PartOperation.RenderFidelity {✏️PluginSecurity}
+	Property float PartOperation.SmoothingAngle {✏️PluginSecurity}
 	Property int PartOperation.TriangleCount [<💾> SaveOnly] [ReadOnly] [NotReplicated]
 	Property bool PartOperation.UsePartColor
 Class NegateOperation : PartOperation
@@ -1973,6 +1973,7 @@ Class WorldRoot : Model [NotCreatable]
 	Function bool WorldRoot:IsRegion3Empty(Region3 region, Instance ignoreDescendentsInstance = nil)
 	Function bool WorldRoot:IsRegion3EmptyWithIgnoreList(Region3 region, Objects ignoreDescendentsTable)
 	Function RaycastResult WorldRoot:Raycast(Vector3 origin, Vector3 direction, RaycastParams raycastParams = RaycastParams.new())
+	Function void WorldRoot:SetInsertPoint(Vector3 point, bool ignoreGrid = false) {RobloxScriptSecurity}
 Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property bool Workspace.AllowThirdPartySales  [NotReplicated]
 	Property float Workspace.FallenPartsDestroyHeight {✏️PluginSecurity}
@@ -2460,6 +2461,7 @@ Class ReplicatedFirst : Instance [NotCreatable] [Service]
 	Event ReplicatedFirst.DefaultLoadingGuiRemoved() {RobloxScriptSecurity}
 	Event ReplicatedFirst.FinishedReplicating() {RobloxScriptSecurity}
 	Event ReplicatedFirst.RemoveDefaultLoadingGuiSignal() {RobloxScriptSecurity}
+Class ReplicatedScriptService : Instance [NotCreatable] [Service]
 Class ReplicatedStorage : Instance [NotCreatable] [Service]
 Class RobloxPluginGuiService : Instance [NotCreatable] [Service] [NotReplicated]
 Class RobloxReplicatedStorage : Instance [NotCreatable] [Service] [NotBrowsable]

@@ -5209,6 +5209,15 @@
         <string name="summary">A container whose contents should be scripts. Scripts that are added to the container are run on the server.</string>
       </Properties>
     </Item>
+	  
+	<Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">ReplicatedScriptService</string>
+        <string name="ExplorerOrder">30</string>
+        <string name="ExplorerImageIndex">113</string>
+        <string name="summary">A container whose contents should be scripts. Scripts that are added to the container are run on the server and the client.</string>
+      </Properties>
+    </Item>
 
     <Item class="ReflectionMetadataClass">
       <Properties>
