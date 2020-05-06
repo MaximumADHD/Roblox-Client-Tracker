@@ -14,8 +14,13 @@ local Roact = require(Plugin.Roact)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
 local getMouse = require(Plugin.Src.Consumers.getMouse)
 
+local ContextServices = require(Plugin.Framework.ContextServices)
+
+
 local BORDER = "rbxasset://textures/GameSettings/DottedBorder_Square.png"
 local PLUS = "rbxasset://textures/GameSettings/CenterPlus.png"
+
+local FFlagStudioConvertGameSettingsToDevFramework = game:GetFastFlag("StudioConvertGameSettingsToDevFramework")
 
 local NewGameIcon = Roact.PureComponent:extend("NewGameIcon")
 
@@ -30,10 +35,20 @@ function NewGameIcon:init()
 end
 
 function NewGameIcon:mouseHoverChanged(hovering)
-	getMouse(self).setHoverIcon("PointingHand", hovering)
+	-- TODO: change to use HoverArea from Developer Framework
+	if FFlagStudioConvertGameSettingsToDevFramework then
+		local props = self.props
+		if hovering then
+			props.Mouse:__pushCursor("PointingHand")
+		else
+			props.Mouse:__popCursor()
+		end
+	else
+		getMouse(self).setHoverIcon("PointingHand", hovering)
+	end
 end
 
-function NewGameIcon:render()
+function NewGameIcon:DEPRECATED_render()
 	local visible = self.props.Visible
 
 	return withTheme(function(theme)
@@ -62,6 +77,48 @@ function NewGameIcon:render()
 			})
 		})
 	end)
+end
+
+function NewGameIcon:render()
+	if not FFlagStudioConvertGameSettingsToDevFramework then
+		return self:DEPRECATED_render()
+	end
+
+	local props = self.props
+	local visible = props.Visible
+	local theme = props.Theme:get("Plugin")
+
+	return Roact.createElement("ImageButton", {
+		Visible = visible,
+		BorderSizePixel = 0,
+		BackgroundColor3 = theme.newThumbnail.background,
+		ImageColor3 = theme.newThumbnail.border,
+		Image = BORDER,
+		Size = UDim2.new(0, 150, 0, 150),
+
+		[Roact.Event.MouseEnter] = self.mouseEnter,
+		[Roact.Event.MouseLeave] = self.mouseLeave,
+
+		[Roact.Event.Activated] = self.props.OnClick,
+	}, {
+		Plus = Roact.createElement("ImageLabel", {
+			BackgroundTransparency = 1,
+			ImageColor3 = theme.newThumbnail.plus,
+			ImageTransparency = 0.4,
+			Size = UDim2.new(0, 267, 0, 150),
+			Position = UDim2.new(0.5, 0, 0.5, 0),
+			AnchorPoint = Vector2.new(0.5, 0.5),
+			Image = PLUS,
+			ZIndex = 2,
+		})
+	})
+end
+
+if FFlagStudioConvertGameSettingsToDevFramework then
+	ContextServices.mapToProps(NewGameIcon, {
+		Theme = ContextServices.Theme,
+		Mouse = ContextServices.Mouse,
+	})
 end
 
 return NewGameIcon

@@ -19,7 +19,7 @@ local withLocalization = require(InGameMenu.Localization.withLocalization)
 
 local SetRespawning = require(InGameMenu.Actions.SetRespawning)
 local StartLeavingGame = require(InGameMenu.Actions.StartLeavingGame)
-local SetMenuOpen = require(InGameMenu.Actions.SetMenuOpen)
+local CloseMenu = require(InGameMenu.Thunks.CloseMenu)
 local Assets = require(InGameMenu.Resources.Assets)
 local divideTransparency = require(InGameMenu.Utility.divideTransparency)
 
@@ -70,7 +70,7 @@ local function renderButtonModels(self, style, localized)
 				text = localized.screenCapture,
 				onActivated = function()
 					self.props.closeMenu()
-					for i = 1, 2 do -- wait for top-bar to update
+					for _ = 1, 2 do -- wait for top-bar to update
 						RunService.RenderStepped:Wait()
 					end
 					CoreGui:TakeScreenshot()
@@ -103,7 +103,7 @@ local function renderButtonModels(self, style, localized)
 		end
 
 	end
-	
+
 	-- Respawn Button
 	table.insert(buttons, {
 		icon = Assets.Images.RespawnIcon,
@@ -169,7 +169,7 @@ function MainPage:render()
 					local iconColor = isHovered and style.Theme.IconOnHover or style.Theme.IconDefault
 					local iconColor3 = iconColor.Color
 					local iconTransparency = divideTransparency(iconColor.Transparency, isPressed and 2 or 1)
-		
+
 					return {
 						ButtonIcon = Roact.createElement(ImageSetLabel, {
 							BackgroundTransparency = 1,
@@ -319,7 +319,7 @@ end, function(dispatch)
 			dispatch(SetRespawning(true))
 		end,
 		closeMenu = function()
-			dispatch(SetMenuOpen(false))
+			dispatch(CloseMenu)
 		end,
 	}
 end)(MainPage)

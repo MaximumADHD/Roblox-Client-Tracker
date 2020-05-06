@@ -10,9 +10,9 @@ local getGeometry = require(DraggerFramework.Utility.getGeometry)
 local JointPairs = require(DraggerFramework.Utility.JointPairs)
 local JointUtil = require(DraggerFramework.Utility.JointUtil)
 
-local getFFlagDragOutsideWorkspace = require(DraggerFramework.Flags.getFFlagDragOutsideWorkspace)
 local getFFlagDragWeirdConstraints = require(DraggerFramework.Flags.getFFlagDragWeirdConstraints)
 local getFFlagMoverSwapWeld = require(DraggerFramework.Flags.getFFlagMoverSwapWeld)
+local getFFlagHandleCanceledToolboxDrag = require(DraggerFramework.Flags.getFFlagHandleCanceledToolboxDrag)
 
 local PartMover = {}
 PartMover.__index = PartMover
@@ -41,30 +41,26 @@ function PartMover:getIgnorePart()
 end
 
 function PartMover:setDragged(parts, originalCFrameMap, breakJoints, customCenter)
-    if getFFlagDragOutsideWorkspace() then
-        -- Separate the parts into "physical" and "free":
-        -- The physical parts are those under the Workspace, which have to
-        -- potentially respect physics, and which we can move via welding
-        -- together into one assembly.
-        -- The free parts are everything else, such as parts in ServerStorage.
-        local physicalParts = {}
-        local freeParts = {}
-        for _, part in ipairs(parts) do
-            if part:IsDescendantOf(Workspace) then
-                table.insert(physicalParts, part)
-            else
-                table.insert(freeParts, part)
-            end
+    -- Separate the parts into "physical" and "free":
+    -- The physical parts are those under the Workspace, which have to
+    -- potentially respect physics, and which we can move via welding
+    -- together into one assembly.
+    -- The free parts are everything else, such as parts in ServerStorage.
+    local physicalParts = {}
+    local freeParts = {}
+    for _, part in ipairs(parts) do
+        if part:IsDescendantOf(Workspace) then
+            table.insert(physicalParts, part)
+        else
+            table.insert(freeParts, part)
         end
-        parts = physicalParts
-        self._freeParts = freeParts
     end
+    parts = physicalParts
+    self._freeParts = freeParts
 
     assert(not self._moving)
     self._moving = true
-    if getFFlagDragOutsideWorkspace() then
-        self._originalCFrameMap = originalCFrameMap
-    end
+    self._originalCFrameMap = originalCFrameMap
     if #parts == 0 then
         self._parts = {}
         return
@@ -77,10 +73,6 @@ function PartMover:setDragged(parts, originalCFrameMap, breakJoints, customCente
     -- modifications to joints which prepareJoints did.
     self:_setupGeometryTracking(parts)
     self._parts = parts
-    if not getFFlagDragOutsideWorkspace() then
-        self._originalCFrameMap = originalCFrameMap
-        self._lastTransform = CFrame.new()
-    end
 end
 
 function PartMover:_initPartSet(parts)
@@ -240,30 +232,21 @@ end
 ]]
 function PartMover:transformTo(transform)
     assert(self._moving)
-    if getFFlagDragOutsideWorkspace() then
-        if #self._parts > 0 then
-            self._mainPart.CFrame = transform * self._originalMainPartCFrame
-        end
-        for _, freePart in ipairs(self._freeParts) do
-            freePart.CFrame = transform * self._originalCFrameMap[freePart]
-        end
-    else
-        if #self._parts > 0 then
-            self._lastTransform = transform
-            self._mainPart.CFrame = transform * self._originalMainPartCFrame
-        end
+    if #self._parts > 0 then
+        self._mainPart.CFrame = transform * self._originalMainPartCFrame
+    end
+    for _, freePart in ipairs(self._freeParts) do
+        freePart.CFrame = transform * self._originalCFrameMap[freePart]
     end
 end
 
 function PartMover:transformToWithIk(transform, translateStiffness, rotateStiffness, collisionsMode)
     assert(self._moving)
-    if getFFlagDragOutsideWorkspace() then
-        -- If we have no physical parts, then IK dragging is the same as
-        -- geometric dragging. (We still may have free parts to move)
-        if #self._parts == 0 then
-            self:transformTo(transform)
-            return transform
-        end
+    -- If we have no physical parts, then IK dragging is the same as
+    -- geometric dragging. (We still may have free parts to move)
+    if #self._parts == 0 then
+        self:transformTo(transform)
+        return transform
     end
 
     local targetCFrame = transform * self._originalMainPartCFrame
@@ -353,7 +336,13 @@ function PartMover:commit()
             local cframe = part.CFrame
             part.CFrame = CFrame.new()
             part.CFrame = cframe
-            assembliesMovedSet[root] = true
+            if getFFlagHandleCanceledToolboxDrag() then
+                if root then
+                    assembliesMovedSet[root] = true
+                end
+            else
+                assembliesMovedSet[root] = true
+            end
         end
     end
 

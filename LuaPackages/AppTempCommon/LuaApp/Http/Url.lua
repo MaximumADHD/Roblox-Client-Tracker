@@ -77,6 +77,7 @@ local _baseContactsUrl = string.format("https://contacts.%s", _baseDomain)
 local _baseSearchUrl = string.format("https://search.%s", _baseDomain)
 local _baseStaticUrl = string.format("https://static.%s", _baseDomain)
 local _baseGameSearchUITreatments = string.format("https://gamesearchuitreatments.api.%s", _baseDomain)
+local _baseEconomyCreatorStats = string.format("https://economycreatorstats.api.%s", _baseDomain)
 local _baseUrlSecure = string.gsub(_baseUrl, "http://", "https://")
 
 -- public api
@@ -119,6 +120,7 @@ local Url = {
 	STATIC_URL = _baseStaticUrl,
 	BLOG_URL = "https://blog.roblox.com/",
 	CORP_URL = "https://corp.roblox.com/",
+	ECNOMY_CREATOR_STATS = _baseEconomyCreatorStats,
 }
 
 function Url:getUserProfileUrl(userId)

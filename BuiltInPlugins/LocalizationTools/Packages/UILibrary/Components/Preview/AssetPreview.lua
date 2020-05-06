@@ -69,7 +69,7 @@ local GetTextSize = require(Library.Utils.GetTextSize)
 local Theming = require(Library.Theming)
 local withTheme = Theming.withTheme
 
-local AssetType = require(Library.Components.Preview.AssetType)
+local AssetType = require(Library.Utils.AssetType)
 
 local FFlagStudioFixAssetPreviewTreeView = settings():GetFFlag("StudioFixAssetPreviewTreeView")
 local FFlagStudioFixAssetPreviewCloseButton = settings():GetFFlag("StudioFixAssetPreviewCloseButton")
@@ -241,7 +241,7 @@ function AssetPreview:render()
 
 		local installDisabled = props.InstallDisabled
 		local showRobuxIcon = props.ShowRobuxIcon or false
-		local purhcaseFlow = props.PurchaseFlow or nil
+		local purchaseFlow = props.PurchaseFlow or nil
 		local successDialog = props.SuccessDialog or nil
 		local showInstallationBar = props.ShowInstallationBar or false
 
@@ -505,7 +505,7 @@ function AssetPreview:render()
 				ShowRobuxIcon = showRobuxIcon,
 			}),
 
-			PurchaseFlow = purhcaseFlow,
+			PurchaseFlow = purchaseFlow,
 
 			SuccessDialog = successDialog,
 		})

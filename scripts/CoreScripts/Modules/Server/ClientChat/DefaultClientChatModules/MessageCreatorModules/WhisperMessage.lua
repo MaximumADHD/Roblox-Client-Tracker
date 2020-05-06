@@ -20,6 +20,7 @@ pcall(function() ChatLocalization = require(game:GetService("Chat").ClientChatMo
 function CreateMessageLabel(messageData, channelName)
 
 	local fromSpeaker = messageData.FromSpeaker
+	local speakerDisplayName = messageData.SpeakerDisplayName
 	local message = messageData.Message
 
 	local extraData = messageData.ExtraData or {}
@@ -29,7 +30,14 @@ function CreateMessageLabel(messageData, channelName)
 	local useChatColor = extraData.ChatColor or ChatSettings.DefaultMessageColor
 	local useChannelColor = extraData.ChannelColor or useChatColor
 
-	local formatUseName = string.format("[%s]:", fromSpeaker)
+	local formatUseName
+
+	if ChatSettings.PlayerDisplayNamesEnabled and messageData.SpeakerDisplayName then
+		formatUseName = string.format("[%s]:", speakerDisplayName)
+	else
+		formatUseName = string.format("[%s]:", fromSpeaker)
+	end
+
 	local speakerNameSize = util:GetStringTextBounds(formatUseName, useFont, useTextSize)
 	local numNeededSpaces = util:GetNumberOfSpaces(formatUseName, useFont, useTextSize) + 1
 

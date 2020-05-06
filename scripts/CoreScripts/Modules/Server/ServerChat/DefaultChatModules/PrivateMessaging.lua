@@ -4,6 +4,7 @@
 
 local Chat = game:GetService("Chat")
 local RunService = game:GetService("RunService")
+local PlayersService = game:GetService("Players")
 local ReplicatedModules = Chat:WaitForChild("ClientChatModules")
 local ChatConstants = require(ReplicatedModules:WaitForChild("ChatConstants"))
 local ChatSettings = require(ReplicatedModules:WaitForChild("ChatSettings"))
@@ -18,11 +19,15 @@ end
 local errorTextColor = ChatSettings.ErrorMessageTextColor or Color3.fromRGB(245, 50, 50)
 local errorExtraData = {ChatColor = errorTextColor}
 
-function GetWhisperChannelPrefix()
+local function GetWhisperChannelPrefix()
 	if ChatConstants.WhisperChannelPrefix then
 		return ChatConstants.WhisperChannelPrefix
 	end
 	return "To "
+end
+
+local function GetWhisperChannelId(userName)
+	return GetWhisperChannelPrefix() .. userName
 end
 
 local function Run(ChatService)
@@ -43,6 +48,7 @@ local function Run(ChatService)
 	end
 
 	local function DoWhisperCommand(fromSpeaker, message, channel)
+		local speaker = ChatService:GetSpeaker(fromSpeaker)
 		local otherSpeakerName = message
 		local sendMessage = nil
 
@@ -60,16 +66,53 @@ local function Run(ChatService)
 			end
 		end
 
-		local speaker = ChatService:GetSpeaker(fromSpeaker)
+		--make sure there are no duplicates for the otherSpeaker
+		if ChatSettings.WhisperByDisplayName then
+			local userNameMatched = false
+			local displayNameMatches = {}
+			local players = PlayersService:GetPlayers()
+
+			for _, potentialOtherSpeaker in pairs(players) do
+				--prioritize username matches
+				if potentialOtherSpeaker.Name == otherSpeakerName then
+					userNameMatched = true
+					break
+				elseif potentialOtherSpeaker.DisplayName == otherSpeakerName then
+					table.insert(displayNameMatches, potentialOtherSpeaker.Name)
+				end
+			end
+
+			if not userNameMatched and #displayNameMatches > 1 then
+				local matchingUsersText = ""
+
+				for i, matchingUserName in pairs(displayNameMatches) do
+					if i ~= #displayNameMatches then
+						matchingUsersText = matchingUsersText .. "@" .. matchingUserName .. ", "
+					else
+						matchingUsersText = matchingUsersText .. "@" .. matchingUserName
+					end
+				end
+
+				speaker:SendSystemMessage(ChatLocalization:FormatMessageToSend("InGame.Chat.Response.DisplayNameMultipleMatches", "Warning: The following users have this display name: "),  channel, errorExtraData)
+
+				--Send a second message with a list of names so that the localization formatter doesn't prune it
+				speaker:SendSystemMessage(matchingUsersText,  channel, errorExtraData)
+
+				return
+			end
+		end
+
 		local otherSpeaker = ChatService:GetSpeaker(otherSpeakerName)
-		local channelObj = ChatService:GetChannel(GetWhisperChannelPrefix() .. otherSpeakerName)
+
+		local channelObj = ChatService:GetChannel(GetWhisperChannelId(otherSpeakerName))
+
 		if channelObj and otherSpeaker then
 			if not CanCommunicate(speaker, otherSpeaker) then
 				speaker:SendSystemMessage(ChatLocalization:FormatMessageToSend("GameChat_PrivateMessaging_CannotChat","You are not able to chat with this player."), channel, errorExtraData)
 				return
 			end
 
-			if (channelObj.Name == GetWhisperChannelPrefix() .. speaker.Name) then
+			if (channelObj.Name == GetWhisperChannelId(fromSpeaker)) then
 				speaker:SendSystemMessage(ChatLocalization:FormatMessageToSend("GameChat_PrivateMessaging_CannotWhisperToSelf","You cannot whisper to yourself."), channel, errorExtraData)
 			else
 				if (not speaker:IsInChannel(channelObj.Name)) then
@@ -81,7 +124,6 @@ local function Run(ChatService)
 				end
 
 				speaker:SetMainChannel(channelObj.Name)
-
 			end
 
 		else
@@ -116,11 +158,13 @@ local function Run(ChatService)
 		sendingSpeaker:SendMessage(message, channelName, fromSpeaker, extraData)
 
 		local toSpeaker = ChatService:GetSpeaker(string.sub(channelName, 4))
+		local fromSpeakerChannelId = GetWhisperChannelId(fromSpeaker)
+
 		if (toSpeaker) then
-			if (not toSpeaker:IsInChannel(GetWhisperChannelPrefix() .. fromSpeaker)) then
-				toSpeaker:JoinChannel(GetWhisperChannelPrefix() .. fromSpeaker)
+			if (not toSpeaker:IsInChannel(fromSpeakerChannelId)) then
+				toSpeaker:JoinChannel(fromSpeakerChannelId)
 			end
-			toSpeaker:SendMessage(message, GetWhisperChannelPrefix() .. fromSpeaker, fromSpeaker, extraData)
+			toSpeaker:SendMessage(message, fromSpeakerChannelId, fromSpeaker, extraData)
 		end
 
 		return true
@@ -142,20 +186,31 @@ local function Run(ChatService)
 	end
 
 	ChatService.SpeakerAdded:connect(function(speakerName)
-		if (ChatService:GetChannel(GetWhisperChannelPrefix() .. speakerName)) then
-			ChatService:RemoveChannel(GetWhisperChannelPrefix() .. speakerName)
+		local speaker = ChatService:GetSpeaker(speakerName)
+		local speakerDisplayName
+
+		if ChatSettings.PlayerDisplayNamesEnabled and speaker:GetPlayer() then
+			speakerDisplayName = speaker:GetNameForDisplay() .. "(@" .. speakerName .. ")"
+		else
+			speakerDisplayName = speakerName
 		end
 
-		local channel = ChatService:AddChannel(GetWhisperChannelPrefix() .. speakerName)
+		local toSpeakerChannelId = GetWhisperChannelId(speakerName)
+
+		if (ChatService:GetChannel(toSpeakerChannelId)) then
+			ChatService:RemoveChannel(toSpeakerChannelId)
+		end
+
+		local channel = ChatService:AddChannel(toSpeakerChannelId)
 		channel.Joinable = false
 		channel.Leavable = true
 		channel.AutoJoin = false
 		channel.Private = true
 
 		channel.WelcomeMessage = ChatLocalization:FormatMessageToSend("GameChat_PrivateMessaging_NowChattingWith",
-			"You are now privately chatting with " .. speakerName .. ".",
+			"You are now privately chatting with " .. speakerDisplayName .. ".",
 			"RBX_NAME",
-			tostring(speakerName))
+			tostring(speakerDisplayName))
 		channel.ChannelNameColor = GetWhisperChanneNameColor()
 
 		channel:RegisterProcessCommandsFunction("replication_function", PrivateMessageReplicationFunction, ChatConstants.LowPriority)
@@ -163,8 +218,10 @@ local function Run(ChatService)
 	end)
 
 	ChatService.SpeakerRemoved:connect(function(speakerName)
-		if (ChatService:GetChannel(GetWhisperChannelPrefix() .. speakerName)) then
-			ChatService:RemoveChannel(GetWhisperChannelPrefix() .. speakerName)
+		local whisperChannelId = GetWhisperChannelId(speakerName)
+
+		if (ChatService:GetChannel(whisperChannelId)) then
+			ChatService:RemoveChannel(whisperChannelId)
 		end
 	end)
 end

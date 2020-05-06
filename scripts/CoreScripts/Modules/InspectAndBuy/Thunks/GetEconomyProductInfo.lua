@@ -32,13 +32,14 @@ local function GetEconomyProductInfo(productId, isBundle, bundleId)
 					local owned = not results.purchasable and results.reason == ALREADY_OWNED or false
 					local price = results.price or 0
 					local isForSale = results.purchasable
+					local premiumPricing = results.premiumPricing
 					-- Allow buy button click due to insufficient funds to allow Purchase Prompt to upsell.
 					if not results.purchasable and results.reason == INSUFFICIENT_FUNDS then
 						isForSale = true
 					end
 
 					if not isBundle then
-						local newAsset = AssetInfo.fromGetEconomyProductInfo(results, owned, price, isForSale)
+						local newAsset = AssetInfo.fromGetEconomyProductInfo(results, owned, price, isForSale, premiumPricing)
 						store:dispatch(SetAssets({newAsset}))
 					else
 						local newBundle = BundleInfo.fromGetEconomyProductInfo(owned, bundleId, price, isForSale)

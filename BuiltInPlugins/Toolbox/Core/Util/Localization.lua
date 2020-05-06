@@ -353,12 +353,14 @@ function Localization:_recalculateContent()
 			FreeAudio = self:_safeLocalize("Studio.Toolbox.General.CategoryAudio"),
 			FreePlugins = self:_safeLocalize("Studio.Toolbox.General.CategoryPlugins"),
 			PaidPlugins = self:_safeLocalize("Studio.Toolbox.General.CategoryPaidPlugins"),
+			MarketplaceVideos = self:_safeLocalize("Studio.Toolbox.General.CategoryVideos"),
 			MyModels = self:_safeLocalize("Studio.Toolbox.General.CategoryMyModels"),
 			MyDecals = self:_safeLocalize("Studio.Toolbox.General.CategoryMyDecals"),
 			MyMeshes = self:_safeLocalize("Studio.Toolbox.General.CategoryMyMeshes"),
 			MyAudio = self:_safeLocalize("Studio.Toolbox.General.CategoryMyAudio"),
 			MyPlugins = self:_safeLocalize("Studio.Toolbox.General.CategoryMyPlugins"),
 			MyPackages = self:_safeLocalize("Studio.Toolbox.General.CategoryMyPackages"),
+			MyVideos = self:_safeLocalize("Studio.Toolbox.General.CategoryMyVideos"),
 			RecentModels = self:_safeLocalize("Studio.Toolbox.General.CategoryRecentModels"),
 			RecentDecals = self:_safeLocalize("Studio.Toolbox.General.CategoryRecentDecals"),
 			RecentMeshes = self:_safeLocalize("Studio.Toolbox.General.CategoryRecentMeshes"),
@@ -432,6 +434,16 @@ function Localization:_recalculateContent()
 
 		InfoBannerText = self:_safeLocalize("Studio.Toolbox.General.InfoBannerText"),
 
+		NoPluginsFound = {
+			TextLine1 = self:_safeLocalize("Studio.Toolbox.General.NoPluginsFound.TextLine1", {
+				link = "{link}" -- Preserve the placeholder because we split this text over several components in NoResultsDetail
+			}),
+			TextLine2 = self:_safeLocalize("Studio.Toolbox.General.NoPluginsFound.TextLine2", {
+				link = "{link}" -- Preserve the placeholder because we split this text over several components in NoResultsDetail
+			}),
+			LinkText = self:_safeLocalize("Studio.Toolbox.General.NoPluginsFound.LinkText"),
+		},
+
 		SearchResults = {
 			SearchResults = self:_safeLocalize("Studio.Toolbox.General.SearchResults"),
 			SearchResultsKeyword = self:_safeLocalize("Studio.Toolbox.General.SearchResultsKeyword"),
@@ -492,6 +504,7 @@ function Localization:_recalculateContent()
 			ServiceFee = self:_safeLocalize("Studio.Toolbox.General.SalesServiceFee"),
 			Fee = self:_safeLocalize("Studio.Toolbox.General.Fee"),
 			Earn = self:_safeLocalize("Studio.Toolbox.General.Earn"),
+			PremiumBenefits = self:_safeLocalize("Studio.Toolbox.General.PremiumBenefits"),
 		},
 
 		PackagePermissions = {

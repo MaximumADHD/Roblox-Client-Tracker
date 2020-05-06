@@ -18,6 +18,7 @@ local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePlu
 local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
 local FFlagEnableAudioPreview = settings():GetFFlag("EnableAudioPreview")
 local FFlagEnableDefaultSortFix = game:GetFastFlag("EnableDefaultSortFix2")
+local FFlagEnableSearchedWithoutInsertionAnalytic = game:GetFastFlag("EnableSearchedWithoutInsertionAnalytic")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -69,17 +70,25 @@ function AssetGridContainer:init(props)
 		isShowingToolMessageBox = false,
 	}
 
-	-- Keep track of the timestamp an asset was last inserted
-	-- Prevents double clicking on assets inserting 2 instead of just 1
-	self.lastAssetInsertedTime = 0
+	if FFlagEnableSearchedWithoutInsertionAnalytic then
 
-	self.onAssetInserted = function()
-		self.lastAssetInsertedTime = tick()
-	end
+		self.canInsertAsset = function()
+			return (tick() - self.props.mostRecentAssetInsertTime > Constants.TIME_BETWEEN_ASSET_INSERTION)
+				and not self.insertToolPromise:isWaiting()
+		end
 
-	self.canInsertAsset = function()
-		return (tick() - self.lastAssetInsertedTime > Constants.TIME_BETWEEN_ASSET_INSERTION)
-			and not self.insertToolPromise:isWaiting()
+	else
+			-- Keep track of the timestamp an asset was last inserted
+			-- Prevents double clicking on assets inserting 2 instead of just 1
+			self.lastAssetInsertedTime = 0
+
+			self.canInsertAsset = function()
+				return (tick() - self.lastAssetInsertedTime > Constants.TIME_BETWEEN_ASSET_INSERTION)
+			end
+
+			self.onAssetInserted = function()
+				self.lastAssetInsertedTime = tick()
+			end
 	end
 
 	self.openAssetPreview = function(assetData)
@@ -186,7 +195,11 @@ function AssetGridContainer:init(props)
 
 	self.onAssetInsertionSuccesful = function(assetId)
 		self.props.onAssetInserted(getNetwork(self), assetId)
-		self.onAssetInserted()
+		if FFlagEnableSearchedWithoutInsertionAnalytic then
+			self.props.onAssetInsertionSuccesful()
+		else
+			self.onAssetInserted()
+		end
 	end
 
 	self.tryCreateContextMenu = function(assetData, showEditOption, localizedContent)

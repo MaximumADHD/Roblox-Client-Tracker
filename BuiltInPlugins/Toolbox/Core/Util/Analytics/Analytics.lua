@@ -10,7 +10,6 @@ local getUserId = require(Plugin.Core.Util.getUserId)
 local platformId = 0
 
 local FFlagEnableInsertAssetCategoryAnalytics = settings():GetFFlag("EnableInsertAssetCategoryAnalytics")
-local FFlagEnableToolboxUploadReport = settings():GetFFlag("EnableToolboxUploadReport")
 local FFlagStudioToolboxEnablePlaceIDInAnalytics = settings():GetFFlag("StudioToolboxEnablePlaceIDInAnalytics")
 local FFlagStudioToolboxInsertAssetCategoryAnalytics = settings():GetFFlag("StudioToolboxInsertAssetCategoryAnalytics")
 
@@ -65,6 +64,16 @@ function Analytics.onTermSearched(categoryName, searchTerm, creatorId)
 	else
 		AnalyticsSenders.trackEvent("Studio", categoryName, searchTerm)
 	end
+end
+
+function Analytics.onTermSearchedWithoutInsertion(categoryName, searchTerm)
+	AnalyticsSenders.sendEventImmediately("studio", "toolbox", "termSearchedWithoutInsertion", {
+		categoryName = categoryName,
+		searchTerm = searchTerm,
+		studioSid = getStudioSessionId(),
+		clientId = getClientId(),
+		userId = getUserId(),
+	})
 end
 
 function Analytics.onCreatorSearched(searchTerm, creatorId)
@@ -185,15 +194,11 @@ function Analytics.incrementWorkspaceInsertCounter()
 end
 
 function Analytics.incrementUploadAssetSuccess(assetTypeId)
-	if FFlagEnableToolboxUploadReport then
-		AnalyticsSenders.reportCounter(("Studio.Upload.%s.Success"):format(tostring(assetTypeId)))
-	end
+	AnalyticsSenders.reportCounter(("Studio.Upload.%s.Success"):format(tostring(assetTypeId)))
 end
 
 function Analytics.incrementUploadeAssetFailure(assetTypeId)
-	if FFlagEnableToolboxUploadReport then
-		AnalyticsSenders.reportCounter(("Studio.Upload.%s.Failure"):format(tostring(assetTypeId)))
-	end
+	AnalyticsSenders.reportCounter(("Studio.Upload.%s.Failure"):format(tostring(assetTypeId)))
 end
 
 function Analytics.onSoundInserted()

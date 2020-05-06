@@ -13,8 +13,6 @@ local Components = script.Parent.Parent
 local TopBar = Components.Parent
 local Constants = require(TopBar.Constants)
 
-local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp")
-
 local MOTOR_OPTIONS = {
 	frequency = 0.75,
 	dampingRatio = 1,
@@ -62,7 +60,7 @@ function HurtOverlay:render()
 
 	local hurtOverlayImage = "rbxasset://textures/ui/TopBar/WhiteOverlayAsset.png"
 	local hurtOverlayColor = RED_OVERLAY_COLOR
-	if (PolicyService:IsEnabled() and PolicyService:IsSubjectToChinaPolicies()) or FFlagChinaLicensingApp then
+	if PolicyService:IsSubjectToChinaPolicies() then
 		hurtOverlayColor = WHITE_OVERLAY_COLOR
 	end
 

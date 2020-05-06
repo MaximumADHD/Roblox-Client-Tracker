@@ -30,16 +30,9 @@ local Analytics = require(main.Src.Util.Analytics)
 
 local MainPlugin = Roact.PureComponent:extend("MainPlugin")
 
-local WIDGET_STATUS_SETTING_KEY = "LocalizationToolsWidgetStatus"
-
-local function getPluginWidgetStatus(props)
-	local plugin = props.Plugin
-	return plugin:GetSetting(WIDGET_STATUS_SETTING_KEY)
-end
-
-function MainPlugin:init(props)
+function MainPlugin:init()
 	self.state = {
-		enabled = getPluginWidgetStatus(props) or false,
+		enabled = false,
 	}
 
 	self.store = Rodux.Store.new(MainReducer, {}, {
@@ -59,13 +52,11 @@ function MainPlugin:init(props)
 	self.analyticsImpl = Analytics.new()
 
 	self.toggleState = function()
-		local plugin = props.Plugin
 		local state = self.state
 		local enabled = state.enabled
 		self:setState({
 			enabled = not enabled,
 		})
-		plugin:SetSetting(WIDGET_STATUS_SETTING_KEY, not enabled)
 
 		if enabled then
 			self.analyticsImpl:reportButtonPress("tools", "closed")
@@ -75,12 +66,16 @@ function MainPlugin:init(props)
 		end
 	end
 
+	self.onRestore = function(enabled)
+		self:setState({
+			enabled = enabled,
+		})
+	end
+
 	self.onClose = function()
-		local plugin = props.Plugin
 		self:setState({
 			enabled = false,
 		})
-		plugin:SetSetting(WIDGET_STATUS_SETTING_KEY, false)
 	end
 end
 
@@ -140,6 +135,8 @@ function MainPlugin:render()
 			InitialDockState = Enum.InitialDockState.Left,
 			Size = theme.WindowSize,
 			OnClose = self.onClose,
+			ShouldRestore = true,
+			OnWidgetRestored = self.onRestore,
 		}, {
 			MainProvider = enabled and ContextServices.provide({
 				Mouse.new(plugin:getMouse()),

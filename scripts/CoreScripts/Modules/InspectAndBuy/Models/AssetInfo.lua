@@ -16,7 +16,11 @@
 		numFavorites = int,
 	}
 ]]
+local CoreGui = game:GetService("CoreGui")
 local MockId = require(script.Parent.Parent.MockId)
+
+local GetFFlagLuaPremiumCatalogIGIAB
+	= require(CoreGui.RobloxGui.Modules.Flags.GetFFlagLuaPremiumCatalogIGIAB)
 
 local AssetInfo = {}
 
@@ -42,6 +46,7 @@ function AssetInfo.mock()
 	self.isLimited = false
 	self.bundlesAssetIsIn = {}
 	self.numFavorites = 0
+	self.minimumMembershipLevel = 0
 
 	return self
 end
@@ -87,7 +92,7 @@ function AssetInfo.fromGetAssetFavoriteCount(assetId, numFavorites)
 	return newAsset
 end
 
-function AssetInfo.fromGetEconomyProductInfo(asset, isOwned, price, isForSale)
+function AssetInfo.fromGetEconomyProductInfo(asset, isOwned, price, isForSale, premiumPricing)
 	local newAsset = AssetInfo.new()
 
 	newAsset.assetId = tostring(asset.assetId)
@@ -96,6 +101,9 @@ function AssetInfo.fromGetEconomyProductInfo(asset, isOwned, price, isForSale)
 		newAsset.price = price
 	end
 	newAsset.isForSale = isForSale
+	if GetFFlagLuaPremiumCatalogIGIAB() then
+		newAsset.premiumPricing = premiumPricing
+	end
 
 	return newAsset
 end

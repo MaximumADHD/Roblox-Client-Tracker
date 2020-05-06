@@ -53,7 +53,6 @@ end
 ------------ FAST FLAGS -------------------
 local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
 local FFlagUseNotificationsLocalization = success and result
-local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp") --todo: remove with FFlagUsePolicyServiceForCoreScripts
 local FFlagUpdateSettingsHubGameText = require(RobloxGui.Modules.Flags.FFlagUpdateSettingsHubGameText)
 local FFlagDisableAutoTranslateForKeyTranslatedContent = require(RobloxGui.Modules.Flags.FFlagDisableAutoTranslateForKeyTranslatedContent)
 
@@ -654,10 +653,7 @@ local function Initialize()
 					end
 				end)
 
-				local showReportAbuse = not FFlagChinaLicensingApp
-				if PolicyService:IsEnabled() then
-					showReportAbuse = not PolicyService:IsSubjectToChinaPolicies()
-				end
+				local showReportAbuse = not PolicyService:IsSubjectToChinaPolicies()
 
 				if showReportAbuse then
 					reportAbuseButtonCreate(frame, player)

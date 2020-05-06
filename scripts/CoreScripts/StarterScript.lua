@@ -18,7 +18,6 @@ local initify = require(CorePackages.initify)
 
 local FFlagConnectionScriptEnabled = settings():GetFFlag("ConnectionScriptEnabled")
 local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabledV384")
-local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp") --todo: remove with FFlagUsePolicyServiceForCoreScripts
 
 local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList3")
 local FFlagEmotesMenuEnabled2 = settings():GetFFlag("CoreScriptEmotesMenuEnabled2")
@@ -81,18 +80,11 @@ end
 -- MainBotChatScript (the Lua part of Dialogs)
 ScriptContext:AddCoreScriptLocal("CoreScripts/MainBotChatScript2", RobloxGui)
 
-if PolicyService:IsEnabled() then
-	coroutine.wrap(function() -- this is the first place we call, which can yield so wrap in coroutine
-		if PolicyService:IsSubjectToChinaPolicies() then
-			ScriptContext:AddCoreScriptLocal("CoreScripts/AntiAddictionPrompt", RobloxGui)
-		end
-	end)()
-else
-	--Anti Addiction
-	if FFlagChinaLicensingApp then
+coroutine.wrap(function() -- this is the first place we call, which can yield so wrap in coroutine
+	if PolicyService:IsSubjectToChinaPolicies() then
 		ScriptContext:AddCoreScriptLocal("CoreScripts/AntiAddictionPrompt", RobloxGui)
 	end
-end
+end)()
 
 -- In-game notifications script
 ScriptContext:AddCoreScriptLocal("CoreScripts/NotificationScript2", RobloxGui)

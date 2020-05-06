@@ -88,14 +88,10 @@ local UnlSuccess, UnlResult =
   end
 )
 local FFlagUseNotificationsLocalization = UnlSuccess and UnlResult
-local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp") --todo: remove with FFlagUsePolicyServiceForCoreScripts
 game:DefineFastInt("RomarkStartWithGraphicQualityLevel", -1)
 local FIntRomarkStartWithGraphicQualityLevel = game:GetFastInt("RomarkStartWithGraphicQualityLevel")
 
-local canUseMicroProfiler = not FFlagChinaLicensingApp
-if PolicyService:IsEnabled() then
-  canUseMicroProfiler = not PolicyService:IsSubjectToChinaPolicies()
-end
+local canUseMicroProfiler = not PolicyService:IsSubjectToChinaPolicies()
 
 local isDesktopClient = (platform == Enum.Platform.Windows) or (platform == Enum.Platform.OSX) or (platform == Enum.Platform.UWP)
 local isMobileClient = (platform == Enum.Platform.IOS) or (platform == Enum.Platform.Android)
@@ -1500,10 +1496,7 @@ local function Initialize()
     createGraphicsOptions()
   end
 
-  local canShowPerfStats = not FFlagChinaLicensingApp
-  if PolicyService:IsEnabled() then
-    canShowPerfStats = not PolicyService:IsSubjectToChinaPolicies()
-  end
+  local canShowPerfStats =  not PolicyService:IsSubjectToChinaPolicies()
 
   if canShowPerfStats then
     createPerformanceStatsOptions()
@@ -1518,10 +1511,7 @@ local function Initialize()
     createOverscanOption()
   end
 
-  local canShowDevConsole = not FFlagChinaLicensingApp
-  if PolicyService:IsEnabled() then
-    canShowDevConsole = not PolicyService:IsSubjectToChinaPolicies()
-  end
+  local canShowDevConsole = not PolicyService:IsSubjectToChinaPolicies()
 
   if canShowDevConsole then
     -- dev console option only shows for place/group place owners

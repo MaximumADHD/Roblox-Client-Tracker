@@ -125,6 +125,10 @@ function Toolbox:init(props)
 	self.state = {
 		toolboxWidth = math.max(props.initialWidth or 0, Constants.TOOLBOX_MIN_WIDTH),
 		showSearchOptions = false,
+		-- Keep track of the timestamp an asset was last inserted
+		-- Prevents double clicking on assets inserting 2 instead of just 1
+		-- Also allows us to track an analytic if a search is made and no asset is chosen
+		mostRecentAssetInsertTime = 0
 	}
 
 	self.toolboxRef = Roact.createRef()
@@ -197,6 +201,12 @@ function Toolbox:init(props)
 			currentCategory,
 			newCategory
 		)
+	end
+
+	self.updateMostRecentAssetTime = function()
+		self:setState({
+			mostRecentAssetInsertTime = tick()
+		})
 	end
 end
 
@@ -275,6 +285,7 @@ function Toolbox:renderContent(theme, localizedContent)
 			maxWidth = toolboxWidth,
 			onSearchOptionsToggled = self.toggleSearchOptions,
 			pluginGui = pluginGui,
+			mostRecentAssetInsertTime = self.state.mostRecentAssetInsertTime,
 		}),
 
 		MainView = Roact.createElement(MainView, {
@@ -286,6 +297,9 @@ function Toolbox:renderContent(theme, localizedContent)
 			showSearchOptions = showSearchOptions,
 			onSearchOptionsToggled = self.toggleSearchOptions,
 			tryOpenAssetConfig = tryOpenAssetConfig,
+			mostRecentAssetInsertTime = self.state.mostRecentAssetInsertTime,
+			onAssetInsertionSuccesful = self.updateMostRecentAssetTime,
+
 		}),
 
 		Footer = Roact.createElement(Footer, {

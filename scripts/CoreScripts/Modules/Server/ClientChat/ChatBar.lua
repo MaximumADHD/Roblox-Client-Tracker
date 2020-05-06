@@ -468,7 +468,15 @@ function methods:EnterWhisperState(player)
 		)
 		self.InCustomState = true
 	else
-		self:SetText("/w " .. player.Name)
+		local playerName
+
+		if ChatSettings.PlayerDisplayNamesEnabled then
+			playerName = player.DisplayName
+		else
+			playerName = player.Name
+		end
+
+		self:SetText("/w " .. playerName)
 	end
 	self:CaptureFocus()
 end

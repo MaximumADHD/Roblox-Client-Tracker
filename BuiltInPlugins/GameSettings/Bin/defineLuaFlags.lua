@@ -7,5 +7,6 @@ game:DefineFastFlag("WorldAvatarLocalization", false)
 game:DefineFastFlag("AvatarSizeFixForReorganizeHeaders", false)
 game:DefineFastFlag("StudioLocalizationInGameSettingsEnabled", false)
 game:DefineFastFlag("StudioMoveMorpherEditorInsideGameSettings", false)
+game:DefineFastFlag("StudioConvertGameSettingsToDevFramework", false)
 
 return nil

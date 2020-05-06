@@ -10,6 +10,14 @@ local util = require(script.Parent:WaitForChild("Util"))
 function CreateMessageLabel(messageData, channelName)
 
 	local fromSpeaker = messageData.FromSpeaker
+	local speakerName
+
+	if ChatSettings.PlayerDisplayNamesEnabled and messageData.SpeakerDisplayName then
+		speakerName = messageData.SpeakerDisplayName
+	else
+		speakerName = fromSpeaker
+	end
+
 	local message = messageData.Message
 
 	local extraData = messageData.ExtraData or {}
@@ -20,7 +28,7 @@ function CreateMessageLabel(messageData, channelName)
 	local useChannelColor = extraData.ChannelColor or useChatColor
 	local tags = extraData.Tags or {}
 
-	local formatUseName = string.format("[%s]:", fromSpeaker)
+	local formatUseName = string.format("[%s]:", speakerName)
 	local speakerNameSize = util:GetStringTextBounds(formatUseName, useFont, useTextSize)
 	local numNeededSpaces = util:GetNumberOfSpaces(formatUseName, useFont, useTextSize) + 1
 

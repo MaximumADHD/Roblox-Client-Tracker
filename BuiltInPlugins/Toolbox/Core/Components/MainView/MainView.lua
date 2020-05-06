@@ -28,12 +28,16 @@
 local FFlagFixToolboxEmptyRender = game:DefineFastFlag("FixToolboxEmptyRender", false)
 local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
 local FFlagEnableAudioPreview = settings():GetFFlag("EnableAudioPreview")
+local FFlagStudioToolboxShowNoPluginResultsDetail = game:DefineFastFlag("StudioToolboxShowNoPluginResultsDetail", false) 
+
+local GuiService = game:GetService("GuiService")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 local RoactRodux = require(Libs.RoactRodux)
+local Cryo = require(Libs.Cryo)
 
 local Constants = require(Plugin.Core.Util.Constants)
 local ContextGetter = require(Plugin.Core.Util.ContextGetter)
@@ -51,6 +55,7 @@ local Settings = require(Plugin.Core.ContextServices.Settings)
 
 local AssetGridContainer = require(Plugin.Core.Components.AssetGridContainer)
 local InfoBanner = require(Plugin.Core.Components.InfoBanner)
+local NoResultsDetail = require(Plugin.Core.Components.NoResultsDetail)
 local LoadingIndicator = require(Plugin.Core.Components.LoadingIndicator)
 local MainViewHeader = require(Plugin.Core.Components.MainView.MainViewHeader)
 local StyledScrollingFrame = require(Plugin.Core.Components.StyledScrollingFrame)
@@ -250,7 +255,6 @@ function MainView:render()
 			+ Constants.ASSET_OUTLINE_EXTRA_HEIGHT
 
 		local suggestionIntro = localizedContent.Sort.ByText
-		local InfoBannerText = localizedContent.InfoBannerText
 
 		local creatorName = props.creator and props.creator.Name
 		local searchTerm = props.searchTerm
@@ -275,6 +279,19 @@ function MainView:render()
 		end
 
 		local showInfoBanner = not hasResults and not isLoading
+
+		local noResultsDetailProps = nil
+
+		if FFlagStudioToolboxShowNoPluginResultsDetail then
+			if showInfoBanner and Category.categoryIsPlugin(props.currentTab, categoryIndex) then
+				noResultsDetailProps = {
+					onLinkActivated = function()
+						GuiService:OpenBrowserWindow(Constants.PLUGIN_LIBRARY_URL)
+					end,
+					content = localizedContent.NoPluginsFound
+				}
+			end
+		end
 
 		-- Need to shift the position of AssetGridContainer depending on how many rows we've cut off the start
 		local assetsPerRow = Layouter.getAssetsPerRow(containerWidth)
@@ -328,11 +345,13 @@ function MainView:render()
 					assetIds = assetIds,
 					searchTerm = searchTerm,
 					categoryIndex = categoryIndex,
+					mostRecentAssetInsertTime = self.props.mostRecentAssetInsertTime,
 
 					ZIndex = 1,
 
 					onAssetGridContainerChanged = self.onAssetGridContainerChanged,
 					tryOpenAssetConfig = tryOpenAssetConfig,
+					onAssetInsertionSuccesful = self.props.onAssetInsertionSuccesful,
 				}),
 			}),
 
@@ -346,8 +365,13 @@ function MainView:render()
 
 			InfoBanner = showInfoBanner and Roact.createElement(InfoBanner, {
 				Position = UDim2.new(0, 0, 0, 16 + headerHeight),
-				Text = InfoBannerText,
+				Text = localizedContent.InfoBannerText,
 			}),
+
+			NoResultsDetail = noResultsDetailProps and Roact.createElement(NoResultsDetail, Cryo.Dictionary.join({
+				Position = UDim2.new(0, 0, 0, 66 + headerHeight),
+				ZIndex = 2
+			}, noResultsDetailProps)),
 
 			LoadingIndicator = isLoading and Roact.createElement(LoadingIndicator, {
 				AnchorPoint = Vector2.new(0.5, 1),

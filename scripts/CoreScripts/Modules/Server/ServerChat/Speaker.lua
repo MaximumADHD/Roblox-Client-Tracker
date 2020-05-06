@@ -4,6 +4,10 @@
 
 local module = {}
 
+local Chat = game:GetService("Chat")
+local ReplicatedModules = Chat:WaitForChild("ClientChatModules")
+local ChatSettings = require(ReplicatedModules:WaitForChild("ChatSettings"))
+
 local modulesFolder = script.Parent
 
 --////////////////////////////// Methods
@@ -177,6 +181,20 @@ end
 
 function methods:GetPlayer()
 	return self.PlayerObj
+end
+
+function methods:GetNameForDisplay()
+	if ChatSettings.PlayerDisplayNamesEnabled then
+		local player = self:GetPlayer()
+
+		if player then
+			return player.DisplayName
+		else
+			return self.Name
+		end
+	else
+		return self.Name
+	end
 end
 
 function methods:SetExtraData(key, value)

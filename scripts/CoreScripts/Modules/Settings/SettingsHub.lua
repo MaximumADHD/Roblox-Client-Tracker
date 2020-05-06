@@ -38,7 +38,6 @@ local FFlagUseNotificationsLocalization = settings():GetFFlag('UseNotificationsL
 
 local FFlagXboxPlayNextGame = settings():GetFFlag("XboxPlayNextGame")
 local FFlagXboxOverrideEnablePlayNextGame = settings():GetFFlag("XboxOverrideEnablePlayNextGame")
-local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp") --todo: remove with FFlagUsePolicyServiceForCoreScripts
 
 local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList3")
 
@@ -96,10 +95,7 @@ if FFlagCollectAnalyticsForSystemMenu then
   Constants = require(RobloxGui.Modules:WaitForChild("InGameMenu"):WaitForChild("Resources"):WaitForChild("Constants"))
 end
 
-local shouldLocalize = FFlagChinaLicensingApp
-if PolicyService:IsEnabled() then
-	shouldLocalize = PolicyService:IsSubjectToChinaPolicies()
-end
+local shouldLocalize = PolicyService:IsSubjectToChinaPolicies()
 
 --[[ Localization Fixes for Version Labels]]
 local shouldTryLocalizeVersionLabels = FFlagLocalizeVersionLabels or shouldLocalize
@@ -522,10 +518,7 @@ local function CreateSettingsHub()
         game:GetPropertyChangedSignal("PlaceVersion"):Connect(setPlaceVersionText)
         spawn(setPlaceVersionText)
 
-		local shouldShowEnvLabel = not FFlagChinaLicensingApp
-		if PolicyService:IsEnabled() then
-			shouldShowEnvLabel = not PolicyService:IsSubjectToChinaPolicies()
-		end
+		local shouldShowEnvLabel = not PolicyService:IsSubjectToChinaPolicies()
 
         if shouldShowEnvLabel then
 	        this.EnvironmentLabel = utility:Create("TextLabel") {
@@ -1640,10 +1633,7 @@ local function CreateSettingsHub()
 	this.GameSettingsPage = require(RobloxGui.Modules.Settings.Pages.GameSettings)
 	this.GameSettingsPage:SetHub(this)
 
-	local shouldShowReport = not FFlagChinaLicensingApp
-	if PolicyService:IsEnabled() then
-		shouldShowReport = not PolicyService:IsSubjectToChinaPolicies()
-	end
+	local shouldShowReport = not PolicyService:IsSubjectToChinaPolicies()
 
 	if shouldShowReport then
 		this.ReportAbusePage = require(RobloxGui.Modules.Settings.Pages.ReportAbuseMenu)
@@ -1653,10 +1643,7 @@ local function CreateSettingsHub()
 	this.HelpPage = require(RobloxGui.Modules.Settings.Pages.Help)
 	this.HelpPage:SetHub(this)
 
-	local shouldShowRecord = not FFlagChinaLicensingApp
-	if PolicyService:IsEnabled() then
-		shouldShowRecord = not PolicyService:IsSubjectToChinaPolicies()
-	end
+	local shouldShowRecord = not PolicyService:IsSubjectToChinaPolicies()
 
 	if platform == Enum.Platform.Windows and shouldShowRecord then
 		this.RecordPage = require(RobloxGui.Modules.Settings.Pages.Record)
@@ -1723,10 +1710,7 @@ local function CreateSettingsHub()
 		end
 	end)
 
-	local shouldShowDevConsole = not FFlagChinaLicensingApp
-	if PolicyService:IsEnabled() then
-		shouldShowDevConsole = not PolicyService:IsSubjectToChinaPolicies()
-	end
+	local shouldShowDevConsole = not PolicyService:IsSubjectToChinaPolicies()
 
 	if shouldShowDevConsole then
 		-- Dev Console Connections

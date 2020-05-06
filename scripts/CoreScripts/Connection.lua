@@ -38,7 +38,6 @@ local defaultTimeoutTime  = safeGetFInt("DefaultTimeoutTimeMs", 10000) / 1000
 local reconnectDisabled = settings():GetFFlag("ReconnectDisabled")
 local reconnectDisabledReason = safeGetFString("ReconnectDisabledReason", "We're sorry, Roblox is temporarily unavailable.  Please try again later.")
 
-local fflagChinaLicensingBuild = settings():GetFFlag("ChinaLicensingApp") --todo: remove with UsePolicyServiceForCoreScripts
 local FFlagDisableAutoTranslateForKeyTranslatedContent = require(RobloxGui.Modules.Flags.FFlagDisableAutoTranslateForKeyTranslatedContent)
 
 local lastErrorTimeStamp = tick()
@@ -404,22 +403,12 @@ local function getErrorString(errorMsg, errorCode, reconnectError)
 			return coreScriptTableTranslator:FormatByKey(key)
 		end)
 
-		if PolicyService:IsEnabled() then
-			-- Mute errors for jv app if they are not successfully translated
-			if not success and PolicyService:IsSubjectToChinaPolicies() then
-				local successUnknownError, localizedUnknownError = pcall(function()
-					return coreScriptTableTranslator:FormatByKey("InGame.ConnectionError.UnknownError")
-				end)
-				return successUnknownError and localizedUnknownError or ""
-			end
-		else
-			-- Mute errors for clb if they are not successfully translated
-			if not success and fflagChinaLicensingBuild then
-				local successUnknownError, localizedUnknownError = pcall(function()
-					return coreScriptTableTranslator:FormatByKey("InGame.ConnectionError.UnknownError")
-				end)
-				return successUnknownError and localizedUnknownError or ""
-			end
+		-- Mute errors for jv app if they are not successfully translated
+		if not success and PolicyService:IsSubjectToChinaPolicies() then
+			local successUnknownError, localizedUnknownError = pcall(function()
+				return coreScriptTableTranslator:FormatByKey("InGame.ConnectionError.UnknownError")
+			end)
+			return successUnknownError and localizedUnknownError or ""
 		end
 
 		if success then return attemptTranslation end

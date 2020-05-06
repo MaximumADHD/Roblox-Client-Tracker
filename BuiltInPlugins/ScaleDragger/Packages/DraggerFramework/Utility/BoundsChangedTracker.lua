@@ -5,9 +5,6 @@
     Watches a set of parts for cframe and size changes.
 ]]
 
-local Flags = script.Parent.Parent.Flags
-local getFFlagTrackAttachmentBounds = require(Flags.getFFlagTrackAttachmentBounds)
-
 local BoundsChangedTracker = {}
 BoundsChangedTracker.__index = BoundsChangedTracker
 
@@ -47,10 +44,8 @@ function BoundsChangedTracker:install()
     for _, entry in pairs(self._partToEntry) do
         hookUpConnections(entry)
     end
-    if getFFlagTrackAttachmentBounds() then
-        for _, entry in pairs(self._attachmentToEntry) do
-            hookUpAttachmentConnections(entry)
-        end
+    for _, entry in pairs(self._attachmentToEntry) do
+        hookUpAttachmentConnections(entry)
     end
 end
 
@@ -60,10 +55,8 @@ function BoundsChangedTracker:uninstall()
     for _, entry in pairs(self._partToEntry) do
         disconnectConnections(entry)
     end
-    if getFFlagTrackAttachmentBounds() then
-        for _, entry in pairs(self._attachmentToEntry) do
-            disconnectAttachmentConnections(entry)
-        end
+    for _, entry in pairs(self._attachmentToEntry) do
+        disconnectAttachmentConnections(entry)
     end
 end
 

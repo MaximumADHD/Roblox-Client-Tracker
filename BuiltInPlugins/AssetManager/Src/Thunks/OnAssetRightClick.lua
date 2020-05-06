@@ -14,6 +14,8 @@ local HttpService = game:GetService("HttpService")
 local MemStorageService = game:GetService("MemStorageService")
 local StudioService = game:GetService("StudioService")
 
+local FFlagFixAssetManagerInsertWithLocation = game:DefineFastFlag("FixAssetManagerInsertWithLocation", false)
+
 local EVENT_ID_OPENASSETCONFIG = "OpenAssetConfiguration"
 
 local function removeAssets(apiImpl, assetData, assets, selectedAssets, store)
@@ -161,9 +163,18 @@ local function createMeshPartContextMenu(apiImpl, assetData, contextMenu, locali
         end)
     end
     contextMenu:AddNewAction("InsertWithLocation", localization:getText("ContextMenu", "InsertWithLocation")).Triggered:connect(function()
-        for i, asset in ipairs(assets) do
-            if selectedAssets[i] then
-                AssetManagerService:InsertMesh("Meshes/".. asset.name, true)
+        if FFlagFixAssetManagerInsertWithLocation then
+            for _, asset in pairs(assets) do
+                local layoutOrder = asset.layoutOrder
+                if selectedAssets[layoutOrder] then
+                    AssetManagerService:InsertMesh("Meshes/".. asset.name, true)
+                end
+            end
+        else
+            for i, asset in ipairs(assets) do
+                if selectedAssets[i] then
+                    AssetManagerService:InsertMesh("Meshes/".. asset.name, true)
+                end
             end
         end
     end)

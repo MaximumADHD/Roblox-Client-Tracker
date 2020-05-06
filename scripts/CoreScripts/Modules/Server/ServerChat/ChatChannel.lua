@@ -14,6 +14,7 @@ local modulesFolder = script.Parent
 local Chat = game:GetService("Chat")
 local RunService = game:GetService("RunService")
 local replicatedModules = Chat:WaitForChild("ClientChatModules")
+local ChatSettings = require(replicatedModules:WaitForChild("ChatSettings"))
 
 --////////////////////////////// Include
 --//////////////////////////////////////
@@ -138,13 +139,14 @@ function methods:KickSpeaker(speakerName, reason)
 
 	local messageToSpeaker = ""
 	local messageToChannel = ""
+	local playerName = speaker:GetNameForDisplay()
 
 	if (reason) then
 		messageToSpeaker = string.format("You were kicked from '%s' for the following reason(s): %s", self.Name, reason)
-		messageToChannel = string.format("%s was kicked for the following reason(s): %s", speakerName, reason)
+		messageToChannel = string.format("%s was kicked for the following reason(s): %s", playerName, reason)
 	else
 		messageToSpeaker = string.format("You were kicked from '%s'", self.Name)
-		messageToChannel = string.format("%s was kicked", speakerName)
+		messageToChannel = string.format("%s was kicked", playerName)
 	end
 
 	self:SendSystemMessageToSpeaker(messageToSpeaker, speakerName)
@@ -161,7 +163,9 @@ function methods:MuteSpeaker(speakerName, reason, length)
 	self.Mutes[speakerName:lower()] = (length == 0 or length == nil) and 0 or (os.time() + length)
 
 	if (reason) then
-		self:SendSystemMessage(string.format("%s was muted for the following reason(s): %s", speakerName, reason))
+		local playerName = speaker:GetNameForDisplay()
+
+		self:SendSystemMessage(string.format("%s was muted for the following reason(s): %s", playerName, reason))
 	end
 
 	local success, err = pcall(function() self.eSpeakerMuted:Fire(speakerName, reason, length) end)
@@ -276,7 +280,7 @@ function methods:GetHistoryLogForSpeaker(speaker)
 
 			--// Since we're using the new filter API, we need to convert the stored filter result
 			--// into an actual string message to send to players for their chat history.
-			--// System messages aren't filtered the same way, so they just have a regular 
+			--// System messages aren't filtered the same way, so they just have a regular
 			--// text value in the Message field.
 			if (messageObj.MessageType == ChatConstants.MessageTypeDefault or messageObj.MessageType == ChatConstants.MessageTypeMeCommand) then
 				local filterResult = messageObj.FilterResult
@@ -510,14 +514,19 @@ function methods:InternalCreateMessageObject(message, fromSpeaker, isFiltered, e
 	local messageType = self:GetMessageType(message, fromSpeaker)
 
 	local speakerUserId = -1
+	local speakerDisplayName = nil
 	local speaker = nil
 
 	if fromSpeaker then
-		speaker = self.Speakers[fromSpeaker]
+		speaker = self.ChatService:GetSpeaker(fromSpeaker)
 		if speaker then
 			local player = speaker:GetPlayer()
 			if player then
 				speakerUserId = player.UserId
+
+				if ChatSettings.PlayerDisplayNamesEnabled then
+					speakerDisplayName = speaker:GetNameForDisplay()
+				end
 			else
 				speakerUserId = 0
 			end
@@ -528,6 +537,7 @@ function methods:InternalCreateMessageObject(message, fromSpeaker, isFiltered, e
 	{
 		ID = self.ChatService:InternalGetUniqueMessageId(),
 		FromSpeaker = fromSpeaker,
+		SpeakerDisplayName = speakerDisplayName,
 		SpeakerUserId = speakerUserId,
 		OriginalChannel = self.Name,
 		MessageLength = string.len(message),

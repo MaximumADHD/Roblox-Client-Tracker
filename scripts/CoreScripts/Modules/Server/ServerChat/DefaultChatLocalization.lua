@@ -835,12 +835,18 @@ return {
             ["zh-cjv"] = "来自于",
         },
     },
-        {
+    {
         Key = "InGame.Chat.Label.To",
         Values = {
             ["en-us"] = "To ",
             ["zh-cn"] = "发送至",
             ["zh-cjv"] = "发送至",
+        },
+    },
+    {
+        Key = "InGame.Chat.Response.DisplayNameMultipleMatches",
+        Values = {
+            ["en-us"] = "Warning: The following users have this display name: ",
         },
     },
 }

@@ -4,6 +4,7 @@ local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePlu
 local FFlagToolboxShowGroupCreations = game:DefineFastFlag("ToolboxShowGroupCreations", false)
 local FFlagFixToolboxPluginScaling = game:DefineFastFlag("FixToolboxPluginScaling", false)
 local FFlagEnableDefaultSortFix = game:GetFastFlag("EnableDefaultSortFix2")
+local FFlagEnableToolboxVideos = game:GetFastFlag("EnableToolboxVideos")
 
 local Plugin = script.Parent.Parent.Parent
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
@@ -38,6 +39,7 @@ Category.AssetType = {
 	FRONT_ACCESSORY = 15,
 	BACK_ACCESSORY = 16,
 	WAIST_ACCESSORY = 17,
+	VIDEO = 18,
 }
 
 Category.ToolboxAssetTypeToEngine = {
@@ -59,6 +61,7 @@ Category.ToolboxAssetTypeToEngine = {
 	[Category.AssetType.FRONT_ACCESSORY] = Enum.AssetType.FrontAccessory,
 	[Category.AssetType.BACK_ACCESSORY] = Enum.AssetType.BackAccessory,
 	[Category.AssetType.WAIST_ACCESSORY] = Enum.AssetType.WaistAccessory,
+	[Category.AssetType.VIDEO] = 62, -- TODO: Replace with Video Enum when supported https://developer.roblox.com/en-us/api-reference/enum/AssetType#enums
 }
 
 Category.FREE_MODELS = {name = "FreeModels", category = "FreeModels",
@@ -84,6 +87,14 @@ Category.MY_AUDIO = {name = "MyAudio", category = "MyAudio",
 	ownershipType = Category.OwnershipType.MY, assetType = Category.AssetType.AUDIO}
 Category.MY_PLUGINS = {name = "MyPlugins", category = "MyPlugins",
 	ownershipType = Category.AssetType.PLUGIN, assetType = Category.AssetType.PLUGIN}
+
+if FFlagEnableToolboxVideos then
+	-- TODO: Replace "category = "MarketplaceVideos"" with whatever category name the backend decides on
+	Category.MARKETPLACE_VIDEOS = {name = "MarketplaceVideos", category = "MarketplaceVideos",
+		ownershipType = Category.OwnershipType.FREE, assetType = Category.AssetType.VIDEO}
+	Category.MY_VIDEOS = {name = "MyVideos", category = "MyVideos",
+		ownershipType = Category.AssetType.MY, assetType = Category.AssetType.VIDEO}
+end
 
 Category.RECENT_MODELS = {name = "RecentModels", category = "RecentModels",
 	ownershipType = Category.OwnershipType.RECENT, assetType = Category.AssetType.MODEL}
@@ -181,6 +192,7 @@ Category.INVENTORY_WITH_GROUPS = {
 	Category.GROUP_DECALS,
 	Category.GROUP_MESHES,
 	Category.GROUP_AUDIO,
+	Category.GROUP_PACKAGES,
 }
 
 Category.RECENT = {
@@ -189,6 +201,11 @@ Category.RECENT = {
 	Category.RECENT_MESHES,
 	Category.RECENT_AUDIO,
 }
+
+Category.MARKETPLACE_KEY = "Marketplace"
+Category.INVENTORY_KEY = "Inventory"
+Category.RECENT_KEY = "Recent"
+Category.CREATIONS_KEY = "Creations"
 
 local function getCreationCategories()
 	local categories
@@ -226,44 +243,6 @@ local function getCreationCategories()
 	return categories
 end
 
-local CREATIONS = {
-	Category.CREATIONS_DEVELOPMENT_SECTION_DIVIDER,
-	Category.CREATIONS_MODELS,
-	Category.CREATIONS_DECALS,
-	Category.CREATIONS_AUDIO,
-	Category.CREATIONS_MESHES,
-}
-
-local CREATIONS_CATALOG_ITEM_CREATOR = {
-	Category.CREATIONS_DEVELOPMENT_SECTION_DIVIDER,
-	Category.CREATIONS_MODELS,
-	Category.CREATIONS_DECALS,
-	Category.CREATIONS_AUDIO,
-	Category.CREATIONS_MESHES,
-	Category.CREATIONS_CATALOG_SECTION_DIVIDER,
-	Category.CREATIONS_HATS,
-}
-
-Category.MARKETPLACE_KEY = "Marketplace"
-Category.INVENTORY_KEY = "Inventory"
-Category.RECENT_KEY = "Recent"
-Category.CREATIONS_KEY = "Creations"
-
-local CreationsCatagoriesKey = 1
-local CreationsCatalogItemCreatorCategoriesKey = 2
-
-local TABS = {
-	[Category.MARKETPLACE_KEY] = Category.MARKETPLACE,
-	[Category.INVENTORY_KEY] = Category.INVENTORY,
-	[Category.RECENT_KEY] = Category.RECENT,
-	[Category.CREATIONS_KEY] = {
-		[CreationsCatagoriesKey] = CREATIONS,
-		[CreationsCatalogItemCreatorCategoriesKey] = CREATIONS_CATALOG_ITEM_CREATOR
-	}
-}
-
-table.insert(Category.INVENTORY_WITH_GROUPS, Category.GROUP_PACKAGES)
-
 if FFlagEnablePurchasePluginFromLua2 then
 	table.insert(Category.INVENTORY, Category.MY_PLUGINS)
 	if FFlagOnlyWhitelistedPluginsInStudio then
@@ -275,6 +254,15 @@ if FFlagEnablePurchasePluginFromLua2 then
 	table.insert(Category.INVENTORY_WITH_GROUPS, insertIndex, Category.MY_PLUGINS)
 	local insertIndex2 = Cryo.List.find(Category.INVENTORY_WITH_GROUPS, Category.GROUP_AUDIO) + 1
 	table.insert(Category.INVENTORY_WITH_GROUPS, insertIndex2, Category.GROUP_PLUGINS)
+end
+
+-- NOTE: When FFlagEnableToolboxVideos is enabled, remember to move the keys directy into the tables for cleaner code!
+if FFlagEnableToolboxVideos then
+	local insertIndex = Cryo.List.find(Category.INVENTORY_WITH_GROUPS, Category.MY_PACKAGES) + 1
+	table.insert(Category.INVENTORY_WITH_GROUPS, insertIndex, Category.MY_VIDEOS)
+
+	table.insert(Category.INVENTORY, Category.MY_VIDEOS)
+	table.insert(Category.MARKETPLACE, Category.MARKETPLACE_VIDEOS)
 end
 
 local function checkBounds(index)
@@ -294,7 +282,6 @@ function Category.categoryIsPackage(index, currentTab)
 			return checkBounds(index) and Category.INVENTORY_WITH_GROUPS[index].assetType == Category.AssetType.PACKAGE
 		end
 	end
-
 end
 
 function Category.categoryIsFreeAsset(index)
@@ -388,42 +375,6 @@ function Category.getEngineAssetType(assetType)
 		end
 	end
 	return result
-end
-
-local function ownershipTypeToString(ownershipType)
-	if ownershipType == Category.OwnershipType.FREE then
-		return "FREE"
-	elseif ownershipType == Category.OwnershipType.MY then
-		return "MY"
-	elseif ownershipType == Category.OwnershipType.RECENT then
-		return "RECENT"
-	elseif ownershipType == Category.OwnershipType.GROUP then
-		return "GROUP"
-	end
-	return "[unknown]"
-end
-
-local function assetTypeToString(assetType)
-	if assetType == Category.AssetType.MODEL then
-		return "MODEL"
-	elseif assetType == Category.AssetType.DECAL then
-		return "DECAL"
-	elseif assetType == Category.AssetType.MESH then
-		return "MESH"
-	elseif assetType == Category.AssetType.AUDIO then
-		return "AUDIO"
-	elseif assetType == Category.AssetType.PACKAGE then
-		return "PACKAGE"
-	end
-	return "[unknown]"
-end
-
-function Category.categoryToString(category)
-	return ("Category(name=\"%s\", category=\"%s\", ownershipType=\"%s\", assetType=\"%s\")"):format(
-		category.name,
-		category.category,
-		ownershipTypeToString(category.ownershipType),
-		assetTypeToString(category.assetType))
 end
 
 return Category

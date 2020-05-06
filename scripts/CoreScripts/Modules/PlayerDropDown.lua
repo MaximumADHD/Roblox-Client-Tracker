@@ -22,8 +22,6 @@ while not LocalPlayer do
 	LocalPlayer = PlayersService.LocalPlayer
 end
 
-local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp") --todo: remove with FFlagUsePolicyServiceForCoreScripts
-
 local recentApiRequests = -- stores requests for target players by userId
 {
 	Following = {};
@@ -626,10 +624,7 @@ function createPlayerDropDown()
 					})
 			end
 
-			local showPlayerBlocking = not FFlagChinaLicensingApp
-			if PolicyService:IsEnabled() then
-				showPlayerBlocking = not PolicyService:IsSubjectToChinaPolicies()
-			end
+			local showPlayerBlocking = not PolicyService:IsSubjectToChinaPolicies()
 
 			if showPlayerBlocking then
 				local blockedText = blocked and "Unblock Player" or "Block Player"

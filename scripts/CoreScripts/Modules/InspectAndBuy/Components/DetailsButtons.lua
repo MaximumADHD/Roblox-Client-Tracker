@@ -1,6 +1,7 @@
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 local GuiService = game:GetService("GuiService")
+local Players = game:GetService("Players")
 local InspectAndBuyFolder = script.Parent.Parent
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
@@ -11,11 +12,15 @@ local FavoritesButton = require(InspectAndBuyFolder.Components.FavoritesButton)
 local TryOnButton = require(InspectAndBuyFolder.Components.TryOnButton)
 local BuyButton = require(InspectAndBuyFolder.Components.BuyButton)
 
+local GetFFlagLuaPremiumCatalogIGIAB
+	= require(CoreGui.RobloxGui.Modules.Flags.GetFFlagLuaPremiumCatalogIGIAB)
+
 local DetailsButtons = Roact.PureComponent:extend("DetailsButtons")
 
 local OFFSALE_KEY = "InGame.InspectMenu.Label.Offsale"
 local LIMITED_KEY = "InGame.InspectMenu.Label.Limited"
 local OWNED_KEY = "InGame.InspectMenu.Label.Owned"
+local PREMIUM_ONLY_KEY = "InGame.InspectMenu.Label.PremiumOnly"
 local ROBLOX_CREATOR_ID = "1"
 
 --[[
@@ -36,7 +41,19 @@ local function getBuyText(itemInfo, locale)
 	elseif not itemInfo.isForSale and not itemInfo.isLimited then
 		buyText = RobloxTranslator:FormatByKeyForLocale(OFFSALE_KEY, locale)
 	elseif itemInfo.isForSale then
-		buyText = itemInfo.price
+		if GetFFlagLuaPremiumCatalogIGIAB() then
+			if itemInfo.premiumPricing ~= nil then
+				if itemInfo.price == nil and Players.LocalPlayer.MembershipType ~= Enum.MembershipType.Premium then
+					buyText = RobloxTranslator:FormatByKeyForLocale(PREMIUM_ONLY_KEY, locale)
+				else
+					buyText = itemInfo.premiumPricing.premiumPriceInRobux
+				end
+			else
+				buyText = itemInfo.price
+			end
+		else
+			buyText = itemInfo.price
+		end
 	end
 	return buyText
 end
@@ -96,6 +113,9 @@ function DetailsButtons:render()
 			itemType = Constants.ItemType.Asset
 			itemId = assetInfo.assetId
 			forSale = assetInfo.isForSale and not assetInfo.owned and not isLimited and assetInfo.owned ~= nil
+			if GetFFlagLuaPremiumCatalogIGIAB() and forSale and assetInfo.price == nil and assetInfo.premiumPricing ~= nil then
+				forSale = Players.LocalPlayer.MembershipType == Enum.MembershipType.Premium
+			end
 			buyText = getBuyText(assetInfo, locale)
 			showRobuxIcon = assetInfo.price ~= nil and not assetInfo.owned and forSale
 		end

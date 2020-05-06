@@ -90,7 +90,11 @@ function AssetThumbnailPreview:didMount()
 		end
 
 		if FFlagEnableThumbnailConfigurationExists and FFlagEnableThumbnailConfigurationValue then
-			local thumbnailConfiguration = model:FindFirstChild("ThumbnailConfiguration")
+			local instance = game:GetFastFlag("CMSFixAssetPreviewForThumbnailConfig")
+				and #self.props.instances == 1
+				and self.props.instances[1]
+				or model
+			local thumbnailConfiguration = instance:FindFirstChild("ThumbnailConfiguration")
 			if thumbnailConfiguration and thumbnailConfiguration:IsA("Configuration") then
 				local thumbnailCameraTarget = thumbnailConfiguration:FindFirstChild("ThumbnailCameraTarget")
 				local thumbnailCameraValue = thumbnailConfiguration:FindFirstChild("ThumbnailCameraValue")

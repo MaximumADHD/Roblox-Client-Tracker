@@ -55,6 +55,7 @@ local GetClassIcon = require(Utils.GetClassIcon)
 local InsertAsset = require(Utils.InsertAsset)
 local GetTextSize = require(Utils.GetTextSize)
 local getTimeString = require(Utils.getTimeString)
+local AssetType = require(Utils.AssetType)
 
 local Focus = require(Src.Focus)
 
@@ -153,6 +154,7 @@ local UILibrary = createStrictTable({
 		getTimeString = getTimeString,
 		MathUtils = MathUtils,
 		Signal = Signal,
+		AssetType = AssetType,
 	}),
 
 	Plugin = require(Src.Plugin),

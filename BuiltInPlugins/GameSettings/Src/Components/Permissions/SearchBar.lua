@@ -38,11 +38,14 @@
 		callback OnItemClicked(key) : A callback when the user selects an item in the dropdown.
 			Returns the key as it was defined in the Results array.
 ]]
+local FFlagStudioConvertGameSettingsToDevFramework = game:GetFastFlag("StudioConvertGameSettingsToDevFramework")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
 local UILibrary = require(Plugin.UILibrary)
+
+local ContextServices = require(Plugin.Framework.ContextServices)
 
 local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 
@@ -287,7 +290,7 @@ function SearchBar:mergeResultsTable(results)
 	return mergedTable
 end
 
-function SearchBar:render()
+function SearchBar:DEPRECATED_render()
 	return withTheme(function(theme)
 		local props = self.props
 		local state = self.state
@@ -600,6 +603,332 @@ function SearchBar:render()
 			}),
 		})
 	end)
+end
+
+function SearchBar:render()
+	if not FFlagStudioConvertGameSettingsToDevFramework then
+		return self:DEPRECATED_render()
+	end
+
+	local props = self.props
+	local theme = props.Theme:get("Plugin")
+	local moues = props.Mouse
+	local state = self.state
+
+	local layoutOrder = props.LayoutOrder or 0
+
+	local text = state.text
+
+	local isFocused = state.isFocused and props.Enabled
+	local isContainerHovered = state.isContainerHovered and props.Enabled
+	local isClearButtonHovered = state.isClearButtonHovered
+
+	local selectHovering = (self.state.isClearButtonHovered or self.state.isKeyHovered) and props.Enabled
+	local textHovering = self.state.isContainerHovered and props.Enabled
+	if selectHovering then
+		moues:__pushCursor("PointingHand")
+	elseif textHovering then
+		moues:__pushCursor("IBeam")
+	else
+		moues:__resetCursor()
+	end
+
+	--[[
+	By default, TextBoxes let you keep typing infinitely and it will just go out of the bounds
+	(unless you set properties like ClipDescendants, TextWrapped)
+	Elsewhere, text boxes shift their contents to the left as you're typing past the bounds
+	So what you're typing is on the screen
+
+	This is implemented here by:
+	- Set ClipsDescendants = true on the container
+	- Get the width of the container, subtracting any padding and the width of the button on the right
+	- Get the width of the text being rendered (this is calculated in the Roact.Change.Text event)
+	- If the text is shorter than the text box size, then:
+		- Anchor the text label to the left side of the parent
+	- Else
+		- Anchor the text label to the right side of the parent
+	]]
+
+	local searchBarTheme = theme.searchBar
+	local borderColor
+	if isFocused then
+		borderColor = searchBarTheme.borderSelected
+	elseif isContainerHovered then
+		borderColor = searchBarTheme.borderHover
+	else
+		borderColor = searchBarTheme.border
+	end
+
+	local defaultText = props.DefaultText
+	local errorText = props.ErrorText
+	local noResultsText = props.NoResultsText
+
+	local textBoxOffset = text ~= "" and -SEARCH_BAR_HEIGHT * 2 or -SEARCH_BAR_HEIGHT
+
+	local showDropdown = state.showDropdown
+	local searchBarRef = self.textBoxRef and self.textBoxRef.current
+	if searchBarRef then
+		searchBarRef = searchBarRef.Parent
+	end
+	local searchBarExtents
+	if searchBarRef then
+		local searchBarMin = searchBarRef.AbsolutePosition
+		local searchBarSize = searchBarRef.AbsoluteSize
+		local searchBarMax = searchBarMin + searchBarSize
+		searchBarExtents = Rect.new(searchBarMin.X, searchBarMin.Y, searchBarMax.X, searchBarMax.Y)
+	end
+
+	local results = props.Results or {}
+	local headerHeight = props.HeaderHeight
+	local itemHeight = props.ItemHeight
+	local maxItems = props.MaxItems
+	local showRibbon = props.ShowRibbon
+
+	local textPadding = props.TextPadding or TEXT_PADDING
+	local scrollBarPadding = props.ScrollBarPadding
+	local scrollBarThickness = props.ScrollBarThickness
+	local maxHeight = maxItems and (maxItems * itemHeight) or nil
+
+	local dropdownItem = state.dropdownItem
+
+	if state.lastResults ~= results then
+		state.mergedItems = self:mergeResultsTable(results)
+		state.lastResults = results
+	end
+
+	return Roact.createElement(ContentFit, {
+		BackgroundTransparency = 1,
+		LayoutOrder = layoutOrder,
+	}, {
+		Background =  Roact.createElement(SearchBarContentFit, {
+			BackgroundTransparency = 1,
+			Image = DEPRECATED_Constants.ROUNDED_BORDER_IMAGE,
+			ImageColor3 = borderColor,
+			ScaleType = Enum.ScaleType.Slice,
+			SliceCenter = DEPRECATED_Constants.ROUNDED_FRAME_SLICE,
+
+			[Roact.Event.MouseEnter] = self.onContainerHovered,
+			[Roact.Event.MouseMoved] = self.onContainerHovered,
+			[Roact.Event.MouseLeave] = self.onContainerHoverEnded,
+		}, {
+			ImageFrame = Roact.createElement("Frame", {
+				BackgroundTransparency = 1,
+				LayoutOrder = 0,
+				Size = UDim2.new(0, SEARCH_BAR_HEIGHT,
+					0, SEARCH_BAR_HEIGHT),
+			} , {
+				Image = Roact.createElement("ImageLabel", {
+					AnchorPoint = Vector2.new(0.5, 0.5),
+					Position = UDim2.new(0.5, 0, 0.5, 0),
+					Size = UDim2.new(0, SEARCH_BAR_BUTTON_ICON_SIZE,
+						0, SEARCH_BAR_BUTTON_ICON_SIZE),
+					BackgroundTransparency = 1,
+					Image = "rbxasset://textures/GameSettings/search.png",
+					ImageColor3 = theme.searchBar.searchIcon,
+				}),
+			}),
+
+			TextBox = Roact.createElement("TextBox", Cryo.Dictionary.join(theme.fontStyle.Normal, {
+				LayoutOrder = 1,
+				Size = UDim2.new(1, textBoxOffset, 0, SEARCH_BAR_HEIGHT),
+				BackgroundTransparency = 1,
+				ClipsDescendants = true,
+
+				ClearTextOnFocus = false,
+				TextXAlignment = Enum.TextXAlignment.Left,
+				Text = props.Enabled and text or "",
+				TextEditable = props.Enabled,
+
+				PlaceholderText = errorText or defaultText,
+				PlaceholderColor3 = errorText and theme.warningColor or searchBarTheme.placeholderText,
+
+				-- Get a reference to the text box so that clicking on the container can call :CaptureFocus()
+				[Roact.Ref] = self.textBoxRef,
+
+				[Roact.Change.Text] = self.onTextChanged,
+				[Roact.Event.Focused] = function(...) self.onTextBoxFocused(props.Enabled, ...) end,
+				[Roact.Event.FocusLost] = self.onTextBoxFocusLost,
+			}) , {
+				TextPadding = Roact.createElement("UIPadding", {
+					PaddingLeft = UDim.new(0, textPadding),
+				})
+			}),
+			
+			ClearButtonFrame = Roact.createElement("Frame", {
+				BackgroundTransparency = 1,
+				LayoutOrder = 2,
+				Size = UDim2.new(0, SEARCH_BAR_HEIGHT,
+					0, SEARCH_BAR_HEIGHT),
+			} , {
+				ClearButton = Roact.createElement("ImageButton", {
+					AnchorPoint = Vector2.new(0.5, 0.5),
+					Position = UDim2.new(0.5, 0, 0.5, 0),
+					Size = UDim2.new(0, CLEAR_BUTTON_ICON_SIZE, 0, CLEAR_BUTTON_ICON_SIZE),
+					BackgroundTransparency = 1,
+					Visible = text ~= "",
+					Image = isClearButtonHovered and "rbxasset://textures/StudioSharedUI/clear-hover.png" or "rbxasset://textures/StudioSharedUI/clear.png",
+					ImageColor3 = isClearButtonHovered and searchBarTheme.clearButton.imageSelected
+						or searchBarTheme.clearButton.image,
+	
+					[Roact.Event.MouseEnter] = self.onClearButtonHovered,
+					[Roact.Event.MouseMoved] = self.onClearButtonHovered,
+					[Roact.Event.MouseLeave] = self.onClearButtonHoverEnded,
+					[Roact.Event.MouseButton1Down] = self.onClearButtonClicked,
+				}),
+			}),
+
+			Dropdown = showDropdown and searchBarRef and Roact.createElement(DropdownMenu, {
+				OnFocusLost = self.hideDropdown,
+				OnItemClicked = self.onItemClicked,
+				SourceExtents = searchBarExtents,
+				Offset = Vector2.new(0, VERTICAL_OFFSET),
+				MaxHeight = maxHeight,
+				ShowBorder = true,
+				ScrollBarPadding = scrollBarPadding,
+				ScrollBarThickness = scrollBarThickness,
+
+				Items = self.state.mergedItems,
+				RenderItem = function(item, index, activated)
+					if typeof(item) == "string" and (item ~= "LoadingIndicator"  and item ~= "NoResults") then
+						return Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Subtext, {
+								Size = UDim2.new(0, searchBarExtents.Width, 0, headerHeight),
+								Text = item,
+								TextXAlignment = Enum.TextXAlignment.Left,
+								BackgroundColor3 = searchBarTheme.dropDown.backgroundColor,
+								BorderSizePixel = 0,
+								TextWrapped = true,
+								LayoutOrder = index,
+							}), {
+								Padding = Roact.createElement("UIPadding", {
+									PaddingLeft = UDim.new(0, textPadding),
+								}),
+							})
+					elseif item == "NoResults" then
+						return Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Normal, {
+							Size = UDim2.new(0, searchBarExtents.Width, 0, itemHeight),
+							Text = noResultsText,
+							TextXAlignment = Enum.TextXAlignment.Left,
+							BackgroundColor3 = searchBarTheme.dropDown.backgroundColor,
+							BorderSizePixel = 0,
+							TextWrapped = true,
+							LayoutOrder = index,
+						}), {
+							Padding = Roact.createElement("UIPadding", {
+								PaddingLeft = UDim.new(0, textPadding),
+							}),
+						})
+					elseif item == "LoadingIndicator" then
+						return Roact.createElement("Frame", {
+							Size = UDim2.new(0, searchBarExtents.Width, 0, itemHeight),
+							BackgroundColor3 = searchBarTheme.dropDown.backgroundColor,
+							BorderSizePixel = 0,
+							LayoutOrder = index,
+						}, {
+							LoadingIndicator = Roact.createElement(LoadingIndicator, {
+								AnchorPoint = Vector2.new(0.5, 0.5),
+								Position = UDim2.new(0.5, 0, 0.5, 0),
+								ZIndex = 3,
+							}),
+						})
+					-- user/group items
+					else
+						local key = item.Key
+						local isHovered = dropdownItem == key
+						-- setting offset for textbox to be icon frame or icon frame and enter icon frame if hovered and if showRibbon is true
+						local ribbonSize = isHovered and showRibbon and RIBBON_WIDTH or 0
+						local iconOffset = isHovered and itemHeight * 2 or itemHeight
+						local textLabelOffset = -(ribbonSize + iconOffset)
+					
+						local backgroundColor = isHovered and searchBarTheme.dropDown.hovered.backgroundColor or searchBarTheme.dropDown.backgroundColor
+						return Roact.createElement("ImageButton", {
+								Size = UDim2.new(0, searchBarExtents.Width, 0, itemHeight),
+								BackgroundColor3 = backgroundColor,
+								BorderSizePixel = 0,
+								LayoutOrder = index,
+								AutoButtonColor = false,
+								[Roact.Event.Activated] = activated,
+								[Roact.Event.MouseEnter] = function()
+									self.onKeyMouseEnter(key)
+								end,
+								[Roact.Event.MouseLeave] = function()
+									self.onKeyMouseLeave(key)
+								end,
+							}, {
+								Roact.createElement(HorizontalContentFit, {
+									LayoutOrder = index,
+									BackgroundTransparency = 1,
+								} , {
+									Ribbon = isHovered and showRibbon and Roact.createElement("Frame", {
+										Size = UDim2.new(0, RIBBON_WIDTH, 1, 0),
+										BackgroundColor3 = searchBarTheme.dropDown.selected.backgroundColor,
+										BorderSizePixel = 0,
+										LayoutOrder = 0,
+									}),
+
+									IconFrame = Roact.createElement("Frame", {
+										BackgroundTransparency = 1,
+										LayoutOrder = 1,
+										Size = UDim2.new(0, itemHeight,
+											0, itemHeight),
+									} , {
+										SmallIcon = Roact.createElement("Frame", {
+											AnchorPoint = Vector2.new(0.5, 0.5),
+											Position = UDim2.new(0.5, 0, 0.5, 0),
+											Size = UDim2.new(0, THUMBNAIL_SIZE, 0, THUMBNAIL_SIZE),
+
+											BackgroundColor3 = backgroundColor,
+											BorderSizePixel = 0,
+										}, {
+											Icon = item.Icon,
+										}),
+									}),
+
+									TextLabel = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Normal, {
+										Size = UDim2.new(1, textLabelOffset, 0, itemHeight),
+										Text = item.Name,
+										TextXAlignment = Enum.TextXAlignment.Left,
+										TextColor3 = isHovered and searchBarTheme.dropDown.hovered.displayText or searchBarTheme.dropDown.displayText,
+										BackgroundTransparency = 1,
+										TextWrapped = true,
+										ClipsDescendants = true,
+										LayoutOrder = 2,
+									}), {
+										Padding = Roact.createElement("UIPadding", {
+											PaddingLeft = UDim.new(0, textPadding),
+										}),
+									}),
+
+									-- TODO: readd when text navigation is added
+									--[[EnterFrame = isHovered and Roact.createElement("Frame", {
+										BackgroundColor3 = backgroundColor,
+										BorderSizePixel = 0,
+										Size = UDim2.new(0, itemHeight,
+											0, itemHeight),
+										LayoutOrder = 3,
+									} , {
+										Image = Roact.createElement("ImageLabel", {
+											AnchorPoint = Vector2.new(0.5, 0.5),
+											Position = UDim2.new(0.5, 0, 0.5, 0),
+											Size = UDim2.new(0, ENTER_ICON_SIZE,
+												0, ENTER_ICON_SIZE),
+											BackgroundTransparency = 1,
+											Image = "rbxasset://textures/GameSettings/add.png",
+										}),
+									}),]]
+								})
+							})
+						end
+					end,
+				})
+		}),
+	})
+end
+
+if FFlagStudioConvertGameSettingsToDevFramework then
+	ContextServices.mapToProps(SearchBar, {
+		Theme = ContextServices.Theme,
+		Mouse = ContextServices.Mouse,
+	})
 end
 
 return SearchBar

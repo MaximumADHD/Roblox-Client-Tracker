@@ -149,6 +149,7 @@ end
 function methods:RemoveSpeaker(speakerName)
 	if (self.Speakers[speakerName:lower()]) then
 		local n = self.Speakers[speakerName:lower()].Name
+
 		self:InternalUnmuteSpeaker(n)
 
 		self.Speakers[speakerName:lower()]:InternalDestroy()
@@ -166,6 +167,22 @@ end
 
 function methods:GetSpeaker(speakerName)
 	return self.Speakers[speakerName:lower()]
+end
+
+function methods:GetSpeakerByUserOrDisplayName(speakerName)
+	local speakerByUserName = self.Speakers[speakerName:lower()]
+
+	if speakerByUserName then
+		return speakerByUserName
+	end
+
+	for _, potentialSpeaker in pairs(self.Speakers) do
+		local player = potentialSpeaker:GetPlayer()
+
+		if player and player.DisplayName:lower() == speakerName:lower() then
+			return potentialSpeaker
+		end
+	end
 end
 
 function methods:GetChannelList()

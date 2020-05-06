@@ -10,7 +10,11 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
 
+local ContextServices = require(Plugin.Framework.ContextServices)
+
 local withTheme = require(Plugin.Src.Consumers.withTheme)
+
+local FFlagStudioConvertGameSettingsToDevFramework = game:GetFastFlag("StudioConvertGameSettingsToDevFramework")
 
 local CollaboratorThumbnail = Roact.PureComponent:extend("CollaboratorThumbnail")
 
@@ -51,7 +55,7 @@ function CollaboratorThumbnail:willUnmount()
 	end
 end
 
-function CollaboratorThumbnail:render()
+function CollaboratorThumbnail:DEPRECATED_render()
 	local useMask = self.props.UseMask or false
 
 	local imageProps = Cryo.Dictionary.join(self.props, {
@@ -75,6 +79,49 @@ function CollaboratorThumbnail:render()
 			}),
 		})
 	end)
+end
+
+function CollaboratorThumbnail:render()
+	if not FFlagStudioConvertGameSettingsToDevFramework then
+		return self:DEPRECATED_render()
+	end
+
+	local props = self.props
+	local theme = props.Theme:get("Plugin")
+
+	local layoutOrder = props.LayoutOrder
+	local useMask = props.UseMask or false
+	local image = props.Image
+	local imageTransparency = props.ImageTransparency
+	local imageSize = props.Size
+
+	return Roact.createElement("ImageLabel", {
+		[Roact.Ref] = self.ref,
+
+		Image = image,
+		ImageTransparency = imageTransparency,
+		Size = imageSize,
+
+		BackgroundColor3 = theme.subjectThumbnail.background,
+		BackgroundTransparency = useMask and 0 or 1,
+		BorderSizePixel = 0,
+
+		LayoutOrder = layoutOrder,
+	}, {
+		Mask = useMask and Roact.createElement("ImageLabel", {
+			BackgroundTransparency = 1,
+			Size = UDim2.new(1, 0, 1, 0),
+
+			Image = "rbxasset://textures/StudioSharedUI/avatarMask.png",
+			ImageColor3 = self.state.backgroundColor,
+		}),
+	})
+end
+
+if FFlagStudioConvertGameSettingsToDevFramework then
+	ContextServices.mapToProps(CollaboratorThumbnail, {
+		Theme = ContextServices.Theme,
+	})
 end
 
 return CollaboratorThumbnail

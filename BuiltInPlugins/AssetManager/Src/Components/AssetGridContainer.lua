@@ -38,8 +38,9 @@ local OnScreenChange = require(Plugin.Src.Thunks.OnScreenChange)
 local BulkImportService = game:GetService("BulkImportService")
 
 local FFlagStudioAssetManagerDisableTileOverlay = game:GetFastFlag("StudioAssetManagerDisableTileOverlay")
-
 local FFlagFixDisplayScriptsFolderInAssetManager = game:GetFastFlag("FixDisplayScriptsFolderInAssetManager")
+
+local FFlagStudioAssetManagerDisableMagicCharacters = game:DefineFastFlag("StudioAssetManagerDisableMagicCharacters", false)
 
 local AssetGridContainer = Roact.Component:extend("AssetGridContainer")
 
@@ -141,17 +142,33 @@ function AssetGridContainer:createTiles(apiImpl, localization, theme,
     else
         if FFlagDedupePackagesInAssetManager then
             for _, asset in pairs(assets) do
-                if string.find(asset.name, searchTerm) then
-                    asset.key = asset.layoutOrder
-                    local assetTile = Roact.createElement(Tile, {
-                        AssetData = asset,
-                        LayoutOrder = asset.layoutOrder,
-                        StyleModifier = selectedAssets[asset.layoutOrder] and StyleModifier.Selected or nil,
-                        Enabled = enabled,
-                        OnOpenAssetPreview = self.onOpenAssetPreview,
-                    })
-                    assetsToDisplay[asset.layoutOrder] = assetTile
-                    numberAssets = numberAssets + 1
+                if FFlagStudioAssetManagerDisableMagicCharacters then
+                    -- pass in true for plain to disable magic characters like (, ), %...
+                    if string.find(asset.name, searchTerm, 1, true) then
+                        asset.key = asset.layoutOrder
+                        local assetTile = Roact.createElement(Tile, {
+                            AssetData = asset,
+                            LayoutOrder = asset.layoutOrder,
+                            StyleModifier = selectedAssets[asset.layoutOrder] and StyleModifier.Selected or nil,
+                            Enabled = enabled,
+                            OnOpenAssetPreview = self.onOpenAssetPreview,
+                        })
+                        assetsToDisplay[asset.layoutOrder] = assetTile
+                        numberAssets = numberAssets + 1
+                    end
+                else
+                    if string.find(asset.name, searchTerm) then
+                        asset.key = asset.layoutOrder
+                        local assetTile = Roact.createElement(Tile, {
+                            AssetData = asset,
+                            LayoutOrder = asset.layoutOrder,
+                            StyleModifier = selectedAssets[asset.layoutOrder] and StyleModifier.Selected or nil,
+                            Enabled = enabled,
+                            OnOpenAssetPreview = self.onOpenAssetPreview,
+                        })
+                        assetsToDisplay[asset.layoutOrder] = assetTile
+                        numberAssets = numberAssets + 1
+                    end
                 end
             end
         else

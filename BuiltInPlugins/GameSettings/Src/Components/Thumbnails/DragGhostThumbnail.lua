@@ -16,8 +16,13 @@
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
+
+local ContextServices = require(Plugin.Framework.ContextServices)
+
 local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
+
+local FFlagStudioConvertGameSettingsToDevFramework = game:GetFastFlag("StudioConvertGameSettingsToDevFramework")
 
 local DragGhostThumbnail = Roact.PureComponent:extend("DragGhostThumbnail")
 
@@ -42,7 +47,7 @@ function DragGhostThumbnail:init()
 	end
 end
 
-function DragGhostThumbnail:render()
+function DragGhostThumbnail:DEPRECATED_render()
 	return withTheme(function(theme)
 		local image = self.props.Image
 		local active = self.props.Enabled
@@ -74,6 +79,51 @@ function DragGhostThumbnail:render()
 			}),
 		})
 	end)
+end
+
+function DragGhostThumbnail:render()
+	if not FFlagStudioConvertGameSettingsToDevFramework then
+		return self:DEPRECATED_render()
+	end
+
+	local props = self.props
+	local theme = props.Theme:get("Plugin")
+
+	local image = self.props.Image
+	local active = self.props.Enabled
+
+	return Roact.createElement("Frame", {
+		BackgroundTransparency = 1,
+		Size = UDim2.new(1, 0, 1, 0),
+		ZIndex = 10,
+
+		[Roact.Event.InputChanged] = self.inputChanged,
+
+		[Roact.Event.InputEnded] = self.inputEnded,
+	}, {
+		Ghost = Roact.createElement("ImageLabel", {
+			Visible = active,
+			BackgroundTransparency = 0.85,
+			BackgroundColor3 = DEPRECATED_Constants.BLUE,
+			BorderColor3 = DEPRECATED_Constants.BLUE,
+			BorderSizePixel = 3,
+			Size = DEPRECATED_Constants.THUMBNAIL_SIZE,
+			AnchorPoint = Vector2.new(0.5, 0.5),
+			Image = image or DEPRECATED_Constants.VIDEO_PLACEHOLDER,
+			ImageColor3 = (image == nil) and theme.thumbnail.background or nil,
+			ImageTransparency = 0.5,
+			ScaleType = Enum.ScaleType.Fit,
+			ZIndex = 3,
+
+			[Roact.Ref] = self.imageRef,
+		}),
+	})
+end
+
+if FFlagStudioConvertGameSettingsToDevFramework then
+	ContextServices.mapToProps(DragGhostThumbnail, {
+		Theme = ContextServices.Theme,
+	})
 end
 
 return DragGhostThumbnail

@@ -19,33 +19,69 @@ local SimpleDialog = require(Plugin.Src.Components.Dialog.SimpleDialog)
 
 local Promise = require(Plugin.Promise)
 
-return function(provider)
+local FFlagStudioConvertGameSettingsToDevFramework = game:GetFastFlag("StudioConvertGameSettingsToDevFramework")
+
+return function(provider, localization, settingsImpl)
 	return function(store)
 		local state = store:getState()
-		local settingsImpl = getSettingsImpl(provider)
-		local localized = getLocalizedContent(provider)
+		local settingsImpl = FFlagStudioConvertGameSettingsToDevFramework and settingsImpl or getSettingsImpl(provider)
+		local localized = FFlagStudioConvertGameSettingsToDevFramework and localization or getLocalizedContent(provider)
 
-		local warningDialogProps = {
-			isActive = {
-				Title = localized.PrivateDialog.Header,
-				Header = localized.PrivateDialog.Prompt,
-				Description = localized.PrivateDialog.Body,
-				Buttons = localized.PrivateDialog.Buttons,
-			},
-			universeAvatarType = {
-				Title = localized.AvatarDialog.Header,
-				Header = localized.AvatarDialog.Prompt,
-				Description = localized.AvatarDialog.Body,
-				Buttons = localized.AvatarDialog.Buttons,
+		local warningDialogProps
+		local errorDialogProps
+		if FFlagStudioConvertGameSettingsToDevFramework then
+			warningDialogProps = {
+				isActive = {
+					Title = localized:getText("General", "PrivateDialogHeader") ,
+					Header = localized:getText("General", "PrivateDialogPrompt"),
+					Description = localized:getText("General", "PrivateDialogBody"),
+					Buttons = {
+						localized:getText("General", "ButtonCancel"),
+						localized:getText("General", "ButtonSave"),
+					},
+				},
+				universeAvatarType = {
+					Title = localized:getText("General", "AvatarDialogHeader") ,
+					Header = localized:getText("General", "AvatarDialogPrompt"),
+					Description = localized:getText("General", "AvatarDialogBody"),
+					Buttons = {
+						localized:getText("General", "ReplyNo"),
+						localized:getText("General", "ReplyYes"),
+					},
+				}
 			}
-		}
 
-		local errorDialogProps = {
-			Size = Vector2.new(343, 145),
-			Title = localized.ErrorsOnSaveDialog.Header,
-			Header = localized.ErrorsOnSaveDialog.Body,
-			Buttons = localized.ErrorsOnSaveDialog.Buttons,
-		}
+			errorDialogProps = {
+				Size = Vector2.new(343, 145),
+				Title = localized:getText("General", "ErrorsOnSaveHeader") ,
+				Header = localized:getText("General", "ErrorsOnSaveBody"),
+				Buttons = {
+					localized:getText("General", "ReplyOK"),
+				},
+			}
+		else
+			warningDialogProps = {
+				isActive = {
+					Title = localized.PrivateDialog.Header,
+					Header = localized.PrivateDialog.Prompt,
+					Description = localized.PrivateDialog.Body,
+					Buttons = localized.PrivateDialog.Buttons,
+				},
+				universeAvatarType = {
+					Title = localized.AvatarDialog.Header,
+					Header = localized.AvatarDialog.Prompt,
+					Description = localized.AvatarDialog.Body,
+					Buttons = localized.AvatarDialog.Buttons,
+				}
+			}
+
+			errorDialogProps = {
+				Size = Vector2.new(343, 145),
+				Title = localized.ErrorsOnSaveDialog.Header,
+				Header = localized.ErrorsOnSaveDialog.Body,
+				Buttons = localized.ErrorsOnSaveDialog.Buttons,
+			}
+		end
 
 		return Promise.new(function(resolve, reject)
 			spawn(function()

@@ -12,6 +12,9 @@ local FFlagShowAssetConfigReasons = game:GetFastFlag("ShowAssetConfigReasons")
 local FFlagFixAssetUploadSuccssMessage = game:DefineFastFlag("FixAssetUploadSuccssMessage", false)
 local FFlagAddCopyIDToResultPage = game:DefineFastFlag("AddCopyIDToResultPage", false)
 local FFlagUGCRemoveLearnMoreText = game:DefineFastFlag("UGCRemoveLearnMoreText", false)
+local FFlagFixAssetUploadFailedColor = game:DefineFastFlag("FixAssetUploadFailedColor", false)
+local FFlagRemoveAssetUploadUrlSuffix = game:DefineFastFlag("RemoveAssetUploadUrlSuffix", false)
+local FFlagFixAssetUploadName = game:GetFastFlag("FixAssetUploadName")
 
 local ContentProvider = game:GetService("ContentProvider")
 local GuiService = game:GetService("GuiService")
@@ -36,7 +39,6 @@ local Components = Plugin.Core.Components
 local NavButton = require(Components.NavButton)
 local AssetConfiguration = Components.AssetConfiguration
 local AssetThumbnailPreview = require(AssetConfiguration.AssetThumbnailPreview)
-local ImagePicker = require(AssetConfiguration.ImagePicker)
 local ReasonFrame = require(AssetConfiguration.ReasonFrame)
 local CopyID = require(AssetConfiguration.CopyID)
 
@@ -72,7 +74,7 @@ function AssetUploadResult:init(props)
 	}
 end
 
-local function getResultUrl(flowType, assetId, assetName, assetTypeEnum)
+local function getResultUrl(flowType, assetId, assetTypeEnum, assetName)
 	local url
 	if flowType == AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW then
 		-- When we upload asset, depending on the assetType, it could go
@@ -81,17 +83,22 @@ local function getResultUrl(flowType, assetId, assetName, assetTypeEnum)
 			url = ContentProvider.BaseUrl .. "catalog/" .. assetId
 		else
 			local baseUrl = ContentProvider.BaseUrl
-			-- TODO: Replace "NewAsset" once we moved assetName into the store.
-			url = string.format("%slibrary/%s/%s", baseUrl, HttpService:urlEncode(assetId), "NewAsset")
+			if FFlagRemoveAssetUploadUrlSuffix then
+				url = string.format("%slibrary/%s/", baseUrl, HttpService:urlEncode(assetId))
+			else
+				url = string.format("%slibrary/%s/%s", baseUrl, HttpService:urlEncode(assetId), "NewAsset")
+			end
 		end
-	else -- Defualt to edit flow
+	else -- Default to edit flow
 		if AssetConfigUtil.isCatalogAsset(assetTypeEnum) then
 			url = ContentProvider.BaseUrl .. "catalog/" .. assetId
 		else
-			-- TODO: In edit flow, the assetName should be the same with current name.
-			-- We can do that once we put all the current asset state in the reducer first.
 			local baseUrl = ContentProvider.BaseUrl
-			url = string.format("%slibrary/%s/%s", baseUrl, HttpService:urlEncode(assetId), assetName)
+			if FFlagRemoveAssetUploadUrlSuffix then
+				url = string.format("%slibrary/%s/", baseUrl, HttpService:urlEncode(assetId))
+			else
+				url = string.format("%slibrary/%s/%s", baseUrl, HttpService:urlEncode(assetId), assetName)
+			end
 		end
 	end
 	return url
@@ -126,8 +133,9 @@ function AssetUploadResult:render()
 			url = getResultUrl(
 				props.screenFlowType,
 				props.assetId or 0,
-				props.assetConfigData and props.assetConfigData.Name or "Asset",
-				props.assetTypeEnum
+				props.assetTypeEnum,
+				-- TODO: remove when FFlagRemoveAssetUploadUrlSuffix is retired
+				props.assetConfigData and props.assetConfigData.Name or "Asset"
 			)
 		end
 
@@ -162,6 +170,7 @@ function AssetUploadResult:render()
 			Size = props.Size,
 		}, {
 			ModelPreview = showViewport and Roact.createElement(AssetThumbnailPreview, {
+				title = FFlagFixAssetUploadName and props.assetName or nil,
 				titleHeight = PREVIEW_TITLE_HEIGHT,
 				titlePadding = PREVIEW_TITLE_PADDING,
 				Position = UDim2.new(0.5, -PREVIEW_SIZE/2, 0, PREVIEW_PADDING),
@@ -280,7 +289,7 @@ function AssetUploadResult:render()
 					Position = UDim2.new(0.5, -TITLE_WIDTH/2, 0, 0),
 					Size = UDim2.new(0, TITLE_WIDTH, 0, TITLE_HEIGHT),
 					Text = "Submission failed",
-					TextColor3 = theme.uploadResult.text,
+					TextColor3 = FFlagFixAssetUploadFailedColor and theme.uploadResult.redText or theme.uploadResult.text,
 					TextSize = Constants.FONT_SIZE_TITLE,
 					TextXAlignment = Enum.TextXAlignment.Center,
 					TextYAlignment = Enum.TextYAlignment.Center,
@@ -322,6 +331,7 @@ local function mapStateToProps(state, props)
 
 	local stateToProps = {
 		assetId = state.assetId,
+		assetName = state.changed.AssetConfigName or state.assetName,
 		uploadSucceeded = state.uploadSucceeded,
 		instances = state.instances,
 		networkError = state.networkError,

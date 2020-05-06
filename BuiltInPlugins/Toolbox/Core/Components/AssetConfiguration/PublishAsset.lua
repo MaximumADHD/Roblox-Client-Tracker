@@ -15,12 +15,12 @@
 
 		assetTypeEnum, enum, asset type.
 
-		onNameChange, functoin, callback when name changes.
-		onDescChange, functoin, callback when description changes.
-		onOwnerSelected, functoin, callback when owner changes.
-		onGenreSelected, functoin, callback when genre changes.
-		toggleCopy, functoin, callback when copy changes.
-		toggleComment, functoin, callback when comment changes.
+		onNameChange, function, callback when name changes.
+		onDescChange, function, callback when description changes.
+		onOwnerSelected, function, callback when owner changes.
+		onGenreSelected, function, callback when genre changes.
+		toggleCopy, function, callback when copy changes.
+		toggleComment, function, callback when comment changes.
 
 		displayOwnership, bool, if we want to show ownership.
 		displayGenre, bool, genre.
@@ -72,7 +72,7 @@ local GENRE_HEIGHT = 70
 local COPY_HEIGHT = 80
 local COMMENT_HEIGHT = 80
 local PADDING = 24
-local HEIGHT_FOR_ACCTOUN_SETTING_TEXT = 60
+local HEIGHT_FOR_ACCOUNT_SETTING_TEXT = 60
 local DIVIDER_BASE_HEIGHT = 20
 local DIVIDER_WIDTH = 672
 
@@ -203,7 +203,7 @@ function PublishAsset:render()
 
 			local configCopyHeight = COPY_HEIGHT
 			if not allowCopy then
-				configCopyHeight = configCopyHeight + HEIGHT_FOR_ACCTOUN_SETTING_TEXT
+				configCopyHeight = configCopyHeight + HEIGHT_FOR_ACCOUNT_SETTING_TEXT
 			end
 
 			return Roact.createElement(StyledScrollingFrame, {

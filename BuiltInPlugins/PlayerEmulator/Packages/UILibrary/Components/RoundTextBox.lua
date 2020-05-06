@@ -24,6 +24,7 @@
 ]]
 
 local StudioUILibraryRoundTextBoxNoTooltip = settings():GetFFlag("StudioUILibraryRoundTextBoxNoTooltip")
+local FFlagPublishPlaceSupportUnicodeTextLength = game:GetFastFlag("PublishPlaceSupportUnicodeTextLength")
 
 local DEFAULT_HEIGHT = 42
 local PADDING = UDim.new(0, 10)
@@ -68,7 +69,7 @@ function RoundTextBox:render()
 		local active = self.props.Active
 		local focused = self.state.Focused
 		local multiline = self.props.Multiline
-		local textLength = string.len(self.props.Text)
+		local textLength = FFlagPublishPlaceSupportUnicodeTextLength and utf8.len(self.props.Text) or string.len(self.props.Text)
 		local errorState = self.props.ErrorMessage
 			or textLength > self.props.MaxLength
 

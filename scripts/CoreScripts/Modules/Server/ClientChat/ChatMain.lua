@@ -990,13 +990,21 @@ end
 if PlayerBlockedEvent then
 	PlayerBlockedEvent.Event:connect(function(player)
 		if MutePlayer(player) then
+			local playerName
+
+			if ChatSettings.PlayerDisplayNamesEnabled then
+				playerName = player.DisplayName
+			else
+				playerName = player.Name
+			end
+
 			SendSystemMessageToSelf(
 				string.gsub(
 					ChatLocalization:Get(
 						"GameChat_ChatMain_SpeakerHasBeenBlocked",
-						string.format("Speaker '%s' has been blocked.", player.Name)
+						string.format("Speaker '%s' has been blocked.", playerName)
 					),
-					"{RBX_NAME}",player.Name
+					"{RBX_NAME}", playerName
 				)
 			)
 		end
@@ -1006,13 +1014,21 @@ end
 if PlayerMutedEvent then
 	PlayerMutedEvent.Event:connect(function(player)
 		if MutePlayer(player) then
+			local playerName
+
+			if ChatSettings.PlayerDisplayNamesEnabled then
+				playerName = player.DisplayName
+			else
+				playerName = player.Name
+			end
+
 			SendSystemMessageToSelf(
 				string.gsub(
 					ChatLocalization:Get(
 						"GameChat_ChatMain_SpeakerHasBeenMuted",
-						string.format("Speaker '%s' has been muted.", player.Name)
+						string.format("Speaker '%s' has been muted.", playerName)
 					),
-					"{RBX_NAME}", player.Name
+					"{RBX_NAME}", playerName
 				)
 			)
 		end
@@ -1030,13 +1046,21 @@ end
 if PlayerUnBlockedEvent then
 	PlayerUnBlockedEvent.Event:connect(function(player)
 		if UnmutePlayer(player) then
+			local playerName
+
+			if ChatSettings.PlayerDisplayNamesEnabled then
+				playerName = player.DisplayName
+			else
+				playerName = player.Name
+			end
+
 			SendSystemMessageToSelf(
 				string.gsub(
 					ChatLocalization:Get(
 						"GameChat_ChatMain_SpeakerHasBeenUnBlocked",
-						string.format("Speaker '%s' has been unblocked.", player.Name)
+						string.format("Speaker '%s' has been unblocked.", playerName)
 					),
-					"{RBX_NAME}",player.Name
+					"{RBX_NAME}", playerName
 				)
 			)
 		end
@@ -1046,13 +1070,21 @@ end
 if PlayerUnMutedEvent then
 	PlayerUnMutedEvent.Event:connect(function(player)
 		if UnmutePlayer(player) then
+			local playerName
+
+			if ChatSettings.PlayerDisplayNamesEnabled then
+				playerName = player.DisplayName
+			else
+				playerName = player.Name
+			end
+
 			SendSystemMessageToSelf(
 				string.gsub(
 					ChatLocalization:Get(
 						"GameChat_ChatMain_SpeakerHasBeenUnMuted",
-						string.format("Speaker '%s' has been unmuted.", player.Name)
+						string.format("Speaker '%s' has been unmuted.", playerName)
 					),
-					"{RBX_NAME}",player.Name
+					"{RBX_NAME}", playerName
 				)
 			)
 		end

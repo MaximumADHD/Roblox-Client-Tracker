@@ -29,6 +29,8 @@
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 
+local fflagSupportNilContextServices = game:DefineFastFlag("StudioSupportNilContextServices", false)
+
 local MultipleProvider = Roact.PureComponent:extend("MultipleProvider")
 
 function MultipleProvider:render()
@@ -40,10 +42,13 @@ function MultipleProvider:render()
 
 	for index = #items, 1, -1 do
 		local item = items[index]
-		local createProvider = item.createProvider
-		assert(createProvider and type(createProvider) == "function",
-			string.format("provide: item at %i was not a ContextItem.", index))
-		root = item:createProvider(root)
+		
+		if item or not fflagSupportNilContextServices  then
+			local createProvider = item.createProvider
+			assert(createProvider and type(createProvider) == "function",
+				string.format("provide: item at %i was not a ContextItem.", index))
+			root = item:createProvider(root)
+		end
 	end
 
 	return root

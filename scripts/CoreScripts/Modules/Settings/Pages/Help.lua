@@ -12,7 +12,6 @@ local success, result = pcall(function() return settings():GetFFlag('UseNotifica
 local FFlagUseNotificationsLocalization = success and result
 
 local FFlagRobloxGuiSiblingZindexs = settings():GetFFlag("RobloxGuiSiblingZindexs")
-local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp") --todo: remove with FFlagUsePolicyServiceForCoreScripts
 
 -------------- CONSTANTS --------------
 local KEYBOARD_MOUSE_TAG = "KeyboardMouse"
@@ -204,10 +203,7 @@ local function Initialize()
 
 		local miscActions = {}
 
-		local canShowRecordAndStats = not FFlagChinaLicensingApp
-		if PolicyService:IsEnabled() then
-			canShowRecordAndStats = not PolicyService:IsSubjectToChinaPolicies()
-		end
+		local canShowRecordAndStats = not PolicyService:IsSubjectToChinaPolicies()
 
 		if canShowRecordAndStats then
 			table.insert(miscActions, {["Screenshot"] = isOSX and "Cmd + Shift + 3" or "Print Screen"})

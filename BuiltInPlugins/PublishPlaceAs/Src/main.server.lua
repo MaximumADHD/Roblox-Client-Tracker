@@ -4,6 +4,7 @@ end
 
 -- Fast flags
 local FFlagStudioChangeMinimumSizeOfWindow = game:DefineFastFlag("StudioChangeMinimumSizeOfPublishWindow", false)
+local FFlagLuaPublishFlowFixCreateButtonInChinese = game:DefineFastFlag("LuaPublishFlowFixCreateButtonInChinese", false)
 
 -- libraries
 local Plugin = script.Parent.Parent

@@ -15,6 +15,9 @@ local Roact = require(Plugin.Roact)
 local RoactRodux = require(Plugin.RoactRodux)
 local Promise = require(Plugin.Promise)
 
+local ContextServices = require(Plugin.Framework.ContextServices)
+local SettingsImpl = require(Plugin.Src.Providers.SettingsImplContextItem)
+
 local withTheme = require(Plugin.Src.Consumers.withTheme)
 local withLocalization = require(Plugin.Src.Consumers.withLocalization)
 local getMouse = require(Plugin.Src.Consumers.getMouse)
@@ -26,9 +29,11 @@ local ButtonBar = require(Plugin.Src.Components.ButtonBar)
 local ConfirmAndSaveChanges = require(Plugin.Src.Thunks.ConfirmAndSaveChanges)
 local CurrentStatus = require(Plugin.Src.Util.CurrentStatus)
 
+local FFlagStudioConvertGameSettingsToDevFramework = game:GetFastFlag("StudioConvertGameSettingsToDevFramework")
+
 local Footer = Roact.PureComponent:extend("Footer")
 
-function Footer:render()
+function Footer:DEPRECATED_render()
 	return withLocalization(function(localized)
 		return withTheme(function(theme)
 			local saveActive = self.props.SaveActive
@@ -77,6 +82,72 @@ function Footer:render()
 	end)
 end
 
+function Footer:render()
+	if not FFlagStudioConvertGameSettingsToDevFramework then
+		return self:DEPRECATED_render()
+	end
+
+	local props = self.props
+	local theme = props.Theme:get("Plugin")
+	local localization = props.Localization
+	local settingsImpl = props.SettingsImpl:get()
+
+	local saveActive = props.SaveActive
+	local cancelActive = props.CancelActive
+
+	local fflagNetworkRefactor = game:GetFastFlag("GameSettingsNetworkRefactor")
+	return Roact.createElement("Frame", {
+		BackgroundColor3 = theme.backgroundColor,
+		BorderSizePixel = 0,
+		Size = fflagNetworkRefactor and UDim2.fromScale(1, 1) or UDim2.new(1, 0, 0, DEPRECATED_Constants.FOOTER_HEIGHT),
+		AnchorPoint = (not fflagNetworkRefactor) and Vector2.new(0, 1) or nil,
+		Position = (not fflagNetworkRefactor) and UDim2.new(0, 0, 1, 0) or nil,
+		ZIndex = 2,
+	}, {
+		Gradient = Roact.createElement("ImageLabel", {
+			Size = UDim2.new(1, 0, 0, FOOTER_GRADIENT_SIZE),
+			AnchorPoint = Vector2.new(0, 1),
+			Image = DEPRECATED_Constants.GRADIENT_IMAGE,
+			ImageRectSize = DEPRECATED_Constants.GRADIENT_RECT_SIZE,
+			BorderSizePixel = 0,
+			BackgroundTransparency = 1,
+			ImageColor3 = theme.footer.gradient,
+			ImageTransparency = FOOTER_GRADIENT_TRANSPARENCY,
+			ZIndex = 1,
+		}),
+
+		SaveSettings = Roact.createElement(ButtonBar, {
+			ZIndex = 2,
+			Buttons = {
+				{Name = localization:getText("General", "ButtonCancel"), Active = cancelActive, Value = false},
+				{Name = localization:getText("General", "ButtonSave"), Default = true, Active = saveActive, Value = true},
+			},
+			HorizontalAlignment = Enum.HorizontalAlignment.Right,
+			ButtonClicked = function(userPressedSave)
+				-- TODO: change to use HoverArea from Developer Framework
+				props.Mouse:__pushCursor("Wait")
+
+				local resolved = self.props.ButtonClicked(userPressedSave, self, localization, settingsImpl):await()
+				if resolved then
+					self.props.OnClose(userPressedSave)
+				end
+
+				props.Mouse:__resetCursor()
+			end,
+		}),
+	})
+end
+
+if FFlagStudioConvertGameSettingsToDevFramework then
+	ContextServices.mapToProps(Footer,{
+		Theme = ContextServices.Theme,
+		Localization = ContextServices.Localization,
+		Mouse = ContextServices.Mouse,
+		SettingsImpl = SettingsImpl,
+	})
+end
+
+
 Footer = RoactRodux.connect(
 	function(state, props)
 		if not state then return end
@@ -89,9 +160,13 @@ Footer = RoactRodux.connect(
 	end,
 	function(dispatch)
 		return {
-			ButtonClicked = function(userPressedSave, provider)
+			ButtonClicked = function(userPressedSave, provider, localization, settingsImpl)
 				if userPressedSave then
-					return dispatch(ConfirmAndSaveChanges(provider))
+					if FFlagStudioConvertGameSettingsToDevFramework then
+						return dispatch(ConfirmAndSaveChanges(provider, localization, settingsImpl))
+					else
+						return dispatch(ConfirmAndSaveChanges(provider))
+					end
 				else
 					return Promise.resolve()
 				end

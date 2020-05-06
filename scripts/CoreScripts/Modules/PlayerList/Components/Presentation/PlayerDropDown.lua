@@ -19,7 +19,6 @@ local DropDownPlayerHeader = require(script.Parent.DropDownPlayerHeader)
 local FriendDropDownButton = require(script.Parent.FriendDropDownButton)
 
 local LocalPlayer = Players.LocalPlayer
-local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp") --todo: remove with FFlagUsePolicyServiceForCoreScripts
 local FFlagDisableFollowInGameMenu = game:DefineFastFlag("DisableFollowInGameMenu", false)
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
@@ -224,10 +223,7 @@ function PlayerDropDown:render()
 				end
 			end
 
-			local showPlayerBlocking = not FFlagChinaLicensingApp
-			if PolicyService:IsEnabled() then
-				showPlayerBlocking = not PolicyService:IsSubjectToChinaPolicies()
-			end
+			local showPlayerBlocking = not PolicyService:IsSubjectToChinaPolicies()
 
 			if showPlayerBlocking then
 				dropDownButtons["BlockButton"] = self:createBlockButton(playerRelationship)

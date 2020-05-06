@@ -10,7 +10,6 @@
 local FFlagCoreScriptNoPosthumousHurtOverlay = settings():GetFFlag("CoreScriptNoPosthumousHurtOverlay")
 
 local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList3")
-local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp") --todo: remove with FFlagUsePolicyServiceForCoreScripts
 local FFlagEmotesMenuEnabled2 = settings():GetFFlag("CoreScriptEmotesMenuEnabled2")
 
 --[[ END OF FFLAG VALUES ]]
@@ -516,7 +515,7 @@ local function CreateUsernameHealthMenuItem()
 	end
 
 	local hurtOverlayImage = TopbarConstants.HURT_OVERLAY_IMAGE
-	if (PolicyService:IsEnabled() and PolicyService:IsSubjectToChinaPolicies()) or FFlagChinaLicensingApp then
+	if PolicyService:IsSubjectToChinaPolicies() then
 		hurtOverlayImage = TopbarConstants.HURT_OVERLAY_IMAGE_WHITE
 	end
 	local hurtOverlay = Util.Create'ImageLabel'

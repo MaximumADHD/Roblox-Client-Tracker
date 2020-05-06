@@ -48,20 +48,29 @@ function whisperStateMethods:GetWhisperingPlayer(enteredText)
 	local trimmedText = self:TrimWhisperCommand(enteredText)
 	if trimmedText then
 		local possiblePlayerName, whitespaceTrimmed = self:TrimWhiteSpace(trimmedText)
-		local possibleMatches = {}
+		local possibleUserNameMatches = {}
+		local possibleDisplayNameMatches = {}
 		local players = PlayersService:GetPlayers()
 		for i = 1, #players do
 			if players[i] ~= LocalPlayer then
 				local lowerPlayerName = players[i].Name:lower()
 				if string.sub(lowerPlayerName, 1, string.len(possiblePlayerName)) == possiblePlayerName then
-					possibleMatches[players[i]] = players[i].Name:lower()
+					possibleUserNameMatches[players[i]] = players[i].Name:lower()
+				end
+
+				if ChatSettings.WhisperByDisplayName then
+					local lowerDisplayName = players[i].DisplayName:lower()
+					if string.sub(lowerDisplayName, 1, string.len(possiblePlayerName)) == possiblePlayerName then
+						possibleDisplayNameMatches[players[i]] = lowerDisplayName
+					end
 				end
 			end
 		end
+
 		local matchCount = 0
 		local lastMatch = nil
 		local lastMatchName = nil
-		for player, playerName in pairs(possibleMatches) do
+		for player, playerName in pairs(possibleUserNameMatches) do
 			matchCount = matchCount + 1
 			lastMatch = player
 			lastMatchName = playerName
@@ -69,6 +78,15 @@ function whisperStateMethods:GetWhisperingPlayer(enteredText)
 				return player
 			end
 		end
+
+		if ChatSettings.WhisperByDisplayName then
+			for player, playerName in pairs(possibleDisplayNameMatches) do
+				matchCount = matchCount + 1
+				lastMatch = player
+				lastMatchName = playerName
+			end
+		end
+
 		if matchCount == 1 then
 			if self:ShouldAutoCompleteNames() then
 				return lastMatch
@@ -90,9 +108,18 @@ end
 function whisperStateMethods:EnterWhisperState(player)
 	self.PlayerNameEntered = true
 	self.PlayerName = player.Name
+	self.PlayerDisplayName = player.DisplayName
 
 	self.MessageModeButton.Size = UDim2.new(0, 1000, 1, 0)
-	local messageModeString = string.format("[To %s]", player.Name)
+
+	local messageModeString
+
+	if ChatSettings.PlayerDisplayNamesEnabled and ChatSettings.WhisperByDisplayName then
+		messageModeString = string.format("[To %s]", player.DisplayName)
+	else
+		messageModeString = string.format("[To %s]", player.Name)
+	end
+
 	if ChatLocalization.tryLocalize then
 		messageModeString = ChatLocalization:tryLocalize(messageModeString)
 	end

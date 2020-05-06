@@ -16,12 +16,14 @@
 ]]
 
 local FFlagEnableAudioPreview = settings():GetFFlag("EnableAudioPreview")
+local FFlagToolboxUseNewAssetType = game:GetFastFlag("ToolboxUseNewAssetType")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 local RoactRodux = require(Libs.RoactRodux)
+local UILibrary = require(Libs.UILibrary)
 
 local Util = Plugin.Core.Util
 local Constants = require(Util.Constants)
@@ -32,7 +34,7 @@ local Urls = require(Util.Urls)
 
 local Types = Plugin.Core.Types
 local Category = require(Types.Category)
-local AssetType = require(Types.AssetType)
+local AssetType = FFlagToolboxUseNewAssetType and UILibrary.Util.AssetType or require(Types.AssetType)
 
 local getModal = ContextGetter.getModal
 local withModal = ContextHelper.withModal

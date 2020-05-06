@@ -21,7 +21,6 @@ local SetCurrentPage = require(Actions.SetCurrentPage)
 local defaultSorts = Sort.SORT_OPTIONS
 local defaultCategories = Category.MARKETPLACE
 
-local EnableDeveloperGetManageGroupUrl = game:GetFastFlag("EnableDeveloperGetManageGroupUrl")
 local FFlagToolboxShowGroupCreations = game:GetFastFlag("ToolboxShowGroupCreations")
 
 local function warnIfUpdatePageInfoChangesInvalid(state, changes)
@@ -162,11 +161,7 @@ return Rodux.createReducer({
 
 		local newGroups = {}
 		for index, group in ipairs(action.groups) do
-			if EnableDeveloperGetManageGroupUrl then
-				newGroups[index] = {id = group.id, name = group.name}
-			else
-				newGroups[index] = {id = group.Id, name = group.Name}
-			end
+			newGroups[index] = {id = group.id, name = group.name}
 		end
 
 		local newState = Cryo.Dictionary.join(state, {

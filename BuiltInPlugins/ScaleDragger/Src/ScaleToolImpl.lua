@@ -15,8 +15,6 @@ local plugin = Plugin.Parent
 local Roact = require(Plugin.Packages.Roact)
 
 -- Flags
-local getFFlagSinglePartAlwaysLocalSpace = require(Flags.getFFlagSinglePartAlwaysLocalSpace)
-local getFFlagMinScaleSizeFix = require(Flags.getFFlagMinScaleSizeFix)
 local getFFlagScaleAlwaysAnchors = require(Flags.getFFlagScaleAlwaysAnchors)
 
 -- Dragger Framework
@@ -133,28 +131,17 @@ function ScaleToolImpl:update(draggerToolState, derivedWorldState)
         -- updating the bounding box in a smart way given how we're moving the
 		-- parts.
 
-		if getFFlagSinglePartAlwaysLocalSpace() then
-			self._partsToResize, self._attachmentsToMove =
-				derivedWorldState:getObjectsToTransform()
+		self._partsToResize, self._attachmentsToMove =
+			derivedWorldState:getObjectsToTransform()
 
-			-- When we only have one part selected, we're in extrude scaling mode,
-			-- which can only be done in local space.
-			local shouldForceLocal = (#self._partsToResize == 1)
-			local cframe, offset, size = derivedWorldState:getBoundingBox(shouldForceLocal)
-			self._boundingBox = {
-				Size = size,
-				CFrame = cframe * CFrame.new(offset),
-			}
-		else
-			local cframe, offset, size = derivedWorldState:getBoundingBox()
-			self._boundingBox = {
-				Size = size,
-				CFrame = cframe * CFrame.new(offset),
-			}
-
-			self._partsToResize, self._attachmentsToMove =
-				derivedWorldState:getObjectsToTransform()
-		end
+		-- When we only have one part selected, we're in extrude scaling mode,
+		-- which can only be done in local space.
+		local shouldForceLocal = (#self._partsToResize == 1)
+		local cframe, offset, size = derivedWorldState:getBoundingBox(shouldForceLocal)
+		self._boundingBox = {
+			Size = size,
+			CFrame = cframe * CFrame.new(offset),
+		}
 
 		self._originalCFrameMap = derivedWorldState:getOriginalCFrameMap()
 		self._scale = derivedWorldState:getHandleScale()
@@ -308,11 +295,7 @@ function ScaleToolImpl:mouseDown(mouseRay, handleId)
 
 	self:_recordItemsToFixup(self._partsToResize)
 
-	if getFFlagMinScaleSizeFix() then
-		self:_calculateMinimumSize(self._handles[handleId].NormalId)
-	else
-		self:_calculateMinimumSize()
-	end
+	self:_calculateMinimumSize(self._handles[handleId].NormalId)
 end
 
 function ScaleToolImpl:mouseDrag(mouseRay)
@@ -383,48 +366,20 @@ end
 	than the minimum allowed part size.
 ]]
 function ScaleToolImpl:_calculateMinimumSize(normalId)
-	if getFFlagMinScaleSizeFix() then
-		local MIN_PART_SIZE = 0.05
-		if #self._partsToResize == 1 then
-			local gridSize =
-				Vector3.new(
-					StudioService.GridSize,
-					StudioService.GridSize,
-					StudioService.GridSize)
-			local hardMinSize =
-				Vector3.new(MIN_PART_SIZE, MIN_PART_SIZE, MIN_PART_SIZE)
-			local partSize = self._partsToResize[1].Size
-			local desiredMinSize = gridSize:Min(partSize)
-			self._minimumSize = desiredMinSize:Max(hardMinSize)
-		else
-			local smallest = math.huge
-			for _, part in ipairs(self._partsToResize) do
-				local size = self._originalSizeMap[part]
-				local minLength = math.min(size.X, size.Y, size.Z)
-				if minLength < smallest then
-					smallest = minLength
-					local sizeRatio = minLength / MIN_PART_SIZE
-					self._minimumSize = self._originalBoundingBoxSize / sizeRatio
-				end
-			end
-
-			-- Make sure that the resized normal of the part is at least as
-			-- large as the grid size.
-			local minSizeComponents =
-				{self._minimumSize.X, self._minimumSize.Y, self._minimumSize.Z}
-			local sizeRatio = minSizeComponents[normalId] / StudioService.GridSize
-			if sizeRatio < 1 then
-				self._minimumSize = self._minimumSize / sizeRatio
-			end
-
-			-- Finally, we CAN still resize down to less than the grid size if
-			-- we started out smaller than the grid size.
-			self._minimumSize = self._minimumSize:Min(self._originalBoundingBoxSize)
-		end
+	local MIN_PART_SIZE = 0.05
+	if #self._partsToResize == 1 then
+		local gridSize =
+			Vector3.new(
+				StudioService.GridSize,
+				StudioService.GridSize,
+				StudioService.GridSize)
+		local hardMinSize =
+			Vector3.new(MIN_PART_SIZE, MIN_PART_SIZE, MIN_PART_SIZE)
+		local partSize = self._partsToResize[1].Size
+		local desiredMinSize = gridSize:Min(partSize)
+		self._minimumSize = desiredMinSize:Max(hardMinSize)
 	else
-		local MIN_PART_SIZE = 0.05
 		local smallest = math.huge
-
 		for _, part in ipairs(self._partsToResize) do
 			local size = self._originalSizeMap[part]
 			local minLength = math.min(size.X, size.Y, size.Z)
@@ -434,6 +389,19 @@ function ScaleToolImpl:_calculateMinimumSize(normalId)
 				self._minimumSize = self._originalBoundingBoxSize / sizeRatio
 			end
 		end
+
+		-- Make sure that the resized normal of the part is at least as
+		-- large as the grid size.
+		local minSizeComponents =
+			{self._minimumSize.X, self._minimumSize.Y, self._minimumSize.Z}
+		local sizeRatio = minSizeComponents[normalId] / StudioService.GridSize
+		if sizeRatio < 1 then
+			self._minimumSize = self._minimumSize / sizeRatio
+		end
+
+		-- Finally, we CAN still resize down to less than the grid size if
+		-- we started out smaller than the grid size.
+		self._minimumSize = self._minimumSize:Min(self._originalBoundingBoxSize)
 	end
 end
 

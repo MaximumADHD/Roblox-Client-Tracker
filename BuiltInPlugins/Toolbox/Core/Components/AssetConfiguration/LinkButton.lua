@@ -1,6 +1,6 @@
 --[[
-	A link like button that is clickable and resemble a link when overed.
-	It's up the to user to make sure the content of the button will be within the size of
+	A link like button that is clickable and resemble a link when hovered.
+	It's up to the user to make sure the content of the button will be within the size of
 	the component.
 	This component handles only a single line link button. The size of the link button is
 	determined by the content.

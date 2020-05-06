@@ -5,6 +5,7 @@
 ]]--
 
 local FFlagToolboxShowGroupCreations = game:GetFastFlag("ToolboxShowGroupCreations")
+local FFlagEnableOverrideAssetGroupCreationApi = game:GetFastFlag("EnableOverrideAssetGroupCreationApi")
 
 local Plugin = script.Parent.Parent.Parent
 local Networking = require(Plugin.Libs.Http.Networking)
@@ -135,19 +136,22 @@ function NetworkInterface:getDevelopAsset(pageInfo)
 	end)
 end
 
-function NetworkInterface:getOverrideModels(category, numPerPage, page, sort, groupId)
-	local targetUrl = Urls.constructGetAssetsUrl(category, nil, numPerPage, page, sort, groupId)
-	return sendRequestAndRetry(function()
-		printUrl("getOverrideModelAssets", "GET", targetUrl)
-		return self._networkImp:httpGetJson(targetUrl)
-	end)
+-- TODO Remove when EnableOverrideAssetGroupCreationApi flag is retired
+if not FFlagEnableOverrideAssetGroupCreationApi then
+	function NetworkInterface:getOverrideModels(category, numPerPage, page, sort, groupId)
+		local targetUrl = Urls.constructGetAssetsUrl(category, nil, numPerPage, page, sort, groupId)
+		return sendRequestAndRetry(function()
+			printUrl("getOverrideModelAssets", "GET", targetUrl)
+			return self._networkImp:httpGetJson(targetUrl)
+		end)
+	end
 end
 
 -- assetTypeOverride, used to override the assetType for requesting data. So, we don't need to deal with
 -- categories and index.
-function NetworkInterface:getAssetCreations(pageInfo, cursor, assetTypeOverride)
+function NetworkInterface:getAssetCreations(pageInfo, cursor, assetTypeOverride, groupIdOverride)
 	local assetTypeName = assetTypeOverride
-	local groupId
+	local groupId = groupIdOverride
 	if pageInfo then
 		assetTypeName = PageInfoHelper.getBackendNameForPageInfoCategory(pageInfo)
 

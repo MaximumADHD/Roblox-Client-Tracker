@@ -38,19 +38,35 @@ local function Run(ChatService)
 	local function DoMuteCommand(speakerName, message, channel)
 		local muteSpeakerName = GetSpeakerNameFromMessage(message)
 		local speaker = ChatService:GetSpeaker(speakerName)
+
 		if speaker then
-			if muteSpeakerName:lower() == speakerName:lower() then
-				speaker:SendSystemMessage(ChatLocalization:FormatMessageToSend("GameChat_DoMuteCommand_CannotMuteSelf", "You cannot mute yourself."), channel, errorExtraData)
+			local speakerDisplayName = ""
+
+			if ChatSettings.PlayerDisplayNamesEnabled then
+				speakerDisplayName = speaker:GetNameForDisplay()
+			end
+
+			if (muteSpeakerName:lower() == speakerName:lower()) or
+				(ChatSettings.PlayerDisplayNamesEnabled and muteSpeakerName:lower() == speakerDisplayName:lower()) then
+					speaker:SendSystemMessage(ChatLocalization:FormatMessageToSend("GameChat_DoMuteCommand_CannotMuteSelf", "You cannot mute yourself."), channel, errorExtraData)
 				return
 			end
 
-			local muteSpeaker = ChatService:GetSpeaker(muteSpeakerName)
+			local muteSpeaker = (ChatSettings.PlayerDisplayNamesEnabled and ChatService:GetSpeakerByUserOrDisplayName(muteSpeakerName)) or ChatService:GetSpeaker(muteSpeakerName)
+
 			if muteSpeaker then
 				speaker:AddMutedSpeaker(muteSpeaker.Name)
+
+				local muteSpeakerDisplayName = muteSpeakerName
+
+				if ChatSettings.PlayerDisplayNamesEnabled then
+					muteSpeakerDisplayName = muteSpeaker:GetNameForDisplay()
+				end
+
 				local msg = ChatLocalization:FormatMessageToSend("GameChat_ChatMain_SpeakerHasBeenMuted",
-					string.format("Speaker '%s' has been muted.", muteSpeaker.Name),
+					string.format("Speaker '%s' has been muted.", muteSpeakerDisplayName),
 					"RBX_NAME",
-					muteSpeaker.Name)
+					muteSpeakerDisplayName)
 				speaker:SendSystemMessage(msg, channel)
 			else
 				local msg = ChatLocalization:FormatMessageToSend(
@@ -67,18 +83,27 @@ local function Run(ChatService)
 		local unmuteSpeakerName = GetSpeakerNameFromMessage(message)
 		local speaker = ChatService:GetSpeaker(speakerName)
 		if speaker then
-			if unmuteSpeakerName:lower() == speakerName:lower() then
+			local speakerDisplayName = (ChatSettings.PlayerDisplayNamesEnabled and speaker:GetNameForDisplay()) or unmuteSpeakerName
+
+			if (unmuteSpeakerName:lower() == speakerName:lower()) or (unmuteSpeakerName:lower() == speakerDisplayName:lower()) then
 				speaker:SendSystemMessage(ChatLocalization:FormatMessageToSend("GameChat_DoMuteCommand_CannotMuteSelf","You cannot mute yourself."), channel, errorExtraData)
 				return
 			end
 
-			local unmuteSpeaker = ChatService:GetSpeaker(unmuteSpeakerName)
+			local unmuteSpeaker = (ChatSettings.PlayerDisplayNamesEnabled and ChatService:GetSpeakerByUserOrDisplayName(unmuteSpeakerName)) or ChatService:GetSpeaker(unmuteSpeakerName)
+
 			if unmuteSpeaker then
 				speaker:RemoveMutedSpeaker(unmuteSpeaker.Name)
+				local playerName = unmuteSpeakerName
+
+				if ChatSettings.PlayerDisplayNamesEnabled then
+					playerName = unmuteSpeaker:GetNameForDisplay()
+				end
+
 				local msg = ChatLocalization:FormatMessageToSend("GameChat_ChatMain_SpeakerHasBeenUnMuted",
-					string.format("Speaker '%s' has been unmuted.", unmuteSpeaker.Name),
+					string.format("Speaker '%s' has been unmuted.", playerName),
 					"RBX_NAME",
-					unmuteSpeaker.Name)
+					playerName)
 				speaker:SendSystemMessage(msg, channel)
 			else
 				local msg = ChatLocalization:FormatMessageToSend("GameChat_MuteSpeaker_SpeakerDoesNotExist",

@@ -11,6 +11,11 @@ local UpdateAssetConfigData = require(Actions.UpdateAssetConfigData)
 
 local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 local FFlagShowAssetConfigReasons = game:GetFastFlag("ShowAssetConfigReasons")
+local FFlagAssetConfigUseItemConfig = game:GetFastFlag("AssetConfigUseItemConfig")
+
+if FFlagAssetConfigUseItemConfig then
+	return nil
+end
 
 return function(networkInterface, assetId)
 	return function(store)

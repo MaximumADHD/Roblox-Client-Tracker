@@ -4,7 +4,6 @@ local Url = require(Plugin.Libs.Http.Url)
 
 local wrapStrictTable = require(Plugin.Core.Util.wrapStrictTable)
 
-local EnableDeveloperGetManageGroupUrl = game:DefineFastFlag("EnableDeveloperGetManageGroupUrl", false)
 local FFlagUseRBXThumbInToolbox = game:GetFastFlag("UseRBXThumbInToolbox")
 local FFlagEnablePurchaseV2 = game:GetFastFlag("EnablePurchaseV2")
 
@@ -25,12 +24,7 @@ local Get_THUMBNAIL_STATUS = Url.THUMBNAIL_URL .. "v1/assets?"
 
 local POST_VOTE = Url.BASE_URL .. "voting/vote"
 local INSERT_ASSET = Url.BASE_URL .. "IDE/Toolbox/InsertAsset?"
-local GET_MANAGEABLE_GROUPS
-if EnableDeveloperGetManageGroupUrl then
-	GET_MANAGEABLE_GROUPS = Url.DEVELOP_URL .. "v1/user/groups/canmanage"
-else
-	GET_MANAGEABLE_GROUPS = Url.BASE_URL .. "groups/can-manage-games"
-end
+local GET_MANAGEABLE_GROUPS = Url.DEVELOP_URL .. "v1/user/groups/canmanage"
 
 local GET_ASSET_VERSION = Url.BASE_URL .. "studio/plugins/info?"
 local GET_PLUGIN_INFO = Url.DEVELOP_URL .. "v1/plugins?"

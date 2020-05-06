@@ -8,7 +8,7 @@ local AddTableKeyErrors = require(Plugin.Src.Actions.AddTableKeyErrors)
 local DiscardTableChanges = require(Plugin.Src.Actions.DiscardTableChanges)
 local DiscardTableKeyErrors = require(Plugin.Src.Actions.DiscardTableKeyErrors)
 
-local createSettingsPage = require(Plugin.Src.Components.SettingsPages.createSettingsPage)
+local createSettingsPage = require(Plugin.Src.Components.SettingsPages.DEPRECATED_createSettingsPage)
 
 local DeveloperSubscriptionsFolder = Plugin.Src.Components.DeveloperSubscriptions
 local DeveloperSubscriptionWidget = require(DeveloperSubscriptionsFolder.DeveloperSubscriptionWidget)

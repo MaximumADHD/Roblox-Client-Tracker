@@ -18,7 +18,10 @@ if isNewInGameMenuEnabled() then
 	InGameMenu = require(RobloxGui.Modules.InGameMenu)
 end
 
+local IconButton = require(script.Parent.IconButton)
+
 local FFlagTopBarUseNewIcons = require(RobloxGui.Modules.Flags.FFlagTopBarUseNewIcons)
+local FFlagTopBarHightightIconsOnHover = require(RobloxGui.Modules.Flags.FFlagTopBarHightightIconsOnHover)
 
 local MenuIcon = Roact.PureComponent:extend("MenuIcon")
 
@@ -34,6 +37,21 @@ MenuIcon.validateProps = t.strictInterface({
 	layoutOrder = t.integer,
 })
 
+if FFlagTopBarHightightIconsOnHover then
+	function MenuIcon:init()
+		if FFlagTopBarHightightIconsOnHover then
+			self.menuIconActivated = function()
+				if isNewInGameMenuEnabled() then
+					InGameMenu.openInGameMenu()
+				else
+					local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
+					SettingsHub:ToggleVisibility()
+				end
+			end
+		end
+	end
+end
+
 function MenuIcon:render()
 	if FFlagTopBarUseNewIcons then
 		return Roact.createElement("Frame", {
@@ -41,7 +59,12 @@ function MenuIcon:render()
 			BackgroundTransparency = 1,
 			Size = UDim2.new(0, BACKGROUND_SIZE, 1, 0),
 		}, {
-			Background = Roact.createElement(ImageSetButton, {
+			Background = FFlagTopBarHightightIconsOnHover and Roact.createElement(IconButton, {
+				icon = "rbxasset://textures/ui/TopBar/coloredlogo.png",
+				iconSize = ICON_SIZE,
+
+				onActivated = self.menuIconActivated,
+			}) or Roact.createElement(ImageSetButton, {
 				Visible = not TenFootInterface:IsEnabled(),
 				BackgroundTransparency = 1,
 				Size = UDim2.fromOffset(BACKGROUND_SIZE, BACKGROUND_SIZE),

@@ -165,9 +165,9 @@ local Input = {} do
 		navSpeed = clamp(navSpeed + dt*(keyboard.Up - keyboard.Down)*NAV_ADJ_SPEED, 0.01, 4)
 
 		local kGamepad = Vector3.new(
-			thumbstickCurve(gamepad.Thumbstick1.x),
+			thumbstickCurve(gamepad.Thumbstick1.X),
 			thumbstickCurve(gamepad.ButtonR2) - thumbstickCurve(gamepad.ButtonL2),
-			thumbstickCurve(-gamepad.Thumbstick1.y)
+			thumbstickCurve(-gamepad.Thumbstick1.Y)
 		)*NAV_GAMEPAD_SPEED
 
 		local kKeyboard = Vector3.new(
@@ -183,8 +183,8 @@ local Input = {} do
 
 	function Input.Pan(dt)
 		local kGamepad = Vector2.new(
-			thumbstickCurve(gamepad.Thumbstick2.y),
-			thumbstickCurve(-gamepad.Thumbstick2.x)
+			thumbstickCurve(gamepad.Thumbstick2.Y),
+			thumbstickCurve(-gamepad.Thumbstick2.X)
 		)*PAN_GAMEPAD_SPEED
 		local kMouse = mouse.Delta*PAN_MOUSE_SPEED
 		mouse.Delta = Vector2.new()

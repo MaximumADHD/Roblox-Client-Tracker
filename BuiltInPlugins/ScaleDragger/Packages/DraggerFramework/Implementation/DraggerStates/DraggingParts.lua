@@ -12,8 +12,11 @@ local DragHelper = require(Framework.Utility.DragHelper)
 local SelectionWrapper = require(Framework.Utility.SelectionWrapper)
 local PartMover = require(Framework.Utility.PartMover)
 local AttachmentMover = require(Framework.Utility.AttachmentMover)
+local setInsertPoint = require(Framework.Utility.setInsertPoint)
 
 local getFFlagLuaDraggerIconBandaid = require(Framework.Flags.getFFlagLuaDraggerIconBandaid)
+local getFFlagSetInsertPoint = require(Framework.Flags.getFFlagSetInsertPoint)
+local getFFlagMoveViaSelectionCenter = require(Framework.Flags.getFFlagMoveViaSelectionCenter)
 
 local DraggingParts = {}
 DraggingParts.__index = DraggingParts
@@ -32,6 +35,14 @@ function DraggingParts.new(draggerTool, dragStart)
     return self
 end
 
+function DraggingParts:enter(draggerTool)
+
+end
+
+function DraggingParts:leave(draggerTool)
+
+end
+
 function DraggingParts:_init(draggerTool)
     local t = tick()
     draggerTool._boundsChangedTracker:uninstall()
@@ -40,8 +51,14 @@ function DraggingParts:_init(draggerTool)
 	local breakJointsToOutsiders = true
 	local partsToMove, attachmentsToMove =
 		draggerTool._derivedWorldState:getObjectsToTransform()
-	self._partMover:setDragged(
-		partsToMove, draggerTool._derivedWorldState:getOriginalCFrameMap(), breakJointsToOutsiders)
+	if getFFlagMoveViaSelectionCenter() then
+		self._partMover:setDragged(
+			partsToMove, draggerTool._derivedWorldState:getOriginalCFrameMap(), breakJointsToOutsiders,
+			draggerTool._derivedWorldState:getBoundingBox().Position)
+	else
+		self._partMover:setDragged(
+			partsToMove, draggerTool._derivedWorldState:getOriginalCFrameMap(), breakJointsToOutsiders)
+	end
 	self._attachmentMover:setDragged(
         attachmentsToMove)
 
@@ -184,6 +201,10 @@ function DraggingParts:_endFreeformSelectionDrag(draggerTool)
 
 	ChangeHistoryService:SetWaypoint("End freeform drag")
 	draggerTool:_analyticsSendFreeformDragged()
+    if getFFlagSetInsertPoint() then
+        local cframe, offset = draggerTool._derivedWorldState:getBoundingBox()
+        setInsertPoint(cframe * offset)
+    end
 end
 
 return DraggingParts

@@ -17,6 +17,14 @@ function PendingDraggingParts.new(draggerTool, dragStart)
     }, PendingDraggingParts)
 end
 
+function PendingDraggingParts:enter(draggerTool)
+
+end
+
+function PendingDraggingParts:leave(draggerTool)
+
+end
+
 function PendingDraggingParts:render(draggerTool)
     if getFFlagLuaDraggerIconBandaid() then
         draggerTool.props.Mouse.Icon = "rbxasset://SystemCursors/ClosedHand"

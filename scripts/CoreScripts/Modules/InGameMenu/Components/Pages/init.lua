@@ -1,8 +1,17 @@
+local CorePackages = game:GetService("CorePackages")
+
 local InGameMenu = script.Parent.Parent
 
+local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
+local UIBlox = InGameMenuDependencies.UIBlox
+local Images = UIBlox.App.ImageSet.Images
+
+--todo: can remove assets when FFlagInGameMenuSinglePaneDesign and FFlagFixMenuIcons are on and removed
 local Assets = require(InGameMenu.Resources.Assets)
 local getFFlagInGameMenuSinglePaneDesign = require(InGameMenu.Flags.GetFFlagInGameMenuSinglePaneDesign)
 local fflagInGameMenuSinglePaneDesign = getFFlagInGameMenuSinglePaneDesign()
+
+local FFlagFixMenuIcons = require(InGameMenu.Flags.FFlagFixMenuIcons)
 
 local singlePanePages = {
 	{
@@ -14,7 +23,7 @@ local singlePanePages = {
 	{
 		key = "Players",
 		title = "CoreScripts.InGameMenu.PageTitle.Players",
-		icon = Assets.Images.PlayersMenu,
+		icon = FFlagFixMenuIcons and Images["icons/controls/players"] or Assets.Images.PlayersMenu,
 		component = script.PlayersPage,
 		navigationDepth = 2,
 		parentPage = "MainPage",
@@ -22,7 +31,7 @@ local singlePanePages = {
 	{
 		key = "InviteFriends",
 		title = "CoreScripts.InGameMenu.PageTitle.InviteFriends",
-		icon = Assets.Images.InviteMenu,
+		icon = FFlagFixMenuIcons and Images["icons/actions/friends/friendInvite"] or Assets.Images.InviteMenu,
 		component = script.Parent.InviteFriendsPage,
 		navigationDepth = 2,
 		parentPage = "MainPage",
@@ -30,7 +39,7 @@ local singlePanePages = {
 	{
 		key = "GameSettings",
 		title = "CoreScripts.InGameMenu.PageTitle.GameSettings",
-		icon = Assets.Images.GameSettings,
+		icon = FFlagFixMenuIcons and Images["icons/common/settings"] or Assets.Images.GameSettings,
 		component = script.Parent.GameSettingsPage.BasicPage,
 		navigationDepth = 2,
 		parentPage = "MainPage",
@@ -38,7 +47,7 @@ local singlePanePages = {
 	{
 		key = "Report",
 		title = "CoreScripts.InGameMenu.PageTitle.Report",
-		icon = Assets.Images.ReportIcon,
+		icon = FFlagFixMenuIcons and Images["icons/actions/feedback"] or Assets.Images.ReportIcon,
 		component = script.Parent.ReportPage,
 		navigationDepth = 2,
 		parentPage = "MainPage",
@@ -46,7 +55,7 @@ local singlePanePages = {
 	{
 		key = "Controls",
 		title = "CoreScripts.InGameMenu.PageTitle.Controls",
-		icon = Assets.Images.ControlsMenu,
+		icon = FFlagFixMenuIcons and Images["icons/controls/controls"] or Assets.Images.ControlsMenu,
 		component = script.Parent.ControlsPage,
 		isModal = true,
 		navigationDepth = 2,
@@ -55,7 +64,7 @@ local singlePanePages = {
 	{
 		key = "AdvancedGameSettings",
 		title = "CoreScripts.InGameMenu.PageTitle.GameSettings",
-		icon = Assets.Images.GameSettings,
+		icon = FFlagFixMenuIcons and Images["icons/menu/settings_large"] or Assets.Images.GameSettings,
 		component = script.Parent.GameSettingsPage.AdvancedPage,
 		isSecondaryPage = true,
 		navigationDepth = 3,

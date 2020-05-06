@@ -6,8 +6,6 @@
 
 local PlayersService = game:GetService('Players')
 
-local FFlagUsePolicyServiceForCoreScripts = settings():GetFFlag("UsePolicyServiceForCoreScripts2")
-
 local isSubjectToChinaPolicies = true
 local policyTable
 local initialized = false
@@ -17,11 +15,6 @@ local initializedEvent = Instance.new("BindableEvent")
 
 --[[ Classes ]]--
 local PolicyService = {}
-
---todo: remove with FFlagUsePolicyServiceForCoreScripts
-function PolicyService:IsEnabled()
-	return FFlagUsePolicyServiceForCoreScripts
-end
 
 function PolicyService:InitAsync()
 	if _G.__TESTEZ_RUNNING_TEST__ then
@@ -42,11 +35,9 @@ function PolicyService:InitAsync()
 		localPlayer = PlayersService.LocalPlayer
 	end
 
-	if self:IsEnabled() then
-		pcall(function() policyTable = game:GetService("PolicyService"):GetPolicyInfoForPlayerAsync(localPlayer) end)
-		if policyTable then
-			isSubjectToChinaPolicies = policyTable["IsSubjectToChinaPolicies"]
-		end
+	pcall(function() policyTable = game:GetService("PolicyService"):GetPolicyInfoForPlayerAsync(localPlayer) end)
+	if policyTable then
+		isSubjectToChinaPolicies = policyTable["IsSubjectToChinaPolicies"]
 	end
 
 	initialized = true
@@ -54,9 +45,6 @@ function PolicyService:InitAsync()
 end
 
 function PolicyService:IsSubjectToChinaPolicies()
-	if not self:IsEnabled() then
-		return false
-	end
 	self:InitAsync()
 
 	return isSubjectToChinaPolicies

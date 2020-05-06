@@ -37,7 +37,7 @@ local AddErrors = require(Plugin.Src.Actions.AddErrors)
 local getMouse = require(Plugin.Src.Consumers.getMouse)
 
 
-local createSettingsPage = require(Plugin.Src.Components.SettingsPages.createSettingsPage)
+local createSettingsPage = require(Plugin.Src.Components.SettingsPages.DEPRECATED_createSettingsPage)
 
 local MorpherRootPanel = (not FFlagStudioMoveMorpherEditorInsideGameSettings) and require(Plugin.MorpherEditor.Code.Components.ComponentRootPanelExternal) or nil
 local RootPanelExternal = require(Plugin.Src.Components.Avatar.RootPanelExternal)

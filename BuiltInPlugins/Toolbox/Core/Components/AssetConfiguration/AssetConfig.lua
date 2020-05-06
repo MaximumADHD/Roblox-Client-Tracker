@@ -14,6 +14,8 @@ local FFlagShowAssetConfigReasons = game:GetFastFlag("ShowAssetConfigReasons")
 local FFlagEnableAssetConfigFreeFix2 = game:GetFastFlag("EnableAssetConfigFreeFix2")
 local FFlagEnableNonWhitelistedToggle = game:GetFastFlag("EnableNonWhitelistedToggle")
 local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
+local FFlagAssetConfigUseItemConfig = game:GetFastFlag("AssetConfigUseItemConfig")
+local FFlagStudioAssetCopySaleStatusFix = game:DefineFastFlag("StudioAssetCopySaleStatusFix", false)
 
 local StudioService = game:GetService("StudioService")
 
@@ -96,19 +98,20 @@ function AssetConfig:init(props)
 	self.state = {
 		assetId = nil,
 
-		-- Those states should be managed by the most common parrent. In this case, assetConfig.
+		-- Those states should be managed by the most common parent. In this case, assetConfig.
 		name = nil,
 		description = nil,
 		tags = nil,
-		-- We will be ignoreing the assetTypeEnum send from the server.
+		-- We will be ignoring the assetTypeEnum sent from the server.
 		-- Because from pubishing new asset, we will be selecting the assetType. From Editing, we already have the
-		-- We will be using teh AssetTypeEnum passed in instead.
+		-- We will be using the AssetTypeEnum passed in instead.
 		owner = nil,
 		genres = {
 			DEFAULT_GENRE
 		},
 		allowCopy = true, -- Enable the copy toggle if the flag to modify copy behavoir is off or user is verified.
 		copyOn = false,
+		copyChanged = false, -- If the user has changed the copy status
 		allowComment = true,  -- Default to allow comment, but off.
 		commentOn = nil,
 		price = nil,		-- The price has to be nil in the first place for the price to load correctly when initial load.
@@ -122,6 +125,7 @@ function AssetConfig:init(props)
 
 		dispatchGetFunction = false,
 	}
+
 	if FFlagEnableAssetConfigFreeFix2 and AssetConfigUtil.isMarketplaceAsset(props.assetTypeEnum) then
 		self.state.status = AssetConfigConstants.ASSET_STATUS.OffSale
 	end
@@ -170,6 +174,13 @@ function AssetConfig:init(props)
 						warn("Could not configure sales, missing Asset Status!")
 					end
 				elseif AssetConfigUtil.isMarketplaceAsset(props.assetTypeEnum) then
+
+					local copyOn = state.copyOn
+					if FFlagStudioAssetCopySaleStatusFix and not state.copyChanged then
+						-- DEVTOOLS-3926: Don't submit this optional field unless the user has changed it
+						copyOn = nil
+					end
+
 					props.configureMarketplaceItem({
 						networkInterface = getNetwork(self),
 						assetId = state.assetId,
@@ -177,7 +188,7 @@ function AssetConfig:init(props)
 						description = state.description or "",
 						genres = state.genres,
 						commentOn = state.commentOn,
-						copyOn = state.copyOn,
+						copyOn = copyOn,
 						saleStatus = state.status,
 						price = state.price,
 						iconFile = state.iconFile,
@@ -405,6 +416,7 @@ function AssetConfig:init(props)
 
 	self.toggleCopy = function(newCopyStatus)
 		self:setState({
+			copyChanged = true,
 			copyOn = newCopyStatus
 		})
 
@@ -975,7 +987,11 @@ end
 local function mapDispatchToProps(dispatch)
 	local dispatchToProps = {
 		getAssetConfigData = function(networkInterface, assetId)
-			dispatch(GetAssetConfigDataRequest(networkInterface, assetId))
+			if FFlagAssetConfigUseItemConfig then
+				dispatch(GetMarketplaceInfoRequest(networkInterface, assetId))
+			else
+				dispatch(GetAssetConfigDataRequest(networkInterface, assetId))
+			end
 		end,
 
 		getAssetDetails = function(networkInterface, assetId, isMarketBuy)

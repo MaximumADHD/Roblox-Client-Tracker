@@ -40,7 +40,7 @@ local INPUT_BOX_OFFSET = 160
 local METRIC_LABEL_OFFSET= 170
 local ROW_HEIGHT = 35
 
-local createSettingsPage = require(Plugin.Src.Components.SettingsPages.createSettingsPage)
+local createSettingsPage = require(Plugin.Src.Components.SettingsPages.DEPRECATED_createSettingsPage)
 
 --Loads settings values into props by key
 local function loadValuesToProps(getValue)

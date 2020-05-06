@@ -79,9 +79,9 @@ function AssetConfigFooter:render()
 			local overrideText = nil
 			if FFlagEnableOverrideAssetCursorFix then
 				if ConfigTypes:isOverride(currentTab) then
-					overrideText = localizedContent.AssetConfig.Footer.Override
-				else
 					overrideText = localizedContent.AssetConfig.Footer.NewAsset
+				else
+					overrideText = localizedContent.AssetConfig.Footer.Override
 				end
 			else
 				overrideText = localizedContent.AssetConfig.Footer.Override

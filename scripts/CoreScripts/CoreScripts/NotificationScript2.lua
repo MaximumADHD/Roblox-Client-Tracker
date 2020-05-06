@@ -99,7 +99,6 @@ if friendRequestNotificationFIntSuccess and friendRequestNotificationFIntValue ~
 	FRIEND_REQUEST_NOTIFICATION_THROTTLE = friendRequestNotificationFIntValue
 end
 
-local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp") -- todo: remove with UsePolicyServiceForCoreScripts
 local FFlagLocalizeVideoRecordAndScreenshotText = game:DefineFastFlag("LocalizeVideoRecordAndScreenshotText", false)
 
 local PLAYER_POINTS_IMG = 'https://www.roblox.com/asset?id=206410433'
@@ -729,23 +728,12 @@ function onGameSettingsChanged(property, amount)
 	end
 end
 
-if PolicyService:IsEnabled() then
-	if not PolicyService:IsSubjectToChinaPolicies() then
-		if FFlagNewAwardBadgeEndpoint then
-			BadgeService.OnBadgeAwarded:connect(onBadgeAwarded_NEW)
-			BadgeService.BadgeAwarded:connect(onBadgeAwarded) -- todo: remove this when removing flag (only here in case old servers for a bit send down the old event)
-		else
-			BadgeService.BadgeAwarded:connect(onBadgeAwarded)
-		end
-	end
-else
-	if not FFlagChinaLicensingApp then
-		if FFlagNewAwardBadgeEndpoint then
-			BadgeService.OnBadgeAwarded:connect(onBadgeAwarded_NEW)
-			BadgeService.BadgeAwarded:connect(onBadgeAwarded) -- todo: remove this when removing flag (only here in case old servers for a bit send down the old event)
-		else
-			BadgeService.BadgeAwarded:connect(onBadgeAwarded)
-		end
+if not PolicyService:IsSubjectToChinaPolicies() then
+	if FFlagNewAwardBadgeEndpoint then
+		BadgeService.OnBadgeAwarded:connect(onBadgeAwarded_NEW)
+		BadgeService.BadgeAwarded:connect(onBadgeAwarded) -- todo: remove this when removing flag (only here in case old servers for a bit send down the old event)
+	else
+		BadgeService.BadgeAwarded:connect(onBadgeAwarded)
 	end
 end
 
@@ -758,10 +746,7 @@ if not isTenFootInterface then
 	end)
 end
 
-local allowScreenshots = not FFlagChinaLicensingApp
-if PolicyService:IsEnabled() then
-	allowScreenshots = not PolicyService:IsSubjectToChinaPolicies()
-end
+local allowScreenshots = not PolicyService:IsSubjectToChinaPolicies()
 
 if allowScreenshots then
 	game.ScreenshotReady:Connect(function(path)

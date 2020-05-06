@@ -33,7 +33,7 @@ local ModelPreview = require(Library.Components.Preview.ModelPreview)
 local ImagePreview = require(Library.Components.Preview.ImagePreview)
 local ThumbnailIconPreview = require(Library.Components.Preview.ThumbnailIconPreview)
 local TreeViewButton =  require(Library.Components.Preview.TreeViewButton)
-local AssetType = require(Library.Components.Preview.AssetType)
+local AssetType = require(Library.Utils.AssetType)
 local AudioPreview = require(Library.Components.Preview.AudioPreview)
 
 local TreeViewItem = require(Library.Components.Preview.InstanceTreeViewItem)

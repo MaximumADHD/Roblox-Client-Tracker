@@ -10,6 +10,7 @@ local DFFlagDeveloperSubscriptionsEnabled = settings():GetFFlag("DeveloperSubscr
 local FFlagGameSettingsPreventClosingDialogWhileSaveInProgress = game:DefineFastFlag("GameSettingsPreventClosingDialogWhileSaveInProgress", false)
 local FFlagStudioLocalizationInGameSettingsEnabled = game:GetFastFlag("StudioLocalizationInGameSettingsEnabled")
 local FFlagGameSettingsPlaceSettings = game:GetFastFlag("GameSettingsPlaceSettings")
+local FFlagStudioConvertGameSettingsToDevFramework = game:GetFastFlag("StudioConvertGameSettingsToDevFramework")
 
 --Turn this on when debugging the store and actions
 local LOG_STORE_STATE_AND_EVENTS = false
@@ -23,6 +24,8 @@ local Roact = require(Plugin.Roact)
 local Rodux = require(Plugin.Rodux)
 local Cryo = require(Plugin.Cryo)
 local Promise = require(Plugin.Promise)
+
+local ContextServices = require(Plugin.Framework.ContextServices)
 
 local MainView = require(Plugin.Src.Components.MainView)
 local SimpleDialog = require(Plugin.Src.Components.Dialog.SimpleDialog)
@@ -60,37 +63,36 @@ local lastObservedStatus = CurrentStatus.Open
 
 local settingsImpl = SettingsImpl.new(plugin:GetStudioUserId())
 
+-- TODO (awarwick) 4/27/2020 Remove with FFlagGameSettingsNetworkRefactor
 --Add all settings pages in order
 local settingsPages
 
-if FFlagGameSettingsPlaceSettings then
+if not game:GetFastFlag("GameSettingsNetworkRefactor") then
 	settingsPages = {
-		"Basic Info",
-		"Access Permissions",
-		"Places",
-		"Avatar",
-		"Options",
+		FFlagStudioConvertGameSettingsToDevFramework and "BasicInfo" or "Basic Info",
+		FFlagStudioConvertGameSettingsToDevFramework and "AccessPermissions" or "Access Permissions",
 	}
-else
-	settingsPages = {
-		"Basic Info",
-		"Access Permissions",
-		"Avatar",
-		"Options",
-	}
+
+	if FFlagGameSettingsPlaceSettings then
+		table.insert(settingsPages, "Places")
+	end
+
+	table.insert(settingsPages, "Avatar")
+	table.insert(settingsPages, "Options")
+
+	if DFFlagDeveloperSubscriptionsEnabled then
+		table.insert(settingsPages, "Developer Subscriptions")
+	end
+
+	table.insert(settingsPages, "World")
+
+	if FFlagStudioLocalizationInGameSettingsEnabled then
+		table.insert(settingsPages, "Localization")
+	end
 end
 
-if DFFlagDeveloperSubscriptionsEnabled then
-	table.insert(settingsPages, "Developer Subscriptions")
-end
-
-table.insert(settingsPages, "World")
-
-if FFlagStudioLocalizationInGameSettingsEnabled then
-	table.insert(settingsPages, "Localization")
-end
-
-local localizationTable = Plugin.Src.Localization.GameSettingsTranslationReferenceTable
+local localizationTable = Plugin.Src.Resources.GameSettingsTranslationReferenceTable
+local localizationDevelopmentTable = Plugin.Src.Resources.GameSettingsTranslationDevelopmentTable
 local localization = Localization.new({
 	localizationTable = localizationTable,
 	getLocale = function()
@@ -102,6 +104,23 @@ local localization = Localization.new({
 	end,
 	localeChanged = StudioService:GetPropertyChangedSignal("StudioLocaleId")
 })
+
+local localizationDevFramework
+if FFlagStudioConvertGameSettingsToDevFramework then
+	localizationDevFramework = ContextServices.Localization.new({
+		stringResourceTable = localizationDevelopmentTable,
+		translationResourceTable = localizationTable,
+		overrideLocaleChangedSignal = StudioService:GetPropertyChangedSignal("StudioLocaleId"),
+		pluginName = "GameSettings",
+		getLocale = function()
+			if #OverrideLocaleId > 0 then
+				return OverrideLocaleId
+			else
+				return StudioService["StudioLocaleId"]
+			end
+		end,
+	})
+end	
 
 -- Make sure that the main window elements cannot be interacted with
 -- when a second dialog is open over the Game Settings widget
@@ -129,7 +148,7 @@ local function showDialog(type, props)
 			local dialogContents = Roact.createElement(ExternalServicesWrapper, {
 					theme = Theme.new(),
 					mouse = plugin:GetMouse(),
-					localization = localization,
+					localization = FFlagStudioConvertGameSettingsToDevFramework and localizationDevFramework or localization,
 					pluginGui = pluginGui,
 					plugin = plugin,
 				}, {
@@ -249,10 +268,12 @@ local function openGameSettings()
 	end
 
 	local menuEntries = {}
-	for i, entry in ipairs(settingsPages) do
-		menuEntries[i] = {
-			Name = entry,
-		}
+	if not game:GetFastFlag("GameSettingsNetworkRefactor") then
+		for i, entry in ipairs(settingsPages) do
+			menuEntries[i] = {
+				Name = entry,
+			}
+		end
 	end
 
 	local servicesProvider = Roact.createElement(ExternalServicesWrapper, {
@@ -261,12 +282,12 @@ local function openGameSettings()
 		showDialog = showDialog,
 		theme = Theme.new(),
 		mouse = plugin:GetMouse(),
-		localization = localization,
+		localization = FFlagStudioConvertGameSettingsToDevFramework and localizationDevFramework or localization,
 		pluginGui = pluginGui,
 		plugin = plugin,
 	}, {
 		mainView = Roact.createElement(MainView, {
-			MenuEntries = menuEntries,
+			DEPRECATED_MenuEntries = (not game:GetFastFlag("GameSettingsNetworkRefactor")) and menuEntries or nil,
 			OnClose = closeGameSettings,
 		}),
 	})

@@ -135,6 +135,10 @@ function Localization:recalculateContent()
 			Slope = self:getText("Studio.GameSettings.General.TitleSlope"),
 		},
 
+		Button = {
+			Create = self:getText("Studio.GameSettings.General.ButtonCreate"),
+		},
+
 		Playability = {
 			Header = self:getText("Studio.GameSettings.General.PlayabilityHeader"),
 			Public = {

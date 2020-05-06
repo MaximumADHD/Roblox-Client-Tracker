@@ -16,9 +16,9 @@ local Roact = require(Library.Packages.Roact)
 
 -- Flags
 local getFFlagClearHoverBoxOnDelete = require(Framework.Flags.getFFlagClearHoverBoxOnDelete)
-local getFFlagTrackAttachmentBounds = require(Framework.Flags.getFFlagTrackAttachmentBounds)
-local getFFlagTrackMouseDownState = require(Framework.Flags.getFFlagTrackMouseDownState)
 local getFFlagLuaDraggerIconBandaid = require(Framework.Flags.getFFlagLuaDraggerIconBandaid)
+local getFFlagOnlyReadyHover = require(Framework.Flags.getFFlagOnlyReadyHover)
+local getFFlagHandleCanceledToolboxDrag = require(Framework.Flags.getFFlagHandleCanceledToolboxDrag)
 
 -- Components
 local SelectionDot = require(Framework.Components.SelectionDot)
@@ -70,25 +70,34 @@ local function isShiftKeyDown()
 end
 
 function DraggerTool:init()
-	self:setState({
-		mainState = DraggerStateType.Ready,
-		stateObject = DraggerState[DraggerStateType.Ready].new(),
-	})
-
-	self._isMounted = false
-	if getFFlagTrackMouseDownState() then
-		self._isMouseDown = false
+	local initialState
+	if getFFlagOnlyReadyHover() then
+		initialState = DraggerState[DraggerStateType.Ready].new()
+		self:setState({
+			mainState = DraggerStateType.Ready,
+			stateObject = initialState,
+		})
+	else
+		self:setState({
+			mainState = DraggerStateType.Ready,
+			stateObject = DraggerState[DraggerStateType.Ready].new(),
+		})
 	end
 
+	self._isMounted = false
+	self._isMouseDown = false
+
 	self._derivedWorldState = DerivedWorldState.new()
-	if getFFlagClearHoverBoxOnDelete() then
-		local function onHoverExternallyChanged()
-			self:_processViewChanged()
+	if not getFFlagOnlyReadyHover() then
+		if getFFlagClearHoverBoxOnDelete() then
+			local function onHoverExternallyChanged()
+				self:_processViewChanged()
+			end
+			self._hoverTracker =
+				HoverTracker.new(self.props.ToolImplementation, onHoverExternallyChanged)
+		else
+			self._hoverTracker = HoverTracker.new(self.props.ToolImplementation)
 		end
-		self._hoverTracker =
-			HoverTracker.new(self.props.ToolImplementation, onHoverExternallyChanged)
-	else
-		self._hoverTracker = HoverTracker.new(self.props.ToolImplementation)
 	end
 
 	self._boundsChangedTracker = BoundsChangedTracker.new(function(part)
@@ -96,6 +105,10 @@ function DraggerTool:init()
 	end)
 
 	self:_updateSelectionInfo()
+
+	if getFFlagOnlyReadyHover() then
+		initialState:enter(self)
+	end
 
 	-- We also have to fire off an initial update, since the only update we do
 	-- is in willUpdate, which isn't called during mounting.
@@ -186,10 +199,8 @@ end
 function DraggerTool:willUnmount()
 	self._isMounted = false
 
-	if getFFlagTrackMouseDownState() then
-		if self._isMouseDown then
-			self:_processMouseUp()
-		end
+	if self._isMouseDown then
+		self:_processMouseUp()
 	end
 
 	self._mouseDownConnection:Disconnect()
@@ -209,8 +220,10 @@ function DraggerTool:willUnmount()
 	SelectionWrapper:destroy()
 	self._boundsChangedTracker:uninstall()
 
-	if getFFlagClearHoverBoxOnDelete() then
-		self._hoverTracker:clearHover()
+	if not getFFlagOnlyReadyHover() then
+		if getFFlagClearHoverBoxOnDelete() then
+			self._hoverTracker:clearHover()
+		end
 	end
 
 	RunService:UnbindFromRenderStep(DRAGGER_UPDATE_BIND_NAME)
@@ -219,6 +232,12 @@ function DraggerTool:willUnmount()
 end
 
 function DraggerTool:willUpdate(nextProps, nextState)
+	if getFFlagOnlyReadyHover() then
+		if nextState.mainState ~= self.state.mainState then
+			self.state.stateObject:leave(self)
+			nextState.stateObject:enter(self)
+		end
+	end
 	if nextState.mainState == DraggerStateType.Ready or nextState.mainState == DraggerStateType.DraggingHandle then
 		if nextProps.ToolImplementation and nextProps.ToolImplementation.update then
 			nextProps.ToolImplementation:update(nextState, self._derivedWorldState)
@@ -275,10 +294,8 @@ end
 	  new state object which will be constructed and transitioned to.
 ]]
 function DraggerTool:transitionToState(otherState, draggerStateType, ...)
-	if getFFlagTrackMouseDownState() then
-		if not self._isMounted then
-			return
-		end
+	if not self._isMounted then
+		return
 	end
 
 	otherState.mainState = draggerStateType
@@ -293,8 +310,13 @@ function DraggerTool:_scheduleRender()
 end
 
 function DraggerTool:_processSelectionChanged()
-	self.state.stateObject:processSelectionChanged(self)
-	self:_updateSelectionInfo()
+	if getFFlagOnlyReadyHover() then
+		self:_updateSelectionInfo()
+		self.state.stateObject:processSelectionChanged(self)
+	else
+		self.state.stateObject:processSelectionChanged(self)
+		self:_updateSelectionInfo()
+	end
 end
 
 function DraggerTool:_processKeyDown(keyCode)
@@ -302,23 +324,19 @@ function DraggerTool:_processKeyDown(keyCode)
 end
 
 function DraggerTool:_processMouseDown()
-	if getFFlagTrackMouseDownState() then
-		assert(not self._isMouseDown)
-		self._isMouseDown = true
-	end
+	assert(not self._isMouseDown)
+	self._isMouseDown = true
 	self.state.stateObject:processMouseDown(self)
 end
 
 function DraggerTool:_processMouseUp()
-	if getFFlagTrackMouseDownState() then
-		-- This condition can be hit when the tool was selected while the mouse
-		-- was being held down. In that case it's a spurious mouse up that we
-		-- should ignore.
-		if not self._isMouseDown then
-			return
-		end
-		self._isMouseDown = false
+	-- This condition can be hit when the tool was selected while the mouse
+	-- was being held down. In that case it's a spurious mouse up that we
+	-- should ignore.
+	if not self._isMouseDown then
+		return
 	end
+	self._isMouseDown = false
 	self.state.stateObject:processMouseUp(self)
 end
 
@@ -328,17 +346,15 @@ end
 ]]
 function DraggerTool:_processViewChanged()
 	self._derivedWorldState:updateView()
-	self._hoverTracker:update(self._derivedWorldState)
+	if not getFFlagOnlyReadyHover() then
+		self._hoverTracker:update(self._derivedWorldState)
+	end
 
 	self.state.stateObject:processViewChanged(self)
 
 	-- Derived world state may have changed as a result of the view update, so
 	-- we need to manually trigger a re-render here.
-	if getFFlagTrackMouseDownState() then
-		self:_scheduleRender()
-	else
-		self:setState({})
-	end
+	self:_scheduleRender()
 end
 
 --[[
@@ -354,21 +370,22 @@ end
 
 function DraggerTool:_updateSelectionInfo()
 	self._derivedWorldState:updateSelectionInfo()
-	self._hoverTracker:update(self._derivedWorldState)
-	if getFFlagTrackAttachmentBounds() then
-		local allAttachments = self._derivedWorldState:getAllSelectedAttachments()
-		self._boundsChangedTracker:setAttachments(allAttachments)
+	if not getFFlagOnlyReadyHover() then
+		self._hoverTracker:update(self._derivedWorldState)
 	end
+	local allAttachments = self._derivedWorldState:getAllSelectedAttachments()
+	self._boundsChangedTracker:setAttachments(allAttachments)
 	self._boundsChangedTracker:setParts(self._derivedWorldState:getObjectsToTransform())
 
-	if getFFlagTrackMouseDownState() then
-		self:_scheduleRender()
-	else
-		self:setState({}) -- Force a re-render
-	end
+	self:_scheduleRender()
 end
 
 function DraggerTool:_beginToolboxInitiatedFreeformSelectionDrag()
+	if getFFlagHandleCanceledToolboxDrag() then
+		-- We didn't get an associated mouse down, so we have to set the mouse
+		-- down tracking variable here.
+		self._isMouseDown = true
+	end
 	self:transitionToState({
 		tiltRotate = CFrame.new(),
 	}, DraggerStateType.DraggingParts, {

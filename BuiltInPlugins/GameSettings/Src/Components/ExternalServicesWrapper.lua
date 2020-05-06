@@ -16,15 +16,23 @@ local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local RoactRodux = require(Plugin.RoactRodux)
 
-local SettingsImplProvider = require(Plugin.Src.Providers.SettingsImplProvider)
-local DialogProvider = require(Plugin.Src.Providers.DialogProvider)
+local ContextServices = require(Plugin.Framework.ContextServices)
+local UILibraryWrapper = require(Plugin.Framework.ContextServices.UILibraryWrapper)
+local ThumbnailLoaderProvider = require(Plugin.Src.Providers.ThumbnailLoaderContextItem)
+local SettingsImplProvider = require(Plugin.Src.Providers.SettingsImplContextItem)
+local DialogProvider = require(Plugin.Src.Providers.DialogProviderContextItem)
+
+local DEPRECATED_SettingsImplProvider = require(Plugin.Src.Providers.DEPRECATED_SettingsImplProvider)
+local DEPRECATED_DialogProvider = require(Plugin.Src.Providers.DEPRECATED_DialogProvider)
 local ThemeProvider = require(Plugin.Src.Providers.ThemeProvider)
 local MouseProvider = require(Plugin.Src.Providers.MouseProvider)
 local LocalizationProvider = require(Plugin.Src.Providers.LocalizationProvider)
-local ThumbnailLoaderProvider = require(Plugin.Src.Providers.ThumbnailLoaderProvider)
+local DEPRECATED_ThumbnailLoaderProvider = require(Plugin.Src.Providers.DEPRECATED_ThumbnailLoaderProvider)
 local UILibraryProvider = require(Plugin.Src.Providers.UILibraryProvider)
 
 local ServiceWrapper = Roact.PureComponent:extend("ServiceWrapper")
+
+local FFlagStudioConvertGameSettingsToDevFramework = game:GetFastFlag("StudioConvertGameSettingsToDevFramework")
 
 function ServiceWrapper:init()
 	assert(self.props[Roact.Children] ~= nil, "Expected child elements to wrap")
@@ -52,26 +60,54 @@ function ServiceWrapper:render()
 
 	-- the order of these providers should be read as bottom up,
 	-- things most likely to change or trigger updates should be near the top of the list
-	local root = Roact.oneChild(children)
-	root = addProvider(UILibraryProvider, { plugin = plugin, pluginGui = pluginGui }, root)
-	root = addProvider(MouseProvider, { mouse = mouse}, root)
-	root = addProvider(ThemeProvider, { theme = theme, }, root)
-	root = addProvider(LocalizationProvider, { localization = localization }, root)
-	
-	if settingsSaverLoader then
-		root = addProvider(SettingsImplProvider, { settingsImpl = settingsSaverLoader }, root)
-	end
+	if FFlagStudioConvertGameSettingsToDevFramework then
+		local contextItems = {
+			ContextServices.Focus.new(pluginGui),
+			ContextServices.Plugin.new(plugin),
+			localization,
+			theme,
+			UILibraryWrapper.new(),
+		}
 
-	if store then
-		root = addProvider(RoactRodux.StoreProvider, { store = store }, root)
-		root = addProvider(ThumbnailLoaderProvider, { store = store }, root)
-	end
+		if showDialog then
+			table.insert(contextItems, DialogProvider.new(showDialog))
+		end
 
-	if showDialog then
-		root = addProvider(DialogProvider, { showDialog = showDialog }, root)
-	end
+		if settingsSaverLoader then
+			table.insert(contextItems, SettingsImplProvider.new(settingsSaverLoader))
+		end
 
-	return root
+		if store then
+			table.insert(contextItems, ThumbnailLoaderProvider.new(store))
+			table.insert(contextItems, ContextServices.Store.new(store))
+		end
+
+		table.insert(contextItems, ContextServices.API.new())
+		table.insert(contextItems, ContextServices.Mouse.new(mouse))
+
+		return ContextServices.provide(contextItems, children)
+	else
+		local root = Roact.oneChild(children)
+		root = addProvider(UILibraryProvider, { plugin = plugin, pluginGui = pluginGui }, root)
+		root = addProvider(MouseProvider, { mouse = mouse}, root)
+		root = addProvider(ThemeProvider, { theme = theme, }, root)
+		root = addProvider(LocalizationProvider, { localization = localization }, root)
+
+		if settingsSaverLoader then
+			root = addProvider(DEPRECATED_SettingsImplProvider, { settingsImpl = settingsSaverLoader }, root)
+		end
+
+		if store then
+			root = addProvider(RoactRodux.StoreProvider, { store = store }, root)
+			root = addProvider(DEPRECATED_ThumbnailLoaderProvider, { store = store }, root)
+		end
+
+		if showDialog then
+			root = addProvider(DEPRECATED_DialogProvider, { showDialog = showDialog }, root)
+		end
+
+		return root
+	end
 end
 
 return ServiceWrapper

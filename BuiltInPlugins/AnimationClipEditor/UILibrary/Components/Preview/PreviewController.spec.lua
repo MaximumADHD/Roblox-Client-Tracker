@@ -6,7 +6,7 @@ return function()
 
 	local PreviewController = require(Library.Components.Preview.PreviewController)
 
-	local AssetType = require(Library.Components.Preview.AssetType)
+	local AssetType = require(Library.Utils.AssetType)
 
 	-- PineTree
 	-- rbxassetid://183435411

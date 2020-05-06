@@ -22,6 +22,8 @@ local SetMoreMenuOpen = require(Actions.SetMoreMenuOpen)
 local Constants = require(TopBar.Constants)
 local InputType = Constants.InputType
 
+local IconButton = require(script.Parent.IconButton)
+
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
 
@@ -35,6 +37,7 @@ local FFlagEmotesMenuRemoveOpenKeybinds = settings():GetFFlag("EmotesMenuRemoveO
 
 local FFlagTopBarUseNewIcons = require(RobloxGui.Modules.Flags.FFlagTopBarUseNewIcons)
 local FFlagMinimizePlayerListWhenTopBarOpen = require(RobloxGui.Modules.Flags.FFlagMinimizePlayerListWhenTopBarOpen)
+local FFlagTopBarHightightIconsOnHover = require(RobloxGui.Modules.Flags.FFlagTopBarHightightIconsOnHover)
 
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
@@ -81,6 +84,12 @@ function MoreMenu:init()
 	self.chatWasHidden = false
 
 	self.boundAction = false
+
+	if FFlagTopBarHightightIconsOnHover then
+		self.moreButtonActivated = function()
+			self.props.setMoreMenuOpen(not self.props.moreMenuOpen)
+		end
+	end
 end
 
 function MoreMenu:render()
@@ -209,7 +218,13 @@ function MoreMenu:render()
 			BackgroundTransparency = 1,
 		}),
 
-		OpenButton = FFlagTopBarUseNewIcons and Roact.createElement(ImageSetButton, {
+		OpenButton = FFlagTopBarUseNewIcons and
+			(FFlagTopBarHightightIconsOnHover and Roact.createElement(IconButton, {
+			icon = moreIcon,
+			iconSize = ICON_SIZE,
+
+			onActivated = self.moreButtonActivated,
+		}) or Roact.createElement(ImageSetButton, {
 			ZIndex = 1,
 			BackgroundTransparency = 1,
 			Image = "rbxasset://textures/ui/TopBar/iconBase.png",
@@ -228,7 +243,7 @@ function MoreMenu:render()
 				Position = UDim2.fromScale(0.5, 0.5),
 				Size = UDim2.fromOffset(ICON_SIZE, ICON_SIZE),
 			})
-		}) or Roact.createElement(ImageSetButton, {
+		})) or Roact.createElement(ImageSetButton, {
 			ZIndex = 2,
 			Image = Images["icons/common/more"],
 			Size = UDim2.new(1, 0, 1, 0),

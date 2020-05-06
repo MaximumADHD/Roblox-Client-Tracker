@@ -1,6 +1,8 @@
 local runService = game:GetService("RunService")
 
-local PageName = "Access Permissions"
+local FFlagStudioConvertGameSettingsToDevFramework = game:GetFastFlag("StudioConvertGameSettingsToDevFramework")
+
+local PageName = FFlagStudioConvertGameSettingsToDevFramework and "AccessPermissions" or "Access Permissions"
 
 local FFlagStudioGameSettingsDisablePlayabilityForDrafts = settings():GetFFlag("StudioGameSettingsDisablePlayabilityForDrafts")
 
@@ -24,7 +26,7 @@ local DiscardWarning = require(Plugin.Src.Actions.DiscardWarning)
 local SearchCollaborators = require(Plugin.Src.Thunks.SearchCollaborators)
 local AddGroupCollaborator = require(Plugin.Src.Thunks.AddGroupCollaborator)
 
-local createSettingsPage = require(Plugin.Src.Components.SettingsPages.createSettingsPage)
+local createSettingsPage = require(Plugin.Src.Components.SettingsPages.DEPRECATED_createSettingsPage)
 
 --Loads settings values into props by key
 local function loadValuesToProps(getValue, state)
@@ -90,41 +92,51 @@ local function displayContents(page, localized, theme)
 
 	local accessPermissionsWidgetsVisible = isTeamCreate and not isGroupGame
 
+	local groupTitle
+	local groupDescription
+	if FFlagStudioConvertGameSettingsToDevFramework then
+		groupTitle = props.Group and localized:getText("General", "PlayabilityGroup") or localized:getText("General", "PlayabilityFriends")
+		groupDescription = props.Group and localized:getText("General", "PlayabilityGroupDesc", {group = props.Group}) or localized:getText("General", "PlayabiiltyFreindsDesc")
+	else
+		groupTitle = props.Group and localized.Playability.Group.Title or localized.Playability.Friends.Title
+		groupDescription = props.Group and localized.Playability.Group.Description({group = props.Group})
+		or localized.Playability.Friends.Description
+	end
+
 	local playabilityButtons
 	if isGroupGame then
 		playabilityButtons = {
 			{
 				Id = true,
-				Title = localized.Playability.Public.Title,
-				Description = localized.Playability.Public.Description,
+				Title = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "PlayabilityPublic") or localized.Playability.Public.Title,
+				Description = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "PlayabilityPublicDesc") or localized.Playability.Public.Description,
 			},  {
 				Id = false,
-				Title = localized.Playability.Private.Title,
-				Description = localized.Playability.Private.Description,
+				Title = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "PlayabilityPrivate") or localized.Playability.Private.Title,
+				Description = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "PlayabilityPublicDesc") or localized.Playability.Private.Description,
 			},
 		}
 	else
 		playabilityButtons = {
 			{
 				Id = true,
-				Title = localized.Playability.Public.Title,
-				Description = localized.Playability.Public.Description,
+				Title = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "PlayabilityPublic") or localized.Playability.Public.Title,
+				Description = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "PlayabilityPublicDesc") or localized.Playability.Public.Description,
 			}, {
 				Id = "Friends",
-				Title = props.Group and localized.Playability.Group.Title or localized.Playability.Friends.Title,
-				Description = props.Group and localized.Playability.Group.Description({group = props.Group})
-					or localized.Playability.Friends.Description,
+				Title = groupTitle,
+				Description = groupDescription,
 			}, {
 				Id = false,
-				Title = localized.Playability.Private.Title,
-				Description = localized.Playability.Private.Description,
+				Title = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "PlayabilityPrivate") or localized.Playability.Private.Title,
+				Description = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "PlayabilityPublicDesc") or localized.Playability.Private.Description,
 			},
 		}
 	end
 	
 	return {
 		Header = Roact.createElement(Header, {
-			Title = localized.Category[PageName],
+			Title = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "Category"..PageName) or localized.Category[PageName],
 			LayoutOrder = 0,
 		}),
 
@@ -149,8 +161,8 @@ local function displayContents(page, localized, theme)
 		}),
 
 		DEPRECATED_Playability = not FFlagStudioGameSettingsDisablePlayabilityForDrafts and Roact.createElement(RadioButtonSet, {
-			Title = localized.Title.Playability,
-			Description = localized.Playability.Header,
+			Title = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "TitlePlayability") or localized.Title.Playability,
+			Description = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "PlayabilityHeader") or localized.Playability.Header,
 			LayoutOrder = 10,
 			Buttons = playabilityButtons,
 			Enabled = props.IsActive ~= nil and props.CanManage,
@@ -174,19 +186,19 @@ local function displayContents(page, localized, theme)
 			LayoutOrder = 20,
 			Size = UDim2.new(1, 0, 0, 1),
 		}),
-		
+
 		OwnerWidget = Roact.createElement(GameOwnerWidget, {
 			LayoutOrder = 30,
-			
+
 			Enabled = props.IsActive ~= nil and accessPermissionsEnabled,
 			OwnerName = props.OwnerName,
 			OwnerId = props.OwnerId,
 			OwnerType = props.OwnerType,
-			
+
 			StudioUserId = props.StudioUserId,
 			GroupOwnerUserId = props.GroupOwnerUserId,
 			CanManage = props.CanManage,
-			
+
 			GroupMetadata = props.GroupMetadata,
 			Permissions = props.Permissions,
 			PermissionsChanged = props.PermissionsChanged,
@@ -199,14 +211,14 @@ local function displayContents(page, localized, theme)
 		}),
 
 		TeamCreateWarning = not accessPermissionsEnabled and Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Subtitle, {
-			Text = localized.AccessPermissions.TeamCreateWarning,
+			Text = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("AccessPermissions", "TeamCreateWarning") or localized.AccessPermissions.TeamCreateWarning,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			TextColor3 = theme.warningColor,
 			BackgroundTransparency = 1,
 			Size = UDim2.new(1, 0, 0, 30),
 			LayoutOrder = 50,
 		})),
-		
+
 		-- remove props.CanManage when removing flag
 		SearchbarWidget = accessPermissionsWidgetsVisible and canUserEditPermissions and Roact.createElement(SearchbarWidget, {
 			LayoutOrder = 50,

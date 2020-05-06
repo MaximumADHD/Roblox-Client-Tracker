@@ -18,7 +18,7 @@ local Roact = require(Plugin.Roact)
 local RadioButtonSet = require(Plugin.Src.Components.RadioButtonSet)
 local Header = require(Plugin.Src.Components.Header)
 
-local createSettingsPage = require(Plugin.Src.Components.SettingsPages.createSettingsPage)
+local createSettingsPage = require(Plugin.Src.Components.SettingsPages.DEPRECATED_createSettingsPage)
 
 --Loads settings values into props by key
 local function loadValuesToProps(getValue)

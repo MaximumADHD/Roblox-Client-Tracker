@@ -91,6 +91,12 @@ module.BubbleChatMessageTypes = {ChatConstants.MessageTypeDefault, ChatConstants
 ---[[ Misc Settings ]]
 module.WhisperCommandAutoCompletePlayerNames = true
 
+--[[ Display Names ]]
+--Uses DisplayNames instead of UserNames in chat messages
+module.PlayerDisplayNamesEnabled = false
+--Allows users to do /w displayName along with /w userName, only works if PlayerDisplayNamesEnabled is 'true'
+module.WhisperByDisplayName = false
+
 local ChangedEvent = Instance.new("BindableEvent")
 
 local proxyTable = setmetatable({},

@@ -31,11 +31,16 @@ local SCROLL_BOTTOM = "rbxasset://textures/GameSettings/ScrollBarBottom.png"
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
+
+local ContextServices = require(Plugin.Framework.ContextServices)
+
 local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
 local getMouse = require(Plugin.Src.Consumers.getMouse)
 
 local DropdownEntry = require(Plugin.Src.Components.DropdownEntry)
+
+local FFlagStudioConvertGameSettingsToDevFramework = game:GetFastFlag("StudioConvertGameSettingsToDevFramework")
 
 local Dropdown = Roact.PureComponent:extend("Dropdown")
 
@@ -76,7 +81,17 @@ function Dropdown:init(props)
 end
 
 function Dropdown:mouseHoverChanged(hovering)
-	getMouse(self).setHoverIcon("PointingHand", hovering)
+	-- TODO: change to use HoverArea from Developer Framework
+	if FFlagStudioConvertGameSettingsToDevFramework then
+		local props = self.props
+		if hovering then
+			props.Mouse:__pushCursor("PointingHand")
+		else
+			props.Mouse:__popCursor()
+		end
+	else
+		getMouse(self).setHoverIcon("PointingHand", hovering)
+	end
 	self:setState({
 		Hovering = hovering,
 	})
@@ -87,14 +102,18 @@ function Dropdown:setOpen(open)
 		self.props.OpenChanged(open)
 	end
 	if not open then
-		getMouse(self).resetMouse()
+		if FFlagStudioConvertGameSettingsToDevFramework then
+			local props = self.props
+			props.Mouse:__resetCursor()
+		else
+			getMouse(self).resetMouse()
+		end
 	end
 	self:setState({
 		Open = open,
 	})
 end
-
-function Dropdown:render()
+function Dropdown:DEPRECATED_render()
 	return withTheme(function(theme)
 		local entries = self.props.Entries
 		local currentId = self.props.Current
@@ -252,6 +271,178 @@ function Dropdown:render()
 			}),
 		})
 	end)
+end
+
+function Dropdown:render()
+	if not FFlagStudioConvertGameSettingsToDevFramework then
+		return self:DEPRECATED_render()
+	end
+
+	local props = self.props
+	local theme = props.Theme:get("Plugin")
+
+	local entries = self.props.Entries
+	local currentId = self.props.Current
+	local currentTitle = findCurrentTitle(entries, currentId)
+	local active = self.props.Enabled
+	local hovering = self.state.Hovering
+	local open = self.state.Open
+
+	local showDropdown = active and open
+
+	local backgroundProps = {
+		BackgroundTransparency = 1,
+		Image = DEPRECATED_Constants.ROUNDED_BACKGROUND_IMAGE,
+		ImageTransparency = 0,
+		ScaleType = Enum.ScaleType.Slice,
+		SliceCenter = DEPRECATED_Constants.ROUNDED_FRAME_SLICE,
+
+		Position = UDim2.new(0, 0, 0, 0),
+		Size = DEFAULT_SIZE,
+
+		[Roact.Event.MouseEnter] = function()
+			if active then
+				self:mouseHoverChanged(true)
+			end
+		end,
+
+		[Roact.Event.MouseLeave] = function()
+			if active then
+				self:mouseHoverChanged(false)
+			end
+		end,
+
+		[Roact.Event.Activated] = function()
+			if active then
+				self:setOpen(true)
+			end
+		end,
+	}
+
+	local dropdownEntries = {
+		Layout = Roact.createElement("UIListLayout", {
+			Padding = UDim.new(0, 0),
+			SortOrder = Enum.SortOrder.LayoutOrder,
+		})
+	}
+	if showDropdown then
+		for _, entry in ipairs(entries) do
+			table.insert(dropdownEntries, Roact.createElement(DropdownEntry, {
+				Id = entry.Id,
+				Title = entry.Title,
+				Current = entry.Id == currentId,
+				OnClick = function()
+					self.props.CurrentChanged(entry.Id)
+					self:setOpen(false)
+				end
+			}))
+		end
+	end
+
+	if active then
+		backgroundProps.ImageColor3 = hovering and theme.dropDown.hover or theme.dropDown.background
+	else
+		backgroundProps.ImageColor3 = theme.dropDown.disabled
+	end
+
+	return Roact.createElement("ImageButton", backgroundProps, {
+		Border = Roact.createElement("ImageLabel", {
+			Size = UDim2.new(1, 0, 1, 0),
+			BackgroundTransparency = 1,
+			Image = DEPRECATED_Constants.ROUNDED_BORDER_IMAGE,
+			ImageColor3 = theme.dropDown.border,
+			ScaleType = Enum.ScaleType.Slice,
+			SliceCenter = DEPRECATED_Constants.ROUNDED_FRAME_SLICE,
+		}, {
+			Padding = Roact.createElement("UIPadding", {
+				PaddingLeft = PADDING,
+				PaddingRight = PADDING,
+				PaddingTop = PADDING,
+				PaddingBottom = PADDING,
+			}),
+
+			Current = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Normal, {
+				Visible = active,
+				Size = UDim2.new(1, 0, 1, 0),
+				BackgroundTransparency = 1,
+				BorderSizePixel = 0,
+				TextColor3 = theme.dropDown.text,
+				TextXAlignment = Enum.TextXAlignment.Left,
+				Text = currentTitle or "",
+			})),
+
+			Arrow = Roact.createElement("ImageLabel", {
+				Visible = active,
+				Size = UDim2.new(0, 12, 0, 6),
+				AnchorPoint = Vector2.new(1, 0.5),
+				Position = UDim2.new(1, 0, 0.5, 0),
+				BackgroundTransparency = 1,
+				ScaleType = Enum.ScaleType.Fit,
+				Image = ARROW_IMAGE,
+				ImageColor3 = theme.dropDown.handle,
+				Rotation = 180,
+			}),
+
+			Outside = showDropdown and Roact.createElement("ImageButton", {
+				ZIndex = 2,
+				Size = UDim2.new(1000, 0, 1000, 0),
+				AnchorPoint = Vector2.new(0.5, 0.5),
+				Position = UDim2.new(0.5, 0, 0.5, 0),
+				BackgroundTransparency = 1,
+				ImageTransparency = 1,
+
+				[Roact.Event.Activated] = function()
+					if active then
+						self:setOpen(false)
+					end
+				end,
+			}),
+		}),
+
+		Gradient = showDropdown and Roact.createElement("ImageLabel", {
+			Size = GRADIENT_SIZE,
+			Position = UDim2.new(0, -5, 1, -3),
+			BackgroundTransparency = 1,
+			Image = GRADIENT_IMAGE,
+			ImageColor3 = theme.dropDown.gradient,
+			ScaleType = Enum.ScaleType.Slice,
+			SliceCenter = GRADIENT_SLICE,
+			SliceScale = 1.5,
+			ZIndex = 2,
+
+			[Roact.Event.MouseEnter] = self.mouseEnter,
+			[Roact.Event.MouseLeave] = self.mouseLeave,
+		}),
+
+		EntriesBox = showDropdown and Roact.createElement("Frame", {
+			BackgroundTransparency = 1,
+			Size = ENTRIES_SIZE,
+			Position = UDim2.new(0, 0, 1, 0),
+			ClipsDescendants = true,
+		}, {
+			Entries = showDropdown and Roact.createElement("ScrollingFrame", {
+				Size = UDim2.new(1, 0, 1, 0),
+				CanvasSize = UDim2.new(0, 0, 0, ENTRY_HEIGHT * #entries),
+				BackgroundTransparency = 1,
+				BorderSizePixel = 0,
+				ScrollBarImageColor3 = theme.scrollBar,
+				ClipsDescendants = false,
+				ScrollBarThickness = 10,
+				ScrollingDirection = Enum.ScrollingDirection.Y,
+				TopImage = SCROLL_TOP,
+				MidImage = SCROLL_MIDDLE,
+				BottomImage = SCROLL_BOTTOM,
+				ZIndex = 6,
+			}, dropdownEntries),
+		}),
+	})
+end
+
+if FFlagStudioConvertGameSettingsToDevFramework then
+	ContextServices.mapToProps(Dropdown, {
+		Theme = ContextServices.Theme,
+		Mouse = ContextServices.Mouse,
+	})
 end
 
 return Dropdown

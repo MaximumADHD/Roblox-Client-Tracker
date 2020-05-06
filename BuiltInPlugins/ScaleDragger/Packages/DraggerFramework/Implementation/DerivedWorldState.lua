@@ -13,8 +13,6 @@ local SelectionWrapper = require(Framework.Utility.SelectionWrapper)
 local SelectionHelper = require(Framework.Utility.SelectionHelper)
 local getHandleScale = require(Framework.Utility.getHandleScale)
 
-local getFFlagTrackAttachmentBounds = require(Framework.Flags.getFFlagTrackAttachmentBounds)
-
 local SCALE_CHANGE_EPSILON = 1e-6
 
 local DerivedWorldState = {}
@@ -34,9 +32,7 @@ function DerivedWorldState:updateSelectionInfo()
 	self._localBoundingBoxSize = selectionInfo.localBoundingBoxSize
 	self._partsToMove = selectionInfo.parts
     self._attachmentsToMove = selectionInfo.attachments
-    if getFFlagTrackAttachmentBounds() then
-        self._allSelectedAttachments = selectionInfo.allAttachments
-    end
+    self._allSelectedAttachments = selectionInfo.allAttachments
 	self._mainCFrame = selectionInfo.basisCFrame
 	self._localMainCFrame = selectionInfo.localBasisCFrame
 	self._originalCFrameMap = selectionInfo.originalCFrameMap

@@ -51,6 +51,8 @@ local HorizontalContentFit = createFitToContent("Frame", "UIListLayout", {
 })
 local groupsLoaded = false
 
+local FFlagLuaPublishFlowFixCreateButtonInChinese = game:GetFastFlag("LuaPublishFlowFixCreateButtonInChinese")
+
 local ScreenChooseGame = Roact.PureComponent:extend("ScreenChooseGame")
 
 function ScreenChooseGame:init()
@@ -330,7 +332,7 @@ function ScreenChooseGame:render()
 
 				Footer = Roact.createElement(Footer, {
 					MainButton = {
-						Name = localization:getText("FooterButton", "Create"),
+						Name = FFlagLuaPublishFlowFixCreateButtonInChinese and "Create" or localization:getText("FooterButton", "Create"),
 						Active = false,
 					},
 					OnClose = onClose,

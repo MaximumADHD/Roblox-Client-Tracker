@@ -50,6 +50,8 @@ local HorizontalContentFit = createFitToContent("Frame", "UIListLayout", {
 	SortOrder = Enum.SortOrder.LayoutOrder,
 })
 
+local FFlagLuaPublishFlowFixCreateButtonInChinese = game:GetFastFlag("LuaPublishFlowFixCreateButtonInChinese")
+
 local ScreenChoosePlace = Roact.PureComponent:extend("ScreenChoosePlace")
 
 function ScreenChoosePlace:init()
@@ -209,6 +211,14 @@ function ScreenChoosePlace:render()
 				})
 			end
 
+			local footerMainButtonName
+			if FFlagLuaPublishFlowFixCreateButtonInChinese then
+				footerMainButtonName = newPlaceSelected and "Create" or "Overwrite"
+			else
+				footerMainButtonName = newPlaceSelected and localization:getText("FooterButton", "Create")
+				or localization:getText("FooterButton", "Overwrite")
+			end
+
 			return Roact.createElement("Frame", {
 				Size = UDim2.new(1, 0, 1, 0),
 				BackgroundColor3 = theme.backgroundColor,
@@ -332,8 +342,7 @@ function ScreenChoosePlace:render()
 
 				Footer = Roact.createElement(Footer, {
 					MainButton = {
-						Name = newPlaceSelected and localization:getText("FooterButton", "Create")
-							or localization:getText("FooterButton", "Overwrite"),
+						Name = footerMainButtonName,
 						Active = parentGame and self.state.selectedPlace ~= nil and not isPublishing,
 						OnActivated = function()
 							-- groupId is unused

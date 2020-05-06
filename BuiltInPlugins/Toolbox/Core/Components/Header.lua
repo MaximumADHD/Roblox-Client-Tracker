@@ -19,6 +19,7 @@
 local FFlagToolboxShowGroupCreations = game:GetFastFlag("ToolboxShowGroupCreations")
 local FFlagToolboxHideSearchForMyPlugins = game:DefineFastFlag("ToolboxHideSearchForMyPlugins", false)
 local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
+local FFlagEnableSearchedWithoutInsertionAnalytic = game:GetFastFlag("EnableSearchedWithoutInsertionAnalytic")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -54,6 +55,8 @@ local SelectGroupRequest = require(Plugin.Core.Networking.Requests.SelectGroupRe
 
 local Header = Roact.PureComponent:extend("Header")
 
+local globalSettings = settings
+
 function Header:init()
 	local networkInterface = getNetwork(self)
 	local settings
@@ -85,6 +88,7 @@ function Header:init()
 	end
 
 	self.onSearchRequested = function(searchTerm)
+		local settings = nil
 		if FFlagStudioToolboxEnabledDevFramework then
 			settings = self.props.Settings:get("Plugin")
 		end
@@ -100,6 +104,22 @@ function Header:init()
 			searchTerm,
 			creatorId
 		)
+
+		if FFlagEnableSearchedWithoutInsertionAnalytic then
+
+			-- Set up a delayed callback to check if an asset was inserted
+			self.mostRecentSearchRequestTime = tick()
+			local mySearchRequestTime = self.mostRecentSearchRequestTime
+			local StudioSearchWithoutInsertionTimeSeconds = globalSettings():GetFVariable("StudioSearchWithoutInsertionTimeSeconds")
+			delay(StudioSearchWithoutInsertionTimeSeconds, function()
+				-- Only use the callback for the most recent search
+				if (mySearchRequestTime == self.mostRecentSearchRequestTime) then
+					-- Check if an asset has been inserted recently
+					self:checkRecentAssetInsertion()
+				end
+			end)
+
+		end
 
 		self.props.requestSearch(networkInterface, settings, searchTerm)
 	end
@@ -228,6 +248,20 @@ function Header:render()
 			})
 		end)
 	end)
+end
+
+function Header:checkRecentAssetInsertion()
+	-- Check if an asset has been inserted since the most recent search was entered
+	if (self.mostRecentSearchRequestTime > self.props.mostRecentAssetInsertTime) then
+		local creator = self.props.creatorFilter
+		local creatorId = creator and creator.Id or nil
+		-- No asset has been added
+		Analytics.onTermSearchedWithoutInsertion(
+			PageInfoHelper.getCategory(self.props.categories, self.props.categoryIndex),
+			self.props.searchTerm,
+			creatorId
+		)
+	end
 end
 
 local EventName = "tabRefresh"

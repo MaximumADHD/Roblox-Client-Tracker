@@ -3,10 +3,15 @@
 ]]
 
 local FFlagStudioGameSettingsRestrictPermissions = game:GetFastFlag("StudioGameSettingsRestrictPermissions")
+local FFlagStudioConvertGameSettingsToDevFramework = game:GetFastFlag("StudioConvertGameSettingsToDevFramework")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
+
+local ContextServices = require(Plugin.Framework.ContextServices)
+local ThumbnailLoader = require(Plugin.Src.Providers.ThumbnailLoaderContextItem)
+
 local UILibrary = require(Plugin.UILibrary)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
 local withLocalization = require(Plugin.Src.Consumers.withLocalization)
@@ -209,15 +214,28 @@ local function getResults(searchTerm, matches, thumbnailLoader, localized)
 			end
 		end
 
-		if FFlagStudioGameSettingsRestrictPermissions then
-			results = {
-				[localized.AccessPermissions.Collaborators.UsersCollaboratorType] = #results.Users > 0 and results.Users or nil,
-			}
+		if FFlagStudioConvertGameSettingsToDevFramework then
+			if FFlagStudioGameSettingsRestrictPermissions then
+				results = {
+					[localized:getText("AccessPermissions", "UsersCollaboratorType")] = #results.Users > 0 and results.Users or nil,
+				}
+			else
+				results = {
+					[localized:getText("AccessPermissions", "UsersCollaboratorType")] = #results.Users > 0 and results.Users or nil,
+					[localized:getText("AccessPermissions", "GroupsCollaboratorType")] = #results.Groups > 0 and results.Groups or nil,
+				}
+			end
 		else
-			results = {
-				[localized.AccessPermissions.Collaborators.UsersCollaboratorType] = #results.Users > 0 and results.Users or nil,
-				[localized.AccessPermissions.Collaborators.GroupsCollaboratorType] = #results.Groups > 0 and results.Groups or nil,
-			}
+			if FFlagStudioGameSettingsRestrictPermissions then
+				results = {
+					[localized.AccessPermissions.Collaborators.UsersCollaboratorType] = #results.Users > 0 and results.Users or nil,
+				}
+			else
+				results = {
+					[localized.AccessPermissions.Collaborators.UsersCollaboratorType] = #results.Users > 0 and results.Users or nil,
+					[localized.AccessPermissions.Collaborators.GroupsCollaboratorType] = #results.Groups > 0 and results.Groups or nil,
+				}
+			end
 		end
 	end
 
@@ -226,7 +244,7 @@ end
 
 local CollaboratorSearchWidget = Roact.PureComponent:extend("CollaboratorSearchWidget")
 
-function CollaboratorSearchWidget:render()
+function CollaboratorSearchWidget:DEPRECATED_render()
 	local props = self.props
 	local searchData = props.SearchData
 	local searchTerm = searchData.SearchText
@@ -359,6 +377,154 @@ function CollaboratorSearchWidget:render()
 			})
 		end)
 	end)
+end
+
+function CollaboratorSearchWidget:render()
+	if not FFlagStudioConvertGameSettingsToDevFramework then
+		return self:DEPRECATED_render()
+	end
+
+	local props = self.props
+	local theme = props.Theme:get("Plugin")
+	local localization = props.Localization
+	local mouse = props.Mouse
+
+	local searchData = props.SearchData
+	local searchTerm = searchData.SearchText
+
+	local thumbnailLoader = props.ThumbnailLoader
+
+	local matches = getMatches(searchData, props.Permissions, props.GroupMetadata)
+	local isLoading = getIsLoading(searchData)
+
+	local numCollaborators = -1 -- Offset and don't count the owner
+	for _,_ in pairs(props.GroupMetadata) do
+		numCollaborators = numCollaborators + 1
+	end
+	for _,_ in pairs(props.Permissions[PermissionsConstants.UserSubjectKey]) do
+		numCollaborators = numCollaborators + 1
+	end
+
+	local maxCollaborators = game:GetFastInt("MaxAccessPermissionsCollaborators")
+	local tooManyCollaborators = numCollaborators >= maxCollaborators
+
+	local function collaboratorAdded(collaboratorType, collaboratorId, collaboratorName, action)
+		local newPermissions
+		if collaboratorType == PermissionsConstants.UserSubjectKey then
+			newPermissions = Cryo.Dictionary.join(props.Permissions, {
+				[collaboratorType] = Cryo.Dictionary.join(props.Permissions[collaboratorType], {
+					[collaboratorId] = {
+						[PermissionsConstants.SubjectNameKey] = collaboratorName,
+						[PermissionsConstants.SubjectIdKey] = collaboratorId,
+						[PermissionsConstants.ActionKey] = action,
+						[PermissionsConstants.IsFriendKey] = getIsFriend(collaboratorId, searchData.LocalUserFriends),
+					}
+				})
+			})
+		elseif collaboratorType == PermissionsConstants.GroupSubjectKey then
+			props.GroupCollaboratorAdded(collaboratorId, collaboratorName, action)
+		else
+			error("Unsupported type: "..tostring(collaboratorType))
+		end
+
+		if newPermissions then
+			props.PermissionsChanged(newPermissions)
+		end
+	end
+
+	local results = getResults(searchTerm, matches, thumbnailLoader, localization)
+	local tooManyCollaboratorsText = localization:getText("AccessPermissions", "CollaboratorSearchbarTooManyText1",{
+		maxNumCollaborators = maxCollaborators,
+	})
+
+	local WarningTextSize = TextService:GetTextSize(localization:getText("AccessPermissions", "PermissionsUpdateMessage"), theme.fontStyle.Smaller.TextSize,
+		theme.fontStyle.Smaller.Font, Vector2.new(math.huge, math.huge))
+
+	local HyperlinkTextSize = TextService:GetTextSize(localization:getText("AccessPermissions", "UpdateHyperlinkText"), theme.fontStyle.Smaller.TextSize,
+		theme.fontStyle.Smaller.Font, Vector2.new(math.huge, math.huge))
+
+	return Roact.createElement(FitToContent, {
+		BackgroundTransparency = 1,
+		LayoutOrder = props.LayoutOrder,
+	}, {
+		WarningLayout = Roact.createElement(TextFitToContent, {
+			BackgroundTransparency = 1,
+			LayoutOrder = 0,
+		}, {
+			Title = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Subtitle, {
+				LayoutOrder = 0,
+
+				Size = UDim2.new(1, -WarningTextSize.X - HyperlinkTextSize.X - PADDING, 0, theme.fontStyle.Subtitle.TextSize),
+
+				Text = localization:getText("General", "TitleCollaborators"),
+				TextXAlignment = Enum.TextXAlignment.Left,
+
+				BackgroundTransparency = 1,
+			})),
+
+			WarningText = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Smaller, {
+				LayoutOrder = 1,
+
+				Size = UDim2.new(0, WarningTextSize.X + PADDING, 0, theme.fontStyle.Smaller.TextSize),
+
+				Text = localization:getText("AccessPermissions", "PermissionsUpdateMessage"),
+				TextXAlignment = Enum.TextXAlignment.Left,
+
+				BackgroundTransparency = 1,
+			})),
+
+			Hyperlink = Roact.createElement(Hyperlink, {
+				LayoutOrder = 2,
+				Enabled = true,
+
+				Text = localization:getText("AccessPermissions", "UpdateHyperlinkText"),
+				TextSize = theme.fontStyle.Smaller.TextSize,
+
+				OnClick = function()
+					GuiService:OpenBrowserWindow("https://devforum.roblox.com/t/introducing-game-permissions/428956")
+				end,
+				Mouse = mouse:get(),
+			}),
+		}),
+
+		Searchbar = Roact.createElement(Searchbar, {
+			LayoutOrder = 1,
+			Enabled = props.Enabled and not tooManyCollaborators,
+
+			HeaderHeight = 25,
+			ItemHeight = 50,
+
+			ErrorText = tooManyCollaborators and tooManyCollaboratorsText or nil,
+			DefaultText = localization:getText("AccessPermissions", "CollaboratorSearchbarDefaultText"),
+			NoResultsText = localization:getText("AccessPermissions", "CollaboratorSearchbarNoResultsText"),
+			LoadingMore = isLoading,
+
+			onSearchRequested = function(text)
+				props.SearchRequested(text, true)
+			end,
+			onTextChanged = function(text)
+				props.SearchRequested(text, false)
+			end,
+			OnItemClicked = function(key)
+				if key == MY_FRIENDS_KEY then
+					print("TODO: enable friends option")
+				else
+					collaboratorAdded(key.Type, key.Id, key.Name, DEFAULT_ADD_ACTION)
+				end
+			end,
+
+			Results = results,
+		}),
+	})
+end
+
+if FFlagStudioConvertGameSettingsToDevFramework then
+	ContextServices.mapToProps(CollaboratorSearchWidget, {
+		Theme = ContextServices.Theme,
+		Localization = ContextServices.Localization,
+		Mouse = ContextServices.Mouse,
+		ThumbnailLoader = ThumbnailLoader,
+	})
 end
 
 return CollaboratorSearchWidget

@@ -12,8 +12,11 @@ local SelectionHelper = require(Framework.Utility.SelectionHelper)
 local SelectionWrapper = require(Framework.Utility.SelectionWrapper)
 local getGeometry = require(Framework.Utility.getGeometry)
 local getFaceInstance = require(Framework.Utility.getFaceInstance)
+local HoverTracker = require(Framework.Implementation.HoverTracker)
 
 local getFFlagLuaDraggerIconBandaid = require(Framework.Flags.getFFlagLuaDraggerIconBandaid)
+local getFFlagOnlyReadyHover = require(Framework.Flags.getFFlagOnlyReadyHover)
+local getFFlagStudioServiceHoverInstance = require(Framework.Flags.getFFlagStudioServiceHoverInstance)
 
 local function areConstraintDetailsShown()
 	return StudioService.ShowConstraintDetails
@@ -26,36 +29,82 @@ function Ready.new()
     return setmetatable({}, Ready)
 end
 
+function Ready:enter(draggerTool)
+	local function onHoverExternallyChanged()
+		draggerTool:_processViewChanged()
+	end
+	self._hoverTracker =
+		HoverTracker.new(draggerTool.props.ToolImplementation, onHoverExternallyChanged)
+	self._hoverTracker:update(draggerTool._derivedWorldState)
+end
+
+function Ready:leave(draggerTool)
+	self._hoverTracker:clearHover()
+end
+
 function Ready:render(draggerTool)
     local elements = {}
 
-	local hoverSelectable = draggerTool._hoverTracker:getHoverSelectable()
+	local hoverSelectable
+	if getFFlagOnlyReadyHover() then
+		hoverSelectable = self._hoverTracker:getHoverSelectable()
+	else
+		hoverSelectable = draggerTool._hoverTracker:getHoverSelectable()
+	end
 	if hoverSelectable then
-		elements.HoverBox = Roact.createElement(AnimatedHoverBox, {
-			hoverTarget = hoverSelectable,
-		})
+		if getFFlagStudioServiceHoverInstance() then
+			-- Don't show hover boxes for constraints with visible details, they
+			-- have their own special hover highlighting.
+			local isAttachmentOrConstraint =
+				hoverSelectable:IsA("Attachment") or hoverSelectable:IsA("Constraint")
+			if not areConstraintDetailsShown() or not isAttachmentOrConstraint then
+				elements.HoverBox = Roact.createElement(AnimatedHoverBox, {
+					hoverTarget = hoverSelectable,
+				})
+			end
+		else
+			elements.HoverBox = Roact.createElement(AnimatedHoverBox, {
+				hoverTarget = hoverSelectable,
+			})
+		end
 	end
 
 	if getFFlagLuaDraggerIconBandaid() then
-		if hoverSelectable or draggerTool._hoverTracker:getHoverHandleId() then
-			draggerTool.props.Mouse.Icon = "rbxasset://SystemCursors/OpenHand"
+		if getFFlagOnlyReadyHover() then
+			if hoverSelectable or self._hoverTracker:getHoverHandleId() then
+				draggerTool.props.Mouse.Icon = "rbxasset://SystemCursors/OpenHand"
+			else
+				draggerTool.props.Mouse.Icon = "rbxasset://SystemCursors/Default"
+			end
 		else
-			draggerTool.props.Mouse.Icon = "rbxasset://SystemCursors/Default"
+			if hoverSelectable or draggerTool._hoverTracker:getHoverHandleId() then
+				draggerTool.props.Mouse.Icon = "rbxasset://SystemCursors/OpenHand"
+			else
+				draggerTool.props.Mouse.Icon = "rbxasset://SystemCursors/Default"
+			end
 		end
 	end
 
     local toolImplementation = draggerTool.props.ToolImplementation
-    if toolImplementation and toolImplementation.render then
-        elements.ImplementationUI =
-            toolImplementation:render(draggerTool._hoverTracker:getHoverHandleId())
+	if toolImplementation and toolImplementation.render then
+		if getFFlagOnlyReadyHover() then
+			elements.ImplementationUI =
+				toolImplementation:render(self._hoverTracker:getHoverHandleId())
+		else
+			elements.ImplementationUI =
+				toolImplementation:render(draggerTool._hoverTracker:getHoverHandleId())
+		end
     end
 
     return Roact.createFragment(elements)
 end
 
 function Ready:processSelectionChanged(draggerTool)
-    -- Nothing to do, we expect selection changes while in the ready state
-    -- when the developer selects objects in the explorer window.
+    -- We expect selection changes while in the ready state
+	-- when the developer selects objects in the explorer window.
+	if getFFlagOnlyReadyHover() then
+		self._hoverTracker:update(draggerTool._derivedWorldState)
+	end
 end
 
 --[[
@@ -68,13 +117,24 @@ end
 	When a Constraint is clicked... maybe we'll do something.
 ]]
 function Ready:processMouseDown(draggerTool)
-	if draggerTool._hoverTracker:getHoverHandleId() then
-        local makeDraggedPartsTransparent =
-            not plugin.CollisionEnabled and draggerTool.props.UseCollisionsTransparency
-        draggerTool:transitionToState({}, DraggerStateType.DraggingHandle,
-            makeDraggedPartsTransparent)
+	local hoverHandleId
+	if getFFlagOnlyReadyHover() then
+		hoverHandleId = self._hoverTracker:getHoverHandleId()
 	else
-		local clickedInstance, position = draggerTool._hoverTracker:getHoverInstance()
+		hoverHandleId = draggerTool._hoverTracker:getHoverHandleId()
+	end
+	if hoverHandleId then
+        local makeDraggedPartsTransparent =
+			not plugin.CollisionEnabled and draggerTool.props.UseCollisionsTransparency
+        draggerTool:transitionToState({}, DraggerStateType.DraggingHandle,
+            makeDraggedPartsTransparent, hoverHandleId)
+	else
+		local clickedInstance, position
+		if getFFlagOnlyReadyHover() then
+			clickedInstance, position = self._hoverTracker:getHoverInstance()
+		else
+			clickedInstance, position = draggerTool._hoverTracker:getHoverInstance()
+		end
 		local oldSelection = SelectionWrapper:Get()
 		local selectionDidChange, newSelection =
 			SelectionHelper.updateSelection(clickedInstance, oldSelection)
@@ -157,7 +217,9 @@ function Ready:processMouseDown(draggerTool)
 end
 
 function Ready:processViewChanged(draggerTool)
-    -- Nothing to do, the hover was already updated in the main tool code.
+	if getFFlagOnlyReadyHover() then
+		self._hoverTracker:update(draggerTool._derivedWorldState)
+	end
 end
 
 function Ready:processMouseUp(draggerTool)

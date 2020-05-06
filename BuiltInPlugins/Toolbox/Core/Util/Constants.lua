@@ -102,6 +102,7 @@ Constants.MAIN_VIEW_NO_HEADER_HEIGHT = 4
 
 Constants.TIME_BETWEEN_ASSET_INSERTION = 0.3
 
+
 -- ASSET_WIDTH_NO_PADDING is actually refering to the size of the icon
 -- The size of the Asset itself is about 95 to 96
 -- TODO: Rename this when refactroing the loading and calculation process
@@ -254,5 +255,7 @@ Constants.MIN_AUDIO_SEARCH_DURATION = 0
 Constants.MAX_AUDIO_SEARCH_DURATION = 420
 Constants.TOOLBOX_ITEM_SEARCH_LIMIT = 30
 Constants.AUDIO_SERACH_CATEGORY_NAME = "audio"
+
+Constants.PLUGIN_LIBRARY_URL = "https://www.roblox.com/develop/library?CatalogContext=2&SortAggregation=5&LegendExpanded=true&Category=7"
 
 return wrapStrictTable(Constants, "Constants")

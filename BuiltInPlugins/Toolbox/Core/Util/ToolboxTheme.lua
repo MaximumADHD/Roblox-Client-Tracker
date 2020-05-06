@@ -121,6 +121,10 @@ function ToolboxTheme:_recalculateTheme()
 	self:_update({
 		isDarkerTheme = isDark,
 
+		linkButton = {
+			textColor = Color3.fromRGB(0, 162, 255),
+		},
+
 		toolbox = {
 			backgroundColor = color(c.MainBackground),
 		},
@@ -614,7 +618,7 @@ function ToolboxTheme:_recalculateTheme()
 					color = Colors.BLUE_PRIMARY,
 				},
 			},
-		},
+		}
 	}
 
 	self:_updateUILibrary(styleGuide, overrides)

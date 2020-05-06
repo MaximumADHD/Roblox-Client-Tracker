@@ -1,5 +1,4 @@
 local FFlagFixGetAssetTypeErrorHandling = game:GetFastFlag("FixGetAssetTypeErrorHandling")
-local FFlagEnableAudioPreview = settings():GetFFlag("EnableAudioPreview")
 
 local Plugin = script.Parent.Parent.Parent
 

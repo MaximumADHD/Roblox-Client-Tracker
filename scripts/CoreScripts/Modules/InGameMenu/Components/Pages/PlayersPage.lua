@@ -12,6 +12,7 @@ local RoactRodux = InGameMenuDependencies.RoactRodux
 local t = InGameMenuDependencies.t
 
 local withStyle = UIBlox.Core.Style.withStyle
+local Images = UIBlox.App.ImageSet.Images
 
 local InGameMenu = script.Parent.Parent.Parent
 
@@ -19,6 +20,8 @@ local getFFlagUseNewPlayerLabelDesign = require(InGameMenu.Flags.GetFFlagUseNewP
 local fflagUseNewPlayerLabelDesign = getFFlagUseNewPlayerLabelDesign()
 local PlayerLabel = fflagUseNewPlayerLabelDesign and require(InGameMenu.Components.PlayerLabelV2)
 	or require(InGameMenu.Components.PlayerLabel)
+
+local FFlagFixMenuIcons = require(InGameMenu.Flags.FFlagFixMenuIcons)
 
 local PageNavigationWatcher = require(InGameMenu.Components.PageNavigationWatcher)
 local Divider = require(InGameMenu.Components.Divider)
@@ -168,13 +171,13 @@ function PlayersPage:getMoreActions()
 			end
 
 			local friendActionText = "CoreScripts.InGameMenu.Actions.AddFriend"
-			local friendActionIcon = Assets.Images.AddFriend
+			local friendActionIcon = FFlagFixMenuIcons and Images["icons/actions/friends/friendAdd"] or Assets.Images.AddFriend
 			if friendStatus == Enum.FriendStatus.Friend then
 				friendActionText = "CoreScripts.InGameMenu.Actions.Unfriend"
-				friendActionIcon = Assets.Images.UnFriend
+				friendActionIcon = FFlagFixMenuIcons and Images["icons/actions/friends/friendRemove"] or Assets.Images.UnFriend
 			elseif friendStatus == Enum.FriendStatus.FriendRequestSent then
 				friendActionText = "CoreScripts.InGameMenu.Actions.CancelFriend"
-				friendActionIcon =  Assets.Images.CancelFriendRequest
+				friendActionIcon = FFlagFixMenuIcons and Images["icons/actions/friends/friendRemove"] or Assets.Images.CancelFriendRequest
 			end
 
 			table.insert(moreActions, {
@@ -213,7 +216,7 @@ function PlayersPage:getMoreActions()
 		if self.state.selectedPlayer ~= Players.LocalPlayer then
 			table.insert(moreActions, {
 				text = "CoreScripts.InGameMenu.Actions.ReportAbuse",
-				icon = Assets.Images.ReportIcon,
+				icon = FFlagFixMenuIcons and Images["icons/actions/feedback"] or Assets.Images.ReportIcon,
 				onActivated = function()
 					local player = self.state.selectedPlayer
 					self.props.dispatchOpenReportDialog(player.UserId, player.Name)

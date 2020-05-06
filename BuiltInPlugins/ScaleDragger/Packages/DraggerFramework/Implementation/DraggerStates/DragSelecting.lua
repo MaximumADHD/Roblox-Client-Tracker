@@ -23,6 +23,14 @@ function DragSelecting.new(draggerTool)
     return self
 end
 
+function DragSelecting:enter(draggerTool)
+
+end
+
+function DragSelecting:leave(draggerTool)
+
+end
+
 function DragSelecting:_init(draggerTool)
     draggerTool._sessionAnalytics.dragSelects = draggerTool._sessionAnalytics.dragSelects + 1
     if getFFlagLazyBoxSelect() then

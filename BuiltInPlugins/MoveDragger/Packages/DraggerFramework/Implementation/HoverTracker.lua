@@ -1,9 +1,12 @@
 
+local StudioService = game:GetService("StudioService")
+
 local Framework = script.Parent.Parent
 local SelectionHelper = require(Framework.Utility.SelectionHelper)
 local SelectionWrapper = require(Framework.Utility.SelectionWrapper)
 
 local getFFlagClearHoverBoxOnDelete = require(Framework.Flags.getFFlagClearHoverBoxOnDelete)
+local getFFlagStudioServiceHoverInstance = require(Framework.Flags.getFFlagStudioServiceHoverInstance)
 
 local HoverTracker = {}
 HoverTracker.__index = HoverTracker
@@ -48,6 +51,10 @@ function HoverTracker:update(derivedWorldState)
             self._hoverSelectable = nil
             self._hoverPosition = nil
 		end
+    end
+
+    if getFFlagStudioServiceHoverInstance() then
+        StudioService.HoverInstance = self._hoverInstance
     end
 
     if getFFlagClearHoverBoxOnDelete() then
@@ -103,6 +110,9 @@ function HoverTracker:clearHover()
     self._hoverPosition = nil
     self._hoverHandleId = nil
     self._hoverDistance = nil
+    if getFFlagStudioServiceHoverInstance() then
+        StudioService.HoverInstance = nil
+    end
 end
 
 --[[

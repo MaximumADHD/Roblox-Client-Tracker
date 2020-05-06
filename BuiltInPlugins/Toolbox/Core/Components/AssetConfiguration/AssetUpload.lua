@@ -8,6 +8,7 @@
 
 local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 local FFlagFixAssetConfigIcon = game:GetFastFlag("FixAssetConfigIcon")
+local FFlagFixAssetUploadName = game:GetFastFlag("FixAssetUploadName")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -81,6 +82,7 @@ function AssetUpload:render()
 			Size = props.Size,
 		}, {
 			ModelPreview = showViewport and Roact.createElement(AssetThumbnailPreview, {
+				title = FFlagFixAssetUploadName and props.assetName or nil,
 				titleHeight = PREVIEW_TITLE_HEIGHT,
 				titlePadding = PREVIEW_TITLE_PADDING,
 				Position = UDim2.new(0.5, -PREVIEW_SIZE/2, 0, PREVIEW_PADDING),
@@ -134,6 +136,7 @@ local function mapStateToProps(state, props)
 		uploadSucceeded = state.uploadSucceeded,
 		instances = state.instances,
 		assetId = state.assetId,
+		assetName = state.changed.AssetConfigName or state.assetName,
 		screenFlowType = state.screenFlowType,
 		assetTypeEnum = state.assetTypeEnum,
 		thumbnailStatus = state.thumbnailStatus,

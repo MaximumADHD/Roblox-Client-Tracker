@@ -15,7 +15,10 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local ChatSelector = require(RobloxGui.Modules.ChatSelector)
 local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
 
+local IconButton = require(script.Parent.IconButton)
+
 local FFlagTopBarUseNewIcons = require(RobloxGui.Modules.Flags.FFlagTopBarUseNewIcons)
+local FFlagTopBarHightightIconsOnHover = require(RobloxGui.Modules.Flags.FFlagTopBarHightightIconsOnHover)
 
 local GameSettings = UserSettings().GameSettings
 
@@ -39,6 +42,15 @@ ChatIcon.validateProps = t.strictInterface({
 	chatEnabled = t.boolean,
 })
 
+if FFlagTopBarHightightIconsOnHover then
+	function ChatIcon:init()
+		self.chatIconActivated = function()
+			ChatSelector:ToggleVisibility()
+			GameSettings.ChatVisible = ChatSelector:GetVisibility()
+		end
+	end
+end
+
 function ChatIcon:render()
 	return withStyle(function(style)
 		local chatEnabled = self.props.topBarEnabled and self.props.chatEnabled and not TenFootInterface:IsEnabled()
@@ -56,12 +68,17 @@ function ChatIcon:render()
 				Size = UDim2.new(0, CHAT_ICON_AREA_WIDTH, 1, 0),
 				LayoutOrder = self.props.layoutOrder,
 
-				[Roact.Event.Activated] = function()
+				[Roact.Event.Activated] = (not FFlagTopBarHightightIconsOnHover) and function()
 					ChatSelector:ToggleVisibility()
 					GameSettings.ChatVisible = ChatSelector:GetVisibility()
-				end,
+				end or nil,
 			}, {
-				Background = Roact.createElement(ImageSetLabel, {
+				Background = FFlagTopBarHightightIconsOnHover and Roact.createElement(IconButton, {
+					icon = chatIcon,
+					iconSize = ICON_SIZE,
+
+					onActivated = self.chatIconActivated,
+				}) or Roact.createElement(ImageSetLabel, {
 					ZIndex = 1,
 					BackgroundTransparency = 1,
 					Position = UDim2.fromScale(0, 1),

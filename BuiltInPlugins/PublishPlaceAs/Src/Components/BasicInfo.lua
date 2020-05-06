@@ -49,6 +49,8 @@ local Theming = require(Plugin.Src.ContextServices.Theming)
 
 local createMenuPage = require(Plugin.Src.Components.createMenuPage)
 
+local FFlagPublishPlaceSupportUnicodeTextLength = game:GetFastFlag("PublishPlaceSupportUnicodeTextLength")
+
 local groupsLoaded = false
 --Uses props to display current settings values
 local function displayContents(props, localization)
@@ -95,6 +97,13 @@ local function displayContents(props, localization)
 		end
 	end
 
+	local nameLength
+	if FFlagPublishPlaceSupportUnicodeTextLength then
+		nameLength = utf8.len(name)
+	else
+		nameLength = string.len(name)
+	end
+
 	return {
 		Header = Roact.createElement(Header, {
 			Title = localization:getText("MenuItem", "BasicInfo"),
@@ -109,7 +118,7 @@ local function displayContents(props, localization)
 		}, {
 			TextBox = Roact.createElement(RoundTextBox, {
 				Active = true,
-				ErrorMessage = nameError and localization:getText("Error", nameError, tostring(string.len(name)), tostring(MAX_NAME_LENGTH)),
+				ErrorMessage = nameError and localization:getText("Error", nameError, tostring(nameLength), tostring(MAX_NAME_LENGTH)),
 				MaxLength = MAX_NAME_LENGTH,
 				Text = name,
 				TextSize = Constants.TEXT_SIZE,
@@ -241,7 +250,7 @@ local function dispatchForProps(setValue, dispatch)
 
 		NameChanged = function(text)
 			dispatch(AddChange("name", text))
-			local nameLength = string.len(text)
+			local nameLength = FFlagPublishPlaceSupportUnicodeTextLength and utf8.len(text) or string.len(text)
 			if nameLength == 0 or string.len(string.gsub(text, " ", "")) == 0 then
 				dispatch(AddErrors({name = "NameEmpty"}))
 			elseif nameLength > MAX_NAME_LENGTH then
@@ -251,7 +260,8 @@ local function dispatchForProps(setValue, dispatch)
 
 		DescriptionChanged = function(text)
 			dispatch(AddChange("description", text))
-			if string.len(text) > MAX_DESCRIPTION_LENGTH then
+			local descriptionLength = FFlagPublishPlaceSupportUnicodeTextLength and utf8.len(text) or string.len(text)
+			if descriptionLength > MAX_DESCRIPTION_LENGTH then
 				dispatch(AddErrors({description = "DescriptionTooLong"}))
 			end
 		end,

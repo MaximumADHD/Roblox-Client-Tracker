@@ -21,6 +21,9 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
 local UILibrary = require(Plugin.UILibrary)
+
+local ContextServices = require(Plugin.Framework.ContextServices)
+
 local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
 
@@ -30,6 +33,8 @@ local NewThumbnail = require(Plugin.Src.Components.Thumbnails.NewThumbnail)
 
 local createFitToContent = UILibrary.Component.createFitToContent
 
+local FFlagStudioConvertGameSettingsToDevFramework = game:GetFastFlag("StudioConvertGameSettingsToDevFramework")
+
 local ThumbnailSet = Roact.PureComponent:extend("ThumbnailSet")
 
 local FitToContent = createFitToContent("Frame", "UIGridLayout", {
@@ -38,8 +43,7 @@ local FitToContent = createFitToContent("Frame", "UIGridLayout", {
 	FillDirection = Enum.FillDirection.Horizontal,
 	SortOrder = Enum.SortOrder.LayoutOrder,
 })
-
-function ThumbnailSet:render()
+function ThumbnailSet:DEPRECATED_render()
 	return withTheme(function(theme)
 		local thumbnails = self.props.Thumbnails or {}
 		local order = self.props.Order or {}
@@ -94,6 +98,65 @@ function ThumbnailSet:render()
 			Position = self.props.Position or UDim2.new(),
 		}, children)
 	end)
+end
+
+function ThumbnailSet:render()
+	if not FFlagStudioConvertGameSettingsToDevFramework then
+		return self:DEPRECATED_render()
+	end
+
+	local thumbnails = self.props.Thumbnails or {}
+	local order = self.props.Order or {}
+	local active = self.props.Enabled
+	local hoverBarsEnabled = self.props.HoverBarsEnabled
+
+	local children = {}
+
+	if active then
+		for id, thumbnail in pairs(thumbnails) do
+			if thumbnail.id == "DragDestination" then
+				children.DragDestination = Roact.createElement(DragDestination, {
+					LayoutOrder = Cryo.List.find(order, id),
+				})
+			else
+				local image
+				if not thumbnail.videoHash then
+					if thumbnail.imageId then
+						image = "rbxassetid://" .. thumbnail.imageId
+					elseif thumbnail.tempId then
+						image = thumbnail.tempId
+					end
+				end
+
+				children[tostring(id)] = Roact.createElement(Thumbnail, {
+					Id = id,
+					LayoutOrder = Cryo.List.find(order, id),
+					Image = image,
+					VideoHash = thumbnail.videoHash or nil,
+					VideoTitle = thumbnail.videoTitle,
+					Review = not thumbnail.approved,
+					Preview = thumbnail.tempId,
+
+					StartDragging = self.props.StartDragging,
+					DragMove = self.props.DragMove,
+
+					HoverBarEnabled = hoverBarsEnabled,
+					ButtonPressed = self.props.ButtonPressed,
+				})
+			end
+		end
+
+		children.NewThumbnail = Roact.createElement(NewThumbnail, {
+			LayoutOrder = #order + 1,
+			OnClick = self.props.AddNew,
+		})
+	end
+
+	return Roact.createElement(FitToContent, {
+		BackgroundTransparency = 1,
+		LayoutOrder = self.props.LayoutOrder or 1,
+		Position = self.props.Position or UDim2.new(),
+	}, children)
 end
 
 return ThumbnailSet

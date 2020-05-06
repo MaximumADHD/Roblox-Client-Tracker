@@ -20,6 +20,9 @@ local FFlagEnableNonWhitelistedToggle = game:GetFastFlag("EnableNonWhitelistedTo
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
+local ContentProvider = game:GetService("ContentProvider")
+local GuiService = game:GetService("GuiService")
+
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 local RoactRodux = require(Libs.RoactRodux)
@@ -34,6 +37,7 @@ local SetFieldError = require(Plugin.Core.Actions.SetFieldError)
 local Separator = UILibrary.Component.Separator
 
 local Util = Plugin.Core.Util
+local Constants = require(Util.Constants)
 local ContextHelper = require(Util.ContextHelper)
 local LayoutOrderIterator = require(Util.LayoutOrderIterator)
 local AssetConfigUtil = require(Util.AssetConfigUtil)
@@ -88,6 +92,13 @@ function SalesPage:render()
 				if not allowedAssetTypesForRelease[assetTypeEnum.Name] then
 					showPrice = false
 				end
+			end
+
+			local premiumBenefitsLink
+			local premiumBenefitsSize
+			if game:GetFastFlag("CMSPremiumBenefitsLink") then
+				premiumBenefitsLink = string.format(ContentProvider.BaseUrl .. "catalog/configure?id=%d#!/sales", props.assetId)
+				premiumBenefitsSize = Constants.getTextSize(localizedContent.Sales.PremiumBenefits)
 			end
 
 			local orderIterator = LayoutOrderIterator.new()
@@ -150,10 +161,43 @@ function SalesPage:render()
 					OnPriceChange = onPriceChange,
 
 					LayoutOrder = orderIterator:getNextOrder(),
-				})
+				}),
+
+				Separator2 = game:GetFastFlag("CMSPremiumBenefitsLink")
+					and AssetConfigUtil.isCatalogAsset(props.assetTypeEnum)
+					and Roact.createElement(Separator, {
+						LayoutOrder = orderIterator:getNextOrder(),
+					}) or nil,
+
+				PremiumBenefitsLink = game:GetFastFlag("CMSPremiumBenefitsLink")
+					and AssetConfigUtil.isCatalogAsset(props.assetTypeEnum)
+					and Roact.createElement("TextButton", {
+						LayoutOrder = orderIterator:getNextOrder(),
+						BackgroundTransparency = 1,
+						Font = Constants.FONT,
+						Text = localizedContent.Sales.PremiumBenefits,
+						Size = UDim2.fromOffset(premiumBenefitsSize.X, premiumBenefitsSize.Y),
+						TextColor3 = theme.uploadResult.link,
+						TextSize = Constants.FONT_SIZE_MEDIUM,
+						TextYAlignment = Enum.TextYAlignment.Center,
+						[Roact.Event.Activated] = function()
+							GuiService:OpenBrowserWindow(premiumBenefitsLink)
+						end,
+					}) or nil,
 			})
 		end)
 	end)
+end
+
+local function mapStateToProps(state, props)
+	state = state or {}
+
+	local stateToProps = {
+		assetId = state.assetId,
+		assetTypeEnum = state.assetTypeEnum,
+	}
+
+	return stateToProps
 end
 
 local function mapDispatchToProps(dispatch)
@@ -164,4 +208,4 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-return RoactRodux.connect(nil, mapDispatchToProps)(SalesPage)
+return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(SalesPage)

@@ -13,7 +13,9 @@ local function createScreenGui()
 end
 
 function MockPlugin.new()
-	return setmetatable({}, MockPlugin)
+	return setmetatable({
+		subWindows = {},
+	}, MockPlugin)
 end
 
 function MockPlugin:Activate()

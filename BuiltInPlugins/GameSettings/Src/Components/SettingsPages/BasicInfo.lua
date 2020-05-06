@@ -24,8 +24,9 @@
 		description: "TooLong"
 		devices: "NoDevices"
 ]]
+local FFlagStudioConvertGameSettingsToDevFramework = game:GetFastFlag("StudioConvertGameSettingsToDevFramework")
 
-local PageName = "Basic Info"
+local PageName = FFlagStudioConvertGameSettingsToDevFramework and "BasicInfo" or "Basic Info"
 
 local MAX_NAME_LENGTH = 50
 local MAX_DESCRIPTION_LENGTH = 1000
@@ -77,7 +78,7 @@ local BrowserUtils = require(Plugin.Src.Util.BrowserUtils)
 local FileUtils = require(Plugin.Src.Util.FileUtils)
 local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 
-local createSettingsPage = require(Plugin.Src.Components.SettingsPages.createSettingsPage)
+local createSettingsPage = require(Plugin.Src.Components.SettingsPages.DEPRECATED_createSettingsPage)
 
 --Loads settings values into props by key
 local function loadValuesToProps(getValue, state)
@@ -166,7 +167,7 @@ local function dispatchChanges(setValue, dispatch)
 			dispatch(AddErrors({thumbnails = "TooMany"}))
 		end
 	end
-	
+
 	return dispatchFuncs
 end
 
@@ -175,21 +176,97 @@ local function displayContents(page, localized)
 	local props = page.props
 	local devices = props.Devices
 
+	local localizedGenreList
+	if FFlagStudioConvertGameSettingsToDevFramework then
+		localizedGenreList = {
+			{Id = "All", Title = localized:getText("General", "GenreAll")},
+			{Id = "Adventure", Title = localized:getText("General", "GenreAdventure")},
+			{Id = "Tutorial", Title = localized:getText("General", "GenreBuilding")},
+			{Id = "Funny", Title = localized:getText("General", "GenreComedy")},
+			{Id = "Ninja", Title = localized:getText("General", "GenreFighting")},
+			{Id = "FPS", Title = localized:getText("General", "GenreFPS")},
+			{Id = "Scary", Title = localized:getText("General", "GenreHorror")},
+			{Id = "Fantasy", Title = localized:getText("General", "GenreMedieval")},
+			{Id = "War", Title = localized:getText("General", "GenreMilitary")},
+			{Id = "Pirate", Title = localized:getText("General", "GenreNaval")},
+			{Id = "RPG", Title = localized:getText("General", "GenreRPG")},
+			{Id = "SciFi", Title = localized:getText("General", "GenreSciFi")},
+			{Id = "Sports", Title = localized:getText("General", "GenreSports")},
+			{Id = "TownAndCity", Title = localized:getText("General", "GenreTownAndCity")},
+			{Id = "WildWest", Title = localized:getText("General", "GenreWestern")},
+		}
+	end
+
+	local nameError
+	if FFlagStudioConvertGameSettingsToDevFramework then
+		if props.NameError then
+			nameError = localized:getText("General", nameErrors[props.NameError])
+		else
+			nameError = nil
+		end
+	else
+		nameError = localized.Errors[nameErrors[props.NameError]]
+	end
+
+	local descriptionError
+	if FFlagStudioConvertGameSettingsToDevFramework then
+		if props.DescriptionError then
+			descriptionError = localized:getText("General", descriptionErrors[props.DescriptionError])
+		else
+			descriptionError = nil
+		end
+	else
+		descriptionError = localized.Errors[descriptionErrors[props.DescriptionError]]
+	end
+
+	local gameIconError
+	if FFlagStudioConvertGameSettingsToDevFramework then
+		if props.GameIconError then
+			gameIconError = localized:getText("General", imageErrors[props.GameIconError])
+		else
+			gameIconError = nil
+		end
+	else
+		gameIconError = localized.Errors[imageErrors[props.GameIconError]]
+	end
+
+	local thumbnailError
+	if FFlagStudioConvertGameSettingsToDevFramework then
+		if props.ThumbnailsError then
+			thumbnailError = localized:getText("General", imageErrors[props.ThumbnailsError])
+		else
+			thumbnailError = nil
+		end
+	else
+		thumbnailError = localized.Errors[imageErrors[props.ThumbnailsError]]
+	end
+
+	local devicesError = nil
+	if FFlagStudioConvertGameSettingsToDevFramework then
+		if props.DevicesError then
+			devicesError = localized:getText("General", "ErrorNoDevices")
+		end
+	else
+		if props.DevicesError then
+			devicesError = localized.Errors.ErrorNoDevices
+		end
+	end
+
 	return {
 		Header = Roact.createElement(Header, {
-			Title = localized.Category[PageName],
+			Title = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "Category"..PageName) or localized.Category[PageName],
 			LayoutOrder = 0,
 		}),
 
 		Name = Roact.createElement(TitledFrame, {
-			Title = localized.Title.Name,
+			Title = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "TitleName") or localized.Title.Name,
 			MaxHeight = 60,
 			LayoutOrder = 10,
 			TextSize = DEPRECATED_Constants.TEXT_SIZE,
 		}, {
 			TextBox = Roact.createElement(RoundTextBox, {
 				Active = props.Name ~= nil,
-				ErrorMessage = localized.Errors[nameErrors[props.NameError]],
+				ErrorMessage = nameError,
 				MaxLength = MAX_NAME_LENGTH,
 				Text = props.Name or "",
 				TextSize = DEPRECATED_Constants.TEXT_SIZE,
@@ -199,7 +276,7 @@ local function displayContents(page, localized)
 		}),
 
 		Description = Roact.createElement(TitledFrame, {
-			Title = localized.Title.Description,
+			Title = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "TitleDescription") or localized.Title.Description,
 			MaxHeight = 150,
 			LayoutOrder = 20,
 			TextSize = DEPRECATED_Constants.TEXT_SIZE,
@@ -209,7 +286,7 @@ local function displayContents(page, localized)
 				Multiline = true,
 
 				Active = props.Description ~= nil,
-				ErrorMessage = localized.Errors[descriptionErrors[props.DescriptionError]],
+				ErrorMessage = descriptionError,
 				MaxLength = MAX_DESCRIPTION_LENGTH,
 				Text = props.Description or "",
 				TextSize = DEPRECATED_Constants.TEXT_SIZE,
@@ -226,20 +303,24 @@ local function displayContents(page, localized)
 		}),
 
 		Icon = Roact.createElement(GameIconWidget, {
-			Title = localized.Title.GameIcon,
+			Title = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "TitleGameIcon") or localized.Title.GameIcon,
 			LayoutOrder = 60,
 			Enabled = props.GameIcon ~= nil,
 			Icon = props.GameIcon,
 			TutorialEnabled = true,
 			AddIcon = function()
 				local icon
-				icon = FileUtils.PromptForGameIcon(page)
+				if FFlagStudioConvertGameSettingsToDevFramework then
+					icon = FileUtils.PromptForGameIcon(page, localized)
+				else
+					icon = FileUtils.PromptForGameIcon(page)
+				end
 
 				if icon then
 					props.GameIconChanged(icon)
 				end
 			end,
-			ErrorMessage = localized.Errors[imageErrors[props.GameIconError]],
+			ErrorMessage = gameIconError,
 		}),
 
 		Separator3 = Roact.createElement(Separator, {
@@ -253,13 +334,17 @@ local function displayContents(page, localized)
 			Order = props.ThumbnailOrder,
 			AddThumbnail = function()
 				local newThumbnails
-				newThumbnails = FileUtils.PromptForThumbnails(page)
+				if FFlagStudioConvertGameSettingsToDevFramework then
+					newThumbnails = FileUtils.PromptForThumbnails(page, localized)
+				else
+					newThumbnails = FileUtils.PromptForThumbnails(page)
+				end
 
 				if newThumbnails then
 					props.AddThumbnails(newThumbnails, props.Thumbnails, props.ThumbnailOrder)
 				end
 			end,
-			ErrorMessage = localized.Errors[imageErrors[props.ThumbnailsError]],
+			ErrorMessage = thumbnailError,
 			ThumbnailsChanged = props.ThumbnailsChanged,
 			ThumbnailOrderChanged = props.ThumbnailOrderChanged,
 		}),
@@ -269,14 +354,14 @@ local function displayContents(page, localized)
 		}),
 
 		Genre = Roact.createElement(TitledFrame, {
-			Title = localized.Title.Genre,
+			Title = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "TitleGenre") or localized.Title.Genre,
 			MaxHeight = 38,
 			LayoutOrder = 100,
 			TextSize = DEPRECATED_Constants.TEXT_SIZE,
 			ZIndex = 3,
 		}, {
 			Selector = Roact.createElement(Dropdown, {
-				Entries = localized.Genres,
+				Entries = FFlagStudioConvertGameSettingsToDevFramework and localizedGenreList or localized.Genres,
 				Enabled = props.Genre ~= nil,
 				Current = props.Genre,
 				CurrentChanged = props.GenreChanged,
@@ -291,37 +376,45 @@ local function displayContents(page, localized)
 		}),
 
 		Devices = Roact.createElement(CheckBoxSet, {
-			Title = localized.Title.Devices,
+			Title = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "TitleDevices") or localized.Title.Devices,
 			LayoutOrder = 120,
 			Boxes = {{
 					Id = "Computer",
-					Title = localized.Devices.Computer,
+					Title = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "DeviceComputer") or localized.Devices.Computer,
 					Selected = devices and devices.Computer or false
 				}, {
 					Id = "Phone",
-					Title = localized.Devices.Phone,
+					Title = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "DevicePhone") or localized.Devices.Phone,
 					Selected = devices and devices.Phone or false
 				}, {
 					Id = "Tablet",
-					Title = localized.Devices.Tablet,
+					Title = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "DeviceTablet") or localized.Devices.Tablet,
 					Selected = devices and devices.Tablet or false
 				}, {
 					Id = "Console",
-					Title = localized.Devices.Console,
+					Title = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "DeviceConsole") or localized.Devices.Console,
 					Selected = devices and devices.Console or false
 				},
 			},
 			Enabled = devices ~= nil,
-			ErrorMessage = (props.DevicesError and localized.Errors.ErrorNoDevices) or nil,
+			ErrorMessage = devicesError,
 			--Functionality
 			EntryClicked = function(box)
 				if box.Id == "Console" and not box.Selected then
 					local dialogProps = {
 						Size = Vector2.new(460, 308),
-						Title = localized.ContentDialog.Header,
-						Header = localized.ContentDialog.Body,
-						Entries = localized.ContentDialog.Entries,
-						Buttons = localized.ContentDialog.Buttons,
+						Title = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "ContentDialogHeader") or localized.ContentDialog.Header,
+						Header = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "ContentDialogBody") or localized.ContentDialog.Body,
+						Entries = FFlagStudioConvertGameSettingsToDevFramework and {
+							localized:getText("General", "ContentDialogItem1"),
+							localized:getText("General", "ContentDialogItem2"),
+							localized:getText("General", "ContentDialogItem3"),
+							localized:getText("General", "ContentDialogItem4"),
+						} or localized.ContentDialog.Entries,
+						Buttons = FFlagStudioConvertGameSettingsToDevFramework and {
+							localized:getText("General", "ReplyDisagree"),
+							localized:getText("General", "ReplyAgree")
+						} or localized.ContentDialog.Buttons,
 					}
 					if not showDialog(page, ListDialog, dialogProps):await() then
 						return

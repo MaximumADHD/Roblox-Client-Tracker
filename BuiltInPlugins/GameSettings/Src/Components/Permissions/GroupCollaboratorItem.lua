@@ -16,10 +16,14 @@
 ]]
 
 local FFlagStudioGameSettingsRestrictPermissions = game:GetFastFlag("StudioGameSettingsRestrictPermissions")
+local FFlagStudioConvertGameSettingsToDevFramework = game:GetFastFlag("StudioConvertGameSettingsToDevFramework")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
+
+local ContextServices = require(Plugin.Framework.ContextServices)
+
 local UILibrary = require(Plugin.UILibrary)
 local withLocalization = require(Plugin.Src.Consumers.withLocalization)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
@@ -52,20 +56,38 @@ local rightArrowProps = arrowSpritesheet[2]
 local downArrowProps = arrowSpritesheet[3]
 
 local function getLabelForAction(localized, action)
-	if action == PermissionsConstants.NoAccessKey then
-		return localized.AccessPermissions.ActionDropdown.NoAccessLabel
-	elseif action == PermissionsConstants.PlayKey then
-		return localized.AccessPermissions.ActionDropdown.PlayLabel
-	elseif action == PermissionsConstants.EditKey then
-		return localized.AccessPermissions.ActionDropdown.EditLabel
-	elseif action == PermissionsConstants.AdminKey then
-		if FFlagStudioGameSettingsRestrictPermissions then
-			return localized.AccessPermissions.ActionDropdown.EditLabel
+	if FFlagStudioConvertGameSettingsToDevFramework then
+		if action == PermissionsConstants.NoAccessKey then
+			return localized:getText("AccessPermissions", "NoAccessLabel")
+		elseif action == PermissionsConstants.PlayKey then
+			return localized:getText("AccessPermissions", "PlayLabel")
+		elseif action == PermissionsConstants.EditKey then
+			return localized:getText("AccessPermissions", "EditLabel")
+		elseif action == PermissionsConstants.AdminKey then
+			if FFlagStudioGameSettingsRestrictPermissions then
+				return localized:getText("AccessPermissions", "EditLabel")
+			else
+				return localized:getText("AccessPermissions", "AdminLabel")
+			end
 		else
-			return localized.AccessPermissions.ActionDropdown.AdminLabel
+			return ""
 		end
 	else
-		return ""
+		if action == PermissionsConstants.NoAccessKey then
+			return localized.AccessPermissions.ActionDropdown.NoAccessLabel
+		elseif action == PermissionsConstants.PlayKey then
+			return localized.AccessPermissions.ActionDropdown.PlayLabel
+		elseif action == PermissionsConstants.EditKey then
+			return localized.AccessPermissions.ActionDropdown.EditLabel
+		elseif action == PermissionsConstants.AdminKey then
+			if FFlagStudioGameSettingsRestrictPermissions then
+				return localized.AccessPermissions.ActionDropdown.EditLabel
+			else
+				return localized.AccessPermissions.ActionDropdown.AdminLabel
+			end
+		else
+			return ""
+		end
 	end
 end
 
@@ -119,7 +141,7 @@ function GroupCollaboratorItem:init()
 	end
 end
 
-function GroupCollaboratorItem:render()
+function GroupCollaboratorItem:DEPRECATED_render()
 	local props = self.props
 	local thumbnailLoader = getThumbnailLoader(self)
 
@@ -282,6 +304,181 @@ function GroupCollaboratorItem:render()
 			return expandableList
 		end)
 	end)
+end
+
+function GroupCollaboratorItem:render()
+	if not FFlagStudioConvertGameSettingsToDevFramework then
+		return self:DEPRECATED_render()
+	end
+
+	local props = self.props
+	local thumbnailLoader = getThumbnailLoader(self)
+	local theme = props.Theme:get("Plugin")
+	local localization = props.Localization
+
+
+	if props.Enabled and self.state.hovered then
+		getMouse(self).setHoverIcon("PointingHand", self.state.hovered)
+	else
+		getMouse(self).resetMouse()
+	end
+
+	local rolesetCollaboratorItems = {}
+	local anyLocked = false
+	local sameAction = false
+
+	local rolesets = {}
+
+	for _,permission in pairs(props.Permissions[PermissionsConstants.RoleSubjectKey]) do
+		if permission[PermissionsConstants.GroupIdKey] == props.GroupId then
+			table.insert(rolesets, {
+				Name=permission[PermissionsConstants.SubjectNameKey],
+				Id=permission[PermissionsConstants.SubjectIdKey],
+				LockedTo=(props.IsOwner and permission[PermissionsConstants.SubjectRankKey]==255) and localization:getText("AccessPermissions", "OwnerLabel") or nil,
+				Rank=permission[PermissionsConstants.SubjectRankKey]
+			})
+		end
+	end
+	table.sort(rolesets, function(a,b) return b.Rank < a.Rank end)
+
+	local rolesetItems = getRolesetItems(props, localization)
+	local collaboratorItemOffset = props.Enabled and arrowSize + arrowPadding or 0
+	for i,rolesetProps in pairs(rolesets) do
+		local action = getActionForRoleset(props, rolesetProps)
+		if i == 1 then
+			sameAction = action
+		end
+
+		local lockedPermission = permissionLocked(action, rolesetItems)
+		sameAction = sameAction == action and sameAction or false
+		anyLocked = (lockedPermission or rolesetProps.LockedTo) and true or anyLocked
+
+		local collaboratorItem = Roact.createElement("Frame", {
+			BackgroundTransparency = 1,
+			LayoutOrder = i,
+			Size = UDim2.new(1, 0, 0, 60),
+		}, {
+			Roact.createElement("Frame", {
+				BackgroundTransparency = 1,
+				Position = UDim2.new(0, collaboratorItemOffset, 0, 0),
+				Size = UDim2.new(1, -collaboratorItemOffset, 0, 1),
+			}, {
+				Roact.createElement(Separator, {
+					Position = UDim2.new(0, 70, 0, 0),
+					Size = UDim2.new(1, -70, 0, 1),
+				}),
+				Roact.createElement(CollaboratorItem, {
+					Enabled = props.Enabled,
+
+					CollaboratorName = rolesetProps.Name,
+					CollaboratorId = rolesetProps.Id,
+					CollaboratorIcon = "",
+
+					Action = rolesetProps.LockedTo or getLabelForAction(localization, action),
+					Items = (lockedPermission or rolesetProps.LockedTo) and {} or rolesetItems,
+
+					HideLastSeparator = i ~= #rolesets,
+					Removable = false,
+
+					PermissionChanged = function(newPermission)
+						if props.RolePermissionChanged then
+							props.RolePermissionChanged(rolesetProps.Id, newPermission)
+						end
+					end,
+				}),
+			}),
+		})
+
+		rolesetCollaboratorItems["Roleset"..i] = collaboratorItem
+	end
+
+	local arrowImageProps = self.state.expanded and downArrowProps or rightArrowProps
+
+	local expandableList = Roact.createElement(ExpandableList, {
+		TopLevelItem = {
+			Frame = Roact.createElement("Frame", {
+				BackgroundTransparency = 1,
+				LayoutOrder = 0,
+				-- TODO (awarwick) 5/29/2019. We're using hardcoded sizes now because this design is a WIP
+				-- and we don't want to spend the engineering resources on somethat that could drastically change
+				Size = UDim2.new(1, 0, 0, 60),
+
+				-- TODO: Consider moving this to expandable list when mouse handling is added into ui library
+				[Roact.Event.MouseEnter] = self.onTopLevelHovered,
+				[Roact.Event.MouseMoved] = self.onTopLevelHovered,
+				[Roact.Event.MouseLeave] = self.onTopLevelHoverEnded,
+			}, {
+				Separator = Roact.createElement(Separator, {
+					Size = UDim2.new(1, 0, 0, 1),
+					Position = UDim2.new(0, 0, 0, 0),
+				}),
+
+				CollapseArrow = props.Enabled and Roact.createElement("ImageLabel", Cryo.Dictionary.join(arrowImageProps, {
+					Size = UDim2.new(0, arrowSize, 0, arrowSize),
+					AnchorPoint = Vector2.new(0, 0.5),
+					Position = UDim2.new(0, 0, 0.5, 0),
+					BackgroundTransparency = 1,
+					ImageColor3 = theme.collaboratorItem.collapseStateArrow,
+				})),
+
+				Frame = Roact.createElement("Frame", {
+					BackgroundTransparency = 1,
+					Size = UDim2.new(1, -collaboratorItemOffset, 1, 0),
+					Position = UDim2.new(0, collaboratorItemOffset, 0, 0),
+				}, {
+					GroupCollaborator = Roact.createElement(CollaboratorItem, {
+						Enabled = props.Enabled,
+
+						CollaboratorName = props.GroupName,
+						CollaboratorId = props.GroupId,
+						CollaboratorIcon = thumbnailLoader.getThumbnail(PermissionsConstants.GroupSubjectKey, props.GroupId),
+						Action = sameAction and getLabelForAction(localization, sameAction) or localization:getText("AccessPermissions", "MultipleLabel"),
+						Items = anyLocked and {} or props.Items,
+
+						SecondaryText = props.SecondaryText,
+						HideLastSeparator = true,
+						Removable = props.Removable or false,
+						Removed = props.Removed,
+
+						IsLoading = #rolesets == 0,
+
+						PermissionChanged = function(newPermission)
+							props.GroupPermissionChanged(props.GroupId, newPermission)
+						end,
+					})
+				}),
+
+				LastSeparator = (not (props.HideLastSeparator or self.state.expanded)) and Roact.createElement(Separator, {
+					Size = UDim2.new(1, 0, 0, 1),
+					Position = UDim2.new(0, 0, 1, -1),
+				}),
+			}),
+		},
+
+		Content = {
+			RoleCollaborators = Roact.createElement(FitToContent, {
+				LayoutOrder = 1,
+				BackgroundTransparency = 1,
+			}, rolesetCollaboratorItems)
+		},
+
+		IsExpanded = props.Enabled and self.state.expanded,
+		OnExpandedStateChanged = function()
+			if not props.Enabled then return end
+			self:setState({
+				expanded = not self.state.expanded,
+			})
+		end,
+	})
+	
+	return expandableList
+end
+
+if FFlagStudioConvertGameSettingsToDevFramework then
+	ContextServices.mapToProps(GroupCollaboratorItem, {
+		Theme = ContextServices.Theme,
+		Localization = ContextServices.Localization,
+	})
 end
 
 return GroupCollaboratorItem

@@ -7,7 +7,7 @@
 		assetTypeEnum, Enum, a enum type that contians the name and value of the assetType.
 		resultsArray, an array of tables, contains the data for overriding assets.
 		onOverrideAssetSelected, function, will be called when a asset is selected.
-		getOverrideAssets, function, funtion used to reuqest more asset data for overRide asset.
+		getOverrideAssets, function, funtion used to reuqest more asset data for override asset.
 
 	Optional Props:
 		LayoutOrder, number, will be used by the layout to change the component's position.

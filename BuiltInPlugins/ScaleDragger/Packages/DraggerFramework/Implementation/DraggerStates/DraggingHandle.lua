@@ -3,21 +3,35 @@ local Workspace = game:GetService("Workspace")
 local Framework = script.Parent.Parent.Parent
 local DraggerStateType = require(Framework.Implementation.DraggerStateType)
 local SelectionHelper = require(Framework.Utility.SelectionHelper)
+local setInsertPoint = require(Framework.Utility.setInsertPoint)
 
 local getFFlagLuaDraggerIconBandaid = require(Framework.Flags.getFFlagLuaDraggerIconBandaid)
+local getFFlagSetInsertPoint = require(Framework.Flags.getFFlagSetInsertPoint)
+local getFFlagOnlyReadyHover = require(Framework.Flags.getFFlagOnlyReadyHover)
 
 local NO_COLLISIONS_TRANSPARENCY = 0.4
 
 local DraggingHandle = {}
 DraggingHandle.__index = DraggingHandle
 
-function DraggingHandle.new(draggerTool, makeDraggedPartsTransparent)
+function DraggingHandle.new(draggerTool, makeDraggedPartsTransparent, draggingHandleId)
     local self = setmetatable({}, DraggingHandle)
-    self:_init(draggerTool, makeDraggedPartsTransparent)
+    self:_init(draggerTool, makeDraggedPartsTransparent, draggingHandleId)
     return self
 end
 
-function DraggingHandle:_init(draggerTool, makeDraggedPartsTransparent)
+function DraggingHandle:enter(draggerTool)
+
+end
+
+function DraggingHandle:leave(draggerTool)
+
+end
+
+function DraggingHandle:_init(draggerTool, makeDraggedPartsTransparent, draggingHandleId)
+    if getFFlagOnlyReadyHover() then
+        assert(draggingHandleId, "Missing draggingHandleId in DraggingHandle::_init")
+    end
 	-- DEBUG: Allow designers to play with handle settings.
 	-- Remove before shipping!
 	if Workspace:FindFirstChild("NoCollisionsTransparency") and Workspace.NoCollisionsTransparency.Value ~= 0 then
@@ -26,8 +40,13 @@ function DraggingHandle:_init(draggerTool, makeDraggedPartsTransparent)
 
     draggerTool._sessionAnalytics.handleDrags = draggerTool._sessionAnalytics.handleDrags + 1
     draggerTool._boundsChangedTracker:uninstall()
-    draggerTool.props.ToolImplementation:mouseDown(
-        SelectionHelper.getMouseRay(), draggerTool._hoverTracker:getHoverHandleId())
+    if getFFlagOnlyReadyHover() then
+        draggerTool.props.ToolImplementation:mouseDown(SelectionHelper.getMouseRay(), draggingHandleId)
+        self._draggingHandleId = draggingHandleId
+    else
+        draggerTool.props.ToolImplementation:mouseDown(
+            SelectionHelper.getMouseRay(), draggerTool._hoverTracker:getHoverHandleId())
+    end
 
     self._draggingModifiedParts = {}
     if makeDraggedPartsTransparent then
@@ -47,7 +66,11 @@ function DraggingHandle:render(draggerTool)
 
     local toolImplementation = draggerTool.props.ToolImplementation
     if toolImplementation and toolImplementation.render then
-        return toolImplementation:render(draggerTool._hoverTracker:getHoverHandleId())
+        if getFFlagOnlyReadyHover() then
+            return toolImplementation:render(self._draggingHandleId)
+        else
+            return toolImplementation:render(draggerTool._hoverTracker:getHoverHandleId())
+        end
     end
 end
 
@@ -80,7 +103,12 @@ function DraggingHandle:_endHandleDrag(draggerTool)
         part.LocalTransparencyModifier = 0
     end
 
-	draggerTool._boundsChangedTracker:install()
+    draggerTool._boundsChangedTracker:install()
+
+    if getFFlagSetInsertPoint() then
+        local cframe, offset = draggerTool._derivedWorldState:getBoundingBox()
+        setInsertPoint(cframe * offset)
+    end
 	draggerTool:_analyticsSendHandleDragged()
     draggerTool:transitionToState({}, DraggerStateType.Ready)
 end

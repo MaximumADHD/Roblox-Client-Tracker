@@ -13,6 +13,9 @@
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
+
+local ContextServices = require(Plugin.Framework.ContextServices)
+
 local UILibrary = require(Plugin.UILibrary)
 local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
@@ -20,7 +23,12 @@ local withTheme = require(Plugin.Src.Consumers.withTheme)
 local RadioButton = require(Plugin.Src.Components.RadioButton)
 local TitledFrame = UILibrary.Component.TitledFrame
 
-local function RadioButtonSet(props)
+local FFlagStudioConvertGameSettingsToDevFramework = game:GetFastFlag("StudioConvertGameSettingsToDevFramework")
+
+local RadioButtonSet = Roact.PureComponent:extend("RadioButtonSet")
+
+function RadioButtonSet:DEPRECATED_render()
+	local props = self.props
 	return withTheme(function(theme)
 		local selected
 		if props.Selected ~= nil then
@@ -77,6 +85,76 @@ local function RadioButtonSet(props)
 			TextSize = theme.fontStyle.Title.TextSize,
 		}, children)
 	end)
+end
+
+function RadioButtonSet:render()
+	if not FFlagStudioConvertGameSettingsToDevFramework then
+		return self:DEPRECATED_render()
+	end
+
+	local props = self.props
+	local theme = props.Theme:get("Plugin")
+
+	local selected
+	if props.Selected ~= nil then
+		selected = props.Selected
+	else
+		selected = 1
+	end
+
+	local buttons = props.Buttons
+	local numButtons = #buttons
+
+	local children = {
+		Layout = Roact.createElement("UIListLayout", {
+			Padding = UDim.new(0, DEPRECATED_Constants.RADIO_BUTTON_PADDING),
+			SortOrder = Enum.SortOrder.LayoutOrder,
+		})
+	}
+
+	if (props.Description) then
+		table.insert(children, Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Normal, {
+			BackgroundTransparency = 1,
+			BorderSizePixel = 0,
+			Size = UDim2.new(1, 0, 0, DEPRECATED_Constants.RADIO_BUTTON_SIZE + 5),
+			TextTransparency = props.Enabled and 0 or 0.5,
+			TextXAlignment = Enum.TextXAlignment.Left,
+			TextYAlignment = Enum.TextYAlignment.Top,
+			Text = props.Description,
+		})))
+	end
+
+	for i, button in ipairs(buttons) do
+		table.insert(children, Roact.createElement(RadioButton, {
+			Title = button.Title,
+			Id = button.Id,
+			Description = button.Description,
+			Selected = (button.Id == selected) or (i == selected),
+			Index = i,
+			Enabled = props.Enabled,
+			LayoutOrder = i,
+			OnClicked = function()
+				props.SelectionChanged(button)
+			end,
+		}))
+	end
+
+	local maxHeight = numButtons * DEPRECATED_Constants.RADIO_BUTTON_SIZE * 2
+		+ numButtons * DEPRECATED_Constants.RADIO_BUTTON_PADDING
+		+ (props.Description and DEPRECATED_Constants.RADIO_BUTTON_SIZE + 5 + DEPRECATED_Constants.RADIO_BUTTON_PADDING or 0)
+
+	return Roact.createElement(TitledFrame, {
+		Title = props.Title,
+		MaxHeight = maxHeight,
+		LayoutOrder = props.LayoutOrder or 1,
+		TextSize = theme.fontStyle.Title.TextSize,
+	}, children)
+end
+
+if FFlagStudioConvertGameSettingsToDevFramework then
+	ContextServices.mapToProps(RadioButtonSet, {
+		Theme = ContextServices.Theme,
+	})
 end
 
 return RadioButtonSet
