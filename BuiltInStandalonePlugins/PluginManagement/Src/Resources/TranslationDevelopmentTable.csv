@@ -30,7 +30,7 @@ Studio.PluginInstallation.Entry.UpdateError, , ,Error. Try updating again.
 Studio.PluginInstallation.Entry.UpdateSuccess, , ,Update complete!
 Studio.PluginInstallation.Entry.ModeratedWarning, , ,This plugin includes malicious content and can’t be run anymore.
 Studio.PluginInstallation.EntrySeeMore.DetailsButton, , ,Details
-Studio.PluginInstallation.EntrySeeMore.RemoveButton, , ,Remove
+Studio.PluginInstallation.EntrySeeMore.RemoveButton, , ,Uninstall
 Studio.PluginInstallation.Header.PendingUpdates, , ,Pending updates
 Studio.PluginInstallation.Header.UpToDate, , ,Up to date
 Studio.PluginInstallation.Moved.Title, , ,Roblox Studio

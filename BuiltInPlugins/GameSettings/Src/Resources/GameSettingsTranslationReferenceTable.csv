@@ -1,63 +1,4 @@
 Key,Source,Context,en-us,ko,zh-cn
-Studio.Common.Action.Apply,Apply, ,Apply,적용,应用
-Studio.Common.Action.Back,Back, ,Back,뒤로,返回
-Studio.Common.Action.Cancel,Cancel, ,Cancel,취소,取消
-Studio.Common.Action.Clear,Clear, ,Clear,지우기,清除
-Studio.Common.Action.Close,Close, ,Close,닫기,关闭
-Studio.Common.Action.Copy,Copy, ,Copy,복사,复制
-Studio.Common.Action.Create,Create, ,Create,만들기,创建
-Studio.Common.Action.Cut,Cut, ,Cut,잘라내기,剪切
-Studio.Common.Action.Delete,Delete, ,Delete,삭제,删除
-Studio.Common.Action.Edit,Edit, ,Edit,편집,编辑
-Studio.Common.Action.Exit,Exit, ,Exit,나가기,退出
-Studio.Common.Action.File,File, ,File,파일,文件
-Studio.Common.Action.Find,Find, ,Find,찾기,查找
-Studio.Common.Action.Help,Help, ,Help,도움말,帮助
-Studio.Common.Action.Home,Home, ,Home,홈,首页
-Studio.Common.Action.Ignore,Ignore, ,Ignore,무시,忽略
-Studio.Common.Action.Insert,Insert, ,Insert,삽입,插入
-Studio.Common.Action.New,New, ,New,새로 만들기,新增
-Studio.Common.Action.Next,Next, ,Next,다음,下一个
-Studio.Common.Action.No,No, ,No,아니요,否
-Studio.Common.Action.OK,OK, ,OK,확인,确认
-Studio.Common.Action.Okay,Okay, ,Okay,확인,好的
-Studio.Common.Action.Open,Open, ,Open,열기,打开
-Studio.Common.Action.Paste,Paste, ,Paste,붙여넣기,粘贴
-Studio.Common.Action.Pause,Pause, ,Pause,일시 중지,暂停
-Studio.Common.Action.Play,Play, ,Play,플레이,播放
-Studio.Common.Action.Previous,Previous, ,Previous,이전,上一个
-Studio.Common.Action.Reload,Reload, ,Reload,다시 불러오기,重新加载
-Studio.Common.Action.Remove,Remove, ,Remove,제거,删除
-Studio.Common.Action.Rename,Rename, ,Rename,이름 변경,重命名
-Studio.Common.Action.Replace,Replace, ,Replace,바꾸기,替换
-Studio.Common.Action.Resize,Resize, ,Resize,크기 조정,缩放
-Studio.Common.Action.Retry,Retry, ,Retry,다시 시도,重试
-Studio.Common.Action.Save,Save, ,Save,저장,保存
-Studio.Common.Action.Select,Select, ,Select,선택,选择
-Studio.Common.Action.Share,Share, ,Share,공유,分享
-Studio.Common.Action.Stop,Stop, ,Stop,중지,停止
-Studio.Common.Action.Yes,Yes, ,Yes,예,是
-Studio.Common.Action.Continue,Continue, ,Continue,계속,继续
-Studio.Common.Action.Redo,Redo, ,Redo,다시 실행,恢复
-Studio.Common.Action.Undo,Undo, ,Undo,실행 취소,撤消
-Studio.Common.Action.Update,Update, ,Update,업데이트,更新
-Studio.Common.Action.Reset,Reset, ,Reset,재설정,重置
-Studio.Common.Action.Fill,Fill, ,Fill,채우기,填充
-Studio.Common.Action.Goto,Goto, ,Goto,이동,前往
-Studio.Common.Action.Move,Move, ,Move,이동,移动
-Studio.Common.Action.Rotate,Rotate, ,Rotate,회전,旋转
-Studio.Common.Action.Error,Error, ,Error,오류,错误
-Studio.Common.Action.Height,Height, ,Height,높이,高度
-Studio.Common.Action.LabelWithColon1,%1:, ,%1:,%1:,%1
-Studio.Common.Action.Name,Name, ,Name,이름,名称
-Studio.Common.Action.Search,Search, ,Search,검색,搜索
-Studio.Common.Action.Value,Value, ,Value,값,值
-Studio.Common.Action.Warning,Warning, ,Warning,경고,警告
-Studio.Common.Action.Width,Width, ,Width,넓이,宽度
-Studio.Common.Action.Submit,Submit, ,Submit,제출,提交
-Studio.Common.Action.Install,Install, ,Install,설치,安装
-Studio.Common.Action.Installed,Installed, ,Installed,설치됨,已安装
-Studio.Common.Action.Loading,Loading..., ,Loading...,불러오는 중...,正在加载...
 Studio.GameSettings.General.PluginName,Game Settings, ,Game Settings,게임 설정,游戏设置
 Studio.GameSettings.General.PluginDescription,Update settings related to current game, ,Update settings related to current game,현재 게임과 관련된 설정 업데이트,更新当前游戏的相关设置
 Studio.GameSettings.General.SettingOn,On, ,On,켜기,开启
@@ -74,7 +15,6 @@ Studio.GameSettings.General.CategoryBasicInfo,Basic Info, ,Basic Info,기본 정
 Studio.GameSettings.General.CategoryAvatar,Avatar, ,Avatar,아바타,虚拟形象
 Studio.GameSettings.General.CategoryWorld,World, ,World,세계,世界
 Studio.GameSettings.General.CategoryOptions,Options, ,Options,옵션,选项
-Studio.GameSettings.General.CategoryPlaces,Places, ,Places, , 
 Studio.GameSettings.General.TitleName,Name, ,Name,이름,名称
 Studio.GameSettings.General.TitleDescription,Description, ,Description,설명,描述
 Studio.GameSettings.General.TitlePlayability,Playability, ,Playability,플레이 가능 여부,可玩性
@@ -235,13 +175,13 @@ Studio.GameSettings.General.DevSubsDescription,Description, ,Description,설명,
 Studio.GameSettings.General.ErrorNameDescModerated,Filtered to %s, ,Filtered to %s,다음과 같이 검열됨: %s,过滤为 %s
 Studio.GameSettings.General.ErrorNameDescHttp,An error has occurred with moderating the name and description. Please try again later!, ,An error has occurred with moderating the name and description. Please try again later!,이름과 설명을 검열하는 데 오류가 발생했어요. 잠시 후 다시 시도하세요!,过滤名称与描述时发生错误。请稍候重试!
 Studio.GameSettings.General.ErrorDevSubFiltered,Filtered to {filteredText}, ,Filtered to {filteredText},다음과 같이 검열됨: {filteredText},过滤为 {filteredText}
-Studio.GameSettings.General.TitleScriptCollab,Enable Collaborative Editing, ,Enable Collaborative Editing,공동 편집 활성화,启用协同编辑
+Studio.GameSettings.General.TitleScriptCollab,Enable Collaborative Editing, ,Enable Collaborative Editing,공동 편집 활성화,启用协作编辑
 Studio.GameSettings.General.TitleWorldPresets,Presets, ,Presets,기본 설정,预设
 Studio.GameSettings.General.TitleGravity,Gravity, ,Gravity,중력,重力
 Studio.GameSettings.General.TitleJump,Jump, ,Jump,점프,跳跃
 Studio.GameSettings.General.TitleWalk,Walk, ,Walk,걷기,行走
 Studio.GameSettings.General.TitleSlope,Slope, ,Slope,경사,斜坡
-Studio.GameSettings.General.ScriptCollabDesc,Enable collaborative editing for scripts., ,Enable collaborative editing for scripts.,스크립트에 대한 공동 편집을 활성화합니다.,启用脚本的协作编辑。
+Studio.GameSettings.General.ScriptCollabDesc,Enable collaborative editing for scripts., ,Enable collaborative editing for scripts.,스크립트에 대한 공동 편집을 활성화합니다.,启用脚本协作编辑。
 Studio.GameSettings.General.ErrorDevSubMaxPrice,Must be less than {maxRobuxAmount:int}, ,Must be less than {maxRobuxAmount:int},{maxRobuxAmount:int} 이하여야 합니다.,必须少于 {maxRobuxAmount:int}
 Studio.GameSettings.General.ErrorDevSubInvalidPrice,Must be a valid positive integer, ,Must be a valid positive integer,유효한 양수 정수여야 합니다,必须是有效的正整数
 Studio.GameSettings.General.ErrorImageRequired,You must provide an image, ,You must provide an image,이미지를 제공해야 합니다,必须提供一个图像
@@ -258,42 +198,44 @@ Studio.GameSettings.General.PublishIsRequiredSentence1, is required for {require
 Studio.GameSettings.General.WorldPresetsClassic,Classic, ,Classic,클래식,经典
 Studio.GameSettings.General.WorldPresetsRealistic,Realistic, ,Realistic,현실적,现实
 Studio.GameSettings.General.WorldPresetsAction,Action, ,Action,액션,动作
-Studio.GameSettings.General.WorldPresetsClassicToolTip,"Classic Roblox, heavier gravity, higher jump", ,"Classic Roblox, heavier gravity, higher jump","클래식 Roblox, 무거운 중력, 높은 점프",经典 Roblox，更重的重力，更高的跳跃高度
-Studio.GameSettings.General.WorldPresetsRealisticToolTip,"Real world gravity, athletic human", ,"Real world gravity, athletic human","실제 중력, 근육질 사람",真实世界重力，人类运动员
-Studio.GameSettings.General.WorldPresetsActionToolTip,"Slightly heavier gravity, jump higher, walk faster", ,"Slightly heavier gravity, jump higher, walk faster","다소 무거운 중력, 높은 점프, 빠른 걸음걸이",重力稍重，跳得更高，走得更快
-Studio.GameSettings.General.GravityWorkspaceGravity,Workspace Gravity:, ,Workspace Gravity:,작업 공간 중력:,工作空间重力:
-Studio.GameSettings.General.JumpHeight,Jump Height:, ,Jump Height:,점프 높이:,跳跃高度:
-Studio.GameSettings.General.JumpPower,Jump Power:, ,Jump Power:,점프력:,跳跃力量:
-Studio.GameSettings.General.JumpDistance,Max Jump Distance:, ,Max Jump Distance:,최대 점프 거리:,最大跳跃距离:
-Studio.GameSettings.General.WalkSpeed,Walk Speed:, ,Walk Speed:,걷기 속도:,行走速度:
-Studio.GameSettings.General.SlopeAngle,Max Slope Angle:, ,Max Slope Angle:,최대 경사각:,最大斜坡角度:
-Studio.GameSettings.General.UnitsMetersPerSecondSquared,({number} meters/second^2), ,({number} meters/second^2),({number}미터/초^2),({number} 米/秒^2)
-Studio.GameSettings.General.UnitsMeters,({number} meters), ,({number} meters),({number}미터),({number} 米)
-Studio.GameSettings.General.UnitsMetersPerSecond,({number} meters/second), ,({number} meters/second),({number}미터/초),({number} 米/秒)
+Studio.GameSettings.General.WorldPresetsClassicToolTip,"Classic Roblox, heavier gravity, higher jump", ,"Classic Roblox, heavier gravity, higher jump","클래식 Roblox, 무거운 중력, 높은 점프",经典 Roblox，重力加倍，跳得更高
+Studio.GameSettings.General.WorldPresetsRealisticToolTip,"Real world gravity, athletic human", ,"Real world gravity, athletic human","실제 중력, 근육질 사람",真实世界重力，运动员级别体能
+Studio.GameSettings.General.WorldPresetsActionToolTip,"Slightly heavier gravity, jump higher, walk faster", ,"Slightly heavier gravity, jump higher, walk faster","다소 무거운 중력, 높은 점프, 빠른 걸음걸이",重力稍大，跳得更高，走得更快
+Studio.GameSettings.General.GravityWorkspaceGravity,Workspace Gravity:, ,Workspace Gravity:,작업 공간 중력:,工作空间重力：
+Studio.GameSettings.General.JumpHeight,Jump Height:, ,Jump Height:,점프 높이:,跳跃高度：
+Studio.GameSettings.General.JumpPower,Jump Power:, ,Jump Power:,점프력:,跳跃强度：
+Studio.GameSettings.General.JumpDistance,Max Jump Distance:, ,Max Jump Distance:,최대 점프 거리:,最大跳跃距离：
+Studio.GameSettings.General.WalkSpeed,Walk Speed:, ,Walk Speed:,걷기 속도:,行走速度：
+Studio.GameSettings.General.SlopeAngle,Max Slope Angle:, ,Max Slope Angle:,최대 경사각:,最大斜坡角度：
+Studio.GameSettings.General.UnitsMetersPerSecondSquared,({number} meters/second^2), ,({number} meters/second^2),({number}미터/초^2),（{number} 米/秒^2）
+Studio.GameSettings.General.UnitsMeters,({number} meters), ,({number} meters),({number}미터),（{number} 米）
+Studio.GameSettings.General.UnitsMetersPerSecond,({number} meters/second), ,({number} meters/second),({number}미터/초),（{number} 米/秒）
 Studio.GameSettings.General.PublishTheGameToRoblox,Publish the game to Roblox, ,Publish the game to Roblox,Roblox에 게임 게시,将游戏发布到 Roblox
 Studio.GameSettings.AccessPermissions.FriendsCollaboratorType,Friends, ,Friends,친구,好友
 Studio.GameSettings.AccessPermissions.UsersCollaboratorType,Users, ,Users,사용자,用户
 Studio.GameSettings.AccessPermissions.GroupsCollaboratorType,Groups, ,Groups,그룹,群组
 Studio.GameSettings.AccessPermissions.MyFriendsCollaborator,My Friends, ,My Friends,내 친구,我的好友
-Studio.GameSettings.AccessPermissions.CollaboratorSearchbarDefaultText,Search by username, ,Search by username,사용자 또는 그룹 이름으로 검색,按用户或群组名称搜索
+Studio.GameSettings.AccessPermissions.CollaboratorSearchbarDefaultText,Search by username, ,Search by username,사용자 또는 그룹 이름으로 검색,按用户名搜索
 Studio.GameSettings.AccessPermissions.CollaboratorSearchbarTooManyText1,You cannot add more than {maxNumCollaborators:int} collaborators, ,You cannot add more than {maxNumCollaborators:int} collaborators,협업자는 최대 {maxNumCollaborators:int}명까지만 추가할 수 있습니다.,无法添加 {maxNumCollaborators:int} 位以上的协作者
 Studio.GameSettings.AccessPermissions.CollaboratorSearchbarNoResultsText,There were no results, ,There were no results,결과가 없습니다,没有结果
 Studio.GameSettings.AccessPermissions.PublishRequiredForCollaborators,adding collaborators, ,adding collaborators,협업자 추가,正在添加协作者
 Studio.GameSettings.AccessPermissions.TeamCreateWarning,"To add collaborators, turn on Team Create", ,"To add collaborators, turn on Team Create",협업자를 추가하려면 팀 만들기를 활성화하세요,要添加协作者，请打开“组队创作”
 Studio.GameSettings.DraftGames.PublishRequiredToActivatePlayability, to activate Playability options, , to activate Playability options, 플레이 가능 옵션 활성화,以激活“可玩性”选项
-Studio.GameSettings.AccessPermissions.DEPRECATED_CollaboratorSearchbarDefaultText,Search by user or group name, ,Search by user or group name, , 
-Studio.GameSettings.AccessPermissions.PermissionsUpdateMessage, We've updated our permission system!, , We've updated our permission system!, , 
-Studio.GameSettings.AccessPermissions.UpdateHyperlinkText, Learn more, , Learn more, , 
-Studio.GameSettings.General.CategoryLocalization,Localization, ,Localization, , 
-Studio.GameSettings.General.SourceLanguageTitle,Source Language, ,Source Language, , 
-Studio.GameSettings.General.SourceLanguageDesc,The source language represents the language that the game has been written in., ,The source language represents the language that the game has been written in., , 
-Studio.GameSettings.General.AutoTextCaptureTitle,Automatic Text Capture, ,Automatic Text Capture, , 
-Studio.GameSettings.General.AutoTextCaptureDesc,Automatically capture text from game UI while players play., ,Automatically capture text from game UI while players play., , 
-Studio.GameSettings.General.UseTranslatedContentTitle,Use Translated Content, ,Use Translated Content, , 
-Studio.GameSettings.General.UseTranslatedContentDesc,Enable translated content in game., ,Enable translated content in game., , 
-Studio.GameSettings.General.AutoTranslationTitle,Automatic Translation, ,Automatic Translation, , 
-Studio.GameSettings.General.AutoTranslationOnlyAvailableForEnMessage,Automatic translation is unavailable for current source language., ,Automatic translation is unavailable for current source language., , 
-Studio.GameSettings.General.LocalizationSettingsLinkText,Click here, ,Click here, , 
-Studio.GameSettings.General.LocalizationSettingsNonLinkText, to further manage the cloud localization table for this game., , to further manage the cloud localization table for this game., , 
-Studio.GameSettings.General.LocalizationSettingsPublishMessageLinkText,Publishing a game is required, ,Publishing a game is required, , 
-Studio.GameSettings.General.LocalizationSettingsPublishMessageNonLinkText, to activate Localization options., , to activate Localization options., , 
+Studio.GameSettings.AccessPermissions.DEPRECATED_CollaboratorSearchbarDefaultText,Search by user or group name, ,Search by user or group name, ,按用户或群组名称搜索
+Studio.GameSettings.AccessPermissions.PermissionsUpdateMessage, We've updated our permission system!, , We've updated our permission system!, , 我们对许可系统进行了更新！
+Studio.GameSettings.AccessPermissions.UpdateHyperlinkText, Learn more, , Learn more, , 了解更多
+Studio.GameSettings.General.CategoryLocalization,Localization, ,Localization, ,本地化
+Studio.GameSettings.General.SourceLanguageTitle,Source Language, ,Source Language, ,源语言
+Studio.GameSettings.General.SourceLanguageDesc,The source language represents the language that the game has been written in., ,The source language represents the language that the game has been written in., ,源语言代表制作游戏时使用的开发语言。
+Studio.GameSettings.General.AutoTextCaptureTitle,Automatic Text Capture, ,Automatic Text Capture, ,自动文本抓取
+Studio.GameSettings.General.AutoTextCaptureDesc,Automatically capture text from game UI while players play., ,Automatically capture text from game UI while players play., ,当玩家进行游戏时自动从游戏界面抓取文本。
+Studio.GameSettings.General.UseTranslatedContentTitle,Use Translated Content, ,Use Translated Content, ,使用已翻译的内容
+Studio.GameSettings.General.UseTranslatedContentDesc,Enable translated content in game., ,Enable translated content in game., ,在游戏中启用已翻译的内容。
+Studio.GameSettings.General.AutoTranslationTitle,Automatic Translation, ,Automatic Translation, ,自动翻译
+Studio.GameSettings.General.AutoTranslationOnlyAvailableForEnMessage,Automatic translation is unavailable for current source language., ,Automatic translation is unavailable for current source language., ,当前源语言无法使用自动翻译。
+Studio.GameSettings.General.LocalizationSettingsLinkText,Click here, ,Click here, ,点击此处
+Studio.GameSettings.General.LocalizationSettingsNonLinkText, to further manage the cloud localization table for this game., , to further manage the cloud localization table for this game., , 进一步管理此游戏的云本地化表格。
+Studio.GameSettings.General.LocalizationSettingsPublishMessageLinkText,Publishing a game is required, ,Publishing a game is required, ,必须先发布游戏
+Studio.GameSettings.General.LocalizationSettingsPublishMessageNonLinkText, to activate Localization options., , to activate Localization options., , 方可启用本地化选项。
+Studio.GameSettings.General.CategoryPlaces,Places, ,Places, , 
+Studio.GameSettings.General.ButtonCreate,Create, ,Create, , 

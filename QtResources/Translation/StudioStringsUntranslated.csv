@@ -1,11 +1,11 @@
 Key,Context,Source,en-us
 Studio.App.AddEmulationDeviceDialog.AddNewDevice,,Add New Device,Add New Device
-Studio.App.AddEmulationDeviceDialog.DeviceForm,,Device Form:,Device Form:
+Studio.App.AddEmulationDeviceDialog.DeviceForm,,Device Form,Device Form
 Studio.App.AddEmulationDeviceDialog.DeviceName,,Device Name,Device Name
-Studio.App.AddEmulationDeviceDialog.GuiInsets,,GuiInsets:,GuiInsets:
-Studio.App.AddEmulationDeviceDialog.LeftSafeZoneOffset,,Left:,Left:
-Studio.App.AddEmulationDeviceDialog.Platform,,Platform:,Platform:
-Studio.App.AddEmulationDeviceDialog.TopSafeZoneOffset,,Top:,Top:
+Studio.App.AddEmulationDeviceDialog.GuiInsets,,GuiInsets,GuiInsets
+Studio.App.AddEmulationDeviceDialog.LeftSafeZoneOffset,,Left,Left
+Studio.App.AddEmulationDeviceDialog.Platform,,Platform,Platform
+Studio.App.AddEmulationDeviceDialog.TopSafeZoneOffset,,Top,Top
 Studio.App.AddImageDialog.ChooseFile,,Choose File,Choose File
 Studio.App.AddImageDialog.ChooseImageUpload,,Choose image to upload,Choose image to upload
 Studio.App.AddImageDialog.CreateAssetName,,Creating asset name...,Creating asset name...
@@ -400,6 +400,7 @@ Studio.App.Property.AutoClosingBrackets,,Auto Closing Brackets,Auto Closing Brac
 Studio.App.Property.AutoClosingQuotes,,Auto Closing Quotes,Auto Closing Quotes
 Studio.App.Property.AutoFRMLevel,,Auto FRM Level,Auto FRM Level
 Studio.App.Property.AutoIndent,,Auto Indent,Auto Indent
+Studio.App.Property.AutoIndentRule,,Auto Indent Rule,Auto Indent Rule
 Studio.App.Property.AutoRecoveryEnabled,,Auto-Recovery Enabled,Auto-Recovery Enabled
 Studio.App.Property.AutoRecoveryPath,,Auto-Recovery Path,Auto-Recovery Path
 Studio.App.Property.AutoSaveEnabled,,Auto-Save Enabled,Auto-Save Enabled
@@ -529,6 +530,7 @@ Studio.App.Property.VideoQuality,,Video Quality,Video Quality
 Studio.App.Property.WaitingThreadsBudget,,Waiting Threads Budget,Waiting Threads Budget
 Studio.App.Property.WarningColor,,Warning Color,Warning Color
 Studio.App.Property.WhitespaceColor,,Whitespace Color,Whitespace Color
+Studio.App.PropertyEnum.Absolute,,Absolute,Absolute
 Studio.App.PropertyEnum.Aggregate,,Aggregate,Aggregate
 Studio.App.PropertyEnum.Always,,Always,Always
 Studio.App.PropertyEnum.Auto,,Auto,Auto
@@ -583,6 +585,7 @@ Studio.App.PropertyEnum.PerCore3,,Per Core 3,Per Core 3
 Studio.App.PropertyEnum.PerCore4,,Per Core 4,Per Core 4
 Studio.App.PropertyEnum.Precise,,Precise,Precise
 Studio.App.PropertyEnum.Prompt,,Prompt,Prompt
+Studio.App.PropertyEnum.Relative,,Relative,Relative
 Studio.App.PropertyEnum.Report,,Report,Report
 Studio.App.PropertyEnum.Roblox,,Roblox,Roblox
 Studio.App.PropertyEnum.RobloxGame,,Roblox Game,Roblox Game
@@ -876,7 +879,136 @@ Studio.App.Restart.RestartNow,restart studio right now,Restart,Restart
 Studio.App.RobloxChatWidget.ChatOptions,,Chat Options,Chat Options
 Studio.App.RobloxChatWidget.ChattingWith,,Chatting with %1,Chatting with %1
 Studio.App.RobloxChatWidget.SendAMessage,,Send a message,Send a message
+Studio.App.RobloxCustomWidgets.BrickColor1,Please check BrickColor Number - '1' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,White,White
+Studio.App.RobloxCustomWidgets.BrickColor1001,Please check BrickColor Number - '1001' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Institutional white,Institutional white
+Studio.App.RobloxCustomWidgets.BrickColor1002,Please check BrickColor Number - '1002' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Mid gray,Mid gray
+Studio.App.RobloxCustomWidgets.BrickColor1003,Please check BrickColor Number - '1003' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Really black,Really black
+Studio.App.RobloxCustomWidgets.BrickColor1004,Please check BrickColor Number - '1004' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Really red,Really red
+Studio.App.RobloxCustomWidgets.BrickColor1005,Please check BrickColor Number - '1005' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Deep orange,Deep orange
+Studio.App.RobloxCustomWidgets.BrickColor1006,Please check BrickColor Number - '1006' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Alder,Alder
+Studio.App.RobloxCustomWidgets.BrickColor1007,Please check BrickColor Number - '1007' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Dusty Rose,Dusty Rose
+Studio.App.RobloxCustomWidgets.BrickColor1008,Please check BrickColor Number - '1008' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Olive,Olive
+Studio.App.RobloxCustomWidgets.BrickColor1009,Please check BrickColor Number - '1009' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,New Yeller,New Yeller
+Studio.App.RobloxCustomWidgets.BrickColor101,Please check BrickColor Number - '101' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Medium red,Medium red
+Studio.App.RobloxCustomWidgets.BrickColor1010,Please check BrickColor Number - '1010' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Really blue,Really blue
+Studio.App.RobloxCustomWidgets.BrickColor1011,Please check BrickColor Number - '1011' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Navy blue,Navy blue
+Studio.App.RobloxCustomWidgets.BrickColor1012,Please check BrickColor Number - '1012' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Deep blue,Deep blue
+Studio.App.RobloxCustomWidgets.BrickColor1013,Please check BrickColor Number - '1013' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Cyan,Cyan
+Studio.App.RobloxCustomWidgets.BrickColor1014,Please check BrickColor Number - '1014' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,CGA brown,CGA brown
+Studio.App.RobloxCustomWidgets.BrickColor1015,Please check BrickColor Number - '1015' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Magenta,Magenta
+Studio.App.RobloxCustomWidgets.BrickColor1016,Please check BrickColor Number - '1016' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Pink,Pink
+Studio.App.RobloxCustomWidgets.BrickColor1018,Please check BrickColor Number - '1018' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Teal,Teal
+Studio.App.RobloxCustomWidgets.BrickColor1019,Please check BrickColor Number - '1019' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Toothpaste,Toothpaste
+Studio.App.RobloxCustomWidgets.BrickColor102,Please check BrickColor Number - '102' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Medium blue,Medium blue
+Studio.App.RobloxCustomWidgets.BrickColor1020,Please check BrickColor Number - '1020' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Lime green,Lime green
+Studio.App.RobloxCustomWidgets.BrickColor1021,Please check BrickColor Number - '1021' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Camo,Camo
+Studio.App.RobloxCustomWidgets.BrickColor1022,Please check BrickColor Number - '1022' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Grime,Grime
+Studio.App.RobloxCustomWidgets.BrickColor1023,Please check BrickColor Number - '1023' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Lavender,Lavender
+Studio.App.RobloxCustomWidgets.BrickColor1024,Please check BrickColor Number - '1024' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Pastel light blue,Pastel light blue
+Studio.App.RobloxCustomWidgets.BrickColor1025,Please check BrickColor Number - '1025' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Pastel orange,Pastel orange
+Studio.App.RobloxCustomWidgets.BrickColor1026,Please check BrickColor Number - '1026' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Pastel violet,Pastel violet
+Studio.App.RobloxCustomWidgets.BrickColor1027,Please check BrickColor Number - '1027' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Pastel blue-green,Pastel blue-green
+Studio.App.RobloxCustomWidgets.BrickColor1028,Please check BrickColor Number - '1028' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Pastel green,Pastel green
+Studio.App.RobloxCustomWidgets.BrickColor1029,Please check BrickColor Number - '1029' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Pastel yellow,Pastel yellow
+Studio.App.RobloxCustomWidgets.BrickColor1030,Please check BrickColor Number - '1030' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Pastel brown,Pastel brown
+Studio.App.RobloxCustomWidgets.BrickColor1031,Please check BrickColor Number - '1031' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Royal purple,Royal purple
+Studio.App.RobloxCustomWidgets.BrickColor1032,Please check BrickColor Number - '1032' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Hot pink,Hot pink
+Studio.App.RobloxCustomWidgets.BrickColor104,Please check BrickColor Number - '104' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Bright violet,Bright violet
+Studio.App.RobloxCustomWidgets.BrickColor105,Please check BrickColor Number - '105' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Br. yellowish orange,Br. yellowish orange
+Studio.App.RobloxCustomWidgets.BrickColor106,Please check BrickColor Number - '106' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Bright orange,Bright orange
+Studio.App.RobloxCustomWidgets.BrickColor107,Please check BrickColor Number - '107' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Bright bluish green,Bright bluish green
+Studio.App.RobloxCustomWidgets.BrickColor11,Please check BrickColor Number - '11' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Pastel Blue,Pastel Blue
+Studio.App.RobloxCustomWidgets.BrickColor119,Please check BrickColor Number - '119' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Br. yellowish green,Br. yellowish green
+Studio.App.RobloxCustomWidgets.BrickColor125,Please check BrickColor Number - '125' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Light orange,Light orange
+Studio.App.RobloxCustomWidgets.BrickColor133,Please check BrickColor Number - '133' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Neon orange,Neon orange
+Studio.App.RobloxCustomWidgets.BrickColor135,Please check BrickColor Number - '135' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Sand blue,Sand blue
+Studio.App.RobloxCustomWidgets.BrickColor141,Please check BrickColor Number - '141' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Earth green,Earth green
+Studio.App.RobloxCustomWidgets.BrickColor151,Please check BrickColor Number - '151' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Sand green,Sand green
+Studio.App.RobloxCustomWidgets.BrickColor153,Please check BrickColor Number - '153' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Sand red,Sand red
+Studio.App.RobloxCustomWidgets.BrickColor18,Please check BrickColor Number - '18' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Nougat,Nougat
+Studio.App.RobloxCustomWidgets.BrickColor192,Please check BrickColor Number - '192' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Reddish brown,Reddish brown
+Studio.App.RobloxCustomWidgets.BrickColor194,Please check BrickColor Number - '194' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Medium stone grey,Medium stone grey
+Studio.App.RobloxCustomWidgets.BrickColor199,Please check BrickColor Number - '199' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Dark stone grey,Dark stone grey
+Studio.App.RobloxCustomWidgets.BrickColor208,Please check BrickColor Number - '208' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Light stone grey,Light stone grey
+Studio.App.RobloxCustomWidgets.BrickColor21,Please check BrickColor Number - '21' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Bright red,Bright red
+Studio.App.RobloxCustomWidgets.BrickColor217,Please check BrickColor Number - '217' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Brown,Brown
+Studio.App.RobloxCustomWidgets.BrickColor226,Please check BrickColor Number - '226' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Cool yellow,Cool yellow
+Studio.App.RobloxCustomWidgets.BrickColor23,Please check BrickColor Number - '23' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Bright blue,Bright blue
+Studio.App.RobloxCustomWidgets.BrickColor24,Please check BrickColor Number - '24' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Bright yellow,Bright yellow
+Studio.App.RobloxCustomWidgets.BrickColor26,Please check BrickColor Number - '26' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Black,Black
+Studio.App.RobloxCustomWidgets.BrickColor28,Please check BrickColor Number - '28' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Dark green,Dark green
+Studio.App.RobloxCustomWidgets.BrickColor29,Please check BrickColor Number - '29' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Medium green,Medium green
+Studio.App.RobloxCustomWidgets.BrickColor301,Please check BrickColor Number - '301' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Slime green,Slime green
+Studio.App.RobloxCustomWidgets.BrickColor302,Please check BrickColor Number - '302' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Smoky grey,Smoky grey
+Studio.App.RobloxCustomWidgets.BrickColor303,Please check BrickColor Number - '303' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Dark blue,Dark blue
+Studio.App.RobloxCustomWidgets.BrickColor304,Please check BrickColor Number - '304' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Parsley green,Parsley green
+Studio.App.RobloxCustomWidgets.BrickColor305,Please check BrickColor Number - '305' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Steel blue,Steel blue
+Studio.App.RobloxCustomWidgets.BrickColor306,Please check BrickColor Number - '306' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Storm blue,Storm blue
+Studio.App.RobloxCustomWidgets.BrickColor307,Please check BrickColor Number - '307' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Lapis,Lapis
+Studio.App.RobloxCustomWidgets.BrickColor308,Please check BrickColor Number - '308' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Dark indigo,Dark indigo
+Studio.App.RobloxCustomWidgets.BrickColor309,Please check BrickColor Number - '309' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Sea green,Sea green
+Studio.App.RobloxCustomWidgets.BrickColor310,Please check BrickColor Number - '310' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Shamrock,Shamrock
+Studio.App.RobloxCustomWidgets.BrickColor311,Please check BrickColor Number - '311' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Fossil,Fossil
+Studio.App.RobloxCustomWidgets.BrickColor312,Please check BrickColor Number - '312' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Mulberry,Mulberry
+Studio.App.RobloxCustomWidgets.BrickColor313,Please check BrickColor Number - '313' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Forest green,Forest green
+Studio.App.RobloxCustomWidgets.BrickColor314,Please check BrickColor Number - '314' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Cadet blue,Cadet blue
+Studio.App.RobloxCustomWidgets.BrickColor315,Please check BrickColor Number - '315' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Electric blue,Electric blue
+Studio.App.RobloxCustomWidgets.BrickColor316,Please check BrickColor Number - '316' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Eggplant,Eggplant
+Studio.App.RobloxCustomWidgets.BrickColor317,Please check BrickColor Number - '317' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Moss,Moss
+Studio.App.RobloxCustomWidgets.BrickColor318,Please check BrickColor Number - '318' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Artichoke,Artichoke
+Studio.App.RobloxCustomWidgets.BrickColor319,Please check BrickColor Number - '319' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Sage green,Sage green
+Studio.App.RobloxCustomWidgets.BrickColor320,Please check BrickColor Number - '320' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Ghost grey,Ghost grey
+Studio.App.RobloxCustomWidgets.BrickColor321,Please check BrickColor Number - '321' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Lilac,Lilac
+Studio.App.RobloxCustomWidgets.BrickColor322,Please check BrickColor Number - '322' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Plum,Plum
+Studio.App.RobloxCustomWidgets.BrickColor323,Please check BrickColor Number - '323' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Olivine,Olivine
+Studio.App.RobloxCustomWidgets.BrickColor324,Please check BrickColor Number - '324' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Laurel green,Laurel green
+Studio.App.RobloxCustomWidgets.BrickColor325,Please check BrickColor Number - '325' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Quill grey,Quill grey
+Studio.App.RobloxCustomWidgets.BrickColor327,Please check BrickColor Number - '327' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Crimson,Crimson
+Studio.App.RobloxCustomWidgets.BrickColor328,Please check BrickColor Number - '328' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Mint,Mint
+Studio.App.RobloxCustomWidgets.BrickColor329,Please check BrickColor Number - '329' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Baby blue,Baby blue
+Studio.App.RobloxCustomWidgets.BrickColor330,Please check BrickColor Number - '330' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Carnation pink,Carnation pink
+Studio.App.RobloxCustomWidgets.BrickColor331,Please check BrickColor Number - '331' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Persimmon,Persimmon
+Studio.App.RobloxCustomWidgets.BrickColor332,Please check BrickColor Number - '332' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Maroon,Maroon
+Studio.App.RobloxCustomWidgets.BrickColor333,Please check BrickColor Number - '333' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Gold,Gold
+Studio.App.RobloxCustomWidgets.BrickColor334,Please check BrickColor Number - '334' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Daisy orange,Daisy orange
+Studio.App.RobloxCustomWidgets.BrickColor335,Please check BrickColor Number - '335' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Pearl,Pearl
+Studio.App.RobloxCustomWidgets.BrickColor336,Please check BrickColor Number - '336' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Fog,Fog
+Studio.App.RobloxCustomWidgets.BrickColor337,Please check BrickColor Number - '337' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Salmon,Salmon
+Studio.App.RobloxCustomWidgets.BrickColor338,Please check BrickColor Number - '338' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Terra Cotta,Terra Cotta
+Studio.App.RobloxCustomWidgets.BrickColor339,Please check BrickColor Number - '339' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Cocoa,Cocoa
+Studio.App.RobloxCustomWidgets.BrickColor340,Please check BrickColor Number - '340' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Wheat,Wheat
+Studio.App.RobloxCustomWidgets.BrickColor341,Please check BrickColor Number - '341' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Buttermilk,Buttermilk
+Studio.App.RobloxCustomWidgets.BrickColor342,Please check BrickColor Number - '342' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Mauve,Mauve
+Studio.App.RobloxCustomWidgets.BrickColor343,Please check BrickColor Number - '343' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Sunrise,Sunrise
+Studio.App.RobloxCustomWidgets.BrickColor344,Please check BrickColor Number - '344' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Tawny,Tawny
+Studio.App.RobloxCustomWidgets.BrickColor345,Please check BrickColor Number - '345' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Rust,Rust
+Studio.App.RobloxCustomWidgets.BrickColor346,Please check BrickColor Number - '346' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Cashmere,Cashmere
+Studio.App.RobloxCustomWidgets.BrickColor347,Please check BrickColor Number - '347' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Khaki,Khaki
+Studio.App.RobloxCustomWidgets.BrickColor348,Please check BrickColor Number - '348' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Lily white,Lily white
+Studio.App.RobloxCustomWidgets.BrickColor349,Please check BrickColor Number - '349' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Seashell,Seashell
+Studio.App.RobloxCustomWidgets.BrickColor350,Please check BrickColor Number - '350' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Burgundy,Burgundy
+Studio.App.RobloxCustomWidgets.BrickColor351,Please check BrickColor Number - '351' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Cork,Cork
+Studio.App.RobloxCustomWidgets.BrickColor352,Please check BrickColor Number - '352' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Burlap,Burlap
+Studio.App.RobloxCustomWidgets.BrickColor353,Please check BrickColor Number - '353' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Beige,Beige
+Studio.App.RobloxCustomWidgets.BrickColor354,Please check BrickColor Number - '354' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Oyster,Oyster
+Studio.App.RobloxCustomWidgets.BrickColor355,Please check BrickColor Number - '355' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Pine Cone,Pine Cone
+Studio.App.RobloxCustomWidgets.BrickColor356,Please check BrickColor Number - '356' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Fawn brown,Fawn brown
+Studio.App.RobloxCustomWidgets.BrickColor357,Please check BrickColor Number - '357' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Hurricane grey,Hurricane grey
+Studio.App.RobloxCustomWidgets.BrickColor358,Please check BrickColor Number - '358' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Cloudy grey,Cloudy grey
+Studio.App.RobloxCustomWidgets.BrickColor359,Please check BrickColor Number - '359' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Linen,Linen
+Studio.App.RobloxCustomWidgets.BrickColor360,Please check BrickColor Number - '360' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Copper,Copper
+Studio.App.RobloxCustomWidgets.BrickColor361,Please check BrickColor Number - '361' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Dirt brown,Dirt brown
+Studio.App.RobloxCustomWidgets.BrickColor362,Please check BrickColor Number - '362' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Bronze,Bronze
+Studio.App.RobloxCustomWidgets.BrickColor363,Please check BrickColor Number - '363' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Flint,Flint
+Studio.App.RobloxCustomWidgets.BrickColor364,Please check BrickColor Number - '364' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Dark taupe,Dark taupe
+Studio.App.RobloxCustomWidgets.BrickColor365,Please check BrickColor Number - '365' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Burnt Sienna,Burnt Sienna
+Studio.App.RobloxCustomWidgets.BrickColor37,Please check BrickColor Number - '37' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Bright green,Bright green
+Studio.App.RobloxCustomWidgets.BrickColor38,Please check BrickColor Number - '38' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Dark orange,Dark orange
+Studio.App.RobloxCustomWidgets.BrickColor45,Please check BrickColor Number - '45' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Light blue,Light blue
+Studio.App.RobloxCustomWidgets.BrickColor5,Please check BrickColor Number - '5' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Brick yellow,Brick yellow
+Studio.App.RobloxCustomWidgets.BrickColor9,Please check BrickColor Number - '9' at https://developer.roblox.com/en-us/articles/BrickColor-Codes,Light reddish violet,Light reddish violet
 Studio.App.RobloxCustomWidgets.Loading,,(Loading...),(Loading...)
+Studio.App.RobloxCustomWidgets.MoreColors,,More Colors,More Colors
 Studio.App.RobloxCustomWidgets.Url,,URL:,URL:
 Studio.App.RobloxDocManager.StartPage,,Start Page,Start Page
 Studio.App.RobloxFindWidget.AllScripts,,All Scripts ,All Scripts 

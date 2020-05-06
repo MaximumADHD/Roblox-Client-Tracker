@@ -38,7 +38,7 @@ Studio.TerrainToolsV2.Action.Stop,Stop, ,중지,停止
 Studio.TerrainToolsV2.Action.Undo,Undo, ,실행 취소,撤消
 Studio.TerrainToolsV2.Action.Update,Update, ,업데이트,更新
 Studio.TerrainToolsV2.Action.Yes,Yes, ,예,是
-Studio.TerrainToolsV2.AssetIdSelector.PlaceHolderText,Select game asset image, ,애셋 ID,资源 ID
+Studio.TerrainToolsV2.AssetIdSelector.PlaceHolderText,Select game asset image, ,애셋 ID,选择游戏资源图片
 Studio.TerrainToolsV2.BrushSettings.Advanced,Advanced, ,고급,高级
 Studio.TerrainToolsV2.BrushSettings.Auto,Auto, ,자동,自动
 Studio.TerrainToolsV2.BrushSettings.BaseSize,Base Size, ,베이스 크기,基底大小
@@ -169,12 +169,12 @@ Studio.TerrainToolsV2.Warning.ValidHeightMapImport,Valid HeightMap required to b
 Studio.TerrainToolsV2.Warning.MinimumSize,Size cannot be less than {1:int}., ,크기는 {1:int}보다 작을 수 없습니다.,大小不得小于 {1:int}。
 Studio.TerrainToolsV2.Warning.MaximumSize,Size cannot be greater than {1:int}., ,크기는 {1:int}보다 클 수 없습니다.,大小不得大于 {1:int}。
 Studio.TerrainToolsV2.BrushSettings.Height,Height, ,높이,高度
-Studio.TerrainToolsV2.Generate.GenerationFinished,Generation finished: {1} seconds, ,생성 완료: {1}초,生成完成: {1} 秒
-Studio.TerrainToolsV2.Generate.StartGeneration,Generating with size ({1}) at position ({2}) using seed {3} and biomes: {4}, ,시드 {3} 및 생물군계를 사용하여 {2} 위치에서 {1} 크기로 생성: {4},使用种子 {3} 和生物群系 {4} 在位置 ({2}) 上以大小 ({1}) 生成
+Studio.TerrainToolsV2.Generate.GenerationFinished,Generation finished: {1} seconds, ,생성 완료: {1}초,生成完成：用时 {1} 秒
+Studio.TerrainToolsV2.Generate.StartGeneration,Generating with size ({1}) at position ({2}) using seed {3} and biomes: {4}, ,시드 {3} 및 생물군계를 사용하여 {2} 위치에서 {1} 크기로 생성: {4},使用种子 {3} 和生态 {4} 在位置 ({2}) 上以尺寸 ({1}) 进行生成
 Studio.TerrainToolsV2.Tab.Edit,Edit, ,편집,编辑
 Studio.TerrainToolsV2.Warning.AlreadyGeneratingTerrain,Already Generating Terrain., ,이미 지형을 생성 중입니다.,已经在生成地形。
 Studio.TerrainToolsV2.Warning.ImportError,Error in importing terrain: {1}, ,지형을 가져오는 중에 오류가 발생했습니다. {1},导入地形时出错: {1}
-Studio.TerrainToolsV2.Warning.MissingTerrain,Terrain instance could not be found., ,지형 인스턴스를 찾지 못했습니다.,无法找到地形实例。
+Studio.TerrainToolsV2.Warning.MissingTerrain,Terrain instance could not be found., ,지형 인스턴스를 찾지 못했습니다.,未能找到地形实例。
 Studio.TerrainToolsV2.Warning.RegionTooLarge,Region size is too large., ,지역이 너무 큽니다.,区域尺寸过大。
 Studio.TerrainToolsV2.Warning.RegionTooSmall,Region size is too small., ,지역이 너무 작습니다.,区域尺寸过小。
 Studio.TerrainToolsV2.SeaLevel.Start,Starting Sea Level, ,해수면 시작,起始海平面
@@ -184,24 +184,25 @@ Studio.TerrainToolsV2.SeaLevel.Evaporate,Evaporate, ,증발,蒸发
 Studio.TerrainToolsV2.ClearTool.ConfirmationTitle,Clear Terrain, ,지형 지우기,清除地形
 Studio.TerrainToolsV2.Confirmation.Yes,Yes, ,예,是
 Studio.TerrainToolsV2.Confirmation.No,No, ,아니요,否
-Studio.TerrainToolsV2.ConvertPart.Convert,Convert, , , 
-Studio.TerrainToolsV2.ConvertPart.ConvertFailed,Convert failed for instance {1}, , , 
-Studio.TerrainToolsV2.ConvertPart.ConvertShapesToMaterial,Converting parts, , , 
-Studio.TerrainToolsV2.ConvertPart.ConvertFinished,Convert finished: {1} seconds for {2:int} instance(s), , , 
-Studio.TerrainToolsV2.ConvertPart.GetTargetShapes,Calculating shapes, , , 
-Studio.TerrainToolsV2.ConvertPart.UpdateInstanceVisuals,Hiding parts, , , 
-Studio.TerrainToolsV2.ConvertPart.SelectionHelp,Select Parts or Models containing Parts to convert to terrain, , , 
-Studio.TerrainToolsV2.ConvertPart.HasProtected,Only Parts or Models containing Parts can be converted, , , 
-Studio.TerrainToolsV2.ConvertPart.HasTooSmall,Parts with size dimensions below 4 studs may produce incorrect results, , , 
-Studio.TerrainToolsV2.ConvertPart.HasOtherInstance,"Only Parts can be converted, other objects will be skipped", , , 
-Studio.TerrainToolsV2.ConvertMode.Biome,Biome, , , 
-Studio.TerrainToolsV2.ConvertMode.ConvertMode,Fill, , , 
-Studio.TerrainToolsV2.ConvertMode.Material,Material, , , 
-Studio.TerrainToolsV2.ConvertPart.ConvertShapesToBiome,Converting parts to Biome, , , 
-Studio.TerrainToolsV2.Generate.BaseLevel,Base Level, , , 
-Studio.TerrainToolsV2.Materials.Air,Air, , , 
-Studio.TerrainToolsV2.PartToBiome.PartToBiome,Part to Biome, , , 
-Studio.TerrainToolsV2.PartToTerrain.PartToTerrain,Part to Terrain, , , 
-Studio.TerrainToolsV2.ToolName.ConvertPart,Convert, , , 
-Studio.TerrainToolsV2.Warning.UnknownAssetStatusError,Unable to verify asset., , , 
-Studio.TerrainToolsV2.Warning.UnknownShape,Instance shape is unknown, , , 
+Studio.TerrainToolsV2.ConvertPart.Convert,Convert, , ,转换
+Studio.TerrainToolsV2.ConvertPart.ConvertFailed,Convert failed for instance {1}, , ,实例 {1} 转换失败
+Studio.TerrainToolsV2.ConvertPart.ConvertShapesToMaterial,Converting parts, , ,正在转换部件
+Studio.TerrainToolsV2.ConvertPart.ConvertFinished,Convert finished: {1} seconds for {2:int} instance(s), , ,转换完成：{2:int} 个实例，用时 {1} 秒
+Studio.TerrainToolsV2.ConvertPart.GetTargetShapes,Calculating shapes, , ,正在计算形状
+Studio.TerrainToolsV2.ConvertPart.UpdateInstanceVisuals,Hiding parts, , ,正在隐藏部件
+Studio.TerrainToolsV2.ConvertPart.SelectionHelp,Select Parts or Models containing Parts to convert to terrain, , ,选择部件或包含部件的模型来转换为地形
+Studio.TerrainToolsV2.ConvertPart.HasProtected,Only Parts or Models containing Parts can be converted, , ,只有部件或包含部件的模型可被转换
+Studio.TerrainToolsV2.ConvertPart.HasTooSmall,Parts with size dimensions below 4 studs may produce incorrect results, , ,大小在 4 格以下的部件可能会产生错误的结果
+Studio.TerrainToolsV2.ConvertPart.HasOtherInstance,"Only Parts can be converted, other objects will be skipped", , ,只有部件可被转换，其他对象将被跳过
+Studio.TerrainToolsV2.ConvertMode.Biome,Biome, , ,生态
+Studio.TerrainToolsV2.ConvertMode.ConvertMode,Fill, , ,填充
+Studio.TerrainToolsV2.ConvertMode.Material,Material, , ,材质
+Studio.TerrainToolsV2.ConvertPart.ConvertShapesToBiome,Converting parts to Biome, , ,正在将部件转换至生态
+Studio.TerrainToolsV2.Generate.BaseLevel,Base Level, , ,基准面
+Studio.TerrainToolsV2.Materials.Air,Air, , ,天空
+Studio.TerrainToolsV2.PartToBiome.PartToBiome,Part to Biome, , ,部件至生态
+Studio.TerrainToolsV2.PartToTerrain.PartToTerrain,Part to Terrain, , ,部件至地形
+Studio.TerrainToolsV2.ToolName.ConvertPart,Convert, , ,转换
+Studio.TerrainToolsV2.Warning.UnknownAssetStatusError,Unable to verify asset., , ,无法验证资源。
+Studio.TerrainToolsV2.Warning.UnknownShape,Instance shape is unknown, , ,实例形状未知
+Studio.TerrainToolsV2.Warning.RequireEditModeForImport,Terrain importer only works in edit mode., , , 

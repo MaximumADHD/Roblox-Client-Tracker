@@ -3,8 +3,8 @@ Studio.AnimationClipEditor.Plugin.Name,Animation Editor, ,애니메이션 편집
 Studio.AnimationClipEditor.Plugin.Toolbar,Animations, ,애니메이션,动画
 Studio.AnimationClipEditor.Plugin.Button,Animation Editor, ,애니메이션 편집기,动画编辑器
 Studio.AnimationClipEditor.Plugin.Description,"Create, preview, and publish Animation clips", ,"애니메이션 클립 만들기, 미리보기 및 게시",创建、预览和发布动画片段
-Studio.AnimationClipEditor.ContextMenu.AddKeyframeHere,Add Keyframe Here, ,여기에 키프레임 추가,此处添加关键帧
-Studio.AnimationClipEditor.ContextMenu.AddResetKeyframe,Add Reset Keyframe Here, ,여기에 재설정 키프레임 추가,此处添加重置关键帧
+Studio.AnimationClipEditor.ContextMenu.AddKeyframeHere,Add Keyframe Here, ,여기에 키프레임 추가,在此处添加关键帧
+Studio.AnimationClipEditor.ContextMenu.AddResetKeyframe,Add Reset Keyframe Here, ,여기에 재설정 키프레임 추가,在此处添加重置关键帧
 Studio.AnimationClipEditor.ContextMenu.AddKeyframe,Add Keyframe, ,키프레임 추가,添加关键帧
 Studio.AnimationClipEditor.ContextMenu.CutSelected,Cut Selected, ,선택 항목 잘라내기,剪切选定项
 Studio.AnimationClipEditor.ContextMenu.CopySelected,Copy Selected, ,선택 항목 복사,复制选定项
@@ -12,30 +12,30 @@ Studio.AnimationClipEditor.ContextMenu.PasteKeyframes,Paste Keyframes, ,키프�
 Studio.AnimationClipEditor.ContextMenu.DeleteSelected,Delete Selected, ,선택 항목 삭제,删除选定项
 Studio.AnimationClipEditor.ContextMenu.ResetSelected,Reset Selected, ,선택 항목 재설정,重置选定项
 Studio.AnimationClipEditor.ContextMenu.CutEvents,Cut Selected, ,선택 항목 잘라내기,剪切选定项
-Studio.AnimationClipEditor.ContextMenu.AddEvent,Add Animation Event Here, ,여기에 애니메이션 이벤트 추가,此处添加动画事件
+Studio.AnimationClipEditor.ContextMenu.AddEvent,Add Animation Event Here, ,여기에 애니메이션 이벤트 추가,在此处添加动画事件
 Studio.AnimationClipEditor.ContextMenu.EditEvents,Edit Animation Event, ,애니메이션 이벤트 편집,编辑动画事件
 Studio.AnimationClipEditor.ContextMenu.CopyEvents,Copy Selected, ,선택 항목 복사,复制选定项
 Studio.AnimationClipEditor.ContextMenu.PasteEvents,Paste Events, ,이벤트 붙여넣기,粘贴事件
 Studio.AnimationClipEditor.ContextMenu.DeleteEvents,Delete Selected, ,선택 항목 삭제,删除选定项
-Studio.AnimationClipEditor.ContextMenu.DeleteTrack,Delete Track, ,트랙 삭제,删除轨迹
+Studio.AnimationClipEditor.ContextMenu.DeleteTrack,Delete Track, ,트랙 삭제,删除动画轨迹
 Studio.AnimationClipEditor.ContextMenu.Undo,Undo, ,실행 취소,撤消
 Studio.AnimationClipEditor.ContextMenu.Redo,Redo, ,다시 실행,重做
 Studio.AnimationClipEditor.ContextMenu.SelectAll,Select All, ,모두 선택,全选
 Studio.AnimationClipEditor.ContextMenu.DeselectAll,Deselect All, ,모두 선택 취소,取消全选
 Studio.AnimationClipEditor.ContextMenu.TogglePlay,Toggle Play, ,플레이 토글,切换播放
 Studio.AnimationClipEditor.ContextMenu.EditEventName,Edit Event Name, ,이벤트 이름 편집,编辑事件名称
-Studio.AnimationClipEditor.ContextMenu.DeleteAllSameEvents,Delete All Same Events, ,동일한 이벤트 모두 삭제,删除全部相同事件
-Studio.AnimationClipEditor.ContextMenu.RenameKeyframe,Rename Key Keyframe, ,키 키프레임 이름 변경,重命名关键帧
+Studio.AnimationClipEditor.ContextMenu.DeleteAllSameEvents,Delete All Same Events, ,동일한 이벤트 모두 삭제,删除全部重复事件
+Studio.AnimationClipEditor.ContextMenu.RenameKeyframe,Rename Key Keyframe, ,키 키프레임 이름 변경,重命名重要关键帧
 Studio.AnimationClipEditor.ContextMenu.ChangeDuration,Change Duration, ,지속 시간 변경,更改长度
-Studio.AnimationClipEditor.ContextMenu.EasingStyle,Easing Style, ,감속/가속 스타일,缓和风格
-Studio.AnimationClipEditor.ContextMenu.EasingDirection,Easing Direction, ,감속/가속 방향,缓和方向
+Studio.AnimationClipEditor.ContextMenu.EasingStyle,Easing Style, ,감속/가속 스타일,缓动风格
+Studio.AnimationClipEditor.ContextMenu.EasingDirection,Easing Direction, ,감속/가속 방향,缓动方向
 Studio.AnimationClipEditor.IKMenu.DisableIK,Disable IK, ,IK 비활성화,禁用 IK
 Studio.AnimationClipEditor.IKMenu.EnableIK,Enable IK, ,IK 활성화,启用 IK
 Studio.AnimationClipEditor.IKMenu.IKMode,IK Mode, ,IK 모드,IK 模式
 Studio.AnimationClipEditor.IKMenu.BodyPart,Body Part, ,신체 부위,身体部件
 Studio.AnimationClipEditor.IKMenu.FullBody,Full Body, ,전신,全体
 Studio.AnimationClipEditor.IKMenu.ShowTreeview,Show Treeview, ,트리뷰 표시,显示树状图
-Studio.AnimationClipEditor.IKMenu.Prompt,Enable IK to start animating with IK constraints, ,IK를 활성화하여 IK 제약으로 애니메이션화 시작,启用 IK 以开始使用以 IK 约束的动画
+Studio.AnimationClipEditor.IKMenu.Prompt,Enable IK to start animating with IK constraints, ,IK를 활성화하여 IK 제약으로 애니메이션화 시작,启用 IK 以开始创建使用 IK 约束的动画
 Studio.AnimationClipEditor.DropdownMenu.CreateNewClip,Create New Clip, ,새 클립 만들기,创建新片段
 Studio.AnimationClipEditor.Title.AnimationEvents,Animation Events, ,애니메이션 이벤트,动画事件
 Studio.AnimationClipEditor.Title.EditEvents,Edit Animation Events, ,애니메이션 이벤트 편집,编辑动画事件
@@ -46,22 +46,22 @@ Studio.AnimationClipEditor.Title.Error,Error, ,오류,错误
 Studio.AnimationClipEditor.Title.CreateNew,Create New Animation, ,새 애니메이션 만들기,创建新动画
 Studio.AnimationClipEditor.Title.SaveAsNew,Save As New Animation, ,새 애니메이션으로 저장,另存为新动画
 Studio.AnimationClipEditor.Title.ConfirmSave,Do you want to save this animation file?, ,이 애니메이션 파일을 저장할까요?,是否保存此动画文件?
-Studio.AnimationClipEditor.Title.SelectARig,Select a rig to animate, ,애니메이션화할 리그를 선택하세요,选择一个骨架以创作动画
-Studio.AnimationClipEditor.Title.CreateToStart,Create an animation to start, ,시작할 애니메이션을 만드세요,创建动画以开始
+Studio.AnimationClipEditor.Title.SelectARig,Select a rig to animate, ,애니메이션화할 리그를 선택하세요,选择骨架创作动画
+Studio.AnimationClipEditor.Title.CreateToStart,Create an animation to start, ,시작할 애니메이션을 만드세요,创建动画后即可开始
 Studio.AnimationClipEditor.Title.ClickToContinue,Click here to continue using the Animation Editor, ,애니메이션 편집기를 계속 사용하려면 여기를 클릭하세요,单击此处以继续使用动画编辑器
-Studio.AnimationClipEditor.Title.NoAnimationExists,"No animation exists for {1}, please create one to start animating", ,{1}에 대한 애니메이션이 없습니다. 애니메이션화하려면 새로 만드세요,不存在可用于 {1} 的动画，请创建一个以开始动画
-Studio.AnimationClipEditor.Title.ChangeDuration,Change Duration, ,지속 시간 변경,更改长度
-Studio.AnimationClipEditor.Title.NewDuration,New Duration, ,새 지속 시간,新长度
-Studio.AnimationClipEditor.Title.CurrentDuration,Current duration is {1:int} frames, ,현재 지속 시간은 {1:int} 프레임입니다,当前长度为 {1:int} 帧
+Studio.AnimationClipEditor.Title.NoAnimationExists,"No animation exists for {1}, please create one to start animating", ,{1}에 대한 애니메이션이 없습니다. 애니메이션화하려면 새로 만드세요,不存在可用于 {1} 的动画，请为其创建新的动画
+Studio.AnimationClipEditor.Title.ChangeDuration,Change Duration, ,지속 시간 변경,更改时长
+Studio.AnimationClipEditor.Title.NewDuration,New Duration, ,새 지속 시간,新的时长
+Studio.AnimationClipEditor.Title.CurrentDuration,Current duration is {1:int} frames, ,현재 지속 시간은 {1:int} 프레임입니다,当前时长为 {1:int} 帧
 Studio.AnimationClipEditor.Title.ManageIK,Manage IK, ,IK 관리,管理 IK
 Studio.AnimationClipEditor.Title.IK,IK, ,IK,IK
 Studio.AnimationClipEditor.Title.CustomFPS,Custom Frame Rate [FPS], ,사용자 정의 프레임 속도 [FPS],自定义帧速率 [FPS]
 Studio.AnimationClipEditor.Title.MinFPS,Minimum frame rate is 1 fps, ,최소 프레임 속도는 1fps입니다,最小帧速率为1 fps
 Studio.AnimationClipEditor.Title.MaxFPS,Maximum frame rate is 120 fps, ,최대 프레임 속도는 120fps입니다,最大帧速率为120 fps
-Studio.AnimationClipEditor.Settings.SnapToKeys,Snap To Keys, ,키에 맞추기,对齐至键
+Studio.AnimationClipEditor.Settings.SnapToKeys,Snap To Keys, ,키에 맞추기,对齐至关键点
 Studio.AnimationClipEditor.Settings.ShowEvents,Show Animation Events, ,애니메이션 이벤트 표시,显示动画事件
 Studio.AnimationClipEditor.Settings.TimelineUnit,Timeline Unit, ,타임라인 단위,时间轴单位
-Studio.AnimationClipEditor.Settings.Seconds,Seconds:Frames, ,초:프레임,秒:帧
+Studio.AnimationClipEditor.Settings.Seconds,Seconds:Frames, ,초:프레임,秒：帧
 Studio.AnimationClipEditor.Settings.Frames,Frames, ,프레임,帧
 Studio.AnimationClipEditor.Settings.FrameRate,Frame Rate, ,프레임 속도,帧速率
 Studio.AnimationClipEditor.Settings.CustomFPS,Custom, ,사용자 정의,自定义
@@ -72,11 +72,11 @@ Studio.AnimationClipEditor.Dialog.Confirm,Confirm, ,확인,确认
 Studio.AnimationClipEditor.Dialog.No,No, ,아니요,否
 Studio.AnimationClipEditor.Dialog.Create,Create, ,만들기,创建
 Studio.AnimationClipEditor.Dialog.Ok,OK, ,확인,确认
-Studio.AnimationClipEditor.Dialog.DeleteAllPrompt,Do you want to delete all "{1}" from this animation?, ,이 애니메이션에서 모든 "{1}"을(를) 삭제할까요?,要删除此动画中的所有 "{1}" 吗?
-Studio.AnimationClipEditor.Dialog.RenameAllPrompt,Do you want to change all "{1}" to "{2}"?, ,모든 "{1}"을(를) "{2}"(으)로 변경할까요?,要将所有 "{1}” 更改为 "{2}"?
+Studio.AnimationClipEditor.Dialog.DeleteAllPrompt,Do you want to delete all "{1}" from this animation?, ,이 애니메이션에서 모든 "{1}"을(를) 삭제할까요?,确定删除此动画中的所有 “{1}” 吗？
+Studio.AnimationClipEditor.Dialog.RenameAllPrompt,Do you want to change all "{1}" to "{2}"?, ,모든 "{1}"을(를) "{2}"(으)로 변경할까요?,确定将所有 “{1}” 更改为 “{2}”吗？
 Studio.AnimationClipEditor.Dialog.ErrorsHeader,Rig Error(s) Detected, ,리그 오류 감지됨,检测到骨架错误
 Studio.AnimationClipEditor.Dialog.AnimationName,Animation Name, ,애니메이션 이름,动画名称
-Studio.AnimationClipEditor.Dialog.SaveLocation,Animation will be saved to Rig > AnimSaves in Explorer, ,애니메이션은 탐색기의 리그 > AnimSaves에 저장됩니다,动画将保存到“骨架”> 资源管理器中的“AnimSaves”
+Studio.AnimationClipEditor.Dialog.SaveLocation,Animation will be saved to Rig > AnimSaves in Explorer, ,애니메이션은 탐색기의 리그 > AnimSaves에 저장됩니다,动画将保存到“骨架” > 资源管理器中的“AnimSaves”
 Studio.AnimationClipEditor.Dialog.Delete,Delete, ,삭제,删除
 Studio.AnimationClipEditor.Dialog.ChangeThis,Change This, ,이 항목 변경,修改此项
 Studio.AnimationClipEditor.Dialog.ChangeAll,Change All, ,모두 변경,修改全部
@@ -89,33 +89,33 @@ Studio.AnimationClipEditor.Menu.FromRoblox,From Roblox, ,Roblox에서,从 Roblox
 Studio.AnimationClipEditor.Menu.FromFBX,From FBX Animation, ,FBX 애니메이션에서,从 FBX 动画
 Studio.AnimationClipEditor.Menu.Export,Export, ,내보내기,导入
 Studio.AnimationClipEditor.Menu.CreateNew,Create New, ,새로 만들기,新建
-Studio.AnimationClipEditor.Menu.New,New..., ,새 항목...,新增...
-Studio.AnimationClipEditor.Menu.Overwrite,Do you want to overwrite existing animation "{1}"?, ,기존 애니메이션 "{1}"을(를) 덮어쓰시겠습니까?,是否覆盖现有动画 "{1}"?
-Studio.AnimationClipEditor.Menu.RenamePrompt,New Animation Name:, ,새 애니메이션 이름:,新动画名称:
+Studio.AnimationClipEditor.Menu.New,New..., ,새 항목...,新增…
+Studio.AnimationClipEditor.Menu.Overwrite,Do you want to overwrite existing animation "{1}"?, ,기존 애니메이션 "{1}"을(를) 덮어쓰시겠습니까?,是否覆盖现有动画 “{1}”？
+Studio.AnimationClipEditor.Menu.RenamePrompt,New Animation Name:, ,새 애니메이션 이름:,新动画名称：
 Studio.AnimationClipEditor.Menu.RenameKeyframePrompt,New Keyframe Name, ,새 키프레임 이름:,新关键帧名称
 Studio.AnimationClipEditor.Menu.SetPriority,Set Animation Priority, ,애니메이션 우선순위 설정,设置动画优先级
 Studio.AnimationClipEditor.Menu.AddAllTracks,Add All, ,모두 추가,添加全部
-Studio.AnimationClipEditor.RigErrors.NoMotors,A model needs to have its parts joined together by Motor6Ds to properly animate., ,모델을 올바르게 애니메이션화하려면 Motor6D로 파트를 결합해야 합니다.,一个模型需要通过 Motor6D 将其部件连接在一起，以进行适当的动画处理。
-Studio.AnimationClipEditor.RigErrors.PartsAnchored,"All of the parts on this model are anchored, making it non-animatable. Please un-anchor the parts on this model.", ,이 모델의 모든 파트가 고정되어 애니메이션화할 수 없습니다. 이 모델의 파트를 고정 해제하세요.,此模型上的所有部件均已锚定，无法设置动画。请取消锚定该模型的部件。
-Studio.AnimationClipEditor.RigErrors.MissingPart0,The following Motor6Ds do not have a Part0 set: {1}, ,다음 Motor6D에 Part0 세트가 없습니다. {1},以下 Motor6D 没有 Part0 set: {1}
-Studio.AnimationClipEditor.RigErrors.MissingPart1,The following Motor6Ds do not have a Part1 set: {1}, ,다음 Motor6D에 Part1 세트가 없습니다. {1},以下 Motor6D 没有Part1 set: {1}
-Studio.AnimationClipEditor.RigErrors.MultipleParents,The following parts are affected by multiple Motor6Ds: {1}, ,다음 파트가 여러 Motor6D의 영향을 받습니다. {1},以下部件受到多个 Motor6D: {1} 影响
-Studio.AnimationClipEditor.RigErrors.CircularRig,This rig contains a cycle between the connections of certain parts., ,이 리그에는 특정 파트의 연결 간 사이클이 포함되어 있습니다.,此骨架包含某些部件连接之间的循环。
-Studio.AnimationClipEditor.RigErrors.NoAnimationController,This rig does not have an animation controller or humanoid. Please create one., ,이 리그에는 애니메이션 컨트롤러 또는 휴머노이드가 없습니다. 새로 만들어 주세요.,此骨架没有动画控制器或人形，请创建一个。
-Studio.AnimationClipEditor.Toast.ClippedWarning,Warning: An animation cannot exceed 30 seconds in length. Excess keyframes have been removed., ,경고: 애니메이션 길이는 30초를 초과할 수 없습니다. 초과한 키프레임은 제거되었습니다.,警告: 动画长度不能超过 30 秒。超过的关键帧已被移除。
-Studio.AnimationClipEditor.Toast.MaxFramerateWarning,"Warning: This animation exceeds the maximum 120 fps frame rate. Some keys are not aligned to frames, they will snap to frames when you edit them.", ,"경고: 이 애니메이션은 최대 프레임 속도 120fps를 초과합니다. 일부 키가 프레임에 맞게 정렬되지 않았으며, 이러한 키는 편집 시 프레임에 맞춰집니다.",警告: 此动画超过最高 120 fps 的帧速率。某些关键点未与框架对齐，当你编辑它们时，它们将与框架对齐。
-Studio.AnimationClipEditor.Toast.QuantizeWarning,"Warning: Some keys of your animation are not aligned to frames, they will snap to frames when you edit them.", ,"경고: 일부 키가 프레임에 맞게 정렬되지 않았으며, 이러한 키는 편집 시 프레임에 맞춰집니다.",警告: 动画的某些关键点未与框架对齐，当你编辑它们时，它们将与框架对齐。
+Studio.AnimationClipEditor.RigErrors.NoMotors,A model needs to have its parts joined together by Motor6Ds to properly animate., ,모델을 올바르게 애니메이션화하려면 Motor6D로 파트를 결합해야 합니다.,模型需要通过 Motor6D 连接部件后，才能准确进行动画处理。
+Studio.AnimationClipEditor.RigErrors.PartsAnchored,"All of the parts on this model are anchored, making it non-animatable. Please un-anchor the parts on this model.", ,이 모델의 모든 파트가 고정되어 애니메이션화할 수 없습니다. 이 모델의 파트를 고정 해제하세요.,此模型上的所有部件均已锚固，无法设置动画。请取消锚固该模型的部件。
+Studio.AnimationClipEditor.RigErrors.MissingPart0,The following Motor6Ds do not have a Part0 set: {1}, ,다음 Motor6D에 Part0 세트가 없습니다. {1},以下 Motor6D 没有设置 Part0 ：{1}
+Studio.AnimationClipEditor.RigErrors.MissingPart1,The following Motor6Ds do not have a Part1 set: {1}, ,다음 Motor6D에 Part1 세트가 없습니다. {1},以下 Motor6D 没有设置 Part1 ：{1}
+Studio.AnimationClipEditor.RigErrors.MultipleParents,The following parts are affected by multiple Motor6Ds: {1}, ,다음 파트가 여러 Motor6D의 영향을 받습니다. {1},以下部件受到多个Motor6D影响：{1}
+Studio.AnimationClipEditor.RigErrors.CircularRig,This rig contains a cycle between the connections of certain parts., ,이 리그에는 특정 파트의 연결 간 사이클이 포함되어 있습니다.,此骨架所包含的某些部件已经连接成环形。
+Studio.AnimationClipEditor.RigErrors.NoAnimationController,This rig does not have an animation controller or humanoid. Please create one., ,이 리그에는 애니메이션 컨트롤러 또는 휴머노이드가 없습니다. 새로 만들어 주세요.,此骨架尚未搭配动画控制器或人形生物。请进行创建。
+Studio.AnimationClipEditor.Toast.ClippedWarning,Warning: An animation cannot exceed 30 seconds in length. Excess keyframes have been removed., ,경고: 애니메이션 길이는 30초를 초과할 수 없습니다. 초과한 키프레임은 제거되었습니다.,警告：动画长度不能超过 30 秒。超出限制的关键帧已被移除。
+Studio.AnimationClipEditor.Toast.MaxFramerateWarning,"Warning: This animation exceeds the maximum 120 fps frame rate. Some keys are not aligned to frames, they will snap to frames when you edit them.", ,"경고: 이 애니메이션은 최대 프레임 속도 120fps를 초과합니다. 일부 키가 프레임에 맞게 정렬되지 않았으며, 이러한 키는 편집 시 프레임에 맞춰집니다.",警告：当前动画超过了 120 fps 的最高帧速率。某些关键点尚未与帧对齐，进行编辑时，将会自动与帧对齐。
+Studio.AnimationClipEditor.Toast.QuantizeWarning,"Warning: Some keys of your animation are not aligned to frames, they will snap to frames when you edit them.", ,"경고: 일부 키가 프레임에 맞게 정렬되지 않았으며, 이러한 키는 편집 시 프레임에 맞춰집니다.",警告：动画的某些关键点尚未与帧对齐，进行编辑时，将会自动与帧对齐。
 Studio.AnimationClipEditor.Toast.AlignNow,Align all keys now, ,지금 모든 키 정렬,立即对齐全部关键点
 Studio.AnimationClipEditor.Toast.IgnoreWarning,Ignore warning, ,경고 무시,忽略警告
 Studio.AnimationClipEditor.Toast.Saved,Saved animation {1}, ,저장된 애니메이션 {1},已保存动画 {1}
 Studio.AnimationClipEditor.Toast.Loaded,Loaded animation {1}, ,불러온 애니메이션 {1},已加载动画 {1}
-Studio.AnimationClipEditor.RigErrors.NameCollision,This rig contains multiple parts which share the same name. Please give unique names to all parts., ,이 리그에는 이름이 동일한 애니메이션 파트가 여러 개 있습니다. 모든 애니메이션 파트에 고유한 이름을 지정해주세요.,此骨架包含共用相同名称的多个动画部件。请为所有动画部件指定唯一名称。
-Studio.AnimationClipEditor.Tooltip.CurrentFrameBox,Change scrubber time, ,스크러버 시간 변경,更改刷子名称
+Studio.AnimationClipEditor.RigErrors.NameCollision,This rig contains multiple parts which share the same name. Please give unique names to all parts., ,이 리그에는 이름이 동일한 애니메이션 파트가 여러 개 있습니다. 모든 애니메이션 파트에 고유한 이름을 지정해주세요.,此骨架包含共用相同名称的多个部件。请为每个部件都指定唯一名称。
+Studio.AnimationClipEditor.Tooltip.CurrentFrameBox,Change scrubber time, ,스크러버 시간 변경,更改进度条时间
 Studio.AnimationClipEditor.Tooltip.EndFrameBox,Change timeline length, ,타임라인 길이 변경,更改时间轴长度
 Studio.AnimationClipEditor.Tooltip.ToggleLooping,Toggle looping animation, ,애니메이션 반복 토글,切换循环动画
 Studio.AnimationClipEditor.Tooltip.Play,Preview the animation [Space], ,애니메이션 미리보기 [Space],预览动画 [Space]
-Studio.AnimationClipEditor.Tooltip.SkipForward,Move scrubber to next key, ,스크러버를 다음 키로 이동,将刷子移动到下一个键
-Studio.AnimationClipEditor.Tooltip.SkipBackward,Move scrubber to previous key, ,스크러버를 이전 키로 이동,将刷子移动到上一个键
-Studio.AnimationClipEditor.Tooltip.AddTrackButton,Add a new animation track, ,새 애니메이션 트랙 추가,添加一个新的动画轨迹
-Studio.AnimationClipEditor.Dialog.EditorErrorsHeader,Editor Error Detected, , , 
-Studio.AnimationClipEditor.EditorErrors.OpenedWhileRunning,Animation Editor cannot be used while game is running!, , , 
+Studio.AnimationClipEditor.Tooltip.SkipForward,Move scrubber to next key, ,스크러버를 다음 키로 이동,将进度条进度移动到下一个关键点
+Studio.AnimationClipEditor.Tooltip.SkipBackward,Move scrubber to previous key, ,스크러버를 이전 키로 이동,将进度条进度移动到上一个关键点
+Studio.AnimationClipEditor.Tooltip.AddTrackButton,Add a new animation track, ,새 애니메이션 트랙 추가,添加新的动画轨迹
+Studio.AnimationClipEditor.Dialog.EditorErrorsHeader,Editor Error Detected, , ,检测到编辑器错误
+Studio.AnimationClipEditor.EditorErrors.OpenedWhileRunning,Animation Editor cannot be used while game is running!, , ,游戏运行时无法使用动画编辑器！

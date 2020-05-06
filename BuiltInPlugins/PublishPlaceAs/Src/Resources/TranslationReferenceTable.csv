@@ -1,7 +1,7 @@
 Key,Source,Context,ko,zh-cn
 Studio.PublishPlaceAs.General.PublishPlace,Publish Place, ,플레이스 게시,发布场景
 Studio.PublishPlaceAs.General.ContentDialogTitle,Content Agreement, ,콘텐츠 동의,内容协议
-Studio.PublishPlaceAs.General.ContentDialogHeader,Do you agree that your game is controller compatible and contains NONE of the following?, ,이 게임은 컨트롤러가 호환되며 다음과 같은 콘텐츠가 없음에 동의하십니까?,你同意让游戏兼容控制器，并确认游戏不包含以下内容吗?
+Studio.PublishPlaceAs.General.ContentDialogHeader,Do you agree that your game is controller compatible and contains NONE of the following?, ,이 게임은 컨트롤러가 호환되며 다음과 같은 콘텐츠가 없음에 동의하십니까?,确认游戏可以兼容控制器，并不包含以下内容吗?
 Studio.PublishPlaceAs.General.ContentDialogItem1,Blood or Gore, ,피 또는 잔인한 장면,血腥
 Studio.PublishPlaceAs.General.ContentDialogItem2,Intense Violence, ,심각한 폭력,激烈暴力
 Studio.PublishPlaceAs.General.ContentDialogItem3,Strong Language (Swearing), ,심한 말(욕설),粗暴语言 (脏话)
@@ -12,26 +12,26 @@ Studio.PublishPlaceAs.Button.Close,Close, ,닫기,关闭
 Studio.PublishPlaceAs.Button.ReplyAgree,Agree, ,동의,同意
 Studio.PublishPlaceAs.Button.ReplyDisagree,Disagree, ,비동의,不同意
 Studio.PublishPlaceAs.Button.Retry,Retry, ,다시 시도,重试
-Studio.PublishPlaceAs.FooterButton.UpdateExistingGame,Update existing game..., ,기존 게임 업데이트.,更新现有游戏...
-Studio.PublishPlaceAs.FooterButton.CreateNewGame,Create new game..., ,새 게임 만들기...,创建新游戏...
+Studio.PublishPlaceAs.FooterButton.UpdateExistingGame,Update existing game..., ,기존 게임 업데이트.,更新现有游戏…
+Studio.PublishPlaceAs.FooterButton.CreateNewGame,Create new game..., ,새 게임 만들기...,创建新游戏…
 Studio.PublishPlaceAs.FooterButton.Create,Create, ,만들기,创建
 Studio.PublishPlaceAs.FooterButton.Overwrite,Overwrite, ,덮어쓰기,覆盖
 Studio.PublishPlaceAs.FooterButton.Cancel,Cancel, ,취소,取消
 Studio.PublishPlaceAs.GroupDropdown.MyGames,My Games, ,내 게임,我的游戏
-Studio.PublishPlaceAs.MenuItem.BasicInfo,Basic Info, ,기본 정보,基础信息
+Studio.PublishPlaceAs.MenuItem.BasicInfo,Basic Info, ,기본 정보,基本信息
 Studio.PublishPlaceAs.Devices.Header,Devices, ,기기,设备
-Studio.PublishPlaceAs.Devices.Computer,Computer, ,컴퓨터,计算机
+Studio.PublishPlaceAs.Devices.Computer,Computer, ,컴퓨터,个人电脑
 Studio.PublishPlaceAs.Devices.Phone,Phone, ,휴대폰,手机
-Studio.PublishPlaceAs.Devices.Tablet,Tablet, ,태블릿,平板
+Studio.PublishPlaceAs.Devices.Tablet,Tablet, ,태블릿,平板电脑
 Studio.PublishPlaceAs.Devices.Console,Console, ,콘솔,游戏主机
 Studio.PublishPlaceAs.PageTitle.Name,Name, ,이름,名称
 Studio.PublishPlaceAs.PageTitle.Description,Description, ,설명,描述
-Studio.PublishPlaceAs.PageTitle.Genre,Genre, ,장르,主题
+Studio.PublishPlaceAs.PageTitle.Genre,Genre, ,장르,类型
 Studio.PublishPlaceAs.PageTitle.Devices,Devices, ,기기,设备
-Studio.PublishPlaceAs.Genre.All,All, ,모두,所有
+Studio.PublishPlaceAs.Genre.All,All, ,모두,全部
 Studio.PublishPlaceAs.Genre.Adventure,Adventure, ,어드벤처,冒险
 Studio.PublishPlaceAs.Genre.Tutorial,Building, ,건설,建筑
-Studio.PublishPlaceAs.Genre.Funny,Comedy, ,코미디,喜剧
+Studio.PublishPlaceAs.Genre.Funny,Comedy, ,코미디,幽默
 Studio.PublishPlaceAs.Genre.Ninja,Fighting, ,격투,格斗
 Studio.PublishPlaceAs.Genre.FPS,FPS, ,FPS,FPS
 Studio.PublishPlaceAs.Genre.Scary,Horror, ,공포,恐怖
@@ -49,11 +49,11 @@ Studio.PublishPlaceAs.Error.NameModerated,The name didn't go through our moderat
 Studio.PublishPlaceAs.Error.DescriptionModerated,The description didn't go through our moderation. Please revise it and try again., ,설명이 검열을 통과하지 못했어요. 수정한 후 다시 시도하세요.,此描述没有通过审核。请修改后再试一次。
 Studio.PublishPlaceAs.Error.DescriptionTooLong,{1}/{2}, ,{1}/{2},{1}/{2}
 Studio.PublishPlaceAs.Error.NoDevices,You must select at least one playable device., ,플레이 가능한 기기를 최소 1개 선택해야 합니다.,你必须选择至少一种可玩设备。
-Studio.PublishPlaceAs.ScreenHeader.ChooseGame,Choose an existing game to add this place, ,이 플레이스를 추가할 기존 게임을 선택하세요,选择一个现有游戏添加此场景
-Studio.PublishPlaceAs.ScreenHeader.ChoosePlace,Overwrite or add a new place to {1}, ,덮어쓰거나 새 플레이스를 {1}에 추가하세요,覆盖或添加一个新场景至{1}
-Studio.PublishPlaceAs.PublishSuccess.Success,Successfully published!, ,게시 성공!,发布成功!
+Studio.PublishPlaceAs.ScreenHeader.ChooseGame,Choose an existing game to add this place, ,이 플레이스를 추가할 기존 게임을 선택하세요,选择现有游戏添加此场景
+Studio.PublishPlaceAs.ScreenHeader.ChoosePlace,Overwrite or add a new place to {1}, ,덮어쓰거나 새 플레이스를 {1}에 추가하세요,覆盖或向 {1} 添加一个新场景
+Studio.PublishPlaceAs.PublishSuccess.Success,Successfully published!, ,게시 성공!,发布成功！
 Studio.PublishPlaceAs.PublishSuccess.FindInGame,You may find this place in {1}, ,이 플레이스는 {1}에서 찾을 수 있습니다,你可以在 {1} 中找到此场景
 Studio.PublishPlaceAs.PublishFail.Fail,Publish failed, ,게시 실패,发布失败
 Studio.PublishPlaceAs.PublishFail.FailConfiguration,Could not publish configuration settings., ,구성 설정을 게시하지 못했습니다.,无法发布配置设置。
-Studio.PublishPlaceAs.GroupDropdown.Me,Me, , , 
-Studio.PublishPlaceAs.PageTitle.Creator,Creator, , , 
+Studio.PublishPlaceAs.GroupDropdown.Me,Me, , ,我
+Studio.PublishPlaceAs.PageTitle.Creator,Creator, , ,创建者

@@ -58,6 +58,7 @@ Studio.Common.Action.Submit,Submit, ,Submit,제출,提交
 Studio.Common.Action.Install,Install, ,Install,설치,安装
 Studio.Common.Action.Installed,Installed, ,Installed,설치됨,已安装
 Studio.Common.Action.Loading,Loading..., ,Loading...,불러오는 중...,正在加载...
+Studio.Common.Action.Resume,Resume, ,Resume, ,继续
 Studio.Toolbox.General.ToolboxToolbarName,Toolbox, ,Toolbox,도구 상자,工具箱
 Studio.Toolbox.General.CategoryModels,Models, ,Models,모델,模型
 Studio.Toolbox.General.CategoryDecals,Images, ,Images,이미지,图片
@@ -70,6 +71,7 @@ Studio.Toolbox.General.CategoryMyMeshes,My Meshes, ,My Meshes,내 메시,我的�
 Studio.Toolbox.General.CategoryMyAudio,My Audio, ,My Audio,내 오디오,我的音频
 Studio.Toolbox.General.CategoryMyPackages,My Packages, ,My Packages,내 패키지,我的包
 Studio.Toolbox.General.CategoryMyPlugins,My Plugins, ,My Plugins,내 플러그인,我的插件
+Studio.Toolbox.General.CategoryMyVideos,My Videos, ,My Videos, , 
 Studio.Toolbox.General.CategoryRecentModels,Recent Models, ,Recent Models,최근 모델,最近使用的模型
 Studio.Toolbox.General.CategoryRecentDecals,Recent Images, ,Recent Images,최근 이미지,最近使用的图片
 Studio.Toolbox.General.CategoryRecentMeshes,Recent Meshes, ,Recent Meshes,최근 메시,最近使用的网格
@@ -79,6 +81,7 @@ Studio.Toolbox.General.CategoryGroupDecals,Group Images, ,Group Images,그룹 �
 Studio.Toolbox.General.CategoryGroupMeshes,Group Meshes, ,Group Meshes,그룹 메시,群组网格
 Studio.Toolbox.General.CategoryGroupAudio,Group Audio, ,Group Audio,그룹 오디오,群组音频
 Studio.Toolbox.General.CategoryGroupPackages,Group Packages, ,Group Packages,그룹 패키지,群组包
+Studio.Toolbox.General.CategoryVideos,Videos, ,Videos, , 
 Studio.Toolbox.General.SearchBarDefaultText,Search, ,Search,검색,搜索
 Studio.Toolbox.General.SearchBarCreatorText,Search for users, ,Search for users,사용자 검색,搜索用户
 Studio.Toolbox.General.SuggestionsIntroText,Try searching for:, ,Try searching for:,다음으로 검색:,尝试搜索:
@@ -243,26 +246,30 @@ Studio.Toolbox.AssetConfigPreview.Format,Acceptable files: {formatString},Max: {
  ,Free,무료,免费,Studio.Toolbox.General.Installing,Installing
  ,Installing,설치,正在安装,Studio.Toolbox.General.Tags,Tags
  ,Tags,태그,标签,Studio.Toolbox.AssetConfigError.NetworkError,We encountered some problems:
- ,We encountered some problems:,문제가 발생했습니다.,我们遇到了一些问题:,Studio.Toolbox.AssetConfigPackagePermissions.PackageCreator,Package Creator
+ ,We encountered some problems:,문제가 발생했습니다.,我们遇到了一些问题：,Studio.Toolbox.AssetConfigPackagePermissions.PackageCreator,Package Creator
  ,Package Creator,패키지 생성자,软件包创建者,Studio.Toolbox.AssetConfigPackagePermissions.SearchbarDefault,Search for Friends
  ,Search for Friends,친구 검색,搜索好友,Studio.Toolbox.AssetConfigPackagePermissions.UserOwnedWarning, Users you share with will always have access to the current and previous versions of this package. Removing collaborators will discontinue their access to newer versions of the package.
- , Users you share with will always have access to the current and previous versions of this package. Removing collaborators will discontinue their access to newer versions of the package., 공유 받는 사용자는 항상 이 패키지의 현재 및 이전 버전에 액세스할 수 있습니다. 협업자를 제거하면 최신 버전의 패키지에 대한 액세스가 중단됩니다.,与你共享的用户将始终可以访问此软件包的当前版本和之前版本。删除协作者将终止他们对软件包较新版本的访问权限。,Studio.Toolbox.AssetConfigPackagePermissions.GroupOwnedWarning,No Access takes effect from new versions of this package. Users assigned to rolesets with "Edit" permissions will always have access to current and previous versions of this package.
- ,No Access takes effect from new versions of this package. Users assigned to rolesets with "Edit" permissions will always have access to current and previous versions of this package.,이 패키지의 새 버전에는 액세스 권한이 적용되지 않습니다. "편집" 권한이 있는 역할 세트에 할당된 사용자는 항상 이 패키지의 현재 및 이전 버전에 액세스할 수 있습니다.,无访问权限从此软件包的新版本生效。分配给具有“编辑”权限的角色集的用户，将始终有权访问此程序包的当前和之前版本。,Studio.Toolbox.AssetConfigPackagePermissions.PackageDetails,Package Details
+ , Users you share with will always have access to the current and previous versions of this package. Removing collaborators will discontinue their access to newer versions of the package., 공유 받는 사용자는 항상 이 패키지의 현재 및 이전 버전에 액세스할 수 있습니다. 협업자를 제거하면 최신 버전의 패키지에 대한 액세스가 중단됩니다., 你所进行共享的用户将始终拥有此包最新与先前版本的访问权限。将协作者移除后，也将终止其对此包今后版本的访问权限。,Studio.Toolbox.AssetConfigPackagePermissions.GroupOwnedWarning,No Access takes effect from new versions of this package. Users assigned to rolesets with "Edit" permissions will always have access to current and previous versions of this package.
+ ,No Access takes effect from new versions of this package. Users assigned to rolesets with "Edit" permissions will always have access to current and previous versions of this package.,이 패키지의 새 버전에는 액세스 권한이 적용되지 않습니다. "편집" 권한이 있는 역할 세트에 할당된 사용자는 항상 이 패키지의 현재 및 이전 버전에 액세스할 수 있습니다.,无访问权限设定会在此软件包更新版本后生效。拥有“编辑”权限角色集中的用户将始终有权访问此程序包的最新与先前版本。,Studio.Toolbox.AssetConfigPackagePermissions.PackageDetails,Package Details
  ,Package Details,패키지 세부 사항,软件包详情,Studio.Toolbox.Purchase.FreeTitle,Install Plugin
  ,Install Plugin,플러그인 설치,安装插件,Studio.Toolbox.Purchase.SuccessHeader,Buy & Installation Complete!
- ,Buy & Installation Complete!,플러그인 설치 및 구매!,购买及安装完成!,Studio.Toolbox.Purchase.FreeSuccessHeader,Installation Complete!
+ ,Buy & Installation Complete!,플러그인 설치 및 구매!,购买及安装完成！,Studio.Toolbox.Purchase.FreeSuccessHeader,Installation Complete!
  ,Installation Complete!,설치 완료!,安装完成!,Studio.Toolbox.Purchase.SuccessDetails,Successfully installed "{name}".
  ,Successfully installed "{name}".,"{name}"을(를) 설치했습니다.,成功安装 "{name}"。,Studio.Toolbox.MaxTagsDescription,Add up to {max:int} tags from the tag library
  ,Add up to {max:int} tags from the tag library,태그 라이브러리에서 최대 {max:int}개의 태그 추가,从标签库中最多添加 {max:int} 个标签,Studio.Toolbox.NoTagFound,Word(s) not found in the tag library
- ,Word(s) not found in the tag library,태그 라이브러리에서 단어를 찾을 수 없음,标签库中找不到词,Studio.Toolbox.ThumbnailStatus.Error,Error
+ ,Word(s) not found in the tag library,태그 라이브러리에서 단어를 찾을 수 없음,未能在标签库中找到相应词语,Studio.Toolbox.ThumbnailStatus.Error,Error
  ,Error,오류,错误,Studio.Toolbox.ThumbnailStatus.InReview,In Review
  ,In Review,검토 중,审阅中,Studio.Toolbox.ThumbnailStatus.Pending,Pending
  ,Pending,보류 중,处理中,Studio.Toolbox.ThumbnailStatus.Blocked,Blocked
  ,Blocked,차단됨,已屏蔽,Studio.Toolbox.General.AbbreviatedSeconds,s
- ,s, , ,Studio.Toolbox.General.AbbreviatedMinutes,m
- ,m, , ,Studio.Toolbox.General.SearchOptionAudioTo,to
- ,to, , ,Studio.Toolbox.General.SearchOptionAudioLength,Sound Length
- ,Sound Length, , ,Studio.Toolbox.General.SearchTagLength,length:
- ,length:, , ,Studio.Toolbox.AssetConfigUpload.IDCopied,ID Copied!
- ,ID Copied!, , ,Studio.Toolbox.AssetConfigAnimation.FilterID,Filter ID
- ,Filter ID, , 
+ ,s, ,秒,Studio.Toolbox.General.AbbreviatedMinutes,m
+ ,m, ,分,Studio.Toolbox.General.SearchOptionAudioTo,to
+ ,to, ,至,Studio.Toolbox.General.SearchOptionAudioLength,Sound Length
+ ,Sound Length, ,声音长度,Studio.Toolbox.General.SearchTagLength,length:
+ ,length:, ,长度：,Studio.Toolbox.AssetConfigUpload.IDCopied,ID Copied!
+ ,ID Copied!, ,ID 已复制！,Studio.Toolbox.AssetConfigAnimation.FilterID,Filter ID
+ ,Filter ID, ,过滤 ID,Studio.Toolbox.General.PremiumBenefits,Add Premium benefits
+ ,Add Premium benefits, , ,Studio.Toolbox.General.NoPluginsFound.TextLine1,Can’t find what you’re looking for?
+ ,Can’t find what you’re looking for?, , ,Studio.Toolbox.General.NoPluginsFound.TextLine2,"For more plugins, try searching in the {link} on our website."
+ ,"For more plugins, try searching in the {link} on our website.", , ,Studio.Toolbox.General.NoPluginsFound.LinkText,Library
+ ,Library, , 

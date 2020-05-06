@@ -22,7 +22,8 @@ void main()
 {
     float f0 = (2.0 * texelFetch(DepthAATexture, ivec2(VARYING0 * CB1[0].xy), 0).x) - 1.0;
     float f1 = CB1[1].y / (f0 + CB1[1].x);
-    _entryPointOutput = vec4((f0 <= (-1.0)) ? 1.0 : min(f1 * 0.00200000009499490261077880859375, 0.99800002574920654296875), clamp(1.0 - ((CB1[1].z - f1) * CB1[1].w), 0.0, 1.0), 0.0, 0.0);
+    vec2 f2 = VARYING0 - vec2(0.5);
+    _entryPointOutput = vec4((f0 <= (-1.0)) ? 1.0 : min(f1 * 0.00200000009499490261077880859375, 0.99800002574920654296875), clamp(1.0 - ((CB1[1].z - (sqrt((dot(f2, f2) * 4.0) + 1.0) * f1)) * CB1[1].w), 0.0, 1.0), 0.0, 0.0);
 }
 
 //$$DepthAATexture=s4

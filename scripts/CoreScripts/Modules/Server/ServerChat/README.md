@@ -115,6 +115,7 @@ ___
     int ID
     string FromSpeaker
 		int SpeakerUserId
+		string SpeakerDisplayName
     string OriginalChannel
     bool IsFiltered
 		int MessageLength

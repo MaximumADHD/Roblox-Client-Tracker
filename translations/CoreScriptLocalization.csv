@@ -590,6 +590,7 @@ InGame.InspectMenu.Action.TryOn,,,Try On,Anprobieren,Try On,Probar,Probar,Essaie
 InGame.InspectMenu.Action.Buy,,,Buy,Kaufen,Buy,Comprar,Comprar,Acheter,Compra,買う,구매,Comprar,Comprar,Купить,购买,購買,购买
 InGame.InspectMenu.Action.Inspect,,,Inspect,Beschauen,Inspect,Inspeccionar,Inspeccionar,Inspecter,Esamina,確認,확인,Inspecionar,Inspecionar,Осмотреть,检视,檢視,检视
 InGame.InspectMenu.Action.View,,,View,Ansehen,View,Ver,Ver,Voir,Osserva,表示,보기,Ver,Ver,Осмотр,查看,查看,查看
+InGame.InspectMenu.Label.PremiumOnly,,,Premium Only,Nur Premium,Premium Only,Solo Premium,Solo Premium,Premium uniquement,Solo Premium,Premium限定,Premium 전용,Apenas Premium,Apenas Premium,Только премиум-подписка,,Premium 限定,Premium 限定
 InGame.InspectMenu.Label.Owned,,,Owned,Im Besitz,Owned,En posesión,En posesión,Possédé,Posseduto,所有済み,소유함,Possuído,Possuído,В наличии,已拥有,已擁有,已拥有
 InGame.InspectMenu.Label.Offsale,,,Offsale,Offsale,Offsale,Fuera de venta,Fuera de venta,Pas en vente,Non in vendita,非売品,오프세일,Indisponível,Indisponível,Распродано,下架,下架,下架
 InGame.InspectMenu.Label.Limited,,,Limited,In limitierter Auflage,Limited,Limitado,Limitado,Limité-e,Limitato,限定,한정품,Limitado,Limitado,Ограничено,限量,限定,限量

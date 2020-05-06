@@ -1189,6 +1189,7 @@ Studio.App.PackageResourceController.PackageInsertError1,,,Game Explorer Package
 Studio.App.PackageUtilities.GoToRevisionError1,,,Package go to revision error: %1,Package go to revision error: %1,패키지 수정 오류: %1,Ошибка перехода к версии пакета: %1,包还原至版本错误: %1
 Studio.App.PackageUtilities.UndoChangesError1,,,Package undo changes error: %1,Package undo changes error: %1,패키지 변경 사항 실행 취소 오류: %1,Ошибка отмены изменений пакета: %1,包撤销更改错误: %1
 Studio.App.PackageUtilities.UpdateError1,,,Package update error: %1,Package update error: %1,패키지 업데이트 오류: %1,Ошибка обновления пакета: %1,包更新错误: %1
+Studio.App.PropertyEnum.Absolute,,,Absolute,Absolute,절대,Абсолютный,绝对
 Studio.App.PropertyEnum.Aggregate,,,Aggregate,Aggregate,집계,Агрегировать,聚集
 Studio.App.PropertyEnum.Always,,,Always,Always,항상,Всегда,总是
 Studio.App.PropertyEnum.Auto,,,Auto,Auto,자동,Авто,自动
@@ -1246,6 +1247,7 @@ Studio.App.PropertyEnum.PerCore4,,,Per Core 4,Per Core 4,코어당 4,На одн
 Studio.App.PropertyEnum.Precise,,,Precise,Precise,정밀,Точно,精确
 Studio.App.PropertyEnum.Prompt,,,Prompt,Prompt,프롬프트,Быстро,提示
 Studio.App.PropertyEnum.Report,,,Report,Report,신고,Отчет,举报
+Studio.App.PropertyEnum.Relative,,,Relative,Relative,상대,Относительный,相对
 Studio.App.PropertyEnum.Roblox,,,Roblox,Roblox,Roblox,Roblox,Roblox
 Studio.App.PropertyEnum.RobloxGame,,,Roblox Game,Roblox Game,Roblox 게임,Игра Roblox,Roblox 游戏
 Studio.App.PropertyEnum.RobloxScript,,,Roblox Script,Roblox Script,Roblox 스크립트,Скрипт Roblox,Roblox 脚本
@@ -1292,6 +1294,7 @@ Studio.App.Property.AreWorldCoordsShown,,,Are World Coords Shown,Are World Coord
 Studio.App.Property.AttachDebuggerTo,,,Attach Debugger To,Attach Debugger To,디버거를 다음에 첨부,Прикрепить отладчик к,连接调试器至
 Studio.App.Property.AutoFRMLevel,,,Auto FRM Level,Auto FRM Level,자동 FRM 레벨,Автоматический уровень FRM,自动 FRM 等级
 Studio.App.Property.AutoIndent,,,Auto Indent,Auto Indent,자동 인덴트,Автоматический отступ,自动缩进
+Studio.App.Property.AutoIndentRule,,,Auto Indent Rule,Auto Indent Rule,자동 인덴트,Автоматический отступ,自动缩进规则
 Studio.App.Property.AutoRecoveryEnabled,,,Auto-Recovery Enabled,Auto-Recovery Enabled,자동 복구 활성화됨,Автовосстановление включено,启用自动恢复
 Studio.App.Property.AutoRecoveryIntervalMinutes,,,Auto-Recovery Interval (Minutes),Auto-Recovery Interval (Minutes),자동 복구 간격 (분),Интервал автовосстановления (минуты),自动恢复时间间隔 (分钟)
 Studio.App.Property.AutoRecoveryPath,,,Auto-Recovery Path,Auto-Recovery Path,자동 복구 경로,Путь для автовосстановления,自动恢复路径

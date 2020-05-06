@@ -988,6 +988,7 @@ Class VideoFrame : GuiObject
 	Property bool VideoFrame.IsLoaded  [ReadOnly] [NotReplicated]
 	Property bool VideoFrame.Looped
 	Property bool VideoFrame.Playing  [NotReplicated]
+	Property Vector2 VideoFrame.Resolution  [ReadOnly] [NotReplicated]
 	Property double VideoFrame.TimeLength  [ReadOnly] [NotReplicated]
 	Property double VideoFrame.TimePosition  [NotReplicated]
 	Property Content VideoFrame.Video
@@ -2552,6 +2553,7 @@ Class DataModel : ServiceProvider [NotCreatable]
 	Function bool DataModel:DefineFastFlag(string name, bool defaultValue) {RobloxScriptSecurity}
 	Function int DataModel:DefineFastInt(string name, int defaultValue) {RobloxScriptSecurity}
 	Function string DataModel:DefineFastString(string name, string defaultValue) {RobloxScriptSecurity}
+	Function bool DataModel:GetEngineFeature(string name) {LocalUserSecurity}
 	Function bool DataModel:GetFastFlag(string name) {LocalUserSecurity}
 	Function int DataModel:GetFastInt(string name) {LocalUserSecurity}
 	Function string DataModel:GetFastString(string name) {LocalUserSecurity}
@@ -2840,6 +2842,7 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool Studio.Auto Closing Brackets
 	Property bool Studio.Auto Closing Quotes
 	Property bool Studio.Auto Indent
+	Property Enum<AutoIndentRule> Studio.Auto Indent Rule
 	Property bool Studio.Enable Autocomplete
 	Property QFont Studio.Font
 	Property bool Studio.Show Whitespace
@@ -2881,6 +2884,7 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool StudioService.DraggerSolveConstraints  [ReadOnly] [NotReplicated]
 	Property bool StudioService.DrawConstraintsOnTop  [ReadOnly] [NotReplicated]
 	Property float StudioService.GridSize  [ReadOnly] [NotReplicated]
+	Property Instance StudioService.HoverInstance {RobloxScriptSecurity} [<📁> LoadOnly] [NotReplicated]
 	Property string StudioService.InstalledPluginData {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
 	Property float StudioService.RotateIncrement  [ReadOnly] [NotReplicated]
 	Property bool StudioService.ShowConstraintDetails  [ReadOnly] [NotReplicated]
@@ -3443,6 +3447,10 @@ Enum AssetType
 	EnumItem AssetType.EarAccessory : 57
 	EnumItem AssetType.EyeAccessory : 58
 	EnumItem AssetType.EmoteAnimation : 61
+Enum AutoIndentRule
+	EnumItem AutoIndentRule.Off : 0
+	EnumItem AutoIndentRule.Absolute : 1
+	EnumItem AutoIndentRule.Relative : 2
 Enum AvatarContextMenuOption
 	EnumItem AvatarContextMenuOption.Friend : 0
 	EnumItem AvatarContextMenuOption.Chat : 1

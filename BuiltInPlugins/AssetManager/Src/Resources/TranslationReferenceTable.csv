@@ -1,0 +1,41 @@
+Key,Source,Context,zh-cn
+Studio.AssetManager.Main.Title,Asset Manager, ,资源管理器
+Studio.AssetManager.Main.ToolbarButton,Asset Manager, ,资源管理器
+Studio.AssetManager.Main.Tooltip,"Add, remove, and modify assets", ,添加、移除和修改资源
+Studio.AssetManager.Meta.PluginName,AssetManager, ,AssetManager
+Studio.AssetManager.Meta.ToolbarName,Asset Manager, ,资源管理器
+Studio.AssetManager.BulkImport.BulkImportRunning,You can import other files after the current import is finished., ,请在当前导入完成后开始其它文件的导入。
+Studio.AssetManager.BulkImport.BulkImportShowLink,Check current status, ,检查当前状态
+Studio.AssetManager.SearchBar.PlaceholderText,Filter, ,筛选
+Studio.AssetManager.NavBar.GamePlaceholderName,Game, ,游戏
+Studio.AssetManager.NavBar.ID,ID: {gameId:int}, ,ID：{gameId:int}
+Studio.AssetManager.Folders.IMAGES,Images, ,图片
+Studio.AssetManager.Folders.MESHES,Meshes, ,网格
+Studio.AssetManager.Folders.PACKAGES,Packages, ,包
+Studio.AssetManager.Folders.PLACES,Places, ,场景
+Studio.AssetManager.Folders.SCRIPTS,Scripts, ,脚本
+Studio.AssetManager.AssetGrid.NoResults,No {assetType} Found, ,未找到 {assetType}
+Studio.AssetManager.ContextMenu.AddImages,Add Images, ,添加图片
+Studio.AssetManager.ContextMenu.AddMeshes,Add Meshes, ,添加网格
+Studio.AssetManager.ContextMenu.AddNewPlace,Add New Place, ,添加新场景
+Studio.AssetManager.ContextMenu.NewPlaceAdded,New Place Added, ,新场景已添加
+Studio.AssetManager.ContextMenu.EditAsset,Edit Asset, ,编辑资源
+Studio.AssetManager.ContextMenu.Rename,Rename, ,重命名
+Studio.AssetManager.ContextMenu.RenameAlias,Rename Alias, ,重命名别名
+Studio.AssetManager.ContextMenu.CopyIdToClipboard,Copy ID to Clipboard, ,将 ID 复制到剪贴板
+Studio.AssetManager.ContextMenu.CopyTextureIdToClipboard,Copy Texture ID to Clipboard, ,将纹理 ID 复制到剪贴板
+Studio.AssetManager.ContextMenu.Insert,Insert, ,插入
+Studio.AssetManager.ContextMenu.InsertWithLocation,Insert With Location, ,带位置插入
+Studio.AssetManager.ContextMenu.InsertAsScript,Insert As Script, ,插入为脚本
+Studio.AssetManager.ContextMenu.InsertAsLocalScript,Insert As Local Script, ,插入为本地脚本
+Studio.AssetManager.ContextMenu.InsertAsModuleScript,Insert As Module Script, ,插入为模块脚本
+Studio.AssetManager.ContextMenu.RemoveFromGame,Remove From Game, ,从游戏中删除
+Studio.AssetManager.ContextMenu.UpdateAll,Update All, ,全部更新
+Studio.AssetManager.ContextMenu.ViewOnWebsite,View On Website, ,在网站上查看
+Studio.AssetManager.ContextMenu.PackageDetails,Package Details, ,包详情
+Studio.AssetManager.ContextMenu.PublishLinkedSource,Publish this LinkedSource, ,发布此 LinkedSource
+Studio.AssetManager.ContextMenu.RevertToLastPublishedVersion,Revert To Last Published Version, ,还原至上次发布版本
+Studio.AssetManager.ContextMenu.RefreshScript,Refresh Script, ,刷新脚本
+Studio.AssetManager.AssetPreview.Insert,Insert, ,插入
+Studio.AssetManager.MainView.PublishText,You need to publish the game to start using Asset Manager., ,发布游戏后即可使用资源管理器。
+Studio.AssetManager.MainView.ButtonText,Publish, ,发布

@@ -17443,6 +17443,27 @@
                 {
                     "Category": "Video",
                     "MemberType": "Property",
+                    "Name": "Resolution",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Vector2"
+                    }
+                },
+                {
+                    "Category": "Video",
+                    "MemberType": "Property",
                     "Name": "TimeLength",
                     "Security": {
                         "Read": "None",
@@ -45866,6 +45887,24 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "GetEngineFeature",
+                    "Parameters": [
+                        {
+                            "Name": "name",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "LocalUserSecurity"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "GetFastFlag",
                     "Parameters": [
                         {
@@ -50053,6 +50092,23 @@
                     }
                 },
                 {
+                    "Category": "Script Editor",
+                    "MemberType": "Property",
+                    "Name": "Auto Indent Rule",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "AutoIndentRule"
+                    }
+                },
+                {
                     "Category": "Auto-Recovery",
                     "MemberType": "Property",
                     "Name": "Auto-Recovery Enabled",
@@ -51499,6 +51555,26 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "HoverInstance",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "Instance"
                     }
                 },
                 {
@@ -60612,6 +60688,23 @@
                 }
             ],
             "Name": "AssetType"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Off",
+                    "Value": 0
+                },
+                {
+                    "Name": "Absolute",
+                    "Value": 1
+                },
+                {
+                    "Name": "Relative",
+                    "Value": 2
+                }
+            ],
+            "Name": "AutoIndentRule"
         },
         {
             "Items": [
