@@ -147,4 +147,5 @@ return{
 	["CoreScripts.PurchasePrompt.ConfirmPurchase.BuyRobuxV2"] = [[購買 Robux]],
 	["CoreScripts.PurchasePrompt.PurchaseDetails.BalanceFutureV2"] = [[您在此交易後的餘額將為 {BALANCE_FUTURE} Robux]],
 	["CoreScripts.PurchasePrompt.PurchaseFailed.NotEnoughRobuxNoUpsell"] = [[您的 Robux 不足，無法購買此道具。]],
+	["CoreScripts.PurchasePrompt.Button.PremiumOnly"] = [[Premium 限定]],
 }

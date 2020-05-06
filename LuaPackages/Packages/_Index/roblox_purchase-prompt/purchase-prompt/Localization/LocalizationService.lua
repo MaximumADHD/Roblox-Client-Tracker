@@ -6,7 +6,6 @@ local Symbol = require(Root.Symbols.Symbol)
 
 local KeyMappings = require(script.Parent.KeyMappings)
 
-local GetFFlagDefaultLocDelimFix = require(Root.Flags.GetFFlagDefaultLocDelimFix)
 local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp")
 local HARDCODED_CLB_TRANSLATIONS = {
 	["CoreScripts.PurchasePrompt.PurchaseFailed.InvalidFunds"] = [[由于你帐户的乐币余额不足，购买失败。系统并未向你的帐户收取费用。]],
@@ -117,13 +116,7 @@ end
 local LocalizationService = {}
 
 function LocalizationService.formatNumber(localizationContext, number)
-	local delimiter = nil
-	if GetFFlagDefaultLocDelimFix() then
-		delimiter = groupDelimiterByLocale[localizationContext.locale] or ","
-	else
-		delimiter = groupDelimiterByLocale[localizationContext.locale]
-	end
-
+	local delimiter = groupDelimiterByLocale[localizationContext.locale] or ","
 	return addGroupDelimiters(number, delimiter)
 end
 

@@ -7,7 +7,6 @@ local PremiumInfoRecieved = require(Root.Actions.PremiumInfoRecieved)
 local AccountInfoReceived = require(Root.Actions.AccountInfoReceived)
 local PromptState = require(Root.Enums.PromptState)
 local PurchaseError = require(Root.Enums.PurchaseError)
-local GetFFlagLogPremiumImpressions = require(Root.Flags.GetFFlagLogPremiumImpressions)
 local Analytics = require(Root.Services.Analytics)
 local ExternalSettings = require(Root.Services.ExternalSettings)
 local Network = require(Root.Services.Network)
@@ -57,9 +56,7 @@ local function resolvePremiumPromptState(accountInfo, premiumProduct, canShowUps
 
 		if not externalSettings.isStudio() then
 			analytics.signalPremiumUpsellShownNonPremium()
-			if GetFFlagLogPremiumImpressions() then
-				postPremiumImpression(network)
-			end
+			postPremiumImpression(network)
 		end
 		return store:dispatch(SetPromptState(PromptState.PremiumUpsell))
 	end)

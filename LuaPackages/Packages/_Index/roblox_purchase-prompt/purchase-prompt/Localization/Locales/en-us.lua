@@ -147,4 +147,6 @@ return{
 	["CoreScripts.PurchasePrompt.ConfirmPurchase.BuyRobuxV2"] = [[Buy Robux]],
 	["CoreScripts.PurchasePrompt.PurchaseDetails.BalanceFutureV2"] = [[Your balance after this transaction will be {BALANCE_FUTURE} Robux]],
 	["CoreScripts.PurchasePrompt.PurchaseFailed.NotEnoughRobuxNoUpsell"] = [[This item cost more Robux than you have available. ]],
+	["CoreScripts.PurchasePrompt.Button.PremiumOnly"] = [[Premium Only]],
+	["CoreScripts.PurchasePrompt.PurchaseFailed.PremiumOnly"] = [[You need to have Roblox Premium in order to purchase this item.]],
 }

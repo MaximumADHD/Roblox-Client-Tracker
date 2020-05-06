@@ -16,7 +16,6 @@ local initiateBundlePurchase = require(Root.Thunks.initiateBundlePurchase)
 local initiatePremiumPurchase = require(Root.Thunks.initiatePremiumPurchase)
 local connectToStore = require(Root.connectToStore)
 
-game:DefineFastFlag("PremiumLuaUpsellEnabledV2", false)
 local GetFFlagPromptRobloxPurchaseEnabled = require(Root.Flags.GetFFlagPromptRobloxPurchaseEnabled)
 
 local ExternalEventConnection = require(script.Parent.ExternalEventConnection)
@@ -55,7 +54,7 @@ local function MarketplaceServiceEventConnector(props)
 			event = MarketplaceService.PromptBundlePurchaseRequested,
 			callback = onBundlePurchaseRequest,
 		}),
-		game:GetFastFlag("PremiumLuaUpsellEnabledV2") and Roact.createElement(ExternalEventConnection, {
+		Roact.createElement(ExternalEventConnection, {
 			event = MarketplaceService.PromptPremiumPurchaseRequested,
 			callback = onPremiumPurchaseRequest,
 		})

@@ -16,6 +16,8 @@ local withLayoutValues = require(script.Parent.Parent.Connection.withLayoutValue
 
 local connectToStore = require(Root.connectToStore)
 
+local GetFFlagIGPInvalidAssetIdFix = require(Root.Flags.GetFFlagIGPInvalidAssetIdFix)
+
 local PURCHASE_MESSAGE_KEY = "CoreScripts.PurchasePrompt.PurchaseMessage.%s"
 
 local function ProductDescription(props)
@@ -77,8 +79,9 @@ local function mapStateToProps(state)
 	local descriptionKey
 	local descriptionParams
 
-	local assetTypeKey = LocalizationService.nestedKeyParam(
-			LocalizationService.getKeyFromItemType(state.productInfo.itemType))
+	local assetTypeKey = not GetFFlagIGPInvalidAssetIdFix()
+		and LocalizationService.nestedKeyParam(LocalizationService.getKeyFromItemType(state.productInfo.itemType))
+		or nil
 
 	if promptState == PromptState.PurchaseComplete then
 		descriptionKey = PURCHASE_MESSAGE_KEY:format("Succeeded")
@@ -87,7 +90,10 @@ local function mapStateToProps(state)
 			NEEDED_AMOUNT = LocalizationService.numberParam(
 				state.productInfo.price - state.accountInfo.balance
 			),
-			ASSET_TYPE = assetTypeKey,
+			ASSET_TYPE = GetFFlagIGPInvalidAssetIdFix()
+				and LocalizationService.nestedKeyParam(
+					LocalizationService.getKeyFromItemType(state.productInfo.itemType))
+				or assetTypeKey
 		}
 	elseif promptState == PromptState.RobuxUpsell then
 		descriptionKey = PURCHASE_MESSAGE_KEY:format("NeedMoreRobux")
@@ -96,7 +102,10 @@ local function mapStateToProps(state)
 			NEEDED_AMOUNT = LocalizationService.numberParam(
 				state.productInfo.price - state.accountInfo.balance
 			),
-			ASSET_TYPE = assetTypeKey,
+			ASSET_TYPE = GetFFlagIGPInvalidAssetIdFix()
+				and LocalizationService.nestedKeyParam(
+					LocalizationService.getKeyFromItemType(state.productInfo.itemType))
+				or assetTypeKey,
 		}
 	elseif promptState == PromptState.Error then
 		descriptionKey = LocalizationService.getErrorKey(state.purchaseError)
@@ -114,7 +123,10 @@ local function mapStateToProps(state)
 		else
 			descriptionKey = PURCHASE_MESSAGE_KEY:format("Purchase")
 			descriptionParams = {
-				ASSET_TYPE = assetTypeKey,
+				ASSET_TYPE = GetFFlagIGPInvalidAssetIdFix()
+					and LocalizationService.nestedKeyParam(
+						LocalizationService.getKeyFromItemType(state.productInfo.itemType))
+					or assetTypeKey,
 				ITEM_NAME = state.productInfo.name,
 			}
 		end

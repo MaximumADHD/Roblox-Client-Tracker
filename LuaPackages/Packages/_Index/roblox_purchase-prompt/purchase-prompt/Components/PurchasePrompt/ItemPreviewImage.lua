@@ -1,10 +1,15 @@
 local Root = script.Parent.Parent.Parent
-
 local LuaPackages = Root.Parent
+local Cryo = require(LuaPackages.Cryo)
 local Roact = require(LuaPackages.Roact)
+local UIBlox = require(LuaPackages.UIBlox)
+local UIBloxImages = UIBlox.App.ImageSet.Images
 
+local PurchaseError = require(Root.Enums.PurchaseError)
 local PromptState = require(Root.Enums.PromptState)
 local connectToStore = require(Root.connectToStore)
+
+local PREMIUM_ICON = UIBloxImages["icons/graphic/premium_large"]
 
 local withLayoutValues = require(script.Parent.Parent.Connection.withLayoutValues)
 
@@ -12,10 +17,16 @@ local function ItemPreviewImage(props)
 	return withLayoutValues(function(values)
 		local layoutOrder = props.layoutOrder
 		local promptState = props.promptState
+		local purchaseError = props.purchaseError
 		local productImageUrl = props.productImageUrl
 
+		local showPremiumIcon = false
 		if promptState == PromptState.Error then
-			productImageUrl = values.Image.ErrorIcon.Path
+			if purchaseError == PurchaseError.PremiumOnly then
+				showPremiumIcon = true
+			else
+				productImageUrl = values.Image.ErrorIcon.Path
+			end
 		end
 
 		return Roact.createElement("Frame", {
@@ -24,7 +35,15 @@ local function ItemPreviewImage(props)
 			BorderSizePixel = 0,
 			LayoutOrder = layoutOrder,
 		}, {
-			ItemPreviewImageContainer = Roact.createElement("Frame", {
+			PremiumIcon = showPremiumIcon and Roact.createElement("ImageLabel", Cryo.Dictionary.join(PREMIUM_ICON, {
+				Size = values.Size.ItemPreview,
+				BackgroundTransparency = 1,
+				BorderSizePixel = 0,
+				AnchorPoint = Vector2.new(0.5, 0.5),
+				Position = UDim2.new(0.5, 0, 0.5, 0),
+				ImageTransparency = 0,
+			})) or nil,
+			ItemPreviewImageContainer = not showPremiumIcon and Roact.createElement("Frame", {
 				Size = values.Size.ItemPreviewWhiteFrame,
 				BackgroundTransparency = 0,
 				AnchorPoint = Vector2.new(0.5, 0.5),
@@ -39,8 +58,9 @@ local function ItemPreviewImage(props)
 					AnchorPoint = Vector2.new(0.5, 0.5),
 					Position = UDim2.new(0.5, 0, 0.5, 0),
 					Image = productImageUrl,
-				})
-			})
+					ImageTransparency = 0,
+				}),
+			}) or nil,
 		})
 	end)
 end
@@ -48,6 +68,7 @@ end
 local function mapStateToProps(state)
 	return {
 		promptState = state.promptState,
+		purchaseError = state.purchaseError,
 		productImageUrl = state.productInfo.imageUrl,
 	}
 end

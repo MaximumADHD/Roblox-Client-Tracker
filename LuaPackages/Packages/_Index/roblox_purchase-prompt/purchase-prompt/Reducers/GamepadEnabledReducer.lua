@@ -5,12 +5,8 @@ local LuaPackages = Root.Parent
 local Rodux = require(LuaPackages.Rodux)
 
 local SetGamepadEnabled = require(Root.Actions.SetGamepadEnabled)
-local GetFFlagXboxGamepadIconFix = require(Root.Flags.GetFFlagXboxGamepadIconFix)
 
-local gamepadDefault = false
-if GetFFlagXboxGamepadIconFix() then
-	gamepadDefault = UserInputService:GetPlatform() == Enum.Platform.XBoxOne
-end
+local gamepadDefault = UserInputService:GetPlatform() == Enum.Platform.XBoxOne
 
 local GamepadEnabledReducer = Rodux.createReducer(gamepadDefault, {
 	[SetGamepadEnabled.name] = function(state, action)

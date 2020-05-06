@@ -16,8 +16,6 @@ local BrowserPurchaseFinishedConnector = require(script.Parent.BrowserPurchaseFi
 local NativePurchaseFinishedConnector = require(script.Parent.NativePurchaseFinishedConnector)
 local PlayerConnector = require(script.Parent.PlayerConnector)
 
-local GetFFlagXboxGamepadIconFix = require(Root.Flags.GetFFlagXboxGamepadIconFix)
-
 local function EventConnections()
 	local upsellConnector
 	local upsellFlow = getUpsellFlow(UserInputService:GetPlatform())
@@ -27,10 +25,7 @@ local function EventConnections()
 		upsellConnector = Roact.createElement(NativePurchaseFinishedConnector)
 	end
 
-	local enableInputManager = true
-	if GetFFlagXboxGamepadIconFix() then
-		enableInputManager = UserInputService:GetPlatform() ~= Enum.Platform.XBoxOne
-	end
+	local enableInputManager = UserInputService:GetPlatform() ~= Enum.Platform.XBoxOne
 
 	return Roact.createElement("Folder", {}, {
 		MarketPlaceServiceEventConnector = Roact.createElement(MarketplaceServiceEventConnector),

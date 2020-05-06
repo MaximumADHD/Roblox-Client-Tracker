@@ -18,7 +18,9 @@ return{
 	["CoreScripts.PremiumModal.Body.RobuxDiscount"] = [[бонус в 10% при покупке Robux.]],
 	["CoreScripts.PremiumModal.Action.PricePerMonth"] = [[{price}/месяц]],
 	["CoreScripts.PremiumModal.Error.PlatformUnavailable"] = [[Покупка премиум-подписки Roblox не поддерживается на вашей платформе. Используйте ПК для покупки.]],
-	["CoreScripts.PremiumModal.Error.AlreadyPremium"] = [[У вас уже есть премиум-подписка Roblox! Повторите попытку.]],
+	["CoreScripts.PremiumModal.Error.AlreadyPremium"] = [[Похоже, разработчик пытается убедить вас купить премиум-подписку Roblox, а она у вас уже есть!]],
 	["CoreScripts.PremiumModal.Error.Unavailable"] = [[В настоящий момент премиум-подписка недоступна. Повторите попытку позже!]],
 	["CoreScripts.PremiumModal.Body.RobuxMonthlyV2"] = [[{robux} Robux в месяц;]],
+	["CoreScripts.PremiumModal.Error.FailedNativePurchase"] = [[Покупка не удалась, попробуйте еще раз.]],
+	["CoreScripts.PremiumModal.Title.Error"] = [[Ошибка]],
 }

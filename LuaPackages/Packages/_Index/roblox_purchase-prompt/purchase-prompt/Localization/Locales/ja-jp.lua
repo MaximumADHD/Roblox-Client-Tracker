@@ -91,10 +91,11 @@ return{
 	["CoreScripts.PremiumModal.Body.RobuxDiscount"] = [[Robux購入時に10%のボーナス]],
 	["CoreScripts.PremiumModal.Action.PricePerMonth"] = [[{price}/月額]],
 	["CoreScripts.PremiumModal.Error.PlatformUnavailable"] = [[お使いのプラットフォームはRoblox Premiumの購入に対応していません。Premiumを購入するにはデスクトップをお使いください。]],
-	["CoreScripts.PremiumModal.Error.AlreadyPremium"] = [[すでにRoblox Premiumのサブスクリプション契約をしています！もう一度お試しください。]],
+	["CoreScripts.PremiumModal.Error.AlreadyPremium"] = [[開発者がRoblox Premiumを購入するように促しているようですが、すでにPremiumメンバーです！]],
 	["CoreScripts.PremiumModal.Error.Unavailable"] = [[現在、Premiumが利用できません。あとでお試しください！]],
 	["CoreScripts.PremiumModal.Body.RobuxMonthlyV2"] = [[1ヶ月につき{robux} Robux]],
 	["CoreScripts.PremiumModal.Error.FailedNativePurchase"] = [[購入は完了していません。もう一度お試しください。]],
+	["CoreScripts.PremiumModal.Title.Error"] = [[エラー]],
 	["CoreScripts.PurchasePrompt.ConfirmPurchase.TakeFree"] = [[無料配布]],
 	["CoreScripts.PurchasePrompt.ConfirmPurchase.UpgradeBuildersClub"] = [[アップグレード]],
 	["CoreScripts.PurchasePrompt.ConfirmPurchase.BuyNow"] = [[今すぐ買う]],
@@ -146,4 +147,5 @@ return{
 	["CoreScripts.PurchasePrompt.ConfirmPurchase.BuyRobuxV2"] = [[Robuxを買う]],
 	["CoreScripts.PurchasePrompt.PurchaseDetails.BalanceFutureV2"] = [[取引後の残高は{BALANCE_FUTURE} Robuxになります]],
 	["CoreScripts.PurchasePrompt.PurchaseFailed.NotEnoughRobuxNoUpsell"] = [[このアイテムの費用は利用できるRobuxの額を超えています。 ]],
+	["CoreScripts.PurchasePrompt.Button.PremiumOnly"] = [[Premium限定]],
 }
