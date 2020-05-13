@@ -328,6 +328,7 @@ RBX
 				StreamDataInfoItem
 				StreamDataItem
 				StreamPrefetchDataInfoItem
+				StreamPrefetchRequestItem
 				StreamTerrainItem
 			}
 			ChangeAttributeItem
@@ -381,6 +382,7 @@ RBX
 		DeserializedStreamDataInfoItem
 		DeserializedStreamDataItem
 		DeserializedStreamPrefetchDataInfoItem
+		DeserializedStreamPrefetchRequestItem
 		DeserializedTagItem
 		DeserializedTimeoutInfoRequestItem
 		DeserializedTouchItemS2
@@ -405,6 +407,7 @@ RBX
 		Server
 		SharedEventInvocationItem
 		SharedQueueItem
+		StreamingInterface
 	}
 	PART
 	{
@@ -630,6 +633,8 @@ RBX
 	AdvTransformToolBase
 	AdvTranslateTool
 	AllCanSelectCommand
+	AnalyticsProviderBase
+	AnalyticsProviderPlayFab
 	AnalyticsService
 	AnalyticsServiceJob
 	AnchorJoint
@@ -682,6 +687,7 @@ RBX
 	BodyPvSetter
 	BodyThrust
 	BodyVelocity
+	BoneInstance
 	BoolPropertyVerb
 	BoundVerb
 	BoxHandleAdornment
@@ -1280,6 +1286,7 @@ RBX
 	UniversalTool
 	UnlockAllVerb
 	UnlockedPartByLocalCharacter
+	UnSavedScripts
 	UnsecuredStudioGame
 	UserInputBase
 	UserInputService

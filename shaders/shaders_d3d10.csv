@@ -30,6 +30,10 @@ Blur5FS,Fragment
 Blur7FS,Fragment
 CheckerboardDepthFS,Fragment
 CopyGuiVS,Vertex
+DefaultDepthFS,Fragment
+DefaultDepthInstancedVS,Vertex
+DefaultDepthSkinnedVS,Vertex
+DefaultDepthStaticVS,Vertex
 DefaultForceFieldFS,Fragment
 DefaultForceFieldHQFS,Fragment
 DefaultForceFieldHQFSShadowed,Fragment
@@ -222,6 +226,8 @@ SmoothClusterColoredSuperHQVSShadowed,Vertex
 SmoothClusterColoredSuperHQVSShadowedFFlagSpecular,Vertex
 SmoothClusterColoredVS,Vertex
 SmoothClusterColoredVSFFlagSpecular,Vertex
+SmoothClusterDepthFS,Fragment
+SmoothClusterDepthVS,Vertex
 SmoothClusterFS,Fragment
 SmoothClusterHQFS,Fragment
 SmoothClusterHQFSShadowed,Fragment

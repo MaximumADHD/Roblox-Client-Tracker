@@ -147,6 +147,10 @@ Class Attachment : Instance
 	Function Vector3 Attachment:GetSecondaryAxis() [Deprecated]
 	Function void Attachment:SetAxis(Vector3 axis) [Deprecated]
 	Function void Attachment:SetSecondaryAxis(Vector3 axis) [Deprecated]
+Class Bone : Attachment
+	Property CFrame Bone.Transform [<📁> LoadOnly] [NotReplicated]
+	Property CFrame Bone.TransformedCFrame  [ReadOnly] [NotReplicated]
+	Property CFrame Bone.TransformedWorldCFrame  [ReadOnly] [NotReplicated]
 Class Backpack : Instance
 Class BackpackItem : Instance [NotCreatable]
 	Property Content BackpackItem.TextureId
@@ -1409,6 +1413,7 @@ Class InsertService : Instance [NotCreatable] [Service]
 	Function Instance InsertService:LoadAssetVersion(int64 assetVersionId) [Yields]
 	Function Instance InsertService:LoadLocalAsset(string assetPath) {RobloxScriptSecurity}
 	Function Objects InsertService:LoadPackageAsset(Content url) {RobloxScriptSecurity}
+Class InternalContainer : Instance [NotCreatable] [Service] [NotReplicated]
 Class JointInstance : Instance [NotCreatable]
 	Property bool JointInstance.Active  [ReadOnly] [NotReplicated]
 	Property bool JointInstance.Enabled
@@ -2845,6 +2850,8 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property Enum<AutoIndentRule> Studio.Auto Indent Rule
 	Property bool Studio.Enable Autocomplete
 	Property QFont Studio.Font
+	Property bool Studio.Format On Type
+	Property string Studio.Rulers
 	Property bool Studio.Show Whitespace
 	Property bool Studio.Skip Closing Brackets and Quotes
 	Property int Studio.Tab Width
@@ -2930,11 +2937,12 @@ Class StudioTheme : Instance [NotCreatable] [NotReplicated]
 	Function Color3 StudioTheme:GetColor(Enum<StudioStyleGuideColor> styleguideitem, Enum<StudioStyleGuideModifier> modifier = "Default") {PluginSecurity}
 	Function string StudioTheme:GetPath(string assetid, Enum<StudioStyleGuideModifier> modifier = "Default") {PluginSecurity}
 Class SurfaceAppearance : Instance [Deprecated]
-	Property Enum<AlphaMode> SurfaceAppearance.AlphaMode  [Deprecated]
+	Property Enum<AlphaMode> SurfaceAppearance.AlphaMode {RobloxSecurity} [Deprecated]
 	Property Content SurfaceAppearance.ColorMap {LocalUserSecurity} [Deprecated]
 	Property Content SurfaceAppearance.MetalnessMap {LocalUserSecurity} [Deprecated]
 	Property Content SurfaceAppearance.NormalMap {LocalUserSecurity} [Deprecated]
 	Property Content SurfaceAppearance.RoughnessMap {LocalUserSecurity} [Deprecated]
+	Property Content SurfaceAppearance.TexturePack {LocalUserSecurity} [Deprecated]
 Class TaskScheduler : Instance [NotCreatable] [Service]
 	Property Enum<ThreadPoolConfig> TaskScheduler.ThreadPoolConfig
 	Property double TaskScheduler.SchedulerDutyCycle [<💾> SaveOnly] [ReadOnly] [NotReplicated]
@@ -3447,6 +3455,7 @@ Enum AssetType
 	EnumItem AssetType.EarAccessory : 57
 	EnumItem AssetType.EyeAccessory : 58
 	EnumItem AssetType.EmoteAnimation : 61
+	EnumItem AssetType.Video : 62
 Enum AutoIndentRule
 	EnumItem AutoIndentRule.Off : 0
 	EnumItem AutoIndentRule.Absolute : 1
@@ -4735,39 +4744,40 @@ Enum StudioStyleGuideColor
 	EnumItem StudioStyleGuideColor.ScriptWarning : 54
 	EnumItem StudioStyleGuideColor.ScriptError : 55
 	EnumItem StudioStyleGuideColor.ScriptWhitespace : 56
-	EnumItem StudioStyleGuideColor.DebuggerCurrentLine : 57
-	EnumItem StudioStyleGuideColor.DebuggerErrorLine : 58
-	EnumItem StudioStyleGuideColor.DiffFilePathText : 59
-	EnumItem StudioStyleGuideColor.DiffTextHunkInfo : 60
-	EnumItem StudioStyleGuideColor.DiffTextNoChange : 61
-	EnumItem StudioStyleGuideColor.DiffTextAddition : 62
-	EnumItem StudioStyleGuideColor.DiffTextDeletion : 63
-	EnumItem StudioStyleGuideColor.DiffTextSeparatorBackground : 64
-	EnumItem StudioStyleGuideColor.DiffTextNoChangeBackground : 65
-	EnumItem StudioStyleGuideColor.DiffTextAdditionBackground : 66
-	EnumItem StudioStyleGuideColor.DiffTextDeletionBackground : 67
-	EnumItem StudioStyleGuideColor.DiffLineNum : 68
-	EnumItem StudioStyleGuideColor.DiffLineNumSeparatorBackground : 69
-	EnumItem StudioStyleGuideColor.DiffLineNumNoChangeBackground : 70
-	EnumItem StudioStyleGuideColor.DiffLineNumAdditionBackground : 71
-	EnumItem StudioStyleGuideColor.DiffLineNumDeletionBackground : 72
-	EnumItem StudioStyleGuideColor.DiffFilePathBackground : 73
-	EnumItem StudioStyleGuideColor.DiffFilePathBorder : 74
-	EnumItem StudioStyleGuideColor.Separator : 75
-	EnumItem StudioStyleGuideColor.ButtonBorder : 76
-	EnumItem StudioStyleGuideColor.ButtonText : 77
-	EnumItem StudioStyleGuideColor.InputFieldBorder : 78
-	EnumItem StudioStyleGuideColor.CheckedFieldBackground : 79
-	EnumItem StudioStyleGuideColor.CheckedFieldBorder : 80
-	EnumItem StudioStyleGuideColor.CheckedFieldIndicator : 81
-	EnumItem StudioStyleGuideColor.HeaderSection : 82
-	EnumItem StudioStyleGuideColor.Midlight : 83
-	EnumItem StudioStyleGuideColor.StatusBar : 84
-	EnumItem StudioStyleGuideColor.DialogButton : 85
-	EnumItem StudioStyleGuideColor.DialogButtonText : 86
-	EnumItem StudioStyleGuideColor.DialogButtonBorder : 87
-	EnumItem StudioStyleGuideColor.DialogMainButton : 88
-	EnumItem StudioStyleGuideColor.DialogMainButtonText : 89
+	EnumItem StudioStyleGuideColor.ScriptRuler : 57
+	EnumItem StudioStyleGuideColor.DebuggerCurrentLine : 58
+	EnumItem StudioStyleGuideColor.DebuggerErrorLine : 59
+	EnumItem StudioStyleGuideColor.DiffFilePathText : 60
+	EnumItem StudioStyleGuideColor.DiffTextHunkInfo : 61
+	EnumItem StudioStyleGuideColor.DiffTextNoChange : 62
+	EnumItem StudioStyleGuideColor.DiffTextAddition : 63
+	EnumItem StudioStyleGuideColor.DiffTextDeletion : 64
+	EnumItem StudioStyleGuideColor.DiffTextSeparatorBackground : 65
+	EnumItem StudioStyleGuideColor.DiffTextNoChangeBackground : 66
+	EnumItem StudioStyleGuideColor.DiffTextAdditionBackground : 67
+	EnumItem StudioStyleGuideColor.DiffTextDeletionBackground : 68
+	EnumItem StudioStyleGuideColor.DiffLineNum : 69
+	EnumItem StudioStyleGuideColor.DiffLineNumSeparatorBackground : 70
+	EnumItem StudioStyleGuideColor.DiffLineNumNoChangeBackground : 71
+	EnumItem StudioStyleGuideColor.DiffLineNumAdditionBackground : 72
+	EnumItem StudioStyleGuideColor.DiffLineNumDeletionBackground : 73
+	EnumItem StudioStyleGuideColor.DiffFilePathBackground : 74
+	EnumItem StudioStyleGuideColor.DiffFilePathBorder : 75
+	EnumItem StudioStyleGuideColor.Separator : 76
+	EnumItem StudioStyleGuideColor.ButtonBorder : 77
+	EnumItem StudioStyleGuideColor.ButtonText : 78
+	EnumItem StudioStyleGuideColor.InputFieldBorder : 79
+	EnumItem StudioStyleGuideColor.CheckedFieldBackground : 80
+	EnumItem StudioStyleGuideColor.CheckedFieldBorder : 81
+	EnumItem StudioStyleGuideColor.CheckedFieldIndicator : 82
+	EnumItem StudioStyleGuideColor.HeaderSection : 83
+	EnumItem StudioStyleGuideColor.Midlight : 84
+	EnumItem StudioStyleGuideColor.StatusBar : 85
+	EnumItem StudioStyleGuideColor.DialogButton : 86
+	EnumItem StudioStyleGuideColor.DialogButtonText : 87
+	EnumItem StudioStyleGuideColor.DialogButtonBorder : 88
+	EnumItem StudioStyleGuideColor.DialogMainButton : 89
+	EnumItem StudioStyleGuideColor.DialogMainButtonText : 90
 Enum StudioStyleGuideModifier
 	EnumItem StudioStyleGuideModifier.Default : 0
 	EnumItem StudioStyleGuideModifier.Selected : 1

@@ -1498,7 +1498,115 @@
       <description>Returns a tuple of a Vector3 and a number which represent the rotation of the CFrame in the axis-angle representation</description>
     </Function>
   </ItemStruct>
-  
+
+  <ItemStruct name="DateTime">
+    <Function name="now" static="true">
+      <returns>
+        <DateTime></DateTime>
+      </returns>
+      <description>Create DateTime representing now.</description>
+    </Function>
+    <Function name="fromUnixTimestamp" static="true">
+      <returns>
+        <DateTime></DateTime>
+      </returns>
+      <parameters>
+        <number name="unixTimestamp"></number>
+      </parameters>
+      <description>Create a Datetime from the given unixTimestamp. The number can range from -17987443200 to 253402300799(year 1400-9999).</description>
+    </Function>
+    <Function name="fromUnixTimestampMillis" static="true">
+      <returns>
+        <DateTime></DateTime>
+      </returns>
+      <parameters>
+        <number name="unixTimestampMillis"></number>
+      </parameters>
+      <description>Create a Datetime from the given unixTimestampMillis. The number can range from -17987443200000 to 253402300799999.</description>
+    </Function>
+    <Function name="fromUniversalTime" static="true">
+      <returns>
+        <DateTime></DateTime>
+      </returns>
+      <parameters>
+        <number name="year"></number>
+        <number name="month"></number>
+        <number name="day"></number>
+        <number name="hour"></number>
+        <number name="minute"></number>
+        <number name="second"></number>
+        <number name="millisecond" optional="true" default="0"></number>
+      </parameters>
+      <description>Create DateTime with given year, month, day, hour, minute, second and millisecond in utc time.</description>
+    </Function>
+    <Function name="fromLocalTime" static="true">
+      <returns>
+        <DateTime></DateTime>
+      </returns>
+      <parameters>
+        <number name="year"></number>
+        <number name="month"></number>
+        <number name="day"></number>
+        <number name="hour"></number>
+        <number name="minute"></number>
+        <number name="second"></number>
+        <number name="millisecond" optional="true" default="0"></number>
+      </parameters>
+      <description>Create DateTime with given year, month, day, hour, minute, second and millisecond in local time.</description>
+    </Function>
+    <Function name="fromIsoDate" static="true">
+      <returns>
+        <DateTime></DateTime>
+      </returns>
+      <parameters>
+        <string name="isoDate"></string>
+      </parameters>
+      <description>Create a DateTime from an ISO 8601 date-time string in utc time.</description>
+    </Function>
+    <Function name="ToIsoDate">
+      <returns>
+        <string></string>
+      </returns>
+      <description>Format the DateTime as an ISO 8601 date-time string.</description>
+    </Function>
+    <Function name="ToUniversalTime">
+      <returns>
+        <dictionary></dictionary>
+      </returns>
+      <description>Returns a table containing the components (Year, Month, Day, Hour, Minute, Second, Millisecond) of the DateTime in Universal Time Coordinated(UTC).</description>
+    </Function>
+    <Function name="ToLocalTime">
+      <returns>
+        <dictionary></dictionary>
+      </returns>
+      <description>Returns a table containing the components (Year, Month, Day, Hour, Minute, Second, Millisecond) of the DateTime in Local Time.</description>
+    </Function>
+    <Function name="FormatUniversalTime">
+      <returns>
+        <string></string>
+      </returns>
+      <parameters>
+        <string name="format"></string>
+        <string name="localeId"></string>
+      </parameters>
+      <description>Format the DateTime as string representation in utc time. LocaleId would fallback to "en-us" if not supported.</description>
+    </Function>
+    <Function name="FormatLocalTime">
+      <returns>
+        <string></string>
+      </returns>
+      <parameters>
+        <string name="format"></string>
+        <string name="localeId"></string>
+      </parameters>
+      <description>Format the DateTime as string representation in local time. LocaleId would fallback to "en-us" if not supported.</description>
+    </Function>
+    <Properties>
+      <number name="UnixTimestamp">The number of seconds that represents the date and time of this instance, since 1970-01-01 00:00 in utc time. From -17987443200 to 253402300799(year 1400-9999).</number>
+      <number name="UnixTimestampMillis">The number of milliseconds that represents the date and time of this instance, since 1970-01-01 00:00 in utc time. From -17987443200000 to 253402300799999(year 1400-9999).</number>
+    </Properties>
+  </ItemStruct>
+
   <ItemStruct name="Region3">
     <Function name="new" static="true">
       <returns>

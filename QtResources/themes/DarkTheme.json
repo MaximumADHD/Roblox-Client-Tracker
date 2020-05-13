@@ -290,7 +290,11 @@
             }
         }, {
             "ScriptWhitespace": {
-                "Default": "#383838"
+                "Default": "#555555"
+            }
+        },  {
+            "ScriptRuler": {
+                "Default": "#666666"
             }
         }, {
             "DebuggerCurrentLine": {

@@ -478,6 +478,18 @@
 
     <Item class="ReflectionMetadataClass">
       <Properties>
+        <string name="Name">Bone</string>
+        <string name="ClassCategory">Animation</string>
+        <string name="ExplorerOrder">30</string>
+        <string name="ExplorerImageIndex">114</string>
+        <string name="PreferredParent">PVInstance</string>
+        <string name="PreferredParents">PVInstance</string>
+        <string name="PreferredParents">Bone</string>
+      </Properties>
+    </Item>
+
+    <Item class="ReflectionMetadataClass">
+      <Properties>
         <string name="Name">Constraint</string>
         <string name="ClassCategory">Physics</string>
         <string name="ExplorerOrder">30</string>
@@ -5214,7 +5226,7 @@
       <Properties>
         <string name="Name">ReplicatedScriptService</string>
         <string name="ExplorerOrder">30</string>
-        <string name="ExplorerImageIndex">113</string>
+        <string name="ExplorerImageIndex">70</string>
         <string name="summary">A container whose contents should be scripts. Scripts that are added to the container are run on the server and the client.</string>
       </Properties>
     </Item>

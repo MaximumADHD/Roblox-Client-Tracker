@@ -32,7 +32,7 @@ dependencies = [
     "RoactRodux roblox/roact-rodux 0.2.1 url+https://github.com/roblox/roact-rodux",
     "Rodux roblox/rodux 1.0.0 url+https://github.com/roblox/rodux",
     "TestEZ roblox/testez 0.1.1 url+https://github.com/roblox/testez",
-    "UIBlox UIBlox dc121201 git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 6c028e8e git+https://github.com/roblox/uiblox#master",
     "enumerate roblox/enumerate 1.0.0 url+https://github.com/roblox/enumerate",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
     "tutils tutils 74574fde git+https://github.rbx.com/roblox/tutils#master",
@@ -49,7 +49,7 @@ dependencies = [
     "Roact roblox/roact 1.2.0 url+https://github.com/roblox/roact",
     "RoactRodux roblox/roact-rodux 0.2.1 url+https://github.com/roblox/roact-rodux",
     "Rodux roblox/rodux 1.0.0 url+https://github.com/roblox/rodux",
-    "UIBlox <patched> UIBlox dc121201 git+https://github.com/roblox/uiblox#master",
+    "UIBlox <patched> UIBlox 6c028e8e git+https://github.com/roblox/uiblox#master",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
 
@@ -119,12 +119,12 @@ dependencies = [
 [[package]]
 name = "UIBlox"
 version = "0.1.1"
-commit = "dc1212016f75f88f999f3f06b0162d261c9618d6"
+commit = "6c028e8e642813e1f9e6def2158b0611ee69604a"
 source = "git+https://github.com/roblox/uiblox#master"
 dependencies = [
     "Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo",
     "FitFrame roblox/roact-fit-components 1.2.3 url+https://github.com/roblox/roact-fit-components",
-    "InfiniteScroller roblox/infinite-scroller 0.4.3 url+https://github.com/roblox/infinite-scroller",
+    "InfiniteScroller roblox/infinite-scroller 0.4.4 url+https://github.com/roblox/infinite-scroller",
     "Otter roblox/otter 0.1.1 url+https://github.com/roblox/otter",
     "Roact roblox/roact 1.2.0 url+https://github.com/roblox/roact",
     "enumerate roblox/enumerate 1.0.0 url+https://github.com/roblox/enumerate",
@@ -205,8 +205,8 @@ dependencies = [
 
 [[package]]
 name = "roblox/infinite-scroller"
-version = "0.4.3"
-commit = "1b3a1d0d230640c513119487b4d62906d03b6380"
+version = "0.4.4"
+commit = "b0093eabe72bf962811b57a44ede281474a86b67"
 source = "url+https://github.com/roblox/infinite-scroller"
 dependencies = [
     "Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo",
@@ -268,7 +268,7 @@ dependencies = [
     "Roact roblox/roact 1.2.0 url+https://github.com/roblox/roact",
     "RoactRodux roblox/roact-rodux 0.2.1 url+https://github.com/roblox/roact-rodux",
     "Rodux roblox/rodux 1.0.0 url+https://github.com/roblox/rodux",
-    "UIBlox <patched> UIBlox dc121201 git+https://github.com/roblox/uiblox#master",
+    "UIBlox <patched> UIBlox 6c028e8e git+https://github.com/roblox/uiblox#master",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
 

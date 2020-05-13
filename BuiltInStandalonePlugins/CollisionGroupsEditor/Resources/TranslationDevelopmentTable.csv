@@ -8,3 +8,4 @@ Studio.CGE.Actions.AddGroup, , ,Add Group
 Studio.CGE.Tooltip.Rename, , ,Rename this group.
 Studio.CGE.Tooltip.Delete, , ,Delete this group.
 Studio.CGE.Tooltip.Add, , ,Add the selected parts to this group.
+Studio.CGE.Main.Title, , ,Collision Groups Editor

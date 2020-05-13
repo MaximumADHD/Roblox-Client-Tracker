@@ -29,6 +29,9 @@ Blur3FS,Fragment
 Blur5FS,Fragment
 Blur7FS,Fragment
 CopyGuiVS,Vertex
+DefaultDepthFS,Fragment
+DefaultDepthSkinnedVS,Vertex
+DefaultDepthStaticVS,Vertex
 DefaultForceFieldFS,Fragment
 DefaultNeonFS,Fragment
 DefaultNeonInGuiFS,Fragment
@@ -117,6 +120,8 @@ SkyVS,Vertex
 SmoothClusterColoredFS,Fragment
 SmoothClusterColoredVS,Vertex
 SmoothClusterColoredVSFFlagSpecular,Vertex
+SmoothClusterDepthFS,Fragment
+SmoothClusterDepthVS,Vertex
 SmoothClusterFS,Fragment
 SmoothClusterVS,Vertex
 SmoothClusterVSFFlagSpecular,Vertex

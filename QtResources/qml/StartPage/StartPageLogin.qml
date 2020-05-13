@@ -204,7 +204,7 @@ Rectangle {
 
         TextWithLink {
             id: forgotPasswordLabel
-            visible: true
+            visible: !loginManager.hideStartPageUrlLinks()
             anchors.top: loginButton.bottom
             anchors.left: parent.left
             anchors.right: parent.right
@@ -234,7 +234,7 @@ Rectangle {
 
         TextWithLink {
             id: notAMemberYetTextAndlink
-            visible: true
+            visible: !loginManager.hideStartPageUrlLinks()
             anchors.top: passwordSeparatorLine.bottom
             anchors.left: parent.left
             anchors.right: parent.right

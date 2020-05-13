@@ -2820,6 +2820,75 @@
         },
         {
             "Members": [
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "Transform",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "CFrame"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "TransformedCFrame",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "CFrame"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "TransformedWorldCFrame",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "CFrame"
+                    }
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "Bone",
+            "Superclass": "Attachment"
+        },
+        {
+            "Members": [
             ],
             "MemoryCategory": "Instances",
             "Name": "Backpack",
@@ -24666,6 +24735,18 @@
             "Tags": [
                 "NotCreatable",
                 "Service"
+            ]
+        },
+        {
+            "Members": [
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "InternalContainer",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service",
+                "NotReplicated"
             ]
         },
         {
@@ -50504,6 +50585,23 @@
                     }
                 },
                 {
+                    "Category": "Script Editor",
+                    "MemberType": "Property",
+                    "Name": "Format On Type",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
                     "Category": "Tools",
                     "MemberType": "Property",
                     "Name": "Hover Animate Speed",
@@ -50897,6 +50995,23 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Script Editor",
+                    "MemberType": "Property",
+                    "Name": "Rulers",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
                     }
                 },
                 {
@@ -52408,8 +52523,8 @@
                     "MemberType": "Property",
                     "Name": "AlphaMode",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -52475,6 +52590,23 @@
                     "Category": "Appearance",
                     "MemberType": "Property",
                     "Name": "RoughnessMap",
+                    "Security": {
+                        "Read": "LocalUserSecurity",
+                        "Write": "LocalUserSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Content"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "TexturePack",
                     "Security": {
                         "Read": "LocalUserSecurity",
                         "Write": "LocalUserSecurity"
@@ -60685,6 +60817,10 @@
                 {
                     "Name": "EmoteAnimation",
                     "Value": 61
+                },
+                {
+                    "Name": "Video",
+                    "Value": 62
                 }
             ],
             "Name": "AssetType"
@@ -66120,136 +66256,140 @@
                     "Value": 56
                 },
                 {
-                    "Name": "DebuggerCurrentLine",
+                    "Name": "ScriptRuler",
                     "Value": 57
                 },
                 {
-                    "Name": "DebuggerErrorLine",
+                    "Name": "DebuggerCurrentLine",
                     "Value": 58
                 },
                 {
-                    "Name": "DiffFilePathText",
+                    "Name": "DebuggerErrorLine",
                     "Value": 59
                 },
                 {
-                    "Name": "DiffTextHunkInfo",
+                    "Name": "DiffFilePathText",
                     "Value": 60
                 },
                 {
-                    "Name": "DiffTextNoChange",
+                    "Name": "DiffTextHunkInfo",
                     "Value": 61
                 },
                 {
-                    "Name": "DiffTextAddition",
+                    "Name": "DiffTextNoChange",
                     "Value": 62
                 },
                 {
-                    "Name": "DiffTextDeletion",
+                    "Name": "DiffTextAddition",
                     "Value": 63
                 },
                 {
-                    "Name": "DiffTextSeparatorBackground",
+                    "Name": "DiffTextDeletion",
                     "Value": 64
                 },
                 {
-                    "Name": "DiffTextNoChangeBackground",
+                    "Name": "DiffTextSeparatorBackground",
                     "Value": 65
                 },
                 {
-                    "Name": "DiffTextAdditionBackground",
+                    "Name": "DiffTextNoChangeBackground",
                     "Value": 66
                 },
                 {
-                    "Name": "DiffTextDeletionBackground",
+                    "Name": "DiffTextAdditionBackground",
                     "Value": 67
                 },
                 {
-                    "Name": "DiffLineNum",
+                    "Name": "DiffTextDeletionBackground",
                     "Value": 68
                 },
                 {
-                    "Name": "DiffLineNumSeparatorBackground",
+                    "Name": "DiffLineNum",
                     "Value": 69
                 },
                 {
-                    "Name": "DiffLineNumNoChangeBackground",
+                    "Name": "DiffLineNumSeparatorBackground",
                     "Value": 70
                 },
                 {
-                    "Name": "DiffLineNumAdditionBackground",
+                    "Name": "DiffLineNumNoChangeBackground",
                     "Value": 71
                 },
                 {
-                    "Name": "DiffLineNumDeletionBackground",
+                    "Name": "DiffLineNumAdditionBackground",
                     "Value": 72
                 },
                 {
-                    "Name": "DiffFilePathBackground",
+                    "Name": "DiffLineNumDeletionBackground",
                     "Value": 73
                 },
                 {
-                    "Name": "DiffFilePathBorder",
+                    "Name": "DiffFilePathBackground",
                     "Value": 74
                 },
                 {
-                    "Name": "Separator",
+                    "Name": "DiffFilePathBorder",
                     "Value": 75
                 },
                 {
-                    "Name": "ButtonBorder",
+                    "Name": "Separator",
                     "Value": 76
                 },
                 {
-                    "Name": "ButtonText",
+                    "Name": "ButtonBorder",
                     "Value": 77
                 },
                 {
-                    "Name": "InputFieldBorder",
+                    "Name": "ButtonText",
                     "Value": 78
                 },
                 {
-                    "Name": "CheckedFieldBackground",
+                    "Name": "InputFieldBorder",
                     "Value": 79
                 },
                 {
-                    "Name": "CheckedFieldBorder",
+                    "Name": "CheckedFieldBackground",
                     "Value": 80
                 },
                 {
-                    "Name": "CheckedFieldIndicator",
+                    "Name": "CheckedFieldBorder",
                     "Value": 81
                 },
                 {
-                    "Name": "HeaderSection",
+                    "Name": "CheckedFieldIndicator",
                     "Value": 82
                 },
                 {
-                    "Name": "Midlight",
+                    "Name": "HeaderSection",
                     "Value": 83
                 },
                 {
-                    "Name": "StatusBar",
+                    "Name": "Midlight",
                     "Value": 84
                 },
                 {
-                    "Name": "DialogButton",
+                    "Name": "StatusBar",
                     "Value": 85
                 },
                 {
-                    "Name": "DialogButtonText",
+                    "Name": "DialogButton",
                     "Value": 86
                 },
                 {
-                    "Name": "DialogButtonBorder",
+                    "Name": "DialogButtonText",
                     "Value": 87
                 },
                 {
-                    "Name": "DialogMainButton",
+                    "Name": "DialogButtonBorder",
                     "Value": 88
                 },
                 {
-                    "Name": "DialogMainButtonText",
+                    "Name": "DialogMainButton",
                     "Value": 89
+                },
+                {
+                    "Name": "DialogMainButtonText",
+                    "Value": 90
                 }
             ],
             "Name": "StudioStyleGuideColor"
