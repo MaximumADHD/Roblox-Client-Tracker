@@ -85,8 +85,9 @@ local function createSettingsPage(name, loadValuesToProps, dispatchChanges)
 		local props = self.props
 		local theme = props.Theme:get("Plugin")
 		local localization = props.Localization
+		local mouse = props.Mouse
 
-		local children = props.Content and props.Content(self, localization, theme) or {}
+		local children = props.Content and props.Content(self, localization, theme, mouse) or {}
 
 		return Roact.createElement("Frame", {
 			BackgroundTransparency = 1,
@@ -111,6 +112,7 @@ local function createSettingsPage(name, loadValuesToProps, dispatchChanges)
 		ContextServices.mapToProps(SettingsPage, {
 			Theme = ContextServices.Theme,
 			Localization = ContextServices.Localization,
+			Mouse = ContextServices.Mouse,
 		})
 	end
 

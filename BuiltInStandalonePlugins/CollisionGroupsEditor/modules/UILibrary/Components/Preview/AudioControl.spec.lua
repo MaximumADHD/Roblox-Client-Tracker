@@ -1,4 +1,9 @@
 return function()
+	local FFlagEnableToolboxVideos = game:GetFastFlag("EnableToolboxVideos")
+	if FFlagEnableToolboxVideos then
+		return
+	end
+
 	local Library = script.Parent.Parent.Parent
 	local Roact = require(Library.Parent.Roact)
 

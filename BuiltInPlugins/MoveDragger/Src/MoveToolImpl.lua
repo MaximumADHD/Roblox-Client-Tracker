@@ -16,6 +16,7 @@ local Colors = require(DraggerFramework.Utility.Colors)
 local getHandleScale = require(DraggerFramework.Utility.getHandleScale)
 
 local getFFlagSmoothAttachmentMovement = require(DraggerFramework.Flags.getFFlagSmoothAttachmentMovement)
+local getFFlagImprovedHandleParams = require(DraggerFramework.Flags.getFFlagImprovedHandleParams)
 
 local MoveHandleView = require(Plugin.Src.MoveHandleView)
 
@@ -126,14 +127,25 @@ function MoveToolImpl:render(hoveredHandleId)
     local children = {}
     if self._draggingHandleId then
         local handleProps = self._handles[self._draggingHandleId]
-        children[self._draggingHandleId] = Roact.createElement(MoveHandleView, {
-            Axis = handleProps.Axis,
-            AxisOffset = handleProps.AxisOffset,
-            Color = handleProps.Color,
-            Scale = self._scale,
-            AlwaysOnTop = ALWAYS_ON_TOP,
-            Hovered = forceHoveredHandlesOnTop and true,
-        })
+        if getFFlagImprovedHandleParams() then
+            children[self._draggingHandleId] = Roact.createElement(MoveHandleView, {
+                Axis = handleProps.Axis,
+                AxisOffset = handleProps.AxisOffset,
+                Color = handleProps.Color,
+                Scale = self._scale,
+                AlwaysOnTop = ALWAYS_ON_TOP,
+                Hovered = forceHoveredHandlesOnTop and true,
+            })
+        else
+            children[self._draggingHandleId] = Roact.createElement(MoveHandleView, {
+                Axis = handleProps.Axis,
+                AxisOffset = handleProps.AxisOffset,
+                Color = handleProps.Color,
+                Scale = self._scale,
+                AlwaysOnTop = ALWAYS_ON_TOP,
+                Hovered = false,
+            })
+        end
 
         for otherHandleId, otherHandleProps in pairs(self._handles) do
             if otherHandleId ~= self._draggingHandleId then
@@ -158,14 +170,25 @@ function MoveToolImpl:render(hoveredHandleId)
 			if not hovered then
 				color = Colors.makeDimmed(color)
             end
-            children[handleId] = Roact.createElement(MoveHandleView, {
-                Axis = handleProps.Axis,
-                AxisOffset = handleProps.AxisOffset,
-                Color = color,
-                Scale = self._scale,
-                AlwaysOnTop = ALWAYS_ON_TOP,
-                Hovered = forceHoveredHandlesOnTop and hovered,
-            })
+            if getFFlagImprovedHandleParams() then
+                children[handleId] = Roact.createElement(MoveHandleView, {
+                    Axis = handleProps.Axis,
+                    AxisOffset = handleProps.AxisOffset,
+                    Color = color,
+                    Scale = self._scale,
+                    AlwaysOnTop = ALWAYS_ON_TOP,
+                    Hovered = hovered,
+                })
+            else
+                children[handleId] = Roact.createElement(MoveHandleView, {
+                    Axis = handleProps.Axis,
+                    AxisOffset = handleProps.AxisOffset,
+                    Color = color,
+                    Scale = self._scale,
+                    AlwaysOnTop = ALWAYS_ON_TOP,
+                    Hovered = forceHoveredHandlesOnTop and hovered,
+                })
+            end
         end
     end
     return Roact.createFragment(children)

@@ -41,6 +41,7 @@ function ActionBindingsData.new()
 	self._bindingCounter = 0
 	self._sortedBindingData = {}
 	self._sortType = HEADER_NAMES[1] -- Name
+	self._isRunning = false
 	return self
 end
 
@@ -93,6 +94,10 @@ function ActionBindingsData:updateBindingDataEntry(name, info)
 	end
 end
 
+function ActionBindingsData:isRunning()
+	return self._isRunning
+end
+
 function ActionBindingsData:start()
 	local boundActions = ContextActionService:GetAllBoundActionInfo()
 	for actionName, actionInfo in pairs(boundActions) do
@@ -131,6 +136,7 @@ function ActionBindingsData:start()
 				self._bindingsUpdated:Fire(self._sortedBindingData)
 			end)
 	end
+	self._isRunning = true
 end
 
 function ActionBindingsData:stop()
@@ -146,6 +152,7 @@ function ActionBindingsData:stop()
 		self.actionRemovedConnector:Disconnect()
 		self.actionRemovedConnector = nil
 	end
+	self._isRunning = false
 end
 
 return ActionBindingsData

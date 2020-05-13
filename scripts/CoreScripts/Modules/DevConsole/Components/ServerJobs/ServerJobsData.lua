@@ -37,6 +37,7 @@ function ServerJobsData.new()
 	self._sortedJobsData = {}
 	self._sortType = HEADER_NAMES[1] -- Name
 	self._lastUpdate = 0
+	self._isRunning = false
 
 	return self
 end
@@ -136,6 +137,10 @@ function ServerJobsData:updateServerJobsData(updatedJobs)
 	end
 end
 
+function ServerJobsData:isRunning()
+	return self._isRunning
+end
+
 function ServerJobsData:start()
 	local clientReplicator = getClientReplicator()
 	if clientReplicator and not self._statsListenerConnection then
@@ -148,6 +153,7 @@ function ServerJobsData:start()
 			end
 		end)
 		clientReplicator:RequestServerStats(true)
+		self._isRunning = true
 	end
 end
 
@@ -155,6 +161,7 @@ function ServerJobsData:stop()
 	if self._statsListenerConnection then
 		self._statsListenerConnection:Disconnect()
 		self._statsListenerConnection = nil
+		self._isRunning = false
 	end
 end
 

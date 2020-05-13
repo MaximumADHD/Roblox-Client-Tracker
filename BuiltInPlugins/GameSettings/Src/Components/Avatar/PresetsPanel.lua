@@ -4,6 +4,8 @@ local RoactRodux = require(Plugin.RoactRodux)
 local RoactStudioWidgets = Plugin.RoactStudioWidgets
 local withLocalization = require(Plugin.Src.Consumers.withLocalization)
 
+local ContextServices = require(Plugin.Framework.ContextServices)
+
 local ConstantAvatar = require(Plugin.Src.Util.ConstantAvatar)
 local StateModelTemplate = require(Plugin.Src.Util.StateModelTemplate)
 
@@ -11,29 +13,63 @@ local ButtonBar = require(RoactStudioWidgets.ButtonBar)
 
 local FFlagAvatarSizeFixForReorganizeHeaders =
 	game:GetFastFlag("AvatarSizeFixForReorganizeHeaders")
+local FFlagStudioConvertGameSettingsToDevFramework = game:GetFastFlag("StudioConvertGameSettingsToDevFramework")
 
 local PresetsPanel = Roact.Component:extend("ComponentPresetsPanel")
 
 function PresetsPanel:render()
-	return withLocalization(function(localized)
+	if FFlagStudioConvertGameSettingsToDevFramework then
+		local props = self.props
+		local localization = props.Localization
+		local mouse = props.Mouse:get()
+
+		local isEnabled = props.IsEnabled
+
 		return Roact.createElement(ButtonBar, {
 			Padding = 10,
 			Buttons = {
-				{ Name=localized.Morpher.Presets.Default, Enabled=self.props.IsEnabled, Value=self.createDefaultModel, ShowPressed=true, Mouse=self.props.Mouse },
-				{ Name=localized.Morpher.Presets.ClassicScale, Enabled=self.props.IsEnabled, Value=self.createClassicModel1, ShowPressed=true, Mouse=self.props.Mouse },
-				{ Name=localized.Morpher.Presets.FullClassic, Enabled=self.props.IsEnabled, Value=self.createClassicModel2, ShowPressed=true, Mouse=self.props.Mouse },
-				{ Name=localized.Morpher.Presets.Rthro, Enabled=self.props.IsEnabled, Value=self.createRthroModel, ShowPressed=true, Mouse=self.props.Mouse },
-				{ Name=localized.Morpher.Presets.PlayerChoice, Enabled=self.props.IsEnabled, Value=self.createPlayerChoiceModel, ShowPressed=true, Mouse=self.props.Mouse }
+				{ Name=localization:getText("General", "PresetDefault"), Enabled=isEnabled, Value=self.createDefaultModel, ShowPressed=true, Mouse=mouse },
+				{ Name=localization:getText("General", "PresetClassicScale"), Enabled=isEnabled, Value=self.createClassicModel1, ShowPressed=true, Mouse=mouse },
+				{ Name=localization:getText("General", "PresetFullClassic"), Enabled=isEnabled, Value=self.createClassicModel2, ShowPressed=true, Mouse=mouse },
+				{ Name=localization:getText("General", "PresetRthro"), Enabled=isEnabled, Value=self.createRthroModel, ShowPressed=true, Mouse=mouse },
+				{ Name=localization:getText("General", "PresetPlayerChoice"), Enabled=isEnabled, Value=self.createPlayerChoiceModel, ShowPressed=true, Mouse=mouse }
 			},
 			HorizontalAlignment = Enum.HorizontalAlignment.Left,
-			Title = localized.Morpher.Title.Presets,
+			Title = localization:getText("General", "TitlePresets"),
 			ButtonClicked = function(functionToCall)
 				self.props.clobberTemplate(self.props.template, functionToCall(self.props.boundaries))
 			end,
 			ShowPressed = true,
 			LayoutOrder = FFlagAvatarSizeFixForReorganizeHeaders and self.props.LayoutOrder or nil,
 		})
-	end)
+	else
+		return withLocalization(function(localized)
+			return Roact.createElement(ButtonBar, {
+				Padding = 10,
+				Buttons = {
+					{ Name=localized.Morpher.Presets.Default, Enabled=self.props.IsEnabled, Value=self.createDefaultModel, ShowPressed=true, Mouse=self.props.Mouse },
+					{ Name=localized.Morpher.Presets.ClassicScale, Enabled=self.props.IsEnabled, Value=self.createClassicModel1, ShowPressed=true, Mouse=self.props.Mouse },
+					{ Name=localized.Morpher.Presets.FullClassic, Enabled=self.props.IsEnabled, Value=self.createClassicModel2, ShowPressed=true, Mouse=self.props.Mouse },
+					{ Name=localized.Morpher.Presets.Rthro, Enabled=self.props.IsEnabled, Value=self.createRthroModel, ShowPressed=true, Mouse=self.props.Mouse },
+					{ Name=localized.Morpher.Presets.PlayerChoice, Enabled=self.props.IsEnabled, Value=self.createPlayerChoiceModel, ShowPressed=true, Mouse=self.props.Mouse }
+				},
+				HorizontalAlignment = Enum.HorizontalAlignment.Left,
+				Title = localized.Morpher.Title.Presets,
+				ButtonClicked = function(functionToCall)
+					self.props.clobberTemplate(self.props.template, functionToCall(self.props.boundaries))
+				end,
+				ShowPressed = true,
+				LayoutOrder = FFlagAvatarSizeFixForReorganizeHeaders and self.props.LayoutOrder or nil,
+			})
+		end)
+	end
+end
+
+if FFlagStudioConvertGameSettingsToDevFramework then
+	ContextServices.mapToProps(PresetsPanel, {
+		Localization = ContextServices.Localization,
+		Mouse = ContextServices.Mouse,
+	})
 end
 
 function PresetsPanel:init()

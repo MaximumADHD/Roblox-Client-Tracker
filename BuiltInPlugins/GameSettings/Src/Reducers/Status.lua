@@ -4,18 +4,32 @@
 ]]
 
 local Plugin = script.Parent.Parent.Parent
+local Rodux = require(Plugin.Rodux)
 
-local SetCurrentStatus = require(Plugin.Src.Actions.SetCurrentStatus)
 local CurrentStatus = require(Plugin.Src.Util.CurrentStatus)
 
-local function Status(state, action)
-	state = state or CurrentStatus.Closed
+local DEFAULT_STATE = CurrentStatus.Closed
 
-	if action.type == SetCurrentStatus.name then
-		return action.currentStatus
+if game:GetFastFlag("StudioGameSettingsResetStoreAction") then
+	return Rodux.createReducer(DEFAULT_STATE, {
+		ResetStore = function(state, action)
+			return DEFAULT_STATE
+		end,
+
+		SetCurrentStatus = function(state, action)
+			return action.currentStatus
+		end,
+	})
+else
+	local SetCurrentStatus = require(Plugin.Src.Actions.SetCurrentStatus)
+	local function Status(state, action)
+		state = state or CurrentStatus.Closed
+
+		if action.type == SetCurrentStatus.name then
+			return action.currentStatus
+		end
+
+		return state
 	end
-
-	return state
+	return Status
 end
-
-return Status

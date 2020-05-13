@@ -24,6 +24,7 @@ local RangeSlider = require(Src.RangeSlider)
 local RadioButton = require(Src.RadioButton)
 local RadioButtonList = require(Src.RadioButtonList)
 local TextLabel = require(Src.TextLabel)
+local Separator = require(Src.Separator)
 
 -- NOTE: Please keep components in alphabetical order
 local UI = {
@@ -44,6 +45,7 @@ local UI = {
 	RadioButtonList = RadioButtonList,
 	RangeSlider = RangeSlider,
 	ShowOnTop = ShowOnTop,
+	Separator = Separator,
 	ToggleButton = ToggleButton,
 
 	Decoration = {

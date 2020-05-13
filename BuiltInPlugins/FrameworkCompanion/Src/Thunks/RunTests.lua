@@ -13,9 +13,9 @@ return function(component)
 	return function(store)
 		local src
 		if component then
-			src = require(component)
+			src = {component}
 		else
-			src = Plugin.Packages.Framework
+			src = {Plugin.Packages.Framework}
 		end
 
 		Roact.setGlobalConfig({

@@ -1,14 +1,13 @@
 -- This is a help object for modelPreview.
 -- This script is responsible for fetching the assetInstance using an assetID.
 -- this script will return a model for preview with all scripts disabled.
+local FFlagEnableToolboxVideos = game:GetFastFlag("EnableToolboxVideos")
 
 local Plugin = script.Parent.Parent.Parent
 
 local Promise = require(Plugin.Libs.Http.Promise)
 
 local Urls = require(Plugin.Core.Util.Urls)
-
-local FFlagEnableAudioPreview = settings():GetFFlag("EnableAudioPreview")
 
 local function disableScripts(previewModel)
 	for _, item in pairs(previewModel:GetDescendants()) do
@@ -59,6 +58,10 @@ return function(assetId, assetTypeId)
 				local soundId = ("rbxassetid://%d"):format(assetId)
 				soundInstance.SoundId = soundId
 				results = soundInstance
+			elseif FFlagEnableToolboxVideos and assetTypeId == Enum.AssetType.Video.Value then
+				local videoInstance = Instance.new("VideoFrame")
+				videoInstance.Video = Urls.constructAssetIdString(assetId)
+				results = videoInstance
 			else
 				results = getPreviewModel(assetId)
 			end

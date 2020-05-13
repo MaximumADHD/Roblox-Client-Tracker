@@ -1,4 +1,3 @@
-local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 local ContextActionService = game:GetService("ContextActionService")
 
@@ -19,16 +18,12 @@ local CloseReportDialog = require(InGameMenu.Actions.CloseReportDialog)
 local withLocalization = require(InGameMenu.Localization.withLocalization)
 
 local ThemedTextLabel = require(InGameMenu.Components.ThemedTextLabel)
-local SystemPrimaryButton = require(InGameMenu.Components.SystemPrimaryButton)
-local SystemSecondaryButton = require(InGameMenu.Components.SystemSecondaryButton)
 local TextEntryField = require(script.Parent.TextEntryField)
 local DropDownSelection = require(InGameMenu.Components.DropDownSelection)
 local Constants = require(InGameMenu.Resources.Constants)
 local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
 
 local SendReport = require(InGameMenu.Thunks.SendReport)
-
-local FFlagInGameMenuUseUIBloxButtons = require(CoreGui.RobloxGui.Modules.Flags.FFlagInGameMenuUseUIBloxButtons)
 
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
 
@@ -145,50 +140,18 @@ function ReportDialog:renderButtons(style, localized, reportChildren)
 			SortOrder = Enum.SortOrder.LayoutOrder,
 			VerticalAlignment = Enum.VerticalAlignment.Bottom,
 		}),
-		CancelButton = FFlagInGameMenuUseUIBloxButtons and Roact.createElement(UIBlox.App.Button.SecondaryButton, {
+		CancelButton = Roact.createElement(UIBlox.App.Button.SecondaryButton, {
 			layoutOrder = 1,
 			size = UDim2.fromOffset(144, 36),
 			text = localized.cancel,
 			onActivated = self.props.dispatchCloseReportDialog,
-		}) or Roact.createElement(SystemSecondaryButton, {
-			LayoutOrder = 1,
-			Size = UDim2.new(0, 144, 0, 36),
-			onActivated = function()
-				self.props.dispatchCloseReportDialog()
-			end,
-			renderChildren = function(transparency)
-				return {
-					ButtonText = Roact.createElement(ThemedTextLabel, {
-						Text = localized.cancel,
-						themeKey = "SecondaryContent",
-						fontKey = "Header2",
-						Size = UDim2.new(1, 0, 1, 0),
-						TextTransparency = transparency,
-					}),
-				}
-			end,
 		}),
-		ConfirmButton = FFlagInGameMenuUseUIBloxButtons and Roact.createElement(UIBlox.App.Button.PrimarySystemButton, {
+		ConfirmButton = Roact.createElement(UIBlox.App.Button.PrimarySystemButton, {
 			layoutOrder = 2,
 			size = UDim2.fromOffset(144, 36),
 			isDisabled = not (textInBounds and abuseTypeSelected),
 			text = localized.report,
 			onActivated = onConfirmActivated,
-		}) or Roact.createElement(SystemPrimaryButton, {
-			LayoutOrder = 2,
-			Size = UDim2.new(0, 144, 0, 36),
-			enabled = textInBounds and abuseTypeSelected,
-			onActivated = onConfirmActivated,
-			renderChildren = function(transparency)
-				return {
-					ButtonText = Roact.createElement(ThemedTextLabel, {
-						Text = localized.report,
-						themeKey = "SystemPrimaryContent",
-						fontKey = "Header2",
-						Size = UDim2.new(1, 0, 1, 0),
-					}),
-				}
-			end,
 		}),
 	})
 end

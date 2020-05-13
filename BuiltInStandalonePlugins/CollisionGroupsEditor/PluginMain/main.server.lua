@@ -1,3 +1,4 @@
+local FFlagCGELocalizeWindowTitle = game:DefineFastFlag("CGELocalizeWindowTitle", false)
 
 local Roact = require(script.Parent.Parent.modules.Roact)
 local Gui = require(script.Parent.Parent.Plugin.Components.Gui)
@@ -41,13 +42,31 @@ local Info = DockWidgetPluginGuiInfo.new(
 	MinX, MinY
 )
 
+local localization = nil
+if FFlagCGELocalizeWindowTitle then
+	local UILibrary = require(script.Parent.Parent.modules.UILibrary)
+	local Resources = script.Parent.Parent.Resources
+
+	localization = UILibrary.Studio.Localization.new({
+		stringResourceTable = Resources.TranslationDevelopmentTable,
+		translationResourceTable = Resources.TranslationReferenceTable,
+		pluginName = "CGE",
+	})
+end
+
+
 local Window = nil
 local RoactHandle = nil
 
 local function handleDMSession(dmSession)
 	if (Window == nil) then 
 		Window = plugin:CreateDockWidgetPluginGui("CollisionGroupsEditorWindow", Info)
-		Window.Title = "Collision Groups Editor"
+		
+		if FFlagCGELocalizeWindowTitle then
+			Window.Title = localization:getText("Main", "Title")
+		else
+			Window.Title = "Collision Groups Editor"
+		end
 		
 		updateButtonActive(Button, Window)
 
@@ -57,14 +76,26 @@ local function handleDMSession(dmSession)
 			updateButtonActive(Button, Window)
 		end)
 
-		RoactHandle = Roact.mount(
-			Roact.createElement(Gui, {
-				Window = Window,
-				plugin = plugin
-			}),
-			Window,
-			"CollisionGroupEditorGui"
-		)	
+		if FFlagCGELocalizeWindowTitle then
+			RoactHandle = Roact.mount(
+				Roact.createElement(Gui, {
+					Window = Window,
+					plugin = plugin,
+					localization = localization
+				}),
+				Window,
+				"CollisionGroupEditorGui"
+			)	
+		else
+			RoactHandle = Roact.mount(
+				Roact.createElement(Gui, {
+					Window = Window,
+					plugin = plugin
+				}),
+				Window,
+				"CollisionGroupEditorGui"
+			)	
+		end
 	end
 
 	-- in case the window was open when the place started, we

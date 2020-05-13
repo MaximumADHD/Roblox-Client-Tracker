@@ -4,6 +4,10 @@ return function()
 	local FrameworkTypes = require(script.Parent.FrameworkTypes)
 	local Symbol = require(Framework.Util.Symbol)
 	local Signal = require(Framework.Util.Signal)
+	local Flags = require(Framework.Util.Flags)
+	local FlagsList = Flags.new({
+		FFlagRefactorDevFrameworkContextItems = {"RefactorDevFrameworkContextItems"},
+	})
 
 	it("should typecheck Components", function()
 		expect(FrameworkTypes.Component({})).to.equal(false)
@@ -61,14 +65,25 @@ return function()
 	end)
 
 	it("should typecheck Focuses", function()
-		expect(FrameworkTypes.Focus({})).to.equal(false)
-		expect(FrameworkTypes.Focus({
-			getTarget = {},
-		})).to.equal(false)
-		expect(FrameworkTypes.Focus({
-			getTarget = function()
-			end,
-		})).to.equal(true)
+		if FlagsList:get("FFlagRefactorDevFrameworkContextItems") then
+			expect(FrameworkTypes.Focus({})).to.equal(false)
+			expect(FrameworkTypes.Focus({
+				get = {},
+			})).to.equal(false)
+			expect(FrameworkTypes.Focus({
+				get = function()
+				end,
+			})).to.equal(true)
+		else
+			expect(FrameworkTypes.Focus({})).to.equal(false)
+			expect(FrameworkTypes.Focus({
+				getTarget = {},
+			})).to.equal(false)
+			expect(FrameworkTypes.Focus({
+				getTarget = function()
+				end,
+			})).to.equal(true)
+		end
 	end)
 
 	it("should typecheck Symbols", function()

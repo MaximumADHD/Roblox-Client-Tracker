@@ -19,6 +19,7 @@ local getFFlagClearHoverBoxOnDelete = require(Framework.Flags.getFFlagClearHover
 local getFFlagLuaDraggerIconBandaid = require(Framework.Flags.getFFlagLuaDraggerIconBandaid)
 local getFFlagOnlyReadyHover = require(Framework.Flags.getFFlagOnlyReadyHover)
 local getFFlagHandleCanceledToolboxDrag = require(Framework.Flags.getFFlagHandleCanceledToolboxDrag)
+local getFFlagHandleFlakeyMouseEvents = require(Framework.Flags.getFFlagHandleFlakeyMouseEvents)
 
 -- Components
 local SelectionDot = require(Framework.Components.SelectionDot)
@@ -324,16 +325,26 @@ function DraggerTool:_processKeyDown(keyCode)
 end
 
 function DraggerTool:_processMouseDown()
-	assert(not self._isMouseDown)
+	if getFFlagHandleFlakeyMouseEvents() then
+		if self._isMouseDown then
+			-- Not ideal code. There are just too many situations where the engine
+			-- passes us disbalanced mouseup / mousedown events for us to reliably
+			-- handle all of them, so as an escape hatch, handle a mouse up if we
+			-- get a mouse down without having gotten the preceeding mouse up.
+			self:_processMouseUp()
+		end
+	else
+		assert(not self._isMouseDown)
+	end
 	self._isMouseDown = true
 	self.state.stateObject:processMouseDown(self)
 end
 
 function DraggerTool:_processMouseUp()
-	-- This condition can be hit when the tool was selected while the mouse
-	-- was being held down. In that case it's a spurious mouse up that we
-	-- should ignore.
 	if not self._isMouseDown then
+		-- There are various circumstances where the mouse can be down without
+		-- us having started an associated drag. The engine has a habit of
+		-- sending mismatched mouse up/down events in various rare edge cases.
 		return
 	end
 	self._isMouseDown = false

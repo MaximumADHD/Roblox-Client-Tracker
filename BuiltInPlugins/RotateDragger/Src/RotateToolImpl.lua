@@ -21,24 +21,31 @@ local StandaloneSelectionBox = require(DraggerFramework.Components.StandaloneSel
 
 local RotateHandleView = require(Plugin.Src.RotateHandleView)
 
+local getFFlagImprovedHandleParams = require(DraggerFramework.Flags.getFFlagImprovedHandleParams)
+
 local RotateToolImpl = {}
 RotateToolImpl.__index = RotateToolImpl
 
 --[[
 	Axis of rotation is the CFrame right vector.
+	RadiusOffset slightly bumps the arc radii so that we can control which one
+	shows up on top where they intersect.
 ]]
 local RotateHandleDefinitions = {
     XAxis = {
         Offset = CFrame.fromMatrix(Vector3.new(), Vector3.new(1, 0, 0), Vector3.new(0, 1, 0), Vector3.new(0, 0, 1)),
 		Color = Colors.X_AXIS,
+		RadiusOffset = 0.00,
 	},
 	YAxis = {
         Offset = CFrame.fromMatrix(Vector3.new(), Vector3.new(0, 1, 0), Vector3.new(0, 0, 1), Vector3.new(1, 0, 0)),
 		Color = Colors.Y_AXIS,
+		RadiusOffset = 0.01,
 	},
 	ZAxis = {
 		Offset = CFrame.fromMatrix(Vector3.new(), Vector3.new(0, 0, 1), Vector3.new(0, 1, 0), Vector3.new(-1, 0, 0)),
 		Color = Colors.Z_AXIS,
+		RadiusOffset = 0.02,
     },
 }
 
@@ -136,14 +143,27 @@ function RotateToolImpl:render(hoveredHandleId)
 	local children = {}
 	if self._draggingHandleId then
 		local handleProps = self._handles[self._draggingHandleId]
-		children[self._draggingHandleId] = Roact.createElement(RotateHandleView, {
-			HandleCFrame = handleProps.HandleCFrame,
-			Color = handleProps.Color,
-			StartAngle = self._startAngle - self._draggingLastGoodDelta,
-			EndAngle = self._startAngle,
-			Scale = self._scale,
-			Hovered = forceHoveredHandlesOnTop and true,
-		})
+		if getFFlagImprovedHandleParams() then
+			children[self._draggingHandleId] = Roact.createElement(RotateHandleView, {
+				HandleCFrame = handleProps.HandleCFrame,
+				Color = handleProps.Color,
+				StartAngle = self._startAngle - self._draggingLastGoodDelta,
+				EndAngle = self._startAngle,
+				Scale = self._scale,
+				Hovered = false,
+				RadiusOffset = handleProps.RadiusOffset,
+			})
+		else
+			children[self._draggingHandleId] = Roact.createElement(RotateHandleView, {
+				HandleCFrame = handleProps.HandleCFrame,
+				Color = handleProps.Color,
+				StartAngle = self._startAngle - self._draggingLastGoodDelta,
+				EndAngle = self._startAngle,
+				Scale = self._scale,
+				Hovered = forceHoveredHandlesOnTop and true,
+				RadiusOffset = handleProps.RadiusOffset,
+			})
+		end
 
 		-- Show the other handles, but thinner
 		for handleId, otherHandleProps in pairs(self._handles) do
@@ -154,6 +174,7 @@ function RotateToolImpl:render(hoveredHandleId)
 					Color = Colors.makeDimmed(otherHandleProps.Color),
 					Scale = self._scale,
 					Thin = true,
+					RadiusOffset = handleProps.RadiusOffset,
 				})
 			end
 		end
@@ -168,12 +189,23 @@ function RotateToolImpl:render(hoveredHandleId)
 			if not hovered then
 				color = Colors.makeDimmed(color)
 			end
-			children[handleId] = Roact.createElement(RotateHandleView, {
-				HandleCFrame = handleProps.HandleCFrame,
-				Color = color,
-				Scale = self._scale,
-				Hovered = forceHoveredHandlesOnTop and hovered,
-			})
+			if getFFlagImprovedHandleParams() then
+				children[handleId] = Roact.createElement(RotateHandleView, {
+					HandleCFrame = handleProps.HandleCFrame,
+					Color = color,
+					Scale = self._scale,
+					Hovered = hovered,
+					RadiusOffset = handleProps.RadiusOffset,
+				})
+			else
+				children[handleId] = Roact.createElement(RotateHandleView, {
+					HandleCFrame = handleProps.HandleCFrame,
+					Color = color,
+					Scale = self._scale,
+					Hovered = forceHoveredHandlesOnTop and hovered,
+					RadiusOffset = handleProps.RadiusOffset,
+				})
+			end
 		end
 	end
 
@@ -363,10 +395,18 @@ function RotateToolImpl:_updateHandles()
         self._handles = {}
 	else
 		for handleId, handleDefinition in pairs(RotateHandleDefinitions) do
-			self._handles[handleId] = {
-				HandleCFrame = self._boundingBox.CFrame * handleDefinition.Offset,
-				Color = handleDefinition.Color,
-			}
+			if getFFlagImprovedHandleParams() then
+				self._handles[handleId] = {
+					HandleCFrame = self._boundingBox.CFrame * handleDefinition.Offset,
+					Color = handleDefinition.Color,
+					RadiusOffset = handleDefinition.RadiusOffset,
+				}
+			else
+				self._handles[handleId] = {
+					HandleCFrame = self._boundingBox.CFrame * handleDefinition.Offset,
+					Color = handleDefinition.Color,
+				}
+			end
         end
     end
 end

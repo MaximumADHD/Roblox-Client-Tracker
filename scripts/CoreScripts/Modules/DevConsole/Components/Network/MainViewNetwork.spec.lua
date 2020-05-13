@@ -5,14 +5,14 @@ return function()
 	local Store = require(CorePackages.Rodux).Store
 
 	local DataProvider = require(script.Parent.Parent.DataProvider)
-
 	local MainViewNetwork = require(script.Parent.MainViewNetwork)
 
 	it("should create and destroy without errors", function()
 		local store = Store.new(function()
 			return {
 				MainView = {
-					currTabIndex = 0
+					currTabIndex = 0,
+					isDeveloperView = true,
 				},
 				NetworkData = {
 					clientSearchTerm = "",

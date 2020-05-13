@@ -25,6 +25,7 @@ function ServerMemoryData.new()
 
 	setmetatable(self, ServerMemoryData)
 	self._init = false
+	self._isRunning = false
 	self._totalMemory = 0
 
 	self._memoryData = {}
@@ -200,6 +201,10 @@ function ServerMemoryData:getMemoryData()
 	return self._memoryDataSorted
 end
 
+function ServerMemoryData:isRunning()
+	return self._isRunning
+end
+
 function ServerMemoryData:start()
 	local clientReplicator = getClientReplicator()
 	if clientReplicator and not self._statsListenerConnection then
@@ -217,6 +222,7 @@ function ServerMemoryData:start()
 
 		end)
 		clientReplicator:RequestServerStats(true)
+		self._isRunning = true
 	end
 end
 
@@ -226,6 +232,7 @@ function ServerMemoryData:stop()
 	if clientReplicator then
 		clientReplicator:RequestServerStats(false)
 		self._statsListenerConnection:Disconnect()
+		self._isRunning = false
 	end
 end
 

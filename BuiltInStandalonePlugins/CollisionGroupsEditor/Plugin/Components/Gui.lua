@@ -1,3 +1,5 @@
+local FFlagCGELocalizeWindowTitle = game:GetFastFlag("CGELocalizeWindowTitle")
+
 local Roact = require(script.Parent.Parent.Parent.modules.Roact)
 local UILibrary = require(script.Parent.Parent.Parent.modules.UILibrary)
 local Resources = script.Parent.Parent.Parent.Resources
@@ -108,14 +110,18 @@ end
 
 function Gui:render()
 	local props = self.props
-
 	local plugin = props.plugin
+	local localization = nil
 
-	local localization = UILibrary.Studio.Localization.new({
-		stringResourceTable = Resources.TranslationDevelopmentTable,
-		translationResourceTable = Resources.TranslationReferenceTable,
-		pluginName = "CGE",
-	})
+	if FFlagCGELocalizeWindowTitle then 
+	 	localization = props.localization
+	else
+		localization = UILibrary.Studio.Localization.new({
+			stringResourceTable = Resources.TranslationDevelopmentTable,
+			translationResourceTable = Resources.TranslationReferenceTable,
+			pluginName = "CGE",
+		})
+	end
 
 	return Roact.createElement(ServiceWrapper, {
 		plugin = plugin,

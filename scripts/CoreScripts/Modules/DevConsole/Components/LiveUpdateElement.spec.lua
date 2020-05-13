@@ -11,6 +11,9 @@ return function()
 	it("should create and destroy without errors", function()
 		local store = Store.new(function()
 			return {
+				MainView = {
+					isDeveloperView = true,
+				},
 			}
 		end)
 

@@ -14,13 +14,15 @@ local StudioService = game:GetService("StudioService")
 		list Languags enabled for automatic trnaslation
 ]]
 
+local FFlagStudioConvertGameSettingsToDevFramework = game:GetFastFlag("StudioConvertGameSettingsToDevFramework")
+
 local PageName = "Localization"
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
-local UILibrary = require(Plugin.UILibrary)
 
+local UILibrary = require(Plugin.UILibrary)
 local TitledFrame = UILibrary.Component.TitledFrame
 local ToggleButton = UILibrary.Component.ToggleButton
 local StudioWidgetPartialHyperlink = UILibrary.Studio.PartialHyperlink
@@ -132,7 +134,8 @@ local function disPlayPublishPlaceMessage(page, localized, theme)
 	return {
 		Header = Roact.createElement(Header, {
 			LayoutOrder = 100,
-			Title = localized.Category[PageName],
+			Title = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "CategoryLocalization")
+				or localized.Category[PageName],
 		}),
 		Message = Roact.createElement("Frame", {
 			LayoutOrder = 200,
@@ -140,10 +143,15 @@ local function disPlayPublishPlaceMessage(page, localized, theme)
 			BackgroundTransparency = 1,
 		}, {
 			LinkText = Roact.createElement(StudioWidgetPartialHyperlink, {
-				HyperLinkText = localized.LocalizationSettingsPublishMessageLinkText,
-				NonHyperLinkText = localized.LocalizationSettingsPublishMessageNonLinkText,
+				HyperLinkText = FFlagStudioConvertGameSettingsToDevFramework
+						and localized:getText("General", "LocalizationSettingsPublishMessageLinkText")
+						or localized.LocalizationSettingsPublishMessageLinkText,
+				NonHyperLinkText = FFlagStudioConvertGameSettingsToDevFramework
+						and localized:getText("General", "LocalizationSettingsPublishMessageNonLinkText")
+						or localized.LocalizationSettingsPublishMessageNonLinkText,
 				Theme = theme,
-				Mouse = getMouse(page).getNativeMouse(),
+				Mouse = FFlagStudioConvertGameSettingsToDevFramework and page.props.Mouse:get()
+					or getMouse(page).getNativeMouse(),
 				OnClick = function()
 					StudioService:ShowPublishToRoblox()
 				end,
@@ -165,11 +173,13 @@ local function displayContents(page, localized, theme)
 	return {
 		Header = Roact.createElement(Header, {
 			LayoutOrder = 100,
-			Title = localized.Category[PageName],
+			Title = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "CategoryLocalization")
+				or localized.Category[PageName],
 		}),
 		SourceLanguage = Roact.createElement(TitledFrame, {
 			LayoutOrder = 200,
-			Title = localized.SourceLanguage.Title,
+			Title = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "SourceLanguageTitle")
+				or localized.SourceLanguage.Title,
 			MaxHeight = 50,
 			CenterGutter = CENTER_GUTTER,
 			TextSize = theme.fontStyle.Subtitle.TextSize,
@@ -196,7 +206,8 @@ local function displayContents(page, localized, theme)
 				Size = UDim2.new(1, 0, 0, theme.fontStyle.Subtitle.TextSize),
 				TextXAlignment = Enum.TextXAlignment.Left,
 				TextYAlignment = Enum.TextYAlignment.Top,
-				Text = localized.SourceLanguage.Description,
+				Text = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "SourceLanguageDesc")
+					or localized.SourceLanguage.Description,
 			})),
 		}),
 		Separator1 = Roact.createElement(Separator, {
@@ -204,7 +215,8 @@ local function displayContents(page, localized, theme)
 		}),
 		AutoTextCapture = Roact.createElement(TitledFrame, {
 			LayoutOrder = 400,
-			Title = localized.AutoTextCapture.Title,
+			Title = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "AutoTextCaptureTitle")
+				or localized.AutoTextCapture.Title,
 			MaxHeight = 36,
 			CenterGutter = CENTER_GUTTER,
 			TextSize = theme.fontStyle.Subtitle.TextSize,
@@ -227,7 +239,8 @@ local function displayContents(page, localized, theme)
 				Size = UDim2.new(1, 0, 0, theme.fontStyle.Subtitle.TextSize),
 				TextXAlignment = Enum.TextXAlignment.Left,
 				TextYAlignment = Enum.TextYAlignment.Top,
-				Text = localized.AutoTextCapture.Description,
+				Text = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "AutoTextCaptureDesc")
+					or localized.AutoTextCapture.Description,
 			})),
 		}),
 		Separator2 = Roact.createElement(Separator, {
@@ -235,7 +248,8 @@ local function displayContents(page, localized, theme)
 		}),
 		UseTranslatedContent = Roact.createElement(TitledFrame, {
 			LayoutOrder = 600,
-			Title = localized.UseTranslatedContent.Title,
+			Title = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "UseTranslatedContentTitle")
+				or localized.UseTranslatedContent.Title,
 			MaxHeight = 36,
 			CenterGutter = CENTER_GUTTER,
 			TextSize = theme.fontStyle.Subtitle.TextSize,
@@ -258,7 +272,8 @@ local function displayContents(page, localized, theme)
 				Size = UDim2.new(1, 0, 0, theme.fontStyle.Subtitle.TextSize),
 				TextXAlignment = Enum.TextXAlignment.Left,
 				TextYAlignment = Enum.TextYAlignment.Top,
-				Text = localized.UseTranslatedContent.Description,
+				Text = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "UseTranslatedContentDesc")
+					or localized.UseTranslatedContent.Description,
 			})),
 		}),
 		Separator3 = Roact.createElement(Separator, {
@@ -266,7 +281,8 @@ local function displayContents(page, localized, theme)
 		}),
 		AutoTranslationTitle = showAutoTranslationTitle and Roact.createElement(TitledFrame, {
 			LayoutOrder = 800,
-			Title = localized.AutomaticTranslationTitle,
+			Title = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "AutoTranslationTitle")
+				or localized.AutomaticTranslationTitle,
 			MaxHeight = 22,
 			CenterGutter = CENTER_GUTTER,
 			TextSize = theme.fontStyle.Subtitle.TextSize,
@@ -283,7 +299,9 @@ local function displayContents(page, localized, theme)
 				Size = UDim2.new(1, 0, 0, theme.fontStyle.Subtitle.TextSize),
 				TextXAlignment = Enum.TextXAlignment.Left,
 				TextYAlignment = Enum.TextYAlignment.Top,
-				Text = localized.AutoTranslationOnlyAvailableForEnMessage,
+				Text = FFlagStudioConvertGameSettingsToDevFramework
+					and localized:getText("General", "AutoTranslationOnlyAvailableForEnMessage")
+					or localized.AutoTranslationOnlyAvailableForEnMessage,
 			})),
 		Separator4 = showAutoTranslationTitle and Roact.createElement(Separator, {
 			LayoutOrder = 1000,
@@ -295,10 +313,15 @@ local function displayContents(page, localized, theme)
 				BackgroundTransparency = 1,
 			}, {
 				LinkText = Roact.createElement(StudioWidgetPartialHyperlink, {
-					HyperLinkText = localized.LocalizationSettingsLinkText,
-					NonHyperLinkText = localized.LocalizationSettingsNonLinkText,
+					HyperLinkText = FFlagStudioConvertGameSettingsToDevFramework
+						and localized:getText("General", "LocalizationSettingsLinkText")
+						or localized.LocalizationSettingsLinkText,
+					NonHyperLinkText = FFlagStudioConvertGameSettingsToDevFramework
+						and localized:getText("General", "LocalizationSettingsNonLinkText")
+						or localized.LocalizationSettingsNonLinkText,
 					Theme = theme,
-					Mouse = getMouse(page).getNativeMouse(),
+					Mouse = FFlagStudioConvertGameSettingsToDevFramework and props.Mouse:get()
+						or getMouse(page).getNativeMouse(),
 					OnClick = OpenLocalizationSettings(game.GameId),
 				})
 			})

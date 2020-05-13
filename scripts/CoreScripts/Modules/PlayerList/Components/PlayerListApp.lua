@@ -28,6 +28,8 @@ local FFlagDisableAutoTranslateForKeyTranslatedContent = require(
 	RobloxGui.Modules.Flags.FFlagDisableAutoTranslateForKeyTranslatedContent)
 local FFlagPlayerListMorePerfImprovements = require(RobloxGui.Modules.Flags.FFlagPlayerListMorePerfImprovements)
 
+local FFlagPlayerListFixXboxLayout = game:DefineFastFlag("PlayerListFixXboxLayout", false)
+
 local MOTOR_OPTIONS = {
     dampingRatio = 1,
     frequency = 7,
@@ -131,16 +133,35 @@ function PlayerListApp:render()
 		if layoutValues.IsTenFoot then
 			for _, player in ipairs(self.props.players) do
 				if player == Players.LocalPlayer then
-					childElements["TitlePlayerEntry"] = Roact.createElement(PlayerEntry, {
-						player = player,
-						playerStats = self.props.playerStats[player.UserId],
-						playerIconInfo = self.props.playerIconInfo[player.UserId],
-						playerRelationship = self.props.playerRelationship[player.UserId],
-						titlePlayerEntry = true,
-						hasDivider = false,
-						gameStats = self.props.gameStats,
-						entrySize = entrySize,
-					})
+					if FFlagPlayerListFixXboxLayout then
+						childElements["TitlePlayerEntry"] = Roact.createElement("Frame", {
+							Position = UDim2.fromOffset(0, 0),
+							Size = UDim2.new(1, layoutValues.EntryXOffset, 0, layoutValues.PlayerEntrySizeY),
+							BackgroundTransparency = 1,
+						}, {
+							PlayerEntry = Roact.createElement(PlayerEntry, {
+								player = player,
+								playerStats = self.props.playerStats[player.UserId],
+								playerIconInfo = self.props.playerIconInfo[player.UserId],
+								playerRelationship = self.props.playerRelationship[player.UserId],
+								titlePlayerEntry = true,
+								hasDivider = false,
+								gameStats = self.props.gameStats,
+								entrySize = entrySize,
+							})
+						})
+					else
+						childElements["TitlePlayerEntry"] = Roact.createElement(PlayerEntry, {
+							player = player,
+							playerStats = self.props.playerStats[player.UserId],
+							playerIconInfo = self.props.playerIconInfo[player.UserId],
+							playerRelationship = self.props.playerRelationship[player.UserId],
+							titlePlayerEntry = true,
+							hasDivider = false,
+							gameStats = self.props.gameStats,
+							entrySize = entrySize,
+						})
+					end
 					break
 				end
 			end

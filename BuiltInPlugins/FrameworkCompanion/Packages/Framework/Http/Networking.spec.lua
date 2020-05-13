@@ -1,6 +1,9 @@
 return function()
 	local Networking = require(script.Parent.Networking)
-	
+	local HttpService = game:GetService("HttpService")
+
+	local FFlagStudioFixFrameworkJsonParsing = game:GetFastFlag("StudioFixFrameworkJsonParsing")
+
 	describe("new()", function()
 		it("should construct with no params", function()
 			local n = Networking.new()
@@ -127,7 +130,13 @@ return function()
 			local n = Networking.mock({
 				onRequest = function(requestOptions)
 					return {
-						Body = "{ \"message\":{ \"a\":{ \"b\":\"foo\" } } }",
+						Body = HttpService:JSONEncode({
+							message = {
+								a = {
+									b = "foo",
+								},
+							},
+						}),
 						Success = true,
 						StatusMessage = "OK",
 						StatusCode = 200,
@@ -146,6 +155,94 @@ return function()
 
 			expect(didError).to.equal(false)
 		end)
+
+		if FFlagStudioFixFrameworkJsonParsing then
+			it("should return a rejected Promise if the body fails to parse", function()
+				local n = Networking.mock({
+					onRequest = function(requestOptions)
+						return {
+							Body = "I'm not valid JSON",
+							Success = true,
+							StatusMessage = "OK",
+							StatusCode = 200,
+						}
+					end,
+				})
+
+				local didResolve = false
+				local didError = false
+				local httpPromise = n:get("https://www.test.com")
+				n:parseJson(httpPromise):andThen(function(json)
+					didResolve = true
+				end, function(err)
+					expect(string.find(err, "Can't parse JSON")).to.never.equal(nil)
+					didError = true
+				end)
+
+				expect(didResolve).to.equal(false)
+				expect(didError).to.equal(true)
+			end)
+
+			it("should return a rejected Promise if the request failed", function()
+				local n = Networking.mock({
+					onRequest = function(requestOptions)
+						return {
+							Body = "I'm not valid JSON",
+							Success = false,
+							StatusMessage = "Forbidden",
+							StatusCode = 401,
+						}
+					end,
+				})
+
+				local didError = false
+				local didResolve = false
+				local foundExpectedErrMsg = false
+
+				local httpPromise = n:get("https://www.test.com")
+				n:parseJson(httpPromise):andThen(function(json)
+					didResolve = true
+				end, function(err)
+					foundExpectedErrMsg = string.find(tostring(err), "Can't parse JSON") == nil
+					didError = true
+				end)
+
+				expect(didResolve).to.equal(false)
+				expect(didError).to.equal(true)
+				expect(foundExpectedErrMsg).to.equal(true)
+			end)
+
+			it("should return a rejected Promise with a parsed body if the body is parsable", function()
+				local n = Networking.mock({
+					onRequest = function(requestOptions)
+						return {
+							Body = HttpService:JSONEncode({ errors = {
+								message = "You gotta log in my dude."
+							} }),
+							Success = false,
+							StatusMessage = "Forbidden",
+							StatusCode = 401,
+						}
+					end,
+				})
+
+				local didError = false
+				local didResolve = false
+				local foundExpectedBody = false
+
+				local httpPromise = n:get("https://www.test.com")
+				n:parseJson(httpPromise):andThen(function(json)
+					didResolve = true
+				end, function(err)
+					foundExpectedBody = err.responseBody.errors.message == "You gotta log in my dude."
+					didError = true
+				end)
+
+				expect(didResolve).to.equal(false)
+				expect(didError).to.equal(true)
+				expect(foundExpectedBody).to.equal(true)
+			end)
+		end
 	end)
 
 

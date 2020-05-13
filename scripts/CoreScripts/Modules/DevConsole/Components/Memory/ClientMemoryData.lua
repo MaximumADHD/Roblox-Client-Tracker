@@ -39,6 +39,7 @@ function ClientMemoryData.new()
 	self._treeViewUpdatedSignal = Signal.new()
 	self._totalMemoryUpdated = Signal.new()
 	self._sortType = HEADER_NAMES[1]
+	self._isRunning = false
 
 	self._doGranularMemUpdate = {}
 	self._granularMemTable = {}
@@ -368,10 +369,15 @@ function ClientMemoryData:getMemoryData()
 	return self._memoryDataSorted
 end
 
+function ClientMemoryData:isRunning()
+	return self._isRunning
+end
+
 function ClientMemoryData:start()
 	spawn(function()
 		self._pollingId = self._pollingId + 1
 		local instanced_pollingId = self._pollingId
+		self._isRunning = true
 		while instanced_pollingId == self._pollingId do
 			local statsItem = GetMemoryPerformanceStatsItem()
 			if not statsItem then
@@ -389,6 +395,7 @@ function ClientMemoryData:start()
 
 			wait(CLIENT_POLLING_INTERVAL)
 		end
+		self._isRunning = false
 	end)
 end
 

@@ -24,6 +24,7 @@ local FFlagEnableAudioPreview = game:GetFastFlag("EnableAudioPreview")
 local FFlagHideOneChildTreeviewButton = game:GetFastFlag("HideOneChildTreeviewButton")
 local FFlagStudioFixTreeViewForFlatList = settings():GetFFlag("StudioFixTreeViewForFlatList")
 local FFlagStudioAssetPreviewTreeFix2 = game:DefineFastFlag("StudioAssetPreviewTreeFix2", false)
+local FFlagEnableToolboxVideos = game:GetFastFlag("EnableToolboxVideos")
 
 local Library = script.Parent.Parent.Parent
 
@@ -35,6 +36,7 @@ local ThumbnailIconPreview = require(Library.Components.Preview.ThumbnailIconPre
 local TreeViewButton =  require(Library.Components.Preview.TreeViewButton)
 local AssetType = require(Library.Utils.AssetType)
 local AudioPreview = require(Library.Components.Preview.AudioPreview)
+local VideoPreview = require(Library.Components.Preview.VideoPreview)
 
 local TreeViewItem = require(Library.Components.Preview.InstanceTreeViewItem)
 local TreeView = require(Library.Components.TreeView)
@@ -204,6 +206,8 @@ function PreviewController:render()
 	local width = props.Width
 	local layoutOrder = props.LayoutOrder
 
+	local isShowVideoPreview = FFlagEnableToolboxVideos and AssetType:isVideo(assetPreviewType)
+
 	local showTreeView = state.showTreeView
 	local previewSize
 	local treeViewSize
@@ -306,7 +310,12 @@ function PreviewController:render()
 				ShowTreeView = showTreeView,
 				ReportPlay = reportPlay,
 				ReportPause = reportPause,
-			}) or nil,
+			}),
+
+			VideoPreview = isShowVideoPreview and Roact.createElement(VideoPreview, {
+				VideoId = "rbxassetid://" .. assetId,
+				ShowTreeView = showTreeView,
+			}),
 
 			PluginPreview = AssetType:isPlugin(assetPreviewType) and Roact.createElement("ImageLabel", {
 				Image = Urls.constructAssetThumbnailUrl(assetId, 420, 420),

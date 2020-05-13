@@ -15,7 +15,7 @@ local PageName = "Avatar"
 
 local FFlagAvatarSizeFixForReorganizeHeaders =
 	game:GetFastFlag("AvatarSizeFixForReorganizeHeaders")
-local FFlagStudioMoveMorpherEditorInsideGameSettings = game:GetFastFlag("StudioMoveMorpherEditorInsideGameSettings")
+local FFlagStudioConvertGameSettingsToDevFramework = game:GetFastFlag("StudioConvertGameSettingsToDevFramework")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -24,10 +24,6 @@ local AddChange = require(Plugin.Src.Actions.AddChange)
 local AddWarning = require(Plugin.Src.Actions.AddWarning)
 local DiscardWarning = require(Plugin.Src.Actions.DiscardWarning)
 
-local showDialog = require(Plugin.Src.Consumers.showDialog)
-local WarningDialog = require(Plugin.Src.Components.Dialog.WarningDialog)
-
-local RadioButtonSet = require(Plugin.Src.Components.RadioButtonSet)
 local Header = require(Plugin.Src.Components.Header)
 
 local getTheme = require(Plugin.Src.Consumers.getTheme)
@@ -39,7 +35,6 @@ local getMouse = require(Plugin.Src.Consumers.getMouse)
 
 local createSettingsPage = require(Plugin.Src.Components.SettingsPages.DEPRECATED_createSettingsPage)
 
-local MorpherRootPanel = (not FFlagStudioMoveMorpherEditorInsideGameSettings) and require(Plugin.MorpherEditor.Code.Components.ComponentRootPanelExternal) or nil
 local RootPanelExternal = require(Plugin.Src.Components.Avatar.RootPanelExternal)
 
 local isPlaceDataAvailable = function(props)
@@ -92,7 +87,7 @@ local function dispatchChanges(setValue, dispatch)
 end
 
 --Uses props to display current settings values
-local function displayContents(page, localized)
+local function displayContents(page, localized, theme, mouse)
 	local props = page.props
 
 	return {
@@ -103,18 +98,17 @@ local function displayContents(page, localized)
 		}) or nil),
 
 		Header = Roact.createElement(Header, {
-			Title = localized.Category[PageName],
+			Title = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "Category" .. PageName) or localized.Category[PageName],
 			LayoutOrder = -1,
 		}),
 
-		Morpher = Roact.createElement(FFlagStudioMoveMorpherEditorInsideGameSettings and RootPanelExternal or MorpherRootPanel, {
-			ThemeData = getTheme(page),
-			LocalizedContent = (not FFlagStudioMoveMorpherEditorInsideGameSettings) and localized.Morpher or nil,
+		Morpher = Roact.createElement(RootPanelExternal, {
+			ThemeData = FFlagStudioConvertGameSettingsToDevFramework and theme or getTheme(page),
 			IsEnabled = true,
 
 			IsGameShutdownRequired = isShutdownRequired(props.CurrentAvatarType, props.AvatarType),
 			AssetOverrideErrors = props.AssetOverrideErrors,
-			Mouse = getMouse(page).getNativeMouse(),
+			Mouse = FFlagStudioConvertGameSettingsToDevFramework and mouse:get() or getMouse(page).getNativeMouse(),
 
 			IsPlacePublished = isPlaceDataAvailable(props),
 

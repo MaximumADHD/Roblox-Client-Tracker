@@ -8,7 +8,7 @@ local HttpResponse = {}
 HttpResponse.__tostring = function(hr)
 	local requestFields = {}
 	for k, v in pairs(hr.requestOptions) do
-		table.insert(requestFields, string.format("%s : %s", k, v))
+		table.insert(requestFields, string.format("%s : %s", k, tostring(v)))
 	end
 
 	local responseBody = hr.responseBody

@@ -26,6 +26,7 @@ local Cryo = require(Plugin.Cryo)
 local Promise = require(Plugin.Promise)
 
 local ContextServices = require(Plugin.Framework.ContextServices)
+local FrameworkUtil = require(Plugin.Framework.Util)
 
 local MainView = require(Plugin.Src.Components.MainView)
 local SimpleDialog = require(Plugin.Src.Components.Dialog.SimpleDialog)
@@ -40,6 +41,7 @@ local LocalizationProvider = require(Plugin.Src.Providers.LocalizationProvider)
 
 local CurrentStatus = require(Plugin.Src.Util.CurrentStatus)
 
+local ResetStore = require(Plugin.Src.Actions.ResetStore)
 local SetCurrentStatus = require(Plugin.Src.Actions.SetCurrentStatus)
 local DiscardChanges = require(Plugin.Src.Actions.DiscardChanges)
 local DiscardErrors = require(Plugin.Src.Actions.DiscardErrors)
@@ -53,7 +55,16 @@ local gameSettingsHandle
 local pluginGui
 local openedTimestamp
 
-local middlewares = {Rodux.thunkMiddleware}
+local middlewares
+if game:GetFastFlag("StudioThunkWithArgsMiddleware") then
+	-- TODO (awarwick) 5/5/2020 Fill in with context items as needed by thunks
+	local thunkContextItems = {}
+
+	local thunkWithArgsMiddleware = FrameworkUtil.ThunkWithArgsMiddleware(thunkContextItems)
+	middlewares = {thunkWithArgsMiddleware}
+else
+	middlewares = {Rodux.thunkMiddleware}
+end
 if LOG_STORE_STATE_AND_EVENTS then
 	table.insert(middlewares, Rodux.loggerMiddleware)
 end
@@ -205,11 +216,15 @@ local function closeGameSettings(userPressedSave)
 			local hasUnsavedChanges = changed and not isEmpty(changed)
 			if hasUnsavedChanges and not userPressedSave then
 				--Prompt if the user actually wanted to save using a Modal
-				local dialogProps = {
+				local dialogProps
+				dialogProps = {
 					Size = Vector2.new(343, 145),
-					Title = localization.values.CancelDialog.Header,
-					Header = localization.values.CancelDialog.Body,
-					Buttons = localization.values.CancelDialog.Buttons,
+					Title = FFlagStudioConvertGameSettingsToDevFramework and localizationDevFramework:getText("General", "CancelDialogHeader") or localization.values.CancelDialog.Header,
+					Header = FFlagStudioConvertGameSettingsToDevFramework and localizationDevFramework:getText("General", "CancelDialogBody") or localization.values.CancelDialog.Body,
+					Buttons = FFlagStudioConvertGameSettingsToDevFramework and {
+						localizationDevFramework:getText("General", "ReplyNo"),
+						localizationDevFramework:getText("General", "ReplyYes"),
+					} or localization.values.CancelDialog.Buttons,
 				}
 				local didDiscardAllChanges = showDialog(SimpleDialog, dialogProps):await()
 
@@ -292,9 +307,14 @@ local function openGameSettings()
 		}),
 	})
 
-	settingsStore:dispatch(SetCurrentSettings({}))
-	settingsStore:dispatch(DiscardChanges())
-	settingsStore:dispatch(DiscardErrors())
+	if game:GetFastFlag("StudioGameSettingsResetStoreAction") then
+		settingsStore:dispatch(ResetStore())
+	else
+		settingsStore:dispatch(SetCurrentSettings({}))
+		settingsStore:dispatch(DiscardChanges())
+		settingsStore:dispatch(DiscardErrors())
+	end
+
 	settingsStore:dispatch(LoadAllSettings(settingsImpl))
 
 	gameSettingsHandle = Roact.mount(servicesProvider, pluginGui)
@@ -306,12 +326,12 @@ end
 
 --Binds a toolbar button to the Game Settings window
 local function main()
-	plugin.Name = localization.values.Plugin.Name
+	plugin.Name = FFlagStudioConvertGameSettingsToDevFramework and localizationDevFramework:getText("General", "PluginName") or localization.values.Plugin.Name
 
 	local toolbar = plugin:CreateToolbar("gameSettingsToolbar")
 	local settingsButton = toolbar:CreateButton(
 		"gameSettingsButton",
-		localization.values.Plugin.Description,
+		FFlagStudioConvertGameSettingsToDevFramework and localizationDevFramework:getText("General", "PluginDescription") or localization.values.Plugin.Description,
 		"rbxasset://textures/GameSettings/ToolbarIcon.png"
 	)
 

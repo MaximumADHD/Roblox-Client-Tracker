@@ -4,6 +4,8 @@ local Plugin = script.Parent.Parent.Parent
 
 local ConstantColors = require(Plugin.Src.Util.ConstantColors)
 
+local FFlagStudioConvertGameSettingsToDevFramework = game:GetFastFlag("StudioConvertGameSettingsToDevFramework")
+
 local Theme = {}
 
 local getThemeData = nil
@@ -71,7 +73,11 @@ function Theme.getRadioButtonTextColor(props)
 end
 
 getThemeData = function(props)
-	return props.ThemeData and props.ThemeData.theme and props.ThemeData.theme.PluginTheme
+	if FFlagStudioConvertGameSettingsToDevFramework then
+		return props.ThemeData and props.ThemeData.theme
+	else
+		return props.ThemeData and props.ThemeData.theme and props.ThemeData.theme.PluginTheme
+	end
 end
 
 isDarkTheme = function(props)

@@ -30,7 +30,7 @@ return function()
 		expect(state.sortIndex).to.be.ok()
 		expect(state.groups).to.be.ok()
 		expect(state.groupIndex).to.be.ok()
-		expect(state.page).to.be.ok()
+		expect(state.currentPage).to.be.ok()
 	end)
 
 	describe("SetToolboxManageableGroups action", function()
@@ -39,8 +39,8 @@ return function()
 			expect(tableLength(state.groups)).to.equal(0)
 
 			local testGroups = {
-				{Id = 12345, Name = "Test1"},
-				{Id = 67890, Name = "Test2"},
+				{id = 12345, name = "Test1"},
+				{id = 67890, name = "Test2"},
 			}
 
 			state = PageInfo(state, SetToolboxManageableGroups(testGroups))
@@ -48,8 +48,8 @@ return function()
 			expect(tableLength(state.groups)).to.equal(#testGroups)
 
 			for index, testGroup in ipairs(testGroups) do
-				expect(state.groups[index].id).to.equal(testGroup.Id)
-				expect(state.groups[index].name).to.equal(testGroup.Name)
+				expect(state.groups[index].id).to.equal(testGroup.id)
+				expect(state.groups[index].name).to.equal(testGroup.name)
 			end
 		end)
 
@@ -58,8 +58,8 @@ return function()
 			expect(tableLength(state.groups)).to.equal(0)
 
 			local testGroups = {
-				{Id = 12345, Name = "Test1"},
-				{Id = 67890, Name = "Test2"},
+				{id = 12345, name = "Test1"},
+				{id = 67890, name = "Test2"},
 			}
 
 			state = PageInfo(state, SetToolboxManageableGroups(testGroups))
@@ -67,8 +67,8 @@ return function()
 			expect(tableLength(state.groups)).to.equal(#testGroups)
 
 			local nextTestGroups = {
-				{Id = 13579, Name = "Test3"},
-				{Id = 24680, Name = "Test4"},
+				{id = 13579, name = "Test3"},
+				{id = 24680, name = "Test4"},
 			}
 
 			state = PageInfo(state, SetToolboxManageableGroups(nextTestGroups))
@@ -76,8 +76,8 @@ return function()
 			expect(tableLength(state.groups)).to.equal(#nextTestGroups)
 
 			for index, testGroup in ipairs(nextTestGroups) do
-				expect(state.groups[index].id).to.equal(testGroup.Id)
-				expect(state.groups[index].name).to.equal(testGroup.Name)
+				expect(state.groups[index].id).to.equal(testGroup.id)
+				expect(state.groups[index].name).to.equal(testGroup.name)
 			end
 		end)
 
@@ -93,8 +93,8 @@ return function()
 			expect(PageInfoHelper.getGroupIdForPageInfo(state)).to.equal(0)
 
 			local firstTestGroups = {
-				{Id = 12345, Name = "Test1"},
-				{Id = 67890, Name = "Test2"},
+				{id = 12345, name = "Test1"},
+				{id = 67890, name = "Test2"},
 			}
 			state = PageInfo(state, SetToolboxManageableGroups(firstTestGroups))
 
@@ -102,21 +102,21 @@ return function()
 
 			-- First time we have groups so set groupIndex to 1
 			expect(state.groupIndex).to.equal(1)
-			expect(PageInfoHelper.getGroupIdForPageInfo(state)).to.equal(firstTestGroups[state.groupIndex].Id)
+			expect(PageInfoHelper.getGroupIdForPageInfo(state)).to.equal(firstTestGroups[state.groupIndex].id)
 
 			-- Change the groups list
 			-- Previous selected group id stil exists in new array
 			-- So index should change to where it is
 			local secondTestGroups = {
-				{Id = 13579, Name = "Test3"},
-				{Id = 12345, Name = "Test1"},
-				{Id = 24680, Name = "Test4"},
+				{id = 13579, name = "Test3"},
+				{id = 12345, name = "Test1"},
+				{id = 24680, name = "Test4"},
 			}
 			state = PageInfo(state, SetToolboxManageableGroups(secondTestGroups))
 
 			expect(state.categories).to.equal(Category.INVENTORY_WITH_GROUPS)
 			expect(state.groupIndex).to.equal(2)
-			expect(PageInfoHelper.getGroupIdForPageInfo(state)).to.equal(secondTestGroups[state.groupIndex].Id)
+			expect(PageInfoHelper.getGroupIdForPageInfo(state)).to.equal(secondTestGroups[state.groupIndex].id)
 
 			local groupModelsCategoryIndex = 6
 

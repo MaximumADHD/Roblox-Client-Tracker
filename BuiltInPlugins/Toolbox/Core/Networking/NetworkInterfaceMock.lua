@@ -93,4 +93,45 @@ function NetworkingMock:getManageableGroups()
 	return Promise.resolve(fakeGroups)
 end
 
+function NetworkingMock:getOwnsAsset(assetId, myUserId)
+	return Promise.resolve({
+		responseBody = "true"
+	})
+end
+
+function NetworkingMock:getCanManageAsset(assetId, myUserId)
+	return Promise.resolve({
+		responseBody = {
+			CanManage = true,
+			Success = true
+		}
+	})
+end
+
+function NetworkingMock:getRobuxBalance(myUserId)
+	return Promise.resolve({
+		responseBody = {
+			robux = '0'
+		}
+	})
+end
+
+function NetworkingMock:getFavoriteCounts(assetId)
+	return Promise.resolve({
+		responseBody = {
+			assetId = assetId,
+			favoriteCounts = 0
+		}
+	})
+end
+
+function NetworkingMock:getFavorited(assetId)
+	return Promise.resolve({
+		responseBody = {
+			assetId = assetId,
+			favorited = false
+		}
+	})
+end
+
 return NetworkingMock

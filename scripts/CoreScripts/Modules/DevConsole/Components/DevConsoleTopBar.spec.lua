@@ -10,6 +10,11 @@ return function()
 	it("should create and destroy without errors", function()
 		local store = Store.new(function()
 			return {
+				MainView = {
+					currTabIndex = 0,
+					isDeveloperView = true,
+				},
+
 				TopBarLiveUpdate = {
 					LogWarningCount = 0,
 					LogErrorCount = 0

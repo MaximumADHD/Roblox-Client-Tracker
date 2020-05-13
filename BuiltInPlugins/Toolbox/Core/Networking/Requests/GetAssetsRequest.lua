@@ -1,6 +1,7 @@
 local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 local FFlagStudioUseDevelopAPIForPackages = settings():GetFFlag("StudioUseDevelopAPIForPackages")
 local FFlagEnableAudioPreview = settings():GetFFlag("EnableAudioPreview")
+local FFlagEnableToolboxVideos = game:GetFastFlag("EnableToolboxVideos")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -164,6 +165,7 @@ return function(networkInterface, pageInfoOnStart)
 			if (FFlagEnablePurchasePluginFromLua2 and PageInfoHelper.isDeveloperCategory(pageInfoOnStart))
 				or (FFlagStudioUseDevelopAPIForPackages and PageInfoHelper.isPackagesCategory(pageInfoOnStart))
 				or (FFlagEnableAudioPreview and Category.categoryIsAudio(pageInfoOnStart.currentTab, pageInfoOnStart.categoryIndex or 1))
+				or (FFlagEnableToolboxVideos and Category.categoryIsVideo(pageInfoOnStart.currentTab, pageInfoOnStart.categoryIndex or 1))
 			then
 				useDevelopAssetAPI = true
 			end

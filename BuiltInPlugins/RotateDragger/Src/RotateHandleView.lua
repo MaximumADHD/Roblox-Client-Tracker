@@ -12,14 +12,17 @@ local Roact = require(Plugin.Packages.Roact)
 local DraggerFramework = Plugin.Packages.DraggerFramework
 local Math = require(DraggerFramework.Utility.Math)
 
+local getFFlagImprovedHandleParams = require(DraggerFramework.Flags.getFFlagImprovedHandleParams)
+
 local RotateHandleView = Roact.PureComponent:extend("RotateHandleView")
 
-local HANDLE_SEGMENTS = 64
+local HANDLE_SEGMENTS = 32
 local HANDLE_RADIUS = 4.5
-local HANDLE_THICKNESS = 0.10
-local HANDLE_HITTEST_THICKNESS = HANDLE_THICKNESS * 2.5
+local HANDLE_THICKNESS = getFFlagImprovedHandleParams() and 0.15 or 0.10
+local HANDLE_HITTEST_THICKNESS = HANDLE_THICKNESS * (getFFlagImprovedHandleParams() and 4 or 2.5)
 local HANDLE_THIN_BY_FRAC = 0.34
-local HANDLE_DIM_TRANSPARENCY = 0.7
+local HANDLE_THICK_BY_FRAC = 1.5
+local HANDLE_DIM_TRANSPARENCY = getFFlagImprovedHandleParams() and 0.45 or 0.7
 
 function RotateHandleView:render()
 	-- DEBUG: Allow designers to play with handle settings.
@@ -39,10 +42,21 @@ function RotateHandleView:render()
 	-- Gimbal arc length should be a function of the viewing angle, and handle
 	-- should face the camera.
 
-	local radius = HANDLE_RADIUS * self.props.Scale
+	local radiusOffset = self.props.RadiusOffset or 0.0
+	local radius
+	if getFFlagImprovedHandleParams() then
+		radius = (HANDLE_RADIUS + radiusOffset) * self.props.Scale
+	else
+		radius = HANDLE_RADIUS * self.props.Scale
+	end
+	if getFFlagImprovedHandleParams() then
+		if self.props.Hovered then
+			radius = radius + self.props.Scale * 0.1
+		end
+	end
 	local thickness = HANDLE_THICKNESS * self.props.Scale
 	local angleStep = 2 * math.pi / HANDLE_SEGMENTS
-	local segmentLength = 2 * radius * math.sin(angleStep / 2)
+	local segmentLength
 	local offset = radius * math.cos(angleStep / 2)
 
 	local children = {}
@@ -52,21 +66,31 @@ function RotateHandleView:render()
 		thickness = HANDLE_THIN_BY_FRAC * thickness
 	end
 
+	if getFFlagImprovedHandleParams() then
+		if self.props.Hovered then
+			thickness = HANDLE_THICK_BY_FRAC * thickness
+		end
+
+		segmentLength = 2 * (radius + 0.5 * thickness) * math.sin(angleStep / 2)
+	else
+		segmentLength = 2 * radius * math.sin(angleStep / 2)
+	end
+
 	-- Draw main rotation gimbal.
 	for i = 0, HANDLE_SEGMENTS - 1 do
 		local angle = angleStep * i
 		local cframe = self.props.HandleCFrame * CFrame.Angles(angle, 0, 0) * CFrame.new(0, 0, offset)
 		local alwaysOnTopName = "OnTopHandleSegment" .. tostring(i)
-		children[alwaysOnTopName] = Roact.createElement("BoxHandleAdornment", {
-			Adornee = Workspace.Terrain,
-			AlwaysOnTop = true,
-			CFrame = cframe,
-			Color3 = self.props.Color,
-			Size = Vector3.new(thickness, segmentLength, thickness),
-			Transparency = self.props.Hovered and 0.0 or HANDLE_DIM_TRANSPARENCY,
-			ZIndex = 0,
-		})
-		if not self.props.Hovered then
+		if getFFlagImprovedHandleParams() then
+			children[alwaysOnTopName] = Roact.createElement("BoxHandleAdornment", {
+				Adornee = Workspace.Terrain,
+				AlwaysOnTop = true,
+				CFrame = cframe,
+				Color3 = self.props.Color,
+				Size = Vector3.new(thickness, segmentLength, thickness),
+				Transparency = HANDLE_DIM_TRANSPARENCY,
+				ZIndex = 0,
+			})
 			local brightName = "BrightHandleSegment" .. tostring(i)
 			children[brightName] = Roact.createElement("BoxHandleAdornment", {
 				Adornee = Workspace.Terrain,
@@ -76,6 +100,27 @@ function RotateHandleView:render()
 				Size = Vector3.new(thickness, segmentLength, thickness),
 				ZIndex = 0,
 			})
+		else
+			children[alwaysOnTopName] = Roact.createElement("BoxHandleAdornment", {
+				Adornee = Workspace.Terrain,
+				AlwaysOnTop = true,
+				CFrame = cframe,
+				Color3 = self.props.Color,
+				Size = Vector3.new(thickness, segmentLength, thickness),
+				Transparency = self.props.Hovered and 0.0 or HANDLE_DIM_TRANSPARENCY,
+				ZIndex = 0,
+			})
+			if not self.props.Hovered then
+				local brightName = "BrightHandleSegment" .. tostring(i)
+				children[brightName] = Roact.createElement("BoxHandleAdornment", {
+					Adornee = Workspace.Terrain,
+					AlwaysOnTop = false,
+					CFrame = cframe,
+					Color3 = self.props.Color,
+					Size = Vector3.new(thickness, segmentLength, thickness),
+					ZIndex = 0,
+				})
+			end
 		end
 	end
 
@@ -95,11 +140,21 @@ function RotateHandleView:render()
 	end
 
 	-- Draw radii for contral angle start and end.
-	if self.props.StartAngle ~= nil then
-		children.StartAngleElement = createRadiusElement(self.props.StartAngle, thickness)
-	end
-	if self.props.EndAngle ~= nil then
-		children.EndAngleElement = createRadiusElement(self.props.EndAngle, thickness)
+	if getFFlagImprovedHandleParams() then
+		local thinThickness = HANDLE_THICKNESS
+		if self.props.StartAngle ~= nil then
+			children.StartAngleElement = createRadiusElement(self.props.StartAngle, thinThickness)
+		end
+		if self.props.EndAngle ~= nil then
+			children.EndAngleElement = createRadiusElement(self.props.EndAngle, thinThickness)
+		end
+	else
+		if self.props.StartAngle ~= nil then
+			children.StartAngleElement = createRadiusElement(self.props.StartAngle, thickness)
+		end
+		if self.props.EndAngle ~= nil then
+			children.EndAngleElement = createRadiusElement(self.props.EndAngle, thickness)
+		end
 	end
 
 	return Roact.createFragment(children)
@@ -117,7 +172,13 @@ function RotateHandleView.hitTest(props, mouseRay)
 	local cframe = props.HandleCFrame
 	local unitRay = mouseRay.Unit
 
-	local radius = HANDLE_RADIUS * props.Scale
+	local radiusOffset = props.RadiusOffset or 0.0
+	local radius
+	if getFFlagImprovedHandleParams() then
+		radius = (HANDLE_RADIUS + radiusOffset) * props.Scale
+	else
+		radius = HANDLE_RADIUS * props.Scale
+	end
 	local thickness = HANDLE_HITTEST_THICKNESS * props.Scale
 	local normal = cframe.RightVector
 	local point = cframe.Position

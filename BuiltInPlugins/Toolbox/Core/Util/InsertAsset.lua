@@ -20,6 +20,7 @@ local FFlagPluginAccessAndInstallationInStudio = settings():GetFFlag("PluginAcce
 local FFlagEnableToolboxInsertWithJoin2 = settings():GetFFlag("EnableToolboxInsertWithJoin2")
 local FFlagStudioToolboxInsertAssetCategoryAnalytics = settings():GetFFlag("StudioToolboxInsertAssetCategoryAnalytics")
 local FFlagToolboxFixDecalInsert = settings():GetFFlag("ToolboxFixDecalInsert")
+local FFlagEnableToolboxVideos = game:GetFastFlag("EnableToolboxVideos")
 
 local INSERT_MAX_SEARCH_DEPTH = 2048
 local INSERT_MAX_DISTANCE_AWAY = 64
@@ -198,6 +199,21 @@ local function insertPackage(assetId)
 	end
 end
 
+local function insertVideo(assetId, assetName)
+	local url = Urls.constructAssetIdString(assetId)
+	if DebugFlags.shouldDebugUrls() then
+		print(("Inserting video %s"):format(url))
+	end
+
+	local videoObj = Instance.new("VideoFrame")
+	videoObj.Video = url
+	videoObj.Name = assetName
+	videoObj.Parent = (Selection:Get() or {})[1] or Workspace
+	Selection:Set({videoObj})
+
+	return videoObj
+end
+
 local function installPlugin(assetId, assetVersionId, assetName)
 	local success, errorMessage = pcall(function()
 		if DebugFlags.shouldDebugUrls() then
@@ -240,6 +256,8 @@ local function dispatchInsertAsset(options, insertToolPromise)
 		return insertDecal(options.plugin, options.assetId, options.assetName)
 	elseif options.assetTypeId == Enum.AssetType.Plugin.Value and FFlagPluginAccessAndInstallationInStudio then
 		return installPlugin(options.assetId, options.assetVersionId, options.assetName)
+	elseif FFlagEnableToolboxVideos and options.assetTypeId == Enum.AssetType.Video.Value then
+		return insertVideo(options.assetId, options.assetName)
 	else
 		return insertAsset(options.assetId, options.assetName, insertToolPromise)
 	end

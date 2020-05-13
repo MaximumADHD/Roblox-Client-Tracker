@@ -235,19 +235,26 @@ function Theme.createValues(theme, getColor)
 			},
 
 			table = {
-				item = {
-					background = theme:getColor(StyleColor.TableItem)
+				header = {
+					height = 32,
 				},
+				item = {
+					background = theme:getColor(StyleColor.TableItem),
+					height = 32,
+					padding = 5,
+				},
+				menu = {
+					--TODO: add image
+					image = "",
+					itemPadding = 50,
+					buttonSize = 32,
+				},
+				textPadding = 6,
 			},
 
 			editButton = {
 				image = "rbxasset://textures/GameSettings/edit.png",
 				imageColor = isDark and Color3.fromRGB(255, 255, 255) or Color3.fromRGB(25, 25, 25)
-			},
-
-			toggleButton = {
-				width = 30,
-				height = 20,
 			},
 
 			uiListLayout = {
@@ -335,7 +342,7 @@ function Theme.DEPRECATED_createValues(getColor, StyleColor, StyleModifier)
 	-- define all the colors used in the plugin
 	local PluginTheme = {
 		isDarkerTheme = isDark,
-		
+
 		fontStyle = fontStyle,
 
 		backgroundColor = getColor(StyleColor.MainBackground),
@@ -479,17 +486,12 @@ function Theme.DEPRECATED_createValues(getColor, StyleColor, StyleModifier)
 		table = {
 			item = {
 				background = getColor(StyleColor.TableItem)
-			},
+			}
 		},
 
 		editButton = {
 			image = "rbxasset://textures/GameSettings/edit.png",
 			imageColor = isDark and Color3.fromRGB(255, 255, 255) or Color3.fromRGB(25, 25, 25)
-		},
-
-		toggleButton = {
-			width = 30,
-			height = 20,
 		},
 
 		uiListLayout = {
@@ -507,6 +509,16 @@ function Theme.DEPRECATED_createValues(getColor, StyleColor, StyleModifier)
 					backgroundColor = getColor(StyleColor.Button, StyleModifier.Hover),
 				},
 			},
+		},
+		toggleButton = {
+			defaultWidth = 40,
+			defaultHeight = 24,
+			onImage = isDark and "rbxasset://textures/RoactStudioWidgets/toggle_on_dark.png"
+				or "rbxasset://textures/RoactStudioWidgets/toggle_on_light.png",
+			offImage = isDark and "rbxasset://textures/RoactStudioWidgets/toggle_off_dark.png"
+				or "rbxasset://textures/RoactStudioWidgets/toggle_off_light.png",
+			disabledImage = isDark and "rbxasset://textures/RoactStudioWidgets/toggle_disable_dark.png"
+				or "rbxasset://textures/RoactStudioWidgets/toggle_disable_light.png",
 		}
 	}
 
@@ -574,6 +586,21 @@ local function getUILibraryTheme()
 			tooltip = theme:GetColor(c.DimmedText),
 			text = theme:GetColor(c.MainText),
 		},
+
+		scrollingFrame = {
+			backgroundColor = isDark and theme:getColor(c.ScrollBarBackground) or Color3.fromRGB(245, 245, 245),
+		},
+
+		toggleButton = {
+			defaultWidth = 40,
+			defaultHeight = 24,
+			onImage = isDark and "rbxasset://textures/RoactStudioWidgets/toggle_on_dark.png"
+				or "rbxasset://textures/RoactStudioWidgets/toggle_on_light.png",
+			offImage = isDark and "rbxasset://textures/RoactStudioWidgets/toggle_off_dark.png"
+				or "rbxasset://textures/RoactStudioWidgets/toggle_off_light.png",
+			disabledImage = isDark and "rbxasset://textures/RoactStudioWidgets/toggle_disable_dark.png"
+				or "rbxasset://textures/RoactStudioWidgets/toggle_disable_light.png",
+		}
 	}
 
 	return createTheme(styleGuide, UILibraryOverrides)

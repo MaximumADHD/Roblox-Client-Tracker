@@ -113,7 +113,7 @@ end
 function MainViewMemory:render()
 	local elements = {}
 	local size = self.props.size
-	local isdeveloperView = self.props.isdeveloperView
+	local isDeveloperView = self.props.isDeveloperView
 	local formFactor = self.props.formFactor
 	local tabList = self.props.tabList
 
@@ -137,8 +137,8 @@ function MainViewMemory:render()
 		refForParent = self.utilRef,
 
 		onHeightChanged = self.onUtilTabHeightChanged,
-		onClientButton = isdeveloperView and self.onClientButton,
-		onServerButton = isdeveloperView and self.onServerButton,
+		onClientButton = isDeveloperView and self.onClientButton,
+		onServerButton = isDeveloperView and self.onServerButton,
 		onSearchTermChanged = self.onSearchTermChanged,
 	}, {
 		LogButton and Roact.createElement(LogButton, {isClientView = isClientView}),

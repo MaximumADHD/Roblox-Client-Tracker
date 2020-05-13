@@ -1,14 +1,30 @@
 return function()
 	local CorePackages = game:GetService("CorePackages")
 	local Roact = require(CorePackages.Roact)
+	local RoactRodux = require(CorePackages.RoactRodux)
+	local Store = require(CorePackages.Rodux).Store
 
-    local DataProvider = require(script.Parent.Parent.DataProvider)
+	local DataProvider = require(script.Parent.Parent.DataProvider)
 	local ServerScripts = require(script.Parent.ServerScripts)
 
 	it("should create and destroy without errors", function()
-        local element = Roact.createElement(DataProvider, {}, {
-            ServerScripts = Roact.createElement(ServerScripts)
-        })
+		local store = Store.new(function()
+			return {
+				MainView = {
+					isDeveloperView = true,
+				},
+			}
+		end)
+
+
+		local element = Roact.createElement(RoactRodux.StoreProvider, {
+			store = store,
+		}, {
+			DataProvider = Roact.createElement(DataProvider, {}, {
+	            ServerScripts = Roact.createElement(ServerScripts)
+	        })
+	    })
+
 
 		local instance = Roact.mount(element)
 		Roact.unmount(instance)

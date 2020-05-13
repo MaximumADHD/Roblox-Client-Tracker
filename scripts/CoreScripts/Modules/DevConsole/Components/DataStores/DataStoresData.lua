@@ -16,6 +16,7 @@ function DataStoresData.new()
 	self._dataStoresData = {}
 	self._dataStoresDataCount = 0
 	self._lastUpdateTime = 0
+	self._isRunning = false
 	return self
 end
 
@@ -75,6 +76,10 @@ function DataStoresData:updateValue(key, value)
 	end
 end
 
+function DataStoresData:isRunning()
+	return self._isRunning
+end
+
 function DataStoresData:start()
 	local clientReplicator = getClientReplicator()
 	if clientReplicator and not self._statsListenerConnection then
@@ -94,6 +99,7 @@ function DataStoresData:start()
 			end
 		end)
 		clientReplicator:RequestServerStats(true)
+		self._isRunning = true
 	end
 end
 
@@ -103,6 +109,7 @@ function DataStoresData:stop()
 		self._statsListenerConnection:Disconnect()
 		self._statsListenerConnection = nil
 	end
+	self._isRunning = false
 end
 
 return DataStoresData

@@ -34,6 +34,8 @@ function ServerScriptsData.new()
 	self._lastUpdate = 0
 	self._sortedScriptsData = {}
 	self._sortType = HEADER_NAMES[1] -- Name
+	self._isRunning = false
+
 	return self
 end
 
@@ -133,6 +135,10 @@ function ServerScriptsData:updateScriptsData(scriptsStats)
 	end
 end
 
+function ServerScriptsData:isRunning()
+	return self._isRunning
+end
+
 function ServerScriptsData:start()
 	local clientReplicator = getClientReplicator()
 	if clientReplicator and not self._statsListenerConnection then
@@ -149,6 +155,7 @@ function ServerScriptsData:start()
 			end
 		end)
 		clientReplicator:RequestServerStats(true)
+		self._isRunning = true
 	end
 end
 
@@ -158,6 +165,7 @@ function ServerScriptsData:stop()
 		self._statsListenerConnection:Disconnect()
 		self._statsListenerConnection = nil
 	end
+	self._isRunning = false
 end
 
 return ServerScriptsData

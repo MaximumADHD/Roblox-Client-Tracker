@@ -15,6 +15,7 @@
 
 local FFlagStudioGameSettingsRestrictPermissions = game:GetFastFlag("StudioGameSettingsRestrictPermissions")
 local FFlagStudioConvertGameSettingsToDevFramework = game:GetFastFlag("StudioConvertGameSettingsToDevFramework")
+local FFlagStudioFixUsersLocalizationInAccessPermissions = game:DefineFastFlag("StudioFixUsersLocalizationInAccessPermissions", false)
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -339,7 +340,7 @@ function CollaboratorsWidget:DEPRECATED_render()
 				UsersTitle = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Subtitle, {
 					LayoutOrder = 0,
 					
-					Text = "Users",
+					Text = FFlagStudioFixUsersLocalizationInAccessPermissions and localized.Collaborators.UsersCollaboratorType or "Users",
 					TextXAlignment = Enum.TextXAlignment.Left,
 					
 					Visible = #users > 0,
@@ -354,7 +355,7 @@ function CollaboratorsWidget:DEPRECATED_render()
 				GroupsTitle = not FFlagStudioGameSettingsRestrictPermissions and Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Subtitle, {
 					LayoutOrder = 2,
 					
-					Text = "Groups",
+					Text = FFlagStudioFixUsersLocalizationInAccessPermissions and localized.Collaborators.GroupsCollaboratorType or "Groups",
 					TextXAlignment = Enum.TextXAlignment.Left,
 					
 					Visible = #groups > 0,
@@ -536,7 +537,7 @@ function CollaboratorsWidget:render()
 		UsersTitle = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Subtitle, {
 			LayoutOrder = 0,
 
-			Text = "Users",
+			Text = localized:getText("AccessPermissions", "UsersCollaboratorType"),
 			TextXAlignment = Enum.TextXAlignment.Left,
 
 			Visible = #users > 0,
@@ -551,7 +552,7 @@ function CollaboratorsWidget:render()
 		GroupsTitle = not FFlagStudioGameSettingsRestrictPermissions and Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Subtitle, {
 			LayoutOrder = 2,
 
-			Text = "Groups",
+			Text = localized:getText("AccessPermissions", "GroupsCollaboratorType"),
 			TextXAlignment = Enum.TextXAlignment.Left,
 
 			Visible = #groups > 0,

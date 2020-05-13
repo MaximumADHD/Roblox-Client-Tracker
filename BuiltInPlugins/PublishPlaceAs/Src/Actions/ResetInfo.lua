@@ -4,15 +4,16 @@ local Constants = require(Plugin.Src.Resources.Constants)
 
 local Action = require(script.Parent.Action)
 
+local FFlagStudioLuaPublishFlowLocalizeUntitledGameText = game:GetFastFlag("StudioLuaPublishFlowLocalizeUntitledGameText")
 
-return Action(script.Name, function()
+return Action(script.Name, function(localizedDefaultname)
 	return {
 		placeInfo = { places = {}, parentGame = {}, },
         gameInfo = { games = {}, },
         groupInfo = { groups = {} },
         current = {},
         changed = {
-            name = "Untitled Game",
+            name = FFlagStudioLuaPublishFlowLocalizeUntitledGameText and localizedDefaultname or "Untitled Game",
             description = "",
             genre = Constants.GENRE_IDS[1],
             playableDevices = {Computer = true, Phone = true, Tablet = true,},

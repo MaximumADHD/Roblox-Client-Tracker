@@ -30,9 +30,9 @@ return function()
 		})
 
 		local container = Instance.new("Folder")
-		local instance = Roact.mount(element, container, "Entry")
+		local instance = Roact.mount(element, container)
 
-		local entry = container.Entry
+		local entry = container:FindFirstChild("SearchBar", true)
 		expect(entry.SearchBar).to.be.ok()
 
 		Roact.unmount(instance)

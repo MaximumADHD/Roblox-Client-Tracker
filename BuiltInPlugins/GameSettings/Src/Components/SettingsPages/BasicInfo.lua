@@ -26,12 +26,10 @@
 ]]
 local FFlagStudioConvertGameSettingsToDevFramework = game:GetFastFlag("StudioConvertGameSettingsToDevFramework")
 
-local PageName = FFlagStudioConvertGameSettingsToDevFramework and "BasicInfo" or "Basic Info"
+local LOCALIZATION_ID = "BasicInfo"
 
 local MAX_NAME_LENGTH = 50
 local MAX_DESCRIPTION_LENGTH = 1000
-
-local FFlagStudioGameSettingsDisablePlayabilityForDrafts = settings():GetFFlag("StudioGameSettingsDisablePlayabilityForDrafts")
 
 local nameErrors = {
 	Moderated = "ErrorNameModerated",
@@ -49,14 +47,14 @@ local imageErrors = {
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
+local RoactRodux = require(Plugin.RoactRodux)
 local Cryo = require(Plugin.Cryo)
 local UILibrary = require(Plugin.UILibrary)
+local ContextServices = require(Plugin.Framework.ContextServices)
 
 local showDialog = require(Plugin.Src.Consumers.showDialog)
-local getMouse = require(Plugin.Src.Consumers.getMouse)
 
 local TitledFrame = UILibrary.Component.TitledFrame
-local RadioButtonSet = require(Plugin.Src.Components.RadioButtonSet)
 local CheckBoxSet = require(Plugin.Src.Components.CheckBoxSet)
 local RoundTextBox = UILibrary.Component.RoundTextBox
 local Dropdown = require(Plugin.Src.Components.Dropdown)
@@ -64,36 +62,201 @@ local Separator = require(Plugin.Src.Components.Separator)
 local ThumbnailController = require(Plugin.Src.Components.Thumbnails.ThumbnailController)
 local GameIconWidget = require(Plugin.Src.Components.GameIcon.GameIconWidget)
 local Header = require(Plugin.Src.Components.Header)
-local PlayabilityWidget = require(Plugin.Src.Components.PlayabilityWidget)
-
-local WarningDialog = require(Plugin.Src.Components.Dialog.WarningDialog)
+local SettingsPage = require(Plugin.Src.Components.SettingsPages.SettingsPage)
 local ListDialog = require(Plugin.Src.Components.Dialog.ListDialog)
 
 local AddChange = require(Plugin.Src.Actions.AddChange)
 local AddErrors = require(Plugin.Src.Actions.AddErrors)
-local AddWarning = require(Plugin.Src.Actions.AddWarning)
-local DiscardWarning = require(Plugin.Src.Actions.DiscardWarning)
 
-local BrowserUtils = require(Plugin.Src.Util.BrowserUtils)
 local FileUtils = require(Plugin.Src.Util.FileUtils)
 local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 
-local createSettingsPage = require(Plugin.Src.Components.SettingsPages.DEPRECATED_createSettingsPage)
+local function loadSettings(store, contextItems)
+	local state = store:getState()
+	local gameId = state.Metadata.gameId
+	local gameInfoController = contextItems.gameInfoController
+
+	return {
+		function(loadedSettings)
+			local name = gameInfoController:getName(gameId)
+
+			loadedSettings["name"] = name
+		end,
+		function(loadedSettings)
+			local description = gameInfoController:getDescription(gameId)
+
+			loadedSettings["description"] = description
+		end,
+		function(loadedSettings)
+			local genre = gameInfoController:getGenre(gameId)
+
+			loadedSettings["genre"] = genre
+		end,
+		function(loadedSettings)
+			local devices = gameInfoController:getSupportedDevices(gameId)
+
+			local formatted = {}
+			for _,v in ipairs(devices) do
+				formatted[v] = true
+			end
+
+			loadedSettings["playableDevices"] = formatted
+		end,
+		function(loadedSettings)
+			local thumbnails = gameInfoController:getThumbnails(gameId)
+
+			local formatted = {}
+			local order = {}
+			for _, thumbnail in pairs(thumbnails) do
+				local stringId = tostring(thumbnail.id)
+				formatted[stringId] = thumbnail
+				table.insert(order, stringId)
+			end
+
+			loadedSettings["thumbnailOrder"] = order
+			loadedSettings["thumbnails"] = formatted
+		end,
+		function(loadedSettings)
+			local gameIcon, isApproved = gameInfoController:getIcon(gameId)
+
+			loadedSettings["gameIcon"] = gameIcon
+			loadedSettings["gameIconApproved"] = isApproved
+		end,
+	}
+end
+
+local function saveSettings(store, contextItems)
+	local state = store:getState()
+	local gameId = state.Metadata.gameId
+	local gameInfoController = contextItems.gameInfoController
+
+	return {
+		function()
+			local changed = state.Settings.Changed.name
+
+			if changed ~= nil then
+				gameInfoController:setName(gameId, changed)
+			end
+		end,
+		function()
+			local changed = state.Settings.Changed.description
+
+			if changed ~= nil then
+				gameInfoController:setDescription(gameId, changed)
+			end
+		end,
+		function()
+			local changed = state.Settings.Changed.genre
+
+			if changed ~= nil then
+				gameInfoController:setGenre(gameId, changed)
+			end
+		end,
+		function()
+			local changed = state.Settings.Changed.playableDevices
+
+			if changed ~= nil then
+				local changedDevices = {}
+				for k,v in pairs(changed) do
+					if v then
+						table.insert(changedDevices, k)
+					end
+				end
+
+				gameInfoController:setSupportedDevices(gameId, changedDevices)
+			end
+		end,
+		function(loadedSettings)
+			local currentThumbnails = state.Settings.Current.thumbnails
+			local changedThumbnails = state.Settings.Changed.thumbnails
+
+			local currentOrder = state.Settings.Current.thumbnailOrder
+			local changedOrder = state.Settings.Changed.thumbnailOrder
+
+			if changedThumbnails ~= nil or changedOrder ~= nil then
+				if currentThumbnails and changedThumbnails then
+					local thumbnailFilesToAdd = {}
+					local thumbnailIdsToRemove = {}
+
+					for thumbnailId in pairs(currentThumbnails) do
+						if changedThumbnails[thumbnailId] == nil then
+							table.insert(thumbnailIdsToRemove, tonumber(thumbnailId))
+						end
+					end
+					for id, data in pairs(changedThumbnails) do
+						if currentThumbnails[id] == nil then
+							table.insert(thumbnailFilesToAdd, data.asset)
+						end
+					end
+
+					local lastError
+					local pendingJobs = 0
+					if #thumbnailIdsToRemove > 0 then
+						pendingJobs = pendingJobs + 1
+						coroutine.wrap(function()
+							local success, result = pcall(function() gameInfoController:removeThumbnails(gameId, thumbnailIdsToRemove) end)
+							if not success then lastError = result end
+							pendingJobs = pendingJobs - 1
+						end)()
+					end
+					if #thumbnailFilesToAdd > 0 then
+						pendingJobs = pendingJobs + 1
+						coroutine.wrap(function()
+							local success, result = pcall(function() return gameInfoController:addThumbnails(gameId, thumbnailFilesToAdd) end)
+							if success then
+								for thumbnailFile,thumbnailId in pairs(result) do
+									local oldIndex = Cryo.List.find(changedOrder, thumbnailFile:GetTemporaryId())
+									changedOrder = Cryo.Dictionary.join(changedOrder, { [oldIndex] = thumbnailId })
+								end
+							else
+								lastError = result
+							end
+							pendingJobs = pendingJobs - 1
+						end)()
+					end
+
+					while pendingJobs > 0 do wait() end
+
+					if lastError then
+						error(lastError)
+					end
+				end
+
+				if currentOrder ~= changedOrder then
+					for index,thumbnailId in pairs(changedOrder) do
+						changedOrder = Cryo.Dictionary.join(changedOrder, { [index] = tonumber(thumbnailId) })
+					end
+					gameInfoController:setThumbnailsOrder(gameId, changedOrder)
+				end
+			end
+		end,
+		function()
+			local changed = state.Settings.Changed.gameIcon
+
+			if changed ~= nil then
+				gameInfoController:setIcon(gameId, changed)
+			end
+		end,
+	}
+end
 
 --Loads settings values into props by key
 local function loadValuesToProps(getValue, state)
+	local fflagNetworkRefactor = game:GetFastFlag("GameSettingsNetworkRefactor")
 	local errors = state.Settings.Errors
 	local loadedProps = {
 		Name = getValue("name"),
-		Group = getValue("creatorType") == "Group" and getValue("creatorName"),
 		Description = getValue("description"),
 		Genre = getValue("genre"),
 		Devices = getValue("playableDevices"),
 		Thumbnails = getValue("thumbnails"),
 		ThumbnailOrder = getValue("thumbnailOrder"),
 		GameIcon = getValue("gameIcon"),
-		RootPlaceId = getValue("rootPlaceId"),
-		PrivacyType = getValue("privacyType"),
+
+		-- unused
+		Group = (not fflagNetworkRefactor) and (getValue("creatorType") == "Group" and getValue("creatorName")) or nil,
+		RootPlaceId = (not fflagNetworkRefactor) and getValue("rootPlaceId") or nil,
+		PrivacyType = (not fflagNetworkRefactor) and getValue("privacyType") or nil,
 
 		NameError = errors.name,
 		DescriptionError = errors.description,
@@ -171,9 +334,10 @@ local function dispatchChanges(setValue, dispatch)
 	return dispatchFuncs
 end
 
---Uses props to display current settings values
-local function displayContents(page, localized)
-	local props = page.props
+-- TODO (awarwick) 4/23/2020 Move this directly into BasicInfo:render() when FFlagGameSettingsNetworkRefactor is removed
+local function createContents(props, localized, addThumbnail, addIcon, page)
+	local fflagNetworkRefactor = game:GetFastFlag("GameSettingsNetworkRefactor")
+
 	local devices = props.Devices
 
 	local localizedGenreList
@@ -199,10 +363,8 @@ local function displayContents(page, localized)
 
 	local nameError
 	if FFlagStudioConvertGameSettingsToDevFramework then
-		if props.NameError then
+		if props.NameError and nameErrors[props.NameError] then
 			nameError = localized:getText("General", nameErrors[props.NameError])
-		else
-			nameError = nil
 		end
 	else
 		nameError = localized.Errors[nameErrors[props.NameError]]
@@ -210,10 +372,8 @@ local function displayContents(page, localized)
 
 	local descriptionError
 	if FFlagStudioConvertGameSettingsToDevFramework then
-		if props.DescriptionError then
+		if props.DescriptionError and descriptionErrors[props.DescriptionError] then
 			descriptionError = localized:getText("General", descriptionErrors[props.DescriptionError])
-		else
-			descriptionError = nil
 		end
 	else
 		descriptionError = localized.Errors[descriptionErrors[props.DescriptionError]]
@@ -221,10 +381,8 @@ local function displayContents(page, localized)
 
 	local gameIconError
 	if FFlagStudioConvertGameSettingsToDevFramework then
-		if props.GameIconError then
+		if props.GameIconError and imageErrors[props.GameIconError] then
 			gameIconError = localized:getText("General", imageErrors[props.GameIconError])
-		else
-			gameIconError = nil
 		end
 	else
 		gameIconError = localized.Errors[imageErrors[props.GameIconError]]
@@ -232,10 +390,8 @@ local function displayContents(page, localized)
 
 	local thumbnailError
 	if FFlagStudioConvertGameSettingsToDevFramework then
-		if props.ThumbnailsError then
+		if props.ThumbnailsError and imageErrors[props.ThumbnailsError] then
 			thumbnailError = localized:getText("General", imageErrors[props.ThumbnailsError])
-		else
-			thumbnailError = nil
 		end
 	else
 		thumbnailError = localized.Errors[imageErrors[props.ThumbnailsError]]
@@ -253,8 +409,8 @@ local function displayContents(page, localized)
 	end
 
 	return {
-		Header = Roact.createElement(Header, {
-			Title = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "Category"..PageName) or localized.Category[PageName],
+		Header = (not fflagNetworkRefactor) and Roact.createElement(Header, {
+			Title = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "Category"..LOCALIZATION_ID) or localized.Category[LOCALIZATION_ID],
 			LayoutOrder = 0,
 		}),
 
@@ -293,8 +449,8 @@ local function displayContents(page, localized)
 
 				SetText = props.DescriptionChanged,
 
-				FocusChanged = page.setPageScrollingDisabled,
-				HoverChanged = page.setPageScrollingDisabled,
+				FocusChanged = (not fflagNetworkRefactor) and page.setPageScrollingDisabled or nil,
+				HoverChanged = (not fflagNetworkRefactor) and page.setPageScrollingDisabled or nil,
 			}),
 		}),
 
@@ -308,18 +464,7 @@ local function displayContents(page, localized)
 			Enabled = props.GameIcon ~= nil,
 			Icon = props.GameIcon,
 			TutorialEnabled = true,
-			AddIcon = function()
-				local icon
-				if FFlagStudioConvertGameSettingsToDevFramework then
-					icon = FileUtils.PromptForGameIcon(page, localized)
-				else
-					icon = FileUtils.PromptForGameIcon(page)
-				end
-
-				if icon then
-					props.GameIconChanged(icon)
-				end
-			end,
+			AddIcon = addIcon,
 			ErrorMessage = gameIconError,
 		}),
 
@@ -332,18 +477,7 @@ local function displayContents(page, localized)
 			Enabled = props.Thumbnails ~= nil,
 			Thumbnails = props.Thumbnails,
 			Order = props.ThumbnailOrder,
-			AddThumbnail = function()
-				local newThumbnails
-				if FFlagStudioConvertGameSettingsToDevFramework then
-					newThumbnails = FileUtils.PromptForThumbnails(page, localized)
-				else
-					newThumbnails = FileUtils.PromptForThumbnails(page)
-				end
-
-				if newThumbnails then
-					props.AddThumbnails(newThumbnails, props.Thumbnails, props.ThumbnailOrder)
-				end
-			end,
+			AddThumbnail = addThumbnail,
 			ErrorMessage = thumbnailError,
 			ThumbnailsChanged = props.ThumbnailsChanged,
 			ThumbnailOrderChanged = props.ThumbnailOrderChanged,
@@ -366,8 +500,8 @@ local function displayContents(page, localized)
 				Current = props.Genre,
 				CurrentChanged = props.GenreChanged,
 
-				OpenChanged = page.setPageScrollingDisabled,
-				HoverChanged = page.setPageScrollingDisabled,
+				OpenChanged = (not fflagNetworkRefactor) and page.setPageScrollingDisabled or nil,
+				HoverChanged = (not fflagNetworkRefactor) and page.setPageScrollingDisabled or nil,
 			}),
 		}),
 
@@ -429,17 +563,124 @@ local function displayContents(page, localized)
 	}
 end
 
-local SettingsPage = createSettingsPage(PageName, loadValuesToProps, dispatchChanges)
+-- TODO (awarwick) 4/27/2020 Remove with FFlagGameSettingsNetworkRefactor
+--Uses props to display current settings values
+local function DEPRECATED_displayContents(page, localized)
+	local props = page.props
 
-local function BasicInfo(props)
-	return Roact.createElement(SettingsPage, {
-		ContentHeightChanged = props.ContentHeightChanged,
-		SetScrollbarEnabled = props.SetScrollbarEnabled,
-		LayoutOrder = props.LayoutOrder,
-		Content = displayContents,
+	local function DEPRECATED_addThumbnail()
+		local newThumbnails
+		if FFlagStudioConvertGameSettingsToDevFramework then
+			newThumbnails = FileUtils.PromptForThumbnails(page, localized)
+		else
+			newThumbnails = FileUtils.PromptForThumbnails(page)
+		end
 
-		AddLayout = true,
-	})
+		if newThumbnails then
+			props.AddThumbnails(newThumbnails, props.Thumbnails, props.ThumbnailOrder)
+		end
+	end
+
+	local function DEPRECATED_addIcon()
+		local icon
+		if FFlagStudioConvertGameSettingsToDevFramework then
+			icon = FileUtils.PromptForGameIcon(page, localized)
+		else
+			icon = FileUtils.PromptForGameIcon(page)
+		end
+
+		if icon then
+			props.GameIconChanged(icon)
+		end
+	end
+
+	return createContents(props, localized, DEPRECATED_addThumbnail, DEPRECATED_addIcon, page)
 end
 
-return BasicInfo
+if (game:GetFastFlag("GameSettingsNetworkRefactor")) then
+	local BasicInfo = Roact.PureComponent:extend(script.Name)
+
+	function BasicInfo:init()
+		self.addIcons = function()
+			local props = self.props
+			local icon = FileUtils.PromptForGameIcon(self, props.Localization)
+
+			if icon then
+				self.props.GameIconChanged(icon)
+			end
+		end
+
+		self.addThumbnails = function()
+			local props = self.props
+			local newThumbnails = FileUtils.PromptForThumbnails(self, props.Localization)
+
+			if newThumbnails then
+				self.props.AddThumbnails(newThumbnails, props.Thumbnails, props.ThumbnailOrder)
+			end
+		end
+	end
+
+	function BasicInfo:render()
+		local localization = self.props.Localization
+
+		local function createChildren()
+			return createContents(self.props, localization, self.addThumbnails, self.addIcons, self)
+		end
+
+		return Roact.createElement(SettingsPage, {
+			SettingsLoadJobs = loadSettings,
+			SettingsSaveJobs = saveSettings,
+			Title = localization:getText("General", "Category"..LOCALIZATION_ID),
+			PageId = script.Name,
+			CreateChildren = createChildren,
+		})
+	end
+
+	ContextServices.mapToProps(BasicInfo, {
+		Localization = ContextServices.Localization,
+		Theme = ContextServices.Theme,
+	})
+
+	local settingFromState = require(Plugin.Src.Networking.settingFromState)
+	BasicInfo = RoactRodux.connect(
+		function(state, props)
+			if not state then return end
+
+			local getValue = function(propName)
+				return settingFromState(state.Settings, propName)
+			end
+
+			return loadValuesToProps(getValue, state)
+		end,
+
+		function(dispatch)
+			local setValue = function(propName)
+				return function(value)
+					dispatch(AddChange(propName, value))
+				end
+			end
+
+			return dispatchChanges(setValue, dispatch)
+		end
+	)(BasicInfo)
+
+	BasicInfo.LocalizationId = LOCALIZATION_ID
+
+	return BasicInfo
+else
+	local createSettingsPage = require(Plugin.Src.Components.SettingsPages.DEPRECATED_createSettingsPage)
+	local SettingsPage = createSettingsPage(LOCALIZATION_ID, loadValuesToProps, dispatchChanges)
+
+	local function BasicInfo(props)
+		return Roact.createElement(SettingsPage, {
+			ContentHeightChanged = props.ContentHeightChanged,
+			SetScrollbarEnabled = props.SetScrollbarEnabled,
+			LayoutOrder = props.LayoutOrder,
+			Content = DEPRECATED_displayContents,
+
+			AddLayout = true,
+		})
+	end
+
+	return BasicInfo
+end

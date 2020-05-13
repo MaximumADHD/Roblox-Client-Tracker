@@ -190,7 +190,6 @@ function ScaleToolImpl:render(hoveredHandleId)
 			HandleCFrame = handleProps.HandleCFrame,
 			Color = handleProps.Color,
 			Scale = self._scale,
-			Hovered = true,
 		})
 
         for otherHandleId, otherHandleProps in pairs(self._handles) do

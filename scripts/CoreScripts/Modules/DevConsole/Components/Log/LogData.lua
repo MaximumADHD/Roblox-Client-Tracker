@@ -135,6 +135,7 @@ function LogData.new(isClient)
 	setmetatable(self, LogData)
 
 	self._initialized = false
+	self._isRunning = false
 	self._isClient = isClient
 
 	self._logData = CircularBuffer.new(MAX_LOG_SIZE)
@@ -263,6 +264,10 @@ function LogData:getErrorWarningCount()
 	return self._errorCount, self._warningCount
 end
 
+function LogData:isRunning()
+	return self._initialized
+end
+
 function LogData:start()
 	if self._isClient then
 		if not self._initialized then
@@ -329,10 +334,13 @@ function LogData:start()
 
 		LogService:RequestServerOutput()
 	end
+	
+	self._isRunning = true
 end
 
 function LogData:stop()
 	self._initialized = false
+	self._isRunning = false
 
 	if self._connection then
 		self._connection:Disconnect()

@@ -396,8 +396,20 @@ return function(style, overrides)
 			audioPlay_BG = "rbxasset://textures/StudioToolbox/AssetPreview/audioPlay_BG.png",
 			audioPlay_BG_Color = Color3.fromRGB(204, 204, 204),
 			progressBar = Color3.fromRGB(0, 162, 255),
+			progressBar_BG_Color = style.background,
+			progressKnob = "rbxasset://textures/DeveloperFramework/slider_knob.png",
+			progressKnobColor = style.background,
 			font = style.font,
 			fontSize = 16,
+		},
+
+		videoPreview = {
+			backgroundColor = style.backgroundColor,
+			videoBackgroundColor = style.backgroundColor,
+			playButton = "rbxasset://textures/StudioToolbox/AssetPreview/play_button.png",
+			pauseButton = "rbxasset://textures/StudioToolbox/AssetPreview/pause_button.png",
+			pauseOverlayColor =Color3.fromRGB(0, 0, 0),
+			pauseOverlayTransparency = 0.5,
 		},
 
 		vote = {

@@ -353,7 +353,7 @@ function Localization:_recalculateContent()
 			FreeAudio = self:_safeLocalize("Studio.Toolbox.General.CategoryAudio"),
 			FreePlugins = self:_safeLocalize("Studio.Toolbox.General.CategoryPlugins"),
 			PaidPlugins = self:_safeLocalize("Studio.Toolbox.General.CategoryPaidPlugins"),
-			MarketplaceVideos = self:_safeLocalize("Studio.Toolbox.General.CategoryVideos"),
+			FreeVideo = self:_safeLocalize("Studio.Toolbox.General.CategoryVideos"),
 			MyModels = self:_safeLocalize("Studio.Toolbox.General.CategoryMyModels"),
 			MyDecals = self:_safeLocalize("Studio.Toolbox.General.CategoryMyDecals"),
 			MyMeshes = self:_safeLocalize("Studio.Toolbox.General.CategoryMyMeshes"),

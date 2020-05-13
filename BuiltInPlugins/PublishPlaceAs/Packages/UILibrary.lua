@@ -2,6 +2,8 @@
 	Public interface for UILibrary
 ]]
 
+local FFlagEnableToolboxVideos = game:GetFastFlag("EnableToolboxVideos")
+
 local Src = script
 local Components = Src.Components
 local Utils = Src.Utils
@@ -21,7 +23,7 @@ local ExpandableList = require(Components.ExpandableList)
 local Favorites = require(Components.Preview.Favorites)
 local ImagePreview = require(Components.Preview.ImagePreview)
 local AudioPreview = require(Components.Preview.AudioPreview)
-local AudioControl = require(Components.Preview.AudioControl)
+local AudioControl = FFlagEnableToolboxVideos and nil or require(Components.Preview.AudioControl)
 local Keyframe = require(Components.Timeline.Keyframe)
 local InfiniteScrollingFrame = require(Components.InfiniteScrollingFrame)
 local LoadingBar = require(Components.LoadingBar)

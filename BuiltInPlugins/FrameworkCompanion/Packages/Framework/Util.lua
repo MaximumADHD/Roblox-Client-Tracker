@@ -13,6 +13,7 @@ return {
 	Promise = require(script.Promise),
 	Signal = require(script.Signal),
 	Symbol = require(script.Symbol),
+	ThunkWithArgsMiddleware = require(script.ThunkWithArgsMiddleware),
 
 	-- Style and Theming Utilities
 	Palette = require(script.Palette),

@@ -29,6 +29,7 @@ local ServerJobs = require(Components.ServerJobs.MainViewServerJobs)
 local MicroProfiler = require(Components.MicroProfiler.MainViewMicroProfiler)
 
 local RCCProfilerDataCompleteListener = require(Components.MicroProfiler.RCCProfilerDataCompleteListener)
+local getClientReplicator = require(DevConsole.Util.getClientReplicator)
 
 local MainView = require(DevConsole.Reducers.MainView)
 local DevConsoleReducer = require(DevConsole.Reducers.DevConsoleReducer)
@@ -48,6 +49,7 @@ local FFlagRespectDisplayOrderForOnTopOfCoreBlur = settings():GetFFlag("RespectD
 local FFlagDevConsoleAnalyticsIncludeOwner = settings():GetFFlag("DevConsoleAnalyticsIncludeOwner")
 
 local FFlagUseCanManageForDeveloperIconClient = game:GetFastFlag("UseCanManageForDeveloperIconClient")
+local FFlagAdminServerLogs = settings():GetFFlag("AdminServerLogs")
 
 local DEV_TAB_LIST = {
 	Log = {
@@ -182,11 +184,20 @@ function DevConsoleMaster:SetupDevConsole()
 	local formFactor = platformConversion[platformEnum]
 	local screenSizePixel = GuiService:GetScreenResolution()
 
-	local developerConsoleView = isDeveloper()
+	local isDev = isDeveloper()
+	local developerConsoleView = isDev
 
-	local initTabListForStore = {
-		MainView = MainView(nil, SetTabList(developerConsoleView and DEV_TAB_LIST or PLAYER_TAB_LIST, "Log")),
-	}
+	local initTabListForStore
+	if FFlagAdminServerLogs then
+		developerConsoleView = false
+		initTabListForStore = {
+			MainView = MainView(nil, SetTabList(PLAYER_TAB_LIST, "Log")),
+		}
+	else
+		initTabListForStore = {
+			MainView = MainView(nil, SetTabList(developerConsoleView and DEV_TAB_LIST or PLAYER_TAB_LIST, "Log")),
+		}
+	end
 
 	if DFFlagEnableRemoteProfilingForDevConsole and developerConsoleView then
 		-- we disable the microprofiler tab on non desktop devices.
@@ -199,7 +210,7 @@ function DevConsoleMaster:SetupDevConsole()
 	-- create store
 	local middleWare = {}
 	if FFlagDevConsoleAnalyticsIncludeOwner then
-		middleWare = { DevConsoleAnalytics(developerConsoleView) }
+		middleWare = { DevConsoleAnalytics(isDev) }
 	else
 		middleWare = { DevConsoleAnalytics }
 	end
@@ -212,7 +223,7 @@ function DevConsoleMaster:SetupDevConsole()
 		store = self.store,
 	}, {
 		DataProvider = Roact.createElement(DataProvider, {
-			isDeveloperView = developerConsoleView,
+			isDeveloperView = not FFlagAdminServerLogs and developerConsoleView, -- should default to false when FFlag is removed
 		}, {
 			App = Roact.createElement("ScreenGui", {
 				OnTopOfCoreBlur = true,
@@ -220,7 +231,7 @@ function DevConsoleMaster:SetupDevConsole()
 			}, {
 				DevConsoleWindow = Roact.createElement(DevConsoleWindow, {
 					formFactor = formFactor,
-					isdeveloperView = developerConsoleView,
+					isDeveloperView = developerConsoleView,
 					isVisible = isVisible,  -- determines if visible or not
 					isMinimized = false, -- false means windowed, otherwise shows up as a minimized bar
 					position = Constants.MainWindowInit.Position,
@@ -246,6 +257,20 @@ function DevConsoleMaster:Start()
 		end
 		self.init = true
 		self.element = Roact.mount(self.root, CoreGui, "DevConsoleMaster")
+
+		if FFlagAdminServerLogs then
+			local clientReplicator = getClientReplicator()
+
+			if clientReplicator then
+				self._statsConnector = clientReplicator.StatsReceived:connect(function(stats)
+					self._statsConnector:Disconnect()
+					self._statsConnector = nil
+					
+					self.store:dispatch(SetTabList(DEV_TAB_LIST, "Log", true))
+				end)
+				clientReplicator:RequestServerStats(true)
+			end
+		end
 	end
 end
 

@@ -40,6 +40,7 @@ local function MockWrapper(props)
 	local settingsContext = SettingsContext.new(settings)
 	local themeContext = makeTheme(theme:getUILibraryTheme())
 	local uiLibraryWrapper = UILibraryWrapper.new()
+	local storeContext = ContextServices.Store.new(store)
 
 	return Roact.createElement(ExternalServicesWrapper, {
 		store = store,
@@ -51,6 +52,7 @@ local function MockWrapper(props)
 		localization = localization,
 	}, {
 		provideMockContext({
+			storeContext,
 			focus,
 			mouse,
 			pluginContext,

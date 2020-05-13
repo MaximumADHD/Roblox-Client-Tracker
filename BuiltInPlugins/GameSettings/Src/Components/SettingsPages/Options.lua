@@ -11,6 +11,7 @@ local PageName = "Options"
 local FFlagVersionControlServiceScriptCollabEnabled = settings():GetFFlag("VersionControlServiceScriptCollabEnabled")
 local FFlagsEnableVersionHistorySetting = settings():GetFFlag("CollabEditVersionHistoryEnabled") and 
 	(settings():GetFFlag("StudioInternalScriptVersionHistorySetting") or settings():GetFFlag("StudioPlaceFilterScriptVersionHistorySetting"))
+local FFlagStudioConvertGameSettingsToDevFramework = game:GetFastFlag("StudioConvertGameSettingsToDevFramework")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -48,19 +49,19 @@ local function displayContents(page, localized)
 	local props = page.props
 	return {
 		Header = Roact.createElement(Header, {
-			Title = localized.Category[PageName],
+			Title = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "Category" .. PageName) or localized.Category[PageName],
 			LayoutOrder = 0,
 		}),
 
 		Http = Roact.createElement(RadioButtonSet, {
-			Title = localized.Title.Http,
+			Title = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "TitleHttp") or localized.Title.Http,
 			Buttons = {{
 					Id = true,
-					Title = localized.Http.On,
-					Description = localized.Http.OnDescription,
+					Title = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "SettingOn") or localized.Http.On,
+					Description = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "HttpDesc") or localized.Http.OnDescription,
 				}, {
 					Id = false,
-					Title = localized.Http.Off,
+					Title = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "SettingOff") or localized.Http.Off,
 				},
 			},
 			Enabled = props.HttpEnabled ~= nil,
@@ -73,14 +74,14 @@ local function displayContents(page, localized)
 		}),
 		
 		StudioApiServices = Roact.createElement(RadioButtonSet, {
-			Title = localized.Title.StudioApiServices,
+			Title = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "TitleStudioApiServices") or localized.Title.StudioApiServices,
 			Buttons = {{
 					Id = true,
-					Title = localized.StudioApiServices.On,
-					Description = localized.StudioApiServices.OnDescription,
+					Title = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "SettingOn") or localized.StudioApiServices.On,
+					Description = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "StudioApiServicesDesc") or localized.StudioApiServices.OnDescription,
 				}, {
 					Id = false,
-					Title = localized.StudioApiServices.Off,
+					Title = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "SettingOn") or localized.StudioApiServices.Off,
 				},
 			},
 			Enabled = props.studioAccessToApisAllowed ~= nil,
@@ -92,14 +93,14 @@ local function displayContents(page, localized)
 			end,
 		}),
 		EnableScriptCollab = FFlagVersionControlServiceScriptCollabEnabled and Roact.createElement(RadioButtonSet, {
-			Title = localized.Title.ScriptCollab,
+			Title = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "TitleScriptCollab") or localized.Title.ScriptCollab,
 			Buttons = {{
 					Id = true,
-					Title = localized.ScriptCollab.On,
-					Description = localized.ScriptCollab.OnDescription,
+					Title = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "SettingOn") or localized.ScriptCollab.On,
+					Description = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "ScriptCollabDesc") or localized.ScriptCollab.OnDescription,
 				}, {
 					Id = false,
-					Title = localized.ScriptCollab.Off,
+					Title = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "SettingOff") or localized.ScriptCollab.Off,
 				},
 			},
 			Enabled = props.ScriptCollabEnabled ~= nil and (not FFlagsEnableVersionHistorySetting or props.ScriptVersionHistoryEnabled == false),
@@ -113,11 +114,11 @@ local function displayContents(page, localized)
 			Title = "Enable Script Version History", 
 			Buttons = {{
 					Id = true,
-					Title = localized.ScriptCollab.On,
+					Title = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "SettingOn") or localized.ScriptCollab.On,
 					Description = "Track version history for scripts"
 				}, {
 					Id = false,
-					Title = localized.ScriptCollab.Off,
+					Title = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "SettingOff") or localized.ScriptCollab.Off,
 				},
 			},
 			Enabled = props.ScriptCollabEnabled,  --only enabled if enablescriptcollab is true

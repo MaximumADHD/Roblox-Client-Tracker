@@ -15,10 +15,6 @@ local InGameMenu = script.Parent.Parent
 
 local Assets = require(InGameMenu.Resources.Assets)
 
-local FFlagInGameMenuUseUIBloxButtons = require(CoreGui.RobloxGui.Modules.Flags.FFlagInGameMenuUseUIBloxButtons)
-
-local SystemPrimaryButton = require(script.Parent.SystemPrimaryButton)
-local SystemSecondaryButton = require(script.Parent.SystemSecondaryButton)
 local ThemedTextLabel = require(script.Parent.ThemedTextLabel)
 
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
@@ -151,46 +147,17 @@ function ConfirmationDialog:render()
 							SortOrder = Enum.SortOrder.LayoutOrder,
 							VerticalAlignment = Enum.VerticalAlignment.Center,
 						}),
-						CancelButton = FFlagInGameMenuUseUIBloxButtons and Roact.createElement(UIBlox.App.Button.SecondaryButton, {
+						CancelButton = Roact.createElement(UIBlox.App.Button.SecondaryButton, {
 							layoutOrder = 1,
 							size = UDim2.new(0.5, -5, 1, 0),
 							text = props.cancelText,
 							onActivated = props.onCancel,
-						}) or Roact.createElement(SystemSecondaryButton, {
-							LayoutOrder = 1,
-							Size = UDim2.new(0.5, -5, 1, 0),
-							onActivated = props.onCancel,
-							renderChildren = function(transparency)
-								return {
-									ButtonText = Roact.createElement(ThemedTextLabel, {
-										Text = props.cancelText,
-										themeKey = "SecondaryContent",
-										fontKey = "Header2",
-										Size = UDim2.new(1, 0, 1, 0),
-										TextTransparency = transparency,
-									}),
-								}
-							end,
 						}),
-						ConfirmButton = FFlagInGameMenuUseUIBloxButtons and Roact.createElement(UIBlox.App.Button.PrimarySystemButton, {
+						ConfirmButton = Roact.createElement(UIBlox.App.Button.PrimarySystemButton, {
 							layoutOrder = 2,
 							size = UDim2.new(0.5, -5, 1, 0),
 							text = props.confirmText,
 							onActivated = props.onConfirm,
-						}) or Roact.createElement(SystemPrimaryButton, {
-							LayoutOrder = 2,
-							Size = UDim2.new(0.5, -5, 1, 0),
-							onActivated = props.onConfirm,
-							renderChildren = function(transparency)
-								return {
-									ButtonText = Roact.createElement(ThemedTextLabel, {
-										Text = props.confirmText,
-										themeKey = "SystemPrimaryContent",
-										fontKey = "Header2",
-										Size = UDim2.new(1, 0, 1, 0),
-									}),
-								}
-							end,
 						}),
 					}),
 				}),

@@ -5,6 +5,7 @@ return function()
 		local state = MainView(nil, {})
 
 		local expectedKeys = {
+			isDeveloperView = false,
 			isClientView = true,
 			tabList = {},
 			currTab = nil,

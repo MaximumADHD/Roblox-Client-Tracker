@@ -6,6 +6,8 @@ local Lib = script.Parent.Parent
 local Math = require(Lib.Utility.Math)
 local getGeometry = require(Lib.Utility.getGeometry)
 
+local getFFlagFuzzyTerrainNormal = require(Lib.Flags.getFFlagFuzzyTerrainNormal)
+
 local PrimaryDirections = {
 	Vector3.new(1, 0, 0),
 	Vector3.new(-1, 0, 0),
@@ -55,8 +57,14 @@ function DragHelper.getSurfaceMatrix(selection, lastSurfaceMatrix)
 	if part and part:IsA("Terrain") then
 		-- Special case for terrain, since we can't get geometry for it
 		local upVector = Vector3.new(0, 1, 0)
-		if normal == upVector then
-			upVector = Vector3.new(1, 0, 0)
+		if getFFlagFuzzyTerrainNormal() then
+			if normal:FuzzyEq(upVector) then
+				upVector = Vector3.new(1, 0, 0)
+			end
+		else
+			if normal == upVector then
+				upVector = Vector3.new(1, 0, 0)
+			end
 		end
 		local xVector = upVector:Cross(normal).Unit
 		return CFrame.fromMatrix(mouseWorld, -xVector, normal), mouseWorld, DragTargetType.Terrain

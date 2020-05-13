@@ -39,9 +39,8 @@ return function()
 		local container = Instance.new("Folder")
 		local instance = Roact.mount(element, container, "AssetIcon")
 
-		local assetIcon = container.AssetIcon
-		local assetImage = assetIcon.AssetImage
-		expect(assetImage.Image:match("assetId=" .. assetId)).to.be.ok()
+		local assetImage = container:FindFirstChild("AssetImage", true)
+		expect(assetImage.Image:match("id=" .. assetId)).to.be.ok()
 
 		Roact.unmount(instance)
 	end)

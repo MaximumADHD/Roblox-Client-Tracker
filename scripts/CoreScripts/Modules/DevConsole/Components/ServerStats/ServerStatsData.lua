@@ -18,6 +18,7 @@ function ServerStatsData.new()
 	self._serverStatsData = {}
 	self._serverStatsDataCount = 0
 	self._lastUpdateTime = 0
+	self._isRunning = false
 	return self
 end
 
@@ -81,6 +82,10 @@ function ServerStatsData:updateValue(key, value)
 	end
 end
 
+function ServerStatsData:isRunning()
+	return self._isRunning
+end
+
 function ServerStatsData:start()
 	local clientReplicator = getClientReplicator()
 	if clientReplicator and not self._statsListenerConnection then
@@ -103,8 +108,8 @@ function ServerStatsData:start()
 			end
 		end)
 		clientReplicator:RequestServerStats(true)
+		self._isRunning = true
 	end
-
 end
 
 function ServerStatsData:stop()
@@ -112,6 +117,7 @@ function ServerStatsData:stop()
 		self._statsListenerConnection:Disconnect()
 		self._statsListenerConnection = nil
 	end
+	self._isRunning = false
 end
 
 return ServerStatsData

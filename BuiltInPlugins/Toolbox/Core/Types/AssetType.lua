@@ -1,4 +1,5 @@
 local FFlagFixGetAssetTypeErrorHandling = game:GetFastFlag("FixGetAssetTypeErrorHandling")
+local FFlagEnableToolboxVideos = game:GetFastFlag("EnableToolboxVideos")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -16,6 +17,7 @@ AssetType.TYPES = {
 	PluginType = 5,
 	OtherType = 6,
 	LoadingType = 7,
+	VideoType = FFlagEnableToolboxVideos and 8 or nil,
 }
 
 -- For check if we show preview button or not.
@@ -28,6 +30,7 @@ AssetType.AssetTypesPreviewEnabled = convertArrayToTable({
 	Enum.AssetType.Audio.Value,
 	Enum.AssetType.Lua.Value,
 	Enum.AssetType.Plugin.Value,
+	FFlagEnableToolboxVideos and Enum.AssetType.Video.Value or nil,
 })
 
 -- For AssetPreview, we devide assets into four categories.

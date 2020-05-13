@@ -2,8 +2,6 @@
 	Reducer that combines the Settings and Status reducers.
 ]]
 
-local FFlagStudioMoveMorpherEditorInsideGameSettings = game:GetFastFlag("StudioMoveMorpherEditorInsideGameSettings")
-
 local Plugin = script.Parent.Parent.Parent
 local Rodux = require(Plugin.Rodux)
 
@@ -14,7 +12,6 @@ local CollaboratorSearch = require(Plugin.Src.Reducers.CollaboratorSearch)
 local DevSubModeration = require(Plugin.Src.Reducers.DevSubModeration)
 local AutoTranslationMetaData = require(Plugin.Src.Reducers.AutoTranslationMetaData)
 
-local ReducerMorpher = (not FFlagStudioMoveMorpherEditorInsideGameSettings) and require(Plugin.MorpherEditor.Code.Reducers.ReducerRootExternal) or nil
 local MorpherEditorRoot = require(Plugin.Src.Reducers.MorpherEditorRoot)
 
 local FFlagStudioLocalizationInGameSettingsEnabled = game:GetFastFlag("StudioLocalizationInGameSettingsEnabled")
@@ -22,8 +19,7 @@ local FFlagStudioLocalizationInGameSettingsEnabled = game:GetFastFlag("StudioLoc
 return Rodux.combineReducers({
 	Settings = Settings,
 	Status = Status,
-	StateMorpher = (not FFlagStudioMoveMorpherEditorInsideGameSettings) and ReducerMorpher or nil,
-	MorpherEditorRoot = FFlagStudioMoveMorpherEditorInsideGameSettings and MorpherEditorRoot or nil,
+	MorpherEditorRoot = MorpherEditorRoot,
 	Thumbnails = Thumbnails,
 	CollaboratorSearch = CollaboratorSearch,
 	DevSubModeration = settings():GetFFlag("DeveloperSubscriptionsEnabled") and DevSubModeration or nil,

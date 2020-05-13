@@ -331,7 +331,7 @@ local function mapStateToProps(state, props)
 
 	local stateToProps = {
 		assetId = state.assetId,
-		assetName = state.changed.AssetConfigName or state.assetName,
+		assetName = state.changed and state.changed.AssetConfigName or state.assetName,
 		uploadSucceeded = state.uploadSucceeded,
 		instances = state.instances,
 		networkError = state.networkError,

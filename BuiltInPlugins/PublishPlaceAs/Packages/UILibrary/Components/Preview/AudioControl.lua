@@ -17,6 +17,8 @@
 
 	the sound object inside the Toolbox plugin to play. We don't want to too many sound source.
 ]]
+local FFlagEnableToolboxVideos = game:GetFastFlag("EnableToolboxVideos")
+
 local Library = script.Parent.Parent.Parent
 local Roact = require(Library.Parent.Roact)
 
@@ -31,7 +33,9 @@ local TIME_LABEL_HEIGHT = 15
 local BUTTON_SIZE = 28
 
 local AudioControl = Roact.PureComponent:extend("AudioControl")
-
+if FFlagEnableToolboxVideos then
+	return AudioControl
+end
 function AudioControl:init(props)
 	self.state = {
 		init = false;

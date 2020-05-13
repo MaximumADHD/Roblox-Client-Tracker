@@ -31,6 +31,9 @@ return function()
 					Creator = {
 						Name = "Test",
 					},
+					Product = {
+						Price = 10
+					}
 				},
 				PurchaseFailed = false,
 				Purchasing = false,

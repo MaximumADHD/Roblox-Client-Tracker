@@ -12,6 +12,8 @@ local Roact = require(Plugin.Roact)
 local RoactStudioWidgets = Plugin.RoactStudioWidgets
 local withLocalization = require(Plugin.Src.Consumers.withLocalization)
 
+local ContextServices = require(Plugin.Framework.ContextServices)
+
 local StateInterfaceTheme = require(Plugin.Src.Util.StateInterfaceTheme)
 
 local ToggleButton = require(RoactStudioWidgets.ToggleButton)
@@ -22,8 +24,9 @@ local calculateTextSize = nil
 local getText = nil
 
 local AssetInput = Roact.PureComponent:extend("AssetInput")
+local FFlagStudioConvertGameSettingsToDevFramework = game:GetFastFlag("StudioConvertGameSettingsToDevFramework")
 
-function AssetInput:render()
+function AssetInput:DEPRECATED_render()
 	self.currentTextInputBoxText = getText(self)
 
 	return withLocalization(function(localized)
@@ -93,6 +96,90 @@ function AssetInput:render()
 		}, children)
 	
 	end)
+end
+
+function AssetInput:render()
+	if not FFlagStudioConvertGameSettingsToDevFramework then
+		return self:DEPRECATED_render()
+	end
+
+	local props = self.props
+	local localization = props.Localization
+	local mouse = props.Mouse:get()
+
+	self.currentTextInputBoxText = getText(self)
+
+	local customItemText = localization:getText("General", "AvatarOverrideItem")
+	local customItemTextSize = calculateTextSize(customItemText, 22, Enum.Font.SourceSans)
+
+	local INPUT_BOX_HORIZONTAL_POSITION = CUSTOM_ITEM_LABEL_HORIZONTAL_POSITION + customItemTextSize.X
+		+ INPUT_BOX_HORIZONTAL_OFFSET
+
+	local children = {
+		ToggleButton = Roact.createElement(ToggleButton, {
+			Size = UDim2.new(0, TOGGLE_BUTTON_WIDTH, 0, TOGGLE_BUTTON_HEIGHT),
+			Enabled = self.props.IsEnabled,
+			IsOn = not self.props.PlayerChoice,
+			Mouse = mouse,
+
+			OnClickedOn = function()
+				self.props.SetPlayerChoiceValue(false)
+			end,
+
+			OnClickedOff = function()
+				self.props.SetPlayerChoiceValue(true)
+			end
+		}),
+		CustomItemLabel = Roact.createElement("TextLabel", {
+			Position = UDim2.new(0, CUSTOM_ITEM_LABEL_HORIZONTAL_POSITION, 0, 0),
+			Size = UDim2.new(0, customItemTextSize.X, 0, TOGGLE_BUTTON_HEIGHT),
+			BackgroundTransparency = 1,
+			TextColor3 = StateInterfaceTheme.getRadioButtonTextColor(self.props),
+			TextTransparency = (self.props.IsEnabled and not self.props.PlayerChoice) and 0 or 0.5,
+			Font = Enum.Font.SourceSans,
+			TextSize = 22,
+			Text = customItemText,
+			TextXAlignment = Enum.TextXAlignment.Left,
+			TextYAlignment = Enum.TextYAlignment.Center,
+		}),
+		InputBox = Roact.createElement(RoundTextBox, {
+			Enabled = self.props.IsEnabled,
+			PlaceholderText = localization:getText("General", "AvatarOverrideId"),
+			MaxLength = 100,
+			Text = self.currentTextInputBoxText,
+			ErrorMessage = self.props.ErrorMessage,
+			Position = UDim2.new(0, INPUT_BOX_HORIZONTAL_POSITION, 0, 0),
+			Width = INPUT_BOX_WIDTH,
+			Height = INPUT_BOX_HEIGHT,
+			ShowToolTip = false,
+			PaddingBottom = UDim.new(0, 0),
+			PaddingTop = UDim.new(0, 0),
+			Mouse = mouse,
+
+			SetText = function(text)
+				self.currentTextInputBoxText = text
+			end,
+
+			FocusChanged = function(hasFocus, enterPressed)
+				if not hasFocus and self.props.SetValue then
+					self.props.SetValue(self.currentTextInputBoxText)
+				end
+			end
+		})
+	}
+
+	return Roact.createElement(TitledFrame, {
+		Title = self.props.Title,
+		MaxHeight = WIDGET_HEIGHT,
+		LayoutOrder = self.props.LayoutOrder or 1,
+	}, children)
+end
+
+if FFlagStudioConvertGameSettingsToDevFramework then
+	ContextServices.mapToProps(AssetInput, {
+		Localization = ContextServices.Localization,
+		Mouse = ContextServices.Mouse,
+	})
 end
 
 calculateTextSize = function(text, textSize, font)

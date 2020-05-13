@@ -1,4 +1,5 @@
 return function()
+
 	local Plugin = script.Parent.Parent.Parent.Parent
 
 	local Libs = Plugin.Libs
@@ -20,11 +21,17 @@ return function()
 			SalesPage = Roact.createElement(SalesPage, {
 				Size = UDim2.new(1, -150, 1, 0),
 
-				AssetTypeId = Enum.AssetType.Hat,
+				assetTypeEnum = Enum.AssetType.Hat,
 
-				AllowedAssetTypesForRelease = {},
-				AssetStatus = status,
-				Price = price,
+				allowedAssetTypesForRelease = {
+					[Enum.AssetType.Hat.Name] = {}
+				},
+				currentAssetStatus = status,
+				newAssetStatus = status,
+				price = price,
+				minPrice = price,
+				maxPrice = price,
+				feeRate = 0,
 
 				onStatusChange = function() end,
 				onPriceChange = function() end,
@@ -49,11 +56,11 @@ return function()
 
 		local instance = Roact.mount(element, container)
 
-		local SalesUI = container:FindFirstChildOfClass("ScrollingFrame")
+		local page = container:FindFirstChild("SalesPage", true)
 
-		expect(SalesUI.Price).to.be.ok()
-		expect(SalesUI.SalesStatus).to.be.ok()
-		expect(SalesUI.Separator1).to.be.ok()
+		expect(page.PriceComponent).to.be.ok()
+		expect(page.SalesStatus).to.be.ok()
+		expect(page.Separator1).to.be.ok()
 
 		Roact.unmount(instance)
 	end)
@@ -66,9 +73,9 @@ return function()
 
 		local instance = Roact.mount(element, container)
 
-		local SalesUI = container:FindFirstChildOfClass("ScrollingFrame")
+		local page = container:FindFirstChild("SalesPage", true)
 
-		expect(SalesUI.Price.Content.InputRow.TextInputBox["1"].Border.Text.Text.Text).to.equal(tostring(price))
+		expect(page.PriceComponent.Content.InputRow.TextInputBox.RoundTextBox.Border.Text.Text.Text).to.equal(tostring(price))
 
 		Roact.unmount(instance)
 	end)

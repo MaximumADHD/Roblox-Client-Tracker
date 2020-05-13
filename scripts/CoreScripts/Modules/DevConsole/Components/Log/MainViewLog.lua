@@ -96,7 +96,7 @@ end
 function MainViewLog:render()
 	local size = self.props.size
 	local formFactor = self.props.formFactor
-	local isdeveloperView = self.props.isdeveloperView
+	local isDeveloperView = self.props.isDeveloperView
 	local tabList = self.props.tabList
 	local isClientView = self.props.isClientView
 
@@ -143,8 +143,8 @@ function MainViewLog:render()
 
 		refForParent = self.utilRef,
 
-		onClientButton = isdeveloperView and self.onClientButton,
-		onServerButton = isdeveloperView and self.onServerButton,
+		onClientButton = isDeveloperView and self.onClientButton,
+		onServerButton = isDeveloperView and self.onServerButton,
 		onCheckBoxChanged = self.onCheckBoxChanged,
 		onSearchTermChanged = self.onSearchTermChanged,
 	})

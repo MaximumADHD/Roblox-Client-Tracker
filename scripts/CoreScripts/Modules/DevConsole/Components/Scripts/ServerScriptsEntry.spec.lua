@@ -1,6 +1,8 @@
 return function()
 	local CorePackages = game:GetService("CorePackages")
 	local Roact = require(CorePackages.Roact)
+	local RoactRodux = require(CorePackages.RoactRodux)
+	local Store = require(CorePackages.Rodux).Store
 
 	local CircularBuffer = require(script.Parent.Parent.Parent.CircularBuffer)
 
@@ -32,13 +34,26 @@ return function()
 			UDim2.new(),
 			UDim2.new(),
 		}
-		local element = Roact.createElement(DataProvider, {}, {
-			ServerScriptsEntry = Roact.createElement(ServerScriptsEntry, {
-				scriptData = scriptDummyData,
-				entryCellSize = dummyCellSizes,
-				cellOffset = dummyCellSizes,
-				verticalOffsets = dummyCellSizes,
-				formatScriptsData = formatScriptsData,
+
+		local store = Store.new(function()
+			return {
+				MainView = {
+					isDeveloperView = true,
+				},
+			}
+		end)
+
+		local element = Roact.createElement(RoactRodux.StoreProvider, {
+			store = store,
+		}, {
+			DataProvider = Roact.createElement(DataProvider, {}, {
+				ServerScriptsEntry = Roact.createElement(ServerScriptsEntry, {
+					scriptData = scriptDummyData,
+					entryCellSize = dummyCellSizes,
+					cellOffset = dummyCellSizes,
+					verticalOffsets = dummyCellSizes,
+					formatScriptsData = formatScriptsData,
+				})
 			})
 		})
 

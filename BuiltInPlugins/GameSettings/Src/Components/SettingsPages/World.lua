@@ -18,6 +18,7 @@
 local PageName = "World"
 
 local DFIntJumpPowerInstantControllerMultiplierPercent =  tonumber(settings():GetFVariable("JumpPowerInstantControllerMultiplierPercent"))
+local FFlagStudioConvertGameSettingsToDevFramework = game:GetFastFlag("StudioConvertGameSettingsToDevFramework")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -165,21 +166,21 @@ local function createPresetsWidgets(order, worldPanelProps, mouse, localized)
 	return Roact.createElement(StudioWidgetButtonBarWithToolTip, {
 		ButtonBarButtons = {
 			{
-				Name= localized.WorldPresets.Classic, Enabled=true, ShowPressed=true, Mouse=mouse,
+				Name= FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "WorldPresetsClassic") or localized.WorldPresets.Classic, Enabled=true, ShowPressed=true, Mouse=mouse,
 				Value={
-					ToolTip = localized.WorldPresets.ClassicToolTip,
+					ToolTip = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "WorldPresetsClassicToolTip") or localized.WorldPresets.ClassicToolTip,
 					ApplyPreset = function() applyPreset(worldPanelProps, 196.2, true, 50, nil, 16, 89) end
 				}
 			}, {
-				Name= localized.WorldPresets.Realistic, Enabled=true, ShowPressed=true, Mouse=mouse,
+				Name= FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "WorldPresetsRealistic") or localized.WorldPresets.Realistic, Enabled=true, ShowPressed=true, Mouse=mouse,
 				Value={
-					ToolTip = localized.WorldPresets.RealisticToolTip,
+					ToolTip = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "WorldPresetsRealisticToolTip") or localized.WorldPresets.RealisticToolTip,
 					ApplyPreset = function() applyPreset(worldPanelProps, 35, true, 13, nil, 16) end
 				}
 			}, {
-				Name= localized.WorldPresets.Action, Enabled=true, ShowPressed=true, Mouse=mouse,
+				Name= FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "WorldPresetsAction") or localized.WorldPresets.Action, Enabled=true, ShowPressed=true, Mouse=mouse,
 				Value={
-					ToolTip = localized.WorldPresets.ActionToolTip,
+					ToolTip = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "WorldPresetsActionToolTip") or localized.WorldPresets.ActionToolTip,
 					ApplyPreset = function() applyPreset(worldPanelProps, 75, true, 31, nil, 18) end
 				}
 			}
@@ -188,7 +189,7 @@ local function createPresetsWidgets(order, worldPanelProps, mouse, localized)
 			value.ApplyPreset()
 		end,
 		LayoutOrder = order,
-		Title = localized.Title.Presets
+		Title = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "TitlePresets") or localized.Title.Presets
 	})
 end
 
@@ -247,13 +248,13 @@ local function createJumpSelectWidgets(incrementNextLayoutOrderFunc, props, mous
 		BackgroundTransparency = 1,
 	}, {
 		JumpSelect = Roact.createElement(StudioWidgetRadioButtonSet, {
-			Title = localized.Title.Jump,
+			Title = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "TitleJump") or localized.Title.Jump,
 			Buttons = {{
 					Id = false,
-					Title = localized.Jump.Height,
+					Title = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "JumpHeight") or localized.Jump.Height,
 				}, {
 					Id = true,
-					Title = localized.Jump.Power,
+					Title = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "JumpPower") or localized.Jump.Power,
 				},
 			},
 			LayoutOrder = incrementNextLayoutOrderFunc(),
@@ -288,7 +289,7 @@ local function createJumpSelectWidgets(incrementNextLayoutOrderFunc, props, mous
 
 			JumpHeightMetricLabel = createMetricLabel(not props.WorkspaceUseJumpPower,
 				(function()
-					return localized.Units.Meters({number = studToMetric(props.WorkspaceJumpHeight)})
+					return FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "UnitsMeters", {number = studToMetric(props.WorkspaceJumpHeight)}) or localized.Units.Meters({number = studToMetric(props.WorkspaceJumpHeight)})
 				end)()
 			)
 		}),
@@ -323,20 +324,20 @@ local function createJumpDistanceWidgets(incrementNextLayoutOrderFunc, props, lo
 		LayoutOrder = incrementNextLayoutOrderFunc(),
 		TitleTextYAlignment = Enum.TextYAlignment.Center
 	}, {
-		JumpDistanceLabel = createLabel(0, localized.Jump.Distance),
+		JumpDistanceLabel = createLabel(0, FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "JumpDistance") or localized.Jump.Distance),
 		JumpDistanceValue = createLabel(INPUT_BOX_OFFSET, tostring(MathUtil.round(calculateJumpDistance()))),
 		JumpDistanceMetricValue = createLabel(INPUT_BOX_OFFSET+METRIC_LABEL_OFFSET,
 			(function()
-				return localized.Units.Meters({number = studToMetric(calculateJumpDistance())})
+				return FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "UnitsMeters", {number = studToMetric(calculateJumpDistance())}) or localized.Units.Meters({number = studToMetric(calculateJumpDistance())})
 			end)()
 		),
 	})
 end
 
 --Uses props to display current settings values
-local function displayContents(page, localized)
+local function displayContents(page, localized, theme, mouseContext)
 	local props = page.props
-	local mouse = getMouse(page).getNativeMouse()
+	local mouse = FFlagStudioConvertGameSettingsToDevFramework and mouseContext:get() or getMouse(page).getNativeMouse()
 
 	local function changeGravity(newGravity)
 		applyPreset(props, newGravity)
@@ -350,7 +351,7 @@ local function displayContents(page, localized)
 
 	return {
 		Header = Roact.createElement(Header, {
-			Title = localized.Category[PageName],
+			Title = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "Category" .. PageName) or localized.Category[PageName],
 			LayoutOrder = -1,
 		}),
 
@@ -358,31 +359,35 @@ local function displayContents(page, localized)
 		Separator1 = Roact.createElement(StudioWidgetSeparator, {
 			LayoutOrder = incrementNextLayoutOrder(),
 		}),
-		Gravity = createInputRow(localized.Title.Gravity,
-			localized.Gravity.WorkspaceGravity,
+		Gravity = createInputRow(FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "TitleGravity") or localized.Title.Gravity,
+			FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "GravityWorkspaceGravity") or localized.Gravity.WorkspaceGravity,
 			props.WorkspaceGravity,
 			0.1,
 			1000,
 			changeGravity,
 			incrementNextLayoutOrder(),
 			mouse,
-			localized.Units.MetersPerSecondSquared),
+			FFlagStudioConvertGameSettingsToDevFramework and function(inputNumber)
+				localized:getText("General", "UnitsMetersPerSecondSquared", inputNumber)
+			end or localized.Units.MetersPerSecondSquared),
 		Separator2 = Roact.createElement(StudioWidgetSeparator, {
 			LayoutOrder = incrementNextLayoutOrder(),
 		}),
 		JumpSelect = createJumpSelectWidgets(incrementNextLayoutOrder, props, mouse, localized),
-		WalkSpeed = createInputRow(localized.Title.Walk,
-			localized.Walk.Speed,
+		WalkSpeed = createInputRow(FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "TitleWalk") or localized.Title.Walk,
+			FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "WalkSpeed") or localized.Walk.Speed,
 			props.WorkspaceWalkSpeed,
 			0,
 			nil,
 			props.WorkspaceWalkSpeedChanged,
 			incrementNextLayoutOrder(),
 			mouse,
-			localized.Units.MetersPerSecond),
+			FFlagStudioConvertGameSettingsToDevFramework and function(inputNumber)
+				localized:getText("General", "MetersPerSecond", inputNumber)
+			end or localized.Units.MetersPerSecond),
 		JumpDistance = createJumpDistanceWidgets(incrementNextLayoutOrder, props, localized),
-		MaxSlopeAngle = createInputRow(localized.Title.Slope,
-			localized.Slope.Angle,
+		MaxSlopeAngle = createInputRow(FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "TitleSlope") or localized.Title.Slope,
+			FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "SlopeAngle") or localized.Slope.Angle,
 			props.WorkspaceMaxSlopeAngle,
 			0,
 			89,

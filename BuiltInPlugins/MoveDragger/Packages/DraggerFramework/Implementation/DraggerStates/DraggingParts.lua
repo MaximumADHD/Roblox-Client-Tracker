@@ -17,6 +17,7 @@ local setInsertPoint = require(Framework.Utility.setInsertPoint)
 local getFFlagLuaDraggerIconBandaid = require(Framework.Flags.getFFlagLuaDraggerIconBandaid)
 local getFFlagSetInsertPoint = require(Framework.Flags.getFFlagSetInsertPoint)
 local getFFlagMoveViaSelectionCenter = require(Framework.Flags.getFFlagMoveViaSelectionCenter)
+local getFFlagHandleNoRotateTarget = require(Framework.Flags.getFFlagHandleNoRotateTarget)
 
 local DraggingParts = {}
 DraggingParts.__index = DraggingParts
@@ -118,9 +119,20 @@ end
 
 function DraggingParts:_tiltRotateFreeformSelectionDrag(draggerTool, axis)
 	local mainCFrame = draggerTool._derivedWorldState:getBoundingBox()
-	local newTiltRotate = DragHelper.updateTiltRotate(
-		SelectionWrapper:Get(), mainCFrame, self._lastDragTarget.targetMatrix,
-		draggerTool.state.tiltRotate, axis)
+	local newTiltRotate
+	if getFFlagHandleNoRotateTarget() then
+		local lastTargetMatrix
+		if self._lastDragTarget then
+			lastTargetMatrix = self._lastDragTarget.targetMatrix
+		end
+		newTiltRotate = DragHelper.updateTiltRotate(
+			self._raycastFilter, mainCFrame, lastTargetMatrix,
+			draggerTool.state.tiltRotate, axis)
+	else
+		newTiltRotate = DragHelper.updateTiltRotate(
+			SelectionWrapper:Get(), mainCFrame, self._lastDragTarget.targetMatrix,
+			draggerTool.state.tiltRotate, axis)
+	end
 	self:_updateFreeformSelectionDrag(draggerTool, newTiltRotate)
 	draggerTool:setState({
 		tiltRotate = newTiltRotate,

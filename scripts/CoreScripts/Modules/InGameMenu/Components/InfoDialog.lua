@@ -1,5 +1,4 @@
 local TextService = game:GetService("TextService")
-local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 local ContextActionService = game:GetService("ContextActionService")
 
@@ -14,11 +13,8 @@ local InGameMenu = script.Parent.Parent
 
 local Assets = require(InGameMenu.Resources.Assets)
 
-local SystemPrimaryButton = require(script.Parent.SystemPrimaryButton)
 local ThemedTextLabel = require(script.Parent.ThemedTextLabel)
 local Divider = require(script.Parent.Divider)
-
-local FFlagInGameMenuUseUIBloxButtons = require(CoreGui.RobloxGui.Modules.Flags.FFlagInGameMenuUseUIBloxButtons)
 
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
 
@@ -124,25 +120,11 @@ function InfoDialog:render()
 						TextWrapped = true,
 					})
 				}),
-				ConfirmButton = FFlagInGameMenuUseUIBloxButtons and Roact.createElement(UIBlox.App.Button.PrimarySystemButton, {
+				ConfirmButton = Roact.createElement(UIBlox.App.Button.PrimarySystemButton, {
 					layoutOrder = 5,
 					size = UDim2.new(1, 0, 0, 36),
 					onActivated = props.onDismiss,
 					text = props.dismissText,
-				}) or Roact.createElement(SystemPrimaryButton, {
-					LayoutOrder = 5,
-					Size = UDim2.new(1, 0, 0, 36),
-					onActivated = props.onDismiss,
-					renderChildren = function(transparency)
-						return {
-							ButtonText = Roact.createElement(ThemedTextLabel, {
-								Text = props.dismissText,
-								themeKey = "SystemPrimaryContent",
-								fontKey = "Header2",
-								Size = UDim2.new(1, 0, 1, 0),
-							}),
-						}
-					end,
 				}),
 			}),
 		})

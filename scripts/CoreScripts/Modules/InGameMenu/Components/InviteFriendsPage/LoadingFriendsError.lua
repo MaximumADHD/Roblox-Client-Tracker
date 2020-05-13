@@ -1,4 +1,3 @@
-local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 local TextService = game:GetService("TextService")
 
@@ -15,12 +14,8 @@ local GlobalConfig = require(InGameMenu.GlobalConfig)
 local withLocalization = require(InGameMenu.Localization.withLocalization)
 
 local Assets = require(InGameMenu.Resources.Assets)
-local divideTransparency = require(InGameMenu.Utility.divideTransparency)
 
 local ThemedTextLabel = require(InGameMenu.Components.ThemedTextLabel)
-local SystemSecondaryButton = require(InGameMenu.Components.SystemSecondaryButton)
-
-local FFlagInGameMenuUseUIBloxButtons = require(CoreGui.RobloxGui.Modules.Flags.FFlagInGameMenuUseUIBloxButtons)
 
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
 
@@ -89,33 +84,12 @@ local function LoadingFriendsError(props)
 					})
 				}),
 
-				MakeFriendsButton = FFlagInGameMenuUseUIBloxButtons and Roact.createElement(UIBlox.App.Button.SecondaryButton, {
+				MakeFriendsButton = Roact.createElement(UIBlox.App.Button.SecondaryButton, {
 					layoutOrder = 3,
 					size = UDim2.new(1, 0, 0, 48),
 					icon = Assets.Images.RetryIcon,
 					onActivated = props.onRetry,
-				}) or Roact.createElement(SystemSecondaryButton, {
-					LayoutOrder = 3,
-					Size = UDim2.new(1, 0, 0, 48),
-					onActivated = props.onRetry,
-					renderChildren = function(transparency, isHovered, isPressed)
-						local iconColor = isHovered and style.Theme.IconOnHover or style.Theme.IconDefault
-						local iconColor3 = iconColor.Color
-						local iconTransparency = divideTransparency(iconColor.Transparency, isPressed and 2 or 1)
-
-						return {
-							ButtonIcon = Roact.createElement(ImageSetLabel, {
-								BackgroundTransparency = 1,
-								Size = UDim2.new(0, 36, 0, 36),
-								Position = UDim2.new(0.5, 0, 0.5, 0),
-								AnchorPoint = Vector2.new(0.5, 0.5),
-								Image = Assets.Images.RetryIcon,
-								ImageColor3 = iconColor3,
-								ImageTransparency = iconTransparency,
-							})
-						}
-					end,
-				})
+				}),
 			})
 		end)
 	end)

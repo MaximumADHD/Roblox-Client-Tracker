@@ -11,7 +11,8 @@ return function()
 		local store = Store.new(function()
 			return {
 				MainView = {
-					currTabIndex = 0
+					currTabIndex = 0,
+					isDeveloperView = true,
 				},
 				ActionBindingsData = {
 					bindingsSearchTerm = ""

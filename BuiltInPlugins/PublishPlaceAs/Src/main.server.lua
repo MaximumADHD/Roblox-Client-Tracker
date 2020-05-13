@@ -4,6 +4,7 @@ end
 
 -- Fast flags
 local FFlagStudioChangeMinimumSizeOfWindow = game:DefineFastFlag("StudioChangeMinimumSizeOfPublishWindow", false)
+local FFlagStudioLuaPublishFlowLocalizeUntitledGameText = game:DefineFastFlag("StudioLuaPublishFlowLocalizeUntitledGameText", false)
 local FFlagLuaPublishFlowFixCreateButtonInChinese = game:DefineFastFlag("LuaPublishFlowFixCreateButtonInChinese", false)
 
 -- libraries
@@ -89,8 +90,11 @@ local function openPluginWindow()
 			OnClose = closePlugin,
 		})
 	})
-
-	dataStore:dispatch(ResetInfo())
+	if FFlagStudioLuaPublishFlowLocalizeUntitledGameText then
+		dataStore:dispatch(ResetInfo(localization:getText("General", "UntitledGame")))
+	else
+		dataStore:dispatch(ResetInfo())
+	end
 	pluginHandle = Roact.mount(servicesProvider, pluginGui)
 	pluginGui.Enabled = true
 end

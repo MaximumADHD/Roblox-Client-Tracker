@@ -31,11 +31,10 @@ return function()
 	it("should render correctly", function()
 		local container = Instance.new("Folder")
 		local instance = createTestToolbox(container, "ToolboxComponent")
-		local toolbox = container.ToolboxComponent
 
-		expect(toolbox.Header).to.be.ok()
-		expect(toolbox.MainView).to.be.ok()
-		expect(toolbox.Footer).to.be.ok()
+		expect(container:FindFirstChild("Header", true)).to.be.ok()
+		expect(container:FindFirstChild("MainView", true)).to.be.ok()
+		expect(container:FindFirstChild("Footer", true)).to.be.ok()
 
 		Roact.unmount(instance)
 	end)

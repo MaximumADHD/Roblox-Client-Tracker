@@ -17,7 +17,8 @@ return function()
 					size = UDim2.new(1, 0, 1, 0),
 				},
 				MainView = {
-					currTabIndex = 0
+					currTabIndex = 0,
+					isDeveloperView = true,
 				},
 				TopBarLiveUpdate = {
 					LogWarningCount = 0,

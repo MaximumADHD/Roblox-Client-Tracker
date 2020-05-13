@@ -28,7 +28,6 @@ local DevFrameworkRoot = script.Parent.Parent
 local ContextServices = require(DevFrameworkRoot.ContextServices)
 local StudioFrameworkStyles = require(DevFrameworkRoot.StudioUI).StudioFrameworkStyles
 local mockPlugin = require(DevFrameworkRoot.TestHelpers.Services.mockPlugin)
-local Util = require(DevFrameworkRoot.Util)
 local Rodux = require(DevFrameworkRoot.Parent.Rodux)
 
 
@@ -60,6 +59,14 @@ return function(contextItemsList, children)
 		Icon = "rbxasset://SystemCursors/Arrow",
 	})
 	table.insert(contextItems, mouse)
+
+	-- Navigation
+	local navigation = ContextServices.Navigation.new({})
+	table.insert(contextItems, navigation)
+
+	-- Analytics
+	local analytics = ContextServices.Analytics.mock()
+	table.insert(contextItems, analytics)
 
 	-- Plugin
 	local plugin = ContextServices.Plugin.new(mockPlugin.new())

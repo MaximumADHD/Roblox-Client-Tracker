@@ -46,8 +46,6 @@ local BACKGROUND_BAR_IMAGE_DARK = "rbxasset://textures/RoactStudioWidgets/slider
 local FOREGROUND_BAR_IMAGE_DARK = "rbxasset://textures/RoactStudioWidgets/slider_bar_dark.png"
 local SLIDER_HANDLE_IMAGE_DARK = "rbxasset://textures/RoactStudioWidgets/slider_handle_dark.png"
 
-local FFlagWorldAvatarLocalization = game:GetFastFlag("WorldAvatarLocalization")
-
 local Roact = require(script.Parent.Internal.RequireRoact)
 local ThemeChangeListener = require(script.Parent.Internal.ThemeChangeListener)
 local Theme = require(script.Parent.Internal.Theme)
@@ -205,7 +203,7 @@ function RangeSlider:render()
 					AnchorPoint = Vector2.new(0, 1),
 					Position = UDim2.new(0, 0, 1, 0),
 					Visible = self.props.Enabled,
-					Text = (FFlagWorldAvatarLocalization and self.props.MinLabelText) and self.props.MinLabelText or tostring(self.props.Min) .. "%",
+					Text = self.props.MinLabelText or tostring(self.props.Min) .. "%",
 				}),
 				UpperLabel = Roact.createElement("TextLabel", {
 					BackgroundTransparency = 1,
@@ -220,7 +218,7 @@ function RangeSlider:render()
 					AnchorPoint = Vector2.new(1, 1),
 					Position = UDim2.new(0, BACKGROUND_BAR_WIDTH, 1, 0),
 					Visible = self.props.Enabled,
-					Text = (FFlagWorldAvatarLocalization and self.props.MaxLabelText) and self.props.MaxLabelText or tostring(self.props.Max) .. "%",
+					Text = self.props.MaxLabelText or tostring(self.props.Max) .. "%",
 				}),
 				LowerInputBox = Roact.createElement(RoundTextBox, {
 					Enabled = self.props.Enabled,
@@ -307,7 +305,7 @@ function RangeSlider:render()
 					TextSize = 22,
 					TextXAlignment = Enum.TextXAlignment.Center,
 					TextYAlignment = Enum.TextYAlignment.Center,
-					Text = (FFlagWorldAvatarLocalization and self.props.UnitsLabelText) and self.props.UnitsLabelText or "%",
+					Text = self.props.UnitsLabelText or "%",
 				})
 			})
 		}

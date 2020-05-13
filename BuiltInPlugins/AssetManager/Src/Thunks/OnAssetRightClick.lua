@@ -12,9 +12,11 @@ local Screens = require(Plugin.Src.Util.Screens)
 local AssetManagerService = game:GetService("AssetManagerService")
 local HttpService = game:GetService("HttpService")
 local MemStorageService = game:GetService("MemStorageService")
+local RunService = game:GetService("RunService")
 local StudioService = game:GetService("StudioService")
 
 local FFlagFixAssetManagerInsertWithLocation = game:DefineFastFlag("FixAssetManagerInsertWithLocation", false)
+local FFlagAssetManagerContextMenuActionFixes = game:DefineFastFlag("AssetManagerContextMenuActionFixes", false)
 
 local EVENT_ID_OPENASSETCONFIG = "OpenAssetConfiguration"
 
@@ -69,9 +71,17 @@ local function createPlaceContextMenu(apiImpl, assetData, contextMenu, localizat
     local state = store:getState()
     local assets = state.AssetManagerReducer.assetsTable.assets
     local selectedAssets = state.AssetManagerReducer.selectedAssets
-    contextMenu:AddNewAction("RemoveFromGame", localization:getText("ContextMenu", "RemoveFromGame")).Triggered:connect(function()
-        removeAssets(apiImpl, assetData, assets, selectedAssets, store)
-    end)
+    if FFlagAssetManagerContextMenuActionFixes then
+        if not assetData.isRootPlace then
+            contextMenu:AddNewAction("RemoveFromGame", localization:getText("ContextMenu", "RemoveFromGame")).Triggered:connect(function()
+                removeAssets(apiImpl, assetData, assets, selectedAssets, store)
+            end)
+        end
+    else
+        contextMenu:AddNewAction("RemoveFromGame", localization:getText("ContextMenu", "RemoveFromGame")).Triggered:connect(function()
+            removeAssets(apiImpl, assetData, assets, selectedAssets, store)
+        end)
+    end
     contextMenu:AddNewAction("Rename", localization:getText("ContextMenu", "Rename")).Triggered:connect(function()
         local assetToEdit = {
             [assetData.id] = true,
@@ -99,9 +109,17 @@ local function createPackageContextMenu(assetData, contextMenu, localization, st
     contextMenu:AddNewAction("CopyIdToClipboard", localization:getText("ContextMenu", "CopyIdToClipboard")).Triggered:connect(function()
         StudioService:CopyToClipboard(assetData.id)
     end)
-    contextMenu:AddNewAction("PackageDetails", localization:getText("ContextMenu", "PackageDetails")).Triggered:connect(function()
-        AssetManagerService:ShowPackageDetails(assetData.id)
-    end)
+    if FFlagAssetManagerContextMenuActionFixes then
+        if RunService:IsEdit() then
+            contextMenu:AddNewAction("PackageDetails", localization:getText("ContextMenu", "PackageDetails")).Triggered:connect(function()
+                AssetManagerService:ShowPackageDetails(assetData.id)
+            end)
+        end
+    else
+        contextMenu:AddNewAction("PackageDetails", localization:getText("ContextMenu", "PackageDetails")).Triggered:connect(function()
+            AssetManagerService:ShowPackageDetails(assetData.id)
+        end)
+    end
 
     contextMenu:ShowAsync()
     contextMenu:Destroy()
@@ -114,10 +132,19 @@ local function createImageContextMenu(apiImpl, assetData, contextMenu, localizat
     contextMenu:AddNewAction("RemoveFromGame", localization:getText("ContextMenu", "RemoveFromGame")).Triggered:connect(function()
         removeAssets(apiImpl, assetData, assets, selectedAssets, store)
     end)
-    contextMenu:AddNewAction("EditAsset", localization:getText("ContextMenu", "EditAsset")).Triggered:connect(function()
-        MemStorageService:Fire(EVENT_ID_OPENASSETCONFIG,
-            HttpService:JSONEncode({ id = assetData.id, assetType = Enum.AssetType.Image.Value, }))
-    end)
+    if FFlagAssetManagerContextMenuActionFixes then
+        if RunService:IsEdit() then
+            contextMenu:AddNewAction("EditAsset", localization:getText("ContextMenu", "EditAsset")).Triggered:connect(function()
+                MemStorageService:Fire(EVENT_ID_OPENASSETCONFIG,
+                    HttpService:JSONEncode({ id = assetData.id, assetType = Enum.AssetType.Image.Value, }))
+            end)
+        end
+    else
+        contextMenu:AddNewAction("EditAsset", localization:getText("ContextMenu", "EditAsset")).Triggered:connect(function()
+            MemStorageService:Fire(EVENT_ID_OPENASSETCONFIG,
+                HttpService:JSONEncode({ id = assetData.id, assetType = Enum.AssetType.Image.Value, }))
+        end)
+    end
     contextMenu:AddNewAction("RenameAlias", localization:getText("ContextMenu", "RenameAlias")).Triggered:connect(function()
         local assetToEdit = {
             [assetData.id] = true,
@@ -147,10 +174,19 @@ local function createMeshPartContextMenu(apiImpl, assetData, contextMenu, locali
     contextMenu:AddNewAction("RemoveFromGame", localization:getText("ContextMenu", "RemoveFromGame")).Triggered:connect(function()
         removeAssets(apiImpl, assetData, assets, selectedAssets, store)
     end)
-    contextMenu:AddNewAction("EditAsset", localization:getText("ContextMenu", "EditAsset")).Triggered:connect(function()
-        MemStorageService:Fire(EVENT_ID_OPENASSETCONFIG,
-            HttpService:JSONEncode({ id = assetData.id, assetType = Enum.AssetType.MeshPart.Value, }))
-    end)
+    if FFlagAssetManagerContextMenuActionFixes then
+        if RunService:IsEdit() then
+            contextMenu:AddNewAction("EditAsset", localization:getText("ContextMenu", "EditAsset")).Triggered:connect(function()
+                MemStorageService:Fire(EVENT_ID_OPENASSETCONFIG,
+                    HttpService:JSONEncode({ id = assetData.id, assetType = Enum.AssetType.MeshPart.Value, }))
+            end)
+        end
+    else
+        contextMenu:AddNewAction("EditAsset", localization:getText("ContextMenu", "EditAsset")).Triggered:connect(function()
+            MemStorageService:Fire(EVENT_ID_OPENASSETCONFIG,
+                HttpService:JSONEncode({ id = assetData.id, assetType = Enum.AssetType.MeshPart.Value, }))
+        end)
+    end
     contextMenu:AddNewAction("RenameAlias", localization:getText("ContextMenu", "RenameAlias")).Triggered:connect(function()
         local assetToEdit = {
             [assetData.id] = true,

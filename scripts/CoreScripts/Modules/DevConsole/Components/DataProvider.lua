@@ -1,5 +1,7 @@
 local CorePackages = game:GetService("CorePackages")
 local Roact = require(CorePackages.Roact)
+local RoactRodux = require(CorePackages.RoactRodux)
+
 
 local Components = script.Parent.Parent.Components
 local LogData = require(Components.Log.LogData)
@@ -12,6 +14,7 @@ local ServerStatsData = require(Components.ServerStats.ServerStatsData)
 local ActionBindingsData = require(Components.ActionBindings.ActionBindingsData)
 local ServerJobsData = require(Components.ServerJobs.ServerJobsData)
 
+local FFlagAdminServerLogs = settings():GetFFlag("AdminServerLogs")
 
 local DataProvider = Roact.Component:extend("DataProvider")
 
@@ -32,7 +35,7 @@ function DataProvider:init()
 end
 
 function DataProvider:didMount()
-	if self.props.isDeveloperView then
+	if self.props.isDeveloperView and not FFlagAdminServerLogs then
 		for _, dataProvider in pairs(self._context.DevConsoleData) do
 			dataProvider:start()
 		end
@@ -42,8 +45,27 @@ function DataProvider:didMount()
 	end
 end
 
+function DataProvider:willUpdate(nextProps, nextState)
+	if FFlagAdminServerLogs then
+		if nextProps.isDeveloperView and 
+			not self.props.isDeveloperView then
+			for _, dataProvider in pairs(self._context.DevConsoleData) do
+				if not dataProvider:isRunning() then
+					dataProvider:start()
+				end
+			end
+		end
+	end
+end
+
 function DataProvider:render()
 	return Roact.oneChild(self.props[Roact.Children])
 end
 
-return DataProvider
+local function mapStateToProps(state, props)
+	return {
+		isDeveloperView = state.MainView.isDeveloperView,
+	}
+end
+
+return RoactRodux.UNSTABLE_connect2(mapStateToProps, nil)(DataProvider)

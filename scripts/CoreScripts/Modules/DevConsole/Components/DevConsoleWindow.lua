@@ -162,7 +162,7 @@ end
 function DevConsoleWindow:render()
 	local isVisible = self.props.isVisible
 	local formFactor = self.props.formFactor
-	local isdeveloperView = self.props.isdeveloperView
+	local isDeveloperView = self.props.isDeveloperView
 	local currTabIndex = self.props.currTabIndex
 	local tabList = self.props.tabList
 
@@ -256,7 +256,7 @@ function DevConsoleWindow:render()
 				elements["MainView"] = Roact.createElement( targetTab.tab, {
 					size = mainViewSize,
 					formFactor = formFactor,
-					isdeveloperView = isdeveloperView,
+					isDeveloperView = isDeveloperView,
 					tabList = tabList,
 				})
 			end
@@ -319,6 +319,7 @@ local function mapStateToProps(state, props)
 		isMinimized = state.DisplayOptions.isMinimized,
 		position = state.DisplayOptions.position,
 		size = state.DisplayOptions.size,
+		isDeveloperView = state.MainView.isDeveloperView,
 		currTabIndex = state.MainView.currTabIndex,
 		tabList = state.MainView.tabList,
 	}

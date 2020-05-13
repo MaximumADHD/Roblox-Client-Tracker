@@ -8,9 +8,9 @@ local FFlagDevConsoleFixCommandBarForNonOwners = settings():GetFFlag("DevConsole
 return function(state, action)
 	local mainView = state or {
 		-- initializes to the first tab in the list of views which should be Log
+		isDeveloperView = false,
 		isClientView = true,
 		tabList = {},
-		currTab = nil,
 		currTabIndex = nil,
 	}
 
@@ -43,6 +43,8 @@ return function(state, action)
 			local update = {
 				currTabIndex = action.initIndex,
 				tabList = action.tabList,
+				isDeveloperView = action.isDeveloperView,
+				isClientView = true,
 			}
 			return Immutable.JoinDictionaries(mainView, update)
 		end

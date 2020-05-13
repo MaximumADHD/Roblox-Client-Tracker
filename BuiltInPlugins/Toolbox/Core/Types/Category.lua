@@ -39,7 +39,6 @@ Category.AssetType = {
 	FRONT_ACCESSORY = 15,
 	BACK_ACCESSORY = 16,
 	WAIST_ACCESSORY = 17,
-	VIDEO = 18,
 }
 
 Category.ToolboxAssetTypeToEngine = {
@@ -61,8 +60,11 @@ Category.ToolboxAssetTypeToEngine = {
 	[Category.AssetType.FRONT_ACCESSORY] = Enum.AssetType.FrontAccessory,
 	[Category.AssetType.BACK_ACCESSORY] = Enum.AssetType.BackAccessory,
 	[Category.AssetType.WAIST_ACCESSORY] = Enum.AssetType.WaistAccessory,
-	[Category.AssetType.VIDEO] = 62, -- TODO: Replace with Video Enum when supported https://developer.roblox.com/en-us/api-reference/enum/AssetType#enums
 }
+if FFlagEnableToolboxVideos then
+	Category.AssetType.VIDEO = 18
+	Category.ToolboxAssetTypeToEngine[Category.AssetType.VIDEO] = Enum.AssetType.Video
+end
 
 Category.FREE_MODELS = {name = "FreeModels", category = "FreeModels",
 	ownershipType = Category.OwnershipType.FREE, assetType = Category.AssetType.MODEL}
@@ -89,8 +91,7 @@ Category.MY_PLUGINS = {name = "MyPlugins", category = "MyPlugins",
 	ownershipType = Category.AssetType.PLUGIN, assetType = Category.AssetType.PLUGIN}
 
 if FFlagEnableToolboxVideos then
-	-- TODO: Replace "category = "MarketplaceVideos"" with whatever category name the backend decides on
-	Category.MARKETPLACE_VIDEOS = {name = "MarketplaceVideos", category = "MarketplaceVideos",
+	Category.MARKETPLACE_VIDEOS = {name = "FreeVideo", category = "FreeVideo",
 		ownershipType = Category.OwnershipType.FREE, assetType = Category.AssetType.VIDEO}
 	Category.MY_VIDEOS = {name = "MyVideos", category = "MyVideos",
 		ownershipType = Category.AssetType.MY, assetType = Category.AssetType.VIDEO}
@@ -317,6 +318,14 @@ function Category.categoryIsPlugin(currentTab, index)
 		return checkBounds(index) and Category.MARKETPLACE[index].assetType == Category.AssetType.PLUGIN
 	else
 		return checkBounds(index) and Category.INVENTORY_WITH_GROUPS[index].assetType == Category.AssetType.PLUGIN
+	end
+end
+
+function Category.categoryIsVideo(currentTab, index)
+	if currentTab == Category.MARKETPLACE_KEY then
+		return checkBounds(index) and Category.MARKETPLACE[index].assetType == Category.AssetType.VIDEO
+	else
+		return checkBounds(index) and Category.INVENTORY_WITH_GROUPS[index].assetType == Category.AssetType.VIDEO
 	end
 end
 

@@ -21,11 +21,7 @@ local SetRespawning = require(InGameMenu.Actions.SetRespawning)
 local StartLeavingGame = require(InGameMenu.Actions.StartLeavingGame)
 local CloseMenu = require(InGameMenu.Thunks.CloseMenu)
 local Assets = require(InGameMenu.Resources.Assets)
-local divideTransparency = require(InGameMenu.Utility.divideTransparency)
 
-local ThemedTextLabel = require(script.Parent.ThemedTextLabel)
-local SystemPrimaryButton = require(script.Parent.SystemPrimaryButton)
-local SystemSecondaryButton = require(script.Parent.SystemSecondaryButton)
 local KeyLabel = require(script.Parent.KeyLabel)
 local PageNavigation = require(script.Parent.PageNavigation)
 local GameIconHeader = require(script.Parent.GameIconHeader)
@@ -34,10 +30,9 @@ local getFFlagInGameMenuSinglePaneDesign = require(InGameMenu.Flags.GetFFlagInGa
 local fflagInGameMenuSinglePaneDesign = getFFlagInGameMenuSinglePaneDesign()
 local FFlagInGameMenuSmallerSideBar = require(InGameMenu.Flags.FFlagInGameMenuSmallerSideBar)
 local FFlagRecordRecording = require(InGameMenu.Flags.FFlagRecordRecording)
-local FFlagInGameMenuUseUIBloxButtons = require(CoreGui.RobloxGui.Modules.Flags.FFlagInGameMenuUseUIBloxButtons)
 local FFlagTakeAScreenshotOfThis = game:DefineFastFlag("TakeAScreenshotOfThis", false)
+local FFlagShowContextMenuWhenButtonsArePresent = game:DefineFastFlag("ShowContextMenuWhenButtonsArePresent", false)
 
-local ImageSetLabel = UIBlox.Core.ImageSet.Label
 local Images = UIBlox.App.ImageSet.Images
 
 local MAIN_PAGE_WIDTH = 400
@@ -105,18 +100,20 @@ local function renderButtonModels(self, style, localized)
 	end
 
 	-- Respawn Button
-	table.insert(buttons, {
-		icon = Assets.Images.RespawnIcon,
-		text = localized.respawnCharacter,
-		onActivated = self.props.startRespawning,
-		renderRightElement = function()
-			return Roact.createElement(KeyLabel, {
-				input = Enum.KeyCode.R,
-				AnchorPoint = Vector2.new(0.5, 0.5),
-				Position = UDim2.new(0.5, 0, 0.5, 0),
-			})
-		end,
-	})
+	if self.props.respawnButtonVisible then
+		table.insert(buttons, {
+			icon = Assets.Images.RespawnIcon,
+			text = localized.respawnCharacter,
+			onActivated = self.props.startRespawning,
+			renderRightElement = function()
+				return Roact.createElement(KeyLabel, {
+					input = Enum.KeyCode.R,
+					AnchorPoint = Vector2.new(0.5, 0.5),
+					Position = UDim2.new(0.5, 0, 0.5, 0),
+				})
+			end,
+		})
+	end
 
 	return buttons
 end
@@ -138,8 +135,6 @@ function MainPage:init()
 end
 
 function MainPage:render()
-	local leaveGameSizeOffset = self.props.respawnButtonVisible and -(44 + 12) or 0
-
 	local pageOffset = FFlagInGameMenuSmallerSideBar and 64 or 100
 
 	return withStyle(function(style)
@@ -150,7 +145,7 @@ function MainPage:render()
 			recording = "CoreScripts.InGameMenu.Record.Duration",
 			screenCapture = "CoreScripts.InGameMenu.Controls.Screenshot",
 		})(function(localized)
-			local moreButton = FFlagInGameMenuUseUIBloxButtons and Roact.createElement(UIBlox.App.Button.SecondaryButton, {
+			local moreButton = Roact.createElement(UIBlox.App.Button.SecondaryButton, {
 				size = UDim2.fromOffset(44, 44),
 				onActivated = function()
 					self:setState({
@@ -158,31 +153,16 @@ function MainPage:render()
 					})
 				end,
 				icon = Assets.Images.MoreActions,
-			}) or Roact.createElement(SystemSecondaryButton, {
-				Size = UDim2.new(0, 44, 0, 44),
-				onActivated = function()
-					self:setState({
-						modalOpen = true,
-					})
-				end,
-				renderChildren = function(transparency, isHovered, isPressed)
-					local iconColor = isHovered and style.Theme.IconOnHover or style.Theme.IconDefault
-					local iconColor3 = iconColor.Color
-					local iconTransparency = divideTransparency(iconColor.Transparency, isPressed and 2 or 1)
-
-					return {
-						ButtonIcon = Roact.createElement(ImageSetLabel, {
-							BackgroundTransparency = 1,
-							Size = UDim2.new(0, 36, 0, 36),
-							Position = UDim2.new(0.5, 0, 0.5, 0),
-							AnchorPoint = Vector2.new(0.5, 0.5),
-							Image = Assets.Images.MoreActions,
-							ImageColor3 = iconColor3,
-							ImageTransparency = iconTransparency,
-						})
-					}
-				end,
 			})
+
+			local buttonModels = renderButtonModels(self, style, localized)
+			local showContextMenu = self.props.respawnButtonVisible
+
+			if FFlagShowContextMenuWhenButtonsArePresent then
+				showContextMenu = #buttonModels > 0
+			end
+
+			local leaveGameSizeOffset = showContextMenu and -(44 + 12) or 0
 
 			return Roact.createElement("TextButton", {
 				Size = UDim2.new(0, MAIN_PAGE_WIDTH, 1, 0),
@@ -206,7 +186,7 @@ function MainPage:render()
 							modalOpen = false,
 						})
 					end,
-					buttonModels = renderButtonModels(self, style, localized)
+					buttonModels = buttonModels
 				}),
 				BottomButtons = Roact.createElement("Frame", {
 					Size = UDim2.new(1, 0, 0, 84),
@@ -220,7 +200,7 @@ function MainPage:render()
 						PaddingLeft = UDim.new(0, 24),
 						PaddingRight = UDim.new(0, 24),
 					}),
-					LeaveGame = FFlagInGameMenuUseUIBloxButtons and Roact.createElement("Frame", {
+					LeaveGame = Roact.createElement("Frame", {
 						BackgroundTransparency = 1,
 						Size = UDim2.new(1, leaveGameSizeOffset, 0, 44),
 						Position = UDim2.fromScale(1, 0),
@@ -239,31 +219,8 @@ function MainPage:render()
 							Position = UDim2.new(1, -16, 0.5, 0),
 							ZIndex = 2,
 						})
-					}) or Roact.createElement(SystemPrimaryButton, {
-						Position = UDim2.new(1, 0, 0, 0),
-						AnchorPoint = Vector2.new(1, 0),
-						Size = UDim2.new(1, leaveGameSizeOffset, 0, 44),
-						onActivated = self.props.startLeavingGame,
-						renderChildren = function(transparency)
-							return {
-								ButtonText = Roact.createElement(ThemedTextLabel, {
-									themeKey = "SystemPrimaryContent",
-									fontKey = "Header2",
-									Size = UDim2.new(1, 0, 1, 0),
-									Text = localized.leaveGame,
-								}),
-
-								KeyLabel = Roact.createElement(KeyLabel, {
-									input = Enum.KeyCode.L,
-									borderThemeKey = "UIDefault",
-									textThemeKey = "SystemPrimaryContent",
-									AnchorPoint = Vector2.new(1, 0.5),
-									Position = UDim2.new(1, -16, 0.5, 0),
-								})
-							}
-						end,
 					}),
-					MoreButton = self.props.respawnButtonVisible and moreButton,
+					MoreButton = showContextMenu and moreButton,
 				}),
 			})
 		end)

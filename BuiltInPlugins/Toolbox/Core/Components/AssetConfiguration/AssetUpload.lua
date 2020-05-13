@@ -136,7 +136,7 @@ local function mapStateToProps(state, props)
 		uploadSucceeded = state.uploadSucceeded,
 		instances = state.instances,
 		assetId = state.assetId,
-		assetName = state.changed.AssetConfigName or state.assetName,
+		assetName = state.changed and state.changed.AssetConfigName or state.assetName,
 		screenFlowType = state.screenFlowType,
 		assetTypeEnum = state.assetTypeEnum,
 		thumbnailStatus = state.thumbnailStatus,

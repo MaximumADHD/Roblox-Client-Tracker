@@ -47,6 +47,7 @@ function NetworkData.new( isClient )
 	local self = {}
 	setmetatable(self, NetworkData)
 
+	self._isRunning = false
 	self._isClient = isClient
 	self._httpResultSignal = isClient and LogService.HttpResultOut or LogService.ServerHttpResultOut
 
@@ -173,6 +174,10 @@ function NetworkData:getCurrentData()
 	}
 end
 
+function NetworkData:isRunning()
+	return self._isRunning
+end
+
 function NetworkData:start()
 	if not self._httpResultConnection then
 		if self._additionHttpSetup then
@@ -200,6 +205,7 @@ function NetworkData:start()
 			end)
 			LogService:RequestServerHttpResult()
 		end
+		self._isRunning = true 
 	end
 end
 
@@ -208,6 +214,7 @@ function NetworkData:stop()
 		self._httpResultConnection:Disconnect()
 		self._httpResultConnection = nil
 	end
+	self._isRunning = false
 end
 
 return NetworkData

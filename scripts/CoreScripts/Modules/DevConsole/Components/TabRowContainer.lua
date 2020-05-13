@@ -13,30 +13,35 @@ local Constants = require(script.Parent.Parent.Constants)
 local DROP_DOWN_WIDTH = Constants.TabRowFormatting.TabDropDownWidth
 local TAB_OVERALAP_THESHOLD = Constants.TabRowFormatting.TabOverlapThreshold
 
+local FFlagAdminServerLogs = settings():GetFFlag("AdminServerLogs")
+
 local TabRowContainer = Roact.Component:extend("TabRowContainer")
 
-function TabRowContainer:init()
-	local tabList = self.props.tabList
+local function initTabList(tabList)
 	local textWidths = {}
 	local totalLength = 0
 	local count = 0
-
-	if tabList then
-		for name,_ in pairs(tabList) do
-			local textVector = TextService:GetTextSize(
-				name,
-				Constants.DefaultFontSize.TabBar,
-				Constants.Font.TabBar,
-				Vector2.new(0, 0)
-			)
-			textWidths[name] = textVector.X
-			totalLength = totalLength + textVector.X
-			count = count + 1
-		end
+	for name,_ in pairs(tabList) do
+		local textVector = TextService:GetTextSize(
+			name,
+			Constants.DefaultFontSize.TabBar,
+			Constants.Font.TabBar,
+			Vector2.new(0, 0)
+		)
+		textWidths[name] = textVector.X
+		totalLength = totalLength + textVector.X
+		count = count + 1
 	end
+	return textWidths, totalLength, count
+end
 
+function TabRowContainer:init()
+	local tabList = self.props.tabList
+	
+	local textWidths, totalLength, count = initTabList(tabList)
+	
 	self.state = {
-		textWidths = textWidths,
+		textWidths = textWidths, -- remove with FFlagAdminServerLogs removal
 		totalTextLength = totalLength,
 		totalTabCount = count,
 		currContainerWidth = 0
@@ -52,6 +57,19 @@ function TabRowContainer:init()
 	end
 end
 
+function TabRowContainer:didUpdate(previousProps, previousState)
+	if FFlagAdminServerLogs then
+		if previousProps.tabList ~= self.props.tabList then
+			local textWidths, totalLength, count = initTabList(self.props.tabList)
+			self:setState({
+				textWidths = textWidths,
+				totalTextLength = totalLength,
+				totalTabCount = count,
+			})
+		end
+	end
+end
+
 function TabRowContainer:render()
 	local tabList = self.props.tabList
 	local currTabIndex = self.props.currTabIndex
@@ -63,7 +81,6 @@ function TabRowContainer:render()
 	local textWidths = self.state.textWidths
 	local totalTextLength = self.state.totalTextLength
 	local totalTabCount = self.state.totalTabCount
-
 	local nodes = {}
 
 	local padding = (currWindowWidth - totalTextLength)  / totalTabCount
@@ -104,16 +121,18 @@ function TabRowContainer:render()
 		else
 
 			for name,tab in pairs(tabList) do
-				nodes[name] = Roact.createElement(TabRowButton, {
-					index = tab.layoutOrder,
-					name = name,
-					padding = padding,
-					textWidth = useDropDown and DROP_DOWN_WIDTH or textWidths[name],
-					isSelected = (name == currTabIndex),
-					layoutOrder = tab.layoutOrder,
+				if textWidths[name] then
+					nodes[name] = Roact.createElement(TabRowButton, {
+						index = tab.layoutOrder,
+						name = name,
+						padding = padding,
+						textWidth = useDropDown and DROP_DOWN_WIDTH or textWidths[name],
+						isSelected = (name == currTabIndex),
+						layoutOrder = tab.layoutOrder,
 
-					onTabButtonClicked = self.onTabButtonClicked,
-				})
+						onTabButtonClicked = self.onTabButtonClicked,
+					})
+				end
 			end
 		end
 
