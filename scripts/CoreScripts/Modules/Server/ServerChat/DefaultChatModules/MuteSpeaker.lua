@@ -83,7 +83,7 @@ local function Run(ChatService)
 		local unmuteSpeakerName = GetSpeakerNameFromMessage(message)
 		local speaker = ChatService:GetSpeaker(speakerName)
 		if speaker then
-			local speakerDisplayName = (ChatSettings.PlayerDisplayNamesEnabled and speaker:GetNameForDisplay()) or unmuteSpeakerName
+			local speakerDisplayName = (ChatSettings.PlayerDisplayNamesEnabled and speaker:GetNameForDisplay()) or speakerName
 
 			if (unmuteSpeakerName:lower() == speakerName:lower()) or (unmuteSpeakerName:lower() == speakerDisplayName:lower()) then
 				speaker:SendSystemMessage(ChatLocalization:FormatMessageToSend("GameChat_DoMuteCommand_CannotMuteSelf","You cannot mute yourself."), channel, errorExtraData)

@@ -4,10 +4,11 @@ local Framework = script.Parent.Parent.Parent
 local DraggerStateType = require(Framework.Implementation.DraggerStateType)
 local SelectionHelper = require(Framework.Utility.SelectionHelper)
 local setInsertPoint = require(Framework.Utility.setInsertPoint)
+local StandardCursor = require(Framework.Utility.StandardCursor)
 
-local getFFlagLuaDraggerIconBandaid = require(Framework.Flags.getFFlagLuaDraggerIconBandaid)
 local getFFlagSetInsertPoint = require(Framework.Flags.getFFlagSetInsertPoint)
 local getFFlagOnlyReadyHover = require(Framework.Flags.getFFlagOnlyReadyHover)
+local getFFlagFixDraggerCursors = require(Framework.Flags.getFFlagFixDraggerCursors)
 
 local NO_COLLISIONS_TRANSPARENCY = 0.4
 
@@ -60,9 +61,11 @@ function DraggingHandle:_init(draggerTool, makeDraggedPartsTransparent, dragging
 end
 
 function DraggingHandle:render(draggerTool)
-	if getFFlagLuaDraggerIconBandaid() then
-		draggerTool.props.Mouse.Icon = "rbxasset://SystemCursors/ClosedHand"
-	end
+    if getFFlagFixDraggerCursors() then
+        draggerTool.props.Mouse.Icon = StandardCursor.getClosedHand()
+    else
+        draggerTool.props.Mouse.Icon = "rbxasset://SystemCursors/ClosedHand"
+    end
 
     local toolImplementation = draggerTool.props.ToolImplementation
     if toolImplementation and toolImplementation.render then

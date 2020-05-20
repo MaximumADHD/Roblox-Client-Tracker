@@ -11,12 +11,13 @@
 local HttpService = game:GetService("HttpService")
 local StudioService = game:GetService("StudioService")
 
-local FFlagGameSettingsUsesNewIconEndpoint = settings():GetFFlag("GameSettingsUsesNewIconEndpoint")
 local FFlagVersionControlServiceScriptCollabEnabled = settings():GetFFlag("VersionControlServiceScriptCollabEnabled")
 local FFlagsEnableVersionHistorySetting = settings():GetFFlag("CollabEditVersionHistoryEnabled") and
 	(settings():GetFFlag("StudioInternalScriptVersionHistorySetting") or settings():GetFFlag("StudioPlaceFilterScriptVersionHistorySetting"))
 local DFFlagDeveloperSubscriptionsEnabled = settings():GetFFlag("DeveloperSubscriptionsEnabled")
 local FFlagStudioLocalizationInGameSettingsEnabled = game:GetFastFlag("StudioLocalizationInGameSettingsEnabled")
+local FFlagStudioAddMonetizationToGameSettings = game:GetFastFlag("StudioAddMonetizationToGameSettings")
+local FFlagGameSettingsPlaceSettings = game:GetFastFlag("GameSettingsPlaceSettings")
 
 local Plugin = script.Parent.Parent.Parent
 local Promise = require(Plugin.Promise)
@@ -50,6 +51,7 @@ local Requests = {
 		require(RequestsFolder.LocalizationSettings.AutoLocalization) or nil,
 	AutoTranslationSettings = FFlagStudioLocalizationInGameSettingsEnabled and
 		require(RequestsFolder.LocalizationSettings.AutoTranslationSettings) or nil,
+	Places = FFlagGameSettingsPlaceSettings and require(RequestsFolder.Places) or nil,
 }
 
 local SettingsImpl = {}
@@ -127,18 +129,11 @@ function SettingsImpl:GetSettings()
 					Requests.Configuration.Get(gameId),
 					Requests.Thumbnails.Get(gameId),
 				}
-				
+
 				table.insert(getRequests, Requests.GamePermissions.Get(gameId, creatorName, creatorId, creatorType))
 
-				if FFlagGameSettingsUsesNewIconEndpoint then
-					table.insert(getRequests, Requests.RootPlaceInfo.Get(gameId))
-					table.insert(getRequests, Requests.GameIcon.Get(gameId))
-				else
-					table.insert(getRequests, Requests.RootPlaceInfo.Get(gameId):andThen(function(result)
-						settings = Cryo.Dictionary.join(settings, result)
-						return Requests.GameIcon.DEPRECATED_Get(result.rootPlaceId)
-					end))
-				end
+				table.insert(getRequests, Requests.RootPlaceInfo.Get(gameId))
+				table.insert(getRequests, Requests.GameIcon.Get(gameId))
 
 				if DFFlagDeveloperSubscriptionsEnabled then
 					table.insert(getRequests, Requests.DeveloperSubscriptions.Get())
@@ -160,6 +155,14 @@ function SettingsImpl:GetSettings()
 
 				if FFlagsEnableVersionHistorySetting then
 					table.insert(getRequests, Requests.ScriptVersionHistoryEnabled.Get())
+				end
+
+				if FFlagStudioAddMonetizationToGameSettings then
+					table.insert(getRequests, Requests.Universes.GetVIPServers(gameId))
+        end
+
+				if FFlagGameSettingsPlaceSettings then
+					table.insert(getRequests, Requests.Places.Get())
 				end
 
 				local success,loaded = Promise.all(getRequests):await()
@@ -248,6 +251,22 @@ function SettingsImpl:SaveAll(state)
 			saveInfo.ScriptVersionHistoryEnabled = state.Changed.ScriptVersionHistoryEnabled
 		end
 
+
+		-- TODO 5/13/2020 (mwang) Finish save portion of VIPServers when https://jira.rbx.com/browse/STUDIOBE-360 is done.
+		-- if FFlagStudioAddMonetizationToGameSettings then
+		-- 	if state.Changed.vipServersIsEnabled ~= nil then
+		-- 		saveInfo.PlaceInfo.allowPrivateServers = state.Changed.vipServersIsEnabled
+		-- 	else
+		-- 		saveInfo.PlaceInfo.allowPrivateServers = state.Current.vipServersIsEnabled
+		-- 	end
+
+		-- 	if state.Changed.vipServersPrice ~= nil then
+		-- 		saveInfo.PlaceInfo.privateServerPrice = state.Changed.vipServersPrice
+		-- 	else
+		-- 		saveInfo.PlaceInfo.privateServerPrice = state.Current.vipServersPrice
+		-- 	end
+		-- end
+
 		WorkspaceSettings.saveAllAvatarSettings(saveInfo)
 		local universeId = game.GameId
 
@@ -294,6 +313,11 @@ function SettingsImpl:SaveAll(state)
 		if FFlagsEnableVersionHistorySetting and  saveInfo.ScriptVersionHistoryEnabled ~= nil then
 			table.insert(setRequests, Requests.ScriptVersionHistoryEnabled.Set(saveInfo.ScriptVersionHistoryEnabled))
 		end
+
+		-- TODO 5/13/2020 (mwang) Finish save portion of VIPServers when https://jira.rbx.com/browse/STUDIOBE-360 is done.
+		-- if FFlagStudioAddMonetizationToGameSettings then
+		-- 	table.insert(setRequests, Requests.Places.Patch(state.Current.rootPlaceId, saveInfo.PlaceInfo))
+		-- end
 
 		return Promise.all(setRequests):andThen(function()
 			if saveInfo.Configuration and saveInfo.Configuration.name then

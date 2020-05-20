@@ -847,6 +847,13 @@ return {
         Key = "InGame.Chat.Response.DisplayNameMultipleMatches",
         Values = {
             ["en-us"] = "Warning: The following users have this display name: ",
+            ["es"] = "Advertencia: Los siguientes jugadores tienen este nombre de usuario: ",
+            ["es-es"] = "Advertencia: Los siguientes jugadores tienen este nombre de usuario: ",
+            ["fr"] = "Avertissement - Les utilisateurs suivants ont ce nom d'affichage : ",
+            ["ja"] = "警告: 以下のユーザーには、この表示名があります: ",
+            ["ko"] = "주의: 다음 사용자들이 이 표시 이름을 사용하고 있습니다. ",
+            ["zh-cn"] = "注意：以下用户正在使用此昵称：",
+            ["zh-cjv"] = "注意：以下用户正在使用此昵称：",
         },
     },
 }

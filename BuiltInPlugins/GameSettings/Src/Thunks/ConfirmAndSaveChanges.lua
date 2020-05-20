@@ -21,7 +21,7 @@ local Promise = require(Plugin.Promise)
 
 local FFlagStudioConvertGameSettingsToDevFramework = game:GetFastFlag("StudioConvertGameSettingsToDevFramework")
 
-return function(provider, localization, settingsImpl)
+return function(provider, localization, settingsImpl, dialog)
 	return function(store)
 		local state = store:getState()
 		local settingsImpl = FFlagStudioConvertGameSettingsToDevFramework and settingsImpl or getSettingsImpl(provider)
@@ -86,8 +86,14 @@ return function(provider, localization, settingsImpl)
 		return Promise.new(function(resolve, reject)
 			spawn(function()
 				for _, warning in pairs(state.Settings.Warnings) do
-					if not showDialog(provider, WarningDialog, warningDialogProps[warning]):await() then
-						reject()
+					if FFlagStudioConvertGameSettingsToDevFramework then
+						if not dialog.showDialog(WarningDialog, warningDialogProps[warning]):await() then
+							reject()
+						end
+					else
+						if not showDialog(provider, WarningDialog, warningDialogProps[warning]):await() then
+							reject()
+						end
 					end
 				end
 				resolve()
@@ -96,9 +102,15 @@ return function(provider, localization, settingsImpl)
 		:andThen(function()
 			return store:dispatch(SaveChanges(settingsImpl))
 			:catch(function(errors)
-				showDialog(provider, SimpleDialog, errorDialogProps):catch(function()
-					--do nothing
-				end)
+				if FFlagStudioConvertGameSettingsToDevFramework then
+					dialog.showDialog(SimpleDialog, errorDialogProps):catch(function()
+						--do nothing
+					end)
+				else
+					showDialog(provider, SimpleDialog, errorDialogProps):catch(function()
+						--do nothing
+					end)
+				end
 			end)
 		end)
 	end

@@ -34,6 +34,7 @@ local Cryo = require(Plugin.Cryo)
 local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 
 local ContextServices = require(Plugin.Framework.ContextServices)
+local DialogProvider = require(Plugin.Src.Providers.DialogProviderContextItem)
 
 local settingFromState = require(Plugin.Src.Networking.settingFromState)
 local AddChange = require(Plugin.Src.Actions.AddChange)
@@ -113,6 +114,7 @@ local function createSettingsPage(name, loadValuesToProps, dispatchChanges)
 			Theme = ContextServices.Theme,
 			Localization = ContextServices.Localization,
 			Mouse = ContextServices.Mouse,
+			Dialog = DialogProvider,
 		})
 	end
 

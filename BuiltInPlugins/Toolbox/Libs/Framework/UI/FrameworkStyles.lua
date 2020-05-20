@@ -24,6 +24,7 @@ function FrameworkStyles.new()
 		Image = newDefaults(),
 
 		LoadingBar = newDefaults(),
+		LoadingIndicator = newDefaults(),
 		LinkText = newDefaults(),
 
 		RadioButton = newDefaults(),

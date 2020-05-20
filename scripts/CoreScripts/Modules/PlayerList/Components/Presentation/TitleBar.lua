@@ -19,6 +19,8 @@ local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 local FFlagMinimizePlayerListWhenTopBarOpen
 	= require(RobloxGui.Modules.Flags.FFlagMinimizePlayerListWhenTopBarOpen)
 
+local FFlagPlayerListFixTitleBarTransparency = require(RobloxGui.Modules.Flags.FFlagPlayerListFixTitleBarTransparency)
+
 local TitleBar = Roact.PureComponent:extend("TitleBar")
 
 TitleBar.validateProps = t.strictInterface({
@@ -26,6 +28,7 @@ TitleBar.validateProps = t.strictInterface({
 	LayoutOrder = t.integer,
 	entrySize = t.integer,
 	contentsVisible = FFlagMinimizePlayerListWhenTopBarOpen and t.boolean or nil,
+	backgroundTransparency = FFlagPlayerListFixTitleBarTransparency and t.union(t.number, t.table) or nil,
 
 	gameStats = t.array(t.strictInterface({
 		name = t.string,
@@ -89,7 +92,8 @@ function TitleBar:render()
 			return Roact.createElement("Frame", {
 				Size = self.props.Size,
 				LayoutOrder = self.props.LayoutOrder,
-				BackgroundTransparency = layoutValues.OverrideBackgroundTransparency,
+				BackgroundTransparency = FFlagPlayerListFixTitleBarTransparency and self.props.backgroundTransparency
+					or layoutValues.OverrideBackgroundTransparency,
 				BackgroundColor3 = style.Theme.BackgroundContrast.Color,
 				BorderSizePixel = 0,
 			}, {

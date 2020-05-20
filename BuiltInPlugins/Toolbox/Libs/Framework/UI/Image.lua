@@ -11,15 +11,12 @@
 	Style Values:
 		Vector2 AnchorPoint: The anchor point of the image.
 		Color3 Color: The color tint of the image.
-		UDim2 Size: The size of the image.
-		Vector2 Position: The position of the image.
 		number Transparency: The transparency of the image.
 		string Image: The image asset itself.
 		Enum.ScaleType ScaleType: The SaleType of the image (Fit, Crop, etc).
 		Rect SliceCenter: The SliceCenter rect of the image, if it is ScaleType Slice.
 		UDim2 Size: size of the image
 		UDim2 Position: position of the image
-		Vector2 AnchorPoint: anchor point of the object
 		Vector2 ImageRectSize: partial pixel size of the image
 		Vector2 ImageRectOffset: pixel offset for rendering part of image
 ]]

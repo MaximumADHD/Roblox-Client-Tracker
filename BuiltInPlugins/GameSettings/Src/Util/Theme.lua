@@ -109,6 +109,32 @@ function Theme.createValues(theme, getColor)
 				backgroundColor = isDark and theme:getColor(StyleColor.ScrollBarBackground) or theme:getColor(StyleColor.MainBackground),
 			},
 
+			rowHeight = 35,
+
+			robuxFeeBase = {
+				icon = {
+					image = "rbxasset://textures/ui/common/robux.png",
+					size = 30,
+				},
+
+				priceField = {
+					width = 150,
+				},
+
+				disabledSubText = {
+					width = 475,
+				},
+
+				spacing = 10,
+
+				transparency = {
+					enabled = 0,
+					disabled = 0.5,
+				},
+
+				pricePadding = 25,
+			},
+
 			searchBar = {
 				border = theme:getColor(StyleColor.Border),
 				borderHover = isDark and theme:getColor(StyleColor.MainButton) or theme:getColor(StyleColor.CurrentMarker),
@@ -156,12 +182,15 @@ function Theme.createValues(theme, getColor)
 				borderHover = isDark and theme:getColor(StyleColor.MainButton) or theme:getColor(StyleColor.CurrentMarker),
 				tooltip = theme:getColor(StyleColor.DimmedText),
 				text = theme:getColor(StyleColor.MainText),
+				height = 42,
 			},
 
 			radioButton = {
 				background = theme:getColor(StyleColor.InputFieldBackground),
 				title = theme:getColor(StyleColor.BrightText),
 				description = theme:getColor(StyleColor.DimmedText),
+				size = 20,
+				padding = 5,
 			},
 
 			checkBox = {
@@ -246,8 +275,9 @@ function Theme.createValues(theme, getColor)
 				menu = {
 					--TODO: add image
 					image = "",
-					itemPadding = 50,
+					itemPadding = 30,
 					buttonSize = 32,
+					buttonPaddingY = 10,
 				},
 				textPadding = 6,
 			},
@@ -263,12 +293,29 @@ function Theme.createValues(theme, getColor)
 
 			createButton = {
 				PaddingX = 75,
-				PaddingY = 15,
+				PaddingY = 10,
+			},
+
+			viewButton = {
+				PaddingX = 75,
+				PaddingY = 10,
 			},
 
 			settingsPage = {
 				settingPadding = 32,
 				marginX = 25, -- on each side
+				headerPadding = 6,
+			},
+
+			backButton = {
+				image = "rbxasset://textures/PublishPlaceAs/navigation_pushBack.png",
+				size = 32,
+			},
+
+			placePage = {
+				textBox = {
+					length = 100,
+				}
 			}
 		}),
 
@@ -578,6 +625,21 @@ local function getUILibraryTheme()
 			},
 		},
 
+		checkBox = {
+			backgroundColor = theme:getColor(c.InputFieldBackground),
+			titleColor = theme:getColor(c.BrightText),
+		},
+
+		detailedDropdown = {
+			background = theme:getColor(c.Button),
+			hover = theme:getColor(c.Button, m.Hover),
+			text = theme:getColor(c.BrightText),
+			disabled = theme:getColor(c.Tab),
+			handle = theme:getColor(c.MainText),
+			border = theme:getColor(c.Border),
+			gradient = theme:getColor(c.Dark)
+		},
+
 		textBox = {
 			background = theme:GetColor(c.InputFieldBackground),
 			disabled = theme:GetColor(c.Tab),
@@ -587,8 +649,15 @@ local function getUILibraryTheme()
 			text = theme:GetColor(c.MainText),
 		},
 
+		textEntry = {
+			textTransparency = {
+				enabled = 0,
+				disabled = 0.5
+			}
+		},
+
 		scrollingFrame = {
-			backgroundColor = isDark and theme:getColor(c.ScrollBarBackground) or Color3.fromRGB(245, 245, 245),
+			backgroundColor = isDark and theme:getColor(c.InputFieldBackground) or Color3.fromRGB(245, 245, 245),
 		},
 
 		toggleButton = {
@@ -600,6 +669,11 @@ local function getUILibraryTheme()
 				or "rbxasset://textures/RoactStudioWidgets/toggle_off_light.png",
 			disabledImage = isDark and "rbxasset://textures/RoactStudioWidgets/toggle_disable_dark.png"
 				or "rbxasset://textures/RoactStudioWidgets/toggle_disable_light.png",
+		},
+
+		tooltip = {
+			textSize = 16,
+			font = Enum.Font.SourceSans,
 		}
 	}
 

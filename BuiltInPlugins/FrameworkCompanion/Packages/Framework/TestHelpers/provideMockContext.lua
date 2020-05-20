@@ -72,6 +72,10 @@ return function(contextItemsList, children)
 	local plugin = ContextServices.Plugin.new(mockPlugin.new())
 	table.insert(contextItems, plugin)
 
+	-- PluginActions
+	local pluginActions = ContextServices.PluginActions.new(mockPlugin.new(), {})
+	table.insert(contextItems, pluginActions)
+
 	-- Store
 	local storeObject = Rodux.Store.new(function()
 	end)

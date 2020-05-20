@@ -54,7 +54,7 @@ function Thumbnail:mouseHoverChanged(hovering)
 		if hovering then
 			props.Mouse:__pushCursor("SizeAll")
 		else
-			props.Mouse:__popCursor()
+			props.Mouse:__resetCursor()
 		end
 	else
 		getMouse(self).setHoverIcon("SizeAll", hovering)

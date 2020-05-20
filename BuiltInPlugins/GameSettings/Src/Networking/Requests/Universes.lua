@@ -1,7 +1,6 @@
 --[[
 	Get request for universe active status, as well as creator info.
 ]]
-
 local HttpService = game:GetService("HttpService")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -20,6 +19,9 @@ local DEACTIVATE_REQUEST_TYPE = "develop"
 
 local USERS_URL = "users/%d"
 local USERS_REQUEST_TYPE = "api"
+
+local VIP_SERVERS_REQUEST_URL = "v1/universes/%d/configuration/vip-servers"
+local VIP_SERVERS_REQUEST_TYPE = "develop"
 
 local Universes = {}
 
@@ -54,13 +56,14 @@ function Universes.Get(universeId, studioUserId)
 
 	return Http.Request(requestInfo):andThen(function(jsonResult)
 		local result = HttpService:JSONDecode(jsonResult)
-		
+
         return {
             isActive = result.isActive,
             privacyType = result.privacyType,
             creatorType = Enum.CreatorType[result.creatorType],
             creatorName = result.creatorName,
-            creatorId = result.creatorTargetId,
+			creatorId = result.creatorTargetId,
+			rootPlaceId = result.rootPlaceId,
         }
 	end)
 	:catch(function()
@@ -89,6 +92,30 @@ function Universes.Set(universeId, isActive)
 	:catch(function()
 		warn("Game Settings: Could not change universe Active status.")
 		Analytics.onSaveError("UniverseActive")
+		return Promise.reject()
+	end)
+end
+
+function Universes.GetVIPServers(universeId)
+	local requestInfo = {
+		Url = Http.BuildRobloxUrl(VIP_SERVERS_REQUEST_TYPE, VIP_SERVERS_REQUEST_URL, universeId),
+		Method = "GET",
+	}
+
+	return Http.Request(requestInfo)
+	:andThen(function(jsonResult)
+		local result = HttpService:JSONDecode(jsonResult)
+
+		return {
+			vipServersIsEnabled = result.isEnabled,
+			vipServersPrice = result.price,
+			vipServersActiveServersCount = result.activeServersCount,
+			vipServersActiveSubscriptionsCount = result.activeSubscriptionsCount,
+		}
+	end)
+	:catch(function()
+		warn("Game Settings: Could not load VIP Servers settings from universes.")
+		Analytics.onLoadError("VIPServersGet")
 		return Promise.reject()
 	end)
 end

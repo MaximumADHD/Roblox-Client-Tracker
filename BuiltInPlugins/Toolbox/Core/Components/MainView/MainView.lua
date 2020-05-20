@@ -28,7 +28,8 @@
 local FFlagFixToolboxEmptyRender = game:DefineFastFlag("FixToolboxEmptyRender", false)
 local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
 local FFlagEnableAudioPreview = settings():GetFFlag("EnableAudioPreview")
-local FFlagStudioToolboxShowNoPluginResultsDetail = game:DefineFastFlag("StudioToolboxShowNoPluginResultsDetail", false) 
+local FFlagStudioToolboxShowNoPluginResultsDetail = game:DefineFastFlag("StudioToolboxShowNoPluginResultsDetail", false)
+local FFlagStudioToolboxFixWidthCalculation = game:DefineFastFlag("StudioToolboxFixWidthCalculation", false)
 
 local GuiService = game:GetService("GuiService")
 
@@ -245,8 +246,13 @@ function MainView:render()
 
 		local lowerIndexToRender = state.lowerIndexToRender or 0
 
-		local containerWidth = maxWidth - (2 * Constants.MAIN_VIEW_PADDING)
-			- Constants.SCROLLBAR_BACKGROUND_THICKNESS - Constants.SCROLLBAR_PADDING
+		local containerWidth
+		if FFlagStudioToolboxFixWidthCalculation then
+			containerWidth = maxWidth - (2 * Constants.MAIN_VIEW_PADDING) - Constants.SCROLLBAR_PADDING
+		else
+			containerWidth = maxWidth - (2 * Constants.MAIN_VIEW_PADDING)
+				- Constants.SCROLLBAR_BACKGROUND_THICKNESS - Constants.SCROLLBAR_PADDING
+		end
 
 		local showPrices = Category.shouldShowPrices(props.currentTab, props.categoryIndex)
 

@@ -8,6 +8,7 @@ local ScreenSetup = {}
 
 local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 local FFlagStudioUseNewAnimationImportExportFlow = settings():GetFFlag("StudioUseNewAnimationImportExportFlow")
+local FFlagSupportUploadGroupAnimations = game:DefineFastFlag("StudioSupportUploadGroupAnimations", false)
 
 ScreenSetup.keys = convertArrayToTable({
 	"SHOW_SALES_TAB",
@@ -130,7 +131,7 @@ if FFlagStudioUseNewAnimationImportExportFlow then
 			[keys.SHOW_COMMENT] = false,
 			[keys.SHOW_COPY] = false,
 			[keys.SHOW_GENRE] = false,
-			[keys.SHOW_OWNERSHIP] = false,
+			[keys.SHOW_OWNERSHIP] = FFlagSupportUploadGroupAnimations,
 			[keys.SHOW_PRICE] = false,
 			[keys.SHOW_SALE] = false,
 			[keys.SHOW_VERSIONS_TAB] = false,

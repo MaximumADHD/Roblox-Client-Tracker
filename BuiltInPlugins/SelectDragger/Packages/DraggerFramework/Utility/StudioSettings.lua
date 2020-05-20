@@ -1,28 +1,13 @@
 local Studio = settings().Studio
 
-local Framework = script.Parent.Parent
-local getFFlagFixHoverBoxThickness = require(Framework.Flags.getFFlagFixHoverBoxThickness)
-
-local StudioSettings
-if getFFlagFixHoverBoxThickness() then
-	StudioSettings = {
-		AnimateHoverOver = Studio["Animate Hover Over"],
-		HoverAnimateSpeed = Studio["Hover Animate Speed"],
-		HoverOverColor = Studio["Hover Over Color"],
-		LineThickness = 0.04,
-		SelectColor = Studio["Select Color"],
-		ShowHoverOver = Studio["Show Hover Over"],
-	}
-else
-	StudioSettings = {
-		AnimateHoverOver = Studio["Animate Hover Over"],
-		HoverAnimateSpeed = Studio["Hover Animate Speed"],
-		HoverOverColor = Studio["Hover Over Color"],
-		LineThickness = Studio["Line Thickness"],
-		SelectColor = Studio["Select Color"],
-		ShowHoverOver = Studio["Show Hover Over"],
-	}
-end
+local StudioSettings = {
+	AnimateHoverOver = Studio["Animate Hover Over"],
+	HoverAnimateSpeed = Studio["Hover Animate Speed"],
+	HoverOverColor = Studio["Hover Over Color"],
+	LineThickness = 0.04,
+	SelectColor = Studio["Select Color"],
+	ShowHoverOver = Studio["Show Hover Over"],
+}
 
 function StudioSettings.getHoverAnimateSpeedSeconds(speed)
 	if speed == Enum.HoverAnimateSpeed.VerySlow then

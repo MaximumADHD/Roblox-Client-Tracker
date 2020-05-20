@@ -17,6 +17,7 @@ local Promise = require(Plugin.Promise)
 
 local ContextServices = require(Plugin.Framework.ContextServices)
 local SettingsImpl = require(Plugin.Src.Providers.SettingsImplContextItem)
+local DialogProvider = require(Plugin.Src.Providers.DialogProviderContextItem)
 
 local withTheme = require(Plugin.Src.Consumers.withTheme)
 local withLocalization = require(Plugin.Src.Consumers.withLocalization)
@@ -91,6 +92,7 @@ function Footer:render()
 	local theme = props.Theme:get("Plugin")
 	local localization = props.Localization
 	local settingsImpl = props.SettingsImpl:get()
+	local dialog = props.Dialog
 
 	local saveActive = props.SaveActive
 	local cancelActive = props.CancelActive
@@ -127,7 +129,7 @@ function Footer:render()
 				-- TODO: change to use HoverArea from Developer Framework
 				props.Mouse:__pushCursor("Wait")
 
-				local resolved = self.props.ButtonClicked(userPressedSave, self, localization, settingsImpl):await()
+				local resolved = self.props.ButtonClicked(userPressedSave, self, localization, settingsImpl, dialog):await()
 				if resolved then
 					self.props.OnClose(userPressedSave)
 				end
@@ -144,6 +146,7 @@ if FFlagStudioConvertGameSettingsToDevFramework then
 		Localization = ContextServices.Localization,
 		Mouse = ContextServices.Mouse,
 		SettingsImpl = SettingsImpl,
+		Dialog = DialogProvider,
 	})
 end
 
@@ -160,10 +163,10 @@ Footer = RoactRodux.connect(
 	end,
 	function(dispatch)
 		return {
-			ButtonClicked = function(userPressedSave, provider, localization, settingsImpl)
+			ButtonClicked = function(userPressedSave, provider, localization, settingsImpl, dialog)
 				if userPressedSave then
 					if FFlagStudioConvertGameSettingsToDevFramework then
-						return dispatch(ConfirmAndSaveChanges(provider, localization, settingsImpl))
+						return dispatch(ConfirmAndSaveChanges(provider, localization, settingsImpl, dialog))
 					else
 						return dispatch(ConfirmAndSaveChanges(provider))
 					end

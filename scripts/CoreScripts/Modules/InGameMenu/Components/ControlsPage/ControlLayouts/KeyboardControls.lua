@@ -12,6 +12,8 @@ local PaddedScrollFrame = require(InGameMenu.Components.PaddedScrollFrame)
 local ControlEntry = require(script.Parent.Parent.ControlEntry)
 local ControlEntryHeader = require(script.Parent.Parent.ControlEntryHeader)
 
+local FFlagFixHorizontalScrollBarInControlsPage = game:DefineFastFlag("FixHorizontalScrollBarInControlsPage", false)
+
 local CONTENT_MAX_WIDTH = 900
 local CONTENT_MIN_WIDTH = 150
 
@@ -72,7 +74,8 @@ local function KeyboardControls(props)
 		titleText = "CoreScripts.InGameMenu.Controls.KeyboardAndMouseTitle",
 	}, {
 		ScrollContent = Roact.createElement(PaddedScrollFrame, {
-			CanvasSize = UDim2.new(1, 0, 0, canvasHeight),
+			CanvasSize = UDim2.new(FFlagFixHorizontalScrollBarInControlsPage and 0 or 1, 0, 0, canvasHeight),
+			ScrollingDirection = FFlagFixHorizontalScrollBarInControlsPage and Enum.ScrollingDirection.Y or nil,
 			Size = UDim2.new(1, 0, 1, -BOTTOM_PADDING),
 		}, {
 			ListContainer = Roact.createElement("Frame", {

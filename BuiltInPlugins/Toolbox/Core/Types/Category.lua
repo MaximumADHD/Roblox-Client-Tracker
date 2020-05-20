@@ -5,6 +5,7 @@ local FFlagToolboxShowGroupCreations = game:DefineFastFlag("ToolboxShowGroupCrea
 local FFlagFixToolboxPluginScaling = game:DefineFastFlag("FixToolboxPluginScaling", false)
 local FFlagEnableDefaultSortFix = game:GetFastFlag("EnableDefaultSortFix2")
 local FFlagEnableToolboxVideos = game:GetFastFlag("EnableToolboxVideos")
+local FFlagToolboxUseNewPluginEndpoint = settings():GetFFlag("ToolboxUseNewPluginEndpoint")
 
 local Plugin = script.Parent.Parent.Parent
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
@@ -207,6 +208,13 @@ Category.MARKETPLACE_KEY = "Marketplace"
 Category.INVENTORY_KEY = "Inventory"
 Category.RECENT_KEY = "Recent"
 Category.CREATIONS_KEY = "Creations"
+
+if FFlagToolboxUseNewPluginEndpoint then
+	Category.API_NAMES = {
+		[Category.FREE_AUDIO.name] = "Audio",
+		[Category.WHITELISTED_PLUGINS.name] = "Plugins",
+	}
+end
 
 local function getCreationCategories()
 	local categories

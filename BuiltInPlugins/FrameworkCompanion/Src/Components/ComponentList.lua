@@ -16,6 +16,7 @@ local Decoration = UI.Decoration
 local HoverArea = UI.HoverArea
 
 local GetComponents = require(Plugin.Src.Thunks.GetComponents)
+local RunTests = require(Plugin.Src.Thunks.RunTests)
 local SetCurrentItem = require(Plugin.Src.Actions.SetCurrentItem)
 
 local ComponentList = Roact.PureComponent:extend("ComponentList")
@@ -26,6 +27,27 @@ end
 
 function ComponentList:didMount()
 	self.props.GetComponents()
+
+	local rerunAction = self.props.PluginActions:get("rerunLastStory")
+	rerunAction.Enabled = true
+	self.__rerunActionConnection = rerunAction.Triggered:Connect(function()
+		local lastStory = self.props.Plugin:get():GetSetting("lastStory")
+		if lastStory then
+			self.props.SetCurrentItem(lastStory)
+			local tests = self.props.Tests[lastStory]
+			if tests then
+				self.props.RunTests(tests)
+			end
+		end
+	end)
+end
+
+function ComponentList:willUnmount()
+	local rerunAction = self.props.PluginActions:get("rerunLastStory")
+	rerunAction.Enabled = false
+	if self.__rerunActionConnection then
+		self.__rerunActionConnection:Disconnect()
+	end
 end
 
 function ComponentList:renderHeader(header, index)
@@ -62,6 +84,7 @@ function ComponentList:renderEntry(name, index)
 		Style = isCurrent and "RoundPrimary" or "Round",
 		LayoutOrder = index,
 		OnClick = function()
+			props.Plugin:get():SetSetting("lastStory", name)
 			props.SetCurrentItem(name)
 		end,
 	}, {
@@ -172,12 +195,15 @@ end
 
 ContextServices.mapToProps(ComponentList, {
 	Theme = ContextServices.Theme,
+	PluginActions = ContextServices.PluginActions,
+	Plugin = ContextServices.Plugin,
 })
 
 ComponentList = RoactRodux.connect(
 	function(state, props)
 		return {
 			Components = state.Components.Components,
+			Tests = state.Components.Tests,
 			CurrentItem = state.Status.CurrentItem,
 		}
 	end,
@@ -186,9 +212,12 @@ ComponentList = RoactRodux.connect(
 			GetComponents = function()
 				dispatch(GetComponents())
 			end,
+			RunTests = function(component)
+				dispatch(RunTests(component))
+			end,
 			SetCurrentItem = function(name)
 				dispatch(SetCurrentItem(name))
-			end,
+			end
 		}
 	end
 )(ComponentList)

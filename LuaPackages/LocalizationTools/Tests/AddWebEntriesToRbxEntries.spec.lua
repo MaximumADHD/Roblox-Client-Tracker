@@ -114,14 +114,14 @@ return function()
 		assert(type(info.errorMessage) == "string")
 	end)
 
-	it("errors when you try to add table that's formatted wrong", function()
+	it("errors when you try to add table that's formatted wrong 1", function()
 		local rbxEntries = {}
 		local info = AddWebEntriesToRbxEntries(NonsenseTableData1, rbxEntries)
 		assert(not info.success)
 		assert(type(info.errorMessage) == "string")
 	end)
 
-	it("errors when you try to add table that's formatted wrong", function()
+	it("errors when you try to add table that's formatted wrong 2", function()
 		local rbxEntries = {}
 		local info = AddWebEntriesToRbxEntries(NonsenseTableData2, rbxEntries)
 		assert(not info.success)

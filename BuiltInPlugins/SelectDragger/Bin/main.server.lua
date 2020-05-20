@@ -8,9 +8,6 @@ local RunService = game:GetService("RunService")
 local Plugin = script.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 
--- Flags
-local getFFlagDontReselectSelectTool = require(Plugin.Src.Flags.getFFlagDontReselectSelectTool)
-
 -- Dragger component
 local DraggerTool = require(Plugin.Packages.DraggerFramework.DraggerTool)
 
@@ -79,21 +76,17 @@ local function main()
 	end)
 
 	toolButton.Click:connect(function()
-		if getFFlagDontReselectSelectTool() then
-			if ignoreNextToolbarClick then
-				-- We're about to leave no tool selected. With no tool selected,
-				-- there's nothing to update the mouse icon. So we have to reset
-				-- the mouse icon on the way out the door.
-				plugin:GetMouse().Icon = ""
-				ignoreNextToolbarClick = false
-				return
-			end
+		if ignoreNextToolbarClick then
+			-- We're about to leave no tool selected. With no tool selected,
+			-- there's nothing to update the mouse icon. So we have to reset
+			-- the mouse icon on the way out the door.
+			plugin:GetMouse().Icon = ""
+			ignoreNextToolbarClick = false
+			return
 		end
 
 		if pluginEnabled then
-			if getFFlagDontReselectSelectTool() then
-				ignoreNextToolbarClick = true
-			end
+			ignoreNextToolbarClick = true
 			closePlugin()
 		else
 			openPlugin()

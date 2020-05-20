@@ -50,6 +50,7 @@ local FFlagUseNotificationsLocalization = success and result
 
 local FFlagDontSubmitBlankGameReports = game:DefineFastFlag("DontSubmitBlankGameReports", false)
 local FFlagCollectAnalyticsForSystemMenu = settings():GetFFlag("CollectAnalyticsForSystemMenu")
+local UsePlayerDisplayName = require(RobloxGui.Modules.Settings.UsePlayerDisplayName)
 
 local Constants
 if FFlagCollectAnalyticsForSystemMenu then
@@ -66,6 +67,14 @@ local function Initialize()
 	local playerNames = {}
 	local nameToRbxPlayer = {}
 	local nextPlayerToReport = nil
+
+	function this:GetPlayerNameText(player)
+		if UsePlayerDisplayName() then
+			return player.DisplayName .. " [@" .. player.Name .. "]"
+		else
+			return player.Name
+		end
+	end
 
 	function this:GetPlayerFromIndex(index)
 		local playerName = playerNames[index]
@@ -89,8 +98,9 @@ local function Initialize()
 		for i = 1, #players do
 			local player = players[i]
 			if player ~= PlayersService.LocalPlayer and player.UserId > 0 then
-				playerNames[index] = player.Name
-				nameToRbxPlayer[player.Name] = player
+				local nameText = this:GetPlayerNameText(player)
+				playerNames[index] = nameText
+				nameToRbxPlayer[nameText] = player
 				index = index + 1
 			end
 		end
@@ -120,7 +130,8 @@ local function Initialize()
 		end
 
 		if nextPlayerToReport then
-			local playerSelected = this.WhichPlayerMode:SetSelectionByValue(nextPlayerToReport.Name)
+			local playerNameText = this:GetPlayerNameText(nextPlayerToReport)
+			local playerSelected = this.WhichPlayerMode:SetSelectionByValue(playerNameText)
 			nextPlayerToReport = nil
 
 			if this.GameOrPlayerMode.CurrentIndex == 2 then

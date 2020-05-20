@@ -41,8 +41,6 @@ local FitToContent = createFitToContent("Frame", "UIListLayout", {
     FillDirection = Enum.FillDirection.Vertical,
 })
 
-local fflagCommitButton = game:GetFastFlag("StudioDraftsWidgetCommitButton")
-
 local ListItemView = Roact.Component:extend("ListItemView")
 
 function ListItemView:init()
@@ -64,7 +62,7 @@ function ListItemView:render()
 	local makeMenuActions = self.props.MakeMenuActions
 	local onDoubleClicked = self.props.OnDoubleClicked
 	local buttonStyle = self.props.ButtonStyle
-	local getCurrentSelection = fflagCommitButton and self.props.GetCurrentSelection or nil
+	local getCurrentSelection = self.props.GetCurrentSelection
 
 	local verticalAlignment = self.props.VerticalAlignment
 	local padding = self.props.Padding

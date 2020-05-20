@@ -2,6 +2,7 @@
 -- This script is responsible for fetching the assetInstance using an assetID.
 -- this script will return a model for preview with all scripts disabled.
 local FFlagEnableToolboxVideos = game:GetFastFlag("EnableToolboxVideos")
+local FFlagHideOneChildTreeviewButton = game:GetFastFlag("HideOneChildTreeviewButton")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -27,7 +28,11 @@ local function getPreviewModel(assetId)
 	end)
 
 	if not success then
-		return errorMessage
+		if FFlagHideOneChildTreeviewButton then
+			return success, errorMessage
+		else
+			return errorMessage
+		end
 	end
 
 	local model
@@ -45,7 +50,11 @@ local function getPreviewModel(assetId)
 	end
 
 	disableScripts(model)
-	return model
+	if FFlagHideOneChildTreeviewButton then
+		return success, model
+	else
+		return model
+	end
 end
 
 -- This function returns models containing the assetInstances with all scripts disabled.
@@ -53,6 +62,7 @@ return function(assetId, assetTypeId)
 	local getObjectPromise = Promise.new(function(resolve, reject)
 		spawn(function()
 			local results
+			local isSuccess
 			if assetTypeId == Enum.AssetType.Audio.Value then
 				local soundInstance = Instance.new("Sound")
 				local soundId = ("rbxassetid://%d"):format(assetId)
@@ -63,10 +73,16 @@ return function(assetId, assetTypeId)
 				videoInstance.Video = Urls.constructAssetIdString(assetId)
 				results = videoInstance
 			else
-				results = getPreviewModel(assetId)
+				if FFlagHideOneChildTreeviewButton then
+					isSuccess, results = getPreviewModel(assetId)
+				else
+					results = getPreviewModel(assetId)
+				end
 			end
 
-			if type(results) == "String" then
+			if FFlagHideOneChildTreeviewButton and (not isSuccess) then
+				reject(results)
+			elseif (not FFlagHideOneChildTreeviewButton) and type(results) == "String" then
 				reject(results)
 			else
 				resolve(results)

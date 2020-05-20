@@ -48,7 +48,7 @@ local DFFlagEnableRemoteProfilingForDevConsole = settings():GetFFlag("EnableRemo
 local FFlagRespectDisplayOrderForOnTopOfCoreBlur = settings():GetFFlag("RespectDisplayOrderForOnTopOfCoreBlur")
 local FFlagDevConsoleAnalyticsIncludeOwner = settings():GetFFlag("DevConsoleAnalyticsIncludeOwner")
 
-local FFlagUseCanManageForDeveloperIconClient = game:GetFastFlag("UseCanManageForDeveloperIconClient")
+local FFlagUseCanManageForDeveloperIconClient2 = game:GetFastFlag("UseCanManageForDeveloperIconClient2")
 local FFlagAdminServerLogs = settings():GetFFlag("AdminServerLogs")
 
 local DEV_TAB_LIST = {
@@ -139,7 +139,7 @@ local function isDeveloper()
 		return true
 	end
 
-	if FFlagUseCanManageForDeveloperIconClient then
+	if FFlagUseCanManageForDeveloperIconClient2 then
 		if PlayerPermissionsModule.CanPlayerManagePlaceAsync(Players.LocalPlayer) then
 			return true
 		end
@@ -265,7 +265,7 @@ function DevConsoleMaster:Start()
 				self._statsConnector = clientReplicator.StatsReceived:connect(function(stats)
 					self._statsConnector:Disconnect()
 					self._statsConnector = nil
-					
+
 					self.store:dispatch(SetTabList(DEV_TAB_LIST, "Log", true))
 				end)
 				clientReplicator:RequestServerStats(true)

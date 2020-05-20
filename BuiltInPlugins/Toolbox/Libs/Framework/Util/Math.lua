@@ -14,7 +14,8 @@ local Math = {}
 ]]
 function Math.round(num, numDecimalPlaces)
 	assert(t.number(num), "num must be a number")
-	assert(t.optional(t.number(numDecimalPlaces)), "numDecimalPlaces must be a number or nil")
+	assert(t.optional(t.number)(numDecimalPlaces), "numDecimalPlaces must be a number or nil")
+
 
 	local mult = 10^(numDecimalPlaces or 0)
 	return math.floor(num * mult + 0.5) / mult

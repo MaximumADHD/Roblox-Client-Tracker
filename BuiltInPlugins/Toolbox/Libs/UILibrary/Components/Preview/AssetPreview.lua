@@ -73,6 +73,7 @@ local AssetType = require(Library.Utils.AssetType)
 
 local FFlagStudioFixAssetPreviewTreeView = settings():GetFFlag("StudioFixAssetPreviewTreeView")
 local FFlagStudioFixAssetPreviewCloseButton = settings():GetFFlag("StudioFixAssetPreviewCloseButton")
+local FFlagAssetPreviewGenreNotType = game:DefineFastFlag("AssetPreviewGenreNotType", false)
 
 local AssetPreview = Roact.PureComponent:extend("AssetPreview")
 
@@ -469,7 +470,7 @@ function AssetPreview:render()
 				}),
 
 				Category = Roact.createElement(AssetDescription, {
-					LeftContent = "Type",
+					LeftContent = FFlagAssetPreviewGenreNotType and "Genre" or "Type",
 					RightContent = getGenreString(assetGenres),
 
 					LayoutOrder = layoutIndex:getNextOrder(),

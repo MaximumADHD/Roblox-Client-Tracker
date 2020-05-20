@@ -84,7 +84,7 @@ local RemoveEvent_NewPlayerCanManageDetails = Instance.new('RemoteEvent')
 RemoveEvent_NewPlayerCanManageDetails.Name = 'NewPlayerCanManageDetails'
 RemoveEvent_NewPlayerCanManageDetails.Parent = RobloxReplicatedStorage
 
-game:DefineFastFlag("UseCanManageForDeveloperIconServer", false)
+game:DefineFastFlag("UseCanManageForDeveloperIconServer2", false)
 
 --[[ Helper Functions ]]--
 local function decodeJSON(json)
@@ -347,7 +347,7 @@ local function onPlayerAdded(newPlayer)
 		coroutine.wrap(getPlayerGroupDetails)(newPlayer)
 	end
 
-	if game:GetFastFlag("UseCanManageForDeveloperIconServer") then
+	if game:GetFastFlag("UseCanManageForDeveloperIconServer2") then
 		sendPlayerAllCanManage(newPlayer)
 		coroutine.wrap(getPlayerCanManage)(newPlayer)
 	end
@@ -391,8 +391,8 @@ Players.PlayerRemoving:connect(function(prevPlayer)
 	if PlayerToGroupDetailsMap[uid] then
 		PlayerToGroupDetailsMap[uid] = nil
 	end
-	if game:GetFastFlag("UseCanManageForDeveloperIconServer") then
-		if PlayerToCanManageMap[uid] then
+	if game:GetFastFlag("UseCanManageForDeveloperIconServer2") then
+		if PlayerToCanManageMap[uid] ~= nil then
 			PlayerToCanManageMap[uid] = nil
 		end
 	end

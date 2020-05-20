@@ -12,9 +12,11 @@ local MainReducer = require(main.Src.Reducers.MainReducer)
 local ContextServices = require(main.Packages.Framework.ContextServices)
 local StudioUI = require(main.Packages.Framework.StudioUI)
 local DockWidget = StudioUI.DockWidget
+local Localization = ContextServices.Localization
 local PluginToolbar = StudioUI.PluginToolbar
 local PluginButton = StudioUI.PluginButton
 local Plugin = ContextServices.Plugin
+local PluginActions = ContextServices.PluginActions
 local Mouse = ContextServices.Mouse
 local Store = ContextServices.Store
 local MakeTheme = require(main.Src.Resources.MakeTheme)
@@ -99,6 +101,15 @@ function MainPlugin:render()
 			MainProvider = enabled and ContextServices.provide({
 				Mouse.new(plugin:getMouse()),
 				MakeTheme(),
+				PluginActions.new(
+					plugin,
+					{
+						{
+							id = "rerunLastStory",
+							text = "Re-open last story and run its tests"
+						}
+					}
+				),
 				Store.new(self.store),
 			}, {
 				ComponentList = Roact.createElement(ComponentList),

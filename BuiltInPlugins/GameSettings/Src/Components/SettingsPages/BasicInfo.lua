@@ -53,6 +53,7 @@ local UILibrary = require(Plugin.UILibrary)
 local ContextServices = require(Plugin.Framework.ContextServices)
 
 local showDialog = require(Plugin.Src.Consumers.showDialog)
+local DialogProvider = require(Plugin.Src.Providers.DialogProviderContextItem)
 
 local TitledFrame = UILibrary.Component.TitledFrame
 local CheckBoxSet = require(Plugin.Src.Components.CheckBoxSet)
@@ -339,6 +340,7 @@ local function createContents(props, localized, addThumbnail, addIcon, page)
 	local fflagNetworkRefactor = game:GetFastFlag("GameSettingsNetworkRefactor")
 
 	local devices = props.Devices
+	local dialog = props.Dialog
 
 	local localizedGenreList
 	if FFlagStudioConvertGameSettingsToDevFramework then
@@ -410,7 +412,7 @@ local function createContents(props, localized, addThumbnail, addIcon, page)
 
 	return {
 		Header = (not fflagNetworkRefactor) and Roact.createElement(Header, {
-			Title = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "Category"..LOCALIZATION_ID) or localized.Category[LOCALIZATION_ID],
+			Title = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "Category"..LOCALIZATION_ID) or localized.Category["Basic Info"],
 			LayoutOrder = 0,
 		}),
 
@@ -550,14 +552,28 @@ local function createContents(props, localized, addThumbnail, addIcon, page)
 							localized:getText("General", "ReplyAgree")
 						} or localized.ContentDialog.Buttons,
 					}
-					if not showDialog(page, ListDialog, dialogProps):await() then
-						return
+					if FFlagStudioConvertGameSettingsToDevFramework then
+						if not dialog.showDialog(ListDialog, dialogProps):await() then
+							return
+						end
+					else
+						if not showDialog(page, ListDialog, dialogProps):await() then
+							return
+						end
 					end
 				end
-				local newDevices = Cryo.Dictionary.join(devices, {
-					[box.Id] = not box.Selected,
-				})
-				props.DevicesChanged(newDevices)
+
+				if game:GetFastFlag("GameSettingsNetworkRefactor") then
+					local newDevices = Cryo.Dictionary.join(devices, {
+						[box.Id] = (box.Selected) and Cryo.None or not box.Selected,
+					})
+					props.DevicesChanged(newDevices)
+				else
+					local newDevices = Cryo.Dictionary.join(devices, {
+						[box.Id] = not box.Selected,
+					})
+					props.DevicesChanged(newDevices)
+				end
 			end,
 		}),
 	}
@@ -639,6 +655,7 @@ if (game:GetFastFlag("GameSettingsNetworkRefactor")) then
 	ContextServices.mapToProps(BasicInfo, {
 		Localization = ContextServices.Localization,
 		Theme = ContextServices.Theme,
+		Dialog = DialogProvider,
 	})
 
 	local settingFromState = require(Plugin.Src.Networking.settingFromState)

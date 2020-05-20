@@ -17,7 +17,7 @@ local Images = UIBlox.App.ImageSet.Images
 local PlayerList = script.Parent.Parent
 
 local FFlagPlayerListFixLeaderboardDisabledError = game:DefineFastFlag("PlayerListFixLeaderboardDisabledError", false)
-local FFlagUseCanManageForDeveloperIconClient = game:GetFastFlag("UseCanManageForDeveloperIconClient")
+local FFlagUseCanManageForDeveloperIconClient2 = game:GetFastFlag("UseCanManageForDeveloperIconClient2")
 
 local SPECIAL_PLAYER_ICONS = {
 	Admin = Images["icons/status/player/admin"],
@@ -72,7 +72,7 @@ local function getGameCreator(store, player)
 	end
 
 	if FFlagPlayerListFixLeaderboardDisabledError then
-		if FFlagUseCanManageForDeveloperIconClient then
+		if FFlagUseCanManageForDeveloperIconClient2 then
 			if PlayerPermissionsModule.CanPlayerManagePlaceAsync(player) then
 				dispatchIfPlayerExists(store, player, SetPlayerIsCreator(player, true))
 			end

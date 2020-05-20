@@ -9,10 +9,14 @@
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
+local ContextServices = require(Plugin.Framework.ContextServices)
+
 local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 local getMouse = require(Plugin.Src.Consumers.getMouse)
 
 local HoverBarButton = Roact.PureComponent:extend("HoverBarButton")
+
+local FFlagStudioConvertGameSettingsToDevFramework = game:GetFastFlag("StudioConvertGameSettingsToDevFramework")
 
 function HoverBarButton:init()
 	self.state = {
@@ -21,7 +25,17 @@ function HoverBarButton:init()
 end
 
 function HoverBarButton:mouseHoverChanged(hovering)
-	getMouse(self).setHoverIcon("PointingHand", hovering)
+	-- TODO: change to use HoverArea from Developer Framework
+	if FFlagStudioConvertGameSettingsToDevFramework then
+		local props = self.props
+		if hovering then
+			props.Mouse:__pushCursor("PointingHand")
+		else
+			props.Mouse:__resetCursor()
+		end
+	else
+		getMouse(self).setHoverIcon("PointingHand", hovering)
+	end
 	self:setState({
 		Hovering = hovering,
 	})
@@ -59,6 +73,12 @@ function HoverBarButton:render()
 			Size = UDim2.new(1, 0, 1, 0),
 			Image = image,
 		})
+	})
+end
+
+if FFlagStudioConvertGameSettingsToDevFramework then
+	ContextServices.mapToProps(HoverBarButton, {
+		Mouse = ContextServices.Mouse,
 	})
 end
 

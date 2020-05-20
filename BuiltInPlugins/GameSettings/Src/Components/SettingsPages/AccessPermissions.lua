@@ -96,7 +96,7 @@ local function displayContents(page, localized, theme)
 	local groupDescription
 	if FFlagStudioConvertGameSettingsToDevFramework then
 		groupTitle = props.Group and localized:getText("General", "PlayabilityGroup") or localized:getText("General", "PlayabilityFriends")
-		groupDescription = props.Group and localized:getText("General", "PlayabilityGroupDesc", {group = props.Group}) or localized:getText("General", "PlayabiiltyFreindsDesc")
+		groupDescription = props.Group and localized:getText("General", "PlayabilityGroupDesc", {group = props.Group}) or localized:getText("General", "PlayabilityFriendsDesc")
 	else
 		groupTitle = props.Group and localized.Playability.Group.Title or localized.Playability.Friends.Title
 		groupDescription = props.Group and localized.Playability.Group.Description({group = props.Group})
@@ -113,7 +113,7 @@ local function displayContents(page, localized, theme)
 			},  {
 				Id = false,
 				Title = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "PlayabilityPrivate") or localized.Playability.Private.Title,
-				Description = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "PlayabilityPublicDesc") or localized.Playability.Private.Description,
+				Description = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "PlayabilityPrivateDesc") or localized.Playability.Private.Description,
 			},
 		}
 	else
@@ -129,7 +129,7 @@ local function displayContents(page, localized, theme)
 			}, {
 				Id = false,
 				Title = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "PlayabilityPrivate") or localized.Playability.Private.Title,
-				Description = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "PlayabilityPublicDesc") or localized.Playability.Private.Description,
+				Description = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "PlayabilityPrivateDesc") or localized.Playability.Private.Description,
 			},
 		}
 	end

@@ -35,6 +35,11 @@ local MOTOR_OPTIONS = {
 local FFlagMinimizePlayerListWhenTopBarOpen
 	= require(RobloxGui.Modules.Flags.FFlagMinimizePlayerListWhenTopBarOpen)
 
+local FFlagPlayerListFixContextMenuFlashing
+	= require(RobloxGui.Modules.Flags.FFlagPlayerListFixContextMenuFlashing)
+
+local FFlagPlayerListFixTitleBarTransparency = require(RobloxGui.Modules.Flags.FFlagPlayerListFixTitleBarTransparency)
+
 local PlayerListDisplay = Roact.PureComponent:extend("PlayerListDisplay")
 
 PlayerListDisplay.validateProps = t.strictInterface({
@@ -301,6 +306,11 @@ function PlayerListDisplay:render()
 						return defaultTransparency + (delta * value)
 					end)
 
+					local dropDownContentsVisible = nil
+					if FFlagPlayerListFixContextMenuFlashing then
+						dropDownContentsVisible = self.state.contentsVisible
+					end
+
 					return Roact.createElement("Frame", {
 						Position = layoutValues.PlayerScrollListPosition,
 						Size = layoutValues.PlayerScrollListSize,
@@ -342,6 +352,7 @@ function PlayerListDisplay:render()
 							TitleBar = #self.props.gameStats > 0 and Roact.createElement(TitleBar, {
 								LayoutOrder = 2,
 								contentsVisible = self.state.contentsVisible,
+								backgroundTransparency = FFlagPlayerListFixTitleBarTransparency and transparencyBinding,
 								gameStats = self.props.gameStats,
 								Size = UDim2.new(1, 0, 0, layoutValues.TitleBarSizeY),
 								entrySize = self.props.entrySize,
@@ -357,7 +368,9 @@ function PlayerListDisplay:render()
 
 								[Roact.Change.AbsolutePosition] = self.absolutePositionChanged,
 							}, {
-								PlayerDropDown = self.state.contentsVisible and Roact.createElement(PlayerDropDown, {
+								PlayerDropDown = (FFlagPlayerListFixContextMenuFlashing or self.state.contentsVisible)
+									and Roact.createElement(PlayerDropDown, {
+									contentsVisible = dropDownContentsVisible,
 									selectedPlayer = self.props.dropDownPlayer,
 									positionY = absDropDownPosition,
 									minPositionBoundY = -self.state.scrollingFramePositionY + layoutValues.DropDownScreenSidePadding,

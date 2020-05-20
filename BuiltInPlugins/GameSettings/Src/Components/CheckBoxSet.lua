@@ -9,8 +9,6 @@
 		string ErrorMessage = An error message to display on this CheckBoxSet.
 ]]
 
-local FFlagGameSettingsUseUILibraryCheckBox = settings():GetFFlag("GameSettingsUseUILibraryCheckBox")
-
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
@@ -21,12 +19,7 @@ local ContextServices = require(Plugin.Framework.ContextServices)
 local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
 
-local CheckBox
-if FFlagGameSettingsUseUILibraryCheckBox then
-	CheckBox = UILibrary.Component.CheckBox
-else
-	CheckBox = require(Plugin.Src.Components.CheckBox)
-end
+local CheckBox = UILibrary.Component.CheckBox
 
 local FFlagStudioConvertGameSettingsToDevFramework = game:GetFastFlag("StudioConvertGameSettingsToDevFramework")
 
@@ -59,12 +52,6 @@ function CheckBoxSet:DEPRECATED_render()
 				Enabled = props.Enabled,
 				LayoutOrder = i,
 				OnActivated = function()
-					props.EntryClicked(box)
-				end,
-
-				-- TODO (dnurkkala):
-				-- remove with the removal of FFlagGameSettingsUseUILibraryCheckBox
-				OnClicked = function()
 					props.EntryClicked(box)
 				end,
 			}))
@@ -123,12 +110,6 @@ function CheckBoxSet:render()
 			Enabled = props.Enabled,
 			LayoutOrder = i,
 			OnActivated = function()
-				props.EntryClicked(box)
-			end,
-
-			-- TODO (dnurkkala):
-			-- remove with the removal of FFlagGameSettingsUseUILibraryCheckBox
-			OnClicked = function()
 				props.EntryClicked(box)
 			end,
 		}))

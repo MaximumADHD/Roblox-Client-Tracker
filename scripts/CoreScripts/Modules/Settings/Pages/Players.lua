@@ -28,6 +28,7 @@ local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 local InviteToGameAnalytics = require(ShareGameDirectory.Analytics.InviteToGameAnalytics)
 local PolicyService = require(RobloxGui.Modules.Common.PolicyService)
+local UsePlayerDisplayName = require(RobloxGui.Modules.Settings.UsePlayerDisplayName)
 
 ------------ Constants -------------------
 local FRAME_DEFAULT_TRANSPARENCY = .85
@@ -354,7 +355,7 @@ local function Initialize()
 	local createShareGameButton = nil
 	local createPlayerRow = nil
 
-	local function createRow(frameClassName)
+	local function createRow(frameClassName, hasSecondRow)
 		local frame = Instance.new(frameClassName)
 		frame.Image = "rbxasset://textures/ui/dialog_white.png"
 		frame.ScaleType = "Slice"
@@ -376,13 +377,27 @@ local function Initialize()
 		local textLabel = Instance.new("TextLabel")
 		textLabel.TextXAlignment = Enum.TextXAlignment.Left
 		textLabel.Font = Enum.Font.SourceSans
-		textLabel.FontSize = Enum.FontSize.Size24
+		textLabel.FontSize = hasSecondRow and Enum.FontSize.Size36 or Enum.FontSize.Size24
 		textLabel.TextColor3 = Color3.new(1, 1, 1)
 		textLabel.BackgroundTransparency = 1
-		textLabel.Position = UDim2.new(0, 60, .5, 0)
+		textLabel.Position = hasSecondRow and UDim2.new(0, 60, 0.5, -10) or UDim2.new(0, 60, .5, 0)
 		textLabel.Size = UDim2.new(0, 0, 0, 0)
 		textLabel.ZIndex = 3
 		textLabel.Parent = frame
+
+		if hasSecondRow then
+			local secondRow = Instance.new("TextLabel")
+			secondRow.Name = "SecondRow"
+			secondRow.TextXAlignment = Enum.TextXAlignment.Left
+			secondRow.Font = Enum.Font.SourceSans
+			secondRow.FontSize = Enum.FontSize.Size24
+			secondRow.TextColor3 = Color3.fromRGB(162, 162, 162)
+			secondRow.BackgroundTransparency = 1
+			secondRow.Position = UDim2.new(0, 60, .5, 12)
+			secondRow.Size = UDim2.new(0, 0, 0, 0)
+			secondRow.ZIndex = 3
+			secondRow.Parent = frame
+		end
 
 		return frame
 	end
@@ -466,8 +481,15 @@ local function Initialize()
 	end
 
 	createPlayerRow = function()
-		local frame = createRow("ImageLabel")
-		frame.TextLabel.Name = "NameLabel"
+		local showDisplayName = UsePlayerDisplayName()
+
+		local frame = createRow("ImageLabel", showDisplayName)
+		if showDisplayName then
+			frame.TextLabel.Name = "DisplayNameLabel"
+			frame.SecondRow.Name = "NameLabel"
+		else
+			frame.TextLabel.Name = "NameLabel"
+		end
 
 		local rightSideButtons = Instance.new("Frame")
 		rightSideButtons.Name = "RightSideButtons"
@@ -518,6 +540,9 @@ local function Initialize()
 
 		pcall(function()
 			frame.NameLabel.Localize = false
+			if showDisplayName then
+				frame.DisplayNameLabel.Localize = false
+			end
 		end)
 
 		return frame
@@ -531,10 +556,26 @@ local function Initialize()
 		local function reportFlagChanged(reportFlag, prop)
 			if prop == "AbsolutePosition" and wasIsPortrait then
 				local maxPlayerNameSize = reportFlag.AbsolutePosition.X - 20 - frame.NameLabel.AbsolutePosition.X
-				frame.NameLabel.Text = player.Name
-				local newNameLength = string.len(player.Name)
+				if UsePlayerDisplayName() then
+					frame.NameLabel.Text = "@" .. player.Name
+					frame.DisplayNameLabel.Text = player.DisplayName
+				else
+					frame.NameLabel.Text = player.Name
+				end
+
+				if UsePlayerDisplayName() then
+					local newDisplayNameLength = utf8.len(player.DisplayName)
+					while frame.NameLabel.TextBounds.X > maxPlayerNameSize and newDisplayNameLength > 0 do
+						local offset = utf8.offset(player.DisplayName, newDisplayNameLength)
+						frame.NameLabel.Text = string.sub(player.DisplayName, 1, offset) .. "..."
+						newDisplayNameLength = newDisplayNameLength - 1
+					end
+				end
+
+				local playerNameText = UsePlayerDisplayName() and "@" .. player.Name or player.Name
+				local newNameLength = string.len(playerNameText)
 				while frame.NameLabel.TextBounds.X > maxPlayerNameSize and newNameLength > 0 do
-					frame.NameLabel.Text = string.sub(player.Name, 1, newNameLength) .. "..."
+					frame.NameLabel.Text = string.sub(playerNameText, 1, newNameLength) .. "..."
 					newNameLength = newNameLength - 1
 				end
 			end
@@ -559,7 +600,12 @@ local function Initialize()
 					reportFlagChanged(reportFlag, "AbsolutePosition")
 				end
 			else
-				frame.NameLabel.Text = player.Name
+				if UsePlayerDisplayName() then
+					frame.NameLabel.Text = "@" .. player.Name
+					frame.DisplayNameLabel.Text = player.DisplayName
+				else
+					frame.NameLabel.Text = player.Name
+				end
 			end
 		end)
 	end
@@ -632,7 +678,12 @@ local function Initialize()
                     end
                 end)
 
-				frame.NameLabel.Text = player.Name
+				if UsePlayerDisplayName() then
+					frame.DisplayNameLabel.Text = player.DisplayName
+					frame.NameLabel.Text = "@" .. player.Name
+				else
+					frame.NameLabel.Text = player.Name
+				end
 				frame.ImageTransparency = FRAME_DEFAULT_TRANSPARENCY
 				-- extra index room for shareGameButton
 				frame.LayoutOrder = index + 1

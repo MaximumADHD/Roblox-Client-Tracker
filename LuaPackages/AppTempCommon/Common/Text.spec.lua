@@ -114,32 +114,32 @@ return function()
 
 
 	describe("TrimString", function()
-		it("Should trim the string properly", function()
+		it("Should trim the string properly 1", function()
 			local trimmedInput = Text.Trim("")
 			local expected = ""
 			expect(trimmedInput).to.equal(expected)
 		end)
-		it("Should trim the string properly", function()
+		it("Should trim the string properly 2", function()
 			local trimmedInput = Text.Trim("    ")
 			local expected = ""
 			expect(trimmedInput).to.equal(expected)
 		end)
-		it("Should trim the string properly", function()
+		it("Should trim the string properly 3", function()
 			local trimmedInput = Text.Trim("ab")
 			local expected = "ab"
 			expect(trimmedInput).to.equal(expected)
 		end)
-		it("Should trim the string properly", function()
+		it("Should trim the string properly 4", function()
 			local trimmedInput = Text.Trim("    ab   ")
 			local expected = "ab"
 			expect(trimmedInput).to.equal(expected)
 		end)
-		it("Should trim the string properly", function()
+		it("Should trim the string properly 5", function()
 			local trimmedInput = Text.Trim("    a b    ")
 			local expected = "a b"
 			expect(trimmedInput).to.equal(expected)
 		end)
-		it("Should trim the string properly", function()
+		it("Should trim the string properly 6", function()
 			local trimmedInput = Text.Trim("\r\n\t\f a\r\n\t\f ")
 			local expected = "a"
 			expect(trimmedInput).to.equal(expected)
@@ -149,12 +149,12 @@ return function()
 			local expected = "😤👩🏼‍🏫😭ぼ😀で😹🤕あ👩🏻‍🎓"
 			expect(trimmedInput).to.equal(expected)
 		end)
-		it("Should trim the string properly", function()
+		it("Should trim the string properly 7", function()
 			local trimmedInput = Text.Trim("    😤👩🏼‍🏫😭ぼ😀で😹🤕あ👩🏻‍🎓    ")
 			local expected = "😤👩🏼‍🏫😭ぼ😀で😹🤕あ👩🏻‍🎓"
 			expect(trimmedInput).to.equal(expected)
 		end)
-		it("Should trim the string properly", function()
+		it("Should trim the string properly 8", function()
 			local trimmedInput = Text.Trim("\n    😤👩🏼‍🏫😭ぼ😀 \nで😹🤕あ👩🏻‍🎓    \n")
 			local expected = "😤👩🏼‍🏫😭ぼ😀 \nで😹🤕あ👩🏻‍🎓"
 			expect(trimmedInput).to.equal(expected)
@@ -163,32 +163,32 @@ return function()
 
 
 	describe("RightTrimString", function()
-		it("Should right trim the string properly", function()
+		it("Should right trim the string properly 1", function()
 			local trimmedInput = Text.RightTrim("")
 			local expected = ""
 			expect(trimmedInput).to.equal(expected)
 		end)
-		it("Should right trim the string properly", function()
+		it("Should right trim the string properly 2", function()
 			local trimmedInput = Text.RightTrim("    ")
 			local expected = ""
 			expect(trimmedInput).to.equal(expected)
 		end)
-		it("Should right trim the string properly", function()
+		it("Should right trim the string properly 3", function()
 			local trimmedInput = Text.RightTrim("ab")
 			local expected = "ab"
 			expect(trimmedInput).to.equal(expected)
 		end)
-		it("Should right trim the string properly", function()
+		it("Should right trim the string properly 4", function()
 			local trimmedInput = Text.RightTrim("    ab   ")
 			local expected = "    ab"
 			expect(trimmedInput).to.equal(expected)
 		end)
-		it("Should right trim the string properly", function()
+		it("Should right trim the string properly 5", function()
 			local trimmedInput = Text.RightTrim("    a b    ")
 			local expected = "    a b"
 			expect(trimmedInput).to.equal(expected)
 		end)
-		it("Should right trim the string properly", function()
+		it("Should right trim the string properly 6", function()
 			local trimmedInput = Text.RightTrim("\r\n\t\f a\r\n\t\f ")
 			local expected = "\r\n\t\f a"
 			expect(trimmedInput).to.equal(expected)
@@ -198,12 +198,12 @@ return function()
 			local expected = "😤👩🏼‍🏫😭ぼ😀で😹🤕あ👩🏻‍🎓"
 			expect(trimmedInput).to.equal(expected)
 		end)
-		it("Should right trim the string properly", function()
+		it("Should right trim the string properly 7", function()
 			local trimmedInput = Text.RightTrim("    😤👩🏼‍🏫😭ぼ😀で😹🤕あ👩🏻‍🎓    ")
 			local expected = "    😤👩🏼‍🏫😭ぼ😀で😹🤕あ👩🏻‍🎓"
 			expect(trimmedInput).to.equal(expected)
 		end)
-		it("Should right trim the string properly", function()
+		it("Should right trim the string properly 8", function()
 			local trimmedInput = Text.RightTrim("\n    😤👩🏼‍🏫😭ぼ😀 \nで😹🤕あ👩🏻‍🎓    \n")
 			local expected = "\n    😤👩🏼‍🏫😭ぼ😀 \nで😹🤕あ👩🏻‍🎓"
 			expect(trimmedInput).to.equal(expected)
@@ -212,32 +212,32 @@ return function()
 
 
 	describe("LeftTrimString", function()
-		it("Should left trim the string properly", function()
+		it("Should left trim the string properly 1", function()
 			local trimmedInput = Text.LeftTrim("")
 			local expected = ""
 			expect(trimmedInput).to.equal(expected)
 		end)
-		it("Should left trim the string properly", function()
+		it("Should left trim the string properly 2", function()
 			local trimmedInput = Text.LeftTrim("    ")
 			local expected = ""
 			expect(trimmedInput).to.equal(expected)
 		end)
-		it("Should left trim the string properly", function()
+		it("Should left trim the string properly 3", function()
 			local trimmedInput = Text.LeftTrim("ab")
 			local expected = "ab"
 			expect(trimmedInput).to.equal(expected)
 		end)
-		it("Should left trim the string properly", function()
+		it("Should left trim the string properly 4", function()
 			local trimmedInput = Text.LeftTrim("    ab   ")
 			local expected = "ab   "
 			expect(trimmedInput).to.equal(expected)
 		end)
-		it("Should left trim the string properly", function()
+		it("Should left trim the string properly 5", function()
 			local trimmedInput = Text.LeftTrim("    a b    ")
-			local expected = "    a b    "
+			local expected = "a b    "
 			expect(trimmedInput).to.equal(expected)
 		end)
-		it("Should left trim the string properly", function()
+		it("Should left trim the string properly 6", function()
 			local trimmedInput = Text.LeftTrim("\r\n\t\f a\r\n\t\f ")
 			local expected = "a\r\n\t\f "
 			expect(trimmedInput).to.equal(expected)
@@ -247,7 +247,7 @@ return function()
 			local expected = "😤👩🏼‍🏫😭ぼ😀で😹🤕あ👩🏻‍🎓"
 			expect(trimmedInput).to.equal(expected)
 		end)
-		it("Should left trim the string properly", function()
+		it("Should left trim the string properly 7", function()
 			local trimmedInput = Text.LeftTrim("    😤👩🏼‍🏫😭ぼ😀で😹🤕あ👩🏻‍🎓    ")
 			local expected = "😤👩🏼‍🏫😭ぼ😀で😹🤕あ👩🏻‍🎓    "
 			expect(trimmedInput).to.equal(expected)

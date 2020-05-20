@@ -4,9 +4,6 @@ local Workspace = game:GetService("Workspace")
 local SelectionHelper = require(script.Parent.SelectionHelper)
 local SelectionWrapper = require(script.Parent.SelectionWrapper)
 
-local Flags = script.Parent.Parent.Flags
-local getFFlagTreatToolAsModel = require(Flags.getFFlagTreatToolAsModel)
-
 -- Minimum distance (pixels) required for a drag to select parts.
 local DRAG_SELECTION_THRESHOLD = 3
 
@@ -70,24 +67,16 @@ function DragSelector:beginDrag(location)
 			local selectable = SelectionHelper.getSelectable(object)
 			if selectable and not alreadyAddedSet[selectable] then
 				local center
-				if getFFlagTreatToolAsModel() then
-					if selectable:IsA("Tool") then
-						if isModel then
-							center = object:GetBoundingBox().Position
-						else
-							center = object.Position
-						end
-					elseif selectable:IsA("Model") then
-						center = selectable:GetBoundingBox().Position
+				if selectable:IsA("Tool") then
+					if isModel then
+						center = object:GetBoundingBox().Position
 					else
-						center = selectable.Position
+						center = object.Position
 					end
+				elseif selectable:IsA("Model") then
+					center = selectable:GetBoundingBox().Position
 				else
-					if selectable:IsA("Model") then
-						center = selectable:GetBoundingBox().p
-					else
-						center = selectable.Position
-					end
+					center = selectable.Position
 				end
 				alreadyAddedSet[selectable] = true
 				table.insert(self._dragCandidates, {

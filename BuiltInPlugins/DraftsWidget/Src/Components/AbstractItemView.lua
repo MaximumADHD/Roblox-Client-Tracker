@@ -41,8 +41,6 @@
 		Example use cases: on PluginAction keybind invoke, delete the selection; on button click, commit the selection
 --]]
 
-local fflagCommitButton = game:DefineFastFlag("StudioDraftsWidgetCommitButton", false)
-
 local Plugin = script.Parent.Parent.Parent
 local UILibrary = require(Plugin.Packages.UILibrary)
 local Roact = require(Plugin.Packages.Roact)
@@ -199,7 +197,7 @@ function AbstractItemView:init()
 		return makeMenuActions(localization, selectedIds)
 	end
 
-	self.getSelectedIds = fflagCommitButton and function()
+	self.getSelectedIds = function()
 		local selectedIds = {}
 		for _,id in ipairs(self.props.Items) do
 			if self.state.selection[id] then
@@ -210,14 +208,12 @@ function AbstractItemView:init()
 		return selectedIds
 	end
 
-	if fflagCommitButton and self.props.GetCurrentSelection then
+	if self.props.GetCurrentSelection then
 		self.props.GetCurrentSelection.OnInvoke = self.getSelectedIds
 	end
 end
 
 function AbstractItemView:didUpdate(previousProps, previousState)
-	if not fflagCommitButton then return end
-
 	if previousProps.GetCurrentSelection ~= self.props.GetCurrentSelection then
 		if previousProps.GetCurrentSelection then
 			previousProps.GetCurrentSelection.OnInvoke = nil

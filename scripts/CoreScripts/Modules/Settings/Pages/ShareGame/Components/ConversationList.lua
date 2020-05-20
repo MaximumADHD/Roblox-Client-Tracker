@@ -25,6 +25,8 @@ local memoize = require(AppTempCommon.Common.memoize)
 local RetrievalStatus = require(CorePackages.AppTempCommon.LuaApp.Enum.RetrievalStatus)
 
 local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabledV384")
+local UsePlayerDisplayName = require(RobloxGui.Modules.Settings.UsePlayerDisplayName)
+
 local getTranslator = require(ShareGame.getTranslator)
 local RobloxTranslator = getTranslator()
 
@@ -102,7 +104,10 @@ function ConversationList:render()
 			size = UDim2.new(1, 0, 0, entryHeight),
 			layoutOrder = i,
 			zIndex = zIndex,
-			title = user.name,
+			-- NOTE: displayName is only set in the User Model if FFlagLuaAppDisplayNamesEnabled is true
+			-- If UsePlayerDisplayName() is removed this code still needs to take into account that user.displayName can be nil
+			title = UsePlayerDisplayName() and (user.displayName or user.name) or user.name,
+			subtitle = UsePlayerDisplayName() and (user.displayName and "@" .. user.name or nil) or nil,
 			presence = user.presence,
 			users = {user},
 			inviteUser = inviteUser,

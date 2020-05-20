@@ -19,6 +19,10 @@ local AssetInfo = {}
             string Name : the creator name
             string Type : the creator type, such as User or Group
 
+        ProductId
+            number ProductId : the product id of the asset
+            number Price : the price of the asset
+
         Thumbnail
             bool Final : whether or not the thumbnail has been finalized for retry purposes
             string Url : the thumbnail url
@@ -36,6 +40,7 @@ local AssetInfo = {}
             string ReasonForNotVoteable :the reason why the user cannot vote
         }
 ]]
+local FFlagToolboxUseNewPluginEndpoint = settings():GetFFlag("ToolboxUseNewPluginEndpoint")
 
 AssetInfo.new = function()
 	return {
@@ -65,6 +70,13 @@ function AssetInfo.fromItemDetailsRequest(data)
             Id = data.creator.id,
             Name = data.creator.name,
             Type = data.creator.type,
+        }
+    end
+
+    if FFlagToolboxUseNewPluginEndpoint and data.product then
+        result.Product = {
+            ProductId = data.product.productId,
+            Price = data.product.price,
         }
     end
 

@@ -30,7 +30,7 @@ return function(networkInterface, category, audioSearchInfo, pageInfo, settings,
             store:dispatch(GetCreatorName(networkInterface, creatorTargetId))
         end
 
-        -- Get Audio Search
+        -- Get from API
         if PagedRequestCursor.isNextPageAvailable(currentCursor) then
             local nextPageCursor = currentCursor.nextPageCursor
 

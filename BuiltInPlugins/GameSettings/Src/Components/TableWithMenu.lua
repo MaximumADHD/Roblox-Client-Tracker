@@ -38,6 +38,11 @@ local function createHeaderLabels(theme, headers)
             VerticalAlignment = Enum.VerticalAlignment.Center,
             SortOrder = Enum.SortOrder.LayoutOrder,
         }),
+
+        Padding = Roact.createElement("UIPadding", {
+            PaddingLeft = UDim.new(0, theme.table.textPadding),
+            PaddingRight = UDim.new(0, theme.table.textPadding),
+        }),
     }
     local numberColumns = #headers
     for i = 1, #headers do
@@ -51,6 +56,7 @@ local function createHeaderLabels(theme, headers)
             BorderSizePixel = 0,
 
             TextXAlignment = Enum.TextXAlignment.Left,
+            TextTruncate = Enum.TextTruncate.AtEnd,
         }))
         headerLabels[i] = header
     end
@@ -65,7 +71,9 @@ local function createDataLabels(data, menuItems, onItemClicked)
         local rowComponent = Roact.createElement(TableWithMenuItem, {
             RowData = rowData,
             MenuItems = menuItems,
-            OnItemClicked = onItemClicked,
+            OnItemClicked = function(key)
+                onItemClicked(key, row)
+            end,
             LayoutOrder = 1 + row,
         })
         dataRows[row] = rowComponent
@@ -94,11 +102,6 @@ function TableWithMenu:render()
         minimumSize = UDim2.new(1, 0, 0, 0),
         contentPadding = UDim.new(0, theme.table.item.padding),
     }, Cryo.Dictionary.join({
-        Padding = Roact.createElement("UIPadding", {
-            PaddingLeft = UDim.new(0, theme.table.textPadding),
-            PaddingRight = UDim.new(0, theme.table.textPadding),
-        }),
-
         HeaderFrame = Roact.createElement("Frame", {
             Size = UDim2.new(1, 0, 0, theme.table.header.height),
 

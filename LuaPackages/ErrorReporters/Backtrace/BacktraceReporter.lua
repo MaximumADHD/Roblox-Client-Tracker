@@ -11,8 +11,6 @@ local t = require(CorePackages.Packages.t)
 local BacktraceReport = require(script.Parent.BacktraceReport)
 local ErrorQueue = require(script.Parent.Parent.ErrorQueue)
 
-local GetFFlagLuaAppSendLogsToBacktrace = require(CorePackages.AppTempCommon.LuaApp.Flags.GetFFlagLuaAppSendLogsToBacktrace)
-
 local DEVELOPMENT_IN_STUDIO = game:GetService("RunService"):IsStudio()
 
 local DEFAULT_LOG_INTERVAL = 60 -- seconds
@@ -107,7 +105,7 @@ function BacktraceReporter:sendErrorReport(report, log)
 		httpRequest:Start(function(success, response)
 			-- Be aware that even when a response is 200, the report
 			-- might still be rejected/deleted by Backtrace after it is received.
-			if GetFFlagLuaAppSendLogsToBacktrace() and response.StatusCode == 200 and
+			if response.StatusCode == 200 and
 				log ~= nil then
 
 				local decodeSuccesss, decodedBody = pcall(function()
@@ -123,10 +121,6 @@ function BacktraceReporter:sendErrorReport(report, log)
 end
 
 function BacktraceReporter:_sendLogToReport(reportRxid, log)
-	if not GetFFlagLuaAppSendLogsToBacktrace() then
-		return
-	end
-
 	if type(log) ~= "string" or #log == 0 then
 		return
 	end
@@ -148,10 +142,6 @@ function BacktraceReporter:_sendLogToReport(reportRxid, log)
 end
 
 function BacktraceReporter:_generateLog()
-	if not GetFFlagLuaAppSendLogsToBacktrace() then
-		return
-	end
-
 	if self._generateLogMethod ~= nil and
 		tick() - self._lastLogTime > self._logIntervalInSeconds then
 		self._lastLogTime = tick()
@@ -196,10 +186,7 @@ function BacktraceReporter:reportErrorImmediately(errorMessage, errorStack, deta
 		newReport = self._processErrorReportMethod(newReport)
 	end
 
-	local log
-	if GetFFlagLuaAppSendLogsToBacktrace() then
-		log = self:_generateLog()
-	end
+	local log = self:_generateLog()
 
 	self:sendErrorReport(newReport, log)
 end
@@ -223,28 +210,18 @@ function BacktraceReporter:reportErrorDeferred(errorMessage, errorStack, details
 			newReport = self._processErrorReportMethod(newReport)
 		end
 
-		if GetFFlagLuaAppSendLogsToBacktrace() then
-			errorData = {
-				backtraceReport = newReport,
-				log = self:_generateLog(),
-			}
-		else
-			errorData = newReport
-		end
+		errorData = {
+			backtraceReport = newReport,
+			log = self:_generateLog(),
+		}
 	end
 
 	self._errorQueue:addError(errorKey, errorData)
 end
 
 function BacktraceReporter:_reportErrorFromErrorQueue(errorKey, errorData, errorCount)
-	local errorReport
-	local log
-	if GetFFlagLuaAppSendLogsToBacktrace() then
-		errorReport = errorData.backtraceReport
-		log = errorData.log
-	else
-		errorReport = errorData
-	end
+	local errorReport = errorData.backtraceReport
+	local log = errorData.log
 
 	errorReport:addAttributes({
 		ErrorCount = errorCount,

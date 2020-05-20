@@ -8,9 +8,9 @@ local Roact = require(Packages.Roact)
 local DragSelectionView = require(Framework.Components.DragSelectionView)
 local DraggerStateType = require(Framework.Implementation.DraggerStateType)
 local DragSelector = require(Framework.Utility.DragSelector)
+local StandardCursor = require(Framework.Utility.StandardCursor)
 
-local getFFlagLazyBoxSelect = require(Framework.Flags.getFFlagLazyBoxSelect)
-local getFFlagLuaDraggerIconBandaid = require(Framework.Flags.getFFlagLuaDraggerIconBandaid)
+local getFFlagFixDraggerCursors = require(Framework.Flags.getFFlagFixDraggerCursors)
 
 local DragSelecting = {}
 DragSelecting.__index = DragSelecting
@@ -33,33 +33,24 @@ end
 
 function DragSelecting:_init(draggerTool)
     draggerTool._sessionAnalytics.dragSelects = draggerTool._sessionAnalytics.dragSelects + 1
-    if getFFlagLazyBoxSelect() then
-        self._hasMovedMouse = false
-    else
-        self._dragSelector:beginDrag(UserInputService:GetMouseLocation())
-    end
+    self._hasMovedMouse = false
 end
 
 function DragSelecting:render(draggerTool)
-    if getFFlagLuaDraggerIconBandaid() then
+    if getFFlagFixDraggerCursors() then
+        draggerTool.props.Mouse.Icon = StandardCursor.getArrow()
+    else
         draggerTool.props.Mouse.Icon = "rbxasset://SystemCursors/Arrow"
     end
 
-    if getFFlagLazyBoxSelect() then
-        local startLocation =
-            self._hasMovedMouse and
-            self._dragSelector:getStartLocation() or
-            UserInputService:GetMouseLocation()
-        return Roact.createElement(DragSelectionView, {
-            dragStartLocation = startLocation,
-            dragEndLocation = UserInputService:GetMouseLocation(),
-        })
-    else
-        return Roact.createElement(DragSelectionView, {
-            dragStartLocation = self._dragSelector:getStartLocation(),
-            dragEndLocation = UserInputService:GetMouseLocation(),
-        })
-    end
+    local startLocation =
+        self._hasMovedMouse and
+        self._dragSelector:getStartLocation() or
+        UserInputService:GetMouseLocation()
+    return Roact.createElement(DragSelectionView, {
+        dragStartLocation = startLocation,
+        dragEndLocation = UserInputService:GetMouseLocation(),
+    })
 end
 
 function DragSelecting:processSelectionChanged(draggerTool)
@@ -73,23 +64,17 @@ function DragSelecting:processMouseDown(draggerTool)
 end
 
 function DragSelecting:processViewChanged(draggerTool)
-    if getFFlagLazyBoxSelect() then
-        if not self._hasMovedMouse then
-            self._dragSelector:beginDrag(UserInputService:GetMouseLocation())
-            self._hasMovedMouse = true
-        end
+    if not self._hasMovedMouse then
+        self._dragSelector:beginDrag(UserInputService:GetMouseLocation())
+        self._hasMovedMouse = true
     end
     self._dragSelector:updateDrag(UserInputService:GetMouseLocation())
 end
 
 function DragSelecting:processMouseUp(draggerTool)
-    if getFFlagLazyBoxSelect then
-        if self._hasMovedMouse then
-            self._dragSelector:commitDrag(UserInputService:GetMouseLocation())
-            self._hasMovedMouse = false
-        end
-    else
+    if self._hasMovedMouse then
         self._dragSelector:commitDrag(UserInputService:GetMouseLocation())
+        self._hasMovedMouse = false
     end
     draggerTool:_updateSelectionInfo()
     draggerTool:_analyticsSendBoxSelect()

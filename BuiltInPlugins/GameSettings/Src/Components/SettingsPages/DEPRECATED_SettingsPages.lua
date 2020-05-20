@@ -4,7 +4,7 @@
 ]]
 
 local Avatar = require(script.Parent.Avatar)
-local Options = require(script.Parent.Options)
+local Options = require(script.Parent.DEPRECATED_Options)
 local BasicInfo = require(script.Parent.BasicInfo)
 local DeveloperSubscriptions = require(script.Parent.DeveloperSubscriptions)
 local LocalizationPage = require(script.Parent.LocalizationPage)
@@ -12,12 +12,15 @@ local DFFlagDeveloperSubscriptionsEnabled = settings():GetFFlag("DeveloperSubscr
 local FFlagStudioLocalizationInGameSettingsEnabled = game:GetFastFlag("StudioLocalizationInGameSettingsEnabled")
 local FFlagGameSettingsPlaceSettings = game:GetFastFlag("GameSettingsPlaceSettings")
 local FFlagStudioConvertGameSettingsToDevFramework = game:GetFastFlag("StudioConvertGameSettingsToDevFramework")
+local FFlagStudioAddMonetizationToGameSettings = game:GetFastFlag("StudioAddMonetizationToGameSettings")
 
-local World = require(script.Parent.World)
+local World = require(script.Parent.DEPRECATED_World)
 
 local AccessPermissions = require(script.Parent.AccessPermissions)
 
 local Places = require(script.Parent.Places)
+
+local Monetization = require(script.Parent.Monetization)
 
 local SettingsPages = {
 	-- Remove with FFlagStudioConvertGameSettingsToDevFramework
@@ -44,6 +47,10 @@ end
 if FFlagStudioConvertGameSettingsToDevFramework then
 	SettingsPages["BasicInfo"] = BasicInfo
 	SettingsPages["AccessPermissions"] = AccessPermissions
+end
+
+if FFlagStudioAddMonetizationToGameSettings then
+	SettingsPages["Monetization"] = Monetization
 end
 
 return SettingsPages

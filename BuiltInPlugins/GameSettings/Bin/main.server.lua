@@ -11,6 +11,7 @@ local FFlagGameSettingsPreventClosingDialogWhileSaveInProgress = game:DefineFast
 local FFlagStudioLocalizationInGameSettingsEnabled = game:GetFastFlag("StudioLocalizationInGameSettingsEnabled")
 local FFlagGameSettingsPlaceSettings = game:GetFastFlag("GameSettingsPlaceSettings")
 local FFlagStudioConvertGameSettingsToDevFramework = game:GetFastFlag("StudioConvertGameSettingsToDevFramework")
+local FFlagStudioAddMonetizationToGameSettings = game:GetFastFlag("StudioAddMonetizationToGameSettings")
 
 --Turn this on when debugging the store and actions
 local LOG_STORE_STATE_AND_EVENTS = false
@@ -38,6 +39,10 @@ local Theme = require(Plugin.Src.Util.Theme)
 local MouseProvider = require(Plugin.Src.Providers.MouseProvider)
 local Localization = require(Plugin.Src.Localization.Localization)
 local LocalizationProvider = require(Plugin.Src.Providers.LocalizationProvider)
+local Networking = require(Plugin.Src.ContextServices.Networking)
+local WorldRootPhysics = require(Plugin.Src.Components.SettingsPages.WorldPage.ContextServices.WorldRootPhysics)
+local GameInfoController = require(Plugin.Src.Controllers.GameInfoController)
+local GameOptionsController = require(Plugin.Src.Components.SettingsPages.OptionsPage.Controllers.GameOptionsController)
 
 local CurrentStatus = require(Plugin.Src.Util.CurrentStatus)
 
@@ -46,6 +51,8 @@ local SetCurrentStatus = require(Plugin.Src.Actions.SetCurrentStatus)
 local DiscardChanges = require(Plugin.Src.Actions.DiscardChanges)
 local DiscardErrors = require(Plugin.Src.Actions.DiscardErrors)
 local SetCurrentSettings = require(Plugin.Src.Actions.SetCurrentSettings)
+local SetGameId = require(Plugin.Src.Actions.SetGameId)
+local SetGame = require(Plugin.Src.Actions.SetGame)
 local LoadAllSettings = require(Plugin.Src.Thunks.LoadAllSettings)
 
 local isEmpty = require(Plugin.Src.Util.isEmpty)
@@ -55,10 +62,26 @@ local gameSettingsHandle
 local pluginGui
 local openedTimestamp
 
+local worldRootPhysics
+if game:GetFastFlag("GameSettingsNetworkRefactor") then
+	worldRootPhysics = WorldRootPhysics.new()
+end
+
 local middlewares
 if game:GetFastFlag("StudioThunkWithArgsMiddleware") then
 	-- TODO (awarwick) 5/5/2020 Fill in with context items as needed by thunks
 	local thunkContextItems = {}
+
+	if game:GetFastFlag("GameSettingsNetworkRefactor") then
+		local networking = Networking.new()
+		local gameInfoController = GameInfoController.new(networking:get())
+		local gameOptionsController = GameOptionsController.new()
+
+		thunkContextItems.networking = networking:get()
+		thunkContextItems.worldRootPhysicsController = worldRootPhysics:get()
+		thunkContextItems.gameInfoController = gameInfoController
+		thunkContextItems.gameOptionsController = gameOptionsController
+	end
 
 	local thunkWithArgsMiddleware = FrameworkUtil.ThunkWithArgsMiddleware(thunkContextItems)
 	middlewares = {thunkWithArgsMiddleware}
@@ -83,6 +106,10 @@ if not game:GetFastFlag("GameSettingsNetworkRefactor") then
 		FFlagStudioConvertGameSettingsToDevFramework and "BasicInfo" or "Basic Info",
 		FFlagStudioConvertGameSettingsToDevFramework and "AccessPermissions" or "Access Permissions",
 	}
+
+	if FFlagStudioAddMonetizationToGameSettings then
+		table.insert(settingsPages, "Monetization")
+	end
 
 	if FFlagGameSettingsPlaceSettings then
 		table.insert(settingsPages, "Places")
@@ -273,7 +300,7 @@ local function makePluginGui()
 end
 
 --Initializes and populates the Game Settings popup window
-local function openGameSettings()
+local function openGameSettings(gameId, dataModel)
 	if settingsStore then
 		local state = settingsStore:getState()
 		local currentStatus = state.Status
@@ -300,6 +327,7 @@ local function openGameSettings()
 		localization = FFlagStudioConvertGameSettingsToDevFramework and localizationDevFramework or localization,
 		pluginGui = pluginGui,
 		plugin = plugin,
+		worldRootPhysics = worldRootPhysics,
 	}, {
 		mainView = Roact.createElement(MainView, {
 			DEPRECATED_MenuEntries = (not game:GetFastFlag("GameSettingsNetworkRefactor")) and menuEntries or nil,
@@ -315,7 +343,13 @@ local function openGameSettings()
 		settingsStore:dispatch(DiscardErrors())
 	end
 
-	settingsStore:dispatch(LoadAllSettings(settingsImpl))
+	if game:GetFastFlag("GameSettingsNetworkRefactor") then
+		settingsStore:dispatch(SetGameId(gameId))
+		settingsStore:dispatch(SetGame(dataModel))
+		settingsStore:dispatch(SetCurrentStatus(CurrentStatus.Open))
+	else
+		settingsStore:dispatch(LoadAllSettings(settingsImpl))
+	end
 
 	gameSettingsHandle = Roact.mount(servicesProvider, pluginGui)
 	pluginGui.Enabled = true
@@ -342,7 +376,11 @@ local function main()
 		settingsButton.ClickableWhenViewportHidden = true
 		settingsButton.Enabled = true
 		settingsButton.Click:connect(function()
-			openGameSettings()
+			if game:GetFastFlag("GameSettingsNetworkRefactor") then
+				openGameSettings(game.GameId, game)
+			else
+				openGameSettings()
+			end
 		end)
 		settingsStore.changed:connect(function(state)
 			if state.Status ~= lastObservedStatus then

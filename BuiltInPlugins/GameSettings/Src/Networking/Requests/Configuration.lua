@@ -1,6 +1,7 @@
 --[[
 	Get and set requests for settings values contained in universes/configuration.
 ]]
+local FFlagStudioAddMonetizationToGameSettings = game:GetFastFlag("StudioAddMonetizationToGameSettings")
 
 local RELEVANT_ENTRIES = {
 	universeAvatarType = true,
@@ -15,6 +16,8 @@ local RELEVANT_ENTRIES = {
 	universeAvatarMinScales = true,
 	universeAvatarMaxScales = true,
 	genre = true,
+	isForSale = FFlagStudioAddMonetizationToGameSettings,
+	price = FFlagStudioAddMonetizationToGameSettings,
 }
 
 local PLAYABLE_DEVICES = {

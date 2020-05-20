@@ -41,6 +41,7 @@ local PluginContext = require(Plugin.Src.Context.Plugin)
 local getPlugin = PluginContext.getPlugin
 
 local RigUtils = require(Plugin.Src.Util.RigUtils)
+local Constants = require(Plugin.Src.Util.Constants)
 local JointManipulator = require(Plugin.Src.Components.JointManipulator.JointManipulator)
 
 local ToggleWorldSpace = require(Plugin.Src.Actions.ToggleWorldSpace)
@@ -48,6 +49,8 @@ local FixManipulators = require(Plugin.LuaFlags.GetFFlagFixAnimEditorManipulator
 local FindNestedParts = require(Plugin.LuaFlags.GetFFlagFindNestedParts)
 local FixDuplicateChildNames = require(Plugin.LuaFlags.GetFFlagFixDuplicateChildNames)
 local AllowDuplicateNamesOnNonAnimatedParts = require(Plugin.LuaFlags.GetFFlagAllowDuplicateNamesOnNonAnimatedParts)
+
+local IsMicroboneSupportEnabled = require(Plugin.LuaFlags.GetFFlagAnimationEditorMicroboneSupport)
 
 local JointSelector = Roact.PureComponent:extend("JointSelector")
 
@@ -66,6 +69,9 @@ function JointSelector:init()
 	local rootInstance = self.props.RootInstance
 	self.CurrentRoot = rootInstance
 	self.KinematicParts, self.PartsToMotors = RigUtils.getRigInfo(rootInstance)
+	if IsMicroboneSupportEnabled() then
+		self.Bones = RigUtils.getBoneMap(rootInstance)
+	end
 
 	if not FixManipulators() then
 		local motorData = self.props.MotorData
@@ -125,6 +131,9 @@ function JointSelector:willUpdate()
 		if rootInstance ~= self.CurrentRoot then
 			self.CurrentRoot = rootInstance
 			self.KinematicParts, self.PartsToMotors = RigUtils.getRigInfo(rootInstance)
+			if IsMicroboneSupportEnabled() then
+				self.Bones = RigUtils.getBoneMap(rootInstance)
+			end
 			local mouse = getPlugin(self):GetMouse()
 			mouse.TargetFilter = RigUtils.findRootPart(rootInstance)
 		end
@@ -186,10 +195,16 @@ function JointSelector:getJoints()
 			-- safe to pass motors directly.
 			if self.PartsToMotors[track] then
 				table.insert(joints, {
+					Type = Constants.MOTOR_CLASS_NAME,
 					Part0 = self.PartsToMotors[track].Part0,
 					Part1 = self.PartsToMotors[track].Part1,
 					C0 = self.PartsToMotors[track].C0,
 					C1 = self.PartsToMotors[track].C1
+				})
+			elseif IsMicroboneSupportEnabled() and self.Bones[track] then
+				table.insert(joints, {
+					Type = Constants.BONE_CLASS_NAME,
+					Bone = self.Bones[track],
 				})
 			end
 		else
@@ -203,10 +218,24 @@ function JointSelector:findCurrentParts(selectedTracks, rootInstance)
 	local currentParts = {}
 	if selectedTracks and rootInstance and self.KinematicParts and #self.KinematicParts > 0 then
 		for _, track in ipairs(selectedTracks) do
-			for _, part in ipairs(self.KinematicParts) do
-				if part.Name == track then
-					table.insert(currentParts, part)
-					break
+			if IsMicroboneSupportEnabled() then
+				local bone = RigUtils.getBoneByName(rootInstance, track)
+				if bone then
+					table.insert(currentParts, bone)
+				else
+					for _, part in ipairs(self.KinematicParts) do
+						if part.Name == track then
+							table.insert(currentParts, part)
+							break
+						end
+					end
+				end
+			else
+				for _, part in ipairs(self.KinematicParts) do
+					if part.Name == track then
+						table.insert(currentParts, part)
+						break
+					end
 				end
 			end
 		end
@@ -258,13 +287,13 @@ function JointSelector:render()
 
 	if currentParts then
 		for index, part in ipairs(currentParts) do
-			children["SelectionBox" ..index] = Roact.createElement("SelectionBox", {
+			children["SelectionBox" ..index] = (not IsMicroboneSupportEnabled() or part:IsA("BasePart")) and Roact.createElement("SelectionBox", {
 				Archivable = false,
 				Adornee = part,
 				LineThickness = 0.01,
 				Transparency = 0.5,
 				SurfaceTransparency = 0.8,
-			})
+			}) or nil
 		end
 	end
 

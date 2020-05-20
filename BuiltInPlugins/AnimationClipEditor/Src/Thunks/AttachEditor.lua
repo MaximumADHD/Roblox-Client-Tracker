@@ -16,12 +16,14 @@ local AddTrack = require(Plugin.Src.Thunks.AddTrack)
 local SortAndSetTracks = require(Plugin.Src.Thunks.SortAndSetTracks)
 local SetActive = require(Plugin.Src.Actions.SetActive)
 local RigUtils = require(Plugin.Src.Util.RigUtils)
+local IsMicroboneSupportEnabled = require(Plugin.LuaFlags.GetFFlagAnimationEditorMicroboneSupport)
 
 return function()
 	return function(store)
 		local state = store:getState()
 		store:dispatch(SetActive(true))
 		local rootInstance = state.Status.RootInstance
+		local animationData = state.AnimationData
 
 		local playhead = state.Status.Playhead
 
@@ -51,6 +53,12 @@ return function()
 			end
 		end
 
+		if IsMicroboneSupportEnabled() then
+			RigUtils.clearMicrobones()
+			if rootInstance and not animationData then
+				RigUtils.updateMicrobones(rootInstance)
+			end
+		end
 		store:dispatch(StepAnimation(playhead))
 	end
 end

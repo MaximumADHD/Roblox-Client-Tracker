@@ -8,6 +8,7 @@ local Constants = require(Plugin.Src.Util.Constants)
 local RigUtils = require(Plugin.Src.Util.RigUtils)
 local SetPlayhead = require(Plugin.Src.Actions.SetPlayhead)
 local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
+local IsMicroboneSupportEnabled = require(Plugin.LuaFlags.GetFFlagAnimationEditorMicroboneSupport)
 
 return function(frame)
 	return function(store)
@@ -34,5 +35,9 @@ return function(frame)
 			frame = KeyframeUtils.getNearestFrame(frame)
 		end
 		store:dispatch(SetPlayhead(frame))
+
+		if IsMicroboneSupportEnabled() then
+			RigUtils.updateMicrobones(targetInstance)
+		end
 	end
 end

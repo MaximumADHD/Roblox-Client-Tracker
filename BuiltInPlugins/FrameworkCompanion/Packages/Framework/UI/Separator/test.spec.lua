@@ -14,22 +14,13 @@ return function()
 		})
 	end
 
-	local instance
-
-	afterEach(function()
-		if instance then
-			Roact.unmount(instance)
-			instance = nil
-		end
-	end)
-
 	it("should create and destroy without errors", function()
 		local element = createTestSeparator()
-		instance = Roact.mount(element)
+		local instance = Roact.mount(element)
+		Roact.unmount(instance)
 	end)
 
 	describe("has correct size", function()
-
 		it("horizontally", function()
 			local container = Instance.new("Folder")
 			local element = createTestSeparator({
@@ -39,8 +30,9 @@ return function()
 					Weight = 1
 				})
 			})
-			instance = Roact.mount(element, container)
+			local instance = Roact.mount(element, container)
 			expect(container:FindFirstChild("Separator", true).Size).to.equal(UDim2.new(1, -4, 0, 1))
+			Roact.unmount(instance)
 		end)
 
 		it("vertically", function()
@@ -52,8 +44,10 @@ return function()
 					Weight = 1
 				})
 			})
-			instance = Roact.mount(element, container)
+			local instance = Roact.mount(element, container)
 			expect(container:FindFirstChild("Separator", true).Size).to.equal(UDim2.new(0, 1, 1, -4))
+
+			Roact.unmount(instance)
 		end)
 	end)
 end

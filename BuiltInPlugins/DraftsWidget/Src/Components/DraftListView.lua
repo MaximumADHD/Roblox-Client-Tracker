@@ -31,8 +31,6 @@ local ITEM_HEIGHT = 32
 local TOOLBAR_HEIGHT = 28
 local PADDING = 4
 
-local fflagCommitButton = game:GetFastFlag("StudioDraftsWidgetCommitButton")
-
 local DraftListView = Roact.Component:extend("DraftListView")
 
 function DraftListView:init()
@@ -41,9 +39,9 @@ function DraftListView:init()
         draftsPendingDiscard = nil,
     })
 
-    self.GetCurrentSelection = fflagCommitButton and Instance.new("BindableFunction") or nil
+    self.GetCurrentSelection = Instance.new("BindableFunction")
 
-    self.commitSelectedScripts = fflagCommitButton and function()
+    self.commitSelectedScripts = function()
         local drafts = self.props.Drafts
         local noDrafts = next(drafts) == nil
         if noDrafts then return end
@@ -229,11 +227,11 @@ function DraftListView:render()
                 BackgroundTransparency = 1,
                 Size = UDim2.new(1, 0, 1, 0),
             }, {
-                UIListLayout = fflagCommitButton and Roact.createElement("UIListLayout", {
+                UIListLayout = Roact.createElement("UIListLayout", {
                     FillDirection = Enum.FillDirection.Vertical,
                     SortOrder = Enum.SortOrder.LayoutOrder,
                 }),
-                Toolbar = fflagCommitButton and Roact.createElement("Frame", {
+                Toolbar = Roact.createElement("Frame", {
                     BackgroundTransparency = 1,
                     Size = UDim2.new(1, 0, 0, TOOLBAR_HEIGHT),
                     LayoutOrder = 0,
@@ -261,15 +259,15 @@ function DraftListView:render()
                 }),
                 Container = Roact.createElement("Frame", {
                     BackgroundTransparency = 1,
-                    Size = fflagCommitButton and UDim2.new(1, 0, 1, -TOOLBAR_HEIGHT) or UDim2.new(1, 0, 1, 0),
-                    LayoutOrder = fflagCommitButton and 1 or nil,
+                    Size = UDim2.new(1, 0, 1, -TOOLBAR_HEIGHT),
+                    LayoutOrder = 1,
                 }, {
                     ListItemView = (not noDrafts) and Roact.createElement(ListItemView, {
                         ButtonStyle = "tableItemButton",
                         Items = sortedDraftList,
                         ItemHeight = ITEM_HEIGHT,
 
-                        GetCurrentSelection = fflagCommitButton and self.GetCurrentSelection or nil,
+                        GetCurrentSelection = self.GetCurrentSelection,
                         OnDoubleClicked = self.onDoubleClicked,
                         MakeMenuActions = self.makeMenuActions,
 

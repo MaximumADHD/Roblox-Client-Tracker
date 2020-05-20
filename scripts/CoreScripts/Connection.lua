@@ -14,6 +14,7 @@ local Url = require(RobloxGui.Modules.Common.Url)
 local PolicyService = require(RobloxGui.Modules.Common.PolicyService)
 
 local fflagEnableErrorStringTesting = game:DefineFastFlag("EnableErrorStringTesting", false)
+local fflagShouldMuteUnlocalizedError = game:DefineFastFlag("ShouldMuteUnlocalizedError", false)
 
 -- After 2 hours, disable reconnect after the failure of first try
 local fflagDisableReconnectAfterPotentialTimeout = game:DefineFastFlag("DisableReconnectAfterPotentialTimeout", false)
@@ -404,7 +405,7 @@ local function getErrorString(errorMsg, errorCode, reconnectError)
 		end)
 
 		-- Mute errors for jv app if they are not successfully translated
-		if not success and PolicyService:IsSubjectToChinaPolicies() then
+		if not success and fflagShouldMuteUnlocalizedError then
 			local successUnknownError, localizedUnknownError = pcall(function()
 				return coreScriptTableTranslator:FormatByKey("InGame.ConnectionError.UnknownError")
 			end)

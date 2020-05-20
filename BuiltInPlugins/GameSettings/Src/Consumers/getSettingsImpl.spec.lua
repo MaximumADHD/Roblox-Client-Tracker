@@ -4,7 +4,7 @@ return function()
 	local Rodux = require(Plugin.Rodux)
 	local RoactRodux = require(Plugin.RoactRodux)
 
-	local SettingsImplProvider = require(Plugin.Src.Providers.SettingsImplProvider)
+	local SettingsImplProvider = require(Plugin.Src.Providers.DEPRECATED_SettingsImplProvider)
 	local SettingsImpl_mock = require(Plugin.Src.Networking.SettingsImpl_mock)
 	local SettingsReducer = require(Plugin.Src.Reducers.Settings)
 	local getSettingsImpl = require(Plugin.Src.Consumers.getSettingsImpl)

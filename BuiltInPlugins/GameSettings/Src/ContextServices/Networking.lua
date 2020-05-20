@@ -1,5 +1,5 @@
 --[[
-	ContextItem for NetworkImpl
+	ContextItem for NetworkingImpl
 ]]
 
 local Plugin = script.Parent.Parent.Parent
@@ -8,27 +8,27 @@ local Roact = require(Plugin.Roact)
 local ContextServices = require(Plugin.Framework.ContextServices)
 
 local ContextItem = ContextServices.ContextItem
-local Provider = ContextServices.Provider
-local NetworkingImpl = require(Plugin.Src.ContextServices.NetworkingImpl)
+local Provider = require(Plugin.Framework.ContextServices.Provider)
+local Impl = require(Plugin.Src.ContextServices.NetworkingImpl)
 
-local Networking = ContextItem:extend("Networking")
+local Item = ContextItem:extend(script.Name)
 
-function Networking.new(baseImpl)
+function Item.new(...)
 	local self = {
-		impl = NetworkingImpl.new(baseImpl)
+		impl = Impl.new(...)
 	}
 
-	return setmetatable(self, Networking)
+	return setmetatable(self, Item)
 end
 
-function Networking:createProvider(root)
+function Item:createProvider(root)
 	return Roact.createElement(Provider, {
 		ContextItem = self,
 	}, {root})
 end
 
-function Networking:get()
+function Item:get()
 	return self.impl
 end
 
-return Networking
+return Item

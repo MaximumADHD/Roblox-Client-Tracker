@@ -187,6 +187,13 @@ return function(style, overrides)
 		font = style.font,
 	}
 
+	local textEntry = {
+		textTransparency = {
+			enabled = 0,
+			disabled = 0.5
+		}
+	}
+
 	local separator = {
 		lineColor = style.borderColor,
 	}
@@ -552,6 +559,7 @@ return function(style, overrides)
 		titledFrame = titledFrame,
 		textBox = textBox,
 		textButton = textButton,
+		textEntry = textEntry,
 		separator = separator,
 		dialog = dialog,
 		button = button,

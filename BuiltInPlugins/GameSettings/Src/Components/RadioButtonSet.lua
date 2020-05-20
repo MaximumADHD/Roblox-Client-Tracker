@@ -6,6 +6,20 @@
 		string Title = The title to place to the left of this RadioButtonSet.
 		string Description = An optional secondary title to place above this RadioButtonSet.
 		table Buttons = A collection of props for all RadioButtons to add.
+		e.g.
+		{
+			{
+				Id = boolean/string, boolean can be used for on/off buttons, strings can be used for sets that
+					have more than 2 buttons,
+				Title = string, title that this button will have,
+				Children = optional, additional child comoponents that belong to this button.
+			},
+			{
+				Id = ...,
+				Title = ...,
+			},
+		}
+
 		function SelectionChanged(index, title) = A callback for when the selected option changes.
 		int LayoutOrder = The order this RadioButtonSet will sort to when placed in a UIListLayout.
 ]]
@@ -14,7 +28,9 @@ local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
 
-local ContextServices = require(Plugin.Framework.ContextServices)
+local Framework = Plugin.Framework
+local ContextServices = require(Framework.ContextServices)
+local FitFrameOnAxis = require(Framework.Util).FitFrame.FitFrameOnAxis
 
 local UILibrary = require(Plugin.UILibrary)
 local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
@@ -24,8 +40,31 @@ local RadioButton = require(Plugin.Src.Components.RadioButton)
 local TitledFrame = UILibrary.Component.TitledFrame
 
 local FFlagStudioConvertGameSettingsToDevFramework = game:GetFastFlag("StudioConvertGameSettingsToDevFramework")
+local FFlagStudioAddMonetizationToGameSettings = game:GetFastFlag("StudioAddMonetizationToGameSettings")
+local FFlagGameSettingsPlaceSettings = game:GetFastFlag("GameSettingsPlaceSettings")
+
+local LayoutOrderIterator = require(Framework.Util.LayoutOrderIterator)
 
 local RadioButtonSet = Roact.PureComponent:extend("RadioButtonSet")
+
+function RadioButtonSet:init()
+	self.state = {
+		maxHeight = 0
+	}
+
+	self.layoutRef = Roact.createRef()
+
+	self.onResize = function()
+		local currentLayout = self.layoutRef.current
+		if not currentLayout then
+			return
+		end
+
+		self:setState({
+			maxHeight = currentLayout.AbsoluteContentSize.Y
+		})
+	end
+end
 
 function RadioButtonSet:DEPRECATED_render()
 	local props = self.props
@@ -95,6 +134,8 @@ function RadioButtonSet:render()
 	local props = self.props
 	local theme = props.Theme:get("Plugin")
 
+	local layoutIndex = LayoutOrderIterator.new()
+
 	local selected
 	if props.Selected ~= nil then
 		selected = props.Selected
@@ -109,6 +150,9 @@ function RadioButtonSet:render()
 		Layout = Roact.createElement("UIListLayout", {
 			Padding = UDim.new(0, DEPRECATED_Constants.RADIO_BUTTON_PADDING),
 			SortOrder = Enum.SortOrder.LayoutOrder,
+
+			[Roact.Change.AbsoluteContentSize] = self.onResize,
+			[Roact.Ref] = self.layoutRef,
 		})
 	}
 
@@ -125,23 +169,50 @@ function RadioButtonSet:render()
 	end
 
 	for i, button in ipairs(buttons) do
-		table.insert(children, Roact.createElement(RadioButton, {
-			Title = button.Title,
-			Id = button.Id,
-			Description = button.Description,
-			Selected = (button.Id == selected) or (i == selected),
-			Index = i,
-			Enabled = props.Enabled,
-			LayoutOrder = i,
-			OnClicked = function()
-				props.SelectionChanged(button)
-			end,
-		}))
+		if FFlagGameSettingsPlaceSettings then
+			if props.RenderItem then
+				table.insert(children, props.RenderItem(i, button))
+			else
+				table.insert(children, Roact.createElement(RadioButton, {
+					Title = button.Title,
+					Id = button.Id,
+					Description = button.Description,
+					Selected = (button.Id == selected) or (i == selected),
+					Index = i,
+					Enabled = props.Enabled,
+					LayoutOrder = FFlagStudioAddMonetizationToGameSettings and layoutIndex:getNextOrder() or i,
+					OnClicked = function()
+						props.SelectionChanged(button)
+					end,
+
+					Children = FFlagStudioAddMonetizationToGameSettings and button.Children or nil,
+				}))
+			end
+		else
+			table.insert(children, Roact.createElement(RadioButton, {
+				Title = button.Title,
+				Id = button.Id,
+				Description = button.Description,
+				Selected = (button.Id == selected) or (i == selected),
+				Index = i,
+				Enabled = props.Enabled,
+				LayoutOrder = FFlagStudioAddMonetizationToGameSettings and layoutIndex:getNextOrder() or i,
+				OnClicked = function()
+					props.SelectionChanged(button)
+				end,
+
+				Children = FFlagStudioAddMonetizationToGameSettings and button.Children or nil,
+			}))
+		end
 	end
 
 	local maxHeight = numButtons * DEPRECATED_Constants.RADIO_BUTTON_SIZE * 2
 		+ numButtons * DEPRECATED_Constants.RADIO_BUTTON_PADDING
 		+ (props.Description and DEPRECATED_Constants.RADIO_BUTTON_SIZE + 5 + DEPRECATED_Constants.RADIO_BUTTON_PADDING or 0)
+
+	if FFlagStudioConvertGameSettingsToDevFramework then
+		maxHeight = math.max(self.state.maxHeight, maxHeight)
+	end
 
 	return Roact.createElement(TitledFrame, {
 		Title = props.Title,

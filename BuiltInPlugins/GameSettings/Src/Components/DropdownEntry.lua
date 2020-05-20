@@ -39,7 +39,7 @@ function DropdownEntry:mouseHoverChanged(hovering)
 		if hovering then
 			props.Mouse:__pushCursor("PointingHand")
 		else
-			props.Mouse:__popCursor()
+			props.Mouse:__resetCursor()
 		end
 	else
 		getMouse(self).setHoverIcon("PointingHand", hovering)

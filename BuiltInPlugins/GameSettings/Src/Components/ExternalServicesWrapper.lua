@@ -57,6 +57,7 @@ function ServiceWrapper:render()
 	local showDialog = self.props.showDialog
 	local store = self.props.store
 	local theme = self.props.theme
+	local worldRootPhysics = self.props.worldRootPhysics
 
 	-- the order of these providers should be read as bottom up,
 	-- things most likely to change or trigger updates should be near the top of the list
@@ -84,6 +85,10 @@ function ServiceWrapper:render()
 
 		table.insert(contextItems, ContextServices.API.new())
 		table.insert(contextItems, ContextServices.Mouse.new(mouse))
+
+		if game:GetFastFlag("GameSettingsNetworkRefactor") and worldRootPhysics then
+			table.insert(contextItems, worldRootPhysics)
+		end
 
 		return ContextServices.provide(contextItems, children)
 	else

@@ -95,14 +95,16 @@ function IKController:init()
 		end
 
 		if selectedTrack then
-			if self.props.IKMode == Constants.IK_MODE.BodyPart then
-				local part = RigUtils.getPartByName(self.props.RootInstance, selectedTrack)
-				pinnedParts = RigUtils.pinForLimbMode(part, motorMap)
-			end
-			self.makeChainHelper(chain, motorMap, motorMap[selectedTrack].Part1)
-			for pinnedPart, pinned in pairs(pinnedParts) do
-				if pinnedPart.Name ~= selectedTrack and pinned then
-					self.makeChainHelper(chain, motorMap, pinnedPart)
+			local part = RigUtils.getPartByName(self.props.RootInstance, selectedTrack)
+			if part then
+				if self.props.IKMode == Constants.IK_MODE.BodyPart then
+					pinnedParts = RigUtils.pinForLimbMode(part, motorMap)
+				end
+				self.makeChainHelper(chain, motorMap, motorMap[selectedTrack].Part1)
+				for pinnedPart, pinned in pairs(pinnedParts) do
+					if pinnedPart.Name ~= selectedTrack and pinned then
+						self.makeChainHelper(chain, motorMap, pinnedPart)
+					end
 				end
 			end
 		end

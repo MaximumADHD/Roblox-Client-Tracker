@@ -283,6 +283,12 @@ if game:GetFastFlag("StudioGameSettingsResetStoreAction") then
 			})
 		end,
 
+		AppendSettings = game:GetFastFlag("GameSettingsNetworkRefactor") and function(state, action)
+			return Cryo.Dictionary.join(state, {
+				Current = Cryo.Dictionary.join(state.Current, action.settings),
+			})
+		end or nil,
+
 		AddWarning = function(state, action)
 			if not Cryo.List.find(state.Warnings, action.key) then
 				return Cryo.Dictionary.join(state, {

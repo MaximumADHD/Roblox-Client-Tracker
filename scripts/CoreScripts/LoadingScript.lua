@@ -28,6 +28,8 @@ local FFlagConnectionScriptEnabled = settings():GetFFlag("ConnectionScriptEnable
 local antiAddictionNoticeStringEn = "Boycott bad games, refuse pirated games. Be aware of self-defense and being deceived. Playing games is good for your brain, but too much game play can harm your health. Manage your time well and enjoy a healthy lifestyle."
 local FFlagDisableAutoTranslateForKeyTranslatedContent = require(RobloxGui.Modules.Flags.FFlagDisableAutoTranslateForKeyTranslatedContent)
 
+local FFlagFixTopBarOverLoadingScreen = require(RobloxGui.Modules.Flags.FFlagFixTopBarOverLoadingScreen)
+
 local debugMode = false
 
 local startTime = tick()
@@ -179,7 +181,8 @@ end
 
 local function GenerateGui()
 	local screenGui = create 'ScreenGui' {
-		Name = 'RobloxLoadingGui'
+		Name = 'RobloxLoadingGui',
+		DisplayOrder = FFlagFixTopBarOverLoadingScreen and 8 or nil,
 	}
 
 	--

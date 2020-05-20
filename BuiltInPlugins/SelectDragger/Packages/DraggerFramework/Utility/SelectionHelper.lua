@@ -8,10 +8,6 @@ local Workspace = game:GetService("Workspace")
 local StudioService = game:GetService("StudioService")
 local RunService = game:GetService("RunService")
 
-local Framework = script.Parent.Parent
-local getFFlagDraggerUseModelCFrame = require(Framework.Flags.getFFlagDraggerUseModelCFrame)
-local getFFlagTreatToolAsModel = require(Framework.Flags.getFFlagTreatToolAsModel)
-
 local RAYCAST_DIRECTION_SCALE = 10000
 
 local SelectionHelper = {}
@@ -88,77 +84,45 @@ function SelectionHelper.computeSelectionInfo(selectedObjects)
 	local basisCFrame = nil
 	local terrain = Workspace.Terrain
 
-	if getFFlagDraggerUseModelCFrame() then
-		for _, instance in ipairs(selectedObjects) do
-			if instance:IsA("Model") then
-				if not basisCFrame then
-					local boundingBoxCFrame, boundingBoxSize =
-						instance:GetBoundingBox()
-					if boundingBoxSize ~= Vector3.new() then
-						basisCFrame = boundingBoxCFrame
-					end
+	for _, instance in ipairs(selectedObjects) do
+		if instance:IsA("Model") then
+			if not basisCFrame then
+				local boundingBoxCFrame, boundingBoxSize =
+					instance:GetBoundingBox()
+				if boundingBoxSize ~= Vector3.new() then
+					basisCFrame = boundingBoxCFrame
 				end
-				primaryPart = primaryPart or instance.PrimaryPart
-			elseif instance:IsA("BasePart") then
-				if instance ~= terrain then
-					table.insert(allParts, instance)
-					allPartSet[instance] = true
-					primaryPart = primaryPart or instance
-					basisCFrame = basisCFrame or instance.CFrame
-				end
-			elseif instance:IsA("Attachment") then
-				table.insert(allAttachments, instance)
 			end
-			-- It is possible to place parts inside of other parts, so this isn't an else on the prior if.
-			for _, descendant in ipairs(instance:GetDescendants()) do
-				if descendant:IsA("BasePart") and descendant ~= terrain then
-					table.insert(allParts, descendant)
-					allPartSet[descendant] = true
-					primaryPart = primaryPart or descendant
-					basisCFrame = basisCFrame or descendant.CFrame
-				end
+			primaryPart = primaryPart or instance.PrimaryPart
+		elseif instance:IsA("BasePart") then
+			if instance ~= terrain then
+				table.insert(allParts, instance)
+				allPartSet[instance] = true
+				primaryPart = primaryPart or instance
+				basisCFrame = basisCFrame or instance.CFrame
+			end
+		elseif instance:IsA("Attachment") then
+			table.insert(allAttachments, instance)
+		end
+		-- It is possible to place parts inside of other parts, so this isn't an else on the prior if.
+		for _, descendant in ipairs(instance:GetDescendants()) do
+			if descendant:IsA("BasePart") and descendant ~= terrain then
+				table.insert(allParts, descendant)
+				allPartSet[descendant] = true
+				primaryPart = primaryPart or descendant
+				basisCFrame = basisCFrame or descendant.CFrame
 			end
 		end
+	end
 
-		-- Use attachment CFrame as a backup if there weren't any parts in the
-		-- selection to set the basisCFrame with. Attachment CFrames should ONLY
-		-- be used as a basis if there aren't any parts to go off of.
-		if not basisCFrame then
-			if #allAttachments > 0 then
-				basisCFrame = allAttachments[1].WorldCFrame
-			else
-				basisCFrame = CFrame.new()
-			end
-		end
-	else
-		for _, instance in ipairs(selectedObjects) do
-			if instance:IsA("Model") then
-				if instance.PrimaryPart then
-					primaryPart = instance.PrimaryPart
-				end
-			elseif instance:IsA("BasePart") then
-				if instance ~= terrain then
-					table.insert(allParts, instance)
-					allPartSet[instance] = true
-					primaryPart = primaryPart or instance
-				end
-			elseif instance:IsA("Attachment") then
-				table.insert(allAttachments, instance)
-			end
-			-- It is possible to place parts inside of other parts, so this isn't an else on the prior if.
-			for _, descendant in ipairs(instance:GetDescendants()) do
-				if descendant:IsA("BasePart") and descendant ~= terrain then
-					table.insert(allParts, descendant)
-					allPartSet[descendant] = true
-					primaryPart = primaryPart or descendant
-				end
-			end
-		end
-
-		if #allParts == 0 then
-			basisCFrame = allAttachments[1] and allAttachments[1].WorldCFrame or CFrame.new()
+	-- Use attachment CFrame as a backup if there weren't any parts in the
+	-- selection to set the basisCFrame with. Attachment CFrames should ONLY
+	-- be used as a basis if there aren't any parts to go off of.
+	if not basisCFrame then
+		if #allAttachments > 0 then
+			basisCFrame = allAttachments[1].WorldCFrame
 		else
-			basisCFrame = primaryPart and primaryPart.CFrame or CFrame.new()
+			basisCFrame = CFrame.new()
 		end
 	end
 
@@ -265,32 +229,17 @@ end
 	are not considered selectable.
 ]]
 function SelectionHelper.getSelectable(instance)
-	if getFFlagTreatToolAsModel() then
-		-- Make sure that instance is a model or non-locked instance
-		if not instance then
-			return nil
-		elseif instance:IsA("BasePart") then
-			if instance.Locked then
-				return nil
-			end
-		elseif instance:IsA("Attachment") or instance:IsA("Constraint") then
-			return instance
-		elseif not (instance:IsA("Model") or instance:IsA("Tool")) then
+	-- Make sure that instance is a model or non-locked instance
+	if not instance then
+		return nil
+	elseif instance:IsA("BasePart") then
+		if instance.Locked then
 			return nil
 		end
-	else
-		-- Make sure that instance is a model or non-locked instance
-		if not instance then
-			return nil
-		elseif instance:IsA("BasePart") then
-			if instance.Locked then
-				return nil
-			end
-		elseif instance:IsA("Attachment") or instance:IsA("Constraint") then
-			return instance
-		elseif not instance:IsA("Model") then
-			return nil
-		end
+	elseif instance:IsA("Attachment") or instance:IsA("Constraint") then
+		return instance
+	elseif not (instance:IsA("Model") or instance:IsA("Tool")) then
+		return nil
 	end
 
 	if isAltKeyDown() then
@@ -299,14 +248,8 @@ function SelectionHelper.getSelectable(instance)
 		local selectableInstance = instance
 		while instance.Parent do
 			local candidate = instance.Parent
-			if getFFlagTreatToolAsModel() then
-				if (candidate:IsA("Model") or candidate:IsA("Tool")) and candidate ~= Workspace then
-					selectableInstance = candidate
-				end
-			else
-				if candidate:IsA("Model") and candidate ~= Workspace then
-					selectableInstance = candidate
-				end
+			if (candidate:IsA("Model") or candidate:IsA("Tool")) and candidate ~= Workspace then
+				selectableInstance = candidate
 			end
 			instance = candidate
 		end

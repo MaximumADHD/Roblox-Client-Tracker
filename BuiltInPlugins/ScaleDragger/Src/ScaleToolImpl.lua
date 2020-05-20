@@ -9,13 +9,9 @@ local UserInputService = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
 
 -- Libraries
-local Flags = script.Parent.Flags
 local Plugin = script.Parent.Parent
 local plugin = Plugin.Parent
 local Roact = require(Plugin.Packages.Roact)
-
--- Flags
-local getFFlagScaleAlwaysAnchors = require(Flags.getFFlagScaleAlwaysAnchors)
 
 -- Dragger Framework
 local Framework = Plugin.Packages.DraggerFramework
@@ -282,13 +278,7 @@ function ScaleToolImpl:mouseDown(mouseRay, handleId)
 	self._lastDeltaSize = Vector3.new(0, 0, 0)
 	self._lastGoodScale = Vector3.new(1, 1, 1)
 	self._jointMaker:pickUpParts(self._partsToResize)
-	if getFFlagScaleAlwaysAnchors() then
-		self._jointMaker:anchorParts()
-	else
-		if RunService:IsRunning() then
-			self._jointMaker:anchorParts()
-		end
-	end
+	self._jointMaker:anchorParts()
 	self._jointMaker:breakJointsToOutsiders()
 	self._jointMaker:disconnectInternalJoints()
 

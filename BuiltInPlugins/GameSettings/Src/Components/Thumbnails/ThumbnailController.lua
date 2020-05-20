@@ -25,6 +25,9 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
+local ContextServices = require(Plugin.Framework.ContextServices)
+
+local DialogProvider = require(Plugin.Src.Providers.DialogProviderContextItem)
 
 local ThumbnailPreviewDialog = require(Plugin.Src.Components.Dialog.ThumbnailPreviewDialog)
 local ThumbnailWidget = require(Plugin.Src.Components.Thumbnails.ThumbnailWidget)
@@ -54,15 +57,34 @@ function ThumbnailController:addNew()
 end
 
 function ThumbnailController:deleteThumbnail(thumbnailId)
-	local localized = getLocalizedContent(self)
-	local dialogProps = {
-		Size = Vector2.new(368, 145),
-		Title = localized.DeleteDialog.Header,
-		Header = localized.DeleteDialog.Body,
-		Buttons = localized.DeleteDialog.Buttons,
-	}
-	if not showDialog(self, SimpleDialog, dialogProps):await() then
-		return
+	if game:GetFastFlag("StudioConvertGameSettingsToDevFramework") then
+		local localization = self.props.Localization
+		local dialog = self.props.Dialog
+		local dialogProps = {
+			Size = Vector2.new(368, 145),
+			Title = localization:getText("General", "DeleteDialogHeader"),
+			Header = localization:getText("General", "DeleteDialogBody"),
+			Buttons = {
+				localization:getText("General", "ReplyNo"),
+				localization:getText("General", "ReplyYes"),
+			},
+		}
+
+		if not dialog.showDialog(SimpleDialog, dialogProps):await() then
+			return
+		end
+	else
+		local localized = getLocalizedContent(self)
+		local dialogProps = {
+			Size = Vector2.new(368, 145),
+			Title = localized.DeleteDialog.Header,
+			Header = localized.DeleteDialog.Body,
+			Buttons = localized.DeleteDialog.Buttons,
+		}
+
+		if not showDialog(self, SimpleDialog, dialogProps):await() then
+			return
+		end
 	end
 
 	self.props.ThumbnailsChanged(Cryo.Dictionary.join(self.props.Thumbnails, {
@@ -70,7 +92,10 @@ function ThumbnailController:deleteThumbnail(thumbnailId)
 	}))
 	local newOrder = Cryo.List.removeValue(self.props.Order, thumbnailId)
 	self.props.ThumbnailOrderChanged(newOrder)
-	getMouse(self).resetMouse()
+
+	if not game:GetFastFlag("StudioConvertGameSettingsToDevFramework") then
+		getMouse(self).resetMouse()
+	end
 end
 
 function ThumbnailController:moveToIndex(thumbnailId, index)
@@ -81,14 +106,22 @@ end
 
 function ThumbnailController:openPreviewDialog(thumbnailId)
 	local dialogProps = {
-		Title = getLocalizedContent(self).PreviewDialog.Header,
+		Title = game:GetFastFlag("StudioConvertGameSettingsToDevFramework")
+			and self.props.Localization:getText("General", "PreviewDialogHeader")
+			or getLocalizedContent(self).PreviewDialog.Header,
 		Size = Vector2.new(660, 380),
 		Thumbnails = self.props.Thumbnails,
 		Order = self.props.Order,
 		StartId = thumbnailId,
 	}
-	showDialog(self, ThumbnailPreviewDialog, dialogProps)
-	:catch(function()
+
+	local promise
+	if game:GetFastFlag("StudioConvertGameSettingsToDevFramework") then
+		promise = self.props.Dialog.showDialog(ThumbnailPreviewDialog, dialogProps)
+	else
+		promise = showDialog(self, ThumbnailPreviewDialog, dialogProps)
+	end
+	promise:catch(function()
 		-- Nothing to catch when window is closed;
 		-- It's just a non-interactable preview window.
 	end)
@@ -98,6 +131,13 @@ function ThumbnailController:render()
 	return Roact.createElement(ThumbnailWidget, Cryo.Dictionary.join(self.props, {
 		ThumbnailAction = self.dispatchAction,
 	}))
+end
+
+if game:GetFastFlag("StudioConvertGameSettingsToDevFramework") then
+	ContextServices.mapToProps(ThumbnailController, {
+		Localization = ContextServices.Localization,
+		Dialog = DialogProvider
+	})
 end
 
 return ThumbnailController

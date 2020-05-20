@@ -34,6 +34,7 @@ function ConversationEntry:render()
 	local layoutOrder = self.props.layoutOrder
 	local zIndex = self.props.zIndex
 	local size = self.props.size
+	local subtitle = self.props.subtitle
 	local title = self.props.title
 	local users = self.props.users
 	local inviteUser = self.props.inviteUser
@@ -75,6 +76,7 @@ function ConversationEntry:render()
 		}),
 		Details = Roact.createElement(ConversationDetails, {
 			title = title,
+			subtitle = subtitle,
 			presence = presence,
 			size = UDim2.new(
 				-- Make details fullwidth and subtract the width of its siblings

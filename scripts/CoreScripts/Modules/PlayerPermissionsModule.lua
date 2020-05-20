@@ -8,7 +8,7 @@ local PlayerGroupInfoMapChanged = Instance.new("BindableEvent")
 local PlayerCanManageInfoMap = {}
 local PlayerCanManageInfoMapChanged = Instance.new("BindableEvent")
 
-local FFlagUseCanManageForDeveloperIconClient = game:DefineFastFlag("UseCanManageForDeveloperIconClient", false)
+local FFlagUseCanManageForDeveloperIconClient2 = game:DefineFastFlag("UseCanManageForDeveloperIconClient2", false)
 
 spawn(function()
 	local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
@@ -22,7 +22,7 @@ spawn(function()
 	end)
 end)
 
-if FFlagUseCanManageForDeveloperIconClient then
+if FFlagUseCanManageForDeveloperIconClient2 then
 	coroutine.wrap(function()
 		local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
 		local RemoveEvent_NewPlayerCanManageDetails = RobloxReplicatedStorage:WaitForChild("NewPlayerCanManageDetails")
@@ -81,7 +81,7 @@ local function IsPlaceOwnerFunctionFactory()
 end
 
 local function CanPlayerManagePlace(player)
-	while not PlayerCanManageInfoMap[player] and player.Parent do
+	while PlayerCanManageInfoMap[player] == nil and player.Parent do
 		PlayerCanManageInfoMapChanged.Event:Wait()
 	end
 	if PlayerCanManageInfoMap[player] ~= nil then
@@ -95,7 +95,7 @@ PlayerPermissionsModule.IsPlayerInternAsync = NewInGroupFunctionFactory("Intern"
 PlayerPermissionsModule.IsPlayerStarAsync = NewInGroupFunctionFactory("Star")
 PlayerPermissionsModule.IsPlayerLocalizationExpertAsync = NewIsLocalizationExpertFunctionFactory()
 PlayerPermissionsModule.IsPlayerPlaceOwnerAsync = IsPlaceOwnerFunctionFactory()
-if FFlagUseCanManageForDeveloperIconClient then
+if FFlagUseCanManageForDeveloperIconClient2 then
 	PlayerPermissionsModule.CanPlayerManagePlaceAsync = CanPlayerManagePlace
 end
 
