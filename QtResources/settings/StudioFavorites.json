@@ -15,7 +15,7 @@
         ,"Humanoid":["Animation"]
         ,"ImageButton":["LocalScript","TextLabel"]
         ,"ImageLabel":["TextLabel","TextButton","Frame","ImageLabel","LocalScript","ImageButton","TextBox"]
-        ,"Lighting":["Sky","SunRaysEffect","ColorCorrectionEffect","BloomEffect","BlurEffect"]
+        ,"Lighting":["Sky","Atmosphere","SunRaysEffect","ColorCorrectionEffect","BloomEffect","BlurEffect"]
         ,"LocalScript":["Animation","Folder"]
         ,"MeshPart":["Texture","Decal","Script","Attachment","ClickDetector","WeldConstraint","Fire"]
         ,"Model":["Humanoid","Script","Accessory","Pants","Shirt","BodyColors","Model"]

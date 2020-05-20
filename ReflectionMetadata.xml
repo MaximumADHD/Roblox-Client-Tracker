@@ -479,7 +479,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">Bone</string>
-        <string name="ClassCategory">Animation</string>
+        <string name="ClassCategory">Animations</string>
         <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">114</string>
         <string name="PreferredParent">PVInstance</string>

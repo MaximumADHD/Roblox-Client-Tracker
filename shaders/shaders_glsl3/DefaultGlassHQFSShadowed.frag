@@ -83,8 +83,8 @@ uniform sampler2D NormalDetailMapTexture;
 uniform sampler2D StudsMapTexture;
 uniform sampler2D SpecularMapTexture;
 
-in vec4 VARYING0;
-in vec4 VARYING1;
+in vec2 VARYING0;
+in vec2 VARYING1;
 in vec4 VARYING2;
 in vec3 VARYING3;
 in vec4 VARYING4;
@@ -96,10 +96,10 @@ out vec4 _entryPointOutput;
 
 void main()
 {
-    vec2 f0 = VARYING1.xy;
+    vec2 f0 = VARYING1;
     f0.y = (fract(VARYING1.y) + VARYING8) * 0.25;
     float f1 = clamp(1.0 - (VARYING4.w * CB0[23].y), 0.0, 1.0);
-    vec2 f2 = VARYING0.xy * CB2[0].x;
+    vec2 f2 = VARYING0 * CB2[0].x;
     vec4 f3 = texture(DiffuseMapTexture, f2);
     vec2 f4 = texture(NormalMapTexture, f2).wy * 2.0;
     vec2 f5 = f4 - vec2(1.0);

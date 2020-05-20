@@ -52,7 +52,7 @@ uniform samplerCube PrefilteredEnvIndoorTexture;
 uniform sampler2D PrecomputedBRDFTexture;
 uniform sampler2D DiffuseMapTexture;
 
-in vec4 VARYING0;
+in vec2 VARYING0;
 in vec4 VARYING2;
 in vec3 VARYING3;
 in vec4 VARYING4;
@@ -62,7 +62,7 @@ out vec4 _entryPointOutput;
 
 void main()
 {
-    vec4 f0 = texture(DiffuseMapTexture, VARYING0.xy) * VARYING2;
+    vec4 f0 = texture(DiffuseMapTexture, VARYING0) * VARYING2;
     vec3 f1 = f0.xyz;
     float f2 = clamp(dot(step(CB0[19].xyz, abs(VARYING3 - CB0[18].xyz)), vec3(1.0)), 0.0, 1.0);
     vec3 f3 = VARYING3.yzx - (VARYING3.yzx * f2);

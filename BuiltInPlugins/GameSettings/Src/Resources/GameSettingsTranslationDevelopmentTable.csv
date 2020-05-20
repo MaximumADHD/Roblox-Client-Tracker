@@ -12,6 +12,8 @@ Studio.GameSettings.General.ButtonSave,Save, ,Save
 Studio.GameSettings.General.ButtonCancel,Cancel, ,Cancel
 Studio.GameSettings.General.ButtonDiscard,Discard, ,Discard
 Studio.GameSettings.General.ButtonCreate,Create, ,Create
+Studio.GameSettings.General.ButtonEdit,Edit, ,Edit
+Studio.GameSettings.General.ButtonView,View, ,View
 Studio.GameSettings.General.CategoryBasicInfo,Basic Info, ,Basic Info
 Studio.GameSettings.General.CategoryAvatar,Avatar, ,Avatar
 Studio.GameSettings.General.CategoryWorld,World, ,World
@@ -212,6 +214,9 @@ Studio.GameSettings.General.SlopeAngle,Max Slope Angle:, ,Max Slope Angle:
 Studio.GameSettings.General.UnitsMetersPerSecondSquared,({number} meters/second^2), ,({number} meters/second^2)
 Studio.GameSettings.General.UnitsMeters,({number} meters), ,({number} meters)
 Studio.GameSettings.General.UnitsMetersPerSecond,({number} meters/second), ,({number} meters/second)
+Studio.GameSettings.General.UnitsMetersPerSecondSquared1,({1} meters/second^2), ,({1} meters/second^2)
+Studio.GameSettings.General.UnitsMeters1,({1} meters), ,({1} meters)
+Studio.GameSettings.General.UnitsMetersPerSecond1,({1} meters/second), ,({1} meters/second)
 Studio.GameSettings.General.PublishTheGameToRoblox,Publish the game to Roblox, ,Publish the game to Roblox
 Studio.GameSettings.AccessPermissions.FriendsCollaboratorType,Friends, ,Friends
 Studio.GameSettings.AccessPermissions.UsersCollaboratorType,Users, ,Users
@@ -239,3 +244,32 @@ Studio.GameSettings.General.LocalizationSettingsLinkText,Click here, ,Click here
 Studio.GameSettings.General.LocalizationSettingsNonLinkText, to further manage the cloud localization table for this game., , to further manage the cloud localization table for this game.
 Studio.GameSettings.General.LocalizationSettingsPublishMessageLinkText,Publishing a game is required, ,Publishing a game is required
 Studio.GameSettings.General.LocalizationSettingsPublishMessageNonLinkText, to activate Localization options., , to activate Localization options.
+Studio.GameSettings.Places.PlaceVersion,Place Version, ,Place Version
+Studio.GameSettings.Places.PlaceName,Place Name, ,Place Name
+Studio.GameSettings.Places.EditPlace,Edit Place, ,Edit Place
+Studio.GameSettings.Places.MaxPlayers,Max Players, ,Max Players
+Studio.GameSettings.Places.MaxPlayersSubText,Maximum number of players allowed in a single instance of the game., ,Maximum number of players allowed in a single instance of the game.
+Studio.GameSettings.Places.ServerFill,Server Fill, ,Server Fill
+Studio.GameSettings.Places.OptimizedTitle,Roblox Optimized, ,Roblox Optimized
+Studio.GameSettings.Places.OptimizedDescription,Fills your server to optimize for the best social gameplay experience., ,Fills your server to optimize for the best social gameplay experience.
+Studio.GameSettings.Places.MaximumTitle,Maximum, ,Maximum
+Studio.GameSettings.Places.MaximumWarning,Choosing this option could cause you to lose out on gameplay time and Robux earned., ,Choosing this option could cause you to lose out on gameplay time and Robux earned.
+Studio.GameSettings.Places.CustomizeSlotsTitle,Customize Reserved Server Slots, ,Customize Reserved Server Slots
+Studio.GameSettings.Places.CustomizeSlotsDescription,Friends are more likely to join players in your game if you reserve slots., ,Friends are more likely to join players in your game if you reserve slots.
+Studio.GameSettings.Places.VersionHistory,Version History, ,Version History
+Studio.GameSettings.General.CategoryMonetization,Monetization, ,Monetization
+Studio.GameSettings.Monetization.FeeLabel,30% Fee:, ,30% Fee:
+Studio.GameSettings.Monetization.TitlePaidAccess,Paid Access, ,Paid Access
+Studio.GameSettings.Monetization.TitleVIPServers,VIP Servers, ,VIP Servers
+Studio.GameSettings.Monetization.Price,Price:, ,Price:
+Studio.GameSettings.Monetization.EarnLabel,You Earn:, ,You Earn:
+Studio.GameSettings.Monetization.PaidAccessHint,VIP Servers must not be enabled and the game must be public to enable Paid Access., ,VIP Servers must not be enabled and the game must be public to enable Paid Access.
+Studio.GameSettings.Monetization.VIPServersHint,Paid Access must not be enabled and the game must be public to enable VIP Servers., ,Paid Access must not be enabled and the game must be public to enable VIP Servers.
+Studio.GameSettings.Monetization.Subscriptions,Subscriptions: {numOfSubscriptions:int}, ,Subscriptions: {numOfSubscriptions:int}
+Studio.GameSettings.Monetization.TotalVIPServers,Total: {totalVipServers:int}, ,Total: {totalVipServers:int}
+Studio.GameSettings.Monetization.ProductName,Product Name, ,Product Name
+Studio.GameSettings.Monetization.ProductID,Product ID, ,Product ID
+Studio.GameSettings.Monetization.ProductIcon,Product Icon, ,Product Icon
+Studio.GameSettings.Monetization.PriceTitle,Price, ,Price
+Studio.GameSettings.Monetization.EditDeveloperProduct,Edit Developer Product, ,Edit Developer Product
+Studio.GameSettings.Monetization.DevProducts,Developer Products, ,Developer Products

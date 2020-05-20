@@ -58,7 +58,7 @@ uniform samplerCube PrefilteredEnvIndoorTexture;
 uniform sampler2D PrecomputedBRDFTexture;
 uniform sampler2D DiffuseMapTexture;
 
-in vec4 VARYING0;
+in vec2 VARYING0;
 in vec4 VARYING2;
 in vec3 VARYING3;
 in vec4 VARYING4;
@@ -71,7 +71,7 @@ void main()
     vec3 f0 = normalize(VARYING5.xyz);
     vec3 f1 = -CB0[11].xyz;
     float f2 = dot(f0, f1);
-    vec3 f3 = (texture(DiffuseMapTexture, VARYING0.xy) * VARYING2).xyz;
+    vec3 f3 = (texture(DiffuseMapTexture, VARYING0) * VARYING2).xyz;
     float f4 = clamp(dot(step(CB0[19].xyz, abs(VARYING3 - CB0[18].xyz)), vec3(1.0)), 0.0, 1.0);
     vec3 f5 = VARYING3.yzx - (VARYING3.yzx * f4);
     vec4 f6 = vec4(clamp(f4, 0.0, 1.0));

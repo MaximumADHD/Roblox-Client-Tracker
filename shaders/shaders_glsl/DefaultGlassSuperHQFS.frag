@@ -77,8 +77,8 @@ uniform sampler2D GBufferDepthTexture;
 uniform sampler2D GBufferColorTexture;
 uniform samplerCube EnvironmentMapTexture;
 
-varying vec4 VARYING0;
-varying vec4 VARYING1;
+varying vec2 VARYING0;
+varying vec2 VARYING1;
 varying vec4 VARYING2;
 varying vec3 VARYING3;
 varying vec4 VARYING4;
@@ -89,10 +89,10 @@ varying float VARYING8;
 
 void main()
 {
-    vec2 f0 = VARYING1.xy;
+    vec2 f0 = VARYING1;
     f0.y = (fract(VARYING1.y) + VARYING8) * 0.25;
     float f1 = clamp(1.0 - (VARYING4.w * CB0[23].y), 0.0, 1.0);
-    vec2 f2 = VARYING0.xy * CB2[0].x;
+    vec2 f2 = VARYING0 * CB2[0].x;
     vec4 f3 = texture2D(DiffuseMapTexture, f2);
     vec2 f4 = texture2D(NormalMapTexture, f2).wy * 2.0;
     vec2 f5 = f4 - vec2(1.0);

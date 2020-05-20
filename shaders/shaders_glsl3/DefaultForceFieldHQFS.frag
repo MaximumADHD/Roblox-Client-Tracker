@@ -47,8 +47,8 @@ uniform vec4 CB0[47];
 uniform samplerCube PrefilteredEnvTexture;
 uniform sampler2D DiffuseMapTexture;
 
-in vec4 VARYING0;
-in vec4 VARYING1;
+in vec2 VARYING0;
+in vec2 VARYING1;
 in vec4 VARYING2;
 in vec4 VARYING4;
 in vec4 VARYING5;
@@ -57,7 +57,7 @@ out vec4 _entryPointOutput;
 void main()
 {
     float f0 = length(VARYING4.xyz);
-    vec4 f1 = texture(DiffuseMapTexture, VARYING0.xy);
+    vec4 f1 = texture(DiffuseMapTexture, VARYING0);
     float f2 = f1.x;
     float f3 = (f2 > 0.0) ? ((1.0 - clamp(abs(f2 - CB0[14].w) * 13.0, 0.0, 1.0)) * f1.w) : 0.0;
     float f4 = max(max(1.0 - clamp(abs(dot(normalize(VARYING5.xyz), VARYING4.xyz / vec3(f0))) * 2.0, 0.0, 1.0), 0.0), f3);

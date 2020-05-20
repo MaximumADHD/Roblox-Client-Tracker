@@ -17,7 +17,7 @@ dependencies = [
     "AvatarExperienceDeps AvatarExperienceDeps 5a31b418 git+https://github.com/roblox/avatar-experience-deps#master",
     "Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo",
     "InGameMenuDependencies InGameMenuDependencies 418c3417 git+https://github.rbx.com/roblox/in-game-menu-dependencies#master",
-    "LuaChatDeps LuaChatDeps 4a259061 git+https://github.rbx.com/roblox/lua-chat-deps#master",
+    "LuaChatDeps LuaChatDeps af3a8696 git+https://github.rbx.com/roblox/lua-chat-deps#master",
     "LuaDiscussionsDeps LuaDiscussionsDeps f61ab8c8 git+https://github.rbx.com/roblox/lua-discussions-deps#master",
     "LuaSocialLibrariesDeps LuaSocialLibrariesDeps 3e3d8fd8 git+https://github.rbx.com/roblox/lua-social-libraries-deps#master",
     "Lumberyak roblox/lumberyak 4c383367 git+https://github.rbx.com/roblox/lumberyak#master",
@@ -32,7 +32,7 @@ dependencies = [
     "RoactRodux roblox/roact-rodux 0.2.1 url+https://github.com/roblox/roact-rodux",
     "Rodux roblox/rodux 1.0.0 url+https://github.com/roblox/rodux",
     "TestEZ roblox/testez 0.1.1 url+https://github.com/roblox/testez",
-    "UIBlox UIBlox 6c028e8e git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 75e6a511 git+https://github.com/roblox/uiblox#master",
     "enumerate roblox/enumerate 1.0.0 url+https://github.com/roblox/enumerate",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
     "tutils tutils 74574fde git+https://github.rbx.com/roblox/tutils#master",
@@ -49,19 +49,18 @@ dependencies = [
     "Roact roblox/roact 1.2.0 url+https://github.com/roblox/roact",
     "RoactRodux roblox/roact-rodux 0.2.1 url+https://github.com/roblox/roact-rodux",
     "Rodux roblox/rodux 1.0.0 url+https://github.com/roblox/rodux",
-    "UIBlox <patched> UIBlox 6c028e8e git+https://github.com/roblox/uiblox#master",
+    "UIBlox <patched> UIBlox 75e6a511 git+https://github.com/roblox/uiblox#master",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
 
 [[package]]
 name = "LuaChatDeps"
 version = "0.1.1"
-commit = "4a259061ee104cefbbfddb4d57c2ec851894a614"
+commit = "af3a8696cbcb88bbcf14aa6857cc3a6caad79f58"
 source = "git+https://github.rbx.com/roblox/lua-chat-deps#master"
 dependencies = [
-    "InfiniteScroll roblox/infinite-scroller 0.3.4 url+https://github.com/roblox/infinite-scroller",
     "RoduxNetworking rodux-networking b3747078 git+https://github.rbx.com/roblox/rodux-networking#master",
-    "UIBlox UIBlox ea698019 git+https://github.rbx.com/axia/uiblox#master",
+    "UIBlox UIBlox 75e6a511 git+https://github.com/roblox/uiblox#master",
 ]
 
 [[package]]
@@ -103,28 +102,13 @@ dependencies = ["Roact <patched> roblox/roact 1.2.0 url+https://github.com/roblo
 
 [[package]]
 name = "UIBlox"
-version = "0.1.0"
-commit = "ea6980190bf5ee80b2e55d3018cf8f9d763707a4"
-source = "git+https://github.rbx.com/axia/uiblox#master"
-dependencies = [
-    "Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo",
-    "FitFrame roblox/roact-fit-components 1.2.3 url+https://github.com/roblox/roact-fit-components",
-    "InfiniteScroller roblox/infinite-scroller 0.3.4 url+https://github.com/roblox/infinite-scroller",
-    "Otter roblox/otter 0.0.1 url+https://github.com/roblox/otter",
-    "Roact roblox/roact 1.2.0 url+https://github.com/roblox/roact",
-    "enumerate roblox/enumerate 1.0.0 url+https://github.com/roblox/enumerate",
-    "t roblox/t 1.2.5 url+https://github.com/roblox/t",
-]
-
-[[package]]
-name = "UIBlox"
 version = "0.1.1"
-commit = "6c028e8e642813e1f9e6def2158b0611ee69604a"
+commit = "75e6a511fea6925c18afbb0cd24c97152bca2610"
 source = "git+https://github.com/roblox/uiblox#master"
 dependencies = [
     "Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo",
     "FitFrame roblox/roact-fit-components 1.2.3 url+https://github.com/roblox/roact-fit-components",
-    "InfiniteScroller roblox/infinite-scroller 0.4.4 url+https://github.com/roblox/infinite-scroller",
+    "InfiniteScroller roblox/infinite-scroller 0.5.1 url+https://github.com/roblox/infinite-scroller",
     "Otter roblox/otter 0.1.1 url+https://github.com/roblox/otter",
     "Roact roblox/roact 1.2.0 url+https://github.com/roblox/roact",
     "enumerate roblox/enumerate 1.0.0 url+https://github.com/roblox/enumerate",
@@ -205,8 +189,8 @@ dependencies = [
 
 [[package]]
 name = "roblox/infinite-scroller"
-version = "0.4.4"
-commit = "b0093eabe72bf962811b57a44ede281474a86b67"
+version = "0.5.1"
+commit = "5360e470e57d4448015f5ed6e99e8911d6374516"
 source = "url+https://github.com/roblox/infinite-scroller"
 dependencies = [
     "Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo",
@@ -228,12 +212,6 @@ version = "0.1.0"
 commit = "4c383367585db0c21d8bf46c622210e2e849ed2b"
 source = "git+https://github.rbx.com/roblox/lumberyak#master"
 dependencies = ["Cryo <patched> roblox/cryo 1.0.0 url+https://github.com/roblox/cryo"]
-
-[[package]]
-name = "roblox/otter"
-version = "0.0.1"
-commit = "06c95c5c9d3d8249fdf01fcb69d149d8879d4a66"
-source = "url+https://github.com/roblox/otter"
 
 [[package]]
 name = "roblox/otter"
@@ -268,7 +246,7 @@ dependencies = [
     "Roact roblox/roact 1.2.0 url+https://github.com/roblox/roact",
     "RoactRodux roblox/roact-rodux 0.2.1 url+https://github.com/roblox/roact-rodux",
     "Rodux roblox/rodux 1.0.0 url+https://github.com/roblox/rodux",
-    "UIBlox <patched> UIBlox 6c028e8e git+https://github.com/roblox/uiblox#master",
+    "UIBlox <patched> UIBlox 75e6a511 git+https://github.com/roblox/uiblox#master",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
 

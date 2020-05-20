@@ -49,7 +49,7 @@ uniform sampler3D LightMapTexture;
 uniform sampler3D LightGridSkylightTexture;
 uniform sampler2D DiffuseMapTexture;
 
-varying vec4 VARYING0;
+varying vec2 VARYING0;
 varying vec4 VARYING2;
 varying vec3 VARYING3;
 varying vec4 VARYING4;
@@ -58,7 +58,7 @@ varying vec4 VARYING6;
 
 void main()
 {
-    vec3 f0 = (texture2D(DiffuseMapTexture, VARYING0.xy) * VARYING2).xyz;
+    vec3 f0 = (texture2D(DiffuseMapTexture, VARYING0) * VARYING2).xyz;
     float f1 = clamp(dot(step(CB0[19].xyz, abs(VARYING3 - CB0[18].xyz)), vec3(1.0)), 0.0, 1.0);
     vec3 f2 = VARYING3.yzx - (VARYING3.yzx * f1);
     vec4 f3 = vec4(clamp(f1, 0.0, 1.0));

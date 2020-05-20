@@ -10748,8 +10748,8 @@
                     "MemberType": "Property",
                     "Name": "CurrentDataModelType",
                     "Security": {
-                        "Read": "PluginSecurity",
-                        "Write": "PluginSecurity"
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
@@ -10769,8 +10769,8 @@
                     "MemberType": "Property",
                     "Name": "SessionId",
                     "Security": {
-                        "Read": "PluginSecurity",
-                        "Write": "PluginSecurity"
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
@@ -10797,14 +10797,14 @@
                             }
                         }
                     ],
-                    "Security": "PluginSecurity"
+                    "Security": "RobloxScriptSecurity"
                 },
                 {
                     "MemberType": "Event",
                     "Name": "CurrentDataModelTypeChanged",
                     "Parameters": [
                     ],
-                    "Security": "PluginSecurity"
+                    "Security": "RobloxScriptSecurity"
                 },
                 {
                     "MemberType": "Event",
@@ -10818,7 +10818,7 @@
                             }
                         }
                     ],
-                    "Security": "PluginSecurity"
+                    "Security": "RobloxScriptSecurity"
                 },
                 {
                     "MemberType": "Event",
@@ -10832,7 +10832,7 @@
                             }
                         }
                     ],
-                    "Security": "PluginSecurity"
+                    "Security": "RobloxScriptSecurity"
                 }
             ],
             "MemoryCategory": "Instances",
@@ -26225,26 +26225,6 @@
                 {
                     "Category": "Appearance",
                     "MemberType": "Property",
-                    "Name": "LegacyOutlines",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "Tags": [
-                        "NotScriptable"
-                    ],
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    }
-                },
-                {
-                    "Category": "Appearance",
-                    "MemberType": "Property",
                     "Name": "OutdoorAmbient",
                     "Security": {
                         "Read": "None",
@@ -30098,8 +30078,8 @@
                     "MemberType": "Property",
                     "Name": "FocusedDataModelSession",
                     "Security": {
-                        "Read": "PluginSecurity",
-                        "Write": "PluginSecurity"
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
@@ -30126,7 +30106,7 @@
                             }
                         }
                     ],
-                    "Security": "PluginSecurity"
+                    "Security": "RobloxScriptSecurity"
                 },
                 {
                     "MemberType": "Event",
@@ -30140,14 +30120,15 @@
                             }
                         }
                     ],
-                    "Security": "PluginSecurity"
+                    "Security": "RobloxScriptSecurity"
                 }
             ],
             "MemoryCategory": "Instances",
             "Name": "MultipleDocumentInterfaceInstance",
             "Superclass": "Instance",
             "Tags": [
-                "NotCreatable"
+                "NotCreatable",
+                "NotReplicated"
             ]
         },
         {
@@ -35702,6 +35683,63 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "CalculateJumpDistance",
+                    "Parameters": [
+                        {
+                            "Name": "gravity",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "float"
+                            }
+                        },
+                        {
+                            "Name": "jumpPower",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "float"
+                            }
+                        },
+                        {
+                            "Name": "walkSpeed",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "float"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "CalculateJumpHeight",
+                    "Parameters": [
+                        {
+                            "Name": "gravity",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "float"
+                            }
+                        },
+                        {
+                            "Name": "jumpPower",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "float"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "CalculateJumpPower",
                     "Parameters": [
                         {
@@ -40744,8 +40782,8 @@
                     "MemberType": "Property",
                     "Name": "HostDataModelType",
                     "Security": {
-                        "Read": "PluginSecurity",
-                        "Write": "PluginSecurity"
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
@@ -40765,8 +40803,8 @@
                     "MemberType": "Property",
                     "Name": "HostDataModelTypeIsCurrent",
                     "Security": {
-                        "Read": "PluginSecurity",
-                        "Write": "PluginSecurity"
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
@@ -40786,8 +40824,8 @@
                     "MemberType": "Property",
                     "Name": "MultipleDocumentInterfaceInstance",
                     "Security": {
-                        "Read": "PluginSecurity",
-                        "Write": "PluginSecurity"
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
@@ -40974,7 +41012,7 @@
                         "Category": "Group",
                         "Name": "Variant"
                     },
-                    "Security": "PluginSecurity"
+                    "Security": "RobloxScriptSecurity"
                 },
                 {
                     "MemberType": "Function",
@@ -41064,7 +41102,7 @@
                         "Category": "Primitive",
                         "Name": "void"
                     },
-                    "Security": "PluginSecurity"
+                    "Security": "RobloxScriptSecurity"
                 },
                 {
                     "MemberType": "Function",
@@ -41129,7 +41167,7 @@
                         "Category": "Class",
                         "Name": "Instance"
                     },
-                    "Security": "PluginSecurity"
+                    "Security": "RobloxScriptSecurity"
                 },
                 {
                     "MemberType": "Function",
@@ -41154,7 +41192,7 @@
                         "Category": "Class",
                         "Name": "Instance"
                     },
-                    "Security": "PluginSecurity"
+                    "Security": "RobloxScriptSecurity"
                 },
                 {
                     "MemberType": "Function",
@@ -41331,7 +41369,7 @@
                         "Category": "Primitive",
                         "Name": "void"
                     },
-                    "Security": "PluginSecurity"
+                    "Security": "RobloxScriptSecurity"
                 },
                 {
                     "MemberType": "Function",
@@ -52117,6 +52155,17 @@
                                 "Name": "string"
                             }
                         }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "ShowPlaceVersionHistoryDialog",
+                    "Parameters": [
                     ],
                     "ReturnType": {
                         "Category": "Primitive",

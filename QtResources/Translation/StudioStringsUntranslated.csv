@@ -98,6 +98,8 @@ Studio.App.BetaFeatures.SelectFeaturesToActivate,,Select beta features to activa
 Studio.App.BetaFeatures.SetInstanceDefaultsWindowDescription,,Set a Part or Script to be the default for future inserted instances of a Part or Script.,Set a Part or Script to be the default for future inserted instances of a Part or Script.
 Studio.App.BetaFeatures.SetInstanceDefaultsWindowTitle,,Set Instance as Default,Set Instance as Default
 Studio.App.BetaFeatures.SomethingChangedPrompt,,Would you like to restart Studio now?,Would you like to restart Studio now?
+Studio.App.BetaFeatures.SupportPluginDebuggingDescription,,Set `Plugin Debugging Enabled` to true and you can debug local plugins under the PluginDebugService in Explorer,Set `Plugin Debugging Enabled` to true and you can debug local plugins under the PluginDebugService in Explorer
+Studio.App.BetaFeatures.SupportPluginDebuggingTitle,,Plugin Debugging,Plugin Debugging
 Studio.App.BetaFeatures.SurfaceJoinChangesDescription,,"Remove the 'Surface' Join Mode, all surfaces create ManualWelds.","Remove the 'Surface' Join Mode, all surfaces create ManualWelds."
 Studio.App.BetaFeatures.SurfaceJoinChangesTitle,,Surface Join Behavior Change,Surface Join Behavior Change
 Studio.App.BetaFeatures.TryCoolFeatures,,Try out cool new Studio features! Your feedback is invaluable to us as we move forward towards building a powerful imagination platform.,Try out cool new Studio features! Your feedback is invaluable to us as we move forward towards building a powerful imagination platform.
@@ -554,6 +556,26 @@ Studio.App.ImagePickerWidget.AddImageElps,,Add Image...,Add Image...
 Studio.App.ImageResourceController.ImagesReferencedByName,,"Images are referenced by name, so any references to this image will fail to load. Are you sure you want to remove it?","Images are referenced by name, so any references to this image will fail to load. Are you sure you want to remove it?"
 Studio.App.InsertObject.MultipleSelectionError,,InsertObject: Cannot do insert object when there are multiple selections. Please make sure you select a valid target object.,InsertObject: Cannot do insert object when there are multiple selections. Please make sure you select a valid target object.
 Studio.App.InsertObject.SearchObject1,,Search object %1,Search object %1
+Studio.App.InsertObjectCategory.3DInterfaces,,3D Interfaces,3D Interfaces
+Studio.App.InsertObjectCategory.Adornments,,Adornments,Adornments
+Studio.App.InsertObjectCategory.Animations,,Animations,Animations
+Studio.App.InsertObjectCategory.Avatar,,Avatar,Avatar
+Studio.App.InsertObjectCategory.Constraints,,Constraints,Constraints
+Studio.App.InsertObjectCategory.Effects,,Effects,Effects
+Studio.App.InsertObjectCategory.Environment,,Environment,Environment
+Studio.App.InsertObjectCategory.FavoritesCategory,,Frequently Used,Frequently Used
+Studio.App.InsertObjectCategory.GUI,,GUI,GUI
+Studio.App.InsertObjectCategory.Interaction,,Interaction,Interaction
+Studio.App.InsertObjectCategory.LegacyBodyMovers,,Legacy Body Movers,Legacy Body Movers
+Studio.App.InsertObjectCategory.Lights,,Lights,Lights
+Studio.App.InsertObjectCategory.Localization,,Localization,Localization
+Studio.App.InsertObjectCategory.Meshes,,Meshes,Meshes
+Studio.App.InsertObjectCategory.Parts,,Parts,Parts
+Studio.App.InsertObjectCategory.PostProcessingEffects,,Post Processing Effects,Post Processing Effects
+Studio.App.InsertObjectCategory.Scripting,,Scripting,Scripting
+Studio.App.InsertObjectCategory.Sounds,,Sounds,Sounds
+Studio.App.InsertObjectCategory.Uncategorized,,Uncategorized,Uncategorized
+Studio.App.InsertObjectCategory.Values,,Values,Values
 Studio.App.InsertObjectUtils.CannotBeChildOf,,%s cannot be a child of %s,%s cannot be a child of %s
 Studio.App.InsertObjectWidget.EmptyFrequentlyUsedList,,Objects are not usually inserted under this parent.,Objects are not usually inserted under this parent.
 Studio.App.InsertObjectWidget.ExpandTooltip,,Toggle expanded view,Toggle expanded view
@@ -856,6 +878,10 @@ Studio.App.PlaceResourceController.AddingPlace,,Adding Place...,Adding Place...
 Studio.App.PlaceResourceController.CantRemoveStartPlace,,You cannot remove the start place from a game.,You cannot remove the start place from a game.
 Studio.App.PlaceResourceController.ErrorWhileAddingPlace,,Error while adding place. See Output window for details.,Error while adding place. See Output window for details.
 Studio.App.PlaceResourceController.ThisFunctionalityHasBeenDisabled,,This functionality has been disabled. You can update your start place by doing File > Publish to Roblox As... and selecting the start place.,This functionality has been disabled. You can update your start place by doing File > Publish to Roblox As... and selecting the start place.
+Studio.App.PlaceVersionHistoryDialog.Empty,,No Place Versions found,No Place Versions found
+Studio.App.PlaceVersionHistoryDialog.PublishedColumnTitle,,Published,Published
+Studio.App.PlaceVersionHistoryDialog.Tip,,Select a place version to download and open it,Select a place version to download and open it
+Studio.App.PlaceVersionHistoryDialog.ViewHistory,,View History,View History
 Studio.App.PlayModifiedScriptController.AlwaysSave,,Always Save,Always Save
 Studio.App.PlayModifiedScriptController.KeepTheseChanges,,You've made script changes while playing.  Would you like to keep these changes?,You've made script changes while playing.  Would you like to keep these changes?
 Studio.App.PluginLoader.CloudLoadFailedFmt1,error fetching installed plugins from cloud,Failed to load installed plugins from cloud: %1,Failed to load installed plugins from cloud: %1
@@ -1712,6 +1738,23 @@ Studio.App.RobloxMouseConfig.RightClick,,Right Click,Right Click
 Studio.App.RobloxMouseConfig.RightClickAlt,,Right Click + Alt,Right Click + Alt
 Studio.App.RobloxMouseConfig.RightClickCtrl,,Right Click + Ctrl,Right Click + Ctrl
 Studio.App.RobloxMouseConfig.RightClickShift,,Right Click + Shift,Right Click + Shift
+Studio.App.RobloxOutputRibbonDropdown.All,,All,All
+Studio.App.RobloxOutputRibbonDropdown.Client,,Client,Client
+Studio.App.RobloxOutputRibbonDropdown.CopyFullContext,,Copy Full Context,Copy Full Context
+Studio.App.RobloxOutputRibbonDropdown.Edit,,Edit,Edit
+Studio.App.RobloxOutputRibbonDropdown.Error,,Error,Error
+Studio.App.RobloxOutputRibbonDropdown.Information,,Information,Information
+Studio.App.RobloxOutputRibbonDropdown.Log,,Log,Log
+Studio.App.RobloxOutputRibbonDropdown.Other,,Other,Other
+Studio.App.RobloxOutputRibbonDropdown.PlaySolo,,PlaySolo,PlaySolo
+Studio.App.RobloxOutputRibbonDropdown.RobloxPlugin,,Roblox Plugin,Roblox Plugin
+Studio.App.RobloxOutputRibbonDropdown.SelectMessageOnly,,Select Messages Only,Select Messages Only
+Studio.App.RobloxOutputRibbonDropdown.Server,,Server,Server
+Studio.App.RobloxOutputRibbonDropdown.ShowTimestamp,,Show Timestamp,Show Timestamp
+Studio.App.RobloxOutputRibbonDropdown.System,,System,System
+Studio.App.RobloxOutputRibbonDropdown.UserPlugin,,User Plugin,User Plugin
+Studio.App.RobloxOutputRibbonDropdown.Warning,,Warning,Warning
+Studio.App.RobloxOutputRibbonDropdown.WordWrap,,Word Wrap,Word Wrap
 Studio.App.RobloxPropertiesWidget.FilterPlaceholder1,,Filter Properties %1,Filter Properties %1
 Studio.App.RobloxPropertiesWidget.ItemCount1,,%1 items,%1 items
 Studio.App.RobloxPropertiesWidget.ItemsCount2,,%1 - %2 items,%1 - %2 items
@@ -2064,8 +2107,10 @@ Studio.App.RobloxTeamCreateWidget.TurnOffTeamCreate,,Turn OFF Team Create,Turn O
 Studio.App.RobloxTextOutputWidget.ClearOutput,,Clear Output,Clear Output
 Studio.App.RobloxTextOutputWidget.Copy,,Copy,Copy
 Studio.App.RobloxTextOutputWidget.MaxTableDepthReached,,Max table depth reached,Max table depth reached
+Studio.App.RobloxTextOutputWidget.Message,,Message,Message
 Studio.App.RobloxTextOutputWidget.OpenLink,,Open link,Open link
 Studio.App.RobloxTextOutputWidget.SelectAll,,Select All,Select All
+Studio.App.RobloxTextOutputWidget.Timestamp,,Timestamp,Timestamp
 Studio.App.RobloxTutorials.CopyText,,Build amazing games with Roblox Studio. No experience necessary!,Build amazing games with Roblox Studio. No experience necessary!
 Studio.App.RobloxTutorials.LearnNow,,Learn now,Learn now
 Studio.App.RobloxViewStudio.ExitUiLayer,,Exit UI Layer,Exit UI Layer
@@ -2166,6 +2211,8 @@ Studio.App.StartPageLogin.TwoStepVerificationSmsInstruction,,Enter the code we j
 Studio.App.StartPageLogin.TwoStepVerificationTitle,,2-Step Verification,2-Step Verification
 Studio.App.StartPageLogin.Username,,Username,Username
 Studio.App.StudioDataModelLoadUtil.ErrorCannotOpenTCPlaceDueToCancellation,,Failed to open the team create place due to cancellation,Failed to open the team create place due to cancellation
+Studio.App.StudioDataModelLoadUtil.ErrorCannotOpenTCPlaceDueToConflictGlobal,,Global Studio does not support joining a TeamCreate session with a Luobu Studio developer. Please download Luobu Studio to use TeamCreate together: www.robloxdev.cn,Global Studio does not support joining a TeamCreate session with a Luobu Studio developer. Please download Luobu Studio to use TeamCreate together: www.robloxdev.cn
+Studio.App.StudioDataModelLoadUtil.ErrorCannotOpenTCPlaceDueToConflictLuobu,,Luobu Studio does not support joining a TeamCreate session with a global Studio developer. Please ask your teammates to download Loubu Studio to use TeamCreate together: www.robloxdev.cn,Luobu Studio does not support joining a TeamCreate session with a global Studio developer. Please ask your teammates to download Loubu Studio to use TeamCreate together: www.robloxdev.cn
 Studio.App.StudioDataModelLoadUtil.ErrorCannotOpenTCPlaceDueToTimeout,,Failed to open the team create place due to timeout,Failed to open the team create place due to timeout
 Studio.App.StudioDataModelLoadUtil.ErrorCannotOpenTCPlaceGeneral,,"Failed to open the team create place, please try again","Failed to open the team create place, please try again"
 Studio.App.StudioDataModelLoadUtil.ErrorCannotOpenTCPlaceWithErrorCode1,,"Failed to open the team create place, please try again. (Error Code: %1)","Failed to open the team create place, please try again. (Error Code: %1)"
@@ -2298,8 +2345,8 @@ Studio.App.VersionHistoryDialog.ConflictDialogMessage,,Unable to edit the follow
 Studio.App.VersionHistoryDialog.ConflictDialogTitle,,Unable To Edit Script(s),Unable To Edit Script(s)
 Studio.App.VersionHistoryDialog.ConflictingScripts,,Conflicting Script(s),Conflicting Script(s)
 Studio.App.VersionHistoryDialog.CurrentVersionLabel1,,%1 (Current),%1 (Current)
-Studio.App.VersionHistoryDialog.EditAllButtonText,,Edit all scripts from the batch,Edit all scripts from the batch
-Studio.App.VersionHistoryDialog.EditThisButtonText,,Edit this script,Edit this script
+Studio.App.VersionHistoryDialog.EditAllButtonText,,Open all scripts from batch,Open all scripts from batch
+Studio.App.VersionHistoryDialog.EditThisButtonText,,Open script,Open script
 Studio.App.VersionHistoryDialog.FailedToCompareScriptErrorMessage,,Failed to compare selected script(s). Please try again.,Failed to compare selected script(s). Please try again.
 Studio.App.VersionHistoryDialog.FailedToEditBatchErrorMessage,,Failed to edit scripts from the selected batch. Please try again.,Failed to edit scripts from the selected batch. Please try again.
 Studio.App.VersionHistoryDialog.FailedToEditScriptErrorMessage,,Failed to edit selected script version. Please try again.,Failed to edit selected script version. Please try again.

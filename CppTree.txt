@@ -501,6 +501,7 @@ RBX
 		CmdUnfoldAll
 		GotoLineDialog
 		QtLanguageClient
+		ScriptEditorCmdBase
 		ScriptingCmdBase
 		ScriptingCommands
 		ScriptingManager
@@ -914,6 +915,7 @@ RBX
 	ICreator
 	IDataState
 	IDraftsServiceHost
+	IGuiText
 	IHasLocation
 	IHostNotifier
 	IIDREF

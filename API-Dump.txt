@@ -608,12 +608,12 @@ Class FileMesh : DataModelMesh
 Class SpecialMesh : FileMesh
 	Property Enum<MeshType> SpecialMesh.MeshType
 Class DataModelSession : Instance [NotCreatable]
-	Property Enum<StudioDataModelType> DataModelSession.CurrentDataModelType {PluginSecurity} [ReadOnly] [NotReplicated]
-	Property string DataModelSession.SessionId {PluginSecurity} [ReadOnly] [NotReplicated]
-	Event DataModelSession.CurrentDataModelTypeAboutToChange(Enum<StudioDataModelType> dataModelType) {PluginSecurity}
-	Event DataModelSession.CurrentDataModelTypeChanged() {PluginSecurity}
-	Event DataModelSession.DataModelCreated(Enum<StudioDataModelType> gameStateType) {PluginSecurity}
-	Event DataModelSession.DataModelWillBeDestroyed(Enum<StudioDataModelType> gameStateType) {PluginSecurity}
+	Property Enum<StudioDataModelType> DataModelSession.CurrentDataModelType {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
+	Property string DataModelSession.SessionId {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
+	Event DataModelSession.CurrentDataModelTypeAboutToChange(Enum<StudioDataModelType> dataModelType) {RobloxScriptSecurity}
+	Event DataModelSession.CurrentDataModelTypeChanged() {RobloxScriptSecurity}
+	Event DataModelSession.DataModelCreated(Enum<StudioDataModelType> gameStateType) {RobloxScriptSecurity}
+	Event DataModelSession.DataModelWillBeDestroyed(Enum<StudioDataModelType> gameStateType) {RobloxScriptSecurity}
 Class DataStoreService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool DataStoreService.AutomaticRetry {LocalUserSecurity} [NotReplicated]
 	Property bool DataStoreService.LegacyNamingScheme {LocalUserSecurity} [Deprecated]
@@ -1506,7 +1506,6 @@ Class Lighting : Instance [NotCreatable] [Service]
 	Property float Lighting.EnvironmentDiffuseScale
 	Property float Lighting.EnvironmentSpecularScale
 	Property bool Lighting.GlobalShadows
-	Property bool Lighting.LegacyOutlines  [NotScriptable]
 	Property Color3 Lighting.OutdoorAmbient
 	Property bool Lighting.Outlines  [Deprecated]
 	Property Color3 Lighting.ShadowColor [<📁> LoadOnly] [NotReplicated] [Deprecated]
@@ -1708,10 +1707,10 @@ Class PlayerMouse : Mouse [NotCreatable]
 Class PluginMouse : Mouse [NotCreatable]
 	Event PluginMouse.DragEnter(Objects instances) {PluginSecurity}
 Class MouseService : Instance [NotCreatable] [Service] [NotReplicated]
-Class MultipleDocumentInterfaceInstance : Instance [NotCreatable]
-	Property Instance MultipleDocumentInterfaceInstance.FocusedDataModelSession {PluginSecurity} [ReadOnly] [NotReplicated]
-	Event MultipleDocumentInterfaceInstance.DataModelSessionEnded(Instance dataModelSession) {PluginSecurity}
-	Event MultipleDocumentInterfaceInstance.DataModelSessionStarted(Instance dataModelSession) {PluginSecurity}
+Class MultipleDocumentInterfaceInstance : Instance [NotCreatable] [NotReplicated]
+	Property Instance MultipleDocumentInterfaceInstance.FocusedDataModelSession {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
+	Event MultipleDocumentInterfaceInstance.DataModelSessionEnded(Instance dataModelSession) {RobloxScriptSecurity}
+	Event MultipleDocumentInterfaceInstance.DataModelSessionStarted(Instance dataModelSession) {RobloxScriptSecurity}
 Class NetworkMarker : Instance [NotCreatable] [NotBrowsable]
 	Event NetworkMarker.Received()
 Class NetworkPeer : Instance [NotCreatable] [NotBrowsable]
@@ -1994,6 +1993,8 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property Class<Camera> Workspace.CurrentCamera  [NotReplicated]
 	Property double Workspace.DistributedGameTime  [NotReplicated]
 	Function void Workspace:BreakJoints(Objects objects) {PluginSecurity}
+	Function float Workspace:CalculateJumpDistance(float gravity, float jumpPower, float walkSpeed) {RobloxScriptSecurity}
+	Function float Workspace:CalculateJumpHeight(float gravity, float jumpPower) {RobloxScriptSecurity}
 	Function float Workspace:CalculateJumpPower(float gravity, float jumpHeight) {RobloxScriptSecurity}
 	Function bool Workspace:ExperimentalSolverIsEnabled() {LocalUserSecurity}
 	Function int Workspace:GetNumAwakeParts()
@@ -2259,9 +2260,9 @@ Class Plugin : Instance [NotCreatable]
 	Property bool Plugin.UsesAssetInsertionDrag {RobloxScriptSecurity} [<📁> LoadOnly] [NotReplicated]
 	Property bool Plugin.CollisionEnabled  [ReadOnly] [NotReplicated]
 	Property float Plugin.GridSize  [ReadOnly] [NotReplicated]
-	Property Enum<StudioDataModelType> Plugin.HostDataModelType {PluginSecurity} [ReadOnly] [NotReplicated]
-	Property bool Plugin.HostDataModelTypeIsCurrent {PluginSecurity} [ReadOnly] [NotReplicated]
-	Property Class<MultipleDocumentInterfaceInstance> Plugin.MultipleDocumentInterfaceInstance {PluginSecurity} [ReadOnly] [NotReplicated]
+	Property Enum<StudioDataModelType> Plugin.HostDataModelType {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
+	Property bool Plugin.HostDataModelTypeIsCurrent {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
+	Property Class<MultipleDocumentInterfaceInstance> Plugin.MultipleDocumentInterfaceInstance {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
 	Function void Plugin:Activate(bool exclusiveMouse) {PluginSecurity}
 	Function Instance Plugin:CreateDockWidgetPluginGui(string pluginGuiId, DockWidgetPluginGuiInfo dockWidgetPluginGuiInfo) {PluginSecurity} [Yields]
 	Function Instance Plugin:CreatePluginAction(string actionId, string text, string statusTip, string iconName = "", bool allowBinding = true) {PluginSecurity}
@@ -2269,7 +2270,7 @@ Class Plugin : Instance [NotCreatable]
 	Function Instance Plugin:CreateQWidgetPluginGui(string pluginGuiId, Dictionary pluginGuiOptions) {RobloxScriptSecurity} [Yields]
 	Function Instance Plugin:CreateToolbar(string name) {PluginSecurity}
 	Function void Plugin:Deactivate() {PluginSecurity}
-	Function Variant Plugin:GetItem(string key, Variant defaultValue) {PluginSecurity}
+	Function Variant Plugin:GetItem(string key, Variant defaultValue) {RobloxScriptSecurity}
 	Function Enum<JointCreationMode> Plugin:GetJoinMode() {PluginSecurity}
 	Function Instance Plugin:GetMouse() {PluginSecurity}
 	Function Enum<RibbonTool> Plugin:GetSelectedRibbonTool() {PluginSecurity}
@@ -2277,12 +2278,12 @@ Class Plugin : Instance [NotCreatable]
 	Function int64 Plugin:GetStudioUserId() {PluginSecurity} [Deprecated]
 	Function Instance Plugin:ImportFbxAnimation(Instance rigModel, bool isR15 = true) {PluginSecurity} [Yields]
 	Function Instance Plugin:ImportFbxRig(bool isR15 = true) {PluginSecurity} [Yields]
-	Function void Plugin:Invoke(string key, Tuple arguments) {PluginSecurity}
+	Function void Plugin:Invoke(string key, Tuple arguments) {RobloxScriptSecurity}
 	Function bool Plugin:IsActivated() {PluginSecurity}
 	Function bool Plugin:IsActivatedWithExclusiveMouse() {PluginSecurity}
 	Function Objects Plugin:Negate(Objects objects) {PluginSecurity}
-	Function Instance Plugin:OnInvoke(string key, Function callback) {PluginSecurity}
-	Function Instance Plugin:OnSetItem(string key, Function callback) {PluginSecurity}
+	Function Instance Plugin:OnInvoke(string key, Function callback) {RobloxScriptSecurity}
+	Function Instance Plugin:OnSetItem(string key, Function callback) {RobloxScriptSecurity}
 	Function void Plugin:OpenScript(Instance script, int lineNumber = 1) {PluginSecurity}
 	Function void Plugin:OpenWikiPage(string url) {PluginSecurity}
 	Function void Plugin:PauseSound(Instance soundChannel) {RobloxScriptSecurity}
@@ -2293,7 +2294,7 @@ Class Plugin : Instance [NotCreatable]
 	Function void Plugin:SaveSelectedToRoblox() {PluginSecurity}
 	Function void Plugin:SelectRibbonTool(Enum<RibbonTool> tool, UDim2 position) {PluginSecurity}
 	Function Objects Plugin:Separate(Objects objects) {PluginSecurity}
-	Function void Plugin:SetItem(string key, Variant value) {PluginSecurity}
+	Function void Plugin:SetItem(string key, Variant value) {RobloxScriptSecurity}
 	Function void Plugin:SetSetting(string key, Variant value) {PluginSecurity}
 	Function void Plugin:StartDecalDrag(Instance decal) {RobloxScriptSecurity}
 	Function void Plugin:StartDrag(Dictionary dragData) {PluginSecurity}
@@ -2919,6 +2920,7 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function string StudioService:SerializeInstances(Objects instances) {RobloxScriptSecurity}
 	Function void StudioService:SetPluginEnabled(int64 assetId, bool state) {RobloxScriptSecurity}
 	Function void StudioService:SetUniverseDisplayName(string newName) {RobloxScriptSecurity}
+	Function void StudioService:ShowPlaceVersionHistoryDialog() {RobloxScriptSecurity}
 	Function void StudioService:ShowPublishToRoblox() {RobloxScriptSecurity}
 	Function void StudioService:TryInstallPlugin(int64 assetId, int64 assetVersionId) {RobloxScriptSecurity} [Yields]
 	Function void StudioService:UninstallPlugin(int64 assetId) {RobloxScriptSecurity}

@@ -46,8 +46,8 @@ struct Globals
 uniform vec4 CB0[47];
 uniform sampler2D DiffuseMapTexture;
 
-varying vec4 VARYING0;
-varying vec4 VARYING1;
+varying vec2 VARYING0;
+varying vec2 VARYING1;
 varying vec4 VARYING2;
 varying vec4 VARYING4;
 varying vec4 VARYING5;
@@ -55,7 +55,7 @@ varying vec4 VARYING5;
 void main()
 {
     float f0 = length(VARYING4.xyz);
-    vec4 f1 = texture2D(DiffuseMapTexture, VARYING0.xy);
+    vec4 f1 = texture2D(DiffuseMapTexture, VARYING0);
     float f2 = f1.x;
     float f3 = (f2 > 0.0) ? ((1.0 - clamp(abs(f2 - CB0[14].w) * 13.0, 0.0, 1.0)) * f1.w) : 0.0;
     float f4 = max(max(1.0 - clamp(abs(dot(normalize(VARYING5.xyz), VARYING4.xyz / vec3(f0))) * 2.0, 0.0, 1.0), 0.0), f3);
