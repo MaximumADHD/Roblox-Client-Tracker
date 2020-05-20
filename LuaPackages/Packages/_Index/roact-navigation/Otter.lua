@@ -3,7 +3,7 @@
 ]]
 local PackageIndex = script.Parent.Parent
 
-local package = PackageIndex["roblox_otter-92834214-0.1.1"]["otter"]
+local package = PackageIndex["roblox_otter"]["otter"]
 
 if package.ClassName == "ModuleScript" then
 	return require(package)
