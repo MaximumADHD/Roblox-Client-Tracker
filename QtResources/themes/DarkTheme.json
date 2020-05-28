@@ -555,6 +555,21 @@
       }
     },
     {
+      "OutputContextDropdownCheckboxUncheckedIcon": {
+        "Default": ":/images/OutputWidget/checkbox_unchecked_dark.png"
+      }
+    },
+    {
+      "OutputContextDropdownCheckboxPartiallyCheckedIcon": {
+        "Default": ":/images/OutputWidget/checkbox_partiallyChecked_dark.png"
+      }
+    },
+    {
+      "OutputContextDropdownCheckboxCheckedIcon": {
+        "Default": ":/images/OutputWidget/checkbox_checked_dark.png"
+      }
+    },
+    {
       "PackageMassUpdateProgressBarCheck": {
         "Default": ":/16x16/images/Studio 2.0 icons/16x16/Packages/progressBar_check_dark.png"
       }
@@ -644,12 +659,12 @@
       "ResponsiveUIToggleOffIcon": {
         "Default": ":/images/ResponsiveUI/Toggle/toggle_off_dark.png",
         "Disabled": ":/images/ResponsiveUI/Toggle/toggle_off_disable_dark.png"
-      } 
+      }
     },
     {
       "StatusSuccessIcon": {
         "Default": ":/images/statusSuccess.png"
-      } 
+      }
     }
   ],
     "Package": {

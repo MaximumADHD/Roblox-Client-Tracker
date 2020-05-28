@@ -32,7 +32,7 @@ dependencies = [
     "RoactRodux roblox/roact-rodux 0.2.1 url+https://github.com/roblox/roact-rodux",
     "Rodux roblox/rodux 1.0.0 url+https://github.com/roblox/rodux",
     "TestEZ roblox/testez 0.1.1 url+https://github.com/roblox/testez",
-    "UIBlox UIBlox 75e6a511 git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 239e1a13 git+https://github.com/roblox/uiblox#master",
     "enumerate roblox/enumerate 1.0.0 url+https://github.com/roblox/enumerate",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
     "tutils tutils 74574fde git+https://github.rbx.com/roblox/tutils#master",
@@ -49,7 +49,7 @@ dependencies = [
     "Roact roblox/roact 1.2.0 url+https://github.com/roblox/roact",
     "RoactRodux roblox/roact-rodux 0.2.1 url+https://github.com/roblox/roact-rodux",
     "Rodux roblox/rodux 1.0.0 url+https://github.com/roblox/rodux",
-    "UIBlox <patched> UIBlox 75e6a511 git+https://github.com/roblox/uiblox#master",
+    "UIBlox <patched> UIBlox 239e1a13 git+https://github.com/roblox/uiblox#master",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
 
@@ -60,7 +60,7 @@ commit = "af3a8696cbcb88bbcf14aa6857cc3a6caad79f58"
 source = "git+https://github.rbx.com/roblox/lua-chat-deps#master"
 dependencies = [
     "RoduxNetworking rodux-networking b3747078 git+https://github.rbx.com/roblox/rodux-networking#master",
-    "UIBlox UIBlox 75e6a511 git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 239e1a13 git+https://github.com/roblox/uiblox#master",
 ]
 
 [[package]]
@@ -103,7 +103,7 @@ dependencies = ["Roact <patched> roblox/roact 1.2.0 url+https://github.com/roblo
 [[package]]
 name = "UIBlox"
 version = "0.1.1"
-commit = "75e6a511fea6925c18afbb0cd24c97152bca2610"
+commit = "239e1a13e4e5f324f7308d089318c6f7e754cec7"
 source = "git+https://github.com/roblox/uiblox#master"
 dependencies = [
     "Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo",
@@ -246,7 +246,7 @@ dependencies = [
     "Roact roblox/roact 1.2.0 url+https://github.com/roblox/roact",
     "RoactRodux roblox/roact-rodux 0.2.1 url+https://github.com/roblox/roact-rodux",
     "Rodux roblox/rodux 1.0.0 url+https://github.com/roblox/rodux",
-    "UIBlox <patched> UIBlox 75e6a511 git+https://github.com/roblox/uiblox#master",
+    "UIBlox <patched> UIBlox 239e1a13 git+https://github.com/roblox/uiblox#master",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
 

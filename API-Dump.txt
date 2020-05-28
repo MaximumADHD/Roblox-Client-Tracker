@@ -38,10 +38,15 @@ Class Instance : <<<ROOT>>> [NotCreatable] [NotBrowsable]
 	Event Instance.DescendantRemoving(Instance descendant)
 Class ABTestService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void ABTestService:ClearUserVariations() {LocalUserSecurity}
+	Function Enum<ABTestLoadingStatus> ABTestService:GetBrowserTrackerABTestLoadingStatus() {LocalUserSecurity}
+	Function int64 ABTestService:GetPendingOrInitializedUserId() {LocalUserSecurity}
+	Function Enum<ABTestLoadingStatus> ABTestService:GetUserABTestLoadingStatus() {LocalUserSecurity}
 	Function string ABTestService:GetVariant(string name) {LocalUserSecurity}
 	Function void ABTestService:InitializeForUserId(int64 userId) {LocalUserSecurity}
 	Function void ABTestService:WaitUntilBrowserTrackerABTestsInitialized() {LocalUserSecurity} [Yields]
 	Function void ABTestService:WaitUntilUserABTestsInitialized() {LocalUserSecurity} [Yields]
+	Event ABTestService.OnBrowserTrackerABTestLoadingStatusChanged(Enum<ABTestLoadingStatus> status) {LocalUserSecurity}
+	Event ABTestService.OnUserABTestLoadingStatusChanged(Enum<ABTestLoadingStatus> status, int64 userId) {LocalUserSecurity}
 Class Accoutrement : Instance
 	Property Vector3 Accoutrement.AttachmentForward [<📁> LoadOnly] [NotReplicated]
 	Property CFrame Accoutrement.AttachmentPoint
@@ -1968,6 +1973,7 @@ Class Model : PVInstance
 	Function void Model:move(Vector3 location) [Deprecated]
 Class Status : Model [NotCreatable] [Deprecated]
 Class WorldRoot : Model [NotCreatable]
+	Function bool WorldRoot:ArePartsTouchingOthers(Objects partList, float overlapIgnored = 0.000199999995)
 	Function Tuple WorldRoot:FindPartOnRay(Ray ray, Instance ignoreDescendantsInstance = nil, bool terrainCellsAreCubes = false, bool ignoreWater = false)
 	Function Tuple WorldRoot:FindPartOnRayWithIgnoreList(Ray ray, Objects ignoreDescendantsTable, bool terrainCellsAreCubes = false, bool ignoreWater = false)
 	Function Tuple WorldRoot:FindPartOnRayWithWhitelist(Ray ray, Objects whitelistDescendantsTable, bool ignoreWater = false)
@@ -2319,9 +2325,13 @@ Class PluginDragEvent : Instance [NotCreatable] [NotReplicated]
 	Property string PluginDragEvent.Sender  [ReadOnly] [NotReplicated]
 Class PluginGuiService : Instance [NotCreatable] [Service] [NotReplicated]
 Class PluginManager : Instance [NotCreatable]
-	Function Instance PluginManager:CreatePlugin() {PluginSecurity} [CustomLuaState]
+	Function Instance PluginManager:CreatePlugin() {PluginSecurity} [Deprecated] [CustomLuaState]
 	Function void PluginManager:ExportPlace(string filePath = "") {PluginSecurity}
 	Function void PluginManager:ExportSelection(string filePath = "") {PluginSecurity}
+Class PluginManagerInterface : Instance [NotCreatable] [NotReplicated]
+	Function Instance PluginManagerInterface:CreatePlugin() {PluginSecurity} [Deprecated] [CustomLuaState]
+	Function void PluginManagerInterface:ExportPlace(string filePath = "") {PluginSecurity}
+	Function void PluginManagerInterface:ExportSelection(string filePath = "") {PluginSecurity}
 Class PluginMenu : Instance [NotCreatable] [NotReplicated]
 	Property string PluginMenu.Icon [<📁> LoadOnly] [NotReplicated]
 	Property string PluginMenu.Title [<📁> LoadOnly] [NotReplicated]
@@ -3369,6 +3379,13 @@ Class WeldConstraint : Instance
 	Property bool WeldConstraint.Enabled
 	Property Class<BasePart> WeldConstraint.Part0 [<📁> LoadOnly] [NotReplicated]
 	Property Class<BasePart> WeldConstraint.Part1 [<📁> LoadOnly] [NotReplicated]
+Enum ABTestLoadingStatus
+	EnumItem ABTestLoadingStatus.None : 0
+	EnumItem ABTestLoadingStatus.Pending : 1
+	EnumItem ABTestLoadingStatus.Initialized : 2
+	EnumItem ABTestLoadingStatus.Error : 3
+	EnumItem ABTestLoadingStatus.TimedOut : 4
+	EnumItem ABTestLoadingStatus.ShutOff : 5
 Enum ActionType
 	EnumItem ActionType.Nothing : 0
 	EnumItem ActionType.Pause : 1

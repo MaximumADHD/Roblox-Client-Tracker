@@ -81,6 +81,11 @@
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>
+        <string name="Name">PluginManagerInterface</string>
+      </Properties>
+    </Item>
+    <Item class="ReflectionMetadataClass">
+      <Properties>
         <string name="Name">TeleportService</string>
         <string name="summary">Allows players to seamlessly leave a game and join another</string>
       </Properties>
@@ -3699,7 +3704,7 @@
         </Item>
       </Item>
     </Item>
-  
+
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">Sky</string>
@@ -5221,7 +5226,7 @@
         <string name="summary">A container whose contents should be scripts. Scripts that are added to the container are run on the server.</string>
       </Properties>
     </Item>
-	  
+
 	<Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">ReplicatedScriptService</string>
@@ -5456,7 +5461,7 @@
 
       </Properties>
     </Item>
-    
+
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">Debris</string>
@@ -6885,7 +6890,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">WorldModel</string>
-        <bool name="Insertable">false</bool>
+        <bool name="Insertable">true</bool>
         <string name="ClassCategory">World</string>
         <string name="summary">An object that contains a World. Supports rigid joints. Unlike Workspace, WorldModels do not support dynamics simulation.</string>
         <string name="ExplorerOrder">22</string>

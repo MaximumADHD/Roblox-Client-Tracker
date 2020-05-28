@@ -1,5 +1,13 @@
 RBX
 {
+	ABTestController
+	{
+		ChangedListener
+	}
+	ABTestService
+	{
+		ChangedListener
+	}
 	Analytics
 	{
 		Settings
@@ -619,7 +627,6 @@ RBX
 	{
 		GridListener
 	}
-	ABTestService
 	Accessory
 	Accoutrement
 	Adorn
@@ -1094,6 +1101,7 @@ RBX
 	PluginGuiService
 	PluginGuiServiceBase
 	PluginManager
+	PluginManagerInterface
 	PluginMenu
 	PluginMouse
 	PluginToolbar
@@ -1302,6 +1310,7 @@ RBX
 	Verb
 	VerbContainer
 	VersionControlService
+	VideoClock
 	VideoFrame
 	VideoJob
 	VideoStream

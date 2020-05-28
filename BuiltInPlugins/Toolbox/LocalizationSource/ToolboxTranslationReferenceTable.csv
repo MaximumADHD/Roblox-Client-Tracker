@@ -195,6 +195,8 @@ Studio.Toolbox.General.PreviewAreaStatus,Status: {assetStatus}, ,Status: {assetS
 Studio.Toolbox.General.InstallSuccess,Success!, ,Success!,성공!,成功!
 Studio.Toolbox.General.InstallFailure,Failure, ,Failure,실패,失败
 Studio.Toolbox.AssetConfigFooter.NewAsset,Save as a new asset..., ,Save as a new asset...,새로운 애셋으로 저장...,另存为新资源...
+Studio.Toolbox.AssetUploadResult.Success,Successfully submitted!, ,Successfully submitted!, , 
+Studio.Toolbox.AssetUploadResult.Failure,Submission failed, ,Submission failed, , 
 Studio.Toolbox.AssetConfigFooter.Override,Overwrite an existing asset..., ,Overwrite an existing asset...,기존 애셋 덮어쓰기...,覆盖现有资源...
 Studio.Toolbox.AssetConfigFooter.OverrideTitle,Choose an existing model to overwrite., ,Choose an existing model to overwrite.,덮어쓸 기존 모델을 선택하세요.,选择要覆盖的现有模型。
 Studio.Toolbox.AssetConfigCopy.Terms,"By switching on, you are granting every other user of Roblox the right to use (in various ways) the content you are now sharing. If you do not want to grant this right, please do not check this box. For more information about sharing content, please review the Roblox Terms of Use.", ,"By switching on, you are granting every other user of Roblox the right to use (in various ways) the content you are now sharing. If you do not want to grant this right, please do not check this box. For more information about sharing content, please review the Roblox Terms of Use.",활성화하면 Roblox의 다른 모든 사용자들에게 현재 공유하고 있는 컨텐츠를 다양한 방식으로 사용할 수 있는 권한을 부여합니다. 이러한 권한을 부여하지 않으려면 이 확인란을 선택하지 마세요. 컨텐츠 공유에 대한 자세한 정보는 Roblox 이용약관을 참조하시기 바랍니다.,切换至开位置，即表示你授予 Roblox 的所有其他用户 (以各种方式) 使用你现在分享的内容的权限。如果你不想授予此权限，请勿勾选此框。有关分享内容的详细信息，请检阅 Roblox 使用条款。

@@ -214,6 +214,7 @@ Studio.App.CloudEditController.JoinTeamTestServer,,Join Team Test Server,Join Te
 Studio.App.CloudEditController.ShutdownServer,,Shutdown Server,Shutdown Server
 Studio.App.CloudEditController.StartServerAndPlayers,,Start Server and Players,Start Server and Players
 Studio.App.CloudEditUserData.FailToRestoreCameraPosition,,Failed to restore camera position: %s,Failed to restore camera position: %s
+Studio.App.CommandLine.InvalidArgument2,,Launch Task %1 requires valid %2,Launch Task %1 requires valid %2
 Studio.App.CommitScriptsDialog.CommitButtonText,,Commit,Commit
 Studio.App.CommitScriptsDialog.CommitMessagePlaceHolderText,,Add a comment to describe what changed,Add a comment to describe what changed
 Studio.App.CommitScriptsDialog.ScriptSectionHeader,,Script,Script
@@ -637,6 +638,7 @@ Studio.App.Login.UnableToLogout,,Unable to log out. Please save modified places 
 Studio.App.LoginManager.CaptchaClosed,,Login requires Captcha. Please try again.,Login requires Captcha. Please try again.
 Studio.App.LoginManager.CaptchaError,,Error displaying captcha,Error displaying captcha
 Studio.App.LoginManager.ClosingDownAllOpenPlacesElps,,Closing down all open places...,Closing down all open places...
+Studio.App.LoginManager.GetUserAgreementsFailure,,Failed to get user agreements. Please try to login again or contact support if problem persists.,Failed to get user agreements. Please try to login again or contact support if problem persists.
 Studio.App.LoginManager.LocaleFetchError1,,Failed to fetch account locale: %1,Failed to fetch account locale: %1
 Studio.App.LoginManager.LogOut,,Log Out,Log Out
 Studio.App.LoginManager.LoggedOut,,Logged Out,Logged Out
@@ -647,6 +649,8 @@ Studio.App.LoginManager.ToSIAgree,,I Agree,I Agree
 Studio.App.LoginManager.ToSMessage1,,"<span>By clicking ""%1"", you are agreeing to </span>","<span>By clicking ""%1"", you are agreeing to </span>"
 Studio.App.LoginManager.ToSMessage3,,"By clicking ""%1"", you are agreeing to the <a href='%2'>Terms of Use</a> and <a href='%3'>Privacy Policy</a>.","By clicking ""%1"", you are agreeing to the <a href='%2'>Terms of Use</a> and <a href='%3'>Privacy Policy</a>."
 Studio.App.LoginManager.ToSTitle,,Roblox Terms of Service,Roblox Terms of Service
+Studio.App.LoginManager.UserAgreementsAcceptanceCancel,,Are you sure you want to cancel? This will close all running Roblox Studio instances.,Are you sure you want to cancel? This will close all running Roblox Studio instances.
+Studio.App.LoginManager.UserAgreementsAcceptanceFailure,,Failed to accept user agreements. Please try to login again or contact support if problem persists.,Failed to accept user agreements. Please try to login again or contact support if problem persists.
 Studio.App.LoginRequest.InternalServerError,Start page login,Our servers are having problems right now. Please try again later.,Our servers are having problems right now. Please try again later.
 Studio.App.LoginRequest.NetworkConnection,Start page login,Could not connect to the server. Please check your internet connection and try again later.,Could not connect to the server. Please check your internet connection and try again later.
 Studio.App.LoginRequest.ParseError,Start page login,Could not read response from server. Please try again later.,Could not read response from server. Please try again later.
@@ -878,7 +882,10 @@ Studio.App.PlaceResourceController.AddingPlace,,Adding Place...,Adding Place...
 Studio.App.PlaceResourceController.CantRemoveStartPlace,,You cannot remove the start place from a game.,You cannot remove the start place from a game.
 Studio.App.PlaceResourceController.ErrorWhileAddingPlace,,Error while adding place. See Output window for details.,Error while adding place. See Output window for details.
 Studio.App.PlaceResourceController.ThisFunctionalityHasBeenDisabled,,This functionality has been disabled. You can update your start place by doing File > Publish to Roblox As... and selecting the start place.,This functionality has been disabled. You can update your start place by doing File > Publish to Roblox As... and selecting the start place.
+Studio.App.PlaceVersionHistory.BetaFeatureDescription,,Enable developers to revert versions in Roblox Studio and provide downloadable history of all versions of a place.,Enable developers to revert versions in Roblox Studio and provide downloadable history of all versions of a place.
+Studio.App.PlaceVersionHistory.BetaFeatureTitle,,Place Version History in Studio,Place Version History in Studio
 Studio.App.PlaceVersionHistoryDialog.Empty,,No Place Versions found,No Place Versions found
+Studio.App.PlaceVersionHistoryDialog.HelpLink,,More information,More information
 Studio.App.PlaceVersionHistoryDialog.PublishedColumnTitle,,Published,Published
 Studio.App.PlaceVersionHistoryDialog.Tip,,Select a place version to download and open it,Select a place version to download and open it
 Studio.App.PlaceVersionHistoryDialog.ViewHistory,,View History,View History
@@ -1739,7 +1746,9 @@ Studio.App.RobloxMouseConfig.RightClickAlt,,Right Click + Alt,Right Click + Alt
 Studio.App.RobloxMouseConfig.RightClickCtrl,,Right Click + Ctrl,Right Click + Ctrl
 Studio.App.RobloxMouseConfig.RightClickShift,,Right Click + Shift,Right Click + Shift
 Studio.App.RobloxOutputRibbonDropdown.All,,All,All
+Studio.App.RobloxOutputRibbonDropdown.AllMessages,,All Messages,All Messages
 Studio.App.RobloxOutputRibbonDropdown.Client,,Client,Client
+Studio.App.RobloxOutputRibbonDropdown.Context,,Context,Context
 Studio.App.RobloxOutputRibbonDropdown.CopyFullContext,,Copy Full Context,Copy Full Context
 Studio.App.RobloxOutputRibbonDropdown.Edit,,Edit,Edit
 Studio.App.RobloxOutputRibbonDropdown.Error,,Error,Error
@@ -2341,6 +2350,7 @@ Studio.App.VersionHistoryDialog.CommittedColumnTitle,,Committed,Committed
 Studio.App.VersionHistoryDialog.CommitterColumnTitle,,Changed By,Changed By
 Studio.App.VersionHistoryDialog.CompareButtonText,,Compare selected versions,Compare selected versions
 Studio.App.VersionHistoryDialog.CompareWithPreviousButtonText,,Compare with previous version,Compare with previous version
+Studio.App.VersionHistoryDialog.ComparedVersionsIdentical3,,Versions %1 and %2 of the script '%3' are identical,Versions %1 and %2 of the script '%3' are identical
 Studio.App.VersionHistoryDialog.ConflictDialogMessage,,Unable to edit the following script(s) as they have uncommitted changes that'll be lost. Please commit or discard local changes and retry the operation.,Unable to edit the following script(s) as they have uncommitted changes that'll be lost. Please commit or discard local changes and retry the operation.
 Studio.App.VersionHistoryDialog.ConflictDialogTitle,,Unable To Edit Script(s),Unable To Edit Script(s)
 Studio.App.VersionHistoryDialog.ConflictingScripts,,Conflicting Script(s),Conflicting Script(s)
@@ -2354,8 +2364,9 @@ Studio.App.VersionHistoryDialog.FailedToLoad,,Failed to load,Failed to load
 Studio.App.VersionHistoryDialog.FailedToLoadDataErrorMessage,,Failed to load data. Please close this dialog and try again.,Failed to load data. Please close this dialog and try again.
 Studio.App.VersionHistoryDialog.FailedToOpenScriptErrorMessage,,Failed to open selected script version. Please try again.,Failed to open selected script version. Please try again.
 Studio.App.VersionHistoryDialog.NoScriptChanges,,No script changes,No script changes
-Studio.App.VersionHistoryDialog.NoScriptHistoryWarning,,There is no saved history for this script,There is no saved history for this script
+Studio.App.VersionHistoryDialog.NoScriptHistoryWarning,,This script does not have version history yet,This script does not have version history yet
 Studio.App.VersionHistoryDialog.OpenDialog,,View Script History,View Script History
+Studio.App.VersionHistoryDialog.OpenScriptsLabel,,Select script version(s) to open or compare,Select script version(s) to open or compare
 Studio.App.VersionHistoryDialog.PlaceVersionColumnTitle,,Place Version,Place Version
 Studio.App.VersionHistoryDialog.PlaceVersionLabel1,,Place V%1,Place V%1
 Studio.App.VersionHistoryDialog.ShowBatchContentsLink,,Show,Show
@@ -2430,8 +2441,13 @@ Studio.Common.Action.Value,,Value,Value
 Studio.Common.Action.Warning,,Warning,Warning
 Studio.Common.Action.Width,,Width,Width
 Studio.Common.Action.Yes,,Yes,Yes
-Studio.Internal.RobloxMainWindow.ChooseAPlaceInGameExplorer1,,"Choose a place in game explorer to save %1 
-","Choose a place in game explorer to save %1 
+Studio.Internal.ExternalLoginDialog.FatalErrorMessage,,Failed to login. Please restart Studio or contact support if the problem persists.,Failed to login. Please restart Studio or contact support if the problem persists.
+Studio.Internal.ExternalLoginDialog.GenericErrorMessage,,Failed to login. Please try again or contact support if problem persists.,Failed to login. Please try again or contact support if problem persists.
+Studio.Internal.ExternalLoginDialog.MessageOnDialogClose,,Are you sure you want to close this window? This will close Roblox Studio.,Are you sure you want to close this window? This will close Roblox Studio.
+Studio.Internal.ExternalLoginDialog.NoNetworkMessage,,Please check that you are connected to the internet and try again. Please contact support if the problem persists.,Please check that you are connected to the internet and try again. Please contact support if the problem persists.
+Studio.Internal.ExternalLoginDialog.WindowTitle,,Log In,Log In
+Studio.Internal.RobloxMainWindow.ChooseAPlaceInGameExplorer1,,"Choose an instance as parent in game explorer to save %1 
+","Choose an instance as parent in game explorer to save %1 
 "
 Studio.Internal.RobloxMainWindow.NewScriptTab,,New Script Tab,New Script Tab
 Studio.Internal.RobloxMainWindow.OnlySaveToEditDM,,Can only save in Edit Mode,Can only save in Edit Mode

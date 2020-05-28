@@ -11,6 +11,7 @@ Rectangle {
 
     readonly property string kStringLoggingIn: qsTr("Studio.App.StartPageLogin.LoggingInElps");
     readonly property string kStringLoggingOut: qsTr("Studio.App.StartPageLogin.LoggingOutElps");
+    readonly property string kStringLoggedOut: qsTr("Studio.App.LoginManager.LoggedOut");
     readonly property string kStringOpeningPlace: qsTr("Studio.App.StartPageLogin.OpeningPlaceElps");
 
     readonly property string kDefaultState: ""
@@ -499,6 +500,80 @@ Rectangle {
                 target: notAMemberYetTextAndlink
                 visible: false
             }
+        },
+        State {
+            name: "STATE_LOGGED_OUT"
+            PropertyChanges {
+                target: statusText
+                text: kStringLoggedOut
+                visible: true
+            }
+            PropertyChanges {
+                target: usernameField
+                visible: false
+            }
+            PropertyChanges {
+                target: passwordField
+                visible: false
+            }
+            PropertyChanges {
+                target: loginButton
+                visible: false
+            }
+            PropertyChanges {
+                target: forgotPasswordLabel
+                visible: false
+            }
+            PropertyChanges {
+                target: passwordSeparatorLine
+                visible: false
+            }
+            PropertyChanges {
+                target: notAMemberYetTextAndlink
+                visible: false
+            }
+        },
+        State {
+            name: "STATE_LOGGING_IN_USING_EXTERNAL_DIALOG"
+            PropertyChanges {
+                target: statusText
+                text: kStringLoggingIn
+                visible: true
+            }
+            AnchorChanges {
+                target: statusAnimation
+                anchors.top: statusText.bottom
+            }
+            PropertyChanges {
+                target: statusAnimation
+                visible: true
+                playing: true
+                anchors.topMargin: 18
+            }
+            PropertyChanges {
+                target: usernameField
+                visible: false
+            }
+            PropertyChanges {
+                target: passwordField
+                visible: false
+            }
+            PropertyChanges {
+                target: loginButton
+                visible: false
+            }
+            PropertyChanges {
+                target: forgotPasswordLabel
+                visible: false
+            }
+            PropertyChanges {
+                target: passwordSeparatorLine
+                visible: false
+            }
+            PropertyChanges {
+                target: notAMemberYetTextAndlink
+                visible: false
+            }
         }
     ]
 
@@ -543,7 +618,10 @@ Rectangle {
             // doesn't do that. We plan to overhaul it once we've upgraded
             // to Qt 5.12 which changes how the network layer and web views
             // interact.
-            if (loginPage.state != kDefaultState) {
+            if (loginManager.isExternalLoginEnabled()) {
+                loginPage.state = "STATE_LOGGED_OUT";
+            }
+            else if (loginPage.state != kDefaultState) {
                 // Reset state and fields
                 resetLoginData();
             }
@@ -555,11 +633,21 @@ Rectangle {
             loginPage.state = "STATE_OPENING_PLACE_AFTER_LOGIN"
         }
         onReceivedErrorMessage: {
-            passwordField.errorText = errorMessage;
-            loginPage.state = "STATE_OTHER_LOGIN_ERROR";
+            if (loginManager.isExternalLoginEnabled()) {
+                loginPage.state = "STATE_LOGGED_OUT";
+            }
+            else {
+                passwordField.errorText = errorMessage;
+                loginPage.state = "STATE_OTHER_LOGIN_ERROR";
+            }
         }
         onTwoStepVerificationStartingOver: {
             loginPage.state = kDefaultState;
+        }
+        onLoggingInUsingExternalDialog: {
+            if (loginManager.isExternalLoginEnabled()) {
+                loginPage.state = "STATE_LOGGING_IN_USING_EXTERNAL_DIALOG"
+            }
         }
     }
 }

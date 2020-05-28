@@ -14,6 +14,7 @@ Studio.GameSettings.General.ButtonDiscard,Discard, ,Discard
 Studio.GameSettings.General.ButtonCreate,Create, ,Create
 Studio.GameSettings.General.ButtonEdit,Edit, ,Edit
 Studio.GameSettings.General.ButtonView,View, ,View
+Studio.GameSettings.General.ButtonPublish,Publish, ,Publish
 Studio.GameSettings.General.CategoryBasicInfo,Basic Info, ,Basic Info
 Studio.GameSettings.General.CategoryAvatar,Avatar, ,Avatar
 Studio.GameSettings.General.CategoryWorld,World, ,World
@@ -175,6 +176,7 @@ Studio.GameSettings.AccessPermissions.NoAccessDescription,Cannot play or edit th
 Studio.GameSettings.AccessPermissions.PlayDescription,Can play this game, ,Can play this game
 Studio.GameSettings.AccessPermissions.EditDescription,Can play and edit this game, ,Can play and edit this game
 Studio.GameSettings.AccessPermissions.AdminDescription,"Can play, edit, and manage this game", ,"Can play, edit, and manage this game"
+Studio.GameSettings.AccessPermissions.OwnerDescription,Owner of the game, ,Owner of the game
 Studio.GameSettings.General.DevSubsDescription,Description, ,Description
 Studio.GameSettings.General.ErrorNameDescModerated,Filtered to %s, ,Filtered to %s
 Studio.GameSettings.General.ErrorNameDescHttp,An error has occurred with moderating the name and description. Please try again later!, ,An error has occurred with moderating the name and description. Please try again later!
@@ -218,6 +220,7 @@ Studio.GameSettings.General.UnitsMetersPerSecondSquared1,({1} meters/second^2), 
 Studio.GameSettings.General.UnitsMeters1,({1} meters), ,({1} meters)
 Studio.GameSettings.General.UnitsMetersPerSecond1,({1} meters/second), ,({1} meters/second)
 Studio.GameSettings.General.PublishTheGameToRoblox,Publish the game to Roblox, ,Publish the game to Roblox
+Studio.GameSettings.General.PublishText,Publish to access Game Settings., ,Publish to access Game Settings. 
 Studio.GameSettings.AccessPermissions.FriendsCollaboratorType,Friends, ,Friends
 Studio.GameSettings.AccessPermissions.UsersCollaboratorType,Users, ,Users
 Studio.GameSettings.AccessPermissions.GroupsCollaboratorType,Groups, ,Groups
@@ -257,8 +260,9 @@ Studio.GameSettings.Places.MaximumWarning,Choosing this option could cause you t
 Studio.GameSettings.Places.CustomizeSlotsTitle,Customize Reserved Server Slots, ,Customize Reserved Server Slots
 Studio.GameSettings.Places.CustomizeSlotsDescription,Friends are more likely to join players in your game if you reserve slots., ,Friends are more likely to join players in your game if you reserve slots.
 Studio.GameSettings.Places.VersionHistory,Version History, ,Version History
+Studio.GameSettings.Places.NumberError,Please enter a number betwen {minRange:int} and {maxRange:int}., ,Please enter a number betwen {minRange:int} and {maxRange:int}.
 Studio.GameSettings.General.CategoryMonetization,Monetization, ,Monetization
-Studio.GameSettings.Monetization.FeeLabel,30% Fee:, ,30% Fee:
+Studio.GameSettings.Monetization.FeeLabel,{1}% Fee:, ,{1}% Fee:
 Studio.GameSettings.Monetization.TitlePaidAccess,Paid Access, ,Paid Access
 Studio.GameSettings.Monetization.TitleVIPServers,VIP Servers, ,VIP Servers
 Studio.GameSettings.Monetization.Price,Price:, ,Price:
@@ -273,3 +277,8 @@ Studio.GameSettings.Monetization.ProductIcon,Product Icon, ,Product Icon
 Studio.GameSettings.Monetization.PriceTitle,Price, ,Price
 Studio.GameSettings.Monetization.EditDeveloperProduct,Edit Developer Product, ,Edit Developer Product
 Studio.GameSettings.Monetization.DevProducts,Developer Products, ,Developer Products
+Studio.GameSettings.Monetization.UnsavedDevProduct,(Not Saved), , 
+Studio.GameSettings.Monetization.UnsavedDevProductName,{1} Product Number: {2}, ,{1} Product Number: {2}
+Studio.GameSettings.Errors.ErrorPriceBelowMin,Price must be greater than {1}., ,Price must be greater than {1}.
+Studio.GameSettings.Errors.ErrorPriceAboveMax,Price must be less than {1}., ,Price must be less than {1}.
+Studio.GameSettings.Errors.ErrorPriceInvalid,Enter a valid price (e.g. 1000), ,Enter a valid price (e.g. 1000)
