@@ -12,6 +12,10 @@ local function initializeLibrary()
 			SpringAnimatedItem = require(script.Utility.SpringAnimatedItem),
 		}),
 
+		Bar = strict({
+			ThreeSection = require(script.Core.Bar.ThreeSectionBar),
+		}),
+
 		ImageSet = strict({
 			Button = require(script.Core.ImageSet.ImageSetComponent).Button,
 			Label = require(script.Core.ImageSet.ImageSetComponent).Label,

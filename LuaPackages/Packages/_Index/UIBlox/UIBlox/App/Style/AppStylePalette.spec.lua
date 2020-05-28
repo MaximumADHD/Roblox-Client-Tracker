@@ -23,7 +23,7 @@ return function()
 		expect(validateStye(newAppStyle)).equal(true)
 	end)
 
-	it("should be able to create a style palette and be able to update theme", function()
+	it("should be able to create a style palette and be able to update font", function()
 		local stylePalette = AppStylePalette.new()
 		stylePalette:updateTheme("dark")
 		stylePalette:updateFont("gotham")

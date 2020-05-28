@@ -11,7 +11,7 @@ return function()
 
 	local HorizontalCarousel = require(script.Parent.HorizontalCarousel)
 
-	it("should create and destroy with required props without errors", function()
+	describe("should create and destroy with required props without errors", function()
 		it("should mount and unmount without issue", function()
 			local items = {}
 			for i=1, 10 do
@@ -37,7 +37,7 @@ return function()
 		end)
 	end)
 
-	it("should create and destroy HorizontalCarousel without errors", function()
+	describe("should create and destroy HorizontalCarousel without errors", function()
 		it("should mount and unmount without issue", function()
 			local items = {}
 			for i=1, 10 do

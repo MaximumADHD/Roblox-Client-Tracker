@@ -69,6 +69,7 @@ function ExpandableTextArea:init()
 	end
 
 	self.ref = Roact.createRef()
+	self.layoutRef = Roact.createRef()
 
 	-- Remove isMounted once expandableTextAutomaticResizeConfig is removed
 	self.isMounted = false
@@ -90,9 +91,11 @@ end
 
 function ExpandableTextArea:didMount()
 	self.isMounted = true
-	local frame = self.ref.current
-	local size = frame.AbsoluteSize
-	self:applyFit(size.y)
+	local layout = self.layoutRef.current
+	if layout then
+		local size = layout.AbsoluteContentSize
+		self:applyFit(size.y)
+	end
 end
 
 function ExpandableTextArea:willUnmount()
@@ -159,7 +162,9 @@ function ExpandableTextArea:render()
 				Padding = UDim.new(0, SPACING_Y),
 				[Roact.Change.AbsoluteContentSize] = function(rbx)
 					self:applyFit(rbx.AbsoluteContentSize.y)
-				end
+				end,
+
+				[Roact.Ref] = self.layoutRef,
 			}),
 			UIPadding = Roact.createElement("UIPadding", {
 				PaddingTop = UDim.new(0, PADDING_TOP),

@@ -90,7 +90,7 @@ local function makeBaseMenu(cellComponent, backgroundThemeKey)
 
 					Image = MENU_BACKGROUND_ASSET.Image,
 					ScaleType = Enum.ScaleType.Slice,
-					SliceScale = 0.5,
+					SliceScale = 0.5 / Images.ImagesResolutionScale,
 					SliceCenter = Rect.new(halfImageWidth - 1, halfImageWidth - 1, halfImageWidth +1, halfImageWidth),
 					ImageRectSize = Vector2.new(imageWidth, halfImageWidth),
 					ImageRectOffset = imageRectOffset,
@@ -133,7 +133,7 @@ local function makeBaseMenu(cellComponent, backgroundThemeKey)
 
 					Image = MENU_BACKGROUND_ASSET.Image,
 					ScaleType = Enum.ScaleType.Slice,
-					SliceScale = 0.5,
+					SliceScale = 0.5 / Images.ImagesResolutionScale,
 					SliceCenter = Rect.new(halfImageWidth - 1, 0, halfImageWidth + 1, 1),
 					ImageRectSize = Vector2.new(imageWidth, halfImageWidth),
 					ImageRectOffset = imageOffset + Vector2.new(0, halfImageWidth),

@@ -68,7 +68,7 @@ HorizontalCarousel.defaultProps = {
 
 local function updateScrollState(newIndex, numberOfItemsShown, numOfItems, scrollerFocusLock)
 	if newIndex == nil then
-		return nil
+		return {}
 	end
 
 	--Disable the buttons because there is nothing to show

@@ -11,7 +11,7 @@ return function()
 
 	local FreeFlowCarousel = require(script.Parent.FreeFlowCarousel)
 
-	it("should create and destroy with required props without errors", function()
+	describe("should create and destroy with required props without errors", function()
 		it("should mount and unmount without issue", function()
 			local items = {}
 			for i=1, 10 do
@@ -37,7 +37,7 @@ return function()
 		end)
 	end)
 
-	it("should create and destroy FreeFlowCarousel without errors", function()
+	describe("should create and destroy FreeFlowCarousel without errors", function()
 		it("should mount and unmount without issue", function()
 			local items = {}
 			for i=1, 10 do

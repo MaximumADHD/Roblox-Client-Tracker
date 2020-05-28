@@ -36,6 +36,7 @@ local validateProps = t.interface({
 GenericTextLabel.defaultProps = {
 	maxSize = Vector2.new(MAX_BOUND, MAX_BOUND),
 	fluidSizing = false,
+	LayoutOrder = 1,
 }
 
 function GenericTextLabel:render()
@@ -80,6 +81,7 @@ function GenericTextLabel:render()
 			TextWrapped = true,
 			TextScaled = isFluidSizing,
 			BackgroundTransparency = 1,
+			LayoutOrder = self.props.LayoutOrder,
 		})
 
 		return Roact.createElement("TextLabel", newProps, {

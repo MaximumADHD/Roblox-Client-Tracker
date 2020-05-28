@@ -11,7 +11,7 @@ return function()
 
 	local CarouselHeader = require(script.Parent.CarouselHeader)
 
-	it("should create and destroy CarouselHeader with default props without errors", function()
+	describe("should create and destroy CarouselHeader with default props without errors", function()
 		it("should mount and unmount without issue", function()
 			local element = mockStyleComponent({
 				Item = Roact.createElement(CarouselHeader)
@@ -22,7 +22,7 @@ return function()
 		end)
 	end)
 
-	it("should create and destroy CarouselHeader without errors", function()
+	describe("should create and destroy CarouselHeader without errors", function()
 		it("should mount and unmount without issue", function()
 			local element = mockStyleComponent({
 				Item = Roact.createElement(CarouselHeader, {

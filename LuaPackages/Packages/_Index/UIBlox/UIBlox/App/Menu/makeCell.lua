@@ -194,6 +194,7 @@ local function makeCell(backgroundThemeKey)
 						SliceCenter = sliceCenter,
 						ImageRectSize = imageRectSize,
 						ImageRectOffset = imageRectOffset,
+						SliceScale = 1 / Images.ImagesResolutionScale,
 
 						ImageTransparency = cellStyle.Transparency,
 						ImageColor3 = cellStyle.Color,
@@ -223,6 +224,7 @@ local function makeCell(backgroundThemeKey)
 							SliceCenter = sliceCenter,
 							ImageRectSize = imageRectSize,
 							ImageRectOffset = imageRectOffset,
+							SliceScale = 1 / Images.ImagesResolutionScale,
 
 							ImageColor3 = overlayTheme.Color,
 							ImageTransparency = overlayTheme.Transparency,
