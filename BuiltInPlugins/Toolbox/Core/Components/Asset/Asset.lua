@@ -24,7 +24,7 @@ local FFlagPluginAccessAndInstallationInStudio = settings():GetFFlag("PluginAcce
 local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 local FFlagFixAssetTextTruncation = game:DefineFastFlag("FixAssetTextTruncation", false)
 local FFlagRemoveAudioEndorsedIcon = game:GetFastFlag("RemoveAudioEndorsedIcon")
-local FFlagEnableAudioPreview = settings():GetFFlag("EnableAudioPreview")
+local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -155,7 +155,7 @@ function Asset:render()
 			local assetTypeId = asset.TypeId
 			local isEndorsed = asset.IsEndorsed
 			local showAudioLength = false
-			if FFlagEnableAudioPreview and assetTypeId == Enum.AssetType.Audio.Value then
+			if assetTypeId == Enum.AssetType.Audio.Value then
 				if FFlagRemoveAudioEndorsedIcon then
 					isEndorsed = false
 				end
@@ -177,11 +177,16 @@ function Asset:render()
 
 			local votingProps = props.voting or {}
 			local showVotes = votingProps.ShowVotes
-			local isCurrentlyCreationsTab = Category.CREATIONS_KEY == props.currentTab
+			local isCurrentlyCreationsTab
+			if FFlagUseCategoryNameInToolbox then
+				isCurrentlyCreationsTab = Category.getTabForCategoryName(props.categoryName) == Category.CREATIONS
+			else
+				isCurrentlyCreationsTab = Category.CREATIONS_KEY == props.currentTab
+			end
 			if isCurrentlyCreationsTab then
 				showVotes = false
 			end
-			if FFlagEnableAudioPreview and showAudioLength then
+			if showAudioLength then
 				showVotes = false
 			end
 
@@ -190,7 +195,12 @@ function Asset:render()
 			local layoutOrder = props.LayoutOrder
 			local isHovered = props.isHovered
 
-			local showPrices = Category.shouldShowPrices(props.currentTab, props.categoryIndex)
+			local showPrices
+			if FFlagUseCategoryNameInToolbox then
+				showPrices = Category.shouldShowPrices(props.categoryName)
+			else
+				showPrices = Category.shouldShowPrices(props.currentTab, props.categoryIndex)
+			end
 
 			local assetOutlineHeight = showVotes and Constants.ASSET_OUTLINE_EXTRA_HEIGHT_WITH_VOTING
 				or Constants.ASSET_OUTLINE_EXTRA_HEIGHT
@@ -198,15 +208,9 @@ function Asset:render()
 				assetOutlineHeight = assetOutlineHeight + Constants.ASSET_CREATOR_NAME_HEIGHT
 			end
 
-			if FFlagEnableAudioPreview then
-				-- At current stage, price and audio length won't exist together.
-				if showPrices or showAudioLength then
-					assetOutlineHeight = assetOutlineHeight + Constants.ASSET_INNER_PADDING
-				end
-			else
-				if showPrices then
-					assetOutlineHeight = assetOutlineHeight + Constants.ASSET_INNER_PADDING
-				end
+			-- At current stage, price and audio length won't exist together.
+			if showPrices or showAudioLength then
+				assetOutlineHeight = assetOutlineHeight + Constants.ASSET_INNER_PADDING
 			end
 
 			local isDarkerTheme = theme.isDarkerTheme
@@ -214,7 +218,7 @@ function Asset:render()
 			local dropShadowSize = Constants.DROP_SHADOW_SIZE
 			local innerFrameHeight = isHovered and assetOutlineHeight - (2 * Constants.ASSET_OUTLINE_PADDING) or 0
 			local innerFramePadding = Constants.ASSET_INNER_PADDING
-			if FFlagEnableAudioPreview and showAudioLength then
+			if showAudioLength then
 				-- For now, only audio asset requires extra space.
 				innerFramePadding = 0
 			end
@@ -364,7 +368,6 @@ function Asset:render()
 						voting = votingProps,
 					}),
 
-					-- showAudioLength is already gated by FFlagEnableAudioPreview
 					AudioLength = isHovered and showAudioLength and Roact.createElement("TextLabel", {
 						Size = UDim2.new(1, 0, 0, Constants.AUDIO_LENGTH_HEIGHT),
 						LayoutOrder = 4,
@@ -409,7 +412,8 @@ local function mapStateToProps(state, props)
 	local assetId = props.assetId
 
 	local pageInfo = state.pageInfo or {}
-	local categoryIndex = pageInfo.categoryIndex or 1
+	local categoryIndex = (not FFlagUseCategoryNameInToolbox) and (pageInfo.categoryIndex or 1)
+	local categoryName = pageInfo.categoryName
 	local searchTerm = pageInfo.searchTerm or ""
 
 	local cachedOwnedAssets = state.purchase.cachedOwnedAssets
@@ -421,13 +425,13 @@ local function mapStateToProps(state, props)
 	return {
 		asset = idToAssetMap[assetId],
 		voting = voting[assetId] or {},
-
-		categoryIndex = categoryIndex,
+		categoryIndex = (not FFlagUseCategoryNameInToolbox) and (categoryIndex),
+		categoryName = categoryName,
 		searchTerm = searchTerm,
-		currentTab = pageInfo.currentTab or Category.MARKETPLACE_KEY,
+		currentTab = (not FFlagUseCategoryNameInToolbox) and (pageInfo.currentTab or Category.MARKETPLACE_KEY),
 		ownsAsset = ownsAsset,
 		canManage = canManage,
-		isLoading = FFlagEnableAudioPreview and ((sound.currentSoundId == assetId) and sound.isLoading or false) or nil,
+		isLoading = (sound.currentSoundId == assetId) and sound.isLoading or false,
 	}
 end
 

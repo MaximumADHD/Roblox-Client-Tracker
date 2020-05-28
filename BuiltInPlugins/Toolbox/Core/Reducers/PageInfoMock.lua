@@ -10,8 +10,8 @@ local defaultCategories = Category.MARKETPLACE
 return function(state, action)
 	return {
 		categories = defaultCategories,
-		categoryIndex = 1,
 		category = defaultCategories[1].category,
+		categoryName = defaultCategories[1].categoryName,
 
 		searchTerm = "",
 
@@ -23,6 +23,7 @@ return function(state, action)
 		groupIndex = 0,
 		groupId = 0,
 
+		-- TODO remove currentTab when FFlagUseCategoryNameInToolbox is retired
 		currentTab = defaultTab,
 
 		targetPage = 1,

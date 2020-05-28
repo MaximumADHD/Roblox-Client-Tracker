@@ -1,5 +1,25 @@
 --[[
 	Request for managing places in a universe
+
+	Response is formatted as 
+	{
+		"previousPageCursor": null,
+		"nextPageCursor": null,
+		"data": [
+			{
+				"maxPlayerCount": null,
+				"socialSlotType": null,
+				"customSocialSlotsCount": null,
+				"allowCopying": null,
+				"currentSavedVersion": null,
+				"id": 2156089039,
+				"universeId": 2156657040,
+				"name": "zDedrid's Place Number: 8",
+				"description": "",
+				"isRootPlace": true
+			}
+		]
+	}
 ]]
 
 local HttpService = game:GetService("HttpService")
@@ -16,11 +36,17 @@ local PLACES_REQUEST_TYPE = "develop"
   
 local Places = {}
 
+local RELEVANT_ENTRIES = {
+	places = true,
+}
+
 function Places.AcceptsValue(key)
+	return RELEVANT_ENTRIES[key]
 end
 
 local function GetPlaces()
 	local places = {}
+	local index = 1
 
 	local function request(cursor)
 		local url = Http.BuildRobloxUrl(PLACES_REQUEST_TYPE,PLACES_URL, game.GameId)
@@ -30,6 +56,7 @@ local function GetPlaces()
 			limit = 25,
 			sortOrder = "Asc",
 			cursor = cursor,
+			extendedSettings = true,
 		}
 
 		-- construct the request
@@ -43,8 +70,10 @@ local function GetPlaces()
 		andThen(function(response)
 			local body = HttpService:JSONDecode(response)
 
-            for _, place in pairs(body.data) do
+			for _, place in pairs(body.data) do
+				place.index = index
 				places[place.id] = place
+				index = index + 1
 			end
 
             if body.nextPageCursor then
@@ -83,6 +112,7 @@ function Places.Patch(placeId, values)
 		warn("Game Settings: Could not change Place settings.")
 		Analytics.onSaveError("PlacesPatch")
 		return Promise.reject()
-end)
+	end)
+end
 
 return Places

@@ -24,6 +24,7 @@ return function(theme, getColor)
 	})
 
 	local Round = Style.extend(Default, {
+		TextColor = theme:GetColor("ButtonText"),
 		Background = Decoration.RoundBox,
 		BackgroundStyle = Style.extend(roundBox.Default, {
 			Color = theme:GetColor("Button"),
@@ -32,6 +33,12 @@ return function(theme, getColor)
 			BackgroundStyle = {
 				Color = theme:GetColor("Button", "Hover"),
 			},
+		},
+		[StyleModifier.Disabled] = {
+			BackgroundStyle = {
+				Color = theme:GetColor("Button", "Disabled"),
+			},
+			TextColor = theme:GetColor("ButtonText", "Disabled"),
 		},
 	})
 
@@ -44,6 +51,12 @@ return function(theme, getColor)
 			BackgroundStyle = {
 				Color = theme:GetColor("DialogMainButton", "Hover"),
 			},
+		},
+		[StyleModifier.Disabled] = {
+			BackgroundStyle = {
+				Color = theme:GetColor("DialogMainButton", "Disabled"),
+			},
+			TextColor = theme:GetColor("DialogMainButtonText", "Disabled"),
 		},
 	})
 

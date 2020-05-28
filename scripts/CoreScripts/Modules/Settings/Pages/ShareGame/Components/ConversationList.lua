@@ -104,10 +104,8 @@ function ConversationList:render()
 			size = UDim2.new(1, 0, 0, entryHeight),
 			layoutOrder = i,
 			zIndex = zIndex,
-			-- NOTE: displayName is only set in the User Model if FFlagLuaAppDisplayNamesEnabled is true
-			-- If UsePlayerDisplayName() is removed this code still needs to take into account that user.displayName can be nil
-			title = UsePlayerDisplayName() and (user.displayName or user.name) or user.name,
-			subtitle = UsePlayerDisplayName() and (user.displayName and "@" .. user.name or nil) or nil,
+			title = UsePlayerDisplayName() and user.displayName or user.name,
+			subtitle = UsePlayerDisplayName() and "@" .. user.name or nil,
 			presence = user.presence,
 			users = {user},
 			inviteUser = inviteUser,

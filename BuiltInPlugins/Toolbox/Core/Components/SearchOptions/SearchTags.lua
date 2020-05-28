@@ -10,7 +10,7 @@
 			function Tags.onDelete(table tag) = A callback when the user wants to delete a tag.
 		function OnClearTags = A callback when the user wants to clear all tags.
 ]]
-local FFlagEnableAudioPreview = settings():GetFFlag("EnableAudioPreview")
+local FFlagStudioToolboxSearchOverflowFix = game:GetFastFlag("StudioToolboxSearchOverflowFix")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -29,26 +29,15 @@ local TEXT_PADDING = UDim.new(0, 3)
 local SearchTags = Roact.PureComponent:extend("SearchTags")
 
 function SearchTags:createTag(tag, index)
-	local name, prefix
-	if FFlagEnableAudioPreview then
-		name = tag.text
-		prefix = tag.prefix
-	else
-		name = tag
-	end
+	local name = tag.text
+	local prefix = tag.prefix
 
 	return Roact.createElement(SearchTag, {
 		Name = name,
 		LayoutOrder = index,
 		onDelete = function()
-			if FFlagEnableAudioPreview then
-				if tag.onDelete then
-					tag.onDelete(tag)
-				end
-			else
-				if self.props.onDeleteTag then
-					self.props.onDeleteTag(tag)
-				end
+			if tag.onDelete then
+				tag.onDelete(tag)
 			end
 		end,
 		prefix = prefix,
@@ -90,7 +79,16 @@ function SearchTags:createPrompt(searchTerm, theme, localizedContent)
 		})
 	else
 		local prompt = localizedContent.SearchResults.SearchResultsKeyword
-		local promptWidth = Constants.getTextSize(prompt).X
+		local promptWidth
+		local searchTermSize
+
+		if FFlagStudioToolboxSearchOverflowFix then
+			promptWidth = Constants.getTextSize(prompt, nil, Constants.FONT_BOLD).X
+			searchTermSize = UDim2.new(1, -promptWidth, 0, ITEM_HEIGHT)
+		else
+			promptWidth = Constants.getTextSize(prompt).X
+			searchTermSize = UDim2.new(1, 0, 0, ITEM_HEIGHT)
+		end
 
 		return Roact.createElement("Frame", {
 			Size = UDim2.new(1, 0, 0, ITEM_HEIGHT),
@@ -119,7 +117,8 @@ function SearchTags:createPrompt(searchTerm, theme, localizedContent)
 				TextXAlignment = Enum.TextXAlignment.Left,
 				TextSize = Constants.FONT_SIZE_MEDIUM,
 				TextColor3 = theme.searchTag.textColor,
-				Size = UDim2.new(1, 0, 0, ITEM_HEIGHT),
+				Size = searchTermSize,
+				TextTruncate = FFlagStudioToolboxSearchOverflowFix and Enum.TextTruncate.AtEnd or nil,
 				BackgroundTransparency = 1,
 			}),
 		})

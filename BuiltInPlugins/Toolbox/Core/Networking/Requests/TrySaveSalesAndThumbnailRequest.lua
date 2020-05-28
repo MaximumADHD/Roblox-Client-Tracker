@@ -5,7 +5,6 @@
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
-local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 local AssetConfigConstants = require(Plugin.Core.Util.AssetConfigConstants)
 local AssetConfigUtil = require(Plugin.Core.Util.AssetConfigUtil)
 
@@ -16,7 +15,7 @@ local NetworkError = require(Actions.NetworkError)
 local SetCurrentScreen = require(Actions.SetCurrentScreen)
 local UploadResult = require(Actions.UploadResult)
 
-local FFlagShowAssetConfigReasons = game:GetFastFlag("ShowAssetConfigReasons")
+local FFlagShowAssetConfigReasons2 = game:GetFastFlag("ShowAssetConfigReasons2")
 local FFlagDebugAssetConfigNetworkError = game:GetFastFlag("DebugAssetConfigNetworkError")
 local FFlagEnableAssetConfigFreeFix2 = game:GetFastFlag("EnableAssetConfigFreeFix2")
 local FFlagEnableNonWhitelistedToggle = game:GetFastFlag("EnableNonWhitelistedToggle")
@@ -50,10 +49,8 @@ return function(patchInfo)
 				store:dispatch(UploadResult(true))
 			end
 
-			-- DEVTOOLS-3120
-			-- In this case, we still consider the upload a success.
-			-- We will need to tell the user that we failed to upload the thumbnail
-			if FFlagShowAssetConfigReasons then
+			-- Tell the user the thumbnail failed to upload in the AssetUploadResult page.
+			if FFlagShowAssetConfigReasons2 then
 				store:dispatch(NetworkError(err, ConfigTypes.NetworkErrors.SET_ASSET_THUMBNAIL_FAILURE))
 			end
 		end
@@ -74,10 +71,8 @@ return function(patchInfo)
 				store:dispatch(UploadResult(true))
 			end
 
-			-- DEVTOOLS-3120
-			-- In this case, we still consider the upload succuss.
-			-- We will need to tell user failed to set the price.
-			if FFlagShowAssetConfigReasons then
+			-- Tell the user the price set failed in the AssetUploadResult page.
+			if FFlagShowAssetConfigReasons2 then
 				store:dispatch(NetworkError(err, ConfigTypes.NetworkErrors.SET_ASSET_PRICE_FAILURE))
 			end
 		end

@@ -33,22 +33,13 @@ else
 	BlockingUtility = PlayerDropDownModule:CreateBlockingUtility()
 end
 
-local FFlagCorescriptThumbnailsRespectBaseUrl = require(CoreGuiModules.Flags.FFlagCorescriptThumbnailsRespectBaseUrl)
 local LegacyThumbnailUrls = require(CoreGuiModules.Common.LegacyThumbnailUrls)
 
 local THUMBNAIL_SIZE = 200
 local BUST_THUMBNAIL_SIZE = 420
 
-local THUMBNAIL_URL
-local BUST_THUMBNAIL_URL
-
-if FFlagCorescriptThumbnailsRespectBaseUrl then
-	THUMBNAIL_URL = LegacyThumbnailUrls.Thumbnail
-	BUST_THUMBNAIL_URL = LegacyThumbnailUrls.Bust
-else
-	THUMBNAIL_URL = "https://www.roblox.com/Thumbs/Avatar.ashx?x=200&y=200&format=png&userId="
-	BUST_THUMBNAIL_URL = "https://www.roblox.com/bust-thumbnail/image?width=420&height=420&format=png&userId="
-end
+local THUMBNAIL_URL = LegacyThumbnailUrls.Thumbnail
+local BUST_THUMBNAIL_URL = LegacyThumbnailUrls.Bust
 
 local REGULAR_THUMBNAIL_IMAGE_SIZE = Enum.ThumbnailSize.Size150x150
 local CONSOLE_THUMBNAIL_IMAGE_SIZE = Enum.ThumbnailSize.Size352x352
@@ -73,14 +64,8 @@ function DoPromptBlockPlayer(playerToBlock)
 		return
 	end
 
-	local thumbnailUrl, thumbnailUrlConsole
-	if FFlagCorescriptThumbnailsRespectBaseUrl then
-		thumbnailUrl = BUST_THUMBNAIL_URL:format(BUST_THUMBNAIL_SIZE, BUST_THUMBNAIL_SIZE, playerToBlock.UserId)
-		thumbnailUrlConsole = THUMBNAIL_URL:format(THUMBNAIL_SIZE, THUMBNAIL_SIZE, playerToBlock.UserId)
-	else
-		thumbnailUrl = BUST_THUMBNAIL_URL ..playerToBlock.UserId
-		thumbnailUrlConsole = THUMBNAIL_URL ..playerToBlock.UserId
-	end
+	local thumbnailUrl = BUST_THUMBNAIL_URL:format(BUST_THUMBNAIL_SIZE, BUST_THUMBNAIL_SIZE, playerToBlock.UserId)
+	local thumbnailUrlConsole = THUMBNAIL_URL:format(THUMBNAIL_SIZE, THUMBNAIL_SIZE, playerToBlock.UserId)
 
 	local function promptCompletedCallback(clickedConfirm)
 		if clickedConfirm then
@@ -140,14 +125,8 @@ function DoPromptUnblockPlayer(playerToUnblock)
 		return
 	end
 
-	local thumbnailUrl, thumbnailUrlConsole
-	if FFlagCorescriptThumbnailsRespectBaseUrl then
-		thumbnailUrl = BUST_THUMBNAIL_URL:format(BUST_THUMBNAIL_SIZE, BUST_THUMBNAIL_SIZE, playerToUnblock.UserId)
-		thumbnailUrlConsole = THUMBNAIL_URL:format(THUMBNAIL_SIZE, THUMBNAIL_SIZE, playerToUnblock.UserId)
-	else
-		thumbnailUrl = BUST_THUMBNAIL_URL ..playerToUnblock.UserId
-		thumbnailUrlConsole = THUMBNAIL_URL ..playerToUnblock.UserId
-	end
+	local thumbnailUrl = BUST_THUMBNAIL_URL:format(BUST_THUMBNAIL_SIZE, BUST_THUMBNAIL_SIZE, playerToUnblock.UserId)
+	local thumbnailUrlConsole = THUMBNAIL_URL:format(THUMBNAIL_SIZE, THUMBNAIL_SIZE, playerToUnblock.UserId)
 
 	local function promptCompletedCallback(clickedConfirm)
 		if clickedConfirm then

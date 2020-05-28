@@ -1,4 +1,5 @@
 local FFlagEnableDefaultSortFix = game:GetFastFlag("EnableDefaultSortFix2")
+local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -17,15 +18,28 @@ Sort.SORT_OPTIONS = {
 local RELEVANCE_INDEX = 1
 local UPDATED_INDEX = 4
 
-function Sort.canSort(searchTerm, categoryIndex)
-	return searchTerm ~= "" and Category.categoryIsFreeAsset(categoryIndex)
-end
-
-function Sort.getDefaultSortForCategory(categoryIndex, currentTab)
-	if Category.categoryIsPackage(categoryIndex, currentTab) then
-		return UPDATED_INDEX
+if FFlagUseCategoryNameInToolbox then
+	function Sort.canSort(searchTerm, categoryName)
+		return searchTerm ~= "" and Category.categoryIsFreeAsset(categoryName)
 	end
-	return RELEVANCE_INDEX
+
+	function Sort.getDefaultSortForCategory(categoryName)
+		if Category.categoryIsPackage(categoryName) then
+			return UPDATED_INDEX
+		end
+		return RELEVANCE_INDEX
+	end
+else
+	function Sort.canSort(searchTerm, categoryIndex)
+		return searchTerm ~= "" and Category.categoryIsFreeAsset(categoryIndex)
+	end
+
+	function Sort.getDefaultSortForCategory(currentTab, categoryIndex)
+		if Category.categoryIsPackage(categoryIndex, currentTab) then
+			return UPDATED_INDEX
+		end
+		return RELEVANCE_INDEX
+	end
 end
 
 --[[
@@ -33,7 +47,14 @@ end
 	but other Group Categories (Audio, Meshes, Models, etc) are sorted by Relevance.
 ]]
 function Sort.getDefaultSortForGroups(pageInfo)
-	return Sort.getDefaultSortForCategory(pageInfo.categoryIndex, FFlagEnableDefaultSortFix and pageInfo.currentTab or nil)
+	if FFlagUseCategoryNameInToolbox then
+		return Sort.getDefaultSortForCategory(pageInfo.categoryName)
+	else
+		return Sort.getDefaultSortForCategory(
+			FFlagEnableDefaultSortFix and pageInfo.currentTab or nil,
+			pageInfo.categoryIndex
+		)
+	end
 end
 
 return Sort

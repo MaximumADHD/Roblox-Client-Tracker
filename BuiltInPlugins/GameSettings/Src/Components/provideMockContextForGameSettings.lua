@@ -7,7 +7,7 @@ local Rodux = require(Plugin.Rodux)
 
 local SettingsImpl = require(Plugin.Src.Networking.SettingsImpl)
 local SettingsImplProvider = require(Plugin.Src.Providers.SettingsImplContextItem)
-local ThumbnailLoaderProvider = require(Plugin.Src.Providers.ThumbnailLoaderContextItem)
+local ThumbnailLoaderProvider = require(Plugin.Src.Providers.DEPRECATED_ThumbnailLoaderContextItem)
 local DialogProvider = require(Plugin.Src.Providers.DialogProviderContextItem)
 
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
@@ -49,7 +49,9 @@ return function(props, children)
     local store = props.Store
     if not store then
         store = Rodux.Store.new(MainReducer, nil, middlewares)
-        table.insert(contextItems, ThumbnailLoaderProvider.new(store))
+        if not game:GetFastFlag("GameSettingsNetworkRefactor") then
+            table.insert(contextItems, ThumbnailLoaderProvider.new(store))
+        end
     else
         table.insert(contextItems, store)
     end

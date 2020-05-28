@@ -4,7 +4,7 @@ local Rodux = require(Plugin.Rodux)
 
 local DEFAULT_STATE = {}
 
-if game:GetFastFlag("StudioGameSettingsResetStoreAction") then
+if game:GetFastFlag("StudioGameSettingsResetStoreAction2") then
     return Rodux.createReducer(DEFAULT_STATE, {
         ResetStore = function(state, action)
 			return DEFAULT_STATE

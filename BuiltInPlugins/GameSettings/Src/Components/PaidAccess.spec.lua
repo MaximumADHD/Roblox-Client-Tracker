@@ -11,7 +11,8 @@ return function()
             element = Roact.createElement(PaidAccess, {
             Title = "Paid Access",
             Price = 200,
-            DisabledSubText = "Mutually exclusive with VIP Servers",
+            TaxRate = 0.3,
+            MinimumFee = 1,
 
             LayoutOrder = 1,
             Enabled = true,

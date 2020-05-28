@@ -8,6 +8,7 @@ return function()
 	local AddChange = require(Plugin.Src.Actions.AddChange)
 	local AddErrors = require(Plugin.Src.Actions.AddErrors)
 	local DiscardChanges = require(Plugin.Src.Actions.DiscardChanges)
+	local DiscardError = require(Plugin.Src.Actions.DiscardError)
 	local DiscardErrors = require(Plugin.Src.Actions.DiscardErrors)
 
 	local AddTableChange = require(Plugin.Src.Actions.AddTableChange)
@@ -980,6 +981,28 @@ return function()
 			end)
 		end)
 	end
+
+	describe("DiscardError", function()
+		it("should empty the Errors table", function()
+			local startState = {
+				Changed = {},
+				Errors = {
+					SomeKey = "SomeValue",
+					OtherKey = "OtherValue",
+				},
+			}
+			local store = Rodux.Store.new(
+				SettingsReducer,
+				startState,
+				{Rodux.thunkMiddleware}
+			)
+
+			store:dispatch(DiscardError("SomeKey"))
+
+			expect(store:getState().Errors.SomeKey).never.to.be.ok()
+			expect(store:getState().Errors.OtherKey).to.be.ok()
+		end)
+	end)
 
 	describe("DiscardErrors", function()
 		it("should empty the Errors table", function()

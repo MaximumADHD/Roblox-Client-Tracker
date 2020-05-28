@@ -26,12 +26,6 @@ Images.THUMB_DOWN_GREY = "rbxasset://textures/StudioToolbox/Voting/thumb-down.pn
 Images.THUMB_UP_GREEN = "rbxasset://textures/StudioToolbox/Voting/thumbs-up-filled.png"
 Images.THUMB_DOWN_RED = "rbxasset://textures/StudioToolbox/Voting/thumbs-down-filled.png"
 
--- REMOVE with FFlagEnableAudioPreview
-Images.PLAY_AUDIO = "rbxasset://textures/StudioToolbox/AudioPreview/play.png"
-Images.PLAY_AUDIO_HOVERED = "rbxasset://textures/StudioToolbox/AudioPreview/play_hover.png"
-Images.PAUSE_AUDIO = "rbxasset://textures/StudioToolbox/AudioPreview/pause.png"
-Images.PAUSE_AUDIO_HOVERED = "rbxasset://textures/StudioToolbox/AudioPreview/pause_hover.png"
-
 Images.AUDIO_PREVIEW_PLAY = "rbxasset://textures/StudioToolbox/AssetPreview/play_button.png"
 Images.AUDIO_PREVIEW_PAUSE = "rbxasset://textures/StudioToolbox/AssetPreview/pause_button.png"
 

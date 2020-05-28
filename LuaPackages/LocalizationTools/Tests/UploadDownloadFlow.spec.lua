@@ -1,3 +1,5 @@
+--!nocheck
+
 local Flow = require(script.Parent.Parent.GameTable.UploadDownloadFlow)
 local RecursiveEquals = require(script.Parent.RecursiveEquals)
 local Promise = require(script.Parent.Parent.Promise)

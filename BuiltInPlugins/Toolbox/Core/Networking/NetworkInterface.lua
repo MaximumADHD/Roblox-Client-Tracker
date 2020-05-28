@@ -6,6 +6,7 @@
 
 local FFlagToolboxShowGroupCreations = game:GetFastFlag("ToolboxShowGroupCreations")
 local FFlagEnableOverrideAssetGroupCreationApi = game:GetFastFlag("EnableOverrideAssetGroupCreationApi")
+local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 
 local Plugin = script.Parent.Parent.Parent
 local Networking = require(Plugin.Libs.Http.Networking)
@@ -70,7 +71,13 @@ function NetworkInterface:getAssets(pageInfo)
 	local searchTerm = pageInfo.searchTerm or ""
 	local targetPage = pageInfo.targetPage or 1
 	local sortType = PageInfoHelper.getSortTypeForPageInfo(pageInfo) or ""
-	local groupId = Category.categoryIsGroupAsset(pageInfo.currentTab, pageInfo.categoryIndex)
+	local categoryIsGroup
+	if FFlagUseCategoryNameInToolbox then
+		categoryIsGroup = Category.categoryIsGroupAsset(pageInfo.categoryName)
+	else
+		categoryIsGroup = Category.categoryIsGroupAsset(pageInfo.currentTab, pageInfo.categoryIndex)
+	end
+	local groupId = categoryIsGroup
 		and PageInfoHelper.getGroupIdForPageInfo(pageInfo)
 		or 0
 	local creatorId = pageInfo.creator and pageInfo.creator.Id or ""
@@ -122,9 +129,17 @@ function NetworkInterface:getDevelopAsset(pageInfo)
 	local searchTerm = pageInfo.searchTerm or ""
 	local targetPage = pageInfo.targetPage or 1
 	local sortType = PageInfoHelper.getSortTypeForPageInfo(pageInfo) or ""
-	local groupId = Category.categoryIsGroupAsset(pageInfo.currentTab, pageInfo.categoryIndex)
+
+	local categoryIsGroup
+	if FFlagUseCategoryNameInToolbox then
+		categoryIsGroup = Category.categoryIsGroupAsset(pageInfo.categoryName)
+	else
+		categoryIsGroup = Category.categoryIsGroupAsset(pageInfo.currentTab, pageInfo.categoryIndex)
+	end
+	local groupId = categoryIsGroup
 		and PageInfoHelper.getGroupIdForPageInfo(pageInfo)
 		or 0
+
 	local creatorId = pageInfo.creator and pageInfo.creator.Id or ""
 	local creatoryType = pageInfo.creator and pageInfo.creator.Type or 1
 
@@ -156,7 +171,14 @@ function NetworkInterface:getAssetCreations(pageInfo, cursor, assetTypeOverride,
 		assetTypeName = PageInfoHelper.getBackendNameForPageInfoCategory(pageInfo)
 
 		if FFlagToolboxShowGroupCreations then
-			groupId = Category.categoryIsGroupAsset(pageInfo.currentTab, pageInfo.categoryIndex)
+			local categoryIsGroup
+			if FFlagUseCategoryNameInToolbox then
+				categoryIsGroup = Category.categoryIsGroupAsset(pageInfo.categoryName)
+			else
+				categoryIsGroup = Category.categoryIsGroupAsset(pageInfo.currentTab, pageInfo.categoryIndex)
+			end
+
+			groupId = categoryIsGroup
 				and PageInfoHelper.getGroupIdForPageInfo(pageInfo)
 				or nil
 		end

@@ -262,9 +262,9 @@ function Localization:_getLocaleId()
 
 	-- Then we check what's current LocaleId we want to use
 	-- If toolbox localization is enabled.
-    if self._externalLocaleIdGetter then
-        return self._externalLocaleIdGetter()
-    end
+	if self._externalLocaleIdGetter then
+		return self._externalLocaleIdGetter()
+	end
 
 	return self:_getDefaultLocaleId()
 end
@@ -599,6 +599,11 @@ function Localization:_recalculateContent()
 
 			Upload = {
 				IDCopied = self:_safeLocalize("Studio.Toolbox.AssetConfigUpload.IDCopied")
+			},
+			
+			UploadResult = {
+				Success = self:_safeLocalize("Studio.Toolbox.AssetUploadResult.Success"),
+				Fail = self:_safeLocalize("Studio.Toolbox.AssetUploadResult.Failure"),
 			},
 
 			VersionsHistory = {

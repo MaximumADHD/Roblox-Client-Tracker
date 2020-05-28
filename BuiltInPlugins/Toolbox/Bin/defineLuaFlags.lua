@@ -6,8 +6,7 @@ game:DefineFastFlag("RemoveNilInstances", false)
 game:DefineFastFlag("UseRBXThumbInToolbox", false)
 game:DefineFastFlag("EnableAssetConfigVersionCheckForModels", false)
 game:DefineFastFlag("FixAssetConfigManageableGroups", false)
-game:DefineFastFlag("UseDevelopFetchPluginVersionId", false)
-game:DefineFastFlag("ShowAssetConfigReasons", false)
+game:DefineFastFlag("ShowAssetConfigReasons2", false)
 game:DefineFastFlag("DebugAssetConfigNetworkError", false)
 game:DefineFastFlag("FixAssetConfigIcon", false)
 game:DefineFastFlag("EnableAssetConfigFreeFix2", false)
@@ -22,6 +21,7 @@ game:DefineFastFlag("EnableOverrideAssetCursorFix", false)
 game:DefineFastFlag("EnableOverrideAssetGroupCreationApi", false)
 game:DefineFastFlag("FixAssetUploadName", false)
 game:DefineFastFlag("EnableSearchedWithoutInsertionAnalytic", false)
+game:DefineFastFlag("UseCategoryNameInToolbox", false)
 -- Need to explicitly return something from a module
 -- Else you get an error "Module code did not return exactly one value"
 
@@ -39,5 +39,9 @@ game:DefineFastFlag("CMSPremiumBenefitsLink", false)
 game:DefineFastFlag("CMSFixAssetPreviewForThumbnailConfig", false)
 
 game:DefineFastFlag("ToolboxUseNewAssetType", false)
+
+game:DefineFastFlag("StudioToolboxSearchOverflowFix", false)
+
+game:DefineFastFlag("StudioFixComparePageInfo", false)
 
 return nil

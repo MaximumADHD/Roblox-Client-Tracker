@@ -29,8 +29,9 @@ Suggestion.SUGGESTIONS = {
 	}
 }
 
-function Suggestion.canHaveSuggestions(searchTerm, categoryIndex)
-	return searchTerm == "" and Category.categoryIsFreeAsset(categoryIndex)
+-- TODO rename categoryKey to categoryName when FFlagUseCategoryNameInToolbox is retired
+function Suggestion.canHaveSuggestions(searchTerm, categoryKey)
+	return searchTerm == "" and Category.categoryIsFreeAsset(categoryKey)
 end
 
 return Suggestion

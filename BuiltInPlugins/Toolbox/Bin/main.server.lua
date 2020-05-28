@@ -8,7 +8,6 @@ local FFlagEnableOverrideAssetCursorFix = game:GetFastFlag("EnableOverrideAssetC
 local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
 local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 local FFlagAssetManagerLuaPlugin = game:GetFastFlag("AssetManagerLuaPlugin")
-local FFlagEnableAudioPreview = settings():GetFFlag("EnableAudioPreview")
 local FFlagStudioUseNewAnimationImportExportFlow = settings():GetFFlag("StudioUseNewAnimationImportExportFlow")
 
 local Plugin = script.Parent.Parent
@@ -219,27 +218,15 @@ local function createAssetConfig(assetId, flowType, instances, assetTypeEnum)
 	})
 	if FFlagStudioToolboxEnabledDevFramework then
 		local assetConfigWithServices
-		if FFlagEnableAudioPreview then
-			assetConfigWithServices = Roact.createElement(ToolboxServiceWrapper, {
-				localization = localization2,
-				plugin = plugin,
-				theme = theme,
-				store = assetConfigStore,
-				settings = settings,
-			}, {
-				assetConfigComponent
-			})
-		else
-			assetConfigWithServices = ContextServices.provide({
-				ContextServices.Plugin.new(plugin),
-				localization2,
-				makeTheme(theme:getUILibraryTheme()),
-				ContextServices.Store.new(assetConfigStore),
-				SettingsContext.new(settings),
-			}, {
-				assetConfigComponent
-			})
-		end
+		assetConfigWithServices = Roact.createElement(ToolboxServiceWrapper, {
+			localization = localization2,
+			plugin = plugin,
+			theme = theme,
+			store = assetConfigStore,
+			settings = settings,
+		}, {
+			assetConfigComponent
+		})
 		assetConfigHandle = Roact.mount(assetConfigWithServices)
 	else
 		assetConfigHandle = Roact.mount(assetConfigComponent)
@@ -291,27 +278,15 @@ local function main()
 	})
 	if FFlagStudioToolboxEnabledDevFramework then
 		local toolboxWithServices
-		if FFlagEnableAudioPreview then
-			toolboxWithServices = Roact.createElement(ToolboxServiceWrapper, {
-				localization = localization2,
-				plugin = plugin,
-				theme = theme,
-				store = toolboxStore,
-				settings = settings,
-			}, {
-				toolboxComponent
-			})
-		else
-			toolboxWithServices = ContextServices.provide({
-				ContextServices.Plugin.new(plugin),
-				localization2,
-				makeTheme(theme:getUILibraryTheme()),
-				ContextServices.Store.new(toolboxStore),
-				SettingsContext.new(settings),
-			}, {
-				toolboxComponent
-			})
-		end
+		toolboxWithServices = Roact.createElement(ToolboxServiceWrapper, {
+			localization = localization2,
+			plugin = plugin,
+			theme = theme,
+			store = toolboxStore,
+			settings = settings,
+		}, {
+			toolboxComponent
+		})
 		toolboxHandle = Roact.mount(toolboxWithServices)
 	else
 		toolboxHandle = Roact.mount(toolboxComponent)

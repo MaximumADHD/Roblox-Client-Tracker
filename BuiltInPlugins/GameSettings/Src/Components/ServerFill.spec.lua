@@ -13,9 +13,16 @@ return function()
 
             LayoutOrder = 1,
             Enabled = true,
-            Selected = true,
-            SelectionChanged = function()
-            end,
+            CustomSocialSlotsCount = 10,
+			Selected = "Automatic",
+			ErrorState = "Error",
+
+			OnSocialSlotTypeChanged = function(button)
+
+			end,
+			OnCustomSocialSlotsCountChanged = function(customSocialSlotsCount)
+
+			end,
         })})
 
         local handle = Roact.mount(ServerFill)

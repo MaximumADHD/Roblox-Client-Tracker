@@ -12,17 +12,17 @@ local Roact = require(Plugin.Packages.Roact)
 local DraggerFramework = Plugin.Packages.DraggerFramework
 local Math = require(DraggerFramework.Utility.Math)
 
-local getFFlagImprovedHandleParams = require(DraggerFramework.Flags.getFFlagImprovedHandleParams)
+local getFFlagImprovedHandleParams2 = require(DraggerFramework.Flags.getFFlagImprovedHandleParams2)
 
 local RotateHandleView = Roact.PureComponent:extend("RotateHandleView")
 
 local HANDLE_SEGMENTS = 32
 local HANDLE_RADIUS = 4.5
-local HANDLE_THICKNESS = getFFlagImprovedHandleParams() and 0.15 or 0.10
-local HANDLE_HITTEST_THICKNESS = HANDLE_THICKNESS * (getFFlagImprovedHandleParams() and 4 or 2.5)
+local HANDLE_THICKNESS = getFFlagImprovedHandleParams2() and 0.15 or 0.10
+local HANDLE_HITTEST_THICKNESS = HANDLE_THICKNESS * (getFFlagImprovedHandleParams2() and 4 or 2.5)
 local HANDLE_THIN_BY_FRAC = 0.34
 local HANDLE_THICK_BY_FRAC = 1.5
-local HANDLE_DIM_TRANSPARENCY = getFFlagImprovedHandleParams() and 0.45 or 0.7
+local HANDLE_DIM_TRANSPARENCY = getFFlagImprovedHandleParams2() and 0.45 or 0.7
 
 function RotateHandleView:render()
 	-- DEBUG: Allow designers to play with handle settings.
@@ -44,12 +44,12 @@ function RotateHandleView:render()
 
 	local radiusOffset = self.props.RadiusOffset or 0.0
 	local radius
-	if getFFlagImprovedHandleParams() then
+	if getFFlagImprovedHandleParams2() then
 		radius = (HANDLE_RADIUS + radiusOffset) * self.props.Scale
 	else
 		radius = HANDLE_RADIUS * self.props.Scale
 	end
-	if getFFlagImprovedHandleParams() then
+	if getFFlagImprovedHandleParams2() then
 		if self.props.Hovered then
 			radius = radius + self.props.Scale * 0.1
 		end
@@ -66,7 +66,7 @@ function RotateHandleView:render()
 		thickness = HANDLE_THIN_BY_FRAC * thickness
 	end
 
-	if getFFlagImprovedHandleParams() then
+	if getFFlagImprovedHandleParams2() then
 		if self.props.Hovered then
 			thickness = HANDLE_THICK_BY_FRAC * thickness
 		end
@@ -81,7 +81,7 @@ function RotateHandleView:render()
 		local angle = angleStep * i
 		local cframe = self.props.HandleCFrame * CFrame.Angles(angle, 0, 0) * CFrame.new(0, 0, offset)
 		local alwaysOnTopName = "OnTopHandleSegment" .. tostring(i)
-		if getFFlagImprovedHandleParams() then
+		if getFFlagImprovedHandleParams2() then
 			children[alwaysOnTopName] = Roact.createElement("BoxHandleAdornment", {
 				Adornee = Workspace.Terrain,
 				AlwaysOnTop = true,
@@ -140,8 +140,8 @@ function RotateHandleView:render()
 	end
 
 	-- Draw radii for contral angle start and end.
-	if getFFlagImprovedHandleParams() then
-		local thinThickness = HANDLE_THICKNESS
+	if getFFlagImprovedHandleParams2() then
+		local thinThickness = HANDLE_THICKNESS * self.props.Scale
 		if self.props.StartAngle ~= nil then
 			children.StartAngleElement = createRadiusElement(self.props.StartAngle, thinThickness)
 		end
@@ -174,7 +174,7 @@ function RotateHandleView.hitTest(props, mouseRay)
 
 	local radiusOffset = props.RadiusOffset or 0.0
 	local radius
-	if getFFlagImprovedHandleParams() then
+	if getFFlagImprovedHandleParams2() then
 		radius = (HANDLE_RADIUS + radiusOffset) * props.Scale
 	else
 		radius = HANDLE_RADIUS * props.Scale

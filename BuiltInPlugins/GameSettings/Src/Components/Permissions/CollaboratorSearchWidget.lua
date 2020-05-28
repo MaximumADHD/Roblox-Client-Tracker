@@ -2,7 +2,6 @@
 	
 ]]
 
-local FFlagStudioGameSettingsRestrictPermissions = game:GetFastFlag("StudioGameSettingsRestrictPermissions")
 local FFlagStudioConvertGameSettingsToDevFramework = game:GetFastFlag("StudioConvertGameSettingsToDevFramework")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -10,7 +9,7 @@ local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
 
 local ContextServices = require(Plugin.Framework.ContextServices)
-local ThumbnailLoader = require(Plugin.Src.Providers.ThumbnailLoaderContextItem)
+local ThumbnailLoader = require(Plugin.Src.Providers.DEPRECATED_ThumbnailLoaderContextItem)
 
 local UILibrary = require(Plugin.UILibrary)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
@@ -91,12 +90,7 @@ local function getMatches(searchData, permissions, groupMetadata)
 		return a < b
 	end
 	
-	local matches
-	if FFlagStudioGameSettingsRestrictPermissions then
-		matches = {Users={}}
-	else
-		matches = {Users={}, Groups={}}
-	end
+	local matches = {Users={}}
 	if cachedSearchResults[searchTerm] and cachedSearchResults[searchTerm] ~= LOADING then
 		local rawUserMatches = cachedSearchResults[searchTerm][PermissionsConstants.UserSubjectKey]
 		local userMatches = {}
@@ -125,36 +119,6 @@ local function getMatches(searchData, permissions, groupMetadata)
 		end
 
 		matches.Users = userMatches
-		
-		if not FFlagStudioGameSettingsRestrictPermissions then
-			local rawGroupMatches = cachedSearchResults[searchTerm][PermissionsConstants.GroupSubjectKey]
-			local groupMatches = {}
-
-			local rawMyGroups = typeof(searchData.LocalUserGroups) == "table" and getMatchesFromTable(searchTerm, searchData.LocalUserGroups) or {}
-			table.sort(rawMyGroups, compare)
-
-			local matchedGroups = {}
-			for _,v in pairs(rawGroupMatches) do
-				if not groupMetadata[v[PermissionsConstants.SubjectIdKey]] then
-					table.insert(groupMatches, v)
-					matchedGroups[v[PermissionsConstants.SubjectIdKey]] = true
-				end
-			end
-
-			-- Insert your groups after exact match (if it exists), but before the rest of the web results (if they exist)
-			local firstGroupIsExactMatch = #matchedGroups > 0 and matchedGroups[1][PermissionsConstants.SubjectNameKey]:lower() == searchTerm:lower()
-			local position = math.min(firstGroupIsExactMatch and 1 or 2, #groupMatches + 1)
-			for _,v in pairs(rawMyGroups) do
-				-- Group web search already matched this. Don't duplicate it
-				
-				if not (matchedGroups[v[PermissionsConstants.SubjectIdKey]] or groupMetadata[v[PermissionsConstants.SubjectIdKey]]) then
-					table.insert(groupMatches, position, v)
-					position = position + 1
-				end
-			end
-
-			matches.Groups = groupMatches
-		end
 	end
 
 	return matches
@@ -182,11 +146,7 @@ local function getResults(searchTerm, matches, thumbnailLoader, localized)
 		}
 		]]
 	else
-		if FFlagStudioGameSettingsRestrictPermissions then
-			results = {Users={LayoutOrder=0}}
-		else
-			results = {Users={LayoutOrder=0}, Groups={LayoutOrder=1}}
-		end
+		results = {Users={LayoutOrder=0}}
 		for _, user in pairs(matches.Users) do
 			if #results.Users + 1 > PermissionsConstants.MaxSearchResultsPerSubjectType then break end
 			
@@ -200,42 +160,15 @@ local function getResults(searchTerm, matches, thumbnailLoader, localized)
 				Key = {Type=PermissionsConstants.UserSubjectKey, Id=user[PermissionsConstants.SubjectIdKey], Name=user[PermissionsConstants.SubjectNameKey]},
 			})
 		end
-		if not FFlagStudioGameSettingsRestrictPermissions then
-			for _, group in pairs(matches.Groups) do
-				if #results.Groups + 1 > PermissionsConstants.MaxSearchResultsPerSubjectType then break end
-				table.insert(results.Groups, {
-					Icon = Roact.createElement(CollaboratorThumbnail, {
-						Image = thumbnailLoader.getThumbnail(PermissionsConstants.GroupSubjectKey, group[PermissionsConstants.SubjectIdKey]),
-						Size = UDim2.new(1, 0, 1, 0),
-					}),
-					Name = group[PermissionsConstants.SubjectNameKey],
-					Key = {Type=PermissionsConstants.GroupSubjectKey, Id=group[PermissionsConstants.SubjectIdKey], Name=group[PermissionsConstants.SubjectNameKey]},
-				})
-			end
-		end
 
 		if FFlagStudioConvertGameSettingsToDevFramework then
-			if FFlagStudioGameSettingsRestrictPermissions then
-				results = {
-					[localized:getText("AccessPermissions", "UsersCollaboratorType")] = #results.Users > 0 and results.Users or nil,
-				}
-			else
-				results = {
-					[localized:getText("AccessPermissions", "UsersCollaboratorType")] = #results.Users > 0 and results.Users or nil,
-					[localized:getText("AccessPermissions", "GroupsCollaboratorType")] = #results.Groups > 0 and results.Groups or nil,
-				}
-			end
+			results = {
+				[localized:getText("AccessPermissions", "UsersCollaboratorType")] = #results.Users > 0 and results.Users or nil,
+			}
 		else
-			if FFlagStudioGameSettingsRestrictPermissions then
-				results = {
-					[localized.AccessPermissions.Collaborators.UsersCollaboratorType] = #results.Users > 0 and results.Users or nil,
-				}
-			else
-				results = {
-					[localized.AccessPermissions.Collaborators.UsersCollaboratorType] = #results.Users > 0 and results.Users or nil,
-					[localized.AccessPermissions.Collaborators.GroupsCollaboratorType] = #results.Groups > 0 and results.Groups or nil,
-				}
-			end
+			results = {
+				[localized.AccessPermissions.Collaborators.UsersCollaboratorType] = #results.Users > 0 and results.Users or nil,
+			}
 		end
 	end
 

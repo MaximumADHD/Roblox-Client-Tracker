@@ -10,7 +10,7 @@ return function(state, action)
         StateMorpher = {
             StateTemplates = MorpherEditorTemplates(state.StateMorpher.StateTemplates, action),
             StateSettings = MorpherEditorSettings(state.StateMorpher.StateSettings, action),
-            StateTheme = (not game:GetFastFlag("StudioGameSettingsResetStoreAction")) and
+            StateTheme = (not game:GetFastFlag("StudioGameSettingsResetStoreAction2")) and
                 MorpherEditorTheme(state.StateMorpher.StateTheme, action) or nil,
         }
     }

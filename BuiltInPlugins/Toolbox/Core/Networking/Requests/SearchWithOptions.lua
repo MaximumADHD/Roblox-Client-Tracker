@@ -12,8 +12,6 @@ local StopPreviewSound = require(Plugin.Core.Actions.StopPreviewSound)
 
 local Analytics = require(Plugin.Core.Util.Analytics.Analytics)
 
-local FFlagEnableAudioPreview = settings():GetFFlag("EnableAudioPreview")
-
 local function searchUsers(networkInterface, searchTerm, store)
 	return networkInterface:getUsers(searchTerm, 1):andThen(function(result)
 		local data = result.responseBody
@@ -40,14 +38,11 @@ return function(networkInterface, settings, options)
 		store:dispatch(SetLoading(true))
 		store:dispatch(ClearAssets())
 
-		local audioSearchInfo
-		if FFlagEnableAudioPreview then
-			audioSearchInfo = options.AudioSearch or Cryo.None
+		local audioSearchInfo = options.AudioSearch or Cryo.None
 
-			local sound = store:getState().sound
-			if sound ~= nil and sound.isPlaying then
-				store:dispatch(StopPreviewSound())
-			end
+		local sound = store:getState().sound
+		if sound ~= nil and sound.isPlaying then
+			store:dispatch(StopPreviewSound())
 		end
 
 		if options.Creator and options.Creator ~= "" then

@@ -17,6 +17,7 @@ local validateProps = t.strictInterface({
 	Position = t.optional(t.UDim2),
 
 	onActivated = t.callback,
+	layoutOrder = t.optional(t.integer),
 })
 
 local function CloseMenuButton(props)
@@ -31,6 +32,7 @@ local function CloseMenuButton(props)
 		Position = props.Position,
 		Size = UDim2.new(0, 32, 0, 32),
 		[Roact.Event.Activated] = props.onActivated,
+		LayoutOrder = props.layoutOrder,
 	})
 end
 

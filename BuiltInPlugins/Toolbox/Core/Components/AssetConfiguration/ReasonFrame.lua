@@ -1,22 +1,16 @@
 --[[
-	A simple scrolling frame will accpet a list of reasons why something happend or failed. Its canvas size wil be chagned
-	to fit the reasons while the total frame size stays the same.
+	A simple scrolling frame to list reasons why an action failed.
+	The canvas size changes to fit the reasons while the total frame size stays the same.
 
-	Necessary props:
-		Position, UDim2, will be used to set the position of the component.
-		Size, UDim2, used to set how big the component is.
-		Reasons, an array like table, will be used to fetch error or reason message that will be made into text labels.
-			-- {
-				[1] = {
-					name,
-					trigger,
-					action,
-					response,
-				}
-			}
-
-	Optional props,
-	LayoutOrder, number, used  by the layouter to change the position of this component.
+	Position: UDim2
+	Size: UDim2
+	Reasons: {
+		name,
+		response: {
+			responseBody: string
+		}
+	}[]
+	LayoutOrder: number (optional)
 ]]
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -33,10 +27,12 @@ local StyledScrollingFrame = require(Plugin.Core.Components.StyledScrollingFrame
 local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
 
+local FFlagShowAssetConfigReasons2 = game:GetFastFlag("ShowAssetConfigReasons2")
+
 local ReasonFrame = Roact.PureComponent:extend("ReasonFrame")
 
-local DEFAULT_CANVASHEIGHT = 40
--- Will be used to calcualte size for the reasons entity if wo don't have the absSize of scrolling frame.
+local DEFAULT_CANVAS_HEIGHT = 40
+-- Default if we don't have the absoluteSize of the scrolling frame.
 local DEFAULT_FRAME_SIZE = Vector2.new(400, 9000)
 local DEFAULT_FRAME_HEIGHT = 9000
 local DEFAULT_REASON_TITLE_HEIGHT = 20
@@ -48,17 +44,17 @@ function ReasonFrame:init(props)
 		local reasons = self.props.Reasons or {}
 		local canvasHeight = 0
 		local sizeArray = {}
-		-- Needed for getting the absSize for calculating textBound for reason entity.
+		-- Needed for getting the absoluteSize for calculating textBound for reason entity.
 		local scrollingFrame = self.scrollingFrameRef.current
 
-		-- Use the reasons here to calculte how big the canvas size should be and generate textLabels for it.
-		for index, reason in pairs(reasons) do
+		-- Use the reasons here to calculate how big the canvas size should be and generate TextLabels for it.
+		for _, reason in pairs(reasons) do
 			local reasonText = reason.response.responseBody
 
 			local frameSize
 			if scrollingFrame then
-				local absSize = scrollingFrame.AbsoluteSize
-				frameSize = Vector2.new(absSize.X, DEFAULT_FRAME_HEIGHT)
+				local absoluteSize = scrollingFrame.AbsoluteSize
+				frameSize = Vector2.new(absoluteSize.X, DEFAULT_FRAME_HEIGHT)
 			else
 				frameSize = DEFAULT_FRAME_SIZE
 			end
@@ -72,7 +68,7 @@ function ReasonFrame:init(props)
 			end
 		end
 
-		if not canvasHeight then canvasHeight = DEFAULT_CANVASHEIGHT end
+		if not canvasHeight then canvasHeight = DEFAULT_CANVAS_HEIGHT end
 		if scrollingFrame then
 			scrollingFrame.CanvasSize = UDim2.new(1, 0, 0, canvasHeight)
 		end
@@ -104,10 +100,10 @@ function ReasonFrame:init(props)
 		for index, reason in pairs(reasons) do
 			local sizeVector2 = sizeArray[index]
 
-			reasonsContent[reason.name] = Roact.createElement("TextLabel", {
+			reasonsContent[FFlagShowAssetConfigReasons2 and reason.networkErrorAction or reason.name] = Roact.createElement("TextLabel", {
 				Size = UDim2.new(1, 0, 0, sizeVector2.Y),
 				Text = reason.response.responseBody,
-				TextColor3 = assetConfigTheme.textColor,
+				TextColor3 = FFlagShowAssetConfigReasons2 and assetConfigTheme.errorColor or assetConfigTheme.textColor,
 				Font = Constants.FONT,
 				TextSize = Constants.FONT_SIZE_LARGE,
 				BackgroundTransparency = 1,
@@ -123,7 +119,6 @@ function ReasonFrame:render()
 	return withTheme(function(theme)
 		return withLocalization(function(_, localizedContent)
 			local props = self.props
-			local state = self.state
 
 			local size = props.Size
 			local position = props.Position
@@ -136,13 +131,9 @@ function ReasonFrame:render()
 			return Roact.createElement(StyledScrollingFrame, {
 				Position = position,
 				Size = size,
-				-- This doesn't really matter, will be overided in calibrateCanvas.
-				CanvasSize = UDim2.new(0, 0, 0, DEFAULT_CANVASHEIGHT),
+				-- Will be overidden in calibrateCanvas.
+				CanvasSize = UDim2.new(0, 0, 0, DEFAULT_CANVAS_HEIGHT),
 				ZIndex = 1,
-
-				-- Scrolling will be controllered by how many content we want to render
-				scrollingEnabled = false,
-
 				[Roact.Ref] = self.scrollingFrameRef,
 				onScroll = self.onScroll,
 				LayoutOrder = layoutOrder,

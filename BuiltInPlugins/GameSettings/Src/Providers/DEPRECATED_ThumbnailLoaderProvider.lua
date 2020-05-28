@@ -5,7 +5,7 @@ local Players = game:GetService("Players")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
-local AddLoadedThumbnail = require(Plugin.Src.Actions.AddLoadedThumbnail)
+local AddLoadedThumbnail = require(Plugin.Src.Actions.DEPRECATED_AddLoadedThumbnail)
 
 local PermissionsConstants = require(Plugin.Src.Components.Permissions.PermissionsConstants)
 

@@ -7,7 +7,6 @@ local Rodux = require(Libs.Rodux)
 local Util = Plugin.Core.Util
 local PagedRequestCursor = require(Util.PagedRequestCursor)
 local LOADING_IN_BACKGROUND = require(Util.Keys).LoadingInProgress
-local getUserId = require(Util.getUserId)
 
 local UILibrary = require(Libs.UILibrary)
 local deepJoin = UILibrary.Util.deepJoin
@@ -47,7 +46,7 @@ local SetFieldError = require(Actions.SetFieldError)
 
 local ConfigTypes = require(Plugin.Core.Types.ConfigTypes)
 
-local FFlagShowAssetConfigReasons = game:GetFastFlag("ShowAssetConfigReasons")
+local FFlagShowAssetConfigReasons2 = game:GetFastFlag("ShowAssetConfigReasons2")
 
 return Rodux.createReducer({
 	-- Empty table means publish new asset
@@ -87,7 +86,7 @@ return Rodux.createReducer({
 
 	isVerifiedCreator = true,
 
-	-- Remove me with FFlagShowAssetConfigReasons
+	-- Remove me with FFlagShowAssetConfigReasons2
 	networkError = nil,
 	networkErrorAction = nil,
 
@@ -205,12 +204,10 @@ return Rodux.createReducer({
 	end,
 
 	[NetworkError.name] = function(state, action)
-		-- actions is a table contains networkAction object and response from the request.
-		-- the name of the error, trigger and what to do with this error is defined in networkAction.
-		if FFlagShowAssetConfigReasons then
+		if FFlagShowAssetConfigReasons2 then
 			return deepJoin(state, {
 				networkTable = {
-					[action.name] = action,
+					[action.networkErrorAction] = action,
 				}
 			})
 		else

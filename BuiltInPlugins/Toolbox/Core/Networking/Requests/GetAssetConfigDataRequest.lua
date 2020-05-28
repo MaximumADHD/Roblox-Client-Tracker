@@ -10,7 +10,7 @@ local ConfigTypes = require(Plugin.Core.Types.ConfigTypes)
 local UpdateAssetConfigData = require(Actions.UpdateAssetConfigData)
 
 local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
-local FFlagShowAssetConfigReasons = game:GetFastFlag("ShowAssetConfigReasons")
+local FFlagShowAssetConfigReasons2 = game:GetFastFlag("ShowAssetConfigReasons2")
 local FFlagAssetConfigUseItemConfig = game:GetFastFlag("AssetConfigUseItemConfig")
 
 if FFlagAssetConfigUseItemConfig then
@@ -39,7 +39,7 @@ return function(networkInterface, assetId)
 				end
 			end,
 			function(err)
-				if FFlagShowAssetConfigReasons then
+				if FFlagShowAssetConfigReasons2 then
 					store:dispatch(NetworkError(err, ConfigTypes.NetworkErrors.GET_ASSET_DETAIL_FAILURE))
 				else
 					store:dispatch(NetworkError(err, ConfigTypes.GET_ASSET_DETAIL_FAILURE_ACTION ))

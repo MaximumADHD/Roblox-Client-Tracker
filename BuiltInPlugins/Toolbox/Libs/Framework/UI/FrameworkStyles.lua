@@ -21,6 +21,7 @@ function FrameworkStyles.new()
 		-- UI Styles
 		Box = newDefaults(),
 		Button = newDefaults(),
+		DropShadow = newDefaults(),
 		Image = newDefaults(),
 
 		LoadingBar = newDefaults(),
@@ -31,13 +32,15 @@ function FrameworkStyles.new()
 		RadioButtonList = newDefaults(),
 		RangeSlider = newDefaults(),
 		RoundBox = newDefaults(),
-
+		ScrollingFrame = newDefaults(),
 		Separator = newDefaults(),
 
 		TextLabel = newDefaults(),
 		ToggleButton = newDefaults(),
+		TextInput = newDefaults(),
 
 		-- StudioUI Styles
+		SearchBar = newDefaults(),
 		StyledDialog = newDefaults(),
 	}
 end

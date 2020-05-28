@@ -17,7 +17,8 @@ return function()
                 },
 
                 Price = 200,
-                DisabledSubText = "Mutually exclusive with Paid Access",
+                TaxRate = 0.3,
+                MinimumFee = 1,
 
                 LayoutOrder = 1,
                 Enabled = true,

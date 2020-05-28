@@ -9,7 +9,6 @@ local DEBUG_MODE = game:GetService("RunService"):IsStudio() -- use this to run a
 local isAvatarContextMenuEnabled = false
 
 local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList3")
-local FFlagFixACMOverlappingIssues = game:DefineFastFlag("FixACMOverlappingIssues", false)
 
 -- CONSTANTS
 local MAX_CONTEXT_MENU_DISTANCE = 100
@@ -206,9 +205,7 @@ function OpenContextMenu(player, worldPoint)
 
 	ContextMenuOpen = true
 
-	if FFlagFixACMOverlappingIssues then
-		CloseOtherOpenCoreGui()
-	end
+	CloseOtherOpenCoreGui()
 
 	BuildPlayerCarousel(player, worldPoint)
 	ContextMenuUtil:DisablePlayerMovement()
@@ -390,19 +387,17 @@ LocalPlayer.FriendStatusChanged:Connect(function(player, friendStatus)
 	end
 end)
 
-if FFlagFixACMOverlappingIssues then
-	Backpack.StateChanged.Event:Connect(function(isBackpackOpen)
-		if isBackpackOpen and ContextMenuOpen then
-			CloseContextMenu()
-		end
-	end)
+Backpack.StateChanged.Event:Connect(function(isBackpackOpen)
+	if isBackpackOpen and ContextMenuOpen then
+		CloseContextMenu()
+	end
+end)
 
-	EmotesMenuMaster.EmotesMenuToggled.Event:Connect(function(isEmotesOpen)
-		if isEmotesOpen and ContextMenuOpen then
-			CloseContextMenu()
-		end
-	end)
-end
+EmotesMenuMaster.EmotesMenuToggled.Event:Connect(function(isEmotesOpen)
+	if isEmotesOpen and ContextMenuOpen then
+		CloseContextMenu()
+	end
+end)
 
 function GetWorldPoint(player)
 	if player.Character then

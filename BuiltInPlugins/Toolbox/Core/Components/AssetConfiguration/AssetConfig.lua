@@ -10,7 +10,7 @@ local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePlu
 local FFlagStudioUseNewAnimationImportExportFlow = settings():GetFFlag("StudioUseNewAnimationImportExportFlow")
 local FFlagAssetConfigOverrideFromAnyScreen = game:DefineFastFlag("AssetConfigOverrideFromAnyScreen", false)
 local FFlagCanPublishDefaultAsset = game:DefineFastFlag("CanPublishDefaultAsset", false)
-local FFlagShowAssetConfigReasons = game:GetFastFlag("ShowAssetConfigReasons")
+local FFlagShowAssetConfigReasons2 = game:GetFastFlag("ShowAssetConfigReasons2")
 local FFlagEnableAssetConfigFreeFix2 = game:GetFastFlag("EnableAssetConfigFreeFix2")
 local FFlagEnableNonWhitelistedToggle = game:GetFastFlag("EnableNonWhitelistedToggle")
 local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
@@ -738,8 +738,8 @@ function AssetConfig:render()
 				local newAssetStatus = state.status
 
 				local showGetAssetFailed
-				if FFlagShowAssetConfigReasons then
-					showGetAssetFailed = props.networkErrorAction[ConfigTypes.NetworkErrors.GET_ASSET_DETAIL_FAILURE.name]
+				if FFlagShowAssetConfigReasons2 then
+					showGetAssetFailed = props.networkErrorAction[ConfigTypes.NetworkErrors.GET_ASSET_DETAIL_FAILURE]
 				else
 					showGetAssetFailed = props.networkErrorAction == ConfigTypes.GET_ASSET_DETAIL_FAILURE_ACTION
 				end

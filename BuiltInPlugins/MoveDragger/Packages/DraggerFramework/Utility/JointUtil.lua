@@ -1,22 +1,13 @@
 
 local Framework = script.Parent.Parent
-local getFFlagDragWeirdConstraints = require(Framework.Flags.getFFlagDragWeirdConstraints)
 
 local JointUtil = {}
 
 function JointUtil.getConstraintCounterpart(constraint, part)
-    if getFFlagDragWeirdConstraints() then
-        if constraint.Attachment0 and constraint.Attachment0.Parent == part then
-            return constraint.Attachment1 and constraint.Attachment1.Parent or nil
-        else
-            return constraint.Attachment0 and constraint.Attachment0.Parent or nil
-        end
+    if constraint.Attachment0 and constraint.Attachment0.Parent == part then
+        return constraint.Attachment1 and constraint.Attachment1.Parent or nil
     else
-        if constraint.Attachment0 and constraint.Attachment0.Parent == part then
-            return constraint.Attachment1.Parent
-        else
-            return constraint.Attachment0.Parent
-        end
+        return constraint.Attachment0 and constraint.Attachment0.Parent or nil
     end
 end
 

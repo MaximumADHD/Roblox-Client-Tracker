@@ -68,7 +68,7 @@ local function getTableValue(table, tableName, tableKey, valueKey)
 	return nil
 end
 
-if game:GetFastFlag("StudioGameSettingsResetStoreAction") then
+if game:GetFastFlag("StudioGameSettingsResetStoreAction2") then
 	-- TODO In the future this should be a constant but we don't have enough testing against this file
 	-- and it's extremely easy for someone to directly modify the store and dirty the default
 	local function getDefaultState()
@@ -179,6 +179,14 @@ if game:GetFastFlag("StudioGameSettingsResetStoreAction") then
 		AddErrors = function(state, action)
 			return Cryo.Dictionary.join(state, {
 				Errors = Cryo.Dictionary.join(state.Errors, action.errors)
+			})
+		end,
+
+		DiscardError = function(state, action)
+			return Cryo.Dictionary.join(state, {
+				Errors = Cryo.Dictionary.join(state.Errors, {
+					[action.error] = Cryo.None,
+				}),
 			})
 		end,
 
@@ -308,6 +316,7 @@ else
 	local AddChange = require(Plugin.Src.Actions.AddChange)
 	local AddErrors = require(Plugin.Src.Actions.AddErrors)
 	local DiscardChanges = require(Plugin.Src.Actions.DiscardChanges)
+	local DiscardError = require(Plugin.Src.Actions.DiscardError)
 	local DiscardErrors = require(Plugin.Src.Actions.DiscardErrors)
 
 	local AddTableChange = require(Plugin.Src.Actions.AddTableChange)
@@ -438,6 +447,13 @@ else
 			return Cryo.Dictionary.join(state, {
 				Changed = {},
 			})
+
+		elseif action.type == DiscardError.name then
+				return Cryo.Dictionary.join(state, {
+					Errors = Cryo.Dictionary.join(state.Errors, {
+						[action.error] = Cryo.None,
+					}),
+				})
 
 		elseif action.type == DiscardErrors.name then
 			return Cryo.Dictionary.join(state, {

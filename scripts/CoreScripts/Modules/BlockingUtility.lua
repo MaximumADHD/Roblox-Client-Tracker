@@ -23,8 +23,6 @@ spawn(function()
 	RemoteEvent_UpdatePlayerBlockList = RobloxReplicatedStorage:WaitForChild("UpdatePlayerBlockList")
 end)
 
-local FFlagPlayerListFixBlockedInitalization = game:DefineFastFlag("PlayerListFixBlockedInitalization", false)
-
 local BlockStatusChanged = Instance.new("BindableEvent")
 local MuteStatusChanged = Instance.new("BindableEvent")
 
@@ -80,35 +78,24 @@ local function getBlockedUserIds()
 end
 
 local function initializeBlockList()
-	if FFlagPlayerListFixBlockedInitalization then
-		if GetBlockedPlayersCompleted then
-			return
-		end
-
-		if GetBlockedPlayersStarted then
-			GetBlockedPlayersFinished.Event:Wait()
-			return
-		end
-		GetBlockedPlayersStarted = true
-
-		coroutine.wrap(function()
-			BlockedList = GetBlockedPlayersAsync()
-			GetBlockedPlayersCompleted = true
-
-			local RemoteEvent_SetPlayerBlockList = RobloxReplicatedStorage:WaitForChild("SetPlayerBlockList")
-			local blockedUserIds = getBlockedUserIds()
-			RemoteEvent_SetPlayerBlockList:FireServer(blockedUserIds)
-		end)()
-	else
-		spawn(function()
-			BlockedList = GetBlockedPlayersAsync()
-			GetBlockedPlayersCompleted = true
-
-			local RemoteEvent_SetPlayerBlockList = RobloxReplicatedStorage:WaitForChild("SetPlayerBlockList")
-			local blockedUserIds = getBlockedUserIds()
-			RemoteEvent_SetPlayerBlockList:FireServer(blockedUserIds)
-		end)
+	if GetBlockedPlayersCompleted then
+		return
 	end
+
+	if GetBlockedPlayersStarted then
+		GetBlockedPlayersFinished.Event:Wait()
+		return
+	end
+	GetBlockedPlayersStarted = true
+
+	coroutine.wrap(function()
+		BlockedList = GetBlockedPlayersAsync()
+		GetBlockedPlayersCompleted = true
+
+		local RemoteEvent_SetPlayerBlockList = RobloxReplicatedStorage:WaitForChild("SetPlayerBlockList")
+		local blockedUserIds = getBlockedUserIds()
+		RemoteEvent_SetPlayerBlockList:FireServer(blockedUserIds)
+	end)()
 end
 
 local function isBlocked(userId)
@@ -269,9 +256,7 @@ function BlockingUtility:UnmutePlayer(player)
 end
 
 function BlockingUtility:IsPlayerBlockedByUserId(userId)
-	if FFlagPlayerListFixBlockedInitalization then
-		initializeBlockList()
-	end
+	initializeBlockList()
 	return isBlocked(userId)
 end
 

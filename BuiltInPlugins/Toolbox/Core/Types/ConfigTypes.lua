@@ -9,26 +9,27 @@ local Images = require(Util.Images)
 
 local FFlagEnableAssetConfigVersionCheckForModels = game:GetFastFlag("EnableAssetConfigVersionCheckForModels")
 local FFlagEnableNonWhitelistedToggle = game:GetFastFlag("EnableNonWhitelistedToggle")
+local FFlagShowAssetConfigReasons2 = game:GetFastFlag("ShowAssetConfigReasons2")
 
 local ConfigTypes = {}
 
--- For now this is defined with what's cause for the action, and what to do with that action.
--- If we have more complex need than we have not, we could have a map between what's the cause
--- and what to do for that cause.
--- If this part is extended into a map between trigger action and what to do, we may also need to
--- add a parameter in the table to show the severity.
-local GET_ASSET_DETAIL_FAILURE = { name = "GET_ASSET_DETAIL_FAILURE", trigger = "FailToGetAssetDetail", action = "CloseAssetConfig" }
-local SET_ASSET_PRICE_FAILURE = { name = "SET_ASSET_PRICE_FAILURE", trigger = "FailToSetPrice", action = "ShowPriceFailReason" }
-local SET_ASSET_THUMBNAIL_FAILURE = { name = "SET_ASSET_THUMBNAIL_FAILURE", trigger = "FaileToSetIcon", action = "ShowThumbnailFailReason" }
-
--- Remove me with FFlagShowAssetConfigReasons
-ConfigTypes.GET_ASSET_DETAIL_FAILURE_ACTION = "CloseAssetConfig"
-
-ConfigTypes.NetworkErrors = {
-	[GET_ASSET_DETAIL_FAILURE.name] = GET_ASSET_DETAIL_FAILURE,
-	[SET_ASSET_PRICE_FAILURE.name] = SET_ASSET_PRICE_FAILURE,
-	[SET_ASSET_THUMBNAIL_FAILURE.name] = SET_ASSET_THUMBNAIL_FAILURE,
-}
+if FFlagShowAssetConfigReasons2 then
+	ConfigTypes.NetworkErrors = {
+		GET_ASSET_DETAIL_FAILURE = "GET_ASSET_DETAIL_FAILURE",
+		SET_ASSET_PRICE_FAILURE = "SET_ASSET_PRICE_FAILURE",
+		SET_ASSET_THUMBNAIL_FAILURE = "SET_ASSET_THUMBNAIL_FAILURE"
+	}
+else
+	local GET_ASSET_DETAIL_FAILURE = { name = "GET_ASSET_DETAIL_FAILURE", trigger = "FailToGetAssetDetail", action = "CloseAssetConfig" }
+	local SET_ASSET_PRICE_FAILURE = { name = "SET_ASSET_PRICE_FAILURE", trigger = "FailToSetPrice", action = "ShowPriceFailReason" }
+	local SET_ASSET_THUMBNAIL_FAILURE = { name = "SET_ASSET_THUMBNAIL_FAILURE", trigger = "FaileToSetIcon", action = "ShowThumbnailFailReason" }
+	ConfigTypes.NetworkErrors = {
+		[GET_ASSET_DETAIL_FAILURE.name] = GET_ASSET_DETAIL_FAILURE,
+		[SET_ASSET_PRICE_FAILURE.name] = SET_ASSET_PRICE_FAILURE,
+		[SET_ASSET_THUMBNAIL_FAILURE.name] = SET_ASSET_THUMBNAIL_FAILURE,
+	}
+	ConfigTypes.GET_ASSET_DETAIL_FAILURE_ACTION = "CloseAssetConfig"
+end
 
 local GENERAL = {
 	name = AssetConfigConstants.SIDE_TABS.General,

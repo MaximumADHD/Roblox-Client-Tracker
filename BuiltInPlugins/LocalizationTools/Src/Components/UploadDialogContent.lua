@@ -87,7 +87,8 @@ function UploadDialogContent:render()
 	end
 
 	return Roact.createElement("Frame", {
-		BackgroundTransparency = 1,
+		BackgroundTransparency = 0,
+		BackgroundColor3 = theme.MainBackground,
 		Size = UDim2.new(1, 0, 1, 0),
 	}, {
 		Padding = Roact.createElement("UIPadding", {

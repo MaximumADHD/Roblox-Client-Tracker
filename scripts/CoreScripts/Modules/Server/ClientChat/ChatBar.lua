@@ -32,13 +32,6 @@ local ChatLocalization = nil
 pcall(function() ChatLocalization = require(game:GetService("Chat").ClientChatModules.ChatLocalization) end)
 if ChatLocalization == nil then ChatLocalization = {} function ChatLocalization:Get(key,default) return default end end
 
-local FFlagUserChatNewMessageLengthCheck2 do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserChatNewMessageLengthCheck2")
-	end)
-	FFlagUserChatNewMessageLengthCheck2 = success and result
-end
-
 --////////////////////////////// Methods
 --//////////////////////////////////////
 local methods = {}
@@ -194,17 +187,10 @@ function methods:SetUpTextBoxEvents(TextBox, TextLabel, MessageModeTextButton)
 
 		self:CalculateSize()
 
-		if FFlagUserChatNewMessageLengthCheck2 then
-			if utf8.len(utf8.nfcnormalize(TextBox.Text)) > ChatSettings.MaximumMessageLength then
-				TextBox.Text = self.PreviousText
-			else
-				self.PreviousText = TextBox.Text
-			end
+		if utf8.len(utf8.nfcnormalize(TextBox.Text)) > ChatSettings.MaximumMessageLength then
+			TextBox.Text = self.PreviousText
 		else
-			if (string.len(TextBox.Text) > ChatSettings.MaximumMessageLength) then
-				TextBox.Text = string.sub(TextBox.Text, 1, ChatSettings.MaximumMessageLength)
-				return
-			end
+			self.PreviousText = TextBox.Text
 		end
 
 		if not self.InCustomState then

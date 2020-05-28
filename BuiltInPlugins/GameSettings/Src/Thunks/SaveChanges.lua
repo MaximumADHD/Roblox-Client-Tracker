@@ -16,6 +16,7 @@ local SaveState = require(Plugin.Src.Util.SaveState)
 local Promise = require(Plugin.Promise)
 
 local DFFlagDeveloperSubscriptionsEnabled = settings():GetFFlag("DeveloperSubscriptionsEnabled")
+local FFlagGameSettingsPlaceSettings = game:GetFastFlag("GameSettingsPlaceSettings")
 
 return function(settingsImpl)
 	return function(store)
@@ -68,7 +69,7 @@ return function(settingsImpl)
 				end)
 			end)
 		else
-			local state = store:getState().Settings
+			local state = FFlagGameSettingsPlaceSettings and store:getState() or store:getState().Settings
 			return settingsImpl:SaveAll(state)
 			:andThen(function()
 				Analytics.onSaveSuccess(tick() - startTime)

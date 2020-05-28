@@ -24,13 +24,6 @@ local success, UserShouldLocalizeGameChatBubble = pcall(function()
 end)
 local UserShouldLocalizeGameChatBubble = success and UserShouldLocalizeGameChatBubble
 
-local FFlagUserChatNewMessageLengthCheck2 do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserChatNewMessageLengthCheck2")
-	end)
-	FFlagUserChatNewMessageLengthCheck2 = success and result
-end
-
 local function getMessageLength(message)
 	return utf8.len(utf8.nfcnormalize(message))
 end
@@ -49,12 +42,7 @@ local BILLBOARD_MAX_HEIGHT = 250	--This limits the number of bubble chats that y
 
 local ELIPSES = "..."
 local MaxChatMessageLength = 128 -- max chat message length, including null terminator and elipses.
-local MaxChatMessageLengthExclusive
-if FFlagUserChatNewMessageLengthCheck2 then
-	MaxChatMessageLengthExclusive = MaxChatMessageLength - getMessageLength(ELIPSES) - 1
-else
-	MaxChatMessageLengthExclusive = MaxChatMessageLength - string.len(ELIPSES) - 1
-end
+local MaxChatMessageLengthExclusive = MaxChatMessageLength - getMessageLength(ELIPSES) - 1
 
 local NEAR_BUBBLE_DISTANCE = 65	--previously 45
 local MAX_BUBBLE_DISTANCE = 100	--previously 80
@@ -79,11 +67,7 @@ BubbleChatScreenGui.Parent = PlayerGui
 --[[ FUNCTIONS ]]
 
 local function lerpLength(msg, min, max)
-	if FFlagUserChatNewMessageLengthCheck2 then
-		return min + (max-min) * math.min(getMessageLength(msg)/75.0, 1.0)
-	else
-		return min + (max-min) * math.min(string.len(msg)/75.0, 1.0)
-	end
+	return min + (max-min) * math.min(getMessageLength(msg)/75.0, 1.0)
 end
 
 local function createFifo()
@@ -305,19 +289,11 @@ initChatBubbleType(BubbleColor.RED,		"ui/dialog_red",	"ui/chatBubble_red_notify_
 initChatBubbleType(BubbleColor.GREEN,	"ui/dialog_green",	"ui/chatBubble_green_notify_bkg",	true,	Rect.new(7,7,33,33))
 
 function this:SanitizeChatLine(msg)
-	if FFlagUserChatNewMessageLengthCheck2 then
-		if getMessageLength(msg) > MaxChatMessageLengthExclusive then
-			local byteOffset = utf8.offset(msg, MaxChatMessageLengthExclusive + getMessageLength(ELIPSES) + 1) - 1
-			return string.sub(msg, 1, byteOffset)
-		else
-			return msg
-		end
+	if getMessageLength(msg) > MaxChatMessageLengthExclusive then
+		local byteOffset = utf8.offset(msg, MaxChatMessageLengthExclusive + getMessageLength(ELIPSES) + 1) - 1
+		return string.sub(msg, 1, byteOffset)
 	else
-		if string.len(msg) > MaxChatMessageLengthExclusive then
-			return string.sub(msg, 1, MaxChatMessageLengthExclusive + string.len(ELIPSES))
-		else
-			return msg
-		end
+		return msg
 	end
 end
 

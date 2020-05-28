@@ -15,7 +15,7 @@ local TITLE_COLOR = Constants.Color.WHITE
 local TITLE_TEXT_SIZE = 19
 
 local SUB_TITLE_FONT = Enum.Font.SourceSans
-local SUB_TITLE_COLOR = Constants.Color.GRAY2
+local SUB_TITLE_COLOR = Constants.Color.GRAY3
 local SUB_TITLE_TEXT_SIZE = 16
 
 local PRESENCE_FONT = Enum.Font.SourceSans

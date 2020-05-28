@@ -84,30 +84,30 @@ return function()
 			local success1, value1 = promiseResults[1]:unwrap()
 			expect(success1).to.equal(true)
 			expect(value1).to.equal(5)
-			local isMatchCalled = false
+			local isMatchCalled1 = false
 			promiseResults[1]:match(function(result)
 				expect(result).to.equal(5)
-				isMatchCalled = true
+				isMatchCalled1 = true
 			end,
 			function()
 				error("should not be called")
 			end)
-			expect(isMatchCalled).to.equal(true)
+			expect(isMatchCalled1).to.equal(true)
 
 
 			expect(Result.is(promiseResults["Home"])).to.equal(true)
 			local success2, value2 = promiseResults["Home"]:unwrap()
 			expect(success2).to.equal(false)
 			expect(value2).to.equal("failed")
-			local isMatchCalled = false
+			local isMatchCalled2 = false
 			promiseResults["Home"]:match(function()
 				error("should not be called")
 			end,
 			function(err)
 				expect(err).to.equal("failed")
-				isMatchCalled = true
+				isMatchCalled2 = true
 			end)
-			expect(isMatchCalled).to.equal(true)
+			expect(isMatchCalled2).to.equal(true)
 		end)
 
 		it("should return the correct results of each individual promise that resolved later", function()

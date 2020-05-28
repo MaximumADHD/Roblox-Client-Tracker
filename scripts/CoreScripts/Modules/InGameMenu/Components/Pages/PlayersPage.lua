@@ -13,8 +13,11 @@ local t = InGameMenuDependencies.t
 
 local withStyle = UIBlox.Core.Style.withStyle
 local Images = UIBlox.App.ImageSet.Images
+local BaseMenu = UIBlox.App.Menu.BaseMenu
 
 local InGameMenu = script.Parent.Parent.Parent
+
+local withLocalization = require(InGameMenu.Localization.withLocalization)
 
 local getFFlagUseNewPlayerLabelDesign = require(InGameMenu.Flags.GetFFlagUseNewPlayerLabelDesign)
 local fflagUseNewPlayerLabelDesign = getFFlagUseNewPlayerLabelDesign()
@@ -22,6 +25,7 @@ local PlayerLabel = fflagUseNewPlayerLabelDesign and require(InGameMenu.Componen
 	or require(InGameMenu.Components.PlayerLabel)
 
 local FFlagFixMenuIcons = require(InGameMenu.Flags.FFlagFixMenuIcons)
+local FFlagFixInGameMenuMissingAssets = require(InGameMenu.Flags.FFlagFixInGameMenuMissingAssets)
 
 local PageNavigationWatcher = require(InGameMenu.Components.PageNavigationWatcher)
 local Divider = require(InGameMenu.Components.Divider)
@@ -51,7 +55,8 @@ local ACTION_HEIGHT = 56
 local ACTIONS_MENU_BOTTOM_PADDING = 15
 local CONTEXT_SIDE_PADDING = 24 -- context menu should keep 24 px away from bottom/right side of screen
 local CONTEXT_PADDING_TOP = inGameGlobalGuiInset + CONTEXT_SIDE_PADDING -- context side padding + in-game inset
-local CONTEXT_LEFT_PADDING = 20 -- context menu is 20 px away from right bound of player list if there are available space
+ -- context menu is 20 px away from right bound of player list if there are available space
+local CONTEXT_LEFT_PADDING = 20
 
 local getFFlagInGameMenuSinglePaneDesign = require(InGameMenu.Flags.GetFFlagInGameMenuSinglePaneDesign)
 local fflagInGameMenuSinglePaneDesign = getFFlagInGameMenuSinglePaneDesign()
@@ -160,7 +165,7 @@ function PlayersPage:renderListEntries(players)
 	return listComponents
 end
 
-function PlayersPage:getMoreActions()
+function PlayersPage:getMoreActions(localized)
 	local moreActions = {}
 
 	if self.state.selectedPlayer ~= nil then
@@ -170,14 +175,18 @@ function PlayersPage:getMoreActions()
 				friendStatus = self.props.friends[self.state.selectedPlayer.UserId]
 			end
 
-			local friendActionText = "CoreScripts.InGameMenu.Actions.AddFriend"
+			local friendActionText = FFlagFixInGameMenuMissingAssets and localized.addFriend
+				or "CoreScripts.InGameMenu.Actions.AddFriend"
 			local friendActionIcon = FFlagFixMenuIcons and Images["icons/actions/friends/friendAdd"] or Assets.Images.AddFriend
 			if friendStatus == Enum.FriendStatus.Friend then
-				friendActionText = "CoreScripts.InGameMenu.Actions.Unfriend"
+				friendActionText = FFlagFixInGameMenuMissingAssets and localized.unfriend
+					or "CoreScripts.InGameMenu.Actions.Unfriend"
 				friendActionIcon = FFlagFixMenuIcons and Images["icons/actions/friends/friendRemove"] or Assets.Images.UnFriend
 			elseif friendStatus == Enum.FriendStatus.FriendRequestSent then
-				friendActionText = "CoreScripts.InGameMenu.Actions.CancelFriend"
-				friendActionIcon = FFlagFixMenuIcons and Images["icons/actions/friends/friendRemove"] or Assets.Images.CancelFriendRequest
+				friendActionText = FFlagFixInGameMenuMissingAssets and localized.cancelFriend
+					or "CoreScripts.InGameMenu.Actions.CancelFriend"
+				friendActionIcon = FFlagFixMenuIcons and Images["icons/actions/friends/friendRemove"]
+					or Assets.Images.CancelFriendRequest
 			end
 
 			table.insert(moreActions, {
@@ -201,7 +210,8 @@ function PlayersPage:getMoreActions()
 		end
 
 		table.insert(moreActions, {
-			text = "CoreScripts.InGameMenu.Actions.ViewAvatar",
+			text = FFlagFixInGameMenuMissingAssets and localized.viewAvatar
+				or "CoreScripts.InGameMenu.Actions.ViewAvatar",
 			icon = Assets.Images.ViewAvatar,
 			onActivated = function()
 				GuiService:InspectPlayerFromUserIdWithCtx(self.state.selectedPlayer.UserId, "escapeMenu")
@@ -215,7 +225,8 @@ function PlayersPage:getMoreActions()
 
 		if self.state.selectedPlayer ~= Players.LocalPlayer then
 			table.insert(moreActions, {
-				text = "CoreScripts.InGameMenu.Actions.ReportAbuse",
+				text = FFlagFixInGameMenuMissingAssets and localized.reportAbuse
+					or "CoreScripts.InGameMenu.Actions.ReportAbuse",
 				icon = FFlagFixMenuIcons and Images["icons/actions/feedback"] or Assets.Images.ReportIcon,
 				onActivated = function()
 					local player = self.state.selectedPlayer
@@ -231,12 +242,16 @@ function PlayersPage:getMoreActions()
 	return moreActions
 end
 
-function PlayersPage:render()
+function PlayersPage:renderWithLocalized(localized)
 	local moreMenuPositionYOffset = 0
 	local moreMenuPositionXOffset = 0
 	local moreActions = {}
 	if self.state.selectedPlayer ~= nil then
-		moreActions = self:getMoreActions()
+		if FFlagFixInGameMenuMissingAssets then
+			moreActions = self:getMoreActions(localized)
+		else
+			moreActions = self:getMoreActions()
+		end
 		if fflagInGameMenuSinglePaneDesign then
 			local actionMenuHeight = #moreActions * ACTION_HEIGHT
 			local screenWidth = self.props.screenSize.X
@@ -250,7 +265,8 @@ function PlayersPage:render()
 				moreMenuPositionYOffset = screenHeight - actionMenuHeight - CONTEXT_PADDING_TOP
 			end
 
-			if screenWidth >= self.state.selectedPlayerPosition.X + PLAYER_LABEL_WIDTH + CONTEXT_LEFT_PADDING + ACTION_WIDTH + CONTEXT_SIDE_PADDING then
+			if screenWidth >= self.state.selectedPlayerPosition.X + PLAYER_LABEL_WIDTH + CONTEXT_LEFT_PADDING + ACTION_WIDTH
+				+ CONTEXT_SIDE_PADDING then
 				moreMenuPositionXOffset = self.state.selectedPlayerPosition.X + PLAYER_LABEL_WIDTH + CONTEXT_LEFT_PADDING
 			else
 				moreMenuPositionXOffset = screenWidth - ACTION_WIDTH - CONTEXT_SIDE_PADDING
@@ -279,7 +295,18 @@ function PlayersPage:render()
 				DisplayOrder = 2,
 				ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 			},{
-				MoreActionsMenu = Roact.createElement(MoreActionsMenu, {
+				MoreActionsMenu = FFlagFixInGameMenuMissingAssets and Roact.createElement("Frame", {
+					Size = UDim2.fromScale(1, 1),
+					BackgroundTransparency = 1,
+					Visible = self.state.selectedPlayer ~= nil,
+				}, {
+					BaseMenu = Roact.createElement(BaseMenu, {
+						buttonProps = moreActions,
+
+						width = UDim.new(0, ACTION_WIDTH),
+						position = UDim2.fromOffset(moreMenuPositionXOffset, moreMenuPositionYOffset),
+					})
+				}) or Roact.createElement(MoreActionsMenu, {
 					Position = UDim2.fromOffset(moreMenuPositionXOffset, moreMenuPositionYOffset),
 					Visible = self.state.selectedPlayer ~= nil,
 					menuWidth = UDim.new(0, ACTION_WIDTH),
@@ -290,14 +317,26 @@ function PlayersPage:render()
 		})
 	else
 		-- The more menu can't go inside the scrolling frame because it has a different clipping bounds.
-		moreActionsMenuPanel = Roact.createElement(MoreActionsMenu, {
-			Position = UDim2.new(1, CONTEXT_LEFT_PADDING, 0, moreMenuPositionYOffset),
-			AnchorPoint = Vector2.new(0, 0.5),
-			Visible = self.state.selectedPlayer ~= nil,
-			menuWidth = UDim.new(0, ACTION_WIDTH),
-			actionHeight = UDim.new(0, ACTION_HEIGHT),
-			actions = moreActions,
-		})
+		if FFlagFixInGameMenuMissingAssets then
+			if self.state.selectedPlayer ~= nil then
+				moreActionsMenuPanel = Roact.createElement(BaseMenu, {
+					buttonProps = moreActions,
+
+					width = UDim.new(0, ACTION_WIDTH),
+					position = UDim2.new(1, CONTEXT_LEFT_PADDING, 0, moreMenuPositionYOffset),
+					anchorPoint = Vector2.new(0, 0.5),
+				})
+			end
+		else
+			moreActionsMenuPanel = Roact.createElement(MoreActionsMenu, {
+				Position = UDim2.new(1, CONTEXT_LEFT_PADDING, 0, moreMenuPositionYOffset),
+				AnchorPoint = Vector2.new(0, 0.5),
+				Visible = self.state.selectedPlayer ~= nil,
+				menuWidth = UDim.new(0, ACTION_WIDTH),
+				actionHeight = UDim.new(0, ACTION_HEIGHT),
+				actions = moreActions,
+			})
+		end
 	end
 
 	return Roact.createElement(Page, {
@@ -339,6 +378,18 @@ function PlayersPage:render()
 			end,
 		})
 	})
+end
+
+function PlayersPage:render()
+	return withLocalization({
+		addFriend = "CoreScripts.InGameMenu.Actions.AddFriend",
+		unfriend = "CoreScripts.InGameMenu.Actions.Unfriend",
+		cancelFriend = "CoreScripts.InGameMenu.Actions.CancelFriend",
+		viewAvatar = "CoreScripts.InGameMenu.Actions.ViewAvatar",
+		reportAbuse = "CoreScripts.InGameMenu.Actions.ReportAbuse",
+	})(function(localized)
+		return self:renderWithLocalized(localized)
+	end)
 end
 
 function PlayersPage:didUpdate(prevProps, prevState)

@@ -8,22 +8,35 @@ local UpdatePageInfoAndSendRequest = require(Plugin.Core.Networking.Requests.Upd
 local StopAllSounds = require(Plugin.Core.Actions.StopAllSounds)
 
 local FFlagEnableDefaultSortFix = game:GetFastFlag("EnableDefaultSortFix2")
+local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 
-return function(networkInterface, settings, categoryIndex)
+-- TODO rename categoryKey to categoryName when FFlagUseCategoryNameInToolbox is retired
+return function(networkInterface, settings, categoryKey)
 	return function(store)
 		store:dispatch(StopAllSounds())
 
-		local currentTab = store:getState().pageInfo.currentTab
-		local sortIndex = Sort.getDefaultSortForCategory(categoryIndex, FFlagEnableDefaultSortFix and currentTab or nil)
-		store:dispatch(UpdatePageInfoAndSendRequest(networkInterface, settings, {
-			audioSearchInfo = Cryo.None,
-			categoryIndex = categoryIndex,
-			searchTerm = "",
-			sortIndex = sortIndex,
-			targetPage = 1,
-			currentPage = 0,
-			requestReason = RequestReason.ChangeCategory,
-		}))
-
+		local sortIndex
+		if FFlagUseCategoryNameInToolbox then
+			sortIndex = Sort.getDefaultSortForCategory(categoryKey)
+		else
+			local currentTab = store:getState().pageInfo.currentTab
+			sortIndex = Sort.getDefaultSortForCategory(FFlagEnableDefaultSortFix and currentTab or nil, categoryKey)
+		end
+		store:dispatch(
+			UpdatePageInfoAndSendRequest(
+				networkInterface,
+				settings,
+				{
+					audioSearchInfo = Cryo.None,
+					categoryName = categoryKey,
+					categoryIndex = (not FFlagUseCategoryNameInToolbox) and (categoryKey),
+					searchTerm = "",
+					sortIndex = sortIndex,
+					targetPage = 1,
+					currentPage = 0,
+					requestReason = RequestReason.ChangeCategory,
+				}
+			)
+		)
 	end
 end

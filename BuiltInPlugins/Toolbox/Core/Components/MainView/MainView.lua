@@ -9,7 +9,7 @@
 
 		number maxWidth
 
-		number categoryIndex
+		string categoryName
 
 		Suggestions suggestions
 
@@ -27,8 +27,8 @@
 
 local FFlagFixToolboxEmptyRender = game:DefineFastFlag("FixToolboxEmptyRender", false)
 local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
-local FFlagEnableAudioPreview = settings():GetFFlag("EnableAudioPreview")
-local FFlagStudioToolboxShowNoPluginResultsDetail = game:DefineFastFlag("StudioToolboxShowNoPluginResultsDetail", false)
+local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
+local FFlagStudioShowNoPluginResultsDetailFix = game:DefineFastFlag("StudioShowNoPluginResultsDetailFix", false)
 local FFlagStudioToolboxFixWidthCalculation = game:DefineFastFlag("StudioToolboxFixWidthCalculation", false)
 
 local GuiService = game:GetService("GuiService")
@@ -142,19 +142,6 @@ function MainView:init(props)
 			self.props.onSearchOptionsToggled()
 		end
 	end
-
-	-- TODO: Remove self.onTagsCleared when FFlagEnableAudioPreview is on
-	self.onTagsCleared = nil
-	if not FFlagEnableAudioPreview then
-		self.onTagsCleared = function()
-			if FFlagStudioToolboxEnabledDevFramework then
-				settings = self.props.Settings:get("Plugin")
-			end
-			self.props.searchWithOptions(networkInterface, settings, {
-				Creator = "",
-			})
-		end
-	end
 end
 
 function MainView.getDerivedStateFromProps(nextProps, lastState)
@@ -179,8 +166,13 @@ end
 
 function MainView:calculateRenderBounds()
 	local props = self.props
-	local showPrices = Category.shouldShowPrices(props.currentTab, props.categoryIndex)
-	local lowerBound, upperBound = Layouter.calculateRenderBoundsForScrollingFrame(self.scrollingFrameRef.current,
+	local showPrices
+	if FFlagUseCategoryNameInToolbox then
+		showPrices = Category.shouldShowPrices(props.categoryName)
+	else
+		showPrices = Category.shouldShowPrices(props.currentTab, props.categoryIndex)
+	end
+	local lowerBound, upperBound = Layouter.calculateRenderBoundsForScrollingFrame(self.scrollingFrameRef.current, 
 		self.containerWidth, self.headerHeight, showPrices)
 
 	-- If either bound has changed then recalculate the assets
@@ -225,10 +217,16 @@ function MainView:render()
 		local position = props.Position or UDim2.new(0, 0, 0, 0)
 		local size = props.Size or UDim2.new(1, 0, 1, 0)
 
-		local categoryIndex = props.categoryIndex or 0
+		local categoryIndex = (not FFlagUseCategoryNameInToolbox) and (props.categoryIndex or 0)
+		local categoryName = props.categoryName
 		local suggestions = localization:getLocalizedSuggestions(props.suggestions) or {}
 
-		local isCategoryAudio = Category.categoryIsAudio(props.currentTab, categoryIndex)
+		local isCategoryAudio
+		if FFlagUseCategoryNameInToolbox then
+			isCategoryAudio = Category.categoryIsAudio(categoryName)
+		else
+			isCategoryAudio = Category.categoryIsAudio(props.currentTab, categoryIndex)
+		end
 
 		local isLoading = props.isLoading or false
 
@@ -254,7 +252,12 @@ function MainView:render()
 				- Constants.SCROLLBAR_BACKGROUND_THICKNESS - Constants.SCROLLBAR_PADDING
 		end
 
-		local showPrices = Category.shouldShowPrices(props.currentTab, props.categoryIndex)
+		local showPrices
+		if FFlagUseCategoryNameInToolbox then
+			showPrices = Category.shouldShowPrices(props.categoryName)
+		else
+			showPrices = Category.shouldShowPrices(props.currentTab, props.categoryIndex)
+		end
 
 		-- Add a bit extra to the container so we can see the details of the assets on the last row
 		local allAssetsHeight = Layouter.calculateAssetsHeight(allAssetCount, containerWidth, showPrices)
@@ -264,12 +267,7 @@ function MainView:render()
 
 		local creatorName = props.creator and props.creator.Name
 		local searchTerm = props.searchTerm
-		local showTags
-		if FFlagEnableAudioPreview then
-			showTags = (creatorName ~= nil) or (#searchTerm > 0) or (props.audioSearchInfo ~= nil)
-		else
-			showTags = (creatorName ~= nil) or (#searchTerm > 0)
-		end
+		local showTags = (creatorName ~= nil) or (#searchTerm > 0) or (props.audioSearchInfo ~= nil)
 
 		local headerHeight, headerToBodyPadding = Layouter.calculateMainViewHeaderHeight(showTags,
 			suggestionIntro, suggestions, containerWidth, props.creator)
@@ -288,10 +286,16 @@ function MainView:render()
 
 		local noResultsDetailProps = nil
 
-		if FFlagStudioToolboxShowNoPluginResultsDetail then
-			if showInfoBanner and Category.categoryIsPlugin(props.currentTab, categoryIndex) then
+		if FFlagStudioShowNoPluginResultsDetailFix then
+			local isPlugin
+			if FFlagUseCategoryNameInToolbox then
+				isPlugin = Category.categoryIsPlugin(props.categoryName)
+			else
+				isPlugin = Category.categoryIsPlugin(props.currentTab, categoryIndex)
+			end
+			if showInfoBanner and isPlugin then
 				noResultsDetailProps = {
-					onLinkActivated = function()
+					onLinkClicked = function()
 						GuiService:OpenBrowserWindow(Constants.PLUGIN_LIBRARY_URL)
 					end,
 					content = localizedContent.NoPluginsFound
@@ -340,17 +344,21 @@ function MainView:render()
 				Header = Roact.createElement(MainViewHeader, {
 					suggestions = suggestions,
 					containerWidth = containerWidth,
-					creator = (not FFlagEnableAudioPreview) and props.creator or nil,
 					showTags = showTags,
-					onTagsCleared = self.onTagsCleared,
 				}),
+
+				NoResultsDetail = noResultsDetailProps and Roact.createElement(NoResultsDetail, Cryo.Dictionary.join({
+					Position = UDim2.new(0, 0, 0, 66 + headerHeight),
+					ZIndex = 2
+				}, noResultsDetailProps)),
 
 				AssetGridContainer = Roact.createElement(AssetGridContainer, {
 					Position = UDim2.new(0, 0, 0, headerHeight + headerToBodyPadding + gridContainerOffset),
 
 					assetIds = assetIds,
 					searchTerm = searchTerm,
-					categoryIndex = categoryIndex,
+					categoryIndex = (not FFlagUseCategoryNameInToolbox) and (categoryIndex),
+					categoryName = categoryName,
 					mostRecentAssetInsertTime = self.props.mostRecentAssetInsertTime,
 
 					ZIndex = 1,
@@ -366,18 +374,13 @@ function MainView:render()
 				SortIndex = props.sortIndex,
 				updateSearch = self.updateSearch,
 				onClose = self.onSearchOptionsClosed,
-				showAudioSearch = FFlagEnableAudioPreview and isCategoryAudio or nil,
+				showAudioSearch = isCategoryAudio,
 			}),
 
 			InfoBanner = showInfoBanner and Roact.createElement(InfoBanner, {
 				Position = UDim2.new(0, 0, 0, 16 + headerHeight),
 				Text = localizedContent.InfoBannerText,
 			}),
-
-			NoResultsDetail = noResultsDetailProps and Roact.createElement(NoResultsDetail, Cryo.Dictionary.join({
-				Position = UDim2.new(0, 0, 0, 66 + headerHeight),
-				ZIndex = 2
-			}, noResultsDetailProps)),
 
 			LoadingIndicator = isLoading and Roact.createElement(LoadingIndicator, {
 				AnchorPoint = Vector2.new(0.5, 1),
@@ -423,11 +426,12 @@ local function mapStateToProps(state, props)
 		networkErrors = state.networkErrors or {},
 
 		audioSearchInfo = pageInfo.audioSearchInfo,
-		categoryIndex = pageInfo.categoryIndex or 1,
+		categoryIndex = (not FFlagUseCategoryNameInToolbox) and (pageInfo.categoryIndex or 1),
+		categoryName = pageInfo.categoryName,
 		sortIndex = pageInfo.sortIndex or 1,
 		searchTerm = pageInfo.searchTerm or "",
 		creator = pageInfo.creator,
-		currentTab = pageInfo.currentTab,
+		currentTab = (not FFlagUseCategoryNameInToolbox) and (pageInfo.currentTab),
 
 		liveSearchData = liveSearchData or {},
 	}

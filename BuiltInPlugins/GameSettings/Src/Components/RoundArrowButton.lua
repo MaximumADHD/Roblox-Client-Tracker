@@ -12,9 +12,16 @@
 local BUTTON_IMAGE = "rbxasset://textures/GameSettings/RoundArrowButton.png"
 local BUTTON_SIZE = UDim2.new(0, 48, 0, 48)
 
+local FFlagStudioConvertGameSettingsToDevFramework = game:GetFastFlag("StudioConvertGameSettingsToDevFramework")
+
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
+local ContextServices = require(Plugin.Framework.ContextServices)
+local FrameworkUI = require(Plugin.Framework.UI)
 
+local HoverArea = FrameworkUI.HoverArea
+
+-- Remove with FFlagStudioConvertGameSettingsToDevFramework
 local getMouse = require(Plugin.Src.Consumers.getMouse)
 
 local RoundArrowButton = Roact.PureComponent:extend("RoundArrowButton")
@@ -26,7 +33,9 @@ function RoundArrowButton:init()
 end
 
 function RoundArrowButton:mouseHoverChanged(hovering)
-	getMouse(self).setHoverIcon("PointingHand", hovering)
+	if not FFlagStudioConvertGameSettingsToDevFramework then
+		getMouse(self).setHoverIcon("PointingHand", hovering)
+	end
 	self:setState({
 		Hovering = hovering,
 	})
@@ -38,6 +47,8 @@ function RoundArrowButton:render()
 	local position = self.props.Position or UDim2.new()
 	local anchorPoint = self.props.AnchorPoint or Vector2.new()
 	local hovering = self.state.Hovering
+
+	local mouse = FFlagStudioConvertGameSettingsToDevFramework and self.props.Mouse or nil
 
 	return Roact.createElement("ImageButton", {
 		Visible = visible,
@@ -51,15 +62,31 @@ function RoundArrowButton:render()
 
 		[Roact.Event.Activated] = self.props.OnClick,
 
-		[Roact.Event.MouseEnter] = function()
+		[Roact.Event.MouseEnter] = (not FFlagStudioConvertGameSettingsToDevFramework) and function()
 			self:mouseHoverChanged(true)
-		end,
+		end or nil,
 
-		[Roact.Event.MouseLeave] = function()
+		[Roact.Event.MouseLeave] = (not FFlagStudioConvertGameSettingsToDevFramework) and function()
 			self:mouseHoverChanged(false)
-		end,
+		end or nil,
+	}, {
+		Hover = FFlagStudioConvertGameSettingsToDevFramework and Roact.createElement(HoverArea, {
+			Cursor = "rbxasset://SystemCursors/PointingHand",
+			Mouse = mouse,
 
-		[Roact.Event.Activated] = self.props.OnClick,
+			MouseEnter = function()
+				self:mouseHoverChanged(true)
+			end,
+			MouseLeave = function()
+				self:mouseHoverChanged(false)
+			end,
+		})
+	})
+end
+
+if FFlagStudioConvertGameSettingsToDevFramework then
+	ContextServices.mapToProps(RoundArrowButton, {
+		Mouse = ContextServices.Mouse,
 	})
 end
 

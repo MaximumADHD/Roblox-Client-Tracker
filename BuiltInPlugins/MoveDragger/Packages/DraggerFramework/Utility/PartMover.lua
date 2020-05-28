@@ -10,8 +10,6 @@ local getGeometry = require(DraggerFramework.Utility.getGeometry)
 local JointPairs = require(DraggerFramework.Utility.JointPairs)
 local JointUtil = require(DraggerFramework.Utility.JointUtil)
 
-local getFFlagDragWeirdConstraints = require(DraggerFramework.Flags.getFFlagDragWeirdConstraints)
-local getFFlagMoverSwapWeld = require(DraggerFramework.Flags.getFFlagMoverSwapWeld)
 local getFFlagHandleCanceledToolboxDrag = require(DraggerFramework.Flags.getFFlagHandleCanceledToolboxDrag)
 
 local PartMover = {}
@@ -167,13 +165,9 @@ function PartMover:_prepareJoints(parts, breakJoints)
                 -- However we do have to record the constraints between
                 -- parts so that we know what joint pairs are redundant.
                 local other = JointUtil.getConstraintCounterpart(joint, part)
-                if getFFlagDragWeirdConstraints() then
-                    if other then
-                        -- The if is because some constraints like VectorForce
-                        -- will not have a counterpart.
-                        self._alreadyConnectedToSets[part][other] = true
-                    end
-                else
+                if other then
+                    -- The if is because some constraints like VectorForce
+                    -- will not have a counterpart.
                     self._alreadyConnectedToSets[part][other] = true
                 end
             elseif joint:IsA("WeldConstraint") then
@@ -199,11 +193,7 @@ function PartMover:_prepareJoints(parts, breakJoints)
         moveJoint.Part0 = self._mainPart
         moveJoint.Part1 = part
         moveJoint.C0 = mainPartCFrameInv * part.CFrame
-        if getFFlagMoverSwapWeld() then
-            moveJoint.Parent = self._mainPart
-        else
-            moveJoint.Parent = part
-        end
+        moveJoint.Parent = self._mainPart
         table.insert(self._temporaryJoints, moveJoint)
     end
 end

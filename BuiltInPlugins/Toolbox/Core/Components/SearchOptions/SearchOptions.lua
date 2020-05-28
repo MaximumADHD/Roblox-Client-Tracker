@@ -13,7 +13,6 @@
 			that were set by the user.
 ]]
 local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
-local FFlagEnableAudioPreview = settings():GetFFlag("EnableAudioPreview")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -101,9 +100,8 @@ function SearchOptions:init(initialProps)
 			Creator = self.searchTerm,
 		}
 
-		if FFlagEnableAudioPreview
-			and (self.state.minDuration ~= Constants.MIN_AUDIO_SEARCH_DURATION
-				or self.state.maxDuration ~= Constants.MAX_AUDIO_SEARCH_DURATION)
+		if (self.state.minDuration ~= Constants.MIN_AUDIO_SEARCH_DURATION
+			or self.state.maxDuration ~= Constants.MAX_AUDIO_SEARCH_DURATION)
 		then
 			options.AudioSearch = {
 				minDuration = self.state.minDuration,
@@ -216,7 +214,7 @@ function SearchOptions:render()
 
 							Separator1 = self:createSeparator(optionsTheme.separator),
 
-							AudioSearchHeader = FFlagEnableAudioPreview and showAudioSearch and Roact.createElement(SearchOptionsEntry, {
+							AudioSearchHeader = showAudioSearch and Roact.createElement(SearchOptionsEntry, {
 								LayoutOrder = self:nextLayout(),
 								Header = audioSearchTitle,
 							}, {
@@ -227,7 +225,7 @@ function SearchOptions:render()
 								}),
 							}),
 
-							Separator2 = FFlagEnableAudioPreview and showAudioSearch and self:createSeparator(optionsTheme.separator),
+							Separator2 = showAudioSearch and self:createSeparator(optionsTheme.separator),
 
 							SortBy = Roact.createElement(SearchOptionsEntry, {
 								LayoutOrder = self:nextLayout(),

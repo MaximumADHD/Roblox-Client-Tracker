@@ -8,11 +8,14 @@ local StudioService  = game:GetService("StudioService")
 
 local FFlagUseRBXThumbInToolbox = game:GetFastFlag("UseRBXThumbInToolbox")
 local FFlagSmallerToolboxMinWidth = game:DefineFastFlag("SmallerToolboxMinWidth", false)
+local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 local FFlagToolboxUseNewPluginEndpoint = settings():GetFFlag("ToolboxUseNewPluginEndpoint")
 
 local Constants = {}
 
-Constants.DEFAULT_TAB = Category.MARKETPLACE_KEY
+if not FFlagUseCategoryNameInToolbox then
+    Constants.DEFAULT_TAB = Category.MARKETPLACE_KEY
+end
 
 Constants.TOOLTIP_LINE_HEIGHT = 1.3
 Constants.TOOLTIP_PADDING = 3

@@ -120,7 +120,7 @@ local function loadSettings(store, contextItems)
 		function(loadedSettings)
 			local gameIcon, isApproved = gameInfoController:getIcon(gameId)
 
-			loadedSettings["gameIcon"] = gameIcon
+			loadedSettings["gameIcon"] = gameIcon or "None"
 			loadedSettings["gameIconApproved"] = isApproved
 		end,
 	}

@@ -1,5 +1,5 @@
 local FFlagToolboxShowGroupCreations = game:GetFastFlag("ToolboxShowGroupCreations")
-local FFlagEnableAudioPreview = settings():GetFFlag("EnableAudioPreview")
+local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Cryo = require(Plugin.Libs.Cryo)
@@ -13,13 +13,17 @@ local Category = require(Plugin.Core.Types.Category)
 
 return function(networkInterface, tabName, newCategories,  settings, options)
 	return function(store)
+
+		local categories = Category.getCategories(tabName, store:getState().roles)
+
 		store:dispatch(UpdatePageInfoAndSendRequest(networkInterface, settings, {
-			audioSearchInfo = FFlagEnableAudioPreview and Cryo.None or nil,
+			audioSearchInfo = Cryo.None,
 			creator = Cryo.None,
 			currentTab = tabName,
-			categories = Category.getCategories(tabName, store:getState().roles),
+			categories = categories,
 			requestReason = RequestReason.ChangeTabs,
-			categoryIndex = options.categoryIndex,
+			categoryIndex = (not FFlagUseCategoryNameInToolbox) and (options.categoryIndex),
+			categoryName = options.categoryName,
 			searchTerm = options.searchTerm,
 			sortIndex = options.sortIndex,
 			groupIndex = options.groupIndex,
@@ -35,6 +39,7 @@ return function(networkInterface, tabName, newCategories,  settings, options)
 		else
 			shouldGetGroups = tabName == Category.INVENTORY_KEY
 		end
+		
 		if shouldGetGroups then
 			store:dispatch(GetToolboxManageableGroupsRequest(networkInterface))
 		end

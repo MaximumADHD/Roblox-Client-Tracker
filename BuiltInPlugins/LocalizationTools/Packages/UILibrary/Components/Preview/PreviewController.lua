@@ -20,10 +20,10 @@
 	LayoutOrder = number,
 ]]
 local FFlagStudioMinorFixesForAssetPreview = settings():GetFFlag("StudioMinorFixesForAssetPreview")
-local FFlagEnableAudioPreview = game:GetFastFlag("EnableAudioPreview")
 local FFlagHideOneChildTreeviewButton = game:GetFastFlag("HideOneChildTreeviewButton")
 local FFlagStudioFixTreeViewForFlatList = settings():GetFFlag("StudioFixTreeViewForFlatList")
 local FFlagStudioAssetPreviewTreeFix2 = game:DefineFastFlag("StudioAssetPreviewTreeFix2", false)
+local FFlagEnableToolboxVideos = game:GetFastFlag("EnableToolboxVideos")
 
 local Library = script.Parent.Parent.Parent
 
@@ -35,6 +35,7 @@ local ThumbnailIconPreview = require(Library.Components.Preview.ThumbnailIconPre
 local TreeViewButton =  require(Library.Components.Preview.TreeViewButton)
 local AssetType = require(Library.Utils.AssetType)
 local AudioPreview = require(Library.Components.Preview.AudioPreview)
+local VideoPreview = require(Library.Components.Preview.VideoPreview)
 
 local TreeViewItem = require(Library.Components.Preview.InstanceTreeViewItem)
 local TreeView = require(Library.Components.TreeView)
@@ -204,6 +205,8 @@ function PreviewController:render()
 	local width = props.Width
 	local layoutOrder = props.LayoutOrder
 
+	local isShowVideoPreview = FFlagEnableToolboxVideos and AssetType:isVideo(assetPreviewType)
+
 	local showTreeView = state.showTreeView
 	local previewSize
 	local treeViewSize
@@ -236,15 +239,10 @@ function PreviewController:render()
 	local onModelPreviewFrameLeft = self.onModelPreviewFrameLeft
 
 	local THUMBNAIL_HEIGHT = PREVIEW_HEIGHT < MODAL_MIN_WIDTH and PREVIEW_HEIGHT or MODAL_MIN_WIDTH
-	local showThumbnail
-	if FFlagEnableAudioPreview then
-		showThumbnail = AssetType:isScript(assetPreviewType) or AssetType:isOtherType(assetPreviewType)
-	else
-		showThumbnail = AssetType:isScript(assetPreviewType) or AssetType:isOtherType(assetPreviewType) or AssetType:isAudio(assetPreviewType)
-	end
+	local showThumbnail = AssetType:isScript(assetPreviewType) or AssetType:isOtherType(assetPreviewType)
 
 	local soundId
-	if FFlagEnableAudioPreview and AssetType:isAudio(assetPreviewType) and currentPreview then
+	if AssetType:isAudio(assetPreviewType) and currentPreview then
 		-- It's wrong to get SoundId from currenttPreview, it should be previewModel.
 		soundId = currentPreview.SoundId
 	end
@@ -252,7 +250,7 @@ function PreviewController:render()
 	local reportPlay = props.reportPlay
 	local reportPause = props.reportPause
 
-	local isShowAudioPreview = FFlagEnableAudioPreview and AssetType:isAudio(assetPreviewType)
+	local isShowAudioPreview = AssetType:isAudio(assetPreviewType)
 	local mainViewButtonYOffset
 	if isShowAudioPreview then
 		mainViewButtonYOffset = 3
@@ -306,7 +304,12 @@ function PreviewController:render()
 				ShowTreeView = showTreeView,
 				ReportPlay = reportPlay,
 				ReportPause = reportPause,
-			}) or nil,
+			}),
+
+			VideoPreview = isShowVideoPreview and Roact.createElement(VideoPreview, {
+				VideoId = "rbxassetid://" .. assetId,
+				ShowTreeView = showTreeView,
+			}),
 
 			PluginPreview = AssetType:isPlugin(assetPreviewType) and Roact.createElement("ImageLabel", {
 				Image = Urls.constructAssetThumbnailUrl(assetId, 420, 420),

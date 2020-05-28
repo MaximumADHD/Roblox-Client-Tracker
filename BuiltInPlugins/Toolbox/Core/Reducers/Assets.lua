@@ -86,7 +86,7 @@ return Rodux.createReducer({
 	isPreviewing = false,
 
 	manageableAssets = {},
-	-- Currently used by a hacky implementation, will be removed with FFlagUseDevelopFetchPluginVersionId
+	-- Currently used by a hacky implementation, will be removed with FFlagFixUseDevelopFetchPluginVersionId
 	assetVersionId = nil,
 	-- Will be used to fetch versionId to install the latest plugin.
 	previewPluginData = nil,

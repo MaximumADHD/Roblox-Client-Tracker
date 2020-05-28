@@ -26,6 +26,9 @@ local ContextServices = require(Framework.ContextServices)
 local UI = require(Framework.UI)
 local HoverArea = UI.HoverArea
 
+local FrameworkUtil = require(Plugin.Framework.Util)
+local FitTextLabel = FrameworkUtil.FitFrame.FitTextLabel
+
 local DropdownMenu = UILibrary.Component.DropdownMenu
 local Tooltip = UILibrary.Component.Tooltip
 
@@ -112,7 +115,7 @@ function TableWithMenuItem:init()
 	end
 
 	self.onMenuItemLeave = function(item)
-        if self.state.dropdownItem == item then
+        if self.state.menuItem == item then
             self:setState({
                 menuItem = Roact.None,
             })
@@ -128,9 +131,9 @@ function TableWithMenuItem:renderMenuItem(item, index, activated, theme, maxWidt
     local displayTextBound = TextService:GetTextSize(displayText,
         theme.fontStyle.Normal.TextSize, theme.fontStyle.Normal.Font, Vector2.new(maxWidth, math.huge))
 
-    local itemColor = theme.dropDown.background
+    local itemColor = theme.dropDownEntry.background
     if isHovered then
-        itemColor = theme.dropDown.hovered
+        itemColor = theme.dropDownEntry.hovered
     end
 
     return Roact.createElement("ImageButton", {
@@ -196,12 +199,27 @@ function TableWithMenuItem:render()
         LayoutOrder = #rowData + 1,
 
         BackgroundTransparency = 1,
-        Image = theme.table.menu.image,
 
         [Roact.Ref] = self.buttonRef,
 
         [Roact.Event.Activated] = self.showMenu,
     }, {
+        Padding = Roact.createElement("UIPadding", {
+            PaddingBottom = UDim.new(0, theme.table.item.padding),
+        }),
+
+        Dots = Roact.createElement(FitTextLabel,  Cryo.Dictionary.join(theme.fontStyle.Normal, {
+            Position = UDim2.new(0.5, 0, 0.5, 0),
+            AnchorPoint = Vector2.new(0.5, 0.5),
+
+            Text = "...",
+            Font = Enum.Font.SourceSansBold,
+
+            BackgroundTransparency = 1,
+
+            width = theme.table.menu.buttonSize,
+        })),
+
         Menu = showMenu and buttonRef and Roact.createElement(DropdownMenu, {
             OnItemClicked = self.onItemClicked,
             OnFocusLost = self.hideMenu,

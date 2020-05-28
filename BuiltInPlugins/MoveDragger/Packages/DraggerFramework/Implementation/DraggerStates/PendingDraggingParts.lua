@@ -3,8 +3,10 @@ local UserInputService = game:GetService("UserInputService")
 local Framework = script.Parent.Parent.Parent
 local DraggerStateType = require(Framework.Implementation.DraggerStateType)
 local SelectionWrapper = require(Framework.Utility.SelectionWrapper)
+local StandardCursor = require(Framework.Utility.StandardCursor)
 
-local getFFlagLuaDraggerIconBandaid = require(Framework.Flags.getFFlagLuaDraggerIconBandaid)
+local getFFlagMinCursorChange = require(Framework.Flags.getFFlagMinCursorChange)
+local getFFlagFixDraggerCursors = require(Framework.Flags.getFFlagFixDraggerCursors)
 
 local FREEFORM_DRAG_THRESHOLD = 4
 
@@ -26,7 +28,13 @@ function PendingDraggingParts:leave(draggerTool)
 end
 
 function PendingDraggingParts:render(draggerTool)
-    if getFFlagLuaDraggerIconBandaid() then
+    if getFFlagFixDraggerCursors() then
+        if getFFlagMinCursorChange() then
+            draggerTool:setMouseCursor(StandardCursor.getClosedHand())
+        else
+            draggerTool.props.Mouse.Icon = StandardCursor.getClosedHand()
+        end
+    else
         draggerTool.props.Mouse.Icon = "rbxasset://SystemCursors/ClosedHand"
     end
 end

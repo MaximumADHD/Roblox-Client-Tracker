@@ -9,8 +9,6 @@ return function()
 
 	local InGameMenu = script.Parent.Parent
 	local reducer = require(InGameMenu.reducer)
-	local Localization = require(InGameMenu.Localization.Localization)
-	local LocalizationProvider = require(InGameMenu.Localization.LocalizationProvider)
 
 	local AppDarkTheme = require(CorePackages.AppTempCommon.LuaApp.Style.Themes.DarkTheme)
 	local AppFont = require(CorePackages.AppTempCommon.LuaApp.Style.Fonts.Gotham)

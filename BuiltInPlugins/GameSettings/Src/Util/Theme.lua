@@ -10,7 +10,9 @@ local StudioFrameworkStyles = StudioUI.StudioFrameworkStyles
 local Util = require(Framework.Util)
 local StyleTable = Util.StyleTable
 local Style = Util.Style
-local StyleModifier = Util.StyleModifier
+
+local UIFolderData = require(Framework.UI.UIFolderData)
+local Button = require(UIFolderData.Button.style)
 
 local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 local UILibrary = require(Plugin.UILibrary)
@@ -89,6 +91,19 @@ function Theme.createValues(theme, getColor)
 		},
 	}
 
+	local button = Button(theme, getColor)
+
+	local gameSettingsButtons = StyleTable.new("Button", function()
+		local GameSettingsPrimaryButton = Style.extend(button.RoundPrimary, {
+			TextSize = fontStyle.Normal.TextSize,
+			Font = Enum.Font.SourceSans,
+		})
+
+		return {
+			GameSettingsPrimaryButton = GameSettingsPrimaryButton,
+		}
+	end)
+
 	return {
 		Plugin = Style.extend({
 			isDarkerTheme = isDark,
@@ -104,6 +119,10 @@ function Theme.createValues(theme, getColor)
 
 			scrollBar = isDark and theme:getColor(StyleColor.ScrollBar) or theme:getColor(StyleColor.Border),
 			scrollBarBackground = isDark and theme:getColor(StyleColor.ScrollBarBackground) or Color3.fromRGB(245, 245, 245),
+
+			header = {
+				height = 45,
+			},
 
 			menuBar = {
 				backgroundColor = isDark and theme:getColor(StyleColor.ScrollBarBackground) or theme:getColor(StyleColor.MainBackground),
@@ -121,7 +140,7 @@ function Theme.createValues(theme, getColor)
 					width = 150,
 				},
 
-				disabledSubText = {
+				subText = {
 					width = 475,
 				},
 
@@ -198,6 +217,10 @@ function Theme.createValues(theme, getColor)
 				title = theme:getColor(StyleColor.BrightText),
 			},
 
+			devProducts = {
+				headerPadding = 20,
+			},
+
 			dropDown = {
 				background = theme:getColor(StyleColor.Button),
 				hover = theme:getColor(StyleColor.Button, StyleModifier.Hover),
@@ -222,6 +245,14 @@ function Theme.createValues(theme, getColor)
 
 			subjectThumbnail = {
 				background = theme:getColor(StyleColor.TableItem),
+				maskImage = "rbxasset://textures/StudioSharedUI/avatarMask.png", 
+				loadingImage = "rbxasset://textures/StudioSharedUI/default_user.png",
+				loadFailureImage = "rbxasset://textures/GameSettings/ModeratedAsset.jpg",
+			},
+
+			groupThumbnail = {
+				loadingImage = "rbxasset://textures/StudioSharedUI/default_group.png",
+				loadFailureImage = "rbxasset://textures/GameSettings/ModeratedAsset.jpg",
 			},
 
 			thumbnail = {
@@ -273,8 +304,6 @@ function Theme.createValues(theme, getColor)
 					padding = 5,
 				},
 				menu = {
-					--TODO: add image
-					image = "",
 					itemPadding = 30,
 					buttonSize = 32,
 					buttonPaddingY = 10,
@@ -301,6 +330,18 @@ function Theme.createValues(theme, getColor)
 				PaddingY = 10,
 			},
 
+			mainView = {
+				publishText = {
+					offset = 70,
+					width = 250,
+				},
+				publishButton = {
+					offset = 125,
+					paddingX = 75,
+					paddingY = 15,
+				},
+			},
+
 			settingsPage = {
 				settingPadding = 32,
 				marginX = 25, -- on each side
@@ -319,7 +360,9 @@ function Theme.createValues(theme, getColor)
 			}
 		}),
 
-		Framework = Style.extend(studioStyles, {}),
+		Framework = Style.extend(studioStyles, {
+			Button = Style.extend(studioStyles.Button, gameSettingsButtons),
+		}),
 	}
 end
 

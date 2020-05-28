@@ -13,11 +13,12 @@ local SelectionWrapper = require(Framework.Utility.SelectionWrapper)
 local PartMover = require(Framework.Utility.PartMover)
 local AttachmentMover = require(Framework.Utility.AttachmentMover)
 local setInsertPoint = require(Framework.Utility.setInsertPoint)
+local StandardCursor = require(Framework.Utility.StandardCursor)
 
-local getFFlagLuaDraggerIconBandaid = require(Framework.Flags.getFFlagLuaDraggerIconBandaid)
-local getFFlagSetInsertPoint = require(Framework.Flags.getFFlagSetInsertPoint)
+local getFFlagMinCursorChange = require(Framework.Flags.getFFlagMinCursorChange)
 local getFFlagMoveViaSelectionCenter = require(Framework.Flags.getFFlagMoveViaSelectionCenter)
 local getFFlagHandleNoRotateTarget = require(Framework.Flags.getFFlagHandleNoRotateTarget)
+local getFFlagFixDraggerCursors = require(Framework.Flags.getFFlagFixDraggerCursors)
 
 local DraggingParts = {}
 DraggingParts.__index = DraggingParts
@@ -77,7 +78,13 @@ function DraggingParts:_initIgnoreList(parts)
 end
 
 function DraggingParts:render(draggerTool)
-	if getFFlagLuaDraggerIconBandaid() then
+	if getFFlagFixDraggerCursors() then
+		if getFFlagMinCursorChange() then
+			draggerTool:setMouseCursor(StandardCursor.getClosedHand())
+		else
+			draggerTool.props.Mouse.Icon = StandardCursor.getClosedHand()
+		end
+	else
 		draggerTool.props.Mouse.Icon = "rbxasset://SystemCursors/ClosedHand"
 	end
 
@@ -213,10 +220,9 @@ function DraggingParts:_endFreeformSelectionDrag(draggerTool)
 
 	ChangeHistoryService:SetWaypoint("End freeform drag")
 	draggerTool:_analyticsSendFreeformDragged()
-    if getFFlagSetInsertPoint() then
-        local cframe, offset = draggerTool._derivedWorldState:getBoundingBox()
-        setInsertPoint(cframe * offset)
-    end
+
+	local cframe, offset = draggerTool._derivedWorldState:getBoundingBox()
+	setInsertPoint(cframe * offset)
 end
 
 return DraggingParts

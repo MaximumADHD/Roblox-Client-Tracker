@@ -1,6 +1,5 @@
 return function()
 	local CorePackages = game:GetService("CorePackages")
-	local Players = game:GetService("Players")
 
 	local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 	local Roact = InGameMenuDependencies.Roact

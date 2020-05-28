@@ -8,7 +8,7 @@
 
 local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 local FFlagFixAssetConfigIcon = game:GetFastFlag("FixAssetConfigIcon")
-local FFlagShowAssetConfigReasons = game:GetFastFlag("ShowAssetConfigReasons")
+local FFlagShowAssetConfigReasons2 = game:GetFastFlag("ShowAssetConfigReasons2")
 local FFlagFixAssetUploadSuccssMessage = game:DefineFastFlag("FixAssetUploadSuccssMessage", false)
 local FFlagAddCopyIDToResultPage = game:DefineFastFlag("AddCopyIDToResultPage", false)
 local FFlagUGCRemoveLearnMoreText = game:DefineFastFlag("UGCRemoveLearnMoreText", false)
@@ -34,6 +34,7 @@ local ContextHelper = require(Util.ContextHelper)
 local AssetConfigUtil = require(Util.AssetConfigUtil)
 
 local withTheme = ContextHelper.withTheme
+local withLocalization = ContextHelper.withLocalization
 
 local Components = Plugin.Core.Components
 local NavButton = require(Components.NavButton)
@@ -106,14 +107,14 @@ end
 
 local function getReasonArray(networkTable)
 	local reasons = {}
-	for name, networkErrorAction in pairs(networkTable) do
+	for _, networkErrorAction in pairs(networkTable) do
 		table.insert(reasons, networkErrorAction)
 	end
 	return reasons
 end
 
 function AssetUploadResult:render()
-	return withTheme(function(theme)
+	local function render(theme, localizedContent)
 		local props = self.props
 
 		local isUploadFlow = props.screenFlowType == AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW
@@ -154,12 +155,11 @@ function AssetUploadResult:render()
 		end
 
 		local reasons = getReasonArray(props.networkTable)
+
 		local showSuccess = props.uploadSucceeded
 		local showFail = not showSuccess
 		local showReasons = false
-		if FFlagShowAssetConfigReasons then
-			showSuccess = true
-			showFail = false
+		if FFlagShowAssetConfigReasons2 then
 			showReasons = #reasons > 1
 		end
 
@@ -213,7 +213,8 @@ function AssetUploadResult:render()
 					BackgroundTransparency = 1,
 					Position = UDim2.new(0.5, -TITLE_WIDTH/2, 0, 0),
 					Size = UDim2.new(0, TITLE_WIDTH, 0, TITLE_HEIGHT),
-					Text = props.uploadSucceeded and "Successfully submitted!" or "Submission failed",
+					Text = FFlagShowAssetConfigReasons2 and localizedContent.AssetConfig.UploadResult.Success
+						or (props.uploadSucceeded and "Successfully submitted!" or "Submission failed"),
 					Font = Constants.FONT,
 					TextColor3 = FFlagFixAssetUploadSuccssMessage and theme.uploadResult.greenText or theme.uploadResult.redText,
 					TextSize = Constants.FONT_SIZE_TITLE,
@@ -277,7 +278,6 @@ function AssetUploadResult:render()
 				})
 			}),
 
-			-- Remove me along with FFlagShowAssetConfigReasons
 			LoadingResultFailure = showFail and Roact.createElement("Frame", {
 				Position = UDim2.new(0, 0, 0, RESULT_Y_POS),
 				Size = UDim2.new(1, 0, 1, -RESULT_Y_POS),
@@ -288,7 +288,7 @@ function AssetUploadResult:render()
 					Font = Constants.FONT,
 					Position = UDim2.new(0.5, -TITLE_WIDTH/2, 0, 0),
 					Size = UDim2.new(0, TITLE_WIDTH, 0, TITLE_HEIGHT),
-					Text = "Submission failed",
+					Text = FFlagShowAssetConfigReasons2 and localizedContent.AssetConfig.UploadResult.Failure or "Submission failed",
 					TextColor3 = FFlagFixAssetUploadFailedColor and theme.uploadResult.redText or theme.uploadResult.text,
 					TextSize = Constants.FONT_SIZE_TITLE,
 					TextXAlignment = Enum.TextXAlignment.Center,
@@ -323,6 +323,11 @@ function AssetUploadResult:render()
 				}),
 			}),
 		})
+	end
+	return withTheme(function(theme)
+		return FFlagShowAssetConfigReasons2 and withLocalization(function(_, localizedContent)
+			return render(theme, localizedContent)
+		end) or render(theme)
 	end)
 end
 
@@ -339,7 +344,6 @@ local function mapStateToProps(state, props)
 		assetConfigData = state.assetConfigData,
 		assetTypeEnum = state.assetTypeEnum,
 		thumbnailStatus = state.thumbnailStatus,
-		-- Will be using this to generate reasons for generating a list of reasons to render.
 		networkTable = state.networkTable or {},
 	}
 

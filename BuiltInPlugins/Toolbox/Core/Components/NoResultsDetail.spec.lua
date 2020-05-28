@@ -16,7 +16,7 @@ return function()
 					TextLine2 = "bar {link}",
 					LinkText = "link"
 				},
-				onLinkActivated = function() end
+				onLinkClicked = function() end
 			}),
 		})
 		local instance = Roact.mount(element)

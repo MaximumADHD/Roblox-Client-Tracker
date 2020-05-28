@@ -4,6 +4,8 @@
 
     Necessary props:
         Price = number, the initial price to be shown in the text field.
+        TaxRate = number, the percentage of the price that is taken as a fee.
+        MinimumFee = number, is the minimum fee that will be levied.
         Enabled = boolean, whether or not this component is enabled.
         Selected = boolean, "true" if On button should be selected, "false" if the off button should be selected.
         LayoutOrder = number, order in which this component should appear under its parent.
@@ -16,6 +18,9 @@
                 Description = "Lorem ipsum",
             }
         OnPaidAccessPriceChanged = function(price), this is a callback to be invoked when the price field changes values
+
+    Optional props:
+        PriceError = string, error message to be shown for this component
 ]]
 
 local Plugin = script.Parent.Parent.Parent
@@ -36,8 +41,9 @@ function PaidAccess:render()
     local localization = props.Localization
 
     local title = localization:getText("Monetization", "TitlePaidAccess")
-    local disabledSubText = localization:getText("Monetization", "PaidAccessHint")
-    local price = props.Price
+    local price = props.Price and props.Price or 0
+    local taxRate = props.TaxRate
+    local minimumFee = props.MinimumFee
     local layoutOrder = props.LayoutOrder
 
     local enabled = props.Enabled
@@ -46,6 +52,14 @@ function PaidAccess:render()
     local onButtonToggled = props.OnPaidAccessToggle
     local onPaidAccessPriceChanged = props.OnPaidAccessPriceChanged
 
+    local subText
+    local priceError = props.PriceError
+    if enabled and priceError then
+        subText = priceError
+    elseif not enabled then
+        subText = localization:getText("Monetization", "PaidAccessHint")
+    end
+
     local buttons = {
         {
             Id = true,
@@ -53,11 +67,13 @@ function PaidAccess:render()
             Children = {
                 RobuxFeeBase = Roact.createElement(RobuxFeeBase, {
                     Price = price,
-                    DisabledSubText = disabledSubText,
+                    TaxRate = taxRate,
+                    MinimumFee = minimumFee,
+                    SubText = subText,
 
                     OnPriceChanged = onPaidAccessPriceChanged,
 
-                    Enabled = enabled,
+                    Enabled = selected,
                 }),
             },
         },

@@ -16,7 +16,6 @@ local Images = UIBlox.App.ImageSet.Images
 
 local PlayerList = script.Parent.Parent
 
-local FFlagPlayerListFixLeaderboardDisabledError = game:DefineFastFlag("PlayerListFixLeaderboardDisabledError", false)
 local FFlagUseCanManageForDeveloperIconClient2 = game:GetFastFlag("UseCanManageForDeveloperIconClient2")
 
 local SPECIAL_PLAYER_ICONS = {
@@ -47,22 +46,12 @@ local function dispatchIfPlayerExists(store, player, action)
 end
 
 local function getGroupsPermissionsInfo(store, player)
-	if FFlagPlayerListFixLeaderboardDisabledError then
-		if PlayerPermissionsModule.IsPlayerAdminAsync(player) then
-			dispatchIfPlayerExists(store, player, SetPlayerSpecialGroupIcon(player, SPECIAL_PLAYER_ICONS.Admin))
-		elseif PlayerPermissionsModule.IsPlayerStarAsync(player) then
-			dispatchIfPlayerExists(store, player, SetPlayerSpecialGroupIcon(player, SPECIAL_PLAYER_ICONS.Star))
-		elseif PlayerPermissionsModule.IsPlayerInternAsync(player) then
-			dispatchIfPlayerExists(store, player, SetPlayerSpecialGroupIcon(player, SPECIAL_PLAYER_ICONS.Intern))
-		end
-	else
-		if PlayerPermissionsModule.IsPlayerAdminAsync(player) then
-			store:dispatch(SetPlayerSpecialGroupIcon(player, SPECIAL_PLAYER_ICONS.Admin))
-		elseif PlayerPermissionsModule.IsPlayerStarAsync(player) then
-			store:dispatch(SetPlayerSpecialGroupIcon(player, SPECIAL_PLAYER_ICONS.Star))
-		elseif PlayerPermissionsModule.IsPlayerInternAsync(player) then
-			store:dispatch(SetPlayerSpecialGroupIcon(player, SPECIAL_PLAYER_ICONS.Intern))
-		end
+	if PlayerPermissionsModule.IsPlayerAdminAsync(player) then
+		dispatchIfPlayerExists(store, player, SetPlayerSpecialGroupIcon(player, SPECIAL_PLAYER_ICONS.Admin))
+	elseif PlayerPermissionsModule.IsPlayerStarAsync(player) then
+		dispatchIfPlayerExists(store, player, SetPlayerSpecialGroupIcon(player, SPECIAL_PLAYER_ICONS.Star))
+	elseif PlayerPermissionsModule.IsPlayerInternAsync(player) then
+		dispatchIfPlayerExists(store, player, SetPlayerSpecialGroupIcon(player, SPECIAL_PLAYER_ICONS.Intern))
 	end
 end
 
@@ -71,19 +60,13 @@ local function getGameCreator(store, player)
 		return
 	end
 
-	if FFlagPlayerListFixLeaderboardDisabledError then
-		if FFlagUseCanManageForDeveloperIconClient2 then
-			if PlayerPermissionsModule.CanPlayerManagePlaceAsync(player) then
-				dispatchIfPlayerExists(store, player, SetPlayerIsCreator(player, true))
-			end
-		else
-			if PlayerPermissionsModule.IsPlayerPlaceOwnerAsync(player) then
-				dispatchIfPlayerExists(store, player, SetPlayerIsCreator(player, true))
-			end
+	if FFlagUseCanManageForDeveloperIconClient2 then
+		if PlayerPermissionsModule.CanPlayerManagePlaceAsync(player) then
+			dispatchIfPlayerExists(store, player, SetPlayerIsCreator(player, true))
 		end
 	else
 		if PlayerPermissionsModule.IsPlayerPlaceOwnerAsync(player) then
-			store:dispatch(SetPlayerIsCreator(player, true))
+			dispatchIfPlayerExists(store, player, SetPlayerIsCreator(player, true))
 		end
 	end
 end
@@ -99,31 +82,19 @@ local function getPlayerAvatarIcon(store, player)
 		Enum.ThumbnailSize.Size100x100
 	)
 	if isFinal then
-		if FFlagPlayerListFixLeaderboardDisabledError then
-			dispatchIfPlayerExists(store, player, SetPlayerAvatarIcon(player, thumbnail))
-		else
-			store:dispatch(SetPlayerAvatarIcon(player, thumbnail))
-		end
+		dispatchIfPlayerExists(store, player, SetPlayerAvatarIcon(player, thumbnail))
 	end
 end
 
 local function getPlayerIsBlocked(store, player)
 	if BlockingUtility:IsPlayerBlockedByUserId(player.UserId) then
-		if FFlagPlayerListFixLeaderboardDisabledError then
-			dispatchIfPlayerExists(store, player, SetPlayerIsBlocked(player, true))
-		else
-			store:dispatch(SetPlayerIsBlocked(player, true))
-		end
+		dispatchIfPlayerExists(store, player, SetPlayerIsBlocked(player, true))
 	end
 end
 
 local function getPlayerFriendStatus(store, player)
 	if player ~= Players.LocalPlayer then
-		if FFlagPlayerListFixLeaderboardDisabledError then
-			dispatchIfPlayerExists(store, player, SetPlayerFriendStatus(player, Players.LocalPlayer:GetFriendStatus(player)))
-		else
-			store:dispatch(SetPlayerFriendStatus(player, Players.LocalPlayer:GetFriendStatus(player)))
-		end
+		dispatchIfPlayerExists(store, player, SetPlayerFriendStatus(player, Players.LocalPlayer:GetFriendStatus(player)))
 	end
 end
 

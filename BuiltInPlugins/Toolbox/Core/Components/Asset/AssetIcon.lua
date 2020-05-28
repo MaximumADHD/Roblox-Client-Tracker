@@ -15,7 +15,7 @@
 		callback onPreviewAudioButtonClicked()
 ]]
 
-local FFlagEnableAudioPreview = settings():GetFFlag("EnableAudioPreview")
+local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 local FFlagToolboxUseNewAssetType = game:GetFastFlag("ToolboxUseNewAssetType")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -106,19 +106,15 @@ function AssetIcon:render()
 
 		local assetStatusImage = status and Images.AssetStatus[status]
 
-		local showAssetPreview
-		if FFlagEnableAudioPreview then
-			showAssetPreview = AssetType:isPreviewAvailable(typeId)
-		else
-			showAssetPreview = typeId == Enum.AssetType.Model.Value
-				or typeId == Enum.AssetType.MeshPart.Value
-				or typeId == Enum.AssetType.Decal.Value
-				or typeId == Enum.AssetType.Plugin.Value
-		end
-		local previewButtonSize = UDim2.new(0, Constants.ASSET_PLAY_AUDIO_ICON_SIZE, 0, Constants.ASSET_PLAY_AUDIO_ICON_SIZE)
+		local showAssetPreview = AssetType:isPreviewAvailable(typeId)
 
 		-- Asset Data is missing for AssetPreview in the creation tab.
-		showAssetPreview = showAssetPreview and props.currentTab ~= Category.CREATIONS_KEY
+		if FFlagUseCategoryNameInToolbox then
+			local isCurrentlyCreationsTab = Category.getTabForCategoryName(props.categoryName) == Category.CREATIONS
+			showAssetPreview = showAssetPreview and not isCurrentlyCreationsTab
+		else
+			showAssetPreview = showAssetPreview and props.currentTab ~= Category.CREATIONS_KEY
+		end
 
 		local children = {
 			AssetImage = Roact.createElement(ImageWithDefault, {
@@ -139,18 +135,16 @@ function AssetIcon:render()
 			}),
 
 			PreviewAudioButton = isAudioAsset and Roact.createElement(AudioPreviewButton, {
-				Position = FFlagEnableAudioPreview and nil or UDim2.new(0.65, 0, 0.75, 0),
-				Size = FFlagEnableAudioPreview and nil or previewButtonSize,
 				ZIndex = 3,
 
 				assetId = assetId,
 				currentSoundId = currentSoundId,
 				isPlaying = isPlaying,
-				isLoading = FFlagEnableAudioPreview and isLoading or nil,
+				isLoading = isLoading,
 				onClick = onPreviewAudioButtonClicked,
 			}),
 
-			AudioProgressBar = FFlagEnableAudioPreview and isAudioAsset and Roact.createElement(AudioProgressBar, {
+			AudioProgressBar = isAudioAsset and Roact.createElement(AudioProgressBar, {
 				AnchorPoint = Vector2.new(0, 1),
 				assetId = assetId,
 				currentSoundId = currentSoundId,
@@ -201,10 +195,12 @@ local function mapStateToProps(state, props)
 	local pageInfo = state.pageInfo or {}
 	local selectedBackgroundIndex = pageInfo.selectedBackgroundIndex or 1
 	local hoveredBackgroundIndex = pageInfo.hoveredBackgroundIndex or 0
+	local categoryName = pageInfo.categoryName
 
 	return {
 		backgroundIndex = hoveredBackgroundIndex ~= 0 and hoveredBackgroundIndex or selectedBackgroundIndex,
-		currentTab = pageInfo.currentTab or Category.MARKETPLACE_KEY,
+		currentTab = (not FFlagUseCategoryNameInToolbox) and (pageInfo.currentTab or Category.MARKETPLACE_KEY),
+		categoryName = (FFlagUseCategoryNameInToolbox and categoryName or nil),
 		elapsedTime = sound.elapsedTime or 0,
 		totalTime = sound.totalTime or 0,
 	}

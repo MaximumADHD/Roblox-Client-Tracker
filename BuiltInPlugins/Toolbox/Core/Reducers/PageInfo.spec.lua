@@ -23,7 +23,9 @@ return function()
 
 		expect(type(state)).to.equal("table")
 		expect(state.categories).to.be.ok()
-		expect(state.categoryIndex).to.be.ok()
+		expect(state.category).to.be.ok()
+		expect(state.categoryName).to.be.ok()
+		-- TODO remove currentTab when FFlagUseCategoryNameInToolbox is retired
 		expect(state.currentTab).to.be.ok()
 		expect(state.searchTerm).to.be.ok()
 		expect(state.sorts).to.be.ok()
@@ -119,12 +121,13 @@ return function()
 			expect(PageInfoHelper.getGroupIdForPageInfo(state)).to.equal(secondTestGroups[state.groupIndex].id)
 
 			local groupModelsCategoryIndex = 6
+			local groupModelsCategoryName = Category.INVENTORY_WITH_GROUPS[groupModelsCategoryIndex].categoryName
 
 			state = PageInfo(state, UpdatePageInfo({
-				categoryIndex = groupModelsCategoryIndex,
+				categoryName = groupModelsCategoryName,
 				category = Category.INVENTORY_WITH_GROUPS[groupModelsCategoryIndex].category
 			}))
-			expect(state.categoryIndex).to.equal(groupModelsCategoryIndex)
+			expect(state.categoryName).to.equal(groupModelsCategoryName)
 
 			-- Clear the groups list
 			local thirdTestGroups = {}
@@ -133,9 +136,8 @@ return function()
 			-- Categories list should remove groups
 			expect(state.categories).to.equal(Category.INVENTORY)
 
-			-- Category should be reset to 1 because the groups categories now don't exist
-			expect(state.categoryIndex).to.equal(1)
-			expect(PageInfoHelper.getCategoryForPageInfo(state)).to.equal(Category.INVENTORY[1].category)
+			-- Category should be reset to "" because the groups categories now don't exist
+			expect(state.categoryName).to.equal("")
 
 			-- Group index and id should be reset to 0
 			expect(state.groupIndex).to.equal(0)
@@ -147,17 +149,17 @@ return function()
 		it("should update the info", function()
 			local state = PageInfo(nil, {})
 
-			expect(state.categoryIndex).to.equal(1)
-			expect(state.searchTerm).to.equal("")
+			expect(state.categoryName).to.equal("")
+			expect(state.searchTerm).to.equal(Category.FREE_MODELS.name)
 			expect(state.sortIndex).to.equal(1)
 
 			state = PageInfo(state, UpdatePageInfo({
-				categoryIndex = 2,
-				category = state.categories[2].category,
+				categoryName = state.categories[2].categoryName,
+				category = state.categories[2].category
 			}))
 
-			expect(state.categoryIndex).to.equal(2)
-			expect(state.category).to.equal(state.categories[state.categoryIndex].category)
+			expect(state.categoryName).to.equal(state.categories[2].categoryName)
+			expect(state.category).to.equal(state.categories[2].category)
 		end)
 	end)
 end

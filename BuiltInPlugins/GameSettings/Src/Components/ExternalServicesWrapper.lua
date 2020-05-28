@@ -18,7 +18,7 @@ local RoactRodux = require(Plugin.RoactRodux)
 
 local ContextServices = require(Plugin.Framework.ContextServices)
 local UILibraryWrapper = require(Plugin.Framework.ContextServices.UILibraryWrapper)
-local ThumbnailLoaderProvider = require(Plugin.Src.Providers.ThumbnailLoaderContextItem)
+local ThumbnailLoaderProvider = require(Plugin.Src.Providers.DEPRECATED_ThumbnailLoaderContextItem)
 local SettingsImplProvider = require(Plugin.Src.Providers.SettingsImplContextItem)
 local DialogProvider = require(Plugin.Src.Providers.DialogProviderContextItem)
 
@@ -79,7 +79,9 @@ function ServiceWrapper:render()
 		end
 
 		if store then
-			table.insert(contextItems, ThumbnailLoaderProvider.new(store))
+			if not game:GetFastFlag("GameSettingsNetworkRefactor") then
+				table.insert(contextItems, ThumbnailLoaderProvider.new(store))
+			end
 			table.insert(contextItems, ContextServices.Store.new(store))
 		end
 

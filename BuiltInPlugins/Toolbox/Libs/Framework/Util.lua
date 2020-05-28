@@ -6,6 +6,7 @@ return {
 	-- Plugin Utilities
 	Action = require(script.Action),
 	Cryo = require(script.Cryo),
+	deepEqual = require(script.deepEqual),
 	FitFrame = require(script.FitFrame),
 	Flags = require(script.Flags),
 	Immutable = require(script.Immutable),

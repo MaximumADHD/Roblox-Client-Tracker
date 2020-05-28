@@ -22,6 +22,7 @@ local defaultSorts = Sort.SORT_OPTIONS
 local defaultCategories = Category.MARKETPLACE
 
 local FFlagToolboxShowGroupCreations = game:GetFastFlag("ToolboxShowGroupCreations")
+local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 
 local function warnIfUpdatePageInfoChangesInvalid(state, changes)
 	if changes.categories then
@@ -36,8 +37,10 @@ local function warnIfUpdatePageInfoChangesInvalid(state, changes)
 		warn("Lua Toolbox: Cannot change groups array through UpdatePageInfo")
 	end
 
-	if changes.categoryIndex and (changes.categoryIndex < 1 or changes.categoryIndex > #state.categories) then
-		warn("Lua Toolbox: categoryIndex out of range in UpdatePageInfo")
+	if not FFlagUseCategoryNameInToolbox then
+		if changes.categoryIndex and (changes.categoryIndex < 1 or changes.categoryIndex > #state.categories) then
+			warn("Lua Toolbox: categoryIndex out of range in UpdatePageInfo")
+		end
 	end
 
 	if changes.sortIndex and (changes.sortIndex < 1 or changes.sortIndex > #state.sorts) then
@@ -51,8 +54,12 @@ local function warnIfUpdatePageInfoChangesInvalid(state, changes)
 		warn("Lua Toolbox: groupIndex out of range in UpdatePageInfo")
 	end
 
-	if changes.categoryIndex and not state.categories[changes.categoryIndex] then
-		warn("Lua Toolbox: Changing categoryIndex but category is not valid in UpdatePageInfo")
+	if not FFlagUseCategoryNameInToolbox then
+
+		if changes.categoryIndex and not state.categories[changes.categoryIndex] then
+			warn("Lua Toolbox: Changing categoryIndex but category is not valid in UpdatePageInfo")
+		end
+
 	end
 
 	if changes.sortIndex and not state.sorts[changes.sortIndex] then
@@ -73,7 +80,8 @@ end
 return Rodux.createReducer({
 	audioSearchInfo = nil,
 	categories = defaultCategories,
-	categoryIndex = 1,
+	categoryIndex = (not FFlagUseCategoryNameInToolbox) and (1),
+	categoryName = Category.FREE_MODELS.name,
 
 	searchTerm = "",
 
@@ -83,7 +91,7 @@ return Rodux.createReducer({
 	groups = {},
 	groupIndex = 0,
 
-	currentTab = Constants.DEFAULT_TAB,
+	currentTab = (not FFlagUseCategoryNameInToolbox) and (Constants.DEFAULT_TAB),
 
 	-- The page I want to load
 	targetPage = 1,
@@ -201,8 +209,18 @@ return Rodux.createReducer({
 				newState.categories = Category.INVENTORY
 			end
 
-			if newState.categoryIndex > #newState.categories then
-				newState.categoryIndex = 1
+			if FFlagUseCategoryNameInToolbox then
+
+				if newState.categoryName == "" then
+					newState.categoryName = newState.categories[1].name
+				end
+
+			else
+
+				if newState.categoryIndex > #newState.categories then
+					newState.categoryIndex = 1
+				end
+
 			end
 		end
 

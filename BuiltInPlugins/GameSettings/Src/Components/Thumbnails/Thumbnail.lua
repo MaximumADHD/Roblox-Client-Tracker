@@ -197,6 +197,7 @@ function Thumbnail:render()
 			BackgroundTransparency = 0.3,
 			BorderSizePixel = 0,
 			BackgroundColor3 = DEPRECATED_Constants.BLACK,
+			TextColor3 = DEPRECATED_Constants.WHITE,
 			Size = UDim2.new(1, 0, 0, 30),
 			Position = UDim2.new(0, 0, 1, 0),
 			AnchorPoint = Vector2.new(0, 1),

@@ -3,11 +3,13 @@
     label for fee, label for actual amount earned).
 
     Necessary props:
-        Title = string, the title of the 
+        Title = string, the title of the
         Price = number, the initial price to be shown in the text field.
-        DisabledSubText = string, text to be shown under the price text field when this component is disabled.
+        TaxRate = number, the percentage of the price that is taken as a fee.
+        MinimumFee = number, is the minimum fee that will be levied.
+        SubText = string, text to be shown under the price text field when this component is disabled or has an error.
             this text usually describes what must be done for this component to be enabled again.
-        Enabled = boolean, controls whether DisabledSubText is shown and if text/images are greyed out. (true is shown, false is hidden).
+        Enabled = boolean, controls if text/images are greyed out/disabled.
         OnPriceChanged = function(newPrice), a callback that will be invoked when the price in the text entry is changed.
 
     Optional props:
@@ -35,17 +37,22 @@ function RobuxFeeBase:render()
     local theme = props.Theme:get("Plugin")
     local localization = props.Localization
 
-    local price = string.format("%.f", props.Price)
-    local disabledSubText = props.DisabledSubText
+    local taxRate = props.TaxRate
+    local minimumFee = props.Price > 0 and props.MinimumFee or 0
+
+    local priceVal = type(props.Price) == "number" and props.Price or 0
+    local price = string.format("%.f", priceVal)
+    local subText = props.SubText
     local enabled = props.Enabled
     local onPriceChanged = props.OnPriceChanged
 
     local layoutOrder = props.LayoutOrder
 
-    local feeText = localization:getText("Monetization", "FeeLabel")
+    local feeText = localization:getText("Monetization", "FeeLabel", {string.format("%2d", taxRate * 100)})
     local feeTextSize = GetTextSize(feeText, theme.fontStyle.Normal.TextSize, theme.fontStyle.Normal.Font)
 
-    local feeAmount = string.format("%.f", tostring(math.ceil(price * 0.30)))
+    local feeVal = math.max(minimumFee, math.ceil(priceVal * taxRate))
+    local feeAmount = string.format("%.f", tostring(feeVal))
 
     local priceText = localization:getText("Monetization", "Price")
     local priceTextSize = GetTextSize(priceText, theme.fontStyle.Normal.TextSize, theme.fontStyle.Normal.Font)
@@ -53,12 +60,25 @@ function RobuxFeeBase:render()
     local earnText = localization:getText("Monetization", "EarnLabel")
     local earnTextSize = GetTextSize(earnText, theme.fontStyle.Normal.TextSize, theme.fontStyle.Normal.Font)
 
-    local earnAmount = string.format("%.f", tostring(math.floor(price * 0.70)))
+    local earnVal = (priceVal - feeVal > 0) and priceVal - feeVal or 0
+    local earnAmount = string.format("%.f", tostring(earnVal))
 
-    local disabledSubTextSize = GetTextSize(disabledSubText, theme.fontStyle.Subtext.TextSize, theme.fontStyle.Subtext.Font,
-        Vector2.new(theme.robuxFeeBase.disabledSubText.width, math.huge))
+    local subTextSize
+    if subText then
+        if enabled then
+            subTextSize = GetTextSize(subText, theme.fontStyle.SmallError.TextSize, theme.fontStyle.SmallError.Font,
+                Vector2.new(theme.robuxFeeBase.subText.width, math.huge))
+        else
+            subTextSize = GetTextSize(subText, theme.fontStyle.Subtext.TextSize, theme.fontStyle.Subtext.Font,
+                Vector2.new(theme.robuxFeeBase.subText.width, math.huge))
+        end
+    else
+        subTextSize = {}
+    end
 
     local transparency = enabled and theme.robuxFeeBase.transparency.enabled or theme.robuxFeeBase.transparency.disabled
+
+    local subTextTheme = enabled and theme.fontStyle.SmallError or theme.fontStyle.Subtext
 
     return Roact.createElement(FitFrameOnAxis, {
         axis = FitFrameOnAxis.Axis.Vertical,
@@ -129,12 +149,12 @@ function RobuxFeeBase:render()
                 }))
             }),
 
-            DisabledSubText = not enabled and Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Subtext, {
-                Size = UDim2.new(0, disabledSubTextSize.X, 0, disabledSubTextSize.Y),
+            SubText = subText and Roact.createElement("TextLabel", Cryo.Dictionary.join(subTextTheme, {
+                Size = UDim2.new(0, math.ceil(subTextSize.X), 0, subTextSize.Y),
 
                 BackgroundTransparency = 1,
 
-                Text = disabledSubText,
+                Text = subText,
 
                 TextYAlignment = Enum.TextYAlignment.Center,
                 TextXAlignment = Enum.TextXAlignment.Left,
@@ -183,7 +203,7 @@ function RobuxFeeBase:render()
                 }),
 
                 FeeAmount = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Normal, {
-                    Size = UDim2.new(1, -(feeTextSize.X+theme.robuxFeeBase.icon.size), 0, theme.rowHeight),
+                    Size = UDim2.new(1, 0, 0, theme.rowHeight),
 
                     BackgroundTransparency = 1,
                     BorderSizePixel = 0,

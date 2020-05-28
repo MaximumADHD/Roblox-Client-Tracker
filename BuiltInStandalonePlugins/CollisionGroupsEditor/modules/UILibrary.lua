@@ -68,13 +68,7 @@ local Signal = require(Utils.Signal)
 
 local Dialog = require(Components.PluginWidget.Dialog)
 
-local fflagStudioRestrictUiLibraryUsage = game:DefineFastFlag("StudioRestrictUiLibraryUsage", false)
--- We need to flag this separately so we can wait on existing offenders to be fixed
-local fflagStudioUiLibraryErrorOnNilIncludes = game:DefineFastFlag("StudioUiLibraryErrorOnNilIncludes", false)
-
 local function createStrictTable(t)
-	if not fflagStudioUiLibraryErrorOnNilIncludes then return t end
-
 	return setmetatable(t, {
 		__index = function(_, index)
 			error("Attempt to read key '"..index.."' which does not exist")
@@ -167,17 +161,14 @@ local UILibrary = createStrictTable({
 	createTheme = require(Src.createTheme),
 })
 
--- Temporary version check to get this enabled in NoOpt immediately so we don't regress while waiting to ship flag
-if fflagStudioRestrictUiLibraryUsage or version() == "0.0.0.1" then
-	local virtualFolder = Instance.new("Folder")
-	virtualFolder.Name = "UILibraryInternals-Do-Not-Access-Directly"
-	-- The number of parents to the plugin cannot change since UILibrary components reach out of UILibrary
-	-- to get the plugin's copy of Roact
-	virtualFolder.Parent = script.Parent
+local virtualFolder = Instance.new("Folder")
+virtualFolder.Name = "UILibraryInternals-Do-Not-Access-Directly"
+-- The number of parents to the plugin cannot change since UILibrary components reach out of UILibrary
+-- to get the plugin's copy of Roact
+virtualFolder.Parent = script.Parent
 
-	for _,v in pairs(script:GetChildren()) do
-		v.Parent = virtualFolder
-	end
+for _,v in pairs(script:GetChildren()) do
+	v.Parent = virtualFolder
 end
 
 return UILibrary

@@ -21,7 +21,12 @@ local StandaloneSelectionBox = require(DraggerFramework.Components.StandaloneSel
 
 local RotateHandleView = require(Plugin.Src.RotateHandleView)
 
-local getFFlagImprovedHandleParams = require(DraggerFramework.Flags.getFFlagImprovedHandleParams)
+local getFFlagImprovedHandleParams2 = require(DraggerFramework.Flags.getFFlagImprovedHandleParams2)
+local getFFlagDisallowFloatingPointErrorMove = require(DraggerFramework.Flags.getFFlagDisallowFloatingPointErrorMove)
+
+-- The difference from exactly touching to try to bring the parts within when
+-- dragging parts into a colliding condition with Collisions enabled.
+local ROTATE_COLLISION_THRESHOLD = 0.0001
 
 local RotateToolImpl = {}
 RotateToolImpl.__index = RotateToolImpl
@@ -32,13 +37,13 @@ RotateToolImpl.__index = RotateToolImpl
 	shows up on top where they intersect.
 ]]
 local RotateHandleDefinitions = {
-    XAxis = {
-        Offset = CFrame.fromMatrix(Vector3.new(), Vector3.new(1, 0, 0), Vector3.new(0, 1, 0), Vector3.new(0, 0, 1)),
+	XAxis = {
+		Offset = CFrame.fromMatrix(Vector3.new(), Vector3.new(1, 0, 0), Vector3.new(0, 1, 0), Vector3.new(0, 0, 1)),
 		Color = Colors.X_AXIS,
 		RadiusOffset = 0.00,
 	},
 	YAxis = {
-        Offset = CFrame.fromMatrix(Vector3.new(), Vector3.new(0, 1, 0), Vector3.new(0, 0, 1), Vector3.new(1, 0, 0)),
+		Offset = CFrame.fromMatrix(Vector3.new(), Vector3.new(0, 1, 0), Vector3.new(0, 0, 1), Vector3.new(1, 0, 0)),
 		Color = Colors.Y_AXIS,
 		RadiusOffset = 0.01,
 	},
@@ -46,15 +51,15 @@ local RotateHandleDefinitions = {
 		Offset = CFrame.fromMatrix(Vector3.new(), Vector3.new(0, 0, 1), Vector3.new(0, 1, 0), Vector3.new(-1, 0, 0)),
 		Color = Colors.Z_AXIS,
 		RadiusOffset = 0.02,
-    },
+	},
 }
 
 local function areCollisionsEnabled()
-    return plugin.CollisionEnabled
+	return plugin.CollisionEnabled
 end
 
 local function areJointsEnabled()
-    return plugin:GetJoinMode() ~= Enum.JointCreationMode.None
+	return plugin:GetJoinMode() ~= Enum.JointCreationMode.None
 end
 
 local function areConstraintsEnabled()
@@ -95,7 +100,7 @@ local function snapToRotateIncrementIfNeeded(angle)
 end
 
 function RotateToolImpl.new()
-    local self = {}
+	local self = {}
 	self._handles = {}
 	self._partMover = PartMover.new()
 	self._attachmentMover = AttachmentMover.new()
@@ -106,8 +111,8 @@ function RotateToolImpl:update(draggerToolState, derivedWorldState)
 	if not self._draggingHandleId then
 		local cframe, offset, size = derivedWorldState:getBoundingBox()
 		self._boundingBox = {
-            Size = size,
-            CFrame = cframe * CFrame.new(offset),
+			Size = size,
+			CFrame = cframe * CFrame.new(offset),
 		}
 
 		self._partsToMove, self._attachmentsToMove =
@@ -119,31 +124,31 @@ function RotateToolImpl:update(draggerToolState, derivedWorldState)
 end
 
 function RotateToolImpl:hitTest(mouseRay, handleScale)
-    local closestHandleId, closestHandleDistance = nil, math.huge
+	local closestHandleId, closestHandleDistance = nil, math.huge
 	for handleId, handleProps in pairs(self._handles) do
 		handleProps.Scale = handleScale
-        local distance = RotateHandleView.hitTest(handleProps, mouseRay)
-        if distance and distance < closestHandleDistance then
-            closestHandleDistance = distance
-            closestHandleId = handleId
-        end
+		local distance = RotateHandleView.hitTest(handleProps, mouseRay)
+		if distance and distance < closestHandleDistance then
+			closestHandleDistance = distance
+			closestHandleId = handleId
+		end
 	end
 	-- Return 0 distance to have the handles hittest as always on top of parts
-    return closestHandleId, 0
+	return closestHandleId, 0
 end
 
 function RotateToolImpl:render(hoveredHandleId)
-    -- The scale tool's handles show on top when hovered, but that behavior
-    -- doesn't feel as good for the move / rotate tools, so disable it.
-    local forceHoveredHandlesOnTop = false
-    if Workspace:FindFirstChild("RotateHandleHoveredOnTop") then
-        forceHoveredHandlesOnTop = Workspace.MoveHandleHoveredOnTop.Value
-    end
+	-- The scale tool's handles show on top when hovered, but that behavior
+	-- doesn't feel as good for the move / rotate tools, so disable it.
+	local forceHoveredHandlesOnTop = false
+	if Workspace:FindFirstChild("RotateHandleHoveredOnTop") then
+		forceHoveredHandlesOnTop = Workspace.MoveHandleHoveredOnTop.Value
+	end
 
 	local children = {}
 	if self._draggingHandleId then
 		local handleProps = self._handles[self._draggingHandleId]
-		if getFFlagImprovedHandleParams() then
+		if getFFlagImprovedHandleParams2() then
 			children[self._draggingHandleId] = Roact.createElement(RotateHandleView, {
 				HandleCFrame = handleProps.HandleCFrame,
 				Color = handleProps.Color,
@@ -180,8 +185,8 @@ function RotateToolImpl:render(hoveredHandleId)
 		end
 
 		if areJointsEnabled() and self._jointPairs then
-            children.JointDisplay = self._jointPairs:renderJoints(self._scale)
-        end
+			children.JointDisplay = self._jointPairs:renderJoints(self._scale)
+		end
 	else
 		for handleId, handleProps in pairs(self._handles) do
 			local color = handleProps.Color
@@ -189,7 +194,7 @@ function RotateToolImpl:render(hoveredHandleId)
 			if not hovered then
 				color = Colors.makeDimmed(color)
 			end
-			if getFFlagImprovedHandleParams() then
+			if getFFlagImprovedHandleParams2() then
 				children[handleId] = Roact.createElement(RotateHandleView, {
 					HandleCFrame = handleProps.HandleCFrame,
 					Color = color,
@@ -235,7 +240,7 @@ function RotateToolImpl:mouseDown(mouseRay, handleId)
 
 	local breakJoints = not areConstraintsEnabled()
 	local center = self._boundingBox.CFrame.Position
-    self._partMover:setDragged(self._partsToMove, self._originalCFrameMap, breakJoints, center)
+	self._partMover:setDragged(self._partsToMove, self._originalCFrameMap, breakJoints, center)
 	self._attachmentMover:setDragged(self._attachmentsToMove)
 end
 
@@ -253,7 +258,7 @@ function RotateToolImpl:mouseDrag(mouseRay)
 	if areConstraintsEnabled() and #self._partsToMove > 0 then
 		appliedGlobalTransform = self:_mouseDragWithInverseKinematics(mouseRay, snappedDelta)
 	else
-	    appliedGlobalTransform = self:_mouseDragWithGeometricMovement(mouseRay, snappedDelta)
+		appliedGlobalTransform = self:_mouseDragWithGeometricMovement(mouseRay, snappedDelta)
 	end
 
 	if appliedGlobalTransform then
@@ -276,8 +281,8 @@ end
 ]]
 function RotateToolImpl:_mouseDragWithGeometricMovement(mouseRay, delta)
 	if delta == self._draggingLastGoodDelta then
-        return nil
-    end
+		return nil
+	end
 
 	local candidateGlobalTransform = getRotationTransform(
 		self._originalBoundingBoxCFrame,
@@ -308,11 +313,11 @@ end
 ]]
 function RotateToolImpl:_mouseDragWithInverseKinematics(mouseRay, delta)
 	if delta == 0 then
-        return nil
+		return nil
 	end
 
-    local collisionsMode = areCollisionsEnabled() and
-        Enum.IKCollisionsMode.OtherMechanismsAnchored or
+	local collisionsMode = areCollisionsEnabled() and
+		Enum.IKCollisionsMode.OtherMechanismsAnchored or
 		Enum.IKCollisionsMode.NoCollisions
 
 	local candidateTransform = getRotationTransform(self._boundingBox.CFrame, self._handleCFrame.RightVector, delta)
@@ -329,7 +334,7 @@ function RotateToolImpl:_mouseDragWithInverseKinematics(mouseRay, delta)
 	local rx = self._handleCFrame.LookVector:Dot(rotatedAxis)
 	self._draggingLastGoodDelta = -math.atan2(ry, rx)
 
-    return appliedTransform
+	return appliedTransform
 end
 
 function RotateToolImpl:mouseUp(mouseRay)
@@ -354,36 +359,66 @@ end
 	Assume that the last good delta is free of collions, the desired delta is blocked,
 	and there exists an angle between the two where it switches from blocked to free.
 
-    Return the good delta that we moved the parts to.
+	Return the good delta that we moved the parts to.
 ]]
 function RotateToolImpl:_findAndRotateToGoodDelta(desiredDelta)
-    local start = self._draggingLastGoodDelta
-    local goal = desiredDelta
-    local isIntersecting = true
-    while math.abs(goal - start) > 0.0001 do
-		local mid = (goal + start) / 2
-		local candidateTransform = getRotationTransform(self._boundingBox.CFrame, self._handleCFrame.RightVector, mid)
-		self._partMover:transformTo(candidateTransform)
+	local start = self._draggingLastGoodDelta
+	local goal = desiredDelta
+	local isIntersecting = true
+	if getFFlagDisallowFloatingPointErrorMove() then
+		while math.abs(goal - start) > ROTATE_COLLISION_THRESHOLD do
+			local mid = (goal + start) / 2
+			local candidateTransform = getRotationTransform(self._boundingBox.CFrame, self._handleCFrame.RightVector, mid)
+			self._partMover:transformTo(candidateTransform)
 
-        isIntersecting = self._partMover:isIntersectingOthers()
-        if isIntersecting then
-            goal = mid
-        else
-            start = mid
-        end
-    end
+			isIntersecting = self._partMover:isIntersectingOthers()
+			if isIntersecting then
+				goal = mid
+			else
+				start = mid
+			end
+		end
 
-    -- Have to make sure that we end on a non-intersection. The invariant is
-    -- that start is the best safe position we've found, so we can move it.
-    if isIntersecting then
-        local transform = getRotationTransform(self._boundingBox.CFrame, self._handleCFrame.RightVector, start)
+		-- Special case to not let us move very slightly and then stop. If we allow
+		-- that then a rotate which collides almost right away will produce no
+		-- visible changes but introduce floating point error.
+		-- The 2x is not a random fudge factor, it is precisely chosen: `goal` and
+		-- `start` always bound the true collision point. After the loop, they are
+		-- guaranteed to be within the threshold of eachother. We want to test
+		-- whether the the move is within the threshold of zero. That means, at the
+		-- very worst, the true collision point is at +threshold, and the loop
+		-- exited at +threshold of the collision point, for a total of 2x threshold
+		-- away from zero.
+		if math.abs(start) < ROTATE_COLLISION_THRESHOLD * 2 then
+			start = 0
+			isIntersecting = true
+		end
+	else
+		while math.abs(goal - start) > 0.0001 do
+			local mid = (goal + start) / 2
+			local candidateTransform = getRotationTransform(self._boundingBox.CFrame, self._handleCFrame.RightVector, mid)
+			self._partMover:transformTo(candidateTransform)
+
+			isIntersecting = self._partMover:isIntersectingOthers()
+			if isIntersecting then
+				goal = mid
+			else
+				start = mid
+			end
+		end
+	end
+
+	-- Have to make sure that we end on a non-intersection. The invariant is
+	-- that start is the best safe position we've found, so we can move it.
+	if isIntersecting then
+		local transform = getRotationTransform(self._boundingBox.CFrame, self._handleCFrame.RightVector, start)
 		self._partMover:transformTo(transform)
-    end
+	end
 
-    -- Either we ended the loop on an intersection, and the above code moved us
-    -- to start, or we ended on a non-intersect, in which case start is an
-    -- up to date representation of the mid we last moved the parts to.
-    return start
+	-- Either we ended the loop on an intersection, and the above code moved us
+	-- to start, or we ended on a non-intersect, in which case start is an
+	-- up to date representation of the mid we last moved the parts to.
+	return start
 end
 
 function RotateToolImpl:_updateHandles()
@@ -391,11 +426,11 @@ function RotateToolImpl:_updateHandles()
 		return
 	end
 
-    if #self._partsToMove == 0 and #self._attachmentsToMove == 0 then
-        self._handles = {}
+	if #self._partsToMove == 0 and #self._attachmentsToMove == 0 then
+		self._handles = {}
 	else
 		for handleId, handleDefinition in pairs(RotateHandleDefinitions) do
-			if getFFlagImprovedHandleParams() then
+			if getFFlagImprovedHandleParams2() then
 				self._handles[handleId] = {
 					HandleCFrame = self._boundingBox.CFrame * handleDefinition.Offset,
 					Color = handleDefinition.Color,
@@ -407,8 +442,8 @@ function RotateToolImpl:_updateHandles()
 					Color = handleDefinition.Color,
 				}
 			end
-        end
-    end
+		end
+	end
 end
 
 return RotateToolImpl

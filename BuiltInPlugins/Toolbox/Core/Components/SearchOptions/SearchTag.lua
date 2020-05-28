@@ -9,8 +9,6 @@
 		function onDelete = A callback when the user wants to delete the tag.
 		string prefix = The text pre-appended before the Name
 ]]
-local FFlagEnableAudioPreview = settings():GetFFlag("EnableAudioPreview")
-
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
@@ -41,12 +39,7 @@ function SearchTag:render()
 			local name = self.props.Name
 			local onDelete = self.props.onDelete
 			local textWidth = Constants.getTextSize(name).X
-			local byTextWidth
-			if FFlagEnableAudioPreview then
-				byTextWidth = Constants.getTextSize((prefix), Constants.FONT_SIZE_MEDIUM, Constants.FONT_BOLD).X
-			else
-				byTextWidth = Constants.getTextSize("by:", Constants.FONT_SIZE_MEDIUM, Constants.FONT_BOLD).X
-			end
+			local byTextWidth = Constants.getTextSize((prefix), Constants.FONT_SIZE_MEDIUM, Constants.FONT_BOLD).X
 
 			local frameWidth = byTextWidth
 				+ textWidth
@@ -73,7 +66,7 @@ function SearchTag:render()
 					Size = UDim2.new(0, byTextWidth, 1, 0),
 					BackgroundTransparency = 1,
 					ZIndex = 2,
-					Text = FFlagEnableAudioPreview and prefix or localizedContent.SearchTags.Creator,
+					Text = prefix,
 				}),
 
 				NameLabel = Roact.createElement("TextLabel", {

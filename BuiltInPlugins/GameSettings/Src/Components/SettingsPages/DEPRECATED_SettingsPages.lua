@@ -3,7 +3,7 @@
 	Modules for each SettingsPage are required here.
 ]]
 
-local Avatar = require(script.Parent.Avatar)
+local Avatar = require(script.Parent.DEPRECATED_Avatar)
 local Options = require(script.Parent.DEPRECATED_Options)
 local BasicInfo = require(script.Parent.BasicInfo)
 local DeveloperSubscriptions = require(script.Parent.DeveloperSubscriptions)
@@ -16,7 +16,7 @@ local FFlagStudioAddMonetizationToGameSettings = game:GetFastFlag("StudioAddMone
 
 local World = require(script.Parent.DEPRECATED_World)
 
-local AccessPermissions = require(script.Parent.AccessPermissions)
+local AccessPermissions = require(script.Parent.DEPRECATED_AccessPermissions)
 
 local Places = require(script.Parent.Places)
 

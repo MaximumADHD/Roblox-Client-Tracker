@@ -6,8 +6,6 @@ local getGeometry = require(DraggerFramework.Utility.getGeometry)
 local JointPairs = require(DraggerFramework.Utility.JointPairs)
 local JointUtil = require(DraggerFramework.Utility.JointUtil)
 
-local getFFlagDragWeirdConstraints = require(DraggerFramework.Flags.getFFlagDragWeirdConstraints)
-
 local JointMaker = {}
 JointMaker.__index = JointMaker
 
@@ -45,24 +43,7 @@ function JointMaker:pickUpParts(parts)
         for _, joint in ipairs(part:GetJoints()) do
             if joint:IsA("Constraint") then
                 local other = JointUtil.getConstraintCounterpart(joint, part)
-                if getFFlagDragWeirdConstraints() then
-                    if other then
-                        alreadyConnectedToSets[part][other] = true
-
-                        if joint:IsA("RopeConstraint") or
-                            joint:IsA("RodConstraint") then
-                            lengthConstraintsToFixupSet[joint] = {
-                                Span = getConstraintLength(joint),
-                                Length = joint.Length,
-                            }
-                        elseif joint:IsA("SpringConstraint") then
-                            springsToFixupSet[joint] = {
-                                Span = getConstraintLength(joint),
-                                FreeLength = joint.FreeLength,
-                            }
-                        end
-                    end
-                else
+                if other then
                     alreadyConnectedToSets[part][other] = true
 
                     if joint:IsA("RopeConstraint") or
@@ -87,17 +68,9 @@ function JointMaker:pickUpParts(parts)
 				end
             elseif joint:IsA("WeldConstraint") then
                 local other = JointUtil.getWeldConstraintCounterpart(joint, part)
-                if getFFlagDragWeirdConstraints() then
-                    joint.Enabled = false
-                    alreadyConnectedToSets[part][other] = true
-                    weldConstraintsToReenableSet[joint] = true
-                else
-                    if not partSet[other] then
-                        joint.Enabled = false
-                        alreadyConnectedToSets[part][other] = true
-                        weldConstraintsToReenableSet[joint] = true
-                    end
-                end
+                joint.Enabled = false
+                alreadyConnectedToSets[part][other] = true
+                weldConstraintsToReenableSet[joint] = true
 			end
         end
 

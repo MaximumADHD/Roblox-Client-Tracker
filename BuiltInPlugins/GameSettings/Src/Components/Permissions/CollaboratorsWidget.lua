@@ -13,7 +13,6 @@
 		int [LayoutOrder = 0]
 ]]
 
-local FFlagStudioGameSettingsRestrictPermissions = game:GetFastFlag("StudioGameSettingsRestrictPermissions")
 local FFlagStudioConvertGameSettingsToDevFramework = game:GetFastFlag("StudioConvertGameSettingsToDevFramework")
 local FFlagStudioFixUsersLocalizationInAccessPermissions = game:DefineFastFlag("StudioFixUsersLocalizationInAccessPermissions", false)
 
@@ -22,7 +21,7 @@ local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
 
 local ContextServices = require(Plugin.Framework.ContextServices)
-local ThumbnailLoader = require(Plugin.Src.Providers.ThumbnailLoaderContextItem)
+local ThumbnailLoader = require(Plugin.Src.Providers.DEPRECATED_ThumbnailLoaderContextItem)
 
 local UILibrary = require(Plugin.UILibrary)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
@@ -83,15 +82,6 @@ local function getGroupCollaboratorPermissions(props, localized)
 		{Key = PermissionsConstants.PlayKey, Display = playDisplayLabel, Description = playDescriptionLabel},
 		{Key = PermissionsConstants.EditKey, Display = editDisplayLabel, Description = editDescriptionLabel},
 	}
-	
-	if not FFlagStudioGameSettingsRestrictPermissions then
-		if isStudioUserOwner(props) then
-			permissions = Cryo.List.join(
-				permissions,
-				{{Key = PermissionsConstants.AdminKey, Display = adminDisplayLabel, Description = adminDescriptionLabel}}
-			)
-		end
-	end
 
 	return permissions
 end
@@ -125,16 +115,7 @@ local function getUserCollaboratorPermissions(props, localized)
 		{Key = PermissionsConstants.PlayKey, Display = playDisplayLabel, Description = playDescriptionLabel},
 		{Key = PermissionsConstants.EditKey, Display = editDisplayLabel, Description = editDescriptionLabel},
 	}
-	
-	if not FFlagStudioGameSettingsRestrictPermissions then
-		if isStudioUserOwner(props) then
-			permissions = Cryo.List.join(
-				permissions,
-				{{Key = PermissionsConstants.AdminKey, Display = adminDisplayLabel, Description = adminDescriptionLabel}}
-			)
-		end
-	end
-	
+
 	return permissions
 end
 
@@ -351,21 +332,6 @@ function CollaboratorsWidget:DEPRECATED_render()
 					LayoutOrder = 1,
 					BackgroundTransparency = 1,
 				}, userCollaborators),
-				
-				GroupsTitle = not FFlagStudioGameSettingsRestrictPermissions and Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Subtitle, {
-					LayoutOrder = 2,
-					
-					Text = FFlagStudioFixUsersLocalizationInAccessPermissions and localized.Collaborators.GroupsCollaboratorType or "Groups",
-					TextXAlignment = Enum.TextXAlignment.Left,
-					
-					Visible = #groups > 0,
-					BackgroundTransparency = 1,
-				})),
-				
-				Groups = not FFlagStudioGameSettingsRestrictPermissions and Roact.createElement(FitToContentList, {
-					LayoutOrder = 3,
-					BackgroundTransparency = 1,
-				}, groupCollaborators),
 			})
 		end)
 	end)
@@ -548,21 +514,6 @@ function CollaboratorsWidget:render()
 			LayoutOrder = 1,
 			BackgroundTransparency = 1,
 		}, userCollaborators),
-
-		GroupsTitle = not FFlagStudioGameSettingsRestrictPermissions and Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Subtitle, {
-			LayoutOrder = 2,
-
-			Text = localized:getText("AccessPermissions", "GroupsCollaboratorType"),
-			TextXAlignment = Enum.TextXAlignment.Left,
-
-			Visible = #groups > 0,
-			BackgroundTransparency = 1,
-		})),
-
-		Groups = not FFlagStudioGameSettingsRestrictPermissions and Roact.createElement(FitToContentList, {
-			LayoutOrder = 3,
-			BackgroundTransparency = 1,
-		}, groupCollaborators),
 	})
 end
 

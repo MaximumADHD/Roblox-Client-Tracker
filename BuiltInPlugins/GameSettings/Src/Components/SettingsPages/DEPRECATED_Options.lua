@@ -81,7 +81,7 @@ local function displayContents(page, localized)
 					Description = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "StudioApiServicesDesc") or localized.StudioApiServices.OnDescription,
 				}, {
 					Id = false,
-					Title = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "SettingOn") or localized.StudioApiServices.Off,
+					Title = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "SettingOff") or localized.StudioApiServices.Off,
 				},
 			},
 			Enabled = props.studioAccessToApisAllowed ~= nil,

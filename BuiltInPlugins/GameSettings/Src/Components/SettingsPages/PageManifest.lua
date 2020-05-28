@@ -1,5 +1,5 @@
-local AccessPermissions = require(script.Parent.AccessPermissions)
-local Avatar = require(script.Parent.Avatar)
+local Permissions = require(script.Parent.PermissionsPage.Permissions)
+local Avatar = require(script.Parent.AvatarPage.Avatar)
 local BasicInfo = require(script.Parent.BasicInfo)
 local DeveloperSubscriptions = require(script.Parent.DeveloperSubscriptions)
 local LocalizationPage = require(script.Parent.LocalizationPage)
@@ -16,10 +16,10 @@ local FFlagStudioAddMonetizationToGameSettings = game:GetFastFlag("StudioAddMone
 -- TODO (awarwick) 5/5/2020 Enable these as the pages are converted
 return {
 	BasicInfo,
-	--AccessPermissions,
+	Permissions,
   --FFlagStudioAddMonetizationToGameSettings and Monetization or nil,
 	--FFlagGameSettingsPlaceSettings and Places or nil,
-	--Avatar,
+	Avatar,
 	--DFFlagDeveloperSubscriptionsEnabled and DeveloperSubscriptions or nil,
 	World,
 	--FFlagStudioLocalizationInGameSettingsEnabled and LocalizationPage or nil,

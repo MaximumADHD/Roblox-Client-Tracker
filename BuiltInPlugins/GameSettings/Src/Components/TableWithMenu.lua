@@ -66,17 +66,16 @@ end
 
 local function createDataLabels(data, menuItems, onItemClicked)
     local dataRows = { }
-    for row = 1, #data do
-        local rowData = data[row]
+    for id, rowData in pairs(data) do
         local rowComponent = Roact.createElement(TableWithMenuItem, {
-            RowData = rowData,
+            RowData = rowData.row,
             MenuItems = menuItems,
             OnItemClicked = function(key)
-                onItemClicked(key, row)
+                onItemClicked(key, id)
             end,
-            LayoutOrder = 1 + row,
+            LayoutOrder = rowData.index,
         })
-        dataRows[row] = rowComponent
+        dataRows[id] = rowComponent
     end
 
     return dataRows

@@ -1,7 +1,8 @@
 local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 local FFlagStudioUseDevelopAPIForPackages = settings():GetFFlag("StudioUseDevelopAPIForPackages")
-local FFlagEnableAudioPreview = settings():GetFFlag("EnableAudioPreview")
+local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 local FFlagEnableToolboxVideos = game:GetFastFlag("EnableToolboxVideos")
+local FFlagStudioFixComparePageInfo = game:GetFastFlag("StudioFixComparePageInfo")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -36,24 +37,8 @@ local function convertCreationsDetailsToResultsFormat(data, assetType, creatorNa
 	if data then
 		for _,value in pairs(data) do
 			local assetResultTable
-			if FFlagEnableAudioPreview then
-				assetResultTable = AssetInfo.fromCreationsDetails(value, assetType, creatorName)
-			else
-				assetResultTable = {
-					Asset = {
-						Description = value.description,
-						Id = value.assetId,
-						Name = value.name,
-						TypeId = assetType and assetType.Value,
-						AssetGenres = {},
-						Status = value.status
-					},
-					Creator = {
-						Id = value.creatorTargetId,
-						Name = creatorName
-					}
-				}
-			end
+			assetResultTable = AssetInfo.fromCreationsDetails(value, assetType, creatorName)
+
 			result[#result + 1] = assetResultTable
 		end
 	end
@@ -89,9 +74,19 @@ return function(networkInterface, pageInfoOnStart)
 	return function(store)
 		store:dispatch(SetLoading(true))
 		local isCreatorSearchEmpty = pageInfoOnStart.creator and pageInfoOnStart.creator.Id == -1
-		local isCreationSearch = Category.CREATIONS_KEY == pageInfoOnStart.currentTab
+		local isCreationSearch
+		if FFlagUseCategoryNameInToolbox then
+			isCreationSearch = Category.getTabForCategoryName(pageInfoOnStart.categoryName) == Category.CREATIONS
+		else
+			isCreationSearch = Category.CREATIONS_KEY == pageInfoOnStart.currentTab
+		end
 
 		local errorFunc = function(result)
+			if FFlagStudioFixComparePageInfo then
+				if PageInfoHelper.isPageInfoStale(pageInfoOnStart, store) then
+					return
+				end
+			end
 			store:dispatch(NetworkError(result))
 			store:dispatch(SetLoading(false))
 		end
@@ -100,9 +95,28 @@ return function(networkInterface, pageInfoOnStart)
 			-- Base on pageInfoOnStart and current pageInfo, we can decide what to do after the asset is loaded
 			local data = result.responseBody
 			local pageInfo = store:getState().pageInfo
-			local categoryOnStart = pageInfoOnStart.categories[pageInfoOnStart.categoryIndex]
-			local categoryOnRequestFinish = pageInfo.categories[pageInfo.categoryIndex]
-			if categoryOnStart == categoryOnRequestFinish and pageInfoOnStart.targetPage - pageInfo.currentPage == 1 then
+			local categoryOnStart
+			if FFlagUseCategoryNameInToolbox then
+				categoryOnStart = pageInfoOnStart.categoryName
+			else
+				categoryOnStart = pageInfoOnStart.categories[pageInfoOnStart.categoryIndex]
+			end
+			local categoryOnRequestFinish
+			if FFlagUseCategoryNameInToolbox then
+				categoryOnRequestFinish = pageInfo.categoryName
+			else
+				categoryOnRequestFinish = pageInfo.categories[pageInfo.categoryIndex]
+			end
+      
+			local isResponseFresh
+
+			if FFlagStudioFixComparePageInfo then
+				isResponseFresh = not PageInfoHelper.isPageInfoStale(pageInfoOnStart, store)
+			else
+				isResponseFresh = categoryOnStart == categoryOnRequestFinish and pageInfoOnStart.targetPage - pageInfo.currentPage == 1
+			end
+
+			if isResponseFresh then
 				if data then
 					dispatchCreatorInfo(store, extractCreatorInfo(data.Results))
 					store:dispatch(GetAssets(data.Results or {}, data.TotalResults))
@@ -162,10 +176,24 @@ return function(networkInterface, pageInfoOnStart)
 			-- We check if we are trying to access
 			local useDevelopAssetAPI = false
 
+			local isAudio
+			local isVideo = false
+			if FFlagUseCategoryNameInToolbox then
+				isAudio = Category.categoryIsAudio(pageInfoOnStart.categoryName)
+				if FFlagEnableToolboxVideos then
+					isVideo = Category.categoryIsVideo(pageInfoOnStart.categoryName)
+				end
+			else
+				isAudio = Category.categoryIsAudio(pageInfoOnStart.currentTab, pageInfoOnStart.categoryIndex or 1)
+				if FFlagEnableToolboxVideos then
+					isVideo = Category.categoryIsVideo(pageInfoOnStart.currentTab, pageInfoOnStart.categoryIndex or 1)
+				end
+			end
+
 			if (FFlagEnablePurchasePluginFromLua2 and PageInfoHelper.isDeveloperCategory(pageInfoOnStart))
 				or (FFlagStudioUseDevelopAPIForPackages and PageInfoHelper.isPackagesCategory(pageInfoOnStart))
-				or (FFlagEnableAudioPreview and Category.categoryIsAudio(pageInfoOnStart.currentTab, pageInfoOnStart.categoryIndex or 1))
-				or (FFlagEnableToolboxVideos and Category.categoryIsVideo(pageInfoOnStart.currentTab, pageInfoOnStart.categoryIndex or 1))
+				or isAudio
+				or isVideo
 			then
 				useDevelopAssetAPI = true
 			end

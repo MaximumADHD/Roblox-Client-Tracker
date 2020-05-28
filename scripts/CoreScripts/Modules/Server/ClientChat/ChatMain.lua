@@ -60,13 +60,6 @@ local ChatLocalization = nil
 pcall(function() ChatLocalization = require(game:GetService("Chat").ClientChatModules.ChatLocalization) end)
 if ChatLocalization == nil then ChatLocalization = {} function ChatLocalization:Get(key,default) return default end end
 
-local FFlagUserChatNewMessageLengthCheck2 do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserChatNewMessageLengthCheck2")
-	end)
-	FFlagUserChatNewMessageLengthCheck2 = success and result
-end
-
 local numChildrenRemaining = 10 -- #waitChildren returns 0 because it's a dictionary
 local waitChildren =
 {
@@ -703,10 +696,6 @@ function chatBarFocusLost(enterPressed, inputObject)
 			if messageSunk then
 				return
 			end
-		end
-
-		if not FFlagUserChatNewMessageLengthCheck2 then
-			message = string.sub(message, 1, ChatSettings.MaximumMessageLength)
 		end
 
 		ChatBar:GetTextBox().Text = ""

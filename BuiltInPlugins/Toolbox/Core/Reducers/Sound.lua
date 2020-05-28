@@ -1,5 +1,3 @@
-local FFlagEnableAudioPreview = settings():GetFFlag("EnableAudioPreview")
-
 local Plugin = script.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
@@ -52,7 +50,7 @@ return Rodux.createReducer({
 
 		return Cryo.Dictionary.join(state, {
 			currentSoundId = 0,
-			elapsedTime = FFlagEnableAudioPreview and 0 or nil,
+			elapsedTime = 0,
 			isPlaying = false,
 		})
 	end,

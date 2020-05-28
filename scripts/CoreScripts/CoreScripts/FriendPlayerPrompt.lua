@@ -26,23 +26,13 @@ local FFlagFriendPlayerPromptUseFormatByKey = settings():GetFFlag('FriendPlayerP
 
 local RobloxTranslator = require(CoreGuiModules:WaitForChild("RobloxTranslator"))
 
-local FFlagCorescriptThumbnailsRespectBaseUrl = require(CoreGuiModules.Flags.FFlagCorescriptThumbnailsRespectBaseUrl)
-
 local LegacyThumbnailUrls = require(CoreGuiModules.Common.LegacyThumbnailUrls)
 
 local THUMBNAIL_SIZE = 200
 local BUST_THUMBNAIL_SIZE = 420
 
-local THUMBNAIL_URL
-local BUST_THUMBNAIL_URL
-
-if FFlagCorescriptThumbnailsRespectBaseUrl then
-	THUMBNAIL_URL = LegacyThumbnailUrls.Thumbnail
-	BUST_THUMBNAIL_URL = LegacyThumbnailUrls.Bust
-else
-	THUMBNAIL_URL = "https://www.roblox.com/Thumbs/Avatar.ashx?x=200&y=200&format=png&userId="
-	BUST_THUMBNAIL_URL = "https://www.roblox.com/bust-thumbnail/image?width=420&height=420&format=png&userId="
-end
+local THUMBNAIL_URL = LegacyThumbnailUrls.Thumbnail
+local BUST_THUMBNAIL_URL = LegacyThumbnailUrls.Bust
 
 local REGULAR_THUMBNAIL_IMAGE_SIZE = Enum.ThumbnailSize.Size150x150
 local CONSOLE_THUMBNAIL_IMAGE_SIZE = Enum.ThumbnailSize.Size352x352
@@ -98,14 +88,8 @@ function DoPromptRequestFriendPlayer(playerToFriend)
 		return
 	end
 
-	local thumbnailUrl, thumbnailUrlConsole
-	if FFlagCorescriptThumbnailsRespectBaseUrl then
-		thumbnailUrl = BUST_THUMBNAIL_URL:format(BUST_THUMBNAIL_SIZE, BUST_THUMBNAIL_SIZE, playerToFriend.UserId)
-		thumbnailUrlConsole = THUMBNAIL_URL:format(THUMBNAIL_SIZE, THUMBNAIL_SIZE, playerToFriend.UserId)
-	else
-		thumbnailUrl = BUST_THUMBNAIL_URL ..playerToFriend.UserId
-		thumbnailUrlConsole = THUMBNAIL_URL ..playerToFriend.UserId
-	end
+	local thumbnailUrl = BUST_THUMBNAIL_URL:format(BUST_THUMBNAIL_SIZE, BUST_THUMBNAIL_SIZE, playerToFriend.UserId)
+	local thumbnailUrlConsole = THUMBNAIL_URL:format(THUMBNAIL_SIZE, THUMBNAIL_SIZE, playerToFriend.UserId)
 
 	local function promptCompletedCallback(clickedConfirm)
 		if clickedConfirm then
@@ -235,14 +219,8 @@ function DoPromptUnfriendPlayer(playerToUnfriend)
 		return
 	end
 
-	local thumbnailUrl, thumbnailUrlConsole
-	if FFlagCorescriptThumbnailsRespectBaseUrl then
-		thumbnailUrl = BUST_THUMBNAIL_URL:format(BUST_THUMBNAIL_SIZE, BUST_THUMBNAIL_SIZE, playerToUnfriend.UserId)
-		thumbnailUrlConsole = THUMBNAIL_URL:format(THUMBNAIL_SIZE, THUMBNAIL_SIZE, playerToUnfriend.UserId)
-	else
-		thumbnailUrl = BUST_THUMBNAIL_URL ..playerToUnfriend.UserId
-		thumbnailUrlConsole = THUMBNAIL_URL ..playerToUnfriend.UserId
-	end
+	local thumbnailUrl = BUST_THUMBNAIL_URL:format(BUST_THUMBNAIL_SIZE, BUST_THUMBNAIL_SIZE, playerToUnfriend.UserId)
+	local thumbnailUrlConsole = THUMBNAIL_URL:format(THUMBNAIL_SIZE, THUMBNAIL_SIZE, playerToUnfriend.UserId)
 
 	local function promptCompletedCallback(clickedConfirm)
 		if clickedConfirm then

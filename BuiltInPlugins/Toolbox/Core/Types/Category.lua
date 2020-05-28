@@ -1,8 +1,9 @@
 local FFlagOnlyWhitelistedPluginsInStudio = settings():GetFFlag("OnlyWhitelistedPluginsInStudio")
-local FFlagFixToolboxInitLoad = settings():GetFFlag("FixToolboxInitLoad")
 local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
+local FFlagFixToolboxInitLoad = settings():GetFFlag("FixToolboxInitLoad")
 local FFlagToolboxShowGroupCreations = game:DefineFastFlag("ToolboxShowGroupCreations", false)
 local FFlagFixToolboxPluginScaling = game:DefineFastFlag("FixToolboxPluginScaling", false)
+local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 local FFlagEnableDefaultSortFix = game:GetFastFlag("EnableDefaultSortFix2")
 local FFlagEnableToolboxVideos = game:GetFastFlag("EnableToolboxVideos")
 local FFlagToolboxUseNewPluginEndpoint = settings():GetFFlag("ToolboxUseNewPluginEndpoint")
@@ -204,10 +205,13 @@ Category.RECENT = {
 	Category.RECENT_AUDIO,
 }
 
-Category.MARKETPLACE_KEY = "Marketplace"
-Category.INVENTORY_KEY = "Inventory"
-Category.RECENT_KEY = "Recent"
-Category.CREATIONS_KEY = "Creations"
+-- NOTE: When FFlagEnableToolboxVideos is enabled, remember to move the keys directy into the tables for cleaner code!
+if FFlagEnableToolboxVideos then
+	local insertIndex = Cryo.List.find(Category.INVENTORY_WITH_GROUPS, Category.MY_PACKAGES) + 1
+	table.insert(Category.INVENTORY_WITH_GROUPS, insertIndex, Category.MY_VIDEOS)
+	table.insert(Category.INVENTORY, Category.MY_VIDEOS)
+	table.insert(Category.MARKETPLACE, Category.MARKETPLACE_VIDEOS)
+end
 
 if FFlagToolboxUseNewPluginEndpoint then
 	Category.API_NAMES = {
@@ -244,12 +248,85 @@ local function getCreationCategories()
 		table.insert(categories, Cryo.List.find(categories, Category.CREATIONS_MESHES) + 1,
 			Category.CREATIONS_PLUGIN)
 		if FFlagToolboxShowGroupCreations then
-			table.insert(categories, Cryo.List.find(categories, Category.CREATIONS_GROUP_MESHES) + 1,
-				Category.CREATIONS_GROUP_PLUGIN)
+			table.insert(
+				categories,
+				Cryo.List.find(categories, Category.CREATIONS_GROUP_MESHES) + 1,
+				Category.CREATIONS_GROUP_PLUGIN
+			)
 		end
 	end
 
 	return categories
+end
+
+Category.MARKETPLACE_KEY = "Marketplace"
+Category.INVENTORY_KEY = "Inventory"
+Category.RECENT_KEY = "Recent"
+Category.CREATIONS_KEY = "Creations"
+
+if FFlagUseCategoryNameInToolbox then
+	local tabForCategoryName = {}
+	local tabKeyForCategoryName = {}
+	local categoryByName = {}
+
+	for _, category in pairs(Category) do
+		if category.name then
+			categoryByName[category.name] = category
+		end
+	end
+
+	Category.CREATIONS = getCreationCategories()
+
+	local tabs = {
+		Category.MARKETPLACE,
+		Category.INVENTORY_WITH_GROUPS,
+		Category.RECENT,
+		Category.CREATIONS,
+	}
+	local tabKeys = {
+		Category.MARKETPLACE_KEY,
+		Category.INVENTORY_KEY,
+		Category.RECENT_KEY,
+		Category.CREATIONS_KEY,
+	}
+
+	for index, tab in ipairs(tabs) do
+		for _, category in ipairs(tab) do
+			tabForCategoryName[category.name] = tab
+			tabKeyForCategoryName[category.name] = tabKeys[index]
+		end
+	end
+
+	function Category.getTabForCategoryName(categoryName)
+		return tabForCategoryName[categoryName]
+	end
+	function Category.getTabKeyForCategoryName(categoryName)
+		return tabKeyForCategoryName[categoryName]
+	end
+
+	function Category.getCategoryByName(categoryName)
+		local category = categoryByName[categoryName]
+		if not category and DebugFlags.shouldDebugWarnings() then
+			warn(("Lua Toolbox: no category for name %s"):format(tostring(categoryName)))
+		end
+		return category
+	end
+
+	function Category.getCategoryIndex(categoryName)
+		local tab = Category.getTabForCategoryName(categoryName)
+		if categoryName == "" then
+			return 1
+		end
+		for index, category in ipairs(tab) do
+			if category.name == categoryName then
+				return index
+			end
+		end
+		if DebugFlags.shouldDebugWarnings() then
+			warn(("Lua Toolbox: no category index for name %s"):format(tostring(categoryName)))
+		end
+		return 1
+	end
 end
 
 if FFlagEnablePurchasePluginFromLua2 then
@@ -265,89 +342,134 @@ if FFlagEnablePurchasePluginFromLua2 then
 	table.insert(Category.INVENTORY_WITH_GROUPS, insertIndex2, Category.GROUP_PLUGINS)
 end
 
--- NOTE: When FFlagEnableToolboxVideos is enabled, remember to move the keys directy into the tables for cleaner code!
-if FFlagEnableToolboxVideos then
-	local insertIndex = Cryo.List.find(Category.INVENTORY_WITH_GROUPS, Category.MY_PACKAGES) + 1
-	table.insert(Category.INVENTORY_WITH_GROUPS, insertIndex, Category.MY_VIDEOS)
-
-	table.insert(Category.INVENTORY, Category.MY_VIDEOS)
-	table.insert(Category.MARKETPLACE, Category.MARKETPLACE_VIDEOS)
-end
-
-local function checkBounds(index)
-	return index and index >= 1 and index <= #Category.INVENTORY_WITH_GROUPS
-end
-
-function Category.categoryIsPackage(index, currentTab)
-	if FFlagEnableDefaultSortFix then
-		local categoryCheck = currentTab == Category.INVENTORY_KEY
-		local assetypeCheck = Category.INVENTORY_WITH_GROUPS[index].assetType == Category.AssetType.PACKAGE
-		return checkBounds(index) and categoryCheck and assetypeCheck
-	else
-		-- TODO: Remove me
-		if FFlagFixToolboxInitLoad then
-			return checkBounds(index) and currentTab == Category.MARKETPLACE_KEY and Category.INVENTORY_WITH_GROUPS[index].assetType == Category.AssetType.PACKAGE
-		else
-			return checkBounds(index) and Category.INVENTORY_WITH_GROUPS[index].assetType == Category.AssetType.PACKAGE
-		end
+if FFlagUseCategoryNameInToolbox then
+	function Category.categoryIsPackage(categoryName)
+		local category = Category.getCategoryByName(categoryName)
+		return category.assetType == Category.AssetType.PACKAGE
 	end
-end
 
-function Category.categoryIsFreeAsset(index)
-	return checkBounds(index) and Category.INVENTORY_WITH_GROUPS[index].ownershipType == Category.OwnershipType.FREE
-end
+	function Category.categoryIsFreeAsset(categoryName)
+		local category = Category.getCategoryByName(categoryName)
+		return category.ownershipType == Category.OwnershipType.FREE
+	end
 
-function Category.categoryIsGroupAsset(currentTab, index)
-	if currentTab == Category.CREATIONS_KEY then
-		if FFlagToolboxShowGroupCreations then
-			local categories = Category.getCategories(currentTab, {})
-			if categories[index] == nil then
-				return false
+	function Category.categoryIsGroupAsset(categoryName)
+		local category = Category.getCategoryByName(categoryName)
+		return category.ownershipType == Category.OwnershipType.GROUP
+	end
+
+	function Category.categoryIsAudio(categoryName)
+		local category = Category.getCategoryByName(categoryName)
+		return category.assetType == Category.AssetType.AUDIO
+    end
+    
+    function Category.categoryIsVideo(categoryName)
+        local category = Category.getCategoryByName(categoryName)
+		return category.assetType == Category.AssetType.VIDEO
+    end
+
+	function Category.categoryIsGroupPackages(categoryName)
+		local category = Category.getCategoryByName(categoryName)
+		return category.assetType == Category.AssetType.GROUP_PACKAGES
+	end
+
+	function Category.categoryIsPlugin(categoryName)
+		local category = Category.getCategoryByName(categoryName)
+		return category == Category.AssetType.PLUGIN
+	end
+
+	function Category.shouldShowPrices(categoryName)
+		if FFlagEnablePurchasePluginFromLua2 then
+			if FFlagFixToolboxPluginScaling then
+				local isPlugins = Category.categoryIsPlugin(categoryName)
+				local tab = Category.getTabForCategoryName(categoryName)
+				local showPrices = isPlugins and tab == Category.MARKETPLACE
+				return showPrices
+			else
+				return Category.categoryIsPlugin(categoryName)
 			end
-			return categories[index].ownershipType == Category.OwnershipType.GROUP
 		else
 			return false
 		end
 	end
-
-	return checkBounds(index) and Category.INVENTORY_WITH_GROUPS[index].ownershipType == Category.OwnershipType.GROUP
-end
-
-function Category.categoryIsAudio(currentTab, index)
-	if currentTab == Category.MARKETPLACE_KEY then
-		return checkBounds(index) and Category.MARKETPLACE[index].assetType == Category.AssetType.AUDIO
-	else
-		return checkBounds(index) and Category.INVENTORY_WITH_GROUPS[index].assetType == Category.AssetType.AUDIO
+else
+	local function checkBounds(index)
+		return index and index >= 1 and index <= #Category.INVENTORY_WITH_GROUPS
 	end
-end
 
-function Category.categoryIsPlugin(currentTab, index)
-	if currentTab == Category.MARKETPLACE_KEY then
-		return checkBounds(index) and Category.MARKETPLACE[index].assetType == Category.AssetType.PLUGIN
-	else
-		return checkBounds(index) and Category.INVENTORY_WITH_GROUPS[index].assetType == Category.AssetType.PLUGIN
-	end
-end
-
-function Category.categoryIsVideo(currentTab, index)
-	if currentTab == Category.MARKETPLACE_KEY then
-		return checkBounds(index) and Category.MARKETPLACE[index].assetType == Category.AssetType.VIDEO
-	else
-		return checkBounds(index) and Category.INVENTORY_WITH_GROUPS[index].assetType == Category.AssetType.VIDEO
-	end
-end
-
-function Category.shouldShowPrices(currentTab, index)
-	if FFlagEnablePurchasePluginFromLua2 then
-		if FFlagFixToolboxPluginScaling then
-			local isPlugins = Category.categoryIsPlugin(currentTab, index)
-			local showPrices = isPlugins and currentTab == Category.MARKETPLACE_KEY
-			return showPrices
+	function Category.categoryIsPackage(index, currentTab)
+		if FFlagEnableDefaultSortFix then
+			local categoryCheck = currentTab == Category.INVENTORY_KEY
+			local assetypeCheck = Category.INVENTORY_WITH_GROUPS[index].assetType == Category.AssetType.PACKAGE
+			return checkBounds(index) and categoryCheck and assetypeCheck
 		else
-			return Category.categoryIsPlugin(currentTab, index)
+			-- TODO: Remove me
+			if FFlagFixToolboxInitLoad then
+				return checkBounds(index) and currentTab == Category.MARKETPLACE_KEY and
+					Category.INVENTORY_WITH_GROUPS[index].assetType == Category.AssetType.PACKAGE
+			else
+				return checkBounds(index) and
+					Category.INVENTORY_WITH_GROUPS[index].assetType == Category.AssetType.PACKAGE
+			end
 		end
-	else
-		return false
+	end
+
+	function Category.categoryIsFreeAsset(index)
+		return checkBounds(index) and Category.INVENTORY_WITH_GROUPS[index].ownershipType == Category.OwnershipType.FREE
+	end
+
+	function Category.categoryIsGroupAsset(currentTab, index)
+		if currentTab == Category.CREATIONS_KEY then
+			if FFlagToolboxShowGroupCreations then
+				local categories = Category.getCategories(currentTab, {})
+				if categories[index] == nil then
+					return false
+				end
+				return categories[index].ownershipType == Category.OwnershipType.GROUP
+			else
+				return false
+			end
+		end
+		return checkBounds(index) and
+			Category.INVENTORY_WITH_GROUPS[index].ownershipType == Category.OwnershipType.GROUP
+    end
+    
+    function Category.categoryIsVideo(currentTab, index)
+        if currentTab == Category.MARKETPLACE_KEY then
+            return checkBounds(index) and Category.MARKETPLACE[index].assetType == Category.AssetType.VIDEO
+        else
+            return checkBounds(index) and Category.INVENTORY_WITH_GROUPS[index].assetType == Category.AssetType.VIDEO
+        end
+    end
+
+	function Category.categoryIsAudio(currentTab, index)
+		if currentTab == Category.MARKETPLACE_KEY then
+			return checkBounds(index) and Category.MARKETPLACE[index].assetType == Category.AssetType.AUDIO
+		else
+			return checkBounds(index) and Category.INVENTORY_WITH_GROUPS[index].assetType == Category.AssetType.AUDIO
+		end
+	end
+
+	function Category.categoryIsPlugin(currentTab, index)
+		if currentTab == Category.MARKETPLACE_KEY then
+			return checkBounds(index) and Category.MARKETPLACE[index].assetType == Category.AssetType.PLUGIN
+		else
+			return checkBounds(index) and Category.INVENTORY_WITH_GROUPS[index].assetType == Category.AssetType.PLUGIN
+		end
+	end
+
+	function Category.shouldShowPrices(currentTab, index)
+		if FFlagEnablePurchasePluginFromLua2 then
+			if FFlagFixToolboxPluginScaling then
+				local isPlugins = Category.categoryIsPlugin(currentTab, index)
+				local showPrices = isPlugins and currentTab == Category.MARKETPLACE_KEY
+				return showPrices
+			else
+				return Category.categoryIsPlugin(currentTab, index)
+			end
+		else
+			return false
+		end
 	end
 end
 

@@ -61,13 +61,6 @@ local FFlagUserCameraToggle do
 	FFlagUserCameraToggle = success and result
 end
 
-local FFlagUserDontAdjustSensitvityForPortrait do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserDontAdjustSensitvityForPortrait")
-	end)
-	FFlagUserDontAdjustSensitvityForPortrait = success and result
-end
-
 local FFlagUserFixZoomInZoomOutDiscrepancy do
 	local success, result = pcall(function()
 		return UserSettings():IsUserFeatureEnabled("UserFixZoomInZoomOutDiscrepancy")
@@ -90,7 +83,7 @@ local ContextActionService = game:GetService("ContextActionService")
 local VRService = game:GetService("VRService")
 local UserGameSettings = UserSettings():GetService("UserGameSettings")
 
-local player = Players.LocalPlayer 
+local player = Players.LocalPlayer
 
 --[[ The Module ]]--
 local BaseCamera = {}
@@ -481,13 +474,6 @@ function BaseCamera:GetCameraHeight()
 end
 
 function BaseCamera:InputTranslationToCameraAngleChange(translationVector, sensitivity)
-	if not FFlagUserDontAdjustSensitvityForPortrait then
-		local camera = game.Workspace.CurrentCamera
-		if camera and camera.ViewportSize.X > 0 and camera.ViewportSize.Y > 0 and (camera.ViewportSize.Y > camera.ViewportSize.X) then
-			-- Screen has portrait orientation, swap X and Y sensitivity
-			return translationVector * Vector2.new( sensitivity.Y, sensitivity.X)
-		end
-	end
 	return translationVector * sensitivity
 end
 

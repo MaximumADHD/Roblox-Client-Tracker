@@ -7,6 +7,7 @@ local UIBlox = InGameMenuDependencies.UIBlox
 local t = InGameMenuDependencies.t
 
 local withStyle = UIBlox.Core.Style.withStyle
+local Images = UIBlox.App.ImageSet.Images
 
 local InGameMenu = script.Parent.Parent.Parent
 
@@ -17,11 +18,15 @@ local ThemedTextLabel = require(InGameMenu.Components.ThemedTextLabel)
 
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
 
+local FFlagFixInGameMenuMissingAssets = require(InGameMenu.Flags.FFlagFixInGameMenuMissingAssets)
+
 local TextEntryField = Roact.PureComponent:extend("TextEntryField")
 
 local FULL_CIRCLE_OVERAGE = 10
 local LARGER_CIRCLE_CHARACTERS = 20
 local TEXT_SIDE_PADDING = 12
+
+local CIRCLE_BACKGROUND_ASSET = Images["component_assets/circle_17"]
 
 TextEntryField.validateProps = t.strictInterface({
 	-- Wether the TextEntryField is enabled or disabled. Can not be interacted with when disabled.
@@ -85,6 +90,11 @@ function TextEntryField:render()
 			textFont.Font,
 			Vector2.new(self.state.textBoxWidth, 10000)
 		)
+
+		local imageSize = CIRCLE_BACKGROUND_ASSET.ImageRectSize
+		local imageOffset = CIRCLE_BACKGROUND_ASSET.ImageRectOffset
+		local imageWidth = imageSize.X
+		local halfImageWidth = imageWidth / 2
 
 		return Roact.createElement(ImageSetLabel, {
 			BackgroundTransparency = 1,
@@ -182,16 +192,22 @@ function TextEntryField:render()
 				}),
 			}),
 
-			BottomBar = Roact.createElement(ImageSetLabel, {
+			BottomBar = Roact.createElement(FFlagFixInGameMenuMissingAssets and "ImageLabel" or ImageSetLabel, {
 				BackgroundTransparency = 1,
-				Image = Assets.Images.BottomRoundedRect.Image,
+				Image = FFlagFixInGameMenuMissingAssets and CIRCLE_BACKGROUND_ASSET.Image
+					or Assets.Images.BottomRoundedRect.Image,
 				ImageColor3 = style.Theme.BackgroundMuted.Color,
 				ImageTransparency = 0,
-				ScaleType = Assets.Images.BottomRoundedRect.ScaleType,
+				ScaleType = FFlagFixInGameMenuMissingAssets and Enum.ScaleType.Slice
+					or Assets.Images.BottomRoundedRect.ScaleType,
 				AnchorPoint = Vector2.new(0, 1),
 				Position = UDim2.new(0, 0, 1, 0),
 				Size = UDim2.new(1, 0, 0, 32),
-				SliceCenter = Assets.Images.BottomRoundedRect.SliceCenter,
+				SliceCenter = FFlagFixInGameMenuMissingAssets and Rect.new(halfImageWidth - 1, 0, halfImageWidth + 1, 1)
+					or Assets.Images.BottomRoundedRect.SliceCenter,
+				SliceScale = FFlagFixInGameMenuMissingAssets and 1 / Images.ImagesResolutionScale or nil,
+				ImageRectSize = FFlagFixInGameMenuMissingAssets and Vector2.new(imageWidth, halfImageWidth) or nil,
+				ImageRectOffset = FFlagFixInGameMenuMissingAssets and (imageOffset + Vector2.new(0, halfImageWidth)) or nil,
 			}, {
 				TextAmmountIndicator = Roact.createElement("Frame", {
 					BackgroundTransparency = 1,

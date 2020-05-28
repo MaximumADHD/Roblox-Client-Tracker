@@ -16,9 +16,9 @@
 
 local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
-local FFlagEnableAudioPreview = settings():GetFFlag("EnableAudioPreview")
-local FFlagEnableDefaultSortFix = game:GetFastFlag("EnableDefaultSortFix2")
 local FFlagEnableSearchedWithoutInsertionAnalytic = game:GetFastFlag("EnableSearchedWithoutInsertionAnalytic")
+local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
+local FFlagEnableDefaultSortFix2 = game:GetFastFlag("EnableDefaultSortFix2")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -99,7 +99,7 @@ function AssetGridContainer:init(props)
 			previewAssetData = assetData,
 		})
 
-		if FFlagEnableAudioPreview and self.props.isPlaying then
+		if self.props.isPlaying then
 			self.props.pauseASound()
 		end
 	end
@@ -213,7 +213,12 @@ function AssetGridContainer:init(props)
 			plugin = getPlugin(self)
 		end
 
-		local isPackageAsset = Category.categoryIsPackage(self.props.categoryIndex, self.props.currentTab)
+		local isPackageAsset
+		if FFlagUseCategoryNameInToolbox then
+			isPackageAsset = Category.categoryIsPackage(props.categoryName)
+		else
+			isPackageAsset = Category.categoryIsPackage(self.props.categoryIndex, self.props.currentTab)
+		end
 		if isPackageAsset then
 			local canEditPackage = (self.props.currentUserPackagePermissions[assetId] == PermissionsConstants.EditKey or
 			self.props.currentUserPackagePermissions[assetId] == PermissionsConstants.OwnKey)
@@ -230,10 +235,11 @@ function AssetGridContainer:init(props)
 		local assetTypeId = asset.TypeId
 
 		local currentProps = self.props
-		local categoryIndex = currentProps.categoryIndex or 1
+		local categoryIndex = (not FFlagUseCategoryNameInToolbox) and (currentProps.categoryIndex or 1)
+		local categoryName = currentProps.categoryName
 		local searchTerm = currentProps.searchTerm or ""
 		local assetIndex = currentProps.assetIndex
-		local categories = currentProps.categories
+		local categories = (not FFlagUseCategoryNameInToolbox) and (currentProps.categories)
 
 		local plugin
 		if FFlagStudioToolboxEnabledDevFramework then
@@ -247,11 +253,12 @@ function AssetGridContainer:init(props)
 				assetName = assetName,
 				assetTypeId = assetTypeId,
 				onSuccess = self.onAssetInsertionSuccesful,
-				categoryIndex = categoryIndex,
-				currentCategoryName = PageInfoHelper.getCategory(categories, categoryIndex),
+				categoryIndex = (not FFlagUseCategoryNameInToolbox) and categoryIndex,
+				currentCategoryName = (not FFlagUseCategoryNameInToolbox) and (PageInfoHelper.getCategory(categories, categoryIndex)),
+				categoryName = categoryName,
 				searchTerm = searchTerm,
 				assetIndex = assetIndex,
-				currentTab = props.currentTab,
+				currentTab = (not FFlagUseCategoryNameInToolbox) and (props.currentTab),
 			},
 			self.insertToolPromise,
 			assetWasDragged
@@ -287,6 +294,7 @@ function AssetGridContainer:render()
 			local state = self.state
 
 			local assetIds = props.assetIds
+			-- TODO remove currentTab when FFlagUseCategoryNameInToolbox is retired
 			local currentTab = props.currentTab
 
 			local position = props.Position or UDim2.new(0, 0, 0, 0)
@@ -297,18 +305,27 @@ function AssetGridContainer:render()
 
 			local previewAssetData = state.previewAssetData
 
-			local categoryIndex = props.categoryIndex
 			local isPackages
-			if FFlagEnableDefaultSortFix then
-				isPackages = Category.categoryIsPackage(categoryIndex, currentTab)
+			if FFlagUseCategoryNameInToolbox then
+				isPackages = Category.categoryIsPackage(props.categoryName)
 			else
-				isPackages = Category.categoryIsPackage(categoryIndex, categoryIsPackage)
+				local categoryIndex = props.categoryIndex
+				if FFlagEnableDefaultSortFix2 then
+					isPackages = Category.categoryIsPackage(categoryIndex, currentTab)
+				else
+					isPackages = Category.categoryIsPackage(categoryIndex, categoryIsPackage)
+				end
 			end
 
 			local hoveredAssetId = modalStatus:canHoverAsset() and state.hoveredAssetId or 0
 			local isShowingToolMessageBox = state.isShowingToolMessageBox
 
-			local showPrices = Category.shouldShowPrices(props.currentTab, props.categoryIndex)
+			local showPrices
+			if FFlagUseCategoryNameInToolbox then
+				showPrices = Category.shouldShowPrices(props.categoryName)
+			else
+				showPrices = Category.shouldShowPrices(props.currentTab, props.categoryIndex)
+			end
 
 			local cellSize
 			if FFlagEnablePurchasePluginFromLua2 and showPrices then
@@ -348,7 +365,12 @@ function AssetGridContainer:render()
 				self.tryCreateContextMenu(assetData, showEditOption, localizedContent)
 			end
 
-			local isGroupPackageAsset = self.props.categories[self.props.categoryIndex] == Category.GROUP_PACKAGES
+			local isGroupPackageAsset
+			if FFlagUseCategoryNameInToolbox then
+				isGroupPackageAsset = Category.categoryIsGroupPackages(props.categoryName)
+			else
+				isGroupPackageAsset = self.props.categories[self.props.categoryIndex] == Category.GROUP_PACKAGES
+			end
 
 			for index, asset in ipairs(assetIds) do
 				local assetId = asset[1]
@@ -372,7 +394,8 @@ function AssetGridContainer:render()
 					currentSoundId = currentSoundId,
 					isPlaying = isPlaying,
 
-					categoryIndex = categoryIndex,
+					categoryIndex = (not FFlagUseCategoryNameInToolbox) and (props.categoryIndex),
+					categoryName = props.categoryName,
 
 					onAssetHovered = self.onAssetHovered,
 					onAssetHoverEnded = self.onAssetHoverEnded,
@@ -440,14 +463,16 @@ local function mapStateToProps(state, props)
 	local sound = state.sound or {}
 	local pageInfo = state.pageInfo or {}
 
-	local categoryIndex = pageInfo.categoryIndex or 1
+	local categoryIndex = (not FFlagUseCategoryNameInToolbox) and (pageInfo.categoryIndex or 1)
+	local categoryName = pageInfo.categoryName
 
 	return {
 		currentSoundId = sound.currentSoundId or 0,
 		isPlaying = sound.isPlaying or false,
-		categoryIndex = categoryIndex or 1,
+		categoryIndex = (not FFlagUseCategoryNameInToolbox) and (categoryIndex),
+		categoryName = categoryName,
 		categories = pageInfo.categories or {},
-		currentTab = pageInfo.currentTab,
+		currentTab = (not FFlagUseCategoryNameInToolbox) and (pageInfo.currentTab),
 		currentUserPackagePermissions = state.packages.permissionsTable or {},
 	}
 end

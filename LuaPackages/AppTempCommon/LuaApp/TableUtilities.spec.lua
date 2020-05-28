@@ -158,19 +158,19 @@ return function()
 		end)
 
 		it("should return table's field count", function()
-			local table = {}
-			expect(TableUtilities.FieldCount(table)).to.equal(0)
+			local t = {}
+			expect(TableUtilities.FieldCount(t)).to.equal(0)
 
-			table = {
+			t = {
 				key1 = "value1",
 			}
-			expect(TableUtilities.FieldCount(table)).to.equal(1)
+			expect(TableUtilities.FieldCount(t)).to.equal(1)
 
-			table = {
+			t = {
 				key1 = "value1",
 				key2 = "value2",
 			}
-			expect(TableUtilities.FieldCount(table)).to.equal(2)
+			expect(TableUtilities.FieldCount(t)).to.equal(2)
 		end)
 
 		describe("TableUtilities.DeepEqual", function()

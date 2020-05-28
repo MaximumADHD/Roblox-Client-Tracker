@@ -70,14 +70,14 @@ function TextEntry:render()
 		end
 
 		return Roact.createElement("Frame", {
-			Size = UDim2.new(1, 0, 1, 0),
+			Size = size,
 			BackgroundTransparency = 1,
 			ClipsDescendants = true,
 		}, {
 			Text = Roact.createElement("TextBox", {
 				Visible = self.props.Visible,
 
-				Size = size,
+				Size = UDim2.new(1, 0, 1, 0),
 				Position = position,
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,

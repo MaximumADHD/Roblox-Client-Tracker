@@ -21,6 +21,17 @@ return function()
                     vipServersPrice = 200,
                     vipServersActiveServersCount = 50,
                     vipServersActiveSubscriptionsCount = 60,
+                    developerProducts = {
+                        [1] = {
+                            id = 1,
+                            name = "DevProduct1",
+                            description = "This is a Developer Product",
+                            iconImageAssetid = "",
+                            price = 10,
+                        }
+                    },
+                    taxRate = 0.3,
+                    minimumFee = 1,
                 },
                 Changed = {},
                 Errors = {},

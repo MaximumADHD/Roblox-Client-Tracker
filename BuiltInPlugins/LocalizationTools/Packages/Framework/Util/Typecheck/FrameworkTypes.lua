@@ -7,6 +7,10 @@ local Framework = script.Parent.Parent.Parent
 local StyleModifier = require(Framework.Util.StyleModifier)
 local t = require(script.Parent.t)
 local FrameworkTypes = {}
+local Flags = require(Framework.Util.Flags)
+local FlagsList = Flags.new({
+	FFlagRefactorDevFrameworkContextItems = {"RefactorDevFrameworkContextItems"},
+})
 
 function FrameworkTypes.Component(value)
 	local errMsg = "Component expected, got %s."
@@ -50,7 +54,8 @@ end
 
 function FrameworkTypes.Focus(value)
 	local errMsg = "Focus expected, got %s."
-	if not t.table(value) or not t.callback(value.getTarget) then
+	local getFunction = FlagsList:get("FFlagRefactorDevFrameworkContextItems") and value.get or value.getTarget
+	if not t.table(value) or not t.callback(getFunction) then
 		return false, errMsg:format(type(value))
 	end
 	return true

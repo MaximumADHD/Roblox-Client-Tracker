@@ -6,6 +6,7 @@ local Lib = script.Parent.Parent
 local Math = require(Lib.Utility.Math)
 local getGeometry = require(Lib.Utility.getGeometry)
 
+local getFFlagLuaDraggerTerrainFixes = require(Lib.Flags.getFFlagLuaDraggerTerrainFixes)
 local getFFlagFuzzyTerrainNormal = require(Lib.Flags.getFFlagFuzzyTerrainNormal)
 
 local PrimaryDirections = {
@@ -35,6 +36,28 @@ local ROTATE_DEPENDS_ON_CAMERA = false
 
 local DragHelper = {}
 
+local VOXEL_RESOLUTION = 4
+local function roundToTerrainGrid(value)
+	return VOXEL_RESOLUTION * math.floor(value / VOXEL_RESOLUTION + 0.5)
+end
+
+local function findClosestBasis(normal)
+	local mostPerpendicularNormal1
+	local smallestDot = math.huge
+	for _, primaryDirection in ipairs(PrimaryDirections) do
+		local dot = math.abs(primaryDirection:Dot(normal))
+		if dot < smallestDot then
+			smallestDot = dot
+			mostPerpendicularNormal1 = primaryDirection
+		end
+	end
+
+	local mostPerpendicularNormal2 = mostPerpendicularNormal1:Cross(normal).Unit
+	local closestNormal = -mostPerpendicularNormal1:Cross(mostPerpendicularNormal2)
+
+	return closestNormal, mostPerpendicularNormal1, mostPerpendicularNormal2
+end
+
 function DragHelper.snapVectorToPrimaryDirection(direction)
 	local largestDot = -math.huge
 	local closestDirection
@@ -55,19 +78,46 @@ function DragHelper.getSurfaceMatrix(selection, lastSurfaceMatrix)
 	local ray = Ray.new(unitRay.Origin, unitRay.Direction * 10000)
 	local part, mouseWorld, normal = Workspace:FindPartOnRayWithIgnoreList(ray, selection)
 	if part and part:IsA("Terrain") then
-		-- Special case for terrain, since we can't get geometry for it
-		local upVector = Vector3.new(0, 1, 0)
-		if getFFlagFuzzyTerrainNormal() then
-			if normal:FuzzyEq(upVector) then
-				upVector = Vector3.new(1, 0, 0)
-			end
+		if getFFlagLuaDraggerTerrainFixes() then
+			-- First, find the closest aligned global axis normal, and the two other
+			-- axes mutually orthogonal to it.
+			local closestNormal, mostPerpendicularNormal1, mostPerpendicularNormal2
+				= findClosestBasis(normal)
+
+			-- Now we want to grid-align mouseWorld by snapping it to the
+			-- grid size of the terrain on the non-normal axes.
+			local alongNormal1 = mouseWorld:Dot(mostPerpendicularNormal1)
+			local alongNormal2 = mouseWorld:Dot(mostPerpendicularNormal2)
+			local snappedMouseWorldBase =
+				mostPerpendicularNormal1 * roundToTerrainGrid(alongNormal1) +
+				mostPerpendicularNormal2 * roundToTerrainGrid(alongNormal2)
+
+			-- Since we grid-aligned the position on two of the axis, we have to
+			-- bring the position back into the surface plane on the other axis.
+			-- Do that by solving the following equation:
+			-- (snappedMouseWorldBase + closestNormal * adjustmentIntoPlane):Dot(normal) = mouseWorld:Dot(normal)
+			local adjustmentIntoPlane =
+				(mouseWorld:Dot(normal) - snappedMouseWorldBase:Dot(normal)) / closestNormal:Dot(normal)
+			local snappedMouseWorld = snappedMouseWorldBase + closestNormal * adjustmentIntoPlane
+
+			return CFrame.fromMatrix(snappedMouseWorld,
+				normal:Cross(mostPerpendicularNormal1).Unit, normal),
+				mouseWorld, DragTargetType.Terrain
 		else
-			if normal == upVector then
-				upVector = Vector3.new(1, 0, 0)
+			-- Special case for terrain, since we can't get geometry for it
+			local upVector = Vector3.new(0, 1, 0)
+			if getFFlagFuzzyTerrainNormal() then
+				if normal:FuzzyEq(upVector) then
+					upVector = Vector3.new(1, 0, 0)
+				end
+			else
+				if normal == upVector then
+					upVector = Vector3.new(1, 0, 0)
+				end
 			end
+			local xVector = upVector:Cross(normal).Unit
+			return CFrame.fromMatrix(mouseWorld, -xVector, normal), mouseWorld, DragTargetType.Terrain
 		end
-		local xVector = upVector:Cross(normal).Unit
-		return CFrame.fromMatrix(mouseWorld, -xVector, normal), mouseWorld, DragTargetType.Terrain
 	elseif part then
 		-- Find the normal and secondary axis (the direction the studs / UV
 		-- coords are oriented in) of the surface that we're dragging onto.

@@ -1,5 +1,4 @@
 local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
-local FFlagEnableAudioPreview = settings():GetFFlag("EnableAudioPreview")
 
 local RunService = game:GetService("RunService")
 
@@ -66,14 +65,9 @@ function SoundPreviewComponent:init(props)
 			end
 		else
 			if currentSoundId == lastSoundId then
-				if FFlagEnableAudioPreview then
-					local wasAlreadyplaying = soundObj.Playing
-					soundObj.Playing = true
-					if not wasAlreadyplaying then
-						plugin:ResumeSound(soundObj)
-					end
-				else
-					soundObj.Playing = true
+				local wasAlreadyplaying = soundObj.Playing
+				soundObj.Playing = true
+				if not wasAlreadyplaying then
 					plugin:ResumeSound(soundObj)
 				end
 			else
@@ -92,26 +86,24 @@ function SoundPreviewComponent:init(props)
 end
 
 function SoundPreviewComponent:didMount()
-	if FFlagEnableAudioPreview then
-		self.runServiceConnection = RunService.RenderStepped:Connect(function(step)
-			local soundObj = self.ref.current
-			local elapsedTime = self.props.elapsedTime
+	self.runServiceConnection = RunService.RenderStepped:Connect(function(step)
+		local soundObj = self.ref.current
+		local elapsedTime = self.props.elapsedTime
 
-			if (not soundObj or not soundObj.Playing) then
-				return
-			end
-			local newTime = elapsedTime + step
+		if (not soundObj or not soundObj.Playing) then
+			return
+		end
+		local newTime = elapsedTime + step
 
-			local timeLength = soundObj.TimeLength
-			if newTime >= timeLength then
-				newTime = timeLength
-			end
+		local timeLength = soundObj.TimeLength
+		if newTime >= timeLength then
+			newTime = timeLength
+		end
 
-			if elapsedTime ~= newTime then
-				self.props.setSoundElapsedTime(newTime)
-			end
-		end)
-	end
+		if elapsedTime ~= newTime then
+			self.props.setSoundElapsedTime(newTime)
+		end
+	end)
 end
 
 function SoundPreviewComponent:willUnmount()
@@ -124,7 +116,7 @@ function SoundPreviewComponent:render()
 	return Roact.createElement("Sound", {
 		[Roact.Ref] = self.ref,
 		[Roact.Event.Ended] = self.onSoundEnded,
-		[Roact.Event.Changed] = FFlagEnableAudioPreview and self.onSoundChange or nil,
+		[Roact.Event.Changed] = self.onSoundChange,
 	})
 end
 

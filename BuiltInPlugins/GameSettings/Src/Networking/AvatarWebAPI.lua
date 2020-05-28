@@ -42,9 +42,11 @@ function AvatarWebApi.GetAvatarData()
 	return status, result
 end
 
-function AvatarWebApi.GetAvatarRulesData()
-	local status, result = getData("/v1/avatar-rules")
-	return status, result
+if not game:GetFastFlag("GameSettingsNetworkRefactor") then
+	function AvatarWebApi.GetAvatarRulesData()
+		local status, result = getData("/v1/avatar-rules")
+		return status, result
+	end
 end
 
 getData = function(endPoint)

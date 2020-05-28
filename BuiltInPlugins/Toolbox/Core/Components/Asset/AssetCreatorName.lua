@@ -39,8 +39,6 @@ local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEna
 
 local AssetCreatorName = Roact.PureComponent:extend("AssetCreatorName")
 
-local FFlagEnableAudioPreview = settings():GetFFlag("EnableAudioPreview")
-
 function AssetCreatorName:init(props)
 	local networkInterface = getNetwork(self)
 	local settings
@@ -73,16 +71,10 @@ function AssetCreatorName:init(props)
 		local props = self.props
 		if props.clickable then
 			local options
-			if FFlagEnableAudioPreview then
-				options = {
-					Creator = props.creatorName,
-					AudioSearch = props.audioSearchInfo,
-				}
-			else
-				options = {
-					Creator = props.creatorName,
-				}
-			end
+			options = {
+				Creator = props.creatorName,
+				AudioSearch = props.audioSearchInfo,
+			}
 			if FFlagStudioToolboxEnabledDevFramework then
 				local mySettings = self.props.Settings:get("Plugin")
 				props.searchWithOptions(networkInterface, mySettings, options)
@@ -126,7 +118,7 @@ function AssetCreatorName:render()
 					TextColor3 = creatorNameTheme.textColor,
 					Font = Constants.FONT,
 					TextSize = Constants.ASSET_CREATOR_NAME_FONT_SIZE,
-					TextXAlignment = FFlagEnableAudioPreview and Enum.TextXAlignment.Left or Enum.TextXAlignment.Center ,
+					TextXAlignment = Enum.TextXAlignment.Left,
 					TextYAlignment = Enum.TextYAlignment.Top,
 					ClipsDescendants = false,
 					TextTruncate = Enum.TextTruncate.AtEnd,
@@ -147,7 +139,7 @@ function AssetCreatorName:render()
 						AnchorPoint = Vector2.new(0.5, 0.5),
 						Position = UDim2.new(0.5, 0, 1, 1),
 						Size = UDim2.new(0, self.underLineWidth, 0, 1),
-						BorderSizePixel = FFlagEnableAudioPreview and 0 or nil,
+						BorderSizePixel = 0,
 					})
 				})
 			end)
@@ -161,15 +153,12 @@ if FFlagStudioToolboxEnabledDevFramework then
 	})
 end
 
-local mapStateToProps
-if FFlagEnableAudioPreview then
-	mapStateToProps = function(state, props)
-		state = state or {}
-		local pageInfo = state.pageInfo or {}
-		return {
-			audioSearchInfo = pageInfo.audioSearchInfo,
-		}
-	end
+local mapStateToProps = function(state, props)
+	state = state or {}
+	local pageInfo = state.pageInfo or {}
+	return {
+		audioSearchInfo = pageInfo.audioSearchInfo,
+	}
 end
 
 local function mapDispatchToProps(dispatch)

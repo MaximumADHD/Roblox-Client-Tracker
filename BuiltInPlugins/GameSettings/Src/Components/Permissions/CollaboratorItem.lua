@@ -13,7 +13,6 @@
 		callback [Removed=nil] - Called whenever the delete button is clicked
 ]]
 
-local FFlagStudioGameSettingsRestrictPermissions = game:GetFastFlag("StudioGameSettingsRestrictPermissions")
 local FFlagStudioConvertGameSettingsToDevFramework = game:GetFastFlag("StudioConvertGameSettingsToDevFramework")
 
 local ITEM_HEIGHT = 60
@@ -211,12 +210,7 @@ function CollaboratorItem:DEPRECATED_render(props)
 
 	local removable = props.Removable and #props.Items > 0 and not props.IsLoading
 
-	local dropdownEnabled
-	if FFlagStudioGameSettingsRestrictPermissions then
-		dropdownEnabled = not props.IsDropdownLocked and props.Enabled and #props.Items > 0
-	else
-		dropdownEnabled = props.Enabled and #props.Items > 0
-	end
+	local dropdownEnabled = not props.IsDropdownLocked and props.Enabled and #props.Items > 0
 	
 	return withTheme(function(theme)
 		return Roact.createElement("Frame", {
@@ -296,12 +290,7 @@ function CollaboratorItem:render()
 
 	local removable = props.Removable and #props.Items > 0 and not props.IsLoading
 
-	local dropdownEnabled
-	if FFlagStudioGameSettingsRestrictPermissions then
-		dropdownEnabled = not props.IsDropdownLocked and props.Enabled and #props.Items > 0
-	else
-		dropdownEnabled = props.Enabled and #props.Items > 0
-	end
+	local dropdownEnabled = not props.IsDropdownLocked and props.Enabled and #props.Items > 0
 
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 0, ITEM_HEIGHT),

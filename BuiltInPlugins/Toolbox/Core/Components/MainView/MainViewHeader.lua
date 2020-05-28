@@ -21,7 +21,7 @@ local getSettings = ContextGetter.getSettings
 local withLocalization = ContextHelper.withLocalization
 
 local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
-local FFlagEnableAudioPreview = game:GetFastFlag("EnableAudioPreview")
+local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 
 local RequestSearchRequest = require(Plugin.Core.Networking.Requests.RequestSearchRequest)
 local SearchWithOptions = require(Plugin.Core.Networking.Requests.SearchWithOptions)
@@ -44,13 +44,20 @@ function MainViewHeader:init()
 			local creator = self.props.creatorFilter
 			local creatorId = creator and creator.Id or nil
 
+			local category
+			if FFlagUseCategoryNameInToolbox then
+				category = PageInfoHelper.getCategory(self.props.categoryName)
+			else
+				category = PageInfoHelper.getCategory(self.props.categories, self.props.categoryIndex)
+			end
+
 			Analytics.onTermSearched(
-				PageInfoHelper.getCategory(self.props.categories, self.props.categoryIndex),
+				category,
 				searchTerm,
 				creatorId
 			)
 
-			Analytics.onTermSearched(PageInfoHelper.getCategory(self.props.categories, self.props.categoryIndex), searchTerm)
+			Analytics.onTermSearched(category, searchTerm)
 
 			self.props.requestSearch(networkInterface, settings, searchTerm)
 		end
@@ -61,23 +68,17 @@ function MainViewHeader:init()
 	end
 
 	self.onTagsCleared = function()
-		if FFlagEnableAudioPreview then
-			local settings
-			if FFlagStudioToolboxEnabledDevFramework then
-				settings = self.props.Settings:get("Plugin")
-			else
-				settings = getSettings(self)
-			end
-
-			self.props.searchWithOptions(networkInterface, settings, {
-				Creator = "",
-				AudioSearch = Cryo.None,
-			})
+		local settings
+		if FFlagStudioToolboxEnabledDevFramework then
+			settings = self.props.Settings:get("Plugin")
 		else
-			if self.props.onTagsCleared then
-				self.props.onTagsCleared()
-			end
+			settings = getSettings(self)
 		end
+
+		self.props.searchWithOptions(networkInterface, settings, {
+			Creator = "",
+			AudioSearch = Cryo.None,
+		})
 	end
 
 	self.onCreatorCleared = function()
@@ -116,12 +117,7 @@ function MainViewHeader:render()
 		local props = self.props
 
 		local searchTerm = props.searchTerm or ""
-		local creatorName
-		if FFlagEnableAudioPreview then
-			creatorName = props.creatorFilter.Name
-		else
-			creatorName = props.creator and props.creator.Name
-		end
+		local creatorName = props.creatorFilter.Name
 
 		local audioTime
 		local audioSearchInfo = props.audioSearchInfo
@@ -150,29 +146,23 @@ function MainViewHeader:render()
 			end
 
 			local tagsList = {}
-			if FFlagEnableAudioPreview then
-				if creatorName then
-					table.insert(tagsList, {
-						prefix = byPrefix,
-						text = creatorName,
-						onDelete = self.onCreatorCleared,
-					})
-				end
-				if audioTime then
-					table.insert(tagsList, {
-						prefix = lengthPrefix,
-						text = audioTime,
-						onDelete = self.onAudioSearchCleared,
-					})
-				end
-			else
-				tagsList = { creatorName }
+			if creatorName then
+				table.insert(tagsList, {
+					prefix = byPrefix,
+					text = creatorName,
+					onDelete = self.onCreatorCleared,
+				})
 			end
-
+			if audioTime then
+				table.insert(tagsList, {
+					prefix = lengthPrefix,
+					text = audioTime,
+					onDelete = self.onAudioSearchCleared,
+				})
+			end
 			headerChildren.SearchTags = Roact.createElement(SearchTags, {
 				Tags = tagsList,
 				onClearTags = self.onTagsCleared,
-				onDeleteTag = ((not FFlagEnableAudioPreview) and self.onTagsCleared) or nil,
 				searchTerm = searchTerm,
 			})
 		end
@@ -206,7 +196,8 @@ local function mapStateToProps(state, props)
 		audioSearchInfo = pageInfo.audioSearchInfo,
 		creator = pageInfo.creator,
 		categories = pageInfo.categories or {},
-		categoryIndex = pageInfo.categoryIndex or 1,
+		categoryIndex = (not FFlagUseCategoryNameInToolbox) and (pageInfo.categoryIndex or 1),
+		categoryName = pageInfo.categoryName,
 
 		searchTerm = pageInfo.searchTerm or "",
 		creatorFilter = pageInfo.creator or {},

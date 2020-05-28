@@ -11,26 +11,15 @@ local AvatarHeadShot = Roact.PureComponent:extend("AvatarHeadShot")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local CoreGuiModules = RobloxGui:WaitForChild("Modules")
 
-local FFlagCorescriptThumbnailsRespectBaseUrl = require(CoreGuiModules.Flags.FFlagCorescriptThumbnailsRespectBaseUrl)
 local LegacyThumbnailUrls = require(CoreGuiModules.Common.LegacyThumbnailUrls)
 
 local HEADSHOT_THUMBNAIL_SIZE = 48
-local HEAD_SHOT_URL
-if FFlagCorescriptThumbnailsRespectBaseUrl then
-	HEAD_SHOT_URL = LegacyThumbnailUrls.Headshot
-else
-	HEAD_SHOT_URL = "https://www.roblox.com/headshot-thumbnail/image?userId=%s&width=48&height=48&format=png"
-end
+local HEAD_SHOT_URL = LegacyThumbnailUrls.Headshot
 
 function AvatarHeadShot:render()
 	local playerId = self.props.playerId
 
-	local headshotUrl
-	if FFlagCorescriptThumbnailsRespectBaseUrl then
-		headshotUrl = HEAD_SHOT_URL:format(HEADSHOT_THUMBNAIL_SIZE, HEADSHOT_THUMBNAIL_SIZE, playerId)
-	else
-		headshotUrl = HEAD_SHOT_URL:format(playerId)
-	end
+	local headshotUrl = HEAD_SHOT_URL:format(HEADSHOT_THUMBNAIL_SIZE, HEADSHOT_THUMBNAIL_SIZE, playerId)
 
 	return Roact.createElement("ImageLabel", {
 		Size = UDim2.new(0, 48, 0, 48),

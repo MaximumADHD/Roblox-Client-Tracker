@@ -230,6 +230,7 @@ function RadioButton:render()
 			ContentAndChildren = Roact.createElement(FitFrameOnAxis,{
 				axis = FitFrameOnAxis.Axis.Vertical,
 				minimumSize = UDim2.new(0, minimumContentSize, 0, 0),
+				contentPadding = UDim.new(0, theme.radioButton.padding),
 				BackgroundTransparency = 1,
 				FillDirection = Enum.FillDirection.Vertical,
 

@@ -20,7 +20,6 @@
 	LayoutOrder = number,
 ]]
 local FFlagStudioMinorFixesForAssetPreview = settings():GetFFlag("StudioMinorFixesForAssetPreview")
-local FFlagEnableAudioPreview = game:GetFastFlag("EnableAudioPreview")
 local FFlagHideOneChildTreeviewButton = game:GetFastFlag("HideOneChildTreeviewButton")
 local FFlagStudioFixTreeViewForFlatList = settings():GetFFlag("StudioFixTreeViewForFlatList")
 local FFlagStudioAssetPreviewTreeFix2 = game:DefineFastFlag("StudioAssetPreviewTreeFix2", false)
@@ -240,15 +239,10 @@ function PreviewController:render()
 	local onModelPreviewFrameLeft = self.onModelPreviewFrameLeft
 
 	local THUMBNAIL_HEIGHT = PREVIEW_HEIGHT < MODAL_MIN_WIDTH and PREVIEW_HEIGHT or MODAL_MIN_WIDTH
-	local showThumbnail
-	if FFlagEnableAudioPreview then
-		showThumbnail = AssetType:isScript(assetPreviewType) or AssetType:isOtherType(assetPreviewType)
-	else
-		showThumbnail = AssetType:isScript(assetPreviewType) or AssetType:isOtherType(assetPreviewType) or AssetType:isAudio(assetPreviewType)
-	end
+	local showThumbnail = AssetType:isScript(assetPreviewType) or AssetType:isOtherType(assetPreviewType)
 
 	local soundId
-	if FFlagEnableAudioPreview and AssetType:isAudio(assetPreviewType) and currentPreview then
+	if AssetType:isAudio(assetPreviewType) and currentPreview then
 		-- It's wrong to get SoundId from currenttPreview, it should be previewModel.
 		soundId = currentPreview.SoundId
 	end
@@ -256,7 +250,7 @@ function PreviewController:render()
 	local reportPlay = props.reportPlay
 	local reportPause = props.reportPause
 
-	local isShowAudioPreview = FFlagEnableAudioPreview and AssetType:isAudio(assetPreviewType)
+	local isShowAudioPreview = AssetType:isAudio(assetPreviewType)
 	local mainViewButtonYOffset
 	if isShowAudioPreview then
 		mainViewButtonYOffset = 3

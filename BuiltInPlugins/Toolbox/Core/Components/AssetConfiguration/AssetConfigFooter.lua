@@ -76,7 +76,7 @@ function AssetConfigFooter:render()
 			local currentTab = props.currentTab
 
 			local showOverride = ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_OVERRIDE_BUTTON)
-			local overrideText = nil
+			local overrideText
 			if FFlagEnableOverrideAssetCursorFix then
 				if ConfigTypes:isOverride(currentTab) then
 					overrideText = localizedContent.AssetConfig.Footer.NewAsset

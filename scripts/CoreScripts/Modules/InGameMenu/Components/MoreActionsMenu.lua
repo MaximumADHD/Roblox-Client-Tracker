@@ -1,3 +1,5 @@
+-- Remove file with FFlagFixInGameMenuMissingAssets
+
 local CorePackages = game:GetService("CorePackages")
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)

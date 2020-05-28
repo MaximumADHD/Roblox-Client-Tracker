@@ -1,4 +1,3 @@
-local FFlagEnableAudioPreview = settings():GetFFlag("EnableAudioPreview")
 local FFlagToolboxUseNewPluginEndpoint = settings():GetFFlag("ToolboxUseNewPluginEndpoint")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -32,7 +31,7 @@ return function(networkInterface, settings, newPageInfo)
 			categoryName = category and category.name
 		end
 
-		if (not FFlagToolboxUseNewPluginEndpoint) and FFlagEnableAudioPreview and audioSearchInfo then
+		if (not FFlagToolboxUseNewPluginEndpoint) and audioSearchInfo then
 			store:dispatch(GetToolboxItems(networkInterface, Constants.AUDIO_SERACH_CATEGORY_NAME, audioSearchInfo, pageInfo, settings))
 		elseif FFlagToolboxUseNewPluginEndpoint and Category.API_NAMES[categoryName] then
 			store:dispatch(GetToolboxItems(networkInterface, Category.API_NAMES[categoryName], audioSearchInfo, pageInfo, settings))

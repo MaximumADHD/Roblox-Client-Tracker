@@ -11,7 +11,9 @@ return function()
             element = Roact.createElement(RobuxFeeBase, {
                 Title = "title",
                 Price = 10000000000000000000000,
-                DisabledSubText = "bad user, no cookie :(",
+                TaxRate = 0.3,
+                MinimumFee = 1,
+                SubText = "bad user, no cookie :(",
 
                 Enabled = true,
                 Selected = true,

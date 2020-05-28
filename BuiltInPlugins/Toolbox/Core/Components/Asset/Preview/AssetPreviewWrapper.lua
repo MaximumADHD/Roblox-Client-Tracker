@@ -14,6 +14,7 @@
 			preview to close it.
 ]]
 local FFlagEnableDefaultSortFix = game:GetFastFlag("EnableDefaultSortFix2")
+local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 
 local StudioService = game:GetService("StudioService")
 
@@ -68,14 +69,12 @@ local PurchaseStatus = require(Plugin.Core.Types.PurchaseStatus)
 local AssetPreviewWrapper = Roact.PureComponent:extend("AssetPreviewWrapper")
 
 local FixModelPreviewSelection = settings():GetFFlag("FixModelPreviewSelection")
-local FFlagUseDevelopFetchPluginVersionId = game:GetFastFlag("UseDevelopFetchPluginVersionId")
 local FFlagFixUseDevelopFetchPluginVersionId = game:DefineFastFlag("FixUseDevelopFetchPluginVersionId", false)
 local FFlagStudioToolboxPluginPurchaseFlow = game:GetFastFlag("StudioToolboxPluginPurchaseFlow")
 local FFlagStudioHideSuccessDialogWhenFree = game:GetFastFlag("StudioHideSuccessDialogWhenFree")
 local FFlagPluginAccessAndInstallationInStudio = settings():GetFFlag("PluginAccessAndInstallationInStudio")
 local FFlagStudioFixAssetPreviewTreeView = settings():GetFFlag("StudioFixAssetPreviewTreeView")
 local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
-local FFlagEnableAudioPreview = settings():GetFFlag("EnableAudioPreview")
 local FFlagStudioFixAssetPreviewCloseButton = settings():GetFFlag("StudioFixAssetPreviewCloseButton")
 
 local FFlagToolboxUseNewAssetType = game:GetFastFlag("ToolboxUseNewAssetType")
@@ -101,7 +100,7 @@ function AssetPreviewWrapper:createPurchaseFlow(localizedContent)
 	local typeId = assetData.Asset.TypeId or Enum.AssetType.Model.Value
 
 	local assetVersionId
-	if FFlagUseDevelopFetchPluginVersionId then
+	if FFlagFixUseDevelopFetchPluginVersionId then
 		local previewPluginData = self.props.previewPluginData
 		if previewPluginData then
 			assetVersionId = previewPluginData.versionId
@@ -336,7 +335,7 @@ function AssetPreviewWrapper:init(props)
 	self.tryInstall = function()
 		local assetData = self.props.assetData
 		local assetVersionId
-		if FFlagUseDevelopFetchPluginVersionId then
+		if FFlagFixUseDevelopFetchPluginVersionId then
 			local previewPluginData = self.props.previewPluginData
 			assetVersionId = previewPluginData.versionId
 		else
@@ -348,7 +347,8 @@ function AssetPreviewWrapper:init(props)
 		local assetName = asset.Name
 		local assetTypeId = asset.TypeId
 
-		local categoryIndex = self.props.categoryIndex
+		local categoryIndex = (not FFlagUseCategoryNameInToolbox) and (self.props.categoryIndex)
+		local categoryName = self.props.categoryName
 
 		if FFlagStudioToolboxPluginPurchaseFlow then
 			local owned = self.props.Owned
@@ -366,13 +366,13 @@ function AssetPreviewWrapper:init(props)
 		end
 
 		local success = InsertAsset.tryInsert({
-			plugin = plugin,
 			assetId = assetId,
 			assetVersionId = assetVersionId,
 			assetName = assetName,
 			assetTypeId = assetTypeId,
-			currentTab = self.props.currentTab,
-			categoryIndex = FFlagEnableDefaultSortFix and categoryIndex or nil,
+			currentTab = (not FFlagUseCategoryNameInToolbox) and (self.props.currentTab),
+			categoryIndex = (not FFlagUseCategoryNameInToolbox) and (FFlagEnableDefaultSortFix and categoryIndex or nil),
+			categoryName = FFlagEnableDefaultSortFix and categoryName or nil,
 		})
 		if success then
 			self:setState({
@@ -449,7 +449,7 @@ end
 function AssetPreviewWrapper:didMount()
 	self.props.getPreviewInstance(self.props.assetData.Asset.Id, self.props.assetData.Asset.TypeId)
 	if self.props.assetData.Asset.TypeId == Enum.AssetType.Plugin.Value then
-		if FFlagUseDevelopFetchPluginVersionId then
+		if FFlagFixUseDevelopFetchPluginVersionId then
 			self.props.getPluginInfo(getNetwork(self), self.props.assetData.Asset.Id)
 		else
 			self.props.deprecated_getAssetVersionId(getNetwork(self), self.props.assetData.Asset.Id)
@@ -498,7 +498,7 @@ function AssetPreviewWrapper:render()
 					MaxPreviewHeight = maxPreviewHeight,
 
 					AssetData = assetData,
-					PreviewModel = FFlagEnableAudioPreview and previewModel or nil,
+					PreviewModel = previewModel,
 					CurrentPreview = currentPreview,
 
 					ActionBarText = purchaseFlow.ActionBarText,
@@ -588,9 +588,10 @@ local function mapStateToProps(state, props)
 	local voting = state.voting or {}
 
 	local stateToProps = {
-		categoryIndex = FFlagEnableDefaultSortFix and (pageInfo.categoryIndex or 1) or nil,
+		categoryIndex =  (not FFlagUseCategoryNameInToolbox) and (FFlagEnableDefaultSortFix and (pageInfo.categoryIndex or 1) or nil),
+		categoryName = pageInfo.categoryName,
 		previewModel = previewModel or nil,
-		currentTab = pageInfo.currentTab or Category.MARKETPLACE_KEY,
+		currentTab =  (not FFlagUseCategoryNameInToolbox) and (pageInfo.currentTab or Category.MARKETPLACE_KEY),
 		assetVersionId = assetVersionId,
 		canManage = canManage,
 		previewPluginData = assets.previewPluginData,

@@ -6,7 +6,7 @@ local UtilityFunctionsTable = require(Plugin.Src.Util.UtilityFunctionsTable)
 
 local DEFAULT_STATE = {templates = {}}
 
-if game:GetFastFlag("StudioGameSettingsResetStoreAction") then
+if game:GetFastFlag("StudioGameSettingsResetStoreAction2") then
 	return Rodux.createReducer(DEFAULT_STATE, {
 		ResetStore = function(state, action)
 			return DEFAULT_STATE

@@ -84,6 +84,19 @@ local function canBeCoalesced(method)
 	return method == "GET" or method == "PATCH"
 end
 
+local function deepJoin(t1, t2)
+	local override = {}
+	for k,v in pairs(t2) do
+		if typeof(v) == "table" and typeof(t1[k]) == "table" then
+			override[k] = deepJoin(t1[k], v)
+		else
+			override[k] = v
+		end
+	end
+
+	return Cryo.Dictionary.join(t1, override)
+end
+
 local NetworkingImpl = {}
 NetworkingImpl.__index = NetworkingImpl
 
@@ -156,8 +169,8 @@ function NetworkingImpl:__requestWithCoalesce(options)
 
 	if existingRequest then
 		if method == "PATCH" then
-			existingRequest.options = Cryo.Dictionary.join(existingRequest.options, {
-				Body = Cryo.Dictionary.join(existingRequest.options.Body, options.Body)
+			existingRequest.options = deepJoin(existingRequest.options, {
+				Body = options.Body,
 			})
 		end
 

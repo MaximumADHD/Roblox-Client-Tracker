@@ -20,6 +20,7 @@ local FFlagPluginAccessAndInstallationInStudio = settings():GetFFlag("PluginAcce
 local FFlagEnableToolboxInsertWithJoin2 = settings():GetFFlag("EnableToolboxInsertWithJoin2")
 local FFlagStudioToolboxInsertAssetCategoryAnalytics = settings():GetFFlag("StudioToolboxInsertAssetCategoryAnalytics")
 local FFlagToolboxFixDecalInsert = settings():GetFFlag("ToolboxFixDecalInsert")
+local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 local FFlagEnableToolboxVideos = game:GetFastFlag("EnableToolboxVideos")
 
 local INSERT_MAX_SEARCH_DEPTH = 2048
@@ -246,9 +247,15 @@ local function assetTypeIdToString(assetTypeId)
 	end
 end
 
---TODO: CLIDEVSRVS-1691: Replacing category index with assetTypeId for package insertion in lua toolbox
 local function dispatchInsertAsset(options, insertToolPromise)
-	if Category.categoryIsPackage(options.categoryIndex) then
+	local isPackage
+	if FFlagUseCategoryNameInToolbox then
+		isPackage = Category.categoryIsPackage(options.categoryName)
+	else
+		isPackage = Category.categoryIsPackage(options.categoryIndex, Category.MARKETPLACE_KEY)
+	end
+
+	if isPackage then
 		return insertPackage(options.assetId)
 	elseif options.assetTypeId == Enum.AssetType.Audio.Value then
 		return insertAudio(options.assetId, options.assetName)
@@ -291,7 +298,7 @@ Options table format:
 	assetName = string,
 	assetTypeId = AssetType,
 	onSuccess = function,
-	categoryIndex = number,
+	categoryName = string,
 	currentCategoryName = string,
 	searchTerm = string,
 	assetIndex = number,
@@ -364,11 +371,18 @@ function InsertAsset.doDragInsertAsset(options)
 		-- That will insert the given asset and drag it in the 3d view
 		options.plugin.UsesAssetInsertionDrag = true
 
+		local isPackage
+		if FFlagUseCategoryNameInToolbox then
+			isPackage = Category.categoryIsPackage(options.categoryName)
+		else
+			isPackage = Category.categoryIsPackage(options.categoryIndex, Category.MARKETPLACE_KEY)
+		end
+
 		-- TODO CLIDEVSRVS-1246: This should use uri list or something
 		local url = Urls.constructAssetGameAssetIdUrl(
 			assetId,
 			options.assetTypeId,
-			Category.categoryIsPackage(options.categoryIndex)
+			isPackage
 		)
 		if DebugFlags.shouldDebugUrls() then
 			print(("Dragging asset url %s"):format(url))

@@ -17,7 +17,8 @@ local DividerRow = require(Plugin.Src.Components.DividerRow)
 local RangeSlider = require(RoactStudioWidgets.RangeSlider)
 local TitleBar = require(Plugin.Src.Components.TitleBar)
 
-local GetScaleBoundaries = require(Plugin.Src.Thunks.GetScaleBoundaries)
+-- TODO (awarwick) 5/16/2020 Remove with FFlagGameSettingsNetworkRefactor
+local GetScaleBoundaries = require(Plugin.Src.Thunks.DEPRECATED_GetScaleBoundaries)
 
 local ScalePanel = Roact.Component:extend("ComponentScalePanel")
 
@@ -131,8 +132,10 @@ function ScalePanel:init()
 	self.frameRef = Roact.createRef()
 end
 
-function ScalePanel:didMount()
-    self.props.getScaleBoundaries()
+if not game:GetFastFlag("GameSettingsNetworkRefactor") then
+	function ScalePanel:didMount()
+		self.props.getScaleBoundaries()
+	end
 end
 
 function ScalePanel:DEPRECATED_render()
@@ -281,6 +284,7 @@ ScalePanel = RoactRodux.UNSTABLE_connect2(
 	end,
 
 	function(dispatch)
+		if game:GetFastFlag("GameSettingsNetworkRefactor") then return {} end
 		return {
 			getScaleBoundaries = function()
 				dispatch(GetScaleBoundaries())

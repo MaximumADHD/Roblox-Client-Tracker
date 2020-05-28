@@ -2,8 +2,6 @@
 	Get groups from the entire platform whose name matches a search term
 ]]
 
-local FFlagStudioGameSettingsRestrictPermissions = game:GetFastFlag("StudioGameSettingsRestrictPermissions")
-
 local HttpService = game:GetService("HttpService")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
@@ -46,18 +44,7 @@ function SearchGroups.Get(searchTerm)
 		Params = {groupName=searchTerm},
 	}
 
-	if #searchTerm < MIN_NAME_LENGTH or #searchTerm > MAX_NAME_LENGTH or FFlagStudioGameSettingsRestrictPermissions then
-		return Promise.resolve({[PermissionsConstants.GroupSubjectKey] = {}})
-	end
-
-	return Http.Request(requestInfo):andThen(function(jsonResult)
-		local result = HttpService:JSONDecode(jsonResult)
-		return deserializeResult(result.data)
-	end)
-	:catch(function()
-		warn("Game Settings: Failed to search for groups matching '"..searchTerm.."'")
-		return Promise.reject()
-	end)
+	return Promise.resolve({[PermissionsConstants.GroupSubjectKey] = {}})
 end
 
 return SearchGroups

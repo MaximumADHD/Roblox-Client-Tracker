@@ -23,23 +23,13 @@ local THUMBNAIL_SIZE_MAP = {
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local CoreGuiModules = RobloxGui:WaitForChild("Modules")
 
-local FFlagCorescriptThumbnailsRespectBaseUrl = require(CoreGuiModules.Flags.FFlagCorescriptThumbnailsRespectBaseUrl)
 local LegacyThumbnailUrls = require(CoreGuiModules.Common.LegacyThumbnailUrls)
 
-local THUMBNAIL_FALLBACK_URLS
-if FFlagCorescriptThumbnailsRespectBaseUrl then
-	THUMBNAIL_FALLBACK_URLS = {
-		[Enum.ThumbnailType.HeadShot] = LegacyThumbnailUrls.Headshot,
-		[Enum.ThumbnailType.AvatarBust] = LegacyThumbnailUrls.Bust,
-		[Enum.ThumbnailType.AvatarThumbnail] = LegacyThumbnailUrls.Thumbnail,
-	}
-else
-	THUMBNAIL_FALLBACK_URLS = {
-		[Enum.ThumbnailType.HeadShot] = "https://www.roblox.com/headshot-thumbnail/image?width=%d&height=%d&format=png&userId=%d",
-		[Enum.ThumbnailType.AvatarBust] = "https://www.roblox.com/bust-thumbnail/image?width=%d&height=%d&format=png&userId=%d",
-		[Enum.ThumbnailType.AvatarThumbnail] = "https://www.roblox.com/avatar-thumbnail/image?width=%d&height=%d&format=png&userId=%d"
-	}
-end
+local THUMBNAIL_FALLBACK_URLS = {
+	[Enum.ThumbnailType.HeadShot] = LegacyThumbnailUrls.Headshot,
+	[Enum.ThumbnailType.AvatarBust] = LegacyThumbnailUrls.Bust,
+	[Enum.ThumbnailType.AvatarThumbnail] = LegacyThumbnailUrls.Thumbnail,
+}
 
 local GET_PLAYER_IMAGE_DEFAULT_TIMEOUT = 5
 local DEFAULT_THUMBNAIL_SIZE = Enum.ThumbnailSize.Size100x100
