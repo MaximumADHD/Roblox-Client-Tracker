@@ -16,6 +16,8 @@
         LayoutOrder = number, order in which this component should appear under its parent.
 ]]
 
+local PLACEHOLDER_TAX_RATE = 0.90
+
 local Plugin = script.Parent.Parent.Parent
 local Cryo = require(Plugin.Cryo)
 local Roact = require(Plugin.Roact)
@@ -37,10 +39,10 @@ function RobuxFeeBase:render()
     local theme = props.Theme:get("Plugin")
     local localization = props.Localization
 
-    local taxRate = props.TaxRate
-    local minimumFee = props.Price > 0 and props.MinimumFee or 0
-
+    local taxRate = props.TaxRate and props.TaxRate or PLACEHOLDER_TAX_RATE
     local priceVal = type(props.Price) == "number" and props.Price or 0
+    local minimumFee = priceVal > 0 and props.MinimumFee or 0
+
     local price = string.format("%.f", priceVal)
     local subText = props.SubText
     local enabled = props.Enabled

@@ -46,7 +46,6 @@ return function()
 			})
 			local instance = Roact.mount(element, container)
 			expect(container:FindFirstChild("Separator", true).Size).to.equal(UDim2.new(0, 1, 1, -4))
-
 			Roact.unmount(instance)
 		end)
 	end)

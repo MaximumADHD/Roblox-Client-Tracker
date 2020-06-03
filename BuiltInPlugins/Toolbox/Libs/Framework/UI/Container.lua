@@ -9,15 +9,14 @@
 
 		number Margin: A constant margin all around the component, including the background.
 		table Margin: Specific margin values for Top, Bottom, Left, and Right.
-
 		number Padding: A constant padding all around the interior of the component.
 		table Padding: Specific padding values for Top, Bottom, Left, and Right.
-
 		UDim2 Size: The size of this component.
 		UDim2 Position: The position of this component.
 		Vector2 AnchorPoint: The pivot point of this component's Position prop.
 		number ZIndex: The render index of this component.
 		number LayoutOrder: The layout order of this component in a list.
+		boolean Visible: whether or not the component is rendered.
 ]]
 
 local Framework = script.Parent.Parent
@@ -43,6 +42,8 @@ function Container:render()
 	local anchorPoint = props.AnchorPoint
 	local zIndex = props.ZIndex
 	local layoutOrder = props.LayoutOrder
+	local visible = props.Visible
+	local ref = props[Roact.Ref]
 
 	local children = props[Roact.Children] or {}
 	if type(padding) == "number" then
@@ -91,6 +92,8 @@ function Container:render()
 		LayoutOrder = layoutOrder,
 		AnchorPoint = anchorPoint,
 		ZIndex = zIndex,
+		Visible = visible,
+		[Roact.Ref] = ref,
 	}, {
 		Margin = marginComponent,
 

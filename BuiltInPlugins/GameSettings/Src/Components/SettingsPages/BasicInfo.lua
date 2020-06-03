@@ -136,14 +136,34 @@ local function saveSettings(store, contextItems)
 			local changed = state.Settings.Changed.name
 
 			if changed ~= nil then
-				gameInfoController:setName(gameId, changed)
+				local success, result = pcall(function()
+					gameInfoController:setName(gameId, changed)
+				end)
+
+				if not success then
+					if result == gameInfoController.NameModerated then
+						store:dispatch(AddErrors({name = "Moderated"}))
+					end
+
+					error()
+				end
 			end
 		end,
 		function()
 			local changed = state.Settings.Changed.description
 
 			if changed ~= nil then
-				gameInfoController:setDescription(gameId, changed)
+				local success, result = pcall(function()
+					gameInfoController:setDescription(gameId, changed)
+				end)
+
+				if not success then
+					if result == gameInfoController.DescriptionModerated then
+						store:dispatch(AddErrors({description = "Moderated"}))
+					end
+
+					error()
+				end
 			end
 		end,
 		function()

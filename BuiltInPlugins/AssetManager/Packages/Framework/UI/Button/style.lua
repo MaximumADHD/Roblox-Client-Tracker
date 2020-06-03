@@ -21,10 +21,8 @@ return function(theme, getColor)
 		Padding = 0,
 		TextXAlignment = Enum.TextXAlignment.Center,
 		TextYAlignment = Enum.TextYAlignment.Center,
-	})
-
-	local Round = Style.extend(Default, {
-		Background = Decoration.RoundBox,
+		TextColor = theme:GetColor("ButtonText"),
+		Background = Decoration.Box,
 		BackgroundStyle = Style.extend(roundBox.Default, {
 			Color = theme:GetColor("Button"),
 		}),
@@ -33,6 +31,21 @@ return function(theme, getColor)
 				Color = theme:GetColor("Button", "Hover"),
 			},
 		},
+		[StyleModifier.Disabled] = {
+			BackgroundStyle = {
+				Color = theme:GetColor("Button", "Disabled"),
+			},
+			TextColor = theme:GetColor("ButtonText", "Disabled"),
+		},
+		[StyleModifier.Pressed] = {
+			BackgroundStyle = {
+				Color = theme:GetColor("Button", "Pressed"),
+			},
+		},
+	})
+
+	local Round = Style.extend(Default, {
+		Background = Decoration.RoundBox,
 	})
 
 	local RoundPrimary = Style.extend(Round, {
@@ -44,6 +57,12 @@ return function(theme, getColor)
 			BackgroundStyle = {
 				Color = theme:GetColor("DialogMainButton", "Hover"),
 			},
+		},
+		[StyleModifier.Disabled] = {
+			BackgroundStyle = {
+				Color = theme:GetColor("DialogMainButton", "Disabled"),
+			},
+			TextColor = theme:GetColor("DialogMainButtonText", "Disabled"),
 		},
 	})
 

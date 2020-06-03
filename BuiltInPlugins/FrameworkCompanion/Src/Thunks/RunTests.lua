@@ -5,7 +5,7 @@
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
-local TestEZ = require(Plugin.Packages.TestEZ)
+local TestEZ = require(Plugin.Packages.Dev.TestEZ)
 local TestBootstrap = TestEZ.TestBootstrap
 local TextReporter = TestEZ.TextReporter
 

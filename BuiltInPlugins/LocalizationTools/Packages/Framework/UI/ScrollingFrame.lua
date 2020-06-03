@@ -62,12 +62,11 @@ function ScrollingFrame:init()
 			Position = Cryo.None,
 			Size = Cryo.None,
 			LayoutOrder = Cryo.None,
-			Padding = Cryo.None,
 			AutoSizeCanvas = Cryo.None,
 			AutoSizeLayoutElement = Cryo.None,
 			AutoSizeLayoutOptions = Cryo.None,
 			Theme = Cryo.None,
-			Style = Cryo.None,			
+			Style = Cryo.None,
 		},
 		-- TO DO: include prop-filter for infinite scrolling props. DEVTOOLS-4123
 	}
@@ -101,13 +100,7 @@ function ScrollingFrame:render()
 	local position = props.Position
 	local size = props.Size
 	local layoutOrder = props.LayoutOrder
-	local padding = prioritize(props.Padding, style.Padding, {})
-	local paddingTable = {
-		Top = padding.Top or 0,
-		Left = padding.Left or 0,
-		Bottom = padding.Bottom or 0,
-		Right = padding.Right or 0,
-	}
+
 	local autoSizeCanvas = prioritize(props.AutoSizeCanvas, style.AutoSizeCanvas, false)
 	local autoSizeElement = prioritize(props.AutoSizeLayoutElement, style.AutoSizeLayoutElement, "UIListLayout")
 	local layoutOptions = prioritize(props.AutoSizeLayoutOptions, style.AutoSizeLayoutOptions, {})
@@ -138,7 +131,6 @@ function ScrollingFrame:render()
 		Position = position,
 		Size = size,
 		LayoutOrder = layoutOrder,
-		Padding = paddingTable,
 	}, {
 		Scroller = scrollingFrame,
 	})

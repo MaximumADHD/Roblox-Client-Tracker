@@ -5,6 +5,8 @@ local Framework = script.Parent.Parent
 local SelectionHelper = require(Framework.Utility.SelectionHelper)
 local SelectionWrapper = require(Framework.Utility.SelectionWrapper)
 
+local getFFlagLuaDraggerHandleScale = require(Framework.Flags.getFFlagLuaDraggerHandleScale)
+local getFFlagRetainHoverPart = require(Framework.Flags.getFFlagRetainHoverPart)
 local getFFlagStudioServiceHoverInstance = require(Framework.Flags.getFFlagStudioServiceHoverInstance)
 
 local HoverTracker = {}
@@ -32,20 +34,38 @@ function HoverTracker:update(derivedWorldState)
 
     -- Possibly hover a handle instead if we have a handle closer that the part
     local mouseRay = SelectionHelper.getMouseRay()
-    local hoverHandleId, hoverHandleDistance =
-        self:_getHitHandle(mouseRay, derivedWorldState:getHandleScale())
+    local hoverHandleId, hoverHandleDistance
+    if getFFlagLuaDraggerHandleScale() then
+        hoverHandleId, hoverHandleDistance = self:_getHitHandle(mouseRay)
+    else
+        hoverHandleId, hoverHandleDistance =
+            self:_getHitHandle(mouseRay, derivedWorldState:getHandleScale())
+    end
 	if hoverHandleId then
 		if not self._hoverSelectable or hoverHandleDistance < distanceToHover then
 			self._hoverHandleId = hoverHandleId
             self._hoverDistance = hoverHandleDistance
-            self._hoverInstance = nil
-            self._hoverSelectable = nil
+            if not getFFlagRetainHoverPart() then
+                self._hoverInstance = nil
+                self._hoverSelectable = nil
+            end
             self._hoverPosition = nil
 		end
     end
 
     if getFFlagStudioServiceHoverInstance() then
-        StudioService.HoverInstance = self._hoverInstance
+        if getFFlagRetainHoverPart() then
+            -- If you're hovering a handle, you're trying to start a drag, so
+            -- we don't want the additional visual clutter of any hoverInstance
+            -- related information getting in the way in that case.
+            if self._hoverHandleId then
+                StudioService.HoverInstance = nil
+            else
+                StudioService.HoverInstance = self._hoverInstance
+            end
+        else
+            StudioService.HoverInstance = self._hoverInstance
+        end
     end
 
     if self._onHoverChanged and self._hoverSelectable ~= oldHoverSelectable then
@@ -122,12 +142,22 @@ function HoverTracker:getHoverSelectable()
     return self._hoverSelectable
 end
 
-function HoverTracker:_getHitHandle(mouseRay, handleScale)
-	if self._toolImplementation and self._toolImplementation.hitTest then
-		return self._toolImplementation:hitTest(mouseRay, handleScale)
-	else
-		return nil
-	end
+if getFFlagLuaDraggerHandleScale() then
+    function HoverTracker:_getHitHandle(mouseRay)
+        if self._toolImplementation and self._toolImplementation.hitTest then
+            return self._toolImplementation:hitTest(mouseRay)
+        else
+            return nil
+        end
+    end
+else
+    function HoverTracker:_getHitHandle(mouseRay, handleScale)
+        if self._toolImplementation and self._toolImplementation.hitTest then
+            return self._toolImplementation:hitTest(mouseRay, handleScale)
+        else
+            return nil
+        end
+    end
 end
 
 return HoverTracker

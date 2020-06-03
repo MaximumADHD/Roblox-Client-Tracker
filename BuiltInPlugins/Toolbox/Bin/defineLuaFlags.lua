@@ -41,6 +41,7 @@ game:DefineFastFlag("CMSFixAssetPreviewForThumbnailConfig", false)
 game:DefineFastFlag("ToolboxUseNewAssetType", false)
 
 game:DefineFastFlag("StudioToolboxSearchOverflowFix", false)
+game:DefineFastFlag("ToolboxFixOneSecondAudioMaxDuration", false)
 
 game:DefineFastFlag("StudioFixComparePageInfo", false)
 

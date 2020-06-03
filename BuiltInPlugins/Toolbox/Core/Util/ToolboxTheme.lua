@@ -568,7 +568,8 @@ function ToolboxTheme:_recalculateTheme()
 				textColor = styleGuide.textColor,
 				button_Color = isDark and Color3.fromRGB(204, 204, 204) or Color3.fromRGB(117, 117, 117),
 				audioPlay_BG_Color = isDark and Color3.fromRGB(102, 102, 102) or Color3.fromRGB(204, 204, 204),
-				progressBar_BG_Color = isDark and Color3.fromRGB(37, 37, 37) or Color3.fromRGB(219, 219, 219),
+				progressBar_BG_Color = isDark and Color3.fromRGB(42, 42, 42) or Color3.fromRGB(219, 219, 219),
+				progressKnobColor = isDark and Color3.fromRGB(85, 85, 85) or Colors.BLUE_PRIMARY,
 			},
 		},
 

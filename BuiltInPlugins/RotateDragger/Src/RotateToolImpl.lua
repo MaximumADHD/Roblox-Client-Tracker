@@ -18,9 +18,11 @@ local Colors = require(DraggerFramework.Utility.Colors)
 local Math = require(DraggerFramework.Utility.Math)
 local PartMover = require(DraggerFramework.Utility.PartMover)
 local StandaloneSelectionBox = require(DraggerFramework.Components.StandaloneSelectionBox)
+local getHandleScale = require(DraggerFramework.Utility.getHandleScale)
 
 local RotateHandleView = require(Plugin.Src.RotateHandleView)
 
+local getFFlagLuaDraggerHandleScale = require(DraggerFramework.Flags.getFFlagLuaDraggerHandleScale)
 local getFFlagImprovedHandleParams2 = require(DraggerFramework.Flags.getFFlagImprovedHandleParams2)
 local getFFlagDisallowFloatingPointErrorMove = require(DraggerFramework.Flags.getFFlagDisallowFloatingPointErrorMove)
 
@@ -118,7 +120,12 @@ function RotateToolImpl:update(draggerToolState, derivedWorldState)
 		self._partsToMove, self._attachmentsToMove =
 			derivedWorldState:getObjectsToTransform()
 		self._originalCFrameMap = derivedWorldState:getOriginalCFrameMap()
-		self._scale = derivedWorldState:getHandleScale()
+
+		if getFFlagLuaDraggerHandleScale() then
+			self._scale = getHandleScale(self._boundingBox.CFrame.Position)
+		else
+			self._scale = derivedWorldState:getHandleScale()
+		end
 	end
 	self:_updateHandles()
 end
@@ -126,7 +133,11 @@ end
 function RotateToolImpl:hitTest(mouseRay, handleScale)
 	local closestHandleId, closestHandleDistance = nil, math.huge
 	for handleId, handleProps in pairs(self._handles) do
-		handleProps.Scale = handleScale
+		if getFFlagLuaDraggerHandleScale() then
+			handleProps.Scale = self._scale
+		else
+			handleProps.Scale = handleScale
+		end
 		local distance = RotateHandleView.hitTest(handleProps, mouseRay)
 		if distance and distance < closestHandleDistance then
 			closestHandleDistance = distance

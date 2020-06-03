@@ -15,6 +15,7 @@ local AttachmentMover = require(DraggerFramework.Utility.AttachmentMover)
 local Colors = require(DraggerFramework.Utility.Colors)
 local getHandleScale = require(DraggerFramework.Utility.getHandleScale)
 
+local getFFlagLuaDraggerHandleScale = require(DraggerFramework.Flags.getFFlagLuaDraggerHandleScale)
 local getFFlagSmoothAttachmentMovement = require(DraggerFramework.Flags.getFFlagSmoothAttachmentMovement)
 local getFFlagImprovedHandleParams2 = require(DraggerFramework.Flags.getFFlagImprovedHandleParams2)
 local getFFlagDisallowFloatingPointErrorMove = require(DraggerFramework.Flags.getFFlagDisallowFloatingPointErrorMove)
@@ -95,7 +96,9 @@ function MoveToolImpl:update(draggerToolState, derivedWorldState)
 		self._partsToMove, self._attachmentsToMove =
 			derivedWorldState:getObjectsToTransform()
 		self._originalCFrameMap = derivedWorldState:getOriginalCFrameMap()
-		self._scale = derivedWorldState:getHandleScale()
+		if not getFFlagLuaDraggerHandleScale() then
+			self._scale = derivedWorldState:getHandleScale()
+		end
 	end
 	self:_updateHandles()
 end
@@ -103,7 +106,9 @@ end
 function MoveToolImpl:hitTest(mouseRay, handleScale)
 	local closestHandleId, closestHandleDistance = nil, math.huge
 	for handleId, handleProps in pairs(self._handles) do
-		handleProps.Scale = handleScale
+		if not getFFlagLuaDraggerHandleScale() then
+			handleProps.Scale = handleScale
+		end
 		local distance = MoveHandleView.hitTest(handleProps, mouseRay)
 		if distance and distance <= closestHandleDistance then
 			-- The EQUAL in the condition is here to make sure that the last
@@ -137,7 +142,7 @@ function MoveToolImpl:render(hoveredHandleId)
 				Axis = handleProps.Axis,
 				AxisOffset = handleProps.AxisOffset,
 				Color = handleProps.Color,
-				Scale = self._scale,
+				Scale = getFFlagLuaDraggerHandleScale() and handleProps.Scale or self._scale,
 				AlwaysOnTop = ALWAYS_ON_TOP,
 				Hovered = forceHoveredHandlesOnTop and true,
 			})
@@ -146,7 +151,7 @@ function MoveToolImpl:render(hoveredHandleId)
 				Axis = handleProps.Axis,
 				AxisOffset = handleProps.AxisOffset,
 				Color = handleProps.Color,
-				Scale = self._scale,
+				Scale = getFFlagLuaDraggerHandleScale() and handleProps.Scale or self._scale,
 				AlwaysOnTop = ALWAYS_ON_TOP,
 				Hovered = false,
 			})
@@ -158,7 +163,7 @@ function MoveToolImpl:render(hoveredHandleId)
 					Axis = otherHandleProps.Axis,
 					AxisOffset = otherHandleProps.AxisOffset,
 					Color = Colors.makeDimmed(otherHandleProps.Color),
-					Scale = self._scale,
+					Scale = getFFlagLuaDraggerHandleScale() and otherHandleProps.Scale or self._scale,
 					AlwaysOnTop = ALWAYS_ON_TOP,
 					Thin = true,
 				})
@@ -180,7 +185,7 @@ function MoveToolImpl:render(hoveredHandleId)
 					Axis = handleProps.Axis,
 					AxisOffset = handleProps.AxisOffset,
 					Color = color,
-					Scale = self._scale,
+					Scale = getFFlagLuaDraggerHandleScale() and handleProps.Scale or self._scale,
 					AlwaysOnTop = ALWAYS_ON_TOP,
 					Hovered = hovered,
 				})
@@ -189,7 +194,7 @@ function MoveToolImpl:render(hoveredHandleId)
 					Axis = handleProps.Axis,
 					AxisOffset = handleProps.AxisOffset,
 					Color = color,
-					Scale = self._scale,
+					Scale = getFFlagLuaDraggerHandleScale() and handleProps.Scale or self._scale,
 					AlwaysOnTop = ALWAYS_ON_TOP,
 					Hovered = forceHoveredHandlesOnTop and hovered,
 				})
@@ -214,10 +219,19 @@ function MoveToolImpl:mouseDown(mouseRay, handleId)
 	self:_setupMoveAtCurrentBoundingBox(mouseRay)
 
 	-- Calculate fraction of the way along the handle to "stick" the cursor to
-	local handleOffset, handleLength = MoveHandleView.getHandleDimensionForScale(self._scale)
-	local offsetDueToBoundingBox = self._handles[handleId].AxisOffset
-	self._draggingHandleFrac =
-		(self._startDistance - handleOffset - offsetDueToBoundingBox) / handleLength
+	if getFFlagLuaDraggerHandleScale() then
+		local handleProps = self._handles[handleId]
+		local handleOffset, handleLength =
+			MoveHandleView.getHandleDimensionForScale(handleProps.Scale)
+		local offsetDueToBoundingBox = handleProps.AxisOffset
+		self._draggingHandleFrac =
+			(self._startDistance - handleOffset - offsetDueToBoundingBox) / handleLength
+	else
+		local handleOffset, handleLength = MoveHandleView.getHandleDimensionForScale(self._scale)
+		local offsetDueToBoundingBox = self._handles[handleId].AxisOffset
+		self._draggingHandleFrac =
+			(self._startDistance - handleOffset - offsetDueToBoundingBox) / handleLength
+	end
 end
 
 function MoveToolImpl:_setupMoveAtCurrentBoundingBox(mouseRay)
@@ -261,12 +275,23 @@ function MoveToolImpl:_solveForAdjustedDistance(unadjustedDistance)
 	end
 
 	local offsetDueToBoundingBox = self._handles[self._draggingHandleId].AxisOffset
+	local handleRotation = MoveHandleDefinitions[self._draggingHandleId].Offset
 
 	local function getScaleForDistance(distance)
-		local boundingBoxCenterAtDistance =
-			self._draggingOriginalBoundingBoxCFrame.Position +
-			self._axis * (distance - self._startDistance)
-		return getHandleScale(boundingBoxCenterAtDistance)
+		if getFFlagLuaDraggerHandleScale() then
+			local boundingBoxAtDistance =
+				self._draggingOriginalBoundingBoxCFrame +
+				self._axis * (distance - self._startDistance)
+			local baseCFrameAtDistance =
+				boundingBoxAtDistance * handleRotation *
+				CFrame.new(0, 0, -offsetDueToBoundingBox)
+			return getHandleScale(baseCFrameAtDistance.Position)
+		else
+			local boundingBoxCenterAtDistance =
+				self._draggingOriginalBoundingBoxCFrame.Position +
+				self._axis * (distance - self._startDistance)
+			return getHandleScale(boundingBoxCenterAtDistance)
+		end
 	end
 
 	local function getHandleFracForDistance(distance)
@@ -413,7 +438,9 @@ function MoveToolImpl:_setMidMoveBoundingBox(newBoundingBoxCFrame)
 	local focusPoint =
 		(self._boundingBox.CFrame).Position
 	self._boundingBox.CFrame = newBoundingBoxCFrame
-	self._scale = getHandleScale(focusPoint)
+	if not getFFlagLuaDraggerHandleScale() then
+		self._scale = getHandleScale(focusPoint)
+	end
 end
 
 function MoveToolImpl:mouseUp(mouseRay)
@@ -517,11 +544,20 @@ function MoveToolImpl:_updateHandles()
 				self._boundingBox.CFrame *
 				handleDef.Offset *
 				CFrame.new(0, 0, -offsetDueToBoundingBox)
-			self._handles[handleId] = {
-				AxisOffset = offsetDueToBoundingBox,
-				Axis = handleBaseCFrame,
-				Color = handleDef.Color,
-			}
+			if getFFlagLuaDraggerHandleScale() then
+				self._handles[handleId] = {
+					AxisOffset = offsetDueToBoundingBox,
+					Axis = handleBaseCFrame,
+					Color = handleDef.Color,
+					Scale = getHandleScale(handleBaseCFrame.Position),
+				}
+			else
+				self._handles[handleId] = {
+					AxisOffset = offsetDueToBoundingBox,
+					Axis = handleBaseCFrame,
+					Color = handleDef.Color,
+				}
+			end
 		end
 	end
 end

@@ -17,6 +17,7 @@
 
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 local FFlagToolboxUseNewAssetType = game:GetFastFlag("ToolboxUseNewAssetType")
+local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -46,6 +47,8 @@ local AudioProgressBar = require(Plugin.Core.Components.Asset.AudioProgressBar)
 local ImageWithDefault = require(Plugin.Core.Components.ImageWithDefault)
 local TooltipWrapper = require(Plugin.Core.Components.TooltipWrapper)
 local PopUpWrapperButton = require(Plugin.Core.Components.Asset.Preview.PopUpWrapperButton)
+
+local ContextServices = require(Libs.Framework.ContextServices)
 
 local AssetIcon = Roact.PureComponent:extend("AssetIcon")
 
@@ -123,10 +126,6 @@ function AssetIcon:render()
 
 				Image = thumbnailUrl,
 				defaultImage = "",
-			}) or Roact.createElement("ImageLabel", {
-				BackgroundTransparency = 1,
-				Size = UDim2.new(1, 0, 1, 0),
-				Image = thumbnailUrl,
 			}),
 
 			Badge = isEndorsed and Roact.createElement(AssetIconBadge, {
@@ -186,6 +185,12 @@ function AssetIcon:render()
 			[Roact.Event.MouseLeave] = onMouseLeave,
 		}, children)
 	end)
+end
+
+if FFlagStudioToolboxEnabledDevFramework then
+	ContextServices.mapToProps(AssetIcon, {
+		Theme = ContextServices.Theme,
+	})
 end
 
 local function mapStateToProps(state, props)

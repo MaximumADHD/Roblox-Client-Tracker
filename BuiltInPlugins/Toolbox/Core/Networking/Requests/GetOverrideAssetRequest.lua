@@ -14,6 +14,7 @@ local SetOverrideCursor = require(Actions.SetOverrideCursor)
 
 local FFlagEnableOverrideAssetCursorFix = game:GetFastFlag("EnableOverrideAssetCursorFix")
 local FFlagEnableOverrideAssetGroupCreationApi = game:GetFastFlag("EnableOverrideAssetGroupCreationApi")
+local FFlagFixOverrideAssetGroupPlugins = game:DefineFastFlag("FixOverrideAssetGroupPlugins", false)
 
 local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 local FFlagStudioUseNewAnimationImportExportFlow = settings():GetFFlag("StudioUseNewAnimationImportExportFlow")
@@ -171,8 +172,16 @@ return function(networkInterface, assetTypeEnum, creatorType, creatorId, targetP
 			local groupId = nil
 			if creatorType == "Group" then
 				groupId = creatorId
-				if not FFlagEnableOverrideAssetGroupCreationApi then
-					category = assetTypeEnum == Enum.AssetType.Model and "GroupModels" or "GroupPlugins"
+				if FFlagFixOverrideAssetGroupPlugins then
+					if FFlagEnableOverrideAssetGroupCreationApi then
+						category = assetTypeEnum == Enum.AssetType.Plugin and "Plugin" or category
+					else
+						category = assetTypeEnum == Enum.AssetType.Model and "GroupModels" or "GroupPlugins"
+					end
+				else
+					if not FFlagEnableOverrideAssetGroupCreationApi then
+						category = assetTypeEnum == Enum.AssetType.Model and "GroupModels" or "GroupPlugins"
+					end
 				end
 				if FFlagStudioUseNewAnimationImportExportFlow then
 					category = assetTypeEnum == Enum.AssetType.Animation and "Animation" or category

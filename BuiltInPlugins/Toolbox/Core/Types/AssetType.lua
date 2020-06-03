@@ -62,6 +62,8 @@ function AssetType:getAssetType(assetInstance)
 		return self.TYPES.ImageType
 	elseif assetInstance:IsA("Sound") then
 		return self.TYPES.SoundType
+	elseif FFlagEnableToolboxVideos and assetInstance:IsA("VideoFrame") then
+		return self.TYPES.VideoType
 	elseif assetInstance:IsA("BaseScript") then
 		return self.TYPES.ScriptType
 	else

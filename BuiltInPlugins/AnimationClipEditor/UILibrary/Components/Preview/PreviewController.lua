@@ -206,6 +206,10 @@ function PreviewController:render()
 	local layoutOrder = props.LayoutOrder
 
 	local isShowVideoPreview = FFlagEnableToolboxVideos and AssetType:isVideo(assetPreviewType)
+	local videoId
+	if isShowVideoPreview then
+		videoId = currentPreview.Video
+	end
 
 	local showTreeView = state.showTreeView
 	local previewSize
@@ -307,7 +311,7 @@ function PreviewController:render()
 			}),
 
 			VideoPreview = isShowVideoPreview and Roact.createElement(VideoPreview, {
-				VideoId = "rbxassetid://" .. assetId,
+				VideoId = videoId or Urls.constructAssetIdString(assetId),
 				ShowTreeView = showTreeView,
 			}),
 

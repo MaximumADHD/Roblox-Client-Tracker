@@ -14,6 +14,7 @@ end
 
 function MockPlugin.new()
 	return setmetatable({
+		Name = "MockPlugin",
 		subWindows = {},
 	}, MockPlugin)
 end

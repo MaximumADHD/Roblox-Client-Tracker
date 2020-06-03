@@ -51,7 +51,9 @@ function TextInput:init()
 		end
 		if rbx.Text ~= self.props.Text then
 			local processed = string.gsub(rbx.Text, "[\n\r]", " ")
-			self.props.OnTextChanged(processed)
+			if self.props.OnTextChanged then
+				self.props.OnTextChanged(processed)
+			end
 		end
 	end
 

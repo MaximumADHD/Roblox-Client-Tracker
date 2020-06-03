@@ -5,6 +5,7 @@ local Framework = script.Parent.Parent
 local SelectionHelper = require(Framework.Utility.SelectionHelper)
 local SelectionWrapper = require(Framework.Utility.SelectionWrapper)
 
+local getFFlagLuaDraggerHandleScale = require(Framework.Flags.getFFlagLuaDraggerHandleScale)
 local getFFlagRetainHoverPart = require(Framework.Flags.getFFlagRetainHoverPart)
 local getFFlagStudioServiceHoverInstance = require(Framework.Flags.getFFlagStudioServiceHoverInstance)
 
@@ -33,8 +34,13 @@ function HoverTracker:update(derivedWorldState)
 
     -- Possibly hover a handle instead if we have a handle closer that the part
     local mouseRay = SelectionHelper.getMouseRay()
-    local hoverHandleId, hoverHandleDistance =
-        self:_getHitHandle(mouseRay, derivedWorldState:getHandleScale())
+    local hoverHandleId, hoverHandleDistance
+    if getFFlagLuaDraggerHandleScale() then
+        hoverHandleId, hoverHandleDistance = self:_getHitHandle(mouseRay)
+    else
+        hoverHandleId, hoverHandleDistance =
+            self:_getHitHandle(mouseRay, derivedWorldState:getHandleScale())
+    end
 	if hoverHandleId then
 		if not self._hoverSelectable or hoverHandleDistance < distanceToHover then
 			self._hoverHandleId = hoverHandleId
@@ -136,12 +142,22 @@ function HoverTracker:getHoverSelectable()
     return self._hoverSelectable
 end
 
-function HoverTracker:_getHitHandle(mouseRay, handleScale)
-	if self._toolImplementation and self._toolImplementation.hitTest then
-		return self._toolImplementation:hitTest(mouseRay, handleScale)
-	else
-		return nil
-	end
+if getFFlagLuaDraggerHandleScale() then
+    function HoverTracker:_getHitHandle(mouseRay)
+        if self._toolImplementation and self._toolImplementation.hitTest then
+            return self._toolImplementation:hitTest(mouseRay)
+        else
+            return nil
+        end
+    end
+else
+    function HoverTracker:_getHitHandle(mouseRay, handleScale)
+        if self._toolImplementation and self._toolImplementation.hitTest then
+            return self._toolImplementation:hitTest(mouseRay, handleScale)
+        else
+            return nil
+        end
+    end
 end
 
 return HoverTracker

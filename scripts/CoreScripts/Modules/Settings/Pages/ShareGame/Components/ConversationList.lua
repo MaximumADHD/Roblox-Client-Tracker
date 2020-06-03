@@ -17,6 +17,7 @@ local FriendsErrorPage = require(ShareGame.Components.FriendsErrorPage)
 local InviteUserIdToPlaceId = require(ShareGame.Thunks.InviteUserIdToPlaceId)
 local LoadingFriendsPage = require(ShareGame.Components.LoadingFriendsPage)
 local NoFriendsPage = require(ShareGame.Components.NoFriendsPage)
+local PlayerSearchPredicate = require(CoreGui.RobloxGui.Modules.InGameMenu.Utility.PlayerSearchPredicate)
 
 local User = require(AppTempCommon.LuaApp.Models.User)
 local httpRequest = require(AppTempCommon.Temp.httpRequest)
@@ -96,7 +97,12 @@ function ConversationList:render()
 	local numEntries = 0
 	-- Populate list of conversations with friends
 	for i, user in ipairs(friends) do
-		local isEntryShown = searchFilterPredicate(searchText, user.name)
+		local isEntryShown
+		if UsePlayerDisplayName() then
+			isEntryShown = PlayerSearchPredicate(searchText, user.name, user.displayName)
+		else
+			isEntryShown = searchFilterPredicate(searchText, user.name)
+		end
 
 		children["User-" .. tostring(i)] = Roact.createElement(ConversationEntry, {
 			analytics = analytics,

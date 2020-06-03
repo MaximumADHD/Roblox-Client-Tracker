@@ -7,8 +7,6 @@ local Promise = require(Library.Parent.Http.Promise)
 
 local Urls = require(Library.Utils.Urls)
 
-local FFlagEnableAudioPreview = settings():GetFFlag("EnableAudioPreview")
-
 local function disableScripts(previewModel)
 	for _, item in pairs(previewModel:GetDescendants()) do
 		if item:IsA("Script") then

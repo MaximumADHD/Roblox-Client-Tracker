@@ -9,15 +9,25 @@
 local PageName = "Options"
 
 local FFlagVersionControlServiceScriptCollabEnabled = settings():GetFFlag("VersionControlServiceScriptCollabEnabled")
-local FFlagsEnableVersionHistorySetting = settings():GetFFlag("CollabEditVersionHistoryEnabled") and 
-	(settings():GetFFlag("StudioInternalScriptVersionHistorySetting") or settings():GetFFlag("StudioPlaceFilterScriptVersionHistorySetting"))
+local FFlagsEnableVersionHistorySetting = settings():GetFFlag("CollabEditVersionHistoryEnabled") and
+(settings():GetFFlag("StudioInternalScriptVersionHistorySetting") or settings():GetFFlag("StudioPlaceFilterScriptVersionHistorySetting"))
 local FFlagStudioConvertGameSettingsToDevFramework = game:GetFastFlag("StudioConvertGameSettingsToDevFramework")
+local FFlagGameSettingsShutdownAllServersButton = game:GetFastFlag("GameSettingsShutdownAllServersButton")
+local FFlagGameSettingsPlaceSettings = game:GetFastFlag("GameSettingsPlaceSettings")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
-
+local Cryo = require(Plugin.Cryo)
+local FrameworkUI = require(Plugin.Framework.UI)
+local Button = FrameworkUI.Button
+local HoverArea = FrameworkUI.HoverArea
+local UILibrary = require(Plugin.UILibrary)
+local GetTextSize = UILibrary.Util.GetTextSize
+local TitledFrame = UILibrary.Component.TitledFrame
 local RadioButtonSet = require(Plugin.Src.Components.RadioButtonSet)
 local Header = require(Plugin.Src.Components.Header)
+local SimpleDialog = require(Plugin.Src.Components.Dialog.SimpleDialog)
+local ShutdownAllServers = require(Plugin.Src.Thunks.ShutdownAllServers)
 
 local createSettingsPage = require(Plugin.Src.Components.SettingsPages.DEPRECATED_createSettingsPage)
 
@@ -27,7 +37,8 @@ local function loadValuesToProps(getValue)
 		HttpEnabled = getValue("HttpEnabled"),
 		studioAccessToApisAllowed = getValue("studioAccessToApisAllowed"),
 		ScriptCollabEnabled = FFlagVersionControlServiceScriptCollabEnabled and getValue("ScriptCollabEnabled"),
-		ScriptVersionHistoryEnabled = FFlagsEnableVersionHistorySetting and getValue("ScriptVersionHistoryEnabled")
+		ScriptVersionHistoryEnabled = FFlagsEnableVersionHistorySetting and getValue("ScriptVersionHistoryEnabled"),
+		Places = FFlagGameSettingsPlaceSettings and getValue("places"),
 	}
 	return loadedProps
 end
@@ -38,18 +49,27 @@ local function dispatchChanges(setValue, dispatch)
 		HttpEnabledChanged = setValue("HttpEnabled"),
 		StudioApiServicesChanged = setValue("studioAccessToApisAllowed"),
 		ScriptCollabEnabledChanged = FFlagVersionControlServiceScriptCollabEnabled and setValue("ScriptCollabEnabled"),
-		ScriptVersionHistoryEnabledChanged = FFlagsEnableVersionHistorySetting and setValue("ScriptVersionHistoryEnabled")
+		ScriptVersionHistoryEnabledChanged = FFlagsEnableVersionHistorySetting and setValue("ScriptVersionHistoryEnabled"),
+		ShutdownAllServers = function(placeId)
+			dispatch(ShutdownAllServers(placeId))
+		end,
 	}
-	
+
 	return dispatchFuncs
 end
 
 --Uses props to display current settings values
 local function displayContents(page, localized)
 	local props = page.props
+	local dialog = props.Dialog
+	local theme = FFlagStudioConvertGameSettingsToDevFramework and props.Theme:get("Plugin")
+	local shutdownButtonText = FFlagGameSettingsShutdownAllServersButton and localized:getText("General",
+	"ButtonShutdownAllServers")
+	local shutdownButtonTextExtents = FFlagGameSettingsShutdownAllServersButton and GetTextSize(shutdownButtonText,
+	theme.fontStyle.Header.TextSize, theme.fontStyle.Header.Font)
 	return {
 		Header = Roact.createElement(Header, {
-			Title = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "Category" .. PageName) or localized.Category[PageName],
+			Title = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "Category" .. PageName)or localized.Category[PageName],
 			LayoutOrder = 0,
 		}),
 
@@ -72,7 +92,7 @@ local function displayContents(page, localized)
 				props.HttpEnabledChanged(button.Id)
 			end,
 		}),
-		
+
 		StudioApiServices = Roact.createElement(RadioButtonSet, {
 			Title = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "TitleStudioApiServices") or localized.Title.StudioApiServices,
 			Buttons = {{
@@ -111,7 +131,7 @@ local function displayContents(page, localized)
 			end,
 		}),
 		EnableScriptVersionHistory = FFlagsEnableVersionHistorySetting and Roact.createElement(RadioButtonSet, { --Internal ONLY, no translation needed, should never be in production
-			Title = "Enable Script Version History", 
+			Title = "Enable Script Version History",
 			Buttons = {{
 					Id = true,
 					Title = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "SettingOn") or localized.ScriptCollab.On,
@@ -127,6 +147,55 @@ local function displayContents(page, localized)
 			SelectionChanged = function(button)
 				props.ScriptVersionHistoryEnabledChanged(button.Id)
 			end,
+		}),
+		ShutdownAllServers = FFlagGameSettingsShutdownAllServersButton and Roact.createElement(TitledFrame, {
+			Title = localized:getText("General", "TitleShutdownAllServers"),
+			MaxHeight = 60,
+			LayoutOrder = 7,
+			TextSize = theme.fontStyle.Normal.TextSize,
+			}, {
+				VerticalLayout = Roact.createElement("UIListLayout", {
+					FillDirection = Enum.FillDirection.Vertical,
+					HorizontalAlignment = Enum.HorizontalAlignment.Left,
+					SortOrder = Enum.SortOrder.LayoutOrder,
+				}),
+				ShutdownButton = Roact.createElement(Button, {
+					Style = "RoundPrimary",
+					Text = shutdownButtonText,
+					Size = UDim2.new(0, shutdownButtonTextExtents.X + theme.shutdownButton.PaddingX,
+					0, shutdownButtonTextExtents.Y + theme.shutdownButton.PaddingY),
+					LayoutOrder = 1,
+					OnClick = function()
+						local dialogProps = {
+							Size = Vector2.new(343, 145),
+							Title = localized:getText("General", "ShutdownDialogHeader"),
+							Header = localized:getText("General", "ShutdownDialogBody"),
+							Buttons = {
+								localized:getText("General", "ReplyNo"),
+								localized:getText("General", "ReplyYes"),
+							},
+						}
+
+						local confirmed = dialog.showDialog(SimpleDialog, dialogProps):await()
+						if confirmed then
+							for _, place in pairs(props.Places) do
+								props.ShutdownAllServers(place.id)
+							end
+						end
+					end,
+				}, {
+					Roact.createElement(HoverArea, {Cursor = "PointingHand"}),
+				}),
+
+				ShutdownButtonDescription = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Subtext, {
+					Size = UDim2.new(1, 0, 0, shutdownButtonTextExtents.Y + theme.shutdownButton.PaddingY),
+					LayoutOrder = 2,
+					BackgroundTransparency = 1,
+					Text = localized:getText("General", "StudioShutdownAllServicesDesc"),
+					TextYAlignment = Enum.TextYAlignment.Center,
+					TextXAlignment = Enum.TextXAlignment.Left,
+					TextWrapped = true,
+				})),
 		}),
 	}
 end

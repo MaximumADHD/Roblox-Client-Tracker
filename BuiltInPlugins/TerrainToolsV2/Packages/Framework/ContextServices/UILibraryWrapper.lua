@@ -27,6 +27,10 @@ local mapToProps = require(Framework.ContextServices.mapToProps)
 local Theme = require(Framework.ContextServices.Theme)
 local Plugin = require(Framework.ContextServices.Plugin)
 local Focus = require(Framework.ContextServices.Focus)
+local Util = require(Framework.Util)
+local FlagsList = Util.Flags.new({
+	FFlagRefactorDevFrameworkContextItems = {"RefactorDevFrameworkContextItems"},
+})
 
 local UILibraryProvider = Roact.PureComponent:extend("UILibraryProvider")
 
@@ -41,7 +45,7 @@ function UILibraryProvider:render()
 	return Roact.createElement(UILibrary.Wrapper, {
 		theme = theme:getUILibraryTheme(),
 		plugin = plugin:get(),
-		focusGui = focus:getTarget(),
+		focusGui = FlagsList:get("FFlagRefactorDevFrameworkContextItems") and focus:get() or focus:getTarget(),
 	}, {
 		Roact.oneChild(self.props[Roact.Children])
 	})

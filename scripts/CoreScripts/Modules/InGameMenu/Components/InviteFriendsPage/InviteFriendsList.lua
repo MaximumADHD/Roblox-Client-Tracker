@@ -8,6 +8,8 @@ local Cryo = InGameMenuDependencies.Cryo
 
 local InGameMenu = script.Parent.Parent.Parent
 
+local FFlagInGameMenuInviteFriendsDisplayNameSearch =
+	require(InGameMenu.Flags.FFlagInGameMenuInviteFriendsDisplayNameSearch)
 local getFFlagUseNewPlayerLabelDesign = require(InGameMenu.Flags.GetFFlagUseNewPlayerLabelDesign)
 local fflagUseNewPlayerLabelDesign = getFFlagUseNewPlayerLabelDesign()
 local PlayerLabel = fflagUseNewPlayerLabelDesign and require(InGameMenu.Components.PlayerLabelV2)
@@ -17,6 +19,7 @@ local Divider = require(InGameMenu.Components.Divider)
 local SendInviteButton = require(script.Parent.SendInviteButton)
 local SearchBox = require(script.Parent.SearchBox)
 local BarOnTopScrollingFrame = require(InGameMenu.Components.BarOnTopScrollingFrame)
+local PlayerSearchPredicate = require(InGameMenu.Utility.PlayerSearchPredicate)
 
 local Constants = require(InGameMenu.Resources.Constants)
 local InviteStatus = Constants.InviteStatus
@@ -53,7 +56,7 @@ local function sortPlayers(p1, p2)
 	end
 end
 
-local function searchFilter(searchText, playerName)
+local function searchFilter(searchText, playerName, displayName)
 	if searchText == "" then
 		return true
 	end
@@ -84,7 +87,13 @@ function InviteFriendsList:renderListEntries()
 	for index, playerInfo in pairs(sortedPlayers) do
 		local userId = tostring(playerInfo.Id)
 		local userInviteStatus = self.props.invitesState[userId]
-		local isEntryVisible = searchFilter(self.state.searchText, playerInfo.Username)
+		local isEntryVisible
+		if FFlagInGameMenuInviteFriendsDisplayNameSearch then
+			isEntryVisible = PlayerSearchPredicate(self.state.searchText, playerInfo.Username, playerInfo.DisplayName)
+		else
+			isEntryVisible = searchFilter(self.state.searchText, playerInfo.Username, playerInfo.DisplayName)
+		end
+
 		if isEntryVisible then
 			visibleEntryCount = visibleEntryCount + 1
 		end

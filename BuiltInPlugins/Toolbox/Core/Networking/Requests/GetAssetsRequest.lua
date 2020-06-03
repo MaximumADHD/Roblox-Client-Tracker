@@ -186,7 +186,7 @@ return function(networkInterface, pageInfoOnStart)
 			else
 				isAudio = Category.categoryIsAudio(pageInfoOnStart.currentTab, pageInfoOnStart.categoryIndex or 1)
 				if FFlagEnableToolboxVideos then
-					isVideo = Category.categoryIsVideo(pageInfoOnStart.currentTab, pageInfoOnStart.categoryIndex or 1)
+					isVideo = Category.categoryIsVideo(pageInfoOnStart.categories, pageInfoOnStart.categoryIndex or 1)
 				end
 			end
 
@@ -197,7 +197,6 @@ return function(networkInterface, pageInfoOnStart)
 			then
 				useDevelopAssetAPI = true
 			end
-
 			if useDevelopAssetAPI then
 				return networkInterface:getDevelopAsset(pageInfoOnStart):andThen(generalGetAssetHandleFunc, errorFunc)
 			else

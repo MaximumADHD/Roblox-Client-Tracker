@@ -10,6 +10,7 @@ local Image = require(Src.Image)
 local Box = require(Src.Box)
 local RoundBox = require(Src.RoundBox)
 local Container = require(Src.Container)
+local DropdownMenu = require(Src.DropdownMenu)
 local Button = require(Src.Button)
 local LoadingBar = require(Src.LoadingBar)
 local LoadingIndicator = require(Src.LoadingIndicator)
@@ -26,8 +27,10 @@ local RangeSlider = require(Src.RangeSlider)
 local RadioButton = require(Src.RadioButton)
 local RadioButtonList = require(Src.RadioButtonList)
 local TextLabel = require(Src.TextLabel)
+local BulletList = require(Src.BulletList)
 local ScrollingFrame = require(Src.ScrollingFrame)
 local Separator = require(Src.Separator)
+local Slider = require(Src.Slider)
 local TextInput = require(Src.TextInput)
 
 -- NOTE: Please keep components in alphabetical order
@@ -36,11 +39,13 @@ local UI = {
 	FrameworkStyles = FrameworkStyles,
 
 	-- UI Components
+	BulletList = BulletList,
 	Button = Button,
 	CaptureFocus = CaptureFocus,
 	Container = Container,
 	DragListener = DragListener,
 	DropShadow = DropShadow,
+	DropdownMenu = DropdownMenu,
 	FakeLoadingBar = FakeLoadingBar,
 	HoverArea = HoverArea,
 	KeyboardListener = KeyboardListener,
@@ -53,6 +58,7 @@ local UI = {
 	ShowOnTop = ShowOnTop,
 	ScrollingFrame = ScrollingFrame,
 	Separator = Separator,
+	Slider = Slider,
 	TextInput = TextInput,
 	ToggleButton = ToggleButton,
 

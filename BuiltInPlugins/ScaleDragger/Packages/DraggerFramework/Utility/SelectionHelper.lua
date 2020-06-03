@@ -8,6 +8,9 @@ local Workspace = game:GetService("Workspace")
 local StudioService = game:GetService("StudioService")
 local RunService = game:GetService("RunService")
 
+local Framework = script.Parent.Parent
+local getFFlagHandleOddNesting = require(Framework.Flags.getFFlagHandleOddNesting)
+
 local RAYCAST_DIRECTION_SCALE = 10000
 
 local SelectionHelper = {}
@@ -95,22 +98,40 @@ function SelectionHelper.computeSelectionInfo(selectedObjects)
 			end
 			primaryPart = primaryPart or instance.PrimaryPart
 		elseif instance:IsA("BasePart") then
-			if instance ~= terrain then
-				table.insert(allParts, instance)
-				allPartSet[instance] = true
-				primaryPart = primaryPart or instance
-				basisCFrame = basisCFrame or instance.CFrame
+			if getFFlagHandleOddNesting() then
+				if not allPartSet[instance] and instance ~= terrain then
+					table.insert(allParts, instance)
+					allPartSet[instance] = true
+					primaryPart = primaryPart or instance
+					basisCFrame = basisCFrame or instance.CFrame
+				end
+			else
+				if instance ~= terrain then
+					table.insert(allParts, instance)
+					allPartSet[instance] = true
+					primaryPart = primaryPart or instance
+					basisCFrame = basisCFrame or instance.CFrame
+				end
 			end
 		elseif instance:IsA("Attachment") then
 			table.insert(allAttachments, instance)
 		end
 		-- It is possible to place parts inside of other parts, so this isn't an else on the prior if.
 		for _, descendant in ipairs(instance:GetDescendants()) do
-			if descendant:IsA("BasePart") and descendant ~= terrain then
-				table.insert(allParts, descendant)
-				allPartSet[descendant] = true
-				primaryPart = primaryPart or descendant
-				basisCFrame = basisCFrame or descendant.CFrame
+			if getFFlagHandleOddNesting() then
+				if descendant:IsA("BasePart") and not allPartSet[descendant] and descendant ~= terrain then
+					table.insert(allParts, descendant)
+					allPartSet[descendant] = true
+					primaryPart = primaryPart or descendant
+					basisCFrame = basisCFrame or descendant.CFrame
+				end
+			else
+				if descendant:IsA("BasePart") and descendant ~= terrain then
+					table.insert(allParts, descendant)
+					allPartSet[descendant] = true
+					primaryPart = primaryPart or descendant
+					basisCFrame = basisCFrame or descendant.CFrame
+				end
 			end
 		end
 	end
@@ -309,10 +330,27 @@ end
 -- the common bits into a local function.
 function SelectionHelper.updateSelectionWithMultipleParts(instances, oldSelection)
 	local selectableInstances = {}
-	for _, instance in ipairs(instances) do
-		local selectablePart = SelectionHelper.getSelectable(instance)
-		if selectablePart ~= nil then
-			table.insert(selectableInstances, selectablePart)
+
+	if getFFlagHandleOddNesting() then
+		-- Note here: instances IS a list of unique instances, but multiple
+		-- instances in that list may induce selection of the same selectable.
+		-- (EG: Any time you box-select a model and your box select includes
+		-- multiple parts in the model)
+		-- The result is, we need to filter out the duplicate selectables.
+		local alreadyFlaggedForAddSet = {}
+		for _, instance in ipairs(instances) do
+			local selectablePart = SelectionHelper.getSelectable(instance)
+			if selectablePart ~= nil and not alreadyFlaggedForAddSet[selectablePart] then
+				table.insert(selectableInstances, selectablePart)
+				alreadyFlaggedForAddSet[selectablePart] = true
+			end
+		end
+	else
+		for _, instance in ipairs(instances) do
+			local selectablePart = SelectionHelper.getSelectable(instance)
+			if selectablePart ~= nil then
+				table.insert(selectableInstances, selectablePart)
+			end
 		end
 	end
 

@@ -219,8 +219,14 @@ function DocParser.__addCheckForProp(addTable, prop, isOptional)
 	local existingProp = addTable[propName]
 	local newProp
 	local isEnum = string.find(propType, "Enum")
+	local isArray = string.find(propType, "array[", nil, true)
 	if isEnum then
 		newProp = t.enum(Enum[propType:sub(isEnum + 5)])
+	elseif isArray then
+		local elementType = t[propType:sub(isArray + 6, propType:len() - 1)]
+		if elementType then
+			newProp = t.array(elementType)
+		end
 	else
 		newProp = FrameworkTypes[propType] or t[propType]
 	end

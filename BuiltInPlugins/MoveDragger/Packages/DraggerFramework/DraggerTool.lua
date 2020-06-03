@@ -15,6 +15,7 @@ local plugin = Library.Parent
 local Roact = require(Library.Packages.Roact)
 
 -- Flags
+local getFFlagLuaDraggerHandleScale = require(Framework.Flags.getFFlagLuaDraggerHandleScale)
 local getFFlagMinCursorChange = require(Framework.Flags.getFFlagMinCursorChange)
 local getFFlagBatchBoundsChanged = require(Framework.Flags.getFFlagBatchBoundsChanged)
 local getFFlagHandleCanceledToolboxDrag = require(Framework.Flags.getFFlagHandleCanceledToolboxDrag)
@@ -347,7 +348,9 @@ end
 	currently under the mouse cursor has changed.
 ]]
 function DraggerTool:_processViewChanged()
-	self._derivedWorldState:updateView()
+	if not getFFlagLuaDraggerHandleScale() then
+		self._derivedWorldState:updateView()
+	end
 	self.state.stateObject:processViewChanged(self)
 
 	-- Derived world state may have changed as a result of the view update, so

@@ -90,7 +90,7 @@ function DevProducts:render()
             Headers = {
                 localization:getText("Monetization", "ProductID"),
                 localization:getText("Monetization", "ProductName"),
-                localization:getText("Monetization", "Price"),
+                localization:getText("Monetization", "PriceTitle"),
             },
 
             Data = productsList,

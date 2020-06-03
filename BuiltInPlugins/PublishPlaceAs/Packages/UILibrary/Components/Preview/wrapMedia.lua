@@ -9,6 +9,7 @@
 		callback _Pause: Should be called when clicking the pause button.
 		callback _Play: Should be called when clicking the play button.
 		callBack _SetCurrentTime: Should be called if the currentTime has been changed, such as when moving a progressbar slider.
+		callBack _SetTimeLength: Should be called if the timeLnegth has been changed, such as when a new audio or video is loaded.
 ]]
 local RunService = game:GetService("RunService")
 
@@ -25,6 +26,7 @@ local function wrapMedia(wrappedComponent)
 		self.state = {
 			currentTime = 0,
 			isPlaying = false,
+			timeLength = 0,
 		}
 
 		self.mediaPlayingUpdateSignal = Signal.new()
@@ -56,6 +58,11 @@ local function wrapMedia(wrappedComponent)
 			})
 		end
 
+		self.setTimeLength = function(timeLength)
+			self:setState({
+				timeLength = timeLength,
+			})
+		end
 
 		self.onRenderStepped = function(deltaTime)
 			if not self.isMounted or not self.state.isPlaying then
@@ -64,9 +71,14 @@ local function wrapMedia(wrappedComponent)
 
 			local newTime = self.state.currentTime + deltaTime
 
-			self:setState({
-				currentTime = newTime,
-			})
+			if newTime >= self.state.timeLength then
+				self.onMediaEnded()
+				self.mediaPlayingUpdateSignal:fire("END")
+			else
+				self:setState({
+					currentTime = newTime,
+				})
+			end
 		end
 	end
 
@@ -92,6 +104,7 @@ local function wrapMedia(wrappedComponent)
 			_Play = self.play,
 			_Pause = self.pause,
 			_SetCurrentTime = self.setCurrentTime,
+			_SetTimeLength = self.setTimeLength,
 		})
 
 		return Roact.createElement(wrappedComponent, props)

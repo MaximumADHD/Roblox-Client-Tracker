@@ -360,7 +360,7 @@ function Localization:_recalculateContent()
 			MyAudio = self:_safeLocalize("Studio.Toolbox.General.CategoryMyAudio"),
 			MyPlugins = self:_safeLocalize("Studio.Toolbox.General.CategoryMyPlugins"),
 			MyPackages = self:_safeLocalize("Studio.Toolbox.General.CategoryMyPackages"),
-			MyVideos = self:_safeLocalize("Studio.Toolbox.General.CategoryMyVideos"),
+			MyVideo = self:_safeLocalize("Studio.Toolbox.General.CategoryMyVideos"),
 			RecentModels = self:_safeLocalize("Studio.Toolbox.General.CategoryRecentModels"),
 			RecentDecals = self:_safeLocalize("Studio.Toolbox.General.CategoryRecentDecals"),
 			RecentMeshes = self:_safeLocalize("Studio.Toolbox.General.CategoryRecentMeshes"),

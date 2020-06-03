@@ -3,8 +3,8 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local PolicyService = require(RobloxGui.Modules.Common.PolicyService)
 
-local FFlagOldInGameMenuDisplayNameForAll = game:DefineFastFlag("OldInGameMenuDisplayNameForAll2", false)
-local FFlagOldInGameMenuDisplayNamePolicy = game:DefineFastFlag("OldInGameMenuDisplayNamePolicy2", false)
+local FFlagOldInGameMenuDisplayNameForAll = game:DefineFastFlag("OldInGameMenuDisplayNameForAll3", false)
+local FFlagOldInGameMenuDisplayNamePolicy = game:DefineFastFlag("OldInGameMenuDisplayNamePolicy3", false)
 
 local function UsePlayerDisplayName()
 	if FFlagOldInGameMenuDisplayNameForAll then

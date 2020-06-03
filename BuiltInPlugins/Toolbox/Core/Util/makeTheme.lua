@@ -14,8 +14,6 @@ local Theme = ContextServices.Theme
 
 local Util = Plugin.Core.Util
 local Colors = require(Util.Colors)
-local Images = require(Util.Images)
-local Constants = require(Util.Constants)
 
 local ToolboxTheme = {}
 ToolboxTheme.__index = ToolboxTheme

@@ -9,6 +9,7 @@ local StudioUI = {
 	-- PluginWidgets
 	DockWidget = require(script.DockWidget),
 	Dialog = require(script.Dialog),
+	SearchBar = require(script.SearchBar),
 	StyledDialog = require(script.StyledDialog),
 
 	--PluginButton

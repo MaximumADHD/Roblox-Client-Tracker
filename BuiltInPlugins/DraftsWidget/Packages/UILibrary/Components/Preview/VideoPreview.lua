@@ -54,6 +54,7 @@ function VideoPreview:init()
 	self.state = {
 		timeLength = 0,
 		isLoaded = false,
+		showOverlayPlayIcon = true,
 	}
 
 	self.dispatchMediaPlayingUpdate = function(updateType)
@@ -69,6 +70,9 @@ function VideoPreview:init()
 				if self.props._OnPause then
 					self.props._OnPause()
 				end
+			elseif updateType == "END" then
+				videoObj.Playing = false
+				videoObj.TimePosition = 0
 			end
 		end
 	end
@@ -83,6 +87,7 @@ function VideoPreview:init()
 				isLoaded = videoObj.IsLoaded,
 				timeLength = videoObj.TimeLength,
 			})
+			self.props._SetTimeLength(videoObj.TimeLength)
 		elseif videoObj.IsLoaded ~= self.state.isLoaded then
 			self:setState({
 				isLoaded = videoObj.IsLoaded,
@@ -106,6 +111,9 @@ function VideoPreview:init()
 		local videoFrame = self.videoRef.current
 		videoFrame.TimePosition = newValue or 0
 		videoFrame.Playing = false
+		self:setState({
+			showOverlayPlayIcon = false,
+		})
 
 		self.props._OnSliderInputChanged(newValue)
 	end
@@ -113,6 +121,9 @@ function VideoPreview:init()
 	self.onSliderInputEnded = function()
 		local videoFrameObj = self.videoRef.current
 		videoFrameObj.Playing = self.props._IsPlaying
+		self:setState({
+			showOverlayPlayIcon = true,
+		})
 
 		self.props._OnSliderInputEnded()
 	end
@@ -149,6 +160,7 @@ function VideoPreview:render()
 
 		local isLoaded = state.isLoaded
 		local timeLength = state.timeLength
+		local showOverlayPlayIcon = state.showOverlayPlayIcon
 
 		local layoutOrder = props.LayoutOrder
 		local position = props.Position
@@ -208,7 +220,7 @@ function VideoPreview:render()
 						BackgroundTransparency = VideoPreviewTheme.pauseOverlayTransparency,
 						Size = UDim2.new(1, 0, 1, 0),
 					}, {
-						PlayVideoIcon = Roact.createElement("ImageLabel", {
+						PlayVideoIcon = showOverlayPlayIcon and Roact.createElement("ImageLabel", {
 							AnchorPoint = Vector2.new(0.5, 0.5),
 							BackgroundTransparency = 1,
 							Image = VideoPreviewTheme.playButton,

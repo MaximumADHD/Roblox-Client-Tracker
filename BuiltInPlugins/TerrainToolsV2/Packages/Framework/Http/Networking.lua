@@ -64,6 +64,8 @@ local Promise = require(DevFrameworkRoot.Util).Promise
 local HttpResponse = require(script.Parent.HttpResponse)
 local StatusCodes = require(script.Parent.StatusCodes)
 
+local FFlagStudioFixFrameworkJsonParsing = game:DefineFastFlag("StudioFixFrameworkJsonParsing", true)
+
 local LOGGING_CHANNELS = {
 	NONE = 0,
 	REQUESTS = 1, -- Monitors outgoing request messages
@@ -370,10 +372,41 @@ function Networking:parseJson(requestPromise)
 
 		return result
 	end, function(err)
-		if self:_isLoggingEnabled(LOGGING_CHANNELS.RESPONSES) then
-			warn("ResponseBody could not be parsed to JSON because previous request failed.")
+		if not FFlagStudioFixFrameworkJsonParsing then
+			if self:_isLoggingEnabled(LOGGING_CHANNELS.RESPONSES) then
+				warn("ResponseBody could not be parsed to JSON because previous request failed.")
+			end
+
+			return err
 		end
-		return err
+
+		-- check if the failed request has a body that can be parsed
+		if type(err) == "table" then
+			if type(err.responseBody) == "string" then
+				local success, jsonBody = pcall(HttpService.JSONDecode, HttpService, err.responseBody)
+				if success then
+					err.responseBody = jsonBody
+
+					if self:_isLoggingEnabled(LOGGING_CHANNELS.RESPONSES) then
+						print("ResponseBody parsed to JSON and stored into `err.responseBody`.")
+					end
+				else
+					if self:_isLoggingEnabled(LOGGING_CHANNELS.DEBUG) then
+						print("Could not parse `err.responseBody` to JSON.", jsonBody)
+					end
+				end
+			else
+				if self:_isLoggingEnabled(LOGGING_CHANNELS.RESPONSES) then
+					warn("ResponseBody was not parsed to JSON because failed request returned unexpected type.")
+				end
+			end
+		else
+			if self:_isLoggingEnabled(LOGGING_CHANNELS.RESPONSES) then
+				warn("ResponseBody was not parsed to JSON because failed request returned unexpected type.")
+			end
+		end
+		
+		return Promise.reject(err)
 	end)
 end
 

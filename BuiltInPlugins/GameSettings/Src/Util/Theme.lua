@@ -245,7 +245,7 @@ function Theme.createValues(theme, getColor)
 
 			subjectThumbnail = {
 				background = theme:getColor(StyleColor.TableItem),
-				maskImage = "rbxasset://textures/StudioSharedUI/avatarMask.png", 
+				maskImage = "rbxasset://textures/StudioSharedUI/avatarMask.png",
 				loadingImage = "rbxasset://textures/StudioSharedUI/default_user.png",
 				loadFailureImage = "rbxasset://textures/GameSettings/ModeratedAsset.jpg",
 			},
@@ -340,6 +340,11 @@ function Theme.createValues(theme, getColor)
 					paddingX = 75,
 					paddingY = 15,
 				},
+			},
+
+			shutdownButton = {
+				PaddingX = 75,
+				PaddingY = 10,
 			},
 
 			settingsPage = {
@@ -622,16 +627,16 @@ function Theme.DEPRECATED_createValues(getColor, StyleColor, StyleModifier)
 		disabledColor = getColor(StyleColor.Tab),
 		borderColor = getColor(StyleColor.Border),
 		hoverColor = isDark and getColor(StyleColor.MainButton) or getColor(StyleColor.CurrentMarker),
-		
+
 		-- Dropdown item
 		hoveredItemColor = getColor(StyleColor.Button, StyleModifier.Hover),
 		hoveredTextColor = getColor(StyleColor.ButtonText, StyleModifier.Hover),
-		
+
 		-- Dropdown button
 		selectionColor = getColor(StyleColor.Button, StyleModifier.Selected),
 		selectedTextColor = getColor(StyleColor.ButtonText, StyleModifier.Selected),
 		selectionBorderColor = getColor(StyleColor.ButtonBorder, StyleModifier.Selected),
-		
+
 		errorColor = getColor(StyleColor.ErrorText),
 
 		hyperlinkTextColor = getColor(StyleColor.LinkText),

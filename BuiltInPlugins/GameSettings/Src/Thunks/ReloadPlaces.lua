@@ -16,7 +16,12 @@ return function()
         if success then
             local state = store:getState()
             local settings = state.Settings
-            local newSettings = Cryo.Dictionary.join(settings, places)
+            local newSettings = {}
+            -- copy over old settings
+            for _, value in pairs(settings) do
+                newSettings = Cryo.Dictionary.join(newSettings, value)
+            end
+            newSettings = Cryo.Dictionary.join(newSettings, places)
             store:dispatch(SetCurrentSettings(newSettings))
         end
 	end

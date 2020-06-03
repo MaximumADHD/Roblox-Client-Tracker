@@ -13,15 +13,21 @@ local SelectionWrapper = require(Framework.Utility.SelectionWrapper)
 local SelectionHelper = require(Framework.Utility.SelectionHelper)
 local getHandleScale = require(Framework.Utility.getHandleScale)
 
+local getFFlagLuaDraggerHandleScale = require(Framework.Flags.getFFlagLuaDraggerHandleScale)
+
 local SCALE_CHANGE_EPSILON = 1e-6
 
 local DerivedWorldState = {}
 DerivedWorldState.__index = DerivedWorldState
 
 function DerivedWorldState.new()
-    return setmetatable({
-        _scale = 1,
-    }, DerivedWorldState)
+    if getFFlagLuaDraggerHandleScale() then
+        return setmetatable({}, DerivedWorldState)
+    else
+        return setmetatable({
+            _scale = 1,
+        }, DerivedWorldState)
+    end
 end
 
 function DerivedWorldState:updateSelectionInfo()
@@ -37,18 +43,25 @@ function DerivedWorldState:updateSelectionInfo()
 	self._localMainCFrame = selectionInfo.localBasisCFrame
 	self._originalCFrameMap = selectionInfo.originalCFrameMap
     self._selectionHasPhysics = selectionInfo.hasPhysics
-    self:_updateScale()
+    if not getFFlagLuaDraggerHandleScale() then
+        self:_updateScale()
+    end
 end
 
 --[[
     Update the view (mouse position or camera position)
-    Returns: Whether the scale changed as a result of camera changes
 ]]
 function DerivedWorldState:updateView()
+    if getFFlagLuaDraggerHandleScale() then
+        assert(false) -- No longer called
+    end
     return self:_updateScale()
 end
 
 function DerivedWorldState:_updateScale()
+    if getFFlagLuaDraggerHandleScale() then
+        assert(false) -- No longer called
+    end
     local focusPoint = self._mainCFrame * self._boundingBoxOffset
 	local scale = getHandleScale(focusPoint)
     if math.abs(scale - self._scale) > SCALE_CHANGE_EPSILON then
@@ -60,6 +73,9 @@ function DerivedWorldState:_updateScale()
 end
 
 function DerivedWorldState:getHandleScale()
+    if getFFlagLuaDraggerHandleScale() then
+        assert(false) -- No longer called
+    end
     return self._scale
 end
 

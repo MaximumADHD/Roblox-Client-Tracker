@@ -358,6 +358,10 @@ function InsertAsset.doDragInsertAsset(options)
 	if assetTypeId == Enum.AssetType.Plugin.Value then
 		-- We should absolutely never allow plugins to be installed via dragging!
 		return
+	elseif FFlagEnableToolboxVideos and assetTypeId == Enum.AssetType.Video.Value then
+		-- TODO: DEVTOOLS-4264 - Enable dragger framework face dragging
+		insertVideo(assetId, assetName)
+		return
 	end
 
 	if DebugFlags.shouldDebugWarnings() then

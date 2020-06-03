@@ -5,6 +5,7 @@
 local DFIntFileMaxSizeBytes = tonumber(settings():GetFVariable("FileMaxSizeBytes"))
 
 local StudioService = game:GetService("StudioService")
+local HttpService = game:GetService("HttpService")
 
 --multipart/form-data for uploading images to Roblox endpoints
 --Moderation occurs on the web
@@ -62,6 +63,28 @@ local function showMultiImageFailedDialog(page, localized, files)
 	showDialog(page, ListDialog, DIALOG_PROPS):await()
 end
 
+local function createConfigDataTable(nameWithoutExtension, assetTypeId, description)
+	return {
+		[nameWithoutExtension] = {
+			type = assetTypeId.Name,
+			name = nameWithoutExtension,
+			description = description
+		}
+	}
+end
+
+local function createFormDataBody(configDataJsonBlob, nameWithoutExtension, extension, fileDataBlob)
+	local result =	"--EA0A21C3-8388-4038-9BD5-92C8B1B7BF8E\r\n" ..
+		"Content-Type: application/json\r\n" ..
+		"Content-Disposition: form-data; name=\"config\"; filename=\"config.json\"\r\n" ..
+		"\r\n" .. configDataJsonBlob .. "\r\n" ..
+		"--EA0A21C3-8388-4038-9BD5-92C8B1B7BF8E\r\n" ..
+		"Content-Disposition: form-data; name=\"" .. nameWithoutExtension .. "\"; filename=\"" .. nameWithoutExtension .. "." .. extension .. "\"\r\n" ..
+		"Content-Type: application/octet-stream\r\n" ..
+		"\r\n" .. fileDataBlob .. "\r\n" ..
+		"--EA0A21C3-8388-4038-9BD5-92C8B1B7BF8E--\r\n"
+	return result
+end
 
 function FileUtils.PromptForGameIcon(page, devFrameworkLocalized)
 	local localized
@@ -121,6 +144,30 @@ function FileUtils.GetAssetPublishRequestInfo(asset, url)
 		Method = "POST",
 		Body = form,
 		CachePolicy = Enum.HttpCachePolicy.None,
+		Headers = {
+			["Content-Type"] = "multipart/form-data; boundary=EA0A21C3-8388-4038-9BD5-92C8B1B7BF8E",
+		}
+	}
+
+	return requestInfo
+end
+
+function FileUtils.CreatePostV1AssetsUpload(asset, url, assetType)
+	local contents = asset:GetBinaryContents()
+	local name = string.lower(asset.Name)
+	local index = string.find(name, ".", 1, true)
+	local extension = string.sub(name, index + 1)
+	local nameWithoutExtension = string.sub(asset.Name, 1, index-1)
+
+	local configDataBlob = HttpService:JSONEncode(createConfigDataTable(nameWithoutExtension, Enum.AssetType.Image, ""))
+	local form = createFormDataBody(configDataBlob, nameWithoutExtension, extension, contents)
+
+	print(form)
+
+	local requestInfo = {
+		Url = url,
+		Method = "POST",
+		Body = form,
 		Headers = {
 			["Content-Type"] = "multipart/form-data; boundary=EA0A21C3-8388-4038-9BD5-92C8B1B7BF8E",
 		}

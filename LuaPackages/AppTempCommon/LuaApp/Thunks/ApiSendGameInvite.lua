@@ -6,17 +6,10 @@ local Requests = CorePackages.AppTempCommon.LuaApp.Http.Requests
 local ChatSendMessage = require(Requests.ChatSendMessage)
 local ChatStartOneToOneConversation = require(Requests.ChatStartOneToOneConversation)
 
-local FFlagLuaInviteGameTextLocalization = settings():GetFFlag("LuaInviteGameTextLocalization")
+local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
-local INVITE_TEXT_MESSAGE
-local RobloxTranslator
-if FFlagLuaInviteGameTextLocalization then
-	local CoreGui = game:GetService("CoreGui")
-	local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-	RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
-else
-	INVITE_TEXT_MESSAGE = "Come join me in %s"
-end
 
 local ChatSendGameLinkMessage = require(Requests.ChatSendGameLinkMessage)
 
@@ -25,13 +18,9 @@ return function(networkImpl, userId, placeInfo)
 
 	-- Construct the invite messages based on place info
 	local inviteTextMessage
-	if FFlagLuaInviteGameTextLocalization then
-		inviteTextMessage = RobloxTranslator:FormatByKey(
-			"Feature.SettingsHub.Message.InviteToGameTitle", { PLACENAME = placeInfo.name }
-		)
-	else
-		inviteTextMessage = string.format(INVITE_TEXT_MESSAGE, placeInfo.name)
-	end
+	inviteTextMessage = RobloxTranslator:FormatByKey(
+		"Feature.SettingsHub.Message.InviteToGameTitle", { PLACENAME = placeInfo.name }
+	)
 
 	return function(store)
 		return ChatStartOneToOneConversation(networkImpl, userId, clientId):andThen(function(conversationResult)

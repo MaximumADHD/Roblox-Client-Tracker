@@ -126,15 +126,10 @@ function Footer:render()
 			},
 			HorizontalAlignment = Enum.HorizontalAlignment.Right,
 			ButtonClicked = function(userPressedSave)
-				-- TODO: change to use HoverArea from Developer Framework
-				props.Mouse:__pushCursor("Wait")
-
 				local resolved = self.props.ButtonClicked(userPressedSave, self, localization, settingsImpl, dialog):await()
 				if resolved then
 					self.props.OnClose(userPressedSave)
 				end
-
-				props.Mouse:__resetCursor()
 			end,
 		}),
 	})

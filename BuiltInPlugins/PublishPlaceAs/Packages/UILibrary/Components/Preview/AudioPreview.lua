@@ -166,6 +166,9 @@ function AudioPreview:init(props)
 				isLoaded = isLoaded,
 				timeLength = soundObj.TimeLength,
 			})
+			if FFlagEnableToolboxVideos then
+				self.props._SetTimeLength(soundObj.TimeLength)
+			end
 		elseif isLoaded ~= self.state.isLoaded then
 			self:setState({
 				isLoaded = isLoaded,

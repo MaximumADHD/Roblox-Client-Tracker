@@ -54,30 +54,31 @@ local nameErrors = {
     Empty = "ErrorNameEmpty",
 }
 
+local nextDevProductName = ""
+
 --Loads settings values into props by key
 local function loadValuesToProps(getValue, state)
     local errors = state.Settings.Errors
     local loadedProps = {
-        GameName = getValue("name"),
-
         TaxRate = getValue("taxRate"),
         MinimumFee = getValue("minimumFee"),
 
         PaidAccess = {
             enabled = getValue("isForSale"),
             price = getValue("price"),
-            initialPrice = state.Settings.Current.price,
+            initialPrice = state.Settings.Current.price and state.Settings.Current.price or 0,
         },
         VIPServers = {
             isEnabled = getValue("vipServersIsEnabled"),
             price = getValue("vipServersPrice"),
-            initialPrice = state.Settings.Current.vipServersPrice,
+            initialPrice = state.Settings.Current.vipServersPrice and state.Settings.Current.vipServersPrice or 0,
 			activeServersCount = getValue("vipServersActiveServersCount"),
 			activeSubscriptionsCount = getValue("vipServersActiveSubscriptionsCount"),
         },
 
         UnsavedDevProducts = getValue("unsavedDevProducts"),
-        DevProducts = getValue("developerProducts"),
+        DevProducts = state.Settings.Current.developerProducts,
+        EditedDevProducts = state.Settings.Changed.editedDeveloperProducts,
 
         EditDevProductId = state.EditAsset.editDevProductId,
 
@@ -105,15 +106,16 @@ local function dispatchChanges(setValue, dispatch)
 
         PaidAccessPriceChanged = function(text)
             local numberValue = tonumber(text)
+
+            dispatch(AddChange("price", numberValue))
+            dispatch(DiscardError("monetizationPrice"))
+
             if not numberValue then
                 dispatch(AddErrors({monetizationPrice = "Invalid"}))
             elseif numberValue < PAID_ACCESS_MIN_PRICE then
                 dispatch(AddErrors({monetizationPrice = "BelowMin"}))
             elseif numberValue > PAID_ACCESS_MAX_PRICE then
                 dispatch(AddErrors({monetizationPrice = "AboveMax"}))
-            else
-                dispatch(AddChange("price", text))
-                dispatch(DiscardError("monetizationPrice"))
             end
         end,
 
@@ -128,13 +130,14 @@ local function dispatchChanges(setValue, dispatch)
 
         VIPServersPriceChanged = function(text)
             local numberValue = tonumber(text)
+
+            dispatch(AddChange("vipServersPrice", numberValue))
+            dispatch(DiscardError("monetizationPrice"))
+
             if not numberValue then
                 dispatch(AddErrors({monetizationPrice = "Invalid"}))
             elseif numberValue < VIP_SERVERS_MIN_PRICE then
                 dispatch(AddErrors({monetizationPrice = "BelowMin"}))
-            else
-                dispatch(AddChange("vipServersPrice", text))
-                dispatch(DiscardError("monetizationPrice"))
             end
         end,
 
@@ -144,9 +147,15 @@ local function dispatchChanges(setValue, dispatch)
 
         SetUnsavedDevProducts = function(unsavedDevProducts, errorKey, errorValue)
             if errorValue then
-                dispatch(AddErrors({ errorKey = errorValue }))
+                dispatch(AddErrors({ [errorKey] = errorValue }))
             elseif errorKey then
-                dispatch(DiscardError(errorKey))
+                if type(errorKey) == "table" then
+                    for _, key in ipairs(errorKey) do
+                        dispatch(DiscardError(key))
+                    end
+                else
+                    dispatch(DiscardError(errorKey))
+                end
             end
 
             dispatch(AddChange("unsavedDevProducts", unsavedDevProducts))
@@ -154,12 +163,17 @@ local function dispatchChanges(setValue, dispatch)
 
         SetDevProducts = function(devProducts, errorKey, errorValue)
             if errorValue then
-                dispatch(AddErrors({ errorKey = errorValue }))
+                dispatch(AddErrors({ [errorKey] = errorValue }))
             elseif errorKey then
-                dispatch(DiscardError(errorKey))
+                if type(errorKey) == "table" then
+                    for _, key in ipairs(errorKey) do
+                        dispatch(DiscardError(key))
+                    end
+                else
+                    dispatch(DiscardError(errorKey))
+                end
             end
-
-            dispatch(AddChange("developerProducts", devProducts))
+            dispatch(AddChange("editedDeveloperProducts", devProducts))
         end,
     }
     return dispatchFuncs
@@ -186,7 +200,8 @@ local function convertDeveloperProductsForTable(devProducts, localization)
         numberOfDevProducts = numberOfDevProducts + 1
     end
 
-    return result, numberOfDevProducts
+    -- Subtract 1 because of indicies start at 1 and this is later used to show/hide the table based on if the table is empty.
+    return result, numberOfDevProducts - 1
 end
 
 local function combineUnsavedAndSavedDevProducts(unsaved, saved)
@@ -246,10 +261,31 @@ local function getNameErrorText(error, localization)
     return nameError
 end
 
+local function sanitizeCurrentDevProduct(devProduct, initialName)
+    local errorKeys = {}
+    local name = devProduct.name
+    local nameLength = utf8.len(name)
+    local price = devProduct.price
+
+    if nameLength < 1 or nameLength > MAX_NAME_LENGTH then
+        devProduct = Cryo.Dictionary.join(devProduct, {
+            name = initialName
+        })
+        table.insert(errorKeys, "devProductName")
+    end
+
+    if type(price) ~= "number" or price < 1 then
+        devProduct = Cryo.Dictionary.join(devProduct, {
+            price = 1,
+        })
+        table.insert(errorKeys, "devProductPrice")
+    end
+
+    return devProduct, errorKeys
+end
+
 --Uses props to display current settings values
 local function displayMonetizationPage(props, localization)
-    local gameName = props.GameName
-
     local taxRate = props.TaxRate
     local minimumFee = props.MinimumFee
 
@@ -260,6 +296,9 @@ local function displayMonetizationPage(props, localization)
 
     local unsavedDevProducts = props.UnsavedDevProducts and props.UnsavedDevProducts or {}
     local devProducts = props.DevProducts and props.DevProducts or {}
+    local editedDevProducts = props.EditedDevProducts and props.EditedDevProducts or {}
+
+    devProducts = Cryo.Dictionary.join(devProducts, editedDevProducts)
 
     local allDevProducts = combineUnsavedAndSavedDevProducts(unsavedDevProducts, devProducts)
 
@@ -329,12 +368,13 @@ local function displayMonetizationPage(props, localization)
             LayoutOrder = layoutIndex:getNextOrder(),
 
             CreateNewDevProduct = function()
-                local nextNumber = string.format("%d", numberOfDevProducts)
+                local nextNumber = string.format("%d", numberOfDevProducts + 1)
+                nextDevProductName = localization:getText("Monetization", "UnsavedDevProductName", {nextNumber})
                 table.insert(unsavedDevProducts, 1, {
-                    name = localization:getText("Monetization", "UnsavedDevProductName", {gameName, nextNumber}),
+                    name = nextDevProductName,
                     price = 1,
                     description = "",
-                    iconImageAssetId = "",
+                    iconImageAssetId = "None",
                 })
                 setUnsavedDevProducts(unsavedDevProducts, nil, nil)
             end,
@@ -352,13 +392,25 @@ local function displayEditDevProductsPage(props, localization)
 
     local unsavedDevProducts = props.UnsavedDevProducts and props.UnsavedDevProducts or {}
     local devProducts = props.DevProducts and props.DevProducts or {}
-    local allDevProducts = Cryo.Dictionary.join(unsavedDevProducts, devProducts)
 
+    local initialName
+    if devProducts[productId] then
+        initialName = devProducts[productId].name
+    elseif unsavedDevProducts[productId] then
+        initialName = nextDevProductName
+    end
+
+    local editedDevProducts = props.EditedDevProducts and props.EditedDevProducts or {}
+    devProducts = Cryo.Dictionary.join(devProducts, editedDevProducts)
+
+    local allDevProducts = Cryo.Dictionary.join(unsavedDevProducts, devProducts)
     local currentDevProduct = allDevProducts[productId]
+
+    if not initialName then initialName = currentDevProduct.name end
 
     local productTitle = currentDevProduct.name
     local productDescripton = currentDevProduct.description and currentDevProduct.description or ""
-    local productIcon = currentDevProduct.iconImageAssetId and currentDevProduct.iconImageAssetId or ""
+    local productIcon = currentDevProduct.iconImageAssetId and currentDevProduct.iconImageAssetId or "None"
     local productPrice = currentDevProduct.price
 
     local setEditDevProductId = props.SetEditDevProductId
@@ -393,6 +445,20 @@ local function displayEditDevProductsPage(props, localization)
 				BackgroundTransparency = 1,
 
                 [Roact.Event.Activated] = function()
+                    local cleanDevProduct, errorKeys = sanitizeCurrentDevProduct(currentDevProduct, initialName)
+
+                    if cleanDevProduct.id then
+                        editedDevProducts = Cryo.Dictionary.join(editedDevProducts, {
+                            [productId] = cleanDevProduct
+                        })
+                        setDevProducts(editedDevProducts, errorKeys)
+                    else
+                        unsavedDevProducts = Cryo.Dictionary.join(unsavedDevProducts, {
+                            [productId] = cleanDevProduct
+                        })
+                        setUnsavedDevProducts(unsavedDevProducts, errorKeys)
+                    end
+
                     setEditDevProductId(nil)
 				end,
 			}, {
@@ -437,10 +503,10 @@ local function displayEditDevProductsPage(props, localization)
                     })
 
                     if currentDevProduct.id then
-                        devProducts = Cryo.Dictionary.join(devProducts, {
+                        editedDevProducts = Cryo.Dictionary.join(editedDevProducts, {
                             [productId] = currentDevProduct
                         })
-                        setDevProducts(devProducts, errorKey, errorValue)
+                        setDevProducts(editedDevProducts, errorKey, errorValue)
                     else
                         unsavedDevProducts = Cryo.Dictionary.join(unsavedDevProducts, {
                             [productId] = currentDevProduct
@@ -472,10 +538,10 @@ local function displayEditDevProductsPage(props, localization)
                     })
 
                     if currentDevProduct.id then
-                        devProducts = Cryo.Dictionary.join(devProducts, {
+                        editedDevProducts = Cryo.Dictionary.join(editedDevProducts, {
                             [productId] = currentDevProduct
                         })
-                        setDevProducts(devProducts)
+                        setDevProducts(editedDevProducts)
                     else
                         unsavedDevProducts = Cryo.Dictionary.join(unsavedDevProducts, {
                             [productId] = currentDevProduct
@@ -489,21 +555,22 @@ local function displayEditDevProductsPage(props, localization)
         -- TODO: Rename GameIconWidget to IconWidget
         Icon = Roact.createElement(GameIconWidget, {
 			Title = localization:getText("Monetization", "ProductIcon"),
-			LayoutOrder = layoutIndex:getNextOrder(),
-            TutorialEnabled = true,
+            LayoutOrder = layoutIndex:getNextOrder(),
+            Enabled = productIcon ~= nil,
             Icon = productIcon,
+            TutorialEnabled = true,
             AddIcon = function()
-                local icon = FileUtils.PromptForGameIcon()
+                local icon = FileUtils.PromptForGameIcon(nil, localization)
                 if icon then
                     currentDevProduct = Cryo.Dictionary.join(currentDevProduct, {
                         iconImageAssetId = icon,
                     })
 
                     if currentDevProduct.id then
-                        devProducts = Cryo.Dictionary.join(devProducts, {
+                        editedDevProducts = Cryo.Dictionary.join(editedDevProducts, {
                             [productId] = currentDevProduct
                         })
-                        setDevProducts(devProducts)
+                        setDevProducts(editedDevProducts)
                     else
                         unsavedDevProducts = Cryo.Dictionary.join(unsavedDevProducts, {
                             [productId] = currentDevProduct
@@ -573,10 +640,10 @@ local function displayEditDevProductsPage(props, localization)
                         })
 
                         if currentDevProduct.id then
-                            devProducts = Cryo.Dictionary.join(devProducts, {
+                            editedDevProducts = Cryo.Dictionary.join(editedDevProducts, {
                                 [productId] = currentDevProduct
                             })
-                            setDevProducts(devProducts, errorKey, errorValue)
+                            setDevProducts(editedDevProducts, errorKey, errorValue)
                         else
                             unsavedDevProducts = Cryo.Dictionary.join(unsavedDevProducts, {
                                 [productId] = currentDevProduct

@@ -282,8 +282,8 @@ function SettingsImpl:SaveAll(state)
 
 		if FFlagStudioAddMonetizationToGameSettings and settings.Changed.unsavedDevProducts and next(settings.Changed.unsavedDevProducts) ~= nil then
 			saveInfo.NewDevProducts = settings.Changed.unsavedDevProducts
-		elseif FFlagStudioAddMonetizationToGameSettings and settings.Changed.developerProducts ~= nil then
-			saveInfo.UpdateDevProducts = settings.Changed.developerProducts
+		elseif FFlagStudioAddMonetizationToGameSettings and settings.Changed.editedDeveloperProducts ~= nil then
+			saveInfo.UpdateDevProducts = settings.Changed.editedDeveloperProducts
 		end
 
 		WorkspaceSettings.saveAllAvatarSettings(saveInfo)

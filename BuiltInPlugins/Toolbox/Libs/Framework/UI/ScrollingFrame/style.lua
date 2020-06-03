@@ -5,16 +5,7 @@ local Style = Util.Style
 local StyleValue = Util.StyleValue
 
 return function(theme, getColor)
-	local padding = 10
-	local scrollbarThickness = 5
-
 	local Default = Style.new({
-		Padding = {
-			Top = padding,
-			Left = padding,
-			Bottom = padding,
-			Right = padding - scrollbarThickness,
-		},
 		AutoSizeCanvas = true,
 		AutoSizeLayoutElement = "UIListLayout",
 		AutoSizeLayoutOptions = {

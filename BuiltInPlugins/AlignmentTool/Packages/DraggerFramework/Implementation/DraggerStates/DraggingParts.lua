@@ -14,8 +14,10 @@ local PartMover = require(Framework.Utility.PartMover)
 local AttachmentMover = require(Framework.Utility.AttachmentMover)
 local setInsertPoint = require(Framework.Utility.setInsertPoint)
 local StandardCursor = require(Framework.Utility.StandardCursor)
+local getHandleScale = require(Framework.Utility.getHandleScale)
 
-local getFFlagSetInsertPoint = require(Framework.Flags.getFFlagSetInsertPoint)
+local getFFlagLuaDraggerHandleScale = require(Framework.Flags.getFFlagLuaDraggerHandleScale)
+local getFFlagMinCursorChange = require(Framework.Flags.getFFlagMinCursorChange)
 local getFFlagMoveViaSelectionCenter = require(Framework.Flags.getFFlagMoveViaSelectionCenter)
 local getFFlagHandleNoRotateTarget = require(Framework.Flags.getFFlagHandleNoRotateTarget)
 local getFFlagFixDraggerCursors = require(Framework.Flags.getFFlagFixDraggerCursors)
@@ -79,14 +81,24 @@ end
 
 function DraggingParts:render(draggerTool)
 	if getFFlagFixDraggerCursors() then
-		draggerTool.props.Mouse.Icon = StandardCursor.getClosedHand()
+		if getFFlagMinCursorChange() then
+			draggerTool:setMouseCursor(StandardCursor.getClosedHand())
+		else
+			draggerTool.props.Mouse.Icon = StandardCursor.getClosedHand()
+		end
 	else
 		draggerTool.props.Mouse.Icon = "rbxasset://SystemCursors/ClosedHand"
 	end
 
-    if areJointsEnabled() and self._jointPairs then
-        return self._jointPairs:renderJoints(
-            draggerTool._derivedWorldState:getHandleScale())
+	if areJointsEnabled() and self._jointPairs then
+		if getFFlagLuaDraggerHandleScale() then
+			local cframe, offset = draggerTool._derivedWorldState:getBoundingBox()
+			local focus = cframe * offset
+			return self._jointPairs:renderJoints(getHandleScale(focus))
+		else
+			return self._jointPairs:renderJoints(
+				draggerTool._derivedWorldState:getHandleScale())
+		end
     end
 end
 
@@ -216,10 +228,9 @@ function DraggingParts:_endFreeformSelectionDrag(draggerTool)
 
 	ChangeHistoryService:SetWaypoint("End freeform drag")
 	draggerTool:_analyticsSendFreeformDragged()
-    if getFFlagSetInsertPoint() then
-        local cframe, offset = draggerTool._derivedWorldState:getBoundingBox()
-        setInsertPoint(cframe * offset)
-    end
+
+	local cframe, offset = draggerTool._derivedWorldState:getBoundingBox()
+	setInsertPoint(cframe * offset)
 end
 
 return DraggingParts

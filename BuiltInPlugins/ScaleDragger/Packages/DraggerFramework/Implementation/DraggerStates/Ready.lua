@@ -15,7 +15,7 @@ local getFaceInstance = require(Framework.Utility.getFaceInstance)
 local HoverTracker = require(Framework.Implementation.HoverTracker)
 local StandardCursor = require(Framework.Utility.StandardCursor)
 
-local getFFlagOnlyReadyHover = require(Framework.Flags.getFFlagOnlyReadyHover)
+local getFFlagMinCursorChange = require(Framework.Flags.getFFlagMinCursorChange)
 local getFFlagStudioServiceHoverInstance = require(Framework.Flags.getFFlagStudioServiceHoverInstance)
 local getFFlagFixDraggerCursors = require(Framework.Flags.getFFlagFixDraggerCursors)
 
@@ -46,12 +46,7 @@ end
 function Ready:render(draggerTool)
     local elements = {}
 
-	local hoverSelectable
-	if getFFlagOnlyReadyHover() then
-		hoverSelectable = self._hoverTracker:getHoverSelectable()
-	else
-		hoverSelectable = draggerTool._hoverTracker:getHoverSelectable()
-	end
+	local hoverSelectable = self._hoverTracker:getHoverSelectable()
 	if hoverSelectable then
 		if getFFlagStudioServiceHoverInstance() then
 			-- Don't show hover boxes for constraints with visible details, they
@@ -70,23 +65,23 @@ function Ready:render(draggerTool)
 		end
 	end
 
-	if getFFlagOnlyReadyHover() then
-		if hoverSelectable or self._hoverTracker:getHoverHandleId() then
-			if getFFlagFixDraggerCursors() then
-				draggerTool.props.Mouse.Icon = StandardCursor.getOpenHand()
+	if hoverSelectable or self._hoverTracker:getHoverHandleId() then
+		if getFFlagFixDraggerCursors() then
+			if getFFlagMinCursorChange() then
+				draggerTool:setMouseCursor(StandardCursor.getOpenHand())
 			else
-				draggerTool.props.Mouse.Icon = "rbxasset://SystemCursors/OpenHand"
+				draggerTool.props.Mouse.Icon = StandardCursor.getOpenHand()
 			end
 		else
-			if getFFlagFixDraggerCursors() then
-				draggerTool.props.Mouse.Icon = StandardCursor.getArrow()
-			else
-				draggerTool.props.Mouse.Icon = "rbxasset://SystemCursors/Default"
-			end
+			draggerTool.props.Mouse.Icon = "rbxasset://SystemCursors/OpenHand"
 		end
 	else
 		if getFFlagFixDraggerCursors() then
-			draggerTool.props.Mouse.Icon = StandardCursor.getArrow()
+			if getFFlagMinCursorChange() then
+				draggerTool:setMouseCursor(StandardCursor.getArrow())
+			else
+				draggerTool.props.Mouse.Icon = StandardCursor.getArrow()
+			end
 		else
 			draggerTool.props.Mouse.Icon = "rbxasset://SystemCursors/Default"
 		end
@@ -94,13 +89,8 @@ function Ready:render(draggerTool)
 
     local toolImplementation = draggerTool.props.ToolImplementation
 	if toolImplementation and toolImplementation.render then
-		if getFFlagOnlyReadyHover() then
-			elements.ImplementationUI =
-				toolImplementation:render(self._hoverTracker:getHoverHandleId())
-		else
-			elements.ImplementationUI =
-				toolImplementation:render(draggerTool._hoverTracker:getHoverHandleId())
-		end
+		elements.ImplementationUI =
+			toolImplementation:render(self._hoverTracker:getHoverHandleId())
     end
 
     return Roact.createFragment(elements)
@@ -109,9 +99,7 @@ end
 function Ready:processSelectionChanged(draggerTool)
     -- We expect selection changes while in the ready state
 	-- when the developer selects objects in the explorer window.
-	if getFFlagOnlyReadyHover() then
-		self._hoverTracker:update(draggerTool._derivedWorldState)
-	end
+	self._hoverTracker:update(draggerTool._derivedWorldState)
 end
 
 --[[
@@ -124,24 +112,14 @@ end
 	When a Constraint is clicked... maybe we'll do something.
 ]]
 function Ready:processMouseDown(draggerTool)
-	local hoverHandleId
-	if getFFlagOnlyReadyHover() then
-		hoverHandleId = self._hoverTracker:getHoverHandleId()
-	else
-		hoverHandleId = draggerTool._hoverTracker:getHoverHandleId()
-	end
+	local hoverHandleId = self._hoverTracker:getHoverHandleId()
 	if hoverHandleId then
         local makeDraggedPartsTransparent =
 			not plugin.CollisionEnabled and draggerTool.props.UseCollisionsTransparency
         draggerTool:transitionToState({}, DraggerStateType.DraggingHandle,
             makeDraggedPartsTransparent, hoverHandleId)
 	else
-		local clickedInstance, position
-		if getFFlagOnlyReadyHover() then
-			clickedInstance, position = self._hoverTracker:getHoverInstance()
-		else
-			clickedInstance, position = draggerTool._hoverTracker:getHoverInstance()
-		end
+		local clickedInstance, position = self._hoverTracker:getHoverInstance()
 		local oldSelection = SelectionWrapper:Get()
 		local selectionDidChange, newSelection =
 			SelectionHelper.updateSelection(clickedInstance, oldSelection)
@@ -224,9 +202,7 @@ function Ready:processMouseDown(draggerTool)
 end
 
 function Ready:processViewChanged(draggerTool)
-	if getFFlagOnlyReadyHover() then
-		self._hoverTracker:update(draggerTool._derivedWorldState)
-	end
+	self._hoverTracker:update(draggerTool._derivedWorldState)
 end
 
 function Ready:processMouseUp(draggerTool)

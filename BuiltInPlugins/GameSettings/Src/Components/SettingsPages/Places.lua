@@ -219,8 +219,11 @@ local function displayPlaceListPage(props, localization)
 			0, buttonTextExtents.Y + theme.createButton.PaddingY),
 			LayoutOrder = layoutIndex:getNextOrder(),
 			OnClick = function()
-				AssetManagerService:AddNewPlace()
-				dispatchReloadPlaces()
+				-- method already handles printing error message
+				local success, _ = pcall(function() AssetManagerService:AddNewPlace() end)
+				if success then
+					dispatchReloadPlaces()
+				end
 			end,
 		}, {
 			Roact.createElement(HoverArea, {Cursor = "PointingHand"}),

@@ -1,10 +1,8 @@
 return function()
 	local Framework = script.Parent.Parent.Parent
 	local Roact = require(Framework.Parent.Roact)
-	local ContextServices = require(Framework.ContextServices)
-	local Theme = ContextServices.Theme
-	local FrameworkStyles = require(Framework.UI.FrameworkStyles)
-	local provide = ContextServices.provide
+	local provideMockContext = require(Framework.TestHelpers.provideMockContext)
+
 	local RadioButtonList = require(script.Parent)
 	local Immutable = require(Framework.Util.Immutable)
 
@@ -27,18 +25,13 @@ return function()
 	end
 
 	local function createTestToggle(props, children)
-		local theme = Theme.new(function()
-			return {
-				Framework = FrameworkStyles.new(),
-			}
-		end)
 		local combinedProps
 		if props then
 			combinedProps = Immutable.JoinDictionaries(DEFAULT_PROPS, props)
 		else
 			combinedProps = DEFAULT_PROPS
 		end
-		return provide({theme}, {
+		return provideMockContext(nil, {
 			RadioButtonList = Roact.createElement(RadioButtonList, combinedProps, children),
 		})
 	end

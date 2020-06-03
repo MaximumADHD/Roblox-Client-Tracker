@@ -8,6 +8,7 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Promise = require(Plugin.Promise)
 local Http = require(Plugin.Src.Networking.Http)
 local Analytics = require(Plugin.Src.Util.Analytics)
+local FileUtils = require(Plugin.Src.Util.FileUtils)
 
 local CREATE_DEV_PRODUCT_URL = "v1/universes/%d/developerproducts"
 local UPDATE_DEV_PRODUCT_URL = "v1/universes/%d/developerproducts/%d/update"
@@ -15,6 +16,9 @@ local DEV_PRODUCT_REQUEST_TYPE = "develop"
 
 local GET_DEV_PRODUCT_URL = "developerproducts/list/?universeId=%d&page=%s"
 local GET_DEV_PRODUCT_REQUEST_TYPE = "api"
+
+local CREATE_DEV_PRODUCT_ICON_URL = "v1/assets/upload"
+local CREATE_DEV_PRODUCT_ICON_REQUEST_TYPE = "publish"
 
 local DevProducts = {}
 
@@ -72,7 +76,37 @@ function DevProducts.Get(gameId)
     return request(gameId, pageNumber)
 end
 
+local function UploadIcon(newIcon)
+    local url = Http.BuildRobloxUrl(CREATE_DEV_PRODUCT_ICON_REQUEST_TYPE, CREATE_DEV_PRODUCT_ICON_URL)
+    local requestInfo = FileUtils.CreatePostV1AssetsUpload(newIcon, url)
+
+    requestInfo.CachePolicy = nil
+
+    return Http.Request(requestInfo):andThen(function(response)
+        local result = HttpService:JSONDecode(response)
+
+        local details = result.AssetDetails
+
+        if not details.assetId then
+            return
+        end
+
+        Promise.resolve(details.assetId)
+    end):
+    catch(function(err)
+        warn("Game Settings: Could not upload image for Developer Product.")
+    end)
+end
+
 function DevProducts.Create(gameId, params)
+    local iconAssetId = params.iconImageAssetId
+    -- if params.iconImageAssetId then
+    --     Promise.resolve(UploadIcon(params.iconImageAssetId)):andThen(function(assetId)
+    --         iconAssetId = assetId
+    --     end):catch(function(err)
+    --     end)
+    -- end
+
     local requestInfo = {
         Url = Http.BuildRobloxUrl(DEV_PRODUCT_REQUEST_TYPE, CREATE_DEV_PRODUCT_URL, gameId),
         Method = "POST",
@@ -80,7 +114,7 @@ function DevProducts.Create(gameId, params)
             name = params.name,
             description = params.description,
             priceInRobux = params.price,
-            iconImageAssetId = params.iconImageAssetId,
+            iconImageAssetId = iconAssetId,
         }
     }
 
@@ -111,13 +145,25 @@ function DevProducts.Create(gameId, params)
 end
 
 function DevProducts.Update(gameId, productId, params)
+    local paramIcon = params.iconImageAssetId
+    -- local iconAssetId
+    -- local needAssetId = type(paramIcon) == "userdata" or
+    --     type(paramIcon) == "string" and not string.find(params.iconImageAssetId, "rbxassetid://")
+
+    -- if paramIcon and needAssetId then
+    --     Promise.resolve(UploadIcon(params.iconImageAssetId)):andThen(function(assetId)
+    --         iconAssetId = string.gsub(assetId, "rbxassetid://", "")
+    --     end):await()
+    -- end
+
     local requestInfo = {
         Url = Http.BuildRobloxUrl(DEV_PRODUCT_REQUEST_TYPE, UPDATE_DEV_PRODUCT_URL, gameId,  productId),
         Method = "POST",
         Body = HttpService:JSONEncode({
             Name = params.name,
             Description = params.description,
-            IconImageAssetId = params.iconImageAssetId,
+            -- IconImageAssetId = iconAssetId,
+            IconImageAssetId = paramIcon,
             PriceInRobux = params.price,
         }),
     }
@@ -130,7 +176,7 @@ function DevProducts.Update(gameId, productId, params)
             return Promise.reject()
         end
 
-        return
+        return {}
     end)
     :catch(function(err)
 		warn("Game Settings: Could not update Developer Product with id: ", productId)

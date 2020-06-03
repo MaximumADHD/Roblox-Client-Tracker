@@ -4,9 +4,14 @@ local Util = require(Plugin.Framework.Util)
 local FileUtils = require(Plugin.Src.Util.FileUtils)
 
 local Promise = Util.Promise
+local Symbol = Util.Symbol
 
 local GameInfoController = {}
 GameInfoController.__index = GameInfoController
+
+GameInfoController.NameModerated = Symbol.named("NameModerated")
+-- TODO this is unused because the endpoint returns the name was moderated whenever the description is blocked
+GameInfoController.DescriptionModerated = Symbol.named("DescriptionModerated")
 
 function GameInfoController.new(networking)
 	local self = {}
@@ -82,7 +87,20 @@ function GameInfoController:getName(gameId)
 end
 
 function GameInfoController:setName(gameId, name)
-	self:configurationV2PATCH(gameId, {name = name}):await()
+	local returnError
+	self:configurationV2PATCH(gameId, {name = name}):catch(function(response)
+		if response.responseCode == 400 then
+			for _,err in ipairs(response.responseBody.errors) do
+				if err.code == 7 then
+					returnError = GameInfoController.NameModerated
+				end
+			end
+		end
+	end):await()
+
+	if returnError then
+		error(returnError)
+	end
 end
 
 function GameInfoController:getDescription(gameId)

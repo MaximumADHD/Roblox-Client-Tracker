@@ -50,6 +50,10 @@ local isNewTopBarEnabled = require(RobloxGui.Modules.TopBar.isNewTopBarEnabled)
 
 local FFlagTopBarFixCloseButtonMobile = game:DefineFastFlag("TopBarFixCloseButtonMobile", false)
 
+local FFlagFixGamepadOldMenuOpening = game:DefineFastFlag("FixGamepadOldMenuOpening", false)
+
+local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
+
 --[[ SERVICES ]]
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
 local ContentProvider = game:GetService("ContentProvider")
@@ -1620,11 +1624,15 @@ local function CreateSettingsHub()
 	OnVREnabled("VREnabled")
 
 
-	local closeMenuFunc = function(name, inputState, input)
-		if inputState ~= Enum.UserInputState.Begin then return end
-		this:PopMenu(false, true)
+	if not FFlagFixGamepadOldMenuOpening or not isNewInGameMenuEnabled() then
+		--If the new in game menu is enabled the settings hub is just used for the gamepad leave game prompt
+		--as a special case until gamepad support for the new menu is complete.
+		local closeMenuFunc = function(name, inputState, input)
+			if inputState ~= Enum.UserInputState.Begin then return end
+			this:PopMenu(false, true)
+		end
+		ContextActionService:BindCoreAction("RBXEscapeMainMenu", closeMenuFunc, false, Enum.KeyCode.Escape)
 	end
-	ContextActionService:BindCoreAction("RBXEscapeMainMenu", closeMenuFunc, false, Enum.KeyCode.Escape)
 
 	this.ResetCharacterPage:SetHub(this)
 	this.LeaveGamePage:SetHub(this)

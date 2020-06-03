@@ -5,6 +5,9 @@
     Watches a set of parts for cframe and size changes.
 ]]
 
+local Framework = script.Parent.Parent
+local getFFlagHandleOddNesting = require(Framework.Flags.getFFlagHandleOddNesting)
+
 local BoundsChangedTracker = {}
 BoundsChangedTracker.__index = BoundsChangedTracker
 
@@ -90,6 +93,8 @@ end
 
 function BoundsChangedTracker:setParts(parts)
     local newPartToEntry = {}
+    -- Gotta pull this flag check out, since this is a tight loop
+    local fflagHandleOddNesting = getFFlagHandleOddNesting()
     for _, part in ipairs(parts) do
         local entry = self._partToEntry[part]
         self._partToEntry[part] = nil
@@ -104,6 +109,9 @@ function BoundsChangedTracker:setParts(parts)
             if self._installed then
                 hookUpConnections(entry)
             end
+        end
+        if fflagHandleOddNesting then
+            assert(not newPartToEntry[part]) -- Selection should not have duplicates
         end
         newPartToEntry[part] = entry
     end

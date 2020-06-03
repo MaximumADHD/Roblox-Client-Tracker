@@ -13,7 +13,12 @@
 local Library = script.Parent.Parent
 local Roact = require(Library.Parent.Roact)
 
+local Theming = require(Library.Theming)
+local withTheme = Theming.withTheme
+
 local TextEntry = Roact.PureComponent:extend("TextEntry")
+local FFlagAllowTextEntryToTakeSizeAndPositionProp = game:DefineFastFlag("AllowTextEntryToTakeSizeAndPositionProp", false)
+local FFlagGameSettingsFixNameWhitespace = game:DefineFastFlag("GameSettingsFixNameWhitespace", false)
 
 function TextEntry:init()
 	self.textBoxRef = Roact.createRef()
@@ -42,58 +47,81 @@ function TextEntry:init()
 end
 
 function TextEntry:render()
-	local textSize = self.props.TextSize
-	local font = self.props.Font
+	return withTheme(function(theme)
+		local textSize = self.props.TextSize
+		local font = self.props.Font
 
-	return Roact.createElement("Frame", {
-		Size = UDim2.new(1, 0, 1, 0),
-		BackgroundTransparency = 1,
-		ClipsDescendants = true,
-	}, {
-		Text = Roact.createElement("TextBox", {
-			Visible = self.props.Visible,
+		local textEntryTheme = theme.textEntry
 
-			Size = UDim2.new(1, 0, 1, 0),
+		local size
+		local position
+		local textTransparency
+		local enabled
+		if FFlagAllowTextEntryToTakeSizeAndPositionProp then
+			size = self.props.Size and self.props.Size or UDim2.new(1, 0, 1, 0)
+			position = self.props.Position and self.props.Position or nil
+			enabled = (self.props.Enabled == nil) and true or self.props.Enabled
+			textTransparency = enabled and textEntryTheme.textTransparency.enabled or textEntryTheme.textTransparency.disabled 
+		else
+			size = UDim2.new(1, 0, 1, 0)
+			position = nil
+			enabled = nil
+			textTransparency = nil
+		end
+
+		return Roact.createElement("Frame", {
+			Size = size,
 			BackgroundTransparency = 1,
-			BorderSizePixel = 0,
+			ClipsDescendants = true,
+		}, {
+			Text = Roact.createElement("TextBox", {
+				Visible = self.props.Visible,
 
-			PlaceholderText  = self.props.PlaceholderText,
-			PlaceholderColor3 = self.props.TextColor3,
-			ClearTextOnFocus = false,
-			Font = font,
-			TextSize = textSize,
-			TextColor3 = self.props.TextColor3,
-			Text = self.props.Text,
-			TextXAlignment = Enum.TextXAlignment.Left,
+				Size = UDim2.new(1, 0, 1, 0),
+				Position = position,
+				BackgroundTransparency = 1,
+				BorderSizePixel = 0,
 
-			[Roact.Ref] = self.textBoxRef,
+				PlaceholderText  = self.props.PlaceholderText,
+				PlaceholderColor3 = self.props.TextColor3,
+				ClearTextOnFocus = false,
+				Font = font,
+				TextSize = textSize,
+				TextColor3 = self.props.TextColor3,
+				Text = self.props.Text,
+				TextXAlignment = Enum.TextXAlignment.Left,
+				TextTransparency = textTransparency,
+				TextEditable = enabled,
 
-			[Roact.Event.MouseEnter] = self.mouseEnter,
-			[Roact.Event.MouseLeave] = self.mouseLeave,
+				[Roact.Ref] = self.textBoxRef,
 
-			[Roact.Event.Focused] = function()
-				self.props.FocusChanged(true)
-			end,
+				[Roact.Event.MouseEnter] = self.mouseEnter,
+				[Roact.Event.MouseLeave] = self.mouseLeave,
 
-			[Roact.Event.FocusLost] = function()
-				-- workaround because we do not disconnect events before we start unmounting host components.
-				-- see https://github.com/Roblox/roact/issues/235 for more info
-				if not self.textBoxRef.current then return end
+				[Roact.Event.Focused] = function()
+					self.props.FocusChanged(true)
+				end,
 
-				local textBox = self.textBoxRef.current
-				textBox.TextXAlignment = Enum.TextXAlignment.Left
-				self.props.FocusChanged(false)
-			end,
+				[Roact.Event.FocusLost] = function()
+					-- workaround because we do not disconnect events before we start unmounting host components.
+					-- see https://github.com/Roblox/roact/issues/235 for more info
+					if not self.textBoxRef.current then return end
 
-			[Roact.Change.Text] = function(rbx) 
-				-- workaround because we do not disconnect events before we start unmounting host components.
-				-- see https://github.com/Roblox/roact/issues/235 for more info
-				if not self.textBoxRef.current then return end
+					local textBox = self.textBoxRef.current
+					textBox.TextXAlignment = Enum.TextXAlignment.Left
+					self.props.FocusChanged(false)
+				end,
 
-				self.onTextChanged(rbx)
-			end 
-		}),
-	})
+				[Roact.Change.Text] = function(rbx) 
+					-- workaround because we do not disconnect events before we start unmounting host components.
+					-- see https://github.com/Roblox/roact/issues/235 for more info
+					if not self.textBoxRef.current then return end
+
+					self.onTextChanged(rbx)
+				end
+			}),
+		})
+	end)
 end
 
 return TextEntry

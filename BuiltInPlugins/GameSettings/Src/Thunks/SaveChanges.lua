@@ -63,7 +63,7 @@ return function(settingsImpl)
 					if allSuccessful then
 						resolve()
 					else
-						store:dispatch(SetCurrentStatus(CurrentStatus.Open))
+						store:dispatch(SetCurrentStatus(CurrentStatus.Error))
 						reject({})
 					end
 				end)

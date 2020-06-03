@@ -35,6 +35,11 @@ local UIBlox = require(CorePackages.UIBlox)
 local uiBloxConfig = require(CoreGuiModules.UIBloxInGameConfig)
 UIBlox.init(uiBloxConfig)
 
+local RoactRodux = require(CorePackages.RoactRodux)
+local FFlagCoreScriptsUseRoactRoduxNewConnectionOrder = require(
+	RobloxGui.Modules.Flags.FFlagCoreScriptsUseRoactRoduxNewConnectionOrder)
+RoactRodux.TEMP_CONFIG.newConnectionOrder = FFlagCoreScriptsUseRoactRoduxNewConnectionOrder
+
 if FFlagCoreScriptTopBarStartup then
 	local localPlayer = Players.LocalPlayer
 	while not localPlayer do

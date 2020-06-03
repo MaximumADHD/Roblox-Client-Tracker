@@ -100,6 +100,7 @@ function ServerFill:render()
                     return Roact.createElement(FitFrameOnAxis, {
                         axis = FitFrameOnAxis.Axis.Vertical,
                         minimumSize = UDim2.new(1, 0, 0, 0),
+                        contentPadding = UDim.new(0, theme.radioButton.padding),
                         BackgroundTransparency = 1,
                         FillDirection = Enum.FillDirection.Horizontal,
 

@@ -18,6 +18,7 @@
 
 local FFlagToolboxShowGroupCreations = game:GetFastFlag("ToolboxShowGroupCreations")
 local FFlagToolboxHideSearchForMyPlugins = game:DefineFastFlag("ToolboxHideSearchForMyPlugins", false)
+local FFlagToolboxHideSearchForRecent = game:DefineFastFlag("ToolboxHideSearchForRecent", false)
 local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
 local FFlagEnableSearchedWithoutInsertionAnalytic = game:GetFastFlag("EnableSearchedWithoutInsertionAnalytic")
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
@@ -248,6 +249,19 @@ function Header:render()
 					and not (isInventoryTab and isPlugins)
 			else
 				showSearchBar = not isGroupCategory and not isCreationsTab
+			end
+
+			if FFlagToolboxHideSearchForRecent then
+				local isRecentsTab
+				if FFlagUseCategoryNameInToolbox then
+					isRecentsTab = Category.getTabForCategoryName(categoryName) == Category.RECENT
+				else
+					isRecentsTab = currentTab == Category.RECENT_KEY
+				end
+				if isRecentsTab then
+					showSearchBar = false
+					fullWidthDropdown = true
+				end
 			end
 
 			return Roact.createElement("ImageButton", {

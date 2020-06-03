@@ -4,6 +4,7 @@ local FFlagFixToolboxInitLoad = settings():GetFFlag("FixToolboxInitLoad")
 local FFlagToolboxShowGroupCreations = game:DefineFastFlag("ToolboxShowGroupCreations", false)
 local FFlagFixToolboxPluginScaling = game:DefineFastFlag("FixToolboxPluginScaling", false)
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
+local FFlagUseCategoryNameInToolboxFix1 = game:DefineFastFlag("UseCategoryNameInToolboxFix1", false)
 local FFlagEnableDefaultSortFix = game:GetFastFlag("EnableDefaultSortFix2")
 local FFlagEnableToolboxVideos = game:GetFastFlag("EnableToolboxVideos")
 local FFlagToolboxUseNewPluginEndpoint = settings():GetFFlag("ToolboxUseNewPluginEndpoint")
@@ -95,7 +96,7 @@ Category.MY_PLUGINS = {name = "MyPlugins", category = "MyPlugins",
 if FFlagEnableToolboxVideos then
 	Category.MARKETPLACE_VIDEOS = {name = "FreeVideo", category = "FreeVideo",
 		ownershipType = Category.OwnershipType.FREE, assetType = Category.AssetType.VIDEO}
-	Category.MY_VIDEOS = {name = "MyVideos", category = "MyVideos",
+	Category.MY_VIDEOS = {name = "MyVideo", category = "MyVideo",
 		ownershipType = Category.AssetType.MY, assetType = Category.AssetType.VIDEO}
 end
 
@@ -264,6 +265,23 @@ Category.INVENTORY_KEY = "Inventory"
 Category.RECENT_KEY = "Recent"
 Category.CREATIONS_KEY = "Creations"
 
+if FFlagUseCategoryNameInToolboxFix1 then
+
+	if FFlagEnablePurchasePluginFromLua2 then
+		table.insert(Category.INVENTORY, Category.MY_PLUGINS)
+		if FFlagOnlyWhitelistedPluginsInStudio then
+			table.insert(Category.MARKETPLACE, Category.WHITELISTED_PLUGINS)
+		else
+			table.insert(Category.MARKETPLACE, Category.FREE_PLUGINS)
+		end
+		local insertIndex = Cryo.List.find(Category.INVENTORY_WITH_GROUPS, Category.MY_PACKAGES) + 1
+		table.insert(Category.INVENTORY_WITH_GROUPS, insertIndex, Category.MY_PLUGINS)
+		local insertIndex2 = Cryo.List.find(Category.INVENTORY_WITH_GROUPS, Category.GROUP_AUDIO) + 1
+		table.insert(Category.INVENTORY_WITH_GROUPS, insertIndex2, Category.GROUP_PLUGINS)
+	end
+
+end
+
 if FFlagUseCategoryNameInToolbox then
 	local tabForCategoryName = {}
 	local tabKeyForCategoryName = {}
@@ -329,17 +347,21 @@ if FFlagUseCategoryNameInToolbox then
 	end
 end
 
-if FFlagEnablePurchasePluginFromLua2 then
-	table.insert(Category.INVENTORY, Category.MY_PLUGINS)
-	if FFlagOnlyWhitelistedPluginsInStudio then
-		table.insert(Category.MARKETPLACE, Category.WHITELISTED_PLUGINS)
-	else
-		table.insert(Category.MARKETPLACE, Category.FREE_PLUGINS)
+if not FFlagUseCategoryNameInToolboxFix1 then
+
+	if FFlagEnablePurchasePluginFromLua2 then
+		table.insert(Category.INVENTORY, Category.MY_PLUGINS)
+		if FFlagOnlyWhitelistedPluginsInStudio then
+			table.insert(Category.MARKETPLACE, Category.WHITELISTED_PLUGINS)
+		else
+			table.insert(Category.MARKETPLACE, Category.FREE_PLUGINS)
+		end
+		local insertIndex = Cryo.List.find(Category.INVENTORY_WITH_GROUPS, Category.MY_PACKAGES) + 1
+		table.insert(Category.INVENTORY_WITH_GROUPS, insertIndex, Category.MY_PLUGINS)
+		local insertIndex2 = Cryo.List.find(Category.INVENTORY_WITH_GROUPS, Category.GROUP_AUDIO) + 1
+		table.insert(Category.INVENTORY_WITH_GROUPS, insertIndex2, Category.GROUP_PLUGINS)
 	end
-	local insertIndex = Cryo.List.find(Category.INVENTORY_WITH_GROUPS, Category.MY_PACKAGES) + 1
-	table.insert(Category.INVENTORY_WITH_GROUPS, insertIndex, Category.MY_PLUGINS)
-	local insertIndex2 = Cryo.List.find(Category.INVENTORY_WITH_GROUPS, Category.GROUP_AUDIO) + 1
-	table.insert(Category.INVENTORY_WITH_GROUPS, insertIndex2, Category.GROUP_PLUGINS)
+
 end
 
 if FFlagUseCategoryNameInToolbox then
@@ -361,12 +383,12 @@ if FFlagUseCategoryNameInToolbox then
 	function Category.categoryIsAudio(categoryName)
 		local category = Category.getCategoryByName(categoryName)
 		return category.assetType == Category.AssetType.AUDIO
-    end
-    
-    function Category.categoryIsVideo(categoryName)
-        local category = Category.getCategoryByName(categoryName)
+	end
+	
+	function Category.categoryIsVideo(categoryName)
+		local category = Category.getCategoryByName(categoryName)
 		return category.assetType == Category.AssetType.VIDEO
-    end
+	end
 
 	function Category.categoryIsGroupPackages(categoryName)
 		local category = Category.getCategoryByName(categoryName)
@@ -432,15 +454,7 @@ else
 		end
 		return checkBounds(index) and
 			Category.INVENTORY_WITH_GROUPS[index].ownershipType == Category.OwnershipType.GROUP
-    end
-    
-    function Category.categoryIsVideo(currentTab, index)
-        if currentTab == Category.MARKETPLACE_KEY then
-            return checkBounds(index) and Category.MARKETPLACE[index].assetType == Category.AssetType.VIDEO
-        else
-            return checkBounds(index) and Category.INVENTORY_WITH_GROUPS[index].assetType == Category.AssetType.VIDEO
-        end
-    end
+	end
 
 	function Category.categoryIsAudio(currentTab, index)
 		if currentTab == Category.MARKETPLACE_KEY then
@@ -456,6 +470,10 @@ else
 		else
 			return checkBounds(index) and Category.INVENTORY_WITH_GROUPS[index].assetType == Category.AssetType.PLUGIN
 		end
+	end
+
+	function Category.categoryIsVideo(category, index)
+		return category and category[index] and category[index].assetType == Category.AssetType.VIDEO
 	end
 
 	function Category.shouldShowPrices(currentTab, index)

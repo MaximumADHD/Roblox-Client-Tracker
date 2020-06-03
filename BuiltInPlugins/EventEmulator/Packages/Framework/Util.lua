@@ -6,13 +6,16 @@ return {
 	-- Plugin Utilities
 	Action = require(script.Action),
 	Cryo = require(script.Cryo),
+	deepEqual = require(script.deepEqual),
 	FitFrame = require(script.FitFrame),
 	Flags = require(script.Flags),
 	Immutable = require(script.Immutable),
 	LayoutOrderIterator = require(script.LayoutOrderIterator),
+	Math = require(script.Math),
 	Promise = require(script.Promise),
 	Signal = require(script.Signal),
 	Symbol = require(script.Symbol),
+	ThunkWithArgsMiddleware = require(script.ThunkWithArgsMiddleware),
 
 	-- Style and Theming Utilities
 	Palette = require(script.Palette),

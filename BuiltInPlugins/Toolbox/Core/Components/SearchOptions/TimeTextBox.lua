@@ -15,6 +15,7 @@
 		UDim2 size: the size of the component.
 ]]
 local FFlagStudioToolboxEnabledDevFramework = game:DefineFastFlag("StudioToolboxEnabledDevFramework", false)
+local FFlagToolboxFixOneSecondAudioMaxDuration = game:GetFastFlag("ToolboxFixOneSecondAudioMaxDuration")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -91,7 +92,8 @@ function TimeTextBox:init()
 		local sec = self.sec
 		local totalSeconds = self.totalSeconds
 
-		if (totalSeconds == 0) or (totalSeconds == self.props.defaultValue) then
+		if (not FFlagToolboxFixOneSecondAudioMaxDuration and totalSeconds == 0)
+		or (totalSeconds == self.props.defaultValue) then
 			renderMin = ""
 			renderSec = ""
 		else

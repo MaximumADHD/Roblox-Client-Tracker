@@ -62,7 +62,7 @@ return function(assetId, assetTypeId)
 	local getObjectPromise = Promise.new(function(resolve, reject)
 		spawn(function()
 			local results
-			local isSuccess
+			local isSuccess = true
 			if assetTypeId == Enum.AssetType.Audio.Value then
 				local soundInstance = Instance.new("Sound")
 				local soundId = ("rbxassetid://%d"):format(assetId)

@@ -18,10 +18,14 @@ local Framework = Plugin.Packages.DraggerFramework
 local Colors = require(Framework.Utility.Colors)
 local Math = require(Framework.Utility.Math)
 local JointMaker = require(Framework.Utility.JointMaker)
+local getHandleScale = require(Framework.Utility.getHandleScale)
 
 local StandaloneSelectionBox = require(Framework.Components.StandaloneSelectionBox)
 
 local ScaleHandleView = require(Plugin.Src.ScaleHandleView)
+
+local getFFlagScaleUnionsUniformly = require(Framework.Flags.getFFlagScaleUnionsUniformly)
+local getFFlagLuaDraggerHandleScale = require(Framework.Flags.getFFlagLuaDraggerHandleScale)
 
 local ScaleToolImpl = {}
 ScaleToolImpl.__index = ScaleToolImpl
@@ -140,7 +144,9 @@ function ScaleToolImpl:update(draggerToolState, derivedWorldState)
 		}
 
 		self._originalCFrameMap = derivedWorldState:getOriginalCFrameMap()
-		self._scale = derivedWorldState:getHandleScale()
+		if not getFFlagLuaDraggerHandleScale() then
+			self._scale = derivedWorldState:getHandleScale()
+		end
 	end
 	self:_updateHandles()
 end
@@ -148,7 +154,9 @@ end
 function ScaleToolImpl:hitTest(mouseRay, handleScale)
 	local closestHandleId, closestHandleDistance = nil, math.huge
 	for handleId, handleProps in pairs(self._handles) do
-		handleProps.Scale = handleScale
+		if not getFFlagLuaDraggerHandleScale() then
+			handleProps.Scale = handleScale
+		end
 		local distance = ScaleHandleView.hitTest(handleProps, mouseRay)
 		if distance and distance < closestHandleDistance then
 			closestHandleDistance = distance
@@ -185,7 +193,7 @@ function ScaleToolImpl:render(hoveredHandleId)
 		children[self._draggingHandleId] = Roact.createElement(ScaleHandleView, {
 			HandleCFrame = handleProps.HandleCFrame,
 			Color = handleProps.Color,
-			Scale = self._scale,
+			Scale = getFFlagLuaDraggerHandleScale() and handleProps.Scale or self._scale,
 		})
 
         for otherHandleId, otherHandleProps in pairs(self._handles) do
@@ -193,7 +201,7 @@ function ScaleToolImpl:render(hoveredHandleId)
                 children[otherHandleId] = Roact.createElement(ScaleHandleView, {
 					HandleCFrame = otherHandleProps.HandleCFrame,
 					Color = Colors.makeDimmed(otherHandleProps.Color),
-					Scale = self._scale,
+					Scale = getFFlagLuaDraggerHandleScale() and otherHandleProps.Scale or self._scale,
 					Thin = true,
 				})
             end
@@ -212,7 +220,7 @@ function ScaleToolImpl:render(hoveredHandleId)
 			children[handleId] = Roact.createElement(ScaleHandleView, {
 				HandleCFrame = handleProps.HandleCFrame,
 				Color = color,
-				Scale = self._scale,
+				Scale = getFFlagLuaDraggerHandleScale() and handleProps.Scale or self._scale,
 				Hovered = hovered,
 			})
 		end
@@ -296,6 +304,11 @@ function ScaleToolImpl:mouseDrag(mouseRay)
 		end
 		if part:IsA("Part") and part.Shape == Enum.PartType.Ball then
 			return true
+		end
+		if getFFlagScaleUnionsUniformly() then
+			if part:IsA("UnionOperation") or part:IsA("NegateOperation") then
+				return true
+			end
 		end
 		return false
 	end
@@ -585,13 +598,23 @@ function ScaleToolImpl:_updateHandles()
 			local boundingBoxOffset = 0.5 * math.abs(localSize.Z)
 			local handleBaseCFrame = self._boundingBox.CFrame * offset * CFrame.new(0, 0, -boundingBoxOffset)
 
-			self._handles[handleId] = {
-				Color = handleDefinition.Color,
-				Axis = offset.LookVector,
-				HandleCFrame = handleBaseCFrame,
-				NormalId = handleDefinition.NormalId,
-				Scale = self._scale,
-			}
+			if getFFlagLuaDraggerHandleScale() then
+				self._handles[handleId] = {
+					Color = handleDefinition.Color,
+					Axis = offset.LookVector,
+					HandleCFrame = handleBaseCFrame,
+					NormalId = handleDefinition.NormalId,
+					Scale = getHandleScale(handleBaseCFrame.Position),
+				}
+			else
+				self._handles[handleId] = {
+					Color = handleDefinition.Color,
+					Axis = offset.LookVector,
+					HandleCFrame = handleBaseCFrame,
+					NormalId = handleDefinition.NormalId,
+					Scale = self._scale,
+				}
+			end
 		end
 	end
 end

@@ -8,6 +8,7 @@
 		callback onDurationChange: callback to notice parent component about the min and max length for audio search.
 ]]
 local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
+local FFlagToolboxFixOneSecondAudioMaxDuration = game:GetFastFlag("ToolboxFixOneSecondAudioMaxDuration")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -47,6 +48,9 @@ function AudioSearch:init(props)
 	end
 
 	self.onSliderChange = function(lowerValue, upperValue)
+		if FFlagToolboxFixOneSecondAudioMaxDuration then
+			upperValue = math.max(1, upperValue)
+		end
 		self.props.onDurationChange(lowerValue, upperValue)
 	end
 end
