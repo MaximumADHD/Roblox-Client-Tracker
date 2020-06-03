@@ -15,6 +15,7 @@ Studio.GameSettings.General.ButtonCreate,Create, ,Create
 Studio.GameSettings.General.ButtonEdit,Edit, ,Edit
 Studio.GameSettings.General.ButtonView,View, ,View
 Studio.GameSettings.General.ButtonPublish,Publish, ,Publish
+Studio.GameSettings.General.ButtonShutdownAllServers,Shutdown, ,Shutdown
 Studio.GameSettings.General.CategoryBasicInfo,Basic Info, ,Basic Info
 Studio.GameSettings.General.CategoryAvatar,Avatar, ,Avatar
 Studio.GameSettings.General.CategoryWorld,World, ,World
@@ -29,6 +30,8 @@ Studio.GameSettings.General.TitleGenre,Genre, ,Genre
 Studio.GameSettings.General.TitleDevices,Playable Devices, ,Playable Devices
 Studio.GameSettings.General.TitleHttp,Allow HTTP Requests, ,Allow HTTP Requests
 Studio.GameSettings.General.TitleStudioApiServices,Enable Studio Access to API Services, ,Enable Studio Access to API Services
+Studio.GameSettings.General.TitleShutdownAllServers,Shutdown All Servers, ,Shutdown All Servers
+Studio.GameSettings.General.TitleAllowCopying,Allow Copying, ,Allow Copying
 Studio.GameSettings.General.PlayabilityHeader,Who can play this game?, ,Who can play this game?
 Studio.GameSettings.General.PlayabilityPublic,Public, ,Public
 Studio.GameSettings.General.PlayabilityGroup,Group Members, ,Group Members
@@ -69,6 +72,8 @@ Studio.GameSettings.General.DeviceTablet,Tablet, ,Tablet
 Studio.GameSettings.General.DeviceConsole,Console, ,Console
 Studio.GameSettings.General.HttpDesc,Allow game server to issue requests to remote servers., ,Allow game server to issue requests to remote servers.
 Studio.GameSettings.General.StudioApiServicesDesc,Enables Studio access to game services such as Data Stores, ,Enables Studio access to game services such as Data Stores
+Studio.GameSettings.General.StudioShutdownAllServicesDesc,This button will shutdown all currently running instances of your game, ,This button will shutdown all currently running instances of your game
+Studio.GameSettings.General.AllowCopyingDesc,This option grants every user of Roblox the right to use (in various ways) the content you are not sharing. Fore more information about sharing content please review the Terms of Use., ,This option grants every user of Roblox the right to use (in various ways) the content you are not sharing. Fore more information about sharing content please review the Terms of Use.
 Studio.GameSettings.General.ContentDialogHeader,Content Agreement, ,Content Agreement
 Studio.GameSettings.General.ContentDialogBody,Do you agree that your game is controller compatible and contains NONE of the following?, ,Do you agree that your game is controller compatible and contains NONE of the following?
 Studio.GameSettings.General.ContentDialogItem1,Blood or Gore, ,Blood or Gore
@@ -81,6 +86,8 @@ Studio.GameSettings.General.PreviewDialogBody,Studio doesn't currently support v
 Studio.GameSettings.General.PreviewDialogLink,Go to YouTube and play the video, ,Go to YouTube and play the video
 Studio.GameSettings.General.CancelDialogHeader,Discard Changes, ,Discard Changes
 Studio.GameSettings.General.CancelDialogBody,Would you like to discard all changes?, ,Would you like to discard all changes?
+Studio.GameSettings.General.ShutdownDialogHeader,Shutdown all servers, ,Shutdown all servers
+Studio.GameSettings.General.ShutdownDialogBody,Are you sure you want to shutdown all servers for this game?, ,Are you sure you want to shutdown all servers for this game?
 Studio.GameSettings.General.PrivateDialogHeader,Make Private, ,Make Private
 Studio.GameSettings.General.PrivateDialogPrompt,Are you sure you want to make this game private?, ,Are you sure you want to make this game private?
 Studio.GameSettings.General.PrivateDialogBody,Making this game private will shut down any running games., ,Making this game private will shut down any running games.
@@ -278,7 +285,7 @@ Studio.GameSettings.Monetization.PriceTitle,Price, ,Price
 Studio.GameSettings.Monetization.EditDeveloperProduct,Edit Developer Product, ,Edit Developer Product
 Studio.GameSettings.Monetization.DevProducts,Developer Products, ,Developer Products
 Studio.GameSettings.Monetization.UnsavedDevProduct,(Not Saved), , 
-Studio.GameSettings.Monetization.UnsavedDevProductName,{1} Product Number: {2}, ,{1} Product Number: {2}
+Studio.GameSettings.Monetization.UnsavedDevProductName,Developer Product {1}, ,Developer Product {1}
 Studio.GameSettings.Errors.ErrorPriceBelowMin,Price must be greater than {1}., ,Price must be greater than {1}.
 Studio.GameSettings.Errors.ErrorPriceAboveMax,Price must be less than {1}., ,Price must be less than {1}.
 Studio.GameSettings.Errors.ErrorPriceInvalid,Enter a valid price (e.g. 1000), ,Enter a valid price (e.g. 1000)

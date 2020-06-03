@@ -148,6 +148,7 @@ TrailVSQuadLight,Vertex
 UIFogFS,Fragment
 UIFogVS,Vertex
 UIFS,Fragment
+UIFSAdv,Fragment
 UIFSMdr,Fragment
 UILitFogFS,Fragment
 UILitFS,Fragment

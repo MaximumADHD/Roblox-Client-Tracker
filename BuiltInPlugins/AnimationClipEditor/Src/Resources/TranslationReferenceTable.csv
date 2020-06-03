@@ -87,7 +87,7 @@ Studio.AnimationClipEditor.Menu.SaveAs,Save As, ,다음으로 저장,另存为
 Studio.AnimationClipEditor.Menu.Import,Import, ,가져오기,导入
 Studio.AnimationClipEditor.Menu.FromRoblox,From Roblox, ,Roblox에서,从 Roblox
 Studio.AnimationClipEditor.Menu.FromFBX,From FBX Animation, ,FBX 애니메이션에서,从 FBX 动画
-Studio.AnimationClipEditor.Menu.Export,Export, ,내보내기,导入
+Studio.AnimationClipEditor.Menu.Export,Export, ,내보내기,导出
 Studio.AnimationClipEditor.Menu.CreateNew,Create New, ,새로 만들기,新建
 Studio.AnimationClipEditor.Menu.New,New..., ,새 항목...,新增…
 Studio.AnimationClipEditor.Menu.Overwrite,Do you want to overwrite existing animation "{1}"?, ,기존 애니메이션 "{1}"을(를) 덮어쓰시겠습니까?,是否覆盖现有动画 “{1}”？
@@ -109,7 +109,7 @@ Studio.AnimationClipEditor.Toast.AlignNow,Align all keys now, ,지금 모든 키
 Studio.AnimationClipEditor.Toast.IgnoreWarning,Ignore warning, ,경고 무시,忽略警告
 Studio.AnimationClipEditor.Toast.Saved,Saved animation {1}, ,저장된 애니메이션 {1},已保存动画 {1}
 Studio.AnimationClipEditor.Toast.Loaded,Loaded animation {1}, ,불러온 애니메이션 {1},已加载动画 {1}
-Studio.AnimationClipEditor.RigErrors.NameCollision,This rig contains multiple parts which share the same name. Please give unique names to all parts., ,이 리그에는 이름이 동일한 애니메이션 파트가 여러 개 있습니다. 모든 애니메이션 파트에 고유한 이름을 지정해주세요.,此骨架包含共用相同名称的多个部件。请为每个部件都指定唯一名称。
+Studio.AnimationClipEditor.RigErrors.NameCollision,This rig contains multiple parts which share the same name. Please give unique names to all parts., ,이 리그에는 이름이 동일한 파트가 여러 개 있습니다. 모든 파트에 고유한 이름을 지정해 주세요.,此骨架包含共用相同名称的多个部件。请为每个部件都指定唯一名称。
 Studio.AnimationClipEditor.Tooltip.CurrentFrameBox,Change scrubber time, ,스크러버 시간 변경,更改进度条时间
 Studio.AnimationClipEditor.Tooltip.EndFrameBox,Change timeline length, ,타임라인 길이 변경,更改时间轴长度
 Studio.AnimationClipEditor.Tooltip.ToggleLooping,Toggle looping animation, ,애니메이션 반복 토글,切换循环动画
@@ -117,5 +117,5 @@ Studio.AnimationClipEditor.Tooltip.Play,Preview the animation [Space], ,애니�
 Studio.AnimationClipEditor.Tooltip.SkipForward,Move scrubber to next key, ,스크러버를 다음 키로 이동,将进度条进度移动到下一个关键点
 Studio.AnimationClipEditor.Tooltip.SkipBackward,Move scrubber to previous key, ,스크러버를 이전 키로 이동,将进度条进度移动到上一个关键点
 Studio.AnimationClipEditor.Tooltip.AddTrackButton,Add a new animation track, ,새 애니메이션 트랙 추가,添加新的动画轨迹
-Studio.AnimationClipEditor.Dialog.EditorErrorsHeader,Editor Error Detected, , ,检测到编辑器错误
-Studio.AnimationClipEditor.EditorErrors.OpenedWhileRunning,Animation Editor cannot be used while game is running!, , ,游戏运行时无法使用动画编辑器！
+Studio.AnimationClipEditor.Dialog.EditorErrorsHeader,Editor Error Detected, ,편집기 오류가 감지됨,检测到编辑器错误
+Studio.AnimationClipEditor.EditorErrors.OpenedWhileRunning,Animation Editor cannot be used while game is running!, ,게임 실행 중에는 애니메이션 편집기를 사용할 수 없습니다!,游戏运行时无法使用动画编辑器！

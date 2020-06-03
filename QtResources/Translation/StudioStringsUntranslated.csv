@@ -712,6 +712,7 @@ Studio.App.MainWindow.OpenLocalCopy,Main Window,Open Local Copy,Open Local Copy
 Studio.App.MainWindow.OpenRecentGameRoblox,Main Window,Open a recent Game from Roblox,Open a recent Game from Roblox
 Studio.App.MainWindow.OpenRobloxFile,Main Window,Open Roblox File,Open Roblox File
 Studio.App.MainWindow.PluginManagement,Main Window,Plugin Management,Plugin Management
+Studio.App.MainWindow.PrivacyPolicyLink1,,<p><a href='%1'>Privacy Policy</a></p>,<p><a href='%1'>Privacy Policy</a></p>
 Studio.App.MainWindow.QTVersionSpace,Main Window,Qt Version: ,Qt Version: 
 Studio.App.MainWindow.Reconnect,Main Window,Reconnect,Reconnect
 Studio.App.MainWindow.RemovedAsTeamCreateContributor,Main Window,You have been removed as a Team Create contributor.,You have been removed as a Team Create contributor.
@@ -962,6 +963,7 @@ Studio.App.Property.EagerBulkExecution,,Eager Bulk Execution,Eager Bulk Executio
 Studio.App.Property.EditQualityLevel,,Edit Quality Level,Edit Quality Level
 Studio.App.Property.EnableAutocomplete,,Enable Autocomplete,Enable Autocomplete
 Studio.App.Property.EnableCoreScriptDebugger,,Enable CoreScript Debugger,Enable CoreScript Debugger
+Studio.App.Property.EnableInternalFeatures,,Enable Internal Features,Enable Internal Features
 Studio.App.Property.ErrorColor,,Error Color,Error Color
 Studio.App.Property.ErrorReporting,,Error Reporting,Error Reporting
 Studio.App.Property.ExportMergeByMaterial,,Export Merge By Material,Export Merge By Material
@@ -1049,8 +1051,10 @@ Studio.App.Property.ServerAudioBehavior,,Server Audio Behavior,Server Audio Beha
 Studio.App.Property.ShowActiveAnimationAsset,,Show Active Animation Asset,Show Active Animation Asset
 Studio.App.Property.ShowBoundingBoxes,,Show Bounding Boxes,Show Bounding Boxes
 Studio.App.Property.ShowCoreGUIInExplorerWhilePlaying,,Show Core GUI in Explorer while Playing,Show Core GUI in Explorer while Playing
+Studio.App.Property.ShowCorePackages,,Show CorePackages,Show CorePackages
 Studio.App.Property.ShowDecompositionGeometry,,Show Decomposition Geometry,Show Decomposition Geometry
 Studio.App.Property.ShowDiagnosticsBar,,Show Diagnostics Bar,Show Diagnostics Bar
+Studio.App.Property.ShowFileSyncService,,Show FileSyncService,Show FileSyncService
 Studio.App.Property.ShowHiddenObjectsInExplorer,,Show Hidden Objects in Explorer,Show Hidden Objects in Explorer
 Studio.App.Property.ShowHoverOver,,Show Hover Over,Show Hover Over
 Studio.App.Property.ShowNavigationMesh,,Show Navigation Mesh,Show Navigation Mesh
@@ -1759,6 +1763,7 @@ Studio.App.RobloxOutputRibbonDropdown.PlaySolo,,PlaySolo,PlaySolo
 Studio.App.RobloxOutputRibbonDropdown.RobloxPlugin,,Roblox Plugin,Roblox Plugin
 Studio.App.RobloxOutputRibbonDropdown.SelectMessageOnly,,Select Messages Only,Select Messages Only
 Studio.App.RobloxOutputRibbonDropdown.Server,,Server,Server
+Studio.App.RobloxOutputRibbonDropdown.ShowMemoryAddressForExpandableTables,,Show memory address for expandable tables,Show memory address for expandable tables
 Studio.App.RobloxOutputRibbonDropdown.ShowTimestamp,,Show Timestamp,Show Timestamp
 Studio.App.RobloxOutputRibbonDropdown.System,,System,System
 Studio.App.RobloxOutputRibbonDropdown.UserPlugin,,User Plugin,User Plugin
@@ -2213,6 +2218,7 @@ Studio.App.StartPageLogin.LoggingOutElps,,Logging out...,Logging out...
 Studio.App.StartPageLogin.NotAMemberYet,,Not a member yet?,Not a member yet?
 Studio.App.StartPageLogin.OpeningPlaceElps,,Opening place...,Opening place...
 Studio.App.StartPageLogin.Password,,Password,Password
+Studio.App.StartPageLogin.PrivacyPolicy,,Privacy Policy,Privacy Policy
 Studio.App.StartPageLogin.SignUp,,Sign up,Sign up
 Studio.App.StartPageLogin.StartCreatingOwnGames,,Start creating your own games with Roblox Studio!,Start creating your own games with Roblox Studio!
 Studio.App.StartPageLogin.TwoStepVerificationEmailInstruction,,Enter the code we just sent to you via email,Enter the code we just sent to you via email
@@ -2457,6 +2463,15 @@ Studio.Internal.RobloxMainWindow.SaveScript1,,Save Script %1 ?,Save Script %1 ?
 Studio.Internal.RobloxMainWindow.SelectOneInstance,,Please select only one instance,Please select only one instance
 Studio.Internal.RobloxMainWindow.UnableToSave,,Unable To Save,Unable To Save
 Studio.Internal.RobloxMainWindow.UnsavedScripts,,Unsaved Scripts,Unsaved Scripts
+Studio.Internal.RobloxRibbonMainWindow.InternalFeatures,,Roblox Internal,Roblox Internal
+Studio.Internal.RobloxRibbonMainWindow.InternalFeaturesAreEnabled,,Internal Features are enabled,Internal Features are enabled
+Studio.Internal.RobloxRibbonMainWindow.InternalFeaturesMessageBoxContent,,"Internal Features is enabled, because your account is associated with ""roblox.com"" email address.
+Disable internal Features?
+You may go to Settings to re-enable it.","Internal Features is enabled, because your account is associated with ""roblox.com"" email address.
+Disable internal Features?
+You may go to Settings to re-enable it."
+Studio.Internal.RobloxRibbonMainWindow.InternalFeaturesRestart,,Restart Roblox Studio,Restart Roblox Studio
+Studio.Internal.RobloxRibbonMainWindow.InternalFeaturesRestartDetails,,Roblox Studio need to restart to disable Internal Features,Roblox Studio need to restart to disable Internal Features
 Studio.Internal.StudioProjectConfig.UnexpectedFieldWarning2,,"The Project File has unexpected fields, they will be ignored. 
 %1 
 %2","The Project File has unexpected fields, they will be ignored. 

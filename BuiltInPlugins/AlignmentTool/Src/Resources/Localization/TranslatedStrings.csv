@@ -1,0 +1,16 @@
+Key,Source,Context,ko,zh-cn
+Studio.AlignmentTool.Plugin.Toolbar,Alignment, ,정렬,对齐
+Studio.AlignmentTool.Plugin.Button,Align Objects, ,개체 정렬,对齐对象
+Studio.AlignmentTool.Plugin.Description,Align selected objects., ,선택한 개체를 정렬합니다.,对齐选中的对象。
+Studio.AlignmentTool.Plugin.WindowTitle,Align Objects, ,개체 정렬,对齐对象
+Studio.AlignmentTool.MainView.AlignButton,Align, ,정렬,对齐
+Studio.AlignmentTool.ModeSection.Min,Min, ,최소,最小
+Studio.AlignmentTool.ModeSection.Center,Center, ,중앙,中央
+Studio.AlignmentTool.ModeSection.Max,Max, ,최대,最大
+Studio.AlignmentTool.AxesSection.Title,Align In, ,축 정렬,对齐轴
+Studio.AlignmentTool.AxesSection.WorldX,World X, , ,世界 X 轴
+Studio.AlignmentTool.AxesSection.WorldY,World Y, , ,世界 Y 轴
+Studio.AlignmentTool.AxesSection.WorldZ,World Z, , ,世界 Z 轴
+Studio.AlignmentTool.RelativeToSection.Title,Relative To, , ,相对于
+Studio.AlignmentTool.RelativeToSection.Selection,Selection Bounds, , ,选择范围
+Studio.AlignmentTool.RelativeToSection.Active,Active Object, , ,活跃对象

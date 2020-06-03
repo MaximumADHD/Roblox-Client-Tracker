@@ -21,5 +21,5 @@ Studio.Drafts.StatusText.Saved,Saved, ,저장됨,已保存
 Studio.Drafts.StatusText.Saving,Saving..., ,저장 중...,正在保存…
 Studio.Drafts.StatusText.Committing,Committing..., ,커밋 중...,正在提交…
 Studio.Drafts.DraftItem.CommittedLabel,{1} committed, ,{1} 커밋됨,{1} 已提交
-Studio.Drafts.StatusText.Uncommitted,Uncommitted, , ,未提交
-Studio.Drafts.Toolbar.CommitButton,Commit, , ,提交
+Studio.Drafts.StatusText.Uncommitted,Uncommitted, ,커밋되지 않음,未提交
+Studio.Drafts.Toolbar.CommitButton,Commit, ,커밋,提交

@@ -1279,6 +1279,7 @@ RBX
 	UIBase
 	UIComponent
 	UIConstraint
+	UICorner
 	UIGradient
 	UIGridLayout
 	UIGridStyleLayout

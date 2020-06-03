@@ -21050,6 +21050,13 @@
                 },
                 {
                     "MemberType": "Event",
+                    "Name": "NativeClose",
+                    "Parameters": [
+                    ],
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Event",
                     "Name": "NetworkPausedEnabledChanged",
                     "Parameters": [
                         {
@@ -35057,6 +35064,39 @@
                     "ReturnType": {
                         "Category": "Primitive",
                         "Name": "bool"
+                    },
+                    "Security": "None"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "BulkMoveTo",
+                    "Parameters": [
+                        {
+                            "Name": "partList",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Objects"
+                            }
+                        },
+                        {
+                            "Name": "cframeList",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Array"
+                            }
+                        },
+                        {
+                            "Default": "FireAllEvents",
+                            "Name": "eventMode",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "BulkMoveMode"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
                     },
                     "Security": "None"
                 },
@@ -50731,6 +50771,23 @@
                     }
                 },
                 {
+                    "Category": "Advanced",
+                    "MemberType": "Property",
+                    "Name": "Enable Internal Features",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
                     "Category": "Script Editor Colors",
                     "MemberType": "Property",
                     "Name": "Error Color",
@@ -51350,7 +51407,41 @@
                 {
                     "Category": "Advanced",
                     "MemberType": "Property",
+                    "Name": "Show CorePackages",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Advanced",
+                    "MemberType": "Property",
                     "Name": "Show Diagnostics Bar",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Advanced",
+                    "MemberType": "Property",
+                    "Name": "Show FileSyncService",
                     "Security": {
                         "Read": "None",
                         "Write": "None"
@@ -55384,6 +55475,30 @@
             "MemoryCategory": "Instances",
             "Name": "UITextSizeConstraint",
             "Superclass": "UIConstraint"
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "CornerRadius",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "UDim"
+                    }
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "UICorner",
+            "Superclass": "UIComponent"
         },
         {
             "Members": [
@@ -61298,6 +61413,23 @@
         {
             "Items": [
                 {
+                    "Name": "FireAllEvents",
+                    "Value": 0
+                },
+                {
+                    "Name": "FireCFrameChanged",
+                    "Value": 1
+                },
+                {
+                    "Name": "FireNoEvents",
+                    "Value": 2
+                }
+            ],
+            "Name": "BulkMoveMode"
+        },
+        {
+            "Items": [
+                {
                     "Name": "Jump",
                     "Value": 32
                 },
@@ -63180,8 +63312,12 @@
                     "Value": 10
                 },
                 {
-                    "Name": "Unknown",
+                    "Name": "SslVerificationFail",
                     "Value": 11
+                },
+                {
+                    "Name": "Unknown",
+                    "Value": 12
                 }
             ],
             "Name": "HttpError"

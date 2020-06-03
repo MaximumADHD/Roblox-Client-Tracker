@@ -13,31 +13,31 @@ Studio.GameSettings.General.ButtonCancel,Cancel, ,Cancel,취소,取消
 Studio.GameSettings.General.ButtonDiscard,Discard, ,Discard,제거,丢弃
 Studio.GameSettings.General.CategoryBasicInfo,Basic Info, ,Basic Info,기본 정보,基础信息
 Studio.GameSettings.General.CategoryAvatar,Avatar, ,Avatar,아바타,虚拟形象
-Studio.GameSettings.General.CategoryWorld,World, ,World,세계,世界
+Studio.GameSettings.General.CategoryWorld,World, ,World,월드,世界
 Studio.GameSettings.General.CategoryOptions,Options, ,Options,옵션,选项
 Studio.GameSettings.General.TitleName,Name, ,Name,이름,名称
 Studio.GameSettings.General.TitleDescription,Description, ,Description,설명,描述
 Studio.GameSettings.General.TitlePlayability,Playability, ,Playability,플레이 가능 여부,可玩性
 Studio.GameSettings.General.TitleGameIcon,Game Icon, ,Game Icon,게임 아이콘,游戏图标
-Studio.GameSettings.General.TitleThumbnails,Screenshots & Videos, ,Screenshots & Videos,스크린샷 및 비디오,屏幕截图与视频
+Studio.GameSettings.General.TitleThumbnails,Screenshots & Videos, ,Screenshots & Videos,스크린숏 및 비디오,屏幕截图与视频
 Studio.GameSettings.General.TitleGenre,Genre, ,Genre,장르,类别
 Studio.GameSettings.General.TitleDevices,Playable Devices, ,Playable Devices,플레이 가능 기기,可玩设备
 Studio.GameSettings.General.TitleHttp,Allow HTTP Requests, ,Allow HTTP Requests,HTTP 요청 허용,允许 HTTP 请求
 Studio.GameSettings.General.TitleStudioApiServices,Enable Studio Access to API Services, ,Enable Studio Access to API Services,Studio의 API 서비스 접근 활성화,允许 Studio 访问 API 服务
-Studio.GameSettings.General.PlayabilityHeader,Who can play this game?, ,Who can play this game?,이 게임을 플레이할 수 있는 대상은 누구인가요?,谁可以玩这个游戏?
+Studio.GameSettings.General.PlayabilityHeader,Who can play this game?, ,Who can play this game?,플레이어 허용 범위를 선택하세요.,谁可以玩这个游戏?
 Studio.GameSettings.General.PlayabilityPublic,Public, ,Public,공개,公开
 Studio.GameSettings.General.PlayabilityGroup,Group Members, ,Group Members,그룹 멤버,群组成员
 Studio.GameSettings.General.PlayabilityFriends,Friends, ,Friends,친구,好友
 Studio.GameSettings.General.PlayabilityPrivate,Private, ,Private,비공개,私人
 Studio.GameSettings.General.PlayabilityPublicDesc,Anyone on Roblox, ,Anyone on Roblox,Roblox의 누구든 가능,Roblox 上的所有玩家
 Studio.GameSettings.General.PlayabilityGroupDesc,Members of {group}, ,Members of {group},{group} 그룹 멤버,{group}的成员
-Studio.GameSettings.General.PlayabilityFriendsDesc,Friends on Roblox, ,Friends on Roblox,Roblox의 친구,Roblox 上的好友
+Studio.GameSettings.General.PlayabilityFriendsDesc,Friends on Roblox, ,Friends on Roblox,내 Roblox 친구만 가능,Roblox 上的好友
 Studio.GameSettings.General.PlayabilityPrivateDesc,Only developers of this game, ,Only developers of this game,이 게임의 개발자만 가능,仅开放给此游戏的开发人员
 Studio.GameSettings.General.GameIconHint,Acceptable files: {fileTypes}{newline}Recommended resolution: 512 x 512, ,Acceptable files: {fileTypes}{newline}Recommended resolution: 512 x 512,허용 가능 파일: {fileTypes}{newline}권장 해상도: 512 x 512,可接受的文件: {fileTypes}{newline}建议的分辨率: 512 x 512
 Studio.GameSettings.General.GameIconModeration,Image will be reviewed by moderators before being made visible to other users, ,Image will be reviewed by moderators before being made visible to other users,이미지는 검열팀의 검토가 끝난 후에 다른 사용자들에게 공개됩니다,图片将由协调员审查，然后再对其他用户开放显示
 Studio.GameSettings.General.GameIconTutorial,New to making icons? Check out the Icon Tutorial., ,New to making icons? Check out the Icon Tutorial.,아이콘을 처음 만드시나요? 아이콘 튜토리얼을 확인하세요.,不熟悉制作图标吗? 来看看图标教程吧。
 Studio.GameSettings.General.GameIconChange,Change, ,Change,변경,更改
-Studio.GameSettings.General.ThumbnailsLimit,You can set up to {maxThumbnails:int} screenshots and YouTube videos for a game., ,You can set up to {maxThumbnails:int} screenshots and YouTube videos for a game.,게임에 대한 스크린샷과 YouTube 비디오 썸네일은 최대 {maxThumbnails:int}장까지 설정할 수 있습니다.,一个游戏最多可设置 {maxThumbnails:int} 组屏幕截图和 YouTube 视频。
+Studio.GameSettings.General.ThumbnailsLimit,You can set up to {maxThumbnails:int} screenshots and YouTube videos for a game., ,You can set up to {maxThumbnails:int} screenshots and YouTube videos for a game.,게임에 대한 스크린숏과 YouTube 비디오 섬네일은 최대 {maxThumbnails:int}장까지 설정할 수 있습니다.,一个游戏最多可设置 {maxThumbnails:int} 组屏幕截图和 YouTube 视频。
 Studio.GameSettings.General.ThumbnailsHint,Acceptable image files: {fileTypes} | Recommended resolution: 1920 x 1080, ,Acceptable image files: {fileTypes} | Recommended resolution: 1920 x 1080,허용 가능한 이미지 파일: {fileTypes} | 권장 해상도: 1920 x 1080,可接受的图片文件: {fileTypes} | 建议的分辨率: 1920 x 1080
 Studio.GameSettings.General.ThumbnailsModeration,Items will be reviewed by moderators before being made visible to other users., ,Items will be reviewed by moderators before being made visible to other users.,아이템은 검열팀의 검토가 끝난 후에 다른 사용자들에게 공개됩니다.,项目会在协调员审查后，再对其他用户开放。
 Studio.GameSettings.General.ThumbnailsCount,Up to {maxThumbnails:int} items, ,Up to {maxThumbnails:int} items,최대 {maxThumbnails:int}개 아이템,最多 {maxThumbnails:int} 个项目
@@ -82,9 +82,9 @@ Studio.GameSettings.General.PrivateDialogBody,Making this game private will shut
 Studio.GameSettings.General.AvatarDialogHeader,Warning, ,Warning,경고,警告
 Studio.GameSettings.General.AvatarDialogPrompt,Would you like to proceed?, ,Would you like to proceed?,진행할까요?,你要继续吗?
 Studio.GameSettings.General.AvatarDialogBody,Changing the game's Avatar Type to this setting will shut down any running games., ,Changing the game's Avatar Type to this setting will shut down any running games.,게임의 아바타 유형을 이 설정으로 변경하면 실행 중인 게임이 종료됩니다.,将游戏的虚拟形象类型更改为此设定将会关闭所有运行中的游戏。
-Studio.GameSettings.General.DeleteDialogHeader,Delete Thumbnail, ,Delete Thumbnail,썸네일 삭제,删除缩略图
-Studio.GameSettings.General.DeleteDialogBody,Would you like to delete this thumbnail?, ,Would you like to delete this thumbnail?,이 썸네일을 삭제할까요?,你要删除此缩略图吗?
-Studio.GameSettings.General.ImageDialogHeader,No Image Loaded, ,No Image Loaded,로드된 이미지 없음,未加载图片
+Studio.GameSettings.General.DeleteDialogHeader,Delete Thumbnail, ,Delete Thumbnail,섬네일 삭제,删除缩略图
+Studio.GameSettings.General.DeleteDialogBody,Would you like to delete this thumbnail?, ,Would you like to delete this thumbnail?,이 섬네일을 삭제할까요?,你要删除此缩略图吗?
+Studio.GameSettings.General.ImageDialogHeader,No Image Loaded, ,No Image Loaded,불러온 이미지 없음,未加载图片
 Studio.GameSettings.General.ImageDialogBody,Select a compatible image., ,Select a compatible image.,호환 가능한 이미지를 선택하세요.,选择一张兼容的图片。
 Studio.GameSettings.General.ErrorsOnSaveHeader,Saving Errors, ,Saving Errors,저장 오류,保存错误
 Studio.GameSettings.General.ErrorsOnSaveBody,Could not save game settings., ,Could not save game settings.,게임 설정을 저장하지 못했습니다.,无法保存游戏设置。
@@ -95,7 +95,7 @@ Studio.GameSettings.General.ErrorImageLimit,"You're uploading too much, please w
 Studio.GameSettings.General.ErrorImageNotRecognized,File uploaded does not match known image format. Try converting to png., ,File uploaded does not match known image format. Try converting to png.,업로드된 파일이 알려진 이미지 형식과 일치하지 않습니다. PNG로 변환하세요.,上传的文件与已知图片格式不匹配。请将其转换为 png 格式。
 Studio.GameSettings.General.ErrorNoDevices,You must select at least one playable device., ,You must select at least one playable device.,플레이 가능한 기기를 최소 1개 선택해야 합니다.,你必须选择至少一种可玩设备。
 Studio.GameSettings.General.GameIconPrompt,Add Game Icon, ,Add Game Icon,게임 아이콘 추가,添加游戏图标
-Studio.GameSettings.General.ThumbnailPrompt,Add Thumbnails, ,Add Thumbnails,썸네일 추가,添加缩略图
+Studio.GameSettings.General.ThumbnailPrompt,Add Thumbnails, ,Add Thumbnails,섬네일 추가,添加缩略图
 Studio.GameSettings.General.TitlePresets,Presets, ,Presets,기본 설정,预设
 Studio.GameSettings.General.TitleAvatarType,Avatar Type, ,Avatar Type,아바타 유형,虚拟形象类型
 Studio.GameSettings.General.TitleAnimation,Animation, ,Animation,애니메이션,动画
@@ -119,7 +119,7 @@ Studio.GameSettings.General.ClothingTShirt,T-Shirt ID, ,T-Shirt ID,티셔츠 ID,
 Studio.GameSettings.General.ClothingShirt,Shirt ID, ,Shirt ID,셔츠 ID,上衣ID
 Studio.GameSettings.General.ClothingPants,Pants ID, ,Pants ID,바지 ID,裤子ID
 Studio.GameSettings.General.PresetDefault,Default, ,Default,기본값,默认
-Studio.GameSettings.General.PresetClassicScale,Classic Scale, ,Classic Scale,클래식 크기,经典比例
+Studio.GameSettings.General.PresetClassicScale,Classic Scale, ,Classic Scale,기본 비율,经典比例
 Studio.GameSettings.General.PresetFullClassic,Full Classic, ,Full Classic,풀 클래식,全套经典
 Studio.GameSettings.General.PresetRthro,Rthro, ,Rthro,Rthro,Rthro
 Studio.GameSettings.General.PresetPlayerChoice,Player Choice, ,Player Choice,플레이어의 선택,玩家选择
@@ -189,7 +189,7 @@ Studio.GameSettings.General.ScaleSliderLabel,{number}%, ,{number}%,{number}%,{nu
 Studio.GameSettings.General.ScaleSliderUnits,%, ,%,%,%
 Studio.GameSettings.General.PublishingHintLink,Publishing the game to Roblox, ,Publishing the game to Roblox,Roblox에 게임 게시,正在将游戏发布到 Roblox
 Studio.GameSettings.General.PublishingHintLinkExplanation, is required for changing Avatar game settings, , is required for changing Avatar game settings,은(는) 아바타 게임 설정을 변경하는 데 필요합니다,是更改虚拟形象游戏设置所必需的
-Studio.GameSettings.General.TitleCollaborators,Collaborators, ,Collaborators,협업자,协作者
+Studio.GameSettings.General.TitleCollaborators,Collaborators, ,Collaborators,공동 작업자,协作者
 Studio.GameSettings.General.DevSubsNewHeader,New Developer Subscription, ,New Developer Subscription,새로운 개발자 구독,新的开发者订阅
 Studio.GameSettings.General.DevSubsDiscontinuedHeader,Discontinued Developer Subscription, ,Discontinued Developer Subscription,중단된 개발자 구독,取消的开发者订阅
 Studio.GameSettings.General.DevSubsDeleteAction,Delete, ,Delete,삭제,删除
@@ -215,27 +215,70 @@ Studio.GameSettings.AccessPermissions.FriendsCollaboratorType,Friends, ,Friends,
 Studio.GameSettings.AccessPermissions.UsersCollaboratorType,Users, ,Users,사용자,用户
 Studio.GameSettings.AccessPermissions.GroupsCollaboratorType,Groups, ,Groups,그룹,群组
 Studio.GameSettings.AccessPermissions.MyFriendsCollaborator,My Friends, ,My Friends,내 친구,我的好友
-Studio.GameSettings.AccessPermissions.CollaboratorSearchbarDefaultText,Search by username, ,Search by username,사용자 또는 그룹 이름으로 검색,按用户名搜索
-Studio.GameSettings.AccessPermissions.CollaboratorSearchbarTooManyText1,You cannot add more than {maxNumCollaborators:int} collaborators, ,You cannot add more than {maxNumCollaborators:int} collaborators,협업자는 최대 {maxNumCollaborators:int}명까지만 추가할 수 있습니다.,无法添加 {maxNumCollaborators:int} 位以上的协作者
+Studio.GameSettings.AccessPermissions.CollaboratorSearchbarDefaultText,Search by username, ,Search by username,사용자 이름으로 검색,按用户名搜索
+Studio.GameSettings.AccessPermissions.CollaboratorSearchbarTooManyText1,You cannot add more than {maxNumCollaborators:int} collaborators, ,You cannot add more than {maxNumCollaborators:int} collaborators,공동 작업자는 최대 {maxNumCollaborators:int}명까지만 추가할 수 있습니다.,无法添加 {maxNumCollaborators:int} 位以上的协作者
 Studio.GameSettings.AccessPermissions.CollaboratorSearchbarNoResultsText,There were no results, ,There were no results,결과가 없습니다,没有结果
-Studio.GameSettings.AccessPermissions.PublishRequiredForCollaborators,adding collaborators, ,adding collaborators,협업자 추가,正在添加协作者
-Studio.GameSettings.AccessPermissions.TeamCreateWarning,"To add collaborators, turn on Team Create", ,"To add collaborators, turn on Team Create",협업자를 추가하려면 팀 만들기를 활성화하세요,要添加协作者，请打开“组队创作”
+Studio.GameSettings.AccessPermissions.PublishRequiredForCollaborators,adding collaborators, ,adding collaborators,공동 작업자 추가,正在添加协作者
+Studio.GameSettings.AccessPermissions.TeamCreateWarning,"To add collaborators, turn on Team Create", ,"To add collaborators, turn on Team Create",공동 작업자를 추가하려면 팀 만들기를 활성화하세요,要添加协作者，请打开“组队创作”
 Studio.GameSettings.DraftGames.PublishRequiredToActivatePlayability, to activate Playability options, , to activate Playability options, 플레이 가능 옵션 활성화,以激活“可玩性”选项
-Studio.GameSettings.AccessPermissions.DEPRECATED_CollaboratorSearchbarDefaultText,Search by user or group name, ,Search by user or group name, ,按用户或群组名称搜索
-Studio.GameSettings.AccessPermissions.PermissionsUpdateMessage, We've updated our permission system!, , We've updated our permission system!, , 我们对许可系统进行了更新！
-Studio.GameSettings.AccessPermissions.UpdateHyperlinkText, Learn more, , Learn more, , 了解更多
-Studio.GameSettings.General.CategoryLocalization,Localization, ,Localization, ,本地化
-Studio.GameSettings.General.SourceLanguageTitle,Source Language, ,Source Language, ,源语言
-Studio.GameSettings.General.SourceLanguageDesc,The source language represents the language that the game has been written in., ,The source language represents the language that the game has been written in., ,源语言代表制作游戏时使用的开发语言。
-Studio.GameSettings.General.AutoTextCaptureTitle,Automatic Text Capture, ,Automatic Text Capture, ,自动文本抓取
-Studio.GameSettings.General.AutoTextCaptureDesc,Automatically capture text from game UI while players play., ,Automatically capture text from game UI while players play., ,当玩家进行游戏时自动从游戏界面抓取文本。
-Studio.GameSettings.General.UseTranslatedContentTitle,Use Translated Content, ,Use Translated Content, ,使用已翻译的内容
-Studio.GameSettings.General.UseTranslatedContentDesc,Enable translated content in game., ,Enable translated content in game., ,在游戏中启用已翻译的内容。
-Studio.GameSettings.General.AutoTranslationTitle,Automatic Translation, ,Automatic Translation, ,自动翻译
-Studio.GameSettings.General.AutoTranslationOnlyAvailableForEnMessage,Automatic translation is unavailable for current source language., ,Automatic translation is unavailable for current source language., ,当前源语言无法使用自动翻译。
-Studio.GameSettings.General.LocalizationSettingsLinkText,Click here, ,Click here, ,点击此处
-Studio.GameSettings.General.LocalizationSettingsNonLinkText, to further manage the cloud localization table for this game., , to further manage the cloud localization table for this game., , 进一步管理此游戏的云本地化表格。
-Studio.GameSettings.General.LocalizationSettingsPublishMessageLinkText,Publishing a game is required, ,Publishing a game is required, ,必须先发布游戏
-Studio.GameSettings.General.LocalizationSettingsPublishMessageNonLinkText, to activate Localization options., , to activate Localization options., , 方可启用本地化选项。
-Studio.GameSettings.General.CategoryPlaces,Places, ,Places, , 
-Studio.GameSettings.General.ButtonCreate,Create, ,Create, , 
+Studio.GameSettings.AccessPermissions.DEPRECATED_CollaboratorSearchbarDefaultText,Search by user or group name, ,Search by user or group name,사용자 또는 그룹 이름으로 검색,按用户或群组名称搜索
+Studio.GameSettings.AccessPermissions.PermissionsUpdateMessage, We've updated our permission system!, , We've updated our permission system!,권한 시스템을 업데이트했습니다!, 我们对许可系统进行了更新！
+Studio.GameSettings.AccessPermissions.UpdateHyperlinkText, Learn more, , Learn more, 더 알아보기, 了解更多
+Studio.GameSettings.General.CategoryLocalization,Localization, ,Localization,로컬리제이션,本地化
+Studio.GameSettings.General.SourceLanguageTitle,Source Language, ,Source Language,소스 언어,源语言
+Studio.GameSettings.General.SourceLanguageDesc,The source language represents the language that the game has been written in., ,The source language represents the language that the game has been written in.,소스 언어란 게임 제작 시 사용된 언어를 뜻합니다.,源语言代表制作游戏时使用的开发语言。
+Studio.GameSettings.General.AutoTextCaptureTitle,Automatic Text Capture, ,Automatic Text Capture,자동 텍스트 캡처,自动文本抓取
+Studio.GameSettings.General.AutoTextCaptureDesc,Automatically capture text from game UI while players play., ,Automatically capture text from game UI while players play.,플레이어가 플레이하는 동안 게임 UI에서 텍스트를 자동으로 캡처합니다.,当玩家进行游戏时自动从游戏界面抓取文本。
+Studio.GameSettings.General.UseTranslatedContentTitle,Use Translated Content, ,Use Translated Content,번역된 콘텐츠 사용,使用已翻译的内容
+Studio.GameSettings.General.UseTranslatedContentDesc,Enable translated content in game., ,Enable translated content in game.,번역된 콘텐츠를 게임에서 활성화합니다.,在游戏中启用已翻译的内容。
+Studio.GameSettings.General.AutoTranslationTitle,Automatic Translation, ,Automatic Translation,자동 번역,自动翻译
+Studio.GameSettings.General.AutoTranslationOnlyAvailableForEnMessage,Automatic translation is unavailable for current source language., ,Automatic translation is unavailable for current source language.,해당 소스 언어에는 자동 번역이 제공되지 않습니다.,当前源语言无法使用自动翻译。
+Studio.GameSettings.General.LocalizationSettingsLinkText,Click here, ,Click here,여기를 클릭하세요,点击此处
+Studio.GameSettings.General.LocalizationSettingsNonLinkText, to further manage the cloud localization table for this game., , to further manage the cloud localization table for this game., 이 게임의 클라우드 로컬리제이션 테이블을 추가로 관리할 수 있습니다., 进一步管理此游戏的云本地化表格。
+Studio.GameSettings.General.LocalizationSettingsPublishMessageLinkText,Publishing a game is required, ,Publishing a game is required,먼저 게임을 게시해야 합니다,必须先发布游戏
+Studio.GameSettings.General.LocalizationSettingsPublishMessageNonLinkText, to activate Localization options., , to activate Localization options., 그러면 로컬리제이션 옵션을 활성화할 수 있습니다., 方可启用本地化选项。
+Studio.GameSettings.General.CategoryPlaces,Places, ,Places,플레이스,场景
+Studio.GameSettings.General.ButtonCreate,Create, ,Create,만들기,创建
+Studio.GameSettings.General.ButtonEdit,Edit, ,Edit,편집,编辑
+Studio.GameSettings.General.ButtonView,View, ,View,보기,查看
+Studio.GameSettings.General.UnitsMetersPerSecondSquared1,({1} meters/second^2), ,({1} meters/second^2),({1}미터/초^2),（{1} 米/秒 ^ 2）
+Studio.GameSettings.General.UnitsMeters1,({1} meters), ,({1} meters),({1}미터),（{1} 米）
+Studio.GameSettings.General.UnitsMetersPerSecond1,({1} meters/second), ,({1} meters/second),({1}미터/초),（{1} 米/秒）
+Studio.GameSettings.Places.PlaceVersion,Place Version, ,Place Version,플레이스 버전,场景版本
+Studio.GameSettings.Places.PlaceName,Place Name, ,Place Name,플레이스 이름,场景名称
+Studio.GameSettings.Places.EditPlace,Edit Place, ,Edit Place,플레이스 편집,编辑场景
+Studio.GameSettings.Places.MaxPlayers,Max Players, ,Max Players,최대 플레이어 수,玩家数量上限
+Studio.GameSettings.Places.MaxPlayersSubText,Maximum number of players allowed in a single instance of the game., ,Maximum number of players allowed in a single instance of the game.,단일 게임 인스턴스에 허용되는 최대 플레이어 수.,游戏的每个实例中所允许的玩家数量上限。
+Studio.GameSettings.Places.ServerFill,Server Fill, ,Server Fill,서버 채우기,服务器填充
+Studio.GameSettings.Places.OptimizedTitle,Roblox Optimized, ,Roblox Optimized,Roblox 최적화,Roblox 优化
+Studio.GameSettings.Places.OptimizedDescription,Fills your server to optimize for the best social gameplay experience., ,Fills your server to optimize for the best social gameplay experience.,최고의 소셜 게임 플레이 경험을 위해 서버를 채웁니다.,Roblox 将自动优化服务器的填充方式以获得最佳社交游戏体验。
+Studio.GameSettings.Places.MaximumTitle,Maximum, ,Maximum,최대,最大人数
+Studio.GameSettings.Places.MaximumWarning,Choosing this option could cause you to lose out on gameplay time and Robux earned., ,Choosing this option could cause you to lose out on gameplay time and Robux earned.,이 옵션을 선택하면 게임 플레이 시간 및 Robux 수익이 감소할 수 있습니다.,选择该选项后可能会导致产品的游戏时间与 Robux 收入下降。
+Studio.GameSettings.Places.CustomizeSlotsTitle,Customize Reserved Server Slots, ,Customize Reserved Server Slots,예약 서버 슬롯 사용자 정의,自定义服务器留位数量
+Studio.GameSettings.Places.CustomizeSlotsDescription,Friends are more likely to join players in your game if you reserve slots., ,Friends are more likely to join players in your game if you reserve slots.,슬롯을 예약하면 플레이어가 게임에서 친구와 합류할 수 있는 가능성이 높아집니다.,如果在服务器上预留位置，玩家更有可能在游戏中加入其好友。
+Studio.GameSettings.Places.VersionHistory,Version History, ,Version History,버전 기록,版本历史记录
+Studio.GameSettings.General.CategoryMonetization,Monetization, ,Monetization,수익 창출,盈利
+Studio.GameSettings.Monetization.FeeLabel,{1}% Fee:, ,{1}% Fee:, ,{1}% 费用：
+Studio.GameSettings.Monetization.TitlePaidAccess,Paid Access, ,Paid Access,유료 액세스,付费访问
+Studio.GameSettings.Monetization.TitleVIPServers,VIP Servers, ,VIP Servers,VIP 서버,VIP 服务器
+Studio.GameSettings.Monetization.Price,Price:, ,Price:,가격:,价格:
+Studio.GameSettings.Monetization.EarnLabel,You Earn:, ,You Earn:,획득 금액:,你的赚取：
+Studio.GameSettings.Monetization.PaidAccessHint,VIP Servers must not be enabled and the game must be public to enable Paid Access., ,VIP Servers must not be enabled and the game must be public to enable Paid Access.,유료 액세스를 활성화하려면 VIP 서버를 비활성화하고 게임을 공개해야 합니다.,启用付费访问前，需要禁用 VIP 服务器并将游戏设为公开。
+Studio.GameSettings.Monetization.VIPServersHint,Paid Access must not be enabled and the game must be public to enable VIP Servers., ,Paid Access must not be enabled and the game must be public to enable VIP Servers.,VIP 서버를 활성화하려면 유료 액세스를 비활성화하고 게임을 공개해야 합니다.,启用 VIP 服务器前，需要禁用付费访问并将游戏设为公开。
+Studio.GameSettings.Monetization.Subscriptions,Subscriptions: {numOfSubscriptions:int}, ,Subscriptions: {numOfSubscriptions:int},구독: {numOfSubscriptions:int},订阅数：{numOfSubscriptions:int}
+Studio.GameSettings.Monetization.TotalVIPServers,Total: {totalVipServers:int}, ,Total: {totalVipServers:int},총계: {totalVipServers:int},服务器数：{totalVipServers:int}
+Studio.GameSettings.Monetization.ProductName,Product Name, ,Product Name,제품 이름,产品名称
+Studio.GameSettings.Monetization.ProductID,Product ID, ,Product ID,제품 ID,产品 ID
+Studio.GameSettings.Monetization.ProductIcon,Product Icon, ,Product Icon,제품 아이콘,产品图标
+Studio.GameSettings.Monetization.PriceTitle,Price, ,Price,가격,价格
+Studio.GameSettings.Monetization.EditDeveloperProduct,Edit Developer Product, ,Edit Developer Product,개발자 제품 편집,编辑开发者产品
+Studio.GameSettings.Monetization.DevProducts,Developer Products, ,Developer Products,개발자 제품,开发者产品
+Studio.GameSettings.General.ButtonPublish,Publish, ,Publish,게시,发布
+Studio.GameSettings.AccessPermissions.OwnerDescription,Owner of the game, ,Owner of the game,게임 소유자,游戏的所有者
+Studio.GameSettings.General.PublishText,Publish to access Game Settings. , ,Publish to access Game Settings. , ,发布后即可使用游戏设置功能。 
+Studio.GameSettings.Places.NumberError,Please enter a number betwen {minRange:int} and {maxRange:int}., ,Please enter a number betwen {minRange:int} and {maxRange:int}.,{minRange:int}에서 {maxRange:int} 사이의 숫자를 입력하세요.,请输入 {minRange:int} 和 {maxRange:int} 之间的一个数字。
+Studio.GameSettings.Errors.ErrorPriceBelowMin,Price must be greater than {1}., ,Price must be greater than {1}.,가격은 {1}보다 높아야 합니다.,价格必须大于 {1}。
+Studio.GameSettings.Errors.ErrorPriceAboveMax,Price must be less than {1}., ,Price must be less than {1}.,가격은 {1}보다 낮아야 합니다.,价格必须小于 {1}。
+Studio.GameSettings.Errors.ErrorPriceInvalid,Enter a valid price (e.g. 1000), ,Enter a valid price (e.g. 1000),유효한 가격을 입력하세요 (예: 1000),输入有效的价格 （例：1000）
+Studio.GameSettings.Monetization.UnsavedDevProduct,(Not Saved), ,(Not Saved), , 
+Studio.GameSettings.Monetization.UnsavedDevProductName,Developer Product {1}, ,Developer Product {1}, , 

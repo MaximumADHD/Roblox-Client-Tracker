@@ -7,7 +7,6 @@ Studio.PublishPlaceAs.General.ContentDialogItem2,Intense Violence, ,심각한 �
 Studio.PublishPlaceAs.General.ContentDialogItem3,Strong Language (Swearing), ,심한 말(욕설),粗暴语言 (脏话)
 Studio.PublishPlaceAs.General.ContentDialogItem4,Robux Gambling, ,Robux 도박,以 Robux 进行赌博
 Studio.PublishPlaceAs.General.ContentDialogItem5,Drug Reference or Use, ,마약 언급 또는 사용,提及或使用药物
-Studio.PublishPlaceAs.General.UntitledGame,Untitled Game, , , 
 Studio.PublishPlaceAs.Button.AddNewPlace,Add New, ,신규 추가,新增
 Studio.PublishPlaceAs.Button.Close,Close, ,닫기,关闭
 Studio.PublishPlaceAs.Button.ReplyAgree,Agree, ,동의,同意
@@ -56,5 +55,6 @@ Studio.PublishPlaceAs.PublishSuccess.Success,Successfully published!, ,게시 �
 Studio.PublishPlaceAs.PublishSuccess.FindInGame,You may find this place in {1}, ,이 플레이스는 {1}에서 찾을 수 있습니다,你可以在 {1} 中找到此场景
 Studio.PublishPlaceAs.PublishFail.Fail,Publish failed, ,게시 실패,发布失败
 Studio.PublishPlaceAs.PublishFail.FailConfiguration,Could not publish configuration settings., ,구성 설정을 게시하지 못했습니다.,无法发布配置设置。
-Studio.PublishPlaceAs.GroupDropdown.Me,Me, , ,我
-Studio.PublishPlaceAs.PageTitle.Creator,Creator, , ,创建者
+Studio.PublishPlaceAs.GroupDropdown.Me,Me, ,나,我
+Studio.PublishPlaceAs.PageTitle.Creator,Creator, ,크리에이터,创建者
+Studio.PublishPlaceAs.General.UntitledGame,Untitled Game, ,제목 없는 게임,未命名游戏

@@ -1219,6 +1219,7 @@ Class GuiService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event GuiService.KeyPressed(string key, string modifiers) {RobloxScriptSecurity}
 	Event GuiService.MenuClosed()
 	Event GuiService.MenuOpened()
+	Event GuiService.NativeClose() {RobloxScriptSecurity}
 	Event GuiService.NetworkPausedEnabledChanged(bool enabled) {RobloxScriptSecurity}
 	Event GuiService.SafeZoneOffsetsChanged() {RobloxScriptSecurity}
 	Event GuiService.ShowLeaveConfirmation() {RobloxScriptSecurity}
@@ -1974,6 +1975,7 @@ Class Model : PVInstance
 Class Status : Model [NotCreatable] [Deprecated]
 Class WorldRoot : Model [NotCreatable]
 	Function bool WorldRoot:ArePartsTouchingOthers(Objects partList, float overlapIgnored = 0.000199999995)
+	Function void WorldRoot:BulkMoveTo(Objects partList, Array cframeList, Enum<BulkMoveMode> eventMode = "FireAllEvents")
 	Function Tuple WorldRoot:FindPartOnRay(Ray ray, Instance ignoreDescendantsInstance = nil, bool terrainCellsAreCubes = false, bool ignoreWater = false)
 	Function Tuple WorldRoot:FindPartOnRayWithIgnoreList(Ray ray, Objects ignoreDescendantsTable, bool terrainCellsAreCubes = false, bool ignoreWater = false)
 	Function Tuple WorldRoot:FindPartOnRayWithWhitelist(Ray ray, Objects whitelistDescendantsTable, bool ignoreWater = false)
@@ -2815,8 +2817,11 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool Studio.Drag Multiple Parts As Single Part
 	Property bool Studio.Enable CoreScript Debugger
 	Property bool Studio.Enable Intellisense [<📁> LoadOnly] [NotReplicated] [Deprecated]
+	Property bool Studio.Enable Internal Features
 	Property bool Studio.Respect Studio shortcuts when game has focus
+	Property bool Studio.Show CorePackages
 	Property bool Studio.Show Diagnostics Bar
+	Property bool Studio.Show FileSyncService
 	Property bool Studio.Show QT warnings in output
 	Property bool Studio.Only Play Audio from Window in Focus
 	Property Enum<ServerAudioBehavior> Studio.Server Audio Behavior
@@ -3091,6 +3096,8 @@ Class UISizeConstraint : UIConstraint
 Class UITextSizeConstraint : UIConstraint
 	Property int UITextSizeConstraint.MaxTextSize
 	Property int UITextSizeConstraint.MinTextSize
+Class UICorner : UIComponent
+	Property UDim UICorner.CornerRadius
 Class UIGradient : UIComponent
 	Property ColorSequence UIGradient.Color
 	Property bool UIGradient.Enabled
@@ -3531,6 +3538,10 @@ Enum BreakReason
 	EnumItem BreakReason.Error : 1
 	EnumItem BreakReason.SpecialBreakpoint : 2
 	EnumItem BreakReason.UserBreakpoint : 3
+Enum BulkMoveMode
+	EnumItem BulkMoveMode.FireAllEvents : 0
+	EnumItem BulkMoveMode.FireCFrameChanged : 1
+	EnumItem BulkMoveMode.FireNoEvents : 2
 Enum Button
 	EnumItem Button.Dismount : 8
 	EnumItem Button.Jump : 32
@@ -3976,7 +3987,8 @@ Enum HttpError
 	EnumItem HttpError.NetFail : 8
 	EnumItem HttpError.Aborted : 9
 	EnumItem HttpError.SslConnectFail : 10
-	EnumItem HttpError.Unknown : 11
+	EnumItem HttpError.SslVerificationFail : 11
+	EnumItem HttpError.Unknown : 12
 Enum HttpRequestType
 	EnumItem HttpRequestType.Default : 0
 	EnumItem HttpRequestType.MarketplaceService : 2

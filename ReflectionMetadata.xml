@@ -3108,6 +3108,25 @@
     </Item>
 
     <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">UICorner</string>
+        <string name="ExplorerOrder">30</string>
+        <string name="ExplorerImageIndex">26</string>
+        <string name="ClassCategory">GUI</string>
+        <string name="summary">Modify corner properties of parent GuiObject.</string>
+        <string name="PreferredParent">GuiBase2d</string>
+      </Properties>
+      <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">CornerRadius</string>
+            <string name="summary">Round corner with specified radius.</string>
+          </Properties>
+        </Item>
+      </Item>
+    </Item>
+
+    <Item class="ReflectionMetadataClass">
         <Properties>
             <string name="Name">TweenBase</string>
             <string name="Browsable">false</string>

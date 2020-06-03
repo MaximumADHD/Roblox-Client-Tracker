@@ -253,9 +253,28 @@ Rectangle {
             objectName: "signUp"
         }
 
+        TextWithLink {
+            id: privacyPolicyLink
+            visible: loginManager.showPrivacyPolicyLink()
+            anchors.top: notAMemberYetTextAndlink.bottom
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.topMargin: 12
+            readonly property url link: loginManager.getPrivacyPolicyUrl()
+            text: " <a style='text-decoration: none; color:" + (userPreferences.theme.style("CommonStyle linkText"))
+                       + "' href='" + link +"'>" + qsTr("Studio.App.StartPageLogin.PrivacyPolicy") + "</a>"
+            color: RobloxStyle.colorGray2
+            font.pixelSize: 14
+            horizontalAlignment: Text.AlignHCenter
+            onLinkActivated: {
+                Qt.openUrlExternally(link);
+            }
+            objectName: "privacyPolicy"
+        }
+
         PlainText {
             id: versionText
-            anchors.top: notAMemberYetTextAndlink.bottom
+            anchors.top: privacyPolicyLink.bottom
             anchors.bottom: parent.bottom
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.topMargin: 24
@@ -404,6 +423,10 @@ Rectangle {
                 target: notAMemberYetTextAndlink
                 visible: false
             }
+            PropertyChanges {
+                target: privacyPolicyLink
+                visible: false
+            }
         },
         State {
             // We automatically try to authenticate you in the background when
@@ -450,6 +473,10 @@ Rectangle {
             }
             PropertyChanges {
                 target: notAMemberYetTextAndlink
+                visible: false
+            }
+            PropertyChanges {
+                target: privacyPolicyLink
                 visible: false
             }
         },
@@ -500,6 +527,10 @@ Rectangle {
                 target: notAMemberYetTextAndlink
                 visible: false
             }
+            PropertyChanges {
+                target: privacyPolicyLink
+                visible: false
+            }
         },
         State {
             name: "STATE_LOGGED_OUT"
@@ -530,6 +561,10 @@ Rectangle {
             }
             PropertyChanges {
                 target: notAMemberYetTextAndlink
+                visible: false
+            }
+            PropertyChanges {
+                target: privacyPolicyLink
                 visible: false
             }
         },
@@ -572,6 +607,10 @@ Rectangle {
             }
             PropertyChanges {
                 target: notAMemberYetTextAndlink
+                visible: false
+            }
+            PropertyChanges {
+                target: privacyPolicyLink
                 visible: false
             }
         }

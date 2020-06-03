@@ -48,9 +48,16 @@ struct LightShadowGPUTransform
     mat4 transform;
 };
 
+struct AdvancedUIShadingParams
+{
+    vec4 UvDesc;
+    vec4 RcDesc;
+};
+
 uniform vec4 CB0[47];
 uniform vec4 CB8[24];
 uniform vec4 CB2[1];
+uniform vec4 CB3[2];
 uniform sampler2D ShadowAtlasTexture;
 uniform sampler3D LightMapTexture;
 uniform sampler3D LightGridSkylightTexture;
@@ -71,40 +78,44 @@ void main()
     vec4 f1 = vec4(1.0, 1.0, 1.0, f0.x);
     bvec4 f2 = bvec4(CB2[0].y > 0.5);
     vec4 f3 = VARYING1 * vec4(f2.x ? f1.x : f0.x, f2.y ? f1.y : f0.y, f2.z ? f1.z : f0.z, f2.w ? f1.w : f0.w);
-    vec4 f4 = f3;
-    f4.w = f3.w;
-    float f5 = clamp(dot(step(CB0[19].xyz, abs(VARYING3 - CB0[18].xyz)), vec3(1.0)), 0.0, 1.0);
-    vec3 f6 = VARYING3.yzx - (VARYING3.yzx * f5);
-    vec4 f7 = vec4(clamp(f5, 0.0, 1.0));
-    vec4 f8 = mix(texture(LightMapTexture, f6), vec4(0.0), f7);
-    vec4 f9 = mix(texture(LightGridSkylightTexture, f6), vec4(1.0), f7);
-    float f10 = f9.y;
-    vec3 f11 = VARYING4.xyz - CB0[41].xyz;
-    vec3 f12 = VARYING4.xyz - CB0[42].xyz;
-    vec3 f13 = VARYING4.xyz - CB0[43].xyz;
-    vec4 f14 = vec4(VARYING4.xyz, 1.0) * mat4(CB8[((dot(f11, f11) < CB0[41].w) ? 0 : ((dot(f12, f12) < CB0[42].w) ? 1 : ((dot(f13, f13) < CB0[43].w) ? 2 : 3))) * 4 + 0], CB8[((dot(f11, f11) < CB0[41].w) ? 0 : ((dot(f12, f12) < CB0[42].w) ? 1 : ((dot(f13, f13) < CB0[43].w) ? 2 : 3))) * 4 + 1], CB8[((dot(f11, f11) < CB0[41].w) ? 0 : ((dot(f12, f12) < CB0[42].w) ? 1 : ((dot(f13, f13) < CB0[43].w) ? 2 : 3))) * 4 + 2], CB8[((dot(f11, f11) < CB0[41].w) ? 0 : ((dot(f12, f12) < CB0[42].w) ? 1 : ((dot(f13, f13) < CB0[43].w) ? 2 : 3))) * 4 + 3]);
-    vec4 f15 = textureLod(ShadowAtlasTexture, f14.xy, 0.0);
-    vec2 f16 = vec2(0.0);
-    f16.x = CB0[45].z;
-    vec2 f17 = f16;
-    f17.y = CB0[45].w;
-    float f18 = (2.0 * f14.z) - 1.0;
-    float f19 = exp(CB0[45].z * f18);
-    float f20 = -exp((-CB0[45].w) * f18);
-    vec2 f21 = (f17 * CB0[46].y) * vec2(f19, f20);
-    vec2 f22 = f21 * f21;
-    float f23 = f15.x;
-    float f24 = max(f15.y - (f23 * f23), f22.x);
-    float f25 = f19 - f23;
-    float f26 = f15.z;
-    float f27 = max(f15.w - (f26 * f26), f22.y);
-    float f28 = f20 - f26;
-    vec3 f29 = (f4.xyz * f4.xyz).xyz;
-    float f30 = clamp(exp2((CB0[13].z * length(VARYING5)) + CB0[13].x) - CB0[13].w, 0.0, 1.0);
-    vec3 f31 = textureLod(PrefilteredEnvTexture, vec4(-VARYING5, 0.0).xyz, max(CB0[13].y, f30) * 5.0).xyz;
-    bvec3 f32 = bvec3(CB0[13].w != 0.0);
-    vec3 f33 = sqrt(clamp(mix(vec3(f32.x ? CB0[14].xyz.x : f31.x, f32.y ? CB0[14].xyz.y : f31.y, f32.z ? CB0[14].xyz.z : f31.z), mix(f29, (min((f8.xyz * (f8.w * 120.0)).xyz + (CB0[8].xyz + (CB0[9].xyz * f9.x)), vec3(CB0[16].w)) + (VARYING2 * ((VARYING4.w > 0.0) ? mix(f10, mix(min((f19 <= f23) ? 1.0 : clamp(((f24 / (f24 + (f25 * f25))) - 0.20000000298023223876953125) * 1.25, 0.0, 1.0), (f20 <= f26) ? 1.0 : clamp(((f27 / (f27 + (f28 * f28))) - 0.20000000298023223876953125) * 1.25, 0.0, 1.0)), f10, clamp((length(VARYING4.xyz - CB0[7].xyz) * CB0[45].y) - (CB0[45].x * CB0[45].y), 0.0, 1.0)), CB0[46].x) : 0.0))) * f29, vec3(CB2[0].z)).xyz, vec3(f30)).xyz * CB0[15].y, vec3(0.0), vec3(1.0)));
-    _entryPointOutput = vec4(f33.x, f33.y, f33.z, f4.w);
+    vec2 f4 = abs(vec2((VARYING0.x * CB3[0].x) - CB3[0].y, (VARYING0.y * CB3[0].z) - CB3[0].w)) - CB3[1].xy;
+    float f5 = f3.w * clamp(CB3[1].z - (length(max(f4, vec2(0.0))) + min(max(f4.x, f4.y), 0.0)), 0.0, 1.0);
+    vec4 f6 = f3;
+    f6.w = f5;
+    vec4 f7 = f6;
+    f7.w = f5;
+    float f8 = clamp(dot(step(CB0[19].xyz, abs(VARYING3 - CB0[18].xyz)), vec3(1.0)), 0.0, 1.0);
+    vec3 f9 = VARYING3.yzx - (VARYING3.yzx * f8);
+    vec4 f10 = vec4(clamp(f8, 0.0, 1.0));
+    vec4 f11 = mix(texture(LightMapTexture, f9), vec4(0.0), f10);
+    vec4 f12 = mix(texture(LightGridSkylightTexture, f9), vec4(1.0), f10);
+    float f13 = f12.y;
+    vec3 f14 = VARYING4.xyz - CB0[41].xyz;
+    vec3 f15 = VARYING4.xyz - CB0[42].xyz;
+    vec3 f16 = VARYING4.xyz - CB0[43].xyz;
+    vec4 f17 = vec4(VARYING4.xyz, 1.0) * mat4(CB8[((dot(f14, f14) < CB0[41].w) ? 0 : ((dot(f15, f15) < CB0[42].w) ? 1 : ((dot(f16, f16) < CB0[43].w) ? 2 : 3))) * 4 + 0], CB8[((dot(f14, f14) < CB0[41].w) ? 0 : ((dot(f15, f15) < CB0[42].w) ? 1 : ((dot(f16, f16) < CB0[43].w) ? 2 : 3))) * 4 + 1], CB8[((dot(f14, f14) < CB0[41].w) ? 0 : ((dot(f15, f15) < CB0[42].w) ? 1 : ((dot(f16, f16) < CB0[43].w) ? 2 : 3))) * 4 + 2], CB8[((dot(f14, f14) < CB0[41].w) ? 0 : ((dot(f15, f15) < CB0[42].w) ? 1 : ((dot(f16, f16) < CB0[43].w) ? 2 : 3))) * 4 + 3]);
+    vec4 f18 = textureLod(ShadowAtlasTexture, f17.xy, 0.0);
+    vec2 f19 = vec2(0.0);
+    f19.x = CB0[45].z;
+    vec2 f20 = f19;
+    f20.y = CB0[45].w;
+    float f21 = (2.0 * f17.z) - 1.0;
+    float f22 = exp(CB0[45].z * f21);
+    float f23 = -exp((-CB0[45].w) * f21);
+    vec2 f24 = (f20 * CB0[46].y) * vec2(f22, f23);
+    vec2 f25 = f24 * f24;
+    float f26 = f18.x;
+    float f27 = max(f18.y - (f26 * f26), f25.x);
+    float f28 = f22 - f26;
+    float f29 = f18.z;
+    float f30 = max(f18.w - (f29 * f29), f25.y);
+    float f31 = f23 - f29;
+    vec3 f32 = (f7.xyz * f7.xyz).xyz;
+    float f33 = clamp(exp2((CB0[13].z * length(VARYING5)) + CB0[13].x) - CB0[13].w, 0.0, 1.0);
+    vec3 f34 = textureLod(PrefilteredEnvTexture, vec4(-VARYING5, 0.0).xyz, max(CB0[13].y, f33) * 5.0).xyz;
+    bvec3 f35 = bvec3(CB0[13].w != 0.0);
+    vec3 f36 = sqrt(clamp(mix(vec3(f35.x ? CB0[14].xyz.x : f34.x, f35.y ? CB0[14].xyz.y : f34.y, f35.z ? CB0[14].xyz.z : f34.z), mix(f32, (min((f11.xyz * (f11.w * 120.0)).xyz + (CB0[8].xyz + (CB0[9].xyz * f12.x)), vec3(CB0[16].w)) + (VARYING2 * ((VARYING4.w > 0.0) ? mix(f13, mix(min((f22 <= f26) ? 1.0 : clamp(((f27 / (f27 + (f28 * f28))) - 0.20000000298023223876953125) * 1.25, 0.0, 1.0), (f23 <= f29) ? 1.0 : clamp(((f30 / (f30 + (f31 * f31))) - 0.20000000298023223876953125) * 1.25, 0.0, 1.0)), f13, clamp((length(VARYING4.xyz - CB0[7].xyz) * CB0[45].y) - (CB0[45].x * CB0[45].y), 0.0, 1.0)), CB0[46].x) : 0.0))) * f32, vec3(CB2[0].z)).xyz, vec3(f33)).xyz * CB0[15].y, vec3(0.0), vec3(1.0)));
+    _entryPointOutput = vec4(f36.x, f36.y, f36.z, f7.w);
 }
 
 //$$ShadowAtlasTexture=s1

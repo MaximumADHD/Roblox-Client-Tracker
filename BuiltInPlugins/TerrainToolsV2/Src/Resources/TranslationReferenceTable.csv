@@ -38,13 +38,13 @@ Studio.TerrainToolsV2.Action.Stop,Stop, ,중지,停止
 Studio.TerrainToolsV2.Action.Undo,Undo, ,실행 취소,撤消
 Studio.TerrainToolsV2.Action.Update,Update, ,업데이트,更新
 Studio.TerrainToolsV2.Action.Yes,Yes, ,예,是
-Studio.TerrainToolsV2.AssetIdSelector.PlaceHolderText,Select game asset image, ,애셋 ID,选择游戏资源图片
+Studio.TerrainToolsV2.AssetIdSelector.PlaceHolderText,Select game asset image, ,게임 애셋 이미지 선택,选择游戏资源图片
 Studio.TerrainToolsV2.BrushSettings.Advanced,Advanced, ,고급,高级
 Studio.TerrainToolsV2.BrushSettings.Auto,Auto, ,자동,自动
 Studio.TerrainToolsV2.BrushSettings.BaseSize,Base Size, ,베이스 크기,基底大小
-Studio.TerrainToolsV2.BrushSettings.BottomPivot,Bot, ,봇,底部
+Studio.TerrainToolsV2.BrushSettings.BottomPivot,Bot, ,바닥,底部
 Studio.TerrainToolsV2.BrushSettings.BrushSettings,Brush Settings, ,브러시 설정,笔刷设置
-Studio.TerrainToolsV2.BrushSettings.CenterPivot,Cen, ,Cen,居中
+Studio.TerrainToolsV2.BrushSettings.CenterPivot,Cen, ,중심,居中
 Studio.TerrainToolsV2.BrushSettings.FlattenMode,Flatten Mode, ,평탄화 모드,平展模式
 Studio.TerrainToolsV2.BrushSettings.IgnoreWater,Ignore Water, ,물 무시,忽略水域
 Studio.TerrainToolsV2.BrushSettings.Material,Material, ,재질,材质
@@ -184,25 +184,25 @@ Studio.TerrainToolsV2.SeaLevel.Evaporate,Evaporate, ,증발,蒸发
 Studio.TerrainToolsV2.ClearTool.ConfirmationTitle,Clear Terrain, ,지형 지우기,清除地形
 Studio.TerrainToolsV2.Confirmation.Yes,Yes, ,예,是
 Studio.TerrainToolsV2.Confirmation.No,No, ,아니요,否
-Studio.TerrainToolsV2.ConvertPart.Convert,Convert, , ,转换
-Studio.TerrainToolsV2.ConvertPart.ConvertFailed,Convert failed for instance {1}, , ,实例 {1} 转换失败
-Studio.TerrainToolsV2.ConvertPart.ConvertShapesToMaterial,Converting parts, , ,正在转换部件
-Studio.TerrainToolsV2.ConvertPart.ConvertFinished,Convert finished: {1} seconds for {2:int} instance(s), , ,转换完成：{2:int} 个实例，用时 {1} 秒
-Studio.TerrainToolsV2.ConvertPart.GetTargetShapes,Calculating shapes, , ,正在计算形状
-Studio.TerrainToolsV2.ConvertPart.UpdateInstanceVisuals,Hiding parts, , ,正在隐藏部件
-Studio.TerrainToolsV2.ConvertPart.SelectionHelp,Select Parts or Models containing Parts to convert to terrain, , ,选择部件或包含部件的模型来转换为地形
-Studio.TerrainToolsV2.ConvertPart.HasProtected,Only Parts or Models containing Parts can be converted, , ,只有部件或包含部件的模型可被转换
-Studio.TerrainToolsV2.ConvertPart.HasTooSmall,Parts with size dimensions below 4 studs may produce incorrect results, , ,大小在 4 格以下的部件可能会产生错误的结果
-Studio.TerrainToolsV2.ConvertPart.HasOtherInstance,"Only Parts can be converted, other objects will be skipped", , ,只有部件可被转换，其他对象将被跳过
-Studio.TerrainToolsV2.ConvertMode.Biome,Biome, , ,生态
-Studio.TerrainToolsV2.ConvertMode.ConvertMode,Fill, , ,填充
-Studio.TerrainToolsV2.ConvertMode.Material,Material, , ,材质
-Studio.TerrainToolsV2.ConvertPart.ConvertShapesToBiome,Converting parts to Biome, , ,正在将部件转换至生态
-Studio.TerrainToolsV2.Generate.BaseLevel,Base Level, , ,基准面
-Studio.TerrainToolsV2.Materials.Air,Air, , ,天空
-Studio.TerrainToolsV2.PartToBiome.PartToBiome,Part to Biome, , ,部件至生态
-Studio.TerrainToolsV2.PartToTerrain.PartToTerrain,Part to Terrain, , ,部件至地形
-Studio.TerrainToolsV2.ToolName.ConvertPart,Convert, , ,转换
-Studio.TerrainToolsV2.Warning.UnknownAssetStatusError,Unable to verify asset., , ,无法验证资源。
-Studio.TerrainToolsV2.Warning.UnknownShape,Instance shape is unknown, , ,实例形状未知
-Studio.TerrainToolsV2.Warning.RequireEditModeForImport,Terrain importer only works in edit mode., , , 
+Studio.TerrainToolsV2.ConvertPart.Convert,Convert, ,변환,转换
+Studio.TerrainToolsV2.ConvertPart.ConvertFailed,Convert failed for instance {1}, ,{1} 인스턴스에 대한 변환 실패,实例 {1} 转换失败
+Studio.TerrainToolsV2.ConvertPart.ConvertShapesToMaterial,Converting parts, ,파트 변환,正在转换部件
+Studio.TerrainToolsV2.ConvertPart.ConvertFinished,Convert finished: {1} seconds for {2:int} instance(s), ,변환 완료: {2:int} 인스턴스에 대해 {1}초,转换完成：{2:int} 个实例，用时 {1} 秒
+Studio.TerrainToolsV2.ConvertPart.GetTargetShapes,Calculating shapes, ,셰이프 계산,正在计算形状
+Studio.TerrainToolsV2.ConvertPart.UpdateInstanceVisuals,Hiding parts, ,부품 숨기기,正在隐藏部件
+Studio.TerrainToolsV2.ConvertPart.SelectionHelp,Select Parts or Models containing Parts to convert to terrain, ,지형으로 변환할 파트가 포함된 파트 또는 모델을 선택하세요,选择部件或包含部件的模型来转换为地形
+Studio.TerrainToolsV2.ConvertPart.HasProtected,Only Parts or Models containing Parts can be converted, ,파트가 포함된 파트 또는 모델만 변환할 수 있습니다,只有部件或包含部件的模型可被转换
+Studio.TerrainToolsV2.ConvertPart.HasTooSmall,Parts with size dimensions below 4 studs may produce incorrect results, ,크기가 4 스터드 미만인 파트는 잘못된 결과를 생성할 수 있습니다,大小在 4 格以下的部件可能会产生错误的结果
+Studio.TerrainToolsV2.ConvertPart.HasOtherInstance,"Only Parts can be converted, other objects will be skipped", ,파트만 변환할 수 있으며 다른 개체는 건너뜁니다,只有部件可被转换，其他对象将被跳过
+Studio.TerrainToolsV2.ConvertMode.Biome,Biome, ,생물군,生态
+Studio.TerrainToolsV2.ConvertMode.ConvertMode,Fill, ,채우기,填充
+Studio.TerrainToolsV2.ConvertMode.Material,Material, ,재질,材质
+Studio.TerrainToolsV2.ConvertPart.ConvertShapesToBiome,Converting parts to Biome, ,파트를 생물군으로 변환,正在将部件转换至生态
+Studio.TerrainToolsV2.Generate.BaseLevel,Base Level, ,기준면,基准面
+Studio.TerrainToolsV2.Materials.Air,Air, ,하늘,天空
+Studio.TerrainToolsV2.PartToBiome.PartToBiome,Part to Biome, ,생물군 파트,部件至生态
+Studio.TerrainToolsV2.PartToTerrain.PartToTerrain,Part to Terrain, ,지형 파트,部件至地形
+Studio.TerrainToolsV2.ToolName.ConvertPart,Convert, ,변환,转换
+Studio.TerrainToolsV2.Warning.UnknownAssetStatusError,Unable to verify asset., ,애셋을 확인할 수 없습니다.,无法验证资源。
+Studio.TerrainToolsV2.Warning.UnknownShape,Instance shape is unknown, ,인스턴스 모양을 알 수 없습니다,实例形状未知
+Studio.TerrainToolsV2.Warning.RequireEditModeForImport,Terrain importer only works in edit mode., ,지형 가져오기는 편집 모드에서만 작동합니다.,地形导入器只能在编辑模式中运行。

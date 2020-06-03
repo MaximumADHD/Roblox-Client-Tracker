@@ -58,7 +58,7 @@ Studio.Common.Action.Submit,Submit, ,Submit,제출,提交
 Studio.Common.Action.Install,Install, ,Install,설치,安装
 Studio.Common.Action.Installed,Installed, ,Installed,설치됨,已安装
 Studio.Common.Action.Loading,Loading..., ,Loading...,불러오는 중...,正在加载...
-Studio.Common.Action.Resume,Resume, ,Resume, ,继续
+Studio.Common.Action.Resume,Resume, ,Resume,재개,继续
 Studio.Toolbox.General.ToolboxToolbarName,Toolbox, ,Toolbox,도구 상자,工具箱
 Studio.Toolbox.General.CategoryModels,Models, ,Models,모델,模型
 Studio.Toolbox.General.CategoryDecals,Images, ,Images,이미지,图片
@@ -71,7 +71,6 @@ Studio.Toolbox.General.CategoryMyMeshes,My Meshes, ,My Meshes,내 메시,我的�
 Studio.Toolbox.General.CategoryMyAudio,My Audio, ,My Audio,내 오디오,我的音频
 Studio.Toolbox.General.CategoryMyPackages,My Packages, ,My Packages,내 패키지,我的包
 Studio.Toolbox.General.CategoryMyPlugins,My Plugins, ,My Plugins,내 플러그인,我的插件
-Studio.Toolbox.General.CategoryMyVideos,My Videos, ,My Videos, , 
 Studio.Toolbox.General.CategoryRecentModels,Recent Models, ,Recent Models,최근 모델,最近使用的模型
 Studio.Toolbox.General.CategoryRecentDecals,Recent Images, ,Recent Images,최근 이미지,最近使用的图片
 Studio.Toolbox.General.CategoryRecentMeshes,Recent Meshes, ,Recent Meshes,최근 메시,最近使用的网格
@@ -81,7 +80,6 @@ Studio.Toolbox.General.CategoryGroupDecals,Group Images, ,Group Images,그룹 �
 Studio.Toolbox.General.CategoryGroupMeshes,Group Meshes, ,Group Meshes,그룹 메시,群组网格
 Studio.Toolbox.General.CategoryGroupAudio,Group Audio, ,Group Audio,그룹 오디오,群组音频
 Studio.Toolbox.General.CategoryGroupPackages,Group Packages, ,Group Packages,그룹 패키지,群组包
-Studio.Toolbox.General.CategoryVideos,Videos, ,Videos, , 
 Studio.Toolbox.General.SearchBarDefaultText,Search, ,Search,검색,搜索
 Studio.Toolbox.General.SearchBarCreatorText,Search for users, ,Search for users,사용자 검색,搜索用户
 Studio.Toolbox.General.SuggestionsIntroText,Try searching for:, ,Try searching for:,다음으로 검색:,尝试搜索:
@@ -109,7 +107,7 @@ Studio.Toolbox.General.CategoryEndorsedPlugins,EndorsedPlugins, ,EndorsedPlugins
 Studio.Toolbox.General.SearchResults,Search Results, ,Search Results,검색 결과,搜索结果
 Studio.Toolbox.General.SearchResultsKeyword,Search Results for, ,Search Results for,다음에 대한 검색 결과,搜索结果:
 Studio.Toolbox.General.SearchResultsClearAll,Clear, ,Clear,지우기,清除
-Studio.Toolbox.General.SearchOptionCreator,Creator, ,Creator,제작자,创建者
+Studio.Toolbox.General.SearchOptionCreator,Creator, ,Creator,크리에이터,创建者
 Studio.Toolbox.General.SearchOptionSort,Sort By, ,Sort By,정렬 기준,排序方式
 Studio.Toolbox.General.SearchOptionsApply,Apply, ,Apply,적용,应用
 Studio.Toolbox.General.SearchOptionsCancel,Cancel, ,Cancel,취소,取消
@@ -195,11 +193,9 @@ Studio.Toolbox.General.PreviewAreaStatus,Status: {assetStatus}, ,Status: {assetS
 Studio.Toolbox.General.InstallSuccess,Success!, ,Success!,성공!,成功!
 Studio.Toolbox.General.InstallFailure,Failure, ,Failure,실패,失败
 Studio.Toolbox.AssetConfigFooter.NewAsset,Save as a new asset..., ,Save as a new asset...,새로운 애셋으로 저장...,另存为新资源...
-Studio.Toolbox.AssetUploadResult.Success,Successfully submitted!, ,Successfully submitted!, , 
-Studio.Toolbox.AssetUploadResult.Failure,Submission failed, ,Submission failed, , 
 Studio.Toolbox.AssetConfigFooter.Override,Overwrite an existing asset..., ,Overwrite an existing asset...,기존 애셋 덮어쓰기...,覆盖现有资源...
 Studio.Toolbox.AssetConfigFooter.OverrideTitle,Choose an existing model to overwrite., ,Choose an existing model to overwrite.,덮어쓸 기존 모델을 선택하세요.,选择要覆盖的现有模型。
-Studio.Toolbox.AssetConfigCopy.Terms,"By switching on, you are granting every other user of Roblox the right to use (in various ways) the content you are now sharing. If you do not want to grant this right, please do not check this box. For more information about sharing content, please review the Roblox Terms of Use.", ,"By switching on, you are granting every other user of Roblox the right to use (in various ways) the content you are now sharing. If you do not want to grant this right, please do not check this box. For more information about sharing content, please review the Roblox Terms of Use.",활성화하면 Roblox의 다른 모든 사용자들에게 현재 공유하고 있는 컨텐츠를 다양한 방식으로 사용할 수 있는 권한을 부여합니다. 이러한 권한을 부여하지 않으려면 이 확인란을 선택하지 마세요. 컨텐츠 공유에 대한 자세한 정보는 Roblox 이용약관을 참조하시기 바랍니다.,切换至开位置，即表示你授予 Roblox 的所有其他用户 (以各种方式) 使用你现在分享的内容的权限。如果你不想授予此权限，请勿勾选此框。有关分享内容的详细信息，请检阅 Roblox 使用条款。
+Studio.Toolbox.AssetConfigCopy.Terms,"By switching on, you are granting every other user of Roblox the right to use (in various ways) the content you are now sharing. If you do not want to grant this right, please do not check this box. For more information about sharing content, please review the Roblox Terms of Use.", ,"By switching on, you are granting every other user of Roblox the right to use (in various ways) the content you are now sharing. If you do not want to grant this right, please do not check this box. For more information about sharing content, please review the Roblox Terms of Use.",활성화하면 Roblox의 다른 모든 사용자들에게 현재 공유하고 있는 컨텐츠를 다양한 방식으로 사용할 수 있는 권한을 부여합니다. 이러한 권한을 부여하지 않으려면 이 확인란을 선택하지 마세요. 컨텐츠 공유에 대한 자세한 정보는 Roblox 이용 약관을 참조하시기 바랍니다.,切换至开位置，即表示你授予 Roblox 的所有其他用户 (以各种方式) 使用你现在分享的内容的权限。如果你不想授予此权限，请勿勾选此框。有关分享内容的详细信息，请检阅 Roblox 使用条款。
 Studio.Toolbox.AssetConfigCopy.AccountSetting,"In order to share content in Marketplace, you must add & verify an email address to your account. This can be done in Account Settings.", ,"In order to share content in Marketplace, you must add & verify an email address to your account. This can be done in Account Settings.",장터에서 콘텐츠를 공유하려면 계정에 이메일 주소를 추가하고 확인해야 합니다. 이 작업은 계정 설정에서 수행할 수 있습니다.,为了在市集中分享内容，你必须向你的帐户添加电子邮件地址并进行验证。可在“帐户设置”中完成此操作。
 Studio.Toolbox.AssetConfigPreview.Preview,Preview, ,Preview,미리 보기,预览
 Studio.Toolbox.AssetConfigPreview.Change,Change, ,Change,변경,更改
@@ -227,7 +223,7 @@ Studio.Toolbox.AssetConfigPreview.Format,Acceptable files: {formatString},Max: {
 허용 가능 파일: {formatString},최대: {maxDimensionsX} x {maxDimensionsY},可接受的文件: {formatString},最大: {maxDimensionsX} x {maxDimensionsY},Studio.Toolbox.AssetConfigPreview.Process,Image will be reviewed by moderators before being made visible to other users
  ,Image will be reviewed by moderators before being made visible to other users,이미지는 검열팀의 검토가 끝난 후에 다른 사용자들에게 공개됩니다,图片将由协调员审查，然后再对其他用户开放显示,Studio.Toolbox.AssetConfigPackagePermissions.OwnerLabel,Owner
  ,Owner,소유자,所有者,Studio.Toolbox.AssetConfigPackagePermissions.TooManyCollaboratorsText,You cannot add more than {maxNumCollaborators:int} collaborators
- ,You cannot add more than {maxNumCollaborators:int} collaborators,협업자는 최대 {maxNumCollaborators:int}명까지만 추가할 수 있습니다.,无法添加 {maxNumCollaborators:int} 位以上的合作者,Studio.Toolbox.Purchase.RobuxBalance,Your current balance:
+ ,You cannot add more than {maxNumCollaborators:int} collaborators,공동 작업자는 최대 {maxNumCollaborators:int}명까지만 추가할 수 있습니다.,无法添加 {maxNumCollaborators:int} 位以上的合作者,Studio.Toolbox.Purchase.RobuxBalance,Your current balance:
  ,Your current balance:,현재 잔액:,你当前的余额:,Studio.Toolbox.Purchase.BuyPrompt,Would you like to buy "{name}" from {creator} for {robux:int} Robux?
  ,Would you like to buy "{name}" from {creator} for {robux:int} Robux?,{creator}에게 "{name}"을(를) {robux:int} Robux에 구매할까요?,你要以 {robux:int} Robux 从 {creator} 处购买 "{name}" 吗?,Studio.Toolbox.Purchase.InsufficientPrompt,You need {robux:int} more Robux to buy "{name}" from {creator}.
  ,You need {robux:int} more Robux to buy "{name}" from {creator}.,{creator}에게 "{name}"을(를) 구매하려면 {robux:int} Robux가 더 필요합니다.,你还需要 {robux:int} Robux 才能从 {creator} 处购买到 "{name}"。,Studio.Toolbox.Purchase.Cancel,Cancel
@@ -251,7 +247,7 @@ Studio.Toolbox.AssetConfigPreview.Format,Acceptable files: {formatString},Max: {
  ,We encountered some problems:,문제가 발생했습니다.,我们遇到了一些问题：,Studio.Toolbox.AssetConfigPackagePermissions.PackageCreator,Package Creator
  ,Package Creator,패키지 생성자,软件包创建者,Studio.Toolbox.AssetConfigPackagePermissions.SearchbarDefault,Search for Friends
  ,Search for Friends,친구 검색,搜索好友,Studio.Toolbox.AssetConfigPackagePermissions.UserOwnedWarning, Users you share with will always have access to the current and previous versions of this package. Removing collaborators will discontinue their access to newer versions of the package.
- , Users you share with will always have access to the current and previous versions of this package. Removing collaborators will discontinue their access to newer versions of the package., 공유 받는 사용자는 항상 이 패키지의 현재 및 이전 버전에 액세스할 수 있습니다. 협업자를 제거하면 최신 버전의 패키지에 대한 액세스가 중단됩니다., 你所进行共享的用户将始终拥有此包最新与先前版本的访问权限。将协作者移除后，也将终止其对此包今后版本的访问权限。,Studio.Toolbox.AssetConfigPackagePermissions.GroupOwnedWarning,No Access takes effect from new versions of this package. Users assigned to rolesets with "Edit" permissions will always have access to current and previous versions of this package.
+ , Users you share with will always have access to the current and previous versions of this package. Removing collaborators will discontinue their access to newer versions of the package., 공유 받는 사용자는 항상 이 패키지의 현재 및 이전 버전에 액세스할 수 있습니다. 공동 작업자를 제거하면 최신 버전의 패키지에 대한 액세스가 중단됩니다., 你所进行共享的用户将始终拥有此包最新与先前版本的访问权限。将协作者移除后，也将终止其对此包今后版本的访问权限。,Studio.Toolbox.AssetConfigPackagePermissions.GroupOwnedWarning,No Access takes effect from new versions of this package. Users assigned to rolesets with "Edit" permissions will always have access to current and previous versions of this package.
  ,No Access takes effect from new versions of this package. Users assigned to rolesets with "Edit" permissions will always have access to current and previous versions of this package.,이 패키지의 새 버전에는 액세스 권한이 적용되지 않습니다. "편집" 권한이 있는 역할 세트에 할당된 사용자는 항상 이 패키지의 현재 및 이전 버전에 액세스할 수 있습니다.,无访问权限设定会在此软件包更新版本后生效。拥有“编辑”权限角色集中的用户将始终有权访问此程序包的最新与先前版本。,Studio.Toolbox.AssetConfigPackagePermissions.PackageDetails,Package Details
  ,Package Details,패키지 세부 사항,软件包详情,Studio.Toolbox.Purchase.FreeTitle,Install Plugin
  ,Install Plugin,플러그인 설치,安装插件,Studio.Toolbox.Purchase.SuccessHeader,Buy & Installation Complete!
@@ -264,14 +260,18 @@ Studio.Toolbox.AssetConfigPreview.Format,Acceptable files: {formatString},Max: {
  ,In Review,검토 중,审阅中,Studio.Toolbox.ThumbnailStatus.Pending,Pending
  ,Pending,보류 중,处理中,Studio.Toolbox.ThumbnailStatus.Blocked,Blocked
  ,Blocked,차단됨,已屏蔽,Studio.Toolbox.General.AbbreviatedSeconds,s
- ,s, ,秒,Studio.Toolbox.General.AbbreviatedMinutes,m
- ,m, ,分,Studio.Toolbox.General.SearchOptionAudioTo,to
- ,to, ,至,Studio.Toolbox.General.SearchOptionAudioLength,Sound Length
- ,Sound Length, ,声音长度,Studio.Toolbox.General.SearchTagLength,length:
- ,length:, ,长度：,Studio.Toolbox.AssetConfigUpload.IDCopied,ID Copied!
- ,ID Copied!, ,ID 已复制！,Studio.Toolbox.AssetConfigAnimation.FilterID,Filter ID
- ,Filter ID, ,过滤 ID,Studio.Toolbox.General.PremiumBenefits,Add Premium benefits
- ,Add Premium benefits, , ,Studio.Toolbox.General.NoPluginsFound.TextLine1,Can’t find what you’re looking for?
- ,Can’t find what you’re looking for?, , ,Studio.Toolbox.General.NoPluginsFound.TextLine2,"For more plugins, try searching in the {link} on our website."
- ,"For more plugins, try searching in the {link} on our website.", , ,Studio.Toolbox.General.NoPluginsFound.LinkText,Library
- ,Library, , 
+ ,s,초,秒,Studio.Toolbox.General.AbbreviatedMinutes,m
+ ,m,분,分,Studio.Toolbox.General.SearchOptionAudioTo,to
+ ,to,(으)로,至,Studio.Toolbox.General.SearchOptionAudioLength,Sound Length
+ ,Sound Length,사운드 길이,声音长度,Studio.Toolbox.General.SearchTagLength,length:
+ ,length:,길이:,长度：,Studio.Toolbox.AssetConfigUpload.IDCopied,ID Copied!
+ ,ID Copied!,ID 복사 완료!,ID 已复制！,Studio.Toolbox.AssetConfigAnimation.FilterID,Filter ID
+ ,Filter ID,필터 ID,过滤 ID,Studio.Toolbox.General.PremiumBenefits,Add Premium benefits
+ ,Add Premium benefits,Premium 혜택 추가,添加 Premium 特权,Studio.Toolbox.General.CategoryMyVideos,My Videos
+ ,My Videos,내 비디오,我的视频,Studio.Toolbox.General.CategoryVideos,Videos
+ ,Videos,비디오,视频,Studio.Toolbox.AssetUploadResult.Success,Successfully submitted!
+ ,Successfully submitted!,제출 성공!,提交成功！,Studio.Toolbox.AssetUploadResult.Failure,Submission failed
+ ,Submission failed,제출 실패,提交失败,Studio.Toolbox.General.NoPluginsFound.TextLine1,Can’t find what you’re looking for?
+ ,Can’t find what you’re looking for?,항목을 찾을 수 없나요?,未能搜索到相关内容？,Studio.Toolbox.General.NoPluginsFound.TextLine2,"For more plugins, try searching in the {link} on our website."
+ ,"For more plugins, try searching in the {link} on our website.",더 많은 플러그인을 보려면 웹사이트 {link}에서 검색하세요.,若想获取更多插件，请在网站{link}中进行搜索。,Studio.Toolbox.General.NoPluginsFound.LinkText,Library
+ ,Library,라이브러리,资料库

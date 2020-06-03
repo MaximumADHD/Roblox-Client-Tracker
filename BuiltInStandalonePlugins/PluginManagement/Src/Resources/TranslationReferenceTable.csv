@@ -19,7 +19,7 @@ Studio.PluginInstallation.Main.Title,Plugins, ,플러그인,插件
 Studio.PluginInstallation.Main.UpdateAllButton,Update all, ,모두 업데이트,全部更新
 Studio.PluginInstallation.Main.NoPluginsMessage,You haven’t installed any plugins yet., ,아직 아무 플러그인도 설치하지 않았습니다.,你尚未安装任何插件。
 Studio.PluginInstallation.Main.FindPluginsMessage_Old,Find plugins now, ,지금 플러그인 찾기,立即查找插件
-Studio.PluginInstallation.Main.FindPluginsMessage,"To find more plugins, open Toolbox > Marketplace > Plugins.", ,더 많은 플러그인을 찾으려면 도구 상자> 마켓플레이스 > 플러그인을 여세요.,要查找更多插件，请打开“工具箱 > 商店 > 插件”。
+Studio.PluginInstallation.Main.FindPluginsMessage,"To find more plugins, open Toolbox > Marketplace > Plugins.", ,더 많은 플러그인을 찾으려면 도구 상자 > 마켓플레이스 > 플러그인을 여세요.,要查找更多插件，请打开“工具箱 > 商店 > 插件”。
 Studio.PluginInstallation.Loading.Title,Updating Plugins, ,플러그인 업데이트,正在更新插件
 Studio.PluginInstallation.Loading.UpdatingMessage,Updating plugins..., ,플러그인 업데이트 중...,正在更新插件…
 Studio.PluginInstallation.Entry.UpdateButton,Update, ,업데이트,更新
@@ -28,7 +28,7 @@ Studio.PluginInstallation.Entry.UpdateError,Error. Try updating again., ,오류.
 Studio.PluginInstallation.Entry.UpdateSuccess,Update complete!, ,업데이트 완료!,更新完成！
 Studio.PluginInstallation.Entry.ModeratedWarning,This plugin includes malicious content and can’t be run anymore., ,이 플러그인에는 악성 콘텐츠가 들어 있어 더 이상 실행할 수 없습니다.,此插件包含恶意内容，无法继续使用。
 Studio.PluginInstallation.EntrySeeMore.DetailsButton,Details, ,세부 사항,详情
-Studio.PluginInstallation.EntrySeeMore.RemoveButton,Uninstall, ,제거,移除
+Studio.PluginInstallation.EntrySeeMore.RemoveButton,Uninstall, ,제거,卸载
 Studio.PluginInstallation.Header.PendingUpdates,Pending updates, ,업데이트 보류 중,等待更新
 Studio.PluginInstallation.Header.UpToDate,Up to date, ,최신 상태,最新版本
 Studio.PluginInstallation.Moved.Title,Roblox Studio, ,Roblox Studio,Roblox Studio
@@ -36,8 +36,8 @@ Studio.PluginInstallation.Moved.MovedMessage,We've moved., ,이동시켰습니�
 Studio.PluginInstallation.Moved.NewLocationMessage,Get plugins from Marketplace under Toolbox., ,도구 상자 아래의 마켓플레이스에서 플러그인을 받으세요.,从“工具箱”下的“商店”中获取插件。
 Studio.PluginInstallation.Moved.GotIt,Got it, ,확인,了解
 Studio.PluginInstallation.Details.Back,Back, ,뒤로,返回
-Studio.PluginInstallation.Details.Creator,Creator, ,제작자,创建者
+Studio.PluginInstallation.Details.Creator,Creator, ,크리에이터,创建者
 Studio.PluginInstallation.Details.Description,Description, ,설명,描述
-Studio.PluginInstallation.Details.HttpRequests,HTTP Requests, ,Http 요청,HTTP 请求
-Studio.PluginInstallation.Details.HttpRequestInfo,"By allowing HTTP requests, 3rd party developers are able to gather information on your machine. These might be harmless (such as crash logs) or malicious (such as gathering information on your game's scripts). Disabling HTTP requests might result in a non-working plugin.", , ,允许 HTTP 请求运行后，第三方开发者将可以从您的电脑上收集各类信息。其中可能包括无害信息（例如崩溃日志等）或有害信息（例如您的游戏脚本信息等）。禁用 HTTP 请求可能会导致插件失效。
-Studio.PluginInstallation.PluginEntry.HttpRequest,HTTP Requests, , ,HTTP 请求
+Studio.PluginInstallation.Details.HttpRequests,HTTP Requests, ,HTTP 요청,HTTP 请求
+Studio.PluginInstallation.Details.HttpRequestInfo,"By allowing HTTP requests, 3rd party developers are able to gather information on your machine. These might be harmless (such as crash logs) or malicious (such as gathering information on your game's scripts). Disabling HTTP requests might result in a non-working plugin.", ,HTTP 요청을 허용하면 타사 개발자가 내 컴퓨터에 대한 정보를 수집할 수 있게 됩니다. 이는 무해(예: 충돌 로그)하거나 악의적(예: 게임 스크립트에 대한 정보 수집)일 수 있습니다. HTTP 요청을 비활성화하면 플러그인이 작동하지 않을 수 있습니다.,允许 HTTP 请求运行后，第三方开发者将可以从您的电脑上收集各类信息。其中可能包括无害信息（例如崩溃日志等）或有害信息（例如您的游戏脚本信息等）。禁用 HTTP 请求可能会导致插件失效。
+Studio.PluginInstallation.PluginEntry.HttpRequest,HTTP Requests, ,HTTP 요청,HTTP 请求

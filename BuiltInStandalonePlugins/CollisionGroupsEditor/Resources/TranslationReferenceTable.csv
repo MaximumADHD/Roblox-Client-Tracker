@@ -8,3 +8,4 @@ Studio.CGE.Actions.AddGroup,Add Group, ,그룹 추가,添加群组
 Studio.CGE.Tooltip.Rename,Rename this group., ,이 그룹의 이름을 변경합니다.,重命名此群组。
 Studio.CGE.Tooltip.Delete,Delete this group., ,이 그룹을 삭제합니다.,删除此群组。
 Studio.CGE.Tooltip.Add,Add the selected parts to this group., ,선택한 파트를 이 그룹에 추가합니다.,将选定的部件添加到此群组。
+Studio.CGE.Main.Title,Collision Groups Editor, ,충돌 그룹 편집기,碰撞组编辑器

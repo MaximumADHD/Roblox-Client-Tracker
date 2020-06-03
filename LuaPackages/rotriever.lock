@@ -28,11 +28,11 @@ dependencies = [
     "PurchasePrompt roblox/purchase-prompt 106d0c26 git+https://github.com/roblox/purchasepromptscript-roact#master",
     "Result lua-Result 4c69dedd git+https://github.rbx.com/roblox/lua-result#master",
     "Roact roblox/roact 1.2.0 url+https://github.com/roblox/roact",
-    "RoactNavigation roblox/roact-navigation 0.2.6 url+https://github.com/roblox/roact-navigation",
-    "RoactRodux roblox/roact-rodux 0.2.1 url+https://github.com/roblox/roact-rodux",
+    "RoactNavigation roblox/roact-navigation 0.2.7 url+https://github.com/roblox/roact-navigation",
+    "RoactRodux roblox/roact-rodux 0.2.2 url+https://github.com/roblox/roact-rodux",
     "Rodux roblox/rodux 1.0.0 url+https://github.com/roblox/rodux",
     "TestEZ roblox/testez 0.1.1 url+https://github.com/roblox/testez",
-    "UIBlox UIBlox 239e1a13 git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox ba9beba3 git+https://github.com/roblox/uiblox#master",
     "enumerate roblox/enumerate 1.0.0 url+https://github.com/roblox/enumerate",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
     "tutils tutils 74574fde git+https://github.rbx.com/roblox/tutils#master",
@@ -47,9 +47,9 @@ dependencies = [
     "Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo",
     "Otter roblox/otter 0.1.1 url+https://github.com/roblox/otter",
     "Roact roblox/roact 1.2.0 url+https://github.com/roblox/roact",
-    "RoactRodux roblox/roact-rodux 0.2.1 url+https://github.com/roblox/roact-rodux",
+    "RoactRodux roblox/roact-rodux 0.2.2 url+https://github.com/roblox/roact-rodux",
     "Rodux roblox/rodux 1.0.0 url+https://github.com/roblox/rodux",
-    "UIBlox <patched> UIBlox 239e1a13 git+https://github.com/roblox/uiblox#master",
+    "UIBlox <patched> UIBlox ba9beba3 git+https://github.com/roblox/uiblox#master",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
 
@@ -60,7 +60,7 @@ commit = "af3a8696cbcb88bbcf14aa6857cc3a6caad79f58"
 source = "git+https://github.rbx.com/roblox/lua-chat-deps#master"
 dependencies = [
     "RoduxNetworking rodux-networking b3747078 git+https://github.rbx.com/roblox/rodux-networking#master",
-    "UIBlox UIBlox 239e1a13 git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox ba9beba3 git+https://github.com/roblox/uiblox#master",
 ]
 
 [[package]]
@@ -103,7 +103,7 @@ dependencies = ["Roact <patched> roblox/roact 1.2.0 url+https://github.com/roblo
 [[package]]
 name = "UIBlox"
 version = "0.1.1"
-commit = "239e1a13e4e5f324f7308d089318c6f7e754cec7"
+commit = "ba9beba3384c396ae9655351be6eaff86289d34d"
 source = "git+https://github.com/roblox/uiblox#master"
 dependencies = [
     "Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo",
@@ -244,9 +244,9 @@ dependencies = [
     "FitFrame roblox/roact-fit-components 1.2.3 url+https://github.com/roblox/roact-fit-components",
     "Otter roblox/otter 0.1.1 url+https://github.com/roblox/otter",
     "Roact roblox/roact 1.2.0 url+https://github.com/roblox/roact",
-    "RoactRodux roblox/roact-rodux 0.2.1 url+https://github.com/roblox/roact-rodux",
+    "RoactRodux roblox/roact-rodux 0.2.2 url+https://github.com/roblox/roact-rodux",
     "Rodux roblox/rodux 1.0.0 url+https://github.com/roblox/rodux",
-    "UIBlox <patched> UIBlox 239e1a13 git+https://github.com/roblox/uiblox#master",
+    "UIBlox <patched> UIBlox ba9beba3 git+https://github.com/roblox/uiblox#master",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
 
@@ -268,8 +268,8 @@ dependencies = [
 
 [[package]]
 name = "roblox/roact-navigation"
-version = "0.2.6"
-commit = "321ff0f63b0d4361d45a6f6f84eb24b6ddb81dc6"
+version = "0.2.7"
+commit = "532bda63bc329dc299da2db0e949dff448c22bfb"
 source = "url+https://github.com/roblox/roact-navigation"
 dependencies = [
     "Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo",
@@ -280,8 +280,8 @@ dependencies = [
 
 [[package]]
 name = "roblox/roact-rodux"
-version = "0.2.1"
-commit = "e2c93b6c95bdd22c2b984fe566d8d34afa3e1fa4"
+version = "0.2.2"
+commit = "78e2f5ac8c4679ef7216fbb9eedbcae31122545a"
 source = "url+https://github.com/roblox/roact-rodux"
 dependencies = [
     "Roact roblox/roact 1.2.0 url+https://github.com/roblox/roact",
