@@ -1,59 +1,8 @@
 #version 150
 
-struct Globals
-{
-    mat4 ViewProjection;
-    vec4 ViewRight;
-    vec4 ViewUp;
-    vec4 ViewDir;
-    vec3 CameraPosition;
-    vec3 AmbientColor;
-    vec3 SkyAmbient;
-    vec3 Lamp0Color;
-    vec3 Lamp0Dir;
-    vec3 Lamp1Color;
-    vec4 FogParams;
-    vec4 FogColor_GlobalForceFieldTime;
-    vec4 Exposure_DoFDistance;
-    vec4 LightConfig0;
-    vec4 LightConfig1;
-    vec4 LightConfig2;
-    vec4 LightConfig3;
-    vec4 ShadowMatrix0;
-    vec4 ShadowMatrix1;
-    vec4 ShadowMatrix2;
-    vec4 RefractionBias_FadeDistance_GlowFactor_SpecMul;
-    vec4 OutlineBrightness_ShadowInfo;
-    vec4 SkyGradientTop_EnvDiffuse;
-    vec4 SkyGradientBottom_EnvSpec;
-    vec3 AmbientColorNoIBL;
-    vec3 SkyAmbientNoIBL;
-    vec4 AmbientCube[12];
-    vec4 CascadeSphere0;
-    vec4 CascadeSphere1;
-    vec4 CascadeSphere2;
-    vec4 CascadeSphere3;
-    float hybridLerpDist;
-    float hybridLerpSlope;
-    float evsmPosExp;
-    float evsmNegExp;
-    float globalShadow;
-    float shadowBias;
-    float shadowAlphaRef;
-    float debugFlags;
-};
-
-struct Instance
-{
-    vec4 row0;
-    vec4 row1;
-    vec4 row2;
-    vec4 scale;
-    vec4 color;
-    vec4 uvScale;
-    vec4 uvOffset;
-};
-
+#extension GL_ARB_shading_language_include : require
+#include <Globals.h>
+#include <Instance.h>
 const vec3 v0[16] = vec3[](vec3(0.0, 0.0, 1.0), vec3(1.0, 0.0, 0.0), vec3(1.0, 0.0, 0.0), vec3(0.0, 0.0, 1.0), vec3(1.0, 0.0, 0.0), vec3(1.0, 0.0, 0.0), vec3(1.0, 0.0, 0.0), vec3(1.0, 0.0, 0.0), vec3(0.0, 0.0, 1.0), vec3(0.0), vec3(1.0, 0.0, 0.0), vec3(0.0, 1.0, 0.0), vec3(0.0, 1.0, 0.0), vec3(1.0, 0.0, 0.0), vec3(0.0, 1.0, 0.0), vec3(0.0, 1.0, 0.0));
 const vec3 v1[16] = vec3[](vec3(0.0, 1.0, 0.0), vec3(0.0, 0.0, 1.0), vec3(0.0, 1.0, 0.0), vec3(0.0, 1.0, 0.0), vec3(0.0, 0.0, 1.0), vec3(0.0, 1.0, 0.0), vec3(0.0, 0.699999988079071044921875, 0.699999988079071044921875), vec3(0.0, 0.699999988079071044921875, 0.699999988079071044921875), vec3(0.699999988079071044921875, 0.699999988079071044921875, 0.0), vec3(0.0), vec3(0.0, 0.0, 1.0), vec3(0.0, 0.0, 1.0), vec3(1.0, 0.0, 0.0), vec3(0.0, 0.0, 1.0), vec3(0.0, 0.0, -1.0), vec3(0.0, 0.0, 1.0));
 

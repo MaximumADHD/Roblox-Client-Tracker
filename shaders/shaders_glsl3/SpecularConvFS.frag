@@ -1,13 +1,7 @@
 #version 150
 
-struct ParamsIBL
-{
-    vec4 normalTransformRow0;
-    vec4 normalTransformRow1;
-    vec4 normalTransformRow2;
-    vec4 roughness;
-};
-
+#extension GL_ARB_shading_language_include : require
+#include <ParamsIBL.h>
 uniform vec4 CB2[4];
 uniform samplerCube envMapTexture;
 

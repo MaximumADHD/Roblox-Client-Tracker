@@ -1,13 +1,7 @@
 #version 150
 
-struct Params
-{
-    mat4 World;
-    mat4 ViewProjection;
-    vec4 Color1;
-    vec4 Color2;
-};
-
+#extension GL_ARB_shading_language_include : require
+#include <Params.h>
 uniform vec4 CB1[10];
 in vec4 POSITION;
 in vec2 TEXCOORD0;

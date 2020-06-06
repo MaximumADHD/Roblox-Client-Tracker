@@ -1,10 +1,7 @@
 #version 150
 
-struct PointSplatParams
-{
-    vec4 posToNDC[16];
-};
-
+#extension GL_ARB_shading_language_include : require
+#include <PointSplatParams.h>
 uniform vec4 CB2[16];
 in vec4 POSITION;
 in vec4 COLOR0;

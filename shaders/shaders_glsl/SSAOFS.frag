@@ -1,18 +1,8 @@
 #version 110
 #extension GL_ARB_shader_texture_lod : require
 
-struct Params
-{
-    vec4 TextureSize;
-    vec4 Params1;
-    vec4 Params2;
-    vec4 Params3;
-    vec4 Params4;
-    vec4 Params5;
-    vec4 Params6;
-    vec4 Bloom;
-};
-
+#extension GL_ARB_shading_language_include : require
+#include <Params.h>
 uniform vec4 CB1[8];
 uniform sampler2D depthBufferTexture;
 uniform sampler2D randMapTexture;

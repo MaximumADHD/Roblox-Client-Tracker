@@ -1,11 +1,7 @@
 #version 150
 
-struct Params
-{
-    vec4 OffsetAndScale;
-    vec4 Color;
-};
-
+#extension GL_ARB_shading_language_include : require
+#include <Params.h>
 uniform vec4 CB1[2];
 uniform sampler2D DiffuseMapTexture;
 
