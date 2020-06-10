@@ -1295,6 +1295,7 @@ function BaseCamera:UpdateGamepad()
 		if gamepadPan.X ~= 0 or gamepadPan.Y ~= 0 then
 			self.userPanningTheCamera = true
 		elseif gamepadPan == ZERO_VECTOR2 then
+			self.userPanningTheCamera = false
 			self.lastThumbstickRotate = nil
 			if self.lastThumbstickPos == ZERO_VECTOR2 then
 				self.currentSpeed = 0

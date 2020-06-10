@@ -26,7 +26,7 @@ local function TextWithInlineLink(props)
 		maxWidth = t.positiveNumber,
 		textProps = t.interface({
 			TextSize = t.integer,
-			Font = t.enum(Enum.Font)
+			Font = t.enum(Enum.Font),
 		})
 	})(props))
 
@@ -36,6 +36,7 @@ local function TextWithInlineLink(props)
 		local text = props.text
 		local linkText = props.linkText
 		local maxWidth = props.maxWidth
+		local layoutOrder = props.LayoutOrder
 		local textSize = textProps.TextSize
 
 		local lines = {}
@@ -68,7 +69,7 @@ local function TextWithInlineLink(props)
 						Roact.createElement("UIListLayout", {
 							SortOrder = Enum.SortOrder.LayoutOrder,
 							FillDirection = Enum.FillDirection.Horizontal,
-							HorizontalAlignment = Enum.HorizontalAlignment.Center
+							HorizontalAlignment = Enum.HorizontalAlignment.Center,
 						})
 					}
 				})
@@ -99,7 +100,7 @@ local function TextWithInlineLink(props)
 				Text = text,
 				Size = UDim2.new(0, size.X, 0, size.Y),
 				LayoutOrder = lineOrder:getNextOrder(),
-				TextWrapped = true
+				TextWrapped = true,
 			}, textProps)))
 		end
 
@@ -149,7 +150,7 @@ local function TextWithInlineLink(props)
 			Layout = Roact.createElement("UIListLayout", {
 				SortOrder = Enum.SortOrder.LayoutOrder,
 				FillDirection = Enum.FillDirection.Vertical,
-				HorizontalAlignment = Enum.HorizontalAlignment.Center
+				HorizontalAlignment = Enum.HorizontalAlignment.Center,
 			})
 		}
 
@@ -158,7 +159,7 @@ local function TextWithInlineLink(props)
 				Size = UDim2.new(0, line.width, 0, line.height),
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
-				LayoutOrder = i
+				LayoutOrder = i,
 			}, line.items)
 		end
 
@@ -167,6 +168,7 @@ local function TextWithInlineLink(props)
 			Size = UDim2.new(1, 0, 0, frameHeight),
 			BackgroundTransparency = 1,
 			BorderSizePixel = 0,
+			LayoutOrder = layoutOrder,
 		}, lineElements)
 	end)
 end

@@ -9,8 +9,23 @@ local DraggerFramework = script.Parent.Parent
 local getGeometry = require(DraggerFramework.Utility.getGeometry)
 local JointPairs = require(DraggerFramework.Utility.JointPairs)
 local JointUtil = require(DraggerFramework.Utility.JointUtil)
+local SelectionWrapper = require(DraggerFramework.Utility.SelectionWrapper)
 
 local getFFlagHandleCanceledToolboxDrag = require(DraggerFramework.Flags.getFFlagHandleCanceledToolboxDrag)
+local getFFlagUseBulkMove = require(DraggerFramework.Flags.getFFlagUseBulkMove)
+
+local DEFAULT_COLLISION_THRESHOLD = 0.001
+
+-- Get all the instances the user has directly selected (actually part of the
+-- selection)
+local function getSelectedInstanceSet()
+    local selection = SelectionWrapper:Get()
+    local selectedInstanceSet = {}
+    for _, instance in pairs(selection) do
+        selectedInstanceSet[instance] = true
+    end
+    return selectedInstanceSet
+end
 
 local PartMover = {}
 PartMover.__index = PartMover
@@ -21,14 +36,25 @@ PartMover.__index = PartMover
 local DRAG_CONSTRAINT_STIFFNESS = 0.85
 
 function PartMover.new()
-    local self = setmetatable({
-        _partSet = {},
-        _wasAnchored = {},
-        _facesToHighlightSet = {},
-        _nearbyGeometry = { --[[ [BasePart x]: (self:_getGeometry(x)) ]] },
-    }, PartMover)
-    self:_createMainPart()
-    return self
+    if getFFlagUseBulkMove() then
+        local self = setmetatable({
+            _partSet = {},
+            _toUnanchor = {},
+            _facesToHighlightSet = {},
+            _nearbyGeometry = { --[[ [BasePart x]: (self:_getGeometry(x)) ]] },
+        }, PartMover)
+        self:_createMainPart()
+        return self
+    else
+        local self = setmetatable({
+            _partSet = {},
+            _wasAnchored = {},
+            _facesToHighlightSet = {},
+            _nearbyGeometry = { --[[ [BasePart x]: (self:_getGeometry(x)) ]] },
+        }, PartMover)
+        self:_createMainPart()
+        return self
+    end
 end
 
 --[[
@@ -39,22 +65,34 @@ function PartMover:getIgnorePart()
 end
 
 function PartMover:setDragged(parts, originalCFrameMap, breakJoints, customCenter)
-    -- Separate the parts into "physical" and "free":
-    -- The physical parts are those under the Workspace, which have to
-    -- potentially respect physics, and which we can move via welding
-    -- together into one assembly.
-    -- The free parts are everything else, such as parts in ServerStorage.
-    local physicalParts = {}
-    local freeParts = {}
-    for _, part in ipairs(parts) do
-        if part:IsDescendantOf(Workspace) then
-            table.insert(physicalParts, part)
-        else
-            table.insert(freeParts, part)
+    if getFFlagUseBulkMove() then
+        -- Separate out the Workspace parts which will be passed to
+        -- Workspace::ArePartsTouchingOthers for collision testing
+        local workspaceParts = table.create(16)
+        for _, part in ipairs(parts) do
+            if part:IsDescendantOf(Workspace) then
+                table.insert(workspaceParts, part)
+            end
         end
+        self._workspaceParts = workspaceParts
+    else
+        -- Separate the parts into "physical" and "free":
+        -- The physical parts are those under the Workspace, which have to
+        -- potentially respect physics, and which we can move via welding
+        -- together into one assembly.
+        -- The free parts are everything else, such as parts in ServerStorage.
+        local physicalParts = {}
+        local freeParts = {}
+        for _, part in ipairs(parts) do
+            if part:IsDescendantOf(Workspace) then
+                table.insert(physicalParts, part)
+            else
+                table.insert(freeParts, part)
+            end
+        end
+        parts = physicalParts
+        self._freeParts = freeParts
     end
-    parts = physicalParts
-    self._freeParts = freeParts
 
     assert(not self._moving)
     self._moving = true
@@ -67,17 +105,96 @@ function PartMover:setDragged(parts, originalCFrameMap, breakJoints, customCente
     self:_setupMainPart(customCenter or Vector3.new())
     self:_prepareJoints(parts, breakJoints)
     -- setupGeometryTracking has to come after prepareJoints, because the
-    -- RootPart tracking should it does should take into account the
-    -- modifications to joints which prepareJoints did.
-    self:_setupGeometryTracking(parts)
+    -- RootPart tracking it does should take into account the
+    -- modifications to joints which prepareJoints did. Same thing with
+    -- setupBulkMove (it cares about assemblies)
+    if getFFlagUseBulkMove() then
+        self:_setupGeometryTracking(self._workspaceParts)
+        self:_setupBulkMove(parts, getSelectedInstanceSet())
+    else
+        self:_setupGeometryTracking(parts)
+    end
     self._parts = parts
+    self._hasMovementWelds = false
+end
+
+function PartMover:_setupBulkMove(parts, selectedInstanceSet)
+    local alreadyMovingRootSet = {}
+    local originalCFrameMap = self._originalCFrameMap
+
+    local isPhysicsRunning = RunService:IsRunning()
+
+    -- Directly selected instances need special handling, they must be moved
+    -- with CFrame changes. If they are not, the properties widget will not
+    -- show updates to their properties in real time.
+    local moveWithCFrameChangeOriginalCFrameArray = {}
+    local moveWithCFrameChangePartArray = {}
+    local moveWithCFrameChangeNextIndex = 1
+    for _, part in ipairs(parts) do
+        if selectedInstanceSet[part] then
+            local root = part:GetRootPart()
+            if root then
+                alreadyMovingRootSet[root] = true
+            end
+
+            moveWithCFrameChangePartArray[moveWithCFrameChangeNextIndex] = part
+            moveWithCFrameChangeOriginalCFrameArray[moveWithCFrameChangeNextIndex] =
+                originalCFrameMap[part]
+            moveWithCFrameChangeNextIndex = moveWithCFrameChangeNextIndex + 1
+
+            -- We need the roots we're moving to be temporarily anchored in run
+            -- mode, otherwise they won't stay put as we drag them.
+            if isPhysicsRunning and not root.Anchored then
+                root.Anchored = true
+                self._toUnanchor[root] = true
+            end
+        end
+    end
+
+    local partsToBulkMoveArray = {}
+    local originalCFramesArray = {}
+    local nextIndexToInsertAt = 1
+    for _, part in ipairs(parts) do
+        local root = part:GetRootPart()
+        if root then
+            -- Root? Move it if we aren't moving it already
+            if not alreadyMovingRootSet[root] then
+                alreadyMovingRootSet[root] = true
+                partsToBulkMoveArray[nextIndexToInsertAt] = root
+                originalCFramesArray[nextIndexToInsertAt] = originalCFrameMap[root]
+                nextIndexToInsertAt = nextIndexToInsertAt + 1
+            end
+
+            -- We need the roots we're moving to be temporarily anchored in run
+            -- mode, otherwise they won't stay put as we drag them.
+            if isPhysicsRunning and not root.Anchored then
+                root.Anchored = true
+                self._toUnanchor[root] = true
+            end
+        else
+            -- No root? Include it, parts not in the world have to be moved
+            -- individually.
+            partsToBulkMoveArray[nextIndexToInsertAt] = part
+            originalCFramesArray[nextIndexToInsertAt] = originalCFrameMap[part]
+            nextIndexToInsertAt = nextIndexToInsertAt + 1
+        end
+    end
+
+    self._moveWithCFrameChangeParts = moveWithCFrameChangePartArray
+    self._moveWithCFrameChangeOriginalCFrames = moveWithCFrameChangeOriginalCFrameArray
+    self._moveWithCFrameChangeTargetCFrames = table.create(#moveWithCFrameChangePartArray)
+    self._bulkMoveParts = partsToBulkMoveArray
+    self._bulkMoveOriginalCFrames = originalCFramesArray
+    self._bulkMoveTargetCFrames = table.create(#partsToBulkMoveArray)
 end
 
 function PartMover:_initPartSet(parts)
     self._partSet = {}
     for _, part in ipairs(parts) do
         self._partSet[part] = true
-        self._wasAnchored[part] = part.Anchored
+        if not getFFlagUseBulkMove() then
+            self._wasAnchored[part] = part.Anchored
+        end
     end
 end
 
@@ -136,7 +253,9 @@ end
 ]]
 function PartMover:_prepareJoints(parts, breakJoints)
     self._reenableWeldConstraints = {}
-    self._temporaryJoints = {}
+    if not getFFlagUseBulkMove() then
+        self._temporaryJoints = {}
+    end
     self._alreadyConnectedToSets = {}
     local mainPartCFrameInv = self._originalMainPartCFrame:Inverse()
     local debugTotalDestroyed = 0
@@ -186,7 +305,29 @@ function PartMover:_prepareJoints(parts, breakJoints)
             end
         end
 
-        part.Anchored = false
+        if not getFFlagUseBulkMove() then
+            part.Anchored = false
+            local moveJoint = Instance.new("Weld")
+            moveJoint.Archivable = false
+            moveJoint.Name = "Temp Movement Weld"
+            moveJoint.Part0 = self._mainPart
+            moveJoint.Part1 = part
+            moveJoint.C0 = mainPartCFrameInv * part.CFrame
+            moveJoint.Parent = self._mainPart
+            table.insert(self._temporaryJoints, moveJoint)
+        end
+    end
+end
+
+function PartMover:_installMovementWelds()
+    if self._hasMovementWelds then
+        return
+    end
+
+    self._hasMovementWelds = true
+    self._temporaryJoints = {}
+    local mainPartCFrameInv = self._originalMainPartCFrame:Inverse()
+    for _, part in ipairs(self._parts) do
         local moveJoint = Instance.new("Weld")
         moveJoint.Archivable = false
         moveJoint.Name = "Temp Movement Weld"
@@ -215,21 +356,44 @@ function PartMover:computeJointPairs(globalTransform)
     return jointPairs
 end
 
---[[
-    The main function to move the parts. We did all the actual work in setting
-    up the temporary joints between the parts to move, so moving the main part
-    is now sufficient to move all the parts.
-]]
-function PartMover:transformTo(transform)
-    assert(self._moving)
-    if #self._parts > 0 then
-        self._mainPart.CFrame = transform * self._originalMainPartCFrame
-    end
-    for _, freePart in ipairs(self._freeParts) do
-        freePart.CFrame = transform * self._originalCFrameMap[freePart]
+function PartMover:_transformToImpl(transform, mode)
+    if self._bulkMoveParts then
+        local targets = self._bulkMoveTargetCFrames
+        local originals = self._bulkMoveOriginalCFrames
+        for i = 1, #self._bulkMoveParts do
+            targets[i] = transform * originals[i]
+        end
+        Workspace:BulkMoveTo(self._bulkMoveParts, targets, mode)
+        targets = self._moveWithCFrameChangeTargetCFrames
+        originals = self._moveWithCFrameChangeOriginalCFrames
+        for i = 1, #self._moveWithCFrameChangeParts do
+            targets[i] = transform * originals[i]
+        end
+        Workspace:BulkMoveTo(self._moveWithCFrameChangeParts, targets, Enum.BulkMoveMode.FireAllEvents)
     end
 end
 
+--[[
+    The main function to move the parts geometrically.
+]]
+function PartMover:transformTo(transform)
+    assert(self._moving)
+    if getFFlagUseBulkMove() then
+        self._lastTransform = transform
+        self:_transformToImpl(transform, Enum.BulkMoveMode.FireNoEvents)
+    else
+        if #self._parts > 0 then
+            self._mainPart.CFrame = transform * self._originalMainPartCFrame
+        end
+        for _, freePart in ipairs(self._freeParts) do
+            freePart.CFrame = transform * self._originalCFrameMap[freePart]
+        end
+    end
+end
+
+--[[
+    The main function to move the parts via inverse kinematics.
+]]
 function PartMover:transformToWithIk(transform, translateStiffness, rotateStiffness, collisionsMode)
     assert(self._moving)
     -- If we have no physical parts, then IK dragging is the same as
@@ -237,6 +401,11 @@ function PartMover:transformToWithIk(transform, translateStiffness, rotateStiffn
     if #self._parts == 0 then
         self:transformTo(transform)
         return transform
+    end
+
+    if getFFlagUseBulkMove() then
+        -- Make sure the movement welds exist, they are needed to do IK movement
+        self:_installMovementWelds()
     end
 
     local targetCFrame = transform * self._originalMainPartCFrame
@@ -271,17 +440,22 @@ end
     Are any of the parts to move intersecting other parts not in the set of
     parts to move?
 ]]
-function PartMover:isIntersectingOthers()
+function PartMover:isIntersectingOthers(overlapToIgnore)
     assert(self._moving)
-    for _, part in ipairs(self._parts) do
-        local others = part:GetTouchingParts()
-        for _, other in ipairs(others) do
-            if not self._partSet[other] then
-                return true
+    if getFFlagUseBulkMove() then
+        return Workspace:ArePartsTouchingOthers(self._workspaceParts,
+            overlapToIgnore or DEFAULT_COLLISION_THRESHOLD)
+    else
+        for _, part in ipairs(self._parts) do
+            local others = part:GetTouchingParts()
+            for _, other in ipairs(others) do
+                if not self._partSet[other] then
+                    return true
+                end
             end
         end
+        return false
     end
-    return false
 end
 
 --[[
@@ -306,43 +480,70 @@ function PartMover:commit()
         end
         self._temporaryJoints = {}
     end
-    if self._wasAnchored then
-        for part, wasAnchored in pairs(self._wasAnchored) do
-            part.Anchored = wasAnchored
+    if getFFlagUseBulkMove() then
+        for part, _ in pairs(self._toUnanchor) do
+            part.Anchored = false
         end
-        self._wasAnchored = {}
+        self._toUnanchor = {}
+    else
+        if self._wasAnchored then
+            for part, wasAnchored in pairs(self._wasAnchored) do
+                part.Anchored = wasAnchored
+            end
+            self._wasAnchored = {}
+        end
     end
 
-    -- ChangeHistoryService "bump": Since we used temporary welds to move the
-    -- parts, the ChangeHistoryService won't "see" the move, we have to
-    -- move each part individually this time so that those moves will be undone
-    -- as part of the next undo.
-    -- We can still batch this by assembly though, taking advantage of the
-    -- original welds that were present in the selection to begin with.
-    local assembliesMovedSet = {}
-    for _, part in ipairs(self._parts) do
-        local root = part:GetRootPart()
-        if not assembliesMovedSet[root] then
-            local cframe = part.CFrame
-            part.CFrame = CFrame.new()
-            part.CFrame = cframe
-            if getFFlagHandleCanceledToolboxDrag() then
-                if root then
+    if getFFlagUseBulkMove() then
+        if self._lastTransform and self._bulkMoveParts then
+            -- ChangeHistoryService "bump": Since we move the parts via the
+            -- WorldRoot::BulkMoveTo API with mode = FireNoEvents the
+            -- ChangeHistoryService won't see those moves. Do a final move with
+            -- mode = FireCFrameChanged which the ChangeHistoryService will
+            -- record. Note: We have to move the parts back to 0,0,0 first,
+            -- since if their CFrames don't change, we won't get any even
+            -- if we do call with mode = FireCFrameChanged.
+            Workspace:BulkMoveTo(self._bulkMoveParts,
+                table.create(#self._bulkMoveParts, CFrame.new()),
+                Enum.BulkMoveMode.FireNoEvents)
+            Workspace:BulkMoveTo(self._moveWithCFrameChangeParts,
+                table.create(#self._moveWithCFrameChangeParts, CFrame.new()),
+                Enum.BulkMoveMode.FireNoEvents)
+            self:_transformToImpl(self._lastTransform, Enum.BulkMoveMode.FireCFrameChanged)
+            self._lastTransform = nil
+        end
+    else
+        -- ChangeHistoryService "bump": Since we used temporary welds to move the
+        -- parts, the ChangeHistoryService won't "see" the move, we have to
+        -- move each part individually this time so that those moves will be undone
+        -- as part of the next undo.
+        -- We can still batch this by assembly though, taking advantage of the
+        -- original welds that were present in the selection to begin with.
+        local assembliesMovedSet = {}
+        for _, part in ipairs(self._parts) do
+            local root = part:GetRootPart()
+            if not assembliesMovedSet[root] then
+                local cframe = part.CFrame
+                part.CFrame = CFrame.new()
+                part.CFrame = cframe
+                if getFFlagHandleCanceledToolboxDrag() then
+                    if root then
+                        assembliesMovedSet[root] = true
+                    end
+                else
                     assembliesMovedSet[root] = true
                 end
-            else
-                assembliesMovedSet[root] = true
             end
         end
     end
 
-    -- UGLY HACK: There is a bug where the parts don't wake up correctly at the
-    -- end of our drag, so we need to "tickle" the parts with a velocity set to
-    -- wake them up. Otherwise, they would get stuck sleeping midair.
-    -- TODO: nwarren has fixed this in ticket CLI-32051, remove when it ships.
-    if RunService:IsRunning() then
-        for _, part in ipairs(self._parts) do
-            part.Velocity = Vector3.new(0, 0.000001, 0)
+    if not getFFlagUseBulkMove() then
+        -- nwarren has fixed CLI-32051 which this was a workaround for, we can
+        -- remove this block now.
+        if RunService:IsRunning() then
+            for _, part in ipairs(self._parts) do
+                part.Velocity = Vector3.new(0, 0.000001, 0)
+            end
         end
     end
 

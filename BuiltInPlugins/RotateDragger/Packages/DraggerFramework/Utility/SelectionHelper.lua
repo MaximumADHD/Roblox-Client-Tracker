@@ -9,7 +9,11 @@ local StudioService = game:GetService("StudioService")
 local RunService = game:GetService("RunService")
 
 local Framework = script.Parent.Parent
+local shouldDragAsFace = require(Framework.Utility.shouldDragAsFace)
+
 local getFFlagHandleOddNesting = require(Framework.Flags.getFFlagHandleOddNesting)
+local getFFlagLuaDraggerPerf = require(Framework.Flags.getFFlagLuaDraggerPerf)
+local getFFlagDragFaceInstances = require(Framework.Flags.getFFlagDragFaceInstances)
 
 local RAYCAST_DIRECTION_SCALE = 10000
 
@@ -37,31 +41,70 @@ local function computeBoundingBox(basisCFrame, allParts, allAttachments)
 	local ymin, ymax = math.huge, -math.huge
 	local zmin, zmax = math.huge, -math.huge
 
-	local function updateBoundingBox(cframe, size)
-		local localCFrame = inverseBasis * cframe -- put cframe in our local basis
-		local at = localCFrame.p
-		local inv = localCFrame:Inverse()
-		local x = size * inv.RightVector
-		local y = size * inv.UpVector
-		local z = size * inv.LookVector
-		local w = math.abs(x.x) + math.abs(x.y) + math.abs(x.z)
-		local h = math.abs(y.x) + math.abs(y.y) + math.abs(y.z)
-		local d = math.abs(z.x) + math.abs(z.y) + math.abs(z.z)
-		xmin = math.min(xmin, at.x - 0.5 * w)
-		xmax = math.max(xmax, at.x + 0.5 * w)
-		ymin = math.min(ymin, at.y - 0.5 * h)
-		ymax = math.max(ymax, at.y + 0.5 * h)
-		zmin = math.min(zmin, at.z - 0.5 * d)
-		zmax = math.max(zmax, at.z + 0.5 * d)
-	end
+	if getFFlagLuaDraggerPerf() then
+		local terrain = Workspace.Terrain
 
-	for _, part in ipairs(allParts) do
-		if not part:IsA("Terrain") then
-			updateBoundingBox(part.CFrame, part.Size)
+		for _, part in ipairs(allParts) do
+			if part ~= terrain then
+				local cframe = part.CFrame
+				local size = part.Size
+				local sx, sy, sz = size.X, size.Y, size.Z
+
+				-- Calculation for bounding box in the space of basisCFrame1
+				local localCFrame1 = inverseBasis * cframe -- put cframe in our local basis
+				local _, _, _,
+					t00, t01, t02,
+					t10, t11, t12,
+					t20, t21, t22 = localCFrame1:components()
+				local hw = 0.5 * (math.abs(sx * t00) + math.abs(sy * t01) + math.abs(sz * t02))
+				local hh = 0.5 * (math.abs(sx * t10) + math.abs(sy * t11) + math.abs(sz * t12))
+				local hd = 0.5 * (math.abs(sx * t20) + math.abs(sy * t21) + math.abs(sz * t22))
+				local x, y, z = localCFrame1.X, localCFrame1.Y, localCFrame1.Z
+				xmin = math.min(xmin, x - hw)
+				xmax = math.max(xmax, x + hw)
+				ymin = math.min(ymin, y - hh)
+				ymax = math.max(ymax, y + hh)
+				zmin = math.min(zmin, z - hd)
+				zmax = math.max(zmax, z + hd)
+			end
 		end
-	end
-	for _, attachment in ipairs(allAttachments) do
-		updateBoundingBox(CFrame.new(attachment.WorldPosition), Vector3.new(0, 0, 0))
+		for _, attachment in ipairs(allAttachments) do
+			local localPosition = basisCFrame:PointToObjectSpace(attachment.WorldPosition)
+			local x, y, z = localPosition.X, localPosition.Y, localPosition.Z
+			xmin = math.min(xmin, x)
+			xmax = math.max(xmax, x)
+			ymin = math.min(ymin, y)
+			ymax = math.max(ymax, y)
+			zmin = math.min(zmin, z)
+			zmax = math.max(zmax, z)
+		end
+	else
+		local function updateBoundingBox(cframe, size)
+			local localCFrame = inverseBasis * cframe -- put cframe in our local basis
+			local at = localCFrame.p
+			local inv = localCFrame:Inverse()
+			local x = size * inv.RightVector
+			local y = size * inv.UpVector
+			local z = size * inv.LookVector
+			local w = math.abs(x.x) + math.abs(x.y) + math.abs(x.z)
+			local h = math.abs(y.x) + math.abs(y.y) + math.abs(y.z)
+			local d = math.abs(z.x) + math.abs(z.y) + math.abs(z.z)
+			xmin = math.min(xmin, at.x - 0.5 * w)
+			xmax = math.max(xmax, at.x + 0.5 * w)
+			ymin = math.min(ymin, at.y - 0.5 * h)
+			ymax = math.max(ymax, at.y + 0.5 * h)
+			zmin = math.min(zmin, at.z - 0.5 * d)
+			zmax = math.max(zmax, at.z + 0.5 * d)
+		end
+
+		for _, part in ipairs(allParts) do
+			if not part:IsA("Terrain") then
+				updateBoundingBox(part.CFrame, part.Size)
+			end
+		end
+		for _, attachment in ipairs(allAttachments) do
+			updateBoundingBox(CFrame.new(attachment.WorldPosition), Vector3.new(0, 0, 0))
+		end
 	end
 
 	local boundingBoxOffset = Vector3.new(
@@ -78,14 +121,120 @@ local function computeBoundingBox(basisCFrame, allParts, allAttachments)
 	return boundingBoxOffset, boundingBoxSize
 end
 
+--[[
+	Micro-optimized code for computing a local space and the global space
+	bounding box for a set of parts and attachments as fast as possible.
+]]
+local function computeTwoBoundingBoxes(basisCFrame1, allParts, allAttachments)
+	local basisX, basisY, basisZ = basisCFrame1.X, basisCFrame1.Y, basisCFrame1.Z
+	local inverseBasis1 = basisCFrame1:Inverse()
+	local xmin1, xmax1 = math.huge, -math.huge
+	local ymin1, ymax1 = math.huge, -math.huge
+	local zmin1, zmax1 = math.huge, -math.huge
+	local xmin2, xmax2 = math.huge, -math.huge
+	local ymin2, ymax2 = math.huge, -math.huge
+	local zmin2, zmax2 = math.huge, -math.huge
+
+	local terrain = Workspace.Terrain
+
+	for _, part in ipairs(allParts) do
+		if part ~= terrain then
+			local cframe = part.CFrame
+			local size = part.Size
+			local sx, sy, sz = size.X, size.Y, size.Z
+
+			-- Calculation for bounding box in the space of basisCFrame1
+			local localCFrame1 = inverseBasis1 * cframe -- put cframe in our local basis
+			local _, _, _,
+				t00, t01, t02,
+				t10, t11, t12,
+				t20, t21, t22 = localCFrame1:components()
+			local hw1 = 0.5 * (math.abs(sx * t00) + math.abs(sy * t10) + math.abs(sz * t20))
+			local hh1 = 0.5 * (math.abs(sx * t01) + math.abs(sy * t11) + math.abs(sz * t21))
+			local hd1 = 0.5 * (math.abs(sx * t02) + math.abs(sy * t12) + math.abs(sz * t22))
+			local x1, y1, z1 = localCFrame1.X, localCFrame1.Y, localCFrame1.Z
+			xmin1 = math.min(xmin1, x1 - hw1)
+			xmax1 = math.max(xmax1, x1 + hw1)
+			ymin1 = math.min(ymin1, y1 - hh1)
+			ymax1 = math.max(ymax1, y1 + hh1)
+			zmin1 = math.min(zmin1, z1 - hd1)
+			zmax1 = math.max(zmax1, z1 + hd1)
+
+			-- Calculation for the bounding box in the global coordinate space
+			_, _, _,
+			t00, t01, t02,
+			t10, t11, t12,
+			t20, t21, t22 = cframe:components()
+			local hw2 = 0.5 * (math.abs(sx * t00) + math.abs(sy * t01) + math.abs(sz * t02))
+			local hh2 = 0.5 * (math.abs(sx * t10) + math.abs(sy * t11) + math.abs(sz * t12))
+			local hd2 = 0.5 * (math.abs(sx * t20) + math.abs(sy * t21) + math.abs(sz * t22))
+			local x2, y2, z2 = cframe.X, cframe.Y, cframe.Z
+			xmin2 = math.min(xmin2, x2 - hw2)
+			xmax2 = math.max(xmax2, x2 + hw2)
+			ymin2 = math.min(ymin2, y2 - hh2)
+			ymax2 = math.max(ymax2, y2 + hh2)
+			zmin2 = math.min(zmin2, z2 - hd2)
+			zmax2 = math.max(zmax2, z2 + hd2)
+		end
+	end
+	for _, attachment in ipairs(allAttachments) do
+		local worldPosition = attachment.WorldPosition
+
+		local localPosition = inverseBasis1 * worldPosition
+		local localX, localY, localZ = localPosition.X, localPosition.Y, localPosition.Z
+		xmin1 = math.min(xmin1, localX)
+		xmax1 = math.max(xmax1, localX)
+		ymin1 = math.min(ymin1, localY)
+		ymax1 = math.max(ymax1, localY)
+		zmin1 = math.min(zmin1, localZ)
+		zmax1 = math.max(zmax1, localZ)
+
+		local globalX, globalY, globalZ = worldPosition.X, worldPosition.Y, worldPosition.Z
+		xmin2 = math.min(xmin2, globalX)
+		xmax2 = math.max(xmax2, globalX)
+		ymin2 = math.min(ymin2, globalY)
+		ymax2 = math.max(ymax2, globalY)
+		zmin2 = math.min(zmin2, globalZ)
+		zmax2 = math.max(zmax2, globalZ)
+	end
+
+	local localBoundingBoxOffset = Vector3.new(
+		0.5 * (xmin1 + xmax1),
+		0.5 * (ymin1 + ymax1),
+		0.5 * (zmin1 + zmax1)
+	)
+	local localBoundingBoxSize = Vector3.new(
+		xmax1 - xmin1,
+		ymax1 - ymin1,
+		zmax1 - zmin1
+	)
+
+	local globalBoundingBoxOffset = Vector3.new(
+		0.5 * (xmin2 + xmax2) - basisX,
+		0.5 * (ymin2 + ymax2) - basisY,
+		0.5 * (zmin2 + zmax2) - basisZ
+	)
+	local globalBoundingBoxSize = Vector3.new(
+		xmax2 - xmin2,
+		ymax2 - ymin2,
+		zmax2 - zmin2
+	)
+
+	return localBoundingBoxOffset, localBoundingBoxSize,
+		globalBoundingBoxOffset, globalBoundingBoxSize
+end
+
 function SelectionHelper.computeSelectionInfo(selectedObjects)
 	-- Gather all of the actual parts and mark the first one as the primary part.
-	local allParts = {}
+	local allParts = getFFlagLuaDraggerPerf() and table.create(64) or {}
 	local allPartSet = {}
 	local allAttachments = {}
+	local allInstancesWithConfigurableFace = {}
 	local primaryPart = nil
 	local basisCFrame = nil
 	local terrain = Workspace.Terrain
+
+	local fflagHandleOddNesting = getFFlagHandleOddNesting()
 
 	for _, instance in ipairs(selectedObjects) do
 		if instance:IsA("Model") then
@@ -98,7 +247,7 @@ function SelectionHelper.computeSelectionInfo(selectedObjects)
 			end
 			primaryPart = primaryPart or instance.PrimaryPart
 		elseif instance:IsA("BasePart") then
-			if getFFlagHandleOddNesting() then
+			if fflagHandleOddNesting then
 				if not allPartSet[instance] and instance ~= terrain then
 					table.insert(allParts, instance)
 					allPartSet[instance] = true
@@ -113,12 +262,14 @@ function SelectionHelper.computeSelectionInfo(selectedObjects)
 					basisCFrame = basisCFrame or instance.CFrame
 				end
 			end
+		elseif getFFlagDragFaceInstances() and shouldDragAsFace(instance) then
+			table.insert(allInstancesWithConfigurableFace, instance)
 		elseif instance:IsA("Attachment") then
 			table.insert(allAttachments, instance)
 		end
 		-- It is possible to place parts inside of other parts, so this isn't an else on the prior if.
 		for _, descendant in ipairs(instance:GetDescendants()) do
-			if getFFlagHandleOddNesting() then
+			if fflagHandleOddNesting then
 				if descendant:IsA("BasePart") and not allPartSet[descendant] and descendant ~= terrain then
 					table.insert(allParts, descendant)
 					allPartSet[descendant] = true
@@ -151,21 +302,40 @@ function SelectionHelper.computeSelectionInfo(selectedObjects)
 	-- Local = always the local space. Needed because freeform dragging always
 	-- uses the local space bounding box.
 	local localBasisCFrame = basisCFrame
-	local localBoundingBoxOffset, localBoundingBoxSize =
-		computeBoundingBox(localBasisCFrame, allParts, allAttachments)
+	local localBoundingBoxOffset, localBoundingBoxSize
 
 	-- Chosen = local or global depending on the UseLocalSpace setting
 	local chosenBasisCFrame
 	local chosenBoundingBoxOffset, chosenBoundingBoxSize
 
-	if StudioService.UseLocalSpace then
-		chosenBasisCFrame = localBasisCFrame
-		chosenBoundingBoxOffset, chosenBoundingBoxSize =
-			localBoundingBoxOffset, localBoundingBoxSize
+	if getFFlagLuaDraggerPerf() then
+		if StudioService.UseLocalSpace then
+			localBoundingBoxOffset, localBoundingBoxSize =
+				computeBoundingBox(localBasisCFrame, allParts, allAttachments)
+
+			chosenBasisCFrame = localBasisCFrame
+			chosenBoundingBoxOffset, chosenBoundingBoxSize =
+				localBoundingBoxOffset, localBoundingBoxSize
+		else
+			localBoundingBoxOffset, localBoundingBoxSize,
+			chosenBoundingBoxOffset, chosenBoundingBoxSize =
+				computeTwoBoundingBoxes(localBasisCFrame, allParts, allAttachments)
+
+			chosenBasisCFrame = CFrame.new(basisCFrame.Position)
+		end
 	else
-		chosenBasisCFrame = CFrame.new(basisCFrame.Position)
-		chosenBoundingBoxOffset, chosenBoundingBoxSize =
-			computeBoundingBox(chosenBasisCFrame, allParts, allAttachments)
+		localBoundingBoxOffset, localBoundingBoxSize =
+			computeBoundingBox(localBasisCFrame, allParts, allAttachments)
+
+		if StudioService.UseLocalSpace then
+			chosenBasisCFrame = localBasisCFrame
+			chosenBoundingBoxOffset, chosenBoundingBoxSize =
+				localBoundingBoxOffset, localBoundingBoxSize
+		else
+			chosenBasisCFrame = CFrame.new(basisCFrame.Position)
+			chosenBoundingBoxOffset, chosenBoundingBoxSize =
+				computeBoundingBox(chosenBasisCFrame, allParts, allAttachments)
+		end
 	end
 
 	-- Build a table of only the "interesting" attachments, that is, those
@@ -237,6 +407,9 @@ function SelectionHelper.computeSelectionInfo(selectedObjects)
 
 		-- Are any of the parts in the selection physically free moving
 		hasPhysics = selectionHasPhysics,
+
+		-- Instances with configurable faces
+		instancesWithConfigurableFace = allInstancesWithConfigurableFace,
 	}
 end
 
@@ -250,33 +423,102 @@ end
 	are not considered selectable.
 ]]
 function SelectionHelper.getSelectable(instance)
-	-- Make sure that instance is a model or non-locked instance
+	if getFFlagLuaDraggerPerf() then
+		return SelectionHelper.getSelectableWithCache(instance, {}, isAltKeyDown())
+	else
+		-- Make sure that instance is a model or non-locked instance
+		if not instance then
+			return nil
+		elseif instance:IsA("BasePart") then
+			if instance.Locked then
+				return nil
+			end
+		elseif instance:IsA("Attachment") or instance:IsA("Constraint") then
+			return instance
+		elseif not (instance:IsA("Model") or instance:IsA("Tool")) then
+			return nil
+		end
+
+		if isAltKeyDown() then
+			return instance
+		elseif instance then
+			local selectableInstance = instance
+			while instance.Parent do
+				local candidate = instance.Parent
+				if (candidate:IsA("Model") or candidate:IsA("Tool")) and candidate ~= Workspace then
+					selectableInstance = candidate
+				end
+				instance = candidate
+			end
+			return selectableInstance
+		end
+		return nil
+	end
+end
+
+--[[
+	getSelectable, but accepting a cache parameter to optimize the box selection
+	tight loop case, and a cached value of isAltKeyDown to avoid repeated calls
+	to that function.
+]]
+function SelectionHelper.getSelectableWithCache(instance, cache, isAltKeyDown)
+	-- First, the easy nil and attachment cases.
 	if not instance then
 		return nil
-	elseif instance:IsA("BasePart") then
+	elseif instance:IsA("Attachment") or instance:IsA("Constraint") then
+		-- Note, this attachment case has to come before the fast-flat-model
+		-- optimization, otherwise selecting an attachment might result in the
+		-- parent part of the attachment being selected instead for cases with
+		-- parts nested under other parts.
+		return instance
+	end
+
+	-- Fast-flat-model optimization. Most places have a large number of parts
+	-- directly underneath models with no further nesting of models. We have a
+	-- nice optimization in this case, where we can cache what selectable
+	-- a given parent will result in. That way we can handle many of the
+	-- selectable determinations with a single hashtable lookup.
+	local instanceParent = instance.Parent
+	local fastCached = cache[instanceParent]
+	if fastCached then
+		-- Note: We don't need to worry about the locked case here. In order to
+		-- return a Model as a selectable thanks to a locked part here, we would
+		-- already have had to have already found an unlocked part in the same
+		-- model, in which case it does not hurt to return it.
+		return fastCached
+	end
+
+	-- Make sure that instance is a model or non-locked instance
+	if instance:IsA("BasePart") then
 		if instance.Locked then
 			return nil
 		end
-	elseif instance:IsA("Attachment") or instance:IsA("Constraint") then
-		return instance
 	elseif not (instance:IsA("Model") or instance:IsA("Tool")) then
 		return nil
 	end
 
-	if isAltKeyDown() then
+	if isAltKeyDown then
 		return instance
-	elseif instance then
+	else
 		local selectableInstance = instance
-		while instance.Parent do
-			local candidate = instance.Parent
+		local candidate = instanceParent
+		while candidate do
 			if (candidate:IsA("Model") or candidate:IsA("Tool")) and candidate ~= Workspace then
 				selectableInstance = candidate
 			end
-			instance = candidate
+			candidate = candidate.Parent
 		end
+
+		-- Add to cache. Note: We could add all of the entries in the hierarchy
+		-- between instance and selectableInstance to the cache, but that
+		-- actually has worse perf, since it costs time to modify cache, while
+		-- most models are flat and thus don't benefit from it.
+		if selectableInstance ~= instance then
+			cache[instanceParent] = selectableInstance
+		end
+
 		return selectableInstance
 	end
-	return nil
 end
 
 -- Returns: Did the selection change, The new selection
@@ -334,7 +576,7 @@ function SelectionHelper.updateSelectionWithMultipleParts(instances, oldSelectio
 	if getFFlagHandleOddNesting() then
 		-- Note here: instances IS a list of unique instances, but multiple
 		-- instances in that list may induce selection of the same selectable.
-		-- (EG: Any time you box-select a model and your box select includes
+		-- (E.g., any time you box-select a model and your box select includes
 		-- multiple parts in the model)
 		-- The result is, we need to filter out the duplicate selectables.
 		local alreadyFlaggedForAddSet = {}

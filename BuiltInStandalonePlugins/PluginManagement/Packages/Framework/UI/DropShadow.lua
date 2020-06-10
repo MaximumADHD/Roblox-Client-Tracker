@@ -45,9 +45,12 @@ function DropShadow:render()
 	local imageSize = style.ImageSize
 	assert(t.numberPositive(imageSize), "ImageSize must be a positive number")
 	local radius = style.Radius or 0
-	local sliceSize = imageSize / 2
-	local sliceScale = radius / sliceSize
+    local sliceSize = imageSize / 2
+    -- Prevent a pixel artefact around the content
+	local sliceScale = (radius + 1) / sliceSize
 	local sliceCenter = Rect.new(sliceSize, sliceSize, sliceSize, sliceSize)
+
+	local children = props[Roact.Children] or {}
 
 	return Roact.createElement("ImageLabel", {
 		Size = UDim2.new(1, 0, 1, 0),
@@ -72,7 +75,7 @@ function DropShadow:render()
 			PaddingLeft = UDim.new(0, radius),
 			PaddingRight = UDim.new(0, radius),
 		}),
-		Roact.createFragment(props[Roact.Children])
+		Roact.createFragment(children)
 	})
 end
 

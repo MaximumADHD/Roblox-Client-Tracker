@@ -12,6 +12,11 @@
 		number LoadingTime - total time it takes to load without waiting for onFinish
 		callback OnFinish - provide this callback to signal that loading has finished
 ]]
+-- DELETE THIS FILE ALONG WITH FFlagPluginManagementRemoveUILibrary
+local FFlagPluginManagementRemoveUILibrary = game:GetFastFlag("PluginManagementRemoveUILibrary")
+if FFlagPluginManagementRemoveUILibrary then
+	assert("This file should be deleted!")
+end
 
 local RunService = game:GetService("RunService")
 

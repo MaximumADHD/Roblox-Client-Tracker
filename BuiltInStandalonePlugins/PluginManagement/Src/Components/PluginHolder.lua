@@ -1,14 +1,21 @@
 local FFlagPluginManagementScrollbarDesign = game:DefineFastFlag("PluginManagementScrollbarDesign", false)
 local FFlagPluginManagementPrettifyDesign = game:GetFastFlag("PluginManagementPrettifyDesign2")
+local FFlagPluginManagementRemoveUILibrary = game:GetFastFlag("PluginManagementRemoveUILibrary")
 
 local StudioService = game:GetService("StudioService")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
-local UILibrary = require(Plugin.Packages.UILibrary)
+local UILibrary = require(Plugin.Packages.UILibrary) -- remove with FFlagPluginManagementRemoveUILibrary
+local FrameworkUtil = require(Plugin.Packages.Framework.Util)
 local PluginEntry = require(Plugin.Src.Components.PluginEntry)
 local Constants = require(Plugin.Src.Util.Constants)
-local LayoutOrderIterator = UILibrary.Util.LayoutOrderIterator
+local LayoutOrderIterator
+if FFlagPluginManagementRemoveUILibrary then
+	LayoutOrderIterator = FrameworkUtil.LayoutOrderIterator
+else
+	LayoutOrderIterator = UILibrary.Util.LayoutOrderIterator
+end
 local ContextServices = require(Plugin.Packages.Framework.ContextServices)
 
 local PluginHolder = Roact.Component:extend("PluginHolder")

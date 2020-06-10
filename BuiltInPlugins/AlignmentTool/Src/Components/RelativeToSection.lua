@@ -17,7 +17,8 @@ local RadioButtonList = UI.RadioButtonList
 local TextLabel = UI.Decoration.TextLabel
 
 local SetRelativeTo = require(Plugin.Src.Actions.SetRelativeTo)
-local RelativeTo = require(Plugin.Src.Core.RelativeTo)
+local UpdateAlignEnabled = require(Plugin.Src.Thunks.UpdateAlignEnabled)
+local RelativeTo = require(Plugin.Src.Utility.RelativeTo)
 
 local RelativeToSection = Roact.PureComponent:extend("RelativeToSection")
 
@@ -81,6 +82,7 @@ local function mapDispatchToProps(dispatch)
 	return {
 		setRelativeTo = function(target)
 			dispatch(SetRelativeTo(target))
+			dispatch(UpdateAlignEnabled())
 		end,
 	}
 end

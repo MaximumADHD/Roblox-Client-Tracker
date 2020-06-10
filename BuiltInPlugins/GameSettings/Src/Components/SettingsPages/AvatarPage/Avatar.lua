@@ -14,6 +14,8 @@
 local FFlagAvatarSizeFixForReorganizeHeaders =
 	game:GetFastFlag("AvatarSizeFixForReorganizeHeaders")
 
+local StudioService = game:GetService("StudioService")
+
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local RoactRodux = require(Plugin.RoactRodux)
@@ -32,6 +34,7 @@ local AddErrors = require(Plugin.Src.Actions.AddErrors)
 local RootPanelExternal = require(Plugin.Src.Components.Avatar.RootPanelExternal)
 
 local SettingsPage = require(Plugin.Src.Components.SettingsPages.SettingsPage)
+local InsufficientPermissionsPage = require(Plugin.Src.Components.SettingsPages.InsufficientPermissionsPage)
 
 local LOCALIZATION_ID = "Avatar"
 
@@ -271,6 +274,9 @@ local function loadValuesToProps(getValue, state)
 
 		CurrentAvatarType = state.Settings.Current.universeAvatarType,
 		AssetOverrideErrors = state.Settings.Errors.universeAvatarAssetOverrides,
+
+		OwnerId = state.GameOwnerMetadata.creatorId,
+		OwnerType = state.GameOwnerMetadata.creatorType,
 	}
 end
 
@@ -313,6 +319,15 @@ local isShutdownRequired = function(currentAvatarType, avatarTypeToChangeTo)
 end
 
 local Avatar = Roact.PureComponent:extend(script.Name)
+
+function Avatar:hasPermissionToEdit()
+	local props = self.props
+
+	local ownerId = props.OwnerId
+	local ownerType = props.OwnerType
+
+	return ownerType == Enum.CreatorType.Group or ownerId == StudioService:GetUserId()
+end
 
 function Avatar:createChildren()
 	local props = self.props
@@ -366,6 +381,10 @@ end
 
 function Avatar:render()
 	local localization = self.props.Localization
+
+	if not self:hasPermissionToEdit() then
+		return Roact.createElement(InsufficientPermissionsPage)
+	end
 
 	return Roact.createElement(SettingsPage, {
 		SettingsLoadJobs = loadSettings,

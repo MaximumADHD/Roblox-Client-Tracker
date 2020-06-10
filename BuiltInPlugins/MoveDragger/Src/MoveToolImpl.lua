@@ -14,8 +14,10 @@ local PartMover = require(DraggerFramework.Utility.PartMover)
 local AttachmentMover = require(DraggerFramework.Utility.AttachmentMover)
 local Colors = require(DraggerFramework.Utility.Colors)
 local getHandleScale = require(DraggerFramework.Utility.getHandleScale)
+local getBoundingBoxScale = require(DraggerFramework.Utility.getBoundingBoxScale)
 
 local getFFlagLuaDraggerHandleScale = require(DraggerFramework.Flags.getFFlagLuaDraggerHandleScale)
+local getFFlagAllowDragContinuation = require(DraggerFramework.Flags.getFFlagAllowDragContinuation)
 local getFFlagSmoothAttachmentMovement = require(DraggerFramework.Flags.getFFlagSmoothAttachmentMovement)
 local getFFlagImprovedHandleParams2 = require(DraggerFramework.Flags.getFFlagImprovedHandleParams2)
 local getFFlagDisallowFloatingPointErrorMove = require(DraggerFramework.Flags.getFFlagDisallowFloatingPointErrorMove)
@@ -135,69 +137,146 @@ function MoveToolImpl:render(hoveredHandleId)
 	end
 
 	local children = {}
-	if self._draggingHandleId then
-		local handleProps = self._handles[self._draggingHandleId]
-		if getFFlagImprovedHandleParams2() then
-			children[self._draggingHandleId] = Roact.createElement(MoveHandleView, {
-				Axis = handleProps.Axis,
-				AxisOffset = handleProps.AxisOffset,
-				Color = handleProps.Color,
-				Scale = getFFlagLuaDraggerHandleScale() and handleProps.Scale or self._scale,
-				AlwaysOnTop = ALWAYS_ON_TOP,
-				Hovered = forceHoveredHandlesOnTop and true,
-			})
-		else
-			children[self._draggingHandleId] = Roact.createElement(MoveHandleView, {
-				Axis = handleProps.Axis,
-				AxisOffset = handleProps.AxisOffset,
-				Color = handleProps.Color,
-				Scale = getFFlagLuaDraggerHandleScale() and handleProps.Scale or self._scale,
-				AlwaysOnTop = ALWAYS_ON_TOP,
-				Hovered = false,
-			})
-		end
-
-		for otherHandleId, otherHandleProps in pairs(self._handles) do
-			if otherHandleId ~= self._draggingHandleId then
-				children[otherHandleId] = Roact.createElement(MoveHandleView, {
-					Axis = otherHandleProps.Axis,
-					AxisOffset = otherHandleProps.AxisOffset,
-					Color = Colors.makeDimmed(otherHandleProps.Color),
-					Scale = getFFlagLuaDraggerHandleScale() and otherHandleProps.Scale or self._scale,
-					AlwaysOnTop = ALWAYS_ON_TOP,
-					Thin = true,
-				})
-			end
-		end
-
-		if areJointsEnabled() and self._jointPairs then
-			children.JointDisplay = self._jointPairs:renderJoints(self._scale)
-		end
-	else
-		for handleId, handleProps in pairs(self._handles) do
-			local color = handleProps.Color
-			local hovered = (handleId == hoveredHandleId)
-			if not hovered then
-				color = Colors.makeDimmed(color)
-			end
+	if getFFlagAllowDragContinuation() then
+		if self._draggingHandleId and self._handles[self._draggingHandleId] then
+			local handleProps = self._handles[self._draggingHandleId]
 			if getFFlagImprovedHandleParams2() then
-				children[handleId] = Roact.createElement(MoveHandleView, {
+				children[self._draggingHandleId] = Roact.createElement(MoveHandleView, {
 					Axis = handleProps.Axis,
 					AxisOffset = handleProps.AxisOffset,
-					Color = color,
+					Color = handleProps.Color,
 					Scale = getFFlagLuaDraggerHandleScale() and handleProps.Scale or self._scale,
 					AlwaysOnTop = ALWAYS_ON_TOP,
-					Hovered = hovered,
+					Hovered = forceHoveredHandlesOnTop and true,
 				})
 			else
-				children[handleId] = Roact.createElement(MoveHandleView, {
+				children[self._draggingHandleId] = Roact.createElement(MoveHandleView, {
 					Axis = handleProps.Axis,
 					AxisOffset = handleProps.AxisOffset,
-					Color = color,
+					Color = handleProps.Color,
 					Scale = getFFlagLuaDraggerHandleScale() and handleProps.Scale or self._scale,
 					AlwaysOnTop = ALWAYS_ON_TOP,
-					Hovered = forceHoveredHandlesOnTop and hovered,
+					Hovered = false,
 				})
+			end
+			for otherHandleId, otherHandleProps in pairs(self._handles) do
+				if otherHandleId ~= self._draggingHandleId then
+					children[otherHandleId] = Roact.createElement(MoveHandleView, {
+						Axis = otherHandleProps.Axis,
+						AxisOffset = otherHandleProps.AxisOffset,
+						Color = Colors.makeDimmed(otherHandleProps.Color),
+						Scale = getFFlagLuaDraggerHandleScale() and otherHandleProps.Scale or self._scale,
+						AlwaysOnTop = ALWAYS_ON_TOP,
+						Thin = true,
+					})
+				end
+			end
+			if areJointsEnabled() and self._jointPairs then
+				if getFFlagLuaDraggerHandleScale() then
+					local scale = getBoundingBoxScale(self._boundingBox.CFrame, self._boundingBox.Size)
+					children.JointDisplay = self._jointPairs:renderJoints(scale)
+				else
+					children.JointDisplay = self._jointPairs:renderJoints(self._scale)
+				end
+			end
+		else
+			for handleId, handleProps in pairs(self._handles) do
+				local color = handleProps.Color
+				local hovered = (handleId == hoveredHandleId)
+				if not hovered then
+					color = Colors.makeDimmed(color)
+				end
+				if getFFlagImprovedHandleParams2() then
+					children[handleId] = Roact.createElement(MoveHandleView, {
+						Axis = handleProps.Axis,
+						AxisOffset = handleProps.AxisOffset,
+						Color = color,
+						Scale = getFFlagLuaDraggerHandleScale() and handleProps.Scale or self._scale,
+						AlwaysOnTop = ALWAYS_ON_TOP,
+						Hovered = hovered,
+					})
+				else
+					children[handleId] = Roact.createElement(MoveHandleView, {
+						Axis = handleProps.Axis,
+						AxisOffset = handleProps.AxisOffset,
+						Color = color,
+						Scale = getFFlagLuaDraggerHandleScale() and handleProps.Scale or self._scale,
+						AlwaysOnTop = ALWAYS_ON_TOP,
+						Hovered = forceHoveredHandlesOnTop and hovered,
+					})
+				end
+			end
+		end
+	else
+		if self._draggingHandleId then
+			local handleProps = self._handles[self._draggingHandleId]
+			if getFFlagImprovedHandleParams2() then
+				children[self._draggingHandleId] = Roact.createElement(MoveHandleView, {
+					Axis = handleProps.Axis,
+					AxisOffset = handleProps.AxisOffset,
+					Color = handleProps.Color,
+					Scale = getFFlagLuaDraggerHandleScale() and handleProps.Scale or self._scale,
+					AlwaysOnTop = ALWAYS_ON_TOP,
+					Hovered = forceHoveredHandlesOnTop and true,
+				})
+			else
+				children[self._draggingHandleId] = Roact.createElement(MoveHandleView, {
+					Axis = handleProps.Axis,
+					AxisOffset = handleProps.AxisOffset,
+					Color = handleProps.Color,
+					Scale = getFFlagLuaDraggerHandleScale() and handleProps.Scale or self._scale,
+					AlwaysOnTop = ALWAYS_ON_TOP,
+					Hovered = false,
+				})
+			end
+
+			for otherHandleId, otherHandleProps in pairs(self._handles) do
+				if otherHandleId ~= self._draggingHandleId then
+					children[otherHandleId] = Roact.createElement(MoveHandleView, {
+						Axis = otherHandleProps.Axis,
+						AxisOffset = otherHandleProps.AxisOffset,
+						Color = Colors.makeDimmed(otherHandleProps.Color),
+						Scale = getFFlagLuaDraggerHandleScale() and otherHandleProps.Scale or self._scale,
+						AlwaysOnTop = ALWAYS_ON_TOP,
+						Thin = true,
+					})
+				end
+			end
+
+			if areJointsEnabled() and self._jointPairs then
+				if getFFlagLuaDraggerHandleScale() then
+					local scale = getBoundingBoxScale(self._boundingBox.CFrame, self._boundingBox.Size)
+					children.JointDisplay = self._jointPairs:renderJoints(scale)
+				else
+					children.JointDisplay = self._jointPairs:renderJoints(self._scale)
+				end
+			end
+		else
+			for handleId, handleProps in pairs(self._handles) do
+				local color = handleProps.Color
+				local hovered = (handleId == hoveredHandleId)
+				if not hovered then
+					color = Colors.makeDimmed(color)
+				end
+				if getFFlagImprovedHandleParams2() then
+					children[handleId] = Roact.createElement(MoveHandleView, {
+						Axis = handleProps.Axis,
+						AxisOffset = handleProps.AxisOffset,
+						Color = color,
+						Scale = getFFlagLuaDraggerHandleScale() and handleProps.Scale or self._scale,
+						AlwaysOnTop = ALWAYS_ON_TOP,
+						Hovered = hovered,
+					})
+				else
+					children[handleId] = Roact.createElement(MoveHandleView, {
+						Axis = handleProps.Axis,
+						AxisOffset = handleProps.AxisOffset,
+						Color = color,
+						Scale = getFFlagLuaDraggerHandleScale() and handleProps.Scale or self._scale,
+						AlwaysOnTop = ALWAYS_ON_TOP,
+						Hovered = forceHoveredHandlesOnTop and hovered,
+					})
+				end
 			end
 		end
 	end
@@ -216,21 +295,48 @@ function MoveToolImpl:mouseDown(mouseRay, handleId)
 		self._boundingBox.CFrame.Position)
 	self._attachmentMover:setDragged(
 		self._attachmentsToMove)
-	self:_setupMoveAtCurrentBoundingBox(mouseRay)
 
 	-- Calculate fraction of the way along the handle to "stick" the cursor to
 	if getFFlagLuaDraggerHandleScale() then
-		local handleProps = self._handles[handleId]
-		local handleOffset, handleLength =
-			MoveHandleView.getHandleDimensionForScale(handleProps.Scale)
-		local offsetDueToBoundingBox = handleProps.AxisOffset
-		self._draggingHandleFrac =
-			(self._startDistance - handleOffset - offsetDueToBoundingBox) / handleLength
+		if getFFlagAllowDragContinuation() then
+			if self._handles[handleId] then
+				self:_setupMoveAtCurrentBoundingBox(mouseRay)
+
+				local handleProps = self._handles[handleId]
+				local handleOffset, handleLength =
+					MoveHandleView.getHandleDimensionForScale(handleProps.Scale)
+				local offsetDueToBoundingBox = handleProps.AxisOffset
+				self._draggingHandleFrac =
+					(self._startDistance - handleOffset - offsetDueToBoundingBox) / handleLength
+			end
+		else
+			self:_setupMoveAtCurrentBoundingBox(mouseRay)
+
+			local handleProps = self._handles[handleId]
+			local handleOffset, handleLength =
+				MoveHandleView.getHandleDimensionForScale(handleProps.Scale)
+			local offsetDueToBoundingBox = handleProps.AxisOffset
+			self._draggingHandleFrac =
+				(self._startDistance - handleOffset - offsetDueToBoundingBox) / handleLength
+		end
 	else
-		local handleOffset, handleLength = MoveHandleView.getHandleDimensionForScale(self._scale)
-		local offsetDueToBoundingBox = self._handles[handleId].AxisOffset
-		self._draggingHandleFrac =
-			(self._startDistance - handleOffset - offsetDueToBoundingBox) / handleLength
+		if getFFlagAllowDragContinuation() then
+			if self._handles[handleId] then
+				self:_setupMoveAtCurrentBoundingBox(mouseRay)
+
+				local handleOffset, handleLength = MoveHandleView.getHandleDimensionForScale(self._scale)
+				local offsetDueToBoundingBox = self._handles[handleId].AxisOffset
+				self._draggingHandleFrac =
+					(self._startDistance - handleOffset - offsetDueToBoundingBox) / handleLength
+			end
+		else
+			self:_setupMoveAtCurrentBoundingBox(mouseRay)
+
+			local handleOffset, handleLength = MoveHandleView.getHandleDimensionForScale(self._scale)
+			local offsetDueToBoundingBox = self._handles[handleId].AxisOffset
+			self._draggingHandleFrac =
+				(self._startDistance - handleOffset - offsetDueToBoundingBox) / handleLength
+		end
 	end
 end
 
@@ -350,6 +456,12 @@ function MoveToolImpl:mouseDrag(mouseRay)
 	local hasDistance, distance = self:_getDistanceAlongAxis(mouseRay)
 	if not hasDistance then
 		return
+	end
+
+	if getFFlagAllowDragContinuation() then
+		if not self._handles[self._draggingHandleId] then
+			return
+		end
 	end
 
 	local delta = self:_solveForAdjustedDistance(distance) - self._startDistance

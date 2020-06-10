@@ -81,10 +81,22 @@ local function Install()
 	local shouldInsertDefaultModules = GetBoolValue(ChatModules, "InsertDefaultModules", false)
 
 	if shouldInsertDefaultModules then
+		if not ChatModules:FindFirstChild("Utility") then
+			local Utility = Instance.new("Folder")
+			Utility.Name = "Utility"
+			Utility.Parent = ChatModules
+		end
+
 		local defaultChatModules = script.Parent.DefaultChatModules:GetChildren()
 		for i = 1, #defaultChatModules do
-			if not ChatModules:FindFirstChild(defaultChatModules[i].Name) then
+			if defaultChatModules.className ~= "Folder" and not ChatModules:FindFirstChild(defaultChatModules[i].Name) then
 				LoadModule(script.Parent.DefaultChatModules, defaultChatModules[i].Name, ChatModules)
+			end
+		end
+
+		for _, utilityModule in pairs(script.Parent.DefaultChatModules.Utility:GetChildren()) do
+			if not ChatModules.Utility:FindFirstChild(utilityModule.Name) then
+				LoadModule(script.Parent.DefaultChatModules.Utility, utilityModule.Name, ChatModules.Utility)
 			end
 		end
 	end

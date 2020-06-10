@@ -19,6 +19,8 @@ local Roact = require(Plugin.Roact)
 local RoactRodux = require(Plugin.RoactRodux)
 local UILibrary = require(Plugin.UILibrary)
 
+local FFlagRemoveUILibraryTimeline = game:GetFastFlag("RemoveUILibraryTimeline")
+
 local Separator = UILibrary.Component.Separator
 
 local Mouse = require(Plugin.Src.Context.Mouse)
@@ -31,7 +33,9 @@ local Input = require(Plugin.Src.Util.Input)
 local DopeSheetController = require(Plugin.Src.Components.DopeSheetController)
 local TimelineContainer = require(Plugin.Src.Components.TimelineContainer)
 local ZoomBar = require(Plugin.Src.Components.ZoomBar)
-local Scrubber = UILibrary.Component.Scrubber
+local Scrubber = FFlagRemoveUILibraryTimeline
+	and require(Plugin.Src.Components.Timeline.Scrubber)
+	or UILibrary.Component.Scrubber
 local KeyboardListener = UILibrary.Focus.KeyboardListener
 
 local SetScrollZoom = require(Plugin.Src.Actions.SetScrollZoom)

@@ -30,6 +30,8 @@ local TableWithMenuItem = require(Plugin.Src.Components.TableWithMenuItem)
 
 local TableWithMenu = Roact.PureComponent:extend("TableWithMenu")
 
+local FFlagFixRadioButtonSeAndTableHeadertForTesting = game:getFastFlag("FixRadioButtonSeAndTableHeadertForTesting")
+
 local function createHeaderLabels(theme, headers)
     local headerLabels = {
         HeaderLayout = Roact.createElement("UIListLayout", {
@@ -50,7 +52,7 @@ local function createHeaderLabels(theme, headers)
             Size = UDim2.new( 1 / numberColumns, 0, 1, 0),
             LayoutOrder = i,
 
-            Text = headers[i],
+            Text = FFlagFixRadioButtonSeAndTableHeadertForTesting and headers[i].Text or headers[i],
 
             BackgroundTransparency = 1,
             BorderSizePixel = 0,
@@ -58,7 +60,11 @@ local function createHeaderLabels(theme, headers)
             TextXAlignment = Enum.TextXAlignment.Left,
             TextTruncate = Enum.TextTruncate.AtEnd,
         }))
-        headerLabels[i] = header
+        if FFlagFixRadioButtonSeAndTableHeadertForTesting then
+            headerLabels[headers[i].Id] = header
+        else
+            headerLabels[i] = header
+        end
     end
 
     return headerLabels

@@ -37,9 +37,6 @@ local NAV_ICON_TEXT_PADDING = 16
 local NAV_TEXT_RIGHT_PADDING = 24
 local TEXT_SIZE_INSET = NAV_ICON_LEFT_PADDING + NAV_ICON_SIZE + NAV_ICON_TEXT_PADDING + NAV_TEXT_RIGHT_PADDING
 
-local getFFlagInGameMenuSinglePaneDesign = require(InGameMenu.Flags.GetFFlagInGameMenuSinglePaneDesign)
-local fflagInGameMenuSinglePaneDesign = getFFlagInGameMenuSinglePaneDesign()
-
 local NavigationButton = Roact.PureComponent:extend("NavigationButton")
 
 function NavigationButton:init(props)
@@ -187,7 +184,7 @@ local function PageNavigation(props)
 
 	local layoutOrder = 1
 	for index, page in ipairs(Pages.pagesByIndex) do
-		if page.navigationDepth == 2 or not fflagInGameMenuSinglePaneDesign then
+		if page.navigationDepth == 2 then
 			frameChildren["Page" .. page.key] = Roact.createElement(NavigationButton, {
 				image = page.icon,
 				LayoutOrder = layoutOrder,

@@ -16,7 +16,7 @@ local Rodux = require(Plugin.Packages.Rodux)
 local Http = require(Plugin.Packages.Http)
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 local ContextServices = require(Plugin.Packages.Framework.ContextServices)
-local UILibraryWrapper = require(Plugin.Packages.Framework.ContextServices.UILibraryWrapper)
+local UILibraryWrapper = require(Plugin.Packages.Framework.ContextServices.UILibraryWrapper) -- remove with FFlagPluginManagementRemoveUILibrary
 local makeTheme = require(Plugin.Src.Resources.makeTheme)
 local PluginAPI2 = require(Plugin.Src.ContextServices.PluginAPI2)
 local Navigation = require(Plugin.Src.ContextServices.Navigation)
@@ -27,6 +27,7 @@ local FlagsList = Flags.new({
 		"EnablePluginPermissionsPage2",
 		"StudioPermissionsServiceEnabled",
 	},
+	FFlagPluginManagementRemoveUILibrary = "PluginManagementRemoveUILibrary",
 })
 local MockManagement = Roact.PureComponent:extend("MockManagement")
 
@@ -64,28 +65,25 @@ function MockManagement:init(props)
 end
 
 function MockManagement:render()
-	if FlagsList:get("FFlagEnablePluginPermissionsPage") then
-		return ContextServices.provide({
-			ContextServices.Plugin.new(self.plugin),
-			PluginAPI2.new(self.api),
-			ContextServices.Localization.mock(),
-			makeTheme(),
-			ContextServices.Focus.new(self.target),
-			UILibraryWrapper.new(),
-			ContextServices.Store.new(self.store),
-			Navigation.new(),
-		}, self.props[Roact.Children])
-	else
-		return ContextServices.provide({
-			ContextServices.Plugin.new(self.plugin),
-			PluginAPI2.new(self.api),
-			ContextServices.Localization.mock(),
-			makeTheme(),
-			ContextServices.Focus.new(self.target),
-			UILibraryWrapper.new(),
-			ContextServices.Store.new(self.store),
-		}, self.props[Roact.Children])
+	local services = {
+		ContextServices.Plugin.new(self.plugin),
+		PluginAPI2.new(self.api),
+		ContextServices.Localization.mock(),
+		ContextServices.Mouse.new(self.plugin:GetMouse()),
+		makeTheme(),
+		ContextServices.Focus.new(self.target),
+		ContextServices.Store.new(self.store),
+	}
+
+	if not FlagsList:get("FFlagPluginManagementRemoveUILibrary") then
+		table.insert(services, UILibraryWrapper.new())
 	end
+
+	if FlagsList:get("FFlagEnablePluginPermissionsPage") then
+		table.insert(services, Navigation.new())
+	end
+
+	return ContextServices.provide(services, self.props[Roact.Children])
 end
 
 return MockManagement

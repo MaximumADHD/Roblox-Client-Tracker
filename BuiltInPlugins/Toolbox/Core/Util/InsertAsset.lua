@@ -22,10 +22,21 @@ local FFlagStudioToolboxInsertAssetCategoryAnalytics = settings():GetFFlag("Stud
 local FFlagToolboxFixDecalInsert = settings():GetFFlag("ToolboxFixDecalInsert")
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 local FFlagEnableToolboxVideos = game:GetFastFlag("EnableToolboxVideos")
+local FFlagStudioFixUndoAfterInsertByDrag = game:GetFastFlag("StudioFixUndoAfterInsertByDrag")
+local FFlagToolboxForceSelectDragger = game:GetFastFlag("ToolboxForceSelectDragger")
+local FFlagEnableLuaDraggers = game:GetFastFlag("EnableLuaDraggers")
+local FFlagDragFaceInstances = game:GetFastFlag("DragFaceInstances")
 
 local INSERT_MAX_SEARCH_DEPTH = 2048
 local INSERT_MAX_DISTANCE_AWAY = 64
 local INSERT_CAMERA_DIST_MULT = 1.2
+
+local RIBBON_DRAGGER_TOOLS = {
+	[Enum.RibbonTool.Move] = true,
+	[Enum.RibbonTool.Rotate] = true,
+	[Enum.RibbonTool.Scale] = true,
+	[Enum.RibbonTool.Select] = true,
+}
 
 local function getInsertPosition()
 	local camera = Workspace.CurrentCamera
@@ -305,11 +316,16 @@ Options table format:
 }
 ]]
 
-
 -- This is the public api we should be using.
 -- insertToolPromise can be nil if dragged.
 function InsertAsset.tryInsert(options, insertToolPromise, assetWasDragged)
 	if assetWasDragged then
+		if FFlagToolboxForceSelectDragger and FFlagEnableLuaDraggers then
+			local selectedRibbonTool = options.plugin:GetSelectedRibbonTool()
+			if not RIBBON_DRAGGER_TOOLS[selectedRibbonTool] then
+				options.plugin:SelectRibbonTool(Enum.RibbonTool.Select, UDim2.new())
+			end
+		end
 		InsertAsset.doDragInsertAsset(options)
 	else
 		local value = InsertAsset.doInsertAsset(options, insertToolPromise)
@@ -358,8 +374,8 @@ function InsertAsset.doDragInsertAsset(options)
 	if assetTypeId == Enum.AssetType.Plugin.Value then
 		-- We should absolutely never allow plugins to be installed via dragging!
 		return
-	elseif FFlagEnableToolboxVideos and assetTypeId == Enum.AssetType.Video.Value then
-		-- TODO: DEVTOOLS-4264 - Enable dragger framework face dragging
+	elseif (not (FFlagEnableLuaDraggers and FFlagDragFaceInstances)) and assetTypeId == Enum.AssetType.Video.Value then
+		-- We need draggerFramework and face instance dragging to be on to drag videos
 		insertVideo(assetId, assetName)
 		return
 	end
@@ -399,7 +415,9 @@ function InsertAsset.doDragInsertAsset(options)
 	end)
 
 	if success then
-		ChangeHistoryService:SetWaypoint(("After insert asset %d"):format(assetId))
+		if not FFlagStudioFixUndoAfterInsertByDrag then
+			ChangeHistoryService:SetWaypoint(("After insert asset %d"):format(assetId))
+		end
 		sendInsertionAnalytics(options, true)
 
 		-- TODO CLIDEVSRVS-1689: For AssetInsertionTracker.trackInsert with dragged

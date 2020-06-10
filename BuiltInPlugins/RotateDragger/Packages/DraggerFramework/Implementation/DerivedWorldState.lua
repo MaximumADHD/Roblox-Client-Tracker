@@ -43,6 +43,8 @@ function DerivedWorldState:updateSelectionInfo()
 	self._localMainCFrame = selectionInfo.localBasisCFrame
 	self._originalCFrameMap = selectionInfo.originalCFrameMap
     self._selectionHasPhysics = selectionInfo.hasPhysics
+    self._instancesWithConfigurableFace = selectionInfo.instancesWithConfigurableFace
+
     if not getFFlagLuaDraggerHandleScale() then
         self:_updateScale()
     end

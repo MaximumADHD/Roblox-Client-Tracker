@@ -8,6 +8,7 @@ local getGeometry = require(Lib.Utility.getGeometry)
 
 local getFFlagLuaDraggerTerrainFixes = require(Lib.Flags.getFFlagLuaDraggerTerrainFixes)
 local getFFlagFuzzyTerrainNormal = require(Lib.Flags.getFFlagFuzzyTerrainNormal)
+local getFFlagDragFaceInstances = require(Lib.Flags.getFFlagDragFaceInstances)
 
 local PrimaryDirections = {
 	Vector3.new(1, 0, 0),
@@ -71,12 +72,53 @@ function DragHelper.snapVectorToPrimaryDirection(direction)
 	return closestDirection
 end
 
-function DragHelper.getSurfaceMatrix(selection, lastSurfaceMatrix)
+function DragHelper.getHitPart(selection)
 	-- Find the hit part and where the hit is
 	local mouseAt = UserInputService:GetMouseLocation()
 	local unitRay = Workspace.CurrentCamera:ViewportPointToRay(mouseAt.X, mouseAt.Y)
 	local ray = Ray.new(unitRay.Origin, unitRay.Direction * 10000)
-	local part, mouseWorld, normal = Workspace:FindPartOnRayWithIgnoreList(ray, selection)
+	return ray, Workspace:FindPartOnRayWithIgnoreList(ray, selection)
+end
+
+function DragHelper.getClosestFace(part, mouseWorld)
+	local geom = getGeometry(part, mouseWorld)
+	local closestFace
+	local closestDist = math.huge
+	for _, face in ipairs(geom.faces) do
+		local dist = math.abs((mouseWorld - face.point):Dot(face.normal))
+		if dist < closestDist then
+			closestFace = face
+			closestDist = dist
+		end
+	end
+	return closestFace, geom
+end
+
+function DragHelper.getPartAndSurface(selection)
+	local ray, part, mouseWorld, normal = DragHelper.getHitPart(selection)
+	local closestFace, _
+	if part then
+		closestFace, _ = DragHelper.getClosestFace(part, mouseWorld)
+	end
+
+	if closestFace then
+		return part, closestFace.surface
+	else
+		return part, nil
+	end
+end
+
+function DragHelper.getSurfaceMatrix(selection, lastSurfaceMatrix)
+	local ray, part, mouseWorld, normal
+	if getFFlagDragFaceInstances() then
+		ray, part, mouseWorld, normal = DragHelper.getHitPart(selection)
+	else
+		-- Find the hit part and where the hit is
+		local mouseAt = UserInputService:GetMouseLocation()
+		local unitRay = Workspace.CurrentCamera:ViewportPointToRay(mouseAt.X, mouseAt.Y)
+		ray = Ray.new(unitRay.Origin, unitRay.Direction * 10000)
+		part, mouseWorld, normal = Workspace:FindPartOnRayWithIgnoreList(ray, selection)
+	end
 	if part and part:IsA("Terrain") then
 		if getFFlagLuaDraggerTerrainFixes() then
 			-- First, find the closest aligned global axis normal, and the two other
@@ -122,16 +164,21 @@ function DragHelper.getSurfaceMatrix(selection, lastSurfaceMatrix)
 		-- Find the normal and secondary axis (the direction the studs / UV
 		-- coords are oriented in) of the surface that we're dragging onto.
 		-- Also find the closest "basis" point on the face to the mouse,
-		local geom = getGeometry(part, mouseWorld)
-		local closestFace = nil
-		local closestDist = math.huge
-		for _, face in ipairs(geom.faces) do
-			local dist = math.abs((mouseWorld - face.point):Dot(face.normal))
-			if dist < closestDist then
-				closestFace = face
-				closestDist = dist
+		local closestFace, geom = nil
+		if getFFlagDragFaceInstances() then
+			closestFace, geom = DragHelper.getClosestFace(part, mouseWorld)
+		else
+			geom = getGeometry(part, mouseWorld)
+			local closestDist = math.huge
+			for _, face in ipairs(geom.faces) do
+				local dist = math.abs((mouseWorld - face.point):Dot(face.normal))
+				if dist < closestDist then
+					closestFace = face
+					closestDist = dist
+				end
 			end
 		end
+
 		local normal = closestFace.normal
 		local secondary;
 		local closestEdgeDist = math.huge

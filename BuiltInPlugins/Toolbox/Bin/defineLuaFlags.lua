@@ -42,7 +42,10 @@ game:DefineFastFlag("ToolboxUseNewAssetType", false)
 
 game:DefineFastFlag("StudioToolboxSearchOverflowFix", false)
 game:DefineFastFlag("ToolboxFixOneSecondAudioMaxDuration", false)
+game:DefineFastFlag("ToolboxForceSelectDragger", false)
 
 game:DefineFastFlag("StudioFixComparePageInfo", false)
+
+game:DefineFastFlag("StudioFixGroupCreatorInfo", false)
 
 return nil

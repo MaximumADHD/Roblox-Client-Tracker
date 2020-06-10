@@ -26,6 +26,8 @@
 ]]
 local FFlagStudioConvertGameSettingsToDevFramework = game:GetFastFlag("StudioConvertGameSettingsToDevFramework")
 
+local StudioService = game:GetService("StudioService")
+
 local LOCALIZATION_ID = "BasicInfo"
 
 local MAX_NAME_LENGTH = 50
@@ -65,9 +67,12 @@ local GameIconWidget = require(Plugin.Src.Components.GameIcon.GameIconWidget)
 local Header = require(Plugin.Src.Components.Header)
 local SettingsPage = require(Plugin.Src.Components.SettingsPages.SettingsPage)
 local ListDialog = require(Plugin.Src.Components.Dialog.ListDialog)
+local InsufficientPermissionsPage = require(Plugin.Src.Components.SettingsPages.InsufficientPermissionsPage)
 
 local AddChange = require(Plugin.Src.Actions.AddChange)
 local AddErrors = require(Plugin.Src.Actions.AddErrors)
+local SetCreatorId = require(Plugin.Src.Actions.SetCreatorId)
+local SetCreatorType = require(Plugin.Src.Actions.SetCreatorType)
 
 local FileUtils = require(Plugin.Src.Util.FileUtils)
 local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
@@ -76,6 +81,7 @@ local function loadSettings(store, contextItems)
 	local state = store:getState()
 	local gameId = state.Metadata.gameId
 	local gameInfoController = contextItems.gameInfoController
+	local gameMetadataController = contextItems.gameMetadataController
 
 	return {
 		function(loadedSettings)
@@ -123,6 +129,16 @@ local function loadSettings(store, contextItems)
 			loadedSettings["gameIcon"] = gameIcon or "None"
 			loadedSettings["gameIconApproved"] = isApproved
 		end,
+		function(loadedSettings)
+			local ownerId = gameMetadataController:getCreatorId(gameId)
+
+			store:dispatch(SetCreatorId(ownerId))
+		end,
+		function(loadedSettings)
+			local ownerType = gameMetadataController:getCreatorType(gameId)
+
+			store:dispatch(SetCreatorType(ownerType))
+		end
 	}
 end
 
@@ -284,6 +300,9 @@ local function loadValuesToProps(getValue, state)
 		DevicesError = errors.playableDevices,
 
 		IsCurrentlyActive =  state.Settings.Current.isActive,
+
+		OwnerId = fflagNetworkRefactor and state.GameOwnerMetadata.creatorId or nil,
+		OwnerType = fflagNetworkRefactor and state.GameOwnerMetadata.creatorType or nil,
 	}
 
 	loadedProps.ThumbnailsError = errors.thumbnails
@@ -636,6 +655,15 @@ end
 if (game:GetFastFlag("GameSettingsNetworkRefactor")) then
 	local BasicInfo = Roact.PureComponent:extend(script.Name)
 
+	function BasicInfo:hasPermissionToEdit()
+		local props = self.props
+
+		local ownerId = props.OwnerId
+		local ownerType = props.OwnerType
+
+		return ownerType == Enum.CreatorType.Group or ownerId == StudioService:GetUserId()
+	end
+
 	function BasicInfo:init()
 		self.addIcons = function()
 			local props = self.props
@@ -660,6 +688,12 @@ if (game:GetFastFlag("GameSettingsNetworkRefactor")) then
 		local localization = self.props.Localization
 
 		local function createChildren()
+			if not self:hasPermissionToEdit() then
+				return {
+					InsufficientPermission = Roact.createElement(InsufficientPermissionsPage)
+				}
+			end
+
 			return createContents(self.props, localization, self.addThumbnails, self.addIcons, self)
 		end
 

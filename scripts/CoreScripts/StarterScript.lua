@@ -16,6 +16,7 @@ local CoreGuiModules = RobloxGui:WaitForChild("Modules")
 local PolicyService = require(CoreGuiModules:WaitForChild("Common"):WaitForChild("PolicyService"))
 local initify = require(CorePackages.initify)
 
+-- remove this when removing FFlagConnectErrorHandlerInLoadingScript
 local FFlagConnectionScriptEnabled = settings():GetFFlag("ConnectionScriptEnabled")
 local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabledV384")
 
@@ -23,6 +24,7 @@ local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList3")
 local FFlagEmotesMenuEnabled2 = settings():GetFFlag("CoreScriptEmotesMenuEnabled2")
 
 local FFlagCoreScriptTopBarStartup = require(RobloxGui.Modules.Flags.FFlagCoreScriptTopBarStartup)
+local FFlagConnectErrorHandlerInLoadingScript = require(RobloxGui.Modules.Flags.FFlagConnectErrorHandlerInLoadingScript)
 local isNewTopBarEnabled = require(RobloxGui.Modules.TopBar.isNewTopBarEnabled)
 
 -- The Rotriever index, as well as the in-game menu code itself, relies on
@@ -70,8 +72,10 @@ local function safeRequire(moduleScript)
 	end
 end
 
-if FFlagConnectionScriptEnabled and not GuiService:IsTenFootInterface() then
-	ScriptContext:AddCoreScriptLocal("Connection", RobloxGui)
+if not FFlagConnectErrorHandlerInLoadingScript then
+	if FFlagConnectionScriptEnabled and not GuiService:IsTenFootInterface() then
+		ScriptContext:AddCoreScriptLocal("Connection", RobloxGui)
+	end
 end
 
 -- TopBar

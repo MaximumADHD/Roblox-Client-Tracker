@@ -19,16 +19,22 @@ local Math = require(DraggerFramework.Utility.Math)
 local PartMover = require(DraggerFramework.Utility.PartMover)
 local StandaloneSelectionBox = require(DraggerFramework.Components.StandaloneSelectionBox)
 local getHandleScale = require(DraggerFramework.Utility.getHandleScale)
+local getBoundingBoxScale = require(DraggerFramework.Utility.getBoundingBoxScale)
 
 local RotateHandleView = require(Plugin.Src.RotateHandleView)
 
+local getFFlagDraggerBasisRotate = require(DraggerFramework.Flags.getFFlagDraggerBasisRotate)
 local getFFlagLuaDraggerHandleScale = require(DraggerFramework.Flags.getFFlagLuaDraggerHandleScale)
+local getFFlagAllowDragContinuation = require(DraggerFramework.Flags.getFFlagAllowDragContinuation)
 local getFFlagImprovedHandleParams2 = require(DraggerFramework.Flags.getFFlagImprovedHandleParams2)
 local getFFlagDisallowFloatingPointErrorMove = require(DraggerFramework.Flags.getFFlagDisallowFloatingPointErrorMove)
 
 -- The difference from exactly touching to try to bring the parts within when
 -- dragging parts into a colliding condition with Collisions enabled.
 local ROTATE_COLLISION_THRESHOLD = 0.0001
+
+local RIGHT_ANGLE = math.pi / 2
+local RIGHT_ANGLE_EXACT_THRESHOLD = 0.001
 
 local RotateToolImpl = {}
 RotateToolImpl.__index = RotateToolImpl
@@ -71,9 +77,40 @@ local function areConstraintsEnabled()
 	return false
 end
 
+local function isRightAngle(angleDelta)
+	local snappedTo90 = math.floor((angleDelta / RIGHT_ANGLE) + 0.5) * RIGHT_ANGLE
+	return math.abs(snappedTo90 - angleDelta) < RIGHT_ANGLE_EXACT_THRESHOLD
+end
+
 local function getRotationTransform(mainCFrame, axisVector, delta)
-	local localAxis = mainCFrame:VectorToObjectSpace(axisVector)
-	return mainCFrame * CFrame.fromAxisAngle(localAxis, delta) * mainCFrame:Inverse()
+	if getFFlagDraggerBasisRotate() then
+		local localAxis = mainCFrame:VectorToObjectSpace(axisVector)
+		local rotationCFrame = CFrame.fromAxisAngle(localAxis, delta)
+
+		-- Special case rotations in 90 degree increments as a permutation of
+		-- the identity matrix rather than numerically calculating an axis
+		-- rotation which would introduce floating point error.
+		if StudioService.RotateIncrement > 0 and isRightAngle(delta) then
+			-- Since we know that this is already almost a right angle rotation
+			-- thanks to the isRightAngle check, we can find the pure
+			-- permutation rotation matrix simply by rounding the rotation
+			-- matrix elements to the nearest integer.
+			local _, _, _,
+				r0, r1, r2,
+				r3, r4, r5,
+				r6, r7, r8 = rotationCFrame:components()
+			rotationCFrame = CFrame.new(0, 0, 0,
+				math.floor(r0 + 0.5), math.floor(r1 + 0.5), math.floor(r2 + 0.5),
+				math.floor(r3 + 0.5), math.floor(r4 + 0.5), math.floor(r5 + 0.5),
+				math.floor(r6 + 0.5), math.floor(r7 + 0.5), math.floor(r8 + 0.5))
+		end
+
+		-- Convert the rotation to a global space transformation
+		return mainCFrame * rotationCFrame * mainCFrame:Inverse()
+	else
+		local localAxis = mainCFrame:VectorToObjectSpace(axisVector)
+		return mainCFrame * CFrame.fromAxisAngle(localAxis, delta) * mainCFrame:Inverse()
+	end
 end
 
 --[[
@@ -157,70 +194,150 @@ function RotateToolImpl:render(hoveredHandleId)
 	end
 
 	local children = {}
-	if self._draggingHandleId then
-		local handleProps = self._handles[self._draggingHandleId]
-		if getFFlagImprovedHandleParams2() then
-			children[self._draggingHandleId] = Roact.createElement(RotateHandleView, {
-				HandleCFrame = handleProps.HandleCFrame,
-				Color = handleProps.Color,
-				StartAngle = self._startAngle - self._draggingLastGoodDelta,
-				EndAngle = self._startAngle,
-				Scale = self._scale,
-				Hovered = false,
-				RadiusOffset = handleProps.RadiusOffset,
-			})
-		else
-			children[self._draggingHandleId] = Roact.createElement(RotateHandleView, {
-				HandleCFrame = handleProps.HandleCFrame,
-				Color = handleProps.Color,
-				StartAngle = self._startAngle - self._draggingLastGoodDelta,
-				EndAngle = self._startAngle,
-				Scale = self._scale,
-				Hovered = forceHoveredHandlesOnTop and true,
-				RadiusOffset = handleProps.RadiusOffset,
-			})
-		end
-
-		-- Show the other handles, but thinner
-		for handleId, otherHandleProps in pairs(self._handles) do
-			if handleId ~= self._draggingHandleId then
-				local offset = RotateHandleDefinitions[handleId].Offset
-				children[handleId] = Roact.createElement(RotateHandleView, {
-					HandleCFrame = self._boundingBox.CFrame * offset,
-					Color = Colors.makeDimmed(otherHandleProps.Color),
-					Scale = self._scale,
-					Thin = true,
-					RadiusOffset = handleProps.RadiusOffset,
-				})
-			end
-		end
-
-		if areJointsEnabled() and self._jointPairs then
-			children.JointDisplay = self._jointPairs:renderJoints(self._scale)
-		end
-	else
-		for handleId, handleProps in pairs(self._handles) do
-			local color = handleProps.Color
-			local hovered = (handleId == hoveredHandleId)
-			if not hovered then
-				color = Colors.makeDimmed(color)
-			end
+	if getFFlagAllowDragContinuation() then
+		if self._draggingHandleId and self._handles[self._draggingHandleId] then
+			local handleProps = self._handles[self._draggingHandleId]
 			if getFFlagImprovedHandleParams2() then
-				children[handleId] = Roact.createElement(RotateHandleView, {
+				children[self._draggingHandleId] = Roact.createElement(RotateHandleView, {
 					HandleCFrame = handleProps.HandleCFrame,
-					Color = color,
+					Color = handleProps.Color,
+					StartAngle = self._startAngle - self._draggingLastGoodDelta,
+					EndAngle = self._startAngle,
 					Scale = self._scale,
-					Hovered = hovered,
+					Hovered = false,
 					RadiusOffset = handleProps.RadiusOffset,
 				})
 			else
-				children[handleId] = Roact.createElement(RotateHandleView, {
+				children[self._draggingHandleId] = Roact.createElement(RotateHandleView, {
 					HandleCFrame = handleProps.HandleCFrame,
-					Color = color,
+					Color = handleProps.Color,
+					StartAngle = self._startAngle - self._draggingLastGoodDelta,
+					EndAngle = self._startAngle,
 					Scale = self._scale,
-					Hovered = forceHoveredHandlesOnTop and hovered,
+					Hovered = forceHoveredHandlesOnTop and true,
 					RadiusOffset = handleProps.RadiusOffset,
 				})
+			end
+
+			-- Show the other handles, but thinner
+			for handleId, otherHandleProps in pairs(self._handles) do
+				if handleId ~= self._draggingHandleId then
+					local offset = RotateHandleDefinitions[handleId].Offset
+					children[handleId] = Roact.createElement(RotateHandleView, {
+						HandleCFrame = self._boundingBox.CFrame * offset,
+						Color = Colors.makeDimmed(otherHandleProps.Color),
+						Scale = self._scale,
+						Thin = true,
+						RadiusOffset = handleProps.RadiusOffset,
+					})
+				end
+			end
+
+			if areJointsEnabled() and self._jointPairs then
+				if getFFlagLuaDraggerHandleScale() then
+					local scale = getBoundingBoxScale(self._boundingBox.CFrame, self._boundingBox.Size)
+					children.JointDisplay = self._jointPairs:renderJoints(scale)
+				else
+					children.JointDisplay = self._jointPairs:renderJoints(self._scale)
+				end
+			end
+		else
+			for handleId, handleProps in pairs(self._handles) do
+				local color = handleProps.Color
+				local hovered = (handleId == hoveredHandleId)
+				if not hovered then
+					color = Colors.makeDimmed(color)
+				end
+				if getFFlagImprovedHandleParams2() then
+					children[handleId] = Roact.createElement(RotateHandleView, {
+						HandleCFrame = handleProps.HandleCFrame,
+						Color = color,
+						Scale = self._scale,
+						Hovered = hovered,
+						RadiusOffset = handleProps.RadiusOffset,
+					})
+				else
+					children[handleId] = Roact.createElement(RotateHandleView, {
+						HandleCFrame = handleProps.HandleCFrame,
+						Color = color,
+						Scale = self._scale,
+						Hovered = forceHoveredHandlesOnTop and hovered,
+						RadiusOffset = handleProps.RadiusOffset,
+					})
+				end
+			end
+		end
+	else
+		if self._draggingHandleId then
+			local handleProps = self._handles[self._draggingHandleId]
+			if getFFlagImprovedHandleParams2() then
+				children[self._draggingHandleId] = Roact.createElement(RotateHandleView, {
+					HandleCFrame = handleProps.HandleCFrame,
+					Color = handleProps.Color,
+					StartAngle = self._startAngle - self._draggingLastGoodDelta,
+					EndAngle = self._startAngle,
+					Scale = self._scale,
+					Hovered = false,
+					RadiusOffset = handleProps.RadiusOffset,
+				})
+			else
+				children[self._draggingHandleId] = Roact.createElement(RotateHandleView, {
+					HandleCFrame = handleProps.HandleCFrame,
+					Color = handleProps.Color,
+					StartAngle = self._startAngle - self._draggingLastGoodDelta,
+					EndAngle = self._startAngle,
+					Scale = self._scale,
+					Hovered = forceHoveredHandlesOnTop and true,
+					RadiusOffset = handleProps.RadiusOffset,
+				})
+			end
+
+			-- Show the other handles, but thinner
+			for handleId, otherHandleProps in pairs(self._handles) do
+				if handleId ~= self._draggingHandleId then
+					local offset = RotateHandleDefinitions[handleId].Offset
+					children[handleId] = Roact.createElement(RotateHandleView, {
+						HandleCFrame = self._boundingBox.CFrame * offset,
+						Color = Colors.makeDimmed(otherHandleProps.Color),
+						Scale = self._scale,
+						Thin = true,
+						RadiusOffset = handleProps.RadiusOffset,
+					})
+				end
+			end
+
+			if areJointsEnabled() and self._jointPairs then
+				if getFFlagLuaDraggerHandleScale() then
+					local scale = getBoundingBoxScale(self._boundingBox.CFrame, self._boundingBox.Size)
+					children.JointDisplay = self._jointPairs:renderJoints(scale)
+				else
+					children.JointDisplay = self._jointPairs:renderJoints(self._scale)
+				end
+			end
+		else
+			for handleId, handleProps in pairs(self._handles) do
+				local color = handleProps.Color
+				local hovered = (handleId == hoveredHandleId)
+				if not hovered then
+					color = Colors.makeDimmed(color)
+				end
+				if getFFlagImprovedHandleParams2() then
+					children[handleId] = Roact.createElement(RotateHandleView, {
+						HandleCFrame = handleProps.HandleCFrame,
+						Color = color,
+						Scale = self._scale,
+						Hovered = hovered,
+						RadiusOffset = handleProps.RadiusOffset,
+					})
+				else
+					children[handleId] = Roact.createElement(RotateHandleView, {
+						HandleCFrame = handleProps.HandleCFrame,
+						Color = color,
+						Scale = self._scale,
+						Hovered = forceHoveredHandlesOnTop and hovered,
+						RadiusOffset = handleProps.RadiusOffset,
+					})
+				end
 			end
 		end
 	end
@@ -240,19 +357,37 @@ function RotateToolImpl:mouseDown(mouseRay, handleId)
 	self._draggingLastGoodDelta = 0
 	self._originalBoundingBoxCFrame = self._boundingBox.CFrame
 
-	self:_setupRotateAtCurrentBoundingBox(mouseRay)
+	if getFFlagAllowDragContinuation() then
+		if self._handles[handleId] then
+			self:_setupRotateAtCurrentBoundingBox(mouseRay)
 
-	local angle = rotationAngleFromRay(self._handleCFrame, mouseRay.Unit)
-	if not angle then
-		return
+			local angle = rotationAngleFromRay(self._handleCFrame, mouseRay.Unit)
+			if not angle then
+				return
+			end
+
+			self._startAngle = snapToRotateIncrementIfNeeded(angle)
+
+			local breakJoints = not areConstraintsEnabled()
+			local center = self._boundingBox.CFrame.Position
+			self._partMover:setDragged(self._partsToMove, self._originalCFrameMap, breakJoints, center)
+			self._attachmentMover:setDragged(self._attachmentsToMove)
+		end
+	else
+		self:_setupRotateAtCurrentBoundingBox(mouseRay)
+
+		local angle = rotationAngleFromRay(self._handleCFrame, mouseRay.Unit)
+		if not angle then
+			return
+		end
+
+		self._startAngle = snapToRotateIncrementIfNeeded(angle)
+
+		local breakJoints = not areConstraintsEnabled()
+		local center = self._boundingBox.CFrame.Position
+		self._partMover:setDragged(self._partsToMove, self._originalCFrameMap, breakJoints, center)
+		self._attachmentMover:setDragged(self._attachmentsToMove)
 	end
-
-	self._startAngle = snapToRotateIncrementIfNeeded(angle)
-
-	local breakJoints = not areConstraintsEnabled()
-	local center = self._boundingBox.CFrame.Position
-	self._partMover:setDragged(self._partsToMove, self._originalCFrameMap, breakJoints, center)
-	self._attachmentMover:setDragged(self._attachmentsToMove)
 end
 
 function RotateToolImpl:mouseDrag(mouseRay)
@@ -261,6 +396,12 @@ function RotateToolImpl:mouseDrag(mouseRay)
 	local angle = rotationAngleFromRay(self._handleCFrame, mouseRay.Unit)
 	if not angle then
 		return
+	end
+
+	if getFFlagAllowDragContinuation() then
+		if not self._handles[self._draggingHandleId] then
+			return
+		end
 	end
 
 	local snappedDelta = snapToRotateIncrementIfNeeded(angle) - self._startAngle
@@ -349,16 +490,33 @@ function RotateToolImpl:_mouseDragWithInverseKinematics(mouseRay, delta)
 end
 
 function RotateToolImpl:mouseUp(mouseRay)
-	self._draggingHandleId = nil
-	self._draggingLastGoodDelta = 0
-	self._startAngle = nil
-	self._originalBoundingBoxCFrame = nil
+	if getFFlagAllowDragContinuation() then
+		if self._handles[self._draggingHandleId] then
+			self._draggingLastGoodDelta = 0
+			self._startAngle = nil
+			self._originalBoundingBoxCFrame = nil
 
-	if areJointsEnabled() and self._jointPairs then
-		self._jointPairs:createJoints()
+			if areJointsEnabled() and self._jointPairs then
+				self._jointPairs:createJoints()
+			end
+			self._jointPairs = nil
+			self._partMover:commit()
+			self._attachmentMover:commit()
+		end
+
+		self._draggingHandleId = nil
+	else
+		self._draggingHandleId = nil
+		self._draggingLastGoodDelta = 0
+		self._startAngle = nil
+		self._originalBoundingBoxCFrame = nil
+
+		if areJointsEnabled() and self._jointPairs then
+			self._jointPairs:createJoints()
+		end
+		self._jointPairs = nil
+		self._partMover:commit()
 	end
-	self._jointPairs = nil
-	self._partMover:commit()
 
 	ChangeHistoryService:SetWaypoint("Rotate Parts")
 end

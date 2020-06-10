@@ -1,3 +1,4 @@
+-- Remove with FFlagPluginManagementRemoveUILibrary
 --[[
 	Dropdown showing more options on a Plugin entry.
 	Props:
@@ -17,7 +18,7 @@ local ContextServices = require(Plugin.Packages.Framework.ContextServices)
 
 local DropdownMenu = UILibrary.Component.DropdownMenu
 
-local MoreDropdown = Roact.Component:extend("PluginEntry")
+local MoreDropdown = Roact.Component:extend("MoreDropdown")
 
 function MoreDropdown:init()
 	self.state = {

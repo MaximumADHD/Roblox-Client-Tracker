@@ -10,6 +10,7 @@ local DraggerStateType = require(Framework.Implementation.DraggerStateType)
 local DragSelector = require(Framework.Utility.DragSelector)
 local StandardCursor = require(Framework.Utility.StandardCursor)
 
+local getFFlagAllowDragContinuation = require(Framework.Flags.getFFlagAllowDragContinuation)
 local getFFlagMinCursorChange = require(Framework.Flags.getFFlagMinCursorChange)
 local getFFlagFixDraggerCursors = require(Framework.Flags.getFFlagFixDraggerCursors)
 
@@ -59,9 +60,11 @@ function DragSelecting:render(draggerTool)
 end
 
 function DragSelecting:processSelectionChanged(draggerTool)
-    -- Fire off a view changed to overwrite whatever else just tried to change
-    -- the selection, as the user is changing the selection by drag selecting.
-    draggerTool._processViewChanged()
+    -- Don't do anything. We don't want to unnecessarily fight other sources
+    -- over selection changes.
+    if not getFFlagAllowDragContinuation() then
+        draggerTool._processViewChanged()
+    end
 end
 
 function DragSelecting:processMouseDown(draggerTool)

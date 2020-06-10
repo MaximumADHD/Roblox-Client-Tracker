@@ -25,25 +25,16 @@ local ToggleEntry = require(script.Parent.ToggleEntry)
 local VersionReporter = require(script.Parent.VersionReporter)
 
 local CloseMenu = require(InGameMenu.Thunks.CloseMenu)
-local Assets = require(InGameMenu.Resources.Assets)
-
-local ImageSetButton = UIBlox.Core.ImageSet.Button
 
 local withLocalization = require(InGameMenu.Localization.withLocalization)
 
 local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
 local Constants = require(InGameMenu.Resources.Constants)
-local getFFlagInGameMenuSinglePaneDesign = require(InGameMenu.Flags.GetFFlagInGameMenuSinglePaneDesign)
-local fflagInGameMenuSinglePaneDesign = getFFlagInGameMenuSinglePaneDesign()
 
 local AdvancedPage = Roact.PureComponent:extend("AdvancedPage")
 
 AdvancedPage.validateProps = t.strictInterface({
-	-- position may be either a bare UDim2 or a binding; for lack of a more
-	-- specific validator we use table.
-	position = t.union(t.UDim2, t.table),
 	closeMenu = t.callback,
-	switchToBasicPage = t.callback,
 	pageTitle = t.string,
 })
 
@@ -60,18 +51,6 @@ function AdvancedPage:render()
 			pageTitle = self.props.pageTitle,
 			zIndex = 2,
 			position = self.props.position,
-			titleChildren = not fflagInGameMenuSinglePaneDesign and {
-				BackButton = Roact.createElement(ImageSetButton, {
-					BackgroundTransparency = 1,
-					Image = Assets.Images.NavigateBack,
-					AnchorPoint = Vector2.new(0, 0.5),
-					ImageColor3 = style.Theme.IconEmphasis.Color,
-					ImageTransparency = style.Theme.IconEmphasis.Transparency,
-					Position = UDim2.new(0, 4, 0.5, 0),
-					Size = UDim2.new(0, 36, 0, 36),
-					[Roact.Event.Activated] = self.props.switchToBasicPage,
-				})
-			},
 		}, {
 			Layout = Roact.createElement("UIListLayout", {
 				SortOrder = Enum.SortOrder.LayoutOrder,

@@ -11,8 +11,10 @@ local Util = Plugin.Core.Util
 local PagedRequestCursor = require(Util.PagedRequestCursor)
 local Constants = require(Util.Constants)
 local PageInfoHelper = require(Util.PageInfoHelper)
+local CreatorInfoHelper = require(Util.CreatorInfoHelper)
 
 local FFlagStudioFixComparePageInfo = game:GetFastFlag("StudioFixComparePageInfo")
+local FFlagStudioFixGroupCreatorInfo = game:GetFastFlag("StudioFixGroupCreatorInfo")
 
 return function(networkInterface, category, audioSearchInfo, pageInfo, settings, nextPageCursor)
     return function(store)
@@ -24,14 +26,22 @@ return function(networkInterface, category, audioSearchInfo, pageInfo, settings,
 
         local assetStore = store:getState().assets
         local currentCursor = assetStore.currentCursor
-        local cachedCreatorId = assetStore.cachedCreatorInfo and assetStore.cachedCreatorInfo.Id
 
-        -- Set creator name filter
-        if creatorTargetId
-            and ((not cachedCreatorId) or (cachedCreatorId ~= creatorTargetId))
-        then
-            store:dispatch(GetCreatorName(networkInterface, creatorTargetId))
-        end
+		if FFlagStudioFixGroupCreatorInfo then
+			local creatorType = creator.Type
+
+			if not CreatorInfoHelper.isCached(store, creatorTargetId, creatorType) then
+				store:dispatch(GetCreatorName(networkInterface, creatorTargetId, creatorType))
+			end
+		else
+			local cachedCreatorId = assetStore.cachedCreatorInfo and assetStore.cachedCreatorInfo.Id
+			-- Set creator name filter
+			if creatorTargetId
+				and ((not cachedCreatorId) or (cachedCreatorId ~= creatorTargetId))
+			then
+				store:dispatch(GetCreatorName(networkInterface, creatorTargetId))
+			end
+		end
 
         -- Get from API
         if PagedRequestCursor.isNextPageAvailable(currentCursor) then

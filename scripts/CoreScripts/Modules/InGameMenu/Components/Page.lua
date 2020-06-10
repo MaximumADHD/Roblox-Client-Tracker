@@ -19,12 +19,9 @@ local TOTAL_TITLE_SPACE = TITLE_TOP_PADDING + TITLE_HEIGHT + TITLE_BOTTOM_PADDIN
 
 local ThemedTextLabel = require(script.Parent.ThemedTextLabel)
 
-local getFFlagInGameMenuSinglePaneDesign = require(InGameMenu.Flags.GetFFlagInGameMenuSinglePaneDesign)
-local fflagInGameMenuSinglePaneDesign = getFFlagInGameMenuSinglePaneDesign()
-
 local function Page(props)
 	return withStyle(function(style)
-		local titleChildren = fflagInGameMenuSinglePaneDesign and {
+		local titleChildren = {
 			BackButton = Roact.createElement(ImageSetButton, {
 				BackgroundTransparency = 1,
 				Image = Assets.Images.NavigateBack,
@@ -35,7 +32,7 @@ local function Page(props)
 				Size = UDim2.new(0, 36, 0, 36),
 				[Roact.Event.Activated] = props.navigateUp,
 			}),
-		} or props.titleChildren
+		}
 
 		return Roact.createElement("TextButton", {
 			AutoButtonColor = false,

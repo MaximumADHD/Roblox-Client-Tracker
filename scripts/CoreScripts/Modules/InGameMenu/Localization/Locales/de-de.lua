@@ -80,7 +80,7 @@ return{
 	["CoreScripts.InGameMenu.PageTitle.Controls"] = [[Steuerung ...]],
 	["CoreScripts.InGameMenu.PageTitle.Players"] = [[Spieler]],
 	["CoreScripts.InGameMenu.PageTitle.Report"] = [[Melden]],
-	["CoreScripts.InGameMenu.PageTitle.GameSettings"] = [[Spiel-Einstellungen]],
+	["CoreScripts.InGameMenu.PageTitle.GameSettings"] = [[Einstellungen]],
 	["CoreScripts.InGameMenu.Actions.AddFriend"] = [[Freund hinzufügen]],
 	["CoreScripts.InGameMenu.Actions.Unfriend"] = [[Spieler von der Freundesliste entfernen]],
 	["CoreScripts.InGameMenu.Actions.CancelFriend"] = [[Freundesanfrage abbrechen]],
@@ -121,4 +121,6 @@ return{
 	["CoreScripts.InGameMenu.InviteFriends.Loading"] = [[Wird geladen!]],
 	["CoreScripts.InGameMenu.RespawnCharacter"] = [[Charakter respawnen]],
 	["CoreScripts.InGameMenu.GameSettings.CameraModeCameraToggle"] = [[Kameraumschaltung]],
+	["CoreScripts.InGameMenu.Record.StartRecording"] = [[Video aufnehmen]],
+	["CoreScripts.InGameMenu.Record.Duration"] = [[Aufnahme – {DURATION}]],
 }

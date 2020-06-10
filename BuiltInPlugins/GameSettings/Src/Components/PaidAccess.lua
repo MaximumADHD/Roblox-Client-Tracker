@@ -25,22 +25,32 @@
 
 local Plugin = script.Parent.Parent.Parent
 
+local Cryo = require(Plugin.Cryo)
 local Roact = require(Plugin.Roact)
 local Framework = Plugin.Framework
 local FitFrameOnAxis = require(Framework.Util).FitFrame.FitFrameOnAxis
 
 local ContextServices = require(Plugin.Framework.ContextServices)
 
-local RadioButtonSet = require(Plugin.Src.Components.RadioButtonSet)
+local UILibrary = require(Plugin.UILibrary)
+local GetTextSize = UILibrary.Util.GetTextSize
+local TitledFrame = UILibrary.Component.TitledFrame
+local ToggleButton = UILibrary.Component.ToggleButton
+
 local RobuxFeeBase = require(Plugin.Src.Components.RobuxFeeBase)
 
 local PaidAccess = Roact.PureComponent:extend("PaidAccess")
 
+local FFlagVIPServersRebrandToPrivateServers = game:GetFastFlag("VIPServersRebrandToPrivateServers")
+
 function PaidAccess:render()
     local props = self.props
     local localization = props.Localization
+    local theme = props.Theme:get("Plugin")
+    local mouse = props.Mouse
 
     local title = localization:getText("Monetization", "TitlePaidAccess")
+    local priceTitle = localization:getText("Monetization", "PriceTitle")
     local price = props.Price and props.Price or 0
     local taxRate = props.TaxRate
     local minimumFee = props.MinimumFee
@@ -56,32 +66,17 @@ function PaidAccess:render()
     local priceError = props.PriceError
     if enabled and priceError then
         subText = priceError
-    elseif not enabled then
-        subText = localization:getText("Monetization", "PaidAccessHint")
     end
 
-    local buttons = {
-        {
-            Id = true,
-            Title = localization:getText("General", "SettingOn"),
-            Children = {
-                RobuxFeeBase = Roact.createElement(RobuxFeeBase, {
-                    Price = price,
-                    TaxRate = taxRate,
-                    MinimumFee = minimumFee,
-                    SubText = subText,
+    local offSubtext
+    if FFlagVIPServersRebrandToPrivateServers then
+        offSubtext = localization:getText("Monetization", "PaidAccessHint")
+    else
+        offSubtext = localization:getText("Monetization", "DEPRECATED_PaidAccessHint")
+    end
 
-                    OnPriceChanged = onPaidAccessPriceChanged,
-
-                    Enabled = selected,
-                }),
-            },
-        },
-        {
-            Id = false,
-            Title = localization:getText("General", "SettingOff"),
-        },
-    }
+    local offSubTextSize = GetTextSize(offSubtext, theme.fontStyle.Subtext.TextSize, theme.fontStyle.Subtext.Font,
+        Vector2.new(theme.robuxFeeBase.subText.width, math.huge))
 
     return Roact.createElement(FitFrameOnAxis, {
         axis = FitFrameOnAxis.Axis.Vertical,
@@ -90,20 +85,73 @@ function PaidAccess:render()
 
         LayoutOrder = layoutOrder,
     }, {
-        OnOffToggle = Roact.createElement(RadioButtonSet, {
-            Title = title,
+        ToggleAndSubscriptionsAndTotal = Roact.createElement(TitledFrame, {
+			Title = title,
+            TextSize = theme.fontStyle.Title.TextSize,
 
-            Buttons = buttons,
+            MaxHeight = theme.toggleButton.height + offSubTextSize.Y,
 
-            Enabled = enabled,
-            Selected = selected,
-            SelectionChanged = onButtonToggled,
+            LayoutOrder = 1,
+		}, {
+            UIListLayout = Roact.createElement("UIListLayout", {
+				SortOrder = Enum.SortOrder.LayoutOrder,
+				FillDirection = Enum.FillDirection.Vertical,
+            }),
+
+            ToggleButton = Roact.createElement(ToggleButton, {
+                Enabled = enabled,
+                IsOn = selected,
+                Mouse = mouse:get(),
+
+                onToggle = function(value)
+                    if enabled then
+                        onButtonToggled(value)
+                    end
+                end,
+
+                LayoutOrder = 1,
+            }),
+
+            SubText = not selected and Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Subtext, {
+                Size = UDim2.new(0, math.ceil(offSubTextSize.X), 0, offSubTextSize.Y),
+
+                BackgroundTransparency = 1,
+
+                Text = offSubtext,
+
+                TextYAlignment = Enum.TextYAlignment.Center,
+                TextXAlignment = Enum.TextXAlignment.Left,
+
+                TextWrapped = true,
+
+                LayoutOrder = 2,
+            })),
+        }),
+
+        PriceConfigPaidOnly = selected and Roact.createElement(TitledFrame, {
+            Title = priceTitle,
+
+            TextSize = theme.fontStyle.Title.TextSize,
+            LayoutOrder = 2,
+        },{
+            RobuxFeeBase = Roact.createElement(RobuxFeeBase, {
+                Price = price,
+                TaxRate = taxRate,
+                MinimumFee = minimumFee,
+                SubText = subText,
+
+                Enabled = enabled,
+
+                OnPriceChanged = onPaidAccessPriceChanged,
+            }),
         })
     })
 end
 
 ContextServices.mapToProps(PaidAccess, {
     Localization = ContextServices.Localization,
+    Theme = ContextServices.Theme,
+    Mouse = ContextServices.Mouse,
 })
 
 return PaidAccess

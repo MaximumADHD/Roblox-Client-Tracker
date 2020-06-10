@@ -3,6 +3,7 @@ return function()
 	local HttpService = game:GetService("HttpService")
 
 	local FFlagStudioFixFrameworkJsonParsing = game:GetFastFlag("StudioFixFrameworkJsonParsing")
+	local FFlagStudioFixFrameworkClientErrorRetries = game:GetFastFlag("StudioFixFrameworkClientErrorRetries")
 
 	describe("new()", function()
 		it("should construct with no params", function()
@@ -53,13 +54,13 @@ return function()
 
 			n:get("https://www.test.com/fakeApi"):andThen(function(testResponse)
 				responseCallCount = responseCallCount + 1
-				
-				expect(responseTimeMs > 0).to.equal(true)
-				expect(responseCode).to.equal(200)
-				expect(responseBody).to.equal("hello world")
-				expect(requestOptions.Url).to.equal("https://www.test.com/fakeApi")
-				expect(requestOptions.Method).to.equal("GET")
-			end)
+
+				expect(testResponse.responseTimeMs > 0).to.equal(true)
+				expect(testResponse.responseCode).to.equal(200)
+				expect(testResponse.responseBody).to.equal("hello world")
+				expect(testResponse.requestOptions.Url).to.equal("https://www.test.com/fakeApi")
+				expect(testResponse.requestOptions.Method).to.equal("GET")
+			end):await()
 
 			expect(callCount).to.equal(1)
 			expect(responseCallCount).to.equal(1)
@@ -300,7 +301,7 @@ return function()
 			expect(callCount).to.equal(4) -- 1 original + 3 retries
 		end)
 
-		it("should on retry only as many times as it needs to succeed", function()
+		it("should retry only as many times as it needs to succeed", function()
 			local callCount = 0
 
 			local n = Networking.mock({
@@ -337,6 +338,33 @@ return function()
 			expect(didError).to.equal(false)
 			expect(callCount).to.equal(2) -- 1 original + 1 retries
 		end)
+
+		if FFlagStudioFixFrameworkClientErrorRetries then
+			it("should not retry on 4xx errors", function()
+				local callCount = 0
+
+				local n = Networking.mock({
+					onRequest = function(requestOptions)
+						callCount = callCount + 1
+						return {
+							Body = "{ \"message\":\"foo\" }",
+							Success = false,
+							StatusMessage = "Bad Request",
+							StatusCode = 400,
+						}
+					end,
+				})
+
+				local didError = false
+				local httpPromise = n:get("https://www.example.com")
+				n:handleRetry(httpPromise, 3, true):catch(function()
+					didError = true
+				end)
+
+				expect(didError).to.equal(true)
+				expect(callCount).to.equal(1)
+			end)
+		end
 	end)
 
 
@@ -438,15 +466,15 @@ return function()
 			}
 			function fakeHttpService.RequestAsync()
 				asyncCallCount = asyncCallCount + 1
+				return fakeResponse
+			end
+			function fakeHttpService.RequestInternal()
+				internalCallCount = internalCallCount + 1
 				return {
 					Start = function()
 						return fakeResponse
 					end
 				}
-			end
-			function fakeHttpService.RequestInternal()
-				internalCallCount = internalCallCount + 1
-				return fakeResponse
 			end
 
 			local n = Networking.new({
@@ -476,15 +504,16 @@ return function()
 			}
 			function fakeHttpService.RequestAsync()
 				asyncCallCount = asyncCallCount + 1
+				return fakeResponse
+				
+			end
+			function fakeHttpService.RequestInternal()
+				internalCallCount = internalCallCount + 1
 				return {
 					Start = function()
 						return fakeResponse
 					end
 				}
-			end
-			function fakeHttpService.RequestInternal()
-				internalCallCount = internalCallCount + 1
-				return fakeResponse
 			end
 
 			local n = Networking.new({

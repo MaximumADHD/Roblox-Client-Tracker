@@ -15,22 +15,40 @@ local MemStorageService = game:GetService("MemStorageService")
 local RunService = game:GetService("RunService")
 local StudioService = game:GetService("StudioService")
 
+local FFlagAssetManagerAddPlaceVersionHistoryToContextMenu = game:DefineFastFlag("AssetManagerAddPlaceVerisonHistoryToContextMenu", false)
 local FFlagFixAssetManagerInsertWithLocation = game:DefineFastFlag("FixAssetManagerInsertWithLocation", false)
 local FFlagAssetManagerContextMenuActionFixes = game:DefineFastFlag("AssetManagerContextMenuActionFixes", false)
+local FFlagAssetManagerFixAssetRemoval = game:DefineFastFlag("AssetManagerFixAssetRemoval", false)
 
 local EVENT_ID_OPENASSETCONFIG = "OpenAssetConfiguration"
 
 local function removeAssets(apiImpl, assetData, assets, selectedAssets, store)
-    for i, asset in ipairs(assets) do
-        if selectedAssets[i] then
-            if asset.assetType == Enum.AssetType.Place then
-                AssetManagerService:RemovePlace(asset.id)
-            elseif asset.assetType == Enum.AssetType.Image then
-                AssetManagerService:DeleteAlias("Images/".. asset.name)
-            elseif asset.assetType == Enum.AssetType.MeshPart then
-                AssetManagerService:DeleteAlias("Meshes/".. asset.name)
-            elseif asset.assetType == Enum.AssetType.Lua then
-                AssetManagerService:DeleteAlias("Scripts/".. asset.name)
+    if FFlagAssetManagerFixAssetRemoval then
+        for _, asset in pairs(assets) do
+            if selectedAssets[asset.key] then
+                if asset.assetType == Enum.AssetType.Place then
+                    AssetManagerService:RemovePlace(asset.id)
+                elseif asset.assetType == Enum.AssetType.Image then
+                    AssetManagerService:DeleteAlias("Images/".. asset.name)
+                elseif asset.assetType == Enum.AssetType.MeshPart then
+                    AssetManagerService:DeleteAlias("Meshes/".. asset.name)
+                elseif asset.assetType == Enum.AssetType.Lua then
+                    AssetManagerService:DeleteAlias("Scripts/".. asset.name)
+                end
+            end
+        end
+    else
+        for i, asset in ipairs(assets) do
+            if selectedAssets[i] then
+                if asset.assetType == Enum.AssetType.Place then
+                    AssetManagerService:RemovePlace(asset.id)
+                elseif asset.assetType == Enum.AssetType.Image then
+                    AssetManagerService:DeleteAlias("Images/".. asset.name)
+                elseif asset.assetType == Enum.AssetType.MeshPart then
+                    AssetManagerService:DeleteAlias("Meshes/".. asset.name)
+                elseif asset.assetType == Enum.AssetType.Lua then
+                    AssetManagerService:DeleteAlias("Scripts/".. asset.name)
+                end
             end
         end
     end
@@ -91,6 +109,12 @@ local function createPlaceContextMenu(apiImpl, assetData, contextMenu, localizat
     contextMenu:AddNewAction("CopyIdToClipboard", localization:getText("ContextMenu", "CopyIdToClipboard")).Triggered:connect(function()
         StudioService:CopyToClipboard(assetData.id)
     end)
+
+    if FFlagAssetManagerAddPlaceVersionHistoryToContextMenu then
+        contextMenu:AddNewAction("ViewPlaceHistory", localization:getText("ContextMenu", "ViewPlaceHistory")).Triggered:connect(function()
+            StudioService:ShowPlaceVersionHistoryDialog()
+        end)
+    end
 
     contextMenu:ShowAsync()
     contextMenu:Destroy()

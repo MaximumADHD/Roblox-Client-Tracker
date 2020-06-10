@@ -2,10 +2,12 @@ local Plugin = script.Parent.Parent.Parent
 local Cryo = require(Plugin.Packages.Cryo)
 local Rodux = require(Plugin.Packages.Rodux)
 
-local AlignmentMode = require(Plugin.Src.Core.AlignmentMode)
-local RelativeTo = require(Plugin.Src.Core.RelativeTo)
+local AlignmentMode = require(Plugin.Src.Utility.AlignmentMode)
+local RelativeTo = require(Plugin.Src.Utility.RelativeTo)
 
 local initialState = {
+	alignEnabled = false,
+	alignableObjects = {},
 	alignmentMode = AlignmentMode.Center,
 	enabledAxes = {
 		WorldX = false,
@@ -16,6 +18,18 @@ local initialState = {
 }
 
 local MainReducer = Rodux.createReducer(initialState, {
+	SetAlignEnabled = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			alignEnabled = action.alignEnabled,
+		})
+	end,
+
+	SetAlignableObjects = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			alignableObjects = action.alignableObjects,
+		})
+	end,
+
 	SetAlignmentMode = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			alignmentMode = action.alignmentMode,

@@ -11,5 +11,6 @@ StateType.PendingDraggingParts = "PendingDraggingParts" -- Clicked a part, but h
 StateType.DraggingHandle = "DraggingHandle"
 StateType.DraggingParts = "DraggingParts"
 StateType.DragSelecting = "DragSelecting"
+StateType.DraggingFaceInstance = "DraggingFaceInstance"
 
 return StateType

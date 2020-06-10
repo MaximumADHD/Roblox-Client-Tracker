@@ -31,13 +31,14 @@ local Separator = require(Plugin.Src.Components.Separator)
 local Footer = require(Plugin.Src.Components.Footer)
 local PageManifest = require(Plugin.Src.Components.SettingsPages.PageManifest)
 
+local LoadState = require(Plugin.Src.Util.LoadState)
+
 local StudioService = game:GetService("StudioService")
 local TextService = game:GetService("TextService")
 
 local FFlagStudioConvertGameSettingsToDevFramework = game:GetFastFlag("StudioConvertGameSettingsToDevFramework")
-local FFlagGameSettingsPlaceSettings = game:GetFastFlag("GameSettingsPlaceSettings")
-local FFlagStudioAddMonetizationToGameSettings = game:GetFastFlag("StudioAddMonetizationToGameSettings")
 local FFlagStudioStandaloneGameMetadata = game:GetFastFlag("StudioStandaloneGameMetadata")
+local FFlagGameSettingsOnlyInPublishedGames = game:DefineFastFlag("GameSettingsOnlyInPublishedGames", false)
 
 local MainView = Roact.PureComponent:extend("MainView")
 
@@ -106,6 +107,7 @@ function MainView:render()
 	local localization = props.Localization
 
 	local isPublishedGame = not FFlagStudioStandaloneGameMetadata or props.GameId ~= 0
+	local pageLoadStates = props.PageLoadStates
 
 	local children = {}
 	local menuEntries = {}
@@ -113,8 +115,9 @@ function MainView:render()
 		if isPublishedGame then
 			for i,pageComponent in ipairs(PageManifest) do
 				if pageComponent then
+					local loadState = pageLoadStates[pageComponent.LocalizationId]
 					menuEntries[i] = pageComponent.LocalizationId
-					children[tostring(pageComponent)] = Roact.createElement("Frame", {
+					children[tostring(pageComponent)] = (i == Selected or loadState ~= nil) and Roact.createElement("Frame", {
 						BackgroundTransparency = 1,
 						Size = UDim2.fromScale(1, 1),
 						Visible = i == Selected,
@@ -134,7 +137,7 @@ function MainView:render()
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 1, 0),
 		BackgroundColor3 = theme.backgroundColor,
-	}, ((FFlagGameSettingsPlaceSettings or FFlagStudioAddMonetizationToGameSettings) and not isPublishedGame) and {
+	}, (FFlagGameSettingsOnlyInPublishedGames and not isPublishedGame) and {
 		UseText = Roact.createElement(FitTextLabel, Cryo.Dictionary.join(theme.fontStyle.Normal, {
             Position = UDim2.new(0.5, 0, 0, theme.mainView.publishText.offset),
 			AnchorPoint = Vector2.new(0.5, 0.5),
@@ -266,6 +269,7 @@ if FFlagStudioStandaloneGameMetadata then
 		function(state, props)
 			return {
 				GameId = state.Metadata.gameId,
+				PageLoadStates = game:GetFastFlag("GameSettingsNetworkRefactor") and state.PageLoadState or nil,
 			}
 		end
 	)(MainView)

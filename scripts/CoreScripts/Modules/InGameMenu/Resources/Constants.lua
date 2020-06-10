@@ -1,5 +1,3 @@
-local getFFlagInGameMenuSinglePaneDesign = require(script.Parent.Parent.Flags.GetFFlagInGameMenuSinglePaneDesign)
-local fflagInGameMenuSinglePaneDesign = getFFlagInGameMenuSinglePaneDesign()
 return {
 	InviteStatus = {
 		Success = "Success",
@@ -16,7 +14,7 @@ return {
 
 	FallbackLocaleId = "UNKNOWN_FALLBACK",
 
-	defaultPageKey = fflagInGameMenuSinglePaneDesign and "MainPage" or "Players",
+	defaultPageKey = "MainPage",
 	advancedSettingsPageKey = "AdvancedGameSettings",
 
 	AnalyticsTargetName = "client",

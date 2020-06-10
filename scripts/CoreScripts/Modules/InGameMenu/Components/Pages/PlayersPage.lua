@@ -52,14 +52,10 @@ local PLAYER_LABEL_WIDTH = 400
 
 local ACTION_WIDTH = 352
 local ACTION_HEIGHT = 56
-local ACTIONS_MENU_BOTTOM_PADDING = 15
 local CONTEXT_SIDE_PADDING = 24 -- context menu should keep 24 px away from bottom/right side of screen
 local CONTEXT_PADDING_TOP = inGameGlobalGuiInset + CONTEXT_SIDE_PADDING -- context side padding + in-game inset
  -- context menu is 20 px away from right bound of player list if there are available space
 local CONTEXT_LEFT_PADDING = 20
-
-local getFFlagInGameMenuSinglePaneDesign = require(InGameMenu.Flags.GetFFlagInGameMenuSinglePaneDesign)
-local fflagInGameMenuSinglePaneDesign = getFFlagInGameMenuSinglePaneDesign()
 
 local PlayersPage = Roact.PureComponent:extend("PlayersPage")
 
@@ -252,92 +248,54 @@ function PlayersPage:renderWithLocalized(localized)
 		else
 			moreActions = self:getMoreActions()
 		end
-		if fflagInGameMenuSinglePaneDesign then
-			local actionMenuHeight = #moreActions * ACTION_HEIGHT
-			local screenWidth = self.props.screenSize.X
-			local screenHeight = self.props.screenSize.Y
+		local actionMenuHeight = #moreActions * ACTION_HEIGHT
+		local screenWidth = self.props.screenSize.X
+		local screenHeight = self.props.screenSize.Y
 
-			-- always keep 24 px distance from side of screen if viewport is too limited
-			-- otherwise just postion to the right of all menu content with padding 20
-			if self.state.selectedPlayerPosition.Y + actionMenuHeight + CONTEXT_PADDING_TOP < screenHeight then
-				moreMenuPositionYOffset = self.state.selectedPlayerPosition.Y
-			else
-				moreMenuPositionYOffset = screenHeight - actionMenuHeight - CONTEXT_PADDING_TOP
-			end
-
-			if screenWidth >= self.state.selectedPlayerPosition.X + PLAYER_LABEL_WIDTH + CONTEXT_LEFT_PADDING + ACTION_WIDTH
-				+ CONTEXT_SIDE_PADDING then
-				moreMenuPositionXOffset = self.state.selectedPlayerPosition.X + PLAYER_LABEL_WIDTH + CONTEXT_LEFT_PADDING
-			else
-				moreMenuPositionXOffset = screenWidth - ACTION_WIDTH - CONTEXT_SIDE_PADDING
-			end
+		-- always keep 24 px distance from side of screen if viewport is too limited
+		-- otherwise just postion to the right of all menu content with padding 20
+		if self.state.selectedPlayerPosition.Y + actionMenuHeight + CONTEXT_PADDING_TOP < screenHeight then
+			moreMenuPositionYOffset = self.state.selectedPlayerPosition.Y
 		else
-			local selectedPlayerMaxPosition = self.state.selectedPlayerPosition.Y + PLAYER_LABEL_HEIGHT/2
-			local maxPosition = moreMenuPositionYOffset + (#moreActions * ACTION_HEIGHT)/2 + ACTIONS_MENU_BOTTOM_PADDING
-			if selectedPlayerMaxPosition > self.state.pageSizeY then
-				--Slide the more menu off screen as the selected player slides off screen.
-				moreMenuPositionYOffset = moreMenuPositionYOffset - (maxPosition - self.state.pageSizeY)
-				moreMenuPositionYOffset = moreMenuPositionYOffset + (selectedPlayerMaxPosition - self.state.pageSizeY)
-			elseif maxPosition > self.state.pageSizeY then
-				--If the selectedPlayer is fully visible, the more menu will be fully visible.
-				moreMenuPositionYOffset = moreMenuPositionYOffset - (maxPosition - self.state.pageSizeY)
-			end
+			moreMenuPositionYOffset = screenHeight - actionMenuHeight - CONTEXT_PADDING_TOP
+		end
+
+		if screenWidth >= self.state.selectedPlayerPosition.X + PLAYER_LABEL_WIDTH + CONTEXT_LEFT_PADDING + ACTION_WIDTH
+			+ CONTEXT_SIDE_PADDING then
+			moreMenuPositionXOffset = self.state.selectedPlayerPosition.X + PLAYER_LABEL_WIDTH + CONTEXT_LEFT_PADDING
+		else
+			moreMenuPositionXOffset = screenWidth - ACTION_WIDTH - CONTEXT_SIDE_PADDING
 		end
 	end
 
-	local moreActionsMenuPanel
-	if fflagInGameMenuSinglePaneDesign then
-		-- This will be created directed under another gui as it should not get clipped as other menus
-		moreActionsMenuPanel = Roact.createElement(Roact.Portal, {
-			target = CoreGui
-		}, {
-			InGameMenuContextGui = Roact.createElement("ScreenGui", {
-				DisplayOrder = 2,
-				ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
-			},{
-				MoreActionsMenu = FFlagFixInGameMenuMissingAssets and Roact.createElement("Frame", {
-					Size = UDim2.fromScale(1, 1),
-					BackgroundTransparency = 1,
-					Visible = self.state.selectedPlayer ~= nil,
-				}, {
-					BaseMenu = Roact.createElement(BaseMenu, {
-						buttonProps = moreActions,
-
-						width = UDim.new(0, ACTION_WIDTH),
-						position = UDim2.fromOffset(moreMenuPositionXOffset, moreMenuPositionYOffset),
-					})
-				}) or Roact.createElement(MoreActionsMenu, {
-					Position = UDim2.fromOffset(moreMenuPositionXOffset, moreMenuPositionYOffset),
-					Visible = self.state.selectedPlayer ~= nil,
-					menuWidth = UDim.new(0, ACTION_WIDTH),
-					actionHeight = UDim.new(0, ACTION_HEIGHT),
-					actions = moreActions,
-				}),
-			})
-		})
-	else
-		-- The more menu can't go inside the scrolling frame because it has a different clipping bounds.
-		if FFlagFixInGameMenuMissingAssets then
-			if self.state.selectedPlayer ~= nil then
-				moreActionsMenuPanel = Roact.createElement(BaseMenu, {
+	-- This will be created directed under another gui as it should not get clipped as other menus
+	local moreActionsMenuPanel = Roact.createElement(Roact.Portal, {
+		target = CoreGui
+	}, {
+		InGameMenuContextGui = Roact.createElement("ScreenGui", {
+			DisplayOrder = 2,
+			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
+		},{
+			MoreActionsMenu = FFlagFixInGameMenuMissingAssets and Roact.createElement("Frame", {
+				Size = UDim2.fromScale(1, 1),
+				BackgroundTransparency = 1,
+				Visible = self.state.selectedPlayer ~= nil,
+			}, {
+				BaseMenu = Roact.createElement(BaseMenu, {
 					buttonProps = moreActions,
 
 					width = UDim.new(0, ACTION_WIDTH),
-					position = UDim2.new(1, CONTEXT_LEFT_PADDING, 0, moreMenuPositionYOffset),
-					anchorPoint = Vector2.new(0, 0.5),
+					position = UDim2.fromOffset(moreMenuPositionXOffset, moreMenuPositionYOffset),
 				})
-			end
-		else
-			moreActionsMenuPanel = Roact.createElement(MoreActionsMenu, {
-				Position = UDim2.new(1, CONTEXT_LEFT_PADDING, 0, moreMenuPositionYOffset),
-				AnchorPoint = Vector2.new(0, 0.5),
+			}) or Roact.createElement(MoreActionsMenu, {
+				Position = UDim2.fromOffset(moreMenuPositionXOffset, moreMenuPositionYOffset),
 				Visible = self.state.selectedPlayer ~= nil,
 				menuWidth = UDim.new(0, ACTION_WIDTH),
 				actionHeight = UDim.new(0, ACTION_HEIGHT),
 				actions = moreActions,
-			})
-		end
-	end
+			}),
+		})
+	})
 
 	return Roact.createElement(Page, {
 		pageTitle = self.props.pageTitle,

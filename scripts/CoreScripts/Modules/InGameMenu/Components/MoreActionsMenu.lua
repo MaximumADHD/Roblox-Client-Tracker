@@ -29,7 +29,6 @@ local TEXT_END_PADDING = 25
 
 MoreActionsMenu.validateProps = t.strictInterface({
 	Position = t.UDim2,
-	AnchorPoint = t.Vector2,
 	Visible = t.boolean,
 	menuWidth = t.UDim,
 	actionHeight = t.UDim,
@@ -126,7 +125,6 @@ function MoreActionsMenu:render()
 
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(self.props.menuWidth, menuHeight),
-		AnchorPoint = self.props.AnchorPoint,
 		Position = self.props.Position,
 		BackgroundTransparency = 1,
 		Visible = self.props.Visible,

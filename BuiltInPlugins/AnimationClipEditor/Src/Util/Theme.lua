@@ -1,6 +1,8 @@
 local Plugin = script.Parent.Parent.Parent
 local UILibrary = require(Plugin.UILibrary)
 
+local FFlagRemoveUILibraryTimeline = game:GetFastFlag("RemoveUILibraryTimeline")
+
 local StudioTheme = UILibrary.Studio.Theme
 local StudioStyle = UILibrary.Studio.Style
 local Cryo = require(Plugin.Cryo)
@@ -251,86 +253,8 @@ function Theme.createValuesInternal(theme, getColor, c, m)
 		startScreenTheme = startScreenTheme,
 		gridTheme = gridTheme,
 		ikTheme = ikTheme,
-	}
 
-	local UILibraryPalette = StudioStyle.new(getColor, c, m)
-
-	local UILibraryOverrides = {
-		button = {
-			Default = {
-				font = PluginTheme.font,
-				backgroundColor = getColor(c.Button),
-				hovered = {
-					font = PluginTheme.font,
-				},
-			},
-
-			Primary = {
-				font = PluginTheme.font,
-				borderColor = getColor(c.MainBackground),
-				textColor = getColor(c.DialogMainButtonText),
-				hovered = {
-					font = PluginTheme.font,
-					borderColor = getColor(c.MainBackground),
-					textColor = getColor(c.DialogMainButtonText),
-				},
-			},
-
-			MediaControl = {
-				isRound = false,
-				backgroundColor = getColor(c.MainBackground),
-				borderColor = getColor(c.Border),
-
-				hovered = {
-					backgroundColor = getColor(c.Button, m.Hover),
-					borderColor = getColor(c.Border),
-				},
-			},
-
-			ActiveControl = {
-				isRound = false,
-				backgroundColor = getColor(c.DialogMainButton),
-				borderColor = getColor(c.DialogMainButton),
-
-				hovered = {
-					backgroundColor = getColor(c.DialogMainButton, m.Hover),
-					borderColor = getColor(c.DialogMainButton, m.Hover),
-				},
-			},
-
-			IKDefault = {
-				isRound = true,
-				font = PluginTheme.font,
-				backgroundColor = getColor(c.Button),
-				borderColor = getColor(c.Border),
-				hovered = {
-					font = PluginTheme.font,
-					backgroundColor = getColor(c.Button, m.Hover),
-				},
-			},
-
-			IKActive = {
-				isRound = true,
-				font = PluginTheme.font,
-				backgroundColor = getColor(c.Button, m.Pressed),
-				borderColor = getColor(c.Border),
-				hovered = {
-					font = PluginTheme.font,
-					backgroundColor = getColor(c.Button, m.Hover),
-				},
-			},
-		},
-
-		dialog = {
-			backgroundColor = PluginTheme.backgroundColor,
-		},
-
-		radioButton = {
-			font = PluginTheme.font,
-			textSize = 15,
-		},
-
-		keyframe = {
+		keyframe = FFlagRemoveUILibraryTimeline and {
 			Default = {
 				backgroundColor = getColor(c.DialogButtonText, m.Disabled),
 				borderColor = getColor(c.DimmedText),
@@ -436,12 +360,204 @@ function Theme.createValuesInternal(theme, getColor, c, m)
 					borderColor = getColor(c.DialogMainButton),
 				},
 			},
-		},
+		} or nil,
 
-		scrubber = {
+		scrubber = FFlagRemoveUILibraryTimeline and {
 			backgroundColor = getColor(c.DialogMainButton),
 			image = "rbxasset://textures/AnimationEditor/img_scrubberhead.png",
+		} or nil,
+
+	}
+
+	local UILibraryPalette = StudioStyle.new(getColor, c, m)
+
+	local UILibraryOverrides = {
+		button = {
+			Default = {
+				font = PluginTheme.font,
+				backgroundColor = getColor(c.Button),
+				hovered = {
+					font = PluginTheme.font,
+				},
+			},
+
+			Primary = {
+				font = PluginTheme.font,
+				borderColor = getColor(c.MainBackground),
+				textColor = getColor(c.DialogMainButtonText),
+				hovered = {
+					font = PluginTheme.font,
+					borderColor = getColor(c.MainBackground),
+					textColor = getColor(c.DialogMainButtonText),
+				},
+			},
+
+			MediaControl = {
+				isRound = false,
+				backgroundColor = getColor(c.MainBackground),
+				borderColor = getColor(c.Border),
+
+				hovered = {
+					backgroundColor = getColor(c.Button, m.Hover),
+					borderColor = getColor(c.Border),
+				},
+			},
+
+			ActiveControl = {
+				isRound = false,
+				backgroundColor = getColor(c.DialogMainButton),
+				borderColor = getColor(c.DialogMainButton),
+
+				hovered = {
+					backgroundColor = getColor(c.DialogMainButton, m.Hover),
+					borderColor = getColor(c.DialogMainButton, m.Hover),
+				},
+			},
+
+			IKDefault = {
+				isRound = true,
+				font = PluginTheme.font,
+				backgroundColor = getColor(c.Button),
+				borderColor = getColor(c.Border),
+				hovered = {
+					font = PluginTheme.font,
+					backgroundColor = getColor(c.Button, m.Hover),
+				},
+			},
+
+			IKActive = {
+				isRound = true,
+				font = PluginTheme.font,
+				backgroundColor = getColor(c.Button, m.Pressed),
+				borderColor = getColor(c.Border),
+				hovered = {
+					font = PluginTheme.font,
+					backgroundColor = getColor(c.Button, m.Hover),
+				},
+			},
 		},
+
+		dialog = {
+			backgroundColor = PluginTheme.backgroundColor,
+		},
+
+		radioButton = {
+			font = PluginTheme.font,
+			textSize = 15,
+		},
+
+		keyframe = not FFlagRemoveUILibraryTimeline and {
+			Default = {
+				backgroundColor = getColor(c.DialogButtonText, m.Disabled),
+				borderColor = getColor(c.DimmedText),
+
+				selected = {
+					backgroundColor = getColor(c.DialogButtonText, m.Disabled),
+					borderColor = getColor(c.DialogMainButton),
+				},
+			},
+
+			Primary = defineTheme({
+				backgroundColor = getColor(c.Item),
+				borderColor = getColor(c.Border),
+
+				selected = {
+					backgroundColor = getColor(c.Item),
+					borderColor = getColor(c.DialogMainButton),
+				},
+			}, {
+				Dark = {
+					backgroundColor = getColor(c.MainText),
+					selected = {
+						backgroundColor = getColor(c.MainText),
+						borderColor = getColor(c.DialogMainButton),
+					},
+				},
+			}),
+
+			Error = defineTheme({
+				backgroundColor = lightKeyframeError,
+				borderColor = lightKeyframeErrorBorder,
+
+				selected = {
+					backgroundColor = lightKeyframeError,
+					borderColor = getColor(c.ScriptError),
+				},
+			}, {
+				Dark = {
+					backgroundColor = getColor(c.DimmedText),
+					borderColor = getColor(c.ErrorText),
+					selected = {
+						backgroundColor = getColor(c.SubText, m.Disabled),
+						borderColor = getColor(c.ScriptError),
+					},
+				},
+			}),
+
+			PrimaryError = defineTheme({
+				backgroundColor = lightKeyframeError,
+				borderColor = lightKeyframeErrorBorder,
+
+				selected = {
+					backgroundColor = lightKeyframeError,
+					borderColor = getColor(c.ScriptError),
+				},
+			}, {
+				Dark = {
+					backgroundColor = getColor(c.MainText),
+					borderColor = getColor(c.ErrorText),
+					selected = {
+						backgroundColor = getColor(c.MainText),
+						borderColor = getColor(c.ScriptError),
+					},
+				},
+			}),
+
+			Bounce = {
+				backgroundColor = Color3.fromRGB(155, 198, 204),
+				borderColor = easingStyleBorder,
+
+				selected = {
+					backgroundColor = Color3.fromRGB(155, 198, 204),
+					borderColor = getColor(c.DialogMainButton),
+				},
+			},
+
+			Constant = {
+				backgroundColor = Color3.fromRGB(156, 147, 226),
+				borderColor = easingStyleBorder,
+
+				selected = {
+					backgroundColor = Color3.fromRGB(156, 147, 226),
+					borderColor = getColor(c.DialogMainButton),
+				},
+			},
+
+			Cubic = {
+				backgroundColor = Color3.fromRGB(254, 189, 81),
+				borderColor = easingStyleBorder,
+
+				selected = {
+					backgroundColor = Color3.fromRGB(254, 189, 81),
+					borderColor = getColor(c.DialogMainButton),
+				},
+			},
+
+			Elastic = {
+				backgroundColor = Color3.fromRGB(137, 187, 77),
+				borderColor = easingStyleBorder,
+
+				selected = {
+					backgroundColor = Color3.fromRGB(137, 187, 77),
+					borderColor = getColor(c.DialogMainButton),
+				},
+			},
+		} or nil,
+
+		scrubber = not FFlagRemoveUILibraryTimeline and {
+			backgroundColor = getColor(c.DialogMainButton),
+			image = "rbxasset://textures/AnimationEditor/img_scrubberhead.png",
+		} or nil,
 
 		tooltip = {
 			font = Enum.Font.SourceSans,

@@ -8,12 +8,10 @@ local Images = UIBlox.App.ImageSet.Images
 
 --todo: can remove assets when FFlagInGameMenuSinglePaneDesign and FFlagFixMenuIcons are on and removed
 local Assets = require(InGameMenu.Resources.Assets)
-local getFFlagInGameMenuSinglePaneDesign = require(InGameMenu.Flags.GetFFlagInGameMenuSinglePaneDesign)
-local fflagInGameMenuSinglePaneDesign = getFFlagInGameMenuSinglePaneDesign()
 
 local FFlagFixMenuIcons = require(InGameMenu.Flags.FFlagFixMenuIcons)
 
-local singlePanePages = {
+local pages = {
 	{
 		key = "MainPage",
 		navigationDepth = 1,
@@ -71,42 +69,6 @@ local singlePanePages = {
 		parentPage = "GameSettings",
 	},
 }
-
-local doublePanePages = {
-	{
-		key = "Players",
-		title = "CoreScripts.InGameMenu.PageTitle.Players",
-		icon = Assets.Images.PlayersMenu,
-		component = script.PlayersPage,
-	},
-	{
-		key = "InviteFriends",
-		title = "CoreScripts.InGameMenu.PageTitle.InviteFriends",
-		icon = Assets.Images.InviteMenu,
-		component = script.Parent.InviteFriendsPage,
-	},
-	{
-		key = "GameSettings",
-		title = "CoreScripts.InGameMenu.PageTitle.GameSettings",
-		icon = Assets.Images.GameSettings,
-		component = script.Parent.GameSettingsPage,
-	},
-	{
-		key = "Report",
-		title = "CoreScripts.InGameMenu.PageTitle.Report",
-		icon = Assets.Images.ReportIcon,
-		component = script.Parent.ReportPage,
-	},
-	{
-		key = "Controls",
-		title = "CoreScripts.InGameMenu.PageTitle.Controls",
-		icon = Assets.Images.ControlsMenu,
-		component = script.Parent.ControlsPage,
-		isModal = true,
-	},
-}
-
-local pages = fflagInGameMenuSinglePaneDesign and singlePanePages or doublePanePages
 
 local pagesByKey = {}
 

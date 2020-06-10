@@ -12,6 +12,7 @@ local Players = game:GetService("Players")
 local ContentProvider = game:GetService("ContentProvider")
 local CoreGui = game:GetService("CoreGui")
 local ReplicatedFirst = game:GetService("ReplicatedFirst")
+local ScriptContext = game:GetService("ScriptContext")
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local create = require(RobloxGui:WaitForChild("Modules"):WaitForChild("Common"):WaitForChild("Create"))
@@ -27,6 +28,7 @@ local FFlagConnectionScriptEnabled = settings():GetFFlag("ConnectionScriptEnable
 
 local antiAddictionNoticeStringEn = "Boycott bad games, refuse pirated games. Be aware of self-defense and being deceived. Playing games is good for your brain, but too much game play can harm your health. Manage your time well and enjoy a healthy lifestyle."
 local FFlagDisableAutoTranslateForKeyTranslatedContent = require(RobloxGui.Modules.Flags.FFlagDisableAutoTranslateForKeyTranslatedContent)
+local FFlagConnectErrorHandlerInLoadingScript = require(RobloxGui.Modules.Flags.FFlagConnectErrorHandlerInLoadingScript)
 
 local FFlagFixTopBarOverLoadingScreen = require(RobloxGui.Modules.Flags.FFlagFixTopBarOverLoadingScreen)
 
@@ -551,6 +553,10 @@ local function GenerateGui()
 				ZIndex = 8
 			}
 		}
+	else
+		if FFlagConnectErrorHandlerInLoadingScript then
+			ScriptContext:AddCoreScriptLocal("Connection", RobloxGui)
+		end
 	end
 
 	while not game:GetService("CoreGui") do

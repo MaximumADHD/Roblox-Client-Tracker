@@ -133,7 +133,7 @@ function Theme.createValues(theme, getColor)
 			robuxFeeBase = {
 				icon = {
 					image = "rbxasset://textures/ui/common/robux.png",
-					size = 30,
+					size = 20,
 				},
 
 				priceField = {
@@ -141,7 +141,12 @@ function Theme.createValues(theme, getColor)
 				},
 
 				subText = {
-					width = 475,
+					width = 500,
+				},
+
+				height = {
+					withSubText = 137,
+					withoutSubText = 121,
 				},
 
 				spacing = 10,
@@ -311,6 +316,10 @@ function Theme.createValues(theme, getColor)
 				textPadding = 6,
 			},
 
+			toggleButton = {
+				height = 24
+			},
+
 			editButton = {
 				image = "rbxasset://textures/GameSettings/edit.png",
 				imageColor = isDark and Color3.fromRGB(255, 255, 255) or Color3.fromRGB(25, 25, 25)
@@ -351,6 +360,13 @@ function Theme.createValues(theme, getColor)
 				settingPadding = 32,
 				marginX = 25, -- on each side
 				headerPadding = 6,
+
+				reloadButton = {
+					paddingX = 75,
+					paddingY = 15,
+				},
+				failLabelPaddingX = 400,
+				failPageListPaddingY = 16,
 			},
 
 			backButton = {

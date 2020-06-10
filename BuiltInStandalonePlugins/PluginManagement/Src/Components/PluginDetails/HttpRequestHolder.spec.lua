@@ -1,3 +1,5 @@
+local FFlagPluginManagementRemoveUILibrary = game:GetFastFlag("PluginManagementRemoveUILibrary")
+
 return function()
 	local Plugin = script.Parent.Parent.Parent.Parent
 	local Roact = require(Plugin.Packages.Roact)
@@ -40,7 +42,7 @@ return function()
 		local container = Instance.new("Folder")
 		local a = "a"
 		local b = "b"
-		local c ="c"
+		local c = "c"
 
 		local httpPermissions = {
 			createPermissionObj(a, true),
@@ -61,9 +63,13 @@ return function()
 
 		local function getTitleLabel(childName)
 			local frame = checkboxList:FindFirstChild(childName)
-			local chkbx = frame:FindFirstChild("CheckBox")
-			local bkgnd = chkbx:FindFirstChild("Background")
-			return bkgnd:FindFirstChild("TitleLabel")
+			if FFlagPluginManagementRemoveUILibrary then
+				return frame:FindFirstChild("TitleLabel", true)
+			else
+				local chkbx = frame:FindFirstChild("CheckBox")
+				local bkgnd = chkbx:FindFirstChild("Background")
+				return bkgnd:FindFirstChild("TitleLabel")
+			end
 		end
 
 		local first = getTitleLabel("1")

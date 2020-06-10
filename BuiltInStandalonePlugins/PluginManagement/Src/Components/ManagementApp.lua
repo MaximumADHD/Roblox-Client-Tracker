@@ -8,7 +8,7 @@ local ManagementMainView = require(Plugin.Src.Components.ManagementMainView)
 local NavigationContainer = require(Plugin.Src.Components.Navigation.NavigationContainer)
 
 local ContextServices = require(Plugin.Packages.Framework.ContextServices)
-local UILibraryWrapper = require(Plugin.Packages.Framework.ContextServices.UILibraryWrapper)
+local UILibraryWrapper = require(Plugin.Packages.Framework.ContextServices.UILibraryWrapper) -- remove with FFlagPluginManagementRemoveUILibrary
 local makeTheme = require(Plugin.Src.Resources.makeTheme)
 local PluginAPI2 = require(Plugin.Src.ContextServices.PluginAPI2)
 
@@ -33,6 +33,7 @@ local FlagsList = Flags.new({
 	},
 })
 local FFlagPluginManagementFixWhiteScreen = game:DefineFastFlag("PluginManagementFixWhiteScreen", false)
+local FFlagPluginManagementRemoveUILibrary = game:GetFastFlag("PluginManagementRemoveUILibrary")
 
 local ManagementApp = Roact.PureComponent:extend("ManagementApp")
 
@@ -142,8 +143,9 @@ function ManagementApp:render()
 			MainProvider = enabled and ContextServices.provide({
 				self.localization,
 				self.theme,
-				UILibraryWrapper.new(),
+				(not FFlagPluginManagementRemoveUILibrary) and UILibraryWrapper.new() or nil,
 				ContextServices.Store.new(store),
+				ContextServices.Mouse.new(plugin:GetMouse()),
 			}, {
 				MainView = FlagsList:get("FFlagEnablePluginPermissionsPage") and Roact.createElement(NavigationContainer)
 					or Roact.createElement(ManagementMainView, { plugin = plugin }),

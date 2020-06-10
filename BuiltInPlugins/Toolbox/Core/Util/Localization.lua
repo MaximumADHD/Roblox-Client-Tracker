@@ -603,7 +603,7 @@ function Localization:_recalculateContent()
 			
 			UploadResult = {
 				Success = self:_safeLocalize("Studio.Toolbox.AssetUploadResult.Success"),
-				Fail = self:_safeLocalize("Studio.Toolbox.AssetUploadResult.Failure"),
+				Failure = self:_safeLocalize("Studio.Toolbox.AssetUploadResult.Failure"),
 			},
 
 			VersionsHistory = {

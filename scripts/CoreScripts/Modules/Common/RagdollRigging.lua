@@ -460,8 +460,8 @@ function Rigging.easeJointFriction(character, duration)
 			-- Keep the torso and neck a little stiffer...
 			local parentName = v.Parent.Name
 			local scale = (parentName == "UpperTorso" or parentName == "Head") and 0.5 or 0.05
-			local next = current * scale
-			frictionJoints[v] = { v, current, next }
+			local nextTorque = current * scale
+			frictionJoints[v] = { v, current, nextTorque }
 		end
 	end
 	local t = 0

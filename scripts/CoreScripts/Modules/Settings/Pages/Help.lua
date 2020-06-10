@@ -11,8 +11,6 @@
 local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
 local FFlagUseNotificationsLocalization = success and result
 
-local FFlagRobloxGuiSiblingZindexs = settings():GetFFlag("RobloxGuiSiblingZindexs")
-
 -------------- CONSTANTS --------------
 local KEYBOARD_MOUSE_TAG = "KeyboardMouse"
 local TOUCH_TAG = "Touch"
@@ -460,22 +458,19 @@ local function Initialize()
 		end
 
 		local function createTouchLabel(text, position, size, parent)
-			local nameFrame
-			if FFlagRobloxGuiSiblingZindexs then
-				nameFrame = utility:Create'TextLabel'
-				{
-					Position = position,
-					Size = size,
-					BackgroundTransparency = 1,
-					Name = text .. "Frame",
-					Parent = parent,
-				}
-			end
+			local nameFrame = utility:Create'TextLabel'
+			{
+				Position = position,
+				Size = size,
+				BackgroundTransparency = 1,
+				Name = text .. "Frame",
+				Parent = parent,
+			}
 
 			local nameLabel = utility:Create'TextLabel'
 			{
-				Position = FFlagRobloxGuiSiblingZindexs and UDim2.new(0, 0, 0, 0) or position,
-				Size = FFlagRobloxGuiSiblingZindexs and UDim2.new(1, 0, 1, 0) or size,
+				Position = UDim2.new(0, 0, 0, 0),
+				Size = UDim2.new(1, 0, 1, 0),
 				BackgroundTransparency = 1,
 				Text = text,
 				Font = Enum.Font.SourceSansBold,
@@ -483,7 +478,7 @@ local function Initialize()
 				TextColor3 = Color3.new(1,1,1),
 				Name = text .. "Label",
 				ZIndex = 3,
-				Parent = FFlagRobloxGuiSiblingZindexs and nameFrame or parent,
+				Parent = nameFrame,
 				TextScaled = true,
 				TextWrapped = true
 			};
@@ -503,17 +498,13 @@ local function Initialize()
 				ScaleType = Enum.ScaleType.Slice,
 				SliceCenter = Rect.new(12,2,65,21),
 				ZIndex = 2,
-				Parent = FFlagRobloxGuiSiblingZindexs and nameFrame or nameLabel
+				Parent = nameFrame
 			};
 
 			local textSizeConstraint = Instance.new("UITextSizeConstraint",nameLabel)
 			textSizeConstraint.MaxTextSize = 18
 
-			if FFlagRobloxGuiSiblingZindexs then
-				return nameFrame
-			end
-
-			return nameLabel
+			return nameFrame
 		end
 
 		local function createTouchGestureImage(name, image, position, size, parent)

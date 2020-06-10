@@ -80,7 +80,7 @@ return{
 	["CoreScripts.InGameMenu.PageTitle.Controls"] = [[Управление...]],
 	["CoreScripts.InGameMenu.PageTitle.Players"] = [[Игроки]],
 	["CoreScripts.InGameMenu.PageTitle.Report"] = [[Пожаловаться]],
-	["CoreScripts.InGameMenu.PageTitle.GameSettings"] = [[Настройки игры]],
+	["CoreScripts.InGameMenu.PageTitle.GameSettings"] = [[Настройки]],
 	["CoreScripts.InGameMenu.Actions.AddFriend"] = [[Добавить друга]],
 	["CoreScripts.InGameMenu.Actions.Unfriend"] = [[Удалить из друзей]],
 	["CoreScripts.InGameMenu.Actions.CancelFriend"] = [[Отменить запрос о дружбе]],
@@ -121,4 +121,6 @@ return{
 	["CoreScripts.InGameMenu.InviteFriends.Loading"] = [[Загрузка!]],
 	["CoreScripts.InGameMenu.RespawnCharacter"] = [[Возрождение персонажа]],
 	["CoreScripts.InGameMenu.GameSettings.CameraModeCameraToggle"] = [[Переключение камеры]],
+	["CoreScripts.InGameMenu.Record.StartRecording"] = [[Записать видео]],
+	["CoreScripts.InGameMenu.Record.Duration"] = [[Запись: {DURATION}]],
 }

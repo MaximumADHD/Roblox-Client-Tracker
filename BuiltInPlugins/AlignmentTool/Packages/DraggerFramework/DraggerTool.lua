@@ -20,6 +20,7 @@ local getFFlagMinCursorChange = require(Framework.Flags.getFFlagMinCursorChange)
 local getFFlagBatchBoundsChanged = require(Framework.Flags.getFFlagBatchBoundsChanged)
 local getFFlagHandleCanceledToolboxDrag = require(Framework.Flags.getFFlagHandleCanceledToolboxDrag)
 local getFFlagHandleFlakeyMouseEvents = require(Framework.Flags.getFFlagHandleFlakeyMouseEvents)
+local getFFlagDragFaceInstances = require(Framework.Flags.getFFlagDragFaceInstances)
 
 -- Components
 local SelectionDot = require(Framework.Components.SelectionDot)
@@ -32,12 +33,14 @@ local BoundsChangedTracker = require(Framework.Utility.BoundsChangedTracker)
 local Analytics = require(Framework.Utility.Analytics)
 local DerivedWorldState = require(Framework.Implementation.DerivedWorldState)
 local HoverTracker = require(Framework.Implementation.HoverTracker)
+local shouldDragAsFace = require(Framework.Utility.shouldDragAsFace)
 
 -- States
 local DraggerStateType = require(Framework.Implementation.DraggerStateType)
 local DraggerStates = Framework.Implementation.DraggerStates
 local DraggerState = {
 	[DraggerStateType.Ready] = require(DraggerStates.Ready),
+	[DraggerStateType.DraggingFaceInstance] = require(DraggerStates.DraggingFaceInstance),
 	[DraggerStateType.PendingDraggingParts] = require(DraggerStates.PendingDraggingParts),
 	[DraggerStateType.DraggingHandle] = require(DraggerStates.DraggingHandle),
 	[DraggerStateType.DraggingParts] = require(DraggerStates.DraggingParts),
@@ -140,7 +143,11 @@ function DraggerTool:didMount()
 
 	self._dragEnterConnection = mouse.DragEnter:Connect(function(instances)
 		if #instances > 0 then
-			self:_beginToolboxInitiatedFreeformSelectionDrag()
+			if getFFlagDragFaceInstances() and #instances == 1 and shouldDragAsFace(instances[1]) then
+				self:_beginToolboxInitiatedFaceDrag(instances)
+			else
+				self:_beginToolboxInitiatedFreeformSelectionDrag()
+			end
 		end
 	end)
 
@@ -384,6 +391,7 @@ function DraggerTool:_beginToolboxInitiatedFreeformSelectionDrag()
 		-- down tracking variable here.
 		self._isMouseDown = true
 	end
+
 	self:transitionToState({
 		tiltRotate = CFrame.new(),
 	}, DraggerStateType.DraggingParts, {
@@ -391,6 +399,26 @@ function DraggerTool:_beginToolboxInitiatedFreeformSelectionDrag()
 		basisPoint = Vector3.new(), -- Just drag from the center of the object
 		clickPoint = Vector3.new(),
 	})
+end
+
+function DraggerTool:_beginToolboxInitiatedFaceDrag(instances)
+	if getFFlagHandleCanceledToolboxDrag() then
+		-- We didn't get an associated mouse down, so we have to set the mouse
+		-- down tracking variable here.
+		self._isMouseDown = true
+	end
+
+	if instances[1]:IsA("VideoFrame") then
+		local videoFrameContainer = Instance.new("SurfaceGui")
+		videoFrameContainer.Enabled = true
+		videoFrameContainer.Parent = Workspace
+		instances[1].Parent = videoFrameContainer
+
+		SelectionWrapper:Set({ videoFrameContainer })
+		self:_updateSelectionInfo()
+	end
+
+	self:transitionToState({}, DraggerStateType.DraggingFaceInstance)
 end
 
 function DraggerTool:_analyticsSessionBegin()

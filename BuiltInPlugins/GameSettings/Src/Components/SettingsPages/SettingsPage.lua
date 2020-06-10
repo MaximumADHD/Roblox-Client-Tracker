@@ -22,6 +22,7 @@ local FitFrameOnAxis = FrameworkUtil.FitFrame.FitFrameOnAxis
 local Header = require(Plugin.Src.Components.Header)
 local LoadingIndicator = UILibrary.Component.LoadingIndicator
 local StyledScrollingFrame = UILibrary.Component.StyledScrollingFrame
+local LoadFailedPage = require(Plugin.Src.Components.SettingsPages.LoadFailedPage)
 
 local LoadPageSettings = require(Plugin.Src.Thunks.LoadPageSettings)
 local SavePageSettings = require(Plugin.Src.Thunks.SavePageSettings)
@@ -90,20 +91,10 @@ function SettingsPage:render()
 			})
 		})
 	elseif loadState == LoadState.LoadFailed then
-		-- TODO (awarwick) 5/2/2020 implement load fail page
-		return Roact.createElement("Frame", {
-			BackgroundColor3 = Color3.new(1, 0, 0),
-			Size = UDim2.new(1, 0, 1, 0),
-		}, {
-			TextButton = Roact.createElement("TextButton", {
-				AnchorPoint = Vector2.new(0.5, 0.5),
-				Position = UDim2.fromScale(0.5, 0.5),
-				Size = UDim2.fromOffset(200, 50),
-				Text = "[PH] Failed. Reload",
-				[Roact.Event.Activated] = function()
-					props.LoadPageSettings(pageId, settingsLoadJobs)
-				end,
-			})
+		return Roact.createElement(LoadFailedPage, {
+			OnRetry = function()
+				props.LoadPageSettings(pageId, settingsLoadJobs)
+			end,
 		})
 	elseif loadState == LoadState.Loaded then
 		return Roact.createElement(StyledScrollingFrame, {
@@ -139,7 +130,7 @@ function SettingsPage:render()
 end
 
 ContextServices.mapToProps(SettingsPage, {
-    Theme = ContextServices.Theme,
+	Theme = ContextServices.Theme,
 })
 
 SettingsPage = RoactRodux.connect(

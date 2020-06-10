@@ -26,9 +26,6 @@ local KeyLabel = require(script.Parent.KeyLabel)
 local PageNavigation = require(script.Parent.PageNavigation)
 local GameIconHeader = require(script.Parent.GameIconHeader)
 
-local getFFlagInGameMenuSinglePaneDesign = require(InGameMenu.Flags.GetFFlagInGameMenuSinglePaneDesign)
-local fflagInGameMenuSinglePaneDesign = getFFlagInGameMenuSinglePaneDesign()
-local FFlagInGameMenuSmallerSideBar = require(InGameMenu.Flags.FFlagInGameMenuSmallerSideBar)
 local FFlagRecordRecording = require(InGameMenu.Flags.FFlagRecordRecording)
 local FFlagTakeAScreenshotOfThis = game:DefineFastFlag("TakeAScreenshotOfThis", false)
 local FFlagShowContextMenuWhenButtonsArePresent = game:DefineFastFlag("ShowContextMenuWhenButtonsArePresent", false)
@@ -135,7 +132,6 @@ function MainPage:init()
 end
 
 function MainPage:render()
-	local pageOffset = FFlagInGameMenuSmallerSideBar and 64 or 100
 
 	return withStyle(function(style)
 		return withLocalization({
@@ -166,7 +162,6 @@ function MainPage:render()
 
 			return Roact.createElement("TextButton", {
 				Size = UDim2.new(0, MAIN_PAGE_WIDTH, 1, 0),
-				Position = UDim2.new(0, fflagInGameMenuSinglePaneDesign and 0 or pageOffset, 0, 0),
 				BackgroundColor3 = style.Theme.BackgroundDefault.Color,
 				BackgroundTransparency = style.Theme.BackgroundDefault.Transparency,
 				BorderSizePixel = 0,

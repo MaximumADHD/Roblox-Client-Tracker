@@ -30,7 +30,6 @@ local Cryo = require(Plugin.Cryo)
 
 local Framework = Plugin.Framework
 local ContextServices = require(Framework.ContextServices)
-local FitFrameOnAxis = require(Framework.Util).FitFrame.FitFrameOnAxis
 
 local UILibrary = require(Plugin.UILibrary)
 local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
@@ -42,6 +41,7 @@ local TitledFrame = UILibrary.Component.TitledFrame
 local FFlagStudioConvertGameSettingsToDevFramework = game:GetFastFlag("StudioConvertGameSettingsToDevFramework")
 local FFlagStudioAddMonetizationToGameSettings = game:GetFastFlag("StudioAddMonetizationToGameSettings")
 local FFlagGameSettingsPlaceSettings = game:GetFastFlag("GameSettingsPlaceSettings")
+local FFlagFixRadioButtonSeAndTableHeadertForTesting = game:GetFastFlag("FixRadioButtonSeAndTableHeadertForTesting")
 
 local LayoutOrderIterator = require(Framework.Util.LayoutOrderIterator)
 
@@ -171,7 +171,66 @@ function RadioButtonSet:render()
 	for i, button in ipairs(buttons) do
 		if FFlagGameSettingsPlaceSettings then
 			if props.RenderItem then
-				table.insert(children, props.RenderItem(i, button))
+				if FFlagFixRadioButtonSeAndTableHeadertForTesting then
+					children = Cryo.Dictionary.join(children, {
+						[button.Id] = props.RenderItem(i, button)
+					})
+				else
+					table.insert(children, props.RenderItem(i, button))
+				end
+			else
+				if FFlagFixRadioButtonSeAndTableHeadertForTesting then
+					children = Cryo.Dictionary.join(children, {
+						[button.Id] = Roact.createElement(RadioButton, {
+							Title = button.Title,
+							Id = button.Id,
+							Description = button.Description,
+							Selected = (button.Id == selected) or (i == selected),
+							Index = i,
+							Enabled = props.Enabled,
+							LayoutOrder = FFlagStudioAddMonetizationToGameSettings and layoutIndex:getNextOrder() or i,
+							OnClicked = function()
+								props.SelectionChanged(button)
+							end,
+
+							Children = FFlagStudioAddMonetizationToGameSettings and button.Children or nil,
+						})
+					})
+				else
+					table.insert(children, Roact.createElement(RadioButton, {
+						Title = button.Title,
+						Id = button.Id,
+						Description = button.Description,
+						Selected = (button.Id == selected) or (i == selected),
+						Index = i,
+						Enabled = props.Enabled,
+						LayoutOrder = FFlagStudioAddMonetizationToGameSettings and layoutIndex:getNextOrder() or i,
+						OnClicked = function()
+							props.SelectionChanged(button)
+						end,
+
+						Children = FFlagStudioAddMonetizationToGameSettings and button.Children or nil,
+					}))
+				end
+			end
+		else
+			if FFlagFixRadioButtonSeAndTableHeadertForTesting then
+				children = Cryo.Dictionary.join(children, {
+					[button.Id] = Roact.createElement(RadioButton, {
+						Title = button.Title,
+						Id = button.Id,
+						Description = button.Description,
+						Selected = (button.Id == selected) or (i == selected),
+						Index = i,
+						Enabled = props.Enabled,
+						LayoutOrder = FFlagStudioAddMonetizationToGameSettings and layoutIndex:getNextOrder() or i,
+						OnClicked = function()
+							props.SelectionChanged(button)
+						end,
+
+						Children = FFlagStudioAddMonetizationToGameSettings and button.Children or nil,
+					})
+				})
 			else
 				table.insert(children, Roact.createElement(RadioButton, {
 					Title = button.Title,
@@ -188,21 +247,6 @@ function RadioButtonSet:render()
 					Children = FFlagStudioAddMonetizationToGameSettings and button.Children or nil,
 				}))
 			end
-		else
-			table.insert(children, Roact.createElement(RadioButton, {
-				Title = button.Title,
-				Id = button.Id,
-				Description = button.Description,
-				Selected = (button.Id == selected) or (i == selected),
-				Index = i,
-				Enabled = props.Enabled,
-				LayoutOrder = FFlagStudioAddMonetizationToGameSettings and layoutIndex:getNextOrder() or i,
-				OnClicked = function()
-					props.SelectionChanged(button)
-				end,
-
-				Children = FFlagStudioAddMonetizationToGameSettings and button.Children or nil,
-			}))
 		end
 	end
 

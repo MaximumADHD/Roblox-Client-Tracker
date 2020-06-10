@@ -23,6 +23,7 @@ local Style = Util.Style
 
 local SetEnabledAxes = require(Plugin.Src.Actions.SetEnabledAxes)
 local Checkbox = require(Plugin.Src.Components.Checkbox)
+local UpdateAlignEnabled = require(Plugin.Src.Thunks.UpdateAlignEnabled)
 
 local AxesSection = Roact.PureComponent:extend("AxesSection")
 
@@ -96,6 +97,7 @@ local function mapDispatchToProps(dispatch)
 	return {
 		setEnabledAxes = function(axes)
 			dispatch(SetEnabledAxes(axes))
+			dispatch(UpdateAlignEnabled())
 		end,
 	}
 end

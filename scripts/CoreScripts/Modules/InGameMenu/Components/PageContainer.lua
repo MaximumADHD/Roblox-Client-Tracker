@@ -10,17 +10,16 @@ local InGameMenu = script.Parent.Parent
 
 local BlurredModalPortal = require(script.Parent.BlurredModalPortal)
 local Pages = require(script.Parent.Pages)
+
+local FFlagInGameMenuSmallerSideBar = require(InGameMenu.Flags.FFlagInGameMenuSmallerSideBar)
+local FFlagFixMakeFriendsNavCrash = require(InGameMenu.Flags.FFlagFixMakeFriendsNavCrash)
+
 local pageComponents = {}
 for key, pageInfo in pairs(Pages.pagesByKey) do
 	pageComponents[key] = require(pageInfo.component)
 end
 
 local withLocalization = require(InGameMenu.Localization.withLocalization)
-
-local ANIMATE_OUT_DELAY_THRESHOLD = 0.05
-local SPRING_PARAMETERS = {
-	frequency = 2.5,
-}
 
 local PageContainer = Roact.PureComponent:extend("PageContainer")
 PageContainer.validateProps = t.strictInterface({
@@ -29,9 +28,6 @@ PageContainer.validateProps = t.strictInterface({
 })
 
 function PageContainer:init(props)
-	self:setState({
-		lastPage = nil,
-	})
 
 	local pageBindings, pageBindingUpdaters, motorDefaults = {}, {}, {}
 	self.pagePositions = {}
@@ -41,11 +37,10 @@ function PageContainer:init(props)
 		motorDefaults[key] = defaultValue
 
 		self.pagePositions[key] = pageBindings[key]:map(function(value)
-			return UDim2.new(value - 1, 0, 0, 0)
+			return UDim2.new(1 - value, 0, 0, 0)
 		end)
 	end
 
-	self.pageProgresses = pageBindings
 	self.pageMotor = Otter.createGroupMotor(motorDefaults)
 	self.pageMotor:onStep(function(values)
 		for key, newValue in pairs(values) do
@@ -66,10 +61,10 @@ function PageContainer:render()
 					Size = UDim2.new(1, 0, 1, 0),
 					Position = self.pagePositions[key],
 					BackgroundTransparency = 1,
-					ZIndex = key == self.props.currentPage and 2 or 1,
-				}, {
+					ZIndex = pageInfo.navigationDepth,
+				},{
 					Page = Roact.createElement(pageComponents[key], {
-						pageTitle = localized.title,
+						pageTitle = pageInfo.title and localized.title,
 					}),
 				})
 			else
@@ -86,9 +81,10 @@ function PageContainer:render()
 
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(0, 400, 1, 0),
-		Position = UDim2.new(0, 500, 0, 0),
+		Position = UDim2.new(0, FFlagInGameMenuSmallerSideBar and 64 or 100, 0, 0),
 		BackgroundTransparency = 1,
 		Visible = self.props.visible,
+		ClipsDescendants = true,
 	}, pageElements)
 end
 
@@ -97,40 +93,42 @@ function PageContainer:didUpdate(oldProps, oldState)
 	local currentPage = self.props.currentPage
 
 	if lastPage ~= currentPage then
-		self:setState({
-			lastPage = lastPage,
-		})
 
-		self.pageMotor:setGoal({
-			[lastPage] = Otter.spring(0, SPRING_PARAMETERS),
-		})
-
-		local lastPageWasModal = Pages.pagesByKey[lastPage].isModal
 		local currentPageIsModal = Pages.pagesByKey[currentPage].isModal
+		local lastPageWasModal = Pages.pagesByKey[lastPage].isModal
+		if currentPageIsModal or lastPageWasModal then return end
 
-		if lastPageWasModal or currentPageIsModal then
+		if Pages.pagesByKey[lastPage].navigationDepth < Pages.pagesByKey[currentPage].navigationDepth then
+
+			-- nav down
+			if not currentPageIsModal then
+				self.pageMotor:setGoal({
+					[lastPage] = Otter.spring(1.25, {frequency = 2.5}),
+				})
+			end
+
+		elseif FFlagFixMakeFriendsNavCrash and Pages.pagesByKey[lastPage].navigationDepth == Pages.pagesByKey[currentPage].navigationDepth then
+			-- this is added temporarily to fix crash that caused by nav from invite friends to players in "Make Friends"
 			self.pageMotor:setGoal({
-				[currentPage] = Otter.spring(1, SPRING_PARAMETERS)
+				[lastPage] = Otter.spring(0, {frequency = 2.5}),
 			})
 		else
-			local timestamp = tick()
-			local disconnect
 
-			self.currentMotorTimestamp = timestamp
-			disconnect = self.pageMotor:onStep(function(values)
-				if values[lastPage] < ANIMATE_OUT_DELAY_THRESHOLD then
-					disconnect()
-					if self.state.lastPage == lastPage
-						and self.props.currentPage == currentPage
-						and self.currentMotorTimestamp == timestamp then
-
-						self.pageMotor:setGoal({
-							[currentPage] = Otter.spring(1, SPRING_PARAMETERS),
-						})
-					end
-				end
-			end)
+			-- nav up/ nav to top
+			-- To accomodate Navigate to Top, containter needs to move all used pages over. Therefore if current page and last page are not
+			-- parent-child pages, it will move all parent pages of lastPage until it reaches currentPage
+			local pagesToSlideRight = {}
+			local pageOnNavPath = lastPage
+			while pageOnNavPath ~= currentPage do
+				pagesToSlideRight[pageOnNavPath] = Otter.spring(0, {frequency = 3.5})
+				pageOnNavPath = Pages.pagesByKey[pageOnNavPath].parentPage
+			end
+			self.pageMotor:setGoal(pagesToSlideRight)
 		end
+
+		self.pageMotor:setGoal({
+			[currentPage] = Otter.spring(1, {frequency = 2.5})
+		})
 	end
 end
 

@@ -20,12 +20,12 @@ local AddChange = require(Plugin.Src.Actions.AddChange)
 local AddWarning = require(Plugin.Src.Actions.AddWarning)
 local DiscardWarning = require(Plugin.Src.Actions.DiscardWarning)
 
-local SetCreatorId = require(Page.Actions.SetCreatorId)
-local SetCreatorName = require(Page.Actions.SetCreatorName)
-local SetCreatorType = require(Page.Actions.SetCreatorType)
+local SetCreatorId = require(Plugin.Src.Actions.SetCreatorId)
+local SetCreatorName = require(Plugin.Src.Actions.SetCreatorName)
+local SetCreatorType = require(Plugin.Src.Actions.SetCreatorType)
 local SetGroupOwnerId = require(Page.Actions.SetGroupOwnerId)
 local SetGroupOwnerName = require(Page.Actions.SetGroupOwnerName)
-local SetCreatorFriends = require(Page.Actions.SetCreatorFriends)
+local SetCreatorFriends = require(Plugin.Src.Actions.SetCreatorFriends)
 
 local function loadSettings(store, contextItems)
 	local state = store:getState()
@@ -229,7 +229,7 @@ function Permissions:render()
 				Description = localization:getText("General", "PlayabilityHeader"),
 				LayoutOrder = 10,
 				Buttons = playabilityButtons,
-				Enabled = true,
+				Enabled = self:isLoggedInUserGameOwner() or self:isGroupGame(),
 
 				--Functionality
 				Selected = isFriendsOnly and "Friends" or isActive,

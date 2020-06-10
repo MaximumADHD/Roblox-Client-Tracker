@@ -26,6 +26,8 @@ local ChatTypesSet = false
 local ClassicChatEnabled = PlayersService.ClassicChat
 local BubbleChatEnabled = PlayersService.BubbleChat
 
+local FFlagCoreScriptsNoHotKeysWhenMenuOpen = require(RobloxGui.Modules.Flags.FFlagCoreScriptsNoHotKeysWhenMenuOpen)
+
 local Util = require(RobloxGui.Modules.ChatUtil)
 
 local moduleApiTable = {}
@@ -182,9 +184,15 @@ do
 			end
 		end)
 
-        if not FFlagUserHandleChatHotKeyWithContextActionService then    
+        if not FFlagUserHandleChatHotKeyWithContextActionService then
             GuiService:AddSpecialKey(Enum.SpecialKey.ChatHotkey)
-            GuiService.SpecialKeyPressed:connect(function(key, modifiers)
+			GuiService.SpecialKeyPressed:connect(function(key, modifiers)
+				if FFlagCoreScriptsNoHotKeysWhenMenuOpen then
+					if GuiService.MenuIsOpen then
+						return
+					end
+				end
+
                 DispatchEvent("SpecialKeyPressed", key, modifiers)
             end)
         end
@@ -236,7 +244,7 @@ do
 					communicationsConnections.ChatWindow.EnterWhisperState = FindInCollectionByKeyAndType(chatWindowCollection, "EnterWhisperState", "BindableEvent")
 					communicationsConnections.ChatWindow.TopbarEnabledChanged = FindInCollectionByKeyAndType(chatWindowCollection, "TopbarEnabledChanged", "BindableEvent")
 					communicationsConnections.ChatWindow.IsFocused = FindInCollectionByKeyAndType(chatWindowCollection, "IsFocused", "BindableFunction")
-                    if not FFlagUserHandleChatHotKeyWithContextActionService then    
+                    if not FFlagUserHandleChatHotKeyWithContextActionService then
                         -- TODO: remove this connector when FFlagUserHandleChatHotKeyWithContextActionService is removed
                         communicationsConnections.ChatWindow.SpecialKeyPressed = FindInCollectionByKeyAndType(chatWindowCollection, "SpecialKeyPressed", "BindableEvent")
                     end

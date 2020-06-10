@@ -19,7 +19,8 @@ local LayoutOrderIterator = Util.LayoutOrderIterator
 
 local SetAlignmentMode = require(Plugin.Src.Actions.SetAlignmentMode)
 local ImageButton = require(Plugin.Src.Components.ImageButton)
-local AlignmentMode = require(Plugin.Src.Core.AlignmentMode)
+local UpdateAlignEnabled = require(Plugin.Src.Thunks.UpdateAlignEnabled)
+local AlignmentMode = require(Plugin.Src.Utility.AlignmentMode)
 
 local ButtonDefinitions = {
 	[1] = {
@@ -104,6 +105,7 @@ local function mapDispatchToProps(dispatch)
 	return {
 		setAlignmentMode = function(mode)
 			dispatch(SetAlignmentMode(mode))
+			dispatch(UpdateAlignEnabled())
 		end,
 	}
 end

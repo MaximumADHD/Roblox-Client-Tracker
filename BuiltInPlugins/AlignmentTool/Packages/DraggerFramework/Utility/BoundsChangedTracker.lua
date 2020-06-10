@@ -6,7 +6,10 @@
 ]]
 
 local Framework = script.Parent.Parent
+local getFFlagLuaDraggerPerf = require(Framework.Flags.getFFlagLuaDraggerPerf)
 local getFFlagHandleOddNesting = require(Framework.Flags.getFFlagHandleOddNesting)
+
+local MAX_PARTS_TO_TRACK_BOUNDS_FOR = 1024
 
 local BoundsChangedTracker = {}
 BoundsChangedTracker.__index = BoundsChangedTracker
@@ -92,10 +95,20 @@ function BoundsChangedTracker:setAttachments(attachments)
 end
 
 function BoundsChangedTracker:setParts(parts)
+    local fflagLuaDraggerPerf = getFFlagLuaDraggerPerf()
     local newPartToEntry = {}
     -- Gotta pull this flag check out, since this is a tight loop
     local fflagHandleOddNesting = getFFlagHandleOddNesting()
-    for _, part in ipairs(parts) do
+    for index, part in ipairs(parts) do
+        if fflagLuaDraggerPerf and index > MAX_PARTS_TO_TRACK_BOUNDS_FOR then
+            -- Too expensive to handle bounds changes for more than ~1000 parts,
+            -- so only handle the first 1024 parts for large selections. This
+            -- only effects the visible behavior of the tool in very uncommon
+            -- scenarios. E.g., if you move an object, select a large multiple
+            -- selection containing that object and at least 1024 other parts,
+            -- and press undo.
+            break
+        end
         local entry = self._partToEntry[part]
         self._partToEntry[part] = nil
         if not entry then

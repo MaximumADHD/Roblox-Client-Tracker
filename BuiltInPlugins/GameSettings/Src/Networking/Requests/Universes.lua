@@ -108,7 +108,7 @@ function Universes.GetVIPServers(universeId)
 
 		return {
 			vipServersIsEnabled = result.isEnabled,
-			vipServersPrice = result.price,
+			vipServersPrice = result.price and result.price or 0,
 			vipServersActiveServersCount = result.activeServersCount,
 			vipServersActiveSubscriptionsCount = result.activeSubscriptionsCount,
 		}

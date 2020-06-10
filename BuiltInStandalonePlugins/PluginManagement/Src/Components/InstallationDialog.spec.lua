@@ -1,9 +1,16 @@
+local FFlagPluginManagementRemoveUILibrary = game:GetFastFlag("PluginManagementRemoveUILibrary")
+
 local InstallationDialog = require(script.Parent.InstallationDialog)
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 
-local MockServiceWrapper = require(Plugin.Src.TestHelpers.MockServiceWrapper)
+local MockServiceWrapper
+if FFlagPluginManagementRemoveUILibrary then
+	MockServiceWrapper = require(Plugin.Src.Components.MockManagement)
+else
+	MockServiceWrapper = require(Plugin.Src.TestHelpers.MockServiceWrapper)
+end
 
 return function()
 	it("should construct and destroy without errors", function()

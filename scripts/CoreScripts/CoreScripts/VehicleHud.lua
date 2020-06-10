@@ -22,8 +22,6 @@ local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
 RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
 local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
 
-local FFlagRobloxGuiSiblingZindexs = settings():GetFFlag("RobloxGuiSiblingZindexs")
-
 
 --[[ Images ]]--
 local VEHICLE_HUD_BG = 'rbxasset://textures/ui/Vehicle/SpeedBarBKG.png'
@@ -78,17 +76,12 @@ speedBarClippingFrame.Size = UDim2.new(0, 0, 0, (isTenFootInterface and 24 or 4)
 speedBarClippingFrame.Position = UDim2.new(0.5, (isTenFootInterface and -142 or -71), 0.5, (isTenFootInterface and -13 or -2))
 speedBarClippingFrame.BackgroundTransparency = 1
 speedBarClippingFrame.ClipsDescendants = true
-if FFlagRobloxGuiSiblingZindexs then
-	speedBarClippingFrame.ZIndex = 2
-end
+speedBarClippingFrame.ZIndex = 2
 speedBarClippingFrame.Parent = VehicleHudFrame
 
 local HudBG = createImageLabel("HudBG", UDim2.new(1, 0, 1, 0), UDim2.new(0, 0, 0, 1), VEHICLE_HUD_BG, VehicleHudFrame)
 local SpeedBG = createImageLabel("SpeedBG", UDim2.new(0, (isTenFootInterface and 284 or 142), 0, (isTenFootInterface and 24 or 4)), UDim2.new(0.5, (isTenFootInterface and -142 or -71), 0.5, (isTenFootInterface and -13 or -2)), SPEED_BAR_EMPTY, VehicleHudFrame)
 local SpeedBarImage = createImageLabel("SpeedBarImage", UDim2.new(0, (isTenFootInterface and 284 or 142), 1, 0), UDim2.new(0, 0, 0, 0), SPEED_BAR, speedBarClippingFrame)
-if not FFlagRobloxGuiSiblingZindexs then
-	SpeedBarImage.ZIndex = 2
-end
 
 local SpeedLabel = createTextLabel("SpeedLabel", Enum.TextXAlignment.Left, "Speed", VehicleHudFrame)
 local SpeedText = createTextLabel("SpeedText", Enum.TextXAlignment.Right, "0", VehicleHudFrame)

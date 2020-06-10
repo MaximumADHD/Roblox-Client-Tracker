@@ -46,7 +46,6 @@ function Example:render()
 	}, {
 		Text = Roact.createElement(TextLabel, {
 			Text = self.state.currentText,
-			Position = UDim2.new(0, 0, 0, 0),
 			Size = UDim2.new(1, -50, 0, 32),
 		}),
 		Button = Roact.createElement(Button, {
@@ -71,7 +70,7 @@ function Example:render()
 				OnItemActivated = self.selectText,
 				
 				OnFocusLost = self.hideDropdown,
-			}) or nil,
+			}),
 		})
 	})
 end

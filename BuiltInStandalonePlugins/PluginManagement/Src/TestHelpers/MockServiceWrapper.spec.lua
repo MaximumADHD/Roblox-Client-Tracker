@@ -1,3 +1,10 @@
+local FFlagPluginManagementRemoveUILibrary = game:GetFastFlag("PluginManagementRemoveUILibrary")
+-- remove with FFlagPluginManagementRemoveUILibrary
+if FFlagPluginManagementRemoveUILibrary then
+	return function()
+	end
+end
+
 local MockServiceWrapper = require(script.Parent.MockServiceWrapper)
 
 local Plugin = script.Parent.Parent.Parent

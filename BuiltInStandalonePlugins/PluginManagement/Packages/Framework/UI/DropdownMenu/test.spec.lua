@@ -12,7 +12,10 @@ return function()
 			}, {
 				Menu = Roact.createElement(DropdownMenu, {
 					Size = UDim2.fromOffset(200, 300),
-					Items = { "a", "b", "c", "d" }
+					Items = { "a", "b", "c", "d" },
+					OnItemActivated = function() end,
+					OnFocusLost = function() end,
+					ShouldShow = true
 				})
 			})
 		})

@@ -41,6 +41,8 @@ local TableWithMenu = require(Plugin.Src.Components.TableWithMenu)
 
 local DevProducts = Roact.PureComponent:extend(script.Name)
 
+local FFlagFixRadioButtonSeAndTableHeadertForTesting = game:getFastFlag("FixRadioButtonSeAndTableHeadertForTesting")
+
 function DevProducts:render()
     local props = self.props
     local theme = props.Theme:get("Plugin")
@@ -56,6 +58,30 @@ function DevProducts:render()
 
     local buttonText = localization:getText("General", "ButtonCreate")
     local buttonTextExtents = GetTextSize(buttonText, theme.fontStyle.Header.TextSize, theme.fontStyle.Header.Font)
+
+    local headers
+    if FFlagFixRadioButtonSeAndTableHeadertForTesting then
+        headers = {
+            {
+                Text = localization:getText("Monetization", "ProductID"),
+                Id = "ProductID",
+            },
+            {
+                Text = localization:getText("Monetization", "ProductName"),
+                Id = "ProductName",
+            },
+            {
+                Text = localization:getText("Monetization", "PriceTitle"),
+                Id = "PriceTitle",
+            }
+        }
+    else
+        headers = {
+            localization:getText("Monetization", "ProductID"),
+            localization:getText("Monetization", "ProductName"),
+            localization:getText("Monetization", "PriceTitle"),
+        }
+    end
 
     return Roact.createElement(FitFrameOnAxis, {
         axis = FitFrameOnAxis.Axis.Vertical,
@@ -87,11 +113,7 @@ function DevProducts:render()
         }),
 
         DeveloperProductTable = showTable and Roact.createElement(TableWithMenu, {
-            Headers = {
-                localization:getText("Monetization", "ProductID"),
-                localization:getText("Monetization", "ProductName"),
-                localization:getText("Monetization", "PriceTitle"),
-            },
+            Headers = headers,
 
             Data = productsList,
 

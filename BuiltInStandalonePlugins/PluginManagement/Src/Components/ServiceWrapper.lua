@@ -1,10 +1,12 @@
 --[[
 	A centralized place for providers, and an entry point for the Roact trees of plugins
 ]]
+-- remove with FFlagPluginManagementRemoveUILibrary
 local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
+local ContextServices = require(Plugin.Packages.Framework.ContextServices)
 local UILibrary = require(Plugin.Packages.UILibrary)
 
 -- providers
@@ -50,7 +52,8 @@ function ServiceWrapper:render()
 
 	-- the order of these providers should be read as bottom up,
 	-- things most likely to change or trigger updates should be near the top of the list
-	local root = Roact.oneChild(children)
+	local root
+	root = Roact.oneChild(children)
 	root = addProvider(RoactRodux.StoreProvider, { store = store }, root)
 	root = addProvider(PluginAPI.Provider, { api = api }, root)
 	root = addProvider(UILibraryProvider, { plugin = plugin, focusGui = focusGui }, root)

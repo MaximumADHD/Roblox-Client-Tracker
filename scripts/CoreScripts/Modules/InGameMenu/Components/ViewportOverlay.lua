@@ -9,6 +9,8 @@ local t = InGameMenuDependencies.t
 local withStyle = UIBlox.Core.Style.withStyle
 
 local InGameMenu = script.Parent.Parent
+local FFlagInGameMenuSmallerSideBar = require(InGameMenu.Flags.FFlagInGameMenuSmallerSideBar)
+local sideBarWidth = FFlagInGameMenuSmallerSideBar and 64 or 100
 
 local GlobalConfig = require(InGameMenu.GlobalConfig)
 local CloseMenu = require(InGameMenu.Thunks.CloseMenu)
@@ -46,10 +48,7 @@ local function ViewportOverlay(props)
 end
 
 return RoactRodux.UNSTABLE_connect2(function(state, props)
-	local occupiedWidth = 100 + 400
-	if state.menuPage ~= nil then
-		occupiedWidth = occupiedWidth + 400
-	end
+	local occupiedWidth = sideBarWidth + 400
 
 	return {
 		open = state.isMenuOpen,

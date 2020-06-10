@@ -24,8 +24,6 @@ local RoundFrame = UILibrary.Component.RoundFrame
 local TextEntry = UILibrary.Component.TextEntry
 local GetTextSize = UILibrary.Util.GetTextSize
 
-local layoutIndex = LayoutOrderIterator.new()
-
 local AddChange = require(Plugin.Src.Actions.AddChange)
 local AddErrors = require(Plugin.Src.Actions.AddErrors)
 local DiscardError = require(Plugin.Src.Actions.DiscardError)
@@ -73,7 +71,8 @@ local function loadValuesToProps(getValue, state)
             price = getValue("vipServersPrice"),
             initialPrice = state.Settings.Current.vipServersPrice and state.Settings.Current.vipServersPrice or 0,
 			activeServersCount = getValue("vipServersActiveServersCount"),
-			activeSubscriptionsCount = getValue("vipServersActiveSubscriptionsCount"),
+            activeSubscriptionsCount = getValue("vipServersActiveSubscriptionsCount"),
+            changed = state.Settings.Changed.vipServersPrice ~= nil or state.Settings.Changed.vipServersIsEnabled == false,
         },
 
         UnsavedDevProducts = getValue("unsavedDevProducts"),
@@ -94,14 +93,13 @@ end
 --Implements dispatch functions for when the user changes values
 local function dispatchChanges(setValue, dispatch)
     local dispatchFuncs = {
-        PaidAccessToggled = function(button, initialPrice)
+        PaidAccessToggled = function(value, initialPrice)
             -- on toggle, reset the price to what it was before or PAID_ACCESS_MIN_PRICE, whichever is larger.
             -- on toggle off, this will reset any changes to price that have been made,
             -- on toggle on for the first time, this will set the price to 25 (lowest valid price) as default.
             dispatch(AddChange("price", initialPrice))
             dispatch(DiscardError("monetizationPrice"))
-
-            dispatch(AddChange("isForSale", button.Id))
+            dispatch(AddChange("isForSale", value))
         end,
 
         PaidAccessPriceChanged = function(text)
@@ -119,13 +117,13 @@ local function dispatchChanges(setValue, dispatch)
             end
         end,
 
-        VIPServersToggled = function(button, initialPrice)
+        VIPServersToggled = function(value, initialPrice)
             -- on toggle, reset the price to what it was before or VIP_SERVERS_MIN_PRICE, whichever is larger.
             -- on toggle off, this will reset any changes to price that have been made,
             -- on toggle on for the first time, this will set the price to 10 (lowest valid price) as default.
             dispatch(AddChange("vipServersPrice", initialPrice))
             dispatch(DiscardError("monetizationPrice"))
-            dispatch(AddChange("vipServersIsEnabled", button.Id))
+            dispatch(AddChange("vipServersIsEnabled", value))
         end,
 
         VIPServersPriceChanged = function(text)
@@ -265,7 +263,7 @@ local function sanitizeCurrentDevProduct(devProduct, initialName)
     local errorKeys = {}
     local name = devProduct.name
     local nameLength = utf8.len(name)
-    local price = devProduct.price
+    local price = tonumber(devProduct.price)
 
     if nameLength < 1 or nameLength > MAX_NAME_LENGTH then
         devProduct = Cryo.Dictionary.join(devProduct, {
@@ -314,6 +312,8 @@ local function displayMonetizationPage(props, localization)
     local setEditDevProductId = props.SetEditDevProductId
 
     local priceError = getPriceErrorText(props.AccessPriceError, vipServers.isEnabled, paidAccessEnabled, localization)
+
+    local layoutIndex = LayoutOrderIterator.new()
 
     if not taxRate then
         paidAccessEnabled = nil

@@ -5,6 +5,7 @@
 		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
 
 	Optional Props:
+		Vector2 AnchorPoint: an offset for positioning
 		number LayoutOrder: The layout order of this component in a UILayout.
 		UDim2 Position: The position of the component. Defaults to zero.
 		UDim2 Size: The size of the component. Defaults to the size of the parent component.
@@ -87,6 +88,7 @@ function LoadingIndicator:render()
 	local props = self.props
 	local state = self.state
 
+	local anchorPoint = props.AnchorPoint
 	local position = props.Position
 	local size = props.Size or UDim2.new(1, 0, 1, 0)
 	local zIndex = props.ZIndex
@@ -128,6 +130,7 @@ function LoadingIndicator:render()
 	end
 
 	return Roact.createElement("Frame", {
+		AnchorPoint = anchorPoint,
 		Position = position,
 		Size = size,
 		ZIndex = zIndex,

@@ -2,6 +2,7 @@ local Players = game:GetService("Players")
 local UserGameSettings = UserSettings():GetService("UserGameSettings")
 local GuiService = game:GetService("GuiService")
 local CorePackages = game:GetService("CorePackages")
+local VRService = game:GetService("VRService")
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
@@ -40,27 +41,34 @@ local Constants = require(InGameMenu.Resources.Constants)
 
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
 
-local getFFlagInGameMenuSinglePaneDesign = require(InGameMenu.Flags.GetFFlagInGameMenuSinglePaneDesign)
-local fflagInGameMenuSinglePaneDesign = getFFlagInGameMenuSinglePaneDesign()
+local FFlagInGameMenuVRToggle = game:DefineFastFlag("InGameMenuVRToggle", false)
+
+local VRAvailableChanged = VRService:GetPropertyChangedSignal("VREnabled")
+local VREnabledChanged = UserGameSettings:GetPropertyChangedSignal("VREnabled")
 
 local BasicPage = Roact.PureComponent:extend("BasicPage")
 BasicPage.validateProps = t.strictInterface({
-	position = t.union(t.UDim2, t.table),
 	switchToAdvancedPage = t.callback,
 	pageTitle = t.string,
 })
+
+local vrEnabledAtModuleLoad = UserGameSettings.VREnabled
 
 function BasicPage:init()
 	self:setState({
 		shiftLockEnabled = localPlayer.DevEnableMouseLock,
 		fullScreenEnabled = UserGameSettings:InFullScreen(),
 		invertedCameraEnabled = UserGameSettings.IsUsingCameraYInverted,
+		vrAvailable = VRService.VREnabled,
+		vrEnabled = UserGameSettings.VREnabled,
 	})
 
 	self.pageSize, self.setPageSize = Roact.createBinding(UDim2.new(0, 0, 0, 0))
 end
 
 function BasicPage:render()
+	local shouldSettingsDisabledInVRBeShown = not (FFlagInGameMenuVRToggle and self.state.vrEnabled and self.state.vrAvailable)
+
 	return Roact.createElement(Page, {
 		pageTitle = self.props.pageTitle,
 		position = self.props.position,
@@ -85,16 +93,16 @@ function BasicPage:render()
 				LayoutOrder = 1,
 				localizationKey = "CoreScripts.InGameMenu.GameSettings.CameraTitle",
 			}),
-			CameraMode = Roact.createElement(CameraModeEntry, {
+			CameraMode = shouldSettingsDisabledInVRBeShown and Roact.createElement(CameraModeEntry, {
 				LayoutOrder = 2,
 			}),
-			InvertedCamera = self.state.invertedCameraEnabled and Roact.createElement(AutoPropertyToggleEntry, {
+			InvertedCamera = shouldSettingsDisabledInVRBeShown and self.state.invertedCameraEnabled and Roact.createElement(AutoPropertyToggleEntry, {
 				LayoutOrder = 3,
 				labelKey = "CoreScripts.InGameMenu.GameSettings.InvertedCamera",
 				instance = UserGameSettings,
 				key = "CameraYInverted",
 			}),
-			CameraSensitivity = Roact.createElement(CameraSensitivityEntry, {
+			CameraSensitivity = shouldSettingsDisabledInVRBeShown and Roact.createElement(CameraSensitivityEntry, {
 				LayoutOrder = 4,
 			}),
 			CameraDivider = Roact.createElement(Divider, {
@@ -106,7 +114,7 @@ function BasicPage:render()
 				LayoutOrder = 6,
 				localizationKey = "CoreScripts.InGameMenu.GameSettings.ControlsAudio",
 			}),
-			ShiftLock = Roact.createElement(AutoPropertyToggleEntry, {
+			ShiftLock = shouldSettingsDisabledInVRBeShown and Roact.createElement(AutoPropertyToggleEntry, {
 				LayoutOrder = 7,
 				labelKey = "CoreScripts.InGameMenu.GameSettings.ShiftLock",
 				instance = UserGameSettings,
@@ -115,7 +123,7 @@ function BasicPage:render()
 				offValue = Enum.ControlMode.Classic,
 				lockedToOff = not self.state.shiftLockEnabled,
 			}),
-			MovementMode = Roact.createElement(MovementModeEntry, {
+			MovementMode = shouldSettingsDisabledInVRBeShown and Roact.createElement(MovementModeEntry, {
 				LayoutOrder = 8,
 			}),
 			VolumeEntry = Roact.createElement(VolumeEntry, {
@@ -133,7 +141,7 @@ function BasicPage:render()
 			GraphicsQualityEntry = Roact.createElement(GraphicsQualityEntry, {
 				LayoutOrder = 12,
 			}),
-			FullScreen = Roact.createElement(ToggleEntry, {
+			FullScreen = shouldSettingsDisabledInVRBeShown and Roact.createElement(ToggleEntry, {
 				LayoutOrder = 13,
 				labelKey = "CoreScripts.InGameMenu.GameSettings.FullScreen",
 				checked = self.state.fullScreenEnabled,
@@ -142,12 +150,20 @@ function BasicPage:render()
 					SendAnalytics(Constants.AnalyticsSettingsChangeName, nil, {}, true)
 				end,
 			}),
-			GraphicsDivider = Roact.createElement(Divider, {
+			VRMode = FFlagInGameMenuVRToggle and self.state.vrAvailable and Roact.createElement(AutoPropertyToggleEntry, {
 				LayoutOrder = 14,
+				labelKey = "CoreScripts.InGameMenu.GameSettings.VREnabled",
+				instance = UserGameSettings,
+				key = "VREnabled",
+				subtextEnabled = self.state.vrEnabled ~= vrEnabledAtModuleLoad,
+				subtextKey = "CoreScripts.InGameMenu.GameSettings.RestartPending",
+			}),
+			GraphicsDivider = Roact.createElement(Divider, {
+				LayoutOrder = 15,
 				Size = UDim2.new(1, -24, 0, 1),
 			}),
 			AdvancedSettings = Roact.createElement("TextButton", {
-				LayoutOrder = 15,
+				LayoutOrder = 16,
 				BackgroundTransparency = 1,
 				Size = UDim2.new(1, 0, 0, 54),
 				Text = "",
@@ -175,7 +191,7 @@ function BasicPage:render()
 				}),
 			}),
 			AdvancedDivider = Roact.createElement(Divider, {
-				LayoutOrder = 16,
+				LayoutOrder = 17,
 				Size = UDim2.new(1, -24, 0, 1),
 			}),
 
@@ -203,18 +219,31 @@ function BasicPage:render()
 					})
 				end,
 			}),
+			VRAvailableListener = FFlagInGameMenuVRToggle and Roact.createElement(ExternalEventConnection, {
+				event = VRAvailableChanged,
+				callback = function()
+					self:setState({
+						vrAvailable = VRService.VREnabled
+					})
+				end,
+			}),
+			VREnabledListener = FFlagInGameMenuVRToggle and Roact.createElement(ExternalEventConnection, {
+				event = VREnabledChanged,
+				callback = function()
+					self:setState({
+						vrEnabled = UserGameSettings.VREnabled
+					})
+				end,
+			}),
 		})
 	})
 end
 
-if fflagInGameMenuSinglePaneDesign then
-	return RoactRodux.UNSTABLE_connect2(nil, function(dispatch)
-		return {
-			switchToAdvancedPage = function()
-				dispatch(SetCurrentPage(Constants.advancedSettingsPageKey))
-			end,
-		}
-	end)(BasicPage)
-else
-	return BasicPage
-end
+return RoactRodux.UNSTABLE_connect2(nil, function(dispatch)
+	return {
+		switchToAdvancedPage = function()
+			dispatch(SetCurrentPage(Constants.advancedSettingsPageKey))
+		end,
+	}
+end)(BasicPage)
+

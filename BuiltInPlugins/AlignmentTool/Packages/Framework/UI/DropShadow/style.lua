@@ -10,7 +10,7 @@ return function(theme, getColor)
 		Image = "rbxasset://textures/StudioSharedUI/dropShadow.png",
 		ImageSize = 16,
 		Offset = Vector2.new(),
-		Radius = 8,
+		Radius = 6,
 		Transparency = 0
 	})
 

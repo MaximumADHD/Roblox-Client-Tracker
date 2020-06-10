@@ -28,7 +28,6 @@ return function()
 			}, {
 				MoreActionsMenu = Roact.createElement(MoreActionsMenu, {
 					Position = UDim2.new(0.5, 0, 0.5, 0),
-					AnchorPoint = Vector2.new(0.5, 0.5),
 					Visible = true,
 					menuWidth = UDim.new(0, 150),
 					actionHeight = UDim.new(0, 150),

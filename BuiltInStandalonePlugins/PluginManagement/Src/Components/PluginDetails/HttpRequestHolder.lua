@@ -1,3 +1,5 @@
+local FFlagPluginManagementRemoveUILibrary = game:GetFastFlag("PluginManagementRemoveUILibrary")
+
 local Plugin = script.Parent.Parent.Parent.Parent
 local TextService = game:GetService("TextService")
 
@@ -5,9 +7,10 @@ local PermissionsService = game:GetService("PermissionsService")
 
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
-local UILibrary = require(Plugin.Packages.UILibrary)
+local UILibrary = require(Plugin.Packages.UILibrary) -- remove with FFlagPluginManagementRemoveUILibrary
 local FitFrame = require(Plugin.Packages.FitFrame)
 local ContextServices = require(Plugin.Packages.Framework.ContextServices)
+local UI = require(Plugin.Packages.Framework.UI)
 
 local SetPluginPermission = require(Plugin.Src.Thunks.SetPluginPermission)
 local FluidFitTextLabel = require(Plugin.Src.Components.FluidFitTextLabel)
@@ -15,9 +18,9 @@ local FluidFitTextLabel = require(Plugin.Src.Components.FluidFitTextLabel)
 local PluginAPI2 = require(Plugin.Src.ContextServices.PluginAPI2)
 
 local FitFrameVertical = FitFrame.FitFrameVertical
-local CheckBox = UILibrary.Component.CheckBox
-local Tooltip = UILibrary.Component.Tooltip
+local CheckBox = UILibrary.Component.CheckBox -- remove with FFlagPluginManagementRemoveUILibrary
 local Constants = require(Plugin.Src.Util.Constants)
+local ToggleButton = UI.ToggleButton
 
 local truncateMiddleText = require(Plugin.Src.Util.truncateMiddleText)
 
@@ -79,18 +82,51 @@ function HttpRequestHolder:didMount()
 	self.resizeFrame()
 end
 
-function HttpRequestHolder:render()
-	local localization = self.props.Localization
-	local httpPermissions = self.props.httpPermissions
-	local layoutOrder = self.props.LayoutOrder
+function HttpRequestHolder:renderCheckbox(theme, index, permission)
+	local fullUrlText = permission.data and permission.data.domain or ""
+	local urlText = self.getTruncatedText(fullUrlText, theme)
+	local isChecked = permission.allowed
 
-	local theme = self.props.Theme:get("Plugin")
+	if FFlagPluginManagementRemoveUILibrary then
+		local elem = Roact.createElement("Frame", {
+			BackgroundTransparency = 1,
+			Size = UDim2.new(1, 0, 0, CHECKBOX_WIDTH),
+			LayoutOrder = index,
+		}, {
+			Layout = Roact.createElement("UIListLayout", {
+				FillDirection = Enum.FillDirection.Horizontal,
+				Padding = UDim.new(0, 8),
+			}),
 
-	local checkboxItems = {}
-	for index, permission in pairs(httpPermissions) do
-		local fullUrlText = permission.data and permission.data.domain or ""
-		local urlText = self.getTruncatedText(fullUrlText, theme)
+			Checkbox = Roact.createElement(ToggleButton, {
+				Style = "Checkbox",
+				LayoutOrder = 1,
+				Selected = isChecked,
+				Size = UDim2.new(0, CHECKBOX_WIDTH, 0, CHECKBOX_WIDTH),
+				OnClick = function()
+					return self.onCheckboxActivated(permission)
+				end,
+			}),
 
+			TitleLabel = Roact.createElement("TextButton", {
+				Text = urlText,
+				Size = UDim2.new(1, -CHECKBOX_WIDTH, 1, 0),
+				BackgroundTransparency = 1,
+				BorderSizePixel = 0,
+				TextColor3 = theme.TextColor,
+				Font = theme.Font,
+				TextSize = 16,
+				TextXAlignment = Enum.TextXAlignment.Left,
+				TextYAlignment = Enum.TextYAlignment.Center,
+				TextTransparency = enabled and 0 or 0.5,
+
+				[Roact.Event.Activated] = function()
+					return self.onCheckboxActivated(permission)
+				end,
+			})
+		})
+		return elem
+	else
 		local elem = Roact.createElement("Frame", {
 			BackgroundTransparency = 1,
 			Size = UDim2.new(1, 0, 0, CHECKBOX_WIDTH)
@@ -103,11 +139,26 @@ function HttpRequestHolder:render()
 				TextSize = 16,
 				Title = urlText,
 				titlePadding = 8,
-				Selected = permission.allowed,
-				OnActivated = function() return self.onCheckboxActivated(permission) end,
+				Selected = isChecked,
+				OnActivated = function() 
+					return self.onCheckboxActivated(permission)
+				end,
 			}),
 		})
-		table.insert(checkboxItems, elem)
+		return elem
+	end
+end
+
+function HttpRequestHolder:render()
+	local localization = self.props.Localization
+	local httpPermissions = self.props.httpPermissions
+	local layoutOrder = self.props.LayoutOrder
+
+	local theme = self.props.Theme:get("Plugin")
+
+	local checkboxItems = {}
+	for index, permission in pairs(httpPermissions) do
+		table.insert(checkboxItems, self:renderCheckbox(theme, index, permission))
 	end
 
 	return Roact.createElement(FitFrameVertical, {

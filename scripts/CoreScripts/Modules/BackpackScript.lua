@@ -90,9 +90,10 @@ local IsTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled
 local Utility = require(RobloxGui.Modules.Settings.Utility)
 local GameTranslator = require(RobloxGui.Modules.GameTranslator)
 
-local FFlagRobloxGuiSiblingZindexs = settings():GetFFlag("RobloxGuiSiblingZindexs")
-
 local FFlagTapAwayToCloseBackpack = game:DefineFastFlag("TapAwayToCloseBackpack", false)
+local FFlagCoreScriptsNoHotKeysWhenMenuOpen = require(RobloxGui.Modules.Flags.FFlagCoreScriptsNoHotKeysWhenMenuOpen)
+
+local FFlagFixEmotesHotkeysEquipTools = game:DefineFastFlag("FixEmotesHotKeysEquipTools", false)
 
 pcall(function()
 	local LocalizationService = game:GetService("LocalizationService")
@@ -566,7 +567,11 @@ local function MakeSlot(parent, index)
 	end
 
 	-- Slot select logic, activated by clicking or pressing hotkey
-		function slot:Select()
+		function slot:Select(isProcessed)
+			if FFlagFixEmotesHotkeysEquipTools and isProcessed then
+				return
+			end
+
 			local tool = slot.Tool
 			if tool then
 				if IsEquipped(tool) then --NOTE: HopperBin
@@ -659,7 +664,13 @@ local function MakeSlot(parent, index)
 			SlotNumber.Size = UDim2.new(0.15, 0, 0.15, 0)
 			SlotNumber.Visible = false
 			SlotNumber.Parent = SlotFrame
-			HotkeyFns[ZERO_KEY_VALUE + slotNum] = slot.Select
+			if FFlagFixEmotesHotkeysEquipTools then
+				HotkeyFns[ZERO_KEY_VALUE + slotNum] = function(isProcessed)
+					slot:Select(isProcessed)
+				end
+			else
+				HotkeyFns[ZERO_KEY_VALUE + slotNum] = slot.Select
+			end
 		end
 	end
 
@@ -678,9 +689,7 @@ local function MakeSlot(parent, index)
 			SlotFrame.ZIndex = 2
 			ToolIcon.ZIndex = 2
 			ToolName.ZIndex = 2
-			if FFlagRobloxGuiSiblingZindexs then
-				SlotFrame.Parent.ZIndex = 2
-			end
+			SlotFrame.Parent.ZIndex = 2
 			if SlotNumber then
 				SlotNumber.ZIndex = 2
 			end
@@ -722,9 +731,7 @@ local function MakeSlot(parent, index)
 			SlotFrame.ZIndex = 1
 			ToolIcon.ZIndex = 1
 			ToolName.ZIndex = 1
-			if FFlagRobloxGuiSiblingZindexs then
-				startParent.ZIndex = 1
-			end
+			startParent.ZIndex = 1
 			if SlotNumber then
 				SlotNumber.ZIndex = 1
 			end
@@ -1794,7 +1801,17 @@ do -- Make the Inventory expand/collapse arrow (unless TopBar)
 		BackpackScript.IsOpen = InventoryFrame.Visible
 		BackpackScript.StateChanged:Fire(InventoryFrame.Visible)
 	end
-	HotkeyFns[ARROW_HOTKEY] = openClose
+	if FFlagCoreScriptsNoHotKeysWhenMenuOpen then
+		HotkeyFns[ARROW_HOTKEY] = function()
+			if GuiService.MenuIsOpen then
+				return
+			end
+
+			openClose()
+		end
+	else
+		HotkeyFns[ARROW_HOTKEY] = openClose
+	end
 	BackpackScript.OpenClose = openClose -- Exposed
 end
 
@@ -1864,6 +1881,14 @@ StarterGui.CoreGuiChangedSignal:connect(OnCoreGuiChanged)
 local backpackType, healthType = Enum.CoreGuiType.Backpack, Enum.CoreGuiType.Health
 OnCoreGuiChanged(backpackType, StarterGui:GetCoreGuiEnabled(backpackType))
 OnCoreGuiChanged(healthType, StarterGui:GetCoreGuiEnabled(healthType))
+
+if FFlagCoreScriptsNoHotKeysWhenMenuOpen then
+	GuiService.MenuOpened:Connect(function()
+		if BackpackScript.IsOpen then
+			BackpackScript.OpenClose()
+		end
+	end)
+end
 
 
 local BackpackStateChangedInVRConn, VRModuleOpenedConn, VRModuleClosedConn = nil, nil, nil

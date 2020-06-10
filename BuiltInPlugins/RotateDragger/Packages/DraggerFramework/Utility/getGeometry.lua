@@ -1,4 +1,3 @@
-
 local UniformScale = Vector3.new(1, 1, 1)
 
 local function getShape(part)
@@ -93,6 +92,7 @@ return function(part, hit)
 		edges = {} --edge can be selected as the normal of the face if the user needs it
 		local norm = (hit-pos).Unit
 		local norm2 = norm:Cross(Vector3.new(0,1,0)).Unit
+
 		local surfaceName
 		if math.abs(norm.X) > math.abs(norm.Y) and math.abs(norm.X) > math.abs(norm.Z) then
 			surfaceName = (norm.X > 0) and "RightSurface" or "LeftSurface"

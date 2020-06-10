@@ -1,4 +1,5 @@
 local FFlagPluginManagementPrettifyDesign = game:GetFastFlag("PluginManagementPrettifyDesign2")
+local FFlagPluginManagementRemoveUILibrary = game:GetFastFlag("PluginManagementRemoveUILibrary")
 
 local Plugin = script.Parent.Parent.Parent
 local ContextServices = require(Plugin.Packages.Framework.ContextServices)
@@ -8,6 +9,7 @@ local Theme = ContextServices.Theme
 local StyleValue = Util.StyleValue
 local StudioFrameworkStyles = StudioUI.StudioFrameworkStyles
 
+-- remove with FFlagPluginManagementRemoveUILibrary
 local UILibrary = require(Plugin.Packages.UILibrary)
 local createTheme = UILibrary.createTheme
 local StudioStyle = UILibrary.Studio.Style
@@ -84,6 +86,7 @@ local function createValues(theme, getColor)
 	}
 end
 
+-- remove with FFlagPluginManagementRemoveUILibrary
 local function getUILibraryTheme()
 	local theme = settings().Studio.Theme
 	local themeName = theme.Name
@@ -156,8 +159,11 @@ end
 
 local function makeTheme()
 	local theme = Theme.new(createValues)
-	function theme:getUILibraryTheme()
-		return getUILibraryTheme()
+
+	if not FFlagPluginManagementRemoveUILibrary then
+		function theme:getUILibraryTheme()
+			return getUILibraryTheme()
+		end
 	end
 
 	return theme

@@ -22,12 +22,16 @@ AutoPropertyToggleEntry.validateProps = t.strictInterface({
 	offValue = t.optional(t.any),
 	labelKey = t.string,
 	LayoutOrder = t.integer,
+	subtextEnabled = t.optional(t.boolean),
+	subtextKey = t.optional(t.string),
 })
 
 AutoPropertyToggleEntry.defaultProps = {
 	onValue = true,
 	offValue = false,
 	lockedToOff = false,
+	subtextEnabled = false,
+	subtextKey = "",
 }
 
 function AutoPropertyToggleEntry:init(props)
@@ -72,6 +76,8 @@ function AutoPropertyToggleEntry:render()
 			labelKey = props.labelKey,
 			LayoutOrder = props.LayoutOrder,
 			onToggled = self.onToggled,
+			subtextEnabled = props.subtextEnabled,
+			subtextKey = props.subtextKey,
 		}),
 
 		Listener = Roact.createElement(ExternalEventConnection, {

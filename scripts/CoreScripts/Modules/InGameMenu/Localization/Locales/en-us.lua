@@ -123,4 +123,11 @@ return{
 	["CoreScripts.InGameMenu.GameSettings.CameraModeCameraToggle"] = [[CameraToggle]],
 	["CoreScripts.InGameMenu.Record.StartRecording"] = [[Record Video]],
 	["CoreScripts.InGameMenu.Record.Duration"] = [[Recording - {DURATION}]],
+	["CoreScripts.InGameMenu.Prompt.LeaveGameTitle"] = [[Leave this game?]],
+	["CoreScripts.InGameMenu.Prompt.LeaveGameBodyText"] = [[If you leave game, you will lose any unsaved progress.]],
+	["CoreScripts.InGameMenu.Prompt.BackToHome"] = [[Back to Home]],
+	["CoreScripts.InGameMenu.Prompt.ResumeGame"] = [[Resume Game]],
+	["CoreScripts.InGameMenu.Prompt.LeaveGame"] = [[Leave Game]],
+	["CoreScripts.InGameMenu.GameSettings.VREnabled"] = [[VR Mode]],
+	["CoreScripts.InGameMenu.GameSettings.RestartPending"] = [[Restart pending]],
 }

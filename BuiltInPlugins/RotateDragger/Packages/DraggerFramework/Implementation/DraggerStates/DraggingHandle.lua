@@ -6,6 +6,7 @@ local SelectionHelper = require(Framework.Utility.SelectionHelper)
 local setInsertPoint = require(Framework.Utility.setInsertPoint)
 local StandardCursor = require(Framework.Utility.StandardCursor)
 
+local getFFlagAllowDragContinuation = require(Framework.Flags.getFFlagAllowDragContinuation)
 local getFFlagMinCursorChange = require(Framework.Flags.getFFlagMinCursorChange)
 local getFFlagFixDraggerCursors = require(Framework.Flags.getFFlagFixDraggerCursors)
 
@@ -43,6 +44,9 @@ function DraggingHandle:_init(draggerTool, makeDraggedPartsTransparent, dragging
     self._draggingHandleId = draggingHandleId
 
     self._draggingModifiedParts = {}
+    if getFFlagAllowDragContinuation() then
+        self._makeDraggedPartsTransparent = makeDraggedPartsTransparent
+    end
     if makeDraggedPartsTransparent then
         for _, part in ipairs(draggerTool._derivedWorldState:getObjectsToTransform()) do
             if part:IsA("BasePart") then
@@ -71,7 +75,11 @@ function DraggingHandle:render(draggerTool)
 end
 
 function DraggingHandle:processSelectionChanged(draggerTool)
+    -- Re-init the drag if the selection changes.
     self:_endHandleDrag(draggerTool)
+    if getFFlagAllowDragContinuation() then
+        self:_init(draggerTool, self._makeDraggedPartsTransparent, self._draggingHandleId)
+    end
 end
 
 function DraggingHandle:processMouseDown(draggerTool)
@@ -84,6 +92,9 @@ end
 
 function DraggingHandle:processMouseUp(draggerTool)
     self:_endHandleDrag(draggerTool)
+    if getFFlagAllowDragContinuation() then
+        draggerTool:transitionToState({}, DraggerStateType.Ready)
+    end
 end
 
 function DraggingHandle:processKeyDown(draggerTool, keyCode)
@@ -104,8 +115,10 @@ function DraggingHandle:_endHandleDrag(draggerTool)
     local cframe, offset = draggerTool._derivedWorldState:getBoundingBox()
     setInsertPoint(cframe * offset)
 
-	draggerTool:_analyticsSendHandleDragged()
-    draggerTool:transitionToState({}, DraggerStateType.Ready)
+    draggerTool:_analyticsSendHandleDragged()
+    if not getFFlagAllowDragContinuation() then
+        draggerTool:transitionToState({}, DraggerStateType.Ready)
+    end
 end
 
 return DraggingHandle

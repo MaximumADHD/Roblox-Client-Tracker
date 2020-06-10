@@ -2,6 +2,8 @@ local FFlagEnableStudioServiceOpenBrowser = game:GetFastFlag("EnableStudioServic
 local FFlagPluginManagementNewLoadingBar = game:DefineFastFlag("PluginManagementNewLoadingBar", false)
 local FFlagShowModeratedPluginInfo = game:DefineFastFlag("ShowModeratedPluginInfo", false)
 local FFlagPluginManagementPrettifyDesign = game:GetFastFlag("PluginManagementPrettifyDesign2")
+local FFlagPluginManagementRemoveUILibrary = game:GetFastFlag("PluginManagementRemoveUILibrary")
+
 local StudioService = game:getService("StudioService")
 local ContentProvider = game:getService("ContentProvider")
 local GuiService = game:getService("GuiService")
@@ -22,18 +24,20 @@ local FlagsList = Flags.new({
 })
 
 local Constants = require(Plugin.Src.Util.Constants)
-local UILibrary = require(Plugin.Packages.UILibrary)
+local UILibrary = require(Plugin.Packages.UILibrary) -- remove with FFlagPluginManagementRemoveUILibrary
 local UpdateStatus = require(Plugin.Src.Util.UpdateStatus)
+local UI = require(Plugin.Packages.Framework.UI)
 local ContextServices = require(Plugin.Packages.Framework.ContextServices)
 local PluginAPI2 = require(Plugin.Src.ContextServices.PluginAPI2)
 local Navigation = require(Plugin.Src.ContextServices.Navigation)
 local SetPluginEnabledState = require(Plugin.Src.Thunks.SetPluginEnabledState)
 local UpdatePlugin = require(Plugin.Src.Thunks.UpdatePlugin)
-local Button = UILibrary.Component.Button
-
+local Button = UILibrary.Component.Button -- remove with FFlagPluginManagementRemoveUILibrary
+local FrameworkButton = UI.Button
+local FrameworkLabel = UI.Decoration.TextLabel
+local DropdownMenu = UI.DropdownMenu
 local RemovePluginData = require(Plugin.Src.Actions.RemovePluginData)
-
-local MoreDropdown = require(Plugin.Src.Components.MoreDropdown)
+local MoreDropdown = require(Plugin.Src.Components.MoreDropdown) -- remove with FFlagPluginManagementRemoveUILibrary
 local HttpRequestOverview = require(Plugin.Src.Components.HttpRequestOverview)
 
 local LoadingBar
@@ -47,13 +51,13 @@ end
 local LOADING_BAR_SIZE = UDim2.new(0, 120, 0, 8)
 local LOADING_BAR_TIME = 0.5
 
-local PluginEntry = Roact.Component:extend("PluginEntry")
-
 local function getTextHeight(text, fontSize, font, widthCap)
 	return TextService:GetTextSize(text, fontSize, font, Vector2.new(widthCap, 10000)).Y
 end
 -- TODO: Add theme font values into here instead
 local ONE_LINE_TEXT_HEIGHT = getTextHeight("a", 16, Enum.Font.SourceSans, 9999)
+
+local PluginEntry = Roact.Component:extend("PluginEntry")
 
 function PluginEntry:init()
 	self.state = {
@@ -63,6 +67,7 @@ function PluginEntry:init()
 
 	self.getMoreItems = function()
 		local localization = self.props.Localization
+
 		return {
 			{Key = "Details", Text = localization:getText("EntrySeeMore", "DetailsButton")},
 			{Key = "Remove", Text = localization:getText("EntrySeeMore", "RemoveButton")},
@@ -114,6 +119,7 @@ function PluginEntry:init()
 
 	self.moreItemClicked = function(item)
 		self.hideShowMore()
+
 		if item.Key == "Details" then
 			self.showDetails()
 		elseif item.Key == "Remove" then
@@ -291,7 +297,7 @@ function PluginEntry:render()
 			Text = localization:getText("Entry", "ModeratedWarning"),
 		}),
 
-		UpdateButton = showUpdateButton and Roact.createElement(Button, {
+		UpdateButtonOLD = (not FFlagPluginManagementRemoveUILibrary and showUpdateButton) and Roact.createElement(Button, {
 			AnchorPoint = Vector2.new(1, 0.5),
 			Size = UDim2.new(0, Constants.HEADER_UPDATE_WIDTH, 0, Constants.HEADER_BUTTON_SIZE),
 			Position = buttonPosition,
@@ -335,6 +341,46 @@ function PluginEntry:render()
 			end,
 		}),
 
+		UpdateButton = (FFlagPluginManagementRemoveUILibrary and showUpdateButton) and Roact.createElement(FrameworkButton, {
+			AnchorPoint = Vector2.new(1, 0.5),
+			Size = UDim2.new(0, Constants.HEADER_UPDATE_WIDTH, 0, Constants.HEADER_BUTTON_SIZE),
+			Position = buttonPosition,
+			Style = "Round",
+			OnClick = self.updatePlugin,
+		}, {
+			Label = Roact.createElement("TextLabel", {
+				Size = UDim2.new(1, 0, 1, 0),
+				Text = localization:getText("Entry", "UpdateButton"),
+				TextColor3 = theme.TextColor,
+				Font = Enum.Font.SourceSans,
+				TextSize = 18,
+				BackgroundTransparency = 1,
+			}),
+
+			DateLabel = updateStatus ~= UpdateStatus.Error and Roact.createElement("TextLabel", {
+				BackgroundTransparency = 1,
+				Size = UDim2.new(1, 0, 0, 14),
+				Position = UDim2.new(0, 0, 1, 3),
+				TextSize = 14,
+				Font = Enum.Font.SourceSans,
+				TextColor3 = theme.TextColor,
+				TextTransparency = FFlagPluginManagementPrettifyDesign and 0 or 0.6,
+				Text = localization:getText("Entry", "LastUpdatedDate", {
+					date = data.updated,
+				}),
+			}),
+
+			ErrorLabel = updateStatus == UpdateStatus.Error and Roact.createElement("TextLabel", {
+				BackgroundTransparency = 1,
+				Size = UDim2.new(1, 0, 0, 14),
+				Position = UDim2.new(0, 0, 1, 3),
+				TextSize = 14,
+				Font = Enum.Font.SourceSans,
+				TextColor3 = theme.ErrorColor,
+				Text = localization:getText("Entry", "UpdateError"),
+			}),
+		}),
+
 		ProgressIndicator = not isUpdated and updateStatus == UpdateStatus.Updating
 			and Roact.createElement(LoadingBar, {
 			AnchorPoint = Vector2.new(1, 0.5),
@@ -357,7 +403,7 @@ function PluginEntry:render()
 			Text = localization:getText("Entry", "UpdateSuccess"),
 		}),
 
-		-- TODO: Refactor this into UILibrary ToggleButton
+		-- TODO: Refactor this into DevFramework's ToggleButton
 		EnableButton = not enabled and Roact.createElement("ImageButton", {
 			AnchorPoint = Vector2.new(0, 0.5),
 			Size = UDim2.new(0, Constants.PLUGIN_ENABLE_WIDTH, 0, 24),
@@ -379,7 +425,7 @@ function PluginEntry:render()
 			[Roact.Event.Activated] = self.onPluginDisabled,
 		}),
 
-		ShowMoreButton = Roact.createElement(Button, {
+		ShowMoreButtonOLD = (not FFlagPluginManagementRemoveUILibrary) and Roact.createElement(Button, {
 			AnchorPoint = Vector2.new(0, 0.5),
 			Size = UDim2.new(0, Constants.HEADER_BUTTON_SIZE, 0, Constants.HEADER_BUTTON_SIZE),
 			Position = UDim2.new(1,Constants.PLUGIN_HORIZONTAL_PADDING*-1 - Constants.PLUGIN_CONTEXT_WIDTH,.5,0),
@@ -407,6 +453,53 @@ function PluginEntry:render()
 					}),
 				}
 			end,
+		}),
+
+		ShowMoreButton = FFlagPluginManagementRemoveUILibrary and Roact.createElement(FrameworkButton, {
+			AnchorPoint = Vector2.new(0, 0.5),
+			Size = UDim2.new(0, Constants.HEADER_BUTTON_SIZE, 0, Constants.HEADER_BUTTON_SIZE),
+			Position = UDim2.new(1, -1 * (Constants.PLUGIN_HORIZONTAL_PADDING + Constants.PLUGIN_CONTEXT_WIDTH),.5,0),
+			Style = "Round",
+			OnClick = self.onShowMoreActivated,
+		}, {
+			Dots = Roact.createElement("TextLabel", {
+				AnchorPoint = Vector2.new(0.5, 0.5),
+				Position = UDim2.new(0.5, 0, 0.5, -4),
+				Size = UDim2.new(0, 16, 0, 16),
+
+				Text = "...",
+				TextColor3 = theme.TextColor,
+				Font = Enum.Font.SourceSansBold,
+				TextSize = 18,
+				BackgroundTransparency = 1,
+			}),
+
+			Dropdown = Roact.createElement(DropdownMenu, {
+				ShouldShow = showMore,
+				Size = UDim2.fromOffset(90, (40 * #self.getMoreItems())), -- TO DO (DEVTOOLS-4448): Render based on maximum string width
+				Items = self.getMoreItems(),
+
+				OnRenderItem = function(item, index, activated)
+					return Roact.createElement(FrameworkButton, {
+						Size = UDim2.new(1, 0, 0, 40),
+						LayoutOrder = index,
+						OnClick = activated,
+					}, {
+						Label = Roact.createElement(FrameworkLabel, {
+							Size = UDim2.new(1, 0, 1, 0),
+							TextSize = 18,
+							Text = item.Text,
+							TextXAlignment = Enum.TextXAlignment.Left,
+						},{
+							Padding = Roact.createElement("UIPadding", {
+								PaddingLeft = UDim.new(0, 10),
+							}),
+						}),
+					})
+				end,
+				OnItemActivated = self.moreItemClicked,
+				OnFocusLost = self.hideShowMore,
+			})
 		}),
 	})
 end

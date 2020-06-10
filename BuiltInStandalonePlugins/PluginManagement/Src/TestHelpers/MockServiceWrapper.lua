@@ -1,17 +1,29 @@
 --[[
 	A customizable wrapper for tests that supplies all the required providers for component testing
 ]]
+local FFlagPluginManagementRemoveUILibrary = game:GetFastFlag("PluginManagementRemoveUILibrary")
+-- remove with FFlagPluginManagementRemoveUILibrary
+if FFlagPluginManagementRemoveUILibrary then
+	assert("You shouldn't be using this anymore!")
+end
+
 local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
 local Rodux = require(Plugin.Packages.Rodux)
-local UILibrary = require(Plugin.Packages.UILibrary)
+local UILibrary = require(Plugin.Packages.UILibrary) -- remove with FFlagPluginManagementRemoveUILibrary
 local Http = require(Plugin.Packages.Http)
 local TestHelpers = require(Plugin.Packages.TestHelpers)
 local ServiceWrapper = require(Plugin.Src.Components.ServiceWrapper)
 local PluginTheme = require(Plugin.Src.Resources.PluginTheme)
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
-local Localization = UILibrary.Studio.Localization
+
+local Localization
+if FFlagPluginManagementRemoveUILibrary then
+	Localization = require(Plugin.Packages.Framework.ContextServices).Localization
+else
+	Localization = UILibrary.Studio.Localization
+end
 
 local MockServiceWrapper = Roact.Component:extend("MockSkeletonEditorServiceWrapper")
 

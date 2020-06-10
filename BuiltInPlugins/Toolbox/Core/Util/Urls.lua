@@ -13,7 +13,8 @@ local GET_ASSETS = Url.BASE_URL .. "IDE/Toolbox/Items?"
 local GET_ASSETS_DEVELOPER = Url.DEVELOP_URL .. "v1/toolbox/items?"
 local GET_ASSETS_CREATIONS = Url.ITEM_CONFIGURATION_URL .. "v1/creations/get-assets?"
 local GET_ASSETS_CREATION_DETAILS = Url.ITEM_CONFIGURATION_URL .. "v1/creations/get-asset-details"
-local GET_CREATOR_NAME = Url.API_URL .. "users/%d"
+local GET_USER = Url.API_URL .. "users/%d"
+local GET_GROUP = Url.API_URL .. "groups/%d"
 local GET_METADATA = Url.ITEM_CONFIGURATION_URL .. "v1/metadata"
 local GET_UPLOAD_CATALOG_ITEM = Url.PUBLISH_URL .. "v1/assets/upload"
 local POST_UPLOAD_ASSET_THUMBNAIL =  Url.PUBLISH_URL .. "v1/assets/%d/thumbnail"
@@ -153,8 +154,22 @@ function Urls.constructGetAssetCreationDetailsUrl()
 	return GET_ASSETS_CREATION_DETAILS
 end
 
-function Urls.constructGetCreatorNameUrl(creatorId)
-	return GET_CREATOR_NAME:format(creatorId)
+
+function Urls.constructGetCreatorInfoUrl(creatorId, creatorType)
+	assert(type(creatorId) == "number")
+
+	if creatorType == Enum.CreatorType.Group.Value then
+		return GET_GROUP:format(creatorId)
+	elseif creatorType == Enum.CreatorType.User.Value then
+		return GET_USER:format(creatorId)
+	else
+		error(("Unknown creatorType '%s'"):format(creatorType))
+	end
+end
+
+-- TODO: Delete when FFlagStudioFixGroupCreatorInfo is retired
+function Urls.constructGetCreatorNameUrl(creatorId, creatorType)
+	return GET_USER:format(creatorId)
 end
 
 function Urls.constructGetMetaDataUrl()

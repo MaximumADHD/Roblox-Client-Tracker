@@ -7,6 +7,7 @@
 local FFlagToolboxShowGroupCreations = game:GetFastFlag("ToolboxShowGroupCreations")
 local FFlagEnableOverrideAssetGroupCreationApi = game:GetFastFlag("EnableOverrideAssetGroupCreationApi")
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
+local FFlagStudioFixGroupCreatorInfo = game:GetFastFlag("StudioFixGroupCreatorInfo")
 
 local Plugin = script.Parent.Parent.Parent
 local Networking = require(Plugin.Libs.Http.Networking)
@@ -217,13 +218,24 @@ function NetworkInterface:getAssetCreationDetails(assetIds)
 	end)
 end
 
-function NetworkInterface:getCreatorName(creatorId)
-	local targetUrl = Urls.constructGetCreatorNameUrl(creatorId)
+if FFlagStudioFixGroupCreatorInfo then
+	function NetworkInterface:getCreatorInfo(creatorId, creatorType)
+		local targetUrl = Urls.constructGetCreatorInfoUrl(creatorId, creatorType)
 
-	return sendRequestAndRetry(function()
-		printUrl("getCreatorName", "GET", targetUrl)
-		return self._networkImp:httpGetJson(targetUrl)
-	end)
+		return sendRequestAndRetry(function()
+			printUrl("getCreatorInfo", "GET", targetUrl)
+			return self._networkImp:httpGetJson(targetUrl)
+		end)
+	end
+else
+	function NetworkInterface:getCreatorName(creatorId)
+		local targetUrl = Urls.constructGetCreatorNameUrl(creatorId)
+
+		return sendRequestAndRetry(function()
+			printUrl("getCreatorName", "GET", targetUrl)
+			return self._networkImp:httpGetJson(targetUrl)
+		end)
+	end
 end
 
 function NetworkInterface:getMetaData()

@@ -2,7 +2,7 @@
 	Reducer for game owner metadata
 ]]
 
-local Plugin = script.Parent.Parent.Parent.Parent.Parent.Parent
+local Plugin = script.Parent.Parent.Parent
 local Cryo = require(Plugin.Cryo)
 local Rodux = require(Plugin.Rodux)
 

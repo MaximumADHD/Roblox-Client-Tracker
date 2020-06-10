@@ -42,19 +42,37 @@ local LayoutOrderIterator = require(Framework.Util.LayoutOrderIterator)
 
 local ContextServices = require(Plugin.Framework.ContextServices)
 
+local UILibrary = require(Plugin.UILibrary)
+local GetTextSize = UILibrary.Util.GetTextSize
 local RadioButtonSet = require(Plugin.Src.Components.RadioButtonSet)
 local RobuxFeeBase = require(Plugin.Src.Components.RobuxFeeBase)
+local TitledFrame = UILibrary.Component.TitledFrame
+local ToggleButton = UILibrary.Component.ToggleButton
 
-local PaidAccess = Roact.PureComponent:extend("PaidAccess")
+local VIPServers = Roact.PureComponent:extend("VIPServers")
 
-function PaidAccess:render()
+local FFlagSupportFreePrivateServers = game:GetFastFlag("SupportFreePrivateServers")
+local FFlagVIPServersRebrandToPrivateServers = game:GetFastFlag("VIPServersRebrandToPrivateServers")
+
+function VIPServers:init()
+    self.lastNonFreePrice = 10
+end
+
+function VIPServers:render()
     local props = self.props
     local localization = props.Localization
     local theme = props.Theme:get("Plugin")
+    local mouse = props.Mouse
 
     local layoutIndex = LayoutOrderIterator.new()
 
-    local title = localization:getText("Monetization", "TitleVIPServers")
+    local title
+    if FFlagVIPServersRebrandToPrivateServers then
+        title = localization:getText("Monetization", "PrivateServersTitle")
+    else
+        title  = localization:getText("Monetization", "TitleVIPServers")
+    end
+    local priceTitle = localization:getText("Monetization", "PriceTitle")
 
     local layoutOrder = props.LayoutOrder
     local vipServersData = props.VIPServersData and props.VIPServersData or {}
@@ -68,6 +86,12 @@ function PaidAccess:render()
     local price =  vipServersData.price and vipServersData.price or 0
     local serversCount = vipServersData.activeServersCount and vipServersData.activeServersCount or 0
     local subsCount = vipServersData.activeSubscriptionsCount and vipServersData.activeSubscriptionsCount or 0
+    local hasPriceChanged = vipServersData.changed
+    local isFree = FFlagSupportFreePrivateServers and price == 0 or false
+
+    if not isFree then
+        self.lastNonFreePrice = price
+    end
 
     local onVipServersToggled = props.OnVipServersToggled
     local onVipServersPriceChanged = props.OnVipServersPriceChanged
@@ -79,17 +103,50 @@ function PaidAccess:render()
     local transparency = enabled and theme.robuxFeeBase.transparency.enabled or theme.robuxFeeBase.transparency.disabled
 
     local subText
+    local toggleSubText
     local priceError = props.PriceError
-    if enabled and priceError then
-        subText = priceError
-    elseif not enabled then
-        subText = localization:getText("Monetization", "VIPServersHint")
+
+    if FFlagVIPServersRebrandToPrivateServers then
+        if enabled and priceError then
+            subText = priceError
+        elseif hasPriceChanged then
+            subText = localization:getText("Monetization", "PrivateServersPriceChangeWarning")
+        end
+
+        toggleSubText = localization:getText("Monetization", "PrivateServersHint")
+        if hasPriceChanged then
+            toggleSubText = localization:getText("Monetization", "PrivateServersPriceChangeWarning")
+        end
+    else
+        if enabled and priceError then
+            subText = priceError
+        elseif hasPriceChanged then
+            subText = localization:getText("Monetization", "VIPServersPriceChangeWarning")
+        end
+
+        toggleSubText = localization:getText("Monetization", "DEPRECATED_VIPServersHint")
+        if hasPriceChanged then
+            toggleSubText = localization:getText("Monetization", "VIPServersPriceChangeWarning")
+        end
     end
+
+    local toggleSubTextSize = GetTextSize(toggleSubText, theme.fontStyle.Subtext.TextSize, theme.fontStyle.Subtext.Font,
+        Vector2.new(theme.robuxFeeBase.subText.width, math.huge))
+
+    local maxToggleHeight = theme.toggleButton.height + (not selected and toggleSubTextSize.Y or (2 * theme.rowHeight))
+    local maxPriceConfigHeight = subText and theme.robuxFeeBase.height.withSubText or theme.robuxFeeBase.height.withoutSubText
+
+    local showToggleSubText = not selected or (not selected and hasPriceChanged)
+    local toggleSubTextTheme = (not selected and hasPriceChanged) and theme.fontStyle.SmallError or theme.fontStyle.Subtext
 
     local buttons = {
         {
             Id = true,
-            Title = localization:getText("General", "SettingOn"),
+            Title = localization:getText("Monetization", "Free"),
+        },
+        {
+            Id = false,
+            Title = localization:getText("Monetization", "Paid"),
             Children = {
                 RobuxFeeBase = Roact.createElement(RobuxFeeBase, {
                     Price = price,
@@ -97,57 +154,15 @@ function PaidAccess:render()
                     MinimumFee = minimumFee,
                     SubText = subText,
 
-                    Enabled = selected,
+                    Enabled = not isFree,
 
                     OnPriceChanged = onVipServersPriceChanged,
+                    HasPriceChanged = hasPriceChanged,
 
                     LayoutOrder = layoutIndex:getNextOrder(),
-                }),
-                SubscriptionsAndTotalFrame = Roact.createElement(FitFrameOnAxis, {
-                    axis = FitFrameOnAxis.Axis.Vertical,
-                    minimumSize = UDim2.new(1, 0, 0, 0),
-                    FillDirection = Enum.FillDirection.Vertical,
-                    BackgroundTransparency = 1,
-
-                    LayoutOrder = layoutIndex:getNextOrder(),
-                }, {
-                    Subscriptions = Roact.createElement("TextLabel", {
-                        Font = theme.fontStyle.Normal.Font,
-                        TextSize = theme.fontStyle.Normal.TextSize,
-                        TextColor3 = selected and theme.fontStyle.Normal.TextColor3 or theme.fontStyle.Subtext.TextColor3,
-
-                        Text = subscriptionsText,
-                        Size = UDim2.new(1, 0, 0, theme.rowHeight),
-                        BackgroundTransparency = 1,
-
-                        TextXAlignment = Enum.TextXAlignment.Left,
-                        TextYAlignment = Enum.TextYAlignment.Center,
-                        TextTransparency = transparency,
-
-                        LayoutOrder = 1,
-                    }),
-
-                    TotalVIPServers = Roact.createElement("TextLabel", {
-                        Font = theme.fontStyle.Normal.Font,
-                        TextSize = theme.fontStyle.Normal.TextSize,
-                        TextColor3 = selected and theme.fontStyle.Normal.TextColor3 or theme.fontStyle.Subtext.TextColor3,
-                        Text = totalVIPServersText,
-                        Size = UDim2.new(1, 0, 0, theme.rowHeight),
-                        BackgroundTransparency = 1,
-
-                        TextXAlignment = Enum.TextXAlignment.Left,
-                        TextYAlignment = Enum.TextYAlignment.Center,
-                        TextTransparency = transparency,
-
-                        LayoutOrder = 2,
-                    }),
                 }),
             }
-        },
-        {
-            Id = false,
-            Title = localization:getText("General", "SettingOff"),
-        },
+        }
     }
 
     return Roact.createElement(FitFrameOnAxis, {
@@ -157,21 +172,123 @@ function PaidAccess:render()
 
         LayoutOrder = layoutOrder,
     }, {
-        OnOffToggle = Roact.createElement(RadioButtonSet, {
-            Title = title,
+		ToggleAndSubscriptionsAndTotal = Roact.createElement(TitledFrame, {
+			Title = title,
+            TextSize = theme.fontStyle.Title.TextSize,
+
+            MaxHeight = maxToggleHeight,
+
+            LayoutOrder = 1,
+		}, {
+            UIListLayout = Roact.createElement("UIListLayout", {
+				SortOrder = Enum.SortOrder.LayoutOrder,
+				FillDirection = Enum.FillDirection.Vertical,
+            }),
+
+            ToggleButton = Roact.createElement(ToggleButton, {
+                Enabled = enabled,
+                IsOn = selected,
+                Mouse = mouse:get(),
+
+                onToggle = function(value)
+                    if enabled then
+                        onVipServersToggled(value)
+                    end
+                end,
+
+                LayoutOrder = 1,
+            }),
+
+            SubText = showToggleSubText and Roact.createElement("TextLabel", Cryo.Dictionary.join(toggleSubTextTheme, {
+                Size = UDim2.new(0, math.ceil(toggleSubTextSize.X), 0, toggleSubTextSize.Y),
+
+                BackgroundTransparency = 1,
+
+                Text = toggleSubText,
+
+                TextYAlignment = Enum.TextYAlignment.Center,
+                TextXAlignment = Enum.TextXAlignment.Left,
+
+                TextWrapped = true,
+
+                LayoutOrder = 2,
+            })),
+
+            Subscriptions = selected and Roact.createElement("TextLabel", {
+                Font = theme.fontStyle.Normal.Font,
+                TextSize = theme.fontStyle.Normal.TextSize,
+                TextColor3 = selected and theme.fontStyle.Normal.TextColor3 or theme.fontStyle.Subtext.TextColor3,
+
+                Text = subscriptionsText,
+                Size = UDim2.new(1, 0, 0, theme.rowHeight),
+                BackgroundTransparency = 1,
+
+                TextXAlignment = Enum.TextXAlignment.Left,
+                TextYAlignment = Enum.TextYAlignment.Center,
+                TextTransparency = transparency,
+
+                LayoutOrder = 2,
+            }),
+
+            TotalVIPServers = selected and Roact.createElement("TextLabel", {
+                Font = theme.fontStyle.Normal.Font,
+                TextSize = theme.fontStyle.Normal.TextSize,
+                TextColor3 = selected and theme.fontStyle.Normal.TextColor3 or theme.fontStyle.Subtext.TextColor3,
+                Text = totalVIPServersText,
+                Size = UDim2.new(1, 0, 0, theme.rowHeight),
+                BackgroundTransparency = 1,
+
+                TextXAlignment = Enum.TextXAlignment.Left,
+                TextYAlignment = Enum.TextYAlignment.Center,
+                TextTransparency = transparency,
+
+                LayoutOrder = 3,
+            }),
+        }),
+        PriceConfig = FFlagSupportFreePrivateServers and selected and Roact.createElement(RadioButtonSet, {
+            Title = priceTitle,
 
             Buttons = buttons,
 
-            Enabled = enabled,
-            Selected = selected,
-            SelectionChanged = onVipServersToggled,
+            Enabled = selected,
+            Selected = isFree,
+            SelectionChanged = function(button)
+                if button.Id then
+                    onVipServersPriceChanged(0)
+                else
+                    onVipServersPriceChanged(self.lastNonFreePrice)
+                end
+            end,
+
+            LayoutOrder = 2,
+        }),
+        PriceConfigPaidOnly = not FFlagSupportFreePrivateServers and selected and Roact.createElement(TitledFrame, {
+            Title = priceTitle,
+
+            MaxHeight = maxPriceConfigHeight,
+
+            TextSize = theme.fontStyle.Title.TextSize,
+            LayoutOrder = 2,
+        },{
+            RobuxFeeBase = Roact.createElement(RobuxFeeBase, {
+                Price = price,
+                TaxRate = taxRate,
+                MinimumFee = minimumFee,
+                SubText = subText,
+
+                Enabled = not isFree,
+
+                OnPriceChanged = onVipServersPriceChanged,
+                HasPriceChanged = hasPriceChanged,
+            }),
         })
     })
 end
 
-ContextServices.mapToProps(PaidAccess, {
+ContextServices.mapToProps(VIPServers, {
     Localization = ContextServices.Localization,
     Theme = ContextServices.Theme,
+    Mouse = ContextServices.Mouse,
 })
 
-return PaidAccess
+return VIPServers

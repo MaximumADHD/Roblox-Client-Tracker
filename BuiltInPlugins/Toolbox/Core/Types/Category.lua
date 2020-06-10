@@ -397,7 +397,7 @@ if FFlagUseCategoryNameInToolbox then
 
 	function Category.categoryIsPlugin(categoryName)
 		local category = Category.getCategoryByName(categoryName)
-		return category == Category.AssetType.PLUGIN
+		return category.assetType == Category.AssetType.PLUGIN
 	end
 
 	function Category.shouldShowPrices(categoryName)

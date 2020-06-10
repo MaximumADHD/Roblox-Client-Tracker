@@ -36,6 +36,7 @@ function FrameworkStyles.new()
 		Separator = newDefaults(),
 		TextLabel = newDefaults(),
 		ToggleButton = newDefaults(),
+		Tooltip = newDefaults(),
 		TextInput = newDefaults(),
 
 		-- StudioUI Styles

@@ -8,13 +8,13 @@
 		boolean ShouldShow: a toggle that shows the menu when true.
 		table Items: An array of each item that should appear in the dropdown.
 		UDim2 Size: The size of the window to render elements into.
-		callback OnRenderItem: A function used to render a dropdown item.
 		callback OnItemActivated: A callback for when the user selects a dropdown entry.
 		callback OnFocusLost: A callback for when the user clicks away from the dropdown without selecting an item.
 		Theme Theme: a Theme object supplied by mapToProps()
 		Focus Focus: a Focus object supplied by mapToProps()
 
 	Optional Props:
+		callback OnRenderItem: A function used to render a dropdown item.
 		integer ScrollBarThickness: The horizontal width of the scrollbar.
 		boolean ShowBorder: Whether to show a border around the elements in the dropdown.
 		Vector2 Offset: An offset from the button which is hosting this dropdown.
@@ -32,6 +32,8 @@ local UI = Framework.UI
 local Container = require(UI.Container)
 local CaptureFocus = require(UI.CaptureFocus)
 local ScrollingFrame = require(UI.ScrollingFrame)
+local Button = require(UI.Button)
+local TextLabel = require(UI.TextLabel)
 
 
 local DropdownMenu = Roact.PureComponent:extend("DropdownMenu")
@@ -151,7 +153,23 @@ function DropdownMenu:render()
 	local pluginGui = props.Focus:getTarget()
 
 	local items = props.Items
-	local onRenderItem = prioritize(props.OnRenderItem, style.OnRenderItem)
+	local onRenderItem = prioritize(props.OnRenderItem, style.OnRenderItem, function(item, index, activated)
+		return Roact.createElement(Button, {
+			Size = UDim2.new(1, 0, 0, 40),
+			LayoutOrder = index,
+			OnClick = activated,
+		}, {
+			Label = Roact.createElement(TextLabel, {
+				Size = UDim2.new(1, 0, 1, 0),
+				Text = item,
+			}, {
+				Padding = Roact.createElement("UIPadding", {
+					PaddingLeft = UDim.new(0, 10),
+				}),
+			})
+		})
+	end)
+
 	local onFocusLost = props.OnFocusLost
 	local onItemActivated = props.OnItemActivated
 	local shouldShow = props.ShouldShow
@@ -202,7 +220,7 @@ function DropdownMenu:render()
 				Visible = canRender,
 				Position = UDim2.fromOffset(x, y),
 				Size = UDim2.fromOffset(width, height),
-				ZIndex = 3,				
+				ZIndex = 3,
 			}, {
 				Border = showBorder and Roact.createElement("ImageLabel", {
 					Size = UDim2.fromScale(1, 1),

@@ -6,8 +6,12 @@
 
 	NOTE - because this object creates an object with global state, it is inherently untestable.
 ]]
+local FFlagPluginManagementRemoveUILibrary = game:GetFastFlag("PluginManagementRemoveUILibrary")
+
 local Plugin = script.Parent.Parent.Parent
-local UILibrary = require(Plugin.Packages.UILibrary)
+local Framework = Plugin.Packages.Framework
+local ContextServices = require(Framework.ContextServices)
+local UILibrary = require(Plugin.Packages.UILibrary) -- remove with FFlagPluginManagementRemoveUILibrary
 
 -- data
 local Rodux = require(Plugin.Packages.Rodux)
@@ -15,13 +19,25 @@ local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 local dataStore = Rodux.Store.new(MainReducer, nil, { Rodux.thunkMiddleware })
 
 -- theme
-local PluginTheme = require(Plugin.Src.Resources.PluginTheme)
-local theme = PluginTheme.new()
+local theme
+if FFlagPluginManagementRemoveUILibrary then
+	local makeTheme =  require(Plugin.Src.Resources.makeTheme)
+	theme = makeTheme()
+else
+	local PluginTheme = require(Plugin.Src.Resources.PluginTheme)
+	theme = PluginTheme.new()
+end
 
 -- localization
 local TranslationDevelopmentTable = Plugin.Src.Resources.TranslationDevelopmentTable
 local TranslationReferenceTable = Plugin.Src.Resources.TranslationReferenceTable
-local Localization = UILibrary.Studio.Localization
+
+local Localization
+if FFlagPluginManagementRemoveUILibrary then
+	Localization = ContextServices.Localization
+else
+	Localization = UILibrary.Studio.Localization
+end
 local localization = Localization.new({
 	stringResourceTable = TranslationDevelopmentTable,
 	translationResourceTable = TranslationReferenceTable,
@@ -29,6 +45,8 @@ local localization = Localization.new({
 })
 
 -- networking
+-- TO DO : Replace with DevFramework's versions of these libraries 
+-- (https://jira.rbx.com/browse/DEVTOOLS-4441)
 local Http = require(Plugin.Packages.Http)
 local api = Http.API.new({
 	networking = Http.Networking.new({

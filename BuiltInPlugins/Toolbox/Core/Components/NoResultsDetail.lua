@@ -26,7 +26,7 @@ function NoResultsDetail:init()
 		local sizeX = frame.AbsoluteSize.x
 
 		self:setState({
-			maxChildWidth = sizeX
+			maxChildWidth = sizeX,
 		})
 	end
 end
@@ -43,7 +43,7 @@ function NoResultsDetail:render()
 			TextLine2 = t.string,
 			LinkText = t.string,
 		}),
-		onLinkClicked = t.callback
+		onLinkClicked = t.callback,
 	})(props))
 
 	return withTheme(function(theme)
@@ -71,7 +71,7 @@ function NoResultsDetail:render()
 			linkPlaceholder = LINK_PLACEHOLDER,
 			linkText = content.LinkText,
 			onLinkClicked = props.onLinkClicked,
-			maxWidth = self.state.maxChildWidth
+			maxWidth = self.state.maxChildWidth,
 		}
 
 		return Roact.createElement("Frame", {
@@ -81,7 +81,7 @@ function NoResultsDetail:render()
 			ZIndex = zindex,
 			Visible = visible,
 			[Roact.Ref] = self.frameRef,
-			[Roact.Change.AbsoluteSize] = self.updateSize
+			[Roact.Change.AbsoluteSize] = self.updateSize,
 		}, {
 			Layout = Roact.createElement("UIListLayout", {
 				SortOrder = Enum.SortOrder.LayoutOrder,
@@ -90,9 +90,11 @@ function NoResultsDetail:render()
 			}),
 			TextLine1 = Roact.createElement(TextWithInlineLink, Cryo.Dictionary.join({
 				text = content.TextLine1,
+				LayoutOrder = 1,
 			}, textWithInlineLinkProps)),
 			TextLine2 = Roact.createElement(TextWithInlineLink, Cryo.Dictionary.join({
 				text = content.TextLine2,
+				LayoutOrder = 2,
 			}, textWithInlineLinkProps))
 		})
 	end)

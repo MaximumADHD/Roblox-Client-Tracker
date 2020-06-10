@@ -1,5 +1,7 @@
 local CorePackages = game:GetService("CorePackages")
 local ContextActionService = game:GetService("ContextActionService")
+local GuiService = game:GetService("GuiService")
+local CoreGui = game:GetService("CoreGui")
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
@@ -10,6 +12,9 @@ local PlayerList = Components.Parent
 local TOGGLE_CONTEXT_ACTION_NAME = "RbxPlayerListToggle"
 local GAMEPAD_CLOSE_CONTEXT_ACTION_NAME = "RbxPlayerListGamepadClose"
 local GAMEPAD_STOP_MOVEMENT_ACTION_NAME = "RbxPlayerListStopMovement"
+
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local FFlagCoreScriptsNoHotKeysWhenMenuOpen = require(RobloxGui.Modules.Flags.FFlagCoreScriptsNoHotKeysWhenMenuOpen)
 
 local SetPlayerListVisibility = require(PlayerList.Actions.SetPlayerListVisibility)
 
@@ -34,10 +39,20 @@ function ContextActionsBinder:bindActions()
 	ContextActionService:BindCoreAction(
 		TOGGLE_CONTEXT_ACTION_NAME,
 		function(actionName, inputState, inputObject)
+			if FFlagCoreScriptsNoHotKeysWhenMenuOpen then
+				if GuiService.MenuIsOpen then
+					return Enum.ContextActionResult.Pass
+				end
+			end
+
 			if inputState ~= Enum.UserInputState.Begin then
+				if FFlagCoreScriptsNoHotKeysWhenMenuOpen then
+					return Enum.ContextActionResult.Pass
+				end
 				return
 			end
 			self.props.setVisibility(not self.props.displayOptions.isVisible)
+			return Enum.ContextActionResult.Sink
 		end,
 		false,
 		Enum.KeyCode.Tab

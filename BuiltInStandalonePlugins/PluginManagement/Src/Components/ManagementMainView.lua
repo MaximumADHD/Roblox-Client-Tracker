@@ -1,31 +1,7 @@
 --[[
 	The main view inside the window that appears when you click on Manage Plugins.
 ]]
-
-local StudioService = game:GetService("StudioService")
-local GuiService = game:GetService("GuiService")
-local MarketplaceService = game:GetService("MarketplaceService")
-
-local PermissionsService = game:GetService("PermissionsService")
-
 local Plugin = script.Parent.Parent.Parent
-local Roact = require(Plugin.Packages.Roact)
-local RoactRodux = require(Plugin.Packages.RoactRodux)
-local UILibrary = require(Plugin.Packages.UILibrary)
-
-local PluginHolder = require(Plugin.Src.Components.PluginHolder)
-
-local GetAllPluginPermissions = require(Plugin.Src.Thunks.GetAllPluginPermissions)
-
-local Constants = require(Plugin.Src.Util.Constants)
-local MovedDialog = require(Plugin.Src.Components.MovedDialog)
-local ContextServices = require(Plugin.Packages.Framework.ContextServices)
-local PluginAPI2 = require(Plugin.Src.ContextServices.PluginAPI2)
-local UpdateAllPlugins = require(Plugin.Src.Thunks.UpdateAllPlugins)
-local RefreshPlugins = require(Plugin.Src.Thunks.RefreshPlugins)
-local Button = UILibrary.Component.Button
-local LoadingIndicator = UILibrary.Component.LoadingIndicator
-
 local Flags = require(Plugin.Packages.Framework.Util.Flags)
 local FlagsList = Flags.new({
 	FFlagEnablePluginPermissionsPage = {
@@ -37,6 +13,41 @@ local FFlagEnablePurchasePluginFromLua2 = game:GetFastFlag("EnablePurchasePlugin
 local FFlagEnableStudioServiceOpenBrowser = game:GetFastFlag("EnableStudioServiceOpenBrowser")
 local FFlagPluginManagementAllowLotsOfPlugins2 = settings():GetFFlag("PluginManagementAllowLotsOfPlugins2")
 local FFlagFixFindPluginsMessage = game:DefineFastFlag("FixFindPluginsMessage", false)
+local FFlagPluginManagementRemoveUILibrary = game:GetFastFlag("PluginManagementRemoveUILibrary")
+
+
+local StudioService = game:GetService("StudioService")
+local GuiService = game:GetService("GuiService")
+local MarketplaceService = game:GetService("MarketplaceService")
+
+local PermissionsService = game:GetService("PermissionsService")
+local Roact = require(Plugin.Packages.Roact)
+local RoactRodux = require(Plugin.Packages.RoactRodux)
+local UILibrary = require(Plugin.Packages.UILibrary) -- remove with FFlagPluginManagementRemoveUILibrary
+local PluginHolder = require(Plugin.Src.Components.PluginHolder)
+local GetAllPluginPermissions = require(Plugin.Src.Thunks.GetAllPluginPermissions)
+local Constants = require(Plugin.Src.Util.Constants)
+local MovedDialog = require(Plugin.Src.Components.MovedDialog)
+local ContextServices = require(Plugin.Packages.Framework.ContextServices)
+local UI = require(Plugin.Packages.Framework.UI)
+local Util = require(Plugin.Packages.Framework.Util)
+local PluginAPI2 = require(Plugin.Src.ContextServices.PluginAPI2)
+local UpdateAllPlugins = require(Plugin.Src.Thunks.UpdateAllPlugins)
+local RefreshPlugins = require(Plugin.Src.Thunks.RefreshPlugins)
+local Button = UILibrary.Component.Button -- remove with FFlagPluginManagementRemoveUILibrary
+local FrameworkButton = UI.Button
+local StyleModifier = Util.StyleModifier
+
+local LoadingIndicator
+if FFlagPluginManagementRemoveUILibrary then
+	LoadingIndicator = UI.LoadingIndicator
+else
+	LoadingIndicator = UILibrary.Component.LoadingIndicator
+end
+
+
+
+
 local ManagementMainView = Roact.Component:extend("ManagementMainView")
 
 function ManagementMainView:init()
@@ -171,7 +182,7 @@ function ManagementMainView:render()
 			TextXAlignment = Enum.TextXAlignment.Left.Value,
 		}),
 
-		UpdateAllButton = anyUpdateNeeded and Roact.createElement(Button, {
+		UpdateAllButtonOLD = (not FFlagPluginManagementRemoveUILibrary and anyUpdateNeeded) and Roact.createElement(Button, {
 			Size = UDim2.new(0,Constants.HEADER_UPDATE_WIDTH,0,Constants.HEADER_BUTTON_SIZE),
 			Position = UDim2.new(1, Constants.HEADER_RIGHT_PADDING * 2
 				- Constants.HEADER_UPDATE_WIDTH - Constants.HEADER_BUTTON_SIZE,0,Constants.HEADER_TOP_PADDING),
@@ -191,7 +202,25 @@ function ManagementMainView:render()
 			end,
 		}),
 
-		FindPluginsButton = Roact.createElement(Button, {
+		UpdateAllButton = (FFlagPluginManagementRemoveUILibrary and anyUpdateNeeded) and Roact.createElement(FrameworkButton, {
+			Size = UDim2.new(0,Constants.HEADER_UPDATE_WIDTH,0,Constants.HEADER_BUTTON_SIZE),
+			Position = UDim2.new(1, Constants.HEADER_RIGHT_PADDING * 2
+				- Constants.HEADER_UPDATE_WIDTH - Constants.HEADER_BUTTON_SIZE, 0, Constants.HEADER_TOP_PADDING),
+			Style = "Round",
+			StyleModifier = updateDisabled and StyleModifier.Disabled or nil,
+			OnClick = not updateDisabled and self.updateAllPlugins or nil,
+		},{
+			Label = Roact.createElement("TextLabel", {
+				Size = UDim2.new(1, 0, 1, 0),
+				Text = localization:getText("Main", "UpdateAllButton"),
+				TextColor3 = updateDisabled and theme.DisabledColor or theme.TextColor,
+				Font = Enum.Font.SourceSans,
+				TextSize = 18,
+				BackgroundTransparency = 1,
+			}),
+		}),
+
+		FindPluginsButtonOLD = not FFlagPluginManagementRemoveUILibrary and Roact.createElement(Button, {
 			Size = UDim2.new(
 				0, Constants.HEADER_BUTTON_SIZE,
 				0, Constants.HEADER_BUTTON_SIZE),
@@ -216,6 +245,24 @@ function ManagementMainView:render()
 					})
 				}
 			end,
+		}),
+		FindPluginsButton = FFlagPluginManagementRemoveUILibrary and Roact.createElement(FrameworkButton, {
+			Size = UDim2.new(0, Constants.HEADER_BUTTON_SIZE, 0, Constants.HEADER_BUTTON_SIZE),
+			Position = UDim2.new(1, Constants.HEADER_RIGHT_PADDING, 0, Constants.HEADER_TOP_PADDING),
+			AnchorPoint = Vector2.new(1, 0),
+			Style = "RoundPrimary",
+			BackgroundTransparency = 1,
+			OnClick = self.findPlugins,
+		}, {
+			Dots = Roact.createElement("TextLabel", {
+				Position = UDim2.new(0, 0, 0, 0),
+				Size = UDim2.new(1, 0, 1, 0),
+				Text = "+",
+				TextColor3 = theme.White,
+				Font = Enum.Font.SourceSansBold,
+				TextSize = 24,
+				BackgroundTransparency = 1,
+			}),
 		}),
 
 		MovedToToolboxDialog = showingMovedDialog and Roact.createElement(MovedDialog, {
@@ -294,6 +341,7 @@ function ManagementMainView:render()
 		Indicator = loading and Roact.createElement(LoadingIndicator, {
 			AnchorPoint = Vector2.new(0.5, 0),
 			Position = UDim2.new(0.5, 0, 0, Constants.HEADER_HEIGHT + Constants.HEADER_MESSAGE_LINE_HEIGHT),
+			Size = FFlagPluginManagementRemoveUILibrary and UDim2.new(0, 92, 0, 24) or nil,
 		}),
 	})
 end

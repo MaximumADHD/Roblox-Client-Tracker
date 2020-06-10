@@ -4,10 +4,11 @@
 
 local Chat = game:GetService("Chat")
 local RunService = game:GetService("RunService")
-local PlayersService = game:GetService("Players")
 local ReplicatedModules = Chat:WaitForChild("ClientChatModules")
+local ChatModules = Chat:WaitForChild("ChatModules")
 local ChatConstants = require(ReplicatedModules:WaitForChild("ChatConstants"))
 local ChatSettings = require(ReplicatedModules:WaitForChild("ChatSettings"))
+local DisplayNameHelpers = require(ChatModules.Utility.DisplayNameHelpers)
 
 local ChatLocalization = nil
 pcall(function() ChatLocalization = require(game:GetService("Chat").ClientChatModules.ChatLocalization) end)
@@ -49,72 +50,61 @@ local function Run(ChatService)
 
 	local function DoWhisperCommand(fromSpeaker, message, channel)
 		local speaker = ChatService:GetSpeaker(fromSpeaker)
-		local otherSpeakerName = message
+		local otherSpeakerInputName = message
 		local sendMessage = nil
 
 		if (string.sub(message, 1, 1) == "\"") then
 			local pos = string.find(message, "\"", 2)
 			if (pos) then
-				otherSpeakerName = string.sub(message, 2, pos - 1)
+				otherSpeakerInputName = string.sub(message, 2, pos - 1)
 				sendMessage = string.sub(message, pos + 2)
 			end
 		else
 			local first = string.match(message, "^[^%s]+")
 			if (first) then
-				otherSpeakerName = first
-				sendMessage = string.sub(message, string.len(otherSpeakerName) + 2)
+				otherSpeakerInputName = first
+				sendMessage = string.sub(message, string.len(otherSpeakerInputName) + 2)
 			end
 		end
 
-		--make sure there are no duplicates for the otherSpeaker
-		if ChatSettings.WhisperByDisplayName then
-			local userNameMatched = false
-			local displayNameMatches = {}
-			local players = PlayersService:GetPlayers()
+		local otherSpeakerName, otherSpeakerError
 
-			for _, potentialOtherSpeaker in pairs(players) do
-				--prioritize username matches
-				if potentialOtherSpeaker.Name == otherSpeakerName then
-					userNameMatched = true
-					break
-				elseif potentialOtherSpeaker.DisplayName == otherSpeakerName then
-					table.insert(displayNameMatches, potentialOtherSpeaker.Name)
-				end
-			end
-
-			if not userNameMatched and #displayNameMatches > 1 then
-				local matchingUsersText = ""
-
-				for i, matchingUserName in pairs(displayNameMatches) do
-					if i ~= #displayNameMatches then
-						matchingUsersText = matchingUsersText .. "@" .. matchingUserName .. ", "
-					else
-						matchingUsersText = matchingUsersText .. "@" .. matchingUserName
-					end
-				end
-
-				speaker:SendSystemMessage(ChatLocalization:FormatMessageToSend("InGame.Chat.Response.DisplayNameMultipleMatches", "Warning: The following users have this display name: "),  channel, errorExtraData)
-
-				--Send a second message with a list of names so that the localization formatter doesn't prune it
-				speaker:SendSystemMessage(matchingUsersText,  channel, errorExtraData)
-
-				return
-			end
+		--Get the target user's UserName from the input (which could be userName or displayName)
+		if ChatSettings.PlayerDisplayNamesEnabled and ChatSettings.WhisperByDisplayNameEnabled then
+			otherSpeakerName, otherSpeakerError = DisplayNameHelpers.getUserNameFromChattedName(otherSpeakerInputName, fromSpeaker, speaker:GetNameForDisplay())
+		else
+			otherSpeakerName, otherSpeakerError = DisplayNameHelpers.getUserNameFromChattedName(otherSpeakerInputName, fromSpeaker, nil)
 		end
 
 		local otherSpeaker = ChatService:GetSpeaker(otherSpeakerName)
 
-		local channelObj = ChatService:GetChannel(GetWhisperChannelId(otherSpeakerName))
+		if otherSpeakerError == DisplayNameHelpers.CommandErrorCodes.ChattingToSelf then
+			speaker:SendSystemMessage(ChatLocalization:FormatMessageToSend("GameChat_PrivateMessaging_CannotWhisperToSelf","You cannot whisper to yourself."), channel, errorExtraData)
 
-		if channelObj and otherSpeaker then
-			if not CanCommunicate(speaker, otherSpeaker) then
-				speaker:SendSystemMessage(ChatLocalization:FormatMessageToSend("GameChat_PrivateMessaging_CannotChat","You are not able to chat with this player."), channel, errorExtraData)
-				return
-			end
+		elseif otherSpeakerError == DisplayNameHelpers.CommandErrorCodes.NoMatches then
+			local msg = ChatLocalization:FormatMessageToSend(
+				"GameChat_MuteSpeaker_SpeakerDoesNotExist",
+				string.format("Speaker '%s' does not exist.", tostring(otherSpeakerInputName)),
+				"RBX_NAME",
+				tostring(otherSpeakerName))
+			speaker:SendSystemMessage(msg, channel, errorExtraData)
 
-			if (channelObj.Name == GetWhisperChannelId(fromSpeaker)) then
-				speaker:SendSystemMessage(ChatLocalization:FormatMessageToSend("GameChat_PrivateMessaging_CannotWhisperToSelf","You cannot whisper to yourself."), channel, errorExtraData)
-			else
+		elseif otherSpeakerError == DisplayNameHelpers.CommandErrorCodes.MultipleMatches then
+			local matchingUsersText = DisplayNameHelpers.getUsersWithDisplayNameString(otherSpeakerInputName, fromSpeaker)
+			speaker:SendSystemMessage(ChatLocalization:FormatMessageToSend("InGame.Chat.Response.DisplayNameMultipleMatches", "Warning: The following users have this display name: "),  channel, errorExtraData)
+
+			--Send a second message with a list of names so that the localization formatter doesn't prune it
+			speaker:SendSystemMessage(matchingUsersText,  channel, errorExtraData)
+
+		elseif otherSpeaker then
+			local channelObj = ChatService:GetChannel(GetWhisperChannelId(otherSpeakerName))
+
+			if channelObj then
+				if not CanCommunicate(speaker, otherSpeaker) then
+					speaker:SendSystemMessage(ChatLocalization:FormatMessageToSend("GameChat_PrivateMessaging_CannotChat","You are not able to chat with this player."), channel, errorExtraData)
+					return
+				end
+
 				if (not speaker:IsInChannel(channelObj.Name)) then
 					speaker:JoinChannel(channelObj.Name)
 				end
@@ -124,15 +114,14 @@ local function Run(ChatService)
 				end
 
 				speaker:SetMainChannel(channelObj.Name)
+			else
+				local msg = ChatLocalization:FormatMessageToSend(
+					"GameChat_MuteSpeaker_SpeakerDoesNotExist",
+					string.format("Speaker '%s' does not exist.", tostring(otherSpeakerInputName)),
+					"RBX_NAME",
+					tostring(otherSpeakerName))
+				speaker:SendSystemMessage(msg, channel, errorExtraData)
 			end
-
-		else
-			local msg = ChatLocalization:FormatMessageToSend(
-				"GameChat_MuteSpeaker_SpeakerDoesNotExist",
-				string.format("Speaker '%s' does not exist.", tostring(otherSpeakerName)),
-				"RBX_NAME",
-				tostring(otherSpeakerName))
-			speaker:SendSystemMessage(msg, channel, errorExtraData)
 		end
 	end
 

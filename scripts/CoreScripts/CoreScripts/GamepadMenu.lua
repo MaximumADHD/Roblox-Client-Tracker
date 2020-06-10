@@ -66,10 +66,6 @@ local PANEL_RESOLUTION = 250
 
 local GAMEPAD_MENU_KEY = "GamepadMenu"
 
-
---[[ Fast Flags ]]--
-local FFlagRobloxGuiSiblingZindexs = settings():GetFFlag("RobloxGuiSiblingZindexs")
-
 local function getImagesForSlot(slot)
 	if slot == 1 then		return "rbxasset://textures/ui/Settings/Radial/Top.png", "rbxasset://textures/ui/Settings/Radial/TopSelected.png",
 									"rbxasset://textures/ui/Settings/Radial/Menu.png",
@@ -209,9 +205,7 @@ local function setSelectedRadialButton(selectedObject)
 		local isVisible = (button == selectedObject)
 		button:FindFirstChild("Selected").Visible = isVisible
 		button:FindFirstChild("RadialLabel").Visible = isVisible
-		if FFlagRobloxGuiSiblingZindexs then
-			button:FindFirstChild("RadialBackground").Visible = isVisible
-		end
+		button:FindFirstChild("RadialBackground").Visible = isVisible
 
 		if VRService.VREnabled then
 			button.ImageTransparency = isVisible and 1 or 0
@@ -530,11 +524,9 @@ local function toggleVR(vrEnabled)
 				button.RadialLabel.Rotation = -slotImages.rotation
 				button.RadialLabel.AnchorPoint = Vector2.new(0.5, 0.5)
 				button.RadialLabel.Position = UDim2.new(0.5, 0, 0.5, 0)
-				if FFlagRobloxGuiSiblingZindexs then
-					button.RadialBackground.Rotation = -slotImages.rotation
-					button.RadialBackground.AnchorPoint = Vector2.new(0.5, 0.5)
-					button.RadialBackground.Position = UDim2.new(0.5, 0, 0.5, 0)
-				end
+				button.RadialBackground.Rotation = -slotImages.rotation
+				button.RadialBackground.AnchorPoint = Vector2.new(0.5, 0.5)
+				button.RadialBackground.Position = UDim2.new(0.5, 0, 0.5, 0)
 
 				local selectedImage = button:FindFirstChild("Selected")
 				if selectedImage then
@@ -673,15 +665,15 @@ local function createRadialButton(name, text, slot, vrSlot, disabled, coreGuiTyp
 	end
 	local nameBackgroundImage = utility:Create'ImageLabel'
 	{
-		Name = FFlagRobloxGuiSiblingZindexs and "RadialBackground" or text .. "BackgroundImage",
-		Size = FFlagRobloxGuiSiblingZindexs and nameLabel.Size or UDim2.new(1,0,1,0),
-		Position = FFlagRobloxGuiSiblingZindexs and (nameLabel.Position + UDim2.new(0,0,0,2)) or UDim2.new(0,0,0,2),
+		Name = "RadialBackground",
+		Size = nameLabel.Size,
+		Position = nameLabel.Position + UDim2.new(0,0,0,2),
 		BackgroundTransparency = 1,
 		Image = "rbxasset://textures/ui/Settings/Radial/RadialLabel@2x.png",
 		ScaleType = Enum.ScaleType.Slice,
 		SliceCenter = Rect.new(24,4,130,42),
 		ZIndex = 2,
-		Parent = FFlagRobloxGuiSiblingZindexs and radialButton or nameLabel
+		Parent = radialButton
 	};
 
 	local mouseFrame = utility:Create'ImageButton'
@@ -1019,10 +1011,8 @@ function updateGuiVisibility()
 		if children[i]:FindFirstChild("RadialLabel") and not isVisible then
 			children[i].RadialLabel.Visible = isVisible
 		end
-		if FFlagRobloxGuiSiblingZindexs then
-			if children[i]:FindFirstChild("RadialBackground") and not isVisible then
-				children[i].RadialBackground.Visible = isVisible
-			end
+		if children[i]:FindFirstChild("RadialBackground") and not isVisible then
+			children[i].RadialBackground.Visible = isVisible
 		end
 	end
 end

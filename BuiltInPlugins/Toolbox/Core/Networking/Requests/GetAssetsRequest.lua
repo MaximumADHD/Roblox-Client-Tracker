@@ -3,6 +3,7 @@ local FFlagStudioUseDevelopAPIForPackages = settings():GetFFlag("StudioUseDevelo
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 local FFlagEnableToolboxVideos = game:GetFastFlag("EnableToolboxVideos")
 local FFlagStudioFixComparePageInfo = game:GetFastFlag("StudioFixComparePageInfo")
+local FFlagStudioFixGroupCreatorInfo = game:GetFastFlag("StudioFixGroupCreatorInfo")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -16,6 +17,7 @@ local SetCurrentPage = require(Actions.SetCurrentPage)
 local Category = require(Plugin.Core.Types.Category)
 
 local Util = Plugin.Core.Util
+local CreatorInfoHelper = require(Util.CreatorInfoHelper)
 local PageInfoHelper = require(Util.PageInfoHelper)
 local PagedRequestCursor = require(Util.PagedRequestCursor)
 local DebugFlags = require(Util.DebugFlags)
@@ -32,12 +34,12 @@ local function extractAssetIdsFromGetAssetsResponse(data)
 	return result
 end
 
-local function convertCreationsDetailsToResultsFormat(data, assetType, creatorName)
+local function convertCreationsDetailsToResultsFormat(data, assetType, creatorName, creatorType)
 	local result = {}
 	if data then
 		for _,value in pairs(data) do
 			local assetResultTable
-			assetResultTable = AssetInfo.fromCreationsDetails(value, assetType, creatorName)
+			assetResultTable = AssetInfo.fromCreationsDetails(value, assetType, creatorName, creatorType)
 
 			result[#result + 1] = assetResultTable
 		end
@@ -47,17 +49,21 @@ end
 
 local function extractCreatorInfo(responseBodyResults)
 	if responseBodyResults and #responseBodyResults > 0 then
-		return responseBodyResults[1].Creator.Id, responseBodyResults[1].Creator.Name
+		if FFlagStudioFixGroupCreatorInfo then
+			return responseBodyResults[1].Creator.Id, responseBodyResults[1].Creator.Name, responseBodyResults[1].Creator.Type
+		else
+			return responseBodyResults[1].Creator.Id, responseBodyResults[1].Creator.Name
+		end
 	end
 end
 
-local function dispatchCreatorInfo(store, id, name)
-	store:dispatch(SetCachedCreatorInfo({Id=id, Name=name}))
+local function dispatchCreatorInfo(store, id, name, type)
+	store:dispatch(SetCachedCreatorInfo({Id=id, Name=name, Type=type}))
 end
 
-local function dispatchGetAssets(store, pageInfo, creationDetailsTable, creatorName, nextCursor)
+local function dispatchGetAssets(store, pageInfo, creationDetailsTable, creatorName, nextCursor, creatorType)
 	local assetType = PageInfoHelper.getEngineAssetTypeForPageInfoCategory(pageInfo)
-	store:dispatch(GetAssets(convertCreationsDetailsToResultsFormat(creationDetailsTable, assetType, creatorName), nil, nextCursor))
+	store:dispatch(GetAssets(convertCreationsDetailsToResultsFormat(creationDetailsTable, assetType, creatorName, creatorType), nil, nextCursor))
 	store:dispatch(SetCurrentPage(0))
 	store:dispatch(SetLoading(false))
 end
@@ -107,7 +113,6 @@ return function(networkInterface, pageInfoOnStart)
 			else
 				categoryOnRequestFinish = pageInfo.categories[pageInfo.categoryIndex]
 			end
-      
 			local isResponseFresh
 
 			if FFlagStudioFixComparePageInfo then
@@ -147,21 +152,41 @@ return function(networkInterface, pageInfoOnStart)
 						networkInterface:getAssetCreationDetails(assetIds):andThen(function(creationDetailsResult)
 							local creationDetailsTable = creationDetailsResult.responseBody
 							if creationDetailsTable and #creationDetailsTable > 0 then
-								local isNameEndPointCallRequired = false
-								local cachedCreatorId = store:getState().assets.cachedCreatorInfo and store:getState().assets.cachedCreatorInfo.Id
+								local isCreatorInfoFetchRequired = false
 								local newCreatorId = creationDetailsTable[1].creatorTargetId
-								if (not cachedCreatorId) or cachedCreatorId ~= newCreatorId then
-									isNameEndPointCallRequired = true
-									networkInterface:getCreatorName(creationDetailsTable[1].creatorTargetId):andThen(function(creatorNameResult)
-										local creatorName = creatorNameResult.responseBody and creatorNameResult.responseBody.Username
-										dispatchCreatorInfo(store, newCreatorId, creatorName)
-										dispatchGetAssets(store, pageInfoOnStart, creationDetailsTable, creatorName, nextCursor)
-									end, errorFunc)
-								end
 
-								if not isNameEndPointCallRequired then
-									local creatorName = store:getState().assets.cachedCreatorInfo.Name
-									dispatchGetAssets(store, pageInfoOnStart, creationDetailsTable, creatorName, nextCursor)
+								if FFlagStudioFixGroupCreatorInfo then
+									local newCreatorType = CreatorInfoHelper.getCreatorTypeValueFromName(creationDetailsTable[1].creatorType)
+									isCreatorInfoFetchRequired = not CreatorInfoHelper.isCached(store, newCreatorId, newCreatorType)
+
+									if isCreatorInfoFetchRequired then
+										networkInterface:getCreatorInfo(newCreatorId, newCreatorType):andThen(function(creatorInfoResult)
+											local creatorName = CreatorInfoHelper.getNameFromResult(creatorInfoResult, newCreatorType)
+											dispatchCreatorInfo(store, newCreatorId, creatorName, newCreatorType)
+											dispatchGetAssets(store, pageInfoOnStart, creationDetailsTable, creatorName, nextCursor, newCreatorType)
+										end, errorFunc)
+									end
+
+									if not isCreatorInfoFetchRequired then
+										local creatorName = store:getState().assets.cachedCreatorInfo.Name
+										dispatchGetAssets(store, pageInfoOnStart, creationDetailsTable, creatorName, nextCursor, newCreatorType)
+									end
+								else
+									local cachedCreatorId = store:getState().assets.cachedCreatorInfo and store:getState().assets.cachedCreatorInfo.Id
+
+									if (not cachedCreatorId) or cachedCreatorId ~= newCreatorId then
+										isCreatorInfoFetchRequired = true
+										networkInterface:getCreatorName(creationDetailsTable[1].creatorTargetId):andThen(function(creatorNameResult)
+											local creatorName = creatorNameResult.responseBody and creatorNameResult.responseBody.Username
+											dispatchCreatorInfo(store, newCreatorId, creatorName)
+											dispatchGetAssets(store, pageInfoOnStart, creationDetailsTable, creatorName, nextCursor)
+										end, errorFunc)
+									end
+
+									if not isCreatorInfoFetchRequired then
+										local creatorName = store:getState().assets.cachedCreatorInfo.Name
+										dispatchGetAssets(store, pageInfoOnStart, creationDetailsTable, creatorName, nextCursor)
+									end
 								end
 							else
 								dispatchGetAssetsWarning(store, "getAssetCreationDetails() did not return any asset details", nextCursor)

@@ -1,4 +1,9 @@
 return function()
+	local FFlagPluginManagementRemoveUILibrary = game:GetFastFlag("PluginManagementRemoveUILibrary")
+	if FFlagPluginManagementRemoveUILibrary then
+		return
+	end
+
 	local Plugin = script.Parent.Parent.Parent
 	local Roact = require(Plugin.Packages.Roact)
 	local MockManagement = require(Plugin.Src.Components.MockManagement)

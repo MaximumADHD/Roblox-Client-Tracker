@@ -355,6 +355,12 @@ function SettingsImpl:SaveAll(state)
 			if saveInfo.Configuration and saveInfo.Configuration.name then
 				StudioService:SetUniverseDisplayName(saveInfo.Configuration.name)
 			end
+
+			if FFlagGameSettingsPlaceSettings then
+				if state.EditAsset.editPlaceId == game.PlaceId then
+					StudioService:SetDocumentDisplayName(saveInfo.place.name)
+				end
+			end
 		end)
 	end)
 end
