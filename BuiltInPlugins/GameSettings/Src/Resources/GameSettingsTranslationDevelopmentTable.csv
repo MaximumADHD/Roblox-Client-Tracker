@@ -16,6 +16,9 @@ Studio.GameSettings.General.ButtonEdit,Edit, ,Edit
 Studio.GameSettings.General.ButtonView,View, ,View
 Studio.GameSettings.General.ButtonPublish,Publish, ,Publish
 Studio.GameSettings.General.ButtonShutdownAllServers,Shutdown, ,Shutdown
+Studio.GameSettings.General.ButtonRetry,Retry, ,Retry
+Studio.GameSettings.General.SettingsFailedToLoad,Failed to load settings for page, ,Failed to load settings for page
+Studio.GameSettings.General.SettingsInsufficientPermission,Only the game owner can edit these settings, ,Only the game owner can edit these settings
 Studio.GameSettings.General.CategoryBasicInfo,Basic Info, ,Basic Info
 Studio.GameSettings.General.CategoryAvatar,Avatar, ,Avatar
 Studio.GameSettings.General.CategoryWorld,World, ,World
@@ -274,8 +277,8 @@ Studio.GameSettings.Monetization.TitlePaidAccess,Paid Access, ,Paid Access
 Studio.GameSettings.Monetization.TitleVIPServers,VIP Servers, ,VIP Servers
 Studio.GameSettings.Monetization.Price,Price:, ,Price:
 Studio.GameSettings.Monetization.EarnLabel,You Earn:, ,You Earn:
-Studio.GameSettings.Monetization.PaidAccessHint,VIP Servers must not be enabled and the game must be public to enable Paid Access., ,VIP Servers must not be enabled and the game must be public to enable Paid Access.
-Studio.GameSettings.Monetization.VIPServersHint,Paid Access must not be enabled and the game must be public to enable VIP Servers., ,Paid Access must not be enabled and the game must be public to enable VIP Servers.
+Studio.GameSettings.Monetization.DEPRECATED_PaidAccessHint,VIP Servers must not be enabled and the game must be public to enable Paid Access., ,VIP Servers must not be enabled and the game must be public to enable Paid Access.
+Studio.GameSettings.Monetization.DEPRECATED_VIPServersHint,Paid Access must not be enabled and the game must be public to enable VIP Servers., ,Paid Access must not be enabled and the game must be public to enable VIP Servers.
 Studio.GameSettings.Monetization.Subscriptions,Subscriptions: {numOfSubscriptions:int}, ,Subscriptions: {numOfSubscriptions:int}
 Studio.GameSettings.Monetization.TotalVIPServers,Total: {totalVipServers:int}, ,Total: {totalVipServers:int}
 Studio.GameSettings.Monetization.ProductName,Product Name, ,Product Name
@@ -289,3 +292,12 @@ Studio.GameSettings.Monetization.UnsavedDevProductName,Developer Product {1}, ,D
 Studio.GameSettings.Errors.ErrorPriceBelowMin,Price must be greater than {1}., ,Price must be greater than {1}.
 Studio.GameSettings.Errors.ErrorPriceAboveMax,Price must be less than {1}., ,Price must be less than {1}.
 Studio.GameSettings.Errors.ErrorPriceInvalid,Enter a valid price (e.g. 1000), ,Enter a valid price (e.g. 1000)
+Studio.GameSettings.Monetization.Free,Free, ,Free
+Studio.GameSettings.Monetization.Paid,Paid, ,Paid
+Studio.GameSettings.Monetization.MarketplaceFee,Marketplace Fee:, ,Marketplace Fee:
+Studio.GameSettings.Monetization.MarketplaceFeeIs,Marketplace Fee is {1}%., ,Marketplace Fee is {1}%.
+Studio.GameSettings.Monetization.PrivateServersTitle,Private Servers, ,Private Servers
+Studio.GameSettings.Monetization.VIPServersPriceChangeWarning,Warning: Changing the price of VIP Servers will cancel all existing subscriptions., ,Warning: Changing the price of VIP Servers will cancel all existing subscriptions.
+Studio.GameSettings.Monetization.PrivateServersPriceChangeWarning,Warning: Changing the price of Private Servers will cancel all existing subscriptions., ,Warning: Changing the price of Private Servers will cancel all existing subscriptions.
+Studio.GameSettings.Monetization.PaidAccessHint,"Private Servers must not be enabled, and the game must be public to enable Paid Access.", ,"Private Servers must not be enabled, and the game must be public to enable Paid Access."
+Studio.GameSettings.Monetization.PrivateServersHint,"Paid Access must not be enabled, and the game must be public to enable Private Servers.", ,"Paid Access must not be enabled, and the game must be public to enable Private Servers."

@@ -104,6 +104,8 @@ Studio.App.BetaFeatures.SurfaceJoinChangesDescription,,"Remove the 'Surface' Joi
 Studio.App.BetaFeatures.SurfaceJoinChangesTitle,,Surface Join Behavior Change,Surface Join Behavior Change
 Studio.App.BetaFeatures.TryCoolFeatures,,Try out cool new Studio features! Your feedback is invaluable to us as we move forward towards building a powerful imagination platform.,Try out cool new Studio features! Your feedback is invaluable to us as we move forward towards building a powerful imagination platform.
 Studio.App.BetaFeatures.TryCoolFeaturesWithWarning,,Try out cool new Studio features before they are released to everyone! Please be aware that Beta features could be unstable. Your feedback is invaluable to us as we move towards building the imagination platform.,Try out cool new Studio features before they are released to everyone! Please be aware that Beta features could be unstable. Your feedback is invaluable to us as we move towards building the imagination platform.
+Studio.App.BetaFeatures.UICornerDescription,,A UIComponent that modifies the shape of corners of parent GuiObject.,A UIComponent that modifies the shape of corners of parent GuiObject.
+Studio.App.BetaFeatures.UICornerTitle,,UICorner Beta,UICorner Beta
 Studio.App.BetaFeatures.WhatsNewWindowDescription,,Open up a scrolling window that shows all of the recent updates to Roblox Studio,Open up a scrolling window that shows all of the recent updates to Roblox Studio
 Studio.App.BetaFeatures.WhatsNewWindowTitle,,New Updates Window,New Updates Window
 Studio.App.BreakpointConditionEditDialog.BreakpointCondition,,Breakpoint Condition,Breakpoint Condition
@@ -1348,6 +1350,10 @@ Studio.App.RBXMainWindow.ModelElps,,Model...,Model...
 Studio.App.RBXMainWindow.MotorOnSurface,,Motor on Surface,Motor on Surface
 Studio.App.RBXMainWindow.MoveDown,,Move Down,Move Down
 Studio.App.RBXMainWindow.MoveEdit,,Move - Edit,Move - Edit
+Studio.App.RBXMainWindow.MoveLinesDown,,Move Lines Down,Move Lines Down
+Studio.App.RBXMainWindow.MoveLinesDownToolTip,,Move selected line(s) downwards,Move selected line(s) downwards
+Studio.App.RBXMainWindow.MoveLinesUp,,Move Lines Up,Move Lines Up
+Studio.App.RBXMainWindow.MoveLinesUpToolTip,,Move selected line(s) upwards,Move selected line(s) upwards
 Studio.App.RBXMainWindow.MoveObjectsDown,,Move objects down,Move objects down
 Studio.App.RBXMainWindow.MoveObjectsUp,,Move objects up,Move objects up
 Studio.App.RBXMainWindow.MoveParts,,Move Parts,Move Parts
@@ -1750,20 +1756,23 @@ Studio.App.RobloxMouseConfig.RightClickAlt,,Right Click + Alt,Right Click + Alt
 Studio.App.RobloxMouseConfig.RightClickCtrl,,Right Click + Ctrl,Right Click + Ctrl
 Studio.App.RobloxMouseConfig.RightClickShift,,Right Click + Shift,Right Click + Shift
 Studio.App.RobloxOutputRibbonDropdown.All,,All,All
+Studio.App.RobloxOutputRibbonDropdown.AllContexts,,All Contexts,All Contexts
 Studio.App.RobloxOutputRibbonDropdown.AllMessages,,All Messages,All Messages
 Studio.App.RobloxOutputRibbonDropdown.Client,,Client,Client
-Studio.App.RobloxOutputRibbonDropdown.Context,,Context,Context
-Studio.App.RobloxOutputRibbonDropdown.CopyFullContext,,Copy Full Context,Copy Full Context
 Studio.App.RobloxOutputRibbonDropdown.Edit,,Edit,Edit
 Studio.App.RobloxOutputRibbonDropdown.Error,,Error,Error
 Studio.App.RobloxOutputRibbonDropdown.Information,,Information,Information
 Studio.App.RobloxOutputRibbonDropdown.Log,,Log,Log
+Studio.App.RobloxOutputRibbonDropdown.None,,None,None
+Studio.App.RobloxOutputRibbonDropdown.NumberContexts1,,%1 Contexts,%1 Contexts
+Studio.App.RobloxOutputRibbonDropdown.NumberMessages1,,%1 Messages,%1 Messages
 Studio.App.RobloxOutputRibbonDropdown.Other,,Other,Other
 Studio.App.RobloxOutputRibbonDropdown.PlaySolo,,PlaySolo,PlaySolo
 Studio.App.RobloxOutputRibbonDropdown.RobloxPlugin,,Roblox Plugin,Roblox Plugin
 Studio.App.RobloxOutputRibbonDropdown.SelectMessageOnly,,Select Messages Only,Select Messages Only
 Studio.App.RobloxOutputRibbonDropdown.Server,,Server,Server
 Studio.App.RobloxOutputRibbonDropdown.ShowMemoryAddressForExpandableTables,,Show memory address for expandable tables,Show memory address for expandable tables
+Studio.App.RobloxOutputRibbonDropdown.ShowTablesExpandedByDefault,,Show tables expanded by default,Show tables expanded by default
 Studio.App.RobloxOutputRibbonDropdown.ShowTimestamp,,Show Timestamp,Show Timestamp
 Studio.App.RobloxOutputRibbonDropdown.System,,System,System
 Studio.App.RobloxOutputRibbonDropdown.UserPlugin,,User Plugin,User Plugin
@@ -2119,11 +2128,14 @@ Studio.App.RobloxTeamCreateWidget.TeamCreateDisabled,,Team Create in this game i
 Studio.App.RobloxTeamCreateWidget.TeamCreateOptions,,Team Create Options,Team Create Options
 Studio.App.RobloxTeamCreateWidget.TurnOffTeamCreate,,Turn OFF Team Create,Turn OFF Team Create
 Studio.App.RobloxTextOutputWidget.ClearOutput,,Clear Output,Clear Output
+Studio.App.RobloxTextOutputWidget.Context,,Context,Context
 Studio.App.RobloxTextOutputWidget.Copy,,Copy,Copy
 Studio.App.RobloxTextOutputWidget.MaxTableDepthReached,,Max table depth reached,Max table depth reached
 Studio.App.RobloxTextOutputWidget.Message,,Message,Message
 Studio.App.RobloxTextOutputWidget.OpenLink,,Open link,Open link
 Studio.App.RobloxTextOutputWidget.SelectAll,,Select All,Select All
+Studio.App.RobloxTextOutputWidget.TableOutputBetaFeatureDescription,,"Output gets an upgrade — expressive UI, filter/search, and copy/paste becomes easier.","Output gets an upgrade — expressive UI, filter/search, and copy/paste becomes easier."
+Studio.App.RobloxTextOutputWidget.TableOutputBetaFeatureTitle,,Expressive Output Window,Expressive Output Window
 Studio.App.RobloxTextOutputWidget.Timestamp,,Timestamp,Timestamp
 Studio.App.RobloxTutorials.CopyText,,Build amazing games with Roblox Studio. No experience necessary!,Build amazing games with Roblox Studio. No experience necessary!
 Studio.App.RobloxTutorials.LearnNow,,Learn now,Learn now
@@ -2132,9 +2144,6 @@ Studio.App.RobloxViewStudio.SelectUILayer1,,"Select UI Layer ""%1""","Select UI 
 Studio.App.RobloxViewStudio.SelectUiLayer,,Select UI Layer,Select UI Layer
 Studio.App.RobloxViewStudio.UseLocalSpace,,Use Local Space,Use Local Space
 Studio.App.RobloxViewStudio.UseWorldSpace,,Use World Space,Use World Space
-Studio.App.RobloxWebDocWidget.Address,,Address,Address
-Studio.App.RobloxWebDocWidget.GoBack,,Go Back,Go Back
-Studio.App.RobloxWebDocWidget.GoForward,,Go Forward,Go Forward
 Studio.App.SandboxLocalCache.DialogTitle,,Drafts Local Cache,Drafts Local Cache
 Studio.App.SandboxLocalCache.MetaDataCorruptedMessage,,"Can't restore drafts information, metadata corrupted","Can't restore drafts information, metadata corrupted"
 Studio.App.SandboxLocalCache.SourcesMissingCorruptedMessage,,"Unable to restore some of the drafts.
@@ -2295,6 +2304,12 @@ Are you sure?","Save failed. Turning off team create may result in loss of work.
 Are you sure?"
 Studio.App.TeamCreate.SaveOnDisableLog,,Sent message to save game before Team Create turns off.,Sent message to save game before Team Create turns off.
 Studio.App.TeamCreate.SavingLatestUpdatesAndEnablingTeamCreate,,Saving latest updates and enabling Team Create...,Saving latest updates and enabling Team Create...
+Studio.App.TeamCreate.SyncingGenericWarning,,"Are you sure you want to quit Roblox Studio?
+Quitting Roblox Studio will cause you to lose data that is currently syncing.","Are you sure you want to quit Roblox Studio?
+Quitting Roblox Studio will cause you to lose data that is currently syncing."
+Studio.App.TeamCreate.SyncingTerrainWarning,,"Are you sure you want to quit Roblox Studio?
+Quitting Roblox Studio will cause you to lose data that is currently syncing and might corrupt your Terrain.","Are you sure you want to quit Roblox Studio?
+Quitting Roblox Studio will cause you to lose data that is currently syncing and might corrupt your Terrain."
 Studio.App.TeamCreate.TurnOn,,Turn ON,Turn ON
 Studio.App.TeamCreate.UnpublishedChangesWarning,,Other users are currently editing scripts. Turning off team create will lose these unpublished changes. Continue anyway?,Other users are currently editing scripts. Turning off team create will lose these unpublished changes. Continue anyway?
 Studio.App.TeamCreateConnectionDialog.YouHaveLostConnectionToTheServer,,You have lost connection to the server. Trying to reconnect...<br><br>Recent copy of the place has been saved. <a href='openautosave://file'>Click here</a> to open the saved place.,You have lost connection to the server. Trying to reconnect...<br><br>Recent copy of the place has been saved. <a href='openautosave://file'>Click here</a> to open the saved place.

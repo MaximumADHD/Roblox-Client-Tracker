@@ -504,6 +504,8 @@ RBX
 		CmdFoldToggle
 		CmdGotoPosition
 		CmdInsertText
+		CmdMoveLinesDown
+		CmdMoveLinesUp
 		CmdRepeat
 		CmdSelect
 		CmdUnfoldAll
@@ -526,10 +528,12 @@ RBX
 	}
 	Security
 	{
+		RakPeerCrypto
 		ReplicatorCryptoContext
 		ReplicatorCryptoContextOpenSSL
 		ReplicatorCryptoSystem
 		ReplicatorCryptoSystemOpenSSL
+		SessionCrypto
 	}
 	Solver
 	{

@@ -149,7 +149,7 @@
             icon=":/RibbonBar/images/RibbonIcons/Test/gst_client_light.png"
             width="32"
             height="32"/>
-        <addaction fflag="StudioEnableResume3" text="Studio.Common.Action.Resume" name="simulationResumeAction" style="textundericon"  value="simulationResumeAction" icon=":/RibbonBar/images/RibbonIcons/Test/Resume.png" width="32" height="32"/>
+        <addaction text="Studio.Common.Action.Resume" name="simulationResumeAction" style="textundericon"  value="simulationResumeAction" icon=":/RibbonBar/images/RibbonIcons/Test/Resume.png" width="32" height="32"/>
         <addaction name="simulationResetAction" style="textundericon" text="Studio.Common.Action.Stop" icon=":/RibbonBar/images/RibbonIcons/Test/Stop.png" width="32" height="32"/>
       </Group>
       <Group name="Settings" text="Studio.App.RobloxRibbonMainWindow.Settings">
@@ -332,7 +332,7 @@
             width="32"
             height="32"/>
         <addaction name="simulationPauseAction" style="textundericon" text="Studio.Common.Action.Pause" icon=":/RibbonBar/images/RibbonIcons/Test/Pause.png" width="32" height="32" />
-        <addaction fflag="StudioEnableResume3" text="Studio.Common.Action.Resume" name="simulationResumeAction" style="textundericon"  value="simulationResumeAction" icon=":/RibbonBar/images/RibbonIcons/Test/Resume.png" width="32" height="32"/>
+        <addaction text="Studio.Common.Action.Resume" name="simulationResumeAction" style="textundericon"  value="simulationResumeAction" icon=":/RibbonBar/images/RibbonIcons/Test/Resume.png" width="32" height="32"/>
         <addaction name="simulationResetAction" style="textundericon" text="Studio.Common.Action.Stop" icon=":/RibbonBar/images/RibbonIcons/Test/Stop.png" width="32" height="32"/>
       </Group>
       <Group name="Clients and Servers" text="Studio.App.RobloxRibbonMainWindow.ClientsAndServers">
@@ -504,7 +504,7 @@
             width="32"
             height="32"/>
         <addaction name="simulationPauseAction" style="textundericon" text="Studio.Common.Action.Pause" icon=":/RibbonBar/images/RibbonIcons/Test/Pause.png" width="32" height="32" />
-        <addaction fflag="StudioEnableResume3" text="Studio.Common.Action.Resume" name="simulationResumeAction" style="textundericon"  value="simulationResumeAction" icon=":/RibbonBar/images/RibbonIcons/Test/Resume.png" width="32" height="32"/>
+        <addaction text="Studio.Common.Action.Resume" name="simulationResumeAction" style="textundericon"  value="simulationResumeAction" icon=":/RibbonBar/images/RibbonIcons/Test/Resume.png" width="32" height="32"/>
         <addaction name="simulationResetAction" style="textundericon" text="Studio.Common.Action.Stop" icon=":/RibbonBar/images/RibbonIcons/Test/Stop.png" width="32" height="32"/>
       </Group>
       <Group name="Debugger" text="Studio.App.RBXMainWindow.Debugger" debugOnly="true">

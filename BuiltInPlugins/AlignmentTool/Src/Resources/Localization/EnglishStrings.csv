@@ -12,5 +12,5 @@ Studio.AlignmentTool.AxesSection.WorldX, , ,World X
 Studio.AlignmentTool.AxesSection.WorldY, , ,World Y
 Studio.AlignmentTool.AxesSection.WorldZ, , ,World Z
 Studio.AlignmentTool.RelativeToSection.Title, , ,Relative To
-Studio.AlignmentTool.RelativeToSection.Selection, , ,Selection Bounds
+Studio.AlignmentTool.RelativeToSection.Selection, , ,Selection
 Studio.AlignmentTool.RelativeToSection.Active, , ,Active Object

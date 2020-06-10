@@ -6613,17 +6613,19 @@
         </Item>
       </Item>
     </Item>
-      <!--Item class="ReflectionMetadataClass">
+    <!--
+      FIXME(jjuang) - When removing FFlagDragFaceInstances, uncomment this XML block
+      <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">VideoFrame</string>
         <string name="ClassCategory">GUI</string>
         <string name="summary">A GUI object containing a video Image</string>
         <string name="ExplorerOrder">18</string>
-        <string name="ExplorerImageIndex">49</string>
+        <string name="ExplorerImageIndex">120</string>
         <string name="PreferredParent">GuiBase2d</string>
         <string name="PreferredParents">GuiBase2d</string>
       </Properties>
-    </Item -->
+    </Item-->
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">TextLabel</string>

@@ -1931,6 +1931,7 @@ Class Terrain : BasePart [NotCreatable]
 Class TriangleMeshPart : BasePart [NotCreatable]
 	Property Enum<CollisionFidelity> TriangleMeshPart.CollisionFidelity {✏️PluginSecurity} [<📁> LoadOnly] [NotReplicated]
 Class MeshPart : TriangleMeshPart
+	Property bool MeshPart.HasSkinnedMesh {✏️NotAccessibleSecurity} [Hidden]
 	Property Content MeshPart.MeshID  [NotScriptable] [Deprecated]
 	Property Content MeshPart.MeshId {✏️NotAccessibleSecurity}
 	Property Enum<RenderFidelity> MeshPart.RenderFidelity {✏️PluginSecurity}
@@ -2068,6 +2069,9 @@ Class PathfindingService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Instance PathfindingService:CreatePath(Dictionary agentParameters = nil)
 	Function Instance PathfindingService:FindPathAsync(Vector3 start, Vector3 finish) [Yields]
 Class PermissionsService : Instance [NotCreatable] [Service]
+	Function bool PermissionsService:GetIsThirdPartyAssetAllowed() {RobloxScriptSecurity}
+	Function bool PermissionsService:GetIsThirdPartyPurchaseAllowed() {RobloxScriptSecurity}
+	Function bool PermissionsService:GetIsThirdPartyTeleportAllowed() {RobloxScriptSecurity}
 	Function Array PermissionsService:GetPermissions(string assetId) {RobloxScriptSecurity}
 	Function void PermissionsService:SetPermissions(string assetId, Array permissions) {RobloxScriptSecurity}
 Class PhysicsService : Instance [NotCreatable] [Service]
@@ -2933,6 +2937,7 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Objects StudioService:PromptImportLocalAssets(string prompt, Array fileTypeFilter = {}) {PluginSecurity} [Yields] [Deprecated]
 	Function void StudioService:PublishAs(int64 universeId, int64 placeId, int64 groupId) {RobloxScriptSecurity}
 	Function string StudioService:SerializeInstances(Objects instances) {RobloxScriptSecurity}
+	Function void StudioService:SetDocumentDisplayName(string newName) {RobloxScriptSecurity}
 	Function void StudioService:SetPluginEnabled(int64 assetId, bool state) {RobloxScriptSecurity}
 	Function void StudioService:SetUniverseDisplayName(string newName) {RobloxScriptSecurity}
 	Function void StudioService:ShowPlaceVersionHistoryDialog() {RobloxScriptSecurity}

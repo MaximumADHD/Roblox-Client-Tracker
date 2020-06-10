@@ -31,6 +31,7 @@ Studio.AssetManager.ContextMenu.InsertAsLocalScript, , ,Insert As Local Script
 Studio.AssetManager.ContextMenu.InsertAsModuleScript, , ,Insert As Module Script
 Studio.AssetManager.ContextMenu.RemoveFromGame, , ,Remove From Game
 Studio.AssetManager.ContextMenu.UpdateAll, , ,Update All
+Studio.AssetManager.ContextMenu.ViewPlaceHistory, , ,View History
 Studio.AssetManager.ContextMenu.ViewOnWebsite, , ,View On Website
 Studio.AssetManager.ContextMenu.PackageDetails, , ,Package Details
 Studio.AssetManager.ContextMenu.PublishLinkedSource, , ,Publish this LinkedSource
