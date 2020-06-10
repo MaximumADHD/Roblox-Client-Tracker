@@ -42,6 +42,7 @@ function LoadingAlert:init()
 			BackgroundTransparency = 1,
 		}, {
 			Spinner = Roact.createElement(LoadingSpinner, {
+				size = UDim2.fromOffset(48, 48),
 				position = UDim2.fromScale(0.5, 0.5),
 				anchorPoint = Vector2.new(0.5, 0.5),
 			})

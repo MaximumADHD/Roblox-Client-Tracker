@@ -8,7 +8,6 @@ local PurchaseError = require(Root.Enums.PurchaseError)
 local Thunk = require(Root.Thunk)
 
 local FFlagPerformPurchaseNewBundleInfoTypeEnabled = settings():GetFFlag("PerformPurchaseNewBundleInfoTypeEnabled")
-local GetFFlagReQueryPremiumOnError = require(Root.Flags.GetFFlagReQueryPremiumOnError)
 
 local function completeRequest()
 	return Thunk.new(script.Name, {}, function(store, services)
@@ -35,11 +34,7 @@ local function completeRequest()
 				pcall(function() MarketplaceService:SignalAssetTypePurchased(Players.LocalPlayer, assetTypeId) end)
 			end
 		elseif requestType == RequestType.Premium then
-			if GetFFlagReQueryPremiumOnError() then
-				MarketplaceService:SignalPromptPremiumPurchaseFinished(didPurchase or purchaseError == PurchaseError.AlreadyPremium)
-			else
-				MarketplaceService:SignalPromptPremiumPurchaseFinished(didPurchase)
-			end
+			MarketplaceService:SignalPromptPremiumPurchaseFinished(didPurchase or purchaseError == PurchaseError.AlreadyPremium)
 		end
 
 		return store:dispatch(CompleteRequest())

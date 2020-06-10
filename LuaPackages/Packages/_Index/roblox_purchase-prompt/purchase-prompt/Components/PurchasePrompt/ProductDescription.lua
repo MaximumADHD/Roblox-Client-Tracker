@@ -11,12 +11,13 @@ local LocalizationService = require(Root.Localization.LocalizationService)
 local TextLocalizer = require(script.Parent.Parent.Connection.TextLocalizer)
 local AutoSizedTextLabel = require(script.Parent.AutoSizedTextLabel)
 local Price = require(script.Parent.Price)
+local PriceDeprecated = require(script.Parent.PriceDeprecated)
 
 local withLayoutValues = require(script.Parent.Parent.Connection.withLayoutValues)
 
 local connectToStore = require(Root.connectToStore)
 
-local GetFFlagIGPInvalidAssetIdFix = require(Root.Flags.GetFFlagIGPInvalidAssetIdFix)
+local GetFFlagAdultConfirmationEnabled = require(Root.Flags.GetFFlagAdultConfirmationEnabled)
 
 local PURCHASE_MESSAGE_KEY = "CoreScripts.PurchasePrompt.PurchaseMessage.%s"
 
@@ -25,6 +26,8 @@ local function ProductDescription(props)
 		local layoutOrder = props.layoutOrder
 		local descriptionKey = props.descriptionKey
 		local descriptionParams = props.descriptionParams
+		local showPrice = props.showPrice
+		local price = props.price
 
 		return Roact.createElement("Frame", {
 			BorderSizePixel = 0,
@@ -47,6 +50,9 @@ local function ProductDescription(props)
 				render = function(localizedText)
 					return Roact.createElement(AutoSizedTextLabel, {
 						width = values.Size.ProductDescription.X.Offset - values.Size.HorizontalPadding,
+						maxHeight = showPrice
+							and values.Size.ProductDescription.Y.Offset - values.Size.RobuxIconContainerFrame.Y.Offset
+							or values.Size.ProductDescription.Y.Offset,
 						Text = localizedText,
 						BackgroundTransparency = 1,
 						BorderSizePixel = 0,
@@ -65,9 +71,13 @@ local function ProductDescription(props)
 					})
 				end,
 			}),
-			Price = Roact.createElement(Price, {
+			Price = (GetFFlagAdultConfirmationEnabled() and showPrice) and Roact.createElement(Price, {
 				layoutOrder = 2,
-			}),
+				price = price,
+			}) or nil,
+			PriceDeprecated = not GetFFlagAdultConfirmationEnabled() and Roact.createElement(PriceDeprecated, {
+				layoutOrder = 2,
+			}) or nil,
 		})
 	end)
 end
@@ -75,13 +85,11 @@ end
 local function mapStateToProps(state)
 	local promptState = state.promptState
 	local isFree = state.productInfo.price == 0
+	local canPurchase = promptState ~= PromptState.Error
 
 	local descriptionKey
 	local descriptionParams
 
-	local assetTypeKey = not GetFFlagIGPInvalidAssetIdFix()
-		and LocalizationService.nestedKeyParam(LocalizationService.getKeyFromItemType(state.productInfo.itemType))
-		or nil
 
 	if promptState == PromptState.PurchaseComplete then
 		descriptionKey = PURCHASE_MESSAGE_KEY:format("Succeeded")
@@ -90,10 +98,8 @@ local function mapStateToProps(state)
 			NEEDED_AMOUNT = LocalizationService.numberParam(
 				state.productInfo.price - state.accountInfo.balance
 			),
-			ASSET_TYPE = GetFFlagIGPInvalidAssetIdFix()
-				and LocalizationService.nestedKeyParam(
+			ASSET_TYPE = LocalizationService.nestedKeyParam(
 					LocalizationService.getKeyFromItemType(state.productInfo.itemType))
-				or assetTypeKey
 		}
 	elseif promptState == PromptState.RobuxUpsell then
 		descriptionKey = PURCHASE_MESSAGE_KEY:format("NeedMoreRobux")
@@ -102,11 +108,11 @@ local function mapStateToProps(state)
 			NEEDED_AMOUNT = LocalizationService.numberParam(
 				state.productInfo.price - state.accountInfo.balance
 			),
-			ASSET_TYPE = GetFFlagIGPInvalidAssetIdFix()
-				and LocalizationService.nestedKeyParam(
-					LocalizationService.getKeyFromItemType(state.productInfo.itemType))
-				or assetTypeKey,
+			ASSET_TYPE = LocalizationService.nestedKeyParam(
+				LocalizationService.getKeyFromItemType(state.productInfo.itemType))
 		}
+	elseif promptState == PromptState.AdultConfirmation then
+		descriptionKey = PURCHASE_MESSAGE_KEY:format("AdultConfirmation")
 	elseif promptState == PromptState.Error then
 		descriptionKey = LocalizationService.getErrorKey(state.purchaseError)
 		if state.purchaseError == PurchaseError.UnknownFailure then
@@ -123,10 +129,8 @@ local function mapStateToProps(state)
 		else
 			descriptionKey = PURCHASE_MESSAGE_KEY:format("Purchase")
 			descriptionParams = {
-				ASSET_TYPE = GetFFlagIGPInvalidAssetIdFix()
-					and LocalizationService.nestedKeyParam(
-						LocalizationService.getKeyFromItemType(state.productInfo.itemType))
-					or assetTypeKey,
+				ASSET_TYPE = LocalizationService.nestedKeyParam(
+					LocalizationService.getKeyFromItemType(state.productInfo.itemType)),
 				ITEM_NAME = state.productInfo.name,
 			}
 		end
@@ -135,6 +139,8 @@ local function mapStateToProps(state)
 	return {
 		descriptionKey = descriptionKey,
 		descriptionParams = descriptionParams,
+		showPrice = isFree and canPurchase and promptState ~= PromptState.AdultConfirmation,
+		price = state.productInfo.price,
 	}
 end
 

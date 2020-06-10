@@ -21,7 +21,9 @@ local function ItemPreviewImage(props)
 		local productImageUrl = props.productImageUrl
 
 		local showPremiumIcon = false
-		if promptState == PromptState.Error then
+		if promptState == PromptState.AdultConfirmation then
+			productImageUrl = values.Image.ErrorIcon.Path
+		elseif promptState == PromptState.Error then
 			if purchaseError == PurchaseError.PremiumOnly then
 				showPremiumIcon = true
 			else

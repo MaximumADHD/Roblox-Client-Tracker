@@ -1,11 +1,14 @@
 local Root = script.Parent.Parent
 local Players = game:GetService("Players")
+local ABTestService = game:GetService("ABTestService")
 
+local SetABVariation = require(Root.Actions.SetABVariation)
 local ErrorOccurred = require(Root.Actions.ErrorOccurred)
 local RequestAssetPurchase = require(Root.Actions.RequestAssetPurchase)
 local RequestGamepassPurchase = require(Root.Actions.RequestGamepassPurchase)
 local RequestProductPurchase = require(Root.Actions.RequestProductPurchase)
 local PurchaseError = require(Root.Enums.PurchaseError)
+local Constants = require(Root.Misc.Constants)
 local Network = require(Root.Services.Network)
 local getProductInfo = require(Root.Network.getProductInfo)
 local getIsAlreadyOwned = require(Root.Network.getIsAlreadyOwned)
@@ -14,6 +17,8 @@ local ExternalSettings = require(Root.Services.ExternalSettings)
 local hasPendingRequest = require(Root.Utils.hasPendingRequest)
 local Promise = require(Root.Promise)
 local Thunk = require(Root.Thunk)
+
+local GetFFlagAdultConfirmationEnabled = require(Root.Flags.GetFFlagAdultConfirmationEnabled)
 
 local resolvePromptState = require(script.Parent.resolvePromptState)
 
@@ -29,6 +34,13 @@ local function initiatePurchase(id, infoType, equipIfPurchased, isRobloxPurchase
 
 		if hasPendingRequest(store:getState()) then
 			return nil
+		end
+
+		if GetFFlagAdultConfirmationEnabled() then
+			pcall(function()
+				store:dispatch(SetABVariation(Constants.ABTests.ADULT_CONFIRMATION,
+					ABTestService:GetVariant(Constants.ABTests.ADULT_CONFIRMATION)))
+			end)
 		end
 
 		if infoType == Enum.InfoType.Asset then

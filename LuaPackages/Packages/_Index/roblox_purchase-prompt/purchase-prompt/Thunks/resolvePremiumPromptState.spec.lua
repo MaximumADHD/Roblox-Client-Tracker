@@ -93,7 +93,7 @@ return function()
 		expect(state.promptState).to.equal(PromptState.PremiumUpsell)
 	end)
 
-	it("(PremiumUpsellPrecheck: true) should complete the request and show nothing when failing precheck", function()
+	it("should complete the request and show nothing when failing precheck", function()
 		local store = Rodux.Store.new(Reducer, {})
 
 		local productInfo = getTestProductInfo()
@@ -105,37 +105,12 @@ return function()
 
 		Thunk.test(thunk, store, {
 			[Analytics] = MockAnalytics.new().mockService,
-			[ExternalSettings] = MockExternalSettings.new(false, false, {
-				PremiumUpsellPrecheck = true
-			}),
+			[ExternalSettings] = MockExternalSettings.new(false, false, {}),
 			[Network] = MockNetwork.new(),
 		})
 
 		local state = store:getState()
 
 		expect(state.promptState).to.equal(PromptState.None)
-	end)
-
-	it("(PremiumUpsellPrecheck: false) should show the upsell given correct data when failing precheck", function()
-		local store = Rodux.Store.new(Reducer, {})
-
-		local productInfo = getTestProductInfo()
-		local accountInfo = {
-			RobuxBalance = 10,
-			MembershipType = 0,
-		}
-		local thunk = resolvePremiumPromptState(accountInfo, productInfo, false)
-
-		Thunk.test(thunk, store, {
-			[Analytics] = MockAnalytics.new().mockService,
-			[ExternalSettings] = MockExternalSettings.new(false, false, {
-				PremiumUpsellPrecheck = false
-			}),
-			[Network] = MockNetwork.new(),
-		})
-
-		local state = store:getState()
-
-		expect(state.promptState).to.equal(PromptState.PremiumUpsell)
 	end)
 end

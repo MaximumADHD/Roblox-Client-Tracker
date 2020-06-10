@@ -34,7 +34,7 @@ local function initiatePremiumPurchase(id, infoType, equipIfPurchased)
 			return nil
 		end
 
-		local shouldPrecheck = externalSettings.getFFlagPremiumUpsellPrecheck() and not externalSettings.isStudio()
+		local shouldPrecheck = not externalSettings.isStudio()
 		return Promise.all({
 			canShowUpsell = shouldPrecheck and getPremiumUpsellPrecheck(network) or Promise.resolve(true),
 			premiumProductInfo = getPremiumProductInfo(network),

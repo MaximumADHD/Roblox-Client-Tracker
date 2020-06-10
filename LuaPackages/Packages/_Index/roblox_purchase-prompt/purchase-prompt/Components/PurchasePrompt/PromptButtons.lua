@@ -47,6 +47,9 @@ function PromptButtons:render()
 			elseif promptState == PromptState.RobuxUpsell then
 				confirmButtonStringKey = CONFIRM_PURCHASE_KEY:format("BuyRobuxV2")
 				leftButtonCallback = onRobuxUpsell
+			elseif promptState == PromptState.AdultConfirmation then
+				confirmButtonStringKey = "CoreScripts.PurchasePrompt.Button.OK"
+				leftButtonCallback = onRobuxUpsell
 			end
 			children = {
 				ConfirmButton = Roact.createElement(ConfirmButton, {

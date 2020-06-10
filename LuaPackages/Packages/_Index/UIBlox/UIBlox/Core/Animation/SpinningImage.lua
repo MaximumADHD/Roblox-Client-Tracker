@@ -12,6 +12,7 @@ local SpinningImage = Roact.PureComponent:extend("SpinningImage")
 
 SpinningImage.validateProps = t.strictInterface({
 	image = t.table,
+	size = t.optional(t.UDim2),
 	anchorPoint = t.optional(t.Vector2),
 	position = t.optional(t.UDim2),
 	rotationRate = t.optional(t.number),
@@ -46,21 +47,21 @@ function SpinningImage:willUnmount()
 end
 
 function SpinningImage.getDerivedStateFromProps(nextProps, lastState)
-	local size = nextProps.image.ImageRectSize
+	local imageSize = nextProps.image.ImageRectSize
 	return {
-		ImageSize = UDim2.fromOffset(size.X, size.Y)
+		size = nextProps.size or UDim2.fromOffset(imageSize.X, imageSize.Y)
 	}
 end
 
 function SpinningImage:render()
 	return Roact.createElement("Frame", {
-		Size = self.state.ImageSize,
+		Size = self.state.size,
 		AnchorPoint = self.props.anchorPoint,
 		Position = self.props.position,
 		BackgroundTransparency = 1,
 	}, {
 		inner = Roact.createElement(ImageSetLabel, {
-			Size = self.state.ImageSize,
+			Size = self.state.size,
 			AnchorPoint = Vector2.new(0.5, 0.5),
 			Position = UDim2.fromScale(0.5, 0.5),
 			Image = self.props.image,

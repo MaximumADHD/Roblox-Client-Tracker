@@ -5,6 +5,8 @@ local LuaPackages = Root.Parent
 local Roact = require(LuaPackages.Roact)
 local Cryo = require(LuaPackages.Cryo)
 
+local GetFFlagAdultConfirmationEnabled = require(Root.Flags.GetFFlagAdultConfirmationEnabled)
+
 local AutoSizedTextLabel = Roact.PureComponent:extend("AutoSizedTextLabel")
 
 function AutoSizedTextLabel:render()
@@ -12,6 +14,7 @@ function AutoSizedTextLabel:render()
 	local textSize = self.props.TextSize
 	local font = self.props.Font
 	local width = self.props.width
+	local maxHeight = self.props.maxHeight
 
 	local totalTextSize
 	if text ~= nil then
@@ -20,9 +23,15 @@ function AutoSizedTextLabel:render()
 		totalTextSize = Vector2.new(0, 0)
 	end
 
+	local height = totalTextSize.Y
+	if GetFFlagAdultConfirmationEnabled() and maxHeight and height > maxHeight then
+		height = maxHeight
+	end
+
 	local textLabelProps = Cryo.Dictionary.join(self.props, {
 		width = Cryo.None,
-		Size = UDim2.new(0, width, 0, totalTextSize.Y),
+		maxHeight = Cryo.None,
+		Size = UDim2.new(0, width, 0, height),
 	})
 
 	return Roact.createElement("TextLabel", textLabelProps)

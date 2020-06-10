@@ -13,6 +13,7 @@ local SpinningImage = require(UIBlox.Core.Animation.SpinningImage)
 local LoadingSpinner = Roact.PureComponent:extend("LoadingSpinner")
 
 LoadingSpinner.validateProps = t.strictInterface({
+	size = t.optional(t.UDim2),
 	position = t.optional(t.UDim2),
 	anchorPoint = t.optional(t.Vector2),
 	rotationRate = t.optional(t.number),
@@ -21,6 +22,7 @@ LoadingSpinner.validateProps = t.strictInterface({
 function LoadingSpinner:render()
 	return Roact.createElement(SpinningImage, {
 		image = Images["icons/graphic/loadingspinner"],
+		size = self.props.size,
 		position = self.props.position,
 		anchorPoint = self.props.anchorPoint,
 		rotationRate = self.props.rotationRate,

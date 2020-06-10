@@ -1,4 +1,5 @@
 local Packages = script.Parent.Parent.Parent.Parent
+local TextService = game:GetService("TextService")
 
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
@@ -63,8 +64,16 @@ function InputButton:render()
 
 	return withStyle(function(stylePalette)
 		local font = stylePalette.Font
+		local fontSize = font.Body.RelativeSize * font.BaseSize
+		local size = self.props.size
+		local frameSize = Vector2.new(size.X.Offset - SELECTION_BUTTON_SIZE - HORIZONTAL_PADDING, size.Y.Offset)
 
-		local verticalPadding = (self.props.size.Y.Offset - SELECTION_BUTTON_SIZE)/2
+		local touchZoneWidth = TextService:GetTextSize(self.props.text, fontSize, font.Body.Font, frameSize).X
+		if touchZoneWidth > 0 then
+			-- GetTextSize documentation recommends to add a pixel of padding to the result to ensure no text is cut off
+			-- Only add that extra padding if there is text to display
+			touchZoneWidth = touchZoneWidth + 1
+		end
 
 		local fillImage = self.props.fillImage
 
@@ -73,16 +82,14 @@ function InputButton:render()
 				BackgroundTransparency = 1,
 				LayoutOrder = self.props.layoutOrder,
 			}, {
-				horizontalLayout = Roact.createElement("UIListLayout", {
+				HorizontalLayout = Roact.createElement("UIListLayout", {
 					SortOrder = Enum.SortOrder.LayoutOrder,
 					FillDirection = Enum.FillDirection.Horizontal,
 					Padding = UDim.new(0, HORIZONTAL_PADDING),
 					VerticalAlignment = Enum.VerticalAlignment.Center
 				}),
-				padding = Roact.createElement("UIPadding", {
+				Padding = Roact.createElement("UIPadding", {
 					PaddingLeft = UDim.new(0, HORIZONTAL_PADDING),
-					PaddingTop = UDim.new(0, verticalPadding),
-					PaddingBottom = UDim.new(0, verticalPadding),
 				}),
 				InputButtonImage = Roact.createElement(Controllable, {
 					controlComponent = {
@@ -116,19 +123,21 @@ function InputButton:render()
 						self.changeSprite(newState)
 					end,
 				}),
-				touchZone = Roact.createElement(Controllable, {
+				-- Only create this element if there is text to display
+				InputButtonText = touchZoneWidth > 0 and Roact.createElement(Controllable, {
 					controlComponent =
 					{
 						component = "TextButton",
 						props = {
 							TextXAlignment = Enum.TextXAlignment.Left,
-							Size = UDim2.new(1, 0, 1, 0),
+							Size = UDim2.new(0, touchZoneWidth, 1, 0),
 							BackgroundTransparency = 1,
 							Text = self.props.text,
-							TextSize = font.Body.RelativeSize * font.BaseSize,
+							TextSize = fontSize,
 							TextColor3 = self.props.textColor,
 							TextTransparency = self.props.transparency,
 							Font = font.Body.Font,
+							TextWrapped = true,
 							[Roact.Event.Activated] = not self.props.isDisabled and self.props.onActivated,
 							LayoutOrder = 2,
 						},

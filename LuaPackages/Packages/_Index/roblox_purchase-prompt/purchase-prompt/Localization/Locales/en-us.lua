@@ -129,6 +129,7 @@ return{
 	["CoreScripts.PurchasePrompt.PurchaseMessage.Purchase"] = [[Want to buy the {ASSET_TYPE} {ITEM_NAME} for]],
 	["CoreScripts.PurchasePrompt.PurchaseMessage.Succeeded"] = [[Your purchase of {ITEM_NAME} succeeded!]],
 	["CoreScripts.PurchasePrompt.PurchaseMessage.NeedMoreRobux"] = [[You need {NEEDED_AMOUNT} more Robux to buy the {ASSET_TYPE} {ITEM_NAME}. Would you like to buy more Robux?]],
+	["CoreScripts.PurchasePrompt.PurchaseMessage.AdultConfirmation"] = [[Only adults are allowed to make purchases on Roblox. I agree that I am at least 18 years of age. I am the owner of this account or the parent or legal guardian of the owner. I authorize this purchase and I agree to the Terms of Use.]],
 	["CoreScripts.PurchasePrompt.ProductType.Product"] = [[Product]],
 	["CoreScripts.PurchasePrompt.ItemType.Bundle"] = [[Bundle]],
 	["CoreScripts.PurchasePrompt.ConfirmPurchase.CancelSubscription"] = [[Yes]],

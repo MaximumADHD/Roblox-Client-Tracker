@@ -3,8 +3,6 @@ local RunService = game:GetService("RunService")
 local GuiService = game:GetService("GuiService")
 local UserInputService = game:GetService("UserInputService")
 
-local GetFFlagPremiumUpsellPrecheck = require(Root.Flags.GetFFlagPremiumUpsellPrecheck)
-
 local ExternalSettings = {}
 
 function ExternalSettings.new()
@@ -30,10 +28,6 @@ function ExternalSettings.new()
 
 	function service.getFlagOrder66()
 		return settings():GetFFlag("Order66")
-	end
-
-	function service.getFFlagPremiumUpsellPrecheck()
-		return GetFFlagPremiumUpsellPrecheck()
 	end
 
 	function service.isTenFootInterface()

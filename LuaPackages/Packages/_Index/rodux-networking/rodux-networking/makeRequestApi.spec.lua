@@ -11,10 +11,9 @@ return function()
 	local mockStore = require(root.mockStore)
 
 	local GET = require(root.makeRequestApi)({
-		methodType = "GET",
 		keyPath = "hello.world",
 		networkImpl = mockNetworkImpl,
-	})
+	}, "GET")
 
 	describe("GIVEN a store", function()
 		local actionHistory = {}
@@ -108,10 +107,9 @@ return function()
 
 				it("SHOULD throw for non-GET request types", function()
 					local POST = require(root.makeRequestApi)({
-						methodType = "POST",
 						keyPath = "hello.world",
 						networkImpl = mockNetworkImpl,
-					})
+					}, "POST")
 
 					expect(function()
 						POST.getStatus({}, "testing")

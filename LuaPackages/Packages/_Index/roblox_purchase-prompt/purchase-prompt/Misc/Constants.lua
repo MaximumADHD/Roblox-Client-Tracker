@@ -4,6 +4,6 @@ local strict = require(Root.strict)
 
 return strict({
 	ABTests = strict({
-		ROBUX_HEX_ICON = "RobuxHexIconABTestName"
+		ADULT_CONFIRMATION = "AllUsers.Payments.AdultConfirmationABTest"
 	}, "Constants.ABTests")
 }, "Constants")

@@ -39,6 +39,10 @@ function Analytics.new()
 		AnalyticsService:SetRBXEvent("client", "InGamePrompt", "PremiumUpsellShownNonPremium", { gameID = game.GameId })
 	end
 
+	function service.signalAdultLegalTextShown()
+		AnalyticsService:SetRBXEvent("client", "InGamePrompt", "AdultLegalTextShown", { gameID = game.GameId })
+	end
+
 	return service
 end
 

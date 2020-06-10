@@ -31,7 +31,7 @@ local function resolvePremiumPromptState(accountInfo, premiumProduct, canShowUps
 		store:dispatch(PremiumInfoRecieved(premiumProduct))
 		store:dispatch(AccountInfoReceived(accountInfo))
 
-		if externalSettings.getFFlagPremiumUpsellPrecheck() and canShowUpsell == false then
+		if canShowUpsell == false then
 			return store:dispatch(completeRequest())
 		end
 

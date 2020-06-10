@@ -3,10 +3,8 @@ local makeActionCreator = require(root.makeActionCreator)
 local RequestBuilder = require(root.RequestBuilder)
 local NetworkStatus = require(root.NetworkStatus)
 
-return function(options)
-	local methodType = options.methodType
+return function(options, methodType)
 	local keyPath = options.keyPath
-	local networkImpl = options.networkImpl
 
 	local myNetworkStatus = NetworkStatus({
 		keyPath = keyPath,
@@ -21,6 +19,7 @@ return function(options)
 
 			return function(store)
 				return myNetworkStatus.setStatus(store, userRequestBuilder:getIds(), userRequestBuilder:makeKeyMapper(), function(store, filteredIds)
+					local networkImpl = options.networkImpl
 					return networkImpl(userRequestBuilder:makeUrl(filteredIds), methodType, userRequestBuilder:makeOptions()):andThen(
 						function(payload)
 							store:dispatch(self.Succeeded(filteredIds, payload.responseBody, userRequestBuilder:getNamedIds()))

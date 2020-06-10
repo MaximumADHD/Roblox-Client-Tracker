@@ -3,16 +3,20 @@ local Root = script.Parent.Parent.Parent
 local LuaPackages = Root.Parent
 local Roact = require(LuaPackages.Roact)
 
+local PromptState = require(Root.Enums.PromptState)
+local connectToStore = require(Root.connectToStore)
+
 local NumberLocalizer = require(script.Parent.Parent.Connection.NumberLocalizer)
 local AutoResizeList = require(script.Parent.AutoResizeList)
 local withLayoutValues = require(script.Parent.Parent.Connection.withLayoutValues)
 
-return function(props)
+local function Price(props)
 	return withLayoutValues(function(values)
 		local layoutOrder = props.layoutOrder
+		local showPrice = props.showPrice
 		local price = props.price
 
-		return Roact.createElement(AutoResizeList, {
+		return showPrice and Roact.createElement(AutoResizeList, {
 			layoutOrder = layoutOrder,
 			horizontalAlignment = Enum.HorizontalAlignment.Left,
 			verticalAlignment = Enum.VerticalAlignment.Center,
@@ -58,3 +62,20 @@ return function(props)
 		})
 	end)
 end
+
+local function mapStateToProps(state)
+	local promptState = state.promptState
+	local canPurchase = promptState ~= PromptState.Error
+	local free = state.productInfo.price == 0
+
+	return {
+		showPrice = canPurchase and not free,
+		price = state.productInfo.price,
+	}
+end
+
+Price = connectToStore(
+	mapStateToProps
+)(Price)
+
+return Price
