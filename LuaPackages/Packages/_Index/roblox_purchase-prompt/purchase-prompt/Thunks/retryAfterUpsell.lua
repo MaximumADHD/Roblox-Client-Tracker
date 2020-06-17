@@ -10,6 +10,7 @@ local getAccountInfo = require(Root.Network.getAccountInfo)
 local Network = require(Root.Services.Network)
 local ExternalSettings = require(Root.Services.ExternalSettings)
 local completeRequest = require(Root.Thunks.completeRequest)
+local getPlayerPrice = require(Root.Utils.getPlayerPrice)
 local Thunk = require(Root.Thunk)
 
 local purchaseItem = require(script.Parent.purchaseItem)
@@ -42,7 +43,8 @@ local function retryAfterUpsell(retriesRemaining)
 				:andThen(function(accountInfo)
 					local state = store:getState()
 
-					local price = state.productInfo.price
+					local isPlayerPremium = state.accountInfo.membershipType == 4
+					local price = getPlayerPrice(state.productInfo, isPlayerPremium)
 
 					local balance = accountInfo.RobuxBalance
 

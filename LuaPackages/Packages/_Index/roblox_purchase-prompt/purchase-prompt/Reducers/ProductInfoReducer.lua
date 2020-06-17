@@ -18,6 +18,7 @@ local ProductInfoReducer = Rodux.createReducer({}, {
 		return {
 			name = productInfo.Name,
 			price = productInfo.PriceInRobux or 0,
+			premiumPrice = productInfo.PremiumPriceInRobux or 0,
 			imageUrl = getPreviewImageUrl(productInfo),
 			assetTypeId = productInfo.AssetTypeId,
 			productId = productInfo.ProductId,

@@ -13,8 +13,8 @@ local selectRobuxProduct = require(Root.NativeUpsell.selectRobuxProduct)
 local getUpsellFlow = require(Root.NativeUpsell.getUpsellFlow)
 local ExternalSettings = require(Root.Services.ExternalSettings)
 local meetsPrerequisites = require(Root.Utils.meetsPrerequisites)
+local getPlayerProductInfoPrice = require(Root.Utils.getPlayerProductInfoPrice)
 local Thunk = require(Root.Thunk)
-
 
 local requiredServices = {
 	ExternalSettings,
@@ -27,15 +27,15 @@ local function resolvePromptState(productInfo, accountInfo, alreadyOwned)
 		store:dispatch(ProductInfoReceived(productInfo))
 		store:dispatch(AccountInfoReceived(accountInfo))
 
-		local restrictThirdParty = externalSettings.getFlagRestrictSales2()
+		local restrictThirdParty = externalSettings.getLuaUseThirdPartyPermissions() or externalSettings.getFlagRestrictSales2()
 
-		local canPurchase, failureReason = meetsPrerequisites(productInfo, alreadyOwned, restrictThirdParty)
+		local canPurchase, failureReason = meetsPrerequisites(productInfo, alreadyOwned, restrictThirdParty, externalSettings)
 		if not canPurchase then
 			return store:dispatch(ErrorOccurred(failureReason))
 		end
 
-		-- Price may be nil if the item is free
-		local price = productInfo.PriceInRobux or 0
+		local isPlayerPremium = accountInfo.MembershipType == 4
+		local price = getPlayerProductInfoPrice(productInfo, isPlayerPremium)
 		local platform = UserInputService:GetPlatform()
 		local upsellFlow = getUpsellFlow(platform)
 

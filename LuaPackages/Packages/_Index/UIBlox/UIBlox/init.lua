@@ -129,6 +129,7 @@ local function initializeLibrary()
 				-- TEMPORARY WORK! This should not be available yet. Please contact Eric Sauer for more info
 				--FullPageModal = require(script.App.Dialog.Modal.FullPageModal),
 				PartialPageModal = require(script.App.Dialog.Modal.PartialPageModal),
+				EducationalModal = require(script.App.Dialog.Modal.EducationalModal),
 			}),
 			Alert = strict({
 				InformativeAlert = require(script.App.Dialog.Alert.InformativeAlert),

@@ -6,6 +6,7 @@ local Root = script.Parent.Parent
 
 local LuaPackages = Root.Parent
 local Cryo = require(LuaPackages.Cryo)
+local GetFFlagLuaUseThirdPartyPermissions = require(Root.Flags.GetFFlagLuaUseThirdPartyPermissions)
 
 local DEFAULT_FLAG_STATES = {
 	-- Allow restriction of third-party sales. Was never properly turned on in
@@ -22,6 +23,12 @@ function MockExternalSettings.new(isStudio, isTenFoot, flags, platform)
 
 	flags = Cryo.Dictionary.join(DEFAULT_FLAG_STATES, flags)
 
+	--[[
+	getMockFlag allows you to test both flag states for tests unrelated to your flag. Usage:
+	function service.getFFlagTestFlag()
+		return getMockFlag(flags.TestFlag, GetFFlagTestFlag())
+	end
+	]]
 	local function getMockFlag(mockFlag, systemFlag)
 		if mockFlag ~= nil then
 			return mockFlag
@@ -37,6 +44,15 @@ function MockExternalSettings.new(isStudio, isTenFoot, flags, platform)
 		return isStudio
 	end
 
+	function service.isThirdPartyPurchaseAllowed()
+		return flags.PermissionsServiceIsThirdPartyPurchaseAllowed
+	end
+
+	function service.getLuaUseThirdPartyPermissions()
+		return getMockFlag(flags.LuaUseThirdPartyPermissions, GetFFlagLuaUseThirdPartyPermissions())
+	end
+
+	-- TODO(DEVTOOLS-4227): Remove this flag
 	function service.getFlagRestrictSales2()
 		return flags.RestrictSales2
 	end

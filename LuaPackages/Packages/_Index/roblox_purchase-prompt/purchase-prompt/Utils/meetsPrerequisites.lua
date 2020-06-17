@@ -14,7 +14,7 @@ local THIRD_PARTY_WARNING = "AllowThirdPartySales has blocked the purchase"
 	.. " prompt for %d created by %d. To sell this asset made by a"
 	.. " different %s, you will need to enable AllowThirdPartySales."
 
-local function meetsPrerequisites(productInfo, alreadyOwned, restrictThirdParty)
+local function meetsPrerequisites(productInfo, alreadyOwned, restrictThirdParty, externalSettings)
 	if alreadyOwned then
 		return false, PurchaseError.AlreadyOwn
 	end
@@ -38,10 +38,19 @@ local function meetsPrerequisites(productInfo, alreadyOwned, restrictThirdParty)
 		return false, PurchaseError.Under13
 	end
 
+	local allowThirdPartyPurchase = true
+	if externalSettings.getLuaUseThirdPartyPermissions() then
+		-- Use Q2 2020 universe-wide permission to restrict access.
+		allowThirdPartyPurchase = externalSettings.isThirdPartyPurchaseAllowed()
+	else
+		-- TODO(DEVTOOLS-4227): Need to remove here before removing AllowThirdPartySales from DataModel/Workspace.
+		allowThirdPartyPurchase = Workspace.AllowThirdPartySales
+	end
+
 	-- Restricting third party sales is only valid for Assets and Game Passes
 	if productInfo.ProductType ~= DEVELOPER_PRODUCT_TYPE
 		and restrictThirdParty
-		and not Workspace.AllowThirdPartySales
+		and not allowThirdPartyPurchase
 	then
 		local isGroupGame = game.CreatorType == Enum.CreatorType.Group
 		local isGroupAsset = productInfo.Creator.CreatorType == "Group"

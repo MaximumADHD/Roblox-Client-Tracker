@@ -98,6 +98,8 @@ local function getPlayerOwns(player, id, infoType)
 		return MarketplaceService:PlayerOwnsAsset(player, id)
 	elseif infoType == Enum.InfoType.GamePass then
 		return MarketplaceService:UserOwnsGamePassAsync(player.UserId, id)
+	elseif infoType == Enum.InfoType.Subscription then
+		return MarketplaceService:IsPlayerSubscribed(player, id)
 	end
 
 	return false

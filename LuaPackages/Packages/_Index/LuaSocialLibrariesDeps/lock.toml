@@ -6,5 +6,5 @@ source = "git+https://github.rbx.com/roblox/lua-social-libraries-deps#master"
 dependencies = [
     "GenericPagination roblox/genericpagination cf641eb5 git+https://github.rbx.com/roblox/genericpagination#master",
     "Mock jtaylor/mock d2c4005c git+https://github.rbx.com/roblox/mock#master",
-    "RoactFitComponents roblox/roact-fit-components 1.2.3 url+https://github.com/roblox/roact-fit-components",
+    "RoactFitComponents roblox/roact-fit-components 1.2.4 url+https://github.com/roblox/roact-fit-components",
 ]

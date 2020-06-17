@@ -39,6 +39,14 @@ local function performPurchase(network, infoType, productId, expectedPrice, requ
 						return Promise.reject(PurchaseError.UnknownFailure)
 					end
 				end
+			elseif infoType == Enum.InfoType.Subscription then
+				if result.success or result.reason == "AlreadyOwned" then
+					return Promise.resolve(result)
+				elseif result.reason == "EconomyDisabled" then
+					return Promise.reject(PurchaseError.PurchaseDisabled)
+				else
+					return Promise.reject(PurchaseError.UnknownFailure)
+				end
 			end
 
 		end, function(failure)

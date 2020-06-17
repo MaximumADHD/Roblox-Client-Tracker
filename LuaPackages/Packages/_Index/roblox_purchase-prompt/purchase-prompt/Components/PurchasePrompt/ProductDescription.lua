@@ -15,6 +15,7 @@ local PriceDeprecated = require(script.Parent.PriceDeprecated)
 
 local withLayoutValues = require(script.Parent.Parent.Connection.withLayoutValues)
 
+local getPlayerPrice = require(Root.Utils.getPlayerPrice)
 local connectToStore = require(Root.connectToStore)
 
 local GetFFlagAdultConfirmationEnabled = require(Root.Flags.GetFFlagAdultConfirmationEnabled)
@@ -84,7 +85,9 @@ end
 
 local function mapStateToProps(state)
 	local promptState = state.promptState
-	local isFree = state.productInfo.price == 0
+	local isPlayerPremium = state.accountInfo.membershipType == 4
+	local price = getPlayerPrice(state.productInfo, isPlayerPremium)
+	local isFree = price == 0
 	local canPurchase = promptState ~= PromptState.Error
 
 	local descriptionKey
@@ -96,7 +99,7 @@ local function mapStateToProps(state)
 		descriptionParams = {
 			ITEM_NAME = state.productInfo.name,
 			NEEDED_AMOUNT = LocalizationService.numberParam(
-				state.productInfo.price - state.accountInfo.balance
+				price - state.accountInfo.balance
 			),
 			ASSET_TYPE = LocalizationService.nestedKeyParam(
 					LocalizationService.getKeyFromItemType(state.productInfo.itemType))
@@ -106,7 +109,7 @@ local function mapStateToProps(state)
 		descriptionParams = {
 			ITEM_NAME = state.productInfo.name,
 			NEEDED_AMOUNT = LocalizationService.numberParam(
-				state.productInfo.price - state.accountInfo.balance
+				price - state.accountInfo.balance
 			),
 			ASSET_TYPE = LocalizationService.nestedKeyParam(
 				LocalizationService.getKeyFromItemType(state.productInfo.itemType))
@@ -140,7 +143,7 @@ local function mapStateToProps(state)
 		descriptionKey = descriptionKey,
 		descriptionParams = descriptionParams,
 		showPrice = isFree and canPurchase and promptState ~= PromptState.AdultConfirmation,
-		price = state.productInfo.price,
+		price = price,
 	}
 end
 

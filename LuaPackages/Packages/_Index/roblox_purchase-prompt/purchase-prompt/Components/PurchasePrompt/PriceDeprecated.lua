@@ -4,6 +4,7 @@ local LuaPackages = Root.Parent
 local Roact = require(LuaPackages.Roact)
 
 local PromptState = require(Root.Enums.PromptState)
+local getPlayerPrice = require(Root.Utils.getPlayerPrice)
 local connectToStore = require(Root.connectToStore)
 
 local NumberLocalizer = require(script.Parent.Parent.Connection.NumberLocalizer)
@@ -66,11 +67,13 @@ end
 local function mapStateToProps(state)
 	local promptState = state.promptState
 	local canPurchase = promptState ~= PromptState.Error
-	local free = state.productInfo.price == 0
+	local isPlayerPremium = state.accountInfo.membershipType == 4
+	local price = getPlayerPrice(state.productInfo, isPlayerPremium)
+	local free = price == 0
 
 	return {
 		showPrice = canPurchase and not free,
-		price = state.productInfo.price,
+		price = price,
 	}
 end
 

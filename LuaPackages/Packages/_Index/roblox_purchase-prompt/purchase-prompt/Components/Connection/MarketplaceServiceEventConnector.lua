@@ -14,9 +14,11 @@ local completePurchase = require(Root.Thunks.completePurchase)
 local initiatePurchase = require(Root.Thunks.initiatePurchase)
 local initiateBundlePurchase = require(Root.Thunks.initiateBundlePurchase)
 local initiatePremiumPurchase = require(Root.Thunks.initiatePremiumPurchase)
+local initiateSubscriptionPurchase = require(Root.Thunks.initiateSubscriptionPurchase)
 local connectToStore = require(Root.connectToStore)
 
 local GetFFlagPromptRobloxPurchaseEnabled = require(Root.Flags.GetFFlagPromptRobloxPurchaseEnabled)
+local GetFFlagDeveloperSubscriptionsEnabled = require(Root.Flags.GetFFlagDeveloperSubscriptionsEnabled)
 
 local ExternalEventConnection = require(script.Parent.ExternalEventConnection)
 
@@ -28,6 +30,7 @@ local function MarketplaceServiceEventConnector(props)
 	local onBundlePurchaseRequest = props.onBundlePurchaseRequest
 	local onPremiumPurchaseRequest = props.onPremiumPurchaseRequest
 	local onRobloxPurchaseRequest = props.onRobloxPurchaseRequest
+	local onSubscriptionPurchaseRequest = props.onSubscriptionPurchaseRequest
 
 	return Roact.createFragment({
 		Roact.createElement(ExternalEventConnection, {
@@ -57,6 +60,10 @@ local function MarketplaceServiceEventConnector(props)
 		Roact.createElement(ExternalEventConnection, {
 			event = MarketplaceService.PromptPremiumPurchaseRequested,
 			callback = onPremiumPurchaseRequest,
+		}),
+		SubscriptionsPurchase = GetFFlagDeveloperSubscriptionsEnabled() and Roact.createElement(ExternalEventConnection, {
+			event = MarketplaceService.PromptSubscriptionPurchaseRequested,
+			callback = onSubscriptionPurchaseRequest,
 		})
 	})
 end
@@ -112,6 +119,12 @@ function(dispatch)
 		end
 	end
 
+	local function onSubscriptionPurchaseRequest(player, subscriptionId)
+		if player == Players.LocalPlayer then
+			dispatch(initiateSubscriptionPurchase(subscriptionId))
+		end
+	end
+
 	return {
 		onPurchaseRequest = onPurchaseRequest,
 		onRobloxPurchaseRequest = onRobloxPurchaseRequest,
@@ -120,6 +133,7 @@ function(dispatch)
 		onServerPurchaseVerification = onServerPurchaseVerification,
 		onBundlePurchaseRequest = onBundlePurchaseRequest,
 		onPremiumPurchaseRequest = onPremiumPurchaseRequest,
+		onSubscriptionPurchaseRequest = onSubscriptionPurchaseRequest,
 	}
 end)(MarketplaceServiceEventConnector)
 

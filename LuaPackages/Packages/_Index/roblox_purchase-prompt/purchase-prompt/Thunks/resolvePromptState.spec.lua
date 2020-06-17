@@ -18,6 +18,10 @@ return function()
 			Name = "Test Product",
 			PriceInRobux = 10,
 			MinimumMembershipLevel = 0,
+			Creator = {
+				CreatorType = "User",
+				CreatorTargetId = 1,
+			},
 		}
 	end
 

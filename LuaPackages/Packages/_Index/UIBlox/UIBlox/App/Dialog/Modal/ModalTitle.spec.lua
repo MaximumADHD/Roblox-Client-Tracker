@@ -19,11 +19,33 @@ return function()
 					position = UDim2.new(0, 0, 0, 0),
 					anchor = Vector2.new(0, 0),
 					onCloseClicked = function() end,
+					titleBackgroundImageProps = {
+						image = "rbxassetid://2610133241",
+						imageHeight = 200,
+					},
 				})
 			})
 
 			local instance = Roact.mount(element)
 			Roact.unmount(instance)
+		end)
+
+		it("should throw on invalid props", function()
+			local element = mockStyleComponent({
+				ModalTitleContainer = Roact.createElement(ModalTitle, {
+					title = "Title",
+					position = UDim2.new(0, 0, 0, 0),
+					anchor = Vector2.new(0, 0),
+					onCloseClicked = function() end,
+					titleBackgroundImageProps = {
+						image = "rbxasset://textures/ui/LuaApp/graphic/Auth/GridBackground.jpg",
+					},
+				})
+			})
+
+			expect(function()
+				Roact.mount(element)
+			end).to.throw()
 		end)
     end)
 end

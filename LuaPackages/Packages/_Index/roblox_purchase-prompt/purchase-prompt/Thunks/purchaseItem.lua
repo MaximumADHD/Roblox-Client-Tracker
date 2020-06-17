@@ -10,6 +10,7 @@ local getToolAsset = require(Root.Network.getToolAsset)
 local performPurchase = require(Root.Network.performPurchase)
 local Network = require(Root.Services.Network)
 local Analytics = require(Root.Services.Analytics)
+local getPlayerPrice = require(Root.Utils.getPlayerPrice)
 local Thunk = require(Root.Thunk)
 local Promise = require(Root.Promise)
 
@@ -41,7 +42,8 @@ local function purchaseItem()
 		local equipIfPurchased = state.promptRequest.equipIfPurchased
 		local isRobloxPurchase = GetFFlagPromptRobloxPurchaseEnabled() and state.promptRequest.isRobloxPurchase or false
 
-		local salePrice = state.productInfo.price
+		local isPlayerPremium = state.accountInfo.membershipType == 4
+		local salePrice = getPlayerPrice(state.productInfo, isPlayerPremium)
 		local assetTypeId = state.productInfo.assetTypeId
 		local productId = state.productInfo.productId
 

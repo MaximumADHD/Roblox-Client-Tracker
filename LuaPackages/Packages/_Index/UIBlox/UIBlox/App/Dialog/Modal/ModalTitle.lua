@@ -18,6 +18,7 @@ local X_BUTTON_SIZE = 36
 local X_LEFT_PADDING = 6
 local X_IMAGE = "icons/navigation/close"
 local TITLE_HEIGHT = 48
+local TITLE_MAX_HEIGHT_WITH_IMAGE = 261
 
 local ModalTitle = Roact.PureComponent:extend("ModalTitle")
 
@@ -26,6 +27,10 @@ local validateProps = t.strictInterface({
 	position = t.optional(t.UDim2),
 	anchor = t.optional(t.Vector2),
 	onCloseClicked = t.optional(t.callback),
+	titleBackgroundImageProps = t.optional(t.strictInterface({
+		image = t.string,
+		imageHeight = t.number,
+	})),
 })
 
 ModalTitle.defaultProps = {
@@ -40,6 +45,7 @@ end
 
 function ModalTitle:render()
 	assert(validateProps(self.props))
+	local titleBackground = self.props.titleBackgroundImageProps
 
 	return withStyle(function(stylePalette)
 		local font = stylePalette.Font
@@ -47,7 +53,7 @@ function ModalTitle:render()
 
 		local headerSize = font.BaseSize * font.Header1.RelativeSize
 
-		return Roact.createElement("Frame", {
+		local titleText = Roact.createElement("Frame", {
 			Size = UDim2.new(1, 0, 0, TITLE_HEIGHT),
 			BackgroundTransparency = 1,
 		}, {
@@ -85,7 +91,7 @@ function ModalTitle:render()
 				TextSize = headerSize,
 				TextTruncate = Enum.TextTruncate.AtEnd,
 			}),
-			Underline = Roact.createElement("Frame", {
+			Underline = not titleBackground and Roact.createElement("Frame", {
 				AnchorPoint = Vector2.new(0.5, 0.5),
 				Position = UDim2.new(0.5, 0, 1, 0),
 				BorderSizePixel = 0,
@@ -95,6 +101,25 @@ function ModalTitle:render()
 				Size = UDim2.new(1, 0, 0, 1),
 			}),
 		})
+
+		if titleBackground then
+			local bgHeight = titleBackground.imageHeight
+			local height = math.min(math.max(TITLE_HEIGHT, bgHeight), TITLE_MAX_HEIGHT_WITH_IMAGE)
+			return Roact.createElement(ImageSetComponent.Label, {
+				AnchorPoint = Vector2.new(0.5, 0.5),
+				Size = UDim2.new(1, 0, 0, height),
+				Position = UDim2.new(0.5, 0, 0.5, 0),
+				BackgroundTransparency = 1,
+				ScaleType = Enum.ScaleType.Crop,
+				BorderSizePixel = 0,
+				Image = titleBackground.image,
+				ImageColor3 = Color3.new(255, 255, 255),
+			}, {
+				TitleText = titleText,
+			})
+		else
+			return titleText
+		end
 	end)
 end
 

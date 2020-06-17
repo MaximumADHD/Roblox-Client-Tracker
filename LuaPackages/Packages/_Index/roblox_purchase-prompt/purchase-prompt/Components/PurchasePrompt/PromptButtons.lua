@@ -6,6 +6,7 @@ local Roact = require(LuaPackages.Roact)
 local PromptState = require(Root.Enums.PromptState)
 local purchaseItem = require(Root.Thunks.purchaseItem)
 local launchRobuxUpsell = require(Root.Thunks.launchRobuxUpsell)
+local getPlayerPrice = require(Root.Utils.getPlayerPrice)
 local connectToStore = require(Root.connectToStore)
 
 local ConfirmButton = require(script.Parent.ConfirmButton)
@@ -72,9 +73,11 @@ function PromptButtons:render()
 end
 
 local function mapStateToProps(state)
+	local isPlayerPremium = state.accountInfo.membershipType == 4
+	local price = getPlayerPrice(state.productInfo, isPlayerPremium)
 	return {
 		promptState = state.promptState,
-		price = state.productInfo.price,
+		price = price,
 	}
 end
 

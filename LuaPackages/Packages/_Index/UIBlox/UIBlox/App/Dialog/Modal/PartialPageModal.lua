@@ -26,6 +26,10 @@ local validateProps = t.strictInterface({
 	position = t.optional(t.UDim2),
 	anchorPoint = t.optional(t.Vector2),
 	title = t.optional(t.string),
+	titleBackgroundImageProps = t.optional(t.strictInterface({
+		image = t.string,
+		imageHeight = t.number,
+	})),
 	bottomPadding = t.optional(t.number),
 
 	buttonStackProps = t.optional(t.table), -- Button stack validates the contents
@@ -58,6 +62,7 @@ function PartialPageModal:render()
 	}, {
 		TitleContainer = Roact.createElement(ModalTitle, {
 			title = self.props.title,
+			titleBackgroundImageProps = self.props.titleBackgroundImageProps,
 			onCloseClicked = self.props.onCloseClicked,
 		}),
 		Content = Roact.createElement(FitFrameVertical, {

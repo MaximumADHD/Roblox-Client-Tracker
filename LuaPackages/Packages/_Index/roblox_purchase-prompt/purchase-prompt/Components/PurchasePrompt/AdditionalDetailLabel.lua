@@ -11,6 +11,7 @@ local UpsellFlow = require(Root.Enums.UpsellFlow)
 local LocalizationService = require(Root.Localization.LocalizationService)
 local getUpsellFlow = require(Root.NativeUpsell.getUpsellFlow)
 local isMockingPurchases = require(Root.Utils.isMockingPurchases)
+local getPlayerPrice = require(Root.Utils.getPlayerPrice)
 local connectToStore = require(Root.connectToStore)
 
 local TextLocalizer = require(script.Parent.Parent.Connection.TextLocalizer)
@@ -66,7 +67,8 @@ local function mapStateToProps(state)
 	local messageKey = nil
 	local messageParams = nil
 
-	local price = state.productInfo.price
+	local isPlayerPremium = state.accountInfo.membershipType == 4
+	local price = getPlayerPrice(state.productInfo, isPlayerPremium)
 	local balance = state.accountInfo.balance
 
 	if promptState == PromptState.PromptPurchase then

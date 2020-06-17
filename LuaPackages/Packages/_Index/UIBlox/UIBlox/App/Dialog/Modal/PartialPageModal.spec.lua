@@ -20,6 +20,10 @@ return function()
 					position = UDim2.new(0, 0, 0, 0),
 					anchorPoint = Vector2.new(0, 0.5),
 					title = "Title",
+					titleBackgroundImageProps = {
+						image = "rbxassetid://2610133241",
+						imageHeight = 200,
+					},
 					screenSize = Vector2.new(1920, 1080),
 					bottomPadding = 100,
 					buttonStackProps = {
@@ -53,6 +57,22 @@ return function()
 
 			local instance = Roact.mount(element)
 			Roact.unmount(instance)
+		end)
+
+		it("should throw on invalid props", function()
+			local element = mockStyleComponent({
+				ModalTitleContainer = Roact.createElement(PartialPageModal, {
+					title = "Title",
+					titleBackgroundImageProps = {
+						image = "rbxasset://textures/ui/LuaApp/graphic/Auth/GridBackground.jpg",
+					},
+					screenSize = Vector2.new(1920, 1080),
+				})
+			})
+
+			expect(function()
+				Roact.mount(element)
+			end).to.throw()
 		end)
 
 		it("should return correct getMiddleContentWidth when screen size is larger than modal max width", function()

@@ -29,6 +29,7 @@ local function isRelevantRequestType(requestType)
 		or requestType == RequestType.Bundle
 		or requestType == RequestType.GamePass
 		or requestType == RequestType.Product
+		or requestType == RequestType.Subscription
 end
 
 function PurchasePrompt:init()
