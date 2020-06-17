@@ -642,8 +642,8 @@ Class DebugSettings : Instance [NotCreatable] [Settings] [NotBrowsable]
 Class DebuggerBreakpoint : Instance [NotCreatable]
 	Property string DebuggerBreakpoint.Condition
 	Property bool DebuggerBreakpoint.IsEnabled
-	Property bool DebuggerBreakpoint.IsLocal
 	Property int DebuggerBreakpoint.Line  [ReadOnly] [NotReplicated]
+	Property bool DebuggerBreakpoint.isContextDependentBreakpoint
 Class DebuggerManager : Instance [NotCreatable] [NotReplicated]
 	Property bool DebuggerManager.DebuggingEnabled [<💾> SaveOnly] [ReadOnly] [NotReplicated]
 	Function Instance DebuggerManager:AddDebugger(Instance script)
@@ -1993,6 +1993,7 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property float Workspace.FallenPartsDestroyHeight {✏️PluginSecurity}
 	Property bool Workspace.FilteringEnabled {✏️PluginSecurity}
 	Property float Workspace.Gravity
+	Property Enum<PhysicsSimulationRate> Workspace.PhysicsSimulationRate  [Hidden] [NotReplicated]
 	Property bool Workspace.StreamingEnabled {✏️PluginSecurity}
 	Property int Workspace.StreamingMinRadius  [NotScriptable]
 	Property Enum<StreamingPauseMode> Workspace.StreamingPauseMode  [NotScriptable]
@@ -2529,7 +2530,7 @@ Class ScriptDebugger : Instance [NotCreatable]
 	Function Map ScriptDebugger:GetUpvalues(int stackFrame = 0)
 	Function Variant ScriptDebugger:GetWatchValue(Instance watch)
 	Function Objects ScriptDebugger:GetWatches()
-	Function Instance ScriptDebugger:SetBreakpoint(int line, bool isLocalBreakpoint)
+	Function Instance ScriptDebugger:SetBreakpoint(int line, bool isContextDependentBreakpoint)
 	Function void ScriptDebugger:SetGlobal(string name, Variant value)
 	Function void ScriptDebugger:SetLocal(string name, Variant value, int stackFrame = 0)
 	Function void ScriptDebugger:SetUpvalue(string name, Variant value, int stackFrame = 0)
@@ -2925,6 +2926,7 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Dictionary StudioService:GetClassIcon(string className) {PluginSecurity}
 	Function Dictionary StudioService:GetResourceByCategory(string category) {RobloxScriptSecurity}
 	Function string StudioService:GetStartupPluginId() {RobloxScriptSecurity}
+	Function string StudioService:GetTermsOfUseUrl() {RobloxScriptSecurity}
 	Function int64 StudioService:GetUserId() {PluginSecurity}
 	Function RaycastResult StudioService:GizmoRaycast(Vector3 origin, Vector3 direction, RaycastParams raycastParams = RaycastParams.new()) {PluginSecurity}
 	Function bool StudioService:IsPluginInstalled(int64 assetId) {RobloxScriptSecurity}
@@ -3546,7 +3548,6 @@ Enum BreakReason
 Enum BulkMoveMode
 	EnumItem BulkMoveMode.FireAllEvents : 0
 	EnumItem BulkMoveMode.FireCFrameChanged : 1
-	EnumItem BulkMoveMode.FireNoEvents : 2
 Enum Button
 	EnumItem Button.Dismount : 8
 	EnumItem Button.Jump : 32
@@ -4479,6 +4480,10 @@ Enum PermissionLevelShown
 	EnumItem PermissionLevelShown.RobloxScript : 2
 	EnumItem PermissionLevelShown.Studio : 3
 	EnumItem PermissionLevelShown.Roblox : 4
+Enum PhysicsSimulationRate
+	EnumItem PhysicsSimulationRate.Fixed240Hz : 0
+	EnumItem PhysicsSimulationRate.Fixed120Hz : 1
+	EnumItem PhysicsSimulationRate.Fixed60Hz : 2
 Enum Platform
 	EnumItem Platform.Windows : 0
 	EnumItem Platform.OSX : 1
@@ -4857,6 +4862,7 @@ Enum Technology
 	EnumItem Technology.Voxel : 1
 	EnumItem Technology.Compatibility : 2
 	EnumItem Technology.ShadowMap : 3
+	EnumItem Technology.Future : 4 [Deprecated]
 Enum TeleportResult
 	EnumItem TeleportResult.Success : 0
 	EnumItem TeleportResult.Failure : 1

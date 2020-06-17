@@ -2608,6 +2608,13 @@
         </Properties>
     </Item>
 
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">CorePackages</string>
+        <string name="ExplorerOrder">30</string>
+        <string name="ExplorerImageIndex">20</string>
+      </Properties>
+    </Item>
 
     <Item class="ReflectionMetadataClass">
         <Properties>

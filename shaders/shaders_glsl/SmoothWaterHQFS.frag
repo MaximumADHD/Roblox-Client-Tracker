@@ -3,7 +3,7 @@
 #extension GL_ARB_shading_language_include : require
 #include <Globals.h>
 #include <Params.h>
-uniform vec4 CB0[47];
+uniform vec4 CB0[52];
 uniform vec4 CB3[3];
 uniform sampler3D LightMapTexture;
 uniform sampler3D LightGridSkylightTexture;
@@ -61,7 +61,7 @@ void main()
     float f36 = (f35 * f35) * f34;
     float f37 = f31 * f31;
     float f38 = (((f32 * f37) - f32) * f32) + 1.0;
-    vec3 f39 = mix(((min(f5 + (CB0[27].xyz + (CB0[28].xyz * f6)), vec3(CB0[16].w)) + (((((((CB0[35].xyz * f22) + (CB0[37].xyz * f23)) + (CB0[39].xyz * f24)) + (CB0[36].xyz * f25)) + (CB0[38].xyz * f26)) + (CB0[40].xyz * f27)) + (((((((CB0[29].xyz * f22) + (CB0[31].xyz * f23)) + (CB0[33].xyz * f24)) + (CB0[30].xyz * f25)) + (CB0[32].xyz * f26)) + (CB0[34].xyz * f27)) * f6))) + (CB0[10].xyz * f7)) * CB3[1].xyz, (((f28 * f28) * CB0[15].x) * f6) + (f5 * 0.100000001490116119384765625), vec3(((clamp(0.7799999713897705078125 - (2.5 * abs(dot(f16, f17))), 0.0, 1.0) + 0.300000011920928955078125) * VARYING0.w) * CB3[2].z)) + (((((vec3(f36) + (vec3(0.0199999995529651641845703125) * (1.0 - f36))) * (((f37 + (f37 * f37)) / (((f38 * f38) * ((f33 * 3.0) + 0.5)) * ((f32 * 0.75) + 0.25))) * clamp(dot(f15, f29), 0.0, 1.0))) * CB0[10].xyz) * f7) * clamp(1.0 - (VARYING7.w * CB0[23].y), 0.0, 1.0));
+    vec3 f39 = mix(((min(f5 + (CB0[27].xyz + (CB0[28].xyz * f6)), vec3(CB0[16].w)) + (((((((CB0[35].xyz * f22) + (CB0[37].xyz * f23)) + (CB0[39].xyz * f24)) + (CB0[36].xyz * f25)) + (CB0[38].xyz * f26)) + (CB0[40].xyz * f27)) + (((((((CB0[29].xyz * f22) + (CB0[31].xyz * f23)) + (CB0[33].xyz * f24)) + (CB0[30].xyz * f25)) + (CB0[32].xyz * f26)) + (CB0[34].xyz * f27)) * f6))) + (CB0[10].xyz * f7)) * CB3[1].xyz, (((f28 * f28) * CB0[15].x) * f6) + (f5 * 0.100000001490116119384765625), vec3(((clamp(0.7799999713897705078125 - (2.5 * abs(dot(f16, f17))), 0.0, 1.0) + 0.300000011920928955078125) * VARYING0.w) * CB3[2].z)) + ((((vec3(f36) + (vec3(0.0199999995529651641845703125) * (1.0 - f36))) * (((f37 + (f37 * f37)) / (((f38 * f38) * ((f33 * 3.0) + 0.5)) * ((f32 * 0.75) + 0.25))) * clamp(dot(f15, f29) * f7, 0.0, 1.0))) * CB0[10].xyz) * clamp(1.0 - (VARYING7.w * CB0[23].y), 0.0, 1.0));
     vec4 f40 = vec4(f39.x, f39.y, f39.z, vec4(0.0).w);
     f40.w = 1.0;
     vec3 f41 = sqrt(clamp(mix(CB0[14].xyz, f40.xyz, vec3(VARYING6.w)).xyz * CB0[15].y, vec3(0.0), vec3(1.0)));

@@ -4,7 +4,7 @@
 #include <EmitterParams.h>
 #include <Globals.h>
 uniform vec4 CB1[3];
-uniform vec4 CB0[47];
+uniform vec4 CB0[52];
 attribute vec4 POSITION;
 attribute vec4 TEXCOORD0;
 attribute vec2 TEXCOORD1;

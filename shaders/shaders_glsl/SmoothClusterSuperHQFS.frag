@@ -3,7 +3,7 @@
 
 #extension GL_ARB_shading_language_include : require
 #include <Globals.h>
-uniform vec4 CB0[47];
+uniform vec4 CB0[52];
 uniform vec4 CB3[1];
 uniform sampler2D ShadowMapTexture;
 uniform sampler3D LightMapTexture;
@@ -44,32 +44,33 @@ void main()
     vec3 f17 = vec3(dot(VARYING7, VARYING0.xyz));
     vec3 f18 = vec4(normalize(((mix(vec3(VARYING6.z, 0.0, f14), vec3(VARYING6.y, f14, 0.0), f17) * f16.x) + (mix(vec3(0.0, 1.0, 0.0), vec3(0.0, VARYING6.z, -VARYING6.y), f17) * f16.y)) + (VARYING6 * sqrt(clamp(1.0 + dot(vec2(1.0) - f15, f16), 0.0, 1.0)))), 0.0).xyz;
     vec4 f19 = ((texture2DGradARB(SpecularMapTexture, f4, dFdx(f5), dFdy(f5)) * VARYING0.x) + (texture2DGradARB(SpecularMapTexture, f6, dFdx(f7), dFdy(f7)) * VARYING0.y)) + (texture2DGradARB(SpecularMapTexture, f1, dFdx(f3), dFdy(f3)) * VARYING0.z);
-    float f20 = clamp(dot(step(CB0[19].xyz, abs(VARYING4 - CB0[18].xyz)), vec3(1.0)), 0.0, 1.0);
-    vec3 f21 = VARYING4.yzx - (VARYING4.yzx * f20);
-    vec4 f22 = vec4(clamp(f20, 0.0, 1.0));
-    vec4 f23 = mix(texture3D(LightMapTexture, f21), vec4(0.0), f22);
-    vec4 f24 = mix(texture3D(LightGridSkylightTexture, f21), vec4(1.0), f22);
-    vec4 f25 = texture2D(ShadowMapTexture, VARYING5.xy);
-    float f26 = (1.0 - ((step(f25.x, VARYING5.z) * clamp(CB0[24].z + (CB0[24].w * abs(VARYING5.z - 0.5)), 0.0, 1.0)) * f25.y)) * f24.y;
-    float f27 = f19.y;
-    vec3 f28 = -CB0[11].xyz;
-    vec3 f29 = normalize(f28 + normalize(VARYING8));
-    float f30 = dot(f18, f28);
-    float f31 = clamp(f30, 0.0, 1.0);
-    float f32 = f27 * f27;
-    float f33 = max(0.001000000047497451305389404296875, dot(f18, f29));
-    float f34 = dot(f28, f29);
-    float f35 = 1.0 - f34;
-    float f36 = f35 * f35;
-    float f37 = (f36 * f36) * f35;
-    vec3 f38 = vec3(f37) + (vec3(0.039999999105930328369140625) * (1.0 - f37));
-    float f39 = f32 * f32;
-    float f40 = (((f33 * f39) - f33) * f33) + 1.0;
-    vec3 f41 = ((((((((vec3(1.0) - (f38 * (CB0[26].w * f13))) * CB0[10].xyz) * f31) + (CB0[12].xyz * clamp(-f30, 0.0, 1.0))) * f26) + min((f23.xyz * (f23.w * 120.0)).xyz + (CB0[8].xyz + (CB0[9].xyz * f24.x)), vec3(CB0[16].w))) + vec3((f19.z * 2.0) * f13)) * (f12 * f12).xyz) + (((((f38 * (((f39 + (f39 * f39)) / (((f40 * f40) * ((f34 * 3.0) + 0.5)) * ((f33 * 0.75) + 0.25))) * f31)) * CB0[10].xyz) * f26) * f13) * VARYING0.w);
-    vec4 f42 = vec4(f41.x, f41.y, f41.z, vec4(0.0).w);
-    f42.w = 1.0;
-    vec3 f43 = sqrt(clamp(mix(CB0[14].xyz, f42.xyz, vec3(clamp(exp2((CB0[13].z * VARYING5.w) + CB0[13].x) - CB0[13].w, 0.0, 1.0))).xyz * CB0[15].y, vec3(0.0), vec3(1.0)));
-    gl_FragData[0] = vec4(f43.x, f43.y, f43.z, f42.w);
+    vec3 f20 = VARYING5.xyz - (CB0[11].xyz * 0.001000000047497451305389404296875);
+    float f21 = clamp(dot(step(CB0[19].xyz, abs(VARYING4 - CB0[18].xyz)), vec3(1.0)), 0.0, 1.0);
+    vec3 f22 = VARYING4.yzx - (VARYING4.yzx * f21);
+    vec4 f23 = vec4(clamp(f21, 0.0, 1.0));
+    vec4 f24 = mix(texture3D(LightMapTexture, f22), vec4(0.0), f23);
+    vec4 f25 = mix(texture3D(LightGridSkylightTexture, f22), vec4(1.0), f23);
+    vec4 f26 = texture2D(ShadowMapTexture, f20.xy);
+    float f27 = f20.z;
+    float f28 = f19.y;
+    vec3 f29 = -CB0[11].xyz;
+    float f30 = dot(f18, f29) * ((1.0 - ((step(f26.x, f27) * clamp(CB0[24].z + (CB0[24].w * abs(f27 - 0.5)), 0.0, 1.0)) * f26.y)) * f25.y);
+    vec3 f31 = normalize(f29 + normalize(VARYING8));
+    float f32 = clamp(f30, 0.0, 1.0);
+    float f33 = f28 * f28;
+    float f34 = max(0.001000000047497451305389404296875, dot(f18, f31));
+    float f35 = dot(f29, f31);
+    float f36 = 1.0 - f35;
+    float f37 = f36 * f36;
+    float f38 = (f37 * f37) * f36;
+    vec3 f39 = vec3(f38) + (vec3(0.039999999105930328369140625) * (1.0 - f38));
+    float f40 = f33 * f33;
+    float f41 = (((f34 * f40) - f34) * f34) + 1.0;
+    vec3 f42 = (((((((vec3(1.0) - (f39 * (CB0[26].w * f13))) * CB0[10].xyz) * f32) + (CB0[12].xyz * clamp(-f30, 0.0, 1.0))) + min((f24.xyz * (f24.w * 120.0)).xyz + (CB0[8].xyz + (CB0[9].xyz * f25.x)), vec3(CB0[16].w))) + vec3((f19.z * 2.0) * f13)) * (f12 * f12).xyz) + ((((f39 * (((f40 + (f40 * f40)) / (((f41 * f41) * ((f35 * 3.0) + 0.5)) * ((f34 * 0.75) + 0.25))) * f32)) * CB0[10].xyz) * f13) * VARYING0.w);
+    vec4 f43 = vec4(f42.x, f42.y, f42.z, vec4(0.0).w);
+    f43.w = 1.0;
+    vec3 f44 = sqrt(clamp(mix(CB0[14].xyz, f43.xyz, vec3(clamp(exp2((CB0[13].z * VARYING5.w) + CB0[13].x) - CB0[13].w, 0.0, 1.0))).xyz * CB0[15].y, vec3(0.0), vec3(1.0)));
+    gl_FragData[0] = vec4(f44.x, f44.y, f44.z, f43.w);
 }
 
 //$$ShadowMapTexture=s1

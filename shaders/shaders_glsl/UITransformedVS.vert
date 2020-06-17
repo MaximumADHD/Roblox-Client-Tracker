@@ -4,7 +4,7 @@
 #include <UIParams.h>
 #include <Globals.h>
 uniform vec4 CB1[5];
-uniform vec4 CB0[47];
+uniform vec4 CB0[52];
 uniform vec4 CB2[1];
 attribute vec4 POSITION;
 attribute vec2 TEXCOORD0;

@@ -4,7 +4,7 @@
 #include <AdornParams.h>
 #include <Globals.h>
 uniform vec4 CB1[6];
-uniform vec4 CB0[47];
+uniform vec4 CB0[52];
 attribute vec4 POSITION;
 attribute vec2 TEXCOORD0;
 varying vec2 VARYING0;

@@ -39,4 +39,6 @@ struct Globals
     float shadowBias;
     float shadowAlphaRef;
     float debugFlags;
+    vec4 shadowProjectionZ;
+    mat4 FroxelTransform;
 };

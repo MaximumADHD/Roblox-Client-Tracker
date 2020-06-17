@@ -115,8 +115,11 @@ RBX
 		{
 			ShadowMapSystem
 			ShadowMapSystemImpl
+			ShadowObject
 			ShadowObjectBase
 			ShadowObjectDirectional
+			ShadowObjectPoint
+			ShadowObjectSpot
 		}
 		SmoothCluster
 		{
@@ -148,8 +151,12 @@ RBX
 		EnvMapPBR
 		ExplosionEmitter
 		FastCluster
-		FastClusterBinding
-		FastClusterEntity
+		FastCluster_DEPRECATED
+		FastCluster_NEW
+		FastClusterBinding_DEPRECATED
+		FastClusterBinding_NEW
+		FastClusterEntity_DEPRECATED
+		FastClusterEntity_NEW
 		Framebuffer
 		FramebufferD3D11
 		FramebufferD3D9
@@ -160,6 +167,9 @@ RBX
 		Geometry
 		GeometryD3D11
 		GeometryD3D9
+		GeometryGenerator
+		GeometryGenerator_DEPRECATED
+		GeometryGenerator_NEW
 		GeometryGL
 		GeometryVulkan
 		GrassRenderEntity
@@ -291,6 +301,8 @@ RBX
 		LSPSocket
 		LuauLanguageServer
 		LuauLanguageServerExt
+		LuauScriptTextProvider
+		LuauSyncTextProvider
 	}
 	Lua
 	{
@@ -500,12 +512,14 @@ RBX
 	ScriptEditor
 	{
 		CmdConfig
+		CmdDocumentFormatting
 		CmdFoldAll
 		CmdFoldToggle
 		CmdGotoPosition
 		CmdInsertText
 		CmdMoveLinesDown
 		CmdMoveLinesUp
+		CmdRangeFormatting
 		CmdRepeat
 		CmdSelect
 		CmdUnfoldAll
@@ -646,6 +660,7 @@ RBX
 	AdvTranslateTool
 	AllCanSelectCommand
 	AnalyticsProviderBase
+	AnalyticsProviderDeveloperEventIngest
 	AnalyticsProviderPlayFab
 	AnalyticsService
 	AnalyticsServiceJob
@@ -1022,6 +1037,7 @@ RBX
 	MechanismInterpolationParallelManager
 	MechToAssemblyStage
 	MegaClusterInstance
+	MemoryPrioritizationJob
 	MemStorageConnection
 	MemStorageService
 	MergeBinder

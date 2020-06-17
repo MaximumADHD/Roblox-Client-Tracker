@@ -11354,23 +11354,6 @@
                 {
                     "Category": "Data",
                     "MemberType": "Property",
-                    "Name": "IsLocal",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    }
-                },
-                {
-                    "Category": "Data",
-                    "MemberType": "Property",
                     "Name": "Line",
                     "Security": {
                         "Read": "None",
@@ -11387,6 +11370,23 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "int"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "isContextDependentBreakpoint",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
                     }
                 }
             ],
@@ -35701,6 +35701,27 @@
                 {
                     "Category": "Behavior",
                     "MemberType": "Property",
+                    "Name": "PhysicsSimulationRate",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "PhysicsSimulationRate"
+                    }
+                },
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
                     "Name": "StreamingEnabled",
                     "Security": {
                         "Read": "None",
@@ -45388,7 +45409,7 @@
                             }
                         },
                         {
-                            "Name": "isLocalBreakpoint",
+                            "Name": "isContextDependentBreakpoint",
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "bool"
@@ -52241,6 +52262,17 @@
                 {
                     "MemberType": "Function",
                     "Name": "GetStartupPluginId",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetTermsOfUseUrl",
                     "Parameters": [
                     ],
                     "ReturnType": {
@@ -61490,10 +61522,6 @@
                 {
                     "Name": "FireCFrameChanged",
                     "Value": 1
-                },
-                {
-                    "Name": "FireNoEvents",
-                    "Value": 2
                 }
             ],
             "Name": "BulkMoveMode"
@@ -65447,6 +65475,23 @@
         {
             "Items": [
                 {
+                    "Name": "Fixed240Hz",
+                    "Value": 0
+                },
+                {
+                    "Name": "Fixed120Hz",
+                    "Value": 1
+                },
+                {
+                    "Name": "Fixed60Hz",
+                    "Value": 2
+                }
+            ],
+            "Name": "PhysicsSimulationRate"
+        },
+        {
+            "Items": [
+                {
                     "Name": "Windows",
                     "Value": 0
                 },
@@ -67017,6 +67062,13 @@
                         "Deprecated"
                     ],
                     "Value": 0
+                },
+                {
+                    "Name": "Future",
+                    "Tags": [
+                        "Deprecated"
+                    ],
+                    "Value": 4
                 }
             ],
             "Name": "Technology"

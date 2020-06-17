@@ -42,6 +42,7 @@ DefaultForceFieldHQFS,Fragment
 DefaultForceFieldHQFSShadowed,Fragment
 DefaultForceFieldSHQFS,Fragment
 DefaultForceFieldSHQFSShadowed,Fragment
+DefaultGlassHQFixFS,Fragment
 DefaultGlassHQFS,Fragment
 DefaultGlassHQFSShadowed,Fragment
 DefaultGlassSuperHQFS,Fragment
@@ -149,6 +150,7 @@ FXCompositingLinearFS,Fragment
 GlassInstancedVS,Vertex
 GlassSkinnedVS,Vertex
 GlassStaticVS,Vertex
+GlassTintFixFS,Fragment
 GlassTintFS,Fragment
 GrassFS,Fragment
 GrassHQFS,Fragment
@@ -181,6 +183,7 @@ LightGridPointSplatFS,Fragment
 LightGridPointSplatVS,Vertex
 LinearizeDepthAAFS,Fragment
 LinearizeDepthFS,Fragment
+LowQGlassFixFS,Fragment
 LowQGlassFS,Fragment
 LowQMaterialFS,Fragment
 LowQMaterialWangFallbackFS,Fragment

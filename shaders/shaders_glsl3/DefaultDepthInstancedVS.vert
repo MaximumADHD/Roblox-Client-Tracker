@@ -4,7 +4,7 @@
 #include <Instance.h>
 #include <Globals.h>
 uniform vec4 CB1[511];
-uniform vec4 CB0[47];
+uniform vec4 CB0[52];
 in vec4 POSITION;
 
 void main()

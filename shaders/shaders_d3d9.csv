@@ -62,6 +62,7 @@ FXCompositingFS,Fragment
 FXCompositingLinearFS,Fragment
 GlassSkinnedVS,Vertex
 GlassStaticVS,Vertex
+GlassTintFixFS,Fragment
 GlassTintFS,Fragment
 GrassFS,Fragment
 GrassVS,Vertex
@@ -86,6 +87,7 @@ ImageProcessLQNeonFS,Fragment
 LightGridPointSplatFS,Fragment
 LightGridPointSplatVS,Vertex
 LinearizeDepthFS,Fragment
+LowQGlassFixFS,Fragment
 LowQGlassFS,Fragment
 LowQMaterialFS,Fragment
 LowQMaterialWangFallbackFS,Fragment

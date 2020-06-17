@@ -564,6 +564,26 @@
       }
     },
     {
+      "OutputContextDropdownCheckboxUncheckedWarningIcon": {
+        "Default": ":/images/OutputWidget/checkbox_unchecked_light_warning.png"
+      }
+    },
+    {
+      "OutputContextDropdownCheckboxUncheckedErrorIcon": {
+        "Default": ":/images/OutputWidget/checkbox_unchecked_light_error.png"
+      }
+    },
+    {
+      "OutputContextDropdownCheckboxCheckedWarningIcon": {
+        "Default": ":/images/OutputWidget/checkbox_checked_light_warning.png"
+      }
+    },
+    {
+      "OutputContextDropdownCheckboxCheckedErrorIcon": {
+        "Default": ":/images/OutputWidget/checkbox_checked_light_error.png"
+      }
+    },
+    {
       "PackageMassUpdateProgressBarCheck": {
         "Default": ":/16x16/images/Studio 2.0 icons/16x16/Packages/progressBar_check_light.png"
       }

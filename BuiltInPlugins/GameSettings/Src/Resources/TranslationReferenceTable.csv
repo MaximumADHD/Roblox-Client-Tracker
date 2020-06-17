@@ -250,21 +250,21 @@ Studio.GameSettings.Places.EditPlace,Edit Place, ,Edit Place,플레이스 편집
 Studio.GameSettings.Places.MaxPlayers,Max Players, ,Max Players,최대 플레이어 수,玩家数量上限
 Studio.GameSettings.Places.MaxPlayersSubText,Maximum number of players allowed in a single instance of the game., ,Maximum number of players allowed in a single instance of the game.,단일 게임 인스턴스에 허용되는 최대 플레이어 수.,游戏的每个实例中所允许的玩家数量上限。
 Studio.GameSettings.Places.ServerFill,Server Fill, ,Server Fill,서버 채우기,服务器填充
-Studio.GameSettings.Places.OptimizedTitle,Roblox Optimized, ,Roblox Optimized,Roblox 최적화,Roblox 优化
+Studio.GameSettings.Places.OptimizedTitle,Roblox Optimized, ,Roblox Optimized,Roblox 최적화됨,Roblox 优化
 Studio.GameSettings.Places.OptimizedDescription,Fills your server to optimize for the best social gameplay experience., ,Fills your server to optimize for the best social gameplay experience.,최고의 소셜 게임 플레이 경험을 위해 서버를 채웁니다.,Roblox 将自动优化服务器的填充方式以获得最佳社交游戏体验。
 Studio.GameSettings.Places.MaximumTitle,Maximum, ,Maximum,최대,最大人数
 Studio.GameSettings.Places.MaximumWarning,Choosing this option could cause you to lose out on gameplay time and Robux earned., ,Choosing this option could cause you to lose out on gameplay time and Robux earned.,이 옵션을 선택하면 게임 플레이 시간 및 Robux 수익이 감소할 수 있습니다.,选择该选项后可能会导致产品的游戏时间与 Robux 收入下降。
 Studio.GameSettings.Places.CustomizeSlotsTitle,Customize Reserved Server Slots, ,Customize Reserved Server Slots,예약 서버 슬롯 사용자 정의,自定义服务器留位数量
-Studio.GameSettings.Places.CustomizeSlotsDescription,Friends are more likely to join players in your game if you reserve slots., ,Friends are more likely to join players in your game if you reserve slots.,슬롯을 예약하면 플레이어가 게임에서 친구와 합류할 수 있는 가능성이 높아집니다.,如果在服务器上预留位置，玩家更有可能在游戏中加入其好友。
+Studio.GameSettings.Places.CustomizeSlotsDescription,Friends are more likely to join players in your game if you reserve slots., ,Friends are more likely to join players in your game if you reserve slots.,슬롯을 예약하면 플레이어가 내 게임에서 친구와 합류할 수 있는 가능성이 높아집니다.,如果在服务器上预留位置，玩家更有可能在游戏中加入其好友。
 Studio.GameSettings.Places.VersionHistory,Version History, ,Version History,버전 기록,版本历史记录
 Studio.GameSettings.General.CategoryMonetization,Monetization, ,Monetization,수익 창출,盈利
-Studio.GameSettings.Monetization.FeeLabel,{1}% Fee:, ,{1}% Fee:, ,{1}% 费用：
+Studio.GameSettings.Monetization.FeeLabel,{1}% Fee:, ,{1}% Fee:,{1}% 수수료:,{1}% 费用：
 Studio.GameSettings.Monetization.TitlePaidAccess,Paid Access, ,Paid Access,유료 액세스,付费访问
 Studio.GameSettings.Monetization.TitleVIPServers,VIP Servers, ,VIP Servers,VIP 서버,VIP 服务器
 Studio.GameSettings.Monetization.Price,Price:, ,Price:,가격:,价格:
-Studio.GameSettings.Monetization.EarnLabel,You Earn:, ,You Earn:,획득 금액:,你的赚取：
-Studio.GameSettings.Monetization.DEPRECATED_PaidAccessHint,VIP Servers must not be enabled and the game must be public to enable Paid Access., ,VIP Servers must not be enabled and the game must be public to enable Paid Access.,유료 액세스를 활성화하려면 VIP 서버를 비활성화하고 게임을 공개해야 합니다.,启用付费访问前，需要禁用 VIP 服务器并将游戏设为公开。
-Studio.GameSettings.Monetization.DEPRECATED_VIPServersHint,Paid Access must not be enabled and the game must be public to enable VIP Servers., ,Paid Access must not be enabled and the game must be public to enable VIP Servers.,VIP 서버를 활성화하려면 유료 액세스를 비활성화하고 게임을 공개해야 합니다.,启用 VIP 服务器前，需要禁用付费访问并将游戏设为公开。
+Studio.GameSettings.Monetization.EarnLabel,You Earn:, ,You Earn:,내 수익금:,你的赚取：
+Studio.GameSettings.Monetization.PaidAccessHint,"Private Servers must not be enabled, and the game must be public to enable Paid Access.", ,"Private Servers must not be enabled, and the game must be public to enable Paid Access.",유료 액세스를 활성화하려면 비공개 서버를 비활성화하고 게임을 공개해야 합니다.,启用付费访问前，需要禁用私人服务器并将游戏设为公开。
+Studio.GameSettings.Monetization.VIPServersHint,Paid Access must not be enabled and the game must be public to enable VIP Servers., ,Paid Access must not be enabled and the game must be public to enable VIP Servers.,VIP 서버를 활성화하려면 유료 액세스를 비활성화하고 게임을 공개해야 합니다.,启用 VIP 服务器前，需要禁用付费访问并将游戏设为公开。
 Studio.GameSettings.Monetization.Subscriptions,Subscriptions: {numOfSubscriptions:int}, ,Subscriptions: {numOfSubscriptions:int},구독: {numOfSubscriptions:int},订阅数：{numOfSubscriptions:int}
 Studio.GameSettings.Monetization.TotalVIPServers,Total: {totalVipServers:int}, ,Total: {totalVipServers:int},총계: {totalVipServers:int},服务器数：{totalVipServers:int}
 Studio.GameSettings.Monetization.ProductName,Product Name, ,Product Name,제품 이름,产品名称
@@ -275,10 +275,31 @@ Studio.GameSettings.Monetization.EditDeveloperProduct,Edit Developer Product, ,E
 Studio.GameSettings.Monetization.DevProducts,Developer Products, ,Developer Products,개발자 제품,开发者产品
 Studio.GameSettings.General.ButtonPublish,Publish, ,Publish,게시,发布
 Studio.GameSettings.AccessPermissions.OwnerDescription,Owner of the game, ,Owner of the game,게임 소유자,游戏的所有者
-Studio.GameSettings.General.PublishText,Publish to access Game Settings. , ,Publish to access Game Settings. , ,发布后即可使用游戏设置功能。 
+Studio.GameSettings.General.PublishText,Publish to access Game Settings. , ,Publish to access Game Settings. ,게시 후 게임 설정 기능을 사용할 수 있습니다.,发布后即可使用游戏设置功能。 
 Studio.GameSettings.Places.NumberError,Please enter a number betwen {minRange:int} and {maxRange:int}., ,Please enter a number betwen {minRange:int} and {maxRange:int}.,{minRange:int}에서 {maxRange:int} 사이의 숫자를 입력하세요.,请输入 {minRange:int} 和 {maxRange:int} 之间的一个数字。
 Studio.GameSettings.Errors.ErrorPriceBelowMin,Price must be greater than {1}., ,Price must be greater than {1}.,가격은 {1}보다 높아야 합니다.,价格必须大于 {1}。
 Studio.GameSettings.Errors.ErrorPriceAboveMax,Price must be less than {1}., ,Price must be less than {1}.,가격은 {1}보다 낮아야 합니다.,价格必须小于 {1}。
 Studio.GameSettings.Errors.ErrorPriceInvalid,Enter a valid price (e.g. 1000), ,Enter a valid price (e.g. 1000),유효한 가격을 입력하세요 (예: 1000),输入有效的价格 （例：1000）
-Studio.GameSettings.Monetization.UnsavedDevProduct,(Not Saved), ,(Not Saved), , 
-Studio.GameSettings.Monetization.UnsavedDevProductName,Developer Product {1}, ,Developer Product {1}, , 
+Studio.GameSettings.Monetization.UnsavedDevProduct,(Not Saved), ,(Not Saved),(저장되지 않음),（未保存）
+Studio.GameSettings.Monetization.UnsavedDevProductName,Developer Product {1}{2}, ,Developer Product {1}{2},개발자 제품 {1}{2},开发者产品 {1}{2}
+Studio.GameSettings.General.ButtonShutdownAllServers,Shutdown, ,Shutdown,종료,关闭
+Studio.GameSettings.General.TitleShutdownAllServers,Shutdown All Servers, ,Shutdown All Servers,모든 서버 종료,关闭所有服务器
+Studio.GameSettings.General.TitleAllowCopying,Allow Copying, ,Allow Copying,복사 허용,允许复制
+Studio.GameSettings.General.StudioShutdownAllServicesDesc,This button will shutdown all currently running instances of your game, ,This button will shutdown all currently running instances of your game,이 버튼은 현재 실행 중인 모든 게임 인스턴스를 종료합니다,按下此按钮将会关闭当前游戏所有正在运行的实例
+Studio.GameSettings.General.AllowCopyingDesc,This option grants every user of Roblox the right to use (in various ways) the content you are not sharing. Fore more information about sharing content please review the Terms of Use., ,This option grants every user of Roblox the right to use (in various ways) the content you are not sharing. Fore more information about sharing content please review the Terms of Use.,이 옵션은 회원님이 공유하지 않은 콘텐츠를 다양한 방식으로 사용할 수 있는 권한을 Roblox의 모든 사용자에게 부여합니다. 콘텐츠 공유에 대한 자세한 내용이 궁금하다면 이용 약관을 확인하세요.,开启此选项即表示 Roblox 的所有用户将会对你未进行分享的内容拥有（多种方式的）使用权限。如果想要获取关于分享内容的更多信息，请详见我们的使用条款。
+Studio.GameSettings.General.ShutdownDialogHeader,Shutdown all servers, ,Shutdown all servers,모든 서버 종료,关闭所有服务器
+Studio.GameSettings.General.ShutdownDialogBody,Are you sure you want to shutdown all servers for this game?, ,Are you sure you want to shutdown all servers for this game?,이 게임의 모든 서버를 종료할까요?,确定要关闭当前游戏的所有服务器吗？
+Studio.GameSettings.Monetization.UnsavedDevProductName1,Developer Product {1}, ,Developer Product {1},개발자 제품 {1},开发者产品 {1}
+Studio.GameSettings.General.ButtonRetry,Retry, ,Retry,다시 시도,重试
+Studio.GameSettings.General.SettingsFailedToLoad,Failed to load settings for page, ,Failed to load settings for page,페이지 설정을 불러오지 못했습니다,页面设置加载失败
+Studio.GameSettings.General.SettingsInsufficientPermission,Only the game owner can edit these settings, ,Only the game owner can edit these settings,게임 소유자만 이 설정을 편집할 수 있습니다,只有游戏所有者才能对这些设置进行编辑
+Studio.GameSettings.Monetization.DEPRECATED_PaidAccessHint,VIP Servers must not be enabled and the game must be public to enable Paid Access., ,VIP Servers must not be enabled and the game must be public to enable Paid Access.,유료 액세스를 활성화하려면 VIP 서버를 비활성화하고 게임을 공개해야 합니다.,启用付费访问前，需要禁用 VIP 服务器并将游戏设为公开。
+Studio.GameSettings.Monetization.DEPRECATED_VIPServersHint,Paid Access must not be enabled and the game must be public to enable VIP Servers., ,Paid Access must not be enabled and the game must be public to enable VIP Servers.,VIP 서버를 활성화하려면 유료 액세스를 비활성화하고 게임을 공개해야 합니다.,启用 VIP 服务器前，需要禁用付费访问并将游戏设为公开。
+Studio.GameSettings.Monetization.Free,Free, ,Free,무료,免费
+Studio.GameSettings.Monetization.Paid,Paid, ,Paid,유료,付费
+Studio.GameSettings.Monetization.MarketplaceFee,Marketplace Fee:, ,Marketplace Fee:,마켓플레이스 수수료:,商店费用：
+Studio.GameSettings.Monetization.MarketplaceFeeIs,Marketplace Fee is {1}%., ,Marketplace Fee is {1}%.,마켓플레이스 수수료는 {1}%입니다.,{1}% 为商店费用。
+Studio.GameSettings.Monetization.PrivateServersTitle,Private Servers, ,Private Servers,비공개 서버,私人服务器
+Studio.GameSettings.Monetization.VIPServersPriceChangeWarning,Warning: Changing the price of VIP Servers will cancel all existing subscriptions., ,Warning: Changing the price of VIP Servers will cancel all existing subscriptions.,주의: VIP 서버 가격을 변경하면 기존 가입 사항이 모두 취소됩니다.,警告：更改 VIP 服务器价格后将会取消所有当前订阅。
+Studio.GameSettings.Monetization.PrivateServersPriceChangeWarning,Warning: Changing the price of Private Servers will cancel all existing subscriptions., ,Warning: Changing the price of Private Servers will cancel all existing subscriptions.,주의: 비공개 서버 가격을 변경하면 기존 가입 사항이 모두 취소됩니다.,警告：更改私人服务器价格后将会取消所有当前订阅。
+Studio.GameSettings.Monetization.PrivateServersHint,"Paid Access must not be enabled, and the game must be public to enable Private Servers.", ,"Paid Access must not be enabled, and the game must be public to enable Private Servers.",비공개 서버를 활성화하려면 유료 액세스를 비활성화하고 게임을 공개해야 합니다.,启用私人服务器前，需要禁用付费访问并将游戏设为公开。

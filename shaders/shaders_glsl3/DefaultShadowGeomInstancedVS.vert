@@ -3,7 +3,7 @@
 #extension GL_ARB_shading_language_include : require
 #include <Globals.h>
 #include <Instance.h>
-uniform vec4 CB0[47];
+uniform vec4 CB0[52];
 uniform vec4 CB1[511];
 in vec4 POSITION;
 out vec3 VARYING0;

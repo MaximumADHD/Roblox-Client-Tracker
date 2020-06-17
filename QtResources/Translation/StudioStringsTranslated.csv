@@ -410,7 +410,7 @@ Studio.App.RBXMainWindow.CommentSelection,,,Comment Selection,Comment Selection,
 Studio.App.RBXMainWindow.ConditionElps,,,Condition...,Condition...,조건...,Условие...,条件...
 Studio.App.RBXMainWindow.ConnectorsOnSurface,,,Connectors on Surface,Connectors on Surface,표면의 커넥터,Коннекторы на поверхности,表面连接件
 Studio.App.RBXMainWindow.ConstraintCheck,,,Constraint Check,Constraint Check,제약 확인,Проверка ограничений,约束检查
-Studio.App.RBXMainWindow.ContextHelp,,,Context Help,Context Help,컨텍스트 도움말,Контекстная справка,语境帮助
+Studio.App.RBXMainWindow.ContextHelp,,,Context Help,Context Help,콘텍스트 도움말,Контекстная справка,语境帮助
 Studio.App.RBXMainWindow.ConvertToPackageElps,,,Convert to Package...,Convert to Package...,패키지로 전환...,Преобразовать в пакет....,转换为包...
 Studio.App.RBXMainWindow.CopyTheSelectionAndPutItOn,,,Copy the selection and put it on the Clipboard,Copy the selection and put it on the Clipboard,선택 항목을 클립보드로 복사,Скопировать выделенное и поместить в буфер обмена,复制选中内容并置入剪贴板
 Studio.App.RBXMainWindow.CreateANewDocument,,,Create a new document,Create a new document,새 문서 만들기,Создать новый документ,创建一个新文档
@@ -1288,7 +1288,7 @@ Studio.App.Property.ArePhysicsRejectionsReported,,,Are Physics Rejections Report
 Studio.App.Property.AreRegionsShown,,,Are Regions Shown,Are Regions Shown,범위 표시됨,Показаны ли регионы,显示地区
 Studio.App.Property.AreScriptStartsReported,,,Are Script Starts Reported,Are Script Starts Reported,스크립트 시작 보고됨,Отправлен ли отчет о запуске скрипта,报告脚本开始
 Studio.App.Property.AreUnalignedPartsShown,,,Are Unaligned Parts Shown,Are Unaligned Parts Shown,정렬되지 않은 파트 표시됨,Показаны ли невыровненные детали,显示未对齐部件
-Studio.App.Property.AreWorldCoordsShown,,,Are World Coords Shown,Are World Coords Shown,세계 좌표 표시됨,Показаны ли world-координаты,显示世界坐标
+Studio.App.Property.AreWorldCoordsShown,,,Are World Coords Shown,Are World Coords Shown,월드 좌표 표시됨,Показаны ли world-координаты,显示世界坐标
 Studio.App.Property.AttachDebuggerTo,,,Attach Debugger To,Attach Debugger To,디버거를 다음에 첨부,Прикрепить отладчик к,连接调试器至
 Studio.App.Property.AutoFRMLevel,,,Auto FRM Level,Auto FRM Level,자동 FRM 레벨,Автоматический уровень FRM,自动 FRM 等级
 Studio.App.Property.AutoIndent,,,Auto Indent,Auto Indent,자동 인덴트,Автоматический отступ,自动缩进
@@ -1548,17 +1548,17 @@ Studio.App.BulkImportController.BusySplitting,,,Already busy mesh splitting. Ple
 Studio.App.BulkImportController.CouldNotStart,,,Could not start mesh splitting. Please restart Studio or contact support if the problem persists.,Could not start mesh splitting. Please restart Studio or contact support if the problem persists.,메시 분할을 시작할 수 없습니다. 문제가 지속되면 Studio를 재시작하거나 지원팀에 문의하세요.,"Не удалось запустить разделение сетки. Перезапустите Studio. Если проблема сохраняется, обратитесь в службу поддержки.",无法开始网格拆分。如果问题仍然存在，请重启 Studio 或联系技术支持。
 Studio.App.BulkImportController.EmptyListToSpliut,,,Got an empty list of assets to split. Please try again or contact support if the problem persists.,Got an empty list of assets to split. Please try again or contact support if the problem persists.,분할할 애셋 목록이 비어 있습니다. 문제가 지속되면 지원팀에 문의하세요.,"Список ресурсов для разделения пуст. Попробуйте еще раз. Если проблема сохраняется, обратитесь в службу поддержки.",素材列表为空，无法拆分。如果问题仍然存在，请重试或联系技术支持。
 Studio.App.BulkImportController.GotEmptyList,,,Got an empty list of files to import. Please try again or contact support if the problem persists.,Got an empty list of files to import. Please try again or contact support if the problem persists.,가져올 파일 목록이 비어 있습니다. 문제가 지속되면 지원팀에 문의하세요.,"Список файлов для импорта пуст. Попробуйте еще раз. Если проблема повторится, обратитесь в службу поддержки.",文件列表为空，无法导入。如果问题仍然存在，请重试或联系技术支持。
-Studio.App.BulkImportController.TooManyFiles1,,,You cannot import more than %1 files at a time.,You cannot import more than %1 files at a time.,한번에 %1개 이상의 파일을 가져올 수 없어요.,Одновременно можно импортировать не более %1 файлов.,一次性导入的文件数量不得超过 %1 个。
-Studio.App.BulkImportController.TooManyFiles2,,,You cannot import more than %1 assets at a time. The %2 file(s) you selected exceeds the limit. Please re-select file to import.,You cannot import more than %1 assets at a time. The %2 file(s) you selected exceeds the limit. Please re-select file to import.,한번에 %1개 이상의 애셋을 가져올 수 없어요. 현재 %2개의 파일이 선택되었으며 이는 용량 제한 초과입니다. 가져올 파일을 다시 선택하세요.,Нельзя импортировать более %1 ресурсов одновременно. Выбранный вами файл (файлы) %2 превышает установленный лимит. Выберите другой файл для импорта.,一次性导入的素材数量不得超过 %1 个。你选择的 %2 个文件超过了限制。请重新选择文件以导入。
-Studio.App.BulkImportController.TooManyToSplit,,,You cannot split more than %1 files at a time.,You cannot split more than %1 files at a time.,한번에 %1개 이상의 파일을 분할할 수 없어요.,Одновременно можно разделять не более %1 файлов.,一次性拆分的文件数量不得超过 %1 个。
+Studio.App.BulkImportController.TooManyFiles1,,,You cannot import more than %1 files at a time.,You cannot import more than %1 files at a time.,한번에 %1개 이상의 파일을 가져올 수 없습니다.,Одновременно можно импортировать не более %1 файлов.,一次性导入的文件数量不得超过 %1 个。
+Studio.App.BulkImportController.TooManyFiles2,,,You cannot import more than %1 assets at a time. The %2 file(s) you selected exceeds the limit. Please re-select file to import.,You cannot import more than %1 assets at a time. The %2 file(s) you selected exceeds the limit. Please re-select file to import.,한번에 %1개 이상의 애셋을 가져올 수 없습니다. 현재 %2개의 파일이 선택되었으며 이는 용량 제한 초과입니다. 가져올 파일을 다시 선택하세요.,Нельзя импортировать более %1 ресурсов одновременно. Выбранный вами файл (файлы) %2 превышает установленный лимит. Выберите другой файл для импорта.,一次性导入的素材数量不得超过 %1 个。你选择的 %2 个文件超过了限制。请重新选择文件以导入。
+Studio.App.BulkImportController.TooManyToSplit,,,You cannot split more than %1 files at a time.,You cannot split more than %1 files at a time.,한번에 %1개 이상의 파일을 분할할 수 없습니다.,Одновременно можно разделять не более %1 файлов.,一次性拆分的文件数量不得超过 %1 个。
 Studio.App.BulkImportController.TryAgain,,,Did not get a result. Please try again or contact support if the problem persists.,Did not get a result. Please try again or contact support if the problem persists.,결과가 없습니다. 문제가 지속되면 다시 시도하거나 지원팀에 문의하세요.,"Не удалось завершить действие. Попробуйте еще раз. Если проблема повторится, обратитесь в службу поддержки.",未得到任何结果。如果问题仍然存在，请重试或联系技术支持。
 Studio.App.BulkImportController.UnknownError,,,An unknown error occurred. Please try again or contact support if the problem persists.,An unknown error occurred. Please try again or contact support if the problem persists.,알 수 없는 오류가 발생했습니다. 문제가 지속되면 다시 시도하거나 지원팀에 문의하세요.,"Возникла неизвестная ошибка. Повторите попытку. Если проблема повторится, обратитесь в службу поддержки.",发生未知错误。如果问题仍然存在，请重试或联系技术支持。
-Studio.App.BulkImportController.UnsupportedAsset,,,List of files contains unsupported asset type. Please try again or contact support if the problem persists.,List of files contains unsupported asset type. Please try again or contact support if the problem persists.,파일 목록에 지원되지 않는 애셋 유형이 포함되어 있습니다. 문제가 지속되면 다시 시도하거나 지원팀에 문의하세요.,"Список файлов содержит ресурс, тип которого не поддерживается. Попробуйте еще раз. Если проблема повторится, обратитесь в службу поддержки.",文件列表包含不支持的素材类型。如果问题仍然存在，请重试或联系技术支持。
+Studio.App.BulkImportController.UnsupportedAsset,,,List of files contains unsupported asset type. Please try again or contact support if the problem persists.,List of files contains unsupported asset type. Please try again or contact support if the problem persists.,파일 목록에 지원되지 않는 애셋 유형이 포함되어 있습니다. 문제가 지속되면 다시 시도하거나 지원 센터에 문의하세요.,"Список файлов содержит ресурс, тип которого не поддерживается. Попробуйте еще раз. Если проблема повторится, обратитесь в службу поддержки.",文件列表包含不支持的素材类型。如果问题仍然存在，请重试或联系技术支持。
 Studio.App.BulkImportWidget.CancelImport,,,Cancel Import,Cancel Import,가져오기 취소,Отменить импорт,取消导入
 Studio.App.BulkImportWidget.ContinueImport,,,Continue Import,Continue Import,가져오기 계속,Продолжить импорт,继续导入
 Studio.App.BulkImportWidget.ImportNotComplete,,,Your import is not complete. Closing the widget will cancel the entire import process. Would you like to cancel it?,Your import is not complete. Closing the widget will cancel the entire import process. Would you like to cancel it?,가져오기가 완료되지 않았습니다. 위젯을 닫으면 가져오기의 전체 프로세스가 취소됩니다. 취소를 진행할까요?,Импорт не завершен. Закрытие виджета приведет к отмене всего процесса импорта. Продолжить?,你的导入未完成。关闭控件将取消整个导入过程。确定要取消吗?
-Studio.App.BulkImporterImpl.AssetHasBeenRenamedTo1,,,Asset has been renamed to '%1',Asset has been renamed to '%1',애셋 이름이 '%1'(으)로 변경되었어요.,"Ресурс был переименован в ""%1"".",资源已被重命名为“%1”
-Studio.App.BulkImporterImpl.AssetNameModerated,,,Asset name on website has been moderated,Asset name on website has been moderated,웹사이트의 애셋 이름이 검열되었어요.,Имя ресурса на сайте модерируется,网站上的资源名已被过滤
+Studio.App.BulkImporterImpl.AssetHasBeenRenamedTo1,,,Asset has been renamed to '%1',Asset has been renamed to '%1',애셋 이름이 '%1'(으)로 변경되었습니다,"Ресурс был переименован в ""%1"".",资源已被重命名为“%1”
+Studio.App.BulkImporterImpl.AssetNameModerated,,,Asset name on website has been moderated,Asset name on website has been moderated,웹사이트의 애셋 이름이 검열되었습니다,Имя ресурса на сайте модерируется,网站上的资源名已被过滤
 Studio.App.BulkImporterImpl.RetryLimtHitTryAgainLater,,,Retry limit hit. Try again later,Retry limit hit. Try again later,재시도 한도에 도달했습니다. 나중에 다시 시도하세요.,Количество попыток исчерпано. Попробуйте позже.,已打到重试的次数限制，请稍后重试。
 Studio.App.BulkImporterImpl.RetryingUpload,,,Retrying upload,Retrying upload,업로드 재시도 중,Повторная загрузка,正重试上传
 Studio.App.BulkImporter.RetryingUploadIn1SecondS,,,Retrying upload in %1 second(s),Retrying upload in %1 second(s),%1초 후에 업로드를 재시도합니다,Повторная загрузка через %1 сек.,%1 秒后将重试上传
@@ -1721,7 +1721,7 @@ Studio.App.RobloxMainWindow.OpenScriptFile,,,Open Script File,Open Script File,�
 Studio.App.RobloxMainWindow.OpenScriptsPattern,,,Scripts (*.rbxs *.lua *.txt),Scripts (*.rbxs *.lua *.txt),스크립트 (*.rbxs *.lua *.txt),Скрипты (*.rbxs *.lua *.txt),脚本 （*.rbxs *.lua *.txt）
 Studio.App.RobloxMainWindow.PluginInstallation,,,Plugin Installation,Plugin Installation,플러그인 설치,Установка плагина,插件安装
 Studio.App.RobloxMainWindow.SaveAs,,,Save As,Save As,다음으로 저장,Сохранить как,另存为
-Studio.App.RobloxMouseConfig.ContextMenu,,,Context Menu,Context Menu,컨텍스트 메뉴,Контекстное меню,语境菜单
+Studio.App.RobloxMouseConfig.ContextMenu,,,Context Menu,Context Menu,콘텍스트 메뉴,Контекстное меню,语境菜单
 Studio.App.RobloxPropertiesWidget.FilterPlaceholder1,,,Filter Properties %1,Filter Properties %1,필터 속성 %1,Свойства фильтра %1,过滤属性 %1
 Studio.App.RobloxPropertiesWidget.ItemsCount2,,,%1 - %2 items,%1 - %2 items,%1 - %2 아이템,Позиции %1 - %2,%1 - %2 个项目
 Studio.App.RobloxPropertiesWidget.ItemsCount3,,,"%1 ""%2"" - %3 items","%1 ""%2"" - %3 items","%1 ""%2"" - %3 아이템","Позиции %1 ""%2"" - %3",%1 “%2” - %3 个项目
@@ -2045,7 +2045,7 @@ Studio.App.Property.PrintJoinSizeBreakdown,,,Print Join Size Breakdown,Print Joi
 Studio.App.RBXMainWindow.InsertPart,,,Insert Part,Insert Part,파트 삽입,Вставить деталь,插入部件
 Studio.App.RBXMainWindow.JoinSurfacesCheck,,,Join Surfaces Check,Join Surfaces Check,표면 결합 검사,Проверка поверхностей соединений,连接表层检查
 Studio.App.RBXMainWindow.QuickFindScript,,,Type to quickly open another script,Type to quickly open another script,입력하여 다른 스크립트를 빠르게 엽니다,Введите для быстрого открытия другого скрипта,键入以快速打开另一个脚本
-Studio.App.RBXMainWindow.ResetDefaultInstanceProperties,,,Reset Instance Defaults,Reset Instance Defaults,인스턴스 기본값 초기화,Вернуть свойства экземпляра по умолчанию,重置默认实例属性
+Studio.App.RBXMainWindow.ResetDefaultInstanceProperties,,,Reset Instance Defaults,Reset Instance Defaults,인스턴스 기본값 재설정,Вернуть свойства экземпляра по умолчанию,重置默认实例属性
 Studio.App.RBXMainWindow.Drafts,,,Drafts,Drafts,초안,Черновики,草稿
 Studio.App.RBXMainWindow.ToggleJoinSurfacesCheck,,,Enables or Disables Join Surfaces Check,Enables or Disables Join Surfaces Check,표면 결합 확인 활성화 또는 비활성화,Включает или отключает проверку поверхностей соединений,启用或禁用连接面检查
 Studio.App.RBXMainWindow.ViewDrafts,,,View Drafts,View Drafts,초안 보기,Просмотр черновиков,查看草稿
@@ -2205,7 +2205,7 @@ Studio.App.Updates.BetaFeatureName,,,Safe Studio Updates,Safe Studio Updates,안
 Studio.App.Updates.ShutdownConfirmationText,,,There is a new Studio update available. Shutdown to update?,There is a new Studio update available. Shutdown to update?,사용 가능한 새 Studio 업데이트가 있습니다. 업데이트를 종료할까요?,Доступно обновление Studio. Завершить работу для загрузки обновления?,有新的 Studio 更新可用。是否关闭程序并更新？
 Studio.App.Updates.ShutdownPromptButton,,,Shutdown,Shutdown,종료,Завершение работы,关闭
 Studio.App.Updates.UpdateAvailableToast,,,A new version of Studio is available,A new version of Studio is available,새 버전의 Studio를 사용할 수 있음,Доступна новая версия Studio,有新的 Studio 版本可用
-Studio.App.AddEmulationDeviceDialog.DeviceForm,,,Device Form,Device Form,기기 형식,Форма устройства:,设备种类
+Studio.App.AddEmulationDeviceDialog.DeviceForm,,,Device Form,Device Form,기기 유형,Форма устройства:,设备种类
 Studio.App.AddEmulationDeviceDialog.GuiInsets,,,GuiInsets,GuiInsets,GuiInsets,GuiInsets:,GuiInsets
 Studio.App.AddEmulationDeviceDialog.KeyboardAnimationDuration,,,Keyboard Animation Duration (s),Keyboard Animation Duration (s),키보드 애니메이션 지속 시간(초),Длительность анимации клавиатуры (сек.):,键盘动画长度（秒）
 Studio.App.AddEmulationDeviceDialog.KeyboardSettings,,,Keyboard Settings,Keyboard Settings,키보드 설정,Настройки клавиатуры,键盘设置
@@ -2337,7 +2337,7 @@ Studio.App.VersionHistoryDialog.CompareWithPreviousButtonText,,,Compare with pre
 Studio.App.VersionHistoryDialog.CurrentVersionLabel1,,,%1 (Current),%1 (Current),%1(현재),%1 (текущая),%1 （当前）
 Studio.App.VersionHistoryDialog.EditAllButtonText,,,Open all scripts from batch,Open all scripts from batch,배치에서 모든 스크립트 열기,Редактировать все скрипты в пакете,打开批量中的所有脚本
 Studio.App.VersionHistoryDialog.EditThisButtonText,,,Open script,Open script,스크립트 열기,Редактировать этот скрипт,打开脚本
-Studio.App.VersionHistoryDialog.NoScriptHistoryWarning,,,There is no saved history for this script,There is no saved history for this script,이 스크립트에 대해 저장된 내역 없음,Для скрипта нет сохраненной истории,此脚本没有已保存的历史记录
+Studio.App.VersionHistoryDialog.NoScriptHistoryWarning,,,This script does not have version history yet,This script does not have version history yet,이 스크립트에는 아직 버전 기록이 없습니다,Для скрипта нет сохраненной истории,此脚本尚未拥有任何版本历史记录
 Studio.App.VersionHistoryDialog.OpenDialog,,,View Script History,View Script History,스크립트 내역 보기,Просмотреть историю скрипта,查看脚本历史记录
 Studio.App.VersionHistoryDialog.PlaceVersionColumnTitle,,,Place Version,Place Version,장소 버전,Версия места,场景版本
 Studio.App.VersionHistoryDialog.PlaceVersionLabel1,,,Place V%1,Place V%1,장소 V%1,Место V%1,场景 V %1
@@ -2466,24 +2466,24 @@ Studio.App.DebuggerClientManager.RobloxLuaDebuggerCaughtError,,,"The Roblox Lua 
 Studio.App.LoginManager.LocaleFetchError1,,,Failed to fetch account locale: %1,Failed to fetch account locale: %1,계정 로캘을 가져오지 못했습니다: %1,,无法提取账户区域：%1
 Studio.App.LoginManager.MetadataFetchError1,,,Failed to fetch account info: %1,Failed to fetch account info: %1,계정 정보를 가져오지 못했습니다: %1,,无法提取账户信息：%1
 Studio.App.RobloxCustomWidgets.BrickColor1,,,White,White,흰색,,白色
-Studio.App.RobloxCustomWidgets.BrickColor1001,,,Institutional white,Institutional white,규격 화이트,,学院白
+Studio.App.RobloxCustomWidgets.BrickColor1001,,,Institutional white,Institutional white,제복 화이트,,学院白
 Studio.App.RobloxCustomWidgets.BrickColor1002,,,Mid gray,Mid gray,미드 그레이,,中性灰
 Studio.App.RobloxCustomWidgets.BrickColor1003,,,Really black,Really black,진검정,,极限黑
 Studio.App.RobloxCustomWidgets.BrickColor1004,,,Really red,Really red,진빨강,,极限红
 Studio.App.RobloxCustomWidgets.BrickColor1005,,,Deep orange,Deep orange,딥 오렌지,,深沉橘
-Studio.App.RobloxCustomWidgets.BrickColor1006,,,Alder,Alder,알더,,桤木紫
+Studio.App.RobloxCustomWidgets.BrickColor1006,,,Alder,Alder,오리나무 보라,,桤木紫
 Studio.App.RobloxCustomWidgets.BrickColor1007,,,Dusty Rose,Dusty Rose,더스티 로즈,,玫瑰灰
 Studio.App.RobloxCustomWidgets.BrickColor1008,,,Olive,Olive,올리브,,橄榄绿
-Studio.App.RobloxCustomWidgets.BrickColor1009,,,New Yeller,New Yeller,뉴 옐러,,明快黄
+Studio.App.RobloxCustomWidgets.BrickColor1009,,,New Yeller,New Yeller,뉴 옐로,,明快黄
 Studio.App.RobloxCustomWidgets.BrickColor101,,,Medium red,Medium red,미디엄 레드,,中性红
 Studio.App.RobloxCustomWidgets.BrickColor1010,,,Really blue,Really blue,진파랑,,极限蓝
 Studio.App.RobloxCustomWidgets.BrickColor1011,,,Navy blue,Navy blue,네이비 블루,,海军蓝
 Studio.App.RobloxCustomWidgets.BrickColor1012,,,Deep blue,Deep blue,딥 블루,,深沉蓝
-Studio.App.RobloxCustomWidgets.BrickColor1013,,,Cyan,Cyan,진하늘색,,靛青蓝
+Studio.App.RobloxCustomWidgets.BrickColor1013,,,Cyan,Cyan,녹청색,,靛青蓝
 Studio.App.RobloxCustomWidgets.BrickColor1014,,,CGA brown,CGA brown,CGA 브라운,,复古棕
 Studio.App.RobloxCustomWidgets.BrickColor1015,,,Magenta,Magenta,마젠타,,洋紫红
 Studio.App.RobloxCustomWidgets.BrickColor1016,,,Pink,Pink,핑크,,粉红色
-Studio.App.RobloxCustomWidgets.BrickColor1018,,,Teal,Teal,틸,,水青蓝
+Studio.App.RobloxCustomWidgets.BrickColor1018,,,Teal,Teal,청록색,,水青蓝
 Studio.App.RobloxCustomWidgets.BrickColor1019,,,Toothpaste,Toothpaste,치약,,牙膏蓝
 Studio.App.RobloxCustomWidgets.BrickColor102,,,Medium blue,Medium blue,미디엄 블루,,中性蓝
 Studio.App.RobloxCustomWidgets.BrickColor1020,,,Lime green,Lime green,라임 그린,,青柠绿
@@ -2500,11 +2500,11 @@ Studio.App.RobloxCustomWidgets.BrickColor1030,,,Pastel brown,Pastel brown,파스
 Studio.App.RobloxCustomWidgets.BrickColor1031,,,Royal purple,Royal purple,로열 퍼플,,皇家紫
 Studio.App.RobloxCustomWidgets.BrickColor1032,,,Hot pink,Hot pink,핫 핑크,,热粉色
 Studio.App.RobloxCustomWidgets.BrickColor104,,,Bright violet,Bright violet,밝은 보라,,鲜亮紫
-Studio.App.RobloxCustomWidgets.BrickColor105,,,Br. yellowish orange,Br. yellowish orange,밝은 노란빛 주황,,亮黄橘
-Studio.App.RobloxCustomWidgets.BrickColor106,,,Bright orange,Bright orange,밝은 주황,,鲜亮橘
-Studio.App.RobloxCustomWidgets.BrickColor107,,,Bright bluish green,Bright bluish green,청록색,,鲜亮青
+Studio.App.RobloxCustomWidgets.BrickColor105,,,Br. yellowish orange,Br. yellowish orange,밝은 노란빛 오렌지,,亮黄橘
+Studio.App.RobloxCustomWidgets.BrickColor106,,,Bright orange,Bright orange,밝은 오렌지,,鲜亮橘
+Studio.App.RobloxCustomWidgets.BrickColor107,,,Bright bluish green,Bright bluish green,밝은 청록색,,鲜亮青
 Studio.App.RobloxCustomWidgets.BrickColor11,,,Pastel Blue,Pastel Blue,파스텔 블루,,淡蓝色
-Studio.App.RobloxCustomWidgets.BrickColor119,,,Br. yellowish green,Br. yellowish green,밝은 노란빛 초록,,亮黄绿
+Studio.App.RobloxCustomWidgets.BrickColor119,,,Br. yellowish green,Br. yellowish green,밝은 황록색,,亮黄绿
 Studio.App.RobloxCustomWidgets.BrickColor125,,,Light orange,Light orange,라이트 오렌지,,浅橘色
 Studio.App.RobloxCustomWidgets.BrickColor133,,,Neon orange,Neon orange,네온 오렌지,,荧光橘
 Studio.App.RobloxCustomWidgets.BrickColor135,,,Sand blue,Sand blue,샌드 블루,,沙蓝色
@@ -2512,7 +2512,7 @@ Studio.App.RobloxCustomWidgets.BrickColor141,,,Earth green,Earth green,어스 �
 Studio.App.RobloxCustomWidgets.BrickColor151,,,Sand green,Sand green,샌드 그린,,沙绿色
 Studio.App.RobloxCustomWidgets.BrickColor153,,,Sand red,Sand red,샌드 레드,,沙红色
 Studio.App.RobloxCustomWidgets.BrickColor18,,,Nougat,Nougat,누가,,杏仁棕
-Studio.App.RobloxCustomWidgets.BrickColor192,,,Reddish brown,Reddish brown,적갈색,,红棕色
+Studio.App.RobloxCustomWidgets.BrickColor192,,,Reddish brown,Reddish brown,붉은 갈색,,红棕色
 Studio.App.RobloxCustomWidgets.BrickColor194,,,Medium stone grey,Medium stone grey,미디엄 스톤 그레이,,中石灰
 Studio.App.RobloxCustomWidgets.BrickColor199,,,Dark stone grey,Dark stone grey,다크 스톤 그레이,,深石灰
 Studio.App.RobloxCustomWidgets.BrickColor208,,,Light stone grey,Light stone grey,라이트 스톤 그레이,,浅石灰
@@ -2532,12 +2532,12 @@ Studio.App.RobloxCustomWidgets.BrickColor305,,,Steel blue,Steel blue,스틸 블�
 Studio.App.RobloxCustomWidgets.BrickColor306,,,Storm blue,Storm blue,스톰 블루,,风暴蓝
 Studio.App.RobloxCustomWidgets.BrickColor307,,,Lapis,Lapis,청금석,,青金蓝
 Studio.App.RobloxCustomWidgets.BrickColor308,,,Dark indigo,Dark indigo,다크 인디고,,深靛蓝
-Studio.App.RobloxCustomWidgets.BrickColor309,,,Sea green,Sea green,해록색,,海绿色
+Studio.App.RobloxCustomWidgets.BrickColor309,,,Sea green,Sea green,시 그린,,海绿色
 Studio.App.RobloxCustomWidgets.BrickColor310,,,Shamrock,Shamrock,토끼풀,,三叶草绿
 Studio.App.RobloxCustomWidgets.BrickColor311,,,Fossil,Fossil,화석,,化石灰
 Studio.App.RobloxCustomWidgets.BrickColor312,,,Mulberry,Mulberry,오디,,桑葚紫
-Studio.App.RobloxCustomWidgets.BrickColor313,,,Forest green,Forest green,암녹색,,森林绿
-Studio.App.RobloxCustomWidgets.BrickColor314,,,Cadet blue,Cadet blue,연한 하늘색,,灰蓝色
+Studio.App.RobloxCustomWidgets.BrickColor313,,,Forest green,Forest green,포레스트 그린,,森林绿
+Studio.App.RobloxCustomWidgets.BrickColor314,,,Cadet blue,Cadet blue,카데트 블루,,灰蓝色
 Studio.App.RobloxCustomWidgets.BrickColor315,,,Electric blue,Electric blue,일렉트릭 블루,,电蓝色
 Studio.App.RobloxCustomWidgets.BrickColor316,,,Eggplant,Eggplant,가지,,茄子紫
 Studio.App.RobloxCustomWidgets.BrickColor317,,,Moss,Moss,이끼,,苔藓绿
@@ -2553,8 +2553,8 @@ Studio.App.RobloxCustomWidgets.BrickColor327,,,Crimson,Crimson,진홍색,,绯红
 Studio.App.RobloxCustomWidgets.BrickColor328,,,Mint,Mint,민트,,薄荷绿
 Studio.App.RobloxCustomWidgets.BrickColor329,,,Baby blue,Baby blue,베이비 블루,,婴儿蓝
 Studio.App.RobloxCustomWidgets.BrickColor330,,,Carnation pink,Carnation pink,카네이션 핑크,,康乃馨粉
-Studio.App.RobloxCustomWidgets.BrickColor331,,,Persimmon,Persimmon,퍼시먼,,柿子红
-Studio.App.RobloxCustomWidgets.BrickColor332,,,Maroon,Maroon,밤색,,紫褐色
+Studio.App.RobloxCustomWidgets.BrickColor331,,,Persimmon,Persimmon,감,,柿子红
+Studio.App.RobloxCustomWidgets.BrickColor332,,,Maroon,Maroon,적갈색,,紫褐色
 Studio.App.RobloxCustomWidgets.BrickColor333,,,Gold,Gold,금색,,金黄色
 Studio.App.RobloxCustomWidgets.BrickColor334,,,Daisy orange,Daisy orange,데이지 오렌지,,雏菊橘
 Studio.App.RobloxCustomWidgets.BrickColor335,,,Pearl,Pearl,진주,,珍珠灰
@@ -2565,12 +2565,12 @@ Studio.App.RobloxCustomWidgets.BrickColor339,,,Cocoa,Cocoa,코코아,,巧克力�
 Studio.App.RobloxCustomWidgets.BrickColor340,,,Wheat,Wheat,밀색,,麦黄色
 Studio.App.RobloxCustomWidgets.BrickColor341,,,Buttermilk,Buttermilk,버터밀크,,奶油黄
 Studio.App.RobloxCustomWidgets.BrickColor342,,,Mauve,Mauve,연한 자주,,木槿紫
-Studio.App.RobloxCustomWidgets.BrickColor343,,,Sunrise,Sunrise,일출,,日出粉
-Studio.App.RobloxCustomWidgets.BrickColor344,,,Tawny,Tawny,토니,,茶棕色
+Studio.App.RobloxCustomWidgets.BrickColor343,,,Sunrise,Sunrise,선라이즈,,日出粉
+Studio.App.RobloxCustomWidgets.BrickColor344,,,Tawny,Tawny,황갈색,,茶棕色
 Studio.App.RobloxCustomWidgets.BrickColor345,,,Rust,Rust,붉은 녹,,锈红色
 Studio.App.RobloxCustomWidgets.BrickColor346,,,Cashmere,Cashmere,캐시미어,,羊绒棕
 Studio.App.RobloxCustomWidgets.BrickColor347,,,Khaki,Khaki,카키,,卡其棕
-Studio.App.RobloxCustomWidgets.BrickColor348,,,Lily white,Lily white,백옥,,百合白
+Studio.App.RobloxCustomWidgets.BrickColor348,,,Lily white,Lily white,릴리 화이트,,百合白
 Studio.App.RobloxCustomWidgets.BrickColor349,,,Seashell,Seashell,조가비,,贝壳灰
 Studio.App.RobloxCustomWidgets.BrickColor350,,,Burgundy,Burgundy,버건디,,酒红色
 Studio.App.RobloxCustomWidgets.BrickColor351,,,Cork,Cork,코르크,,木屑棕
@@ -2578,20 +2578,20 @@ Studio.App.RobloxCustomWidgets.BrickColor352,,,Burlap,Burlap,삼베,,麻黄色
 Studio.App.RobloxCustomWidgets.BrickColor353,,,Beige,Beige,베이지,,米黄色
 Studio.App.RobloxCustomWidgets.BrickColor354,,,Oyster,Oyster,굴,,蚝灰色
 Studio.App.RobloxCustomWidgets.BrickColor355,,,Pine Cone,Pine Cone,솔방울,,松果棕
-Studio.App.RobloxCustomWidgets.BrickColor356,,,Fawn brown,Fawn brown,엷은 갈색,,鹿褐色
+Studio.App.RobloxCustomWidgets.BrickColor356,,,Fawn brown,Fawn brown,엷은 황갈색,,鹿褐色
 Studio.App.RobloxCustomWidgets.BrickColor357,,,Hurricane grey,Hurricane grey,허리케인 그레이,,飓风灰
-Studio.App.RobloxCustomWidgets.BrickColor358,,,Cloudy grey,Cloudy grey,흐린 회색,,雨云灰
+Studio.App.RobloxCustomWidgets.BrickColor358,,,Cloudy grey,Cloudy grey,클라우드 그레이,,雨云灰
 Studio.App.RobloxCustomWidgets.BrickColor359,,,Linen,Linen,리넨,,亚麻棕
 Studio.App.RobloxCustomWidgets.BrickColor360,,,Copper,Copper,구리,,红铜色
 Studio.App.RobloxCustomWidgets.BrickColor361,,,Dirt brown,Dirt brown,더트 브라운,,泥土棕
 Studio.App.RobloxCustomWidgets.BrickColor362,,,Bronze,Bronze,브론즈,,青铜色
 Studio.App.RobloxCustomWidgets.BrickColor363,,,Flint,Flint,부싯돌,,燧石灰
-Studio.App.RobloxCustomWidgets.BrickColor364,,,Dark taupe,Dark taupe,짙은 회갈색,,深褐灰
-Studio.App.RobloxCustomWidgets.BrickColor365,,,Burnt Sienna,Burnt Sienna,짙은 적갈색,,黄土赭
-Studio.App.RobloxCustomWidgets.BrickColor37,,,Bright green,Bright green,밝은 초록,,鲜亮绿
+Studio.App.RobloxCustomWidgets.BrickColor364,,,Dark taupe,Dark taupe,어두운 회갈색,,深褐灰
+Studio.App.RobloxCustomWidgets.BrickColor365,,,Burnt Sienna,Burnt Sienna,구운 황토색,,黄土赭
+Studio.App.RobloxCustomWidgets.BrickColor37,,,Bright green,Bright green,밝은 녹색,,鲜亮绿
 Studio.App.RobloxCustomWidgets.BrickColor38,,,Dark orange,Dark orange,다크 오렌지,,深橘色
 Studio.App.RobloxCustomWidgets.BrickColor45,,,Light blue,Light blue,라이트 블루,,浅蓝色
-Studio.App.RobloxCustomWidgets.BrickColor5,,,Brick yellow,Brick yellow,브릭 옐로,,砖黄色
+Studio.App.RobloxCustomWidgets.BrickColor5,,,Brick yellow,Brick yellow,황토색,,砖黄色
 Studio.App.RobloxCustomWidgets.BrickColor9,,,Light reddish violet,Light reddish violet,분홍빛 보라,,浅红紫
 Studio.App.RobloxCustomWidgets.MoreColors,,,More Colors,More Colors,기타 색상,,更多颜色
 Studio.App.PropertyEnum.Absolute,,,Absolute,Absolute,절대,,绝对
@@ -2613,54 +2613,75 @@ Studio.App.InsertObjectCategory.FavoritesCategory,,,Frequently Used,Frequently U
 Studio.App.InsertObjectCategory.GUI,,,GUI,GUI,GUI,,GUI
 Studio.App.InsertObjectCategory.Interaction,,,Interaction,Interaction,상호 작용,,交互
 Studio.App.InsertObjectCategory.LegacyBodyMovers,,,Legacy Body Movers,Legacy Body Movers,이전 Body Mover,,旧版 Body Mover （物体移动力）
-Studio.App.InsertObjectCategory.Lights,,,Lights,Lights,,,光
+Studio.App.InsertObjectCategory.Lights,,,Lights,Lights,빛,,光
 Studio.App.InsertObjectCategory.Localization,,,Localization,Localization,로컬리제이션,,本地化
 Studio.App.InsertObjectCategory.Meshes,,,Meshes,Meshes,메시,,网格
 Studio.App.InsertObjectCategory.Parts,,,Parts,Parts,파트,,部件
 Studio.App.InsertObjectCategory.PostProcessingEffects,,,Post Processing Effects,Post Processing Effects,후처리 효과,,后期处理效果
-Studio.App.InsertObjectCategory.Scripting,,,Scripting,Scripting,스크립팅,,脚本
+Studio.App.InsertObjectCategory.Scripting,,,Scripting,Scripting,스크립트,,脚本
 Studio.App.InsertObjectCategory.Sounds,,,Sounds,Sounds,사운드,,音效
 Studio.App.InsertObjectCategory.Uncategorized,,,Uncategorized,Uncategorized,분류되지 않음,,未分类
 Studio.App.InsertObjectCategory.Values,,,Values,Values,값,,值
 Studio.App.LoginManager.PrivacyPolicy,,,Privacy Policy,Privacy Policy,개인정보 처리방침,,隐私政策
 Studio.App.LoginManager.TermsOfService,,,Terms Of Use,Terms Of Use,이용 약관,,使用条款
 Studio.App.LoginManager.ToSMessage1,,,"<span>By clicking ""%1"", you are agreeing to </span>","<span>By clicking ""%1"", you are agreeing to </span>",<span>'%1'을(를) 클릭하면 다음에 동의하게 됩니다 </span>,,"<span>单击""%1""后，即代表你同意</span>"
-Studio.App.PlaceVersionHistoryDialog.Empty,,,No Place Versions found,No Place Versions found,,,未发现场景版本
-Studio.App.PlaceVersionHistoryDialog.PublishedColumnTitle,,,Published,Published,,,已发布
-Studio.App.PlaceVersionHistoryDialog.Tip,,,Select a place version to download and open it,Select a place version to download and open it,,,选择场景版本进行下载并打开
-Studio.App.PlaceVersionHistoryDialog.ViewHistory,,,View History,View History,,,查看历史记录
-Studio.App.Property.FormatOnType,,,Format On Type,Format On Type,,,输入后自动格式化
-Studio.App.Property.Rulers,,,"Rulers (1, 2, ...)","Rulers (1, 2, ...)",,,标尺（1，2，...）
-Studio.App.RBXMainWindow.CloseInstanceDefaultEditorTooltip,,,Close the window.,Close the window.,,,关闭窗口。
-Studio.App.RBXMainWindow.InstanceDefaultsEditor,,,Instance Defaults Editor,Instance Defaults Editor,,,实例默认编辑器
-Studio.App.RBXMainWindow.ResetAllInstanceDefaults,,,Rest all instance defaults,Rest all instance defaults,,,重置所有实例默认属性
-Studio.App.RBXMainWindow.ResetAllInstanceDefaultsTooltip,,,Rest all instance defaults,Rest all instance defaults,,,重置所有实例默认属性
-Studio.App.RBXMainWindow.SetAsInstanceDefault,,,Set as Instance Default...,Set as Instance Default...,,,设置为实例默认属性...
-Studio.App.RBXMainWindow.SetSelectionAsInstanceDefault,,,Set the selection as the default for future created instances,Set the selection as the default for future created instances,,,将选中内容设为今后新建实例的默认
-Studio.App.RobloxOutputRibbonDropdown.All,,,All,All,,,全部
-Studio.App.RobloxOutputRibbonDropdown.Client,,,Client,Client,,,客户端
-Studio.App.RobloxOutputRibbonDropdown.CopyFullContext,,,Copy Full Context,Copy Full Context,,,复制全部语境
-Studio.App.RobloxOutputRibbonDropdown.Edit,,,Edit,Edit,,,编辑
-Studio.App.RobloxOutputRibbonDropdown.Error,,,Error,Error,,,错误
-Studio.App.RobloxOutputRibbonDropdown.Information,,,Information,Information,,,信息
-Studio.App.RobloxOutputRibbonDropdown.Log,,,Log,Log,,,记录
-Studio.App.RobloxOutputRibbonDropdown.Other,,,Other,Other,,,其他
-Studio.App.RobloxOutputRibbonDropdown.PlaySolo,,,PlaySolo,PlaySolo,,,PlaySolo （单人编辑场景模式）
-Studio.App.RobloxOutputRibbonDropdown.RobloxPlugin,,,Roblox Plugin,Roblox Plugin,,,Roblox 插件
-Studio.App.RobloxOutputRibbonDropdown.SelectMessageOnly,,,Select Messages Only,Select Messages Only,,,仅限选中信息
-Studio.App.RobloxOutputRibbonDropdown.Server,,,Server,Server,,,服务器
-Studio.App.RobloxOutputRibbonDropdown.ShowTimestamp,,,Show Timestamp,Show Timestamp,,,显示时间戳
-Studio.App.RobloxOutputRibbonDropdown.System,,,System,System,,,系统
-Studio.App.RobloxOutputRibbonDropdown.UserPlugin,,,User Plugin,User Plugin,,,用户插件
-Studio.App.RobloxOutputRibbonDropdown.Warning,,,Warning,Warning,,,警告
-Studio.App.RobloxOutputRibbonDropdown.WordWrap,,,Word Wrap,Word Wrap,,,自动换行
-Studio.App.RobloxTextOutputWidget.Message,,,Message,Message,,,信息
-Studio.App.RobloxTextOutputWidget.Timestamp,,,Timestamp,Timestamp,,,时间戳
-Studio.App.StartPage.MakingPrivate,,,Making private,Making private,,,设为私人
-Studio.App.StartPage.MakingPublic,,,Making public,Making public,,,设为公开
-Studio.App.StudioDataModelLoadUtil.ErrorCannotOpenTCPlaceDueToConflictGlobal,,,Global Studio does not support joining a TeamCreate session with a Luobu Studio developer. Please download Luobu Studio to use TeamCreate together: www.robloxdev.cn,Global Studio does not support joining a TeamCreate session with a Luobu Studio developer. Please download Luobu Studio to use TeamCreate together: www.robloxdev.cn,,,国际版 Studio 不支持与 Luobu Studio 开发者进行 TeamCreate 共同作业。请下载 Luobu Studio 以便进行 TeamCreate 合作：www.robloxdev.cn
-Studio.App.StudioDataModelLoadUtil.ErrorCannotOpenTCPlaceDueToConflictLuobu,,,Luobu Studio does not support joining a TeamCreate session with a global Studio developer. Please ask your teammates to download Loubu Studio to use TeamCreate together: www.robloxdev.cn,Luobu Studio does not support joining a TeamCreate session with a global Studio developer. Please ask your teammates to download Loubu Studio to use TeamCreate together: www.robloxdev.cn,,,Luobu Studio 不支持与国际版 Studio 开发者进行 TeamCreate 共同作业。请指引你的合作开发者下载 Luobu Studio 以便进行 TeamCreate 合作：www.robloxdev.cn
-Studio.App.StudioDataModelLoadUtil.ErrorCannotOpenTCPlaceWithErrorCode1,,,"Failed to open the team create place, please try again. (Error Code: %1)","Failed to open the team create place, please try again. (Error Code: %1)",,,无法打开组队创作场景，请重试。（错误代码：%1）
+Studio.App.PlaceVersionHistoryDialog.Empty,,,No Place Versions found,No Place Versions found,플레이스 버전을 찾을 수 없습니다,,未发现场景版本
+Studio.App.PlaceVersionHistoryDialog.PublishedColumnTitle,,,Published,Published,게시됨,,已发布
+Studio.App.PlaceVersionHistoryDialog.Tip,,,Select a place version to download and open it,Select a place version to download and open it,다운로드할 장소 버전을 선택하고 여세요,,选择场景版本进行下载并打开
+Studio.App.PlaceVersionHistoryDialog.ViewHistory,,,View History,View History,기록 보기,,查看历史记录
+Studio.App.Property.FormatOnType,,,Format On Type,Format On Type,입력 후 자동 서식,,输入后自动格式化
+Studio.App.Property.Rulers,,,"Rulers (1, 2, ...)","Rulers (1, 2, ...)","눈금자 (1, 2, ...)",,标尺（1，2，...）
+Studio.App.RBXMainWindow.CloseInstanceDefaultEditorTooltip,,,Close the window.,Close the window.,창을 닫습니다.,,关闭窗口。
+Studio.App.RBXMainWindow.InstanceDefaultsEditor,,,Instance Defaults Editor,Instance Defaults Editor,인스턴스 기본값 편집기,,实例默认编辑器
+Studio.App.RBXMainWindow.ResetAllInstanceDefaults,,,Rest all instance defaults,Rest all instance defaults,모든 인스턴스 기본값 초기화,,重置所有实例默认属性
+Studio.App.RBXMainWindow.ResetAllInstanceDefaultsTooltip,,,Rest all instance defaults,Rest all instance defaults,모든 인스턴스 기본값 초기화,,重置所有实例默认属性
+Studio.App.RBXMainWindow.SetAsInstanceDefault,,,Set as Instance Default...,Set as Instance Default...,인스턴스 기본값으로 설정...,,设置为实例默认属性...
+Studio.App.RBXMainWindow.SetSelectionAsInstanceDefault,,,Set the selection as the default for future created instances,Set the selection as the default for future created instances,이 선택 항목을 앞으로 새로 생성하는 인스턴트의 기본값으로 설정,,将选中内容设为今后新建实例的默认
+Studio.App.RobloxOutputRibbonDropdown.All,,,All,All,모두,,全部
+Studio.App.RobloxOutputRibbonDropdown.Client,,,Client,Client,클라이언트,,客户端
+Studio.App.RobloxOutputRibbonDropdown.CopyFullContext,,,Copy Full Context,Copy Full Context,전체 콘텍스트 복사,,复制全部语境
+Studio.App.RobloxOutputRibbonDropdown.Edit,,,Edit,Edit,편집,,编辑
+Studio.App.RobloxOutputRibbonDropdown.Error,,,Error,Error,오류,,错误
+Studio.App.RobloxOutputRibbonDropdown.Information,,,Information,Information,정보,,信息
+Studio.App.RobloxOutputRibbonDropdown.Log,,,Log,Log,로그,,记录
+Studio.App.RobloxOutputRibbonDropdown.Other,,,Other,Other,기타,,其他
+Studio.App.RobloxOutputRibbonDropdown.PlaySolo,,,PlaySolo,PlaySolo,PlaySolo,,PlaySolo （单人编辑场景模式）
+Studio.App.RobloxOutputRibbonDropdown.RobloxPlugin,,,Roblox Plugin,Roblox Plugin,Roblox 플러그인,,Roblox 插件
+Studio.App.RobloxOutputRibbonDropdown.SelectMessageOnly,,,Select Messages Only,Select Messages Only,메시지만 선택,,仅限选中信息
+Studio.App.RobloxOutputRibbonDropdown.Server,,,Server,Server,서버,,服务器
+Studio.App.RobloxOutputRibbonDropdown.ShowTimestamp,,,Show Timestamp,Show Timestamp,타임스탬프 표시,,显示时间戳
+Studio.App.RobloxOutputRibbonDropdown.System,,,System,System,시스템,,系统
+Studio.App.RobloxOutputRibbonDropdown.UserPlugin,,,User Plugin,User Plugin,사용자 플러그인,,用户插件
+Studio.App.RobloxOutputRibbonDropdown.Warning,,,Warning,Warning,경고,,警告
+Studio.App.RobloxOutputRibbonDropdown.WordWrap,,,Word Wrap,Word Wrap,자동 줄 바꿈,,自动换行
+Studio.App.RobloxTextOutputWidget.Message,,,Message,Message,메시지,,信息
+Studio.App.RobloxTextOutputWidget.Timestamp,,,Timestamp,Timestamp,타임스탬프,,时间戳
+Studio.App.StartPage.MakingPrivate,,,Making private,Making private,비공개로 설정,,设为私人
+Studio.App.StartPage.MakingPublic,,,Making public,Making public,공개로 설정,,设为公开
+Studio.App.StudioDataModelLoadUtil.ErrorCannotOpenTCPlaceDueToConflictGlobal,,,Global Studio does not support joining a TeamCreate session with a Luobu Studio developer. Please download Luobu Studio to use TeamCreate together: www.robloxdev.cn,Global Studio does not support joining a TeamCreate session with a Luobu Studio developer. Please download Luobu Studio to use TeamCreate together: www.robloxdev.cn,글로벌 Studio는 Luobu Studio 개발자와의 TeamCreate 세션 참가를 지원하지 않습니다. TeamCreate에서 함께 작업하려면 다음에서 Luobu Studio를 다운로드하세요. www.robloxdev.cn,,国际版 Studio 不支持与 Luobu Studio 开发者进行 TeamCreate 共同作业。请下载 Luobu Studio 以便进行 TeamCreate 合作：www.robloxdev.cn
+Studio.App.StudioDataModelLoadUtil.ErrorCannotOpenTCPlaceDueToConflictLuobu,,,Luobu Studio does not support joining a TeamCreate session with a global Studio developer. Please ask your teammates to download Loubu Studio to use TeamCreate together: www.robloxdev.cn,Luobu Studio does not support joining a TeamCreate session with a global Studio developer. Please ask your teammates to download Loubu Studio to use TeamCreate together: www.robloxdev.cn,Luobu Studio는 글로벌 Studio 개발자와의 TeamCreate 세션 참가를 지원하지 않습니다. TeamCreate에서 함께 작업하려면 다음에서 팀원에게 Luobu Studio를 다운로드하도록 요청하세요. www.robloxdev.cn,,Luobu Studio 不支持与国际版 Studio 开发者进行 TeamCreate 共同作业。请指引你的合作开发者下载 Luobu Studio 以便进行 TeamCreate 合作：www.robloxdev.cn
+Studio.App.StudioDataModelLoadUtil.ErrorCannotOpenTCPlaceWithErrorCode1,,,"Failed to open the team create place, please try again. (Error Code: %1)","Failed to open the team create place, please try again. (Error Code: %1)",팀 만들기 플레이스를 열지 못했습니다. 다시 시도하세요. (오류 코드: %1),,无法打开组队创作场景，请重试。（错误代码：%1）
+Studio.App.CommandLine.InvalidArgument2,,,Launch Task %1 requires valid %2,Launch Task %1 requires valid %2,%1 작업을 시작하려면 유효한 %2이(가) 필요합니다,,启动任务 %1 时需要有效的 %2
+Studio.App.LoginManager.GetUserAgreementsFailure,,,Failed to get user agreements. Please try to login again or contact support if problem persists.,Failed to get user agreements. Please try to login again or contact support if problem persists.,사용자 계약을 얻지 못했습니다. 다시 로그인하세요. 문제가 지속되면 지원 센터에 문의하세요.,,获取用户协议失败，请重新尝试登录。如果问题持续发生，请联系客服部门。
+Studio.App.LoginManager.UserAgreementsAcceptanceCancel,,,Are you sure you want to cancel? This will close all running Roblox Studio instances.,Are you sure you want to cancel? This will close all running Roblox Studio instances.,정말로 취소할까요? 취소하면 실행 중인 Roblox Studio 인스턴스가 모두 닫힙니다.,,确定要取消吗？将会关闭所有正在运行的 Roblox Studio 实例。
+Studio.App.LoginManager.UserAgreementsAcceptanceFailure,,,Failed to accept user agreements. Please try to login again or contact support if problem persists.,Failed to accept user agreements. Please try to login again or contact support if problem persists.,사용자 계약을 수락하지 못했습니다. 다시 로그인하세요. 문제가 지속되면 지원 센터에 문의하세요.,,接受用户协议失败，请重新尝试登录。如果问题持续发生，请联系客服部门。
+Studio.App.MainWindow.PrivacyPolicyLink1,,,<p><a href='%1'>Privacy Policy</a></p>,<p><a href='%1'>Privacy Policy</a></p>,<p><a href='%1'>개인정보 처리방침</a></p>,,<p><a href='%1'>隐私政策</a></p>
+Studio.App.PlaceVersionHistoryDialog.HelpLink,,,More information,More information,자세한 정보,,更多信息
+Studio.App.PlaceVersionHistory.BetaFeatureDescription,,,Enable developers to revert versions in Roblox Studio and provide downloadable history of all versions of a place.,Enable developers to revert versions in Roblox Studio and provide downloadable history of all versions of a place.,개발자가 Roblox Studio에서 버전을 되돌리고 모든 플레이스 버전의 다운로드 가능한 내역을 제공할 수 있습니다.,,允许开发者在 Roblox Studio 中还原场景版本，并提供所有版本的可下载历史记录。
+Studio.App.PlaceVersionHistory.BetaFeatureTitle,,,Place Version History in Studio,Place Version History in Studio,Studio에서의 플레이스 버전 내역,,Studio 中的场景版本历史
+Studio.App.Property.EnableInternalFeatures,,,Enable Internal Features,Enable Internal Features,내부 기능 활성화,,启用内部功能
+Studio.App.Property.ShowCorePackages,,,Show CorePackages,Show CorePackages,CorePackages 보기,,显示 CorePackages
+Studio.App.Property.ShowFileSyncService,,,Show FileSyncService,Show FileSyncService,FileSyncService 보기,,显示 FileSyncService
+Studio.App.RobloxOutputRibbonDropdown.AllMessages,,,All Messages,All Messages,모든 메시지,,所有消息
+Studio.App.RobloxOutputRibbonDropdown.Context,,,Context,Context,콘텍스트,,语境
+Studio.App.RobloxOutputRibbonDropdown.ShowMemoryAddressForExpandableTables,,,Show memory address for expandable tables,Show memory address for expandable tables,확장 가능한 테이블의 메모리 주소 표시,,显示可扩展表格的内存地址
+Studio.App.RobloxTextOutputWidget.TableOutputBetaFeatureDescription,,,"Output gets an upgrade — expressive UI, filter/search, and copy/paste becomes easier.","Output gets an upgrade — expressive UI, filter/search, and copy/paste becomes easier.","출력이 업그레이드됩니다. 표현적 UI, 필터 및 검색, 복사 및 붙여 넣기가 더 쉬워집니다.",,对输出控件进行升级——我们将设计更富有表现力的 UI，而且会对筛选/搜寻功能及复制/粘贴功能进行简化。
+Studio.App.RobloxTextOutputWidget.TableOutputBetaFeatureTitle,,,Expressive Output Window,Expressive Output Window,표현적 출력 창,,富有表现力的输出窗口
+Studio.App.StartPageLogin.PrivacyPolicy,,,Privacy Policy,Privacy Policy,개인정보 처리방침,,隐私政策
+Studio.App.VersionHistoryDialog.ComparedVersionsIdentical3,,,Versions %1 and %2 of the script '%3' are identical,Versions %1 and %2 of the script '%3' are identical,스크립트 '%3'의 버전 %1와(과) %2이(가) 동일합니다,,脚本 '%3' 的版本 %1 和 %2 为同一版本
+Studio.App.VersionHistoryDialog.OpenScriptsLabel,,,Select script version(s) to open or compare,Select script version(s) to open or compare,열거나 비교할 스크립트 버전을 선택하세요,,选择需要打开或进行比较的脚本版本
+Studio.App.PropertyTooltip.Rulers,,,Vertical lines drawn at the specified column numbers. These can be used as a guide to code length limits.,Vertical lines drawn at the specified column numbers. These can be used as a guide to code length limits.,지정된 열 번호에 그려진 수직선. 코드 길이 제한에 대한 가이드로 사용할 수 있습니다.,,在给定列数绘制的垂直线条，可以用来作为代码长度限制的指示。
+Studio.App.PropertyTooltip.ShowWhitespace,,,Display spaces and tabs in the Script Editor.,Display spaces and tabs in the Script Editor.,스크립트 편집기에 공백과 탭을 표시하세요.,,在脚本编辑器中显示空格与缩进。
 Studio.Common.Action.Apply,,,Apply,Apply,적용,Применить,应用
 Studio.Common.Action.Back,,,Back,Back,뒤로,Назад,返回
 Studio.Common.Action.Cancel,,,Cancel,Cancel,취소,Отмена,取消

@@ -433,6 +433,7 @@ Studio.App.GameWidget.Public,,Public,Public
 Studio.App.GameWidget.TemplateHasInstruction,,This template contains instructions about how to get started in Studio,This template contains instructions about how to get started in Studio
 Studio.App.GamesPageController.Alphabetical,,Alphabetical,Alphabetical
 Studio.App.GamesPageController.ArchiveGame,,Archive Game,Archive Game
+Studio.App.GamesPageController.ArchiveGameFail,,Failed to archive game,Failed to archive game
 Studio.App.GamesPageController.Archived,,Archived,Archived
 Studio.App.GamesPageController.ArchivingAGameMakesItPrivate1,,<p>Archiving a game makes it private so only <br>you can play. Any running servers will be <br>shutdown. <a href='%1'>Learn more</a><br><br>Are you sure you want to archive this game?</p>,<p>Archiving a game makes it private so only <br>you can play. Any running servers will be <br>shutdown. <a href='%1'>Learn more</a><br><br>Are you sure you want to archive this game?</p>
 Studio.App.GamesPageController.CantOpenArchivedGame,,You cannot open archived games. You must restore the game to open it.,You cannot open archived games. You must restore the game to open it.
@@ -444,10 +445,12 @@ Studio.App.GamesPageController.FailedToMakeGamePublic,,Failed to make game publi
 Studio.App.GamesPageController.FailedToOpenLocalFile,,Failed to open local file,Failed to open local file
 Studio.App.GamesPageController.LastModified,,Last Modified,Last Modified
 Studio.App.GamesPageController.MakingGamePrivate,,Making game private,Making game private
+Studio.App.GamesPageController.NotAuthorizedToConfigureGame,,You are not authorized to configure this game.,You are not authorized to configure this game.
 Studio.App.GamesPageController.PromptUserForMakingGamePrivate,Do not translate \n,"Are you sure you want to make this game private?
 This will shutdown all running servers.","Are you sure you want to make this game private?
 This will shutdown all running servers."
 Studio.App.GamesPageController.RemoveTeamCreateGame,,Remove Team Create Game,Remove Team Create Game
+Studio.App.GamesPageController.RestoreGameFail,,Failed to restore game,Failed to restore game
 Studio.App.GamesPageController.Restored,,Restored,Restored
 Studio.App.GenericResourceController.RemovingGameAsset,,Removing game asset(s),Removing game asset(s)
 Studio.App.GoToLineDialog.LineNumber,,Line number:,Line number:
@@ -1180,6 +1183,8 @@ Please enter an asset ID or a correctly formatted asset url."
 Studio.App.PropertyItems.PackageVersionFailedMessage,,Unable to perform this action.,Unable to perform this action.
 Studio.App.PropertyItems.ResizeTheMesh,,The mesh you are importing is very large. Would you like to resize the mesh?,The mesh you are importing is very large. Would you like to resize the mesh?
 Studio.App.PropertyItems.RevertPackageConfirmation,,Are you sure you want to revert this package to version %1 ?,Are you sure you want to revert this package to version %1 ?
+Studio.App.PropertyTooltip.Rulers,,Vertical lines drawn at the specified column numbers. These can be used as a guide to code length limits.,Vertical lines drawn at the specified column numbers. These can be used as a guide to code length limits.
+Studio.App.PropertyTooltip.ShowWhitespace,,Display spaces and tabs in the Script Editor.,Display spaces and tabs in the Script Editor.
 Studio.App.QDebuggerClient.Breakpoint,,Breakpoint,Breakpoint
 Studio.App.QDebuggerClient.BreakpointLocationFmt2,,"Location: %1, line %2","Location: %1, line %2"
 Studio.App.QDebuggerClient.ConditionText,,Condition,Condition
@@ -1253,6 +1258,7 @@ Studio.App.RBXMainWindow.CustomizeShortcutsElps,,Customize Shortcuts...,Customiz
 Studio.App.RBXMainWindow.CutSelectionToClipboard,,Cut the selection and put it on the Clipboard,Cut the selection and put it on the Clipboard
 Studio.App.RBXMainWindow.Debugger,,Debugger,Debugger
 Studio.App.RBXMainWindow.DeleteBreakpoint,,Delete Breakpoint,Delete Breakpoint
+Studio.App.RBXMainWindow.DeleteContextDependentBreakpoint,,Delete Contextual Breakpoint,Delete Contextual Breakpoint
 Studio.App.RBXMainWindow.DiffNext,,Diff Next,Diff Next
 Studio.App.RBXMainWindow.DiffPrevious,,Diff Previous,Diff Previous
 Studio.App.RBXMainWindow.DisableBreakpoint,,Disable Breakpoint,Disable Breakpoint
@@ -1320,8 +1326,8 @@ Studio.App.RBXMainWindow.IndentsOnSurface,,Indents on Surface,Indents on Surface
 Studio.App.RBXMainWindow.InsertBasicObjects,,Insert Basic Objects,Insert Basic Objects
 Studio.App.RBXMainWindow.InsertBreakpoint,,Insert Breakpoint,Insert Breakpoint
 Studio.App.RBXMainWindow.InsertClipboardContents,,Insert Clipboard contents,Insert Clipboard contents
+Studio.App.RBXMainWindow.InsertContextDependentBreakpoint,,Insert Contextual Breakpoint,Insert Contextual Breakpoint
 Studio.App.RBXMainWindow.InsertFromFileElps,,Insert from File...,Insert from File...
-Studio.App.RBXMainWindow.InsertLocalBreakpoint,,Insert Local Breakpoint,Insert Local Breakpoint
 Studio.App.RBXMainWindow.InsertModels,,Insert Models,Insert Models
 Studio.App.RBXMainWindow.InsertObject,,Insert Object,Insert Object
 Studio.App.RBXMainWindow.InsertObjectAction,,Insert Object...,Insert Object...
@@ -1483,6 +1489,8 @@ Studio.App.RBXMainWindow.SetSelectionAsInstanceDefault,,Set the selection as the
 Studio.App.RBXMainWindow.SettingsElps,,Settings...,Settings...
 Studio.App.RBXMainWindow.ShowHelpForSelectedObject,,Show help for selected object,Show help for selected object
 Studio.App.RBXMainWindow.ShowListOfShortcutCommands,,Show list of shortcut commands,Show list of shortcut commands
+Studio.App.RBXMainWindow.ShowScriptInExplorer,,Show in Explorer,Show in Explorer
+Studio.App.RBXMainWindow.ShowScriptInExplorerTooltip,,Select this script in the explorer,Select this script in the explorer
 Studio.App.RBXMainWindow.ShowViewSelector,,Show View Selector,Show View Selector
 Studio.App.RBXMainWindow.ShowsHides3DGrid,,Shows/Hides 3D Grid,Shows/Hides 3D Grid
 Studio.App.RBXMainWindow.ShowsHidesAxisWidget,,Shows/Hides Axis Widget,Shows/Hides Axis Widget
@@ -2304,12 +2312,9 @@ Are you sure?","Save failed. Turning off team create may result in loss of work.
 Are you sure?"
 Studio.App.TeamCreate.SaveOnDisableLog,,Sent message to save game before Team Create turns off.,Sent message to save game before Team Create turns off.
 Studio.App.TeamCreate.SavingLatestUpdatesAndEnablingTeamCreate,,Saving latest updates and enabling Team Create...,Saving latest updates and enabling Team Create...
-Studio.App.TeamCreate.SyncingGenericWarning,,"Are you sure you want to quit Roblox Studio?
-Quitting Roblox Studio will cause you to lose data that is currently syncing.","Are you sure you want to quit Roblox Studio?
-Quitting Roblox Studio will cause you to lose data that is currently syncing."
-Studio.App.TeamCreate.SyncingTerrainWarning,,"Are you sure you want to quit Roblox Studio?
-Quitting Roblox Studio will cause you to lose data that is currently syncing and might corrupt your Terrain.","Are you sure you want to quit Roblox Studio?
-Quitting Roblox Studio will cause you to lose data that is currently syncing and might corrupt your Terrain."
+Studio.App.TeamCreate.ShutdownWarning,,<b>Are you sure you want to quit Roblox Studio?</b>,<b>Are you sure you want to quit Roblox Studio?</b>
+Studio.App.TeamCreate.SyncingGenericWarning,,Quitting Roblox Studio will cause you to lose data that is currently syncing.,Quitting Roblox Studio will cause you to lose data that is currently syncing.
+Studio.App.TeamCreate.SyncingTerrainWarning,,Quitting Roblox Studio will cause you to lose data that is currently syncing and might corrupt your Terrain.,Quitting Roblox Studio will cause you to lose data that is currently syncing and might corrupt your Terrain.
 Studio.App.TeamCreate.TurnOn,,Turn ON,Turn ON
 Studio.App.TeamCreate.UnpublishedChangesWarning,,Other users are currently editing scripts. Turning off team create will lose these unpublished changes. Continue anyway?,Other users are currently editing scripts. Turning off team create will lose these unpublished changes. Continue anyway?
 Studio.App.TeamCreateConnectionDialog.YouHaveLostConnectionToTheServer,,You have lost connection to the server. Trying to reconnect...<br><br>Recent copy of the place has been saved. <a href='openautosave://file'>Click here</a> to open the saved place.,You have lost connection to the server. Trying to reconnect...<br><br>Recent copy of the place has been saved. <a href='openautosave://file'>Click here</a> to open the saved place.
@@ -2466,6 +2471,7 @@ Studio.Internal.ExternalLoginDialog.FatalErrorMessage,,Failed to login. Please r
 Studio.Internal.ExternalLoginDialog.GenericErrorMessage,,Failed to login. Please try again or contact support if problem persists.,Failed to login. Please try again or contact support if problem persists.
 Studio.Internal.ExternalLoginDialog.MessageOnDialogClose,,Are you sure you want to close this window? This will close Roblox Studio.,Are you sure you want to close this window? This will close Roblox Studio.
 Studio.Internal.ExternalLoginDialog.NoNetworkMessage,,Please check that you are connected to the internet and try again. Please contact support if the problem persists.,Please check that you are connected to the internet and try again. Please contact support if the problem persists.
+Studio.Internal.ExternalLoginDialog.ReloadLoginPage,,Refresh login,Refresh login
 Studio.Internal.ExternalLoginDialog.WindowTitle,,Log In,Log In
 Studio.Internal.RobloxMainWindow.ChooseAPlaceInGameExplorer1,,"Choose an instance as parent in game explorer to save %1 
 ","Choose an instance as parent in game explorer to save %1 

@@ -3,7 +3,7 @@
 #extension GL_ARB_shading_language_include : require
 #include <Globals.h>
 #include <Params.h>
-uniform vec4 CB0[47];
+uniform vec4 CB0[52];
 uniform vec4 CB3[3];
 uniform sampler3D LightMapTexture;
 uniform sampler3D LightGridSkylightTexture;
@@ -105,7 +105,7 @@ void main()
     float f75 = (f74 * f74) * f73;
     float f76 = f70 * f70;
     float f77 = (((f71 * f76) - f71) * f71) + 1.0;
-    vec3 f78 = mix(mix(((f35 * f35) * CB0[15].x).xyz, ((min(f5 + (CB0[27].xyz + (CB0[28].xyz * f6)), vec3(CB0[16].w)) + (((((((CB0[35].xyz * f23) + (CB0[37].xyz * f24)) + (CB0[39].xyz * f25)) + (CB0[36].xyz * f26)) + (CB0[38].xyz * f27)) + (CB0[40].xyz * f28)) + (((((((CB0[29].xyz * f23) + (CB0[31].xyz * f24)) + (CB0[33].xyz * f25)) + (CB0[30].xyz * f26)) + (CB0[32].xyz * f27)) + (CB0[34].xyz * f28)) * f6))) + (CB0[10].xyz * f7)) * CB3[1].xyz, vec3(clamp(clamp(((f34.w - VARYING8.w) * CB3[2].x) + CB3[2].y, 0.0, 1.0) + clamp((VARYING8.w * 0.0040000001899898052215576171875) - 1.0, 0.0, 1.0), 0.0, 1.0))), mix(((f66 * f66) * CB0[15].x) * f6, (f67 * f67) * CB0[15].x, vec3((((float(abs(f65.x - 0.5) < 0.550000011920928955078125) * float(abs(f65.y - 0.5) < 0.5)) * clamp(3.900000095367431640625 - (max(VARYING8.w, f64) * 0.008000000379979610443115234375), 0.0, 1.0)) * float(abs((texture2D(GBufferDepthTexture, f65).x * 500.0) - f64) < 10.0)) * float(f38.w > 0.0))) + (f5 * 0.100000001490116119384765625), vec3(((clamp(0.7799999713897705078125 - (2.5 * abs(dot(f17, f18))), 0.0, 1.0) + 0.300000011920928955078125) * VARYING0.w) * CB3[2].z)) + (((((vec3(f75) + (vec3(0.0199999995529651641845703125) * (1.0 - f75))) * (((f76 + (f76 * f76)) / (((f77 * f77) * ((f72 * 3.0) + 0.5)) * ((f71 * 0.75) + 0.25))) * clamp(dot(f16, f68), 0.0, 1.0))) * CB0[10].xyz) * f7) * clamp(1.0 - (VARYING7.w * CB0[23].y), 0.0, 1.0));
+    vec3 f78 = mix(mix(((f35 * f35) * CB0[15].x).xyz, ((min(f5 + (CB0[27].xyz + (CB0[28].xyz * f6)), vec3(CB0[16].w)) + (((((((CB0[35].xyz * f23) + (CB0[37].xyz * f24)) + (CB0[39].xyz * f25)) + (CB0[36].xyz * f26)) + (CB0[38].xyz * f27)) + (CB0[40].xyz * f28)) + (((((((CB0[29].xyz * f23) + (CB0[31].xyz * f24)) + (CB0[33].xyz * f25)) + (CB0[30].xyz * f26)) + (CB0[32].xyz * f27)) + (CB0[34].xyz * f28)) * f6))) + (CB0[10].xyz * f7)) * CB3[1].xyz, vec3(clamp(clamp(((f34.w - VARYING8.w) * CB3[2].x) + CB3[2].y, 0.0, 1.0) + clamp((VARYING8.w * 0.0040000001899898052215576171875) - 1.0, 0.0, 1.0), 0.0, 1.0))), mix(((f66 * f66) * CB0[15].x) * f6, (f67 * f67) * CB0[15].x, vec3((((float(abs(f65.x - 0.5) < 0.550000011920928955078125) * float(abs(f65.y - 0.5) < 0.5)) * clamp(3.900000095367431640625 - (max(VARYING8.w, f64) * 0.008000000379979610443115234375), 0.0, 1.0)) * float(abs((texture2D(GBufferDepthTexture, f65).x * 500.0) - f64) < 10.0)) * float(f38.w > 0.0))) + (f5 * 0.100000001490116119384765625), vec3(((clamp(0.7799999713897705078125 - (2.5 * abs(dot(f17, f18))), 0.0, 1.0) + 0.300000011920928955078125) * VARYING0.w) * CB3[2].z)) + ((((vec3(f75) + (vec3(0.0199999995529651641845703125) * (1.0 - f75))) * (((f76 + (f76 * f76)) / (((f77 * f77) * ((f72 * 3.0) + 0.5)) * ((f71 * 0.75) + 0.25))) * clamp(dot(f16, f68) * f7, 0.0, 1.0))) * CB0[10].xyz) * clamp(1.0 - (VARYING7.w * CB0[23].y), 0.0, 1.0));
     vec4 f79 = vec4(f78.x, f78.y, f78.z, vec4(0.0).w);
     f79.w = 1.0;
     vec3 f80 = sqrt(clamp(mix(CB0[14].xyz, f79.xyz, vec3(VARYING6.w)).xyz * CB0[15].y, vec3(0.0), vec3(1.0)));

@@ -2,7 +2,7 @@
 
 #extension GL_ARB_shading_language_include : require
 #include <Globals.h>
-uniform vec4 CB0[47];
+uniform vec4 CB0[52];
 varying vec4 VARYING0;
 varying vec3 VARYING1;
 

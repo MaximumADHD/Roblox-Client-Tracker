@@ -6,7 +6,7 @@
 const vec3 v0[16] = vec3[](vec3(0.0, 0.0, 1.0), vec3(1.0, 0.0, 0.0), vec3(1.0, 0.0, 0.0), vec3(0.0, 0.0, 1.0), vec3(1.0, 0.0, 0.0), vec3(1.0, 0.0, 0.0), vec3(1.0, 0.0, 0.0), vec3(1.0, 0.0, 0.0), vec3(0.0, 0.0, 1.0), vec3(0.0), vec3(1.0, 0.0, 0.0), vec3(0.0, 1.0, 0.0), vec3(0.0, 1.0, 0.0), vec3(1.0, 0.0, 0.0), vec3(0.0, 1.0, 0.0), vec3(0.0, 1.0, 0.0));
 const vec3 v1[16] = vec3[](vec3(0.0, 1.0, 0.0), vec3(0.0, 0.0, 1.0), vec3(0.0, 1.0, 0.0), vec3(0.0, 1.0, 0.0), vec3(0.0, 0.0, 1.0), vec3(0.0, 1.0, 0.0), vec3(0.0, 0.699999988079071044921875, 0.699999988079071044921875), vec3(0.0, 0.699999988079071044921875, 0.699999988079071044921875), vec3(0.699999988079071044921875, 0.699999988079071044921875, 0.0), vec3(0.0), vec3(0.0, 0.0, 1.0), vec3(0.0, 0.0, 1.0), vec3(1.0, 0.0, 0.0), vec3(0.0, 0.0, 1.0), vec3(0.0, 0.0, -1.0), vec3(0.0, 0.0, 1.0));
 
-uniform vec4 CB0[47];
+uniform vec4 CB0[52];
 uniform vec4 CB1[511];
 in vec4 POSITION;
 in vec4 NORMAL;
@@ -16,7 +16,7 @@ in vec4 COLOR0;
 out vec2 VARYING0;
 out vec2 VARYING1;
 out vec4 VARYING2;
-out vec3 VARYING3;
+out vec4 VARYING3;
 out vec4 VARYING4;
 out vec4 VARYING5;
 out vec4 VARYING6;
@@ -45,18 +45,21 @@ void main()
     v16.y = dot(CB1[gl_InstanceID * 7 + 3].xyz, v1[v2]);
     vec4 v17 = vec4(v6, v7, v8, 1.0);
     vec4 v18 = v17 * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
-    vec4 v19 = vec4(dot(CB0[20], v17), dot(CB0[21], v17), dot(CB0[22], v17), 0.0);
-    v19.w = CB1[gl_InstanceID * 7 + 6].w;
-    vec4 v20 = vec4(v10, v11, v12, 0.0);
-    v20.w = inversesqrt(0.1745329201221466064453125 * CB1[gl_InstanceID * 7 + 6].z);
+    vec3 v19 = ((v9 + (vec3(v10, v11, v12) * 6.0)).yxz * CB0[16].xyz) + CB0[17].xyz;
+    vec4 v20 = vec4(v19.x, v19.y, v19.z, vec4(0.0).w);
+    v20.w = abs(CB1[gl_InstanceID * 7 + 3].w);
+    vec4 v21 = vec4(dot(CB0[20], v17), dot(CB0[21], v17), dot(CB0[22], v17), 0.0);
+    v21.w = CB1[gl_InstanceID * 7 + 6].w;
+    vec4 v22 = vec4(v10, v11, v12, 0.0);
+    v22.w = inversesqrt(0.1745329201221466064453125 * CB1[gl_InstanceID * 7 + 6].z);
     gl_Position = v18;
     VARYING0 = (TEXCOORD0.xy * v14) + CB1[gl_InstanceID * 7 + 6].xy;
     VARYING1 = TEXCOORD0.zw * v16;
     VARYING2 = CB1[gl_InstanceID * 7 + 4] * mix(COLOR0 * 0.0039215688593685626983642578125, vec4(1.0), vec4(float(CB1[gl_InstanceID * 7 + 3].w > 0.0)));
-    VARYING3 = ((v9 + (vec3(v10, v11, v12) * 6.0)).yxz * CB0[16].xyz) + CB0[17].xyz;
+    VARYING3 = v20;
     VARYING4 = vec4(CB0[7].xyz - v9, v18.w);
-    VARYING5 = v20;
-    VARYING6 = v19;
+    VARYING5 = v22;
+    VARYING6 = v21;
     VARYING7 = TEXCOORD2.w - 1.0;
 }
 

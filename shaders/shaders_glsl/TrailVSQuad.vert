@@ -3,7 +3,7 @@
 #extension GL_ARB_shading_language_include : require
 #include <Globals.h>
 #include <TrailParams.h>
-uniform vec4 CB0[47];
+uniform vec4 CB0[52];
 uniform vec4 CB1[1];
 attribute vec4 POSITION;
 attribute vec3 TEXCOORD0;
