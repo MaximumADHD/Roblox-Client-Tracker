@@ -22,6 +22,7 @@
 ]]
 local FFlagAssetManagerLuaCleanup1 = settings():GetFFlag("AssetManagerLuaCleanup1")
 local FFlagTruncateDevFrameworkHyperlinkText = game:GetFastFlag("TruncateDevFrameworkHyperlinkText")
+local FFlagWrappedDevFrameworkLinkText = game:GetFastFlag("WrappedDevFrameworkLinkText")
 
 local TextService = game:GetService("TextService")
 
@@ -41,12 +42,17 @@ Typecheck.wrap(LinkText, script)
 function LinkText:init(props)
 	assert(type(props.OnClick) == "function", "LinkText expects an 'OnClick' function.")
 
+	if FFlagWrappedDevFrameworkLinkText then
+		assert(props.Size or (not props.TextWrapped), "Size prop is required to use the TextWrapped prop")
+	end
+
 	if FFlagTruncateDevFrameworkHyperlinkText and props.TextTruncate then
 		assert(props.Size ~= nil and typeof(props.Size) == "UDim2", "LinkText expects a UDim2 'Size' if the 'TextTruncate' prop passed in.")
 	end
 
 	self.state = {
-		StyleModifier = nil
+		StyleModifier = nil,
+		AbsoluteWidth = FFlagWrappedDevFrameworkLinkText and 0 or nil,
 	}
 
 	self.mouseEnter = function()
@@ -76,14 +82,25 @@ function LinkText:render()
 	local textColor = style.TextColor
 	local text = props.Text or ""
 	local textTruncate = FFlagTruncateDevFrameworkHyperlinkText and props.TextTruncate or nil
+	local textWrapped = FFlagWrappedDevFrameworkLinkText and props.TextWrapped or nil
+	local textXAlignment = FFlagWrappedDevFrameworkLinkText and props.TextXAlignment or nil
+	local textYAlignment = FFlagWrappedDevFrameworkLinkText and props.TextYAlignment or nil
 
+	local isMultiline = false
 	local textDimensions
 	if FFlagTruncateDevFrameworkHyperlinkText and textTruncate then
 		textDimensions = size
 	else
 		if font then
-			local textExtents = TextService:GetTextSize(text, textSize, font, Vector2.new())
-			textDimensions = UDim2.fromOffset(textExtents.X, textExtents.Y)
+			if FFlagWrappedDevFrameworkLinkText and textWrapped then
+				local textDimensionsExtents = TextService:GetTextSize(text, textSize, font,
+					Vector2.new(state.AbsoluteWidth, math.huge))
+				textDimensions = UDim2.new(size.X, UDim.new(0, textDimensionsExtents.Y))
+				isMultiline = textDimensionsExtents.Y ~= TextService:GetTextSize("", textSize, font, Vector2.new())
+			else
+				local textExtents = TextService:GetTextSize(text, textSize, font, Vector2.new())
+				textDimensions = UDim2.fromOffset(textExtents.X, textExtents.Y)
+			end
 		else
 			textDimensions = UDim2.new()
 		end
@@ -110,6 +127,9 @@ function LinkText:render()
 			TextSize = textSize,
 			TextColor = textColor,
 			TextTruncate = textTruncate,
+			TextWrapped = textWrapped,
+			TextXAlignment = textXAlignment,
+			TextYAlignment = textYAlignment,
 		},
 		Size = textDimensions,
 		Position = position,
@@ -119,18 +139,28 @@ function LinkText:render()
 		Text = text,
 		OnClick = onClick,
 	}, {
-		Underline = showUnderline and hovered and Roact.createElement("Frame", {
-			Size = UDim2.new(1, 0, 0, 1),
-			Position = UDim2.new(0, 0, 1, 0),
-			AnchorPoint = Vector2.new(0, 1),
-			BackgroundColor3 = textColor,
-			BorderSizePixel = 0,
+		Layout = FFlagWrappedDevFrameworkLinkText and Roact.createElement("UIListLayout", {
+			SortOrder = Enum.SortOrder.LayoutOrder,
+			[Roact.Change.AbsoluteContentSize] = function(rbx)
+				self:setState({
+					AbsoluteWidth = rbx.AbsoluteContentSize.X,
+				})
+			end,
 		}),
 
 		HoverArea = enableHover and Roact.createElement(HoverArea, {
 			Cursor = "PointingHand",
 			MouseEnter = self.mouseEnter,
 			MouseLeave = self.mouseLeave,
+		}),
+
+		Underline = showUnderline and hovered and (not isMultiline) and Roact.createElement("Frame", {
+			LayoutOrder = FFlagWrappedDevFrameworkLinkText and 1 or nil,
+			Size = UDim2.new(1, 0, 0, 1),
+			Position = (not FFlagWrappedDevFrameworkLinkText) and UDim2.new(0, 0, 1, 0) or nil,
+			AnchorPoint = (not FFlagWrappedDevFrameworkLinkText) and Vector2.new(0, 1) or nil,
+			BackgroundColor3 = textColor,
+			BorderSizePixel = 0,
 		}),
 	})
 end

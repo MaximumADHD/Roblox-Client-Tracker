@@ -7,9 +7,9 @@ local AssetConfigConstants = require(Util.AssetConfigConstants)
 local ScreenSetup = require(Util.ScreenSetup)
 local Images = require(Util.Images)
 
-local FFlagEnableAssetConfigVersionCheckForModels = game:GetFastFlag("EnableAssetConfigVersionCheckForModels")
 local FFlagEnableNonWhitelistedToggle = game:GetFastFlag("EnableNonWhitelistedToggle")
 local FFlagShowAssetConfigReasons2 = game:GetFastFlag("ShowAssetConfigReasons2")
+local FFlagFixAssetConfigPermissionsRace = game:DefineFastFlag("FixAssetConfigPermissionsRace", false)
 
 local ConfigTypes = {}
 
@@ -66,17 +66,17 @@ function ConfigTypes:getAssetconfigContent(screenFlowType, assetTypeEnum, isMark
 	}
 
 	if isPackage then
-		result[#result + 1] = PERMISSIONS
+		if FFlagFixAssetConfigPermissionsRace then
+			if owner then
+				result[#result + 1] = PERMISSIONS
+			end
+		else
+			result[#result + 1] = PERMISSIONS
+		end
 	end
 
 	-- Versions History is only accessible to models and plugins, so we only try to show the Versions if it's a model.
-	if FFlagEnableAssetConfigVersionCheckForModels then
-		if assetTypeEnum == Enum.AssetType.Model then
-			if ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_VERSIONS_TAB) then
-				result[#result + 1] = VERSIONS
-			end
-		end
-	else
+	if assetTypeEnum == Enum.AssetType.Model then
 		if ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_VERSIONS_TAB) then
 			result[#result + 1] = VERSIONS
 		end

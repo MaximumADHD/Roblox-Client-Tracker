@@ -26,8 +26,6 @@ local BORDER_SIZE = 16
 
 local DevConsoleWindow = Roact.PureComponent:extend("DevConsoleWindow")
 
-local FFlagDevConsoleBetterResize = settings():GetFFlag("DevConsoleBetterResize")
-
 function DevConsoleWindow:onMinimizeClicked()
 	self.props.dispatchSetDevConsoleMinimized(true)
 end
@@ -54,49 +52,23 @@ function DevConsoleWindow:init()
 
 	self.resizeInputBegan = function(rbx, input)
 		if input.UserInputType == Enum.UserInputType.MouseButton1 then
-			if FFlagDevConsoleBetterResize then
-				local inputChangedConn, inputEndedConn
+			local inputChangedConn, inputEndedConn
 
-				local function onInputChanged(input)
-					local currPosition = self.ref.current.AbsolutePosition
-					local cornerPos = input.Position
-					self:setDevConsoleSize(currPosition, cornerPos)
-				end
-
-				local function onInputEnded(input)
-					if input.UserInputType == Enum.UserInputType.MouseButton1 then
-						inputChangedConn:Disconnect()
-						inputEndedConn:Disconnect()
-					end
-				end
-
-				inputChangedConn = UserInputService.InputChanged:Connect(onInputChanged)
-				inputEndedConn = UserInputService.InputEnded:Connect(onInputEnded)
-			else
-				self:setState({
-					resizing = true,
-				})
+			local function onInputChanged(input)
+				local currPosition = self.ref.current.AbsolutePosition
+				local cornerPos = input.Position
+				self:setDevConsoleSize(currPosition, cornerPos)
 			end
-		end
-	end
 
-	-- TODO (dnurkkala): remove this when we remove FFlagDevConsoleBetterResize
-	self.resizeInputChanged = function(rbx,input)
-		if self.state.resizing then
-			local currPosition = self.ref.current.AbsolutePosition
-			local cornerPos = input.Position
+			local function onInputEnded(input)
+				if input.UserInputType == Enum.UserInputType.MouseButton1 then
+					inputChangedConn:Disconnect()
+					inputEndedConn:Disconnect()
+				end
+			end
 
-			self:setDevConsoleSize(currPosition, cornerPos)
-		end
-	end
-
-	-- TODO (dnurkkala): remove this when we remove FFlagDevConsoleBetterResize
-	self.resizeInputEnded = function(rbx, input)
-		if input.UserInputType == Enum.UserInputType.MouseButton1 then
-			--reset resize-dragger
-			self:setState({
-				resizing = false
-			})
+			inputChangedConn = UserInputService.InputChanged:Connect(onInputChanged)
+			inputEndedConn = UserInputService.InputEnded:Connect(onInputEnded)
 		end
 	end
 
@@ -290,25 +262,6 @@ function DevConsoleWindow:render()
 
 				[Roact.Event.InputBegan] = self.resizeInputBegan,
 			}),
-			--[[ we do this to catch all inputchanged events
-				if we can handle LARGE distances of continuous MouseMovmement input events
-				for dragging then we might be able to remove the portal
-			]]--
-			ResizeCatchAll = (not FFlagDevConsoleBetterResize) and resizing and Roact.createElement(Roact.Portal, {
-				target = CoreGui,
-			}, {
-				InputCatcher = Roact.createElement("ScreenGui", {}, {
-					GreyOutFrame = Roact.createElement("Frame", {
-						Size = UDim2.new(1, 0, 1, 0),
-						BackgroundColor3 = Constants.Color.Black,
-						BackgroundTransparency = .99,
-						Active = true,
-
-						[Roact.Event.InputChanged] = self.resizeInputChanged,
-						[Roact.Event.InputEnded] = self.resizeInputEnded,
-					})
-				})
-			})
 		})
 	end
 end

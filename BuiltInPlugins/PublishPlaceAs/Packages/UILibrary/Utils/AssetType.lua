@@ -1,6 +1,7 @@
 local FFlagFixGetAssetTypeErrorHandling = game:DefineFastFlag("FixGetAssetTypeErrorHandling", false)
 local FFlagStudioUILibFixAssetTypeMap = game:DefineFastFlag("StudioUILibFixAssetTypeMap", false)
 local FFlagStudioFixMeshPartPreview = game:DefineFastFlag("StudioFixMeshPartPreview", false)
+local FFlagEnableToolboxVideos = game:GetFastFlag("EnableToolboxVideos")
 
 local AssetType = {}
 
@@ -25,6 +26,7 @@ AssetType.AssetTypesPreviewEnabled = {
 	[Enum.AssetType.Audio.Value] = true,
 	[Enum.AssetType.Lua.Value] = true,
 	[Enum.AssetType.Plugin.Value] = true,
+	[Enum.AssetType.Video.Value] = FFlagEnableToolboxVideos or nil,
 }
 
 local classTypeMap = {

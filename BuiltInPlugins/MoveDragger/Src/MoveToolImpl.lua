@@ -19,8 +19,6 @@ local getBoundingBoxScale = require(DraggerFramework.Utility.getBoundingBoxScale
 local getFFlagLuaDraggerHandleScale = require(DraggerFramework.Flags.getFFlagLuaDraggerHandleScale)
 local getFFlagAllowDragContinuation = require(DraggerFramework.Flags.getFFlagAllowDragContinuation)
 local getFFlagSmoothAttachmentMovement = require(DraggerFramework.Flags.getFFlagSmoothAttachmentMovement)
-local getFFlagImprovedHandleParams2 = require(DraggerFramework.Flags.getFFlagImprovedHandleParams2)
-local getFFlagDisallowFloatingPointErrorMove = require(DraggerFramework.Flags.getFFlagDisallowFloatingPointErrorMove)
 
 local MoveHandleView = require(Plugin.Src.MoveHandleView)
 
@@ -140,25 +138,14 @@ function MoveToolImpl:render(hoveredHandleId)
 	if getFFlagAllowDragContinuation() then
 		if self._draggingHandleId and self._handles[self._draggingHandleId] then
 			local handleProps = self._handles[self._draggingHandleId]
-			if getFFlagImprovedHandleParams2() then
-				children[self._draggingHandleId] = Roact.createElement(MoveHandleView, {
-					Axis = handleProps.Axis,
-					AxisOffset = handleProps.AxisOffset,
-					Color = handleProps.Color,
-					Scale = getFFlagLuaDraggerHandleScale() and handleProps.Scale or self._scale,
-					AlwaysOnTop = ALWAYS_ON_TOP,
-					Hovered = forceHoveredHandlesOnTop and true,
-				})
-			else
-				children[self._draggingHandleId] = Roact.createElement(MoveHandleView, {
-					Axis = handleProps.Axis,
-					AxisOffset = handleProps.AxisOffset,
-					Color = handleProps.Color,
-					Scale = getFFlagLuaDraggerHandleScale() and handleProps.Scale or self._scale,
-					AlwaysOnTop = ALWAYS_ON_TOP,
-					Hovered = false,
-				})
-			end
+			children[self._draggingHandleId] = Roact.createElement(MoveHandleView, {
+				Axis = handleProps.Axis,
+				AxisOffset = handleProps.AxisOffset,
+				Color = handleProps.Color,
+				Scale = getFFlagLuaDraggerHandleScale() and handleProps.Scale or self._scale,
+				AlwaysOnTop = ALWAYS_ON_TOP,
+				Hovered = forceHoveredHandlesOnTop and true,
+			})
 			for otherHandleId, otherHandleProps in pairs(self._handles) do
 				if otherHandleId ~= self._draggingHandleId then
 					children[otherHandleId] = Roact.createElement(MoveHandleView, {
@@ -186,49 +173,27 @@ function MoveToolImpl:render(hoveredHandleId)
 				if not hovered then
 					color = Colors.makeDimmed(color)
 				end
-				if getFFlagImprovedHandleParams2() then
-					children[handleId] = Roact.createElement(MoveHandleView, {
-						Axis = handleProps.Axis,
-						AxisOffset = handleProps.AxisOffset,
-						Color = color,
-						Scale = getFFlagLuaDraggerHandleScale() and handleProps.Scale or self._scale,
-						AlwaysOnTop = ALWAYS_ON_TOP,
-						Hovered = hovered,
-					})
-				else
-					children[handleId] = Roact.createElement(MoveHandleView, {
-						Axis = handleProps.Axis,
-						AxisOffset = handleProps.AxisOffset,
-						Color = color,
-						Scale = getFFlagLuaDraggerHandleScale() and handleProps.Scale or self._scale,
-						AlwaysOnTop = ALWAYS_ON_TOP,
-						Hovered = forceHoveredHandlesOnTop and hovered,
-					})
-				end
+				children[handleId] = Roact.createElement(MoveHandleView, {
+					Axis = handleProps.Axis,
+					AxisOffset = handleProps.AxisOffset,
+					Color = color,
+					Scale = getFFlagLuaDraggerHandleScale() and handleProps.Scale or self._scale,
+					AlwaysOnTop = ALWAYS_ON_TOP,
+					Hovered = hovered,
+				})
 			end
 		end
 	else
 		if self._draggingHandleId then
 			local handleProps = self._handles[self._draggingHandleId]
-			if getFFlagImprovedHandleParams2() then
-				children[self._draggingHandleId] = Roact.createElement(MoveHandleView, {
-					Axis = handleProps.Axis,
-					AxisOffset = handleProps.AxisOffset,
-					Color = handleProps.Color,
-					Scale = getFFlagLuaDraggerHandleScale() and handleProps.Scale or self._scale,
-					AlwaysOnTop = ALWAYS_ON_TOP,
-					Hovered = forceHoveredHandlesOnTop and true,
-				})
-			else
-				children[self._draggingHandleId] = Roact.createElement(MoveHandleView, {
-					Axis = handleProps.Axis,
-					AxisOffset = handleProps.AxisOffset,
-					Color = handleProps.Color,
-					Scale = getFFlagLuaDraggerHandleScale() and handleProps.Scale or self._scale,
-					AlwaysOnTop = ALWAYS_ON_TOP,
-					Hovered = false,
-				})
-			end
+			children[self._draggingHandleId] = Roact.createElement(MoveHandleView, {
+				Axis = handleProps.Axis,
+				AxisOffset = handleProps.AxisOffset,
+				Color = handleProps.Color,
+				Scale = getFFlagLuaDraggerHandleScale() and handleProps.Scale or self._scale,
+				AlwaysOnTop = ALWAYS_ON_TOP,
+				Hovered = forceHoveredHandlesOnTop and true,
+			})
 
 			for otherHandleId, otherHandleProps in pairs(self._handles) do
 				if otherHandleId ~= self._draggingHandleId then
@@ -258,25 +223,14 @@ function MoveToolImpl:render(hoveredHandleId)
 				if not hovered then
 					color = Colors.makeDimmed(color)
 				end
-				if getFFlagImprovedHandleParams2() then
-					children[handleId] = Roact.createElement(MoveHandleView, {
-						Axis = handleProps.Axis,
-						AxisOffset = handleProps.AxisOffset,
-						Color = color,
-						Scale = getFFlagLuaDraggerHandleScale() and handleProps.Scale or self._scale,
-						AlwaysOnTop = ALWAYS_ON_TOP,
-						Hovered = hovered,
-					})
-				else
-					children[handleId] = Roact.createElement(MoveHandleView, {
-						Axis = handleProps.Axis,
-						AxisOffset = handleProps.AxisOffset,
-						Color = color,
-						Scale = getFFlagLuaDraggerHandleScale() and handleProps.Scale or self._scale,
-						AlwaysOnTop = ALWAYS_ON_TOP,
-						Hovered = forceHoveredHandlesOnTop and hovered,
-					})
-				end
+				children[handleId] = Roact.createElement(MoveHandleView, {
+					Axis = handleProps.Axis,
+					AxisOffset = handleProps.AxisOffset,
+					Color = color,
+					Scale = getFFlagLuaDraggerHandleScale() and handleProps.Scale or self._scale,
+					AlwaysOnTop = ALWAYS_ON_TOP,
+					Hovered = hovered,
+				})
 			end
 		end
 	end
@@ -578,45 +532,31 @@ function MoveToolImpl:_findAndMoveToGoodDelta(desiredDelta)
 	local goal = desiredDelta
 	local isIntersecting = true
 
-	if getFFlagDisallowFloatingPointErrorMove() then
-		while math.abs(goal - start) > TRANSLATE_COLLISION_THRESHOLD do
-			local mid = (goal + start) / 2
-			local midTransform = CFrame.new(self._axis * mid)
-			self._partMover:transformTo(midTransform)
-			isIntersecting = self._partMover:isIntersectingOthers()
-			if isIntersecting then
-				goal = mid
-			else
-				start = mid
-			end
+	while math.abs(goal - start) > TRANSLATE_COLLISION_THRESHOLD do
+		local mid = (goal + start) / 2
+		local midTransform = CFrame.new(self._axis * mid)
+		self._partMover:transformTo(midTransform)
+		isIntersecting = self._partMover:isIntersectingOthers()
+		if isIntersecting then
+			goal = mid
+		else
+			start = mid
 		end
+	end
 
-		-- Special case to not let us move very slightly and then stop. If we allow
-		-- that then a translate which collides almost right away will produce no
-		-- visible changes but introduce floating point error.
-		-- The 2x is not a random fudge factor, it is precisely chosen: `goal` and
-		-- `start` always bound the true collision point. After the loop, they are
-		-- guaranteed to be within the threshold of eachother. We want to test
-		-- whether the the move is within the threshold of zero. That means, at the
-		-- very worst, the true collision point is at +threshold, and the loop
-		-- exited at +threshold of the collision point, for a total of 2x threshold
-		-- away from zero.
-		if math.abs(start) < TRANSLATE_COLLISION_THRESHOLD * 2 then
-			start = 0
-			isIntersecting = true
-		end
-	else
-		while math.abs(goal - start) > 0.0001 do
-			local mid = (goal + start) / 2
-			local midTransform = CFrame.new(self._axis * mid)
-			self._partMover:transformTo(midTransform)
-			isIntersecting = self._partMover:isIntersectingOthers()
-			if isIntersecting then
-				goal = mid
-			else
-				start = mid
-			end
-		end
+	-- Special case to not let us move very slightly and then stop. If we allow
+	-- that then a translate which collides almost right away will produce no
+	-- visible changes but introduce floating point error.
+	-- The 2x is not a random fudge factor, it is precisely chosen: `goal` and
+	-- `start` always bound the true collision point. After the loop, they are
+	-- guaranteed to be within the threshold of eachother. We want to test
+	-- whether the the move is within the threshold of zero. That means, at the
+	-- very worst, the true collision point is at +threshold, and the loop
+	-- exited at +threshold of the collision point, for a total of 2x threshold
+	-- away from zero.
+	if math.abs(start) < TRANSLATE_COLLISION_THRESHOLD * 2 then
+		start = 0
+		isIntersecting = true
 	end
 
 	-- Have to make sure that we end on a non-intersection. The invariant is

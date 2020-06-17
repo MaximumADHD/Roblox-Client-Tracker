@@ -7,7 +7,6 @@
 
 local Framework = script.Parent.Parent
 local getFFlagLuaDraggerPerf = require(Framework.Flags.getFFlagLuaDraggerPerf)
-local getFFlagHandleOddNesting = require(Framework.Flags.getFFlagHandleOddNesting)
 
 local MAX_PARTS_TO_TRACK_BOUNDS_FOR = 1024
 
@@ -97,8 +96,6 @@ end
 function BoundsChangedTracker:setParts(parts)
     local fflagLuaDraggerPerf = getFFlagLuaDraggerPerf()
     local newPartToEntry = {}
-    -- Gotta pull this flag check out, since this is a tight loop
-    local fflagHandleOddNesting = getFFlagHandleOddNesting()
     for index, part in ipairs(parts) do
         if fflagLuaDraggerPerf and index > MAX_PARTS_TO_TRACK_BOUNDS_FOR then
             -- Too expensive to handle bounds changes for more than ~1000 parts,
@@ -123,9 +120,7 @@ function BoundsChangedTracker:setParts(parts)
                 hookUpConnections(entry)
             end
         end
-        if fflagHandleOddNesting then
-            assert(not newPartToEntry[part]) -- Selection should not have duplicates
-        end
+        assert(not newPartToEntry[part]) -- Selection should not have duplicates
         newPartToEntry[part] = entry
     end
     if self._installed then

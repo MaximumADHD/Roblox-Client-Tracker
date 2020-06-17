@@ -3,7 +3,6 @@
 	Contains the menu bar, the footer, and the currently selected page.
 
 	Props:
-		table DEPRECATED_MenuEntries = The entries to show on the left side menu
 		int Selected = The index of the currently selected menu entry
 		function SelectionChanged = A callback when the selected entry is changed
 ]]
@@ -13,7 +12,6 @@ local Roact = require(Plugin.Roact)
 local RoactRodux = require(Plugin.RoactRodux)
 local Cryo = require(Plugin.Cryo)
 local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
-local withTheme = require(Plugin.Src.Consumers.withTheme)
 
 local ContextServices = require(Plugin.Framework.ContextServices)
 local FrameworkUI = require(Plugin.Framework.UI)
@@ -26,17 +24,13 @@ local FitTextLabel = FrameworkUtil.FitFrame.FitTextLabel
 
 local Container = FrameworkUI.Container
 local MenuBar = require(Plugin.Src.Components.MenuBar)
-local CurrentPage = require(Plugin.Src.Components.DEPRECATED_CurrentPage)
 local Separator = require(Plugin.Src.Components.Separator)
 local Footer = require(Plugin.Src.Components.Footer)
 local PageManifest = require(Plugin.Src.Components.SettingsPages.PageManifest)
 
-local LoadState = require(Plugin.Src.Util.LoadState)
-
 local StudioService = game:GetService("StudioService")
 local TextService = game:GetService("TextService")
 
-local FFlagStudioConvertGameSettingsToDevFramework = game:GetFastFlag("StudioConvertGameSettingsToDevFramework")
 local FFlagStudioStandaloneGameMetadata = game:GetFastFlag("StudioStandaloneGameMetadata")
 local FFlagGameSettingsOnlyInPublishedGames = game:DefineFastFlag("GameSettingsOnlyInPublishedGames", false)
 
@@ -45,7 +39,7 @@ local MainView = Roact.PureComponent:extend("MainView")
 function MainView:init()
 	self.state = {
 		Selected = 1,
-		PageContentOffset = game:GetFastFlag("GameSettingsNetworkRefactor") and 0 or nil,
+		PageContentOffset = 0,
 	}
 end
 
@@ -55,52 +49,7 @@ function MainView:pageSelected(index)
 	})
 end
 
-function MainView:DEPRECATED_render()
-	return withTheme(function(theme)
-		local Selected = self.state.Selected
-
-		return Roact.createElement("Frame", {
-			Size = UDim2.new(1, 0, 1, 0),
-			BackgroundColor3 = theme.backgroundColor,
-		}, {
-			--Add padding to main frame
-			Padding = Roact.createElement("UIPadding", {
-				PaddingTop = UDim.new(0, 5),
-			}),
-			--Add MenuBar to the left side of the screen
-			MenuBar = Roact.createElement(MenuBar, {
-				Entries = self.props.DEPRECATED_MenuEntries,
-				Selected = Selected,
-				SelectionChanged = function(index)
-					self:pageSelected(index)
-				end,
-			}),
-
-			Separator = Roact.createElement(Separator, {
-				Size = UDim2.new(0, 3, 1, 0),
-				Position = UDim2.new(0, DEPRECATED_Constants.MENU_BAR_WIDTH, 0, 0),
-			}),
-
-			--Add the page we are currently on
-			Page = Roact.createElement(CurrentPage, {
-				Page = self.props.DEPRECATED_MenuEntries[Selected].Name,
-			}),
-
-			--Add footer for cancel and save buttons
-			Footer = Roact.createElement(Footer, {
-				OnClose = function(didSave, savePromise)
-					self.props.OnClose(didSave, savePromise)
-				end,
-			})
-		})
-	end)
-end
-
 function MainView:render()
-	if not FFlagStudioConvertGameSettingsToDevFramework then
-		return self:DEPRECATED_render()
-	end
-
 	local props = self.props
 	local Selected = self.state.Selected
 	local theme = props.Theme:get("Plugin")
@@ -111,20 +60,18 @@ function MainView:render()
 
 	local children = {}
 	local menuEntries = {}
-	if game:GetFastFlag("GameSettingsNetworkRefactor") then
-		if isPublishedGame then
-			for i,pageComponent in ipairs(PageManifest) do
-				if pageComponent then
-					local loadState = pageLoadStates[pageComponent.LocalizationId]
-					menuEntries[i] = pageComponent.LocalizationId
-					children[tostring(pageComponent)] = (i == Selected or loadState ~= nil) and Roact.createElement("Frame", {
-						BackgroundTransparency = 1,
-						Size = UDim2.fromScale(1, 1),
-						Visible = i == Selected,
-					}, {
-						PageContents = Roact.createElement(pageComponent),
-					})
-				end
+	if isPublishedGame then
+		for i,pageComponent in ipairs(PageManifest) do
+			if pageComponent then
+				local loadState = pageLoadStates[pageComponent.LocalizationId]
+				menuEntries[i] = pageComponent.LocalizationId
+				children[tostring(pageComponent)] = (i == Selected or loadState ~= nil) and Roact.createElement("Frame", {
+					BackgroundTransparency = 1,
+					Size = UDim2.fromScale(1, 1),
+					Visible = i == Selected,
+				}, {
+					PageContents = Roact.createElement(pageComponent),
+				})
 			end
 		end
 	end
@@ -164,8 +111,7 @@ function MainView:render()
         }, {
             Roact.createElement(HoverArea, {Cursor = "PointingHand"}),
         }),
-	} or (game:GetFastFlag("GameSettingsNetworkRefactor") and {
-
+	} or {
 		Padding = Roact.createElement("UIPadding", {
 			PaddingTop = UDim.new(0, 5),
 		}),
@@ -224,52 +170,20 @@ function MainView:render()
 				end,
 			})
 		}),
-	} or {
-		--Add padding to main frame
-		Padding = Roact.createElement("UIPadding", {
-			PaddingTop = UDim.new(0, 5),
-		}),
-		--Add MenuBar to the left side of the screen
-		MenuBar = Roact.createElement(MenuBar, {
-			Entries = self.props.DEPRECATED_MenuEntries,
-			Selected = Selected,
-			SelectionChanged = function(index)
-				self:pageSelected(index)
-			end,
-		}),
-
-		Separator = Roact.createElement(Separator, {
-			Size = UDim2.new(0, 3, 1, 0),
-			Position = UDim2.new(0, DEPRECATED_Constants.MENU_BAR_WIDTH, 0, 0),
-		}),
-
-		--Add the page we are currently on
-		Page = Roact.createElement(CurrentPage, {
-			Page = self.props.DEPRECATED_MenuEntries[Selected].Name,
-		}),
-
-		--Add footer for cancel and save buttons
-		Footer = Roact.createElement(Footer, {
-			OnClose = function(didSave, savePromise)
-				self.props.OnClose(didSave, savePromise)
-			end,
-		})
-	}))
-end
-
-if FFlagStudioConvertGameSettingsToDevFramework then
-	ContextServices.mapToProps(MainView,{
-		Localization = ContextServices.Localization,
-		Theme = ContextServices.Theme
 	})
 end
+
+ContextServices.mapToProps(MainView,{
+	Localization = ContextServices.Localization,
+	Theme = ContextServices.Theme
+})
 
 if FFlagStudioStandaloneGameMetadata then
 	MainView = RoactRodux.connect(
 		function(state, props)
 			return {
 				GameId = state.Metadata.gameId,
-				PageLoadStates = game:GetFastFlag("GameSettingsNetworkRefactor") and state.PageLoadState or nil,
+				PageLoadStates = state.PageLoadState,
 			}
 		end
 	)(MainView)

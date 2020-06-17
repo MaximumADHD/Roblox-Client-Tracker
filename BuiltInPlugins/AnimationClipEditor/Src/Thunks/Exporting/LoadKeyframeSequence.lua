@@ -24,7 +24,7 @@ return function(name)
 		if animSaves then
 			local keyframeSequence = animSaves:FindFirstChild(name)
 			if keyframeSequence then
-				local newData
+				local newData, numKeyframes, numPoses, numEvents
 				if UseCustomFPS() then
 					local frameRate = RigUtils.calculateFrameRate(keyframeSequence)
 					newData, numKeyframes, numPoses, numEvents = RigUtils.fromRigAnimation(

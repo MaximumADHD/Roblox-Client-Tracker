@@ -7,8 +7,6 @@ local setInsertPoint = require(Framework.Utility.setInsertPoint)
 local StandardCursor = require(Framework.Utility.StandardCursor)
 
 local getFFlagAllowDragContinuation = require(Framework.Flags.getFFlagAllowDragContinuation)
-local getFFlagMinCursorChange = require(Framework.Flags.getFFlagMinCursorChange)
-local getFFlagFixDraggerCursors = require(Framework.Flags.getFFlagFixDraggerCursors)
 
 local NO_COLLISIONS_TRANSPARENCY = 0.4
 
@@ -58,15 +56,7 @@ function DraggingHandle:_init(draggerTool, makeDraggedPartsTransparent, dragging
 end
 
 function DraggingHandle:render(draggerTool)
-    if getFFlagFixDraggerCursors() then
-        if getFFlagMinCursorChange() then
-            draggerTool:setMouseCursor(StandardCursor.getClosedHand())
-        else
-            draggerTool.props.Mouse.Icon = StandardCursor.getClosedHand()
-        end
-    else
-        draggerTool.props.Mouse.Icon = "rbxasset://SystemCursors/ClosedHand"
-    end
+    draggerTool:setMouseCursor(StandardCursor.getClosedHand())
 
     local toolImplementation = draggerTool.props.ToolImplementation
     if toolImplementation and toolImplementation.render then

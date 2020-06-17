@@ -11,7 +11,6 @@ return function()
 	local RoactRodux = require(CorePackages.RoactRodux)
 	local UIBlox = require(CorePackages.UIBlox)
 
-	local TopBarApp = require(script.Parent.TopBarApp)
 	local Reducer = require(script.Parent.Parent.Reducer)
 
 	local appStyle = {
@@ -27,6 +26,10 @@ return function()
 	local NewPlayerGroupDetails = Instance.new("RemoteEvent")
 	NewPlayerGroupDetails.Name = "NewPlayerGroupDetails"
 	NewPlayerGroupDetails.Parent = RobloxReplicatedStorage
+
+	local NewPlayerCanManageDetails = Instance.new("RemoteEvent")
+	NewPlayerCanManageDetails.Name = "NewPlayerCanManageDetails"
+	NewPlayerCanManageDetails.Parent = RobloxReplicatedStorage
 
 	local FollowRelationshipChanged
 	local GetFollowRelationships
@@ -53,6 +56,8 @@ return function()
 	local Sounds = Instance.new("Folder")
 	Sounds.Name = "Sounds"
 	Sounds.Parent = CoreGui.RobloxGui
+
+	local TopBarApp = require(script.Parent.TopBarApp)
 
 	describe("TopBarApp", function()
 		it("should create and destroy without errors", function()

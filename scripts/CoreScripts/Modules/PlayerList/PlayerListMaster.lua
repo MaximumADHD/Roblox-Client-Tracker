@@ -52,10 +52,16 @@ PlayerListMaster.__index = PlayerListMaster
 function PlayerListMaster.new()
 	local self = setmetatable({}, PlayerListMaster)
 
-	Roact.setGlobalConfig({
-		propValidation = GlobalConfig.propValidation,
-		elementTracing = GlobalConfig.elementTracing,
-	})
+	if GlobalConfig.propValidation then
+		Roact.setGlobalConfig({
+			propValidation = true,
+		})
+	end
+	if GlobalConfig.elementTracing then
+		Roact.setGlobalConfig({
+			elementTracing = true,
+		})
+	end
 
 	self.store = Rodux.Store.new(Reducer, nil, {
 		Rodux.thunkMiddleware,

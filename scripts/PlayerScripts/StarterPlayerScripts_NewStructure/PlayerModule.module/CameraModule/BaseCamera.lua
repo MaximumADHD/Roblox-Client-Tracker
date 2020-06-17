@@ -68,6 +68,13 @@ local FFlagUserFixZoomInZoomOutDiscrepancy do
 	FFlagUserFixZoomInZoomOutDiscrepancy = success and result
 end
 
+local FFlagUserFixGamepadCameraTracking do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserFixGamepadCameraTracking")
+	end)
+	FFlagUserFixGamepadCameraTracking = success and result
+end
+
 local Util = require(script.Parent:WaitForChild("CameraUtils"))
 local ZoomController = require(script.Parent:WaitForChild("ZoomController"))
 local CameraToggleStateController = require(script.Parent:WaitForChild("CameraToggleStateController"))
@@ -688,7 +695,13 @@ function BaseCamera:Cleanup()
 	self.lastSubjectCFrame = nil
 	self.userPanningTheCamera = false
 	self.rotateInput = Vector2.new()
-	self.gamepadPanningCamera = Vector2.new(0,0)
+	if FFlagUserFixGamepadCameraTracking then
+		if self.gamepadPanningCamera then
+			self.gamepadPanningCamera = ZERO_VECTOR2
+		end
+	else
+		self.gamepadPanningCamera = Vector2.new(0,0)
+	end
 
 	-- Reset input states
 	self.startPos = nil
@@ -1295,7 +1308,10 @@ function BaseCamera:UpdateGamepad()
 		if gamepadPan.X ~= 0 or gamepadPan.Y ~= 0 then
 			self.userPanningTheCamera = true
 		elseif gamepadPan == ZERO_VECTOR2 then
-			self.userPanningTheCamera = false
+			if FFlagUserFixGamepadCameraTracking then
+				self.userPanningTheCamera = false
+				self.gamepadPanningCamera = false
+			end
 			self.lastThumbstickRotate = nil
 			if self.lastThumbstickPos == ZERO_VECTOR2 then
 				self.currentSpeed = 0

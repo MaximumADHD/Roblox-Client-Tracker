@@ -16,6 +16,8 @@ local SettingsUtil = require(RobloxGui.Modules.Settings.Utility)
 local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
 local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
 
+local FFlagTopBarNewGamepadMenu = require(RobloxGui.Modules.Flags.FFlagTopBarNewGamepadMenu)
+
 local TopBarApp = require(script.Components.TopBarApp)
 local Reducer = require(script.Reducer)
 local Constants = require(script.Constants)
@@ -24,6 +26,7 @@ local SetSmallTouchDevice = require(script.Actions.SetSmallTouchDevice)
 local SetInspectMenuOpen = require(script.Actions.SetInspectMenuOpen)
 
 local GetCanChat = require(script.Thunks.GetCanChat)
+local GetGameName = require(script.Thunks.GetGameName)
 
 local registerSetCores = require(script.registerSetCores)
 
@@ -55,6 +58,10 @@ function TopBar.new()
 	})
 	registerSetCores(self.store)
 	self.store:dispatch(GetCanChat)
+
+	if FFlagTopBarNewGamepadMenu then
+		self.store:dispatch(GetGameName)
+	end
 
 	if isNewInGameMenuEnabled() then
 		-- Move to top of script when removing isNewInGameMenuEnabled

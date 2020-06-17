@@ -1,3 +1,5 @@
+--Remove with FFlagTopBarNewGamepadMenu
+
 local CorePackages = game:GetService("CorePackages")
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)

@@ -1,3 +1,5 @@
+if not game:GetFastFlag("GameSettingsNetworkRefactor") then return end
+
 -- Fast flags
 require(script.Parent.defineLuaFlags)
 

@@ -4,12 +4,10 @@
 
 game:DefineFastFlag("RemoveNilInstances", false)
 game:DefineFastFlag("UseRBXThumbInToolbox", false)
-game:DefineFastFlag("EnableAssetConfigVersionCheckForModels", false)
 game:DefineFastFlag("FixAssetConfigManageableGroups", false)
 game:DefineFastFlag("ShowAssetConfigReasons2", false)
 game:DefineFastFlag("DebugAssetConfigNetworkError", false)
 game:DefineFastFlag("FixAssetConfigIcon", false)
-game:DefineFastFlag("EnableAssetConfigFreeFix2", false)
 
 -- when removing this flag, remove all references to isCatalogItemCreator
 game:DefineFastFlag("EnableNonWhitelistedToggle", false)

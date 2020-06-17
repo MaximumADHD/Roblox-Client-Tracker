@@ -29,6 +29,7 @@
 local FFlagAssetManagerLuaCleanup1 = settings():GetFFlag("AssetManagerLuaCleanup1")
 local FFlagStudioFixTreeViewForSquish = settings():GetFFlag("StudioFixTreeViewForSquish")
 local FFlagTruncateDevFrameworkHyperlinkText = game:GetFastFlag("TruncateDevFrameworkHyperlinkText")
+local FFlagWrappedDevFrameworkLinkText = game:GetFastFlag("WrappedDevFrameworkLinkText")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -109,6 +110,7 @@ function Button:render()
 			TextSize = style.TextSize,
 			TextColor3 = style.TextColor,
 			TextTruncate = FFlagTruncateDevFrameworkHyperlinkText and style.TextTruncate or nil,
+			TextWrapped = FFlagWrappedDevFrameworkLinkText and style.TextWrapped or nil,
 			TextXAlignment = FFlagStudioFixTreeViewForSquish and style.TextXAlignment or nil,
 			TextYAlignment = FFlagStudioFixTreeViewForSquish and style.TextYAlignment or nil,
 			Text = text,

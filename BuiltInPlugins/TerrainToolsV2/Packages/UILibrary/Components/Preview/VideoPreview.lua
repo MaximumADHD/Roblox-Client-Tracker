@@ -55,6 +55,7 @@ function VideoPreview:init()
 		timeLength = 0,
 		isLoaded = false,
 		showOverlayPlayIcon = true,
+		resolution = Vector2.new(4, 3),
 	}
 
 	self.dispatchMediaPlayingUpdate = function(updateType)
@@ -92,6 +93,11 @@ function VideoPreview:init()
 			self:setState({
 				isLoaded = videoObj.IsLoaded,
 			})
+		elseif property == "Resolution" then
+			self:setState({
+				resolution = videoObj.Resolution,
+			})
+			self.onResize()
 		end
 	end
 
@@ -102,8 +108,8 @@ function VideoPreview:init()
 			return
 		end
 
-		-- TODO: Get aspect ratio from VideoFrame once it's in the API
-		local aspectRatioX = UDim.new(0, currentLayout.AbsoluteContentSize.Y * 4 / 3)
+		local resolution = self.state.resolution
+		local aspectRatioX = UDim.new(0, videoFrame.AbsoluteSize.Y * resolution.X / resolution.Y)
 		videoFrame.Size = UDim2.new(aspectRatioX, videoFrame.Size.Y)
 	end
 

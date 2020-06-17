@@ -1,3 +1,4 @@
+--!nolint UnknownType
 local FFlagHideOneChildTreeviewButton = game:GetFastFlag("HideOneChildTreeviewButton")
 
 local Plugin = script.Parent.Parent.Parent.Parent

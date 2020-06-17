@@ -13,7 +13,9 @@ local InGameMenu = script.Parent.Parent
 local GlobalConfig = require(InGameMenu.GlobalConfig)
 
 local CloseMenu = require(InGameMenu.Thunks.CloseMenu)
-local StartLeavingGame = require(InGameMenu.Actions.StartLeavingGame)
+local SetCurrentPage = require(InGameMenu.Actions.SetCurrentPage)
+
+local Constants = require(InGameMenu.Resources.Constants)
 
 local CloseMenuButton = require(script.CloseMenuButton)
 local HomeButton = require(script.HomeButton)
@@ -111,8 +113,7 @@ function(dispatch)
 			dispatch(CloseMenu)
 		end,
 		goToHomePage = function()
-			--NOTE: placeholder action that will just exit the game
-			dispatch(StartLeavingGame())
+			dispatch(SetCurrentPage(Constants.LeaveToAppPromptPageKey))
 		end
 	}
 end)(SideNavigation)

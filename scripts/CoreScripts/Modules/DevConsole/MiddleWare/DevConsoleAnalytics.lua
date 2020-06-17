@@ -4,7 +4,6 @@ local SetActiveTab = require(script.Parent.Parent.Actions.SetActiveTab)
 local SetDevConsoleVisibility = require(script.Parent.Parent.Actions.SetDevConsoleVisibility)
 local SetDevConsoleMinimized = require(script.Parent.Parent.Actions.SetDevConsoleMinimized)
 
-local FFlagDevConsoleTabMetrics = settings():GetFFlag("DevConsoleTabMetrics")
 local FFlagReportDevConsoleOpenClose = settings():GetFFlag("ReportDevConsoleOpenClose")
 local FFlagDevConsoleAnalyticsIncludeOwner = settings():GetFFlag("DevConsoleAnalyticsIncludeOwner")
 
@@ -120,9 +119,7 @@ if FFlagDevConsoleAnalyticsIncludeOwner then
 	return function(isDeveloper)
 		return function(nextDispatch, store)
 			return function(action)
-				if FFlagDevConsoleTabMetrics then
-					ReportTabChange(store, action, isDeveloper)
-				end
+				ReportTabChange(store, action, isDeveloper)
 
 				if FFlagReportDevConsoleOpenClose then
 					ReportDevConsoleOpenClose(store, action)
@@ -134,10 +131,7 @@ if FFlagDevConsoleAnalyticsIncludeOwner then
 else
 	return function(nextDispatch, store)
 		return function(action)
-			if FFlagDevConsoleTabMetrics then
 				ReportTabChange(store, action)
-			end
-
 			if FFlagReportDevConsoleOpenClose then
 				ReportDevConsoleOpenClose(store, action)
 			end

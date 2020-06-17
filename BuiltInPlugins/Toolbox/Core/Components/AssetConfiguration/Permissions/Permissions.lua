@@ -11,7 +11,6 @@
 ]]
 
 local FFlagStudioAllowPkgPermsForOtherUsrsAndGrps = game:DefineFastFlag("StudioAllowPkgPermsForOtherUsrsAndGrps", false)
-local FFlagPackagePermissionsAddDefaultNone = game:DefineFastFlag("PackagePermissionsAddDefaultNone", false)
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 

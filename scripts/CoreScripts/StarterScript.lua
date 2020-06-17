@@ -27,6 +27,8 @@ local FFlagCoreScriptTopBarStartup = require(RobloxGui.Modules.Flags.FFlagCoreSc
 local FFlagConnectErrorHandlerInLoadingScript = require(RobloxGui.Modules.Flags.FFlagConnectErrorHandlerInLoadingScript)
 local isNewTopBarEnabled = require(RobloxGui.Modules.TopBar.isNewTopBarEnabled)
 
+local FFlagTopBarNewGamepadMenu = require(RobloxGui.Modules.Flags.FFlagTopBarNewGamepadMenu)
+
 -- The Rotriever index, as well as the in-game menu code itself, relies on
 -- the init.lua convention, so we have to run initify over the module.
 -- We do this explicitly because the LocalPlayer hasn't been created at this
@@ -140,7 +142,10 @@ if FFlagEmotesMenuEnabled2 then
 end
 
 ScriptContext:AddCoreScriptLocal("CoreScripts/VehicleHud", RobloxGui)
-ScriptContext:AddCoreScriptLocal("CoreScripts/GamepadMenu", RobloxGui)
+
+if not FFlagTopBarNewGamepadMenu then
+	ScriptContext:AddCoreScriptLocal("CoreScripts/GamepadMenu", RobloxGui)
+end
 
 if FFlagLuaInviteModalEnabled then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/InviteToGamePrompt", RobloxGui)

@@ -78,7 +78,7 @@ function DragSelector:beginDrag(location)
 			if object:IsA("BasePart") then
 				if not object.Locked then
 					local selectable = SelectionHelper.getSelectableWithCache(object,
-					getSelectableCache, isAltKeyDownState)
+						getSelectableCache, isAltKeyDownState)
 					if selectable and not alreadyAddedSet[selectable] then
 						local center
 						if selectable:IsA("Tool") then

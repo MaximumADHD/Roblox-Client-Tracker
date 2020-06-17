@@ -37,9 +37,9 @@ function LoadFailedPage:render()
 		and self.failurePageRef:getValue().AbsoluteSize.X - theme.settingsPage.failLabelPaddingX
 		or math.huge
 	local labelTextExtents = TextService:GetTextSize(labelText, theme.fontStyle.Normal.TextSize,
-	theme.fontStyle.Normal.Font, Vector2.new(maxLabelWidth, math.huge))
+		theme.fontStyle.Normal.Font, Vector2.new(maxLabelWidth, math.huge))
 	local buttonTextExtents = TextService:GetTextSize(buttonText, theme.fontStyle.Normal.TextSize,
-	theme.fontStyle.Normal.Font, Vector2.new(math.huge, math.huge))
+		theme.fontStyle.Normal.Font, Vector2.new(math.huge, math.huge))
 
 	return Roact.createElement(Container, {
 		[Roact.Ref] = self.failurePageRef,

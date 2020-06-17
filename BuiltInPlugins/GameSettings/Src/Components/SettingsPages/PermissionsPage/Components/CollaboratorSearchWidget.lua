@@ -13,7 +13,7 @@ local TextService = game:GetService("TextService")
 local GuiService = game:GetService("GuiService")
 
 local PermissionsConstants = require(Page.Util.PermissionsConstants)
-local LOADING = require(Plugin.Src.Keys.loadingInProgress)
+local LOADING = require(Page.Keys.loadingInProgress)
 local DEFAULT_ADD_ACTION = PermissionsConstants.PlayKey
 
 local UserHeadshotThumbnail = require(Plugin.Src.Components.AutoThumbnails.UserHeadshotThumbnail)

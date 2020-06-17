@@ -317,7 +317,7 @@ function ConvertPart:render()
 
 		return Roact.createFragment({
 			MapSettings = Roact.createElement(Panel, {
-				Title = localization:getText("MapSettings", "MapSettings"),
+				Title = localization:getText("MaterialSettings", "MaterialSettings"),
 				LayoutOrder = 1,
 			}, {
 				ConvertModeSelector = self.props.enableBiome and Roact.createElement(LabeledElementPair, {

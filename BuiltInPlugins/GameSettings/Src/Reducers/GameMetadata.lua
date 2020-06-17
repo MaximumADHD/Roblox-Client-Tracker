@@ -9,10 +9,6 @@ local Rodux = require(Plugin.Rodux)
 return Rodux.createReducer({
 	game = nil,
 	gameId = nil,
-	rootPlaceId = nil,
-	creatorId = nil,
-	creatorType = nil,
-	creatorName = nil,
 }, {
 	ResetStore = function(state, action)
 		return {}
@@ -28,9 +24,5 @@ return Rodux.createReducer({
 		return Cryo.Dictionary.join(state, {
 			game = action.game,
 		})
-	end,
-
-	SetGameMetadata = function(state, action)
-		return Cryo.Dictionary.join(state, action.metadata)
 	end,
 })

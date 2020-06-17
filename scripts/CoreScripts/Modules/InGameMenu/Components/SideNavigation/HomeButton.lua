@@ -12,7 +12,8 @@ local UIBlox = InGameMenuDependencies.UIBlox
 local ImageSetButton = UIBlox.Core.ImageSet.Button
 local Images = UIBlox.App.ImageSet.Images
 
-local HOME_ICON = Images['icons/menu/home_off']
+local HOME_ICON_ON = Images["icons/menu/home_on"]
+local HOME_ICON_OFF = Images["icons/menu/home_off"]
 
 local HomeButton = Roact.PureComponent:extend("HomeButton")
 
@@ -24,6 +25,7 @@ HomeButton.validateProps = t.strictInterface({
 })
 
 function HomeButton:render()
+	local icon = self.props.on and HOME_ICON_ON or HOME_ICON_OFF
 	return Roact.createElement("Frame", {
 		AnchorPoint = self.props.anchorPoint,
 		BackgroundTransparency = 1,
@@ -34,7 +36,7 @@ function HomeButton:render()
 		HomeButton = Roact.createElement(ImageSetButton, {
 			AnchorPoint = Vector2.new(0.5, 0.5),
 			BackgroundTransparency = 1,
-			Image = HOME_ICON,
+			Image = icon,
 			Position = UDim2.fromScale(0.5, 0.5),
 			Size = UDim2.fromOffset(32, 32),
 			[Roact.Event.Activated] = self.props.onActivated,

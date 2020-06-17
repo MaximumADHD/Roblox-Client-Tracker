@@ -51,16 +51,15 @@ return function(networkInterface, assetIds)
 		store:dispatch(SetPackagePermission(noAccessTable))
 
 		return networkInterface:getPackageHighestPermission(assetIds):andThen(
-		function(result)
+			function(result)
+				local resultData = result.responseBody
+				local decodedResult = HttpService:JSONDecode(resultData).permissions
+				local deserializeResultData = deserializeResults(decodedResult)
 
-			local resultData = result.responseBody
-			local decodedResult = HttpService:JSONDecode(resultData).permissions
-			local deserializeResultData = deserializeResults(decodedResult)
-
-			store:dispatch(SetPackagePermission(deserializeResultData))
-		end, 
-		function(err)
-			store:dispatch(NetworkError(err))
-		end)
+				store:dispatch(SetPackagePermission(deserializeResultData))
+			end, 
+			function(err)
+				store:dispatch(NetworkError(err))
+			end)
 	end
 end

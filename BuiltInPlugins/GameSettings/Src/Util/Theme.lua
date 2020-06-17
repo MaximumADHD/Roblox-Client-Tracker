@@ -20,8 +20,6 @@ local StudioTheme = UILibrary.Studio.Theme
 local createTheme = UILibrary.createTheme
 local StudioStyle = UILibrary.Studio.Style
 
-local FFlagStudioConvertGameSettingsToDevFramework = game:GetFastFlag("StudioConvertGameSettingsToDevFramework")
-
 local Theme = {}
 
 function Theme.isDarkerTheme()
@@ -132,8 +130,9 @@ function Theme.createValues(theme, getColor)
 
 			robuxFeeBase = {
 				icon = {
-					image = "rbxasset://textures/ui/common/robux.png",
-					size = 20,
+					imageColor = isDark and theme:getColor(StyleColor.MainText) or theme:getColor(StyleColor.DimmedText),
+					image = "rbxasset://textures/ui/common/robux_small.png",
+					size = 16,
 				},
 
 				priceField = {
@@ -215,6 +214,7 @@ function Theme.createValues(theme, getColor)
 				description = theme:getColor(StyleColor.DimmedText),
 				size = 20,
 				padding = 5,
+				descriptionWidth = 500,
 			},
 
 			checkBox = {
@@ -745,15 +745,11 @@ local function getUILibraryTheme()
 end
 
 function Theme.new()
-	if FFlagStudioConvertGameSettingsToDevFramework then
-		local themeContext = DevFrameworkTheme.new(Theme.createValues)
-		function themeContext:getUILibraryTheme()
-			return getUILibraryTheme()
-		end
-		return themeContext
-	else
-		return StudioTheme.new(Theme.DEPRECATED_createValues)
+	local themeContext = DevFrameworkTheme.new(Theme.createValues)
+	function themeContext:getUILibraryTheme()
+		return getUILibraryTheme()
 	end
+	return themeContext
 end
 
 function Theme.newDummyTheme()

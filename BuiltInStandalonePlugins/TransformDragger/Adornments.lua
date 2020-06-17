@@ -137,7 +137,10 @@ local function clearRotation()
 end
 
 local function setRotation(cframe, radius, degrees)
-	if degrees == 0 then clearRotation() return end
+	if degrees == 0 then
+		clearRotation()
+		return
+	end
 	
 	local direction = degrees / math.abs(degrees)
 	

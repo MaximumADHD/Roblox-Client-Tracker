@@ -4,6 +4,8 @@
 
 local Src = script
 
+local strict = require(Src.Parent.Util.strict)
+
 local mapToProps = require(Src.mapToProps)
 local provide = require(Src.provide)
 
@@ -22,7 +24,7 @@ local Store = require(Src.Store)
 local Theme = require(Src.Theme)
 local UILibraryWrapper = require(Src.UILibraryWrapper)
 
-local ContextServices = {
+local ContextServices = strict({
 	-- Wrap a component to use context
 	mapToProps = mapToProps,
 
@@ -44,6 +46,6 @@ local ContextServices = {
 	Store = Store,
 	Theme = Theme,
 	UILibraryWrapper = UILibraryWrapper,
-}
+})
 
 return ContextServices

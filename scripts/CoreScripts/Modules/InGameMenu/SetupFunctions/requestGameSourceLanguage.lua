@@ -1,3 +1,5 @@
+--Remove with FFlagTopBarNewGamepadMenu
+
 local HttpRbxApiService = game:GetService("HttpRbxApiService")
 
 local InGameMenu = script.Parent.Parent

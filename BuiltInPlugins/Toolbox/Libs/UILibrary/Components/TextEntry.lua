@@ -19,6 +19,7 @@ local withTheme = Theming.withTheme
 local TextEntry = Roact.PureComponent:extend("TextEntry")
 local FFlagAllowTextEntryToTakeSizeAndPositionProp = game:DefineFastFlag("AllowTextEntryToTakeSizeAndPositionProp", false)
 local FFlagGameSettingsFixNameWhitespace = game:DefineFastFlag("GameSettingsFixNameWhitespace", false)
+local FFlagFixTextChangedFromEmptyForTextEntry = game:DefineFastFlag("FixTextChangedFromEmptyForTextEntry", false)
 
 function TextEntry:init()
 	self.textBoxRef = Roact.createRef()
@@ -28,12 +29,21 @@ function TextEntry:init()
 		else
 			rbx.TextXAlignment = Enum.TextXAlignment.Right
 		end
-		if rbx.Text ~= self.props.Text then
+		if FFlagFixTextChangedFromEmptyForTextEntry then
 			if FFlagGameSettingsFixNameWhitespace then
 				local processed = string.gsub(rbx.Text, "[\n\r]", " ")
 				self.props.SetText(processed)
 			else
 				self.props.SetText(rbx.Text)
+			end
+		else
+			if rbx.Text ~= self.props.Text then
+				if FFlagGameSettingsFixNameWhitespace then
+					local processed = string.gsub(rbx.Text, "[\n\r]", " ")
+					self.props.SetText(processed)
+				else
+					self.props.SetText(rbx.Text)
+				end
 			end
 		end
 	end

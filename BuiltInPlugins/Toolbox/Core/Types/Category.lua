@@ -1,6 +1,5 @@
 local FFlagOnlyWhitelistedPluginsInStudio = settings():GetFFlag("OnlyWhitelistedPluginsInStudio")
 local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
-local FFlagFixToolboxInitLoad = settings():GetFFlag("FixToolboxInitLoad")
 local FFlagToolboxShowGroupCreations = game:DefineFastFlag("ToolboxShowGroupCreations", false)
 local FFlagFixToolboxPluginScaling = game:DefineFastFlag("FixToolboxPluginScaling", false)
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
@@ -425,14 +424,8 @@ else
 			local assetypeCheck = Category.INVENTORY_WITH_GROUPS[index].assetType == Category.AssetType.PACKAGE
 			return checkBounds(index) and categoryCheck and assetypeCheck
 		else
-			-- TODO: Remove me
-			if FFlagFixToolboxInitLoad then
-				return checkBounds(index) and currentTab == Category.MARKETPLACE_KEY and
-					Category.INVENTORY_WITH_GROUPS[index].assetType == Category.AssetType.PACKAGE
-			else
-				return checkBounds(index) and
-					Category.INVENTORY_WITH_GROUPS[index].assetType == Category.AssetType.PACKAGE
-			end
+			return checkBounds(index) and currentTab == Category.MARKETPLACE_KEY and
+				Category.INVENTORY_WITH_GROUPS[index].assetType == Category.AssetType.PACKAGE
 		end
 	end
 

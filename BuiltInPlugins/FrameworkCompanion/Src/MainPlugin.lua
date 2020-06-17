@@ -3,27 +3,25 @@
 	Consists of the PluginWidget, Toolbar, Button, and Roact tree.
 ]]
 
-local main = script.Parent.Parent
-local Roact = require(main.Packages.Roact)
-local Rodux = require(main.Packages.Rodux)
+local Plugin = script.Parent.Parent
+local Roact = require(Plugin.Packages.Roact)
+local Rodux = require(Plugin.Packages.Rodux)
 
-local MainReducer = require(main.Src.Reducers.MainReducer)
+local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 
-local ContextServices = require(main.Packages.Framework.ContextServices)
-local StudioUI = require(main.Packages.Framework.StudioUI)
+local ContextServices = require(Plugin.Packages.Framework).ContextServices
+local StudioUI = require(Plugin.Packages.Framework).StudioUI
 local DockWidget = StudioUI.DockWidget
-local Localization = ContextServices.Localization
 local PluginToolbar = StudioUI.PluginToolbar
 local PluginButton = StudioUI.PluginButton
-local Plugin = ContextServices.Plugin
 local PluginActions = ContextServices.PluginActions
 local Mouse = ContextServices.Mouse
 local Store = ContextServices.Store
-local MakeTheme = require(main.Src.Resources.MakeTheme)
+local MakeTheme = require(Plugin.Src.Resources.MakeTheme)
 
-local ComponentList = require(main.Src.Components.ComponentList)
-local InfoPanel = require(main.Src.Components.InfoPanel)
-local Footer = require(main.Src.Components.Footer)
+local ComponentList = require(Plugin.Src.Components.ComponentList)
+local InfoPanel = require(Plugin.Src.Components.InfoPanel)
+local Footer = require(Plugin.Src.Components.Footer)
 
 local MainPlugin = Roact.PureComponent:extend("MainPlugin")
 
@@ -55,6 +53,21 @@ function MainPlugin:init(props)
 	self.store = Rodux.Store.new(MainReducer, {}, {
 		Rodux.thunkMiddleware,
 	})
+
+	self.contextItems = {
+		Mouse.new(props.Plugin:getMouse()),
+		MakeTheme(),
+		PluginActions.new(
+			props.Plugin,
+			{
+				{
+					id = "rerunLastStory",
+					text = "Re-open last story and run its tests"
+				}
+			}
+		),
+		Store.new(self.store),
+	}
 end
 
 function MainPlugin:renderButtons(toolbar)
@@ -78,7 +91,7 @@ function MainPlugin:render()
 	local enabled = state.enabled
 
 	return ContextServices.provide({
-		Plugin.new(plugin),
+		ContextServices.Plugin.new(plugin),
 	}, {
 		Toolbar = Roact.createElement(PluginToolbar, {
 			Title = "DevFramework",
@@ -98,20 +111,7 @@ function MainPlugin:render()
 			ShouldRestore = true,
 			OnWidgetRestored = self.onRestore,
 		}, {
-			MainProvider = enabled and ContextServices.provide({
-				Mouse.new(plugin:getMouse()),
-				MakeTheme(),
-				PluginActions.new(
-					plugin,
-					{
-						{
-							id = "rerunLastStory",
-							text = "Re-open last story and run its tests"
-						}
-					}
-				),
-				Store.new(self.store),
-			}, {
+			MainProvider = ContextServices.provide(self.contextItems, {
 				ComponentList = Roact.createElement(ComponentList),
 				InfoPanel = Roact.createElement(InfoPanel),
 				Footer = Roact.createElement(Footer),

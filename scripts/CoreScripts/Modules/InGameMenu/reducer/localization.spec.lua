@@ -1,3 +1,5 @@
+--Remove with FFlagTopBarNewGamepadMenu
+
 return function()
 	local InGameMenu = script.Parent.Parent
 	local SetLocaleId = require(InGameMenu.Actions.SetLocaleId)

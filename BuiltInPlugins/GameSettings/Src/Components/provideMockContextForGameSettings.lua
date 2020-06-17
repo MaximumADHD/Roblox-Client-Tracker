@@ -5,10 +5,7 @@ local LOG_STORE_STATE_AND_EVENTS = false
 
 local Rodux = require(Plugin.Rodux)
 
-local SettingsImpl = require(Plugin.Src.Networking.SettingsImpl)
-local SettingsImplProvider = require(Plugin.Src.Providers.SettingsImplContextItem)
-local ThumbnailLoaderProvider = require(Plugin.Src.Providers.DEPRECATED_ThumbnailLoaderContextItem)
-local DialogProvider = require(Plugin.Src.Providers.DialogProviderContextItem)
+local Dialog = require(Plugin.Src.ContextServices.Dialog)
 
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 
@@ -37,21 +34,12 @@ return function(props, children)
     if not showDialog then
         showDialog = function()
         end
-        table.insert(contextItems, DialogProvider.new(showDialog))
-    end
-
-    local settingsSaverLoader = props.SettingsSaverLoader
-    if not settingsSaverLoader then
-        settingsSaverLoader = SettingsImpl.new("")
-        table.insert(contextItems, SettingsImplProvider.new(settingsSaverLoader))
+        table.insert(contextItems, Dialog.new(showDialog))
     end
 
     local store = props.Store
     if not store then
         store = Rodux.Store.new(MainReducer, nil, middlewares)
-        if not game:GetFastFlag("GameSettingsNetworkRefactor") then
-            table.insert(contextItems, ThumbnailLoaderProvider.new(store))
-        end
     else
         table.insert(contextItems, store)
     end

@@ -61,6 +61,10 @@ function FrameworkTypes.Focus(value)
 	return true
 end
 
+function FrameworkTypes.RoactRef(value)
+	return t.table(value) and tostring(value):find("RoactRef")
+end
+
 function FrameworkTypes.Symbol(value)
 	return t.userdata(value)
 end

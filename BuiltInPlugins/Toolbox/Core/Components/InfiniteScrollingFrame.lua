@@ -100,23 +100,24 @@ function InfiniteScrollingFrame:render()
 			canvasHeight = layouterRef.AbsoluteContentSize.Y
 		end
 
-		return Roact.createElement(StyledScrollingFrame, {
-			Position = Position,
-			Size = Size,
-			CanvasSize = UDim2.new(1, 0, 0, canvasHeight),
-			ZIndex = 1,
+		return Roact.createElement(StyledScrollingFrame,
+			{
+				Position = Position,
+				Size = Size,
+				CanvasSize = UDim2.new(1, 0, 0, canvasHeight),
+				ZIndex = 1,
 
-			BackgroundTransparency = 1,
-			BorderSizePixel = 0,
+				BackgroundTransparency = 1,
+				BorderSizePixel = 0,
 
-			scrollingEnabled = true,
+				scrollingEnabled = true,
 
-			[Roact.Ref] = self.scrollingFrameRef,
-			onScroll = self.onScroll,
+				[Roact.Ref] = self.scrollingFrameRef,
+				onScroll = self.onScroll,
 
-			LayoutOrder = LayoutOrder,
-		},
-		props[Roact.Children])
+				LayoutOrder = LayoutOrder,
+			},
+			props[Roact.Children])
 	end)
 end
 

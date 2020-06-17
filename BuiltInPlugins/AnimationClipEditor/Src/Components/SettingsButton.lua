@@ -52,7 +52,7 @@ function SettingsButton:render()
 		local props = self.props
 		local state = self.state
 
-		onChangeFPS = props.OnChangeFPS
+		local onChangeFPS = props.OnChangeFPS
 
 		return Roact.createElement("ImageButton", {
 			BackgroundColor3 = theme.backgroundColor,

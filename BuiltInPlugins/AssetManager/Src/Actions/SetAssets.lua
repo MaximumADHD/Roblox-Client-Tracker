@@ -13,7 +13,7 @@ return Action(script.Name, function(assetsTable, index)
 	local previousPageCursor = assetsTable.previousPageCursor
 	local pageNumber = assetsTable.pageNumber
 
-    assert(type(assets) == "table",
+	assert(type(assets) == "table",
 		string.format("SetAssets requires a places table, not %s", type(assets)))
 	if nextPageCursor then
 		assert(type(nextPageCursor) == "string",

@@ -17,8 +17,6 @@
 	Optional Properties:
 
 ]]
-local FFlagPackagePermissionsAddDefaultNone = game:GetFastFlag("PackagePermissionsAddDefaultNone")
-
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
@@ -66,7 +64,7 @@ local function getLabelForAction(localized, action)
 		return localized.PackagePermissions.ActionDropdown.UseViewLabel
 	elseif action == PermissionsConstants.EditKey then
 		return localized.PackagePermissions.ActionDropdown.EditLabel
-	elseif FFlagPackagePermissionsAddDefaultNone and action == PermissionsConstants.NoneKey then
+	elseif action == PermissionsConstants.NoneKey then
 		return ""
 	else
 		error("Unsupported Action: "..tostring(action))
@@ -79,11 +77,7 @@ end
 -- then that roleset hasn't had it's permission set in the past, so it should be no access.
 local function getActionForRoleset(props, rolesetProps)
 	if not props.Permissions[PermissionsConstants.RoleSubjectKey] then
-		if FFlagPackagePermissionsAddDefaultNone then
-			return PermissionsConstants.NoneKey
-		else
-			return PermissionsConstants.NoAccessKey
-		end
+		return PermissionsConstants.NoneKey
 	end
 
 	if not props.Permissions[PermissionsConstants.RoleSubjectKey][rolesetProps.Id] then

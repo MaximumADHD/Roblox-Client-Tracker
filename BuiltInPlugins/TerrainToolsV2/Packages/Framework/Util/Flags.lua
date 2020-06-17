@@ -44,6 +44,8 @@ local Immutable = require(script.Parent.Immutable)
 
 local function getOrDefineFastFlag(flagName, defaultValue)
 	assert(type(defaultValue) == "boolean", "You can only define a fast flag with a boolean value")
+
+	-- TODO DEVTOOLS-4481: This triggers the assert for missing flags in NoOpt/Debug - so the flags need to be defined before this is called in Lua or C++ anyway for now 
 	local success, value = pcall(game.GetFastFlag, game, flagName)
 
 	if success and value ~= nil then

@@ -858,8 +858,6 @@ function createMetaPart(object, subscribe)
 		
 		return finalObject
 	end
-
-	return object
 end
 
 local module = {}

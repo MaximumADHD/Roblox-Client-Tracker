@@ -17,7 +17,6 @@ local UploadResult = require(Actions.UploadResult)
 
 local FFlagShowAssetConfigReasons2 = game:GetFastFlag("ShowAssetConfigReasons2")
 local FFlagDebugAssetConfigNetworkError = game:GetFastFlag("DebugAssetConfigNetworkError")
-local FFlagEnableAssetConfigFreeFix2 = game:GetFastFlag("EnableAssetConfigFreeFix2")
 local FFlagEnableNonWhitelistedToggle = game:GetFastFlag("EnableNonWhitelistedToggle")
 
 -- assetId, number, defualt to 0 for new asset.
@@ -92,22 +91,16 @@ return function(patchInfo)
 						if patchInfo.saleStatus then
 							local salesStatusOverride = patchInfo.saleStatus
 
-							if FFlagEnableAssetConfigFreeFix2 then
-								-- we only try to override sales status if it's OnSale and price will determine what the status is.
-								-- The status we got from the UI is only OnSale or OffSale. For plugins, we could set the price to 0. Only then
-								-- the sale status will be Free.
-								if AssetConfigUtil.isOnSale(salesStatusOverride) then
-									if patchInfo.price then
-										if tonumber(patchInfo.price) <= 0 then
-											salesStatusOverride = AssetConfigConstants.ASSET_STATUS.Free
-										else
-											salesStatusOverride = AssetConfigConstants.ASSET_STATUS.OnSale
-										end
+							-- we only try to override sales status if it's OnSale and price will determine what the status is.
+							-- The status we got from the UI is only OnSale or OffSale. For plugins, we could set the price to 0. Only then
+							-- the sale status will be Free.
+							if AssetConfigUtil.isOnSale(salesStatusOverride) then
+								if patchInfo.price then
+									if tonumber(patchInfo.price) <= 0 then
+										salesStatusOverride = AssetConfigConstants.ASSET_STATUS.Free
+									else
+										salesStatusOverride = AssetConfigConstants.ASSET_STATUS.OnSale
 									end
-								end
-							else
-								if patchInfo.price and tonumber(patchInfo.price) <= 0 then
-									salesStatusOverride = AssetConfigConstants.ASSET_STATUS.Free
 								end
 							end
 
@@ -134,22 +127,16 @@ return function(patchInfo)
 					if patchInfo.saleStatus then
 						local salesStatusOverride = patchInfo.saleStatus
 
-						if FFlagEnableAssetConfigFreeFix2 then
-							-- we only try to override sales status if it's OnSale and price will determine what the status is.
-							-- The status we got from the UI is only OnSale or OffSale. For plugins, we could set the price to 0. Only then
-							-- the sale status will be Free.
-							if AssetConfigUtil.isOnSale(salesStatusOverride) then
-								if patchInfo.price then
-									if tonumber(patchInfo.price) <= 0 then
-										salesStatusOverride = AssetConfigConstants.ASSET_STATUS.Free
-									else
-										salesStatusOverride = AssetConfigConstants.ASSET_STATUS.OnSale
-									end
+						-- we only try to override sales status if it's OnSale and price will determine what the status is.
+						-- The status we got from the UI is only OnSale or OffSale. For plugins, we could set the price to 0. Only then
+						-- the sale status will be Free.
+						if AssetConfigUtil.isOnSale(salesStatusOverride) then
+							if patchInfo.price then
+								if tonumber(patchInfo.price) <= 0 then
+									salesStatusOverride = AssetConfigConstants.ASSET_STATUS.Free
+								else
+									salesStatusOverride = AssetConfigConstants.ASSET_STATUS.OnSale
 								end
-							end
-						else
-							if patchInfo.price and tonumber(patchInfo.price) <= 0 then
-								salesStatusOverride = AssetConfigConstants.ASSET_STATUS.Free
 							end
 						end
 

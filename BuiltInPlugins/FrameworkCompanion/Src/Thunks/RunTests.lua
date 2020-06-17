@@ -4,7 +4,7 @@
 ]]
 
 local Plugin = script.Parent.Parent.Parent
-local Roact = require(Plugin.Packages.Roact)
+local Framework = require(Plugin.Packages.Framework)
 local TestEZ = require(Plugin.Packages.Dev.TestEZ)
 local TestBootstrap = TestEZ.TestBootstrap
 local TextReporter = TestEZ.TextReporter
@@ -14,14 +14,9 @@ return function(component)
 		local src
 		if component then
 			src = {component}
+			TestBootstrap:run(src, TextReporter)
 		else
-			src = {Plugin.Packages.Framework}
+			Framework.TestHelpers.runFrameworkTests(TestEZ)
 		end
-
-		Roact.setGlobalConfig({
-			propValidation = true,
-		})
-
-		TestBootstrap:run(src, TextReporter)
 	end
 end

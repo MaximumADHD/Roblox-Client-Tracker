@@ -26,13 +26,22 @@
 ]]
 
 local Framework = script.Parent.Parent
-local Packages = Framework.packages -- TO DO: once dependencies are properly set up, move this to Framework parent
 local Roact = require(Framework.Parent.Roact)
-local Cryo = require(Packages.Cryo)
+local Util = require(Framework.Util)
+local FlagsList = Util.Flags.new({
+	FFlagStudioDevFrameworkPackage = {"StudioDevFrameworkPackage"},
+})
+local Cryo
+local isUsedAsPackage = require(Framework.Util.isUsedAsPackage)
+if FlagsList:get("FFlagStudioDevFrameworkPackage") and isUsedAsPackage() then
+	Cryo = require(Framework.Parent.Cryo)
+else
+	local Packages = Framework.packages
+	Cryo = require(Packages.Cryo)
+end
 
 local ContextServices = require(Framework.ContextServices)
 local Container = require(script.Parent.Container)
-local Util = require(Framework.Util)
 local prioritize = Util.prioritize
 local Typecheck = Util.Typecheck
 

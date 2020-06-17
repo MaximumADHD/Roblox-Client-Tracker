@@ -15,6 +15,7 @@ local ChatIcon = require(Presentation.ChatIcon)
 local MoreMenu = require(Presentation.MoreMenu)
 local HealthBar = require(Presentation.HealthBar)
 local HurtOverlay = require(Presentation.HurtOverlay)
+local GamepadMenu = require(Presentation.GamepadMenu)
 
 local Connection = require(script.Parent.Connection)
 
@@ -28,6 +29,7 @@ local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
 
 local FFlagHideTopBarWhenInspectOpen = require(RobloxGui.Modules.Flags.FFlagHideTopBarWhenInspectOpen)
 local FFlagFixTopBarOverLoadingScreen = require(RobloxGui.Modules.Flags.FFlagFixTopBarOverLoadingScreen)
+local FFlagTopBarNewGamepadMenu = require(RobloxGui.Modules.Flags.FFlagTopBarNewGamepadMenu)
 
 local CLOSE_MENU_ICON_SIZE = 30
 
@@ -64,6 +66,8 @@ function TopBarApp:render()
 		end,
 	}, {
 		Connection = Roact.createElement(Connection),
+
+		GamepadMenu = FFlagTopBarNewGamepadMenu and Roact.createElement(GamepadMenu) or nil,
 
 		FullScreenFrame = Roact.createElement("Frame", {
 			BackgroundTransparency = 1,
@@ -149,9 +153,14 @@ function TopBarApp:render()
 end
 
 local function mapStateToProps(state)
+	local inspectMenuOpen = nil
+	if FFlagHideTopBarWhenInspectOpen then
+		inspectMenuOpen = state.displayOptions.inspectMenuOpen
+	end
+
 	return {
 		menuOpen = state.displayOptions.menuOpen,
-		inspectMenuOpen = FFlagHideTopBarWhenInspectOpen and state.displayOptions.inspectMenuOpen or nil,
+		inspectMenuOpen = inspectMenuOpen,
 	}
 end
 

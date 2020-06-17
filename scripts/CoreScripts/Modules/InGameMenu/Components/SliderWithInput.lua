@@ -16,6 +16,8 @@ local ExternalEventConnection = require(InGameMenu.Utility.ExternalEventConnecti
 local Slider = require(script.Parent.Slider)
 local AssetImage = require(script.Parent.AssetImage)
 
+local FFlagFixInGameMenuSliderClamping = game:DefineFastFlag("FixInGameMenuSliderClamping", false)
+
 local SliderWithInput = Roact.PureComponent:extend("SliderWithInput")
 SliderWithInput.defaultProps = {
 	width = UDim.new(1, 0),
@@ -28,6 +30,8 @@ SliderWithInput.validateProps = t.intersection(t.strictInterface({
 	max = t.number,
 	-- How big the chunks that the slider bar is split up into are.
 	stepInterval = t.numberPositive,
+	-- If non-nil, specifies a keyboard input granularity that can be different than stepInterval
+	keyboardInputStepInterval = t.optional(t.numberPositive),
 	-- The current value of the slider.
 	value = t.number,
 	-- A callback function that is invoked whenever the slider value changes.
@@ -67,6 +71,7 @@ function SliderWithInput:render()
 		LayoutOrder = Cryo.None,
 		Position = Cryo.None,
 		AnchorPoint = Cryo.None,
+		keyboardInputStepInterval = Cryo.None,
 	})
 
 	return Roact.createElement("Frame", {
@@ -115,10 +120,19 @@ function SliderWithInput:render()
 							return
 						end
 
+						local textInputGranularity = props.stepInterval
+						if props.keyboardInputStepInterval then
+							textInputGranularity = props.keyboardInputStepInterval
+						end
+
 						local newValue = math.clamp(
-							math.floor(textValue / props.stepInterval + 0.5) * props.stepInterval,
+							math.floor(textValue / textInputGranularity + 0.5) * textInputGranularity,
 							props.min,
 							props.max)
+
+						if FFlagFixInGameMenuSliderClamping then
+							rbx.Text = tostring(newValue)
+						end
 
 						if newValue ~= props.value then
 							props.valueChanged(newValue)

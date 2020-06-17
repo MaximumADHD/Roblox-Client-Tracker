@@ -26,8 +26,6 @@ local RotateHandleView = require(Plugin.Src.RotateHandleView)
 local getFFlagDraggerBasisRotate = require(DraggerFramework.Flags.getFFlagDraggerBasisRotate)
 local getFFlagLuaDraggerHandleScale = require(DraggerFramework.Flags.getFFlagLuaDraggerHandleScale)
 local getFFlagAllowDragContinuation = require(DraggerFramework.Flags.getFFlagAllowDragContinuation)
-local getFFlagImprovedHandleParams2 = require(DraggerFramework.Flags.getFFlagImprovedHandleParams2)
-local getFFlagDisallowFloatingPointErrorMove = require(DraggerFramework.Flags.getFFlagDisallowFloatingPointErrorMove)
 
 -- The difference from exactly touching to try to bring the parts within when
 -- dragging parts into a colliding condition with Collisions enabled.
@@ -197,27 +195,15 @@ function RotateToolImpl:render(hoveredHandleId)
 	if getFFlagAllowDragContinuation() then
 		if self._draggingHandleId and self._handles[self._draggingHandleId] then
 			local handleProps = self._handles[self._draggingHandleId]
-			if getFFlagImprovedHandleParams2() then
-				children[self._draggingHandleId] = Roact.createElement(RotateHandleView, {
-					HandleCFrame = handleProps.HandleCFrame,
-					Color = handleProps.Color,
-					StartAngle = self._startAngle - self._draggingLastGoodDelta,
-					EndAngle = self._startAngle,
-					Scale = self._scale,
-					Hovered = false,
-					RadiusOffset = handleProps.RadiusOffset,
-				})
-			else
-				children[self._draggingHandleId] = Roact.createElement(RotateHandleView, {
-					HandleCFrame = handleProps.HandleCFrame,
-					Color = handleProps.Color,
-					StartAngle = self._startAngle - self._draggingLastGoodDelta,
-					EndAngle = self._startAngle,
-					Scale = self._scale,
-					Hovered = forceHoveredHandlesOnTop and true,
-					RadiusOffset = handleProps.RadiusOffset,
-				})
-			end
+			children[self._draggingHandleId] = Roact.createElement(RotateHandleView, {
+				HandleCFrame = handleProps.HandleCFrame,
+				Color = handleProps.Color,
+				StartAngle = self._startAngle - self._draggingLastGoodDelta,
+				EndAngle = self._startAngle,
+				Scale = self._scale,
+				Hovered = false,
+				RadiusOffset = handleProps.RadiusOffset,
+			})
 
 			-- Show the other handles, but thinner
 			for handleId, otherHandleProps in pairs(self._handles) do
@@ -248,49 +234,27 @@ function RotateToolImpl:render(hoveredHandleId)
 				if not hovered then
 					color = Colors.makeDimmed(color)
 				end
-				if getFFlagImprovedHandleParams2() then
-					children[handleId] = Roact.createElement(RotateHandleView, {
-						HandleCFrame = handleProps.HandleCFrame,
-						Color = color,
-						Scale = self._scale,
-						Hovered = hovered,
-						RadiusOffset = handleProps.RadiusOffset,
-					})
-				else
-					children[handleId] = Roact.createElement(RotateHandleView, {
-						HandleCFrame = handleProps.HandleCFrame,
-						Color = color,
-						Scale = self._scale,
-						Hovered = forceHoveredHandlesOnTop and hovered,
-						RadiusOffset = handleProps.RadiusOffset,
-					})
-				end
+				children[handleId] = Roact.createElement(RotateHandleView, {
+					HandleCFrame = handleProps.HandleCFrame,
+					Color = color,
+					Scale = self._scale,
+					Hovered = hovered,
+					RadiusOffset = handleProps.RadiusOffset,
+				})
 			end
 		end
 	else
 		if self._draggingHandleId then
 			local handleProps = self._handles[self._draggingHandleId]
-			if getFFlagImprovedHandleParams2() then
-				children[self._draggingHandleId] = Roact.createElement(RotateHandleView, {
-					HandleCFrame = handleProps.HandleCFrame,
-					Color = handleProps.Color,
-					StartAngle = self._startAngle - self._draggingLastGoodDelta,
-					EndAngle = self._startAngle,
-					Scale = self._scale,
-					Hovered = false,
-					RadiusOffset = handleProps.RadiusOffset,
-				})
-			else
-				children[self._draggingHandleId] = Roact.createElement(RotateHandleView, {
-					HandleCFrame = handleProps.HandleCFrame,
-					Color = handleProps.Color,
-					StartAngle = self._startAngle - self._draggingLastGoodDelta,
-					EndAngle = self._startAngle,
-					Scale = self._scale,
-					Hovered = forceHoveredHandlesOnTop and true,
-					RadiusOffset = handleProps.RadiusOffset,
-				})
-			end
+			children[self._draggingHandleId] = Roact.createElement(RotateHandleView, {
+				HandleCFrame = handleProps.HandleCFrame,
+				Color = handleProps.Color,
+				StartAngle = self._startAngle - self._draggingLastGoodDelta,
+				EndAngle = self._startAngle,
+				Scale = self._scale,
+				Hovered = false,
+				RadiusOffset = handleProps.RadiusOffset,
+			})
 
 			-- Show the other handles, but thinner
 			for handleId, otherHandleProps in pairs(self._handles) do
@@ -321,23 +285,13 @@ function RotateToolImpl:render(hoveredHandleId)
 				if not hovered then
 					color = Colors.makeDimmed(color)
 				end
-				if getFFlagImprovedHandleParams2() then
-					children[handleId] = Roact.createElement(RotateHandleView, {
-						HandleCFrame = handleProps.HandleCFrame,
-						Color = color,
-						Scale = self._scale,
-						Hovered = hovered,
-						RadiusOffset = handleProps.RadiusOffset,
-					})
-				else
-					children[handleId] = Roact.createElement(RotateHandleView, {
-						HandleCFrame = handleProps.HandleCFrame,
-						Color = color,
-						Scale = self._scale,
-						Hovered = forceHoveredHandlesOnTop and hovered,
-						RadiusOffset = handleProps.RadiusOffset,
-					})
-				end
+				children[handleId] = Roact.createElement(RotateHandleView, {
+					HandleCFrame = handleProps.HandleCFrame,
+					Color = color,
+					Scale = self._scale,
+					Hovered = hovered,
+					RadiusOffset = handleProps.RadiusOffset,
+				})
 			end
 		end
 	end
@@ -534,47 +488,33 @@ function RotateToolImpl:_findAndRotateToGoodDelta(desiredDelta)
 	local start = self._draggingLastGoodDelta
 	local goal = desiredDelta
 	local isIntersecting = true
-	if getFFlagDisallowFloatingPointErrorMove() then
-		while math.abs(goal - start) > ROTATE_COLLISION_THRESHOLD do
-			local mid = (goal + start) / 2
-			local candidateTransform = getRotationTransform(self._boundingBox.CFrame, self._handleCFrame.RightVector, mid)
-			self._partMover:transformTo(candidateTransform)
 
-			isIntersecting = self._partMover:isIntersectingOthers()
-			if isIntersecting then
-				goal = mid
-			else
-				start = mid
-			end
-		end
+	while math.abs(goal - start) > ROTATE_COLLISION_THRESHOLD do
+		local mid = (goal + start) / 2
+		local candidateTransform = getRotationTransform(self._boundingBox.CFrame, self._handleCFrame.RightVector, mid)
+		self._partMover:transformTo(candidateTransform)
 
-		-- Special case to not let us move very slightly and then stop. If we allow
-		-- that then a rotate which collides almost right away will produce no
-		-- visible changes but introduce floating point error.
-		-- The 2x is not a random fudge factor, it is precisely chosen: `goal` and
-		-- `start` always bound the true collision point. After the loop, they are
-		-- guaranteed to be within the threshold of eachother. We want to test
-		-- whether the the move is within the threshold of zero. That means, at the
-		-- very worst, the true collision point is at +threshold, and the loop
-		-- exited at +threshold of the collision point, for a total of 2x threshold
-		-- away from zero.
-		if math.abs(start) < ROTATE_COLLISION_THRESHOLD * 2 then
-			start = 0
-			isIntersecting = true
+		isIntersecting = self._partMover:isIntersectingOthers()
+		if isIntersecting then
+			goal = mid
+		else
+			start = mid
 		end
-	else
-		while math.abs(goal - start) > 0.0001 do
-			local mid = (goal + start) / 2
-			local candidateTransform = getRotationTransform(self._boundingBox.CFrame, self._handleCFrame.RightVector, mid)
-			self._partMover:transformTo(candidateTransform)
+	end
 
-			isIntersecting = self._partMover:isIntersectingOthers()
-			if isIntersecting then
-				goal = mid
-			else
-				start = mid
-			end
-		end
+	-- Special case to not let us move very slightly and then stop. If we allow
+	-- that then a rotate which collides almost right away will produce no
+	-- visible changes but introduce floating point error.
+	-- The 2x is not a random fudge factor, it is precisely chosen: `goal` and
+	-- `start` always bound the true collision point. After the loop, they are
+	-- guaranteed to be within the threshold of eachother. We want to test
+	-- whether the the move is within the threshold of zero. That means, at the
+	-- very worst, the true collision point is at +threshold, and the loop
+	-- exited at +threshold of the collision point, for a total of 2x threshold
+	-- away from zero.
+	if math.abs(start) < ROTATE_COLLISION_THRESHOLD * 2 then
+		start = 0
+		isIntersecting = true
 	end
 
 	-- Have to make sure that we end on a non-intersection. The invariant is
@@ -599,18 +539,11 @@ function RotateToolImpl:_updateHandles()
 		self._handles = {}
 	else
 		for handleId, handleDefinition in pairs(RotateHandleDefinitions) do
-			if getFFlagImprovedHandleParams2() then
-				self._handles[handleId] = {
-					HandleCFrame = self._boundingBox.CFrame * handleDefinition.Offset,
-					Color = handleDefinition.Color,
-					RadiusOffset = handleDefinition.RadiusOffset,
-				}
-			else
-				self._handles[handleId] = {
-					HandleCFrame = self._boundingBox.CFrame * handleDefinition.Offset,
-					Color = handleDefinition.Color,
-				}
-			end
+			self._handles[handleId] = {
+				HandleCFrame = self._boundingBox.CFrame * handleDefinition.Offset,
+				Color = handleDefinition.Color,
+				RadiusOffset = handleDefinition.RadiusOffset,
+			}
 		end
 	end
 end

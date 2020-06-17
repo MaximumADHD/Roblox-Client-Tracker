@@ -16,6 +16,7 @@ local FFlagAvatarSizeFixForReorganizeHeaders =
 
 local StudioService = game:GetService("StudioService")
 
+local Page = script.Parent
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local RoactRodux = require(Plugin.RoactRodux)
@@ -26,12 +27,12 @@ local Thread = require(Plugin.Src.Util.Thread)
 local AddChange = require(Plugin.Src.Actions.AddChange)
 local AddWarning = require(Plugin.Src.Actions.AddWarning)
 local DiscardWarning = require(Plugin.Src.Actions.DiscardWarning)
-local SettingsSaveScaleBoundaries = require(Plugin.Src.Actions.SettingsSaveScaleBoundaries)
+local SettingsSaveScaleBoundaries = require(Page.Actions.SettingsSaveScaleBoundaries)
 
 local AssetOverrides = require(Plugin.Src.Util.AssetOverrides)
 local AddErrors = require(Plugin.Src.Actions.AddErrors)
 
-local RootPanelExternal = require(Plugin.Src.Components.Avatar.RootPanelExternal)
+local RootPanelExternal = require(Page.Components.RootPanelExternal)
 
 local SettingsPage = require(Plugin.Src.Components.SettingsPages.SettingsPage)
 local InsufficientPermissionsPage = require(Plugin.Src.Components.SettingsPages.InsufficientPermissionsPage)
@@ -304,9 +305,9 @@ local function dispatchChanges(setValue, dispatch)
 			end
 		end,
 
-		SaveScaleBoundaries = game:GetFastFlag("GameSettingsNetworkRefactor") and function(rules)
+		SaveScaleBoundaries = function(rules)
 			dispatch(SettingsSaveScaleBoundaries({ scales = rules }))
-		end or nil,
+		end,
 	}
 end
 

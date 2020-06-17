@@ -4,6 +4,8 @@
 
 local Src = script
 
+local strict = require(Src.Parent.Util.strict)
+
 local FrameworkStyles = require(Src.FrameworkStyles)
 
 local Image = require(Src.Image)
@@ -35,7 +37,7 @@ local Slider = require(Src.Slider)
 local TextInput = require(Src.TextInput)
 
 -- NOTE: Please keep components in alphabetical order
-local UI = {
+local UI = strict({
 	-- Empty default styles for Framework components
 	FrameworkStyles = FrameworkStyles,
 
@@ -70,6 +72,6 @@ local UI = {
 		RoundBox = RoundBox,
 		TextLabel = TextLabel,
 	},
-}
+})
 
 return UI

@@ -1,5 +1,5 @@
 local Plugin = script.Parent.Parent.Parent
-local Action = require(Plugin.Src.Actions.Action)
+local Action = require(Plugin.Framework.Util).Action
 
 return Action(script.Name, function(tableName, tableKey, valueKey, errors)
 	assert(type(tableName) == "string", "tableName must be a string")

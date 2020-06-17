@@ -58,7 +58,6 @@ local GetRobuxBalance = require(Requests.GetRobuxBalance)
 local ContextServices = require(Libs.Framework.ContextServices)
 local Settings = require(Plugin.Core.ContextServices.Settings)
 
-local FFlagFixToolboxInitLoad = settings():GetFFlag("FixToolboxInitLoad")
 local FFlagStudioToolboxPluginPurchaseFlow = game:GetFastFlag("StudioToolboxPluginPurchaseFlow")
 local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
 local FFlagStudioToolboxPersistBackgroundColor = game:DefineFastFlag("StudioToolboxPersistsBackgroundColor", false)
@@ -81,38 +80,12 @@ function Toolbox:handleInitialSettings()
 	local initialSearchTerm
 	local initialSelectedBackgroundIndex
 	-- We should reset the categoryName and sortIndex since release of tabs.
-	if FFlagFixToolboxInitLoad then
-		if not FFlagUseCategoryNameInToolbox then
-			initialSelectedCategoryIndex = 1
-		end
-		initialSelectedSortIndex = 1
-		initialSearchTerm = ""
-		initialSelectedBackgroundIndex = initialSettings.backgroundIndex or 1
-	else
-		-- Load the initial values and make sure they're safe
-		if not FFlagUseCategoryNameInToolbox then
-
-			initialSelectedCategoryIndex = initialSettings.categoryIndex or 1
-			if initialSelectedCategoryIndex < 1 or initialSelectedCategoryIndex > #self.props.categories then
-				initialSelectedCategoryIndex = 1
-			end
-
-		end
-		-- We don't want initial search based on last search text for toolbox.
-		-- But let's keep the option to re-add this in the future
-		initialSearchTerm = ""
-
-		initialSelectedSortIndex = initialSettings.sortIndex or 1
-		if initialSelectedSortIndex < 1 or initialSelectedSortIndex > #self.props.sorts then
-			if FFlagUseCategoryNameInToolbox then
-				initialSelectedSortIndex = Sort.getDefaultSortForCategory(initialSettings.categoryName)
-			else
-				initialSelectedSortIndex = Sort.getDefaultSortForCategory(initialSelectedCategoryIndex, initialTab)
-			end
-		end
-
-		 initialSelectedBackgroundIndex = initialSettings.backgroundIndex or 1
+	if not FFlagUseCategoryNameInToolbox then
+		initialSelectedCategoryIndex = 1
 	end
+	initialSelectedSortIndex = 1
+	initialSearchTerm = ""
+	initialSelectedBackgroundIndex = initialSettings.backgroundIndex or 1
 
 	local pageInfoCategories
 	if FFlagUseCategoryNameInToolbox then

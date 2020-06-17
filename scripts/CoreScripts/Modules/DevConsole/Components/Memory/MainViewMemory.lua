@@ -15,49 +15,47 @@ local ServerMemoryUpdateSearchFilter = require(Actions.ServerMemoryUpdateSearchF
 local Constants = require(script.Parent.Parent.Parent.Constants)
 local MAIN_ROW_PADDING = Constants.GeneralFormatting.MainRowPadding
 
-local LogButton
-if settings():GetFFlag("DevConsoleLogMemoryButton") then
-	LogButton = Roact.Component:extend("LogButton")
-	function LogButton:init()
-		self.onAction = function()
-			local data = self.props.isClientView and self.props.ClientMemoryData or self.props.ServerMemoryData
-			local result = "\n"
-			local function line(str) result = result .. str .. "\n" end
 
-			line("Name                                       Min   Max")
-			line("----------------------------------------   ---   ---")
+-- may want to move LogButton into its own module
+local LogButton = Roact.Component:extend("LogButton")
+function LogButton:init()
+	self.onAction = function()
+		local data = self.props.isClientView and self.props.ClientMemoryData or self.props.ServerMemoryData
+		local result = "\n"
+		local function line(str) result = result .. str .. "\n" end
 
-			local function recurseMemoryTree(name, what, indent)
-				line(string.format("%s %s %s %3d   %3d",
-					string.rep(" ", indent),
-					name,
-					string.rep(" ", 40 - indent - #name),
-					what.min, what.max
-				))
-				if what.children then
-					for subname,tree in pairs(what.children) do
-						recurseMemoryTree(subname, tree, indent+2)
-					end
+		line("Name                                       Min   Max")
+		line("----------------------------------------   ---   ---")
+
+		local function recurseMemoryTree(name, what, indent)
+			line(string.format("%s %s %s %3d   %3d",
+				string.rep(" ", indent),
+				name,
+				string.rep(" ", 40 - indent - #name),
+				what.min, what.max
+			))
+			if what.children then
+				for subname,tree in pairs(what.children) do
+					recurseMemoryTree(subname, tree, indent+2)
 				end
 			end
-			recurseMemoryTree("Memory", data._memoryData.Memory, 0)
-			print(result)
 		end
+		recurseMemoryTree("Memory", data._memoryData.Memory, 0)
+		print(result)
 	end
-
-	function LogButton:render()
-		return Roact.createElement("TextButton", {
-			Text = "Log",
-			Visible = true,
-			BorderSizePixel = 1,
-			BackgroundColor3 = Constants.Color.UnselectedGray,
-			TextColor3 = Constants.Color.Text,
-			[Roact.Event.Activated] = self.onAction
-		})
-	end
-
-	LogButton = DataConsumer(LogButton, "ClientMemoryData", "ServerMemoryData")
 end
+
+function LogButton:render()
+	return Roact.createElement("TextButton", {
+		Text = "Log",
+		Visible = true,
+		BorderSizePixel = 1,
+		BackgroundColor3 = Constants.Color.UnselectedGray,
+		TextColor3 = Constants.Color.Text,
+		[Roact.Event.Activated] = self.onAction
+	})
+end
+LogButton = DataConsumer(LogButton, "ClientMemoryData", "ServerMemoryData")
 
 
 local MainViewMemory = Roact.Component:extend("MainViewMemory")

@@ -55,7 +55,6 @@ local CAMERA_MODE_DEFAULT_STRING = UserInputService.TouchEnabled and "Default (F
 
 local FFlagGroupEditDevConsoleButton = settings():GetFFlag("GroupEditDevConsoleButton")
 local FFlagMicroProfilerSessionAnalytics = settings():GetFFlag("MicroProfilerSessionAnalytics")
-local FFlagDevConsoleFixMicroprofilerSyncIssues = settings():GetFFlag("DevConsoleFixMicroprofilerSyncIssues")
 local FFlagCollectAnalyticsForSystemMenu = settings():GetFFlag("CollectAnalyticsForSystemMenu")
 
 local MICROPROFILER_SETTINGS_PRESSED = "MicroprofilerSettingsPressed"
@@ -515,33 +514,29 @@ local function Initialize()
 
     tryContentLabel()
 
-    if FFlagDevConsoleFixMicroprofilerSyncIssues then
-      local indexChangedExternally = false
 
-      GameSettings:GetPropertyChangedSignal("OnScreenProfilerEnabled"):Connect(function()
-        indexChangedExternally = true
+    local indexChangedExternally = false
 
-        if GameSettings.OnScreenProfilerEnabled then
-          this.MicroProfilerMode:SetSelectionIndex(1)
-        else
-          this.MicroProfilerMode:SetSelectionIndex(2)
-        end
-      end)
+    GameSettings:GetPropertyChangedSignal("OnScreenProfilerEnabled"):Connect(function()
+      indexChangedExternally = true
 
-      local function onIndexChanged(...)
-        if indexChangedExternally then
-          indexChangedExternally = false
-        else
-          setMicroProfilerIndex(...)
-        end
+      if GameSettings.OnScreenProfilerEnabled then
+        this.MicroProfilerMode:SetSelectionIndex(1)
+      else
+        this.MicroProfilerMode:SetSelectionIndex(2)
       end
+    end)
 
-      this.MicroProfilerMode.IndexChanged:connect(onIndexChanged)
-    else
-      this.MicroProfilerMode.IndexChanged:connect(
-        setMicroProfilerIndex
-      )
+    local function onIndexChanged(...)
+      if indexChangedExternally then
+        indexChangedExternally = false
+      else
+        setMicroProfilerIndex(...)
+      end
     end
+
+    this.MicroProfilerMode.IndexChanged:connect(onIndexChanged)
+
   end -- of create Micro Profiler Web Server
 
   local function createCameraModeOptions(movementModeEnabled)

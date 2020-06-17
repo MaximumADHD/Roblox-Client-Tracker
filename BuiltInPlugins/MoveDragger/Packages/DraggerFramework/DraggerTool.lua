@@ -16,10 +16,7 @@ local Roact = require(Library.Packages.Roact)
 
 -- Flags
 local getFFlagLuaDraggerHandleScale = require(Framework.Flags.getFFlagLuaDraggerHandleScale)
-local getFFlagMinCursorChange = require(Framework.Flags.getFFlagMinCursorChange)
 local getFFlagBatchBoundsChanged = require(Framework.Flags.getFFlagBatchBoundsChanged)
-local getFFlagHandleCanceledToolboxDrag = require(Framework.Flags.getFFlagHandleCanceledToolboxDrag)
-local getFFlagHandleFlakeyMouseEvents = require(Framework.Flags.getFFlagHandleFlakeyMouseEvents)
 local getFFlagDragFaceInstances = require(Framework.Flags.getFFlagDragFaceInstances)
 
 -- Components
@@ -83,10 +80,8 @@ function DraggerTool:init()
 	self._isMounted = false
 	self._isMouseDown = false
 
-	if getFFlagMinCursorChange() then
-		self._mouseCursor = ""
-		self.props.Mouse.Icon = ""
-	end
+	self._mouseCursor = ""
+	self.props.Mouse.Icon = ""
 
 	self._derivedWorldState = DerivedWorldState.new()
 
@@ -324,16 +319,12 @@ function DraggerTool:_processKeyDown(keyCode)
 end
 
 function DraggerTool:_processMouseDown()
-	if getFFlagHandleFlakeyMouseEvents() then
-		if self._isMouseDown then
-			-- Not ideal code. There are just too many situations where the engine
-			-- passes us disbalanced mouseup / mousedown events for us to reliably
-			-- handle all of them, so as an escape hatch, handle a mouse up if we
-			-- get a mouse down without having gotten the preceeding mouse up.
-			self:_processMouseUp()
-		end
-	else
-		assert(not self._isMouseDown)
+	if self._isMouseDown then
+		-- Not ideal code. There are just too many situations where the engine
+		-- passes us disbalanced mouseup / mousedown events for us to reliably
+		-- handle all of them, so as an escape hatch, handle a mouse up if we
+		-- get a mouse down without having gotten the preceeding mouse up.
+		self:_processMouseUp()
 	end
 	self._isMouseDown = true
 	self.state.stateObject:processMouseDown(self)
@@ -386,11 +377,9 @@ function DraggerTool:_updateSelectionInfo()
 end
 
 function DraggerTool:_beginToolboxInitiatedFreeformSelectionDrag()
-	if getFFlagHandleCanceledToolboxDrag() then
-		-- We didn't get an associated mouse down, so we have to set the mouse
-		-- down tracking variable here.
-		self._isMouseDown = true
-	end
+	-- We didn't get an associated mouse down, so we have to set the mouse
+	-- down tracking variable here.
+	self._isMouseDown = true
 
 	self:transitionToState({
 		tiltRotate = CFrame.new(),
@@ -402,11 +391,9 @@ function DraggerTool:_beginToolboxInitiatedFreeformSelectionDrag()
 end
 
 function DraggerTool:_beginToolboxInitiatedFaceDrag(instances)
-	if getFFlagHandleCanceledToolboxDrag() then
-		-- We didn't get an associated mouse down, so we have to set the mouse
-		-- down tracking variable here.
-		self._isMouseDown = true
-	end
+	-- We didn't get an associated mouse down, so we have to set the mouse
+	-- down tracking variable here.
+	self._isMouseDown = true
 
 	if instances[1]:IsA("VideoFrame") then
 		local videoFrameContainer = Instance.new("SurfaceGui")

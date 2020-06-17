@@ -1,3 +1,4 @@
+--!nolint UnknownType
 
 local plugin, settings = plugin, settings
 
@@ -2333,7 +2334,10 @@ function selectDragPlane(selectBase)
 		tmpPart = game.Workspace:FindPartOnRay(ray)
 	end
 	
-	if not tmpPart then Adorn.setPlaneSelectingMode(false) return end
+	if not tmpPart then
+		Adorn.setPlaneSelectingMode(false)
+		return
+	end
 	
 	if not selectBase then
 		tmpLocation = rayBoxIntersection(ray, tmpPart.CFrame, tmpPart.Size)

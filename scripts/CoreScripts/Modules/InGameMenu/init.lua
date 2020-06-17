@@ -19,6 +19,7 @@ local registerSetCores = require(script.SetupFunctions.registerSetCores)
 local requestGameInfo = require(script.SetupFunctions.requestGameInfo)
 local requestGameSourceLanguage = require(script.SetupFunctions.requestGameSourceLanguage)
 local requestLocaleInfo = require(script.SetupFunctions.requestLocaleInfo)
+local requestGameNameAndDescription = require(script.SetupFunctions.requestGameNameAndDescription)
 local createStore = require(script.createStore)
 
 local OpenMenuButton = require(script.Components.OpenMenuButton)
@@ -35,10 +36,14 @@ local OpenMenu = require(script.Thunks.OpenMenu)
 
 local GlobalConfig = require(script.GlobalConfig)
 
-local FFlagDisableAutoTranslateForKeyTranslatedContent = require(RobloxGui.Modules.Flags.FFlagDisableAutoTranslateForKeyTranslatedContent)
+local FFlagDisableAutoTranslateForKeyTranslatedContent = require(
+	RobloxGui.Modules.Flags.FFlagDisableAutoTranslateForKeyTranslatedContent)
 local isNewTopBarEnabled = require(RobloxGui.Modules.TopBar.isNewTopBarEnabled)
 
+local FFlagTopBarNewGamepadMenu = require(RobloxGui.Modules.Flags.FFlagTopBarNewGamepadMenu)
+
 local OpenChangedEvent = Instance.new("BindableEvent")
+local RespawnBehaviourChangedEvent = Instance.new("BindableEvent")
 
 local menuStore = createStore()
 
@@ -46,18 +51,40 @@ return {
 	mountInGameMenu = function()
 		registerSetCores(menuStore)
 		bindMenuActions(menuStore)
-		requestGameInfo(menuStore)
-		requestGameSourceLanguage(menuStore)
-		requestLocaleInfo(menuStore)
+		if FFlagTopBarNewGamepadMenu then
+			requestGameNameAndDescription(menuStore)
+		else
+			requestGameInfo(menuStore)
+			requestGameSourceLanguage(menuStore)
+			requestLocaleInfo(menuStore)
+		end
 
-		Roact.setGlobalConfig({
-			propValidation = GlobalConfig.propValidation,
-			elementTracing = GlobalConfig.elementTracing,
-		})
+		if GlobalConfig.propValidation then
+			Roact.setGlobalConfig({
+				propValidation = true,
+			})
+		end
+		if GlobalConfig.elementTracing then
+			Roact.setGlobalConfig({
+				elementTracing = true,
+			})
+		end
 
 		menuStore.changed:connect(function(newState, oldState)
 			if newState.isMenuOpen ~= oldState.isMenuOpen then
 				OpenChangedEvent:Fire(newState.isMenuOpen)
+			end
+
+			if FFlagTopBarNewGamepadMenu then
+				local newEnabled = newState.respawn.enabled
+				local oldEnabled = oldState.respawn.enabled
+
+				local newCallback = newState.respawn.customCallback
+				local oldCallback = oldState.respawn.customCallback
+
+				if newEnabled ~= oldEnabled and newCallback ~= oldCallback then
+					RespawnBehaviourChangedEvent:Fire(newEnabled, newCallback)
+				end
 			end
 		end)
 
@@ -150,5 +177,14 @@ return {
 
 	getOpen = function()
 		return menuStore:getState().isMenuOpen
+	end,
+
+	getRespawnBehaviour = function()
+		local state = menuStore:getState()
+		return state.respawn.enabled, state.respawn.customCallback
+	end,
+
+	getRespawnBehaviourChangedEvent = function()
+		return RespawnBehaviourChangedEvent
 	end,
 }

@@ -273,6 +273,8 @@ function PlayerListDisplay:render()
 					Position = layoutValues.PlayerScrollListPosition,
 					Size = layoutValues.PlayerScrollListSize,
 					BackgroundTransparency = 1,
+
+					[Roact.Change.AbsoluteSize] = self.absoluteSizeChanged,
 				}, {
 					ScollingFrame = Roact.createElement("ScrollingFrame", {
 						Position = UDim2.new(0, 0, 0, 0),
@@ -557,9 +559,14 @@ function PlayerListDisplay:didUpdate(prevProps)
 end
 
 local function mapStateToProps(state)
+	local isMinimized = nil
+	if FFlagMinimizePlayerListWhenTopBarOpen then
+		isMinimized = state.displayOptions.isMinimized
+	end
+
 	return {
 		isVisible = state.displayOptions.isVisible,
-		isMinimized = FFlagMinimizePlayerListWhenTopBarOpen and state.displayOptions.isMinimized or nil,
+		isMinimized = isMinimized,
 		isTenFootInterface = state.displayOptions.isTenFootInterface,
 		isUsingGamepad = state.displayOptions.isUsingGamepad,
 

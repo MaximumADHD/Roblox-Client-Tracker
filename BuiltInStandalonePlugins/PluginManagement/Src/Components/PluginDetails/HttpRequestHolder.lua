@@ -118,7 +118,7 @@ function HttpRequestHolder:renderCheckbox(theme, index, permission)
 				TextSize = 16,
 				TextXAlignment = Enum.TextXAlignment.Left,
 				TextYAlignment = Enum.TextYAlignment.Center,
-				TextTransparency = enabled and 0 or 0.5,
+				TextTransparency = 0,
 
 				[Roact.Event.Activated] = function()
 					return self.onCheckboxActivated(permission)

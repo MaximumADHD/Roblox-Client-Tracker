@@ -7,19 +7,17 @@ local Framework = Plugin.Packages.DraggerFramework
 local Math = require(Framework.Utility.Math)
 local Roact = require(Plugin.Packages.Roact)
 
-local getFFlagImprovedHandleParams2 = require(Framework.Flags.getFFlagImprovedHandleParams2)
-
 local MoveHandleView = Roact.PureComponent:extend("MoveHandleView")
 
 local BASE_HANDLE_RADIUS = 0.10
-local BASE_HANDLE_HITTEST_RADIUS = BASE_HANDLE_RADIUS * (getFFlagImprovedHandleParams2() and 4 or 3) -- Handle hittests bigger than it looks
+local BASE_HANDLE_HITTEST_RADIUS = BASE_HANDLE_RADIUS * 4 -- Handle hittests bigger than it looks
 local BASE_HANDLE_OFFSET = 0.60
 local BASE_HANDLE_LENGTH = 4.00
 local BASE_TIP_OFFSET = 0.20
 local BASE_TIP_LENGTH = 0.25
 local TIP_RADIUS_MULTIPLIER = 3
 local SCREENSPACE_HANDLE_SIZE = 6
-local HANDLE_DIM_TRANSPARENCY = getFFlagImprovedHandleParams2() and 0.45 or 0.7
+local HANDLE_DIM_TRANSPARENCY = 0.45
 local HANDLE_THIN_BY_FRAC = 0.34
 local HANDLE_THICK_BY_FRAC = 1.5
 
@@ -47,11 +45,9 @@ function MoveHandleView:render()
     if self.props.Thin then
         radius = radius * HANDLE_THIN_BY_FRAC
     end
-    if getFFlagImprovedHandleParams2() then
-        if self.props.Hovered then
-            radius = radius * HANDLE_THICK_BY_FRAC
-            tipLength = tipLength * HANDLE_THICK_BY_FRAC
-        end
+    if self.props.Hovered then
+        radius = radius * HANDLE_THICK_BY_FRAC
+        tipLength = tipLength * HANDLE_THICK_BY_FRAC
     end
 
     local coneAtCFrame = self.props.Axis * CFrame.new(0, 0, -(offset + length))
@@ -73,7 +69,7 @@ function MoveHandleView:render()
             children.Head = Roact.createElement("ConeHandleAdornment", {
                 Adornee = Workspace.Terrain,
                 ZIndex = 0,
-                Radius = (getFFlagImprovedHandleParams2() and TIP_RADIUS_MULTIPLIER or 3) * radius,
+                Radius = TIP_RADIUS_MULTIPLIER * radius,
                 Height = tipLength,
                 CFrame = coneAtCFrame,
                 Color3 = self.props.Color,
@@ -169,20 +165,12 @@ function MoveHandleView.hitTest(props, mouseRay)
         ((props.Axis.Position + props.Axis.LookVector * hitDistance) -
         (mouseRay.Origin + mouseRay.Direction.Unit * distAlongMouseRay)).Magnitude
 
-    if getFFlagImprovedHandleParams2() then
-        if hitRadius < radius and hitDistance > offset and hitDistance < shaftEnd then
-            return distAlongMouseRay
-        elseif hitRadius < tipRadius and hitDistance > shaftEnd and hitDistance < shaftEnd + tipLength then
-            return distAlongMouseRay
-        else
-            return nil
-        end
+    if hitRadius < radius and hitDistance > offset and hitDistance < shaftEnd then
+        return distAlongMouseRay
+    elseif hitRadius < tipRadius and hitDistance > shaftEnd and hitDistance < shaftEnd + tipLength then
+        return distAlongMouseRay
     else
-        if hitRadius < radius and hitDistance > offset and hitDistance < length + offset + tipLength then
-            return distAlongMouseRay
-        else
-            return nil
-        end
+        return nil
     end
 end
 

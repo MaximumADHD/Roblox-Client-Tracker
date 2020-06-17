@@ -1,3 +1,4 @@
+-- TODO: Delete file when FFlagRemoveUILibraryTimeline is retired
 return function()
 	local Library = script.Parent.Parent.Parent
 	local Roact = require(Library.Parent.Roact)

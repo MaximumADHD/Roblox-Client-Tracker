@@ -18,45 +18,38 @@ local FORM_DATA =
 	"--EA0A21C3-8388-4038-9BD5-92C8B1B7BF8E--\r\n"
 
 local Plugin = script.Parent.Parent.Parent
-local showDialog = require(Plugin.Src.Consumers.showDialog)
 local SimpleDialog = require(Plugin.Src.Components.Dialog.SimpleDialog)
 local ListDialog = require(Plugin.Src.Components.Dialog.ListDialog)
 local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
-local getLocalizedContent = require(Plugin.Src.Consumers.getLocalizedContent)
-
-local FFlagStudioConvertGameSettingsToDevFramework = game:GetFastFlag("StudioConvertGameSettingsToDevFramework")
 
 local FileUtils = {}
 
 local TEXT_SIZE = 22
 
-local function showSingleImageFailedDialog(page, localized)
+local function showSingleImageFailedDialog(page, localized, showDialog)
 	local DIALOG_PROPS = {
 		Size = Vector2.new(343, 145),
-		Title = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "SingleImageDialogHeader") or localized.SingleImageDialog.Header,
-		Header = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "SingleImageDialogBody") or localized.SingleImageDialog.Body,
-		Buttons = FFlagStudioConvertGameSettingsToDevFramework and {
+		Title = localized:getText("General", "SingleImageDialogHeader"),
+		Header = localized:getText("General", "SingleImageDialogBody"),
+		Buttons = {
 			localized:getText("General", "ReplyOK"),
-		} or localized.SingleImageDialog.Buttons,
+		},
 	}
 	showDialog(page, SimpleDialog, DIALOG_PROPS):await()
 end
 
-local function showMultiImageFailedDialog(page, localized, files)
+local function showMultiImageFailedDialog(page, localized, showDialog, files)
 	local DIALOG_PROPS = {
 		Size = Vector2.new(460, 200 + #files * TEXT_SIZE),
-		Title = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "MultiImageDialogHeader") or localized.MultiImageDialog.Header,
-		Header = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "MultiImageDialogBody", {
-			-- Convert to MB
-			maxThumbnailSize = (DFIntFileMaxSizeBytes / 10^6)
-		}) or localized.MultiImageDialog.Body({
+		Title = localized:getText("General", "MultiImageDialogHeader"),
+		Header = localized:getText("General", "MultiImageDialogBody", {
 			-- Convert to MB
 			maxThumbnailSize = (DFIntFileMaxSizeBytes / 10^6)
 		}),
 		Entries = files,
-		Buttons = FFlagStudioConvertGameSettingsToDevFramework and {
+		Buttons = {
 			localized:getText("General", "ReplyOK"),
-		} or localized.SingleImageDialog.Buttons,
+		},
 		Wrapped = false,
 		Truncate = Enum.TextTruncate.AtEnd,
 	}
@@ -86,32 +79,21 @@ local function createFormDataBody(configDataJsonBlob, nameWithoutExtension, exte
 	return result
 end
 
-function FileUtils.PromptForGameIcon(page, devFrameworkLocalized)
-	local localized
-	if FFlagStudioConvertGameSettingsToDevFramework then
-		localized = devFrameworkLocalized
-	else
-		localized = getLocalizedContent(page)
-	end
-
+function FileUtils.PromptForGameIcon(page, localization, showDialog)
+	assert(localization and showDialog)
 	local icon = StudioService:PromptImportFile(DEPRECATED_Constants.IMAGE_TYPES)
 
 	if icon then
 		if icon.Size > DFIntFileMaxSizeBytes then
-			showSingleImageFailedDialog(page, localized)
+			showSingleImageFailedDialog(page, localization)
 		else
 			return icon
 		end
 	end
 end
 
-function FileUtils.PromptForThumbnails(page, devFrameworkLocalized)
-	local localized
-	if FFlagStudioConvertGameSettingsToDevFramework then
-		localized = devFrameworkLocalized
-	else
-		localized = getLocalizedContent(page)
-	end
+function FileUtils.PromptForThumbnails(page, localization, showDialog)
+	assert(localization and showDialog)
 	local thumbnails = StudioService:PromptImportFiles(DEPRECATED_Constants.IMAGE_TYPES)
 
 	local rejectedThumbnailNames = {}
@@ -125,7 +107,7 @@ function FileUtils.PromptForThumbnails(page, devFrameworkLocalized)
 			end
 		end
 		if next(rejectedThumbnailNames) ~= nil then
-			showMultiImageFailedDialog(page, localized, rejectedThumbnailNames)
+			showMultiImageFailedDialog(page, localization, showDialog, rejectedThumbnailNames)
 		end
 		return acceptedThumbnails
 	end

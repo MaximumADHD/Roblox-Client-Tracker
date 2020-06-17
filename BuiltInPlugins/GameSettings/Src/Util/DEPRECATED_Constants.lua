@@ -22,8 +22,6 @@ BUTTON_WIDTH = 125,
 BUTTON_HEIGHT = 35,
 
 HEADER_HEIGHT = 45,
--- TODO (awarwick) 4/27/2020 Remove with FFlagGameSettingsNetworkRefactor
-FOOTER_HEIGHT = 65,
 
 BLUE = Color3.fromRGB(0, 162, 255),
 BLUE_DISABLED = Color3.fromRGB(153, 218, 255),

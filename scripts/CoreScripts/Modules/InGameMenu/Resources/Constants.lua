@@ -16,6 +16,7 @@ return {
 
 	defaultPageKey = "MainPage",
 	advancedSettingsPageKey = "AdvancedGameSettings",
+	LeaveToAppPromptPageKey = "LeaveToAppPrompt",
 
 	AnalyticsTargetName = "client",
 	AnalyticsInGameMenuName = "ingame_menu",
@@ -25,6 +26,7 @@ return {
 	AnalyticsMenuOpenName = "menu_open",
 	AnalyticsMenuCloseName = "menu_close",
 	AnalyticsLeaveGameName = "leave_game",
+	AnalyticsLeaveToHomeName = "leave_to_home",
 	AnalyticsConfirmedName = "confirmed",
 	AnalyticsCancelledName = "cancelled",
 	AnalyticsReportSubmittedName = "ingame_menu_report_submitted",

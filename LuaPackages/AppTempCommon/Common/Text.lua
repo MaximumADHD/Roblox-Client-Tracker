@@ -1,4 +1,4 @@
-local TextMeasureTemporaryPatch = settings():GetFFlag("TextMeasureTemporaryPatch")
+local EngineFeatureTextBoundsRoundUp = game:GetEngineFeature("TextBoundsRoundUp")
 
 local TextService = game:GetService("TextService")
 
@@ -7,10 +7,10 @@ local Text = {}
 -- FYI: Any number greater than 2^30 will make TextService:GetTextSize give invalid results
 local MAX_BOUND = 10000
 
--- TODO(CLIPLAYEREX-1633): We can remove this padding patch after fixing TextService:GetTextSize sizing bug
+-- Remove with EngineFeatureTextBoundsRoundUp
 Text._TEMP_PATCHED_PADDING = Vector2.new(0, 0)
 
-if TextMeasureTemporaryPatch then
+if not EngineFeatureTextBoundsRoundUp then
 	Text._TEMP_PATCHED_PADDING = Vector2.new(2, 2)
 end
 

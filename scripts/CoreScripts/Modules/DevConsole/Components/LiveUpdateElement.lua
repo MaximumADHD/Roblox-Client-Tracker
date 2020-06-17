@@ -24,8 +24,6 @@ local memStatStrWidth = TextService:GetTextSize(MEM_STAT_STR, TOP_BAR_FONT_SIZE,
 local AVG_PING_STR = "Avg. Ping:"
 local avgPingStrWidth = TextService:GetTextSize(AVG_PING_STR, TOP_BAR_FONT_SIZE, FONT, Vector2.new(0, 0))
 
-local FFlagDevConsoleFixTopBarIcons = settings():GetFFlag("DevConsoleFixTopBarIcons")
-
 -- supposed to be the calculated width of the frame, but
 -- doing this for now due to time constraints.
 local MIN_LARGE_FORMFACTOR_WIDTH = 380
@@ -50,15 +48,13 @@ function LiveUpdateElement:didMount()
 		})
 	end)
 
-	if FFlagDevConsoleFixTopBarIcons then
-		self:doSizeCheck()
-	end
+	
+	self:doSizeCheck()
+	
 end
 
 function LiveUpdateElement:didUpdate()
-	if FFlagDevConsoleFixTopBarIcons then
-		self:doSizeCheck()
-	end
+	self:doSizeCheck()
 end
 
 function LiveUpdateElement:doSizeCheck()

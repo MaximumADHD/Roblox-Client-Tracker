@@ -22,7 +22,6 @@ local SetDevConsolePosition = require(script.Parent.Parent.Actions.SetDevConsole
 local DevConsoleTopBar = Roact.Component:extend("DevConsoleTopBar")
 
 local FFlagDevConsoleIsVeryStickyWhyWillItNotLetGo = settings():GetFFlag("DevConsoleIsVeryStickyWhyWillItNotLetGo")
-local FFlagDevConsoleFixTopBarDragging = settings():GetFFlag("DevConsoleFixTopBarDragging")
 
 function DevConsoleTopBar:init()
 	self.inputBegan = function(rbx,input)
@@ -166,7 +165,7 @@ function DevConsoleTopBar:render()
 		target = RobloxGui,
 	}, {
 		InputCatcher = Roact.createElement("ScreenGui", {
-			OnTopOfCoreBlur = FFlagDevConsoleFixTopBarDragging,
+			OnTopOfCoreBlur = true,
 		}, {
 			GreyOutFrame = Roact.createElement("Frame", {
 				Size = UDim2.new(1, 0, 1, 0),

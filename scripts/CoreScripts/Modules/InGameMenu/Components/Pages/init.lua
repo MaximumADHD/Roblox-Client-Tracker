@@ -6,6 +6,8 @@ local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local UIBlox = InGameMenuDependencies.UIBlox
 local Images = UIBlox.App.ImageSet.Images
 
+local Constants = require(InGameMenu.Resources.Constants)
+
 --todo: can remove assets when FFlagInGameMenuSinglePaneDesign and FFlagFixMenuIcons are on and removed
 local Assets = require(InGameMenu.Resources.Assets)
 
@@ -67,6 +69,12 @@ local pages = {
 		isSecondaryPage = true,
 		navigationDepth = 3,
 		parentPage = "GameSettings",
+	},
+	{
+		key = Constants.LeaveToAppPromptPageKey,
+		navigationDepth = 1,
+		component = script.Dialog.LeaveToAppPrompt,
+		parentPage = Constants.LeaveToAppPromptPageKey,
 	},
 }
 

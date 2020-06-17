@@ -1,3 +1,4 @@
+--!nolint UnknownType
 local function itemExistsInList(item, list)
 	for i = 1, #list do
 		if list[i] == item then

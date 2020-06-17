@@ -119,7 +119,7 @@ return function()
 		it("should throw an error if attempting to update data that doesn't exist", function()
 			expect(function()
 				PluginInfo(nil, SetPluginMetadata("1234", "Test", "Test Description", "true",
-				"1", "some date", "some other date"))
+					"1", "some date", "some other date"))
 			end).to.throw()
 		end)
 

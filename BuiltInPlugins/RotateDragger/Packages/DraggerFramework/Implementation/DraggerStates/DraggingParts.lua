@@ -17,10 +17,6 @@ local StandardCursor = require(Framework.Utility.StandardCursor)
 local getHandleScale = require(Framework.Utility.getHandleScale)
 
 local getFFlagLuaDraggerHandleScale = require(Framework.Flags.getFFlagLuaDraggerHandleScale)
-local getFFlagMinCursorChange = require(Framework.Flags.getFFlagMinCursorChange)
-local getFFlagMoveViaSelectionCenter = require(Framework.Flags.getFFlagMoveViaSelectionCenter)
-local getFFlagHandleNoRotateTarget = require(Framework.Flags.getFFlagHandleNoRotateTarget)
-local getFFlagFixDraggerCursors = require(Framework.Flags.getFFlagFixDraggerCursors)
 
 local DraggingParts = {}
 DraggingParts.__index = DraggingParts
@@ -55,14 +51,9 @@ function DraggingParts:_init(draggerTool)
 	local breakJointsToOutsiders = true
 	local partsToMove, attachmentsToMove =
 		draggerTool._derivedWorldState:getObjectsToTransform()
-	if getFFlagMoveViaSelectionCenter() then
-		self._partMover:setDragged(
-			partsToMove, draggerTool._derivedWorldState:getOriginalCFrameMap(), breakJointsToOutsiders,
-			draggerTool._derivedWorldState:getBoundingBox().Position)
-	else
-		self._partMover:setDragged(
-			partsToMove, draggerTool._derivedWorldState:getOriginalCFrameMap(), breakJointsToOutsiders)
-	end
+	self._partMover:setDragged(
+		partsToMove, draggerTool._derivedWorldState:getOriginalCFrameMap(), breakJointsToOutsiders,
+		draggerTool._derivedWorldState:getBoundingBox().Position)
 	self._attachmentMover:setDragged(
         attachmentsToMove)
 
@@ -80,15 +71,7 @@ function DraggingParts:_initIgnoreList(parts)
 end
 
 function DraggingParts:render(draggerTool)
-	if getFFlagFixDraggerCursors() then
-		if getFFlagMinCursorChange() then
-			draggerTool:setMouseCursor(StandardCursor.getClosedHand())
-		else
-			draggerTool.props.Mouse.Icon = StandardCursor.getClosedHand()
-		end
-	else
-		draggerTool.props.Mouse.Icon = "rbxasset://SystemCursors/ClosedHand"
-	end
+	draggerTool:setMouseCursor(StandardCursor.getClosedHand())
 
 	if areJointsEnabled() and self._jointPairs then
 		if getFFlagLuaDraggerHandleScale() then
@@ -134,20 +117,13 @@ end
 
 function DraggingParts:_tiltRotateFreeformSelectionDrag(draggerTool, axis)
 	local mainCFrame = draggerTool._derivedWorldState:getBoundingBox()
-	local newTiltRotate
-	if getFFlagHandleNoRotateTarget() then
-		local lastTargetMatrix
-		if self._lastDragTarget then
-			lastTargetMatrix = self._lastDragTarget.targetMatrix
-		end
-		newTiltRotate = DragHelper.updateTiltRotate(
-			self._raycastFilter, mainCFrame, lastTargetMatrix,
-			draggerTool.state.tiltRotate, axis)
-	else
-		newTiltRotate = DragHelper.updateTiltRotate(
-			SelectionWrapper:Get(), mainCFrame, self._lastDragTarget.targetMatrix,
-			draggerTool.state.tiltRotate, axis)
+	local lastTargetMatrix
+	if self._lastDragTarget then
+		lastTargetMatrix = self._lastDragTarget.targetMatrix
 	end
+	local newTiltRotate = DragHelper.updateTiltRotate(
+		self._raycastFilter, mainCFrame, lastTargetMatrix,
+		draggerTool.state.tiltRotate, axis)
 	self:_updateFreeformSelectionDrag(draggerTool, newTiltRotate)
 	draggerTool:setState({
 		tiltRotate = newTiltRotate,

@@ -13,7 +13,7 @@ local Plugin = script.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Rodux = require(Plugin.Packages.Rodux)
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
-local ContextServices = require(Plugin.Packages.Framework.ContextServices)
+local ContextServices = require(Plugin.Packages.Framework).ContextServices
 local MakeTheme = require(Plugin.Src.Resources.MakeTheme)
 
 local MockPlugin = Roact.PureComponent:extend("MockPlugin")

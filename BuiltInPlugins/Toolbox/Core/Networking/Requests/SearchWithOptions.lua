@@ -46,22 +46,23 @@ return function(networkInterface, settings, options)
 		end
 
 		if options.Creator and options.Creator ~= "" then
-			searchUsers(networkInterface, options.Creator, store):andThen(function(results)
-				store:dispatch(SetLoading(false))
-				store:dispatch(UpdatePageInfoAndSendRequest(networkInterface, settings, {
-					audioSearchInfo = audioSearchInfo,
-					targetPage = 1,
-					currentPage = 0,
-					creator = results,
-					sortIndex = options.SortIndex or 1, -- defualt to 1
-					requestReason = RequestReason.StartSearch,
-				}))
+			searchUsers(networkInterface, options.Creator, store):andThen(
+				function(results)
+					store:dispatch(SetLoading(false))
+					store:dispatch(UpdatePageInfoAndSendRequest(networkInterface, settings, {
+						audioSearchInfo = audioSearchInfo,
+						targetPage = 1,
+						currentPage = 0,
+						creator = results,
+						sortIndex = options.SortIndex or 1, -- defualt to 1
+						requestReason = RequestReason.StartSearch,
+					}))
 
-				Analytics.onCreatorSearched(options.Creator, results.Id)
-			end,
-			function(err)
-				-- We should still handle the error if searchUser fails.
-			end)
+					Analytics.onCreatorSearched(options.Creator, results.Id)
+				end,
+				function(err)
+					-- We should still handle the error if searchUser fails.
+				end)
 
 		else
 			store:dispatch(SetLoading(false))

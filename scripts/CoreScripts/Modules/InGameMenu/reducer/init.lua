@@ -1,4 +1,5 @@
 local CorePackages = game:GetService("CorePackages")
+local CoreGui = game:GetService("CoreGui")
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Cryo = InGameMenuDependencies.Cryo
@@ -13,9 +14,12 @@ local CancelLeavingGame = require(InGameMenu.Actions.CancelLeavingGame)
 local SetControlLayout = require(InGameMenu.Actions.SetControlLayout)
 local SetVideoRecording = require(InGameMenu.Actions.SetVideoRecording)
 
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local FFlagTopBarNewGamepadMenu = require(RobloxGui.Modules.Flags.FFlagTopBarNewGamepadMenu)
+
 local respawn = require(script.respawn)
 local invites = require(script.invites)
-local localization = require(script.localization)
+local localization = FFlagTopBarNewGamepadMenu and require(script.newLocalization) or require(script.localization)
 local report = require(script.report)
 local friends = require(script.friends)
 local displayOptions = require(script.displayOptions)

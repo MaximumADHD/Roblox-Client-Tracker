@@ -7,9 +7,9 @@
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
-local ContextServices = require(Plugin.Packages.Framework.ContextServices)
+local ContextServices = require(Plugin.Packages.Framework).ContextServices
 
-local UI = require(Plugin.Packages.Framework.UI)
+local UI = require(Plugin.Packages.Framework).UI
 local Container = UI.Container
 local Button = UI.Button
 local Decoration = UI.Decoration

@@ -48,6 +48,8 @@ local FFlagDisableAutoTranslateForKeyTranslatedContent = require(RobloxGui.Modul
 local FFlagCollectAnalyticsForSystemMenu = settings():GetFFlag("CollectAnalyticsForSystemMenu")
 local isNewTopBarEnabled = require(RobloxGui.Modules.TopBar.isNewTopBarEnabled)
 
+local FFlagTopBarNewGamepadMenu = require(RobloxGui.Modules.Flags.FFlagTopBarNewGamepadMenu)
+
 local FFlagTopBarFixCloseButtonMobile = game:DefineFastFlag("TopBarFixCloseButtonMobile", false)
 
 local FFlagFixGamepadOldMenuOpening = game:DefineFastFlag("FixGamepadOldMenuOpening", false)
@@ -365,6 +367,13 @@ local function CreateSettingsHub()
 		end
 	end
 
+	local customCallback = nil
+	function this:GetRespawnBehaviour()
+		return resetEnabled, customCallback
+	end
+
+	this.RespawnBehaviourChangedEvent = Instance.new("BindableEvent")
+
 	StarterGui:RegisterSetCore("ResetButtonCallback", function(callback)
 		local isBindableEvent = typeof(callback) == "Instance" and callback:IsA("BindableEvent")
 		if isBindableEvent or type(callback) == "boolean" then
@@ -376,6 +385,12 @@ local function CreateSettingsHub()
 			setResetEnabled(false)
 		elseif not resetEnabled and (isBindableEvent or callback == true) then
 			setResetEnabled(true)
+		end
+		if FFlagTopBarNewGamepadMenu then
+			if isBindableEvent then
+				customCallback = callback
+			end
+			this.RespawnBehaviourChangedEvent:Fire(resetEnabled, customCallback)
 		end
 	end)
 
@@ -1799,6 +1814,12 @@ end
 function moduleApiTable:HideShield()
 	SettingsHubInstance:HideShield()
 end
+
+function moduleApiTable:GetRespawnBehaviour()
+	return SettingsHubInstance:GetRespawnBehaviour()
+end
+
+moduleApiTable.RespawnBehaviourChangedEvent = SettingsHubInstance.RespawnBehaviourChangedEvent
 
 moduleApiTable.SettingsShowSignal = SettingsHubInstance.SettingsShowSignal
 

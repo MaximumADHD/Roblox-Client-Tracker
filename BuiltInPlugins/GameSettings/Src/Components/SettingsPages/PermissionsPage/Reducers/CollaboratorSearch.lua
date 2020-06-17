@@ -2,11 +2,12 @@
 	Reducer for cached friends/groups of the local user and cached web queries
 ]]
 
+local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent.Parent.Parent
 local Cryo = require(Plugin.Cryo)
 local Rodux = require(Plugin.Rodux)
 
-local LOADING_IN_BACKGROUND = require(Plugin.Src.Keys.loadingInProgress)
+local LOADING_IN_BACKGROUND = require(Page.Keys.loadingInProgress)
 
 local DEFAULT_STATE = {
 	CachedSearchResults = {},

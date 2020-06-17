@@ -1,6 +1,5 @@
 local Plugin = script.Parent.Parent.Parent
-
-local Action = require(Plugin.Framework.Util.Action)
+local Action = require(Plugin.Framework.Util).Action
 
 local SaveState = require(Plugin.Src.Util.SaveState)
 local saveStateMin = 0

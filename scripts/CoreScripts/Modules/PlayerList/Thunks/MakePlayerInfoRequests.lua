@@ -20,7 +20,7 @@ local FFlagUseCanManageForDeveloperIconClient2 = game:GetFastFlag("UseCanManageF
 
 local SPECIAL_PLAYER_ICONS = {
 	Admin = Images["icons/status/player/admin"],
-	Intern = "rbxasset://textures/ui/icon_intern-16.png", --TODO: Update this
+	Intern = Images["icons/status/player/intern"],
 	Star = Images["icons/status/player/videostar"],
 }
 

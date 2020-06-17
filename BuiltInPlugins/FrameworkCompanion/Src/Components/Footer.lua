@@ -7,15 +7,15 @@
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
-local ContextServices = require(Plugin.Packages.Framework.ContextServices)
+local ContextServices = require(Plugin.Packages.Framework).ContextServices
 
-local UI = require(Plugin.Packages.Framework.UI)
+local UI = require(Plugin.Packages.Framework).UI
 local Button = UI.Button
 local Container = UI.Container
 local Decoration = UI.Decoration
 local HoverArea = UI.HoverArea
 
-local Examples = require(Plugin.Packages.Framework.Examples)
+local Examples = require(Plugin.Packages.Framework).Examples.General
 local RunTests = require(Plugin.Src.Thunks.RunTests)
 
 local Footer = Roact.PureComponent:extend("Footer")

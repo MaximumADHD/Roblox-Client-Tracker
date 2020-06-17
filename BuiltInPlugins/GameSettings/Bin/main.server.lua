@@ -1,3 +1,5 @@
+if not game:GetFastFlag("GameSettingsNetworkRefactor") then return end
+
 if not plugin then
 	return
 end
@@ -5,20 +7,12 @@ end
 require(script.Parent.defineLuaFlags)
 
 -- Fast flags
-local OverrideLocaleId = settings():GetFVariable("StudioForceLocale")
-local DFFlagDeveloperSubscriptionsEnabled = settings():GetFFlag("DeveloperSubscriptionsEnabled")
 local FFlagGameSettingsPreventClosingDialogWhileSaveInProgress = game:DefineFastFlag("GameSettingsPreventClosingDialogWhileSaveInProgress", false)
-local FFlagStudioLocalizationInGameSettingsEnabled = game:GetFastFlag("StudioLocalizationInGameSettingsEnabled")
-local FFlagGameSettingsPlaceSettings = game:GetFastFlag("GameSettingsPlaceSettings")
-local FFlagStudioConvertGameSettingsToDevFramework = game:GetFastFlag("StudioConvertGameSettingsToDevFramework")
-local FFlagStudioAddMonetizationToGameSettings = game:GetFastFlag("StudioAddMonetizationToGameSettings")
 
 --Turn this on when debugging the store and actions
 local LOG_STORE_STATE_AND_EVENTS = false
 
 local RunService = game:GetService("RunService")
-local LocalizationService = game:GetService("LocalizationService")
-local StudioService = game:GetService("StudioService")
 
 local Plugin = script.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -32,13 +26,8 @@ local FrameworkUtil = require(Plugin.Framework.Util)
 local MainView = require(Plugin.Src.Components.MainView)
 local SimpleDialog = require(Plugin.Src.Components.Dialog.SimpleDialog)
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
-local SettingsImpl = require(Plugin.Src.Networking.SettingsImpl)
 local ExternalServicesWrapper = require(Plugin.Src.Components.ExternalServicesWrapper)
-local ThemeProvider = require(Plugin.Src.Providers.ThemeProvider)
 local Theme = require(Plugin.Src.Util.Theme)
-local MouseProvider = require(Plugin.Src.Providers.MouseProvider)
-local Localization = require(Plugin.Src.Localization.Localization)
-local LocalizationProvider = require(Plugin.Src.Providers.LocalizationProvider)
 local Networking = require(Plugin.Src.ContextServices.Networking)
 local WorldRootPhysics = require(Plugin.Src.Components.SettingsPages.WorldPage.ContextServices.WorldRootPhysics)
 local GameInfoController = require(Plugin.Src.Controllers.GameInfoController)
@@ -54,13 +43,8 @@ local CurrentStatus = require(Plugin.Src.Util.CurrentStatus)
 local ResetStore = require(Plugin.Src.Actions.ResetStore)
 local SetCurrentStatus = require(Plugin.Src.Actions.SetCurrentStatus)
 local DiscardChanges = require(Plugin.Src.Actions.DiscardChanges)
-local DiscardErrors = require(Plugin.Src.Actions.DiscardErrors)
-local SetCurrentSettings = require(Plugin.Src.Actions.SetCurrentSettings)
-local SetEditDevProductId = require(Plugin.Src.Actions.SetEditDevProductId)
-local SetEditPlaceId = require(Plugin.Src.Actions.SetEditPlaceId)
 local SetGameId = require(Plugin.Src.Actions.SetGameId)
 local SetGame = require(Plugin.Src.Actions.SetGame)
-local LoadAllSettings = require(Plugin.Src.Thunks.LoadAllSettings)
 
 local isEmpty = require(Plugin.Src.Util.isEmpty)
 local Analytics = require(Plugin.Src.Util.Analytics)
@@ -71,36 +55,31 @@ local gameSettingsHandle
 local pluginGui
 local openedTimestamp
 
-local worldRootPhysics
-if game:GetFastFlag("GameSettingsNetworkRefactor") then
-	worldRootPhysics = WorldRootPhysics.new()
-end
+local worldRootPhysics = WorldRootPhysics.new()
 
 local middlewares
 if game:GetFastFlag("StudioThunkWithArgsMiddleware") then
 	-- TODO (awarwick) 5/5/2020 Fill in with context items as needed by thunks
 	local thunkContextItems = {}
 
-	if game:GetFastFlag("GameSettingsNetworkRefactor") then
-		local networking = Networking.new()
-		local gameInfoController = GameInfoController.new(networking:get())
-		local gameMetadataController = GameMetadataController.new(networking:get())
-		local groupMetadataController = GroupMetadataController.new(networking:get())
-		local gamePermissionsController = GamePermissionsController.new(networking:get())
-		local gameOptionsController = GameOptionsController.new()
-		local socialController = SocialController.new(networking:get())
-		local universeAvatarController = UniverseAvatarController.new(networking:get())
+	local networking = Networking.new()
+	local gameInfoController = GameInfoController.new(networking:get())
+	local gameMetadataController = GameMetadataController.new(networking:get())
+	local groupMetadataController = GroupMetadataController.new(networking:get())
+	local gamePermissionsController = GamePermissionsController.new(networking:get())
+	local gameOptionsController = GameOptionsController.new()
+	local socialController = SocialController.new(networking:get())
+	local universeAvatarController = UniverseAvatarController.new(networking:get())
 
-		thunkContextItems.networking = networking:get()
-		thunkContextItems.worldRootPhysicsController = worldRootPhysics:get()
-		thunkContextItems.gameInfoController = gameInfoController
-		thunkContextItems.gameMetadataController = gameMetadataController
-		thunkContextItems.groupMetadataController = groupMetadataController
-		thunkContextItems.gamePermissionsController = gamePermissionsController
-		thunkContextItems.gameOptionsController = gameOptionsController
-		thunkContextItems.socialController = socialController
-		thunkContextItems.universeAvatarController = universeAvatarController
-	end
+	thunkContextItems.networking = networking:get()
+	thunkContextItems.worldRootPhysicsController = worldRootPhysics:get()
+	thunkContextItems.gameInfoController = gameInfoController
+	thunkContextItems.gameMetadataController = gameMetadataController
+	thunkContextItems.groupMetadataController = groupMetadataController
+	thunkContextItems.gamePermissionsController = gamePermissionsController
+	thunkContextItems.gameOptionsController = gameOptionsController
+	thunkContextItems.socialController = socialController
+	thunkContextItems.universeAvatarController = universeAvatarController
 
 	local thunkWithArgsMiddleware = FrameworkUtil.ThunkWithArgsMiddleware(thunkContextItems)
 	middlewares = {thunkWithArgsMiddleware}
@@ -114,70 +93,14 @@ end
 local settingsStore = Rodux.Store.new(MainReducer, nil, middlewares)
 local lastObservedStatus = CurrentStatus.Open
 
-local settingsImpl = SettingsImpl.new(plugin:GetStudioUserId())
+local TranslationDevelopmentTable = Plugin.Src.Resources.TranslationDevelopmentTable
+local TranslationReferenceTable = Plugin.Src.Resources.TranslationReferenceTable
 
--- TODO (awarwick) 4/27/2020 Remove with FFlagGameSettingsNetworkRefactor
---Add all settings pages in order
-local settingsPages
-
-if not game:GetFastFlag("GameSettingsNetworkRefactor") then
-	settingsPages = {
-		FFlagStudioConvertGameSettingsToDevFramework and "BasicInfo" or "Basic Info",
-		FFlagStudioConvertGameSettingsToDevFramework and "AccessPermissions" or "Access Permissions",
-	}
-
-	if FFlagStudioAddMonetizationToGameSettings then
-		table.insert(settingsPages, "Monetization")
-	end
-
-	if FFlagGameSettingsPlaceSettings then
-		table.insert(settingsPages, "Places")
-	end
-
-	table.insert(settingsPages, "Avatar")
-	table.insert(settingsPages, "Options")
-
-	if DFFlagDeveloperSubscriptionsEnabled then
-		table.insert(settingsPages, "Developer Subscriptions")
-	end
-
-	table.insert(settingsPages, "World")
-
-	if FFlagStudioLocalizationInGameSettingsEnabled then
-		table.insert(settingsPages, "Localization")
-	end
-end
-
-local localizationTable = Plugin.Src.Resources.GameSettingsTranslationReferenceTable
-local localizationDevelopmentTable = Plugin.Src.Resources.GameSettingsTranslationDevelopmentTable
-local localization = Localization.new({
-	localizationTable = localizationTable,
-	getLocale = function()
-		if #OverrideLocaleId > 0 then
-			return OverrideLocaleId
-		else
-			return StudioService["StudioLocaleId"]
-		end
-	end,
-	localeChanged = StudioService:GetPropertyChangedSignal("StudioLocaleId")
+local localization = ContextServices.Localization.new({
+	pluginName = "GameSettings",
+	stringResourceTable = TranslationDevelopmentTable,
+	translationResourceTable = TranslationReferenceTable,
 })
-
-local localizationDevFramework
-if FFlagStudioConvertGameSettingsToDevFramework then
-	localizationDevFramework = ContextServices.Localization.new({
-		stringResourceTable = localizationDevelopmentTable,
-		translationResourceTable = localizationTable,
-		overrideLocaleChangedSignal = StudioService:GetPropertyChangedSignal("StudioLocaleId"),
-		pluginName = "GameSettings",
-		getLocale = function()
-			if #OverrideLocaleId > 0 then
-				return OverrideLocaleId
-			else
-				return StudioService["StudioLocaleId"]
-			end
-		end,
-	})
-end	
 
 -- Make sure that the main window elements cannot be interacted with
 -- when a second dialog is open over the Game Settings widget
@@ -205,7 +128,7 @@ local function showDialog(type, props)
 			local dialogContents = Roact.createElement(ExternalServicesWrapper, {
 					theme = Theme.new(),
 					mouse = plugin:GetMouse(),
-					localization = FFlagStudioConvertGameSettingsToDevFramework and localizationDevFramework or localization,
+					localization = localization,
 					pluginGui = pluginGui,
 					plugin = plugin,
 				}, {
@@ -265,12 +188,12 @@ local function closeGameSettings(userPressedSave)
 				local dialogProps
 				dialogProps = {
 					Size = Vector2.new(343, 145),
-					Title = FFlagStudioConvertGameSettingsToDevFramework and localizationDevFramework:getText("General", "CancelDialogHeader") or localization.values.CancelDialog.Header,
-					Header = FFlagStudioConvertGameSettingsToDevFramework and localizationDevFramework:getText("General", "CancelDialogBody") or localization.values.CancelDialog.Body,
-					Buttons = FFlagStudioConvertGameSettingsToDevFramework and {
-						localizationDevFramework:getText("General", "ReplyNo"),
-						localizationDevFramework:getText("General", "ReplyYes"),
-					} or localization.values.CancelDialog.Buttons,
+					Title = localization:getText("General", "CancelDialogHeader"),
+					Header = localization:getText("General", "CancelDialogBody"),
+					Buttons = {
+						localization:getText("General", "ReplyNo"),
+						localization:getText("General", "ReplyYes"),
+					},
 				}
 				local didDiscardAllChanges = showDialog(SimpleDialog, dialogProps):await()
 
@@ -328,56 +251,29 @@ local function openGameSettings(gameId, dataModel)
 		end
 	end
 
-	local menuEntries = {}
-	if not game:GetFastFlag("GameSettingsNetworkRefactor") then
-		for i, entry in ipairs(settingsPages) do
-			menuEntries[i] = {
-				Name = entry,
-			}
-		end
-	end
-
 	local servicesProvider = Roact.createElement(ExternalServicesWrapper, {
-		settingsSaverLoader = settingsImpl,
 		store = settingsStore,
 		showDialog = showDialog,
 		theme = Theme.new(),
 		mouse = plugin:GetMouse(),
-		localization = FFlagStudioConvertGameSettingsToDevFramework and localizationDevFramework or localization,
+		localization = localization,
 		pluginGui = pluginGui,
 		plugin = plugin,
 		worldRootPhysics = worldRootPhysics,
 	}, {
 		mainView = Roact.createElement(MainView, {
-			DEPRECATED_MenuEntries = (not game:GetFastFlag("GameSettingsNetworkRefactor")) and menuEntries or nil,
 			OnClose = closeGameSettings,
 		}),
 	})
 
-	if game:GetFastFlag("StudioGameSettingsResetStoreAction2") then
-		settingsStore:dispatch(ResetStore())
-	else
-		settingsStore:dispatch(SetCurrentSettings({}))
-		if FFlagStudioAddMonetizationToGameSettings then
-			settingsStore:dispatch(SetEditDevProductId(nil))
-		end
-		if FFlagGameSettingsPlaceSettings then
-			settingsStore:dispatch(SetEditPlaceId(0))
-		end
-		settingsStore:dispatch(DiscardChanges())
-		settingsStore:dispatch(DiscardErrors())
-	end
+	settingsStore:dispatch(ResetStore())
 
 	if FFlagStudioStandaloneGameMetadata then
 		settingsStore:dispatch(SetGameId(gameId))
 		settingsStore:dispatch(SetGame(dataModel))
 	end
 
-	if game:GetFastFlag("GameSettingsNetworkRefactor") then
-		settingsStore:dispatch(SetCurrentStatus(CurrentStatus.Open))
-	else
-		settingsStore:dispatch(LoadAllSettings(settingsImpl))
-	end
+	settingsStore:dispatch(SetCurrentStatus(CurrentStatus.Open))
 
 	gameSettingsHandle = Roact.mount(servicesProvider, pluginGui)
 	pluginGui.Enabled = true
@@ -388,12 +284,12 @@ end
 
 --Binds a toolbar button to the Game Settings window
 local function main()
-	plugin.Name = FFlagStudioConvertGameSettingsToDevFramework and localizationDevFramework:getText("General", "PluginName") or localization.values.Plugin.Name
+	plugin.Name = localization:getText("General", "PluginName")
 
 	local toolbar = plugin:CreateToolbar("gameSettingsToolbar")
 	local settingsButton = toolbar:CreateButton(
 		"gameSettingsButton",
-		FFlagStudioConvertGameSettingsToDevFramework and localizationDevFramework:getText("General", "PluginDescription") or localization.values.Plugin.Description,
+		localization:getText("General", "PluginDescription"),
 		"rbxasset://textures/GameSettings/ToolbarIcon.png"
 	)
 

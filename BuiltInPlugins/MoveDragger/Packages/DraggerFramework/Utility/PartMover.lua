@@ -11,7 +11,6 @@ local JointPairs = require(DraggerFramework.Utility.JointPairs)
 local JointUtil = require(DraggerFramework.Utility.JointUtil)
 local SelectionWrapper = require(DraggerFramework.Utility.SelectionWrapper)
 
-local getFFlagHandleCanceledToolboxDrag = require(DraggerFramework.Flags.getFFlagHandleCanceledToolboxDrag)
 local getFFlagUseBulkMove = require(DraggerFramework.Flags.getFFlagUseBulkMove)
 
 local DEFAULT_COLLISION_THRESHOLD = 0.001
@@ -380,7 +379,7 @@ function PartMover:transformTo(transform)
     assert(self._moving)
     if getFFlagUseBulkMove() then
         self._lastTransform = transform
-        self:_transformToImpl(transform, Enum.BulkMoveMode.FireNoEvents)
+        self:_transformToImpl(transform, Enum.BulkMoveMode.FireCFrameChanged)
     else
         if #self._parts > 0 then
             self._mainPart.CFrame = transform * self._originalMainPartCFrame
@@ -497,7 +496,7 @@ function PartMover:commit()
     if getFFlagUseBulkMove() then
         if self._lastTransform and self._bulkMoveParts then
             -- ChangeHistoryService "bump": Since we move the parts via the
-            -- WorldRoot::BulkMoveTo API with mode = FireNoEvents the
+            -- WorldRoot::BulkMoveTo API with mode = FireCFrameChanged the
             -- ChangeHistoryService won't see those moves. Do a final move with
             -- mode = FireCFrameChanged which the ChangeHistoryService will
             -- record. Note: We have to move the parts back to 0,0,0 first,
@@ -505,10 +504,10 @@ function PartMover:commit()
             -- if we do call with mode = FireCFrameChanged.
             Workspace:BulkMoveTo(self._bulkMoveParts,
                 table.create(#self._bulkMoveParts, CFrame.new()),
-                Enum.BulkMoveMode.FireNoEvents)
+                Enum.BulkMoveMode.FireCFrameChanged)
             Workspace:BulkMoveTo(self._moveWithCFrameChangeParts,
                 table.create(#self._moveWithCFrameChangeParts, CFrame.new()),
-                Enum.BulkMoveMode.FireNoEvents)
+                Enum.BulkMoveMode.FireCFrameChanged)
             self:_transformToImpl(self._lastTransform, Enum.BulkMoveMode.FireCFrameChanged)
             self._lastTransform = nil
         end
@@ -526,11 +525,7 @@ function PartMover:commit()
                 local cframe = part.CFrame
                 part.CFrame = CFrame.new()
                 part.CFrame = cframe
-                if getFFlagHandleCanceledToolboxDrag() then
-                    if root then
-                        assembliesMovedSet[root] = true
-                    end
-                else
+                if root then
                     assembliesMovedSet[root] = true
                 end
             end

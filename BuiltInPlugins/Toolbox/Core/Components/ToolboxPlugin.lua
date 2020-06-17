@@ -20,7 +20,6 @@ local ToolboxPlugin = Roact.PureComponent:extend("ToolboxPlugin")
 
 local Analytics = require(Util.Analytics.Analytics)
 
-local FFlagUpdateToolboxButtonFix = game:DefineFastFlag("UpdateToolboxButtonFix", false)
 local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
 local FFlagEnableToolboxImpressionAnalytics = game:GetFastFlag("EnableToolboxImpressionAnalytics")
 
@@ -51,58 +50,24 @@ function ToolboxPlugin:init(props)
 
 	self.toolboxButton.ClickableWhenViewportHidden = true
 
-	if not FFlagUpdateToolboxButtonFix then
-		-- This has no effect on button initialization and will be removed.
-		self.toolboxButton:SetActive(self.state.enabled)
-	end
-
 	self.toolboxButton.Click:connect(function()
-		if FFlagUpdateToolboxButtonFix then
-			-- Toggle dock window, update button
-			self.dockWidget.Enabled = not self.dockWidget.Enabled
-			if FFlagEnableToolboxImpressionAnalytics then
-				if self.dockWidget.Enabled then
-					Analytics.onPluginButtonClickOpen()
-				else
-					Analytics.onPluginButtonClickClose()
-				end
+		-- Toggle dock window, update button
+		self.dockWidget.Enabled = not self.dockWidget.Enabled
+		if FFlagEnableToolboxImpressionAnalytics then
+			if self.dockWidget.Enabled then
+				Analytics.onPluginButtonClickOpen()
+			else
+				Analytics.onPluginButtonClickClose()
 			end
-		else
-			self:setState(function(state)
-				if FFlagEnableToolboxImpressionAnalytics then
-					if not state.enabled then
-						Analytics.onPluginButtonClickOpen()
-					else
-						Analytics.onPluginButtonClickClose()
-					end
-				end
-				return {
-					enabled = not state.enabled,
-				}
-			end)
 		end
 	end)
 
 	self.onDockWidgetEnabledChanged = function(rbx)
-		if FFlagUpdateToolboxButtonFix then
-			-- Update Button to match DockWidget
-			self.toolboxButton:SetActive(self.dockWidget.Enabled)
+		-- Update Button to match DockWidget
+		self.toolboxButton:SetActive(self.dockWidget.Enabled)
 
-			if FFlagEnableToolboxImpressionAnalytics and self.dockWidget.Enabled then
-				Analytics.onToolboxDisplayed()
-			end
-		else
-			if self.state.enabled == rbx.Enabled then
-				return
-			end
-
-			if FFlagEnableToolboxImpressionAnalytics and rbx.Enabled then
-				Analytics.onToolboxDisplayed()
-			end
-
-			self:setState({
-				enabled = rbx.Enabled,
-			})
+		if FFlagEnableToolboxImpressionAnalytics and self.dockWidget.Enabled then
+			Analytics.onToolboxDisplayed()
 		end
 	end
 
@@ -114,10 +79,8 @@ function ToolboxPlugin:init(props)
 
 	self.dockWidgetRefFunc = function(ref)
 		self.dockWidget = ref
-		if FFlagUpdateToolboxButtonFix then
-			-- Update Button on initial Load
-			self.toolboxButton:SetActive(self.dockWidget.Enabled)
-		end
+		-- Update Button on initial Load
+		self.toolboxButton:SetActive(self.dockWidget.Enabled)
 	end
 end
 
@@ -144,12 +107,6 @@ function ToolboxPlugin:willUnmount()
 	end
 end
 
-function ToolboxPlugin:didUpdate()
-	if not FFlagUpdateToolboxButtonFix then
-		self.toolboxButton:SetActive(self.state.enabled)
-	end
-end
-
 function ToolboxPlugin:render()
 	local props = self.props
 	local state = self.state
@@ -172,12 +129,9 @@ function ToolboxPlugin:render()
 
 	local pluginGuiLoaded = pluginGui ~= nil
 
-	local InitialEnabled = true
-	if FFlagUpdateToolboxButtonFix then
-		-- Setting this value to false lets the DockWidget properly reflect
-		-- the state when it comes up.
-		InitialEnabled = false
-	end
+	-- Setting this value to false lets the DockWidget properly reflect
+	-- the state when it comes up.
+	local InitialEnabled = false
 
 	local title
 	if FFlagStudioToolboxEnabledDevFramework then

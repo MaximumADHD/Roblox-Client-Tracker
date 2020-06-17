@@ -12,19 +12,24 @@ return function()
 		})
 	end
 
-	itSKIP("should create and destroy without errors", function()
-		local element = createTestKeyframe()
-		local instance = Roact.mount(element)
-		Roact.unmount(instance)
-	end)
+	local FFlagRemoveUILibraryTimeline = game:GetFastFlag("RemoveUILibraryTimeline")
+	if FFlagRemoveUILibraryTimeline then
 
-	itSKIP("should render correctly", function ()
-		local container = Instance.new("Folder")
-		local instance = Roact.mount(createTestKeyframe(), container)
-		local frame = container:FindFirstChildOfClass("ImageButton")
+		it("should create and destroy without errors", function()
+			local element = createTestKeyframe()
+			local instance = Roact.mount(element)
+			Roact.unmount(instance)
+		end)
 
-		expect(frame).to.be.ok()
+		it("should render correctly", function ()
+			local container = Instance.new("Folder")
+			local instance = Roact.mount(createTestKeyframe(), container)
+			local frame = container:FindFirstChildOfClass("ImageButton")
 
-		Roact.unmount(instance)
-	end)
+			expect(frame).to.be.ok()
+
+			Roact.unmount(instance)
+		end)
+	
+	end
 end

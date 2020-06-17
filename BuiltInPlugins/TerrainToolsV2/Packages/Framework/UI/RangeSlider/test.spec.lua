@@ -1,11 +1,21 @@
 return function()
 	local Framework = script.Parent.Parent.Parent
+	local Util = require(Framework.Util)
+	local FlagsList = Util.Flags.new({
+		FFlagStudioDevFrameworkPackage = {"StudioDevFrameworkPackage"},
+	})
 	local Roact = require(Framework.Parent.Roact)
 	local RangeSlider = require(script.Parent)
 	local TestHelpers = require(Framework.TestHelpers)
 	local provideMockContext = TestHelpers.provideMockContext
-	local Util = require(Framework.Util)
-	local Cryo = Util.Cryo
+	local Cryo
+	local isUsedAsPackage = require(Framework.Util.isUsedAsPackage)
+	if FlagsList:get("FFlagStudioDevFrameworkPackage") and isUsedAsPackage() then
+		Cryo = require(Framework.Parent.Cryo)
+	else
+		local Util = require(Framework.Util)
+		Cryo = Util.Cryo
+	end
 
 	local DEFAULT_PROPS = {
 		AnchorPoint = Vector2.new(0.5, 0.5),

@@ -11,10 +11,10 @@
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
-local ContextServices = require(Plugin.Packages.Framework.ContextServices)
-local Render = require(Plugin.Packages.Framework.Examples.Render)
+local ContextServices = require(Plugin.Packages.Framework).ContextServices
+local Render = require(Plugin.Packages.Framework).Examples.Render
 
-local UI = require(Plugin.Packages.Framework.UI)
+local UI = require(Plugin.Packages.Framework).UI
 local Container = UI.Container
 local Decoration = UI.Decoration
 

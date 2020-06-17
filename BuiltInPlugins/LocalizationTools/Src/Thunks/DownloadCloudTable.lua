@@ -14,8 +14,7 @@ local isEmpty = require(Plugin.Src.Util.isEmpty)
 local function makeDispatchErrorMessageFunc(store, localization)
 	return function()
 		store:dispatch(SetIsBusy(false))
-		store:dispatch(
-		SetMessage(localization:getText("MessageFrame", "DownloadFailedMessage")))
+		store:dispatch(SetMessage(localization:getText("MessageFrame", "DownloadFailedMessage")))
 	end
 end
 

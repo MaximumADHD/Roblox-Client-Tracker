@@ -11,8 +11,6 @@ local DragSelector = require(Framework.Utility.DragSelector)
 local StandardCursor = require(Framework.Utility.StandardCursor)
 
 local getFFlagAllowDragContinuation = require(Framework.Flags.getFFlagAllowDragContinuation)
-local getFFlagMinCursorChange = require(Framework.Flags.getFFlagMinCursorChange)
-local getFFlagFixDraggerCursors = require(Framework.Flags.getFFlagFixDraggerCursors)
 
 local DragSelecting = {}
 DragSelecting.__index = DragSelecting
@@ -39,15 +37,7 @@ function DragSelecting:_init(draggerTool)
 end
 
 function DragSelecting:render(draggerTool)
-    if getFFlagFixDraggerCursors() then
-        if getFFlagMinCursorChange() then
-            draggerTool:setMouseCursor(StandardCursor.getArrow())
-        else
-            draggerTool.props.Mouse.Icon = StandardCursor.getArrow()
-        end
-    else
-        draggerTool.props.Mouse.Icon = "rbxasset://SystemCursors/Arrow"
-    end
+    draggerTool:setMouseCursor(StandardCursor.getArrow())
 
     local startLocation =
         self._hasMovedMouse and

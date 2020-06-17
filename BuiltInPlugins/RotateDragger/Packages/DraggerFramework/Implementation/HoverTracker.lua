@@ -6,7 +6,6 @@ local SelectionHelper = require(Framework.Utility.SelectionHelper)
 local SelectionWrapper = require(Framework.Utility.SelectionWrapper)
 
 local getFFlagLuaDraggerHandleScale = require(Framework.Flags.getFFlagLuaDraggerHandleScale)
-local getFFlagRetainHoverPart = require(Framework.Flags.getFFlagRetainHoverPart)
 local getFFlagStudioServiceHoverInstance = require(Framework.Flags.getFFlagStudioServiceHoverInstance)
 
 local HoverTracker = {}
@@ -45,24 +44,16 @@ function HoverTracker:update(derivedWorldState)
 		if not self._hoverSelectable or hoverHandleDistance < distanceToHover then
 			self._hoverHandleId = hoverHandleId
             self._hoverDistance = hoverHandleDistance
-            if not getFFlagRetainHoverPart() then
-                self._hoverInstance = nil
-                self._hoverSelectable = nil
-            end
             self._hoverPosition = nil
 		end
     end
 
     if getFFlagStudioServiceHoverInstance() then
-        if getFFlagRetainHoverPart() then
-            -- If you're hovering a handle, you're trying to start a drag, so
-            -- we don't want the additional visual clutter of any hoverInstance
-            -- related information getting in the way in that case.
-            if self._hoverHandleId then
-                StudioService.HoverInstance = nil
-            else
-                StudioService.HoverInstance = self._hoverInstance
-            end
+        -- If you're hovering a handle, you're trying to start a drag, so
+        -- we don't want the additional visual clutter of any hoverInstance
+        -- related information getting in the way in that case.
+        if self._hoverHandleId then
+            StudioService.HoverInstance = nil
         else
             StudioService.HoverInstance = self._hoverInstance
         end

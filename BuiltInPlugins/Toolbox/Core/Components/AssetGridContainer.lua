@@ -221,7 +221,7 @@ function AssetGridContainer:init(props)
 		end
 		if isPackageAsset then
 			local canEditPackage = (self.props.currentUserPackagePermissions[assetId] == PermissionsConstants.EditKey or
-			self.props.currentUserPackagePermissions[assetId] == PermissionsConstants.OwnKey)
+				self.props.currentUserPackagePermissions[assetId] == PermissionsConstants.OwnKey)
 			showEditOption = canEditPackage
 		end
 
@@ -377,7 +377,7 @@ function AssetGridContainer:render()
 				local assetIndex = asset[2]
 
 				local canEditPackage = (self.props.currentUserPackagePermissions[assetId] == PermissionsConstants.EditKey or
-				self.props.currentUserPackagePermissions[assetId] == PermissionsConstants.OwnKey)
+					self.props.currentUserPackagePermissions[assetId] == PermissionsConstants.OwnKey)
 
 				-- If the asset is a group packages, then we want to check only want to show it if we have permission.
 				-- if the category is not group packages, then we always want to show.

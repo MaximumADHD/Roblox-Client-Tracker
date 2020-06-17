@@ -13,30 +13,9 @@ local Roact = require(Plugin.Roact)
 
 local ContextServices = require(Plugin.Framework.ContextServices)
 
-local withTheme = require(Plugin.Src.Consumers.withTheme)
-
-local FFlagStudioConvertGameSettingsToDevFramework = game:GetFastFlag("StudioConvertGameSettingsToDevFramework")
-
 local Separator = Roact.PureComponent:extend("Separator")
 
-function Separator:DEPRECATED_render()
-	local props = self.props
-	return withTheme(function(theme)
-		return Roact.createElement("Frame", {
-			Size = props.Size or UDim2.new(1, 0, 0, 2),
-			Position = props.Position,
-			BackgroundColor3 = theme.separator,
-			BorderSizePixel = 0,
-			LayoutOrder = props.LayoutOrder or 1,
-		})
-	end)
-end
-
 function Separator:render()
-	if not FFlagStudioConvertGameSettingsToDevFramework then
-		return self:DEPRECATED_render()
-	end
-
 	local props = self.props
 	local theme = props.Theme:get("Plugin")
 
@@ -49,10 +28,8 @@ function Separator:render()
 	})
 end
 
-if FFlagStudioConvertGameSettingsToDevFramework then
-	ContextServices.mapToProps(Separator,{
-		Theme = ContextServices.Theme
-	})
-end
+ContextServices.mapToProps(Separator,{
+	Theme = ContextServices.Theme
+})
 
 return Separator

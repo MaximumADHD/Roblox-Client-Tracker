@@ -1,11 +1,14 @@
 return function()
 	local Framework = script.Parent.Parent
 
-	-- Only run tests if in a plugin that uses UILibrary.
-	-- We assume plugins will completely move away from the UILibrary
-	-- to the Framework in the future, so we don't want to depend on it.
-	if not Framework.Parent:FindFirstChild("UILibrary") then
-		SKIP()
+	local Util = require(Framework.Util)
+	local FlagsList = Util.Flags.new({
+		FFlagStudioDevFrameworkPackage = {"StudioDevFrameworkPackage"},
+	})
+
+	local isUsedAsPackage = require(Framework.Util.isUsedAsPackage)
+
+	if not FlagsList:get("FFlagStudioDevFrameworkPackage") or not isUsedAsPackage() then
 		return
 	end
 
@@ -16,9 +19,19 @@ return function()
 	local Theme = require(Framework.ContextServices.Theme)
 	local UILibraryWrapper = require(script.Parent.UILibraryWrapper)
 
+	local WrapperStub = Roact.PureComponent:extend("UILibraryWrapper")
+
+	function WrapperStub:render()
+		-- NOOP
+	end
+
+	local UILibraryStub = {
+		Wrapper = WrapperStub
+	}
+
 	it("should expect a Plugin ContextItem provided above", function()
 		local focus = Focus.new(Instance.new("ScreenGui"))
-		local wrapper = UILibraryWrapper.new()
+		local wrapper = UILibraryWrapper.new(UILibraryStub)
 		local theme = Theme.new(function()
 			return {}
 		end)
@@ -41,7 +54,7 @@ return function()
 
 	it("should expect a Focus ContextItem provided above", function()
 		local plugin = Plugin.new({})
-		local wrapper = UILibraryWrapper.new()
+		local wrapper = UILibraryWrapper.new(UILibraryStub)
 		local theme = Theme.new(function()
 			return {}
 		end)
@@ -65,7 +78,7 @@ return function()
 	it("should expect a Theme ContextItem provided above", function()
 		local plugin = Plugin.new({})
 		local focus = Focus.new(Instance.new("ScreenGui"))
-		local wrapper = UILibraryWrapper.new()
+		local wrapper = UILibraryWrapper.new(UILibraryStub)
 
 		local element = provide({
 			plugin,
@@ -83,7 +96,7 @@ return function()
 	it("should expect a getUILibraryTheme function on Theme", function()
 		local plugin = Plugin.new({})
 		local focus = Focus.new(Instance.new("ScreenGui"))
-		local wrapper = UILibraryWrapper.new()
+		local wrapper = UILibraryWrapper.new(UILibraryStub)
 		local theme = Theme.new(function()
 			return {}
 		end)
@@ -105,7 +118,7 @@ return function()
 	it("should be providable as a ContextItem", function()
 		local plugin = Plugin.new({})
 		local focus = Focus.new(Instance.new("ScreenGui"))
-		local wrapper = UILibraryWrapper.new()
+		local wrapper = UILibraryWrapper.new(UILibraryStub)
 		local theme = Theme.new(function()
 			return {}
 		end)

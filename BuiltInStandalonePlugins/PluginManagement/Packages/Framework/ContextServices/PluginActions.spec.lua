@@ -1,6 +1,18 @@
 return function()
 	local Framework = script.Parent.Parent
-	local mock = require(Framework.packages.Dev.mock)
+	local Util = require(Framework.Util)
+	local FlagsList = Util.Flags.new({
+		FFlagStudioDevFrameworkPackage = {"StudioDevFrameworkPackage"},
+	})
+
+	local mock
+	local isUsedAsPackage = require(Framework.Util.isUsedAsPackage)
+	if FlagsList:get("FFlagStudioDevFrameworkPackage") and isUsedAsPackage() then
+		mock = require(Framework.Parent.mock)
+	else
+		mock = require(Framework.packages.Dev.mock)
+	end
+
 	local Spy = mock.Spy
 	local getCalls = mock.getCalls
 	local Roact = require(Framework.Parent.Roact)

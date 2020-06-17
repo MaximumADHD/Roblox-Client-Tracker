@@ -2,7 +2,9 @@
 	Public interface for StudioUI
 ]]
 
-local StudioUI = {
+local strict = require(script.Parent.Util.strict)
+
+local StudioUI = strict({
 	-- Default styles for the Framework
 	StudioFrameworkStyles = require(script.StudioFrameworkStyles),
 
@@ -15,6 +17,6 @@ local StudioUI = {
 	--PluginButton
 	PluginToolbar = require(script.PluginToolbar),
 	PluginButton = require(script.PluginButton),
-}
+})
 
 return StudioUI

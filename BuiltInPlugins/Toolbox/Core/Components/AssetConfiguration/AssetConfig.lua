@@ -11,7 +11,6 @@ local FFlagStudioUseNewAnimationImportExportFlow = settings():GetFFlag("StudioUs
 local FFlagAssetConfigOverrideFromAnyScreen = game:DefineFastFlag("AssetConfigOverrideFromAnyScreen", false)
 local FFlagCanPublishDefaultAsset = game:DefineFastFlag("CanPublishDefaultAsset", false)
 local FFlagShowAssetConfigReasons2 = game:GetFastFlag("ShowAssetConfigReasons2")
-local FFlagEnableAssetConfigFreeFix2 = game:GetFastFlag("EnableAssetConfigFreeFix2")
 local FFlagEnableNonWhitelistedToggle = game:GetFastFlag("EnableNonWhitelistedToggle")
 local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
 local FFlagAssetConfigUseItemConfig = game:GetFastFlag("AssetConfigUseItemConfig")
@@ -126,7 +125,7 @@ function AssetConfig:init(props)
 		dispatchGetFunction = false,
 	}
 
-	if FFlagEnableAssetConfigFreeFix2 and AssetConfigUtil.isMarketplaceAsset(props.assetTypeEnum) then
+	if AssetConfigUtil.isMarketplaceAsset(props.assetTypeEnum) then
 		self.state.status = AssetConfigConstants.ASSET_STATUS.OffSale
 	end
 	if AssetConfigUtil.isCatalogAsset(props.assetTypeEnum) then

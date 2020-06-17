@@ -12,33 +12,35 @@ local FFlagStudioFixGroupCreatorInfo = game:GetFastFlag("StudioFixGroupCreatorIn
 return function(networkInterface, creatorTargetId, creatorType)
 	if FFlagStudioFixGroupCreatorInfo then
 		return function(store)
-			return networkInterface:getCreatorInfo(creatorTargetId, creatorType):andThen(function(result)
-				local creatorName = CreatorInfoHelper.getNameFromResult(result, creatorType)
+			return networkInterface:getCreatorInfo(creatorTargetId, creatorType):andThen(
+				function(result)
+					local creatorName = CreatorInfoHelper.getNameFromResult(result, creatorType)
 
-				store:dispatch(SetCachedCreatorInfo({
-					Id = creatorTargetId,
-					Name = creatorName,
-					Type = creatorType
-				}))
-			end,
-			function(err)
-				store:dispatch(NetworkError(err))
-			end)
+					store:dispatch(SetCachedCreatorInfo({
+						Id = creatorTargetId,
+						Name = creatorName,
+						Type = creatorType
+					}))
+				end,
+				function(err)
+					store:dispatch(NetworkError(err))
+				end)
 		end
 	else
 		return function(store)
-			return networkInterface:getCreatorName(creatorTargetId):andThen(function(result)
-				local data = result.responseBody
-				local creatorName = data and data.Username
+			return networkInterface:getCreatorName(creatorTargetId):andThen(
+				function(result)
+					local data = result.responseBody
+					local creatorName = data and data.Username
 
-				store:dispatch(SetCachedCreatorInfo({
-					Id = creatorTargetId,
-					Name = creatorName,
-				}))
-			end,
-			function(err)
-				store:dispatch(NetworkError(err))
-			end)
+					store:dispatch(SetCachedCreatorInfo({
+						Id = creatorTargetId,
+						Name = creatorName,
+					}))
+				end,
+				function(err)
+					store:dispatch(NetworkError(err))
+				end)
 		end
 	end
 end
