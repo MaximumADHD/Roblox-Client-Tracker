@@ -59,9 +59,9 @@ Class AdService : Instance [NotCreatable] [Service] [Deprecated]
 	Function void AdService:ShowVideoAd() [Deprecated]
 	Event AdService.VideoAdClosed(bool adShown) [Deprecated]
 Class AdvancedDragger : Instance
-Class AnalyticsService : Instance [NotCreatable] [Service]
-	Property string AnalyticsService.ApiKey {LocalUserSecurity}
-	Function void AnalyticsService:FireEvent(string category, Variant value)
+Class AnalyticsService : Instance [NotCreatable] [Service] [Deprecated]
+	Property string AnalyticsService.ApiKey {LocalUserSecurity} [Deprecated]
+	Function void AnalyticsService:FireEvent(string category, Variant value) [Deprecated]
 Class Animation : Instance
 	Property Content Animation.AnimationId
 Class AnimationController : Instance
@@ -885,6 +885,7 @@ Class TextButton : GuiButton
 	Property Enum<Font> TextButton.Font
 	Property Enum<FontSize> TextButton.FontSize [<📁> LoadOnly] [NotReplicated] [Deprecated]
 	Property float TextButton.LineHeight
+	Property bool TextButton.RichText
 	Property string TextButton.Text
 	Property Vector2 TextButton.TextBounds  [ReadOnly] [NotReplicated]
 	Property BrickColor TextButton.TextColor [<📁> LoadOnly] [Hidden] [NotReplicated] [Deprecated]
@@ -918,6 +919,7 @@ Class TextLabel : GuiLabel
 	Property Enum<Font> TextLabel.Font
 	Property Enum<FontSize> TextLabel.FontSize [<📁> LoadOnly] [NotReplicated] [Deprecated]
 	Property float TextLabel.LineHeight
+	Property bool TextLabel.RichText
 	Property string TextLabel.Text
 	Property Vector2 TextLabel.TextBounds  [ReadOnly] [NotReplicated]
 	Property BrickColor TextLabel.TextColor [<📁> LoadOnly] [Hidden] [NotReplicated] [Deprecated]
@@ -970,6 +972,7 @@ Class TextBox : GuiObject
 	Property float TextBox.LineHeight
 	Property Color3 TextBox.PlaceholderColor3
 	Property string TextBox.PlaceholderText
+	Property bool TextBox.RichText
 	Property string TextBox.Text
 	Property Vector2 TextBox.TextBounds  [ReadOnly] [NotReplicated]
 	Property BrickColor TextBox.TextColor [<📁> LoadOnly] [Hidden] [NotReplicated] [Deprecated]
@@ -1002,7 +1005,6 @@ Class VideoFrame : GuiObject
 	Property double VideoFrame.TimePosition  [NotReplicated]
 	Property Content VideoFrame.Video
 	Property float VideoFrame.Volume
-	Function Dictionary VideoFrame:GetInfo()
 	Function void VideoFrame:Pause()
 	Function void VideoFrame:Play()
 	Event VideoFrame.DidLoop(string video)
@@ -1678,6 +1680,7 @@ Class MemStorageService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Instance MemStorageService:BindAndFire(string key, Function callback) {RobloxScriptSecurity}
 	Function void MemStorageService:Fire(string key, string value = "") {RobloxScriptSecurity}
 	Function string MemStorageService:GetItem(string key, string defaultValue = "") {RobloxScriptSecurity}
+	Function Map MemStorageService:GetTable() {RobloxScriptSecurity}
 	Function bool MemStorageService:HasItem(string key) {RobloxScriptSecurity}
 	Function bool MemStorageService:RemoveItem(string key) {RobloxScriptSecurity}
 	Function void MemStorageService:SetItem(string key, string value = "") {RobloxScriptSecurity}
@@ -1722,16 +1725,12 @@ Class NetworkMarker : Instance [NotCreatable] [NotBrowsable]
 Class NetworkPeer : Instance [NotCreatable] [NotBrowsable]
 	Function void NetworkPeer:SetOutgoingKBPSLimit(int limit) {PluginSecurity}
 Class NetworkClient : NetworkPeer [NotCreatable] [Service] [NotReplicated]
-	Property string NetworkClient.Ticket
 	Event NetworkClient.ConnectionAccepted(string peer, Instance replicator)
 	Event NetworkClient.ConnectionFailed(string peer, int code, string reason)
 	Event NetworkClient.ConnectionRejected(string peer)
 Class NetworkServer : NetworkPeer [NotCreatable] [Service] [NotReplicated]
-	Property int NetworkServer.Port [<💾> SaveOnly] [ReadOnly] [NotReplicated]
 Class NetworkReplicator : Instance [NotCreatable] [NotReplicated]
-	Function void NetworkReplicator:CloseConnection() {LocalUserSecurity}
 	Function Instance NetworkReplicator:GetPlayer()
-	Function string NetworkReplicator:GetRakStatsString(int verbosityLevel = 0) {PluginSecurity}
 Class ClientReplicator : NetworkReplicator [NotCreatable] [NotReplicated]
 	Function void ClientReplicator:RequestRCCProfilerData(int frameRate, int timeFrame) {RobloxScriptSecurity}
 	Function void ClientReplicator:RequestServerStats(bool request) {RobloxScriptSecurity}
@@ -1741,26 +1740,16 @@ Class ServerReplicator : NetworkReplicator [NotCreatable] [NotReplicated]
 Class NetworkSettings : Instance [NotCreatable] [Service] [NotBrowsable]
 	Property bool NetworkSettings.RenderStreamedRegions
 	Property bool NetworkSettings.ShowActiveAnimationAsset
-	Property int NetworkSettings.DataMtuAdjust
-	Property Enum<PacketPriority> NetworkSettings.DataSendPriority  [Hidden] [NotReplicated]
 	Property int NetworkSettings.ExtraMemoryUsed {PluginSecurity} [Hidden] [NotReplicated]
 	Property float NetworkSettings.FreeMemoryMBytes {PluginSecurity} [Hidden] [ReadOnly] [NotReplicated]
 	Property double NetworkSettings.IncommingReplicationLag
 	Property bool NetworkSettings.PrintFilters
-	Property bool NetworkSettings.PrintInstances
 	Property bool NetworkSettings.PrintJoinSizeBreakdown
 	Property bool NetworkSettings.PrintPhysicsErrors
-	Property bool NetworkSettings.PrintSplitMessage
 	Property bool NetworkSettings.PrintStreamInstanceQuota
 	Property bool NetworkSettings.PrintTouches
 	Property bool NetworkSettings.TrackDataTypes
 	Property bool NetworkSettings.TrackPhysicsDetails
-	Property float NetworkSettings.DataSendRate
-	Property int NetworkSettings.PreferredClientPort
-	Property double NetworkSettings.ReceiveRate
-	Property float NetworkSettings.TouchSendRate
-	Property int NetworkSettings.PhysicsMtuAdjust
-	Property Enum<PacketPriority> NetworkSettings.PhysicsSendPriority  [Hidden] [NotReplicated]
 	Property bool NetworkSettings.HttpProxyEnabled {✏️RobloxScriptSecurity}
 	Property string NetworkSettings.HttpProxyURL {✏️RobloxScriptSecurity}
 Class NoCollisionConstraint : Instance
@@ -2542,6 +2531,7 @@ Class ScriptDebugger : Instance [NotCreatable]
 	Event ScriptDebugger.WatchRemoved(Instance watch)
 Class ScriptService : Instance [NotCreatable] [Service]
 Class Selection : Instance [NotCreatable] [Service]
+	Property Instance Selection.ActiveInstance {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
 	Function Objects Selection:Get() {PluginSecurity}
 	Function void Selection:Set(Objects selection) {PluginSecurity}
 	Event Selection.SelectionChanged()
@@ -2893,6 +2883,8 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property Color3 Studio.Text Color
 	Property Color3 Studio.Warning Color
 	Property Color3 Studio.Whitespace Color
+	Property Color3 Studio.Active Color
+	Property Color3 Studio.Active Hover Over Color
 	Property bool Studio.Animate Hover Over
 	Property Enum<HoverAnimateSpeed> Studio.Hover Animate Speed
 	Property Color3 Studio.Hover Over Color
@@ -2915,6 +2907,7 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property Instance StudioService.HoverInstance {RobloxScriptSecurity} [<📁> LoadOnly] [NotReplicated]
 	Property string StudioService.InstalledPluginData {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
 	Property float StudioService.RotateIncrement  [ReadOnly] [NotReplicated]
+	Property bool StudioService.ShowActiveInstanceHighlight {RobloxScriptSecurity} [<📁> LoadOnly] [NotReplicated]
 	Property bool StudioService.ShowConstraintDetails  [ReadOnly] [NotReplicated]
 	Property bool StudioService.UseLocalSpace [<📁> LoadOnly] [NotReplicated]
 	Property Instance StudioService.ActiveScript  [ReadOnly] [NotReplicated]
@@ -2960,13 +2953,13 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 Class StudioTheme : Instance [NotCreatable] [NotReplicated]
 	Function Color3 StudioTheme:GetColor(Enum<StudioStyleGuideColor> styleguideitem, Enum<StudioStyleGuideModifier> modifier = "Default") {PluginSecurity}
 	Function string StudioTheme:GetPath(string assetid, Enum<StudioStyleGuideModifier> modifier = "Default") {PluginSecurity}
-Class SurfaceAppearance : Instance [Deprecated]
-	Property Enum<AlphaMode> SurfaceAppearance.AlphaMode {RobloxSecurity} [Deprecated]
-	Property Content SurfaceAppearance.ColorMap {LocalUserSecurity} [Deprecated]
-	Property Content SurfaceAppearance.MetalnessMap {LocalUserSecurity} [Deprecated]
-	Property Content SurfaceAppearance.NormalMap {LocalUserSecurity} [Deprecated]
-	Property Content SurfaceAppearance.RoughnessMap {LocalUserSecurity} [Deprecated]
-	Property Content SurfaceAppearance.TexturePack {LocalUserSecurity} [Deprecated]
+Class SurfaceAppearance : Instance
+	Property Enum<AlphaMode> SurfaceAppearance.AlphaMode {LocalUserSecurity}
+	Property Content SurfaceAppearance.ColorMap {LocalUserSecurity}
+	Property Content SurfaceAppearance.MetalnessMap {LocalUserSecurity}
+	Property Content SurfaceAppearance.NormalMap {LocalUserSecurity}
+	Property Content SurfaceAppearance.RoughnessMap {LocalUserSecurity}
+	Property Content SurfaceAppearance.TexturePack {RobloxSecurity} [Hidden]
 Class TaskScheduler : Instance [NotCreatable] [Service]
 	Property Enum<ThreadPoolConfig> TaskScheduler.ThreadPoolConfig
 	Property double TaskScheduler.SchedulerDutyCycle [<💾> SaveOnly] [ReadOnly] [NotReplicated]
@@ -3371,6 +3364,7 @@ Class VirtualInputManager : Instance [Service]
 	Function void VirtualInputManager:StartRecording() {RobloxScriptSecurity}
 	Function void VirtualInputManager:StopRecording() {RobloxScriptSecurity}
 	Function void VirtualInputManager:sendRobloxEvent(string namespace, string detail, string detailType) {RobloxScriptSecurity}
+	Function void VirtualInputManager:sendThemeChangeEvent(string themeName) {RobloxScriptSecurity}
 	Event VirtualInputManager.PlaybackCompleted(string additionalLuaState) {RobloxScriptSecurity}
 	Event VirtualInputManager.RecordingCompleted(string result) {RobloxScriptSecurity}
 Class VirtualUser : Instance [NotCreatable] [Service] [NotReplicated]
@@ -4819,6 +4813,8 @@ Enum StudioStyleGuideColor
 	EnumItem StudioStyleGuideColor.DialogButtonBorder : 88
 	EnumItem StudioStyleGuideColor.DialogMainButton : 89
 	EnumItem StudioStyleGuideColor.DialogMainButtonText : 90
+	EnumItem StudioStyleGuideColor.InfoBarWarningBackground : 91
+	EnumItem StudioStyleGuideColor.InfoBarWarningText : 92
 Enum StudioStyleGuideModifier
 	EnumItem StudioStyleGuideModifier.Default : 0
 	EnumItem StudioStyleGuideModifier.Selected : 1

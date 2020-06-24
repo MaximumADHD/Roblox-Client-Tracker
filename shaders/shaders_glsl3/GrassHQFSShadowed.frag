@@ -3,8 +3,10 @@
 #extension GL_ARB_shading_language_include : require
 #include <Globals.h>
 #include <LightShadowGPUTransform.h>
+#include <GrassPerFrameParams.h>
 uniform vec4 CB0[52];
 uniform vec4 CB8[24];
+uniform vec4 CB2[2];
 uniform sampler2D ShadowAtlasTexture;
 uniform sampler3D LightMapTexture;
 uniform sampler3D LightGridSkylightTexture;
@@ -14,7 +16,6 @@ in vec4 VARYING0;
 in vec3 VARYING1;
 in vec3 VARYING2;
 in vec4 VARYING3;
-in vec3 VARYING4;
 out vec4 _entryPointOutput;
 
 void main()
@@ -48,7 +49,7 @@ void main()
     float f24 = mix(f5, mix(min((f14 <= f18) ? 1.0 : clamp(((f19 / (f19 + (f20 * f20))) - 0.20000000298023223876953125) * 1.25, 0.0, 1.0), (f15 <= f21) ? 1.0 : clamp(((f22 / (f22 + (f23 * f23))) - 0.20000000298023223876953125) * 1.25, 0.0, 1.0)), f5, clamp((length(VARYING1 - CB0[7].xyz) * CB0[45].y) - (CB0[45].x * CB0[45].y), 0.0, 1.0)), CB0[46].x);
     vec3 f25 = textureLod(PrefilteredEnvTexture, vec4(-(CB0[7].xyz - VARYING1), 0.0).xyz, max(CB0[13].y, VARYING0.w) * 5.0).xyz;
     bvec3 f26 = bvec3(CB0[13].w != 0.0);
-    _entryPointOutput = vec4(sqrt(clamp(mix(vec3(f26.x ? CB0[14].xyz.x : f25.x, f26.y ? CB0[14].xyz.y : f25.y, f26.z ? CB0[14].xyz.z : f25.z), ((min((f3.xyz * (f3.w * 120.0)).xyz + (CB0[8].xyz + (CB0[9].xyz * f4.x)), vec3(CB0[16].w)) + (VARYING2 * f24)) * VARYING4) + ((((VARYING4 * clamp(VARYING3.z * pow(VARYING3.x, 3.0), 0.0, 1.0)) + vec3(pow(clamp(VARYING3.y, 0.0, 1.0), 12.0) * VARYING3.w)) * f24) * CB0[10].xyz), vec3(VARYING0.w)) * CB0[15].y, vec3(0.0), vec3(1.0))), 1.0);
+    _entryPointOutput = vec4(sqrt(clamp(mix(vec3(f26.x ? CB0[14].xyz.x : f25.x, f26.y ? CB0[14].xyz.y : f25.y, f26.z ? CB0[14].xyz.z : f25.z), ((min((f3.xyz * (f3.w * 120.0)).xyz + (CB0[8].xyz + (CB0[9].xyz * f4.x)), vec3(CB0[16].w)) + (VARYING2 * f24)) * CB2[0].xyz) + ((((CB2[0].xyz * clamp(VARYING3.z * pow(VARYING3.x, 3.0), 0.0, 1.0)) + vec3(pow(clamp(VARYING3.y, 0.0, 1.0), 12.0) * VARYING3.w)) * f24) * CB0[10].xyz), vec3(VARYING0.w)) * CB0[15].y, vec3(0.0), vec3(1.0))), 1.0);
 }
 
 //$$ShadowAtlasTexture=s1

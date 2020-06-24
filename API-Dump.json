@@ -1177,6 +1177,9 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "Deprecated"
+                    ],
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "string"
@@ -1205,7 +1208,10 @@
                         "Category": "Primitive",
                         "Name": "void"
                     },
-                    "Security": "None"
+                    "Security": "None",
+                    "Tags": [
+                        "Deprecated"
+                    ]
                 }
             ],
             "MemoryCategory": "Instances",
@@ -15686,6 +15692,23 @@
                 {
                     "Category": "Text",
                     "MemberType": "Property",
+                    "Name": "RichText",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Text",
+                    "MemberType": "Property",
                     "Name": "Text",
                     "Security": {
                         "Read": "None",
@@ -16246,6 +16269,23 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "string"
+                    }
+                },
+                {
+                    "Category": "Text",
+                    "MemberType": "Property",
+                    "Name": "RichText",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
                     }
                 },
                 {
@@ -17065,6 +17105,23 @@
                     }
                 },
                 {
+                    "Category": "Text",
+                    "MemberType": "Property",
+                    "Name": "RichText",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "SelectionStart",
@@ -17672,17 +17729,6 @@
                         "Category": "Primitive",
                         "Name": "float"
                     }
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "GetInfo",
-                    "Parameters": [
-                    ],
-                    "ReturnType": {
-                        "Category": "Group",
-                        "Name": "Dictionary"
-                    },
-                    "Security": "None"
                 },
                 {
                     "MemberType": "Function",
@@ -29540,6 +29586,17 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "GetTable",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Map"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "HasItem",
                     "Parameters": [
                         {
@@ -30256,23 +30313,6 @@
         {
             "Members": [
                 {
-                    "Category": "Authentication",
-                    "MemberType": "Property",
-                    "Name": "Ticket",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "string"
-                    }
-                },
-                {
                     "MemberType": "Event",
                     "Name": "ConnectionAccepted",
                     "Parameters": [
@@ -30347,27 +30387,6 @@
         },
         {
             "Members": [
-                {
-                    "Category": "Data",
-                    "MemberType": "Property",
-                    "Name": "Port",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": false,
-                        "CanSave": true
-                    },
-                    "Tags": [
-                        "ReadOnly",
-                        "NotReplicated"
-                    ],
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "int"
-                    }
-                }
             ],
             "MemoryCategory": "Instances",
             "Name": "NetworkServer",
@@ -30382,17 +30401,6 @@
             "Members": [
                 {
                     "MemberType": "Function",
-                    "Name": "CloseConnection",
-                    "Parameters": [
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "void"
-                    },
-                    "Security": "LocalUserSecurity"
-                },
-                {
-                    "MemberType": "Function",
                     "Name": "GetPlayer",
                     "Parameters": [
                     ],
@@ -30401,25 +30409,6 @@
                         "Name": "Instance"
                     },
                     "Security": "None"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "GetRakStatsString",
-                    "Parameters": [
-                        {
-                            "Default": "0",
-                            "Name": "verbosityLevel",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "int"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "string"
-                    },
-                    "Security": "PluginSecurity"
                 }
             ],
             "MemoryCategory": "Instances",
@@ -30535,61 +30524,6 @@
                 {
                     "Category": "Data",
                     "MemberType": "Property",
-                    "Name": "DataMtuAdjust",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "int"
-                    }
-                },
-                {
-                    "Category": "Data",
-                    "MemberType": "Property",
-                    "Name": "DataSendPriority",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": false,
-                        "CanSave": false
-                    },
-                    "Tags": [
-                        "Hidden",
-                        "NotReplicated"
-                    ],
-                    "ValueType": {
-                        "Category": "Enum",
-                        "Name": "PacketPriority"
-                    }
-                },
-                {
-                    "Category": "Network",
-                    "MemberType": "Property",
-                    "Name": "DataSendRate",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "float"
-                    }
-                },
-                {
-                    "Category": "Data",
-                    "MemberType": "Property",
                     "Name": "ExtraMemoryUsed",
                     "Security": {
                         "Read": "PluginSecurity",
@@ -30682,81 +30616,9 @@
                     }
                 },
                 {
-                    "Category": "Physics",
-                    "MemberType": "Property",
-                    "Name": "PhysicsMtuAdjust",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "int"
-                    }
-                },
-                {
-                    "Category": "Physics",
-                    "MemberType": "Property",
-                    "Name": "PhysicsSendPriority",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": false,
-                        "CanSave": false
-                    },
-                    "Tags": [
-                        "Hidden",
-                        "NotReplicated"
-                    ],
-                    "ValueType": {
-                        "Category": "Enum",
-                        "Name": "PacketPriority"
-                    }
-                },
-                {
-                    "Category": "Network",
-                    "MemberType": "Property",
-                    "Name": "PreferredClientPort",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "int"
-                    }
-                },
-                {
                     "Category": "Diagnostics",
                     "MemberType": "Property",
                     "Name": "PrintFilters",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    }
-                },
-                {
-                    "Category": "Diagnostics",
-                    "MemberType": "Property",
-                    "Name": "PrintInstances",
                     "Security": {
                         "Read": "None",
                         "Write": "None"
@@ -30807,23 +30669,6 @@
                 {
                     "Category": "Diagnostics",
                     "MemberType": "Property",
-                    "Name": "PrintSplitMessage",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    }
-                },
-                {
-                    "Category": "Diagnostics",
-                    "MemberType": "Property",
                     "Name": "PrintStreamInstanceQuota",
                     "Security": {
                         "Read": "None",
@@ -30853,23 +30698,6 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "bool"
-                    }
-                },
-                {
-                    "Category": "Network",
-                    "MemberType": "Property",
-                    "Name": "ReceiveRate",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "double"
                     }
                 },
                 {
@@ -30904,23 +30732,6 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "bool"
-                    }
-                },
-                {
-                    "Category": "Network",
-                    "MemberType": "Property",
-                    "Name": "TouchSendRate",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "float"
                     }
                 },
                 {
@@ -35455,7 +35266,7 @@
                             }
                         },
                         {
-                            "Default": "RaycastParams{IgnoreWater=false, FilterDescendantsInstances={}}",
+                            "Default": "RaycastParams{IgnoreWater=false, CollisionGroup=Default, FilterDescendantsInstances={}}",
                             "Name": "raycastParams",
                             "Type": {
                                 "Category": "DataType",
@@ -45619,6 +45430,27 @@
         {
             "Members": [
                 {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "ActiveInstance",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "Instance"
+                    }
+                },
+                {
                     "MemberType": "Function",
                     "Name": "Get",
                     "Parameters": [
@@ -50399,6 +50231,40 @@
         {
             "Members": [
                 {
+                    "Category": "Tools",
+                    "MemberType": "Property",
+                    "Name": "Active Color",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Color3"
+                    }
+                },
+                {
+                    "Category": "Tools",
+                    "MemberType": "Property",
+                    "Name": "Active Hover Over Color",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Color3"
+                    }
+                },
+                {
                     "Category": "General",
                     "MemberType": "Property",
                     "Name": "Always Save Script Changes",
@@ -52099,6 +51965,26 @@
                 {
                     "Category": "Data",
                     "MemberType": "Property",
+                    "Name": "ShowActiveInstanceHighlight",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
                     "Name": "ShowConstraintDetails",
                     "Security": {
                         "Read": "None",
@@ -52311,7 +52197,7 @@
                             }
                         },
                         {
-                            "Default": "RaycastParams{IgnoreWater=false, FilterDescendantsInstances={}}",
+                            "Default": "RaycastParams{IgnoreWater=false, CollisionGroup=Default, FilterDescendantsInstances={}}",
                             "Name": "raycastParams",
                             "Type": {
                                 "Category": "DataType",
@@ -52925,8 +52811,8 @@
                     "MemberType": "Property",
                     "Name": "AlphaMode",
                     "Security": {
-                        "Read": "RobloxSecurity",
-                        "Write": "RobloxSecurity"
+                        "Read": "LocalUserSecurity",
+                        "Write": "LocalUserSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -53010,13 +52896,16 @@
                     "MemberType": "Property",
                     "Name": "TexturePack",
                     "Security": {
-                        "Read": "LocalUserSecurity",
-                        "Write": "LocalUserSecurity"
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "Hidden"
+                    ],
                     "ValueType": {
                         "Category": "DataType",
                         "Name": "Content"
@@ -53025,10 +52914,7 @@
             ],
             "MemoryCategory": "Instances",
             "Name": "SurfaceAppearance",
-            "Superclass": "Instance",
-            "Tags": [
-                "Deprecated"
-            ]
+            "Superclass": "Instance"
         },
         {
             "Members": [
@@ -60470,6 +60356,24 @@
                     "Security": "RobloxScriptSecurity"
                 },
                 {
+                    "MemberType": "Function",
+                    "Name": "sendThemeChangeEvent",
+                    "Parameters": [
+                        {
+                            "Name": "themeName",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
                     "MemberType": "Event",
                     "Name": "PlaybackCompleted",
                     "Parameters": [
@@ -66879,6 +66783,14 @@
                 {
                     "Name": "DialogMainButtonText",
                     "Value": 90
+                },
+                {
+                    "Name": "InfoBarWarningBackground",
+                    "Value": 91
+                },
+                {
+                    "Name": "InfoBarWarningText",
+                    "Value": 92
                 }
             ],
             "Name": "StudioStyleGuideColor"

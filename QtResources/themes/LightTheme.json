@@ -421,6 +421,14 @@
             "DialogMainButtonText": {
                 "Default": "#FFFFFF"
             }
+        }, {
+			"InfoBarWarningBackground" : {
+				"Default" : "#FDFBAC"
+			}
+        }, {
+			"InfoBarWarningText" : {
+				"Default" : "#000000"
+			}
         }
     ],
   "Paths": [

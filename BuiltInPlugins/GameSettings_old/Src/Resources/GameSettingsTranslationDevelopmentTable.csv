@@ -20,6 +20,7 @@ Studio.GameSettings.General.ButtonRetry,Retry, ,Retry
 Studio.GameSettings.General.SettingsFailedToLoad,Failed to load settings for page, ,Failed to load settings for page
 Studio.GameSettings.General.SettingsInsufficientPermission,Only the game owner can edit these settings, ,Only the game owner can edit these settings
 Studio.GameSettings.General.CategoryBasicInfo,Basic Info, ,Basic Info
+Studio.GameSettings.General.CategorySecurity,Security, ,Security
 Studio.GameSettings.General.CategoryAvatar,Avatar, ,Avatar
 Studio.GameSettings.General.CategoryWorld,World, ,World
 Studio.GameSettings.General.CategoryOptions,Options, ,Options
@@ -301,3 +302,7 @@ Studio.GameSettings.Monetization.VIPServersPriceChangeWarning,Warning: Changing 
 Studio.GameSettings.Monetization.PrivateServersPriceChangeWarning,Warning: Changing the price of Private Servers will cancel all existing subscriptions., ,Warning: Changing the price of Private Servers will cancel all existing subscriptions.
 Studio.GameSettings.Monetization.PaidAccessHint,"Private Servers must not be enabled, and the game must be public to enable Paid Access.", ,"Private Servers must not be enabled, and the game must be public to enable Paid Access."
 Studio.GameSettings.Monetization.PrivateServersHint,"Paid Access must not be enabled, and the game must be public to enable Private Servers.", ,"Paid Access must not be enabled, and the game must be public to enable Private Servers."
+Studio.GameSettings.Security.EnableThirdPartyPurchases,Allow Third party Sales, ,Allow Third party Sales
+Studio.GameSettings.Security.EnableThirdPartyPurchasesDescription,"By enabling, players can purchase items provided by third parties.", ,"By enabling, players can purchase items provided by third parties."
+Studio.GameSettings.Security.EnableThirdPartyTeleports,Allow Cross Game Teleport, ,Allow Cross Game Teleport
+Studio.GameSettings.Security.EnableThirdPartyTeleportsDescription,"By enabling, players can be teleported to other games. This setting does not apply to all places within the same universe.", ,"By enabling, players can be teleported to other games. This setting does not apply to all places within the same universe."

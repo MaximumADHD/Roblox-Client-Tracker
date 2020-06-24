@@ -49,7 +49,7 @@ Studio.App.AutoSaveDialog.NotShutProperly,,This means that Roblox Studio was not
 Studio.App.AutoSaveDialog.OpenEnd,,"Once an auto-recovered file is loaded, it will not be deleted until the file is re-saved with a different file name.","Once an auto-recovered file is loaded, it will not be deleted until the file is re-saved with a different file name."
 Studio.App.AutoSaveDialog.OpenRobloxFile,,Open Roblox File,Open Roblox File
 Studio.App.AutoSaveDialog.OpenStart1,,<font size=%1><b><i>Open</i></b></font> will open the file. You can choose which file to load if there is more than one file.,<font size=%1><b><i>Open</i></b></font> will open the file. You can choose which file to load if there is more than one file.
-Studio.App.AutoSaveDialog.RobloxPlaceFiles,,Roblox Places Files (*.rbxl),Roblox Places Files (*.rbxl)
+Studio.App.AutoSaveDialog.RobloxPlaceFiles,"NOTE TO LOCALIZERS: Do not translate the parentheses (), whatever is inside the parentheses, or any other special characters, use ASCII instead.",Roblox Places Files (*.rbxl),Roblox Places Files (*.rbxl)
 Studio.App.AutoSaveDialog.Title,,Auto-Recovery,Auto-Recovery
 Studio.App.AutoSaveDialog.WantToLoad,,Do you want to load the auto-recovered file?,Do you want to load the auto-recovered file?
 Studio.App.AutocompleteMenu.MoreChildrenItemTextFmt1,,%1 more children...,%1 more children...
@@ -65,6 +65,8 @@ Studio.App.BetaFeatures.AutoUpdateTitle,,Auto Update on Packages,Auto Update on 
 Studio.App.BetaFeatures.AvatarLoadingBetaDescription,,Improves the ordering of events fired when avatars are loaded to be more consistent and easier for developers to use,Improves the ordering of events fired when avatars are loaded to be more consistent and easier for developers to use
 Studio.App.BetaFeatures.AvatarLoadingBetaTitle,,New Avatar Loading Signal Ordering,New Avatar Loading Signal Ordering
 Studio.App.BetaFeatures.BetaFeatures,title for Beta Features feature,Beta Features,Beta Features
+Studio.App.BetaFeatures.BreakpointPropagationDescription,,Breakpoints now work across DataModels.  Users no longer need to worry about what instance of a script they have open when using breakpoints.,Breakpoints now work across DataModels.  Users no longer need to worry about what instance of a script they have open when using breakpoints.
+Studio.App.BetaFeatures.BreakpointPropagationTitle,,Breakpoint Replication Beta,Breakpoint Replication Beta
 Studio.App.BetaFeatures.CSGv2SmoothingDescription,,Use the SmoothAngle property on CSG part to define threshold angle and smooth normals.,Use the SmoothAngle property on CSG part to define threshold angle and smooth normals.
 Studio.App.BetaFeatures.CSGv2SmoothingTitle,,Normal smoothing Beta,Normal smoothing Beta
 Studio.App.BetaFeatures.CloudLoadFailedFmt1,error fetching BF from cloud,Failed to load beta features from cloud: %1,Failed to load beta features from cloud: %1
@@ -75,6 +77,8 @@ Studio.App.BetaFeatures.CouldBeUnstable,,Note: Beta features could be unstable r
 Studio.App.BetaFeatures.Details,,Details,Details
 Studio.App.BetaFeatures.EnableLuauTypeCheckingDescription,,Enables new script analysis features,Enables new script analysis features
 Studio.App.BetaFeatures.EnableLuauTypeCheckingTitle,,Enable New Lua Script Analysis,Enable New Lua Script Analysis
+Studio.App.BetaFeatures.GameManagementDescription,,Enable game management features in Game Settings. Find Game Settings on the “Home” tab.,Enable game management features in Game Settings. Find Game Settings on the “Home” tab.
+Studio.App.BetaFeatures.GameManagementTitle,,Game Management,Game Management
 Studio.App.BetaFeatures.InsertObjectStreamliningDescription,,Enables a new unified workflow for inserting objects.,Enables a new unified workflow for inserting objects.
 Studio.App.BetaFeatures.InsertObjectStreamliningTitle,,Insert Object Streamlining,Insert Object Streamlining
 Studio.App.BetaFeatures.LearnMoreTooltip,,Learn More,Learn More
@@ -92,6 +96,7 @@ Studio.App.BetaFeatures.PhysicsSleepImprovementsDescription,,Set of changes that
 Studio.App.BetaFeatures.PhysicsSleepImprovementsTitle,,Physics Sleep Behavior Improvements.,Physics Sleep Behavior Improvements.
 Studio.App.BetaFeatures.RestartStudioTitle,,Restart Studio,Restart Studio
 Studio.App.BetaFeatures.RestartWarning,,Beta features will not be activated until you restart Studio,Beta features will not be activated until you restart Studio
+Studio.App.BetaFeatures.RichTextTitle,,Rich Text Beta,Rich Text Beta
 Studio.App.BetaFeatures.SaveToCloudV2Description,,Create new games in the cloud automatically.,Create new games in the cloud automatically.
 Studio.App.BetaFeatures.SaveToCloudV2Title,,New Games in the Cloud,New Games in the Cloud
 Studio.App.BetaFeatures.SelectFeaturesToActivate,,Select beta features to activate,Select beta features to activate
@@ -102,8 +107,11 @@ Studio.App.BetaFeatures.SupportPluginDebuggingDescription,,Set `Plugin Debugging
 Studio.App.BetaFeatures.SupportPluginDebuggingTitle,,Plugin Debugging,Plugin Debugging
 Studio.App.BetaFeatures.SurfaceJoinChangesDescription,,"Remove the 'Surface' Join Mode, all surfaces create ManualWelds.","Remove the 'Surface' Join Mode, all surfaces create ManualWelds."
 Studio.App.BetaFeatures.SurfaceJoinChangesTitle,,Surface Join Behavior Change,Surface Join Behavior Change
+Studio.App.BetaFeatures.TexturePacksDescription,,Unlocks PBR texture properties on SurfaceAppearance Instances.,Unlocks PBR texture properties on SurfaceAppearance Instances.
+Studio.App.BetaFeatures.TexturePacksTitle,,Advanced SurfaceAppearance Textures,Advanced SurfaceAppearance Textures
 Studio.App.BetaFeatures.TryCoolFeatures,,Try out cool new Studio features! Your feedback is invaluable to us as we move forward towards building a powerful imagination platform.,Try out cool new Studio features! Your feedback is invaluable to us as we move forward towards building a powerful imagination platform.
 Studio.App.BetaFeatures.TryCoolFeaturesWithWarning,,Try out cool new Studio features before they are released to everyone! Please be aware that Beta features could be unstable. Your feedback is invaluable to us as we move towards building the imagination platform.,Try out cool new Studio features before they are released to everyone! Please be aware that Beta features could be unstable. Your feedback is invaluable to us as we move towards building the imagination platform.
+Studio.App.BetaFeatures.UICornerDescription,,Enable rich text parsing and rendering in xml format.,Enable rich text parsing and rendering in xml format.
 Studio.App.BetaFeatures.UICornerDescription,,A UIComponent that modifies the shape of corners of parent GuiObject.,A UIComponent that modifies the shape of corners of parent GuiObject.
 Studio.App.BetaFeatures.UICornerTitle,,UICorner Beta,UICorner Beta
 Studio.App.BetaFeatures.WhatsNewWindowDescription,,Open up a scrolling window that shows all of the recent updates to Roblox Studio,Open up a scrolling window that shows all of the recent updates to Roblox Studio
@@ -136,8 +144,8 @@ Studio.App.BulkImportController.BusySplitting,,Already busy mesh splitting. Plea
 Studio.App.BulkImportController.CouldNotStart,,Could not start mesh splitting. Please restart Studio or contact support if the problem persists.,Could not start mesh splitting. Please restart Studio or contact support if the problem persists.
 Studio.App.BulkImportController.EmptyListToSpliut,,Got an empty list of assets to split. Please try again or contact support if the problem persists.,Got an empty list of assets to split. Please try again or contact support if the problem persists.
 Studio.App.BulkImportController.GotEmptyList,,Got an empty list of files to import. Please try again or contact support if the problem persists.,Got an empty list of files to import. Please try again or contact support if the problem persists.
-Studio.App.BulkImportController.ImagesSupportedTypes1,,Images (%1),Images (%1)
-Studio.App.BulkImportController.MeshesSupportedTypes1,,Meshes (%1),Meshes (%1)
+Studio.App.BulkImportController.ImagesSupportedTypes1,"NOTE TO LOCALIZERS: Do not translate the parentheses (), whatever is inside the parentheses, or any other special characters, use ASCII instead.",Images (%1),Images (%1)
+Studio.App.BulkImportController.MeshesSupportedTypes1,"NOTE TO LOCALIZERS: Do not translate the parentheses (), whatever is inside the parentheses, or any other special characters, use ASCII instead.",Meshes (%1),Meshes (%1)
 Studio.App.BulkImportController.TooManyFiles1,,You cannot import more than %1 files at a time.,You cannot import more than %1 files at a time.
 Studio.App.BulkImportController.TooManyFiles2,,You cannot import more than %1 assets at a time. The %2 file(s) you selected exceeds the limit. Please re-select file to import.,You cannot import more than %1 assets at a time. The %2 file(s) you selected exceeds the limit. Please re-select file to import.
 Studio.App.BulkImportController.TooManyToSplit,,You cannot split more than %1 files at a time.,You cannot split more than %1 files at a time.
@@ -363,11 +371,19 @@ Studio.App.EmulatorMainWidget.XBox360,,XBox360,XBox360
 Studio.App.EmulatorMainWidget.XBoxOne,,XBoxOne,XBoxOne
 Studio.App.EmulatorMainWidget.iOS,,iOS,iOS
 Studio.App.EntityProperties.NetworkFailedOperation,,"Operation failed. Please check your network connection and try again. If the error persists, contact Customer Support","Operation failed. Please check your network connection and try again. If the error persists, contact Customer Support"
+Studio.App.FBXMeshImporter.ContainsRiggingData,Warning message that displays if a user tries to import a 3D mesh that contains animation data.,Animation data detected! Studio does not support animation data. You may experience issues if the mesh is dependent on the initial position of the animation data.,Animation data detected! Studio does not support animation data. You may experience issues if the mesh is dependent on the initial position of the animation data.
+Studio.App.FBXMeshImporter.MeshHasNoVertices,Error message that displays if a user tries to import a 3D mesh that has no vertices.,Your mesh has no vertices! Please check the validity of your mesh and try again.,Your mesh has no vertices! Please check the validity of your mesh and try again.
+Studio.App.FBXMeshImporter.MeshHasTooManyTriangles2,"Error message that displays if a user tries to import a 3D mesh that has too many faces (aka triangles). First argument is the max limit of triangles, second argument is the amount of triangles that were in the uploaded mesh.",Your mesh has too many triangles! Limit is %1. Your mesh has %2.,Your mesh has too many triangles! Limit is %1. Your mesh has %2.
+Studio.App.FBXMeshImporter.MultipleMeshes,"Warning message that appears if a user tries to import a 3D mesh file that contains multiple meshes. Studio reacts to this by joining the meshes together, but this could mess up the textures of the mesh.","Multiple meshes detected! The meshes were joined together, and textures may now be incorrect.","Multiple meshes detected! The meshes were joined together, and textures may now be incorrect."
+Studio.App.FBXMeshImporter.MultipleTextures,"Warning message that appears if a user tries to import a 3D mesh that contains multiple textures. Studio only allows one of these textures, but this may result in the texture not looking correct.",Multiple textures detected! We only allow one texture per MeshPart which may now result in the mesh texture not looking correct.,Multiple textures detected! We only allow one texture per MeshPart which may now result in the mesh texture not looking correct.
 Studio.App.FBXRigBuilder.CantFindDataModel,,Failed to import animations for rig: Unable to find DataModel,Failed to import animations for rig: Unable to find DataModel
 Studio.App.FBXRigBuilder.CantFindWorkspace,,Unable to find Workspace,Unable to find Workspace
 Studio.App.FBXRigBuilder.CantFindWorkspaceLong,,Failed to import animations for rig: Unable to find Workspace,Failed to import animations for rig: Unable to find Workspace
 Studio.App.FBXRigBuilder.FbxRigMeshUploadError,,FBX Rig Mesh Upload Error,FBX Rig Mesh Upload Error
+Studio.App.FBXRigBuilder.FileIsEmpty,Error message that displays if the mesh file that a user tried importing into their game has no contents.,The selected file is empty!,The selected file is empty!
 Studio.App.FBXRigBuilder.IssueImportingTexture,,Issue importing texture,Issue importing texture
+Studio.App.FBXRigBuilder.RigHasTooManyTriangles2,"Error message that displays if a user tries to import a 3D rig that has too many faces (aka triangles). First argument is the max limit of triangles, second argument is the amount of triangles that were in the uploaded rig.",Your rig has too many triangles! Limit is %1. Your rig has %2.,Your rig has too many triangles! Limit is %1. Your rig has %2.
+Studio.App.FBXRigBuilder.RigMeshHasTooManyTriangles3,"Error message that displays if one of the meshes in a 3D rig that a user uploaded has too many triangles. First argument is the name of the specific mesh, second argument is the max limit of triangles, and third argument is the amount of triangles that were in the mesh.",%1 has too many triangles! Limit is %2. Your mesh has %3.,%1 has too many triangles! Limit is %2. Your mesh has %3.
 Studio.App.FBXRigBuilder.TooManyRequests,,"Uploading avatar texture failed. API returned too many requests, please try again later.","Uploading avatar texture failed. API returned too many requests, please try again later."
 Studio.App.FBXRigBuilder.UnableToFindDatamodel,,Unable to find DataModel,Unable to find DataModel
 Studio.App.FBXRigBuilder.UploadingAvatarMeshFailed,,Uploading avatar mesh failed.,Uploading avatar mesh failed.
@@ -457,8 +473,8 @@ Studio.App.GoToLineDialog.LineNumber,,Line number:,Line number:
 Studio.App.GradientEditor.Time,,Time,Time
 Studio.App.IDEGameSettingsLinkDefinition.GameSettingsNotAvailable,,Game Settings not available,Game Settings not available
 Studio.App.IDEGameSettingsLinkDefinition.OpenGameSettings,,Open Game Settings,Open Game Settings
-Studio.App.IdeDoc.AllRobloxFilesFileFilter,Roblox IDE Doc,All Roblox Files(*rbxl *rbxlx *%1);; Roblox Place Files(*.rbxl);; Roblox XML Place Files(*.rbxlx);; Roblox Project File(*.%1),All Roblox Files(*rbxl *rbxlx *%1);; Roblox Place Files(*.rbxl);; Roblox XML Place Files(*.rbxlx);; Roblox Project File(*.%1)
-Studio.App.IdeDoc.AllRobloxPlaceFilesFileFilter,Roblox IDE Doc,All Roblox Place Files(*rbxl *rbxlx);; Roblox Place Files(*.rbxl);; Roblox XML Place Files(*.rbxlx),All Roblox Place Files(*rbxl *rbxlx);; Roblox Place Files(*.rbxl);; Roblox XML Place Files(*.rbxlx)
+Studio.App.IdeDoc.AllRobloxFilesFileFilter,"Roblox IDE Doc. NOTE TO LOCALIZERS: Do not translate the parentheses (), whatever is inside the parentheses, or any other special characters, use ASCII instead.",All Roblox Files(*rbxl *rbxlx *%1);; Roblox Place Files(*.rbxl);; Roblox XML Place Files(*.rbxlx);; Roblox Project File(*.%1),All Roblox Files(*rbxl *rbxlx *%1);; Roblox Place Files(*.rbxl);; Roblox XML Place Files(*.rbxlx);; Roblox Project File(*.%1)
+Studio.App.IdeDoc.AllRobloxPlaceFilesFileFilter,"Roblox IDE Doc. NOTE TO LOCALIZERS: Do not translate the parentheses (), whatever is inside the parentheses, or any other special characters, use ASCII instead.",All Roblox Place Files(*rbxl *rbxlx);; Roblox Place Files(*.rbxl);; Roblox XML Place Files(*.rbxlx),All Roblox Place Files(*rbxl *rbxlx);; Roblox Place Files(*.rbxl);; Roblox XML Place Files(*.rbxlx)
 Studio.App.IdeDoc.AnimationFilesFBX,Roblox IDE Doc,Animation Files (*fbx),Animation Files (*fbx)
 Studio.App.IdeDoc.AudioDisabledGoToServerAudioBehaviorToChange,Roblox IDE Doc,Audio has been disabled. Please go to File->Settings->Studio and then Server Audio Behavior to change this.,Audio has been disabled. Please go to File->Settings->Studio and then Server Audio Behavior to change this.
 Studio.App.IdeDoc.AutoRecoveryFileCreated1,Roblox IDE Doc,%1 auto-recovery file was created,%1 auto-recovery file was created
@@ -511,7 +527,7 @@ Studio.App.IdeDoc.NoFBXFileSelected,Roblox IDE Doc,No FBX file selected,No FBX f
 Studio.App.IdeDoc.NoRigWasPassedAsFirstArgument,Roblox IDE Doc,No rig was passed as first argument to ImportFbxAnimation,No rig was passed as first argument to ImportFbxAnimation
 Studio.App.IdeDoc.NotSavingChanges,Roblox IDE Doc,Not Saving Changes,Not Saving Changes
 Studio.App.IdeDoc.ObjFiletypeExpected1,Roblox IDE Doc,Obj filetype expected. '%1' received.,Obj filetype expected. '%1' received.
-Studio.App.IdeDoc.ObjModelFiletype,Roblox IDE Doc,Object Model (*.obj),Object Model (*.obj)
+Studio.App.IdeDoc.ObjModelFiletype,"Roblox IDE Doc. NOTE TO LOCALIZERS: Do not translate the parentheses (), whatever is inside the parentheses, or any other special characters, use ASCII instead.",Object Model (*.obj),Object Model (*.obj)
 Studio.App.IdeDoc.OpenAnimationFBXFile,Roblox IDE Doc,Open Animation FBX File,Open Animation FBX File
 Studio.App.IdeDoc.OpenPlaceFileReadOnly,Roblox IDE Doc,File is in use or is not writable. Opened for read-only.,File is in use or is not writable. Opened for read-only.
 Studio.App.IdeDoc.OpeningPlace,Roblox IDE Doc,Opening Place,Opening Place
@@ -525,8 +541,8 @@ Studio.App.IdeDoc.PublishedFailed1,Roblox IDE Doc,%1 publish failed.,%1 publish 
 Studio.App.IdeDoc.PublishedSuccessfully1,Roblox IDE Doc,%1 was published successfully.,%1 was published successfully.
 Studio.App.IdeDoc.RequestedAssetTypeNotSupported,Roblox IDE Doc,Requested asset type is not supported.,Requested asset type is not supported.
 Studio.App.IdeDoc.RequestingAccess,Roblox IDE Doc,Requesting access...,Requesting access...
-Studio.App.IdeDoc.RobloxPlaceFilesAndXMLPlaceFiles,Roblox IDE Doc,Roblox Place Files (*.rbxl);;Roblox XML Place Files (*.rbxlx),Roblox Place Files (*.rbxl);;Roblox XML Place Files (*.rbxlx)
-Studio.App.IdeDoc.RobloxPlaceSaveFileFilter,Roblox IDE Doc,Roblox Place Files(*.rbxl);; Roblox XML Place Files(*.rbxlx),Roblox Place Files(*.rbxl);; Roblox XML Place Files(*.rbxlx)
+Studio.App.IdeDoc.RobloxPlaceFilesAndXMLPlaceFiles,"Roblox IDE Doc. NOTE TO LOCALIZERS: Do not translate the parentheses (), whatever is inside the parentheses, or any other special characters, use ASCII instead.",Roblox Place Files (*.rbxl);;Roblox XML Place Files (*.rbxlx),Roblox Place Files (*.rbxl);;Roblox XML Place Files (*.rbxlx)
+Studio.App.IdeDoc.RobloxPlaceSaveFileFilter,"Roblox IDE Doc. NOTE TO LOCALIZERS: Do not translate the parentheses (), whatever is inside the parentheses, or any other special characters, use ASCII instead.",Roblox Place Files(*.rbxl);; Roblox XML Place Files(*.rbxlx),Roblox Place Files(*.rbxl);; Roblox XML Place Files(*.rbxlx)
 Studio.App.IdeDoc.SaveFailed1,Roblox IDE Doc,%1 save failed.,%1 save failed.
 Studio.App.IdeDoc.SaveFileFailure,Roblox IDE Doc,Save File Failure,Save File Failure
 Studio.App.IdeDoc.SavedSuccessfully1,Roblox IDE Doc,%1 was saved successfully.,%1 was saved successfully.
@@ -582,6 +598,7 @@ Studio.App.InsertObjectCategory.Scripting,,Scripting,Scripting
 Studio.App.InsertObjectCategory.Sounds,,Sounds,Sounds
 Studio.App.InsertObjectCategory.Uncategorized,,Uncategorized,Uncategorized
 Studio.App.InsertObjectCategory.Values,,Values,Values
+Studio.App.InsertObjectCategory.World,,World,World
 Studio.App.InsertObjectUtils.CannotBeChildOf,,%s cannot be a child of %s,%s cannot be a child of %s
 Studio.App.InsertObjectWidget.EmptyFrequentlyUsedList,,Objects are not usually inserted under this parent.,Objects are not usually inserted under this parent.
 Studio.App.InsertObjectWidget.ExpandTooltip,,Toggle expanded view,Toggle expanded view
@@ -907,6 +924,8 @@ Studio.App.PluginPermissionsDialog.Deny,,Deny,Deny
 Studio.App.PluginPermissionsDialog.HttpDomainPermission,,Allow plugin %1 to access %2?,Allow plugin %1 to access %2?
 Studio.App.PluginPermissionsDialog.Warning,,You can always revoke this permission from Plugins > Plugin Management.,You can always revoke this permission from Plugins > Plugin Management.
 Studio.App.Properties.TitleFmt1,title of properties widget,Properties - %1,Properties - %1
+Studio.App.Property.ActiveColor,,Active Color,Active Color
+Studio.App.Property.ActiveHoverOverColor,,Active Hover Over Color,Active Hover Over Color
 Studio.App.Property.AdditionalCoreIncludeDirs,,Additional Core Include Dirs,Additional Core Include Dirs
 Studio.App.Property.AllowSleep,,Allow Sleep,Allow Sleep
 Studio.App.Property.AlwaysSaveScriptChanges,,Always Save Script Changes,Always Save Script Changes
@@ -933,6 +952,7 @@ Studio.App.Property.AutoClosingBrackets,,Auto Closing Brackets,Auto Closing Brac
 Studio.App.Property.AutoClosingQuotes,,Auto Closing Quotes,Auto Closing Quotes
 Studio.App.Property.AutoFRMLevel,,Auto FRM Level,Auto FRM Level
 Studio.App.Property.AutoIndent,,Auto Indent,Auto Indent
+Studio.App.Property.AutoIndentRule,,Auto Indent Rule,Auto Indent Rule
 Studio.App.Property.AutoRecoveryEnabled,,Auto-Recovery Enabled,Auto-Recovery Enabled
 Studio.App.Property.AutoRecoveryIntervalMinutes,,Auto-Recovery Interval (Minutes),Auto-Recovery Interval (Minutes)
 Studio.App.Property.AutoRecoveryPath,,Auto-Recovery Path,Auto-Recovery Path
@@ -1090,6 +1110,7 @@ Studio.App.Property.VideoQuality,,Video Quality,Video Quality
 Studio.App.Property.WaitingThreadsBudget,,Waiting Threads Budget,Waiting Threads Budget
 Studio.App.Property.WarningColor,,Warning Color,Warning Color
 Studio.App.Property.WhitespaceColor,,Whitespace Color,Whitespace Color
+Studio.App.PropertyEnum.Absolute,,Absolute,Absolute
 Studio.App.PropertyEnum.Aggregate,,Aggregate,Aggregate
 Studio.App.PropertyEnum.Always,,Always,Always
 Studio.App.PropertyEnum.Auto,,Auto,Auto
@@ -1147,6 +1168,7 @@ Studio.App.PropertyEnum.PerCore3,,Per Core 3,Per Core 3
 Studio.App.PropertyEnum.PerCore4,,Per Core 4,Per Core 4
 Studio.App.PropertyEnum.Precise,,Precise,Precise
 Studio.App.PropertyEnum.Prompt,,Prompt,Prompt
+Studio.App.PropertyEnum.Relative,,Relative,Relative
 Studio.App.PropertyEnum.Report,,Report,Report
 Studio.App.PropertyEnum.Roblox,,Roblox,Roblox
 Studio.App.PropertyEnum.RobloxGame,,Roblox Game,Roblox Game
@@ -1172,17 +1194,23 @@ Studio.App.PropertyEnum.Vertical,,Vertical,Vertical
 Studio.App.PropertyEnum.VeryFast,,Very Fast,Very Fast
 Studio.App.PropertyEnum.VerySlow,,Very Slow,Very Slow
 Studio.App.PropertyEnum.Vulkan,,Vulkan,Vulkan
+Studio.App.PropertyItems.CouldNotFindTexture1,Error message that displays if Studio can't find a texture file at a certain path. The argument of this string is the path to the supposed texture file.,"Could not find texture %1. Please verify that the texture is located at that location, or in the same folder as the FBX/OBJ file","Could not find texture %1. Please verify that the texture is located at that location, or in the same folder as the FBX/OBJ file"
 Studio.App.PropertyItems.DefaultTheme,,Default,Default
 Studio.App.PropertyItems.ImportingMesh,,Importing mesh...,Importing mesh...
 Studio.App.PropertyItems.InvertMeshFaces,,The mesh you are importing contains odd number negative scales. Would you like to invert mesh faces?,The mesh you are importing contains odd number negative scales. Would you like to invert mesh faces?
 Studio.App.PropertyItems.LoadStringEnbledWarning,,Activating the <b>%1</b> property might make your game vulnerable to exploits. Are you sure you want to enable this?,Activating the <b>%1</b> property might make your game vulnerable to exploits. Are you sure you want to enable this?
+Studio.App.PropertyItems.MeshImportErrors,Message which displays if there were multiple errors when importing a mesh,There were errors while importing your Mesh,There were errors while importing your Mesh
 Studio.App.PropertyItems.MoveTheMesh,,Your mesh contains location data. Would you like to move your mesh to the given location?,Your mesh contains location data. Would you like to move your mesh to the given location?
+Studio.App.PropertyItems.NoVerticesFound,Message which displays in an error pop-up window that tells the user that they are trying to import a mesh with no vertices,No vertices found! Please check the mesh you are attempting to import and try again.,No vertices found! Please check the mesh you are attempting to import and try again.
 Studio.App.PropertyItems.NotAValidLocation1,,"""%1"" is not a valid content location.
 Please enter an asset ID or a correctly formatted asset url.","""%1"" is not a valid content location.
 Please enter an asset ID or a correctly formatted asset url."
 Studio.App.PropertyItems.PackageVersionFailedMessage,,Unable to perform this action.,Unable to perform this action.
 Studio.App.PropertyItems.ResizeTheMesh,,The mesh you are importing is very large. Would you like to resize the mesh?,The mesh you are importing is very large. Would you like to resize the mesh?
 Studio.App.PropertyItems.RevertPackageConfirmation,,Are you sure you want to revert this package to version %1 ?,Are you sure you want to revert this package to version %1 ?
+Studio.App.PropertyItems.ThereWasAnIssueImportingMesh,Message that displays if a mesh importation was successful but there was a warning,There was an issue when importing the mesh,There was an issue when importing the mesh
+Studio.App.PropertyItems.ThereWereIssuesImportingMesh,Message that displays if a mesh importation was successful but there were multiple warnings,There were issues when importing the mesh,There were issues when importing the mesh
+Studio.App.PropertyItems.UpdatingMesh,Message which displays in the bottom left of the screen when a MeshPart's mesh is being updated,Updating mesh...,Updating mesh...
 Studio.App.PropertyTooltip.Rulers,,Vertical lines drawn at the specified column numbers. These can be used as a guide to code length limits.,Vertical lines drawn at the specified column numbers. These can be used as a guide to code length limits.
 Studio.App.PropertyTooltip.ShowWhitespace,,Display spaces and tabs in the Script Editor.,Display spaces and tabs in the Script Editor.
 Studio.App.QDebuggerClient.Breakpoint,,Breakpoint,Breakpoint
@@ -1751,11 +1779,11 @@ Studio.App.RobloxKeyboardConfigWidget.Name,,Name,Name
 Studio.App.RobloxKeyboardConfigWidget.SearchActions,,Search Actions,Search Actions
 Studio.App.RobloxKeyboardConfigWidget.Shortcut,,Shortcut,Shortcut
 Studio.App.RobloxMainWindow.Configure,,Configure,Configure
-Studio.App.RobloxMainWindow.OpenAllFilesPattern,,All Files (*.*),All Files (*.*)
+Studio.App.RobloxMainWindow.OpenAllFilesPattern,"NOTE TO LOCALIZERS: Do not translate the parentheses (), whatever is inside the parentheses, or any other special characters, use ASCII instead.",All Files (*.*),All Files (*.*)
 Studio.App.RobloxMainWindow.OpenMeshFile,,Open Mesh File,Open Mesh File
-Studio.App.RobloxMainWindow.OpenMeshFilesPattern,,Mesh Files (*.fbx *.obj),Mesh Files (*.fbx *.obj)
+Studio.App.RobloxMainWindow.OpenMeshFilesPattern,"NOTE TO LOCALIZERS: Do not translate the parentheses (), whatever is inside the parentheses, or any other special characters, use ASCII instead.",Mesh Files (*.fbx *.obj),Mesh Files (*.fbx *.obj)
 Studio.App.RobloxMainWindow.OpenScriptFile,,Open Script File,Open Script File
-Studio.App.RobloxMainWindow.OpenScriptsPattern,,Scripts (*.rbxs *.lua *.txt),Scripts (*.rbxs *.lua *.txt)
+Studio.App.RobloxMainWindow.OpenScriptsPattern,"NOTE TO LOCALIZERS: Do not translate the parentheses (), whatever is inside the parentheses, or any other special characters, use ASCII instead.",Scripts (*.rbxs *.lua *.txt),Scripts (*.rbxs *.lua *.txt)
 Studio.App.RobloxMainWindow.PluginInstallation,,Plugin Installation,Plugin Installation
 Studio.App.RobloxMainWindow.SaveAs,,Save As,Save As
 Studio.App.RobloxMouseConfig.ContextMenu,,Context Menu,Context Menu
@@ -1771,6 +1799,7 @@ Studio.App.RobloxOutputRibbonDropdown.Edit,,Edit,Edit
 Studio.App.RobloxOutputRibbonDropdown.Error,,Error,Error
 Studio.App.RobloxOutputRibbonDropdown.Information,,Information,Information
 Studio.App.RobloxOutputRibbonDropdown.Log,,Log,Log
+Studio.App.RobloxOutputRibbonDropdown.LogMode,,Log Mode,Log Mode
 Studio.App.RobloxOutputRibbonDropdown.None,,None,None
 Studio.App.RobloxOutputRibbonDropdown.NumberContexts1,,%1 Contexts,%1 Contexts
 Studio.App.RobloxOutputRibbonDropdown.NumberMessages1,,%1 Messages,%1 Messages
@@ -2091,12 +2120,12 @@ Studio.App.RobloxSettingsDialog.SaveChanges,,Save Changes,Save Changes
 Studio.App.RobloxSettingsDialog.SettingsModificationWarning,,<p>Changing settings may make Roblox unstable.</p><p>We recommend that you don't change any non-Studio settings unless instructed to do so by a Roblox engineer.</p>,<p>Changing settings may make Roblox unstable.</p><p>We recommend that you don't change any non-Studio settings unless instructed to do so by a Roblox engineer.</p>
 Studio.App.RobloxSettingsDialog.SettingsSearch,,Search...,Search...
 Studio.App.RobloxStudioVerbs.DirtyPublishWarning1,,There are uncommitted script changes that will not be published with the place. Do you want to publish anyway? <a href=%1>Learn more</a>,There are uncommitted script changes that will not be published with the place. Do you want to publish anyway? <a href=%1>Learn more</a>
-Studio.App.RobloxStudioVerbs.InsertModelExtFile,,Roblox Model Files (*.rbxm *.rbxmx),Roblox Model Files (*.rbxm *.rbxmx)
-Studio.App.RobloxStudioVerbs.InsertModelExtScript,,Roblox Model Files (*.rbxm *.rbxmx);;Scripts (*.rbxs *.lua *.txt),Roblox Model Files (*.rbxm *.rbxmx);;Scripts (*.rbxs *.lua *.txt)
+Studio.App.RobloxStudioVerbs.InsertModelExtFile,"NOTE TO LOCALIZERS: Do not translate the parentheses (), whatever is inside the parentheses, or any other special characters, use ASCII instead.",Roblox Model Files (*.rbxm *.rbxmx),Roblox Model Files (*.rbxm *.rbxmx)
+Studio.App.RobloxStudioVerbs.InsertModelExtScript,"NOTE TO LOCALIZERS: Do not translate the parentheses (), whatever is inside the parentheses, or any other special characters, use ASCII instead.",Roblox Model Files (*.rbxm *.rbxmx);;Scripts (*.rbxs *.lua *.txt),Roblox Model Files (*.rbxm *.rbxmx);;Scripts (*.rbxs *.lua *.txt)
 Studio.App.RobloxStudioVerbs.InsertOpenFile,,Open file to Insert,Open file to Insert
 Studio.App.RobloxStudioVerbs.InsertOpenModel,,Open Roblox Model,Open Roblox Model
 Studio.App.RobloxStudioVerbs.LinkedSource,,"Unable to create LinkedSource, see output for details.","Unable to create LinkedSource, see output for details."
-Studio.App.RobloxStudioVerbs.LoadCSVExt,,LocalizationTable CSV (*.csv),LocalizationTable CSV (*.csv)
+Studio.App.RobloxStudioVerbs.LoadCSVExt,"NOTE TO LOCALIZERS: Do not translate the parentheses (), whatever is inside the parentheses, or any other special characters, use ASCII instead.",LocalizationTable CSV (*.csv),LocalizationTable CSV (*.csv)
 Studio.App.RobloxStudioVerbs.LoadCSVFile,,Open LocalizationTable CSV,Open LocalizationTable CSV
 Studio.App.RobloxStudioVerbs.NegationFailed,,Negation failed,Negation failed
 Studio.App.RobloxStudioVerbs.PackageLinkCopy,,Cannot copy selection(s) with PackageLink included!,Cannot copy selection(s) with PackageLink included!
@@ -2113,9 +2142,9 @@ Studio.App.RobloxStudioVerbs.Redo1,,Redo %s,Redo %s
 Studio.App.RobloxStudioVerbs.RemoteDebug,,Remote Debug,Remote Debug
 Studio.App.RobloxStudioVerbs.RemoteDebugSaveFailure,,Remote Debug - save failure,Remote Debug - save failure
 Studio.App.RobloxStudioVerbs.RevealInExplorer,,Reveal In Explorer/Finder,Reveal In Explorer/Finder
-Studio.App.RobloxStudioVerbs.RobloxLuaScripts,,Roblox Lua Scripts (*.lua),Roblox Lua Scripts (*.lua)
-Studio.App.RobloxStudioVerbs.RobloxModelFiles,,Roblox Model Files (*.rbxm),Roblox Model Files (*.rbxm)
-Studio.App.RobloxStudioVerbs.RobloxXmlModelFiles,,Roblox XML Model Files (*.rbxmx),Roblox XML Model Files (*.rbxmx)
+Studio.App.RobloxStudioVerbs.RobloxLuaScripts,"NOTE TO LOCALIZERS: Do not translate the parentheses (), whatever is inside the parentheses, or any other special characters, use ASCII instead.",Roblox Lua Scripts (*.lua),Roblox Lua Scripts (*.lua)
+Studio.App.RobloxStudioVerbs.RobloxModelFiles,"NOTE TO LOCALIZERS: Do not translate the parentheses (), whatever is inside the parentheses, or any other special characters, use ASCII instead.",Roblox Model Files (*.rbxm),Roblox Model Files (*.rbxm)
+Studio.App.RobloxStudioVerbs.RobloxXmlModelFiles,"NOTE TO LOCALIZERS: Do not translate the parentheses (), whatever is inside the parentheses, or any other special characters, use ASCII instead.",Roblox XML Model Files (*.rbxmx),Roblox XML Model Files (*.rbxmx)
 Studio.App.RobloxStudioVerbs.SaveAsPlugin,,Save As Plugin,Save As Plugin
 Studio.App.RobloxStudioVerbs.SavingTo,,Saving to Roblox...,Saving to Roblox...
 Studio.App.RobloxStudioVerbs.ScreenshotSaved,,Screenshot saved! Click here to open screenshot folder.,Screenshot saved! Click here to open screenshot folder.
@@ -2247,7 +2276,7 @@ Studio.App.StudioDataModelLoadUtil.ErrorCannotOpenTCPlaceDueToConflictGlobal,,Gl
 Studio.App.StudioDataModelLoadUtil.ErrorCannotOpenTCPlaceDueToConflictLuobu,,Luobu Studio does not support joining a TeamCreate session with a global Studio developer. Please ask your teammates to download Loubu Studio to use TeamCreate together: www.robloxdev.cn,Luobu Studio does not support joining a TeamCreate session with a global Studio developer. Please ask your teammates to download Loubu Studio to use TeamCreate together: www.robloxdev.cn
 Studio.App.StudioDataModelLoadUtil.ErrorCannotOpenTCPlaceDueToTimeout,,Failed to open the team create place due to timeout,Failed to open the team create place due to timeout
 Studio.App.StudioDataModelLoadUtil.ErrorCannotOpenTCPlaceGeneral,,"Failed to open the team create place, please try again","Failed to open the team create place, please try again"
-Studio.App.StudioDataModelLoadUtil.ErrorCannotOpenTCPlaceWithErrorCode1,,"Failed to open the team create place, please try again. (Error Code: %1)","Failed to open the team create place, please try again. (Error Code: %1)"
+Studio.App.StudioDataModelLoadUtil.ErrorCannotOpenTCPlaceWithErrorCode1,"NOTE TO LOCALIZERS: Do not translate the parentheses (), whatever is inside the parentheses, or any other special characters, use ASCII instead.","Failed to open the team create place, please try again. (Error Code: %1)","Failed to open the team create place, please try again. (Error Code: %1)"
 Studio.App.StudioFlagEditor.AppliesOverridesImmediately,,Saves and immediately applies overrides to running studio instance (unsafe).,Saves and immediately applies overrides to running studio instance (unsafe).
 Studio.App.StudioFlagEditor.CantExportOverrides,,"Error: Could not export overrides.
 There was an error opening the json file for writing. Check Studio logs for more details.","Error: Could not export overrides.
@@ -2263,7 +2292,7 @@ Studio.App.StudioFlagEditor.ExportsAllOverrides,,Exports all current overrides t
 Studio.App.StudioFlagEditor.FlagEditor,,Flag Editor,Flag Editor
 Studio.App.StudioFlagEditor.FlagsApplied,,Flag Overrides Applied,Flag Overrides Applied
 Studio.App.StudioFlagEditor.FlagsHaveBeenApplied,,"Flag overrides changes have been applied dynamically, studio behavior may be unstable until the next restart.","Flag overrides changes have been applied dynamically, studio behavior may be unstable until the next restart."
-Studio.App.StudioFlagEditor.JsonFile,,JSON file (*.json),JSON file (*.json)
+Studio.App.StudioFlagEditor.JsonFile,"NOTE TO LOCALIZERS: Do not translate the parentheses (), whatever is inside the parentheses, or any other special characters, use ASCII instead.",JSON file (*.json),JSON file (*.json)
 Studio.App.StudioFlagEditor.NoLocalOverrides,,No local overrides were found on load. All values shown match the server values.,No local overrides were found on load. All values shown match the server values.
 Studio.App.StudioFlagEditor.SaveChangesCurrentBuild,,Save changes to the current Studio build.,Save changes to the current Studio build.
 Studio.App.StudioFlagEditor.ValuesHighlightedRed,,Values highlighted red were overridden locally on load and may differ from the server values.,Values highlighted red were overridden locally on load and may differ from the server values.
@@ -2486,11 +2515,11 @@ Studio.Internal.RobloxMainWindow.UnableToSave,,Unable To Save,Unable To Save
 Studio.Internal.RobloxMainWindow.UnsavedScripts,,Unsaved Scripts,Unsaved Scripts
 Studio.Internal.RobloxRibbonMainWindow.InternalFeatures,,Roblox Internal,Roblox Internal
 Studio.Internal.RobloxRibbonMainWindow.InternalFeaturesAreEnabled,,Internal Features are enabled,Internal Features are enabled
-Studio.Internal.RobloxRibbonMainWindow.InternalFeaturesMessageBoxContent,,"Internal Features is enabled, because your account is associated with ""roblox.com"" email address.
-Disable internal Features?
-You may go to Settings to re-enable it.","Internal Features is enabled, because your account is associated with ""roblox.com"" email address.
-Disable internal Features?
-You may go to Settings to re-enable it."
+Studio.Internal.RobloxRibbonMainWindow.InternalFeaturesMessageBoxContent,,"Your account is associated with an @roblox.com email address or has Soothsayer permissions. You also have internal-only features turned on.
+Do you want to disable Internal Features? This will make your Studio experience identical to developers.
+You can go to Settings > Studio > Advanced to re-enable Internal Features.","Your account is associated with an @roblox.com email address or has Soothsayer permissions. You also have internal-only features turned on.
+Do you want to disable Internal Features? This will make your Studio experience identical to developers.
+You can go to Settings > Studio > Advanced to re-enable Internal Features."
 Studio.Internal.RobloxRibbonMainWindow.InternalFeaturesRestart,,Restart Roblox Studio,Restart Roblox Studio
 Studio.Internal.RobloxRibbonMainWindow.InternalFeaturesRestartDetails,,Roblox Studio need to restart to disable Internal Features,Roblox Studio need to restart to disable Internal Features
 Studio.Internal.StudioProjectConfig.UnexpectedFieldWarning2,,"The Project File has unexpected fields, they will be ignored. 

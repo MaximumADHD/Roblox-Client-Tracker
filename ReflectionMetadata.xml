@@ -1523,8 +1523,7 @@
       <Properties>
         <string name="Name">SurfaceAppearance</string>
         <string name="ClassCategory">3D Interfaces</string>
-        <bool name="Deprecated">true</bool>
-        <string name="summary">Overrides the visual appearance of a parent MeshPart</string>
+        <string name="summary">Overrides the visual appearance of its parent MeshPart</string>
         <string name="ExplorerOrder">40</string>
         <string name="ExplorerImageIndex">10</string>
       </Properties>
@@ -1532,7 +1531,7 @@
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">AlphaMode</string>
-            <string name="summary">Determines how the ColorMap's alpha channel behaves.</string>
+            <string name="summary">Determines how the ColorMap's alpha channel behaves. Not scriptable at runtime.</string>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
@@ -1557,6 +1556,12 @@
           <Properties>
             <string name="Name">RoughnessMap</string>
             <string name="summary">Grayscale Image ID that determines the roughness of the surface. Not scriptable at runtime.</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">TexturePack</string>
+            <string name="summary">Internal asset link</string>
           </Properties>
         </Item>
       </Item>

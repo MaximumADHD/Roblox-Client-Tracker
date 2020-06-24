@@ -417,6 +417,14 @@
                 "Default": "#FFFFFF",
                 "Disabled": "#666666"
             }
+        }, {
+			"InfoBarWarningBackground" : {
+				"Default" : "#FDFBAC"
+			}
+        }, {
+			"InfoBarWarningText" : {
+				"Default" : "#000000"
+			}
         }
     ],
   "Paths": [

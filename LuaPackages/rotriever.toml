@@ -32,10 +32,10 @@ PurchasePrompt = { git = "https://github.com/Roblox/PurchasePromptScript-Roact",
 
 InGameMenuDependencies = { git = "https://github.rbx.com/Roblox/in-game-menu-dependencies", rev = "master" }
 
-RoactGamepad = "github.com/roblox/roact-gamepad@0.1.0"
+RoactGamepad = "github.com/roblox/roact-gamepad@0.2.1"
 
 [dev_dependencies]
-TestEZ = "github.com/roblox/testez@0.1.1"
+TestEZ = "github.com/roblox/testez@0.3.0"
 
 [patch."https://github.rbx.com/roblox/uiblox"]
 git = "https://github.com/roblox/uiblox"

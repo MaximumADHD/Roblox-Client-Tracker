@@ -413,6 +413,7 @@ RBX
 		ModelCompletenessJob
 		NetworkOwnerJob
 		NetworkPhysicsMegaJob
+		NetworkPhysicsParallelReceiveJob
 		NetworkSendDataMegaJob
 		NetworkStream
 		NewInstanceItem
