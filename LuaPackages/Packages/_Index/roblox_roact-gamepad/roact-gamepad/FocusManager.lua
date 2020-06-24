@@ -1,28 +1,18 @@
---!strict
+--!nonstrict
 -- Manages groups of selectable elements, reacting to selection changes for
 -- individual items and triggering events for group selection changes
 local createSignal = require(script.Parent.createSignal)
+local debugPrint = require(script.Parent.debugPrint)
 
 local FocusManager = {}
 FocusManager.__index = FocusManager
 
-local DEBUG = false
-local function debugPrint(...)
-	if DEBUG then
-		print(...)
-	end
-end
-
-function FocusManager.new(ref, rootNode)
+function FocusManager.new()
 	local self = setmetatable({
 		selectionChangedSignal = createSignal(),
 
-		focusNodeTree = {
-			[rootNode] = {},
-		},
-		allNodes = {
-			[ref] = rootNode,
-		},
+		focusNodeTree = {},
+		allNodes = {},
 
 		engineInterface = nil,
 		focusedLeaf = nil,
@@ -55,7 +45,7 @@ function FocusManager:moveFocusTo(ref)
 	debugPrint("[FOCUS] Move focus to", ref)
 	local node = self.allNodes[ref]
 
-	if node ~= nil then
+	if node ~= nil and not self:isNodeFocused(node) then
 		node:focus()
 	end
 end
@@ -78,17 +68,25 @@ function FocusManager:setSelection(ref)
 	self.engineInterface.setSelection(ref)
 end
 
-function FocusManager:registerChild(parentNode, refKey, childNode)
-	debugPrint("[TREE]  Registering child node", refKey)
-	local parentEntry = self.focusNodeTree[parentNode] or {}
-	parentEntry[refKey] = childNode
-	self.focusNodeTree[parentNode] = parentEntry
-	self.allNodes[refKey] = childNode
+function FocusManager:registerNode(parentNode, refKey, node)
+	if parentNode ~= nil then
+		debugPrint("[TREE ] Registering child node", refKey)
+		local parentEntry = self.focusNodeTree[parentNode] or {}
+		parentEntry[refKey] = node
+		self.focusNodeTree[parentNode] = parentEntry
+	else
+		debugPrint("[TREE ] Registering root node", refKey)
+	end
+
+	self.allNodes[refKey] = node
 end
 
-function FocusManager:deregisterChild(parentNode, refKey)
-	debugPrint("[TREE]  Deregistering child node", refKey)
-	self.focusNodeTree[parentNode][refKey] = nil
+function FocusManager:deregisterNode(parentNode, refKey)
+	debugPrint("[TREE ] Deregistering child node", refKey)
+	if parentNode ~= nil then
+		self.focusNodeTree[parentNode][refKey] = nil
+	end
+
 	self.allNodes[refKey] = nil
 end
 
@@ -129,6 +127,7 @@ function FocusManager:initialize(engineInterface)
 		debugPrint("[EVENT] Selection changed to", selectedInstance)
 
 		-- find the currently-focused node
+		self.focusedLeaf = nil
 		for ref, node in pairs(self.allNodes) do
 			if selectedInstance == ref:getValue() then
 				self.focusedLeaf = node
@@ -171,6 +170,7 @@ function FocusManager:teardown()
 end
 
 function FocusManager:subscribeToSelectionChange(callback)
+	debugPrint("[TREE ] New subscription to selection change event")
 	return self.selectionChangedSignal:subscribe(callback)
 end
 

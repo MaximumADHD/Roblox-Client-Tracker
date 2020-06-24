@@ -5,7 +5,16 @@ return function()
 	local FocusNode = require(script.Parent.FocusNode)
 
 	local MockEngine = require(script.Parent.Test.MockEngine)
-	local createSpy = require(script.Parent.Test.createSpy)
+
+	local function createRootNode(ref)
+		local node = FocusNode.new({
+			[Roact.Ref] = ref,
+		})
+
+		node:attachToTree(nil, function() end)
+
+		return node
+	end
 
 	local function addChildNode(parentNode)
 		local instance = Instance.new("Frame")
@@ -16,7 +25,7 @@ return function()
 			parentFocusNode = parentNode,
 			[Roact.Ref] = childRef,
 		})
-		parentNode:registerChild(childRef, childNode)
+		childNode:attachToTree(parentNode, function() end)
 
 		return childNode, childRef
 	end
@@ -26,7 +35,7 @@ return function()
 			local rootRef, _ = Roact.createBinding(Instance.new("Frame"))
 			local _, engineInterface = MockEngine.new()
 
-			local focusNode = FocusNode.newRoot(rootRef)
+			local focusNode = createRootNode(rootRef)
 			focusNode.focusManager:initialize(engineInterface)
 
 			focusNode:focus()
@@ -37,7 +46,7 @@ return function()
 			local rootRef, _ = Roact.createBinding(Instance.new("Frame"))
 			local _, engineInterface = MockEngine.new()
 
-			local parentNode = FocusNode.newRoot(rootRef)
+			local parentNode = createRootNode(rootRef)
 			local _, childRef = addChildNode(parentNode)
 
 			parentNode.focusManager:initialize(engineInterface)
@@ -46,84 +55,92 @@ return function()
 			expect(engineInterface.getSelection()).to.equal(childRef:getValue())
 		end)
 
-		it("should redirect selection to a child when a non-leaf node's ref gains selection", function()
+		it("should redirect selection to a child when a non-leaf node gains selection", function()
 			local rootRef, _ = Roact.createBinding(Instance.new("Frame"))
 			local mockEngine, engineInterface = MockEngine.new()
 
-			local parentNode = FocusNode.newRoot(rootRef)
+			local parentNode = createRootNode(rootRef)
 			local _, childRef = addChildNode(parentNode)
 
 			parentNode.focusManager:initialize(engineInterface)
-			-- FIXME: We need to set up the initialization a bit better here;
-			-- can we tie this to registering children?
-			parentNode:subscribeToFocusChange(function() end)
 
 			mockEngine:simulateSelectionChanged(rootRef:getValue())
 			expect(engineInterface.getSelection()).to.equal(childRef:getValue())
 		end)
 	end)
 
-	describe("selectionRule behavior", function()
-		it("should not call selectionRule on leaf focus nodes", function()
+	describe("child auto-selection behavior", function()
+		it("should select the provided default when present", function()
 			local rootRef, _ = Roact.createBinding(Instance.new("Frame"))
-			local selectionRuleSpy = createSpy()
 			local _, engineInterface = MockEngine.new()
 
-			local focusNode = FocusNode.newRoot(rootRef, selectionRuleSpy.value)
-			focusNode.focusManager:initialize(engineInterface)
-
-			expect(selectionRuleSpy.callCount).to.equal(0)
-			focusNode:focus()
-			expect(selectionRuleSpy.callCount).to.equal(0)
-		end)
-
-		it("should call selectionRule when a node with children gains focus", function()
-			local rootRef, _ = Roact.createBinding(Instance.new("Frame"))
-			local selectionRuleSpy = createSpy()
-			local _, engineInterface = MockEngine.new()
-
-			local parentNode = FocusNode.newRoot(rootRef, selectionRuleSpy.value)
-			addChildNode(parentNode)
-
-			local focusManager = parentNode.focusManager
-			focusManager:initialize(engineInterface)
-
-			expect(selectionRuleSpy.callCount).to.equal(0)
-			parentNode:focus()
-			expect(selectionRuleSpy.callCount).to.equal(1)
-		end)
-
-		it("should call selectionRule with the previously focused child", function()
-			local rootRef, _ = Roact.createBinding(Instance.new("Frame"))
-			local selectionRuleSpy = createSpy()
-			local _, engineInterface = MockEngine.new()
-
-			local parentNode = FocusNode.newRoot(rootRef, selectionRuleSpy.value)
-			local childNodeA, childRefA = addChildNode(parentNode)
+			local parentNode = createRootNode(rootRef)
+			local childNodeA, _ = addChildNode(parentNode)
 			local childNodeB, childRefB = addChildNode(parentNode)
+			parentNode.defaultChildRef = childRefB
 
 			local focusManager = parentNode.focusManager
 			focusManager:initialize(engineInterface)
-			parentNode:subscribeToFocusChange(function() end)
+
+			parentNode:focus()
+			expect(focusManager:isNodeFocused(childNodeB)).to.equal(true)
 
 			childNodeA:focus()
 			parentNode:focus()
-			expect(selectionRuleSpy.callCount).to.equal(1)
-			selectionRuleSpy:assertCalledWith(childRefA)
+			expect(focusManager:isNodeFocused(childNodeB)).to.equal(true)
+		end)
+
+		it("should restore previous selection when the option is enabled", function()
+			local rootRef, _ = Roact.createBinding(Instance.new("Frame"))
+			local _, engineInterface = MockEngine.new()
+
+			local parentNode = createRootNode(rootRef)
+			local childNodeA, _ = addChildNode(parentNode)
+			local childNodeB, _ = addChildNode(parentNode)
+			parentNode.restorePreviousChildFocus = true
+
+			local focusManager = parentNode.focusManager
+			focusManager:initialize(engineInterface)
+
+			childNodeA:focus()
+			parentNode:focus()
+			expect(focusManager:isNodeFocused(childNodeA)).to.equal(true)
 
 			childNodeB:focus()
 			parentNode:focus()
-			expect(selectionRuleSpy.callCount).to.equal(2)
-			selectionRuleSpy:assertCalledWith(childRefB)
+			expect(focusManager:isNodeFocused(childNodeB)).to.equal(true)
+		end)
+
+		it("should defer to the default child ref when no child was previously focused", function()
+			local rootRef, _ = Roact.createBinding(Instance.new("Frame"))
+			local _, engineInterface = MockEngine.new()
+
+			local parentNode = createRootNode(rootRef)
+			local childNodeA, _ = addChildNode(parentNode)
+			local childNodeB, _ = addChildNode(parentNode)
+			local childNodeC, childRefC = addChildNode(parentNode)
+			parentNode.defaultChildRef = childRefC
+			parentNode.restorePreviousChildFocus = true
+
+			local focusManager = parentNode.focusManager
+			focusManager:initialize(engineInterface)
+
+			parentNode:focus()
+			expect(focusManager:isNodeFocused(childNodeC)).to.equal(true)
+
+			childNodeA:focus()
+			childNodeB:focus()
+			parentNode:focus()
+			expect(focusManager:isNodeFocused(childNodeB)).to.equal(true)
 		end)
 	end)
 
-	describe("default initial selection logic", function()
+	describe("initial selection logic when nothing is specified", function()
 		it("should choose the child with the lowest LayoutOrder", function()
 			local rootRef, _ = Roact.createBinding(Instance.new("Frame"))
 			local _, engineInterface = MockEngine.new()
 
-			local parentNode = FocusNode.newRoot(rootRef)
+			local parentNode = createRootNode(rootRef)
 			local focusManager = parentNode.focusManager
 			focusManager:initialize(engineInterface)
 
@@ -149,7 +166,7 @@ return function()
 			local rootRef, _ = Roact.createBinding(Instance.new("Frame"))
 			local _, engineInterface = MockEngine.new()
 
-			local parentNode = FocusNode.newRoot(rootRef)
+			local parentNode = createRootNode(rootRef)
 			local focusManager = parentNode.focusManager
 			focusManager:initialize(engineInterface)
 

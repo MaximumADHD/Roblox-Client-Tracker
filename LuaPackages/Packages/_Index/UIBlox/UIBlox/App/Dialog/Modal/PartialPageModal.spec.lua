@@ -64,7 +64,7 @@ return function()
 				ModalTitleContainer = Roact.createElement(PartialPageModal, {
 					title = "Title",
 					titleBackgroundImageProps = {
-						image = "rbxasset://textures/ui/LuaApp/graphic/Auth/GridBackground.jpg",
+						image = "rbxassetid://2610133241",
 					},
 					screenSize = Vector2.new(1920, 1080),
 				})

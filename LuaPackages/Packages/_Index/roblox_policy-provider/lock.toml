@@ -10,5 +10,5 @@ dependencies = [
     "Promise lua-promise bbb9e162 git+https://github.rbx.com/roblox/lua-promise#master",
     "Roact roblox/roact 1.3.0 url+https://github.com/roblox/roact",
     "Symbol roblox/lua-symbol 139fdfe6 git+https://github.rbx.com/roblox/lua-symbol#master",
-    "tutils tutils 74574fde git+https://github.rbx.com/roblox/tutils#master",
+    "tutils tutils 0be577db git+https://github.rbx.com/roblox/tutils#master",
 ]

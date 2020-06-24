@@ -7,34 +7,28 @@ local Cryo = require(Packages.Cryo)
 
 local FocusManager = require(script.Parent.FocusManager)
 
-local function identity(value)
-	return value
-end
-
 local FocusNode = {}
 FocusNode.__index = FocusNode
 
-function FocusNode.newRoot(ref, selectionRule)
-	local self = setmetatable({
-		focusManager = nil,
-
-		ref = ref,
-		selectionRule = selectionRule or identity,
-		inputBindings = {},
-		lastFocused = nil,
-	}, FocusNode)
-
-	self.focusManager = FocusManager.new(ref, self)
-
-	return self
-end
-
 function FocusNode.new(navProps)
+	local focusManager
+	if navProps.parentFocusNode ~= nil then
+		focusManager = navProps.parentFocusNode.focusManager
+	else
+		focusManager = FocusManager.new()
+	end
+
+	local restorePreviousChildFocus = false
+	if navProps.restorePreviousChildFocus ~= nil then
+		restorePreviousChildFocus = navProps.restorePreviousChildFocus
+	end
+
 	local self = setmetatable({
-		focusManager = navProps.parentFocusNode.focusManager,
+		focusManager = focusManager,
 		ref = navProps[Roact.Ref],
-		parent = navProps.parentFocusNode,
-		selectionRule = navProps.selectionRule or identity,
+
+		defaultChildRef = navProps.defaultChild,
+		restorePreviousChildFocus = navProps.restorePreviousChildFocus,
 		inputBindings = navProps.inputBindings or {},
 
 		left = navProps.NextSelectionLeft,
@@ -60,7 +54,7 @@ function FocusNode:__findDefaultChildNode()
 
 		-- For each child node, determine whether it or any of its ancestors (up
 		-- to the group) has the LayoutOrder property defined
-		while hostObject ~= groupHostObject do
+		while hostObject ~= groupHostObject and hostObject ~= nil do
 			local layoutOrder = hostObject.LayoutOrder
 
 			-- LayoutOrder == 0 is the default value; in most cases, this
@@ -98,12 +92,10 @@ function FocusNode:focus()
 	if Cryo.isEmpty(children) then
 		self.focusManager:setSelection(self.ref:getValue())
 	else
-		-- If specified by the selection rule, jump to the initial selection
-		local focusTargetRef = self.selectionRule(self.lastFocused)
-		if focusTargetRef ~= nil then
-			if focusTargetRef ~= self.ref then
-				self.focusManager:moveFocusTo(focusTargetRef)
-			end
+		if self.restorePreviousChildFocus and self.lastFocused ~= nil then
+			self.focusManager:moveFocusTo(self.lastFocused)
+		elseif self.defaultChildRef ~= nil then
+			self.focusManager:moveFocusTo(self.defaultChildRef)
 		else
 			local defaultChild = self:__findDefaultChildNode()
 			if defaultChild ~= nil then
@@ -113,36 +105,23 @@ function FocusNode:focus()
 	end
 end
 
-function FocusNode:registerChild(ref, focusNode)
-	self.focusManager:registerChild(self, ref, focusNode)
-end
+function FocusNode:attachToTree(parent, onFocusChanged)
+	self.focusManager:registerNode(parent, self.ref, self)
 
-function FocusNode:deregisterChild(ref)
-	self.focusManager:deregisterChild(self, ref)
-end
-
--- FIXME: The separation of responsibility here is really fuzzy! We should find
--- a way to reflect this logic more clearly in the component, so that FocusNode
--- is just the tool it uses to do these things
-function FocusNode:subscribeToFocusChange(callback)
-	return self.focusManager:subscribeToSelectionChange(function()
+	self.parent = parent
+	self.disconnectSelectionListener = self.focusManager:subscribeToSelectionChange(function()
 		-- Perform focus management operations set up by the FocusNode's owner
 		local focused = self.focusManager:isNodeFocused(self)
-		callback(focused)
+		onFocusChanged(focused)
+
+		if self.parent ~= nil and focused then
+			self.parent.lastFocused = self.ref
+		end
 
 		-- Keep track of the last focused ref so that we can provide it to
 		-- self.props.selectionRule whenever we regain focus
 		local children = self.focusManager:getChildren(self)
 		if not Cryo.isEmpty(children) and focused then
-			-- If we're focused and we have children, track which of our
-			-- children is in focus
-			for ref, child in pairs(children) do
-				if self.focusManager:isNodeFocused(child) then
-					self.lastFocused = ref
-					break
-				end
-			end
-
 			-- For the special-case scenario in which the ref for our group
 			-- gained selection, we follow any established rules to find the
 			-- correct member of the group to bounce selection to, managed in
@@ -152,6 +131,16 @@ function FocusNode:subscribeToFocusChange(callback)
 			end
 		end
 	end)
+end
+
+function FocusNode:detachFromTree(parent)
+	self.focusManager:deregisterNode(parent, self.ref)
+	self.parent = nil
+
+	if self.disconnectSelectionListener ~= nil then
+		self.disconnectSelectionListener()
+		self.disconnectSelectionListener = nil
+	end
 end
 
 return FocusNode

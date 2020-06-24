@@ -5,6 +5,7 @@
 return {
 	checkListConsistency = require(script.checkListConsistency),
 	deepEqual = require(script.deepEqual),
+	deepCopy = require(script.deepCopy),
 	equalKey = require(script.equalKey),
 	fieldCount = require(script.fieldCount),
 	listDifferences = require(script.listDifferences),

@@ -21,6 +21,11 @@ local function getPath(module, root)
 	local path = {}
 	local last = module
 
+	if last.Name == "init.spec" then
+		-- Use the directory's node for init.spec files.
+		last = last.Parent
+	end
+
 	while last ~= nil and last ~= root do
 		table.insert(path, stripSpecSuffix(last.Name))
 		last = last.Parent
@@ -30,37 +35,48 @@ local function getPath(module, root)
 	return path
 end
 
+local function toStringPath(tablePath)
+	local stringPath = ""
+	local first = true
+	for _, element in ipairs(tablePath) do
+		if first then
+			stringPath = element
+			first = false
+		else
+			stringPath = element .. " " .. stringPath
+		end
+	end
+	return stringPath
+end
+
+function TestBootstrap:getModulesImpl(root, modules, current)
+	modules = modules or {}
+	current = current or root
+
+	if isSpecScript(current) then
+		local method = require(current)
+		local path = getPath(current, root)
+		local pathString = toStringPath(path)
+
+		table.insert(modules, {
+			method = method,
+			path = path,
+			pathStringForSorting = pathString:lower()
+		})
+	end
+end
+
 --[[
 	Find all the ModuleScripts in this tree that are tests.
 ]]
 function TestBootstrap:getModules(root)
 	local modules = {}
 
-	if isSpecScript(root) then
-		local method = require(root)
-		local path = getPath(root, root)
-
-		table.insert(modules, {
-			method = method,
-			path = path
-		})
-	end
+	self:getModulesImpl(root, modules)
 
 	for _, child in ipairs(root:GetDescendants()) do
-		if isSpecScript(child) then
-			local method = require(child)
-			local path = getPath(child, root)
-
-			table.insert(modules, {
-				method = method,
-				path = path
-			})
-		end
+		self:getModulesImpl(root, modules, child)
 	end
-
-	table.sort(modules, function(a, b)
-		return a.path[#a.path]:lower() < b.path[#b.path]:lower()
-	end)
 
 	return modules
 end
@@ -85,7 +101,6 @@ function TestBootstrap:run(roots, reporter, otherOptions)
 
 	otherOptions = otherOptions or {}
 	local showTimingInfo = otherOptions["showTimingInfo"] or false
-	local noXpcallByDefault = otherOptions["noXpcallByDefault"] or false
 	local testNamePattern = otherOptions["testNamePattern"]
 	local extraEnvironment = otherOptions["extraEnvironment"] or {}
 
@@ -106,7 +121,7 @@ function TestBootstrap:run(roots, reporter, otherOptions)
 
 	local afterModules = tick()
 
-	local plan = TestPlanner.createPlan(modules, noXpcallByDefault, testNamePattern, extraEnvironment)
+	local plan = TestPlanner.createPlan(modules, testNamePattern, extraEnvironment)
 	local afterPlan = tick()
 
 	local results = TestRunner.runPlan(plan)

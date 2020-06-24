@@ -142,7 +142,7 @@ local function mapStateToProps(state)
 	return {
 		descriptionKey = descriptionKey,
 		descriptionParams = descriptionParams,
-		showPrice = isFree and canPurchase and promptState ~= PromptState.AdultConfirmation,
+		showPrice = not isFree and canPurchase and promptState ~= PromptState.AdultConfirmation,
 		price = price,
 	}
 end

@@ -18,6 +18,7 @@ local IconSize = require(AppRoot.Constant.IconSize)
 local PartialPageModal = require(ModalRoot.PartialPageModal)
 
 local BODY_CONTENTS_WIDTH = 253
+local BODY_CONTENTS_MARGIN = 20
 
 local EducationalModal = Roact.PureComponent:extend("EducationalModal")
 
@@ -106,11 +107,6 @@ function EducationalModal:init()
 	self.contentSize, self.changeContentSize = Roact.createBinding(Vector2.new(0, 0))
 end
 
-function EducationalModal:getContentLeftMargin()
-	local contentWidth = PartialPageModal:getMiddleContentWidth(self.props.screenSize.X)
-	return math.max((contentWidth - BODY_CONTENTS_WIDTH) / 2, 0)
-end
-
 function EducationalModal:render()
 	local props = self.props
 
@@ -153,12 +149,12 @@ function EducationalModal:render()
 	}, {
 		BodyContents = Roact.createElement(FitFrameVertical, {
 			BackgroundTransparency = 1,
+			HorizontalAlignment = Enum.HorizontalAlignment.Center,
 			width = UDim.new(1, 0),
 			contentPadding = UDim.new(0, 28),
 			margin = {
-				top = 24,
-				bottom = 36,
-				left = self:getContentLeftMargin(),
+				top = BODY_CONTENTS_MARGIN,
+				bottom = BODY_CONTENTS_MARGIN,
 			},
 			[Roact.Change.AbsoluteSize] = function(rbx)
 				self.changeContentSize(rbx.AbsoluteSize)

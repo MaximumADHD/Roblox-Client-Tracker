@@ -36,6 +36,20 @@ SlideFromTopToast.defaultProps = {
 	show = true,
 }
 
+local function toastContentEqual(toastContent1, toastContent2)
+	if toastContent1.iconColorStyle ~= toastContent2.iconColorStyle
+		or toastContent1.iconImage ~= toastContent2.iconImage
+		or toastContent1.iconSize ~= toastContent2.iconSize
+		or toastContent1.onActivated ~= toastContent2.onActivated
+		or toastContent1.onDismissed ~= toastContent2.onDismissed
+		or toastContent1.swipeUpDismiss ~= toastContent2.swipeUpDismiss
+		or toastContent1.toastSubtitle ~= toastContent2.toastSubtitle
+		or toastContent1.toastTitle ~= toastContent2.toastTitle then
+		return false
+	end
+	return true
+end
+
 function SlideFromTopToast:init()
 	self.isMounted = false
 
@@ -207,7 +221,7 @@ function SlideFromTopToast:didUpdate(oldProps, oldState)
 			self.stateTable.events.ForceDismiss()
 		end
 	end
-	if oldProps.toastContent ~= self.props.toastContent then
+	if not toastContentEqual(oldProps.toastContent, self.props.toastContent) then
 		-- Toast content updated, need to force dismiss current toast and show the new one
 		self.stateTable.events.ContentChanged({
 			activated = false,

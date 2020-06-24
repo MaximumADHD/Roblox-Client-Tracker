@@ -38,7 +38,7 @@ return function()
 					anchor = Vector2.new(0, 0),
 					onCloseClicked = function() end,
 					titleBackgroundImageProps = {
-						image = "rbxasset://textures/ui/LuaApp/graphic/Auth/GridBackground.jpg",
+						image = "rbxassetid://2610133241",
 					},
 				})
 			})

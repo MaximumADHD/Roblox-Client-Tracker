@@ -11,7 +11,6 @@ TestEnum.TestStatus = {
 }
 
 TestEnum.NodeType = {
-	Try = "Try",
 	Describe = "Describe",
 	It = "It",
 	BeforeAll = "BeforeAll",

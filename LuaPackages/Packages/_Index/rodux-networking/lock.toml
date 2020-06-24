@@ -8,5 +8,5 @@ dependencies = [
     "Freeze freeze f18cf7e5 git+https://github.rbx.com/roblox/freeze#master",
     "Promise lua-promise bbb9e162 git+https://github.rbx.com/roblox/lua-promise#master",
     "Rodux roblox/rodux 1.0.0 url+https://github.com/roblox/rodux",
-    "tutils tutils 74574fde git+https://github.rbx.com/roblox/tutils#master",
+    "tutils tutils 0be577db git+https://github.rbx.com/roblox/tutils#master",
 ]

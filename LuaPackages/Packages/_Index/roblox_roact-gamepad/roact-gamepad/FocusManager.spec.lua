@@ -7,13 +7,26 @@ return function()
 	local MockEngine = require(script.Parent.Test.MockEngine)
 	local createSpy = require(script.Parent.Test.createSpy)
 
+	local function createRootNode(ref)
+		local node = FocusNode.new({
+			[Roact.Ref] = ref,
+		})
+
+		node:attachToTree(nil, function() end)
+
+		return node
+	end
+
 	local function addChildNode(parentNode)
-		local childRef, _ = Roact.createBinding(Instance.new("Frame"))
+		local instance = Instance.new("Frame")
+		instance.Parent = parentNode.ref:getValue()
+
+		local childRef, _ = Roact.createBinding(instance)
 		local childNode = FocusNode.new({
 			parentFocusNode = parentNode,
 			[Roact.Ref] = childRef,
 		})
-		parentNode:registerChild(childRef, childNode)
+		childNode:attachToTree(parentNode, function() end)
 
 		return childNode, childRef
 	end
@@ -21,7 +34,7 @@ return function()
 	describe("event management", function()
 		it("should not fire subscribed signals before it's initialized", function()
 			local ref, _ = Roact.createBinding(Instance.new("Frame"))
-			local focusNode = FocusNode.newRoot(ref)
+			local focusNode = createRootNode(ref)
 
 			local focusManager = focusNode.focusManager
 			local selectionChangeSpy = createSpy()
@@ -35,7 +48,7 @@ return function()
 
 		it("should fire subscribed signals when selection changes occur once initialized", function()
 			local ref, _ = Roact.createBinding(Instance.new("Frame"))
-			local focusNode = FocusNode.newRoot(ref)
+			local focusNode = createRootNode(ref)
 
 			local focusManager = focusNode.focusManager
 			local selectionChangeSpy = createSpy()
@@ -53,7 +66,7 @@ return function()
 	describe("focus logic", function()
 		it("should consider selected objects to be in focus", function()
 			local ref, _ = Roact.createBinding(Instance.new("Frame"))
-			local focusNode = FocusNode.newRoot(ref)
+			local focusNode = createRootNode(ref)
 
 			local _, engineInterface = MockEngine.new()
 			local focusManager = focusNode.focusManager
@@ -66,7 +79,7 @@ return function()
 
 		it("should consider parent nodes of selected objects to be in focus", function()
 			local rootRef, _ = Roact.createBinding(Instance.new("Frame"))
-			local parentNode = FocusNode.newRoot(rootRef)
+			local parentNode = createRootNode(rootRef)
 			local childNode, _ = addChildNode(parentNode)
 
 			local _, engineInterface = MockEngine.new()
@@ -82,7 +95,7 @@ return function()
 
 		it("should change its notion of focus when selection is changed", function()
 			local rootRef, _ = Roact.createBinding(Instance.new("Frame"))
-			local parentNode = FocusNode.newRoot(rootRef)
+			local parentNode = createRootNode(rootRef)
 
 			local childNodeA, _ = addChildNode(parentNode)
 			local childNodeB, childRefB = addChildNode(parentNode)
@@ -102,7 +115,7 @@ return function()
 
 		it("should change its notion of focus when selection changes via the engine", function()
 			local rootRef, _ = Roact.createBinding(Instance.new("Frame"))
-			local parentNode = FocusNode.newRoot(rootRef)
+			local parentNode = createRootNode(rootRef)
 
 			local childNodeA, _ = addChildNode(parentNode)
 			local childNodeB, childRefB = addChildNode(parentNode)
@@ -124,7 +137,7 @@ return function()
 	describe("Input binding", function()
 		it("should only call bound inputs when the element is in focus", function()
 			local rootRef, _ = Roact.createBinding(Instance.new("Frame"))
-			local parentNode = FocusNode.newRoot(rootRef)
+			local parentNode = createRootNode(rootRef)
 
 			local childNodeA, _ = addChildNode(parentNode)
 			local callbackSpyA = createSpy()
@@ -156,7 +169,7 @@ return function()
 
 		it("should allow input bindings to override parent input bindings", function()
 			local rootRef, _ = Roact.createBinding(Instance.new("Frame"))
-			local parentNode = FocusNode.newRoot(rootRef)
+			local parentNode = createRootNode(rootRef)
 			local callbackSpyParent = createSpy()
 			parentNode.inputBindings = {
 				[Enum.KeyCode.ButtonX] = callbackSpyParent.value

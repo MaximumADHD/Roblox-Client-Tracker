@@ -5,5 +5,5 @@ commit = "81a07f1cc6c9ba12a874b9196e32d4a36bbd550b"
 source = "git+https://github.rbx.com/roblox/lua-chat-deps#master"
 dependencies = [
     "RoduxNetworking rodux-networking ce7f5079 git+https://github.rbx.com/roblox/rodux-networking#v1.0.0",
-    "UIBlox UIBlox 01eabc90 git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 59f3aaac git+https://github.com/roblox/uiblox#master",
 ]
