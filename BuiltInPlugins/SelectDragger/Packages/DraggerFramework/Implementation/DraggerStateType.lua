@@ -1,9 +1,9 @@
 
 local StateType = {}
 setmetatable(StateType, {
-    __index = function(self, index)
-        error("Attempt to get invalid StateType `"..tostring(index).."`")
-    end,
+	__index = function(self, index)
+		error("Attempt to get invalid StateType `"..tostring(index).."`")
+	end,
 })
 
 StateType.Ready = "Ready"
@@ -11,5 +11,6 @@ StateType.PendingDraggingParts = "PendingDraggingParts" -- Clicked a part, but h
 StateType.DraggingHandle = "DraggingHandle"
 StateType.DraggingParts = "DraggingParts"
 StateType.DragSelecting = "DragSelecting"
+StateType.DraggingFaceInstance = "DraggingFaceInstance"
 
 return StateType

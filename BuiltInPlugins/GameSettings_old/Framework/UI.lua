@@ -35,6 +35,7 @@ local ScrollingFrame = require(Src.ScrollingFrame)
 local Separator = require(Src.Separator)
 local Slider = require(Src.Slider)
 local TextInput = require(Src.TextInput)
+local InfiniteScrollingFrame = require(Src.InfiniteScrollingFrame)
 
 -- NOTE: Please keep components in alphabetical order
 local UI = strict({
@@ -51,6 +52,7 @@ local UI = strict({
 	DropdownMenu = DropdownMenu,
 	FakeLoadingBar = FakeLoadingBar,
 	HoverArea = HoverArea,
+	InfiniteScrollingFrame = InfiniteScrollingFrame,
 	KeyboardListener = KeyboardListener,
 	LinkText = LinkText,
 	LoadingBar = LoadingBar,

@@ -17,8 +17,8 @@ local StudioService = game:GetService("StudioService")
 
 local FFlagAssetManagerAddPlaceVersionHistoryToContextMenu = game:DefineFastFlag("AssetManagerAddPlaceVerisonHistoryToContextMenu", false)
 local FFlagFixAssetManagerInsertWithLocation = game:DefineFastFlag("FixAssetManagerInsertWithLocation", false)
-local FFlagAssetManagerContextMenuActionFixes = game:DefineFastFlag("AssetManagerContextMenuActionFixes", false)
 local FFlagAssetManagerFixAssetRemoval = game:DefineFastFlag("AssetManagerFixAssetRemoval", false)
+local FFlagOnlyAllowInsertPackageInEdit = game:DefineFastFlag("OnlyAllowInsertPackageInEdit", false)
 
 local EVENT_ID_OPENASSETCONFIG = "OpenAssetConfiguration"
 
@@ -89,13 +89,7 @@ local function createPlaceContextMenu(apiImpl, assetData, contextMenu, localizat
     local state = store:getState()
     local assets = state.AssetManagerReducer.assetsTable.assets
     local selectedAssets = state.AssetManagerReducer.selectedAssets
-    if FFlagAssetManagerContextMenuActionFixes then
-        if not assetData.isRootPlace then
-            contextMenu:AddNewAction("RemoveFromGame", localization:getText("ContextMenu", "RemoveFromGame")).Triggered:connect(function()
-                removeAssets(apiImpl, assetData, assets, selectedAssets, store)
-            end)
-        end
-    else
+    if not assetData.isRootPlace then
         contextMenu:AddNewAction("RemoveFromGame", localization:getText("ContextMenu", "RemoveFromGame")).Triggered:connect(function()
             removeAssets(apiImpl, assetData, assets, selectedAssets, store)
         end)
@@ -121,9 +115,17 @@ local function createPlaceContextMenu(apiImpl, assetData, contextMenu, localizat
 end
 
 local function createPackageContextMenu(assetData, contextMenu, localization, store)
-    contextMenu:AddNewAction("Insert", localization:getText("ContextMenu", "Insert")).Triggered:connect(function()
-        AssetManagerService:InsertPackage(assetData.id)
-    end)
+    if FFlagOnlyAllowInsertPackageInEdit then
+        if RunService:IsEdit() then
+            contextMenu:AddNewAction("Insert", localization:getText("ContextMenu", "Insert")).Triggered:connect(function()
+                AssetManagerService:InsertPackage(assetData.id)
+            end)
+        end
+    else
+        contextMenu:AddNewAction("Insert", localization:getText("ContextMenu", "Insert")).Triggered:connect(function()
+            AssetManagerService:InsertPackage(assetData.id)
+        end)
+    end
     contextMenu:AddNewAction("UpdateAll", localization:getText("ContextMenu", "UpdateAll")).Triggered:connect(function()
         AssetManagerService:UpdateAllPackages(assetData.id)
     end)
@@ -156,14 +158,7 @@ local function createImageContextMenu(apiImpl, assetData, contextMenu, localizat
     contextMenu:AddNewAction("RemoveFromGame", localization:getText("ContextMenu", "RemoveFromGame")).Triggered:connect(function()
         removeAssets(apiImpl, assetData, assets, selectedAssets, store)
     end)
-    if FFlagAssetManagerContextMenuActionFixes then
-        if RunService:IsEdit() then
-            contextMenu:AddNewAction("EditAsset", localization:getText("ContextMenu", "EditAsset")).Triggered:connect(function()
-                MemStorageService:Fire(EVENT_ID_OPENASSETCONFIG,
-                    HttpService:JSONEncode({ id = assetData.id, assetType = Enum.AssetType.Image.Value, }))
-            end)
-        end
-    else
+    if RunService:IsEdit() then
         contextMenu:AddNewAction("EditAsset", localization:getText("ContextMenu", "EditAsset")).Triggered:connect(function()
             MemStorageService:Fire(EVENT_ID_OPENASSETCONFIG,
                 HttpService:JSONEncode({ id = assetData.id, assetType = Enum.AssetType.Image.Value, }))
@@ -198,14 +193,7 @@ local function createMeshPartContextMenu(apiImpl, assetData, contextMenu, locali
     contextMenu:AddNewAction("RemoveFromGame", localization:getText("ContextMenu", "RemoveFromGame")).Triggered:connect(function()
         removeAssets(apiImpl, assetData, assets, selectedAssets, store)
     end)
-    if FFlagAssetManagerContextMenuActionFixes then
-        if RunService:IsEdit() then
-            contextMenu:AddNewAction("EditAsset", localization:getText("ContextMenu", "EditAsset")).Triggered:connect(function()
-                MemStorageService:Fire(EVENT_ID_OPENASSETCONFIG,
-                    HttpService:JSONEncode({ id = assetData.id, assetType = Enum.AssetType.MeshPart.Value, }))
-            end)
-        end
-    else
+    if RunService:IsEdit() then
         contextMenu:AddNewAction("EditAsset", localization:getText("ContextMenu", "EditAsset")).Triggered:connect(function()
             MemStorageService:Fire(EVENT_ID_OPENASSETCONFIG,
                 HttpService:JSONEncode({ id = assetData.id, assetType = Enum.AssetType.MeshPart.Value, }))

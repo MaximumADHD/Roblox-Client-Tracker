@@ -22,7 +22,13 @@ local MakeTheme = require(main.Src.Resources.MakeTheme)
 local EnglishStrings = main.Src.Resources.Localization.EnglishStrings
 local TranslatedStrings = main.Src.Resources.Localization.TranslatedStrings
 
-local InputPane = require(main.Src.Components.InputPane)
+local EventEmulator = require(main.Src.Components.EventEmulator)
+
+Roact.setGlobalConfig({
+	typeChecks = true,
+	propValidation = true,
+	elementTracing = true,
+})
 
 local MainPlugin = Roact.PureComponent:extend("MainPlugin")
 
@@ -111,7 +117,7 @@ function MainPlugin:render()
 				Store.new(self.store),
 			}, {
 				-- Plugin contents are mounted here
-				InputPane = Roact.createElement(InputPane),
+				EventEmulator = Roact.createElement(EventEmulator),
 			}),
 		}),
 	})

@@ -26,7 +26,8 @@ local Container = FrameworkUI.Container
 local MenuBar = require(Plugin.Src.Components.MenuBar)
 local Separator = require(Plugin.Src.Components.Separator)
 local Footer = require(Plugin.Src.Components.Footer)
-local PageManifest = require(Plugin.Src.Components.SettingsPages.PageManifest)
+local PageManifest = require(Plugin.Pages.PageManifest)
+local Analytics = require(Plugin.Src.Util.Analytics)
 
 local StudioService = game:GetService("StudioService")
 local TextService = game:GetService("TextService")
@@ -37,13 +38,27 @@ local FFlagGameSettingsOnlyInPublishedGames = game:DefineFastFlag("GameSettingsO
 local MainView = Roact.PureComponent:extend("MainView")
 
 function MainView:init()
+	-- Entries may be false due to flagging instead of a valid page component, so skip them
+	local firstValidPage = nil
+	for i, pageComponent in ipairs(PageManifest) do
+		if pageComponent then
+			firstValidPage = i
+			break
+		end
+	end
+	assert(firstValidPage, "There are no valid pages in PageManifest")
+
 	self.state = {
-		Selected = 1,
+		Selected = firstValidPage,
 		PageContentOffset = 0,
 	}
 end
 
 function MainView:pageSelected(index)
+	local oldTabId = PageManifest[self.state.Selected].LocalizationId
+	local newTabId = PageManifest[index].LocalizationId
+	Analytics.onTabChangeEvent(oldTabId, newTabId)
+
 	self:setState({
 		Selected = index,
 	})

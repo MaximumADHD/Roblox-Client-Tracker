@@ -7,6 +7,7 @@ local Plugin = script.Parent.Parent.Parent
 local AppendSettings = require(Plugin.Src.Actions.AppendSettings)
 local SetPageLoadState = require(Plugin.Src.Actions.SetPageLoadState)
 
+local Analytics = require(Plugin.Src.Util.Analytics)
 local LoadState = require(Plugin.Src.Util.LoadState)
 
 return function(pageId, settingJobsCallback)
@@ -15,7 +16,9 @@ return function(pageId, settingJobsCallback)
 		local settingJobs = settingJobsCallback(store, contextItems)
 
 		store:dispatch(SetPageLoadState(pageId, LoadState.Loading))
+		Analytics.onPageLoadAttempt(pageId)
 
+		local loadStart = tick()
 		local numLoaded = 0
 		local loadFailed = false
 		local loadedSettings = {}
@@ -30,9 +33,14 @@ return function(pageId, settingJobsCallback)
 				end
 
 				numLoaded = numLoaded + 1
-				if numLoaded == #settingJobs and not loadFailed then
-					store:dispatch(AppendSettings(loadedSettings))
-					store:dispatch(SetPageLoadState(pageId, LoadState.Loaded))
+				if numLoaded == #settingJobs then
+					if not loadFailed then
+						store:dispatch(AppendSettings(loadedSettings))
+						store:dispatch(SetPageLoadState(pageId, LoadState.Loaded))
+						Analytics.onPageLoadSuccess(pageId, tick() - loadStart)
+					else
+						Analytics.onPageLoadError(pageId, tick() - loadStart)
+					end
 				end
 			end)()
 		end

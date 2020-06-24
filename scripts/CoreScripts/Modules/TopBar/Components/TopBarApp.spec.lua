@@ -34,7 +34,11 @@ return function()
 	local FollowRelationshipChanged
 	local GetFollowRelationships
 	local NewFollower
-	if not game:GetFastFlag("RemoveInGameFollowingEvents") then
+
+	local Flags = script.Parent.Parent.Parent.Flags
+	local GetFFlagRemoveInGameFollowingEvents = require(Flags.GetFFlagRemoveInGameFollowingEvents)
+
+	if not GetFFlagRemoveInGameFollowingEvents() then
 		FollowRelationshipChanged = Instance.new("RemoteEvent")
 		FollowRelationshipChanged.Name = "FollowRelationshipChanged"
 		FollowRelationshipChanged.Parent = RobloxReplicatedStorage

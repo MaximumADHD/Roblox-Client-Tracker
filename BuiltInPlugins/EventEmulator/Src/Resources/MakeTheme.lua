@@ -12,6 +12,9 @@ local Theme = ContextServices.Theme
 local StudioUI = require(Plugin.Packages.Framework.StudioUI)
 local StudioFrameworkStyles = StudioUI.StudioFrameworkStyles
 
+local UI = require(Plugin.Packages.Framework.UI)
+local Decoration = UI.Decoration
+
 local Util = require(Plugin.Packages.Framework.Util)
 local StyleTable = Util.StyleTable
 local Style = Util.Style
@@ -31,24 +34,14 @@ local function makeTheme()
 			}
 		end)
 
-		local roundBox = StyleTable.new("RoundBox", function()
-			local Default = Style.extend(studioFrameworkStyles.RoundBox.Default, {
-				BorderTransparency = 1,
-			})
-
-			local Item = Style.extend(studioFrameworkStyles.RoundBox.Default, {
-				Color = theme:GetColor("CategoryItem"),
-				BorderTransparency = 1,
-			})
-
-			local Example = Style.extend(studioFrameworkStyles.RoundBox.Default, {
-				Color = theme:GetColor("Mid"),
+		local button = StyleTable.new("Button", function()
+			local Item = Style.extend(studioFrameworkStyles.Button.Default, {
+				Color =  Color3.new(1, 1, 1),
+				BorderSize = 1,
 			})
 
 			return {
-				Default = Default,
 				__Item = Item,
-				__Example = Example,
 			}
 		end)
 
@@ -62,27 +55,25 @@ local function makeTheme()
 			Dark = Color3.fromRGB(204, 204, 204),
 		})
 
+		-- TODO: Make sizes less redundant
+		-- sworzalla 5/12/20
 		local sizes = {
-			Gutter = 200,
-			Footer = 40,
-			NavHeight = 50,
-			TextBoxHeight = 30,
-			TextBoxWidth = 180,
-			ButtonHeight = 30,
-			ButtonWidth = 120,
-			ButtonPadding = 50,
+			SmallPadding = 10,
 			HistoryButtonMinor = 25,
-			HistoryButtonMajor = 120,
-			OuterPadding = 10,
-			InnerPadding = 5,
-			InputPaneLength = 175,
+			ShortHeight = 30,
+			HorizontalPadding = 50,
+			NavHeight = 50,
 			ConfirmationButtonWidth = 50,
+			HistoryButtonMajor = 120,
+			InputPaneLength = 200,
+			DropdownWidth = 180,
+			TextBoxWidth = 180,
 		}
 
 		return {
 			Framework = StyleTable.extend(studioFrameworkStyles, {
 				Box = box,
-				RoundBox = roundBox,
+				Button = button,
 			}),
 
 			Scrollbar = {
@@ -116,25 +107,19 @@ local function makeTheme()
 				},
 			},
 
-			Position = {
-				Navigation = UDim2.fromOffset(0, 0),
-				RBXEventTab = UDim2.fromOffset(0, sizes.NavHeight),
-				ButtonArray = UDim2.new(0, 0, 1, 0),
-			},
-
 			Layout = {
 				Vertical = {
 					SortOrder = Enum.SortOrder.LayoutOrder,
 					FillDirection = Enum.FillDirection.Vertical,
 					HorizontalAlignment = Enum.HorizontalAlignment.Center,
-					Padding = UDim.new(0, 10),
+					Padding = UDim.new(0, sizes.SmallPadding),
 				},
 				Horizontal = {
 					SortOrder = Enum.SortOrder.LayoutOrder,
 					FillDirection = Enum.FillDirection.Horizontal,
 					VerticalAlignment = Enum.VerticalAlignment.Center,
 					HorizontalAlignment = Enum.HorizontalAlignment.Center,
-					Padding = UDim.new(0, sizes.ButtonPadding),
+					Padding = UDim.new(0, sizes.HorizontalPadding),
 				},
 			},
 		}

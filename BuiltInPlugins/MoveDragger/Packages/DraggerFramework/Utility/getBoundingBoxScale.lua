@@ -12,12 +12,12 @@ local BoundingBoxCorners = {
 }
 
 local function getBoundingBoxScale(cframe, size)
-    local minScale = math.huge
-    for _, relativeCorner in ipairs(BoundingBoxCorners) do
-        local globalCorner = cframe:PointToWorldSpace(size * relativeCorner)
-        minScale = math.min(minScale, getHandleScale(globalCorner))
-    end
-    return minScale
+	local minScale = math.huge
+	for _, relativeCorner in ipairs(BoundingBoxCorners) do
+		local globalCorner = cframe:PointToWorldSpace(size * relativeCorner)
+		minScale = math.min(minScale, getHandleScale(globalCorner))
+	end
+	return minScale
 end
 
 return getBoundingBoxScale

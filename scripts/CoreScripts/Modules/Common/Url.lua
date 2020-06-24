@@ -18,10 +18,12 @@ local baseDomain = getBaseDomain(baseUrl)
 
 local baseGameUrl = string.format("https://games.%s", baseDomain)
 local baseRcsUrl = string.format("https://apis.rcs.%s", baseDomain)
+local baseApisUrl = string.format("https://apis.%s", baseDomain)
 
 local urlValues = {
 	GAME_URL = baseGameUrl,
 	RCS_URL = baseRcsUrl,
+	APIS_URL = baseApisUrl,
 }
 
 setmetatable(Urls, {

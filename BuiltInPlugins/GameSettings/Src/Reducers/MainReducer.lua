@@ -14,10 +14,10 @@ local Status = require(Plugin.Src.Reducers.Status)
 
 local EditAsset = require(Plugin.Src.Reducers.EditAsset)
 
-local CollaboratorSearch = require(Plugin.Src.Components.SettingsPages.PermissionsPage.Reducers.CollaboratorSearch)
-local DevSubModeration = require(Plugin.Src.Components.SettingsPages.DeveloperSubscriptionsPage.Reducers.DevSubModeration)
-local AutoTranslationMetaData = require(Plugin.Src.Components.SettingsPages.LocalizationPage.Reducers.AutoTranslationMetaData)
-local MorpherEditorRoot = require(Plugin.Src.Components.SettingsPages.AvatarPage.Reducers.MorpherEditorRoot)
+local CollaboratorSearch = require(Plugin.Pages.PermissionsPage.Reducers.CollaboratorSearch)
+local DevSubModeration = require(Plugin.Pages.DeveloperSubscriptionsPage.Reducers.DevSubModeration)
+local AutoTranslationMetaData = require(Plugin.Pages.LocalizationPage.Reducers.AutoTranslationMetaData)
+local MorpherEditorRoot = require(Plugin.Pages.AvatarPage.Reducers.MorpherEditorRoot)
 
 local FFlagStudioLocalizationInGameSettingsEnabled = game:GetFastFlag("StudioLocalizationInGameSettingsEnabled")
 local FFlagStudioStandaloneGameMetadata = game:GetFastFlag("StudioStandaloneGameMetadata")

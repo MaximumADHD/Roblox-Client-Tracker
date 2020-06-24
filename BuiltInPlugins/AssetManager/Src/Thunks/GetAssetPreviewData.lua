@@ -1,5 +1,3 @@
-local FFlagDedupePackagesInAssetManager = game:GetFastFlag("DedupePackagesInAssetManager")
-
 local Plugin = script.Parent.Parent.Parent
 
 local Players = game:GetService("Players")
@@ -52,13 +50,11 @@ end
 
 return function(apiImpl, assetIds)
     return function(store)
-        if FFlagDedupePackagesInAssetManager then
-            local assetPreviewDataLoading = {}
-            for _, assetId in ipairs(assetIds) do
-                assetPreviewDataLoading[assetId] = true
-            end
-            store:dispatch(SetAssetPreviewData(assetPreviewDataLoading))
+        local assetPreviewDataLoading = {}
+        for _, assetId in ipairs(assetIds) do
+            assetPreviewDataLoading[assetId] = true
         end
+        store:dispatch(SetAssetPreviewData(assetPreviewDataLoading))
 
         apiImpl.Develop.V1.Assets.assets(assetIds):makeRequest()
         :andThen(function(response)
@@ -101,7 +97,7 @@ return function(apiImpl, assetIds)
                         Type = assetData.creator.type,
                         TypeId = assetData.creator.typeId,
                         TargetId = assetData.creator.targetId,
-                        Name = FFlagDedupePackagesInAssetManager and "" or nil,
+                        Name = "",
                     },
                 }
                 spawn(function()

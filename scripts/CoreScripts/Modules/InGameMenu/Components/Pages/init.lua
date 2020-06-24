@@ -15,10 +15,16 @@ local FFlagFixMenuIcons = require(InGameMenu.Flags.FFlagFixMenuIcons)
 
 local pages = {
 	{
-		key = "MainPage",
+		key = Constants.InitalPageKey,
+		navigationDepth = 1,
+		component = script.InitalPage,
+		parentPage = Constants.InitalPageKey,
+	},
+	{
+		key = Constants.MainPagePageKey,
 		navigationDepth = 1,
 		component = script.Parent.MainPage,
-		parentPage = "MainPage",
+		parentPage = Constants.MainPagePageKey,
 	},
 	{
 		key = "Players",
@@ -26,7 +32,7 @@ local pages = {
 		icon = FFlagFixMenuIcons and Images["icons/controls/players"] or Assets.Images.PlayersMenu,
 		component = script.PlayersPage,
 		navigationDepth = 2,
-		parentPage = "MainPage",
+		parentPage = Constants.MainPagePageKey,
 	},
 	{
 		key = "InviteFriends",
@@ -34,7 +40,7 @@ local pages = {
 		icon = FFlagFixMenuIcons and Images["icons/actions/friends/friendInvite"] or Assets.Images.InviteMenu,
 		component = script.Parent.InviteFriendsPage,
 		navigationDepth = 2,
-		parentPage = "MainPage",
+		parentPage = Constants.MainPagePageKey,
 	},
 	{
 		key = "GameSettings",
@@ -42,7 +48,7 @@ local pages = {
 		icon = FFlagFixMenuIcons and Images["icons/common/settings"] or Assets.Images.GameSettings,
 		component = script.Parent.GameSettingsPage.BasicPage,
 		navigationDepth = 2,
-		parentPage = "MainPage",
+		parentPage = Constants.MainPagePageKey,
 	},
 	{
 		key = "Report",
@@ -50,7 +56,7 @@ local pages = {
 		icon = FFlagFixMenuIcons and Images["icons/actions/feedback"] or Assets.Images.ReportIcon,
 		component = script.Parent.ReportPage,
 		navigationDepth = 2,
-		parentPage = "MainPage",
+		parentPage = Constants.MainPagePageKey,
 	},
 	{
 		key = "Controls",
@@ -59,7 +65,7 @@ local pages = {
 		component = script.Parent.ControlsPage,
 		isModal = true,
 		navigationDepth = 2,
-		parentPage = "MainPage",
+		parentPage = Constants.MainPagePageKey,
 	},
 	{
 		key = "AdvancedGameSettings",
@@ -75,6 +81,12 @@ local pages = {
 		navigationDepth = 1,
 		component = script.Dialog.LeaveToAppPrompt,
 		parentPage = Constants.LeaveToAppPromptPageKey,
+	},
+	{
+		key = Constants.LeaveGamePromptPageKey,
+		navigationDepth = 1,
+		component = script.Dialog.LeaveGamePrompt,
+		parentPage = Constants.LeaveGamePromptPageKey,
 	},
 }
 

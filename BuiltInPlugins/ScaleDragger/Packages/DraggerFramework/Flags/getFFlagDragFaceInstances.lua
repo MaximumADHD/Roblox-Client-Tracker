@@ -1,3 +1,3 @@
 return function()
-    return game:GetFastFlag("DragFaceInstances")
+	return game:GetFastFlag("DragFaceInstances")
 end

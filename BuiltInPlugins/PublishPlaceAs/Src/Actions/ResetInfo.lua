@@ -5,6 +5,7 @@ local Constants = require(Plugin.Src.Resources.Constants)
 local Action = require(script.Parent.Action)
 
 local FFlagStudioLuaPublishFlowLocalizeUntitledGameText = game:GetFastFlag("StudioLuaPublishFlowLocalizeUntitledGameText")
+local FFlagStudioPublishFlowDefaultScreen = game:GetFastFlag("StudioPublishFlowDefaultScreen")
 
 return Action(script.Name, function(localizedDefaultname)
 	return {
@@ -21,6 +22,7 @@ return Action(script.Name, function(localizedDefaultname)
         errors = {},
         publishInfo = { id = 0, name = "", parentGameName = "", parentGameId = 0, settings = {}, },
         isPublishing = false,
-        screen = Constants.SCREENS.CREATE_NEW_GAME,
+        screen = FFlagStudioPublishFlowDefaultScreen and game.GameId == 0 and Constants.SCREENS.CHOOSE_GAME
+            or Constants.SCREENS.CREATE_NEW_GAME,
 	}
 end)

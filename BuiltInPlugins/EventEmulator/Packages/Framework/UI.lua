@@ -4,6 +4,8 @@
 
 local Src = script
 
+local strict = require(Src.Parent.Util.strict)
+
 local FrameworkStyles = require(Src.FrameworkStyles)
 
 local Image = require(Src.Image)
@@ -23,6 +25,7 @@ local DropShadow = require(Src.DropShadow)
 local KeyboardListener = require(Src.KeyboardListener)
 local LinkText = require(Src.LinkText)
 local ToggleButton = require(Src.ToggleButton)
+local Tooltip = require(Src.Tooltip)
 local RangeSlider = require(Src.RangeSlider)
 local RadioButton = require(Src.RadioButton)
 local RadioButtonList = require(Src.RadioButtonList)
@@ -32,9 +35,10 @@ local ScrollingFrame = require(Src.ScrollingFrame)
 local Separator = require(Src.Separator)
 local Slider = require(Src.Slider)
 local TextInput = require(Src.TextInput)
+local InfiniteScrollingFrame = require(Src.InfiniteScrollingFrame)
 
 -- NOTE: Please keep components in alphabetical order
-local UI = {
+local UI = strict({
 	-- Empty default styles for Framework components
 	FrameworkStyles = FrameworkStyles,
 
@@ -48,6 +52,7 @@ local UI = {
 	DropdownMenu = DropdownMenu,
 	FakeLoadingBar = FakeLoadingBar,
 	HoverArea = HoverArea,
+	InfiniteScrollingFrame = InfiniteScrollingFrame,
 	KeyboardListener = KeyboardListener,
 	LinkText = LinkText,
 	LoadingBar = LoadingBar,
@@ -61,6 +66,7 @@ local UI = {
 	Slider = Slider,
 	TextInput = TextInput,
 	ToggleButton = ToggleButton,
+	Tooltip = Tooltip,
 
 	Decoration = {
 		Box = Box,
@@ -68,6 +74,6 @@ local UI = {
 		RoundBox = RoundBox,
 		TextLabel = TextLabel,
 	},
-}
+})
 
 return UI

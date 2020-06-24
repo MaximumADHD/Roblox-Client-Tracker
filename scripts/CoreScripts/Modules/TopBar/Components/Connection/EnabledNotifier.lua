@@ -12,8 +12,6 @@ local EmotesModule = require(RobloxGui.Modules.EmotesMenu.EmotesMenuMaster)
 
 local EnabledNotifier = Roact.PureComponent:extend("CoreGuiCEnabledNotifieronnector")
 
-local FFlagTopBarBetterStateInit = require(RobloxGui.Modules.Flags.FFlagTopBarBetterStateInit)
-
 local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList3")
 
 EnabledNotifier.validateProps = t.strictInterface({
@@ -34,10 +32,8 @@ function EnabledNotifier:notifyEnabled()
 	EmotesModule:setTopBarEnabled(self.props.topBarEnabled)
 end
 
-if FFlagTopBarBetterStateInit then
-	function EnabledNotifier:didMount()
-		self:notifyEnabled()
-	end
+function EnabledNotifier:didMount()
+	self:notifyEnabled()
 end
 
 function EnabledNotifier:render()

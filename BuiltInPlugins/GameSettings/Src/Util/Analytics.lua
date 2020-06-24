@@ -1,20 +1,6 @@
 --[[
 	Handles analytics for Game Settings, including Diag and EventStream.
-	Diag charts can be found under the Developer Tools page on Rcity.
-
-	Tracked diagnostics:
-		-Load/Save time
-		-Load/Save errors
-		-Load/Save success rate
-		-Permission added/removed for user/group
-		-Number of users with edit/admin/play permissions per game
-
-	Tracked events:
-		-Widget open
-		-Tab switches
-		-Widget close
-		-User/Group added/removed
-		-Access Permissions change failed 
+	Diag charts can be found under https://go/gamesettingsanalytics
 
 	Allows for local logging to the console by modifying the constant value below.
 ]]
@@ -84,39 +70,60 @@ function Analytics.sendEventDeferred(eventName, additionalArgs)
 end
 
 -- Analytics events
-function Analytics.onLoadAttempt()
-	Analytics.reportCounter("GameSettings_LoadAttempt")
+function Analytics.onSettingSaved(settingName, settingValue)
+	Analytics.reportCounter(string.format("GameSettings_SettingSaved_%s", settingName))
+
+	-- Rudimentary hack to get more metrics out of settings without making rules for each individual setting
+	-- In the future, we should encapsulate settings in structures that provide more information e.g.
+	-- asset id (which we don't want to show on charts) vs bounded int (which we might). Not just for analytics,
+	-- but also for saner store code with less manual juggling of data structures
+	if typeof(settingValue) == "boolean" then
+		local counterModifier = settingValue and "Enabled" or "Disabled"
+		Analytics.reportCounter(string.format("GameSettings_Setting%s_%s", counterModifier, settingName))
+	elseif typeof(settingValue) == "string" then
+		Analytics.reportStats(string.format("GameSettings_StringSettingLength_%s", settingName), settingValue:len())
+	end
 end
 
-function Analytics.onLoadSuccess(loadTimeSeconds)
-	Analytics.reportCounter("GameSettings_LoadSuccess")
-	Analytics.reportStats("GameSettings_LoadTime_Success", loadTimeSeconds)
+function Analytics.onPageLoadAttempt(pageId)
+	Analytics.reportCounter(string.format("GameSettings_PageLoadAttempt_%s", pageId))
+end
+
+function Analytics.onPageLoadSuccess(pageId, loadTimeSeconds)
+	Analytics.reportCounter(string.format("GameSettings_PageLoadSuccess_%s", pageId))
+	Analytics.reportStats(string.format("GameSettings_PageLoadTime_Success_%s", pageId), loadTimeSeconds)
+end
+
+function Analytics.onPageLoadError(pageId, loadTimeSeconds)
+	Analytics.reportCounter(string.format("GameSettings_PageLoadError_%s", pageId))
+	Analytics.reportStats(string.format("GameSettings_PageLoadTime_Error_%s", pageId), loadTimeSeconds)
 end
 
 function Analytics.onSaveAttempt()
 	Analytics.reportCounter("GameSettings_SaveAttempt")
 end
 
-function Analytics.onSaveSuccess(loadTimeSeconds)
+function Analytics.onSaveSuccess(saveTimeSeconds)
 	Analytics.reportCounter("GameSettings_SaveSuccess")
-	Analytics.reportStats("GameSettings_SaveTime_Success", loadTimeSeconds)
+	Analytics.reportStats("GameSettings_SaveTime_Success", saveTimeSeconds)
 end
 
-function Analytics.onSaveError(errorName)
-	Analytics.reportCounter(string.format("GameSettings_%sSaveError", errorName))
+function Analytics.onSaveError(saveTimeSeconds)
+	Analytics.reportCounter("GameSettings_SaveError")
+	Analytics.reportStats("GameSettings_SaveTime_Error", saveTimeSeconds)
 end
 
-function Analytics.onLoadError(errorName)
-	Analytics.reportCounter(string.format("GameSettings_%sLoadError", errorName))
+function Analytics.onPageSaveError(pageId)
+	Analytics.reportCounter(string.format("GameSettings_PageSaveError_%s", pageId))
 end
 
-function Analytics.onOpenEvent(userId)
+function Analytics.onOpenEvent(userId, gameId)
 	Analytics.sendEventDeferred("gameSettingsOpen", {})
 
 	Analytics.sendEventDeferred("toolOpened", {
 		method = 1, --studio tab
 		uid = userId,
-		gameId = game.GameId,
+		gameId = gameId,
 	})
 end
 

@@ -17,6 +17,8 @@ local StudioUI = strict({
 	--PluginButton
 	PluginToolbar = require(script.PluginToolbar),
 	PluginButton = require(script.PluginButton),
+
+	TitledFrame = require(script.TitledFrame),
 })
 
 return StudioUI

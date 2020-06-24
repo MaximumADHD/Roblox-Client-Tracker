@@ -26,8 +26,6 @@ local StandaloneSelectionBox = require(Framework.Components.StandaloneSelectionB
 local ScaleHandleView = require(Plugin.Src.ScaleHandleView)
 
 local getFFlagScaleUnionsUniformly = require(Framework.Flags.getFFlagScaleUnionsUniformly)
-local getFFlagLuaDraggerHandleScale = require(Framework.Flags.getFFlagLuaDraggerHandleScale)
-local getFFlagAllowDragContinuation = require(Framework.Flags.getFFlagAllowDragContinuation)
 
 local ScaleToolImpl = {}
 ScaleToolImpl.__index = ScaleToolImpl
@@ -112,8 +110,8 @@ local function isShiftKeyDown()
 end
 
 local function snapToGrid(distance)
-    local gridSize = StudioService.GridSize
-    return math.floor(distance / gridSize + 0.5) * gridSize
+	local gridSize = StudioService.GridSize
+	return math.floor(distance / gridSize + 0.5) * gridSize
 end
 
 local function nextNormalId(normalId)
@@ -129,8 +127,8 @@ end
 
 function ScaleToolImpl:update(draggerToolState, derivedWorldState)
 	if not self._draggingHandleId then
-        -- Don't clobber these fields while we're dragging because we're
-        -- updating the bounding box in a smart way given how we're moving the
+		-- Don't clobber these fields while we're dragging because we're
+		-- updating the bounding box in a smart way given how we're moving the
 		-- parts.
 
 		self._partsToResize, self._attachmentsToMove =
@@ -146,9 +144,6 @@ function ScaleToolImpl:update(draggerToolState, derivedWorldState)
 		}
 
 		self._originalCFrameMap = derivedWorldState:getOriginalCFrameMap()
-		if not getFFlagLuaDraggerHandleScale() then
-			self._scale = derivedWorldState:getHandleScale()
-		end
 	end
 	self:_updateHandles()
 end
@@ -156,9 +151,6 @@ end
 function ScaleToolImpl:hitTest(mouseRay, handleScale)
 	local closestHandleId, closestHandleDistance = nil, math.huge
 	for handleId, handleProps in pairs(self._handles) do
-		if not getFFlagLuaDraggerHandleScale() then
-			handleProps.Scale = handleScale
-		end
 		local distance = ScaleHandleView.hitTest(handleProps, mouseRay)
 		if distance and distance < closestHandleDistance then
 			closestHandleDistance = distance
@@ -190,91 +182,42 @@ end
 
 function ScaleToolImpl:render(hoveredHandleId)
 	local children = {}
-	if getFFlagAllowDragContinuation() then
-		if self._draggingHandleId and self._handles[self._draggingHandleId] then
-			local handleProps = self._handles[self._draggingHandleId]
-			children[self._draggingHandleId] = Roact.createElement(ScaleHandleView, {
-				HandleCFrame = handleProps.HandleCFrame,
-				Color = handleProps.Color,
-				Scale = getFFlagLuaDraggerHandleScale() and handleProps.Scale or self._scale,
-			})
+	if self._draggingHandleId and self._handles[self._draggingHandleId] then
+		local handleProps = self._handles[self._draggingHandleId]
+		children[self._draggingHandleId] = Roact.createElement(ScaleHandleView, {
+			HandleCFrame = handleProps.HandleCFrame,
+			Color = handleProps.Color,
+			Scale = handleProps.Scale,
+		})
 
-			for otherHandleId, otherHandleProps in pairs(self._handles) do
-				if otherHandleId ~= self._draggingHandleId then
-					children[otherHandleId] = Roact.createElement(ScaleHandleView, {
-						HandleCFrame = otherHandleProps.HandleCFrame,
-						Color = Colors.makeDimmed(otherHandleProps.Color),
-						Scale = getFFlagLuaDraggerHandleScale() and otherHandleProps.Scale or self._scale,
-						Thin = true,
-					})
-				end
-			end
-
-			if areJointsEnabled() and self._jointPairs then
-				if getFFlagLuaDraggerHandleScale() then
-					local scale = getBoundingBoxScale(self._boundingBox.CFrame, self._boundingBox.Size)
-					children.JointDisplay = self._jointPairs:renderJoints(scale)
-				else
-					children.JointDisplay = self._jointPairs:renderJoints(self._scale)
-				end
-			end
-		else
-			for handleId, handleProps in pairs(self._handles) do
-				local color = handleProps.Color
-				local hovered = (handleId == hoveredHandleId)
-				if not hovered then
-					color = Colors.makeDimmed(handleProps.Color)
-				end
-				children[handleId] = Roact.createElement(ScaleHandleView, {
-					HandleCFrame = handleProps.HandleCFrame,
-					Color = color,
-					Scale = getFFlagLuaDraggerHandleScale() and handleProps.Scale or self._scale,
-					Hovered = hovered,
+		for otherHandleId, otherHandleProps in pairs(self._handles) do
+			if otherHandleId ~= self._draggingHandleId then
+				children[otherHandleId] = Roact.createElement(ScaleHandleView, {
+					HandleCFrame = otherHandleProps.HandleCFrame,
+					Color = Colors.makeDimmed(otherHandleProps.Color),
+					Scale = otherHandleProps.Scale,
+					Thin = true,
 				})
 			end
 		end
+
+		if areJointsEnabled() and self._jointPairs then
+			local scale = getBoundingBoxScale(self._boundingBox.CFrame, self._boundingBox.Size)
+			children.JointDisplay = self._jointPairs:renderJoints(scale)
+		end
 	else
-		if self._draggingHandleId then
-			local handleProps = self._handles[self._draggingHandleId]
-			children[self._draggingHandleId] = Roact.createElement(ScaleHandleView, {
+		for handleId, handleProps in pairs(self._handles) do
+			local color = handleProps.Color
+			local hovered = (handleId == hoveredHandleId)
+			if not hovered then
+				color = Colors.makeDimmed(handleProps.Color)
+			end
+			children[handleId] = Roact.createElement(ScaleHandleView, {
 				HandleCFrame = handleProps.HandleCFrame,
-				Color = handleProps.Color,
-				Scale = getFFlagLuaDraggerHandleScale() and handleProps.Scale or self._scale,
+				Color = color,
+				Scale = handleProps.Scale,
+				Hovered = hovered,
 			})
-
-			for otherHandleId, otherHandleProps in pairs(self._handles) do
-				if otherHandleId ~= self._draggingHandleId then
-					children[otherHandleId] = Roact.createElement(ScaleHandleView, {
-						HandleCFrame = otherHandleProps.HandleCFrame,
-						Color = Colors.makeDimmed(otherHandleProps.Color),
-						Scale = getFFlagLuaDraggerHandleScale() and otherHandleProps.Scale or self._scale,
-						Thin = true,
-					})
-				end
-			end
-
-			if areJointsEnabled() and self._jointPairs then
-				if getFFlagLuaDraggerHandleScale() then
-					local scale = getBoundingBoxScale(self._boundingBox.CFrame, self._boundingBox.Size)
-					children.JointDisplay = self._jointPairs:renderJoints(scale)
-				else
-					children.JointDisplay = self._jointPairs:renderJoints(self._scale)
-				end
-			end
-		else
-			for handleId, handleProps in pairs(self._handles) do
-				local color = handleProps.Color
-				local hovered = (handleId == hoveredHandleId)
-				if not hovered then
-					color = Colors.makeDimmed(handleProps.Color)
-				end
-				children[handleId] = Roact.createElement(ScaleHandleView, {
-					HandleCFrame = handleProps.HandleCFrame,
-					Color = color,
-					Scale = getFFlagLuaDraggerHandleScale() and handleProps.Scale or self._scale,
-					Hovered = hovered,
-				})
-			end
 		end
 	end
 
@@ -323,33 +266,7 @@ end
 function ScaleToolImpl:mouseDown(mouseRay, handleId)
 	self._draggingHandleId = handleId
 
-	if getFFlagAllowDragContinuation() then
-		if self._handles[handleId] then
-			self._handleCFrame = self._handles[handleId].HandleCFrame
-			self._originalBoundingBoxCFrame = self._boundingBox.CFrame
-			self._originalBoundingBoxSize = self._boundingBox.Size
-
-			local hasDistance, distance = self:_getDistanceAlongAxis(mouseRay)
-			assert(hasDistance)
-			self._startDistance = distance
-
-			self._originalSizeMap = {}
-			for _, part in ipairs(self._partsToResize) do
-				self._originalSizeMap[part] = part.Size
-			end
-
-			self._lastDeltaSize = Vector3.new(0, 0, 0)
-			self._lastGoodScale = Vector3.new(1, 1, 1)
-			self._jointMaker:pickUpParts(self._partsToResize)
-			self._jointMaker:anchorParts()
-			self._jointMaker:breakJointsToOutsiders()
-			self._jointMaker:disconnectInternalJoints()
-
-			self:_recordItemsToFixup(self._partsToResize)
-
-			self:_calculateMinimumSize(self._handles[handleId].NormalId)
-		end
-	else
+	if self._handles[handleId] then
 		self._handleCFrame = self._handles[handleId].HandleCFrame
 		self._originalBoundingBoxCFrame = self._boundingBox.CFrame
 		self._originalBoundingBoxSize = self._boundingBox.Size
@@ -432,24 +349,7 @@ function ScaleToolImpl:mouseDrag(mouseRay)
 end
 
 function ScaleToolImpl:mouseUp(mouseRay)
-	if getFFlagAllowDragContinuation() then
-		if self._handles[self._draggingHandleId] then
-			self._originalSizeMap = {}
-
-			if self._jointPairs then
-				self._jointPairs:createJoints()
-				self._jointPairs = nil
-			end
-			-- reconnectInternalJointsWithScale is only relevant for multi-part scale,
-			-- which has to be uniform on all axis, so we can just use .X here.
-			self._jointMaker:reconnectInternalJointsWithScale(self._lastGoodScale.X)
-			self._jointMaker:restoreAnchored()
-			self._jointMaker:putDownParts()
-		end
-
-		self._draggingHandleId = nil
-	else
-		self._draggingHandleId = nil
+	if self._handles[self._draggingHandleId] then
 		self._originalSizeMap = {}
 
 		if self._jointPairs then
@@ -462,6 +362,8 @@ function ScaleToolImpl:mouseUp(mouseRay)
 		self._jointMaker:restoreAnchored()
 		self._jointMaker:putDownParts()
 	end
+
+	self._draggingHandleId = nil
 
 	ChangeHistoryService:SetWaypoint("Scale Parts")
 end
@@ -634,7 +536,7 @@ function ScaleToolImpl:_resizeParts(normalId, axis, delta, resizeFromCenter)
 
 	local newSize = originalSize + deltaSize
 	if newSize.X < self._minimumSize.X or newSize.Y < self._minimumSize.Y or newSize.Z < self._minimumSize.Z then
-        newSize = self._minimumSize
+		newSize = self._minimumSize
 	end
 	local newDeltaSize = newSize - originalSize
 	local newScale = newSize.Magnitude / originalSize.Magnitude
@@ -701,23 +603,13 @@ function ScaleToolImpl:_updateHandles()
 			local boundingBoxOffset = 0.5 * math.abs(localSize.Z)
 			local handleBaseCFrame = self._boundingBox.CFrame * offset * CFrame.new(0, 0, -boundingBoxOffset)
 
-			if getFFlagLuaDraggerHandleScale() then
-				self._handles[handleId] = {
-					Color = handleDefinition.Color,
-					Axis = offset.LookVector,
-					HandleCFrame = handleBaseCFrame,
-					NormalId = handleDefinition.NormalId,
-					Scale = getHandleScale(handleBaseCFrame.Position),
-				}
-			else
-				self._handles[handleId] = {
-					Color = handleDefinition.Color,
-					Axis = offset.LookVector,
-					HandleCFrame = handleBaseCFrame,
-					NormalId = handleDefinition.NormalId,
-					Scale = self._scale,
-				}
-			end
+			self._handles[handleId] = {
+				Color = handleDefinition.Color,
+				Axis = offset.LookVector,
+				HandleCFrame = handleBaseCFrame,
+				NormalId = handleDefinition.NormalId,
+				Scale = getHandleScale(handleBaseCFrame.Position),
+			}
 		end
 	end
 end

@@ -34,7 +34,6 @@ return function()
 					cancelText = "cancelText",
 					onConfirm = function() end,
 					onCancel = function() end,
-					layoutOrder = 1,
 				}),
 			}),
 		})

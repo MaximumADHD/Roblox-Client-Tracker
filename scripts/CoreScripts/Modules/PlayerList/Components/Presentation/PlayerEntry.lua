@@ -1,8 +1,5 @@
 local CorePackages = game:GetService("CorePackages")
-local CoreGui = game:GetService("CoreGui")
 local Players = game:GetService("Players")
-
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
@@ -26,13 +23,10 @@ local PlayerList = Components.Parent
 local ClosePlayerDropDown = require(PlayerList.Actions.ClosePlayerDropDown)
 local OpenPlayerDropDown = require(PlayerList.Actions.OpenPlayerDropDown)
 
-local FFlagPlayerListMorePerfImprovements = require(RobloxGui.Modules.Flags.FFlagPlayerListMorePerfImprovements)
-
 local PlayerEntry = Roact.PureComponent:extend("PlayerEntry")
 
 PlayerEntry.validateProps = t.strictInterface({
 	player = t.instanceIsA("Player"),
-	layoutOrder = (not FFlagPlayerListMorePerfImprovements) and t.optional(t.integer) or nil,
 	titlePlayerEntry = t.boolean,
 	hasDivider = t.boolean,
 	entrySize = t.integer,
@@ -236,55 +230,6 @@ function PlayerEntry:render()
 				Padding = padding,
 			})
 
-			local onActivated, onSelectionGained, onSelectionLost, onMouseEnter, onMouseLeave, onMouseDown, onInputEnded
-
-			if not FFlagPlayerListMorePerfImprovements then
-				onActivated = function()
-					if self.props.selectedPlayer == self.props.player and self.props.dropDownOpen then
-						self.props.closeDropDown()
-					else
-						self.props.openDropDown(self.props.player)
-					end
-				end
-
-				onSelectionGained = function()
-					self:setState({
-						isHovered = true,
-					})
-				end
-
-				onSelectionLost = function()
-					self:setState({
-						isHovered = false,
-					})
-				end
-
-				onMouseEnter = function()
-					self:setState({
-						isHovered = true,
-					})
-				end
-
-				onMouseLeave = function()
-					self:setState({
-						isHovered = false,
-						isPressed = false,
-					})
-				end
-
-				onMouseDown = function()
-					self:setState({
-						isPressed = true,
-					})
-				end
-
-				onInputEnded = function()
-					self:setState({
-						isPressed = false,
-					})
-				end
-			end
-
 			local doubleOverlay = self.state.isPressed
 
 			playerEntryChildren["NameFrame"] = Roact.createElement("Frame", {
@@ -310,15 +255,15 @@ function PlayerEntry:render()
 					overlayStyle = overlayStyle,
 					doubleOverlay = doubleOverlay,
 
-					onActivated = FFlagPlayerListMorePerfImprovements and self.onActivated or onActivated,
-					onSelectionGained = FFlagPlayerListMorePerfImprovements and self.onSelectionGained or onSelectionGained,
-					onSelectionLost = FFlagPlayerListMorePerfImprovements and self.onSelectionLost or onSelectionLost,
+					onActivated = self.onActivated,
+					onSelectionGained = self.onSelectionGained,
+					onSelectionLost = self.onSelectionLost,
 
-					onMouseEnter = FFlagPlayerListMorePerfImprovements and self.onMouseEnter or onMouseEnter,
-					onMouseLeave = FFlagPlayerListMorePerfImprovements and self.onMouseLeave or onMouseLeave,
+					onMouseEnter = self.onMouseEnter,
+					onMouseLeave = self.onMouseLeave,
 
-					onMouseDown = FFlagPlayerListMorePerfImprovements and self.onMouseDown or onMouseDown,
-					onInputEnded = FFlagPlayerListMorePerfImprovements and self.onInputEnded or onInputEnded,
+					onMouseDown = self.onMouseDown,
+					onInputEnded = self.onInputEnded,
 
 					[Roact.Ref] = self.props[Roact.Ref]
 				}, {
@@ -368,15 +313,15 @@ function PlayerEntry:render()
 					doubleOverlay = doubleOverlay,
 					textStyle = textStyle,
 
-					onActivated = FFlagPlayerListMorePerfImprovements and self.onActivated or onActivated,
-					onSelectionGained = FFlagPlayerListMorePerfImprovements and self.onSelectionGained or onSelectionGained,
-					onSelectionLost = FFlagPlayerListMorePerfImprovements and self.onSelectionLost or onSelectionLost,
+					onActivated = self.onActivated,
+					onSelectionGained = self.onSelectionGained,
+					onSelectionLost = self.onSelectionLost,
 
-					onMouseEnter = FFlagPlayerListMorePerfImprovements and self.onMouseEnter or onMouseEnter,
-					onMouseLeave = FFlagPlayerListMorePerfImprovements and self.onMouseLeave or onMouseLeave,
+					onMouseEnter = self.onMouseEnter,
+					onMouseLeave = self.onMouseLeave,
 
-					onMouseDown = FFlagPlayerListMorePerfImprovements and self.onMouseDown or onMouseDown,
-					onInputEnded = FFlagPlayerListMorePerfImprovements and self.onInputEnded or onInputEnded,
+					onMouseDown = self.onMouseDown,
+					onInputEnded = self.onInputEnded,
 				})
 			end
 
@@ -390,48 +335,21 @@ function PlayerEntry:render()
 				})
 			end
 
-			if FFlagPlayerListMorePerfImprovements then
-				return Roact.createFragment({
-					ChildrenFrame = Roact.createElement("Frame", {
-						Size = UDim2.new(1, 0, 1, 0),
-						BackgroundTransparency = 1,
-					}, playerEntryChildren),
-
-					Divider = not layoutValues.IsTenFoot and self.props.hasDivider and Roact.createElement("Frame", {
-						Size = UDim2.new(1, 0, 0, 1),
-						Position = UDim2.new(0, 0, 1, 0),
-						AnchorPoint = Vector2.new(0, 1),
-						BackgroundTransparency = style.Theme.Divider.Transparency,
-						BackgroundColor3 = style.Theme.Divider.Color,
-						BorderSizePixel = 0,
-					}),
-				})
-			else
-				return Roact.createElement("Frame", {
-					LayoutOrder = self.props.layoutOrder,
-					Size = UDim2.new(
-						1,
-						layoutValues.EntryXOffset,
-						0,
-						layoutValues.PlayerEntrySizeY
-					),
+			return Roact.createFragment({
+				ChildrenFrame = Roact.createElement("Frame", {
+					Size = UDim2.new(1, 0, 1, 0),
 					BackgroundTransparency = 1,
-				}, {
-					ChildrenFrame = Roact.createElement("Frame", {
-						Size = UDim2.new(1, 0, 1, 0),
-						BackgroundTransparency = 1,
-					}, playerEntryChildren),
+				}, playerEntryChildren),
 
-					Divider = not layoutValues.IsTenFoot and self.props.hasDivider and Roact.createElement("Frame", {
-						Size = UDim2.new(1, 0, 0, 1),
-						Position = UDim2.new(0, 0, 1, 0),
-						AnchorPoint = Vector2.new(0, 1),
-						BackgroundTransparency = style.Theme.Divider.Transparency,
-						BackgroundColor3 = style.Theme.Divider.Color,
-						BorderSizePixel = 0,
-					}),
-				})
-			end
+				Divider = not layoutValues.IsTenFoot and self.props.hasDivider and Roact.createElement("Frame", {
+					Size = UDim2.new(1, 0, 0, 1),
+					Position = UDim2.new(0, 0, 1, 0),
+					AnchorPoint = Vector2.new(0, 1),
+					BackgroundTransparency = style.Theme.Divider.Transparency,
+					BackgroundColor3 = style.Theme.Divider.Color,
+					BorderSizePixel = 0,
+				}),
+			})
 		end)
 	end)
 end

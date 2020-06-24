@@ -1,4 +1,6 @@
-if not settings():GetFFlag("EnableLuaDraggers") then
+local ABTestService = game:GetService("ABTestService")
+if not settings():GetFFlag("EnableLuaDraggers") and
+	ABTestService:GetVariant("ForceLuaDraggers") == "Control" then
 	return
 end
 

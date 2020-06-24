@@ -33,10 +33,10 @@ return function()
 	local function createTestJoint()
 		local parts, originalCFrameMap = createTestParts(2)
 		local joint = Instance.new("Weld")
-        joint.Archivable = false
-        joint.Part0 = parts[1]
-        joint.Part1 = parts[2]
-        joint.C0 = parts[1].CFrame:Inverse() * parts[2].CFrame
+		joint.Archivable = false
+		joint.Part0 = parts[1]
+		joint.Part1 = parts[2]
+		joint.C0 = parts[1].CFrame:Inverse() * parts[2].CFrame
 		joint.Parent = parts[1]
 
 		return parts, originalCFrameMap, joint

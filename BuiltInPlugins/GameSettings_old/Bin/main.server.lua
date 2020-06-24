@@ -14,6 +14,7 @@ local FFlagStudioLocalizationInGameSettingsEnabled = game:GetFastFlag("StudioLoc
 local FFlagGameSettingsPlaceSettings = game:GetFastFlag("GameSettingsPlaceSettings")
 local FFlagStudioConvertGameSettingsToDevFramework = game:GetFastFlag("StudioConvertGameSettingsToDevFramework")
 local FFlagStudioAddMonetizationToGameSettings = game:GetFastFlag("StudioAddMonetizationToGameSettings")
+local FFlagQ220PermissionsSettings = game:GetFastFlag("Q220PermissionsSettings")
 
 --Turn this on when debugging the store and actions
 local LOG_STORE_STATE_AND_EVENTS = false
@@ -94,10 +95,14 @@ if FFlagGameSettingsPlaceSettings then
 end
 
 table.insert(settingsPages, "Avatar")
-table.insert(settingsPages, "Options")
-
 if DFFlagDeveloperSubscriptionsEnabled then
 	table.insert(settingsPages, "Developer Subscriptions")
+end
+
+table.insert(settingsPages, "Options")
+
+if FFlagQ220PermissionsSettings then
+	table.insert(settingsPages, "Security")
 end
 
 table.insert(settingsPages, "World")

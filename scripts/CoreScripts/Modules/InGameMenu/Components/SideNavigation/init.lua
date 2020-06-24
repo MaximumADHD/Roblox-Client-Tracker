@@ -7,10 +7,10 @@ local UIBlox = InGameMenuDependencies.UIBlox
 local t = InGameMenuDependencies.t
 
 local withStyle = UIBlox.Core.Style.withStyle
+local Interactable = UIBlox.Core.Control.Interactable
+local ControlState = UIBlox.Core.Control.Enum.ControlState
 
 local InGameMenu = script.Parent.Parent
-
-local GlobalConfig = require(InGameMenu.GlobalConfig)
 
 local CloseMenu = require(InGameMenu.Thunks.CloseMenu)
 local SetCurrentPage = require(InGameMenu.Actions.SetCurrentPage)
@@ -19,22 +19,31 @@ local Constants = require(InGameMenu.Resources.Constants)
 
 local CloseMenuButton = require(script.CloseMenuButton)
 local HomeButton = require(script.HomeButton)
+local SystemMenuButton = require(script.SystemMenuButton)
 
 local GetFFlagInGameHomeIcon = require(InGameMenu.Flags.GetFFlagInGameHomeIcon)
 
 local FFlagInGameMenuSmallerSideBar = require(InGameMenu.Flags.FFlagInGameMenuSmallerSideBar)
 
-local validateProps = t.strictInterface({
+local SideNavigation = Roact.PureComponent:extend("SideNavigation")
+
+SideNavigation.validateProps = t.strictInterface({
 	open = t.boolean,
 	closeMenu = t.callback,
 	goToHomePage = t.callback,
 })
 
-local function oldSideNavigation(props)
-	if GlobalConfig.propValidation then
-		assert(validateProps(props))
+function SideNavigation:init()
+	self.controlStateUpdated = function(oldControlState, newControlState)
+		if oldControlState == ControlState.Hover and newControlState ~= ControlState.Hover then
+			if self.props.currentPage == Constants.InitalPageKey then
+				self.props.closeMenu()
+			end
+		end
 	end
+end
 
+function SideNavigation:oldRender()
 	return withStyle(function(style)
 		return Roact.createElement("TextButton", {
 			AutoButtonColor = false,
@@ -43,10 +52,10 @@ local function oldSideNavigation(props)
 			BackgroundTransparency = style.Theme.BackgroundUIContrast.Transparency,
 			BorderSizePixel = 0,
 			Size = UDim2.new(0, FFlagInGameMenuSmallerSideBar and 64 or 100, 1, 0),
-			Visible = props.open,
+			Visible = self.props.open,
 		}, {
 			CloseMenuButton = Roact.createElement(CloseMenuButton, {
-				onActivated = props.closeMenu,
+				onActivated = self.props.closeMenu,
 
 				AnchorPoint = Vector2.new(0.5, 0),
 				Position = UDim2.new(0.5, 0, 0, 4),
@@ -55,20 +64,18 @@ local function oldSideNavigation(props)
 	end)
 end
 
-local function newSideNavigation(props)
-	if GlobalConfig.propValidation then
-		assert(validateProps(props))
-	end
-
+function SideNavigation:newRender()
+	local currentPage = self.props.currentPage
 	return withStyle(function(style)
-		return Roact.createElement("TextButton", {
+		return Roact.createElement(Interactable, {
+			onStateChanged = self.controlStateUpdated,
+
 			AutoButtonColor = false,
-			Text = "",
 			BackgroundColor3 = style.Theme.BackgroundUIContrast.Color,
 			BackgroundTransparency = style.Theme.BackgroundUIContrast.Transparency,
 			BorderSizePixel = 0,
 			Size = UDim2.new(0, FFlagInGameMenuSmallerSideBar and 64 or 100, 1, 0),
-			Visible = props.open,
+			Visible = self.props.open,
 		}, {
 			Padding = Roact.createElement("UIPadding", {
 				PaddingTop = UDim.new(0, 4),
@@ -79,14 +86,17 @@ local function newSideNavigation(props)
 				HorizontalAlignment = Enum.HorizontalAlignment.Center,
 				Padding = UDim.new(0, 4),
 			}),
-			CloseMenuButton = Roact.createElement(CloseMenuButton, {
-				onActivated = props.closeMenu,
+			SystemMenuButton = Roact.createElement(SystemMenuButton, {
+				on = currentPage == Constants.MainPagePageKey,
+				onClose = self.props.closeMenu,
+				onActivated = self.props.goToSystemMenu,
 				layoutOrder = 1,
-				AnchorPoint = Vector2.new(0.5, 0),
-				Position = UDim2.new(0.5, 0, 0, 4),
+				anchorPoint = Vector2.new(0.5, 0),
+				position = UDim2.new(0.5, 0, 0, 4),
 			}),
 			HomeButton = Roact.createElement(HomeButton, {
-				onActivated = props.goToHomePage,
+				on = currentPage == Constants.LeaveToAppPromptPageKey,
+				onActivated = self.props.goToHomePage,
 				layoutOrder = 2,
 				anchorPoint = Vector2.new(0.5, 0),
 				position = UDim2.new(0.5, 0, 0, 8),
@@ -95,15 +105,16 @@ local function newSideNavigation(props)
 	end)
 end
 
-local SideNavigation = function(props)
+function SideNavigation:render()
 	if GetFFlagInGameHomeIcon() then
-		return newSideNavigation(props)
+		return self:newRender()
 	end
-	return oldSideNavigation(props)
+	return self:oldRender()
 end
 
 return RoactRodux.UNSTABLE_connect2(function(state, props)
 	return {
+		currentPage = state.menuPage,
 		open = state.isMenuOpen,
 	}
 end,
@@ -111,6 +122,9 @@ function(dispatch)
 	return {
 		closeMenu = function()
 			dispatch(CloseMenu)
+		end,
+		goToSystemMenu = function()
+			dispatch(SetCurrentPage(Constants.MainPagePageKey))
 		end,
 		goToHomePage = function()
 			dispatch(SetCurrentPage(Constants.LeaveToAppPromptPageKey))

@@ -8,6 +8,9 @@ return function()
 	local Rodux = require(CorePackages.Rodux)
 	local UIBlox = require(CorePackages.UIBlox)
 
+	local Flags = script.Parent.Parent.Parent.Flags
+	local GetFFlagRemoveInGameFollowingEvents = require(Flags.GetFFlagRemoveInGameFollowingEvents)
+
 	local PlayerList = script.Parent.Parent
 	local Reducers = PlayerList.Reducers
 	local Reducer = require(Reducers.Reducer)
@@ -29,7 +32,7 @@ return function()
 	local FollowRelationshipChanged
 	local GetFollowRelationships
 	local NewFollower
-	if not game:GetFastFlag("RemoveInGameFollowingEvents") then
+	if not GetFFlagRemoveInGameFollowingEvents() then
 		FollowRelationshipChanged = Instance.new("RemoteEvent")
 		FollowRelationshipChanged.Name = "FollowRelationshipChanged"
 		FollowRelationshipChanged.Parent = RobloxReplicatedStorage

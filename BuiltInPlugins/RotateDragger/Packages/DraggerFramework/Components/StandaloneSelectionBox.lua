@@ -32,8 +32,8 @@ function StandaloneSelectionBox:render()
 	local container = self.props.Container or CoreGui
 
 	return Roact.createElement(Roact.Portal, {
-        target = container,
-    }, {
+		target = container,
+	}, {
 		DummyPart = Roact.createElement("Part", {
 			Shape = Enum.PartType.Block,
 			Anchored = true,

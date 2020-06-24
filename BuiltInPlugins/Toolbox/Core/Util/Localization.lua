@@ -365,6 +365,7 @@ function Localization:_recalculateContent()
 			RecentDecals = self:_safeLocalize("Studio.Toolbox.General.CategoryRecentDecals"),
 			RecentMeshes = self:_safeLocalize("Studio.Toolbox.General.CategoryRecentMeshes"),
 			RecentAudio = self:_safeLocalize("Studio.Toolbox.General.CategoryRecentAudio"),
+			RecentVideo = self:_safeLocalize("Studio.Toolbox.General.CategoryRecentVideos"),
 			GroupModels = self:_safeLocalize("Studio.Toolbox.General.CategoryGroupModels"),
 			GroupDecals = self:_safeLocalize("Studio.Toolbox.General.CategoryGroupDecals"),
 			GroupMeshes = self:_safeLocalize("Studio.Toolbox.General.CategoryGroupMeshes"),

@@ -6,6 +6,8 @@ local wrapStrictTable = require(Plugin.Core.Util.wrapStrictTable)
 
 local FFlagUseRBXThumbInToolbox = game:GetFastFlag("UseRBXThumbInToolbox")
 local FFlagEnablePurchaseV2 = game:GetFastFlag("EnablePurchaseV2")
+local FFlagStudioToolboxFixNewEndpointFilters = game:GetFastFlag("StudioToolboxFixNewEndpointFilters")
+local FFlagDragFaceInstances = game:GetFastFlag("DragFaceInstances")
 
 local Urls = {}
 
@@ -117,6 +119,7 @@ keyword, cursor, limit)
 		keyword = keyword,
 		cursor = cursor,
 		limit = limit,
+		useCreatorWhitelist = FFlagStudioToolboxFixNewEndpointFilters and true or nil,
 	})
 end
 -- category, string, neccesary parameter.
@@ -263,10 +266,14 @@ function Urls.constructAssetConfigGroupDataUrl(groupId)
 	return (GET_ASSET_GROUP):format(groupId)
 end
 
-function Urls.constructAssetGameAssetIdUrl(assetId, assetTypeId, isPackage)
+function Urls.constructAssetGameAssetIdUrl(assetId, assetTypeId, isPackage, assetName)
+	if FFlagDragFaceInstances then
+		assert(assetName ~= nil)
+	end
 	return ASSET_GAME_ASSET_ID
 		.. Url.makeQueryString({
 			id = assetId,
+			assetName = assetName,
 		})
 		.. "#"
 		.. Url.makeQueryString({
@@ -338,6 +345,7 @@ function Urls.constructPatchAssetUrl(assetId)
 	return (PATCH_ASSET_BASE):format(assetId)
 end
 
+-- TODO DEVTOOLS-4290: Only used in AssetConfiguration
 function Urls.constructPostUploadAssetUrl(assetid, type, name, description, genreTypeId, ispublic, allowComments, groupId)
 	return POST_UPLOAD_ASSET_BASE .. Url.makeQueryString({
 		assetid = assetid,
@@ -351,6 +359,7 @@ function Urls.constructPostUploadAssetUrl(assetid, type, name, description, genr
 	})
 end
 
+-- TODO DEVTOOLS-4290: Only used in AssetConfiguration
 function Urls.constructPostUploadAnimationUrl(type, name, description, groupId)
 	return POST_UPLOAD_ANIMATION_BASE .. Url.makeQueryString({
 		assetTypeName = tostring(type),
@@ -389,6 +398,7 @@ function Urls.constructGetUserFriendsUrl(userId)
 	return GET_USER_FRIENDS_URL:format(userId)
 end
 
+-- TODO DEVTOOLS-4290: Only used in AssetConfiguration
 function Urls.constructGetPackageCollaboratorsUrl(assetId)
 	return GET_PACKAGE_COLLABORATORS:format(assetId) .. Url.makeQueryString({
 		actionsTextToFilter = "UseView,Edit"
@@ -411,6 +421,7 @@ function Urls.constructGetRobuxBalanceUrl(userId)
 	return ROBUX_BALANCE_URL:format(userId)
 end
 
+-- TODO DEVTOOLS-4290: Only used in AssetConfiguration
 function Urls.constructGetGroupRoleInfoUrl(groupId)
 	return GET_GROUP_ROLE_INFO:format(groupId)
 end

@@ -15,7 +15,6 @@ local plugin = Library.Parent
 local Roact = require(Library.Packages.Roact)
 
 -- Flags
-local getFFlagLuaDraggerHandleScale = require(Framework.Flags.getFFlagLuaDraggerHandleScale)
 local getFFlagBatchBoundsChanged = require(Framework.Flags.getFFlagBatchBoundsChanged)
 local getFFlagDragFaceInstances = require(Framework.Flags.getFFlagDragFaceInstances)
 
@@ -57,7 +56,7 @@ DraggerTool.defaultProps = {
 }
 
 local function areJointsEnabled()
-    return Library.Parent:GetJoinMode() ~= Enum.JointCreationMode.None
+	return Library.Parent:GetJoinMode() ~= Enum.JointCreationMode.None
 end
 
 local function isAltKeyDown()
@@ -346,9 +345,6 @@ end
 	currently under the mouse cursor has changed.
 ]]
 function DraggerTool:_processViewChanged()
-	if not getFFlagLuaDraggerHandleScale() then
-		self._derivedWorldState:updateView()
-	end
 	self.state.stateObject:processViewChanged(self)
 
 	-- Derived world state may have changed as a result of the view update, so
@@ -400,6 +396,10 @@ function DraggerTool:_beginToolboxInitiatedFaceDrag(instances)
 		videoFrameContainer.Enabled = true
 		videoFrameContainer.Parent = Workspace
 		instances[1].Parent = videoFrameContainer
+
+		videoFrameContainer.ChildRemoved:Connect(function(instance)
+			videoFrameContainer:Destroy()
+		end)
 
 		SelectionWrapper:Set({ videoFrameContainer })
 		self:_updateSelectionInfo()

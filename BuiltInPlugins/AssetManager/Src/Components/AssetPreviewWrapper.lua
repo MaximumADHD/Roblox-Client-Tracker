@@ -1,5 +1,3 @@
-local FFlagEnableFavoritesForAssetPreviewInAssetManager = game:DefineFastFlag("EnableFavoritesForAssetPreviewInAssetManager", false)
-
 local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
@@ -49,10 +47,6 @@ function AssetPreviewWrapper:init()
     end
 
     self.requestFavoriteCounts = function()
-        if not FFlagEnableFavoritesForAssetPreviewInAssetManager then
-            return
-        end
-
         local props = self.props
         local assetId = props.AssetData.id
         local apiImpl = props.API:get()
@@ -60,10 +54,6 @@ function AssetPreviewWrapper:init()
 	end
 
     self.checkFavorited = function()
-        if not FFlagEnableFavoritesForAssetPreviewInAssetManager then
-            return
-        end
-
         local props = self.props
         local assetId = props.AssetData.id
         local apiImpl = props.API:get()
@@ -71,10 +61,6 @@ function AssetPreviewWrapper:init()
 	end
 
     self.onFavoritedActivated = function(rbx)
-        if not FFlagEnableFavoritesForAssetPreviewInAssetManager then
-            return
-        end
-
         local props = self.props
         local assetId = props.AssetData.id
         local apiImpl = props.API:get()
@@ -109,10 +95,8 @@ function AssetPreviewWrapper:init()
 end
 
 function AssetPreviewWrapper:didMount()
-    if FFlagEnableFavoritesForAssetPreviewInAssetManager then
-        self.checkFavorited()
-        self.requestFavoriteCounts()
-    end
+    self.checkFavorited()
+    self.requestFavoriteCounts()
 end
 
 function AssetPreviewWrapper:render()

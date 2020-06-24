@@ -26,13 +26,22 @@
 ]]
 
 local Framework = script.Parent.Parent
-local Packages = Framework.packages -- TO DO: once dependencies are properly set up, move this to Framework parent
 local Roact = require(Framework.Parent.Roact)
-local Cryo = require(Packages.Cryo)
+local Util = require(Framework.Util)
+local FlagsList = Util.Flags.new({
+	FFlagStudioDevFrameworkPackage = {"StudioDevFrameworkPackage"},
+})
+local Cryo
+local isUsedAsPackage = require(Framework.Util.isUsedAsPackage)
+if FlagsList:get("FFlagStudioDevFrameworkPackage") and isUsedAsPackage() then
+	Cryo = require(Framework.Parent.Cryo)
+else
+	local Packages = Framework.packages
+	Cryo = require(Packages.Cryo)
+end
 
 local ContextServices = require(Framework.ContextServices)
 local Container = require(script.Parent.Container)
-local Util = require(Framework.Util)
 local prioritize = Util.prioritize
 local Typecheck = Util.Typecheck
 
@@ -68,9 +77,7 @@ function ScrollingFrame:init()
 			Theme = Cryo.None,
 			Style = Cryo.None,
 		},
-		-- TO DO: include prop-filter for infinite scrolling props. DEVTOOLS-4123
 	}
-
 
 	self.getScrollingFrameProps = function(props, style)
 		-- after filtering out parent's props and other component specific props,
@@ -108,24 +115,17 @@ function ScrollingFrame:render()
 	local children = self.props[Roact.Children]
 	local scrollingFrameProps = self.getScrollingFrameProps(self.props, style)
 
-	local scrollingFrame
-	if children == nil then
-		-- TO DO: render an infinite scroller. DEVTOOLS-4123
-		assert("ScrollingFrame MUST have children")-- for now
-	else
-		if autoSizeCanvas then
-			children = {
-				Layout = Roact.createElement(autoSizeElement, Cryo.Dictionary.join(layoutOptions, {
-					[Roact.Change.AbsoluteContentSize] = self.updateCanvasSize,
-					[Roact.Ref] = self.layoutRef,
-				})),
-				Children = Roact.createFragment(children),
-			}
-		end
-
-		scrollingFrame = Roact.createElement("ScrollingFrame", scrollingFrameProps, children)
+	if autoSizeCanvas then
+		children = {
+			Layout = Roact.createElement(autoSizeElement, Cryo.Dictionary.join(layoutOptions, {
+				[Roact.Change.AbsoluteContentSize] = self.updateCanvasSize,
+				[Roact.Ref] = self.layoutRef,
+			})),
+			Children = Roact.createFragment(children),
+		}
 	end
 
+	local scrollingFrame = Roact.createElement("ScrollingFrame", scrollingFrameProps, children)
 
 	return Roact.createElement(Container, {
 		Position = position,

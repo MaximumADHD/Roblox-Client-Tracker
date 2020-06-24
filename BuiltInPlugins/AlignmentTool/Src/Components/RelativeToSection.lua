@@ -13,10 +13,20 @@ local ContextServices = require(Plugin.Packages.Framework.ContextServices)
 
 local UI = require(Plugin.Packages.Framework.UI)
 local Container = UI.Container
+local Image = UI.Decoration.Image
+local RadioButton = UI.RadioButton
 local RadioButtonList = UI.RadioButtonList
 local TextLabel = UI.Decoration.TextLabel
+local Tooltip = UI.Tooltip
+
+local Util = require(Plugin.Packages.Framework.Util)
+local LayoutOrderIterator = Util.LayoutOrderIterator
+local StyleModifier = Util.StyleModifier
+
+local getEngineFeatureActiveInstanceHighlight = require(Plugin.Src.Flags.getEngineFeatureActiveInstanceHighlight)
 
 local SetRelativeTo = require(Plugin.Src.Actions.SetRelativeTo)
+local UpdateActiveInstanceHighlight = require(Plugin.Src.Thunks.UpdateActiveInstanceHighlight)
 local UpdateAlignEnabled = require(Plugin.Src.Thunks.UpdateAlignEnabled)
 local RelativeTo = require(Plugin.Src.Utility.RelativeTo)
 
@@ -28,15 +38,28 @@ function RelativeToSection:render()
 	local layoutOrder = props.LayoutOrder
 	local localization = props.Localization
 	local theme = props.Theme:get("Plugin")
+	local supportsActiveObject = getEngineFeatureActiveInstanceHighlight()
 
-	local function makeButton(target)
+	local layoutOrderIterator = LayoutOrderIterator.new()
+
+	local function makeRadioButton(target)
+		local disabled = target == RelativeTo.Active and not supportsActiveObject
+		local selected = target == props.relativeTo
 		local text = localization:getText("RelativeToSection", target)
 
-		return {
+		return Roact.createElement(RadioButton, {
+			Disabled = disabled,
 			Key = target,
+			LayoutOrder = layoutOrderIterator:getNextOrder(),
+			OnClick = props.setRelativeTo,
+			Selected = selected,
 			Text = text,
-			Disabled = false,
-		}
+		})
+	end
+
+	local styleModifier = nil
+	if not supportsActiveObject then
+		styleModifier = StyleModifier.Disabled
 	end
 
 	return Roact.createElement(Container, {
@@ -45,24 +68,32 @@ function RelativeToSection:render()
 	}, {
 		Layout = Roact.createElement("UIListLayout", {
 			FillDirection = Enum.FillDirection.Horizontal,
+			Padding = UDim.new(0, theme.RelativeToSection.ListItemPadding),
 			SortOrder = Enum.SortOrder.LayoutOrder,
 		}),
 
 		Label = Roact.createElement(TextLabel, {
-			LayoutOrder = 1,
+			LayoutOrder = layoutOrderIterator:getNextOrder(),
 			Size = theme.SectionLabelSize,
 			Text = localization:getText("RelativeToSection", "Title"),
+			TextXAlignment = Enum.TextXAlignment.Left,
 		}),
 
-		ButtonList = Roact.createElement(RadioButtonList, {
-			Buttons = {
-				makeButton(RelativeTo.Selection),
-				makeButton(RelativeTo.Active),
-			},
-			FillDirection = Enum.FillDirection.Horizontal,
-			LayoutOrder = 2,
-			OnClick = props.setRelativeTo,
-			SelectedKey = props.relativeTo,
+		SelectionRadioButton = makeRadioButton(RelativeTo.Selection),
+		ActiveRadioButton = makeRadioButton(RelativeTo.Active),
+
+		HelpIcon = Roact.createElement(Container, {
+			LayoutOrder = layoutOrderIterator:getNextOrder(),
+			Size = UDim2.new(0, 22, 1, 0),
+		}, {
+			Icon = Roact.createElement(Image, {
+				Style = "HelpIcon",
+				StyleModifier = styleModifier,
+			}),
+
+			Tooltip = supportsActiveObject and Roact.createElement(Tooltip, {
+				Text = localization:getText("RelativeToSection", "ActiveObjectTooltip"),
+			})
 		}),
 	})
 end
@@ -83,6 +114,9 @@ local function mapDispatchToProps(dispatch)
 		setRelativeTo = function(target)
 			dispatch(SetRelativeTo(target))
 			dispatch(UpdateAlignEnabled())
+			if getEngineFeatureActiveInstanceHighlight() then
+				dispatch(UpdateActiveInstanceHighlight())
+			end
 		end,
 	}
 end

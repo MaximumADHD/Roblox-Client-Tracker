@@ -6,25 +6,71 @@ local Plugin = script.Parent.Parent.Parent
 local Rodux = require(Plugin.Packages.Rodux)
 local Cryo = require(Plugin.Packages.Cryo)
 
-local SetCurrentItem = require(Plugin.Src.Actions.SetCurrentItem)
-local SetRBXParameters = require(Plugin.Src.Actions.SetRBXParameters)
+local Constants = require(Plugin.Src.Util.Constants)
+local VIEW_ID = Constants.VIEW_ID
+
+local Actions = Plugin.Src.Actions
+local SetView = require(Actions.SetView)
+local SetRBXParameters = require(Actions.SetRBXParameters)
+local SetTheme = require(Actions.SetTheme)
+local SetMemStoragePair = require(Actions.SetMemStoragePair)
+local ClearMemStoragePair = require(Actions.ClearMemStoragePair)
+local ClearRBXParameters = require(Actions.ClearRBXParameters)
 
 return Rodux.createReducer({
-	CurrentItem = nil,
+	ActiveView = VIEW_ID.MemStorage,
 	Parameters = {
 		Namespace = "UpdateNotificationBadge",
-		DetailType = "NotificationIcon",
 		Detail = '{"badgeString": "1"}',
+		DetailType = "NotificationIcon",
+	},
+	ThemeName = "dark",
+	MemStoragePair = {
+		Key = "ThemeUpdate",
+		Value = "dark",
 	}
 }, {
-	[SetCurrentItem.name] = function(state, action)
+	[SetView.name] = function(state, action)
 		return Cryo.Dictionary.join(state, {
-			CurrentItem = action.currentItem,
+			ActiveView = action.view,
 		})
 	end,
-	[SetRBXParameters.name] = function (state,action)
+	[SetRBXParameters.name] = function (state,action)		
 		return Cryo.Dictionary.join(state, {
-			Parameters = action.parameters
+			Parameters = action.parameters,
 		})
-	end
+	end,
+	[SetTheme.name] = function (state,action)
+		return Cryo.Dictionary.join(state, {
+			ThemeName = action.themeName,
+		})
+	end,
+	[SetMemStoragePair.name] = function (state, action)
+		local pair = {
+			Key = action.pair.Key or state.MemStoragePair.Key,
+			Value = action.pair.Value or state.MemStoragePair.Value,
+		}
+		
+		return Cryo.Dictionary.join(state, {
+			MemStoragePair = pair,
+		})
+	end,
+	[ClearMemStoragePair.name] = function (state, action)
+		return Cryo.Dictionary.join(state, {
+			MemStoragePair = {
+				Key = "",
+				Value = "",
+			}
+		})
+	end,
+	[ClearRBXParameters.name] = function (state, action)
+		return Cryo.Dictionary.join(state, {
+			Parameters = {
+				Detail = "",
+				Namespace = "",
+				DetailType = "",
+			}
+		})
+	end,
+
 })

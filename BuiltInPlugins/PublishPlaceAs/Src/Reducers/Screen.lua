@@ -3,9 +3,18 @@ local Rodux = require(Plugin.Packages.Rodux)
 local Cryo = require(Plugin.Packages.Cryo)
 local Constants = require(Plugin.Src.Resources.Constants)
 
-local initial = {
-	screen = Constants.SCREENS.CREATE_NEW_GAME,
-}
+local FFlagStudioPublishFlowDefaultScreen = game:DefineFastFlag("StudioPublishFlowDefaultScreen", false)
+
+local initial
+if FFlagStudioPublishFlowDefaultScreen and game.GameId == 0 then
+	initial = {
+		screen = Constants.SCREENS.CHOOSE_GAME,
+	}
+else
+	initial = {
+		screen = Constants.SCREENS.CREATE_NEW_GAME,
+	}
+end
 
 return Rodux.createReducer(initial, {
 	SetScreen = function(state, action)

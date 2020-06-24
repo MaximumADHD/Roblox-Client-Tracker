@@ -25,6 +25,7 @@ function FrameworkStyles.new()
 		DropdownMenu = newDefaults(),
 		DropShadow = newDefaults(),
 		Image = newDefaults(),
+		InfiniteScrollingFrame = newDefaults(),
 		LinkText = newDefaults(),
 		LoadingBar = newDefaults(),
 		LoadingIndicator = newDefaults(),
@@ -42,6 +43,7 @@ function FrameworkStyles.new()
 		-- StudioUI Styles
 		SearchBar = newDefaults(),
 		StyledDialog = newDefaults(),
+		TitledFrame = newDefaults(),
 	}
 end
 

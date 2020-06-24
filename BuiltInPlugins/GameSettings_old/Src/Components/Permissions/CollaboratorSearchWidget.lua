@@ -4,6 +4,8 @@
 
 local FFlagStudioConvertGameSettingsToDevFramework = game:GetFastFlag("StudioConvertGameSettingsToDevFramework")
 
+local FFlagStudioGameSettingsPermissionsDefaultEditAction = game:DefineFastFlag("StudioGameSettingsPermissionsDefaultEditAction", false)
+
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
@@ -23,7 +25,6 @@ local GuiService = game:GetService("GuiService")
 
 local PermissionsConstants = require(Plugin.Src.Components.Permissions.PermissionsConstants)
 local LOADING = require(Plugin.Src.Keys.loadingInProgress)
-local DEFAULT_ADD_ACTION = PermissionsConstants.PlayKey
 local MY_FRIENDS_KEY = "MyFriends"
 
 local Searchbar = require(Plugin.Src.Components.Permissions.SearchBar)
@@ -442,7 +443,12 @@ function CollaboratorSearchWidget:render()
 				if key == MY_FRIENDS_KEY then
 					print("TODO: enable friends option")
 				else
-					collaboratorAdded(key.Type, key.Id, key.Name, DEFAULT_ADD_ACTION)
+					if FFlagStudioGameSettingsPermissionsDefaultEditAction and
+					(key.Type == PermissionsConstants.UserSubjectKey and getIsFriend(key.Id, searchData.LocalUserFriends)) then
+						collaboratorAdded(key.Type, key.Id, key.Name, PermissionsConstants.EditKey)
+					else
+						collaboratorAdded(key.Type, key.Id, key.Name, PermissionsConstants.PlayKey)
+					end
 				end
 			end,
 

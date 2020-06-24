@@ -31,7 +31,6 @@ LeavePrompt.validateProps = t.strictInterface({
 	cancelText = t.string,
 	onConfirm = t.callback,
 	onCancel = t.callback,
-	layoutOrder = t.optional(t.number),
 })
 
 function LeavePrompt:render()

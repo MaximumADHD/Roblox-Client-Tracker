@@ -1,7 +1,7 @@
 
 --[[
-    Get the FaceInstance (Decal or Texture) on a given part closest to a given
-    position.
+	Get the FaceInstance (Decal or Texture) on a given part closest to a given
+	position.
 ]]
 
 local function getNormalId(normalizedPosition)

@@ -1,3 +1,6 @@
+local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local PolicyService = require(RobloxGui.Modules.Common:WaitForChild("PolicyService"))
 local CorePackages = game:GetService("CorePackages")
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
@@ -70,7 +73,16 @@ function PlayerLabel:renderButtons()
 end
 
 function PlayerLabel:render()
+
+	-- check policy until we need to render this component.
+	-- if we should show display name:
+	-- * the DisplayNameLabel will be used to show display name.
+	-- * the UsernameLabel will be used to show "@username".
+	-- if not, we just show username at DisplayNameLabel and hide UsernameLabel
+
 	local props = self.props
+	local shouldShowDisplayName = PolicyService:IsSubjectToChinaPolicies()
+	local displayName = props.displayName ~= "" and props.displayName or props.username
 
 	return withStyle(function(style)
 		local backgroundStyle = style.Theme.BackgroundContrast
@@ -102,14 +114,15 @@ function PlayerLabel:render()
 				fontKey = "Header2",
 				themeKey = "TextEmphasis",
 
-				Position = UDim2.new(0, USERNAME_X_OFFSET, 0, USERNAME_TOP_PADDING),
+				Position = UDim2.new(0, USERNAME_X_OFFSET, 0, shouldShowDisplayName and USERNAME_TOP_PADDING or CONTAINER_FRAME_HEIGHT / 2),
+				AnchorPoint = shouldShowDisplayName and Vector2.new(0, 0) or Vector2.new(0, 0.5),
 				Size = UDim2.new(0, USERNAME_WIDTH, 0, USERNAME_HEIGHT),
-				Text = props.displayName ~= "" and props.displayName or props.username,
+				Text = shouldShowDisplayName and displayName or props.username,
 				TextXAlignment = Enum.TextXAlignment.Left,
 				TextTruncate = Enum.TextTruncate.AtEnd,
 			}),
 
-			UsernameLabel = Roact.createElement(ThemedTextLabel, {
+			UsernameLabel = shouldShowDisplayName and Roact.createElement(ThemedTextLabel, {
 				fontKey = "Header2",
 				themeKey = "TextDefault",
 

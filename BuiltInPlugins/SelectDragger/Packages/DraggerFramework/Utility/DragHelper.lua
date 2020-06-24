@@ -6,7 +6,8 @@ local Lib = script.Parent.Parent
 local Math = require(Lib.Utility.Math)
 local getGeometry = require(Lib.Utility.getGeometry)
 
-local getFFlagFuzzyTerrainNormal = require(Lib.Flags.getFFlagFuzzyTerrainNormal)
+local getFFlagFixBadNormal = require(Lib.Flags.getFFlagFixBadNormal)
+local getFFlagDragFaceInstances = require(Lib.Flags.getFFlagDragFaceInstances)
 
 local PrimaryDirections = {
 	Vector3.new(1, 0, 0),
@@ -35,6 +36,32 @@ local ROTATE_DEPENDS_ON_CAMERA = false
 
 local DragHelper = {}
 
+local VOXEL_RESOLUTION = 4
+local function roundToTerrainGrid(value)
+	return VOXEL_RESOLUTION * math.floor(value / VOXEL_RESOLUTION + 0.5)
+end
+
+local function findClosestBasis(normal)
+	local mostPerpendicularNormal1
+	local smallestDot = math.huge
+	for _, primaryDirection in ipairs(PrimaryDirections) do
+		local dot = math.abs(primaryDirection:Dot(normal))
+		if dot < smallestDot then
+			smallestDot = dot
+			mostPerpendicularNormal1 = primaryDirection
+		end
+	end
+
+	local mostPerpendicularNormal2 = mostPerpendicularNormal1:Cross(normal).Unit
+	local closestNormal = -mostPerpendicularNormal1:Cross(mostPerpendicularNormal2)
+
+	return closestNormal, mostPerpendicularNormal1, mostPerpendicularNormal2
+end
+
+local function largestComponent(vector)
+	return math.max(math.abs(vector.X), math.abs(vector.Y), math.abs(vector.Z))
+end
+
 function DragHelper.snapVectorToPrimaryDirection(direction)
 	local largestDot = -math.huge
 	local closestDirection
@@ -48,40 +75,136 @@ function DragHelper.snapVectorToPrimaryDirection(direction)
 	return closestDirection
 end
 
-function DragHelper.getSurfaceMatrix(selection, lastSurfaceMatrix)
+function DragHelper.snapRotationToPrimaryDirection(cframe)
+	local right = cframe.RightVector
+	local top = cframe.UpVector
+	local front = -cframe.LookVector
+	local largestRight = largestComponent(right)
+	local largestTop = largestComponent(top)
+	local largestFront = largestComponent(front)
+	if largestRight > largestTop and largestRight > largestFront then
+		-- Most aligned axis is X, the right, preserve that
+		right = DragHelper.snapVectorToPrimaryDirection(right)
+		if largestTop > largestFront then
+			top = DragHelper.snapVectorToPrimaryDirection(top)
+		else
+			local front = DragHelper.snapVectorToPrimaryDirection(front)
+			top = front:Cross(right).Unit
+		end
+	elseif largestTop > largestFront then
+		-- Most aligned axis is Y, the top, preserve that
+		top = DragHelper.snapVectorToPrimaryDirection(top)
+		if largestRight > largestFront then
+			right = DragHelper.snapVectorToPrimaryDirection(right)
+		else
+			local front = DragHelper.snapVectorToPrimaryDirection(front)
+			right = top:Cross(front).Unit
+		end
+	else
+		-- Most aligned axis is Z, the front, preserve that
+		local front = DragHelper.snapVectorToPrimaryDirection(front)
+		if largestRight > largestTop then
+			right = DragHelper.snapVectorToPrimaryDirection(right)
+			top = front:Cross(right).Unit
+		else
+			top = DragHelper.snapVectorToPrimaryDirection(top)
+			right = top:Cross(front).Unit
+		end
+	end
+	return CFrame.fromMatrix(Vector3.new(), right, top)
+end
+
+function DragHelper.getHitPart(selection)
 	-- Find the hit part and where the hit is
 	local mouseAt = UserInputService:GetMouseLocation()
 	local unitRay = Workspace.CurrentCamera:ViewportPointToRay(mouseAt.X, mouseAt.Y)
 	local ray = Ray.new(unitRay.Origin, unitRay.Direction * 10000)
-	local part, mouseWorld, normal = Workspace:FindPartOnRayWithIgnoreList(ray, selection)
-	if part and part:IsA("Terrain") then
-		-- Special case for terrain, since we can't get geometry for it
-		local upVector = Vector3.new(0, 1, 0)
-		if getFFlagFuzzyTerrainNormal() then
-			if normal:FuzzyEq(upVector) then
-				upVector = Vector3.new(1, 0, 0)
-			end
-		else
-			if normal == upVector then
-				upVector = Vector3.new(1, 0, 0)
-			end
+	return ray, Workspace:FindPartOnRayWithIgnoreList(ray, selection)
+end
+
+function DragHelper.getClosestFace(part, mouseWorld)
+	local geom = getGeometry(part, mouseWorld)
+	local closestFace
+	local closestDist = math.huge
+	for _, face in ipairs(geom.faces) do
+		local dist = math.abs((mouseWorld - face.point):Dot(face.normal))
+		if dist < closestDist then
+			closestFace = face
+			closestDist = dist
 		end
-		local xVector = upVector:Cross(normal).Unit
-		return CFrame.fromMatrix(mouseWorld, -xVector, normal), mouseWorld, DragTargetType.Terrain
+	end
+	return closestFace, geom
+end
+
+function DragHelper.getPartAndSurface(selection)
+	local ray, part, mouseWorld, normal = DragHelper.getHitPart(selection)
+	local closestFace, _
+	if part then
+		closestFace, _ = DragHelper.getClosestFace(part, mouseWorld)
+	end
+
+	if closestFace then
+		return part, closestFace.surface
+	else
+		return part, nil
+	end
+end
+
+function DragHelper.getSurfaceMatrix(selection, lastSurfaceMatrix)
+	local ray, part, mouseWorld, normal
+	if getFFlagDragFaceInstances() then
+		ray, part, mouseWorld, normal = DragHelper.getHitPart(selection)
+	else
+		-- Find the hit part and where the hit is
+		local mouseAt = UserInputService:GetMouseLocation()
+		local unitRay = Workspace.CurrentCamera:ViewportPointToRay(mouseAt.X, mouseAt.Y)
+		ray = Ray.new(unitRay.Origin, unitRay.Direction * 10000)
+		part, mouseWorld, normal = Workspace:FindPartOnRayWithIgnoreList(ray, selection)
+	end
+	if part and part:IsA("Terrain") then
+		-- First, find the closest aligned global axis normal, and the two other
+		-- axes mutually orthogonal to it.
+		local closestNormal, mostPerpendicularNormal1, mostPerpendicularNormal2
+			= findClosestBasis(normal)
+
+		-- Now we want to grid-align mouseWorld by snapping it to the
+		-- grid size of the terrain on the non-normal axes.
+		local alongNormal1 = mouseWorld:Dot(mostPerpendicularNormal1)
+		local alongNormal2 = mouseWorld:Dot(mostPerpendicularNormal2)
+		local snappedMouseWorldBase =
+			mostPerpendicularNormal1 * roundToTerrainGrid(alongNormal1) +
+			mostPerpendicularNormal2 * roundToTerrainGrid(alongNormal2)
+
+		-- Since we grid-aligned the position on two of the axis, we have to
+		-- bring the position back into the surface plane on the other axis.
+		-- Do that by solving the following equation:
+		-- (snappedMouseWorldBase + closestNormal * adjustmentIntoPlane):Dot(normal) = mouseWorld:Dot(normal)
+		local adjustmentIntoPlane =
+			(mouseWorld:Dot(normal) - snappedMouseWorldBase:Dot(normal)) / closestNormal:Dot(normal)
+		local snappedMouseWorld = snappedMouseWorldBase + closestNormal * adjustmentIntoPlane
+
+		return CFrame.fromMatrix(snappedMouseWorld,
+			normal:Cross(mostPerpendicularNormal1).Unit, normal),
+			mouseWorld, DragTargetType.Terrain
 	elseif part then
 		-- Find the normal and secondary axis (the direction the studs / UV
 		-- coords are oriented in) of the surface that we're dragging onto.
 		-- Also find the closest "basis" point on the face to the mouse,
-		local geom = getGeometry(part, mouseWorld)
-		local closestFace = nil
-		local closestDist = math.huge
-		for _, face in ipairs(geom.faces) do
-			local dist = math.abs((mouseWorld - face.point):Dot(face.normal))
-			if dist < closestDist then
-				closestFace = face
-				closestDist = dist
+		local closestFace, geom = nil
+		if getFFlagDragFaceInstances() then
+			closestFace, geom = DragHelper.getClosestFace(part, mouseWorld)
+		else
+			geom = getGeometry(part, mouseWorld)
+			local closestDist = math.huge
+			for _, face in ipairs(geom.faces) do
+				local dist = math.abs((mouseWorld - face.point):Dot(face.normal))
+				if dist < closestDist then
+					closestFace = face
+					closestDist = dist
+				end
 			end
 		end
+
 		local normal = closestFace.normal
 		local secondary;
 		local closestEdgeDist = math.huge
@@ -153,9 +276,13 @@ function DragHelper.updateTiltRotate(selection, mainCFrame, lastTargetMat, tiltR
 		return tiltRotate
 	end
 	local dragInTargetSpace = targetMatrix:Inverse() * mainCFrame
-	local rightVector = DragHelper.snapVectorToPrimaryDirection(dragInTargetSpace.RightVector)
-	local upVector = DragHelper.snapVectorToPrimaryDirection(dragInTargetSpace.UpVector)
-	dragInTargetSpace = CFrame.fromMatrix(Vector3.new(), rightVector, upVector)
+	if getFFlagFixBadNormal() then
+		dragInTargetSpace = DragHelper.snapRotationToPrimaryDirection(dragInTargetSpace)
+	else
+		local rightVector = DragHelper.snapVectorToPrimaryDirection(dragInTargetSpace.RightVector)
+		local upVector = DragHelper.snapVectorToPrimaryDirection(dragInTargetSpace.UpVector)
+		dragInTargetSpace = CFrame.fromMatrix(Vector3.new(), rightVector, upVector)
+	end
 
 	-- Current global rotation when dragging is given by:
 	--   (targetMatrix * dragInTargetSpace * tiltRotate)
@@ -212,9 +339,13 @@ function DragHelper.getDragTarget(dragInMainSpace, selection, mainCFrame, basisP
 	-- Now we want to "snap" the rotation of this transformation to 90degree
 	-- increments, such that the dragInTargetSpace is only some combination of
 	-- the primary direction vectors.
-	local rightVector = DragHelper.snapVectorToPrimaryDirection(dragInTargetSpace.RightVector)
-	local upVector = DragHelper.snapVectorToPrimaryDirection(dragInTargetSpace.UpVector)
-	dragInTargetSpace = CFrame.fromMatrix(Vector3.new(), rightVector, upVector)
+	if getFFlagFixBadNormal() then
+		dragInTargetSpace = DragHelper.snapRotationToPrimaryDirection(dragInTargetSpace)
+	else
+		local rightVector = DragHelper.snapVectorToPrimaryDirection(dragInTargetSpace.RightVector)
+		local upVector = DragHelper.snapVectorToPrimaryDirection(dragInTargetSpace.UpVector)
+		dragInTargetSpace = CFrame.fromMatrix(Vector3.new(), rightVector, upVector)
+	end
 
 	-- Now we want to "snap" the basisPoint to be on-Grid in the main space
 	-- the basisPoint is already in the main space, so we can just snap it to

@@ -41,9 +41,9 @@ function SelectionWrapper:destroy()
 end
 
 function SelectionWrapper:Set(objects)
-    self._currentlySettingSelection = true
-    Selection:Set(objects)
-    self._currentlySettingSelection = false
+	self._currentlySettingSelection = true
+	Selection:Set(objects)
+	self._currentlySettingSelection = false
 end
 
 function SelectionWrapper:Get()

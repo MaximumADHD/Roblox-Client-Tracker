@@ -9,14 +9,12 @@ local Images = require(script.Parent.Images)
 
 local UIBloxImages = UIBlox.App.ImageSet.Images
 
-local FFlagTopBarUseNewIcons = require(RobloxGui.Modules.Flags.FFlagTopBarUseNewIcons)
 local FFlagFixInGameMenuMissingAssets = require(RobloxGui.Modules.InGameMenu.Flags.FFlagFixInGameMenuMissingAssets)
 
 return {
 	Images = {
 		RobloxLogo = Images["LuaApp/graphic/ic_logo"],
-		CloseButton = FFlagTopBarUseNewIcons and
-			"rbxasset://textures/ui/TopBar/close.png" or Images["InGameMenu/Graphic/CloseButton"],
+		CloseButton = "rbxasset://textures/ui/TopBar/close.png",
 		RespawnIcon = Images["InGameMenu/Icons/RespawnIcon"],
 		ReportIcon = Images["LuaApp/icons/GameDetails/feedback"],
 

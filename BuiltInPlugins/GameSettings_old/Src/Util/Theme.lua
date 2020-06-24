@@ -369,6 +369,8 @@ function Theme.createValues(theme, getColor)
 				},
 				failLabelPaddingX = 400,
 				failPageListPaddingY = 16,
+
+				toggleButtonSize = UDim2.fromOffset(40, 24),
 			},
 
 			backButton = {
@@ -609,7 +611,11 @@ function Theme.DEPRECATED_createValues(getColor, StyleColor, StyleModifier)
 
 		uiListLayout = {
 			padding = 10,
-		}
+		},
+
+		settingsPage = {
+			toggleButtonSize = UDim2.fromOffset(40, 24),
+		},
 	}
 
 	-- define any custom changes to UILibrary elements, use UILibrary's createTheme path syntax

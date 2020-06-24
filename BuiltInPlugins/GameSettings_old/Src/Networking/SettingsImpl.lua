@@ -19,6 +19,7 @@ local FFlagStudioLocalizationInGameSettingsEnabled = game:GetFastFlag("StudioLoc
 local FFlagStudioAddMonetizationToGameSettings = game:GetFastFlag("StudioAddMonetizationToGameSettings")
 local FFlagGameSettingsPlaceSettings = game:GetFastFlag("GameSettingsPlaceSettings")
 local FFlagEnableDevProductsInGameSettings = game:GetFastFlag("EnableDevProductsInGameSettings")
+local FFlagQ220PermissionsSettings = game:GetFastFlag("Q220PermissionsSettings")
 
 local Plugin = script.Parent.Parent.Parent
 local Promise = require(Plugin.Promise)
@@ -179,6 +180,10 @@ function SettingsImpl:GetSettings()
 					table.insert(getRequests, Requests.Places.Get())
 				end
 
+				if FFlagQ220PermissionsSettings then
+					table.insert(getRequests, Requests.Universes.GetUniversePermissions(gameId))
+				end
+
 				local success,loaded = Promise.all(getRequests):await()
 				if not success then
 					reject(loaded)
@@ -300,6 +305,11 @@ function SettingsImpl:SaveAll(state)
 		end
 
 		WorkspaceSettings.saveAllAvatarSettings(saveInfo)
+		if FFlagQ220PermissionsSettings then
+			local gameId = game.GameId
+			Requests.Universes.SaveAllUniversePermissions(gameId, settings.Changed)
+		end
+
 		local universeId = game.GameId
 
 		if universeId == 0 or not canManage then

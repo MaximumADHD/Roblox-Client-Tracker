@@ -35,6 +35,7 @@ return function()
 			style = appStyle,
 		}, {
 			HomeButton = Roact.createElement(HomeButton, {
+				on = true,
 				anchorPoint = Vector2.new(0.5, 0.5),
 				position = UDim2.new(1, 100, 1, 100),
 				layoutOrder = 1,

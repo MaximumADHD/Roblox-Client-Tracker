@@ -20,9 +20,10 @@ end
 	Omitting an axis from the table and setting it to false are equivalent.
 
 	The mode determines whether objects are aligned on their centers, or on the
-	minimum/maximum sides of their respective bounding boxes.
+	minimum/maximum sides of their respective bounding boxes. The mode also
+	determines the edge of the selection bounds to use as the alignment target.
 ]]
-return function(objects, axes, mode)
+return function(objects, axes, mode, target)
 	if #objects == 0 then
 		return
 	end
@@ -38,20 +39,39 @@ return function(objects, axes, mode)
 			object:TranslateBy(translation)
 		end
 	end
+  
+  local function adjustOffset(offset, size)
+		if mode == AlignmentMode.Center then
+			return offset
+		elseif mode == AlignmentMode.Min then
+			return offset - size / 2
+		elseif mode == AlignmentMode.Max then
+			return offset + size / 2
+		end
+	end
+
+	local targetOffset
+
+  if target ~= nil then
+		local targetBoundingBox = objectBoundingBoxMap[target]
+		assert(targetBoundingBox, "Should have bounding box for target")
+		if targetBoundingBox ~= nil then
+		  targetOffset = adjustOffset(targetBoundingBox.offset, targetBoundingBox.size)	
+		end
+	else
+    targetOffset = adjustOffset(boundingBoxOffset, boundingBoxSize)
+  end
 
 	for _, object in ipairs(objects) do
+		if object == target then
+			continue
+		end
+
 		local objectBoundingBox = objectBoundingBoxMap[object]
 		assert(objectBoundingBox, "Missing bounding box for object")
 
-		local offset = boundingBoxOffset - objectBoundingBox.offset
-		if mode ~= AlignmentMode.Center then
-			local extent = objectBoundingBox.size / 2
-			if mode == AlignmentMode.Max then
-				extent = -extent
-			end
-			offset = offset + extent
-		end
-
+		local objectOffset = adjustOffset(objectBoundingBox.offset, objectBoundingBox.size)
+		local offset = targetOffset - objectOffset
 		translateObject(object, offset)
 	end
 end

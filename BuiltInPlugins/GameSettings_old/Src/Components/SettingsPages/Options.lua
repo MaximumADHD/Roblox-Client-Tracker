@@ -15,6 +15,7 @@ local FFlagsEnableVersionHistorySetting = settings():GetFFlag("CollabEditVersion
 local FFlagStudioConvertGameSettingsToDevFramework = game:GetFastFlag("StudioConvertGameSettingsToDevFramework")
 local FFlagGameSettingsShutdownAllServersButton = game:GetFastFlag("GameSettingsShutdownAllServersButton")
 local FFlagGameSettingsPlaceSettings = game:GetFastFlag("GameSettingsPlaceSettings")
+local FFlagQ220PermissionsSettings = game:GetFastFlag("Q220PermissionsSettings")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -74,7 +75,7 @@ local function displayContents(page, localized)
 			LayoutOrder = 0,
 		}),
 
-		Http = Roact.createElement(RadioButtonSet, {
+		Http = (not FFlagQ220PermissionsSettings) and Roact.createElement(RadioButtonSet, {
 			Title = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "TitleHttp") or localized.Title.Http,
 			Buttons = {{
 					Id = true,
@@ -94,7 +95,7 @@ local function displayContents(page, localized)
 			end,
 		}),
 
-		StudioApiServices = Roact.createElement(RadioButtonSet, {
+		StudioApiServices = (not FFlagQ220PermissionsSettings) and Roact.createElement(RadioButtonSet, {
 			Title = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "TitleStudioApiServices") or localized.Title.StudioApiServices,
 			Buttons = {{
 					Id = true,

@@ -24,6 +24,10 @@ return function()
 			store:dispatch(SetPageSaveState(pageId, SaveState.Pending))
 		end
 
+		for settingName,settingValue in pairs(state.Settings.Changed) do
+			Analytics.onSettingSaved(settingName, settingValue)
+		end
+
 		return Promise.new(function(resolve, reject)
 			spawn(function()
 				local allSaved
@@ -48,15 +52,19 @@ return function()
 				end
 
 				local state = store:getState()
-				for pageId,_ in pairs(state.PageSaveState) do
+				for pageId,saveState in pairs(state.PageSaveState) do
+					if saveState == SaveState.SaveFailed then
+						Analytics.onPageSaveError(pageId)
+					end
+
 					store:dispatch(SetPageSaveState(pageId, SaveState.Unsaved))
 				end
 
-				Analytics.onSaveSuccess(tick() - startTime)
-
 				if allSuccessful then
+					Analytics.onSaveSuccess(tick() - startTime)
 					resolve()
 				else
+					Analytics.onSaveError(tick() - startTime)
 					store:dispatch(SetCurrentStatus(CurrentStatus.Error))
 					reject({})
 				end

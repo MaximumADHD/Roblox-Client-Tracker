@@ -9,6 +9,7 @@ local t = require(script.Parent.t)
 local FrameworkTypes = {}
 local Flags = require(Framework.Util.Flags)
 local FlagsList = Flags.new({
+	FFlagDevFrameworkEnumUtility = "DevFrameworkEnumUtility",
 	FFlagRefactorDevFrameworkContextItems = {"RefactorDevFrameworkContextItems"},
 })
 
@@ -61,6 +62,10 @@ function FrameworkTypes.Focus(value)
 	return true
 end
 
+function FrameworkTypes.RoactRef(value)
+	return t.table(value) and tostring(value):find("RoactRef")
+end
+
 function FrameworkTypes.Symbol(value)
 	return t.userdata(value)
 end
@@ -75,11 +80,19 @@ end
 
 function FrameworkTypes.StyleModifier(value)
 	local errMsg = "StyleModifier expected, got %s."
-	for _, v in pairs(StyleModifier) do
-		if value == v then
+
+	if FlagsList:get("FFlagDevFrameworkEnumUtility")  then
+		if StyleModifier.isEnumValue(value) then
 			return true
 		end
+	else
+		for _, v in pairs(StyleModifier) do
+			if value == v then
+				return true
+			end
+		end
 	end
+
 	return false, errMsg:format(type(value))
 end
 

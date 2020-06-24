@@ -6,19 +6,15 @@ local SelectionHelper = require(Framework.Utility.SelectionHelper)
 local setInsertPoint = require(Framework.Utility.setInsertPoint)
 local StandardCursor = require(Framework.Utility.StandardCursor)
 
-local getFFlagAllowDragContinuation = require(Framework.Flags.getFFlagAllowDragContinuation)
-local getFFlagMinCursorChange = require(Framework.Flags.getFFlagMinCursorChange)
-local getFFlagFixDraggerCursors = require(Framework.Flags.getFFlagFixDraggerCursors)
-
 local NO_COLLISIONS_TRANSPARENCY = 0.4
 
 local DraggingHandle = {}
 DraggingHandle.__index = DraggingHandle
 
 function DraggingHandle.new(draggerTool, makeDraggedPartsTransparent, draggingHandleId)
-    local self = setmetatable({}, DraggingHandle)
-    self:_init(draggerTool, makeDraggedPartsTransparent, draggingHandleId)
-    return self
+	local self = setmetatable({}, DraggingHandle)
+	self:_init(draggerTool, makeDraggedPartsTransparent, draggingHandleId)
+	return self
 end
 
 function DraggingHandle:enter(draggerTool)
@@ -30,95 +26,78 @@ function DraggingHandle:leave(draggerTool)
 end
 
 function DraggingHandle:_init(draggerTool, makeDraggedPartsTransparent, draggingHandleId)
-    assert(draggingHandleId, "Missing draggingHandleId in DraggingHandle::_init")
+	assert(draggingHandleId, "Missing draggingHandleId in DraggingHandle::_init")
 
 	-- DEBUG: Allow designers to play with handle settings.
 	-- Remove before shipping!
 	if Workspace:FindFirstChild("NoCollisionsTransparency") and Workspace.NoCollisionsTransparency.Value ~= 0 then
-        NO_COLLISIONS_TRANSPARENCY = 0.4 * Workspace.NoCollisionsTransparency.Value
-    end
+		NO_COLLISIONS_TRANSPARENCY = 0.4 * Workspace.NoCollisionsTransparency.Value
+	end
 
-    draggerTool._sessionAnalytics.handleDrags = draggerTool._sessionAnalytics.handleDrags + 1
-    draggerTool._boundsChangedTracker:uninstall()
-    draggerTool.props.ToolImplementation:mouseDown(SelectionHelper.getMouseRay(), draggingHandleId)
-    self._draggingHandleId = draggingHandleId
+	draggerTool._sessionAnalytics.handleDrags = draggerTool._sessionAnalytics.handleDrags + 1
+	draggerTool._boundsChangedTracker:uninstall()
+	draggerTool.props.ToolImplementation:mouseDown(SelectionHelper.getMouseRay(), draggingHandleId)
+	self._draggingHandleId = draggingHandleId
 
-    self._draggingModifiedParts = {}
-    if getFFlagAllowDragContinuation() then
-        self._makeDraggedPartsTransparent = makeDraggedPartsTransparent
-    end
-    if makeDraggedPartsTransparent then
-        for _, part in ipairs(draggerTool._derivedWorldState:getObjectsToTransform()) do
-            if part:IsA("BasePart") then
-                part.LocalTransparencyModifier = NO_COLLISIONS_TRANSPARENCY
-                table.insert(self._draggingModifiedParts, part)
-            end
-        end
-    end
+	self._draggingModifiedParts = {}
+	self._makeDraggedPartsTransparent = makeDraggedPartsTransparent
+	if makeDraggedPartsTransparent then
+		for _, part in ipairs(draggerTool._derivedWorldState:getObjectsToTransform()) do
+			if part:IsA("BasePart") then
+				part.LocalTransparencyModifier = NO_COLLISIONS_TRANSPARENCY
+				table.insert(self._draggingModifiedParts, part)
+			end
+		end
+	end
 end
 
 function DraggingHandle:render(draggerTool)
-    if getFFlagFixDraggerCursors() then
-        if getFFlagMinCursorChange() then
-            draggerTool:setMouseCursor(StandardCursor.getClosedHand())
-        else
-            draggerTool.props.Mouse.Icon = StandardCursor.getClosedHand()
-        end
-    else
-        draggerTool.props.Mouse.Icon = "rbxasset://SystemCursors/ClosedHand"
-    end
+	draggerTool:setMouseCursor(StandardCursor.getClosedHand())
 
-    local toolImplementation = draggerTool.props.ToolImplementation
-    if toolImplementation and toolImplementation.render then
-        return toolImplementation:render(self._draggingHandleId)
-    end
+	local toolImplementation = draggerTool.props.ToolImplementation
+	if toolImplementation and toolImplementation.render then
+		return toolImplementation:render(self._draggingHandleId)
+	end
 end
 
 function DraggingHandle:processSelectionChanged(draggerTool)
-    -- Re-init the drag if the selection changes.
-    self:_endHandleDrag(draggerTool)
-    if getFFlagAllowDragContinuation() then
-        self:_init(draggerTool, self._makeDraggedPartsTransparent, self._draggingHandleId)
-    end
+	-- Re-init the drag if the selection changes.
+	self:_endHandleDrag(draggerTool)
+	self:_init(draggerTool, self._makeDraggedPartsTransparent, self._draggingHandleId)
 end
 
 function DraggingHandle:processMouseDown(draggerTool)
-    error("Mouse should already be down while dragging handle.")
+	error("Mouse should already be down while dragging handle.")
 end
 
 function DraggingHandle:processViewChanged(draggerTool)
-    draggerTool.props.ToolImplementation:mouseDrag(SelectionHelper.getMouseRay())
+	draggerTool.props.ToolImplementation:mouseDrag(SelectionHelper.getMouseRay())
 end
 
 function DraggingHandle:processMouseUp(draggerTool)
-    self:_endHandleDrag(draggerTool)
-    if getFFlagAllowDragContinuation() then
-        draggerTool:transitionToState({}, DraggerStateType.Ready)
-    end
+	self:_endHandleDrag(draggerTool)
+	draggerTool:transitionToState({}, DraggerStateType.Ready)
 end
 
 function DraggingHandle:processKeyDown(draggerTool, keyCode)
-    -- Nothing to do
+	-- Nothing to do
 end
 
 function DraggingHandle:_endHandleDrag(draggerTool)
-    -- Commit the results of using the tool
-    draggerTool.props.ToolImplementation:mouseUp(SelectionHelper.getMouseRay())
-    draggerTool:_updateSelectionInfo() -- Since the seleciton has been edited by Implementation
+	-- Commit the results of using the tool
+	draggerTool.props.ToolImplementation:mouseUp(SelectionHelper.getMouseRay())
+	draggerTool:_updateSelectionInfo() -- Since the seleciton has been edited by Implementation
 
-    for _, part in ipairs(self._draggingModifiedParts) do
-        part.LocalTransparencyModifier = 0
-    end
+	for _, part in ipairs(self._draggingModifiedParts) do
+		part.LocalTransparencyModifier = 0
+	end
 
-    draggerTool._boundsChangedTracker:install()
+	draggerTool._boundsChangedTracker:install()
 
-    local cframe, offset = draggerTool._derivedWorldState:getBoundingBox()
-    setInsertPoint(cframe * offset)
+	local cframe, offset = draggerTool._derivedWorldState:getBoundingBox()
+	setInsertPoint(cframe * offset)
 
-    draggerTool:_analyticsSendHandleDragged()
-    if not getFFlagAllowDragContinuation() then
-        draggerTool:transitionToState({}, DraggerStateType.Ready)
-    end
+	draggerTool:_analyticsSendHandleDragged()
 end
 
 return DraggingHandle

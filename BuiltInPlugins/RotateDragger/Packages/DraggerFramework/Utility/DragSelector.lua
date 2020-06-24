@@ -7,8 +7,6 @@ local DraggerFramework = script.Parent.Parent
 local SelectionHelper = require(DraggerFramework.Utility.SelectionHelper)
 local SelectionWrapper = require(DraggerFramework.Utility.SelectionWrapper)
 
-local getFFlagLuaDraggerPerf = require(DraggerFramework.Flags.getFFlagLuaDraggerPerf)
-
 -- Minimum distance (pixels) required for a drag to select parts.
 local DRAG_SELECTION_THRESHOLD = 3
 
@@ -24,7 +22,7 @@ local DragSelector = {}
 DragSelector.__index = DragSelector
 
 function DragSelector.new()
-    local self = {
+	local self = {
 		_isDragging = false,
 		_selectionBeforeDrag = {},
 		_dragStartLocation = nil,
@@ -62,61 +60,26 @@ end
 
 -- Get list of drag candidates from all selectable parts in the workspace.
 function DragSelector:beginDrag(location)
-    assert(not self._isDragging, "Cannot begin drag when already dragging.")
-    self._isDragging = true
+	assert(not self._isDragging, "Cannot begin drag when already dragging.")
+	self._isDragging = true
 
 	self._dragCandidates = {}
 	self._selectionBeforeDrag = SelectionWrapper:Get()
-    self._dragStartLocation = location
+	self._dragStartLocation = location
 
 	local isAltKeyDownState = isAltKeyDown()
 	local getSelectableCache = {}
 	local alreadyAddedSet = {}
-	if getFFlagLuaDraggerPerf() then
-		local descendants = Workspace:GetDescendants()
-		for _, object in ipairs(descendants) do
-			if object:IsA("BasePart") then
-				if not object.Locked then
-					local selectable = SelectionHelper.getSelectableWithCache(object,
-						getSelectableCache, isAltKeyDownState)
-					if selectable and not alreadyAddedSet[selectable] then
-						local center
-						if selectable:IsA("Tool") then
-							center = object.Position
-						elseif selectable:IsA("Model") then
-							center = selectable:GetBoundingBox().Position
-						else
-							center = selectable.Position
-						end
-						alreadyAddedSet[selectable] = true
-						table.insert(self._dragCandidates, {
-							center = center,
-							object = selectable,
-						})
-					end
-				end
-			elseif object:IsA("Attachment") then
-				if object.Visible or areConstraintDetailsShown() then
-					table.insert(self._dragCandidates, {
-						center = object.WorldPosition,
-						object = object,
-					})
-				end
-			end
-		end
-	else
-		for _, object in ipairs(Workspace:GetDescendants()) do
-			local isModel = object:IsA("Model")
-			if isModel or object:IsA("BasePart") then
-				local selectable = SelectionHelper.getSelectable(object)
+	local descendants = Workspace:GetDescendants()
+	for _, object in ipairs(descendants) do
+		if object:IsA("BasePart") then
+			if not object.Locked then
+				local selectable = SelectionHelper.getSelectableWithCache(object,
+					getSelectableCache, isAltKeyDownState)
 				if selectable and not alreadyAddedSet[selectable] then
 					local center
 					if selectable:IsA("Tool") then
-						if isModel then
-							center = object:GetBoundingBox().Position
-						else
-							center = object.Position
-						end
+						center = object.Position
 					elseif selectable:IsA("Model") then
 						center = selectable:GetBoundingBox().Position
 					else
@@ -128,13 +91,13 @@ function DragSelector:beginDrag(location)
 						object = selectable,
 					})
 				end
-			elseif object:IsA("Attachment") then
-				if object.Visible or areConstraintDetailsShown() then
-					table.insert(self._dragCandidates, {
-						center = object.WorldPosition,
-						object = object,
-					})
-				end
+			end
+		elseif object:IsA("Attachment") then
+			if object.Visible or areConstraintDetailsShown() then
+				table.insert(self._dragCandidates, {
+					center = object.WorldPosition,
+					object = object,
+				})
 			end
 		end
 	end
@@ -146,7 +109,7 @@ end
 	the selection, based on the held modified keys.
 ]]
 function DragSelector:updateDrag(location)
-    assert(self._isDragging, "Cannot update drag when no drag in progress.")
+	assert(self._isDragging, "Cannot update drag when no drag in progress.")
 
 	local screenMovement = location - self._dragStartLocation
 	if screenMovement.Magnitude < DRAG_SELECTION_THRESHOLD then
@@ -160,7 +123,6 @@ function DragSelector:updateDrag(location)
 
 	local newSelection = {}
 	local didChangeSelection = false
-	local fflagLuaDraggerPerf = getFFlagLuaDraggerPerf()
 	for _, candidate in ipairs(self._dragCandidates) do
 		local inside = true
 		for _, plane in ipairs(planes) do
@@ -170,23 +132,16 @@ function DragSelector:updateDrag(location)
 				break
 			end
 		end
-		if fflagLuaDraggerPerf then
-			if inside ~= candidate.selected then
-				candidate.selected = inside
-				didChangeSelection = true
-			end
+		if inside ~= candidate.selected then
+			candidate.selected = inside
+			didChangeSelection = true
 		end
 		if inside then
 			table.insert(newSelection, candidate.object)
 		end
 	end
 
-	if fflagLuaDraggerPerf then
-		if didChangeSelection then
-			newSelection = SelectionHelper.updateSelectionWithMultipleParts(newSelection, self._selectionBeforeDrag)
-			SelectionWrapper:Set(newSelection)
-		end
-	else
+	if didChangeSelection then
 		newSelection = SelectionHelper.updateSelectionWithMultipleParts(newSelection, self._selectionBeforeDrag)
 		SelectionWrapper:Set(newSelection)
 	end
@@ -195,19 +150,19 @@ end
 function DragSelector:commitDrag(location)
 	self:updateDrag(location)
 
-    self._selectionBeforeDrag = {}
-    self._dragStartLocation = nil
-    self._isDragging = false
+	self._selectionBeforeDrag = {}
+	self._dragStartLocation = nil
+	self._isDragging = false
 end
 
 function DragSelector:cancelDrag()
-    if self._isDragging then
-        SelectionWrapper:Set(self._selectionBeforeDrag)
+	if self._isDragging then
+		SelectionWrapper:Set(self._selectionBeforeDrag)
 	end
 
-    self._selectionBeforeDrag = {}
-    self._dragStartLocation = nil
-    self._isDragging = false
+	self._selectionBeforeDrag = {}
+	self._dragStartLocation = nil
+	self._isDragging = false
 end
 
 return DragSelector

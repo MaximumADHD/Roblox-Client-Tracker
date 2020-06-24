@@ -18,8 +18,6 @@ local EntryFrame = require(script.Parent.EntryFrame)
 local StatEntry = require(script.Parent.StatEntry)
 local CellExtender = require(script.Parent.CellExtender)
 
-local FFlagPlayerListMorePerfImprovements = require(RobloxGui.Modules.Flags.FFlagPlayerListMorePerfImprovements)
-
 local TeamEntry = Roact.PureComponent:extend("TeamEntry")
 
 function TeamEntry:render()
@@ -155,20 +153,7 @@ function TeamEntry:render()
 				})
 			end
 
-			if FFlagPlayerListMorePerfImprovements then
-				return Roact.createFragment(teamEntryChildren)
-			else
-				return Roact.createElement("Frame", {
-					LayoutOrder = self.props.layoutOrder,
-					Size = UDim2.new(
-						1,
-						layoutValues.EntryXOffset,
-						0,
-						layoutValues.TeamEntrySizeY
-					),
-					BackgroundTransparency = 1,
-				}, teamEntryChildren)
-			end
+			return Roact.createFragment(teamEntryChildren)
 		end)
 	end)
 end

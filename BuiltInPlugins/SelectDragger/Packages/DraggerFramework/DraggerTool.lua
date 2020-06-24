@@ -15,9 +15,8 @@ local plugin = Library.Parent
 local Roact = require(Library.Packages.Roact)
 
 -- Flags
-local getFFlagOnlyReadyHover = require(Framework.Flags.getFFlagOnlyReadyHover)
-local getFFlagHandleCanceledToolboxDrag = require(Framework.Flags.getFFlagHandleCanceledToolboxDrag)
-local getFFlagHandleFlakeyMouseEvents = require(Framework.Flags.getFFlagHandleFlakeyMouseEvents)
+local getFFlagBatchBoundsChanged = require(Framework.Flags.getFFlagBatchBoundsChanged)
+local getFFlagDragFaceInstances = require(Framework.Flags.getFFlagDragFaceInstances)
 
 -- Components
 local SelectionDot = require(Framework.Components.SelectionDot)
@@ -30,12 +29,14 @@ local BoundsChangedTracker = require(Framework.Utility.BoundsChangedTracker)
 local Analytics = require(Framework.Utility.Analytics)
 local DerivedWorldState = require(Framework.Implementation.DerivedWorldState)
 local HoverTracker = require(Framework.Implementation.HoverTracker)
+local shouldDragAsFace = require(Framework.Utility.shouldDragAsFace)
 
 -- States
 local DraggerStateType = require(Framework.Implementation.DraggerStateType)
 local DraggerStates = Framework.Implementation.DraggerStates
 local DraggerState = {
 	[DraggerStateType.Ready] = require(DraggerStates.Ready),
+	[DraggerStateType.DraggingFaceInstance] = require(DraggerStates.DraggingFaceInstance),
 	[DraggerStateType.PendingDraggingParts] = require(DraggerStates.PendingDraggingParts),
 	[DraggerStateType.DraggingHandle] = require(DraggerStates.DraggingHandle),
 	[DraggerStateType.DraggingParts] = require(DraggerStates.DraggingParts),
@@ -55,7 +56,7 @@ DraggerTool.defaultProps = {
 }
 
 local function areJointsEnabled()
-    return Library.Parent:GetJoinMode() ~= Enum.JointCreationMode.None
+	return Library.Parent:GetJoinMode() ~= Enum.JointCreationMode.None
 end
 
 local function isAltKeyDown()
@@ -69,41 +70,40 @@ local function isShiftKeyDown()
 end
 
 function DraggerTool:init()
-	local initialState
-	if getFFlagOnlyReadyHover() then
-		initialState = DraggerState[DraggerStateType.Ready].new()
-		self:setState({
-			mainState = DraggerStateType.Ready,
-			stateObject = initialState,
-		})
-	else
-		self:setState({
-			mainState = DraggerStateType.Ready,
-			stateObject = DraggerState[DraggerStateType.Ready].new(),
-		})
-	end
+	local initialState = DraggerState[DraggerStateType.Ready].new()
+	self:setState({
+		mainState = DraggerStateType.Ready,
+		stateObject = initialState,
+	})
 
 	self._isMounted = false
 	self._isMouseDown = false
 
-	self._derivedWorldState = DerivedWorldState.new()
-	if not getFFlagOnlyReadyHover() then
-		local function onHoverExternallyChanged()
-			self:_processViewChanged()
-		end
-		self._hoverTracker =
-			HoverTracker.new(self.props.ToolImplementation, onHoverExternallyChanged)
-	end
+	self._mouseCursor = ""
+	self.props.Mouse.Icon = ""
 
-	self._boundsChangedTracker = BoundsChangedTracker.new(function(part)
-		self:_processPartBoundsChanged(part)
-	end)
+	self._derivedWorldState = DerivedWorldState.new()
+
+	if getFFlagBatchBoundsChanged() then
+		-- We defer handling part bounds changes to the render step, as the
+		-- changes that are happening to the selection may be happening to many
+		-- objects in the selection. Without deferring we could end up with
+		-- N^2 behavior if the whole selection is being updated (N part bounds
+		-- changes x each bounds change requires looking at all N parts in
+		-- the selection to calculate the new bounds)
+		self._selectionBoundsAreDirty = false
+		self._boundsChangedTracker = BoundsChangedTracker.new(function(part)
+			self._selectionBoundsAreDirty = true
+		end)
+	else
+		self._boundsChangedTracker = BoundsChangedTracker.new(function(part)
+			self:_processPartBoundsChanged(part)
+		end)
+	end
 
 	self:_updateSelectionInfo()
 
-	if getFFlagOnlyReadyHover() then
-		initialState:enter(self)
-	end
+	initialState:enter(self)
 
 	-- We also have to fire off an initial update, since the only update we do
 	-- is in willUpdate, which isn't called during mounting.
@@ -137,7 +137,11 @@ function DraggerTool:didMount()
 
 	self._dragEnterConnection = mouse.DragEnter:Connect(function(instances)
 		if #instances > 0 then
-			self:_beginToolboxInitiatedFreeformSelectionDrag()
+			if getFFlagDragFaceInstances() and #instances == 1 and shouldDragAsFace(instances[1]) then
+				self:_beginToolboxInitiatedFaceDrag(instances)
+			else
+				self:_beginToolboxInitiatedFreeformSelectionDrag()
+			end
 		end
 	end)
 
@@ -153,6 +157,13 @@ function DraggerTool:didMount()
 
 		if viewChange:poll() then
 			shouldUpdateView = true
+		end
+
+		if getFFlagBatchBoundsChanged() then
+			if self._selectionBoundsAreDirty then
+				self._selectionBoundsAreDirty = false
+				shouldUpdateSelection = true
+			end
 		end
 
 		if StudioService.UseLocalSpace ~= lastUseLocalSpace then
@@ -215,22 +226,17 @@ function DraggerTool:willUnmount()
 	SelectionWrapper:destroy()
 	self._boundsChangedTracker:uninstall()
 
-	if not getFFlagOnlyReadyHover() then
-		self._hoverTracker:clearHover()
-	end
-
 	RunService:UnbindFromRenderStep(DRAGGER_UPDATE_BIND_NAME)
 
 	self:_analyticsSendSession()
 end
 
 function DraggerTool:willUpdate(nextProps, nextState)
-	if getFFlagOnlyReadyHover() then
-		if nextState.mainState ~= self.state.mainState then
-			self.state.stateObject:leave(self)
-			nextState.stateObject:enter(self)
-		end
+	if nextState.mainState ~= self.state.mainState then
+		self.state.stateObject:leave(self)
+		nextState.stateObject:enter(self)
 	end
+
 	if nextState.mainState == DraggerStateType.Ready or nextState.mainState == DraggerStateType.DraggingHandle then
 		if nextProps.ToolImplementation and nextProps.ToolImplementation.update then
 			nextProps.ToolImplementation:update(nextState, self._derivedWorldState)
@@ -239,7 +245,6 @@ function DraggerTool:willUpdate(nextProps, nextState)
 end
 
 function DraggerTool:render()
-	local mouse = self.props.Mouse
 	local selection = SelectionWrapper:Get()
 
 	local coreGuiContent = {}
@@ -261,6 +266,20 @@ function DraggerTool:render()
 	return Roact.createElement(Roact.Portal, {
 		target = CoreGui
 	}, coreGuiContent)
+end
+
+--[[
+	Called by the DraggerTool main states to set the mouse cursor.
+
+	* To not interfere with other parts of studio which set the mouse cursor,
+	  we have to only set the cursor when we think it should change. This is the
+	  abstraction layer that guarantees this.
+]]
+function DraggerTool:setMouseCursor(cursor)
+	if self._mouseCursor ~= cursor then
+		self._mouseCursor = cursor
+		self.props.Mouse.Icon = cursor
+	end
 end
 
 --[[
@@ -290,13 +309,8 @@ function DraggerTool:_scheduleRender()
 end
 
 function DraggerTool:_processSelectionChanged()
-	if getFFlagOnlyReadyHover() then
-		self:_updateSelectionInfo()
-		self.state.stateObject:processSelectionChanged(self)
-	else
-		self.state.stateObject:processSelectionChanged(self)
-		self:_updateSelectionInfo()
-	end
+	self:_updateSelectionInfo()
+	self.state.stateObject:processSelectionChanged(self)
 end
 
 function DraggerTool:_processKeyDown(keyCode)
@@ -304,16 +318,12 @@ function DraggerTool:_processKeyDown(keyCode)
 end
 
 function DraggerTool:_processMouseDown()
-	if getFFlagHandleFlakeyMouseEvents() then
-		if self._isMouseDown then
-			-- Not ideal code. There are just too many situations where the engine
-			-- passes us disbalanced mouseup / mousedown events for us to reliably
-			-- handle all of them, so as an escape hatch, handle a mouse up if we
-			-- get a mouse down without having gotten the preceeding mouse up.
-			self:_processMouseUp()
-		end
-	else
-		assert(not self._isMouseDown)
+	if self._isMouseDown then
+		-- Not ideal code. There are just too many situations where the engine
+		-- passes us disbalanced mouseup / mousedown events for us to reliably
+		-- handle all of them, so as an escape hatch, handle a mouse up if we
+		-- get a mouse down without having gotten the preceeding mouse up.
+		self:_processMouseUp()
 	end
 	self._isMouseDown = true
 	self.state.stateObject:processMouseDown(self)
@@ -335,11 +345,6 @@ end
 	currently under the mouse cursor has changed.
 ]]
 function DraggerTool:_processViewChanged()
-	self._derivedWorldState:updateView()
-	if not getFFlagOnlyReadyHover() then
-		self._hoverTracker:update(self._derivedWorldState)
-	end
-
 	self.state.stateObject:processViewChanged(self)
 
 	-- Derived world state may have changed as a result of the view update, so
@@ -360,9 +365,6 @@ end
 
 function DraggerTool:_updateSelectionInfo()
 	self._derivedWorldState:updateSelectionInfo()
-	if not getFFlagOnlyReadyHover() then
-		self._hoverTracker:update(self._derivedWorldState)
-	end
 	local allAttachments = self._derivedWorldState:getAllSelectedAttachments()
 	self._boundsChangedTracker:setAttachments(allAttachments)
 	self._boundsChangedTracker:setParts(self._derivedWorldState:getObjectsToTransform())
@@ -371,11 +373,10 @@ function DraggerTool:_updateSelectionInfo()
 end
 
 function DraggerTool:_beginToolboxInitiatedFreeformSelectionDrag()
-	if getFFlagHandleCanceledToolboxDrag() then
-		-- We didn't get an associated mouse down, so we have to set the mouse
-		-- down tracking variable here.
-		self._isMouseDown = true
-	end
+	-- We didn't get an associated mouse down, so we have to set the mouse
+	-- down tracking variable here.
+	self._isMouseDown = true
+
 	self:transitionToState({
 		tiltRotate = CFrame.new(),
 	}, DraggerStateType.DraggingParts, {
@@ -383,6 +384,28 @@ function DraggerTool:_beginToolboxInitiatedFreeformSelectionDrag()
 		basisPoint = Vector3.new(), -- Just drag from the center of the object
 		clickPoint = Vector3.new(),
 	})
+end
+
+function DraggerTool:_beginToolboxInitiatedFaceDrag(instances)
+	-- We didn't get an associated mouse down, so we have to set the mouse
+	-- down tracking variable here.
+	self._isMouseDown = true
+
+	if instances[1]:IsA("VideoFrame") then
+		local videoFrameContainer = Instance.new("SurfaceGui")
+		videoFrameContainer.Enabled = true
+		videoFrameContainer.Parent = Workspace
+		instances[1].Parent = videoFrameContainer
+
+		videoFrameContainer.ChildRemoved:Connect(function(instance)
+			videoFrameContainer:Destroy()
+		end)
+
+		SelectionWrapper:Set({ videoFrameContainer })
+		self:_updateSelectionInfo()
+	end
+
+	self:transitionToState({}, DraggerStateType.DraggingFaceInstance)
 end
 
 function DraggerTool:_analyticsSessionBegin()

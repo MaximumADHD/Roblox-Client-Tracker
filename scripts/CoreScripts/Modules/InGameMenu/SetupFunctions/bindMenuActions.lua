@@ -17,6 +17,9 @@ local SetCurrentPage = require(InGameMenu.Actions.SetCurrentPage)
 local Pages = require(InGameMenu.Components.Pages)
 local Constants = require(InGameMenu.Resources.Constants)
 
+local FFlagFixRespawnDialogOpeningWhenDisabled = game:DefineFastFlag("FixRespawnDialogOpeningWhenDisabled", false)
+local GetFFlagUseNewLeaveGamePrompt = require(InGameMenu.Flags.GetFFlagUseNewLeaveGamePrompt)
+
 local TOGGLE_DEVELOPER_CONSOLE_ACTION_NAME = "ToggleDeveloperConsole"
 local TOGGLE_PERFORMANCE_STATS_ACTION_NAME = "TogglePerformanceStats"
 local TOGGLE_MENU_ACTION_NAME = "ToggleInGameMenu"
@@ -88,7 +91,11 @@ local function bindMenuActions(store)
 			return Enum.ContextActionResult.Pass
 		end
 
-		store:dispatch(StartLeavingGame())
+		if GetFFlagUseNewLeaveGamePrompt() then
+			store:dispatch(SetCurrentPage(Constants.LeaveGamePromptPageKey))
+		else
+			store:dispatch(StartLeavingGame())
+		end
 
 		return Enum.ContextActionResult.Sink
 	end
@@ -99,6 +106,12 @@ local function bindMenuActions(store)
 		local state = store:getState()
 		if inputState ~= Enum.UserInputState.Begin or not state.isMenuOpen then
 			return Enum.ContextActionResult.Pass
+		end
+
+		if FFlagFixRespawnDialogOpeningWhenDisabled then
+			if not state.respawn.enabled then
+				return Enum.ContextActionResult.Pass
+			end
 		end
 
 		if Pages.pagesByKey[state.menuPage].isModal then

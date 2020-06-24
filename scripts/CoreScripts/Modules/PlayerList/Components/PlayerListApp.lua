@@ -11,7 +11,6 @@ local Otter = require(CorePackages.Otter)
 local StatsUtils = require(RobloxGui.Modules.Stats.StatsUtils)
 
 local Presentation = script.Parent.Presentation
-local PlayerScrollList = require(Presentation.PlayerScrollList) --Remove with FFlagPlayerListMorePerfImprovements
 local PlayerListSorter = require(Presentation.PlayerListSorter)
 local PlayerEntry = require(Presentation.PlayerEntry)
 local VoiceChatShield = require(Presentation.VoiceChatShield)
@@ -26,7 +25,6 @@ local WithLayoutValues = LayoutValues.WithLayoutValues
 
 local FFlagDisableAutoTranslateForKeyTranslatedContent = require(
 	RobloxGui.Modules.Flags.FFlagDisableAutoTranslateForKeyTranslatedContent)
-local FFlagPlayerListMorePerfImprovements = require(RobloxGui.Modules.Flags.FFlagPlayerListMorePerfImprovements)
 
 local FFlagPlayerListFixXboxLayout = game:DefineFastFlag("PlayerListFixXboxLayout", false)
 
@@ -167,17 +165,10 @@ function PlayerListApp:render()
 			end
 		end
 
-		if FFlagPlayerListMorePerfImprovements then
-			childElements["PlayerScrollList"] = Roact.createElement(PlayerListSorter, {
-				screenSizeY = self.props.screenSizeY,
-				entrySize = entrySize,
-			})
-		else
-			childElements["PlayerScrollList"] = Roact.createElement(PlayerScrollList, {
-				screenSizeY = self.props.screenSizeY,
-				entrySize = entrySize,
-			})
-		end
+		childElements["PlayerScrollList"] = Roact.createElement(PlayerListSorter, {
+			screenSizeY = self.props.screenSizeY,
+			entrySize = entrySize,
+		})
 		childElements["EventConnections"] = Roact.createElement(EventConnections)
 		childElements["ContextActionsBindings"] = Roact.createElement(ContextActionsBinder)
 		childElements["TopStatConnector"] = Roact.createElement(TopStatConnector)

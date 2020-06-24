@@ -7,6 +7,7 @@ local strict = require(script.strict)
 return strict({
 	-- Plugin Utilities
 	Action = require(script.Action),
+	CrossPluginCommunication = require(script.CrossPluginCommunication),
 
 	-- TODO DEVTOOLS-4459: Remove this export
 	Cryo = require(script.Cryo),

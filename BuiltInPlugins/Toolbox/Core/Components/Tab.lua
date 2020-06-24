@@ -18,6 +18,9 @@ local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 local Constants = require(Plugin.Core.Util.Constants)
 
+local FFlagToolboxTabTooltips = game:GetFastFlag("ToolboxTabTooltips")
+local Tooltip = require(Libs.Framework.UI.Tooltip)
+
 local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 local withTheme = ContextHelper.withTheme
 
@@ -61,6 +64,10 @@ function Tab:render(props)
 		local textWidth = Constants.getTextSize(text, nil, Constants.FONT_BOLD).X
 		local contentColor = (selected or hovered) and tabTheme.selectedColor or tabTheme.contentColor
 
+		local tooltip = FFlagToolboxTabTooltips and not displayText and Roact.createElement(Tooltip, {
+			Text = text
+		}) or nil
+
 		return Roact.createElement("ImageButton", {
 			LayoutOrder = layoutOrder,
 			Size = UDim2.new(0, tabWidth, 1, 0),
@@ -74,6 +81,8 @@ function Tab:render(props)
 			[Roact.Event.MouseLeave] = self.mouseLeave,
 			[Roact.Event.Activated] = self.onClick,
 		}, {
+			Tooltip = tooltip,
+
 			UpperBorder = selected and Roact.createElement("Frame", {
 				Size = UDim2.new(1, 0, 0, 2),
 				BorderSizePixel = 0,
@@ -119,7 +128,7 @@ function Tab:render(props)
 					TextColor3 = contentColor,
 					Size = UDim2.new(0, textWidth, 1, 0),
 					TextXAlignment = Enum.TextXAlignment.Left,
-					ClipsDescendants = true
+					ClipsDescendants = true,
 				}),
 			}),
 		})

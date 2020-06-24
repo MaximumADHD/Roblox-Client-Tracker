@@ -1,5 +1,3 @@
-local FFlagDedupePackagesInAssetManager = game:GetFastFlag("DedupePackagesInAssetManager")
-
 local Plugin = script.Parent.Parent.Parent
 local Cryo = require(Plugin.Packages.Cryo)
 
@@ -38,7 +36,7 @@ return Action(script.Name, function(assetsTable, index)
 			nextPageCursor = nextPageCursor or Cryo.None,
 			previousPageCursor = previousPageCursor or Cryo.None,
 			pageNumber = pageNumber or Cryo.None,
-			index = (FFlagDedupePackagesInAssetManager and index ~= nil) and index or nil,
+			index = index ~= nil and index or nil,
 		},
 	}
 end)

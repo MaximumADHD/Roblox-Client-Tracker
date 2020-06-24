@@ -23,6 +23,7 @@ local localization = FFlagTopBarNewGamepadMenu and require(script.newLocalizatio
 local report = require(script.report)
 local friends = require(script.friends)
 local displayOptions = require(script.displayOptions)
+local nativeClosePrompt = require(script.nativeClosePrompt)
 
 local FFlagRecordRecording = require(InGameMenu.Flags.FFlagRecordRecording)
 
@@ -66,7 +67,7 @@ local topLevelHandlers = {
 		return Cryo.Dictionary.join(state, {
 			recording = action.recording,
 		})
-	end or nil
+	end or nil,
 }
 
 local function reducer(state, action)
@@ -83,6 +84,7 @@ local function reducer(state, action)
 			displayOptions = displayOptions(nil, action),
 			screenSize = Vector2.new(0, 0),
 			recording = false,
+			nativeClosePrompt = nativeClosePrompt(nil, action),
 		}
 	end
 
@@ -97,6 +99,7 @@ local function reducer(state, action)
 	state.report = report(state.report, action)
 	state.friends = friends(state.friends, action)
 	state.displayOptions = displayOptions(nil, action)
+	state.nativeClosePrompt = nativeClosePrompt(state.nativeClosePrompt, action)
 
 	return state
 end

@@ -3,6 +3,8 @@
 ]]
 
 local CorePackages = game:GetService("CorePackages")
+local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
@@ -16,6 +18,9 @@ local ReportDialog = require(script.Parent.ReportPage.ReportDialog)
 local ReportSentDialog = require(script.Parent.ReportPage.ReportSentDialog)
 local ControlLayoutSetter = require(script.Parent.ControlsPage.ControlLayoutSetter)
 local Connection = require(script.Parent.Connection)
+local EducationalPopup = require(script.Parent.EducationalPopup)
+
+local GetFFlagEducationalPopupOnNativeClose = require(RobloxGui.Modules.Flags.GetFFlagEducationalPopupOnNativeClose)
 
 local function App(props)
 	return Roact.createFragment({
@@ -28,6 +33,7 @@ local function App(props)
 		ReportSentDialog = Roact.createElement(ReportSentDialog),
 		ControlLayoutSetter = Roact.createElement(ControlLayoutSetter),
 		Connection = Roact.createElement(Connection),
+		EducationalPopup = GetFFlagEducationalPopupOnNativeClose() and Roact.createElement(EducationalPopup) or nil,
 	})
 end
 

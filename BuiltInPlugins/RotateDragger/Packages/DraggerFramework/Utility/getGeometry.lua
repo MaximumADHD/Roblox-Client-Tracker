@@ -87,7 +87,7 @@ return function(part, hit)
 			{verts[2], -zvec, 'FrontSurface',  xvec, {verts[6], verts[8], verts[4], verts[2]}}, --front
 		}
 	elseif shape == 'Sphere' or shape == 'Cylinder' then
-		-- just have one face and vertex, at the hit pos
+		-- Just have one face and vertex, at the hit pos
 		verts = { hit }
 		edges = {} --edge can be selected as the normal of the face if the user needs it
 		local norm = (hit-pos).Unit

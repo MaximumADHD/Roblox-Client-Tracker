@@ -26,7 +26,7 @@ local MakeTheme = require(Plugin.Src.Resources.MakeTheme)
 local EnglishStringsTable = Plugin.Src.Resources.Localization.EnglishStrings
 local TranslatedStringsTable = Plugin.Src.Resources.Localization.TranslatedStrings
 
-local TOOLBAR_BUTTON_ICON = "rbxasset://textures/AnimationEditor/button_zoom_hoverpressed_left@2x.png"
+local TOOLBAR_BUTTON_ICON = "rbxasset://textures/AlignTool/AlignTool.png"
 local INITIAL_WINDOW_SIZE = Vector2.new(300, 220)
 local MINIMUM_WINDOW_SIZE = Vector2.new(150, 200)
 

@@ -17,6 +17,8 @@ local ImageSetLabel = UIBlox.Core.ImageSet.Label
 
 local getGameIconRequestSize = require(InGameMenu.Components.getGameIconRequestSize)
 
+local MAX_PLACEHOLDER_SIZE = 44
+
 local GameIcon = Roact.PureComponent:extend("GameIcon")
 
 GameIcon.validateProps = t.strictInterface({
@@ -40,6 +42,10 @@ function GameIcon:render()
 	local isPlaceholder = gameId == 0
 
 	if isPlaceholder then
+		local placeholderIconSize = MAX_PLACEHOLDER_SIZE
+		if iconSize <= MAX_PLACEHOLDER_SIZE then
+			placeholderIconSize = iconSize
+		end
 		return withStyle(function(style)
 			return Roact.createElement(AssetImage.Label, {
 				imageKey = "RoundedRect",
@@ -50,7 +56,7 @@ function GameIcon:render()
 			}, {
 				PlaceholderIcon = Roact.createElement(ImageSetLabel, {
 					BackgroundTransparency = 1,
-					Size = UDim2.fromOffset(iconSize, iconSize),
+					Size = UDim2.fromOffset(placeholderIconSize, placeholderIconSize),
 					Position = UDim2.fromScale(0.5, 0.5),
 					Image = Images["icons/imageUnavailable"],
 					ImageColor3 = style.Theme.UIDefault.Color,

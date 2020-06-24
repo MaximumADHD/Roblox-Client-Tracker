@@ -2,33 +2,19 @@ local Framework = script.Parent.Parent.Parent
 
 local Util = require(Framework.Util)
 local Style = Util.Style
-local StyleValue = Util.StyleValue
+
+local StudioFrameworkStyles = Framework.StudioUI.StudioFrameworkStyles
+local Common = require(StudioFrameworkStyles.Common)
 
 return function(theme, getColor)
-	local Default = Style.new({
+	local common = Common(theme, getColor)
+
+	local Default = Style.extend(common.Scroller, {
 		AutoSizeCanvas = true,
 		AutoSizeLayoutElement = "UIListLayout",
 		AutoSizeLayoutOptions = {
 			Padding = UDim.new(0, 4),
 		},
-
-		BackgroundTransparency = 1,
-		BorderSizePixel = 0,
-		BackgroundColor3 = theme:GetColor("MainBackground"),
-		
-		TopImage = "rbxasset://textures/StudioToolbox/ScrollBarTop.png",
-		MidImage = "rbxasset://textures/StudioToolbox/ScrollBarMiddle.png",
-		BottomImage = "rbxasset://textures/StudioToolbox/ScrollBarBottom.png",
-
-		ScrollingEnabled = true,
-		ScrollingDirection = Enum.ScrollingDirection.Y,
-		ScrollBarThickness = scrollBarThickness,
-		ScrollBarImageTransparency = 0.5,
-		ScrollBarImageColor3 = StyleValue.new("ScrollbarColor", {
-			Light = Color3.fromRGB(25, 25, 25),
-			Dark = Color3.fromRGB(204, 204, 204),
-		}):get(theme.name),
-		VerticalScrollBarInset = Enum.ScrollBarInset.Always
 	})
 
 	return {

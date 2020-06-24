@@ -367,6 +367,8 @@ function Theme.createValues(theme, getColor)
 				},
 				failLabelPaddingX = 400,
 				failPageListPaddingY = 16,
+
+				toggleButtonSize = UDim2.fromOffset(40, 24),
 			},
 
 			backButton = {

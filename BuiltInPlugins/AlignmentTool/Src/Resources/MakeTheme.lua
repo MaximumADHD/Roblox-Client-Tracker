@@ -18,11 +18,34 @@ local Util = require(Plugin.Packages.Framework.Util)
 local Style = Util.Style
 local StyleModifier = Util.StyleModifier
 local StyleTable = Util.StyleTable
+local StyleValue = Util.StyleValue
 
 local function makeTheme()
 	return Theme.new(function(theme, getColor)
 		local studioFrameworkStyles = StudioFrameworkStyles.new(theme, getColor)
 		local common = Common(theme, getColor)
+
+		local helpIconImage = StyleValue.new("HelpIconImage", {
+			Light = "rbxasset://textures/AlignTool/Help_Light.png",
+			Dark = "rbxasset://textures/AlignTool/Help_Dark.png",
+		})
+
+		local image = StyleTable.new("Image", function()
+			local helpIcon = Style.new({
+				Image = helpIconImage:get(theme.Name),
+				AnchorPoint = Vector2.new(0.5, 0.5),
+				Position = UDim2.new(0.5, 0, 0.5, 0),
+				Size = UDim2.fromOffset(14, 14),
+
+				[StyleModifier.Disabled] = {
+					Transparency = 0.5,
+				},
+			})
+
+			return {
+				HelpIcon = helpIcon,
+			}
+		end)
 
 		return {
 			Plugin = Style.new({
@@ -34,12 +57,10 @@ local function makeTheme()
 				MainView = {
 					ListItemPadding = UDim.new(0, 10),
 					Padding = 10,
-					PrimaryButtonPadding = {
-						Left = 40,
-						Right = 40,
+					ButtonContainerPadding = {
+						Top = 10,
 					},
-					PrimaryButtonHeight = 30,
-					SeparatorHeight = 10,
+					PrimaryButtonSize = UDim2.fromOffset(200, 32),
 				},
 
 				ModeSection = {
@@ -55,6 +76,7 @@ local function makeTheme()
 				},
 
 				RelativeToSection = {
+					ListItemPadding = 5,
 					Size = UDim2.new(1, 0, 0, 22),
 				},
 
@@ -92,7 +114,9 @@ local function makeTheme()
 				end),
 			}),
 
-			Framework = studioFrameworkStyles,
+			Framework = StyleTable.extend(studioFrameworkStyles, {
+				Image = image,
+			}),
 		}
 	end)
 end

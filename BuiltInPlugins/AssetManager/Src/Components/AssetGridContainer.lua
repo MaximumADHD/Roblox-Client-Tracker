@@ -6,8 +6,6 @@
         OnOverlayActivated = callback, to display the overlay when the overlay button is clicked.
     Optional Properties:
 ]]
-local FFlagDedupePackagesInAssetManager = game:DefineFastFlag("DedupePackagesInAssetManager", false)
-
 local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
@@ -37,10 +35,7 @@ local OnScreenChange = require(Plugin.Src.Thunks.OnScreenChange)
 
 local BulkImportService = game:GetService("BulkImportService")
 
-local FFlagStudioAssetManagerDisableTileOverlay = game:GetFastFlag("StudioAssetManagerDisableTileOverlay")
 local FFlagFixDisplayScriptsFolderInAssetManager = game:GetFastFlag("FixDisplayScriptsFolderInAssetManager")
-
-local FFlagStudioAssetManagerDisableMagicCharacters = game:DefineFastFlag("StudioAssetManagerDisableMagicCharacters", false)
 
 local AssetGridContainer = Roact.Component:extend("AssetGridContainer")
 
@@ -58,7 +53,7 @@ function AssetGridContainer:init()
     self.bulkImportFinishedConnection = nil
 
     self.onClearSelection = function()
-        if FFlagStudioAssetManagerDisableTileOverlay and not self.props.Enabled then
+        if not self.props.Enabled then
             return
         end
         self.props.dispatchSetSelectedAssets({})
@@ -66,7 +61,7 @@ function AssetGridContainer:init()
 
     self.onMouseButton2Click = function()
         local props = self.props
-        if FFlagStudioAssetManagerDisableTileOverlay and not props.Enabled then
+        if not props.Enabled then
             return
         end
         props.dispatchSetSelectedAssets({})
@@ -140,50 +135,19 @@ function AssetGridContainer:createTiles(apiImpl, localization, theme,
             end
         end
     else
-        if FFlagDedupePackagesInAssetManager then
-            for _, asset in pairs(assets) do
-                if FFlagStudioAssetManagerDisableMagicCharacters then
-                    -- pass in true for plain to disable magic characters like (, ), %...
-                    if string.find(asset.name, searchTerm, 1, true) then
-                        asset.key = asset.layoutOrder
-                        local assetTile = Roact.createElement(Tile, {
-                            AssetData = asset,
-                            LayoutOrder = asset.layoutOrder,
-                            StyleModifier = selectedAssets[asset.layoutOrder] and StyleModifier.Selected or nil,
-                            Enabled = enabled,
-                            OnOpenAssetPreview = self.onOpenAssetPreview,
-                        })
-                        assetsToDisplay[asset.layoutOrder] = assetTile
-                        numberAssets = numberAssets + 1
-                    end
-                else
-                    if string.find(asset.name, searchTerm) then
-                        asset.key = asset.layoutOrder
-                        local assetTile = Roact.createElement(Tile, {
-                            AssetData = asset,
-                            LayoutOrder = asset.layoutOrder,
-                            StyleModifier = selectedAssets[asset.layoutOrder] and StyleModifier.Selected or nil,
-                            Enabled = enabled,
-                            OnOpenAssetPreview = self.onOpenAssetPreview,
-                        })
-                        assetsToDisplay[asset.layoutOrder] = assetTile
-                        numberAssets = numberAssets + 1
-                    end
-                end
-            end
-        else
-            for i, asset in ipairs(assets) do
-                if string.find(asset.name, searchTerm) then
-                    asset.key = i
-                    local assetTile = Roact.createElement(Tile, {
-                        AssetData = asset,
-                        LayoutOrder = i,
-                        StyleModifier = selectedAssets[i] and StyleModifier.Selected or nil,
-                        OnOpenAssetPreview = self.onOpenAssetPreview,
-                    })
-                    assetsToDisplay[i] = assetTile
-                    numberAssets = numberAssets + 1
-                end
+        for _, asset in pairs(assets) do
+            -- pass in true for plain to disable magic characters like (, ), %...
+            if string.find(asset.name, searchTerm, 1, true) then
+                asset.key = asset.layoutOrder
+                local assetTile = Roact.createElement(Tile, {
+                    AssetData = asset,
+                    LayoutOrder = asset.layoutOrder,
+                    StyleModifier = selectedAssets[asset.layoutOrder] and StyleModifier.Selected or nil,
+                    Enabled = enabled,
+                    OnOpenAssetPreview = self.onOpenAssetPreview,
+                })
+                assetsToDisplay[asset.layoutOrder] = assetTile
+                numberAssets = numberAssets + 1
             end
         end
     end
@@ -234,33 +198,17 @@ function AssetGridContainer:render()
     local hasAssetsToDisplay = currentScreen.Key == Screens.MAIN.Key or assetCount ~= 0
 
     if hasAssetsToDisplay then
-        if FFlagDedupePackagesInAssetManager then
-            if numberOfAssets ~= 0 then
-                local assetIds = {}
-                for assetId, asset in pairs(assets) do
-                    local isPlace = asset.assetType == Enum.AssetType.Place
-                    if not isPlace and assetPreviewData[assetId] == nil then
-                        table.insert(assetIds, assetId)
-                    end
-                end
-
-                if #assetIds ~= 0 then
-                    dispatchGetAssetPreviewData(apiImpl, assetIds)
+        if numberOfAssets ~= 0 then
+            local assetIds = {}
+            for assetId, asset in pairs(assets) do
+                local isPlace = asset.assetType == Enum.AssetType.Place
+                if not isPlace and assetPreviewData[assetId] == nil then
+                    table.insert(assetIds, assetId)
                 end
             end
-        else
-            if #assets ~= 0 and #assets ~= #assetPreviewData then
-                local assetIds = {}
-                for _, asset in ipairs(assets) do
-                    local isPlace = asset.assetType == Enum.AssetType.Place
-                    if not isPlace and assetPreviewData[asset.id] == nil then
-                        table.insert(assetIds, asset.id)
-                    end
-                end
 
-                if #assetIds ~= 0 then
-                    dispatchGetAssetPreviewData(apiImpl, assetIds)
-                end
+            if #assetIds ~= 0 then
+                dispatchGetAssetPreviewData(apiImpl, assetIds)
             end
         end
     end

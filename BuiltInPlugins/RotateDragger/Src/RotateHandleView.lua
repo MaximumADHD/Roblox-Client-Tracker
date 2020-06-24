@@ -26,15 +26,15 @@ function RotateHandleView:render()
 	-- DEBUG: Allow designers to play with handle settings.
 	-- Remove before shipping!
 	if Workspace:FindFirstChild("RotateHandleRadius") and Workspace.RotateHandleRadius.Value ~= 0 then
-        HANDLE_RADIUS = 4.5 * Workspace.RotateHandleRadius.Value
-    end
+		HANDLE_RADIUS = 4.5 * Workspace.RotateHandleRadius.Value
+	end
 	if Workspace:FindFirstChild("RotateHandleSegments") and Workspace.RotateHandleSegments.Value ~= 0 then
-        HANDLE_SEGMENTS = 64 * Workspace.RotateHandleSegments.Value
+		HANDLE_SEGMENTS = 64 * Workspace.RotateHandleSegments.Value
 	end
 	if Workspace:FindFirstChild("RotateHandleThickness") and Workspace.RotateHandleThickness.Value ~= 0 then
 		HANDLE_THICKNESS = 0.15 * Workspace.RotateHandleThickness.Value
 		HANDLE_HITTEST_THICKNESS = HANDLE_THICKNESS * 2.5
-    end
+	end
 
 	-- TODO: DEVTOOLS-3876: [Modeling] Rotate tool enhancements
 	-- Gimbal arc length should be a function of the viewing angle, and handle

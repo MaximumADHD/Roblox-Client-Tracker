@@ -19,10 +19,10 @@ return function()
 	local function createTestJoint()
 		local parts = createTestParts(2)
 		local joint = Instance.new("Weld", parts[1])
-        joint.Archivable = false
-        joint.Part0 = parts[1]
-        joint.Part1 = parts[2]
-        joint.C0 = parts[1].CFrame:Inverse() * parts[2].CFrame
+		joint.Archivable = false
+		joint.Part0 = parts[1]
+		joint.Part1 = parts[2]
+		joint.C0 = parts[1].CFrame:Inverse() * parts[2].CFrame
 
 		return parts, joint
 	end

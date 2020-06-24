@@ -11,8 +11,8 @@ local RunService = game:GetService("RunService")
 local Framework = script.Parent.Parent
 local shouldDragAsFace = require(Framework.Utility.shouldDragAsFace)
 
-local getFFlagHandleOddNesting = require(Framework.Flags.getFFlagHandleOddNesting)
-local getFFlagLuaDraggerPerf = require(Framework.Flags.getFFlagLuaDraggerPerf)
+local getFFlagAnchorAttachments = require(Framework.Flags.getFFlagAnchorAttachments)
+local getFFlagSelectWeldConstraints = require(Framework.Flags.getFFlagSelectWeldConstraints)
 local getFFlagDragFaceInstances = require(Framework.Flags.getFFlagDragFaceInstances)
 
 local RAYCAST_DIRECTION_SCALE = 10000
@@ -41,70 +41,41 @@ local function computeBoundingBox(basisCFrame, allParts, allAttachments)
 	local ymin, ymax = math.huge, -math.huge
 	local zmin, zmax = math.huge, -math.huge
 
-	if getFFlagLuaDraggerPerf() then
-		local terrain = Workspace.Terrain
+	local terrain = Workspace.Terrain
 
-		for _, part in ipairs(allParts) do
-			if part ~= terrain then
-				local cframe = part.CFrame
-				local size = part.Size
-				local sx, sy, sz = size.X, size.Y, size.Z
+	for _, part in ipairs(allParts) do
+		if part ~= terrain then
+			local cframe = part.CFrame
+			local size = part.Size
+			local sx, sy, sz = size.X, size.Y, size.Z
 
-				-- Calculation for bounding box in the space of basisCFrame1
-				local localCFrame1 = inverseBasis * cframe -- put cframe in our local basis
-				local _, _, _,
-					t00, t01, t02,
-					t10, t11, t12,
-					t20, t21, t22 = localCFrame1:components()
-				local hw = 0.5 * (math.abs(sx * t00) + math.abs(sy * t01) + math.abs(sz * t02))
-				local hh = 0.5 * (math.abs(sx * t10) + math.abs(sy * t11) + math.abs(sz * t12))
-				local hd = 0.5 * (math.abs(sx * t20) + math.abs(sy * t21) + math.abs(sz * t22))
-				local x, y, z = localCFrame1.X, localCFrame1.Y, localCFrame1.Z
-				xmin = math.min(xmin, x - hw)
-				xmax = math.max(xmax, x + hw)
-				ymin = math.min(ymin, y - hh)
-				ymax = math.max(ymax, y + hh)
-				zmin = math.min(zmin, z - hd)
-				zmax = math.max(zmax, z + hd)
-			end
+			-- Calculation for bounding box in the space of basisCFrame1
+			local localCFrame1 = inverseBasis * cframe -- put cframe in our local basis
+			local _, _, _,
+				t00, t01, t02,
+				t10, t11, t12,
+				t20, t21, t22 = localCFrame1:components()
+			local hw = 0.5 * (math.abs(sx * t00) + math.abs(sy * t01) + math.abs(sz * t02))
+			local hh = 0.5 * (math.abs(sx * t10) + math.abs(sy * t11) + math.abs(sz * t12))
+			local hd = 0.5 * (math.abs(sx * t20) + math.abs(sy * t21) + math.abs(sz * t22))
+			local x, y, z = localCFrame1.X, localCFrame1.Y, localCFrame1.Z
+			xmin = math.min(xmin, x - hw)
+			xmax = math.max(xmax, x + hw)
+			ymin = math.min(ymin, y - hh)
+			ymax = math.max(ymax, y + hh)
+			zmin = math.min(zmin, z - hd)
+			zmax = math.max(zmax, z + hd)
 		end
-		for _, attachment in ipairs(allAttachments) do
-			local localPosition = basisCFrame:PointToObjectSpace(attachment.WorldPosition)
-			local x, y, z = localPosition.X, localPosition.Y, localPosition.Z
-			xmin = math.min(xmin, x)
-			xmax = math.max(xmax, x)
-			ymin = math.min(ymin, y)
-			ymax = math.max(ymax, y)
-			zmin = math.min(zmin, z)
-			zmax = math.max(zmax, z)
-		end
-	else
-		local function updateBoundingBox(cframe, size)
-			local localCFrame = inverseBasis * cframe -- put cframe in our local basis
-			local at = localCFrame.p
-			local inv = localCFrame:Inverse()
-			local x = size * inv.RightVector
-			local y = size * inv.UpVector
-			local z = size * inv.LookVector
-			local w = math.abs(x.x) + math.abs(x.y) + math.abs(x.z)
-			local h = math.abs(y.x) + math.abs(y.y) + math.abs(y.z)
-			local d = math.abs(z.x) + math.abs(z.y) + math.abs(z.z)
-			xmin = math.min(xmin, at.x - 0.5 * w)
-			xmax = math.max(xmax, at.x + 0.5 * w)
-			ymin = math.min(ymin, at.y - 0.5 * h)
-			ymax = math.max(ymax, at.y + 0.5 * h)
-			zmin = math.min(zmin, at.z - 0.5 * d)
-			zmax = math.max(zmax, at.z + 0.5 * d)
-		end
-
-		for _, part in ipairs(allParts) do
-			if not part:IsA("Terrain") then
-				updateBoundingBox(part.CFrame, part.Size)
-			end
-		end
-		for _, attachment in ipairs(allAttachments) do
-			updateBoundingBox(CFrame.new(attachment.WorldPosition), Vector3.new(0, 0, 0))
-		end
+	end
+	for _, attachment in ipairs(allAttachments) do
+		local localPosition = basisCFrame:PointToObjectSpace(attachment.WorldPosition)
+		local x, y, z = localPosition.X, localPosition.Y, localPosition.Z
+		xmin = math.min(xmin, x)
+		xmax = math.max(xmax, x)
+		ymin = math.min(ymin, y)
+		ymax = math.max(ymax, y)
+		zmin = math.min(zmin, z)
+		zmax = math.max(zmax, z)
 	end
 
 	local boundingBoxOffset = Vector3.new(
@@ -162,9 +133,9 @@ local function computeTwoBoundingBoxes(basisCFrame1, allParts, allAttachments)
 
 			-- Calculation for the bounding box in the global coordinate space
 			_, _, _,
-			t00, t01, t02,
-			t10, t11, t12,
-			t20, t21, t22 = cframe:components()
+				t00, t01, t02,
+				t10, t11, t12,
+				t20, t21, t22 = cframe:components()
 			local hw2 = 0.5 * (math.abs(sx * t00) + math.abs(sy * t01) + math.abs(sz * t02))
 			local hh2 = 0.5 * (math.abs(sx * t10) + math.abs(sy * t11) + math.abs(sz * t12))
 			local hd2 = 0.5 * (math.abs(sx * t20) + math.abs(sy * t21) + math.abs(sz * t22))
@@ -226,15 +197,13 @@ end
 
 function SelectionHelper.computeSelectionInfo(selectedObjects)
 	-- Gather all of the actual parts and mark the first one as the primary part.
-	local allParts = getFFlagLuaDraggerPerf() and table.create(64) or {}
+	local allParts = table.create(64)
 	local allPartSet = {}
 	local allAttachments = {}
 	local allInstancesWithConfigurableFace = {}
 	local primaryPart = nil
 	local basisCFrame = nil
 	local terrain = Workspace.Terrain
-
-	local fflagHandleOddNesting = getFFlagHandleOddNesting()
 
 	for _, instance in ipairs(selectedObjects) do
 		if instance:IsA("Model") then
@@ -247,20 +216,11 @@ function SelectionHelper.computeSelectionInfo(selectedObjects)
 			end
 			primaryPart = primaryPart or instance.PrimaryPart
 		elseif instance:IsA("BasePart") then
-			if fflagHandleOddNesting then
-				if not allPartSet[instance] and instance ~= terrain then
-					table.insert(allParts, instance)
-					allPartSet[instance] = true
-					primaryPart = primaryPart or instance
-					basisCFrame = basisCFrame or instance.CFrame
-				end
-			else
-				if instance ~= terrain then
-					table.insert(allParts, instance)
-					allPartSet[instance] = true
-					primaryPart = primaryPart or instance
-					basisCFrame = basisCFrame or instance.CFrame
-				end
+			if not allPartSet[instance] and instance ~= terrain then
+				table.insert(allParts, instance)
+				allPartSet[instance] = true
+				primaryPart = primaryPart or instance
+				basisCFrame = basisCFrame or instance.CFrame
 			end
 		elseif getFFlagDragFaceInstances() and shouldDragAsFace(instance) then
 			table.insert(allInstancesWithConfigurableFace, instance)
@@ -269,20 +229,11 @@ function SelectionHelper.computeSelectionInfo(selectedObjects)
 		end
 		-- It is possible to place parts inside of other parts, so this isn't an else on the prior if.
 		for _, descendant in ipairs(instance:GetDescendants()) do
-			if fflagHandleOddNesting then
-				if descendant:IsA("BasePart") and not allPartSet[descendant] and descendant ~= terrain then
-					table.insert(allParts, descendant)
-					allPartSet[descendant] = true
-					primaryPart = primaryPart or descendant
-					basisCFrame = basisCFrame or descendant.CFrame
-				end
-			else
-				if descendant:IsA("BasePart") and descendant ~= terrain then
-					table.insert(allParts, descendant)
-					allPartSet[descendant] = true
-					primaryPart = primaryPart or descendant
-					basisCFrame = basisCFrame or descendant.CFrame
-				end
+			if descendant:IsA("BasePart") and not allPartSet[descendant] and descendant ~= terrain then
+				table.insert(allParts, descendant)
+				allPartSet[descendant] = true
+				primaryPart = primaryPart or descendant
+				basisCFrame = basisCFrame or descendant.CFrame
 			end
 		end
 	end
@@ -308,34 +259,19 @@ function SelectionHelper.computeSelectionInfo(selectedObjects)
 	local chosenBasisCFrame
 	local chosenBoundingBoxOffset, chosenBoundingBoxSize
 
-	if getFFlagLuaDraggerPerf() then
-		if StudioService.UseLocalSpace then
-			localBoundingBoxOffset, localBoundingBoxSize =
-				computeBoundingBox(localBasisCFrame, allParts, allAttachments)
-
-			chosenBasisCFrame = localBasisCFrame
-			chosenBoundingBoxOffset, chosenBoundingBoxSize =
-				localBoundingBoxOffset, localBoundingBoxSize
-		else
-			localBoundingBoxOffset, localBoundingBoxSize,
-			chosenBoundingBoxOffset, chosenBoundingBoxSize =
-				computeTwoBoundingBoxes(localBasisCFrame, allParts, allAttachments)
-
-			chosenBasisCFrame = CFrame.new(basisCFrame.Position)
-		end
-	else
+	if StudioService.UseLocalSpace then
 		localBoundingBoxOffset, localBoundingBoxSize =
 			computeBoundingBox(localBasisCFrame, allParts, allAttachments)
 
-		if StudioService.UseLocalSpace then
-			chosenBasisCFrame = localBasisCFrame
+		chosenBasisCFrame = localBasisCFrame
+		chosenBoundingBoxOffset, chosenBoundingBoxSize =
+			localBoundingBoxOffset, localBoundingBoxSize
+	else
+		localBoundingBoxOffset, localBoundingBoxSize,
 			chosenBoundingBoxOffset, chosenBoundingBoxSize =
-				localBoundingBoxOffset, localBoundingBoxSize
-		else
-			chosenBasisCFrame = CFrame.new(basisCFrame.Position)
-			chosenBoundingBoxOffset, chosenBoundingBoxSize =
-				computeBoundingBox(chosenBasisCFrame, allParts, allAttachments)
-		end
+			computeTwoBoundingBoxes(localBasisCFrame, allParts, allAttachments)
+
+		chosenBasisCFrame = CFrame.new(basisCFrame.Position)
 	end
 
 	-- Build a table of only the "interesting" attachments, that is, those
@@ -363,6 +299,17 @@ function SelectionHelper.computeSelectionInfo(selectedObjects)
 			if not part:IsGrounded() then
 				selectionHasPhysics = true
 				break
+			end
+		end
+		if getFFlagAnchorAttachments() then
+			if not selectionHasPhysics then
+				for _, attachment in ipairs(allAttachments) do
+					local parentPart = attachment.Parent
+					if parentPart and not parentPart:IsGrounded() then
+						selectionHasPhysics = true
+						break
+					end
+				end
 			end
 		end
 	end
@@ -423,37 +370,7 @@ end
 	are not considered selectable.
 ]]
 function SelectionHelper.getSelectable(instance)
-	if getFFlagLuaDraggerPerf() then
-		return SelectionHelper.getSelectableWithCache(instance, {}, isAltKeyDown())
-	else
-		-- Make sure that instance is a model or non-locked instance
-		if not instance then
-			return nil
-		elseif instance:IsA("BasePart") then
-			if instance.Locked then
-				return nil
-			end
-		elseif instance:IsA("Attachment") or instance:IsA("Constraint") then
-			return instance
-		elseif not (instance:IsA("Model") or instance:IsA("Tool")) then
-			return nil
-		end
-
-		if isAltKeyDown() then
-			return instance
-		elseif instance then
-			local selectableInstance = instance
-			while instance.Parent do
-				local candidate = instance.Parent
-				if (candidate:IsA("Model") or candidate:IsA("Tool")) and candidate ~= Workspace then
-					selectableInstance = candidate
-				end
-				instance = candidate
-			end
-			return selectableInstance
-		end
-		return nil
-	end
+	return SelectionHelper.getSelectableWithCache(instance, {}, isAltKeyDown())
 end
 
 --[[
@@ -462,15 +379,29 @@ end
 	to that function.
 ]]
 function SelectionHelper.getSelectableWithCache(instance, cache, isAltKeyDown)
-	-- First, the easy nil and attachment cases.
-	if not instance then
-		return nil
-	elseif instance:IsA("Attachment") or instance:IsA("Constraint") then
-		-- Note, this attachment case has to come before the fast-flat-model
-		-- optimization, otherwise selecting an attachment might result in the
-		-- parent part of the attachment being selected instead for cases with
-		-- parts nested under other parts.
-		return instance
+	if getFFlagSelectWeldConstraints() then
+		-- First, the easy nil and attachment cases.
+		if not instance then
+			return nil
+		elseif instance:IsA("Attachment") or instance:IsA("Constraint") or
+			instance:IsA("WeldConstraint") or instance:IsA("NoCollisionConstraint") then
+			-- Note, this attachment case has to come before the fast-flat-model
+			-- optimization, otherwise selecting an attachment might result in the
+			-- parent part of the attachment being selected instead for cases with
+			-- parts nested under other parts.
+			return instance
+		end
+	else
+		-- First, the easy nil and attachment cases.
+		if not instance then
+			return nil
+		elseif instance:IsA("Attachment") or instance:IsA("Constraint") then
+			-- Note, this attachment case has to come before the fast-flat-model
+			-- optimization, otherwise selecting an attachment might result in the
+			-- parent part of the attachment being selected instead for cases with
+			-- parts nested under other parts.
+			return instance
+		end
 	end
 
 	-- Fast-flat-model optimization. Most places have a large number of parts
@@ -573,26 +504,17 @@ end
 function SelectionHelper.updateSelectionWithMultipleParts(instances, oldSelection)
 	local selectableInstances = {}
 
-	if getFFlagHandleOddNesting() then
-		-- Note here: instances IS a list of unique instances, but multiple
-		-- instances in that list may induce selection of the same selectable.
-		-- (E.g., any time you box-select a model and your box select includes
-		-- multiple parts in the model)
-		-- The result is, we need to filter out the duplicate selectables.
-		local alreadyFlaggedForAddSet = {}
-		for _, instance in ipairs(instances) do
-			local selectablePart = SelectionHelper.getSelectable(instance)
-			if selectablePart ~= nil and not alreadyFlaggedForAddSet[selectablePart] then
-				table.insert(selectableInstances, selectablePart)
-				alreadyFlaggedForAddSet[selectablePart] = true
-			end
-		end
-	else
-		for _, instance in ipairs(instances) do
-			local selectablePart = SelectionHelper.getSelectable(instance)
-			if selectablePart ~= nil then
-				table.insert(selectableInstances, selectablePart)
-			end
+	-- Note here: instances IS a list of unique instances, but multiple
+	-- instances in that list may induce selection of the same selectable.
+	-- (E.g., any time you box-select a model and your box select includes
+	-- multiple parts in the model)
+	-- The result is, we need to filter out the duplicate selectables.
+	local alreadyFlaggedForAddSet = {}
+	for _, instance in ipairs(instances) do
+		local selectablePart = SelectionHelper.getSelectable(instance)
+		if selectablePart ~= nil and not alreadyFlaggedForAddSet[selectablePart] then
+			table.insert(selectableInstances, selectablePart)
+			alreadyFlaggedForAddSet[selectablePart] = true
 		end
 	end
 

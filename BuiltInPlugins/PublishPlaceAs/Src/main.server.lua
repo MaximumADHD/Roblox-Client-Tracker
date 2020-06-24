@@ -3,9 +3,9 @@ if not plugin then
 end
 
 -- Fast flags
-local FFlagStudioChangeMinimumSizeOfWindow = game:DefineFastFlag("StudioChangeMinimumSizeOfPublishWindow", false)
 local FFlagStudioLuaPublishFlowLocalizeUntitledGameText = game:DefineFastFlag("StudioLuaPublishFlowLocalizeUntitledGameText", false)
 local FFlagLuaPublishFlowFixCreateButtonInChinese = game:DefineFastFlag("LuaPublishFlowFixCreateButtonInChinese", false)
+local FFlagLuaPublishFlowFixPluginHandleWarning = game:DefineFastFlag("LuaPublishFlowFixPluginHandleWarning", false)
 
 -- libraries
 local Plugin = script.Parent.Parent
@@ -49,7 +49,9 @@ local SetIsPublishing = require(Plugin.Src.Actions.SetIsPublishing)
 local function closePlugin()
 	if pluginHandle then
 		Roact.unmount(pluginHandle)
-		pluginHandle = nil
+		if not FFlagLuaPublishFlowFixPluginHandleWarning then
+			pluginHandle = nil
+		end
 	end
 	pluginGui.Enabled = false
 end
@@ -57,9 +59,9 @@ end
 local function makePluginGui()
 	pluginGui = plugin:CreateQWidgetPluginGui(plugin.Name, {
 		Size = Vector2.new(960, 650),
-		MinSize = FFlagStudioChangeMinimumSizeOfWindow and Vector2.new(890, 550) or Vector2.new(960, 650),
-		MaxSize = FFlagStudioChangeMinimumSizeOfWindow and Vector2.new(960, 650) or nil,
-		Resizable = FFlagStudioChangeMinimumSizeOfWindow and true or false,
+		MinSize = Vector2.new(890, 550),
+		MaxSize = Vector2.new(960, 650),
+		Resizable = true,
 		Modal = true,
 		InitialEnabled = false,
 	})
@@ -74,9 +76,11 @@ end
 
 --Initializes and populates the plugin popup window
 local function openPluginWindow()
-	if pluginHandle then
-		warn("Plugin handle already exists")
-		return
+	if not FFlagLuaPublishFlowFixPluginHandleWarning then
+		if pluginHandle then
+			warn("Plugin handle already exists")
+			return
+		end
 	end
 
 	local servicesProvider = Roact.createElement(ServiceWrapper, {

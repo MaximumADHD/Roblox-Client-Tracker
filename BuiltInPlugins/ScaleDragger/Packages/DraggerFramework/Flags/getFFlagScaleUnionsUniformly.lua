@@ -1,5 +1,5 @@
 game:DefineFastFlag("ScaleUnionsUniformly", false)
 
 return function()
-    return game:GetFastFlag("ScaleUnionsUniformly")
+	return game:GetFastFlag("ScaleUnionsUniformly")
 end

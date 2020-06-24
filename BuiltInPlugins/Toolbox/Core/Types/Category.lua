@@ -97,6 +97,8 @@ if FFlagEnableToolboxVideos then
 		ownershipType = Category.OwnershipType.FREE, assetType = Category.AssetType.VIDEO}
 	Category.MY_VIDEOS = {name = "MyVideo", category = "MyVideo",
 		ownershipType = Category.AssetType.MY, assetType = Category.AssetType.VIDEO}
+	Category.RECENT_VIDEO = {name = "RecentVideo", category = "RecentVideo",
+		ownershipType = Category.OwnershipType.VIDEO, assetType = Category.AssetType.VIDEO}
 end
 
 Category.RECENT_MODELS = {name = "RecentModels", category = "RecentModels",
@@ -203,6 +205,7 @@ Category.RECENT = {
 	Category.RECENT_DECALS,
 	Category.RECENT_MESHES,
 	Category.RECENT_AUDIO,
+	Category.RECENT_VIDEO,
 }
 
 -- NOTE: When FFlagEnableToolboxVideos is enabled, remember to move the keys directy into the tables for cleaner code!

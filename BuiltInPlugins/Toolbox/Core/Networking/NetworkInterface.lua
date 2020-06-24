@@ -343,17 +343,11 @@ function NetworkInterface:getFavorited(userId, assetId)
 	return self._networkImp:httpGet(targetUrl)
 end
 
+-- TODO DEVTOOLS-4290: Needs to be shared
 function NetworkInterface:getAssetConfigData(assetId)
 	local targetUrl = Urls.constructAssetConfigDataUrl(assetId)
 
 	printUrl("getAssetConfigData", "GET", targetUrl)
-	return self._networkImp:httpGet(targetUrl)
-end
-
-function NetworkInterface:getAssetGroupData(groupId)
-	local targetUrl = Urls.constructAssetConfigGroupDataUrl(groupId)
-
-	printUrl("getAssetConfigGroupData", "GET", targetUrl)
 	return self._networkImp:httpGet(targetUrl)
 end
 
@@ -364,6 +358,7 @@ function NetworkInterface:getVersionsHistory(assetId)
 	return self._networkImp:httpGet(targetUrl)
 end
 
+-- TODO DEVTOOLS-4290: Only used in AssetConfiguration
 function NetworkInterface:postRevertVersion(assetId, versionNumber)
 	local targetUrl = Urls.constructRevertAssetVersionString(assetId, versionNumber)
 
@@ -479,6 +474,7 @@ function NetworkInterface:configureCatalogItem(assetId, patchDataTable)
 	end)
 end
 
+-- TODO DEVTOOLS-4290: Only used in AssetConfiguration
 --[[
 	assetId (number, must)
 	name (string, optional): Name of the asset ,
@@ -508,6 +504,7 @@ function NetworkInterface:patchAsset(assetId, name, description, genres, enableC
 	return self._networkImp:httpPatch(targetUrl, payload)
 end
 
+-- TODO DEVTOOLS-4290: Only used in AssetConfiguration
 -- assetId, number, defualt to 0 for new asset.
 -- type, string, the asset type of the asset.
 -- name, string, need to be url encoded.
@@ -532,6 +529,7 @@ function NetworkInterface:postOverrideAsset(assetid, type, instanceData)
 	return self._networkImp:httpPost(targetUrl, instanceData)
 end
 
+-- TODO DEVTOOLS-4290: Only used in AssetConfiguration
 function NetworkInterface:postUploadAnimation(assetid, name, description, groupId, instanceData)
 	local targetUrl = Urls.constructPostUploadAnimationUrl("Animation", name, description, groupId)
 
@@ -552,6 +550,7 @@ function NetworkInterface:postUploadAnimation(assetid, name, description, groupI
 	end)
 end
 
+-- TODO DEVTOOLS-4290: Only used in AssetConfiguration
 function NetworkInterface:postOverrideAnimation(assetid, instanceData)
 	local targetUrl = Urls.constructPostOverwriteAnimationUrl(assetid)
 
@@ -579,6 +578,7 @@ function NetworkInterface:getMyGroups(userId)
 	return self._networkImp:httpGetJson(targetUrl)
 end
 
+-- TODO DEVTOOLS-4290: Only used in AssetConfiguration
 function NetworkInterface:getIsVerifiedCreator()
 	local targetUrl = Urls.constructIsVerifiedCreatorUrl()
 
@@ -608,6 +608,7 @@ function NetworkInterface:getLocalUserFriends(userId)
 	return self._networkImp:httpGet(targetUrl)
 end
 
+-- TODO DEVTOOLS-4290: Only used in AssetConfiguration
 function NetworkInterface:getPackageCollaborators(assetId)
 	local targetUrl = Urls.constructGetPackageCollaboratorsUrl(assetId)
 
@@ -651,6 +652,7 @@ function NetworkInterface:purchaseAsset(productId, info)
 	return self._networkImp:httpPostJson(targetUrl, infoJson)
 end
 
+-- TODO DEVTOOLS-4290: Only used in AssetConfiguration
 function NetworkInterface:getGroupRoleInfo(groupId)
 	local targetUrl = Urls.constructGetGroupRoleInfoUrl(groupId)
 

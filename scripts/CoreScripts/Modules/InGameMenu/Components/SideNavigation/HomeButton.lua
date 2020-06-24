@@ -18,11 +18,16 @@ local HOME_ICON_OFF = Images["icons/menu/home_off"]
 local HomeButton = Roact.PureComponent:extend("HomeButton")
 
 HomeButton.validateProps = t.strictInterface({
+	on = t.optional(t.boolean),
 	anchorPoint = t.optional(t.Vector2),
 	position = t.optional(t.UDim2),
 	layoutOrder = t.optional(t.integer),
 	onActivated = t.callback,
 })
+
+HomeButton.defaultProps = {
+	on = false,
+}
 
 function HomeButton:render()
 	local icon = self.props.on and HOME_ICON_ON or HOME_ICON_OFF

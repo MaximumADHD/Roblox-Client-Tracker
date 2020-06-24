@@ -26,6 +26,8 @@ local FFlagEmotesMenuEnabled2 = settings():GetFFlag("CoreScriptEmotesMenuEnabled
 local FFlagCoreScriptTopBarStartup = require(RobloxGui.Modules.Flags.FFlagCoreScriptTopBarStartup)
 local FFlagConnectErrorHandlerInLoadingScript = require(RobloxGui.Modules.Flags.FFlagConnectErrorHandlerInLoadingScript)
 local isNewTopBarEnabled = require(RobloxGui.Modules.TopBar.isNewTopBarEnabled)
+local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
+local GetFFlagEducationalPopupOnNativeClose = require(RobloxGui.Modules.Flags.GetFFlagEducationalPopupOnNativeClose)
 
 local FFlagTopBarNewGamepadMenu = require(RobloxGui.Modules.Flags.FFlagTopBarNewGamepadMenu)
 
@@ -94,6 +96,14 @@ ScriptContext:AddCoreScriptLocal("CoreScripts/MainBotChatScript2", RobloxGui)
 coroutine.wrap(function() -- this is the first place we call, which can yield so wrap in coroutine
 	if PolicyService:IsSubjectToChinaPolicies() then
 		ScriptContext:AddCoreScriptLocal("CoreScripts/AntiAddictionPrompt", RobloxGui)
+		ScriptContext:AddCoreScriptLocal("CoreScripts/ScreenTimeInGame", RobloxGui)
+	end
+end)()
+
+-- In-game confirmation prompt for desktop window close script
+coroutine.wrap(function()
+	if GetFFlagEducationalPopupOnNativeClose() and isNewInGameMenuEnabled() then
+		ScriptContext:AddCoreScriptLocal("CoreScripts/NativeClosePrompt", RobloxGui)
 	end
 end)()
 

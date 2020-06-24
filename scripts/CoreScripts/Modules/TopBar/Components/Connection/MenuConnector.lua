@@ -16,7 +16,6 @@ local EventConnection = require(TopBar.Parent.Common.EventConnection)
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
 
-local FFlagTopBarBetterStateInit = require(TopBar.Parent.Flags.FFlagTopBarBetterStateInit)
 local FFlagTopBarNewGamepadMenu = require(RobloxGui.Modules.Flags.FFlagTopBarNewGamepadMenu)
 
 local MenuConnector = Roact.PureComponent:extend("MenuConnector")
@@ -27,24 +26,22 @@ MenuConnector.validateProps = t.strictInterface({
 	setRespawnBehaviour = FFlagTopBarNewGamepadMenu and t.callback or nil,
 })
 
-if FFlagTopBarBetterStateInit then
-	function MenuConnector:didMount()
-		if isNewInGameMenuEnabled() then
-			local InGameMenu = require(RobloxGui.Modules.InGameMenu)
-			self.props.setMenuOpen(InGameMenu.getOpen())
+function MenuConnector:didMount()
+	if isNewInGameMenuEnabled() then
+		local InGameMenu = require(RobloxGui.Modules.InGameMenu)
+		self.props.setMenuOpen(InGameMenu.getOpen())
 
-			if FFlagTopBarNewGamepadMenu then
-				local isEnabled, customCallback = InGameMenu.getRespawnBehaviour()
-				self.props.setRespawnBehaviour(isEnabled, customCallback)
-			end
-		else
-			local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
-			self.props.setMenuOpen(SettingsHub:GetVisibility())
+		if FFlagTopBarNewGamepadMenu then
+			local isEnabled, customCallback = InGameMenu.getRespawnBehaviour()
+			self.props.setRespawnBehaviour(isEnabled, customCallback)
+		end
+	else
+		local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
+		self.props.setMenuOpen(SettingsHub:GetVisibility())
 
-			if FFlagTopBarNewGamepadMenu then
-				local isEnabled, customCallback = SettingsHub:GetRespawnBehaviour()
-				self.props.setRespawnBehaviour(isEnabled, customCallback)
-			end
+		if FFlagTopBarNewGamepadMenu then
+			local isEnabled, customCallback = SettingsHub:GetRespawnBehaviour()
+			self.props.setRespawnBehaviour(isEnabled, customCallback)
 		end
 	end
 end

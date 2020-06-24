@@ -108,6 +108,7 @@ function Localization:recalculateContent()
 			["Access Permissions"] = self:getText("Studio.GameSettings.General.CategoryAccessPermissions"),
 			Localization = self:getText("Studio.GameSettings.General.CategoryLocalization"),
 			Places = self:getText("Studio.GameSettings.General.CategoryPlaces"),
+			Security = self:getText("Studio.GameSettings.General.CategorySecurity"),
 		},
 
 		Footer = {
@@ -221,6 +222,13 @@ function Localization:recalculateContent()
 			OnDescription = self:getText("Studio.GameSettings.General.ScriptCollabDesc"),
 			On = self:getText("Studio.GameSettings.General.SettingOn"),
 			Off = self:getText("Studio.GameSettings.General.SettingOff"),
+		},
+
+		Security = {
+			EnableThirdPartyTeleportsTitle = self:getText("Studio.GameSettings.Security.EnableThirdPartyTeleports"),
+			EnableThirdPartyPurchasesTitle = self:getText("Studio.GameSettings.Security.EnableThirdPartyPurchases"),
+			EnableThirdPartyTeleportsDescription = self:getText("Studio.GameSettings.Security.EnableThirdPartyTeleportsDescription"),
+			EnableThirdPartyPurchasesDescription = self:getText("Studio.GameSettings.Security.EnableThirdPartyPurchasesDescription"),
 		},
 
 		AvatarDialog = {

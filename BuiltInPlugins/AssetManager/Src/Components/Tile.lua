@@ -23,9 +23,16 @@ local OnAssetSingleClick = require(Plugin.Src.Thunks.OnAssetSingleClick)
 local AssetManagerService = game:GetService("AssetManagerService")
 local ContentProvider = game:GetService("ContentProvider")
 
-local FFlagStudioAssetManagerDisableTileOverlay = game:DefineFastFlag("StudioAssetManagerDisableTileOverlay", false)
+local FFlagStudioAssetManagerSetEmptyName = game:DefineFastFlag("StudioAssetManagerSetEmptyName", false)
 
 local Tile = Roact.PureComponent:extend("Tile")
+
+local function stripText(text)
+    local newText = string.gsub(text, "%s+", "")
+    newText = string.gsub(newText, "\n", "")
+    newText = string.gsub(newText, "\t", "")
+    return newText
+end
 
 local ICON_SIZE = 150
 
@@ -70,7 +77,7 @@ function Tile:init()
 
     self.onMouseActivated = function(rbx, obj, clickCount)
         local props = self.props
-        if FFlagStudioAssetManagerDisableTileOverlay and not props.Enabled then
+        if not props.Enabled then
             return
         end
         local assetData = props.AssetData
@@ -89,7 +96,7 @@ function Tile:init()
 
     self.onMouseButton2Click = function(rbx, x, y)
         local props = self.props
-        if FFlagStudioAssetManagerDisableTileOverlay and not props.Enabled then
+        if not props.Enabled then
             return
         end
         local assetData = props.AssetData
@@ -122,25 +129,46 @@ function Tile:init()
 	self.onTextBoxFocusLost = function(rbx, enterPressed, inputObject)
         local props = self.props
         local assetData = props.AssetData
-        props.dispatchSetEditingAssets({})
         local newName = self.state.editText
-        if assetData.assetType == Enum.AssetType.Place then
-            AssetManagerService:RenamePlace(assetData.id, newName)
-        elseif assetData.assetType == Enum.AssetType.Image
-        or assetData.assetType == Enum.AssetType.MeshPart
-        or assetData.assetType == Enum.AssetType.Image then
-            local prefix
-            -- Setting asset type to same value as Enum.AssetType since it cannot be passed into function
-            if assetData.assetType == Enum.AssetType.Image then
-                prefix = "Images/"
-            elseif assetData.assetType == Enum.AssetType.MeshPart then
-                prefix = "Meshes/"
-            elseif assetData.assetType == Enum.AssetType.Lua then
-                prefix = "Scripts/"
+        if FFlagStudioAssetManagerSetEmptyName and utf8.len(newName) ~= 0
+        and utf8.len(stripText(newName)) ~= 0 then
+            if assetData.assetType == Enum.AssetType.Place then
+                AssetManagerService:RenamePlace(assetData.id, newName)
+            elseif assetData.assetType == Enum.AssetType.Image
+            or assetData.assetType == Enum.AssetType.MeshPart
+            or assetData.assetType == Enum.AssetType.Image then
+                local prefix
+                -- Setting asset type to same value as Enum.AssetType since it cannot be passed into function
+                if assetData.assetType == Enum.AssetType.Image then
+                    prefix = "Images/"
+                elseif assetData.assetType == Enum.AssetType.MeshPart then
+                    prefix = "Meshes/"
+                elseif assetData.assetType == Enum.AssetType.Lua then
+                    prefix = "Scripts/"
+                end
+                AssetManagerService:RenameAlias(assetData.assetType.Value, assetData.id, prefix .. assetData.name, prefix .. newName)
             end
-            AssetManagerService:RenameAlias(assetData.assetType.Value, assetData.id, prefix .. assetData.name, prefix .. newName)
+            props.AssetData.name = newName
+        else
+            if assetData.assetType == Enum.AssetType.Place then
+                AssetManagerService:RenamePlace(assetData.id, newName)
+            elseif assetData.assetType == Enum.AssetType.Image
+            or assetData.assetType == Enum.AssetType.MeshPart
+            or assetData.assetType == Enum.AssetType.Image then
+                local prefix
+                -- Setting asset type to same value as Enum.AssetType since it cannot be passed into function
+                if assetData.assetType == Enum.AssetType.Image then
+                    prefix = "Images/"
+                elseif assetData.assetType == Enum.AssetType.MeshPart then
+                    prefix = "Meshes/"
+                elseif assetData.assetType == Enum.AssetType.Lua then
+                    prefix = "Scripts/"
+                end
+                AssetManagerService:RenameAlias(assetData.assetType.Value, assetData.id, prefix .. assetData.name, prefix .. newName)
+            end
+            props.AssetData.name = newName
         end
-        props.AssetData.name = newName
+        props.dispatchSetEditingAssets({})
         self.editing = false
         -- force re-render to show updated name
         self:setState({
@@ -355,12 +383,7 @@ function Tile:render()
             [Roact.Event.FocusLost] = self.onTextBoxFocusLost,
         }),
 
-        Tooltip = FFlagStudioAssetManagerDisableTileOverlay and enabled and Roact.createElement(Tooltip, {
-            Text = name,
-            Enabled = true,
-        }),
-
-        DEPRECATED_Tooltip = not FFlagStudioAssetManagerDisableTileOverlay and Roact.createElement(Tooltip, {
+        Tooltip = enabled and Roact.createElement(Tooltip, {
             Text = name,
             Enabled = true,
         }),

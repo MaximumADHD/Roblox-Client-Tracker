@@ -20,6 +20,7 @@ local DEACTIVATE_REQUEST_TYPE = "develop"
 local USERS_URL = "users/%d"
 local USERS_REQUEST_TYPE = "api"
 
+local UNIVERSES_CONFIG_REQUEST_URL = "v2/universes/%d/configuration/"
 local VIP_SERVERS_REQUEST_URL = "v1/universes/%d/configuration/vip-servers"
 local VIP_SERVERS_REQUEST_TYPE = "develop"
 
@@ -116,6 +117,49 @@ function Universes.GetVIPServers(universeId)
 	:catch(function()
 		warn("Game Settings: Could not load VIP Servers settings from universes.")
 		Analytics.onLoadError("VIPServersGet")
+		return Promise.reject()
+	end)
+end
+
+function Universes.GetUniversePermissions(universeId)
+	local requestInfo = {
+		Url = Http.BuildRobloxUrl(UNIVERSES_REQUEST_TYPE, UNIVERSES_CONFIG_REQUEST_URL, universeId),
+		Method = "GET",
+	}
+	return Http.Request(requestInfo)
+	:andThen(function(jsonResult)
+		local result = HttpService:JSONDecode(jsonResult)
+
+		local permissions = result.permissions or {}
+		return {
+			IsThirdPartyPurchaseAllowed = permissions.IsThirdPartyPurchaseAllowed,
+			IsThirdPartyTeleportAllowed = permissions.IsThirdPartyTeleportAllowed,
+		}
+	end)
+	:catch(function()
+		warn("Game Settings: Could not load Universe Permissions settings from universes.")
+		Analytics.onLoadError("VIPServersGet")
+		return Promise.reject()
+	end)
+end
+
+function Universes.SaveAllUniversePermissions(universeId, changedValues)
+	local body = {
+		permissions = {
+			IsThirdPartyPurchaseAllowed = changedValues["IsThirdPartyPurchaseAllowed"],
+			IsThirdPartyTeleportAllowed = changedValues["IsThirdPartyTeleportAllowed"],
+		}
+	}
+	local requestInfo = {
+		Url = Http.BuildRobloxUrl(UNIVERSES_REQUEST_TYPE, UNIVERSES_CONFIG_REQUEST_URL, universeId),
+		Method = "PATCH",
+		Body = HttpService:JSONEncode(body)
+	}
+
+	return Http.Request(requestInfo)
+	:catch(function()
+		warn("Game Settings: Could not change universe permissions.")
+		Analytics.onSaveError("UniverseActive")
 		return Promise.reject()
 	end)
 end

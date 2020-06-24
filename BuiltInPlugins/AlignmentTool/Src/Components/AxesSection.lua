@@ -74,6 +74,7 @@ function AxesSection:render()
 			LayoutOrder = layoutOrderIterator:getNextOrder(),
 			Size = theme.SectionLabelSize,
 			Text = localization:getText("AxesSection", "Title"),
+			TextXAlignment = Enum.TextXAlignment.Left,
 		}),
 
 		WorldXCheckbox = makeCheckbox("WorldX"),

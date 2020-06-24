@@ -186,7 +186,7 @@ function RadioButton:render()
 	end
 
 	local descriptionTextSize = props.Description and TextService:GetTextSize(description, theme.fontStyle.Subtext.TextSize, theme.fontStyle.Subtext.Font,
-	FFlagGameSettingsPlaceSettings and Vector2.new(theme.radioButton.descriptionWidth, math.huge) or Vector2.new())
+		FFlagGameSettingsPlaceSettings and Vector2.new(theme.radioButton.descriptionWidth, math.huge) or Vector2.new())
 
 	-- TODO remove with FFlagGameSettingsPlaceSettings and FFlagStudioAddMonetizationToGameSettings
 	local DEPRECATED_titleWidth = self.state.TitleWidth

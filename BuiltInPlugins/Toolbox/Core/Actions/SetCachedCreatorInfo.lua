@@ -1,11 +1,11 @@
 local Plugin = script.Parent.Parent.Parent
 
+local Libs = Plugin.Libs
+local FrameworkUtil = require(Libs.Framework.Util)
+local Action = FrameworkUtil.Action
 local Util = Plugin.Core.Util
 local CreatorInfoHelper = require(Util.CreatorInfoHelper)
 
-local Action = require(Plugin.Core.Actions.Action)
-
-local Libs = Plugin.Libs
 local t = require(Libs.Framework.Util.Typecheck.t)
 
 local FFlagStudioFixGroupCreatorInfo = game:GetFastFlag("StudioFixGroupCreatorInfo")

@@ -66,13 +66,13 @@ function ScaleHandleView:render()
 	end
 
 	children.Handle = Roact.createElement("SphereHandleAdornment", {
-        Adornee = Workspace.Terrain,
-        AlwaysOnTop = self.props.Hovered,
-        CFrame = cframe,
-        Color3 = color,
+		Adornee = Workspace.Terrain,
+		AlwaysOnTop = self.props.Hovered,
+		CFrame = cframe,
+		Color3 = color,
 		Radius = radius,
 		Transparency = transparencyEnd,
-        ZIndex = 0,
+		ZIndex = 0,
 	})
 
 	return Roact.createFragment(children)

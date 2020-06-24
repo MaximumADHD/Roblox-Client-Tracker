@@ -1,4 +1,4 @@
-game:DefineFastFlag("UseNewPlayerLabelDesign", false)
+game:DefineFastFlag("UseNewPlayerLabelDesign2", false)
 return function()
-	return game:GetFastFlag("UseNewPlayerLabelDesign")
+	return game:GetFastFlag("UseNewPlayerLabelDesign2")
 end

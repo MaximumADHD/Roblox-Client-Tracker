@@ -16,6 +16,7 @@
 ]]
 
 local FFlagEnableThumbnailConfigurationExists, FFlagEnableThumbnailConfigurationValue = pcall(function() return settings():GetFFlag("EnableThumbnailConfiguration") end)
+local FFlagStudioAssetConfigStopSoundsPlaying = game:DefineFastFlag("StudioAssetConfigStopSoundsPlaying", false)
 
 local PREVIEW_TITLE_PADDING = 12
 local PREVIEW_TITLE_HEIGHT = 24
@@ -39,6 +40,17 @@ local function removeAllScripts(object)
 	for _, descendant in pairs(object:GetDescendants()) do
 		if descendant:IsA("LuaSourceContainer") then
 			descendant:Destroy()
+		end
+	end
+end
+
+--[[
+	Disable autoplay of all Sound descendants
+]]
+local function stopSoundsPlaying(object)
+	for _, descendant in pairs(object:GetDescendants()) do
+		if descendant:IsA("Sound") and descendant.Playing then
+			descendant.Playing = false
 		end
 	end
 end
@@ -87,6 +99,10 @@ function AssetThumbnailPreview:didMount()
 					clone.Parent = model
 				end)
 			end
+		end
+
+		if FFlagStudioAssetConfigStopSoundsPlaying then
+			stopSoundsPlaying(model)
 		end
 
 		if FFlagEnableThumbnailConfigurationExists and FFlagEnableThumbnailConfigurationValue then

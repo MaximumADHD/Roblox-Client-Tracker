@@ -18,7 +18,7 @@ return function()
 		local objects = state.alignableObjects
 		local axes = state.enabledAxes
 
-		local alignEnabled = #objects > 0 and hasEnabledAxis(axes)
+		local alignEnabled = #objects > 1 and hasEnabledAxis(axes)
 
 		store:dispatch(SetAlignEnabled(alignEnabled))
 	end

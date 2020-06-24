@@ -2,12 +2,21 @@
 	Public interface for Util
 ]]
 
-return {
+local strict = require(script.strict)
+
+return strict({
 	-- Plugin Utilities
 	Action = require(script.Action),
+	CrossPluginCommunication = require(script.CrossPluginCommunication),
+
+	-- TODO DEVTOOLS-4459: Remove this export
 	Cryo = require(script.Cryo),
+
 	deepEqual = require(script.deepEqual),
+
+	-- TODO DEVTOOLS-4459: Remove this export
 	FitFrame = require(script.FitFrame),
+
 	Flags = require(script.Flags),
 	Immutable = require(script.Immutable),
 	LayoutOrderIterator = require(script.LayoutOrderIterator),
@@ -16,6 +25,7 @@ return {
 	Signal = require(script.Signal),
 	Symbol = require(script.Symbol),
 	ThunkWithArgsMiddleware = require(script.ThunkWithArgsMiddleware),
+	strict = strict,
 
 	-- Style and Theming Utilities
 	Palette = require(script.Palette),
@@ -34,4 +44,4 @@ return {
 		-- Use a component's comments to enforce strict typing of its inputs.
 		wrap = require(script.Typecheck.wrap),
 	},
-}
+})

@@ -7,7 +7,6 @@ local SetIsFetchingAssets = require(Plugin.Src.Actions.SetIsFetchingAssets)
 local SetHasLinkedScripts = require(Plugin.Src.Actions.SetHasLinkedScripts)
 
 local FFlagStudioAssetManagerFilterPackagePermissions = game:DefineFastFlag("StudioAssetManagerFilterPackagePermissions", false)
-local FFlagDedupePackagesInAssetManager = game:GetFastFlag("DedupePackagesInAssetManager")
 
 local function checkIfPackageHasPermission(store, apiImpl, packageIds, newAssetsTable, assetBody, assetType, index)
     apiImpl.Develop.V1.Packages.highestPermissions(packageIds):makeRequest()
@@ -53,11 +52,7 @@ return function(apiImpl, assetType, pageCursor, pageNumber, showLoadingIndicator
         local index = 1
         if pageCursor or (pageNumber and pageNumber ~= 1) then
             newAssets = state.AssetManagerReducer.assetsTable
-            if FFlagDedupePackagesInAssetManager then
-                index = newAssets.index + 1
-            else
-                index = #newAssets.assets + 1
-            end
+            index = newAssets.index + 1
         end
         if showLoading then
             -- fetching next page of assets
@@ -119,16 +114,10 @@ return function(apiImpl, assetType, pageCursor, pageNumber, showLoadingIndicator
                             hasLinkedScripts = true
                             assetAlias.name = string.gsub(alias.Name, "Scripts/", "")
                         end
-                        if FFlagDedupePackagesInAssetManager then
-                            assetAlias.layoutOrder = index
-                            newAssets.assets = Cryo.Dictionary.join(newAssets.assets, {
-                                [sAssetAliasId] = assetAlias,
-                            })
-                        else
-                            newAssets.assets = Cryo.Dictionary.join(newAssets.assets, {
-                                [index] = assetAlias,
-                            })
-                        end
+                        assetAlias.layoutOrder = index
+                        newAssets.assets = Cryo.Dictionary.join(newAssets.assets, {
+                            [sAssetAliasId] = assetAlias,
+                        })
                         index = index + 1
                     end
                 end
@@ -162,32 +151,20 @@ return function(apiImpl, assetType, pageCursor, pageNumber, showLoadingIndicator
                             newAsset.id = asset.assetId
                             newAsset.assetName = nil
                             newAsset.assetId = nil
-                            if FFlagDedupePackagesInAssetManager then
-                                newAsset.layoutOrder = index
-                                newAssets.assets = Cryo.Dictionary.join(newAssets.assets, {
-                                    [sAssetId] = newAsset,
-                                })
-                            else
-                                newAssets.assets = Cryo.Dictionary.join(newAssets.assets, {
-                                    [index] = newAsset,
-                                })
-                            end
+                            newAsset.layoutOrder = index
+                            newAssets.assets = Cryo.Dictionary.join(newAssets.assets, {
+                                [sAssetId] = newAsset,
+                            })
                             index = index + 1
                         else
                             table.insert(packageIds, asset.assetId)
                         end
                     else
-                        if FFlagDedupePackagesInAssetManager then
-                            local sAssetId = tostring(newAsset.id)
-                            newAsset.layoutOrder = index
-                            newAssets.assets = Cryo.Dictionary.join(newAssets.assets, {
-                                [sAssetId] = newAsset,
-                            })
-                        else
-                            newAssets.assets = Cryo.Dictionary.join(newAssets.assets, {
-                                [index] = newAsset,
-                            })
-                        end
+                        local sAssetId = tostring(newAsset.id)
+                        newAsset.layoutOrder = index
+                        newAssets.assets = Cryo.Dictionary.join(newAssets.assets, {
+                            [sAssetId] = newAsset,
+                        })
                         index = index + 1
                     end
                 end

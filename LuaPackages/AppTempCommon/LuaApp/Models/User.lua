@@ -56,7 +56,8 @@ function User.fromData(id, name, isFriend)
 	self.rootPlaceId = nil
 	self.gameInstanceId = nil
 
-	self.presence = (self.id == tostring(Players.LocalPlayer.UserId)) and User.PresenceType.ONLINE or nil
+	self.presence = (Players.LocalPlayer and self.id == tostring(Players.LocalPlayer.UserId))
+		and User.PresenceType.ONLINE or nil
 	self.thumbnails = nil
 	self.lastOnline = nil
 
@@ -68,7 +69,8 @@ function User.fromDataTable(data)
 
 	self.id = tostring(data.id)
 	self.isFriend = data.isFriend
-	self.presence = (self.id == tostring(Players.LocalPlayer.UserId)) and User.PresenceType.ONLINE or nil
+	self.presence = (Players.LocalPlayer
+		and self.id == tostring(Players.LocalPlayer.UserId)) and User.PresenceType.ONLINE or nil
 	self.isFetching = false
 	self.lastLocation = nil
 	self.name = data.name

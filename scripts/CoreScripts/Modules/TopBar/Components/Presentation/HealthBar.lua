@@ -12,8 +12,6 @@ local Constants = require(TopBar.Constants)
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
 
-local FFlagTopBarUseNewIcons = require(RobloxGui.Modules.Flags.FFlagTopBarUseNewIcons)
-
 local HEALTHBAR_SIZE = UDim2.new(0, 80, 0, 6)
 local HEALTHBAR_SIZE_TENFOOT = UDim2.new(0, 220, 0, 16)
 
@@ -100,44 +98,23 @@ function HealthBar:render()
 	end
 
 	local healthBarColor = getHealthBarColor(healthPercent)
-	if FFlagTopBarUseNewIcons then
-		return Roact.createElement("Frame", {
-			Visible = healthVisible,
-			BackgroundTransparency = 1,
-			Size = UDim2.new(healthBarSize.X, UDim.new(1, 0)),
-		}, {
-			Padding = Roact.createElement("UIPadding", {
-				PaddingTop = UDim.new(0, healthBarOffset),
-			}),
+	return Roact.createElement("Frame", {
+		Visible = healthVisible,
+		BackgroundTransparency = 1,
+		Size = UDim2.new(healthBarSize.X, UDim.new(1, 0)),
+	}, {
+		Padding = Roact.createElement("UIPadding", {
+			PaddingTop = UDim.new(0, healthBarOffset),
+		}),
 
-			HealthBar = Roact.createElement("ImageLabel", {
-				BackgroundTransparency = 1,
-				Image = healthBarBase,
-				ScaleType = Enum.ScaleType.Slice,
-				SliceCenter = sliceCenter,
-				Size = healthBarSize,
-				Position = UDim2.fromScale(0, 0.5),
-				AnchorPoint = Vector2.new(0, 0.5),
-				LayoutOrder = self.props.layoutOrder,
-			}, {
-				Fill = Roact.createElement("ImageLabel", {
-					BackgroundTransparency = 1,
-					Image = healthBar,
-					ImageColor3 = healthBarColor,
-					ScaleType = Enum.ScaleType.Slice,
-					SliceCenter = sliceCenter,
-					Size = UDim2.fromScale(healthPercent, 1),
-				}),
-			})
-		})
-	else
-		return Roact.createElement("ImageLabel", {
-			Visible = healthVisible,
+		HealthBar = Roact.createElement("ImageLabel", {
 			BackgroundTransparency = 1,
 			Image = healthBarBase,
 			ScaleType = Enum.ScaleType.Slice,
 			SliceCenter = sliceCenter,
 			Size = healthBarSize,
+			Position = UDim2.fromScale(0, 0.5),
+			AnchorPoint = Vector2.new(0, 0.5),
 			LayoutOrder = self.props.layoutOrder,
 		}, {
 			Fill = Roact.createElement("ImageLabel", {
@@ -146,10 +123,10 @@ function HealthBar:render()
 				ImageColor3 = healthBarColor,
 				ScaleType = Enum.ScaleType.Slice,
 				SliceCenter = sliceCenter,
-				Size = UDim2.new(healthPercent, 0, 1, 0),
+				Size = UDim2.fromScale(healthPercent, 1),
 			}),
 		})
-	end
+	})
 end
 
 local function mapStateToProps(state)

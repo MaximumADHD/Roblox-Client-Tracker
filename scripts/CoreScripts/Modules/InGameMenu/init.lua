@@ -33,6 +33,7 @@ local SetInspectMenuEnabled = require(script.Actions.SetInspectMenuEnabled)
 local SetCurrentPage = require(script.Actions.SetCurrentPage)
 local SetScreenSize = require(script.Actions.SetScreenSize)
 local OpenMenu = require(script.Thunks.OpenMenu)
+local OpenNativeClosePrompt = require(script.Actions.OpenNativeClosePrompt)
 
 local GlobalConfig = require(script.GlobalConfig)
 
@@ -186,5 +187,9 @@ return {
 
 	getRespawnBehaviourChangedEvent = function()
 		return RespawnBehaviourChangedEvent
+	end,
+
+	openNativeClosePrompt = function()
+		menuStore:dispatch(OpenNativeClosePrompt())
 	end,
 }

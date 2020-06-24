@@ -82,18 +82,15 @@ function MainView:render()
 			LayoutOrder = layoutOrderIterator:getNextOrder(),
 		}),
 
-		-- Element intentionally empty to add a gap before the apply button.
-		Spacer = Roact.createElement(Container, {
-			LayoutOrder = layoutOrderIterator:getNextOrder(),
-			Size = UDim2.new(1, 0, 0, theme.MainView.SeparatorHeight),
-		}),
-
 		ButtonContainer = Roact.createElement(Container, {
 			LayoutOrder = layoutOrderIterator:getNextOrder(),
-			Padding = theme.MainView.PrimaryButtonPadding,
-			Size = UDim2.new(1, 0, 0, theme.MainView.PrimaryButtonHeight),
+			Padding = theme.MainView.ButtonContainerPadding,
+			Size = UDim2.new(1, 0, 0, 22),
 		}, {
 			Button = Roact.createElement(Button, {
+				AnchorPoint = Vector2.new(0.5, 0),
+				Position = UDim2.new(0.5, 0, 0, 0),
+				Size = theme.MainView.PrimaryButtonSize,
 				Style = "RoundPrimary",
 				StyleModifier = not enabled and StyleModifier.Disabled,
 				Text = localization:getText("MainView", "AlignButton"),

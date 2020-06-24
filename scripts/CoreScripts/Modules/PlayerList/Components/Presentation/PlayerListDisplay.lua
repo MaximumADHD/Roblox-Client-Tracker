@@ -32,19 +32,14 @@ local MOTOR_OPTIONS = {
     frequency = 4,
 }
 
-local FFlagMinimizePlayerListWhenTopBarOpen
-	= require(RobloxGui.Modules.Flags.FFlagMinimizePlayerListWhenTopBarOpen)
-
 local FFlagPlayerListFixContextMenuFlashing
 	= require(RobloxGui.Modules.Flags.FFlagPlayerListFixContextMenuFlashing)
-
-local FFlagPlayerListFixTitleBarTransparency = require(RobloxGui.Modules.Flags.FFlagPlayerListFixTitleBarTransparency)
 
 local PlayerListDisplay = Roact.PureComponent:extend("PlayerListDisplay")
 
 PlayerListDisplay.validateProps = t.strictInterface({
 	isVisible = t.boolean,
-	isMinimized = FFlagMinimizePlayerListWhenTopBarOpen and t.boolean or nil,
+	isMinimized = t.boolean,
 	isTenFootInterface = t.boolean,
 	isUsingGamepad = t.boolean,
 
@@ -116,19 +111,17 @@ function PlayerListDisplay:init()
 		})
 	end
 
-	if FFlagMinimizePlayerListWhenTopBarOpen then
-		self.minimizedBinding, self.updateMinimizedBinding = Roact.createBinding(0)
+	self.minimizedBinding, self.updateMinimizedBinding = Roact.createBinding(0)
 
-		self.minimizedMotor = Otter.createSingleMotor(0)
-		self.minimizedMotor:onStep(self.updateMinimizedBinding)
-		self.minimizedMotor:onComplete(function(value)
-			if value == 0 then
-				self:setState({
-					contentsVisible = true,
-				})
-			end
-		end)
-	end
+	self.minimizedMotor = Otter.createSingleMotor(0)
+	self.minimizedMotor:onStep(self.updateMinimizedBinding)
+	self.minimizedMotor:onComplete(function(value)
+		if value == 0 then
+			self:setState({
+				contentsVisible = true,
+			})
+		end
+	end)
 end
 
 function PlayerListDisplay:inVerticalScrollWindow(position, size)
@@ -300,139 +293,37 @@ function PlayerListDisplay:render()
 					scrollingFrameMaxSizeY = scrollingFrameMaxSizeY - layoutValues.TitleBarSizeY
 				end
 
-				if FFlagMinimizePlayerListWhenTopBarOpen then
-					local transparencyBinding = self.minimizedBinding:map(function(value)
-						local defaultTransparency = layoutValues.OverrideBackgroundTransparency
-						local fadedTransparency = layoutValues.FadedBackgroundTransparency
-						local delta = fadedTransparency - defaultTransparency
-						return defaultTransparency + (delta * value)
-					end)
+				local transparencyBinding = self.minimizedBinding:map(function(value)
+					local defaultTransparency = layoutValues.OverrideBackgroundTransparency
+					local fadedTransparency = layoutValues.FadedBackgroundTransparency
+					local delta = fadedTransparency - defaultTransparency
+					return defaultTransparency + (delta * value)
+				end)
 
-					local dropDownContentsVisible = nil
-					if FFlagPlayerListFixContextMenuFlashing then
-						dropDownContentsVisible = self.state.contentsVisible
-					end
+				local dropDownContentsVisible = nil
+				if FFlagPlayerListFixContextMenuFlashing then
+					dropDownContentsVisible = self.state.contentsVisible
+				end
 
-					return Roact.createElement("Frame", {
-						Position = layoutValues.PlayerScrollListPosition,
-						Size = layoutValues.PlayerScrollListSize,
+				return Roact.createElement("Frame", {
+					Position = layoutValues.PlayerScrollListPosition,
+					Size = layoutValues.PlayerScrollListSize,
+					BackgroundTransparency = 1,
+
+					[Roact.Change.AbsoluteSize] = self.absoluteSizeChanged,
+				}, {
+					SizeOffsetFrame = Roact.createElement("Frame", {
 						BackgroundTransparency = 1,
-
-						[Roact.Change.AbsoluteSize] = self.absoluteSizeChanged,
+						Size = UDim2.fromScale(1, 1),
+						Position = UDim2.fromScale(0.5, 0.5),
+						AnchorPoint = Vector2.new(0.5, 0.5),
 					}, {
-						SizeOffsetFrame = Roact.createElement("Frame", {
-							BackgroundTransparency = 1,
-							Size = UDim2.fromScale(1, 1),
-							Position = UDim2.fromScale(0.5, 0.5),
-							AnchorPoint = Vector2.new(0.5, 0.5),
-						}, {
-							UIScale = Roact.createElement("UIScale", {
-								Scale = self.minimizedBinding:map(function(value)
-									return 1 - (layoutValues.FadedBackgroundScaleDelta * value)
-								end),
-							}),
-
-							UIListLayout = Roact.createElement("UIListLayout", {
-								SortOrder = Enum.SortOrder.LayoutOrder,
-								FillDirection = Enum.FillDirection.Vertical,
-								VerticalAlignment = Enum.VerticalAlignment.Top,
-								HorizontalAlignment = Enum.HorizontalAlignment.Left,
-							}),
-
-							TopRoundedRect = Roact.createElement("ImageLabel", {
-								LayoutOrder = 1,
-								BackgroundTransparency = 1,
-								Image = "rbxasset://textures/ui/TopRoundedRect8px.png",
-								ImageColor3 = style.Theme.BackgroundContrast.Color,
-								ImageTransparency = transparencyBinding,
-								ScaleType = Enum.ScaleType.Slice,
-								SliceCenter = Rect.new(8, 8, 24, 16),
-								SliceScale = 0.5,
-								Size = UDim2.new(1, 0, 0, 4),
-							}),
-
-							TitleBar = #self.props.gameStats > 0 and Roact.createElement(TitleBar, {
-								LayoutOrder = 2,
-								contentsVisible = self.state.contentsVisible,
-								backgroundTransparency = FFlagPlayerListFixTitleBarTransparency and transparencyBinding,
-								gameStats = self.props.gameStats,
-								Size = UDim2.new(1, 0, 0, layoutValues.TitleBarSizeY),
-								entrySize = self.props.entrySize,
-							}),
-
-							ScrollingFrameContainer = Roact.createElement("Frame", {
-								LayoutOrder = 3,
-								Position = UDim2.new(0, 0, 0, 0),
-								Size = UDim2.new(1, 0, 0, math.min(canvasSizeY, scrollingFrameMaxSizeY)),
-								BackgroundColor3 = style.Theme.BackgroundContrast.Color,
-								BackgroundTransparency = transparencyBinding,
-								BorderSizePixel = 0,
-
-								[Roact.Change.AbsolutePosition] = self.absolutePositionChanged,
-							}, {
-								PlayerDropDown = (FFlagPlayerListFixContextMenuFlashing or self.state.contentsVisible)
-									and Roact.createElement(PlayerDropDown, {
-									contentsVisible = dropDownContentsVisible,
-									selectedPlayer = self.props.dropDownPlayer,
-									positionY = absDropDownPosition,
-									minPositionBoundY = -self.state.scrollingFramePositionY + layoutValues.DropDownScreenSidePadding,
-									maxPositionBoundY = (self.props.screenSizeY -
-										self.state.scrollingFramePositionY - layoutValues.DropDownScreenSidePadding),
-								}),
-
-								ScrollingFrameClippingFrame = Roact.createElement("Frame", {
-									Visible = self.state.contentsVisible,
-									Size = UDim2.new(1, 0, 1, 0),
-									BackgroundTransparency = 1,
-									ClipsDescendants = true,
-								}, {
-									ScollingFrame = Roact.createElement("ScrollingFrame", {
-										Size = UDim2.new(1, -layoutValues.ScrollBarOffset, 1, 0),
-										CanvasSize = UDim2.new(0, 0, 0, canvasSizeY),
-										BackgroundTransparency = 1,
-										ScrollBarImageColor3 = layoutValues.ScrollImageColor,
-										ScrollBarImageTransparency = layoutValues.ScrollImageTransparency,
-										BorderSizePixel = 0,
-										ScrollBarThickness = layoutValues.ScrollBarSize,
-										VerticalScrollBarInset = Enum.ScrollBarInset.Always,
-										ClipsDescendants = false,
-										ScrollingEnabled = not self.props.dropDownVisible,
-										Selectable = false,
-										CanvasPosition = self.props.dropDownVisible and canvasPositionOverride or self.state.lastCanvasPosition,
-
-										[Roact.Change.CanvasPosition] = self.canvasPositionChanged,
-
-										[Roact.Ref] = self.scrollingFrameRef,
-									}, {
-										OffsetUndoFrame = Roact.createElement("Frame", {
-											Size = UDim2.new(1, layoutValues.ScrollBarOffset + layoutValues.ScrollBarSize, 0, canvasSizeY),
-											BackgroundTransparency = 1,
-										}, childElements)
-									}),
-								})
-							}),
-
-							BottomRoundedRect = Roact.createElement("ImageLabel", {
-								LayoutOrder = 4,
-								BackgroundTransparency = 1,
-								Image = "rbxasset://textures/ui/BottomRoundedRect8px.png",
-								ImageColor3 = style.Theme.BackgroundContrast.Color,
-								ImageTransparency = transparencyBinding,
-								ScaleType = Enum.ScaleType.Slice,
-								SliceCenter = Rect.new(8, 8, 24, 16),
-								SliceScale = 0.5,
-								Size = UDim2.new(1, 0, 0, 4),
-							}),
+						UIScale = Roact.createElement("UIScale", {
+							Scale = self.minimizedBinding:map(function(value)
+								return 1 - (layoutValues.FadedBackgroundScaleDelta * value)
+							end),
 						}),
-					})
-				else
-					return Roact.createElement("Frame", {
-						Position = layoutValues.PlayerScrollListPosition,
-						Size = layoutValues.PlayerScrollListSize,
-						BackgroundTransparency = 1,
 
-						[Roact.Change.AbsoluteSize] = self.absoluteSizeChanged,
-					}, {
 						UIListLayout = Roact.createElement("UIListLayout", {
 							SortOrder = Enum.SortOrder.LayoutOrder,
 							FillDirection = Enum.FillDirection.Vertical,
@@ -445,7 +336,7 @@ function PlayerListDisplay:render()
 							BackgroundTransparency = 1,
 							Image = "rbxasset://textures/ui/TopRoundedRect8px.png",
 							ImageColor3 = style.Theme.BackgroundContrast.Color,
-							ImageTransparency = layoutValues.OverrideBackgroundTransparency,
+							ImageTransparency = transparencyBinding,
 							ScaleType = Enum.ScaleType.Slice,
 							SliceCenter = Rect.new(8, 8, 24, 16),
 							SliceScale = 0.5,
@@ -454,6 +345,8 @@ function PlayerListDisplay:render()
 
 						TitleBar = #self.props.gameStats > 0 and Roact.createElement(TitleBar, {
 							LayoutOrder = 2,
+							contentsVisible = self.state.contentsVisible,
+							backgroundTransparency = transparencyBinding,
 							gameStats = self.props.gameStats,
 							Size = UDim2.new(1, 0, 0, layoutValues.TitleBarSizeY),
 							entrySize = self.props.entrySize,
@@ -464,12 +357,14 @@ function PlayerListDisplay:render()
 							Position = UDim2.new(0, 0, 0, 0),
 							Size = UDim2.new(1, 0, 0, math.min(canvasSizeY, scrollingFrameMaxSizeY)),
 							BackgroundColor3 = style.Theme.BackgroundContrast.Color,
-							BackgroundTransparency = layoutValues.OverrideBackgroundTransparency,
+							BackgroundTransparency = transparencyBinding,
 							BorderSizePixel = 0,
 
 							[Roact.Change.AbsolutePosition] = self.absolutePositionChanged,
 						}, {
-							PlayerDropDown = Roact.createElement(PlayerDropDown, {
+							PlayerDropDown = (FFlagPlayerListFixContextMenuFlashing or self.state.contentsVisible)
+								and Roact.createElement(PlayerDropDown, {
+								contentsVisible = dropDownContentsVisible,
 								selectedPlayer = self.props.dropDownPlayer,
 								positionY = absDropDownPosition,
 								minPositionBoundY = -self.state.scrollingFramePositionY + layoutValues.DropDownScreenSidePadding,
@@ -478,6 +373,7 @@ function PlayerListDisplay:render()
 							}),
 
 							ScrollingFrameClippingFrame = Roact.createElement("Frame", {
+								Visible = self.state.contentsVisible,
 								Size = UDim2.new(1, 0, 1, 0),
 								BackgroundTransparency = 1,
 								ClipsDescendants = true,
@@ -513,14 +409,14 @@ function PlayerListDisplay:render()
 							BackgroundTransparency = 1,
 							Image = "rbxasset://textures/ui/BottomRoundedRect8px.png",
 							ImageColor3 = style.Theme.BackgroundContrast.Color,
-							ImageTransparency = layoutValues.OverrideBackgroundTransparency,
+							ImageTransparency = transparencyBinding,
 							ScaleType = Enum.ScaleType.Slice,
 							SliceCenter = Rect.new(8, 8, 24, 16),
 							SliceScale = 0.5,
 							Size = UDim2.new(1, 0, 0, 4),
 						}),
-					})
-				end
+					}),
+				})
 			end
 		end)
 	end)
@@ -546,23 +442,18 @@ function PlayerListDisplay:didUpdate(prevProps)
 		end
 	end
 
-	if FFlagMinimizePlayerListWhenTopBarOpen then
-		if self.props.isMinimized ~= prevProps.isMinimized then
-			self.minimizedMotor:setGoal(Otter.spring(self.props.isMinimized and 1 or 0, MOTOR_OPTIONS))
-			if self.props.isMinimized then
-				self:setState({
-					contentsVisible = false,
-				})
-			end
+	if self.props.isMinimized ~= prevProps.isMinimized then
+		self.minimizedMotor:setGoal(Otter.spring(self.props.isMinimized and 1 or 0, MOTOR_OPTIONS))
+		if self.props.isMinimized then
+			self:setState({
+				contentsVisible = false,
+			})
 		end
 	end
 end
 
 local function mapStateToProps(state)
-	local isMinimized = nil
-	if FFlagMinimizePlayerListWhenTopBarOpen then
-		isMinimized = state.displayOptions.isMinimized
-	end
+	local isMinimized = state.displayOptions.isMinimized
 
 	return {
 		isVisible = state.displayOptions.isVisible,

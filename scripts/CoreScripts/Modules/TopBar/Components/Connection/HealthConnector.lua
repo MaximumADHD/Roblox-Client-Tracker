@@ -13,8 +13,6 @@ local UpdateHealth = require(TopBar.Actions.UpdateHealth)
 
 local EventConnection = require(TopBar.Parent.Common.EventConnection)
 
-local FFlagTopBarBetterStateInit = require(TopBar.Parent.Flags.FFlagTopBarBetterStateInit)
-
 local LocalPlayer = Players.LocalPlayer
 while not LocalPlayer do
 	Players:GetPropertyChangedSignal("LocalPlayer"):Wait()
@@ -41,11 +39,9 @@ function HealthConnector:init()
 	})
 end
 
-if FFlagTopBarBetterStateInit then
-	function HealthConnector:didMount()
-		if self.state.humanoid then
-			self.props.updateHealth(self.state.humanoid.Health, self.state.humanoid.MaxHealth)
-		end
+function HealthConnector:didMount()
+	if self.state.humanoid then
+		self.props.updateHealth(self.state.humanoid.Health, self.state.humanoid.MaxHealth)
 	end
 end
 

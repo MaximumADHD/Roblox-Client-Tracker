@@ -9,9 +9,16 @@ local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEna
 local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 local FFlagAssetManagerLuaPlugin = game:GetFastFlag("AssetManagerLuaPlugin")
 local FFlagStudioUseNewAnimationImportExportFlow = settings():GetFFlag("StudioUseNewAnimationImportExportFlow")
+local FFlagStudioAssetConfigurationPlugin = game:GetFastFlag("StudioAssetConfigurationPlugin")
+local FFlagStudioUnrestrictPluginGuiService = game:GetFastFlag("StudioUnrestrictPluginGuiService")
 
 local Plugin = script.Parent.Parent
 local Libs = Plugin.Libs
+local FFlagToolboxTabTooltips = game:GetFastFlag("ToolboxTabTooltips")
+if FFlagToolboxTabTooltips then
+	Libs:FindFirstChild("Roact"):Destroy()
+	Libs.RoactNext.Name = "Roact"
+end
 local Roact = require(Libs.Roact)
 local Rodux = require(Libs.Rodux)
 
@@ -42,6 +49,7 @@ local ToolboxServiceWrapper =  require(Plugin.Core.Components.ToolboxServiceWrap
 local GetRolesRequest = require(Plugin.Core.Networking.Requests.GetRolesRequest)
 
 local ContextServices = require(Libs.Framework.ContextServices)
+local CrossPluginCommunication = require(Libs.Framework.Util.CrossPluginCommunication)
 local SettingsContext = require(Plugin.Core.ContextServices.Settings)
 
 local TranslationStringsTable = Plugin.LocalizationSource.ToolboxTranslationReferenceTable
@@ -116,18 +124,8 @@ end
 
 local toolboxStore = nil
 
--- flowType AssetConfigConstants.FLOW_TYPE, will be used to determine what screens are
---				going to be shown on AssetConfig start up and what's next screen.
--- assetId number, will be used by Marketplace to request detail assetData.
---				default to nil, then will not request anything.
--- assetTypeEnum Enum.AssetType, some asset like places, need to use the parameter to
---				set the assetType of the Asset, and skip the assetTypeSelection.
---				default to nil
--- instances instances, Will be used in publishing new assets. Instances are userdata,
---				we can't check the assetType using that, using AssetType instead.
--- toolboxStore storeObejct, is used to fetch some catalog data from the Toolbox.
 local assetConfigHandle = nil
-local function createAssetConfig(assetId, flowType, instances, assetTypeEnum)
+local function DEPRECATED_createMonolithicAssetConfig(assetId, flowType, instances, assetTypeEnum)
 	if assetConfigHandle then
 		return
 	end
@@ -231,8 +229,60 @@ local function createAssetConfig(assetId, flowType, instances, assetTypeEnum)
 	else
 		assetConfigHandle = Roact.mount(assetConfigComponent)
 	end
+end
 
-	return assetConfigHandle
+local function invokeAssetConfigPlugin(assetId, flowType, instances, assetTypeEnum)
+	local crossPlugin = CrossPluginCommunication.new('AssetConfiguration')
+
+	local toolboxStoreData = {
+		allowedAssetTypesForRelease = {},
+		allowedAssetTypesForUpload = {},
+		packagePermissions = {},
+		isItemTagsFeatureEnabled = false,
+		enabledAssetTypesForItemTags = {},
+		maximumItemTagsPerItem = 0
+	}
+
+	if toolboxStore then
+		toolboxStoreData.allowedAssetTypesForRelease = toolboxStore:getState().roles.allowedAssetTypesForRelease
+		toolboxStoreData.allowedAssetTypesForUpload = toolboxStore:getState().roles.allowedAssetTypesForUpload
+		toolboxStoreData.packagePermissions = toolboxStore:getState().packages.permissionsTable
+		toolboxStoreData.isItemTagsFeatureEnabled = toolboxStore:getState().itemTags.isItemTagsFeatureEnabled
+		toolboxStoreData.enabledAssetTypesForItemTags = toolboxStore:getState().itemTags.enabledAssetTypesForItemTags
+		toolboxStoreData.maximumItemTagsPerItem = toolboxStore:getState().itemTags.maximumItemTagsPerItem
+	end
+
+	crossPlugin:Invoke('Open', {
+		assetId = assetId,
+		flowType = flowType,
+		instances = instances,
+		assetTypeEnum = assetTypeEnum,
+		toolboxStoreData = toolboxStoreData
+	})
+end
+
+
+-- assetId number, will be used by Marketplace to request detail assetData.
+--				default to nil, then will not request anything.
+-- flowType AssetConfigConstants.FLOW_TYPE, will be used to determine what screens are
+--				going to be shown on AssetConfig start up and what's next screen.
+-- instances instances, Will be used in publishing new assets. Instances are userdata,
+--				we can't check the assetType using that, using AssetType instead.
+-- assetTypeEnum Enum.AssetType, some asset like places, need to use the parameter to
+--				set the assetType of the Asset, and skip the assetTypeSelection.
+--				default to nil
+local function createAssetConfig(assetId, flowType, instances, assetTypeEnum)
+	if FFlagStudioAssetConfigurationPlugin then
+
+		if FFlagStudioUnrestrictPluginGuiService then
+			invokeAssetConfigPlugin(assetId, flowType, instances, assetTypeEnum)
+			return
+		else
+			warn("FFlagStudioAssetConfigurationPlugin depends on FFlagStudioUnrestrictPluginGuiService")
+		end
+	end
+
+	DEPRECATED_createMonolithicAssetConfig(assetId, flowType, instances, assetTypeEnum)
 end
 
 local function main()

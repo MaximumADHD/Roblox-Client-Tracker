@@ -45,8 +45,8 @@ function DropShadow:render()
 	local imageSize = style.ImageSize
 	assert(t.numberPositive(imageSize), "ImageSize must be a positive number")
 	local radius = style.Radius or 0
-    local sliceSize = imageSize / 2
-    -- Prevent a pixel artefact around the content
+	local sliceSize = imageSize / 2
+	-- Prevent a pixel artefact around the content
 	local sliceScale = (radius + 1) / sliceSize
 	local sliceCenter = Rect.new(sliceSize, sliceSize, sliceSize, sliceSize)
 

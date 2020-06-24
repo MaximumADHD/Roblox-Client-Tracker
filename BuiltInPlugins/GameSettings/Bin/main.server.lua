@@ -1,3 +1,5 @@
+local FFlagQ220PermissionsSettings = settings():GetFFlag("Q220PermissionsSettings")
+
 if not game:GetFastFlag("GameSettingsNetworkRefactor") then return end
 
 if not plugin then
@@ -29,14 +31,15 @@ local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 local ExternalServicesWrapper = require(Plugin.Src.Components.ExternalServicesWrapper)
 local Theme = require(Plugin.Src.Util.Theme)
 local Networking = require(Plugin.Src.ContextServices.Networking)
-local WorldRootPhysics = require(Plugin.Src.Components.SettingsPages.WorldPage.ContextServices.WorldRootPhysics)
+local WorldRootPhysics = require(Plugin.Pages.WorldPage.ContextServices.WorldRootPhysics)
 local GameInfoController = require(Plugin.Src.Controllers.GameInfoController)
 local GameMetadataController = require(Plugin.Src.Controllers.GameMetadataController)
 local GroupMetadataController = require(Plugin.Src.Controllers.GroupMetadataController)
-local GamePermissionsController = require(Plugin.Src.Components.SettingsPages.PermissionsPage.Controllers.GamePermissionsController)
-local GameOptionsController = require(Plugin.Src.Components.SettingsPages.OptionsPage.Controllers.GameOptionsController)
-local SocialController = require(Plugin.Src.Components.SettingsPages.PermissionsPage.Controllers.SocialController)
-local UniverseAvatarController = require(Plugin.Src.Components.SettingsPages.AvatarPage.Controllers.UniverseAvatarController)
+local GamePermissionsController = require(Plugin.Pages.PermissionsPage.Controllers.GamePermissionsController)
+local GameOptionsController = require(Plugin.Pages.OptionsPage.Controllers.GameOptionsController)
+local SecurityController = require(Plugin.Pages.SecurityPage.Controllers.SecurityController)
+local SocialController = require(Plugin.Pages.PermissionsPage.Controllers.SocialController)
+local UniverseAvatarController = require(Plugin.Pages.AvatarPage.Controllers.UniverseAvatarController)
 
 local CurrentStatus = require(Plugin.Src.Util.CurrentStatus)
 
@@ -68,6 +71,7 @@ if game:GetFastFlag("StudioThunkWithArgsMiddleware") then
 	local groupMetadataController = GroupMetadataController.new(networking:get())
 	local gamePermissionsController = GamePermissionsController.new(networking:get())
 	local gameOptionsController = GameOptionsController.new()
+	local universePermissionsController = FFlagQ220PermissionsSettings and SecurityController.new(networking:get()) or nil
 	local socialController = SocialController.new(networking:get())
 	local universeAvatarController = UniverseAvatarController.new(networking:get())
 
@@ -78,6 +82,7 @@ if game:GetFastFlag("StudioThunkWithArgsMiddleware") then
 	thunkContextItems.groupMetadataController = groupMetadataController
 	thunkContextItems.gamePermissionsController = gamePermissionsController
 	thunkContextItems.gameOptionsController = gameOptionsController
+	thunkContextItems.universePermissionsController = universePermissionsController
 	thunkContextItems.socialController = socialController
 	thunkContextItems.universeAvatarController = universeAvatarController
 
@@ -278,7 +283,7 @@ local function openGameSettings(gameId, dataModel)
 	gameSettingsHandle = Roact.mount(servicesProvider, pluginGui)
 	pluginGui.Enabled = true
 
-	Analytics.onOpenEvent(plugin:GetStudioUserId())
+	Analytics.onOpenEvent(plugin:GetStudioUserId(), gameId)
 	openedTimestamp = tick()
 end
 
