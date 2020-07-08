@@ -684,7 +684,6 @@ Studio.App.MainWindow.AboutToLogOutNewLine,Main Window,"Roblox Studio is about t
 ","Roblox Studio is about to log out.
 
 "
-Studio.App.MainWindow.AmongRegisteredTrademarks,Main Window,"<i>Roblox</i>, the Roblox <i>logo</i> and <i>Powering Imagination</i> are among our registered and unregistered trademarks in the U.S. and other countries.</p><p>Contact us at <a href='https://www.roblox.com/support'>https://www.roblox.com/support</a></p></div>","<i>Roblox</i>, the Roblox <i>logo</i> and <i>Powering Imagination</i> are among our registered and unregistered trademarks in the U.S. and other countries.</p><p>Contact us at <a href='https://www.roblox.com/support'>https://www.roblox.com/support</a></p></div>"
 Studio.App.MainWindow.AmongRegisteredTrademarks2,Replacement of Studio.App.MainWindow.AmongRegisteredTrademarks with only hyper link excluded,"<i>Roblox</i>, the Roblox <i>logo</i> and <i>Powering Imagination</i> are among our registered and unregistered trademarks in the U.S. and other countries.</p><p>Contact us at <a href='%1'>%2</a></p></div>","<i>Roblox</i>, the Roblox <i>logo</i> and <i>Powering Imagination</i> are among our registered and unregistered trademarks in the U.S. and other countries.</p><p>Contact us at <a href='%1'>%2</a></p></div>"
 Studio.App.MainWindow.ArgumentsBreak,Main Window,Arguments:<br>,Arguments:<br>
 Studio.App.MainWindow.BreakPathSpace,Main Window,<br>Path: ,<br>Path: 
@@ -1004,6 +1003,7 @@ Studio.App.Property.HoverOverColor,,Hover Over Color,Hover Over Color
 Studio.App.Property.HttpProxyEnabled,,Proxy Enabled,Proxy Enabled
 Studio.App.Property.HttpProxyURL,,Proxy URL,Proxy URL
 Studio.App.Property.IncommingReplicationLag,,Incomming Replication Lag,Incomming Replication Lag
+Studio.App.Property.IndentUsingSpaces,,Indent Using Spaces,Indent Using Spaces
 Studio.App.Property.InstanceCount,,Instance Count,Instance Count
 Studio.App.Property.IsFmodProfilingEnabled,,Is Fmod Profiling Enabled,Is Fmod Profiling Enabled
 Studio.App.Property.IsQueueErrorComputed,,Is Queue Error Computed,Is Queue Error Computed
@@ -1068,6 +1068,7 @@ Studio.App.Property.SIMD,,SIMD,SIMD
 Studio.App.Property.SchedulerDutyCycle,,Scheduler Duty Cycle,Scheduler Duty Cycle
 Studio.App.Property.SchedulerRate,,Scheduler Rate,Scheduler Rate
 Studio.App.Property.ScriptTimeoutLength,,Script Timeout Length,Script Timeout Length
+Studio.App.Property.SearchContentForCoreScripts,,Search Content For Core Scripts,Search Content For Core Scripts
 Studio.App.Property.SelectColor,,Select Color,Select Color
 Studio.App.Property.SelectHoverColor,,Select/Hover Color,Select/Hover Color
 Studio.App.Property.SelectionBackgroundColor,,Selection Background Color,Selection Background Color
@@ -1194,25 +1195,52 @@ Studio.App.PropertyEnum.Vertical,,Vertical,Vertical
 Studio.App.PropertyEnum.VeryFast,,Very Fast,Very Fast
 Studio.App.PropertyEnum.VerySlow,,Very Slow,Very Slow
 Studio.App.PropertyEnum.Vulkan,,Vulkan,Vulkan
+Studio.App.PropertyItems.BrickColorPropertyCannotBeEdited,Warning message that displays in the Studio Output window when a user tries to alter the BrickColor property of a part while the Studio Lua Debugger is paused at a breakpoint.,BrickColor property cannot be edited. Please make sure debugger is not paused.,BrickColor property cannot be edited. Please make sure debugger is not paused.
+Studio.App.PropertyItems.ClickToExpand,Short message that appears in the Terrain.MaterialColors property in the Properties widget to let the user know that they can expand the property to see all the individual color values of each terrain material,[Click to expand],[Click to expand]
+Studio.App.PropertyItems.Color,Label for the color of a terrain material,Color,Color
 Studio.App.PropertyItems.CouldNotFindTexture1,Error message that displays if Studio can't find a texture file at a certain path. The argument of this string is the path to the supposed texture file.,"Could not find texture %1. Please verify that the texture is located at that location, or in the same folder as the FBX/OBJ file","Could not find texture %1. Please verify that the texture is located at that location, or in the same folder as the FBX/OBJ file"
 Studio.App.PropertyItems.DefaultTheme,,Default,Default
+Studio.App.PropertyItems.DoubleClickToGoTo1,Tooltip that displays on both the 'Influenced by' and 'Overridden by' texts that lets the user know that double clicking on the text will navigate them to the Instance that is influencing/overriding a property. The parameter is the name of the Instance that is influencing/overriding the property.,Double-click here to go to %1,Double-click here to go to %1
 Studio.App.PropertyItems.ImportingMesh,,Importing mesh...,Importing mesh...
+Studio.App.PropertyItems.InappropriateName,One of the reasons that an uploaded MeshPart would be rejected.,Inappropriate name,Inappropriate name
+Studio.App.PropertyItems.InfluencedBy,"Text which displays under a property in the Properties widget if the property is being influenced by another Instance. 'Influenced', in this case, means that the property's value will only be set by the other Instance under certain circumstances (e.g. a UISizeConstraint clamping a UI element's Size property down if it exceeds a certain maximum).",Influenced by,Influenced by
 Studio.App.PropertyItems.InvertMeshFaces,,The mesh you are importing contains odd number negative scales. Would you like to invert mesh faces?,The mesh you are importing contains odd number negative scales. Would you like to invert mesh faces?
+Studio.App.PropertyItems.IssueImportingTexture1,Error message that displays in the output widget when Studio encounters an error when importing a texture. The parameter is the specific issue.,Issue importing texture: %1,Issue importing texture: %1
 Studio.App.PropertyItems.LoadStringEnbledWarning,,Activating the <b>%1</b> property might make your game vulnerable to exploits. Are you sure you want to enable this?,Activating the <b>%1</b> property might make your game vulnerable to exploits. Are you sure you want to enable this?
+Studio.App.PropertyItems.LogInRequired,Title of error message shown to users who try to import meshes while not logged in.,Log in required,Log in required
+Studio.App.PropertyItems.Material,Label for a terrain material,Material,Material
 Studio.App.PropertyItems.MeshImportErrors,Message which displays if there were multiple errors when importing a mesh,There were errors while importing your Mesh,There were errors while importing your Mesh
 Studio.App.PropertyItems.MoveTheMesh,,Your mesh contains location data. Would you like to move your mesh to the given location?,Your mesh contains location data. Would you like to move your mesh to the given location?
 Studio.App.PropertyItems.NoVerticesFound,Message which displays in an error pop-up window that tells the user that they are trying to import a mesh with no vertices,No vertices found! Please check the mesh you are attempting to import and try again.,No vertices found! Please check the mesh you are attempting to import and try again.
 Studio.App.PropertyItems.NotAValidLocation1,,"""%1"" is not a valid content location.
 Please enter an asset ID or a correctly formatted asset url.","""%1"" is not a valid content location.
 Please enter an asset ID or a correctly formatted asset url."
+Studio.App.PropertyItems.OverriddenBy,"Text which displays under a property in the Properties widget if the property is being overridden by another Instance. 'Overridden', in this case, means that the property's value will always be set by the other Instance regardless of what the user sets the property's value to in the Properties widget (e.g. a UIGridLayout always overriding a UI element's Size and Position properties).",Overridden by,Overridden by
 Studio.App.PropertyItems.PackageVersionFailedMessage,,Unable to perform this action.,Unable to perform this action.
+Studio.App.PropertyItems.PropertyInfluenceToolTip3,"Tooltip that displays if a certain Instance's property is being influenced by another Instance(s). Parameter 1 is the name of the Instance whose property is being altered, parameter 2 is the name of the property being altered, and parameter 3 is the name(s) of the Instance(s) that is/are altering the property. 'Influenced', in this case, means that the property's value will only be set by the other Instance(s) under certain circumstances (i.e. a UISizeConstraint clamping a UI element's size down if it exceeds a certain maximum).",%1's %2 is influenced by %4,%1's %2 is influenced by %4
+Studio.App.PropertyItems.PropertyOverrideToolTip3,"Tooltip that displays if a certain Instance's property is being overridden by another Instance(s). Parameter 1 is the name of the Instance whose property is being altered, parameter 2 is the name of the property being altered, and parameter 3 is the name(s) of the Instance(s) that is/are altering the property. 'Overridden', in this case, means that the property's value will always be set by the other instance(s) regardless of what the user sets the property's value to in the Properties widget.",%1's %2 is overridden by %4,%1's %2 is overridden by %4
 Studio.App.PropertyItems.ResizeTheMesh,,The mesh you are importing is very large. Would you like to resize the mesh?,The mesh you are importing is very large. Would you like to resize the mesh?
 Studio.App.PropertyItems.RevertPackageConfirmation,,Are you sure you want to revert this package to version %1 ?,Are you sure you want to revert this package to version %1 ?
 Studio.App.PropertyItems.ThereWasAnIssueImportingMesh,Message that displays if a mesh importation was successful but there was a warning,There was an issue when importing the mesh,There was an issue when importing the mesh
 Studio.App.PropertyItems.ThereWereIssuesImportingMesh,Message that displays if a mesh importation was successful but there were multiple warnings,There were issues when importing the mesh,There were issues when importing the mesh
+Studio.App.PropertyItems.ThisPropertyHasBeenOverridden,"Tooltip that displays if a certain Instance's property is being overridden by another Instance(s), but when Studio is unaware of what the other Instance(s) is/are.",This property has been overridden,This property has been overridden
+Studio.App.PropertyItems.UnableToLoadTerrainIcon1,Error message that appears in the Studio output window if Studio cannot locate a terrian icon. The argument is the supposed path to said icon.,Unable to load terrain icon %1,Unable to load terrain icon %1
+Studio.App.PropertyItems.UnableToPublishMeshPart1,Error message that displays in the output widget when the Studio backend rejects an uploaded MeshPart. The parameter is the reason for the rejection.,Unable to publish MeshPart: %1,Unable to publish MeshPart: %1
+Studio.App.PropertyItems.UnsupportedFiletype,One of the issues that could be encountered when uploading a texture.,Unsupported filetype,Unsupported filetype
 Studio.App.PropertyItems.UpdatingMesh,Message which displays in the bottom left of the screen when a MeshPart's mesh is being updated,Updating mesh...,Updating mesh...
+Studio.App.PropertyItems.YouMustLogInToCreateMeshes,Body of error message shown to users to try to import meshes while not logged in.,You must log in to create meshes.,You must log in to create meshes.
+Studio.App.PropertyTooltip.AutoClosingBrackets,,Automatically insert a closing bracket following an opening bracket.,Automatically insert a closing bracket following an opening bracket.
+Studio.App.PropertyTooltip.AutoClosingQuotes,,Automatically insert a closing quotation following an opening quotation.,Automatically insert a closing quotation following an opening quotation.
+Studio.App.PropertyTooltip.AutoIndentRule,,Off: No automatic indentation. Relative: Auto-indent relative to the current line. Absolute: Auto-indent globally.,Off: No automatic indentation. Relative: Auto-indent relative to the current line. Absolute: Auto-indent globally.
+Studio.App.PropertyTooltip.EnableAutocomplete,,Enable code suggestions to show up while typing.,Enable code suggestions to show up while typing.
+Studio.App.PropertyTooltip.Font,,"Change the text font family, typeface, and size.","Change the text font family, typeface, and size."
+Studio.App.PropertyTooltip.FormatOnType,,Automatically format the code after typing.,Automatically format the code after typing.
+Studio.App.PropertyTooltip.IndentUsingSpaces,,Prefer indent with spaces over tabs. This will affect Auto Indent and pressing Tab behavior.,Prefer indent with spaces over tabs. This will affect Auto Indent and pressing Tab behavior.
 Studio.App.PropertyTooltip.Rulers,,Vertical lines drawn at the specified column numbers. These can be used as a guide to code length limits.,Vertical lines drawn at the specified column numbers. These can be used as a guide to code length limits.
-Studio.App.PropertyTooltip.ShowWhitespace,,Display spaces and tabs in the Script Editor.,Display spaces and tabs in the Script Editor.
+Studio.App.PropertyTooltip.ShowWhitespace,,Visibly display spaces and tabs.,Visibly display spaces and tabs.
+Studio.App.PropertyTooltip.SkipClosingBracketsAndQuotes,,Skip over a closing bracket/quote instead of inserting another.,Skip over a closing bracket/quote instead of inserting another.
+Studio.App.PropertyTooltip.TabWidth,,"The width of a tab, measured in number of spaces.","The width of a tab, measured in number of spaces."
+Studio.App.PropertyTooltip.TextWrapping,,Wrap the line of text below when the line character limit has been reached.,Wrap the line of text below when the line character limit has been reached.
 Studio.App.QDebuggerClient.Breakpoint,,Breakpoint,Breakpoint
 Studio.App.QDebuggerClient.BreakpointLocationFmt2,,"Location: %1, line %2","Location: %1, line %2"
 Studio.App.QDebuggerClient.ConditionText,,Condition,Condition
@@ -1487,6 +1515,7 @@ Studio.App.RBXMainWindow.SaveDocToRoblox,,Save the Active Document to Roblox Web
 Studio.App.RBXMainWindow.SaveDocWithNewName,,Save the active document with a new name,Save the active document with a new name
 Studio.App.RBXMainWindow.SaveLocalizationTable,,Save the selected LocalizationTable to a CSV file,Save the selected LocalizationTable to a CSV file
 Studio.App.RBXMainWindow.SaveLocalizationTableElps,,Save LocalizationTable to CSV file...,Save LocalizationTable to CSV file...
+Studio.App.RBXMainWindow.SaveNormalizedPackageToXML,,Save Normalized Package[Internal Feature],Save Normalized Package[Internal Feature]
 Studio.App.RBXMainWindow.SaveSelectionAsModel,,Save the selection as a Model to a file,Save the selection as a Model to a file
 Studio.App.RBXMainWindow.SaveSelectionToFileElps,,Save selection to file...,Save selection to file...
 Studio.App.RBXMainWindow.SaveTheActiveDocument,,Save the active document,Save the active document
@@ -1795,6 +1824,7 @@ Studio.App.RobloxOutputRibbonDropdown.All,,All,All
 Studio.App.RobloxOutputRibbonDropdown.AllContexts,,All Contexts,All Contexts
 Studio.App.RobloxOutputRibbonDropdown.AllMessages,,All Messages,All Messages
 Studio.App.RobloxOutputRibbonDropdown.Client,,Client,Client
+Studio.App.RobloxOutputRibbonDropdown.CoreScript,,CoreScript,CoreScript
 Studio.App.RobloxOutputRibbonDropdown.Edit,,Edit,Edit
 Studio.App.RobloxOutputRibbonDropdown.Error,,Error,Error
 Studio.App.RobloxOutputRibbonDropdown.Information,,Information,Information
@@ -1803,14 +1833,14 @@ Studio.App.RobloxOutputRibbonDropdown.LogMode,,Log Mode,Log Mode
 Studio.App.RobloxOutputRibbonDropdown.None,,None,None
 Studio.App.RobloxOutputRibbonDropdown.NumberContexts1,,%1 Contexts,%1 Contexts
 Studio.App.RobloxOutputRibbonDropdown.NumberMessages1,,%1 Messages,%1 Messages
-Studio.App.RobloxOutputRibbonDropdown.Other,,Other,Other
-Studio.App.RobloxOutputRibbonDropdown.PlaySolo,,PlaySolo,PlaySolo
+Studio.App.RobloxOutputRibbonDropdown.PlaySolo,,NonNetworked,NonNetworked
 Studio.App.RobloxOutputRibbonDropdown.RobloxPlugin,,Roblox Plugin,Roblox Plugin
 Studio.App.RobloxOutputRibbonDropdown.SelectMessageOnly,,Select Messages Only,Select Messages Only
 Studio.App.RobloxOutputRibbonDropdown.Server,,Server,Server
 Studio.App.RobloxOutputRibbonDropdown.ShowMemoryAddressForExpandableTables,,Show memory address for expandable tables,Show memory address for expandable tables
 Studio.App.RobloxOutputRibbonDropdown.ShowTablesExpandedByDefault,,Show tables expanded by default,Show tables expanded by default
 Studio.App.RobloxOutputRibbonDropdown.ShowTimestamp,,Show Timestamp,Show Timestamp
+Studio.App.RobloxOutputRibbonDropdown.Studio,,Studio,Studio
 Studio.App.RobloxOutputRibbonDropdown.System,,System,System
 Studio.App.RobloxOutputRibbonDropdown.UserPlugin,,User Plugin,User Plugin
 Studio.App.RobloxOutputRibbonDropdown.Warning,,Warning,Warning
@@ -2363,7 +2393,7 @@ Studio.App.UIEditor.TextLabel,ui editor menu,Text Label,Text Label
 Studio.App.UIEditorWidget.ZoomInButton,,+,+
 Studio.App.UIEditorWidget.ZoomOutButton,,-,-
 Studio.App.UniverseController.CanAddToGame,,This place does not belong to a game. You can add it to a game by going to a game's configuration page on the website.,This place does not belong to a game. You can add it to a game by going to a game's configuration page on the website.
-Studio.App.UniverseController.FailedToLoadGameSettings,,"Failed to load game settings, some Studio features have been disabled.","Failed to load game settings, some Studio features have been disabled."
+Studio.App.UniverseController.FailedToLoadGameAssets,,"Failed to load game assets, some Studio features have been disabled.","Failed to load game assets, some Studio features have been disabled."
 Studio.App.UniverseController.ThisPlaceDoesNotBelongToAGame,,This place does not belong to a game.,This place does not belong to a game.
 Studio.App.UpdateUIManager.Chat,,Chat,Chat
 Studio.App.UpdateUIManager.PublishTcDocToDiffSlot,,Publish Team Create Document to a different slot,Publish Team Create Document to a different slot
@@ -2513,6 +2543,8 @@ Studio.Internal.RobloxMainWindow.SaveScript1,,Save Script %1 ?,Save Script %1 ?
 Studio.Internal.RobloxMainWindow.SelectOneInstance,,Please select only one instance,Please select only one instance
 Studio.Internal.RobloxMainWindow.UnableToSave,,Unable To Save,Unable To Save
 Studio.Internal.RobloxMainWindow.UnsavedScripts,,Unsaved Scripts,Unsaved Scripts
+Studio.Internal.RobloxRibbonMainWindow.DocHistoryBackwards,,Step backwards through tab history,Step backwards through tab history
+Studio.Internal.RobloxRibbonMainWindow.DocHistoryForwards,,Step forwards through tab history,Step forwards through tab history
 Studio.Internal.RobloxRibbonMainWindow.InternalFeatures,,Roblox Internal,Roblox Internal
 Studio.Internal.RobloxRibbonMainWindow.InternalFeaturesAreEnabled,,Internal Features are enabled,Internal Features are enabled
 Studio.Internal.RobloxRibbonMainWindow.InternalFeaturesMessageBoxContent,,"Your account is associated with an @roblox.com email address or has Soothsayer permissions. You also have internal-only features turned on.

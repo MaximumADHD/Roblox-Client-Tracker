@@ -26,6 +26,13 @@ RBX
 	{
 		Object
 	}
+	CloudLocalization
+	{
+		AnalyticsHandler
+		AssetFetcher
+		IAnalyticsHandler
+		IAssetFetcher
+	}
 	Collision
 	{
 		SpatialHashBase
@@ -808,6 +815,7 @@ RBX
 	DialogChoice
 	DialogRoot
 	DisallowedJointSurfacePair
+	DocActivationHistoryController
 	DockWidgetPluginGui
 	DraftsService
 	DropperTool

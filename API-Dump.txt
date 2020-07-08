@@ -2814,6 +2814,7 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool Studio.Enable Intellisense [<📁> LoadOnly] [NotReplicated] [Deprecated]
 	Property bool Studio.Enable Internal Features
 	Property bool Studio.Respect Studio shortcuts when game has focus
+	Property bool Studio.Search Content For Core Scripts
 	Property bool Studio.Show CorePackages
 	Property bool Studio.Show Diagnostics Bar
 	Property bool Studio.Show FileSyncService
@@ -2862,6 +2863,7 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool Studio.Enable Autocomplete
 	Property QFont Studio.Font
 	Property bool Studio.Format On Type
+	Property bool Studio.Indent Using Spaces
 	Property string Studio.Rulers
 	Property bool Studio.Show Whitespace
 	Property bool Studio.Skip Closing Brackets and Quotes

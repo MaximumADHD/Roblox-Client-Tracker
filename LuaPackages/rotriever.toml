@@ -35,7 +35,7 @@ InGameMenuDependencies = { git = "https://github.rbx.com/Roblox/in-game-menu-dep
 RoactGamepad = "github.com/roblox/roact-gamepad@0.2.1"
 
 [dev_dependencies]
-TestEZ = "github.com/roblox/testez@0.3.0"
+TestEZ = "github.com/roblox/testez@0.3.1"
 
 [patch."https://github.rbx.com/roblox/uiblox"]
 git = "https://github.com/roblox/uiblox"

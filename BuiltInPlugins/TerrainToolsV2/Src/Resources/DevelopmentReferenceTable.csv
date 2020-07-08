@@ -182,6 +182,7 @@ Studio.TerrainToolsV2.ToolName.Regions, , ,Regions
 Studio.TerrainToolsV2.ToolName.Resize, , ,Resize
 Studio.TerrainToolsV2.ToolName.Rotate, , ,Rotate
 Studio.TerrainToolsV2.ToolName.SeaLevel, , ,Sea Level
+Studio.TerrainToolsV2.ToolName.Replace, , ,Replace
 Studio.TerrainToolsV2.ToolName.Select, , ,Select
 Studio.TerrainToolsV2.ToolName.Smooth, , ,Smooth
 Studio.TerrainToolsV2.ToolName.Subtract, , ,Subtract

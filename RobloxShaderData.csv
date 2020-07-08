@@ -133,9 +133,14 @@ DefaultStaticSurfaceHQVS,Vertex,✔,✔,✔,❌,✔,✔,✔
 DefaultStaticSurfaceHQVSShadowed,Vertex,✔,✔,✔,❌,❌,✔,✔
 DefaultStaticSurfaceHQVSShadowedFSM,Vertex,✔,✔,✔,❌,❌,❌,✔
 DefaultStaticVS,Vertex,✔,✔,✔,✔,✔,✔,✔
+DefaultSurfaceAppearanceDitheredFS,Fragment,✔,✔,✔,✔,✔,✔,✔
+DefaultSurfaceAppearanceDitheredHQFS,Fragment,✔,✔,✔,❌,✔,✔,✔
+DefaultSurfaceAppearanceDitheredHQFSShadowed,Fragment,✔,✔,✔,❌,✔,✔,✔
+DefaultSurfaceAppearanceDitheredHQFSShadowedFSM,Fragment,✔,✔,✔,❌,❌,❌,✔
 DefaultSurfaceAppearanceFS,Fragment,✔,✔,✔,✔,✔,✔,✔
 DefaultSurfaceAppearanceHQFS,Fragment,✔,✔,✔,❌,✔,✔,✔
 DefaultSurfaceAppearanceHQFSShadowed,Fragment,✔,✔,✔,❌,✔,✔,✔
+DefaultSurfaceAppearanceHQFSShadowedFSM,Fragment,✔,✔,✔,❌,❌,❌,✔
 DefaultTiledHideAllRepHQFS,Fragment,✔,✔,✔,❌,✔,✔,✔
 DefaultTiledHideAllRepHQFSShadowed,Fragment,✔,✔,✔,❌,❌,✔,✔
 DefaultTiledHideAllRepHQFSShadowedFSM,Fragment,✔,✔,✔,❌,❌,❌,✔

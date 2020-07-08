@@ -299,10 +299,12 @@ Studio.GameSettings.Monetization.MarketplaceFee,Marketplace Fee:, ,Marketplace F
 Studio.GameSettings.Monetization.MarketplaceFeeIs,Marketplace Fee is {1}%., ,Marketplace Fee is {1}%.
 Studio.GameSettings.Monetization.PrivateServersTitle,Private Servers, ,Private Servers
 Studio.GameSettings.Monetization.VIPServersPriceChangeWarning,Warning: Changing the price of VIP Servers will cancel all existing subscriptions., ,Warning: Changing the price of VIP Servers will cancel all existing subscriptions.
+Studio.GameSettings.Monetization.VIPServersShutdownWarning,Warning: Turning off VIP Servers will cancel all existing subscriptions., ,Warning: Turning off VIP Servers will cancel all existing subscriptions.
+Studio.GameSettings.Monetization.PrivateServersShutdownWarning,Warning: Turning off Private Servers will cancel all existing subscriptions., ,Warning: Turning off Private Servers will cancel all existing subscriptions.
 Studio.GameSettings.Monetization.PrivateServersPriceChangeWarning,Warning: Changing the price of Private Servers will cancel all existing subscriptions., ,Warning: Changing the price of Private Servers will cancel all existing subscriptions.
 Studio.GameSettings.Monetization.PaidAccessHint,"Private Servers must not be enabled, and the game must be public to enable Paid Access.", ,"Private Servers must not be enabled, and the game must be public to enable Paid Access."
 Studio.GameSettings.Monetization.PrivateServersHint,"Paid Access must not be enabled, and the game must be public to enable Private Servers.", ,"Paid Access must not be enabled, and the game must be public to enable Private Servers."
-Studio.GameSettings.Security.EnableThirdPartyPurchases,Allow Third party Sales, ,Allow Third party Sales
+Studio.GameSettings.Security.EnableThirdPartyPurchases,Allow Third Party Sales, ,Allow Third Party Sales
 Studio.GameSettings.Security.EnableThirdPartyPurchasesDescription,"By enabling, players can purchase items provided by third parties.", ,"By enabling, players can purchase items provided by third parties."
-Studio.GameSettings.Security.EnableThirdPartyTeleports,Allow Cross Game Teleport, ,Allow Cross Game Teleport
-Studio.GameSettings.Security.EnableThirdPartyTeleportsDescription,"By enabling, players can be teleported to other games. This setting does not apply to all places within the same universe.", ,"By enabling, players can be teleported to other games. This setting does not apply to all places within the same universe."
+Studio.GameSettings.Security.EnableThirdPartyTeleports,Allow Third Party Teleports, ,Allow Third Party Teleports
+Studio.GameSettings.Security.EnableThirdPartyTeleportsDescription,"By enabling, players can be teleported to other games. However, teleports between places in this game and between games owned by the same creator will be permitted.", ,"By enabling, players can be teleported to other games. However, teleports between places in this game and between games owned by the same creator will be permitted."

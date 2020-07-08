@@ -1853,8 +1853,8 @@
       </parameters>
     </Function>
     <Properties>
-      <number name="X">The x dimension scale and offset</number>
-      <number name="Y">The y dimension scale and offset</number>
+      <UDim name="X">The x dimension scale and offset</UDim>
+      <UDim name="Y">The y dimension scale and offset</UDim>
     </Properties>
   </ItemStruct>
   

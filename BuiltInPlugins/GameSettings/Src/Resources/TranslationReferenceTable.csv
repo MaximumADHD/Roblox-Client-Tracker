@@ -281,10 +281,10 @@ Studio.GameSettings.Places.NumberError,Please enter a number betwen {minRange:in
 Studio.GameSettings.Errors.ErrorPriceBelowMin,Price must be greater than {1}., ,Price must be greater than {1}.,가격은 {1}보다 높아야 합니다.,价格必须大于 {1}。
 Studio.GameSettings.Errors.ErrorPriceAboveMax,Price must be less than {1}., ,Price must be less than {1}.,가격은 {1}보다 낮아야 합니다.,价格必须小于 {1}。
 Studio.GameSettings.Errors.ErrorPriceInvalid,Enter a valid price (e.g. 1000), ,Enter a valid price (e.g. 1000),유효한 가격을 입력하세요 (예: 1000),输入有效的价格 （例：1000）
-Studio.GameSettings.Security.EnableThirdPartyPurchases,Allow Third party Sales, ,Allow Third party Sales, , 
+Studio.GameSettings.Security.EnableThirdPartyPurchases,Allow Third Party Sales, ,Allow Third Party Sales, , 
 Studio.GameSettings.Security.EnableThirdPartyPurchasesDescription,"By enabling, players can purchase items provided by third parties.", ,"By enabling, players can purchase items provided by third parties.", , 
-Studio.GameSettings.Security.EnableThirdPartyTeleports,Allow Cross Game Teleport, ,Allow Cross Game Teleport, , 
-Studio.GameSettings.Security.EnableThirdPartyTeleportsDescription,"By enabling, players can be teleported to other games. This setting does not apply to all places within the same universe.", ,"By enabling, players can be teleported to other games. This setting does not apply to all places within the same universe.", , 
+Studio.GameSettings.Security.EnableThirdPartyTeleports,Allow Third Party Teleports, ,Allow Third Party Teleports, , 
+Studio.GameSettings.Security.EnableThirdPartyTeleportsDescription,"By enabling, players can be teleported to other games. However, teleports between places in this game and between games owned by the same creator will be permitted.", ,"By enabling, players can be teleported to other games. However, teleports between places in this game and between games owned by the same creator will be permitted.", , 
 Studio.GameSettings.Monetization.UnsavedDevProduct,(Not Saved), ,(Not Saved),(저장되지 않음),（未保存）
 Studio.GameSettings.Monetization.UnsavedDevProductName,Developer Product {1}{2}, ,Developer Product {1}{2},개발자 제품 {1}{2},开发者产品 {1}{2}
 Studio.GameSettings.General.ButtonShutdownAllServers,Shutdown, ,Shutdown,종료,关闭
