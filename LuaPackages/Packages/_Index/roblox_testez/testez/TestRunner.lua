@@ -70,9 +70,16 @@ function TestRunner.runPlanNode(session, planNode, lifecycleHooks)
 			errorMessage = messagePrefix .. message .. "\n" .. debug.traceback()
 		end
 
-		local nodeSuccess, nodeResult = xpcall(callback, function(message)
-			return messagePrefix .. message .. "\n" .. debug.traceback()
-		end)
+		local context = session:getContext()
+
+		local nodeSuccess, nodeResult = xpcall(
+			function()
+				callback(context)
+			end,
+			function(message)
+				return messagePrefix .. message .. "\n" .. debug.traceback()
+			end
+		)
 
 		-- If a node threw an error, we prefer to use that message over
 		-- one created by fail() if it was set.
@@ -90,14 +97,7 @@ function TestRunner.runPlanNode(session, planNode, lifecycleHooks)
 		-- Errors can be set either via `error` propagating upwards or
 		-- by a test calling fail([message]).
 
-		for _, hook in pairs(lifecycleHooks:getPendingBeforeAllHooks()) do
-			local success, errorMessage = runCallback(hook, "beforeAll hook: ")
-			if not success then
-				return false, errorMessage
-			end
-		end
-
-		for _, hook in pairs(lifecycleHooks:getBeforeEachHooks()) do
+		for _, hook in ipairs(lifecycleHooks:getBeforeEachHooks()) do
 			local success, errorMessage = runCallback(hook, "beforeEach hook: ")
 			if not success then
 				return false, errorMessage
@@ -111,7 +111,7 @@ function TestRunner.runPlanNode(session, planNode, lifecycleHooks)
 			end
 		end
 
-		for _, hook in pairs(lifecycleHooks:getAfterEachHooks()) do
+		for _, hook in ipairs(lifecycleHooks:getAfterEachHooks()) do
 			local success, errorMessage = runCallback(hook, "afterEach hook: ")
 			if not success then
 				return false, errorMessage
@@ -123,40 +123,52 @@ function TestRunner.runPlanNode(session, planNode, lifecycleHooks)
 
 	lifecycleHooks:pushHooksFrom(planNode)
 
-	for _, childPlanNode in ipairs(planNode.children) do
-		session:pushNode(childPlanNode)
-
-		if childPlanNode.type == TestEnum.NodeType.It then
-			if session:shouldSkip() then
-				session:setSkipped()
-			else
-				local success, errorMessage = runNode(childPlanNode)
-
-				if success then
-					session:setSuccess()
-				else
-					session:setError(errorMessage)
-				end
-			end
-		elseif childPlanNode.type == TestEnum.NodeType.Describe then
-			TestRunner.runPlanNode(session, childPlanNode, lifecycleHooks)
-
-			-- Did we have an error trying build a test plan?
-			if childPlanNode.loadError then
-				local message = "Error during planning: " .. childPlanNode.loadError
-				session:setError(message)
-			else
-				session:setStatusFromChildren()
-			end
+	local halt = false
+	for _, hook in ipairs(lifecycleHooks:getBeforeAllHooks()) do
+		local success, errorMessage = runCallback(hook, "beforeAll hook: ")
+		if not success then
+			session:addDummyError("beforeAll", errorMessage)
+			halt = true
 		end
-
-		session:popNode()
 	end
 
-	for _, hook in pairs(lifecycleHooks:getAfterAllHooks()) do
-		runCallback(hook, "afterAll hook: ")
-		-- errors in an afterAll hook are currently not caught
-		-- or attributed to a set of child nodes
+	if not halt then
+		for _, childPlanNode in ipairs(planNode.children) do
+			session:pushNode(childPlanNode)
+
+			if childPlanNode.type == TestEnum.NodeType.It then
+				if session:shouldSkip() then
+					session:setSkipped()
+				else
+					local success, errorMessage = runNode(childPlanNode)
+
+					if success then
+						session:setSuccess()
+					else
+						session:setError(errorMessage)
+					end
+				end
+			elseif childPlanNode.type == TestEnum.NodeType.Describe then
+				TestRunner.runPlanNode(session, childPlanNode, lifecycleHooks)
+
+				-- Did we have an error trying build a test plan?
+				if childPlanNode.loadError then
+					local message = "Error during planning: " .. childPlanNode.loadError
+					session:setError(message)
+				else
+					session:setStatusFromChildren()
+				end
+			end
+
+			session:popNode()
+		end
+	end
+
+	for _, hook in ipairs(lifecycleHooks:getAfterAllHooks()) do
+		local success, errorMessage = runCallback(hook, "afterAll hook: ")
+		if not success then
+			session:addDummyError("afterAll", errorMessage)
+		end
 	end
 
 	lifecycleHooks:popHooks()

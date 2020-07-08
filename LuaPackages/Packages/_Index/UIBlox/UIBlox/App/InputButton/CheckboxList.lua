@@ -3,7 +3,7 @@ local Packages = script.Parent.Parent.Parent.Parent
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 local Cryo = require(Packages.Cryo)
-local Checkbox = require(script.parent.Checkbox)
+local Checkbox = require(script.Parent.Checkbox)
 
 local CheckboxList = Roact.PureComponent:extend("CheckboxList")
 

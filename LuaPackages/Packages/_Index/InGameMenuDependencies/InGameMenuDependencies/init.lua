@@ -8,4 +8,5 @@ return {
 	Otter = require(InGameMenuDependencies.Otter),
 	Cryo = require(InGameMenuDependencies.Cryo),
 	t = require(InGameMenuDependencies.t),
+	PolicyProvider = require(InGameMenuDependencies.PolicyProvider),
 }

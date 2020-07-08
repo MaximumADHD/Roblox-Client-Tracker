@@ -87,9 +87,9 @@ function FitTextLabel:__getFilteredProps()
 
 		[Roact.Event.Activated] = self.props.onActivated,
 
-		[Roact.Change.AbsoluteSize] = function()
+		[Roact.Change.AbsoluteSize] = function(rbx)
 			if self.props[Roact.Change.AbsoluteSize] then
-				self.props[Roact.Change.AbsoluteSize]()
+				self.props[Roact.Change.AbsoluteSize](rbx)
 			end
 			self.onResize()
 		end,

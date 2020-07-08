@@ -59,44 +59,44 @@ function CarouselHeader:render()
 		local textboxBounds = GetTextSize(headerText, fontSize, textFont, Vector2.new(MAX_BOUND, MAX_BOUND))
 		local textboxSize = UDim2.fromOffset(textboxBounds.X + TEXT_ICON_PADDING + IconSize.Small, textboxBounds.Y)
 
-		return Roact.createElement(Interactable, {
-			Size = textboxSize,
-			AutoButtonColor = false,
+		return Roact.createElement("Frame", {
+			Size = UDim2.new(1, 0, 0, textboxBounds.Y),
 			BackgroundTransparency = 1,
 			LayoutOrder = layoutOrder,
-			[Roact.Event.Activated] = onSeeAll,
-			--Note State change is not being used right now.
-			onStateChanged = function()end,
 		}, {
-			Layout = Roact.createElement("UIListLayout", {
-				FillDirection = Enum.FillDirection.Horizontal,
-				HorizontalAlignment = Enum.HorizontalAlignment.Left,
-				VerticalAlignment = Enum.VerticalAlignment.Center,
-				SortOrder = Enum.SortOrder.LayoutOrder,
-				Padding = UDim.new(0, TEXT_ICON_PADDING),
-			}),
-			Padding = Roact.createElement("UIPadding", {
-				PaddingLeft = UDim.new(0, carouselMargin),
-				PaddingRight = UDim.new(0, 0),
-				PaddingTop = UDim.new(0, 0),
-				PaddingBottom = UDim.new(0, 0),
-			}),
-			HeaderText = Roact.createElement(GenericTextLabel, {
-				Text = headerText,
-				TextXAlignment = Enum.TextXAlignment.Left,
-				TextYAlignment = Enum.TextYAlignment.Center,
-				LayoutOrder = 1,
-				fontStyle = fontStyle,
-				colorStyle = style.Theme.TextEmphasis,
-			}),
-			SeeAllArrow = onSeeAll and Roact.createElement(ImageSetComponent.Label, {
-				Size = UDim2.fromOffset(IconSize.Small, IconSize.Small),
+			CarouselHeaderButton = Roact.createElement(Interactable, {
+				Position = UDim2.fromOffset(carouselMargin, 0),
+				Size = textboxSize,
+				AutoButtonColor = false,
 				BackgroundTransparency = 1,
-				Image = SEE_ALL_ARROW,
-				ImageColor3 = style.Theme.TextEmphasis.Color,
-				ImageTransparency = style.Theme.TextEmphasis.Transparency,
-				LayoutOrder = 2,
-			}) or nil,
+				[Roact.Event.Activated] = onSeeAll,
+				--Note State change is not being used right now.
+				onStateChanged = function()end,
+			}, {
+				Layout = Roact.createElement("UIListLayout", {
+					FillDirection = Enum.FillDirection.Horizontal,
+					HorizontalAlignment = Enum.HorizontalAlignment.Left,
+					VerticalAlignment = Enum.VerticalAlignment.Center,
+					SortOrder = Enum.SortOrder.LayoutOrder,
+					Padding = UDim.new(0, TEXT_ICON_PADDING),
+				}),
+				HeaderText = Roact.createElement(GenericTextLabel, {
+					Text = headerText,
+					TextXAlignment = Enum.TextXAlignment.Left,
+					TextYAlignment = Enum.TextYAlignment.Center,
+					LayoutOrder = 1,
+					fontStyle = fontStyle,
+					colorStyle = style.Theme.TextEmphasis,
+				}),
+				SeeAllArrow = onSeeAll and Roact.createElement(ImageSetComponent.Label, {
+					Size = UDim2.fromOffset(IconSize.Small, IconSize.Small),
+					BackgroundTransparency = 1,
+					Image = SEE_ALL_ARROW,
+					ImageColor3 = style.Theme.TextEmphasis.Color,
+					ImageTransparency = style.Theme.TextEmphasis.Transparency,
+					LayoutOrder = 2,
+				}) or nil,
+			})
 		})
 	end)
 end

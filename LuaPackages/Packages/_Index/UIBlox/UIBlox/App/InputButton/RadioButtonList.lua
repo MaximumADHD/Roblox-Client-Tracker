@@ -2,7 +2,7 @@ local Packages = script.Parent.Parent.Parent.Parent
 
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
-local RadioButton = require(script.parent.RadioButton)
+local RadioButton = require(script.Parent.RadioButton)
 
 local RadioButtonList = Roact.PureComponent:extend("RadioButtonList")
 

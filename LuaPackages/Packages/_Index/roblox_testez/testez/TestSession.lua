@@ -9,6 +9,7 @@
 
 local TestEnum = require(script.Parent.TestEnum)
 local TestResults = require(script.Parent.TestResults)
+local Context = require(script.Parent.Context)
 
 local TestSession = {}
 
@@ -23,6 +24,7 @@ function TestSession.new(plan)
 	local self = {
 		results = TestResults.new(plan),
 		nodeStack = {},
+		contextStack = {},
 		hasFocusNodes = false
 	}
 
@@ -95,11 +97,13 @@ end
 ]]
 function TestSession:pushNode(planNode)
 	local node = TestResults.createNode(planNode)
-
 	local lastNode = self.nodeStack[#self.nodeStack] or self.results
+	local lastContext = self.contextStack[#self.contextStack]
+	local context = Context.new(lastContext)
 
 	table.insert(lastNode.children, node)
 	table.insert(self.nodeStack, node)
+	table.insert(self.contextStack, context)
 end
 
 --[[
@@ -108,6 +112,15 @@ end
 function TestSession:popNode()
 	assert(#self.nodeStack > 0, "Tried to pop from an empty node stack!")
 	table.remove(self.nodeStack, #self.nodeStack)
+	table.remove(self.contextStack, #self.contextStack)
+end
+
+--[[
+	Gets the Context object for the current node.
+]]
+function TestSession:getContext()
+	assert(#self.contextStack > 0, "Tried to get context from an empty stack!")
+	return self.contextStack[#self.contextStack]
 end
 
 --[[
@@ -169,6 +182,18 @@ function TestSession:setError(message)
 	local last = self.nodeStack[#self.nodeStack]
 	last.status = TestEnum.TestStatus.Failure
 	table.insert(last.errors, message)
+end
+
+--[[
+	Add a dummy child node to the current node to hold the given error. This
+	allows an otherwise empty describe node to report an error in a more natural
+	way.
+]]
+function TestSession:addDummyError(phrase, message)
+	self:pushNode({type = TestEnum.NodeType.It, phrase = phrase})
+	self:setError(message)
+	self:popNode()
+	self.nodeStack[#self.nodeStack].status = TestEnum.TestStatus.Failure
 end
 
 --[[

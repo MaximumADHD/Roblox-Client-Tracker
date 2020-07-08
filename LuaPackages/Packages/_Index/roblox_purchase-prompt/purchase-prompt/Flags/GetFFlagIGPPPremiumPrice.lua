@@ -1,5 +1,5 @@
-game:DefineFastFlag("IGPPPremiumPrice", false)
+game:DefineFastFlag("IGPPPremiumPriceV2", false)
 
 return function()
-	return game:GetFastFlag("IGPPPremiumPrice")
+	return game:GetFastFlag("IGPPPremiumPriceV2")
 end

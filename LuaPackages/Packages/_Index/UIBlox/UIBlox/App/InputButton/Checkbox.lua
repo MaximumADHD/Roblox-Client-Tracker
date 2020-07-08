@@ -6,6 +6,8 @@ local withStyle = require(Packages.UIBlox.Core.Style.withStyle)
 local Images = require(Packages.UIBlox.App.ImageSet.Images)
 local InputButton = require(Packages.UIBlox.Core.InputButton.InputButton)
 
+--TODO: This code is considered Control.Checkbox by design, consider moving this out of InputButton for consistency.
+
 local Checkbox = Roact.PureComponent:extend("Checkbox")
 
 local validateProps = t.strictInterface({
@@ -13,7 +15,7 @@ local validateProps = t.strictInterface({
 	isSelected = t.optional(t.boolean),
 	isDisabled = t.optional(t.boolean),
 	onActivated = t.callback,
-	size = t.UDim2,
+	size = t.optional(t.UDim2),
 	layoutOrder = t.optional(t.number),
 	[Roact.Ref] = t.optional(t.table),
 })

@@ -3,4 +3,4 @@ name = "PremiumUpsellDeps"
 version = "0.0.0"
 commit = "c51030b70236f2e9d69bb34348b7e045c2c437f6"
 source = "git+https://github.com/roblox/premium-upsell-deps#master"
-dependencies = ["RoactFitComponents roblox/roact-fit-components 1.2.4 url+https://github.com/roblox/roact-fit-components"]
+dependencies = ["RoactFitComponents roblox/roact-fit-components 1.2.5 url+https://github.com/roblox/roact-fit-components"]

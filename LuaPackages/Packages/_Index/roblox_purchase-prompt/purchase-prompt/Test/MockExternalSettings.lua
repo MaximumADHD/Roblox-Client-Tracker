@@ -52,6 +52,10 @@ function MockExternalSettings.new(isStudio, isTenFoot, flags, platform)
 		return getMockFlag(flags.LuaUseThirdPartyPermissions, GetFFlagLuaUseThirdPartyPermissions())
 	end
 
+	function service.getFlagHideThirdPartyPurchaseFailure()
+		return flags.HideThirdPartyPurchaseFailure
+	end
+
 	-- TODO(DEVTOOLS-4227): Remove this flag
 	function service.getFlagRestrictSales2()
 		return flags.RestrictSales2

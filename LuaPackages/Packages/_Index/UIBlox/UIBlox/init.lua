@@ -85,6 +85,7 @@ local function initializeLibrary()
 		InputButton = strict({
 			RadioButtonList = require(script.App.InputButton.RadioButtonList),
 			CheckboxList = require(script.App.InputButton.CheckboxList),
+			Checkbox = require(script.App.InputButton.Checkbox),
 			Toggle = require(script.App.InputButton.Toggle),
 		}),
 

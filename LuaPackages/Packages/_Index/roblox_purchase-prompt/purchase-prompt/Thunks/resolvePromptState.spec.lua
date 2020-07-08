@@ -11,6 +11,7 @@ return function()
 	local Thunk = require(Root.Thunk)
 
 	local resolvePromptState = require(script.Parent.resolvePromptState)
+	local RequestType = require(Root.Enums.RequestType)
 
 	local function getTestProductInfo()
 		return {
@@ -43,6 +44,33 @@ return function()
 
 		expect(state.productInfo.name).to.be.ok()
 		expect(state.accountInfo.balance).to.be.ok()
+	end)
+
+	it("should resolve state to None if hiding 3rd party purchase failure", function()
+		local store = Rodux.Store.new(Reducer, {})
+
+		local productInfo = getTestProductInfo()
+		-- Make creator a 3rd party
+		productInfo.AssetId = 0
+		productInfo.Creator.CreatorTargetId = game.CreatorId + 2
+		local accountInfo = {
+			RobuxBalance = 10,
+			MembershipType = 0,
+		}
+		local thunk = resolvePromptState(productInfo, accountInfo, false)
+
+		Thunk.test(thunk, store, {
+			[ExternalSettings] = MockExternalSettings.new(false, false, {
+				LuaUseThirdPartyPermissions = true,
+				PermissionsServiceIsThirdPartyPurchaseAllowed = false,
+				HideThirdPartyPurchaseFailure = true,
+			})
+		})
+
+		local state = store:getState()
+
+		expect(state.promptRequest.requestType).to.equal(RequestType.None)
+		expect(state.promptState).to.equal(PromptState.None)
 	end)
 
 	it("should resolve state to Error if prerequisites are failed", function()

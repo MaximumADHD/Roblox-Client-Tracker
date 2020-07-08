@@ -3,6 +3,7 @@ local RunService = game:GetService("RunService")
 local GuiService = game:GetService("GuiService")
 local UserInputService = game:GetService("UserInputService")
 local GetFFlagLuaUseThirdPartyPermissions = require(Root.Flags.GetFFlagLuaUseThirdPartyPermissions)
+local GetFFlagHideThirdPartyPurchaseFailure = require(Root.Flags.GetFFlagHideThirdPartyPurchaseFailure)
 
 local ExternalSettings = {}
 
@@ -34,6 +35,10 @@ function ExternalSettings.new()
 
 	function service.getLuaUseThirdPartyPermissions()
 		return GetFFlagLuaUseThirdPartyPermissions()
+	end
+
+	function service.getFlagHideThirdPartyPurchaseFailure()
+		return GetFFlagHideThirdPartyPurchaseFailure()
 	end
 
 	-- TODO(DEVTOOLS-4227): Remove this flag

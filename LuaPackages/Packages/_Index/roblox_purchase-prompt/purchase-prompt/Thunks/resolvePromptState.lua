@@ -6,6 +6,7 @@ local ProductInfoReceived = require(Root.Actions.ProductInfoReceived)
 local AccountInfoReceived = require(Root.Actions.AccountInfoReceived)
 local PromptNativeUpsell = require(Root.Actions.PromptNativeUpsell)
 local ErrorOccurred = require(Root.Actions.ErrorOccurred)
+local CompleteRequest = require(Root.Actions.CompleteRequest)
 local PromptState = require(Root.Enums.PromptState)
 local PurchaseError = require(Root.Enums.PurchaseError)
 local UpsellFlow = require(Root.Enums.UpsellFlow)
@@ -31,7 +32,15 @@ local function resolvePromptState(productInfo, accountInfo, alreadyOwned)
 
 		local canPurchase, failureReason = meetsPrerequisites(productInfo, alreadyOwned, restrictThirdParty, externalSettings)
 		if not canPurchase then
-			return store:dispatch(ErrorOccurred(failureReason))
+			if externalSettings.getFlagHideThirdPartyPurchaseFailure() then
+				if not externalSettings.isStudio() and failureReason == PurchaseError.ThirdPartyDisabled then
+					-- Do not annoy player with 3rd party failure notifications.
+					return store:dispatch(CompleteRequest())
+				end
+				return store:dispatch(ErrorOccurred(failureReason))
+			else
+				return store:dispatch(ErrorOccurred(failureReason))
+			end
 		end
 
 		local isPlayerPremium = accountInfo.MembershipType == 4

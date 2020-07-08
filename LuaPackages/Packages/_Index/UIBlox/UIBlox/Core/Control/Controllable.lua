@@ -84,7 +84,7 @@ local validateProps = t.strictInterface({
 	-- The component that is controlled
 	controlComponent = t.strictInterface({
 		-- the actual UI control component
-		component = t.union(t.callback, t.string),
+		component = t.union(t.callback, t.string, t.table),
 
 		-- the props to pass to the UI control component
 		props = t.optional(t.table),

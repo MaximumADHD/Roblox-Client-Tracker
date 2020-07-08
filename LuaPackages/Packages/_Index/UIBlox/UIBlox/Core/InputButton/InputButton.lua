@@ -3,16 +3,29 @@ local TextService = game:GetService("TextService")
 
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
+local Cryo = require(Packages.Cryo)
+
 local withStyle = require(Packages.UIBlox.Core.Style.withStyle)
 local ImageSetComponent = require(Packages.UIBlox.Core.ImageSet.ImageSetComponent)
 local Controllable = require(Packages.UIBlox.Core.Control.Controllable)
 local ControlState = require(Packages.UIBlox.Core.Control.Enum.ControlState)
 
+local FitTextLabel = require(Packages.FitFrame).FitTextLabel
+
+-- TODO AVBURST-3748: Remove this soon after TextBoundsRoundUp is turned on to make the UIBlox places display
+-- the same way as the App
+local EngineFeatureTextBoundsRoundUp do
+	local success, value = pcall(function()
+		return game:GetEngineFeature("TextBoundsRoundUp")
+	end)
+	EngineFeatureTextBoundsRoundUp = success and value
+end
+
 local InputButton = Roact.PureComponent:extend("InputButton")
 
 local validateProps = t.strictInterface({
 	text = t.string,
-	size = t.UDim2,
+	size = t.optional(t.UDim2),
 	image = t.table,
 	imageColor = t.Color3,
 	fillImage = t.optional(t.table),
@@ -57,6 +70,19 @@ function InputButton:init()
 			})
 		end
 	end
+
+	if not self.props.size then
+		--Initalize height to SELECTION_BUTTON_SIZE as the height can't be smaller than the button height
+		self.sizeBinding, self.updateSizeBinding = Roact.createBinding(UDim2.new(1, 0, 0, SELECTION_BUTTON_SIZE))
+
+		self.textAbsoluteSizeChanged = function(rbx)
+			local sizeY = SELECTION_BUTTON_SIZE
+			if rbx.AbsoluteSize.Y > sizeY then
+				sizeY = rbx.AbsoluteSize.Y
+			end
+			self.updateSizeBinding(UDim2.new(1, 0, 0, sizeY))
+		end
+	end
 end
 
 function InputButton:render()
@@ -65,20 +91,50 @@ function InputButton:render()
 	return withStyle(function(stylePalette)
 		local font = stylePalette.Font
 		local fontSize = font.Body.RelativeSize * font.BaseSize
-		local size = self.props.size
-		local frameSize = Vector2.new(size.X.Offset - SELECTION_BUTTON_SIZE - HORIZONTAL_PADDING, size.Y.Offset)
 
-		local touchZoneWidth = TextService:GetTextSize(self.props.text, fontSize, font.Body.Font, frameSize).X
-		if touchZoneWidth > 0 then
-			-- GetTextSize documentation recommends to add a pixel of padding to the result to ensure no text is cut off
-			-- Only add that extra padding if there is text to display
-			touchZoneWidth = touchZoneWidth + 1
+		local textComponent
+		local textComponentProps = {
+			LayoutOrder = 2,
+			BackgroundTransparency = 1,
+
+			Text = self.props.text,
+			TextXAlignment = Enum.TextXAlignment.Left,
+
+			TextSize = fontSize,
+			Font = font.Body.Font,
+			TextWrapped = true,
+			TextColor3 = self.props.textColor,
+			TextTransparency = self.props.transparency,
+		}
+
+		if self.props.size then
+			local size = self.props.size
+			local frameSize = Vector2.new(size.X.Offset - SELECTION_BUTTON_SIZE - HORIZONTAL_PADDING, size.Y.Offset)
+			local touchZoneWidth = TextService:GetTextSize(self.props.text, fontSize, font.Body.Font, frameSize).X
+			if (not EngineFeatureTextBoundsRoundUp) and touchZoneWidth > 0 then
+				-- GetTextSize documentation recommends to add a pixel of padding to the result to ensure no text is cut off
+				-- Only add that extra padding if there is text to display
+				touchZoneWidth = touchZoneWidth + 1
+			end
+
+			textComponent = "TextButton"
+			textComponentProps = Cryo.Dictionary.join(textComponentProps, {
+				Size = UDim2.new(0, touchZoneWidth, 1, 0),
+				[Roact.Event.Activated] = not self.props.isDisabled and self.props.onActivated or nil,
+			})
+		else
+			textComponent = FitTextLabel
+			textComponentProps = Cryo.Dictionary.join(textComponentProps, {
+				width = UDim.new(1, -SELECTION_BUTTON_SIZE - HORIZONTAL_PADDING),
+				onActivated = self.props.onActivated,
+				[Roact.Change.AbsoluteSize] = self.textAbsoluteSizeChanged,
+			})
 		end
 
 		local fillImage = self.props.fillImage
 
 		return Roact.createElement("Frame",	{
-				Size = self.props.size,
+				Size = self.props.size or self.sizeBinding,
 				BackgroundTransparency = 1,
 				LayoutOrder = self.props.layoutOrder,
 			}, {
@@ -124,23 +180,11 @@ function InputButton:render()
 					end,
 				}),
 				-- Only create this element if there is text to display
-				InputButtonText = touchZoneWidth > 0 and Roact.createElement(Controllable, {
+				InputButtonText = (self.props.text ~= "") and Roact.createElement(Controllable, {
 					controlComponent =
 					{
-						component = "TextButton",
-						props = {
-							TextXAlignment = Enum.TextXAlignment.Left,
-							Size = UDim2.new(0, touchZoneWidth, 1, 0),
-							BackgroundTransparency = 1,
-							Text = self.props.text,
-							TextSize = fontSize,
-							TextColor3 = self.props.textColor,
-							TextTransparency = self.props.transparency,
-							Font = font.Body.Font,
-							TextWrapped = true,
-							[Roact.Event.Activated] = not self.props.isDisabled and self.props.onActivated,
-							LayoutOrder = 2,
-						},
+						component = textComponent,
+						props = textComponentProps,
 					},
 					isDisabled = self.props.isDisabled,
 					onStateChanged = function(_, newState)
