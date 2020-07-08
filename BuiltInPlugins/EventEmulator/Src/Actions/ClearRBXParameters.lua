@@ -3,5 +3,5 @@ local Util = require(Plugin.Packages.Framework.Util)
 local Action = Util.Action
 
 return Action(script.Name, function()
-	return
+	return {}
 end)

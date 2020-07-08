@@ -1,8 +1,6 @@
 local CorePackages = game:GetService("CorePackages")
 local GuiService = game:GetService("GuiService")
 
-local FFlagEmotesMenuAnalyticsEnabled = settings():GetFFlag("CoreScriptEmotesMenuAnalytics")
-
 local Thunks = script.Parent
 local EmotesMenu = Thunks.Parent
 local Actions = EmotesMenu.Actions
@@ -15,10 +13,7 @@ local Analytics = require(EmotesMenu.Analytics)
 local Backpack = require(CoreScriptModules.BackpackScript)
 local ShowMenu = require(Actions.ShowMenu)
 
-local EmotesAnalytics
-if FFlagEmotesMenuAnalyticsEnabled then
-    EmotesAnalytics = Analytics.new():withEventStream(EventStream.new())
-end
+local EmotesAnalytics = Analytics.new():withEventStream(EventStream.new())
 
 local function OpenMenu(emoteName)
     return function(store)
@@ -35,9 +30,7 @@ local function OpenMenu(emoteName)
             return
         end
 
-        if FFlagEmotesMenuAnalyticsEnabled then
-            EmotesAnalytics:onMenuOpened()
-        end
+        EmotesAnalytics:onMenuOpened()
 
         -- Backpack was closed, show the emotes menu
         store:dispatch(ShowMenu())

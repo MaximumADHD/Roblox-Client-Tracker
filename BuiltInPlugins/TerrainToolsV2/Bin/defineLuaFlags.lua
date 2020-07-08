@@ -10,6 +10,7 @@ game:DefineFastFlag("TerrainToolsFixRegionEditorCleanup", false)
 game:DefineFastFlag("TerrainOpenCloseMetrics", false)
 game:DefineFastFlag("TerrainToolTabMetrics", false)
 game:DefineFastFlag("TerrainToolsUseDevFramework", false)
+game:DefineFastFlag("TerrainToolsReplaceTool", false)
 
 local function handleFlagDependencies(flag, requiredFlags)
 	if not game:GetFastFlag(flag) then

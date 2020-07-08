@@ -11,8 +11,6 @@ local CoreScriptsModules = EmotesMenu.Parent
 local Constants = require(EmotesMenu.Constants)
 local RobloxTranslator = require(CoreScriptsModules.RobloxTranslator)
 
-local FFlagCoreScriptBetterEmotesErrorMessaging = settings():GetFFlag("CoreScriptBetterEmotesErrorMessaging")
-
 local WheelText = Roact.PureComponent:extend("WheelText")
 
 function WheelText:getWheelText()
@@ -21,14 +19,10 @@ function WheelText:getWheelText()
     local numberEmotesLoaded = self.props.emotesPage.numberEmotesLoaded
 
     if next(currentEmotes) == nil then
-        if FFlagCoreScriptBetterEmotesErrorMessaging then
-            if StarterPlayer.UserEmotesEnabled and numberEmotesLoaded == 0 then
-                return RobloxTranslator:FormatByKeyForLocale(Constants.LocalizationKeys.NoEmotesEquipped, locale)
-            else
-                return RobloxTranslator:FormatByKeyForLocale(Constants.LocalizationKeys.EmotesDisabled, locale)
-            end
-        else
+        if StarterPlayer.UserEmotesEnabled and numberEmotesLoaded == 0 then
             return RobloxTranslator:FormatByKeyForLocale(Constants.LocalizationKeys.NoEmotesEquipped, locale)
+        else
+            return RobloxTranslator:FormatByKeyForLocale(Constants.LocalizationKeys.EmotesDisabled, locale)
         end
     end
 

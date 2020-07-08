@@ -110,7 +110,7 @@ return RoactRodux.connect(
 				dispatch(SetRBXParameters(parameters))
 			end,
 			ClearRBXParameters = function ()
-				dispatch(ClearRBXParameters)
+				dispatch(ClearRBXParameters())
 			end,
 		}
 	end

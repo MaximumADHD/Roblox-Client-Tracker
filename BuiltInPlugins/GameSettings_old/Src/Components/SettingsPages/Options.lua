@@ -16,6 +16,7 @@ local FFlagStudioConvertGameSettingsToDevFramework = game:GetFastFlag("StudioCon
 local FFlagGameSettingsShutdownAllServersButton = game:GetFastFlag("GameSettingsShutdownAllServersButton")
 local FFlagGameSettingsPlaceSettings = game:GetFastFlag("GameSettingsPlaceSettings")
 local FFlagQ220PermissionsSettings = game:GetFastFlag("Q220PermissionsSettings")
+local FFlagTidyUpStudioGameManagementButtons = game:GetFastFlag("TidyUpStudioGameManagementButtons")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -67,8 +68,16 @@ local function displayContents(page, localized)
 	local theme = FFlagStudioConvertGameSettingsToDevFramework and props.Theme:get("Plugin")
 	local shutdownButtonText = FFlagGameSettingsShutdownAllServersButton and localized:getText("General",
 		"ButtonShutdownAllServers")
+	local shutdownButtonFrameSize = FFlagTidyUpStudioGameManagementButtons and Vector2.new(math.huge, theme.button.height) or nil
 	local shutdownButtonTextExtents = FFlagGameSettingsShutdownAllServersButton and GetTextSize(shutdownButtonText,
-		theme.fontStyle.Header.TextSize, theme.fontStyle.Header.Font)
+		theme.fontStyle.Header.TextSize, theme.fontStyle.Header.Font, shutdownButtonFrameSize)
+
+	local shutdownButtonButtonWidth = FFlagTidyUpStudioGameManagementButtons and math.max(shutdownButtonTextExtents.X, theme.button.width) or shutdownButtonTextExtents.X + theme.shutdownButton.PaddingX
+	local shutdownButtonPaddingY = FFlagTidyUpStudioGameManagementButtons and (theme.button.height - shutdownButtonTextExtents.Y) or theme.shutdownButton.PaddingY
+
+	local shutDownButtonSize = UDim2.new(0, shutdownButtonButtonWidth,
+		0, shutdownButtonTextExtents.Y + shutdownButtonPaddingY)
+
 	return {
 		Header = Roact.createElement(Header, {
 			Title = FFlagStudioConvertGameSettingsToDevFramework and localized:getText("General", "Category" .. PageName)or localized.Category[PageName],
@@ -162,10 +171,9 @@ local function displayContents(page, localized)
 					SortOrder = Enum.SortOrder.LayoutOrder,
 				}),
 				ShutdownButton = Roact.createElement(Button, {
-					Style = "RoundPrimary",
+					Style = FFlagTidyUpStudioGameManagementButtons and "GameSettingsButton" or "RoundPrimary",
 					Text = shutdownButtonText,
-					Size = UDim2.new(0, shutdownButtonTextExtents.X + theme.shutdownButton.PaddingX,
-					0, shutdownButtonTextExtents.Y + theme.shutdownButton.PaddingY),
+					Size = shutDownButtonSize,
 					LayoutOrder = 1,
 					OnClick = function()
 						local dialogProps = {

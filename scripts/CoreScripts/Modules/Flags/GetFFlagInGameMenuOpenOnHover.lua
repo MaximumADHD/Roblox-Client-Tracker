@@ -1,5 +1,6 @@
+local UniversalAppOnWindows = game:GetEngineFeature("UniversalAppOnWindows")
 game:DefineFastFlag("InGameMenuOpenOnHover", false)
 
 return function()
-	return game:GetFastFlag("InGameMenuOpenOnHover")
+	return UniversalAppOnWindows and game:GetFastFlag("InGameMenuOpenOnHover")
 end

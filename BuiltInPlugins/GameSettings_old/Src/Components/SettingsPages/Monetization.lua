@@ -4,7 +4,6 @@ local Cryo = require(Plugin.Cryo)
 local Framework = Plugin.Framework
 
 local Header = require(Plugin.Src.Components.Header)
-local GameIconWidget = require(Plugin.Src.Components.GameIcon.GameIconWidget)
 local PaidAccess = require(Plugin.Src.Components.PaidAccess)
 local VIPServers = require(Plugin.Src.Components.VIPServers)
 local DevProducts = require(Plugin.Src.Components.DevProducts)
@@ -29,12 +28,9 @@ local AddErrors = require(Plugin.Src.Actions.AddErrors)
 local DiscardError = require(Plugin.Src.Actions.DiscardError)
 local SetEditDevProductId = require(Plugin.Src.Actions.SetEditDevProductId)
 
-local FileUtils = require(Plugin.Src.Util.FileUtils)
-
 local PageName = "Monetization"
 
 local MAX_NAME_LENGTH = 50
-local MAX_DESCRIPTION_LENGTH = 1000
 local PAID_ACCESS_MIN_PRICE = 25
 local PAID_ACCESS_MAX_PRICE = 1000
 local VIP_SERVERS_MIN_PRICE = 10
@@ -44,6 +40,7 @@ local createSettingsPage = require(Plugin.Src.Components.SettingsPages.createSet
 
 local FFlagSupportFreePrivateServers = game:GetFastFlag("SupportFreePrivateServers")
 local FFlagEnableDevProductsInGameSettings = game:GetFastFlag("EnableDevProductsInGameSettings")
+local FFlagFixVIPServerShutdownWarningText = game:GetFastFlag("FixVIPServerShutdownWarningText")
 
 local priceErrors = {
     BelowMin = "ErrorPriceBelowMin",
@@ -62,10 +59,17 @@ local function loadValuesToProps(getValue, state)
     local errors = state.Settings.Errors
 
     local changed = false
+    local vipServersShutdown = state.Settings.Changed.vipServersIsEnabled == false
     -- Changed for the sake of warning about canceling subscriptions should only be 
     if state.Settings.Current.vipServersIsEnabled then
-        if state.Settings.Changed.vipServersPrice ~= nil or state.Settings.Changed.vipServersIsEnabled == false then
-            changed = true
+        if FFlagFixVIPServerShutdownWarningText then
+            if state.Settings.Changed.vipServersPrice ~= nil then
+                changed = true
+            end
+        else
+            if state.Settings.Changed.vipServersPrice ~= nil or state.Settings.Changed.vipServersIsEnabled == false then
+                changed = true
+            end
         end
     end
 
@@ -85,6 +89,7 @@ local function loadValuesToProps(getValue, state)
 			activeServersCount = getValue("vipServersActiveServersCount"),
             activeSubscriptionsCount = getValue("vipServersActiveSubscriptionsCount"),
             changed = changed,
+            willShutdown = FFlagFixVIPServerShutdownWarningText and vipServersShutdown or nil,
         },
 
         UnsavedDevProducts = getValue("unsavedDevProducts"),
@@ -429,8 +434,6 @@ local function displayEditDevProductsPage(props, localization)
     if not initialName then initialName = currentDevProduct.name end
 
     local productTitle = currentDevProduct.name
-    local productDescripton = currentDevProduct.description and currentDevProduct.description or ""
-    local productIcon = currentDevProduct.iconImageAssetId and currentDevProduct.iconImageAssetId or "None"
     local productPrice = currentDevProduct.price
 
     local setEditDevProductId = props.SetEditDevProductId

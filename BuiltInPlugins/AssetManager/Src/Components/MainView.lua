@@ -8,7 +8,6 @@
 
     Optional Properties:
 ]]
-local FFlagFixDisplayScriptsFolderInAssetManager = game:DefineFastFlag("FixDisplayScriptsFolderInAssetManager", false)
 local FFlagAssetManagerFixDisappearingTreeView = game:DefineFastFlag("AssetManagerFixDisappearingTreeView", false)
 
 local Plugin = script.Parent.Parent.Parent
@@ -138,10 +137,6 @@ function MainView:willUnmount()
 end
 
 function MainView:didUpdate()
-    if not FFlagFixDisplayScriptsFolderInAssetManager then
-        return
-    end
-
     local props = self.props
     local localization = props.Localization
     local hasLinkedScripts = props.HasLinkedScripts
@@ -185,23 +180,8 @@ function MainView:render()
     local localization = props.Localization
 
     local universeName = props.UniverseName
-    local hasLinkedScripts = props.HasLinkedScripts
 
     local layoutIndex = LayoutOrderIterator.new()
-
-    if not FFlagFixDisplayScriptsFolderInAssetManager then
-        if not defaultFoldersLoaded then
-            for _, screen in pairs(Screens) do
-                if screen.Key ~= Screens.MAIN.Key then
-                    -- Only show the scripts folder if this universe has linked scripts because they're deprecated.
-                    if (screen.Key == Screens.SCRIPTS.Key and hasLinkedScripts) or screen.Key ~= Screens.SCRIPTS.Key then
-                        createDefaultFileOverlayFolders(screen, self.state.fileExplorerData, localization)
-                    end
-                end
-            end
-            defaultFoldersLoaded = true
-        end
-    end
 
     if FFlagAssetManagerFixDisappearingTreeView then
         self.state.fileExplorerData.Name = universeName

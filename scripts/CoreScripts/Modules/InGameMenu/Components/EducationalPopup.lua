@@ -11,6 +11,7 @@ local Images = UIBlox.App.ImageSet.Images
 
 local InGameMenu = script.Parent.Parent
 local withLocalization = require(InGameMenu.Localization.withLocalization)
+local Constants = require(InGameMenu.Resources.Constants)
 local CloseNativeClosePrompt = require(InGameMenu.Actions.CloseNativeClosePrompt)
 local OpenMenu = require(InGameMenu.Thunks.OpenMenu)
 local EducationalPopupDialog = require(script.Parent.EducationalPopupDialog)
@@ -19,6 +20,7 @@ local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local GetFFlagEducationalPopupOnNativeClose = require(RobloxGui.Modules.Flags.GetFFlagEducationalPopupOnNativeClose)
+local GetFFlagInstrumentMenuOpenMethods = require(RobloxGui.Modules.Flags.GetFFlagInstrumentMenuOpenMethods)
 
 local NotificationType = GuiService:GetNotificationTypeList()
 
@@ -106,7 +108,13 @@ end, function(dispatch)
 		end,
 		onConfirm = function()
 			dispatch(CloseNativeClosePrompt())
-			dispatch(OpenMenu)
+
+			if GetFFlagInstrumentMenuOpenMethods() then
+				dispatch(OpenMenu(Constants.AnalyticsMenuOpenTypes.EducationalMenuTriggered))
+			else
+				dispatch(OpenMenu)
+			end
+
 			RbxAnalyticsService:ReportCounter("EducationalPopup_Confirm", 1)
 			SendAnalytics(EducationalAnalytics.EventContext, EducationalAnalytics.ConfirmName, {})
 		end,

@@ -8,31 +8,62 @@ local Workspace = game:GetService("Workspace")
 local StudioService = game:GetService("StudioService")
 local RunService = game:GetService("RunService")
 
-local Framework = script.Parent.Parent
-local shouldDragAsFace = require(Framework.Utility.shouldDragAsFace)
+local DraggerFramework = script.Parent.Parent
+local shouldDragAsFace = require(DraggerFramework.Utility.shouldDragAsFace)
 
-local getFFlagAnchorAttachments = require(Framework.Flags.getFFlagAnchorAttachments)
-local getFFlagSelectWeldConstraints = require(Framework.Flags.getFFlagSelectWeldConstraints)
-local getFFlagDragFaceInstances = require(Framework.Flags.getFFlagDragFaceInstances)
+local getEngineFeatureActiveInstanceHighlight = require(DraggerFramework.Flags.getEngineFeatureActiveInstanceHighlight)
+local getFFlagDraggerRefactor = require(DraggerFramework.Flags.getFFlagDraggerRefactor)
+local getFFlagAnchorAttachments = require(DraggerFramework.Flags.getFFlagAnchorAttachments)
+local getFFlagSelectWeldConstraints = require(DraggerFramework.Flags.getFFlagSelectWeldConstraints)
+local getFFlagDragFaceInstances = require(DraggerFramework.Flags.getFFlagDragFaceInstances)
+
+-- Ensure we aren't still using globals
+if getFFlagDraggerRefactor() then
+	StudioService = nil
+	RunService = nil
+	UserInputService = nil
+end
 
 local RAYCAST_DIRECTION_SCALE = 10000
 
 local SelectionHelper = {}
 
-local function isAltKeyDown()
-	return UserInputService:IsKeyDown(Enum.KeyCode.LeftAlt) or UserInputService:IsKeyDown(Enum.KeyCode.RightAlt)
+local isAltKeyDown
+local isCtrlKeyDown
+local isShiftKeyDown
+if getFFlagDraggerRefactor() then
+	function isAltKeyDown()
+		error("Should not be called")
+	end
+	function isShiftKeyDown()
+		error("Should not be called")
+	end
+	function isCtrlKeyDown()
+		error("Should not be called")
+	end
+else
+	function isAltKeyDown()
+		return UserInputService:IsKeyDown(Enum.KeyCode.LeftAlt) or UserInputService:IsKeyDown(Enum.KeyCode.RightAlt)
+	end
+
+	function isCtrlKeyDown()
+		return UserInputService:IsKeyDown(Enum.KeyCode.LeftControl) or UserInputService:IsKeyDown(Enum.KeyCode.RightControl)
+	end
+
+	function isShiftKeyDown()
+		return UserInputService:IsKeyDown(Enum.KeyCode.LeftShift) or UserInputService:IsKeyDown(Enum.KeyCode.RightShift)
+	end
 end
 
-local function isCtrlKeyDown()
-	return UserInputService:IsKeyDown(Enum.KeyCode.LeftControl) or UserInputService:IsKeyDown(Enum.KeyCode.RightControl)
-end
 
-local function isShiftKeyDown()
-	return UserInputService:IsKeyDown(Enum.KeyCode.LeftShift) or UserInputService:IsKeyDown(Enum.KeyCode.RightShift)
-end
-
-function SelectionHelper.shouldExtendSelection()
-	return isCtrlKeyDown() or isShiftKeyDown()
+if getFFlagDraggerRefactor() then
+	function SelectionHelper.shouldExtendSelection()
+		error("Should not be called")
+	end
+else
+	function SelectionHelper.shouldExtendSelection()
+		return isCtrlKeyDown() or isShiftKeyDown()
+	end
 end
 
 local function computeBoundingBox(basisCFrame, allParts, allAttachments)
@@ -195,7 +226,12 @@ local function computeTwoBoundingBoxes(basisCFrame1, allParts, allAttachments)
 		globalBoundingBoxOffset, globalBoundingBoxSize
 end
 
-function SelectionHelper.computeSelectionInfo(selectedObjects)
+function SelectionHelper.computeSelectionInfo(selectedObjects, isSimulating, useLocalSpace)
+	if getFFlagDraggerRefactor() then
+		assert(isSimulating ~= nil)
+		assert(useLocalSpace ~= nil)
+	end
+
 	-- Gather all of the actual parts and mark the first one as the primary part.
 	local allParts = table.create(64)
 	local allPartSet = {}
@@ -259,7 +295,10 @@ function SelectionHelper.computeSelectionInfo(selectedObjects)
 	local chosenBasisCFrame
 	local chosenBoundingBoxOffset, chosenBoundingBoxSize
 
-	if StudioService.UseLocalSpace then
+	if not getFFlagDraggerRefactor() then
+		useLocalSpace = StudioService.UseLocalSpace
+	end
+	if useLocalSpace then
 		localBoundingBoxOffset, localBoundingBoxSize =
 			computeBoundingBox(localBasisCFrame, allParts, allAttachments)
 
@@ -294,7 +333,10 @@ function SelectionHelper.computeSelectionInfo(selectedObjects)
 	-- moving parts. If there are, we will need to update the selection info
 	-- every frame because those parts may have moved.
 	local selectionHasPhysics = false
-	if RunService:IsRunning() then
+	if not getFFlagDraggerRefactor() then
+		isSimulating = RunService:IsRunning()
+	end
+	if isSimulating then
 		for _, part in ipairs(allParts) do
 			if not part:IsGrounded() then
 				selectionHasPhysics = true
@@ -368,9 +410,15 @@ end
 	If the instance belongs to a model the top-level model is returned, unless
 	the alt key is held, in which case the part itself is returned. Locked parts
 	are not considered selectable.
+
+	getMostNested specifies whether to drill down to the most nested selectable
+	object instead of taking the least nested object like normal.
 ]]
-function SelectionHelper.getSelectable(instance)
-	return SelectionHelper.getSelectableWithCache(instance, {}, isAltKeyDown())
+function SelectionHelper.getSelectable(instance, getMostNested)
+	if not getFFlagDraggerRefactor() then
+		getMostNested = isAltKeyDown()
+	end
+	return SelectionHelper.getSelectableWithCache(instance, {}, getMostNested)
 end
 
 --[[
@@ -453,10 +501,26 @@ function SelectionHelper.getSelectableWithCache(instance, cache, isAltKeyDown)
 end
 
 -- Returns: Did the selection change, The new selection
-function SelectionHelper.updateSelection(instance, oldSelection)
-	local selectableInstance = SelectionHelper.getSelectable(instance)
+function SelectionHelper.updateSelection(instance, oldSelection, shouldExtendSelection, shouldDrillSelection, shouldUpdateActiveInstance)
+	local doExtendSelection
+	local selectableInstance
+	local doUpdateActiveInstance
+	if getFFlagDraggerRefactor() then
+		doExtendSelection = shouldExtendSelection
+		selectableInstance = SelectionHelper.getSelectable(instance, shouldDrillSelection)
+		doUpdateActiveInstance = shouldUpdateActiveInstance
+	else
+		doExtendSelection = SelectionHelper.shouldExtendSelection()
+		selectableInstance = SelectionHelper.getSelectable(instance)
+		if getEngineFeatureActiveInstanceHighlight() then
+			doUpdateActiveInstance = StudioService.ShowActiveInstanceHighlight
+		else
+			doUpdateActiveInstance = false
+		end
+	end
+
 	if not selectableInstance then
-		if SelectionHelper.shouldExtendSelection() then
+		if doExtendSelection then
 			return false, oldSelection
 		else
 			local wasOldSelectionNonempty = (#oldSelection > 0)
@@ -464,7 +528,7 @@ function SelectionHelper.updateSelection(instance, oldSelection)
 		end
 	end
 
-	if SelectionHelper.shouldExtendSelection() then
+	if doExtendSelection then
 		-- Add or remove from the selection when ctrl or shift is held.
 		local newSelection = {}
 		local didRemoveSelectableInstance = false
@@ -480,28 +544,62 @@ function SelectionHelper.updateSelection(instance, oldSelection)
 		end
 		return true, newSelection
 	else
-		local isAlreadyInSelection = false
-		for _, item in ipairs(oldSelection) do
-			if item == selectableInstance then
-				isAlreadyInSelection = true
-				break
-			end
-		end
+		if getEngineFeatureActiveInstanceHighlight() then
+			local index = table.find(oldSelection, selectableInstance)
+			if index then
+				-- The instance is already in the selection. If the active instance
+				-- needs to be updated, and the instance isn't already the last item
+				-- in the list, move it to the end of the selection.
+				if doUpdateActiveInstance then
+					local lastIndex = #oldSelection
+					if index < lastIndex then
+						local newSelection = {}
+						table.move(oldSelection, 1, index, 1, newSelection)
+						table.move(oldSelection, index + 1, lastIndex, index, newSelection)
+						newSelection[lastIndex] = selectableInstance
 
-		if isAlreadyInSelection then
-			-- The instance is already in the selection; leave the selection alone.
-			return false, oldSelection
+						return true, newSelection
+					end
+				end
+				-- Otherwise, leave the selection alone.
+				return false, oldSelection
+			else
+				-- The instance is not in the selection and the selection is not being
+				-- extended; overwrite the old selection.
+				return true, {selectableInstance}
+			end
 		else
-			-- The instance is not in the selection and the selection is not being
-			-- extended; overwrite the old selection.
-			return true, {selectableInstance}
+			local isAlreadyInSelection = false
+			for _, item in ipairs(oldSelection) do
+				if item == selectableInstance then
+					isAlreadyInSelection = true
+					break
+				end
+			end
+
+			if isAlreadyInSelection then
+				-- The instance is already in the selection; leave the selection alone.
+				return false, oldSelection
+			else
+				-- The instance is not in the selection and the selection is not being
+				-- extended; overwrite the old selection.
+				return true, {selectableInstance}
+			end
 		end
 	end
 end
 
 -- TODO: combine with SelectionHelper.updateSelection, or at least break out
 -- the common bits into a local function.
-function SelectionHelper.updateSelectionWithMultipleParts(instances, oldSelection)
+function SelectionHelper.updateSelectionWithMultipleParts(instances, oldSelection,
+	shouldXorSelection, shouldDrillSelection)
+	local doXorSelection
+	if getFFlagDraggerRefactor() then
+		doXorSelection = shouldXorSelection
+	else
+		doXorSelection = SelectionHelper.shouldExtendSelection()
+	end
+
 	local selectableInstances = {}
 
 	-- Note here: instances IS a list of unique instances, but multiple
@@ -511,7 +609,12 @@ function SelectionHelper.updateSelectionWithMultipleParts(instances, oldSelectio
 	-- The result is, we need to filter out the duplicate selectables.
 	local alreadyFlaggedForAddSet = {}
 	for _, instance in ipairs(instances) do
-		local selectablePart = SelectionHelper.getSelectable(instance)
+		local selectablePart
+		if getFFlagDraggerRefactor() then
+			selectablePart = SelectionHelper.getSelectable(instance, shouldDrillSelection)
+		else
+			selectablePart = SelectionHelper.getSelectable(instance)
+		end
 		if selectablePart ~= nil and not alreadyFlaggedForAddSet[selectablePart] then
 			table.insert(selectableInstances, selectablePart)
 			alreadyFlaggedForAddSet[selectablePart] = true
@@ -519,11 +622,11 @@ function SelectionHelper.updateSelectionWithMultipleParts(instances, oldSelectio
 	end
 
 	if #selectableInstances == 0 then
-		return SelectionHelper.shouldExtendSelection() and oldSelection or {}
+		return doXorSelection and oldSelection or {}
 	end
 
 	local newSelection
-	if SelectionHelper.shouldExtendSelection() then
+	if doXorSelection then
 		newSelection = {}
 		-- Add or remove from the selection when ctrl or shift is held.
 		local alreadySelectedInstances = {}
@@ -548,43 +651,45 @@ function SelectionHelper.updateSelectionWithMultipleParts(instances, oldSelectio
 	return newSelection
 end
 
-function SelectionHelper.getMouseRay()
-	local location = UserInputService:GetMouseLocation()
-	local unitRay = Workspace.CurrentCamera:ViewportPointToRay(location.X, location.Y)
-	return Ray.new(unitRay.Origin, unitRay.Direction * RAYCAST_DIRECTION_SCALE)
-end
+if not getFFlagDraggerRefactor() then
+	function SelectionHelper.getMouseRay()
+		local location = UserInputService:GetMouseLocation()
+		local unitRay = Workspace.CurrentCamera:ViewportPointToRay(location.X, location.Y)
+		return Ray.new(unitRay.Origin, unitRay.Direction * RAYCAST_DIRECTION_SCALE)
+	end
 
-function SelectionHelper.getMouseTarget(selectedObjects)
-	local mouseRay = SelectionHelper.getMouseRay()
-	local hitObject, hitPosition = Workspace:FindPartOnRay(mouseRay)
+	function SelectionHelper.getMouseTarget(selectedObjects)
+		local mouseRay = SelectionHelper.getMouseRay()
+		local hitObject, hitPosition = Workspace:FindPartOnRay(mouseRay)
 
-	-- Selection favoring: If there is a selected object and a non-selected
-	-- object almost exactly coincident underneath the mouse, then we should
-	-- favor the selected one, even if due to floating point error the non
-	-- selected one comes out slightly closer.
-	-- Without this case, if you duplicate objects and try to drag them, you
-	-- may end up dragging only one of the objects because you clicked on the
-	-- old non-selected copy, as opposed to the selected one you meant to.
-	if hitObject then
-		local hitSelectedObject, hitSelectedPosition
-			= Workspace:FindPartOnRayWithWhitelist(mouseRay, selectedObjects)
-		if hitSelectedObject and hitSelectedPosition:FuzzyEq(hitPosition) then
-			hitObject = hitSelectedObject
-			hitPosition = hitSelectedPosition
+		-- Selection favoring: If there is a selected object and a non-selected
+		-- object almost exactly coincident underneath the mouse, then we should
+		-- favor the selected one, even if due to floating point error the non
+		-- selected one comes out slightly closer.
+		-- Without this case, if you duplicate objects and try to drag them, you
+		-- may end up dragging only one of the objects because you clicked on the
+		-- old non-selected copy, as opposed to the selected one you meant to.
+		if hitObject then
+			local hitSelectedObject, hitSelectedPosition
+				= Workspace:FindPartOnRayWithWhitelist(mouseRay, selectedObjects)
+			if hitSelectedObject and hitSelectedPosition:FuzzyEq(hitPosition) then
+				hitObject = hitSelectedObject
+				hitPosition = hitSelectedPosition
+			end
 		end
-	end
 
-	local hitDistance = (mouseRay.Origin - hitPosition).Magnitude
+		local hitDistance = (mouseRay.Origin - hitPosition).Magnitude
 
-	local hitResult = StudioService:GizmoRaycast(
-		mouseRay.Origin, mouseRay.Direction, RaycastParams.new())
-	if hitResult and
-		(StudioService.DrawConstraintsOnTop or (hitResult.Distance < hitDistance)) then
-		hitPosition = hitResult.Position
-		hitDistance = hitResult.Distance
-		hitObject = hitResult.Instance
+		local hitResult = StudioService:GizmoRaycast(
+			mouseRay.Origin, mouseRay.Direction, RaycastParams.new())
+		if hitResult and
+			(StudioService.DrawConstraintsOnTop or (hitResult.Distance < hitDistance)) then
+			hitPosition = hitResult.Position
+			hitDistance = hitResult.Distance
+			hitObject = hitResult.Instance
+		end
+		return hitObject, hitDistance, hitPosition
 	end
-	return hitObject, hitDistance, hitPosition
 end
 
 return SelectionHelper

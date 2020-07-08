@@ -1,5 +1,5 @@
-local Framework = script.Parent.Parent
- BoundsChangedTracker = require(Framework.Utility.BoundsChangedTracker)
+local DraggerFramework = script.Parent.Parent
+local BoundsChangedTracker = require(DraggerFramework.Utility.BoundsChangedTracker)
 
 return function()
 	it("should error if installed more than once", function()

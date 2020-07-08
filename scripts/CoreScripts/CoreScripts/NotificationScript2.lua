@@ -38,7 +38,7 @@ local FFlagNewAwardBadgeEndpoint = settings():GetFFlag('NewAwardBadgeEndpoint2')
 local FFlagFixNotificationScriptError = game:DefineFastFlag("FixNotificationScriptError", false)
 
 local GetFFlagRemoveInGameFollowingEvents = require(RobloxGui.Modules.Flags.GetFFlagRemoveInGameFollowingEvents)
-local FFlagTopBarNewGamepadMenu = require(RobloxGui.Modules.Flags.FFlagTopBarNewGamepadMenu)
+local isNewGamepadMenuEnabled = require(RobloxGui.Modules.Flags.isNewGamepadMenuEnabled)
 
 local RobloxTranslator = require(RobloxGui:WaitForChild("Modules"):WaitForChild("RobloxTranslator"))
 
@@ -903,7 +903,7 @@ StarterGui:RegisterGetCore("BadgesNotificationsActive", function() return badges
 StarterGui:RegisterSetCore("SendNotification", createDeveloperNotification)
 
 
-if not isTenFootInterface and not FFlagTopBarNewGamepadMenu then
+if not isTenFootInterface and not isNewGamepadMenuEnabled() then
 	local gamepadMenu = RobloxGui:WaitForChild("CoreScripts/GamepadMenu")
 	local gamepadNotifications = gamepadMenu:FindFirstChild("GamepadNotifications")
 	while not gamepadNotifications do

@@ -52,6 +52,7 @@ local HorizontalContentFit = createFitToContent("Frame", "UIListLayout", {
 local groupsLoaded = false
 
 local FFlagLuaPublishFlowFixCreateButtonInChinese = game:GetFastFlag("LuaPublishFlowFixCreateButtonInChinese")
+local FFlagBatchThumbnailAddNewThumbnailTypes = game:GetFastFlag("BatchThumbnailAddNewThumbnailTypes")
 
 local ScreenChooseGame = Roact.PureComponent:extend("ScreenChooseGame")
 
@@ -185,7 +186,7 @@ function ScreenChooseGame:render()
 				if i <= 5 then
 					componentsTop[v.universeId] = Roact.createElement(TileGame, {
 						Name = v.name,
-						Id = v.universeId,
+						Id = FFlagBatchThumbnailAddNewThumbnailTypes and v.rootPlaceId or v.universeId,
 						State = v.privacyType,
 						LayoutOrder = i,
 						OnActivated = function()
@@ -195,7 +196,7 @@ function ScreenChooseGame:render()
 				else
 					componentsBottom[v.universeId] = Roact.createElement(TileGame, {
 						Name = v.name,
-						Id = v.universeId,
+						Id = FFlagBatchThumbnailAddNewThumbnailTypes and v.rootPlaceId or v.universeId,
 						State = v.privacyType,
 						LayoutOrder = i - 5,
 						OnActivated = function()

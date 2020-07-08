@@ -1,7 +1,7 @@
 local Workspace = game:GetService("Workspace")
 
-local Framework = script.Parent.Parent
-local getFaceInstance = require(Framework.Utility.getFaceInstance)
+local DraggerFramework = script.Parent.Parent
+local getFaceInstance = require(DraggerFramework.Utility.getFaceInstance)
 
 return function()
 	local function createTestFaceInstance(className)

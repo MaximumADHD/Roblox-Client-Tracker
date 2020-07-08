@@ -30,6 +30,7 @@ local Import = require(Tools.Import)
 local Paint = require(Tools.Paint)
 local Region = require(Tools.Region)
 local SeaLevel = require(Tools.SeaLevel)
+local Replace = require(Tools.Replace)
 local Smooth = require(Tools.Smooth)
 local Subtract = require(Tools.Subtract)
 
@@ -77,7 +78,7 @@ local toolComponent = {
 	[ToolId.Flatten] = Flatten,
 
 	[ToolId.SeaLevel] = SeaLevel,
-
+	[ToolId.Replace] = Replace,
 	[ToolId.Paint] = Paint,
 }
 

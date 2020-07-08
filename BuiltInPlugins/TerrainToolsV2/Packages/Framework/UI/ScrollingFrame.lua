@@ -12,6 +12,7 @@
 		UDim2 Size: The size of the scrolling frame.
 		integer LayoutOrder: The order this component will display in a UILayout.
 		boolean AutoSizeCanvas: When true, will automatically resize the canvas size of the scrolling frame.
+		UDim2 CanvasSize: The size of the scrolling frame's canvas.
 		integer ElementPadding: The padding between children when AutoSizeCanvas is true.
 
 	Style Values:
@@ -77,9 +78,7 @@ function ScrollingFrame:init()
 			Theme = Cryo.None,
 			Style = Cryo.None,
 		},
-		-- TO DO: include prop-filter for infinite scrolling props. DEVTOOLS-4123
 	}
-
 
 	self.getScrollingFrameProps = function(props, style)
 		-- after filtering out parent's props and other component specific props,
@@ -117,24 +116,17 @@ function ScrollingFrame:render()
 	local children = self.props[Roact.Children]
 	local scrollingFrameProps = self.getScrollingFrameProps(self.props, style)
 
-	local scrollingFrame
-	if children == nil then
-		-- TO DO: render an infinite scroller. DEVTOOLS-4123
-		assert("ScrollingFrame MUST have children")-- for now
-	else
-		if autoSizeCanvas then
-			children = {
-				Layout = Roact.createElement(autoSizeElement, Cryo.Dictionary.join(layoutOptions, {
-					[Roact.Change.AbsoluteContentSize] = self.updateCanvasSize,
-					[Roact.Ref] = self.layoutRef,
-				})),
-				Children = Roact.createFragment(children),
-			}
-		end
-
-		scrollingFrame = Roact.createElement("ScrollingFrame", scrollingFrameProps, children)
+	if autoSizeCanvas then
+		children = {
+			Layout = Roact.createElement(autoSizeElement, Cryo.Dictionary.join(layoutOptions, {
+				[Roact.Change.AbsoluteContentSize] = self.updateCanvasSize,
+				[Roact.Ref] = self.layoutRef,
+			})),
+			Children = Roact.createFragment(children),
+		}
 	end
 
+	local scrollingFrame = Roact.createElement("ScrollingFrame", scrollingFrameProps, children)
 
 	return Roact.createElement(Container, {
 		Position = position,

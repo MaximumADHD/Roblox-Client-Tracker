@@ -1,16 +1,25 @@
 return function()
-	local Framework = script.Parent.Parent
-	local Library = Framework.Parent.Parent
+	local DraggerFramework = script.Parent.Parent
+	local Library = DraggerFramework.Parent.Parent
 
 	local Roact = require(Library.Packages.Roact)
 
-	local DragSelectionView = require(Framework.Components.DragSelectionView)
+	local DragSelectionView = require(DraggerFramework.Components.DragSelectionView)
+
+	local getFFlagDraggerRefactor = require(DraggerFramework.Flags.getFFlagDraggerRefactor)
 
 	local function createTestDragSelectionView()
-		return Roact.createElement(DragSelectionView, {
-			dragStartLocation = Vector2.new(0, 0),
-			dragEndLocation = Vector2.new(100, 100),
-		})
+		if getFFlagDraggerRefactor() then
+			return Roact.createElement(DragSelectionView, {
+				DragStartLocation = Vector2.new(0, 0),
+				DragEndLocation = Vector2.new(100, 100),
+			})
+		else
+			return Roact.createElement(DragSelectionView, {
+				dragStartLocation = Vector2.new(0, 0),
+				dragEndLocation = Vector2.new(100, 100),
+			})
+		end
 	end
 
 	it("should create and destroy without errors", function()

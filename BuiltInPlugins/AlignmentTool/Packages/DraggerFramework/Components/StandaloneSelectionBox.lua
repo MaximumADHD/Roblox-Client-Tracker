@@ -9,10 +9,10 @@
 
 local CoreGui = game:GetService("CoreGui")
 
-local Framework = script.Parent.Parent
-local StudioSettings = require(Framework.Utility.StudioSettings)
+local DraggerFramework = script.Parent.Parent
+local StudioSettings = require(DraggerFramework.Utility.StudioSettings)
 
-local Library = Framework.Parent.Parent
+local Library = DraggerFramework.Parent.Parent
 local Roact = require(Library.Packages.Roact)
 
 local StandaloneSelectionBox = Roact.PureComponent:extend("StandaloneSelectionBox")

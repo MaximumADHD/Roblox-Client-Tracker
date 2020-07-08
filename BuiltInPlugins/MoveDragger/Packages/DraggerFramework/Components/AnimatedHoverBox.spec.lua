@@ -1,16 +1,30 @@
 return function()
-	local Framework = script.Parent.Parent
-	local Library = Framework.Parent.Parent
+	local DraggerFramework = script.Parent.Parent
+	local Library = DraggerFramework.Parent.Parent
 
 	local Roact = require(Library.Packages.Roact)
 
-	local AnimatedHoverBox = require(Framework.Components.AnimatedHoverBox)
+	local AnimatedHoverBox = require(DraggerFramework.Components.AnimatedHoverBox)
+
+	local getFFlagDraggerRefactor = require(DraggerFramework.Flags.getFFlagDraggerRefactor)
 
 	local function createTestHoverBox(hoverTarget)
 		hoverTarget = hoverTarget or Instance.new("Part")
-		return Roact.createElement(AnimatedHoverBox, {
-			hoverTarget = hoverTarget,
-		})
+		if getFFlagDraggerRefactor() then
+			return Roact.createElement(AnimatedHoverBox, {
+				HoverTarget = hoverTarget,
+				SelectColor = Color3.new(),
+				HoverColor = Color3.new(),
+				LineThickness = 1,
+			})
+		else
+			return Roact.createElement(AnimatedHoverBox, {
+				hoverTarget = hoverTarget,
+				selectColor = Color3.new(),
+				hoverColor = Color3.new(),
+				lineThickness = 1,
+			})
+		end
 	end
 
 	it("should error if HoverTarget not provided", function()

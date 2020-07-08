@@ -12,6 +12,8 @@ local Common = require(Framework.StudioUI.StudioFrameworkStyles.Common)
 local UIFolderData = require(Framework.UI.UIFolderData)
 local RoundBox = require(UIFolderData.RoundBox.style)
 
+local FFlagDevFrameworkTextInputContainer = game:GetFastFlag("DevFrameworkTextInputContainer")
+
 return function(theme, getColor)
 	local common = Common(theme, getColor)
 	local roundBox = RoundBox(theme, getColor)
@@ -30,7 +32,7 @@ return function(theme, getColor)
 			[StyleModifier.Hover] = {
 				ForegroundStyle = {
 					Image = hoverImage,
-					Color = Color3.fromRGB(0, 162, 255)
+					Color = FFlagDevFrameworkTextInputContainer and theme:GetColor("DialogMainButton") or Color3.fromRGB(0, 162, 255)
 				},
 			},
 		})
@@ -39,10 +41,19 @@ return function(theme, getColor)
 	local Default = Style.extend(common.MainText, common.Border, {
 		BackgroundColor = common.Background.Color,
 		BackgroundStyle = roundBox.Default,
+		Padding = FFlagDevFrameworkTextInputContainer and {
+			Top = 5,
+			Left = 10,
+			Bottom = 5,
+			Right = 10
+		} or {
+			Top = 0,
+			Left = 10,
+			Bottom = 0,
+			Right = 10
+		},
 		[StyleModifier.Hover] = {
-			BackgroundStyle = Style.extend(roundBox.Default, {
-				BorderColor = Color3.fromRGB(0, 162, 255)
-			})
+			BackgroundStyle = Style.extend(roundBox.Default, common.BorderHover)
 		},
 		Buttons = {
 			Clear = buttonStyle("rbxasset://textures/StudioSharedUI/clear.png", "rbxasset://textures/StudioSharedUI/clear-hover.png"),

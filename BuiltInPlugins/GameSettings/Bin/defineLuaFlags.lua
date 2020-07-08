@@ -9,5 +9,6 @@ game:DefineFastFlag("FixRadioButtonSeAndTableHeadertForTesting", false)
 game:DefineFastFlag("SupportFreePrivateServers", false)
 game:DefineFastFlag("VIPServersRebrandToPrivateServers", false)
 game:DefineFastFlag("EnableDevProductsInGameSettings", false)
+game:DefineFastFlag("FixVIPServerShutdownWarningText", false)
 
 return nil

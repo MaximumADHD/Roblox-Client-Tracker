@@ -21,15 +21,11 @@ local FFlagConnectionScriptEnabled = settings():GetFFlag("ConnectionScriptEnable
 local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabledV384")
 
 local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList3")
-local FFlagEmotesMenuEnabled2 = settings():GetFFlag("CoreScriptEmotesMenuEnabled2")
 
-local FFlagCoreScriptTopBarStartup = require(RobloxGui.Modules.Flags.FFlagCoreScriptTopBarStartup)
 local FFlagConnectErrorHandlerInLoadingScript = require(RobloxGui.Modules.Flags.FFlagConnectErrorHandlerInLoadingScript)
 local isNewTopBarEnabled = require(RobloxGui.Modules.TopBar.isNewTopBarEnabled)
-local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
-local GetFFlagEducationalPopupOnNativeClose = require(RobloxGui.Modules.Flags.GetFFlagEducationalPopupOnNativeClose)
 
-local FFlagTopBarNewGamepadMenu = require(RobloxGui.Modules.Flags.FFlagTopBarNewGamepadMenu)
+local isNewGamepadMenuEnabled = require(RobloxGui.Modules.Flags.isNewGamepadMenuEnabled)
 
 -- The Rotriever index, as well as the in-game menu code itself, relies on
 -- the init.lua convention, so we have to run initify over the module.
@@ -46,20 +42,18 @@ local FFlagCoreScriptsUseRoactRoduxNewConnectionOrder = require(
 	RobloxGui.Modules.Flags.FFlagCoreScriptsUseRoactRoduxNewConnectionOrder)
 RoactRodux.TEMP_CONFIG.newConnectionOrder = FFlagCoreScriptsUseRoactRoduxNewConnectionOrder
 
-if FFlagCoreScriptTopBarStartup then
-	local localPlayer = Players.LocalPlayer
-	while not localPlayer do
-		Players:GetPropertyChangedSignal("LocalPlayer"):Wait()
-		localPlayer = Players.LocalPlayer
-	end
+local localPlayer = Players.LocalPlayer
+while not localPlayer do
+	Players:GetPropertyChangedSignal("LocalPlayer"):Wait()
+	localPlayer = Players.LocalPlayer
+end
 
-	ABTestService:InitializeForUserId(localPlayer.UserId)
+ABTestService:InitializeForUserId(localPlayer.UserId)
 
-	local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
-	local InGameMenuUIBlox = InGameMenuDependencies.UIBlox
-	if InGameMenuUIBlox ~= UIBlox then
-		InGameMenuUIBlox.init(uiBloxConfig)
-	end
+local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
+local InGameMenuUIBlox = InGameMenuDependencies.UIBlox
+if InGameMenuUIBlox ~= UIBlox then
+	InGameMenuUIBlox.init(uiBloxConfig)
 end
 
 local soundFolder = Instance.new("Folder")
@@ -97,13 +91,6 @@ coroutine.wrap(function() -- this is the first place we call, which can yield so
 	if PolicyService:IsSubjectToChinaPolicies() then
 		ScriptContext:AddCoreScriptLocal("CoreScripts/AntiAddictionPrompt", RobloxGui)
 		ScriptContext:AddCoreScriptLocal("CoreScripts/ScreenTimeInGame", RobloxGui)
-	end
-end)()
-
--- In-game confirmation prompt for desktop window close script
-coroutine.wrap(function()
-	if GetFFlagEducationalPopupOnNativeClose() and isNewInGameMenuEnabled() then
-		ScriptContext:AddCoreScriptLocal("CoreScripts/NativeClosePrompt", RobloxGui)
 	end
 end)()
 
@@ -147,13 +134,11 @@ ScriptContext:AddCoreScriptLocal("CoreScripts/AvatarContextMenu", RobloxGui)
 coroutine.wrap(safeRequire)(RobloxGui.Modules.BackpackScript)
 
 -- Emotes Menu
-if FFlagEmotesMenuEnabled2 then
-	coroutine.wrap(safeRequire)(RobloxGui.Modules.EmotesMenu.EmotesMenuMaster)
-end
+coroutine.wrap(safeRequire)(RobloxGui.Modules.EmotesMenu.EmotesMenuMaster)
 
 ScriptContext:AddCoreScriptLocal("CoreScripts/VehicleHud", RobloxGui)
 
-if not FFlagTopBarNewGamepadMenu then
+if not isNewGamepadMenuEnabled() then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/GamepadMenu", RobloxGui)
 end
 

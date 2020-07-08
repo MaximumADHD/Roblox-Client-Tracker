@@ -81,7 +81,7 @@ return Rodux.createReducer({
 	audioSearchInfo = nil,
 	categories = defaultCategories,
 	categoryIndex = (not FFlagUseCategoryNameInToolbox) and (1),
-	categoryName = Category.FREE_MODELS.name,
+	categoryName = Category.DEFAULT.name,
 
 	searchTerm = "",
 

@@ -16,9 +16,16 @@ local Colors = require(DraggerFramework.Utility.Colors)
 local getHandleScale = require(DraggerFramework.Utility.getHandleScale)
 local getBoundingBoxScale = require(DraggerFramework.Utility.getBoundingBoxScale)
 
+local MoveHandleView = require(Plugin.Src.MoveHandleView)
+
+local getFFlagDraggerRefactor = require(DraggerFramework.Flags.getFFlagDraggerRefactor)
 local getFFlagSmoothAttachmentMovement = require(DraggerFramework.Flags.getFFlagSmoothAttachmentMovement)
 
-local MoveHandleView = require(Plugin.Src.MoveHandleView)
+-- Sanity check that plugin / StudioService references have been removed
+if getFFlagDraggerRefactor() then
+	StudioService = nil
+	plugin = nil
+end
 
 local ALWAYS_ON_TOP = true
 
@@ -68,16 +75,26 @@ local function areConstraintsEnabled()
 	return StudioService.DraggerSolveConstraints
 end
 
-local function snapToGridSize(distance)
-	local gridSize = StudioService.GridSize
-	return math.floor(distance / gridSize + 0.5) * gridSize
+local snapToGridSize
+if getFFlagDraggerRefactor() then
+	function snapToGridSize(distance, gridSize)
+		return math.floor(distance / gridSize + 0.5) * gridSize
+	end
+else
+	function snapToGridSize(distance)
+		local gridSize = StudioService.GridSize
+		return math.floor(distance / gridSize + 0.5) * gridSize
+	end
 end
 
-function MoveToolImpl.new()
+function MoveToolImpl.new(draggerContext)
 	local self = {}
 	self._handles = {}
 	self._partMover = PartMover.new()
 	self._attachmentMover = AttachmentMover.new()
+	if getFFlagDraggerRefactor() then
+		self._draggerContext = draggerContext
+	end
 	return setmetatable(self, MoveToolImpl)
 end
 
@@ -127,6 +144,7 @@ function MoveToolImpl:render(hoveredHandleId)
 	end
 
 	local children = {}
+
 	if self._draggingHandleId and self._handles[self._draggingHandleId] then
 		local handleProps = self._handles[self._draggingHandleId]
 		children[self._draggingHandleId] = Roact.createElement(MoveHandleView, {
@@ -149,9 +167,16 @@ function MoveToolImpl:render(hoveredHandleId)
 				})
 			end
 		end
-		if areJointsEnabled() and self._jointPairs then
-			local scale = getBoundingBoxScale(self._boundingBox.CFrame, self._boundingBox.Size)
-			children.JointDisplay = self._jointPairs:renderJoints(scale)
+		if getFFlagDraggerRefactor() then
+			if self._draggerContext:shouldJoinSurfaces() and self._jointPairs then
+				local scale = getBoundingBoxScale(self._draggerContext, self._boundingBox.CFrame, self._boundingBox.Size)
+				children.JointDisplay = self._jointPairs:renderJoints(scale)
+			end
+		else
+			if areJointsEnabled() and self._jointPairs then
+				local scale = getBoundingBoxScale(self._boundingBox.CFrame, self._boundingBox.Size)
+				children.JointDisplay = self._jointPairs:renderJoints(scale)
+			end
 		end
 	else
 		for handleId, handleProps in pairs(self._handles) do
@@ -214,9 +239,17 @@ end
 
 function MoveToolImpl:_shouldSolveConstraints()
 	if getFFlagSmoothAttachmentMovement() then
-		return areConstraintsEnabled() and #self._partsToMove > 0
+		if getFFlagDraggerRefactor() then
+			return self._draggerContext:areConstraintsEnabled() and #self._partsToMove > 0
+		else
+			return areConstraintsEnabled() and #self._partsToMove > 0
+		end
 	else
-		return areConstraintsEnabled()
+		if getFFlagDraggerRefactor() then
+			return self._draggerContext:areConstraintsEnabled()
+		else
+			return areConstraintsEnabled()
+		end
 	end
 end
 
@@ -250,7 +283,11 @@ function MoveToolImpl:_solveForAdjustedDistance(unadjustedDistance)
 		local baseCFrameAtDistance =
 			boundingBoxAtDistance * handleRotation *
 			CFrame.new(0, 0, -offsetDueToBoundingBox)
-		return getHandleScale(baseCFrameAtDistance.Position)
+		if getFFlagDraggerRefactor() then
+			return self._draggerContext:getHandleScale(baseCFrameAtDistance.Position)
+		else
+			return getHandleScale(baseCFrameAtDistance.Position)
+		end
 	end
 
 	local function getHandleFracForDistance(distance)
@@ -319,7 +356,12 @@ function MoveToolImpl:mouseDrag(mouseRay)
 
 	-- Apply snapping unconditionally because free axis movement in studio is
 	-- implemented as snapping with grid size = 0.001.
-	local snappedDelta = snapToGridSize(delta)
+	local snappedDelta
+	if getFFlagDraggerRefactor() then
+		snappedDelta = snapToGridSize(delta, self._draggerContext:getGridSize())
+	else
+		snappedDelta = snapToGridSize(delta)
+	end
 
 	if getFFlagSmoothAttachmentMovement() then
 		if self:_shouldSolveConstraints() then
@@ -328,10 +370,18 @@ function MoveToolImpl:mouseDrag(mouseRay)
 			self:_mouseDragWithGeometricMovement(mouseRay, snappedDelta)
 		end
 	else
-		if areConstraintsEnabled() and #self._partsToMove > 0 then
-			self:_mouseDragWithInverseKinematics(mouseRay, snappedDelta)
+		if getFFlagDraggerRefactor() then
+			if self._draggerContext:areConstraintsEnabled() and #self._partsToMove > 0 then
+				self:_mouseDragWithInverseKinematics(mouseRay, snappedDelta)
+			else
+				self:_mouseDragWithGeometricMovement(mouseRay, snappedDelta)
+			end
 		else
-			self:_mouseDragWithGeometricMovement(mouseRay, snappedDelta)
+			if areConstraintsEnabled() and #self._partsToMove > 0 then
+				self:_mouseDragWithInverseKinematics(mouseRay, snappedDelta)
+			else
+				self:_mouseDragWithGeometricMovement(mouseRay, snappedDelta)
+			end
 		end
 	end
 end
@@ -347,10 +397,18 @@ function MoveToolImpl:_mouseDragWithGeometricMovement(mouseRay, snappedDelta)
 
 	local candidateGlobalTransform = CFrame.new(self._axis * snappedDelta)
 	self._partMover:transformTo(candidateGlobalTransform)
-	if areCollisionsEnabled() and self._partMover:isIntersectingOthers() then
-		self._draggingLastGoodGeometricDelta = self:_findAndMoveToGoodDelta(snappedDelta)
+	if getFFlagDraggerRefactor() then
+		if self._draggerContext:areCollisionsEnabled() and self._partMover:isIntersectingOthers() then
+			self._draggingLastGoodGeometricDelta = self:_findAndMoveToGoodDelta(snappedDelta)
+		else
+			self._draggingLastGoodGeometricDelta = snappedDelta
+		end
 	else
-		self._draggingLastGoodGeometricDelta = snappedDelta
+		if areCollisionsEnabled() and self._partMover:isIntersectingOthers() then
+			self._draggingLastGoodGeometricDelta = self:_findAndMoveToGoodDelta(snappedDelta)
+		else
+			self._draggingLastGoodGeometricDelta = snappedDelta
+		end
 	end
 
 	self:_setMidMoveBoundingBox(
@@ -359,8 +417,14 @@ function MoveToolImpl:_mouseDragWithGeometricMovement(mouseRay, snappedDelta)
 	local appliedGlobalTransform = CFrame.new(self._axis * self._draggingLastGoodGeometricDelta)
 	self._attachmentMover:transformTo(appliedGlobalTransform)
 
-	if areJointsEnabled() then
-		self._jointPairs = self._partMover:computeJointPairs(appliedGlobalTransform)
+	if getFFlagDraggerRefactor() then
+		if self._draggerContext:shouldJoinSurfaces() then
+			self._jointPairs = self._partMover:computeJointPairs(appliedGlobalTransform)
+		end
+	else
+		if areJointsEnabled() then
+			self._jointPairs = self._partMover:computeJointPairs(appliedGlobalTransform)
+		end
 	end
 end
 
@@ -372,10 +436,18 @@ function MoveToolImpl:_mouseDragWithInverseKinematics(mouseRay, snappedDelta)
 		return
 	end
 
-	local collisionsMode =
-		areCollisionsEnabled() and
-		Enum.IKCollisionsMode.IncludeContactedMechanisms or
-		Enum.IKCollisionsMode.NoCollisions
+	local collisionsMode
+	if getFFlagDraggerRefactor() then
+		collisionsMode =
+			self._draggerContext:areCollisionsEnabled() and
+			Enum.IKCollisionsMode.IncludeContactedMechanisms or
+			Enum.IKCollisionsMode.NoCollisions
+	else
+		collisionsMode =
+			areCollisionsEnabled() and
+			Enum.IKCollisionsMode.IncludeContactedMechanisms or
+			Enum.IKCollisionsMode.NoCollisions
+	end
 
 	local globalTransform = CFrame.new(self._axis * snappedDelta)
 	local targetNewBoundingBox = globalTransform * self._boundingBox.CFrame
@@ -392,8 +464,14 @@ function MoveToolImpl:_mouseDragWithInverseKinematics(mouseRay, snappedDelta)
 	-- Since we updated the bounding box we have to call this again
 	self:_setupMoveAtCurrentBoundingBox(mouseRay)
 
-	if areJointsEnabled() then
-		self._partMover:computeJointPairs(actualGlobalTransformUsed)
+	if getFFlagDraggerRefactor() then
+		if self._draggerContext:shouldJoinSurfaces() then
+			self._partMover:computeJointPairs(actualGlobalTransformUsed)
+		end
+	else
+		if areJointsEnabled() then
+			self._partMover:computeJointPairs(actualGlobalTransformUsed)
+		end
 	end
 end
 
@@ -403,8 +481,14 @@ end
 
 function MoveToolImpl:mouseUp(mouseRay)
 	self._draggingHandleId = nil
-	if areJointsEnabled() and self._jointPairs then
-		self._jointPairs:createJoints()
+	if getFFlagDraggerRefactor() then
+		if self._draggerContext:shouldJoinSurfaces() and self._jointPairs then
+			self._jointPairs:createJoints()
+		end
+	else
+		if areJointsEnabled() and self._jointPairs then
+			self._jointPairs:createJoints()
+		end
 	end
 	self._jointPairs = nil
 	self._partMover:commit()
@@ -488,12 +572,21 @@ function MoveToolImpl:_updateHandles()
 				self._boundingBox.CFrame *
 				handleDef.Offset *
 				CFrame.new(0, 0, -offsetDueToBoundingBox)
-			self._handles[handleId] = {
-				AxisOffset = offsetDueToBoundingBox,
-				Axis = handleBaseCFrame,
-				Color = handleDef.Color,
-				Scale = getHandleScale(handleBaseCFrame.Position),
-			}
+			if getFFlagDraggerRefactor() then
+				self._handles[handleId] = {
+					AxisOffset = offsetDueToBoundingBox,
+					Axis = handleBaseCFrame,
+					Color = handleDef.Color,
+					Scale = self._draggerContext:getHandleScale(handleBaseCFrame.Position),
+				}
+			else
+				self._handles[handleId] = {
+					AxisOffset = offsetDueToBoundingBox,
+					Axis = handleBaseCFrame,
+					Color = handleDef.Color,
+					Scale = getHandleScale(handleBaseCFrame.Position),
+				}
+			end
 		end
 	end
 end

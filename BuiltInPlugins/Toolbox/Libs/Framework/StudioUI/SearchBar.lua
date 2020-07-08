@@ -208,7 +208,10 @@ function SearchBar:render()
 	local style = theme:getStyle("Framework", self)
 	local backgroundStyle = style.BackgroundStyle
 
-	local innerPadding = 10
+	local padding = style.Padding
+
+	local leftPadding = type(padding) == "table" and padding.Left or padding
+	local topPadding = type(padding) == "table" and padding.Top or padding
 	local separatorWidth = 1
 	local buttonsWidth = (showClearButton and buttonWidth or 0) + (showSearchButton and buttonWidth or 0) + separatorWidth
 	local buttonSize = UDim2.new(0, buttonWidth, 1, 0)
@@ -229,8 +232,9 @@ function SearchBar:render()
 			[Roact.Event.InputEnded] = self.onBackgroundFocusLost,
 		}, {
 			TextInput = Roact.createElement(TextInput, {
-				Position = UDim2.new(0, innerPadding, 0, 0),
-				Size = UDim2.new(1, -(buttonsWidth + (innerPadding * 2)), 1, 0),
+				Position = UDim2.new(0, leftPadding, 0.5, 0),
+				Size = UDim2.new(1, -(buttonsWidth + (leftPadding * 2)), 1, -2*topPadding),
+				AnchorPoint = Vector2.new(0, 0.5),
 				PlaceholderText = placeholderText,
 				Text = text,
 				OnTextChanged = self.onTextChanged,

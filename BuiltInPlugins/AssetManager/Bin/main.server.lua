@@ -7,13 +7,14 @@ local OverrideLocaleId = settings():GetFVariable("StudioForceLocale")
 
 local FFlagAssetManagerLuaPlugin = settings():GetFFlag("AssetManagerLuaPlugin")
 local FFlagAssetManagerLocalizationUpdate = game:DefineFastFlag("AssetManagerLocalizationUpdate", false)
+local FFlagAssetManagerAddAnalytics = game:DefineFastFlag("AssetManagerAddAnalytics", false)
 
 if not FFlagAssetManagerLuaPlugin then
 	return
 end
 
-local StudioService = game:GetService("StudioService")
 local BulkImportService = game:GetService("BulkImportService")
+local StudioService = game:GetService("StudioService")
 
 -- libraries
 local Plugin = script.Parent.Parent
@@ -30,6 +31,9 @@ local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 
 -- middleware
 local MainMiddleware = require(Plugin.Src.Middleware.MainMiddleware)
+
+-- analytics
+local AnalyticsHandlers = require(Plugin.Src.Resources.AnalyticsHandlers)
 
 -- theme
 local PluginTheme = require(Plugin.Src.Resources.PluginTheme)
@@ -50,6 +54,7 @@ local DOCK_WIDGET_PLUGIN_NAME = "AssetManager_PluginGui"
 -- Plugin Specific Globals
 local store = Rodux.Store.new(MainReducer, {}, MainMiddleware)
 local theme = PluginTheme:makePluginTheme()
+local analytics = ContextServices.Analytics.new(AnalyticsHandlers)
 local localization = ContextServices.Localization.new({
 	pluginName = PLUGIN_NAME,
 	stringResourceTable = TranslationDevelopmentTable,
@@ -79,6 +84,7 @@ local function openPluginWindow()
 	-- create the roact tree
 	local pluginElement = Roact.createElement(ServiceWrapper, {
 		plugin = plugin,
+		analytics = analytics,
 		focusGui = pluginGui,
 		localization = localization,
 		theme = theme,

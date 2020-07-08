@@ -15,6 +15,7 @@ end
 function MockPlugin.new()
 	return setmetatable({
 		Name = "MockPlugin",
+		Unloading = Signal.new(),
 		subWindows = {},
 	}, MockPlugin)
 end

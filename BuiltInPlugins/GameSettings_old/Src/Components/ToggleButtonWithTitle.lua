@@ -62,7 +62,7 @@ function ToggleButtonWithTitle:render()
 		Title = title,
 		TitleWidth = TITLE_WIDTH,
 		LayoutOrder = layoutOrder,
-		TextSize = theme.fontStyle.Title.TextSize,
+		TextSize = theme.fontStyle.Subtitle.TextSize,
 	}, {
 		ToggleButton = Roact.createElement(ToggleButton, {
 			Disabled = disabled,

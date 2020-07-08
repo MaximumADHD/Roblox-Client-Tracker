@@ -35,7 +35,7 @@ local OnScreenChange = require(Plugin.Src.Thunks.OnScreenChange)
 
 local BulkImportService = game:GetService("BulkImportService")
 
-local FFlagFixDisplayScriptsFolderInAssetManager = game:GetFastFlag("FixDisplayScriptsFolderInAssetManager")
+local FFlagStudioAssetManagerCaseInsensitiveFilter = game:DefineFastFlag("StudioAssetManagerCaseInsensitiveFilter", false)
 
 local AssetGridContainer = Roact.Component:extend("AssetGridContainer")
 
@@ -137,17 +137,32 @@ function AssetGridContainer:createTiles(apiImpl, localization, theme,
     else
         for _, asset in pairs(assets) do
             -- pass in true for plain to disable magic characters like (, ), %...
-            if string.find(asset.name, searchTerm, 1, true) then
-                asset.key = asset.layoutOrder
-                local assetTile = Roact.createElement(Tile, {
-                    AssetData = asset,
-                    LayoutOrder = asset.layoutOrder,
-                    StyleModifier = selectedAssets[asset.layoutOrder] and StyleModifier.Selected or nil,
-                    Enabled = enabled,
-                    OnOpenAssetPreview = self.onOpenAssetPreview,
-                })
-                assetsToDisplay[asset.layoutOrder] = assetTile
-                numberAssets = numberAssets + 1
+            if FFlagStudioAssetManagerCaseInsensitiveFilter then
+                if string.find(string.lower(asset.name), string.lower(searchTerm), 1, true) then
+                    asset.key = asset.layoutOrder
+                    local assetTile = Roact.createElement(Tile, {
+                        AssetData = asset,
+                        LayoutOrder = asset.layoutOrder,
+                        StyleModifier = selectedAssets[asset.layoutOrder] and StyleModifier.Selected or nil,
+                        Enabled = enabled,
+                        OnOpenAssetPreview = self.onOpenAssetPreview,
+                    })
+                    assetsToDisplay[asset.layoutOrder] = assetTile
+                    numberAssets = numberAssets + 1
+                end
+            else
+                if string.find(asset.name, searchTerm, 1, true) then
+                    asset.key = asset.layoutOrder
+                    local assetTile = Roact.createElement(Tile, {
+                        AssetData = asset,
+                        LayoutOrder = asset.layoutOrder,
+                        StyleModifier = selectedAssets[asset.layoutOrder] and StyleModifier.Selected or nil,
+                        Enabled = enabled,
+                        OnOpenAssetPreview = self.onOpenAssetPreview,
+                    })
+                    assetsToDisplay[asset.layoutOrder] = assetTile
+                    numberAssets = numberAssets + 1
+                end
             end
         end
     end
@@ -287,7 +302,7 @@ local function mapStateToProps(state, props)
         IsFetchingAssets = assetManagerReducer.isFetchingAssets,
         SearchTerm = assetManagerReducer.searchTerm,
         SelectedAssets = assetManagerReducer.selectedAssets,
-        HasLinkedScripts = FFlagFixDisplayScriptsFolderInAssetManager and assetManagerReducer.hasLinkedScripts or nil,
+        HasLinkedScripts = assetManagerReducer.hasLinkedScripts,
 	}
 end
 

@@ -359,7 +359,7 @@ function MainView:render()
 					searchTerm = searchTerm,
 					categoryIndex = (not FFlagUseCategoryNameInToolbox) and (categoryIndex),
 					categoryName = categoryName,
-					mostRecentAssetInsertTime = self.props.mostRecentAssetInsertTime,
+					mostRecentAssetInsertTime = self.props.mostRecentAssetInsertTime, -- TODO: Remove when retiring FFlagToolboxFixDuplicateAssetInsertions as True
 
 					ZIndex = 1,
 
@@ -427,7 +427,7 @@ local function mapStateToProps(state, props)
 
 		audioSearchInfo = pageInfo.audioSearchInfo,
 		categoryIndex = (not FFlagUseCategoryNameInToolbox) and (pageInfo.categoryIndex or 1),
-		categoryName = pageInfo.categoryName,
+		categoryName = FFlagUseCategoryNameInToolbox and (pageInfo.categoryName or Category.DEFAULT.name) or nil,
 		sortIndex = pageInfo.sortIndex or 1,
 		searchTerm = pageInfo.searchTerm or "",
 		creator = pageInfo.creator,

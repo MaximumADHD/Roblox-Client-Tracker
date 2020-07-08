@@ -1,8 +1,8 @@
 local Selection = game:GetService("Selection")
 local Workspace = game:GetService("Workspace")
 
-local Framework = script.Parent.Parent
-local SelectionWrapper = require(Framework.Utility.SelectionWrapper)
+local DraggerFramework = script.Parent.Parent
+local SelectionWrapper = require(DraggerFramework.Utility.SelectionWrapper)
 
 return function()
 	it("should return selected parts", function()

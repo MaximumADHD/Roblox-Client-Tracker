@@ -14,6 +14,7 @@ local SelectionWrapper = require(DraggerFramework.Utility.SelectionWrapper)
 local getFFlagFixAttachmentDrag = require(DraggerFramework.Flags.getFFlagFixAttachmentDrag)
 local getFFlagUseBulkMove = require(DraggerFramework.Flags.getFFlagUseBulkMove)
 local getFFlagFixCollisionTest = require(DraggerFramework.Flags.getFFlagFixCollisionTest)
+local getFFlagDraggerRefactor = require(DraggerFramework.Flags.getFFlagDraggerRefactor)
 
 local DEFAULT_COLLISION_THRESHOLD = 0.001
 
@@ -265,6 +266,7 @@ function PartMover:_prepareJoints(parts, breakJoints)
 	local mainPartCFrameInv = self._originalMainPartCFrame:Inverse()
 	local debugTotalDestroyed = 0
 	local debugTotalFoundJoints = 0
+	local fflagDraggerRefactor = getFFlagDraggerRefactor()
 	for _, part in ipairs(parts) do
 		self._alreadyConnectedToSets[part] = {}
 		for _, joint in ipairs(part:GetJoints()) do
@@ -305,6 +307,9 @@ function PartMover:_prepareJoints(parts, breakJoints)
 					joint.Enabled = false
 					self._reenableWeldConstraints[joint] = true
 				end
+			elseif fflagDraggerRefactor and joint:IsA("NoCollisionConstraint") then
+				local other = JointUtil.getNoCollisionConstraintCounterpart(joint, part)
+				self._alreadyConnectedToSets[part][other] = true
 			else
 				error("Unexpected Joint Type: " .. joint.ClassName)
 			end

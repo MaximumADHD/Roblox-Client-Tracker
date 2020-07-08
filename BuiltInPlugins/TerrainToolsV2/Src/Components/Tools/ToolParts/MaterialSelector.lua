@@ -267,7 +267,7 @@ function MaterialSelector:render()
 				BackgroundTransparency = 1,
 			}, {
 				Label = Roact.createElement("TextLabel", {
-					Text = localization:getText("MaterialSettings", "ChooseMaterial"),
+					Text =  self.props.Label or localization:getText("MaterialSettings", "ChooseMaterial"),
 					TextColor3 = theme.textColor,
 					Size = UDim2.new(1, 0, 0, 16),
 					TextXAlignment = Enum.TextXAlignment.Left,

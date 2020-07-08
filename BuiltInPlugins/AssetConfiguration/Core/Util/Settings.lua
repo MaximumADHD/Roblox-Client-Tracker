@@ -86,7 +86,7 @@ end
 
 if FFlagUseCategoryNameInToolbox then
 	function Settings:getSelectedCategoryName()
-		return self:_getSetting(SELECTED_CATEGORY_NAME_KEY, Category.FREE_MODELS.name)
+		return self:_getSetting(SELECTED_CATEGORY_NAME_KEY, Category.DEFAULT.name)
 	end
 
 	function Settings:setSelectedCategoryName(categoryName)
@@ -161,7 +161,7 @@ function Settings:loadInitialSettings()
 		initSettings.searchTerm = game.DefaultToolboxSearch.Value
 		-- Also set the initial category to free models and relevant sort
 		if FFlagUseCategoryNameInToolbox then
-			initSettings.categoryName = Category.FREE_MODELS.name
+			initSettings.categoryName = Category.DEFAULT.name
 			initSettings.sortIndex = Sort.getDefaultSortForCategory(initSettings.categoryName)
 		else
 			local currentTab = FFlagEnableDefaultSortFix and Category.MARKETPLACE_KEY or nil

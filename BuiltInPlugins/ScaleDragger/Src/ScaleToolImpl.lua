@@ -6,7 +6,6 @@
 local ChangeHistoryService = game:GetService("ChangeHistoryService")
 local StudioService = game:GetService("StudioService")
 local UserInputService = game:GetService("UserInputService")
-local RunService = game:GetService("RunService")
 
 -- Libraries
 local Plugin = script.Parent.Parent
@@ -14,18 +13,26 @@ local plugin = Plugin.Parent
 local Roact = require(Plugin.Packages.Roact)
 
 -- Dragger Framework
-local Framework = Plugin.Packages.DraggerFramework
-local Colors = require(Framework.Utility.Colors)
-local Math = require(Framework.Utility.Math)
-local JointMaker = require(Framework.Utility.JointMaker)
-local getHandleScale = require(Framework.Utility.getHandleScale)
-local getBoundingBoxScale = require(Framework.Utility.getBoundingBoxScale)
+local DraggerFramework = Plugin.Packages.DraggerFramework
+local Colors = require(DraggerFramework.Utility.Colors)
+local Math = require(DraggerFramework.Utility.Math)
+local JointMaker = require(DraggerFramework.Utility.JointMaker)
+local getHandleScale = require(DraggerFramework.Utility.getHandleScale)
+local getBoundingBoxScale = require(DraggerFramework.Utility.getBoundingBoxScale)
 
-local StandaloneSelectionBox = require(Framework.Components.StandaloneSelectionBox)
+local StandaloneSelectionBox = require(DraggerFramework.Components.StandaloneSelectionBox)
 
 local ScaleHandleView = require(Plugin.Src.ScaleHandleView)
 
-local getFFlagScaleUnionsUniformly = require(Framework.Flags.getFFlagScaleUnionsUniformly)
+local getFFlagScaleUnionsUniformly = require(DraggerFramework.Flags.getFFlagScaleUnionsUniformly)
+local getFFlagDraggerRefactor = require(DraggerFramework.Flags.getFFlagDraggerRefactor)
+
+-- Sanity check that global references have been removed
+if getFFlagDraggerRefactor() then
+	StudioService = nil
+	UserInputService = nil
+	plugin = nil
+end
 
 local ScaleToolImpl = {}
 ScaleToolImpl.__index = ScaleToolImpl
@@ -109,19 +116,29 @@ local function isShiftKeyDown()
 	return UserInputService:IsKeyDown(Enum.KeyCode.LeftShift) or UserInputService:IsKeyDown(Enum.KeyCode.RightShift)
 end
 
-local function snapToGrid(distance)
-	local gridSize = StudioService.GridSize
-	return math.floor(distance / gridSize + 0.5) * gridSize
+local snapToGrid
+if getFFlagDraggerRefactor() then
+	function snapToGrid(distance, gridSize)
+		return math.floor(distance / gridSize + 0.5) * gridSize
+	end
+else
+	function snapToGrid(distance)
+		local gridSize = StudioService.GridSize
+		return math.floor(distance / gridSize + 0.5) * gridSize
+	end
 end
 
 local function nextNormalId(normalId)
 	return normalId % 3 + 1
 end
 
-function ScaleToolImpl.new()
+function ScaleToolImpl.new(draggerContext)
 	local self = {}
 	self._handles = {}
 	self._jointMaker = JointMaker.new()
+	if getFFlagDraggerRefactor() then
+		self._draggerContext = draggerContext
+	end
 	return setmetatable(self, ScaleToolImpl)
 end
 
@@ -201,9 +218,16 @@ function ScaleToolImpl:render(hoveredHandleId)
 			end
 		end
 
-		if areJointsEnabled() and self._jointPairs then
-			local scale = getBoundingBoxScale(self._boundingBox.CFrame, self._boundingBox.Size)
-			children.JointDisplay = self._jointPairs:renderJoints(scale)
+		if getFFlagDraggerRefactor() then
+			if self._draggerContext:shouldJoinSurfaces() and self._jointPairs then
+				local scale = getBoundingBoxScale(self._draggerContext, self._boundingBox.CFrame, self._boundingBox.Size)
+				children.JointDisplay = self._jointPairs:renderJoints(scale)
+			end
+		else
+			if areJointsEnabled() and self._jointPairs then
+				local scale = getBoundingBoxScale(self._boundingBox.CFrame, self._boundingBox.Size)
+				children.JointDisplay = self._jointPairs:renderJoints(scale)
+			end
 		end
 	else
 		for handleId, handleProps in pairs(self._handles) do
@@ -223,10 +247,20 @@ function ScaleToolImpl:render(hoveredHandleId)
 
 	-- Show selection bounding box when scaling multiple items.
 	if #self._partsToResize > 1 then
-		children.SelectionBoundingBox = Roact.createElement(StandaloneSelectionBox, {
-			CFrame = self._boundingBox.CFrame,
-			Size = self._boundingBox.Size,
-		})
+		if getFFlagDraggerRefactor() then
+			children.SelectionBoundingBox = Roact.createElement(StandaloneSelectionBox, {
+				CFrame = self._boundingBox.CFrame,
+				Size = self._boundingBox.Size,
+				Color = self._draggerContext:getSelectionBoxColor(),
+				LineThickness = self._draggerContext:getHoverLineThickness(),
+				Container = self._draggerContext:getGuiParent(),
+			})
+		else
+			children.SelectionBoundingBox = Roact.createElement(StandaloneSelectionBox, {
+				CFrame = self._boundingBox.CFrame,
+				Size = self._boundingBox.Size,
+			})
+		end
 	end
 
 	return Roact.createFragment(children)
@@ -301,8 +335,14 @@ function ScaleToolImpl:mouseDrag(mouseRay)
 	end
 
 	local function shouldKeepAspectRatio(part)
-		if isShiftKeyDown() then
-			return true
+		if getFFlagDraggerRefactor() then
+			if self._draggerContext:isShiftKeyDown() then
+				return true
+			end
+		else
+			if isShiftKeyDown() then
+				return true
+			end
 		end
 		if part:IsA("Part") and part.Shape == Enum.PartType.Ball then
 			return true
@@ -320,13 +360,23 @@ function ScaleToolImpl:mouseDrag(mouseRay)
 		return
 	end
 
-	local delta = snapToGrid(distance - self._startDistance)
+	local delta
+	if getFFlagDraggerRefactor() then
+		delta = snapToGrid(distance - self._startDistance, self._draggerContext:getGridSize())
+	else
+		delta = snapToGrid(distance - self._startDistance)
+	end
 
 	local handleProps = self._handles[self._draggingHandleId]
 	local normalId = handleProps.NormalId
 	local axis = handleProps.Axis
 
-	local resizeFromCenter = isCtrlKeyDown()
+	local resizeFromCenter
+	if getFFlagDraggerRefactor() then
+		resizeFromCenter = self._draggerContext:isCtrlKeyDown()
+	else
+		resizeFromCenter = isCtrlKeyDown()
+	end
 	if resizeFromCenter then
 		delta = delta * 2
 	end
@@ -343,8 +393,14 @@ function ScaleToolImpl:mouseDrag(mouseRay)
 	self:_applyFixup(self._lastGoodScale)
 	self._jointMaker:fixupConstraintLengths()
 
-	if areJointsEnabled() then
-		self._jointPairs = self._jointMaker:computeJointPairs()
+	if getFFlagDraggerRefactor() then
+		if self._draggerContext:shouldJoinSurfaces() then
+			self._jointPairs = self._jointMaker:computeJointPairs()
+		end
+	else
+		if areJointsEnabled() then
+			self._jointPairs = self._jointMaker:computeJointPairs()
+		end
 	end
 end
 
@@ -375,11 +431,16 @@ end
 function ScaleToolImpl:_calculateMinimumSize(normalId)
 	local MIN_PART_SIZE = 0.05
 	if #self._partsToResize == 1 then
-		local gridSize =
-			Vector3.new(
+		local gridSize
+		if getFFlagDraggerRefactor() then
+			local gridSizeValue = self._draggerContext:getGridSize()
+			gridSize = Vector3.new(gridSizeValue, gridSizeValue, gridSizeValue)
+		else
+			gridSize = Vector3.new(
 				StudioService.GridSize,
 				StudioService.GridSize,
 				StudioService.GridSize)
+		end
 		local hardMinSize =
 			Vector3.new(MIN_PART_SIZE, MIN_PART_SIZE, MIN_PART_SIZE)
 		local partSize = self._partsToResize[1].Size
@@ -401,9 +462,16 @@ function ScaleToolImpl:_calculateMinimumSize(normalId)
 		-- large as the grid size.
 		local minSizeComponents =
 			{self._minimumSize.X, self._minimumSize.Y, self._minimumSize.Z}
-		local sizeRatio = minSizeComponents[normalId] / StudioService.GridSize
-		if sizeRatio < 1 then
-			self._minimumSize = self._minimumSize / sizeRatio
+		if getFFlagDraggerRefactor() then
+			local sizeRatio = minSizeComponents[normalId] / self._draggerContext:getGridSize()
+			if sizeRatio < 1 then
+				self._minimumSize = self._minimumSize / sizeRatio
+			end
+		else
+			local sizeRatio = minSizeComponents[normalId] / StudioService.GridSize
+			if sizeRatio < 1 then
+				self._minimumSize = self._minimumSize / sizeRatio
+			end
 		end
 
 		-- Finally, we CAN still resize down to less than the grid size if
@@ -436,7 +504,8 @@ end
 	If includeInitiallyTouching is false then collisions with parts it was
 	colliding with to begin with are ignored.
 ]]
-function ScaleToolImpl:_binarySearchForGoodPartSize(resizeFunction, initialFraction, targetFraction, includeInitiallyTouching)
+function ScaleToolImpl:_binarySearchForGoodPartSize(
+	resizeFunction, initialFraction, targetFraction, includeInitiallyTouching)
 	-- Early out, can we resize right to the target?
 	resizeFunction(targetFraction)
 	local lastIterationHadCollision = self._jointMaker:isColliding(includeInitiallyTouching)
@@ -447,7 +516,7 @@ function ScaleToolImpl:_binarySearchForGoodPartSize(resizeFunction, initialFract
 	local collides = 0
 	local min = initialFraction
 	local max = targetFraction
-	for i = 1, 32 do
+	for _ = 1, 32 do
 		local mid = 0.5 * (min + max)
 		resizeFunction(mid)
 		lastIterationHadCollision = self._jointMaker:isColliding(includeInitiallyTouching)
@@ -501,18 +570,34 @@ function ScaleToolImpl:_resizePart(part, normalId, axis, delta, keepAspectRatio,
 		part.CFrame = originalCFrame + deltaPosition * frac
 	end
 
-	if areCollisionsEnabled() then
-		if not deltaSize:FuzzyEq(Vector3.new()) then
-			local initialFraction = getFraction(self._lastDeltaSize, deltaSize)
-			local targetFraction = 1.0
-			local includeInitiallyTouching = true
-			self:_binarySearchForGoodPartSize(doResize,
-				initialFraction,
-				targetFraction,
-				includeInitiallyTouching)
+	if getFFlagDraggerRefactor() then
+		if self._draggerContext:areCollisionsEnabled() then
+			if not deltaSize:FuzzyEq(Vector3.new()) then
+				local initialFraction = getFraction(self._lastDeltaSize, deltaSize)
+				local targetFraction = 1.0
+				local includeInitiallyTouching = true
+				self:_binarySearchForGoodPartSize(doResize,
+					initialFraction,
+					targetFraction,
+					includeInitiallyTouching)
+			end
+		else
+			doResize(1.0)
 		end
 	else
-		doResize(1.0)
+		if areCollisionsEnabled() then
+			if not deltaSize:FuzzyEq(Vector3.new()) then
+				local initialFraction = getFraction(self._lastDeltaSize, deltaSize)
+				local targetFraction = 1.0
+				local includeInitiallyTouching = true
+				self:_binarySearchForGoodPartSize(doResize,
+					initialFraction,
+					targetFraction,
+					includeInitiallyTouching)
+			end
+		else
+			doResize(1.0)
+		end
 	end
 
 	self._boundingBox.CFrame = part.CFrame
@@ -570,16 +655,30 @@ function ScaleToolImpl:_resizeParts(normalId, axis, delta, resizeFromCenter)
 	end
 
 	local isUnitScale = math.abs(newScale - 1) < 0.00001
-	if areCollisionsEnabled() and not isUnitScale then
-		local includeInitiallyTouching = true
-		local initialFraction = (self._lastGoodScale.X - 1) / (newScale - 1)
-		local targetFraction = 1.0
-		self:_binarySearchForGoodPartSize(doResize,
-			initialFraction,
-			targetFraction,
-			includeInitiallyTouching)
+	if getFFlagDraggerRefactor() then
+		if self._draggerContext:areCollisionsEnabled() and not isUnitScale then
+			local includeInitiallyTouching = true
+			local initialFraction = (self._lastGoodScale.X - 1) / (newScale - 1)
+			local targetFraction = 1.0
+			self:_binarySearchForGoodPartSize(doResize,
+				initialFraction,
+				targetFraction,
+				includeInitiallyTouching)
+		else
+			doResize(1.0)
+		end
 	else
-		doResize(1.0)
+		if areCollisionsEnabled() and not isUnitScale then
+			local includeInitiallyTouching = true
+			local initialFraction = (self._lastGoodScale.X - 1) / (newScale - 1)
+			local targetFraction = 1.0
+			self:_binarySearchForGoodPartSize(doResize,
+				initialFraction,
+				targetFraction,
+				includeInitiallyTouching)
+		else
+			doResize(1.0)
+		end
 	end
 
 	-- Update bounding box
@@ -603,13 +702,23 @@ function ScaleToolImpl:_updateHandles()
 			local boundingBoxOffset = 0.5 * math.abs(localSize.Z)
 			local handleBaseCFrame = self._boundingBox.CFrame * offset * CFrame.new(0, 0, -boundingBoxOffset)
 
-			self._handles[handleId] = {
-				Color = handleDefinition.Color,
-				Axis = offset.LookVector,
-				HandleCFrame = handleBaseCFrame,
-				NormalId = handleDefinition.NormalId,
-				Scale = getHandleScale(handleBaseCFrame.Position),
-			}
+			if getFFlagDraggerRefactor() then
+				self._handles[handleId] = {
+					Color = handleDefinition.Color,
+					Axis = offset.LookVector,
+					HandleCFrame = handleBaseCFrame,
+					NormalId = handleDefinition.NormalId,
+					Scale = self._draggerContext:getHandleScale(handleBaseCFrame.Position),
+				}
+			else
+				self._handles[handleId] = {
+					Color = handleDefinition.Color,
+					Axis = offset.LookVector,
+					HandleCFrame = handleBaseCFrame,
+					NormalId = handleDefinition.NormalId,
+					Scale = getHandleScale(handleBaseCFrame.Position),
+				}
+			end
 		end
 	end
 end

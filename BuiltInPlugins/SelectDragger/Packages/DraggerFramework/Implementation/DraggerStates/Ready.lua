@@ -1,22 +1,26 @@
+if require(script.Parent.Parent.Parent.Flags.getFFlagDraggerRefactor)() then
+	return require(script.Parent.Ready_Refactor)
+end
+
 local StudioService = game:GetService("StudioService")
 local UserInputService = game:GetService("UserInputService")
 
-local Framework = script.Parent.Parent.Parent
-local Packages = Framework.Parent
+local DraggerFramework = script.Parent.Parent.Parent
+local Packages = DraggerFramework.Parent
 local plugin = Packages.Parent.Parent
 
 local Roact = require(Packages.Roact)
-local DraggerStateType = require(Framework.Implementation.DraggerStateType)
-local AnimatedHoverBox = require(Framework.Components.AnimatedHoverBox)
-local SelectionHelper = require(Framework.Utility.SelectionHelper)
-local SelectionWrapper = require(Framework.Utility.SelectionWrapper)
-local getGeometry = require(Framework.Utility.getGeometry)
-local getFaceInstance = require(Framework.Utility.getFaceInstance)
-local HoverTracker = require(Framework.Implementation.HoverTracker)
-local StandardCursor = require(Framework.Utility.StandardCursor)
+local DraggerStateType = require(DraggerFramework.Implementation.DraggerStateType)
+local AnimatedHoverBox = require(DraggerFramework.Components.AnimatedHoverBox)
+local SelectionHelper = require(DraggerFramework.Utility.SelectionHelper)
+local SelectionWrapper = require(DraggerFramework.Utility.SelectionWrapper)
+local getGeometry = require(DraggerFramework.Utility.getGeometry)
+local getFaceInstance = require(DraggerFramework.Utility.getFaceInstance)
+local HoverTracker = require(DraggerFramework.Implementation.HoverTracker)
+local StandardCursor = require(DraggerFramework.Utility.StandardCursor)
 
-local getFFlagSelectWeldConstraints = require(Framework.Flags.getFFlagSelectWeldConstraints)
-local getFFlagStudioServiceHoverInstance = require(Framework.Flags.getFFlagStudioServiceHoverInstance)
+local getFFlagSelectWeldConstraints = require(DraggerFramework.Flags.getFFlagSelectWeldConstraints)
+local getFFlagStudioServiceHoverInstance = require(DraggerFramework.Flags.getFFlagStudioServiceHoverInstance)
 
 local function areConstraintDetailsShown()
 	return StudioService.ShowConstraintDetails

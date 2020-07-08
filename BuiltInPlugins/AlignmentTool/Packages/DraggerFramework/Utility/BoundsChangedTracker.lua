@@ -5,7 +5,7 @@
 	Watches a set of parts for cframe and size changes.
 ]]
 
-local Framework = script.Parent.Parent
+local DraggerFramework = script.Parent.Parent
 
 local MAX_PARTS_TO_TRACK_BOUNDS_FOR = 1024
 

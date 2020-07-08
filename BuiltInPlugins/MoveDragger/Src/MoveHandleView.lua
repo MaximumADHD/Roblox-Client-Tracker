@@ -3,8 +3,8 @@ local Workspace = game:GetService("Workspace")
 local CoreGui = game:GetService("CoreGui")
 
 local Plugin = script.Parent.Parent
-local Framework = Plugin.Packages.DraggerFramework
-local Math = require(Framework.Utility.Math)
+local DraggerFramework = Plugin.Packages.DraggerFramework
+local Math = require(DraggerFramework.Utility.Math)
 local Roact = require(Plugin.Packages.Roact)
 
 local MoveHandleView = Roact.PureComponent:extend("MoveHandleView")

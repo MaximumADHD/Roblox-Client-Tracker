@@ -1,4 +1,5 @@
 local FFlagToolboxUseNewPluginEndpoint = settings():GetFFlag("ToolboxUseNewPluginEndpoint")
+local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -24,11 +25,14 @@ return function(networkInterface, settings, newPageInfo)
 
 		local pageInfo = store:getState().pageInfo
 		local audioSearchInfo = pageInfo.audioSearchInfo -- or store:getState().assets.audioSearchInfo
-		local category
 		local categoryName
 		if FFlagToolboxUseNewPluginEndpoint then
-			category = pageInfo.categories[pageInfo.categoryIndex]
-			categoryName = category and category.name
+			if FFlagUseCategoryNameInToolbox then
+				categoryName = pageInfo.categoryName
+			else
+				local category = pageInfo.categories[pageInfo.categoryIndex]
+				categoryName = category and category.name
+			end
 		end
 
 		if (not FFlagToolboxUseNewPluginEndpoint) and audioSearchInfo then

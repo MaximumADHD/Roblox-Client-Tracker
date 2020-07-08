@@ -12,6 +12,7 @@ local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 local PageInfoHelper = require(Plugin.Core.Util.PageInfoHelper)
 local getTimeString = require(Plugin.Core.Util.getTimeString)
 local Settings = require(Plugin.Core.ContextServices.Settings)
+local Category = require(Plugin.Core.Types.Category)
 
 local ContextServices = require(Libs.Framework.ContextServices)
 local Cryo = require(Libs.Cryo)
@@ -197,7 +198,7 @@ local function mapStateToProps(state, props)
 		creator = pageInfo.creator,
 		categories = pageInfo.categories or {},
 		categoryIndex = (not FFlagUseCategoryNameInToolbox) and (pageInfo.categoryIndex or 1),
-		categoryName = pageInfo.categoryName,
+		categoryName = FFlagUseCategoryNameInToolbox and (pageInfo.categoryName or Category.DEFAULT.name) or nil,
 
 		searchTerm = pageInfo.searchTerm or "",
 		creatorFilter = pageInfo.creator or {},

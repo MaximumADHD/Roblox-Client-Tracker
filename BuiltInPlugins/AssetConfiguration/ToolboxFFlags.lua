@@ -34,7 +34,7 @@ game:DefineFastFlag("AssetConfigDarkerScrollBar", false)
 game:DefineFastFlag("AssetConfigUseItemConfig", false)
 game:DefineFastFlag("EnableToolboxVideos", false)
 
-game:DefineFastFlag("CMSPremiumBenefitsLink", false)
+game:DefineFastFlag("CMSPremiumBenefitsLink2", false)
 game:DefineFastFlag("CMSFixAssetPreviewForThumbnailConfig", false)
 
 game:DefineFastFlag("ToolboxUseNewAssetType", false)

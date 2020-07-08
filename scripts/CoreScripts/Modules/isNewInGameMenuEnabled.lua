@@ -6,6 +6,10 @@ game:DefineFastFlag("NewInGameMenuABTestEnabled", false)
 game:DefineFastString("NewInGameMenuForcedUserIds", "")
 
 return function()
+	if game:GetEngineFeature("UniversalAppOnWindows") then
+		return true
+	end
+
 	local localPlayer = Players.LocalPlayer
 
 	if localPlayer == nil then

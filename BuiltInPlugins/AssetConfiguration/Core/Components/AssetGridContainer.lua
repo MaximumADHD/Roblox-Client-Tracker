@@ -14,6 +14,7 @@
 		callback tryOpenAssetConfig, invoke assetConfig page with an assetId.
 ]]
 
+local FFlagToolboxFixDuplicateAssetInsertions = game:DefineFastFlag("ToolboxFixDuplicateAssetInsertions", false)
 local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
 local FFlagEnableSearchedWithoutInsertionAnalytic = game:GetFastFlag("EnableSearchedWithoutInsertionAnalytic")
@@ -70,14 +71,38 @@ function AssetGridContainer:init(props)
 		isShowingToolMessageBox = false,
 	}
 
+	if FFlagToolboxFixDuplicateAssetInsertions then
+		--[[
+			We need to track when the user last triggered an insertion, because inserting
+			an asset can take several seconds depending on the asset's loading speed. This
+			means throttling inserts via "onAssetInserted" does not work as intended
+			because a user can queue up several inserts of an asset which is not loaded yet,
+			and "onAssetInserted" does not fire and update the last inserted time until
+			the asset in question has finished loading.
+		]]
+		self.lastInsertAttemptTime = 0
+	end
+
 	if FFlagEnableSearchedWithoutInsertionAnalytic then
 
 		self.canInsertAsset = function()
-			return (tick() - self.props.mostRecentAssetInsertTime > Constants.TIME_BETWEEN_ASSET_INSERTION)
-				and not self.insertToolPromise:isWaiting()
+
+			if FFlagToolboxFixDuplicateAssetInsertions then
+				return (tick() - self.lastInsertAttemptTime > Constants.TIME_BETWEEN_ASSET_INSERTION)
+					and not self.insertToolPromise:isWaiting()
+			else
+				return (tick() - self.props.mostRecentAssetInsertTime > Constants.TIME_BETWEEN_ASSET_INSERTION)
+					and not self.insertToolPromise:isWaiting()
+			end
 		end
 
 	else
+
+		if FFlagToolboxFixDuplicateAssetInsertions then
+			self.canInsertAsset = function()
+				return tick() - self.lastInsertAttemptTime > Constants.TIME_BETWEEN_ASSET_INSERTION
+			end
+		else
 			-- Keep track of the timestamp an asset was last inserted
 			-- Prevents double clicking on assets inserting 2 instead of just 1
 			self.lastAssetInsertedTime = 0
@@ -89,6 +114,8 @@ function AssetGridContainer:init(props)
 			self.onAssetInserted = function()
 				self.lastAssetInsertedTime = tick()
 			end
+		end
+
 	end
 
 	self.openAssetPreview = function(assetData)
@@ -198,7 +225,9 @@ function AssetGridContainer:init(props)
 		if FFlagEnableSearchedWithoutInsertionAnalytic then
 			self.props.onAssetInsertionSuccesful()
 		else
-			self.onAssetInserted()
+			if not FFlagToolboxFixDuplicateAssetInsertions then
+				self.onAssetInserted()
+			end
 		end
 	end
 
@@ -229,6 +258,10 @@ function AssetGridContainer:init(props)
 	end
 
 	self.tryInsert = function(assetData, assetWasDragged)
+		if FFlagToolboxFixDuplicateAssetInsertions then
+			self.lastInsertAttemptTime = tick()
+		end
+
 		local asset = assetData.Asset
 		local assetId = asset.Id
 		local assetName = asset.Name
@@ -403,7 +436,7 @@ function AssetGridContainer:render()
 					onPreviewAudioButtonClicked = self.onPreviewAudioButtonClicked,
 					onAssetPreviewButtonClicked = self.openAssetPreview,
 
-					onAssetInserted = self.onAssetInserted,
+					onAssetInserted = not FFlagToolboxFixDuplicateAssetInsertions and self.onAssetInserted or nil, -- This prop is not used in the child component
 					canInsertAsset = self.canInsertAsset,
 					tryInsert = self.tryInsert,
 					tryCreateContextMenu = tryCreateLocalizedContextMenu,
@@ -464,7 +497,7 @@ local function mapStateToProps(state, props)
 	local pageInfo = state.pageInfo or {}
 
 	local categoryIndex = (not FFlagUseCategoryNameInToolbox) and (pageInfo.categoryIndex or 1)
-	local categoryName = pageInfo.categoryName
+	local categoryName = FFlagUseCategoryNameInToolbox and (pageInfo.categoryName or Category.DEFAULT.name) or nil
 
 	return {
 		currentSoundId = sound.currentSoundId or 0,

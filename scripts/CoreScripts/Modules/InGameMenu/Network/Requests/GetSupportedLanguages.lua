@@ -1,4 +1,4 @@
---Remove with FFlagTopBarNewGamepadMenu
+--Remove with isNewGamepadMenuEnabled
 
 local InGameMenu = script.Parent.Parent.Parent
 local Url = require(InGameMenu.Network.Url)

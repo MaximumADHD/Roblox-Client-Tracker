@@ -40,6 +40,19 @@ return {
 	AnalyticsSettingsChangeName = "change_ingame_settings",
 	AnalyticsMenuActionName = "ingame_menu_action",
 	AnalyticsMenuOpenName = "menu_open",
+	AnalyticsMenuOpenTypes = {
+		Keyboard = "KeyboardShortcut",
+		TopbarButton = "TopbarButton",
+		ReportAbuseTriggered = "ReportAbuse",
+		PlayersTriggered = "Players",
+		SettingsTriggered = "Settings",
+		EducationalMenuTriggered = "EducationalMenu",
+
+		-- Legacy menu open types. These occur when the old system menu is
+		-- opened; the new menu won't trigger it.
+		GamepadLeaveGame = "GamepadLeaveGame",
+		GamepadResetCharacter = "GamepadResetCharacter",
+	},
 	AnalyticsMenuCloseName = "menu_close",
 	AnalyticsLeaveGameName = "leave_game",
 	AnalyticsLeaveToHomeName = "leave_to_home",

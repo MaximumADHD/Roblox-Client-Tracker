@@ -8,8 +8,8 @@ local Plugin = script.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 
 -- Dragger Framework
-local Framework = Plugin.Packages.DraggerFramework
-local Math = require(Framework.Utility.Math)
+local DraggerFramework = Plugin.Packages.DraggerFramework
+local Math = require(DraggerFramework.Utility.Math)
 
 local ScaleHandleView = Roact.PureComponent:extend("ScaleHandleView")
 

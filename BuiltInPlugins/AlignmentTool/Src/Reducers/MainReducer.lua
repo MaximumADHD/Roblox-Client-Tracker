@@ -6,6 +6,8 @@ local AlignmentMode = require(Plugin.Src.Utility.AlignmentMode)
 local RelativeTo = require(Plugin.Src.Utility.RelativeTo)
 
 local initialState = {
+	toolEnabled = false,
+
 	alignEnabled = false,
 	alignableObjects = {},
 	alignmentMode = AlignmentMode.Center,
@@ -18,6 +20,12 @@ local initialState = {
 }
 
 local MainReducer = Rodux.createReducer(initialState, {
+	SetToolEnabled = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			toolEnabled = action.toolEnabled,
+		})
+	end,
+
 	SetAlignEnabled = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			alignEnabled = action.alignEnabled,

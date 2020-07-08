@@ -1,12 +1,12 @@
 local Workspace = game:GetService("Workspace")
 
 return function()
-	local Framework = script.Parent.Parent
-	local Library = Framework.Parent.Parent
+	local DraggerFramework = script.Parent.Parent
+	local Library = DraggerFramework.Parent.Parent
 
 	local Roact = require(Library.Packages.Roact)
 
-	local SelectionDot = require(Framework.Components.SelectionDot)
+	local SelectionDot = require(DraggerFramework.Components.SelectionDot)
 
 	local function createTestSelectionDot(onScreen)
 		local cameraCFrame = Workspace.CurrentCamera.CFrame

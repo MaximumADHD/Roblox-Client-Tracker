@@ -53,6 +53,7 @@ local VIPServers = Roact.PureComponent:extend("VIPServers")
 
 local FFlagSupportFreePrivateServers = game:GetFastFlag("SupportFreePrivateServers")
 local FFlagVIPServersRebrandToPrivateServers = game:GetFastFlag("VIPServersRebrandToPrivateServers")
+local FFlagFixVIPServerShutdownWarningText = game:GetFastFlag("FixVIPServerShutdownWarningText")
 
 function VIPServers:init()
     self.lastNonFreePrice = 10
@@ -87,6 +88,7 @@ function VIPServers:render()
     local serversCount = vipServersData.activeServersCount and vipServersData.activeServersCount or 0
     local subsCount = vipServersData.activeSubscriptionsCount and vipServersData.activeSubscriptionsCount or 0
     local hasPriceChanged = vipServersData.changed
+    local willShutdown = vipServersData.willShutdown
     local isFree = FFlagSupportFreePrivateServers and price == 0 or false
 
     if not isFree then
@@ -114,8 +116,14 @@ function VIPServers:render()
         end
 
         toggleSubText = localization:getText("Monetization", "PrivateServersHint")
-        if hasPriceChanged then
-            toggleSubText = localization:getText("Monetization", "PrivateServersPriceChangeWarning")
+        if FFlagFixVIPServerShutdownWarningText then
+            if willShutdown then
+                toggleSubText = localization:getText("Monetization", "PrivateServersShutdownWarning")
+            end
+        else
+            if hasPriceChanged then
+                toggleSubText = localization:getText("Monetization", "PrivateServersPriceChangeWarning")
+            end
         end
     else
         if enabled and priceError then
@@ -125,8 +133,14 @@ function VIPServers:render()
         end
 
         toggleSubText = localization:getText("Monetization", "DEPRECATED_VIPServersHint")
-        if hasPriceChanged then
-            toggleSubText = localization:getText("Monetization", "VIPServersPriceChangeWarning")
+        if FFlagFixVIPServerShutdownWarningText then
+            if willShutdown then
+                toggleSubText = localization:getText("Monetization", "VIPServersShutdownWarning")
+            end
+        else
+            if hasPriceChanged then
+                toggleSubText = localization:getText("Monetization", "VIPServersPriceChangeWarning")
+            end
         end
     end
 
@@ -137,7 +151,12 @@ function VIPServers:render()
     local maxPriceConfigHeight = subText and theme.robuxFeeBase.height.withSubText or theme.robuxFeeBase.height.withoutSubText
 
     local showToggleSubText = not selected or (not selected and hasPriceChanged)
-    local toggleSubTextTheme = (not selected and hasPriceChanged) and theme.fontStyle.SmallError or theme.fontStyle.Subtext
+    local toggleSubTextTheme
+    if FFlagFixVIPServerShutdownWarningText then
+        toggleSubTextTheme = (not selected and (hasPriceChanged or willShutdown)) and theme.fontStyle.SmallError or theme.fontStyle.Subtext
+    else
+        toggleSubTextTheme = (not selected and hasPriceChanged) and theme.fontStyle.SmallError or theme.fontStyle.Subtext
+    end
 
     local buttons = {
         {

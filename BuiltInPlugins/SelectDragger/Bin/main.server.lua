@@ -1,17 +1,29 @@
-local ABTestService = game:GetService("ABTestService")
-if not settings():GetFFlag("EnableLuaDraggers") and
-	ABTestService:GetVariant("ForceLuaDraggers") == "Control" then
-	return
+if game:GetFastFlag("UseEngineFeature") then
+	if not game:GetEngineFeature("LuaDraggers") then
+		return
+	end
+else
+	local ABTestService = game:GetService("ABTestService")
+	if not settings():GetFFlag("EnableLuaDraggers") and
+		ABTestService:GetVariant("ForceLuaDraggers") == "Control" then
+		return
+	end
 end
 
 local RunService = game:GetService("RunService")
 
 -- Libraries
 local Plugin = script.Parent.Parent
+local DraggerFramework = Plugin.Packages.DraggerFramework
 local Roact = require(Plugin.Packages.Roact)
 
 -- Dragger component
-local DraggerTool = require(Plugin.Packages.DraggerFramework.DraggerTool)
+local DraggerContext_PluginImpl = require(DraggerFramework.Implementation.DraggerContext_PluginImpl)
+local DraggerToolComponent = require(DraggerFramework.DraggerTools.DraggerToolComponent)
+local DraggerTool = require(DraggerFramework.DraggerTool)
+
+local getFFlagDraggerRefactor = require(DraggerFramework.Flags.getFFlagDraggerRefactor)
+local getFFlagDraggerAnalyticsCleanup = require(DraggerFramework.Flags.getFFlagDraggerAnalyticsCleanup)
 
 local PLUGIN_NAME = "SelectDragger"
 local DRAGGER_TOOL_NAME = "Select"
@@ -32,10 +44,14 @@ local toolButton = nil
 -- selectively ignore the reselect that studio sends us in that case.
 local ignoreNextToolbarClick = false
 
-local function openPlugin()
+local function openPlugin(wasAutoSelected)
 	if pluginHandle then
 		warn("Plugin handle already exists")
 		return
+	end
+
+	if getFFlagDraggerAnalyticsCleanup() then
+		assert(wasAutoSelected ~= nil)
 	end
 
 	pluginEnabled = true
@@ -43,13 +59,25 @@ local function openPlugin()
 
 	toolButton:SetActive(true)
 
-	pluginHandle = Roact.mount(Roact.createElement(DraggerTool, {
-		AnalyticsName = "Select",
-		Mouse = plugin:GetMouse(),
-		AllowDragSelect = true,
-		AllowFreeformDrag = true,
-		ShowSelectionDot = false,
-	}))
+	if getFFlagDraggerRefactor() then
+		pluginHandle = Roact.mount(Roact.createElement(DraggerToolComponent, {
+			AnalyticsName = "Select",
+			Mouse = plugin:GetMouse(),
+			AllowDragSelect = true,
+			AllowFreeformDrag = true,
+			ShowSelectionDot = false,
+			DraggerContext = DraggerContext_PluginImpl.new(plugin, game, settings()),
+			WasAutoSelected = wasAutoSelected,
+		}))
+	else
+		pluginHandle = Roact.mount(Roact.createElement(DraggerTool, {
+			AnalyticsName = "Select",
+			Mouse = plugin:GetMouse(),
+			AllowDragSelect = true,
+			AllowFreeformDrag = true,
+			ShowSelectionDot = false,
+		}))
+	end
 end
 
 local function closePlugin()
@@ -91,7 +119,11 @@ local function main()
 			ignoreNextToolbarClick = true
 			closePlugin()
 		else
-			openPlugin()
+			if getFFlagDraggerAnalyticsCleanup() then
+				openPlugin(false)
+			else
+				openPlugin()
+			end
 		end
 	end)
 end
@@ -103,5 +135,9 @@ main()
 -- * In Run mode, IsRunMode() is true
 -- Those are the two conditions in which the tool should be selected by default
 if not RunService:IsRunning() or RunService:IsRunMode() then
-	openPlugin()
+	if getFFlagDraggerAnalyticsCleanup() then
+		openPlugin(true)
+	else
+		openPlugin()
+	end
 end

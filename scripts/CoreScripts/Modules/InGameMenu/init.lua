@@ -33,15 +33,19 @@ local SetInspectMenuEnabled = require(script.Actions.SetInspectMenuEnabled)
 local SetCurrentPage = require(script.Actions.SetCurrentPage)
 local SetScreenSize = require(script.Actions.SetScreenSize)
 local OpenMenu = require(script.Thunks.OpenMenu)
-local OpenNativeClosePrompt = require(script.Actions.OpenNativeClosePrompt)
+local InGameMenuPolicy = require(script.InGameMenuPolicy)
 
 local GlobalConfig = require(script.GlobalConfig)
+local Constants = require(script.Resources.Constants)
 
 local FFlagDisableAutoTranslateForKeyTranslatedContent = require(
 	RobloxGui.Modules.Flags.FFlagDisableAutoTranslateForKeyTranslatedContent)
 local isNewTopBarEnabled = require(RobloxGui.Modules.TopBar.isNewTopBarEnabled)
 
-local FFlagTopBarNewGamepadMenu = require(RobloxGui.Modules.Flags.FFlagTopBarNewGamepadMenu)
+local isNewGamepadMenuEnabled = require(RobloxGui.Modules.Flags.isNewGamepadMenuEnabled)
+
+local GetFFlagUseRoactPolicyProvider = require(RobloxGui.Modules.Flags.GetFFlagUseRoactPolicyProvider)
+local GetFFlagInstrumentMenuOpenMethods = require(RobloxGui.Modules.Flags.GetFFlagInstrumentMenuOpenMethods)
 
 local OpenChangedEvent = Instance.new("BindableEvent")
 local RespawnBehaviourChangedEvent = Instance.new("BindableEvent")
@@ -52,7 +56,7 @@ return {
 	mountInGameMenu = function()
 		registerSetCores(menuStore)
 		bindMenuActions(menuStore)
-		if FFlagTopBarNewGamepadMenu then
+		if isNewGamepadMenuEnabled() then
 			requestGameNameAndDescription(menuStore)
 		else
 			requestGameInfo(menuStore)
@@ -76,7 +80,7 @@ return {
 				OpenChangedEvent:Fire(newState.isMenuOpen)
 			end
 
-			if FFlagTopBarNewGamepadMenu then
+			if isNewGamepadMenuEnabled() then
 				local newEnabled = newState.respawn.enabled
 				local oldEnabled = oldState.respawn.enabled
 
@@ -97,7 +101,11 @@ return {
 
 			local buttonTree = Roact.createElement(OpenMenuButton, {
 				onClick = function()
-					menuStore:dispatch(OpenMenu)
+					if GetFFlagInstrumentMenuOpenMethods() then
+						menuStore:dispatch(OpenMenu(Constants.AnalyticsMenuOpenTypes.TopbarButton))
+					else
+						menuStore:dispatch(OpenMenu)
+					end
 				end,
 			})
 			Roact.mount(buttonTree, topbarButtonContainer, "OpenInGameMenu")
@@ -120,30 +128,62 @@ return {
 			menuStore:dispatch(SetInspectMenuEnabled(enabled))
 		end)
 
-		local menuTree = Roact.createElement("ScreenGui", {
-			ResetOnSpawn = false,
-			IgnoreGuiInset = true,
-			DisplayOrder = 1,
-			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
-			AutoLocalize = not FFlagDisableAutoTranslateForKeyTranslatedContent,
-			[Roact.Change.AbsoluteSize] = function(rbx)
-				menuStore:dispatch(SetScreenSize(rbx.AbsoluteSize))
-			end
-		}, {
-			StoreProvider = Roact.createElement(RoactRodux.StoreProvider, {
-				store = menuStore,
+		local menuTree
+		if GetFFlagUseRoactPolicyProvider() then
+			menuTree = Roact.createElement("ScreenGui", {
+				ResetOnSpawn = false,
+				IgnoreGuiInset = true,
+				DisplayOrder = 1,
+				ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
+				AutoLocalize = not FFlagDisableAutoTranslateForKeyTranslatedContent,
+				[Roact.Change.AbsoluteSize] = function(rbx)
+					menuStore:dispatch(SetScreenSize(rbx.AbsoluteSize))
+				end
 			}, {
-				ThemeProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
-					style = appStyle,
+				StoreProvider = Roact.createElement(RoactRodux.StoreProvider, {
+					store = menuStore,
 				}, {
-					LocalizationProvider = Roact.createElement(LocalizationProvider, {
-						localization = localization,
+					PolicyProvider = Roact.createElement(InGameMenuPolicy.Provider, {
+						policy = { InGameMenuPolicy.Mapper },
 					}, {
-						InGameMenu = Roact.createElement(App),
+						ThemeProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
+							style = appStyle,
+						}, {
+							LocalizationProvider = Roact.createElement(LocalizationProvider, {
+								localization = localization,
+							}, {
+								InGameMenu = Roact.createElement(App),
+							}),
+						}),
 					}),
-				}),
+				})
 			})
-		})
+		else
+			menuTree = Roact.createElement("ScreenGui", {
+				ResetOnSpawn = false,
+				IgnoreGuiInset = true,
+				DisplayOrder = 1,
+				ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
+				AutoLocalize = not FFlagDisableAutoTranslateForKeyTranslatedContent,
+				[Roact.Change.AbsoluteSize] = function(rbx)
+					menuStore:dispatch(SetScreenSize(rbx.AbsoluteSize))
+				end
+			}, {
+				StoreProvider = Roact.createElement(RoactRodux.StoreProvider, {
+					store = menuStore,
+				}, {
+					ThemeProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
+						style = appStyle,
+					}, {
+						LocalizationProvider = Roact.createElement(LocalizationProvider, {
+							localization = localization,
+						}, {
+							InGameMenu = Roact.createElement(App),
+						}),
+					}),
+				})
+			})
+		end
 
 		Roact.mount(menuTree, CoreGui, "InGameMenu")
 
@@ -154,21 +194,40 @@ return {
 	end,
 
 	openInGameMenu = function()
-		menuStore:dispatch(OpenMenu)
+		if GetFFlagInstrumentMenuOpenMethods() then
+			menuStore:dispatch(OpenMenu(Constants.AnalyticsMenuOpenTypes.TopbarButton))
+		else
+			menuStore:dispatch(OpenMenu)
+		end
 	end,
 
 	openReportDialog = function(player)
-		menuStore:dispatch(OpenMenu)
+		if GetFFlagInstrumentMenuOpenMethods() then
+			menuStore:dispatch(OpenMenu(Constants.AnalyticsMenuOpenTypes.ReportAbuseTriggered))
+		else
+			menuStore:dispatch(OpenMenu)
+		end
+
 		menuStore:dispatch(OpenReportDialog(player.UserId, player.Name))
 	end,
 
 	openGameSettingsPage = function()
-		menuStore:dispatch(OpenMenu)
+		if GetFFlagInstrumentMenuOpenMethods() then
+			menuStore:dispatch(OpenMenu(Constants.AnalyticsMenuOpenTypes.SettingsTriggered))
+		else
+			menuStore:dispatch(OpenMenu)
+		end
+
 		menuStore:dispatch(SetCurrentPage("GameSettings"))
 	end,
 
 	openPlayersPage = function()
-		menuStore:dispatch(OpenMenu)
+		if GetFFlagInstrumentMenuOpenMethods() then
+			menuStore:dispatch(OpenMenu(Constants.AnalyticsMenuOpenTypes.PlayersTriggered))
+		else
+			menuStore:dispatch(OpenMenu)
+		end
+
 		menuStore:dispatch(SetCurrentPage("Players"))
 	end,
 
@@ -187,9 +246,5 @@ return {
 
 	getRespawnBehaviourChangedEvent = function()
 		return RespawnBehaviourChangedEvent
-	end,
-
-	openNativeClosePrompt = function()
-		menuStore:dispatch(OpenNativeClosePrompt())
 	end,
 }

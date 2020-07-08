@@ -413,7 +413,7 @@ local function mapStateToProps(state, props)
 
 	local pageInfo = state.pageInfo or {}
 	local categoryIndex = (not FFlagUseCategoryNameInToolbox) and (pageInfo.categoryIndex or 1)
-	local categoryName = pageInfo.categoryName
+	local categoryName = FFlagUseCategoryNameInToolbox and (pageInfo.categoryName or Category.DEFAULT.name) or nil
 	local searchTerm = pageInfo.searchTerm or ""
 
 	local cachedOwnedAssets = state.purchase.cachedOwnedAssets

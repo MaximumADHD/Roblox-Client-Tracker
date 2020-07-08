@@ -13,6 +13,7 @@ Constants.ToolIcons = {
 	[ToolId.Import] = TexturePath .. "mt_terrain_import.png",
 	[ToolId.ConvertPart] = TexturePath .. "mt_convert_part.png",
 	[ToolId.SeaLevel] = TexturePath .. "mt_sea_level.png",
+	[ToolId.Replace] = TexturePath .. "mt_replace.png",
 	[ToolId.Clear] = TexturePath .. "mt_terrain_clear.png",
 	[ToolId.Select] = TexturePath .. "icon_regions_select.png",
 	[ToolId.Move] = TexturePath .. "icon_regions_move.png",
@@ -65,6 +66,8 @@ Constants.ToolActivatesPlugin = {
 	[ToolId.Flatten] = true,
 	[ToolId.Paint] = true,
 	[ToolId.SeaLevel] = true,
+	[ToolId.Replace] = true,
+
 }
 
 Constants.BiomeToLocalizationKey = {

@@ -29,14 +29,10 @@ local BackpackModule = require(RobloxGui.Modules.BackpackScript)
 local ChatSelector = require(RobloxGui.Modules.ChatSelector)
 
 local EmotesConstants = require(RobloxGui.Modules.EmotesMenu.Constants)
-local FFlagEmotesMenuNewKeybinds = require(RobloxGui.Modules.Flags.FFlagEmotesMenuNewKeybinds)
-local FFlagEmotesMenuRemoveOpenKeybinds = settings():GetFFlag("EmotesMenuRemoveOpenKeybinds")
 
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
 local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList3")
-
-local FFlagTopBarEscapeCloseMenu = game:DefineFastFlag("TopBarEscapeCloseMenu", false)
 
 local MORE_BUTTON_SIZE = 32
 local ICON_SIZE = 24
@@ -120,10 +116,7 @@ function MoreMenu:render()
 			emotesIcon = "rbxasset://textures/ui/TopBar/emotesOff.png"
 		end
 
-		local emotesKeybind = (not FFlagEmotesMenuRemoveOpenKeybinds) and EmotesConstants.EmoteMenuOpenKey_OLD or nil
-		if FFlagEmotesMenuNewKeybinds then
-			emotesKeybind = EmotesConstants.EmoteMenuOpenKey
-		end
+		local emotesKeybind = EmotesConstants.EmoteMenuOpenKey
 
 		table.insert(menuOptions, {
 			icon = emotesIcon,
@@ -245,9 +238,7 @@ function MoreMenu:didUpdate(prevProps, prevState)
 			PlayerlistModule:HideTemp("TopBar", self.props.moreMenuOpen)
 		end
 
-		if FFlagTopBarEscapeCloseMenu then
-			self:updateActionBound()
-		end
+		self:updateActionBound()
 
 		if self.props.screenSize.X < CHAT_HIDE_THRESHOLD then
 			if self.props.moreMenuOpen and ChatSelector:GetVisibility() then

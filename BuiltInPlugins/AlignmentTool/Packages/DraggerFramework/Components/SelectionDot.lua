@@ -4,11 +4,11 @@
 ]]
 local Workspace = game:GetService("Workspace")
 
-local Framework = script.Parent.Parent
-local Library = Framework.Parent.Parent
+local DraggerFramework = script.Parent.Parent
+local Library = DraggerFramework.Parent.Parent
 local Roact = require(Library.Packages.Roact)
 
-local Colors = require(Framework.Utility.Colors)
+local Colors = require(DraggerFramework.Utility.Colors)
 
 local SelectionDot = Roact.Component:extend("SelectionDot")
 

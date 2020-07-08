@@ -27,9 +27,8 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
 local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
 
-local FFlagHideTopBarWhenInspectOpen = require(RobloxGui.Modules.Flags.FFlagHideTopBarWhenInspectOpen)
 local FFlagFixTopBarOverLoadingScreen = require(RobloxGui.Modules.Flags.FFlagFixTopBarOverLoadingScreen)
-local FFlagTopBarNewGamepadMenu = require(RobloxGui.Modules.Flags.FFlagTopBarNewGamepadMenu)
+local isNewGamepadMenuEnabled = require(RobloxGui.Modules.Flags.isNewGamepadMenuEnabled)
 
 local CLOSE_MENU_ICON_SIZE = 30
 
@@ -37,7 +36,7 @@ local TopBarApp = Roact.PureComponent:extend("TopBarApp")
 
 TopBarApp.validateProps = t.strictInterface({
 	menuOpen = t.boolean,
-	inspectMenuOpen = FFlagHideTopBarWhenInspectOpen and t.boolean or nil,
+	inspectMenuOpen = t.boolean,
 
 	setScreenSize = t.callback,
 })
@@ -50,10 +49,7 @@ function TopBarApp:render()
 		topBarHeight = Constants.TopBarHeightTenFoot
 	end
 
-	local isTopBarVisible = not self.props.menuOpen
-	if FFlagHideTopBarWhenInspectOpen then
-		isTopBarVisible = not (self.props.menuOpen or self.props.inspectMenuOpen)
-	end
+	local isTopBarVisible = not (self.props.menuOpen or self.props.inspectMenuOpen)
 
 	return Roact.createElement("ScreenGui", {
 		IgnoreGuiInset = true,
@@ -67,7 +63,7 @@ function TopBarApp:render()
 	}, {
 		Connection = Roact.createElement(Connection),
 
-		GamepadMenu = FFlagTopBarNewGamepadMenu and Roact.createElement(GamepadMenu) or nil,
+		GamepadMenu = isNewGamepadMenuEnabled() and Roact.createElement(GamepadMenu) or nil,
 
 		FullScreenFrame = Roact.createElement("Frame", {
 			BackgroundTransparency = 1,
@@ -153,10 +149,7 @@ function TopBarApp:render()
 end
 
 local function mapStateToProps(state)
-	local inspectMenuOpen = nil
-	if FFlagHideTopBarWhenInspectOpen then
-		inspectMenuOpen = state.displayOptions.inspectMenuOpen
-	end
+	local inspectMenuOpen = state.displayOptions.inspectMenuOpen
 
 	return {
 		menuOpen = state.displayOptions.menuOpen,

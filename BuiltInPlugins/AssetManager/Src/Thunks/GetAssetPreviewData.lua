@@ -9,12 +9,14 @@ local SetAssetPreviewData = require(Plugin.Src.Actions.SetAssetPreviewData)
 local SetAssetOwnerName = require(Plugin.Src.Actions.SetAssetOwnerName)
 
 local FFlagFixGettingAssetOwnerNameInAssetPreview = game:DefineFastFlag("FixGettingAssetOwnerNameInAssetPreview", false)
+local FFlagStopTryingToFormatTimeInLuaForAssetManager = game:DefineFastFlag("StopTryingToFormatTimeInLuaForAssetManager", false)
 
 --[[
+    Remove with FFlagStopTryingToFormatTimeInLuaForAssetManager,
+    @amoss/@hcollins are working on an engine level solution for date time formatting.
     "Created": "2020-04-01T15:41:04.0992192-05:00", --> "Created": "4/1/2020 3:41:04 PM",
     "Updated": "2020-04-01T15:41:03.8462845-05:00" --> "Updated": "4/1/2020 3:41:03 PM",
 ]]
-
 local function formatDateTime(dateTime)
     local yearIndex = string.find(dateTime, "-")
     local year = string.sub(dateTime, 1, yearIndex-1)
@@ -79,8 +81,15 @@ return function(apiImpl, assetIds)
                     assetName = string.gsub(assetData.name, "Scripts/", "")
                 end
 
-                local created = formatDateTime(assetData.created)
-                local updated = formatDateTime(assetData.updated)
+                local created
+                local updated
+                if FFlagStopTryingToFormatTimeInLuaForAssetManager then
+                    created = assetData.created
+                    updated = assetData.updated
+                else
+                    created = formatDateTime(assetData.created)
+                    updated = formatDateTime(assetData.updated)
+                end
 
                 assetPreviewData[assetId] = {
                     Asset = {

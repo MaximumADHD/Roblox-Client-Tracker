@@ -13,6 +13,7 @@
 		LayoutOrder, number, will be used by the layout to change the component's position.
 ]]
 
+local FFlagAssetConifgOverrideAssetScrollingFrame = game:DefineFastFlag("AssetConifgOverrideAssetScrollingFrame", false)
 local FFlagToolboxUseInfinteScroller = game:DefineFastFlag("ToolboxUseInfiniteScroller", false)
 local FFlagToolboxTruncateOverrideAssetNames = game:DefineFastFlag("ToolboxTruncateOverrideAssetNames", false)
 local FFlagEnableOverrideAssetCursorFix = game:GetFastFlag("EnableOverrideAssetCursorFix")
@@ -57,6 +58,7 @@ function OverrideAssetView:init(props)
 	self.state = {
 		selectedAssetId = 0,
 		pageIndex = 1,
+		layoutContentSize = Vector2.new(),
 	}
 
 	self.newAssetInfo = {
@@ -66,8 +68,21 @@ function OverrideAssetView:init(props)
 
 	self.layouterRef = Roact.createRef()
 
+	-- When this component updates from going to a new page, sometimes render runs before layout's content size
+	-- actually updates, causing elements in the frame to not be reachable. We do this here to basically force the
+	-- update again after the size has actually changed.
+	self.onLayoutContentSizeChange = function(rbx)
+		self:setState({
+			layoutContentSize = rbx.AbsoluteContentSize,
+		})
+	end
+
 	self.onAssetActivated = function(asset)
 		local assetId = asset.Asset.Id
+
+		if FFlagAssetConifgOverrideAssetScrollingFrame and assetId == self.state.selectedAssetId then
+			return
+		end
 
 		-- For clicking the apply button.
 		props.onOverrideAssetSelected(assetId)
@@ -120,6 +135,7 @@ function OverrideAssetView:createAssets(resultsArray, theme)
 			StartCorner = Enum.StartCorner.TopLeft,
 
 			[Roact.Ref] = self.layouterRef,
+			[Roact.Change.AbsoluteContentSize] = FFlagAssetConifgOverrideAssetScrollingFrame and self.onLayoutContentSizeChange or nil,
 		}),
 	}
 

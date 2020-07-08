@@ -1,7 +1,9 @@
 local Workspace = game:GetService("Workspace")
 
-local Framework = script.Parent.Parent
-local JointMaker = require(Framework.Utility.JointMaker)
+local DraggerFramework = script.Parent.Parent
+local JointMaker = require(DraggerFramework.Utility.JointMaker)
+
+local getFFlagDraggerRefactor = require(DraggerFramework.Flags.getFFlagDraggerRefactor)
 
 return function()
 	local function createTestParts(count)
@@ -52,6 +54,14 @@ return function()
 
 		return parts, weld
 	end
+
+	afterEach(function()
+		for _, child in pairs(Workspace:GetChildren()) do
+			if not child:IsA("Terrain") then
+				child:Destroy()
+			end
+		end
+	end)
 
 	it("should anchor parts", function()
 		local parts = createTestParts(2)
@@ -192,7 +202,11 @@ return function()
 			parts[2].Position = parts[1].Position + offset
 			jointMaker:fixupConstraintLengths()
 
-			expect(constraint.Length).to.equal(originalLength * SCALE)
+			if getFFlagDraggerRefactor() and constraint:IsA("SpringConstraint") then
+				expect(constraint.FreeLength).to.equal(originalLength * SCALE)
+			else
+				expect(constraint.Length).to.equal(originalLength * SCALE)
+			end
 		end
 	end)
 end

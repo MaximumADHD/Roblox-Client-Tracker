@@ -598,6 +598,10 @@ function Localization:_recalculateContent()
 				FilterID = self:_safeLocalize("Studio.Toolbox.AssetConfigAnimation.FilterID"),
 			},
 
+			Import = {
+				Title = self:_safeLocalize("Studio.Toolbox.AssetConfigFooter.ImportTitle"),
+			},
+
 			Upload = {
 				IDCopied = self:_safeLocalize("Studio.Toolbox.AssetConfigUpload.IDCopied")
 			},

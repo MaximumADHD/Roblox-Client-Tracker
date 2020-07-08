@@ -356,8 +356,8 @@ local function mapStateToProps(state, props)
 
 	return {
 		categories = pageInfo.categories or {},
-		categoryIndex = (not FFlagUseCategoryNameInToolbox) and (pageInfo.categoryIndex or ""),
-		categoryName = pageInfo.categoryName,
+		categoryIndex = (not FFlagUseCategoryNameInToolbox) and (pageInfo.categoryIndex or 0),
+		categoryName = FFlagUseCategoryNameInToolbox and (pageInfo.categoryName or Category.DEFAULT.name) or nil,
 		currentTab = (not FFlagUseCategoryNameInToolbox) and (pageInfo.currentTab or Category.MARKETPLACE_KEY),
 		sorts = pageInfo.sorts or {},
 		roles = state.roles or {}

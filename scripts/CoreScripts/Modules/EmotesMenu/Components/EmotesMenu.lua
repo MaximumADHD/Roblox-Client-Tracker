@@ -7,16 +7,14 @@ local Workspace = game:GetService("Workspace")
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
-local FFlagDisableAutoTranslateForKeyTranslatedContent = require(RobloxGui.Modules.Flags.FFlagDisableAutoTranslateForKeyTranslatedContent)
-local FFlagCoreScriptEmotesMenuBetterMouseBehavior = settings():GetFFlag("CoreScriptEmotesMenuBetterMouseBehavior")
-local FFlagEmotesMenuRemoveOpenKeybinds = settings():GetFFlag("EmotesMenuRemoveOpenKeybinds")
+local FFlagDisableAutoTranslateForKeyTranslatedContent
+    = require(RobloxGui.Modules.Flags.FFlagDisableAutoTranslateForKeyTranslatedContent)
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
 
 local Components = script.Parent
 local EmotesModules = Components.Parent
-local Modules = EmotesModules.Parent
 local Actions = EmotesModules.Actions
 local Thunks = EmotesModules.Thunks
 
@@ -29,8 +27,6 @@ local EmotesWheel = require(Components.EmotesWheel)
 local ErrorMessage = require(Components.ErrorMessage)
 
 local Constants = require(EmotesModules.Constants)
-
-local FFlagEmotesMenuNewKeybinds = require(Modules.Flags.FFlagEmotesMenuNewKeybinds)
 
 local EmotesMenu = Roact.PureComponent:extend("EmotesMenu")
 
@@ -51,13 +47,8 @@ function EmotesMenu:bindActions()
         return nil
     end
 
-    if FFlagEmotesMenuNewKeybinds then
-        ContextActionService:BindAction(Constants.ToggleMenuAction, toggleMenuFunc, --[[createTouchButton = ]] false,
-                                        Constants.EmoteMenuOpenKey)
-    else
-        ContextActionService:BindAction(Constants.ToggleMenuAction, toggleMenuFunc, --[[createTouchButton = ]] false,
-                                        Constants.EmoteMenuOpenKey_OLD, Constants.EmoteMenuOpenButton_OLD)
-    end
+    ContextActionService:BindAction(Constants.ToggleMenuAction, toggleMenuFunc, --[[createTouchButton = ]] false,
+                                    Constants.EmoteMenuOpenKey)
 end
 
 function EmotesMenu:unbindActions()
@@ -118,48 +109,36 @@ function EmotesMenu:didMount()
         end
     end)
 
-    if FFlagCoreScriptEmotesMenuBetterMouseBehavior then
-        self.inputOutsideMenuConn = UserInputService.InputBegan:Connect(function(input, gameProcessedEvent)
-            if gameProcessedEvent then
-                return
-            end
+    self.inputOutsideMenuConn = UserInputService.InputBegan:Connect(function(input, gameProcessedEvent)
+        if gameProcessedEvent then
+            return
+        end
 
-            if not self.props.displayOptions.menuVisible then
-                return
-            end
+        if not self.props.displayOptions.menuVisible then
+            return
+        end
 
-            local inputType = input.UserInputType
-            if inputType == Enum.UserInputType.MouseButton1 or inputType == Enum.UserInputType.Touch then
-                self.props.hideMenu()
-            end
-        end)
-    end
+        local inputType = input.UserInputType
+        if inputType == Enum.UserInputType.MouseButton1 or inputType == Enum.UserInputType.Touch then
+            self.props.hideMenu()
+        end
+    end)
 
-    if FFlagEmotesMenuNewKeybinds or not FFlagEmotesMenuRemoveOpenKeybinds then
-        self:bindActions()
-    end
+    self:bindActions()
 end
 
 function EmotesMenu:willUnmount()
     self.currentCameraChangedConn:Disconnect()
     self.viewportSizeChangedConn:Disconnect()
     self.menuOpenedConn:Disconnect()
-
-    if FFlagCoreScriptEmotesMenuBetterMouseBehavior then
-        self.inputOutsideMenuConn:Disconnect()
-    end
+    self.inputOutsideMenuConn:Disconnect()
 
     self.currentCameraChangedConn = nil
     self.viewportSizeChangedConn = nil
     self.menuOpenedConn = nil
+    self.inputOutsideMenuConn = nil
 
-    if FFlagCoreScriptEmotesMenuBetterMouseBehavior then
-        self.inputOutsideMenuConn = nil
-    end
-
-    if FFlagEmotesMenuNewKeybinds or not FFlagEmotesMenuRemoveOpenKeybinds then
-        self:unbindActions()
-    end
+    self:unbindActions()
 end
 
 function EmotesMenu:render()

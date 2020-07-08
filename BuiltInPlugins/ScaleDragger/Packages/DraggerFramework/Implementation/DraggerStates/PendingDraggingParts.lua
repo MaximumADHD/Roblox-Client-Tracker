@@ -1,9 +1,13 @@
+if require(script.Parent.Parent.Parent.Flags.getFFlagDraggerRefactor)() then
+	return require(script.Parent.PendingDraggingParts_Refactor)
+end
+
 local UserInputService = game:GetService("UserInputService")
 
-local Framework = script.Parent.Parent.Parent
-local DraggerStateType = require(Framework.Implementation.DraggerStateType)
-local SelectionWrapper = require(Framework.Utility.SelectionWrapper)
-local StandardCursor = require(Framework.Utility.StandardCursor)
+local DraggerFramework = script.Parent.Parent.Parent
+local DraggerStateType = require(DraggerFramework.Implementation.DraggerStateType)
+local SelectionWrapper = require(DraggerFramework.Utility.SelectionWrapper)
+local StandardCursor = require(DraggerFramework.Utility.StandardCursor)
 
 local FREEFORM_DRAG_THRESHOLD = 4
 

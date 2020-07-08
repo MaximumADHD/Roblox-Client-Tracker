@@ -53,11 +53,13 @@ local SetEditPlaceId = require(Plugin.Src.Actions.SetEditPlaceId)
 
 local ReloadPlaces = require(Plugin.Src.Thunks.ReloadPlaces)
 
+local FIntStudioPlaceConfigurationMaxPlayerCount = game:DefineFastInt("StudioPlaceConfigurationMaxPlayerCount", 200)
+
 local createSettingsPage = require(Plugin.Src.Components.SettingsPages.DEPRECATED_createSettingsPage)
 
 local MAX_NAME_LENGTH = 50
 local MIN_PLAYER_COUNT = 1
-local MAX_PLAYER_COUNT = 100
+local MAX_PLAYER_COUNT = FIntStudioPlaceConfigurationMaxPlayerCount
 local MIN_SOCIAL_SLOT_COUNT = 1
 local MAX_SOCIAL_SLOT_COUNT = 10
 
@@ -277,7 +279,13 @@ local function displayEditPlacePage(props, localization)
 	local maxPlayersSubText = localization:getText("Places", "MaxPlayersSubText")
 	local maxPlayersSubTextSize = GetTextSize(maxPlayersSubText, theme.fontStyle.Subtext.TextSize, theme.fontStyle.Subtext.Font)
 	local viewButtonText = localization:getText("General", "ButtonView")
-	local viewButtonTextExtents = GetTextSize(viewButtonText, theme.fontStyle.Header.TextSize, theme.fontStyle.Header.Font)
+	local viewButtonFrameSize = Vector2.new(math.huge, theme.button.height)
+	local viewButtonTextExtents = GetTextSize(viewButtonText, theme.fontStyle.Header.TextSize, theme.fontStyle.Header.Font, viewButtonFrameSize)
+
+	local viewButtonButtonWidth = math.max(viewButtonTextExtents.X, theme.button.width)
+	local viewButtonPaddingY = theme.button.height - viewButtonTextExtents.Y
+
+	local viewButtonSize = UDim2.new(0, viewButtonButtonWidth, 0, viewButtonTextExtents.Y + viewButtonPaddingY)
 
 	local places = props.Places
 	local editPlaceId = props.EditPlaceId
@@ -424,10 +432,9 @@ local function displayEditPlacePage(props, localization)
 			TextSize = theme.fontStyle.Normal.TextSize,
 		}, {
 			ViewButton = Roact.createElement(Button, {
-				Style = "RoundPrimary",
+				Style = "GameSettingsPrimaryButton",
 				Text = viewButtonText,
-				Size = UDim2.new(0, viewButtonTextExtents.X + theme.viewButton.PaddingX,
-				0, viewButtonTextExtents.Y + theme.viewButton.PaddingY),
+				Size = viewButtonSize,
 				LayoutOrder = layoutIndex:getNextOrder(),
 				OnClick = function()
 					StudioService:ShowPlaceVersionHistoryDialog()

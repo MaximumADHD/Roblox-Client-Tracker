@@ -21,21 +21,30 @@
 		boolean ShouldFocus: Set focus onto the box so that the user can start typing.
 		UDim2 Position: The position of this component.
 		UDim2 Size: The size of this component.
+		Vector2 AnchorPoint: The anchor point of this component
 
 	Style Values:
 		Enum.Font Font: The font used to render the text.
 		Color3 PlaceholderTextColor: The color of the placeholder text.
+		number Padding: The padding of the text input.
+		table Padding: Specific padding values for Top, Bottom, Left, and Right.
 		number TextSize: The font size of the text.
 		Color3 TextColor: The color of the search term text.
 ]]
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
+
 local ContextServices = require(Framework.ContextServices)
 local Typecheck = require(Framework.Util).Typecheck
+local Container = require(Framework.UI.Container)
+local RoundBox = require(Framework.UI.RoundBox)
+local StyleModifier = require(Framework.Util.StyleModifier)
 
 local TextInput = Roact.PureComponent:extend("TextInput")
 Typecheck.wrap(TextInput, script)
+
+local FFlagDevFrameworkTextInputContainer = game:DefineFastFlag("DevFrameworkTextInputContainer", false)
 
 function TextInput:init()
 	self.textBoxRef = Roact.createRef()
@@ -95,37 +104,78 @@ function TextInput:render()
 	local textColor = style.TextColor
 	local placeholderTextColor = style.PlaceholderTextColor
 
-	return Roact.createElement("Frame", {
-		Size = size,
-		Position = position,
+	if FFlagDevFrameworkTextInputContainer then
+
+		self.mouseEnter = function()
+			self:setState({
+				StyleModifier = StyleModifier.Hover
+			})
+		end
+
+		self.mouseLeave = function()
+			self:setState({
+				StyleModifier = Roact.None
+			})
+		end
+
+	end
+
+	local textBox = Roact.createElement("TextBox", {
+		Visible = self.props.Visible,
+
+		Size = UDim2.new(1, 0, 1, 0),
 		BackgroundTransparency = 1,
-		ClipsDescendants = true,
-		LayoutOrder = layoutOrder,
-	}, {
-		TextBox = Roact.createElement("TextBox", {
-			Visible = self.props.Visible,
+		BorderSizePixel = 0,
 
-			Size = UDim2.new(1, 0, 1, 0),
-			BackgroundTransparency = 1,
-			BorderSizePixel = 0,
+		PlaceholderText  = placeholderText,
+		PlaceholderColor3 = placeholderTextColor,
+		ClearTextOnFocus = false,
+		Font = font,
+		TextSize = textSize,
+		TextColor3 = textColor,
+		Text = text,
+		TextXAlignment = Enum.TextXAlignment.Left,
+		TextEditable = enabled,
 
-			PlaceholderText  = placeholderText,
-			PlaceholderColor3 = placeholderTextColor,
-			ClearTextOnFocus = false,
-			Font = font,
-			TextSize = textSize,
-			TextColor3 = textColor,
-			Text = text,
-			TextXAlignment = Enum.TextXAlignment.Left,
-			TextEditable = enabled,
+		[Roact.Ref] = self.textBoxRef,
 
-			[Roact.Ref] = self.textBoxRef,
-
-			[Roact.Event.Focused] = self.props.OnFocusGained,
-			[Roact.Event.FocusLost] = self.onFocusLost,
-			[Roact.Change.Text] = self.onTextChanged
-		}),
+		[Roact.Event.Focused] = self.props.OnFocusGained,
+		[Roact.Event.FocusLost] = self.onFocusLost,
+		[Roact.Change.Text] = self.onTextChanged,
+		[Roact.Event.MouseEnter] = FFlagDevFrameworkTextInputContainer and self.mouseEnter or nil,
+		[Roact.Event.MouseLeave] = FFlagDevFrameworkTextInputContainer and self.mouseLeave or nil,
 	})
+
+	if FFlagDevFrameworkTextInputContainer then
+
+		local backgroundStyle = style.BackgroundStyle
+		local padding = style.Padding
+
+		return Roact.createElement(Container, {
+			AnchorPoint = props.AnchorPoint,
+			Position = position,
+			Padding = padding,
+			Size = size,
+			Background = RoundBox,
+			BackgroundStyle = backgroundStyle,
+		}, {
+			TextBox = textBox
+		})
+
+	else
+
+		return Roact.createElement("Frame", {
+			Size = size,
+			Position = position,
+			AnchorPoint = props.AnchorPoint,
+			BackgroundTransparency = 1,
+			ClipsDescendants = true,
+			LayoutOrder = layoutOrder,
+		}, {
+			TextBox = textBox
+		})
+
+	end
 end
 
 ContextServices.mapToProps(TextInput, {

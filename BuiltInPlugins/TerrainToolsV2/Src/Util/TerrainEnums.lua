@@ -11,6 +11,7 @@ TerrainEnums.ToolId = {
 	Generate = "Generate",
 	Import = "Import",
 	SeaLevel = "SeaLevel",
+	Replace = "Replace",
 	Clear = "Clear",
 
 	Select = "Select",

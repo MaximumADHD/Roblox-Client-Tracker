@@ -1,4 +1,4 @@
---Remove with FFlagTopBarNewGamepadMenu
+--Remove with isNewGamepadMenuEnabled
 
 return function()
 	local InGameMenu = script.Parent.Parent

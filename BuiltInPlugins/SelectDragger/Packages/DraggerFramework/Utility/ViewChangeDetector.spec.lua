@@ -1,7 +1,7 @@
 local Workspace = game:GetService("Workspace")
 
-local Framework = script.Parent.Parent
-local ViewChangeDetector = require(Framework.Utility.ViewChangeDetector)
+local DraggerFramework = script.Parent.Parent
+local ViewChangeDetector = require(DraggerFramework.Utility.ViewChangeDetector)
 
 return function()
 	it("should return false initially", function()

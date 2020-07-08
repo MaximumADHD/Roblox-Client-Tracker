@@ -11,7 +11,7 @@ return function(theme, getColor)
 
 	local Default = Style.extend(common.MainText, {
 		Padding = 10,
-		TextSize = 24,
+		TextSize = 22,
 		TextColor = theme:GetColor("TitlebarText"),
 	})
 

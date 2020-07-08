@@ -13,6 +13,7 @@ local ContextServices = require(Plugin.Packages.Framework.ContextServices)
 local ServiceWrapper = Roact.PureComponent:extend("ServiceWrapper")
 
 function ServiceWrapper:init()
+	assert(self.props.analytics ~= nil, "Expected a Analytics object")
 	assert(self.props[Roact.Children] ~= nil, "Expected child elements to wrap")
 	assert(self.props.localization ~= nil, "Expected a Localization object")
 	assert(self.props.plugin ~= nil, "Expected a plugin object")
@@ -25,6 +26,7 @@ end
 
 
 function ServiceWrapper:render()
+	local analytics = self.props.analytics
 	local children = self.props[Roact.Children]
 	local focusGui = self.props.focusGui
 	local localization = self.props.localization
@@ -37,6 +39,7 @@ function ServiceWrapper:render()
 	-- the order of these providers should be read as bottom up,
 	-- things most likely to change or trigger updates should be near the top of the list
 	return ContextServices.provide({
+		analytics,
 		ContextServices.Focus.new(focusGui),
 		ContextServices.Plugin.new(plugin),
 		localization,

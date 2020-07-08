@@ -1,8 +1,6 @@
 local ContentProvider = game:GetService("ContentProvider")
 local CorePackages = game:GetService("CorePackages")
 
-local FFlagCoreScriptEmotesMenuBetterMouseBehavior = settings():GetFFlag("CoreScriptEmotesMenuBetterMouseBehavior")
-
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
 
@@ -136,11 +134,9 @@ function EmotesButtons:render()
 
         [Roact.Event.Activated] = function(frame, input)
             local segmentIndex = getSegmentFromInput(frame, input)
-            if FFlagCoreScriptEmotesMenuBetterMouseBehavior then
-                if segmentIndex == 0 then
-                    self.props.hideMenu()
-                    return
-                end
+            if segmentIndex == 0 then
+                self.props.hideMenu()
+                return
             end
 
             local emoteName = self.props.emotesPage.currentEmotes[segmentIndex]

@@ -27,6 +27,7 @@ local ChatModule = require(RobloxGui.Modules.ChatSelector)
 local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList3")
 
 local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
+local InGameMenuConstants = require(RobloxGui.Modules.InGameMenu.Resources.Constants)
 
 local TOGGLE_GAMEPAD_MENU_ACTION = "TopBarGamepadToggleGamepadMenu"
 local FREEZE_CONTROLLER_ACTION_NAME = "TopBarGamepadFreezeController"
@@ -228,7 +229,7 @@ function GamepadMenu.openSettingsMenu()
 		InGameMenu.openGameSettingsPage()
 	else
 		local MenuModule = require(RobloxGui.Modules.Settings.SettingsHub)
-		MenuModule:SetVisibility(true, nil, MenuModule.Instance.GameSettingsPage, true)
+		MenuModule:SetVisibility(true, nil, MenuModule.Instance.GameSettingsPage, true, InGameMenuConstants.AnalyticsMenuOpenTypes.SettingsTriggered)
 	end
 end
 
@@ -261,12 +262,12 @@ end
 
 function GamepadMenu.leaveGame()
 	local MenuModule = require(RobloxGui.Modules.Settings.SettingsHub)
-	MenuModule:SetVisibility(true, false, MenuModule.Instance.LeaveGamePage, true)
+	MenuModule:SetVisibility(true, false, MenuModule.Instance.LeaveGamePage, true, InGameMenuConstants.AnalyticsMenuOpenTypes.GamepadLeaveGame)
 end
 
 function GamepadMenu.respawnCharacter()
 	local MenuModule = require(RobloxGui.Modules.Settings.SettingsHub)
-	MenuModule:SetVisibility(true, false, MenuModule.Instance.ResetCharacterPage, true)
+	MenuModule:SetVisibility(true, false, MenuModule.Instance.ResetCharacterPage, true, InGameMenuConstants.AnalyticsMenuOpenTypes.GamepadResetCharacter)
 end
 
 function GamepadMenu.getMenuActionsFromProps(props)

@@ -6,6 +6,7 @@ local Rodux = require(Plugin.Packages.Rodux)
 
 local ContextServices = Plugin.Packages.Framework.ContextServices
 local UILibraryWrapper = require(ContextServices.UILibraryWrapper)
+local Analytics = require(ContextServices).Analytics
 local Localization = require(ContextServices).Localization
 
 local MockPlugin = require(Plugin.Src.TestHelpers.MockPlugin)
@@ -14,6 +15,7 @@ local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 
 return function()
 	it("should construct and destroy without errors", function()
+		local analytics = Analytics.mock()
 		local focusGui = Instance.new("ScreenGui")
 		local localization = Localization.mock()
 		local pluginInstance = MockPlugin.new()
@@ -23,6 +25,7 @@ return function()
 		local uiLibWrapper = UILibraryWrapper.new()
 
 		local element = Roact.createElement(ServiceWrapper, {
+			analytics = analytics,
 			focusGui = focusGui,
 			plugin = pluginInstance,
 			localization = localization,

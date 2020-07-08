@@ -21,8 +21,6 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local BackpackModule = require(RobloxGui.Modules.BackpackScript)
 local EmotesMenuMaster = require(RobloxGui.Modules.EmotesMenu.EmotesMenuMaster)
 
-local FFlagEmotesMenuShowUiOnlyWhenAvailable = game:GetFastFlag("EmotesMenuShowUiOnlyWhenAvailable")
-
 local OpenUIConnector = Roact.PureComponent:extend("OpenUIConnector")
 
 OpenUIConnector.validateProps = t.strictInterface({
@@ -45,10 +43,7 @@ function OpenUIConnector:didMount()
 
 	self.props.setBackpackOpen(BackpackModule.IsOpen)
 	self.props.setEmotesOpen(EmotesMenuMaster:isOpen())
-
-	if FFlagEmotesMenuShowUiOnlyWhenAvailable then
-		self.props.setEmotesEnabled(EmotesMenuMaster.MenuIsVisible)
-	end
+	self.props.setEmotesEnabled(EmotesMenuMaster.MenuIsVisible)
 end
 
 function OpenUIConnector:render()
@@ -83,7 +78,7 @@ function OpenUIConnector:render()
 			end,
 		}),
 
-		EmotesEnabledChangedConnection = FFlagEmotesMenuShowUiOnlyWhenAvailable and Roact.createElement(EventConnection, {
+		EmotesEnabledChangedConnection = Roact.createElement(EventConnection, {
 			event = EmotesMenuMaster.MenuVisibilityChanged.Event,
 			callback = function(enabled)
 				self.props.setEmotesEnabled(enabled)

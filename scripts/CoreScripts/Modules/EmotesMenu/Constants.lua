@@ -89,10 +89,6 @@ local Constants = {
 
     EmoteMenuOpenKey = Enum.KeyCode.Period,
 
-    -- Remove when removing FFlagEmotesMenuNewKeybinds
-    EmoteMenuOpenKey_OLD = Enum.KeyCode.B,
-    EmoteMenuOpenButton_OLD = Enum.KeyCode.DPadDown,
-
     EmoteMenuCloseKey = Enum.KeyCode.Escape,
     EmoteMenuCloseButton = Enum.KeyCode.ButtonB,
     EmoteMenuCloseButtonSecondary = Enum.KeyCode.ButtonStart,

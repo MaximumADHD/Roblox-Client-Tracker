@@ -1,12 +1,16 @@
+if require(script.Parent.Parent.Parent.Flags.getFFlagDraggerRefactor)() then
+	return require(script.Parent.DraggingFaceInstance_Refactor)
+end
+
 --[[
 	When hovered over a Part, DraggingFaceInstance will parents the instance onto the part
 	and set the instances "Face" property to the related Surface.
 ]]
-local Framework = script.Parent.Parent.Parent
+local DraggerFramework = script.Parent.Parent.Parent
 
-local DraggerStateType = require(Framework.Implementation.DraggerStateType)
+local DraggerStateType = require(DraggerFramework.Implementation.DraggerStateType)
 
-local Utility = Framework.Utility
+local Utility = DraggerFramework.Utility
 local DragHelper = require(Utility.DragHelper)
 local StandardCursor = require(Utility.StandardCursor)
 

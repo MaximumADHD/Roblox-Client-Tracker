@@ -1,16 +1,17 @@
 local Workspace = game:GetService("Workspace")
 
-local Framework = script.Parent.Parent
-local Library = Framework.Parent.Parent
+local DraggerFramework = script.Parent.Parent
+local Library = DraggerFramework.Parent.Parent
 local Roact = require(Library.Packages.Roact)
 
-local JointMaker = require(Framework.Utility.JointMaker)
-local JointPairs = require(Framework.Utility.JointPairs)
+local JointMaker = require(DraggerFramework.Utility.JointMaker)
+
+local getFFlagDraggerRefactor = require(DraggerFramework.Flags.getFFlagDraggerRefactor)
 
 return function()
 	local function createTestParts(count)
 		local parts = {}
-		for i = 1, count or 1 do
+		for _ = 1, count or 1 do
 			local part = Instance.new("Part", Workspace)
 			part.Anchored = true
 			part.CFrame = CFrame.new()
@@ -28,6 +29,14 @@ return function()
 		return jointPairs
 	end
 
+	afterEach(function()
+		for _, child in pairs(Workspace:GetChildren()) do
+			if not child:IsA("Terrain") then
+				child:Destroy()
+			end
+		end
+	end)
+
 	describe("renderJoints", function()
 		it("should render joints for touching parts", function()
 			local parts = createTestParts(3)
@@ -42,7 +51,7 @@ return function()
 			local handle = Roact.mount(jointDisplay, container)
 
 			expect(jointDisplay).to.be.ok()
-			expect(#container:GetChildren()).to.equal(3)
+			expect(#container:GetChildren()).to.equal(getFFlagDraggerRefactor() and 4 or 3)
 
 			Roact.unmount(handle)
 		end)
@@ -101,7 +110,7 @@ return function()
 		end)
 
 		it("should do nothing if parts not set", function()
-			local jointPairs = createTestJointPairs({})
+			createTestJointPairs({})
 			local originalJointsSet = getWorkspaceJointsSet()
 
 			local newJoints = getNewWorkspaceJoints(originalJointsSet)

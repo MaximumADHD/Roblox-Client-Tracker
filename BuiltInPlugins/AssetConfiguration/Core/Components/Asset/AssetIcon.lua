@@ -200,7 +200,7 @@ local function mapStateToProps(state, props)
 	local pageInfo = state.pageInfo or {}
 	local selectedBackgroundIndex = pageInfo.selectedBackgroundIndex or 1
 	local hoveredBackgroundIndex = pageInfo.hoveredBackgroundIndex or 0
-	local categoryName = pageInfo.categoryName
+	local categoryName = FFlagUseCategoryNameInToolbox and (pageInfo.categoryName or Category.DEFAULT.name) or nil
 
 	return {
 		backgroundIndex = hoveredBackgroundIndex ~= 0 and hoveredBackgroundIndex or selectedBackgroundIndex,

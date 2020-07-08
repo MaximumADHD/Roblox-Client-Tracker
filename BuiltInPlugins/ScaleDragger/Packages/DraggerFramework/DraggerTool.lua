@@ -9,31 +9,31 @@ local UserInputService = game:GetService("UserInputService")
 local Workspace = game:GetService("Workspace")
 local StudioService = game:GetService("StudioService")
 
-local Framework = script.Parent
-local Library = Framework.Parent.Parent
+local DraggerFramework = script.Parent
+local Library = DraggerFramework.Parent.Parent
 local plugin = Library.Parent
 local Roact = require(Library.Packages.Roact)
 
 -- Flags
-local getFFlagBatchBoundsChanged = require(Framework.Flags.getFFlagBatchBoundsChanged)
-local getFFlagDragFaceInstances = require(Framework.Flags.getFFlagDragFaceInstances)
+local getFFlagBatchBoundsChanged = require(DraggerFramework.Flags.getFFlagBatchBoundsChanged)
+local getFFlagDragFaceInstances = require(DraggerFramework.Flags.getFFlagDragFaceInstances)
 
 -- Components
-local SelectionDot = require(Framework.Components.SelectionDot)
+local SelectionDot = require(DraggerFramework.Components.SelectionDot)
 
 -- Utilities
-local Math = require(Framework.Utility.Math)
-local SelectionWrapper = require(Framework.Utility.SelectionWrapper)
-local ViewChangeDetector = require(Framework.Utility.ViewChangeDetector)
-local BoundsChangedTracker = require(Framework.Utility.BoundsChangedTracker)
-local Analytics = require(Framework.Utility.Analytics)
-local DerivedWorldState = require(Framework.Implementation.DerivedWorldState)
-local HoverTracker = require(Framework.Implementation.HoverTracker)
-local shouldDragAsFace = require(Framework.Utility.shouldDragAsFace)
+local Math = require(DraggerFramework.Utility.Math)
+local SelectionWrapper = require(DraggerFramework.Utility.SelectionWrapper)
+local ViewChangeDetector = require(DraggerFramework.Utility.ViewChangeDetector)
+local BoundsChangedTracker = require(DraggerFramework.Utility.BoundsChangedTracker)
+local Analytics = require(DraggerFramework.Utility.Analytics)
+local DerivedWorldState = require(DraggerFramework.Implementation.DerivedWorldState)
+local HoverTracker = require(DraggerFramework.Implementation.HoverTracker)
+local shouldDragAsFace = require(DraggerFramework.Utility.shouldDragAsFace)
 
 -- States
-local DraggerStateType = require(Framework.Implementation.DraggerStateType)
-local DraggerStates = Framework.Implementation.DraggerStates
+local DraggerStateType = require(DraggerFramework.Implementation.DraggerStateType)
+local DraggerStates = DraggerFramework.Implementation.DraggerStates
 local DraggerState = {
 	[DraggerStateType.Ready] = require(DraggerStates.Ready),
 	[DraggerStateType.DraggingFaceInstance] = require(DraggerStates.DraggingFaceInstance),

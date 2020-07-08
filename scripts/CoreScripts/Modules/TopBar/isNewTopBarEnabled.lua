@@ -1,18 +1,9 @@
 local Players = game:GetService("Players")
-local CoreGui = game:GetService("CoreGui")
 
 local FFlagNewInGameTopBarForEveryone = game:DefineFastFlag("NewInGameTopBarForEveryone", false)
 local FStringNewTopBarForcedUserIds = game:DefineFastString("NewTopBarForcedUserIds", "")
 
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-
-local FFlagCoreScriptTopBarStartup = require(RobloxGui.Modules.Flags.FFlagCoreScriptTopBarStartup)
-
 local function isNewTopBarEnabled()
-	if not FFlagCoreScriptTopBarStartup then
-		return false
-	end
-
 	if FFlagNewInGameTopBarForEveryone then
 		return true
 	end

@@ -1,5 +1,5 @@
-local Framework = script.Parent.Parent
-local AttachmentMover = require(Framework.Utility.AttachmentMover)
+local DraggerFramework = script.Parent.Parent
+local AttachmentMover = require(DraggerFramework.Utility.AttachmentMover)
 
 return function()
 	local function createTestAttachments()

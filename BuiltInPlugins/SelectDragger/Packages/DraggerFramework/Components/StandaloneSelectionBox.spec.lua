@@ -1,10 +1,10 @@
 return function()
-	local Framework = script.Parent.Parent
-	local Library = Framework.Parent.Parent
+	local DraggerFramework = script.Parent.Parent
+	local Library = DraggerFramework.Parent.Parent
 
 	local Roact = require(Library.Packages.Roact)
 
-	local StandaloneSelectionBox = require(Framework.Components.StandaloneSelectionBox)
+	local StandaloneSelectionBox = require(DraggerFramework.Components.StandaloneSelectionBox)
 
 	local function createTestStandaloneSelectionBox(container, cframe, size)
 		return Roact.createElement(StandaloneSelectionBox, {

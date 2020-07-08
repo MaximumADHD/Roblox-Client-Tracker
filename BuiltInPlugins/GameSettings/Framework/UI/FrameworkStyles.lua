@@ -34,6 +34,7 @@ function FrameworkStyles.new()
 		RangeSlider = newDefaults(),
 		RoundBox = newDefaults(),
 		ScrollingFrame = newDefaults(),
+		SelectInput = newDefaults(),
 		Separator = newDefaults(),
 		TextLabel = newDefaults(),
 		ToggleButton = newDefaults(),

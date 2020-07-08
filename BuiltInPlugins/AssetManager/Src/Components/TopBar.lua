@@ -38,20 +38,28 @@ local Screens = require(Plugin.Src.Util.Screens)
 
 local BulkImportService = game:GetService("BulkImportService")
 
+local FFlagAssetManagerAddAnalytics = game:GetFastFlag("AssetManagerAddAnalytics")
+
 local TopBar = Roact.PureComponent:extend("TopBar")
 
-function TopBar:init(props)
+function TopBar:init()
     self.OnTreeViewButtonActivated = function()
+        local props = self.props
         props.OnOverlayActivated()
     end
 
     self.OnSearchRequested = function(searchTerm)
+        local props = self.props
+        if FFlagAssetManagerAddAnalytics then
+            props.Analytics:report("search")
+        end
         props.dispatchSetSearchTerm(searchTerm)
     end
 end
 
 function TopBar:render()
     local props = self.props
+    local analytics = props.Analytics
     local theme = props.Theme:get("Plugin")
     local topBarTheme = theme.TopBar
     local localization = props.Localization
@@ -190,6 +198,9 @@ function TopBar:render()
 
             OnClick = function()
                 if not bulkImporterRunning and enabled then
+                    if FFlagAssetManagerAddAnalytics then
+                        analytics:report("clickBulkImportButton")
+                    end
                     dispatchLaunchBulkImporter(0)
                 end
             end,
@@ -261,8 +272,9 @@ function TopBar:render()
 end
 
 ContextServices.mapToProps(TopBar,{
-    Theme = ContextServices.Theme,
+    Analytics = ContextServices.Analytics,
     Localization = ContextServices.Localization,
+    Theme = ContextServices.Theme,
 })
 
 local function mapStateToProps(state, props)

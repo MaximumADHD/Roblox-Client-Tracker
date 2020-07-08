@@ -1,10 +1,14 @@
+if require(script.Parent.Parent.Parent.Flags.getFFlagDraggerRefactor)() then
+	return require(script.Parent.DraggingHandle_Refactor)
+end
+
 local Workspace = game:GetService("Workspace")
 
-local Framework = script.Parent.Parent.Parent
-local DraggerStateType = require(Framework.Implementation.DraggerStateType)
-local SelectionHelper = require(Framework.Utility.SelectionHelper)
-local setInsertPoint = require(Framework.Utility.setInsertPoint)
-local StandardCursor = require(Framework.Utility.StandardCursor)
+local DraggerFramework = script.Parent.Parent.Parent
+local DraggerStateType = require(DraggerFramework.Implementation.DraggerStateType)
+local SelectionHelper = require(DraggerFramework.Utility.SelectionHelper)
+local setInsertPoint = require(DraggerFramework.Utility.setInsertPoint)
+local StandardCursor = require(DraggerFramework.Utility.StandardCursor)
 
 local NO_COLLISIONS_TRANSPARENCY = 0.4
 

@@ -8,14 +8,21 @@
 	Optional Props:
 		number LayoutOrder: The layout order of this component in a list.
 		UDim2 Size: The size of this component.
+		UDim2 Position: The position of this component.
 		Style Style: The style with which to render this component.
 		StyleModifier StyleModifier: The StyleModifier index into Style.
 		boolean TextWrapped: Whether the text label should wrap.
 		number ZIndex: The render index of this component.
+		Color3 TextColor: The color of the label.
+		number TextTransparency: The transparency of this text.
+		Enum.TextXAlignment TextXAlignment: The x alignment of this text.
+		Enum.TextYAlignment TextYAlignment: The y alignment of this text.
 
 	Style Values:
-		Color3 Color: The color of the box.
-		number Transparency: The transparency of the box.
+		Color3 TextColor: The color of the label.
+		number TextTransparency: The transparency of this text.
+		Enum.TextXAlignment TextXAlignment: The x alignment of this text.
+		Enum.TextYAlignment TextYAlignment: The y alignment of this text.
 ]]
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -32,6 +39,7 @@ local FFlagTextLabelProps = game:DefineFastFlag("TextLabelProps", false)
 function TextLabel:render()
 	local layoutOrder = self.props.LayoutOrder
 	local size = self.props.Size
+	local position = self.props.Position
 	local text = self.props.Text
 	local theme = self.props.Theme
 	local textWrapped = self.props.TextWrapped
@@ -52,6 +60,7 @@ function TextLabel:render()
 		Font = font,
 		LayoutOrder = layoutOrder,
 		Size = size,
+		Position = position,
 		Text = text,
 		TextColor3 = textColor,
 		TextSize = textSize,

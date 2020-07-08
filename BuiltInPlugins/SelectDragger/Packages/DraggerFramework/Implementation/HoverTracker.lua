@@ -1,11 +1,17 @@
 
+local Workspace = game:GetService("Workspace")
 local StudioService = game:GetService("StudioService")
 
-local Framework = script.Parent.Parent
-local SelectionHelper = require(Framework.Utility.SelectionHelper)
-local SelectionWrapper = require(Framework.Utility.SelectionWrapper)
+local DraggerFramework = script.Parent.Parent
+local SelectionHelper = require(DraggerFramework.Utility.SelectionHelper)
+local SelectionWrapper = require(DraggerFramework.Utility.SelectionWrapper)
 
-local getFFlagStudioServiceHoverInstance = require(Framework.Flags.getFFlagStudioServiceHoverInstance)
+local getFFlagDraggerRefactor = require(DraggerFramework.Flags.getFFlagDraggerRefactor)
+local getFFlagStudioServiceHoverInstance = require(DraggerFramework.Flags.getFFlagStudioServiceHoverInstance)
+
+if getFFlagDraggerRefactor() then
+	StudioService = nil
+end
 
 local HoverTracker = {}
 HoverTracker.__index = HoverTracker
@@ -19,19 +25,31 @@ function HoverTracker.new(toolImplementation, onHoverExternallyChangedFunction)
 	}, HoverTracker)
 end
 
-function HoverTracker:update(derivedWorldState)
+function HoverTracker:update(derivedWorldState, draggerContext)
 	local oldHoverSelectable = self._hoverSelectable
 
 	-- Hover parts in the workspace
-	local hit, distanceToHover, at = SelectionHelper.getMouseTarget(SelectionWrapper:Get())
-	self._hoverInstance = hit
-	self._hoverSelectable = SelectionHelper.getSelectable(hit)
+	local hit, distanceToHover, at
+	if getFFlagDraggerRefactor() then
+		hit, distanceToHover, at = self:_getMouseTarget(draggerContext)
+		self._hoverInstance = hit
+		self._hoverSelectable = SelectionHelper.getSelectable(hit, draggerContext:isAltKeyDown())
+	else
+		hit, distanceToHover, at = SelectionHelper.getMouseTarget(SelectionWrapper:Get())
+		self._hoverInstance = hit
+		self._hoverSelectable = SelectionHelper.getSelectable(hit)
+	end
 	self._hoverPosition = at
 	self._hoverHandleId = nil
 	self._hoverDistance = distanceToHover
 
 	-- Possibly hover a handle instead if we have a handle closer that the part
-	local mouseRay = SelectionHelper.getMouseRay()
+	local mouseRay
+	if getFFlagDraggerRefactor() then
+		mouseRay = draggerContext:getMouseRay()
+	else
+		mouseRay = SelectionHelper.getMouseRay()
+	end
 	local hoverHandleId, hoverHandleDistance = self:_getHitHandle(mouseRay)
 	if hoverHandleId then
 		if not self._hoverSelectable or hoverHandleDistance < distanceToHover then
@@ -45,10 +63,18 @@ function HoverTracker:update(derivedWorldState)
 		-- If you're hovering a handle, you're trying to start a drag, so
 		-- we don't want the additional visual clutter of any hoverInstance
 		-- related information getting in the way in that case.
-		if self._hoverHandleId then
-			StudioService.HoverInstance = nil
+		if getFFlagDraggerRefactor() then
+			if self._hoverHandleId then
+				draggerContext:setHoverInstance(nil)
+			else
+				draggerContext:setHoverInstance(self._hoverInstance)
+			end
 		else
-			StudioService.HoverInstance = self._hoverInstance
+			if self._hoverHandleId then
+				StudioService.HoverInstance = nil
+			else
+				StudioService.HoverInstance = self._hoverInstance
+			end
 		end
 	end
 
@@ -96,7 +122,7 @@ function HoverTracker:_disconnectSignals()
 	end
 end
 
-function HoverTracker:clearHover()
+function HoverTracker:clearHover(draggerContext)
 	self:_disconnectSignals()
 	self._hoverInstance = nil
 	self._hoverSelectable = nil
@@ -104,7 +130,11 @@ function HoverTracker:clearHover()
 	self._hoverHandleId = nil
 	self._hoverDistance = nil
 	if getFFlagStudioServiceHoverInstance() then
-		StudioService.HoverInstance = nil
+		if getFFlagDraggerRefactor() then
+			draggerContext:setHoverInstance(nil)
+		else
+			StudioService.HoverInstance = nil
+		end
 	end
 end
 
@@ -127,11 +157,46 @@ function HoverTracker:getHoverSelectable()
 end
 
 function HoverTracker:_getHitHandle(mouseRay)
-    if self._toolImplementation and self._toolImplementation.hitTest then
-        return self._toolImplementation:hitTest(mouseRay)
-    else
-        return nil
-    end
+	if self._toolImplementation and self._toolImplementation.hitTest then
+		return self._toolImplementation:hitTest(mouseRay)
+	else
+		return nil
+	end
+end
+
+function HoverTracker:_getMouseTarget(draggerContext)
+	assert(getFFlagDraggerRefactor())
+	local mouseRay = draggerContext:getMouseRay()
+	local hitObject, hitPosition = Workspace:FindPartOnRay(mouseRay)
+
+	-- Selection favoring: If there is a selected object and a non-selected
+	-- object almost exactly coincident underneath the mouse, then we should
+	-- favor the selected one, even if due to floating point error the non
+	-- selected one comes out slightly closer.
+	-- Without this case, if you duplicate objects and try to drag them, you
+	-- may end up dragging only one of the objects because you clicked on the
+	-- old non-selected copy, as opposed to the selected one you meant to.
+	if hitObject then
+		local selectedObjects = draggerContext:getSelectionWrapper():Get()
+		local hitSelectedObject, hitSelectedPosition
+			= Workspace:FindPartOnRayWithWhitelist(mouseRay, selectedObjects)
+		if hitSelectedObject and hitSelectedPosition:FuzzyEq(hitPosition) then
+			hitObject = hitSelectedObject
+			hitPosition = hitSelectedPosition
+		end
+	end
+
+	local hitDistance = (mouseRay.Origin - hitPosition).Magnitude
+
+	local hitResult = draggerContext:gizmoRaycast(
+		mouseRay.Origin, mouseRay.Direction, RaycastParams.new())
+	if hitResult and
+		(draggerContext:shouldDrawConstraintsOnTop() or (hitResult.Distance < hitDistance)) then
+		hitPosition = hitResult.Position
+		hitDistance = hitResult.Distance
+		hitObject = hitResult.Instance
+	end
+	return hitObject, hitDistance, hitPosition
 end
 
 return HoverTracker

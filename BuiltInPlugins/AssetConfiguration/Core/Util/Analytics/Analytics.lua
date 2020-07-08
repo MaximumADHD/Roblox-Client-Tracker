@@ -9,7 +9,6 @@ local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 local getUserId = require(Plugin.Core.Util.getUserId)
 local platformId = 0
 
-local FFlagEnableInsertAssetCategoryAnalytics = settings():GetFFlag("EnableInsertAssetCategoryAnalytics")
 local FFlagStudioToolboxEnablePlaceIDInAnalytics = settings():GetFFlag("StudioToolboxEnablePlaceIDInAnalytics")
 local FFlagStudioToolboxInsertAssetCategoryAnalytics = settings():GetFFlag("StudioToolboxInsertAssetCategoryAnalytics")
 
@@ -104,49 +103,27 @@ function Analytics.onCategorySelected(oldCategory, newCategory)
 end
 
 function Analytics.onAssetInserted(assetId, searchTerm, assetIndex, currentCategory)
-	if FFlagEnableInsertAssetCategoryAnalytics then
-		AnalyticsSenders.sendEventImmediately("studio", "click", "toolboxInsert", {
-			assetId = assetId,
-			searchText = searchTerm,
-			assetIndex = assetIndex,
-			currentCategory = currentCategory,
-			studioSid = getStudioSessionId(),
-			clientId = getClientId(),
-			placeId = FFlagStudioToolboxEnablePlaceIDInAnalytics and getPlaceId() or nil,
-		})
-	else
-		AnalyticsSenders.sendEventImmediately("studio", "click", "toolboxInsert", {
-			assetId = assetId,
-			searchText = searchTerm,
-			assetIndex = assetIndex,
-			studioSid = getStudioSessionId(),
-			clientId = getClientId(),
-			placeId = FFlagStudioToolboxEnablePlaceIDInAnalytics and getPlaceId() or nil,
-		})
-	end
+	AnalyticsSenders.sendEventImmediately("studio", "click", "toolboxInsert", {
+		assetId = assetId,
+		searchText = searchTerm,
+		assetIndex = assetIndex,
+		currentCategory = currentCategory,
+		studioSid = getStudioSessionId(),
+		clientId = getClientId(),
+		placeId = FFlagStudioToolboxEnablePlaceIDInAnalytics and getPlaceId() or nil,
+	})
 end
 
 function Analytics.onAssetDragInserted(assetId, searchTerm, assetIndex, currentCategory)
-	if FFlagEnableInsertAssetCategoryAnalytics then
-		AnalyticsSenders.sendEventImmediately("studio", "drag", "toolboxInsert", {
-			assetId = assetId,
-			searchText = searchTerm,
-			assetIndex = assetIndex,
-			currentCategory = currentCategory,
-			studioSid = getStudioSessionId(),
-			clientId = getClientId(),
-			placeId = FFlagStudioToolboxEnablePlaceIDInAnalytics and getPlaceId() or nil,
-		})
-	else
-		AnalyticsSenders.sendEventImmediately("studio", "drag", "toolboxInsert", {
-			assetId = assetId,
-			searchText = searchTerm,
-			assetIndex = assetIndex,
-			studioSid = getStudioSessionId(),
-			clientId = getClientId(),
-			placeId = FFlagStudioToolboxEnablePlaceIDInAnalytics and getPlaceId() or nil,
-		})
-	end
+	AnalyticsSenders.sendEventImmediately("studio", "drag", "toolboxInsert", {
+		assetId = assetId,
+		searchText = searchTerm,
+		assetIndex = assetIndex,
+		currentCategory = currentCategory,
+		studioSid = getStudioSessionId(),
+		clientId = getClientId(),
+		placeId = FFlagStudioToolboxEnablePlaceIDInAnalytics and getPlaceId() or nil,
+	})
 end
 
 function Analytics.onAssetInsertRemains(time, contentId, currentCategory)

@@ -10,7 +10,6 @@
 local FFlagCoreScriptNoPosthumousHurtOverlay = settings():GetFFlag("CoreScriptNoPosthumousHurtOverlay")
 
 local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList3")
-local FFlagEmotesMenuEnabled2 = settings():GetFFlag("CoreScriptEmotesMenuEnabled2")
 
 --[[ END OF FFLAG VALUES ]]
 
@@ -53,13 +52,7 @@ local TopbarConstants = require(GuiRoot.Modules.TopbarConstants)
 local Utility = require(GuiRoot.Modules.Settings.Utility)
 local GameTranslator = require(GuiRoot.Modules.GameTranslator)
 local PolicyService = require(GuiRoot.Modules.Common.PolicyService)
-local EmotesModule
-
-local FFlagEmotesMenuShowUiOnlyWhenAvailable
-if FFlagEmotesMenuEnabled2 then
-	EmotesModule = require(GuiRoot.Modules.EmotesMenu.EmotesMenuMaster)
-	FFlagEmotesMenuShowUiOnlyWhenAvailable = game:GetFastFlag("EmotesMenuShowUiOnlyWhenAvailable", false)
-end
+local EmotesModule = require(GuiRoot.Modules.EmotesMenu.EmotesMenuMaster)
 
 --[[ END OF MODULES ]]
 
@@ -1235,10 +1228,6 @@ end
 
 --- Emotes ---
 local function CreateEmotesIcon()
-	if not FFlagEmotesMenuEnabled2 then
-		return
-	end
-
 	local emotesIconButton = Util.Create'ImageButton'
 	{
 		Name = "Emotes";
@@ -1481,16 +1470,6 @@ local function OnCoreGuiChanged(coreGuiType, coreGuiEnabled)
 		end
 	end
 
-	if FFlagEmotesMenuEnabled2 and not EmotesModule.MenuVisibilityChanged then
-		if coreGuiType == Enum.CoreGuiType.EmotesMenu or coreGuiType == Enum.CoreGuiType.All then
-			if enabled then
-				AddItemInOrder(LeftMenubar, emotesIcon, LEFT_ITEM_ORDER)
-			else
-				LeftMenubar:RemoveItem(emotesIcon)
-			end
-		end
-	end
-
 	if coreGuiType == Enum.CoreGuiType.Chat or coreGuiType == Enum.CoreGuiType.All then
 		enabled = enabled and (not ChatModule:IsDisabled())
 		local ChatSelector = require(GuiRoot.Modules.ChatSelector)
@@ -1529,10 +1508,8 @@ local function onEmotesMenuVisibilityChangedSignal(isVisible)
 	end
 end
 
-if EmotesModule and FFlagEmotesMenuShowUiOnlyWhenAvailable then
-	EmotesModule.MenuVisibilityChanged.Event:Connect(onEmotesMenuVisibilityChangedSignal)
-	onEmotesMenuVisibilityChangedSignal(EmotesModule.MenuIsVisible)
-end
+EmotesModule.MenuVisibilityChanged.Event:Connect(onEmotesMenuVisibilityChangedSignal)
+onEmotesMenuVisibilityChangedSignal(EmotesModule.MenuIsVisible)
 
 local function OnChatModuleDisabled()
 	if chatIcon then

@@ -16,14 +16,14 @@ local EventConnection = require(TopBar.Parent.Common.EventConnection)
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
 
-local FFlagTopBarNewGamepadMenu = require(RobloxGui.Modules.Flags.FFlagTopBarNewGamepadMenu)
+local isNewGamepadMenuEnabled = require(RobloxGui.Modules.Flags.isNewGamepadMenuEnabled)
 
 local MenuConnector = Roact.PureComponent:extend("MenuConnector")
 
 MenuConnector.validateProps = t.strictInterface({
 	setMenuOpen = t.callback,
 
-	setRespawnBehaviour = FFlagTopBarNewGamepadMenu and t.callback or nil,
+	setRespawnBehaviour = isNewGamepadMenuEnabled() and t.callback or nil,
 })
 
 function MenuConnector:didMount()
@@ -31,7 +31,7 @@ function MenuConnector:didMount()
 		local InGameMenu = require(RobloxGui.Modules.InGameMenu)
 		self.props.setMenuOpen(InGameMenu.getOpen())
 
-		if FFlagTopBarNewGamepadMenu then
+		if isNewGamepadMenuEnabled() then
 			local isEnabled, customCallback = InGameMenu.getRespawnBehaviour()
 			self.props.setRespawnBehaviour(isEnabled, customCallback)
 		end
@@ -39,7 +39,7 @@ function MenuConnector:didMount()
 		local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
 		self.props.setMenuOpen(SettingsHub:GetVisibility())
 
-		if FFlagTopBarNewGamepadMenu then
+		if isNewGamepadMenuEnabled() then
 			local isEnabled, customCallback = SettingsHub:GetRespawnBehaviour()
 			self.props.setRespawnBehaviour(isEnabled, customCallback)
 		end
@@ -53,7 +53,7 @@ function MenuConnector:render()
 		local inGameMenuOpenChangedEvent = InGameMenu.getOpenChangedEvent()
 
 		local respawnBehaviourChangedEvent
-		if FFlagTopBarNewGamepadMenu then
+		if isNewGamepadMenuEnabled() then
 			respawnBehaviourChangedEvent = InGameMenu.getRespawnBehaviourChangedEvent()
 		end
 
@@ -65,7 +65,7 @@ function MenuConnector:render()
 				end,
 			}),
 
-			RespawnBehaviourConnection = FFlagTopBarNewGamepadMenu and Roact.createElement(EventConnection, {
+			RespawnBehaviourConnection = isNewGamepadMenuEnabled() and Roact.createElement(EventConnection, {
 				event = respawnBehaviourChangedEvent.Event,
 				callback = function(isEnabled, customCallback)
 					self.props.setRespawnBehaviour(isEnabled, customCallback)
@@ -77,7 +77,7 @@ function MenuConnector:render()
 		local settingsHubOpenedEvent = SettingsHub.SettingsShowEvent
 
 		local respawnBehaviourChangedEvent
-		if FFlagTopBarNewGamepadMenu then
+		if isNewGamepadMenuEnabled() then
 			respawnBehaviourChangedEvent = SettingsHub.RespawnBehaviourChangedEvent
 		end
 
@@ -89,7 +89,7 @@ function MenuConnector:render()
 				end,
 			}),
 
-			RespawnBehaviourConnection = FFlagTopBarNewGamepadMenu and Roact.createElement(EventConnection, {
+			RespawnBehaviourConnection = isNewGamepadMenuEnabled() and Roact.createElement(EventConnection, {
 				event = respawnBehaviourChangedEvent.Event,
 				callback = function(isEnabled, customCallback)
 					self.props.setRespawnBehaviour(isEnabled, customCallback)
@@ -105,7 +105,7 @@ local function mapDispatchToProps(dispatch)
 			return dispatch(SetMenuOpen(open))
 		end,
 
-		setRespawnBehaviour = FFlagTopBarNewGamepadMenu and function(isEnabled, customCallback)
+		setRespawnBehaviour = isNewGamepadMenuEnabled() and function(isEnabled, customCallback)
 			return dispatch(SetRespawnBehaviour(isEnabled, customCallback))
 		end,
 	}

@@ -21,6 +21,7 @@ local Actions = Plugin.Src.Actions
 local ChangeTool = require(Actions.ChangeTool)
 
 local FFlagTerrainToolsConvertPartTool = game:GetFastFlag("TerrainToolsConvertPartTool")
+local FFlagTerrainToolsReplaceTool = game:GetFastFlag("TerrainToolsReplaceTool")
 
 local ToolManager = Roact.PureComponent:extend(script.Name)
 
@@ -43,6 +44,12 @@ if FFlagTerrainToolsConvertPartTool then
 	-- Put between import and clear
 	-- When removing flag, put this straight into the tabLookup table
 	table.insert(tabLookup[TabId.Create], 3, ToolId.ConvertPart)
+end
+
+if FFlagTerrainToolsReplaceTool then
+	-- Puts after seaLevel
+	-- When removing flag, put this straight into the tabLookup table
+	table.insert(tabLookup[TabId.Edit], 9, ToolId.Replace)
 end
 
 function ToolManager:init()

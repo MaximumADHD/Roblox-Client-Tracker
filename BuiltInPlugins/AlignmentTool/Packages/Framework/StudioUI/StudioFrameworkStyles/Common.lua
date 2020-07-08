@@ -23,6 +23,10 @@ return function(theme, getColor)
 		BorderColor = theme:GetColor("Border"),
 	})
 
+	local BorderHover = Style.new({
+		BorderColor = theme:GetColor("DialogMainButton") 
+	})
+
 	local Scroller = Style.new({
 		BackgroundTransparency = 1,
 		BorderSizePixel = 0,
@@ -48,6 +52,7 @@ return function(theme, getColor)
 		MainText = MainText,
 		Background = Background,
 		Border = Border,
+		BorderHover = BorderHover,
 		Scroller = Scroller,
 	}
 end

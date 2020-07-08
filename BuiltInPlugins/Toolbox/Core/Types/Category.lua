@@ -4,7 +4,7 @@ local FFlagToolboxShowGroupCreations = game:DefineFastFlag("ToolboxShowGroupCrea
 local FFlagFixToolboxPluginScaling = game:DefineFastFlag("FixToolboxPluginScaling", false)
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 local FFlagUseCategoryNameInToolboxFix1 = game:DefineFastFlag("UseCategoryNameInToolboxFix1", false)
-local FFlagEnableDefaultSortFix = game:GetFastFlag("EnableDefaultSortFix2")
+local FFlagEnableDefaultSortFix2 = game:GetFastFlag("EnableDefaultSortFix2")
 local FFlagEnableToolboxVideos = game:GetFastFlag("EnableToolboxVideos")
 local FFlagToolboxUseNewPluginEndpoint = settings():GetFFlag("ToolboxUseNewPluginEndpoint")
 
@@ -208,6 +208,8 @@ Category.RECENT = {
 	Category.RECENT_VIDEO,
 }
 
+Category.DEFAULT = Category.FREE_MODELS
+
 -- NOTE: When FFlagEnableToolboxVideos is enabled, remember to move the keys directy into the tables for cleaner code!
 if FFlagEnableToolboxVideos then
 	local insertIndex = Cryo.List.find(Category.INVENTORY_WITH_GROUPS, Category.MY_PACKAGES) + 1
@@ -386,7 +388,7 @@ if FFlagUseCategoryNameInToolbox then
 		local category = Category.getCategoryByName(categoryName)
 		return category.assetType == Category.AssetType.AUDIO
 	end
-	
+
 	function Category.categoryIsVideo(categoryName)
 		local category = Category.getCategoryByName(categoryName)
 		return category.assetType == Category.AssetType.VIDEO
@@ -422,10 +424,10 @@ else
 	end
 
 	function Category.categoryIsPackage(index, currentTab)
-		if FFlagEnableDefaultSortFix then
+		if FFlagEnableDefaultSortFix2 then
 			local categoryCheck = currentTab == Category.INVENTORY_KEY
-			local assetypeCheck = Category.INVENTORY_WITH_GROUPS[index].assetType == Category.AssetType.PACKAGE
-			return checkBounds(index) and categoryCheck and assetypeCheck
+			local assetTypeCheck = checkBounds(index) and Category.INVENTORY_WITH_GROUPS[index].assetType == Category.AssetType.PACKAGE
+			return categoryCheck and assetTypeCheck
 		else
 			return checkBounds(index) and currentTab == Category.MARKETPLACE_KEY and
 				Category.INVENTORY_WITH_GROUPS[index].assetType == Category.AssetType.PACKAGE

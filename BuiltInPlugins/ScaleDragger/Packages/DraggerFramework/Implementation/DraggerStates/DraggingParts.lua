@@ -1,20 +1,24 @@
+if require(script.Parent.Parent.Parent.Flags.getFFlagDraggerRefactor)() then
+	return require(script.Parent.DraggingParts_Refactor)
+end
+
 local Workspace = game:GetService("Workspace")
 local ChangeHistoryService = game:GetService("ChangeHistoryService")
 
-local Framework = script.Parent.Parent.Parent
-local Packages = Framework.Parent
-local Library = Framework.Parent.Parent
+local DraggerFramework = script.Parent.Parent.Parent
+local Packages = DraggerFramework.Parent
+local Library = DraggerFramework.Parent.Parent
 
 local Roact = require(Packages.Roact)
 local DraggerStateType = require(script.Parent.Parent.DraggerStateType)
-local SelectionHelper = require(Framework.Utility.SelectionHelper)
-local DragHelper = require(Framework.Utility.DragHelper)
-local SelectionWrapper = require(Framework.Utility.SelectionWrapper)
-local PartMover = require(Framework.Utility.PartMover)
-local AttachmentMover = require(Framework.Utility.AttachmentMover)
-local setInsertPoint = require(Framework.Utility.setInsertPoint)
-local StandardCursor = require(Framework.Utility.StandardCursor)
-local getHandleScale = require(Framework.Utility.getHandleScale)
+local SelectionHelper = require(DraggerFramework.Utility.SelectionHelper)
+local DragHelper = require(DraggerFramework.Utility.DragHelper)
+local SelectionWrapper = require(DraggerFramework.Utility.SelectionWrapper)
+local PartMover = require(DraggerFramework.Utility.PartMover)
+local AttachmentMover = require(DraggerFramework.Utility.AttachmentMover)
+local setInsertPoint = require(DraggerFramework.Utility.setInsertPoint)
+local StandardCursor = require(DraggerFramework.Utility.StandardCursor)
+local getHandleScale = require(DraggerFramework.Utility.getHandleScale)
 
 local DraggingParts = {}
 DraggingParts.__index = DraggingParts

@@ -23,7 +23,14 @@ local getBoundingBoxScale = require(DraggerFramework.Utility.getBoundingBoxScale
 
 local RotateHandleView = require(Plugin.Src.RotateHandleView)
 
+local getFFlagDraggerRefactor = require(DraggerFramework.Flags.getFFlagDraggerRefactor)
 local getFFlagDraggerBasisRotate = require(DraggerFramework.Flags.getFFlagDraggerBasisRotate)
+
+-- Ensure that global references have been removed
+if getFFlagDraggerRefactor() then
+	plugin = nil
+	StudioService = nil
+end
 
 -- The difference from exactly touching to try to bring the parts within when
 -- dragging parts into a colliding condition with Collisions enabled.
@@ -78,7 +85,7 @@ local function isRightAngle(angleDelta)
 	return math.abs(snappedTo90 - angleDelta) < RIGHT_ANGLE_EXACT_THRESHOLD
 end
 
-local function getRotationTransform(mainCFrame, axisVector, delta)
+local function getRotationTransform(mainCFrame, axisVector, delta, rotateIncrement)
 	if getFFlagDraggerBasisRotate() then
 		local localAxis = mainCFrame:VectorToObjectSpace(axisVector)
 		local rotationCFrame = CFrame.fromAxisAngle(localAxis, delta)
@@ -86,19 +93,36 @@ local function getRotationTransform(mainCFrame, axisVector, delta)
 		-- Special case rotations in 90 degree increments as a permutation of
 		-- the identity matrix rather than numerically calculating an axis
 		-- rotation which would introduce floating point error.
-		if StudioService.RotateIncrement > 0 and isRightAngle(delta) then
-			-- Since we know that this is already almost a right angle rotation
-			-- thanks to the isRightAngle check, we can find the pure
-			-- permutation rotation matrix simply by rounding the rotation
-			-- matrix elements to the nearest integer.
-			local _, _, _,
-				r0, r1, r2,
-				r3, r4, r5,
-				r6, r7, r8 = rotationCFrame:components()
-			rotationCFrame = CFrame.new(0, 0, 0,
-				math.floor(r0 + 0.5), math.floor(r1 + 0.5), math.floor(r2 + 0.5),
-				math.floor(r3 + 0.5), math.floor(r4 + 0.5), math.floor(r5 + 0.5),
-				math.floor(r6 + 0.5), math.floor(r7 + 0.5), math.floor(r8 + 0.5))
+		if getFFlagDraggerRefactor() then
+			if rotateIncrement > 0 and isRightAngle(delta) then
+				-- Since we know that this is already almost a right angle rotation
+				-- thanks to the isRightAngle check, we can find the pure
+				-- permutation rotation matrix simply by rounding the rotation
+				-- matrix elements to the nearest integer.
+				local _, _, _,
+					r0, r1, r2,
+					r3, r4, r5,
+					r6, r7, r8 = rotationCFrame:components()
+				rotationCFrame = CFrame.new(0, 0, 0,
+					math.floor(r0 + 0.5), math.floor(r1 + 0.5), math.floor(r2 + 0.5),
+					math.floor(r3 + 0.5), math.floor(r4 + 0.5), math.floor(r5 + 0.5),
+					math.floor(r6 + 0.5), math.floor(r7 + 0.5), math.floor(r8 + 0.5))
+			end
+		else
+			if StudioService.RotateIncrement > 0 and isRightAngle(delta) then
+				-- Since we know that this is already almost a right angle rotation
+				-- thanks to the isRightAngle check, we can find the pure
+				-- permutation rotation matrix simply by rounding the rotation
+				-- matrix elements to the nearest integer.
+				local _, _, _,
+					r0, r1, r2,
+					r3, r4, r5,
+					r6, r7, r8 = rotationCFrame:components()
+				rotationCFrame = CFrame.new(0, 0, 0,
+					math.floor(r0 + 0.5), math.floor(r1 + 0.5), math.floor(r2 + 0.5),
+					math.floor(r3 + 0.5), math.floor(r4 + 0.5), math.floor(r5 + 0.5),
+					math.floor(r6 + 0.5), math.floor(r7 + 0.5), math.floor(r8 + 0.5))
+			end
 		end
 
 		-- Convert the rotation to a global space transformation
@@ -125,17 +149,32 @@ local function rotationAngleFromRay(cframe, unitRay)
 	return nil
 end
 
-local function snapToRotateIncrementIfNeeded(angle)
-	if StudioService.RotateIncrement > 0 then
-		local angleIncrement = math.rad(StudioService.RotateIncrement)
-		return math.floor(angle / angleIncrement) * angleIncrement
-	else
-		return angle
+local snapToRotateIncrementIfNeeded
+if getFFlagDraggerRefactor() then
+	function snapToRotateIncrementIfNeeded(angle, rotateIncrement)
+		if rotateIncrement > 0 then
+			local angleIncrement = math.rad(rotateIncrement)
+			return math.floor(angle / angleIncrement) * angleIncrement
+		else
+			return angle
+		end
+	end
+else
+	function snapToRotateIncrementIfNeeded(angle)
+		if StudioService.RotateIncrement > 0 then
+			local angleIncrement = math.rad(StudioService.RotateIncrement)
+			return math.floor(angle / angleIncrement) * angleIncrement
+		else
+			return angle
+		end
 	end
 end
 
-function RotateToolImpl.new()
+function RotateToolImpl.new(draggerContext)
 	local self = {}
+	if getFFlagDraggerRefactor() then
+		self._draggerContext = draggerContext
+	end
 	self._handles = {}
 	self._partMover = PartMover.new()
 	self._attachmentMover = AttachmentMover.new()
@@ -154,7 +193,11 @@ function RotateToolImpl:update(draggerToolState, derivedWorldState)
 			derivedWorldState:getObjectsToTransform()
 		self._originalCFrameMap = derivedWorldState:getOriginalCFrameMap()
 
-		self._scale = getHandleScale(self._boundingBox.CFrame.Position)
+		if getFFlagDraggerRefactor() then
+			self._scale = self._draggerContext:getHandleScale(self._boundingBox.CFrame.Position)
+		else
+			self._scale = getHandleScale(self._boundingBox.CFrame.Position)
+		end
 	end
 	self:_updateHandles()
 end
@@ -182,6 +225,7 @@ function RotateToolImpl:render(hoveredHandleId)
 	end
 
 	local children = {}
+
 	if self._draggingHandleId and self._handles[self._draggingHandleId] then
 		local handleProps = self._handles[self._draggingHandleId]
 		children[self._draggingHandleId] = Roact.createElement(RotateHandleView, {
@@ -208,9 +252,16 @@ function RotateToolImpl:render(hoveredHandleId)
 			end
 		end
 
-		if areJointsEnabled() and self._jointPairs then
-			local scale = getBoundingBoxScale(self._boundingBox.CFrame, self._boundingBox.Size)
-			children.JointDisplay = self._jointPairs:renderJoints(scale)
+		if getFFlagDraggerRefactor() then
+			if self._draggerContext:shouldJoinSurfaces() and self._jointPairs then
+				local scale = getBoundingBoxScale(self._draggerContext, self._boundingBox.CFrame, self._boundingBox.Size)
+				children.JointDisplay = self._jointPairs:renderJoints(scale)
+			end
+		else
+			if areJointsEnabled() and self._jointPairs then
+				local scale = getBoundingBoxScale(self._boundingBox.CFrame, self._boundingBox.Size)
+				children.JointDisplay = self._jointPairs:renderJoints(scale)
+			end
 		end
 	else
 		for handleId, handleProps in pairs(self._handles) do
@@ -230,10 +281,20 @@ function RotateToolImpl:render(hoveredHandleId)
 	end
 
 	if #self._partsToMove > 1 then
-		children.SelectionBoundingBox = Roact.createElement(StandaloneSelectionBox, {
-			CFrame = self._boundingBox.CFrame,
-			Size = self._boundingBox.Size,
-		})
+		if getFFlagDraggerRefactor() then
+			children.SelectionBoundingBox = Roact.createElement(StandaloneSelectionBox, {
+				CFrame = self._boundingBox.CFrame,
+				Size = self._boundingBox.Size,
+				Color = self._draggerContext:getSelectionBoxColor(),
+				LineThickness = self._draggerContext:getHoverLineThickness(),
+				Container = self._draggerContext:getGuiParent(),
+			})
+		else
+			children.SelectionBoundingBox = Roact.createElement(StandaloneSelectionBox, {
+				CFrame = self._boundingBox.CFrame,
+				Size = self._boundingBox.Size,
+			})
+		end
 	end
 
 	return Roact.createFragment(children)
@@ -252,9 +313,18 @@ function RotateToolImpl:mouseDown(mouseRay, handleId)
 			return
 		end
 
-		self._startAngle = snapToRotateIncrementIfNeeded(angle)
+		if getFFlagDraggerRefactor() then
+			self._startAngle = snapToRotateIncrementIfNeeded(angle, self._draggerContext:getRotateIncrement())
+		else
+			self._startAngle = snapToRotateIncrementIfNeeded(angle)
+		end
 
-		local breakJoints = not areConstraintsEnabled()
+		local breakJoints
+		if getFFlagDraggerRefactor() then
+			breakJoints = not self._draggerContext:areConstraintsEnabled()
+		else
+			breakJoints = not areConstraintsEnabled()
+		end
 		local center = self._boundingBox.CFrame.Position
 		self._partMover:setDragged(self._partsToMove, self._originalCFrameMap, breakJoints, center)
 		self._attachmentMover:setDragged(self._attachmentsToMove)
@@ -273,18 +343,38 @@ function RotateToolImpl:mouseDrag(mouseRay)
 		return
 	end
 
-	local snappedDelta = snapToRotateIncrementIfNeeded(angle) - self._startAngle
+	local snappedDelta
+	if getFFlagDraggerRefactor() then
+		snappedDelta =
+			snapToRotateIncrementIfNeeded(angle, self._draggerContext:getRotateIncrement()) - self._startAngle
+	else
+		snappedDelta = snapToRotateIncrementIfNeeded(angle) - self._startAngle
+	end
 	local appliedGlobalTransform
 
-	if areConstraintsEnabled() and #self._partsToMove > 0 then
-		appliedGlobalTransform = self:_mouseDragWithInverseKinematics(mouseRay, snappedDelta)
+	if getFFlagDraggerRefactor() then
+		if self._draggerContext:areConstraintsEnabled() and #self._partsToMove > 0 then
+			appliedGlobalTransform = self:_mouseDragWithInverseKinematics(mouseRay, snappedDelta)
+		else
+			appliedGlobalTransform = self:_mouseDragWithGeometricMovement(mouseRay, snappedDelta)
+		end
 	else
-		appliedGlobalTransform = self:_mouseDragWithGeometricMovement(mouseRay, snappedDelta)
+		if areConstraintsEnabled() and #self._partsToMove > 0 then
+			appliedGlobalTransform = self:_mouseDragWithInverseKinematics(mouseRay, snappedDelta)
+		else
+			appliedGlobalTransform = self:_mouseDragWithGeometricMovement(mouseRay, snappedDelta)
+		end
 	end
 
 	if appliedGlobalTransform then
-		if areJointsEnabled() then
-			self._jointPairs = self._partMover:computeJointPairs(appliedGlobalTransform)
+		if getFFlagDraggerRefactor() then
+			if self._draggerContext:shouldJoinSurfaces() then
+				self._jointPairs = self._partMover:computeJointPairs(appliedGlobalTransform)
+			end
+		else
+			if areJointsEnabled() then
+				self._jointPairs = self._partMover:computeJointPairs(appliedGlobalTransform)
+			end
 		end
 	end
 end
@@ -305,22 +395,48 @@ function RotateToolImpl:_mouseDragWithGeometricMovement(mouseRay, delta)
 		return nil
 	end
 
-	local candidateGlobalTransform = getRotationTransform(
-		self._originalBoundingBoxCFrame,
-		self._handleCFrame.RightVector,
-		delta)
+	local candidateGlobalTransform
+	if getFFlagDraggerRefactor() then
+		candidateGlobalTransform = getRotationTransform(
+			self._originalBoundingBoxCFrame,
+			self._handleCFrame.RightVector,
+			delta,
+			self._draggerContext:getRotateIncrement())
+	else
+		candidateGlobalTransform = getRotationTransform(
+			self._originalBoundingBoxCFrame,
+			self._handleCFrame.RightVector,
+			delta)
+	end
 	self._partMover:transformTo(candidateGlobalTransform)
 
-	if areCollisionsEnabled() and self._partMover:isIntersectingOthers() then
-		self._draggingLastGoodDelta = self:_findAndRotateToGoodDelta(delta)
+	if getFFlagDraggerRefactor() then
+		if self._draggerContext:areCollisionsEnabled() and self._partMover:isIntersectingOthers() then
+			self._draggingLastGoodDelta = self:_findAndRotateToGoodDelta(delta)
+		else
+			self._draggingLastGoodDelta = delta
+		end
 	else
-		self._draggingLastGoodDelta = delta
+		if areCollisionsEnabled() and self._partMover:isIntersectingOthers() then
+			self._draggingLastGoodDelta = self:_findAndRotateToGoodDelta(delta)
+		else
+			self._draggingLastGoodDelta = delta
+		end
 	end
 
-	local appliedGlobalTransform = getRotationTransform(
-		self._originalBoundingBoxCFrame,
-		self._handleCFrame.RightVector,
-		self._draggingLastGoodDelta)
+	local appliedGlobalTransform
+	if getFFlagDraggerRefactor() then
+		appliedGlobalTransform = getRotationTransform(
+			self._originalBoundingBoxCFrame,
+			self._handleCFrame.RightVector,
+			self._draggingLastGoodDelta,
+			self._draggerContext:getRotateIncrement())
+	else
+		appliedGlobalTransform = getRotationTransform(
+			self._originalBoundingBoxCFrame,
+			self._handleCFrame.RightVector,
+			self._draggingLastGoodDelta)
+	end
 	self._attachmentMover:transformTo(appliedGlobalTransform)
 	self._boundingBox.CFrame = appliedGlobalTransform * self._originalBoundingBoxCFrame
 
@@ -337,11 +453,27 @@ function RotateToolImpl:_mouseDragWithInverseKinematics(mouseRay, delta)
 		return nil
 	end
 
-	local collisionsMode = areCollisionsEnabled() and
-		Enum.IKCollisionsMode.OtherMechanismsAnchored or
-		Enum.IKCollisionsMode.NoCollisions
+	local collisionsMode
+	if getFFlagDraggerRefactor() then
+		collisionsMode = self._draggerContext:areCollisionsEnabled() and
+			Enum.IKCollisionsMode.OtherMechanismsAnchored or
+			Enum.IKCollisionsMode.NoCollisions
+	else
+		collisionsMode = areCollisionsEnabled() and
+			Enum.IKCollisionsMode.OtherMechanismsAnchored or
+			Enum.IKCollisionsMode.NoCollisions
+	end
 
-	local candidateTransform = getRotationTransform(self._boundingBox.CFrame, self._handleCFrame.RightVector, delta)
+	local candidateTransform
+	if getFFlagDraggerRefactor() then
+		candidateTransform = getRotationTransform(
+			self._boundingBox.CFrame,
+			self._handleCFrame.RightVector,
+			delta,
+			self._draggerContext:getRotateIncrement())
+	else
+		candidateTransform = getRotationTransform(self._boundingBox.CFrame, self._handleCFrame.RightVector, delta)
+	end
 	local appliedTransform = self._partMover:rotateToWithIk(candidateTransform, collisionsMode)
 
 	self._attachmentMover:transformTo(appliedTransform)
@@ -364,8 +496,14 @@ function RotateToolImpl:mouseUp(mouseRay)
 		self._startAngle = nil
 		self._originalBoundingBoxCFrame = nil
 
-		if areJointsEnabled() and self._jointPairs then
-			self._jointPairs:createJoints()
+		if getFFlagDraggerRefactor() then
+			if self._draggerContext:shouldJoinSurfaces() and self._jointPairs then
+				self._jointPairs:createJoints()
+			end
+		else
+			if areJointsEnabled() and self._jointPairs then
+				self._jointPairs:createJoints()
+			end
 		end
 		self._jointPairs = nil
 		self._partMover:commit()
@@ -393,7 +531,16 @@ function RotateToolImpl:_findAndRotateToGoodDelta(desiredDelta)
 
 	while math.abs(goal - start) > ROTATE_COLLISION_THRESHOLD do
 		local mid = (goal + start) / 2
-		local candidateTransform = getRotationTransform(self._boundingBox.CFrame, self._handleCFrame.RightVector, mid)
+		local candidateTransform
+		if getFFlagDraggerRefactor() then
+			candidateTransform = getRotationTransform(
+				self._boundingBox.CFrame,
+				self._handleCFrame.RightVector,
+				mid,
+				self._draggerContext:getRotateIncrement())
+		else
+			candidateTransform = getRotationTransform(self._boundingBox.CFrame, self._handleCFrame.RightVector, mid)
+		end
 		self._partMover:transformTo(candidateTransform)
 
 		isIntersecting = self._partMover:isIntersectingOthers()
@@ -422,8 +569,17 @@ function RotateToolImpl:_findAndRotateToGoodDelta(desiredDelta)
 	-- Have to make sure that we end on a non-intersection. The invariant is
 	-- that start is the best safe position we've found, so we can move it.
 	if isIntersecting then
-		local transform = getRotationTransform(self._boundingBox.CFrame, self._handleCFrame.RightVector, start)
-		self._partMover:transformTo(transform)
+		if getFFlagDraggerRefactor() then
+			local transform = getRotationTransform(
+				self._boundingBox.CFrame,
+				self._handleCFrame.RightVector,
+				start,
+				self._draggerContext:getRotateIncrement())
+			self._partMover:transformTo(transform)
+		else
+			local transform = getRotationTransform(self._boundingBox.CFrame, self._handleCFrame.RightVector, start)
+			self._partMover:transformTo(transform)
+		end
 	end
 
 	-- Either we ended the loop on an intersection, and the above code moved us

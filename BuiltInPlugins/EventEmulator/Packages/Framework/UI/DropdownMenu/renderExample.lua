@@ -1,76 +1,54 @@
 local Framework = script.Parent.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local UI = require(Framework.UI)
-local RoundBox = UI.Decoration.RoundBox
-local Button = UI.Button
-local Container = UI.Container
 local DropdownMenu = UI.DropdownMenu
-local TextLabel = UI.Decoration.TextLabel
 
 local Example = Roact.PureComponent:extend(script.Parent.Name .. "Example")
 
 function Example:init()
 	self.state = {
-		showDropdown = false,
-		currentText = "",
+		isOpen = false
 	}
-
-	self.toggleDropdown = function()
-		local showDropdown = self.state.showDropdown
+	self.selectItem = function(value, index)
+		print("Selected option", index, "value", value)
 		self:setState({
-			showDropdown = not showDropdown,
+			isOpen = false
 		})
 	end
-
-	self.hideDropdown = function()
+	self.openMenu = function()
 		self:setState({
-			showDropdown = false,
+			isOpen = true
 		})
 	end
-
-	self.selectText = function(txt)
+	self.closeMenu = function()
 		self:setState({
-			currentText = txt,
-			showDropdown = false,
+			isOpen = false
 		})
 	end
 end
 
 function Example:render()
-	return Roact.createElement(Container, {
-		Size = UDim2.new(0, 300, 0, 300),
-		Background = RoundBox,
-		BackgroundStyle = {
-			Color = Color3.new(1, 0, 0),
-		}
+	return Roact.createElement("Frame", {
+		Size = UDim2.new(0, 240, 0, 32)
 	}, {
-		Text = Roact.createElement(TextLabel, {
-			Text = self.state.currentText,
-			Size = UDim2.new(1, -50, 0, 32),
+		Menu = Roact.createElement(DropdownMenu, {
+			Hide = not self.state.isOpen,
+			Items = {
+				"The first element",
+				"The second",
+				"A really long element",
+				"A tiny one",
+				"The fifth one",
+				"The last one",
+			},
+			OnItemActivated = self.selectItem,
+			OnFocusLost = self.closeMenu
 		}),
-		Button = Roact.createElement(Button, {
-			Style = "Round",
-			Text = "...",
-			Position = UDim2.new(1, -42, 0, 0),
-			Size = UDim2.new(0, 32, 0, 32),
-			OnClick = self.toggleDropdown,
-		}, {
-			DropdownMenu = Roact.createElement(DropdownMenu, {
-				ShouldShow = self.state.showDropdown,
-				Size = UDim2.fromOffset(300, 240),
-				Items = {
-					"The first element",
-					"The second",
-					"A really long element",
-					"A tiny one",
-					"The fifth one",
-					"The last one",
-				},
-
-				OnItemActivated = self.selectText,
-				
-				OnFocusLost = self.hideDropdown,
-			}),
+		Button = Roact.createElement("TextButton", {
+			Text = "Open",
+			Position = UDim2.new(0, 250, 0, 0),
+			Size = UDim2.new(0, 40, 1, 0),
+			[Roact.Event.Activated] = self.openMenu,
 		})
 	})
 end

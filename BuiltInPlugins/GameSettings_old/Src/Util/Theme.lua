@@ -99,7 +99,13 @@ function Theme.createValues(theme, getColor)
 			Font = Enum.Font.SourceSans,
 		})
 
+		local GameSettingsButton = Style.extend(button.Default, {
+			TextSize = fontStyle.Normal.TextSize,
+			Font = Enum.Font.SourceSans,
+		})
+
 		return {
+			GameSettingsButton = GameSettingsButton,
 			GameSettingsPrimaryButton = GameSettingsPrimaryButton,
 		}
 	end)
@@ -119,6 +125,11 @@ function Theme.createValues(theme, getColor)
 
 			scrollBar = isDark and theme:getColor(StyleColor.ScrollBar) or theme:getColor(StyleColor.Border),
 			scrollBarBackground = isDark and theme:getColor(StyleColor.ScrollBarBackground) or Color3.fromRGB(245, 245, 245),
+
+			button = {
+				width = 125,
+				height = 35,
+			},
 
 			header = {
 				height = 45,

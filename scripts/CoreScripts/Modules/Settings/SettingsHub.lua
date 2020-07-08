@@ -44,13 +44,12 @@ local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList3")
 local FFlagLocalizeVersionLabels = settings():GetFFlag("LocalizeVersionLabels")
 
 local FFlagUpdateSettingsHubGameText = require(RobloxGui.Modules.Flags.FFlagUpdateSettingsHubGameText)
+local GetFFlagInstrumentMenuOpenMethods = require(RobloxGui.Modules.Flags.GetFFlagInstrumentMenuOpenMethods)
 local FFlagDisableAutoTranslateForKeyTranslatedContent = require(RobloxGui.Modules.Flags.FFlagDisableAutoTranslateForKeyTranslatedContent)
 local FFlagCollectAnalyticsForSystemMenu = settings():GetFFlag("CollectAnalyticsForSystemMenu")
 local isNewTopBarEnabled = require(RobloxGui.Modules.TopBar.isNewTopBarEnabled)
 
-local FFlagTopBarNewGamepadMenu = require(RobloxGui.Modules.Flags.FFlagTopBarNewGamepadMenu)
-
-local FFlagTopBarFixCloseButtonMobile = game:DefineFastFlag("TopBarFixCloseButtonMobile", false)
+local isNewGamepadMenuEnabled = require(RobloxGui.Modules.Flags.isNewGamepadMenuEnabled)
 
 local FFlagFixGamepadOldMenuOpening = game:DefineFastFlag("FixGamepadOldMenuOpening", false)
 
@@ -386,7 +385,7 @@ local function CreateSettingsHub()
 		elseif not resetEnabled and (isBindableEvent or callback == true) then
 			setResetEnabled(true)
 		end
-		if FFlagTopBarNewGamepadMenu then
+		if isNewGamepadMenuEnabled() then
 			if isBindableEvent then
 				customCallback = callback
 			end
@@ -652,7 +651,7 @@ local function CreateSettingsHub()
 			AnchorPoint = Vector2.new(0.5, 0.5),
 			Parent = this.Shield
 		}
-		if isNewTopBarEnabled() and FFlagTopBarFixCloseButtonMobile and not isTenFootInterface then
+		if isNewTopBarEnabled() and not isTenFootInterface then
 			local topCornerInset = GuiService:GetGuiInset()
 			this.MenuContainerPadding = utility:Create'UIPadding'
 			{
@@ -1367,18 +1366,8 @@ local function CreateSettingsHub()
 		end
 	end
 
-	function setVisibilityInternal(visible, noAnimation, customStartPage, switchedFromGamepadInput)
+	function setVisibilityInternal(visible, noAnimation, customStartPage, switchedFromGamepadInput, analyticsContext)
 		this.OpenStateChangedCount = this.OpenStateChangedCount + 1
-
-		if FFlagCollectAnalyticsForSystemMenu then
-			if this.Visible ~= visible then
-				if visible then
-					AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, Constants.AnalyticsMenuOpenName, Constants.AnalyticsMenuActionName, {})
-				else
-					AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, Constants.AnalyticsMenuCloseName, Constants.AnalyticsMenuActionName, {})
-				end
-			end
-		end
 
 		this.Visible = visible
 
@@ -1509,20 +1498,34 @@ local function CreateSettingsHub()
 
 			GuiService.SelectedCoreObject = nil
 		end
+
+		if FFlagCollectAnalyticsForSystemMenu then
+			if this.Visible ~= visible then
+				if visible then
+					AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, Constants.AnalyticsMenuOpenName, Constants.AnalyticsMenuActionName, {
+						source = GetFFlagInstrumentMenuOpenMethods() and analyticsContext or nil,
+					})
+				else
+					AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, Constants.AnalyticsMenuCloseName, Constants.AnalyticsMenuActionName, {
+						source = GetFFlagInstrumentMenuOpenMethods() and analyticsContext or nil,
+					})
+				end
+			end
+		end
 	end
 
-	function this:SetVisibility(visible, noAnimation, customStartPage, switchedFromGamepadInput)
+	function this:SetVisibility(visible, noAnimation, customStartPage, switchedFromGamepadInput, analyticsContext)
 		if this.Visible == visible then return end
 
-		setVisibilityInternal(visible, noAnimation, customStartPage, switchedFromGamepadInput)
+		setVisibilityInternal(visible, noAnimation, customStartPage, switchedFromGamepadInput, analyticsContext)
 	end
 
 	function this:GetVisibility()
 		return this.Visible
 	end
 
-	function this:ToggleVisibility(switchedFromGamepadInput)
-		setVisibilityInternal(not this.Visible, nil, nil, switchedFromGamepadInput)
+	function this:ToggleVisibility(switchedFromGamepadInput, analyticsContext)
+		setVisibilityInternal(not this.Visible, nil, nil, switchedFromGamepadInput, analyticsContext)
 	end
 
 	function this:AddToMenuStack(newItem)
@@ -1726,7 +1729,7 @@ local function CreateSettingsHub()
 	-- connect back button on android
 	GuiService.ShowLeaveConfirmation:connect(function()
 		if #this.MenuStack == 0 then
-			this:SetVisibility(true)
+			this:SetVisibility(true, nil, nil, nil, Constants.AnalyticsMenuOpenTypes.GamepadLeaveGame)
 			this:SwitchToPage(this.PlayerPage, nil, 1)
 		else
 			this:PopMenu(false, true)
@@ -1791,12 +1794,12 @@ end)
 
 local SettingsHubInstance = CreateSettingsHub()
 
-function moduleApiTable:SetVisibility(visible, noAnimation, customStartPage, switchedFromGamepadInput)
-	SettingsHubInstance:SetVisibility(visible, noAnimation, customStartPage, switchedFromGamepadInput)
+function moduleApiTable:SetVisibility(visible, noAnimation, customStartPage, switchedFromGamepadInput, analyticsContext)
+	SettingsHubInstance:SetVisibility(visible, noAnimation, customStartPage, switchedFromGamepadInput, analyticsContext)
 end
 
-function moduleApiTable:ToggleVisibility(switchedFromGamepadInput)
-	SettingsHubInstance:ToggleVisibility(switchedFromGamepadInput)
+function moduleApiTable:ToggleVisibility(switchedFromGamepadInput, analyticsContext)
+	SettingsHubInstance:ToggleVisibility(switchedFromGamepadInput, analyticsContext)
 end
 
 function moduleApiTable:SwitchToPage(pageToSwitchTo, ignoreStack)

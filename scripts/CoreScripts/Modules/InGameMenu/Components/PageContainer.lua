@@ -11,8 +11,9 @@ local InGameMenu = script.Parent.Parent
 local BlurredModalPortal = require(script.Parent.BlurredModalPortal)
 local Pages = require(script.Parent.Pages)
 
-local FFlagInGameMenuSmallerSideBar = require(InGameMenu.Flags.FFlagInGameMenuSmallerSideBar)
 local FFlagFixMakeFriendsNavCrash = require(InGameMenu.Flags.FFlagFixMakeFriendsNavCrash)
+
+local FFlagFixInGameNavTreeCrash = require(InGameMenu.Flags.FFlagFixInGameNavTreeCrash)
 
 local pageComponents = {}
 for key, pageInfo in pairs(Pages.pagesByKey) do
@@ -81,7 +82,7 @@ function PageContainer:render()
 
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(0, 400, 1, 0),
-		Position = UDim2.new(0, FFlagInGameMenuSmallerSideBar and 64 or 100, 0, 0),
+		Position = UDim2.new(0, 64, 0, 0),
 		BackgroundTransparency = 1,
 		Visible = self.props.visible,
 		ClipsDescendants = true,
@@ -119,10 +120,18 @@ function PageContainer:didUpdate(oldProps, oldState)
 			-- parent-child pages, it will move all parent pages of lastPage until it reaches currentPage
 			local pagesToSlideRight = {}
 			local pageOnNavPath = lastPage
-			while pageOnNavPath ~= currentPage do
-				pagesToSlideRight[pageOnNavPath] = Otter.spring(0, {frequency = 3.5})
-				pageOnNavPath = Pages.pagesByKey[pageOnNavPath].parentPage
+			if FFlagFixInGameNavTreeCrash then
+				while pageOnNavPath ~= nil and pageOnNavPath ~= currentPage do
+					pagesToSlideRight[pageOnNavPath] = Otter.spring(0, {frequency = 3.5})
+					pageOnNavPath = Pages.pagesByKey[pageOnNavPath].parentPage
+				end
+			else
+				while pageOnNavPath ~= currentPage do
+					pagesToSlideRight[pageOnNavPath] = Otter.spring(0, {frequency = 3.5})
+					pageOnNavPath = Pages.pagesByKey[pageOnNavPath].parentPage
+				end
 			end
+
 			self.pageMotor:setGoal(pagesToSlideRight)
 		end
 

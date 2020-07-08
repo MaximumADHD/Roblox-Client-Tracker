@@ -8,12 +8,16 @@
 		  be drawn with.
 ]]
 
-local Framework = script.Parent.Parent
-local SelectionWrapper = require(Framework.Utility.SelectionWrapper)
-local SelectionHelper = require(Framework.Utility.SelectionHelper)
-local getHandleScale = require(Framework.Utility.getHandleScale)
+local DraggerFramework = script.Parent.Parent
+local SelectionWrapper = require(DraggerFramework.Utility.SelectionWrapper)
+local SelectionHelper = require(DraggerFramework.Utility.SelectionHelper)
 
-local SCALE_CHANGE_EPSILON = 1e-6
+local getFFlagDraggerRefactor = require(DraggerFramework.Flags.getFFlagDraggerRefactor)
+
+-- Ensure that the global state is no longer used
+if getFFlagDraggerRefactor() then
+	SelectionWrapper = nil
+end
 
 local DerivedWorldState = {}
 DerivedWorldState.__index = DerivedWorldState
@@ -22,8 +26,13 @@ function DerivedWorldState.new()
 	return setmetatable({}, DerivedWorldState)
 end
 
-function DerivedWorldState:updateSelectionInfo()
-	local selectionInfo = SelectionHelper.computeSelectionInfo(SelectionWrapper:Get())
+function DerivedWorldState:updateSelectionInfo(selection, isSimulating, useLocalSpace)
+	local selectionInfo
+	if getFFlagDraggerRefactor() then
+		selectionInfo = SelectionHelper.computeSelectionInfo(selection, isSimulating, useLocalSpace)
+	else
+		selectionInfo = SelectionHelper.computeSelectionInfo(SelectionWrapper:Get())
+	end
 	self._boundingBoxOffset = selectionInfo.boundingBoxOffset
 	self._boundingBoxSize = selectionInfo.boundingBoxSize
 	self._localBoundingBoxOffset = selectionInfo.localBoundingBoxOffset

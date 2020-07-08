@@ -1,7 +1,7 @@
-
-local Framework = script.Parent.Parent
-
 local JointUtil = {}
+
+local DraggerFramework = script.Parent.Parent
+local getFFlagDraggerRefactor = require(DraggerFramework.Flags.getFFlagDraggerRefactor)
 
 function JointUtil.getConstraintCounterpart(constraint, part)
 	if constraint.Attachment0 and constraint.Attachment0.Parent == part then
@@ -24,6 +24,16 @@ function JointUtil.getWeldConstraintCounterpart(weldConstraint, part)
 		return weldConstraint.Part1
 	else
 		return weldConstraint.Part0
+	end
+end
+
+if getFFlagDraggerRefactor() then
+	function JointUtil.getNoCollisionConstraintCounterpart(weldConstraint, part)
+		if weldConstraint.Part0 == part then
+			return weldConstraint.Part1
+		else
+			return weldConstraint.Part0
+		end
 	end
 end
 

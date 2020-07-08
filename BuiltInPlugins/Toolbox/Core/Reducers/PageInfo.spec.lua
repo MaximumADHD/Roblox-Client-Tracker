@@ -8,6 +8,8 @@ return function()
 	local SetToolboxManageableGroups = require(Plugin.Core.Actions.SetToolboxManageableGroups)
 	local UpdatePageInfo = require(Plugin.Core.Actions.UpdatePageInfo)
 
+	local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
+
 	local PageInfo = require(Plugin.Core.Reducers.PageInfo)
 
 	local function tableLength(tbl)
@@ -23,10 +25,11 @@ return function()
 
 		expect(type(state)).to.equal("table")
 		expect(state.categories).to.be.ok()
-		expect(state.category).to.be.ok()
-		expect(state.categoryName).to.be.ok()
-		-- TODO remove currentTab when FFlagUseCategoryNameInToolbox is retired
-		expect(state.currentTab).to.be.ok()
+		if FFlagUseCategoryNameInToolbox then
+			expect(state.categoryName).to.be.ok()
+		else
+			expect(state.currentTab).to.be.ok()
+		end
 		expect(state.searchTerm).to.be.ok()
 		expect(state.sorts).to.be.ok()
 		expect(state.sortIndex).to.be.ok()
@@ -150,8 +153,9 @@ return function()
 		it("should update the info", function()
 			local state = PageInfo(nil, {})
 
-			expect(state.categoryName).to.equal("")
-			expect(state.searchTerm).to.equal(Category.FREE_MODELS.name)
+			if FFlagUseCategoryNameInToolbox then
+				expect(state.categoryName).to.equal(Category.FREE_MODELS.name)
+			end
 			expect(state.sortIndex).to.equal(1)
 
 			state = PageInfo(state, UpdatePageInfo({
@@ -159,7 +163,6 @@ return function()
 				category = state.categories[2].category
 			}))
 
-			expect(state.categoryName).to.equal(state.categories[2].categoryName)
 			expect(state.category).to.equal(state.categories[2].category)
 		end)
 	end)

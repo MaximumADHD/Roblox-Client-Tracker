@@ -2,7 +2,6 @@ local CorePackages = game:GetService("CorePackages")
 local Players = game:GetService("Players")
 
 local FFlagCoreScriptLoadEmotesFromWeb = settings():GetFFlag("CoreScriptLoadEmotesFromWeb")
-local FFlagEmotesMenuAnalyticsEnabled = settings():GetFFlag("CoreScriptEmotesMenuAnalytics")
 
 local LocalPlayer = Players.LocalPlayer
 
@@ -21,10 +20,7 @@ local HideMenu = require(Actions.HideMenu)
 local HideError = require(Actions.HideError)
 local ShowError = require(Actions.ShowError)
 
-local EmotesAnalytics
-if FFlagEmotesMenuAnalyticsEnabled then
-    EmotesAnalytics = Analytics.new():withEventStream(EventStream.new())
-end
+local EmotesAnalytics = Analytics.new():withEventStream(EventStream.new())
 
 local function emoteInHumanoidDescription(humanoidDescription, emoteName)
     if not humanoidDescription then
@@ -96,9 +92,7 @@ local function PlayEmote(emoteName, slotNumber, emoteAssetId)
             local success, didPlay = pcall(playEmoteFunction)
 
             if success and didPlay then
-                if FFlagEmotesMenuAnalyticsEnabled then
-                    EmotesAnalytics:onEmotePlayed(slotNumber, emoteAssetId)
-                end
+                EmotesAnalytics:onEmotePlayed(slotNumber, emoteAssetId)
             else
                 handlePlayFailure(store, Constants.LocalizationKeys.ErrorMessages.TemporarilyUnavailable)
                 return

@@ -2,8 +2,6 @@ local ContextActionService = game:GetService("ContextActionService")
 local CorePackages = game:GetService("CorePackages")
 local UserInputService = game:GetService("UserInputService")
 
-local FFlagCoreScriptEmotesMenuBetterMouseBehavior = settings():GetFFlag("CoreScriptEmotesMenuBetterMouseBehavior")
-
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
 
@@ -11,7 +9,6 @@ local MouseIconOverrideService = require(CorePackages.InGameServices.MouseIconOv
 
 local Components = script.Parent
 local EmotesMenu = Components.Parent
-local Modules = EmotesMenu.Parent
 
 local Actions = EmotesMenu.Actions
 local Thunks = EmotesMenu.Thunks
@@ -28,8 +25,6 @@ local WheelBackground = require(Components.WheelBackground)
 local FocusSegment = require(Actions.FocusSegment)
 local HideMenu = require(Actions.HideMenu)
 local PlayEmote = require(Thunks.PlayEmote)
-
-local FFlagEmotesMenuNewKeybinds = require(Modules.Flags.FFlagEmotesMenuNewKeybinds)
 
 local KEYBINDS_PRIORITY = Enum.ContextActionPriority.High.Value
 
@@ -153,10 +148,8 @@ function EmotesWheel:bindActions()
         self.props.playEmote(emoteName, pressedSlot, assetId)
     end
 
-    if FFlagEmotesMenuNewKeybinds then
-        ContextActionService:BindActionAtPriority(Constants.ActivateEmoteSlotAction, activateEmoteByNumber,
-            --[[ createTouchButton = ]] false, KEYBINDS_PRIORITY, unpack(Constants.EmoteSlotKeys))
-    end
+    ContextActionService:BindActionAtPriority(Constants.ActivateEmoteSlotAction, activateEmoteByNumber,
+        --[[ createTouchButton = ]] false, KEYBINDS_PRIORITY, unpack(Constants.EmoteSlotKeys))
 
     self.actionsBound = true
 end
@@ -167,10 +160,7 @@ function EmotesWheel:unbindActions()
         ContextActionService:UnbindAction(Constants.EmoteSelectionAction)
         ContextActionService:UnbindAction(Constants.PlaySelectedAction)
         ContextActionService:UnbindAction(Constants.LeaveMenuDontSinkInputAction)
-
-        if FFlagEmotesMenuNewKeybinds then
-            ContextActionService:UnbindAction(Constants.ActivateEmoteSlotAction)
-        end
+        ContextActionService:UnbindAction(Constants.ActivateEmoteSlotAction)
 
         self.actionsBound = false
     end
@@ -240,12 +230,12 @@ end
 
 function EmotesWheel:render()
     return Roact.createElement("Frame", {
-        Active = FFlagCoreScriptEmotesMenuBetterMouseBehavior,
+        Active = true,
         Size = UDim2.new(1, 0, 1, 0),
         BackgroundTransparency = 1,
         Visible = self.props.displayOptions.menuVisible,
     }, {
-        MouseUnlock = FFlagCoreScriptEmotesMenuBetterMouseBehavior and Roact.createElement("TextButton", {
+        MouseUnlock = Roact.createElement("TextButton", {
             Modal = true,
             Size = UDim2.new(0, 0, 0, 0),
             Text = "",

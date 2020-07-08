@@ -15,11 +15,11 @@ local SetControlLayout = require(InGameMenu.Actions.SetControlLayout)
 local SetVideoRecording = require(InGameMenu.Actions.SetVideoRecording)
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local FFlagTopBarNewGamepadMenu = require(RobloxGui.Modules.Flags.FFlagTopBarNewGamepadMenu)
+local isNewGamepadMenuEnabled = require(RobloxGui.Modules.Flags.isNewGamepadMenuEnabled)
 
 local respawn = require(script.respawn)
 local invites = require(script.invites)
-local localization = FFlagTopBarNewGamepadMenu and require(script.newLocalization) or require(script.localization)
+local localization = isNewGamepadMenuEnabled() and require(script.newLocalization) or require(script.localization)
 local report = require(script.report)
 local friends = require(script.friends)
 local displayOptions = require(script.displayOptions)

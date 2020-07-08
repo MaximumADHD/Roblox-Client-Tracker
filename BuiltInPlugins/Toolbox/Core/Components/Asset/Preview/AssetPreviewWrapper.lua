@@ -589,7 +589,7 @@ local function mapStateToProps(state, props)
 
 	local stateToProps = {
 		categoryIndex =  (not FFlagUseCategoryNameInToolbox) and (FFlagEnableDefaultSortFix and (pageInfo.categoryIndex or 1) or nil),
-		categoryName = pageInfo.categoryName,
+		categoryName = FFlagUseCategoryNameInToolbox and (pageInfo.categoryName or Category.DEFAULT.name) or nil,
 		previewModel = previewModel or nil,
 		currentTab =  (not FFlagUseCategoryNameInToolbox) and (pageInfo.currentTab or Category.MARKETPLACE_KEY),
 		assetVersionId = assetVersionId,

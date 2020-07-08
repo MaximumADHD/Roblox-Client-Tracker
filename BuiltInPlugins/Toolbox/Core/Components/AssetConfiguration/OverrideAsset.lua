@@ -50,6 +50,7 @@ local UpdateAssetConfigStore = require(Plugin.Core.Actions.UpdateAssetConfigStor
 local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 local FFlagStudioUseNewAnimationImportExportFlow = settings():GetFFlag("StudioUseNewAnimationImportExportFlow")
 local FFlagEnableOverrideAssetCursorFix = game:GetFastFlag("EnableOverrideAssetCursorFix")
+local FFlagAssetConifgOverrideAssetScrollingFrame = game:GetFastFlag("AssetConifgOverrideAssetScrollingFrame")
 
 local OverrideAsset = Roact.PureComponent:extend("OverrideAsset")
 
@@ -149,6 +150,7 @@ function OverrideAsset:render()
 			self.dropdownContent = AssetConfigUtil.getOwnerDropDownContent(props.manageableGroups, localizedContent)
 
 			local useNewAnimFlow = FFlagStudioUseNewAnimationImportExportFlow and assetTypeEnum == Enum.AssetType.Animation
+			local isDownloadFlow = FFlagAssetConifgOverrideAssetScrollingFrame and useNewAnimFlow and AssetConfigConstants.FLOW_TYPE.DOWNLOAD_FLOW == props.screenFlowType
 
 			return Roact.createElement("Frame", {
 				Size = Size,
@@ -179,7 +181,7 @@ function OverrideAsset:render()
 					BackgroundTransparency = 1,
 					BorderSizePixel = 0,
 
-					Text = localizedContent.AssetConfig.Override.Title,
+					Text = isDownloadFlow and localizedContent.AssetConfig.Import.Title or localizedContent.AssetConfig.Override.Title,
 					Font = Constants.FONT,
 					TextSize = Constants.FONT_SIZE_LARGE,
 					TextColor3 = assetConfigTheme.textColor,
@@ -192,7 +194,7 @@ function OverrideAsset:render()
 				DropdownAndAnimationIdContainer = useNewAnimFlow and Roact.createElement("Frame", {
 					LayoutOrder = 2,
 					BackgroundTransparency = 1,
-					Size = UDim2.new(1, -PADDING, 0, FILTER_HEIGHT),
+					Size = UDim2.new(1, -PADDING, 0, DROPDOWN_HEIGHT),
 				}, {
 					UIListLayout = Roact.createElement("UIListLayout", {
 						FillDirection = Enum.FillDirection.Horizontal,
@@ -267,13 +269,19 @@ end
 local function mapStateToProps(state, props)
 	state = state or {}
 
-	return {
+	local stateToProps = {
 		totalResults = state.totalResults,
 		resultsArray = state.resultsArray,
 		filteredResultsArray = state.filteredResultsArray,
 		manageableGroups = state.manageableGroups or {},
 		assetTypeEnum = state.assetTypeEnum,
 	}
+
+	if FFlagAssetConifgOverrideAssetScrollingFrame then
+		stateToProps["screenFlowType"] = state.screenFlowType
+	end
+
+	return stateToProps
 end
 
 local function mapDispatchToProps(dispatch)

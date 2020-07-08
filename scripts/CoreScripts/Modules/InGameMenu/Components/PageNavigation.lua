@@ -24,6 +24,8 @@ local divideTransparency = require(InGameMenu.Utility.divideTransparency)
 local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
 local Constants = require(InGameMenu.Resources.Constants)
 
+local FFlagFixInGameNavTreeCrash = require(InGameMenu.Flags.FFlagFixInGameNavTreeCrash)
+
 local NAV_BUTTON_HEIGHT = 70
 -- The left indent on divider lines
 local DIVIDER_INDENT = 24
@@ -184,26 +186,52 @@ local function PageNavigation(props)
 
 	local layoutOrder = 1
 	for index, page in ipairs(Pages.pagesByIndex) do
-		if page.navigationDepth == 2 then
-			frameChildren["Page" .. page.key] = Roact.createElement(NavigationButton, {
-				image = page.icon,
-				LayoutOrder = layoutOrder,
-				selected = props.currentPage == page.key,
-				text = page.title,
-				onActivated = function()
-					props.setCurrentPage(page.key)
-				end,
-			})
-
-			layoutOrder = layoutOrder + 1
-
-			if index < pageCount then
-				frameChildren["Divider" .. layoutOrder] = Roact.createElement(Divider, {
+		if FFlagFixInGameNavTreeCrash then
+			-- We want to add nav buttons for subpages of the main menu only
+			if page.parentPage == Constants.MainPagePageKey then
+				frameChildren["Page" .. page.key] = Roact.createElement(NavigationButton, {
+					image = page.icon,
 					LayoutOrder = layoutOrder,
-					Size = UDim2.new(1, -DIVIDER_INDENT, 0, 1)
+					selected = props.currentPage == page.key,
+					text = page.title,
+					onActivated = function()
+						props.setCurrentPage(page.key)
+					end,
 				})
 
 				layoutOrder = layoutOrder + 1
+
+				if index < pageCount then
+					frameChildren["Divider" .. layoutOrder] = Roact.createElement(Divider, {
+						LayoutOrder = layoutOrder,
+						Size = UDim2.new(1, -DIVIDER_INDENT, 0, 1)
+					})
+
+					layoutOrder = layoutOrder + 1
+				end
+			end
+		else
+			if page.navigationDepth == 2 then
+				frameChildren["Page" .. page.key] = Roact.createElement(NavigationButton, {
+					image = page.icon,
+					LayoutOrder = layoutOrder,
+					selected = props.currentPage == page.key,
+					text = page.title,
+					onActivated = function()
+						props.setCurrentPage(page.key)
+					end,
+				})
+
+				layoutOrder = layoutOrder + 1
+
+				if index < pageCount then
+					frameChildren["Divider" .. layoutOrder] = Roact.createElement(Divider, {
+						LayoutOrder = layoutOrder,
+						Size = UDim2.new(1, -DIVIDER_INDENT, 0, 1)
+					})
+
+					layoutOrder = layoutOrder + 1
+				end
 			end
 		end
 	end

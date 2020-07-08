@@ -1,4 +1,6 @@
 local CorePackages = game:GetService("CorePackages")
+local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
@@ -21,9 +23,9 @@ local CloseMenuButton = require(script.CloseMenuButton)
 local HomeButton = require(script.HomeButton)
 local SystemMenuButton = require(script.SystemMenuButton)
 
-local GetFFlagInGameHomeIcon = require(InGameMenu.Flags.GetFFlagInGameHomeIcon)
+local InGameMenuPolicy = require(InGameMenu.InGameMenuPolicy)
 
-local FFlagInGameMenuSmallerSideBar = require(InGameMenu.Flags.FFlagInGameMenuSmallerSideBar)
+local GetFFlagUseRoactPolicyProvider = require(RobloxGui.Modules.Flags.GetFFlagUseRoactPolicyProvider)
 
 local SideNavigation = Roact.PureComponent:extend("SideNavigation")
 
@@ -31,6 +33,11 @@ SideNavigation.validateProps = t.strictInterface({
 	open = t.boolean,
 	closeMenu = t.callback,
 	goToHomePage = t.callback,
+	goToSystemMenu = t.callback,
+	currentPage = t.string,
+
+	--policy
+	enableInGameHomeIcon = t.optional(t.boolean),
 })
 
 function SideNavigation:init()
@@ -51,7 +58,7 @@ function SideNavigation:oldRender()
 			BackgroundColor3 = style.Theme.BackgroundUIContrast.Color,
 			BackgroundTransparency = style.Theme.BackgroundUIContrast.Transparency,
 			BorderSizePixel = 0,
-			Size = UDim2.new(0, FFlagInGameMenuSmallerSideBar and 64 or 100, 1, 0),
+			Size = UDim2.new(0, 64, 1, 0),
 			Visible = self.props.open,
 		}, {
 			CloseMenuButton = Roact.createElement(CloseMenuButton, {
@@ -74,7 +81,7 @@ function SideNavigation:newRender()
 			BackgroundColor3 = style.Theme.BackgroundUIContrast.Color,
 			BackgroundTransparency = style.Theme.BackgroundUIContrast.Transparency,
 			BorderSizePixel = 0,
-			Size = UDim2.new(0, FFlagInGameMenuSmallerSideBar and 64 or 100, 1, 0),
+			Size = UDim2.new(0, 64, 1, 0),
 			Visible = self.props.open,
 		}, {
 			Padding = Roact.createElement("UIPadding", {
@@ -106,10 +113,18 @@ function SideNavigation:newRender()
 end
 
 function SideNavigation:render()
-	if GetFFlagInGameHomeIcon() then
+	if self.props.enableInGameHomeIcon then
 		return self:newRender()
 	end
 	return self:oldRender()
+end
+
+if GetFFlagUseRoactPolicyProvider() then
+	SideNavigation = InGameMenuPolicy.connect(function(appPolicy, props)
+		return {
+			enableInGameHomeIcon = appPolicy.enableInGameHomeIcon(),
+		}
+	end)(SideNavigation)
 end
 
 return RoactRodux.UNSTABLE_connect2(function(state, props)

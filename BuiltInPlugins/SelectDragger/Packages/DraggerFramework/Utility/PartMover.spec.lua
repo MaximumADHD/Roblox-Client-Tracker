@@ -1,9 +1,11 @@
 local ServerStorage = game:GetService("ServerStorage")
 local Workspace = game:GetService("Workspace")
 
-local Framework = script.Parent.Parent
+local DraggerFramework = script.Parent.Parent
 
-local PartMover = require(Framework.Utility.PartMover)
+local PartMover = require(DraggerFramework.Utility.PartMover)
+
+local getFFlagDraggerRefactor = require(DraggerFramework.Flags.getFFlagDraggerRefactor)
 
 return function()
 	local function createPart()
@@ -52,6 +54,14 @@ return function()
 		return parts, originalCFrameMap, weld
 	end
 
+	afterEach(function()
+		for _, child in pairs(Workspace:GetChildren()) do
+			if not child:IsA("Terrain") then
+				child:Destroy()
+			end
+		end
+	end)
+
 	it("should create main part", function()
 		local partMover = PartMover.new()
 		local mainPart = partMover:getIgnorePart()
@@ -62,18 +72,19 @@ return function()
 	end)
 
 	describe("setDragged", function()
-		it("should unanchor parts", function()
+		it("should not changed part anchoredness", function()
 			local parts, originalCFrameMap = createTestParts(2)
+			parts[1].Anchored = true
 			parts[2].Anchored = false
 
 			local partMover = PartMover.new()
 			partMover:setDragged(parts, originalCFrameMap)
-			local anchored1 = parts[1].Anchored
-			local anchored2 = parts[2].Anchored
+			expect(parts[1].Anchored).to.equal(true)
+			expect(parts[2].Anchored).to.equal(false)
 			partMover:commit()
 
-			expect(anchored1).to.equal(false)
-			expect(anchored2).to.equal(false)
+			expect(parts[1].Anchored).to.equal(true)
+			expect(parts[2].Anchored).to.equal(false)
 		end)
 
 		it("should disable welds to outside parts", function()
@@ -117,18 +128,20 @@ return function()
 			expect(joint.Parent).to.equal(nil)
 		end)
 
-		it("should create temporary movements welds under the main part", function()
-			local parts, originalCFrameMap = createTestParts(5)
+		if not getFFlagDraggerRefactor() then
+			it("should create temporary movements welds under the main part", function()
+				local parts, originalCFrameMap = createTestParts(5)
 
-			local partMover = PartMover.new()
-			partMover:setDragged(parts, originalCFrameMap)
-			local mainPart = partMover:getIgnorePart()
-			local joints = mainPart:GetJoints()
-			partMover:commit()
+				local partMover = PartMover.new()
+				partMover:setDragged(parts, originalCFrameMap)
+				local mainPart = partMover:getIgnorePart()
+				local joints = mainPart:GetJoints()
+				partMover:commit()
 
-			expect(#joints).to.equal(5)
-			expect(#mainPart:GetJoints()).to.equal(0)
-		end)
+				expect(#joints).to.equal(5)
+				expect(#mainPart:GetJoints()).to.equal(0)
+			end)
+		end
 
 		it("should not fail if part has incomplete joint", function()
 			expect(function()

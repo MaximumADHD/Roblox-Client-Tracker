@@ -15,10 +15,12 @@ local ImportTool = require(Reducers.ImportTool)
 local PaintTool = require(Reducers.PaintTool)
 local RegionTool = require(Reducers.RegionTool)
 local SeaLevelTool = require(Reducers.SeaLevelTool)
+local ReplaceTool = require(Reducers.ReplaceTool)
 local SmoothTool = require(Reducers.SmoothTool)
 local SubtractTool = require(Reducers.SubtractTool)
 
 local FFlagTerrainToolsConvertPartTool = game:GetFastFlag("TerrainToolsConvertPartTool")
+local FFlagTerrainToolsReplaceTool = game:GetFastFlag("TerrainToolsReplaceTool")
 
 local toolReducerTable = {
 	GenerateTool = GenerateTool,
@@ -33,6 +35,7 @@ local toolReducerTable = {
 	SmoothTool = SmoothTool,
 	FlattenTool = FlattenTool,
 	SeaLevelTool = SeaLevelTool,
+	ReplaceTool = FFlagTerrainToolsReplaceTool and ReplaceTool or nil,
 	PaintTool = PaintTool,
 }
 
@@ -59,6 +62,7 @@ local MainReducer = function(state, action)
 		SmoothTool = SmoothTool(state, action),
 		FlattenTool = FlattenTool(state, action),
 		SeaLevelTool = SeaLevelTool(state, action),
+		ReplaceTool = FFlagTerrainToolsReplaceTool and ReplaceTool(state, action) or nil,
 
 		-- special cased reducer, is used by a tab since
 		-- there's no other paint tools under the paint category

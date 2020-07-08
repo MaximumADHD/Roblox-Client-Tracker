@@ -1,14 +1,17 @@
+if require(script.Parent.Parent.Parent.Flags.getFFlagDraggerRefactor)() then
+	return require(script.Parent.DragSelecting_Refactor)
+end
 
 local UserInputService = game:GetService("UserInputService")
 
-local Framework = script.Parent.Parent.Parent
-local Packages = Framework.Parent
+local DraggerFramework = script.Parent.Parent.Parent
+local Packages = DraggerFramework.Parent
 
 local Roact = require(Packages.Roact)
-local DragSelectionView = require(Framework.Components.DragSelectionView)
-local DraggerStateType = require(Framework.Implementation.DraggerStateType)
-local DragSelector = require(Framework.Utility.DragSelector)
-local StandardCursor = require(Framework.Utility.StandardCursor)
+local DragSelectionView = require(DraggerFramework.Components.DragSelectionView)
+local DraggerStateType = require(DraggerFramework.Implementation.DraggerStateType)
+local DragSelector = require(DraggerFramework.Utility.DragSelector)
+local StandardCursor = require(DraggerFramework.Utility.StandardCursor)
 
 local DragSelecting = {}
 DragSelecting.__index = DragSelecting

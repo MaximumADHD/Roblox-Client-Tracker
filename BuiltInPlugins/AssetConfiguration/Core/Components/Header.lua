@@ -420,8 +420,8 @@ local function mapStateToProps(state, props)
 	return {
 		categories = pageInfo.categories or {},
 		currentTab = (not FFlagUseCategoryNameInToolbox) and (pageInfo.currentTab or Category.MARKETPLACE_KEY),
-		categoryIndex = (not FFlagUseCategoryNameInToolbox) and (pageInfo.categoryIndex or ""),
-		categoryName = pageInfo.categoryName,
+		categoryIndex = (not FFlagUseCategoryNameInToolbox) and (pageInfo.categoryIndex or 0),
+		categoryName = FFlagUseCategoryNameInToolbox and (pageInfo.categoryName or Category.DEFAULT.name) or nil,
 		searchTerm = pageInfo.searchTerm or "",
 		groups = pageInfo.groups or {},
 		groupIndex = pageInfo.groupIndex or 0,

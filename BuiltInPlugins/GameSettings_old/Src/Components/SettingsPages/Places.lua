@@ -58,9 +58,12 @@ local ReloadPlaces = require(Plugin.Src.Thunks.ReloadPlaces)
 
 local createSettingsPage = require(Plugin.Src.Components.SettingsPages.createSettingsPage)
 
+local FFlagStudioGameManagementUpdateMaxPlayerCount = game:DefineFastFlag("StudioGameManagementUpdateMaxPlayerCount", false)
+local FIntStudioPlaceConfigurationMaxPlayerCount = game:DefineFastInt("StudioPlaceConfigurationMaxPlayerCount", 200)
+
 local MAX_NAME_LENGTH = 50
 local MIN_PLAYER_COUNT = 1
-local MAX_PLAYER_COUNT = 100
+local MAX_PLAYER_COUNT = FFlagStudioGameManagementUpdateMaxPlayerCount and FIntStudioPlaceConfigurationMaxPlayerCount or 100
 local MIN_SOCIAL_SLOT_COUNT = 1
 local MAX_SOCIAL_SLOT_COUNT = 10
 
@@ -75,6 +78,7 @@ local nameErrors = {
 local TextService = game:GetService("TextService")
 
 local FFlagFixRadioButtonSeAndTableHeadertForTesting = game:getFastFlag("FixRadioButtonSeAndTableHeadertForTesting")
+local FFlagTidyUpStudioGameManagementButtons = game:GetFastFlag("TidyUpStudioGameManagementButtons")
 
 --Loads settings values into props by key
 local function loadValuesToProps(getValue, state)
@@ -295,7 +299,15 @@ local function displayEditPlacePage(props, localization)
 	local maxPlayersSubText = localization:getText("Places", "MaxPlayersSubText")
 	local maxPlayersSubTextSize = GetTextSize(maxPlayersSubText, theme.fontStyle.Subtext.TextSize, theme.fontStyle.Subtext.Font)
 	local viewButtonText = localization:getText("General", "ButtonView")
-	local viewButtonTextExtents = GetTextSize(viewButtonText, theme.fontStyle.Header.TextSize, theme.fontStyle.Header.Font)
+	local viewButtonFrameSize = FFlagTidyUpStudioGameManagementButtons and Vector2.new(math.huge, theme.button.height) or nil
+	local viewButtonTextExtents = GetTextSize(viewButtonText, theme.fontStyle.Header.TextSize, theme.fontStyle.Header.Font, viewButtonFrameSize)
+
+	local viewButtonButtonWidth = FFlagTidyUpStudioGameManagementButtons and math.max(viewButtonTextExtents.X, theme.button.width)
+		or viewButtonTextExtents.X + theme.viewButton.PaddingX
+	local viewButtonPaddingY = FFlagTidyUpStudioGameManagementButtons and (theme.button.height - viewButtonTextExtents.Y)
+	or theme.viewButton.PaddingY
+
+	local viewButtonSize = UDim2.new(0, viewButtonButtonWidth, 0, viewButtonTextExtents.Y + viewButtonPaddingY)
 
 	local places = props.Places
 	local editPlaceId = props.EditPlaceId
@@ -478,10 +490,9 @@ local function displayEditPlacePage(props, localization)
 			TextSize = theme.fontStyle.Normal.TextSize,
 		}, {
 			ViewButton = Roact.createElement(Button, {
-				Style = "RoundPrimary",
+				Style = FFlagTidyUpStudioGameManagementButtons and "GameSettingsPrimaryButton" or "RoundPrimary",
 				Text = viewButtonText,
-				Size = UDim2.new(0, viewButtonTextExtents.X + theme.viewButton.PaddingX,
-				0, viewButtonTextExtents.Y + theme.viewButton.PaddingY),
+				Size = viewButtonSize,
 				LayoutOrder = layoutIndex:getNextOrder(),
 				OnClick = function()
 					StudioService:ShowPlaceVersionHistoryDialog()

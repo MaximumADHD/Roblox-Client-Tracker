@@ -7,7 +7,7 @@ local PluginActivationControllerKey = Symbol.named("PluginActivationController")
 
 local TerrainKey = Symbol.named("Terrain")
 local TerrainBrushKey = Symbol.named("TerrainBrush")
-local SeaLevelKey = Symbol.named("SeaLevelKey")
+local ReplaceKey = Symbol.named("ReplaceKey")
 local TerrainImporterKey = Symbol.named("TerrainImporter")
 local TerrainGenerationKey = Symbol.named("TerrainGeneration")
 local PartConverterKey = Symbol.named("PartConverter")
@@ -42,7 +42,7 @@ function TerrainInterfaceProvider:init()
 
 	local seaLevel = self.props.seaLevel
 	assert(seaLevel, "TerrainInterfaceProvider expects a TerrainSeaLevel Instance")
-	self._context[SeaLevelKey] = seaLevel
+	self._context[ReplaceKey] = seaLevel
 
 	if FFlagTerrainToolsConvertPartTool then
 		local partConverter = self.props.partConverter
@@ -71,7 +71,11 @@ local function getTerrainBrush(component)
 end
 
 local function getSeaLevel(component)
-	return component._context[SeaLevelKey]
+	return component._context[ReplaceKey]
+end
+
+local function getReplace(component)
+	return component._context[ReplaceKey]
 end
 
 local function getTerrainImporter(component)
@@ -92,6 +96,7 @@ return {
 	getPluginActivationController = getPluginActivationController,
 	getTerrainBrush = getTerrainBrush,
 	getSeaLevel = getSeaLevel,
+	getReplace = getReplace,
 	getTerrainImporter = getTerrainImporter,
 	getTerrainGeneration = getTerrainGeneration,
 	getPartConverter = getPartConverter,

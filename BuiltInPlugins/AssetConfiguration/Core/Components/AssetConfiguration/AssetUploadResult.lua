@@ -9,7 +9,6 @@
 local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 local FFlagFixAssetConfigIcon = game:GetFastFlag("FixAssetConfigIcon")
 local FFlagShowAssetConfigReasons2 = game:GetFastFlag("ShowAssetConfigReasons2")
-local FFlagFixAssetUploadSuccssMessage = game:DefineFastFlag("FixAssetUploadSuccssMessage", false)
 local FFlagAddCopyIDToResultPage = game:DefineFastFlag("AddCopyIDToResultPage", false)
 local FFlagUGCRemoveLearnMoreText = game:DefineFastFlag("UGCRemoveLearnMoreText", false)
 local FFlagFixAssetUploadFailedColor = game:DefineFastFlag("FixAssetUploadFailedColor", false)
@@ -119,14 +118,10 @@ function AssetUploadResult:render()
 
 		local isUploadFlow = props.screenFlowType == AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW
 		local showModeration
-		if FFlagFixAssetUploadSuccssMessage then
-			if FFlagEnablePurchasePluginFromLua2 then
-				showModeration = isUploadFlow and (AssetConfigUtil.isCatalogAsset(props.assetTypeEnum))
-			else
-				showModeration = isUploadFlow and props.assetTypeEnum ~= Enum.AssetType.Model
-			end
+		if FFlagEnablePurchasePluginFromLua2 then
+			showModeration = isUploadFlow and (AssetConfigUtil.isCatalogAsset(props.assetTypeEnum))
 		else
-			showModeration = isUploadFlow
+			showModeration = isUploadFlow and props.assetTypeEnum ~= Enum.AssetType.Model
 		end
 
 		local url
@@ -216,7 +211,7 @@ function AssetUploadResult:render()
 					Text = FFlagShowAssetConfigReasons2 and localizedContent.AssetConfig.UploadResult.Success
 						or (props.uploadSucceeded and "Successfully submitted!" or "Submission failed"),
 					Font = Constants.FONT,
-					TextColor3 = FFlagFixAssetUploadSuccssMessage and theme.uploadResult.greenText or theme.uploadResult.redText,
+					TextColor3 = theme.uploadResult.greenText,
 					TextSize = Constants.FONT_SIZE_TITLE,
 					TextXAlignment = Enum.TextXAlignment.Center,
 					TextYAlignment = Enum.TextYAlignment.Center,

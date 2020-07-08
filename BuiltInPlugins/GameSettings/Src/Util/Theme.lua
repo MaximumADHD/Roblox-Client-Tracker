@@ -118,6 +118,11 @@ function Theme.createValues(theme, getColor)
 			scrollBar = isDark and theme:getColor(StyleColor.ScrollBar) or theme:getColor(StyleColor.Border),
 			scrollBarBackground = isDark and theme:getColor(StyleColor.ScrollBarBackground) or Color3.fromRGB(245, 245, 245),
 
+			button = {
+				width = 125,
+				height = 35,
+			},
+
 			header = {
 				height = 45,
 			},

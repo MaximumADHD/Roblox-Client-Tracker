@@ -7,6 +7,7 @@ local t = require(CorePackages.Packages.t)
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
 local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
+local InGameMenuConstants = require(RobloxGui.Modules.InGameMenu.Resources.Constants)
 
 local InGameMenu
 if isNewInGameMenuEnabled() then
@@ -32,7 +33,7 @@ function MenuIcon:init()
 			InGameMenu.openInGameMenu()
 		else
 			local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
-			SettingsHub:ToggleVisibility()
+			SettingsHub:ToggleVisibility(InGameMenuConstants.AnalyticsMenuOpenTypes.TopbarButton)
 		end
 	end
 	self.menuIconOnHover = function()

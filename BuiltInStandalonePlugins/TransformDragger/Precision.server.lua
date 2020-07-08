@@ -17,7 +17,150 @@ local Extent = require(script.Parent.Extent)
 local Adorn = require(script.Parent.Adornments)
 local Input = require(script.Parent.Input)
 local RubberBand = require(script.Parent.Rubberband)
-local FFlag = require(script.Parent.FFlag)
+local Analytics = require(script.Parent.Analytics)
+local getFFlagTransformToolAnalytics = require(script.Parent.getFFlagTransformToolAnalytics)
+	
+-----------------------------------
+------NEW LUADRAGGER ANALYTICS-----
+-----------------------------------
+do
+	local UserInputService = game:GetService("UserInputService")
+	local Workspace = game:GetService("Workspace")
+	local Selection = game:GetService("Selection")
+	local StudioService = game:GetService("StudioService")
+	local sessionAnalytics = nil
+	local dragAnalytics = nil
+	local ANALYTICS_NAME = "Transform"
+	local selectedAtTime = 0
+	local dragStartLocation = nil
+
+	function analyticsSessionBegin()
+		selectedAtTime = tick()
+		sessionAnalytics = {
+			freeformDrags = 0,
+			handleDrags = 0,
+			clickSelects = 0,
+			dragSelects = 0,
+			dragTilts = 0,
+			dragRotates = 0,
+			toolName = ANALYTICS_NAME,
+			wasAutoSelected = false,
+		}
+		Analytics:sendEvent("toolSelected", {
+			toolName = ANALYTICS_NAME,
+			wasAutoSelected = false,
+		})
+		Analytics:reportCounter("studioLua" .. ANALYTICS_NAME .. "DraggerSelected")
+	end
+
+	function analyticsSendSession()
+		local totalTime = tick() - selectedAtTime
+		sessionAnalytics.duration = totalTime
+		Analytics:sendEvent("toolSession", sessionAnalytics)
+	end
+
+	function analyticsSendClick(clickedInstance, didChangeSelection)
+		Analytics:sendEvent("clickedObject", {
+			altPressed = UserInputService:IsKeyDown(Enum.KeyCode.LeftAlt),
+			ctrlPressed = UserInputService:IsKeyDown(Enum.KeyCode.LeftControl),
+			shiftPressed = UserInputService:IsKeyDown(Enum.KeyCode.LeftShift),
+			clickedAttachment = clickedInstance and clickedInstance:IsA("Attachment"),
+			clickedConstraint = clickedInstance and
+				(clickedInstance:IsA("Constraint") or clickedInstance:IsA("WeldConstraint")),
+			didAlterSelection = didChangeSelection,
+		})
+		if didChangeSelection then
+			sessionAnalytics.clickSelects = sessionAnalytics.clickSelects + 1
+		end
+	end
+
+	function analyticsRecordFreeformDragBegin()
+		local partCount = 0
+		for _, selectedObject in pairs(Selection:Get()) do
+			if selectedObject:IsA("BasePart") then
+				partCount = partCount + 1
+			end
+			for _, descendant in pairs(selectedObject:GetDescendants()) do
+				if descendant:IsA("BasePart") then
+					partCount = partCount + 1
+				end
+			end
+		end
+		sessionAnalytics.freeformDrags = sessionAnalytics.freeformDrags + 1
+		dragAnalytics = {
+			dragTilts = 0,
+			dragRotates = 0,
+			partCount = partCount,
+			attachmentCount = 0,
+			timeToStartDrag = 0,
+		}
+		dragStartLocation = nil
+	end
+
+	function analyticsRecordFreeformDragUpdate(position)
+		if dragAnalytics then
+			dragAnalytics.dragTargetType = "Polygon" -- hard code this, too hard to add
+			if dragStartLocation then
+				dragAnalytics.dragDistance =
+					(position - dragStartLocation).Magnitude
+			else
+				dragAnalytics.dragDistance = 0
+				dragStartLocation = position
+			end
+			dragAnalytics.distanceToCamera =
+				(Workspace.CurrentCamera.CFrame.Position - position).Magnitude
+		end
+	end
+
+	function analyticsSendFreeformDragged()
+		if dragAnalytics then
+			-- I can't quite figure out the conditions under which a drag is
+			-- in progress in the mouse-up, so using this if statement instead.
+			dragAnalytics.gridSize = StudioService.GridSize
+			dragAnalytics.toolName = ANALYTICS_NAME
+			dragAnalytics.wasAutoSelected = false
+			dragAnalytics.joinSurfaces = false
+			dragAnalytics.useConstraints = false
+			Analytics:sendEvent("freeformDragged", dragAnalytics)
+			dragAnalytics = nil
+		end
+	end
+
+	function analyticsSendHandleDragged(handleName)
+		Analytics:sendEvent("handleDragged", {
+			toolName = ANALYTICS_NAME,
+			gridSize = StudioService.GridSize,
+			rotateIncrement = StudioService.RotateIncrement,
+			useLocalSpace = false,
+			joinSurfaces = false,
+			useConstraints = false,
+			haveCollisions = false,
+			wasAutoSelected = false,
+		})
+		Analytics:sendEvent("transformHandleDragged", {
+			gridSize = StudioService.GridSize,
+			rotateIncrement = StudioService.RotateIncrement,
+			handleName = handleName,
+		})
+	end
+
+	function analyticsSendBoxSelect()
+		Analytics:sendEvent("boxSelected", {
+			toolName = ANALYTICS_NAME,
+			objectCount = #Selection:Get(),
+			altPressed = UserInputService:IsKeyDown(Enum.KeyCode.LeftAlt),
+			ctrlPressed = UserInputService:IsKeyDown(Enum.KeyCode.LeftControl),
+			shiftPressed = UserInputService:IsKeyDown(Enum.KeyCode.LeftShift),
+			wasAutoSelected = false,
+		})
+	end
+
+	function analyticsSendSetPlane()
+		Analytics:sendEvent("setPlane", {
+			toolName = ANALYTICS_NAME,
+		})
+	end
+end
 
 -----------------------------------
 --------------VARIABLES------------
@@ -28,6 +171,8 @@ local on = false
 
 local mouse = plugin:GetMouse(true)
 Input.setMouse(mouse)
+
+local hasStartedDragging = false
 
 local allowYSnap = false
 
@@ -152,6 +297,23 @@ local R_XZ = 12
 local R_YZ = 13
 local H_PLANE = 14
 
+local HandleNames = {}
+HandleNames[H_NONE] = "None"
+HandleNames[T_Y_POS] = "Translate"
+HandleNames[S_X_POS] = "ScaleEdge"
+HandleNames[S_X_NEG] = "ScaleEdge"
+HandleNames[S_Z_POS] = "ScaleEdge"
+HandleNames[S_Z_NEG] = "ScaleEdge"
+HandleNames[S_Y_POS] = "ScaleEdge"
+HandleNames[S_X_POS_Z_POS] = "ScaleCorner"
+HandleNames[S_X_POS_Z_NEG] = "ScaleCorner"
+HandleNames[S_X_NEG_Z_POS] = "ScaleCorner"
+HandleNames[S_X_NEG_Z_NEG] = "ScaleCorner"
+HandleNames[R_XY] = "Rotate"
+HandleNames[R_XZ] = "Rotate"
+HandleNames[R_YZ] = "Rotate"
+HandleNames[H_PLANE] = "Plane"
+
 local handlesCurrentlyOver = {}
 
 local setAnchoredStateForMovingParts = false
@@ -252,6 +414,10 @@ end
 
 local function onPressMouse()
 	
+	if getFFlagTransformToolAnalytics() then
+		hasStartedDragging = false
+	end
+
 	Adorn.grabHandle()
 	
 	local currentHandle = Adorn.getCurrentHandle()
@@ -260,6 +426,10 @@ local function onPressMouse()
 	
 	if currentHandle == H_PLANE then
 		initialPos = mouse.Origin.p
+
+		if getFFlagTransformToolAnalytics() then
+			analyticsSendSetPlane()
+		end
 	else
 		local currentAdorn = Adorn.getCurrentAdornment()
 		if currentAdorn then
@@ -273,6 +443,15 @@ end
 local function onReleaseMouse()
 	initialPos = nil
 	
+	if getFFlagTransformToolAnalytics() then
+		if hasStartedDragging then
+			if RubberBand.isRubberBandDragInProgress() then
+				analyticsSendBoxSelect()
+			else
+				analyticsSendFreeformDragged()
+			end
+		end
+	end
 	if not RubberBand.isRubberBandDragInProgress() then
 		releaseHandle()
 	end
@@ -2245,6 +2424,9 @@ function freeDrag()
 	end
 	
 	if not freeDragging then
+		if getFFlagTransformToolAnalytics() then
+			hasStartedDragging = true
+		end
 		RubberBand.updateRubberBand(Vector2.new(mouse.X, mouse.Y))
 		return
 	end
@@ -2303,6 +2485,14 @@ function freeDrag()
 	
 	if not startLocation then return end	
 		
+	if getFFlagTransformToolAnalytics() then
+		if not hasStartedDragging then
+			analyticsRecordFreeformDragBegin()
+			hasStartedDragging = true
+		end
+		analyticsRecordFreeformDragUpdate(colPoint)
+	end
+
 	movePart(colPoint - startLocation, plugin.CollisionEnabled)
 	lastDist = lastDist + (selectedPart.Position - previousPoint)
 	
@@ -2588,6 +2778,12 @@ function releaseHandle()
 	
 	if (handle == H_NONE) then return end
 	
+	if getFFlagTransformToolAnalytics() then
+		if handle ~= H_PLANE then
+			analyticsSendHandleDragged(HandleNames[handle])
+		end
+	end
+
 	JoinSelection()
 	
 	originalPosition = nil
@@ -2778,7 +2974,9 @@ function selectPart(instances)
 		
 	end
 	
+	local didChangeSelection = false
 	if part then
+
 		if not isInSelection(part) then
 			if uis:IsKeyDown(Enum.KeyCode.LeftControl) then
 				local selection = game.Selection:Get()
@@ -2786,6 +2984,9 @@ function selectPart(instances)
 				setSelection(selection)
 			else
 				setSelection({part})
+			end
+			if getFFlagTransformToolAnalytics() then
+				didChangeSelection = true
 			end
 			
 		elseif uis:IsKeyDown(Enum.KeyCode.LeftControl) then
@@ -2798,6 +2999,9 @@ function selectPart(instances)
 			end
 			
 			setSelection(selection)
+			if getFFlagTransformToolAnalytics() then
+				didChangeSelection = true
+			end
 		end
 		
 		startLocation = location
@@ -2829,6 +3033,17 @@ function selectPart(instances)
 		
 	else
 		RubberBand.startRubberbandDrag(Vector2.new(mouse.X, mouse.Y))
+		if getFFlagTransformToolAnalytics() then
+			if #game.Selection:Get() > 0 then
+				-- Changed because the current seleciton will be cleared
+				didChangeSelection = true
+			end
+		end
+	end
+
+
+	if getFFlagTransformToolAnalytics() then
+		analyticsSendClick(part, didChangeSelection)
 	end
 	
 	recreateAdornment()
@@ -2888,6 +3103,14 @@ function selectionChanged()
 end
 
 function onDragEnter(instances)
+	if getFFlagTransformToolAnalytics() then
+		-- In addition to the expected DragEnter events, the engine sends us
+		-- spurious empty DragEnter events which we have to ignore.
+		if #instances == 0 then
+			return
+		end
+	end
+
 	dragFromToolbox = true
 				
 	if not Input.getButtonState(Input.Enum.Key.MOUSE_BUTTON1) then
@@ -3000,6 +3223,10 @@ function Off()
 	dragEnterConnection:disconnect()
 	
 	Adorn.destroyAdorns()
+	
+	if getFFlagTransformToolAnalytics() then
+		analyticsSendSession()
+	end
 end
 
 function On()	
@@ -3045,6 +3272,10 @@ function On()
 	initializedDragPlane = true
 	
 	selectionChanged()
+	
+	if getFFlagTransformToolAnalytics() then
+		analyticsSessionBegin()
+	end
 end
 
 loaded = true

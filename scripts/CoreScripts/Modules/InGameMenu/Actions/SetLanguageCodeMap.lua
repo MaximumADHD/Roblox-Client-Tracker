@@ -1,4 +1,4 @@
---Remove with FFlagTopBarNewGamepadMenu
+--Remove with isNewGamepadMenuEnabled
 
 local CorePackages = game:GetService("CorePackages")
 

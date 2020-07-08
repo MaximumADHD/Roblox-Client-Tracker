@@ -5,21 +5,25 @@
 	renders its elements above the hosting button instead of below.
 
 	Required Props:
-		boolean ShouldShow: a toggle that shows the menu when true.
+		boolean Hide: Whether the menu is hidden
 		table Items: An array of each item that should appear in the dropdown.
-		UDim2 Size: The size of the window to render elements into.
 		callback OnItemActivated: A callback for when the user selects a dropdown entry.
-		callback OnFocusLost: A callback for when the user clicks away from the dropdown without selecting an item.
 		Theme Theme: a Theme object supplied by mapToProps()
 		Focus Focus: a Focus object supplied by mapToProps()
 
 	Optional Props:
-		callback OnRenderItem: A function used to render a dropdown item.
-		integer ScrollBarThickness: The horizontal width of the scrollbar.
-		boolean ShowBorder: Whether to show a border around the elements in the dropdown.
-		Vector2 Offset: An offset from the button which is hosting this dropdown.
-		Enum.VerticalAlignment StartDirection: Bottom The direction the DropdownMenu will appear from the parent by default.
-		Color3 MenuBackgroundColor: The color of the menu behind the elements.
+		string PlaceholderText: A placeholder to display if there is no item selected.
+		callback OnRenderItem: A function used to render a dropdown menu item.
+		callback OnFocusLost: A function called when the focus on the menu is lost.
+		number SelectedIndex: The currently selected item index.
+		Style Style: The style with which to render this component.
+
+	Style Values:
+		Style BackgroundStyle: The style with which to render the background.
+		Vector2 Offset: The offset the menu appears from the input component.
+		Color3 BackgroundColor: The background color of the dropdown menu.
+		number Width: The width of the menu area.
+		number MaxHeight: The maximum height of the menu area.
 ]]
 
 local Framework = script.Parent.Parent
@@ -33,61 +37,63 @@ local Container = require(UI.Container)
 local CaptureFocus = require(UI.CaptureFocus)
 local ScrollingFrame = require(UI.ScrollingFrame)
 local Button = require(UI.Button)
+local RoundBox = require(UI.RoundBox)
 local TextLabel = require(UI.TextLabel)
-
 
 local DropdownMenu = Roact.PureComponent:extend("DropdownMenu")
 Typecheck.wrap(DropdownMenu, script)
 
+local BORDER_SIZE = 1
+
 function DropdownMenu:init()
-	self.selfRef = Roact.createRef()
+	self.ref = Roact.createRef()
 
 	self.state = {
-		parentAbsolutePosition = Vector2.new(0, 0),
-		parentAbsoluteSize = Vector2.new(0, 0),
+		absolutePosition = Vector2.new(0, 0),
+		absoluteSize = Vector2.new(0, 0),
 		menuContentSize = Vector2.new(0, 0),
 	}
 
-	self.recalculateContentSize = function(rbx)
-		local selfRef = self.selfRef.current
-		if selfRef ~= nil then
-			local parent = selfRef.Parent
+	self.recalculateContentSize = function(uiLayout)
+		local ref = self.ref.current
+		if ref ~= nil then
 			self:setState({
-				menuContentSize = rbx.AbsoluteContentSize,
-				parentAbsolutePosition = parent.AbsolutePosition,
-				parentAbsoluteSize = parent.AbsoluteSize,
+				menuContentSize = uiLayout.AbsoluteContentSize,
+				absolutePosition = ref.AbsolutePosition,
+				absoluteSize = ref.AbsoluteSize,
 			})
 		else
 			self:setState({
-				menuContentSize = rbx.AbsoluteContentSize,
+				menuContentSize = uiLayout.AbsoluteContentSize,
 			})
 		end
 	end
 
 	self.reposition = function()
-		local selfRef = self.selfRef.current
-		if selfRef ~= nil then
-			local parent = selfRef.Parent
+		local ref = self.ref.current
+		if ref ~= nil then
 			self:setState({
-				parentAbsolutePosition = parent.AbsolutePosition,
-				parentAbsoluteSize = parent.AbsoluteSize,
+				absolutePosition = ref.AbsolutePosition,
+				absoluteSize = ref.AbsoluteSize,
 			})
 		end
 	end
 
-	self.getPositionAndSize = function(pluginGui, size, offset)
+	self.getPositionAndSize = function(pluginGui, width, offset)
 		local state = self.state
+		local props = self.props
 
 		-- calculate the size and position of the dropdown
-		local width = size.X.Offset
 		local height = state.menuContentSize.Y
-		local maxHeight = size.Y.Offset
 
-		local sourcePosition = state.parentAbsolutePosition
-		local sourceSize = state.parentAbsoluteSize
+		local style = props.Theme:getStyle("Framework", self)
+		local maxHeight = style.MaxHeight
+
+		local sourcePosition = state.absolutePosition
+		local sourceSize = state.absoluteSize
 		local guiSize = pluginGui.AbsoluteSize
 
-		local xPos, yPos = 0, 0
+		local xPos, yPos
 		local fitsAlignedRight = sourcePosition.X + offset.X + width <= guiSize.X
 		if fitsAlignedRight then
 			xPos = sourcePosition.X + offset.X
@@ -109,7 +115,6 @@ function DropdownMenu:init()
 			end
 		end
 
-		-- choose 
 		local verticalAlignment
 		if direction == Enum.VerticalAlignment.Bottom then
 			yPos = sourcePosition.Y + sourceSize.Y + offset.Y
@@ -124,18 +129,16 @@ function DropdownMenu:init()
 		return {
 			X = xPos,
 			Y = yPos,
-			Width = width,
-			Height = maxHeight,
+			Height = math.min(height, maxHeight),
 			NeedsScrollingFrame = needsScrollingFrame,
 			VerticalAlignment = verticalAlignment,
 		}
 	end
-
 	self.changeTokens = {}
 end
 
 function DropdownMenu:didMount()
-	local parent = self.selfRef.current.Parent
+	local parent = self.ref.current.Parent
 	table.insert(self.changeTokens, parent:GetPropertyChangedSignal("AbsoluteSize"):Connect(self.reposition))
 	table.insert(self.changeTokens, parent:GetPropertyChangedSignal("AbsolutePosition"):Connect(self.reposition))
 end
@@ -146,49 +149,48 @@ function DropdownMenu:willUnmount()
 	end
 end
 
-function DropdownMenu:render()
-	local props = self.props
+local function defaultOnRenderItem(item, index, activated)
+	return Roact.createElement(Button, {
+		Size = UDim2.new(1, 0, 0, 40),
+		LayoutOrder = index,
+		OnClick = activated,
+	}, {
+		Label = Roact.createElement(TextLabel, {
+			Size = UDim2.new(1, 0, 1, 0),
+			Text = item,
+			TextXAlignment = Enum.TextXAlignment.Left
+		}, {
+			Padding = Roact.createElement("UIPadding", {
+				PaddingLeft = UDim.new(0, 10),
+			}),
+		})
+	})
+end
+
+function DropdownMenu:renderMenu()
+
 	local state = self.state
+	local props = self.props
 	local style = props.Theme:getStyle("Framework", self)
-	local pluginGui = props.Focus:getTarget()
 
 	local items = props.Items
-	local onRenderItem = prioritize(props.OnRenderItem, style.OnRenderItem, function(item, index, activated)
-		return Roact.createElement(Button, {
-			Size = UDim2.new(1, 0, 0, 40),
-			LayoutOrder = index,
-			OnClick = activated,
-		}, {
-			Label = Roact.createElement(TextLabel, {
-				Size = UDim2.new(1, 0, 1, 0),
-				Text = item,
-			}, {
-				Padding = Roact.createElement("UIPadding", {
-					PaddingLeft = UDim.new(0, 10),
-				}),
-			})
-		})
-	end)
+	local onRenderItem = prioritize(props.OnRenderItem, defaultOnRenderItem)
 
-	local onFocusLost = props.OnFocusLost
-	local onItemActivated = props.OnItemActivated
-	local shouldShow = props.ShouldShow
+	local onItemActivated = function(item, index)
+		props.OnItemActivated(item, index)
+		if props.OnFocusLost then
+			props.OnFocusLost()
+		end
+	end
+	local backgroundColor = style.BackgroundColor
+	local width = style.Width
+	local offset = prioritize(style.Offset, Vector2.new(0, 0))
 
-	local showBorder = prioritize(props.ShowBorder, style.ShowBorder, false)
-	local borderColor = prioritize(props.BorderColor, style.BorderColor)
-	local borderImage = style.BorderImage
-	local borderSliceCenter = style.BorderSliceCenter
-	local menuBackgroundColor = prioritize(props.MenuBackgroundColor, style.MenuBackgroundColor)
-	local size = prioritize(props.Size, style.Size, UDim2.new(0, 100, 0, 100))
-	local offset = prioritize(props.Offset, style.Offset, Vector2.new(0, 0))
-	local scrollBarThickness = prioritize(props.ScrollBarThickness, style.ScrollBarThickness)
+	local pluginGui = props.Focus:getTarget()
 
-	local canRender = state.parentAbsolutePosition ~= Vector2.new(0, 0)
-
-	local menuPositionAndSize = self.getPositionAndSize(pluginGui, size, offset)
+	local menuPositionAndSize = self.getPositionAndSize(pluginGui, width, offset)
 	local x = menuPositionAndSize.X
 	local y = menuPositionAndSize.Y
-	local width = menuPositionAndSize.Width
 	local height = menuPositionAndSize.Height
 	local needsScrollingFrame = menuPositionAndSize.NeedsScrollingFrame
 	local verticalAlignment = menuPositionAndSize.VerticalAlignment
@@ -208,43 +210,47 @@ function DropdownMenu:render()
 		end)
 	end
 
-	-- render an anchor element to be able to get a reference to the parent
+	local backgroundStyle = style.BackgroundStyle
+
 	return Roact.createElement(Container, {
-		Size = UDim2.new(0, 0, 0, 0),
-		[Roact.Ref] = self.selfRef,
+		Position = UDim2.fromOffset(x, y),
+		Size = UDim2.fromOffset(width, height + BORDER_SIZE * 2),
+		Background = RoundBox,
+		BackgroundStyle = backgroundStyle,
 	}, {
-		PortalToRoot = shouldShow and Roact.createElement(CaptureFocus, {
-			OnFocusLost = onFocusLost,
+		ScrollingContainer = needsScrollingFrame and Roact.createElement(ScrollingFrame, {
+			AutoSizeCanvas = false,
+			-- These are needed because container lays out children relative to its outer size, not its inner size
+			Size = UDim2.new(1, -BORDER_SIZE * 2, 1, -BORDER_SIZE * 2),
+			Position = UDim2.fromOffset(1, 1),
+			CanvasSize = UDim2.fromOffset(state.menuContentSize.X, state.menuContentSize.Y),
+		}, listElements),
+
+		Container = (needsScrollingFrame == false) and Roact.createElement("Frame", {
+			BorderSizePixel = 0,
+			-- These are needed because container lays out children relative to its outer size, not its inner size
+			Size = UDim2.new(1, -BORDER_SIZE * 2, 1, -BORDER_SIZE * 2),
+			Position = UDim2.fromOffset(1, 1),
+			BackgroundColor3 = backgroundColor,
+		}, listElements),
+	})
+
+end
+
+function DropdownMenu:render()
+	local props = self.props
+	local state = self.state
+
+	local isOpen = not props.Hide
+	local canRender = state.absolutePosition ~= Vector2.new(0, 0)
+
+	return Roact.createElement(Container, {
+		[Roact.Ref] = self.ref,
+	}, {
+		PortalToRoot = isOpen and Roact.createElement(CaptureFocus, {
+			OnFocusLost = props.OnFocusLost,
 		}, {
-			Menu = Roact.createElement(Container, {
-				Visible = canRender,
-				Position = UDim2.fromOffset(x, y),
-				Size = UDim2.fromOffset(width, height),
-				ZIndex = 3,
-			}, {
-				Border = showBorder and Roact.createElement("ImageLabel", {
-					Size = UDim2.fromScale(1, 1),
-					ZIndex = 4,
-					BackgroundTransparency = 1,
-					ImageColor3 = borderColor,
-					Image = borderImage,
-					ScaleType = Enum.ScaleType.Slice,
-					SliceCenter = borderSliceCenter,
-				}),
-
-				ScrollingContainer = needsScrollingFrame and Roact.createElement(ScrollingFrame, {
-					AutoSizeCanvas = false,
-					CanvasSize = UDim2.fromOffset(state.menuContentSize.X, state.menuContentSize.Y),
-					ScrollBarThickness = scrollBarThickness,
-					BackgroundColor3 = menuBackgroundColor,
-				}, listElements),
-
-				Container = (needsScrollingFrame == false) and Roact.createElement("Frame", {
-					BorderSizePixel = 0,
-					Size = UDim2.fromScale(1, 1),
-					BackgroundColor3 = menuBackgroundColor,
-				}, listElements),
-			})
+			Menu = isOpen and canRender and self:renderMenu()
 		})
 	})
 end

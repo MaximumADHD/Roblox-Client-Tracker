@@ -12,15 +12,19 @@ local Rodux = require(CorePackages.Rodux)
 local RoactRodux = require(CorePackages.RoactRodux)
 local UIBlox = require(CorePackages.UIBlox)
 
+
 local SettingsUtil = require(RobloxGui.Modules.Settings.Utility)
 local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
 local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
 
-local FFlagTopBarNewGamepadMenu = require(RobloxGui.Modules.Flags.FFlagTopBarNewGamepadMenu)
+local isNewGamepadMenuEnabled = require(RobloxGui.Modules.Flags.isNewGamepadMenuEnabled)
+
+local GetFFlagUseRoactPolicyProvider = require(RobloxGui.Modules.Flags.GetFFlagUseRoactPolicyProvider)
 
 local TopBarApp = require(script.Components.TopBarApp)
 local Reducer = require(script.Reducer)
 local Constants = require(script.Constants)
+local TopBarAppPolicy = require(script.TopBarAppPolicy)
 
 local SetSmallTouchDevice = require(script.Actions.SetSmallTouchDevice)
 local SetInspectMenuOpen = require(script.Actions.SetInspectMenuOpen)
@@ -59,7 +63,7 @@ function TopBar.new()
 	registerSetCores(self.store)
 	self.store:dispatch(GetCanChat)
 
-	if FFlagTopBarNewGamepadMenu then
+	if isNewGamepadMenuEnabled() then
 		self.store:dispatch(GetGameName)
 	end
 
@@ -78,15 +82,31 @@ function TopBar.new()
 		Font = AppFont,
 	}
 
-	self.root = Roact.createElement(RoactRodux.StoreProvider, {
-		store = self.store,
-	}, {
-		ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
-			style = appStyle,
+	if GetFFlagUseRoactPolicyProvider() then
+		self.root = Roact.createElement(RoactRodux.StoreProvider, {
+			store = self.store,
 		}, {
-			TopBarApp = Roact.createElement(TopBarApp)
+			PolicyProvider = Roact.createElement(TopBarAppPolicy.Provider, {
+				policy = { TopBarAppPolicy.Mapper },
+			}, {
+				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
+					style = appStyle,
+				}, {
+					TopBarApp = Roact.createElement(TopBarApp)
+				})
+			})
 		})
-	})
+	else
+		self.root = Roact.createElement(RoactRodux.StoreProvider, {
+			store = self.store,
+		}, {
+			ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
+				style = appStyle,
+			}, {
+				TopBarApp = Roact.createElement(TopBarApp)
+			})
+		})
+	end
 
 	self.element = Roact.mount(self.root, CoreGui, "TopBar")
 

@@ -7,24 +7,19 @@
 local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
-local Rodux = require(Plugin.Packages.Rodux)
+local RoactRodux = require(Plugin.Packages.RoactRodux)
 local ContextServices = require(Plugin.Packages.Framework.ContextServices)
-local Localization = ContextServices.Localization
-local Mouse = ContextServices.Mouse
-local Store = ContextServices.Store
-local Theme = ContextServices.Theme
-
 local StudioUI = require(Plugin.Packages.Framework.StudioUI)
 local DockWidget = StudioUI.DockWidget
 local PluginButton = StudioUI.PluginButton
 local PluginToolbar = StudioUI.PluginToolbar
 
-local MainView = require(Plugin.Src.Components.MainView)
-local MainReducer = require(Plugin.Src.Reducers.MainReducer)
-local MakeTheme = require(Plugin.Src.Resources.MakeTheme)
+local SetToolEnabled = require(Plugin.Src.Actions.SetToolEnabled)
+local UpdateActiveInstanceHighlight = require(Plugin.Src.Thunks.UpdateActiveInstanceHighlight)
 
-local EnglishStringsTable = Plugin.Src.Resources.Localization.EnglishStrings
-local TranslatedStringsTable = Plugin.Src.Resources.Localization.TranslatedStrings
+local MainView = require(Plugin.Src.Components.MainView)
+
+local getEngineFeatureActiveInstanceHighlight = require(Plugin.Src.Flags.getEngineFeatureActiveInstanceHighlight)
 
 local TOOLBAR_BUTTON_ICON = "rbxasset://textures/AlignTool/AlignTool.png"
 local INITIAL_WINDOW_SIZE = Vector2.new(300, 220)
@@ -33,74 +28,53 @@ local MINIMUM_WINDOW_SIZE = Vector2.new(150, 200)
 local AlignmentToolPlugin = Roact.PureComponent:extend("AlignmentToolPlugin")
 
 function AlignmentToolPlugin:init()
-	self.state = {
-		enabled = false,
-	}
-
 	self.toggleState = function()
-		local state = self.state
-		self:setState({
-			enabled = not state.enabled,
-		})
+		local props = self.props
+		props.setToolEnabled(not props.toolEnabled)
 	end
 
 	self.onClose = function()
-		self:setState({
-			enabled = false,
-		})
+		self.props.setToolEnabled(false)
 	end
 
 	self.onRestore = function(enabled)
-		self:setState({
-			enabled = enabled,
-		})
+		self.props.setToolEnabled(enabled)
 	end
 
 	self.renderButtons = function(toolbar)
-		local enabled = self.state.enabled
+		local props = self.props
+
+		local localization = props.Localization
+		local enabled = props.toolEnabled
 
 		return {
 			Toggle = Roact.createElement(PluginButton, {
 				Toolbar = toolbar,
 				Active = enabled,
-				Title = self.localization:getText("Plugin", "Button"),
-				Tooltip = self.localization:getText("Plugin", "Description"),
+				Title = localization:getText("Plugin", "Button"),
+				Tooltip = localization:getText("Plugin", "Description"),
 				Icon = TOOLBAR_BUTTON_ICON,
 				OnClick = self.toggleState,
 			})
 		}
 	end
-
-	self.store = Rodux.Store.new(MainReducer, nil, { Rodux.thunkMiddleware })
-
-	self.localization = Localization.new({
-		pluginName = "AlignmentTool",
-		stringResourceTable = EnglishStringsTable,
-		translationResourceTable = TranslatedStringsTable,
-	})
 end
 
 function AlignmentToolPlugin:render()
 	local props = self.props
 
-	local enabled = self.state.enabled
-	local plugin = props.plugin
+	local localization = props.Localization
+	local enabled = props.toolEnabled
 
-	return ContextServices.provide({
-		ContextServices.Plugin.new(plugin),
-		self.localization,
-		MakeTheme(),
-		Mouse.new(plugin:GetMouse()),
-		Store.new(self.store),
-	}, {
+	return Roact.createFragment({
 		Toolbar = Roact.createElement(PluginToolbar, {
-			Title = self.localization:getText("Plugin", "Toolbar"),
+			Title = localization:getText("Plugin", "Toolbar"),
 			RenderButtons = self.renderButtons,
 		}),
 
 		MainWidget = Roact.createElement(DockWidget, {
 			Enabled = enabled,
-			Title = self.localization:getText("Plugin", "WindowTitle"),
+			Title = localization:getText("Plugin", "WindowTitle"),
 			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 			InitialDockState = Enum.InitialDockState.Left,
 			Size = INITIAL_WINDOW_SIZE,
@@ -114,4 +88,25 @@ function AlignmentToolPlugin:render()
 	})
 end
 
-return AlignmentToolPlugin
+ContextServices.mapToProps(AlignmentToolPlugin, {
+	Localization = ContextServices.Localization,
+})
+
+local function mapStateToProps(state, _)
+	return {
+		toolEnabled = state.toolEnabled,
+	}
+end
+
+local function mapDispatchToProps(dispatch)
+	return {
+		setToolEnabled = function(enabled)
+			dispatch(SetToolEnabled(enabled))
+			if getEngineFeatureActiveInstanceHighlight() then
+				dispatch(UpdateActiveInstanceHighlight())
+			end
+		end,
+	}
+end
+
+return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(AlignmentToolPlugin)
