@@ -36,13 +36,13 @@ CopyGuiVS,Vertex
 DefaultDepthFS,Fragment
 DefaultDepthInstancedVS,Vertex
 DefaultDepthSkinnedVS,Vertex
+DefaultDepthSmoothSkinnedVS,Vertex
 DefaultDepthStaticVS,Vertex
 DefaultForceFieldFS,Fragment
 DefaultForceFieldHQFS,Fragment
 DefaultForceFieldHQFSShadowed,Fragment
 DefaultForceFieldSHQFS,Fragment
 DefaultForceFieldSHQFSShadowed,Fragment
-DefaultGlassHQFixFS,Fragment
 DefaultGlassHQFS,Fragment
 DefaultGlassHQFSShadowed,Fragment
 DefaultGlassSuperHQFS,Fragment
@@ -68,6 +68,8 @@ DefaultNewShadowOpaqueFS,Fragment
 DefaultNewShadowOpaquePancakingFallbackFS,Fragment
 DefaultNewShadowSkinnedPancakingFallbackVS,Vertex
 DefaultNewShadowSkinnedVS,Vertex
+DefaultNewShadowSmoothSkinnedPancakingFallbackVS,Vertex
+DefaultNewShadowSmoothSkinnedVS,Vertex
 DefaultNewShadowStaticPancakingFallbackVS,Vertex
 DefaultNewShadowStaticVS,Vertex
 DefaultNewShadowTransparentFS,Fragment
@@ -82,6 +84,7 @@ DefaultPlasticReflectionFS,Fragment
 DefaultShadowFS,Fragment
 DefaultShadowGeomInstancedVS,Vertex
 DefaultShadowGeomSkinnedVS,Vertex
+DefaultShadowGeomSmoothSkinnedVS,Vertex
 DefaultShadowGeomStaticVS,Vertex
 DefaultSkinnedForceFieldHQVS,Vertex
 DefaultSkinnedForceFieldHQVSShadowed,Vertex
@@ -93,6 +96,16 @@ DefaultSkinnedReflectionVSShadowed,Vertex
 DefaultSkinnedSurfaceHQVS,Vertex
 DefaultSkinnedSurfaceHQVSShadowed,Vertex
 DefaultSkinnedVS,Vertex
+DefaultSmoothSkinnedForceFieldHQVS,Vertex
+DefaultSmoothSkinnedForceFieldHQVSShadowed,Vertex
+DefaultSmoothSkinnedForceFieldVS,Vertex
+DefaultSmoothSkinnedHQVS,Vertex
+DefaultSmoothSkinnedHQVSShadowed,Vertex
+DefaultSmoothSkinnedReflectionVS,Vertex
+DefaultSmoothSkinnedReflectionVSShadowed,Vertex
+DefaultSmoothSkinnedSurfaceHQVS,Vertex
+DefaultSmoothSkinnedSurfaceHQVSShadowed,Vertex
+DefaultSmoothSkinnedVS,Vertex
 DefaultStaticForceFieldHQVS,Vertex
 DefaultStaticForceFieldHQVSShadowed,Vertex
 DefaultStaticForceFieldVS,Vertex
@@ -152,8 +165,8 @@ FXCompositingFS,Fragment
 FXCompositingLinearFS,Fragment
 GlassInstancedVS,Vertex
 GlassSkinnedVS,Vertex
+GlassSmoothSkinnedVS,Vertex
 GlassStaticVS,Vertex
-GlassTintFixFS,Fragment
 GlassTintFS,Fragment
 GrassFS,Fragment
 GrassHQFS,Fragment
@@ -186,7 +199,6 @@ LightGridPointSplatFS,Fragment
 LightGridPointSplatVS,Vertex
 LinearizeDepthAAFS,Fragment
 LinearizeDepthFS,Fragment
-LowQGlassFixFS,Fragment
 LowQGlassFS,Fragment
 LowQMaterialFS,Fragment
 LowQMaterialWangFallbackFS,Fragment

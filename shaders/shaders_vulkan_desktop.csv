@@ -36,6 +36,7 @@ CopyGuiVS,Vertex
 DefaultDepthFS,Fragment
 DefaultDepthInstancedVS,Vertex
 DefaultDepthSkinnedVS,Vertex
+DefaultDepthSmoothSkinnedVS,Vertex
 DefaultDepthStaticVS,Vertex
 DefaultForceFieldFS,Fragment
 DefaultForceFieldHQFS,Fragment
@@ -46,7 +47,6 @@ DefaultForceFieldSHQFSShadowed,Fragment
 DefaultForceFieldSHQFSShadowedFSM,Fragment
 DefaultGlassFFlagUseSkylightHQFSShadowedFSM,Fragment
 DefaultGlassFFlagUseSkylightSuperHQFSShadowedFSM,Fragment
-DefaultGlassHQFixFS,Fragment
 DefaultGlassHQFS,Fragment
 DefaultGlassHQFSShadowed,Fragment
 DefaultGlassHQFSShadowedFSM,Fragment
@@ -80,6 +80,8 @@ DefaultNewShadowMSAAOpaqueFS,Fragment
 DefaultNewShadowMSAAOpaquePancakingFallbackFS,Fragment
 DefaultNewShadowMSAASkinnedPancakingFallbackVS,Vertex
 DefaultNewShadowMSAASkinnedVS,Vertex
+DefaultNewShadowMSAASmoothSkinnedPancakingFallbackVS,Vertex
+DefaultNewShadowMSAASmoothSkinnedVS,Vertex
 DefaultNewShadowMSAAStaticPancakingFallbackVS,Vertex
 DefaultNewShadowMSAAStaticVS,Vertex
 DefaultNewShadowMSAATransparentFS,Fragment
@@ -88,6 +90,8 @@ DefaultNewShadowOpaqueFS,Fragment
 DefaultNewShadowOpaquePancakingFallbackFS,Fragment
 DefaultNewShadowSkinnedPancakingFallbackVS,Vertex
 DefaultNewShadowSkinnedVS,Vertex
+DefaultNewShadowSmoothSkinnedPancakingFallbackVS,Vertex
+DefaultNewShadowSmoothSkinnedVS,Vertex
 DefaultNewShadowStaticPancakingFallbackVS,Vertex
 DefaultNewShadowStaticVS,Vertex
 DefaultNewShadowTransparentFS,Fragment
@@ -104,6 +108,7 @@ DefaultPlasticReflectionFS,Fragment
 DefaultShadowFS,Fragment
 DefaultShadowGeomInstancedVS,Vertex
 DefaultShadowGeomSkinnedVS,Vertex
+DefaultShadowGeomSmoothSkinnedVS,Vertex
 DefaultShadowGeomStaticVS,Vertex
 DefaultSkinnedForceFieldHQVS,Vertex
 DefaultSkinnedForceFieldHQVSShadowed,Vertex
@@ -119,6 +124,20 @@ DefaultSkinnedSurfaceHQVS,Vertex
 DefaultSkinnedSurfaceHQVSShadowed,Vertex
 DefaultSkinnedSurfaceHQVSShadowedFSM,Vertex
 DefaultSkinnedVS,Vertex
+DefaultSmoothSkinnedForceFieldHQVS,Vertex
+DefaultSmoothSkinnedForceFieldHQVSShadowed,Vertex
+DefaultSmoothSkinnedForceFieldHQVSShadowedFSM,Vertex
+DefaultSmoothSkinnedForceFieldVS,Vertex
+DefaultSmoothSkinnedHQVS,Vertex
+DefaultSmoothSkinnedHQVSShadowed,Vertex
+DefaultSmoothSkinnedHQVSShadowedFSM,Vertex
+DefaultSmoothSkinnedReflectionVS,Vertex
+DefaultSmoothSkinnedReflectionVSShadowed,Vertex
+DefaultSmoothSkinnedReflectionVSShadowedFSM,Vertex
+DefaultSmoothSkinnedSurfaceHQVS,Vertex
+DefaultSmoothSkinnedSurfaceHQVSShadowed,Vertex
+DefaultSmoothSkinnedSurfaceHQVSShadowedFSM,Vertex
+DefaultSmoothSkinnedVS,Vertex
 DefaultStaticForceFieldHQVS,Vertex
 DefaultStaticForceFieldHQVSShadowed,Vertex
 DefaultStaticForceFieldHQVSShadowedFSM,Vertex
@@ -189,8 +208,8 @@ FXCompositingFS,Fragment
 FXCompositingLinearFS,Fragment
 GlassInstancedVS,Vertex
 GlassSkinnedVS,Vertex
+GlassSmoothSkinnedVS,Vertex
 GlassStaticVS,Vertex
-GlassTintFixFS,Fragment
 GlassTintFS,Fragment
 GrassFS,Fragment
 GrassHQFS,Fragment
@@ -227,7 +246,6 @@ LightGridPointSplatFS,Fragment
 LightGridPointSplatVS,Vertex
 LinearizeDepthAAFS,Fragment
 LinearizeDepthFS,Fragment
-LowQGlassFixFS,Fragment
 LowQGlassFS,Fragment
 LowQMaterialFS,Fragment
 LowQMaterialWangFallbackFS,Fragment

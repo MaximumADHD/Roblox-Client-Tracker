@@ -5,6 +5,7 @@ Studio.AnimationClipEditor.Plugin.Button,Animation Editor, ,애니메이션 편�
 Studio.AnimationClipEditor.Plugin.Description,"Create, preview, and publish Animation clips", ,"애니메이션 클립 만들기, 미리보기 및 게시",创建、预览和发布动画片段
 Studio.AnimationClipEditor.ContextMenu.AddKeyframeHere,Add Keyframe Here, ,여기에 키프레임 추가,在此处添加关键帧
 Studio.AnimationClipEditor.ContextMenu.AddResetKeyframe,Add Reset Keyframe Here, ,여기에 재설정 키프레임 추가,在此处添加重置关键帧
+Studio.AnimationClipEditor.ContextMenu.AddKeyframeAtScrubber,Add Keyframe At Scrubber, , , 
 Studio.AnimationClipEditor.ContextMenu.AddKeyframe,Add Keyframe, ,키프레임 추가,添加关键帧
 Studio.AnimationClipEditor.ContextMenu.CutSelected,Cut Selected, ,선택 항목 잘라내기,剪切选定项
 Studio.AnimationClipEditor.ContextMenu.CopySelected,Copy Selected, ,선택 항목 복사,复制选定项

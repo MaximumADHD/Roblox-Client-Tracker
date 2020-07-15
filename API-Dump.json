@@ -34166,6 +34166,26 @@
                 {
                     "Category": "Appearance",
                     "MemberType": "Property",
+                    "Name": "HasJointOffset",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "NotAccessibleSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "Hidden"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
                     "Name": "HasSkinnedMesh",
                     "Security": {
                         "Read": "None",
@@ -34181,6 +34201,26 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "JointOffset",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "NotAccessibleSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "Hidden"
+                    ],
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Vector3"
                     }
                 },
                 {
@@ -35528,6 +35568,26 @@
                     "ValueType": {
                         "Category": "Enum",
                         "Name": "PhysicsSimulationRate"
+                    }
+                },
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "SkinnedMeshEnabled",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "SkinnedMeshAllowType"
                     }
                 },
                 {
@@ -50571,6 +50631,23 @@
                     }
                 },
                 {
+                    "Category": "Script Editor Colors",
+                    "MemberType": "Property",
+                    "Name": "Current Line Highlight Color",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Color3"
+                    }
+                },
+                {
                     "Category": "Directories",
                     "MemberType": "Property",
                     "Name": "DefaultScriptFileDir",
@@ -50782,6 +50859,23 @@
                     "Category": "Script Editor",
                     "MemberType": "Property",
                     "Name": "Format On Type",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Script Editor",
+                    "MemberType": "Property",
+                    "Name": "Highlight Current Line",
                     "Security": {
                         "Read": "None",
                         "Write": "None"
@@ -51874,6 +51968,27 @@
                 {
                     "Category": "Data",
                     "MemberType": "Property",
+                    "Name": "AlignDraggedObjects",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
                     "Name": "DraggerSolveConstraints",
                     "Security": {
                         "Read": "None",
@@ -52244,6 +52359,17 @@
                         "Name": "RaycastResult"
                     },
                     "Security": "PluginSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "HasInternalPermission",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "RobloxScriptSecurity"
                 },
                 {
                     "MemberType": "Function",
@@ -66252,6 +66378,23 @@
         {
             "Items": [
                 {
+                    "Name": "Default",
+                    "Value": 0
+                },
+                {
+                    "Name": "Disabled",
+                    "Value": 2
+                },
+                {
+                    "Name": "Enabled",
+                    "Value": 1
+                }
+            ],
+            "Name": "SkinnedMeshAllowType"
+        },
+        {
+            "Items": [
+                {
                     "Name": "LayoutOrder",
                     "Value": 2
                 },
@@ -66695,6 +66838,10 @@
                     "Value": 59
                 },
                 {
+                    "Name": "ScriptEditorCurrentLine",
+                    "Value": 98
+                },
+                {
                     "Name": "DiffFilePathText",
                     "Value": 60
                 },
@@ -66759,72 +66906,92 @@
                     "Value": 75
                 },
                 {
-                    "Name": "Separator",
+                    "Name": "ChatIncomingBgColor",
                     "Value": 76
                 },
                 {
-                    "Name": "ButtonBorder",
+                    "Name": "ChatIncomingTextColor",
                     "Value": 77
                 },
                 {
-                    "Name": "ButtonText",
+                    "Name": "ChatOutgoingBgColor",
                     "Value": 78
                 },
                 {
-                    "Name": "InputFieldBorder",
+                    "Name": "ChatOutgoingTextColor",
                     "Value": 79
                 },
                 {
-                    "Name": "CheckedFieldBackground",
+                    "Name": "ChatModeratedMessageColor",
                     "Value": 80
                 },
                 {
-                    "Name": "CheckedFieldBorder",
+                    "Name": "Separator",
                     "Value": 81
                 },
                 {
-                    "Name": "CheckedFieldIndicator",
+                    "Name": "ButtonBorder",
                     "Value": 82
                 },
                 {
-                    "Name": "HeaderSection",
+                    "Name": "ButtonText",
                     "Value": 83
                 },
                 {
-                    "Name": "Midlight",
+                    "Name": "InputFieldBorder",
                     "Value": 84
                 },
                 {
-                    "Name": "StatusBar",
+                    "Name": "CheckedFieldBackground",
                     "Value": 85
                 },
                 {
-                    "Name": "DialogButton",
+                    "Name": "CheckedFieldBorder",
                     "Value": 86
                 },
                 {
-                    "Name": "DialogButtonText",
+                    "Name": "CheckedFieldIndicator",
                     "Value": 87
                 },
                 {
-                    "Name": "DialogButtonBorder",
+                    "Name": "HeaderSection",
                     "Value": 88
                 },
                 {
-                    "Name": "DialogMainButton",
+                    "Name": "Midlight",
                     "Value": 89
                 },
                 {
-                    "Name": "DialogMainButtonText",
+                    "Name": "StatusBar",
                     "Value": 90
                 },
                 {
-                    "Name": "InfoBarWarningBackground",
+                    "Name": "DialogButton",
                     "Value": 91
                 },
                 {
-                    "Name": "InfoBarWarningText",
+                    "Name": "DialogButtonText",
                     "Value": 92
+                },
+                {
+                    "Name": "DialogButtonBorder",
+                    "Value": 93
+                },
+                {
+                    "Name": "DialogMainButton",
+                    "Value": 94
+                },
+                {
+                    "Name": "DialogMainButtonText",
+                    "Value": 95
+                },
+                {
+                    "Name": "InfoBarWarningBackground",
+                    "Value": 96
+                },
+                {
+                    "Name": "InfoBarWarningText",
+                    "Value": 97
                 }
             ],
             "Name": "StudioStyleGuideColor"
@@ -67018,6 +67185,27 @@
                 }
             ],
             "Name": "Technology"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "TeleportToSpawnByName",
+                    "Value": 0
+                },
+                {
+                    "Name": "TeleportToPlaceInstance",
+                    "Value": 1
+                },
+                {
+                    "Name": "TeleportToPrivateServer",
+                    "Value": 2
+                },
+                {
+                    "Name": "TeleportToPartyAsync",
+                    "Value": 3
+                }
+            ],
+            "Name": "TeleportMethod"
         },
         {
             "Items": [

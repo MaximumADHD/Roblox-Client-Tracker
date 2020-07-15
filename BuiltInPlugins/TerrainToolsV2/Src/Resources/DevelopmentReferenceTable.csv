@@ -155,9 +155,15 @@ Studio.TerrainToolsV2.Regions.EditTools, , ,Edit Tools
 Studio.TerrainToolsV2.Regions.FillSelection, , ,Fill Selection
 Studio.TerrainToolsV2.Regions.Tools, , ,Tools
 Studio.TerrainToolsV2.SeaLevel.Create, , ,Create
-Studio.TerrainToolsV2.SeaLevel.End,{1:int}, ,Sea Level Complete: {1:int} seconds.
+Studio.TerrainToolsV2.SeaLevel.End,{1:int}, ,Replace Complete: {1:int} seconds.
 Studio.TerrainToolsV2.SeaLevel.Evaporate, , ,Evaporate
-Studio.TerrainToolsV2.SeaLevel.Start, , ,Starting Sea Level
+Studio.TerrainToolsV2.SeaLevel.Start, , ,Starting Replace Method
+Studio.TerrainToolsV2.ReplaceMode.Box, , ,Box
+Studio.TerrainToolsV2.ReplaceMode.Brush, , ,Brush
+Studio.TerrainToolsV2.Replace.ReplaceMaterial, , ,Replace material
+Studio.TerrainToolsV2.Replace.Replace, , ,Replace
+Studio.TerrainToolsV2.Replace.SourceMaterial, , ,Source material
+Studio.TerrainToolsV2.Replace.TargetMaterial, , ,Target material
 Studio.TerrainToolsV2.Tab.Build, , ,Build
 Studio.TerrainToolsV2.Tab.Create, , ,Create
 Studio.TerrainToolsV2.Tab.Edit, , ,Edit

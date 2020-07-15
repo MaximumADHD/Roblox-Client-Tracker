@@ -1920,11 +1920,13 @@ Class Terrain : BasePart [NotCreatable]
 Class TriangleMeshPart : BasePart [NotCreatable]
 	Property Enum<CollisionFidelity> TriangleMeshPart.CollisionFidelity {✏️PluginSecurity} [<📁> LoadOnly] [NotReplicated]
 Class MeshPart : TriangleMeshPart
+	Property bool MeshPart.HasJointOffset {✏️NotAccessibleSecurity} [Hidden]
 	Property bool MeshPart.HasSkinnedMesh {✏️NotAccessibleSecurity} [Hidden]
 	Property Content MeshPart.MeshID  [NotScriptable] [Deprecated]
 	Property Content MeshPart.MeshId {✏️NotAccessibleSecurity}
 	Property Enum<RenderFidelity> MeshPart.RenderFidelity {✏️PluginSecurity}
 	Property Content MeshPart.TextureID
+	Property Vector3 MeshPart.JointOffset {✏️NotAccessibleSecurity} [Hidden]
 Class PartOperation : TriangleMeshPart
 	Property Enum<RenderFidelity> PartOperation.RenderFidelity {✏️PluginSecurity}
 	Property float PartOperation.SmoothingAngle {✏️PluginSecurity}
@@ -1983,6 +1985,7 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property bool Workspace.FilteringEnabled {✏️PluginSecurity}
 	Property float Workspace.Gravity
 	Property Enum<PhysicsSimulationRate> Workspace.PhysicsSimulationRate  [Hidden] [NotReplicated]
+	Property Enum<SkinnedMeshAllowType> Workspace.SkinnedMeshEnabled  [NotScriptable]
 	Property bool Workspace.StreamingEnabled {✏️PluginSecurity}
 	Property int Workspace.StreamingMinRadius  [NotScriptable]
 	Property Enum<StreamingPauseMode> Workspace.StreamingPauseMode  [NotScriptable]
@@ -2863,6 +2866,7 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool Studio.Enable Autocomplete
 	Property QFont Studio.Font
 	Property bool Studio.Format On Type
+	Property bool Studio.Highlight Current Line
 	Property bool Studio.Indent Using Spaces
 	Property string Studio.Rulers
 	Property bool Studio.Show Whitespace
@@ -2872,6 +2876,7 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property Color3 Studio.Background Color
 	Property Color3 Studio.Built-in Function Color
 	Property Color3 Studio.Comment Color
+	Property Color3 Studio.Current Line Highlight Color
 	Property Color3 Studio.Error Color
 	Property Color3 Studio.Find Selection Background Color
 	Property Color3 Studio.Keyword Color
@@ -2903,6 +2908,7 @@ Class StudioData : Instance [NotCreatable] [Service]
 	Property int64 StudioData.SrcPlaceId {RobloxSecurity} [Hidden] [NotReplicated]
 	Property int64 StudioData.SrcUniverseId {RobloxSecurity} [Hidden] [NotReplicated]
 Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
+	Property bool StudioService.AlignDraggedObjects {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
 	Property bool StudioService.DraggerSolveConstraints  [ReadOnly] [NotReplicated]
 	Property bool StudioService.DrawConstraintsOnTop  [ReadOnly] [NotReplicated]
 	Property float StudioService.GridSize  [ReadOnly] [NotReplicated]
@@ -2924,6 +2930,7 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function string StudioService:GetTermsOfUseUrl() {RobloxScriptSecurity}
 	Function int64 StudioService:GetUserId() {PluginSecurity}
 	Function RaycastResult StudioService:GizmoRaycast(Vector3 origin, Vector3 direction, RaycastParams raycastParams = RaycastParams.new()) {PluginSecurity}
+	Function bool StudioService:HasInternalPermission() {RobloxScriptSecurity}
 	Function bool StudioService:IsPluginInstalled(int64 assetId) {RobloxScriptSecurity}
 	Function bool StudioService:IsPluginUpToDate(int64 assetId, int64 currentAssetVersion) {RobloxScriptSecurity}
 	Function void StudioService:OpenInBrowser_DONOTUSE(string url) {RobloxScriptSecurity}
@@ -4677,6 +4684,10 @@ Enum SizeConstraint
 	EnumItem SizeConstraint.RelativeXY : 0
 	EnumItem SizeConstraint.RelativeXX : 1
 	EnumItem SizeConstraint.RelativeYY : 2
+Enum SkinnedMeshAllowType
+	EnumItem SkinnedMeshAllowType.Default : 0
+	EnumItem SkinnedMeshAllowType.Enabled : 1
+	EnumItem SkinnedMeshAllowType.Disabled : 2
 Enum SortOrder
 	EnumItem SortOrder.Name : 0
 	EnumItem SortOrder.Custom : 1 [Deprecated]
@@ -4800,23 +4811,29 @@ Enum StudioStyleGuideColor
 	EnumItem StudioStyleGuideColor.DiffLineNumDeletionBackground : 73
 	EnumItem StudioStyleGuideColor.DiffFilePathBackground : 74
 	EnumItem StudioStyleGuideColor.DiffFilePathBorder : 75
-	EnumItem StudioStyleGuideColor.Separator : 76
-	EnumItem StudioStyleGuideColor.ButtonBorder : 77
-	EnumItem StudioStyleGuideColor.ButtonText : 78
-	EnumItem StudioStyleGuideColor.InputFieldBorder : 79
-	EnumItem StudioStyleGuideColor.CheckedFieldBackground : 80
-	EnumItem StudioStyleGuideColor.CheckedFieldBorder : 81
-	EnumItem StudioStyleGuideColor.CheckedFieldIndicator : 82
-	EnumItem StudioStyleGuideColor.HeaderSection : 83
-	EnumItem StudioStyleGuideColor.Midlight : 84
-	EnumItem StudioStyleGuideColor.StatusBar : 85
-	EnumItem StudioStyleGuideColor.DialogButton : 86
-	EnumItem StudioStyleGuideColor.DialogButtonText : 87
-	EnumItem StudioStyleGuideColor.DialogButtonBorder : 88
-	EnumItem StudioStyleGuideColor.DialogMainButton : 89
-	EnumItem StudioStyleGuideColor.DialogMainButtonText : 90
-	EnumItem StudioStyleGuideColor.InfoBarWarningBackground : 91
-	EnumItem StudioStyleGuideColor.InfoBarWarningText : 92
+	EnumItem StudioStyleGuideColor.ChatIncomingBgColor : 76
+	EnumItem StudioStyleGuideColor.ChatIncomingTextColor : 77
+	EnumItem StudioStyleGuideColor.ChatOutgoingBgColor : 78
+	EnumItem StudioStyleGuideColor.ChatOutgoingTextColor : 79
+	EnumItem StudioStyleGuideColor.ChatModeratedMessageColor : 80
+	EnumItem StudioStyleGuideColor.Separator : 81
+	EnumItem StudioStyleGuideColor.ButtonBorder : 82
+	EnumItem StudioStyleGuideColor.ButtonText : 83
+	EnumItem StudioStyleGuideColor.InputFieldBorder : 84
+	EnumItem StudioStyleGuideColor.CheckedFieldBackground : 85
+	EnumItem StudioStyleGuideColor.CheckedFieldBorder : 86
+	EnumItem StudioStyleGuideColor.CheckedFieldIndicator : 87
+	EnumItem StudioStyleGuideColor.HeaderSection : 88
+	EnumItem StudioStyleGuideColor.Midlight : 89
+	EnumItem StudioStyleGuideColor.StatusBar : 90
+	EnumItem StudioStyleGuideColor.DialogButton : 91
+	EnumItem StudioStyleGuideColor.DialogButtonText : 92
+	EnumItem StudioStyleGuideColor.DialogButtonBorder : 93
+	EnumItem StudioStyleGuideColor.DialogMainButton : 94
+	EnumItem StudioStyleGuideColor.DialogMainButtonText : 95
+	EnumItem StudioStyleGuideColor.InfoBarWarningBackground : 96
+	EnumItem StudioStyleGuideColor.InfoBarWarningText : 97
+	EnumItem StudioStyleGuideColor.ScriptEditorCurrentLine : 98
 Enum StudioStyleGuideModifier
 	EnumItem StudioStyleGuideModifier.Default : 0
 	EnumItem StudioStyleGuideModifier.Selected : 1
@@ -4861,6 +4878,11 @@ Enum Technology
 	EnumItem Technology.Compatibility : 2
 	EnumItem Technology.ShadowMap : 3
 	EnumItem Technology.Future : 4 [Deprecated]
+Enum TeleportMethod
+	EnumItem TeleportMethod.TeleportToSpawnByName : 0
+	EnumItem TeleportMethod.TeleportToPlaceInstance : 1
+	EnumItem TeleportMethod.TeleportToPrivateServer : 2
+	EnumItem TeleportMethod.TeleportToPartyAsync : 3
 Enum TeleportResult
 	EnumItem TeleportResult.Success : 0
 	EnumItem TeleportResult.Failure : 1

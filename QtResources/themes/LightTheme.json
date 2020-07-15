@@ -371,6 +371,26 @@
                 "Default": "#FFCACA"
             }
         }, {
+            "ChatIncomingBgColor": {
+               "Default": "#F5F5F5"
+            }
+        }, {
+            "ChatIncomingTextColor": {
+               "Default": "#191919"
+            }
+        }, {
+            "ChatOutgoingBgColor": {
+               "Default": "#B8B8B8"
+            }
+        }, {
+            "ChatOutgoingTextColor": {
+               "Default": "#191919"
+            }
+        }, {
+            "ChatModeratedMessageColor": {
+                "Default": "#DF0016"
+            }
+        }, {
             "ButtonBorder": {
                "Default": "#B6B6B6",
                "Disabled": "#CCCCCC"
@@ -429,6 +449,10 @@
 			"InfoBarWarningText" : {
 				"Default" : "#000000"
 			}
+        }, {
+            "ScriptEditorCurrentLine" : {
+                "Default" : "#F0F0FF"
+            }
         }
     ],
   "Paths": [

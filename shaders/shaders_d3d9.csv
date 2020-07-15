@@ -31,6 +31,7 @@ Blur7FS,Fragment
 CopyGuiVS,Vertex
 DefaultDepthFS,Fragment
 DefaultDepthSkinnedVS,Vertex
+DefaultDepthSmoothSkinnedVS,Vertex
 DefaultDepthStaticVS,Vertex
 DefaultForceFieldFS,Fragment
 DefaultNeonFS,Fragment
@@ -40,10 +41,14 @@ DefaultPlasticFS,Fragment
 DefaultPlasticReflectionFS,Fragment
 DefaultShadowFS,Fragment
 DefaultShadowGeomSkinnedVS,Vertex
+DefaultShadowGeomSmoothSkinnedVS,Vertex
 DefaultShadowGeomStaticVS,Vertex
 DefaultSkinnedForceFieldVS,Vertex
 DefaultSkinnedReflectionVS,Vertex
 DefaultSkinnedVS,Vertex
+DefaultSmoothSkinnedForceFieldVS,Vertex
+DefaultSmoothSkinnedReflectionVS,Vertex
+DefaultSmoothSkinnedVS,Vertex
 DefaultStaticForceFieldVS,Vertex
 DefaultStaticReflectionVS,Vertex
 DefaultStaticVS,Vertex
@@ -62,8 +67,8 @@ DownSampleGlowTemporalLinear8x8FS,Fragment
 FXCompositingFS,Fragment
 FXCompositingLinearFS,Fragment
 GlassSkinnedVS,Vertex
+GlassSmoothSkinnedVS,Vertex
 GlassStaticVS,Vertex
-GlassTintFixFS,Fragment
 GlassTintFS,Fragment
 GrassFS,Fragment
 GrassVS,Vertex
@@ -88,7 +93,6 @@ ImageProcessLQNeonFS,Fragment
 LightGridPointSplatFS,Fragment
 LightGridPointSplatVS,Vertex
 LinearizeDepthFS,Fragment
-LowQGlassFixFS,Fragment
 LowQGlassFS,Fragment
 LowQMaterialFS,Fragment
 LowQMaterialWangFallbackFS,Fragment

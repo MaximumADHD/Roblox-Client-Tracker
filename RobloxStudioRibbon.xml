@@ -36,7 +36,7 @@
         <addaction name="fastLogDumpAction"/>
         <addaction name="managePluginsAction"/>
         <addaction fflag ="StudioAddResetDefaultInstanceProperties" name="resetDefaultInstancePropertiesAction"/>
-        <addaction fflag ="DebugFastFlagEditor" name="flagEditorAction"/>
+        <addaction fflag ="EnableFastFlagEditorWithInternalPermission" name="flagEditorAction"/>
       </submenu>
       <addseparator />
       <addaction fflag ="DebugStudioDumpUntranslatedStrings" name="dumpUntranslatedStringsCsvAction"/>
@@ -491,6 +491,12 @@
           <addaction name="selectChildrenAction" icon=":/16x16/images/Studio 2.0 icons/16x16/select_children.png" />
         </MenuButton>
         <!--<addaction name="deleteSelectedAction" text="Studio.Common.Action.Delete" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Home/Delete.png" width="32" height="32" />-->
+      </Group>
+      <Group name="Format" fflag="StudioLSP_V2_preAlpha" text="Studio.App.RBXMainWindow.Format">
+        <MenuButton name="formatSelectionActionMenu" text="Studio.App.RBXMainWindow.FormatSelection" tooltip="Studio.App.RBXMainWindow.FormatDocumentElps" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Home/FormatSelection.png" width="32" height="32" >
+          <addaction text="Studio.App.RBXMainWindow.FormatSelection" name="formatSelectionAction" style="textundericon"  icon=":/RibbonBar/images/RibbonIcons/Home/FormatSelection.png" width="16" height="16" />
+          <addaction text="Studio.App.RBXMainWindow.FormatDocument" name="formatDocumentAction" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Home/FormatDocument.png" width="16" height="16" />
+        </MenuButton>
       </Group>
       <Group name="Test" text="Studio.App.RobloxRibbonMainWindow.Test">
         <MenuPopupButton handleMenuTrigger="true" selectChangesText="true" name="playGameActionGroup" style="textundericon" popupStyle="menubutton" text="Studio.Common.Action.Play" tooltip="Studio.App.RobloxRibbonMainWindow.PlayTheGameInsideTheWindow" icon=":/RibbonBar/images/RibbonIcons/Test/Run.png" value="simulationPlayAction" width="32" height="32">

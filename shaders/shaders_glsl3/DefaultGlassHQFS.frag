@@ -104,7 +104,7 @@ void main()
     bvec3 f70 = bvec3(CB0[13].w != 0.0);
     vec3 f71 = mix(vec3(f70.x ? CB0[14].xyz.x : f69.x, f70.y ? CB0[14].xyz.y : f69.y, f70.z ? CB0[14].xyz.z : f69.z), f67.xyz, vec3(f68));
     vec4 f72 = vec4(f71.x, f71.y, f71.z, f67.w);
-    f72.w = f68 * f67.w;
+    f72.w = 1.0 - ((1.0 - f67.w) * f68);
     vec3 f73 = sqrt(clamp(f72.xyz * CB0[15].y, vec3(0.0), vec3(1.0)));
     _entryPointOutput = vec4(f73.x, f73.y, f73.z, f72.w);
 }

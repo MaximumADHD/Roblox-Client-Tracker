@@ -39,12 +39,12 @@ void main()
     vec4 f16 = vec4(f15.x, f15.y, f15.z, vec4(0.0).w);
     f16.w = VARYING2.w;
     float f17 = clamp(exp2((CB0[13].z * f13) + CB0[13].x) - CB0[13].w, 0.0, 1.0);
-    float f18 = f17 * VARYING2.w;
-    vec3 f19 = sqrt(clamp(mix(CB0[14].xyz, f16.xyz, vec3(f17)).xyz * CB0[15].y, vec3(0.0), vec3(1.0)));
-    vec4 f20 = vec4(f19.x, f19.y, f19.z, f16.w);
-    f20.w = f18;
+    vec3 f18 = sqrt(clamp(mix(CB0[14].xyz, f16.xyz, vec3(f17)).xyz * CB0[15].y, vec3(0.0), vec3(1.0)));
+    float f19 = 1.0 - ((1.0 - VARYING2.w) * f17);
+    vec4 f20 = vec4(f18.x, f18.y, f18.z, f16.w);
+    f20.w = f19;
     vec4 f21 = f20;
-    f21.w = f18;
+    f21.w = f19;
     gl_FragData[0] = f21;
 }
 

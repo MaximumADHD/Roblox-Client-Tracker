@@ -76,7 +76,7 @@ void main()
     float f45 = clamp(exp2((CB0[13].z * f26) + CB0[13].x) - CB0[13].w, 0.0, 1.0);
     vec3 f46 = mix(CB0[14].xyz, f44.xyz, vec3(f45));
     vec4 f47 = vec4(f46.x, f46.y, f46.z, f44.w);
-    f47.w = f45 * f44.w;
+    f47.w = 1.0 - ((1.0 - f44.w) * f45);
     vec3 f48 = sqrt(clamp(f47.xyz * CB0[15].y, vec3(0.0), vec3(1.0)));
     gl_FragData[0] = vec4(f48.x, f48.y, f48.z, f47.w);
 }

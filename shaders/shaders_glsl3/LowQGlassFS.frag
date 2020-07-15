@@ -43,12 +43,12 @@ void main()
     float f18 = clamp(exp2((CB0[13].z * f13) + CB0[13].x) - CB0[13].w, 0.0, 1.0);
     vec3 f19 = textureLod(PrefilteredEnvTexture, vec4(-VARYING4.xyz, 0.0).xyz, max(CB0[13].y, f18) * 5.0).xyz;
     bvec3 f20 = bvec3(CB0[13].w != 0.0);
-    float f21 = f18 * VARYING2.w;
-    vec3 f22 = sqrt(clamp(mix(vec3(f20.x ? CB0[14].xyz.x : f19.x, f20.y ? CB0[14].xyz.y : f19.y, f20.z ? CB0[14].xyz.z : f19.z), f17.xyz, vec3(f18)).xyz * CB0[15].y, vec3(0.0), vec3(1.0)));
-    vec4 f23 = vec4(f22.x, f22.y, f22.z, f17.w);
-    f23.w = f21;
+    vec3 f21 = sqrt(clamp(mix(vec3(f20.x ? CB0[14].xyz.x : f19.x, f20.y ? CB0[14].xyz.y : f19.y, f20.z ? CB0[14].xyz.z : f19.z), f17.xyz, vec3(f18)).xyz * CB0[15].y, vec3(0.0), vec3(1.0)));
+    float f22 = 1.0 - ((1.0 - VARYING2.w) * f18);
+    vec4 f23 = vec4(f21.x, f21.y, f21.z, f17.w);
+    f23.w = f22;
     vec4 f24 = f23;
-    f24.w = f21;
+    f24.w = f22;
     _entryPointOutput = f24;
 }
 

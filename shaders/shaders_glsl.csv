@@ -34,11 +34,11 @@ CheapBokehFS,Fragment
 CopyGuiVS,Vertex
 DefaultDepthFS,Fragment
 DefaultDepthSkinnedVS,Vertex
+DefaultDepthSmoothSkinnedVS,Vertex
 DefaultDepthStaticVS,Vertex
 DefaultForceFieldFS,Fragment
 DefaultForceFieldHQFS,Fragment
 DefaultForceFieldSHQFS,Fragment
-DefaultGlassHQFixFS,Fragment
 DefaultGlassHQFS,Fragment
 DefaultGlassSuperHQFS,Fragment
 DefaultNeonFS,Fragment
@@ -52,6 +52,7 @@ DefaultPlasticHQFS,Fragment
 DefaultPlasticReflectionFS,Fragment
 DefaultShadowFS,Fragment
 DefaultShadowGeomSkinnedVS,Vertex
+DefaultShadowGeomSmoothSkinnedVS,Vertex
 DefaultShadowGeomStaticVS,Vertex
 DefaultSkinnedForceFieldHQVS,Vertex
 DefaultSkinnedForceFieldVS,Vertex
@@ -59,6 +60,12 @@ DefaultSkinnedHQVS,Vertex
 DefaultSkinnedReflectionVS,Vertex
 DefaultSkinnedSurfaceHQVS,Vertex
 DefaultSkinnedVS,Vertex
+DefaultSmoothSkinnedForceFieldHQVS,Vertex
+DefaultSmoothSkinnedForceFieldVS,Vertex
+DefaultSmoothSkinnedHQVS,Vertex
+DefaultSmoothSkinnedReflectionVS,Vertex
+DefaultSmoothSkinnedSurfaceHQVS,Vertex
+DefaultSmoothSkinnedVS,Vertex
 DefaultStaticForceFieldHQVS,Vertex
 DefaultStaticForceFieldVS,Vertex
 DefaultStaticHQVS,Vertex
@@ -104,8 +111,8 @@ FixUpCoCFS,Fragment
 FXCompositingFS,Fragment
 FXCompositingLinearFS,Fragment
 GlassSkinnedVS,Vertex
+GlassSmoothSkinnedVS,Vertex
 GlassStaticVS,Vertex
-GlassTintFixFS,Fragment
 GlassTintFS,Fragment
 GrassFS,Fragment
 GrassHQFS,Fragment
@@ -132,7 +139,6 @@ ImageProcessLQNeonFS,Fragment
 LightGridPointSplatFS,Fragment
 LightGridPointSplatVS,Vertex
 LinearizeDepthFS,Fragment
-LowQGlassFixFS,Fragment
 LowQGlassFS,Fragment
 LowQMaterialFS,Fragment
 LowQMaterialWangFallbackFS,Fragment
