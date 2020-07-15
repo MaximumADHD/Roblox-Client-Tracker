@@ -23,9 +23,7 @@ local PolicyService = require(RobloxGui.Modules.Common.PolicyService)
 local SETTINGS_SHIELD_COLOR = Color3.new(41/255,41/255,41/255)
 local SETTINGS_SHIELD_TRANSPARENCY = 0.2
 local SETTINGS_SHIELD_VR_TRANSPARENCY = 1
-local SETTINGS_SHIELD_SIZE = UDim2.new(1, 0, 1, 0)
 local SETTINGS_SHIELD_INACTIVE_POSITION = UDim2.new(0,0,-1,-36)
-local SETTINGS_SHIELD_ACTIVE_POSITION = UDim2.new(0, 0, 0, 0)
 local SETTINGS_BASE_ZINDEX = 2
 local DEV_CONSOLE_ACTION_NAME = "Open Dev Console"
 local QUICK_PROFILER_ACTION_NAME = "Show Quick Profiler"
@@ -47,7 +45,6 @@ local FFlagUpdateSettingsHubGameText = require(RobloxGui.Modules.Flags.FFlagUpda
 local GetFFlagInstrumentMenuOpenMethods = require(RobloxGui.Modules.Flags.GetFFlagInstrumentMenuOpenMethods)
 local FFlagDisableAutoTranslateForKeyTranslatedContent = require(RobloxGui.Modules.Flags.FFlagDisableAutoTranslateForKeyTranslatedContent)
 local FFlagCollectAnalyticsForSystemMenu = settings():GetFFlag("CollectAnalyticsForSystemMenu")
-local isNewTopBarEnabled = require(RobloxGui.Modules.TopBar.isNewTopBarEnabled)
 
 local isNewGamepadMenuEnabled = require(RobloxGui.Modules.Flags.isNewGamepadMenuEnabled)
 
@@ -120,20 +117,13 @@ end
 --[[ CORE MODULES ]]
 local chat = require(RobloxGui.Modules.ChatSelector)
 
-if isNewTopBarEnabled() then
-	if isTenFootInterface then
-		SETTINGS_SHIELD_ACTIVE_POSITION = UDim2.new(0,0,0,0)
-		SETTINGS_SHIELD_SIZE = UDim2.new(1,0,1,0)
-	else
-		local topCornerInset, _ = GuiService:GetGuiInset()
-		SETTINGS_SHIELD_ACTIVE_POSITION = UDim2.new(0,0,0,-topCornerInset.Y)
-		SETTINGS_SHIELD_SIZE = UDim2.new(1,0,1,topCornerInset.Y)
-	end
+if isTenFootInterface then
+	SETTINGS_SHIELD_ACTIVE_POSITION = UDim2.new(0,0,0,0)
+	SETTINGS_SHIELD_SIZE = UDim2.new(1,0,1,0)
 else
-	if utility:IsSmallTouchScreen() or isTenFootInterface then
-		SETTINGS_SHIELD_ACTIVE_POSITION = UDim2.new(0,0,0,0)
-		SETTINGS_SHIELD_SIZE = UDim2.new(1,0,1,0)
-	end
+	local topCornerInset, _ = GuiService:GetGuiInset()
+	SETTINGS_SHIELD_ACTIVE_POSITION = UDim2.new(0,0,0,-topCornerInset.Y)
+	SETTINGS_SHIELD_SIZE = UDim2.new(1,0,1,topCornerInset.Y)
 end
 
 local function GetCorePackagesLoaded(packageList)
@@ -651,7 +641,7 @@ local function CreateSettingsHub()
 			AnchorPoint = Vector2.new(0.5, 0.5),
 			Parent = this.Shield
 		}
-		if isNewTopBarEnabled() and not isTenFootInterface then
+		if not isTenFootInterface then
 			local topCornerInset = GuiService:GetGuiInset()
 			this.MenuContainerPadding = utility:Create'UIPadding'
 			{
@@ -763,10 +753,6 @@ local function CreateSettingsHub()
 				0.5, -(this.HubBar.Position.Y.Offset - this.HubBar.Size.Y.Offset))
 		end
 
-		local bottomOffset = 0
-		if isTouchDevice and not UserInputService.MouseEnabled then
-			bottomOffset = 80
-		end
 		this.BottomButtonFrame = utility:Create'Frame'
 		{
 			Name = "BottomButtonFrame",
@@ -1403,10 +1389,10 @@ local function CreateSettingsHub()
 			GuiService:SetMenuIsOpen(true, SETTINGS_HUB_MENU_KEY)
 			this.Shield.Visible = this.Visible
 			if noAnimation or not this.Shield:IsDescendantOf(game) then
-				this.Shield.Position = isNewTopBarEnabled() and UDim2.new(0, 0, 0, 0) or SETTINGS_SHIELD_ACTIVE_POSITION
+				this.Shield.Position = UDim2.new(0, 0, 0, 0)
 			else
 				this.Shield:TweenPosition(
-					isNewTopBarEnabled() and UDim2.new(0, 0, 0, 0) or SETTINGS_SHIELD_ACTIVE_POSITION,
+					UDim2.new(0, 0, 0, 0),
 					Enum.EasingDirection.InOut,
 					Enum.EasingStyle.Quart,
 					0.5,
@@ -1628,7 +1614,6 @@ local function CreateSettingsHub()
 		panel:SetVisible(false)
 	end
 
-	local UISChanged;
 	local function OnVREnabled(prop)
 		if prop == "VREnabled" then
 			if UserInputService.VREnabled then
@@ -1638,7 +1623,7 @@ local function CreateSettingsHub()
 			end
 		end
 	end
-	UISChanged = UserInputService.Changed:connect(OnVREnabled)
+	UserInputService.Changed:connect(OnVREnabled)
 	OnVREnabled("VREnabled")
 
 

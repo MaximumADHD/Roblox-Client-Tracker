@@ -39,7 +39,11 @@ dict opSet =
 
 	bool autoMaterial
 	Material material
+
+	Material sourceMaterial
+	Material targetMaterial
 ]]
+
 local function performOperation(terrain, opSet)
 	local tool = opSet.currentTool
 	local brushShape = opSet.brushShape
@@ -54,6 +58,8 @@ local function performOperation(terrain, opSet)
 
 	local autoMaterial = opSet.autoMaterial
 	local desiredMaterial = opSet.material
+	local sourceMaterial = opSet.source
+	local targetMaterial = opSet.target
 
 	local ignoreWater = opSet.ignoreWater
 
@@ -247,6 +253,16 @@ local function performOperation(terrain, opSet)
 				elseif tool == ToolId.Paint then
 					if brushOccupancy > 0 and cellOccupancy > 0 then
 						writeMaterials[voxelX][voxelY][voxelZ] = desiredMaterial
+					end
+
+				elseif tool == ToolId.Replace then
+					--Using cellMaterial and cellOccupancy creates quirky behaviour with Air Material
+					local rawMaterial = readMaterials[voxelX][voxelY][voxelZ]
+					if brushOccupancy > 0 and rawMaterial == sourceMaterial then
+					    writeMaterials[voxelX][voxelY][voxelZ]  = targetMaterial
+					    if rawMaterial == materialAir then
+					        writeOccupancies[voxelX][voxelY][voxelZ]  = brushOccupancy
+					    end
 					end
 
 				elseif tool == ToolId.Smooth then

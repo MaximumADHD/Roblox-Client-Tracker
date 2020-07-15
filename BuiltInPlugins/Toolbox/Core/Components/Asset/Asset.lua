@@ -21,7 +21,6 @@
 ]]
 
 local FFlagPluginAccessAndInstallationInStudio = settings():GetFFlag("PluginAccessAndInstallationInStudio")
-local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 local FFlagFixAssetTextTruncation = game:DefineFastFlag("FixAssetTextTruncation", false)
 local FFlagRemoveAudioEndorsedIcon = game:GetFastFlag("RemoveAudioEndorsedIcon")
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
@@ -131,7 +130,7 @@ function Asset:didMount()
 	local asset = assetData.Asset
 	local assetId = asset.Id
 
-	if FFlagPluginAccessAndInstallationInStudio and FFlagEnablePurchasePluginFromLua2 then
+	if FFlagPluginAccessAndInstallationInStudio then
 		self.props.getOwnsAsset(getNetwork(self), assetId)
 	end
 
@@ -166,7 +165,7 @@ function Asset:render()
 			local status = asset.Status
 
 			local price, isFree
-			if FFlagPluginAccessAndInstallationInStudio and FFlagEnablePurchasePluginFromLua2
+			if FFlagPluginAccessAndInstallationInStudio
 				and (assetTypeId == Enum.AssetType.Plugin.Value) then
 				price = assetData.Product and assetData.Product.Price or 0
 				isFree = price == 0

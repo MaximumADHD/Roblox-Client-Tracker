@@ -15,6 +15,7 @@
 ]]
 local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
 local FFlagStudioAssetConfigurationPlugin = game:GetFastFlag("StudioAssetConfigurationPlugin")
+local FFlagStudioAssetConfigResizable = game:DefineFastFlag("StudioAssetConfigResizable", false)
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -47,6 +48,8 @@ local AssetConfigWrapper = Roact.PureComponent:extend("AssetConfigWrapper")
 
 local ASSET_CONFIG_WIDTH = 960
 local ASSET_CONFIG_HEIGHT = 640
+local ASSET_CONFIG_MIN_WIDTH = 800
+local ASSET_CONFIG_MIN_HEIGHT = 500
 
 function AssetConfigWrapper:init(props)
 	self.state = {
@@ -100,6 +103,8 @@ function AssetConfigWrapper:render()
 			Name = "AssetConfig",
 			Title = "Asset Configuration",
 
+			Resizable = FFlagStudioAssetConfigResizable and true or nil,
+			MinSize = FFlagStudioAssetConfigResizable and Vector2.new(ASSET_CONFIG_MIN_WIDTH, ASSET_CONFIG_MIN_HEIGHT) or nil,
 			Size = Vector2.new(ASSET_CONFIG_WIDTH, ASSET_CONFIG_HEIGHT),
 			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 			Modal = true,
@@ -145,6 +150,8 @@ function AssetConfigWrapper:render()
 			Name = "AssetConfig",
 			Title = "Asset Configuration",
 
+			Resizable = FFlagStudioAssetConfigResizable and true or nil,
+			MinSize = FFlagStudioAssetConfigResizable and Vector2.new(ASSET_CONFIG_MIN_WIDTH, ASSET_CONFIG_MIN_HEIGHT) or nil,
 			Size = Vector2.new(ASSET_CONFIG_WIDTH, ASSET_CONFIG_HEIGHT),
 			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 			Modal = true,

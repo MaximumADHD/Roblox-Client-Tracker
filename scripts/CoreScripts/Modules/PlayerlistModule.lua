@@ -48,8 +48,6 @@ local GameTranslator = require(RobloxGui.Modules.GameTranslator)
 
 local FFlagXboxReportPlayerLocFix = require(RobloxGui.Modules.Flags.FFlagXboxReportPlayerLocFix)
 
-local isNewTopBarEnabled = require(RobloxGui.Modules.TopBar.isNewTopBarEnabled)
-
 
 local RemoveEvent_OnFollowRelationshipChanged = nil
 local RemoteFunc_GetFollowRelationships = nil
@@ -2004,9 +2002,7 @@ Playerlist.ToggleVisibility = function(name, inputState, inputObject)
 
   isOpen = not isOpen
 
-  if isNewTopBarEnabled() then
-    Playerlist.IsOpenChangedEvent:Fire(isOpen)
-  end
+  Playerlist.IsOpenChangedEvent:Fire(isOpen)
 
   if next(TempHideKeys) == nil then
     setVisible(isOpen)

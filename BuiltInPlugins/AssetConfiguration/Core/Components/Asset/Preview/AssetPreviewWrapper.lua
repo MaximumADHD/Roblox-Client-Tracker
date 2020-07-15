@@ -372,7 +372,7 @@ function AssetPreviewWrapper:init(props)
 			assetTypeId = assetTypeId,
 			currentTab = (not FFlagUseCategoryNameInToolbox) and (self.props.currentTab),
 			categoryIndex = (not FFlagUseCategoryNameInToolbox) and (FFlagEnableDefaultSortFix and categoryIndex or nil),
-			categoryName = FFlagEnableDefaultSortFix and categoryName or nil,
+			categoryName = FFlagUseCategoryNameInToolbox and categoryName or nil,
 		})
 		if success then
 			self:setState({

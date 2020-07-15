@@ -15,7 +15,6 @@
 		onPriceChange, function, price has changed
 ]]
 
-local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 local FFlagEnableNonWhitelistedToggle = game:GetFastFlag("EnableNonWhitelistedToggle")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -79,7 +78,7 @@ function SalesPage:render()
 			local layoutOrder = props.layoutOrder
 			local canChangeSalesStatus = AssetConfigUtil.isReadyForSale(newAssetStatus)
 			-- If it's marketplace buyable asset, and if the sales tab are avaialble. You can always toggle it.
-			if FFlagEnablePurchasePluginFromLua2 and AssetConfigUtil.isBuyableMarketplaceAsset(assetTypeEnum) then
+			if AssetConfigUtil.isBuyableMarketplaceAsset(assetTypeEnum) then
 				canChangeSalesStatus = true
 			end
 

@@ -44,9 +44,11 @@ game:DefineFastFlag("StudioToolboxSearchOverflowFix", false)
 game:DefineFastFlag("ToolboxFixOneSecondAudioMaxDuration", false)
 game:DefineFastFlag("ToolboxForceSelectDragger", false)
 
-game:DefineFastFlag("StudioFixComparePageInfo", false)
+game:DefineFastFlag("StudioFixComparePageInfo2", false)
 
 game:DefineFastFlag("StudioFixGroupCreatorInfo", false)
 game:DefineFastFlag("StudioToolboxFixNewEndpointFilters", false)
+
+game:DefineFastFlag("ToolboxUseDevFrameworkPromise", false)
 
 return nil

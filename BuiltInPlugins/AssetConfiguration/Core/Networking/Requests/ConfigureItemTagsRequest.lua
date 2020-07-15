@@ -4,7 +4,13 @@ local NetworkError = require(Plugin.Core.Actions.NetworkError)
 local UploadResult = require(Plugin.Core.Actions.UploadResult)
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 
-local Promise = require(Plugin.Libs.Http.Promise)
+local FFlagToolboxUseDevFrameworkPromise = game:GetFastFlag("ToolboxUseDevFrameworkPromise")
+local Promise
+if FFlagToolboxUseDevFrameworkPromise then
+	Promise = require(Plugin.Libs.Framework.Util.Promise)
+else
+	Promise = require(Plugin.Libs.Http.Promise)
+end
 
 return function(networkInterface, assetId, fromItemTags, toTags)
 	return function(store)

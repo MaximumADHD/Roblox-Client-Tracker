@@ -6,7 +6,6 @@ local getUserId = require(Util.getUserId)
 local Urls = require(Util.Urls)
 
 local DFIntFileMaxSizeBytes = tonumber(settings():GetFVariable("FileMaxSizeBytes"))
-local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 local FFlagStudioUseNewAnimationImportExportFlow = settings():GetFFlag("StudioUseNewAnimationImportExportFlow")
 
 local FFlagRemoveNilInstances = game:GetFastFlag("RemoveNilInstances")
@@ -26,31 +25,13 @@ function AssetConfigUtil.isReadyForSale(assetStatus)
 end
 
 function AssetConfigUtil.isOnSale(assetStatus)
-	if FFlagEnablePurchasePluginFromLua2 then
 		return AssetConfigConstants.ASSET_STATUS.OnSale == assetStatus or AssetConfigConstants.ASSET_STATUS.Free == assetStatus
-	else
-		return AssetConfigConstants.ASSET_STATUS.OnSale == assetStatus
-	end
-end
-
-function AssetConfigUtil.getSubText(newAssetStatus, currentAssetStatus, localizedContent)
-	if not AssetConfigUtil.isReadyForSale(newAssetStatus) then
-		return localizedContent.Sales.ItemCannotBeSold
-	elseif AssetConfigUtil.isOnSale(newAssetStatus) and AssetConfigUtil.isOnSale(currentAssetStatus) then
-		return localizedContent.Sales.Onsale
-	elseif not AssetConfigUtil.isOnSale(newAssetStatus) and AssetConfigUtil.isOnSale(currentAssetStatus) then
-		return localizedContent.Sales.OffsaleApplyToSave
-	elseif AssetConfigUtil.isOnSale(newAssetStatus) and not AssetConfigUtil.isOnSale(currentAssetStatus) then
-		return localizedContent.Sales.OnsaleApplyToSave
-	end
-	return localizedContent.Sales.Offsale
 end
 
 function AssetConfigUtil.getMarketplaceFeesPercentage(allowedAssetTypesForRelease, assetTypeEnum)
 	local releaseDataForAssetType = allowedAssetTypesForRelease[assetTypeEnum.Name]
 	return releaseDataForAssetType and releaseDataForAssetType.marketplaceFeesPercentage or 0
 end
-
 
 function AssetConfigUtil.calculatePotentialEarning(allowedAssetTypesForRelease, price, assetTypeEnum, minPrice)
 	price = tonumber(price)
@@ -60,12 +41,11 @@ function AssetConfigUtil.calculatePotentialEarning(allowedAssetTypesForRelease, 
 	price = MathUtils:round(price)
 	local convertToZeroToOne = 0.01
 	local scaler = convertToZeroToOne * AssetConfigUtil.getMarketplaceFeesPercentage(allowedAssetTypesForRelease, assetTypeEnum)
-	local marketPlaceFee = math.max(FFlagEnablePurchasePluginFromLua2 and minPrice or 1, MathUtils:round(price * scaler))
+	local marketPlaceFee = math.max(minPrice, MathUtils:round(price * scaler))
 
 	return math.max(0, price - marketPlaceFee), marketPlaceFee or 0
 end
 
--- Remove me with FFlagEnablePurchasePluginFromLua2
 function AssetConfigUtil.getPriceRange(allowedAssetTypesForRelease, assetTypeEnum)
 	local releaseDataForAssetType = allowedAssetTypesForRelease and assetTypeEnum and allowedAssetTypesForRelease[assetTypeEnum.Name]
 	return releaseDataForAssetType and releaseDataForAssetType.allowedPriceRange or {}
@@ -74,17 +54,11 @@ end
 function AssetConfigUtil.getMinPrice(allowedAssetTypesForRelease, assetTypeEnum)
 	local priceRange = AssetConfigUtil.getPriceRange(allowedAssetTypesForRelease, assetTypeEnum)
 	-- Plugin are on the only buyable asset now, the price will start from 0.
-	if FFlagEnablePurchasePluginFromLua2 and AssetConfigUtil.isBuyableMarketplaceAsset(assetTypeEnum) then
+	if AssetConfigUtil.isBuyableMarketplaceAsset(assetTypeEnum) then
 		return 0
 	else
 		return priceRange.minRobux and tonumber(priceRange.minRobux) or 0
 	end
-end
-
--- Remove me with FFlagEnablePurchasePluginFromLua2
-function AssetConfigUtil.getMaxPrice(allowedAssetTypesForRelease, assetTypeEnum)
-	local priceRange = AssetConfigUtil.getPriceRange(allowedAssetTypesForRelease, assetTypeEnum)
-	return priceRange.maxRobux and tonumber(priceRange.maxRobux) or 0
 end
 
 -- Get min price, max price and feeRate
@@ -96,7 +70,7 @@ function AssetConfigUtil.getPriceInfo(allowedAssetTypesForRelease, assetTypeEnum
 		feeRate = tonumber(assetInfo.marketplaceFeesPercentage) or 0
 		-- This is V1 work around method for publishing free plugins.
 		-- In V2 we will be having an independent UI to set the "Free" status.
-		if FFlagEnablePurchasePluginFromLua2 and AssetConfigUtil.isBuyableMarketplaceAsset(assetTypeEnum) then
+		if AssetConfigUtil.isBuyableMarketplaceAsset(assetTypeEnum) then
 			minPrice = 0
 		else
 			minPrice = priceRange.minRobux and tonumber(priceRange.minRobux) or 0

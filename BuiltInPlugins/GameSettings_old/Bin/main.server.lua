@@ -61,16 +61,11 @@ local gameSettingsHandle
 local pluginGui
 local openedTimestamp
 
-local middlewares
-if game:GetFastFlag("StudioThunkWithArgsMiddleware") then
-	-- TODO (awarwick) 5/5/2020 Fill in with context items as needed by thunks
-	local thunkContextItems = {}
+local thunkContextItems = {}
 
-	local thunkWithArgsMiddleware = FrameworkUtil.ThunkWithArgsMiddleware(thunkContextItems)
-	middlewares = {thunkWithArgsMiddleware}
-else
-	middlewares = {Rodux.thunkMiddleware}
-end
+local thunkWithArgsMiddleware = FrameworkUtil.ThunkWithArgsMiddleware(thunkContextItems)
+local middlewares = {thunkWithArgsMiddleware}
+
 if LOG_STORE_STATE_AND_EVENTS then
 	table.insert(middlewares, Rodux.loggerMiddleware)
 end

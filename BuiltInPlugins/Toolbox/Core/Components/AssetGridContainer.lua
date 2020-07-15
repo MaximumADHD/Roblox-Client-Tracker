@@ -15,7 +15,6 @@
 ]]
 
 local FFlagToolboxFixDuplicateAssetInsertions = game:DefineFastFlag("ToolboxFixDuplicateAssetInsertions", false)
-local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
 local FFlagEnableSearchedWithoutInsertionAnalytic = game:GetFastFlag("EnableSearchedWithoutInsertionAnalytic")
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
@@ -361,7 +360,7 @@ function AssetGridContainer:render()
 			end
 
 			local cellSize
-			if FFlagEnablePurchasePluginFromLua2 and showPrices then
+			if showPrices then
 				cellSize = UDim2.new(0, Constants.ASSET_WIDTH_NO_PADDING, 0,
 					Constants.ASSET_HEIGHT + Constants.PRICE_HEIGHT)
 			else

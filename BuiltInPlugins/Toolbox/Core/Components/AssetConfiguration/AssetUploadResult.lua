@@ -6,12 +6,10 @@
 		onClose callback, called when the user presses the "cancel" button
 ]]
 
-local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 local FFlagFixAssetConfigIcon = game:GetFastFlag("FixAssetConfigIcon")
 local FFlagShowAssetConfigReasons2 = game:GetFastFlag("ShowAssetConfigReasons2")
 local FFlagAddCopyIDToResultPage = game:DefineFastFlag("AddCopyIDToResultPage", false)
 local FFlagUGCRemoveLearnMoreText = game:DefineFastFlag("UGCRemoveLearnMoreText", false)
-local FFlagFixAssetUploadFailedColor = game:DefineFastFlag("FixAssetUploadFailedColor", false)
 local FFlagRemoveAssetUploadUrlSuffix = game:DefineFastFlag("RemoveAssetUploadUrlSuffix", false)
 local FFlagFixAssetUploadName = game:GetFastFlag("FixAssetUploadName")
 
@@ -117,12 +115,7 @@ function AssetUploadResult:render()
 		local props = self.props
 
 		local isUploadFlow = props.screenFlowType == AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW
-		local showModeration
-		if FFlagEnablePurchasePluginFromLua2 then
-			showModeration = isUploadFlow and (AssetConfigUtil.isCatalogAsset(props.assetTypeEnum))
-		else
-			showModeration = isUploadFlow and props.assetTypeEnum ~= Enum.AssetType.Model
-		end
+		local showModeration = isUploadFlow and (AssetConfigUtil.isCatalogAsset(props.assetTypeEnum))
 
 		local url
 		if props.uploadSucceeded then
@@ -135,10 +128,7 @@ function AssetUploadResult:render()
 			)
 		end
 
-		local previewType = AssetConfigConstants.PreviewTypes.Thumbnail
-		if FFlagEnablePurchasePluginFromLua2 then
-			previewType = AssetConfigUtil.getPreviewType(props.assetTypeEnum, props.instances)
-		end
+		local previewType = AssetConfigUtil.getPreviewType(props.assetTypeEnum, props.instances)
 
 		local showViewport = previewType == PreviewTypes.ModelPreview
 		local showThumbnail
@@ -284,7 +274,7 @@ function AssetUploadResult:render()
 					Position = UDim2.new(0.5, -TITLE_WIDTH/2, 0, 0),
 					Size = UDim2.new(0, TITLE_WIDTH, 0, TITLE_HEIGHT),
 					Text = FFlagShowAssetConfigReasons2 and localizedContent.AssetConfig.UploadResult.Failure or "Submission failed",
-					TextColor3 = FFlagFixAssetUploadFailedColor and theme.uploadResult.redText or theme.uploadResult.text,
+					TextColor3 = theme.uploadResult.redText,
 					TextSize = Constants.FONT_SIZE_TITLE,
 					TextXAlignment = Enum.TextXAlignment.Center,
 					TextYAlignment = Enum.TextYAlignment.Center,

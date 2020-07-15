@@ -25,6 +25,8 @@ function FrameworkStyles.new()
 		DropdownMenu = newDefaults(),
 		DropShadow = newDefaults(),
 		Image = newDefaults(),
+		InfiniteScrollingFrame = newDefaults(),
+		InstanceTreeView = newDefaults(),
 		LinkText = newDefaults(),
 		LoadingBar = newDefaults(),
 		LoadingIndicator = newDefaults(),
@@ -33,15 +35,18 @@ function FrameworkStyles.new()
 		RangeSlider = newDefaults(),
 		RoundBox = newDefaults(),
 		ScrollingFrame = newDefaults(),
+		SelectInput = newDefaults(),
 		Separator = newDefaults(),
+		TextInput = newDefaults(),
 		TextLabel = newDefaults(),
 		ToggleButton = newDefaults(),
 		Tooltip = newDefaults(),
-		TextInput = newDefaults(),
+		TreeView = newDefaults(),
 
 		-- StudioUI Styles
 		SearchBar = newDefaults(),
 		StyledDialog = newDefaults(),
+		TitledFrame = newDefaults(),
 	}
 end
 

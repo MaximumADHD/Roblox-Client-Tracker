@@ -18,6 +18,7 @@ return function()
 			AssetIcon = Roact.createElement(AssetIcon, {
 				assetId = assetId,
 				isEndorsed = false,
+				typeId = Enum.AssetType.Image.Value
 			}),
 		})
 		local instance = Roact.mount(element)
@@ -33,6 +34,7 @@ return function()
 			AssetIcon = Roact.createElement(AssetIcon, {
 				assetId = assetId,
 				isEndorsed = false,
+				typeId = Enum.AssetType.Image.Value
 			}),
 		})
 
@@ -69,6 +71,7 @@ return function()
 					assetId = assetId,
 					backgroundIndex = index,
 					isEndorsed = false,
+					typeId = Enum.AssetType.Image.Value
 				}),
 			})
 
@@ -90,6 +93,7 @@ return function()
 				AssetIcon = Roact.createElement(AssetIcon, {
 					assetId = assetId,
 					isEndorsed = isEndorsed,
+					typeId = Enum.AssetType.Image.Value
 				}),
 			})
 

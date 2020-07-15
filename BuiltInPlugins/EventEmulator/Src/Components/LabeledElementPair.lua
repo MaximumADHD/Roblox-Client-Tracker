@@ -30,6 +30,15 @@ Constants.FIRST_COLUMN_WIDTH = 90
 Constants.SIDE_PADDING = 20
 Constants.SECOND_COLUMN_START = Constants.SIDE_PADDING + Constants.FIRST_COLUMN_WIDTH
 
+LabeledElementPair.defaultProps = {
+	Padding = UDim.new(0, 0),
+	Text = "",
+	TextSize = 18,
+	Font = Enum.Font.SourceSans,
+	ContentDirection = Enum.FillDirection.Vertical,
+	TextColor = Color3.new(),
+}
+
 function LabeledElementPair:init()
 	self.mainFrameRef = Roact.createRef()
 	self.contentFrameRef = Roact.createRef()
@@ -50,12 +59,14 @@ function LabeledElementPair:init()
 end
 
 function LabeledElementPair:render()
-	local padding = self.props.Padding or UDim.new(0, 0)
-	local text = self.props.Text or ""
+	local padding = self.props.Padding
+	local text = self.props.Text
+	local textSize = self.props.TextSize
+	local font = self.props.Font
 	local size = self.props.Size
 	local layoutOrder = self.props.LayoutOrder
-	local fillDirection = self.props.ContentDirection or Enum.FillDirection.Vertical
-	local textColor = self.props.TextColor or Color3.new()
+	local fillDirection = self.props.ContentDirection
+	local textColor = self.props.TextColor
 	-- this prop enables auto resizing the content's size changes
 	local sizeToContent = self.props.SizeToContent
 
@@ -82,6 +93,8 @@ function LabeledElementPair:render()
 			[Roact.Ref] = self.mainFrameRef,
 		}, {
 			Label = Roact.createElement("TextLabel", {
+				Font = font,
+				TextSize = textSize,
 				Text = text,
 				TextColor3 = textColor,
 				TextXAlignment = Enum.TextXAlignment.Left,

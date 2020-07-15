@@ -6,7 +6,6 @@ local AssetConfigUtil = require(Util.AssetConfigUtil)
 
 local ScreenSetup = {}
 
-local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 local FFlagStudioUseNewAnimationImportExportFlow = settings():GetFFlag("StudioUseNewAnimationImportExportFlow")
 local FFlagSupportUploadGroupAnimations = game:DefineFastFlag("StudioSupportUploadGroupAnimations", false)
 
@@ -144,7 +143,6 @@ function ScreenSetup.queryParam(flowType, assetTypeEnum, paramKey)
 	local assetCategoryType = AssetConfigUtil.isCatalogAsset(assetTypeEnum) and AssetCategory.Catalog or AssetCategory.Marketplace
 	local defaultValue = params[flowType][assetCategoryType][paramKey] or false
 
-	if not FFlagEnablePurchasePluginFromLua2 then return defaultValue end
 	if not assetTypeOverride[assetTypeEnum] then return defaultValue end
 	if not assetTypeOverride[assetTypeEnum][flowType] then return defaultValue end
 	if assetTypeOverride[assetTypeEnum][flowType][paramKey] == nil then return defaultValue end

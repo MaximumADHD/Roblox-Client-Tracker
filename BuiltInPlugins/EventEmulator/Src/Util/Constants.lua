@@ -14,9 +14,10 @@ Constants.INPUT_PANE_LAYOUT = {
 }
 
 Constants.RBXEVENT_ORDER =  {
-    Namespace = 1,
-    Detail = 2,
-    DetailType = 3,
+    Warning = 1,
+    Namespace = 2,
+    Detail = 3,
+    DetailType = 4,
 }
 
 Constants.MEM_STORAGE_ORDER = {

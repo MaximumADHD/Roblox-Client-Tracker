@@ -30,12 +30,14 @@ local RangeSlider = require(Src.RangeSlider)
 local RadioButton = require(Src.RadioButton)
 local RadioButtonList = require(Src.RadioButtonList)
 local TextLabel = require(Src.TextLabel)
+local TextInput = require(Src.TextInput)
+local TreeView = require(Src.TreeView)
+local InstanceTreeView = require(Src.InstanceTreeView)
 local BulletList = require(Src.BulletList)
 local ScrollingFrame = require(Src.ScrollingFrame)
 local SelectInput = require(Src.SelectInput)
 local Separator = require(Src.Separator)
 local Slider = require(Src.Slider)
-local TextInput = require(Src.TextInput)
 local InfiniteScrollingFrame = require(Src.InfiniteScrollingFrame)
 
 -- NOTE: Please keep components in alphabetical order
@@ -54,6 +56,7 @@ local UI = strict({
 	FakeLoadingBar = FakeLoadingBar,
 	HoverArea = HoverArea,
 	InfiniteScrollingFrame = InfiniteScrollingFrame,
+	InstanceTreeView = InstanceTreeView,
 	KeyboardListener = KeyboardListener,
 	LinkText = LinkText,
 	LoadingBar = LoadingBar,
@@ -69,6 +72,7 @@ local UI = strict({
 	TextInput = TextInput,
 	ToggleButton = ToggleButton,
 	Tooltip = Tooltip,
+	TreeView = TreeView,
 
 	Decoration = {
 		Box = Box,

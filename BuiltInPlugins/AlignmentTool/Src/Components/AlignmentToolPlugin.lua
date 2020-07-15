@@ -83,7 +83,7 @@ function AlignmentToolPlugin:render()
 			ShouldRestore = true,
 			OnWidgetRestored = self.onRestore,
 		}, {
-			MainView = Roact.createElement(MainView),
+			MainView = enabled and Roact.createElement(MainView),
 		})
 	})
 end

@@ -6,11 +6,12 @@ end
 require(script.Parent.defineLuaFlags)
 local FFlagEnableOverrideAssetCursorFix = game:GetFastFlag("EnableOverrideAssetCursorFix")
 local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
-local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 local FFlagAssetManagerLuaPlugin = game:GetFastFlag("AssetManagerLuaPlugin")
 local FFlagStudioUseNewAnimationImportExportFlow = settings():GetFFlag("StudioUseNewAnimationImportExportFlow")
 local FFlagStudioAssetConfigurationPlugin = game:GetFastFlag("StudioAssetConfigurationPlugin")
 local FFlagStudioUnrestrictPluginGuiService = game:GetFastFlag("StudioUnrestrictPluginGuiService")
+local FFlagToolboxUseDevFrameworkPromise = game:GetFastFlag("ToolboxUseDevFrameworkPromise")
+local FFlagDevFrameworkUnhandledPromiseRejections = game:GetFastFlag("DevFrameworkUnhandledPromiseRejections")
 
 local Plugin = script.Parent.Parent
 local Libs = Plugin.Libs
@@ -31,6 +32,11 @@ local Localization = require(Util.Localization)
 local AssetConfigTheme = require(Util.AssetConfigTheme)
 local AssetConfigConstants = require(Util.AssetConfigConstants)
 local AssetConfigUtil = require(Util.AssetConfigUtil)
+
+if FFlagToolboxUseDevFrameworkPromise and FFlagDevFrameworkUnhandledPromiseRejections and DebugFlags.shouldDebugWarnings() then
+	local Promise = require(Libs.Framework.Util.Promise)
+	Promise.onUnhandledRejection = warn
+end
 
 local Background = require(Plugin.Core.Types.Background)
 local Suggestion = require(Plugin.Core.Types.Suggestion)
@@ -367,14 +373,12 @@ local function main()
 
 	-- Create publish new plugin page.
 	StudioService.OnPublishAsPlugin:connect(function(instances)
-		if FFlagEnablePurchasePluginFromLua2 then
-			createAssetConfig(
-				nil,
-				AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW,
-				AssetConfigUtil.getClonedInstances(instances),
-				Enum.AssetType.Plugin
-			)
-		end
+		createAssetConfig(
+			nil,
+			AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW,
+			AssetConfigUtil.getClonedInstances(instances),
+			Enum.AssetType.Plugin
+		)
 	end)
 
 	if FFlagAssetManagerLuaPlugin then

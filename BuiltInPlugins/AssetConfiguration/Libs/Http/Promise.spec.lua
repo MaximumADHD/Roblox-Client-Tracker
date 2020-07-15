@@ -1,3 +1,4 @@
+-- DEPRECATED - this will be replaced with DeveloperFramework Promise and deleted when FFlagToolboxUseDevFrameworkPromise is retired
 return function()
 	local Promise = require(script.Parent.Promise)
 

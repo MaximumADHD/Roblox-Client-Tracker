@@ -41,8 +41,6 @@ local TEXT_INPUT_BOX_HEIGHT = 40
 local SHALLOW_ROW_HEIGHT = ROW_HEIGHT*0.75
 local INPUT_BOX_WIDTH = 200
 
-local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
-
 local PriceComponent = Roact.PureComponent:extend("PriceComponent")
 
 function PriceComponent:init(props)
@@ -50,16 +48,8 @@ function PriceComponent:init(props)
 	}
 
 	self.onPriceChange = function(text)
-		if FFlagEnablePurchasePluginFromLua2 then
-			if props.OnPriceChange then
-				props.OnPriceChange(text)
-			end
-		else
-			if tostring(props.Price) ~= tostring(text) then
-				if props.OnPriceChange then
-					props.OnPriceChange(text)
-				end
-			end
+		if props.OnPriceChange then
+			props.OnPriceChange(text)
 		end
 	end
 end
@@ -89,17 +79,13 @@ function PriceComponent:render(order)
 
 			local assetConfigTheme = theme.assetConfig
 
-			local componentHeight = FFlagEnablePurchasePluginFromLua2 and
-				TEXT_INPUT_BOX_HEIGHT+ROW_HEIGHT+SHALLOW_ROW_HEIGHT or
-				TEXT_INPUT_BOX_HEIGHT+ROW_HEIGHT+SHALLOW_ROW_HEIGHT + 30
+			local componentHeight = TEXT_INPUT_BOX_HEIGHT+ROW_HEIGHT+SHALLOW_ROW_HEIGHT
 
 			-- Clamp the earn and fee to make sure it's within the max and min price range.
-			if FFlagEnablePurchasePluginFromLua2 then
-				local feePercent = feeRate / 100
-				local earnPercent = 1 - feePercent
-				fee = math.floor(math.min(fee or 0, feePercent * maxPrice))
-				finalPrice = math.floor(math.min(finalPrice, earnPercent * maxPrice))
-			end
+			local feePercent = feeRate / 100
+			local earnPercent = 1 - feePercent
+			fee = math.floor(math.min(fee or 0, feePercent * maxPrice))
+			finalPrice = math.floor(math.min(finalPrice, earnPercent * maxPrice))
 
 			local feeVector = Constants.getTextSize(fee, Constants.FONT_SIZE_MEDIUM, Constants.FONT, Vector2.new(0, INPUT_BOX_WIDTH, 0, ROW_HEIGHT))
 			local earnVector = Constants.getTextSize(finalPrice, Constants.FONT_SIZE_MEDIUM, Constants.FONT, Vector2.new(0, INPUT_BOX_WIDTH, 0, ROW_HEIGHT))
@@ -125,11 +111,11 @@ function PriceComponent:render(order)
 					LayoutOrder = orderIterator:getNextOrder(),
 				}, {
 					UIListLayout = Roact.createElement("UIListLayout", {
-						FillDirection = FFlagEnablePurchasePluginFromLua2 and Enum.FillDirection.Vertical or Enum.FillDirection.Horizontal,
+						FillDirection = Enum.FillDirection.Vertical,
 						HorizontalAlignment = Enum.HorizontalAlignment.Left,
-						VerticalAlignment = FFlagEnablePurchasePluginFromLua2 and Enum.VerticalAlignment.Top or Enum.VerticalAlignment.Center,
+						VerticalAlignment = Enum.VerticalAlignment.Top,
 						SortOrder = Enum.SortOrder.LayoutOrder,
-						Padding = FFlagEnablePurchasePluginFromLua2 and UDim.new(0, 0) or UDim.new(0, 10),
+						Padding = UDim.new(0, 0),
 					}),
 
 					TextInputBox = Roact.createElement("Frame", {
@@ -137,7 +123,7 @@ function PriceComponent:render(order)
 						BackgroundTransparency = 1,
 						LayoutOrder = 1,
 					}, {
-						UIListLayout = FFlagEnablePurchasePluginFromLua2 and Roact.createElement("UIListLayout", {
+						UIListLayout = Roact.createElement("UIListLayout", {
 							FillDirection = Enum.FillDirection.Horizontal,
 							HorizontalAlignment = Enum.HorizontalAlignment.Left,
 							VerticalAlignment = Enum.VerticalAlignment.Center,
@@ -145,7 +131,7 @@ function PriceComponent:render(order)
 							Padding = UDim.new(0, 10),
 						}),
 
-						RobuxIcon = FFlagEnablePurchasePluginFromLua2 and Roact.createElement("ImageLabel",{
+						RobuxIcon = Roact.createElement("ImageLabel",{
 							Position = UDim2.new(0, 0, 0, 0),
 							Size = Constants.Dialog.ROBUX_SIZE,
 
@@ -172,7 +158,7 @@ function PriceComponent:render(order)
 					}),
 
 					PriceRangeLabel = Roact.createElement("TextLabel", {
-						Size = FFlagEnablePurchasePluginFromLua2 and UDim2.new(0, 105, 0, 15) or UDim2.new(1, 0, 1, 0),
+						Size = UDim2.new(0, 105, 0, 15),
 
 						BackgroundTransparency = 1,
 						TextColor3 = isPriceValid and assetConfigTheme.labelTextColor or assetConfigTheme.errorColor,
@@ -188,39 +174,7 @@ function PriceComponent:render(order)
 					}),
 				}),
 
-				YouEarnLabel = (not FFlagEnablePurchasePluginFromLua2) and Roact.createElement("TextLabel", {
-					Size = UDim2.new(1, 0, 0, ROW_HEIGHT),
-
-					BackgroundTransparency = 1,
-					TextColor3 = AssetConfigUtil.isReadyForSale(assetStatus) and assetConfigTheme.textColor or assetConfigTheme.labelTextColor,
-					BorderSizePixel = 0,
-
-					Font = Constants.FONT,
-					TextSize = Constants.FONT_SIZE_SMALL,
-
-					Text = localizedEarn,
-					TextXAlignment = Enum.TextXAlignment.Left,
-
-					LayoutOrder = orderIterator:getNextOrder()
-				}),
-
-				ServiceFeeLabel = (not FFlagEnablePurchasePluginFromLua2) and Roact.createElement("TextLabel", {
-					Size = UDim2.new(1, 0, 0, SHALLOW_ROW_HEIGHT),
-
-					BackgroundTransparency = 1,
-					TextColor3 = assetConfigTheme.labelTextColor,
-					BorderSizePixel = 0,
-
-					Font = Constants.FONT,
-					TextSize = Constants.FONT_SIZE_SMALL,
-
-					Text = localizedContent.Sales.ServiceFee,
-					TextXAlignment = Enum.TextXAlignment.Left,
-
-					LayoutOrder = orderIterator:getNextOrder()
-				}),
-
-				FeeFrame = FFlagEnablePurchasePluginFromLua2 and Roact.createElement("Frame", {
+				FeeFrame = Roact.createElement("Frame", {
 					Size = UDim2.new(0, INPUT_BOX_WIDTH, 0, ROW_HEIGHT),
 
 					BackgroundTransparency = 1,
@@ -294,7 +248,7 @@ function PriceComponent:render(order)
 					}),
 				}),
 
-				EarnFrame = FFlagEnablePurchasePluginFromLua2 and Roact.createElement("Frame", {
+				EarnFrame = Roact.createElement("Frame", {
 					Size = UDim2.new(0, INPUT_BOX_WIDTH, 0, ROW_HEIGHT),
 
 					BackgroundTransparency = 1,

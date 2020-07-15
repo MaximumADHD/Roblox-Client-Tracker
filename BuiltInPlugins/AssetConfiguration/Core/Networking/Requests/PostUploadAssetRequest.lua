@@ -18,7 +18,6 @@ local SetAssetId = require(Actions.SetAssetId)
 
 local TrySaveSalesAndThumbnailRequest = require(Plugin.Core.Networking.Requests.TrySaveSalesAndThumbnailRequest)
 
-local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 local FFlagDebugAssetConfigNetworkError = game:GetFastFlag("DebugAssetConfigNetworkError")
 local FFlagEnableNonWhitelistedToggle = game:GetFastFlag("EnableNonWhitelistedToggle")
 
@@ -65,10 +64,9 @@ return function(publishInfo)
 				if FFlagDebugAssetConfigNetworkError then
 					publishInfo.assetId = newAssetId
 					store:dispatch(TrySaveSalesAndThumbnailRequest(publishInfo))
-				elseif FFlagEnablePurchasePluginFromLua2 and
-					(needToCheckSale or publishInfo.iconFile) then
-						publishInfo.assetId = newAssetId
-						store:dispatch(TrySaveSalesAndThumbnailRequest(publishInfo))
+				elseif needToCheckSale or publishInfo.iconFile then
+					publishInfo.assetId = newAssetId
+					store:dispatch(TrySaveSalesAndThumbnailRequest(publishInfo))
 				else
 					-- Then we will try to set the price once' the asset is uploaded.
 					store:dispatch(SetCurrentScreen(AssetConfigConstants.SCREENS.UPLOADING_ASSET))
@@ -90,12 +88,9 @@ return function(publishInfo)
 
 		local fileDataString = SerializeInstances(publishInfo.instances)
 
-		-- We will only override ispublic when purchase for plugin is enabled.
 		local ispublicOverride = publishInfo.copyOn
-		if FFlagEnablePurchasePluginFromLua2 then
-			if publishInfo.assetType == Enum.AssetType.Plugin.Name then
-				ispublicOverride = true
-			end
+		if publishInfo.assetType == Enum.AssetType.Plugin.Name then
+			ispublicOverride = true
 		end
 
 		return publishInfo.networkInterface:postUploadAsset(

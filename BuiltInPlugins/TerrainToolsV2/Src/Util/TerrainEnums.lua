@@ -112,4 +112,9 @@ TerrainEnums.ConvertPartWarning = {
 	HasOtherInstance = "HasOtherInstance",
 }
 
+TerrainEnums.ReplaceMode = {
+	Box = "Box",
+	Brush = "Brush",
+}
+
 return TerrainEnums

@@ -4,7 +4,7 @@
 ]]
 
 local FFlagDebugEnableDevFrameworkCompanion = game:DefineFastFlag("DebugEnableDevFrameworkCompanion", false)
-if not FFlagDebugEnableDevFrameworkCompanion then
+if not game:GetService("StudioService"):HasInternalPermission() and not FFlagDebugEnableDevFrameworkCompanion then
 	return
 end
 

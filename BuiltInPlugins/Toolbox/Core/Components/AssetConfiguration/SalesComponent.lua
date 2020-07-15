@@ -37,8 +37,6 @@ local TOGGLE_BUTTON_WIDTH = 40
 
 local SalesComponent = Roact.PureComponent:extend("SalesComponent")
 
-local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
-
 function SalesComponent:init(props)
 	self.onToggle = function()
 		local props = self.props
@@ -48,18 +46,10 @@ function SalesComponent:init(props)
 		local onStatusChange = props.OnStatusChange
 
 		if canChangeSalesStatus then
-			if FFlagEnablePurchasePluginFromLua2 then
-				local newStatus = AssetConfigUtil.isOnSale(currentAssetStatus) and
-					AssetConfigConstants.ASSET_STATUS.OffSale or
-					AssetConfigConstants.ASSET_STATUS.OnSale
-				onStatusChange(newStatus)
-			else
-				local onSaleStatus = AssetConfigUtil.isOnSale(currentAssetStatus) and currentAssetStatus or AssetConfigConstants.ASSET_STATUS.OnSale
-				local offSaleStatus = not AssetConfigUtil.isOnSale(currentAssetStatus) and currentAssetStatus or AssetConfigConstants.ASSET_STATUS.OffSale -- this allows us to return to the exact status in the back-end
-
-				local newStatus = AssetConfigUtil.isOnSale(newAssetStatus) and offSaleStatus or onSaleStatus
-				onStatusChange(newStatus)
-			end
+			local newStatus = AssetConfigUtil.isOnSale(currentAssetStatus) and
+				AssetConfigConstants.ASSET_STATUS.OffSale or
+				AssetConfigConstants.ASSET_STATUS.OnSale
+			onStatusChange(newStatus)
 		end
 	end
 end
@@ -75,22 +65,13 @@ function SalesComponent:render(order)
 			local assetTypeEnum = props.AssetTypeEnum
 			local assetConfigTheme = theme.assetConfig
 
-			local subText
-			if FFlagEnablePurchasePluginFromLua2 then
-				local market = AssetConfigUtil.isMarketplaceAsset(assetTypeEnum) and "Marketplace" or "Catalog"
-				local user = AssetConfigUtil.isMarketplaceAsset(assetTypeEnum) and "developer" or "user"
+			local market = AssetConfigUtil.isMarketplaceAsset(assetTypeEnum) and "Marketplace" or "Catalog"
+			local user = AssetConfigUtil.isMarketplaceAsset(assetTypeEnum) and "developer" or "user"
 
-				subText = localization:getSalesMessage(market, user)
-			else
-				subText = AssetConfigUtil.getSubText(newAssetStatus, currentAssetStatus, localizedContent)
-			end
+			local subText = localization:getSalesMessage(market, user)
+
 			local canChangeSalesStatus = props.CanChangeSalesStatus
-			local textColor
-			if FFlagEnablePurchasePluginFromLua2 then
-				textColor = assetConfigTheme.labelTextColor
-			else
-				textColor = canChangeSalesStatus and assetConfigTheme.textColor or assetConfigTheme.labelTextColor
-			end
+			local textColor = assetConfigTheme.labelTextColor
 
 			local layoutOrder = props.LayoutOrder
 			local orderIterator = LayoutOrderIterator.new()

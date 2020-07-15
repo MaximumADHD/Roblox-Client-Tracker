@@ -1,8 +1,7 @@
-local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 local FFlagStudioUseDevelopAPIForPackages = settings():GetFFlag("StudioUseDevelopAPIForPackages")
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 local FFlagEnableToolboxVideos = game:GetFastFlag("EnableToolboxVideos")
-local FFlagStudioFixComparePageInfo = game:GetFastFlag("StudioFixComparePageInfo")
+local FFlagStudioFixComparePageInfo2 = game:GetFastFlag("StudioFixComparePageInfo2")
 local FFlagStudioFixGroupCreatorInfo = game:GetFastFlag("StudioFixGroupCreatorInfo")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -88,7 +87,7 @@ return function(networkInterface, pageInfoOnStart)
 		end
 
 		local errorFunc = function(result)
-			if FFlagStudioFixComparePageInfo then
+			if FFlagStudioFixComparePageInfo2 then
 				if PageInfoHelper.isPageInfoStale(pageInfoOnStart, store) then
 					return
 				end
@@ -115,7 +114,7 @@ return function(networkInterface, pageInfoOnStart)
 			end
 			local isResponseFresh
 
-			if FFlagStudioFixComparePageInfo then
+			if FFlagStudioFixComparePageInfo2 then
 				isResponseFresh = not PageInfoHelper.isPageInfoStale(pageInfoOnStart, store)
 			else
 				isResponseFresh = categoryOnStart == categoryOnRequestFinish and pageInfoOnStart.targetPage - pageInfo.currentPage == 1
@@ -215,7 +214,7 @@ return function(networkInterface, pageInfoOnStart)
 				end
 			end
 
-			if (FFlagEnablePurchasePluginFromLua2 and PageInfoHelper.isDeveloperCategory(pageInfoOnStart))
+			if PageInfoHelper.isDeveloperCategory(pageInfoOnStart)
 				or (FFlagStudioUseDevelopAPIForPackages and PageInfoHelper.isPackagesCategory(pageInfoOnStart))
 				or isAudio
 				or isVideo

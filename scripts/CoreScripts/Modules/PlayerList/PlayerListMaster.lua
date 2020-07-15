@@ -44,8 +44,6 @@ end
 
 local XPRIVILEGE_COMMUNICATION_VOICE_INGAME = 205
 
-local isNewTopBarEnabled = require(RobloxGui.Modules.TopBar.isNewTopBarEnabled)
-
 local PlayerListMaster = {}
 PlayerListMaster.__index = PlayerListMaster
 
@@ -121,15 +119,13 @@ function PlayerListMaster.new()
 	self.coreGuiEnabled = StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.PlayerList)
 	self:_updateMounted()
 
-	if isNewTopBarEnabled() then
-		self.SetVisibleChangedEvent = Instance.new("BindableEvent")
+	self.SetVisibleChangedEvent = Instance.new("BindableEvent")
 
-		self.store.changed:connect(function(newState, oldState)
-			if newState.displayOptions.setVisible ~= oldState.displayOptions.setVisible then
-				self.SetVisibleChangedEvent:Fire(newState.displayOptions.setVisible)
-			end
-		end)
-	end
+	self.store.changed:connect(function(newState, oldState)
+		if newState.displayOptions.setVisible ~= oldState.displayOptions.setVisible then
+			self.SetVisibleChangedEvent:Fire(newState.displayOptions.setVisible)
+		end
+	end)
 
 	return self
 end
@@ -161,14 +157,12 @@ function PlayerListMaster:GetVisibility()
 	return self.store:getState().displayOptions.isVisible
 end
 
-if isNewTopBarEnabled() then
-	function PlayerListMaster:GetSetVisible()
-		return self.store:getState().displayOptions.setVisible
-	end
+function PlayerListMaster:GetSetVisible()
+	return self.store:getState().displayOptions.setVisible
+end
 
-	function PlayerListMaster:GetSetVisibleChangedEvent()
-		return self.SetVisibleChangedEvent
-	end
+function PlayerListMaster:GetSetVisibleChangedEvent()
+	return self.SetVisibleChangedEvent
 end
 
 function PlayerListMaster:SetVisibility(value)

@@ -32,10 +32,7 @@
 	end
 --]]
 
-game:DefineFastFlag("StudioThunkWithArgsMiddleware", false)
-
 return function(...)
-	assert(game:GetFastFlag("StudioThunkWithArgsMiddleware"), "API is pending approval. Not ready for use")
 	local args = {...}
 
 	return function(nextDispatch, store)

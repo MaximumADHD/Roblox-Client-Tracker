@@ -14,12 +14,6 @@ local UserInputService = game:GetService("UserInputService")
 local HttpRbxApiService = game:GetService('HttpRbxApiService')
 local HttpService = game:GetService('HttpService')
 local RunService = game:GetService("RunService")
-local PlatformService = nil
-pcall(
-  function()
-    PlatformService = game:GetService("PlatformService")
-  end
-)
 local ContextActionService = game:GetService("ContextActionService")
 local Players = game:GetService("Players")
 local VRService = game:GetService("VRService")

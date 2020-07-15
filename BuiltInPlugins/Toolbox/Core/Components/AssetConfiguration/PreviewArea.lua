@@ -48,7 +48,6 @@ local PreviewArea = Roact.PureComponent:extend("PreviewArea")
 local FFlagUseRBXThumbInToolbox = game:GetFastFlag("UseRBXThumbInToolbox")
 
 local FFlagEnablePreviewTabSelection = settings():GetFFlag("EnablePreviewTabSelection")
-local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 
 local THUMBNAIL_SIZE = FFlagUseRBXThumbInToolbox and Constants.ASSET_THUMBNAIL_REQUESTED_IMAGE_SIZE or 110
 local TITLE_HEIGHT = 25
@@ -71,8 +70,7 @@ end
 function PreviewArea:didMount()
 	-- We only try to fetch the thumbnail status in edit flow.
 	local props = self.props
-	if FFlagEnablePurchasePluginFromLua2 and
-		props.ScreenFlowType == AssetConfigConstants.FLOW_TYPE.EDIT_FLOW and
+	if 	props.ScreenFlowType == AssetConfigConstants.FLOW_TYPE.EDIT_FLOW and
 		props.PreviewType == AssetConfigConstants.PreviewTypes.ImagePicker then
 			props.getThumbnailStatus(getNetwork(self), props.AssetId)
 	end

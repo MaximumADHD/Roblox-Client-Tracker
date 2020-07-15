@@ -1,4 +1,6 @@
 --[[
+	DEPRECATED - this will be replaced with DeveloperFramework Promise and deleted when FFlagToolboxUseDevFrameworkPromise is retired
+
 	An implementation of Promises similar to Promise/A+.
 ]]
 local PROMISE_DEBUG = false

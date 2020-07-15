@@ -6,7 +6,6 @@
 		onClose callback, called when the user presses the "cancel" button
 ]]
 
-local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 local FFlagFixAssetConfigIcon = game:GetFastFlag("FixAssetConfigIcon")
 local FFlagFixAssetUploadName = game:GetFastFlag("FixAssetUploadName")
 
@@ -57,10 +56,7 @@ function AssetUpload:render()
 	return withTheme(function(theme)
 		local props = self.props
 
-		local previewType = PreviewTypes.Thumbnail
-		if FFlagEnablePurchasePluginFromLua2 then
-			previewType = AssetConfigUtil.getPreviewType(props.assetTypeEnum, props.instances)
-		end
+		local previewType = AssetConfigUtil.getPreviewType(props.assetTypeEnum, props.instances)
 
 		local showViewport = previewType == PreviewTypes.ModelPreview
 		local showThumbnail

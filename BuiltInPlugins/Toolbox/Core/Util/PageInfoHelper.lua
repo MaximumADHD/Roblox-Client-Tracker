@@ -38,9 +38,9 @@ else
 				warn(("Lua toolbox: No category for category index %s"):format(tostring(index)))
 			end
 			return ""
-        end
+		end
 
-        return category.category
+		return category.category
 	end
 
 	function PageInfoHelper.getCategoryForPageInfo(pageInfo)
@@ -120,12 +120,44 @@ function PageInfoHelper.isPackagesCategory(pageInfo)
 	return AssetConfigConstants.packagesCategoryType[currentCategory]
 end
 
+function PageInfoHelper.getRequestInfo(pageInfo)
+	local category = PageInfoHelper.getCategoryForPageInfo(pageInfo) or ""
+	local searchTerm = pageInfo.searchTerm or ""
+	local targetPage = pageInfo.targetPage or 1
+	local sortType = PageInfoHelper.getSortTypeForPageInfo(pageInfo) or ""
+
+	local categoryIsGroup
+	if FFlagUseCategoryNameInToolbox then
+		categoryIsGroup = Category.categoryIsGroupAsset(pageInfo.categoryName)
+	else
+		categoryIsGroup = Category.categoryIsGroupAsset(pageInfo.currentTab, pageInfo.categoryIndex)
+	end
+	local groupId = categoryIsGroup
+		and PageInfoHelper.getGroupIdForPageInfo(pageInfo)
+		or 0
+
+	local creatorId = pageInfo.creator and pageInfo.creator.Id or ""
+	local creatorType = pageInfo.creator and pageInfo.creator.Type or 1
+
+	return {
+		category = category,
+		creatorId = creatorId,
+		creatorType = creatorType,
+		groupId = groupId,
+		searchTerm = searchTerm,
+		sortType = sortType,
+		targetPage = targetPage,
+	}
+end
+
 --[[
 	This is useful for checking whether pageInfo has been changed while a request was in flight.
 ]]
 function PageInfoHelper.isPageInfoStale(pageInfo, store)
-	local newPageInfo = store:getState().pageInfo
-	return not deepEqual(pageInfo, newPageInfo)
+	local pageRequestInfo = PageInfoHelper.getRequestInfo(pageInfo)
+	local newPageRequestInfo = PageInfoHelper.getRequestInfo(store:getState().pageInfo)
+
+	return not deepEqual(pageRequestInfo, newPageRequestInfo)
 end
 
 return PageInfoHelper

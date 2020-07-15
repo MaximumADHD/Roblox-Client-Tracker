@@ -5,6 +5,9 @@ local Roact = require(Plugin.Packages.Roact)
 local Framework = Plugin.Packages.Framework
 local ContextServices = require(Framework.ContextServices)
 
+local UI = require(Plugin.Packages.Framework.UI)
+local DF_TextInput = UI.TextInput
+
 local Components = Plugin.Src.Components
 local LabeledElementPair = require(Components.LabeledElementPair)
 
@@ -29,12 +32,11 @@ function TextInput:render()
 		SizeToContent = true,
 		TextColor = textStyle.BrightText.Color,
 	}, {
-		TextBox = Roact.createElement("TextBox", {
+		TextBox = Roact.createElement(DF_TextInput, {
 			Size = UDim2.fromOffset(sizes.TextBoxWidth, sizes.ShortHeight),
 			Position = UDim2.new(0.1, 0, 0, 0),
 			Text = text,
-			ClearTextOnFocus = false,
-			[Roact.Event.Changed] = onChange,
+			OnTextChanged = onChange,
 		}),
 	})
 end

@@ -63,6 +63,7 @@ local Redo = require(Plugin.Src.Thunks.History.Redo)
 local TogglePlay = require(Plugin.Src.Thunks.Playback.TogglePlay)
 
 local FFlagAnimEditorFixBackspaceOnMac = require(Plugin.LuaFlags.GetFFlagAnimEditorFixBackspaceOnMac)
+local FFlagAddKeyframeAtScrubber = game:DefineFastFlag("AddKeyframeAtScrubber", false)
 
 local TimelineActions = Roact.PureComponent:extend("TimelineActions")
 
@@ -195,6 +196,29 @@ function TimelineActions:init(initialProps)
 		end
 	end)
 
+	if FFlagAddKeyframeAtScrubber then
+		self:addAction(actions.AddKeyframeAtScrubber, function()
+			local props = self.props
+			local playhead = props.Playhead
+			local selectedTracks = props.SelectedTracks
+
+			if selectedTracks then
+				for instanceName, instance in pairs(props.AnimationData.Instances) do
+					for _, selectedTrack in pairs(selectedTracks) do
+						local track = instance.Tracks[selectedTrack]
+						local newValue
+						if track and track.Keyframes then
+							newValue = KeyframeUtils:getValue(track, playhead)
+						else
+							newValue = TrackUtils.getDefaultValue(track)
+						end
+						props.AddKeyframe(instanceName, selectedTrack, playhead, newValue)
+					end
+				end
+			end
+		end)
+	end
+
 	self:addAction(actions.AddResetKeyframe, function()
 		local props = self.props
 		local frame = props.Frame
@@ -312,6 +336,10 @@ function TimelineActions:render()
 			pluginActions.AddResetKeyframe.Enabled = true
 		end
 
+		if FFlagAddKeyframeAtScrubber then
+			pluginActions.AddKeyframeAtScrubber.Enabled = true
+		end
+
 		if multipleSelected then
 			pluginActions.ChangeDuration.Enabled = true
 		end
@@ -355,7 +383,7 @@ end
 local function mapStateToProps(state, props)
 	local status = state.Status
 
-	return {
+	local stateToProps = {
 		Clipboard = status.Clipboard,
 		ClipboardType = status.ClipboardType,
 		SelectedKeyframes = status.SelectedKeyframes,
@@ -369,6 +397,12 @@ local function mapStateToProps(state, props)
 		OnKeyframe = status.RightClickContextInfo.OnKeyframe,
 		Tool = status.Tool,
 	}
+
+	if FFlagAddKeyframeAtScrubber then
+		stateToProps["SelectedTracks"] = status.SelectedTracks
+	end
+
+	return stateToProps
 end
 
 local function mapDispatchToProps(dispatch)

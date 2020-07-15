@@ -142,6 +142,8 @@ function BaseBrush:init()
 			heightPicker = heightPicker,
 			ignoreWater = ignoreWater,
 			material = self.props.material,
+			source = self.props.source,
+			target = self.props.target,
 			pivot = self.props.pivot or PivotType.Center,
 			planeLock = planeLockState,
 			planePositionY = self.props.planePositionY,
@@ -271,6 +273,7 @@ function BaseBrush:willUnmount()
 end
 
 function BaseBrush:render()
+	local layoutOrder = self.props.LayoutOrder or 1
 	local autoMaterial = self.props.autoMaterial
 	local baseSize = self.props.baseSize
 	local baseSizeHeightLocked = self.props.baseSizeHeightLocked
@@ -281,6 +284,8 @@ function BaseBrush:render()
 	local heightPicker = self.props.heightPicker
 	local ignoreWater = self.props.ignoreWater
 	local material = self.props.material
+	local source = self.props.source
+	local target = self.props.target
 	local pivot = self.props.pivot
 	local planeLock = self.props.planeLock
 	local planePositionY = self.props.planePositionY
@@ -289,7 +294,7 @@ function BaseBrush:render()
 
 	return Roact.createFragment({
 		BrushSettings = Roact.createElement(BrushSettings, {
-			LayoutOrder = 1,
+			LayoutOrder = layoutOrder,
 
 			currentTool = self.props.toolName,
 
@@ -323,7 +328,7 @@ function BaseBrush:render()
 		}),
 
 		MaterialSettings = material and Roact.createElement(MaterialSettings, {
-			LayoutOrder = 2,
+			LayoutOrder = layoutOrder + 1,
 
 			autoMaterial = autoMaterial,
 			material = material,

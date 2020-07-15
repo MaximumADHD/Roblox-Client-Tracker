@@ -25,12 +25,6 @@ local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled
 local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
 local FFlagUseNotificationsLocalization = success and result
 
------------ CONSTANTS --------------
-local HEADER_SPACING = 5
-if utility:IsSmallTouchScreen() then
-	HEADER_SPACING = 0
-end
-
 ----------- CLASS DECLARATION --------------
 local function Initialize()
 	local this = {}

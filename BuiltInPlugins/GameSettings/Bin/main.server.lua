@@ -60,37 +60,32 @@ local openedTimestamp
 
 local worldRootPhysics = WorldRootPhysics.new()
 
-local middlewares
-if game:GetFastFlag("StudioThunkWithArgsMiddleware") then
-	-- TODO (awarwick) 5/5/2020 Fill in with context items as needed by thunks
-	local thunkContextItems = {}
+local thunkContextItems = {}
 
-	local networking = Networking.new()
-	local gameInfoController = GameInfoController.new(networking:get())
-	local gameMetadataController = GameMetadataController.new(networking:get())
-	local groupMetadataController = GroupMetadataController.new(networking:get())
-	local gamePermissionsController = GamePermissionsController.new(networking:get())
-	local gameOptionsController = GameOptionsController.new()
-	local universePermissionsController = FFlagQ220PermissionsSettings and SecurityController.new(networking:get()) or nil
-	local socialController = SocialController.new(networking:get())
-	local universeAvatarController = UniverseAvatarController.new(networking:get())
+local networking = Networking.new()
+local gameInfoController = GameInfoController.new(networking:get())
+local gameMetadataController = GameMetadataController.new(networking:get())
+local groupMetadataController = GroupMetadataController.new(networking:get())
+local gamePermissionsController = GamePermissionsController.new(networking:get())
+local gameOptionsController = GameOptionsController.new()
+local universePermissionsController = FFlagQ220PermissionsSettings and SecurityController.new(networking:get()) or nil
+local socialController = SocialController.new(networking:get())
+local universeAvatarController = UniverseAvatarController.new(networking:get())
 
-	thunkContextItems.networking = networking:get()
-	thunkContextItems.worldRootPhysicsController = worldRootPhysics:get()
-	thunkContextItems.gameInfoController = gameInfoController
-	thunkContextItems.gameMetadataController = gameMetadataController
-	thunkContextItems.groupMetadataController = groupMetadataController
-	thunkContextItems.gamePermissionsController = gamePermissionsController
-	thunkContextItems.gameOptionsController = gameOptionsController
-	thunkContextItems.universePermissionsController = universePermissionsController
-	thunkContextItems.socialController = socialController
-	thunkContextItems.universeAvatarController = universeAvatarController
+thunkContextItems.networking = networking:get()
+thunkContextItems.worldRootPhysicsController = worldRootPhysics:get()
+thunkContextItems.gameInfoController = gameInfoController
+thunkContextItems.gameMetadataController = gameMetadataController
+thunkContextItems.groupMetadataController = groupMetadataController
+thunkContextItems.gamePermissionsController = gamePermissionsController
+thunkContextItems.gameOptionsController = gameOptionsController
+thunkContextItems.universePermissionsController = universePermissionsController
+thunkContextItems.socialController = socialController
+thunkContextItems.universeAvatarController = universeAvatarController
 
-	local thunkWithArgsMiddleware = FrameworkUtil.ThunkWithArgsMiddleware(thunkContextItems)
-	middlewares = {thunkWithArgsMiddleware}
-else
-	middlewares = {Rodux.thunkMiddleware}
-end
+local thunkWithArgsMiddleware = FrameworkUtil.ThunkWithArgsMiddleware(thunkContextItems)
+local middlewares = {thunkWithArgsMiddleware}
+
 if LOG_STORE_STATE_AND_EVENTS then
 	table.insert(middlewares, Rodux.loggerMiddleware)
 end

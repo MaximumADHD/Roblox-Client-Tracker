@@ -14,12 +14,8 @@ local FFlagDisableAutoTranslateForKeyTranslatedContent = require(RobloxGui.Modul
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
 local httpRequest
-local ApiFetchUsersFriends
-local RetrievalStatus
 if not FFlagLuaInviteModalEnabled then
 	httpRequest = require(AppTempCommon.Temp.httpRequest)
-	ApiFetchUsersFriends = require(ShareGame.Thunks.ApiFetchUsersFriends)
-	RetrievalStatus = require(CorePackages.AppTempCommon.LuaApp.Enum.RetrievalStatus)
 end
 
 local Header = require(ShareGame.Components.Header)

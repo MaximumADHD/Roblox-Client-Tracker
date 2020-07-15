@@ -18,7 +18,7 @@ local ClearMemStoragePair = require(Actions.ClearMemStoragePair)
 local ClearRBXParameters = require(Actions.ClearRBXParameters)
 
 return Rodux.createReducer({
-	ActiveView = VIEW_ID.MemStorage,
+	ActiveView = VIEW_ID.RBXEvent,
 	Parameters = {
 		Namespace = "UpdateNotificationBadge",
 		Detail = '{"badgeString": "1"}',

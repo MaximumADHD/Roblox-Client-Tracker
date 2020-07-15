@@ -1,5 +1,4 @@
 local FFlagOnlyWhitelistedPluginsInStudio = settings():GetFFlag("OnlyWhitelistedPluginsInStudio")
-local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 local FFlagToolboxShowGroupCreations = game:DefineFastFlag("ToolboxShowGroupCreations", false)
 local FFlagFixToolboxPluginScaling = game:DefineFastFlag("FixToolboxPluginScaling", false)
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
@@ -249,16 +248,14 @@ local function getCreationCategories()
 		}
 	end
 
-	if FFlagEnablePurchasePluginFromLua2 then
-		table.insert(categories, Cryo.List.find(categories, Category.CREATIONS_MESHES) + 1,
-			Category.CREATIONS_PLUGIN)
-		if FFlagToolboxShowGroupCreations then
-			table.insert(
-				categories,
-				Cryo.List.find(categories, Category.CREATIONS_GROUP_MESHES) + 1,
-				Category.CREATIONS_GROUP_PLUGIN
-			)
-		end
+	table.insert(categories, Cryo.List.find(categories, Category.CREATIONS_MESHES) + 1,
+		Category.CREATIONS_PLUGIN)
+	if FFlagToolboxShowGroupCreations then
+		table.insert(
+			categories,
+			Cryo.List.find(categories, Category.CREATIONS_GROUP_MESHES) + 1,
+			Category.CREATIONS_GROUP_PLUGIN
+		)
 	end
 
 	return categories
@@ -271,18 +268,16 @@ Category.CREATIONS_KEY = "Creations"
 
 if FFlagUseCategoryNameInToolboxFix1 then
 
-	if FFlagEnablePurchasePluginFromLua2 then
-		table.insert(Category.INVENTORY, Category.MY_PLUGINS)
-		if FFlagOnlyWhitelistedPluginsInStudio then
-			table.insert(Category.MARKETPLACE, Category.WHITELISTED_PLUGINS)
-		else
-			table.insert(Category.MARKETPLACE, Category.FREE_PLUGINS)
-		end
-		local insertIndex = Cryo.List.find(Category.INVENTORY_WITH_GROUPS, Category.MY_PACKAGES) + 1
-		table.insert(Category.INVENTORY_WITH_GROUPS, insertIndex, Category.MY_PLUGINS)
-		local insertIndex2 = Cryo.List.find(Category.INVENTORY_WITH_GROUPS, Category.GROUP_AUDIO) + 1
-		table.insert(Category.INVENTORY_WITH_GROUPS, insertIndex2, Category.GROUP_PLUGINS)
+	table.insert(Category.INVENTORY, Category.MY_PLUGINS)
+	if FFlagOnlyWhitelistedPluginsInStudio then
+		table.insert(Category.MARKETPLACE, Category.WHITELISTED_PLUGINS)
+	else
+		table.insert(Category.MARKETPLACE, Category.FREE_PLUGINS)
 	end
+	local insertIndex = Cryo.List.find(Category.INVENTORY_WITH_GROUPS, Category.MY_PACKAGES) + 1
+	table.insert(Category.INVENTORY_WITH_GROUPS, insertIndex, Category.MY_PLUGINS)
+	local insertIndex2 = Cryo.List.find(Category.INVENTORY_WITH_GROUPS, Category.GROUP_AUDIO) + 1
+	table.insert(Category.INVENTORY_WITH_GROUPS, insertIndex2, Category.GROUP_PLUGINS)
 
 end
 
@@ -353,18 +348,16 @@ end
 
 if not FFlagUseCategoryNameInToolboxFix1 then
 
-	if FFlagEnablePurchasePluginFromLua2 then
-		table.insert(Category.INVENTORY, Category.MY_PLUGINS)
-		if FFlagOnlyWhitelistedPluginsInStudio then
-			table.insert(Category.MARKETPLACE, Category.WHITELISTED_PLUGINS)
-		else
-			table.insert(Category.MARKETPLACE, Category.FREE_PLUGINS)
-		end
-		local insertIndex = Cryo.List.find(Category.INVENTORY_WITH_GROUPS, Category.MY_PACKAGES) + 1
-		table.insert(Category.INVENTORY_WITH_GROUPS, insertIndex, Category.MY_PLUGINS)
-		local insertIndex2 = Cryo.List.find(Category.INVENTORY_WITH_GROUPS, Category.GROUP_AUDIO) + 1
-		table.insert(Category.INVENTORY_WITH_GROUPS, insertIndex2, Category.GROUP_PLUGINS)
+	table.insert(Category.INVENTORY, Category.MY_PLUGINS)
+	if FFlagOnlyWhitelistedPluginsInStudio then
+		table.insert(Category.MARKETPLACE, Category.WHITELISTED_PLUGINS)
+	else
+		table.insert(Category.MARKETPLACE, Category.FREE_PLUGINS)
 	end
+	local insertIndex = Cryo.List.find(Category.INVENTORY_WITH_GROUPS, Category.MY_PACKAGES) + 1
+	table.insert(Category.INVENTORY_WITH_GROUPS, insertIndex, Category.MY_PLUGINS)
+	local insertIndex2 = Cryo.List.find(Category.INVENTORY_WITH_GROUPS, Category.GROUP_AUDIO) + 1
+	table.insert(Category.INVENTORY_WITH_GROUPS, insertIndex2, Category.GROUP_PLUGINS)
 
 end
 
@@ -405,17 +398,13 @@ if FFlagUseCategoryNameInToolbox then
 	end
 
 	function Category.shouldShowPrices(categoryName)
-		if FFlagEnablePurchasePluginFromLua2 then
-			if FFlagFixToolboxPluginScaling then
-				local isPlugins = Category.categoryIsPlugin(categoryName)
-				local tab = Category.getTabForCategoryName(categoryName)
-				local showPrices = isPlugins and tab == Category.MARKETPLACE
-				return showPrices
-			else
-				return Category.categoryIsPlugin(categoryName)
-			end
+		if FFlagFixToolboxPluginScaling then
+			local isPlugins = Category.categoryIsPlugin(categoryName)
+			local tab = Category.getTabForCategoryName(categoryName)
+			local showPrices = isPlugins and tab == Category.MARKETPLACE
+			return showPrices
 		else
-			return false
+			return Category.categoryIsPlugin(categoryName)
 		end
 	end
 else
@@ -475,16 +464,12 @@ else
 	end
 
 	function Category.shouldShowPrices(currentTab, index)
-		if FFlagEnablePurchasePluginFromLua2 then
-			if FFlagFixToolboxPluginScaling then
-				local isPlugins = Category.categoryIsPlugin(currentTab, index)
-				local showPrices = isPlugins and currentTab == Category.MARKETPLACE_KEY
-				return showPrices
-			else
-				return Category.categoryIsPlugin(currentTab, index)
-			end
+		if FFlagFixToolboxPluginScaling then
+			local isPlugins = Category.categoryIsPlugin(currentTab, index)
+			local showPrices = isPlugins and currentTab == Category.MARKETPLACE_KEY
+			return showPrices
 		else
-			return false
+			return Category.categoryIsPlugin(currentTab, index)
 		end
 	end
 end

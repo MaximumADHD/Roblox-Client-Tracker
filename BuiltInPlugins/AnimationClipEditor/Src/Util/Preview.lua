@@ -14,6 +14,8 @@ local Cryo = require(Plugin.Cryo)
 local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
 local AnimationData = require(Plugin.Src.Util.AnimationData)
 
+local GetFFlagFixScaleKeyframeClobbering = require(Plugin.LuaFlags.GetFFlagFixScaleKeyframeClobbering)
+
 local Preview = {}
 Preview.__index = Preview
 
@@ -106,7 +108,11 @@ function Preview:scaleKeyframes(animationData, selectedKeyframes, newFrame, star
 			local keyframes = Cryo.Dictionary.keys(instance[trackName])
 			previewKeyframes[instanceName][trackName] = Cryo.List.map(keyframes, function(frame)
 				local newFrame = KeyframeUtils.getNearestFrame(pivotFrame + ((frame - pivotFrame) * self.scale))
-				return math.clamp(newFrame, startFrame, maxLength)
+				if GetFFlagFixScaleKeyframeClobbering() then
+					return math.clamp(newFrame, 0, maxLength)
+				else
+					return math.clamp(newFrame, startFrame, maxLength)
+				end
 			end)
 		end
 	end

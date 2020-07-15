@@ -10,7 +10,6 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local FFlagAllowCatalogItemCreatorAssetConfig = game:DefineFastFlag("AllowCatalogItemCreatorAssetConfig", false)
-local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 local FFlagStudioUseNewAnimationImportExportFlow = settings():GetFFlag("StudioUseNewAnimationImportExportFlow")
 
 local Libs = Plugin.Libs
@@ -91,7 +90,7 @@ function AssetTypeSelection:getSelectorItems(localizedContent)
 end
 
 function AssetTypeSelection:canSkip()
-	if FFlagEnablePurchasePluginFromLua2 and AssetConfigUtil.isBuyableMarketplaceAsset(self.props.assetTypeEnum) then
+	if AssetConfigUtil.isBuyableMarketplaceAsset(self.props.assetTypeEnum) then
 		return true
 	else
 		local amtSelectable = 0

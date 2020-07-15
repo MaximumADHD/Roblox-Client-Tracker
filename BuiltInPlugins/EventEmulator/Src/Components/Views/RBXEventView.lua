@@ -8,7 +8,7 @@
 		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
 		table ViewData: User-inputted/default text for Namespace, Detail, and DetailType
 		function focusLost: A function that passes an identifier and new usr input to the parent
-	
+
 	Style Values:
 		table Layout: consistent values for either horizontal or vertical UIListLayout
 ]]
@@ -34,20 +34,45 @@ local TextInput = require(Components.TextInput)
 local Operations = Plugin.Src.Operations
 local RBXEventRequest = require(Operations.RBXEventRequest)
 
+local HttpService = game:GetService("HttpService")
+
 local RBXEventView = Roact.PureComponent:extend("RBXEventView")
 
 function RBXEventView:init()
-	self.onClearClicked = function ()
+	self.state = {
+		ValidJson = true,
+	}
+
+	self.onClearClicked = function()
 		self.props.ClearRBXParameters()
 	end
 
-	self.onSendClicked = function ()
-		RBXEventRequest(self.props.Parameters)
+	self.IsCurrentJSONValid = function ()
+		local decoded
+		local ok = pcall(function()
+			decoded = HttpService:JSONDecode(self.props.Parameters.Detail)
+		end)
+
+		if not ok or not decoded then
+			return false
+		else
+			return true
+		end
 	end
 
-	self.focusLost = function (field, textbox)
+	self.onSendClicked = function()
+		self:setState({
+			ValidJson = self.IsCurrentJSONValid()
+		})
+
+		-- Don't prevent the request because maybe you want to see it fail
+		RBXEventRequest(self.props.Parameters)
+
+	end
+
+	self.focusLost = function(field, textbox)
 		self.props.SetRBXParameters(Cryo.Dictionary.join(self.props.Parameters, {
-			[field] = textbox.Text
+			[field] = textbox
 		}))
 	end
 
@@ -57,12 +82,18 @@ function RBXEventView:init()
 		local props = self.props
 		local params = props.Parameters
 
-
 		local theme = self.props.Theme
 		local layout = theme:get("Layout")
 
 		local children = {
 			Layout = Roact.createElement("UIListLayout", layout.Vertical),
+			Warning = (not self.state.ValidJson) and Roact.createElement("TextLabel", {
+				LayoutOrder = ORDERING["Warning"],
+				BackgroundTransparency = 1,
+				Size = UDim2.new(1, 0, 0, 20),
+				Text = "Warning! Detail expects JSON.",
+				TextColor3 = Color3.new(1, 0.5, 0),
+			}),
 			Activators = Roact.createElement(ButtonArray, {
 				OnClearClicked = self.onClearClicked,
 				OnSaveClicked = self.onSaveClicked,

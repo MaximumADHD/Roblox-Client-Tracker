@@ -95,8 +95,11 @@ Promise.Status = {
 if FFlagDevFrameworkUnhandledPromiseRejections then
 	--[[
 		This can be overridden to change the global callback for unhandled rejections.
+
+		By default it is disabled (set to nil) so that consumers can choose how to log
+		unhandled rejections, and not pollute the output (e.g. with "warn").
 	]]
-	Promise.onUnhandledRejection = warn
+	Promise.onUnhandledRejection = nil
 end
 
 --[[
@@ -401,7 +404,13 @@ function Promise:_reject(...)
 					err,
 					self._source
 				)
-				Promise.onUnhandledRejection(message)
+
+				-- Ignore failures in logging the rejection
+				pcall(function()
+					if Promise.onUnhandledRejection then
+						Promise.onUnhandledRejection(message)
+					end
+				end)
 			end)
 		end
 	end

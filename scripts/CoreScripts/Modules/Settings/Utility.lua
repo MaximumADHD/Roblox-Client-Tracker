@@ -1518,13 +1518,8 @@ local function CreateNewSlider(numOfSteps, startStep, minStep)
 	end
 
 	this.Steps = {}
-	local stepXSize = 35
-	if isSmallTouchScreen() then
-		stepXSize = 25
-	end
 
 	local stepXScale = 1 / steps
-	stepXSize = 0
 
 	for i = 1, steps do
 		local nextStep = Util.Create'ImageButton'
@@ -2005,8 +2000,6 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 		ValueChangerInstance.DropDownFrame.Parent = RowFrame
 		ValueChangerSelection = ValueChangerInstance.DropDownFrame
 	elseif selectionType == "TextBox" then
-		local isMouseOverRow = false
-		local forceReturnSelectionOnFocusLost = false
 		local SelectionOverrideObject = Util.Create'ImageLabel'
 		{
 			Image = "",
@@ -2046,9 +2039,6 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 				box.Text = ""
 			end
 		end)
-		box.FocusLost:Connect(function(enterPressed, inputObject)
-			forceReturnSelectionOnFocusLost = false
-		end)
 		if extraSpacing then
 			box.Position = UDim2.new(box.Position.X.Scale,box.Position.X.Offset,
 				box.Position.Y.Scale,box.Position.Y.Offset + extraSpacing)
@@ -2077,14 +2067,12 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 
 			if valueFrame and valueFrame.Visible and valueFrame.ZIndex > 1 and usesSelectedObject() and pageToAddTo.Active then
 				GuiService.SelectedCoreObject = valueFrame
-				isMouseOverRow = true
 			end
 		end
 		local function processInput(input)
 			if input.UserInputState == Enum.UserInputState.Begin then
 				if input.KeyCode == Enum.KeyCode.Return then
 					if GuiService.SelectedCoreObject == ValueChangerSelection then
-						forceReturnSelectionOnFocusLost = true
 						box:CaptureFocus()
 					end
 				end
@@ -2095,8 +2083,6 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 		UserInputService.InputBegan:Connect(processInput)
 
 	elseif selectionType == "TextEntry" then
-		local isMouseOverRow = false
-		local forceReturnSelectionOnFocusLost = false
 		local SelectionOverrideObject = Util.Create'ImageLabel'
 		{
 			Image = "",
@@ -2136,9 +2122,6 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 				box.Text = ""
 			end
 		end)
-		box.FocusLost:Connect(function(enterPressed, inputObject)
-			forceReturnSelectionOnFocusLost = false
-		end)
 		if extraSpacing then
 			box.Position = UDim2.new(box.Position.X.Scale,box.Position.X.Offset,
 										box.Position.Y.Scale,box.Position.Y.Offset + extraSpacing)
@@ -2167,14 +2150,12 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 
 			if valueFrame and valueFrame.Visible and valueFrame.ZIndex > 1 and usesSelectedObject() and pageToAddTo.Active then
 				GuiService.SelectedCoreObject = valueFrame
-				isMouseOverRow = true
 			end
 		end
 		local function processInput(input)
 			if input.UserInputState == Enum.UserInputState.Begin then
 				if input.KeyCode == Enum.KeyCode.Return then
 					if GuiService.SelectedCoreObject == ValueChangerSelection then
-						forceReturnSelectionOnFocusLost = true
 						box:CaptureFocus()
 					end
 				end

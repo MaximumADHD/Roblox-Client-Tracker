@@ -10,10 +10,8 @@ local GetCreatorName = require(Plugin.Core.Networking.Requests.GetCreatorName)
 local Util = Plugin.Core.Util
 local PagedRequestCursor = require(Util.PagedRequestCursor)
 local Constants = require(Util.Constants)
-local PageInfoHelper = require(Util.PageInfoHelper)
 local CreatorInfoHelper = require(Util.CreatorInfoHelper)
 
-local FFlagStudioFixComparePageInfo = game:GetFastFlag("StudioFixComparePageInfo")
 local FFlagStudioFixGroupCreatorInfo = game:GetFastFlag("StudioFixGroupCreatorInfo")
 local FFlagStudioToolboxFixNewEndpointFilters = game:GetFastFlag("StudioToolboxFixNewEndpointFilters")
 
@@ -64,12 +62,6 @@ return function(networkInterface, category, audioSearchInfo, pageInfo, settings,
 				Constants.TOOLBOX_ITEM_SEARCH_LIMIT
 			):andThen(
 				function(result)
-					if FFlagStudioFixComparePageInfo then
-						if PageInfoHelper.isPageInfoStale(pageInfo, store) then
-							return
-						end
-					end
-
 					store:dispatch(SetLoading(false))
 
 					local data = result.responseBody
@@ -88,11 +80,6 @@ return function(networkInterface, category, audioSearchInfo, pageInfo, settings,
 					end
 				end,
 				function(err)
-					if FFlagStudioFixComparePageInfo then
-						if PageInfoHelper.isPageInfoStale(pageInfo, store) then
-							return
-						end
-					end
 					store:dispatch(SetLoading(false))
 					store:dispatch(NetworkError(err))
 				end

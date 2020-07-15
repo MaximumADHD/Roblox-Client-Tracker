@@ -25,6 +25,8 @@ local AnimationData = require(Plugin.Src.Util.AnimationData)
 local SetSelectedKeyframes = require(Plugin.Src.Actions.SetSelectedKeyframes)
 local UpdateAnimationData = require(Plugin.Src.Thunks.UpdateAnimationData)
 
+local GetFFlagFixScaleKeyframeClobbering = require(Plugin.LuaFlags.GetFFlagFixScaleKeyframeClobbering)
+
 
 -- Helper function which allows us to snap keyframes
 -- to exact frames, preventing keyframes between frames.
@@ -46,8 +48,11 @@ return function(pivotFrame, scale)
 
 		local newData = deepCopy(animationData)
 
-		local range = TrackUtils.getZoomRange(animationData, scroll, zoom, editingLength)
-		local startFrame = range.Start
+		local startFrame = 0
+		if not GetFFlagFixScaleKeyframeClobbering() then
+			local range = TrackUtils.getZoomRange(animationData, scroll, zoom, editingLength)
+			startFrame = range.Start
+		end
 
 		local maxLength = animationData.Metadata and animationData.Metadata.FrameRate
 			and AnimationData.getMaximumLength(animationData.Metadata.FrameRate)

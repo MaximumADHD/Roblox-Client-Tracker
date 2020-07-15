@@ -47,7 +47,6 @@ local GetAssetConfigManageableGroupsRequest = require(Requests.GetAssetConfigMan
 
 local UpdateAssetConfigStore = require(Plugin.Core.Actions.UpdateAssetConfigStore)
 
-local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 local FFlagStudioUseNewAnimationImportExportFlow = settings():GetFFlag("StudioUseNewAnimationImportExportFlow")
 local FFlagEnableOverrideAssetCursorFix = game:GetFastFlag("EnableOverrideAssetCursorFix")
 local FFlagAssetConifgOverrideAssetScrollingFrame = game:GetFastFlag("AssetConifgOverrideAssetScrollingFrame")
@@ -70,7 +69,7 @@ function OverrideAsset:init(props)
 
 	self.state = {
 		selectIndex = 1,
-		selectItem = FFlagEnablePurchasePluginFromLua2 and self.dropdownContent[1] or self.dropdownContent,
+		selectItem = self.dropdownContent[1],
 		filterID = "",
 	}
 
@@ -84,13 +83,11 @@ function OverrideAsset:init(props)
 		local item = self.dropdownContent[index]
 		-- We supported override plugin only after this change.
 		local overrideCursor = FFlagEnableOverrideAssetCursorFix and "" or PagedRequestCursor.createDefaultCursor()
-		if FFlagEnablePurchasePluginFromLua2 then
-			self.props.updateStore({
-				fetchedAll = false,
-				loadingPage = 0,
-				overrideCursor = overrideCursor,
-			})
-		end
+		self.props.updateStore({
+			fetchedAll = false,
+			loadingPage = 0,
+			overrideCursor = overrideCursor,
+		})
 
 		self.props.getOverrideAssets(getNetwork(self), self.props.assetTypeEnum, item.creatorType, item.creatorId, 1)
 		self:setState({
@@ -143,7 +140,6 @@ function OverrideAsset:render()
 			local onOverrideAssetSelected = props.onOverrideAssetSelected
 
 			local filteredResultsArray = props.filteredResultsArray
-			local getOverrideAssets = props.getOverrideAssets
 
 			local selectIndex = state.selectIndex
 

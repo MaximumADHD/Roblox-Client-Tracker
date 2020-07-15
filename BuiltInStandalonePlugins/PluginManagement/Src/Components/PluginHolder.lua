@@ -1,6 +1,7 @@
 local FFlagPluginManagementScrollbarDesign = game:DefineFastFlag("PluginManagementScrollbarDesign", false)
 local FFlagPluginManagementPrettifyDesign = game:GetFastFlag("PluginManagementPrettifyDesign2")
 local FFlagPluginManagementRemoveUILibrary = game:GetFastFlag("PluginManagementRemoveUILibrary")
+local FFlagPluginManagementFixHorizontalScrollbar = game:DefineFastFlag("PluginManagementFixHorizontalScrollbar", false)
 
 local StudioService = game:GetService("StudioService")
 
@@ -187,7 +188,7 @@ function PluginHolder:render()
 
 	return Roact.createElement("ScrollingFrame", {
 		Size = size,
-		CanvasSize = UDim2.new(1, 0, 0, contentHeight),
+		CanvasSize = UDim2.new(FFlagPluginManagementFixHorizontalScrollbar and 0 or 1, 0, 0, contentHeight),
 		Position = position,
 		AnchorPoint = anchorPoint,
 		BackgroundColor3 = theme.BackgroundColor,

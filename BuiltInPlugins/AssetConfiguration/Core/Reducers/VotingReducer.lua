@@ -9,75 +9,55 @@ local PostInsertAsset = require(Plugin.Core.Actions.PostInsertAsset)
 local PostUnvote = require(Plugin.Core.Actions.PostUnvote)
 local PostVote = require(Plugin.Core.Actions.PostVote)
 
-local EnableAssetPreviewDynamicVote = settings():GetFFlag("EnableAssetPreviewDynamicVote")
-
 local function handleVoting(state, assetId, voteDirection)
-	if EnableAssetPreviewDynamicVote then
-		local currentVoting = state[assetId]
-		local newVoteUp = currentVoting.UpVotes
-		local newVoteDown = currentVoting.DownVotes
+	local currentVoting = state[assetId]
+	local newVoteUp = currentVoting.UpVotes
+	local newVoteDown = currentVoting.DownVotes
 
-		if voteDirection then
-			if currentVoting.HasVoted and not currentVoting.UserVote then
-				newVoteDown = currentVoting.DownVotes - 1
-			end
-
-			newVoteUp = currentVoting.UpVotes + 1
-		else
-			if currentVoting.HasVoted and currentVoting.UserVote then
-				newVoteUp = currentVoting.UpVotes - 1
-			end
-
-			newVoteDown = currentVoting.DownVotes + 1
+	if voteDirection then
+		if currentVoting.HasVoted and not currentVoting.UserVote then
+			newVoteDown = currentVoting.DownVotes - 1
 		end
 
-		return Cryo.Dictionary.join(state, {
-			[assetId] = Cryo.Dictionary.join(state[assetId], {
-				HasVoted = true,
-				UserVote = voteDirection,
-				UpVotes = newVoteUp,
-				DownVotes = newVoteDown
-			}),
-		})
+		newVoteUp = currentVoting.UpVotes + 1
 	else
-		return Cryo.Dictionary.join(state, {
-			[assetId] = Cryo.Dictionary.join(state[assetId], {
-				HasVoted = true,
-				UserVote = voteDirection,
-			}),
-		})
+		if currentVoting.HasVoted and currentVoting.UserVote then
+			newVoteUp = currentVoting.UpVotes - 1
+		end
+
+		newVoteDown = currentVoting.DownVotes + 1
 	end
+
+	return Cryo.Dictionary.join(state, {
+		[assetId] = Cryo.Dictionary.join(state[assetId], {
+			HasVoted = true,
+			UserVote = voteDirection,
+			UpVotes = newVoteUp,
+			DownVotes = newVoteDown
+		}),
+	})
 end
 
 local function handleUnvoting(state, assetId)
-	if EnableAssetPreviewDynamicVote then
-		local currentVoting = state[assetId]
-		local newVoteUp = currentVoting.UpVotes
-		local newVoteDown = currentVoting.DownVotes
-		if currentVoting.HasVoted then
-			if currentVoting.UserVote == true then
-				newVoteUp = newVoteUp - 1
-			else
-				newVoteDown = newVoteDown - 1
-			end
+	local currentVoting = state[assetId]
+	local newVoteUp = currentVoting.UpVotes
+	local newVoteDown = currentVoting.DownVotes
+	if currentVoting.HasVoted then
+		if currentVoting.UserVote == true then
+			newVoteUp = newVoteUp - 1
+		else
+			newVoteDown = newVoteDown - 1
 		end
-
-		return Cryo.Dictionary.join(state, {
-			[assetId] = Cryo.Dictionary.join(state[assetId], {
-				HasVoted = false,
-				UserVote = nil,
-				UpVotes = newVoteUp,
-				DownVotes = newVoteDown,
-			}),
-		})
-	else
-		return Cryo.Dictionary.join(state, {
-			[assetId] = Cryo.Dictionary.join(state[assetId], {
-				HasVoted = false,
-				UserVote = nil,
-			}),
-		})
 	end
+
+	return Cryo.Dictionary.join(state, {
+		[assetId] = Cryo.Dictionary.join(state[assetId], {
+			HasVoted = false,
+			UserVote = nil,
+			UpVotes = newVoteUp,
+			DownVotes = newVoteDown,
+		}),
+	})
 end
 
 local function setShowVoteButtons(state, assetId)

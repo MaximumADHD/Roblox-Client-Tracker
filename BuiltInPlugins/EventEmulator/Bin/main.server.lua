@@ -4,7 +4,7 @@
 ]]
 
 local FFlagDebugEnableEventEmulator = game:DefineFastFlag("DebugEnableEventEmulator", false)
-if not FFlagDebugEnableEventEmulator then
+if not (game:GetService("StudioService"):HasInternalPermission() and FFlagDebugEnableEventEmulator) then
 	return
 end
 

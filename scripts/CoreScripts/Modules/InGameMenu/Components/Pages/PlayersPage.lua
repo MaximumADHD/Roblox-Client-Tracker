@@ -26,6 +26,7 @@ local PlayerLabel = fflagUseNewPlayerLabelDesign and require(InGameMenu.Componen
 
 local FFlagFixMenuIcons = require(InGameMenu.Flags.FFlagFixMenuIcons)
 local FFlagFixInGameMenuMissingAssets = require(InGameMenu.Flags.FFlagFixInGameMenuMissingAssets)
+local FFlagLuaMenuPerfImprovements = require(InGameMenu.Flags.FFlagLuaMenuPerfImprovements)
 
 local PageNavigationWatcher = require(InGameMenu.Components.PageNavigationWatcher)
 local Divider = require(InGameMenu.Components.Divider)
@@ -78,6 +79,26 @@ function PlayersPage:init()
 		selectedPlayerPosition = Vector2.new(0, 0),
 		pageSizeY = 0,
 	})
+
+	if FFlagLuaMenuPerfImprovements then
+		self.positionChanged = function(rbx)
+			self:setState({
+				selectedPlayerPosition = rbx.AbsolutePosition,
+			})
+		end
+		self.toggleMoreActions = function(userId)
+			local player = Players:GetPlayerFromUserId(userId)
+			if self.state.selectedPlayer == player then
+				self:setState({
+					selectedPlayer = Roact.None,
+				})
+			else
+				self:setState({
+					selectedPlayer = player,
+				})
+			end
+		end
+	end
 end
 
 local function sortPlayers(p1, p2)
@@ -96,7 +117,9 @@ function PlayersPage:renderListEntries(players)
 	})
 
 	for index, player in pairs(sortedPlayers) do
-		local function positionChanged(rbx)
+		local id = FFlagLuaMenuPerfImprovements and player.UserId or index
+
+		local positionChanged = FFlagLuaMenuPerfImprovements and self.positionChanged or function(rbx)
 			self:setState({
 				selectedPlayerPosition = rbx.AbsolutePosition,
 			})
@@ -114,7 +137,7 @@ function PlayersPage:renderListEntries(players)
 		local displayMoreButton = player ~= Players.LocalPlayer or self.props.inspectMenuEnabled
 		displayMoreButton = not fflagUseNewPlayerLabelDesign and displayMoreButton
 
-		local function toggleMoreActions()
+		local toggleMoreActions = FFlagLuaMenuPerfImprovements and self.toggleMoreActions or function()
 			if self.state.selectedPlayer == player then
 				self:setState({
 					selectedPlayer = Roact.None,
@@ -126,7 +149,7 @@ function PlayersPage:renderListEntries(players)
 			end
 		end
 
-		listComponents["player_"..index] = Roact.createElement(PlayerLabel, {
+		listComponents["player_" .. id] = Roact.createElement(PlayerLabel, {
 			username = player.Name,
 			displayName = fflagUseNewPlayerLabelDesign and player.DisplayName or nil,
 			userId = player.UserId,
@@ -149,7 +172,7 @@ function PlayersPage:renderListEntries(players)
 		layoutOrder = layoutOrder + 1
 
 		if index < #sortedPlayers then
-			listComponents["divider_" .. layoutOrder] = Roact.createElement(Divider, {
+			listComponents["divider_" .. id] = Roact.createElement(Divider, {
 				LayoutOrder = layoutOrder,
 				Size = UDim2.new(1, -DIVIDER_INDENT, 0, 1)
 			})

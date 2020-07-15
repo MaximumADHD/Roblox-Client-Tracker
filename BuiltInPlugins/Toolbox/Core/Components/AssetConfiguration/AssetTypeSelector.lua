@@ -31,7 +31,6 @@ local DropdownMenu = require(Components.DropdownMenu)
 
 local AssetTypeSelector = Roact.PureComponent:extend("AssetTypeSelector")
 
-local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 local FFlagStudioUseNewAnimationImportExportFlow = settings():GetFFlag("StudioUseNewAnimationImportExportFlow")
 
 function AssetTypeSelector:init(props)
@@ -41,7 +40,7 @@ function AssetTypeSelector:init(props)
 		})
 
 		-- For now, only plugin will skip assetTypeSelection
-		if FFlagEnablePurchasePluginFromLua2 and (self.props.assetTypeEnum == Enum.AssetType.Plugin or
+		if (self.props.assetTypeEnum == Enum.AssetType.Plugin or
 			(FFlagStudioUseNewAnimationImportExportFlow and self.props.assetTypeEnum == Enum.AssetType.Animation)) then
 			if self.props.onAssetTypeSelected then
 				self.props.onAssetTypeSelected(self.props.assetTypeEnum)

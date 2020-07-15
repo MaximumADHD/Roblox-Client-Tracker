@@ -13,6 +13,7 @@ local SelectionWrapper = require(DraggerFramework.Utility.SelectionWrapper)
 local MockAnalytics = require(DraggerFramework.Utility.MockAnalytics)
 
 local getEngineFeatureActiveInstanceHighlight = require(DraggerFramework.Flags.getEngineFeatureActiveInstanceHighlight)
+local getFFlagSupportNoRotate = require(DraggerFramework.Flags.getFFlagSupportNoRotate)
 
 local DraggerContext = {}
 DraggerContext.__index = DraggerContext
@@ -119,7 +120,11 @@ function DraggerContext:getHoverAnimationSpeedInSeconds()
 	return 0.5
 end
 
-function DraggerContext:getHoverBoxColor()
+function DraggerContext:getHoverBoxColor(isActive)
+	if not getEngineFeatureActiveInstanceHighlight() then
+		assert(isActive == nil)
+	end
+
 	return Color3.new()
 end
 
@@ -127,7 +132,11 @@ function DraggerContext:getHoverLineThickness()
 	return 0.04
 end
 
-function DraggerContext:getSelectionBoxColor()
+function DraggerContext:getSelectionBoxColor(isActive)
+	if not getEngineFeatureActiveInstanceHighlight() then
+		assert(isActive == nil)
+	end
+
 	return Color3.new()
 end
 
@@ -256,9 +265,14 @@ function DraggerContext:expectInsertPoint(location)
 	end
 end
 
-function DraggerContext:shouldUpdateActiveInstance()
+function DraggerContext:shouldShowActiveInstanceHighlight()
 	assert(getEngineFeatureActiveInstanceHighlight())
-	return false
+	return true
+end
+
+function DraggerContext:shouldAlignDraggedObjects()
+	assert(getFFlagSupportNoRotate())
+	return true
 end
 
 return DraggerContext

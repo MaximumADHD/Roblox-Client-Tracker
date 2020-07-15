@@ -552,7 +552,6 @@ local function Initialize()
 	local function managePlayerNameCutoff(frame, player)
 		local wasIsPortrait = nil
 		local reportFlagAddedConnection = nil
-		local reportFlagChangedConnection = nil
 		local function reportFlagChanged(reportFlag, prop)
 			if prop == "AbsolutePosition" and wasIsPortrait then
 				local maxPlayerNameSize = reportFlag.AbsolutePosition.X - 20 - frame.NameLabel.AbsolutePosition.X
@@ -589,14 +588,14 @@ local function Initialize()
 				if reportFlagAddedConnection == nil then
 					reportFlagAddedConnection = frame.RightSideButtons.ChildAdded:connect(function(child)
 						if child.Name == "ReportPlayer" then
-							reportFlagChangedConnection = child.Changed:connect(function(prop) reportFlagChanged(child, prop) end)
+							child.Changed:connect(function(prop) reportFlagChanged(child, prop) end)
 							reportFlagChanged(child, "AbsolutePosition")
 						end
 					end)
 				end
 				local reportFlag = frame.RightSideButtons:FindFirstChild("ReportPlayer")
 				if reportFlag then
-					reportFlagChangedConnection = reportFlag.Changed:connect(function(prop) reportFlagChanged(reportFlag, prop) end)
+					reportFlag.Changed:connect(function(prop) reportFlagChanged(reportFlag, prop) end)
 					reportFlagChanged(reportFlag, "AbsolutePosition")
 				end
 			else

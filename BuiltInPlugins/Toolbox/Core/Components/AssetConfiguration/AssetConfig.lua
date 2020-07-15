@@ -6,7 +6,6 @@
 	assetId, numeber, will be used to request assetData on didMount.
 ]]
 
-local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 local FFlagStudioUseNewAnimationImportExportFlow = settings():GetFFlag("StudioUseNewAnimationImportExportFlow")
 local FFlagAssetConfigOverrideFromAnyScreen = game:DefineFastFlag("AssetConfigOverrideFromAnyScreen", false)
 local FFlagCanPublishDefaultAsset = game:DefineFastFlag("CanPublishDefaultAsset", false)
@@ -14,7 +13,6 @@ local FFlagShowAssetConfigReasons2 = game:GetFastFlag("ShowAssetConfigReasons2")
 local FFlagEnableNonWhitelistedToggle = game:GetFastFlag("EnableNonWhitelistedToggle")
 local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
 local FFlagAssetConfigUseItemConfig = game:GetFastFlag("AssetConfigUseItemConfig")
-local FFlagStudioAssetCopySaleStatusFix = game:DefineFastFlag("StudioAssetCopySaleStatusFix", false)
 
 local StudioService = game:GetService("StudioService")
 
@@ -175,7 +173,7 @@ function AssetConfig:init(props)
 				elseif AssetConfigUtil.isMarketplaceAsset(props.assetTypeEnum) then
 
 					local copyOn = state.copyOn
-					if FFlagStudioAssetCopySaleStatusFix and not state.copyChanged then
+					if not state.copyChanged then
 						-- DEVTOOLS-3926: Don't submit this optional field unless the user has changed it
 						copyOn = nil
 					end
@@ -491,71 +489,37 @@ function AssetConfig:didUpdate(previousProps, previousState)
 		end
 	end
 
-	if  FFlagEnablePurchasePluginFromLua2 then
-		-- If we have assetConfigData and state is nil(defualt state),
-		-- then we will use the data retrived from the assetConfigData to trigger a re-render.
-		if self.props.screenFlowType == AssetConfigConstants.FLOW_TYPE.EDIT_FLOW then
-			local assetConfigData = self.props.assetConfigData
-			if next(assetConfigData) and (not self.init) then
-				self:setState({
-					assetId = AssetConfigUtil.isMarketplaceAsset(self.props.assetTypeEnum) and assetConfigData.Id or assetConfigData.assetId, -- assetId is named differently in the data returned by different end-points
+	-- If we have assetConfigData and state is nil(defualt state),
+	-- then we will use the data retrived from the assetConfigData to trigger a re-render.
+	if self.props.screenFlowType == AssetConfigConstants.FLOW_TYPE.EDIT_FLOW then
+		local assetConfigData = self.props.assetConfigData
+		if next(assetConfigData) and (not self.init) then
+			self:setState({
+				assetId = AssetConfigUtil.isMarketplaceAsset(self.props.assetTypeEnum) and assetConfigData.Id or assetConfigData.assetId, -- assetId is named differently in the data returned by different end-points
 
-					name = assetConfigData.Name,
-					description = assetConfigData.Description,
-					owner = assetConfigData.Creator,
-					genres = assetConfigData.Genres,
-					allowCopy = assetConfigData.IsPublicDomainEnabled,
-					copyOn = assetConfigData.IsCopyingAllowed,
-					commentOn = assetConfigData.EnableComments,
-					price = assetConfigData.Price or AssetConfigUtil.getMinPrice(self.props.allowedAssetTypesForRelease, self.props.assetTypeEnum),
-					status = assetConfigData.Status,
-				})
-				self.init = true
-			end
+				name = assetConfigData.Name,
+				description = assetConfigData.Description,
+				owner = assetConfigData.Creator,
+				genres = assetConfigData.Genres,
+				allowCopy = assetConfigData.IsPublicDomainEnabled,
+				copyOn = assetConfigData.IsCopyingAllowed,
+				commentOn = assetConfigData.EnableComments,
+				price = assetConfigData.Price or AssetConfigUtil.getMinPrice(self.props.allowedAssetTypesForRelease, self.props.assetTypeEnum),
+				status = assetConfigData.Status,
+			})
+			self.init = true
+		end
 
-			if assetConfigData.ItemTags and self.state.tags == nil then
-				self:setState({
-					tags = TagsUtil.getTagsFromItemTags(assetConfigData.ItemTags),
-				})
-			end
-		else
-			if (self.props.isVerifiedCreator ~= nil) and self.state.allowCopy ~= self.props.isVerifiedCreator then
-				self:setState({
-					allowCopy = self.props.isVerifiedCreator
-				})
-			end
+		if assetConfigData.ItemTags and self.state.tags == nil then
+			self:setState({
+				tags = TagsUtil.getTagsFromItemTags(assetConfigData.ItemTags),
+			})
 		end
 	else
-		-- To be removed with FFlagEnablePurchasePluginFromLua2
-		if self.props.screenFlowType == AssetConfigConstants.FLOW_TYPE.EDIT_FLOW then
-			local assetConfigData = self.props.assetConfigData
-			if next(assetConfigData) and (not self.state.name) then
-				self:setState({
-					assetId = AssetConfigUtil.isMarketplaceAsset(self.props.assetTypeEnum) and assetConfigData.Id or assetConfigData.assetId, -- assetId is named differently in the data returned by different end-points
-
-					name = assetConfigData.Name,
-					description = assetConfigData.Description,
-					owner = assetConfigData.Creator,
-					genres = assetConfigData.Genres,
-					allowCopy = assetConfigData.IsPublicDomainEnabled,
-					copyOn = assetConfigData.IsCopyingAllowed,
-					commentOn = assetConfigData.EnableComments,
-					price = assetConfigData.Price or AssetConfigUtil.getMinPrice(self.props.allowedAssetTypesForRelease, self.props.assetTypeEnum),
-					status = assetConfigData.Status,
-				})
-			end
-
-			if assetConfigData.ItemTags and self.state.tags == nil then
-				self:setState({
-					tags = TagsUtil.getTagsFromItemTags(assetConfigData.ItemTags),
-				})
-			end
-		else
-			if (self.props.isVerifiedCreator ~= nil) and self.state.allowCopy ~= self.props.isVerifiedCreator then
-				self:setState({
-					allowCopy = self.props.isVerifiedCreator
-				})
-			end
+		if (self.props.isVerifiedCreator ~= nil) and self.state.allowCopy ~= self.props.isVerifiedCreator then
+			self:setState({
+				allowCopy = self.props.isVerifiedCreator
+			})
 		end
 	end
 end
@@ -573,16 +537,10 @@ function AssetConfig:didMount()
 					self.props.getAssetTags(getNetwork(self), self.props.assetId)
 				end
 			else
-				if FFlagEnablePurchasePluginFromLua2 then
-					if AssetConfigUtil.isBuyableMarketplaceAsset(self.props.assetTypeEnum) then
-						self.props.getMarketplaceAsset(getNetwork(self), self.props.assetId)
-					else
-						self.props.getAssetConfigData(getNetwork(self), self.props.assetId)
-					end
+				if AssetConfigUtil.isBuyableMarketplaceAsset(self.props.assetTypeEnum) then
+					self.props.getMarketplaceAsset(getNetwork(self), self.props.assetId)
 				else
-					if AssetConfigUtil.isMarketplaceAsset(self.props.assetTypeEnum) then
-						self.props.getAssetConfigData(getNetwork(self), self.props.assetId)
-					end
+					self.props.getAssetConfigData(getNetwork(self), self.props.assetId)
 				end
 
 				if self.props.isPackageAsset == nil then
@@ -752,13 +710,7 @@ function AssetConfig:render()
 
 				local currentAssetStatus = newAssetStatus or AssetConfigConstants.ASSET_STATUS.Unknown
 
-				local minPrice, maxPrice, feeRate
-				if FFlagEnablePurchasePluginFromLua2 then
-					minPrice, maxPrice, feeRate = AssetConfigUtil.getPriceInfo(allowedAssetTypesForRelease, assetTypeEnum)
-				else
-					minPrice = AssetConfigUtil.getMinPrice(allowedAssetTypesForRelease, assetTypeEnum)
-					maxPrice = AssetConfigUtil.getMaxPrice(allowedAssetTypesForRelease, assetTypeEnum)
-				end
+				local minPrice, maxPrice, feeRate = AssetConfigUtil.getPriceInfo(allowedAssetTypesForRelease, assetTypeEnum)
 
 				local price = state.price
 				local showOwnership = ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_OWNERSHIP)
@@ -769,11 +721,8 @@ function AssetConfig:render()
 				end
 				local showComment = ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_COMMENT)
 				local showAssetType = ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_ASSET_TYPE)
-				local previewType = props.instances and AssetConfigConstants.PreviewTypes.ModelPreview or AssetConfigConstants.PreviewTypes.Thumbnail
 				-- And then we show price according to the sales status and if user is whitelisted.
-				if FFlagEnablePurchasePluginFromLua2 then
-					previewType = AssetConfigUtil.getPreviewType(assetTypeEnum, props.instances)
-				end
+				local previewType = AssetConfigUtil.getPreviewType(assetTypeEnum, props.instances)
 
 				local showTags = TagsUtil.areTagsEnabled(props.isItemTagsFeatureEnabled, props.enabledAssetTypesForItemTags, assetTypeEnum)
 

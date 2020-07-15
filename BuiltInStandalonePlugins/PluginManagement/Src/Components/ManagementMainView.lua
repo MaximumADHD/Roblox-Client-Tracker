@@ -9,7 +9,6 @@ local FlagsList = Flags.new({
 		"StudioPermissionsServiceEnabled",
 	},
 })
-local FFlagEnablePurchasePluginFromLua2 = game:GetFastFlag("EnablePurchasePluginFromLua2")
 local FFlagEnableStudioServiceOpenBrowser = game:GetFastFlag("EnableStudioServiceOpenBrowser")
 local FFlagPluginManagementAllowLotsOfPlugins2 = settings():GetFFlag("PluginManagementAllowLotsOfPlugins2")
 local FFlagFixFindPluginsMessage = game:DefineFastFlag("FixFindPluginsMessage", false)
@@ -97,23 +96,6 @@ function ManagementMainView:init()
 	end
 
 	self.findPlugins = function()
-		if not FFlagEnablePurchasePluginFromLua2 then
-			-- Open a browser window to the Library tab of the Create page
-			local api = self.props.API:get()
-			local catalogContext = 2
-			local sortType = 0
-			local sortAggregation = 3
-			local sortCurrency = 0
-			local category = 7
-			local libraryUrl = api.WWW.Develop.Library(catalogContext, sortType, sortAggregation, sortCurrency, category)
-			if FFlagEnableStudioServiceOpenBrowser then
-				StudioService:OpenInBrowser_DONOTUSE(libraryUrl)
-			else
-				GuiService:OpenBrowserWindow(libraryUrl)
-			end
-			return
-		end
-
 		-- Show this has moved to toolbox dialog
 		self:setState({
 			showingMovedDialog = true,

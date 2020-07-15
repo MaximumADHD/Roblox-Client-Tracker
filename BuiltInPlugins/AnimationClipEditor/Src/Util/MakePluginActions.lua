@@ -11,6 +11,7 @@ local ACTION_KEYS = {
 	"ResetSelected",
 	"AddKeyframeHere",
 	"AddResetKeyframe",
+	"AddKeyframeAtScrubber",
 	"PasteKeyframes",
 	"SelectAll",
 	"DeselectAll",
@@ -60,6 +61,7 @@ return function(plugin, localization)
 	actions.DeleteSelected.DefaultShortcut = "Delete"
 	actions.DeleteSelectedBackspace.DefaultShortcut = "Backspace"
 	actions.PasteKeyframes.DefaultShortcut = "Ctrl+V"
+	actions.AddKeyframeAtScrubber.DefaultShortcut = "K"
 
 	actions.CopyEvents.DefaultShortcut = "Ctrl+C"
 	actions.CutEvents.DefaultShortcut = "Ctrl+X"

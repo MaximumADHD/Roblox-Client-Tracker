@@ -40,7 +40,6 @@ local Constants = require(script.Resources.Constants)
 
 local FFlagDisableAutoTranslateForKeyTranslatedContent = require(
 	RobloxGui.Modules.Flags.FFlagDisableAutoTranslateForKeyTranslatedContent)
-local isNewTopBarEnabled = require(RobloxGui.Modules.TopBar.isNewTopBarEnabled)
 
 local isNewGamepadMenuEnabled = require(RobloxGui.Modules.Flags.isNewGamepadMenuEnabled)
 
@@ -92,24 +91,6 @@ return {
 				end
 			end
 		end)
-
-		local topbarButtonContainer
-		if not isNewTopBarEnabled() then
-			topbarButtonContainer = Instance.new("Frame")
-			topbarButtonContainer.BackgroundTransparency = 1
-			topbarButtonContainer.Size = UDim2.new(0, 50 + 16 + 8, 1, 0)
-
-			local buttonTree = Roact.createElement(OpenMenuButton, {
-				onClick = function()
-					if GetFFlagInstrumentMenuOpenMethods() then
-						menuStore:dispatch(OpenMenu(Constants.AnalyticsMenuOpenTypes.TopbarButton))
-					else
-						menuStore:dispatch(OpenMenu)
-					end
-				end,
-			})
-			Roact.mount(buttonTree, topbarButtonContainer, "OpenInGameMenu")
-		end
 
 		local appStyle = {
 			Theme = AppDarkTheme,
@@ -187,9 +168,6 @@ return {
 
 		Roact.mount(menuTree, CoreGui, "InGameMenu")
 
-		if not isNewTopBarEnabled() then
-			return topbarButtonContainer
-		end
 		return
 	end,
 

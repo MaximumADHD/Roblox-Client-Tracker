@@ -48,7 +48,6 @@ local LoadingBar = require(Components.AssetConfiguration.LoadingBar)
 local AssetThumbnailPreview = require(Components.AssetConfiguration.AssetThumbnailPreview)
 local NavButton = require(Components.NavButton)
 
-local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 local FFlagStudioUseNewAnimationImportExportFlow = settings():GetFFlag("StudioUseNewAnimationImportExportFlow")
 
 local TITLE_WIDTH = 400
@@ -188,8 +187,7 @@ function AssetValidation:init(props)
 		isLoading = true,
 	}
 
-	if FFlagEnablePurchasePluginFromLua2 and
-		AssetConfigUtil.isMarketplaceAsset(self.props.assetTypeEnum) or
+	if AssetConfigUtil.isMarketplaceAsset(self.props.assetTypeEnum) or
 		self.props.assetTypeEnum == Enum.AssetType.Model or
 		(FFlagStudioUseNewAnimationImportExportFlow and self.props.assetTypeEnum == Enum.AssetType.Animation) then
 		self.props.nextScreen()

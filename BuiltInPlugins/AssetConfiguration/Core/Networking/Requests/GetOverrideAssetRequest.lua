@@ -16,7 +16,6 @@ local FFlagEnableOverrideAssetCursorFix = game:GetFastFlag("EnableOverrideAssetC
 local FFlagEnableOverrideAssetGroupCreationApi = game:GetFastFlag("EnableOverrideAssetGroupCreationApi")
 local FFlagFixOverrideAssetGroupPlugins = game:DefineFastFlag("FixOverrideAssetGroupPlugins", false)
 
-local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 local FFlagStudioUseNewAnimationImportExportFlow = settings():GetFFlag("StudioUseNewAnimationImportExportFlow")
 
 local function filterAssetByCreatorId(resultsArray, creatorId)
@@ -167,67 +166,54 @@ return function(networkInterface, assetTypeEnum, creatorType, creatorId, targetP
 			handleOverrideResult = handleGetCreationOverrideSuccess
 		end
 
-		if FFlagEnablePurchasePluginFromLua2 then
-			local category = "Model"
-			local groupId = nil
-			if creatorType == "Group" then
-				groupId = creatorId
-				if FFlagFixOverrideAssetGroupPlugins then
-					if FFlagEnableOverrideAssetGroupCreationApi then
-						category = assetTypeEnum == Enum.AssetType.Plugin and "Plugin" or category
-					else
-						category = assetTypeEnum == Enum.AssetType.Model and "GroupModels" or "GroupPlugins"
-					end
+		local category = "Model"
+		local groupId = nil
+		if creatorType == "Group" then
+			groupId = creatorId
+			if FFlagFixOverrideAssetGroupPlugins then
+				if FFlagEnableOverrideAssetGroupCreationApi then
+					category = assetTypeEnum == Enum.AssetType.Plugin and "Plugin" or category
 				else
-					if not FFlagEnableOverrideAssetGroupCreationApi then
-						category = assetTypeEnum == Enum.AssetType.Model and "GroupModels" or "GroupPlugins"
-					end
-				end
-				if FFlagStudioUseNewAnimationImportExportFlow then
-					category = assetTypeEnum == Enum.AssetType.Animation and "Animation" or category
+					category = assetTypeEnum == Enum.AssetType.Model and "GroupModels" or "GroupPlugins"
 				end
 			else
-				if assetTypeEnum == Enum.AssetType.Plugin then
-					category = "Plugin"
-				elseif FFlagStudioUseNewAnimationImportExportFlow and assetTypeEnum == Enum.AssetType.Animation then
-					category = "Animation"
+				if not FFlagEnableOverrideAssetGroupCreationApi then
+					category = assetTypeEnum == Enum.AssetType.Model and "GroupModels" or "GroupPlugins"
 				end
 			end
+			if FFlagStudioUseNewAnimationImportExportFlow then
+				category = assetTypeEnum == Enum.AssetType.Animation and "Animation" or category
+			end
+		else
+			if assetTypeEnum == Enum.AssetType.Plugin then
+				category = "Plugin"
+			elseif FFlagStudioUseNewAnimationImportExportFlow and assetTypeEnum == Enum.AssetType.Animation then
+				category = "Animation"
+			end
+		end
 
-			if creatorType == "Group" then
-				if FFlagStudioUseNewAnimationImportExportFlow and category == "Animation" then
-					if FFlagEnableOverrideAssetCursorFix then
-						local currentCursor = store:getState().overrideCursor
-						local targetCursor = currentCursor.nextPageCursor or ""
-						return networkInterface:getGroupAnimations(targetCursor, groupId):andThen(
-							handleGetCreationOverrideSuccess,
-							handleOverrideFailed
-						)
-					end
-				else
-					getOverrideModels(store, networkInterface, category, targetPage, groupId):andThen(
-						handleOverrideResult,
-						handleOverrideFailed
-					)
-				end
-			else
-				local nextCursor = getNextCursor(store)
-				return networkInterface:getAssetCreations(nil, nextCursor, category, groupId):andThen(
+		if creatorType == "Group" then
+			if FFlagStudioUseNewAnimationImportExportFlow and category == "Animation" then
+				if FFlagEnableOverrideAssetCursorFix then
+					local currentCursor = store:getState().overrideCursor
+					local targetCursor = currentCursor.nextPageCursor or ""
+					return networkInterface:getGroupAnimations(targetCursor, groupId):andThen(
 						handleGetCreationOverrideSuccess,
 						handleOverrideFailed
 					)
+				end
+			else
+				getOverrideModels(store, networkInterface, category, targetPage, groupId):andThen(
+					handleOverrideResult,
+					handleOverrideFailed
+				)
 			end
 		else
-			local category = "MyModelsExceptPackage" -- Default to user's category
-			local groupId = creatorType == "Group" and creatorId or nil
-			if creatorType == "Group" and not FFlagEnableOverrideAssetGroupCreationApi then
-				category = "GroupModels"
-			end
-
-			return getOverrideModels(store, networkInterface, category, targetPage, groupId):andThen(
-				handleOverrideResult,
-				handleOverrideFailed
-			)
+			local nextCursor = getNextCursor(store)
+			return networkInterface:getAssetCreations(nil, nextCursor, category, groupId):andThen(
+					handleGetCreationOverrideSuccess,
+					handleOverrideFailed
+				)
 		end
 	end
 end

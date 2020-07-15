@@ -15,7 +15,6 @@
 
 local FFlagAssetConifgOverrideAssetScrollingFrame = game:DefineFastFlag("AssetConifgOverrideAssetScrollingFrame", false)
 local FFlagToolboxUseInfinteScroller = game:DefineFastFlag("ToolboxUseInfiniteScroller", false)
-local FFlagToolboxTruncateOverrideAssetNames = game:DefineFastFlag("ToolboxTruncateOverrideAssetNames", false)
 local FFlagEnableOverrideAssetCursorFix = game:GetFastFlag("EnableOverrideAssetCursorFix")
 local FFlagStudioUseNewAnimationImportExportFlow = settings():GetFFlag("StudioUseNewAnimationImportExportFlow")
 
@@ -210,7 +209,7 @@ function OverrideAssetView:createAssets(resultsArray, theme)
 				Font = Constants.FONT,
 				TextColor3 = assetConfigTheme.textColor,
 				TextSize = Constants.FONT_SIZE_MEDIUM,
-				TextTruncate = FFlagToolboxTruncateOverrideAssetNames and Enum.TextTruncate.AtEnd or nil,
+				TextTruncate = Enum.TextTruncate.AtEnd,
 
 				BorderSizePixel = 0,
 				BackgroundTransparency = 1,

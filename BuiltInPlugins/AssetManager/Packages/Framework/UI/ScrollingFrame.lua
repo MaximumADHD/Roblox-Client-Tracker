@@ -12,6 +12,7 @@
 		UDim2 Size: The size of the scrolling frame.
 		integer LayoutOrder: The order this component will display in a UILayout.
 		boolean AutoSizeCanvas: When true, will automatically resize the canvas size of the scrolling frame.
+		table AutoSizeLayoutOptions: The options of the UILayout instance if auto-sizing.
 		UDim2 CanvasSize: The size of the scrolling frame's canvas.
 		integer ElementPadding: The padding between children when AutoSizeCanvas is true.
 

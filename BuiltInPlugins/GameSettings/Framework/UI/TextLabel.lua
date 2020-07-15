@@ -11,15 +11,16 @@
 		UDim2 Position: The position of this component.
 		Style Style: The style with which to render this component.
 		StyleModifier StyleModifier: The StyleModifier index into Style.
+		Color3 TextColor: The color of the text label.
 		boolean TextWrapped: Whether the text label should wrap.
 		number ZIndex: The render index of this component.
-		Color3 TextColor: The color of the label.
 		number TextTransparency: The transparency of this text.
 		Enum.TextXAlignment TextXAlignment: The x alignment of this text.
 		Enum.TextYAlignment TextYAlignment: The y alignment of this text.
 
 	Style Values:
-		Color3 TextColor: The color of the label.
+		Color3 TextColor: The color of the text label.
+		number BackgroundTransparency: The transparency of the text label.
 		number TextTransparency: The transparency of this text.
 		Enum.TextXAlignment TextXAlignment: The x alignment of this text.
 		Enum.TextYAlignment TextYAlignment: The y alignment of this text.
@@ -53,6 +54,7 @@ function TextLabel:render()
 	local transparency = prioritize(self.props.TextTransparency, style.TextTransparency)
 	local textXAlignment = prioritize(self.props.TextXAlignment, style.TextXAlignment)
 	local textYAlignment = prioritize(self.props.TextYAlignment, style.TextYAlignment)
+	local position = self.props.Position
 
 
 	return Roact.createElement("TextLabel", {

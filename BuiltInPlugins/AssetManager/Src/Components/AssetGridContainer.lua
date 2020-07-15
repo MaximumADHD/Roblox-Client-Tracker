@@ -16,6 +16,10 @@ local ContextServices = require(Framework.ContextServices)
 local Util = require(Framework.Util)
 local StyleModifier = Util.StyleModifier
 
+local UI = require(Framework.UI)
+local Button = UI.Button
+local HoverArea = UI.HoverArea
+
 local UILibrary = require(Plugin.Packages.UILibrary)
 local InfiniteScrollingFrame = UILibrary.Component.InfiniteScrollingFrame
 local LoadingIndicator = UILibrary.Component.LoadingIndicator
@@ -30,12 +34,14 @@ local SetSelectedAssets = require(Plugin.Src.Actions.SetSelectedAssets)
 
 local GetAssets = require(Plugin.Src.Thunks.GetAssets)
 local GetAssetPreviewData = require(Plugin.Src.Thunks.GetAssetPreviewData)
+local LoadAllAliases = require(Plugin.Src.Thunks.LoadAllAliases)
 local OnAssetRightClick = require(Plugin.Src.Thunks.OnAssetRightClick)
 local OnScreenChange = require(Plugin.Src.Thunks.OnScreenChange)
 
 local BulkImportService = game:GetService("BulkImportService")
 
 local FFlagStudioAssetManagerCaseInsensitiveFilter = game:DefineFastFlag("StudioAssetManagerCaseInsensitiveFilter", false)
+local FFlagStudioAssetManagerLoadAllAliasesButton = game:DefineFastFlag("StudioAssetManagerLoadAllAliasesButton", false)
 
 local AssetGridContainer = Roact.Component:extend("AssetGridContainer")
 
@@ -206,6 +212,7 @@ function AssetGridContainer:render()
 
     local dispatchGetAssets = props.dispatchGetAssets
     local dispatchGetAssetPreviewData = props.dispatchGetAssetPreviewData
+    local dispatchLoadAllAliases = props.dispatchLoadAllAliases
 
     local contents, assetCount = self:createTiles(apiImpl, localization, theme,
         assets, currentScreen, searchTerm, selectedAssets, hasLinkedScripts, enabled)
@@ -228,9 +235,13 @@ function AssetGridContainer:render()
         end
     end
 
+    local hasMorePages = FFlagStudioAssetManagerLoadAllAliasesButton and nextPageNumber ~= nil
+
     local assetTypeText = localization:getText("Folders", currentScreen.Key)
     local noResultsText = localization:getText("AssetGrid", "NoResults", {assetType = assetTypeText})
     local noResultsTextExtents = GetTextSize(noResultsText, theme.FontSizeMedium, theme.Font)
+    local loadButtonText = localization:getText("AssetGrid", "LoadButton")
+    local loadButtonTextExtents = GetTextSize(loadButtonText, theme.FontSizeLarge, theme.Font)
 
     return Roact.createElement("Frame", {
         Size = size,
@@ -265,7 +276,7 @@ function AssetGridContainer:render()
             [Roact.Event.MouseButton2Click] = self.onMouseButton2Click,
         }),
 
-        NoResultsText = not hasAssetsToDisplay and not isFetchingAssets and Roact.createElement("TextLabel", {
+        NoResultsText = not hasAssetsToDisplay and not isFetchingAssets and not hasMorePages and Roact.createElement("TextLabel", {
             Size = UDim2.new(0, noResultsTextExtents.X, 0, noResultsTextExtents.Y),
             Position = UDim2.new(0.5, 0, 0.3, 0),
             AnchorPoint = Vector2.new(0.5, 0.5),
@@ -276,6 +287,22 @@ function AssetGridContainer:render()
             TextSize = theme.FontSizeMedium,
 
             BackgroundTransparency = 1,
+        }),
+
+        LoadButton = not hasAssetsToDisplay and not isFetchingAssets and hasMorePages and Roact.createElement(Button, {
+            Style = "RoundPrimary",
+
+            Text = loadButtonText,
+            Size = UDim2.new(0, loadButtonTextExtents.X + theme.AssetGridContainer.LoadButton.PaddingX,
+                0, loadButtonTextExtents.Y + theme.AssetGridContainer.LoadButton.PaddingY),
+            Position = UDim2.new(0.5, 0, 0.3, 0),
+            AnchorPoint = Vector2.new(0.5, 0.5),
+
+            OnClick = function()
+                dispatchLoadAllAliases(apiImpl, currentScreen.AssetType)
+            end,
+        }, {
+            Roact.createElement(HoverArea, {Cursor = "PointingHand"}),
         }),
 
         LoadingIndicator = isFetchingAssets and Roact.createElement(LoadingIndicator, {
@@ -310,6 +337,9 @@ local function mapDispatchToProps(dispatch)
 	return {
         dispatchGetAssets = function(apiImpl, assetType, pageCursor, pageNumber)
             dispatch(GetAssets(apiImpl, assetType, pageCursor, pageNumber))
+        end,
+        dispatchLoadAllAliases = function(apiImpl, assetType)
+            dispatch(LoadAllAliases(apiImpl, assetType))
         end,
         dispatchOnAssetRightClick = function(apiImpl, assetData, localization, plugin)
             dispatch(OnAssetRightClick(apiImpl, assetData, localization, plugin))

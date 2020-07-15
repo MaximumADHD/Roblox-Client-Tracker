@@ -36,8 +36,8 @@ local function parseResponse(responseTable)
 end
 
 local function markRead(messageToDisplay)
-	-- The ScreenTime V2 markRead endpoint, https://apis.roblox.qq.com/heartbeat-session/v1/reportExecute
-	local apiPath = "/heartbeat-session/v1/reportExecute"
+	-- The ScreenTime V2 markRead endpoint, https://apis.roblox.qq.com/timed-entertainment-allowance/v1/reportExecute
+	local apiPath = "/timed-entertainment-allowance/v1/reportExecute"
 	local fullUrl = Url.APIS_URL .. apiPath
 	local nowLocal = os.date("*t", os.time())
 	-- Required time format 2020-06-04T04:44:09Z

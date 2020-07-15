@@ -8,10 +8,17 @@ local FFlagToolboxShowGroupCreations = game:GetFastFlag("ToolboxShowGroupCreatio
 local FFlagEnableOverrideAssetGroupCreationApi = game:GetFastFlag("EnableOverrideAssetGroupCreationApi")
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 local FFlagStudioFixGroupCreatorInfo = game:GetFastFlag("StudioFixGroupCreatorInfo")
+local FFlagStudioFixComparePageInfo2 = game:GetFastFlag("StudioFixComparePageInfo2")
 
 local Plugin = script.Parent.Parent.Parent
 local Networking = require(Plugin.Libs.Http.Networking)
-local Promise = require(Plugin.Libs.Http.Promise)
+local FFlagToolboxUseDevFrameworkPromise = game:GetFastFlag("ToolboxUseDevFrameworkPromise")
+local Promise
+if FFlagToolboxUseDevFrameworkPromise then
+	Promise = require(Plugin.Libs.Framework.Util.Promise)
+else
+	Promise = require(Plugin.Libs.Http.Promise)
+end
 
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 local PageInfoHelper = require(Plugin.Core.Util.PageInfoHelper)
@@ -68,22 +75,37 @@ function NetworkInterface:jsonEncode(data)
 end
 
 function NetworkInterface:getAssets(pageInfo)
-	local category = PageInfoHelper.getCategoryForPageInfo(pageInfo) or ""
-	local searchTerm = pageInfo.searchTerm or ""
-	local targetPage = pageInfo.targetPage or 1
-	local sortType = PageInfoHelper.getSortTypeForPageInfo(pageInfo) or ""
-	local categoryIsGroup
-	if FFlagUseCategoryNameInToolbox then
-		categoryIsGroup = Category.categoryIsGroupAsset(pageInfo.categoryName)
-	else
-		categoryIsGroup = Category.categoryIsGroupAsset(pageInfo.currentTab, pageInfo.categoryIndex)
-	end
-	local groupId = categoryIsGroup
-		and PageInfoHelper.getGroupIdForPageInfo(pageInfo)
-		or 0
-	local creatorId = pageInfo.creator and pageInfo.creator.Id or ""
+	local targetUrl
+	if FFlagStudioFixComparePageInfo2 then
+		local requestInfo = PageInfoHelper.getRequestInfo(pageInfo)
 
-	local targetUrl = Urls.constructGetAssetsUrl(category, searchTerm, Constants.GET_ITEMS_PAGE_SIZE, targetPage, sortType, groupId, creatorId)
+		targetUrl = Urls.constructGetAssetsUrl(
+			requestInfo.category,
+			requestInfo.searchTerm,
+			Constants.GET_ITEMS_PAGE_SIZE,
+			requestInfo.targetPage,
+			requestInfo.sortType,
+			requestInfo.groupId,
+			requestInfo.creatorId
+		)
+	else
+		local category = PageInfoHelper.getCategoryForPageInfo(pageInfo) or ""
+		local searchTerm = pageInfo.searchTerm or ""
+		local targetPage = pageInfo.targetPage or 1
+		local sortType = PageInfoHelper.getSortTypeForPageInfo(pageInfo) or ""
+		local categoryIsGroup
+		if FFlagUseCategoryNameInToolbox then
+			categoryIsGroup = Category.categoryIsGroupAsset(pageInfo.categoryName)
+		else
+			categoryIsGroup = Category.categoryIsGroupAsset(pageInfo.currentTab, pageInfo.categoryIndex)
+		end
+		local groupId = categoryIsGroup
+			and PageInfoHelper.getGroupIdForPageInfo(pageInfo)
+			or 0
+		local creatorId = pageInfo.creator and pageInfo.creator.Id or ""
+
+		targetUrl = Urls.constructGetAssetsUrl(category, searchTerm, Constants.GET_ITEMS_PAGE_SIZE, targetPage, sortType, groupId, creatorId)
+	end
 
 	return sendRequestAndRetry(function()
 		printUrl("getAssets", "GET", targetUrl)
@@ -126,25 +148,41 @@ end
 
 -- For now, only whitelistplugin uses this endpoint to fetch data.
 function NetworkInterface:getDevelopAsset(pageInfo)
-	local category = PageInfoHelper.getCategoryForPageInfo(pageInfo) or ""
-	local searchTerm = pageInfo.searchTerm or ""
-	local targetPage = pageInfo.targetPage or 1
-	local sortType = PageInfoHelper.getSortTypeForPageInfo(pageInfo) or ""
+	local targetUrl
+	if FFlagStudioFixComparePageInfo2 then
+		local requestInfo = PageInfoHelper.getRequestInfo(pageInfo)
 
-	local categoryIsGroup
-	if FFlagUseCategoryNameInToolbox then
-		categoryIsGroup = Category.categoryIsGroupAsset(pageInfo.categoryName)
+		targetUrl = Urls.getDevelopAssetUrl(
+			requestInfo.category,
+			requestInfo.searchTerm,
+			requestInfo.sortType,
+			requestInfo.creatorId,
+			Constants.GET_ITEMS_PAGE_SIZE,
+			requestInfo.targetPage,
+			requestInfo.groupId,
+			requestInfo.creatorType
+		)
 	else
-		categoryIsGroup = Category.categoryIsGroupAsset(pageInfo.currentTab, pageInfo.categoryIndex)
+		local category = PageInfoHelper.getCategoryForPageInfo(pageInfo) or ""
+		local searchTerm = pageInfo.searchTerm or ""
+		local targetPage = pageInfo.targetPage or 1
+		local sortType = PageInfoHelper.getSortTypeForPageInfo(pageInfo) or ""
+
+		local categoryIsGroup
+		if FFlagUseCategoryNameInToolbox then
+			categoryIsGroup = Category.categoryIsGroupAsset(pageInfo.categoryName)
+		else
+			categoryIsGroup = Category.categoryIsGroupAsset(pageInfo.currentTab, pageInfo.categoryIndex)
+		end
+		local groupId = categoryIsGroup
+			and PageInfoHelper.getGroupIdForPageInfo(pageInfo)
+			or 0
+
+		local creatorId = pageInfo.creator and pageInfo.creator.Id or ""
+		local creatorType = pageInfo.creator and pageInfo.creator.Type or 1
+
+		targetUrl = Urls.getDevelopAssetUrl(category, searchTerm, sortType, creatorId, Constants.GET_ITEMS_PAGE_SIZE, targetPage, groupId, creatorType)
 	end
-	local groupId = categoryIsGroup
-		and PageInfoHelper.getGroupIdForPageInfo(pageInfo)
-		or 0
-
-	local creatorId = pageInfo.creator and pageInfo.creator.Id or ""
-	local creatoryType = pageInfo.creator and pageInfo.creator.Type or 1
-
-	local targetUrl = Urls.getDevelopAssetUrl(category, searchTerm, sortType, creatorId, Constants.GET_ITEMS_PAGE_SIZE, targetPage, groupId, creatoryType)
 
 	return sendRequestAndRetry(function()
 		printUrl("getDevelopAsset", "GET", targetUrl)

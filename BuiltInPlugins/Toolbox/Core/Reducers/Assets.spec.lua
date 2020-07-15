@@ -49,6 +49,8 @@ return function()
 		it("should clear the correct fields", function()
 			local state = Assets(nil, {})
 
+			-- Neither networkInterfaceMock:resolveAssets nor generateFakeAssetsFromIds are yielding,
+			-- so we do not need to await this Promise.
 			networkInterfaceMock:resolveAssets(generateFakeAssetsFromIds({1, 2, 3}), 5):andThen(function(results)
 				state = Assets(state, GetAssets(results.responseBody))
 

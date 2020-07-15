@@ -265,6 +265,11 @@ local function createStyles(theme, getColor)
 
 			AssetGridContainer = {
 				CellPadding = UDim2.new(0, 4, 0, 6),
+				LoadButton = {
+					Offset = 125,
+					PaddingX = 75,
+					PaddingY = 15,
+				},
 			},
 
 			MainView = {

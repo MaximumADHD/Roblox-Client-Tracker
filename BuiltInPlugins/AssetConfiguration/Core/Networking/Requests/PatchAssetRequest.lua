@@ -10,7 +10,6 @@ local UploadResult = require(Actions.UploadResult)
 
 local TrySaveSalesAndThumbnailRequest = require(Plugin.Core.Networking.Requests.TrySaveSalesAndThumbnailRequest)
 
-local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 
 -- patchInfo is a table contains the following:
 --networkInterface
@@ -31,12 +30,8 @@ return function(patchInfo)
 		store:dispatch(SetCurrentScreen(AssetConfigConstants.SCREENS.UPLOADING_ASSET))
 
 		local function onPatchSuccess(result)
-			if FFlagEnablePurchasePluginFromLua2 then
-				patchInfo.assetType = store:getState().assetTypeEnum.Name
-				store:dispatch(TrySaveSalesAndThumbnailRequest(patchInfo))
-			else
-				store:dispatch(UploadResult(true))
-			end
+			patchInfo.assetType = store:getState().assetTypeEnum.Name
+			store:dispatch(TrySaveSalesAndThumbnailRequest(patchInfo))
 		end
 
 		local function onPatchFail(result)

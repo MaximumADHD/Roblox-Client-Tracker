@@ -65,7 +65,7 @@ function MemStorageEventView:init()
 
 	self.OnChange = function (source, textbox)
 		self.props.setMemStoragePair({
-			[source] = textbox.Text,
+			[source] = textbox,
 		})
 	end
 
@@ -84,7 +84,6 @@ function MemStorageEventView:init()
 
 		if route == ROUTES.GetValue then
 			local response = MemStorageEventRequest.GetValue(key)
-			print("Value:", response)
 		end
 		if route == ROUTES.SetValue then
 			local success = MemStorageEventRequest.SetValue(key, value)

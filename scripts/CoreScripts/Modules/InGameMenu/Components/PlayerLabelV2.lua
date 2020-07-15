@@ -13,6 +13,8 @@ local withStyle = UIBlox.Core.Style.withStyle
 
 local InGameMenu = script.Parent.Parent
 
+local FFlagLuaMenuPerfImprovements = require(InGameMenu.Flags.FFlagLuaMenuPerfImprovements)
+
 local ThemedTextLabel = require(InGameMenu.Components.ThemedTextLabel)
 
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
@@ -57,6 +59,14 @@ PlayerLabel.defaultProps = {
 	Visible = true,
 }
 
+if FFlagLuaMenuPerfImprovements then
+	function PlayerLabel:init()
+		self.onActivated = function()
+			self.props.onActivated(self.props.userId)
+		end
+	end
+end
+
 function PlayerLabel:renderButtons()
 	local children = self.props[Roact.Children] or {}
 	local buttons = Cryo.Dictionary.join(children, {
@@ -90,6 +100,11 @@ function PlayerLabel:render()
 			backgroundStyle = style.Theme.BackgroundOnHover
 		end
 
+		local activated = self.props.onActivated
+		if FFlagLuaMenuPerfImprovements then
+			activated = self.props.onActivated and self.onActivated or nil
+		end
+
 		return Roact.createElement("TextButton", {
 			BackgroundTransparency = backgroundStyle.Transparency,
 			BackgroundColor3 = backgroundStyle.Color,
@@ -100,7 +115,7 @@ function PlayerLabel:render()
 			Text = "",
 			AutoButtonColor = false,
 
-			[Roact.Event.Activated] = self.props.onActivated,
+			[Roact.Event.Activated] = activated,
 			[Roact.Change.AbsolutePosition] = self.props[Roact.Change.AbsolutePosition],
 			[Roact.Ref] = self.props[Roact.Ref],
 		}, {

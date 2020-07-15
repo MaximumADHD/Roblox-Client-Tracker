@@ -8,6 +8,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
+local RoactRodux = InGameMenuDependencies.RoactRodux
 
 local ViewportOverlay = require(script.Parent.ViewportOverlay)
 local SideNavigation = require(script.Parent.SideNavigation)
@@ -21,20 +22,42 @@ local Connection = require(script.Parent.Connection)
 local EducationalPopup = require(script.Parent.EducationalPopup)
 
 local GetFFlagEducationalPopupOnNativeClose = require(RobloxGui.Modules.Flags.GetFFlagEducationalPopupOnNativeClose)
+local FFlagLuaMenuPerfImprovements = require(script.Parent.Parent.Flags.FFlagLuaMenuPerfImprovements)
 
 local function App(props)
-	return Roact.createFragment({
-		Overlay = Roact.createElement(ViewportOverlay),
-		SideNavigation = Roact.createElement(SideNavigation),
-		LeaveGameDialog = Roact.createElement(LeaveGameDialog),
-		PageContainer = Roact.createElement(PageContainer),
-		RespawnDialog = Roact.createElement(RespawnDialog),
-		ReportDialog = Roact.createElement(ReportDialog),
-		ReportSentDialog = Roact.createElement(ReportSentDialog),
-		ControlLayoutSetter = Roact.createElement(ControlLayoutSetter),
-		Connection = Roact.createElement(Connection),
-		EducationalPopup = GetFFlagEducationalPopupOnNativeClose() and Roact.createElement(EducationalPopup) or nil,
-	})
+	if FFlagLuaMenuPerfImprovements then
+		return Roact.createFragment({
+			Content = props.visible and Roact.createFragment({
+				Overlay = Roact.createElement(ViewportOverlay),
+				SideNavigation = Roact.createElement(SideNavigation),
+				LeaveGameDialog = Roact.createElement(LeaveGameDialog),
+				PageContainer = Roact.createElement(PageContainer),
+				RespawnDialog = Roact.createElement(RespawnDialog),
+				ReportDialog = Roact.createElement(ReportDialog),
+				ReportSentDialog = Roact.createElement(ReportSentDialog),
+				ControlLayoutSetter = Roact.createElement(ControlLayoutSetter),
+				EducationalPopup = GetFFlagEducationalPopupOnNativeClose() and Roact.createElement(EducationalPopup) or nil,
+			}) or nil,
+			Connection = Roact.createElement(Connection),
+		})
+	else
+		return Roact.createFragment({
+			Overlay = Roact.createElement(ViewportOverlay),
+			SideNavigation = Roact.createElement(SideNavigation),
+			LeaveGameDialog = Roact.createElement(LeaveGameDialog),
+			PageContainer = Roact.createElement(PageContainer),
+			RespawnDialog = Roact.createElement(RespawnDialog),
+			ReportDialog = Roact.createElement(ReportDialog),
+			ReportSentDialog = Roact.createElement(ReportSentDialog),
+			ControlLayoutSetter = Roact.createElement(ControlLayoutSetter),
+			Connection = Roact.createElement(Connection),
+			EducationalPopup = GetFFlagEducationalPopupOnNativeClose() and Roact.createElement(EducationalPopup) or nil,
+		})
+	end
 end
 
-return App
+local function mapStateToProps(state, props)
+	return { visible = state.isMenuOpen }
+end
+
+return RoactRodux.connect(mapStateToProps, nil)(App)

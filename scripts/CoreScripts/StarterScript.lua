@@ -23,7 +23,6 @@ local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabledV38
 local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList3")
 
 local FFlagConnectErrorHandlerInLoadingScript = require(RobloxGui.Modules.Flags.FFlagConnectErrorHandlerInLoadingScript)
-local isNewTopBarEnabled = require(RobloxGui.Modules.TopBar.isNewTopBarEnabled)
 
 local isNewGamepadMenuEnabled = require(RobloxGui.Modules.Flags.isNewGamepadMenuEnabled)
 
@@ -77,12 +76,8 @@ if not FFlagConnectErrorHandlerInLoadingScript then
 end
 
 -- TopBar
-if isNewTopBarEnabled() then
-	initify(CoreGuiModules.TopBar)
-	coroutine.wrap(safeRequire)(CoreGuiModules.TopBar)
-else
-	ScriptContext:AddCoreScriptLocal("CoreScripts/Topbar", RobloxGui)
-end
+initify(CoreGuiModules.TopBar)
+coroutine.wrap(safeRequire)(CoreGuiModules.TopBar)
 
 -- MainBotChatScript (the Lua part of Dialogs)
 ScriptContext:AddCoreScriptLocal("CoreScripts/MainBotChatScript2", RobloxGui)

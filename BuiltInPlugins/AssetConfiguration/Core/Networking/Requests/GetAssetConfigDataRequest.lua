@@ -3,13 +3,11 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local HttpService = game:GetService("HttpService")
 
 local Actions = Plugin.Core.Actions
-local SetAssetConfigData = require(Actions.SetAssetConfigData)
 local firstToUpper = require(Plugin.Core.Util.firstToUpper)
 local NetworkError = require(Actions.NetworkError)
 local ConfigTypes = require(Plugin.Core.Types.ConfigTypes)
 local UpdateAssetConfigData = require(Actions.UpdateAssetConfigData)
 
-local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
 local FFlagShowAssetConfigReasons2 = game:GetFastFlag("ShowAssetConfigReasons2")
 local FFlagAssetConfigUseItemConfig = game:GetFastFlag("AssetConfigUseItemConfig")
 
@@ -32,11 +30,7 @@ return function(networkInterface, assetId)
 					newAssetConfigData[firstToUpper(key)] = value
 				end
 
-				if FFlagEnablePurchasePluginFromLua2 then
-					store:dispatch(UpdateAssetConfigData(newAssetConfigData))
-				else
-					store:dispatch(SetAssetConfigData(newAssetConfigData))
-				end
+				store:dispatch(UpdateAssetConfigData(newAssetConfigData))
 			end,
 			function(err)
 				if FFlagShowAssetConfigReasons2 then

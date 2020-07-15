@@ -1,5 +1,3 @@
-local FFlagEnablePurchasePluginFromLua2 = settings():GetFFlag("EnablePurchasePluginFromLua2")
-
 local Plugin = script.Parent.Parent.Parent
 
 local Util = Plugin.Core.Util
@@ -82,22 +80,15 @@ function ConfigTypes:getAssetconfigContent(screenFlowType, assetTypeEnum, isMark
 		end
 	end
 
-	if FFlagEnablePurchasePluginFromLua2 then
-		-- Non-whitelisted users will also have access to sales tab.
-		if not FFlagEnableNonWhitelistedToggle then
-			if isMarketBuyAndNonWhiteList then return result end
-		end
-		if owner and owner.typeId == ConfigTypes.OWNER_TYPES.Group then return result end
-		if ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_SALES_TAB) then
-			result[#result + 1] = SALES
-		end
-		return result
-	else
-		if ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_SALES_TAB) then
-			result[#result + 1] = SALES
-		end
-		return result
+	-- Non-whitelisted users will also have access to sales tab.
+	if not FFlagEnableNonWhitelistedToggle then
+		if isMarketBuyAndNonWhiteList then return result end
 	end
+	if owner and owner.typeId == ConfigTypes.OWNER_TYPES.Group then return result end
+	if ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_SALES_TAB) then
+		result[#result + 1] = SALES
+	end
+	return result
 end
 
 function ConfigTypes:isGeneral(item)
