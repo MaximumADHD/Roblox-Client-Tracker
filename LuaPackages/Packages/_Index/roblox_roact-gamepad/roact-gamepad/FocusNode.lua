@@ -5,17 +5,20 @@ local Packages = script.Parent.Parent
 local Roact = require(Packages.Roact)
 local Cryo = require(Packages.Cryo)
 
-local FocusManager = require(script.Parent.FocusManager)
+local InternalApi = require(script.Parent.FocusControllerInternalApi)
 
 local FocusNode = {}
 FocusNode.__index = FocusNode
 
 function FocusNode.new(navProps)
-	local focusManager
+	local focusController
 	if navProps.parentFocusNode ~= nil then
-		focusManager = navProps.parentFocusNode.focusManager
+		focusController = navProps.parentFocusNode.focusController
+	elseif navProps.focusController ~= nil then
+		focusController = navProps.focusController
 	else
-		focusManager = FocusManager.new()
+		-- FIXME: do we ever even hit this?
+		error("Cannot create node without focus manager")
 	end
 
 	local restorePreviousChildFocus = false
@@ -24,7 +27,7 @@ function FocusNode.new(navProps)
 	end
 
 	local self = setmetatable({
-		focusManager = focusManager,
+		focusController = focusController,
 		ref = navProps[Roact.Ref],
 
 		defaultChildRef = navProps.defaultChild,
@@ -42,27 +45,44 @@ function FocusNode.new(navProps)
 	return self
 end
 
+function FocusNode:__getFocusControllerInternal()
+	return self.focusController[InternalApi]
+end
+
 function FocusNode:__findDefaultChildNode()
 	local lowestLayoutOrder = math.huge
 	local lowestLayoutOrderChild = nil
 
-	local children = self.focusManager:getChildren(self)
+	local focusController = self:__getFocusControllerInternal()
+	local children = focusController:getChildren(self)
 	local groupHostObject = self.ref:getValue()
 
+	-- Iterate through all children of this node, looking for a LayoutOrder
+	-- associated with each node. Picking the lowest LayoutOrder is a good
+	-- approximation of selecting the "first" child of a given container if the
+	-- case that we don't have a default or a previous value to restore
 	for ref, child in pairs(children) do
 		local hostObject = ref:getValue()
 
 		-- For each child node, determine whether it or any of its ancestors (up
 		-- to the group) has the LayoutOrder property defined
 		while hostObject ~= groupHostObject and hostObject ~= nil do
-			local layoutOrder = hostObject.LayoutOrder
+			if hostObject:isA("GuiObject") then
+				local layoutOrder = hostObject.LayoutOrder
 
-			-- LayoutOrder == 0 is the default value; in most cases, this
-			-- implies that it wasn't explicitly set, so we should ignore it
-			if layoutOrder ~= 0 and layoutOrder < lowestLayoutOrder then
-				lowestLayoutOrder = layoutOrder
-				lowestLayoutOrderChild = child
-				break
+				-- LayoutOrder == 0 is the default value; in most cases, this
+				-- implies that it wasn't explicitly set, so we should ignore it
+				if layoutOrder ~= 0 then
+					if layoutOrder < lowestLayoutOrder then
+						lowestLayoutOrder = layoutOrder
+						lowestLayoutOrderChild = child
+					end
+
+					-- Once we've found a layout order to associate with the
+					-- Focusable, we break out and move on to the next child
+					break
+				end
+
 			end
 
 			hostObject = hostObject.Parent
@@ -88,14 +108,15 @@ function FocusNode:getInputBinding(key)
 end
 
 function FocusNode:focus()
-	local children = self.focusManager:getChildren(self)
+	local focusController = self:__getFocusControllerInternal()
+	local children = focusController:getChildren(self)
 	if Cryo.isEmpty(children) then
-		self.focusManager:setSelection(self.ref:getValue())
+		focusController:setSelection(self.ref:getValue())
 	else
 		if self.restorePreviousChildFocus and self.lastFocused ~= nil then
-			self.focusManager:moveFocusTo(self.lastFocused)
+			focusController:moveFocusTo(self.lastFocused)
 		elseif self.defaultChildRef ~= nil then
-			self.focusManager:moveFocusTo(self.defaultChildRef)
+			focusController:moveFocusTo(self.defaultChildRef)
 		else
 			local defaultChild = self:__findDefaultChildNode()
 			if defaultChild ~= nil then
@@ -106,12 +127,13 @@ function FocusNode:focus()
 end
 
 function FocusNode:attachToTree(parent, onFocusChanged)
-	self.focusManager:registerNode(parent, self.ref, self)
+	local focusController = self:__getFocusControllerInternal()
+	focusController:registerNode(parent, self.ref, self)
 
 	self.parent = parent
-	self.disconnectSelectionListener = self.focusManager:subscribeToSelectionChange(function()
+	self.disconnectSelectionListener = focusController:subscribeToSelectionChange(function()
 		-- Perform focus management operations set up by the FocusNode's owner
-		local focused = self.focusManager:isNodeFocused(self)
+		local focused = focusController:isNodeFocused(self)
 		onFocusChanged(focused)
 
 		if self.parent ~= nil and focused then
@@ -120,27 +142,38 @@ function FocusNode:attachToTree(parent, onFocusChanged)
 
 		-- Keep track of the last focused ref so that we can provide it to
 		-- self.props.selectionRule whenever we regain focus
-		local children = self.focusManager:getChildren(self)
+		local children = focusController:getChildren(self)
 		if not Cryo.isEmpty(children) and focused then
 			-- For the special-case scenario in which the ref for our group
 			-- gained selection, we follow any established rules to find the
 			-- correct member of the group to bounce selection to, managed in
-			-- the `focus` callback on self.focusManager
-			if self.focusManager:getSelection() == self.ref:getValue() then
+			-- the `focus` callback on focusController
+			if focusController:getSelection() == self.ref:getValue() then
 				self:focus()
 			end
 		end
 	end)
 end
 
-function FocusNode:detachFromTree(parent)
-	self.focusManager:deregisterNode(parent, self.ref)
+function FocusNode:detachFromTree()
+	local focusController = self:__getFocusControllerInternal()
+	focusController:deregisterNode(self.parent, self.ref)
 	self.parent = nil
 
 	if self.disconnectSelectionListener ~= nil then
 		self.disconnectSelectionListener()
 		self.disconnectSelectionListener = nil
 	end
+end
+
+function FocusNode:initializeRoot(engineInterface)
+	local focusController = self:__getFocusControllerInternal()
+	focusController:initialize(engineInterface)
+end
+
+function FocusNode:teardownRoot(engineInterface)
+	local focusController = self:__getFocusControllerInternal()
+	focusController:teardown()
 end
 
 return FocusNode

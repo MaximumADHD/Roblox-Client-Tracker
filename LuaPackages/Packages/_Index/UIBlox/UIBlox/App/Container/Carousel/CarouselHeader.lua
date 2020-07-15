@@ -10,7 +10,8 @@ local withStyle = require(UIBlox.Style.withStyle)
 
 local GetTextSize = require(UIBlox.Core.Text.GetTextSize)
 
-local IconSize = require(App.Constant.IconSize)
+local IconSize = require(App.ImageSet.Enum.IconSize)
+local getIconSize = require(App.ImageSet.getIconSize)
 local Images = require(App.ImageSet.Images)
 
 local Core = UIBlox.Core
@@ -57,7 +58,8 @@ function CarouselHeader:render()
 		local textFont = fontStyle.Font
 
 		local textboxBounds = GetTextSize(headerText, fontSize, textFont, Vector2.new(MAX_BOUND, MAX_BOUND))
-		local textboxSize = UDim2.fromOffset(textboxBounds.X + TEXT_ICON_PADDING + IconSize.Small, textboxBounds.Y)
+		local textboxSize = UDim2.fromOffset(textboxBounds.X + TEXT_ICON_PADDING + getIconSize(IconSize.Small),
+		 textboxBounds.Y)
 
 		return Roact.createElement("Frame", {
 			Size = UDim2.new(1, 0, 0, textboxBounds.Y),
@@ -89,7 +91,7 @@ function CarouselHeader:render()
 					colorStyle = style.Theme.TextEmphasis,
 				}),
 				SeeAllArrow = onSeeAll and Roact.createElement(ImageSetComponent.Label, {
-					Size = UDim2.fromOffset(IconSize.Small, IconSize.Small),
+					Size = UDim2.fromOffset(getIconSize(IconSize.Small), getIconSize(IconSize.Small)),
 					BackgroundTransparency = 1,
 					Image = SEE_ALL_ARROW,
 					ImageColor3 = style.Theme.TextEmphasis.Color,

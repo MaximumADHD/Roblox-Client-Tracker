@@ -47,6 +47,10 @@ local function initializeLibrary()
 	UIBlox.App = strict({
 		ImageSet = strict({
 			Images = require(script.App.ImageSet.Images),
+			getIconSize = require(script.App.ImageSet.getIconSize),
+			Enum = strict({
+				IconSize = require(script.App.ImageSet.Enum.IconSize)
+			}),
 		}),
 
 		Accordion = strict({
@@ -94,6 +98,7 @@ local function initializeLibrary()
 				FreeFlowCarousel = require(script.App.Container.Carousel.FreeFlowCarousel)
 			}),
 			VerticalScrollView = require(script.App.Container.VerticalScrollView),
+			getPageMargin = require(script.App.Container.getPageMargin),
 		}),
 
 		Slider = strict({
@@ -144,6 +149,7 @@ local function initializeLibrary()
 		}),
 
 		Constant = strict({
+			-- DEPRECATED: use App.ImageSet.getIconSize to get the size
 			IconSize = require(script.App.Constant.IconSize),
 		}),
 

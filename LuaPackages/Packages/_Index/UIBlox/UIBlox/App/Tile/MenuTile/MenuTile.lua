@@ -12,7 +12,8 @@ local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 
 local Badge = require(App.Indicator.Badge)
-local IconSize = require(App.Constant.IconSize)
+local IconSize = require(App.ImageSet.Enum.IconSize)
+local getIconSize = require(App.ImageSet.getIconSize)
 local Images = require(App.ImageSet.Images)
 
 local ControlState = require(Core.Control.Enum.ControlState)
@@ -191,7 +192,7 @@ function MenuTile:render()
 							ImageColor3 = iconStyle.Color,
 							ImageTransparency = iconTransparency,
 							LayoutOrder = LAYOUT_ORDER.ICON,
-							Size = UDim2.fromOffset(IconSize.Large, IconSize.Large),
+							Size = UDim2.fromOffset(getIconSize(IconSize.Large), getIconSize(IconSize.Large)),
 						}),
 						-- GenericText, does not limit to 2 lines
 						Title = title and Roact.createElement("TextLabel", {

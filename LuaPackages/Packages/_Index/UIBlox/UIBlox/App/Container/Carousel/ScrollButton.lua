@@ -9,7 +9,8 @@ local t = require(Packages.t)
 local withStyle = require(UIBlox.Style.withStyle)
 
 local Core = UIBlox.Core
-local IconSize = require(App.Constant.IconSize)
+local getIconSize = require(App.ImageSet.getIconSize)
+local IconSize = require(App.ImageSet.Enum.IconSize)
 local Interactable = require(Core.Control.Interactable)
 local ImageSetComponent = require(Core.ImageSet.ImageSetComponent)
 
@@ -36,7 +37,7 @@ function ScrollButton:render()
 			onStateChanged = function()end,
 		}, {
 			Icon = Roact.createElement(ImageSetComponent.Label, {
-				Size = UDim2.fromOffset(IconSize.Regular, IconSize.Regular),
+				Size = UDim2.fromOffset(getIconSize(IconSize.Medium), getIconSize(IconSize.Medium)),
 				Position = UDim2.fromScale(0.5, 0.5),
 				AnchorPoint = Vector2.new(0.5, 0.5),
 				BackgroundTransparency = 1,

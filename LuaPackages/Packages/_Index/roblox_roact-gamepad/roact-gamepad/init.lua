@@ -6,6 +6,7 @@ local api = {
 	Focusable = createFocusableCache(),
 
 	withFocusController = require(script.withFocusController),
+	createFocusController = require(script.FocusController).createPublicApiWrapper,
 }
 
 return api

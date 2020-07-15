@@ -1,4 +1,4 @@
---!strict
+--!nonstrict
 -- Manages groups of selectable elements, reacting to selection changes for
 -- individual items and triggering events for group selection changes
 local Packages = script.Parent.Parent
@@ -13,20 +13,28 @@ local getEngineInterface = require(script.Parent.getEngineInterface)
 
 local nonHostProps = {
 	parentFocusNode = Cryo.None,
-	canBeRoot = Cryo.None,
+	focusController = Cryo.None,
 
 	onFocusGained = Cryo.None,
 	onFocusLost = Cryo.None,
 	onFocusChanged = Cryo.None,
-	
+
 	restorePreviousChildFocus = Cryo.None,
 	defaultChild = Cryo.None,
 	inputBindings = Cryo.None,
 }
 
-local focusableValidateProps = t.interface({
+local function checkFocusManager(props)
+	if props.focusController ~= nil and props.parentFocusNode ~= nil then
+		return false, "Cannot attach a new focusController beneath an existing one"
+	end
+
+	return true
+end
+
+local focusableValidateProps = t.intersection(t.interface({
 	parentFocusNode = t.optional(t.table),
-	canBeRoot = t.boolean,
+	focusController = t.optional(t.table),
 	[Roact.Ref] = t.table,
 
 	restorePreviousChildFocus = t.boolean,
@@ -36,10 +44,9 @@ local focusableValidateProps = t.interface({
 	onFocusGained = t.optional(t.callback),
 	onFocusLost = t.optional(t.callback),
 	onFocusChanged = t.optional(t.callback),
-})
+}), checkFocusManager)
 
 local focusableDefaultProps = {
-	canBeRoot = false,
 	restorePreviousChildFocus = false,
 
 	inputBindings = {},
@@ -51,7 +58,7 @@ local focusableDefaultProps = {
 	navigational props to any children that are also selectable.
 ]]
 local function asFocusable(innerComponent)
-	local componentName = ("Gamepad.Focusable(%s)"):format(tostring(innerComponent))
+	local componentName = ("Focusable(%s)"):format(tostring(innerComponent))
 
 	-- Selection container component; groups together children and reacts to changes
 	-- in GuiService.SelectedObject
@@ -72,9 +79,7 @@ local function asFocusable(innerComponent)
 		self.rootAncestryChanged = function(instance)
 			if not isRooted and instance:IsDescendantOf(game) then
 				isRooted = true
-				local focusManager = self.focusNode.focusManager
-				focusManager:initialize(getEngineInterface(instance))
-				self.focusNode:focus()
+				self.focusNode:initializeRoot(getEngineInterface(instance))
 			end
 		end
 	end
@@ -104,10 +109,10 @@ local function asFocusable(innerComponent)
 	end
 
 	-- For internal use. Determines whether or not this Focusable is supposed to
-	-- be the root of a focusable tree, determined by the `canBeRoot` prop as
-	-- well as whether or not it already has a parent node via context
+	-- be the root of a focusable tree, determined by whether or not it has
+	-- parent or focus props provided
 	function Focusable:isRoot()
-		return self.props.canBeRoot and self.props.parentFocusNode == nil
+		return self.props.focusController ~= nil and self.props.parentFocusNode == nil
 	end
 
 	function Focusable:render()
@@ -152,7 +157,7 @@ local function asFocusable(innerComponent)
 		return Roact.createElement(FocusContext.Provider, {
 			value = self.focusNode,
 		}, {
-			Focusable = Roact.createElement(innerComponent, innerProps)
+			[componentName] = Roact.createElement(innerComponent, innerProps)
 		})
 	end
 
@@ -178,13 +183,17 @@ local function asFocusable(innerComponent)
 	end
 
 	function Focusable:willUnmount()
-		self.focusNode:detachFromTree(self.props.parentFocusNode)
+		self.focusNode:detachFromTree()
+
+		if self:isRoot() then
+			self.focusNode:teardownRoot()
+		end
 	end
 
 	return forwardRef(function(props, ref)
 		return Roact.createElement(FocusContext.Consumer, {
 			render = function(parentFocusNode)
-				if parentFocusNode == nil and not props.canBeRoot then
+				if parentFocusNode == nil and props.focusController == nil then
 					-- If this component can't be the root, and there's no
 					-- parent, behave like the underlying component and ignore
 					-- all focus logic

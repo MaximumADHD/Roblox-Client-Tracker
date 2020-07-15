@@ -16,9 +16,11 @@ local GenericTextLabel = require(UIBlox.Core.Text.GenericTextLabel.GenericTextLa
 local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local expandableTextAutomaticResizeConfig = UIBloxConfig.expandableTextAutomaticResizeConfig
 
-local PADDING_TOP = 30
+local DEFAULT_PADDING_TOP = 30
+local PADDING_TOP = DEFAULT_PADDING_TOP
 local SPACING_Y = 10
-local PADDING_BOTTOM = 5
+local DEFAULT_PADDING_BOTTOM = 5
+local PADDING_BOTTOM = DEFAULT_PADDING_BOTTOM
 local DOWN_ARROW_SIZE = UDim2.new(0, 36, 0, 36)
 local PRESSABLE_AREA_SIZE = UDim2.new(1, 0, 0, 36)
 local GRADIENT_HEIGHT = 30
@@ -52,6 +54,8 @@ local validateProps = t.strictInterface({
 	compactNumberOfLines = t.optional(t.number),
 	LayoutOrder = t.optional(t.number),
 	width = expandableTextAutomaticResizeConfig and t.optional(t.UDim) or t.UDim,
+	padding = t.optional(t.Vector2),
+	onClick = t.optional(t.callback)
 })
 
 function ExpandableTextArea:init()
@@ -66,6 +70,9 @@ function ExpandableTextArea:init()
 				isExpanded = not state.isExpanded
 			}
 		end)
+		if self.props.onClick then
+			self.props.onClick(self.state.isExpanded)
+		end
 	end
 
 	self.ref = Roact.createRef()
@@ -109,6 +116,10 @@ function ExpandableTextArea:render()
 	local compactNumberOfLines = self.props.compactNumberOfLines
 	local layoutOrder = self.props.LayoutOrder
 	local width = self.props.width
+	local padding = self.props.padding
+
+	PADDING_TOP = padding and padding.Y or DEFAULT_PADDING_TOP
+	PADDING_BOTTOM = padding and padding.X or DEFAULT_PADDING_BOTTOM
 
 	return withStyle(function(stylePalette)
 		local theme = stylePalette.Theme
@@ -120,7 +131,6 @@ function ExpandableTextArea:render()
 		local compactHeight = compactNumberOfLines * textSize + PATCHED_PADDING
 		local compactSize = UDim2.new(1, 0, 0, compactHeight + PADDING_BOTTOM)
 		local fullSize = UDim2.new(1, 0, 0, fullTextHeight + PADDING_BOTTOM)
-
 		local canExpand = fullTextHeight > compactHeight
 		local isExpanded = not canExpand or self.state.isExpanded
 
@@ -220,7 +230,7 @@ function ExpandableTextArea:render()
 			ButtonContainer = canExpand and Roact.createElement("Frame", {
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
-				Size = UDim2.new(1, 0, 0, 30),
+				Size = UDim2.new(1, 0, 0, 10),
 				LayoutOrder = 1,
 			}, {
 				PressableButton = Roact.createElement("TextButton", {

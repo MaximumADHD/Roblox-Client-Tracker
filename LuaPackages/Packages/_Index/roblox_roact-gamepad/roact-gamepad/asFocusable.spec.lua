@@ -1,5 +1,5 @@
 return function()
-	local Players = game:getService("Players")
+	local Players = game:GetService("Players")
 
 	local Packages = script.Parent.Parent
 	local Roact = require(Packages.Roact)
@@ -7,11 +7,14 @@ return function()
 	local asFocusable = require(script.Parent.asFocusable)
 	local FocusContext = require(script.Parent.FocusContext)
 	local FocusNode = require(script.Parent.FocusNode)
+	local FocusController = require(script.Parent.FocusController)
+	local InternalApi = require(script.Parent.FocusControllerInternalApi)
 	local MockEngine = require(script.Parent.Test.MockEngine)
 	local createSpy = require(script.Parent.Test.createSpy)
 
 	local function createRootNode(ref)
 		local node = FocusNode.new({
+			focusController = FocusController.createPublicApiWrapper(),
 			[Roact.Ref] = ref,
 		})
 
@@ -24,13 +27,12 @@ return function()
 		local rootRef, _ = Roact.createBinding(Instance.new("Frame"))
 		local focusNode = createRootNode(rootRef)
 		local mockEngine, engineInterface = MockEngine.new()
-		local focusManager = focusNode.focusManager
-		focusManager:initialize(engineInterface)
+		focusNode:initializeRoot(engineInterface)
 
 		return {
 			rootRef = rootRef,
 			rootFocusNode = focusNode,
-			focusManager = focusNode.focusManager,
+			focusController = focusNode.focusController[InternalApi],
 
 			mockEngine = mockEngine,
 			engineInterface = engineInterface,
@@ -55,12 +57,12 @@ return function()
 				}),
 			}))
 
-			local focusManager = testContainer.focusManager
+			local focusController = testContainer.focusController
 
 			expect(injectedRef:getValue()).to.be.ok()
-			expect(focusManager.allNodes[injectedRef]).to.be.ok()
-	
-			local children = focusManager:getChildren(testContainer.rootFocusNode)
+			expect(focusController.allNodes[injectedRef]).to.be.ok()
+
+			local children = focusController:getChildren(testContainer.rootFocusNode)
 			expect(children[injectedRef]).to.be.ok()
 
 			Roact.unmount(tree)
@@ -82,12 +84,12 @@ return function()
 			-- unmount it from the tree
 			Roact.update(tree, Roact.createElement(testContainer.FocusProvider))
 
-			local focusManager = testContainer.focusManager
+			local focusController = testContainer.focusController
 
 			expect(injectedRef:getValue()).to.equal(nil)
-			expect(focusManager.allNodes[injectedRef]).to.equal(nil)
+			expect(focusController.allNodes[injectedRef]).to.equal(nil)
 
-			local children = focusManager:getChildren(testContainer.rootFocusNode)
+			local children = focusController:getChildren(testContainer.rootFocusNode)
 			expect(children[injectedRef]).to.equal(nil)
 
 			Roact.unmount(tree)
@@ -114,15 +116,15 @@ return function()
 				FocusChildB = Roact.createElement(FocusableFrame, {
 					[Roact.Ref] = injectedRefB,
 				})
-			}))
+			}), testContainer.rootRef:getValue())
 
-			testContainer.focusManager:moveFocusTo(injectedRefA)
+			testContainer.focusController:moveFocusTo(injectedRefA)
 
 			expect(focusGainedSpy.callCount).to.equal(1)
 			expect(focusChangedSpy.callCount).to.equal(1)
 			focusChangedSpy:assertCalledWith(true)
 
-			testContainer.focusManager:moveFocusTo(injectedRefB)
+			testContainer.focusController:moveFocusTo(injectedRefB)
 
 			expect(focusLostSpy.callCount).to.equal(1)
 			expect(focusChangedSpy.callCount).to.equal(2)
@@ -133,38 +135,38 @@ return function()
 	end)
 
 	describe("Root vs non-root Focusable", function()
-		it("should capture focus on mount if canBeRoot is true (and no root is above it)", function()
+		it("should ignore focusable logic if no parent or controller is provided", function()
 			local FocusableFrame = asFocusable("Frame")
 			local focusGainedSpy = createSpy()
 
-			local injectedRef = Roact.createRef()
 			local tree = Roact.mount(Roact.createElement(FocusableFrame, {
-				[Roact.Ref] = injectedRef,
-
 				onFocusGained = focusGainedSpy.value,
-				canBeRoot = true,
-			}), Players.LocalPlayer.PlayerGui, "Test")
-
-			expect(focusGainedSpy.callCount).to.equal(1)
-
-			Roact.unmount(tree)
-		end)
-
-		it("should ignore focusable logic if canBeRoot is false (and no root is above it)", function()
-			local FocusableFrame = asFocusable("Frame")
-			local focusGainedSpy = createSpy()
-
-			local injectedRef = Roact.createRef()
-			local tree = Roact.mount(Roact.createElement(FocusableFrame, {
-				[Roact.Ref] = injectedRef,
-
-				onFocusGained = focusGainedSpy.value,
-				canBeRoot = false,
 			}))
 
 			expect(focusGainedSpy.callCount).to.equal(0)
 
 			Roact.unmount(tree)
+		end)
+
+		it("should initialize and teardown focusController when it's the root", function()
+			local FocusableFrame = asFocusable("Frame")
+
+			-- This test is testing the automatic initialization of the internal
+			-- focusController based on the instance tree it's attached to. To
+			-- do this, we depend on the using a PlayerGui instance to avoid
+			-- simulate the real-world use case instead of the mock engine
+			expect(Players.LocalPlayer.PlayerGui).to.be.ok()
+
+			local focusController = FocusController.createPublicApiWrapper()
+			local tree = Roact.mount(Roact.createElement(FocusableFrame, {
+				focusController = focusController,
+			}), Players.LocalPlayer.PlayerGui)
+
+			expect(focusController[InternalApi].engineInterface).never.to.equal(nil)
+
+			Roact.unmount(tree)
+
+			expect(focusController[InternalApi].engineInterface).to.equal(nil)
 		end)
 	end)
 end

@@ -11,9 +11,9 @@ local FocusControllerConsumer = Roact.Component:extend("FocusControllerConsumer"
 function FocusControllerConsumer(props)
 	return Roact.createElement(FocusContext.Consumer, {
 		render = function(parentFocusNode)
-			local focusManager = parentFocusNode.focusManager
+			local focusController = parentFocusNode.focusController
 
-			return props.render(focusManager:getController())
+			return props.render(focusController)
 		end,
 	})
 end

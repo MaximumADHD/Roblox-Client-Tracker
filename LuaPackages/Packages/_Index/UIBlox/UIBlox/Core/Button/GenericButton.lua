@@ -17,7 +17,8 @@ local ControlState = require(Core.Control.Enum.ControlState)
 local withStyle = require(UIBlox.Core.Style.withStyle)
 local ImageSetComponent = require(Core.ImageSet.ImageSetComponent)
 local ShimmerPanel = require(UIBlox.App.Loading.ShimmerPanel)
-local IconSize = require(UIBlox.App.Constant.IconSize)
+local IconSize = require(UIBlox.App.ImageSet.Enum.IconSize)
+local getIconSize = require(UIBlox.App.ImageSet.getIconSize)
 local GenericTextLabel = require(Core.Text.GenericTextLabel.GenericTextLabel)
 
 local validateImage = require(Core.ImageSet.Validator.validateImage)
@@ -180,7 +181,7 @@ function GenericButton:render()
 					Padding = UDim.new(0, CONTENT_PADDING),
 				}),
 				Icon = icon and Roact.createElement(ImageSetComponent.Label, {
-					Size = UDim2.new(0, IconSize.Regular, 0, IconSize.Regular),
+					Size = UDim2.new(0, getIconSize(IconSize.Medium), 0, getIconSize(IconSize.Medium)),
 					BackgroundTransparency = 1,
 					Image = icon,
 					ImageColor3 = iconStyle.Color,

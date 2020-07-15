@@ -13,7 +13,8 @@ local ImageSetLabel = require(UIBlox.Core.ImageSet.ImageSetComponent).Label
 local GenericTextLabel = require(UIBlox.Core.Text.GenericTextLabel.GenericTextLabel)
 local withStyle = require(UIBlox.Core.Style.withStyle)
 local ButtonType = require(UIBlox.App.Button.Enum.ButtonType)
-local IconSize = require(AppRoot.Constant.IconSize)
+local getIconSize = require(AppRoot.ImageSet.getIconSize)
+local IconSize = require(AppRoot.ImageSet.Enum.IconSize)
 
 local PartialPageModal = require(ModalRoot.PartialPageModal)
 
@@ -83,7 +84,7 @@ local function ContentItem(props)
 				}),
 			}) or Roact.createElement(ImageSetLabel, {
 				Image = props.icon,
-				Size = UDim2.fromOffset(IconSize.Regular, IconSize.Regular),
+				Size = UDim2.fromOffset(getIconSize(IconSize.Medium), getIconSize(IconSize.Medium)),
 				ImageColor3 = theme.IconDefault.Color,
 				ImageTransparency = theme.IconDefault.Transparency,
 				BackgroundTransparency = 1,
