@@ -9,7 +9,6 @@ Rectangle {
 
     id: archivedGamesPage
     objectName: "archivedGamesPage"
-    anchors.fill: parent
     color: userPreferences.theme.style("StartPage Page background")
 
 	signal sortOptionChanged(int index, string currentTabElementId)

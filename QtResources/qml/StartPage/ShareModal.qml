@@ -372,7 +372,6 @@ Item {
 
                 ListView {
                     objectName: "ShareModalActionListView"
-                    anchors.fill: parent
                     anchors.topMargin: bodyMargin
                     anchors.bottomMargin: bodyMargin
                     interactive: false
@@ -482,7 +481,6 @@ Item {
                 }
 
                 Item {
-                    anchors.fill: parent
 
                     Item {
                         id: gameDetails

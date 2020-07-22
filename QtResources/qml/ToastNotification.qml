@@ -14,7 +14,7 @@ Rectangle {
 
 	readonly property int margin: 12
 	readonly property int space: 15
-	readonly property int marginForShadow: ToastNotification.marginForShadow
+	readonly property int marginForShadow: toastNotification.marginForShadow
 
 	readonly property int notificationRectRadius: 2
 
@@ -46,7 +46,7 @@ Rectangle {
     }
 
 	function close() {
-		ToastNotification.close();
+		toastNotification.close();
 	}
 
 	function stopDisplayTimer() {
@@ -87,10 +87,10 @@ Rectangle {
 	// returns -1 if we have sufficient space available or else calculate the required width
 	function preferredWidth() {
 		var width = notificationMessageMetrics.width + actionButtonsWidth() + 5*margin;
-		if (ToastNotification.maximumWidth > width) {
+		if (toastNotification.maximumWidth > width) {
 			return -1;
 		} else {
-			return ToastNotification.maximumWidth - actionButtonsWidth() - 5*margin;
+			return toastNotification.maximumWidth - actionButtonsWidth() - 5*margin;
 		}
 	}
 
@@ -160,7 +160,7 @@ Rectangle {
 				color: userPreferences.theme.style("ToastNotification messageText")
 				elide: Text.ElideRight
 				font.pixelSize: 16
-				text: ToastNotification.messageText
+				text: toastNotification.messageText
 				Layout.preferredWidth: preferredWidth()
 
 				TextMetrics {
@@ -196,10 +196,10 @@ Rectangle {
 			// notification actions (can have multiple)
 			Repeater {
 				id: notificationActions
-				model: ToastNotification.actionsCount 
+				model: toastNotification.actionsCount 
 				PlainText {
 					color: userPreferences.theme.style("ToastNotification actionText")
-					text: ToastNotification.actionText(index)
+					text: toastNotification.actionText(index)
 					font.pixelSize: 16
 					visible: paintedWidth > 0
 					MouseArea {

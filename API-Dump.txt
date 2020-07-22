@@ -1109,7 +1109,9 @@ Class ConeHandleAdornment : HandleAdornment
 	Property float ConeHandleAdornment.Height
 	Property float ConeHandleAdornment.Radius
 Class CylinderHandleAdornment : HandleAdornment
+	Property float CylinderHandleAdornment.Angle
 	Property float CylinderHandleAdornment.Height
+	Property float CylinderHandleAdornment.InnerRadius
 	Property float CylinderHandleAdornment.Radius
 Class ImageHandleAdornment : HandleAdornment
 	Property Content ImageHandleAdornment.Image
@@ -2446,6 +2448,7 @@ Class RenderSettings : Instance [NotCreatable] [Service] [NotBrowsable]
 	Property int RenderSettings.MeshCacheSize
 	Property int RenderSettings.AutoFRMLevel
 	Property bool RenderSettings.EnableFRM [<📁> LoadOnly] [Hidden] [NotReplicated]
+	Property Enum<MeshPartDetailLevel> RenderSettings.MeshPartDetailLevel
 	Property bool RenderSettings.ReloadAssets
 	Property bool RenderSettings.RenderCSGTrianglesDebug
 	Property bool RenderSettings.ShowBoundingBoxes
@@ -2483,6 +2486,7 @@ Class RobloxPluginGuiService : Instance [NotCreatable] [Service] [NotReplicated]
 Class RobloxReplicatedStorage : Instance [NotCreatable] [Service] [NotBrowsable]
 Class RunService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void RunService:BindToRenderStep(string name, int priority, Function function)
+	Function string RunService:GetCoreScriptVersion() {RobloxScriptSecurity}
 	Function string RunService:GetRobloxVersion() {RobloxScriptSecurity}
 	Function bool RunService:IsClient()
 	Function bool RunService:IsEdit() {PluginSecurity}
@@ -2921,6 +2925,7 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property Instance StudioService.ActiveScript  [ReadOnly] [NotReplicated]
 	Property string StudioService.StudioLocaleId  [ReadOnly] [NotReplicated]
 	Function void StudioService:AnimationIdSelected(int64 id) {RobloxScriptSecurity}
+	Function bool StudioService:BaseURLHasChineseHost() {RobloxScriptSecurity}
 	Function void StudioService:ConvertToPackageUpload(string uploadUrl) {RobloxScriptSecurity}
 	Function void StudioService:CopyToClipboard(string stringToCopy) {RobloxScriptSecurity}
 	Function void StudioService:EmitPlacePublishedSignal() {RobloxScriptSecurity}
@@ -2949,6 +2954,7 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void StudioService:TryInstallPlugin(int64 assetId, int64 assetVersionId) {RobloxScriptSecurity} [Yields]
 	Function void StudioService:UninstallPlugin(int64 assetId) {RobloxScriptSecurity}
 	Function void StudioService:UpdatePluginManagement() {RobloxScriptSecurity}
+	Event StudioService.DEPRECATED_OnPublishPlaceToRoblox() {RobloxScriptSecurity}
 	Event StudioService.GamePublishFinished(bool success, int64 gameId) {RobloxScriptSecurity}
 	Event StudioService.OnConvertToPackageResult(bool isSuccessful, string errorMessage) {RobloxScriptSecurity}
 	Event StudioService.OnImportFromRoblox() {RobloxScriptSecurity}
@@ -2957,7 +2963,7 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event StudioService.OnPluginInstalledFromToolbox() {RobloxScriptSecurity}
 	Event StudioService.OnPluginInstalledFromWeb(string pluginId) {RobloxScriptSecurity}
 	Event StudioService.OnPublishAsPlugin(Objects instances) {RobloxScriptSecurity}
-	Event StudioService.OnPublishPlaceToRoblox() {RobloxScriptSecurity}
+	Event StudioService.OnPublishPlaceToRoblox(bool isOverwritePublish) {RobloxScriptSecurity}
 	Event StudioService.OnSaveToRoblox(Objects instances) {RobloxScriptSecurity}
 Class StudioTheme : Instance [NotCreatable] [NotReplicated]
 	Function Color3 StudioTheme:GetColor(Enum<StudioStyleGuideColor> styleguideitem, Enum<StudioStyleGuideModifier> modifier = "Default") {PluginSecurity}
@@ -4403,6 +4409,12 @@ Enum MembershipType
 	EnumItem MembershipType.TurboBuildersClub : 2
 	EnumItem MembershipType.OutrageousBuildersClub : 3
 	EnumItem MembershipType.Premium : 4
+Enum MeshPartDetailLevel
+	EnumItem MeshPartDetailLevel.DistanceBased : 0
+	EnumItem MeshPartDetailLevel.Level01 : 1
+	EnumItem MeshPartDetailLevel.Level02 : 2
+	EnumItem MeshPartDetailLevel.Level03 : 3
+	EnumItem MeshPartDetailLevel.Level04 : 4
 Enum MeshType
 	EnumItem MeshType.Head : 0
 	EnumItem MeshType.Torso : 1
@@ -4576,6 +4588,7 @@ Enum RaycastFilterType
 Enum RenderFidelity
 	EnumItem RenderFidelity.Automatic : 0
 	EnumItem RenderFidelity.Precise : 1
+	EnumItem RenderFidelity.Performance : 2
 Enum RenderPriority
 	EnumItem RenderPriority.First : 0
 	EnumItem RenderPriority.Input : 100

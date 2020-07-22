@@ -60,6 +60,8 @@ Studio.App.BetaFeatures.AssetManagerDescription,,"Manage your assets in a brand 
 Studio.App.BetaFeatures.AssetManageritle,,Asset Manager,Asset Manager
 Studio.App.BetaFeatures.AsyncPublishDescription,,Keep working in Studio as we publish in the background,Keep working in Studio as we publish in the background
 Studio.App.BetaFeatures.AsyncPublishTitle,,Async Publish Beta,Async Publish Beta
+Studio.App.BetaFeatures.AutoEnrollmentToggle,,Enroll in Beta Channel,Enroll in Beta Channel
+Studio.App.BetaFeatures.AutoEnrollmentToggleTooltip,,New Beta Features Will Automatically Be Activated,New Beta Features Will Automatically Be Activated
 Studio.App.BetaFeatures.AutoUpdateDescription,,Adds an option to automatically update a package when a newer package is available,Adds an option to automatically update a package when a newer package is available
 Studio.App.BetaFeatures.AutoUpdateTitle,,Auto Update on Packages,Auto Update on Packages
 Studio.App.BetaFeatures.AvatarLoadingBetaDescription,,Improves the ordering of events fired when avatars are loaded to be more consistent and easier for developers to use,Improves the ordering of events fired when avatars are loaded to be more consistent and easier for developers to use
@@ -174,6 +176,8 @@ Studio.App.CallStack.LineNo,Call Stack widgets,Line No.,Line No.
 Studio.App.CallStack.Source,Call Stack widgets,Source,Source
 Studio.App.CallStack.What,Call Stack widgets,What,What
 Studio.App.CallStackWidget.CurrentScript,,Current Script: ,Current Script: 
+Studio.App.Callout.GotIt,Button that a user clicks to dismiss a Teaching Callout. Teaching Callouts are used to showcase new Studio features to users.,Got it!,Got it!
+Studio.App.Callout.LearnMore,"Within a Teaching Callout, this text is a link that takes a user to a learning resource for a new feature. Teaching Callouts are used to showcase new Studio features to users.",Learn more,Learn more
 Studio.App.Category.Advanced,,Advanced,Advanced
 Studio.App.Category.Appearance,,Appearance,Appearance
 Studio.App.Category.Audio,,Audio,Audio
@@ -687,7 +691,7 @@ Studio.App.LoginManager.ToSIAgree,,I Agree,I Agree
 Studio.App.LoginManager.ToSMessage1,,"<span>By clicking ""%1"", you are agreeing to </span>","<span>By clicking ""%1"", you are agreeing to </span>"
 Studio.App.LoginManager.ToSMessage3,,"By clicking ""%1"", you are agreeing to the <a href='%2'>Terms of Use</a> and <a href='%3'>Privacy Policy</a>.","By clicking ""%1"", you are agreeing to the <a href='%2'>Terms of Use</a> and <a href='%3'>Privacy Policy</a>."
 Studio.App.LoginManager.ToSTitle,,Roblox Terms of Service,Roblox Terms of Service
-Studio.App.LoginManager.UserAgreementsAcceptanceCancel,,Are you sure you want to cancel? This will close all running Roblox Studio instances.,Are you sure you want to cancel? This will close all running Roblox Studio instances.
+Studio.App.LoginManager.UserAgreementsAcceptanceCancel,,Are you sure you want to cancel? This will log you out and close all other running instances of Studio.,Are you sure you want to cancel? This will log you out and close all other running instances of Studio.
 Studio.App.LoginManager.UserAgreementsAcceptanceFailure,,Failed to accept user agreements. Please try to login again or contact support if problem persists.,Failed to accept user agreements. Please try to login again or contact support if problem persists.
 Studio.App.LoginRequest.InternalServerError,Start page login,Our servers are having problems right now. Please try again later.,Our servers are having problems right now. Please try again later.
 Studio.App.LoginRequest.NetworkConnection,Start page login,Could not connect to the server. Please check your internet connection and try again later.,Could not connect to the server. Please check your internet connection and try again later.
@@ -840,11 +844,11 @@ Studio.App.MeshImportOptionsDialog.NoFilesAvailable,,No files available,No files
 Studio.App.MeshImportOptionsDialog.RescaleIfTooLarge,,Rescale if too large,Rescale if too large
 Studio.App.MeshImportOptionsDialog.ReverseInwardPointingMeshNormals,,Reverse inward-pointing mesh normals,Reverse inward-pointing mesh normals
 Studio.App.MeshPartLOD.Info1,MeshPart renderFidelity property selector,Finished simplifying %1 mesh parts,Finished simplifying %1 mesh parts
-Studio.App.MeshPartLOD.NotEnoughFacesInfo1,MeshPart renderFidelity property selector,Asset id %1 has too few triangles for renderFidelity to be set to Automatic,Asset id %1 has too few triangles for renderFidelity to be set to Automatic
+Studio.App.MeshPartLOD.NotEnoughFacesInfo1,MeshPart renderFidelity property selector,Asset id %1 has too few triangles for renderFidelity to be set to Automatic or Performance,Asset id %1 has too few triangles for renderFidelity to be set to Automatic or Performance
 Studio.App.MeshPartLOD.RenderFidelityWarning1,MeshPart renderFidelity property selector,Failed to change renderFidelity for asset id %1,Failed to change renderFidelity for asset id %1
 Studio.App.MeshPartLOD.Warning1,MeshPart renderFidelity property selector,Mesh Publish failure for asset id %1,Mesh Publish failure for asset id %1
 Studio.App.MeshPartLODNotification.Dismiss,MeshPart renderFidelity property selector,Do not show again,Do not show again
-Studio.App.MeshPartLODNotification.Message,MeshPart renderFidelity property selector,RenderFidelity was set to Automatic. This may require the asset to go through moderation and create a new assetId.,RenderFidelity was set to Automatic. This may require the asset to go through moderation and create a new assetId.
+Studio.App.MeshPartLODNotification.Message,MeshPart renderFidelity property selector,RenderFidelity was set to Automatic or Performance. This may require the asset to go through moderation and create a new assetId.,RenderFidelity was set to Automatic or Performance. This may require the asset to go through moderation and create a new assetId.
 Studio.App.MeshResourceController.MeshReferencedByName,,"Meshes are referenced by name, so any references to this mesh will fail to load. Are you sure you want to remove it?","Meshes are referenced by name, so any references to this mesh will fail to load. Are you sure you want to remove it?"
 Studio.App.MeshSplitterDialog.Checked12,,Checked (%1/%2),Checked (%1/%2)
 Studio.App.MeshSplitterDialog.FilesCantBeImported,,The following files cannot be imported.,The following files cannot be imported.
@@ -1140,6 +1144,7 @@ Studio.App.PropertyEnum.DefaultAuto,,Default Auto,Default Auto
 Studio.App.PropertyEnum.Direct3D11,,Direct3D11,Direct3D11
 Studio.App.PropertyEnum.Direct3D9,,Direct3D9,Direct3D9
 Studio.App.PropertyEnum.Disabled,,Disabled,Disabled
+Studio.App.PropertyEnum.DistanceBased,,DistanceBased,DistanceBased
 Studio.App.PropertyEnum.DontReport,,Don't Report,Don't Report
 Studio.App.PropertyEnum.Enabled,,Enabled,Enabled
 Studio.App.PropertyEnum.English,DO NOT TRANSLATE THIS.  No matter the system language we want to offer language choice in that language.,English,English
@@ -1292,8 +1297,6 @@ Studio.App.RBXMainWindow.AnchorPreventMoving,,Anchor - prevent moving,Anchor - p
 Studio.App.RBXMainWindow.ApplyEdits,,Apply Edits,Apply Edits
 Studio.App.RBXMainWindow.ArrowTool,,Arrow Tool,Arrow Tool
 Studio.App.RBXMainWindow.AssetManager,,Asset Manager,Asset Manager
-Studio.App.RBXMainWindow.AutoCreateJoints,,Automatically create joints between parts...,Automatically create joints between parts...
-Studio.App.RBXMainWindow.AutomaticallyCreateJoints,,Automatically Create Joints,Automatically Create Joints
 Studio.App.RBXMainWindow.AxisWidget,,Axis Widget,Axis Widget
 Studio.App.RBXMainWindow.BasicObjects,,Basic Objects,Basic Objects
 Studio.App.RBXMainWindow.BreakAllExceptionsDebugger,,Break all exceptions into debugger,Break all exceptions into debugger
@@ -1302,6 +1305,8 @@ Studio.App.RBXMainWindow.CalibratePhysicalSizeScaling,,Calibrate Physical Size s
 Studio.App.RBXMainWindow.CalibrateScalingElps,,Calibrate scaling...,Calibrate scaling...
 Studio.App.RBXMainWindow.CantSaveAndReloadLua,,The original plugin was a .lua file.  The plugin in its current form cannot be saved out as a single lua file.,The original plugin was a .lua file.  The plugin in its current form cannot be saved out as a single lua file.
 Studio.App.RBXMainWindow.CantSaveAndReloadLuaTitle,,Cannot Save And Reload,Cannot Save And Reload
+Studio.App.RBXMainWindow.CantSaveEmptyPlugin,,The plugin you are trying to save would have no contents.  You cannot save an empty plugin.,The plugin you are trying to save would have no contents.  You cannot save an empty plugin.
+Studio.App.RBXMainWindow.CantSaveEmptyPluginTitle,,Cannot Save Empty Plugin,Cannot Save Empty Plugin
 Studio.App.RBXMainWindow.CheckNetworkAndUserAuthentication,,"Feature not available in offline mode.
 Please check internet connection and restart Roblox.","Feature not available in offline mode.
 Please check internet connection and restart Roblox."
@@ -1454,7 +1459,6 @@ Studio.App.RBXMainWindow.NetworkSimulator,,Network Simulator,Network Simulator
 Studio.App.RBXMainWindow.NetworkStats,,Network Stats,Network Stats
 Studio.App.RBXMainWindow.Never,,Never,Never
 Studio.App.RBXMainWindow.NeverBreakErrorsIntoDebugger,,Never break errors into debugger,Never break errors into debugger
-Studio.App.RBXMainWindow.NeverJoinPartsAutomatically,,Never join parts automatically,Never join parts automatically
 Studio.App.RBXMainWindow.ObjectBrowser,,Object Browser,Object Browser
 Studio.App.RBXMainWindow.OnAllExceptions,,On All Exceptions,On All Exceptions
 Studio.App.RBXMainWindow.OnUnhandledExceptions,,On Unhandled Exceptions,On Unhandled Exceptions
@@ -1910,19 +1914,16 @@ Studio.App.RobloxRibbonMainWindow.Actions,,Actions,Actions
 Studio.App.RobloxRibbonMainWindow.ActionsAsTools,,Actions as Tools,Actions as Tools
 Studio.App.RobloxRibbonMainWindow.AddASpawnPoint,,Click here to add a spawn point into your game,Click here to add a spawn point into your game
 Studio.App.RobloxRibbonMainWindow.AddDebugPlugin,,Add Debug Plugin,Add Debug Plugin
-Studio.App.RobloxRibbonMainWindow.AddWeld,,Add Weld,Add Weld
+Studio.App.RobloxRibbonMainWindow.AddWeld,,Weld,Weld
 Studio.App.RobloxRibbonMainWindow.Advanced,,Advanced,Advanced
 Studio.App.RobloxRibbonMainWindow.AdvancedObjects,,Advanced Objects,Advanced Objects
 Studio.App.RobloxRibbonMainWindow.AlignOrientation,,Align Orientation,Align Orientation
 Studio.App.RobloxRibbonMainWindow.AlignPosition,,Align Position,Align Position
 Studio.App.RobloxRibbonMainWindow.Always,,Always,Always
-Studio.App.RobloxRibbonMainWindow.AlwaysJoinAdjacentParts,,Always join adjacent parts,Always join adjacent parts
 Studio.App.RobloxRibbonMainWindow.Anchor,,Anchor ,Anchor 
 Studio.App.RobloxRibbonMainWindow.AngularVelocity,,Angular Velocity,Angular Velocity
 Studio.App.RobloxRibbonMainWindow.AngularVelocityTooltip,,Create angular velocity constraint,Create angular velocity constraint
 Studio.App.RobloxRibbonMainWindow.AssetIdOfTexture,,Specifies the asset id of the texture to display,Specifies the asset id of the texture to display
-Studio.App.RobloxRibbonMainWindow.AttachAHingeToAPart,,Attach a hinge to a part,Attach a hinge to a part
-Studio.App.RobloxRibbonMainWindow.AttachAMotorToAPart,,Attach a motor to a part,Attach a motor to a part
 Studio.App.RobloxRibbonMainWindow.Attachment,,Attachment,Attachment
 Studio.App.RobloxRibbonMainWindow.Audio,,Audio,Audio
 Studio.App.RobloxRibbonMainWindow.BallInSocket,,Ball in Socket,Ball in Socket
@@ -1930,7 +1931,6 @@ Studio.App.RobloxRibbonMainWindow.Beam,,Beam,Beam
 Studio.App.RobloxRibbonMainWindow.Block,,Block,Block
 Studio.App.RobloxRibbonMainWindow.Brick,,Brick,Brick
 Studio.App.RobloxRibbonMainWindow.CheckCollisionsDragging,,Check for collisions when dragging,Check for collisions when dragging
-Studio.App.RobloxRibbonMainWindow.ChooseHowPartsJoin,,Choose how parts are joined together,Choose how parts are joined together
 Studio.App.RobloxRibbonMainWindow.Cleanup,,Cleanup,Cleanup
 Studio.App.RobloxRibbonMainWindow.ClickOnPartsToLockUnlock,,Click on parts to lock/unlock,Click on parts to lock/unlock
 Studio.App.RobloxRibbonMainWindow.ClientsAndServers,,Clients and Servers,Clients and Servers
@@ -2004,6 +2004,7 @@ Studio.App.RobloxRibbonMainWindow.GoToNextChange,,Go to next change,Go to next c
 Studio.App.RobloxRibbonMainWindow.GoToPreviousChange,,Go to previous change,Go to previous change
 Studio.App.RobloxRibbonMainWindow.GridOnYPlane,,Display a 3D grid on the y=0 plane,Display a 3D grid on the y=0 plane
 Studio.App.RobloxRibbonMainWindow.GroupsPartsIntoModel,,Group the selected parts into a model,Group the selected parts into a model
+Studio.App.RobloxRibbonMainWindow.HideDetails,,Hide Details,Hide Details
 Studio.App.RobloxRibbonMainWindow.Hinge,,Hinge,Hinge
 Studio.App.RobloxRibbonMainWindow.ImageButton,,Image Button,Image Button
 Studio.App.RobloxRibbonMainWindow.ImageLabel,,Image Label,Image Label
@@ -2022,8 +2023,7 @@ Studio.App.RobloxRibbonMainWindow.InsertObjectToolTip,,View list of insertable o
 Studio.App.RobloxRibbonMainWindow.InsertScriptsAndOtherAdvance,,Insert scripts and other advanced objects into the game,Insert scripts and other advanced objects into the game
 Studio.App.RobloxRibbonMainWindow.InsertSpherePart,,Insert sphere part,Insert sphere part
 Studio.App.RobloxRibbonMainWindow.InsertWedgePart,,Insert wedge part,Insert wedge part
-Studio.App.RobloxRibbonMainWindow.Join,join parts together,Join,Join
-Studio.App.RobloxRibbonMainWindow.JoinBasedOnSurfaceType,,Join based on surface type,Join based on surface type
+Studio.App.RobloxRibbonMainWindow.Join,Join,Join,Join
 Studio.App.RobloxRibbonMainWindow.JoinSurfaces,,Join Surfaces,Join Surfaces
 Studio.App.RobloxRibbonMainWindow.JoinSurfacesTooltip,,Make parts join together at touching surfaces,Make parts join together at touching surfaces
 Studio.App.RobloxRibbonMainWindow.JumpToNextScriptLocation,,Jump to next script location,Jump to next script location
@@ -2399,6 +2399,10 @@ Are you sure?"
 Studio.App.TeamCreate.SaveOnDisableLog,,Sent message to save game before Team Create turns off.,Sent message to save game before Team Create turns off.
 Studio.App.TeamCreate.SavingLatestUpdatesAndEnablingTeamCreate,,Saving latest updates and enabling Team Create...,Saving latest updates and enabling Team Create...
 Studio.App.TeamCreate.ShutdownWarning,,<b>Are you sure you want to quit Roblox Studio?</b>,<b>Are you sure you want to quit Roblox Studio?</b>
+Studio.App.TeamCreate.SyncComplete,,Sync has been completed.,Sync has been completed.
+Studio.App.TeamCreate.SyncProgress,,Replication Queue %1 of %2,Replication Queue %1 of %2
+Studio.App.TeamCreate.SyncProgressTitle,,<b>Data Sync Progress</b>,<b>Data Sync Progress</b>
+Studio.App.TeamCreate.SyncTerrainProgressTitle,,<b>Terrain Sync Progress</b>,<b>Terrain Sync Progress</b>
 Studio.App.TeamCreate.SyncingGenericWarning,,Quitting Roblox Studio will cause you to lose data that is currently syncing.,Quitting Roblox Studio will cause you to lose data that is currently syncing.
 Studio.App.TeamCreate.SyncingTerrainWarning,,Quitting Roblox Studio will cause you to lose data that is currently syncing and might corrupt your Terrain.,Quitting Roblox Studio will cause you to lose data that is currently syncing and might corrupt your Terrain.
 Studio.App.TeamCreate.TurnOn,,Turn ON,Turn ON

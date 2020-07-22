@@ -10,7 +10,6 @@ Rectangle {
 
     id: templatePage
     objectName: "templatePage"
-    anchors.fill: parent
     color: userPreferences.theme.style("StartPage Page background")
 
     GameGridViewWithHeader {

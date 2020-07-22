@@ -3,6 +3,7 @@ Studio.AlignmentTool.Plugin.Toolbar, , ,Alignment
 Studio.AlignmentTool.Plugin.Button, , ,Align Tool
 Studio.AlignmentTool.Plugin.Description, , ,Align selected objects.
 Studio.AlignmentTool.Plugin.WindowTitle, , ,Align Tool
+Studio.AlignmentTool.ErrorMessages.InvalidActiveObject, , ,Align to {name} is not supported.
 Studio.AlignmentTool.MainView.AlignButton, , ,Align
 Studio.AlignmentTool.ModeSection.Min, , ,Min
 Studio.AlignmentTool.ModeSection.Center, , ,Center

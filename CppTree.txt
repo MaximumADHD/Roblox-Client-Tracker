@@ -304,10 +304,13 @@ RBX
 		ISocketDelegate
 		LanguageClientBase
 		LanguageServerBase
+		LexUpdateObserver
 		LSPManager
 		LSPSocket
 		LuauLanguageServer
 		LuauLanguageServerExt
+		LuauScriptHighlighter
+		LuauScriptLexMap
 		LuauScriptTextProvider
 		LuauSyncTextProvider
 	}
@@ -444,6 +447,10 @@ RBX
 	PartInstance
 	{
 		OnDemandPartInstance
+	}
+	PlayerIdNameMapping
+	{
+		MappingJob
 	}
 	Reflection
 	{
@@ -920,6 +927,7 @@ RBX
 	HttpRbxApiJob
 	HttpRequest
 	HttpRequestCurl
+	HttpRequestCurlWs
 	HttpRequestMsxml
 	HttpRequestWrapper
 	HttpResponse
@@ -1299,7 +1307,6 @@ RBX
 	TriangleList
 	TriangleMesh
 	TriangleMeshPart
-	TurnOnManualJointCreation
 	Tween
 	TweenBase
 	TweenService
@@ -1334,6 +1341,7 @@ RBX
 	UserService
 	UserStorage
 	ValueBase
+	VariationNotFoundException
 	VehicleController
 	VehicleSeat
 	VelocityMotor
@@ -1352,6 +1360,8 @@ RBX
 	Visit
 	VRService
 	WaitingScriptsJob
+	WebSocket
+	WebSocketCurl
 	WedgePoly
 	Weld
 	WeldAutoJointSurfacePair

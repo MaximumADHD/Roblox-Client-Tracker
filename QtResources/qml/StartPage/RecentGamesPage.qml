@@ -9,7 +9,6 @@ Rectangle {
 
     id: recentGamesPage
     objectName: "recentGamesPage"
-    anchors.fill: parent
     color: userPreferences.theme.style("StartPage Page background")
 
     signal createNewGameClicked()

@@ -19,21 +19,21 @@ dependencies = [
     "InGameMenuDependencies InGameMenuDependencies cf249987 git+https://github.rbx.com/roblox/in-game-menu-dependencies#master",
     "LuaChatDeps LuaChatDeps 81a07f1c git+https://github.rbx.com/roblox/lua-chat-deps#master",
     "LuaDiscussionsDeps LuaDiscussionsDeps a2981789 git+https://github.rbx.com/roblox/lua-discussions-deps#master",
-    "LuaSocialLibrariesDeps LuaSocialLibrariesDeps 3e3d8fd8 git+https://github.rbx.com/roblox/lua-social-libraries-deps#master",
-    "Lumberyak roblox/lumberyak 4c383367 git+https://github.rbx.com/roblox/lumberyak#master",
+    "LuaSocialLibrariesDeps LuaSocialLibrariesDeps 6d421330 git+https://github.rbx.com/roblox/lua-social-libraries-deps#master",
+    "Lumberyak roblox/lumberyak 47552268 git+https://github.rbx.com/roblox/lumberyak#master",
     "Otter roblox/otter 0.1.1 url+https://github.com/roblox/otter",
-    "PolicyProvider roblox/policy-provider 75d0bed6 git+https://github.rbx.com/roblox/lua-roact-policy-provider#master",
+    "PolicyProvider roblox/policy-provider fe7d3d84 git+https://github.rbx.com/roblox/lua-roact-policy-provider#master",
     "PremiumUpsellDeps PremiumUpsellDeps c51030b7 git+https://github.com/roblox/premium-upsell-deps#master",
     "Promise lua-promise bbb9e162 git+https://github.rbx.com/roblox/lua-promise#master",
-    "PurchasePrompt roblox/purchase-prompt d4c3529a git+https://github.com/roblox/purchasepromptscript-roact#master",
-    "Result lua-Result 4c69dedd git+https://github.rbx.com/roblox/lua-result#master",
+    "PurchasePrompt roblox/purchase-prompt 9135e007 git+https://github.com/roblox/purchasepromptscript-roact#master",
+    "Result roblox/lua-result c6817c84 git+https://github.rbx.com/roblox/lua-result#master",
     "Roact roblox/roact 1.3.0 url+https://github.com/roblox/roact",
     "RoactGamepad roblox/roact-gamepad 0.3.0 url+https://github.com/roblox/roact-gamepad",
     "RoactNavigation roblox/roact-navigation 0.2.7 url+https://github.com/roblox/roact-navigation",
     "RoactRodux roblox/roact-rodux 0.2.2 url+https://github.com/roblox/roact-rodux",
     "Rodux roblox/rodux 1.0.0 url+https://github.com/roblox/rodux",
     "TestEZ roblox/testez 0.3.1 url+https://github.com/roblox/testez",
-    "UIBlox UIBlox b98db13f git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox d0e4827f git+https://github.com/roblox/uiblox#master",
     "enumerate roblox/enumerate 1.0.0 url+https://github.com/roblox/enumerate",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
     "tutils tutils 0be577db git+https://github.rbx.com/roblox/tutils#master",
@@ -47,11 +47,11 @@ source = "git+https://github.rbx.com/roblox/in-game-menu-dependencies#master"
 dependencies = [
     "Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo",
     "Otter roblox/otter 0.1.1 url+https://github.com/roblox/otter",
-    "PolicyProvider roblox/policy-provider 75d0bed6 git+https://github.rbx.com/roblox/lua-roact-policy-provider#master",
+    "PolicyProvider roblox/policy-provider fe7d3d84 git+https://github.rbx.com/roblox/lua-roact-policy-provider#master",
     "Roact roblox/roact 1.3.0 url+https://github.com/roblox/roact",
     "RoactRodux roblox/roact-rodux 0.2.2 url+https://github.com/roblox/roact-rodux",
     "Rodux roblox/rodux 1.0.0 url+https://github.com/roblox/rodux",
-    "UIBlox <patched> UIBlox b98db13f git+https://github.com/roblox/uiblox#master",
+    "UIBlox <patched> UIBlox d0e4827f git+https://github.com/roblox/uiblox#master",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
 
@@ -62,7 +62,7 @@ commit = "81a07f1cc6c9ba12a874b9196e32d4a36bbd550b"
 source = "git+https://github.rbx.com/roblox/lua-chat-deps#master"
 dependencies = [
     "RoduxNetworking rodux-networking ce7f5079 git+https://github.rbx.com/roblox/rodux-networking#v1.0.0",
-    "UIBlox UIBlox b98db13f git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox d0e4827f git+https://github.com/roblox/uiblox#master",
 ]
 
 [[package]]
@@ -80,10 +80,10 @@ dependencies = [
 [[package]]
 name = "LuaSocialLibrariesDeps"
 version = "0.1.1"
-commit = "3e3d8fd8aa27536614b05ed87912b48357c64215"
+commit = "6d4213307f9d059e422026c5f8ad1a37a3489a9b"
 source = "git+https://github.rbx.com/roblox/lua-social-libraries-deps#master"
 dependencies = [
-    "GenericPagination roblox/genericpagination cf641eb5 git+https://github.rbx.com/roblox/genericpagination#master",
+    "GenericPagination roblox/genericpagination 6cc56178 git+https://github.rbx.com/roblox/genericpagination#master",
     "Mock jtaylor/mock d2c4005c git+https://github.rbx.com/roblox/mock#master",
     "RoactFitComponents roblox/roact-fit-components 1.2.5 url+https://github.com/roblox/roact-fit-components",
 ]
@@ -98,7 +98,7 @@ dependencies = ["RoactFitComponents roblox/roact-fit-components 1.2.5 url+https:
 [[package]]
 name = "UIBlox"
 version = "0.1.1"
-commit = "b98db13fc3d872dee156779be2147ede3afed156"
+commit = "d0e4827fc239227033f44da606b9e78b33f86a31"
 source = "git+https://github.com/roblox/uiblox#master"
 dependencies = [
     "Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo",
@@ -114,21 +114,15 @@ dependencies = [
 [[package]]
 name = "freeze"
 version = "0.1.0"
-commit = "f18cf7e585681f3c4d301ac7a67451088d8545e8"
+commit = "ef89f9d0444a2a7f63d5fd913a38824f3edba69f"
 source = "git+https://github.rbx.com/roblox/freeze#master"
-dependencies = ["Cryo <patched> roblox/cryo 1.0.0 url+https://github.com/roblox/cryo"]
+dependencies = ["Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo"]
 
 [[package]]
 name = "jtaylor/mock"
 version = "0.1.0"
 commit = "d2c4005c863fd2f9fa74b7391ada64906d242847"
 source = "git+https://github.rbx.com/roblox/mock#master"
-
-[[package]]
-name = "lua-Result"
-version = "0.1.0"
-commit = "4c69dedd694955062eacabb674dc3088c4a7fa60"
-source = "git+https://github.rbx.com/roblox/lua-result#master"
 
 [[package]]
 name = "lua-promise"
@@ -163,11 +157,11 @@ source = "url+https://github.com/roblox/enumerate"
 [[package]]
 name = "roblox/genericpagination"
 version = "0.1.0"
-commit = "cf641eb5d4fe466735f776cb812870358a61cd65"
+commit = "6cc56178d99b731a71f6920ace8b3f3d4aaf5235"
 source = "git+https://github.rbx.com/roblox/genericpagination#master"
 dependencies = [
     "Promise lua-promise bbb9e162 git+https://github.rbx.com/roblox/lua-promise#master",
-    "t <patched> roblox/t 1.2.5 url+https://github.com/roblox/t",
+    "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
 
 [[package]]
@@ -197,6 +191,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "roblox/lua-result"
+version = "0.1.0"
+commit = "c6817c8455aa1f5922d83dd44c8bedbc7726e51d"
+source = "git+https://github.rbx.com/roblox/lua-result#master"
+
+[[package]]
 name = "roblox/lua-symbol"
 version = "0.1.0"
 commit = "139fdfe6e4d4eca690887d3beb80e1514af501bf"
@@ -205,9 +205,9 @@ source = "git+https://github.rbx.com/roblox/lua-symbol#master"
 [[package]]
 name = "roblox/lumberyak"
 version = "0.1.0"
-commit = "4c383367585db0c21d8bf46c622210e2e849ed2b"
+commit = "47552268e68c899226295e82936d3b68dfd53565"
 source = "git+https://github.rbx.com/roblox/lumberyak#master"
-dependencies = ["Cryo <patched> roblox/cryo 1.0.0 url+https://github.com/roblox/cryo"]
+dependencies = ["Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo"]
 
 [[package]]
 name = "roblox/otter"
@@ -218,11 +218,11 @@ source = "url+https://github.com/roblox/otter"
 [[package]]
 name = "roblox/policy-provider"
 version = "0.1.0"
-commit = "75d0bed6b669067f0374dac3996620971b9e5241"
+commit = "fe7d3d84f9a82d2b49700f2e3b6bb28a9c4e8993"
 source = "git+https://github.rbx.com/roblox/lua-roact-policy-provider#master"
 dependencies = [
     "Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo",
-    "Lumberyak roblox/lumberyak 4c383367 git+https://github.rbx.com/roblox/lumberyak#master",
+    "Lumberyak roblox/lumberyak 47552268 git+https://github.rbx.com/roblox/lumberyak#master",
     "Mock jtaylor/mock d2c4005c git+https://github.rbx.com/roblox/mock#master",
     "Promise lua-promise bbb9e162 git+https://github.rbx.com/roblox/lua-promise#master",
     "Roact roblox/roact 1.3.0 url+https://github.com/roblox/roact",
@@ -233,7 +233,7 @@ dependencies = [
 [[package]]
 name = "roblox/purchase-prompt"
 version = "0.1.6"
-commit = "d4c3529a8a7f31adde840215e353471ea5e8025a"
+commit = "9135e007755ce77fc6f77c61bdab8c4465509fb1"
 source = "git+https://github.com/roblox/purchasepromptscript-roact#master"
 dependencies = [
     "Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo",
@@ -242,7 +242,7 @@ dependencies = [
     "Roact roblox/roact 1.3.0 url+https://github.com/roblox/roact",
     "RoactRodux roblox/roact-rodux 0.2.2 url+https://github.com/roblox/roact-rodux",
     "Rodux roblox/rodux 1.0.0 url+https://github.com/roblox/rodux",
-    "UIBlox <patched> UIBlox b98db13f git+https://github.com/roblox/uiblox#master",
+    "UIBlox <patched> UIBlox d0e4827f git+https://github.com/roblox/uiblox#master",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
 
@@ -326,7 +326,7 @@ commit = "ce7f50796a33dea8d835139706bde3359e54638b"
 source = "git+https://github.rbx.com/roblox/rodux-networking#v1.0.0"
 dependencies = [
     "Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo",
-    "Freeze freeze f18cf7e5 git+https://github.rbx.com/roblox/freeze#master",
+    "Freeze freeze ef89f9d0 git+https://github.rbx.com/roblox/freeze#master",
     "Promise lua-promise bbb9e162 git+https://github.rbx.com/roblox/lua-promise#master",
     "Rodux roblox/rodux 1.0.0 url+https://github.com/roblox/rodux",
     "tutils tutils 0be577db git+https://github.rbx.com/roblox/tutils#master",

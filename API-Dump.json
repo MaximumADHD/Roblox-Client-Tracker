@@ -19276,7 +19276,41 @@
                 {
                     "Category": "Data",
                     "MemberType": "Property",
+                    "Name": "Angle",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
                     "Name": "Height",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "InnerRadius",
                     "Security": {
                         "Read": "None",
                         "Write": "None"
@@ -44185,6 +44219,23 @@
                     }
                 },
                 {
+                    "Category": "Debug",
+                    "MemberType": "Property",
+                    "Name": "MeshPartDetailLevel",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "MeshPartDetailLevel"
+                    }
+                },
+                {
                     "Category": "Performance",
                     "MemberType": "Property",
                     "Name": "QualityLevel",
@@ -44639,6 +44690,17 @@
                         "Name": "void"
                     },
                     "Security": "None"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetCoreScriptVersion",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    },
+                    "Security": "RobloxScriptSecurity"
                 },
                 {
                     "MemberType": "Function",
@@ -52213,6 +52275,17 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "BaseURLHasChineseHost",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "ConvertToPackageUpload",
                     "Parameters": [
                         {
@@ -52746,6 +52819,13 @@
                 },
                 {
                     "MemberType": "Event",
+                    "Name": "DEPRECATED_OnPublishPlaceToRoblox",
+                    "Parameters": [
+                    ],
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Event",
                     "Name": "GamePublishFinished",
                     "Parameters": [
                         {
@@ -52874,6 +52954,13 @@
                     "MemberType": "Event",
                     "Name": "OnPublishPlaceToRoblox",
                     "Parameters": [
+                        {
+                            "Name": "isOverwritePublish",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        }
                     ],
                     "Security": "RobloxScriptSecurity"
                 },
@@ -65177,6 +65264,31 @@
         {
             "Items": [
                 {
+                    "Name": "DistanceBased",
+                    "Value": 0
+                },
+                {
+                    "Name": "Level01",
+                    "Value": 1
+                },
+                {
+                    "Name": "Level02",
+                    "Value": 2
+                },
+                {
+                    "Name": "Level03",
+                    "Value": 3
+                },
+                {
+                    "Name": "Level04",
+                    "Value": 4
+                }
+            ],
+            "Name": "MeshPartDetailLevel"
+        },
+        {
+            "Items": [
+                {
                     "Name": "Head",
                     "Value": 0
                 },
@@ -65920,6 +66032,10 @@
                 {
                     "Name": "Precise",
                     "Value": 1
+                },
+                {
+                    "Name": "Performance",
+                    "Value": 2
                 }
             ],
             "Name": "RenderFidelity"
