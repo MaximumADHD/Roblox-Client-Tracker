@@ -7,9 +7,9 @@ local t = require(Packages.t)
 
 return function(containerWidth)
 	assert(t.number(containerWidth))
-	if containerWidth <= 320 then
+	if containerWidth <= 360 then
 		return 12
-	elseif containerWidth > 320 and containerWidth <= 414 then
+	elseif containerWidth > 360 and containerWidth <= 599 then
 		return 24
 	else
 		return 48

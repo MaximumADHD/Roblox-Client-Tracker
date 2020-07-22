@@ -10,6 +10,7 @@ local PromptState = require(Root.Enums.PromptState)
 local connectToStore = require(Root.connectToStore)
 
 local PREMIUM_ICON = UIBloxImages["icons/graphic/premium_large"]
+local ADULT_ERROR_ICON = UIBloxImages["icons/status/error_large"]
 
 local withLayoutValues = require(script.Parent.Parent.Connection.withLayoutValues)
 
@@ -21,8 +22,11 @@ local function ItemPreviewImage(props)
 		local productImageUrl = props.productImageUrl
 
 		local showPremiumIcon = false
+		local showAdultErrorIcon = false
+		local backgroundTransparency = 0
 		if promptState == PromptState.AdultConfirmation then
-			productImageUrl = values.Image.ErrorIcon.Path
+			showAdultErrorIcon = true
+			backgroundTransparency = 1
 		elseif promptState == PromptState.Error then
 			if purchaseError == PurchaseError.PremiumOnly then
 				showPremiumIcon = true
@@ -47,13 +51,21 @@ local function ItemPreviewImage(props)
 			})) or nil,
 			ItemPreviewImageContainer = not showPremiumIcon and Roact.createElement("Frame", {
 				Size = values.Size.ItemPreviewWhiteFrame,
-				BackgroundTransparency = 0,
+				BackgroundTransparency = backgroundTransparency,
 				AnchorPoint = Vector2.new(0.5, 0.5),
 				Position = UDim2.new(0.5, 0, 0.5, 0),
 				BorderSizePixel = 0,
 				BackgroundColor3 = Color3.new(1, 1, 1),
 			}, {
-				ItemImage = Roact.createElement("ImageLabel", {
+				ItemImage = showAdultErrorIcon and Roact.createElement("ImageLabel", Cryo.Dictionary.join(ADULT_ERROR_ICON, {
+					Size = values.Size.ItemPreview,
+					BackgroundTransparency = 1,
+					BorderSizePixel = 0,
+					AnchorPoint = Vector2.new(0.5, 0.5),
+					Position = UDim2.new(0.5, 0, 0.5, 0),
+					ImageTransparency = 0,
+				}))
+				or Roact.createElement("ImageLabel", {
 					Size = values.Size.ItemPreview,
 					BackgroundTransparency = 1,
 					BorderSizePixel = 0,

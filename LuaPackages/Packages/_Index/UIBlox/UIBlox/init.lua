@@ -166,6 +166,7 @@ local function initializeLibrary()
 
 		Indicator = strict({
 			Badge = require(script.App.Indicator.Badge),
+			EmptyState = require(script.App.Indicator.EmptyState),
 		}),
 
 		Menu = strict({

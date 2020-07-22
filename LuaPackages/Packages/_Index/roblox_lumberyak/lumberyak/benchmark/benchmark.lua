@@ -157,5 +157,3 @@ for k, v in pairs(tests) do
     local t2 = timeit(v, callInterp)
     fmt(k, "Interpolation", t2)
 end
-
-game:GetService("ProcessService"):Exit(0)

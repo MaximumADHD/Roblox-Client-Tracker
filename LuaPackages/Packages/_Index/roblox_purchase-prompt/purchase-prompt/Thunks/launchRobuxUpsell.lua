@@ -17,6 +17,7 @@ local Promise = require(Root.Promise)
 local retryAfterUpsell = require(script.Parent.retryAfterUpsell)
 
 local GetFFlagAdultConfirmationEnabled = require(Root.Flags.GetFFlagAdultConfirmationEnabled)
+local GetFFlagAdultConfirmationEnabledNew = require(Root.Flags.GetFFlagAdultConfirmationEnabledNew)
 
 local requiredServices = {
 	Analytics,
@@ -30,10 +31,10 @@ local function launchRobuxUpsell()
 		local state = store:getState()
 		local abVars = state.abVariations
 
-		if GetFFlagAdultConfirmationEnabled()
-				and abVars[Constants.ABTests.ADULT_CONFIRMATION] == "Variation1"
+		if GetFFlagAdultConfirmationEnabledNew() or GetFFlagAdultConfirmationEnabled()
+				and (abVars[Constants.ABTests.ADULT_CONFIRMATION] == "Variation1"
 				and state.accountInfo.AgeBracket ~= 0
-				and state.promptState ~= PromptState.AdultConfirmation then
+				and state.promptState ~= PromptState.AdultConfirmation) then
 			analytics.signalAdultLegalTextShown()
 			store:dispatch(SetPromptState(PromptState.AdultConfirmation))
 			return
