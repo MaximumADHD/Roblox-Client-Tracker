@@ -12,8 +12,6 @@
 			If cancelled, options will be nil. Else, it will contain the new options
 			that were set by the user.
 ]]
-local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
-
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
@@ -160,12 +158,7 @@ function SearchOptions:render()
 				local minDuration = state.minDuration
 				local maxDuration = state.maxDuration
 
-				local audioSearchTitle
-				if FFlagStudioToolboxEnabledDevFramework then
-					audioSearchTitle = self.props.Localization:getText("General", "SearchOptionAudioLength")
-				else
-					audioSearchTitle = localizedContent.AudioSearch.Title
-				end
+				local audioSearchTitle = self.props.Localization:getText("General", "SearchOptionAudioLength")
 
 				local showAudioSearch = self.props.showAudioSearch
 
@@ -270,21 +263,16 @@ function SearchOptions:render()
 	end)
 end
 
-if FFlagStudioToolboxEnabledDevFramework then
-	ContextServices.mapToProps(SearchOptions, {
-		Localization = ContextServices.Localization,
-	})
+ContextServices.mapToProps(SearchOptions, {
+	Localization = ContextServices.Localization,
+})
 
-	local function mapStateToProps(state, props)
-		state = state or {}
-		local pageInfo = state.pageInfo or {}
-		return {
-			audioSearchInfo = pageInfo.audioSearchInfo,
-		}
-	end
-
-	return RoactRodux.connect(mapStateToProps, nil)(SearchOptions)
-else
-
-	return SearchOptions
+local function mapStateToProps(state, props)
+	state = state or {}
+	local pageInfo = state.pageInfo or {}
+	return {
+		audioSearchInfo = pageInfo.audioSearchInfo,
+	}
 end
+
+return RoactRodux.connect(mapStateToProps, nil)(SearchOptions)

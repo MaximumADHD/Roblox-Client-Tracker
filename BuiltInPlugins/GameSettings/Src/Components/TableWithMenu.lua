@@ -19,12 +19,12 @@ local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
 
+local UILibrary = require(Plugin.UILibrary)
+local InfiniteScrollingFrame = UILibrary.Component.InfiniteScrollingFrame
+
 local Framework = Plugin.Framework
 
 local ContextServices = require(Framework.ContextServices)
-
-local FrameworkUtil = require(Plugin.Framework.Util)
-local FitFrameOnAxis = FrameworkUtil.FitFrame.FitFrameOnAxis
 
 local TableWithMenuItem = require(Plugin.Src.Components.TableWithMenuItem)
 
@@ -32,7 +32,7 @@ local TableWithMenu = Roact.PureComponent:extend("TableWithMenu")
 
 local FFlagFixRadioButtonSeAndTableHeadertForTesting = game:getFastFlag("FixRadioButtonSeAndTableHeadertForTesting")
 
-local function createHeaderLabels(theme, headers)
+function TableWithMenu:createHeaderLabels(theme, headers)
     local headerLabels = {
         HeaderLayout = Roact.createElement("UIListLayout", {
             FillDirection = Enum.FillDirection.Horizontal,
@@ -70,8 +70,17 @@ local function createHeaderLabels(theme, headers)
     return headerLabels
 end
 
-local function createDataLabels(data, menuItems, onItemClicked)
-    local dataRows = { }
+function TableWithMenu:createDataLabels(data, menuItems, onItemClicked)
+    local dataRows = {
+        ListLayout = Roact.createElement("UIListLayout", {
+            FillDirection = Enum.FillDirection.Vertical,
+            HorizontalAlignment = Enum.HorizontalAlignment.Left,
+            VerticalAlignment = Enum.VerticalAlignment.Top,
+            SortOrder = Enum.SortOrder.LayoutOrder,
+
+            [Roact.Ref] = self.layoutRef,
+        })
+    }
     for id, rowData in pairs(data) do
         local rowComponent = Roact.createElement(TableWithMenuItem, {
             RowData = rowData.row,
@@ -87,6 +96,10 @@ local function createDataLabels(data, menuItems, onItemClicked)
     return dataRows
 end
 
+function TableWithMenu:init()
+    self.layoutRef = Roact.createRef()
+end
+
 function TableWithMenu:render()
 	local props = self.props
     local theme = props.Theme:get("Plugin")
@@ -96,25 +109,45 @@ function TableWithMenu:render()
     local menuItems = props.MenuItems
     local onItemClicked = props.OnItemClicked
     local layoutOrder = props.LayoutOrder
+    local nextPageFunc = props.NextPageFunc
 
-    local headerContent = createHeaderLabels(theme, headers)
-    local dataContent = createDataLabels(data, menuItems, onItemClicked)
+    local headerContent = self:createHeaderLabels(theme, headers)
+    local dataContent = self:createDataLabels(data, menuItems, onItemClicked)
 
-    return Roact.createElement(FitFrameOnAxis, {
-        LayoutOrder = layoutOrder,
+    return Roact.createElement("Frame", {
+        Size = UDim2.new(1, 0, 0, theme.table.height),
+
         BackgroundTransparency = 1,
-        axis = FitFrameOnAxis.Axis.Vertical,
-        minimumSize = UDim2.new(1, 0, 0, 0),
-        contentPadding = UDim.new(0, theme.table.item.padding),
-    }, Cryo.Dictionary.join({
+
+        LayoutOrder = layoutOrder,
+    }, {
+        ListLayout = Roact.createElement("UIListLayout", {
+            SortOrder = Enum.SortOrder.LayoutOrder,
+            VerticalAlignment = Enum.VerticalAlignment.Top,
+            FillDirection = Enum.FillDirection.Vertical,
+            HorizontalAlignment = Enum.HorizontalAlignment.Left,
+        }),
+
         HeaderFrame = Roact.createElement("Frame", {
             Size = UDim2.new(1, 0, 0, theme.table.header.height),
 
             BackgroundTransparency = 1,
 
             LayoutOrder = 1,
-        }, headerContent)
-    }, dataContent))
+        }, headerContent),
+
+        ScrollingContainer = Roact.createElement(InfiniteScrollingFrame, {
+            Size = UDim2.new(1, 0, 1, -theme.table.header.height),
+            BackgroundTransparency = 1,
+
+            LayoutRef = self.layoutRef,
+            CanvasHeight = theme.table.height,
+
+            NextPageFunc = nextPageFunc,
+
+            LayoutOrder = 2,
+        }, dataContent)
+    })
 end
 
 ContextServices.mapToProps(TableWithMenu, {

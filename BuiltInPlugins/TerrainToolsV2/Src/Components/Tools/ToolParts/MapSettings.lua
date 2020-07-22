@@ -84,9 +84,11 @@ function MapSettings:render()
 		local pos = self.props.Position
 		local size = self.props.Size
 		local layoutOrder = self.props.LayoutOrder
+		local isSubsection = self.props.isSubsection
 
 		return Roact.createElement(Panel, {
 			LayoutOrder = layoutOrder,
+			isSubsection = isSubsection,
 			Title = localization:getText("MapSettings", "MapSettings"),
 			Padding = UDim.new(0, 12),
 		}, {

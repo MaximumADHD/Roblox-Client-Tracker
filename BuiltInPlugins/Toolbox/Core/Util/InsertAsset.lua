@@ -15,9 +15,7 @@ local StarterPack = game:GetService("StarterPack")
 local Workspace = game:GetService("Workspace")
 local StudioService = game:GetService("StudioService")
 local Lighting = game:GetService("Lighting")
-local ABTestService = game:GetService("ABTestService")
 
-local FFlagPluginAccessAndInstallationInStudio = settings():GetFFlag("PluginAccessAndInstallationInStudio")
 local FFlagEnableToolboxInsertWithJoin2 = settings():GetFFlag("EnableToolboxInsertWithJoin2")
 local FFlagStudioToolboxInsertAssetCategoryAnalytics = settings():GetFFlag("StudioToolboxInsertAssetCategoryAnalytics")
 local FFlagToolboxFixDecalInsert = settings():GetFFlag("ToolboxFixDecalInsert")
@@ -25,14 +23,8 @@ local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox
 local FFlagEnableToolboxVideos = game:GetFastFlag("EnableToolboxVideos")
 local FFlagStudioFixUndoAfterInsertByDrag = game:GetFastFlag("StudioFixUndoAfterInsertByDrag")
 local FFlagToolboxForceSelectDragger = game:GetFastFlag("ToolboxForceSelectDragger")
-local FFlagEnableLuaDraggers = game:GetFastFlag("EnableLuaDraggers")
 local FFlagDragFaceInstances = game:GetFastFlag("DragFaceInstances")
-local ABTestForceLuaDraggers = ABTestService:GetVariant("ForceLuaDraggers") ~= "Control"
-local FFlagUseEngineFeature = game:GetFastFlag("UseEngineFeature")
-local EFLuaDraggers
-if FFlagUseEngineFeature then
-	EFLuaDraggers = game:GetEngineFeature("LuaDraggers")
-end
+local EFLuaDraggers = game:GetEngineFeature("LuaDraggers")
 
 local INSERT_MAX_SEARCH_DEPTH = 2048
 local INSERT_MAX_DISTANCE_AWAY = 64
@@ -280,7 +272,7 @@ local function dispatchInsertAsset(options, insertToolPromise)
 		return insertAudio(options.assetId, options.assetName)
 	elseif options.assetTypeId == Enum.AssetType.Decal.Value then
 		return insertDecal(options.plugin, options.assetId, options.assetName)
-	elseif options.assetTypeId == Enum.AssetType.Plugin.Value and FFlagPluginAccessAndInstallationInStudio then
+	elseif options.assetTypeId == Enum.AssetType.Plugin.Value then
 		return installPlugin(options.assetId, options.assetVersionId, options.assetName)
 	elseif FFlagEnableToolboxVideos and options.assetTypeId == Enum.AssetType.Video.Value then
 		return insertVideo(options.assetId, options.assetName)
@@ -328,19 +320,10 @@ Options table format:
 -- insertToolPromise can be nil if dragged.
 function InsertAsset.tryInsert(options, insertToolPromise, assetWasDragged)
 	if assetWasDragged then
-		if FFlagUseEngineFeature then
-			if FFlagToolboxForceSelectDragger and EFLuaDraggers then
-				local selectedRibbonTool = options.plugin:GetSelectedRibbonTool()
-				if not RIBBON_DRAGGER_TOOLS[selectedRibbonTool] then
-					options.plugin:SelectRibbonTool(Enum.RibbonTool.Select, UDim2.new())
-				end
-			end
-		else
-			if FFlagToolboxForceSelectDragger and (FFlagEnableLuaDraggers or ABTestForceLuaDraggers) then
-				local selectedRibbonTool = options.plugin:GetSelectedRibbonTool()
-				if not RIBBON_DRAGGER_TOOLS[selectedRibbonTool] then
-					options.plugin:SelectRibbonTool(Enum.RibbonTool.Select, UDim2.new())
-				end
+		if FFlagToolboxForceSelectDragger and EFLuaDraggers then
+			local selectedRibbonTool = options.plugin:GetSelectedRibbonTool()
+			if not RIBBON_DRAGGER_TOOLS[selectedRibbonTool] then
+				options.plugin:SelectRibbonTool(Enum.RibbonTool.Select, UDim2.new())
 			end
 		end
 		InsertAsset.doDragInsertAsset(options)
@@ -388,24 +371,13 @@ function InsertAsset.doDragInsertAsset(options)
 	local assetId = options.assetId
 	local assetName = options.assetName
 	local assetTypeId = options.assetTypeId
-	if FFlagUseEngineFeature then
-		if assetTypeId == Enum.AssetType.Plugin.Value then
-			-- We should absolutely never allow plugins to be installed via dragging!
-			return
-		elseif (not (EFLuaDraggers and FFlagDragFaceInstances)) and assetTypeId == Enum.AssetType.Video.Value then
-			-- We need draggerFramework and face instance dragging to be on to drag videos
-			insertVideo(assetId, assetName)
-			return
-		end
-	else
-		if assetTypeId == Enum.AssetType.Plugin.Value then
-			-- We should absolutely never allow plugins to be installed via dragging!
-			return
-		elseif (not ((FFlagEnableLuaDraggers or ABTestForceLuaDraggers) and FFlagDragFaceInstances)) and assetTypeId == Enum.AssetType.Video.Value then
-			-- We need draggerFramework and face instance dragging to be on to drag videos
-			insertVideo(assetId, assetName)
-			return
-		end
+	if assetTypeId == Enum.AssetType.Plugin.Value then
+		-- We should absolutely never allow plugins to be installed via dragging!
+		return
+	elseif (not (EFLuaDraggers and FFlagDragFaceInstances)) and assetTypeId == Enum.AssetType.Video.Value then
+		-- We need draggerFramework and face instance dragging to be on to drag videos
+		insertVideo(assetId, assetName)
+		return
 	end
 
 	if DebugFlags.shouldDebugWarnings() then

@@ -15,7 +15,6 @@
 ]]
 
 local FFlagToolboxFixDuplicateAssetInsertions = game:DefineFastFlag("ToolboxFixDuplicateAssetInsertions", false)
-local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
 local FFlagEnableSearchedWithoutInsertionAnalytic = game:GetFastFlag("EnableSearchedWithoutInsertionAnalytic")
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 local FFlagEnableDefaultSortFix2 = game:GetFastFlag("EnableDefaultSortFix2")
@@ -234,12 +233,7 @@ function AssetGridContainer:init(props)
 		local asset = assetData.Asset
 		local assetId = asset.Id
 		local assetTypeId = asset.TypeId
-		local plugin
-		if FFlagStudioToolboxEnabledDevFramework then
-			plugin = self.props.Plugin:get()
-		else
-			plugin = getPlugin(self)
-		end
+		local plugin = self.props.Plugin:get()
 
 		local isPackageAsset
 		if FFlagUseCategoryNameInToolbox then
@@ -273,12 +267,7 @@ function AssetGridContainer:init(props)
 		local assetIndex = currentProps.assetIndex
 		local categories = (not FFlagUseCategoryNameInToolbox) and (currentProps.categories)
 
-		local plugin
-		if FFlagStudioToolboxEnabledDevFramework then
-			plugin = self.props.Plugin:get()
-		else
-			plugin = getPlugin(self)
-		end
+		local plugin = self.props.Plugin:get()
 		InsertAsset.tryInsert({
 				plugin = plugin,
 				assetId = assetId,
@@ -483,11 +472,9 @@ function AssetGridContainer:render()
 	end)
 end
 
-if FFlagStudioToolboxEnabledDevFramework then
-	ContextServices.mapToProps(AssetGridContainer, {
-		Plugin = ContextServices.Plugin,
-	})
-end
+ContextServices.mapToProps(AssetGridContainer, {
+	Plugin = ContextServices.Plugin,
+})
 
 local function mapStateToProps(state, props)
 	state = state or {}

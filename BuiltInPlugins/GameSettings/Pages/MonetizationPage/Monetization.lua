@@ -1,13 +1,16 @@
 local Page = script.Parent
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
+local RoactRodux = require(Plugin.RoactRodux)
 local Cryo = require(Plugin.Cryo)
 local Framework = Plugin.Framework
+local ContextServices = require(Framework.ContextServices)
 
 local Header = require(Plugin.Src.Components.Header)
 local PaidAccess = require(Page.Components.PaidAccess)
 local VIPServers = require(Page.Components.VIPServers)
 local DevProducts = require(Page.Components.DevProducts)
+local SettingsPage = require(Plugin.Src.Components.SettingsPages.SettingsPage)
 
 local FrameworkUI = require(Framework.UI)
 local HoverArea = FrameworkUI.HoverArea
@@ -29,15 +32,20 @@ local AddErrors = require(Plugin.Src.Actions.AddErrors)
 local DiscardError = require(Plugin.Src.Actions.DiscardError)
 local SetEditDevProductId = require(Plugin.Src.Actions.SetEditDevProductId)
 
-local PageName = "Monetization"
+local LoadDeveloperProducts = require(Page.Thunks.LoadDeveloperProducts)
 
+local Monetization = Roact.PureComponent:extend(script.name)
+
+local LOCALIZATION_ID = "Monetization"
+
+--[[
+    TODO 7/16/2020 Fetch these values from the BE so we don't need to keep syncing with BE whenever they change
+]]
 local MAX_NAME_LENGTH = 50
 local PAID_ACCESS_MIN_PRICE = 25
 local PAID_ACCESS_MAX_PRICE = 1000
 local VIP_SERVERS_MIN_PRICE = 10
 local DEV_PRODUCTS_MIN_PRICE = 1
-
-local createSettingsPage = require(Plugin.Src.Components.SettingsPages.DEPRECATED_createSettingsPage)
 
 local FFlagSupportFreePrivateServers = game:GetFastFlag("SupportFreePrivateServers")
 local FFlagEnableDevProductsInGameSettings = game:GetFastFlag("EnableDevProductsInGameSettings")
@@ -54,6 +62,123 @@ local nameErrors = {
 }
 
 local nextDevProductName = ""
+
+local function loadSettings(store, contextItems)
+    local state = store:getState()
+    local gameId = state.Metadata.gameId
+    local monetizationController = contextItems.monetizationController
+
+    return {
+        function(loadedSettings)
+            local taxRate = monetizationController:getTaxRate()
+
+            loadedSettings["taxRate"] = taxRate
+        end,
+
+        function(loadedSettings)
+            local minimumFee = monetizationController:getMinimumFee()
+            loadedSettings["minimumFee"] = minimumFee
+        end,
+
+        function(loadedSettings)
+            local isForSale = monetizationController:getPaidAccessEnabled(gameId)
+            loadedSettings["isForSale"] = isForSale
+        end,
+
+        function(loadedSettings)
+            local price = monetizationController:getPaidAccessPrice(gameId)
+            loadedSettings["price"] = price
+        end,
+
+        function(loadedSettings)
+            local vipServersIsEnabled = monetizationController:getVIPServersEnabled(gameId)
+            loadedSettings["vipServersIsEnabled"] = vipServersIsEnabled
+        end,
+
+        function(loadedSettings)
+            local vipServersPrice = monetizationController:getVIPServersPrice(gameId)
+            loadedSettings["vipServersPrice"] = vipServersPrice and vipServersPrice or 0
+        end,
+
+        function(loadedSettings)
+            local vipServersActiveServersCount = monetizationController:getVIPServersActiveServersCount(gameId)
+            loadedSettings["vipServersActiveServersCount"] = vipServersActiveServersCount
+        end,
+
+        function(loadedSettings)
+            local vipServersActiveSubscriptionsCount = monetizationController:getVIPServersActiveSubscriptionsCount(gameId)
+            loadedSettings["vipServersActiveSubscriptionsCount"] = vipServersActiveSubscriptionsCount
+        end,
+
+        function(loadedSettings)
+            local developerProducts, cursor = monetizationController:getDeveloperProducts(gameId)
+
+            loadedSettings["developerProducts"] = developerProducts
+            loadedSettings["devProductsCursor"] = cursor
+        end
+    }
+end
+
+local function saveSettings(store, contextItems)
+    local state = store:getState()
+    local gameId = state.Metadata.gameId
+    local monetizationController = contextItems.monetizationController
+    local unsavedDevProducts = state.Settings.Changed.unsavedDevProducts
+    local editedDevProducts = state.Settings.Changed.editedDeveloperProducts
+
+    local saveFunctions = {
+        function()
+            local changed = state.Settings.Changed.isForSale
+
+            if changed ~= nil then
+                monetizationController:setPaidAccessEnabled(gameId, changed)
+            end
+        end,
+
+        function()
+            local changed = state.Settings.Changed.price
+
+            if changed ~= nil then
+                monetizationController:setPaidAccessPrice(gameId, changed)
+            end
+        end,
+
+        function()
+            local changed = state.Settings.Changed.vipServersIsEnabled
+
+            if changed ~= nil then
+                monetizationController:setVIPServersEnabled(gameId, changed)
+            end
+        end,
+
+        function()
+            local changed = state.Settings.Changed.vipServersPrice
+
+            if changed ~= nil then
+                monetizationController:setVIPServersPrice(gameId, changed)
+            end
+        end,
+    }
+
+    if unsavedDevProducts ~= nil then
+        for _, product in pairs(unsavedDevProducts) do
+            table.insert(saveFunctions, function()
+                monetizationController:createDevProduct(gameId, product)
+            end)
+        end
+    end
+
+
+    if editedDevProducts ~= nil then
+        for _,product in pairs(editedDevProducts) do
+            table.insert(saveFunctions, function()
+                monetizationController:updateDevProduct(gameId, product)
+            end)
+        end
+    end
+
+    return saveFunctions
+end
 
 --Loads settings values into props by key
 local function loadValuesToProps(getValue, state)
@@ -199,6 +324,10 @@ local function dispatchChanges(setValue, dispatch)
             end
             dispatch(AddChange("editedDeveloperProducts", devProducts))
         end,
+
+        LoadMoreDevProducts = function()
+            dispatch(LoadDeveloperProducts())
+        end,
     }
     return dispatchFuncs
 end
@@ -309,7 +438,8 @@ local function sanitizeCurrentDevProduct(devProduct, initialName)
 end
 
 --Uses props to display current settings values
-local function displayMonetizationPage(props, localization)
+local function displayMonetizationPage(props)
+    local localization = props.Localization
     local taxRate = props.TaxRate
     local minimumFee = props.MinimumFee
 
@@ -336,6 +466,7 @@ local function displayMonetizationPage(props, localization)
 
     local setUnsavedDevProducts = props.SetUnsavedDevProducts
     local setEditDevProductId = props.SetEditDevProductId
+    local loadMoreDevProducts = props.LoadMoreDevProducts
 
     local priceError = getPriceErrorText(props.AccessPriceError, vipServers.isEnabled, paidAccessEnabled, localization)
 
@@ -347,11 +478,6 @@ local function displayMonetizationPage(props, localization)
     end
 
     return {
-        Header = Roact.createElement(Header, {
-            Title = localization:getText("General", "Category"..PageName),
-			LayoutOrder = layoutIndex:getNextOrder(),
-        }),
-
         PaidAccess = Roact.createElement(PaidAccess, {
             Price = paidAccessPrice,
             TaxRate = taxRate,
@@ -404,13 +530,15 @@ local function displayMonetizationPage(props, localization)
                 })
                 setUnsavedDevProducts(unsavedDevProducts, nil, nil)
             end,
+            OnLoadMoreDevProducts = loadMoreDevProducts,
             OnEditDevProductClicked = setEditDevProductId
 		})
     }
 end
 
-local function displayEditDevProductsPage(props, localization)
-	local theme = props.Theme:get("Plugin")
+local function displayEditDevProductsPage(props)
+    local theme = props.Theme:get("Plugin")
+    local localization = props.Localization
 
 	local layoutIndex = LayoutOrderIterator.new()
 
@@ -640,30 +768,61 @@ local function displayEditDevProductsPage(props, localization)
     }
 end
 
---Uses props to display current settings values
-local function displayContents(page, localization, theme)
-    local props = page.props
+function Monetization:render()
+    local props = self.props
+    local localization = props.Localization
 
     local editDevProductId = props.EditDevProductId
 
+    local createChildren
     if editDevProductId == nil then
-	    return displayMonetizationPage(props, localization)
+        createChildren = function()
+            return displayMonetizationPage(props)
+        end
     elseif type(editDevProductId) == "number" then
-        return displayEditDevProductsPage(props, localization)
+        createChildren = function()
+            return displayEditDevProductsPage(props)
+        end
     end
-end
 
-local SettingsPage = createSettingsPage(PageName, loadValuesToProps, dispatchChanges)
-
-local function Monetization(props)
-	return Roact.createElement(SettingsPage, {
-		ContentHeightChanged = props.ContentHeightChanged,
-		SetScrollbarEnabled = props.SetScrollbarEnabled,
-		LayoutOrder = props.LayoutOrder,
-		Content = displayContents,
-
-		AddLayout = true,
+    return Roact.createElement(SettingsPage, {
+		SettingsLoadJobs = loadSettings,
+		SettingsSaveJobs = saveSettings,
+		Title = localization:getText("General", "Category"..LOCALIZATION_ID),
+		PageId = script.Name,
+        CreateChildren = createChildren,
+        ShowHeader = editDevProductId == 0,
 	})
 end
+
+ContextServices.mapToProps(Monetization, {
+	Localization = ContextServices.Localization,
+	Theme = ContextServices.Theme,
+})
+
+local settingFromState = require(Plugin.Src.Networking.settingFromState)
+Monetization = RoactRodux.connect(
+	function(state, props)
+		if not state then return end
+
+		local getValue = function(propName)
+			return settingFromState(state.Settings, propName)
+		end
+
+		return loadValuesToProps(getValue, state)
+	end,
+
+	function(dispatch)
+		local setValue = function(propName)
+			return function(value)
+				dispatch(AddChange(propName, value))
+			end
+		end
+
+		return dispatchChanges(setValue, dispatch)
+	end
+)(Monetization)
+
+Monetization.LocalizationId = LOCALIZATION_ID
 
 return Monetization

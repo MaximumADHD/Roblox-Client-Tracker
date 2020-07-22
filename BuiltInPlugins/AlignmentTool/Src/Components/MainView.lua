@@ -27,10 +27,13 @@ local StyleModifier = Util.StyleModifier
 local SetAlignableObjects = require(Plugin.Src.Actions.SetAlignableObjects)
 local AxesSection = require(Plugin.Src.Components.AxesSection)
 local DebugView = require(Plugin.Src.Components.DebugView)
+local InfoLabel = require(Plugin.Src.Components.InfoLabel)
 local ModeSection = require(Plugin.Src.Components.ModeSection)
 local RelativeToSection = require(Plugin.Src.Components.RelativeToSection)
 local UpdateAlignEnabled = require(Plugin.Src.Thunks.UpdateAlignEnabled)
 local UpdateAlignment = require(Plugin.Src.Thunks.UpdateAlignment)
+
+local AlignToolError = require(Plugin.Src.Utility.AlignToolError)
 local getAlignableObjects = require(Plugin.Src.Utility.getAlignableObjects)
 local getBoundingBoxes = require(Plugin.Src.Utility.getBoundingBoxes)
 local getDebugSettingValue = require(Plugin.Src.Utility.getDebugSettingValue)
@@ -60,6 +63,16 @@ function MainView:render()
 	local theme = props.Theme:get("Plugin")
 	local layoutOrderIterator = LayoutOrderIterator.new()
 
+	local errorText
+
+	if not props.alignEnabled and props.disabledReason ~= nil then
+		local errorCode = props.disabledReason.errorCode
+		if errorCode then
+			local formatParameters = props.disabledReason.formatParameters
+			errorText = AlignToolError.getErrorText(localization, errorCode, formatParameters)
+		end
+	end
+
 	return Roact.createElement(Container, {
 		Background = Decoration.Box,
 		Padding = theme.MainView.Padding,
@@ -80,6 +93,12 @@ function MainView:render()
 
 		RelativeToSection = Roact.createElement(RelativeToSection, {
 			LayoutOrder = layoutOrderIterator:getNextOrder(),
+		}),
+
+		InfoLabel = Roact.createElement(InfoLabel, {
+			LayoutOrder = layoutOrderIterator:getNextOrder(),
+			Text = errorText,
+			Type = InfoLabel.Error,
 		}),
 
 		ButtonContainer = Roact.createElement(Container, {
@@ -157,6 +176,7 @@ ContextServices.mapToProps(MainView, {
 local function mapStateToProps(state, _)
 	return {
 		alignEnabled = state.alignEnabled,
+		disabledReason = state.disabledReason,
 		alignableObjects = state.alignableObjects,
 		alignmentMode = state.alignmentMode,
 		enabledAxes = state.enabledAxes,

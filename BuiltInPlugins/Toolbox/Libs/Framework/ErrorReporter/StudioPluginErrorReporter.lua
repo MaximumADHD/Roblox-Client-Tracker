@@ -19,6 +19,7 @@
 	end
 ]]
 
+local AnalyticsService = game:GetService("RbxAnalyticsService")
 local ContentProvider = game:GetService("ContentProvider")
 local HttpService = game:GetService("HttpService")
 local RunService = game:GetService("RunService")
@@ -31,6 +32,7 @@ local BacktraceReporter = require(script.Parent.Backtrace.BacktraceReporter)
 
 local FStringStudioPluginsBacktraceToken = settings():GetFVariable("StudioPluginsBacktraceToken")
 local STUDIO_DEVELOPMENT_VERSION = "0.0.0.1"
+local STUDIO_PLUGIN_ERRORS_DIAG_COLLECTOR = "StudioPluginErrors"
 
 local IStudioPluginErrorReporterArgs = t.strictInterface({
 	plugin = t.any,
@@ -65,6 +67,7 @@ function StudioPluginErrorReporter.new(args)
 	local networking = args.networking or Networking.new({ isInternal = true })
 	local errorSignal = args.errorSignal or ScriptContext.ErrorDetailed
 	local services = args.services or {}
+	local analyticsService = services.AnalyticsService or AnalyticsService
 	local runService = services.RunService or RunService
 	local httpService = services.HttpService or HttpService
 	local contentProvider = services.ContentProvider or ContentProvider
@@ -75,7 +78,8 @@ function StudioPluginErrorReporter.new(args)
 	local self = setmetatable({}, StudioPluginErrorReporter)
 	
 	self.errorSignal = errorSignal
-
+	self.diagCollectorName = string.format("%s.%s", STUDIO_PLUGIN_ERRORS_DIAG_COLLECTOR, pluginName)
+	self.analyticsService = analyticsService
 	self.staticAttributes = {
 		StudioVersion = studioVersion,
 		UserAgent = userAgent,
@@ -98,8 +102,15 @@ function StudioPluginErrorReporter.new(args)
 
 	local isProductionStudio = studioVersion ~= STUDIO_DEVELOPMENT_VERSION
 	if isProductionStudio then
-		self.errorToken = self.errorSignal:Connect(function(errorMessage, errorStack, details)
-			self.reporter:reportErrorDeferred(errorMessage, errorStack, details)
+		self.errorToken = self.errorSignal:Connect(function(errorMessage, errorStack, _, details)
+			-- disregard all errors not from this plugin
+			if string.find(errorStack, pluginName) ~= nil then
+				-- report detailed information about the error
+				self.reporter:reportErrorDeferred(errorMessage, errorStack, details)
+
+				-- keep track of the total errors
+				self.analyticsService:ReportCounter(self.diagCollectorName, 1)
+			end
 		end)
 
 		self.unloadingToken = args.plugin.Unloading:Connect(function()
@@ -113,6 +124,7 @@ end
 function StudioPluginErrorReporter:report(errorMessage)
 	assert(type(errorMessage) == "string", "Expected errorMessage to be a string")
 	self.reporter:reportErrorDeferred(errorMessage, debug.traceback())
+	self.analyticsService:ReportCounter(self.diagCollectorName, 1)
 end
 
 function StudioPluginErrorReporter:stop()

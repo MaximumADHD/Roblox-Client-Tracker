@@ -7,7 +7,6 @@
 		number maxDuration: the upper limit of the audio search.
 		callback onDurationChange: callback to notice parent component about the min and max length for audio search.
 ]]
-local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
 local FFlagToolboxFixOneSecondAudioMaxDuration = game:GetFastFlag("ToolboxFixOneSecondAudioMaxDuration")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -56,17 +55,9 @@ function AudioSearch:init(props)
 end
 
 function AudioSearch:render()
-	if FFlagStudioToolboxEnabledDevFramework then
-		return withTheme(function(theme)
-			return self:renderContent(theme, nil)
-		end)
-	else
-		return withTheme(function(theme)
-			return withLocalization(function(_, localizedContent)
-				return self:renderContent(theme, localizedContent)
-			end)
-		end)
-	end
+	return withTheme(function(theme)
+		return self:renderContent(theme, nil)
+	end)
 end
 
 function AudioSearch:renderContent(theme, localizedContent)
@@ -77,13 +68,8 @@ function AudioSearch:renderContent(theme, localizedContent)
 
 	local audioTheme = theme.searchOptions.audioSearch
 
-	local toText
-	if FFlagStudioToolboxEnabledDevFramework then
-		local localization = props.Localization
-		toText = localization:getText("General", "SearchOptionAudioTo")
-	else
-		toText = localizedContent.AudioSearch.ToString
-	end
+	local localization = props.Localization
+	local toText = localization:getText("General", "SearchOptionAudioTo")
 
 	return Roact.createElement(FitFrameVertical, {
 		BackgroundTransparency = 1,
@@ -133,7 +119,7 @@ function AudioSearch:renderContent(theme, localizedContent)
 			}),
 		}),
 
-		RangeSlider = FFlagStudioToolboxEnabledDevFramework and Roact.createElement(RangeSlider, {
+		RangeSlider = Roact.createElement(RangeSlider, {
 			LayoutOrder = 2,
 			LowerRangeValue = minDuration,
 			UpperRangeValue = maxDuration,
@@ -146,10 +132,8 @@ function AudioSearch:renderContent(theme, localizedContent)
 	})
 end
 
-if FFlagStudioToolboxEnabledDevFramework then
-	ContextServices.mapToProps(AudioSearch, {
-		Localization = ContextServices.Localization,
-	})
-end
+ContextServices.mapToProps(AudioSearch, {
+	Localization = ContextServices.Localization,
+})
 
 return AudioSearch

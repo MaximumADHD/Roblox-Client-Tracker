@@ -5,13 +5,15 @@ end
 -- Fast flags
 require(script.Parent.defineLuaFlags)
 local FFlagEnableOverrideAssetCursorFix = game:GetFastFlag("EnableOverrideAssetCursorFix")
-local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
 local FFlagAssetManagerLuaPlugin = game:GetFastFlag("AssetManagerLuaPlugin")
 local FFlagStudioUseNewAnimationImportExportFlow = settings():GetFFlag("StudioUseNewAnimationImportExportFlow")
 local FFlagStudioAssetConfigurationPlugin = game:GetFastFlag("StudioAssetConfigurationPlugin")
 local FFlagStudioUnrestrictPluginGuiService = game:GetFastFlag("StudioUnrestrictPluginGuiService")
 local FFlagToolboxUseDevFrameworkPromise = game:GetFastFlag("ToolboxUseDevFrameworkPromise")
 local FFlagDevFrameworkUnhandledPromiseRejections = game:GetFastFlag("DevFrameworkUnhandledPromiseRejections")
+local FFlagToolboxDisableForLuobu = game:GetFastFlag("ToolboxDisableForLuobu")
+local FFlagDebugToolboxEnableRoactChecks = game:GetFastFlag("DebugToolboxEnableRoactChecks")
+local FFlagToolboxEnableErrorReporting = game:GetFastFlag("ToolboxEnableErrorReporting")
 
 local Plugin = script.Parent.Parent
 local Libs = Plugin.Libs
@@ -21,6 +23,15 @@ if FFlagToolboxTabTooltips then
 	Libs.RoactNext.Name = "Roact"
 end
 local Roact = require(Libs.Roact)
+
+if FFlagDebugToolboxEnableRoactChecks then
+	Roact.setGlobalConfig({
+		elementTracing = true,
+		propValidation = true,
+		typeChecks = true
+	})
+end
+
 local Rodux = require(Libs.Rodux)
 
 local Util = Plugin.Core.Util
@@ -53,10 +64,12 @@ local AssetConfigWrapper = require(Plugin.Core.Components.AssetConfiguration.Ass
 local ToolboxServiceWrapper =  require(Plugin.Core.Components.ToolboxServiceWrapper)
 
 local GetRolesRequest = require(Plugin.Core.Networking.Requests.GetRolesRequest)
-
-local ContextServices = require(Libs.Framework.ContextServices)
-local CrossPluginCommunication = require(Libs.Framework.Util.CrossPluginCommunication)
 local SettingsContext = require(Plugin.Core.ContextServices.Settings)
+
+local Framework = require(Libs.Framework)
+local ContextServices = Framework.ContextServices
+local CrossPluginCommunication = Framework.Util.CrossPluginCommunication
+local ErrorReporter = Framework.ErrorReporter.StudioPluginErrorReporter
 
 local TranslationStringsTable = Plugin.LocalizationSource.ToolboxTranslationReferenceTable
 local makeTheme = require(Util.makeTheme)
@@ -66,12 +79,21 @@ local MemStorageService = game:GetService("MemStorageService")
 local RobloxPluginGuiService = game:GetService("RobloxPluginGuiService")
 local StudioService = game:GetService("StudioService")
 
-local localization2
-if FFlagStudioToolboxEnabledDevFramework then
-	localization2 = ContextServices.Localization.new({
-		stringResourceTable = TranslationStringsTable,
-		translationResourceTable = TranslationStringsTable,
-		pluginName = "Toolbox",
+local Url = require(Libs.Framework.RobloxAPI.Url)
+
+local localization2 = ContextServices.Localization.new({
+	stringResourceTable = TranslationStringsTable,
+	translationResourceTable = TranslationStringsTable,
+	pluginName = "Toolbox",
+})
+
+if FFlagToolboxDisableForLuobu and Url:baseURLHasChineseHost() then
+	return
+end
+
+if FFlagToolboxEnableErrorReporting then
+	ErrorReporter.new({
+		plugin = plugin,
 	})
 end
 
@@ -220,21 +242,16 @@ local function DEPRECATED_createMonolithicAssetConfig(assetId, flowType, instanc
 
 		onAssetConfigDestroy = onAssetConfigDestroy
 	})
-	if FFlagStudioToolboxEnabledDevFramework then
-		local assetConfigWithServices
-		assetConfigWithServices = Roact.createElement(ToolboxServiceWrapper, {
-			localization = localization2,
-			plugin = plugin,
-			theme = theme,
-			store = assetConfigStore,
-			settings = settings,
-		}, {
-			assetConfigComponent
-		})
-		assetConfigHandle = Roact.mount(assetConfigWithServices)
-	else
-		assetConfigHandle = Roact.mount(assetConfigComponent)
-	end
+	local assetConfigWithServices = Roact.createElement(ToolboxServiceWrapper, {
+		localization = localization2,
+		plugin = plugin,
+		theme = theme,
+		store = assetConfigStore,
+		settings = settings,
+	}, {
+		assetConfigComponent
+	})
+	assetConfigHandle = Roact.mount(assetConfigWithServices)
 end
 
 local function invokeAssetConfigPlugin(assetId, flowType, instances, assetTypeEnum)
@@ -332,21 +349,17 @@ local function main()
 			toolboxStore:dispatch(GetRolesRequest(networkInterface)):andThen(proceedToEdit, proceedToEdit)
 		end,
 	})
-	if FFlagStudioToolboxEnabledDevFramework then
-		local toolboxWithServices
-		toolboxWithServices = Roact.createElement(ToolboxServiceWrapper, {
-			localization = localization2,
-			plugin = plugin,
-			theme = theme,
-			store = toolboxStore,
-			settings = settings,
-		}, {
-			toolboxComponent
-		})
-		toolboxHandle = Roact.mount(toolboxWithServices)
-	else
-		toolboxHandle = Roact.mount(toolboxComponent)
-	end
+	local toolboxWithServices
+	toolboxWithServices = Roact.createElement(ToolboxServiceWrapper, {
+		localization = localization2,
+		plugin = plugin,
+		theme = theme,
+		store = toolboxStore,
+		settings = settings,
+	}, {
+		toolboxComponent
+	})
+	toolboxHandle = Roact.mount(toolboxWithServices)
 
 	-- Create publish new asset page.
 	StudioService.OnSaveToRoblox:connect(function(instances)

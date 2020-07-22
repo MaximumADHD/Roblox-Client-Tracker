@@ -14,7 +14,6 @@
 		UDim2 position: the position of the component.
 		UDim2 size: the size of the component.
 ]]
-local FFlagStudioToolboxEnabledDevFramework = game:DefineFastFlag("StudioToolboxEnabledDevFramework", false)
 local FFlagToolboxFixOneSecondAudioMaxDuration = game:GetFastFlag("ToolboxFixOneSecondAudioMaxDuration")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -219,10 +218,8 @@ function TimeTextBox:render()
 		local position = props.position
 		local layoutOrder = props.layoutOrder
 
-		local secondLabel = FFlagStudioToolboxEnabledDevFramework
-			and props.Localization:getText("General", "AbbreviatedSeconds") or "s"
-		local minuteLabel = FFlagStudioToolboxEnabledDevFramework
-			and props.Localization:getText("General", "AbbreviatedMinutes") or "m"
+		local secondLabel = props.Localization:getText("General", "AbbreviatedSeconds")
+		local minuteLabel = props.Localization:getText("General", "AbbreviatedMinutes")
 
 		return Roact.createElement(RoundFrame, {
 			BackgroundTransparency = 0,
@@ -309,10 +306,8 @@ function TimeTextBox:render()
 	end)
 end
 
-if FFlagStudioToolboxEnabledDevFramework then
-	ContextServices.mapToProps(TimeTextBox, {
-		Localization = ContextServices.Localization,
-	})
-end
+ContextServices.mapToProps(TimeTextBox, {
+	Localization = ContextServices.Localization,
+})
 
 return TimeTextBox

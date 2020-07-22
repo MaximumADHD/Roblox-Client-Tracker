@@ -33,6 +33,7 @@ local function ButtonGroup(props)
 				LayoutOrder = index,
 				Size = UDim2.new(0, buttonWidth, 0, BUTTON_HEIGHT),
 				Style = theme.roundTextButtonTheme.styleSheet,
+
 				TextSize = theme.roundTextButtonTheme.textSize,
 
 				Name = button.Name,

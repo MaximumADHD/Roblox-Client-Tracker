@@ -72,9 +72,7 @@ local FixModelPreviewSelection = settings():GetFFlag("FixModelPreviewSelection")
 local FFlagFixUseDevelopFetchPluginVersionId = game:DefineFastFlag("FixUseDevelopFetchPluginVersionId", false)
 local FFlagStudioToolboxPluginPurchaseFlow = game:GetFastFlag("StudioToolboxPluginPurchaseFlow")
 local FFlagStudioHideSuccessDialogWhenFree = game:GetFastFlag("StudioHideSuccessDialogWhenFree")
-local FFlagPluginAccessAndInstallationInStudio = settings():GetFFlag("PluginAccessAndInstallationInStudio")
 local FFlagStudioFixAssetPreviewTreeView = settings():GetFFlag("StudioFixAssetPreviewTreeView")
-local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
 local FFlagStudioFixAssetPreviewCloseButton = settings():GetFFlag("StudioFixAssetPreviewCloseButton")
 
 local FFlagToolboxUseNewAssetType = game:GetFastFlag("ToolboxUseNewAssetType")
@@ -112,7 +110,7 @@ function AssetPreviewWrapper:createPurchaseFlow(localizedContent)
 	local assetPreviewType
 	-- We shouldn't be changing asset preview type here. AssetPreviewWrappers are used to load the content for asset
 	-- preview. So, that's where we can change the assetPreviewType.
-	if FFlagPluginAccessAndInstallationInStudio and (typeId == Enum.AssetType.Plugin.Value) then
+	if typeId == Enum.AssetType.Plugin.Value then
 		assetPreviewType = AssetType:markAsPlugin()
 	else
 		assetPreviewType = AssetType:getAssetType(currentPreview)
@@ -280,7 +278,7 @@ function AssetPreviewWrapper:init(props)
 	end
 
 	self.searchByCreator = function(creatorName)
-		local settings = FFlagStudioToolboxEnabledDevFramework and self.props.Settings:get("Plugin") or getSettings(self)
+		local settings = self.props.Settings:get("Plugin")
 		self.props.searchWithOptions(networkInterface, settings, {
 			Creator = creatorName,
 		})
@@ -664,10 +662,8 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-if FFlagStudioToolboxEnabledDevFramework then
-	ContextServices.mapToProps(AssetPreviewWrapper, {
-		Settings = Settings,
-	})
-end
+ContextServices.mapToProps(AssetPreviewWrapper, {
+	Settings = Settings,
+})
 
 return RoactRodux.UNSTABLE_connect2(mapStateToProps, mapDispatchToProps)(AssetPreviewWrapper)

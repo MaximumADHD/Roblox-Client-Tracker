@@ -6,6 +6,7 @@ end
 local FFlagStudioLuaPublishFlowLocalizeUntitledGameText = game:DefineFastFlag("StudioLuaPublishFlowLocalizeUntitledGameText", false)
 local FFlagLuaPublishFlowFixCreateButtonInChinese = game:DefineFastFlag("LuaPublishFlowFixCreateButtonInChinese", false)
 local FFlagLuaPublishFlowFixPluginHandleWarning = game:DefineFastFlag("LuaPublishFlowFixPluginHandleWarning", false)
+local FFlagStudioPublishLuaWorkflow = game:GetFastFlag("StudioPublishLuaWorkflow")
 
 -- libraries
 local Plugin = script.Parent.Parent
@@ -75,7 +76,7 @@ local function makePluginGui()
 end
 
 --Initializes and populates the plugin popup window
-local function openPluginWindow()
+local function openPluginWindow(isOverwritePublish)
 	if not FFlagLuaPublishFlowFixPluginHandleWarning then
 		if pluginHandle then
 			warn("Plugin handle already exists")
@@ -94,11 +95,21 @@ local function openPluginWindow()
 			OnClose = closePlugin,
 		})
 	})
-	if FFlagStudioLuaPublishFlowLocalizeUntitledGameText then
-		dataStore:dispatch(ResetInfo(localization:getText("General", "UntitledGame")))
+
+	if FFlagStudioPublishLuaWorkflow then
+		if FFlagStudioLuaPublishFlowLocalizeUntitledGameText then
+			dataStore:dispatch(ResetInfo(localization:getText("General", "UntitledGame"), isOverwritePublish))
+		else
+			dataStore:dispatch(ResetInfo("", isOverwritePublish))
+		end
 	else
-		dataStore:dispatch(ResetInfo())
+		if FFlagStudioLuaPublishFlowLocalizeUntitledGameText then
+			dataStore:dispatch(ResetInfo(localization:getText("General", "UntitledGame")))
+		else
+			dataStore:dispatch(ResetInfo())
+		end
 	end
+
 	pluginHandle = Roact.mount(servicesProvider, pluginGui)
 	pluginGui.Enabled = true
 end
@@ -107,9 +118,15 @@ local function main()
 	plugin.Name = localization:getText("General", "PublishPlace")
 	makePluginGui()
 
-	StudioService.OnPublishPlaceToRoblox:Connect(function()
-		openPluginWindow()
-	end)
+	if FFlagStudioPublishLuaWorkflow then
+		StudioService.OnPublishPlaceToRoblox:Connect(function(isOverwritePublish)
+			openPluginWindow(isOverwritePublish)	
+		end)
+	else
+		StudioService.DEPRECATED_OnPublishPlaceToRoblox:Connect(function()
+			openPluginWindow(false)	
+		end)
+	end
 
 	StudioService.GamePublishFinished:connect(function(success)
 		dataStore:dispatch(SetIsPublishing(false))

@@ -4,8 +4,6 @@
 	Props:
 		Backgrounds backgrounds
 ]]
-local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
-
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
@@ -13,10 +11,8 @@ local Roact = require(Libs.Roact)
 local RoactRodux = require(Libs.RoactRodux)
 
 local Constants = require(Plugin.Core.Util.Constants)
-local ContextGetter = require(Plugin.Core.Util.ContextGetter)
 local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 
-local getSettings = ContextGetter.getSettings
 local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
 
@@ -31,37 +27,26 @@ local Footer = Roact.PureComponent:extend("Footer")
 
 function Footer:init(props)
 	local settings
-	if not FFlagStudioToolboxEnabledDevFramework then
-		settings = getSettings(self) -- TOOD: Remove when FFlagStudioToolboxEnabledDevFramework is removed
-	end
 
 	self.inputEnded = function(rbx, input)
-		if FFlagStudioToolboxEnabledDevFramework then
-			settings = self.props.Settings:get("Plugin")
-		end
+		settings = self.props.Settings:get("Plugin")
 		if input.UserInputType == Enum.UserInputType.Focus then
 			props.onBackgroundSelectorHoverEnded(settings, 0)
 		end
 	end
 
 	self.onHoverStarted = function(index)
-		if FFlagStudioToolboxEnabledDevFramework then
-			settings = self.props.Settings:get("Plugin")
-		end
+		settings = self.props.Settings:get("Plugin")
 		props.onBackgroundSelectorHovered(settings, index)
 	end
 
 	self.onHoverEnded = function(index)
-		if FFlagStudioToolboxEnabledDevFramework then
-			settings = self.props.Settings:get("Plugin")
-		end
+		settings = self.props.Settings:get("Plugin")
 		props.onBackgroundSelectorHoverEnded(settings, index)
 	end
 
 	self.onClick = function(index)
-		if FFlagStudioToolboxEnabledDevFramework then
-			settings = self.props.Settings:get("Plugin")
-		end
+		settings = self.props.Settings:get("Plugin")
 		props.onBackgroundSelectorClicked(settings, index)
 	end
 end
@@ -167,11 +152,9 @@ function Footer:render()
 	end)
 end
 
-if FFlagStudioToolboxEnabledDevFramework then
-	ContextServices.mapToProps(Footer, {
-		Settings = Settings,
-	})
-end
+ContextServices.mapToProps(Footer, {
+	Settings = Settings,
+})
 
 local function mapStateToProps(state, props)
 	state = state or {}

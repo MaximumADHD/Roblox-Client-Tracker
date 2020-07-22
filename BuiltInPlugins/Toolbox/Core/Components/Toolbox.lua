@@ -26,7 +26,6 @@ local RoactRodux = require(Libs.RoactRodux)
 local Util = Plugin.Core.Util
 local Constants = require(Util.Constants)
 local ContextGetter = require(Util.ContextGetter)
-local ContextHelper = require(Util.ContextHelper)
 local PageInfoHelper = require(Util.PageInfoHelper)
 local getTabs = require(Util.getTabs)
 local Analytics = require(Util.Analytics.Analytics)
@@ -37,9 +36,6 @@ local Category = require(Types.Category)
 local RequestReason = require(Types.RequestReason)
 
 local getNetwork = ContextGetter.getNetwork
-local getSettings = ContextGetter.getSettings
-local withTheme = ContextHelper.withTheme
-local withLocalization = ContextHelper.withLocalization
 
 local Components = Plugin.Core.Components
 local TabSet = require(Components.TabSet)
@@ -59,7 +55,6 @@ local ContextServices = require(Libs.Framework.ContextServices)
 local Settings = require(Plugin.Core.ContextServices.Settings)
 
 local FFlagStudioToolboxPluginPurchaseFlow = game:GetFastFlag("StudioToolboxPluginPurchaseFlow")
-local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
 local FFlagStudioToolboxPersistBackgroundColor = game:DefineFastFlag("StudioToolboxPersistsBackgroundColor", false)
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 
@@ -67,10 +62,10 @@ local Toolbox = Roact.PureComponent:extend("Toolbox")
 
 function Toolbox:handleInitialSettings()
 	local networkInterface = getNetwork(self)
-	if FFlagStudioToolboxEnabledDevFramework and not self.props.Settings then
+	if not self.props.Settings then
 		return
 	end
-	local settings = FFlagStudioToolboxEnabledDevFramework and self.props.Settings:get("Plugin") or getSettings(self)
+	local settings = self.props.Settings:get("Plugin")
 	local initialSettings = settings:loadInitialSettings()
 
 	local initialTab = (not FFlagUseCategoryNameInToolbox) and Category.MARKETPLACE_KEY
@@ -93,7 +88,7 @@ function Toolbox:handleInitialSettings()
 	else
 		pageInfoCategories = Category.MARKETPLACE
 	end
-	
+
 	if FFlagUseCategoryNameInToolbox then
 
 		local shouldGetGroups = pageInfoCategories == Category.INVENTORY or pageInfoCategories == Category.CREATIONS
@@ -159,11 +154,6 @@ function Toolbox:init(props)
 
 	local networkInterface = getNetwork(self)
 
-	local settings
-	if not FFlagStudioToolboxEnabledDevFramework then
-		settings = getSettings(self)
-	end
-
 	-- TODO remove determineCategoryIndexOnTabChange when FFlagUseCategoryNameInToolbox is retired
 	local function determineCategoryIndexOnTabChange(tabName, newCategories)
 		if Category.CREATIONS_KEY == tabName then
@@ -202,12 +192,8 @@ function Toolbox:init(props)
 			groupIndex = 0,
 			selectedBackgroundIndex = (not FFlagStudioToolboxPersistBackgroundColor) and 0 or nil,
 		}
-		if FFlagStudioToolboxEnabledDevFramework then
-			local mySettings = self.props.Settings:get("Plugin")
-			self.props.changeMarketplaceTab(networkInterface, tabName, newCategories, mySettings, options)
-		else
-			self.props.changeMarketplaceTab(networkInterface, tabName, newCategories, settings, options)
-		end
+		local mySettings = self.props.Settings:get("Plugin")
+		self.props.changeMarketplaceTab(networkInterface, tabName, newCategories, mySettings, options)
 
 		local currentCategory
 		if FFlagUseCategoryNameInToolbox then
@@ -251,19 +237,6 @@ function Toolbox:didMount()
 end
 
 function Toolbox:render()
-	if FFlagStudioToolboxEnabledDevFramework then
-		return self:renderContent()
-	else
-		return withTheme(function(theme)
-			return withLocalization(function(_, localizedContent)
-				return self:renderContent(theme, localizedContent)
-			end)
-		end)
-	end
-end
-
--- TODO: When FFlagStudioToolboxEnabledDevFramework is on, remove the "theme" and "localizedContent" params.
-function Toolbox:renderContent(theme, localizedContent)
 	local props = self.props
 	local state = self.state
 
@@ -282,13 +255,8 @@ function Toolbox:renderContent(theme, localizedContent)
 	local tryOpenAssetConfig = props.tryOpenAssetConfig
 	local pluginGui = props.pluginGui
 
-	local toolboxTheme
-	if FFlagStudioToolboxEnabledDevFramework then
-		toolboxTheme = props.Theme:get("Plugin")
-		localizedContent = props.Localization
-	else
-		toolboxTheme = theme.toolbox
-	end
+	local toolboxTheme = props.Theme:get("Plugin")
+	local localizedContent = props.Localization
 
 	local onAbsoluteSizeChange = self.onAbsoluteSizeChange
 
@@ -342,13 +310,11 @@ function Toolbox:renderContent(theme, localizedContent)
 	})
 end
 
-if FFlagStudioToolboxEnabledDevFramework then
-	ContextServices.mapToProps(Toolbox, {
-		Theme = ContextServices.Theme,
-		Localization = ContextServices.Localization,
-		Settings = Settings,
-	})
-end
+ContextServices.mapToProps(Toolbox, {
+	Theme = ContextServices.Theme,
+	Localization = ContextServices.Localization,
+	Settings = Settings,
+})
 
 local function mapStateToProps(state, props)
 	state = state or {}

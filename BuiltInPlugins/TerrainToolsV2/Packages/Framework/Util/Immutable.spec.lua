@@ -212,7 +212,7 @@ return function()
 			expect(b).never.to.equal(a)
 		end)
 
-		it("should remove one element properly from the list", function()
+		it("should remove single elements from the middle of the list", function()
 			local a = {1, 2, 3}
 			local b = Immutable.RemoveRangeFromList(a, 2, 1)
 
@@ -221,7 +221,7 @@ return function()
 			expect(b[3]).never.to.be.ok()
 		end)
 
-		it("should remove multiple elements properly from the beginning of the list", function()
+		it("should remove multiple elements from the front of the list", function()
 			local a = {1, 2, 3, 4, 5, 6}
 			local b = Immutable.RemoveRangeFromList(a, 1, 4)
 
@@ -230,7 +230,7 @@ return function()
 			expect(b[3]).never.to.be.ok()
 		end)
 
-		it("should remove multiple elements properly from the middle of the list", function()
+		it("should remove multiple elements properly from middle of the list", function()
 			local a = {1, 2, 3, 4, 5, 6}
 			local b = Immutable.RemoveRangeFromList(a, 2, 4)
 

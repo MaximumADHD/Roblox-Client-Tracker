@@ -3,6 +3,7 @@
 ]]
 
 local FFlagTerrainToolsTerrainBrushNotSingleton = game:GetFastFlag("TerrainToolsTerrainBrushNotSingleton")
+local FFlagTerrainToolsReplaceTool = game:GetFastFlag("TerrainToolsReplaceTool")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -155,7 +156,9 @@ function BaseBrush:init()
 	if FFlagTerrainToolsTerrainBrushNotSingleton then
 		self.startBrush = function()
 			spawn(function()
-				self.terrainBrush:start()
+				if self.terrainBrush ~= nil then
+					self.terrainBrush:start()
+				end
 			end)
 		end
 	else
@@ -219,9 +222,24 @@ function BaseBrush:init()
 	end))
 
 	if FFlagTerrainToolsTerrainBrushNotSingleton then
-		table.insert(self.connections, self.terrainBrush:subscribeToMaterialSelectRequested(function(material)
-			if self.props.dispatchSetMaterial then
-				self.props.dispatchSetMaterial(material)
+		table.insert(self.connections, self.terrainBrush:subscribeToMaterialSelectRequested(function(material, shiftdown)
+			if FFlagTerrainToolsReplaceTool then
+				if not shiftdown then
+					if self.props.dispatchSetMaterial then
+						self.props.dispatchSetMaterial(material)
+					end
+					if self.props.dispatchSetSourceMaterial then
+						self.props.dispatchSetSourceMaterial(material)
+					end
+				else
+					if self.props.dispatchSetTargetMaterial then
+						self.props.dispatchSetTargetMaterial(material)
+					end
+				end
+			else
+				if self.props.dispatchSetMaterial then
+					self.props.dispatchSetMaterial(material)
+				end
 			end
 		end))
 	end
@@ -274,6 +292,7 @@ end
 
 function BaseBrush:render()
 	local layoutOrder = self.props.LayoutOrder or 1
+	local isSubsection = self.props.isSubsection
 	local autoMaterial = self.props.autoMaterial
 	local baseSize = self.props.baseSize
 	local baseSizeHeightLocked = self.props.baseSizeHeightLocked
@@ -284,8 +303,6 @@ function BaseBrush:render()
 	local heightPicker = self.props.heightPicker
 	local ignoreWater = self.props.ignoreWater
 	local material = self.props.material
-	local source = self.props.source
-	local target = self.props.target
 	local pivot = self.props.pivot
 	local planeLock = self.props.planeLock
 	local planePositionY = self.props.planePositionY
@@ -295,6 +312,7 @@ function BaseBrush:render()
 	return Roact.createFragment({
 		BrushSettings = Roact.createElement(BrushSettings, {
 			LayoutOrder = layoutOrder,
+			isSubsection = isSubsection,
 
 			currentTool = self.props.toolName,
 

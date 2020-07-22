@@ -17,6 +17,7 @@
         OnEditDevProductClicked = function(productID), callback that takes in a productId to be invoked on Menu Item
             button clicked.
         LayoutOrder = number, this will be the layout order of this component in its parent.
+        OnLoadMoreDevProducts = function, this will be called when scrolling to load more dev products.
 
     Optional Props:
         ShowTable = boolean, determines if the table should be displayed or not.
@@ -53,6 +54,7 @@ function DevProducts:render()
 
     local dispatchCreateNewDevProduct = props.CreateNewDevProduct
     local dispatchSetEditDevProductId = props.OnEditDevProductClicked
+    local dispatchOnLoadMoreDevProducts = props.OnLoadMoreDevProducts
 
     local layoutOrder = props.LayoutOrder
 
@@ -126,6 +128,8 @@ function DevProducts:render()
             end,
 
             LayoutOrder = 2,
+
+            NextPageFunc = dispatchOnLoadMoreDevProducts,
         })
     })
 end

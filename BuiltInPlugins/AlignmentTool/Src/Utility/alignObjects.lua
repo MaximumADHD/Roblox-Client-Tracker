@@ -1,8 +1,13 @@
 local Workspace = game:GetService("Workspace")
 
 local Plugin = script.Parent.Parent.Parent
+local plugin = Plugin.Parent
+
+local DraggerFramework = Plugin.Packages.DraggerFramework
+local JointMaker = require(DraggerFramework.Utility.JointMaker)
 
 local AlignmentMode = require(Plugin.Src.Utility.AlignmentMode)
+local getAlignableObjects = require(Plugin.Src.Utility.getAlignableObjects)
 local getBoundingBoxes = require(Plugin.Src.Utility.getBoundingBoxes)
 
 local function getAxesMask(axes)
@@ -11,6 +16,10 @@ local function getAxesMask(axes)
 		axes.WorldY and 1 or 0,
 		axes.WorldZ and 1 or 0
 	)
+end
+
+local function areJointsEnabled()
+	return plugin:GetJoinMode() ~= Enum.JointCreationMode.None
 end
 
 --[[
@@ -39,8 +48,8 @@ return function(objects, axes, mode, target)
 			object:TranslateBy(translation)
 		end
 	end
-  
-  local function adjustOffset(offset, size)
+
+	local function adjustOffset(offset, size)
 		if mode == AlignmentMode.Center then
 			return offset
 		elseif mode == AlignmentMode.Min then
@@ -52,20 +61,30 @@ return function(objects, axes, mode, target)
 
 	local targetOffset
 
-  if target ~= nil then
+	if target ~= nil then
 		local targetBoundingBox = objectBoundingBoxMap[target]
 		assert(targetBoundingBox, "Should have bounding box for target")
 		if targetBoundingBox ~= nil then
-		  targetOffset = adjustOffset(targetBoundingBox.offset, targetBoundingBox.size)	
+			targetOffset = adjustOffset(targetBoundingBox.offset, targetBoundingBox.size)
+		end
+
+		-- Remove the target from the list of objects, since it serves as a
+		-- reference only and should not be transformed or modified.
+		local targetIndex = table.find(objects, target)
+		if targetIndex then
+			table.remove(objects, targetIndex)
 		end
 	else
-    targetOffset = adjustOffset(boundingBoxOffset, boundingBoxSize)
-  end
+		targetOffset = adjustOffset(boundingBoxOffset, boundingBoxSize)
+	end
 
 	for _, object in ipairs(objects) do
-		if object == target then
-			continue
-		end
+		local _, allParts = getAlignableObjects({object})
+		assert(#allParts, "Missing parts for alignable object")
+
+		local jointMaker = JointMaker.new()
+		jointMaker:pickUpParts(allParts)
+		jointMaker:breakJointsToOutsiders()
 
 		local objectBoundingBox = objectBoundingBoxMap[object]
 		assert(objectBoundingBox, "Missing bounding box for object")
@@ -73,5 +92,11 @@ return function(objects, axes, mode, target)
 		local objectOffset = adjustOffset(objectBoundingBox.offset, objectBoundingBox.size)
 		local offset = targetOffset - objectOffset
 		translateObject(object, offset)
+
+		if areJointsEnabled() then
+			local jointPairs = jointMaker:computeJointPairs()
+			jointPairs:createJoints()
+		end
+		jointMaker:putDownParts()
 	end
 end

@@ -9,6 +9,8 @@ local initialState = {
 	toolEnabled = false,
 
 	alignEnabled = false,
+	disabledReason = {},
+
 	alignableObjects = {},
 	alignmentMode = AlignmentMode.Center,
 	enabledAxes = {
@@ -29,6 +31,7 @@ local MainReducer = Rodux.createReducer(initialState, {
 	SetAlignEnabled = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			alignEnabled = action.alignEnabled,
+			disabledReason = action.disabledReason,
 		})
 	end,
 

@@ -27,7 +27,6 @@ game:DefineFastFlag("ToolboxTabTooltips", false)
 game:DefineFastFlag("EnableToolboxAssetNameColorChange", false)
 game:DefineFastFlag("RemoveAudioEndorsedIcon", false)
 
-game:DefineFastFlag("StudioToolboxEnabledDevFramework", false)
 game:DefineFastFlag("EnableToolboxImpressionAnalytics", false)
 
 game:DefineFastFlag("AssetConfigDarkerScrollBar", false)
@@ -50,5 +49,7 @@ game:DefineFastFlag("StudioFixGroupCreatorInfo", false)
 game:DefineFastFlag("StudioToolboxFixNewEndpointFilters", false)
 
 game:DefineFastFlag("ToolboxUseDevFrameworkPromise", false)
+game:DefineFastFlag("DebugToolboxEnableRoactChecks", false)
+game:DefineFastFlag("ToolboxEnableErrorReporting", false)
 
 return nil

@@ -10,6 +10,7 @@ require(script.Parent.defineLuaFlags)
 
 -- Fast flags
 local FFlagGameSettingsPreventClosingDialogWhileSaveInProgress = game:DefineFastFlag("GameSettingsPreventClosingDialogWhileSaveInProgress", false)
+local FFlagGameSettingsPlaceSettings = game:GetFastFlag("GameSettingsPlaceSettings")
 
 --Turn this on when debugging the store and actions
 local LOG_STORE_STATE_AND_EVENTS = false
@@ -37,6 +38,8 @@ local GameMetadataController = require(Plugin.Src.Controllers.GameMetadataContro
 local GroupMetadataController = require(Plugin.Src.Controllers.GroupMetadataController)
 local GamePermissionsController = require(Plugin.Pages.PermissionsPage.Controllers.GamePermissionsController)
 local GameOptionsController = require(Plugin.Pages.OptionsPage.Controllers.GameOptionsController)
+local MonetizationController = require(Plugin.Pages.MonetizationPage.Controllers.MonetizationController)
+local PlacesController = require(Plugin.Pages.PlacesPage.Controllers.PlacesController)
 local SecurityController = require(Plugin.Pages.SecurityPage.Controllers.SecurityController)
 local SocialController = require(Plugin.Pages.PermissionsPage.Controllers.SocialController)
 local UniverseAvatarController = require(Plugin.Pages.AvatarPage.Controllers.UniverseAvatarController)
@@ -53,6 +56,7 @@ local isEmpty = require(Plugin.Src.Util.isEmpty)
 local Analytics = require(Plugin.Src.Util.Analytics)
 
 local FFlagStudioStandaloneGameMetadata = game:GetFastFlag("StudioStandaloneGameMetadata")
+local FFlagStudioAddMonetizationToGameSettings = game:GetFastFlag("StudioAddMonetizationToGameSettings")
 
 local gameSettingsHandle
 local pluginGui
@@ -67,10 +71,12 @@ local gameInfoController = GameInfoController.new(networking:get())
 local gameMetadataController = GameMetadataController.new(networking:get())
 local groupMetadataController = GroupMetadataController.new(networking:get())
 local gamePermissionsController = GamePermissionsController.new(networking:get())
-local gameOptionsController = GameOptionsController.new()
+local monetizationController = FFlagStudioAddMonetizationToGameSettings and MonetizationController.new(networking:get()) or nil
+local gameOptionsController = GameOptionsController.new(networking:get())
 local universePermissionsController = FFlagQ220PermissionsSettings and SecurityController.new(networking:get()) or nil
 local socialController = SocialController.new(networking:get())
 local universeAvatarController = UniverseAvatarController.new(networking:get())
+local placesController = FFlagGameSettingsPlaceSettings and PlacesController.new(networking:get()) or nil
 
 thunkContextItems.networking = networking:get()
 thunkContextItems.worldRootPhysicsController = worldRootPhysics:get()
@@ -79,9 +85,11 @@ thunkContextItems.gameMetadataController = gameMetadataController
 thunkContextItems.groupMetadataController = groupMetadataController
 thunkContextItems.gamePermissionsController = gamePermissionsController
 thunkContextItems.gameOptionsController = gameOptionsController
+thunkContextItems.monetizationController = monetizationController
 thunkContextItems.universePermissionsController = universePermissionsController
 thunkContextItems.socialController = socialController
 thunkContextItems.universeAvatarController = universeAvatarController
+thunkContextItems.placesController = placesController
 
 local thunkWithArgsMiddleware = FrameworkUtil.ThunkWithArgsMiddleware(thunkContextItems)
 local middlewares = {thunkWithArgsMiddleware}

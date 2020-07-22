@@ -82,6 +82,7 @@ function SettingsPage:render()
 	local loadState = props.LoadState
 	local settingsLoadJobs = props.SettingsLoadJobs
 	local pageId = props.PageId
+	local showHeader = props.ShowHeader == nil and true or props.ShowHeader
 
 	if loadState <= LoadState.Loading then
 		return Roact.createElement(Container, {}, {
@@ -113,7 +114,7 @@ function SettingsPage:render()
 				PaddingRight = UDim.new(0, theme.settingsPage.marginX),
 			}),
 
-			Header = Roact.createElement(Header, {
+			Header = showHeader and Roact.createElement(Header, {
 				LayoutOrder = 1,
 				Title = title,
 			}),

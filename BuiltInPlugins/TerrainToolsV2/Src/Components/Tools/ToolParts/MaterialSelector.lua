@@ -9,9 +9,12 @@ Props:
 ]]
 
 local FFlagTerrainToolsConvertPartTool = game:GetFastFlag("TerrainToolsConvertPartTool")
+local FFlagTerrainToolsReplaceTool = game:GetFastFlag("TerrainToolsReplaceTool")
 local FFlagTerrainToolsTerrainBrushNotSingleton = game:GetFastFlag("TerrainToolsTerrainBrushNotSingleton")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
+
+local useImprovedMaterialSelector = FFlagTerrainToolsConvertPartTool or FFlagTerrainToolsReplaceTool
 
 local Roact = require(Plugin.Packages.Roact)
 local UILibrary = require(Plugin.Packages.UILibrary)
@@ -27,7 +30,7 @@ local TexturePath = "rbxasset://textures/TerrainTools/"
 local MaterialDetails = require(Plugin.Src.Util.MaterialDetails)
 
 local materialsOrder
-if FFlagTerrainToolsConvertPartTool then
+if useImprovedMaterialSelector then
 	--[[
 		Materials are sorted in alphabetical order, but air is last
 		Enum.SortOrder.Name would put air first
@@ -145,7 +148,7 @@ do
 				return Roact.createElement("ImageButton", {
 					LayoutOrder = layoutOrder,
 					Image = TexturePath .. image,
-					BackgroundColor3 = FFlagTerrainToolsConvertPartTool and theme.backgroundColor or Color3.fromRGB(255, 255, 255),
+					BackgroundColor3 = useImprovedMaterialSelector and theme.backgroundColor or Color3.fromRGB(255, 255, 255),
 					BorderSizePixel = isSelected and 2 or 0,
 					BorderColor3 = isSelected and theme.selectionBorderColor or theme.borderColor,
 
@@ -215,7 +218,7 @@ function MaterialSelector:render()
 					CellSize = UDim2.new(0, 32, 0, 32),
 					CellPadding = UDim2.new(0, 9, 0, 9),
 					HorizontalAlignment = Enum.HorizontalAlignment.Center,
-					SortOrder = FFlagTerrainToolsConvertPartTool and Enum.SortOrder.LayoutOrder or nil,
+					SortOrder = useImprovedMaterialSelector and Enum.SortOrder.LayoutOrder or nil,
 				}),
 
 				LayoutPadding = Roact.createElement("UIPadding", {
@@ -240,7 +243,7 @@ function MaterialSelector:render()
 			end
 
 			for index, materialEnum in ipairs(materialsOrder) do
-				if FFlagTerrainToolsConvertPartTool then
+				if useImprovedMaterialSelector then
 					createMaterialButton(index, materialEnum)
 				else
 					materialsTable[materialEnum.Name] = Roact.createElement(MaterialButton, {
@@ -256,7 +259,7 @@ function MaterialSelector:render()
 				end
 			end
 
-			if FFlagTerrainToolsConvertPartTool and allowAir then
+			if useImprovedMaterialSelector and allowAir then
 				createMaterialButton(#materialsOrder + 1, Enum.Material.Air)
 			end
 

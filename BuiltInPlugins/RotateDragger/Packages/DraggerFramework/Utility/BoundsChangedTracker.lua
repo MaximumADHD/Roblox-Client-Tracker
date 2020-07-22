@@ -7,6 +7,8 @@
 
 local DraggerFramework = script.Parent.Parent
 
+local getFFlagUpdateHandleRoot = require(DraggerFramework.Flags.getFFlagUpdateHandleRoot)
+
 local MAX_PARTS_TO_TRACK_BOUNDS_FOR = 1024
 
 local BoundsChangedTracker = {}
@@ -107,13 +109,23 @@ function BoundsChangedTracker:setParts(parts)
 		local entry = self._partToEntry[part]
 		self._partToEntry[part] = nil
 		if not entry then
-			entry = {
-				CFrameChangedSignal = part:GetPropertyChangedSignal("CFrame"),
-				SizeChangedSignal = part:GetPropertyChangedSignal("Size"),
-				Trampoline = function()
-					self._handler(part)
-				end,
-			}
+			if getFFlagUpdateHandleRoot() then
+				entry = {
+					CFrameChangedSignal = (part:GetRootPart() or part):GetPropertyChangedSignal("CFrame"),
+					SizeChangedSignal = part:GetPropertyChangedSignal("Size"),
+					Trampoline = function()
+						self._handler(part)
+					end,
+				}
+			else
+				entry = {
+					CFrameChangedSignal = part:GetPropertyChangedSignal("CFrame"),
+					SizeChangedSignal = part:GetPropertyChangedSignal("Size"),
+					Trampoline = function()
+						self._handler(part)
+					end,
+				}
+			end
 			if self._installed then
 				hookUpConnections(entry)
 			end

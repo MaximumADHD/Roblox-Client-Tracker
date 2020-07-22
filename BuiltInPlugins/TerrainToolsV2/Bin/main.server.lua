@@ -14,6 +14,7 @@ require(script.Parent.defineLuaFlags)
 local FFlagTerrainToolsConvertPartTool = game:GetFastFlag("TerrainToolsConvertPartTool")
 local FFlagTerrainToolsTerrainBrushNotSingleton = game:GetFastFlag("TerrainToolsTerrainBrushNotSingleton")
 local FFlagTerrainOpenCloseMetrics = game:GetFastFlag("TerrainOpenCloseMetrics")
+local FFlagTerrainEnableErrorReporting = game:GetFastFlag("TerrainEnableErrorReporting")
 
 -- Services
 local AnalyticsService = game:GetService("RbxAnalyticsService")
@@ -48,6 +49,16 @@ local getReportTerrainToolMetrics = require(Plugin.Src.MiddleWare.getReportTerra
 
 -- theme
 local PluginTheme = require(Plugin.Src.Resources.PluginTheme)
+
+-- error reporting
+local Framework = require(Plugin.Packages.Framework)
+local ErrorReporter = Framework.ErrorReporter.StudioPluginErrorReporter
+
+if FFlagTerrainEnableErrorReporting then
+	ErrorReporter.new({
+		plugin = plugin,
+	})
+end
 
 -- localization
 local DevelopmentReferenceTable = Plugin.Src.Resources.DevelopmentReferenceTable
@@ -170,7 +181,7 @@ local function toggleWidget()
 	pluginGui.Enabled = not pluginGui.Enabled
 	if FFlagTerrainOpenCloseMetrics then
 		AnalyticsService:ReportCounter(TOGGLE_COUNTER, 1)
-		AnalyticsService:SendEventDeferred("studio", "TerrainEditorV2", "ToggleWidget", {
+		AnalyticsService:SendEventDeferred("studio", "Terrain", "ToggleWidget", {
 			userId = StudioService:GetUserId(),
 			placeId = game.PlaceId,
 		})
@@ -240,7 +251,7 @@ local function main()
 			openPluginWindow()
 			if FFlagTerrainOpenCloseMetrics then
 				AnalyticsService:ReportCounter(OPEN_COUNTER, 1)
-				AnalyticsService:SendEventDeferred("studio", "TerrainEditorV2", "OpenWidget", {
+				AnalyticsService:SendEventDeferred("studio", "Terrain", "OpenWidget", {
 					userId = StudioService:GetUserId(),
 					placeId = game.PlaceId,
 				})
@@ -249,7 +260,7 @@ local function main()
 			closePluginWindow()
 			if FFlagTerrainOpenCloseMetrics then
 				AnalyticsService:ReportCounter(CLOSE_COUNTER, 1)
-					AnalyticsService:SendEventDeferred("studio", "TerrainEditorV2", "CloseWidget", {
+					AnalyticsService:SendEventDeferred("studio", "Terrain", "CloseWidget", {
 					userId = StudioService:GetUserId(),
 					placeId = game.PlaceId,
 				})

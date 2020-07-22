@@ -11,8 +11,8 @@ local FFlagAssetConfigOverrideFromAnyScreen = game:DefineFastFlag("AssetConfigOv
 local FFlagCanPublishDefaultAsset = game:DefineFastFlag("CanPublishDefaultAsset", false)
 local FFlagShowAssetConfigReasons2 = game:GetFastFlag("ShowAssetConfigReasons2")
 local FFlagEnableNonWhitelistedToggle = game:GetFastFlag("EnableNonWhitelistedToggle")
-local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
 local FFlagAssetConfigUseItemConfig = game:GetFastFlag("AssetConfigUseItemConfig")
+local FFlagAssetConfigBlockUntilReadyToEdit = game:DefineFastFlag("AssetConfigBlockUntilReadyToEdit", false)
 
 local StudioService = game:GetService("StudioService")
 
@@ -84,6 +84,10 @@ local withModal = ContextHelper.withModal
 local withLocalization = ContextHelper.withLocalization
 
 local ContextServices = require(Libs.Framework.ContextServices)
+
+local Framework = require(Libs.Framework)
+local LoadingIndicator = Framework.UI.LoadingIndicator
+local Container = Framework.UI.Container
 
 local AssetConfig = Roact.PureComponent:extend("AssetConfig")
 
@@ -328,11 +332,8 @@ function AssetConfig:init(props)
 		if action == "yes" then
 			-- Close the assetConfig
 			local _, pluginGui
-			if FFlagStudioToolboxEnabledDevFramework then
-				pluginGui = self.props.Focus:getTarget()
-			else
-				_, pluginGui = getPlugin(self)
-			end
+			pluginGui = self.props.Focus:getTarget()
+
 			-- And we will let AssetConfigWrapper to handle the onClose and unMount.
 			pluginGui.Enabled = false
 		else
@@ -468,6 +469,16 @@ function AssetConfig:detachXButtonCallback()
 	end
 end
 
+function AssetConfig:isLoading()
+	if FFlagAssetConfigBlockUntilReadyToEdit then
+		if self.props.screenFlowType == AssetConfigConstants.FLOW_TYPE.EDIT_FLOW and not self.state.assetId then
+			return true
+		end
+	end
+
+	return false
+end
+
 function AssetConfig:didUpdate(previousProps, previousState)
 	if self.props.screenFlowType == AssetConfigConstants.FLOW_TYPE.EDIT_FLOW then
 		local assetConfigData = self.props.assetConfigData
@@ -489,7 +500,7 @@ function AssetConfig:didUpdate(previousProps, previousState)
 		end
 	end
 
-	-- If we have assetConfigData and state is nil(defualt state),
+	-- If we have assetConfigData and state is nil(default state),
 	-- then we will use the data retrived from the assetConfigData to trigger a re-render.
 	if self.props.screenFlowType == AssetConfigConstants.FLOW_TYPE.EDIT_FLOW then
 		local assetConfigData = self.props.assetConfigData
@@ -736,8 +747,10 @@ function AssetConfig:render()
 					owner
 				)
 
+				local isLoading = self:isLoading()
+
 				local canSave = checkCanSave(changeTable, name, description, price, minPrice, maxPrice,
-					newAssetStatus, currentTab, screenFlowType)
+					newAssetStatus, currentTab, screenFlowType) and not isLoading
 
 				return Roact.createElement("Frame", {
 					Size = Size,
@@ -801,40 +814,52 @@ function AssetConfig:render()
 							LayoutOrder = 2,
 						}),
 
-						PublishAsset = ConfigTypes:isGeneral(currentTab) and Roact.createElement(PublishAsset, {
-							Size = UDim2.new(1, -PREVIEW_WIDTH, 1, 0),
-
-							assetId = assetId,
-							name = name,
-							description = description,
-							tags = tags,
-							owner = owner,
-							genres = genres,
-							allowCopy = allowCopy,
-							copyOn = copyOn,
-							allowComment = allowComment,
-							commentOn = commentOn,
-
-							assetTypeEnum = assetTypeEnum,
-							onNameChange = self.onNameChange,
-							onDescChange = self.onDescChange,
-							onTagsChange = self.onTagsChange,
-							onOwnerSelected = self.onAccessChange,
-							onGenreSelected = self.onGenreChange,
-							toggleCopy = self.toggleCopy,
-							toggleComment = self.toggleComment,
-
-							displayOwnership = showOwnership,
-							displayGenre = showGenre,
-							displayCopy = showCopy,
-							displayComment = showComment,
-							displayAssetType = showAssetType,
-							displayTags = showTags,
-
-							maximumItemTagsPerItem = props.maximumItemTagsPerItem,
-
+						LoadingIndicatorWrapper = isLoading and Roact.createElement(Container, {
 							LayoutOrder = 3,
+							Size = UDim2.new(1, -PREVIEW_WIDTH, 1, 0),
+						}, {
+							LoadingIndicator = Roact.createElement(LoadingIndicator, {
+								Size = UDim2.new(0, 100, 0, 100),
+								AnchorPoint = Vector2.new(0.5, 0.5),
+								Position = UDim2.fromScale(0.5, 0.5),
+							})
 						}),
+
+						PublishAsset = not isLoading and
+							(ConfigTypes:isGeneral(currentTab) and Roact.createElement(PublishAsset, {
+								Size = UDim2.new(1, -PREVIEW_WIDTH, 1, 0),
+
+								assetId = assetId,
+								name = name,
+								description = description,
+								tags = tags,
+								owner = owner,
+								genres = genres,
+								allowCopy = allowCopy,
+								copyOn = copyOn,
+								allowComment = allowComment,
+								commentOn = commentOn,
+
+								assetTypeEnum = assetTypeEnum,
+								onNameChange = self.onNameChange,
+								onDescChange = self.onDescChange,
+								onTagsChange = self.onTagsChange,
+								onOwnerSelected = self.onAccessChange,
+								onGenreSelected = self.onGenreChange,
+								toggleCopy = self.toggleCopy,
+								toggleComment = self.toggleComment,
+
+								displayOwnership = showOwnership,
+								displayGenre = showGenre,
+								displayCopy = showCopy,
+								displayComment = showComment,
+								displayAssetType = showAssetType,
+								displayTags = showTags,
+
+								maximumItemTagsPerItem = props.maximumItemTagsPerItem,
+
+								LayoutOrder = 3,
+							})),
 
 						Versions = ConfigTypes:isVersions(currentTab) and Roact.createElement(Versions, {
 							Size = UDim2.new(1, -PREVIEW_WIDTH, 1, 0),
@@ -899,11 +924,9 @@ function AssetConfig:render()
 	end)
 end
 
-if FFlagStudioToolboxEnabledDevFramework then
-	ContextServices.mapToProps(AssetConfig, {
-		Focus = ContextServices.Focus,
-	})
-end
+ContextServices.mapToProps(AssetConfig, {
+	Focus = ContextServices.Focus,
+})
 
 local function mapStateToProps(state, props)
 	state = state or {}

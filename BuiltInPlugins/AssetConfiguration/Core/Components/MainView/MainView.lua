@@ -26,7 +26,6 @@
 ]]
 
 local FFlagFixToolboxEmptyRender = game:DefineFastFlag("FixToolboxEmptyRender", false)
-local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 local FFlagStudioShowNoPluginResultsDetailFix = game:DefineFastFlag("StudioShowNoPluginResultsDetailFix", false)
 local FFlagStudioToolboxFixWidthCalculation = game:DefineFastFlag("StudioToolboxFixWidthCalculation", false)
@@ -73,10 +72,7 @@ local MainView = Roact.PureComponent:extend("MainView")
 
 function MainView:init(props)
 	local networkInterface = getNetwork(self)
-	local settings
-	if not FFlagStudioToolboxEnabledDevFramework then
-		settings = getSettings(self)
-	end
+	local settings = getSettings(self)
 
 	self.state = {
 		lowerIndexToRender = 0,
@@ -119,9 +115,7 @@ function MainView:init(props)
 	end
 
 	self.requestNextPage = function()
-		if FFlagStudioToolboxEnabledDevFramework then
-			settings = self.props.Settings:get("Plugin")
-		end
+		settings = self.props.Settings:get("Plugin")
 		self.props.nextPage(networkInterface, settings)
 	end
 
@@ -133,9 +127,7 @@ function MainView:init(props)
 
 	self.onSearchOptionsClosed = function(options)
 		if options then
-			if FFlagStudioToolboxEnabledDevFramework then
-				settings = self.props.Settings:get("Plugin")
-			end
+			settings = self.props.Settings:get("Plugin")
 			self.props.searchWithOptions(networkInterface, settings, options)
 		end
 		if self.props.onSearchOptionsToggled then
@@ -396,11 +388,9 @@ function MainView:render()
 	end)
 end
 
-if FFlagStudioToolboxEnabledDevFramework then
-	ContextServices.mapToProps(MainView, {
-		Settings = Settings,
-	})
-end
+ContextServices.mapToProps(MainView, {
+	Settings = Settings,
+})
 
 local function mapStateToProps(state, props)
 	state = state or {}

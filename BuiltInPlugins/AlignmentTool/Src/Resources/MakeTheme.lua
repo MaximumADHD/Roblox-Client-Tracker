@@ -54,6 +54,10 @@ local function makeTheme()
 				-- localized text from TextService, clamped to a range.
 				SectionLabelSize = UDim2.fromOffset(80, 20),
 
+				ErrorTextColor = theme:GetColor("ErrorText"),
+				WarningTextColor = theme:GetColor("WarningText"),
+				InfoTextColor = theme:GetColor("InfoText"),
+
 				MainView = {
 					ListItemPadding = UDim.new(0, 10),
 					Padding = 10,

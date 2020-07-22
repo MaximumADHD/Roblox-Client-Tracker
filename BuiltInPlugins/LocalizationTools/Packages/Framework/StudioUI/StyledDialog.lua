@@ -55,6 +55,8 @@ function StyledDialog:init()
 		local contentSize = self.props.MinContentSize
 		local buttons = self.props.Buttons
 
+		local size
+
 		if buttons and #buttons >= 1 then
 			local minContentWidth = (2 * CONTENT_PADDING) + contentSize.X
 			local totalButtonWidth = (#buttons * BUTTON_WIDTH) + (CONTENT_PADDING * (#buttons - 1)) + (2 * BUTTON_EDGE_PADDING)
@@ -88,7 +90,7 @@ function StyledDialog:init()
 			local text = buttonProps.Text
 
 			buttonsElements[tostring(i)] = Roact.createElement(Button, {
-				LayoutOrder = index,
+				LayoutOrder = i,
 				OnClick = function()
 					onButtonPressed(key)
 				end,

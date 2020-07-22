@@ -1,13 +1,5 @@
-if game:GetFastFlag("UseEngineFeature") then
-	if not game:GetEngineFeature("LuaDraggers") then
-		return
-	end
-else
-	local ABTestService = game:GetService("ABTestService")
-	if not settings():GetFFlag("EnableLuaDraggers") and
-		ABTestService:GetVariant("ForceLuaDraggers") == "Control" then
-		return
-	end
+if not game:GetEngineFeature("LuaDraggers") then
+	return
 end
 
 -- Libraries

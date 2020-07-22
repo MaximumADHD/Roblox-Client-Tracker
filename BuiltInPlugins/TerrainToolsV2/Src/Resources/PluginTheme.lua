@@ -105,6 +105,7 @@ function Theme.createValues(getColor, c, m)
 			TextColor_Disabled = ColorSheet.buttonTextColor,
 			BorderColor = UILibraryStylePalette.borderColor,
 		},
+
 		textSize = 14,
 		textBoxColor = UILibraryStylePalette.backgroundColor,
 	}, {
@@ -118,6 +119,43 @@ function Theme.createValues(getColor, c, m)
 				BorderColor = ColorSheet.borderColor_dark,
 			},
 			textBoxColor = ColorSheet.textBox_dark,
+		}
+	})
+
+	local roundToggleTextButtonTheme = defineTheme({
+		styleSheet = {
+			ButtonColor = Color3.fromRGB(255, 255, 255),
+			ButtonColor_Hover = Color3.fromRGB(228, 238, 253),
+			TextColor = ColorSheet.textBox_dark,
+			BorderColor = UILibraryStylePalette.borderColor,
+		},
+
+		styleSheetNotToggled = {
+			ButtonColor = Color3.fromRGB(219, 219, 219),
+			ButtonColor_Hover = Color3.fromRGB(239, 239, 239),
+			TextColor = ColorSheet.textBox_dark,
+			BorderColor = UILibraryStylePalette.borderColor,
+		},
+
+		textSize = 14,
+		textBoxColor = UILibraryStylePalette.backgroundColor,
+	}, {
+		Dark = {
+			styleSheet = {
+				ButtonColor = Color3.fromRGB(85, 85, 85),
+				ButtonColor_Hover = Color3.fromRGB(55, 55, 55),
+				TextColor = ColorSheet.buttonTextColor,
+				BorderColor = UILibraryStylePalette.borderColor,
+			},
+
+			styleSheetNotToggled = {
+				ButtonColor = Color3.fromRGB(35, 35, 35),
+				ButtonColor_Hover = Color3.fromRGB(45, 45, 45),
+				TextColor = ColorSheet.buttonTextColor,
+				BorderColor = UILibraryStylePalette.borderColor,
+			},
+
+			textBoxColor = UILibraryStylePalette.backgroundColor,
 		}
 	})
 
@@ -181,6 +219,7 @@ function Theme.createValues(getColor, c, m)
 		warningColor = Color3.fromRGB(255, 128, 0),
 		selectionBorderColor = Color3.fromRGB(0, 162, 255),
 		roundTextButtonTheme = roundTextButtonTheme,
+		roundToggleTextButtonTheme = roundToggleTextButtonTheme,
 		singleSelectButtonGroupTheme = singleSelectButtonGroupTheme,
 		propertyLockTheme = propertyLockTheme,
 		textSize = 14,

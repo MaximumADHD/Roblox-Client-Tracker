@@ -11,17 +11,12 @@
 		UDim2 Position: The position of the component
 		UDim2 Size: The size of the component
 ]]
-local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
-
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 local RoactRodux = require(Libs.RoactRodux)
 local ContextServices = require(Libs.Framework.ContextServices)
-
-local ContextHelper = require(Plugin.Core.Util.ContextHelper)
-local withTheme = ContextHelper.withTheme
 
 local AudioProgressBar = Roact.PureComponent:extend("AudioProgressBar")
 
@@ -34,16 +29,6 @@ function AudioProgressBar:shouldUpdate(nextProps, nextState)
 end
 
 function AudioProgressBar:render()
-	if FFlagStudioToolboxEnabledDevFramework then
-		return self:renderContent()
-	else
-		return withTheme(function(theme)
-			return self:renderContent(theme)
-		end)
-	end
-end
-
-function AudioProgressBar:renderContent(theme)
 	local props = self.props
 
 	local anchorPoint = props.AnchorPoint
@@ -55,12 +40,7 @@ function AudioProgressBar:renderContent(theme)
 	local size = props.Size
 	local totalTime = props.totalTime
 
-	local progressBarColor
-	if FFlagStudioToolboxEnabledDevFramework then
-		progressBarColor = props.Theme:get("Plugin").progressBarColor
-	else
-		progressBarColor = theme.asset.progressBarColor
-	end
+	local progressBarColor = props.Theme:get("Plugin").progressBarColor
 
 	self.progress = 0
 	if totalTime ~= nil and totalTime ~= 0
@@ -96,10 +76,8 @@ local function mapStateToProps(state, props)
 	}
 end
 
-if FFlagStudioToolboxEnabledDevFramework then
-	ContextServices.mapToProps(AudioProgressBar, {
-		Theme = ContextServices.Theme,
-	})
-end
+ContextServices.mapToProps(AudioProgressBar, {
+	Theme = ContextServices.Theme,
+})
 
 return RoactRodux.connect(mapStateToProps, nil)(AudioProgressBar)

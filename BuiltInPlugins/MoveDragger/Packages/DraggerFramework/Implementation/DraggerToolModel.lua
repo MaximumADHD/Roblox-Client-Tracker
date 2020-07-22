@@ -11,6 +11,7 @@ local BoundsChangedTracker = require(DraggerFramework.Utility.BoundsChangedTrack
 local DerivedWorldState = require(DraggerFramework.Implementation.DerivedWorldState)
 
 local getFFlagDraggerAnalyticsCleanup = require(DraggerFramework.Flags.getFFlagDraggerAnalyticsCleanup)
+local getFFlagSupportNoRotate = require(DraggerFramework.Flags.getFFlagSupportNoRotate)
 
 local DraggerToolModel = {}
 DraggerToolModel.__index = DraggerToolModel
@@ -144,14 +145,22 @@ end
 function DraggerToolModel:doesAllowDragSelect()
 	return self._modelProps.AllowDragSelect
 end
+
 function DraggerToolModel:doesAllowFreeformDrag()
 	return self._modelProps.AllowFreeformDrag
 end
+
 function DraggerToolModel:shouldShowSelectionDot()
 	return self._modelProps.ShowSelectionDot
 end
+
 function DraggerToolModel:shouldUseCollisionTransparency()
 	return self._modelProps.UseCollisionsTransparency
+end
+
+function DraggerToolModel:shouldAlignDraggedObjects()
+	assert(getFFlagSupportNoRotate())
+	return self._draggerContext:shouldAlignDraggedObjects()
 end
 
 function DraggerToolModel:_processSelected()

@@ -28,6 +28,4 @@ plugin.Unloading:Connect(function()
 	end
 end)
 
-if game:GetFastFlag("LocalizationToolsPluginV3Enabled") then
-	init()
-end
+init()

@@ -2,6 +2,8 @@
 local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
 local StudioService = game:GetService("StudioService")
 
+local getFFlagChangeDraggerAnalyticsContext = require(script.Parent.getFFlagChangeDraggerAnalyticsContext)
+
 local Analytics = {}
 
 -- If this is a user fork of the plugin, mock out the RbxAnalyticsService
@@ -24,7 +26,11 @@ function Analytics:sendEvent(eventName, argMap)
 	for k, v in pairs(argMap) do
 		totalArgMap[k] = v
 	end
-	RbxAnalyticsService:SendEventDeferred("studio", "luaDraggers", eventName, totalArgMap)
+	if getFFlagChangeDraggerAnalyticsContext() then
+		RbxAnalyticsService:SendEventDeferred("studio", "Modeling", eventName, totalArgMap)
+	else
+		RbxAnalyticsService:SendEventDeferred("studio", "luaDraggers", eventName, totalArgMap)
+	end
 end
 
 function Analytics:reportCounter(counterName, count)

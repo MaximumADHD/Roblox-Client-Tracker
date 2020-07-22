@@ -24,6 +24,7 @@
 ]]
 
 local ContentProvider = game:GetService("ContentProvider")
+local StudioService = game:GetService("StudioService")
 
 -- helper functions
 local function parseBaseUrlInformation(baseUrl)
@@ -131,6 +132,10 @@ function Url.composeUrl(base, path, args)
 
 	-- put it all together like https://www.somedomain.com/some/api/path?test=123&foo=456
 	return string.format("%s%s%s", base, path, argString)
+end
+
+function Url:baseURLHasChineseHost()
+	return StudioService:BaseURLHasChineseHost()
 end
 
 return Url

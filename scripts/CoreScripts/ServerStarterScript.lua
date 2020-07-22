@@ -24,6 +24,9 @@ if FFlagSupportDeathType then
 	ScriptContext:AddCoreScriptLocal("ServerCoreScripts/PlayerRagdollRigCreator", script.Parent)
 end
 
+-- FFlag for admin freecam (for easy disabling in case of security breach)
+game:DefineFastFlag("DebugFreeCameraForAdmins", true)
+
 --[[ Remote Events ]]--
 local RemoteEvent_SetDialogInUse = Instance.new("RemoteEvent")
 RemoteEvent_SetDialogInUse.Name = "SetDialogInUse"
@@ -35,9 +38,6 @@ RemoteFunction_GetServerVersion.Parent = RobloxReplicatedStorage
 
 --[[ Event Connections ]]--
 local playerDialogMap = {}
-
-local freeCameraFlagSuccess, freeCameraFlagValue = pcall(function() return settings():GetFFlag("FreeCameraForAdmins") end)
-local freeCameraFlag = (freeCameraFlagSuccess and freeCameraFlagValue)
 
 local function setDialogInUse(player, dialog, value, waitTime)
 	if typeof(dialog) ~= "Instance" or not dialog:IsA("Dialog") then
@@ -95,7 +95,7 @@ if game:GetService("Chat").LoadDefaultChat then
 	require(game:GetService("CoreGui").RobloxGui.Modules.Server.ServerChat.ChatServiceInstaller)()
 end
 
-if freeCameraFlag then
+if game:GetFastFlag("DebugFreeCameraForAdmins") then
 	require(game:GetService("CoreGui").RobloxGui.Modules.Server.FreeCamera.FreeCameraInstaller)()
 end
 

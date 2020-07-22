@@ -4,12 +4,9 @@ local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 local RoactRodux = require(Libs.RoactRodux)
 
-local Analytics = require(Plugin.Core.Util.Analytics.Analytics)
 local Constants = require(Plugin.Core.Util.Constants)
 local ContextGetter = require(Plugin.Core.Util.ContextGetter)
 local ContextHelper = require(Plugin.Core.Util.ContextHelper)
-local DebugFlags = require(Plugin.Core.Util.DebugFlags)
-local PageInfoHelper = require(Plugin.Core.Util.PageInfoHelper)
 local getTimeString = require(Plugin.Core.Util.getTimeString)
 local Settings = require(Plugin.Core.ContextServices.Settings)
 local Category = require(Plugin.Core.Types.Category)
@@ -21,7 +18,6 @@ local getNetwork = ContextGetter.getNetwork
 local getSettings = ContextGetter.getSettings
 local withLocalization = ContextHelper.withLocalization
 
-local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 
 local RequestSearchRequest = require(Plugin.Core.Networking.Requests.RequestSearchRequest)
@@ -34,47 +30,8 @@ local SearchTags = require(Plugin.Core.Components.SearchOptions.SearchTags)
 function MainViewHeader:init()
 	local networkInterface = getNetwork(self)
 
-	if not FFlagStudioToolboxEnabledDevFramework then -- Everything in this block of code isn't being used...
-		local settings = getSettings(self)
-
-		self.onSearchRequested = function(searchTerm)
-			if type(searchTerm) ~= "string" and DebugFlags.shouldDebugWarnings() then
-				warn(("Toolbox onSearchRequested searchTerm = %s is not a string"):format(tostring(searchTerm)))
-			end
-
-			local creator = self.props.creatorFilter
-			local creatorId = creator and creator.Id or nil
-
-			local category
-			if FFlagUseCategoryNameInToolbox then
-				category = PageInfoHelper.getCategory(self.props.categoryName)
-			else
-				category = PageInfoHelper.getCategory(self.props.categories, self.props.categoryIndex)
-			end
-
-			Analytics.onTermSearched(
-				category,
-				searchTerm,
-				creatorId
-			)
-
-			Analytics.onTermSearched(category, searchTerm)
-
-			self.props.requestSearch(networkInterface, settings, searchTerm)
-		end
-
-		self.onSuggestionSelected = function(index)
-			self.onSearchRequested(self.props.suggestions[index].search)
-		end
-	end
-
 	self.onTagsCleared = function()
-		local settings
-		if FFlagStudioToolboxEnabledDevFramework then
-			settings = self.props.Settings:get("Plugin")
-		else
-			settings = getSettings(self)
-		end
+		local settings = self.props.Settings:get("Plugin")
 
 		self.props.searchWithOptions(networkInterface, settings, {
 			Creator = "",
@@ -83,12 +40,7 @@ function MainViewHeader:init()
 	end
 
 	self.onCreatorCleared = function()
-		local settings
-		if FFlagStudioToolboxEnabledDevFramework then
-			settings = self.props.Settings:get("Plugin")
-		else
-			settings = getSettings(self)
-		end
+		local settings = self.props.Settings:get("Plugin")
 
 		self.props.searchWithOptions(networkInterface, settings, {
 			Creator = "",
@@ -97,12 +49,7 @@ function MainViewHeader:init()
 	end
 
 	self.onAudioSearchCleared = function()
-		local settings
-		if FFlagStudioToolboxEnabledDevFramework then
-			settings = self.props.Settings:get("Plugin")
-		else
-			settings = getSettings(self)
-		end
+		local settings = self.props.Settings:get("Plugin")
 
 		local creator = self.props.creator
 		local options = {
@@ -136,15 +83,8 @@ function MainViewHeader:render()
 		if showTags then
 			headerHeight = headerHeight + Constants.SEARCH_TAGS_HEIGHT
 
-			local byPrefix
-			local lengthPrefix
-			if FFlagStudioToolboxEnabledDevFramework then
-				byPrefix = self.props.Localization:getText("General", "SearchTagCreator")
-				lengthPrefix = self.props.Localization:getText("General", "SearchTagLength")
-			else
-				byPrefix = localizedContent.SearchTags.Creator
-				lengthPrefix = localizedContent.SearchTags.Length
-			end
+			local byPrefix = self.props.Localization:getText("General", "SearchTagCreator")
+			local lengthPrefix = self.props.Localization:getText("General", "SearchTagLength")
 
 			local tagsList = {}
 			if creatorName then
@@ -181,12 +121,10 @@ function MainViewHeader:render()
 	end)
 end
 
-if FFlagStudioToolboxEnabledDevFramework then
-	ContextServices.mapToProps(MainViewHeader, {
-		Localization = ContextServices.Localization,
-		Settings = Settings,
-	})
-end
+ContextServices.mapToProps(MainViewHeader, {
+	Localization = ContextServices.Localization,
+	Settings = Settings,
+})
 
 local function mapStateToProps(state, props)
 	state = state or {}

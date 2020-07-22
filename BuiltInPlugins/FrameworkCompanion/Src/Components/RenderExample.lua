@@ -25,6 +25,7 @@ local RenderExample = Roact.PureComponent:extend("RenderExample")
 function RenderExample:init()
 	self.state = {
 		extents = Vector2.new(),
+		ExampleComponent = nil,
 	}
 
 	self.updateExtents = function(extents)
@@ -34,15 +35,34 @@ function RenderExample:init()
 	end
 end
 
+function RenderExample:loadExampleComponent()
+	-- Fallback to None: if there is no Name prop provided, or if there is no result returned from Render
+	self:setState({
+		ExampleComponent = self.props.Name and Render(self.props.Name) or Roact.None
+	})
+end
+
+function RenderExample:didMount()
+	self:loadExampleComponent()
+end
+
+function RenderExample:didUpdate(prevProps)
+	if prevProps.Name ~= self.props.Name then
+		self:loadExampleComponent()
+	end
+end
+
 function RenderExample:render()
 	local props = self.props
 	local state = self.state
+
 	local extents = state.extents
-	local name = props.Name
+	local ExampleComponent = state.ExampleComponent
+
 	local layoutOrder = props.LayoutOrder
 	local sizes = props.Theme:get("Sizes")
 
-	if not Render[name] then
+	if not ExampleComponent then
 		return nil
 	end
 
@@ -66,7 +86,7 @@ function RenderExample:render()
 				end,
 			}),
 
-			Example = Roact.createElement(Render[name]),
+			Example = Roact.createElement(ExampleComponent),
 		})
 	})
 end

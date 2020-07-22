@@ -2,6 +2,8 @@
 	Children of this component should not have a UiListLayout Sibling
 --]]
 
+local FFlagTerrainToolsReplaceTool = game:GetFastFlag("TerrainToolsReplaceTool")
+
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 
@@ -55,6 +57,7 @@ function Panel:render()
 		local panelTheme = theme.panelTheme
 		local title = self.props.Title or "Title"
 		local layoutOrder = self.props.LayoutOrder
+		local isSubsection = self.props.isSubsection
 
 		local isExpanded = self.state.isExpanded
 		local padding = self.state.padding
@@ -72,8 +75,8 @@ function Panel:render()
 
 		return Roact.createElement("Frame", {
 			Size = UDim2.new(1, 0, 0, 40),
-			BackgroundTransparency = 1,
 			LayoutOrder = layoutOrder,
+			BackgroundTransparency = 1,
 			[Roact.Ref] = self.mainFrameRef,
 		}, {
 			Layout = Roact.createElement("UIListLayout", {
@@ -87,7 +90,7 @@ function Panel:render()
 				Size = UDim2.new(1, 0, 0, 28),
 				BackgroundColor3 = panelTheme.panelColor,
 				BorderSizePixel = 0,
-				BackgroundTransparency = 0,
+				BackgroundTransparency = (FFlagTerrainToolsReplaceTool and isSubsection) and 1 or 0,
 				LayoutOrder =  1,
 				[Roact.Event.Activated] = self.onExpandedStateChanged,
 			}, {

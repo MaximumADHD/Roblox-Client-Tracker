@@ -290,17 +290,19 @@ return function()
 		end
 
 		local calls
+		local originalOnUnhandledRejection
 
 		local function setup()
 			calls = {}
 			local handler = function(message)
 				table.insert(calls, message)
 			end
+			originalOnUnhandledRejection = Promise.onUnhandledRejection
 			Promise.onUnhandledRejection = handler
 		end
 
 		local function teardown()
-			Promise.onUnhandledRejection = warn
+			Promise.onUnhandledRejection = originalOnUnhandledRejection
 		end
 
 		local waitUntilNextTick = function()
@@ -368,6 +370,16 @@ return function()
 				expect(#calls).to.equal(0)
 				teardown()
 			end)
+
+			it("should not throw if an unhandled rejection occurs with no rejection handler defined", function()
+				Promise.new(function(fulfil, reject)
+					reject("it did not work")
+				end)
+
+				waitUntilNextTick()
+
+				teardown()
+			end)
 		end)
 
 		describe("should call onUnhandledRejection", function()
@@ -416,6 +428,24 @@ return function()
 
 				expect(#calls).to.equal(1)
 				expect(calls[1]:find("it did not work")).to.be.ok()
+
+				teardown()
+			end)
+
+
+			it("should not throw if onUnhandledRejection throws", function()
+				setup()
+				Promise.onUnhandledRejection = function()
+					error("My error")
+				end
+
+				Promise.new(function(fulfil, reject)
+					reject("it did not work")
+				end):andThen(function()
+					-- NOOP success handler
+				end)
+
+				waitUntilNextTick()
 
 				teardown()
 			end)

@@ -15,6 +15,7 @@ local getFFlagFixAttachmentDrag = require(DraggerFramework.Flags.getFFlagFixAtta
 local getFFlagUseBulkMove = require(DraggerFramework.Flags.getFFlagUseBulkMove)
 local getFFlagFixCollisionTest = require(DraggerFramework.Flags.getFFlagFixCollisionTest)
 local getFFlagDraggerRefactor = require(DraggerFramework.Flags.getFFlagDraggerRefactor)
+local getFFlagNoMoveToPile = require(DraggerFramework.Flags.getFFlagNoMoveToPile)
 
 local DEFAULT_COLLISION_THRESHOLD = 0.001
 
@@ -508,22 +509,24 @@ function PartMover:commit()
 	end
 
 	if getFFlagUseBulkMove() then
-		if self._lastTransform and self._bulkMoveParts then
-			-- ChangeHistoryService "bump": Since we move the parts via the
-			-- WorldRoot::BulkMoveTo API with mode = FireCFrameChanged the
-			-- ChangeHistoryService won't see those moves. Do a final move with
-			-- mode = FireCFrameChanged which the ChangeHistoryService will
-			-- record. Note: We have to move the parts back to 0,0,0 first,
-			-- since if their CFrames don't change, we won't get any even
-			-- if we do call with mode = FireCFrameChanged.
-			Workspace:BulkMoveTo(self._bulkMoveParts,
-				table.create(#self._bulkMoveParts, CFrame.new()),
-				Enum.BulkMoveMode.FireCFrameChanged)
-			Workspace:BulkMoveTo(self._moveWithCFrameChangeParts,
-				table.create(#self._moveWithCFrameChangeParts, CFrame.new()),
-				Enum.BulkMoveMode.FireCFrameChanged)
-			self:_transformToImpl(self._lastTransform, Enum.BulkMoveMode.FireCFrameChanged)
-			self._lastTransform = nil
+		if not getFFlagNoMoveToPile() then
+			if self._lastTransform and self._bulkMoveParts then
+				-- ChangeHistoryService "bump": Since we move the parts via the
+				-- WorldRoot::BulkMoveTo API with mode = FireCFrameChanged the
+				-- ChangeHistoryService won't see those moves. Do a final move with
+				-- mode = FireCFrameChanged which the ChangeHistoryService will
+				-- record. Note: We have to move the parts back to 0,0,0 first,
+				-- since if their CFrames don't change, we won't get any even
+				-- if we do call with mode = FireCFrameChanged.
+				Workspace:BulkMoveTo(self._bulkMoveParts,
+					table.create(#self._bulkMoveParts, CFrame.new()),
+					Enum.BulkMoveMode.FireCFrameChanged)
+				Workspace:BulkMoveTo(self._moveWithCFrameChangeParts,
+					table.create(#self._moveWithCFrameChangeParts, CFrame.new()),
+					Enum.BulkMoveMode.FireCFrameChanged)
+				self:_transformToImpl(self._lastTransform, Enum.BulkMoveMode.FireCFrameChanged)
+				self._lastTransform = nil
+			end
 		end
 
 		if getFFlagFixAttachmentDrag() then

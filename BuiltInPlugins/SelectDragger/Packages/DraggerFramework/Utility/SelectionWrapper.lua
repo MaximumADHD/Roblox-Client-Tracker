@@ -1,8 +1,11 @@
 
 local Selection = game:GetService("Selection")
 
-local Signal = require(script.Parent.Signal)
-local isProtectedInstance = require(script.Parent.isProtectedInstance)
+local DraggerFramework = script.Parent.Parent
+local Signal = require(DraggerFramework.Utility.Signal)
+local isProtectedInstance = require(DraggerFramework.Utility.isProtectedInstance)
+
+local getEngineFeatureActiveInstanceHighlight = require(DraggerFramework.Flags.getEngineFeatureActiveInstanceHighlight)
 
 local SelectionWrapper = {}
 
@@ -52,6 +55,11 @@ function SelectionWrapper:Get()
 	else
 		return getSanitizedSelection()
 	end
+end
+
+function SelectionWrapper:getActiveInstance()
+	assert(getEngineFeatureActiveInstanceHighlight())
+	return Selection.ActiveInstance
 end
 
 return SelectionWrapper

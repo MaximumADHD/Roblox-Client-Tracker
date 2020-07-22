@@ -1,8 +1,8 @@
 local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
+local FFlagTerrainToolsReplaceTool = game:GetFastFlag("TerrainToolsReplaceTool")
 
 game:DefineFastFlag("TerrainToolsBrushUseIsKeyDown", false)
 
-local FFlagTerrainToolMetrics = settings():GetFFlag("TerrainToolMetrics")
 local FFlagTerrainToolsBrushUseIsKeyDown = game:GetFastFlag("TerrainToolsBrushUseIsKeyDown")
 local FFlagTerrainToolsTerrainBrushNotSingleton = game:GetFastFlag("TerrainToolsTerrainBrushNotSingleton")
 
@@ -518,14 +518,12 @@ function TerrainBrush:_run()
 				self._mouseClick = false
 
 				if reportClick then
-					if FFlagTerrainToolMetrics then
-						AnalyticsService:SendEventDeferred("studio", "TerrainEditorV2", "UseTerrainTool", {
-							userId = StudioService:GetUserId(),
-							toolName = currentTool,
-							studioSId = AnalyticsService:GetSessionId(),
-							placeId = game.PlaceId,
-						})
-					end
+					AnalyticsService:SendEventDeferred("studio", "Terrain", "UseTerrainTool", {
+						userId = StudioService:GetUserId(),
+						toolName = currentTool,
+						studioSId = AnalyticsService:GetSessionId(),
+						placeId = game.PlaceId,
+					})
 					reportClick = false
 				end
 
@@ -537,7 +535,11 @@ function TerrainBrush:_run()
 				end
 				if altDown then
 					if rayHit and rayHit:IsA("Terrain") then
-						self._materialSelectRequested:Fire(hitMaterial)
+						if FFlagTerrainToolsReplaceTool then
+							self._materialSelectRequested:Fire(hitMaterial, isShiftKeyDown())
+						else
+							self._materialSelectRequested:Fire(hitMaterial)
+						end
 					end
 				else
 					local difference = mainPoint - lastMainPoint

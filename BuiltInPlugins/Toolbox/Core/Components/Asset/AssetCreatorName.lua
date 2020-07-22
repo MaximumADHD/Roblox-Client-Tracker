@@ -35,16 +35,10 @@ local SearchWithOptions = require(Plugin.Core.Networking.Requests.SearchWithOpti
 
 local TooltipWrapper = require(Plugin.Core.Components.TooltipWrapper)
 
-local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
-
 local AssetCreatorName = Roact.PureComponent:extend("AssetCreatorName")
 
 function AssetCreatorName:init(props)
 	local networkInterface = getNetwork(self)
-	local settings
-	if not FFlagStudioToolboxEnabledDevFramework then
-		settings = getSettings(self)
-	end
 
 	self.state = {
 		isHovered = false
@@ -75,12 +69,8 @@ function AssetCreatorName:init(props)
 				Creator = props.creatorName,
 				AudioSearch = props.audioSearchInfo,
 			}
-			if FFlagStudioToolboxEnabledDevFramework then
-				local mySettings = self.props.Settings:get("Plugin")
-				props.searchWithOptions(networkInterface, mySettings, options)
-			else
-				props.searchWithOptions(networkInterface, settings, options)
-			end
+			local mySettings = self.props.Settings:get("Plugin")
+			props.searchWithOptions(networkInterface, mySettings, options)
 		end
 	end
 end
@@ -147,11 +137,9 @@ function AssetCreatorName:render()
 	end)
 end
 
-if FFlagStudioToolboxEnabledDevFramework then
-	ContextServices.mapToProps(AssetCreatorName, {
-		Settings = Settings,
-	})
-end
+ContextServices.mapToProps(AssetCreatorName, {
+	Settings = Settings,
+})
 
 local mapStateToProps = function(state, props)
 	state = state or {}

@@ -138,4 +138,4 @@ function MapSettingsWithPreview:render()
 	return Roact.createElement(MapSettings, props)
 end
 
-return MapSettingsWithPreview 
+return MapSettingsWithPreview

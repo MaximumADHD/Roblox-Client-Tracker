@@ -19,7 +19,6 @@
 local FFlagToolboxShowGroupCreations = game:GetFastFlag("ToolboxShowGroupCreations")
 local FFlagToolboxHideSearchForMyPlugins = game:DefineFastFlag("ToolboxHideSearchForMyPlugins", false)
 local FFlagToolboxHideSearchForRecent = game:DefineFastFlag("ToolboxHideSearchForRecent", false)
-local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
 local FFlagEnableSearchedWithoutInsertionAnalytic = game:GetFastFlag("EnableSearchedWithoutInsertionAnalytic")
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 
@@ -62,18 +61,12 @@ local globalSettings = settings
 function Header:init()
 	local networkInterface = getNetwork(self)
 	local settings
-	if not FFlagStudioToolboxEnabledDevFramework then
-		settings = getSettings(self) -- TOOD: Remove when FFlagStudioToolboxEnabledDevFramework is removed
-	end
 
 	if FFlagUseCategoryNameInToolbox then
-
 		self.onCategorySelected = function(index)
 			local categoryName = self.props.categories[index].name
 			if self.props.categoryName ~= categoryName then
-				if FFlagStudioToolboxEnabledDevFramework then
-					settings = self.props.Settings:get("Plugin")
-				end
+				settings = self.props.Settings:get("Plugin")
 
 				Analytics.onCategorySelected(
 					self.props.categoryName,
@@ -88,9 +81,7 @@ function Header:init()
 
 		self.onCategorySelected = function(index)
 			if self.props.categoryIndex ~= index then
-				if FFlagStudioToolboxEnabledDevFramework then
-					settings = self.props.Settings:get("Plugin")
-				end
+				settings = self.props.Settings:get("Plugin")
 				local newCategory = PageInfoHelper.getCategory(self.props.categories, index)
 				local currentCategory = PageInfoHelper.getCategory(self.props.categories, self.props.categoryIndex)
 
@@ -112,10 +103,7 @@ function Header:init()
 	end
 
 	self.onSearchRequested = function(searchTerm)
-		local settings = nil
-		if FFlagStudioToolboxEnabledDevFramework then
-			settings = self.props.Settings:get("Plugin")
-		end
+		local settings = self.props.Settings:get("Plugin")
 		if type(searchTerm) ~= "string" and DebugFlags.shouldDebugWarnings() then
 			warn(("Toolbox onSearchRequested searchTerm = %s is not a string"):format(tostring(searchTerm)))
 		end
@@ -378,13 +366,9 @@ function Header:addTabRefreshCallback()
 			else
 				categoryKey = self.props.categoryIndex
 			end
-
-			if FFlagStudioToolboxEnabledDevFramework then
-				local settings = self.props.Settings:get("Plugin")
-				self.props.selectCategory(getNetwork(self), settings, categoryKey)
-			else
-				self.props.selectCategory(getNetwork(self), getSettings(self), categoryKey)
-			end
+ 
+			local settings = self.props.Settings:get("Plugin")
+			self.props.selectCategory(getNetwork(self), settings, categoryKey)
 		end)
 	end
 end
@@ -406,11 +390,9 @@ function Header:willUnmount()
 	destroyTabRefreshEvent(self.props.pluginGui)
 end
 
-if FFlagStudioToolboxEnabledDevFramework then
-	ContextServices.mapToProps(Header, {
-		Settings = Settings,
-	})
-end
+ContextServices.mapToProps(Header, {
+	Settings = Settings,
+})
 
 local function mapStateToProps(state, props)
 	state = state or {}

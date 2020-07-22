@@ -94,10 +94,14 @@ function Theme.createValues(theme, getColor)
 	local gameSettingsButtons = StyleTable.new("Button", function()
 		local GameSettingsPrimaryButton = Style.extend(button.RoundPrimary, {
 			TextSize = fontStyle.Normal.TextSize,
-			Font = Enum.Font.SourceSans,
+		})
+
+		local GameSettingsButton = Style.extend(button.Round, {
+			TextSize = fontStyle.Normal.TextSize,
 		})
 
 		return {
+			GameSettingsButton = GameSettingsButton,
 			GameSettingsPrimaryButton = GameSettingsPrimaryButton,
 		}
 	end)
@@ -305,6 +309,7 @@ function Theme.createValues(theme, getColor)
 			},
 
 			table = {
+				height = 350,
 				header = {
 					height = 32,
 				},

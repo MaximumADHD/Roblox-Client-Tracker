@@ -92,6 +92,7 @@ function LoadingIndicator:render()
 	local position = props.Position
 	local size = props.Size or UDim2.new(1, 0, 1, 0)
 	local zIndex = props.ZIndex
+	local layoutOrder = props.LayoutOrder
 
 	local theme = props.Theme
 	local style = theme:getStyle("Framework", self)
@@ -134,6 +135,7 @@ function LoadingIndicator:render()
 		Position = position,
 		Size = size,
 		ZIndex = zIndex,
+		LayoutOrder = layoutOrder,
 		BorderSizePixel = 0,
 		BackgroundTransparency = 1,
 	}, children)

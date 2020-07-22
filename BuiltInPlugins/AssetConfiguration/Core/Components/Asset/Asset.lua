@@ -20,7 +20,6 @@
 		callback onPreviewAudioButtonClicked
 ]]
 
-local FFlagPluginAccessAndInstallationInStudio = settings():GetFFlag("PluginAccessAndInstallationInStudio")
 local FFlagFixAssetTextTruncation = game:DefineFastFlag("FixAssetTextTruncation", false)
 local FFlagRemoveAudioEndorsedIcon = game:GetFastFlag("RemoveAudioEndorsedIcon")
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
@@ -112,7 +111,7 @@ function Asset:init(props)
 			return
 		end
 
-		if FFlagPluginAccessAndInstallationInStudio and asset.TypeId == Enum.AssetType.Plugin.Value then
+		if asset.TypeId == Enum.AssetType.Plugin.Value then
 			self.props.onAssetPreviewButtonClicked(assetData)
 			return
 		end
@@ -130,9 +129,7 @@ function Asset:didMount()
 	local asset = assetData.Asset
 	local assetId = asset.Id
 
-	if FFlagPluginAccessAndInstallationInStudio then
-		self.props.getOwnsAsset(getNetwork(self), assetId)
-	end
+	self.props.getOwnsAsset(getNetwork(self), assetId)
 
 	self.props.getCanManageAsset(getNetwork(self), assetId)
 end
@@ -165,8 +162,7 @@ function Asset:render()
 			local status = asset.Status
 
 			local price, isFree
-			if FFlagPluginAccessAndInstallationInStudio
-				and (assetTypeId == Enum.AssetType.Plugin.Value) then
+			if assetTypeId == Enum.AssetType.Plugin.Value then
 				price = assetData.Product and assetData.Product.Price or 0
 				isFree = price == 0
 			end

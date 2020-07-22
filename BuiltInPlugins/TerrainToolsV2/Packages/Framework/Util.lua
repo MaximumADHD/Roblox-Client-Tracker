@@ -10,7 +10,7 @@ return strict({
 
 	-- TODO DEVTOOLS-4459: Remove this export
 	Cryo = require(script.Cryo),
-
+	CrossPluginCommunication = require(script.CrossPluginCommunication),
 	deepEqual = require(script.deepEqual),
 
 	-- TODO DEVTOOLS-4459: Remove this export

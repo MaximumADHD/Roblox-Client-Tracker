@@ -8,18 +8,25 @@
 local Framework = script.Parent.Parent
 local UIFolderData = require(Framework.UI.UIFolderData)
 local StudioUIFolderData = require(Framework.StudioUI.StudioUIFolderData)
-local Render = {}
+local exampleComponents = nil
 
 local function addUIFolderExamples(folderData)
 	for _, folder in pairs(folderData) do
 		local renderExample = folder.renderExample
 		if renderExample then
-			Render[folder.name] = require(renderExample)
+			exampleComponents[folder.name] = require(renderExample)
 		end
 	end
 end
 
-addUIFolderExamples(UIFolderData)
-addUIFolderExamples(StudioUIFolderData)
+return function(name)
+	assert(type(name) == "string")
 
-return Render
+	if exampleComponents == nil then
+		exampleComponents = {}
+		addUIFolderExamples(UIFolderData)
+		addUIFolderExamples(StudioUIFolderData)
+	end
+
+	return exampleComponents[name]
+end

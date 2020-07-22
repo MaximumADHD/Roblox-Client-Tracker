@@ -9,6 +9,7 @@ local getGeometry = require(DraggerFramework.Utility.getGeometry)
 local getFFlagDraggerRefactor = require(DraggerFramework.Flags.getFFlagDraggerRefactor)
 local getFFlagFixBadNormal = require(DraggerFramework.Flags.getFFlagFixBadNormal)
 local getFFlagDragFaceInstances = require(DraggerFramework.Flags.getFFlagDragFaceInstances)
+local getFFlagSupportNoRotate = require(DraggerFramework.Flags.getFFlagSupportNoRotate)
 
 -- Ensure we aren't still using StudioService
 if getFFlagDraggerRefactor() then
@@ -119,6 +120,18 @@ function DragHelper.snapRotationToPrimaryDirection(cframe)
 		end
 	end
 	return CFrame.fromMatrix(Vector3.new(), right, top)
+end
+
+function DragHelper.getSizeInSpace(sizeInGlobalSpace, localSpace)
+	local _, _, _,
+		t00, t01, t02,
+		t10, t11, t12,
+		t20, t21, t22 = localSpace:GetComponents()
+	local sx, sy, sz = sizeInGlobalSpace.X, sizeInGlobalSpace.Y, sizeInGlobalSpace.Z
+	local w = (math.abs(sx * t00) + math.abs(sy * t01) + math.abs(sz * t02))
+	local h = (math.abs(sx * t10) + math.abs(sy * t11) + math.abs(sz * t12))
+	local d = (math.abs(sx * t20) + math.abs(sy * t21) + math.abs(sz * t22))
+	return Vector3.new(w, h, d)
 end
 
 if not getFFlagDraggerRefactor() then
@@ -267,7 +280,8 @@ if getFFlagDraggerRefactor() then
 		Update the tiltRotate by rotating 90 degrees around an axis. Axis is the
 		axis in camera space over which the rotation should happen.
 	]]
-	function DragHelper.updateTiltRotate(cameraCFrame, mouseRay, selection, mainCFrame, lastTargetMat, tiltRotate, axis)
+	function DragHelper.updateTiltRotate(cameraCFrame, mouseRay, selection, mainCFrame, lastTargetMat, tiltRotate, axis,
+		alignRotation)
 		-- Find targetMatrix and dragInTargetSpace in the same way as
 		-- in DragHelper.getDragTarget, see that function for further explanation.
 		local targetMatrix, _, dragTargetType =
@@ -276,12 +290,28 @@ if getFFlagDraggerRefactor() then
 			return tiltRotate
 		end
 		local dragInTargetSpace = targetMatrix:Inverse() * mainCFrame
-		if getFFlagFixBadNormal() then
-			dragInTargetSpace = DragHelper.snapRotationToPrimaryDirection(dragInTargetSpace)
+		if getFFlagSupportNoRotate() then
+			assert(alignRotation ~= nil)
+			if alignRotation then
+				if getFFlagFixBadNormal() then
+					dragInTargetSpace = DragHelper.snapRotationToPrimaryDirection(dragInTargetSpace)
+				else
+					local rightVector = DragHelper.snapVectorToPrimaryDirection(dragInTargetSpace.RightVector)
+					local upVector = DragHelper.snapVectorToPrimaryDirection(dragInTargetSpace.UpVector)
+					dragInTargetSpace = CFrame.fromMatrix(Vector3.new(), rightVector, upVector)
+				end
+			else
+				dragInTargetSpace = dragInTargetSpace - dragInTargetSpace.Position
+			end
 		else
-			local rightVector = DragHelper.snapVectorToPrimaryDirection(dragInTargetSpace.RightVector)
-			local upVector = DragHelper.snapVectorToPrimaryDirection(dragInTargetSpace.UpVector)
-			dragInTargetSpace = CFrame.fromMatrix(Vector3.new(), rightVector, upVector)
+			assert(alignRotation == nil)
+			if getFFlagFixBadNormal() then
+				dragInTargetSpace = DragHelper.snapRotationToPrimaryDirection(dragInTargetSpace)
+			else
+				local rightVector = DragHelper.snapVectorToPrimaryDirection(dragInTargetSpace.RightVector)
+				local upVector = DragHelper.snapVectorToPrimaryDirection(dragInTargetSpace.UpVector)
+				dragInTargetSpace = CFrame.fromMatrix(Vector3.new(), rightVector, upVector)
+			end
 		end
 
 		-- Current global rotation when dragging is given by:
@@ -322,7 +352,8 @@ if getFFlagDraggerRefactor() then
 		return math.floor(value / gridSize + 0.5) * gridSize
 	end
 
-	function DragHelper.getDragTarget(mouseRay, gridSize, dragInMainSpace, selection, mainCFrame, basisPoint, boundingBoxSize, boundingBoxOffset, tiltRotate, lastTargetMat)
+	function DragHelper.getDragTarget(mouseRay, gridSize, dragInMainSpace, selection, mainCFrame, basisPoint,
+		boundingBoxSize, boundingBoxOffset, tiltRotate, lastTargetMat, alignRotation)
 		if not dragInMainSpace then
 			return
 		end
@@ -335,15 +366,35 @@ if getFFlagDraggerRefactor() then
 
 		local dragInTargetSpace = targetMatrix:Inverse() * mainCFrame
 
-		-- Now we want to "snap" the rotation of this transformation to 90degree
-		-- increments, such that the dragInTargetSpace is only some combination of
-		-- the primary direction vectors.
-		if getFFlagFixBadNormal() then
-			dragInTargetSpace = DragHelper.snapRotationToPrimaryDirection(dragInTargetSpace)
+		if getFFlagSupportNoRotate() then
+			assert(alignRotation ~= nil)
+			if alignRotation then
+				-- Now we want to "snap" the rotation of this transformation to 90 degree
+				-- increments, such that the dragInTargetSpace is only some combination of
+				-- the primary direction vectors.
+				if getFFlagFixBadNormal() then
+					dragInTargetSpace = DragHelper.snapRotationToPrimaryDirection(dragInTargetSpace)
+				else
+					local rightVector = DragHelper.snapVectorToPrimaryDirection(dragInTargetSpace.RightVector)
+					local upVector = DragHelper.snapVectorToPrimaryDirection(dragInTargetSpace.UpVector)
+					dragInTargetSpace = CFrame.fromMatrix(Vector3.new(), rightVector, upVector)
+				end
+			else
+				-- Just reduce dragInTargetSpace to a rotation
+				dragInTargetSpace = dragInTargetSpace - dragInTargetSpace.Position
+			end
 		else
-			local rightVector = DragHelper.snapVectorToPrimaryDirection(dragInTargetSpace.RightVector)
-			local upVector = DragHelper.snapVectorToPrimaryDirection(dragInTargetSpace.UpVector)
-			dragInTargetSpace = CFrame.fromMatrix(Vector3.new(), rightVector, upVector)
+			assert(alignRotation == nil)
+			-- Now we want to "snap" the rotation of this transformation to 90 degree
+			-- increments, such that the dragInTargetSpace is only some combination of
+			-- the primary direction vectors.
+			if getFFlagFixBadNormal() then
+				dragInTargetSpace = DragHelper.snapRotationToPrimaryDirection(dragInTargetSpace)
+			else
+				local rightVector = DragHelper.snapVectorToPrimaryDirection(dragInTargetSpace.RightVector)
+				local upVector = DragHelper.snapVectorToPrimaryDirection(dragInTargetSpace.UpVector)
+				dragInTargetSpace = CFrame.fromMatrix(Vector3.new(), rightVector, upVector)
+			end
 		end
 
 		-- Now we want to "snap" the basisPoint to be on-Grid in the main space
@@ -360,11 +411,26 @@ if getFFlagDraggerRefactor() then
 		local contentOffsetCF = CFrame.new(contentOffset)
 		local snappedBoundingBoxOffset = boundingBoxOffset + contentOffset
 
+		-- Compute the size in the space we're dragging into. If alignRotation
+		-- is enabled, it could just be computed as a permutation of the size
+		-- components. However, when it is an arbitrary rotational offset thanks
+		-- to alignRotation being disabled, a larger computation is needed.
+		local sizeInTargetSpace
+		if getFFlagSupportNoRotate() then
+			sizeInTargetSpace = DragHelper.getSizeInSpace(boundingBoxSize, dragInTargetSpace * tiltRotate)
+		else
+			sizeInTargetSpace = (dragInTargetSpace * tiltRotate):VectorToWorldSpace(boundingBoxSize)
+		end
+
 		-- Figure out how much we have to "bump up" the selection to have its
 		-- bounding box sit on top of the plane we're dragging onto.
-		local sizeInTargetSpace = (dragInTargetSpace * tiltRotate):VectorToWorldSpace(boundingBoxSize)
 		local offsetInTargetSpace = (dragInTargetSpace * tiltRotate):VectorToWorldSpace(snappedBoundingBoxOffset)
-		local normalBumpNeeded = (0.5 * math.abs(sizeInTargetSpace.Y)) - offsetInTargetSpace.Y
+		local normalBumpNeeded
+		if getFFlagSupportNoRotate() then
+			normalBumpNeeded = (0.5 * sizeInTargetSpace.Y) - offsetInTargetSpace.Y
+		else
+			normalBumpNeeded = (0.5 * math.abs(sizeInTargetSpace.Y)) - offsetInTargetSpace.Y
+		end
 		local normalBumpCF = CFrame.new(0, normalBumpNeeded, 0)
 
 		-- Now we have to figure out the offset of the point we started the drag
@@ -375,7 +441,8 @@ if getFFlagDraggerRefactor() then
 		local mouseInMainSpaceCF = CFrame.new(mouseInMainSpace)
 
 		-- New mouse position is defined by:
-		-- targetMatrix * snapAdjust * normalBump * dragInTargetSpace * tiltRotate * mouseInMainSpace * contentOffset = mouseWorld
+		-- targetMatrix * snapAdjust * normalBump * dragInTargetSpace * tiltRotate * mouseInMainSpace * contentOffset =
+		-- mouseWorld
 		-- So we want to isolate snapAdjust to snap it's X and Z components
 		local mouseWorldCF = (targetMatrix - targetMatrix.Position) * dragInTargetSpace * tiltRotate + mouseWorld
 		local snapAdjust =
@@ -604,7 +671,7 @@ else
 
 		local dragInTargetSpace = targetMatrix:Inverse() * mainCFrame
 
-		-- Now we want to "snap" the rotation of this transformation to 90degree
+		-- Now we want to "snap" the rotation of this transformation to 90 degree
 		-- increments, such that the dragInTargetSpace is only some combination of
 		-- the primary direction vectors.
 		if getFFlagFixBadNormal() then

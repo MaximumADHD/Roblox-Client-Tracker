@@ -4,24 +4,17 @@ local Requests = CorePackages.AppTempCommon.LuaApp.Http.Requests
 local Promise = require(CorePackages.AppTempCommon.LuaApp.Promise)
 local ApiFetchUsersPresences = require(CorePackages.AppTempCommon.LuaApp.Thunks.ApiFetchUsersPresences)
 local ApiFetchUsersThumbnail = require(CorePackages.AppTempCommon.LuaApp.Thunks.ApiFetchUsersThumbnail)
-local ApiFetchUsersFriendCount = require(CorePackages.AppTempCommon.LuaApp.Thunks.ApiFetchUsersFriendCount)
 local UsersGetFriends = require(Requests.UsersGetFriends)
 
-local AddUsers = require(CorePackages.AppTempCommon.LuaApp.Actions.AddUsers)
 local FetchUserFriendsStarted = require(CorePackages.AppTempCommon.LuaApp.Actions.FetchUserFriendsStarted)
 local FetchUserFriendsFailed = require(CorePackages.AppTempCommon.LuaApp.Actions.FetchUserFriendsFailed)
 local FetchUserFriendsCompleted = require(CorePackages.AppTempCommon.LuaApp.Actions.FetchUserFriendsCompleted)
 local UserModel = require(CorePackages.AppTempCommon.LuaApp.Models.User)
 local UpdateUsers = require(CorePackages.AppTempCommon.LuaApp.Thunks.UpdateUsers)
 
-local LuaAppRemoveGetFriendshipCountApiCalls = settings():GetFFlag("LuaAppRemoveGetFriendshipCountApiCalls")
-
 return function(requestImpl, userId, thumbnailRequest, checkPoints)
 	return function(store)
 		store:dispatch(FetchUserFriendsStarted(userId))
-		if not LuaAppRemoveGetFriendshipCountApiCalls then
-			store:dispatch(ApiFetchUsersFriendCount(requestImpl))
-		end
 
 		if checkPoints ~= nil and checkPoints.startFetchUserFriends ~= nil then
 			checkPoints:startFetchUserFriends()
@@ -41,11 +34,7 @@ return function(requestImpl, userId, thumbnailRequest, checkPoints)
 				table.insert(fetchedUserIds, id)
 				newUsers[newUser.id] = newUser
 			end
-			if LuaAppRemoveGetFriendshipCountApiCalls then
-				store:dispatch(UpdateUsers(newUsers))
-			else
-				store:dispatch(AddUsers(newUsers))
-			end
+			store:dispatch(UpdateUsers(newUsers))
 
 			if checkPoints ~= nil and checkPoints.finishFetchUserFriends ~= nil then
 				checkPoints:finishFetchUserFriends()

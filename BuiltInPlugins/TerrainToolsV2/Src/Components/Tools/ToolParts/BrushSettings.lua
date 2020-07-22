@@ -30,6 +30,7 @@ local BrushSettings = Roact.PureComponent:extend(script.Name)
 function BrushSettings:render()
 	return withLocalization(function(localization)
 		local layoutOrder = self.props.LayoutOrder
+		local isSubsection = self.props.isSubsection
 
 		local showHeight = self.props.brushShape ~= BrushShape.Sphere
 		local showStrength = self.props.strength ~= nil
@@ -46,6 +47,7 @@ function BrushSettings:render()
 			Title = localization:getText("BrushSettings", "BrushSettings"),
 			Padding = UDim.new(0, 12),
 			LayoutOrder = layoutOrder,
+			isSubsection = isSubsection,
 		}, {
 			BrushShapeSelector = Roact.createElement(BrushShapeSelector, {
 				LayoutOrder = 1,

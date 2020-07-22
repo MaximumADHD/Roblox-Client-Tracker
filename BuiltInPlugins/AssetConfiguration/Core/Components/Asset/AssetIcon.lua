@@ -17,7 +17,6 @@
 
 local FFlagUseCategoryNameInToolbox = game:GetFastFlag("UseCategoryNameInToolbox")
 local FFlagToolboxUseNewAssetType = game:GetFastFlag("ToolboxUseNewAssetType")
-local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -187,11 +186,9 @@ function AssetIcon:render()
 	end)
 end
 
-if FFlagStudioToolboxEnabledDevFramework then
-	ContextServices.mapToProps(AssetIcon, {
-		Theme = ContextServices.Theme,
-	})
-end
+ContextServices.mapToProps(AssetIcon, {
+	Theme = ContextServices.Theme,
+})
 
 local function mapStateToProps(state, props)
 	state = state or {}

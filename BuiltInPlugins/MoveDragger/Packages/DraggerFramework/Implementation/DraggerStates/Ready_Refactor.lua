@@ -11,6 +11,7 @@ local HoverTracker = require(DraggerFramework.Implementation.HoverTracker)
 local StandardCursor = require(DraggerFramework.Utility.StandardCursor)
 
 local getEngineFeatureActiveInstanceHighlight = require(DraggerFramework.Flags.getEngineFeatureActiveInstanceHighlight)
+local getFFlagHoverBoxActiveColor = require(DraggerFramework.Flags.getFFlagHoverBoxActiveColor)
 local getFFlagSelectWeldConstraints = require(DraggerFramework.Flags.getFFlagSelectWeldConstraints)
 
 local Ready = {}
@@ -51,10 +52,22 @@ function Ready:render()
 				if draggerContext:shouldAnimateHover() then
 					animatePeriod = draggerContext:getHoverAnimationSpeedInSeconds()
 				end
+
+				local isActive
+				if getEngineFeatureActiveInstanceHighlight() then
+					if getFFlagHoverBoxActiveColor() then
+						isActive = false
+						if draggerContext:shouldShowActiveInstanceHighlight() then
+							local activeInstance = draggerContext:getSelectionWrapper():getActiveInstance()
+							isActive = hoverSelectable == activeInstance
+						end
+					end
+				end
+
 				elements.HoverBox = Roact.createElement(AnimatedHoverBox, {
 					HoverTarget = hoverSelectable,
-					SelectColor = draggerContext:getSelectionBoxColor(),
-					HoverColor = draggerContext:getHoverBoxColor(),
+					SelectColor = draggerContext:getSelectionBoxColor(isActive),
+					HoverColor = draggerContext:getHoverBoxColor(isActive),
 					LineThickness = draggerContext:getHoverLineThickness(),
 					AnimatePeriod = animatePeriod,
 				})
@@ -108,7 +121,7 @@ function Ready:processMouseDown()
 		local oldSelection = draggerContext:getSelectionWrapper():Get()
 		local shouldUpdateActiveInstance
 		if getEngineFeatureActiveInstanceHighlight() then
-			shouldUpdateActiveInstance = draggerContext:shouldUpdateActiveInstance()
+			shouldUpdateActiveInstance = draggerContext:shouldShowActiveInstanceHighlight()
 		end
 		local selectionDidChange, newSelection =
 			SelectionHelper.updateSelection(

@@ -17,7 +17,6 @@ local UILibrary = require(Libs.UILibrary)
 local UILibraryWrapper = UILibrary.Wrapper
 
 local FFlagToolboxFixThemeIssues = game:DefineFastFlag("ToolboxFixThemeIssues", false)
-local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
 
 
 local ExternalServicesWrapper = Roact.Component:extend("ExternalServicesWrapper")
@@ -36,60 +35,23 @@ function ExternalServicesWrapper:render()
 	local networkInterface = props.networkInterface
 	local localization = props.localization
 
-	if FFlagStudioToolboxEnabledDevFramework then
-		return Roact.createElement(ThemeProvider, {
-			theme = theme,
+	return Roact.createElement(ThemeProvider, {
+		theme = theme,
+	}, {
+		Roact.createElement(LocalizationProvider, {
+			localization = localization
 		}, {
-			Roact.createElement(LocalizationProvider, {
-				localization = localization
-			}, {
-				Roact.createElement(ModalProvider, {
-					pluginGui = pluginGui,
-				}, {
-					Roact.createElement(CameraProvider, {}, {
-						Roact.createElement(NetworkProvider, {
-							networkInterface = networkInterface,
-						}, props[Roact.Children])
-					})
-				}),
-			}),
-		})
-	else
-		return Roact.createElement(RoactRodux.StoreProvider, {
-			store = store
-		}, {
-			Roact.createElement(PluginProvider, {
-				plugin = plugin,
+			Roact.createElement(ModalProvider, {
 				pluginGui = pluginGui,
 			}, {
-				Roact.createElement(SettingsProvider, {
-					settings = settings,
-				}, {
-					Roact.createElement(ThemeProvider, {
-						theme = theme,
-					}, {
-						Roact.createElement(FFlagToolboxFixThemeIssues and UILibraryProvider or UILibraryWrapper, {
-							theme = FFlagToolboxFixThemeIssues and theme or theme:getUILibraryTheme(),
-							focusGui = pluginGui,
-							plugin = plugin,
-						}, {
-							Roact.createElement(LocalizationProvider, {
-								localization = localization
-							},{
-								Roact.createElement(ModalProvider, {}, {
-									Roact.createElement(CameraProvider, {}, {
-										Roact.createElement(NetworkProvider, {
-											networkInterface = networkInterface,
-										}, props[Roact.Children])
-									})
-								}),
-							})
-						})
-					}),
-				}),
+				Roact.createElement(CameraProvider, {}, {
+					Roact.createElement(NetworkProvider, {
+						networkInterface = networkInterface,
+					}, props[Roact.Children])
+				})
 			}),
-		})
-	end
+		}),
+	})
 end
 
 return ExternalServicesWrapper

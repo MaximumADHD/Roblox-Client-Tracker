@@ -1,7 +1,5 @@
 local FFlagTerrainToolsUseDevFramework = game:GetFastFlag("TerrainToolsUseDevFramework")
 
-local FFlagTerrainToolMetrics = settings():GetFFlag("TerrainToolMetrics")
-
 local Plugin = script.Parent.Parent.Parent
 
 local Framework = Plugin.Packages.Framework
@@ -141,15 +139,13 @@ function TerrainImporter:startImport()
 	-- But the spawn() allows us to show the progress dialog before the preprocessing starts
 	-- So then the user at least gets some feedback that the operation has started other than studio freezing
 	spawn(function()
-		if FFlagTerrainToolMetrics then
-			AnalyticsService:SendEventDeferred("studio", "TerrainEditorV2", "ImportTerrain", {
-				userId = StudioService:GetUserId(),
-				regionDims = ("%d,%d,%d)"):format(region.Size.x, region.Size.y, region.Size.z),
-				useColorMap = useColorMap,
-				studioSId = AnalyticsService:GetSessionId(),
-				placeId = game.PlaceId,
-			})
-		end
+		AnalyticsService:SendEventDeferred("studio", "Terrain", "ImportTerrain", {
+			userId = StudioService:GetUserId(),
+			regionDims = ("%d,%d,%d)"):format(region.Size.x, region.Size.y, region.Size.z),
+			useColorMap = useColorMap,
+			studioSId = AnalyticsService:GetSessionId(),
+			placeId = game.PlaceId,
+		})
 
 		local status, err = pcall(function()
 			self._terrain:ImportHeightMap(heightUrl, colorUrl, region)

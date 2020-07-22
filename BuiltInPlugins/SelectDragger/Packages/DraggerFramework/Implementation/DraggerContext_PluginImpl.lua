@@ -12,6 +12,7 @@ local Analytics = require(DraggerFramework.Utility.Analytics)
 local setInsertPoint = require(DraggerFramework.Utility.setInsertPoint)
 
 local getEngineFeatureActiveInstanceHighlight = require(DraggerFramework.Flags.getEngineFeatureActiveInstanceHighlight)
+local getFFlagSupportNoRotate = require(DraggerFramework.Flags.getFFlagSupportNoRotate)
 
 local DraggerContext = {}
 DraggerContext.__index = DraggerContext
@@ -90,8 +91,16 @@ function DraggerContext:getHoverAnimationSpeedInSeconds()
 	return 0
 end
 
-function DraggerContext:getHoverBoxColor()
-	return self._studioSettings["Hover Over Color"]
+function DraggerContext:getHoverBoxColor(isActive)
+	if not getEngineFeatureActiveInstanceHighlight() then
+		assert(isActive == nil)
+		return self._studioSettings["Hover Over Color"]
+	end
+	if isActive then
+		return self._studioSettings["Active Hover Over Color"]
+	else
+		return self._studioSettings["Hover Over Color"]
+	end
 end
 
 function DraggerContext:getHoverLineThickness()
@@ -99,8 +108,16 @@ function DraggerContext:getHoverLineThickness()
 	return 0.04
 end
 
-function DraggerContext:getSelectionBoxColor()
-	return self._studioSettings["Select Color"]
+function DraggerContext:getSelectionBoxColor(isActive)
+	if not getEngineFeatureActiveInstanceHighlight() then
+		assert(isActive == nil)
+		return self._studioSettings["Select Color"]
+	end
+	if isActive then
+		return self._studioSettings["Active Color"]
+	else
+		return self._studioSettings["Select Color"]
+	end
 end
 
 function DraggerContext:getCameraCFrame()
@@ -183,10 +200,14 @@ function DraggerContext:setInsertPoint(location)
 	setInsertPoint(location)
 end
 
-if getEngineFeatureActiveInstanceHighlight() then
-	function DraggerContext:shouldUpdateActiveInstance()
-		return self._studioService.ShowActiveInstanceHighlight
-	end
+function DraggerContext:shouldShowActiveInstanceHighlight()
+	assert(getEngineFeatureActiveInstanceHighlight())
+	return self._studioService.ShowActiveInstanceHighlight
+end
+
+function DraggerContext:shouldAlignDraggedObjects()
+	assert(getFFlagSupportNoRotate())
+	return self._studioService.AlignDraggedObjects
 end
 
 return DraggerContext

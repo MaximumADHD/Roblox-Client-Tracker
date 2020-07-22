@@ -89,7 +89,7 @@ function DocParser:parse()
 	local closing = source:find("]]")
 	self:__assert(closing, noCommentsError)
 
-	local opening = source:find("--")
+	local opening = source:find("^%-%-")
 	self:__assert(opening == 1, noCommentsError)
 
 	-- "--[[\n" totals 5 characters, + 1 to start at comment start

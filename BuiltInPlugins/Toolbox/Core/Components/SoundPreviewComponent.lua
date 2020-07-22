@@ -1,5 +1,3 @@
-local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
-
 local RunService = game:GetService("RunService")
 
 local Plugin = script.Parent.Parent.Parent
@@ -25,10 +23,7 @@ local SoundPreviewComponent = Roact.Component:extend("SoundPreviewComponent")
 function SoundPreviewComponent:init(props)
 	self.ref = Roact.createRef()
 
-	local plugin
-	if not FFlagStudioToolboxEnabledDevFramework then
-		plugin = getPlugin(self)
-	end
+	local plugin = getPlugin(self)
 
 	self.onSoundChange = function(rbx, property)
 		local soundObj = self.ref.current
@@ -44,9 +39,8 @@ function SoundPreviewComponent:init(props)
 	end
 
 	self.updateSound = function()
-		if FFlagStudioToolboxEnabledDevFramework then
-			plugin = self.props.Plugin:get()
-		end
+		plugin = self.props.Plugin:get()
+
 		local soundObj = self.ref.current
 		local props = self.props
 		local currentSoundId = props.currentSoundId
@@ -124,11 +118,9 @@ function SoundPreviewComponent:didUpdate()
 	self.updateSound()
 end
 
-if FFlagStudioToolboxEnabledDevFramework then
-	ContextServices.mapToProps(SoundPreviewComponent, {
-		Plugin = ContextServices.Plugin,
-	})
-end
+ContextServices.mapToProps(SoundPreviewComponent, {
+	Plugin = ContextServices.Plugin,
+})
 
 local function mapStateToProps(state, props)
 	state = state or {}

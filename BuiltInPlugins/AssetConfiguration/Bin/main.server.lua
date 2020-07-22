@@ -7,10 +7,10 @@ local PluginRoot = script.Parent.Parent
 -- Fast flags
 require(PluginRoot.ToolboxFFlags)
 local FFlagEnableOverrideAssetCursorFix = game:GetFastFlag("EnableOverrideAssetCursorFix")
-local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
 local FFlagStudioUseNewAnimationImportExportFlow = settings():GetFFlag("StudioUseNewAnimationImportExportFlow")
 local FFlagStudioAssetConfigurationPlugin = game:GetFastFlag("StudioAssetConfigurationPlugin")
 local FFlagStudioUnrestrictPluginGuiService = game:GetFastFlag("StudioUnrestrictPluginGuiService")
+local FFlagDebugAssetConfigurationEnableRoactChecks = game:DefineFastFlag("DebugAssetConfigurationEnableRoactChecks", false)
 
 if not FFlagStudioAssetConfigurationPlugin then
 	return
@@ -25,6 +25,14 @@ local Libs = PluginRoot.Libs
 local Roact = require(Libs.Roact)
 local Rodux = require(Libs.Rodux)
 local Cryo = require(Libs.Cryo)
+
+if FFlagDebugAssetConfigurationEnableRoactChecks then
+	Roact.setGlobalConfig({
+		elementTracing = true,
+		propValidation = true,
+		typeChecks = true
+	})
+end
 
 local Util = PluginRoot.Core.Util
 local DebugFlags = require(Util.DebugFlags)
@@ -51,13 +59,11 @@ local RobloxPluginGuiService = game:GetService("RobloxPluginGuiService")
 local StudioService = game:GetService("StudioService")
 
 local localization2
-if FFlagStudioToolboxEnabledDevFramework then
-	localization2 = ContextServices.Localization.new({
-		stringResourceTable = TranslationStringsTable,
-		translationResourceTable = TranslationStringsTable,
-		pluginName = "Toolbox",
-	})
-end
+localization2 = ContextServices.Localization.new({
+	stringResourceTable = TranslationStringsTable,
+	translationResourceTable = TranslationStringsTable,
+	pluginName = "Toolbox",
+})
 
 local function createAssetConfigTheme()
 	return AssetConfigTheme.new({
@@ -177,20 +183,16 @@ local function createAssetConfig(assetId, flowType, instances, assetTypeEnum, to
 
 		onAssetConfigDestroy = onAssetConfigDestroy
 	})
-	if FFlagStudioToolboxEnabledDevFramework then
-		local assetConfigWithServices = Roact.createElement(ToolboxServiceWrapper, {
-			localization = localization2,
-			plugin = plugin,
-			theme = theme,
-			store = assetConfigStore,
-			settings = settings,
-		}, {
-			assetConfigComponent
-		})
-		assetConfigHandle = Roact.mount(assetConfigWithServices)
-	else
-		assetConfigHandle = Roact.mount(assetConfigComponent)
-	end
+	local assetConfigWithServices = Roact.createElement(ToolboxServiceWrapper, {
+		localization = localization2,
+		plugin = plugin,
+		theme = theme,
+		store = assetConfigStore,
+		settings = settings,
+	}, {
+		assetConfigComponent
+	})
+	assetConfigHandle = Roact.mount(assetConfigWithServices)
 
 
 	return assetConfigHandle

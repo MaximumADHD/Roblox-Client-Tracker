@@ -20,7 +20,6 @@ local ToolboxPlugin = Roact.PureComponent:extend("ToolboxPlugin")
 
 local Analytics = require(Util.Analytics.Analytics)
 
-local FFlagStudioToolboxEnabledDevFramework = game:GetFastFlag("StudioToolboxEnabledDevFramework")
 local FFlagEnableToolboxImpressionAnalytics = game:GetFastFlag("EnableToolboxImpressionAnalytics")
 
 function ToolboxPlugin:init(props)
@@ -39,9 +38,6 @@ function ToolboxPlugin:init(props)
 		-- Put the plugin gui in the state so that once its loaded, we
 		-- trigger a rerender
 		pluginGui = nil,
-
-		toolboxTitle = not FFlagStudioToolboxEnabledDevFramework
-			and (self.localization and self.localization:getLocalizedContent().ToolboxToolbarName or "Toolbox"),
 	}
 
 	self.toolbar = self.plugin:CreateToolbar("luaToolboxToolbar")
@@ -87,14 +83,6 @@ end
 function ToolboxPlugin:didMount()
 	self.onDockWidgetEnabledChanged(self.dockWidget)
 
-	if not FFlagStudioToolboxEnabledDevFramework and self.localization then
-		self.disconnectLocalizationListener = self.localization:subscribe(function(localizedContent)
-			self:setState({
-				toolboxTitle = localizedContent.ToolboxToolbarName
-			})
-		end)
-	end
-
 	-- Now we have the dock widget, trigger a rerender
 	self:setState({
 		pluginGui = self.dockWidget,
@@ -111,21 +99,18 @@ function ToolboxPlugin:render()
 	local props = self.props
 	local state = self.state
 
-	local store = props.store
 	local plugin = props.plugin
 	local theme = props.theme
 	local networkInterface = props.networkInterface
 	local localization = props.localization
 	local backgrounds = props.backgrounds
 	local suggestions = props.suggestions
-	local settings = props.settings
 
 	local tryOpenAssetConfig = props.tryOpenAssetConfig
 
 	local enabled = state.enabled
 	local pluginGui = state.pluginGui
 	local initialWidth = pluginGui and pluginGui.AbsoluteSize.x or Constants.TOOLBOX_MIN_WIDTH
-	local toolboxTitle = state.toolboxTitle -- TODO: Remove when FFlagStudioToolboxEnabledDevFramework is removed
 
 	local pluginGuiLoaded = pluginGui ~= nil
 
@@ -133,12 +118,7 @@ function ToolboxPlugin:render()
 	-- the state when it comes up.
 	local InitialEnabled = false
 
-	local title
-	if FFlagStudioToolboxEnabledDevFramework then
-		title = self.props.Localization:getText("General", "ToolboxToolbarName")
-	else
-		title = toolboxTitle
-	end
+	local title = self.props.Localization:getText("General", "ToolboxToolbarName")
 
 	return Roact.createElement(DockWidget, {
 		plugin = plugin,
@@ -161,7 +141,7 @@ function ToolboxPlugin:render()
 		[Roact.Change.Enabled] = self.onDockWidgetEnabledChanged,
 		[Roact.Event.AncestryChanged] = self.onAncestryChanged,
 	}, {
-		Toolbox = FFlagStudioToolboxEnabledDevFramework and pluginGuiLoaded and ContextServices.provide({
+		Toolbox = pluginGuiLoaded and ContextServices.provide({
 			ContextServices.Focus.new(self.state.pluginGui),
 			UILibraryWrapper.new(),
 		}, {
@@ -180,30 +160,12 @@ function ToolboxPlugin:render()
 					pluginGui = pluginGui,
 				})
 			})
-		}) or (pluginGuiLoaded and Roact.createElement(ExternalServicesWrapper, {
-			store = store,
-			plugin = plugin,
-			pluginGui = pluginGui,
-			settings = settings,
-			theme = theme,
-			networkInterface = networkInterface,
-			localization = localization,
-		}, {
-			Roact.createElement(Toolbox, {
-				initialWidth = initialWidth,
-				backgrounds = backgrounds,
-				suggestions = suggestions,
-				tryOpenAssetConfig = tryOpenAssetConfig,
-				pluginGui = pluginGui,
-			})
-		}))
+		})
 	})
 end
 
-if FFlagStudioToolboxEnabledDevFramework then
-	ContextServices.mapToProps(ToolboxPlugin, {
-		Localization = ContextServices.Localization,
-	})
-end
+ContextServices.mapToProps(ToolboxPlugin, {
+	Localization = ContextServices.Localization,
+})
 
 return ToolboxPlugin

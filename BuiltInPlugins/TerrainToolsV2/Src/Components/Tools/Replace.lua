@@ -23,9 +23,11 @@ local ChangePivot = require(Actions.ChangePivot)
 local ChooseBrushShape = require(Actions.ChooseBrushShape)
 local SetBaseSizeHeightLocked = require(Actions.SetBaseSizeHeightLocked)
 local SetIgnoreWater = require(Actions.SetIgnoreWater)
+local SetPlaneLock = require(Actions.SetPlaneLock)
 local SetSnapToGrid = require(Actions.SetSnapToGrid)
 
 local ToolParts = script.Parent.ToolParts
+local ToggleButtonGroup = require(ToolParts.ToggleButtonGroup)
 local ButtonGroup = require(ToolParts.ButtonGroup)
 local Panel = require(ToolParts.Panel)
 local MapSettingsWithPreview = require(ToolParts.MapSettingsWithPreview)
@@ -61,6 +63,24 @@ function Replace:init()
 		local position = Vector3.new(self.props.Position.X,self.props.Position.Y,self.props.Position.Z)
 		local size = Vector3.new(self.props.Size.X,self.props.Size.Y,self.props.Size.Z)
 		self.replace:replaceMaterial(position, size, self.props.Source, self.props.Target)
+	end
+
+	self.setSourceMaterial = function(material)
+		if material == Enum.Material.Water and self.props.ignoreWater == true then
+			self.props.dispatchSetIgnoreWater(false)
+		end
+		self.props.dispatchSetSourceMaterial(material)
+	end
+
+	--Make sure the user does not engage ignorewater while having a brush + source material as water
+	self.setIgnoreWater = function(mode)
+		if self.props.Source == Enum.Material.Water then
+			if self.props.ignoreWater then
+				self.props.dispatchSetIgnoreWater(false)
+			end
+		else
+			self.props.dispatchSetIgnoreWater(mode)
+		end
 	end
 
 	self.onBoxModeClicked = function()
@@ -124,107 +144,119 @@ function Replace:render()
 		local isReplacing = self.state.isReplacing
 
 		return Roact.createFragment({
-			ModeButtons = Roact.createElement(ButtonGroup, {
-				LayoutOrder = 1,
-				Buttons = {
-					{
-						Key = "Brush",
-						Name = localization:getText("ReplaceMode", "Brush"),
-						Active = not isReplacing,
-						OnClicked = self.onBrushModeClicked,
-					},
-					{
-						Key = "Box",
-						Name = localization:getText("ReplaceMode", "Box"),
-						Active = not isReplacing,
-						OnClicked = self.onBoxModeClicked,
-					},
-				}
-			}),
-
-			Brush = self.props.Mode == ReplaceMode.Brush and Roact.createElement(BaseBrush, {
-				LayoutOrder = 2,
-
-				toolName = self.props.toolName,
-
-				baseSize = baseSize,
-				baseSizeHeightLocked = baseSizeHeightLocked,
-				brushShape = brushShape,
-				height = height,
-				ignoreWater = ignoreWater,
-				pivot = pivot,
-				planeLock = planeLock,
-				snapToGrid = snapToGrid,
-				strength = strength,
-				source = source,
-				target = target,
-
-				dispatchChangeBaseSize = self.props.dispatchChangeBaseSize,
-				dispatchSetBaseSizeHeightLocked = self.props.dispatchSetBaseSizeHeightLocked,
-				dispatchChooseBrushShape = self.props.dispatchChooseBrushShape,
-				dispatchChangeHeight = self.props.dispatchChangeHeight,
-				dispatchSetIgnoreWater = self.props.dispatchSetIgnoreWater,
-				dispatchChangePivot = self.props.dispatchChangePivot,
-				dispatchSetSnapToGrid = self.props.dispatchSetSnapToGrid,
-			}),
-
-			MapSettingsWithPreview = self.props.Mode == ReplaceMode.Box and Roact.createElement(MapSettingsWithPreview, {
-				LayoutOrder = 3,
-
-				toolName = self.props.toolName,
-
-				Position = position,
-				Size = size,
-
-				OnPositionChanged = self.props.dispatchChangePosition,
-				OnSizeChanged = self.props.dispatchChangeSize,
-			}),
-
-			MaterialPanel = Roact.createElement(Panel, {
+			ReplaceTool = Roact.createElement(Panel, {
 				Title = localization:getText("Replace", "ReplaceMaterial"),
-				LayoutOrder = 4,
+				LayoutOrder = 1,
 			}, {
-				SourceMaterialSelector = Roact.createElement(MaterialSelector, {
-					LayoutOrder = 1,
+				ModeButtonsWithBoxToggled = Roact.createElement(ToggleButtonGroup, {
+					Selected = self.props.Mode,
 
-					AllowAir = true,
-					Label = localization:getText("Replace", "SourceMaterial"),
-					material = self.props.Source,
-					setMaterial = self.props.dispatchSetSourceMaterial,
-				}),
-				TargetMaterialSelector = Roact.createElement(MaterialSelector, {
-					LayoutOrder = 2,
-
-					AllowAir = true,
-					Label = localization:getText("Replace", "TargetMaterial"),
-					material = self.props.Target,
-					setMaterial = self.props.dispatchSetTargetMaterial,
-				})
-			}),
-
-			ReplaceButtons = self.props.Mode == ReplaceMode.Box and Roact.createElement(ButtonGroup, {
-				LayoutOrder = 5,
-				Buttons = {
-					{
-						Key = "Replace",
-						Name = localization:getText("Replace", "Replace"),
-						Active = not isReplacing,
-						OnClicked = self.tryGenerateReplace
+					Buttons = {
+						{
+							Key = ReplaceMode.Box,
+							Name = localization:getText("ReplaceMode", "Box"),
+							Active = not isReplacing,
+							OnClicked = self.props.dispatchSetReplaceMode,
+						},
+						{
+							Key = ReplaceMode.Brush,
+							Name = localization:getText("ReplaceMode", "Brush"),
+							Active = not isReplacing,
+							OnClicked = self.props.dispatchSetReplaceMode,
+						},
 					},
-				}
-			}),
+				}),
 
-			ProgressBar = isReplacing and Roact.createElement(Roact.Portal, {
-				target = CoreGui,
-			}, {
-				ReplaceProgressScreenGui = Roact.createElement("ScreenGui", {}, {
-					Roact.createElement(ProgressFrame, {
-						AnchorPoint = Vector2.new(0.5, 0),
-						Position = UDim2.new(0.5, 0, 0, 0),
-						Progress = progress,
-						OnCancelButtonClicked = self.cancel,
+				Brush = self.props.Mode == ReplaceMode.Brush and Roact.createElement(BaseBrush, {
+					LayoutOrder = 2,
+					isSubsection = true,
+
+					toolName = self.props.toolName,
+
+					baseSize = baseSize,
+					baseSizeHeightLocked = baseSizeHeightLocked,
+					brushShape = brushShape,
+					height = height,
+					ignoreWater = ignoreWater,
+					pivot = pivot,
+					planeLock = planeLock,
+					snapToGrid = snapToGrid,
+					strength = strength,
+					source = source,
+					target = target,
+
+					dispatchChangeBaseSize = self.props.dispatchChangeBaseSize,
+					dispatchSetBaseSizeHeightLocked = self.props.dispatchSetBaseSizeHeightLocked,
+					dispatchChooseBrushShape = self.props.dispatchChooseBrushShape,
+					dispatchChangeHeight = self.props.dispatchChangeHeight,
+					dispatchSetIgnoreWater = self.setIgnoreWater,
+					dispatchChangePivot = self.props.dispatchChangePivot,
+					dispatchSetPlaneLock = self.props.dispatchSetPlaneLock,
+					dispatchSetSnapToGrid = self.props.dispatchSetSnapToGrid,
+					dispatchSetSourceMaterial = self.props.dispatchSetSourceMaterial,
+					dispatchSetTargetMaterial = self.props.dispatchSetTargetMaterial,
+				}),
+
+				MapSettingsWithPreview = self.props.Mode == ReplaceMode.Box and Roact.createElement(MapSettingsWithPreview, {
+					LayoutOrder = 3,
+					isSubsection = true,
+
+					toolName = self.props.toolName,
+
+					Position = position,
+					Size = size,
+
+					OnPositionChanged = self.props.dispatchChangePosition,
+					OnSizeChanged = self.props.dispatchChangeSize,
+				}),
+
+				MaterialPanel = Roact.createElement(Panel, {
+					Title = localization:getText("Replace", "MaterialSettings"),
+					LayoutOrder = 4,
+					isSubsection = true,
+				}, {
+					SourceMaterialSelector = Roact.createElement(MaterialSelector, {
+						LayoutOrder = 1,
+
+						AllowAir = true,
+						Label = localization:getText("Replace", "SourceMaterial"),
+						material = self.props.Source,
+						setMaterial = self.setSourceMaterial,
+					}),
+					TargetMaterialSelector = Roact.createElement(MaterialSelector, {
+						LayoutOrder = 2,
+
+						AllowAir = true,
+						Label = localization:getText("Replace", "TargetMaterial"),
+						material = self.props.Target,
+						setMaterial = self.props.dispatchSetTargetMaterial,
 					})
-				})
+				}),
+
+				ReplaceButtons = self.props.Mode == ReplaceMode.Box and Roact.createElement(ButtonGroup, {
+					LayoutOrder = 5,
+					Buttons = {
+						{
+							Key = "Replace",
+							Name = localization:getText("Replace", "Replace"),
+							Active = not isReplacing,
+							OnClicked = self.tryGenerateReplace
+						},
+					}
+				}),
+
+				ProgressBar = isReplacing and Roact.createElement(Roact.Portal, {
+					target = CoreGui,
+				}, {
+					ReplaceProgressScreenGui = Roact.createElement("ScreenGui", {}, {
+						Roact.createElement(ProgressFrame, {
+							AnchorPoint = Vector2.new(0.5, 0),
+							Position = UDim2.new(0.5, 0, 0, 0),
+							Progress = progress,
+							OnCancelButtonClicked = self.cancel,
+						})
+					})
+				}),
 			}),
 		})
 	end)
@@ -245,6 +277,7 @@ local function mapStateToProps(state, props)
 		height = state[REDUCER_KEY].height,
 		ignoreWater = state[REDUCER_KEY].ignoreWater,
 		pivot = state[REDUCER_KEY].pivot,
+		planeLock = state[REDUCER_KEY].planeLock,
 		snapToGrid = state[REDUCER_KEY].snapToGrid,
 	}
 end
@@ -255,7 +288,7 @@ local function mapDispatchToProps(dispatch)
 	end
 
 	return {
-		dispatchChangePosition = function (position)
+		dispatchChangePosition = function(position)
 			dispatchToReplace(ChangePosition(position))
 		end,
 		dispatchChangeSize = function(size)
@@ -270,25 +303,28 @@ local function mapDispatchToProps(dispatch)
 		dispatchSetReplaceMode = function(ReplaceMode)
 			dispatchToReplace(SetReplaceMode(ReplaceMode))
 		end,
-		dispatchChangeBaseSize = function (size)
+		dispatchChangeBaseSize = function(size)
 			dispatchToReplace(ChangeBaseSize(size))
 		end,
-		dispatchSetBaseSizeHeightLocked = function (locked)
+		dispatchSetBaseSizeHeightLocked = function(locked)
 			dispatchToReplace(SetBaseSizeHeightLocked(locked))
 		end,
-		dispatchChooseBrushShape = function (shape)
+		dispatchChooseBrushShape = function(shape)
 			dispatchToReplace(ChooseBrushShape(shape))
 		end,
-		dispatchChangeHeight = function (height)
+		dispatchChangeHeight = function(height)
 			dispatchToReplace(ChangeHeight(height))
 		end,
-		dispatchSetIgnoreWater = function (ignoreWater)
+		dispatchSetIgnoreWater = function(ignoreWater)
 			dispatchToReplace(SetIgnoreWater(ignoreWater))
 		end,
-		dispatchChangePivot = function (pivot)
+		dispatchChangePivot = function(pivot)
 			dispatchToReplace(ChangePivot(pivot))
 		end,
-		dispatchSetSnapToGrid = function (snapToGrid)
+		dispatchSetPlaneLock = function(planeLock)
+			dispatchToReplace(SetPlaneLock(planeLock))
+		end,
+		dispatchSetSnapToGrid = function(snapToGrid)
 			dispatchToReplace(SetSnapToGrid(snapToGrid))
 		end,
 	}

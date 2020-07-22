@@ -5,18 +5,23 @@ return function()
 
 	local DropdownMenu = require(script.Parent)
 
+	local function createDropdownMenu(props)
+		props = props or {}
+
+		return provideMockContext(nil, {
+			DropdownMenu = Roact.createElement(DropdownMenu, props),
+		})
+	end
+
 	it("should create and destroy without errors", function()
-		local element = provideMockContext(nil, {
-			Host = Roact.createElement("Frame", {
-				Size = UDim2.fromOffset(32, 32),
-			}, {
-				Menu = Roact.createElement(DropdownMenu, {
-					Size = UDim2.fromOffset(200, 300),
-					Items = { "a", "b", "c", "d" },
-					OnItemActivated = function() end,
-					OnFocusLost = function() end,
-					ShouldShow = true
-				})
+		local element = Roact.createElement("Frame", {
+			Size = UDim2.fromOffset(32, 32),
+		}, {
+			Menu = createDropdownMenu({
+				Hide = false,
+				Items = { "a", "b", "c", "d" },
+				OnItemActivated = function() end,
+				OnFocusLost = function() end,
 			})
 		})
 		local instance = Roact.mount(element)

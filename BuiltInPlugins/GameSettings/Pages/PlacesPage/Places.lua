@@ -15,20 +15,20 @@
 		description: "TooLong"
 		devices: "NoDevices"
 ]]
-
-local PageName = "Places"
-
 local Page = script.Parent
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
+local RoactRodux = require(Plugin.RoactRodux)
 local Cryo = require(Plugin.Cryo)
 
 local Framework = Plugin.Framework
+local ContextServices = require(Framework.ContextServices)
 
 local FrameworkUI = require(Framework.UI)
 local Button = FrameworkUI.Button
 local HoverArea = FrameworkUI.HoverArea
 local Separator = FrameworkUI.Separator
+local LinkText = FrameworkUI.LinkText
 
 local FrameworkUtil = require(Framework.Util)
 local LayoutOrderIterator = FrameworkUtil.LayoutOrderIterator
@@ -43,6 +43,8 @@ local RoundTextBox = UILibrary.Component.RoundTextBox
 local Header = require(Plugin.Src.Components.Header)
 local ServerFill = require(Page.Components.ServerFill)
 local TableWithMenu = require(Plugin.Src.Components.TableWithMenu)
+local RadioButtonSet = require(Plugin.Src.Components.RadioButtonSet)
+local SettingsPage = require(Plugin.Src.Components.SettingsPages.SettingsPage)
 
 local AddChange = require(Plugin.Src.Actions.AddChange)
 local AddErrors = require(Plugin.Src.Actions.AddErrors)
@@ -51,11 +53,17 @@ local DiscardError = require(Plugin.Src.Actions.DiscardError)
 local DiscardErrors = require(Plugin.Src.Actions.DiscardErrors)
 local SetEditPlaceId = require(Plugin.Src.Actions.SetEditPlaceId)
 
-local ReloadPlaces = require(Plugin.Src.Thunks.ReloadPlaces)
+local ReloadPlaces = require(Page.Thunks.ReloadPlaces)
 
+local Places = Roact.PureComponent:extend(script.Name)
+
+local LOCALIZATION_ID = "Places"
+
+--[[
+	TODO 7/8/2020 Fetch this from BE since it can be different based on logged-in user's roleset
+	(and so we don't keep syncing with BE whenever it changes)
+]]
 local FIntStudioPlaceConfigurationMaxPlayerCount = game:DefineFastInt("StudioPlaceConfigurationMaxPlayerCount", 200)
-
-local createSettingsPage = require(Plugin.Src.Components.SettingsPages.DEPRECATED_createSettingsPage)
 
 local MAX_NAME_LENGTH = 50
 local MIN_PLAYER_COUNT = 1
@@ -65,12 +73,74 @@ local MAX_SOCIAL_SLOT_COUNT = 10
 
 local AssetManagerService = game:GetService("AssetManagerService")
 local StudioService = game:GetService("StudioService")
+local TextService = game:GetService("TextService")
+local GuiService = game:GetService("GuiService")
 
 local nameErrors = {
 	Empty = "ErrorNameEmpty",
 }
 
 local FFlagFixRadioButtonSeAndTableHeadertForTesting = game:getFastFlag("FixRadioButtonSeAndTableHeadertForTesting")
+
+local function loadSettings(store, contextItems)
+	local state = store:getState()
+	local gameId = state.Metadata.gameId
+	local placesController = contextItems.placesController
+
+	return {
+		function(loadedSettings)
+			local places, placesPageCursor, index = placesController:getPlaces(gameId):await()
+
+			loadedSettings["places"] = places
+			loadedSettings["placesPageCursor"] = placesPageCursor
+			loadedSettings["placesIndex"] = index
+		end,
+	}
+end
+
+local function saveSettings(store, contextItems)
+	local state = store:getState()
+	local placesController = contextItems.placesController
+	local placeId = state.EditAsset.editPlaceId
+
+	return {
+		function()
+			local changed = state.Settings.Changed.places[placeId]
+
+			if changed ~= nil and changed.name then
+				placesController:setName(placeId, changed.name)
+			end
+		end,
+		function()
+			local changed = state.Settings.Changed.places[placeId]
+
+			if changed ~= nil and changed.maxPlayerCount then
+				placesController:setMaxPlayerCount(placeId, changed.maxPlayerCount)
+			end
+		end,
+		function()
+			local changed = state.Settings.Changed.places[placeId]
+
+			if changed ~= nil and changed.allowCopying then
+				placesController:setAllowCopying(placeId, changed.allowCopying)
+			end
+		end,
+		function()
+			local changed = state.Settings.Changed.places[placeId]
+
+			if changed ~= nil and changed.socialSlotType then
+				placesController:setSocialSlotType(placeId, changed.socialSlotType)
+			end
+		end,
+		function()
+			local changed = state.Settings.Changed.places[placeId]
+
+			if changed ~= nil and changed.customSocialSlotsCount then
+				placesController:setCustomSocialSlotsCount(placeId, changed.customSocialSlotsCount)
+			end
+		end,
+	}
+end
 
 --Loads settings values into props by key
 local function loadValuesToProps(getValue, state)
@@ -131,6 +201,15 @@ local function dispatchChanges(setValue, dispatch)
 				dispatch(AddChange("places", newPlaces))
 				dispatch(DiscardError("placePlayerCount"))
 			end
+		end,
+
+		dispatchSetAllowCopyingEnabled = function(places, placeId, allowCopyingEnabled)
+			local newPlaces = deepJoin(places, {
+				[placeId] = {
+					allowCopying = allowCopyingEnabled,
+				}
+			})
+			dispatch(AddChange("places", newPlaces))
 		end,
 
 		dispatchSetSocialSlotType = function(places, placeId, socialSlotType)
@@ -226,15 +305,10 @@ local function displayPlaceListPage(props, localization)
 	end
 
 	local places = props.Places and props.Places or {}
-    local placesData = createPlaceTableData(places)
+	local placesData = createPlaceTableData(places)
 
 	return
 	{
-		Header = Roact.createElement(Header, {
-			Title = localization:getText("General", "Category"..PageName),
-			LayoutOrder = layoutIndex:getNextOrder(),
-		}),
-
 		CreateButton = Roact.createElement(Button, {
 			Style = "GameSettingsPrimaryButton",
 			Text = buttonText,
@@ -267,6 +341,9 @@ local function displayPlaceListPage(props, localization)
 					StudioService:ShowPlaceVersionHistoryDialog()
 				end
 			end,
+			NextPageFunc = function()
+				dispatchReloadPlaces()
+			end
 		})
 	}
 end
@@ -302,6 +379,8 @@ local function displayEditPlacePage(props, localization)
 		placePlayerCountError = localization:getText("Places", "NumberError", {minRange = MIN_PLAYER_COUNT, maxRange = MAX_PLAYER_COUNT, })
 	end
 
+	local allowCopying = places[editPlaceId].allowCopying
+
 	local serverFill = places[editPlaceId].socialSlotType
 	local customSocialSlotsCount = places[editPlaceId].customSocialSlotsCount
 	local placeCustomSocialSlotCountError
@@ -313,6 +392,11 @@ local function displayEditPlacePage(props, localization)
 	local dispatchSetPlaceMaxPlayerCount = props.dispatchSetPlaceMaxPlayerCount
 	local dispatchSetSocialSlotType = props.dispatchSetSocialSlotType
 	local dispatchSetCustomSocialSlotsCount = props.dispatchSetCustomSocialSlotsCount
+	local dispatchSetAllowCopyingEnabled = props.dispatchSetAllowCopyingEnabled
+
+	local allowCopyingDesc = localization:getText("General", "AllowCopyingDesc")
+	local allowCopyingDescSize = TextService:GetTextSize(allowCopyingDesc, theme.fontStyle.Subtext.TextSize,
+		theme.fontStyle.Subtext.Font, Vector2.new(theme.radioButton.descriptionWidth, math.huge))
 
 	return {
 		HeaderFrame = Roact.createElement(FitFrameOnAxis, {
@@ -423,7 +507,36 @@ local function displayEditPlacePage(props, localization)
 			OnCustomSocialSlotsCountChanged = function(customSocialSlotsCount)
 				dispatchSetCustomSocialSlotsCount(places, editPlaceId, customSocialSlotsCount)
 			end,
-        }),
+		}),
+
+		AllowCopying = Roact.createElement(RadioButtonSet, {
+			Title = localization:getText("General", "TitleAllowCopying"),
+			Buttons = {{
+					Id = true,
+					Title = localization:getText("General", "SettingOn"),
+					Children = {
+						LinkText = Roact.createElement(LinkText, {
+							Text = allowCopyingDesc,
+							Size = UDim2.new(0, allowCopyingDescSize.X, 0, allowCopyingDescSize.Y),
+							TextWrapped = true,
+							TextXAlignment = Enum.TextXAlignment.Left,
+							TextYAlignment = Enum.TextYAlignment.Top,
+							OnClick = function()
+								GuiService:OpenBrowserWindow(StudioService:GetTermsOfUseUrl())
+							end,
+						}),
+				}}, {
+					Id = false,
+					Title = localization:getText("General", "SettingOff"),
+				}
+			},
+			Enabled = true,
+			LayoutOrder = layoutIndex:getNextOrder(),
+			Selected = allowCopying,
+			SelectionChanged = function(button)
+				dispatchSetAllowCopyingEnabled(places, editPlaceId, button.Id)
+			end,
+		}),
 
 		VersionHistory = Roact.createElement(TitledFrame, {
 			Title = localization:getText("Places", "VersionHistory"),
@@ -432,7 +545,7 @@ local function displayEditPlacePage(props, localization)
 			TextSize = theme.fontStyle.Normal.TextSize,
 		}, {
 			ViewButton = Roact.createElement(Button, {
-				Style = "GameSettingsPrimaryButton",
+				Style = "GameSettingsButton",
 				Text = viewButtonText,
 				Size = viewButtonSize,
 				LayoutOrder = layoutIndex:getNextOrder(),
@@ -446,30 +559,61 @@ local function displayEditPlacePage(props, localization)
 	}
 end
 
---Uses props to display current settings values
-local function displayContents(page, localization)
-	local props = page.props
+function Places:render()
+	local props = self.props
+	local localization = props.Localization
 
 	local editPlaceId = props.EditPlaceId
 
+	local createChildren
 	if editPlaceId == 0 then
-		return displayPlaceListPage(props, localization)
+		createChildren = function()
+			return displayPlaceListPage(props, localization)
+		end
 	else
-		return displayEditPlacePage(props, localization)
+		createChildren = function()
+			return displayEditPlacePage(props, localization)
+		end
 	end
-end
 
-local SettingsPage = createSettingsPage(PageName, loadValuesToProps, dispatchChanges)
-
-local function Places(props)
 	return Roact.createElement(SettingsPage, {
-		ContentHeightChanged = props.ContentHeightChanged,
-		SetScrollbarEnabled = props.SetScrollbarEnabled,
-		LayoutOrder = props.LayoutOrder,
-		Content = displayContents,
-
-		AddLayout = true,
+		SettingsLoadJobs = loadSettings,
+		SettingsSaveJobs = saveSettings,
+		Title = localization:getText("General", "Category"..LOCALIZATION_ID),
+		PageId = script.Name,
+		CreateChildren = createChildren,
+		ShowHeader = editPlaceId == 0,
 	})
 end
+
+ContextServices.mapToProps(Places, {
+	Localization = ContextServices.Localization,
+	Theme = ContextServices.Theme,
+})
+
+local settingFromState = require(Plugin.Src.Networking.settingFromState)
+Places = RoactRodux.connect(
+	function(state, props)
+		if not state then return end
+
+		local getValue = function(propName)
+			return settingFromState(state.Settings, propName)
+		end
+
+		return loadValuesToProps(getValue, state)
+	end,
+
+	function(dispatch)
+		local setValue = function(propName)
+			return function(value)
+				dispatch(AddChange(propName, value))
+			end
+		end
+
+		return dispatchChanges(setValue, dispatch)
+	end
+)(Places)
+
+Places.LocalizationId = LOCALIZATION_ID
 
 return Places
